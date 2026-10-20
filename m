@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487194;
-	b=lMIF5G8hSnIDsSNpEbkxFIjnUeYX1131ahtQPgSpZ7EmXcFQjcUCnZs3yDGLvRsYEduC
-	 weyeUGAYof/M8ARnJjSaKY0Fk73RunXGChIbwhUE9LgyjDx7RYqYKjJhgjkEYpzPvNQuA
-	 20lOF52d+DbHu7rxUIregTJqioGrdYKjicdJmmWMznhOGZBLO0CJ4I6zozPnhU3irSZu4
-	 80pAU3dykihT7EWhTMk+CzCM4Kbr5N8/R0Z7OgF7Fba7IC19JLhG3gLL9fxSVQFdfpQLD
-	 pDyEingtD0MCwmoygbHTGmFC3Rx3Whba2o3vstvkBteKh8YuB2ZoxO5ilOsQpAjm+Bw==
+	t=1792487222;
+	b=1oZMKUj/fDAgxjZFY1DTrP6DEZb3018T60YNVOlEb+rU+C+fRFomlNEgrKpK82I1kTR4
+	 5rkNqwzb2PFgpzSJT/JJyyfSWW9EOrM4tbWqOqJJ8SyiCphX4cxgKr/K19YREyfeoPKBo
+	 Y5lYrLZk7lnVknD20/DSt4C3ZzT3+KWgu9DzJndxTA0dmo0yqGkBA4yJG0VCTQBVnV35N
+	 jKqLs7ZE8pNyyR/jMHEgtHWI+xVr1ZXcupNkRGAA0I+fAfo/iSFJskNITkJhKmLuOnTKS
+	 K55YZguH7VR3lmbP9XBu0za9HBYBg9JwFMaCZ6PVsL9mL0WnPYK9+n/vjxuXy6KsZVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487194;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=byMpnzMiLTG8THNjkNmp9UgpYnNMNTx0auzeW57yB8U=;
-	b=DtLJAWSm6u9JGHTnz96Wvg+QhH2eX/jIcBCHC5FDpLnhaEai4CX9+EbmCPlMT/xG/T/g
-	 CW0LzQ8qiZDZc3VWDwhcaY99OiGzizFQ0t2U5FFQkhNcLV+v3HAtyGQ76pnmQLyrKkFuM
-	 6WTbm6m4w65C+8+0aeEDcUVMDd8nOTGWR04X3BX1VHFCqINf7WsDkl4BkXL1MaQt1j75B
-	 nnR/TmjwXNweeA/9+yIp4ON5P9ocKrXSZ247duhXMK62Mc2RKKa0Eb85IJ3ZmRWAGYTx4
-	 bes00efT0Q30H4rxHD38hjt3C/4coTTT41xK3DaGXIZlKuryyX+3FVvV7ngnxKzbwyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487222;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=qbtBT1zpSxLsbcMbyYVhf3JDYC/W4xf5mt5D10gHvo0=;
+	b=dVrOzC7pcn2aqKZgzaLSL76+C/smXZBWvbn6j7K33kRMpj8sFxarxkya7bPrwHYy7m4v
+	 roDZfaD7gxfbwJamCpEn1BUvKNV0/liwK/pliJ+6gqnWNckWxGqAA/U5AIj8z1ShYai6V
+	 WT+mGz644KXtsz0Zuu04JljP8DXroyQ0kM+ZMM75ZNMm3EiwCEl+PPxHZ3i5CLkZEJHoq
+	 FJVg9HIQGhNa/96721VoEz3pMAeoAaJwexFGflgyuDvHEcM1l88jGEH0fitTlI3n74qTd
+	 lVsLuNfUVGu65FVv3fupZmeKObu/hP9NUdnnh/xaCgxvnSMEif6WY4/fUOuPLWPHssg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtgQErrW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=YAgmFXmj;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Vdjp2tjY;
+	arc=none smtp.remote-ip=202.12.124.151
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03763606A31B;
-	Tue, 20 Oct 2026 09:06:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0BA606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A0BA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtgQErrW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340EF1F000C4;
-	Tue, 20 Oct 2026 09:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792487193;
-	bh=byMpnzMiLTG8THNjkNmp9UgpYnNMNTx0auzeW57yB8U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RtgQErrWcSXkn4om10fEUZVsYPQS8E0C/5ZMqJW739OOKCRRH5cgZYWz6k9JW+NEA
-	 TXlyeYKprnZiyrNMoxCJbbwx/VXBq45YssFHz1sFkjxDHLYntyV8QmG1eGeLwBJeXZ
-	 79cdAncfI+BcHaxn3CPdPzDm1iSaInRvneceLD7fGwATCqRl2B+GAqG6GeVWRk/KmF
-	 VR1bAD3ZDJ9IabcZtURZJUnMDYc5qfuKlPdxlUDPi5+ksFEQyy+2HiccWtke1b315Y
-	 4ytv3hocK/lsNGOKxbtNmiQHyzD5hUINETjPtNB7EMhCIC7slgaFYzF9BrNWaAmyJo
-	 lDTQCa4S6emGw==
-Date: Tue, 20 Oct 2026 11:06:18 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Allison Henderson <achender@kernel.org>, 
-	kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org, wireguard@lists.zx2c4.com, 
-	rds-devel@oss.oracle.com
-Subject: Re: [linus:master] [sysctl]  8d75c338f0:
- BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
-Message-ID: <atctwUB5NlRLk4Wy@hobbes>
-References: <202610190310.9737b2e3-lkp@intel.com>
- <atYB0bm9eEXp8A2g@redhat.com>
- <atYW0K3t57puHeLW@hobbes>
- <atYuE1xnVYe0BDG4@redhat.com>
- <atY42k00k0Waj6o4@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=YAgmFXmj;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Vdjp2tjY
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 762061D00043
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:07:01 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 05:07:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792487213;
+	 x=1792573613; bh=qbtBT1zpSxLsbcMbyYVhf3JDYC/W4xf5mt5D10gHvo0=; b=
+	YAgmFXmjB9LJCqu5UhfWhrgkMQ+78wWrQqA2QRxxmQ9mmdJLYKjVExsXPcIQ1nCY
+	HYO0VQW8oNhgA78fDNH9KiQwpz85a4KLmWQcxjENLDhNNFKaWVTlrH6JqKhVZxjN
+	3ayzQ+9YE2HyrkD2JbMfaAOOsgfxFQheg8Yr56I4HrD3FQb8nydfmBJjHSc9WLH+
+	rH5SOKG+M2XhFzmE0+Ah59kMDRtPzHItkPXQ63e0SN2z3TANvWi+jN/1E2dmDXLj
+	YdoQzjMWcbmNMNLIAk4Erj05hkXqVezobDhOHEOnPxn+EkjpbZY9awVsB3a2zmX+
+	hX1W5EDi23GiFOXKV9UGmw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792487213; x=
+	1792573613; bh=qbtBT1zpSxLsbcMbyYVhf3JDYC/W4xf5mt5D10gHvo0=; b=V
+	djp2tjYjltPD9WauoYY13RPgdVY2L88pxKoNitXC4D+yzKb20SlGcgQlumZ+iSSs
+	w9PoA4x4okUEJqt7BkhuhkHhMGhAoamuvH4xLGNYNFOAB0baTFjUmqzyO0ZoaTDZ
+	o7MZb8yO3DpsVrQcw0g202eYqvjCqPn5rXdvnNPHS3dYjgnthyF3ddnLNAN/mC08
+	X5W1Fe4fKVkWyw9WoNuR54h6fULRnD+ZaN7zLV99fohkG5vu5ckL74K/UzRJVEj8
+	AyRUZl13q7NmSTU8enZ9nQ6yQiJsv+9FQvcuXq/iztp66w2og2JWwO7ERo7bwx0H
+	OMS1QMQBLoMZFeBHGHwnQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792487213; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:eAEok5Kxwn7zz9xiB4598w6G2D5sXY148xP053llKN4mQwh
+	1SaGuRotGWf75dFXUKHNWzI9wdKtmHjHMMVhCI4ZrWT6YZvUH3h/6jsyZoDXNbOD
+	NbjYuZT1WQQ6xXkRAgkSDm0N/o+nkHmbfGD6NgApl+AJxu1L6pvec24ZjoG0L/1o
+	0H4USEwyWxHDNrCLvO7Shoh/ZD9lMPNGlbm2BobKFkFcp/i0I7bCUJkGS9Rono4K
+	UduN2ZmYMBj8AWehKOi9tweTWp/sxBQ60FvKoBebZuFg3i4jo5eG5x7RP6UvGh4c
+	oD/RniKDTsu2243XsjG9D4NNIQOFHAat06Qydqg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Zf6XtnsRdLogxNdsFsiNl9U5lteyoRFbzV8KFT94ceY=:P1+4NKlddnjAdfdPKXMMf1nmswzQ3j+bprK9cbCihoY=;
+X-ME-Sender: <xms:KC_XaqGFWnH2TWivi-2RBBGAC3gfA1D44CKdS271GMmheqTagxxmpg>
+    <xme:KC_XamJflEGblbMedxlEtVC_s5MGvmo2Yf9kr6TZtso4llSvLhiruS06StW3YjncF
+    YOs8Zbcc8OjYTp2Pu1vhNOCySecE17SXKovaGln_CMCURUaMvHYS98>
+X-ME-Proxy-Cause: dmFkZTE6pYZjwqD9MuJZc6oGG5G4d8tXnhSRk+nCvHZBTrmX1lvtdBB2z4mSt0mtErSvno
+    uKHAQgvOcedGlRXGN7ggqvLURejOEB3vEgubbBGVASzH5JJGm6qRIN7+Gu8ohdrqvGK08J
+    9BbwSughj3UMjk4bVE1QdUhNjKK7NLUIqJUN5sOIHEt5TldzHgx1WzzQ4L7xS7cooChcY7
+    rv9AuZIKyXllIY9hKA8K1G8fT7AhYuwJ6qGIBKV8AnLHrcr1onLXuEYAENhM6M9GpdYJdV
+    vkCe5+12oZhdEE/U4lNHMtLhbLVabIlgzVVGYs6J/gKl8M51RVdHoeS/WfEqq9dzde8cNA
+    eNHfYge7WVbCoY1+KLuQFPAMWOF66HrRo+3NmsOZYMQ8MlJPXBpLhIW/NYglbhGmndf001
+    A/6CMGeBVygqyslGZMOveGymtrbbq+TtoAE/SJdXKT1O/6B+CIsxWx5kQzJAhUh3o3S+ya
+    ED2Cy9rqkUtvjKWQYuULfth6786qsr9yRxVAWVY1kxTZGxiLaoGHBG0CuazaMdF8V4RGTy
+    Kvq2LFyyqME+xXjn42vkYOKvHkXbnS/HPrkOtI5grRs9rvhzIwVtVyB/u/3b+cDvGF++rC
+    V984mXo98wkevu6m2MU40qe1fO2ZJ+FRXK6bm1CfEyG+jjKniYAIhuMEKouw
+X-ME-Proxy: <xmx:Ki_XarPN-YD47sw20HPwqP0y1YQFzBJbYIa-_vpY3eKV9fNEPmLSvQ>
+    <xmx:Ki_Xam7lZ3BlCeOb4CS1J2ll5g6bloQEIF--CeaWUTZR19J7JwqUJg>
+    <xmx:Ki_XaqmJcvhx29A0jrkaPFH1VNRUcUzJ6p_bZr43kzs83eEn5NWfoA>
+    <xmx:Ki_XauI8wNPpH7dGH-8y2tvBNNfnnLoEDZKtvDALjuQxh7dvfLD9HA>
+    <xmx:LS_XatS6u-867GxncqjomOrKbuKdTDKjIWZKuU5iq2LF_lGuz1Vopv4I>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 506CA32A008F; Tue, 20 Oct 2026 05:06:48 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,226 +115,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pcvh7stf5trtufk4"
-Content-Disposition: inline
-In-Reply-To: <atY42k00k0Waj6o4@redhat.com>
+X-ThreadId: ATLhSvAouVZo
+Date: Tue, 20 Oct 2026 11:06:06 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Marc Kleine-Budde" <mkl@pengutronix.de>
+Cc: "Ian Rogers" <irogers@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Andy Lutomirski" <luto@kernel.org>,
+ "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
+ "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
+ "Christophe Leroy" <chleroy@kernel.org>,
+ "David Laight" <david.laight.linux@gmail.com>,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>,
+ "Namhyung Kim" <namhyung@kernel.org>, "Eric Biggers" <ebiggers@google.com>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <fd21b7ed-003e-4c7f-a60b-0f9918b2bab1@app.fastmail.com>
+In-Reply-To: <20261020-zealous-warping-quetzal-84479a-mkl@pengutronix.de>
+References: <20261019201257.3805356-1-irogers@google.com>
+ <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
+ <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
+ <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
+ <20261020-zealous-warping-quetzal-84479a-mkl@pengutronix.de>
+Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for ARMv5
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
+On Tue, Oct 20, 2026, at 10:41, Marc Kleine-Budde wrote:
+> On 20.10.2026 10:24:51, Arnd Bergmann wrote:
+>> On Tue, Oct 20, 2026, at 08:44, Marc Kleine-Budde wrote:
+>>
+>> That would be better, but I still hope we can just get back to the
+>> portable code across all architectures for the in-kernel version.
+>>
+>> I have one more request for you: can you check /proc/cpu/alignment
+>> on the system that shows the performance regression with and without
+>> the patch?
+>
+> I asked Stefan Kerkmann (who wrote the original regression report) the
+> same question, but we haven't had time for it yet. We'll get around to
+> it.
 
---pcvh7stf5trtufk4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [linus:master] [sysctl]  8d75c338f0:
- BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
-MIME-Version: 1.0
+Ok, thanks!
 
-On Mon, Oct 19, 2026 at 05:35:54PM +0200, Oleg Nesterov wrote:
-> On 10/19, Oleg Nesterov wrote:
-> >
-> > But. rds_init() can also fail even if CONFIG_SYSCTL=3Dy, after
-> > rds_sysctl_init(), so to me this looks like a bug in net/rds/.
-> >
-> >
-> > In any case, I guess net/rds/ init paths should not fail if
-> > CONFIG_SYSCTL=3Dn ?
->=20
-> So I think that something like the uncompiled/untested patch below makes
-> sense anyway even if doesn't fix all the potential problems with rds_wq.
->=20
-> What do you think?
+>> In your original report, you have shown that Ian's patch
+>> caused the drop in performance and that it caused the added function
+>> calls, but I don't see any sufficiently hot code path that would
+>> actually explain the scale of the regression,
+>
+> Don't underestimate the overhead of function calls on those old CPUs
+> with tiny I-caches.
 
-That is a good option. I also did not compile not test it, but guarding
-the error inside an ifdef would work and is a pattern that is used
-elsewhere.
+What I meant is that I tried to look for calls to get_unaligned()
+in the code path you'd hit with UBIFS on nand flash, and I only
+found a possible call once per page written
+(ebu_nand_write_page_hwecc), which should have a much lower
+overhead than what you observe.
 
-You can also do this (also untested and not compiled):
+While ubifs does use crc32, it uses the lib/crc/ version rather
+than the crypto/crc32c.c that you listed, and there is no
+get_unaligned() in the lib/ one. If you have NOR flash, the
+caller is likely do_write_buffer() calling map_word_load().
+That one could explain the problem and could also be
+optimized further if it turns out to be the bottleneck.
 
-diff --git i/net/rds/ib_sysctl.c w/net/rds/ib_sysctl.c
-index 2af678e71e3c6..bc97a3eecad69 100644
---- i/net/rds/ib_sysctl.c
-+++ w/net/rds/ib_sysctl.c
-@@ -114,7 +114,7 @@ void rds_ib_sysctl_exit(void)
- int rds_ib_sysctl_init(void)
- {
-        rds_ib_sysctl_hdr =3D register_net_sysctl(&init_net, "net/rds/ib", =
-rds_ib_sysctl_table);
--       if (!rds_ib_sysctl_hdr)
-+       if (!rds_ib_sysctl_hdr && IS_ENABLED(CONFIG_SYSCTL))
-                return -ENOMEM;
-        return 0;
- }
-diff --git i/net/rds/sysctl.c w/net/rds/sysctl.c
-index 025f518a43495..41c65b98c94bd 100644
---- i/net/rds/sysctl.c
-+++ w/net/rds/sysctl.c
-@@ -93,7 +93,8 @@ static struct ctl_table rds_sysctl_rds_table[] =3D {
-
- void rds_sysctl_exit(void)
- {
--       unregister_net_sysctl_table(rds_sysctl_reg_table);
-+       if (rds_sysctl_reg_table)
-+               unregister_net_sysctl_table(rds_sysctl_reg_table);
- }
-
- int rds_sysctl_init(void)
-@@ -103,7 +104,7 @@ int rds_sysctl_init(void)
-
-        rds_sysctl_reg_table =3D
-                register_net_sysctl(&init_net, "net/rds", rds_sysctl_rds_ta=
-ble);
--       if (!rds_sysctl_reg_table)
-+       if (!rds_sysctl_reg_table && IS_ENABLED(CONFIG_SYSCTL))
-                return -ENOMEM;
-        return 0;
- }
-
-
-Both are ok IMO.
-
-Best
-
->=20
-> Oleg.
-> ---
->=20
-> diff --git a/net/rds/ib_sysctl.c b/net/rds/ib_sysctl.c
-> index 2af678e71e3c..bccdb5c4df1d 100644
-> --- a/net/rds/ib_sysctl.c
-> +++ b/net/rds/ib_sysctl.c
-> @@ -36,19 +36,10 @@
-> =20
->  #include "ib.h"
-> =20
-> -static struct ctl_table_header *rds_ib_sysctl_hdr;
-> -
->  unsigned long rds_ib_sysctl_max_send_wr =3D RDS_IB_DEFAULT_SEND_WR;
->  unsigned long rds_ib_sysctl_max_recv_wr =3D RDS_IB_DEFAULT_RECV_WR;
->  unsigned long rds_ib_sysctl_max_recv_allocation =3D (128 * 1024 * 1024) =
-/ RDS_FRAG_SIZE;
-> -static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
-> -/* hardware will fail CQ creation long before this */
-> -static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
-> -
->  unsigned long rds_ib_sysctl_max_unsig_wrs =3D 16;
-> -static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
-> -static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
-> -
->  /*
->   * This sysctl does nothing.
->   *
-> @@ -61,6 +52,14 @@ static unsigned long rds_ib_sysctl_max_unsig_wr_max =
-=3D 64;
->   */
->  unsigned int rds_ib_sysctl_flow_control =3D 0;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
-> +/* hardware will fail CQ creation long before this */
-> +static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
-> +
-> +static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
-> +static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
-> +
->  static struct ctl_table rds_ib_sysctl_table[] =3D {
->  	{
->  		.procname       =3D "max_send_wr",
-> @@ -105,6 +104,8 @@ static struct ctl_table rds_ib_sysctl_table[] =3D {
->  	},
->  };
-> =20
-> +static struct ctl_table_header *rds_ib_sysctl_hdr;
-> +
->  void rds_ib_sysctl_exit(void)
->  {
->  	if (rds_ib_sysctl_hdr)
-> @@ -118,3 +119,15 @@ int rds_ib_sysctl_init(void)
->  		return -ENOMEM;
->  	return 0;
->  }
-> +
-> +#else
-> +
-> +void rds_ib_sysctl_exit(void)
-> +{
-> +}
-> +
-> +int rds_ib_sysctl_init(void)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> diff --git a/net/rds/sysctl.c b/net/rds/sysctl.c
-> index 025f518a4349..a0673a41633a 100644
-> --- a/net/rds/sysctl.c
-> +++ b/net/rds/sysctl.c
-> @@ -36,11 +36,6 @@
-> =20
->  #include "rds.h"
-> =20
-> -static struct ctl_table_header *rds_sysctl_reg_table;
-> -
-> -static unsigned long rds_sysctl_reconnect_min =3D 1;
-> -static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
-> -
->  unsigned long rds_sysctl_reconnect_min_jiffies;
->  unsigned long rds_sysctl_reconnect_max_jiffies =3D HZ;
-> =20
-> @@ -49,6 +44,10 @@ unsigned int  rds_sysctl_max_unacked_bytes =3D (16 << =
-20);
-> =20
->  unsigned int rds_sysctl_ping_enable =3D 1;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static unsigned long rds_sysctl_reconnect_min =3D 1;
-> +static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
-> +
->  static struct ctl_table rds_sysctl_rds_table[] =3D {
->  	{
->  		.procname       =3D "reconnect_min_delay_ms",
-> @@ -91,6 +90,8 @@ static struct ctl_table rds_sysctl_rds_table[] =3D {
->  	},
->  };
-> =20
-> +static struct ctl_table_header *rds_sysctl_reg_table;
-> +
->  void rds_sysctl_exit(void)
->  {
->  	unregister_net_sysctl_table(rds_sysctl_reg_table);
-> @@ -107,3 +108,15 @@ int rds_sysctl_init(void)
->  		return -ENOMEM;
->  	return 0;
->  }
-> +
-> +#else
-> +
-> +void rds_sysctl_exit(void)
-> +{
-> +}
-> +
-> +int rds_sysctl_init(void)
-> +{
-> +	return 0;
-> +}
-> +#endif
->=20
-
---pcvh7stf5trtufk4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrXLwMACgkQupfNUreW
-QU9Yjwv/cCHjunDrXXsuyNvatzPDExXb5X0UzfkQLy2qA3coR/DKb4c6DSrxHAXb
-KpHrt6e9QT0I2SPoxXj4PltCuUz848uz0awIUBqnTzndf0VHj3hXQlnOzH0fZ65b
-Wn0qAyxnEitEIbt1uSa7Xq24CfbATRcSjtPthG34yTnbF733Fz4lvwVkXbJi4TPl
-uoyvrPEcXxnogCVN0W9XNu8u5UHk0CuHOFVj13NvhFcoykqRQbMQcpefAKpJzm2Y
-0yUyZK+zZ2CyFchpYt4khOGyW5RLiwV0d1kER0UKqD9lnH4cznErsgqU0tb34Rn1
-Xig5W0V/rLLEemKlyC6sdnq1ZeigxxSHlwcRUVMt1UOsECTmaTfaTaO79R2BVLSU
-y8a8NvfPWzuASlTcNMV+AT03DA/syjvh2OihVN7ec7ExnUAdfEmpibahUar/MDZA
-bBMHemB+kEmt61+nBWc6VAsa6/WJEzxKtDaaR4rMdSuyi20EQBPQsryOF1YPAYRT
-Lm5E7bEc
-=mg3e
------END PGP SIGNATURE-----
-
---pcvh7stf5trtufk4--
+     Arnd
