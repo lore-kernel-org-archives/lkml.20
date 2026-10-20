@@ -1,104 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792508210;
-	b=Bni8oMIwbRNRoQFYvjWkI+ltG3s8KtzqfirdAOn+5CDR950XCVI7Bp+Fx4mjpg7UtfSn
-	 oJLysPsd3sOfnGaTuoSYYocTtUggKmxULZ3xbwKvCm1ZHf6rXyI56PiGHunJSIj8cVmAa
-	 JR2tO/6F28Cd+RgFiAyMoAy7Wd8x+03uVV4gKX8+vfF/lUv6SzRIh6KrTPJTGhxmUgIF8
-	 MfqPrpis/1n1faVVEIpdH5+xIy7vrgd1fsA2z43vRL1TVa4vlLkRxAfV/ZW2vE/2GyKF+
-	 bmnVYIQI9/5DZTC77ErAmri2aawmiyyrp4+GzwMWViLSbwb+I6jG1Ydvk0mCuorbbTg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508210;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792508288;
+	b=iw1xLC6DQfzoWiOAoHA3PdvyjMDlNhkpE4mQ6d2BkV8Lwaiik2F0UGvfQ/nbGbYvb5Ol
+	 HIgHv/TeYKMXjXFBohXnBBTDUVdqzaoEcoCFhEH98jfQC28hnCOEmc3d/oc0P6DyyIx6Z
+	 q+yrrenhzcQ8jWv87w38cXrIomC9NbRuzQkWX4TNT1EzbYFRfwQLgEaK1KFdMT7XuqjQq
+	 XxKpUgI3Pvpy/BUivBn09Yu3fjqlt5WWvUU9jklOCWeLVpW3z+doBmHgbMN1CCqWdImNZ
+	 Zj/+nqAeqzalkn0YEBv3VuTzH/XnFvzA/ZoD8/6P26s8+Xr9Qb/eWROomexlacO3EBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=z7hyor3V7NCkDXhpjIsj0qXch5Yd0OS9KGAsliCZzWs=;
-	b=Jagup4zttIGYjshg8H9kAYoWs5JGL4+XO2cJ6IfIFoWTZsof6r7Mu53fFXO+ViCsRtUm
-	 lb3o2gLz8x/pBNwLYlYVz+ggpvPjV53CI5hWT9JNXgmVbI/OZ1Stn+GvLbvPZsOR+PaOf
-	 CXIfjO/Xxf6DJZ44dq/VPNs73+plNo7uDuy/mcOYu3jr8rL87pEgrhHfZO9E7dUehWdbW
-	 r9DA7qcxlwUswjBv0pIGol9bjwh1GMDEyBvo2fmiMMZzkuLzJa+Z+oxxRWmHmd+dm+CX6
-	 aGwGc2+Uro9SmvnR7fyNnyVWCl4xQUHCav0ViBt4V1m+uWcoZBrNpY362mLXP45bLqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NWbVFZu6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=SjbG/FoRPniPEwnQTEjCNTAwJMSN6gDCjOc1NSBW89Q=;
+	b=woP/uY6gn8puiBDYc7TXQsBef7ppO7x1E6vs882vdoR+3aZWxvIvI0GU+2sxj2s4YEov
+	 z5RMOledzKF0VvEsJeoOrVTrGSUfsE6RJNX28gYXrU3vYeMh6wLIy/N/H2Uq0I+Pvgpqu
+	 ER7rBmN1AayzaizY1ARnuhwKWfWw6bKY9GO9MZILLyEWT+xShU8lAWsCc0mBm0fmjS7gR
+	 D0OcEZbvYY/ZShh0wTDaRWtjXV5JKq+Sbu82/iiSLC/aQTQy19YoTNf1DOU1wiFqiezep
+	 O2l6j5MfsbhH/R5pE+kAhIejXP3bfO1TuU6wKukzSEg4aV3gTa3CehJxRqmUktCeK5Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="hu/e2Mw3";
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E205606A31B;
-	Tue, 20 Oct 2026 14:56:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E205606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D12606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60D12606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NWbVFZu6
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0E3DB200758;
-	Tue, 20 Oct 2026 16:56:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792508201;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z7hyor3V7NCkDXhpjIsj0qXch5Yd0OS9KGAsliCZzWs=;
-	b=NWbVFZu6ByMcnPNP3lGEY0dEi3jYwNh4jmk+MGYrYBo6zjJR2gM/LT25svNVoIde0CpLsj
-	l9L13HcP+zcRjbj6wUnaqkA04E6N3Se0wb6zaU2pfUdsUBlRZr4qEs146B9SETWnDzCz8A
-	fRqrJ8cADsA8HNzkW4ZjGW89mSIJpVzXTLnTZl9SgsFE4jkiaC3XSKjHVzurAB8WCAYAyZ
-	7Limwu3oDvwa4fGVv1IZxQlOsBHRXd9cM3dTLqnkPVbvcclVThprxP13KCc8foLokDuarH
-	5elDwyzoMstD1wZ1FuDAPbAktwsKVDgmwL0JFuA2cj2HID+AVyzcMugGEOmGFg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792508201; a=rsa-sha256;
-	cv=none;
-	b=SY4dis5RcNkjPa5nzJtfoaTnSSaa9OIp4zUGYyZGQaJv7UfRrEOT+rBp5sdAFlL81sh432
-	wdPEr1GFulc7kavizHSLBvoOvjn6H1VSsAFsgFIFWyvguG5YxutCQawNSd75IFk3tTu+ZM
-	xC4ZVHWx0uJ+k2HIyLneZfEg9qiygFw2w+dJmH15NfG7Zt+6fS1WVbduU/ds54bjXwd9Sv
-	eRIvlGN3PriXRqJaViSgeHsdd5xGKE9E9c3aFjy4lAHCqKpAeX3nVyRPCN2ve5IngdVJi/
-	IXDH+5vx0YhaSyDajEI24322QifTdJb8RghKCMLJdaGPWwk8iW+ROy1HOkXpGg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792508201;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z7hyor3V7NCkDXhpjIsj0qXch5Yd0OS9KGAsliCZzWs=;
-	b=FM4ZunsJ+kQMsi+yFxiQ+RXrFkHfMJ67hEmsaqmCc51hippijRy8KvIPZUMhUm2XUK1zUV
-	fRSleIPQRnNuzj5FmikWEJE1sL+g4EBOTvhMiGNNIDXLYuL29/hiNVAJYiITPUpDPDwbcm
-	McNEsEIamCkVuloEqfZiLqyaAa5jdUhZHkQh8ETIfpsskVpLs2vYw1SvrxcTH8lU6o+cEN
-	3sB8MbdDM/XV88jWyc5mSIYaDxmeUq5fGiHtVWPesEyooyB4IXEAFwedVjeoFRM+JC+2G9
-	/GXNB/8s3Hl9AStY7XWHWE6SmtgQNfTW+mjIm8mUgXHvfsCwiY1GWMVFOXg6Sg==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xJBGa-000O3o-2y;
-	Tue, 20 Oct 2026 16:56:40 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 941D05CA33F;
-	Tue, 20 Oct 2026 14:56:40 +0000 (UTC)
-Date: Tue, 20 Oct 2026 16:56:40 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Ian Rogers <irogers@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Andy Lutomirski <luto@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	Stefan Kerkmann <s.kerkmann@pengutronix.de>, Christophe Leroy <chleroy@kernel.org>, 
-	David Laight <david.laight.linux@gmail.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Eric Biggers <ebiggers@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, "Jason A . Donenfeld" <Jason@zx2c4.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for
- ARMv5
-Message-ID: <20261020-nice-turquoise-dinosaur-3079bc-mkl@pengutronix.de>
-References: <20261019201257.3805356-1-irogers@google.com>
- <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
- <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
- <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=hu/e2Mw3
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e4c00d71aso311282685a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:58:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1792508287; x=1793113087; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SjbG/FoRPniPEwnQTEjCNTAwJMSN6gDCjOc1NSBW89Q=;
+        b=hu/e2Mw3PdNsPqMupDBUrVrAEItg32BCTvjrSvC7mig1eT0cF5ErfxcJsl+XEEKteE
+         6d9yTgmSRP6OSe2dfe0mAgt4EW0I8gM7ClFrGpS0l12kyuKD/e1VBv5TH5Mfm/xXPs0z
+         AOGSfzLfBaYfV8YCh77alMltLDQI1+IUkdUZI77HIl+oakm3tAtmZYvd7ua2z5cKAoBy
+         x1k3cor2DEtBI0g1Z8xAK4w+waXhV+JjKFniUDNHW62KaRLkxCUD3Bl9j6pUbCDATliB
+         rQJ6gTVz3eo7+CUF07e/UsRZ3ADUg5XOnZsb8ylzlw9GhvoN1+mHU6gGFDhZJV8V7vHW
+         1Gkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792508287; x=1793113087;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SjbG/FoRPniPEwnQTEjCNTAwJMSN6gDCjOc1NSBW89Q=;
+        b=jjB4Zzi/H2W+8ACozkiLfYhuBS4um6KkSYG0H5r+6lcZwPmoYjv88mCpoU4z0JU5S3
+         qDBCctCCuvZxKgTtviWT62+Umy3Muo054oCRJE4mv5e7zRsWMh6DrnRxySDIqdqzOJ39
+         p2f+uXyiBuLf9otGKN/2y+KMVpb6roxmB/SI/i5mMJzT2bUwz+XHNEnSLdx7VKGLnTla
+         1UReIsAoQHZohfyLmd/DpmWHdzFDecekj2yA2zsvf7/CwqUh2PPWpU1XzT3F6rCP07wg
+         kTLXVpqUTTEk2584Oy7+GvvBy22GSzrVc4MD5fP09W7ud/oKG9v8dkJUIJKhUUNp120e
+         s8KQ==
+X-Gm-Message-State: AFq9FYKa6mMRblXGRf/5uOklHHLL5RGbpx02gWe3rq7F9+QDM245DJdM
+	l2u7jQoAcycNNj7O1uFyYwip6MH1jXqWgcLgqIkxhANVhk+UhTMOeXAOqEWbqtx9Obw=
+X-Gm-Gg: AYBFou1dip+NaVUQ0q41sLe/AlF6Cdhz4xq7efzoRypsAvNQWyP4weWgGhMTaHqHuxm
+	Ay4C2oFLJYBz5+y2aMddy5yesg/U6jEXUT3JQPz2ej0iB65CuoWX+RGpo3uc2TrkYTdmOzomNF+
+	CFJ5rt3xgN3Xv3UNYE08WfG0QP/2GkDnJSnCycCvjWTK8VhNmpW/kfd5oSbw84xCmg/RHwFksme
+	N+uVObWLYfxszXuPJYV3MiOg3etUTLS5k6zyDuIEaE7GQ8LvhwiyYYiIfBbul1atEWjIbp302BX
+	8HMwFUEze698m5My16PujmJ5165brV/aq21vdyAOnRybTmeAzRNewvBsjBZs/rvjBVOGoEx+W+s
+	Ab9jAihH8hj3CSnzfOlMsaYzsauFirT9n4hcdpIwh/EC7oM4PHeo9SU1Qhea7Oh14t46MzqMXjk
+	UzQ8u1nNVeyYjn8157qWR5CWsPbD+NllmmizNcpk3qMagjSymQd8iE8KB6xS/1Pn8IFV+90UiX1
+	WQaMr1H/xTxjhYQzub/N9/kNzi7/4Ya3bu4oF2z/frjRoiOeYwmqTJB
+X-Received: by 2002:a05:620a:4442:b0:939:a0f3:6aef with SMTP id af79cd13be357-93f29ced7cemr1836575085a.23.1792508287130;
+        Tue, 20 Oct 2026 07:58:07 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56dfdb2esm1820385a.28.2026.10.20.07.58.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:58:06 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xJBHy-0000000CiZ3-0ODE;
+	Tue, 20 Oct 2026 11:58:06 -0300
+Date: Tue, 20 Oct 2026 11:58:06 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <20261020145806.GQ14213@ziepe.ca>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+ <20261019233532.GL14213@ziepe.ca>
+ <atcUoSdggT9eU8YE@e129823.arm.com>
+ <20261020124536.GM14213@ziepe.ca>
+ <atdvnMJuHUJlqX8t@e129823.arm.com>
+ <20261020135006.GO14213@ziepe.ca>
+ <atd2_9Q2wTv_3MXz@e129823.arm.com>
+ <20261020143620.GP14213@ziepe.ca>
+ <atd-I059nHAwcZFE@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,129 +113,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rnutmabie7k5dfoc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
+In-Reply-To: <atd-I059nHAwcZFE@e129823.arm.com>
 
+On Tue, Oct 20, 2026 at 03:43:47PM +0100, Yeoreum Yun wrote:
+> On Tue, Oct 20, 2026 at 11:36:20AM -0300, Jason Gunthorpe wrote:
+> > On Tue, Oct 20, 2026 at 03:13:19PM +0100, Yeoreum Yun wrote:
+> > > > I wouldn't over complicated it. We already have smccc bus to do this,
+> > > > we don't need layered stacks of busses here. Just change smccc bus to
+> > > > be able to break up the multi-function SMC into several devices.
+> > > 
+> > > I think my explaination was poor. Apologise...
+> > > I'm not saying another bus making but just wrapper of smccc-bus APIs
+> > > for firme specific and definietly, this would separate the
+> > > multi-function SMC to defien each firme device (attestation and IDE).
+> > 
+> > I don't see that kind of complexity is necessary.. I think it is
+> > better to just have the root smcc bus spawn them 
+> > 
+> > > But, the *base* is common. and I couldn't find any proper location to
+> > > deploy *common* code unless making arm_firme.
+> > 
+> > What common code excatly?
+> > 
+> > There shouldn't be? Getting an attestation is entirely orthogonal to
+> > set link ide, for example?
+> > 
+> > If you can identify what you think would ever be common that might
+> > help clarifgy what to do..
+> 
+> I mean the BASE service of firme and typical example is shared buffer
+> allocation. I agree IDE and attestaion service are orthogonal. but
+> in case of base-service is not. it could be used for both service.
 
---rnutmabie7k5dfoc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for
- ARMv5
-MIME-Version: 1.0
+It doesn't look like it needs a "shared buffer", just allocate it
+right before invoking the SMC that needs the memory. Use a simple
+library function to help allocate it. No need for a struct device
+layer.
 
-On 20.10.2026 10:24:51, Arnd Bergmann wrote:
-> > FYI: there is the kconfig Symbol HAVE_EFFICIENT_UNALIGNED_ACCESS. Can we
-> > make use of it?
-
-Just noticed that sashiko's review contained the same remark, but the
-bot only posts to the linux-perf-users@vger.kernel.org list, where I'm
-not subscribed:
-
-https://lore.kernel.org/all/sashiko-outbox-178182@kernel.org/
-
-> That would be better, but I still hope we can just get back to the
-> portable code across all architectures for the in-kernel version.
->
-> I have one more request for you: can you check /proc/cpu/alignment
-> on the system that shows the performance regression with and without
-> the patch?
-
-When booted via NFS-root to the login prompt, we have about 570k System
-alignment fixups, all in the IP stack: :/
-
-__udp4_lib_rcv+0x78/0xc6c
-icmpv6_echo_reply+0x160/0x504
-ip_send_unicast_reply+0xf0/0x3f8
-ndisc_send_skb+0x15c/0x40c
-rawv6_recvmsg+0x114/0x3b4
-tcp_rcv_established+0x3ec/0xba0
-tcp_v4_fill_cb+0x70/0xec
-tcp_validate_incoming+0x540/0x868
-
-Comparing v7.0.12 with mainline "unaligned.h" and reverting commit
-a339671db64b ("vdso: Switch get/put_unaligned() from packed struct to
-memcpy()") brings no difference with respect to alignment problems. But
-I see the increase in I/O performance (measured with "fio" [1]) on a
-UBIFS/NAND file system:
-
-- v7.0.12 NFS root
-  User:           0
-  System:         573956 (tcp_measure_rcv_mss+0xe4/0x1e0)
-  Skipped:        0
-  Half:           4
-  Word:           573940
-  DWord:          0
-  Multi:          34
-  User faults:    0 (ignored)
-
-  WRITE: bw=3D272KiB/s (278kB/s), 272KiB/s-272KiB/s (278kB/s-278kB/s), io=
-=3D32.0MiB (33.6MB), run=3D120532-120532msec
-
-- v7.0.12 NFS root, reverted
-  User:           0
-  System:         574214 (tcp_measure_rcv_mss+0xe4/0x1e0)
-  Skipped:        0
-  Half:           4
-  Word:           574183
-  DWord:          0
-  Multi:          27
-  User faults:    0 (ignored)
-
-  WRITE: bw=3D343KiB/s (352kB/s), 343KiB/s-343KiB/s (352kB/s-352kB/s), io=
-=3D32.0MiB (33.6MB), run=3D95439-95439msec
-
-
-Booting from UBIFS, so only the lab background IP noise...
-
-- v7.0.12 UBIFS/NAND root, reverted
-  User:           0
-  System:         164 (rawv6_recvmsg+0x114/0x3b4)
-  Skipped:        0
-  Half:           0
-  Word:           127
-  DWord:          0
-  Multi:          37
-  User faults:    0 (ignored)
-
-regards,
-Marc
-
-[1] fio --name=3Drw \
-    --filename=3D/var/stat/testfile \
-    --size=3D8M \
-    --rw=3Drandwrite \
-    --bs=3D4k \
-    --direct=3D0 \
-    --fsync=3D1 \
-    --numjobs=3D4 \
-    --group_reporting
-
-FYI: disabling CONFIG_FTRACE brings +8% compared to v7.0.12, reverted:
-
-- v7.0.12 NFS root, reverted, w/o tracers
-
-  WRITE: bw=3D371KiB/s (380kB/s), 371KiB/s-371KiB/s (380kB/s-380kB/s), io=
-=3D32.0MiB (33.6MB), run=3D88411-88411msec
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---rnutmabie7k5dfoc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCateBJQAKCRDMOmT6rpmt
-0qTQAQD+0twXiBtm1f5Q8GEjWr6s/qMbOE4NjyU64PTPctEesgEAusLAAUW3w6kB
-9ec4joMn0P2OvGy5LAayPT1yehDe5wM=
-=0UGb
------END PGP SIGNATURE-----
-
---rnutmabie7k5dfoc--
+Jason
