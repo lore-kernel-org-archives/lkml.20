@@ -1,102 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792535311;
-	b=uKaDAOasXb+G3Ayw+h3IJLhr+srxyjBAPr+l50g3sAc00vad8oKbAGzBnJkzbUgP1/Wv
-	 +tbIMpYSs9u67fWnM4Q5jFMfO5SMESLYGjhLjbA8/+F2g0QpAEmZUakVQSRZa6RGgGqq1
-	 X7hLkPK664tALrYskGq4GdLLbew9YRaNMYBW0tbVirKR2wiXTeVwEgKfeQJkLesrGwIPs
-	 XOVSKICyfpPyxZNfj7ykvETnP7nBpkDopx45lsnpqV4RU0PA72GrNzYKWwYdZ8qwg4f9x
-	 H+MA3vI8UtnIYMTshWkhGh0dR6qYvoimuJAdocjRA7lRANtx778kcBne8S//xGuFupw==
+	t=1792535358;
+	b=xgz3MtNVoQiBmkeSIRb/AiAMjQ8qoczHg60XZJG9236kc72gg1NTeHwf6AgMxwcNoNqp
+	 5NlHad24BrisEtv3PacIS1oSn7qBxefLjwp0oqyBOYAF0lmpjS+P3t45ckIwe2ewmjkQz
+	 limAWyctlJlUgHM4QdWtUgZtAxmCSEA7Ki2G1ZMtjuW5hUFNUYZqmSxUV3p46+1JstZD5
+	 Zqwn+/NoJWfnKAUSynW/tkU7xmTFReqjms6PrxBhND+VuBFmlxZK+I2NpSGuKGtUS13oP
+	 ELJgG789ETeor68dkwBoH4XpMw+PHcBgR2Gmdv+TS5/SB0sQrsC20m9gO0wQGSOKw7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792535311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=2hhU02INeiLDlugLYSQ1HT9ECkkZkvz9I+ml1ZnNGcc=;
-	b=gH9TalCrU0Aw1V1KLDBfTBmb/ymNS7HRalETBJ5vzsy2i6kVXATucTHE1NxpC4gsxk9T
-	 G3R8ktEPRCP5gpofkZUYe+Rd/5V56lEq1wxRDSlqAZGomk4Vc2tE/myMM22EmutiwQPhZ
-	 F0bJqX6cGk/4FexRn7A7ldJZwClT70Jo/uDO4ct9MDPvcHjbajBcxL2XV11k3R5sOEF0i
-	 niBq7opy4DKaThSqapDWTuYtzITS22+xhVLSM+4WErUUfZc3TRhym2UnntS1a8DtkjfJ4
-	 M6wVztu7GL75pldmsXwWeFei1eipcdkiO5lUGrQkUhMkQMbzgCwbeSG3och248zKHgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792535358;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=d1UCMcaF/RdYW+qLX7aDFkPu2b7n4KE2fpdqcmChgsw=;
+	b=XIuqOVcBTmmCab/EOta4fFES99MYuN0PW0Kpv4Qxaw0nGYab/6G6kPxwvK42j5UNW16m
+	 3hnZikauKsp3SaXlMVvsqrvITcHtfLR3a85VEWIxPD+tG5zhi1tOh97lzLXYANKriq5wz
+	 +R8vEfro/+5IAL6oUNCBdefEutQlHZ25tw9YisdHU8kA1pB6Zw6RHG1T2R7lKwsfX6qM7
+	 OqWBTPpq/7jd/SFzfuxK7jtAD8GYSjtfY6Kq/tXdmaodcZ3dhuxzJp1oBEHadUgmCLruS
+	 fAIuE8p+yHC9pJcCmFAKH8HVZVzSP86aMpP/TpFlzS4WDednkXzFmXwXtSyFxB+2Bhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Y/mgETZH";
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3ImwVYv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF362606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:28:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF362606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39807606A31A;
+	Tue, 20 Oct 2026 22:29:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y/mgETZH
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso320535e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:28:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792535309; x=1793140109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2hhU02INeiLDlugLYSQ1HT9ECkkZkvz9I+ml1ZnNGcc=;
-        b=Y/mgETZH3WvzzGFNg6JipbiSWc4iwLTh6Nvx4qSEGTbUYIfspRiCiOUSP6+Y+qyKsS
-         YqF/FeAtJVRH+dUj6TBT+gLM0JWBRgkm5uKETc4fQFE/ibRhy4xLG3+UbLwY66P1R3OY
-         ZgMNH2IJMFG58nHOHaljR9ImPa4BTmXN/LqAc6/4XbgImLnN6KOumKXS9gptIKcghfDZ
-         K1yoGVO78kOsZTRitWfCWGLdGMzScZhddDbMIkBXQrC+506vRvPJ+FzE4U3aW18EbC4b
-         Fc6y44sC+361lT5G8C4WrAq1VIzdlbhXxxK5KDulDL5gB89GKlxPABhCF8oE6LPPG7Uh
-         1FIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792535309; x=1793140109;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2hhU02INeiLDlugLYSQ1HT9ECkkZkvz9I+ml1ZnNGcc=;
-        b=ZjGO2tWd5HT3hqZSLFvLqHYxc6KVbU3Av/G8p2yKw2wIGGRa2KVXvnRRrATVp+Z+dw
-         /DRks50FZR0LgD1xh1dhIc0s69qjRDMBFbiPo3tYH3f9LiB9xbzg5rp2zR+TmTymxNMM
-         88kt5cEIkqtXqwIviuxWxdoRGxCfO0zBYHqv2VC5Cs7WyPgJvqLaIrZlAXCkH7aM/zVa
-         J2yXK/nKi/1mENPcYKcI8IDNaSjvjegdj6fSTQFJzc90I7HZAC4Kq6LS8Reb0jGPFCTO
-         50NXerDTxOiCyEcwDs0syTtfhy2e3PNTtABMGiTcKusDsTBDh7cy/sbwS5xAJw/9k50t
-         Tksw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6gwsoi+NM6r+NzTM0lU5MLDw6w2/5QF4p7gf9mAjfxNc9foJv9CLic9FhI60UwozEZwc1zWSVgZfilcQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbdpCjpzVA2/6m0/iQOk1VcobmNQ8QFwF77HFnrvIcCNILgseF
-	xz7OAeIz1Y4hFQvVEYnAuEZBycP/P1Sox4aBb9QETfRIu2BGtYmKY8f0
-X-Gm-Gg: AYBFou3iwzNdKt5+23aYCoBN0L708UqBsrsXF87VaRETii/1DMvAqvf3hLeg9TRBS5a
-	2IyLei4j6vc38VcvOTdPOFFkUIJ9rGOk6YYDqs4x36e+uLXP1hGBEuL25qQ8OPXspK9+urTIAL8
-	x94wL6P5BE4nlvoSLioXNbtPQyHXF87rOny4mNmbPpI8Y+XShyBCm0UJxM8iOdW+xnA637ae9Eo
-	P8lL8Q6B9Sg2XYRxd5sVLu+QiUjjTdTj6nV8/5LY7OgBs5+Cuj0BOTchZTT5Hj2gdWotHBBmnrd
-	nV/rYjgk1Z/Vd+90U0ZFD4jIbVi+jRUDAz7J3PneVMYmTEyLJ7zaGTt6RluGzM4zEL7eXhQ3FT6
-	f6yexwa3glFVM2KrbbealC9utG4IweRwsBOsaThAojrU2hpsJk8q/ITtO9nABlKnXuQg71KF0aN
-	vlmx3znnXeCt1e6yP/8KpgfnOpY5yVfvaW12oibptQ52PyNYFmIG4rfDKBL/PAvFsEyYV2YmOD2
-	0aFv+vHLoEmditF61LKJO5CMCLImvVo9L2R7OOxUJbdMCrH9CgGwIoKgnKyjXKt0haEzQUMIg==
-X-Received: by 2002:a05:600c:3b24:b0:4a1:f736:79d1 with SMTP id 5b1f17b1804b1-4a1fdb20d04mr1918375e9.16.1792535304480;
-        Tue, 20 Oct 2026 15:28:24 -0700 (PDT)
-Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd629bbsm9661935e9.5.2026.10.20.15.28.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:28:24 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-From: Julian Braha <julianbraha@gmail.com>
-To: mark.rutland@arm.com,
-	lpieralisi@kernel.org,
-	sudeep.holla@kernel.org,
-	tglx@kernel.org
-Cc: radu@rendec.net,
-	vsethi@nvidia.com,
-	maz@kernel.org,
-	sdonthineni@nvidia.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH v4 2/2] irqchip: gic-v3: only select HAVE_ARM_SMCCC_DISCOVERY on arm64
-Date: Tue, 20 Oct 2026 23:28:17 +0100
-Message-ID: <20261020222817.1231643-3-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020222817.1231643-1-julianbraha@gmail.com>
-References: <20261020222817.1231643-1-julianbraha@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3ImwVYv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853D61F000C9;
+	Tue, 20 Oct 2026 22:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792535357;
+	bh=d1UCMcaF/RdYW+qLX7aDFkPu2b7n4KE2fpdqcmChgsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H3ImwVYvtWzBMbclGX6YYXrI4FOexOUSmsRTV42pAX8JKPSTCB/0h3oSJFyAwy9yt
+	 dvUxiypk1Bi27D46HHznbhylD4Xrr50i+hIcujEA+y4ASZ0ixM14C5zwy+AhbmjG0x
+	 HGlTawJyaEFLS7PiRr4+BNwtDW3Ib28Gu4RmARiOcQqb9AZamX+NI2npvi2MHGUNX9
+	 pcoeLiBmY+xe771+ufaWbtOAkt2zgVptHhyBxQnNL7kYmHqk64IE+nSyX6V7S4rRsX
+	 fpqgYwsSzqX0i4mOMr9zjkRwAxbmbXRiwko+mRzk+W2UKdZH3Lpa28OGqgF3NNBjB3
+	 Z6MSw9T8klMBw==
+Date: Tue, 20 Oct 2026 15:29:16 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
+	jolsa@kernel.org, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, mingo@redhat.com,
+	peterz@infradead.org, eranian@google.com, ddhariwal@google.com,
+	rcu@vger.kernel.org
+Subject: Re: [PATCH v4 2/7] perf bpf-filter: Support BPF sample filters on
+ tracepoint events
+Message-ID: <atfrPEPxU-dxv7Oj@google.com>
+References: <20261018053710.2572636-1-irogers@google.com>
+ <20261019220915.3943592-1-irogers@google.com>
+ <20261019220915.3943592-3-irogers@google.com>
+ <atb-9j8tLZ2rFtOm@z2>
+ <CAP-5=fUbsiir_4K1rhpy=TxWpgGLzuR7-fvMiiQ9htTUM3ibng@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,53 +65,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fUbsiir_4K1rhpy=TxWpgGLzuR7-fvMiiQ9htTUM3ibng@mail.gmail.com>
 
-ARM_PSCI_FW is always enabled for arm64, and the GICv3 driver only
-uses HAVE_ARM_SMCCC_DISCOVERY to identify the NVIDIA T241, which is
-arm64 anyway.
+On Tue, Oct 20, 2026 at 08:30:26AM -0700, Ian Rogers wrote:
+> On Mon, Oct 19, 2026 at 10:41 PM Namhyung Kim <namhyung@kernel.org> wrote:
+> >
+> > On Mon, Oct 19, 2026 at 03:09:10PM -0700, Ian Rogers wrote:
+> > > Commit 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
+> > > updated set_filter() to route non-tracepoint filter terms (such as uid
+> > > and gid) on PERF_TYPE_TRACEPOINT events to evsel->bpf_filters instead
+> > > of the ftrace tracepoint predicate filter.
+> > >
+> > > However, in the kernel's __perf_event_set_bpf_prog()
+> > > (kernel/events/core.c), attaching a BPF program to a perf_event fd
+> > > branches on perf_event_is_tracing(event):
+> > > - Non-tracing events (hardware PMU, software events, breakpoints) call
+> > >   perf_event_set_bpf_handler(), which requires BPF_PROG_TYPE_PERF_EVENT
+> > >   (SEC("perf_event")).
+> > > - Tracepoint events (event->pmu == &perf_tracepoint) reject
+> > >   BPF_PROG_TYPE_PERF_EVENT with -EINVAL and instead require
+> > >   BPF_PROG_TYPE_TRACEPOINT (SEC("tracepoint")), which is attached to
+> > >   event->tp_event->prog_array and executed in
+> > >   perf_trace_run_bpf_submit() before perf_tp_event(), dropping the
+> > >   sample if the BPF program returns 0. Furthermore, the
+> > >   bpf_cast_to_kern_ctx() kfunc is only permitted in
+> > >   BPF_PROG_TYPE_PERF_EVENT programs.
+> > >
+> > > Add SEC("tracepoint") int perf_tp_sample_filter(void *ctx) in
+> > > sample_filter.bpf.c to evaluate context-independent filter terms (uid,
+> > > gid, tid, cpu, time, cgroup) using BPF helpers without calling
+> > > bpf_cast_to_kern_ctx(). When preparing a BPF filter on a
+> > > PERF_TYPE_TRACEPOINT evsel, autoload perf_tp_sample_filter instead of
+> > > perf_sample_filter and attach it once to the shared trace_event_call.
+> > >
+> > > Before:
+> > >   # perf record -e kmem:mm_page_alloc --filter 'uid == 0' -- true
+> > >   libbpf: prog 'perf_sample_filter': failed to attach to perf_event FD 3: Invalid argument
+> > >   Failed to attach perf sample-filter program
+> > >   failed to set filter "BPF" on event kmem:mm_page_alloc with 22 (Invalid argument)
+> > >
+> > > After:
+> > >   # perf record -e kmem:mm_page_alloc --filter 'uid == 0' -- true
+> > >   [ perf record: Woken up 1 times to write data ]
+> > >   [ perf record: Captured and wrote 0.024 MB perf.data (42 samples) ]
+> > >
+> > > Fixes: 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
+> > > Signed-off-by: Ian Rogers <irogers@google.com>
+> > > ---
+[SNIP]
+> > > @@ -674,7 +761,7 @@ int perf_bpf_filter__pin(void)
+> > >               goto err;
+> > >       }
+> > >
+> > > -     ret = bpf_object__pin(skel->obj, path);
+> > > +     ret = pin_filter_object(skel, path);
+> >
+> > Why is this change needed?
+> 
+> Before this patch, sample_filter.bpf.c only contained a single BPF
+> program (perf_sample_filter), which was always loaded. This patch adds
+> a second program (perf_tp_sample_filter) to the same skeleton (and
+> patch 4 adds the lock-tracking programs to it as well), and uses
+> bpf_program__set_autoload() before loading the skeleton so we can
+> select only the program(s) needed for a given event.
+> 
+> In perf_bpf_filter__pin() and perf_bpf_filter__unpin() (for 'perf
+> record --setup-filter pin|unpin'), only perf_sample_filter is used,
+> because the pinned filter mechanism shares a single program across
+> privileged sessions by looking up kctx->event->id via
+> bpf_cast_to_kern_ctx(), which is only available to SEC("perf_event")
+> programs. So autoload is disabled for perf_tp_sample_filter (and in
+> patch 4, for the lock-tracking programs) when pinning and unpinning.
+> 
+> A consequence of disabling autoload on any program in the skeleton is
+> that libbpf's bpf_object__pin() and bpf_object__unpin() fail:
+>   - bpf_object__pin() calls bpf_object__pin_maps() and
+> bpf_object__pin_programs().
+>   - While bpf_object__pin_maps() skips maps that have autocreate
+> disabled, bpf_object__pin_programs() and bpf_object__unpin_programs()
+> iterate over every program in skel->obj without checking whether
+> autoload was enabled.
 
-For ARM_GIC_V3, let's only select HAVE_ARM_SMCCC_DISCOVERY on arm64.
+Looks like it needs a fix in the libbpf.
 
-Fixes: 35727af2b15d ("irqchip/gicv3: Workaround for NVIDIA erratum T241-FABRIC-4")
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
-Reviewed-by: Marc Zyngier <maz@kernel.org>
----
-Changes since v3:
-- reorder patches to prevent build failure for 32bit ARM without PSCI
 
-Link to v3:
-https://lore.kernel.org/all/20261014123539.2259230-1-julianbraha@gmail.com/
+>   - When bpf_program__pin() or bpf_program__unpin() is called on a
+> program that wasn't loaded (prog->fd < 0), libbpf returns -EINVAL
+> ("prog 'perf_tp_sample_filter': can't pin/unpin program that wasn't
+> loaded").
+> 
+> pin_filter_object() and unpin_filter_object() avoid this by calling
+> bpf_object__pin_maps() / bpf_object__unpin_maps() for the maps and
+> explicitly pinning/unpinning only the loaded perf_sample_filter
+> program.
 
-Changes since v2:
-- split out changes into two patches
+Thanks for the explanation.  It'd be nice if we can have it in a comment.
 
-Link to v2:
-https://lore.kernel.org/all/20260823180832.1246363-1-julianbraha@gmail.com/
-
-Changes since v1:
-- remove select and dependency on ARM_PSCI_FW,
-- make the HAVE_ARM_SMCCC_DISCOVERY 'select' conditional on arm64
-
-Link to v1: https://lore.kernel.org/all/20260801212235.2692694-1-julianbraha@gmail.com/
----
- drivers/irqchip/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 136bab41f801..ca915fca0ef5 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -37,7 +37,7 @@ config ARM_GIC_V3
- 	bool
- 	select IRQ_DOMAIN_HIERARCHY
- 	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
--	select HAVE_ARM_SMCCC_DISCOVERY
-+	select HAVE_ARM_SMCCC_DISCOVERY if ARM64
- 	select IRQ_MSI_IOMMU
- 
- config ARM_GIC_ITS_PARENT
--- 
-2.55.0
+Thanks,
+Namhyung
 
