@@ -1,104 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474530;
-	b=3T17bT/7LcmvVscpGorGf6lyp4fi3bbZPWyVuzhNxfIGmI/RKARGKuPfPv3idD2JNfbs
-	 jSHwjXylFaM2fbYChhKBZZ6qcihNMty0c2nKXjf5f0cq6wTCO3It9jgjOCyr5gZnoxDT1
-	 eePHZg1znenPlNeAFDFlZt+wOlxD2GSuZHi5rTqdZF4HtPMDatxmEVC0x77/n3E0gX+rv
-	 t4O5MMkq9joMWnu/a3FlvctU9D7rhfJGKDvYBdok99WBBihsc37Q7zulD0FzWfyYi/jKc
-	 hBsFBCv9GxQutzbZyfz+YlpLfY8diQNBLS2Trxtw2iCzLoZj+4EcDIUf/CrXq9TbfGQ==
+	t=1792474618;
+	b=ucqTjdi9j6dlI6ZUcJC7+t/ZIUj2tk44c6c8PPclM04Zdpu1yWWfD0S8XAV0nzhE3rlP
+	 bYlpFpPXfDHPTqZq8sXFdEwDT6HT/rw15exiFK2TGI1Naq/YxSt9iCdlUNzgBt5C14Z2u
+	 ax+ke1cLMa5mu0fzHwKRMQrm4vNZWcQsm9IInJG0qe/OniOLbGNYp5Vv+GQKzAk5G0C73
+	 ULDf2/pB3ZCPOIrsSZeKRO/4vlcA1N3OdY3emsVnqHeTOCyiKo8+uZNa+nfqYO1SUCb+q
+	 ZkEasGGfgVyGz0AC5Y4Whe/yeDamEoKfFiDMMK1sGY+AuCg7bnSLh19Ga/Nsmk33XYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474530;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UjLNCgx3WekQetaZqMO5VDYLOeTCT6zYxxBPC2GY2rk=;
-	b=qoBByVVHQNSi1r5OhW/dUgjITy0dQ2JYqQLjXVHWZct+D0Tpbm0OQ9fSnqt1GwXN58uG
-	 5T42gNY05RNVu8ybm+Uh1WHgC6NjGSAapZ0kPsZpQ4KRDNred6yhlf+LVw+MHTm9kVkC6
-	 vg9mo6B/3mjL1k3vylaaVw++uu1yTw2AXtuKyuV7zpEW711rdXQ/QhhMrHpT/Pmw8WBXy
-	 COpZJ8nuVJa4kmgCoJz6FRC+PHyAetg+HFOLMZOykJgptT6K40Q3fHKI27NCsKgvS1PgT
-	 4ERlfRV+ZxpkWfw1GEBHxHV8KIrLgSaMfuygLTzhh3HlrF/MLV0myxpg9doa6Djc8yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474618;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NjQe6HWmekq9HNWm5R7bB5TA0zGBiXEMJZ6wpJ0gEYA=;
+	b=RwBpmrMKax0vowjO3g3iLWdAPAz3+tBupUblp1ubJyDN5ONpdmuAx+6OVSCMaX3vb6Su
+	 8ZQz4VezH6QUEOGN6zmT4BiTpoJA3O57PwSfnmGNI8KJbY6asqQ1p/1SGcHK1254KVZzF
+	 O9vgehd3jFLHgmFfZ/4QWSTyD+x8+fX6vP7tRLjhlqD7QXB3Yt8bA0SdNzaFFYJaDw1he
+	 v/hgDxlJvIrOLSp+6TBzfREGkx/b9ljWdxP5Dykz3M9bxbyvpHjOqdUzQInLS/Aro3m2Y
+	 mzx4sDEMXcpB4wdVvRXtftyUki1gnNH9WtfyC8aZMxloBA1TliMX18q+iKhWKEP+OwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CA4J2Xze;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k8jsSQEz;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC65606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:35:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABC65606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D353E606A31A;
+	Tue, 20 Oct 2026 05:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D353E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CA4J2Xze
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f3c895a0eso152293185a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792474529; x=1793079329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UjLNCgx3WekQetaZqMO5VDYLOeTCT6zYxxBPC2GY2rk=;
-        b=CA4J2XzeXCFVB9Wz/2HnEcu7K2xn2YrJmkjga22U2kefbJdqXprckQme582npfZcLl
-         HcEKm0aTc5uHZiCfwYuWRltveiRFxpmSWCgCdkrxh7Dd+JFCcu6SFXMvDYtT5CGyy0lj
-         j1qifkaK6MKrO2IIU0cqyAdZa2/oGbSrRh7Kb3swpQhboog3wO9Pti+rhaYGUJNWJASv
-         BNlrZnWVbpiQfekUxDDqDPhMXNQ0glkwPY6/w2hqa81oonl3YgELRjeiwL5+a1oIkI7+
-         UjiiYH/9qdB6dXlhqrRwUwNNpHSMyT4FHL/LeIqgsCHZ7WDrKX3EkVZGTjphmpUzn6LJ
-         PDog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792474529; x=1793079329;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UjLNCgx3WekQetaZqMO5VDYLOeTCT6zYxxBPC2GY2rk=;
-        b=j/ovw3HtlH3abzSVfTkSBb8yY0mr7KxJCVnJxApc2p7ot4dTXv0uUrtzyY/QgSABqa
-         iLeNVSL5RSz3auupsigcLQxikSSriS3v5/wrjwROwAg7SrMPRQ0Ovxm2Cij/e2a2AWBe
-         G+DhSipOYRCbjCFnOSbJZ9MoFu16pmxHnvDikvah0oN+igB1ODaK1P5Jxkrv+U1usXIG
-         086S4Ft6RAgQcDkpr7gVybHJnNI6UhcralKS8Ogwoeh8muW0TvVW+OCCSeJ8A4Q+fJLQ
-         bvp0NoVzNhqAvM3vGWCNRrlweENDmBmw1ww87Z6R3/QNW1GYnvPcut1OT2eDdZB1t3XH
-         rTbg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXSMlb1smIDilOq8yulxuwDDi749bX3+f2Ec50OT+t8Dbw+auz/wr2aQoUwKmwpGZr9vWa1DSjvgrLIxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJb2keogv2IW71rh+Ho+KSEYC7ylvOYME5JQAxRtJ2XGIvimMME
-	qvNP6HGXDDtKp5h5NoWfb+dMS8Xl9qo5Td3eZAl6WT/cOAbH642jbCj+
-X-Gm-Gg: AYBFou0woR0W1RXomMWyFbSLc0GhXoG454BmCDtAgjLEUjqaTuZ0eoWgU3Wmyt2ybaY
-	Qog+xoQgHLE4zioVSg/CukyFno5ZABv/FOREXjFQfgSjV9hqFD3was4t2na2XRTbrIqAMCkfpex
-	s9wb5+zWA1ATn0OVjdJZLR+haeH81g8Qn9FdLxQ1Lz4cy1sHk4XoOt8PmBjVW3a5IxPuWRCLV4M
-	fXt1tFyeXwDRxYgVcfdx6tdROdpcAUNGtLjqOefESesje5r1wFsPW+ZAvA07tTgedJoPk13AZhK
-	UvtKcy6/l2/DAURlbclW1HT+crHL50GVg194elNqdvbIByaiQ9e+7QvXilwx3mJ9bj3rLcfOg30
-	Xrd5s75jOhqqWb06Nxce/m0t9Mwgry7fOOnS3lYTrG6TKUulQWbC05jyyumUlL6J9tcYd0lyeW+
-	9xVjQkDq107FKSorzV4dQtD3Cg1j4aQFxBT6cOVo0YrCECCzJGi/9a3k+Cv/ZdORXPW9eVu9NQH
-	2zFq5neMjwo7ucR70WOvopMNPL8YHSo
-X-Received: by 2002:a05:620a:2602:b0:93f:5ac:14a3 with SMTP id af79cd13be357-93f29df1d42mr1601610185a.73.1792474528522;
-        Mon, 19 Oct 2026 22:35:28 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b082168sm139455685a.22.2026.10.19.22.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 22:35:27 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Fangyu Yu <fangyu.yu@linux.alibaba.com>,
-	Zong Li <zong.li@sifive.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	iommu@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1 2/2] iommu/riscv: Do not report a stalled command queue as completed
-Date: Tue, 20 Oct 2026 01:34:24 -0400
-Message-ID: <20261020053435.1179054-6-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020053435.1179054-4-oss.patchbox@gmail.com>
-References: <20261020053435.1179054-4-oss.patchbox@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k8jsSQEz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792474616; x=1824010616;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NaJiqPkqH2nAedLRE+95pl1WPOXe5cB3p9iVy/Z4kMI=;
+  b=k8jsSQEzd+SVS9XFaOgOSSnnFUi+adP4QJ9X/u6FgdCauxX4Jf0gCo62
+   wP1g4KOT5V8HgrNWgEYpmGkOfamRnm7TCDnaXn8VapZGzpDzSiIHBLf+P
+   fTKDkAybZxxDgEQpS3d8dPgUMIlWJG4Tw7xPgjd8fknWsi6qSFlTw7izF
+   1IRnfOUg7bWyHOKUotQPr1aP5+Nc/gImEBAPmdjqDCj8DKqH8Gar9WAaw
+   RWIHxDHiKki+EkKvz720tbtzpUKaT3dflItG/nE4FPcb/2587ko2uAV1Y
+   /cHvBaEXFMobQaW36ByOcn0mqKfd/d45U7YS9HdW+7iVPlSiat12YXFSc
+   Q==;
+X-CSE-ConnectionGUID: LO/IVdapSyCWwwoLnBTG0Q==
+X-CSE-MsgGUID: kKcxZKyfTKSOL+dulv4xzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1059261"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1059261"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 22:36:55 -0700
+X-CSE-ConnectionGUID: 9G3YAZlkQj2waR4JmZbv1A==
+X-CSE-MsgGUID: MzXHmm7cTBqL5aMo89B8cA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2784862"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 19 Oct 2026 22:36:50 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xJ2Wj-00000000Mxa-3KkM;
+	Tue, 20 Oct 2026 05:36:45 +0000
+Date: Tue, 20 Oct 2026 13:36:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Damon Ding <damon.ding@rock-chips.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: Re: [PATCH v4 11/14] drm/bridge: analogix_dp: Use
+ bridge->next_bridge instead of plat_data field
+Message-ID: <202610201309.w3JSXlP5-lkp@intel.com>
+References: <20261019085836.3065008-12-damon.ding@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,69 +106,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019085836.3065008-12-damon.ding@rock-chips.com>
 
-Since commit b2e5684558ed ("iommu/riscv: Stop polling when CQCSR reports
-an error"), riscv_iommu_queue_wait() stops polling when CQCSR has cqmf,
-cmd_to or cmd_ill set, but then returns 0 as if the waited-for command
-had been executed. The hardware stops processing the queue at the
-faulting command, so an IOFENCE.C queued behind it has not completed,
-yet riscv_iommu_iotlb_sync() goes on to free the page table pages.
+Hi Damon,
 
-Return -EIO when the queue stopped before reaching the waited-for entry,
-and keep the "command execution timeout" message for real timeouts; the
-interrupt handler already reports the CQCSR error bits.
+kernel test robot noticed the following build errors:
 
-Fixes: b2e5684558ed ("iommu/riscv: Stop polling when CQCSR reports an error")
-Assisted-by: LLM
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-This was found with a static analysis tool from ongoing, not yet
-published research, and confirmed by code inspection. It has not been
-reproduced on hardware or in an emulator.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next next-20261019]
+[cannot apply to daeinki-drm-exynos/exynos-drm-next linus/master v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
- drivers/iommu/riscv/iommu.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Damon-Ding/drm-bridge-analogix_dp-Return-bitmask-from-analogix_dp_get_irq_type/20261019-165823
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261019085836.3065008-12-damon.ding%40rock-chips.com
+patch subject: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data field
+config: nios2-randconfig-1000-20261020 (https://download.01.org/0day-ci/archive/20261020/202610201309.w3JSXlP5-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610201309.w3JSXlP5-lkp@intel.com/reproduce)
 
-diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index 816d50c0f508..2a95cb8c9e4c 100644
---- a/drivers/iommu/riscv/iommu.c
-+++ b/drivers/iommu/riscv/iommu.c
-@@ -371,15 +371,24 @@ static int riscv_iommu_queue_wait(struct riscv_iommu_queue *queue,
- 	unsigned int cons = atomic_read(&queue->head);
- 	unsigned int flags = RISCV_IOMMU_CQCSR_CQMF | RISCV_IOMMU_CQCSR_CMD_TO |
- 			     RISCV_IOMMU_CQCSR_CMD_ILL;
-+	int ret;
- 
- 	/* Already processed by the consumer */
- 	if ((int)(cons - index) > 0)
- 		return 0;
- 
- 	/* Monitor consumer index */
--	return readx_poll_timeout(riscv_iommu_queue_cons, queue, cons,
-+	ret = readx_poll_timeout(riscv_iommu_queue_cons, queue, cons,
- 				 (riscv_iommu_readl(queue->iommu, queue->qcr) & flags) ||
- 				 (int)(cons - index) > 0, 0, timeout_us);
-+	if (ret)
-+		return ret;
-+
-+	/* The queue stopped on an error before it reached the item. */
-+	if ((int)(cons - index) <= 0)
-+		return -EIO;
-+
-+	return 0;
- }
- 
- static int riscv_iommu_queue_wait_for_space(struct riscv_iommu_queue *queue,
-@@ -531,7 +540,7 @@ static int riscv_iommu_cmd_sync(struct riscv_iommu_device *iommu,
- 		return 0;
- 
- 	ret = riscv_iommu_queue_wait(&iommu->cmdq, prod, timeout_us);
--	if (ret)
-+	if (ret == -ETIMEDOUT)
- 		dev_err_once(iommu->dev,
- 			     "Hardware error: command execution timeout\n");
- 
--- 
-2.43.0
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610201309.w3JSXlP5-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
+
+   nios2-linux-ld: drivers/gpu/drm/bridge/analogix/analogix_dp_core.o: in function `analogix_dp_aux_done_probing':
+>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:1669:(.text+0xb80): undefined reference to `devm_drm_of_display_mode_bridge'
+>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:1669:(.text+0xb80): relocation truncated to fit: R_NIOS2_CALL26 against `devm_drm_of_display_mode_bridge'
+
+
+vim +1669 drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+
+  1660	
+  1661	static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
+  1662	{
+  1663		struct analogix_dp_device *dp = to_dp(aux);
+  1664		struct analogix_dp_plat_data *plat_data = dp->plat_data;
+  1665		struct drm_bridge *bridge = &dp->bridge, *next_bridge;
+  1666		int port = plat_data->dev_type == EXYNOS_DP ? 0 : 1;
+  1667	
+  1668		if (plat_data->dev_type == EXYNOS_DP && of_get_display_timings(dp->dev->of_node)) {
+> 1669			next_bridge = devm_drm_of_display_mode_bridge(dp->dev, dp->dev->of_node,
+  1670								      DRM_MODE_CONNECTOR_eDP);
+  1671			if (IS_ERR(next_bridge))
+  1672				return PTR_ERR(next_bridge);
+  1673			bridge->next_bridge = drm_bridge_get(next_bridge);
+  1674	
+  1675			return component_add(dp->dev, plat_data->ops);
+  1676		}
+  1677	
+  1678		/*
+  1679		 * If of_drm_get_bridge_by_endpoint() returns -ENODEV, there may be no
+  1680		 * valid panel or bridge nodes. The driver should go on for the
+  1681		 * driver-free bridge or the DP mode applications.
+  1682		 */
+  1683		bridge->next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node, port, 0);
+  1684		if (IS_ERR(bridge->next_bridge)) {
+  1685			if (PTR_ERR(bridge->next_bridge) == -ENODEV)
+  1686				bridge->next_bridge = NULL;
+  1687			else
+  1688				return PTR_ERR(bridge->next_bridge);
+  1689		}
+  1690	
+  1691		return component_add(dp->dev, plat_data->ops);
+  1692	}
+  1693	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
