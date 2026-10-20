@@ -1,116 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497706;
-	b=hRUtyAslJKO2MxQdGDAXTvnUusmhcESJf/MhVcXaWXFiwyBzsgA0lDXLBm/v0p+Lkff6
-	 Gvlxe5hJL/yB50B1WprMsxdWgE0a70qAyYRg9qqBS5V2bj+Y0Wa+6cYVvPzkR5ZQfeVjp
-	 A9EDgRH6HI9MOhRX7tUmFMWioDW8nntYhbatlto2IMlAnHPd5i4WAJ1njrky4mEKOgocP
-	 gdOS3Sal+cOOLaXgAVfqou9qacloWx/4bXxiYfwFeg22be7y9/baTYMxoQfX3TxES5vxM
-	 iba/q0EpPpIy1oeJ4KJ19b9aB5CNGOxjAr68ufCewa7FWEG3yu8JTthtWivkTDKelEg==
+	t=1792497709;
+	b=WkkCwLcbi9bEta1iPEmAtyPrnK6/AjoIk2RtyZqAAHsgWpH5WH5GhvvTzXH1KUqMOS6u
+	 3hjyDmdZ59SJipt38i1AjFEI3MpeCu1LtCbm+wjYiSkcg3zWjD0ABqd+3rFH/Y/Wj/5Hi
+	 s/LWHm6FGNsZE+uDPrGVCoVj7BtGo9HqwR6UCECsUudNXXHGJVoWGitnfJhIemycVx2NW
+	 asPDVeFLHbe21om6gwAdlnFCeHveZHrFH8NeBNzM4RuZewOe8h94RX0tCs4P9HTynJgVM
+	 MCWU6QiatwTzUM4AoEDb6NTEmh/6kRc8Xbs6csLF0rHIEYIcNxfm3MHBBZ7bN3wg2ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497706;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=YoiKgrlu3jS2oBRKxPzmeURp2GOIi7ThEavPNJNThX0=;
-	b=5ifTrzunzuzly2O7jnmTCud0N3+o4D++Jyzk+E5+GlaEu4AsZEceFuj1vdEOUQF+o9hi
-	 591EvqKVX5CbWsaS6HOQS7hNRyKL146K0ES+5ez3jgEclBxbUW1G8XJzdCGzcTXdyQUbw
-	 TAsMT9/TtKrlfuVMgpC3ABpwB3k6y2Bq2blYdjqw+UVLEcUW7yfcx9tuAUEkD2KemPylG
-	 Or9z8XQPInRyoee1D582TxaQIMjeqkNIRwdAwb3+YfZxEsx5PKlTU84zyRWzePBHCHA7Y
-	 haWXZyKQI6wtUJGDyu8NRsLGY9r/9kOvqZwczlstUHhpoeENQfDTxZD1dvbyWh1h7Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497709;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=;
+	b=K8xl8wbrDpVVDsfF6B836l2Et36wzBM1V+Jmp5l/gjRBtUkesuoLYyJ7txvmvC/FE1FB
+	 3Rbz+B2jPquI9KS3fh4+X4DIfsyh/6tqilYvR5IMaGMIbE8FR49oGyK5yvYZSURnYWECU
+	 TF+JQDq50N2QZxnrpeNHgzI9E6mvufsb2p7WSckVdXjjINiNfr2pHTMRJIIvn4VnIwOCp
+	 q28pSEqiznJLKL/IeFPmHDFINlqMRu3SpQGHXQ7SV/VKoBgAS18miV+TMq2fxJmgWdvj+
+	 aY5BXPMy/89oI2QZyehf5TxgmigCf9u0hkwI9z/OIwDdkKY0vJetXTglVkobe6RCMdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=SQOsxBsX;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dKxBXOIN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q88+ZnaR;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F74606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:01:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F74606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259F3606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:01:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 259F3606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=SQOsxBsX
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso5339409a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:01:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dKxBXOIN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q88+ZnaR
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAxabp927041
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:01:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=; b=dKxBXOIN03woNdVS
+	thwtuYdNCsc4hn3wnVlabqxaHdpgaqK7nE08iVjEja9F7EEAuMrEMiKLOzAo6G9u
+	XSi8pdplwkzQQH9nTvfuSPpmdxJTGVX5Lwm6t0rs9hOGaP8eTExB0XFDrbjREgqU
+	9D+pBdA/bw6Urk4adotjR78tUp0jbKuGlKxcbg4aNu9UxeH3q0kjhj6UUuB9mjlt
+	DMyvtYDKd1EbIBhYr4cdzuvubU9Xb2dMf7/+PLjFMn//VX31oh0ecTLs5uZQSStx
+	Y5cVU1VXznvA55Pmesj2GDI0X4HQzNlB9ORilDFEJrXP5RUPPh6vS+9x7566/KfV
+	c01KyA==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5pabyg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:01:48 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eaabe26601so102620e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:01:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792497704; x=1793102504; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YoiKgrlu3jS2oBRKxPzmeURp2GOIi7ThEavPNJNThX0=;
-        b=SQOsxBsXEbXiKPJrnySY4R5dDFZGHbbd7tQBYHKByjD5Qp77xHQ8nVJyJOhC5D+O3Z
-         i7rrzT7JsvM/eWVn8EPuwfbjU3i9iX/FWfKiertquMaJ3mHTQZqAGQz0HH6t2zIQkR2n
-         xli52Qpb8MUcY1dAvD/neD3t1kujEy+8OgIi0ATFH1sZFAR06HsxB4UsxUR/qOqx62TJ
-         siNWEadl8OYvbrXH/U6q0M4iNLnsmC1X1hhDWSYQxM2TzgZTXBvI9DwHjx312x3aB0I0
-         80WNmZL3/YPc4LCV1JlHhGg3VHGeabd+btAAQZP2ap9Ueb4M/9vKMZtp7De+piGJmDlz
-         pGEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792497704; x=1793102504;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792497707; x=1793102507; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YoiKgrlu3jS2oBRKxPzmeURp2GOIi7ThEavPNJNThX0=;
-        b=neI0xR0G4nBeY3f8O1A+UsxCeI0WllR0VVyjQI6RvRnumoGuVsSYRa3D7F2h7h/qx5
-         qLyE7DPOXNUk6p/UWjrxhVmPyflkMsOxySL06PfACt/wFLObsPuhhMaXN9BInCO/cZxn
-         sEWIWEMBxdh3AufZyMtREBovEQUoBZ8GqqXAEvQ14iYO7ZJ2V0fOyws0FhhlOExSxjcI
-         q2zGTjW3tYdv7HyR/lLe+Jev1UtImtlhG3RK3MRUKurndPAphXQn7CmFaEswcVZUaAiK
-         0ooV05biiDenMbzxdGF4Xsn7CMcUIx21SuoC/lyIsRCt+uMEqxe+zkinfab//xN+R/lx
-         so5g==
-X-Forwarded-Encrypted: i=1; AKwUvByDqeqe7YNA8W9IAKERRm3fl7YAoXWY3lBkcZd7gRKxr47kzz1zVzuZA0wq36sIUarbssvSMg7vJHZO0aw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISToyBBJcUBfBEv0f7+St1YRJsfVRlDBr/ijOSqE0mUOwjsIdk
-	EZbv6B162y+oea450fNgb2kDuE0ZSkk6GcyvWzVcoeUkLVxDoXzAmyf0Uc3RtvqBFes=
-X-Gm-Gg: AYBFou0KBravzx2WWHxeDXPRzSsHHSK8Cl6yGisILELxSLUUcRdzXQ2uz5kuarOiMmd
-	Bbh2l+/Uatybn0Zg1J4YPtdVhdkcDWT8Le2pq6aXYdfn8dQRyp+v2gtPF9u7PMCSQXc44f5jyvn
-	Erib4fj2XXGhQm95kQ1kyVaK7vpbASULBh6FOnxrQYe0Rwu1csxYIX2gTabZNhxhqafBYGpiazo
-	piLO+cy8Sq4yHSQ9TROZNS56mmk+x+LphTBFmL6hXEsyJ7T18NFKS1gBBFXpvvlOV7u3MbcVg2U
-	c5DJUtQb9wcFGrmkeS+OGNK1E0FYcsu6qckPzjNkgorq4rMnoiSyAhTI2A2ztv5eu154lANC/fW
-	TMJ/lmSO0HMEwfNQ+UgoL5crSHSJxg8q4G5bNtOQi4sJ+naUsxzhRzDdhgHphwzcoIhzoglt8sU
-	rFKn5CNEeJvhFFW6HMJeIZExi81PCYonL4rRrQoSxWpJ/ykiCd8SRVeqjPKH/wjIGHiOJ4w1a5
-X-Received: by 2002:a17:907:9347:b0:c29:63f2:99bb with SMTP id a640c23a62f3a-c41a10c2ddemr789464366b.47.1792497703502;
-        Tue, 20 Oct 2026 05:01:43 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80fc6csm5503140f8f.14.2026.10.20.05.01.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 05:01:42 -0700 (PDT)
-Date: Tue, 20 Oct 2026 14:01:39 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: Zack Rusin <zack.rusin@broadcom.com>, Borislav Petkov <bp@alien8.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, x86@kernel.org,
-	Joel Granados <joel.granados@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	Dave Young <ruirui.yang@linux.dev>,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Pratyush Yadav <pratyush@kernel.org>, Kees Cook <kees@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Stephen Brennan <stephen.s.brennan@oracle.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Ian Forbes <ian.forbes@broadcom.com>
-Subject: Re: [PATCH v2 1/6] panic: Add a notifier chain for pre-kdump
- callbacks
-Message-ID: <atdYIxwz8ksYNty6@pathway.suse.cz>
-References: <cover.1790014793.git.zack.rusin@broadcom.com>
- <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
- <bc783856-9480-3944-67fb-675e4c11d8c2@igalia.com>
+        bh=21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=;
+        b=Q88+ZnaR2wCichGcDdqeujCnBTtgWfL7c0AujMKNkHQOV3jjlW6zFe8xPTwjrLVdcq
+         poZkNYnHg1prWqPkM4K/wc+/RM00Nhdyg86UEguZW6xiL/ZsHa02bNDXznMu1RW+EJFe
+         hMaA5f5sMI94ubzfrgLMx/oVKluEy+Nz3S6XAIHU31D6t4KS03iH3xI7UabMApd6n7Jr
+         wTDL412nMz69OlEfkh8Kl2Tz6OnYGTn7hKfOZA4prZZvAtUqfTLKwxCwWaPKt6skk6Oy
+         9kNNZYX/ES/sh2DKlRL3FC++4wpFqqKlsfah5Lq+28+sojKYw6xitGH66gkf6oCxvVhz
+         KpIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792497707; x=1793102507;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=;
+        b=iTrpZiezHCTRSve5fzeExsoA0Tef97vctRZA6zaWmnk8ZLevmgHDm9jcqynwXQDAjO
+         2dCg7D2m7jHfECDyXpo/h8NbxxA1tmbkn7HePHuC/qybjNbJYH9Vo5MLWmr8OyvHPFPt
+         n6uVflPIVuoDA0CTEvU7KT8RM8X7Bc93TlPwiHxUwed8uEJ2KynueUSD+oWBs0Y5NzdN
+         VNYcAW3FwH8gNbQfwRmx7Xr7R0oKBOX0ESLxdV33iFleA5ZYSvWGy5f2lqHe5N81gB4Z
+         oHGh3yAI735kSF0DVYs98RCfmKhdNjEfwygyA+1k44M9dUfjJuOa0hHrJDMbsuNzxLMQ
+         GjEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUUnmBnmEKc0+7w5DDFaGAi1ny6ytxlxenOwtZvyPBuvt8yGjsRzCFLtY2BIsoAFkQohAbY7G4F86gido=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIq3d7E9d8HX6RGCH1ozhaH8ii6+ku6MtEKTsFVJtE/BKEAm4dq
+	EwavRDmrJ9QYBzEnFgmmWNGUky8CPhqufijrv/6a02UvxXT5pm/5IUBnZ5K0m4vp4mTF2VZTvFK
+	sdOyQ2r3mwVHJGn0xx1ykP7oI7x3RmtJ8ChTtpCut78s3hT9IbR1JguamO4xFjd3iwsUMqzR8cl
+	A=
+X-Gm-Gg: AYBFou0y9vmF7GcBu/AboDwep34aomTdRVvbofUbTzMbpNNVp2yPoCW7A1p/BFgvIfv
+	SeVRRFtO5RdUXCWRbuJJGBjqM5se8fPpghQqa7oq+/8VbvO8FtiB4TYDH28e5v+7sOzzL9mtUMr
+	aGwixCozvITCDd1yE9P27xJXNvU2NNkyeH/r92v8005TAzRxEPd1G9Izm8QoILFPZKuiUagvH8D
+	uyNYZBFw2x1ibuvHYlxGsOPVJn+QqGFqKSBf/i/rEzGUEuIrjDtPLAsGudVY2h2RnT7NgHGv3TI
+	VYTJyixa8+64RvMCc6ORWbJCc0olKHMkVzGxnaUVLrbMdMyWGS0uduoYUy8kJrE09cxoKBOsjOx
+	r1D0hm82Dgo9GyDIq0tZI4g==
+X-Received: by 2002:a05:6122:4989:b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5eaaa107d54mr1758249e0c.2.1792497707481;
+        Tue, 20 Oct 2026 05:01:47 -0700 (PDT)
+X-Received: by 2002:a05:6122:4989:b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5eaaa107d54mr1758133e0c.2.1792497705320;
+        Tue, 20 Oct 2026 05:01:45 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32876asm481579566b.10.2026.10.20.05.01.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 05:01:44 -0700 (PDT)
+Message-ID: <268aff60-c78f-4804-8125-c8a6aa10ed6f@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 14:01:42 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,126 +116,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bc783856-9480-3944-67fb-675e4c11d8c2@igalia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] arm64: dts: qcom: Introduce lemans-embedded.dtsi
+ as a placeholder
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-2-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015023711.721837-2-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: B6lXYxKSmiE9lWHSvy5OxkLJi-f7p-hy
+X-Authority-Analysis: v=2.4 cv=fb84WEQF c=1 sm=1 tr=0 ts=6ad7582c cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=uVEy52KOV2DfC4Ai_b8A:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfX7NrW+ZdbtTT6
+ T3eXTy6x+gk8+oFHc0r5A2TyWDePSNzCdOC5bWv9dXmN1zMCotLWfvwYbpXLFouxUdDUsn+LpAF
+ MII4ZjORBNthHIQ/AlFGEyvrzSYsG5Rtpczol4UMKfuGhSXBrsTS5dKJxefvjMgDW2macSmtIHU
+ niS6maJquj1paLIpKILOjfA3yo6d4UigYSeC9t87WX5OB/Bzs5uZ+phYk3S8mj4nI6kaUOiXSM2
+ Fqx7uipWOR7CIafY9/ZNp8G5pbOkoOLmbXNICJmrVUlerYv7G6tCjtMMro0+7JWoXUyKshIcoux
+ 0QjlQGpTSjHMzvjmKrr2JMMhNbA5lQgN1+AncAhvA5xqRIFViGdx3OQEyxtTqRK3gtdd2HX4757
+ OKlAnBb7ReUNUgjbMg25sdNobha+q25Jspm+8BXmwaJ3Gp5NHPUja3ixjL+xHdzumeNI0quyUpn
+ H6uNh624Vejvjqsfhdw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfX06Fd4L+PmQBt
+ QuMoGr4VJMcAVuR3OjXdo68WxASXSUBqLVno47l28nCPYMuYWidE9BwuE8zXJnyll3+sGX4WIRb
+ HwkSrYAhNPBYlbI04UIwlzqGRR4nOCw=
+X-Proofpoint-ORIG-GUID: B6lXYxKSmiE9lWHSvy5OxkLJi-f7p-hy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ phishscore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200047
 
-On Mon 2026-10-19 19:05:21, Guilherme G. Piccoli wrote:
-> On 28/09/2026 14:55, Zack Rusin wrote:
-> > Selected crash callbacks should not require running every panic notifier
-> > before kdump. Add a separate atomic chain with an at-most-once dispatch
-> > helper, and invoke it before panic reaches the kmsg dumpers.
-> > 
-> > The helper permits another call from the crash path without repeating
-> > callbacks or recursing into them. Document that callbacks may run in NMI
-> > context, with other CPUs running and the kexec lock held.
-> > 
-> > Link: https://lore.kernel.org/r/aquttpMVKX8e6zGB@pathway.suse.cz
-> > Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-> > ---
-> > New in v2: separate pre-kdump chain, with a set-once dispatch guard.
-> > 
-> >  include/linux/panic_notifier.h |  3 +++
-> >  kernel/panic.c                 | 26 ++++++++++++++++++++++++++
-> >  2 files changed, 29 insertions(+)
-> > 
-> > diff --git a/include/linux/panic_notifier.h b/include/linux/panic_notifier.h
-> > index 41e32483d7a7..3ad390764a41 100644
-> > --- a/include/linux/panic_notifier.h
-> > +++ b/include/linux/panic_notifier.h
-> > @@ -6,6 +6,9 @@
-> >  #include <linux/types.h>
-> >  
-> >  extern struct atomic_notifier_head panic_notifier_list;
-> > +extern struct atomic_notifier_head panic_pre_kdump_list;
-> > +
-> > +void panic_notify_pre_kdump(char *msg);
-> >  
-> >  extern bool crash_kexec_post_notifiers;
-> >  
-> > diff --git a/kernel/panic.c b/kernel/panic.c
-> > index 213725b612aa..d78e90abb192 100644
-> > --- a/kernel/panic.c
-> > +++ b/kernel/panic.c
-> > @@ -82,6 +82,10 @@ ATOMIC_NOTIFIER_HEAD(panic_notifier_list);
-> >  
-> >  EXPORT_SYMBOL(panic_notifier_list);
-> >  
-> > +struct atomic_notifier_head panic_pre_kdump_list =
-> > +	ATOMIC_NOTIFIER_INIT(panic_pre_kdump_list);
-> > +EXPORT_SYMBOL_GPL(panic_pre_kdump_list);
-> > +
-> >  static void panic_print_deprecated(void)
-> >  {
-> >  	pr_info_once("Kernel: The 'panic_print' parameter is now deprecated. Please use 'panic_sys_info' and 'panic_console_replay' instead.\n");
-> > @@ -567,6 +571,27 @@ static void panic_other_cpus_shutdown(bool crash_kexec)
-> >  		crash_smp_send_stop();
-> >  }
-> >  
-> > +/**
-> > + * panic_notify_pre_kdump - invoke selected callbacks before kdump
-> > + * @msg: Panic message, or NULL for direct crash-kexec entry
-> > + *
-> > + * Dispatch at most once per boot, including recursive entry. Callbacks run
-> > + * with interrupts disabled, possibly in NMI context, before other CPUs have
-> > + * necessarily stopped. The kexec lock may be held. They must not sleep,
-> > + * allocate, wait for other CPUs, or call into kexec management operations.
-> > + * The message is read-only and may only be used during the callback.
-> > + */
-> > +void panic_notify_pre_kdump(char *msg)
-> > +{
-> > +	static atomic_t started = ATOMIC_INIT(0);
-> > +	unsigned long flags;
-> > +
-> > +	local_irq_save(flags);
-> > +	if (!atomic_xchg(&started, 1))
-
-It is far from clear why this is needed. It would deserve a comment in
-the code and explanation in the commit message.
-
-Well, I am not even sure whether this synchronization is enough.
-If __crash_exec() and vpanic() are running in parallel on two CPUS
-then one path will skip the notifiers but it will not wait until
-they are finished.
-
-But I think that the problem is the explicitly called __crash_exec()
-is not synchronized against vpanic() in the first place. IMHO,
-it is an existing problem which probably should get fixed.
-
-> > +		atomic_notifier_call_chain(&panic_pre_kdump_list, 0, msg);
-> > +	local_irq_restore(flags);
-> > +}
-> > +
-> >  /**
-> >   * vpanic - halt the system
-> >   * @fmt: The text string to print
-> > @@ -682,6 +707,7 @@ void vpanic(const char *fmt, va_list args)
-> >  
-> >  	sys_info(panic_print);
-> >  
-> > +	panic_notify_pre_kdump(buf);
-> >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
-> >  
-> >  	/*
+On 10/15/26 4:37 AM, Shawn Guo wrote:
+> Lemans is a Qualcomm SoC family that includes not only the Embedded
+> variant (IQ9/SA8775P) where platform resources are managed by HLOS, but
+> also the GearVM variant (SA8255P) where resources are managed by a VM
+> as SCMI server. The current lemans.dtsi covers the former variant only.
+> Introduce lemans-embedded.dtsi as a placeholder for now, while later
+> changes will move Embedded variant settings in there and introduce
+> GearVM variant support.
 > 
-> Hi Zack, thanks for trying to improve this conundrum called panic
-> notifiers heh
-> 
-> I confess at first sight I got a bit confused, and only after reading
-> patch 1 and 2 twice, things made sense to me: you're hooking
-> __crash_kexec() directly!
-> 
-> So, in my head, 2 things that would make sense upfront: merge patches #1
-> and #2, and comment a bit about it in the code.
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-+1
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-But honestly, the semantic and ordering of all the variables and
-functions is very complicated. It is very hard to follow and
-understand all the rules.
-
-I am going to think about it. But I'll first comment the 2nd
-and 3rd patch.
-
-Best Regards,
-Petr
+Konrad
