@@ -1,132 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509225;
-	b=QNNiCRvBEA6CTAmJYVpqIc78jfYVU47hszM9vXzJvJezm8Tl37wD5qNHjJ2/PX5XfZgR
-	 JVw/Q1wyRGkaVraMdIzPAZay3+BcugXZOwtQBvXQ/xXYLRXCHw3efVPvaJZeQGrWIE38p
-	 lKkx5t8CaWUCnl8Ien1R5WC6PnrGKpYWOO8FmpU+E4tSAMQbl0y0NRbZhKNh1WsFXhoQw
-	 R3EsVPX0/DLihbDxvDx36y8C+lAMazSLCqzZ3Vig1EUyU7a8r1/vYA8WWJb+jFDRq7ICK
-	 RIR7lLUxFxBr+IEwLwJvSL33a0jZR9116nI151Yx9iteUkwH6ECftRnRf+2sGpTQXFA==
+	t=1792509226;
+	b=R6SWB8cHiDwdEeKJaVOlYgyrAZrf/bkyFOtQW+GkuX5x1zx49wIZvQWPPc8YpXQviCIb
+	 QrYryoI2U8M41kBt7TIXZlYnGAJxBQZk2z5BqfYAoyMYEgmbS5NNHIr/06QfLs6d7bm2C
+	 B1gePSKZiKKLHVMRavWuZkbq1QDTkBEkK7MsiEC/RHo8pGMDR9U15X3YlRLQ1gUPbGPoi
+	 6QJChakwmfa0cnskpklAiolehvMuYkJcRncJlJ5vaUQgJzSbbGjZtXWobAuPZlJK5uRNd
+	 l/mZ7m+0Yd6UQXtvBPvhCyPsNX67l/lO4MLHk8Mq4okCUK5nI0aFsRLZ1c+5qhGVO1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509225;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=;
-	b=aMn8FYsfokOvnyiVhTEogCHiswzDlFjRXLY4w/8e16CH/pATsW3q1yYjHFlqPPCnf+P6
-	 d4PqbaI+PwtZgsjcMq/eo0NlhRPqEHN+Vs52oY8yK6K4QXZE1ybttCop24EUTdU1FHUmd
-	 N0/QWpBYrPMY1vT0ob2VXxdlcQltNafZiWgjG8637ybAo4uvCHa+bIaXSV3fsBIUQ9/A0
-	 CNlFVgBxjnPmbQCo/1388MomgOGc6mquAd9LjFWbBqd88mxIL4VqLKDbNezkpwNhuJaUd
-	 jo0T2BM2JXyEWYy3/yaqye4ZRrFks5r5N22s+9EsN3iju1Ec1qf1BU9L5dXnBFOrvsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509226;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=E5glhVrwj86spGywngXr0iRHfq7xQsmGjowFr/WZU4A=;
+	b=sfGS/ftjGtTfsJW2HAHLlSxHhQESIf/ffB6pQGk3s/3PMXcvrvw36MpzCcFvpddr9wVq
+	 xMZrplGxFY8rAnrBf3jJ70NTN2sVeND3syDaqAmPN3X/LwwyMc0vviM+X/o5CgVWp63sS
+	 evy+pAxRG0HVambWn9kPZ6KoaudsHm9nqXOzjPMQA8RuSj5CDly7RuO3EgF/fSYTYONjw
+	 /WrGySfQOLFoaxnVD76uJJ3LuPYIV0K3WWLd7yKAIpBFkj2doysutbtCk5s0Bj2VnL1q9
+	 kixtqwENU/l9hrpZCa8vfI6860FDVeu4n26GV0Jhhtrn2ULaX89/qBfwthMUfhSdMXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="C/vDzz61";
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F20C60A2613
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F20C60A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 74B0B7A00F5
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:13:33 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 20 Oct 2026 11:13:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792509210;
-	 x=1792595610; bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=; b=
-	M9tHlsltLlgw8brJIvmPNECIIqpgNSnV9Aufv+9Q/YQR5XCQxNS74hm7X+uiWKf+
-	r2RQNVFAkLu2UCbxuGYFHDOF9/v6jUpjNfYZ0uFnXRW1ErREow//PtDs1a2LgszU
-	pmrS6MQ70VSK5S5/sDWERsbWHCE48RDZz3xOQyhFs/nwOfBji48iH3bcHi+FloAu
-	0m3UNrWCg/A2ZVa9fhdLU1ivMoup6KWo0gqQeHZe+1OEw78Vl9fZrN8S68hcb3PC
-	I2No/U/KESQz8ffh4/L/YHalR6jT4wNDjnFtymJh42yuFhoaON06Zjz4mcqk5zfG
-	2zGSRmcFt/DGqQbYdvmz7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792509210; x=
-	1792595610; bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=; b=H
-	a+Oa72JoYaPNulergz8Vd5ZAv5El0DBJBfPwrT+W9h87CrR4EofXeAGQX3E0G8kC
-	NiQcCMrK71JtdrEhr0WY4qf3HSwYX7eC4NCAGq6YnNndrUH60nBjsCdZbgbLXLMe
-	XkKDuk2l6F3U5vDa7KX2xhn6V+kOvkCFnIFY3DYzCOMHOEw4Jgw4BsWVTwX0vK+Q
-	dILdWkR7Orx4djHrH7CnxQQewKfc7HBcxmu+hLFijP6CBsAAFecryEnzMJ7ZA9iN
-	Gu9qeRobLTJhRFK/WJNfy6uC58RIu3x2u8nt1voGG0wbZo1Iiqdvtr1P8qImJcoU
-	sPwUkVGgGaJ0TiTA/4uRg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792509210; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:3Wh4ZvD0BPY24oUUYd6UyE3xJ7CJvUT3aLs70xquGmhilnf
-	HXy9V9p3QjT2Xj+/kTfBCsybBJEE4FizQqnaI/FLmh5ScvKcKFvUUtPSyYBXWlI2
-	BtvyHMYV1C4pdK7fiiSXn2NR4XD9u4P6rXwcNDXBiVt2xnsl18uhdsBpIfgO4Y1/
-	fwzY0REV8B8Mdnoe/rviphW40AQnsXnQLLNypu+d/83SQdkto9bPa+NeOtxb9/Xb
-	4CoXT2pzgUXAEVvs/iAOrNwMyyeCjkRLAkNCpiRSoxp5rRb5CKA/xpGkl96rCClh
-	VjYroVc9ShrqV2OXBSbKdgf6EbGFAPJ+8dmOLUQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:x6UoH16gURO7uNaEzSVSnnyT7fiCt2A6Q/EVxz0TqeY=:k2n1M8WM0uQ8ddJeYsWll/h/e8ny+5RBdyAfFdbkmOk=;
-X-ME-Sender: <xms:GoXXauZvwpfFcLL-YMIeiPXMeN17TKhhuiTr3CMrjX7NypTaKMea2g>
-    <xme:GoXXalWQhLgflFFbB6B7VSrcgA4XQG8sa5_CxEqQ6lkAYxvJGNydThokHEt0Kd6YI
-    3G9IaxbzymGYWRvC-4yTRh9IeFWnvcfeoS0FzTMQ4iNMehmAeOm3N8>
-X-ME-Received: <xmr:GoXXahcSN7dhSBTrJ5jB2YSaOXAisCe78Y6qrQbHkTU03YAv7z1vz_-sSE28gg>
-X-ME-Proxy-Cause: dmFkZTF781+OrsKyKgKiRJR6hUf4rOKz6QH6MhRz/dGUsBKW8dVXANdVTYJvd9I2M1Em0J
-    ntb8Q/VPXfsQlOyOmgO7UlmKg5nlLjY5MLTCPVBXDZzwpfNXtJQBRqG+uqKNvnimFs8omX
-    NbYKPofjgmmrHKRQ0PEt5abTXCvDu4QqG+70LRFtPhbTp/bF4uSYRUEpL0dX/M2KtG2fIe
-    6TzxzRRfwdRjIOo/0ePJqF7Ghyyo3cSRbJQTfr3gxXCMrDRnX+ycEDsPYiNgVbs7+WvPTM
-    X3rwBiFzgyUOnVb2VpybTiXuIO0AhiWs4CBKeRku1xbRknd0b7OrWBGur3xBRANIiI1oq9
-    l/fGSakfL3BFWEPT7znvBQdywUSL/kPWJgL3lbAMFwNSqYatJdrVV3l5JbF7Lhtz06Ad3e
-    PQojYG/WZYeJlGLA/mztvHnREAEblQOxi8hx/ZXtN3QTOk35uDKc7Bjsy4Xraxy8NVzccu
-    uFOc3MsykYs6+Lip7NFlaWELQAfel3Iv2V5Mt4HvmsuiQFiak5Z4tgGYunGaaMsOauzlX4
-    854Y9f0jyIQ2v0k0CG0IXcMgVYstJbrVFWOIihDISbxvK9r6wvQl63OQYlndnzK3cowV+G
-    DmtRKn9F6h4n+7wWgrswuN+oGLDoc8QFjojckSCCgUatKs1k4QjBf3FH64PQ
-X-ME-Proxy: <xmx:GoXXaqNuw42NB2jAicJhqF5QvCRhyjKy-GoGfoI8Fxe025FPzU6Pgg>
-    <xmx:GoXXahLgqBhkSScTPmFipkJPPQHMlew9D4bDAKoS_AXcNQ515lqG3Q>
-    <xmx:GoXXaomlGGWPhmXIZAXwmKp_Uvy-t_uQxGt-apbJ9OtpEuQlV1ae5g>
-    <xmx:GoXXaoa3dOjnfc5WG1PvG4M_BAUlXRn_sl-SvPAVK_HO4xI25lEZaQ>
-    <xmx:GoXXag0N2CAD-RSrji3mMAh0jPzDb8JkTsDaC3weXSh2ayhT8aeibPXS>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 11:13:28 -0400 (EDT)
-Date: Tue, 20 Oct 2026 09:13:23 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton
- <oupton@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jean-Philippe
- Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- alex@shazbot.org
-Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
- CPU MMU
-Message-ID: <20261020091323.3c51258e@shazbot.org>
-In-Reply-To: <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
-	<20261015142552.4128028-13-ryan.roberts@arm.com>
-	<20261015164421.GD13920@nvidia.com>
-	<95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
-	<20261020140944.GA3008132@nvidia.com>
-	<c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A2F60A2638
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:13:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3A2F60A2638
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C/vDzz61
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b3f7763d88so541517a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792509224; x=1793114024; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E5glhVrwj86spGywngXr0iRHfq7xQsmGjowFr/WZU4A=;
+        b=C/vDzz61rPXNX7mDqmExCQnBURVABP3blGrcJlLFnws13sNyQsJzyCTqcEDWeyQXev
+         b1iehKcWPYyhDjou6L6ZqdpjcMVUYXQ8JlCwj91MCRkr0mo5t9vRsyTRs2bUV5lKJOL5
+         VrmLR4WEMUke/zEM2VNxij1W0LUBsRPNwqAs/oCDodYDQRq6P3E8e+c21VIIDkQ1H7vL
+         T4QoQmCPxsOcBdBaeKZ+yE89L+SCx07HOQUp0elFbUUf8JTZxrhBM8G+R9aEDrfyCJyq
+         +oV2Gqx6WVMBq5Jtk0+tCD+J9i6Bv4smnBOsgcwAla2MDbVYLa+wt25XpM1ChOJB+CXt
+         R0/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792509224; x=1793114024;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E5glhVrwj86spGywngXr0iRHfq7xQsmGjowFr/WZU4A=;
+        b=u+nWFsPrCLWI7TycFTEFOrmCSmuIhev/2UJe0D9Ns2i0QEVqwDlQhpd83bjZb4W676
+         pBApMs91b409RrBNWSbLCP8GBoZT81WtxbXiI2Pkze9uWvaqCkTPh3p/QeUlcbbpF/lD
+         7l09X2gousa9OCwjEmO4b5Yi1zdKPC2BTmZCyOIaPqNxJudGIrMwCfMcPyT1U/9VrNJY
+         ihlxcV5/ykmFszM56JLfrsk4LSvSNBqiDxiCSDcSBv2Ka3uT0EI+k8sBy7DTQ2YekzNc
+         ED79nBfpIDW9zFxJth4lHUSTaz3fi5uVAGiNX7kTG/espJi277M8Jn7B7OhTQGIC1eMr
+         n6Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBxORH2emKEz5od9sDRp+JmHlUKKFDMFN7y5eZfveGw/5JOg7NAhakogvft6FjWKQo3AuBLdDLnhF1AeXTk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILdIIwlMqOHe8Z4WvuZRIJHWaQ3XkvaKUohTHKEEoP3+uyiZTL
+	X5t9d2i9ZSouHzHNi+Q/br5ndFI6ogi8cAukmQuxFBDTzN1QojkAkhpF
+X-Gm-Gg: AYBFou1YiMr4eLjHIjxG8a4ITMpblcPBaqjtBTxL5VO5L5Kale5wrsIAZi357C1+KvE
+	+9p6Y+SYv9e74k10g0JWqQ/z2cUpyHtSfv/JZypQ5rcp745K2PjZ/ENTVFlgwu6VE0jTAfpbtbl
+	Lb7/8oRpMvoMOZnAgfRMWJwrlM+ebBA1iFtmuquH9XkV0S6wYOuMDgG0K+7I6jQJA9iix+JeyCE
+	5WeKO7+DW54eD57Xu/jqtCqpBGAhjWRP8MqfWWXBH5/HLHsbcuAz6AhRy++L4zG/cuwypc1KriE
+	d/1mxPf08xEGSzkyqARu7+RKC5czzilO4YjUe49FFRUZt4+MaQInKS0oCTwIJ8W3ZBXIs4ZsIoE
+	20pj7PrO6EflrKD03O9oYke8YQIlHGzCwf6nsLHmXCCCuDumxy8/A+1jPmXO4d5fD+UnCmpnhQU
+	047uUdVHyQeRePj+pJQBscQD5BB1fSuMJO3uw=
+X-Received: by 2002:a05:6402:c549:20b0:6b3:d0a0:3743 with SMTP id 4fb4d7f45d1cf-6b3d0bed948mr3136938a12.7.1792509223944;
+        Tue, 20 Oct 2026 08:13:43 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1b285esm5091427a12.8.2026.10.20.08.13.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:13:43 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Tue, 20 Oct 2026 17:13:41 +0200
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm/vmalloc: read vm_map_ram block regions from the
+ requested offset
+Message-ID: <ateFJYagAJjvN8jr@milan>
+References: <20261017125244.b2d7134fa9697b2982cb8cec@linux-foundation.org>
+ <20261017231325.796986-1-nickolai@csail.mit.edu>
+ <atSM69faDNgmLNVJ@milan>
+ <atYRUyFHca-giQcw@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,40 +101,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atYRUyFHca-giQcw@gremlin>
 
-On Tue, 20 Oct 2026 16:06:37 +0100
-Ryan Roberts <ryan.roberts@arm.com> wrote:
-
-> On 20/10/2026 15:09, Jason Gunthorpe wrote:
-> > On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:  
-> >>> However.. you still have to affirm which single mm is the mm that the
-> >>> device is going to be doing DMA against. The process the opens the fd
-> >>> should not be forced to be the mm that it gets linked to.  
-> >>
-> >> What is the mm representing here? Ultimately we want to install the KVM
-> >> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
-> >> bound KVM instance (which looks like it still works using the cdev interface?)
-> >>
-> >> The guest will then install the stage1 pgtables and (pinned) ASID associated
-> >> with the relevant (guest) mm_struct.
-> >>
-> >> Do we _need_ an mm association in the host?  
-> > 
-> > Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
-> > this is using iommufd with a viommu to establish their connection
-> > between device an KVM. eg Jacob Pan's series. That's a probably a
-> > better idea to stay aligned with the common path. Though your reasons
-> > are a little different..  
+On Mon, Oct 19, 2026 at 01:48:46PM +0100, Lorenzo Stoakes (ARM) wrote:
+> -cc slopper.
 > 
-> Just to check, you're referring to [1]?
+> Keep in mind that this individual is flooding the kernel with slop.
 > 
-> I was under the impression that I could open the VFIO device through the cdev
-> interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
-> I need an iommufd at all?
+> We should be wary about encouraging this kind of behaviour. I suggest taking
+> over patches, 'discussion' will likely result in having to deal with a meat
+> proxy.
+> 
+Thank you for the input!
 
-The cdev is not unlocked to actually access the device until it's bound
-to iommufd.  Thanks,
-
-Alex
+--
+Uladzislau Rezki
