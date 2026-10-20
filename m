@@ -1,115 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792536623;
-	b=LCCtrDE/8Mfg+o8PxianKEpn3S25jT1DayRiMn4mC5IUi7aB7g6SSZyf+HaJDZGslBSV
-	 5mP3eJ+hPXINEt0TAFOSPMUAqUAVKqc0h6AWsjzCIlFoilIg2EYMZtW/zza1nsU2KP2N8
-	 2/ZO/dnC34YIIK2uNcGFnbjuAYnTCiwXN6/pOoOfHqb2Q9j8vT8P5juB3xEJEH9/1zveL
-	 wDYTIkfgyb8us8R8us/OZ7Ez2ZaPkklP5ylTYYwjF/p1TnKqN3Ak7gwdn5gWAgLUKY1y6
-	 I8WTxkWlBq6xaDsabgcu76ZQKDZnYZBosrys3hAWmIxBMnvEqX8tfjERlb6iTmMdzVg==
+	t=1792536990;
+	b=nUHX8mRCFoPgoeubhKNZ/DEx1JUHzjTwAedfsj8pgMqxRWSqEUIfbKizX1PHgKfldhzk
+	 pRmRRJHVihTEK2OCgNPGBO37TAAaFnm7QbKmEXL0g6GnrnE9CUwjCf3cELtVPJigq65Rx
+	 Ki4sjZ5g0w3Y3c3Sga0lvYMCJLIJxIywEimJqtslkW6/RnwhPY7L4MODLsvbyuKS4uwdk
+	 yZeleeI1QHrsBW2EacyVjajzbDTNJdVz4FZECYs6UUjSBsuv+RN+ytS0QLQpg2OJmUZ+d
+	 swqQ69XPW1YlhtmFVkSwoxIcdkz6CpYhhkFoiNObMW2Ky+E/9CpQN3ROrOLQuQBXAwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792536623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792536990;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=s0sFZviiuD58KoKuefE1C//igVvTgzZQdIYejlrorjA=;
-	b=aHIKmBgRorIBxlaZLfg80cERwUHYS0lOJvQ9y/hcOlgcWPyXlGOsEw+Xib0AWzNEjQES
-	 3Fg9M2lfT6rhOaJkBdaNdXTyWV9Azm5iNbkBUJXnSluztI2cb8aI6l/Ok7dXmO+NI1Ori
-	 0fVa/D4IC90IWXa6Lx0FEbrnLQ0dsAafADYYdqWQv9sKvSQGbqr2lOu9BwjaosNLQRgdm
-	 x2gmrh2SZD5jNJgvXw/84c1K0XiiIC8BOyxM1jdb6Otr6cWdEJd0xKF7Fsp51x+BAmYQb
-	 REZ4UXWQ/EydDrfsn5up+tLw3HGTj+WIstUSeiZRI1KpCz9zHfeyEASWetD2UxP3Rag==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=o9/1Vdfc6qItRdx7itjgEjHvEucc/+7NS14fKDuSA40=;
+	b=N1+BuSjc+LrrZfz7dzDEsB8qYUC22Ua3n1J4vXcL5UXyU/dEpcOShu4oO/VGuScZ3phI
+	 BGzx8GeklSQy9oz/zqZhBrEeEAzPpBk35iub6RL28ppzDAEJOo/qamXnhZO1NmTllLMsh
+	 UhB21WNZpyE8nugZ2uzMsJx2ZMRAaPatWfawDjtqcJIwoGTN2zy69XUtMIh/dWitGkeI+
+	 FXnSN6gLclpw3lW/CWE3vBG+0F2mouixWWHHIpznUYzyu8+UAi5zj7jNM7J7eSCcDCfqX
+	 WWEyTVznFx71+sJ/Y7Nr7EXvP+jVw8cNyn8M+Iui9xS1M7jPbosHFMVQRShK80GmgTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fuL01yBC;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cK5EQ2jj;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CC060A3825
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:50:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59CC060A3825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AEF606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33AEF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fuL01yBC
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so659395e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cK5EQ2jj
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so231586a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:56:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792536622; x=1793141422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s0sFZviiuD58KoKuefE1C//igVvTgzZQdIYejlrorjA=;
-        b=fuL01yBCCOgff8Fcjtg40uzwGWns4yu2K79aOgLmuvLPTIqIq6xfOwGY+eNrV9NxYB
-         NuLHXc6OKmZrjivF7l9UL8tnxGToPClQgFvUmKZMSX9ccJDpurVRWobpNkBCtnmcNdUB
-         aQBh1L8VU/HjBgiGcJVCFs8z60tJMgw0CIfCS3TebzUjoMpedcSRCxPnL46oPTfekM/r
-         EAtK3JGq6+2HquC1sETYjEiKdU2nyybu/oRxBP5t5d+kfuC6EVRuAOXmVBxFkmGmxVXv
-         ZKdQvz79m7F99pOrPsWabv9/wRorRrzeQu6l+DP8GgJvbkNo/joMAomOB14jA7mMTEOo
-         rlPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792536622; x=1793141422;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792536988; x=1793141788; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s0sFZviiuD58KoKuefE1C//igVvTgzZQdIYejlrorjA=;
-        b=V+A3fjZaWwr4J9sufLtsr1H/ZI4gVgnc7kyk+bp2RsxVwUelKM+qdEDim69sxOMYCB
-         Y8RPQuLW2jEByrIBqHUkiki/jdV3tR5dCKYXt92/ppaQ13c46beOFvyzRKPrypSHw9GA
-         4c04V5h2iE/WUq4gBU3VGzC4Wh6Hrm1HHipfpb1DoDUE1j1llzHkaJrV6lbbPQgxu04v
-         PbevS96VtbYvxYe0yucCq3ltu9RTZVfuDyX52PT4eRNsKqIUQD6iFPr5xi0sKHJyQw7G
-         r1hwnXbbqVh1iNmKp1x6G97FKj+IPsxHyRpVrOpKe4/AgQjBrrKLL+Hi8R8q119vJeZe
-         DGqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwpB+64XgUDpN/nHYNlQ5WPNVJqh59QMmSHOaT9bvFs7nmgT0fVeNPkW/GDEkaR0oVbwQw4nmwKMsyIwU4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLF40MYKTDCRD24/hnn0C6jgiEVIOSh6w1cWSuPMNiL6RxZ8Bwj
-	9kANA6vVi7ml5Qd/Th5IooqwAaSUUo6rqOxx3sWS5DUyakLO7O/X5EBi
-X-Gm-Gg: AYBFou2Ou2YgKUXOJdY4C9XMLoyMzRBY7N5cIM7MF7wixNoCKMIPRXi27NKQAOAc71R
-	iUbb1RFQPaQSeZW2eakyEESRkWOc3zvKGWZrOqRerSHoCOkajrvt/RCqR/TY9SibrQBsoDJ4YNO
-	/kbHuz11vhfWkBgvdj72pdwCQbTSG0TfGcPklnfjyP1tRYsyyRPQd2BfuL0hSYoG41R68dyoYnt
-	lR2ac9XSk1B7LSw/4c0BhJRk8e9Th2O5s4ZjDxC5Lib6lfubFcwdw0FdEBtEh9WA4wucyO1I+PA
-	g8sc29QGddLy6mXhc3G85qGmDx8sscY6sWCH4Pzzi6d4vPvnTuKsXN5R+HJhr2TgLhn+FM/q/GA
-	KjeYsgzqXvR2waO33tJ9+IGcK4iuk+WnLoDtgBzxHtROzdPPttIuOW0AHbgGV9vlR7QCXSsVjlf
-	o+BIgkUjc3pwXIOJj8dEzE9g8yINgH72iqJXD0a28VZeqExMz7PIkJgrFd7rT/zGtpyCeAytja8
-	sGjt3OZ0vkBd8VAIyhutCkR
-X-Received: by 2002:a05:600d:8646:20b0:49f:bd3c:bc24 with SMTP id 5b1f17b1804b1-4a1fdd5b101mr1644285e9.31.1792536621644;
-        Tue, 20 Oct 2026 15:50:21 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm17511805e9.0.2026.10.20.15.50.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:50:21 -0700 (PDT)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Francesco Valla <francesco@valla.it>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-embedded@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 12/13] drm/client: splash: prefer what the command line asks for
-Date: Wed, 21 Oct 2026 02:50:06 +0200
-Message-Id: <20261021005006.2341200-7-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <45b55f94-0cd2-425b-b985-ba3958502b06@suse.de>
-References: <20261013093243.505776-1-maximpedraza@gmail.com> <20261013093243.505776-13-maximpedraza@gmail.com> <45b55f94-0cd2-425b-b985-ba3958502b06@suse.de>
+        bh=o9/1Vdfc6qItRdx7itjgEjHvEucc/+7NS14fKDuSA40=;
+        b=cK5EQ2jjmv9TWx/EpoTMgBjE7LLJsmO02wYj2udVbz2flT9O6R947nXSMaMF77NB9r
+         RbJUuV5z6aihecDp5oVgDEJO60Zv8NPil9JIC7rQ8cUSMHuUGBm6fVzlpsb2+zpgZNJY
+         hI9hzorpXnDaWUs0kqq6fnNqDPaU0UR5ueDnITpnx4YU+NY1mZyEgo75+STAojRxgkah
+         ySntzSs0+SopWX5MDih7y0HEkgw5RblxL+rMioXxO1OlqzQDIh+tvPFIuaJgf/fBLNZD
+         kRwzHsK5hZEb5y75BJaOWVbYvO4bbGymRbPEWX46sf507FGpcIsEbrxAT0lI2cNQkH71
+         68+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792536988; x=1793141788;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o9/1Vdfc6qItRdx7itjgEjHvEucc/+7NS14fKDuSA40=;
+        b=KmUV3n9KCuwOyzLw3hv7F8JkxZwstkmPJVlKNENMfEF5cqjMO5AMhE3ZfubKDGF7SC
+         U81K7V14ccxNKld5k+za58bhOugCRZoyIs/07c2GZGaJbO/rIw4KMv7QA0FP5hhGZ8xA
+         FvM/s5H3Vr1VYVU1xuMmfZhjP4t4mZg1eI2iHsG90znEn9rxd98wUWLNedCHoz+r7J+3
+         TTpThbZ8eilKxFd6YxAKEXs4GSKEnC9Ns9X+t7L3E/ldZxlFpEsEfih6R2LvL47xhPvg
+         JyT0TDhcd5SNxJxSJaR9GLqXugp10uKzgAqWrjk2WG5AcOvyxq7Gwgc+dEBW3WDdY2sG
+         qThQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxk2ShNXGYBqTA+Ort+p/GeMC+dO9lnU3zBkyl6CQ8q1ttIWZxxmWj0mCkiC90Bwqy0lH5+mdu/txkY1rs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhJ6OXhq/ruGAarUwewlngrME4ZhlF6vgHYUFHm3VHwRm8169Q
+	7M21grluhzOWDYWx4xn0IFkv+AwJj0+KoIiLvrSTeGAQeKcVQIS7zAwumCcIIyxe1dgYJfLjqMV
+	OfrUj1A==
+X-Received: from pgww27.prod.google.com ([2002:a05:6a02:2c9b:b0:cd6:2185:e87e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:39ac:b0:3a0:9640:8039
+ with SMTP id 98e67ed59e1d1-3ad86f454d8mr261644a91.30.1792536988210; Tue, 20
+ Oct 2026 15:56:28 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:56:27 -0700
+In-Reply-To: <f1f39118-2e1b-476b-9a84-ef7d56412bdc@tum.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,17 +77,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <f1f39118-2e1b-476b-9a84-ef7d56412bdc@tum.de>
+Message-ID: <atfxm7Tj7nYB_6Kr@google.com>
+Subject: Re: [PATCH] x86/hyper-v: Don't WARN on VM-Enter if eVMCS sees
+ VMFUNC[63:32] != 0
+From: Sean Christopherson <seanjc@google.com>
+To: Manuel Andreas <manuel.andreas@tum.de>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Thomas,
+On Tue, Oct 20, 2026, Manuel Andreas wrote:
+> With the necessary Hyper-V extensions for eVMCS enabled, an L1 guest can
+> trivially fire a WARN_ON_ONCE in nested_evmcs_check_controls.
+> While vmcs12->vm_function_control is technically already sanity checked in
+> nested.c, that check is only performed if VMFUNC functionality is at all enabled
+> in the secondary processor controls of vmcs12.
+> 
+> vmcs12->vm_function_control seems to only be utilized in the handling
+> of a VMFUNC initiated from L2, but here a function other than 0 will
+> just end up in a failure case either way, regardless of whether or not
+> it is permissive in vmcs12->vm_function_control.
+> Therefore, the check has no reason to trigger a warning at all.
+> 
+> This patch simply removes the WARN_ON_ONCE and keeps the check.
+> 
+> Fixes: 3ff8a13d41b2 ("KVM: nVMX: WARN once and fail VM-Enter if eVMCS sees VMFUNC[63:32] != 0")
+> Signed-off-by: Manuel Andreas <manuel.andreas@tum.de>
+> ---
+>  arch/x86/kvm/vmx/hyperv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kvm/vmx/hyperv.c b/arch/x86/kvm/vmx/hyperv.c
+> index fa41d036acd4..008a06924eb4 100644
+> --- a/arch/x86/kvm/vmx/hyperv.c
+> +++ b/arch/x86/kvm/vmx/hyperv.c
+> @@ -186,7 +186,7 @@ int nested_evmcs_check_controls(struct vmcs12 *vmcs12)
+>  	 * controls in bits 63:32, i.e. dropping those bits on the consistency
+>  	 * check is intentional.
+>  	 */
+> -	if (WARN_ON_ONCE(vmcs12->vm_function_control >> 32))
 
-Am 20.10.26 um 13:26 schrieb Thomas Zimmermann:
-> Please see my earlier comments on module parameters.
+I think the WARN is correct, this code is broken.  Unless I'm missing some eVMCS
+magic/quirk, this, and the secondary controls check, should be conditioned on the
+field actually being used.
 
-Same here: my reasons for keeping these are in my reply on patch 3. If
-the command line is not wanted, this patch goes away in v6.
+This, over two patches?
 
-Best regards,
-Màxim
+diff --git a/arch/x86/kvm/vmx/hyperv.c b/arch/x86/kvm/vmx/hyperv.c
+index fa41d036acd4..a1daf8f2ec5a 100644
+--- a/arch/x86/kvm/vmx/hyperv.c
++++ b/arch/x86/kvm/vmx/hyperv.c
+@@ -169,7 +169,8 @@ int nested_evmcs_check_controls(struct vmcs12 *vmcs12)
+ 					       vmcs12->cpu_based_vm_exec_control)))
+ 		return -EINVAL;
+ 
+-	if (CC(!nested_evmcs_is_valid_controls(EVMCS_2NDEXEC,
++	if (nested_cpu_has(vmcs12, CPU_BASED_ACTIVATE_SECONDARY_CONTROLS) &&
++	    CC(!nested_evmcs_is_valid_controls(EVMCS_2NDEXEC,
+ 					       vmcs12->secondary_vm_exec_control)))
+ 		return -EINVAL;
+ 
+@@ -186,11 +187,10 @@ int nested_evmcs_check_controls(struct vmcs12 *vmcs12)
+ 	 * controls in bits 63:32, i.e. dropping those bits on the consistency
+ 	 * check is intentional.
+ 	 */
+-	if (WARN_ON_ONCE(vmcs12->vm_function_control >> 32))
+-		return -EINVAL;
+-
+-	if (CC(!nested_evmcs_is_valid_controls(EVMCS_VMFUNC,
+-					       vmcs12->vm_function_control)))
++	if (nested_cpu_has_vmfunc(vmcs12) &&
++	    (WARN_ON_ONCE(vmcs12->vm_function_control >> 32) ||
++	     CC(!nested_evmcs_is_valid_controls(EVMCS_VMFUNC,
++						vmcs12->vm_function_control))))
+ 		return -EINVAL;
+ 
+ 	return 0;
+
+
+> +	if (vmcs12->vm_function_control >> 32)
+>  		return -EINVAL;
+>  
+>  	if (CC(!nested_evmcs_is_valid_controls(EVMCS_VMFUNC,
