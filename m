@@ -1,45 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505850;
-	b=D2V3LGlhpj1xU+dEb0PwNAVCl+62N6hLjDPP2nyePLHxaF2E2RNfrzRzQZkegDEAKZKF
-	 BNgu6IQShRO6ct6wJdGZEZToqoyIUeP3vZp8g8xCSKtzPOJPv8/3XfoOPuD0BjaonxT3Z
-	 +y+lmBaaLasYBpHuwDYPdnTKsFADF3Lh/oejwlt03r8wgsOQuMqa0c3MnAYxmVAH6kWdP
-	 7rpB5eTK0aVpzIRGgjCyCfy/ARyIgApO9TEybgcTVtIuF3lxKVeb/lfB4IbfLdlBi51z8
-	 jKe3oixBMAEc4/EBaIaeqYF10VLTqbI4pe1b3UjMb07TxAkfOy8CB6K77sC1/N2KmHg==
+	t=1792505861;
+	b=cUwZqRKEuCzQG51yUOSHl64fKo0yXicDtKWZLigeZA0FZLuHMccRtOb0uI+RZ58Xbpxz
+	 47M7gcazK8CazLDDIdsGEQ+zXzsylDSj7W66JcgtGsbvTbaSgoFMyMRHdlzvDCrqr7Cii
+	 oaLrQxxhimdemLF+LeCxluVN1a6rPNbKeowHxX5xmtHNfkXAa272jicpKcI3tZV8PtQx0
+	 l0hCxvmI1vCa/RgfQv9BgEclJ9GdDmFLnIiwnMhXbpul7VHH4GBvXumvADUBLnuj6mpm9
+	 nRmUR8+ooKOnLa4Q0COw/1pBekV9ckytkNoJmIwAhZXcNP6BPRe6FhQzGfFE0aYlWfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505850;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=FIuwE2PGaY92yYLJg1ozwjEZ5BPB6OWvqekeMNIQNfI=;
-	b=4Ybui8Qtb29ovfAsyiSryVMHVMVnaRT9A5eisAEKe2ZHcKBntk40b9342yLv8AmIKkZk
-	 rTp82uwpD0OCTgdKMUGWep24f0HZQAfmyBpbhyAwhRURsgqWJ8g9uTcyiy14xpyR6AoxH
-	 vB3tUJfNs8V3zBjvsVFylEHfXsbaNwgZhPU+BaNgZoFup+alO4JOSREim4nYQAup+b7fu
-	 P1dpBRwcc2FO4HLW0w+4Nt20Wed5SGPMBg1/COotiq5ELEhvoJ79bw5vMYKw33D8r8onk
-	 VpCjPg1Hi3+tQbRjPUZbek+Zw+sFKrXujrhqIS1BNo8FFSSGmPhKMbFaCt8E6L2Ybww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505861;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=1NDBcYoeE+sSJBb2f8lqRgiwhotRgd/vtsQ8UHxnhhE=;
+	b=2ccbDfnNVd/j9AUhKJlsrm+jn4so1oxMEBiMgmRtuvAl1AbwKm6Uv2JGMOzDxIgOKnyP
+	 v4EUsyLKoGbs83ZVPL7nRUu+A2fDY+tGeAV2cxchZRewDqx0A11Y2+Kts0nZDMmNK3IQD
+	 LjyNoCQ2JgInAaeaEyiVwm34wiyLqh/TvbxeU25aB0ZGduH5OA7b2ubxQj9Ne0t+26SMr
+	 s1Y9FFNZBwXrIFnR4zRFTk+9Iv2ScoXry+9eElHIMcs8fg3v2Ivs0Mcc3Zgm+md4QwivH
+	 2i8WoJavJT+1ux1Bum6/h3S7lmEFXOd6nQ9+JgqpsRBl/itpeGn4EuhvVgKaiyy3m2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJ7w9Mqr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="HgTU9/O/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Eu28FxZz;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69640606C210;
-	Tue, 20 Oct 2026 14:17:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60002606AA08
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:17:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60002606AA08
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJ7w9Mqr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3E31F000C4;
-	Tue, 20 Oct 2026 14:17:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505845;
-	bh=FIuwE2PGaY92yYLJg1ozwjEZ5BPB6OWvqekeMNIQNfI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=iJ7w9MqrjN4iDtwKyL25IdnCbxJKvf/vyntFItkmZiejHO/sP9RNQpuZixRA/QSog
-	 NRohsavOcXGItTBv5W/Qkyn9pECDGfC8XEwmEP6b8yV7HlD/TbKYRMbsFZfnIleSOx
-	 g2dhr61kliGvJXYMEQmUf2Z8Vvea3KIKJHfr0Q+CqY7Cvy1qNIKlBH8jiLvBa1usS6
-	 LHl7C8d1p1kKz7ykACsdI3eVxKjeQ+8N1ysu6heJW8rwd0fnQ2t/zOgF6sgjrD1Gyv
-	 CC52sF/pssoA85IqWI2jUrhYI8GdJjBQkoaasM5PtgrMmXr5yYO5geUSakFRCum/kZ
-	 NymKoYtGsRFpQ==
-Content-Type: multipart/mixed; boundary="===============2483452175354941989=="
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HgTU9/O/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Eu28FxZz
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KD9sUn2809533
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:17:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=1NDBcYoeE+s
+	SJBb2f8lqRgiwhotRgd/vtsQ8UHxnhhE=; b=HgTU9/O/2Vlzvei/HDHzQCwgv79
+	5GKISE2mAhdmqyBEdXw/cwFJ/VAlbLskloD/kBgGq5jDV+gD11g5m9a5HzsR1qT5
+	P6E5BsSTxGg4YcTPSTxN1x8AlxoA2BQe6WlQmprZEWpxmAoBuO6Iqw6w244BbUfg
+	iXefClq6N94eTp6K/Ecw9PAVlOAN5GIdDGnsp6X9H8hufHhWuBCnlNvJ3O+doQP0
+	LjG+OJS1qeqFlHEaGyAbGB31cRyK4XwZXcl/7ZL4Q75aG85zuJtfKk1w45YZQa3k
+	TBwFAekXSUTtAcda0VPGPPGbEWEUNYQ1JuC833XfYvi730eAayCWvMsr+nQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p2v6q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:17:39 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f3969a2a7so389580185a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:17:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792505859; x=1793110659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1NDBcYoeE+sSJBb2f8lqRgiwhotRgd/vtsQ8UHxnhhE=;
+        b=Eu28FxZz6v5n7ZC3W4zlh0NH7x7mktgrXcL0BrCjfecE7jmnYpBxEHEIT+Y2yTL/4c
+         nq2HxIRQxCn4OezExFVZZxG03+qtFZfnp7jmFy+MzDF4FwS62OzQbXsi3xDKDw7vuHCk
+         ugmJpbfbO0/bVwyMLUicsJFK0lM38H/AlrWBesjMFIyC89mMKVnxN1Mjrd1KEzR/CmN9
+         imL7jAaRWKGur+ddpChpr8VKzJH45uV1an1scpGiXFgk40T9de/NY6pfmVuKn1KmseVo
+         cEV213h7yP9bdBXGbSgYRY9MLA2TIpWkqucvcU9y/82oEinHMhuw9BpGK/7GNvNAGB1T
+         qjuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792505859; x=1793110659;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1NDBcYoeE+sSJBb2f8lqRgiwhotRgd/vtsQ8UHxnhhE=;
+        b=xz0rDeykpRTS6NHnIt4pMLhzA8jvwVZt8yBs53uTQSMLqGPv+d00YhMob3TYh4s0cW
+         l11VqDkjSroD6AaP+PlRHnTuXyHOwuAnlj//EWzQnwqvHkEa+caz6Kw/PDOuuAykFXDJ
+         w6CkBt8ajfDOrH5POzjnLXEPN7+yW5C8uDJRZbULSTULH1IOnyl4LjTOHNrynC8YTK5i
+         oCTfK2pZsZyNDEUM3p0CIqfPwgny5sDN0PTAwh3KoghTK8aMRMHOhrmvNryGQFEBuvEb
+         xulFpKwvxIbRHLwoyjdhbDBqgc8GOHR/qJS0qwephUs4Dl1AJZpoIE8cH99BJ52m8sVn
+         ++Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1H+SkbmFqB8RbQ4FDBNLAvs2nJs7vsRWbv6dxG2YZIjp8xPl0KULBQpLi6GwrmT1cV3/o8il+QUw+Jf0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAJjzTSoE553wp/ZE/1LG7jhHet1veBRHydLAfUH24lHs9Krye
+	Nge9ztMNLVsj0TSrS9OYOMLc0miVMnpmzpQn6d7QqxdpbGPFmQePV+CkppZsXWkrKJYrahthmDW
+	yYnxDMENg2cuYz4O0GpaS3pCJJ1GedcdYNM+E4j7TlRyLd5p3pV4c9BSqgys0M3+5Xe0=
+X-Gm-Gg: AYBFou2MRz41QCOQI50ol/EBdSJm3PHLUICJlq6E4ii6lIC9BfiX8+LMibx0j9WGMz4
+	KA9g1JWJwYZUPS+h7pZjIvfJ69GehVFJ/ctQ+OViVP8+JsTWtREPYeWbpHOpE6c/gzgRHmJe+Zo
+	L16ybbeVNQjqNyfutA2Y6Y6+86l5wcaXevm4RXZf+uOep4KIidm2U57QjzbgQM6+zsDRBMGv0ZQ
+	vsMHsSUSiKovKMeD6H+6Oef6+48hZZyERkUda1wTV7pjZ4tiq1bxo7S0tKNHHC9Za/0YLbOE1GE
+	ui3L2IwZsZby5Sl6HQQjzh/n5kw0u/mhZOjKOPADxsmkAYJgPzTb9uLcskcei9H8SVZuUUj6Rcm
+	D2+ZaPiZCq3E7XzxA1M9PY4OMrZQ=
+X-Received: by 2002:a05:620a:c4f:b0:93e:6c02:d181 with SMTP id af79cd13be357-93f29cefaa6mr1839543885a.14.1792505858336;
+        Tue, 20 Oct 2026 07:17:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:c4f:b0:93e:6c02:d181 with SMTP id af79cd13be357-93f29cefaa6mr1839537185a.14.1792505857796;
+        Tue, 20 Oct 2026 07:17:37 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:4884:6e9a:d9ff:9fa6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d810043sm6642276f8f.16.2026.10.20.07.17.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:17:37 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org,
+        Thomas Huth <thuth@redhat.com>, Vasily Gorbik <gor@linux.ibm.com>
+Subject: [PATCH v3 2/6] selftests/powercap: Add powercap hierarchy creation API tests
+Date: Tue, 20 Oct 2026 16:16:52 +0200
+Message-ID: <83799bf79e85e9e2ab77140e632f11d96b17a04f.1792504834.git.daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792504834.git.daniel.lezcano@oss.qualcomm.com>
+References: <cover.1792504834.git.daniel.lezcano@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,138 +124,591 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <b3d8bb8499c3546d31a08e162fcca31042c7eac583c454d49db1d38fa42bc3fd@mail.kernel.org>
-In-Reply-To: <f7f725d0057be520ec5fb417f3f7d3a1e2c765fe.1792503001.git.xukuohai@huawei.com>
-References: <f7f725d0057be520ec5fb417f3f7d3a1e2c765fe.1792503001.git.xukuohai@huawei.com>
-Subject: Re: [PATCH bpf-next 14/16] selftests/bpf: Add test for arena percpu-only object
-From: bot+bpf-ci@kernel.org
-To: xukuohai@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,emil@etsalapatis.com,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 14:17:25 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: EecPtARHJX1DKNQ6iTT7bmv6crc5L2QX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NiBTYWx0ZWRfX8ue7fEK5YQL/
+ DlICkaS/GS8YFVanBDr2fqkP5s0Gc9gXOIoBC/ZmvNQGwS/6s6A/YzhnEwmgISdOldrSPYO6Oiu
+ xHFHA4Rgkk8ERTCVlKeNACDym2SjMRs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NiBTYWx0ZWRfXyjgMDqG+ZgME
+ ZHrk4FW8j6x+AMq1AroQKrV39VY1uakdXlX2VZAYEf2n80mplepOlbd5cs64HoyzWyOfmYzyEyV
+ pZmNdKjp73Tz+BeyANGSYuGgOrvujohP/vfrvp19XTVT0aFe2BDlXheRm80UiLQbOPPIj4kKAsK
+ Ivue8WLIWTiha4UP1zXeubsfGvaYzkNKhGjoPKj82bHSv2Fuev7ueA4nyT1EvUdiMf0foT56Xqt
+ uX07Rpqv1Kb5Vym7v1xALablRI9iRIn7LUpRnETsFcXvdEQ+R8DwPKtw4fv0nUk8sJFG6jaq5IL
+ LPTa56cGJfVUnQlg14AiHX92AfUlhoQvCU7OmxevcioxRAQVWBSC6CQwhB5VIZbqPiqLBcKHnTK
+ 43uR3mQyLMsE08i6CaXQBAHy9BPmo5Sr9HKZilE82trlVDAk+JKTYDdOUlxbOma1SEg16CoFDDd
+ cPch8qnegEKfgVpWR3Q==
+X-Proofpoint-GUID: EecPtARHJX1DKNQ6iTT7bmv6crc5L2QX
+X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad77803 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8
+ a=NQaYcpb_sPWQE13iVsoA:9 a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200056
 
---===============2483452175354941989==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The powercap hierarchy API introduces generic helpers to duplicate,
+instantiate and destroy a complete powercap hierarchy from a static
+description.
 
-> selftests/bpf: Add test for arena percpu-only object
+Add a kselftest exercising this API. The test builds a synthetic
+powercap hierarchy composed of a package, three CPU clusters and twelve
+CPUs, registers it as a powercap control type and checks the zone count
+and selected sysfs attribute values. It also checks that the controller
+directory disappears when the module is unloaded.
 
-TL;DR:
-- arena_percpu_only.c lacks an addr_space_cast gate, so in the fallback config
-  the store may hit a user address and oops the kernel
-- test skips silently without a reason (minor)
+Exercise direct static creation, duplication, skipped clusters and their
+descendants, reuse after partial destruction, and repeated creation
+returning -EBUSY without replacing existing zone pointers. Callback
+checks verify the controller, name and backend-private data supplied by
+the helpers.
 
-> diff --git a/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h b/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
-> index 82aafe879fae..7cdee141764e 100644
-> --- a/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
-> +++ b/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
-> @@ -35,11 +35,13 @@
->  #if defined(__BPF_FEATURE_ADDR_SPACE_CAST) && !defined(BPF_ARENA_FORCE_ASM)
+The test consists of:
 
-[ ... ]
+* a kernel module implementing a synthetic powercap hierarchy and
+  dummy callbacks;
+* a userspace kselftest script that loads the module, checks 16 zones
+  and their power and constraint attributes, unloads the module with an
+  attribute descriptor open, and checks controller removal.
 
->  #else
->  #define __arena __attribute__((btf_type_tag("arena")))
->  #define __arena_global SEC(".addr_space.1")
-> +#define __arena_percpu SEC(".arena.percpu")
->  #define cast_kern(ptr) bpf_addr_space_cast(ptr, 0, 1)
->  #define cast_user(ptr) bpf_addr_space_cast(ptr, 1, 0)
->  #endif
+Use powercap-owned zone allocations so registration failures are cleaned
+up by the core. Build generated module files in the selftest output
+directory and extend the common clean target with Kbuild module cleanup.
 
-In this fallback branch (clang without __BPF_FEATURE_ADDR_SPACE_CAST, or
-with BPF_ARENA_FORCE_ASM), __arena_percpu only selects the section, so no
-addr_space_cast is emitted for accesses to the variable.  Can the access in
-arena_percpu_only.c work in this configuration?
+This provides a regression test for the powercap hierarchy helpers and
+their integration with the powercap core.
 
-    __u64 __arena_percpu counter = 0x123456;
-    ...
-    counter = bpf_get_smp_processor_id();
-
-This compiles to roughly:
-
-    r1 = counter ll
-    *(u64 *)(r1 + 0) = r0
-
-with no cast_kern() between the two instructions.  libbpf turns the ld_imm64
-into BPF_PSEUDO_ARENA_PERCPU, and resolve_pseudo_ldimm64() fills in the full
-64-bit value from arena_map_direct_value_addr(), i.e. user_vm_start + off.
-check_ld_imm() still types the register as PTR_TO_ARENA:
-
-    __mark_reg_known(dst_reg, pos);
-    dst_reg->type = PTR_TO_ARENA;
-    dst_reg->mem_size = bpf_arena_percpu_chunk_sz(map);
-
-so the verifier accepts the store, and the fixups turn it into
-BPF_PROBE_MEM32.  The x86 jit emits PROBE_MEM32 as [reg + r12 + off] using
-the whole 64-bit register, while the arena layout in kernel/bpf/arena.c
-assumes that register holds only the lower 32 bits of the user pointer.
-
-Using the example values from the comment in arena.c, user_vm_start
-0x7f7d26200000 and kern_vm_start 0xffffc90001e69000, the store targets
-0x0000487d28069000.  That is a user-space address and not in the arena.
-
-On x86 with supervisor-mode access prevention enabled, a supervisor access
-to a user address goes through do_user_addr_fault() -> page_fault_oops()
-without consulting the bpf extable, so running this test would oops the
-kernel.  Without it, the store lands on whatever the current process has
-mapped at that address, and other user_vm_start values can make the sum land
-in kernel space.
-
-Every other arena selftest that touches arena globals directly
-(arena_atomics.c, linked_arena1.c, data_in_arena_decl.c, arena_htab.c, ...)
-gates that code on __BPF_FEATURE_ADDR_SPACE_CAST and skips otherwise.  In
-the same fallback branch, __arena_global variables need an explicit
-cast_kern().  arena_percpu_only.c has no such gate.  Should it have one?
-
-The underlying problem appears to be on the kernel side of this series.
-Commit 2e94f202e80e ("bpf: Teach verifier about arena percpu instructions")
-types an uncast 64-bit user address as PTR_TO_ARENA, and the jit commits
-a27c971d206b ("bpf, x86: Add support for arena percpu") and 0c3a9efd447d
-("bpf, arm64: Add support for arena percpu") do not truncate it.
-
-Commit 08224ba2de19 ("selftests/bpf: Add test for arena percpu bounds")
-loads exactly this uncast ld_imm64 + ldx pattern but never runs it.  No fix
-for this was found later in the series (searched e06485c3c3fb..08224ba2de19).
-
-> diff --git a/tools/testing/selftests/bpf/prog_tests/arena_percpu.c b/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
-> new file mode 100644
-> index 000000000000..27d4721c7ae9
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
-> @@ -0,0 +1,148 @@
-
-[ ... ]
-
-> +void test_arena_percpu(void)
-> +{
-> +	if (!feat_supported(NULL, FEAT_ARENA_PERCPU_DATA)) {
-> +		test__skip();
-> +		return;
-> +	}
-> +	if (test__start_subtest("percpu_only"))
-> +		test_arena_percpu_only();
-> +}
-
-A subsystem pattern flags this as potentially concerning: a test that skips
-silently, with no message.  When the kernel lacks arena percpu support,
-test__skip() is called without printing a reason, and feat_supported() is
-also silent when the probe returns 0.  The output only shows the test as
-skipped and never says that FEAT_ARENA_PERCPU_DATA (kernel, jit, or arena
-percpu chunk support) was missing.
-
-test__skip() does mark the test as skipped in the test_progs output, and
-many bpf selftests call it without a message, so this may be acceptable as
-is.  The skip condition itself looks correct, since the probe loads a
-BPF_PSEUDO_ARENA_PERCPU program and therefore also covers jits without
-bpf_jit_supports_arena_percpu_insn().
-
-Would it be worth printing a short reason before test__skip(), for example
-that arena percpu data is not supported?
-
-
+Cc: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260806110159.69690-3-daniel.lezcano@oss.qualcomm.com
+Assisted-by: LLM
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Changes in v3 (since v2):
+- Rebase on v7.3-rc7.
+- Use TEST_GEN_FILES and MO=$(OUTPUT); preserve the common clean recipe.
+- Use powercap-owned allocations for consistent registration cleanup.
+- Keep validation and counting in the main shell so failures propagate.
+- Add static creation, skipped branches, reuse and -EBUSY checks, and
+  hold a sysfs descriptor open across module removal.
+- Document the tests and describe their actual assertions.
+- Fix closing-brace indentation and __initdata placement.
+- Add Assisted-by attribution.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39434884362
---===============2483452175354941989==--
+ tools/testing/selftests/Makefile              |   1 +
+ tools/testing/selftests/powercap/Kbuild       |   3 +
+ tools/testing/selftests/powercap/Makefile     |  27 ++
+ .../selftests/powercap/powercap_hierarchy.c   | 305 ++++++++++++++++++
+ .../selftests/powercap/powercap_hierarchy.sh  | 126 ++++++++
+ 5 files changed, 462 insertions(+)
+ create mode 100644 tools/testing/selftests/powercap/Kbuild
+ create mode 100644 tools/testing/selftests/powercap/Makefile
+ create mode 100644 tools/testing/selftests/powercap/powercap_hierarchy.c
+ create mode 100755 tools/testing/selftests/powercap/powercap_hierarchy.sh
+
+diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
+index bc4fdb6f5337..764cca6182ce 100644
+--- a/tools/testing/selftests/Makefile
++++ b/tools/testing/selftests/Makefile
+@@ -104,6 +104,7 @@ TARGETS += pidfd
+ TARGETS += pid_namespace
+ TARGETS += pipe
+ TARGETS += power_supply
++TARGETS += powercap
+ TARGETS += powerpc
+ TARGETS += prctl
+ TARGETS += proc
+diff --git a/tools/testing/selftests/powercap/Kbuild b/tools/testing/selftests/powercap/Kbuild
+new file mode 100644
+index 000000000000..baa0d0ba9593
+--- /dev/null
++++ b/tools/testing/selftests/powercap/Kbuild
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0
++
++obj-m += powercap_hierarchy.o
+\ No newline at end of file
+diff --git a/tools/testing/selftests/powercap/Makefile b/tools/testing/selftests/powercap/Makefile
+new file mode 100644
+index 000000000000..5041ff1acee5
+--- /dev/null
++++ b/tools/testing/selftests/powercap/Makefile
+@@ -0,0 +1,27 @@
++# SPDX-License-Identifier: GPL-2.0
++
++# User-space test script
++TEST_PROGS := powercap_hierarchy.sh
++
++# Kernel module built as part of the test
++TEST_GEN_FILES := powercap_hierarchy.ko
++
++KDIR ?= $(if $(O),$(O),$(realpath ../../../..))
++
++.DEFAULT_GOAL := all
++
++include ../lib.mk
++
++.PHONY: modules
++
++$(OUTPUT)/powercap_hierarchy.ko: modules
++
++modules:
++	$(MAKE) -C $(KDIR) M=$(CURDIR) MO=$(OUTPUT) modules
++
++.PHONY: clean_modules
++
++clean: clean_modules
++
++clean_modules:
++	$(MAKE) -C $(KDIR) M=$(CURDIR) MO=$(OUTPUT) clean
+diff --git a/tools/testing/selftests/powercap/powercap_hierarchy.c b/tools/testing/selftests/powercap/powercap_hierarchy.c
+new file mode 100644
+index 000000000000..baabd2420f9c
+--- /dev/null
++++ b/tools/testing/selftests/powercap/powercap_hierarchy.c
+@@ -0,0 +1,305 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Author: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
++ *
++ * Powercap hierarchy description test module
++ *
++ * Test coverage:
++ * - Duplicate an init-only description for use after module initialization.
++ * - Create and destroy a hierarchy directly from a static initializer.
++ * - Skip a cluster and its children while creating independent branches.
++ * - Destroy the partial hierarchy and create the complete hierarchy again.
++ * - Reject repeated creation with -EBUSY and preserve existing zone pointers.
++ * - Check callback arguments and preservation of backend-private data.
++ *
++ * The complete hierarchy remains registered for powercap_hierarchy.sh to
++ * check its 16 zones and exported attribute values. Module removal destroys
++ * it so the script can check cleanup with a sysfs descriptor still open.
++ */
++#include <linux/powercap.h>
++#include <linux/string.h>
++
++struct pch_test_data {
++	int value;
++};
++
++static struct powercap_node pch_test_nodes[] __initdata = {
++	[0] = { .name = "package",
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[1] = { .name = "cluster0", .parent = &pch_test_nodes[0],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[2] = { .name = "cluster1", .parent = &pch_test_nodes[0],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[3] = { .name = "cluster2", .parent = &pch_test_nodes[0],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[4] = { .name = "cpu0", .parent = &pch_test_nodes[1],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[5] = { .name = "cpu1", .parent = &pch_test_nodes[1],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[6] = { .name = "cpu2", .parent = &pch_test_nodes[1],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[7] = { .name = "cpu3", .parent = &pch_test_nodes[1],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[8] = { .name = "cpu4", .parent = &pch_test_nodes[2],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[9] = { .name = "cpu5", .parent = &pch_test_nodes[2],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[10] = { .name = "cpu6", .parent = &pch_test_nodes[2],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[11] = { .name = "cpu7", .parent = &pch_test_nodes[2],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[12] = { .name = "cpu8", .parent = &pch_test_nodes[3],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[13] = { .name = "cpu9", .parent = &pch_test_nodes[3],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[14] = { .name = "cpu10", .parent = &pch_test_nodes[3],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++	[15] = { .name = "cpu11", .parent = &pch_test_nodes[3],
++		.data = &(struct pch_test_data) { .value = 0xDEADBEEF } },
++};
++
++static struct powercap_hierarchy pch_test_hierarchy __initdata =
++	POWERCAP_HIERARCHY_INIT(pch_test_hierarchy, pch_test_nodes,
++				ARRAY_SIZE(pch_test_nodes));
++
++static struct powercap_hierarchy *hierarchy;
++
++static struct powercap_control_type *pct;
++
++static int pch_test_get_max_power_range_uw(struct powercap_zone *pcz,
++					   u64 *power_uw)
++{
++	*power_uw = 0xBADC0FFEE;
++	return 0;
++}
++
++static int pch_test_get_power_uw(struct powercap_zone *pcz,
++				 u64 *power_uw)
++{
++	*power_uw = 0xC0FFEE;
++	return 0;
++}
++
++static const struct powercap_zone_ops pch_test_ops = {
++	.get_max_power_range_uw = pch_test_get_max_power_range_uw,
++	.get_power_uw = pch_test_get_power_uw,
++};
++
++static int pch_test_set_power_limit_uw(struct powercap_zone *pcz,
++				       int cid, u64 power_uw)
++{
++	return 0;
++}
++
++static int pch_test_get_power_limit_uw(struct powercap_zone *pcz,
++				       int cid, u64 *power_uw)
++{
++	*power_uw = 0xDEADC0DE;
++	return 0;
++}
++
++static int pch_test_set_time_window_us(struct powercap_zone *pcz,
++				       int cid, u64 power_uw)
++{
++	return 0;
++}
++
++static int pch_test_get_time_window_us(struct powercap_zone *pcz,
++				       int cid, u64 *power_uw)
++{
++	*power_uw = 0xDEADC0DE;
++	return 0;
++}
++
++static int pch_test_get_max_power_uw(struct powercap_zone *pcz,
++				     int cid, u64 *power_uw)
++{
++	*power_uw = 0xDEADC0DE;
++	return 0;
++}
++
++static const char *pch_test_get_name(struct powercap_zone *pcz, int cid)
++{
++	return "my constraint name";
++}
++
++static const struct powercap_zone_constraint_ops pch_test_constraint_ops = {
++	.set_power_limit_uw = pch_test_set_power_limit_uw,
++	.get_power_limit_uw = pch_test_get_power_limit_uw,
++	.set_time_window_us = pch_test_set_time_window_us,
++	.get_time_window_us = pch_test_get_time_window_us,
++	.get_max_power_uw = pch_test_get_max_power_uw,
++	.get_name = pch_test_get_name,
++};
++
++static struct powercap_zone *pch_test_create(struct powercap_control_type *pct,
++					     const char *name, void *data,
++					     struct powercap_zone *parent)
++{
++	struct pch_test_data *pcht_data = data;
++	struct powercap_zone *pcz;
++
++	/* Validate the arguments and private data supplied by the helper. */
++	if (!pct) {
++		pr_err("Invalid NULL controller type\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	if (!name) {
++		pr_err("Invalid NULL name\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	if (pcht_data->value != 0xDEADBEEF) {
++		pr_err("Invalid pcht data != 0xDEADBEEF");
++		return ERR_PTR(-EINVAL);
++	}
++
++	pcz = powercap_register_zone(NULL, pct, name, parent,
++				     &pch_test_ops, 1, &pch_test_constraint_ops);
++	if (IS_ERR(pcz)) {
++		pr_err("Failed to register powercap zone '%s': %ld\n",
++		       name, PTR_ERR(pcz));
++	}
++
++	return pcz;
++}
++
++static void pch_test_destroy(struct powercap_control_type *pct,
++			     struct powercap_zone *zone,
++			     void *data)
++{
++	struct pch_test_data *pcht_data = data;
++
++	/* Destruction must receive the original private data and a valid zone. */
++	if (!pct) {
++		pr_err("Invalid NULL controller type\n");
++		return;
++	}
++
++	if (!zone) {
++		pr_err("Invalid NULL zone\n");
++		return;
++	}
++
++	if (pcht_data->value != 0xDEADBEEF) {
++		pr_err("Invalid pcht data != 0xDEADBEEF");
++		return;
++	}
++
++	powercap_unregister_zone(pct, zone);
++}
++
++static struct powercap_zone *
++pch_test_skip_cluster(struct powercap_control_type *pct, const char *name,
++		      void *data, struct powercap_zone *parent)
++{
++	if (!strcmp(name, "cluster0"))
++		return NULL;
++
++	return pch_test_create(pct, name, data, parent);
++}
++
++static int __init pch_test_init(void)
++{
++	struct powercap_zone *zones[ARRAY_SIZE(pch_test_nodes)];
++	size_t i;
++	int ret;
++
++	/* Keep a runtime copy whose parent pointers survive init memory release. */
++	hierarchy = powercap_hierarchy_dup(&pch_test_hierarchy);
++	if (IS_ERR(hierarchy)) {
++		ret = PTR_ERR(hierarchy);
++		pr_err("Failed to dup the hierarchy: %d\n", ret);
++		return ret;
++	}
++
++	pct = powercap_register_control_type(NULL, "powercap-test", NULL);
++	if (IS_ERR(pct)) {
++		ret = PTR_ERR(pct);
++		pr_err("Failed to register control type: %d\n", ret);
++		goto out_free_hierarchy;
++	}
++
++	/* Exercise direct creation with a statically initialized hierarchy lock. */
++	ret = powercap_hierarchy_create(pct, &pch_test_hierarchy,
++					pch_test_create, pch_test_destroy);
++	if (ret) {
++		pr_err("Failed to create the static hierarchy: %d\n", ret);
++		goto out_unregister_pct;
++	}
++
++	powercap_hierarchy_destroy(pct, &pch_test_hierarchy, pch_test_destroy);
++
++	/* NULL skips cluster0 and its descendants, but not the other clusters. */
++	ret = powercap_hierarchy_create(pct, hierarchy,
++					pch_test_skip_cluster, pch_test_destroy);
++	if (ret)
++		goto out_unregister_pct;
++
++	for (i = 0; i < hierarchy->nr_nodes; i++) {
++		/* Node 1 is cluster0; nodes 4 through 7 are its four CPUs. */
++		bool skipped = i == 1 || (i >= 4 && i <= 7);
++
++		if (!!hierarchy->nodes[i].zone == skipped) {
++			pr_err("Unexpected zone state after skipping cluster0\n");
++			ret = -EINVAL;
++			goto out_destroy_hierarchy;
++		}
++	}
++
++	/* Partial destruction must leave the hierarchy reusable for a full tree. */
++	powercap_hierarchy_destroy(pct, hierarchy, pch_test_destroy);
++
++	ret = powercap_hierarchy_create(pct, hierarchy, pch_test_create, pch_test_destroy);
++	if (ret) {
++		pr_err("Failed to create the hierarchy: %d\n", ret);
++		goto out_unregister_pct;
++	}
++
++	/* A second creation must return -EBUSY without replacing any zone. */
++	for (i = 0; i < hierarchy->nr_nodes; i++)
++		zones[i] = hierarchy->nodes[i].zone;
++
++	ret = powercap_hierarchy_create(pct, hierarchy, pch_test_create, pch_test_destroy);
++	if (ret != -EBUSY) {
++		pr_err("Expected -EBUSY when recreating the hierarchy, got %d\n", ret);
++		ret = -EINVAL;
++		goto out_destroy_hierarchy;
++	}
++
++	for (i = 0; i < hierarchy->nr_nodes; i++) {
++		if (hierarchy->nodes[i].zone != zones[i]) {
++			pr_err("Recreation changed an existing zone\n");
++			ret = -EINVAL;
++			goto out_destroy_hierarchy;
++		}
++	}
++
++	/* Leave the full tree available for the userspace sysfs checks. */
++	return 0;
++
++out_destroy_hierarchy:
++	powercap_hierarchy_destroy(pct, hierarchy, pch_test_destroy);
++out_unregister_pct:
++	powercap_unregister_control_type(pct);
++out_free_hierarchy:
++	powercap_hierarchy_free(hierarchy);
++	return ret;
++}
++module_init(pch_test_init);
++
++static void __exit pch_test_exit(void)
++{
++	/* Remove zones before their controller; the script checks disappearance. */
++	powercap_hierarchy_destroy(pct, hierarchy, pch_test_destroy);
++	powercap_hierarchy_free(hierarchy);
++	powercap_unregister_control_type(pct);
++}
++module_exit(pch_test_exit);
++
++MODULE_DESCRIPTION("Powercap hierarchy test driver");
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Daniel Lezcano <daniel.lezcano@oss.qualcomm.com");
+diff --git a/tools/testing/selftests/powercap/powercap_hierarchy.sh b/tools/testing/selftests/powercap/powercap_hierarchy.sh
+new file mode 100755
+index 000000000000..6d1394a7d56b
+--- /dev/null
++++ b/tools/testing/selftests/powercap/powercap_hierarchy.sh
+@@ -0,0 +1,126 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++
++# Loading the module runs its in-kernel hierarchy API checks. Then validate
++# all 16 exported zones, their power readings and constraint attributes, and
++# removal of the controller while a sysfs attribute descriptor remains open.
++
++ksft_pass=0
++ksft_fail=1
++ksft_skip=4
++
++MODULE=powercap_hierarchy
++CONTROL=powercap-test
++SYSFS=/sys/devices/virtual/powercap/$CONTROL
++
++fail()
++{
++	echo "FAIL: $*"
++	exit $ksft_fail
++}
++
++skip()
++{
++	echo "SKIP: $*"
++	exit $ksft_skip
++}
++
++cleanup()
++{
++	if lsmod | grep -q "^${MODULE}\b"; then
++		if ! rmmod "$MODULE"; then
++			echo "WARNING: failed to unload $MODULE"
++		fi
++	fi
++}
++
++trap cleanup EXIT INT TERM
++
++[ "$(id -u)" -eq 0 ] || skip "must be run as root"
++
++insmod ./powercap_hierarchy.ko || fail "failed to load module"
++
++[ -d "$SYSFS" ] || fail "missing $SYSFS"
++
++check_zone()
++{
++	zone=$1
++
++	# Check required attributes and the deterministic values from the module.
++	[ -f "$zone/name" ] || fail "$zone/name missing"
++
++	[ -f "$zone/power_uw" ] || \
++		fail "$zone/power_uw missing"
++
++	[ -f "$zone/max_power_range_uw" ] || \
++		fail "$zone/max_power_range_uw missing"
++
++	power=$(cat "$zone/power_uw")
++	[ "$power" = "12648430" ] || \
++		fail "$zone: unexpected power_uw ($power)"
++
++	max=$(cat "$zone/max_power_range_uw")
++	[ "$max" = "50159747054" ] || \
++		fail "$zone: unexpected max_power_range_uw ($max)"
++
++	constraint="$zone/constraint_0"
++
++	name=$(cat "$constraint""_name")
++	[ "$name" = "my constraint name" ] || \
++		fail "$constraint: bad constraint name"
++
++	pl=$(cat "$constraint""_power_limit_uw")
++	[ "$pl" = "3735929054" ] || \
++		fail "$constraint: bad power limit"
++
++	mp=$(cat "$constraint""_max_power_uw")
++	[ "$mp" = "3735929054" ] || \
++		fail "$constraint: bad max power"
++}
++
++zones=0
++
++namefiles=$(find "$SYSFS" -type f -name name) || fail "failed to list zones"
++
++while IFS= read -r namefile
++do
++	zone=$(dirname "$namefile")
++
++	case "$zone" in
++		*/constraint_*)
++			continue
++			;;
++	esac
++
++	check_zone "$zone"
++
++	zones=$((zones + 1))
++done <<EOF
++$namefiles
++EOF
++
++#
++# Count the number of powercap zones.
++#
++[ "$zones" -eq 16 ] || \
++	fail "expected 16 zones, got $zones"
++
++#
++# Keep an attribute open across module removal, then close it afterwards.
++#
++exec 3<"$zone/power_uw" || fail "failed to open power_uw before removal"
++cleanup
++exec 3<&-
++
++#
++# Verify that the hierarchy disappeared.
++#
++if [ -d "$SYSFS" ]; then
++	fail "$SYSFS still exists after module removal"
++fi
++
++trap - EXIT INT TERM
++
++echo "PASS"
++
++exit $ksft_pass
+-- 
+2.43.0
+
