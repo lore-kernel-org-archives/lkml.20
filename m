@@ -1,111 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498593;
-	b=TFkb1DiLkm8lwYJgYIzGzxZ2jsvpJvI+jTiUtrMKsyFVkbKu+K5/tknoFcVCLwCl+KAB
-	 KBLfcpJL3fGSLDZEmP85JDWICzDFHhq/PLLtt0xdPzfB8nGe4jmlwORxF4Zsr+tk7ADe2
-	 tZ58OuQmh0iUEA/wapGMPrxAo/h/qybxAxur6x7+rGQmaxnXRdfK1odc/ZBzXLatlQj/5
-	 ZqWFG5hmhaz8adbwUbNICqE7V4ZusTCPn8qlOi19i4cXYhBpa4KtjjtZbNjf+j9XDf9P8
-	 zq2UfzC/J8NT0STOzm/0Z6RgDLC4zZijhpt0JX20qdCmrF02YU40GGCO+j1Odc7zYmQ==
+	t=1792498617;
+	b=Fzj/EsrEdBkje6LwcX+u2MTulTJ3dZFhTtbKikA6jk56vOjBrGcwBi1errstkizAH97F
+	 E+kPTuS2niUZw5xFqjnSO2T9KMTagfY0xUQV0MVM5F7ptO30BTiw92ecwdgJdAYklwCVJ
+	 uZYx+C6w4C6fRpFmlodvmDu/jt2ucHY1aCcktc5vC2MH7zi+bVYPPjL+6Id825HMaQ27j
+	 yS95jIDBmFwQoQ8pLTXgXkyct0vxszR7LLoRn8vlbQg05w3MHokdS9LZaSKUhdbz17nM6
+	 pZ0BYcxZC7aXl8PcmMc2QclDfnTinOFOQXEDtHttbCIgQt+9tn/Pba6ggrolk/UXBRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498593;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vbXhFwaOyFV2hFdxf8mQgggsDq2L351KmjYmqaBgfHw=;
-	b=jgxY3G84gGB/TazDiU+977RYpa0iijXW/oB++2YHBkyfoB/hXFnAbJZfB15FNf44iy0Q
-	 wcGiBdZJfsrQusvVEN2ihIfj2eQlLKi1SNfyBeY37kO9vMntjDwKMrwpxVEOAcaDpiALk
-	 LNwQgPDYGSWWNGNMrVLlUk8W/rjNLqA/yjel1467616VPPtLSs3fbydc/mHL58G6ydUeE
-	 mD5YR2nLBbTHnnWJadDp9Gr8I5nN/hpMMcCdNlNHSuEh9iHfpt030i5FKIOgGlzZ3rqLr
-	 KBjADRgmn7pwsbrYyvgED887qrEEEip4wzClW/8xs7wjbSgJJKQlkC5K7Z6aY5uljtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498617;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=/eQ/XppcwzISrseZ5RcFWPSpwGbmbzSYupMPgcj1BFE=;
+	b=D2zM60jx0NBC3lty3fNXTayBF63tLU0cuT7EVvQiH09QCuDpvBpwtJ5blyEdXROuklXD
+	 EWhLfulB/iuHdAM6UOT4nPdqZY6RgxGdVPAZbIB60junKKKu9Moh1BfNAnDP1gnj4FVJ5
+	 iXtS7hqG00/75ph/y9ePHoHCh6rxdo+5LQ26Uf2QZPXMRlncm/LkMtYNFAYUVWfyp0xtP
+	 NYD/FZa3Qws6h+RuD/3xpoR8LXJJMi2fXDrBYG0KAYlpyMRY/N+5/gO9TBKdPAaXy8CW+
+	 V/tlfugsJPacd0bcPnTPF3HNU2dTT851N63I0zzMF/LHZsThxU3IHnkmrkrjozQdaMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JID9g8c7;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXO2qyA+;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XyHuAhl0;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D88606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32D88606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A867606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A867606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JID9g8c7;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXO2qyA+
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAwtKl1929065
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:16:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vbXhFwaOyFV2hFdxf8mQgggsDq2L351KmjYmqaBgfHw=; b=JID9g8c7iiFlgzX1
-	UqmCHetnxCha9hRvNy75UyVveqNRK9Qoh2Ys0EfK4f2YLibkkImOYavuzM3T+PGi
-	pU1fUvnEkgSJ8Kavwe6Wh1vcsHJL3sey4cIPpStBMpZ/Kcrf+V7dCncpovHl1Gqk
-	SbupoRuTBSic0JRu8civ9BGVLizEl03Vf59gsE49hsmmLInkLiw86wPvZ1JcADdK
-	mU0HsACFR7UUvhwoHLduWnukN8aPwoplQlhPQQhsaren7Xs1sYm4zGiUakLZ6nF6
-	ZjWqqj9+uEWtQPQQCJdxjL0ssgN0BO2nlciDmv2fjUyDU/0hx7l37WeVTQFxMJ+t
-	UGcfuQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5ntawp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:16:31 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5338bd59032so4355951cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:16:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XyHuAhl0
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b060ec084so2236303f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:16:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792498591; x=1793103391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbXhFwaOyFV2hFdxf8mQgggsDq2L351KmjYmqaBgfHw=;
-        b=dXO2qyA+54p2+XXONPJkrVKegExcBGR7nB65DcQ8UmBLF6mdTFIfnBW3IH0I3vYtdi
-         M3bikgLZTD1NZ+LqokCa5SgJQay5sZj7pJY6XMTXRdFYqTj+SMNmWg5tLfQJ5SDLeh7t
-         7d3NRaMoiGTWn0wScwygMkk841D4kjsFG6BgyRYEIvqwBTwEpSvm+Kz258Vd/MclA5Bz
-         nLDSlzhq7neEpjmqeaxw0hhfhnqJ519++vVdlB3WKE7vYuAqedxKURnrNtDqmZjMEpUX
-         wtePp5DKr3lVmbb5bCkSTR8KQd7EK9JFQpCREGEeNzSiAuMsRVn6Y8YOt+nqYyU8B0lK
-         KAAQ==
+        d=linaro.org; s=google; t=1792498616; x=1793103416; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/eQ/XppcwzISrseZ5RcFWPSpwGbmbzSYupMPgcj1BFE=;
+        b=XyHuAhl0Ihg3o9iu+ZV6Mt5r2QN8C7rlBmRSdsYa81fuHYYZSOnxDoWvNIgUGEawb5
+         ivqJTz66q91RngbDRNkaw/L6s2z0qhycRZKq/kozmieuzZapGem71jaX7SYHApsfagTz
+         4zR2KY99z3O+t8esfmsuWCjBNuGsxl6VUO4nDVrAP8rye7FNOE+vgnPIh50J6KDdzc/k
+         Nm89xIfOb0YZqt42r+owb6SzMPvl2ABryPkIwTo0aqTRszI/FBNXH8EQKZJgnPGidLo+
+         KWnqS5fdtOfVIkhqnTdhEBTbTZ0aZHJs5bXoFpo7hzyA/qQg/7Ks8sGk3Bgr1nF25rss
+         VinA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792498591; x=1793103391;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vbXhFwaOyFV2hFdxf8mQgggsDq2L351KmjYmqaBgfHw=;
-        b=tGYXMwP0Z6tR73D60JeArfwGuNYQzE3oGxpGPKkki5NYPoZuqxE3Da2bEKPScwkE3m
-         IixpbNmaZYiXV7LfY7Pi5QItvA+9y+vA7evs2ktKR0JsbMBC9hwtvo1DDp38YzossA+u
-         APyZaIdX8xwx32wfPD9YAjgQUZtIiUYA7rM37yOwENMNmaB8XY7oq2ncdpVAStl+Wgg4
-         bxI2oWtme+N5w3ugNy8ZGurj895waCSupX5yg+740a3Ja7avwkDd5ACdHNmLa32YOvx3
-         86VA5KiNCpHi747c6ou6ckHETcgmBrphENE6ZkT3LmPM9JzF7/G+ChfTSnpLD/fCE6hw
-         pUJA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEXJxhkPCgrCNYOR4ZMNzJSRkz7jlL+SxA61K74lre0OSuk+bxp2orrFmyXh20aIxODjqfCBgjnh2KuR8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKR2WraLaTbdhUsfP6LED29sw6lhRiqB7Sgnpou3vhsyVGcFqCq
-	5Stx4ng41nPRtUOVwAuT5d6C62Le7wjVko9CX7i3I42ulIF7m1vwZgVGyGNMeBsHPWzW4wnPpS9
-	G1p6RaVqzLQCCwZe977iZvKS1xa11Gka8bacRA8AvIhqbi8Mc4qqMOCcRMdBzObIKMEM=
-X-Gm-Gg: AYBFou2O5/sYDt07FTCHBVmf2wy8c1CxvXBWLc6+xonCCPyloAZegRZ4s6Oh9TXMPKr
-	C76/7K7GDCw6vaB+RbkWvwg5NdFmTV/5hXUD7596PanYP5GXBN63lh+OAKJ7Sprfose1Fz5/KOQ
-	kQuX5Dx7mPih3xpD/PeF7JzmW7ht7j+ZHiI5UV+Bq6U390Wyg7UG8efSGKhxif8SLGfrSqMw5o6
-	1oUqp7QokdQJky3vrllzXB4U1AmQkQ29YFO/Eyhb7MV4E/fL2f+OrsKPrQFQUQfeM5e/ozzQ44n
-	/HqtlEQDaDHwTsgVNpsU/Z+X1sQ547gbYAFXl+CpyWgqhsa0LIdOMhyNi1Cq1OSuaarQLh+0rpA
-	ciXTvZhq9+HK8WZtY0Ahlww==
-X-Received: by 2002:a05:622a:1304:b0:52e:3991:84c8 with SMTP id d75a77b69052e-53645d643e9mr189331811cf.2.1792498591296;
-        Tue, 20 Oct 2026 05:16:31 -0700 (PDT)
-X-Received: by 2002:a05:622a:1304:b0:52e:3991:84c8 with SMTP id d75a77b69052e-53645d643e9mr189331401cf.2.1792498590868;
-        Tue, 20 Oct 2026 05:16:30 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dceeafsm477131966b.17.2026.10.20.05.16.28
+        d=1e100.net; s=20260707; t=1792498616; x=1793103416;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/eQ/XppcwzISrseZ5RcFWPSpwGbmbzSYupMPgcj1BFE=;
+        b=IevABLL4xAlzc56VQm9uS/Mj1I16x9Iu1LeXaAPReSv/LVtO3I7MR/kbzmIyVTS+tS
+         Q/kWe4L3AEYbeWdsphyKQtzxjY57LRva6PvJ9eCTjNzrqztVo7Vefbhr5XMQTQse8Rbf
+         0WQD487FBDDnoWand9plWOEUt3IX45xvOFLkjgWTHirhxITlr72zid90oy3bRXl5zBBi
+         btYgdcOd0FHfIf1blrP28nycL+lHjnzbc6/5ev9/xnfSjGICKoKIvmm5xedyhp7c5xna
+         1fHJlBt2hzXoekKSm0VVC9Njnj9QR0zCTqRTS/SFZ5RDgp96fqUaMouSJhZOBg2WNF6o
+         SaIg==
+X-Forwarded-Encrypted: i=1; AKwUvBz9Od1BGcnqA4WMsDPxjuyjuqaLrqsSn1yBXfrCnkoS/ngvviQfo4VkqKWs1HMC9Dt/qhMhSXZT3jXAwkQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0jPXMYN5B5x1noSsnWzpN9yvbr/iLPHYPYqZg8c6veaW4eSy2
+	/y6ohQASZYmeUfPlW88tqoV3vMG+35n/ioNcdwY+gS1k4Sz/7KFhhnHgUDT8XuRI1NY=
+X-Gm-Gg: AYBFou2pskEf+5KPm9S94Rzu5VpdKEA9DVhOMzfCJploDonWyZuCD2D1p6SnureSyaX
+	Cvp1VbCedEtQPab1LoqEe/eNf7gKkSZBg+bC9KMloIx+7tuGvafhSjM7sjRVjwqj0O45TU7ReGc
+	F22anwDdaRslDsKi9lyYM1njNBvfLlGdXbTuzc+f6RiAO1nhthgsB+CaDYQeofvgZ1U2ErhqXVa
+	QE/XVs/YmW6uvVdJHwwNpR5Vzenmk0Gt7knqLFTso1CUMc35ciCIL/XBbkbUzLcLQzYMIZB6LGd
+	cdICcLmcsQ8WsUfhqkxRsaIU7KSl9sRKIsT4hsmp/+DDGO8h004fnpGrHTiDl9L9RE3HdZDCQJK
+	wDODC0T65mNLyv/ji61YBsvDJYIH2/sFbFNXiUEyza8gMAS+cAc9QCW4D0M6+jP6ZZJK3pODR/W
+	ROifKK0prILiEtz/UvWLombJZydcbTreoylhioHM2jhrKsMjH0ul2nViXBJkvI9IRcGRCVuq5SZ
+	87zQ9BIphl9bfwVVqc8o7zVD6jvifFI/dtwPwR6jvgS7h7Y2onHve8eupQNbblzHKzxU/P2itM=
+X-Received: by 2002:adf:e001:0:10b0:48d:f876:f370 with SMTP id ffacd0b85a97d-48e1bdf80a0mr5011790f8f.48.1792498615536;
+        Tue, 20 Oct 2026 05:16:55 -0700 (PDT)
+Received: from localhost ([151.41.28.233])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d817d8bsm5130862f8f.24.2026.10.20.05.16.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 05:16:30 -0700 (PDT)
-Message-ID: <45b54ff8-a2a6-4eaf-9d5b-cfd9bb40c459@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 14:16:27 +0200
+        Tue, 20 Oct 2026 05:16:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,91 +86,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: lemans: Enable
- lemans-sa8255p-ride board support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Nikunj Kela <quic_nkela@quicinc.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
- <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0OCBTYWx0ZWRfXxGhzax+AOw1u
- 2TLPom/WmeB6Xs4jbbCOci0mLC3RGjLvhwO4UyYmdmBojP/i5KQcTR+8PRV9NX2P5Rj03MgsmB8
- Bma6EsAjq7xR2Ps86yn+wpbOxX7BqGE=
-X-Proofpoint-GUID: AFH_XQOWe-o_tx68g6t5tEutCHeng82y
-X-Proofpoint-ORIG-GUID: AFH_XQOWe-o_tx68g6t5tEutCHeng82y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0OCBTYWx0ZWRfXzUFgF6E0JLaQ
- LiN0eczfbZrHgRCZzP2GUw6vPI+ST58f+SXxrlihaOxgpmZPsOtsFAJEMVxa7rJd3jShvahYsCw
- qkknSzRzCqlXgP6nLGokZUx9ibnZQsVesCraSVhJNeUClbP9EB16znjdVqYwa6QwFQjqxuK+QOR
- qzIAZiOZH3OWQUmB+68Z1FSuJHQTW/+SHCfIvJNxtK33DlOQTq1ua/7Aoxp5zIdka6FB3OAfboo
- 1N3BuNB0axSs/KvT+PDgVvZtPQGv1PCd0QYCInTvx5OEPrHVl5neJTH55NIKTonng8zljLap+bK
- YCiUpl/tzDz5q3rLvQfgAcSecA3RBHBYFbqKMgMzOsi2pGeepogQKUfp78HBKXLEg6IePaQM4YZ
- VusYjLScFcxq8HkpJxerkmpomtkNiHYE1XbNepOlt8rUf8qexUuUs3nihkVh4BMnpyoitBHTQ+o
- /1nyG6v0m1oHh2IQusw==
-X-Authority-Analysis: v=2.4 cv=TcsDJhQh c=1 sm=1 tr=0 ts=6ad75ba0 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=u5ebKnrMhyFaJCspccgA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200048
+Date: Tue, 20 Oct 2026 14:16:52 +0200
+Message-Id: <DM9NQ6MMED9N.3QP4ZDCCAZ85Z@linaro.org>
+Cc: <linux-omap@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 02/10] dt-bindings: pinctrl: Add devicetree bindings for
+ DM816x SoC Pinctrl
+From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Ettore Chimenti"
+ <ettore.chimenti@linaro.org>, "Paul Walmsley" <paul@pwsan.com>, "Aaro
+ Koskinen" <aaro.koskinen@iki.fi>, "Andreas Kemnade" <andreas@kemnade.info>,
+ "Kevin Hilman" <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>,
+ "Tony Lindgren" <tony@atomide.com>, "Russell King" <linux@armlinux.org.uk>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Christopher
+ Obbard" <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
+ <andrew.goodbody@linaro.org>, "Linus Walleij" <linusw@kernel.org>, "Rouven
+ Czerwinski" <rouven.czerwinski@linaro.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+ <20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
+ <ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
+ <DM6CUP7TSOMH.31T789KQ3Q6OB@linaro.org>
+ <46414ff2-1273-4690-9001-4d1f825d8cf6@kernel.org>
+ <DM9L7QLLNMOR.1NHOUWGMQK181@linaro.org>
+ <c91b063f-69b9-4e9b-8e1b-af503de672b7@kernel.org>
+In-Reply-To: <c91b063f-69b9-4e9b-8e1b-af503de672b7@kernel.org>
 
-On 10/15/26 4:37 AM, Shawn Guo wrote:
-> From: Nikunj Kela <quic_nkela@quicinc.com>
-> 
-> Add initial device tree support for the Lemans SA8255P Ride board. Enable
-> UFS storage, UART10 as the serial console, PCIe EP interfaces, thermal
-> zones for PMM8654AU sensors, and SCMI protocol nodes.
-> 
-> Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-> Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-> Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
-> Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+Hi Krzyszrof,
 
-[...]
+On Tue Oct 20, 2026 at 1:22 PM CEST, Krzysztof Kozlowski wrote:
+> On 20/10/2026 12:18, Ettore Chimenti wrote:
+>> Hi Krzyszrof,
+>>=20
+>> On Mon Oct 19, 2026 at 8:46 AM CEST, Krzysztof Kozlowski wrote:
+>>> On 16/10/2026 17:07, Ettore Chimenti wrote:
+>>>> Hi Krzyszrof,
+>>>>
+>>>> On Fri Oct 16, 2026 at 4:51 PM CEST, Krzysztof Kozlowski wrote:
+>>>>> On 16/10/2026 16:41, Ettore Chimenti wrote:
+>>>>>> Add devicetree bindings for TI DM816x SoC pinctrl configuration.
+>>>>>> Using same definition as OMAP2/3 except pullup/down enable macros, w=
+hich
+>>>>>> are inverted in this SoC.
+>>>>>>
+>>>>>> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+>>>>>> ---
+>>>>>>  include/dt-bindings/pinctrl/dm816x.h | 20 ++++++++++++++++++++
+>>>>>>  1 file changed, 20 insertions(+)
+>>>>>>
+>>>>>> diff --git a/include/dt-bindings/pinctrl/dm816x.h b/include/dt-bindi=
+ngs/pinctrl/dm816x.h
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..15aa15bca9bd
+>>>>>> --- /dev/null
+>>>>>> +++ b/include/dt-bindings/pinctrl/dm816x.h
+>>>>>> @@ -0,0 +1,20 @@
+>>>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>>>>> +/*
+>>>>>> + * This header provides constants specific to DM816X pinctrl bindin=
+gs.
+>>>>>> + */
+>>>>>> +
+>>>>>> +#ifndef _DT_BINDINGS_PINCTRL_DM816X_H
+>>>>>> +#define _DT_BINDINGS_PINCTRL_DM816X_H
+>>>>>> +
+>>>>>> +#include <dt-bindings/pinctrl/omap.h>
+>>>>>
+>>>>> I do not see this being used here, IWYU.
+>>>>>
+>>>>>> +
+>>>>>> +#undef PULL_UP
+>>>>>> +#undef PULL_ENA
+>>>>>
+>>>>> Why are you undefining other macros? That's not a easy to follow code=
+.
+>>>>
+>>>> Do you prefer to duplicate `omap.h` defines? Only the defines above do=
+ not
+>>>> apply to DM816x.
+>>>
+>>> Not sure what you need to duplicate, but if you add header with binding=
+s
+>>> for this device, then you should not include headers for other devices.
+>>=20
+>> I basically used dm814x.h as a template which does that, is that not
+>> correct?
+>>=20
+>>>
+>>>>
+>>>>>
+>>>>>
+>>>>>> +
+>>>>>> +/* DM81xx mux bit defines */
+>>>>>> +#define PULL_ENA		(0 << 3)  /* Pullup enabled  =3D> 0 */
+>>>>>> +#define PULL_DIS		(1 << 3)  /* Pullup disabled =3D> 1 */
+>>>>>> +#define PULL_DN			(0 << 4)
+>>>>>> +#define PULL_UP			(1 << 4)
+>>>>>
+>>>>> I do not see this used by drivers, so why do we need one more header?
+>>>>> What part of SW are you binding here?
+>>>>>
+>>>>
+>>>> I added those (DN/UP) because they are not defined in `omap.h`. It may=
+ be
+>>>> convenient for future board upstreaming. I can drop those if undesired=
+.
+>>>
+>>> Just add the header to proper place - DTS. These are just not looking a=
+s
+>>> bindings.
+>>=20
+>> Sorry, does dm814x.h not look as bindings? I'm a bit confused.
+>
+> I asked  which part of SW are you binding. There was no answer, but
+> question. So if you cannot point which part of software you bind, then
+> we can assume it is not a binding. I did not do any extensive look,
+> because I assume that contributor will bring the argument in favor of
+> their patch, not me.
+>
 
-> +	thermal-zones {
-> +		pmm8654au_0_thermal: pm8255-0-thermal {
-> +			polling-delay-passive = <100>;
+Thanks for the clarification, that makes sense. These macros are only
+used by the DTS files and not by driver C code, I got confused by an old
+header (2015). I will drop the dt-bindings patch and move the
+definitions locally into arch/arm/boot/dts/ti/omap/ for v2.
 
-Do we need the polling, is there no interrupt?
+>
+>> FWIW, dm8148-evm.dts is not including the header, dm814x.dtsi is.
+>> Following=20
+>>=20
+>> Basically PULL_ENA define in omap.h is wrong for DM8168 SoCs.=20
+>>=20
+>> For a better solution, you would prefer:
+>> - Keep omap.h in dm816x.dtsi
+>> - Add a variant like DM816X_PULL_{ENA,DIS} in dm816x.h
+>> - Replace defines in dm8168-evm.dts
+>> - Add the header in dm8168-evm.dts
+>>=20
+>> or:
+>>=20
+>> - Keep omap.h in dm816x.dtsi
+>> - Add a variant like DM816X_PULL_{ENA,DIS} in omap.h
+>> - Replace defines in dm8168-evm.dts
+>
+> I gave you one idea, but feel free to implement it in other ways aligned
+> with that platform maintainer.
+>
 
-[...]
+I'll do.=20
+
+Thanks for the review,
+Ettore
+>
+> Best regards,
+> Krzysztof
 
 
-> +&pcie0_ep {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pcie0_ep_clkreq_default &pcie0_ep_perst_default
-> +		    &pcie0_ep_wake_default>;
-> +	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-> +	wake-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
 
-This GPIO reference feels like a layering violation - the previous
-commit promised TLMM is abstracted away
-
-Konrad
