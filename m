@@ -1,50 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792507028;
-	b=nRHimQiPsJ3yFxvhNa/ZTGog6cU6r0/MdEQDh8pmek9Yq/qtFw631MDlYAIEkxsrsbnU
-	 iN2CtxO+RsPIzMQ5BlN6sIgAuCL9tE0XLtgUGVxdRLphIqQCJr4dPS8uCTslNRZa6qxNX
-	 x2hfNc+ogna5PQHUSek369Dfb8THZGx74wsZRdLNmkQTRElapBefMbagt1P2AdsCbRVd+
-	 cW1JUzkG9IEB5gL8mGmNq87x/yDloKIqtRWfqVtRqS9e8BwjpacsXtCC7GXZ75cp8Cqhk
-	 C+vDoPQhZrvuosbjQzJ2BDBOhWZKZ48IoB+9U67i8aPYdpM88Oial1BMDSIYgS9igGA==
+	t=1792507072;
+	b=KImeShoUe5RMPtV0gO0OSwyq0V5KwIsb0hP/MRuqNWBwO7MPLXtqF2RelEmqmttCQnhp
+	 dJ4MhrOrfe8UiAB/VrfFzklAcU2HeCrSWC/RprnnOzlwTXrBI9PACW+4KaSbGaXRy/qFO
+	 mvN0Jwjp/S8l8pacPgLWSeeg2l70r6vsXzqNcaqHz6bQNpckjbZsIWhlNuEZj2rB7E98D
+	 swhfOCVDMN+u7qrkUqUSefr9QeouxgJAPuW5Lv0cqxrHOKUbJzEDZr72mo1/m2BeA9RY+
+	 Z5B4KQZ6Qb32unOxA3VEXYVvvcmG0SOwApVsE4JIiCXjFERXGw+OFwZZ8o2ld1LObgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507028;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:Subject:To:
-	 Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/KQ70MsaDZXGGg9xwr15iwDR73QEsKB18yX4p0CKZSM=;
-	b=ax6mALI0gseTrFCN94vRa0zYItzSex/KNMsaXMkq3ltY82kfh2//HTONW2DLecdl4Pgc
-	 O0/iKeeopAS9QhUGRAwVRoLEyY4juIggxhObtxyk9aJrrCyZUlx8JO85yD73I0aFJQqJb
-	 F5hkdEZq/oB19qvHCmYry5Gw+xG/vJPecnVYeBqdD33PaBGtdHnLMNB8TtF6s/EPAUDqo
-	 VFJlco0tEdZgQjwfo53aFikVK0rg8YWmJ1+I9HSnLifSAzfDeFI7rjMMId/sgD+Y+lVtd
-	 i+bSpnXPHXfKkp+/dRp9yulpiL+nv4zZJbLTqIdPUa+D80Evg2OvgMDhdZkKFKIJhFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507072;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=5LRGHN8ntoxFrPJWrn1Xk1SCNt11RbrFeIIOupsDSQM=;
+	b=lj7O/4JIhS+nzEHeerYgvyU54i93icfwRDoDvTl9wkwA9O72uTw0PTj+62po5CZYjN1C
+	 P2tkGYrOfm1OHywm11D/GqXv985ijNgZCnyQ1CwcsJZIPrCisIr0GQTCvY8wuYNO+aY6X
+	 mCC3uhTRS+Wg39TWlZ8WVJoy3Xh4bmZAabQdfTyubecGX9LO6nhWNGJ9q9BLp1kYbB55Y
+	 KDdZqtjr21+3NtXL07HVhx4dDk/tKbmrCYH6VoCjvfv2iva1+CGnMBxbg/yrrkGJkunlU
+	 M1n4tZG29a45S2K81bdqSTEYgRzfA9pgipien8Q6dGcOvCld7UyDLigUkHvL/eCBK/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=YggroFkc;
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VwsdkBBp;
+	arc=none smtp.remote-ip=44.246.77.92
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC4A606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC4A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D3E606A321;
+	Tue, 20 Oct 2026 14:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D3E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=YggroFkc
-Message-ID: <7e59d984-1c00-4414-aa45-3092491ac39b@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1792507019;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/KQ70MsaDZXGGg9xwr15iwDR73QEsKB18yX4p0CKZSM=;
-	b=YggroFkcCadfQfVG8niIpNsyieORHWjFzYJGR4w/M8tD1eH9iDKWbMHv5Jgf+IwlrHxLJB
-	usD4/MSGgmm58e7uu+YwBIbmwpP1nLJ/M2O1xRpIi05kCSpf/p72CvGX11rD3GHaQbT2Eq
-	oetmXAEU064lrnsbFA+yaG0sVJJyMwU=
-Date: Tue, 20 Oct 2026 16:36:55 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VwsdkBBp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792507071; x=1824043071;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=5LRGHN8ntoxFrPJWrn1Xk1SCNt11RbrFeIIOupsDSQM=;
+  b=VwsdkBBpuN+I7Fdmb31hkVRQG7S3shPV/IxRWL/u4Tl63rs9GH37ZAZm
+   EOUEgj6x1npPQcWPma1iIRR35OAV1K4stZ1pwwYkfHb8l5vtzsAsS8v7F
+   vZznuc/nw7TVBPzfuNrf8ZFRndqkOOz5YaalL+ZiOOKt5sZscZB18BEbn
+   68McxU9CmNjuLOXoijm0w5Iw6q1dCi+Himo6BWDN8LvAKB4WsC1Sf3Pzs
+   9BcyswT7VqHy3Qrc0C76a0t9S4Z9kO2ExtQuY+M/XPac4k1BQIvZ52GGj
+   WYtQrUj6hG8gm6uImunDYmusEL2eBVlY3aLRY/2vy17f4noE9rVxMiliO
+   A==;
+X-CSE-ConnectionGUID: ECEm+QCsSqCyXSgn9k7Kuw==
+X-CSE-MsgGUID: zvOFRcvFQQSX/LtWEJd9qg==
+X-IronPort-AV: E=Sophos;i="6.27,168,1787011200"; 
+   d="scan'208";a="31743108"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 14:37:49 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:11916]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.1:2525] with esmtp (Farcaster)
+ id a382078a-ae68-482a-a6ab-df5e639d8f90; Tue, 20 Oct 2026 14:37:49 +0000 (UTC)
+X-Farcaster-Flow-ID: a382078a-ae68-482a-a6ab-df5e639d8f90
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 20 Oct 2026 14:37:48 +0000
+Received: from dev-dsk-avivb.amazon.com (172.19.102.34) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
+ Tue, 20 Oct 2026 14:37:47 +0000
+From: Aviv Bakal <avivb@amazon.com>
+To: <sashal@kernel.org>, <patches@lists.linux.dev>, <stable@vger.kernel.org>
+CC: <robin.murphy@arm.com>, <ilkka@os.amperecomputing.com>, <will@kernel.org>,
+	<mark.rutland@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH AUTOSEL 6.18] perf/arm-cmn: Add workarounds for CMN-S3 on Graviton5
+Date: Tue, 20 Oct 2026 17:37:45 +0300
+Message-ID: <179250706537.3484860.18363532452101434862@amazon.com>
+In-Reply-To: <20261019135441.1420968-145-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org> <20261019135441.1420968-145-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,76 +84,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and
- M4
-To: Marc Zyngier <maz@kernel.org>,
- Michael Reeves <michael.reeves077@gmail.com>
-Cc: Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Myria Sarvay <myrialsarvay@gmail.com>,
- Yureka Lilian <yureka@cyberchaos.dev>, Fuad Tabba <fuad.tabba@linux.dev>,
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
- <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
- <20261008-apple-m3-m4-kvm-v1-2-7bb4cbf3d63b@gmail.com>
- <86cxtk2utm.wl-maz@kernel.org>
- <CANpmGNv4uYRLALMLKZn-HJwTiqJO90Fx23DOO7K7d-PfSWn=2w@mail.gmail.com>
- <86bj932ssc.wl-maz@kernel.org>
-Content-Language: en-US
-From: Yureka Lilian <yureka@cyberchaos.dev>
-Autocrypt: addr=yuka@yuka.dev; keydata=
- xjMEZ3vnnhYJKwYBBAHaRw8BAQdAn6RVMnaxLzmDDx+J3jSUGY7BqjyDhsWhdwKBSI6QpXfN
- Fll1cmVrYSA8eXVrYUB5dWthLmRldj7CjgQTFgoANhYhBPGINbLQ3ypM7JNhigKbtnC7kwpH
- BQJne+eeAhsDBAsJCAcEFQoJCAUWAgMBAAIeBQIXgAAKCRACm7Zwu5MKRx1qAP9ToLaOMd73
- VVf1JdwoMc5G44OZfKNk/+ezt9Dl2oqZdQD/Xvgd0lytU3BZ4WnYeMNzo2xHeRxXmX+MfXhA
- D33tzQ/OOARne+eeEgorBgEEAZdVAQUBAQdAIs9uImfvgSCnJOcfvzshLuaSRJ/a0Vp/9rUA
- eBGZq10DAQgHwngEGBYKACAWIQTxiDWy0N8qTOyTYYoCm7Zwu5MKRwUCZ3vnngIbDAAKCRAC
- m7Zwu5MKRyW9AP0dBOuwgWso+QjBZUsbuEmGGUz2OWtszs2Yb7087RMerwEA3al6E7vqq0HC
- 7LiB3nisU+xqQojJ4n/fWCu70iEkjQw=
-In-Reply-To: <86bj932ssc.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 10/9/26 10:16, Marc Zyngier wrote:
-> On Fri, 09 Oct 2026 01:03:57 +0100,
-> Michael Reeves <michael.reeves077@gmail.com> wrote:
->>> I can provide the binary (and a few scripts) to test this easily.
->>> Should they have been fixed, we can always create a second
->>> implementation list to cover the PMU.
->> Can you please send that so we can try? That would be much
->> appreciated, thank you.
-> I've sent you (and Yureka) details over IRC. If you need help with
-> setting things up, let me know directly.
->
-> Thanks,
->
-> 	M.
-
-
-Hi all,
-
-
-sorry for the long delay on this. I needed to get my testing setup in 
-shape to be able to run the tests with the limited amount of I/O I have 
-working on these devices.
-But I can now confirm, that the following SoCs reproduce the SEIS 
-erratum (produce a host SError using the binary sent by Marc) unless the 
-MIDR part numbers are added to the has_broken_gic_v3_seis list.
-
-The affected SoCs are:
-- T8132 (M4)
-- T8140 (A18 Pro)
-- T6050 (M5 Pro)
-
-So please add those to the list for v2 of this series, and probably also 
-add T604x (M4 Pro/Max) and T8142 (M5) since I doubt they will be different).
-
+Please drop this from AUTOSEL -- it's new-silicon enablement, and its
+parent commit 56603c28d916 isn't in 6.18.y, so the static_assert in
+arm-cmn.c would fail.
 
 Thanks,
-
-Yureka
-
+Aviv
