@@ -1,85 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792462669;
-	b=xN+4dDLf0G0zcPOa5CICn2o2LhabZVqjqx/0IEpCz9A06FE9gER/1zUbJJtRoM2k0RP8
-	 UveI8jMGgD7OmI0NJru8B4VG2GzjEiLu1GizZ+ItCs7gUBIDXd7NUNok69V9pNf+tkyXK
-	 fiCddDyBm0A+i4pSUpnGLE7MdgXzaKrasn9maObpbNnOW+k0pSTqlpcq9x7ECqtHKndNy
-	 FMh9vvwOdWtZtfgUQYMz4QohbCN1vGvDf6Xx6e8xfWWiocPDqGiDhViWSjZ99d2tvwlOQ
-	 hdsMyq+3HAXsCEazQFPzEpFGwRMXAJwsYI+xxWXsvPdfrgdt/OTGRultqMe7B7bdTQg==
+	t=1792462790;
+	b=qsUYN/HzY0RD5xJHypANOHhFHPkpCgeSyXYdwHpmW5RFvr+lIO1LDWUHytjyh6xROz1/
+	 ec5h9Khzmp4z7zUDbNt2kPs0I5EHarPaoubXQF6Ty0fg6XQaYqJJTiCmEW8zA7eCG2eht
+	 Fx8XBxhkRrRvnr/FIwMm4J5/8NPv1Pj2iyy/cX2n5GJSBkSvp5yQhnOgerTInaz1o9LfN
+	 g5yljcw5jKeIpBOmC+q1zEDHJe91aDolg3P9JLLV16I01qXkSjzUXpKwij4wsAPOSWjaX
+	 HKyzTsuUlALC0yw5CKjAu/uCgYTL1TzQMxjNh2fcyPlHYGQxL9M9sDUTSn92QGDKnoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792462669;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=9JTgDpDDwMXEKUT4yd6AOrd7DzQF1sh+HtTOxj0mdTc=;
-	b=36FyVacEhYaOSxQ+Y49uuv7nS4zuGhlu3IrHhvGu59CP5C8DUfytv3p4OhkA3vYrp7sz
-	 R2Rnn6R3AG5MSQ56zwo6Ln6/pwGNpbrw7LF44Kri+kam9pP/YaS8paloG0DUf2XiczfRR
-	 KlivF1dwOf0GmlavLOP42IqOYN5H/A3gi3qTY6qpdTGb2nwS7JPVdfqLtG+gcTkVcXdCC
-	 N9GXjEOL/JAyM5aHj2DBseSDddGd3o5SRkWBHud8eB5C9Vv5wxo2h84AkiABmTrbkzlFI
-	 YmB9vGWbCCVIR89gzDGaNDPRbuxzRXFwxzfRKuSRNUldkDerH8c8+YUquTbM5CmeJSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792462790;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FjJQ/9cEanmkiGLkZSaT/cjzgc0H750DlzstsIHbwtw=;
+	b=ptByQ8CUER9PCvvLY+HHNumTWk3Pi+C4aW4869OPQ3BndVicWMR58/oUBI/W3jd4GXD5
+	 KlplGfpRYyZWVvIEVTUisjpW18XZS587UP0vndMsRAkjHSP4ZVgQ39lVk0YPCMJw6YZRt
+	 pL1iFnUwpKK6r8HtX4A++m2fK4/W/DhLGpRqan2MYjpY4wjgqNPK4hYd2l/E6zkxX/5vR
+	 ku6GZGl2bJPiMMtsHMOD2WU463zM3NFZ/Dsx3++v/JkElCfMo5XWbfD7TvoJ3yQm7PCnr
+	 KYjQVoanb+O/dfm5RmPenlkpljlxQIGaYd8/caj5E6AhDCrIaz4s659OndeGJs5GCeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W1A9vmgR;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=motor-comm.com;
+	spf=pass smtp.mailfrom=motor-comm.com;
+	arc=none smtp.remote-ip=115.124.28.148
+Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DE6606A31A;
-	Tue, 20 Oct 2026 02:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38DE6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W1A9vmgR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792462669; x=1823998669;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oGm1k1Fx6NgBJcx5I2zgIIB14FL1PA/x50knBnXj7kc=;
-  b=W1A9vmgRkHq42CKk4zz2op9kY7WWZrjvbdwNpspSYTox5Mw/YQHoiMgM
-   bSP8sbJxyfBpZTMb1XgvaMWEkeYgOc3kLFyueJx0QaCzNpnvzK/vf/Wqc
-   YoPOewUaNhc7NvI1XwiP34LkURLrH5na0xb2zq6jAEocW0e0vSpsXCLZX
-   awma6BhrWXDMN3zAW1Xx+AygvOJpyGUIqY6KJT9/ftlg59Xik9Vr+YL1A
-   iKvZgRoONits/3vdizCHu4xQHIX/oRFFl2uxWT6WJoL72aOdZDcMb5ffz
-   LQSiNRcaDjJSC7bmjAWwEiqlXPC7kGRpTeN+BQ+F5ihmoDc21KtmvfXvS
-   Q==;
-X-CSE-ConnectionGUID: dzEReZ4TR7SUVThSXPI0uQ==
-X-CSE-MsgGUID: +Ei5Uwz5SHWROYcNO38dUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1162285"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1162285"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 19:17:48 -0700
-X-CSE-ConnectionGUID: f/pxMlMvSTKi/qRoZOOMkQ==
-X-CSE-MsgGUID: VKslVvdaRkyzj1W+tnmR6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2704000"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 19 Oct 2026 19:17:42 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xIzQ3-00000000Ml8-28S5;
-	Tue, 20 Oct 2026 02:17:39 +0000
-Date: Tue, 20 Oct 2026 10:17:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kyle Switch <kyle.switch@motor-comm.com>, andrew@lunn.ch,
-	olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E45F606A31C;
+	Tue, 20 Oct 2026 02:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E45F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06745788|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.316453-0.0542113-0.629336;FP=13617245593967022006|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jlJBm7I_1792462778;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jlJBm7I_1792462778 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 10:19:39 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v15 5/5] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-Message-ID: <202610200942.aPmEAZ8C-lkp@intel.com>
-References: <20261019110543.2999419-6-kyle.switch@motor-comm.com>
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v27 2/3] net: phy: Add support for Template Control register for PMA
+Date: Tue, 20 Oct 2026 10:19:28 +0800
+Message-Id: <20261020021929.3028490-3-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261020021929.3028490-1-kyle.switch@motor-comm.com>
+References: <20261020021929.3028490-1-kyle.switch@motor-comm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,84 +68,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019110543.2999419-6-kyle.switch@motor-comm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Kyle,
+Add support for the 10GBASE-T PMA Template Test Mode register
+field, which allows selecting one of eight test modes (Normal and
+TestMode1..TestMode7) used for PHY validation.
 
-kernel test robot noticed the following build warnings:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/phy/phy-c45.c | 23 +++++++++++++++++++++++
+ include/linux/phy.h       |  1 +
+ include/uapi/linux/mdio.h | 12 ++++++++++++
+ 3 files changed, 36 insertions(+)
 
-[auto build test WARNING on net-next/main]
+diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
+index 870920311f9a..c5f5753f7194 100644
+--- a/drivers/net/phy/phy-c45.c
++++ b/drivers/net/phy/phy-c45.c
+@@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable)
+ }
+ EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
+ 
++/**
++ * genphy_c45_template_testmode - configure template testmode registers
++ * @phydev: target phy_device struct
++ * @test_mode: testmode includes Normal to Test mode 7
++ *
++ * Description: Set template testmode include Normal to Test mode 7
++ *
++ * Return: 0 on success, or a negative error code on failure (e.g. register
++ * read/write error).
++ */
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode)
++{
++	u16 ctrl;
++
++	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
++		return -EOPNOTSUPP;
++
++	ctrl = FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
++	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
++			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
++}
++EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
++
+ /**
+  * genphy_c45_plca_get_cfg - get PLCA configuration from standard registers
+  * @phydev: target phy_device struct
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index a5a419bc400e..81cb7f15bb72 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2359,6 +2359,7 @@ int genphy_c45_loopback(struct phy_device *phydev, bool enable, int speed);
+ int genphy_c45_pma_resume(struct phy_device *phydev);
+ int genphy_c45_pma_suspend(struct phy_device *phydev);
+ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable);
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode);
+ int genphy_c45_plca_get_cfg(struct phy_device *phydev,
+ 			    struct phy_plca_cfg *plca_cfg);
+ int genphy_c45_plca_set_cfg(struct phy_device *phydev,
+diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+index 06f4bc3c20c7..353ca13c64fc 100644
+--- a/include/uapi/linux/mdio.h
++++ b/include/uapi/linux/mdio.h
+@@ -63,6 +63,7 @@
+ /* Media-dependent registers. */
+ #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
+ #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
++#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
+ #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
+ 					 * Lanes B-D are numbered 134-136. */
+ #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
+@@ -320,6 +321,17 @@
+ /* PMA 10GBASE-R Fast Retrain status and control register. */
+ #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
+ 
++/* PMA 10GBASE-T Template Test Mode Register*/
++#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
++#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
++#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
++#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
++#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
++#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
++#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
++#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
++#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
++
+ /* PCS 10GBASE-R/-T status register 1. */
+ #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
+ 
+-- 
+2.25.1
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Kyle-Switch/net-dsa-motorcomm-initialize-dsa_switch-based-on-chipid/20261019-190539
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/20261019110543.2999419-6-kyle.switch%40motor-comm.com
-patch subject: [PATCH net-next v15 5/5] net: dsa: motorcomm: Add support for Motorcomm YT922x
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261020/202610200942.aPmEAZ8C-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610200942.aPmEAZ8C-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610200942.aPmEAZ8C-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/net/dsa/motorcomm/chip.c:2755:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
-    2755 |         default:
-         |         ^
-   drivers/net/dsa/motorcomm/chip.c:2755:2: note: insert '__attribute__((fallthrough));' to silence this warning
-    2755 |         default:
-         |         ^
-         |         __attribute__((fallthrough)); 
-   drivers/net/dsa/motorcomm/chip.c:2755:2: note: insert 'break;' to avoid fall-through
-    2755 |         default:
-         |         ^
-         |         break; 
-   1 warning generated.
-
-
-vim +2755 drivers/net/dsa/motorcomm/chip.c
-
-  2730	
-  2731	static int
-  2732	yt922x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
-  2733			   phy_interface_t interface)
-  2734	{
-  2735		struct device *dev = yt921x_priv_to_device(priv);
-  2736		const struct yt921x_info *info = priv->info;
-  2737		struct yt921x_port *pp = &priv->ports[port];
-  2738	
-  2739		if (BIT(port) & info->internal_mask) {
-  2740			if (interface != PHY_INTERFACE_MODE_INTERNAL)
-  2741				goto err;
-  2742			return 0;
-  2743		}
-  2744	
-  2745		switch (interface) {
-  2746		/* SERDES */
-  2747		case PHY_INTERFACE_MODE_SGMII:
-  2748		case PHY_INTERFACE_MODE_100BASEX:
-  2749		case PHY_INTERFACE_MODE_1000BASEX:
-  2750		case PHY_INTERFACE_MODE_2500BASEX:
-  2751		case PHY_INTERFACE_MODE_USXGMII:
-  2752			if (!(BIT(port) & info->serdes_mask))
-  2753				goto err;
-  2754			pp->serdes = true;
-> 2755		default:
-  2756			goto err;
-  2757		}
-  2758	
-  2759		return 0;
-  2760	
-  2761	err:
-  2762		dev_err(dev, "Wrong mode %d on port %d\n", interface, port);
-  2763		return -EINVAL;
-  2764	}
-  2765	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
