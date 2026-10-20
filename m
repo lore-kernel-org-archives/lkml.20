@@ -1,105 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792465232;
-	b=LT96a4WSaZDvZF69iGePI9NXw1wY5LT2HDgqJhOVamAvuD4cP6zgAHxXJiVD/ngPk72h
-	 SNRf1N9gVhwvK+0LuiMs4qucQpiRM/0ONZbvYmY3O2669T32eaGvk2aWGRWyBU0TYOsZH
-	 aTJx3WahKmPfYSLzzCNEvym9feLhTmZtOZg8KtuCwonmu/ZS9IYub8aolqXYb3NCv/wnP
-	 s57aukXOT5Y30L7kNgBNUAgI5SOpcjg614lrE8A/9bxjeDmtpDJcUOsYat73QQcLZIf++
-	 zqg/MfiHUk2/rkDR0foZUT6K8DxNFNuF+1qa8tOhWU7mGkmnPfG5zB36YjaYLXXGOhQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465232;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vXf2PRBtCffARJRCksY/U1VwasnAViJ7bZBXAb3Ni48=;
-	b=19YCQyN6iljoOEye5lJBSLEjVujaulozCfeu5Cls6RXH01OVd4EaC2XOPY2AJeZ2TD7Y
-	 z+BLqO9nIqxE9FCKNDsrACtU5rrhmztT1IS8FxsCG+RUiAIrBNYvtotMCsOinDoVdwzpq
-	 uFR2Iexm/52VZkav4DR0263T5I7hmahhn/r1zLBYRabfl0NS/ayq/DGwqzecqyD3uO38y
-	 b1FJmcorkCMOpVmRirAOIi6LCkwWYwVYvhHPAG1xiHIsiIv9MHc51LdBtXRRnupfxb7FD
-	 eNFRrDi9TePuB54uLf2kXJdYh7V6+oSUVBvgQJvsDtZmwqubzQAaTluEC9dQeIBAvtg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wO92w6n9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.65
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011065.outbound.protection.outlook.com [40.107.130.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792465406;
+	b=CsBBY0W2ERHLhx3zO30gmTCG9KyWwJatSXNJ28lLzFILPhPLUB0xgXmKy6Dizk9KbMCL
+	 WObTB+V3KEFYo+q1Y3zwBVTGZj/6rv0NU7IvPsaLqWIL8P+nAOpi2G8BdUSVFscUonJ7r
+	 /7TVcxwnOrsHzAwZR89F/iF/j6Ppw9OiWKzjNxNyq5MxfMtP9AIVW5LRgPXeQrBh5LZnc
+	 Ke9Kiyk/GjebWcP/pvNB3SvwXCnyCgenwBeHlAam/8P0U4w89SBY8tcZ9o+rz0M6DM4oZ
+	 6kJcVtQ6XCZMVDV1QtBEjeNNs/032g0EL2mKtmUwdiGHOKEMSwFwqOosOB2nKsbcN2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465406;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7iKM8EwoaojoyuTFakOaMxaMyLliXbiGe3dN6S9YDMY=;
+	b=bow/35g2ejhoqhpGhvTHSRILer1Bcjyz/0fxY6MF15xvkeOieNzB0mqa7bavp8Y4Htbn
+	 vwBtDhjpaKXdDOwJULnhj66HNB7py6kcGFTZgkTmEyezXV/1JGq0+E4M5Xz8ybnQEE8+G
+	 pWvlpeTGG3uIIAHyALEHU0i0209KQGJaMR/S3jeKfqo+SWcMKlklDByeWoYN/xm/jsvxY
+	 UWrF/9ooxTyCEr+PK+6xWQNFK8AS3JVJHgP92HyhBb9blTCZoTuboha9qovn236L+8aRI
+	 Y2+RdbZfMEpqoFeU0onjEHw459yQkvE8xPXr2FSBCUogCXSu+wh5Vq2ztmkeYwg6RCA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YkYiYCQN;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49F2606A31A;
-	Tue, 20 Oct 2026 03:00:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A49F2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F70606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F70606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wO92w6n9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MaOQpP62P0KA/tgA0MkcpiM6YLcMTbxo/fdyzVh8ZVAVaPrmVZNmuhkVjyPaxSWeC6j/K954wmkB/Kstu7bmc+liEJd6NKZPGTmiAw37YeBtXfBpkv/DpzuCjgXIWs7PcPnoEmetxXSIDSwt1KSPRHkgb1qmo2tZ7byu5i4XG6npweces4cFA9o5CMYzt1X+sZELYb+vXHJnJIX4mlA+KsTyNYXzI+9oLG4flm6ei+Zf5/XON+f6lQgtniPpLc/Nz5YvUzLEMJWeTMG2A5AmgnVPwPHka69XvXS54H0swKXdf+Q1WN8wXqnuiFEZBiwiWEegWRh/S/oxNmWsrH2tpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vXf2PRBtCffARJRCksY/U1VwasnAViJ7bZBXAb3Ni48=;
- b=H4hwyOaPY83gEt6ylPz5HzAOU+toocvMUjaZknCDq9PdwfIVPZHKI4aXoDBq+cBS6tUy7XBgpdS+1weySA622XvLCtef1pJnXGMG7xhoLYYD/7B6GsO1fdbV8YMDdUT9dF6XMqY5dqcoMVLSANjw+meQN4CVFQuBeGlQV6NI7zIWXcBPl654dUESJJ0jqeJ1r/2FAMTgp0OHTHnX6+JYukuMvOC5ja+ln5q8adp4rVh0j2QwKWso/unxA7ZNsmVU6sN4y95CJHyAXxUlfPW+C0/Fl9qXwwCwMSlKoYAWDqt1QPLEY1LALjXYjS8mUA+L6JB6AlH+wKWNfYx3iW63zQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vXf2PRBtCffARJRCksY/U1VwasnAViJ7bZBXAb3Ni48=;
- b=wO92w6n9BVm2V+i1pVwyYWws6WLPOLEo2KvgjUkRpI7nj/SFnJeKgGFhmMzYGpeRHPAzPYxfSvu6YrvzopwPPy0nXypAPkiX1op+5dSOWbYuNX9MxOXX2rztHO7N3VZa1mLbizKRgx92M4spWjOsFpmGuRP6SfDcKCu7jiVrc3XhETc0lGXEK7DFPIYW38N27hiNm7TQewgDhFEWbyH2SB6vYu3EOl89S7doAnMX3W4aaZmrJCrikAfIm9HhQljmigZk/a9ERmxLQ8tq5Juc/xXGzKhkOrGeV60oFnf11d4MmLmOtjbPYWhsrM6BJHn70Vqur5rAypRPTJYAfWpj+g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB8PR04MB6667.eurprd04.prod.outlook.com (2603:10a6:10:10e::22)
- by AM0PR04MB164874.eurprd04.prod.outlook.com (2603:10a6:20b:807::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 03:00:28 +0000
-Received: from DB8PR04MB6667.eurprd04.prod.outlook.com
- ([fe80::e1b:d361:7aba:6960]) by DB8PR04MB6667.eurprd04.prod.outlook.com
- ([fe80::e1b:d361:7aba:6960%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 03:00:28 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Tue, 20 Oct 2026 11:04:57 +0800
-Subject: [PATCH] media: synopsys: dw-mipi-csi2rx: Fix DPHY testclr reset
- sequence
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-dw-csi2rx-v1-1-c58a2e5cd43d@oss.nxp.com>
-X-B4-Tracking: v=1; b=H4sIAFja1moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyMD3ZRy3eTiTKOiCl0zIyNTM0vzNBPTpCQloPqCotS0zAqwWdGxtbU
- AeuzowlsAAAA=
-To: Michael Riesch <michael.riesch@collabora.com>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792465507; l=2164;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=nsDSCw79V47dREBnaEHxEbVb4bN6njIp1F2cAEj2W4w=;
- b=XlwO6xCsHo0Ts06fboyElq+ZETEjyL7JDkNF9u4Qsg+88G1VbSAxh9U2o0qZnQVT5pVGao0qN
- uYVRuIxbv6RC5c5k12eDexLbX1a4W+WbaVzRCk601svLlLWO5OJ8Jcm
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SI2P153CA0002.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::16) To DB8PR04MB6667.eurprd04.prod.outlook.com
- (2603:10a6:10:10e::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YkYiYCQN
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so1534498a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792465406; x=1793070206; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7iKM8EwoaojoyuTFakOaMxaMyLliXbiGe3dN6S9YDMY=;
+        b=YkYiYCQNhIREwubHqRXjpJhIVLCmen08ktmOr/IDht2Mu0NDdDzkeStxyUqonSytNf
+         NOLbZ++Nt7V5JnCVSAURZdnUHuBkGppvaArpkmC5EtySpmzRNMQYd9nwO3zsPN2eK0Jt
+         ToIiOPVq2Gc0VOov9KpToQPQOmOGHk8ozyaZTkW4LVu9hsMFTGKlYL2OryBvMwpSVT1O
+         omtRVAVVY2VwnWo+Te45Lt3acnvdgEfnAD5cm6ap9SEu7XJWcfvQZeu+AHZEnxAziZ+r
+         0Ym21wMmptonI813GOS0BSJmyeQ/v550S/JYDvcMyTMAE23nuF6R5NIHSrHTRvtxkMt0
+         m8tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792465406; x=1793070206;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7iKM8EwoaojoyuTFakOaMxaMyLliXbiGe3dN6S9YDMY=;
+        b=qA54N6x9+8V1Cr4y0aEuib0FldCbNZYUf1WfyqU3ESkttGHh6Cv3H9Ba26VvK//9Z8
+         4xEShcc7W8c9VaUbNjn0Vn40uPkMiXQf9JGKMXU6i/f/k6bPFL2FRrMpLJ0VSW1dr7qk
+         uSFYarvs6CJfwMhWH7QXn6EsTCElCftipEa43ntKUDq1XxexSua22hJ1UH0kiL2K+9cO
+         0sgXeFBRGlsrCk5eAZDJFRc11mKUBOxeG8dXCKV5W+ky3T0dIhyYC5QRlEnh47VJW3t0
+         zT8ZCZ6qnER1HiAWdDocF72EwT5T7XKiIgq32JY0wR3RS/nCMqqq1fCn1ishr5e/QXoI
+         ZW8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ8jqSQ1OINaRplW6lmW/otcsdwoIpjnsT6ZTAn0sd3SVNfGalfvDTetXqMDfyCNZWO1GVSKloEliARXE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOTt3gKED0/SyxY7v0ttX1OB/4CKVlSaVN4G1GSw8TeUroyE68
+	y8IHLAqFXfXhWFAjWfBvTRfLdvifFADvGy6BTVRRnR54+nxYLEg6ekBJ
+X-Gm-Gg: AYBFou3SIH+KCoovAL24ZButUkBb7cz/28tI1vaIo4Ql+rHYDlxBCZe55jQt6QiAYT3
+	gnN3pup4X2HV7UV0eSFFGMlXJQ8dAKExAbAHYABB4RQiKPGhRUrkQ6BGXOq4JQNOYWdiwDev0qR
+	7w64/yUxWineadhepCuZEPmFtLRpIG/dd/kaqh/Kc+h8AKiW7duYAj499jZolvZy8Q+xJd+hWpU
+	7WAyltprDlQVRsOw7y2HV7ZbE55TipgNa7+gJvXZR2dCDUpr7U1Jv1o56xNpWaPCPuVogIAsNhM
+	8wgJO6npvkOUtnYQmhAuwVkdObnQih9ov0SIH21vkdtJR9DA4AH5gPItwWZcUntfUCMmWa691xt
+	6iUMrVvy7IELbWABHYqDhbRjC7xD/87+l/RWAaHCfdSCeCdAx01OQUeODKaHyI0bNVAAnAmzAaX
+	JvKYCyyZpFG75ZfBGpcO2YXztzGNW2pmhotheA6zUiyPsMfR8YXMQID30SxvAODBx/hTlQ8d2Hm
+	2MLNid3rmG9lMrmzykR00+LLm79G1+l6lQTjAUbVNgFIsTaIWTqpWI3O1KrIZCc6aYK3ETfQWFu
+	vXwWRLrMBT7GcHUsHf1a29hwXCM0k9p+
+X-Received: by 2002:a17:90b:582f:b0:3a6:f1d2:57f3 with SMTP id 98e67ed59e1d1-3acef542fa9mr8451695a91.58.1792465405825;
+        Mon, 19 Oct 2026 20:03:25 -0700 (PDT)
+Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d4005b1sm2215884a91.6.2026.10.19.20.03.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 20:03:25 -0700 (PDT)
+From: "=?UTF-8?q?=E6=9D=A8=E5=9B=BD=E5=B8=85?=" <yangguoshuai@gmail.com>
+X-Google-Original-From: =?UTF-8?q?=E6=9D=A8=E5=9B=BD=E5=B8=85?= <ygs@cgcal.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Guoshuai Yang <yangguoshuai@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH ipsec] xfrm: esp: reset outer TCP GSO metadata on espintcp input
+Date: Tue, 20 Oct 2026 11:03:18 +0800
+Message-ID: <20261020030318.6471-1-ygs@cgcal.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179237120528.3135.16925112275068010433@kernel.org>
+References: <20261018005218.53267-1-yangguoshuai@gmail.com> <179237120528.3135.16925112275068010433@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,125 +110,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB8PR04MB6667:EE_|AM0PR04MB164874:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb93cbfa-5866-4bca-98da-08df2e564b98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|23010399003|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	thvenrdJYgtavdeTH0VH91oI5ep9kabkygLWZpr5XVj6YL+SIR59ptwypVucrEn8fc6RhluruZOlua5WyLx8jSOEjXQoyK5AT4TyO5rZbvJ2e3jT5aszNBwwWZXarKMQAK/wDpQU6eoV27RtCfcERFxSQISPee1gKdeN8+HNuQTNERFMK9ECIgiX7iQ7hp7Oj4y1VuT6uoJtrpMtCSgBGXZPjXobzrSc47kKdfmDmIsR3VcZ98qYsdA1ggfs7qZrnNf0RUskCE5Sah7dWKbxXFvC4vCOMC2CqYpVobHp2lhQzn2MFUt9bqlXZhbP6fuW0+TUY37zmSrNT3jVZOxU3QazNOW9yInDAVH8PwXG3uectq5EcoFQZfXWciq/vmgOYlEMsAQV44h2m+g7Q5ic0pFb/6CypyV6PfkXcbBbzuvB2Le6h5VO2lXP1LVS0ImaUZ38VKyLToX8zw/3Rm6gr9FYhxQBXUpqXBdy9kbY6ii/8e3PD5m3ngsAxLm5FcL11SbsYtRDu5OSvFvWKEqzjff1HNbnHG2D4u1hfyiQmPUUuCvJWYYmBdT1zvEygz4HEV+yxIISF3ftHo8MUnxXBi67CLL6AJoLHrKbwoq7udCZY9A7RbdP57CdUpGHV4PpHRn9mO6QoJgbrt0wTMhX+L2aksQw7ly/hnbnQnTkUu0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6667.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2pxcTFBSEd2QlNUeGtUNFNSYzFZNVArVDluSWVveVk2NDh1UXplMWZ5a2hO?=
- =?utf-8?B?VmlMUU1veEN1eW5wNG5FOHhpc05aSU5MSWU5RGhnSkp5RTR5WldTWmpwdUM0?=
- =?utf-8?B?bVZPRkQ1YXdBOUhyZTdhOElhS3dBSTNucmN3bGhjUHhUcktMdngzd3ovQjNL?=
- =?utf-8?B?V1RBZzcwNUNNZllCbkV3SENlRWhvbDY0SEIzZnorbVNRYitCVWduTmJSOEp4?=
- =?utf-8?B?UVd5L1RvMVRjYlVFeVRGQzZVNkx1WkxlajdFdVBJYXRoUDhIczVmMFpqaERJ?=
- =?utf-8?B?RzhtUHdzQU9xOE5zdCsxSHQvL1N6MnZVT3AxU0NVOHR5RlJoeGZ1OHl0aWpi?=
- =?utf-8?B?NFFXSE1VWm01TkJ6NHlsTThtYnlGSE1EanR6VTk0eWN6dGZvOFlKNmh1cUZM?=
- =?utf-8?B?dVBpNmgva2RhNWNramNzNUxzZC9vNUs2MWtBUlRnSkpxK1VvYkh4cGtJNStu?=
- =?utf-8?B?TytpSTZuTVI3a0tmcGlvM1BTMFdnaGQ0b0NOdzMyV0NMYlh2KzNheXJuWkNi?=
- =?utf-8?B?WXJmeU1zM3Z2SlUzQ0dMLzJ6NWVsTUNkb3hlcGluS2VrQXJzNmlEVy83VFk3?=
- =?utf-8?B?bzhOQWpGMjhSaWpEM3pYSzAyZExzcmJ6WnZLMGpZclloSkpYSWJ6UGdiRXY3?=
- =?utf-8?B?L3ZCeXlLNSsvSFNpSmdTNWRPWDQzejFFWTh2SVRpd3lmWWtNWGIrd0p2b2Iz?=
- =?utf-8?B?MXF1ZXlFT0hac3UwY2pxdnJDTHFXMDhKWXFPRCt1WmNnMWYxai9wb1E5S0FI?=
- =?utf-8?B?ZzFJREVpUW5WeUVMbHA4K0ZXUmo5djJRbEttdTlEbkg1ckVSRlp0RG1Lbkw2?=
- =?utf-8?B?Q0twYkU5TDBOZit4Z3pWVjVLbGNxNEl3VUdlSHlVd3UrMXhGR1VQWllLZHpn?=
- =?utf-8?B?NnBQMUN2bmFQQ2FvaHZIUk5WTVpEOUFXQjFTcnRxdkwvVzZNM2hFZUFWc1NV?=
- =?utf-8?B?V29hT3NCWGZ4TUN4d1ZRdGtncFh5OHRMSG9hakE5RFVvWDM3bE1ibWdXbjBS?=
- =?utf-8?B?Q05BSmJRYm5SSmtUZW9LcHZQUGo3VHJ6TnlSbXJxMm93R1A4TDlITTJhYXBv?=
- =?utf-8?B?NWRLNTlRK291ZDExdXZvYmxMZFhibzc4L1czSytMSnhzcHlFaDNnS1hkNDkz?=
- =?utf-8?B?c1VwUmV2UVhsdmhWb2FlWnZyckptV2lRdUZ0Rk1YSmZVbzdhWVdzOWprWU5U?=
- =?utf-8?B?cVVPU1FOdjhJOTBlOU9QcHcreHlhcmhZRFNPY0RaNVlqYkpxb2ttbFZDb2RN?=
- =?utf-8?B?RmJFREFSTHhYcFpFdXZBeEc1OHM1b0VvekJMNHJOUUdKTHAzNERIWWwzd2t0?=
- =?utf-8?B?azJKOW1tdzMvTTRUS3RvdVJPNE95TEg5T0RGZnBSV2IvajdYTm81ZGhKdGhu?=
- =?utf-8?B?a2pyQTZOdVVaa1hVUWxUcjNNNDc1UXFRMHRoWndMVUEzWEpOL0Y1MWJtSmdo?=
- =?utf-8?B?UnJrTE9hbzJzK1E4UGpoK01ZSStJelorRm16MDZjKy9IZitEQ01BeWFsVmZL?=
- =?utf-8?B?RDQyVHlMYVppek8yeUR5MmpQbHJsSkF6Y1dQS3QyYUhVZjVlV0FkYWZ1elhM?=
- =?utf-8?B?dGZaWjRzM3E0bGdaQlovOW96dHRueGN2S3JlYVZqcmJNd0lwcWIzcTFVaHM5?=
- =?utf-8?B?MU5vVHpSSnNxbmNBeGZ1THdOOEswZ2NjQTc2aXp5ZVdkbExwODcrMXh6WEIw?=
- =?utf-8?B?T0lFUGhMYWkxNTc1L2swSVd0RlB3OVQxTE5weXNERVhnMTV0Y2JSMHFsZUpl?=
- =?utf-8?B?VnR1NWRjRzVwQ1ZMRURIVmF3SVdhYkZRZ1AzTC9GbnVIckNya3NpTDdIeGRM?=
- =?utf-8?B?Y09GTEVnOWp6ZGlteHZaUWZvR21NSDN3Tzc5TzMwYXhGcTEzaE4xd0hjOWwy?=
- =?utf-8?B?MkluclF4Slp2Rnl3UEtJUFNXZklKeGw3WTllVVhBV0pINXVMbGRiN1BZTEND?=
- =?utf-8?B?UEtjMVlhSlhDNkhxUXBjS0pGNzlwdjk0bTB0ZUl2WEpDOHM1N3dCaXdhM1pD?=
- =?utf-8?B?bkM1MGlWeFBzUGhCcnRCdmkxTjh5bVNMelZDOVpsenVubFMxZVlhdkRkdmVE?=
- =?utf-8?B?UndtUTBFVGNMMVFlOW5NOEZyNmsvTGtiRmljenZqZVltYWpodDFRUGhxd2JU?=
- =?utf-8?B?aDYxc0dCdVhzT3pmVnZNZDhzWktNaXlIdUhkaFJGY3ozVTAzOTRQanZTbGRm?=
- =?utf-8?B?emxZbGZsQitBVEw2cHpsTUlaZzJuT1FxakdkcVI1OC9OU2Ixa2xNUGk2RWJW?=
- =?utf-8?B?OUE0S1lzTWkwZmluRmV6Sm5LU3RVVHBrMTEzWlJmRFAzekJMaUtidmw4b2NB?=
- =?utf-8?B?WlRhbndpSlViTEl5V3h2a3pObXdOUzIvSzdxMjFzV0FEa2tUYzE4UGtoSHdK?=
- =?utf-8?Q?NQc0nfeuxFWY2Xm48xJ4tVaje1hK+w5eejZos?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb93cbfa-5866-4bca-98da-08df2e564b98
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6667.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 03:00:28.1346
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PpsWYM0b3f5dqDrDN6Q9wxk93NJvcBpKfhNSSnUpHEiHc6YfwFBTRBzjKOPj0EjyI3MtxMLOpMaLoKbACAGmo66Cyxy0NRtDd+VWWPcsrTXggjtPSOQy8cxDl4SaGtt5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB164874
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Synopsys DPHY datasheet recommends applying a testclr pulse at
-first power-up to reset the PHY configuration to its default values
-before any test control register is programmed.
+From: Guoshuai Yang <yangguoshuai@gmail.com>
 
-The existing code deasserts testclr first and then asserts it, which
-is the reverse of the sequence recommended by the DPHY documentation.
+On Mon, Oct 19, 2026 at 12:53:25AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Medium]
+> 
+> Does this reset only reach the head skb? skb_gso_reset() writes to
+> skb_shinfo(skb) only, and the frag_list members seem to keep the outer
+> TCP GSO state.
+> 
+> In the case the commit message describes, strparser chains a cloned
+> spillover member onto frag_list. skb_cow_data() then replaces that member
+> with skb_copy(), and skb_copy_header() copies the GSO fields over from
+> the shared outer TCP shinfo:
+...
+> Could the GSO fields also be cleared on each skb_walk_frags() member at
+> skip_cow, in both esp_input() and esp6_input()? The members should be
+> private there, because skb_cow_data() copies every cloned or nonlinear
+> member.
 
-Generate the required TESTCLR pulse by asserting TESTCLR, waiting
-for the required pulse width, and then deasserting it.
+Good catch. Indeed, skb_cow_data() copies cloned frag_list members via
+skb_copy() -> skb_copy_header(), which preserves the outer TCP GSO
+fields on those members. If the decrypted inner packet later takes the
+ip_do_fragment() frag_list fast path, each detached member still carries
+stale outer GSO metadata when reaching validate_xmit_skb().
 
-Fixes: ec40b431f0ab ("media: synopsys: csi2rx: add i.MX93 support")
-Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
----
- drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+I will send a v2 that also clears the GSO state on each skb_walk_frags()
+member at skip_cow in both esp_input() and esp6_input().
 
-diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-index b7247d597c9c..b9f7ba25bd3b 100644
---- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-+++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-@@ -830,18 +830,23 @@ static void imx93_csi2rx_dphy_assert_reset(struct dw_mipi_csi2rx_device *csi2)
- {
- 	u32 val;
- 
--	/* Release Synopsys DPHY test codes from reset */
-+	/* Put PHY in shutdown mode for configuration */
- 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_DPHY_RSTZ, 0);
- 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_SHUTDOWNZ, 0);
- 
-+	/*
-+	 * Apply testclr pulse to load analog programmability defaults
-+	 * and release the test interface for configuration.
-+	 */
- 	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
--	val &= ~DPHY_TEST_CTRL0_TEST_CLR;
-+	val |= DPHY_TEST_CTRL0_TEST_CLR;
- 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0, val);
- 
--	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
- 	/* Wait for at least 15ns */
- 	ndelay(15);
--	val |= DPHY_TEST_CTRL0_TEST_CLR;
-+
-+	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
-+	val &= ~DPHY_TEST_CTRL0_TEST_CLR;
- 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0, val);
- }
- 
-
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261020-dw-csi2rx-6225697f45bb
-
-Best regards,
--- 
-Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-
+pw-bot: cr
