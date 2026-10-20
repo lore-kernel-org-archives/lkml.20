@@ -1,111 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489401;
-	b=EzyXl8/tPVbfJ08r0EtqXODNfDUyEBaxmJce1j9BZ36fcW6vA2uRLZIIlAQy33AhGcB9
-	 CszmQgAQgzWvqN73lN9klGTrLRsnR8etS0HP8da5fL49lTF+DDnLFINJ75N73GNwdbNim
-	 eh/WjO04Af3tgT/YG9aU8WajxY/nD+FXqLePLOAxk6mcdC/lFADAxSSoQBfsvQSsUyMxK
-	 todmbYzpOHLANspQi/l9SgFRaSEiXCTwuo2goR9Jrb/AzQ8zxBo+1V5+02eYaFt6xoPZF
-	 dI5IdegeK9A80ST76kFP5pT1WixLKTEKy3YaQNLDBnB7URApMaRiYRJlpL6Lm13VtCA==
+	t=1792489523;
+	b=HQbEW/oQGaLRiHlpd+SqbVjgcrsm5juwxEu8IFxHkP+Kz3cDt/3U/VG2Y8zcWKm+zful
+	 WLpgAiraMFwq+P3IadMuVln573XYB1tyjo83g5eGECaaXa+4qO5fn52uZNTDf6P4x0etU
+	 OiUgNGo1diHwGE+IJqRc0zfhtm4/YI3ezX1Sj+R/FVTZuJMQfZ9nlJDmmeQSjR1zODNkE
+	 V59tIFpJRQFMpExXDWUcscOvuBnmZNgoocVHUDp25av5SSmrYlA7kyPdSc/BwM9XHVNDV
+	 XyG2PcS9fubfdSh1h+Yx1NPH4/GC1pOJGqbuNDjYD0G1Vt6/0fYh8iX2cb7lAGAdvEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489401;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=HgTVwb3F+rR5TKN+jjxZshU1/6qgx7+oJ4ISamhUpHQ=;
-	b=iJNtkgMQF7B3D8d5A6EqChEvBMTTjUdGDiFKKmWsCU/iRIRuHwW+BPrkigEuXO4jFK9B
-	 yo9HKK47dxfSOOAsMEKi2zCo0nLEQXxWLLvh7h2txenoSnNmK7clNkrddqsGwCZqnz4BT
-	 V5UVpTGDyyvggVKuPBUzX27SzIhh2kmP4iqKo4EJHLzd6cNhM1hrVkG3ZNaFpsDifoQbJ
-	 Jyv3iZO4DnGPon+zwAqpVxgaYE2NnkLcj9gl2jUdA46P7Y9k2Vyx/yDZZ+UefPIhtuD6G
-	 gEh9zewhsFkUb0/eTzhKlslhJfS8cK7ibfhyF1Lorct2enku0QSEgg7cJD6Q7XYLSDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489523;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NC1hiC1DqKSX7UHtU2uk6sPHM2rRGUITByEu42a5Geo=;
+	b=WsEvqT1T6unQOIA5YxvBdUbfuOuIWQbcnTOXVe7Ci84TNQWMYminTFtk+xZ93l9E98Ys
+	 kzkEmm5jeXN4tmGMc+JcuaJNxoEkPGzp73yoU6W9ZNcm9GQ8+sCw9G1zLor1p1S/GzALW
+	 aWp8OYs077v9+mbIEnA9ZhaCDuFDkIKSsbnIOXilSgXCh9C4I1W+77sRTtTAsStMEm85h
+	 xkZqQzie5V3f3YB27WqlJbggZAIv476OLD4SDjV8ypBPYDHChWMomz84BRnEAVGcQM+A1
+	 3kijMMaRC+UpqPjDaaNbcGJf2hSLQ4luLiinX8VrDABFDHqC2XCH3HNOH+eGWYQHdeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=ect9xLBN;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=gwCnOt6N;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dUk1ohYl;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cuqFe0U0;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79BA606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79BA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731D2606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731D2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=ect9xLBN;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=gwCnOt6N
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id AE54F1D00105
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:43:19 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 05:43:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792489396;
-	 x=1792575796; bh=HgTVwb3F+rR5TKN+jjxZshU1/6qgx7+oJ4ISamhUpHQ=; b=
-	ect9xLBNrA/QQyIvJAHn/kxzKeGquixM4dNHTz+JoSeUghqx72Nq5Gt6d7RXbuTb
-	rI+PKJyDp+MGxLItf50Q0E4BlFBKaWKpuJnB8j3ZyaazXGHkfexqcnRB07GJ4DET
-	hIUDEo14Iaq4BOJJjiKWOpUYZplkc1aoJ9h2T1kmIVXJa8hhoQH/UAIH5B3LkCds
-	JGLRfGx942nctWCRrA8YFz6End79rPGM+M6ntGloJ3lU9DuWPjJq3TMXro10KwbN
-	Y5x8w0CmHxBKyXT+MKNtqGA558bZiizok3exQIK5EDhplK183IGz7RwkGG9v2UUL
-	H0IIW05loGd5LJp+QCHKFw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792489396; x=
-	1792575796; bh=HgTVwb3F+rR5TKN+jjxZshU1/6qgx7+oJ4ISamhUpHQ=; b=g
-	wCnOt6NpxIOUHhp1kqoJZ/VjQfRVLq6+aee6r11Dizc+NHUvmJUWyMxUQzTpSKsp
-	bqJ/x0JC4DG3Xv6IewPKpM9q6R6CjfAZ5V50YSdjlOaHK8EKiLcJqQ2+TUcyZp8U
-	OLoOsJobkgTFQz6RqPnuM0UlotPpUReJ9NfGM5S5XcwJ7g1wLAfaobyjr1y1SolK
-	dpQ1aEe8Uz4hJJ6I1h4LFGnl2YB3pNwN9f2kqizpFJ/nrdZ6mADJbWUyS1PRJ9wE
-	3Z1lOSmEKYGvvzr2jGKFZpykIjKahkO4uqPMJgRvL849IofsEV3daExwo4cQFugT
-	azA6jiDgQIbd7NZLN8mbw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792489396; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:c1m8m8O8jaf4XIEqr3wdPUuLE5yTFFobJvHz2mDBUZgQ0Hr
-	iu6PRv60Q6qZeNUrBmeTyx/FgphavuEqlTBtyLIMLKntiLeKe294RREWyrZVndb0
-	+iB2dPGSPW5nvz8VaMoXaM+YPxNbGiM5Unp8NQ4E800v04nY9mraVn+TMls+qXFb
-	g4QB+9n94bZ4/n/beUYQSW0dZRyOkzKNLvvjGcbuU1C37UXiyFrkvZcVmfrAeT8n
-	PKKY4SbJiLhpX0JFumHOiG23u0I0dfZaAeAga/ySOlcr5MYn4r0N94xvCadV7Okw
-	Pg2J9Gd1CKvD31LQDvzvQBdKDL/K288/hz8mBsA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:L3jx9qnNLdMiOQOQkobEHWl5tzMW4MO3EXtmgGI+EWM=:fq2t1sJR2bCrmZ5YnEFzddjXHTlx0BGA7+KSRjc5ruY=;
-X-ME-Sender: <xms:sTfXapr1QkXQSSNLitk3IOG2xGrbZkg4WVGLT7gUZna9z3AJVaN89A>
-    <xme:sTfXamfCsXfq2o8SF-mpgjNEmgp38ZCFt_3wi3U2teVvyPi3u3DlviyN-aIA9LhOY
-    ybVRcG_UQZhFSHt_DTsGejLPLoVHyJZcEnsnvPFZ08DCFNVuj0bqP8>
-X-ME-Proxy-Cause: dmFkZTGEiQL7kIgdq8iuPD8iNY3eXKynF4OU4W4smM/RzfjXkPvORtgagH6BtllNmt05Zn
-    3ZifGbXRG4//mIPD8CxwyDTXHXt57cz4PzrkO7NAuAk714hL21i58CHYcH8ZBCVrCcufeZ
-    q2pRQDlQrPeVgCy0uX+e92J1mz38mEBvtxQNG84RAm2Ne+IPQIXgDNBc+FNVHfH7OVRIcC
-    8vxO++Ezeycvzt3BV2s7KPvd0FnO5N3bS982CmzivF0Qg7Eu7LbjQ7fzxrKAXzGEFQ7eXI
-    yGc6eurzfOW7V/Nqi1Ue8J7R8uWJxBLh5BZX31eLDAUijeAZqtyJ4u057/lpwP+W0Yx1da
-    AMhI3wDadHi93Bi3Xftk1G9Qru/WRFd539kPyVZKgLY9UvhTZ06rlqDkf5tlpaAaf/Qk7K
-    cnBhpHJaegr+dZEYBM2StGf0aCbGU8r2E7kTJrPtEqPEv/rnXBY+nX81w2NXlNMHzyjzlx
-    IA8vSZgyrVQgS2hXHxvPDBTB55lS96QrR48pbs7ZqfslvWjzCk4yaM3ZI1oFcV09nCNDrL
-    SGIG/0QmUSvqmw6CMMl0yzMgkrKut/0HJpHh6gMaObY16sJ//J2TYnIeRHVMauzjCKC4+2
-    t8rdeYAkFqR32TC/t4KctE25MQmHFMMUv9iXPTQlsD3L2oSez97MCmBUJG7Q
-X-ME-Proxy: <xmx:sjfXanuZdC-iO0xBPVlMFQgX-KTPlNuF61eL-AxDKz_G4pj2zL8t-Q>
-    <xmx:sjfXap8Fj6NHrdMq60JajTK4fYwW-hoSo49PdnQQ_DMUlbRXkG6IaQ>
-    <xmx:sjfXaq37m2jjHK3D15WyrN-eKDus5n8821wAU11s5x-MioVDVDmGBA>
-    <xmx:sjfXamDw_7uZwktuBI6xkOZ9dh-iX30iWFbHJYfP-AuWFiKKNdjhxA>
-    <xmx:tDfXarIcI1-pDh21O5anRLKFVmFAwke9CITZdedS9l7sU1NRaL3jNScu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B7D8432A0093; Tue, 20 Oct 2026 05:43:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dUk1ohYl;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cuqFe0U0
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8B6IO1080884
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:45:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=NC1hiC1DqKSX7UHtU2uk6sPH
+	M2rRGUITByEu42a5Geo=; b=dUk1ohYlAnMiWz4Far3u5Icgm8K0xvjB5E7uZylM
+	bUCZ6zptepiTPlcVzLAls8BmzTwNRfwQywBUtjUCcZXKtzK9/PNLzxtJ2tFSzsqK
+	680r718XjnXTfs+1zjqkJWBVN6+j1LTIrxnCHg0b//ImLu9AVZtgIbMhEZKymyKf
+	ZQ4cz47cOofM8Aw8n951bwK1tCZnjVwGkuf6ZxpxAJb85ug9pVQlpReEA851Qz7q
+	7I8ify8DIpnZ36DAUF8X+4Gny2JgXcrkZ1Z9i9YEOiXC+CRia/QGAsLSCBL+OXim
+	qFP2z9/SsBvEsBJ0SnIt/oiXD9vbufnKsFWTl0WH00Nowg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n1wtm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:45:22 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f20addba1so562499785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:45:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792489522; x=1793094322; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NC1hiC1DqKSX7UHtU2uk6sPHM2rRGUITByEu42a5Geo=;
+        b=cuqFe0U0dOu1cqHImrQFZDcbNCQm2Ye8S1RfixE3xipTosPmD3mFRuT05tRXMrc5ly
+         7Z9a1afuu6NDeDT7DHP9fje3bDXF1O5O6ma2d9gvz32E0XVmAOo+7APvGhNaVsI6FpIr
+         iFbAnh7TkOahVLHsgwSy1xIrroPI7z3JFy4k869MD0FOlxYe3RIV13xbY2BgF5wk/bos
+         kiku371DjiOVvYd1OcZi+UkxR3rbWmb/nuwMQ/NYv7hlts6/o+dxQBS2lUQywp/nA3ol
+         lC5oS/qNUUNDzdjsXt6Eiz4a4/d7e/WFvXqhVMWf2EIj9i1QbwirK/tYG/M/o3OJvSlH
+         PBWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792489522; x=1793094322;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NC1hiC1DqKSX7UHtU2uk6sPHM2rRGUITByEu42a5Geo=;
+        b=s5qGkZgbN3BB9PGroAlK6gvfkQhcgKRJocw9XPejOZaln3rY/8WOo3Dds79bIm8JAF
+         JfO7x+YiEltlFVbW95f3pi8BFBmbDt/YuYsSMhEi/NKrnnMVbWdVqFIixheWlv6HsC0G
+         rvQPXMk0SwH+Pm11UfvvWHywoSiNE471Tm7wuTln/vHh6tMCuKJmCj35d++a8E+nX6ZR
+         IGb814DA4m0zxAHk5+wdws5Il2qsXnIN/nXgmMnDehGdwWHzkSosaOGJakpoXsnS1kts
+         yUtu9ul5PF0ad5pIN3yrXd3WNenYsm3wbjHdDBZ+g64JpkOaVAT4VTzkJgcxkuv908Zg
+         vgiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5Q+zXnSc8ixedVaLb+bd6g2rgWvuZtfUwFuBkHBho7rBS2N4rp5thohCHv2CElTn5McK3Z0ALYZZ8S24=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIErkd1tEmTjhpmGcN91xoTcc2cJHbygtqMiFOP8GRf5EN0jr0
+	NiRNSnZmmx9Z49tJqBCm2TGa2pFLg7qf+MF0YC5Xk6d58nBce5xDl+tISbQlQxzP3ejV0n2mwa4
+	spGLSu6ZsEiqg+LoE73DVu1tl5yKDRV1zQhfe7D+jvyY3BdQvfOD0jdabv+j5qgndRoE=
+X-Gm-Gg: AYBFou0GnimvbE5c72r5XzYkqI6lx3LW6VSzxr2p8bwbIG1XwL5RKVtblJ2srXE/to1
+	4agqk11oVIT9DfzDAhS23bc/KYDBsj7SERbTsOBgEKRxMbnhL/byWlc/Y1Gn/awXMHOBel5iqmP
+	jL6CLMi/MSL+eVlLmBabW4TBlCXV4d2N6/3VZ/AOynvul5qdZYroJ2NpQDE+Lm9fO6ZRh0QOBNQ
+	XmkoZ5Znc3rRmos1rc5RoeudVvsrOvS+H/WqEBq4t2GjWVjVhDXW8KQ6WEEOB3zIo/ERh1TXsur
+	lp4hMLLyJQlttoasr22uKo7Cz5Q3f/fZYhWjUcA2hICall37fXml24YcLqTyOcbeJzGCpDJOA56
+	v6atvxw1d9iMtEgD9qiKJDWtUq1+3vgld5E7N9BsR//QCxSHBERFGGgkTzlZsJjUY6/+W2jX/O4
+	HX1/yJZOnbekjX
+X-Received: by 2002:a05:620a:7085:b0:93f:21de:f3da with SMTP id af79cd13be357-93f29cc9ad3mr1601788085a.15.1792489521589;
+        Tue, 20 Oct 2026 02:45:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:7085:b0:93f:21de:f3da with SMTP id af79cd13be357-93f29cc9ad3mr1601784185a.15.1792489521107;
+        Tue, 20 Oct 2026 02:45:21 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fcf07sm2478354e87.3.2026.10.20.02.45.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 02:45:19 -0700 (PDT)
+Date: Tue, 20 Oct 2026 12:45:17 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add camcc interconnect
+ cells
+Message-ID: <x5x4av76vm3swozvwe46uq5vz2ys7bvo4bducpp7flnmhykg65@pvr3znxyktje>
+References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
+ <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com>
+ <usade5zkrncpry4ufbdtaahoa2zyd5hx7tjgfvzfte2aqbkgs7@t3mej4maj6za>
+ <3e5b7781-20ef-4e84-bb62-29a081c26d8f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,119 +134,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A0r3NTwFBk5k
-Date: Tue, 20 Oct 2026 11:41:59 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>
-Cc: "Dinh Nguyen" <dinguyen@kernel.org>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- linux-kernel@vger.kernel.org, "Chung-Lin Tang" <cltang@baylibre.com>
-Message-Id: <686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com>
-In-Reply-To: <20261020085630.w7je2ev3f6ectshy@dev-vm-schuster>
-References: <20261019165015.2656521-1-dinguyen@kernel.org>
- <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
- <20261020085630.w7je2ev3f6ectshy@dev-vm-schuster>
-Subject: Re: [PATCH 1/2] nios2: remove libgcc for lshrdi3, ashldi3, ashrdi3, muldi3,
- and ucmpdi2
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3e5b7781-20ef-4e84-bb62-29a081c26d8f@oss.qualcomm.com>
+X-Proofpoint-GUID: hPrA6iHnMQW_7Qv5zSrz6_bZdKT7yoST
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfXyT94SD97oTti
+ yb8MJdoTE+v2q2cF/AD1BED78PAnTvEBq96Z+G6XntOka6u9drtwn7gDbz2BeuNpeDQy8ePCZRu
+ ll6bABRMUYfLSpwUyW/l+UJpfqtsDzo=
+X-Proofpoint-ORIG-GUID: hPrA6iHnMQW_7Qv5zSrz6_bZdKT7yoST
+X-Authority-Analysis: v=2.4 cv=A5z5rKWG c=1 sm=1 tr=0 ts=6ad73832 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=1SZ4gMyvtsQaTvh4xNwA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfX6sPLzNK1B9vz
+ SqA112b0D3XPKp2t1lbK5ZBIf6Jo93FODJCT6R/G52L0CeEq+jXNjTDeFy3VuHt1/YiQKmycRw/
+ smbRi42y/uTzGrqiw1ad06hisoP75cM9j1JwcR5M6y72MKLebrveEfpgzcCzRXBBizPRxAVn1re
+ 1P72cQmH0RnqyInymt4OO63EVbNK36RWxuCTx2vXslYUhqmkVu1HyuSGm9CRxMGe7/P4pm1dgj7
+ xTfLtvehbIhuGx0ergJdV0TjZUqhL4mGcd7kxydlvgQgYU40S/eyza/XFfn0lZw9+8aJ+WEPd++
+ JPUOPGVvkW/ZMIbB//YEhn09jJMzCSmCSaDclgBidaj2GWDqleYJnJqbw9xd+gOkOPw6Ak+MvMK
+ lDRxjRdofsf/urBIUkP/e8V30dPHyhI+0WB8d9s089AWklvG2NfGDUQUoiqScTRVaMZ4j4Hovxc
+ CDBNijAqA490oV6XKZQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 spamscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200038
 
-On Tue, Oct 20, 2026, at 10:56, Simon Schuster wrote:
-> On Mon, Oct 19, 2026 at 11:20:56PM +0200, Arnd Bergmann wrote:
->> diff --git a/arch/nios2/Makefile b/arch/nios2/Makefile
->> index f1ff4ce0f1a2..173588c31abf 100644
->> --- a/arch/nios2/Makefile
->> +++ b/arch/nios2/Makefile
->> @@ -19,8 +19,6 @@ UTS_SYSNAME = Linux
->>  
->>  export MMU
->>  
->> -LIBGCC         := $(shell $(CC) $(KBUILD_CFLAGS) $(KCFLAGS) -print-libgcc-file-name)
->> -
->>  KBUILD_AFLAGS += -march=r$(CONFIG_NIOS2_ARCH_REVISION)
->>  
->>  KBUILD_CFLAGS += -pipe -D__linux__ -D__ELF__
->> @@ -37,7 +35,7 @@ KBUILD_CFLAGS += -DUTS_SYSNAME=\"$(UTS_SYSNAME)\"
->>  KBUILD_CFLAGS += -fno-builtin
->>  KBUILD_CFLAGS += -G 0
->>  
->> -libs-y		+= arch/nios2/lib/ $(LIBGCC)
->> +libs-y		+= arch/nios2/lib/
->>  
->>  INSTALL_PATH ?= /tftpboot
->>  nios2-boot := arch/$(ARCH)/boot
->> 
->> 
->> I expect you'll have to copy a few functions from the last gcc release
->> into arch/nios2/lib/ to make this work, at least (a GPLv2 compatible
->> version of) libgcc/config/nios2/lib2-divmod.c but maybe more.
->
-> So I did test this with allyesconfig plus minimal hardware support
-> configured in nios2:
+On Tue, Oct 20, 2026 at 11:26:42AM +0300, Atanas Filipov wrote:
+> On 10/19/2026 5:50 PM, Dmitry Baryshkov wrote:
+> > On Fri, Oct 16, 2026 at 08:07:01PM +0300, Atanas Filipov wrote:
+> > > Add #interconnect-cells to the camera clock controller so camera
+> > > consumers can request camera NoC AXI bandwidth through the
+> > > interconnect framework.
+> > 
+> > I guess currently we have only one consumer, camss. Could you please
+> > include patches converting it to the bus voting? Be sure to retain
+> > compatibility with older DTs, which don't have ICC provided by the camcc
+> > node.
+> > 
+> 
+> Before converting CAMSS I would like to agree on the approach, since it
+> cannot simply follow JPEG. In either case the camcc path would be
+> optional, so older DTs keep working as before.
 
->  lib-y += memmove.o
->  lib-y += memset.o
-> +lib-y += lib2-divmod.o
-> +lib-y += lib2-mul.o
-> +lib-y += lib2-divtable.o
->
-> This seems to be the minimal set of runtime dependencies.
+How does the current camss vote on the clock?  JPEG is not (yet) merged,
+so we can't reference it here. The order in which the patches can land
+would be: icc-clk, camss using the (optional) interconnect, JPEG on top.
 
-Ok, very good.
+Please note Krzysztof's comments.
 
-> In particular, modpost wants (across various modules):
-> - symbol '__divsi3'
-> - symbol '__modsi3'
-> - symbol '__mulsi3'
-> - symbol '__udivsi3'
-> - symbol '__umodsi3'
->
-> Interesting enough, divtable is not explicitly exported but implicitly
-> linked via libgcc all the time. It seems to be required e.g. by lz4_compress:
->
->> lz4_compress.c:(.text+0xaec): undefined reference to `__divsi3_table'
+> OPP is per device, and CAMSS is a single device containing several VFEs,
+> each with its own core clock and its own load. If CAMSS used
+> dev_pm_opp_set_opp() on its device like JPEG does, every VFE would overwrite
+> the clock and bandwidth votes of the others, which is the same
+> last-writer-wins problem in a different place.
 
-Is it just modules that are not in your normal configuration then?
-It seems easy enough to add this one as well.
+For this series just convert the existing approach as is. We have two
+distinct questions here:
+ - Letting camss and JPEG (and others) to vote independently on the
+   clock
+ - Letting camss correctly handle per-VFE votes
 
-> This makes me wonder a bit about the how and why of eliminating libgcc:
-> I fully understand that we are playing catchup with gcc/libgcc here;
-> when gcc decides to emit calls to a new lib, we have to export that as
-> modules might use it; but where is the difference between pulling it
-> from libgcc or from the kernel runtime? Longterm stability against
-> 'disappearing' symbols?
+This series must address the first question only.
 
-The underlying problem is that the kernel is its own special environment
-that is neither a standard C library nor a 'freestanding' implementation
-and only vaguely similar to a mix of the two. We need certain parts
-of libgcc but for convenience we want to force a link failure if the
-compiler ever generates calls into functions we explicitly avoid
-in the kernel like 64-bit division and floating point.
+> I see two ways to keep the VFEs independent:
+> 
+> 1. One OPP table in the CAMSS node, used only as a lookup. Each VFE
+>    finds the OPP for its own required rate, sets its own clock and
+>    votes the bandwidth from that OPP on its own ICC path. The driver
+>    requests a separate path per VFE from the same "interconnects"
+>    entry, so DT describes the hardware connection once and the
+>    interconnect core aggregates the VFE requests with the other
+>    consumers. The rail level is not applied by the OPP core in this
+>    case, so CAMSS keeps handling it as today.
+> 
+> 2. An OPP table per VFE, attached to the per-VFE power domain device
+>    that CAMSS already creates, so each VFE calls dev_pm_opp_set_opp()
+>    on its own device. This applies the rail level as well, but the
+>    virtual device shares the CAMSS of_node, so it would pick up all
+>    CAMSS interconnect paths and need indexed OPP tables in DT, which I
+>    have not seen used for such devices.
+> 
+> Which one would you prefer, or do you see a better way?
 
-> So, for NIOS2, the situation is quite simple, as gcc is not exactly a
-> moving target any more, but what is the situation with other
-> architectures?
+3. Add minimal VFE nodes and let camss use those. Converge towards the
+split VFE (IFE) device tree.
 
-It is very rare that libgcc adds a new requirement and we can usually
-deal with it when that happens. Every new compiler version requires
-some kernel changes and libgcc is not a big part of that.
-
-> On a more practical note, while technically feasible, I'm not sure
-> whether we can actually vendor/copy directly from libgcc; I think all
-> code there is GPLv3 with Runtime Exception. (I'm not a lawyer yadayada),
-> but I guess direct reuse in that way is problematic, given that the
-> kernel is GPLv2 only? So I guess we would need to do a reimplementation?
-
-Right, the easiest way would be if you can locate a downstream gcc
-(or clang) fork from Altera or Codesourcery before it was merged,
-if that still has GPLv2 or a more liberal license. Reimplementing
-the functions otherwise is of course annoying.
-
-Adding Chung-Lin Tang to Cc, they contributed the original files
-to gcc back in 2013 and may know a copyright holder that can
-provide a GPLv2 compatible copy.
-
-I also found a similar implemention for m32r that was still
-GPLv2, maybe that one works, see https://github.com/gcc-mirror/gcc/commit/38b2d07632#diff-4de4f3b573100be00cf40045c85faaca8ded1f13ef80df1822889cbd6ad639a8
-
-      Arnd
+-- 
+With best wishes
+Dmitry
