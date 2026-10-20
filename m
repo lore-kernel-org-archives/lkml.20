@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501852;
-	b=JI7iR2oQfxbviiff8RyU9vYMSyyg6Pxd2tSpUCclmwfD12/mDqxkrCWFxDJWsVBssxtH
-	 suI5kwXuaaa6ArDgHshB2c8IBF6asqw9zP6RTHSWWo2S0BZJTUSmrvjOarA1IjmVrC/k4
-	 V+W6oexcvSO8QkX4yxM6+5ZMX65zuG0rhCJLZJpK9PUc65m2tvGLQLC3O5c10e2D9fBlP
-	 DETaUEtXm6CRwiE9E6x7xcgNNpx3NPkNxKe7T+0mwRT1wIJzpogUZT1WfYPnGuEnx8tSN
-	 38Yj9LovlWFWepa3UOUmtOy5kKopjmChrMba47MnEWOeOsH9VcbhpdPPso0PITjL1hA==
+	t=1792501857;
+	b=4vSfVQ9SFfWKvVMMReP78qUQ9239E6vwTQ1t1D8yhbKUcSCdQeDvlmcH7HT9NTKU7k8w
+	 7hXaom5okAG+m+PuyyXBqNNoheOKSllzhn6qZ58vhsDSA1tBay8LxgJu0VzV+zTGgi701
+	 XOXbGdakALk9PRBmH2uZw1X94bzvk1LAjJq4kilcmLmflkhX9r+sae3Tm9JV77avC02qK
+	 MvX+A9RgXdsj8KNRgXjyCpi9cnTLJNgp0vtURZDK3l5nWct1XQn2GCuur5d8ajBpublj3
+	 Q8vKCq4iLiUz8jZEYApVRTM1IsF0qz3yrhZAvpoDwZTpyXcGV0vAm3hh4pl46cc4RdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501857;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=XuD6zr6E/WXraw+qY7ed3x7Km9phQJZA6ZLc39olELM=;
-	b=z5oexE2QYmY11u+/qxGydHiM5Uu+3DLY/BiwX7kSYHk7HJVoVi/Pks1yzd//nszB0Qrk
-	 7O0UcnuK5G1cWTbghu6ZXrDJqCxQ8nPoKEPbB9tTBlSvOoRKqXGjlRDwsicxJd6NdDvUi
-	 V006NDl41GUuO3fQfI5aVLcAaREXZJ2Y/93LtPhV5NVfCPPMFNkBWlKduB9hAMitqRmhW
-	 LmrlUrl1MeS/TogtjAojExWAax6K4+52ysM0JDLfObku+2ihv4DX+HIHY80dZiT5iN6Wu
-	 zpaT37VdAgf5JS475Vh3tMgTtCMNlycpRt0tpHKLOgDMNUmFwTeACZGzk63Lk0A9Brw==
+	bh=S3Sb419tcnHgsczc/SWcwDkky5azghj0g+2RQPB3KEA=;
+	b=PZBayuu4HJAZOBpvsPZNvQ70aY2JMGr4i/QkIZ0getO+eAvCaq/EQ18xm99IkUBCwAdx
+	 jvhFg9ShHSVINzxO9HldDAZgvnaDHXvHwDlbYGQebVnZLylNsinuQBUG85Vf/Z/wcJolf
+	 xpnholLOgT4FcIItgHduZZ9WnvDCToCaudzUA1rSBxOScPISusp/2XW42Xm6z0TsEmlWl
+	 xOPU1Ko7rTbPPJJr8ti9J3O/wD4uQMFXZmC0rRHXI7xScZunv9d6Q+dGQ+c5vEB6NFAKZ
+	 hyU0e45+kwXpCZlRODe9O5hWl/djssXDuxVepkJB6+L9HkMC8VIRRkidrtIcfmzbAbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5XeuGiX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPZ5KfkL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C73606A31C;
-	Tue, 20 Oct 2026 13:10:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984A160A261E;
+	Tue, 20 Oct 2026 13:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5XeuGiX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F401F000C4;
-	Tue, 20 Oct 2026 13:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPZ5KfkL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FCE1F000C7;
+	Tue, 20 Oct 2026 13:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792501852;
-	bh=XuD6zr6E/WXraw+qY7ed3x7Km9phQJZA6ZLc39olELM=;
+	s=k20260515; t=1792501856;
+	bh=S3Sb419tcnHgsczc/SWcwDkky5azghj0g+2RQPB3KEA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=b5XeuGiXV9gmpP0zjxDKguhvUm/0MEXDjHw/i5xVGXRYCHUofj/VsmDz858ZnEUH/
-	 BKf7eKAHoM9GdHXBqq2xDXVSyqYyOyGmJIVigTZvd1lMGWv5cf8OiTKmv0fUyklVFE
-	 YrGbF/P7Di5bGSFNs0RCsWQhgXiGZb3BFBIvLFenk0A2HtotRCJwoUaQwk8y+ei2IS
-	 /al52OXUUZgBFdJAgBb7Jzu0p4P+KF10flkclPJzSnFm60toe7nf4j6H3Oe/ADszjY
-	 2jSw3arIPF/AftSt0yXxwtLWmsoMP7BtXG89UNDcIOumV/eW3oXjLIWIabM/F7mYHB
-	 MNr/mIx1oHVbQ==
-Subject: Re: [PATCH net-next v3 4/9] net: stmmac: mediatek: simplify TX/RX
- delay handling in mt2712_set_delay
+	b=aPZ5KfkLYnGUCoEyYowA72827WT2AYMDPraxg7tQjRbHfbK7xQfbqq6EMnF5mcgTY
+	 dMhRaAr9lsTMy6lEdLKhzit1GSb3U4ZS3uNDAlumlimYtHhc2UCwxL5ly5PAHw20y9
+	 y3vEI7ywsh9sNzRth3PPWQLBFzF5oejKvg5le4QuGY7FvJkmsWGBoBunT4/BzmUCFt
+	 fzGjeOSpq6O8HSt/3JSjnqVqJWlZ56yZSFI7QJqMasnuXFehj0IN+MwqRvM1gHTx91
+	 BEa+y00+xKYrL8Qiri66Jc3Z4c7Gbr5VSVLst5A3VanHjXtlKsSl5zjQ1TTCBd8uKr
+	 GFFGB8mzJ9EqQ==
+Subject: Re: [PATCH net-next v3 7/9] net: stmmac: mediatek: use TX clock phase
+ shift in RGMII mode with 1Gbps speed
 From: netdev-bot+sashiko@kernel.org
 To: louisalexis.eyraud@collabora.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -53,11 +53,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 20 Oct 2026 13:10:50 +0000
-Message-ID: <179250185040.3135.9271701401823597487@kernel.org>
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-4-25daf2bbcf35@collabora.com>
-References: <20261016-dwmac-mediatek-mt8189-v3-4-25daf2bbcf35@collabora.com>
-X-sashiko-severity: High
+Date: Tue, 20 Oct 2026 13:10:54 +0000
+Message-ID: <179250185440.3135.3867297612747113346@kernel.org>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
+References: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -70,10 +70,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -81,181 +81,145 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] In drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c,
-  mt2712_set_delay() now uses the wrong picosecond-per-stage divisor for…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  mt2712_gmac_variant uses a single rx_delay_max/tx_delay_max of 17600ps…
+- [Medium] At 1Gbps on RGMII, mt8195_fix_mac_speed()
+  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) treats the DT…
+- [Medium] At 1Gbps, mt8195_fix_mac_speed()
+  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) silently clears…
 
 --
 
-net: stmmac: mediatek: simplify TX/RX delay handling in mt2712_set_delay
+net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps speed
 
-This commit removes mt2712_delay_ps2stage() and mt2712_delay_stage2ps().
-Those helpers converted the TX/RX delays in the driver data in place. The
-stage values are now computed in local variables inside mt2712_set_delay(),
-and new defines are added for the MT2712 delay stage dividers and maximum
-values.
+This commit adds a fix_mac_speed callback to the MediaTek dwmac glue and
+implements it for MT8195. When an RGMII link comes up at 1Gbps and the DT
+requests a TX delay, the callback turns on the fixed 2ns TX clock phase
+shift (RGMII_TXC_PHASE_CTRL). At other speeds it falls back to the coarse
+delay macro circuit.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index f7eb85110df08..596411d4a5b2b 100644
+> index 7dd46cd5a49e1..4b2d5280f7030 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> @@ -36,6 +36,14 @@
->  #define ETH_FINE_DLY_GTXC	BIT(1)
->  #define ETH_FINE_DLY_RXC	BIT(0)
->  
-> +#define MT2712_RMII_DLY_RXC_STAGE_DIV	170 /* 170ps per stage */
-> +#define MT2712_RMII_DLY_TXC_STAGE_DIV	170 /* 170ps per stage */
-> +
-> +#define MT2712_RGMII_DLY_RXC_STAGE_DIV	550 /* 550ps per stage */
-> +#define MT2712_RGMII_DLY_RXC_MAX	17600 /* 32 x 550ps */
-> +#define MT2712_RGMII_DLY_TXC_STAGE_DIV	550 /* 550ps per stage */
-> +#define MT2712_RGMII_DLY_TXC_MAX	17600 /* 32 x 550ps */
-> +
 
 [ ... ]
 
-> @@ -129,71 +137,36 @@ static int mt2712_set_interface(struct mediatek_dwmac_plat_data *plat,
+> @@ -430,9 +433,65 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
 >  	return 0;
 >  }
 >  
-> -static void mt2712_delay_ps2stage(struct mediatek_dwmac_plat_data *plat)
-> -{
-> -	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-> -
-> -	switch (plat->phy_mode) {
-> -	case PHY_INTERFACE_MODE_MII:
-> -	case PHY_INTERFACE_MODE_RMII:
-> -		/* 550ps per stage for MII/RMII */
-> -		mac_delay->tx_delay /= 550;
-> -		mac_delay->rx_delay /= 550;
-> -		break;
-> -	case PHY_INTERFACE_MODE_RGMII:
-> -	case PHY_INTERFACE_MODE_RGMII_TXID:
-> -	case PHY_INTERFACE_MODE_RGMII_RXID:
-> -	case PHY_INTERFACE_MODE_RGMII_ID:
-> -		/* 170ps per stage for RGMII */
-> -		mac_delay->tx_delay /= 170;
-> -		mac_delay->rx_delay /= 170;
-> -		break;
+> +static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
+> +				 int speed, unsigned int mode)
+> +{
 
 [ ... ]
 
->  static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
->  {
->  	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-> -	u32 delay_val = 0, fine_val = 0;
-> +	u32 rx_delay_stage_val, tx_delay_stage_val;
-> +	u16 rx_delay_stage_div, tx_delay_stage_div;
-> +	u32 delay_val = 0;
-> +	u32 fine_val = 0;
->  
-> -	mt2712_delay_ps2stage(plat);
-> +	if (phy_interface_mode_is_rgmii(plat->phy_mode)) {
-> +		rx_delay_stage_div = MT2712_RGMII_DLY_RXC_STAGE_DIV;
-> +		tx_delay_stage_div = MT2712_RGMII_DLY_TXC_STAGE_DIV;
-> +	} else {
-> +		rx_delay_stage_div = MT2712_RMII_DLY_RXC_STAGE_DIV;
-> +		tx_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV;
-> +	}
-> +	rx_delay_stage_val = mac_delay->rx_delay / rx_delay_stage_div;
-> +	tx_delay_stage_val = mac_delay->tx_delay / tx_delay_stage_div;
-
-[Severity: High]
-Are the RGMII and MII/RMII stage dividers swapped here?
-
-The removed mt2712_delay_ps2stage() divided MII/RMII delays by 550 and
-RGMII delays by 170. The binding in
-Documentation/devicetree/bindings/net/mediatek-dwmac.yaml says the same
-thing for mediatek,tx-delay-ps and mediatek,rx-delay-ps:
-
-    For MT2712 RGMII interface, Allowed value need to be a multiple of 170,
-    or will round down. Range 0~31*170.
-    For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
-    or will round down. Range 0~31*550.
-
-The new defines use 550 for RGMII and 170 for MII/RMII. The commit message
-describes the same reversed mapping:
-
-    by dividing them by a constant (550 for RGMII, 170 for MII/RMII)
-
-The in-tree arch/arm64/boot/dts/mediatek/mt2712-evb.dts uses
-phy-mode = "rgmii-rxid" and mediatek,tx-delay-ps = <1530> (9 x 170ps).
-For that board, the GTXC stage count written to PERI_ETH_DLY drops from 9
-to 1530 / 550 = 2.
-
-In MII/RMII mode, a binding-valid 1100ps (2 x 550ps) now becomes 6 stages,
-which is roughly 3300ps on the hardware. Any value above 31 * 170 no longer
-fits in the 5-bit ETH_DLY_*_STAGES fields, and FIELD_PREP() truncates it.
-
-This path runs on every probe and resume through mediatek_dwmac_init() ->
-mt2712_set_delay(). Could it keep the link from coming up, or corrupt
-TX/RX data, on MT2712 boards that set a delay property?
-
-The problem is still there at the end of the series. In the later patch
-"net: stmmac: mediatek: add RX/TX delay stage divider in platform data",
-mt2712_gmac_variant sets .rx_rgmii_delay_stage_div to
-MT2712_RGMII_DLY_RXC_STAGE_DIV (550) and the rmii dividers to 170. It also
-sets .tx_rgmii_delay_stage_div to MT2712_RMII_DLY_TXC_STAGE_DIV (170),
-which looks like a typo.
-
-That typo happens to restore the RGMII TX divider for mt2712-evb. RGMII RX
-and all MII/RMII delays still appear to use the wrong divider.
-
-[ ... ]
-
-> @@ -263,19 +248,17 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
-
-[ ... ]
-
->  static const struct mediatek_dwmac_variant mt2712_gmac_variant = {
-> -		.dwmac_set_phy_interface = mt2712_set_interface,
-> -		.dwmac_set_delay = mt2712_set_delay,
-> -		.clk_list = mt2712_dwmac_clk_l,
-> -		.num_clks = ARRAY_SIZE(mt2712_dwmac_clk_l),
-> -		.rx_delay_max = 17600,
-> -		.tx_delay_max = 17600,
-> -		.dma_bit_mask = 33,
-> +	.dwmac_set_phy_interface = mt2712_set_interface,
-> +	.dwmac_set_delay = mt2712_set_delay,
-> +	.clk_list = mt2712_dwmac_clk_l,
-> +	.num_clks = ARRAY_SIZE(mt2712_dwmac_clk_l),
-> +	.rx_delay_max = MT2712_RGMII_DLY_RXC_MAX,
-> +	.tx_delay_max = MT2712_RGMII_DLY_TXC_MAX,
-> +	.dma_bit_mask = 33,
->  };
+> +	if (!mac_delay->tx_delay ||
+> +	    (interface != PHY_INTERFACE_MODE_RGMII &&
+> +	     interface != PHY_INTERFACE_MODE_RGMII_RXID))
+> +		return;
+> +
+> +	/*
+> +	 * When link speed is 1Gbps with RGMII interface, and a TX internal
+> +	 * delay needs to be applied on MAC, prefer to override the delay
+> +	 * settings with a 2ns fixed delay which is controlled by
+> +	 * RGMII_TXC_PHASE_CTRL. Otherwise, fallback to HW delay macro circuit
+> +	 * for 10/100Mbps link speeds.
+> +	 */
+> +	if (speed == SPEED_1000) {
+> +		reg_val = MT8195_RGMII_TXC_PHASE_CTRL;
 
 [Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. Should
-the MT2712 delay limit depend on the phy mode?
+At 1Gbps, does this treat mediatek,tx-delay-ps as an on/off switch rather
+than as a delay amount?
 
-mt2712_gmac_variant applies one 17600ps rx_delay_max/tx_delay_max to every
-interface mode. mediatek_dwmac_config_dt() only rejects values at or above
-that limit:
+The gate checks the raw picosecond value in mac_delay->tx_delay.
+mediatek_dwmac_config_dt() stores that value without rounding:
 
     if (tx_delay_ps < plat->variant->tx_delay_max) {
         mac_delay->tx_delay = tx_delay_ps;
 
-The ETH_DLY_GTXC_STAGES, ETH_DLY_TXC_STAGES and ETH_DLY_RXC_STAGES fields
-are 5 bits wide, so each holds at most 31 stages.
+Both mt8195_set_delay() and the new 10/100 branch round the value down to
+290ps stages (180ps on MT8189). So a value of 1..289ps means no delay at
+probe time and at 10/100. At 1G, the same DT value now gets the full ~2ns
+phase shift.
 
-In the 170ps per stage mode (RGMII per the binding), any accepted value
-above 31 * 170 = 5270ps gives a stage count between 32 and 103. FIELD_PREP()
-on a runtime value just masks it (for example 100 & 0x1f = 4). The result
-is an unrelated delay, written with the ENABLE bit still set and no error
-reported.
+For every other value (290ps, 870ps, 8990ps, ...), the configured amount is
+replaced by a fixed ~2ns at 1G. GTXC_ENABLE and GTXC_STAGES are in the
+update mask, so the coarse delay is also cleared, with no warning.
 
-The binding documents a separate range for each mode (RGMII 0~31*170,
-MII/RMII 0~31*550).
+The same DT setting therefore gives a different MAC TX delay depending on
+link speed. Could boards that tuned tx-delay-ps to their PCB skew end up
+with the wrong total skew at gigabit?
 
-This patch also moves the limit into macros named MT2712_RGMII_DLY_*_MAX
-with the comment "32 x 550ps". That does not match the 170ps RGMII stage
-given in the binding.
+The binding in Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+still describes the property as:
 
-Because of the swapped dividers above, binding-valid MII/RMII values can
-now overflow as well. That part goes away once the divider swap is fixed.
+      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
+      multiple of 290, or will round down. Range 0~31*290.
+
+The commit message also doesn't say that the configured value is ignored at
+1G.
+
+None of the in-tree boards seem to hit this. mt8395-genio-common and
+mt8395-radxa-nio-12l use rgmii-rxid with 2030ps. mt8390-grinn-genio-sbc uses
+30ps, but its phy-mode is rgmii-id, which skips this path.
+
+The later commit "net: stmmac: mediatek: add support for MT8189 SoC" also
+wires mt8195_fix_mac_speed() into the MT8189 variant, so MT8189 gets the
+same behaviour.
+
+> +	} else {
+> +		if (variant->tx_rgmii_delay_stage_div) {
+> +			tx_delay_stage_val = mac_delay->tx_delay /
+> +					     variant->tx_rgmii_delay_stage_div;
+> +		} else {
+> +			tx_delay_stage_val = 0;
+> +		}
+> +
+> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
+> +				      !!tx_delay_stage_val);
+> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_STAGES,
+> +				      tx_delay_stage_val);
+> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_INV,
+> +				      mac_delay->tx_inv);
+> +	}
+> +
+> +	reg_offset = variant->peri_eth_ctrl_offset + MT8195_PERI_ETH_CTRL0;
+> +	regmap_update_bits(priv_plat->peri_regmap,
+> +			   reg_offset,
+> +			   MT8195_RGMII_TXC_PHASE_CTRL |
+> +			   MT8195_DLY_GTXC_ENABLE |
+> +			   MT8195_DLY_GTXC_INV |
+> +			   MT8195_DLY_GTXC_STAGES,
+> +			   reg_val);
+> +}
+
+[Severity: Medium]
+Does the 1G path clear the TX clock inversion requested by
+mediatek,txc-inverse?
+
+MT8195_DLY_GTXC_INV is in the regmap_update_bits() mask. The SPEED_1000
+branch, however, sets only MT8195_RGMII_TXC_PHASE_CTRL in reg_val. GTXC_INV
+is therefore written as 0 whatever mac_delay->tx_inv says.
+
+The 10/100 branch above keeps the inversion. mt8195_set_delay() also
+applies it for all RGMII modes at probe and resume:
+
+    gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv);
+
+The 1G case is also inconsistent with itself. With tx-delay-ps = 0, the
+early return leaves the inversion in place. With any non-zero tx-delay-ps,
+it is cleared.
+
+The binding describes mediatek,txc-inverse as "tx clock will be inversed in
+MII/RGMII case", with no exception for any speed. Should the SPEED_1000
+branch also include FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv)?
+
+No in-tree MediaTek board uses txc-inverse today. MT8189 is affected too,
+once "net: stmmac: mediatek: add support for MT8189 SoC" wires in the same
+callback.
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35%40collabora.com
