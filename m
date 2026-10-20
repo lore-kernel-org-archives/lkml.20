@@ -1,77 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501732;
-	b=OGYIrUfpg7Zu9RSnZc9zGCRAU+F3anDP1B3Xuco/0a229dqwjXSwYtUth5mumgYZX2Ys
-	 ujAcXVBo/rvRMuhvdHMo4YwMsMhAjcPYLhcX5XyUfKuszARMv79eShVAZ8Ng+KaJ03l5q
-	 /Ao3FSYITHcHy0HxkZecon25Ew6La7kah4mfsWj+1xfC9K0k1DNwCfoDRDuwmV6oyfT2P
-	 LiU0GGn4IqB4sHTqcHwmsaTnhJiTzJMyI9mmZaXRO+GQm7RU3xvOlm910/ehH4JdYEYZ1
-	 5PIwAinCAV7nND6e3itpsD+/YHoc9IYgFo1jGyfPxWnSPEC4oD+kYEsFu8pBZXAlFHw==
+	t=1792501744;
+	b=Ql6coEOoheqZ42KPONfMTNJcA8XuQWLeihjK2qIad652gBL1/dSJdJW7xIF/GUJ0lBW9
+	 LetYdJVgpjEgqwMm9+wHUMbYezY9YUN5m0bsGEJt9yKrQ0dNpboGn2EmNTUfCh0OCKXNO
+	 0kPENXXkBamCCDkZtzCCeBkG3NiAgTT7EDTKwocDYAdZzB27Kz8Gh+AzZr69MVMHU5cDg
+	 kRKhYMQFRlEcY2oUi01bieXu9dgrCyIUBaRBqT/iBuMhwQRmMead9rmo6ZHwdaDvgSwhb
+	 js5DUiYrOeuiwAt/Nnsu6UotzjMDjLBOgPDetFZJfd6dU2+ycPb8bsQeMmUWx6BQ7BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501732;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=Z6XXg8D2Jni1w5UG/h2otN80XxXBVxUGHMl3ukoCRhs=;
-	b=jZya00V0z3iiyzgwz3KmFdjlZLK9+D4aCOZKR45FoP4fGTOz7PxX24NUgSTldyzR3Chp
-	 77swexsas++UbEZRgLMuZkdt7YJQJYiwvewW5n044naZz2uyNDyGbtRQhaidui77854ff
-	 rB1iGHmHhG1BSrprMDKpsWOngFvn+XXJ9AWHMB9P1rtvSx6il9h9jjDwKyCrA4MhU+GX0
-	 32g/6WTE2POEMXW+d8QH4t5JnInjyAcQu+A0iLocIHgV9d+1ySzxr//1UGgryzu0Fgz27
-	 zXIWiLA3KfQoZkqJQ4cOIT9KJmrHfBqoBTcOookQBU7Wv4sxxT71xx/+yUYhgO7nDcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501744;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ZfBTcbdAkrP1xzVcqe/uJFylfzEHBiLVgkItAH8nG28=;
+	b=wjHdTcbxYFR2zmDB5V9DMjFN7wf38CclV4ktT4XutZp7JqToUSUasPPITTCSFlX+rehn
+	 z291PDSLFsVsw92zULnw0d/VmKm6vNkRnq0hs5YtRe9mcJgAjI2lj9WEjwBm/Wd0TdoqB
+	 mSEZtYYBA3FriY80b2jbO6HQ0ahOiE+3ESo+ks8Gc3tJsRP0AKYmHXAJL+84QCb3K/dYw
+	 QT8ewYULgwRzx+XHmNM65pWqFllfWmUfFpsXuItD30xDn+vkHdihnLu/owTAhim7AoSzd
+	 XDc155kChoKV2YBKRXHk0po0ovnoASr19y+5dNiFMiM1Q4n4iRW43i3E5EN3J1IwpqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DpUnGnWA;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JpYbHdDJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fVw5AKiW;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A64606A319;
-	Tue, 20 Oct 2026 13:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A64606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B30606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6B30606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DpUnGnWA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792501733; x=1824037733;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ftoDVKP4FmzQxXitwmaMLu02k8bEuuMI6TnnwAM9v+o=;
-  b=DpUnGnWAI7sSh5TSOt59ZkHTdwLUgaESCus6omgFgGvmlPfzTI/7Pd6X
-   n52+JebIdVDyFdkA/+7HJsQKCczjh39SwpbpwlzkzsOqWVvrY6ZTj6ZIJ
-   huCh40T9nsKnYfzLmtJMhrnFo9KI4B0UT9jU0NKfcLPaniBWLgU7EiIFh
-   3FypNjKscRoqTBEfMtUXy9aQu5uSG/7StWGmSKTwlKxXqaXrQ1pJPiSkR
-   Dra6q46e8xT1v8gKtH94snxStXBpR3wPOBbjVJ8wrFcSc7itIm/YDVXr+
-   nNYTEbNA2Zj903JGffHrJ+28k9P+xxMl7KBInAB5E3szsDJOwQ3PEfKhc
-   Q==;
-X-CSE-ConnectionGUID: z7MrYQjfQMykseyHl17a+A==
-X-CSE-MsgGUID: rO3SBx5ZTtu7c+c1hi020A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1213963"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1213963"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 06:08:52 -0700
-X-CSE-ConnectionGUID: GaNmvxB4RkaF9lRLOPTApQ==
-X-CSE-MsgGUID: j/RDLSMFQkmN/GwlhnW4nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2814933"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 06:08:49 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 20 Oct 2026 16:08:44 +0300 (EEST)
-To: Denis Benato <benato.denis96@gmail.com>
-cc: Denis Benato <denis.benato@linux.dev>, Bartu Alev <bartualev@gmail.com>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    Hans de Goede <hansg@kernel.org>, "Luke D . Jones" <luke@ljones.dev>
-Subject: Re: [PATCH v2 2/2] platform/x86: asus-wmi: add TUF keyboard RGB
- readback support
-In-Reply-To: <2C6A459C-890A-418C-9331-D8B521B226A5@gmail.com>
-Message-ID: <6086490b-4a59-5095-8bcc-3728922fd9d6@linux.intel.com>
-References: <20260925200744.129714-1-bartualev@gmail.com> <20260926005625.171560-1-bartualev@gmail.com> <20260926005625.171560-3-bartualev@gmail.com> <c0301eb2-62b9-4dbd-ba24-3a2c40675b20@linux.dev> <570a8f23-0782-8a45-d62f-c95bb28dade9@linux.intel.com>
- <2C6A459C-890A-418C-9331-D8B521B226A5@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JpYbHdDJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fVw5AKiW
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAx6TG2524250
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:09:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ZfBTcbdAkrP1xzVcqe/uJFyl
+	fzEHBiLVgkItAH8nG28=; b=JpYbHdDJnpRTP7B/DjzodEWy9htv7j4R5kEmOEpp
+	CiZHY6xCZ8Wl9pK/v6Hc+sZPiRoha4LDaK/E+4EKAh7GlT/iOxkByexHHlIAJ/Yh
+	CA7zcscx9RiD5c7ZtHUBwvOo+Fex2gvxA9ZtIOaffZIpellgMT/xdEDNqkFpvVJD
+	2xd7PMounMSuMg6mmZMvI7ON6NpkafZuETvnlnT3lYn2JqDMZVo03e41lO50M9lS
+	m58PxkWQQiHa38OZWcMeudkaKQh9FkwO3ePP1RW5aKO92lNTK+I8lfMxs0zgvfi0
+	/ImtzfZ5uoPLlWAXRYV9ZBuMx66kxHTzUifdn9V7BM63mA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p2krf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:09:03 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caa0ce0cdso372195185a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792501742; x=1793106542; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZfBTcbdAkrP1xzVcqe/uJFylfzEHBiLVgkItAH8nG28=;
+        b=fVw5AKiWR19iQP0592SRa3uOA89awpFnFrKPcfeFJ62pj1QqGelIOspCOX7ODdFEOf
+         bUfRzmoYjliWkgX64SkxjEioc0Rcobw/r5ALjEOq8JxhgP5vu2fQ6E62q8b2cruErhko
+         zGVWECytA4Q+2pq8ZOHnck13S1DyDedgCbApJJBRkDI/zWy9qzFcw+t3cx20BnX9Ykms
+         Ns7nRVxUJ2Twtkl/3BXgHU2DiiAkstpTBSSWmAlcNB6wjVMBoiPO5mfHb48D2UpS1F6a
+         PWQ+F8qIKKMvYTJkKVQMIjOx99IwFtyw+MzCPHz+PCXB5ptUQQchvjBGi4dJwSgMWsSW
+         P1Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792501742; x=1793106542;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZfBTcbdAkrP1xzVcqe/uJFylfzEHBiLVgkItAH8nG28=;
+        b=sfZoke4T7gPtayyTsL6k8gvwEwZvaufHIds0u7zTbaJlx/0W0EIoRNN9DmcxIh0HWO
+         MGar92rJF578pvHB8V07ulkXp5r4s7AnbUagSmK7CnG/DwqWk4baGwqvYD+4y3eALxuJ
+         PspcaqVU7DG1XPFPzfPVMASm3m3na1SC8xB0tz+cUiaha5m/XjMqbfixSnBug/epmJOQ
+         qNMOANXrRKzWm1KitXgUT1UBQwW/Zsli7EuZD1QIMe2ZbI4D9yI9hw3kRABVMEiwPzIV
+         umfo0iorMu813VBu46GwnjV1RE/dAs5xNZYITtD3EOiK6MV1DHUOpdCGkWo4s6PdZ3ed
+         1gig==
+X-Forwarded-Encrypted: i=1; AKwUvBxAHTN/4Qq5E+Sj8caZGggIJAN7bXdtXe6fmMnFs0REeUAiAF8LgAwF6TZn4opim3CQGpKWGcu6oxfTakE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIrtG3BQcs4bZndpGf/0n1M89roG9zFOjq7YYhN8JW66rdgURz
+	TJENmhfQ5tWQQoSws1OOKi+I/BpEfaDneJnJma3PQpYto73DjODCBodRsXgf3pvTqzvlkNp46I+
+	PWXiEDrwfFaaIswX4RWOyaBLYhN/2ZHqJgHBDbVPcwCLgWhJhPp72qv1e7vtqMiVQgEI+3N0xfL
+	E=
+X-Gm-Gg: AYBFou2D5XWc6AIAF+icQSuJASXyS/uHpv5qsKWjof3UxfFdWjeFVN0EFnTk3DmDbKk
+	RNdOb5qxTNmz+oD6Ps+EZZAuPcXrCt+RUFuUhDuNG6mA8VrAW7DQa8Qh1h0AoVpuLbhQJuTAeEa
+	fL+/zTUhhYWgYfyXGTht2Ld3/kVd8++ENykPT0/FVVs1nn3CiD/WzSc63HsDlCZoS5CaZ1wCZDj
+	Ddakh+j7DrUxGXIXwmPbZJkyzj4oxqAuMuOprW0ZQTzieMVH1V26jcOG/enggH1KfXdHP+rBhyX
+	2q40mKZ+PLg1P/lRf4Ifv6ufvXXV8lb3GKH7a2Qy/S3dtFLLa0tlj9g6gHp4SUCZDqPv3/IvEGy
+	SN+v4GpH0KG95UJMK
+X-Received: by 2002:a05:620a:4689:b0:93f:3646:7a5e with SMTP id af79cd13be357-93f3646a313mr1452577485a.64.1792501741832;
+        Tue, 20 Oct 2026 06:09:01 -0700 (PDT)
+X-Received: by 2002:a05:620a:4689:b0:93f:3646:7a5e with SMTP id af79cd13be357-93f3646a313mr1452566785a.64.1792501741030;
+        Tue, 20 Oct 2026 06:09:01 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d810035sm6446413f8f.13.2026.10.20.06.08.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:09:00 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:08:59 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Liviu Nicoara <lnicoara@thinkoid.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Aleksandrs Vinarskis <alex@vinarskis.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: Add thermal
+ zones
+Message-ID: <nayh3uva2fbvb4cnycwphfqgkdotnzcnyuhbbcw3ug3augpek4@hop3qvnxr4ko>
+References: <20261006185557.23016-1-lnicoara@thinkoid.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,173 +126,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1389911286-1792501724=:1177"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006185557.23016-1-lnicoara@thinkoid.org>
+X-Proofpoint-ORIG-GUID: Nzza7sY7HETcGmkdCsP8KzVQzn-n2qhz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfXzQV02jsD/RVo
+ NKxXVv44MMlSAWc7bhkquWR5mMc0WS5JEXWfnamtMBUfPE8Oo7EVY68u1UkO2EezVnLL25PhKLi
+ aFoZIJX739MwaAjnBEtLejF8jEYc+6k=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfX0prAS8l+sOyS
+ xhws7WsyJ3764zqSMhAxVzf34lTPizVGy2aghZYUXKzMTod3/opMM7HsE0pfY4Y0dt5qfX0z7AF
+ V09BXCkcnlQYI1VLzIvR+XxP0hmGQB89PopiWhYbGBHzeDk6q6Qy1LQ9qnISsFD4mBTmC1vIXir
+ moN6kAS3tWu7WHeQMRsVjFkZjUv2qd3gO/X38320JvnPFa/wyJm0QzHMJJ4sGr/pVqq2GFh/PXf
+ eVBclIgC6JujQY9Ywc0OEDeIrcu6JTCS3jTxiXFRfCT4/bQZQEE9L5pWdVNsJfekvwh0RcB50vE
+ mSwKP/2tjOCneoe/gQutPZU+hdjYQiN5Vcu+HAm1O3zEw5bo9bd5bLnaTcLSw7zBhhWhjkwLn+8
+ f946vgu/oEGqN5vF6nZh/UoLjAvUlP37nCld2H+bg+uCy4LajUpgmPI5qU2HLVI90EVQwljKUqV
+ U95qe+PQ5mCqXZb2X4Q==
+X-Proofpoint-GUID: Nzza7sY7HETcGmkdCsP8KzVQzn-n2qhz
+X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad767ef cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=KOsBq0R2AAAA:8 a=EUspDBNiAAAA:8 a=G_HJgEvyynBOfEdg6UMA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=p7IlednmDx7li90OXeev:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200052
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On 26-10-06 14:55:57, Liviu Nicoara wrote:
+> The XPS 13 9345 has seven board thermistors on the PMK8550 VADC: AMUX1
+> to AMUX5 THM and AMUX1 and AMUX2 GPIO, each with a 100k pull-up. The
+> ADC configuration in Dell's Windows driver package lists the same seven
+> channels, SYS_THERM1 to SYS_THERM7.
+> 
+> The ACPI tables define seven ADC thermal zones, TZ31 to TZ37. Three
+> of them, TZ32 to TZ34, carry passive trips that throttle all CPUs and
+> the GPU; the other four sit at 100 C. The tables do not name a zone's
+> channel. Taken in SYS_THERM order, TZ32 to TZ34 are AMUX2 GPIO, AMUX1
+> THM and AMUX2 THM. Heating the board confirms two of the three: a
+> charger on the left port warms AMUX2 GPIO, one on the right port warms
+> AMUX2 THM. Sustained SSD reads, compared against a CPU-only load, warm
+> AMUX3 THM and AMUX2 GPIO beyond the other channels; the second is the
+> left charger's, so the first is named for the SSD.
+> 
+> The passive trips follow the thermal mode chosen in the BIOS setup
+> (Thermal Management: Optimized, Cool, Quiet or Ultra Performance),
+> which the EC reports and which cannot be read without an EC driver.
+> Use the values of Optimized, the default: 53.8 C on the left charger,
+> 62.8 C on AMUX1 THM, 61.8 C on the right charger. The critical trips
+> are the tables' 114.8 C. The other four channels get report-only
+> zones, as on the CRD, and all seven are put in thermal-monitor mode.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
 
---8323328-1389911286-1792501724=:1177
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Thu, 8 Oct 2026, Denis Benato wrote:
-
-> Il 8 ottobre 2026 14:48:31 CEST, "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linu=
-x.intel.com> ha scritto:
-> >On Sat, 26 Sep 2026, Denis Benato wrote:
-> >> On 9/26/26 02:56, Bartu Alev wrote:
-> >> > TUF Gaming laptops expose kbd_rgb_mode and kbd_rgb_state as write-on=
-ly
-> >> > attributes (DEVICE_ATTR_WO), preventing userspace from querying the
-> >> > active hardware configuration.
-> >> >
-> >> > Add readback support by querying ASUS_WMI_DEVID_TUF_RGB_READBACK
-> >> > (0x0010005B) via the WMI DSTS method. On supported platforms this
-> >> > evaluates the DSDT method EC0.KBLS(), which returns a 16-byte buffer
-> >> > containing the active lighting mode, RGB color channels, effect spee=
-d
-> >> > and power-state flags.
-> >> >
-> >> > Introduce kbd_rgb_read_status() to evaluate and validate the buffer,
-> >> > and convert both attributes to DEVICE_ATTR_RW. Map the hardware spee=
-d
-> >> > codes (0xe1, 0xeb, 0xf5) to their sysfs indices (0, 1, 2).
-> >> >
-> >> > The command field is not part of the status buffer: "immediate vs
-> >> > save-to-flash" is a property of the write verb (0xb3/0xb4), not of
-> >> > readable state, and the EC mirror is updated identically by both.
-> >> > Readback therefore emits a synthetic leading '1' - the canonical
-> >> > input form userspace writes - so that output matches input.
-> >> >
-> >> > Suggested-by: Denis Benato <denis.benato@linux.dev>
-> >> > Signed-off-by: Bartu Alev <bartualev@gmail.com>
-> >> > ---
-> >> >  drivers/platform/x86/asus-wmi.c            | 79 +++++++++++++++++++=
-++-
-> >> >  include/linux/platform_data/x86/asus-wmi.h |  3 +
-> >> >  2 files changed, 80 insertions(+), 2 deletions(-)
-> >> >
-> >> > diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/=
-asus-wmi.c
-> >> > index db6ee1974838..fe1dcc7701ad 100644
-> >> > --- a/drivers/platform/x86/asus-wmi.c
-> >> > +++ b/drivers/platform/x86/asus-wmi.c
-> >> > @@ -1046,7 +1046,58 @@ static ssize_t gpu_mux_mode_store(struct devi=
-ce *dev,
-> >> >  static DEVICE_ATTR_RW(gpu_mux_mode);
-> >> >  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
-> >> > =20
-> >> > +static int kbd_rgb_read_status(u8 data[16])
-> >> > +{
-> >> > +=09int err;
-> >> > +
-> >> > +=09err =3D asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
-> >> > +=09=09=09=09=09   ASUS_WMI_DEVID_TUF_RGB_READBACK,
-> >> > +=09=09=09=09=09   0, data, 16);
-> >> > +
-> >> > +=09if (err)
-> >> > +=09=09return err < 0 ? err : -ENODEV;
-> >> > +
-> >> > +=09/* DUBF[0] is a constant 1 set by the AML: anything else is not =
-KBLS */
-> >> > +=09if (data[0] !=3D 1)
-> >> > +=09=09return -ENODEV;
-> >> > +
-> >>=20
-> >> -ENODEV or -ENOTSUPP ? Which one is better suited for these kind of th=
-ings?
-> >
-> >If something is not there, -ENODEV is appropriate.
-> >
-> >Unexpected comms is -EIO (-EINVAL is unfortunately often misused for=20
-> >this but it -EINVAL is to say input parameter was wrong).
-> >
-> >-ENOTSUPP is not a standard error code (the correct one would be=20
-> >-EOPNOTSUPP).
-> >
-> >TBH, I don't really know where the line between -ENODEV and -EOPNOTSUPP=
-=20
-> >is. I'd personally use the latter mostly for the case where software sid=
-e=20
-> >lacks something.
-> >
-> >In anycase, wrong errno's are endemic and hard to fix without running=20
-> >afoul with something as they often relate also to userspace ABIs.
-> >
->=20
-> -ENODEV it is.... Or -ENODATA when we can write but not read back the sta=
-tus?
->=20
->=20
-> >> If we go with two separate sysfs attrs you don't register the read one=
-,
-> >> otherwise I am not sure.
-> >>=20
-> >> > +=09return 0;
-> >> > +}
-> >> > +
-> >> >  /* TUF Laptop Keyboard RGB Modes **********************************=
-************/
-> >> > +static ssize_t kbd_rgb_mode_show(struct device *dev,
-> >> > +=09=09=09=09 struct device_attribute *attr,
-> >> > +=09=09=09=09 char *buf)
-> >> > +{
-> >> > +=09u8 data[16] =3D {};
-> >> > +=09u32 speed;
-> >> > +=09int err;
-> >> > +
-> >> > +=09err =3D kbd_rgb_read_status(data);
-> >> > +=09if (err)
-> >> > +=09=09return err;
-> >> > +
-> >> > +=09/* Map hardware speed codes back to sysfs index:
-> >> > +=09 * 0xe1 -> 0 (slow), 0xeb -> 1 (normal), 0xf5 -> 2 (fast)
-> >> > +=09 */
-> >> > +=09switch (data[5]) {
-> >> > +=09case 0xe1:
-> >> > +=09=09speed =3D 0;
-> >> > +=09=09break;
-> >> > +=09case 0xeb:
-> >> > +=09=09speed =3D 1;
-> >> > +=09=09break;
-> >> > +=09case 0xf5:
-> >
-> >Name literals with defines. When it comes to offsets, consider if a=20
-> >struct would be viable instead of byte array + named define index.
-> >
-> >> > +=09=09speed =3D 2;
-> >> > +=09=09break;
-> >> > +=09default:
-> >> > +=09=09speed =3D 1;
-> >> > +=09=09break;
-> >> > +=09}
-> >> > +
-> >> > +=09return sysfs_emit(buf, "1 %d %d %d %d %d\n",
-> >> > +=09=09=09  data[1], data[2], data[3], data[4], speed);
-> >>=20
-> >> We had this discussion in discord so I want to update everyone reading=
-:
-> >> the status returned is the current one and both cmd=3D0 and cmd=3D1 on=
- write
-> >> update the current status.
-> >>=20
-> >> Therefore this is an asymmetry that doesn't really need to be,
-> >> what if we introduce another sysfs that is RO? Ilpo?
-> >
-> >I'm not entirely sure what's the suggestion.
-> >
->=20
-> 1 sysfs attribute for read and don't touch the write one since they are i=
-n two different formats.
->=20
-> Like one returns 4 values and one accepts 5: they are asymmetric hence my=
- suggestion.
-
-Hi again,
-
-Does it have to return "1" or even a number? Could we just have return=20
-something like "n/a" in that field (which would be ~ "not available")?
-
---
- i.
---8323328-1389911286-1792501724=:1177--
+Tested-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
