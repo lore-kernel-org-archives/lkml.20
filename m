@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482720;
-	b=1ukKsHS3nIyqwGXtuseggtMFSEtghgetbBEfhTLXdhotuBtI5EC8Nnq3nmosjIMnm1cP
-	 7qZMfrAtfXtYK+lIEZSpYwDWfXYt5eBaGznOxYRR59xB8MjYlS9hffUKGVkp89ns+t9Vn
-	 3ZGI3lzTVHsGbrQyg56pNbyabiA4lv5V7QnE1GHKUpT+fE76azR0P8BW5+aFOmdwjlIFW
-	 TFIRh18OxrzdeEYo/cPsYFPyqEug5jLFhLzgCEGscRTVr01kMP0alq4BaQqqRHAXlc0UN
-	 di4UyWckmK1zlPEPUtRNtFP9w+t+NFic/EHnihX54Aw6NYfMIQzuUxdgeklVpFxThlQ==
+	t=1792482783;
+	b=laaSCvRRbmQG3SLkvM0wuj6RmO6Xf1HDL8W+9Dhx/8rzzR3eyLcH1Fi3JV+kPpyDVLdp
+	 Og/lYW0kLP25J6FsOzLrSP+doxkAp/wVb9AebcADkckXQBKm9/nCk6nyIDTvK/V6wU9cK
+	 hhCI4QDqchmMbeKcSXuRe9RkQKVyhZh4sk0h/gj0d3vSg6Qdq87unPsqSIts0Y3dx1Qg0
+	 iYYCIyB6mTLxVeI+ZfIQefaX2pNwJqscLdQvZJUh300SLR54B02HMPq3Hee56pMxshkRG
+	 mbdnG2MDFkCEg8iQmaZ+PtkzDYYcjRZ0qo879TZRANk3nAsGCYKmYOcev8whPuZVjnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482720;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EddoZMnDC5BQjmsaav6GLudp1Fqyzdns9EU0U/ed5sw=;
-	b=YdYy8iF5AT7CL2+BzYTZS3EVKb3FaRf7goiwpbvkqh26TsWaOsTxB6LZipS+E4i3jL7z
-	 WZeHULGl/P1TRAiCgf6EkBUQgbU5baVgtMjRWiFAudd67LP6M0qfbCTS7u8Cc+7wga/Ww
-	 Hyq+Lv+ASGh3qu+z0gyYbNafZWMd0yMxjml/sGBMU1XavdOL53gf9arBH2EYUdRMHIyyg
-	 QA1WbCgZNqov3WX3p/UgsYEZaSo4yubcMfyUtCnXqdZVF/FJCPscLa8VDjccFLIHvVtLH
-	 mr+YHuc5WHE8mCCS6+ksarfBnv8P7wXyKEdX5vFtucLyU6hvcXa6giO+tqNQZSC9saw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482783;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
+	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=hi+RizexM700lJm+zJb+vjtDDdoQ9eNhKLCKMXQF8Cc=;
+	b=zEhyPmZXKJqPeeq48InoKFpO/kOjIBuuTiORw17jVvZHqGeQnZ3on8b6Jdhj2dFksCQ9
+	 F+cIbefng4QN7sU5Yfj4HX0YIt+BxOo/KaswTI4J7dO5A2Nxc4n7wrcWtOj+pQhFqJLA5
+	 CLq9cu3Sz1zYyjMADmK0u6j8gt0VXNQHP7zDapYaBbWVhrarWGPYQvHc6S+/L6sPF9e8g
+	 xtK9YPhNAo+nt2RIceCDqBJe7IqwF6eBkvBQ5Z4vFkAXojahb5moE9yv3VrSMt14Io+zH
+	 7rmNmUGwtqnsaTWeYvKwRDQBbuj+iq+6Urtiy62G9EDMJy4fCFmg8OU4b1X0DWooPPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCJ2aw5t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=y9eroWaR;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18B0606A319;
-	Tue, 20 Oct 2026 07:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DE0606A31B;
+	Tue, 20 Oct 2026 07:53:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14DE0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCJ2aw5t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA571F000C5;
-	Tue, 20 Oct 2026 07:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792482719;
-	bh=EddoZMnDC5BQjmsaav6GLudp1Fqyzdns9EU0U/ed5sw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LCJ2aw5t8+HrHgixBOlbRwt98vnFSbsecGr1H4pykCS5gqWVhShIzoQdjVhCHge2h
-	 IOnqKWfOIzf/p4x7+Z0o7tphaB4HweLOOrYDPrgfnshiXeK4ohl4AKojXfAozj8uGc
-	 lzlVya6qTllIUo1iCml3BO+Z5xUrC9DK5QXvHsRPipncv+VCBF916s92zLgLYsgPHa
-	 MnFDNG1sUXH59KJrqzAnsZJ4hkxoWBO/BXzF6io7Jl0MOy5szzNy7e0+rBxrfU+8tZ
-	 oIMz6ReFBvfe+4gDLYCyLNkbih64B7A6pgy8o8Sq/rnz3DElac05NJsg+bdAP/E/XV
-	 GmiyKZgbdEy2w==
-Date: Tue, 20 Oct 2026 09:51:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add LeMans Draco EVK board
-Message-ID: <20261020-accelerated-husky-of-whirlwind-ce022c@quoll>
-References: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
- <20261019-lemans-draco-final-changes-bringup-v1-1-dcabe94f1074@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=y9eroWaR
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id AB70FC5CD5F;
+	Tue, 20 Oct 2026 07:53:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E4D460393;
+	Tue, 20 Oct 2026 07:52:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 351CF10328D8B;
+	Tue, 20 Oct 2026 09:52:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792482778; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=hi+RizexM700lJm+zJb+vjtDDdoQ9eNhKLCKMXQF8Cc=;
+	b=y9eroWaRPITyTjrHPUIpCtTPYTC79pAmN2AmgzyvBdS1kRnW21+VrVlTLK8BMm4l8okMu+
+	xH3nRyzR2BGLvPQdz4I2NdNL+ZMkfigJpysxQdhxErANk56ghzvZkVO75XuBb3apI0Z1VO
+	tzIdlH4OFyB+0Ik3L3qRGe87m/SKpahFF/iyoI/XFakxkaAFwkv2ODQ7PvDOz9IRlcs/OI
+	isk6wZjjj4v+LR2g5xlxVrY3ZDzVtGtAiXrFPpIrgI221e7u/2oA4F3x7wds0epUUUFfhN
+	9yLeEC16MIIGBbTn2hc1/++Q8g8vvayyUDSXYj00hUUASHpBMzEXmU0P+E8Hbw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,19 +58,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019-lemans-draco-final-changes-bringup-v1-1-dcabe94f1074@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 09:52:54 +0200
+Message-Id: <DM9I42KN8Y2M.1076TL8NU62GR@bootlin.com>
+Subject: Re: [PATCH v4 1/6] watchdog: w83627hf_wdt: Fix watchdog identity
+ truncation
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Tzung-Bi Shih" <tzungbi@kernel.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+Cc: "Wim Van Sebroeck" <wim@linux-watchdog.org>, "Guenter Roeck"
+ <linux@roeck-us.net>, <linux-watchdog@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <stable@vger.kernel.org>, "kernel test
+ robot" <lkp@intel.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com> <20261013-w83627hf_wdt-improvements-v4-1-b6f6b60a9566@bootlin.com> <atY1mMlBN1L93rbi@google.com>
+In-Reply-To: <atY1mMlBN1L93rbi@google.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 19, 2026 at 03:57:32PM +0530, Gopikishan Thawre wrote:
-> Add the qcom,lemans-draco-evk compatible string for the LeMans Draco EVK
-> board, which pairs the LeMans Draco EVK SoM with a common carrier board.
+On Mon Oct 19, 2026 at 5:22 PM CEST, Tzung-Bi Shih wrote:
+> On Tue, Oct 13, 2026 at 03:58:45PM +0200, Paul Louvel wrote:
+>> The identity field in struct watchdog_info is only 32 bytes in size, but
+>> the identity could be at most 33 bytes in this driver, resulting in
+>> truncation.
+>> Remove the "Watchdog" suffix, as this is implied that the device is a
+>> watchdog if a user request his identity.
+>>=20
+>> Cc: <stable@vger.kernel.org>
+>> Fixes: 3d6757a640f8 ("watchdog: w83627hf_wdt: Report the probed chip nam=
+e via WDIOC_GETSUPPORT")
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202610080027.3OsJDwfo-lkp@=
+intel.com/
+>
+> The patch doesn't really fix anything.  The longest string in `chip_name`
+> with the " Watchdog" suffix is still under 32 bytes.
 
-So here you explain any oddities, like why SoM has no dedicated
-compatible and why common carrier board means it is not common but
-SoM specific.
+Indeed, max is 21.
+No idea why it got reported in the first place also.
 
 Best regards,
-Krzysztof
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
