@@ -1,60 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500909;
-	b=W0Gp1bZRMfYxEf63/JAc/P0bUmvaT31+v8vFLVWGHIYj1d331l3yz/fqZUp0ITdUzesb
-	 nJEAd1/jB/HHwf/O9UMIG1RwN8PfZ3XF0nuRJ5uH8SfmpcQxdOeciZUruMGC6+sxWoN1o
-	 EqWwL2Tt7Tb+uFN8Slwedk5J/wn3TCFe3V2OY9ZBRzjyX6nLmVwf23dOhso+MqvckxeMD
-	 KAFBKGByStuJPjE0/9tsb2VxP6lYOJvbVgIeCKyja8FVj3dVPIfFkMc3ccZsOU9/jpKIg
-	 roLTjE/qzgFcx5DqZRyo4O8/RWGvaT/L9rY5dPZyqlFAJtX/sUb7Cy814Tn6rFcjBgg==
+	t=1792500923;
+	b=BYyoJ/eLWhXiOm0yDTqydJz8T9opqVhPbmK1lIYSayVmgu77EPUT+bTd3Hikylikz2kQ
+	 s3Yz7ECYXDu4oF2rloPlRqGUtQEHArlqm9h1vWNcItLP72/x6Hda21ICdTXDz+YgVWtwS
+	 FChib0+GuVJEClSy14qy7M6He0LBUe041uQ35qIhANckLZeM3f1R0OblQriX1iJICKtLa
+	 bRN8m5tDOTlV6cHJ4p8keiDWtotcZo9jtL7DGPxSlYL1NOSxeli4IHE3msuHsq32OMok/
+	 2/dsiGcGeJk8z6N8FKdGZl0BgVf4MBPPvZMWzgJFvAe8OU2UUH6lRSDQFsdVcfTvr5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500909;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/rN1jszK6Prt0JXmM/VVC9bxR5gk6QbRi+899j8yGqQ=;
-	b=LwlZEvPAZvfqluXJmKZ0EwoeMxD8IJCFWTrLX6r4T7RYfGn7izOp/OXXQY3+fXYGzROs
-	 kvrMR4+plnr1133NXjmTNdWB7t6F10COW9nlBZeT28aB65gPohIN64XHyJbrftEVRyN7j
-	 JJtg+Xn74CuXJTC+ptoUMDTVTkqqhEQ0p+1R6E625HrSGLepqkt76d76oQO++kWdC53+9
-	 rilCIlEaOXqgAf5dbTfJGqatIsrwN6eEdo38lXYTl9Igq6oH6gL1y3ZpdutncEog1z5lU
-	 1T2nEU8up3E71c0+SWaT/8oGHVZtXGkhhBEC/h+E7GEH9wodQmY6GCSwRU23atOSVUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500923;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XQOUTOVFh8JzZI9kzVmkfR5g5tplHfGAGARfyUUcUvk=;
+	b=BaRbs3Bv3Gp7n7qd5bIaO31dsCgexBWeGra4+oxBLbln65wWwsnrlMl5I1aWIWN3XuYX
+	 Z0IUTdrvvrDembgXU66nBNYu4R7AXTHw82q5gDZNWlVRCd0nCrAjTweRgllHyR4pV9N6v
+	 doLjaEgBTISJ4VTCzuZWmH3051OmdmnGzpeGZYjzpUIptGZmRLI5sBb+2V+tlUu0zmpLL
+	 0leCOrIES3tCXy1x/VSrVPxQnTdH9GMph67Y75F471KPAknTgUSFhfY5CmsM/2JcaXSme
+	 HlxiCurtSKSJqRnu3m6AIDVc6u6Z6fEdD0H4Fd67WQzlO/qfm8zBcwuuGAR1NTniuZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnF9adIO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=AwG15E1Z;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0CB606A31A;
-	Tue, 20 Oct 2026 12:55:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1BB606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:55:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF1BB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnF9adIO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C7AF1F000C4;
-	Tue, 20 Oct 2026 12:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792500908;
-	bh=/rN1jszK6Prt0JXmM/VVC9bxR5gk6QbRi+899j8yGqQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MnF9adIOkMF9DWYDi7EtSiELWq7mW60krPzrCYqF2bV62U7RMqSmrS5txVv/eYZad
-	 roMPSmsF1VZDsv1ONvHy7bwBZ+LQZ3cA83ruxKNh1sKBiRLGJLheWKSFxOLxGmZzBF
-	 OL0X0+4+m0fE69cphWLfHDeHjka/0Gmgjfb66rrBi9ZUok3QWMMf7b/jYGtXFgajo2
-	 nnw27eq7Xpw1F7WHwHd4YmuEKWwKjndl1w59//pc15z+H6jqERASKMRGzKVyGBmBLc
-	 oQRREJbNdtbhOOCsjFPz1KfveBTef39x5ozpCmidTGP74Dvab5bVfB/9ukiMeNwvoP
-	 Xxjux1NBHTKAA==
-Subject: Re: [PATCH net v2 1/2] net: bcmgenet: recover from a failed resume
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, f.fainelli@gmail.com,
- justin.chen@broadcom.com
-Date: Tue, 20 Oct 2026 12:55:06 +0000
-Message-ID: <179250090686.3135.17597197349680697960@kernel.org>
-In-Reply-To: <20261019-nb-genet-fini-dma-net-v2-1-b85f6b92654a@tipi-net.de>
-References: <20261019-nb-genet-fini-dma-net-v2-1-b85f6b92654a@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=AwG15E1Z
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b54d1e9cdso28582336d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:55:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1792500922; x=1793105722; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XQOUTOVFh8JzZI9kzVmkfR5g5tplHfGAGARfyUUcUvk=;
+        b=AwG15E1ZRPKZS56zseZDToB2Qd9YJbTawLLcr9h1GLur1yCKOphB9CZeYoOaDMSbVa
+         RrPlrw5eMLSbJOuslxyszTx4NmEnv744KuWIwG3DizDX0uWRbErpkLwFCuAWB+o9DRFg
+         UDL4ypgxiss5CkG9v/9yYGF/Wsp/f2dCLf4e6CR3fB+jtf8r2d9o3+KYLDv1ozPWgId0
+         qwRZmFOw7C/Ek9a3K6UDlQQsnDrTtjosSM7fZhX5JREOkWrFCKLppw8Pmb/qLty56lpP
+         ZYj8Ee583y70a0njyljl7Z1GKpSK+nqzpOa7hK8N2VSD0I3LKpuHkedfhTxNE2H7j0za
+         9QeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792500922; x=1793105722;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XQOUTOVFh8JzZI9kzVmkfR5g5tplHfGAGARfyUUcUvk=;
+        b=xhZC3di+uEci74R/aTouk02abzdS0XNryjM5VBs0v3tP5o/npso0LshknV6eBkZv1X
+         3dIYUx47fSz68UoOquAH7b3pa7rGnNU+b7ZUVVmrXWjms2JxETCUe0ttqWqX4Dj3OxGw
+         ODrbReGzY24F3lZsYPxo33dEypLZYhmcGW8kzMIaY5dMlSLxPVeKeE2QbuOHm54hYIhK
+         GlATEoFZeZD37wpIZpnT3G/rtOOYqQzbACfrZBEeG2XVn6IkQEGcqj0lXzfxjNCNplQh
+         6r/ZiCfHdXzHglgSol3HENCyEGDeI9X8j8Bwi1X42Ug/DNYBSgUeoNi2X6l4o9ShY6Up
+         CPjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRq94PFY6/kXixT5zC1oerp3hKLVqOvXgaBTD0ZoeE1/OdxdwCt9MOdBYyXG6izAW9zg2aOLdabZfJHik=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL770DWSH4M8KqKWcVJhNHwFeXJR4QH8tGQoUVM44WQJDCaHwNC
+	JmTr6cyADW40OHbOwBNGt9la6St0Nx6DWcax2RsVBLHFsOMVyMNq9ww5a47rupn/keQ=
+X-Gm-Gg: AYBFou2dayDvQiN4v6PK/rXKNb8Xg/H+wpPkFTltqvkrKgdHx41HgufLUgmLcnEZfxZ
+	siWdHYoc6feVrggRiE2dKbILSJJWQ08moxFpOQAs9NxXNEVZNORuzwuBFpmEMTjkRR2bs6KIvJ5
+	b4hZl1O43OnNjNKj8a9XF+DCcaSYXua7D9m7YYjaQNOy96rKRNN3ByecG5BunTggRLPml/b3+GO
+	9j7k/u2Ok6WBf6hY57JR7+QNKNIkJ8mAohJ73iqIsDcer9r0hgOywwZZFHE6c5Rukd+QB1NP7dp
+	pEe/NGb8a/BUa5BT8boZb8Py4B9txDknE76WyAiV6XOENLen9WFXjalwzBJnSp8b69LdwgUvzJ8
+	yOaJW1nNeTB94B7U8p9cShfeR9bWgxnXv4QzCaBJAFKeqUQOAsVR9G6LPUBTRJGcMoXhmdr0kHz
+	UdBHE9hkRVr2B2+oRpsH5JKDM1SSfFBjj00cDXOhQp/bP36mChRS+XjYCfipkLX0sHyO7Q4MFCS
+	RX6U6dTscZ9fvmiozYTYeuJEuNzmS/fuGO0bgVmuAIctsbiNlgapEE0
+X-Received: by 2002:a05:6214:626:b0:917:8752:8214 with SMTP id 6a1803df08f44-91bdec2e198mr180120836d6.1.1792500921889;
+        Tue, 20 Oct 2026 05:55:21 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c03da5b4asm26796476d6.0.2026.10.20.05.55.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 05:55:21 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xJ9NA-0000000CTFP-3VJ7;
+	Tue, 20 Oct 2026 09:55:20 -0300
+Date: Tue, 20 Oct 2026 09:55:20 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, drdeeglaze@gmail.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 03/20] ctlv: Add the root family specification and
+ generated files
+Message-ID: <20261020125520.GN14213@ziepe.ca>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-4-jiri@resnulli.us>
+ <179245258505.58760.6060356114682279013.b4-review@b4>
+ <atdeH3nA_gkLwPLM@FV6GYCPJ69>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,189 +112,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atdeH3nA_gkLwPLM@FV6GYCPJ69>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Tue, Oct 20, 2026 at 02:28:55PM +0200, Jiri Pirko wrote:
+> Tue, Oct 20, 2026 at 01:29:45AM +0200, jgg@nvidia.com wrote:
+> >> [ ... 238 lines skipped ... ]
+> >> --- /dev/null
+> >> +++ b/Documentation/ctlv/families.yaml
+> >> @@ -0,0 +1,13 @@
+> >> +# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
+> >> +%YAML 1.2
+> >> +---
+> >> +# Append-only registry of CTLV family names, indexed by family ID: the entry at
+> >> +# index N has family ID N, up to 65535. The root family owns ID 0 and heads the
+> >> +# list, and every other entry comes after the entry of the family it inherits.
+> >> +# An entry may be marked deprecated, but never reordered, removed, renamed or
+> >> +# reused, its position being its wire identity. Every entry must have a
+> >> +# specification in specs/<name>.yaml, and is added by the change that adds the
+> >> +# implementation. Fixtures under tools/ctlv/tests/ are not registered.
+> >> +
+> >> +families:
+> >> +  - ctlv
+> >
+> >I see where you are coming from with this, but it is going to be
+> >problematic from a global kernel perspective. Given CTLV is imagined
+> >as a general tool for any subsystem we cannot control the tree that
+> >things merge through. It will not be like netdev where there is one
+> >authoritative tree with a linear history.
+> >
+> >So if Bob and Jane maintainers both add their own subsystems by the
+> >time it gets to Linus the IDs will get scrambled, and bisection will
+> >be lost. 
+> >
+> >Either changes to this file must be strictly done in a single tree
+> >with shared branches (which is going to be a bit hard process wise)
+> >
+> >Or we need to put the ID #s here and have some simple process to
+> >coordinate them during the development process. Since new families are
+> >probably rare it shouldn't be a big deal
+> 
+> Exactly. Collision is not very likely. Explicit ID or implicit, scramble
+> would still happen. And in that case it is resolvable.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0
+I think because of process if it is kept like this we will have to
+merge 'dead code' to reserve spots for people doing new work..
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+But at a minimum this comment above needs a big fat warning not to
+change this file without consulting with XYZ to coordinate merging.
 
-- [Medium] After a failed resume, the next Wake-on-LAN suspend can no
-  longer wake on the user's configured wake filters.
-- [Medium] When WoL is not in use, the new `!priv->tx_cbs` early return
-  in bcmgenet_suspend() (bcmgenet.c:4358-4368) does nothing to the PHY.
-- [Medium] On the new ringless WoL suspend path after a failed DMA
-  rebuild, the receiver is enabled while UniMAC still has its reset-…
-
---
-
-net: bcmgenet: recover from a failed resume
-
-This patch changes what happens when a resume fails in bcmgenet_init_dma(),
-so that close and suspend can still handle the device. NULL rx_cbs/tx_cbs
-now means there is no datapath. The block stays clocked on failure, close
-reattaches the device, bcmgenet_suspend() gets a new path for the no-rings
-case, and the WoL resume path stops the PHY before it rebuilds.
-
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index e8908916558b1..34acd3c47cc55 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-
-[ ... ]
-
-> @@ -4288,6 +4302,9 @@ static int bcmgenet_resume(struct device *d)
->  		bcmgenet_rdma_disable(priv);
->  		bcmgenet_intr_disable(priv);
->  		bcmgenet_fini_dma(priv);
-> +		if (phy_is_started(dev->phydev) ||
-> +		    dev->phydev->state == PHY_ERROR)
-> +			phy_stop(dev->phydev);
->  		enable_irq(priv->irq1);
->  	}
->  
-> @@ -4310,8 +4327,9 @@ static int bcmgenet_resume(struct device *d)
->  	/* Reinitialize TDMA and RDMA and SW housekeeping */
->  	ret = bcmgenet_init_dma(priv, false);
->  	if (ret) {
-> +		/* Leave the block clocked, close and suspend tear it down */
->  		netdev_err(dev, "failed to initialize DMA\n");
-> -		goto out_clk_disable;
-> +		return ret;
->  	}
-
-[Severity: Medium]
-
-Does this return leave UMAC_CMD at the reset-default 10 Mb/s speed when the
-next WoL suspend runs?
-
-Earlier in bcmgenet_resume(), init_umac()->reset_umac() writes only
-CMD_SW_RESET to UMAC_CMD. That zeroes the speed field (CMD_SPEED_10 is 0)
-and the duplex and pause bits.
-
-On the WoL rebuild path, the new phy_stop() above also leads to
-phy_link_down()->bcmgenet_mii_setup() with the link down, which clears
-RGMII_LINK.
-
-bcmgenet_mac_config() is the only code that restores the speed and duplex
-bits and RGMII_LINK, and it runs only from the phylib adjust_link callback.
-After this early return, bcmgenet_netif_start()/phy_start() never run, so
-that callback never fires. Meanwhile phy_init_hw() and genphy_config_aneg()
-have already restarted autonegotiation on the PHY, which is still powered.
-
-On the next WoL suspend, the new !priv->tx_cbs branch in bcmgenet_suspend()
-returns 0. Then bcmgenet_suspend_noirq()->bcmgenet_wol_power_down_cfg()
-does this:
-
-	/* Can't suspend with WoL if MAC is still in reset */
-	if (reg & CMD_SW_RESET)
-		reg &= ~CMD_SW_RESET;
-
-	/* Receiver must be enabled for WOL MP detection */
-	reg |= CMD_RX_EN;
-	bcmgenet_umac_writel(priv, reg, UMAC_CMD);
-
-None of this corrects the speed.
-
-If the PHY links at 1000 or 100 Mb/s, can magic packet reception fail even
-though WoL looks armed? Together with the HFB_CTRL write below, a failed
-resume could leave GENET with no working wake source.
-
-> @@ -4340,6 +4352,22 @@ static int bcmgenet_suspend(struct device *d)
->  	if (!netif_running(dev))
->  		return 0;
->  
-> +	/* A failed resume has torn the datapath down already. Resume still
-> +	 * enables irq1 on the WoL path, so it has to be disabled here.
-> +	 */
-> +	if (!priv->tx_cbs) {
-> +		if (device_may_wakeup(d) && priv->wolopts) {
-> +			/* No rings to receive into, so no filter wake */
-> +			bcmgenet_hfb_reg_writel(priv, 0, HFB_CTRL);
-
-[Severity: Medium]
-
-Does writing 0 to HFB_CTRL here turn off WAKE_FILTER wake completely?
-
-bcmgenet_wol_power_down_cfg() reads HFB_CTRL after this point. It unmasks
-the filter wake interrupts only if RBUF_HFB_EN is still set:
-
-	reg = UMAC_IRQ_MPD_R;
-	if (hfb_ctrl_reg & RBUF_HFB_EN)
-		reg |=  UMAC_IRQ_HFB_SM | UMAC_IRQ_HFB_MM;
-
-MPD is enabled only for WAKE_MAGIC/WAKE_MAGICSECURE. With wolopts set to
-WAKE_FILTER only, the system would suspend with device_may_wakeup() true
-and no GENET wake source.
-
-A few lines below, the normal WoL path keeps only the RX_CLS_FLOW_WAKE
-filters armed:
-
-		if (priv->wolopts & WAKE_FILTER)
-			list_for_each_entry(rule, &priv->rxnfc_list, list)
-				if (rule->fs.ring_cookie == RX_CLS_FLOW_WAKE &&
-				    rule->state == BCMGENET_RXNFC_STATE_ENABLED)
-					hfb_enable |= 1 << rule->fs.location;
-		...
-		if (!hfb_enable)
-			reg &= ~RBUF_HFB_EN;
-
-Could this path use the same selection? Because tx_cbs is NULL, the
-following resume rebuilds the rings anyway. The device is detached here,
-so the WoL setting can't be changed from ethtool (it returns -ENODEV).
-
-The commit message says:
-
-    leave the hardware as bcmgenet_resume_noirq() set it up so
-    close and suspend finish the teardown once.
-
-Is that accurate? In bcmgenet_resume(), init_umac(), phy_init_hw(),
-genphy_config_aneg() and bcmgenet_hfb_restore() all run before
-bcmgenet_init_dma() fails. bcmgenet_hfb_restore() has already re-armed
-every rule that is not unused.
-
-The commit message also doesn't mention that configured filter wake is lost
-after a failed resume.
-
-> +			bcmgenet_intrl2_0_writel(priv, 0xFFFFFFFF,
-> +						 INTRL2_CPU_MASK_SET);
-> +			bcmgenet_intrl2_0_writel(priv, 0xFFFFFFFF,
-> +						 INTRL2_CPU_CLEAR);
-> +			disable_irq(priv->irq1);
-> +		}
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-
-With WoL not in use, can this early return leave an external PHY powered
-for the whole sleep?
-
-The non-WoL path that this skips calls bcmgenet_netif_stop(dev, true). That
-calls phy_stop(), which ends in phy_suspend() and powers the PHY down.
-
-bcmgenet_mii_probe() sets phydev->mac_managed_pm = true, so MDIO bus PM
-won't power the PHY down either. bcmgenet_suspend_noirq() handles only the
-internal PHY.
-
-In the failed resume, phy_init_hw() calls the PHY driver's soft_reset and
-sets phydev->suspended = 0. With genphy_soft_reset, BMCR_RESET clears
-BMCR_PDOWN. genphy_config_aneg() then restarts autonegotiation.
-
-bcmgenet_init_dma() then fails before phy_resume()/phy_start() run. The
-PHY is now powered and linking while phylib still has it as PHY_HALTED.
-
-This doesn't show on the CM4's BCM54213PE, because its phy_driver entry has
-no soft_reset. It looks reachable when wolopts is 0 and the external PHY's
-driver has a real soft_reset (such as genphy_soft_reset).
-
-Does this match the commit message's statement that suspend will "finish
-the teardown once"?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019-nb-genet-fini-dma-net-v2-0-b85f6b92654a%40tipi-net.de
+Jason
