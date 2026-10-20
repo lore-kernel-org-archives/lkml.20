@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494086;
-	b=zVc0WoWGLoEqUs4FK6cysGG9vQrL3MQ5dvznsGjyQ08O3oZ3yV6dTQHTADtIq5S6OrjU
-	 pOOIVoMSequWw1dCDoHvMPyA51SeFol//V5xEIiF7ikAHZn8y/jkgm05sCWmagOpEPlQ8
-	 6kIHABadiAfQx3Bph5/niYwP/tUmTfiEMwck6WZkUBtW2lYk5sVqnYAru5JIe358xYcOm
-	 B3nv3Rv4ZBub1NlZy71zMc9X0xMC5JC084eFytHj5xbO9frYs/S9fs7caaqFnmbv3eGMv
-	 S6OcfMaqXHRk3vo4VOiKnFNHr2VdII2sxfBqUagmHKab0VA6Q/rdXT0qvcX3fXzyRRw==
+	t=1792494238;
+	b=HJUFujGNx4nDc580aOKGB2ljyP2Iz56uPfsInNrXL2NoEYttfZCi8dJwIAr9G/grTxYA
+	 fuh/QeHph/5k5IrRoFgcT8v3peSdlrpD34qsl2lN+D9TSqVs6tG9mGlw7LuI4xiepb+yo
+	 PUSMTfgiBTD7XfLyHO1muH2EbXT91Wo5ZIq6BNGOIrCE7sBOqexzCPs3LMLld0r/h4DRn
+	 UPasUZJuVWK4o7PFKA3bdaDXBGoiIjyJc3LwIPr/NaO/A6LH4TT3JoWL/apDDOdRuPFYi
+	 Q3JehmSlEQTOYvl4lKlZAsN2lFw+Ttp22dIu2/fqbJ91tLOS/Seu68tpEoBUyWf7oOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494086;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bIGv/nhTaqbLWpQj+w2fP5/8t32IudmW4UzVTxZzMFc=;
-	b=A1kZwL7dz+/MQY402RdXLiWOBp8GJFR0QqjIpe3bPNGgfnWtNoAjsdDmcVqf9aPBE0n4
-	 o3KvQMKH09eM8cIOH2uJKuggpGbMEFK8o/GxXQJaR08Hpi6jDTNh7ogfEnRXHQbfISG99
-	 J+pjDNKn5Nv63x94HO5HBRU2FyxPIaDsviHeOFTMW+9sTeIW3qOWP5hNDfTsOBv9iYs9M
-	 37gnKe/HPF3xnRFjm0d58AoHiDp0NW7cAsj2jsBWOj/C/Jc8q9PF2qDZeJGfdG5T0ggep
-	 i4m1rd3QPCflxB0VlARFlyFomHvz+wwRj4mw/WvkKT8M590MXlXUX2Yn7jVhWD0iHKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494238;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=Q+8hmYVwSuQQaSXfjPgdsvBl0XEA6DarkJ9b0W+ddiI=;
+	b=ArvEe4C1npmxSSAqlrQlVDFuDuoBjESxqCNBYJ8YXiqHFrB8D0qn6H/wRrorNUmkh98E
+	 jOpG8js6ChxZ7ZFUYcpdC1gdDxpIm7YkL/na0TR7Ik/KRxfJVGBSVhoVC3+gSLF0b81bX
+	 K3yObY4qVV9gQITxfcZCB/L86d8Pq85P/AamWNHOsmNfuCjfq2BrnLhMLOBI0raGIV4Qy
+	 NxUIRuJYSfjhTMBNj0ZrIiReMZAg7PF1y/unMiqyrutFvDBuY8f5AWYpseazGjgq/UXFW
+	 wUjA07Cl32g6NPoNdeQv7TgmuNJ1nnIyxLI7QoaNv0QXx5exSakPi1N1nkwC7Un2UjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CxIBiwd9;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbMbt0a+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAE9606A31A;
-	Tue, 20 Oct 2026 11:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DAE9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71699606A319;
+	Tue, 20 Oct 2026 11:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CxIBiwd9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792494086; x=1824030086;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WJqxCu589AI+TD59k3g3v3r9ySXn6/OYJL/OB2v4Z4k=;
-  b=CxIBiwd9PEWi7tbxCv7DT8O3vtv8fggA9XRBqSdggY0zjqutVvW9HV2p
-   KyaX8AhZGPQ7Ux+QsAPJvyitUm0rnfzxtyiKy7biq7t0Aj4rQbdjpEu0s
-   +X9Y+NZFWnLl5i3d2GPR+/8uFFxq1sa+ZQRZdGM4yjSictvolFBrDEhyO
-   LcdAna8FjD9nU/lRJuVgY1h1akNokMFO4VN/yVBMYkIJBw1bg/gNCKPn7
-   YNmPwcHWm0dhSdkNeIqs2gp97RBmi7reOqwZvctqL03/HZDLOIiNAHv/9
-   CibaRMjGc5RsZvRKNPCrOUpjJlYq2zXHH8366M1IeOWFTlIQXHU/5wUkc
-   w==;
-X-CSE-ConnectionGUID: vERJ9F2VTqCeLbJQoUgRzg==
-X-CSE-MsgGUID: 6X2AVpjcQLqGd5QXtAxnpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1204638"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1204638"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:01:22 -0700
-X-CSE-ConnectionGUID: iWEd7grjRNaa5vRx+MzUuw==
-X-CSE-MsgGUID: F8Mq7umbRKuFikuw0iesCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2741692"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa002.jf.intel.com with ESMTP; 20 Oct 2026 04:01:19 -0700
-Date: Tue, 20 Oct 2026 18:56:26 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com,
-	x86@kernel.org, kas@kernel.org, adrian.hunter@intel.com,
-	yan.y.zhao@intel.com, binbin.wu@intel.com, xiaoyao.li@intel.com,
-	chao.gao@intel.com, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org, nik.borisov@suse.com,
-	tony.lindgren@linux.intel.com
-Subject: Re: [PATCH v2 1/2] x86/virt/tdx: Drop tdx_clflush_*()
-Message-ID: <atdI2mPV8HfcSr0I@yilunxu-OptiPlex-7050>
-References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
- <20261015191710.3632302-2-rick.p.edgecombe@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbMbt0a+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06D81F000C4;
+	Tue, 20 Oct 2026 11:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792494238;
+	bh=Q+8hmYVwSuQQaSXfjPgdsvBl0XEA6DarkJ9b0W+ddiI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QbMbt0a+WSlFf6HPyB0w2tGgOUAacWPjd4wAqylOrlRY6e+N+g0lbKbRBvOmeHI8G
+	 NOuJoch7658dOAyydZhUEAbpJUXE/RL5DbySWyYJxVIA7ik9IPhODyowBWjl2X/Zp3
+	 IRMxTsGLSp8wH6LCtSJVUsbDWd5J8RYWH4Hk3D6xrAk4W+X4zwMBMnHyjStcunUmyD
+	 gGgoTRrYu5gU1DlRfzQ8ozQL0EGwMd2tQ6KEXIx8N/ae9fGmH04jMyNFJR0iIauw3u
+	 f8gYMx1yKiC5Zuzu59CRzfuY/XtmHj+jQUgv93g1SAAXLl3V674nwxg0HM2WscpEC6
+	 V2uBj1vPwSL5A==
+Date: Tue, 20 Oct 2026 12:03:52 +0100
+From: Lee Jones <lee@kernel.org>
+To: Flavio Amieiro <flavio@amieiro.net>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] leds: is31f132xx: Add support for is31fl3206
+Message-ID: <179198370454.839288.5327794631276643738@kernel.org>
+References: <20261013-add-is31fl3206-support-v3-0-66a762a3c12f@amieiro.net>
+ <20261013-add-is31fl3206-support-v3-2-66a762a3c12f@amieiro.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,35 +62,217 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015191710.3632302-2-rick.p.edgecombe@intel.com>
+In-Reply-To: <20261013-add-is31fl3206-support-v3-2-66a762a3c12f@amieiro.net>
+X-AI-Review-Draft: <20261013-add-is31fl3206-support-v3-2-66a762a3c12f@amieiro.net>
 
-On Thu, Oct 15, 2026 at 12:17:09PM -0700, Rick Edgecombe wrote:
-> The TDX module exposes a bit (CLFLUSH_BEFORE_ALLOC) to say whether it
-> requires certain types of memory to be flushed from the cache before being
-> handed to the TDX module.
-> 
-> During the initial TDX upstreaming, it was decided it would be simplest
-> to just always flush rather than checking for the bit and having
-> conditional logic. So based on the TDX docs:
->   When allocating a memory page to be used as TD private memory or TD
->   control structure page, the host VMM is required to ensure that none of
->   the cache lines associated with the page is in a MODIFIED state.
-> 
-> ...currently the kernel flushes before handing over private memory and TD
-> control structure pages.
-> 
-> The CLFLUSH_BEFORE_ALLOC bit has never been set by any TDX module, so this
-> flushing has yet to be needed in practice. Going forward, the TDX docs will
-> be updated to clarify that actually CLFLUSH_BEFORE_ALLOC will *never* be
-> set in any future TDX module either.
-> 
-> So make code even simpler by just deleting all the CLFLUSH_BEFORE_ALLOC
-> handling.
-> 
-> AI was used to review the change.
-> 
-> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+--- checkpatch.pl (1 issue) ---
+Line 172: WARNING: DT compatible string "issi,is31fl3206" appears un-documented -- check ./Documentation/devicetree/bindings/
 
-Reviewed-by: Xu Yilun <yilun.xu@linux.intel.com>
+This true, or is it documented in this set?
+
+> This chip has a different layout for the LED Control Register when
+> compared to the other variants. This register contains the enable bit
+> (in the highest nibble) but also the current control.
+>
+> According to the datasheet, a value of 010000 (0x10) in the register
+> enables an LED with the output current set to maximum.
+>
+> This commit adds support for this IC following the previous limitation
+> of the other variants: all LEDs are enabled and set with maximum
+> current, letting brightness be controlled by the PWM registers.
+>
+> Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
+> ---
+>  drivers/leds/leds-is31fl32xx.c | 95 +++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 79 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32xx.c
+> index 285085d27453..a22d814be4b0 100644
+> --- a/drivers/leds/leds-is31fl32xx.c
+> +++ b/drivers/leds/leds-is31fl32xx.c
+> @@ -49,6 +49,9 @@
+>  #define IS31FL3293_RESET_MAGIC 0xc5
+>  #define IS31FL3293_MAX_MICROAMP 20000
+>
+> +/* Custom LED Control enable value for IS31FL3206 */
+> +#define IS31FL3206_CONTROL_ENABLE_WITH_IMAX BIT(4)
+> +
+>  struct is31fl32xx_priv;
+>  struct is31fl32xx_led_data {
+>  	struct led_classdev cdev;
+> @@ -79,6 +82,7 @@ struct is31fl32xx_priv {
+>   * @enable_bits_per_led_control_register: number of LEDs enable bits in each
+>   * @brightness_steps    : number of brightness steps supported by the chip
+>   * @reset_func          : pointer to reset function
+> + * @enable_all_channels_func  : pointer to enable all channels function
+>   * @sw_shutdown_func    : pointer to software shutdown function
+>   *
+>   * For all optional register addresses, the sentinel value %IS31FL32XX_REG_NONE
+> @@ -88,6 +92,11 @@ struct is31fl32xx_priv {
+>   * necessary registers to a known initialization state. This is needed
+>   * for chips that do not have a @reset_reg.
+>   *
+> + * If non-NULL, @enable_all_channels_func will be used in place of the
+> + * generic channel enable function. This is needed for chips that have
+> + * a LED Control Register that control more than simply the
+> + * enable/disable state of the channel.
+> + *
+>   * @enable_bits_per_led_control_register must be >=1 if
+>   * @led_control_register_base != %IS31FL32XX_REG_NONE.
+>   */
+> @@ -105,6 +114,7 @@ struct is31fl32xx_chipdef {
+>  	u8	enable_bits_per_led_control_register;
+>  	u16	brightness_steps;
+>  	int (*reset_func)(struct is31fl32xx_priv *priv);
+> +	int (*enable_all_channels_func)(struct is31fl32xx_priv *priv);
+>  	int (*sw_shutdown_func)(struct is31fl32xx_priv *priv, bool enable);
+>  };
+>
+> @@ -228,6 +238,28 @@ static int is31fl3293_software_shutdown(struct is31fl32xx_priv *priv,
+>  	return is31fl32xx_write(priv, IS31FL3293_SHUTDOWN_REG, value);
+>  }
+>
+> +/*
+> + * Custom enable_all_channels function for IS31FL3206 because this
+> + * variant has only one bit in the higher nibble for enable, and the
+> + * lower nibble controls output current.
+> + */
+> +static int is31fl3206_enable_all_channels(struct is31fl32xx_priv *priv)
+> +{
+> +	const struct is31fl32xx_chipdef *cdef = priv->cdef;
+> +	u8 num_regs = cdef->channels / cdef->enable_bits_per_led_control_register;
+> +	int i, ret;
+> +
+> +	for (i = 0; i < num_regs; i++) {
+
+New for() loops should initiate the variable.
+
+  for (int i = 0; ...
+
+> +		ret = is31fl32xx_write(priv,
+> +				       cdef->led_control_register_base+i,
+
+Spaces around '+' please.
+
+> +				       IS31FL3206_CONTROL_ENABLE_WITH_IMAX);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /*
+>   * NOTE: A mutex is not needed in this function because:
+>   * - All referenced data is read-only after probe()
+> @@ -315,6 +347,33 @@ static int is31fl32xx_reset_regs(struct is31fl32xx_priv *priv)
+>  	return 0;
+>  }
+>
+> +static int is31fl32xx_enable_all_channels(struct is31fl32xx_priv *priv)
+> +{
+> +	const struct is31fl32xx_chipdef *cdef = priv->cdef;
+> +	int ret;
+> +
+> +	if (cdef->enable_all_channels_func)
+> +		return cdef->enable_all_channels_func(priv);
+
+I detest pointers to functions at the device driver level.
+
+Please find another way to do this.
+
+> +	if (cdef->led_control_register_base != IS31FL32XX_REG_NONE) {
+> +		u8 value =
+> +			GENMASK(cdef->enable_bits_per_led_control_register-1, 0);
+> +		u8 num_regs = cdef->channels /
+> +			cdef->enable_bits_per_led_control_register;
+> +		int i;
+> +
+> +		for (i = 0; i < num_regs; i++) {
+
+As above.
+
+> +			ret = is31fl32xx_write(priv,
+> +					       cdef->led_control_register_base+i,
+
+As above.
+
+> +					       value);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int is31fl32xx_software_shutdown(struct is31fl32xx_priv *priv,
+>  					bool enable)
+>  {
+> @@ -345,24 +404,12 @@ static int is31fl32xx_init_regs(struct is31fl32xx_priv *priv)
+>  		return ret;
+>
+>  	/*
+> -	 * Set enable bit for all channels.
+> +	 * Enable all channels.
+>  	 * We will control state with PWM registers alone.
+>  	 */
+> -	if (cdef->led_control_register_base != IS31FL32XX_REG_NONE) {
+> -		u8 value =
+> -		    GENMASK(cdef->enable_bits_per_led_control_register-1, 0);
+> -		u8 num_regs = cdef->channels /
+> -				cdef->enable_bits_per_led_control_register;
+> -		int i;
+> -
+> -		for (i = 0; i < num_regs; i++) {
+> -			ret = is31fl32xx_write(priv,
+> -					       cdef->led_control_register_base+i,
+> -					       value);
+> -			if (ret)
+> -				return ret;
+> -		}
+> -	}
+> +	ret = is31fl32xx_enable_all_channels(priv);
+> +	if (ret)
+> +		return ret;
+>
+>  	ret = is31fl32xx_software_shutdown(priv, false);
+>  	if (ret)
+> @@ -552,7 +599,22 @@ static const struct is31fl32xx_chipdef is31fl3293_cdef = {
+>  	.sw_shutdown_func			= is31fl3293_software_shutdown,
+>  };
+>
+> +static const struct is31fl32xx_chipdef is31fl3206_cdef = {
+> +	.channels				= 12,
+> +	.shutdown_reg				= 0x00,
+> +	.pwm_update_reg			= 0x13,
+> +	.global_control_reg			= 0x26,
+> +	.reset_reg				= 0x2f,
+> +	.output_frequency_setting_reg		= 0x27,
+> +	.pwm_register_base			= 0x04,
+> +	.led_control_register_base		= 0x17,
+> +	.enable_bits_per_led_control_register	= 1,
+> +	.brightness_steps			= 256,
+> +	.enable_all_channels_func		= is31fl3206_enable_all_channels,
+> +};
+> +
+>  static const struct of_device_id of_is31fl32xx_match[] = {
+> +	{ .compatible = "issi,is31fl3206",  .data = &is31fl3206_cdef, },
+>  	{ .compatible = "issi,is31fl3293",  .data = &is31fl3293_cdef, },
+>  	{ .compatible = "issi,is31fl3236",  .data = &is31fl3236_cdef, },
+>  	{ .compatible = "issi,is31fl3236a", .data = &is31fl3236a_cdef, },
+> @@ -616,6 +678,7 @@ static void is31fl32xx_remove(struct i2c_client *client)
+>   * even though it is not used for DeviceTree based instantiation.
+>   */
+>  static const struct i2c_device_id is31fl32xx_id[] = {
+> +	{ .name = "is31fl3206" },
+>  	{ .name = "is31fl3293" },
+>  	{ .name = "is31fl3236" },
+>  	{ .name = "is31fl3236a" },
+>
+> -- 
+> 2.53.0
+>
+
+-- 
+Lee Jones
