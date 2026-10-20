@@ -1,92 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792519876;
-	b=Cv0CLj6qHrmEZXTF7qQvzW4i/v6pv4C6q3bC9auSV01TaHHKT26DmqA7/PM68K3LRmlP
-	 fTyPEmTfqd1X3UJ2uELMlCwhQq4sbegk1wVhBbwkx7OWgqaxY/3IMWLqHRrI7eDMHT1gZ
-	 y1cOYAP0UJnOK/Mtra03wgYttnQKLuF3dihCtUy8Hbb6VwU39Mh712od8MQtlnxEwzCYZ
-	 xmQHj9WqeF41bFM0RLFFKSWBSQsS282SmP0iNTdPozsgqlKkClcJW1ckl3FfYLGQbddsI
-	 c12naxUopZON5sfcK1YZUMfVUgKCNkDo84eZCDEPl8th3f78/Sm6LorUn8R2tOfI9mg==
+	t=1792519913;
+	b=SYVQixQvrTgKMkle+wJEpPPEc1bVQ/BY1syYmwyHN6HZMbcjZMtlOLl5yf5DUrD6a0Pi
+	 z+YGtrbQSTeLJ9zk0gWsU/nm20D9XO9TursFJQEd+Mnzqa275aO4ayCR12u6/GceC+b0A
+	 Aqqj3T/9Zf0/9/c3td7j3d0lF9bxYFY4N7j/ImQ2WieG3ZFEIUKaY/jKE/8xuIBqUoxWI
+	 VoFoRsO2SWRGkfoE/avd/XWc7r+nX1irh97168w+SIeEkXJv+iLBGQxxBpsYICA2Bfhw3
+	 npPr+dAeesYisu2iMWS7rnX05nW2enIOUnFOYpuOXG9EnD670+H1LazSi87D7iF9A3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519913;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pe7zRQqq8DiaqBGD+rWVGO//vsZ4iJBToLUfyGdHZkM=;
-	b=WJR4OGDA5EoXySiw+RtWkCTotFf8S6Pc4OT1lzKHw8g+iusD8OaPrdt1k8u2GbBKSm4T
-	 fs5ULKG0W1YmbkWxDMMelRnhTdLiaQg+4B4NNblI8XDKa0FeMoZiAsJzSNH5340i3fWys
-	 hdLtmAks/DRxP2bacAjNmtkhQPPZFfkxWFchnkd4rcarlmZvL65YRTRDkgARQLDCPueU/
-	 HKM6eYjDjUkVTB8JIGbbdskBnFzB0q9vXdYuQuV4PIZf0uYXqeD1UbiSTWXJ2Dgn/g0Yu
-	 VjxJNC7+tgvH4i5Lcit8vGi9dHFEj8Lb5Tuw/UbVKW7NMEXn9mi/uCgzh0M7YmULJOQ==
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
+	b=BnIU94Y/O5yJfMicbRxgcUbAtyWoTSj/q6gN7AWGQNSN0jQ61BMPkHw0Dv/HsqCE72AK
+	 lJTu/85K7ltWAsuCToagNdJYL349Xr4PXQB+Jym7ukr8il/RRLAT2R8NAVi94eTqMr+fu
+	 XoiDUwRnOyw8Zt1dGYOgZzOvs1R+ZbfWoiAI5KhtdlJ2sNs4jAq0SbwpZRT3E+8cjFqij
+	 xceuXDaRtcYXKfQ2wgtPo98fj4JcOp5Dyn02cIuI9tAKLWcT+1wQZlRaqZ5hzsePD8cgM
+	 zwDVQP8a4cNxPqqaZbCY73ZQ5Tadc3MJooLbOd/DwYOOKvkwFX7BV+WUjbNZnEA6MIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jwkud6FH;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=ZYZu1zIm;
+	arc=none smtp.remote-ip=209.85.160.226
+Received: from mail-qt1-f226.google.com (mail-qt1-f226.google.com [209.85.160.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B61D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B61D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A335606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:11:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A335606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jwkud6FH
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2576661f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=ZYZu1zIm
+Received: by mail-qt1-f226.google.com with SMTP id d75a77b69052e-5365f9bef55so8890181cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792519875; x=1793124675; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1792519912; x=1793124712; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pe7zRQqq8DiaqBGD+rWVGO//vsZ4iJBToLUfyGdHZkM=;
-        b=Jwkud6FHUDrWtcml5AH1PpozqSEmpiPc9Sn4mP+h37kRFLl6C3sGLfqbXTRVUULGXt
-         mM0FBxHPH6PSgMBxzJE4ksMcZsgUdQkBECHZ/g/fXelnjJS+0Z3cHuIHZjQ91MoNUIoN
-         MpfUignn2fHOyaXBeri0sFe1rIqLdIn5Wugl2reOE5fXMIdAuCqRJx43Dff+b95Wjoa4
-         wjJmV2wpIOyrEmfkR6rNC+JUvM7TI9uSG/p+X6zhDk+I6jiVl3INyM35KAqB7kU+7xaK
-         dwKpu9zLugABB8mgRVF7qdaVH4Vod2lwwGC61or/pdUY2MY04TXSS2t92K62/jQ4pg0L
-         vCdw==
+        bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
+        b=ZYZu1zImX9WMX/rFkuJxTpa4CpQD8olv3B6PFMVBfdaPft1oNebP3X9+MP2SAGGnXL
+         Ot3cQmbbBEe1c5UegJlKl/3eOj7jax1tCP05sDGd+TrFA/N3KEzpNKJDchXD9fnSOF2J
+         uZPv7BddQ8b9jZxQ1vgn8q0m6wuU7ZLn0es0lkRC+a00sG/M8Pog0dJrTy/vVXSx9V3U
+         1RY4nFhKJ0p+eIQDM/yG9iKUy9LBiOncZX48EKBBvVAq9SvMgYF969VjyoF4Wtryq8El
+         aS94R4Pal5Hf65gMCvBfitLyrO+qozNGlGEDyytBySpUSOdDlrdvKwntNckjGQAZAh9d
+         KKkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792519875; x=1793124675;
+        d=1e100.net; s=20260707; t=1792519912; x=1793124712;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pe7zRQqq8DiaqBGD+rWVGO//vsZ4iJBToLUfyGdHZkM=;
-        b=ewLhEEQ/FTMPUVwLYDH6GD+ASU4zlufDSW3Gccy2wilvBONaD0DSMSWXo+IX/T/k6Y
-         dlN8Z/SciiOk3//GfHAQsHz9803fBnL6Uc03uQErNlFMXyPTr3rQtbYo8l/XVk/oTv2S
-         kAvRwgwRqMSU7V+R9t9zGdAlyKS6uTbOwwZsgfCN6Vswv9kNFGOonw5+YKiWlIw/cyrw
-         CZvwfAcpVpFRkdFOZZOIo16NmYn4kaFR1EnA5OLZ5IHFIVxpRh99dBD7vLDPdWDoixzF
-         kNJ1xCdvr56D2d5mu9eS5ORSRwUmaW0c2gVjtzS1/KjkzXORHI0ZhQdqpzvCOLaAx+2h
-         hGjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFXG9OoZcdiJ1+wDGNhtoJO7kAMXNobgzdhFAyAE0cpr6EQR7g/niV4TgErkT6JHR34K5TbXQ63KZtgGo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRx8yLthMgRoLay8HqQPgYDw95pABWvd36EkSXwy5u4M0YVeTt
-	o5IWAUVrQeWtCKBeC8K9Bo3s3QeqlmRzsbMKEls5FvnvRbgDob6Fsp/a
-X-Gm-Gg: AYBFou1sx5+HAvSY5tM0SDQuAN5zKqgDppTENG3E0iRS7+6q94i/OhCxLDhc+Hj8SKR
-	IcTpzTDVP+aGD9nu/ZEfK7S0R5FIWv4H5HYRWCL9mKU0M94FIgE4j5k7WUW2pdQcvPBbZafhqf3
-	xJaUSbxihnCX4y7ZbfrOGidCJer6sBD7ysqlIJk2ntXtD8c2lQn6voOrMfNhKoOWtRgw3JANLK6
-	iHG8ziYZBJsOw7eJ4nPS853p86tp1cH3zFQeKRhGWCgZYKX1qR2dqygastBcze2eKnkiJiIXKAw
-	kEZjvDBIaTxpTIp+MMhA0KeRXwB0ZNDMdc/LMCcFAtRtO9bLgYLjPRjlkHa1kt1YnaMbLm4OWjT
-	ikhv15cBV26lPO+jBsPsEcQ71HV7tT0ebCau5vgnt0bodcX7zbqEgFgn7lSQK8Z8efc2zczAVMU
-	HSp+DStiWzG3Y2dtnq9mgToWBdAL3tcYbsm7RMS/hbVO7XDaCAd+1MNci3eJdJWM4lPQ1sttQi3
-	iVh+J0CTWlYruA=
-X-Received: by 2002:a5d:5f47:0:b0:48e:bf0:35c with SMTP id ffacd0b85a97d-48e0bf00821mr22139283f8f.13.1792519874750;
-        Tue, 20 Oct 2026 11:11:14 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4778:c500:48b3:351b:a629:512f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cbfsm48367f8f.23.2026.10.20.11.11.09
+        bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
+        b=yE4sd80DImACIJZZxvAZ6nc+jHdyCgJ4rBxSZTEZ6fE9+WN3UQo6fw/9ThUjdod7Fm
+         rRUYQRYf64WLI7bCTGrAAZ72BIndLsT6qGF1mrH9ROXvREyii2A9dfxbdpSht06Rl8PO
+         QOzlgfA/PaqC8Fm45ip7ogNQN5O87+p6RF5ND1PNnRd57swZ45hNtVI/mCi+h+E2pNbk
+         MIGyaocRfmVGQRvUGrrpPJMKJ1Pc97bO+rk9bi9bqI5AhdN2H1wY6hoMeeKQl6lCkb86
+         NFAm7cbqOl0CU6HRUIXgp2Z8DUMOadJ5gEeHGEl+DJF9v87S3SFi8abV6YTz/sN3FBDu
+         sfzA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9kkYRgsGpuQYH9GTrtIbtROL68sQ7m3DUzyMd4wm5x+Uy6zKjv+pDrbP5K12A7rN4bjYTX/StUSWZpz4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlh2sv0hYLe2btykuHyuVQ51wzNnXqdVMzk3NSrc5q0zHXgJBJ
+	UTtX/sJYsmlcPi884NiNRYdhMS1lzANjlE9PhoLqG2az2EWQGx0qSFlcWCti0GoLjpMq9sagWc9
+	K0PwRJR/4+p3ujWv2SB9NVvz3H6pA6PfK6mQ8Gtes/jaQdT16fd75
+X-Gm-Gg: AYBFou2h5gP3hrFI0LuKZQ/CauDitr2BvCks2qqbQLLBNQaNeE8TbaeEMyjKtAY9RMs
+	Vt97JKFj5QBYhJ7JhAzKbPwpDn01CHRgVuUIsOm76F+nozogV9l8Dvbtgi6waTvZh5OHvkyQvsW
+	LFL9O41o2DHTxsfdPu4oR1FScuCXOeXlfyc3zfqGC7efIZ7Dq7OdMXRvFCNRS7CIFCd98M1uqKZ
+	ENdglktaZ4NwS6YO6Wd2HvMOzR9LzsF9vwux0oJVh2YS3Yz8knkihucBAqlxT3nOK8DCE313OCO
+	rgrlhg6/k4TYHT4Q5Ah4A2tmjub5oNN6ENT3hIuId/r2I8hHO8SX8rfExxfVyzESgatsX+Ixhvk
+	0rLmqdITPImVtz1V/9uU=
+X-Received: by 2002:a05:620a:4441:b0:93e:7ec5:2cfe with SMTP id af79cd13be357-93f57f8fb91mr5540985a.28.1792519911865;
+        Tue, 20 Oct 2026 11:11:51 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93f56e1d0ebsm7756285a.18.2026.10.20.11.11.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:11:10 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Christian Brauner <brauner@kernel.org>,
-	"Eric W . Biederman" <ebiederm@xmission.com>,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] signal: skip blocked signals in dequeue_synchronous_signal()
-Date: Tue, 20 Oct 2026 21:11:01 +0300
-Message-ID: <20261020181101.1605736-1-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 20 Oct 2026 11:11:51 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 3D9E2401E4;
+	Tue, 20 Oct 2026 12:11:51 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 38884DC0D46; Tue, 20 Oct 2026 12:11:51 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	stable@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Aviad Yehezkel <aviadye@mellanox.com>,
+	Ilya Lesokhin <ilyal@mellanox.com>,
+	Boris Pismenny <borisp@mellanox.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/2] tls: only install push_pending_record for a TX context
+Date: Tue, 20 Oct 2026 12:11:44 -0600
+Message-ID: <20261020181147.939575-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,50 +111,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dequeue_synchronous_signal() checks whether an unblocked
-synchronous signal is pending, but its queue scan can select a
-different blocked entry with a positive si_code. This can deliver
-a signal while it is still blocked.
+tls_set_sw_offload() assigns ctx->push_pending_record for both
+directions, but the hook is a TX-side dispatcher. On a socket whose TX
+side is HW offloaded, tls_set_device_offload() installs
+tls_device_push_pending_record(); any later TLS_RX setsockopt
+overwrites it with tls_sw_push_pending_record(), because
+tls_set_device_offload_rx() itself calls tls_set_sw_offload(sk, 0, NULL)
+for the software half of a successful HW RX offload, and so does the
+fallback when the RX offload is declined (NIC with TX-only offload,
+tls_dev_add() failure).
 
-Check the blocked mask for each queued entry. Forced faults
-are unblocked when necessary by force_sig_info_to_task(), and the
-existing pending bookkeeping is unchanged.
+From then on tls_handle_open_record() (a TLS_SET_RECORD_TYPE cmsg after
+a MSG_MORE send, or the close path with a pending writer) runs
+tls_sw_push_pending_record() against priv_ctx_tx, which is a
+struct tls_offload_context_tx, not a struct tls_sw_context_tx, and
+reads open_rec from inside the offload context. On x86_64 without lock
+debugging that field overlays sg_tx_data[2].dma_address, which is never
+set, so the push is silently skipped and the data buffered by the
+MSG_MORE send is later sent under the cmsg's record type, e.g.
+application data in a handshake or alert record. Enabling
+CONFIG_DEBUG_SPINLOCK, CONFIG_DEBUG_LOCK_ALLOC and CONFIG_LOCKDEP, but
+not CONFIG_LOCK_STAT, in the tested x86_64 configuration moves open_rec
+over sg_tx_data[5].page_link. Once populated, its page pointer and
+scatterlist flags are interpreted as a tls_rec pointer and dereferenced
+while reading msg_plaintext.sg.size.
 
-Fixes: 7146db3317c6 ("signal: Better detection of synchronous signals")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Only set the hook when initialising the TX side.
+
+Found by code review while developing TLS 1.3 HW offload rekey support.
+
+Tested with HW TLS TX and RX offload on Mellanox ConnectX-6 Dx (Crypto
+Enabled): after setting TLS_RX, send() "AAAA" with MSG_MORE, then
+sendmsg() "BBBB" with a TLS_SET_RECORD_TYPE cmsg for a handshake
+record. Without this patch the peer receives a single handshake record
+"AAAABBBB"; with it, an application data record "AAAA" followed by a
+handshake record "BBBB".
+
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
+ net/tls/tls_sw.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Reproduced by blocking SIGSEGV, queuing a positive-code SIGSEGV
-with rt_tgsigqueueinfo(), then triggering an unblocked SIGTRAP.
-Without the fix, SIGSEGV was delivered while still blocked.
-
-Patched version behaved as expected.
-
- kernel/signal.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/signal.c b/kernel/signal.c
-index e433de93b430..4dcc47a7d30d 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -684,12 +684,13 @@ static int dequeue_synchronous_signal(kernel_siginfo_t *info)
- 		return 0;
- 
- 	/*
--	 * Return the first synchronous signal in the queue.
-+	 * Return the first unblocked synchronous signal in the queue.
- 	 */
- 	list_for_each_entry(q, &pending->list, list) {
- 		/* Synchronous signals have a positive si_code */
- 		if ((q->info.si_code > SI_USER) &&
--		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK)) {
-+		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK) &&
-+		    !sigismember(&tsk->blocked, q->info.si_signo)) {
- 			sync = q;
- 			goto next;
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index d1ad31986cf2..235b868facfa 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -2591,7 +2591,8 @@ int tls_set_sw_offload(struct sock *sk, int tx,
  		}
-
-base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+ 	}
+ 
+-	ctx->push_pending_record = tls_sw_push_pending_record;
++	if (tx)
++		ctx->push_pending_record = tls_sw_push_pending_record;
+ 
+ 	/* setkey is the last operation that could fail during a
+ 	 * rekey. if it succeeds, we can start modifying the
 -- 
-2.43.0
+2.50.1
 
