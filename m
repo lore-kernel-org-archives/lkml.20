@@ -1,76 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.147.23.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479533;
-	b=eXe62uzOt2cK44GjLikzQPr4ddXT6+oXCNH83pOEouLS/vxlVtRvFEDfA+E7gIdvjA/Q
-	 NB31TucV9ZdN5sPr7txNzliYQneXg4ljRVT9NPsyhUQ/ZPiBu+kN80rUKmqvZKMA651cg
-	 hUuw9u5rPYFERMmLJ6Byo4U+gD7mY9cLu139xiDLBJV8PgOYRqgiJ0MD6R+N/WVns9dJ3
-	 sjo2G1Cz/+Y8H4vZgOD+X0tAjWAqwFN7XWKWdQXRYL6sv85ASCYhyxl3HMvv7FaQqgSOe
-	 Qg3jlrrS+KEL1NmTAhu4B6WYi6NDa3317pqduPbkpJ40CuKRZqofCLY1iM4x7Na5sWA==
+	t=1792479544;
+	b=5gDm1fej8Xg7y1wjovDluW5BvpHdunIUyzIJTrTtIg8lwvRyD9fPzgsQtkQpH8sLkNjm
+	 1Yll+r1O8PBX/lsK89VNR4hvb/n3suLu3jtO76h+Bgo/IW9eNTc0Y0OKAyoU+JbsMBYxs
+	 UOvjI3YeZ5dSXGNCUJY91PF/DjttNBktUnqcedrupJzU2HedcylKe0bHneo2ELvxPzVWU
+	 B80zMFOQV7+6b3bPCsIoFsG0vsS83pF75ZouuEigh2lUZcX1GG5cNSKXF6pKQ6PD3EQh1
+	 UvFbsLplZoz4yIh0NnGMzBx2kSReCbMrKC6NCbAUaRUHIrT+3AigSwWuB5oymjieO+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479533;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OuvF7AJ8BmifYV7Qhms/bJ3M83v3RS6mVBS0yc83dxE=;
-	b=jIYe4h7enf5oBiOjgi585VU2tY4LOIR3YrWS1RvgH0aRuq+J5oKCjFTKAW7/dp6I+FBm
-	 AZdBGa0BTt9lBQI1nnJFy2C7z/HLkq0zosG1cFvRTgLP/TIvA4NFXoQopCI+XgmLfJLMG
-	 UXmyXW7lwkw9JFctQhJEQ+PXLiohgx3WCJQlgSAABjC3ZHViWw5gIR6z5TtQIVAtARkUd
-	 fLAOkhq7O4CxXuwjVpT3xnmJPJzf3/Y00o8yCvNl0VQ4FasOm/CwyKhLPHFTPtTfW0Gq0
-	 bgRXihmjDv77ArpXeei2enq/V++pxbtKyaPJEF38R4hU08xYatqRFaBLK02jWqN1zjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479544;
+	h=DMARC-Filter:Received:X-Original-SENDERIP:X-Original-MAILFROM:
+	 Received:X-Original-SENDERIP:X-Original-MAILFROM:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=6jEJaHu9Y6VT1XeMg7m9SCTxjFKNA6Hnu81PQYRc5yc=;
+	b=pkOIX+hMUdJ1ToudGY1E8Wloo1ZyLlpwRGrY5Ki0uTkN+hxsLT/VrLfCmQO/WOgxtLYb
+	 MZZwTsqUBByUpSsbkR73Y9L5QeH0VZCVJ82GCFC5wQhPjgOe+VLI2iYPXEkBU1WaMDQen
+	 8bFADfiNYOa+Fh/ShLTV4jEo0JrfD/57TVGyWfVuix1hMDiXHiEFY3uGYTBX+B3WRH55w
+	 32WFVyeElQF5XJewvJxDsQCipn3PeqxjdaWkmtdSi5MqU/vcnHPhusvsOmin5+iRw8Si1
+	 9ObUGBE6MDWI+zV1JMkviKIkfC1KlS4XIh3hFX/kr3QW0G18WXFS208wumBiUKtCxtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jSWuVNWb;
-	arc=none smtp.remote-ip=203.205.221.149
-Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
+	dmarc=pass header.from=lge.com;
+	spf=pass smtp.mailfrom=lge.com;
+	arc=none smtp.remote-ip=156.147.23.52
+Received: from lgeamrelo12.lge.com (lgeamrelo12.lge.com [156.147.23.52])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F2E606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F2E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jSWuVNWb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792479529; bh=OuvF7AJ8BmifYV7Qhms/bJ3M83v3RS6mVBS0yc83dxE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jSWuVNWbf8slr8dxqrAB0hB4ZK/GLzr3oiPbOvT4adfdRz7PqDexl8SNVr8s4Qdjf
-	 aw917lnrfRaNSersvcog3OKsQvNmJvctaiVkIYLXahQ3GScq0n4yRxLVp1+2cAAI4F
-	 hQ1fL29LfRsErABxvoJ0T4xjPiRnZv4jKsdxuHWM=
-Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id EAC07AD2; Tue, 20 Oct 2026 14:58:44 +0800
-X-QQ-mid: xmsmtpt1792479524tuq8n8z54
-Message-ID: <tencent_3997C08147DEAAE1C9C3D895E5B4565DA206@qq.com>
-X-QQ-XMAILINFO: OKozd4sh2iVbwBmF5x2zQLOTps3LB3SE4zmfRKXNax9yAI7OH7LG9jTUTBX0ji
-	 a5faheg6qDN/tV+cuow1EAm3z20nU9xfGpFroiQD8U7RoNg45pSd6hTvHKgvP+lHD08FGCFiOiNK
-	 i8mU4YVsvZ3cIFVYXu21Snj60kd4aSx9SCv/rwmZbgu1D11Dzh7zSuG+av0lYwrxPk7PzS2U1g8y
-	 7XOmu5vRPDAQTN2GMmewCxacfjaWKMcfpM0551o8dlHEbQDfvKF2HQFDbBd1+YxAautsj8c80CgR
-	 Ljjy08b+iEDI6+BbaIiHzU9RIJJ3L/Hymb8rcz+LfcL+dCSBpCy+YzNTr7BLJIa7WhVj6iyugwvt
-	 JPrUKcmP3sEqTcDpfzmvky8SMxov96P0Ba3Jw4SSILJdrNJg13f7gMvQ8wf19njowZZus2bGdzXO
-	 6zxvuVN/3I+9lMRtKqSDZmA9+s18EpnKWPGrWS3BODDMNlBfYBaCJLunR6hpUV98Ti/TvmnwP27Q
-	 PQ/fxSB/ywROg8sPF1+uGyWychwtnQq87jvzyoT7o3JDAopBixEVvt6hosBv8hW3mQ31yEIFfRS6
-	 hFBlnDU6BkimAlOtjoTpNqq+psRAGrSfeCJJp2tulEqZf6uxZAzzxN6KH7zHWbUWf3rNF3v8y25G
-	 1IcdPfHM8dKD/2x5InrCp2/o8L62ChREJ2SEwpRo100TuaR0UszLvD2rQeD80DU3yaZj/bxGgn8n
-	 7dgol/lkezCjMd3W4uvRX39z3N/ckVa6oXzOYkPKYz4JCvKF6a/5rdJOgrklaOruHVKkIQVaCD4R
-	 sRBxDbWcvAOoEW0eSld9B90eQjbzt/3pdI7bFtDQ+7leIqnm4nQFO+YtxTETLn4wI7cXvgtRPc3H
-	 ZLAeUAI+tBtPe3CC7Ezi0Lq2OLhVEgv7F6D6Xfs2w6muUK/HS8Fj3d8YWPiqG+gXDTk85v7VVU/0
-	 lBnMIHi3f5cglf61ylwEUHMS8OXvidyRiBX2GXGick0XqLTIkeksqHLuIQX5acqXGNamprQ/3+w6
-	 zEhXARQwYNreRH101GpFM32BJk5NH+KjNMRUsFNYYJeogLHaU7Dl8zAbpMCzaGJwdZiDCWJd+LMA
-	 sN1dP/cwERNmrzSgdAKAV5urLzOXzQX0pE+SH5cBB2A2UCp9k=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Yemingxuan <level_zero@qq.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v5] drivers/base: return bus_add_driver() errors
-Date: Tue, 20 Oct 2026 14:58:43 +0800
-X-OQ-MSGID: <20261020065843.1090-1-level_zero@qq.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
-References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3E606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:59:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA3E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
+Received: from unknown (HELO lgeamrelo04.lge.com) (156.147.1.127)
+	by 156.147.23.52 with ESMTP; 20 Oct 2026 15:58:53 +0900
+X-Original-SENDERIP: 156.147.1.127
+X-Original-MAILFROM: youngjun.park@lge.com
+Received: from unknown (HELO yjaykim-PowerEdge-T330) (10.177.112.156)
+	by 156.147.1.127 with ESMTP; 20 Oct 2026 15:58:53 +0900
+X-Original-SENDERIP: 10.177.112.156
+X-Original-MAILFROM: youngjun.park@lge.com
+Date: Tue, 20 Oct 2026 15:58:53 +0900
+From: Youngjun Park <youngjun.park@lge.com>
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
+Message-ID: <atcRLYvKavedT6Hs@yjaykim-PowerEdge-T330>
+References: <20261019160615.2348500-1-nphamcs@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,99 +59,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019160615.2348500-1-nphamcs@gmail.com>
 
-bus_add_driver() creates the driver's uevent attribute, adds the bus
-driver groups and the bind/unbind files after the driver has already
-been inserted into the bus and its module links have been made.  When
-any of these fail it logs the failure and still returns 0.
+On Mon, Oct 19, 2026 at 09:06:15AM -0700, Nhat Pham wrote:
+> swap_cluster_populate() can publish a cluster's table with the cluster
+> lock dropped. A cached allocator can use and empty it before the
+> populating allocator reacquires the lock. The resumed scan can then
+> dereference a NULL table.
+> 
+> For example, CPU1 can retain a cached cluster offset on an SSD with
+> per-page discard disabled:
+> 
+>     CPU0                          CPU1
+>     ----                          ----
+>     swap_cluster_populate()
+>       swap_cluster_alloc_table() fails
+>       spin_unlock(&ci->lock)
+>       local_unlock(&percpu_swap_cluster.lock)
+>       swap_cluster_alloc_table()
+>         rcu_assign_pointer(ci->table, table)
+>                                   swap_alloc_fast()
+>                                   local_unlock(&percpu_swap_cluster.lock)
+>                                   mem_cgroup_try_charge_swap() fails
+>                                   swap_cache_del_folio()
+>                                     __swap_cluster_free_entries()
+>                                       free_cluster()
+>                                         __free_cluster()
+>                                           swap_cluster_free_table()
+>                                             rcu_assign_pointer(..., NULL)
+>       local_lock(&percpu_swap_cluster.lock)
+>       spin_lock(&ci->lock)
+>       return ci
+>     alloc_swap_scan_cluster()
+>       cluster_scan_range()
+>         __swap_table_get()
 
-The driver is then registered but incomplete: a driver without
-bind/unbind cannot be bound or unbound from userspace, and a driver
-without its uevent attribute can no longer emit uevent notifications.
-driver_register() reports success, so neither the driver's init routine
-nor its caller retries, and nothing else ever creates the missing
-files.
+Hello Nhat.
 
-The device side of the same driver model already treats the equivalent
-steps this way: device_add() returns failures of the equivalent sysfs
-operations to its caller, and device_del() undoes each one.
-driver_register() already calls bus_remove_driver() when the group
-registration after bus_add_driver() fails, and that branch is only
-unreachable for failures inside bus_add_driver() because of the
-unconditional successful return.
+Good catch!
 
-Propagate the errors so the existing unwind runs.  The new
-out_remove_module label calls module_remove_driver() before falling
-through to out_detach: bus_remove_driver() pairs every operation
-bus_add_driver() performs in reverse order, but the symlinks
-module_add_driver() creates live in the module's sysfs directory, not
-under drv->p->kobj, so the kobject teardown does not remove them.
-The attribute and the groups need no explicit removal because they live
-under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
-the caller.
+> Reject an unusable cluster under its lock before scanning it. Relocate
+> it only while its table is present.
+> 
+> Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+> ---
+>  mm/swapfile.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index c3288910b3e3..988b7316e0a1 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -981,7 +981,11 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
+>  	bool need_reclaim, ret, usable;
+>  
+>  	lockdep_assert_held(&ci->lock);
+> -	VM_WARN_ON(!cluster_is_usable(ci, order));
+> +	if (!cluster_is_usable(ci, order)) {
+> +		if (cluster_table_is_alloced(ci))
+> +			relocate_cluster(si, ci);
+> +		goto out_unlock;
+> +	}
 
-The error messages are kept.  The return value of an initcall is not
-printed by the initcall machinery, so dropping them would turn a
-reported failure into a silent one.
+If this patch is applied as bloew, does it prevent the issue described here?
 
-These failures are not expected on a working system: driver_ktype
-always supplies sysfs_ops, so -EINVAL is unreachable, no in-tree bus
-defines a drv_group that collides with the built-in uevent, bind or
-unbind attributes, and -ENOMEM needs memory pressure.  The point is not
-a user-visible bug but keeping the driver model consistent with the
-device side and leaving the failure reported.
+https://lore.kernel.org/linux-mm/20260720071342.50742-2-shikemeng@huaweicloud.com/
+(This patch publishes cluster table after lock acquired.)
 
-Signed-off-by: Yemingxuan <level_zero@qq.com>
----
- Changes in v5:
- - Add this changelog.  No code change since v4.
+This patch is chagned the way I suggested during review... :(
 
- Changes since v1:
- - Use my real name in From: and Signed-off-by:, as requested.
- - Keep the three error messages.  The return value of an
-   initcall is not printed by the initcall machinery, so
-   dropping them would turn a reported failure into a silent
-   one.
+As you pointed out, another context can free the table 
+without alloc context knwoing this situation.  
+I missed this situation.
 
- drivers/base/bus.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+IMHO, Publishing the table only after reacquiring the cluster lock, as Kemeng
+suggested, and rejecting an unusable cluster under the lock as in this
+patch both look correct to me!
 
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index d17bd91..a63e55c 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
- 	if (error) {
- 		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
- 			__func__, drv->name);
-+		goto out_remove_module;
- 	}
- 	error = driver_add_groups(drv, sp->bus->drv_groups);
- 	if (error) {
--		/* How the hell do we get out of this pickle? Give up */
- 		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
- 			__func__, drv->name);
-+		goto out_remove_module;
- 	}
- 
- 	if (!drv->suppress_bind_attrs) {
- 		error = add_bind_files(drv);
- 		if (error) {
--			/* Ditto */
- 			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
- 				__func__, drv->name);
-+			goto out_remove_module;
- 		}
- 	}
- 
- 	return 0;
- 
-+out_remove_module:
-+	module_remove_driver(drv);
- out_detach:
- 	driver_detach(drv);
- out_del_list:
--- 
-2.34.1
-
+Reviewed-by: Youngjun Park <youngjun.park@lge.com>
