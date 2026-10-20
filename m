@@ -1,66 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514685;
-	b=mcYBHvC5shLHJR6zuaHZyRyNvS5Y2g7eJa0fUZzkDsqbMAV2hhG7/8EmAgQMhDfndVqH
-	 ZcnGPwWJwqvxHsKazEtjLsIbVtAjlMGdt6OlRI3Ka/HI/Oaa23vT2R9u8MnXv/YXRW4su
-	 U028Uml2l1TRMVM2QIRh48NSJw3TfRzrslK/QgCBLFswcwIHlUMa0rKQuLn23Y+hr2npc
-	 /MC+OguYKr7dmP/zynS1Jd7OhGjIJ+F866Q/GhQzbK4TfEtDag5Q1bK4AzTG/OvfkB6H6
-	 qumhQZ44bSaGBJmBn02J/WThYM+/waL+t6jF4MCkhJDi+BuiVv9pHTBxRsNZIxvEeUQ==
+	t=1792514693;
+	b=L+3wcZ+y1cJ4TwbCqY7EqHzVaPYpK2JTJPNMgqPCDcXADQscjxjR30RvmSxEb9Yo3cV7
+	 mVRM4mlapxx0bFy4N7TCw46lIEV1eaDKJiyBX1f6Mn62hu5QS4ORjBDoUgwzTIJl3H7Tc
+	 cWQdmLhIAiG/00mX3mF7hyDrJJRGAWptJNMYj03h40DyAwjC4AH0k3XQg+s+uUY+5Skf9
+	 ggoFvzn5BhavcBxu+eO4cxDJadSQwKIW0wE9SE2xwu+1AsodisYHlQF/6Ytu5CIn9lYr+
+	 xcN08P2KAUaqXdvtvBgNyyw/Q+LqC25fH8nYI/Iz43xEMyFZSVSgzY11FpTcxUL26kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514685;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aTmACZ/+QtvgkXkB87/Q1326A2lmn3wrW3YNYzLyp4k=;
-	b=JdWtgaHZQwNbITGgAhvH8CNunwqGu3vZm3IP61OYaJhLKDVnpz3sghkS3Z3YYd3qEPCT
-	 X/oPNUHJOmCQqpb+yxhn/JlmDqKTiN1nYyLM325RRZwS+zve8rSOGpp8LRH5op2Ry91qG
-	 dOc9c4fTIiLpPVIFSGN0nBs33JlfmYwgz9IcimEM+mseVliTfi+NZMJR2JAWbdF8ehaq4
-	 +ogwKO4XpmbEb2NposQpZfL4msJBjkBNf6sgWRNXoLpOWd9FQD7Gm1dlAfxHKzw9E85dW
-	 XjjN5BV2ItlRXf8X+P3RP+dsIvflWpgjGnC1tq+Tlc2dYwn8hb+V0WNasQHDzBlsNgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514693;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=NXh/568rxveSYCJoVvN0lsdLPnnUxgQKvxNkKzZOZw0=;
+	b=5c9/+4uOUWyGAuZPg4BlqaAlWPBOvFAvjrW2fLsV52mYDiuaaGIxE/JJwiI2w3vT9JTH
+	 S1aGZC9+5jmxmXhs9czZCi61jSGtjXUNXm2hUCvusLuDujTs0X7DFCj8/nwCUROsgoCXZ
+	 uoDF3jGGyOAtWfUX+RtngO0CCBl6+TBiixeURAxWE1EfVzN7/kipVP0lKKDh+x9rXuskF
+	 MZeawtIoPyYE2iw+psvPefxLDg8Jz3TszEbAA4sUOgTyKGl9N0IP0eaVXqy6wvM0dk5aQ
+	 UnPqR3QbHlK0S0VFYeia1/GHbiU17z7iaKHOoPmLJvpDbB33BqLPsHrP9s1QX82TeYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	arc=none smtp.remote-ip=95.215.58.83
-Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=DyENckvx;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12716606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12716606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XjqcV9ZvR7h/4pI77pPXVunNE25bWrZE4kzLXH0JbYw=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792514682; v=1; x=1793119482;
- b=si/2oLkZmD6SnimNJ+tZuKJtRdyDt48CmadO9NqYzqhwXYQlHTvmiIQ1owzOqCHbt2baDEQC
- qozgwb1UHftuHj50CgzAZijG6ySqffmCQpk+m2MFSrP+5CFUZwHePKfRUgIx9XgxZ979W14SJdX
- 8Fc2BDOoO0GRD0IJuQNlmLtEUWTQ7mAkSVQu5QXazwyTpS/Mdw679p0YQVnnSRosFGRB0Z1sNBb
- nJFaBiF0lXfFNdOimrRfxG1QPPavt+y0LVZ31M6Aa/lr1Fk9Cu+uV2yvb4+WBJ07xT0cm0xIS/e
- YNzqs3y9qAxS1Eb+3g+Xmpm4GPw4F12p8cT3WMMNOH4UQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3e91a7bb92a9dc53;
-	Tue, 20 Oct 2026 16:44:41 +0000
-X-Mizu-Trace-ID: 3e91a7bb92a9dc53
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 21 Oct 2026 00:44:37 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	users@kernel.org, Federico Vaga <federico.vaga@vaga.pv.it>,
-	Akira Yokosawa <akiyks@gmail.com>,
-	Carlos Bilbao <carlos.bilbao@kernel.org>,
-	Avadhut Naik <avadhut.naik@amd.com>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
-	Chen-Yu Yeh <chenyou910331@gmail.com>, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, Petr Pavlu <petr.pavlu@suse.com>
-Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
-Message-ID: <ateadbflRqzgIVSh@wyuan.org>
-References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B90FF606A326;
+	Tue, 20 Oct 2026 16:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90FF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=DyENckvx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1792514690;
+	bh=NXh/568rxveSYCJoVvN0lsdLPnnUxgQKvxNkKzZOZw0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DyENckvx5dK3mmklisX9cwDjMlDQf/UiqqK4kcHy4Ywq7SQD1A2wSi8pEDU1Qouy2
+	 UrVqpyi8Gbznv8MnWRlqXMsDgH8ZyzvYRsbpSXTZIfGJeyJcBmwkl56eGFWdOix6TX
+	 Y9FaBGPGUnc7AHCg9/UdPZNx4d/sf673rhFkassLwWiwmMK2GudQsdHUpKh+NngFdL
+	 kHQ/Q6D55QpJ8hBBcD/P53+SjS+wmQ6wjhiz0URRSWkJhLUuy96CGUZiAWB/ziBHDV
+	 QY6yN+K8DHRCV9mXBPz/WTWAIyeO2btKZJkAVunMI3C/SdlDAjaDIM+q1+ZtN/NDTY
+	 NTlvARQ/K5Chw==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id E66626005A;
+	Tue, 20 Oct 2026 18:44:49 +0200 (CEST)
+Date: Tue, 20 Oct 2026 18:44:47 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
+Message-ID: <ateaf9-cY50Goz0j@chamomile>
+References: <20261020143031.1829-1-qingfang.deng@linux.dev>
+ <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
+ <ee955f2c-c97b-4505-a996-f7d7c5d2a3f5@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,42 +74,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ee955f2c-c97b-4505-a996-f7d7c5d2a3f5@linux.dev>
 
-On 2026-10-20 11:35:24 -0400, Konstantin Ryabitsev
-<konstantin@linuxfoundation.org> wrote:
+On Wed, Oct 21, 2026 at 12:10:32AM +0800, Qingfang Deng wrote:
+> On 10/20/2026 11:08 PM, Eric Dumazet wrote:
+> > Le mar. 20 oct. 2026 à 16:30, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
+> > > 
+> > > Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
+> > > forwarded by a bridge can retain hardware GSO features and reach the
+> > > driver without software segmentation, if the egress Ethernet interface
+> > > advertises TSO.
+> > > 
+> > > To force software segmentation, clear the GSO feature mask for
+> > > ETH_P_PPP_SES in harmonize_features().
+> > > 
+> > > Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
+> > > Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+> > > ---
+> > >   net/core/dev.c | 4 ++++
+> > >   1 file changed, 4 insertions(+)
+> > > 
+> > > diff --git a/net/core/dev.c b/net/core/dev.c
+> > > index a6951ea08961..27483a2ad747 100644
+> > > --- a/net/core/dev.c
+> > > +++ b/net/core/dev.c
+> > > @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
+> > >          type = skb_network_protocol(skb, NULL);
+> > >          features = net_mpls_features(skb, features, type);
+> > > 
+> > > +       /* Ordinary TSO does not update the PPPoE payload length. */
+> > > +       if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
+> > > +               features &= ~NETIF_F_GSO_MASK;
+> > > +
+> > >          if (skb->ip_summed != CHECKSUM_NONE &&
+> > >              !can_checksum_protocol(features, type)) {
+> > >                  features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+> > > --
+> > > 2.34.1
+> > > 
+> > 
+> > Ouch.
+> > 
+> > harmonize_features() is called for every packet, GSO or not.
+> > 
+> > This is a GSO-only problem, please do not add more protocol-specific
+> > tests in this path. gso_features_check() is only called for GSO
+> > packets, and the cost there is amortized over all segments.
+> > 
+> > Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
+> > because of the can_checksum_protocol() check in harmonize_features(),
+> > and fraglist GRO packets (the main use case for PPPoE GRO) are
+> > segmented in software anyway.
+> > 
+> > This leaves bridged, non fraglist GRO PPPoE packets sent to a
+> > NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
+> 
+> I reproduced this on a VM veth interface, which advertises both features.
+> The real hardware I have is an Intel IGC but I have not tested with it.
 
-> LKML has become mostly a firehose of patches that are already going to a
-> subsystem list. The reason is THE REST: it matches every file in the
-> tree, so get_maintainer.pl adds linux-kernel@vger.kernel.org to every
-> single patch. During the week of Oct 1-7, 2026:
-> 
->   - LKML carried 13,641 messages (~1,950/day), 90% of which were also
->     sent to at least one other list;
->   - with ~2,100 subscribers, that is about 29 million deliveries per
->     week for LKML alone.
-> 
-> This issue came up during the 2026 Maintainer Summit and the consensus
-> was that "always include linux-kernel for every patch" was never the
-> intent.
-> 
-> This series makes THE REST a fallback as initially intended: it is only
-> added for a file when no other matching MAINTAINERS section provides a
-> mailing list that get_maintainer.pl would actually output for it.
-> Patch 2 updates submitting-patches.rst, which currently tells submitters
-> to send every patch to LKML.
-> 
-> Several v1 reviewers asked for a catch-all list that would keep carrying
-> every patch for those who want to follow all kernel development. That
-> is a worthwhile discussion, but it is separate from this series, which
-> only restores THE REST to its original role.
-> 
-> Translation maintainers are Cc'd because the it_IT, ja_JP, sp_SP, zh_CN
-> and zh_TW versions of submitting-patches.rst carry the same "send every
-> patch to LKML" advice and will need a follow-up update once the English
-> text is settled.
+IIRC, I could reproduce the issue too with a virtio netdevice.
 
-Thanks. Added to the todo list.
+I made this inaceptable patch (see oneliner patch with protocol
+specific update below), so the recent pppoe gso support kicks.
+
+I guess adding NETIF_F_GSO_PPPOE (similar to NETIF_F_GSO_SCTP) is a
+no-go to force software tx path to segment skbs too?
+
+Thanks.
+
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 9981d637f8b5..07bf265d0295 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -5514,7 +5514,8 @@ static inline bool netif_needs_gso(struct sk_buff *skb,
+ {
+        return skb_is_gso(skb) && (!skb_gso_ok(skb, features) ||
+                unlikely((skb->ip_summed != CHECKSUM_PARTIAL) &&
+-                        (skb->ip_summed != CHECKSUM_UNNECESSARY)));
++                        (skb->ip_summed != CHECKSUM_UNNECESSARY)) ||
++               unlikely(skb->protocol == htons(ETH_P_PPP_SES)));
+ }
+ 
+ void netif_set_tso_max_size(struct net_device *dev, unsigned int size);
 
