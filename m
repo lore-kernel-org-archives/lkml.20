@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792486102;
-	b=f5IxZHrLMuD9q6RVMH8pmt1yLHR8z8wjdKUzsaxbaFDTNdmntZ3x5JqAUkkc/BsjNzeH
-	 LlAmPlM47/A8d6/VV1BIYjCSs3I81W0Mr05ZFECOwtsLJO8bm70nBlfQdr6RIcIljrFcI
-	 0PVuSyzpbtRRAQjGr462tuP0b/CqaVElni+Tcy5LciiTbSz0hUFQjB2NBOuZJhnh7mENm
-	 A7iUSf7mmudjbqGbjKGxIkrSVqtS2VMo7YpphKOWFQ9wTji7mAOYFHW3Yoz0gNZisUMUh
-	 BT+gJBHvKJcF9qSKS8VWQiFNs5v/ucB6LAUnhu8IvVxMZzOgiEW2UcGfppxUDuufh4Q==
+	b=sb+f8cVDWCYuVRvsRKVO7tQWzBc2EJK27/huN/E1GDgiDWS50UZ/kGhCPVbezi8PuN5e
+	 KFvCZ/XJ3gd+txS/r/yS+RZL/3kX21SJi6bIPsKyiv4FnmXiQUFA1y59d+FY4ldQgVgsG
+	 jHIjdtAhkK1OP0iNCuVvb47LsJr0KUHgSHqthMon6ruO6kPXysGitEaQv2SSaGDn8xxdx
+	 KVLKYzaXoc9qVf5ikuyr7uqOqFyGO2oI4q3UIT5kz+NtEYAmvDuV0jgeSlBbbwz9UnhQx
+	 VdIssqZHq5m2JE9WzD0kU69tEWzpyV7OelUGoJFm0y1vld8Mow706uNUbLO9DCHtuJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792486102;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-Originating-IP:X-CM-SenderInfo;
-	bh=3/lQ5si9mtA/sfGG0Baet0IBP4mJnpsETFmvRfL9TLQ=;
-	b=tPTDSCYB3VmhEWKsyVtqT7AE3wCf3Hlby/YFh+h0tLN9kW9KX7YVYxX/8O/pfAho8wT2
-	 yG7NSQ69LG/zcEn1duTFS1f+okG+drBCs9dMEodO7/SDKW1WHGk6voi2O06iyi+DS8sKU
-	 Gvoo6qWpI0BEnnwoZZQE3+4BP/NDlIFlActaJIvm27+81AHz71AMWpnq8kCjDrcmbJxea
-	 pYZVXImN4Qo3+38LqJHoxG2PoMheAgjUgsu5YivxdPh0UvpvwfFBwLXvXKVw+vDqg4Uss
-	 QDGyjtZuIXsGuD6VeE7gEbFnW1A7TDO8zh51POkSjtoUdMLkDKJGa8vaMpu46GN9e8g==
+	bh=SlM1biEb7J70bzma8sH/ffN8QGBDfZ/x6unpu62V4yA=;
+	b=PlxzrUUF3v4/S4mRiy/53w4jtI0XqFG4QsrMKAlUxH3jevHgsDbQVi3Q05BaavfKHeF0
+	 I7MPWHp4JroaWULgGNfu30DDNaBCgR1Gmvl96C5IUzU0sriLueeYVYU8yuniScWaCRgCj
+	 nzfNFcGLrsLbBQBuootPENqK8+LoKQ8yKT07x7z49A3TyyNT8T8vfYPcZb74Ga+yzuCVh
+	 M2tPHrLKNA949t2fAMYPEQROCnfojR9km/IlaWPYRPCMTmKuCbI5Z7C3moLO0rusedG0t
+	 VBIbIc3lWT/xZFeE2mrHnqsNKdHuy66LrxZ+uvXO0DlOH5EwsAsbVQ3HltpO+Nqnn2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BppTo3Oa;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RNiX0mVg;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C109660A2612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A4360A2605
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:48:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C109660A2612
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A4360A2605
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BppTo3Oa
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RNiX0mVg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3/
-	lQ5si9mtA/sfGG0Baet0IBP4mJnpsETFmvRfL9TLQ=; b=BppTo3Oa5z6I8OyWng
-	2faBkCtYyxrsR1c9tx8zERBjO1g600WAJhHMcXh67Da6A2rN6BFh8o+YpoirNXju
-	SlP7vAzJxpM5m6hdMz9ElE1O/3rIU37WG0It7okLlqfpPv+8OdgpOof/DHOPySWw
-	7Rt6enLv1OfgqL0Cz9MdAY3Fw=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Sl
+	M1biEb7J70bzma8sH/ffN8QGBDfZ/x6unpu62V4yA=; b=RNiX0mVgYlVTrEwReQ
+	rzzPF8Cq6YReaemIKmkysAfd+mo3B4nJQZHFOt7knibAbAJ8Cd/6jICPaCf6AEGm
+	T9JXw3jQvyVXAC/4AMnBSyEI6DYkbsD4qKD2Fhy1merggzR7bEeAOz2FdXUGRE8y
+	UUYKYH6o+QwmWImdtj8uxkvu0=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S5;
-	Tue, 20 Oct 2026 16:47:50 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S4;
+	Tue, 20 Oct 2026 16:47:49 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -51,9 +51,9 @@ Cc: ntfs@lists.linux.dev,
 	wangxuewen@kylinos.cn,
 	wudandan@kylinos.cn,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 27/31] ntfs: report MFT writeback errors to fsnotify
-Date: Tue, 20 Oct 2026 16:44:17 +0800
-Message-ID: <20261020084421.2196486-28-liubaolin12138@163.com>
+Subject: [PATCH v4 26/31] ntfs: report MFT bitmap and data growth recovery failures
+Date: Tue, 20 Oct 2026 16:44:16 +0800
+Message-ID: <20261020084421.2196486-27-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
 References: <20261020084421.2196486-1-liubaolin12138@163.com>
@@ -67,198 +67,431 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtFW8tFyDuF45Xry8WF4xCrg_yoW7Zw15pF
-	9xK393GrWkJr42qwn3tF4jya4Sy34xK3yUCrWxG3Wxuws5tr1jqF4UtrsYgFyrKr93G3yr
-	Jw4DGrZ8uF1UZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jH7KsUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RZIE2rXKrZ2fwAA3M
+X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S4
+X-Coremail-Antispam: 1Uf129KBjvAXoW3KFW7XFy7Jw45CFWUXF1fZwb_yoW8XFyUuo
+	WS9r10yw4DW34jk34ayas5Aas8Aan8Ca95Jry5CrZrCa92vw1q9rW7K3y3W3y7G3WrGr4a
+	vrn7Jrn5AFs3AFyUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUVPl1DUUUU
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hVIE2rXKrWZ-wAA3g
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-MFT write failures mark the volume without notifying error listeners.
-Report device failures from the existing BIO completion callback for
-both synchronous and asynchronous writes. Use blk_status_to_errno(),
-matching the error recorded in the address_space.
+Growing the MFT bitmap or data allocation can detect missing or
+inconsistent metadata and leave failed recovery unreported. Record
+corruption and failures to restore mappings, allocation, or search state
+through volume metadata reports.
 
-Also report mirror and write-preparation failures. Use EFSCORRUPTED for
-invalid record geometry, mappings and MST preparation, preserving the
-errno through the affected error exits and mapping_set_error(). Keep
-ENOMEM redirty and retry behavior.
-
-Use the generic deferred reporter for completion-context notifications.
+Use EFSCORRUPTED for corrupt mappings and preserve ENOMEM from runlist
+merges. After a failed merge, report cluster-release failure separately
+without replacing the merge error.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
- fs/ntfs/mft.c | 54 ++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 36 insertions(+), 18 deletions(-)
+ fs/ntfs/mft.c | 179 ++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 116 insertions(+), 63 deletions(-)
 
 diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index cc264a0fc073..6f84a4e78aa4 100644
+index f494f283408b..cc264a0fc073 100644
 --- a/fs/ntfs/mft.c
 +++ b/fs/ntfs/mft.c
-@@ -479,9 +479,11 @@ static void ntfs_mft_end_io(struct bio *bio)
- 		err = blk_status_to_errno(bio->bi_status);
- 	else
- 		err = ctx->error;
-+	/* Report device errors from both synchronous and asynchronous writes. */
-+	if (bio->bi_status)
-+		ntfs_report_file_metadata_error(ctx->mapping->host, err);
- 	if (err) {
- 		mapping_set_error(ctx->mapping, err);
--		NVolSetErrors(ctx->vol);
- 		ntfs_error(ctx->vol->sb, "I/O error while writing MFT: %d",
- 			   err);
+@@ -1349,8 +1349,9 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx = NULL;
+ 	struct mft_record *mrec;
+ 	struct attr_record *a = NULL;
+-	int ret, mp_size;
++	int err, ret, mp_size;
+ 	u32 old_alen = 0;
++	u16 mp_ofs;
+ 	u8 *b, tb;
+ 	struct {
+ 		u8 added_cluster:1;
+@@ -1381,10 +1382,12 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		up_write(&mftbmp_ni->runlist.lock);
+ 		ntfs_error(vol->sb,
+ 			"Failed to determine last allocated cluster of mft bitmap attribute.");
+-		if (!IS_ERR(rl))
+-			ret = -EIO;
+-		else
++		if (!IS_ERR(rl)) {
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++			ret = -EFSCORRUPTED;
++		} else {
+ 			ret = PTR_ERR(rl);
++		}
+ 		return ret;
  	}
-@@ -542,29 +544,31 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
- 	u64 mirror_size;
- 	unsigned int mirror_ofs;
- 	u8 *src, *dst;
--	int err;
-+	int err = -EFSCORRUPTED;
- 
- 	if (unlikely(!vol->mftmirr_ino))
--		return -EIO;
-+		goto out_report;
- 
- 	mirror_size = (u64)vol->mftmirr_size * vol->mft_record_size;
- 	if (mirror_file_ofs >= mirror_size ||
- 	    unit->len > mirror_size - mirror_file_ofs)
--		return -EIO;
-+		goto out_report;
- 	if (unit->folio_ofs + unit->len > folio_size(source))
--		return -EIO;
-+		goto out_report;
- 
- 	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
- 				    mirror_file_ofs >> PAGE_SHIFT, NULL);
--	if (IS_ERR(mirror))
--		return PTR_ERR(mirror);
-+	if (IS_ERR(mirror)) {
-+		err = PTR_ERR(mirror);
-+		goto out_report;
-+	}
- 
- 	folio_lock(mirror);
- 	if (folio_test_writeback(mirror))
- 		folio_wait_writeback(mirror);
- 	mirror_ofs = mirror_file_ofs - folio_pos(mirror);
- 	if (mirror_ofs + unit->len > folio_size(mirror)) {
--		err = -EIO;
-+		err = -EFSCORRUPTED;
- 		goto out_unlock;
- 	}
- 
-@@ -596,6 +600,9 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
- out_unlock:
- 	folio_unlock(mirror);
- 	folio_put(mirror);
-+out_report:
-+	if (err)
-+		ntfs_report_metadata_error(vol, err);
- 	return err;
- }
- 
-@@ -627,10 +634,10 @@ static int ntfs_prepare_mft_record_io_units(struct ntfs_inode *ni,
- 	unsigned int i;
- 
- 	if (!nr_units || nr_units > ARRAY_SIZE(ni->mft_lcn))
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	for (i = 0; i < nr_units; i++)
- 		if (ni->mft_lcn[i] < 0)
--			return -EIO;
-+			return -EFSCORRUPTED;
- 
- 	cluster_ofs = ntfs_bytes_to_cluster_off(vol, record_byte);
- 	if (vol->mft_io_unit_size > vol->mft_record_size) {
-@@ -715,8 +722,10 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 		goto done;
- 
- 	err = ntfs_prepare_mft_record_io_units(ni, units);
--	if (err < 0)
-+	if (err < 0) {
-+		err = -EFSCORRUPTED;
- 		goto err_out;
-+	}
- 	nr_units = err;
- 
- 	kaddr = kmap_local_folio(folio, 0);
-@@ -727,6 +736,7 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 	err = pre_write_mst_fixup((struct ntfs_record *)fixup_m, vol->mft_record_size);
- 	if (err) {
- 		ntfs_error(vol->sb, "Failed to apply mst fixups!");
-+		err = -EFSCORRUPTED;
- 		goto unmap_err_out;
- 	}
- 
-@@ -813,8 +823,13 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 		mark_mft_record_dirty(ni);
- 		if (!sync)
- 			err = 0;
--	} else
--		NVolSetErrors(vol);
-+	} else {
-+		struct ntfs_inode *base_ni = ntfs_inode_base(ni);
+ 	lcn = rl->lcn + rl->length;
+@@ -1453,15 +1456,20 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		status.added_cluster = rl2->lcn == lcn;
+ 		rl = ntfs_runlists_merge(&mftbmp_ni->runlist, rl2, 0, &new_rl_count);
+ 		if (IS_ERR(rl)) {
++			int merge_err = PTR_ERR(rl);
 +
-+		mapping_set_error(folio->mapping, err);
-+		ntfs_report_file_metadata_error(VFS_I(base_ni),
-+						err);
-+	}
- 	return err;
- }
- 
-@@ -3165,7 +3180,7 @@ static int ntfs_map_mft_io_locked(struct ntfs_inode *ni, u64 folio_byte,
- 
- 	lockdep_assert_held(&ni->runlist.lock);
- 	if (!ni->runlist.rl)
--		return -EIO;
-+		return -EFSCORRUPTED;
- 
- 	vcn = ntfs_bytes_to_cluster(vol, file_ofs);
- 	/*
-@@ -3177,10 +3192,10 @@ static int ntfs_map_mft_io_locked(struct ntfs_inode *ni, u64 folio_byte,
- 	if (lcn == LCN_RL_NOT_MAPPED)
- 		return -EAGAIN;
- 	if (lcn < 0)
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	if (ntfs_bytes_to_cluster_off(vol, file_ofs) + unit->len >
- 	    vol->cluster_size)
--		return -EIO;
-+		return -EFSCORRUPTED;
- 
- 	unit->sector = ntfs_bytes_to_bio_sector(
- 		NTFS_CLU_TO_B(vol, lcn) +
-@@ -3271,7 +3286,7 @@ static void ntfs_mft_write_error(struct ntfs_volume *vol,
- 				 struct address_space *mapping, int err)
- {
- 	mapping_set_error(mapping, err);
--	NVolSetErrors(vol);
-+	ntfs_report_file_metadata_error(mapping->host, err);
- 	ntfs_error(vol->sb, "Error while writing MFT folio: %d", err);
- }
- 
-@@ -3375,8 +3390,10 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
- 	err = ntfs_prepare_mft_folio_units(ni, folio_byte, file_limit,
- 					   record_selected, units, &nr_units,
- 					   max_units, &defer);
--	if (err)
-+	if (err) {
-+		err = -EFSCORRUPTED;
- 		goto out_noio;
-+	}
- 	if (!nr_units) {
- 		if (defer)
- 			goto out_noio;
-@@ -3429,6 +3446,7 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
- 						ctx->error = -EIO;
- 					redirty = true;
- 					err = -EIO;
-+					ntfs_mft_write_error(vol, mapping, err);
- 					break;
- 				}
++			if (merge_err != -ENOMEM)
++				ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 			up_write(&mftbmp_ni->runlist.lock);
+ 			ntfs_error(vol->sb, "Failed to merge runlists for mft bitmap.");
+-			if (ntfs_cluster_free_from_rl(vol, rl2)) {
++			err = ntfs_cluster_free_from_rl(vol, rl2);
++			if (err) {
+ 				ntfs_error(vol->sb, "Failed to deallocate allocated cluster.%s",
+ 						es);
+-				NVolSetErrors(vol);
++				ntfs_report_metadata_error(vol, err);
  			}
+ 			kvfree(rl2);
+-			return PTR_ERR(rl);
++			return merge_err == -ENOMEM ? merge_err : -EFSCORRUPTED;
+ 		}
+ 		mftbmp_ni->runlist.rl = rl;
+ 		mftbmp_ni->runlist.count = new_rl_count;
+@@ -1494,8 +1502,10 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	if (unlikely(ret)) {
+ 		ntfs_error(vol->sb,
+ 			"Failed to find last attribute extent of mft bitmap attribute.");
+-		if (ret == -ENOENT)
+-			ret = -EIO;
++		if (ret == -ENOENT) {
++			ret = -EFSCORRUPTED;
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++		}
+ 		goto undo_alloc;
+ 	}
+ 	a = ctx->attr;
+@@ -1514,7 +1524,9 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 			"Get size for mapping pairs failed for mft bitmap attribute extent.");
+ 		ret = mp_size;
+ 		if (!ret)
+-			ret = -EIO;
++			ret = -EFSCORRUPTED;
++		if (ret == -EFSCORRUPTED)
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		goto undo_alloc;
+ 	}
+ 	/* Expand the attribute record if necessary. */
+@@ -1537,6 +1549,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	if (unlikely(ret)) {
+ 		ntfs_error(vol->sb,
+ 			"Failed to build mapping pairs array for mft bitmap attribute.");
++		if (ret == -EFSCORRUPTED)
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		goto undo_alloc;
+ 	}
+ 	/* Update the highest_vcn. */
+@@ -1559,6 +1573,10 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		if (unlikely(ret)) {
+ 			ntfs_error(vol->sb,
+ 				"Failed to find first attribute extent of mft bitmap attribute.");
++			if (ret == -ENOENT) {
++				ret = -EFSCORRUPTED;
++				ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++			}
+ 			goto restore_undo_alloc;
+ 		}
+ 		a = ctx->attr;
+@@ -1579,9 +1597,10 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 
+ restore_undo_alloc:
+ 	ntfs_attr_reinit_search_ctx(ctx);
+-	if (ntfs_attr_lookup(mftbmp_ni->type, mftbmp_ni->name,
+-			mftbmp_ni->name_len, CASE_SENSITIVE, rl[1].vcn, NULL,
+-			0, ctx)) {
++	err = ntfs_attr_lookup(mftbmp_ni->type, mftbmp_ni->name,
++			       mftbmp_ni->name_len, CASE_SENSITIVE, rl[1].vcn,
++			       NULL, 0, ctx);
++	if (err) {
+ 		ntfs_error(vol->sb,
+ 			"Failed to find last attribute extent of mft bitmap attribute.%s", es);
+ 		write_lock_irqsave(&mftbmp_ni->size_lock, flags);
+@@ -1594,7 +1613,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		 * The only thing that is now wrong is ->allocated_size of the
+ 		 * base attribute extent which chkdsk should be able to fix.
+ 		 */
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, err);
+ 		return ret;
+ 	}
+ 	a = ctx->attr;
+@@ -1613,31 +1632,36 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	}
+ 	/* Deallocate the cluster. */
+ 	down_write(&vol->lcnbmp_lock);
+-	if (ntfs_bitmap_clear_bit(vol->lcnbmp_ino, lcn)) {
++	err = ntfs_bitmap_clear_bit(vol->lcnbmp_ino, lcn);
++	if (err) {
+ 		ntfs_error(vol->sb, "Failed to free allocated cluster.%s", es);
+-		NVolSetErrors(vol);
+-	} else
++		ntfs_report_metadata_error(vol, err);
++	} else {
+ 		ntfs_inc_free_clusters(vol, 1);
++	}
+ 	up_write(&vol->lcnbmp_lock);
+ 	if (status.mp_rebuilt) {
+-		if (ntfs_mapping_pairs_build(vol, (u8 *)a + le16_to_cpu(
+-				a->data.non_resident.mapping_pairs_offset),
+-				old_alen - le16_to_cpu(
+-				a->data.non_resident.mapping_pairs_offset),
+-				rl2, ll, -1, NULL, NULL, NULL)) {
++		mp_ofs = le16_to_cpu(a->data.non_resident.mapping_pairs_offset);
++		err = ntfs_mapping_pairs_build(vol, (u8 *)a + mp_ofs,
++					       old_alen - mp_ofs, rl2, ll, -1,
++					       NULL, NULL, NULL);
++		if (err) {
+ 			ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
+-			NVolSetErrors(vol);
++			ntfs_report_metadata_error(vol, err);
+ 		}
+-		if (ntfs_attr_record_resize(ctx->mrec, a, old_alen)) {
++		err = ntfs_attr_record_resize(ctx->mrec, a, old_alen);
++		if (err) {
+ 			ntfs_error(vol->sb, "Failed to restore attribute record.%s", es);
+-			NVolSetErrors(vol);
++			ntfs_report_metadata_error(vol, err);
+ 		}
+ 		mark_mft_record_dirty(ctx->ntfs_ino);
+-	} else if (status.mp_extended &&
+-		   ntfs_attr_update_mapping_pairs_locked(mftbmp_ni, 0,
+-							  mftbmp_ni)) {
+-		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s", es);
+-		NVolSetErrors(vol);
++	} else if (status.mp_extended) {
++		err = ntfs_attr_update_mapping_pairs_locked(mftbmp_ni, 0,
++							    mftbmp_ni);
++		if (err) {
++			ntfs_error(vol->sb, "Failed to restore mapping pairs.%s", es);
++			ntfs_report_metadata_error(vol, err);
++		}
+ 	}
+ 	if (ctx)
+ 		ntfs_attr_put_search_ctx(ctx);
+@@ -1670,7 +1694,7 @@ static int ntfs_mft_bitmap_extend_initialized_nolock(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	struct mft_record *mrec;
+ 	struct attr_record *a;
+-	int ret;
++	int err, ret;
+ 
+ 	ntfs_debug("Extending mft bitmap initialized (and data) size.");
+ 	mft_ni = NTFS_I(vol->mft_ino);
+@@ -1694,8 +1718,10 @@ static int ntfs_mft_bitmap_extend_initialized_nolock(struct ntfs_volume *vol)
+ 	if (unlikely(ret)) {
+ 		ntfs_error(vol->sb,
+ 			"Failed to find first attribute extent of mft bitmap attribute.");
+-		if (ret == -ENOENT)
+-			ret = -EIO;
++		if (ret == -ENOENT) {
++			ret = -EFSCORRUPTED;
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++		}
+ 		goto put_err_out;
+ 	}
+ 	a = ctx->attr;
+@@ -1731,21 +1757,24 @@ static int ntfs_mft_bitmap_extend_initialized_nolock(struct ntfs_volume *vol)
+ 	mrec = map_mft_record(mft_ni);
+ 	if (IS_ERR(mrec)) {
+ 		ntfs_error(vol->sb, "Failed to map mft record.%s", es);
+-		NVolSetErrors(vol);
++		err = PTR_ERR(mrec);
++		ntfs_report_metadata_error(vol, err);
+ 		return ret;
+ 	}
+ 	ctx = ntfs_attr_get_search_ctx(mft_ni, mrec);
+ 	if (IS_ERR(ctx)) {
+ 		ntfs_error(vol->sb, "Failed to get search context.%s", es);
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, PTR_ERR(ctx));
+ 		ctx = NULL;
+ 		goto unm_err_out;
+ 	}
+-	if (ntfs_attr_lookup(mftbmp_ni->type, mftbmp_ni->name,
+-			mftbmp_ni->name_len, CASE_SENSITIVE, 0, NULL, 0, ctx)) {
++	err = ntfs_attr_lookup(mftbmp_ni->type, mftbmp_ni->name,
++			       mftbmp_ni->name_len, CASE_SENSITIVE, 0, NULL, 0,
++			       ctx);
++	if (err) {
+ 		ntfs_error(vol->sb,
+ 			"Failed to find first attribute extent of mft bitmap attribute.%s", es);
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, err);
+ put_err_out:
+ 		ntfs_attr_put_search_ctx(ctx);
+ unm_err_out:
+@@ -1807,7 +1836,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx = NULL;
+ 	struct mft_record *mrec;
+ 	struct attr_record *a = NULL;
+-	int ret, mp_size;
++	int err, ret, mp_size;
+ 	u32 old_alen = 0;
+ 	bool mp_rebuilt = false, mp_extended = false;
+ 	size_t new_rl_count;
+@@ -1829,10 +1858,12 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		up_write(&mft_ni->runlist.lock);
+ 		ntfs_error(vol->sb,
+ 			"Failed to determine last allocated cluster of mft data attribute.");
+-		if (!IS_ERR(rl))
+-			ret = -EIO;
+-		else
++		if (!IS_ERR(rl)) {
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++			ret = -EFSCORRUPTED;
++		} else {
+ 			ret = PTR_ERR(rl);
++		}
+ 		return ret;
+ 	}
+ 	lcn = rl->lcn + rl->length;
+@@ -1898,15 +1929,20 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	rl = ntfs_runlists_merge_keep_src(&mft_ni->runlist, alloc_rl, 0,
+ 			&new_rl_count);
+ 	if (IS_ERR(rl)) {
++		int merge_err = PTR_ERR(rl);
++
++		if (merge_err != -ENOMEM)
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		up_write(&mft_ni->runlist.lock);
+ 		ntfs_error(vol->sb, "Failed to merge runlists for mft data attribute.");
+-		if (ntfs_cluster_free_from_rl(vol, alloc_rl)) {
++		err = ntfs_cluster_free_from_rl(vol, alloc_rl);
++		if (err) {
+ 			ntfs_error(vol->sb,
+ 				"Failed to deallocate clusters from the mft data attribute.%s", es);
+-			NVolSetErrors(vol);
++			ntfs_report_metadata_error(vol, err);
+ 		}
+ 		kvfree(alloc_rl);
+-		return PTR_ERR(rl);
++		return merge_err == -ENOMEM ? merge_err : -EFSCORRUPTED;
+ 	}
+ 	mft_ni->runlist.rl = rl;
+ 	mft_ni->runlist.count = new_rl_count;
+@@ -1934,8 +1970,10 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 			CASE_SENSITIVE, rl[1].vcn, NULL, 0, ctx);
+ 	if (unlikely(ret)) {
+ 		ntfs_error(vol->sb, "Failed to find last attribute extent of mft data attribute.");
+-		if (ret == -ENOENT)
+-			ret = -EIO;
++		if (ret == -ENOENT) {
++			ret = -EFSCORRUPTED;
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++		}
+ 		goto undo_alloc;
+ 	}
+ 	a = ctx->attr;
+@@ -1956,7 +1994,9 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 			"Get size for mapping pairs failed for mft data attribute extent.");
+ 		ret = mp_size;
+ 		if (!ret)
+-			ret = -EIO;
++			ret = -EFSCORRUPTED;
++		if (ret == -EFSCORRUPTED)
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		up_write(&mft_ni->runlist.lock);
+ 		goto undo_alloc;
+ 	}
+@@ -1981,6 +2021,8 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 			mp_size, rl2, ll, -1, NULL, NULL, NULL);
+ 	if (unlikely(ret)) {
+ 		ntfs_error(vol->sb, "Failed to build mapping pairs array of mft data attribute.");
++		if (ret == -EFSCORRUPTED)
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		goto undo_alloc;
+ 	}
+ 	/* Update the highest_vcn. */
+@@ -2005,6 +2047,10 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		if (unlikely(ret)) {
+ 			ntfs_error(vol->sb,
+ 				"Failed to find first attribute extent of mft data attribute.");
++			if (ret == -ENOENT) {
++				ret = -EFSCORRUPTED;
++				ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++			}
+ 			goto restore_undo_alloc;
+ 		}
+ 		a = ctx->attr;
+@@ -2024,8 +2070,9 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	return 0;
+ restore_undo_alloc:
+ 	ntfs_attr_reinit_search_ctx(ctx);
+-	if (ntfs_attr_lookup(mft_ni->type, mft_ni->name, mft_ni->name_len,
+-			CASE_SENSITIVE, rl[1].vcn, NULL, 0, ctx)) {
++	err = ntfs_attr_lookup(mft_ni->type, mft_ni->name, mft_ni->name_len,
++			       CASE_SENSITIVE, rl[1].vcn, NULL, 0, ctx);
++	if (err) {
+ 		ntfs_error(vol->sb,
+ 			"Failed to find last attribute extent of mft data attribute.%s", es);
+ 		write_lock_irqsave(&mft_ni->size_lock, flags);
+@@ -2038,7 +2085,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		 * The only thing that is now wrong is ->allocated_size of the
+ 		 * base attribute extent which chkdsk should be able to fix.
+ 		 */
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, err);
+ 		return ret;
+ 	}
+ 	ctx->attr->data.non_resident.highest_vcn =
+@@ -2050,9 +2097,10 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 	 * is dropped, as lcnbmp_lock nests outside it (see above).
+ 	 */
+ 	down_write(&mft_ni->runlist.lock);
+-	if (ntfs_rl_truncate_nolock(vol, &mft_ni->runlist, old_last_vcn)) {
++	err = ntfs_rl_truncate_nolock(vol, &mft_ni->runlist, old_last_vcn);
++	if (err) {
+ 		ntfs_error(vol->sb, "Failed to truncate mft data attribute runlist.%s", es);
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, err);
+ 		/*
+ 		 * The runlist may still reference the clusters, so leave them
+ 		 * allocated until chkdsk.
+@@ -2061,15 +2109,19 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		alloc_rl = NULL;
+ 	}
+ 	up_write(&mft_ni->runlist.lock);
+-	if (ntfs_cluster_free_from_rl(vol, alloc_rl)) {
++	err = ntfs_cluster_free_from_rl(vol, alloc_rl);
++	if (err) {
+ 		ntfs_error(vol->sb, "Failed to free clusters from mft data attribute.%s", es);
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, err);
+ 	}
+ 	kvfree(alloc_rl);
+-	if (mp_extended && ntfs_attr_update_mapping_pairs(mft_ni, 0)) {
+-		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s",
+-			   es);
+-		NVolSetErrors(vol);
++	if (mp_extended) {
++		err = ntfs_attr_update_mapping_pairs(mft_ni, 0);
++		if (err) {
++			ntfs_error(vol->sb, "Failed to restore mapping pairs.%s",
++				   es);
++			ntfs_report_metadata_error(vol, err);
++		}
+ 	}
+ 	if (ctx) {
+ 		a = ctx->attr;
+@@ -2085,16 +2137,17 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+ 			up_read(&mft_ni->runlist.lock);
+ 			if (err) {
+ 				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
+-				NVolSetErrors(vol);
++				ntfs_report_metadata_error(vol, err);
+ 			}
+-			if (ntfs_attr_record_resize(ctx->mrec, a, old_alen)) {
++			err = ntfs_attr_record_resize(ctx->mrec, a, old_alen);
++			if (err) {
+ 				ntfs_error(vol->sb, "Failed to restore attribute record.%s", es);
+-				NVolSetErrors(vol);
++				ntfs_report_metadata_error(vol, err);
+ 			}
+ 			mark_mft_record_dirty(ctx->ntfs_ino);
+ 		} else if (IS_ERR(ctx->mrec)) {
+ 			ntfs_error(vol->sb, "Failed to restore attribute search context.%s", es);
+-			NVolSetErrors(vol);
++			ntfs_report_metadata_error(vol, PTR_ERR(ctx->mrec));
+ 		}
+ 		ntfs_attr_put_search_ctx(ctx);
+ 	}
 -- 
 2.51.0
 
