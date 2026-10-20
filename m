@@ -1,65 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792537213;
-	b=z8+aL7wV/mSGJWKeBvSyTJcGQTT9kbdSOtbl8RQPvcncMKPMvhkE7kxHG2YmHNWWytCu
-	 OFTX+2e5HE6WfEonB+pvrZ/1g1KnoaVRvF491bQHZNAjX8DWEu7XVsz/73I3BoVCAKwzh
-	 Xx727JCEXfwObsYKfHiLFElMoz4aptEuweto7gnJTsGvE7JqauAkSJlT8TTOBbHSQbTKt
-	 5M3ACU9erK6JNotJS3T7rnGNG3bDIIVB1AsS7ARJ1pQwGHrvbVuKl67gA3Ot5UykoXPBK
-	 /s3FtiGJ5qN2Bi28pApxl7Usz4aVDszQYgw+aSwI59410Kj0V6ZYNnOB3uxvm2YWpWQ==
+	t=1792537548;
+	b=hUG77yZzg8X4Qm3jUxIEmO4nZfltnz73SyvGujxW0riJ5qjIVk8HP5pSPtSOxXc7wGH5
+	 Z8Pn7PxMFCJrZHQHByAWbNqDvJ/00i0W2XzUgVCpwyqP+bgsDVaC8UJtFzLolr4mRADZP
+	 CuqpAEAcs/76SHDZnwxlsw/lBFPkYxlUYQDrxyPUVd1RlXZULCyV7zKkizDKiP1eDyc4r
+	 uoYa+BqqUPbviVG2b4Or5Pfcs8i+HodC8Aoea7fErgRCnCoWXcgg71piVs/MuUealnJ98
+	 AyeR1DtDJGzRQ5DZc6/7BUuPtvtu3nJVcbdZCr/LNkTmsBscsLe1otH2srdem3l7PsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792537213;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DgzMkFS09rbRFwZ4qpsmxdlgfbYdDf6ylfA8LxCI1R8=;
-	b=kHhI00xG4vSVvXFj5muZbWOlIy1Fc93SAPJ061X7KvlxP9N9Ji24+YNkHNsSxInzG7FN
-	 iICuYXp0aceesB+Oj4EmxOZm9qxQ6nZz3h0n8DW4yjbgTZw+vUZNwiRbBBPBRPHUhbY4R
-	 M5ILfS+e9uyjdhQxaPaftd8pmPiZamP+KkBuIQpetUyZo0Uvpp1IptGIixMVOh658cL7u
-	 jJsCebOVP4xy3kOODnxjxvCh1e5YJovwaUYajakm9FSPkYVMBSswtNtGPvFUdFCjI1j3T
-	 f/UnEpLt6UnbgiT4t3XPlrYISXGqLxBn0h6hnumeBukOaFHbT9An15CO6hFeEPL9+Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792537548;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:User-Agent:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Spamd-Result;
+	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
+	b=1Q74Zoa14RsC0iyQjzxxz3Vwu27zTgQPAL58uHTNxFsPuF03/Y+TotLCx8hWh7xn/4PO
+	 xX8s8yLl6XugQFGZq1paZBi98CK/DS/PIYDusiS8lS9ADPJjFwDUGTVRtYTn87ownRQ5i
+	 b1r10cjdpqyUV0VtA3MWoxm/sAtyD2BtRfrA0+VP/mk62h6a2wd4Lpn2qWVp9eLR87qdF
+	 +V4q5xfG5JRcaWYfRl3sHe4gqKIM5V4SfmVRo57GlsAPK4von54D+tqmYi7Sio4nF8Ogw
+	 AVtU5XN2ATkNH7D25lxlUuReeqYW9bsCypv7a1vwqjlICZgMi9/ePfQjGt4YglIZx+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GzWdJMx/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AF1606A31F;
-	Tue, 20 Oct 2026 23:00:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B16606A31A;
+	Tue, 20 Oct 2026 23:05:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B16606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzWdJMx/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59CC1F000CA;
-	Tue, 20 Oct 2026 23:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792537213;
-	bh=DgzMkFS09rbRFwZ4qpsmxdlgfbYdDf6ylfA8LxCI1R8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GzWdJMx/J+lIl8jl0o/1aIJfIn0Fiikh7T+QKFR+muFhEsJWOyIDXXjHB+ymwJ9p3
-	 X9xKslDzIkwXjT22ffDq28qVVcTwehXVKBjqCuMHe7oifsyFoFjE8mlPe6p69/MUG0
-	 MqjZpXRtX22SZuDwxy9BmnfnERl772BdXOcn+WSnOCj9BqWo8CGdM6RLUV5lAFjL4n
-	 S67onXBFxCsaRTyTczYF2pHQMsVGoY65AFPd8qbvie4RwhzkWSG1URpHInd65Koss/
-	 OvO48afHdNcQIgFAjjreKYHN44g+BnKp9EmpI6DwUsl+l1SD9TVEjVky16hSIWSgCu
-	 HRWv0tIfiqHhg==
-Date: Wed, 21 Oct 2026 00:00:03 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
- lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
- cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
- James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
- qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
- ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
- dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
- peter.fang@intel.com
-Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
-Message-ID: <20261021000003.71f78d99@jic23-hlaptop>
-In-Reply-To: <20261015145053.3664509-3-jiri@resnulli.us>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-	<20261015145053.3664509-3-jiri@resnulli.us>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2690121E5D;
+	Tue, 20 Oct 2026 23:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792537545;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
+	b=LzXr9RhnneuNXJLh04KCf/VYZElb3Z13KO8m33YRxtr5iFywbo4P9bnPONv/hS1oZguvoC
+	xF0+zfk6tFXK8I9u1c5dN2vm8PIW/ajgvW5gr2BvxlYLcq5oS8PlRuuW7nfQHbTl7bpIDi
+	h/xUU7o2d52oyI4O3QEbCghknV0U818=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792537545;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
+	b=LO1zPBw4n9IZWd1hXkN9DkLd7ZdY42Buecidvv3vcaVeLeOEUn3Y7AkHJUWOSeJaVGl8Q2
+	hK4CBAq2nAuSWYDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792537545;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
+	b=LzXr9RhnneuNXJLh04KCf/VYZElb3Z13KO8m33YRxtr5iFywbo4P9bnPONv/hS1oZguvoC
+	xF0+zfk6tFXK8I9u1c5dN2vm8PIW/ajgvW5gr2BvxlYLcq5oS8PlRuuW7nfQHbTl7bpIDi
+	h/xUU7o2d52oyI4O3QEbCghknV0U818=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792537545;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
+	b=LO1zPBw4n9IZWd1hXkN9DkLd7ZdY42Buecidvv3vcaVeLeOEUn3Y7AkHJUWOSeJaVGl8Q2
+	hK4CBAq2nAuSWYDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E206E13872;
+	Tue, 20 Oct 2026 23:05:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id IdddLcjz12qcXAAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Tue, 20 Oct 2026 23:05:44 +0000
+Date: Wed, 21 Oct 2026 01:05:43 +0200
+From: David Sterba <dsterba@suse.cz>
+To: =?iso-8859-1?Q?Adri=E1n_Garc=EDa?= Casado <adriangarciacasado42@gmail.com>
+Cc: David Sterba <dsterba@suse.com>, Filipe Manana <fdmanana@suse.com>,
+	Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] btrfs: add __printf and __cold attributes to
+ do_abort_log_replay()
+Message-ID: <20261020230543.GF1310987@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20261020194659.246816-1-adriangarciacasado42@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,119 +117,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020194659.246816-1-adriangarciacasado42@gmail.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.com:email];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6]
 
-On Thu, 15 Oct 2026 16:50:35 +0200
-Jiri Pirko <jiri@resnulli.us> wrote:
-
-> From: Jiri Pirko <jiri@nvidia.com>
+On Tue, Oct 20, 2026 at 09:46:59PM +0200, Adrián García Casado wrote:
+> do_abort_log_replay() formats its variadic arguments via struct va_format
+> and %pV, and is only called in error paths when aborting log replay via
+> the btrfs_abort_log_replay() macro.
 > 
-> Define CTLV's common TLV transport, ioctl, event records, identifiers
-> and limits. Add the in-kernel API used by family implementations and
-> generated code.
+> Because %pV hides the format string from the compiler, GCC does not warn
+> about the missing format attribute under -Wsuggest-attribute=format, and
+> callers do not get compile-time format string validation.
 > 
-> Assisted-by: Cursor: GPT-5.6 Sol
-> Assisted-by: Cursor: Claude Opus 5.5
-> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
-Minor stuff only.  Some of it moaning about toys we don't get in uapi
-headers that make kernel code 'so elegant' :)
+> Add the __printf(5, 6) and __cold attributes to do_abort_log_replay(),
+> matching __btrfs_handle_fs_error() and __btrfs_panic().
+> 
+> Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
 
-> diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
-> new file mode 100644
-> index 000000000000..1ae4d3a536f7
-> --- /dev/null
-> +++ b/include/linux/ctlv_family.h
+Reviewed-by: David Sterba <dsterba@suse.com>
 
-FWIW I fully agree with Jason that sometimes it is worth burning
-some lines and even duplicating things a bit to avoid too many
-complex macros.  I didn't have anything to add to comments on this file
-at this point.  Will see how new version looks!
-
-
-> diff --git a/include/uapi/linux/ctlv.h b/include/uapi/linux/ctlv.h
-> new file mode 100644
-> index 000000000000..6bc0d1a296e6
-> --- /dev/null
-> +++ b/include/uapi/linux/ctlv.h
-> @@ -0,0 +1,183 @@
-> +/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-> +/*
-> + * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
-> + *
-> + * CTLV transport UAPI: the TLV wire format, the op-execution ioctl, the event
-> + * record header and transport limits. Schema-free; a family's constants
-> + * are generated into <linux/<family>_gen.h>, the root family's into
-> + * <linux/ctlv_gen.h>.
-> + */
-> +#ifndef _UAPI_LINUX_CTLV_H
-> +#define _UAPI_LINUX_CTLV_H
-> +
-> +#include <linux/ioctl.h>
-> +#include <linux/types.h>
-> +
-> +/**
-> + * struct ctlv_attr - Attr header.
-> + * @len: this header plus its payload, excluding this attr's trailing padding
-> + * @flags: CTLV_ATTR_F_* bits
-> + * @attr_id: complete attr ID, or CTLV_ATTR_ROOT for a message root
-> + *
-> + * Attrs are aligned to CTLV_ALIGNTO, which is why @attr_id is __aligned_u64: a
-> + * 32-bit ABI would otherwise align this structure to four bytes. A nested
-> + * payload is the concatenation of CTLV_ALIGN(child.len) bytes per child, so
-> + * child padding counts inside the containing attr's @len while a leaf's own
-
-Whilst I get what you mean, leaf doesn't feel like a clear concept in this
-comment block.  Maybe 'this attrs own padding does not.' or something like that?
-
-> + * padding does not. Scalar payloads are native-endian. Within each request
-> + * root or nest, occurrences of one @attr_id are contiguous; different IDs
-> + * otherwise have no required order.
-> + */
-> +struct ctlv_attr {
-> +	__u32 len;
-> +	__u32 flags;
-> +	__aligned_u64 attr_id;
-> +};
-> +
-> +#define CTLV_ALIGNTO 8
-> +#define CTLV_ALIGN(_len) (((_len) + CTLV_ALIGNTO - 1) & ~(CTLV_ALIGNTO - 1))
-
-Could this use __ALIGN_KERNEL() from uapi/linux/const.h?
-
-
-> +
-> +/* Set exactly on root and nested attrs, clear on scalar attrs. */
-> +#define CTLV_ATTR_F_NESTED		(1U << 0)
-> +/* Query fragments: set on the root and each nest logically open at the end. */
-> +#define CTLV_ATTR_F_FRAG_MORE		(1U << 1)
-> +/*
-> + * A request attr, never the root, that a device whose schema does not declare
-> + * its ID skips whole instead of refusing the message. An ID that schema does
-> + * declare is held to it wherever it appears, so this asks to be forgiven what
-> + * this kernel has never heard of and nothing else.
-> + */
-> +#define CTLV_ATTR_F_IGNORE_IF_UNKNOWN	(1U << 2)
-
-Doesn't really matter but could use __BITUL() just to hammer home this are single
-bits. Places like pci_regs.h have started doing this for new things.
-
-
-
-> +/* Implementation limits, not wire-field maxima: raising them is compatible. */
-> +
-> +/* Request roots, action replies, query reply fragments and event roots. */
-> +#define CTLV_MAX_INLINE_MESSAGE_LEN	0x100000	/* 1 MiB */
-> +/* Includes the error information root. */
-> +#define CTLV_MAX_ERROR_LEN		0x4000		/* 16 KiB */
-> +/* The root attr is at depth zero. */
-> +#define CTLV_MAX_NEST_DEPTH		32
-> +#define CTLV_DEFAULT_QUERY_REPLY_LEN	0x10000		/* 64 KiB */
-> +#define CTLV_MAX_EVENT_QUEUE_LEN	0x1000000	/* 16 MiB */
-
-Pity the linux/sizes.h header isn't in UAPI as result is we need
-those comments on what the sizes are.  Ah well, never mind.
-
-> +
-> +#endif /* _UAPI_LINUX_CTLV_H */
-
+It's a bit confusing that the function definition
+__btrfs_handle_fs_error and __btrfs_panic don't have the __printf
+annotation, only __cold. It's sufficient to have them only at the
+declaration. This would be good to unify, either have it both
+declaration+definition or only declaration for the public functions.
