@@ -1,113 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792537548;
-	b=hUG77yZzg8X4Qm3jUxIEmO4nZfltnz73SyvGujxW0riJ5qjIVk8HP5pSPtSOxXc7wGH5
-	 Z8Pn7PxMFCJrZHQHByAWbNqDvJ/00i0W2XzUgVCpwyqP+bgsDVaC8UJtFzLolr4mRADZP
-	 CuqpAEAcs/76SHDZnwxlsw/lBFPkYxlUYQDrxyPUVd1RlXZULCyV7zKkizDKiP1eDyc4r
-	 uoYa+BqqUPbviVG2b4Or5Pfcs8i+HodC8Aoea7fErgRCnCoWXcgg71piVs/MuUealnJ98
-	 AyeR1DtDJGzRQ5DZc6/7BUuPtvtu3nJVcbdZCr/LNkTmsBscsLe1otH2srdem3l7PsQ==
+	t=1792537807;
+	b=DWIUKgzkUngnt992ryB/Hpi+lxKNbqkxAMhLamBM/qmwYP0WukcV91AxIBKHuiRT+QVq
+	 ozp/fyoUPBvfzgkHJEFBoteuCmLMzLyIBw0xkLpOTLI6uIBK1af/zm3LBTAt+PcO9wxr1
+	 lQ6zlvMotIZFaKTh2z7GdJptX9za0430aF4t4W5kjy4tN2sPlOjxLKKlYMrQDLFte683d
+	 6nl4DVu9Zj2QQcj/ntTGezI2+bA9pp5FNQsLxyASN89KHNYNJu/7soNOD1oacbukLjibW
+	 jH6jLQdqvYAvmWrBqwtls2SJWbDshW0jOWtMQYoIs2yIOf9t8Ebk8pTHeyObshPubzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792537548;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:User-Agent:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Spamd-Result;
-	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
-	b=1Q74Zoa14RsC0iyQjzxxz3Vwu27zTgQPAL58uHTNxFsPuF03/Y+TotLCx8hWh7xn/4PO
-	 xX8s8yLl6XugQFGZq1paZBi98CK/DS/PIYDusiS8lS9ADPJjFwDUGTVRtYTn87ownRQ5i
-	 b1r10cjdpqyUV0VtA3MWoxm/sAtyD2BtRfrA0+VP/mk62h6a2wd4Lpn2qWVp9eLR87qdF
-	 +V4q5xfG5JRcaWYfRl3sHe4gqKIM5V4SfmVRo57GlsAPK4von54D+tqmYi7Sio4nF8Ogw
-	 AVtU5XN2ATkNH7D25lxlUuReeqYW9bsCypv7a1vwqjlICZgMi9/ePfQjGt4YglIZx+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792537807;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=P2tX6F6c1b9WPZHS6VLVV3K2kSTZMFFjbVRLrh7B9c8=;
+	b=2zg6jgwM+ctI7TtMeZtYoCJxvcNZXCeYmJsGoic+1MiyofqPCFi2rDHlPB/PeiCXXyCR
+	 F9JxDUWf5Pt2pireQp8nkmU3LvtnptLpbGe21/WMv1CMtZ0Fiy4echGe1TQ6SwMBs3AmT
+	 DbG1yAlKgvE7wPaXBfiGpZzZZAdGYCnNLLxPfr41eMEnNyy2KUsaN3UJWdoq5iGbZIfbq
+	 /Z/Npw/S2THKO9C8b3lGa8jA0Igg08SXGzzCFjPGqCBLLexO/0284jzpSKdRnc2+jZMut
+	 Ts7QXD296muVPYqA/kpTvmMOd4QN+hP59by0+iZbMd2O3f/6+CERtT3aAuDWshbAM5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FXQYyZ4e;
+	arc=none smtp.remote-ip=74.125.82.196
+Received: from mail-dy1-f196.google.com (mail-dy1-f196.google.com [74.125.82.196])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B16606A31A;
-	Tue, 20 Oct 2026 23:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B16606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59842606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59842606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LzXr9Rhn;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LO1zPBw4
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2690121E5D;
-	Tue, 20 Oct 2026 23:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792537545;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
-	b=LzXr9RhnneuNXJLh04KCf/VYZElb3Z13KO8m33YRxtr5iFywbo4P9bnPONv/hS1oZguvoC
-	xF0+zfk6tFXK8I9u1c5dN2vm8PIW/ajgvW5gr2BvxlYLcq5oS8PlRuuW7nfQHbTl7bpIDi
-	h/xUU7o2d52oyI4O3QEbCghknV0U818=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792537545;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
-	b=LO1zPBw4n9IZWd1hXkN9DkLd7ZdY42Buecidvv3vcaVeLeOEUn3Y7AkHJUWOSeJaVGl8Q2
-	hK4CBAq2nAuSWYDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792537545;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
-	b=LzXr9RhnneuNXJLh04KCf/VYZElb3Z13KO8m33YRxtr5iFywbo4P9bnPONv/hS1oZguvoC
-	xF0+zfk6tFXK8I9u1c5dN2vm8PIW/ajgvW5gr2BvxlYLcq5oS8PlRuuW7nfQHbTl7bpIDi
-	h/xUU7o2d52oyI4O3QEbCghknV0U818=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792537545;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XKhjLKQ7pnErhWvl+DXz4TsW1tt9aS2NSVqwiX2X5VA=;
-	b=LO1zPBw4n9IZWd1hXkN9DkLd7ZdY42Buecidvv3vcaVeLeOEUn3Y7AkHJUWOSeJaVGl8Q2
-	hK4CBAq2nAuSWYDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E206E13872;
-	Tue, 20 Oct 2026 23:05:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IdddLcjz12qcXAAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Tue, 20 Oct 2026 23:05:44 +0000
-Date: Wed, 21 Oct 2026 01:05:43 +0200
-From: David Sterba <dsterba@suse.cz>
-To: =?iso-8859-1?Q?Adri=E1n_Garc=EDa?= Casado <adriangarciacasado42@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, Filipe Manana <fdmanana@suse.com>,
-	Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] btrfs: add __printf and __cold attributes to
- do_abort_log_replay()
-Message-ID: <20261020230543.GF1310987@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <20261020194659.246816-1-adriangarciacasado42@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FXQYyZ4e
+Received: by mail-dy1-f196.google.com with SMTP id 5a478bee46e88-35943f55c06so242306eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:10:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792537806; x=1793142606; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P2tX6F6c1b9WPZHS6VLVV3K2kSTZMFFjbVRLrh7B9c8=;
+        b=FXQYyZ4ee7N+OmcvvHjgLzE5KvKF6Es0Ggd9KBeTLLtMA0G1RiUBo41egIOT1n015P
+         IVGvwSb2VzpoAqNsNIobOqfmvcge5bGmdY7XCL4cTgMJ59LjhcMTUBxKz3MxIBwkxhWF
+         9LZO7B9xnhh69sXtDTrMwD+yWY1IC5KJaK91+TIf1K9MtbYVOZ8Cs3lyQfCVbDOR3uZr
+         gDr+7e+py6aaqRGl5cf7ahuy0F80Rpf5OfTrBpeBLXrLmR5RMaO9IIsAMd9idozWNAZZ
+         8WdthJSlQaqsPh+NEuugoh/Dcg2aLqrfOnoHZdowZXrzw5L5t3qIAQajZuezLh3eK09d
+         wrAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792537806; x=1793142606;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P2tX6F6c1b9WPZHS6VLVV3K2kSTZMFFjbVRLrh7B9c8=;
+        b=yNArVud1qVCIhhmyJ11Wdzw7cheC4XsBRxWhs/9OiKdbaybN9h1BkADK73zgJKqh5d
+         RbDXGUI0dUyCv7h3+HG7v+byc4Dr895AGgArt1ebfU2kbDp47etJG+IRjnpPDDMjwVhO
+         ju5kVgA6peDuvuMQ3pjlhO6FgRkAhhmFrFTRRfxfMLhMizkV4yMhmvIo9+lKoqyoTYqO
+         vI5Fe6YarbXvMiJ0A0OmildWtfP2OssKxcp1zLDHAkGIfoSt6//knLpXNcretwCyVq/M
+         qIFP9pXtx+ws5HGDkb/EVWzenKTWFakErrETiJRIltXGqP0VmOzVlsmLOUuUvZQ82yeq
+         tgLQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRFGwNyU/DX1f1bOJcqqC1tou3cO/fohhBGZj8IVoy7yI8zZf5ueJ8uQtrr2lwj0bDqQamCigbKlu57ek=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdX7/qAZT8Lwf8xi/wienVZ8Hv1lNBfw+bSaLzSoSE1vg4QBOu
+	bph/ZP7wSqYqSjobiHM9SHlB5x9EbI7bdTu3G59H1OA7a0EaD+ItL92R
+X-Gm-Gg: AYBFou3ROHIjDwA7y4a064I7jzXiv2JlgVnYjUqUSh9Pa8TE9OjID/rk//WEEbHweJl
+	06X8hW+2tYKRCQ1lezZcdcAkqynTq71wf4hay4f7bOjt9/kXleuStlb4eq3Bkfd4giwVv622OLI
+	TfX5Z83ndLJfCycAlAugxAlydp7CqvcbedkW+5+Tl2E/d8o5/jGTDCSxaYOTw7juJCLIIdhkN/g
+	ZYMWJi8ivqu41fpxYpajAnWY/7FzfVBQIP+IYjfwJu5TIQDBY9PMwHroUY9Cb/0Tg1UQFHMvn9n
+	XY16xhlCuCBD9nEwDMdsYnPl8sUWpvM2QEzBnSqJP4CdQjB7ncJK05T/+D60t4gwnsvypP6xs/s
+	V/U9SQdkOj1TR0oJciXbSGrNmvvo7UopMOxOhEyCBxd5E2ePYwRmjXQZr2mYXZVQA21D/ESGpxG
+	mIUT0pZ+fdIPCGqBb/tTPM+LUNjpKm31Qy256/77ONN0GpauXGO6kuG1yNiSFxO+WK9ukRZLr+p
+	pO/8MvaexdSeHI/zWUvpnqzqoTEXYsZQbE40RUtPwGCQSUkS4fMu8qsqOewzxavcKrnhKm5DOTZ
+	1+0nMt0=
+X-Received: by 2002:a05:7300:4fa6:b0:35d:5e81:1d87 with SMTP id 5a478bee46e88-365fac8800amr4594466eec.12.1792537806333;
+        Tue, 20 Oct 2026 16:10:06 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36741f753f7sm1598433eec.27.2026.10.20.16.10.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 16:10:05 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH net] dql: Reset the adjusted limit when resetting the queue
+Date: Tue, 20 Oct 2026 23:03:58 +0000
+Message-ID: <20261020230358.6649-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,54 +101,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261020194659.246816-1-adriangarciacasado42@gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.com:email];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6]
 
-On Tue, Oct 20, 2026 at 09:46:59PM +0200, Adrián García Casado wrote:
-> do_abort_log_replay() formats its variadic arguments via struct va_format
-> and %pV, and is only called in error paths when aborting log replay via
-> the btrfs_abort_log_replay() macro.
-> 
-> Because %pV hides the format string from the compiler, GCC does not warn
-> about the missing format attribute under -Wsuggest-attribute=format, and
-> callers do not get compile-time format string validation.
-> 
-> Add the __printf(5, 6) and __cold attributes to do_abort_log_replay(),
-> matching __btrfs_handle_fs_error() and __btrfs_panic().
-> 
-> Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
+dql_reset() resets limit and clears the cumulative queue and completion
+counts, but leaves adj_limit from the previous queue lifetime. Since
+dql_avail() subtracts num_queued from adj_limit, BQL flow control and
+qdisc bulk dequeue can use stale credit after a network queue reset,
+until the next completion updates adj_limit.
 
-Reviewed-by: David Sterba <dsterba@suse.com>
+Reset adj_limit to the new limit as well. With num_completed reset to
+zero, this restores the documented adj_limit = limit + num_completed
+relationship and makes the configured minimum effective immediately.
 
-It's a bit confusing that the function definition
-__btrfs_handle_fs_error and __btrfs_panic don't have the __printf
-annotation, only __cold. It's sufficient to have them only at the
-declaration. This would be good to unify, either have it both
-declaration+definition or only declaration for the public functions.
+Fixes: 75957ba36c05 ("dql: Dynamic queue limits")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ lib/dynamic_queue_limits.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/dynamic_queue_limits.c b/lib/dynamic_queue_limits.c
+index f97a752e900a..acef6a35ba3d 100644
+--- a/lib/dynamic_queue_limits.c
++++ b/lib/dynamic_queue_limits.c
+@@ -191,6 +191,7 @@ void dql_reset(struct dql *dql)
+ {
+ 	/* Reset all dynamic values */
+ 	dql->limit = dql->min_limit;
++	dql->adj_limit = dql->limit;
+ 	dql->num_queued = 0;
+ 	dql->num_completed = 0;
+ 	dql->last_obj_cnt = 0;
+-- 
+2.43.0
+
