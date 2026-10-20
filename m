@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792476053;
-	b=JEhpPIyMXEYyQ5yOP5/NlQE6Ph6dwhyRWRvmhQ5MZ1aJVmaqOnVfHq+4WhZhh+8Clhr2
-	 QCtVK5tOh+TEwJJw5/98mbqW2eUy54Zhj9XRA2vpEuaOPPUa8Of8mprfjLb3X+EgvDIhZ
-	 VALyNYjTofuBf9N1FJjE0GtBKNkJyVldgqa04MRzCbUShznqHLUNLexk1OmRrQ4wZ3X/J
-	 LJWjE0PjbGoy96Lkq9vrUKLWnnTd9XanzWMANnccQufa+a/s78SGQEDUew23FY3YCyLDo
-	 iqeYPevphEEWilTrCK5l5n/00psZm1R7bUYIryqT8KlT/w/uH5vsLjKMIU7vgQrgH/g==
+	t=1792476082;
+	b=oUgyBnrl6R25iXxFjssqg4NKEwHHGhSQu9V3JgSvMc4HoRZ5wdss4qjxxrI2GvaLMCTr
+	 0Dr+fk0CY9DW4aWW+ndAw/DmCDrV/0V6qrh3OpLcg4bAHV3MsCb8vSr34HPLXQL4MY/LJ
+	 l/ozHkAPq8zamz9xeNbbibVoXmhvTQ6z7MpTkuWX8R3eP8WxqXucf1N96gpvc58RBidfG
+	 ZPaPQK4WIOkhuoY9d8M2qpJ2U9F16BPNqd4Yypb+J3T3wYF0usIT5OcJo0ubQNFbHFKDk
+	 RJKWl6BtHiWNH9PvboDyohU2y3huWC+fO5AcdEked22sBbjlnS2/R0LFk3R9bSWT3lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792476053;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tjahWStJaWAkZdXXLpQF/IAPVZCHaZCufugG+xHQea0=;
-	b=YI3m260eL2eZODOlq+qjvyMta4feLl6zQp8+w+w6tYpWT1UPoRyJJ/UPY6AKv61iumIO
-	 ECLbfLq4k0YBSqR+s27A2GTgEyiNW30TjxndVkNWXACKcfqKQ0Y5gm7pXEZRZTbNB86+2
-	 N9MIxbJNRDsUl8P2FQ2KllSWvqYCDCmc/uKTeRybMmD2Jy6PV3drfFn11Jzz03rrsLIwK
-	 /uE7+Msm2BRKRDKjJuAlEoQkW83mbhVfkrkYI8L9szGWuKrDzCzwKzsVhKaAr2kccQNQM
-	 DaKQi0umO2N3x0FkDss8WwXCOkAVzteokkgCziJL1c0EQSqxc+vrVUyhL0G5BZt5d9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476082;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n0lvCzzmfqsXaPehGrVPNSxhMDiKKXELU0wbhzo/qJ0=;
+	b=Y4SoZCd1/ARRI6B0pPECLNiC3pXM/NgCp6XWgHV2FSAVUtoT7DPfLfeIckymFoSsTsAi
+	 4Alp2iLh/HA0cL8vDLbaj13gQX+gMfsEM+m22HkS9gFNRXx9is6MADfA9IgK0q9LhZy8r
+	 Pe2u1p9TBm61tJZeoJEUdugdzE0PT4VMNCfKVOS7tDwnnfuzDLeBFGrcaAJeOBykSFpYY
+	 cToWrFk/lCf5QGO9Ibb2sPKx+b0R4TlbZHVtTYgCEBWxsQDEPqHYwvwDhPurcM3qW4enb
+	 e+XztW2/xhI5Dqukgd9JzZ4ldeO7S76mumEvqOOGqidnWxSGiLbZ4yTYtXA2VhNrDtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wjhl2gV9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="IIQ/lxQL";
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB1D606A319;
-	Tue, 20 Oct 2026 06:00:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD9606A321;
+	Tue, 20 Oct 2026 06:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABD9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wjhl2gV9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EE11F000C4;
-	Tue, 20 Oct 2026 06:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792476053;
-	bh=tjahWStJaWAkZdXXLpQF/IAPVZCHaZCufugG+xHQea0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Wjhl2gV9AJj254FHkZF+7CKdQCdvE20SmL91dGF/QylrOjGMzIG+pH0qGFHABSB9J
-	 pb78GQxC1NtOYNqDXATp+PfYyJ4N8CCZgMk6YPEDCoRgsazvhYQC0D+LtNa4OKNPYg
-	 wu6wGoWnWs/9fymyslDAFWwciUauiHXbyFxpICotOfa1aWeUaYmQ9ldFDyE/kZQ4jf
-	 HysdKsOtcRmJbDPGmoh37DtIJnMdCRV/Iv688KubOM/8N/FpV74m80N5ro0hXZp6m7
-	 4t3jbT+cf9L8lwuzizRyUWUKJsYGv/da/M0qNm9yQR/rzwxclTAoP3H/w7u/dSp8wq
-	 seB5wZccb2NzQ==
-Message-ID: <e43c4831-1a12-45b3-9614-97dbd2bc48d5@kernel.org>
-Date: Tue, 20 Oct 2026 08:00:47 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IIQ/lxQL
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792476072; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=n0lvCzzmfqsXaPehGrVPNSxhMDiKKXELU0wbhzo/qJ0=;
+	b=IIQ/lxQLKZ8Ip8nwtSMS48YoS3LUQRI4Cvp1HHLHtp4o0mrGT1RUH2P0V7lkWLxX2gNrmlbOLzWo9R0scwtI2EPdb5/4QgmEb3F0qoXvzOmVQ7kkXTY/iMgHSfGqBjA4negJfFpYqm9seWftpXIo/IuK0M4z37KbzuMI3S0xce4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=xiang.zheng@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDBuaNR_1792476066;
+Received: from localhost.localdomain(mailfrom:xiang.zheng@linux.alibaba.com fp:SMTPD_---0XDBuaNR_1792476066 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 14:01:11 +0800
+From: Xiang Zheng <xiang.zheng@linux.alibaba.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Shannon Zhao <shannon.zhao@linux.alibaba.com>,
+	kvm@vger.kernel.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 1/2] KVM: x86: ioapic: Clear stale RTC pending EOIs using the delivery record
+Date: Tue, 20 Oct 2026 14:00:52 +0800
+Message-ID: <20261020060053.25011-2-xiang.zheng@linux.alibaba.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261020060053.25011-1-xiang.zheng@linux.alibaba.com>
+References: <20261020060053.25011-1-xiang.zheng@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,109 +72,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: input: touchscreen: samsung,s6sy761: Add
- S6SY791 and reset GPIO
-To: Lukas Timmermann <linux@timmermann.space>,
- Lukas Timmermann <foss@timmermann.space>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org
-References: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
- <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
- <0a486a08-8d6c-4ca5-8a54-e7499630095c@kernel.org>
- <atYlyqHToGjAr22T@archstation>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <atYlyqHToGjAr22T@archstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19/10/2026 16:17, Lukas Timmermann wrote:
-> On Mon, Oct 12, 2026 at 01:30:48PM +0200, Krzysztof Kozlowski wrote:
->> On 11/10/2026 14:44, Lukas Timmermann wrote:
->>> S6SY791 is the SPI-based counterpart of S6SY761. The register map and
->>> commands are identical for the subset the kernel currently implements.
->>> Therefore add S6SY791 as a related touch controller.
->>>
->>> Optionally, the reset line can be controlled on some boards,
->>> such as the Google Pixel 6 Pro (raven).
->>>
->>> Also reference spi-peripheral-props for the SPI bus properties.
->>>
->>> Signed-off-by: Lukas Timmermann <foss@timmermann.space>
->>> ---
->>>  .../input/touchscreen/samsung,s6sy761.yaml         | 37 +++++++++++++++++++++-
->>>  1 file changed, 36 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
->>> index 1ffd17af3c53..d24f35038934 100644
->>> --- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
->>> +++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
->>> @@ -8,13 +8,17 @@ title: Samsung S6SY761 touchscreen controller
->>>  
->>>  maintainers:
->>>    - Andi Shyti <andi.shyti@kernel.org>
->>> +  - Lukas Timmermann <foss@timmermann.space>
->>>  
->>>  allOf:
->>>    - $ref: touchscreen.yaml#
->>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> 
-> Should I also hide this behind an if-else?
+Use the vCPU/vector pairs recorded in rtc_status to clear completed RTC
+pending EOIs instead of consulting the current redirection entry.
 
-Only if the other device is not SPI.
+AVIC completes EOIs of edge-triggered interrupts in hardware, without a
+VM exit, so KVM cannot decrement the RTC pending-EOI count from an EOI
+exit.  ioapic_lazy_update_eoi() compensates at the next injection by
+clearing the pending EOI of any vCPU that no longer has the vector in
+IRR/ISR, but it identifies those vCPUs with the current redirection
+entry instead of the delivery record kept in rtc_status.
 
+If the guest rewrites the RTC redirection entry after an interrupt was
+delivered and EOI'd without an exit, e.g. because the guest moves the
+RTC to another processor, the new route no longer matches the recorded
+delivery, so the pending EOI is left set and every later RTC interrupt
+is reported as coalesced and dropped.  A guest that relies on the RTC
+timer interrupt to advance timekeeping, e.g. a Windows guest without
+HPET and with an unused APIC timer, then loses its timer and hangs.
 
-Best regards,
-Krzysztof
+Walk the vCPUs present in rtc_status and test the vector stored at
+delivery.  While at it, clear every completed record instead of bailing
+out after the first one, and skip pins other than the RTC, the only pin
+with delivery tracking.
+
+Fixes: f458d039db7e ("kvm: ioapic: Lazy update IOAPIC EOI")
+Signed-off-by: Xiang Zheng <xiang.zheng@linux.alibaba.com>
+---
+ arch/x86/kvm/ioapic.c | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
+
+diff --git a/arch/x86/kvm/ioapic.c b/arch/x86/kvm/ioapic.c
+index 0d59b9c758c2..803fda172db5 100644
+--- a/arch/x86/kvm/ioapic.c
++++ b/arch/x86/kvm/ioapic.c
+@@ -167,21 +167,18 @@ static void ioapic_lazy_update_eoi(struct kvm_ioapic *ioapic, int irq)
+ {
+ 	unsigned long i;
+ 	struct kvm_vcpu *vcpu;
+-	union kvm_ioapic_redirect_entry *entry = &ioapic->redirtbl[irq];
++	struct rtc_status *status = &ioapic->rtc_status;
++
++	if (irq != RTC_GSI || !status->pending_eoi)
++		return;
+ 
++	/* Use the target recorded at delivery; the entry may have changed. */
+ 	kvm_for_each_vcpu(i, vcpu, ioapic->kvm) {
+-		if (!kvm_apic_match_dest(vcpu, NULL, APIC_DEST_NOSHORT,
+-					 entry->fields.dest_id,
+-					 entry->fields.dest_mode) ||
+-		    kvm_apic_pending_eoi(vcpu, entry->fields.vector))
++		if (!test_bit(vcpu->vcpu_id, status->map) ||
++		    kvm_apic_pending_eoi(vcpu, status->vectors[vcpu->vcpu_id]))
+ 			continue;
+ 
+-		/*
+-		 * If no longer has pending EOI in LAPICs, update
+-		 * EOI for this vector.
+-		 */
+-		rtc_irq_eoi(ioapic, vcpu, entry->fields.vector);
+-		break;
++		rtc_irq_eoi(ioapic, vcpu, status->vectors[vcpu->vcpu_id]);
+ 	}
+ }
+ 
+-- 
+2.50.1 (Apple Git-155)
+
