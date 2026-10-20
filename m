@@ -1,95 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792508866;
-	b=e2K2iqRwrTzFIJYcHEt+1pMOCbPl7RdEbvoPhliND6gDBFLuUiqovgASgN+2SICsIbro
-	 oA+EvEzRVIt3mKXRbFfAO4/Vjp0d9YxqjnZdAdqiDy0/YVulgpzb8XRCK0uO5wfIfoaXY
-	 IR54SRMj+f6OaJFYPXAl2bWrPAh6F/JJKjBX8pUhKXKREQUnJhchksJfMMn6P2BrKjDyR
-	 FU8XcD7A9TjGeVjAJFSw//p+Mqi2GlhX3HA4I4Hx8aT5jcBO8I1tIJyeuWvq+A+o8VPW1
-	 r0O09xF76M+7EIfJPZDP8aIf1/yHD12P51aCwKdnxprBhd7dpunoU9HRBeUopw7DnHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508866;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=XwwHKZ7ro+tqYYscVQ/EDll6Ci0suGXNa6eCeqEdl0Y=;
-	b=ciRZjEttSa9RmUyl4s/EvIuvOoJLP+49aphYHhu3PmTdw+OgiP6IoVP5QGzKGxlGyim+
-	 cl26VLJ1WI7KPHzW0ZTDwojjwsFcBLiDQPX6B4wJBZZ9hqtSzC9uu5ROr6yPlTakTfDhe
-	 633S3kOdtSL/CzTUSOIxcWuHeLXsZ6rlXx+WZqhbC5a+ZaszsRb+wa6t9Uh9jiAYTPwqb
-	 +bD6+i4J+QJjqHgbPnw6ufSjtzkVlWAEF8B7zgOf6BWf+DvNEx1A2KQ2+i5fjuBOKuntC
-	 YYRZDLz7lNw9lc7NXKPEyl5ZTkYZi+eSZ6Tr1KVFFHbqow6zX4Agee2PnbFpOyQnitA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szeredi.hu;
-	spf=pass smtp.mailfrom=szeredi.hu;
-	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=QMCd6zX+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792508887;
+	b=ghf3VmAIYldfkpGItl+7+QLHLL93bz6zdZjPBan0GJKVbxzZgoDhlOVReMV6QzBFoW8K
+	 eXX1qrZLBXmBrEJky18mlPNCz+gTHk70wx3TKT6uz7s2TY6BqIoTTzq+bo4HqmhCc0+Mw
+	 cAMOFdOmYo6VvkLHxqL99agKiH+crumdBbeA2a2B0SS3MvPUCshluFZni9LhMyM5IWCdR
+	 W+S/Z7bhHcgE2X/NLJ3yNEzPOKC8oeTuiVC+o9KogmB3HQ9dDVvHEnnH1l7Sf2xO+8tQO
+	 nytiyoOxhdmMQflVYmeqoUm119oLV5ZvJH5QkmolUs1QI/ugM+B7dxiJnJ9JDTqyBIw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508887;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=D5nKxhKIYt08LeQqTmG0fncZXbityC/wwf8hK3PtN88=;
+	b=IaY/S1vToRpJpqRnMv0Epjr8dfaHVqVGWXGsWnPnjbLUaUlMgoh1G/9vU5Puv9Xgm9oa
+	 ZYtU+tE3xWGoGhZsKrld20QYCwK3xf0VFeDSQnuAvZqwG14VJmBIOtT2Of3Bveyvqvybt
+	 axdtpjKxZK7bgMnaoo/eFhy9JPlzgQMXUQpw+0A2YNqE1nSc7B3Dme55qBdY6K4Wl1oYX
+	 h+YCKyB8/Z+VqQccTEhsUxsYzBF0hgC1hzvhWH9ckMqDHNlInjCSZUMJnA/7Q2uh1JgM6
+	 Lmn6Yl6rmo6nadeTYJyOjD/bYay6N0MA7H4E6H6a0oCa1Iin6hvwq70s/yHySbPkXtg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=n6WmxyAf;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=1rL1ZvP3;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5AF606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:07:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C5AF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A7F60A260B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:08:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78A7F60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=QMCd6zX+
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535a54bed9so4609921eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:07:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792508864; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N47zK40xqFD0+y97l3Z1Cord3J2RoVNlfD8XpgOglO1rEr3WYRWAnjwFH7SnVT+tg/
-         Q6j4qxnpzKwVEdzG4bVERUsqX0ptG3zri8SNrit+2kCSTI/O+UIkTFMvFD4ovro8vNTs
-         dogrw550gqYucptvqZS5Ynm1TEQ3FEDUAFKu6Q1cj2ELLfwJFqlwHCzynOjr7E17OwyX
-         I/9oQb5ArvjN7tsMxgUgNUZmBp4jMjHLr15bT5w9VWWRrOprppoemOZjnjzMD0ZHxdAx
-         cpwYi5vEcQ1GQjNDXSupvUsRRyogJ1/DzzEHiPyvtmkrcLpC7URiz00ky+D0hC4ODWWq
-         tQuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XwwHKZ7ro+tqYYscVQ/EDll6Ci0suGXNa6eCeqEdl0Y=;
-        fh=WM+94fFarLl2UOel5aXO0bYnjbA1NJap588sBrP46QY=;
-        b=exHnPqVcYt3r9a+4Ykshe7k82GW+O/3La232BWCyiIZwBijgqZnwiTxa2KcW3mylRd
-         qlwvVFGUYsSdn4as1cB754jnY5jKrqENB+vrx9PBsgQcItnM4aHZHm8oe6a61cD1lbXO
-         5wqBUSn7cnvzmER5w7fObqGB1WwN4tm3zPhi2DUXtjZJDrojlpXvDGUMKjXpGllf0S8g
-         eMQDDZV9i0IsmhrzUMA57DvxD2krTeV2sFhgboZ7j7rnazsxAgqHxXrFgroIMBGE4nSo
-         jusarxoYc7QzkHh3BMmJrrK8AF56fJu4CMFMwSspQIsfoIuJFXOWrGmaucJqTLvR27/9
-         6kmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1792508864; x=1793113664; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XwwHKZ7ro+tqYYscVQ/EDll6Ci0suGXNa6eCeqEdl0Y=;
-        b=QMCd6zX+rxmZMkYXPSupJ+X7sgMAgrEbALc/M7fVNnob0g4l6rDArk29CwPOZW75rK
-         2Rfd9r6BNPcZoEchiU2ls3EsVQmwQAcavDdM1WqgS2I+33Zt3jJLiklKexv8glILmrCM
-         QQCNY7geCZsAH14op3RMab9OYk+5DbO2GX1yU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792508864; x=1793113664;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XwwHKZ7ro+tqYYscVQ/EDll6Ci0suGXNa6eCeqEdl0Y=;
-        b=1cWAp+lv7gSJWY1B/AG/gR+jRMsp1dwazW1a6FloN6q21qFVm72ki51kKmpJziaHjQ
-         rn3U6CwEK0dyTYAA8Gs5kZ76uAR7A7yrIw2NWayGirMQB2Bg9z8y+TlZM9dubv92SlBz
-         h5lfZWqYAZgrHGpb3YErBIWajholmrE1oXDjdU45s2TcnAycvXCSKO1yGi/aXdL/TXvk
-         3ECkKVaG+1/5sPs79L8KaEGCeHQj/0EmI9f8+7Tgh4+ZOXpXMYN+V1loVQ1rtwq0gaaE
-         j6n24QM/j+2MipxVhZ3YS0IWpUVnipvGnIgdYlEI9+gagAcjWdcu3SH95Ba7d9z+z6ko
-         V4Mg==
-X-Gm-Message-State: AFq9FYJ9YZk6vGmm0l4rk4lzEUW+ceyHt/miVCuKIU/15p/jW95J+/6k
-	6/Y23qgkh8zWGRNHaG3nHGxw23iH4TFdwNobwgOtHmgSLmitcUaaZnicb5dn77fj010P8ItjZDM
-	XQzmUf8rzBa1Mzlxdb1Dch1fSQGOctvHn1sBnqBJEuw==
-X-Gm-Gg: AYBFou0s6Ik+zFLUbZlMV6mWjANn7xbs/6kstVnIyj2x558MHMLu8i+arqibxo45YrT
-	TF4Nftg2QoxPOVrDrPKlJ3RNJkClZ6CdjiDi2TdklEDGB6z3wM+Q7mFo+LO7zd0gWa4+UUKpk/x
-	fCBcmekftcLhf0a/a9vorezDx1YvEQrgrjvmBB7n7qM1PolpN86XSbX1pcnt9TO1jEPwdHt3RXV
-	WBdSaoBXahpAPkcZj/vHJJKVjMm7xL7jMgM/M9fVG6qcWb8Q+QbXOocebbcIuiJJeyOpoAESlrr
-	+gFmC7Rnj0c6TiwLMuXRuUMWXjjU0INvf5+eYSzocQlH9jzfjFYGt0hUfk22nZzJepK5g6J7Sqr
-	GaVNwpmCBJvVj
-X-Received: by 2002:a05:7300:80c6:b0:328:7033:9b8c with SMTP id
- 5a478bee46e88-361a12718d4mr21242527eec.6.1792508864209; Tue, 20 Oct 2026
- 08:07:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=n6WmxyAf;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=1rL1ZvP3
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792508877; bh=D5nKxhKIYt08LeQqTmG0fnc
+	ZXbityC/wwf8hK3PtN88=; b=n6WmxyAfERThBCxaCeXT0nH26BW2jemu5NN1uAoKIyLEu/PV7j
+	3Jkc25sz7Y4jctTm9PmtR2lpAgSEHS0FUVFcbhthXo+s+oxhJyCEkbdka1H9cxwH3Ue9mPbYng/
+	0bjhMEBNH3DfU7cCO6/UrlJb/5E/FsOcyslhGmUXG67fO0e2/kmaGDeKMpNIN923MroSrmDCQYH
+	vDWsttV+Zwf1sjalv2hNvbnhsSyr8eiMMTlrbdmGNOsRaee7FZZMMEl643iIwsHwwSED707FiaN
+	uRwXJ7oM63LsdsAqtnuBvKCglXzB6863YKGwS3eO/YzshMMGkorkRjezTiqMR9v6Mzw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792508877; bh=D5nKxhKIYt08LeQqTmG0fnc
+	ZXbityC/wwf8hK3PtN88=; b=1rL1ZvP3uNqQoy9b7PebKLstkg1mQV8+yn0fMLZEgdE5wSTKpb
+	Tqkb9aMtzv3VsNm0mgp28fnh2I54ib2IFOAQ==;
+Date: Tue, 20 Oct 2026 16:07:58 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: thnkslprpt@gmail.com
+CC: akpm@linux-foundation.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] profiling: fix sampling step on 64-bit big-endian systems
+In-Reply-To: <20261020101225.917959-1-thnkslprpt@gmail.com>
+Message-ID: <E2C67135-E62C-4E68-9087-4E3CE47E5A4D@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,28 +62,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <atYKkjN0WgEhpACL@sirena.co.uk> <atZq0WW6UqnzbVx2@sirena.co.uk>
-In-Reply-To: <atZq0WW6UqnzbVx2@sirena.co.uk>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Tue, 20 Oct 2026 17:07:19 +0200
-X-Gm-Features: AclHuK9-35ga97_nmD-ywPr1hnQmMO5FBjMOCS93Gv0o2oR3ZoUlqwq2_3NPfD4
-Message-ID: <CAJfpegvnAXoEotjBFn_KXRLmW6eukPo78HpbN7fL+2uG_iB06w@mail.gmail.com>
-Subject: Re: Missing signoff in the fuse tree
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 at 21:09, Mark Brown <broonie@kernel.org> wrote:
+On 20 October 2026 11:12:24 BST, Avi Weiss <thnkslprpt@gmail.com> wrote:
+>read_profile() stores the sampling step in an unsigned long
+>but copies only four bytes to userspace. On 64-bit
+>big-endian systems (not common obviously), this copies
+>the upper 32 bits and discards teh rest, causing
+>/proc/profile to report zero for normal shift values.
 >
-> On Mon, Oct 19, 2026 at 01:18:26PM +0100, Mark Brown wrote:
-> > Commit
-> >
-> >   5fda61d42e762 ("dax: add fsdev_dax_from_file()")
-> >
-> > is missing a Signed-off-by from its author
+>Cast to unsigned int so we get the correct 4 bytes, while
+>keeping the shift calculation in unsigned long.
 >
-> This is still present today.
+>A small C reproducer under qemu-s390x reproduced this and
+>proved the fix works for prof_shift=2.
 
-Fixed now.  Thanks.
+If you wanna be 100% sure that this is regression free, you could test
+building on all arches. Sometimes linking fails in cases.
 
-Miklos
+>
+>Fixes: 2d186afd04d6 ("profiling: fix shift-out-of-bounds bugs")
+>Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+>---
+>
+> kernel/profile.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/kernel/profile.c b/kernel/profile.c
+>index 1fcf1adcf4eb0..e7defa90a34c9 100644
+>--- a/kernel/profile.c
+>+++ b/kernel/profile.c
+>@@ -156,7 +156,7 @@ read_profile(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+> 	unsigned long p = *ppos;
+> 	ssize_t read;
+> 	char *pnt;
+>-	unsigned long sample_step = 1UL << prof_shift;
+>+	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
+
+But this would compile anyway.
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+
+> 
+> 	if (p >= (prof_len+1)*sizeof(unsigned int))
+> 		return 0;
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
