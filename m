@@ -1,91 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510105;
-	b=1xW4eYejf3dMAfgvoAmh8/R4vnAINjIUTCLuI85IpbWfSZssFf/8YbsvYYWb76MyPq9I
-	 awA6ECbZQsuNTeVntBkMnTk9vCYdDjtk5a/emf2gMntEBfb/UCv50qS6sQj/1qeb2tE9N
-	 z5LLpP+VGc2EHw+QywTr8TVi612LIsbBnbToSZqpwSQ0/KhEreHHBiyL7kDc/6l6/OyaU
-	 TVQQAaoJehKK8GnyibWl0yFKz3D9elKTDf3Jq9pFIvngDeTg2PG9wBuRWGyEs06aLqkKF
-	 MYm6DncZ0SqvVNquZUavaJl+ZQvTA33iyStmbMcpb0PKCHsHFsyHhooUk4VId8GJoBw==
+	t=1792510111;
+	b=CFJ1c/9EPrZbkjS0GDJD9LXkHStAefJIewC2CjRY6etewTgz72tO46lsoqT05wrtt41S
+	 xhXVJKZIPrJWL27/5VKNfaPPPLuPflAOGx88mRi+iEROWLXvPlCwVySNRRovJ3JoxWaNJ
+	 H3Bg8uyeoPyHcSiYSUmGjgsnlfrJdJDUYuic9fMDWl/h3eHdF2ir+wYtoHTBz+R5Lzr/P
+	 /Bp6sYpFoV+xNrDUpSoFaraqUM/JJ3emZfGVXhRPKsD+d8430ff4u6hAboUUyBfr8lY0z
+	 EOz5wTJn8xA6BKQkuRDhVt8UdniplGuMlFtpI7ui/nBbazQJAj9Swr6t/1ibMAtCmXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510111;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QNgYq4tNaExyuZph3mH3214p58ognuDLQpFfS39BZ/U=;
-	b=XGEfh3T2QywCKSVb4PMxhKbDAJ5lC53L+CFKW6e+MLtjRxOZ1tqkL2usw1kuNzv5mljh
-	 71pW/YddA/pFvycJaU+F34WCkL2aDs67D/vxKrpBihkOddWlspny9yvF4+c/a6Ea9uyQb
-	 YZ7jh2w4hTTu3NR4q00QAgmdxlSjMsp/t3e5V9wepz9c0aa9t9uOMSMZ227othB4koTib
-	 41OUB9RlHvJD5mbUDVh7etUJQWhmTJfHzlBtoh+InvhjWBMqIYA2eDG5UXKXioPmylViF
-	 2knbvtkQhfGU/LSXEyzcS6xJodaAtxh8DW7LxTAR7yoMJUNVp+l0QrHIJcqGZ+ZOWUg==
+	bh=wu6c1+lhfsbnXjg7eEvFVI8XNrk+lweGeb1/GciTzuM=;
+	b=EAPtgc7WBcytWeAPFAt4m7sRO4T4WZcU+xmyJSdGXQwnUTfPDJb9y00eTBavXNXOzrpB
+	 10GywzbPPiKiFwaCpKS2QpcVBfA0LljCkkE0G92L1Av8n2kWWjbeNe6DkSnqv7QuctVRA
+	 ykfp+SPg1I6ZnJTU1RK3WU3h69Bb+f73GdGwVzxRGJe/PocU6n0vTxvrahUbbiM3joIUq
+	 38ug5oBNNvyg7xTEJSxst7X6JjXXI1TFszWc6Dzp+KUTifI3rHT6aB33KIJWn9BJipbOA
+	 tvcC2z5t55a5ZMZueduiV3EbUrE3H0oXcfmvuhLtWul0XxBfO/3rfUaN0ASxqAnlHyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pghdQcwl;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EOrzMaxD;
+	arc=none smtp.remote-ip=95.215.58.98
+Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD959606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD959606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F813606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:28:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F813606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pghdQcwl
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33c10faf6easo374226eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:28:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792510104; x=1793114904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QNgYq4tNaExyuZph3mH3214p58ognuDLQpFfS39BZ/U=;
-        b=pghdQcwlEqnfctzczBTAIRCLD4gRCtRZ5nI/9Lh/9OQhZ9ClaXwzpyONuC/7woEnUB
-         fkd0SmI8V8rm216FmJX4IEx//otXiOmW3WGChoMzhd+nV0iqj3UR3ACFDjQSJR0ApA7r
-         1u3Fnew44IOUUWPLoe3JfTyYqjq/dqqVcbaM024fVC4Da+IR433S7BmALAPvA1Oi2ucl
-         Uvoc4cRHf+fmkiuNWByfdrUsxEdwq2l/znnWEBX9dJzFAfLWe7u7+KK9H6tyjneR0ogw
-         bsKE4bdeNxcznMBwdDCnTm9pyj5hZa3FpjW7lOEHADuxmyBRG8pJRLL+BaQaqHUxJDxb
-         CUGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792510104; x=1793114904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QNgYq4tNaExyuZph3mH3214p58ognuDLQpFfS39BZ/U=;
-        b=yOBY2Bb6yHmwqkNwd/IflI7a9HPsh7r6jPOzNsJQsuO/FXi3o4J+9ldMy0zBAmwupH
-         tZIYQ3tVi91nFIyVE4i66DiTsjzsPJQSmrpbr1GcB/C0O50QdibcDxHbH9iPKsK8TL6F
-         zAYklRO/7ZEJ4Ckjv3cmF2sj0dWU/vKPQ6BRPL2pg+I93e+SzcfWU24EWCDEY/6flJfW
-         DR1ije+5i2r9rhA+l1nk7JtZbHEEsFyHnm7ZKdRfmoRTJB+e9fXlw4bj3IL6Lg6x0zY6
-         rf6gtv3r7ErP3oQQI0RAVR7uxxYd0LQcFleDzPev7Xt85+s0LAW9OzfW73dYy2FwMSx2
-         uERw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPHur3hr5ENsjI3RXNzXYELO6G6Wh2OahjdEHF5N0e+0ZrdZgv2s2oR3R1jre87SUSy9v71M/a6VISX1I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9PiQLg/aGVaerp3wiHeg9ptROfRMmuZB/Xj3IQUxcIzrjmeS2
-	L8Of/0dTyHUKEzod/IaUejR3vUb+HVVre4w0bzFZFSVoVrW0mkFER8mCreq8UEUX
-X-Gm-Gg: AYBFou3X+q1ag7eQOI20DMXzGlR4jotaHr3nKShsM+pcYsYTMTiyl2RISeqnL6yha1d
-	qY95xo++iFRLCVa1+TuX+85WbvSp+jQzzAxEPWRgYnG6/8Y7AyKYxYvSKbZrKPhgmlNeEdLo/7r
-	Sv6SZoO7JU/Zs9AmPUl6RMljamMXjoi21yRgU3Q+3vBu92HDXy/cr6JAozI62XDVbSG3rv7ePjb
-	II0DE/I5hKwUFicWUozpKuIxPvNK3lBc6OqtY0Uuxvv+6HBEk2/Ka0NR2LTTTBm3EP6HuH8wNOx
-	71JGR5EmqlYpi2XBAbgRXTV4tGKg+Gpl1PpiwMEE24RH34iypwZfLVahYIWN8TJD08VU3UMso+L
-	0ICpb00pZxmqwVECxzQbAEEUvzK0EfnJUiSEoI/3+mpM3v7bpfJOTkNfsyucoX/GxoixkM805YW
-	ub42I3rCnk5q5CCTm1XBUfVAVJ2RP/Tl9cAo+ca6BXGzV057ZcgaHaNnJWtTebcZvVrUjJzH8Qe
-	qSpJBYSurw=
-X-Received: by 2002:a05:7300:7aa1:b0:33e:6714:3945 with SMTP id 5a478bee46e88-361a0898c20mr24289096eec.2.1792510103684;
-        Tue, 20 Oct 2026 08:28:23 -0700 (PDT)
-Received: from subhobhai943.. ([2409:40e1:7:197e:d6f5:c443:63e9:fc37])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b684dsm41629029eec.10.2026.10.20.08.28.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:28:23 -0700 (PDT)
-From: Subhadip Sarkar <sarkarsubhadip604@gmail.com>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	linux-sound@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EOrzMaxD
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2zapS+vIIEgfWQ0p9XxDH62ew/nt1UcgtSOrLI6cP1c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792510108; v=1; x=1793114908;
+ b=EOrzMaxDnfIaRIr5QkWMaomqi26DFEzAlS09g7KHfiwJseqME7ZNMoJLZEt0Do0kUmEbzWEB
+ +xfuwW7Sbm+0eUOh9VCQ87t8ewm1OEkNP8t6uT15gJLR9ilVTgyQDjuh6ZlI9TNpmiSTnX+d03y
+ Tnp0/11svD9CafTxG7U/aYBM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c6ac59b544f27bcc;
+	Tue, 20 Oct 2026 15:28:28 +0000
+X-Mizu-Trace-ID: c6ac59b544f27bcc
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Masashi Honma <masashi.honma@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Subhadip Sarkar <sarkarsubhadip604@gmail.com>
-Subject: [PATCH v1] ALSA: pci: Kconfig: Fix spelling mistake in help text
-Date: Tue, 20 Oct 2026 20:58:15 +0530
-Message-ID: <20261020152816.16820-1-sarkarsubhadip604@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	netdev@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: [PATCH bpf-next v3 1/6] bpf: Add syscall common attrs support for link_create
+Date: Tue, 20 Oct 2026 23:27:59 +0800
+Message-ID: <20261020152804.39863-2-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261020152804.39863-1-leon.hwang@linux.dev>
+References: <20261020152804.39863-1-leon.hwang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,36 +99,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix 'useable' -> 'usable' in the Kconfig help text for
-SND_AU8810 and SND_AU8830 (Aureal soundcard drivers).
+Similar to the syscall common attrs support for map_create [1], add the
+syscall common attrs support for link_create.
 
-Signed-off-by: Subhadip Sarkar <sarkarsubhadip604@gmail.com>
+Create and finalize the internal verifier log instance.
+
+Then, report the error messages for invalid prog fd, invalid attach type,
+and invalid prog type.
+
+Links:
+[1] https://lore.kernel.org/bpf/20260514004634.3DA09C19425@smtp.kernel.org/
+
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
- sound/pci/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/bpf/syscall.c | 34 +++++++++++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 7 deletions(-)
 
-diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
-index 6366f72b3..88b88f88c 100644
---- a/sound/pci/Kconfig
-+++ b/sound/pci/Kconfig
-@@ -104,7 +104,7 @@ config SND_AU8810
- 	  Say Y here to include support for Aureal Advantage soundcards.
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index 849bc9136299..61d100e794b4 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -5856,8 +5856,11 @@ static int bpf_map_do_batch(const union bpf_attr *attr,
+ }
  
- 	  Supported features: Hardware Mixer, SRC, EQ and SPDIF output.
--	  3D support code is in place, but not yet useable. For more info,
-+	  3D support code is in place, but not yet usable. For more info,
- 	  email the ALSA developer list, or <mjander@users.sourceforge.net>.
+ #define BPF_LINK_CREATE_LAST_FIELD link_create.uprobe_multi.path_fd
+-static int link_create(union bpf_attr *attr, bpfptr_t uattr)
++static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_attr *attr_common,
++		       bpfptr_t uattr_common, u32 size_common)
+ {
++	struct bpf_verifier_log *log;
++	struct bpf_log_attr attr_log;
+ 	struct bpf_prog *prog;
+ 	int ret;
  
- 	  To compile this driver as a module, choose M here: the module
-@@ -133,7 +133,7 @@ config SND_AU8830
- 	  Say Y here to include support for Aureal Vortex 2 soundcards.
+@@ -5867,14 +5870,24 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr)
+ 	if (attr->link_create.attach_type == BPF_STRUCT_OPS)
+ 		return bpf_struct_ops_link_create(attr);
  
- 	  Supported features: Hardware Mixer, SRC, EQ and SPDIF output.
--	  3D support code is in place, but not yet useable. For more info,
-+	  3D support code is in place, but not yet usable. For more info,
- 	  email the ALSA developer list, or <mjander@users.sourceforge.net>.
++	log = bpf_log_attr_create_vlog(&attr_log, attr_common, uattr_common, size_common);
++	if (IS_ERR(log))
++		return PTR_ERR(log);
++
+ 	prog = bpf_prog_get(attr->link_create.prog_fd);
+-	if (IS_ERR(prog))
+-		return PTR_ERR(prog);
++	if (IS_ERR(prog)) {
++		bpf_log(log, "Invalid prog_fd.\n");
++		ret = PTR_ERR(prog);
++		prog = NULL;
++		goto out;
++	}
  
- 	  To compile this driver as a module, choose M here: the module
+ 	ret = bpf_prog_attach_check_attach_type(prog,
+ 						attr->link_create.attach_type);
+-	if (ret)
++	if (ret) {
++		bpf_log(log, "Invalid attach_type.\n");
+ 		goto out;
++	}
+ 
+ 	switch (prog->type) {
+ 	case BPF_PROG_TYPE_CGROUP_SKB:
+@@ -5953,12 +5966,19 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr)
+ 			ret = bpf_uprobe_multi_link_attach(attr, prog);
+ 		break;
+ 	default:
++		bpf_log(log, "Invalid prog type.\n");
+ 		ret = -EINVAL;
+ 	}
+ 
+ out:
+-	if (ret < 0)
+-		bpf_prog_put(prog);
++	if (ret < 0) {
++		int err = bpf_log_attr_finalize(&attr_log, log);
++
++		ret = err ? err : ret;
++		if (prog)
++			bpf_prog_put(prog);
++	}
++	kfree(log);
+ 	return ret;
+ }
+ 
+@@ -6530,7 +6550,7 @@ static int __sys_bpf(enum bpf_cmd cmd, bpfptr_t uattr, unsigned int size,
+ 		err = bpf_map_do_batch(&attr, uattr.user, BPF_MAP_DELETE_BATCH);
+ 		break;
+ 	case BPF_LINK_CREATE:
+-		err = link_create(&attr, uattr);
++		err = link_create(&attr, uattr, &attr_common, uattr_common, size_common);
+ 		break;
+ 	case BPF_LINK_UPDATE:
+ 		err = link_update(&attr);
 -- 
-2.43.0
+2.55.0
 
