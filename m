@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792484752;
-	b=XIvO67E5aIWKRooauREw6Y+BkRX0Wd4lrwyi4w3n3p6MkXNX5xbFIcwc0gNECPzIghLy
-	 kZQBTf2/TJ91ECqyFgghCLqfPRcytHlReYMhH8tEEoAb5IOAwxJzhenjxN8pVWZPrpATv
-	 g8Nww50lMYXxgjEiCOFImpYJl/N3bDApPVdVu62mSIjAGY3HakkZIiV9RUuun3f4hQmzW
-	 +xa7GX5H8c8CpVf2RUsh0xO4etqqXFdBTwoDnFTZ7iIeruRy5Jo9qz5M8rbivQUY92imB
-	 nEVgE58z3rjH4YCLY+zDbyVukRLBOP8DtcLcNNnraFMvtxsEk83/j01M+jM6e469Pqw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484752;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=e+6nVyZLjebD5QCGUBHeGP+gzXckIy/LBOsLfc7yS0k=;
-	b=M20xG+UF8DGUojHn5Iv61bV5J5111ks2V+QNeGP74YPji45HPuAFzO7KuXL2fAgew5j2
-	 1JdRr11xsJrUTnVI+BYAc2+lKZun3VDvZ/zYdkEDXfx8maQ1HE1ttYS+xudYF88/u0wCp
-	 WcXJqbaK4CF1r0SBp4YFMCvwFkX0uxgXkAqae/jDmRsS7h0B2vg5NC2Zi4NVMDPJFUsVD
-	 kZj5qGLGK5rN/MWQWjHfV1VVGk6WytZcrTDRaBSV4AqF+TOXQoFRp8TmEM1Pu7h1tfmrP
-	 XPBCmLg79gFKK9w5tof4TKQTfee1BIMuMVoi58SZ1wq0Fu0yekhs2H3IfRTvYV12XMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FupvrTXL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792484769;
+	b=S/ib6vkxdMRojKZMTbBC66lFBHbDUpOO+QSPBNNJGVJDM3YxRHr/RnbVXPJGmvakCe7r
+	 7clfLE6PPb8FiRzV7eOfDHL1TCzceAWGMQnff6LzplrLD03LXWdwlZFOTz+J8/e4fIiYb
+	 oLOCk3EJHclIXtJXirc5FYrgjxTn/aWIpQFXMQUb/otrn6WSf2z936NKg2bHJpSX+jZ/J
+	 NvZhf80oN8/GcEVMgpshbyfK/75YoCjNL4XSinWtQhLyHi2xQvxfV6AHf31qDY9pbgE4r
+	 9O474Jdimhz9Cur4IH9YZi/6m3aK1ZduaNGg3fWvJI4bpOpMcH2jtng79hymRoqRQkg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484769;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=CWhpEnAkiBLLWdhO8qZS4UezdC3Z8f/sSXSKbe306+4=;
+	b=fvLDrp1rdlnnyXLZvZAo3+BvLF3W83wmxZWoU8au94JyIlGdcWiQlRrlGptOkrjIq9hN
+	 o/fuF6COmgYQfQJwl5Pa6+gYNhSewsQhE5KK53k+b04qVvIJGBOoaqMYAT6kWDHM1M/2x
+	 0B8SLj8KX5GZ82NJbUmZ2g2MY/gD6QPzk7l9brvViTYRSzBOS2HELn4KQevsbVmfWMfDD
+	 CSpcsoI9M8cm+QdxfaZ1U5vOSLYLF5DE6XnVgcoDKL2fF4kpTRZOv+kSQYq/6fJshGOqd
+	 t27us6ITuNuNbXBTibKYBuAg25JwRBRW2jB55VnpTyB2m3RCobvshAhoyXMoV829B+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMj+nBSt;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB99560A2619;
-	Tue, 20 Oct 2026 08:25:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2E660A3819;
+	Tue, 20 Oct 2026 08:26:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FupvrTXL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792484750;
-	b=zWaNAvCmp5xdHjoFVqp/S2tloPsgzZO/3AUQQLGH6vRbHIQAIitTaf3p5sKbxWq0DoKF
-	 WN56UFKdp4tNTSiRwtSIhoAv1JHDirBq1fP8FvCeL6AJyP27G0BYuzegVmPUq/zdGJvK7
-	 1qHJVF6G72GF4Kt8HiBuqFsspsMW/ZiCjI7EbSkeHRxPLvMqSzFMtv+s1GBiBYhzJuSBK
-	 ydQjDARS9RJG5IfgNEC7fdXqF+Trem4hejZvCt3WXf2bNIZNaVeq5V7wctm6TGUCykVxg
-	 lNVgtRQzQwX91/xclFRFNYddKRv0QK9CRzKo97U5PcAHSOFGA/oHJGspLngg9V9kg2Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792484750;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=e+6nVyZLjebD5QCGUBHeGP+gzXckIy/LBOsLfc7yS0k=;
-	b=pqlQPlQ7VIlPFmsp1K1e8pkIf3iIOOBtoagTpqL90lfUy5BsjEz3dGEsrY2UnJaduBwP
-	 gJm/RBH/jpzrHiPsUPrRlsZoQYSsFYDYd96KlORE3saqTfHgquCl0YSIBAUe/rTgU1/lO
-	 46mTxToN2A7FUqrPLhmr0iulRztQvRP8Rmqcolbi5kRHszVSF+Myp7XZ0AJbq4Xerrevn
-	 Td/bdlUrIjEtyIZD50pyFsbAi6UsXr/5LiTclocerpBN2Y43TRIpsIbq3gUwc7XZLzkUD
-	 1egnirFHAu7hRHraX6zdLvij9x9GVGml1Q4qpeiq4MPamaS/WL8QOQslOJtOZJgR54A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 44FC21F000C5;
-	Tue, 20 Oct 2026 08:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMj+nBSt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08091F000C9;
+	Tue, 20 Oct 2026 08:26:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792484750;
-	bh=e+6nVyZLjebD5QCGUBHeGP+gzXckIy/LBOsLfc7yS0k=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=FupvrTXLH0LyxcAiC5Xh4k52MGgHqL2LniyJyWZ3PTCjp8d3Rv9FXaQ+1BpKr2mwM
-	 kQcOFNxiqR7+OMcHRCW8JXZvIcIEd0DQIdq3SVvFepgYZcJ06gREA9H4Y6frdJvra3
-	 dBZN7IlJOLNY8Rqj6lLZbTRf2nBiD64foNGx20h02Ldl8q+MNiDd7SmpRTP3xvxL7s
-	 cCt5lX/dnp4GzNJITqXbrRehsFezw5U1YVLruqNu5le80gesEpUUTwjqwqdXYdE4WI
-	 fR/sb16vDxlokb+/uRFztXbJxX9yiRrmuVfWhjfH1zJsoowLXhYNsFadmxhckCSTxR
-	 cXbPrNogiANuw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9371A430CE;
-	Tue, 20 Oct 2026 08:25:45 +0000 (UTC)
-From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Subject: [PATCH v4 00/11] drm/tyr: add VM and BO ioctl support
-Date: Tue, 20 Oct 2026 16:25:17 +0800
-Message-Id: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
+	s=k20260515; t=1792484768;
+	bh=CWhpEnAkiBLLWdhO8qZS4UezdC3Z8f/sSXSKbe306+4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JMj+nBStKUQVM0j2Bt0N9zxpyyCkWM4aKgGJFDiKknav89+Lfnda8Q4510hEqdRof
+	 hkQ1LP7+gE19SEadMCJHs1ryttEA65rZzv51bXMA1+zTPF7SpG75OJT1Btz8SdW4kh
+	 vs3oC2B3KRwgGYidg5bzPaQLMmY5Ie4aoOQL2zeJBwp2tcbJFvTcWrC68Ojnc63ZSX
+	 XZFFjcir3kIL6oA3edxbobaBydxS5eUp0awe6r+FAJ4Hl9gjXwewAuuk6Xi+9Q4P9D
+	 Jg9wgLufCQ85nv+lPvfQ9g0dBgjx+PJ/bwkj7ZXWWQw6UM9CnxhiEpku5R2fWVTz1i
+	 AHoZ3mazWxv0A==
+Subject:
+ Re: [PATCH net 3/3] enic: require DEVCMD2 and set the V2 VF mailbox source
+From: netdev-bot+sashiko@kernel.org
+To: satishkh@cisco.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sebaddel@cisco.com, aradhana@cisco.com,
+ rfaucett@cisco.com
+Date: Tue, 20 Oct 2026 08:26:07 +0000
+Message-ID: <179248476749.3135.499310434326384536@kernel.org>
+In-Reply-To: =?utf-8?q?=3C20261016-b4-enic-dma-vf-index-net-generic-first-v1?=
+ =?utf-8?q?-20261010-v1-3-d27b55f69883=40cisco=2Ecom=3E?=
+References: =?utf-8?q?=3C20261016-b4-enic-dma-vf-index-net-generic-first-v1-?=
+ =?utf-8?q?20261010-v1-3-d27b55f69883=40cisco=2Ecom=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,160 +66,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAG0l12oC/02Nyw6CMBBFf4V07Zi2CAmu/A/Doo+pNGJrppVAC
- P9uIS5cnntzclaWkDwmdq1WRjj55GMocDlVzAwqPBC8Lcwkly3vuIC8EPho8pjACY6OW6Odalk
- RtEoImlQww65YegF9UoaAc97/N6Hz8xG794UHn3Kk5WhP9b7+MrL7z0w1cJBt1zROCyFsc3suo
- w8xnU1g/bZtX1s/RDLFAAAA
-X-Change-ID: 20260901-tyr-ioctls-f10ef0dcbfa6
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
- driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
- linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=4895;
- i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=0W/Zzd3YJxNeZ/dKwlzvsYXdPOz5NCl/hBwAO8KxQJc=;
- b=ZCt+HemY9ZaAgV5qL4JXMw4PoShS3j9pE/9zTZikxUtm+7rqPO/xfi9uboxExmsU0kTCg74MU
- gOX+ht0Cji7BgDZkLM5fZzFZylhpPfO6T9gA38oJuHNgYfFVa4c2MgP
-X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
- auth_id=950
-X-Original-From: Ke Sun <sunke@kylinos.cn>
-Reply-To: sunke@kylinos.cn
 
-Add the VM and BO ioctls to the Tyr driver, aligning its userspace
-interface with panthor.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The series is based on Danilo's `drm-file` series on
-`drm-rust-next`. It also carries Sami Tolvanen's buffer
-cache-management patches from
-https://gitlab.freedesktop.org/panfrost/linux sami/tyr/7.3/dev.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-The panthor IGT tests pass on an RK3588S device.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-A branch with the full series and all prerequisites applied is
-available at:
-https://gitlab.freedesktop.org/alvinsun039/linux.git tyr-ioctls
+- [Medium] The fence for the statistics-command DMA is cleared only when
+  the command succeeds, not whenever it completes.
 
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/64
-Signed-off-by: Ke Sun <sunke@kylinos.cn>
----
-Changes in v4:
-- Rework VmPool teardown: add() returns an AddError the caller owns,
-  a conflicting stored VM is killed with EBUSY, and remove() kills
-  before the ID is reused (Daniel, Deborah).
-- Wrap dev_dma_attr in a DmaAttr type with dma_attr()/is_coherent()
-  and rename the patch accordingly (Danilo).
-- Fetch the sg_table unconditionally in new_object() and drop the
-  conditional flush call (Daniel).
-- Use dev_dbg!() instead of dev_err!() for user-input validation and
-  EOPNOTSUPP for the async VM_BIND path (Daniel).
-- Drop the pr_err!() calls from the VM specification patch (Daniel).
-- Link to v3: https://patch.msgid.link/20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn
+--
 
-Changes in v3:
-- Drop the VmOwner wrapper and kill VMs explicitly on destroy and
-  file close (Deborah).
-- Add Sami Tolvanen's buffer cache-management patches: coherent
-  devices map buffers cached, write-combine buffers flush at
-  creation, and BO_CREATE accepts WB_MMAP.
-- Drop the new_dummy_object refactor; the dummy object stays a direct
-  Bo::new since new_object now fetches the sgtable for write-combine
-  buffers.
-- Document the LargeSizeConstants trait in the sizes patch (Miguel).
-- Misc commit message and comment cleanups.
-- Link to v2: https://lore.kernel.org/r/20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn
+enic: require DEVCMD2 and set the V2 VF mailbox source
 
-Changes in v2:
-- Fold the VM pool into vm.rs and cap it at 32 VMs per file (Deborah).
-- Add VmOwner so a VM is killed exactly once on drop, regardless of
-  remaining references (Daniel).
-- Replace the VmSpec enum with new_for_fw()/new_for_user()
-  constructors (Daniel).
-- Parse VM_BIND op types via VmBindOpType and use the kernel
-  Atomic<bool> for the unusable flag (Daniel).
-- Use PAGE_SIZE for the dummy object size (Daniel).
-- Rename BoData::create_flags() to flags() (Daniel).
-- Report VA-split failures with dev_err! at the caller.
-- Link to v1: https://lore.kernel.org/r/20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn
+This commit has V2 VFs query CMD_SRIOV_STATS_GET after opening the admin
+channel. The returned logical VF index becomes the mailbox src_vnic_id,
+and SR-IOV V2 now requires DEVCMD2. A timeout of the statistics command
+is tracked with sriov_stats_dma_unresolved. A later CMD_QP_TYPE_SET is
+expected to fence it, and if nothing does, the probe resources are kept
+until reboot.
 
-To: Miguel Ojeda <ojeda@kernel.org>
-To: Boqun Feng <boqun@kernel.org>
-To: Gary Guo <gary@garyguo.net>
-To: Björn Roy Baron <bjorn3_gh@protonmail.com>
-To: Benno Lossin <lossin@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>
-To: Trevor Gross <tmgross@umich.edu>
-To: Danilo Krummrich <dakr@kernel.org>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-To: Tamir Duberstein <tamird@kernel.org>
-To: Alexandre Courbot <acourbot@nvidia.com>
-To: Onur Özkan <work@onurozkan.dev>
-To: Lorenzo Stoakes <ljs@kernel.org>
-To: "Liam R. Howlett" <liam@infradead.org>
-To: Lyude Paul <lyude@redhat.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: rust-for-linux@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: driver-core@lists.linux.dev
+> diff --git a/drivers/net/ethernet/cisco/enic/enic.h b/drivers/net/ethernet/cisco/enic/enic.h
+> index cf2dee8fa78ff..886f3cba543dc 100644
+> --- a/drivers/net/ethernet/cisco/enic/enic.h
+> +++ b/drivers/net/ethernet/cisco/enic/enic.h
+> @@ -273,6 +273,11 @@ struct enic {
+>  	u16 num_vfs;
+>  	enum enic_vf_type vf_type;
+>  	bool vf_registered;
+> +	u16 vf_id;
+> +	/* A CMD_SRIOV_STATS_GET timeout leaves its persistent coherent target
+> +	 * device-owned until a later serialized command completes.
+> +	 */
+> +	bool sriov_stats_dma_unresolved;
+>  	u32 pf_cap_version;
+>  	unsigned int enable_count;
+>  	spinlock_t enic_api_lock;
+> diff --git a/drivers/net/ethernet/cisco/enic/enic_admin.c b/drivers/net/ethernet/cisco/enic/enic_admin.c
+> index a5c08cbcb3391..2f6688a73b41a 100644
+> --- a/drivers/net/ethernet/cisco/enic/enic_admin.c
+> +++ b/drivers/net/ethernet/cisco/enic/enic_admin.c
+> @@ -406,6 +406,12 @@ static int enic_admin_qp_type_set(struct enic *enic, u32 enable)
+>  
+>  	spin_lock_bh(&enic->devcmd_lock);
+>  	err = vnic_dev_cmd(enic->vdev, CMD_QP_TYPE_SET, &a0, &a1, wait);
+> +	/* DEVCMD2 runs one command at a time for a vNIC. Completion of this
+> +	 * blocking command proves that earlier statistics-command DMA has
+> +	 * finished. Admin WQ/RQ ownership still requires RUNNING == 0.
+> +	 */
+> +	if (!err)
+> +		WRITE_ONCE(enic->sriov_stats_dma_unresolved, false);
 
----
-Alvin Sun (8):
-      rust: sizes: add SZ_4G constant
-      rust: mm: add `task_size` helper
-      rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
-      drm/tyr: add per-file VM pool
-      drm/tyr: add user and MCU VM specifications
-      drm/tyr: add BO creation and lookup helpers
-      drm/tyr: add VM-related ioctls
-      drm/tyr: add BO-related ioctls
+[Severity: Medium]
+Should sriov_stats_dma_unresolved be cleared whenever CMD_QP_TYPE_SET
+completes, not only when it returns 0?
 
-Sami Tolvanen (3):
-      rust: device: expose the device DMA attribute
-      drm/tyr: gem: flush write-combine BOs from probe-time coherence
-      drm/tyr: gem: map cached BOs for DRM_PANTHOR_BO_WB_MMAP
+The comment above, the enic.h field comment ("until a later serialized
+command completes") and the commit message all treat completion as the
+fence. On the DEVCMD2 path, _vnic_dev_cmd2() returns -result->error only
+after firmware has written this command's result slot:
 
- drivers/gpu/drm/tyr/driver.rs   |  24 ++-
- drivers/gpu/drm/tyr/file.rs     | 407 +++++++++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/tyr/fw.rs       |  21 ++-
- drivers/gpu/drm/tyr/gem.rs      |  76 +++++++-
- drivers/gpu/drm/tyr/vm.rs       | 357 +++++++++++++++++++++++++++++++++--
- rust/bindings/bindings_helper.h |   1 +
- rust/kernel/device.rs           |  24 +++
- rust/kernel/mm.rs               |   7 +
- rust/kernel/sizes.rs            |  12 ++
- rust/kernel/sync/arc.rs         |  12 +-
- 10 files changed, 891 insertions(+), 50 deletions(-)
----
-base-commit: 015bdd5eb1e4a1a35673727f294a88fb0969c77c
-change-id: 20260901-tyr-ioctls-f10ef0dcbfa6
+drivers/net/ethernet/cisco/enic/vnic_dev.c:_vnic_dev_cmd2() {
+    ...
+	for (delay = 0; delay < wait; delay++) {
+		if (result->color == color) {
+			if (result->error) {
+				err = result->error;
+				...
+				return -err;
+			}
+    ...
+}
 
-Best regards,
---  
-Ke Sun <sunke@kylinos.cn>
+Only -ETIMEDOUT leaves completion unknown after the command is posted.
+-ENODEV and -EBUSY are returned before anything is posted.
 
+In enic_probe(), a timeout in enic_dev_sriov_stats() sets the flag, and
+the unwind goes to err_out_admin_close. There, enic_admin_channel_close()
+calls enic_admin_qp_type_set(QP_DISABLE). If firmware completes that
+command with an error status, the flag stays set. This happens even
+though enic_admin_channel_close() treats the rejection as harmless:
 
+	/* Firmware rejection does not undermine the WQ/RQ proof. */
+	return qp_err;
+
+At err_out_admin_fence, enic_dma_quarantined() still returns true. Probe
+then calls enic_terminal_dma_quarantine() and returns early, skipping
+enic_dev_deinit(), vnic_dev_close(), vnic_dev_unregister(),
+enic_iounmap(), pci_release_regions() and free_netdev().
+
+Would that keep the netdev, vdev, coherent buffers, BAR mappings and PCI
+regions held until reboot, and prevent the VF from being probed again?
+
+If clearing only on success is intended, could the comments and the
+commit message say so?
+
+>  	spin_unlock_bh(&enic->devcmd_lock);
+>  
+>  	return err;
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-b4-enic-dma-vf-index-net-generic-first-v1-20261010-v1-0-d27b55f69883%40cisco.com
