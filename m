@@ -1,102 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525829;
-	b=AReNybXriOOlbXqKCxLycKZgsKDMr+4/oLNVasZKNFOwEo4yB8XHEtnPWh6sfiXX01Ns
-	 a2O3VReNBAI/PjOfRwZh6FUs28P1hJey2uPwCAxMEcwJho5QSqn3DUvDgFn+l3PoLo/p4
-	 37R0kFyBZosFXtR8fNX4IJL6z1VCupo4EHlrre1s3av9IzkbonHWowBM9HOEkHKtCdP0K
-	 3lEEGlRFwZN7IActEHjjAKu21O3xprRrcfYRYsQ8JlewvB4qI9A7xSHpQBYkp5BnLqoEY
-	 zXjO2moxjyDuPcYgPo6YhFuv58hCBGrDDIfTZk9nxKLbZPtRnkCUJ3OZlOhoFEf0qNA==
+	t=1792525932;
+	b=W7tCmiA86+M6yYzGwk3EW83DAuG154fLiQo6KEVHhTTUGo1osg+tscDkSUOsvI2DjibK
+	 OW11veGvI3JgBokhd2td3jKZgW1koi4LJcY8ad6FRPJWCKzeOeUwph0FI/jTN8eWqf5JS
+	 2BFRBS9kizICmBwWZ3V7Hg3Rb7U4ZSQMyW/aNQghmVcJtCxKOW8Op9C9FNFBxx1Ksaugb
+	 Xb9sFrLMRGLqIiQiujjQb0wS80c/yrA37iKUSgquyNhIQFRcU+EbXZAJk9Q2K0RelSi/j
+	 qwg+0Q0YaI6sE3lBPrD8AQjYToswwa+peZzPKMTUaPphgb0UAIh95N25U1M4O0XZnOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525829;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hPa4PG254yePdehpmJWqML5hqKXw+sws5WB7y+lwM98=;
-	b=muCUPoyMwZnq0VLPtyOwzEz5u5uxrp0Cqn6mrk9qbzJVCZkn7pKOWENdMrCIu/9NQQDe
-	 bOM8KvQer2rJo1fs/ASoCSqus33tC7FDGyCOUZl9J9P+ZefkzuNcsLggXsBX9K1JWdyTG
-	 CZgYwhWzNo0wBcbLKw2u8ZH7gVuRRFJUtWhwKcNfLA/k0/E49bDMNhmBjHLuoJj44t9se
-	 I7w37+hEVE6f2tZNTeZsHTx0xPEXZVW14FB8vBsYDXMkT9hgMqSmPTIA2hgKFaogNWbbL
-	 lLkqeetqMXv43iTYwqvhcPMC9PQgJzjHev8+trMUHAqlB02sU9RuphCO4GTY/fCgonA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525932;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WnKiBHjj/zZJZwT63i24hX+x8FOF0JDz2q0Gba8m/uk=;
+	b=MtUgIGppFvcBW95ZNmfk3PdIE1X0gpL5hdoaEUqBkF6sFzB9bPtvrEBFxTmeskREZgXo
+	 xXMjhnJP8p5MxWXTiy6UZ2kx9SU0BDUGhmljNNjBmx5q6oPbUKXqxnO5bK/CRjlSoCK8u
+	 qfBBDV5cMo0h8/NtsWxNsDf/m3xSE1yDXV9DlNLOzAP9wQhM0bQS4A/38YleQv1ctaeoJ
+	 NAo2VFkYIBD8whJf+ER3W6ZrsD11Gt1f+qUGmfriBWhNiFpG+80zMze8OjuSg35RT24Iq
+	 i6LdwbV8T+Aht6ax5Hwe3X9yw07EQkQjEy5fOSMJyJpt8uMx3mPLt/E1bcAVuvbB0Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NuIBbCyO;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=HFsU7Bop;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD21606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:50:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD21606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10418606A31A;
+	Tue, 20 Oct 2026 19:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10418606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NuIBbCyO
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be47159f2bso2962335e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:50:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792525827; x=1793130627; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hPa4PG254yePdehpmJWqML5hqKXw+sws5WB7y+lwM98=;
-        b=NuIBbCyOHLjMgBRgN0U2pccaR1TZLAsQhr1eI7b9dpYjk5TlNnN94DdOAXN19YkR7D
-         FAf8nTaWqBcQbkylIxVI5KyXHkXknkDYt7DbtIn1A08do1AD1oVysJRCpy81PHz37BEm
-         x014kEN3iJ04lFyi8hElEoVGeEPXX/8cBi5LcFdm5PQXylCE54Y2pr0yKGA4R6VQAHdi
-         /HLYIHUAF/4tIGEKKW05bLQEnDiGo1snPRRas0w4qeATPZuUYn9RTZssEOckbbc6bnQ0
-         pDMMs1XJUDvJJslhQxV2fG2OAscyUOSOnaNVGwJjLjWHyWx9fVUSKYloowuqwMfn+P9z
-         ydRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792525827; x=1793130627;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hPa4PG254yePdehpmJWqML5hqKXw+sws5WB7y+lwM98=;
-        b=S38YbD4SQnN85h96Fb8Z8hHMY/Y3MzZy0S2tvbC3U1YOrBKViZk1+jKR9Dr0UixUcG
-         /g9T5utmhgkZpCxsHWkP9/v1SkzLjORzTCcb//rM9OG3YCY+e6xGiVElFVMLNVQXtA80
-         x1h6RFF5c4xqO6QDSYPQszhAsNVbLj/3w4WVs8PsFuTyWtVAEpI/BFq75BquZQTt5CFu
-         CZjfToWkcqs8irM8cbpB8/oV3NRAiEZ1xicnbmyOcGbQDXvyGRmi/ZVXXR5yQHvoRjsK
-         VuutHHg2KDVZtyGNlDA9uJGHShCUJRBkS6dq4ORblgC/glLvN65o7HpikpekIuntsALA
-         snmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKh2olTzyiUHjTbjLaUT1FsDccR/J7T94rLyggcdQWoTS60AR1f16b3wtAnAlvnh+f/ZhcVIcfLnqlJNs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE7f4Wd5ojNLQD/TKKliVNVtO3Gu/fwpaBDp1zbLIyoUwYKw0S
-	W5NeFkJjecZerDYz/Vh0QQDD3VhqYFoS0+1cCIbXM0caG+2XDWdmF3F0
-X-Gm-Gg: AYBFou0z6x+1AaDRIPj0WC7OYVW40fAAu2ttkHv7W1BMdJqD7xjBIsnvc1XMbDQC26G
-	kjPDCiuKbae2+mu+vXoA2o3vVNWkJHEnhrD6+JNouSY5dMu/+S7r5jEbpicSZRxeAtZAiQg6Vsr
-	QE53txCLF+eR5B8Lgo+c+KSzVgJIkJ0T7qoAMJpV0qqCHpCKGOlFj6UxxeR+4v69gddiFyNlFfk
-	CSMQmtOrCUGQBarK6cNKMVEoTc8oZFMD/znYcP3ewFnoK+vXxL9bvwh9TbHbi+Gin3ecLGxkGbH
-	MxIEcY8dQrQ8imXYFOJhhLsIpxn/DHSMEJyozenIUckfYpL1QEFN+71R7HVnrlQOYkgGVxMiIvY
-	njGlJfxVI75bWkt8ePvFZMc0vVRc0/W9lQqx4OVEcIGMtuYr5283JikniN0OuvITfu9/oZW4biJ
-	qqF0OWAjEDzNN7pIr3o0w/lHVwNrD5J2gAVY1dbwB3YTjo2WuKbFujkP2gFQuUb0Ghgb1ZD7NCA
-	/dLyvOgfmiY+txlzZ+n3h7wRCgmzKJ8xvgN1sxzyMaDU1YgPiXsqjHxtBNHrWygLDCWncfNfnkx
-	5r4vzg9xGejrq/2zSNmfz4ha0DGk/EJblnngtqPdu0mc24ay1la50knjgSUXrbDHWxypjYOG1ll
-	BWQ==
-X-Received: by 2002:a05:6512:3a8a:b0:5b8:bc5e:b57f with SMTP id 2adb3069b0e04-5bfa1c1fb76mr4379e87.55.1792525826617;
-        Tue, 20 Oct 2026 12:50:26 -0700 (PDT)
-Received: from kompukter-Systems ([83.142.235.16])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa11a8caesm75345e87.5.2026.10.20.12.50.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:50:26 -0700 (PDT)
-From: Andrey Derkach <gabin278@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Kalle Valo <kvalo@qca.qualcomm.com>,
-	Michal Kazior <michal.kazior@tieto.com>,
-	Richard Acayan <mailingradian@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v4] wifi: ath10k: make in-order rx amsdu buffers persistent
-Date: Tue, 20 Oct 2026 22:50:20 +0300
-Message-ID: <20261020195021.1133728-1-gabin278@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020-ath10k-a-msdu-v4-1-670b69d39059@ixit.cz>
-References: <20261020-ath10k-a-msdu-v4-1-670b69d39059@ixit.cz>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=HFsU7Bop
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=WnKiBHjj/zZJZwT63i24hX+x8FOF0JDz2q0Gba8m/uk=; t=1792525931; x=1793735531; 
+	b=HFsU7BoplaQHjXNOGKNPI/WOz4SpjaN1vcj0K7wUbdI6Vvnfits560ErIdPZP+tmr4KGYXAGvYZ
+	lgPem0z+V2QGyWuA54HR3EkgxfPDpzq84UO6mAB7cniLA9PckKOdZ2dMv+QI3ZhX0NLuoHW6eDBrf
+	6Y+xjscljbbB9WW+RFavOzuIpKiyOZYIKn4NPWSUi868hdlFBSK+RRun+qjsOo6lPe4E6aiwYg7vn
+	3NndzHSAsHPLySPXGaAHdwSnmGLSoUrMgd7tdeWm/4ZmovRbmqUrZj5df8X9cL+J+5JpWfQMWVD2z
+	y7Pbo2kgPzW8wWApkJ6JsFblHYJTYwnsBj8g==;
+Date: Tue, 20 Oct 2026 21:51:43 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "Ettore Chimenti" <ettore.chimenti@linaro.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Walmsley"
+ <paul@pwsan.com>, "Aaro Koskinen" <aaro.koskinen@iki.fi>, "Kevin Hilman"
+ <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>, "Tony
+ Lindgren" <tony@atomide.com>, "Russell King" <linux@armlinux.org.uk>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Christopher Obbard"
+ <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
+ <andrew.goodbody@linaro.org>, "Linus Walleij" <linusw@kernel.org>, "Rouven
+ Czerwinski" <rouven.czerwinski@linaro.org>, <linux-omap@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 02/10] dt-bindings: pinctrl: Add devicetree bindings for
+ DM816x SoC Pinctrl
+Message-ID: <20261020215143.7dd0ad5d@kemnade.info>
+In-Reply-To: <DM9L7QLLNMOR.1NHOUWGMQK181@linaro.org>
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+	<20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
+	<ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
+	<DM6CUP7TSOMH.31T789KQ3Q6OB@linaro.org>
+	<46414ff2-1273-4690-9001-4d1f825d8cf6@kernel.org>
+	<DM9L7QLLNMOR.1NHOUWGMQK181@linaro.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,26 +76,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 20:52:07 +0200, David Heidelberg wrote:
-> The WCN3990 firmware may split an A-MSDU across multiple HTT "in-order"
-> indications. Mainline drops these ("failed to extract amsdu: -11",
-> rx_confused, recovery), collapsing throughput under load on affected
-> devices. Stash the MSDUs of an incomplete MPDU in the driver state so
-> it can be completed by the next indication instead of being dropped.
+[...]
+> Sorry, does dm814x.h not look as bindings? I'm a bit confused.
 
-Tested on a Lenovo S5 Pro (SDM636) with a 7.2.3-based tree, on top of
-"wifi: ath10k: trigger hardware recovery upon rx failures", replacing
-the older out-of-tree version of this patch we carried before.
+probably also not the ideal placement in bindings.
 
-During TCP downloads the firmware split an A-MSDU across two in-order
-indications (once in about 39,000 indications so far, counted with
-kprobes on the stash and resume paths). The patch stashed the MSDUs and
-the next indication completed the MPDU, with no warning and no
-recovery. Throughput is the same as with the old version, about
-60 Mbit/s here.
+> FWIW, dm8148-evm.dts is not including the header, dm814x.dtsi is.
+> Following 
+> 
+> Basically PULL_ENA define in omap.h is wrong for DM8168 SoCs. 
+> 
+> For a better solution, you would prefer:
+> - Keep omap.h in dm816x.dtsi
+> - Add a variant like DM816X_PULL_{ENA,DIS} in dm816x.h
+> - Replace defines in dm8168-evm.dts
+> - Add the header in dm8168-evm.dts
+> 
+> or:
+> 
+> - Keep omap.h in dm816x.dtsi
+> - Add a variant like DM816X_PULL_{ENA,DIS} in omap.h
+> - Replace defines in dm8168-evm.dts
+> 
+Hmm, there is dm8168-evm.dts which uses PULL_UP / PULL_ENA
+in nandflash-pins. Do they factor in this inversion? Do you have that board
+by chance? We probably need to take the brush there anyways.
 
-Tested-on: WCN3990 hw1.0 SNOC WLAN.HL.1.0.1.c2-00455-QCAHLSWMTPLZ-1
+If I had my head in some OMAP3/4/5 dts files with non-prefixed
+defines, I would probably not object against any PULL_ENA without
+DM816X_ in front of it if I am not very awake.
 
-Tested-by: Andrey Derkach <gabin278@gmail.com>
+So better do the undef and not use DM816X_ prefixes there.
+Maybe rename that file to dm816x-pinctrl.h. That is a bit
+inconsistent with the other omap files but at least that inconsistency
+can be catched by the compiler.
+Other arm32 platforms have things like e.g. nxp/imx/imx6sll-pinfunc.h
+
+Regards,
+Andreas
