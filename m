@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792458800;
-	b=T7i5BSJ/FW2BN6daK0nvuPx7FDLJLy09EF4SemW6ikj+OIT8pIj7DC3yFnPjYc0vDdhe
-	 FH80CWh36wZ9K3nhdEU5HFU8QFw55jRT3zEFx+38CG6txzr5c90Cwn5WtcHniZTfDVPgr
-	 /5hNO77s1JOht+788vJvy+ddsW7wWwSDBV+MHP8nP7uOnhOV5hbXz2LhGc79FJ5wm5jLT
-	 NHP09VaO8/XVYuY3rZUnI8vH9csVwwXjQ4rj2aKuNNE9y7RaHvTg6d7PVylKF2ICBwXyN
-	 6SIXXKWO4HG23ja5idz4Fns7/ycjcKZrjZj/rS9p24uYaLOFJnxOw3PFh+7KKy3k9oQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792458800;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=t6ngjq1ZN8WrJMvkM7HtEtE3jyfDu2m7PxUENwuCdWE=;
-	b=OjLwcKY5oPebqz2vQpOHXeHX6aN6R+z8UmKz695w1a5QhpLTWl6/lfIuqx37bttersS7
-	 RVyDtMpCquDp5GacrN6Zkqe7BgtehPWjLv8ZID2qpRq5wskyZfE7oYUeHauWzNGv0yQUI
-	 p7KLF9EUu6AzeFTu/ArS97wW5xZRKiEuWTIofA3JEXu+tuW4EMgF3rTOvhwAOKjGuQr5/
-	 +h3qjhoGdKlHa1v8Jd6gcmrR3Mu0gu0T41XD/yi29xr0+Otwfz8acTyMl9y7T8SaFNdr3
-	 Z/lFm+wbnSdurz4orNFeBdntb+b71DQpa0jdbB0Nkum20Oj4h269rI/zlJo/2Ro2YTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M31iY/1i";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792458814;
+	b=KV9kyKygu0vh4ZzTTOXJU5jWaY9l8eEnwaC86mN8BueM9gVnBxlBZfMn4pZsTNa1kh5x
+	 DzeyG0uYYLkNSkvuO58hCFITikTtItIHT5v+Q/K5RzZgkhGwp2mTC88u3U/BPYm+w678x
+	 c1u6A4gMfAo3infsQ5Pf6eX6dE6KlMWB5whGU8rSUzojUbZ7XcngpTojUrODanCSdMaJA
+	 EGRDuiXNKHFb+I8SUGehan294YWVcsA45SfLhI6N5pCes2JzK6K1hYIaHzn3Hau7g2f7h
+	 1h+ICf3XkVDJeKCZ+gr+9Mx1jJvlJXGwFp+32yyDWhPO3JUBz95iOHcHs8HM9c1niDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792458814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vWohrLddgFMPiQASzL2j5mITQ0vuQuNAeviubWyE310=;
+	b=T2qVmyVrqPZRzOSFd8iAR2YFuLsqFWgWSpeWESdxkSfU+sqAq37rE7un4XOiNW1ZPofC
+	 RIKWHg/CCU1pMKz9MJr+JcI8dyC3Q1GdNHQzvlr8bidGPg3NcMwZWSecD1RRNUqwUd9Zn
+	 EX/9+Nk2eJ8fTcUrYpyEjuxZGFwHlOvbtHkImfLysFOS6NxsXSFM63OkbMmVeyiJqJ4L1
+	 ShVQNc4l5u0GCdIYgfiz42QSMX3iqdsFbtxOypku9BhZVnAoA1QzDPemOJeyJlBV4Yr9O
+	 AC+C7/gIasoT0oRvYI1fHnWTn6k6AxHpcRqqHudf09Fo8+RozuunRCiXnGvD6r8NzeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=clyso.com;
+	spf=pass smtp.mailfrom=clyso.com;
+	dkim=pass header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=MPVnEsyY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439C4606A31A;
-	Tue, 20 Oct 2026 01:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B15606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:13:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50B15606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M31iY/1i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936A91F000C4;
-	Tue, 20 Oct 2026 01:13:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792458800;
-	bh=t6ngjq1ZN8WrJMvkM7HtEtE3jyfDu2m7PxUENwuCdWE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M31iY/1iUUCWhERvIVlKExzej6lQZt1u6Pr5AwoSDSkLCV0rbbVsJ/dc7pQBlAIKM
-	 1x+wN4m81mbhRsaZT2cD2AcBSBbMtlVQggRC1uns1rgmINiqMlsj5QZzBSGB8GzkFE
-	 Yt+05GHYWFF35mrrR5v1a5hzODWaFeMGu0toqXiiNy6ojYG7BuNZJCn0JVZsjxPHNh
-	 /kOb+DobiJjf6NqbVt9t0kZY1laKSi/guZSd3MT69J1aSEYqpSfdhtBIFE6FH6gyUz
-	 cn4SxxDjn4B5IwEaRFtEH3Q3TT43ygLa8aKfpS80V/ClkD7us3Sm3WpNF4sVdzHwYy
-	 Gk80pw9YYcgeg==
-Subject: Re: [PATCH] net: ipv4: ipconfig: fix OOB read in DHCP option parsing
-From: netdev-bot+sashiko@kernel.org
-To: liuc63@xiaopeng.com
-Cc: davem@davemloft.net, dsahern@kernel.org, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 01:13:19 +0000
-Message-ID: <179245879909.3135.3119437755149379459@kernel.org>
-In-Reply-To: <20261016041152.2294843-1-liuc63@xiaopeng.com>
-References: <20261016041152.2294843-1-liuc63@xiaopeng.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=MPVnEsyY
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c423b145922so256813066b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:13:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792458811; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YYS31kQ1dUyrIf6UsaRNmRpcpkDW29HRg/XS73/tD2C3BcLf60SlLpnPl329989M6g
+         NyECxmkI4oufKthfasZ/v3JVrKvN8N4VUnrAlZYS55+vmQzi76Ww5lCzEDqNGwh1/K7n
+         KJBTjObiOD5QFujjiGXrWINMwDlRR9mbtnV0MOjURub5zy5hOQapDej+sJ+eql8KTerh
+         Jmax+oeesIPRQ+JhJiDlXICWW7jGfSVRUD/QcPgzxO3drGaHUBybo+Lp8vzn1XJlYRQR
+         Bl1CXp0Kj8QpWv9gLdgArSlH1Oa99gEGyH6GaxghD6ZosPW5tOPRO8+wTxKMh+xPBpCQ
+         YdvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vWohrLddgFMPiQASzL2j5mITQ0vuQuNAeviubWyE310=;
+        fh=N5opy0HW+lEI4FnLWB5mL7mXARcWK1L1LVlJzSHocy8=;
+        b=SRt2TjJsYaWM0LZfkus4NbWS0IPkO7oT4E/vEEN3n2yQcyhAIqk2eXcph3GTjnptH4
+         baWCvGW06yI7hKK30Z0geb58mYCruhhjQzdKLegVGez3K8IlR3Tif+r02BD0PYkLec3P
+         NROEn4yVioIq9cJ8IzSQto6yr60JYeRezD36glcOAgKGEt+6iv3MQ0iMW7kgV9Cflwmf
+         FtnVoo38MNUNC+lEsKpn5Byys/4mhQpsbxXav0qQQoBeHLFkyoZYFuQuhXbRj+wWKjO0
+         SdzJM3e1/ppBudL0nD+zHK3ccc4mvpHqF52vcCTyM6WRcaC9h4tI7uRfEabmML11Dmb0
+         ps5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=clyso.com; s=google; t=1792458811; x=1793063611; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vWohrLddgFMPiQASzL2j5mITQ0vuQuNAeviubWyE310=;
+        b=MPVnEsyY+0yt8UETjEM4y5xC4f0Pr2RaqDBM4rw2SpMfOyvdSTNu/TUNTcGowQrb8u
+         ufz+Cl6YvwM7hxJn5m7om2ACEfpmJSMpUW54U8Sb4YNX3Ssdr4QEvQLrBYp7eNvKEPpp
+         Kuh+ni52jhurssSMvYmMOJdi8ufM2OjAnYVFbDwnwqMXA0WWiMIuPNLCIoXvF5ekKSuP
+         AN2bze9u+lH7OpPIUDz7GjEunvKzgYeiveJSuGzeMFphoJue9mr8XMWwb84CnDvc/KYN
+         pWI5rIpg/U/uYacpfRR0U9pL9cVL0j5S4SunKRy3V+6t9XqaXbuH33j7NOy9T7yKL+Ne
+         6Y3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792458811; x=1793063611;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vWohrLddgFMPiQASzL2j5mITQ0vuQuNAeviubWyE310=;
+        b=Tn7XbjSI3yuT8feQsI+7Z/4uLsCw+xzfL3YT4CjXR59bf1r2Z9JEnNVVJfMwBbiopV
+         9yu4DIZ+ZGDDnSd/+5g4cBHzkIfgccw25YOQQia+UY6EdN0v4YMemZVuu65YcQhTVbdv
+         B84zZC47Sq4CaB9aSHC63Qnxx0CvQyqba51n0PbDXBOm4Ww/iA40ubTbwAJH3lBQ3UlS
+         5RFhHVIYhTm7g/IhT+Rm5NpwD762Ex4jbg0GY7eyXv2HtXDTXFLhkdp9X8ndkeGCp7Gh
+         pjULb+dMe+QIp2gibn2hVrFEmPWdW2QDkTZRhP3FcnwYcWGLTt4tB66rM6z8w/GvB/RY
+         KFTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxz33NgVmS2NjZG1L+05v9pkGsi4bpGmyU/vBd6hCwr7BUadwoPftVkOQ5cwDoeAHxhjplBR6RjOGJrr+8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtt9LTAyxBe1hyr3x1q9Yz1EWqZqrMjmmvjtJCgpqyF/9N89nw
+	U6ZPeuRKwfkV11dkcVqPhTv3PQvWADWdBqbGLuSBhe1390wOEb5ppZjapNyQqWwU2w9e6XYqVLW
+	3zvm7gIyJajOeww5PhNULUxrYaitg0ff09GtSoG9OqMOON5qCVZr6WNLlDA==
+X-Gm-Gg: AYBFou3Ed26Yq6/R2yWvG3QBRHfGA5NgAXv7ahVYsLdX1KXrvoiQ+2eTb7XxgCliv15
+	ZngtlB62Jo0zN4olPr7dR9rzsEO4duayViK2VHwO5t7mdgzFhiw4u4kuDjENabe4z3ziUAGf6kj
+	xJ/dtwbV/gBSBUOp/2OVdBXhMzw8NNX3gutm2Afb96LHRV8EPCbD/nyfBBmq/b1wpqYJe8Y4RqA
+	yeQEyv77joeSZXnj2n+0ZnhT5Uy9lSrq/K2ExS+mVDI7oAdPSDQDVu8xJpEPBoCjpNuTkdrSxLi
+	W3Ahj3phLj/JX76SBba73Pu/SoQTtIVPhWWOo3l0GE2ej8PvjVOP7oQxm/qpFRftyp/s
+X-Received: by 2002:a17:906:1001:10b0:c41:cf68:bbcf with SMTP id
+ a640c23a62f3a-c41cf68f4a9mr393810066b.32.1792458811453; Mon, 19 Oct 2026
+ 18:13:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,223 +102,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <cover.1792248177.33a6e2db0a.git.amarkuze@redhat.com>
+In-Reply-To: <cover.1792248177.33a6e2db0a.git.amarkuze@redhat.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Tue, 20 Oct 2026 03:13:20 +0200
+X-Gm-Features: AclHuK8xRQ60_Sp6jEhfID8fqxoZeEsaAEzn1rhM-0x8VxJDaK0vnKxbNIyNoxo
+Message-ID: <CAOJNxRL5ZV6c-eR8f4XNwV8ehmtV-Mgknou=FqPTGMH7hbFqWw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] ceph: support subvolume quarantine
+To: Alex Markuze <amarkuze@redhat.com>
+Cc: ceph-devel@vger.kernel.org, idryomov@gmail.com, slava@dubeyko.com, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
+On Sat, Oct 17, 2026 at 01:40:12PM +0000, Alex Markuze wrote:
+> CephFS subvolume quarantine isolates a subvolume while allowing access
+> by recovery clients with q/Q MDS auth caps.
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 3
+Hi Alex,
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I tested v3 on a KASAN/lockdep kernel against a vstart cluster with
+MDS quarantine support.  Basic quarantine, held fds, disable/recovery,
+MDS failover, umount while quarantined and fsstress with quarantine
+cycling all behave as expected, with clean dmesg.  The v1 flock leak is
+fixed.  A recovery client with "allow rwq path=<subvol>" works, and a
+read-only "rq" client can read but not write.  I saw no hot-path
+regression on unrelated directories, with or without a quarantine
+active.
 
-- [High] The fix is incomplete.
-- [High] ic_do_bootp_ext() (net/ipv4/ipconfig.c) reads fixed-size
-  payloads whatever the option's declared length: `memcpy(&ic_netmask,…
-- [Medium] The patch also changes the post-advance check in the DHCP loop
-  of ic_bootp_recv() from `if (ext >= end) break;` to `if (ext > end)…
-- [Low] The commit message describes the bug inaccurately.
-- [Low] The patch indents the whole DHCP option loop in ic_bootp_recv()
-  by one extra tab.
-- [Low] The patch presents itself as a fix for an out-of-bounds read
-  triggerable by a rogue DHCP server, but it has no `Fixes:` tag.
+Problems:
 
---
+1) Snapshot access now costs an MDS round trip per operation, even
+   when no subvolume is quarantined.  __ceph_do_getattr() forces
+   snapshot inodes, the snapdir path does a forced getattr on the
+   parent, and __ceph_get_caps() calls ceph_snapshot_read_auth() on
+   every acquisition.  Compared with the base modules:
 
-net: ipv4: ipconfig: fix OOB read in DHCP option parsing
+     1000 x stat() of a file under .snap:    0.20s -> 20.07s,
+                                             0 -> 6000 MDS requests
+     1024 x 4k read() of a snapshot file:     0.51s -> 3.93s,
+                                             8 -> 1041 MDS requests
+     ls -l of a 52-entry snapshot dir:        0.64s -> 3.62s
 
-This patch adds an ext >= end guard to the DHCP-only option loop in
-ic_bootp_recv(). The guard stops the length byte from being read when the
-option code is the last byte of the packet. It also relaxes the
-post-advance check from ext >= end to ext > end and re-indents the loop.
+   Backup workloads that read from .snap will notice.  Can this be
+   limited to clients that actually have quarantined state, or driven
+   by an MDS notification instead of per-operation requests?
 
-> The DHCP option parser in ic_bootp_recv() advances the option
-> pointer by the option length and only checks that the new pointer
-> has not reached the end of the packet.  The length byte and the
-> option payload (opt[1], opt[2]) are then read without verifying
-> that they lie within the buffer, so a malformed reply from a
-> rogue DHCP server can trigger an out-of-bounds read.
+2) Blocking read() and getdents() can fail with EAGAIN.  With one
+   subvolume quarantined, a file outside it at depth 300 gave 24 EAGAIN
+   out of 20000 preads and 16 out of 20000 listdirs, while another task
+   was creating, renaming and listing files on the same mount.  The
+   ancestry walk stops at 256 levels, the result is CEPH_Q_UNKNOWN, and
+   ceph_quarantine_revalidate() returns -EAGAIN when a splice is in
+   progress, the epoch is odd, or after three requests.  Callers pass
+   that straight to userspace.  Disconnected aliases (NFS re-export,
+   open_by_handle_at) should hit the same path.  These calls should
+   wait or retry rather than fail.
 
-[Severity: Low]
-Is this description of the payload reads accurate? In the original loop
-the post-advance check ran before the switch:
+3) Some changes apply to every mount whether or not the MDS supports
+   quarantine: ACL_DONT_CACHE on all inodes, and quarantine_lock plus
+   two atomics on every d_splice_alias()/d_instantiate()/cross-directory
+   d_move().  Please gate them on the feature.
 
-	ext += *ext + 1;
-	if (ext >= end)
-		break;
-	switch (*opt) {
 
-So reaching the switch already meant opt + 2 + opt[1] < end. That covers
-opt[2] for option 53 and opt + 2 .. opt + 5 for option 54.
+For reference, overlapping grants such as "allow rw fsname=a, allow rwq
+fsname=a path=<subvol>" (in either order) deny quarantined access with
+both the kernel client and ceph-fuse, so that one is on the MDS side,
+as the cover letter says.
 
-The only out-of-bounds access was the 1-byte read of *ext when ext == end
-after ext++. Whatever that byte held, ext then went past end and the loop
-broke, so the value was never used.
+Thanks,
+Xiubo
 
-The payload reads that really lack a check are in ic_do_bootp_ext(), which
-this patch does not touch (see below).
-
-> Validate the option length against the remaining bytes before
-> consuming the option, and skip options that do not fit.
-
-The new code uses break, not continue, so it stops parsing rather than
-skipping the option. Could the message describe that?
-
-> Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-
-[Severity: Low]
-The patch is presented as a fix for an out-of-bounds read that a rogue
-DHCP server can trigger, but it has no Fixes: tag. The parser lines it
-changes come from the initial git import. Should it carry this tag?
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-
-> diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
-> index 1b8585404a41d..e2c8bcec615a2 100644
-> --- a/net/ipv4/ipconfig.c
-> +++ b/net/ipv4/ipconfig.c
-> @@ -1083,25 +1083,27 @@ static int __init ic_bootp_recv(struct sk_buff *skb, struct net_device *dev, str
->  			__be32 server_id = NONE;
->  			int mt = 0;
->  
-> -			ext = &b->exten[4];
-> -			while (ext < end && *ext != 0xff) {
-
-[ ... ]
-
-> +				ext = &b->exten[4];
-> +				while (ext < end && *ext != 0xff) {
-
-[Severity: Low]
-This isn't a bug, but the loop is now one tab deeper than the other
-statements in the same block: server_id and mt above it, and the
-pr_debug() and switch (mt) after it.
-
-The functional change is two lines, but the diff rewrites the whole loop.
-That makes the real change and git blame harder to follow. Could the
-original indentation be kept?
-
-> +					u8 *opt = ext++;
-> +					if (*opt == 0)	/* Padding */
-> +						continue;
-> +					if (ext >= end)
-> +						break;
-
-[Severity: High]
-This guard is added only to the DHCP-only loop. The generic option loop
-later in ic_bootp_recv() walks the same buffer and still has the same
-pattern:
-
-net/ipv4/ipconfig.c:ic_bootp_recv() {
-    ...
-	ext = &b->exten[4];
-	while (ext < end && *ext != 0xff) {
-		u8 *opt = ext++;
-		if (*opt == 0)	/* Padding */
-			continue;
-		ext += *ext + 1;
-		if (ext < end)
-			ic_do_bootp_ext(opt);
-	}
-    ...
-}
-
-Say the last byte of the datagram is a non-zero option code other than
-0xff. Then ext++ makes ext == end, so wouldn't the following *ext still
-read *end, the same access this patch removes from the DHCP loop?
-
-The break here only ends the first scan and does not reject the packet.
-The same malformed suffix therefore reaches the second loop. That loop
-also runs for plain ip=bootp replies when IC_USE_DHCP is not set.
-
-The earlier pskb_may_pull(skb, skb->len) means the byte is still inside
-the skb head allocation. The practical effect is the same as for the loop
-being fixed.
-
-The commit message says the change ensures "all reads stay within the
-received packet". Should the second loop get the same guard?
-
-> +					ext += *ext + 1;
-> +					if (ext > end)
-> +						break;
-
-[Severity: Medium]
-This comparison changed from ext >= end to ext > end, and the commit
-message does not mention it.
-
-Take an option that ends exactly at the end of the datagram, with no 0xff
-terminator. Before, it was ignored: a trailing message type option left
-mt == 0 and the reply was dropped as "Urque". Now it is parsed, and mt or
-server_id are taken from it.
-
-The commit message says the patch "keeps the existing parsing logic
-intact". Is this change intended?
-
-The generic loop below still uses the strict rule:
-
-		ext += *ext + 1;
-		if (ext < end)
-			ic_do_bootp_ext(opt);
-
-So the two parsers of one option list now disagree about whether the
-final option is valid. Could the change be called out in the message, or
-could the two loops be made consistent?
-
-> +					switch (*opt) {
-> +					case 53:	/* Message type */
-> +						if (opt[1])
-> +							mt = opt[2];
-> +						break;
-> +					case 54:	/* Server ID (IP address) */
-> +						if (opt[1] >= 4)
-> +							memcpy(&server_id, opt + 2, 4);
-> +						break;
-
-[Severity: High]
-Option 54 checks opt[1] >= 4 before its 4-byte copy. The handlers in
-ic_do_bootp_ext(), which the generic loop calls, copy fixed sizes without
-checking the option length:
-
-net/ipv4/ipconfig.c:ic_do_bootp_ext() {
-    ...
-	case 1:		/* Subnet mask */
-		if (ic_netmask == NONE)
-			memcpy(&ic_netmask, ext+1, 4);
-		break;
-	case 3:		/* Default gateway */
-		if (ic_gateway == NONE)
-			memcpy(&ic_gateway, ext+1, 4);
-		break;
-    ...
-	case 26:	/* Interface MTU */
-		memcpy(&mtu, ext+1, sizeof(mtu));
-    ...
-}
-
-The caller only checks opt + 2 + opt[1] < end. Consider a subnet mask
-option of length 0 ("01 00") whose length byte is at end - 2, followed by
-one more byte. The check passes and memcpy reads end - 1 .. end + 2. Can
-this copy three bytes from past the received datagram into ic_netmask?
-
-Option 3 does the same with ic_gateway. Option 26 reads one byte past end
-into ic_dev_mtu.
-
-Those values are then applied to the interface and printed to the
-console. Even inside the packet, a short option makes the handler read
-bytes that belong to the next option.
-
-This patch is meant to close out-of-bounds reads in DHCP option parsing
-from a rogue server. Should cases 1, 3 and 26 check the option length the
-way option 54 does?
-
-> +					}
->  				}
-> -			}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016041152.2294843-1-liuc63%40xiaopeng.com
+On Sat, 17 Oct 2026 at 16:48, Alex Markuze <amarkuze@redhat.com> wrote:
+>
+> CephFS subvolume quarantine isolates a subvolume while allowing access
+> by recovery clients with q/Q MDS auth caps. The kernel client currently
+> does not advertise quarantine support, so the MDS can hold its requests
+> until quarantine is lifted.
+>
+> This series handles MClientCaps v14 quarantine notifications, checks
+> cached data and metadata access, and handles disable notifications.
+> Fresh MDS replies allow recovery after a lost disable. It applies directly
+> to the base below and has no fscrypt prerequisite.
+>
+> The first patch exports d_find_alias_rcu() to GPL modules. The remaining
+> three patches add the wire definitions, record quarantine state and
+> ancestry generations, then install the access checks before advertising
+> the session feature.
+>
+> Changes since v2:
+> - Add the VFS export prerequisite to fix the undefined d_find_alias_rcu
+>   symbol reported by the kernel test robot with CONFIG_CEPH_FS=m.
+>   The fix carries Reported-by and Closes tags.
+> - Keep all three Ceph patches unchanged from v2.
+> - Replace object-only compile validation with a complete W=1 kernel and
+>   module build using GCC 14.2.0 and the robot's x86_64-rhel-9.4 config.
+>
+> Validation:
+> A complete W=1 build with the kernel.org GCC 14.2.0 toolchain and the
+> robot's x86_64-rhel-9.4 config after olddefconfig passes. It produces
+> vmlinux, bzImage and all 2,233 configured modules, including ceph.ko and
+> libceph.ko. MODPOST succeeds, and Module.symvers contains the GPL export
+> of d_find_alias_rcu. Configuration changes are limited to olddefconfig's
+> toolchain capability normalization; there are no manual config changes.
+> W=1 warnings remain elsewhere in the kernel; none come from Ceph or
+> dcache.c.
+> All four patches pass strict checkpatch and apply in order to reproduce
+> the tested source tree. Seven deterministic source-extraction regression
+> runners pass; the ASan/UBSan/LSan VFS runner also demonstrates the remaining
+> cached encrypted-readlink bypass.
+>
+> Known limitation: cached encrypted symlink targets can bypass quarantine
+> checks. fscrypt populates inode->i_link, which the VFS can use for readlink
+> or symlink traversal without calling Ceph's get_link operation. Uncached
+> encrypted targets and plaintext symlinks still pass through Ceph's checks.
+> Closing the encrypted-target cache gap needs the separate fscrypt support
+> and Ceph opt-in follow-up.
+>
+> Live cluster, KASAN/lockdep, multi-MDS recovery and depth benchmarks have
+> not been run for this version. Existing snapshot mappings need server
+> notifications to revoke already installed PTEs. Disable messages carry
+> no generation, so same-rank ordering relies on ordered MDS delivery.
+> Recovery assumes the intended rwq/rwQ delegation; overlapping ordinary
+> rw and read-only q/Q grants still need server-side cap filtering.
+>
+> v2: https://lore.kernel.org/r/cover.1792074165.git.amarkuze@redhat.com
+> Robot report:
+> https://lore.kernel.org/oe-kbuild-all/202610171220.i77KPiw5-lkp@intel.com/
+>
+> Alex Markuze (4):
+>   dcache: export d_find_alias_rcu() for modular filesystems
+>   ceph: add subvolume quarantine wire definitions
+>   ceph: record subvolume quarantine from MDS cap updates
+>   ceph: fail quarantined subvolume access with EACCES
+>
+>  fs/ceph/acl.c                |  28 +-
+>  fs/ceph/addr.c               |  72 ++-
+>  fs/ceph/caps.c               | 291 +++++++++++-
+>  fs/ceph/debugfs.c            |   1 +
+>  fs/ceph/dir.c                |  51 ++-
+>  fs/ceph/file.c               | 117 +++--
+>  fs/ceph/inode.c              | 841 ++++++++++++++++++++++++++++++++++-
+>  fs/ceph/ioctl.c              |  13 +
+>  fs/ceph/mds_client.c         |  23 +-
+>  fs/ceph/mds_client.h         |  26 +-
+>  fs/ceph/super.c              |   2 +
+>  fs/ceph/super.h              |  80 +++-
+>  fs/ceph/xattr.c              |  54 ++-
+>  fs/dcache.c                  |   1 +
+>  include/linux/ceph/ceph_fs.h |  13 +
+>  net/ceph/ceph_common.c       |   2 +
+>  16 files changed, 1482 insertions(+), 133 deletions(-)
+>
+>
+> base-commit: ed0502cb11f84fff29f374238e526ae94d9bdfde
+> --
+> 2.34.1
+>
