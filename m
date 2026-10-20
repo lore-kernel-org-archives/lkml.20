@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487257;
-	b=JTPWAuA+W2WaZo1UmgELlcD2bgDu5sBts1hPslsyFdp5HYL6anWG0SiexGGa+kL5OCzM
-	 Igf9iY4JGIKpuzigK/Idjf7/6goD7VyjNhRPkk7zHBr0GcMzCqU+SJKpqnk6EqtOPJOgR
-	 3X+nJyIgBCgWNlIvIN+hFLBE5p5QbsqqKV7sOvSA4VXVRrbMu0rV7vlAbkBSX1iA/2JHk
-	 bzOViKvMuOMitYb3Fa2BQBNalo0JhmR5TSswcol04+cEXQ8jJVlIcB5fwOcISvN9jtLG5
-	 F6RkMPzb0xsaHx0hSS9jGYXD2xq5pSCUXVM3NtkBYyn8aZr2HGSRp+0NSNpMEuHrLnA==
+	t=1792487299;
+	b=Qj2p2SxoYqEBizjjun5sXWyIp56JYkrfpv2yY20ryuO40tj1rEEbQBihAVV77vyYYfNx
+	 dDul3Cpryb2NzdB07EwiGDk1MUSjP/k1sLROz+0svsCEQDkv0qg1WgcDXLPu2uNV7ODLO
+	 iQTfKcJg8NA+wcvGUQhIx5QLyn/QXjvtLLjPDI0Cb9Ksmk5WiCfXXMDx13b2o7dX+nr64
+	 L4Jb2t4azW+PpjnhWO50tKWUUGah0A0bCKoXXUsC9Np1VXLgC/uGrawxIXm892x/6Rszq
+	 B9yVD/dTYlCQxIJOcizEM/X0wh5lJlYnPYn82SvRYWKTh7RqzKRJP1nRpZiRfuZFH3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487257;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4bn3cWdwZrpBaWzYJtec/Ntiw0Eowff++j505Mm5iEg=;
-	b=FlOu+wLSU7kah1G6jr3FOPPLMRawfPNmcF2C/NND5GprI5DP01uQXp5EsRC/wahaSOAO
-	 k6D2+NosQnIMkadiQ6ahaW8Oumygoy+Rn16ud5eRvWZXiO5kFmLM+b0l7Inpz4d9d3i+x
-	 Dx3Z0Xz0pGtKP2FavBhe93aqwo99duFMElHKCzrXdf1VYpeAp/VvUA4sroMSzHggYeNWM
-	 5GkgAPL8c5Rf7h2aKJ6MeQNhtL8mf9xuSp8MNiKks9jXYOPWS/XJeL5C5InboyEcEjmCj
-	 ffnwLuF/xPFwPoC6vFWXQjTP8Rv5K+lUVFe42XPaNiYVOk2H3nbF+njYz3beWE4zi/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487299;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=c/mxp7V/VRtv8rYf6QERZex7DqIj3GY/QslfqdH8fgI=;
+	b=RHWy8+zJZTdIxKuqIAsi2MkVztgMR6WDngF47YoskpGHLb8iWULZvpV7DVo+QVZwRI4k
+	 G9ADuBYgLp9QO/fdLVtkfbhPse4lhegt/znrGuf5VmIQIK6EVrxtqVIpDh20NKD1WnKD8
+	 oTgBz/0YMSfvJSqMmlFN7Sh/t9YghyFnKARK+XHO1X3gqlmeqn3/gp1TtIPE+lfq+GRJ/
+	 ZtrHMHYy1kEXdGFWmdlToGnRCNRyu7R6HPe7MlIY7N3yBtgb9bYemw/aeJjWdAskG22cO
+	 5j0OQSx2eMEVh1C9eQ4vwT8ZTd6Mxw6DscF6zUaUcgkng0nIsghtheubHpmapCx+QAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JEWtc8B5;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkvlZ4w9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83990606A319;
-	Tue, 20 Oct 2026 09:07:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83990606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9311C606A319;
+	Tue, 20 Oct 2026 09:08:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JEWtc8B5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792487254;
-	bh=oRGsM1bXUyoQFClOurpdXPfqoj3kEqrQ7E5LuNfjomU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JEWtc8B5ei7AdnCgumD9wkGPxVmZIML9X0/Yp+0gePGNvkKYFhQ6trIgjFIuJmcmw
-	 +juMBVqWVYgBwBNztcO+GKU0qVKV5/YR8lmSZ8sKcjBG4hoaXh/X7/GJ2HFXvwiXHn
-	 GQl7ZKuGv6Ni3JlB1R3rHGeOA6WlV+nKUZVE5vE5DN+bCw7T8Ir1IURKlvcvq8CMty
-	 1ODove3DUBjKOYLnRfNmRSmyBOxkrVCRuEJz2gBQIqtS38KjLiyrA4GsXEUmbq2x2P
-	 mbTUdVmwVjtuOuaWphb36gnoQ8njOl7BO7TmpxKu1CLiBZ5p2pj+Z0GzLlr9lq7p4j
-	 sOM/TsMdMYt1A==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1320317E05F3;
-	Tue, 20 Oct 2026 11:07:34 +0200 (CEST)
-Message-ID: <afc3ec2a-90b5-440d-9710-2b3892b01b6c@collabora.com>
-Date: Tue, 20 Oct 2026 11:07:33 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkvlZ4w9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE23C1F000C4;
+	Tue, 20 Oct 2026 09:08:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792487299;
+	bh=c/mxp7V/VRtv8rYf6QERZex7DqIj3GY/QslfqdH8fgI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NkvlZ4w9Qs/YlaotQaMOoWnxzeoVuX2QRg7kBJD16ppFseUZzmRzmS0mBmZZNLVND
+	 IRd7iUqOluzTHKuMVpOCl5pW0z+vindc8ypoUWFUQlO495bB1kUK5xJFNkyJPdhPq/
+	 /J/2MC52FnlNKCWj5TtWFImSVE9J/gnXa5NPigcXwKZTNwPub8mDxgmRvR2YzLcyWZ
+	 YPJqL34NShBfOAJ4Ugy0YJY+rqrWl+G6jWdsULhfVXh9iIF3lJVc3AmxDTAUaDJrJJ
+	 L2TbJwyCOtWEK9vo+i/kmHVn1gPxklzLck6EpcUOHvxkt8WVi17aR50PaoiKHrmLW4
+	 vNRWpnwbyG5pQ==
+Date: Tue, 20 Oct 2026 11:08:14 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Xincheng Ji <jixincheng@ultrarisc.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Jia Wang <wangjia@ultrarisc.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: dwc: Skip MEM outbound iATU setup for identity
+ mappings
+Message-ID: <atcvfrhVGNIbN6d2@ryzen>
+References: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,41 +64,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PARTIAL-RESEND v12 0/5] Add support MT6316/6363/MT6373
- PMICs regulators and MFD
-To: Alexandre Mergnat <amergnat@baylibre.com>
-Cc: linux-mediatek@lists.infradead.org, lee@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- lgirdwood@gmail.com, broonie@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, wenst@chromium.org
-References: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
- <179239867012.642420.15110854236483587234.b4-review@b4>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <179239867012.642420.15110854236483587234.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
 
-On 10/19/26 10:31, Alexandre Mergnat wrote:
-> Hi Angelo,
+On Tue, Oct 20, 2026 at 10:37:35AM +0800, Xincheng Ji wrote:
+> No outbound iATU translation is required when the parent-bus address
+> matches the PCI address. This is a DesignWare controller property, not
+> an UltraRISC-specific behavior.
 > 
-> I'm working on mainline support for the MT6363 MFD PMIC.
+> Compare the addresses directly and skip MEM outbound iATU setup when
+> they match. Remove bypass_ob_mem_iatu and the UltraRISC-specific setting.
+> CFG and I/O accesses, as well as non-identity-mapped MEM ranges, still
+> use outbound iATU windows.
 > 
-> Are you planning to send a new revision addressing the review feedback
-> on v12? If you don't have time to pick it up again, I'd be happy to
-> help address the remaining comments and prepare a new revision,
-> if that works for you.
-> 
-> Thanks for your work on this!
-> 
-> Cheers,
-> Alexandre
-> 
+> Fixes: 17b478b29cf1 ("PCI: dwc: Allow drivers to skip MEM outbound iATU setup")
+> Fixes: 8da2b970ed4c ("PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000")
+> Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
 
-Yes, I do have a new version locally which didn't get sent because of the SPMI
-series (introducing the new helpers) that didn't get picked yet.
+Looks good to me:
 
-Cheers,
-Angelo
+Reviewed-by: Niklas Cassel <cassel@kernel.org>
