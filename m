@@ -1,84 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482179;
-	b=JoJ+sBQuqRGeOM293X2+nEDCHn2gAvS2OVPn0qtXwYRIx3nfRD3r+pZq9RhtAL0DHAfl
-	 gcja529a82Bfai9XKg1a8cV6GucbCP/FV0yhUyB9t/fDOzvAtXPZONbKlGTkcKazXRxLr
-	 02w5ohej6g9W8TFeR9xPf9guGjty8cCsRdmN2dZ0escdVd/Rf0yebPdP6QKKI0sH27lx9
-	 hmDRgPyoBmWeQJFuvQXagn3Blr+U/o+ueXQmaP+3vA1vhL2/OUFceujED7IdQ4rVRZVdd
-	 pXUr3nkE0jKfQHEBiOvMcytUYT05QBaosl+5No8/SI9fRWjrachKvw9Udaqk+nAk+Gw==
+	t=1792482199;
+	b=2JhXmu0f2SCCytFq7Q2ZqOwZ9x4I5KYetW2neP+PmbJQHePbLpmUoeQ1Lb7wim9KMnn+
+	 FQU4ztYWviPFDINRNotdvfefQbgcXSzkoq86srW1Db983+U24AtBvckq3VZKXiwUDnQ8A
+	 Vka/eaPkdsf4XT1ze+Nph92Bj50/oIRiY9/HwKq04iDmLtajgukerH9V6mrQUKgfdNitk
+	 X7thQKMctcxGOBEdsNBpsdC13kCUIO1tOBVwlGURtx1by/bk+xA7u+Dzye7OovzBnEPo7
+	 KDjU8usAuKe2Vycupa5zZyFFQzC5f+X7NPB+T5R/e/mCQqO5XmeCLe5OIc5Vm0S+DNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482179;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=2loKeWf0wDURyAKswKxWApMnzZPMVFyCNh7CCsDHP4o=;
-	b=sSiF8f48gwvW0xGIj1lnLjp+J6FkqDXcLgvUbwBK/IVikAM10YM2I5A69bGmsEt6NtIL
-	 16OsDR73Ee/SHoeatI9njyRb9boIBrVWl2BiWaXyl+xwsZEt1W1I7yK3FzSY756NrCSL3
-	 mq1alY715MR1TCKqmbKZDQb/uK1p7D8HLk2Q/aitCX3KRsg+xKF6lyTvLyLufhKaHcVpM
-	 JUED+J4UDDISgWTIQyLtBl/jxcRZLR+0q3uMoFjPiVNOBni2NZlXJIqqp/kEdX/QFY+Sx
-	 EoRQrLYSwY0OJVzeeuyLkQ0zcWLkucnd5/RN2MhqaOadXYP+++FUf5FiL3tLDLkyduw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482199;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lMJm3X8wFtXe66OPPwiKiE4WIXPVW/SEHFXXFjYPF+k=;
+	b=bRKlCYgBflCzPWyEY3f4z0pqPVUk2jF99ErqGXIBjp6x+oiVwWdBjJ+7UrieIjYAWOmE
+	 H1raszRAg+X3X/vLKcgifqHf3X03QteNcyra5aURoS7Ht8VjnIX+9/dnqqf3wgqa/roHx
+	 Wkv7kOwPVZTO3ZbSF7x+XUVmyc/nfzeXHapeukDXCjx0I1DgzS8QwLnFx/A/F6sUWkScU
+	 4jU7u/Kaypjc4yt4Bjvsc0RKH37Y5Id7NCSM+QChPCouSroap1tYdzhuGBprFGgAq6NXQ
+	 +XZfRpdQ0IQqho7l9mnVp8aI92/u//M+DJQWTSM3zNkKtkfvHOBJf2R3XsoYR2uHOeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gd1noZ4c;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lJOGm6c9;
+	arc=none smtp.remote-ip=91.218.175.1
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4CA606A31C;
-	Tue, 20 Oct 2026 07:42:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C4CA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271CF606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 271CF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gd1noZ4c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792482178; x=1824018178;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=K65iELR37QU4nmOZbVW9Tg5Arj94zE4ccQ7nXnzwQIU=;
-  b=gd1noZ4ceyS0FILXUQRNhL41uknl5j3jgN7Fpn6f28qN4jOwQbQP4M63
-   Utv/rSiaruquTxzlWnGYs4KTPPK76FK0SDYrgHby83+tTe0Rl+VWrNR8C
-   t42cw+IQFFeDlqkju57Hi1vBDMUgfSL9e3qDXP800PsWfqCpwH4TKNhQI
-   GmEU6xDojaeac9n1TebqK4GvHutFSYpF/8yMQcuX9fdQVXhhG5KhZU5J8
-   BFEHDXhtHf9IJYitsdmRf/bdNlGO9UJty7JiEGBLngpUN5Ed0XCtVdj/Q
-   Jw7kJm6qyWrSa2XbQ3MxJlpHqwYj7xF5gJ8HNGa/5q8kA/3FX0zoVOt6+
-   Q==;
-X-CSE-ConnectionGUID: Ht8RsxZ5RZ2A3UA12x23lA==
-X-CSE-MsgGUID: Fk7gG03QRfSRQdrO4rzMpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1190684"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1190684"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 00:42:57 -0700
-X-CSE-ConnectionGUID: LcfO/NaOSCONLBn7dXEsDg==
-X-CSE-MsgGUID: Mdj11aqLQCeGejcD6JjKAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2699737"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 00:42:53 -0700
-Date: Tue, 20 Oct 2026 10:42:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>,
-	vidhu.linux@gmail.com, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-Message-ID: <atcbe2O6REJqok2n@ashevche-desk.local>
-References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
- <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
- <20261020092316.00003339@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lJOGm6c9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LiHaq6+uFROwaYPn/aBBgjxC+LLOn4WfwOUQ+ggb2Q8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792482196; v=1; x=1793086996;
+ b=lJOGm6c9NKRvqL24Oe2LB1rtqNthJSHxeU7cl4a/TQyH+bueoxpFbnSY6TSOY25hxV9313Mz
+ Zym8/a4rnMn7/0Wt6F8DvHkEhVO8EZnN4tJlth/bCFQUAIc2OMyeLiDLnsyI5Uhmxl5psuUXZGq
+ OIQUMXM0SM6e5aEbwzHS27Cc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1d3d4c1ab1469a46;
+	Tue, 20 Oct 2026 07:43:15 +0000
+X-Mizu-Trace-ID: 1d3d4c1ab1469a46
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: Ensure TLBs and I-cache are private to each vCPU in pKVM
+Date: Tue, 20 Oct 2026 08:43:11 +0100
+Message-ID: <20261020074311.1873316-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,77 +75,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020092316.00003339@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 09:23:16AM +0200, Joshua Crofts wrote:
-> On Tue, 20 Oct 2026 00:03:43 +0530
-> Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org> wrote:
+All vCPUs of a VM share its VMID, so KVM flushes a physical CPU's TLBs
+and I-cache for the VM whenever a different vCPU of that VM is loaded
+there. pKVM guests, protected or not, run on the hypervisor's stage-2
+and VMID, and the host doesn't flush for them. Nothing at EL2 flushes
+instead, so a vCPU can hit TLB and I-cache entries that another vCPU of
+the same VM left on that CPU.
 
-...
+Track at EL2 the last vCPU of each VM loaded on each CPU, and flush
+when it changes. EL2 can't allocate per-CPU memory for each VM, as the
+host does, so use one per-CPU array indexed by the VM's table entry.
+Reset the entry's slot on every CPU when a VM reserves it, so that a new
+VM starts with no last vCPU, whether the entry is unused or was left by
+a VM that was torn down.
 
-> > When the signal strength is too low the sensor reports a dummy distance
-> > of 0, so such readings, as well as overexposed ones, return -ENODATA
-> > instead of a distance.
-> > 
-> > The datasheet is available at:
-> > https://en.benewake.com/uploadfiles/2025/04/20250430174501874.pdf
+Fixes: fce886a602073 ("KVM: arm64: Plumb the pKVM MMU in KVM")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+Changes since v1 [1]:
+  - Dropped patch 1, which added a CPU number at EL2. The last vCPU is
+    now tracked in a per-CPU array indexed by VM table entry. (Marc)
+  - Moved the check from __pkvm_vcpu_load() to pkvm_load_hyp_vcpu().
+  - The array is unsigned int, initialised to UINT_MAX. (Vincent)
+  - Dropped Joey's Reviewed-by, since the patch changed.
 
-Make it Datasheet tag.
+Based on kvmarm/next (dd0bc00e3e920).
 
-> > Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
+[1] https://lore.kernel.org/all/20261014125510.2928306-1-fuad.tabba@linux.dev/
 
-...
+ arch/arm64/kvm/hyp/nvhe/pkvm.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-> > +/* A measurement takes 10-20 ms in trigger mode */
-> > +#define TF_LUNA_POLL_US			(2 * USEC_PER_MSEC)
-> > +#define TF_LUNA_TIMEOUT_US		(100 * USEC_PER_MSEC)
-> 
-> uS is better instead of US.
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index ac020d0501d2e..1fc59229c8e86 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -38,6 +38,9 @@ unsigned int kvm_host_sve_max_vl;
+  */
+ static DEFINE_PER_CPU(struct pkvm_hyp_vcpu *, loaded_hyp_vcpu);
+ 
++/* Per VM table entry, the vcpu_idx of the last vCPU of that VM loaded on this CPU. */
++static DEFINE_PER_CPU(unsigned int, last_vcpu_ran[KVM_MAX_PVMS]);
++
+ static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
+ {
+ 	vcpu->arch.hcr_el2 = HCR_GUEST_FLAGS;
+@@ -261,6 +264,7 @@ struct pkvm_hyp_vcpu *pkvm_load_hyp_vcpu(pkvm_handle_t handle,
+ {
+ 	struct pkvm_hyp_vcpu *hyp_vcpu = NULL;
+ 	struct pkvm_hyp_vm *hyp_vm;
++	unsigned int *last_ran;
+ 
+ 	/* Cannot load a new vcpu without putting the old one first. */
+ 	if (__this_cpu_read(loaded_hyp_vcpu))
+@@ -290,8 +294,18 @@ struct pkvm_hyp_vcpu *pkvm_load_hyp_vcpu(pkvm_handle_t handle,
+ unlock:
+ 	hyp_spin_unlock(&vm_table_lock);
+ 
+-	if (hyp_vcpu)
+-		__this_cpu_write(loaded_hyp_vcpu, hyp_vcpu);
++	if (!hyp_vcpu)
++		return NULL;
++
++	__this_cpu_write(loaded_hyp_vcpu, hyp_vcpu);
++
++	/* TLBs and I-cache are private to each vCPU, see vcpu_prepare_mmu(). */
++	last_ran = this_cpu_ptr(&last_vcpu_ran[vm_handle_to_idx(handle)]);
++	if (*last_ran != vcpu_idx) {
++		__kvm_flush_cpu_context(hyp_vcpu->vcpu.arch.hw_mmu);
++		*last_ran = vcpu_idx;
++	}
++
+ 	return hyp_vcpu;
+ }
+ 
+@@ -652,6 +666,7 @@ static int find_free_vm_table_entry(void)
+  */
+ static int allocate_vm_table_entry(void)
+ {
++	unsigned int cpu;
+ 	int idx;
+ 
+ 	hyp_assert_lock_held(&vm_table_lock);
+@@ -670,6 +685,9 @@ static int allocate_vm_table_entry(void)
+ 
+ 	vm_table[idx] = RESERVED_ENTRY;
+ 
++	for (cpu = 0; cpu < hyp_nr_cpus; cpu++)
++		per_cpu(last_vcpu_ran[idx], cpu) = UINT_MAX;
++
+ 	return idx;
+ }
+ 
 
-Currently _US is established suffix, unfortunately. But I have no strong
-opinion here, I'm full to support _uS, but OTOH the _US will be consistent.
-
-...
-
-> > +static const struct regmap_config tf_luna_regmap_config = {
-> > +	.reg_bits = 8,
-> > +	.val_bits = 8,
-> > +	.max_register = TF_LUNA_REG_SIGNATURE + 3,
-
-No cache?
-
-> > +};
-
-...
-
-> > +static int tf_luna_measure(struct tf_luna_data *data, int *dist)
-> > +{
-> > +	__le16 buf[2];	/* distance in cm, signal strength */
-> > +	u16 old_tick, tick, amp;
-> > +	int ret, err;
-> > +
-> > +	guard(mutex)(&data->lock);
-> > +
-> > +	ret = tf_luna_read_tick(data, &old_tick);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_write(data->regmap, TF_LUNA_REG_TRIG_ONE_SHOT,
-> > +			   TF_LUNA_TRIG_ONE_SHOT);
-
-> Why not have a local variable for regmap? It would allow the previous call
-> to fit on one line.
-
-Almost, but I agree.
-
-	ret = regmap_write(map, TF_LUNA_REG_TRIG_ONE_SHOT, TF_LUNA_TRIG_ONE_SHOT);
-
+base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
