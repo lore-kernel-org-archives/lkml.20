@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513041;
-	b=KI+cx2xeTlVfyynRxJsdoxuZ7BDqH5BPT386mQQrS67zl2djMOdMuDKnV43g/Kk2Q9Ir
-	 dKzbjLaW54gkCYuQA8gjCpyp5KTXHZHkWzLv4KagMh/SS+ZDQtkXNwDYQEG/OfCnJQFFj
-	 BlMpsOy2gpfwtW5LMXbiACdfGzjKiNcXvkNjZrVvPNLsmE/6x80mXJr7AGolHRCDZMP7V
-	 CfEacSd/dj4zSYhF/xTkAdPYXTOvfoQEZtq5jMBl8U6MEAR0oKhxZruwP2E1R6wMg9LyH
-	 frFEdGbLDjPFnonGGKLHsww1JgesEOu0NdsF5EXg2zPNzK+uaLTFqCSJbQpsyUGV4NQ==
+	t=1792513089;
+	b=xxmZsLpn5L7doQGg2YXQQfZbKYmuybpdF7uzJzDpjNAk6LDFsSNtjmyV0DmYAW2R0vAU
+	 CnK8Ml5tWS84ergRO+c+6WoNBLpL3+Gv+aNOzvTRsjZfTJ68NwDvqxKvRDL82NBUNMpOr
+	 UYsMq7Dx6fnmsreGG/D9mAN3FjlcOJXf35sH2KI308vX212KWW7+J5bfjmkL2+4r0aM26
+	 HYOC1o5GMgU7vJI9HcSdrTjekT7klCyekGI4Ueg01aV+MHpUmdXPbzJiggXPBUHIklClM
+	 962JfxhPrpZsNlfKwjW3K9Icsv2j5otgQ6/f51e+JbdVyao0scN1Oi9rKMT5WXLxlRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513041;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=q513xcmGnfa7lzAgcns8bUOb8TYkCTu/EB99iJIdxSw=;
-	b=tcLqrmEj8WfpJFA5HMMILrDoSjpwzIn0BSvqaDcQrJt/RrlPJxkeryyZyMUibFTo/o0/
-	 XMA+6iZ9vdnrP0vEWSK8LZeUL6a+C8mFhsaCOXT1F0LHLYss4x13tAw/bCdf+Jjf7pS7k
-	 86NnQOjRY8GHwZeJAl6QT6cD6UXPHhdyQ0grnRGR8ikQWiGu2YNNgPaifzna9l1mTn7DL
-	 GnfsUEavHWm4XG3bZ//tlmSXcmm0jvdd8DsVZtV6GBq1d0s+YlElql/6ZK/1uLHsWRCp6
-	 LmP983n4AR3du0ZKZMot9jLaKRBkYqx/w3XqIsgsCS9d7Xcbn1Gip5Dy8WVQqON9BFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513089;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=OMrtDF52DVRyWBqun1o7kHIgFlwbKINzimUy1ynikQM=;
+	b=V+YHSwiyJtfMIlEkqjs7JSQiQxtGlo/KmEC1A5aRgJoM+9g2hXC60tqe620HiHxbotFl
+	 q3/ISR9WMBGvWYeuK4Z3Os4y/94CXpinUF0FDBHcnUvs/zHqxD9A/mv+CpJwwm1tsWnwV
+	 Iq+uLZiltLE/9bh3DUUy00ZflJwTV5KtubKGXhPSO0F36KtbugUzOL7od1AY7zlq6kTSY
+	 BYtSxHj6Me+AUMs+RjjNeapMcH0Xv8z8Yt11cO46BAxg2wUeVR3XCyjHQiaWLfeoQn5Td
+	 EjR3lAMMX/wPZKss6QN0Dqj5OCmXoDt0JpdlR6ajrKFtbYyogULO6ALEQNkMwJ/t2nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idHEdUZn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nxTIAn+g;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BD160A2604;
-	Tue, 20 Oct 2026 16:17:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0091606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:18:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0091606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idHEdUZn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400A41F000CB;
-	Tue, 20 Oct 2026 16:17:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792513041;
-	bh=q513xcmGnfa7lzAgcns8bUOb8TYkCTu/EB99iJIdxSw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=idHEdUZn/loUh9YcUYk9WjkUfWAXZT7W3hM+AgG1EbElm420biZtILpGFqXmOyES9
-	 K4kTmz622krGwz0ubFgmqUmWgF6X2vrkvBKU+BWsxYtyeEGrl2CfesmHnD+Phe0lGy
-	 aiyw+dInB22pZFB+geBarT0LuT2u9zl7tGzzWw8d/eAxEpfq9xYKF0StnFVTYO2Kc1
-	 cNKq898LcYtOXUN5YaJUqydrQuCIsoQKhU9T33tx1JKDglhiatUrO+caxq+XIJud3V
-	 QRd1kQHjxKcI3l3fhLWungs2226quu9JVQXZVOtke4E50LFli35Lu0skIpHnVgG6rh
-	 dNUGUQgCBOWNQ==
-From: Sasha Levin <sashal@kernel.org>
-To: workflows@vger.kernel.org,
-	ksummit@lists.linux.dev
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Julia Lawall <julia.lawall@inria.fr>,
-	SJ Park <sj@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH v4 5/5] agents: add a skill to write commit messages
-Date: Tue, 20 Oct 2026 12:16:42 -0400
-Message-ID: <20261020161642.3713052-6-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nxTIAn+g
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfbf48b92so353203f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:18:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792513087; x=1793117887; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OMrtDF52DVRyWBqun1o7kHIgFlwbKINzimUy1ynikQM=;
+        b=nxTIAn+gWEoCRxfSv4s3r/OCACan5178AnO16p/ibUPFBZGxCPyfr6mEcKqGRLp9a4
+         w86sMhY382eNKC/quXCGxaH8GFMCo2XU5LLQwRmcqm4etxHmOtXvuEumfHRx6KrHpGYc
+         k+9+53z39tGg6DXNGvue1cYLv6CLOigMy8YPcPARBxVq+x3T00i3lmLxiGXuaIqvx9TM
+         V2wXNmftQdg+fyXIDP5LI4logy/JI1xm4bxnw1aJirSNf69eSYnmZUjvmYzHyIVjjhTm
+         7BCx1jdLdbwNoSsOlcRuMJN+ykw0i9ZVJTba1YXiMmkyzrMnu14nBkzIg26cwkQi/bVZ
+         AwlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792513087; x=1793117887;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OMrtDF52DVRyWBqun1o7kHIgFlwbKINzimUy1ynikQM=;
+        b=tgAblY4cbcanJO9pJayNq8cT0phFta9aVQC1qC1u2J3Ah/kmPpXZlrQs/o3l9L/6ES
+         GedrV3UPD+gqn8shap5Ni+3itn2NttyU7UKpPzmNwASFRraZ2FjnvR9TAuuYV1nxSwEg
+         dBanN252/dGPHD4bTCzU3bNrUemuXmOy2pHHjVhQhoG50HtSYNmrimzMvq94NB/e9k1z
+         pzFriQQy/pry9aixOV3FRNooR8wsozFxAl8YAeYNHgnRqQ0bTZC4P/9fkYKmVJsZkl5V
+         RMChz1sMDQxI7Y/c0riS8mydOeT+91mwfeCbEwu5XA5vz0fGcIWD5BuKQH/rbcWys0vt
+         IZ3A==
+X-Gm-Message-State: AFq9FYI2DPG2chrOAj0GES8aWXfd6ZT3OW5M/eIrjl9imW6wJk4D3l48
+	4tEFMTKCeTWRb7qUIHfYO2PHka7wiOkc8bgpuZG+hw2iWnRWhDrDJS+t
+X-Gm-Gg: AYBFou3J3X5jUFe8I4YNZJYHk4DxlTTdEy9/M07y4qu3BVjnQVyiS0b5cWyKrqV+i/X
+	RGZuvEl73Bsr/9rWH/h5lO+ni25HR2yCuquIX653UaiPtYA8e7rQQTbbqAL2Ar3AAJxP8SEbK/O
+	9v+/0DaQ+YXs6vNqiiJ+LM46x+cWYniUuUq3T2i1dvMTp8mh8W+SnSQON/vPwivUUFgLkp/Bp3v
+	4sM1D7qwmz4J48GbMGJaUjvjLhMhTT7gRcxxwgGJxa7lotf//FSshDef33jsOBxn+p1urjMzvlK
+	xSA+ku9FwCt941xpq7Y6fKy/9TEo+xwzNjFuugR3usFsxlYDeJkoWJTyizDA2nSPO36S2Q1gk9+
+	ZJgHPzX4P9dI1oN9gXrjoqpmjehky5/AvEWtZmbwNrMmrQ82GY5JEpPBtlgfOCXoZ0MGqfvHwDy
+	4mRhBZhRvDOBgk9CVuF+ZnlepIs8v78+Vg++EXIQQab9kRdGTJf0OJYbpgPuoJlRiFzrbHq47ep
+	HOJd5ZuZOYsWN9w2Bi0
+X-Received: by 2002:a05:6000:29c9:b0:48d:f14a:9186 with SMTP id ffacd0b85a97d-48e07fba5d1mr14723152f8f.6.1792513087209;
+        Tue, 20 Oct 2026 09:18:07 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818c59sm7604082f8f.30.2026.10.20.09.18.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:18:06 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+	Kayra Cizmeci <kayracizmeci@gmail.com>
+Subject: [PATCH] sched/cache: Ignore non-fair current in alb_break_llc()
+Date: Tue, 20 Oct 2026 19:17:55 +0300
+Message-ID: <20261020161755.55690-1-kayracizmeci@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020161642.3713052-1-sashal@kernel.org>
-References: <20261020161642.3713052-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,114 +105,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Assistants are asked to commit a fix with a detailed message, and the
-find-fixes and stable-tag skills leave their tags for that message, but
-nothing says how to write it. Messages written by assistants tend to be
-long, and Linus recently asked that pull request text written with an
-LLM be less verbose and prefer the imperative voice.
+Commit d6b9afab44e23 ("sched/cache: Fix
+checking active load balance by only considering the CFS task")
 
-Add a skill that sends the agent to the parts of submitting-patches.rst,
-5.Posting.rst and the maintainer documentation that cover commit
-messages, cover letters and pull requests, and to the P: profiles of the
-changed files. It adds what agents get wrong: stating only what the
-change and the supplied sources support, keeping the text short and in
-the imperative mood, and adding no tags that were not supplied.
+Stopped using task_util() for non-fair tasks. Since the values
+of non-fair tasks can be stale.
 
-When a semantic patch found the bug, the message includes it, or its path
-when it is under scripts/coccinelle/, so that reviewers and the
-Coccinelle developers can see it and run it again.
+__active_load_balance_cpu_stop() calls detach_one_task(), that only looks
+to cfs_tasks list. So if the rq->curr is not fair, doing a decision
+according to it is wrong, since we only migrate tasks that is fair.
 
-Point the bug-fix procedure in coding-assistants.rst at the skill.
+Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
+cache-aware balancing") uses cur without checking if the cur is in fair
+class or not. Fix this.
 
-Link: https://lore.kernel.org/r/CAHk-=wgXU50=KgZNZc1JDxsSxg9Z+DjG1_2yU-fNXpZtUe4XDw@mail.gmail.com
-Link: https://lore.kernel.org/r/50531bd9-f3ea-2d45-7b3a-a96a446a8fcc@inria.fr
-Assisted-by: LLM
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-aware balancing")
+Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
 ---
- Documentation/process/coding-assistants.rst | 10 +++--
- agents/skills/commit-message/SKILL.md       | 45 +++++++++++++++++++++
- 2 files changed, 51 insertions(+), 4 deletions(-)
- create mode 100644 agents/skills/commit-message/SKILL.md
+ kernel/sched/fair.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index a89a33980c41f..9cae53cc5d8b9 100644
---- a/Documentation/process/coding-assistants.rst
-+++ b/Documentation/process/coding-assistants.rst
-@@ -41,6 +41,8 @@ The following skills are available:
-   returns its stable tag, or checks an existing one.
- * agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
-   tree.
-+* agents/skills/commit-message/SKILL.md writes, rewrites or reviews a commit
-+  message or cover letter, and writes the text of a pull request.
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0feec172fd37..6347ae4cb419 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -11016,7 +11016,9 @@ alb_break_llc(struct lb_env *env)
+ 			return true;
  
- Licensing and Legal Requirements
- ================================
-@@ -105,10 +107,10 @@ these steps:
-    another one. The fix must not add build warnings and must pass the
-    checkpatch.pl checks (see submitting-patches.rst). Then look for the same
-    bug elsewhere with the find-siblings skill.
--6. Commit the working fix with a detailed message describing the problem, the
--   solution, a Fixes tag determined with the find-fixes skill, and a stable tag
--   if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
--   add an Assisted-by tag, as described above.
-+6. Commit the working fix with a message written with the commit-message skill,
-+   describing the problem, the solution, a Fixes tag determined with the
-+   find-fixes skill, and a stable tag if the stable-tag skill calls for one. Do
-+   not add a Signed-off-by tag, and add an Assisted-by tag, as described above.
- 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
-    Documentation/process/security-bugs.rst shows how to do that.
- 8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/agents/skills/commit-message/SKILL.md b/agents/skills/commit-message/SKILL.md
-new file mode 100644
-index 0000000000000..c75f028c56da9
---- /dev/null
-+++ b/agents/skills/commit-message/SKILL.md
-@@ -0,0 +1,45 @@
-+---
-+# SPDX-License-Identifier: GPL-2.0-only
-+name: commit-message
-+description: >-
-+  Write, rewrite or review the commit message for a Linux kernel change or
-+  the cover letter for a patch series, and write the signed tag and pull
-+  request text for a subsystem pull. Use when committing or preparing
-+  patches, when asked to improve or check a commit message, or when
-+  preparing a pull request for an upstream maintainer.
-+---
-+
-+# Write a commit message
-+
-+Read "Describe your changes", the sections on tags, "The canonical patch
-+format" and "Commentary" in Documentation/process/submitting-patches.rst, and
-+Documentation/process/5.Posting.rst for cover letters. Follow the maintainer
-+profiles, the `P:` entries in MAINTAINERS, for the changed files; they take
-+precedence. Follow the rules for skills and for attribution in
-+Documentation/process/coding-assistants.rst, and
-+Documentation/process/generated-content.rst when a tool found the problem.
-+When editing someone else's message, also follow
-+Documentation/maintainer/modifying-patches.rst.
-+
-+- State only what the diff and the sources you were given support, such as a
-+  bug report, a crash log, test results, or the list discussion found with
-+  `lei q` on lore.kernel.org. If the reason for the change is not known,
-+  return no message and say what is missing.
-+- Take the Fixes and stable tags from the find-fixes and stable-tag skills.
-+  Add other tags only when they were supplied or given on the list. Never add
-+  a Signed-off-by.
-+- If a semantic patch found the bug, include it in the message between
-+  `// <smpl>` and `// </smpl>` lines. For one under scripts/coccinelle/, give
-+  its path instead.
-+- Use the imperative mood and keep the message as short as its content
-+  allows. Leave out markdown, labels such as "Root cause:", intensifiers, a
-+  restatement of the subject, and the story of the investigation.
-+- Check the result with `scripts/checkpatch.pl --no-signoff`.
-+
-+For the signed tag and email of a pull request, follow
-+Documentation/maintainer/pull-requests.rst,
-+Documentation/maintainer/rebasing-and-merging.rst and
-+Documentation/maintainer/messy-diffstat.rst. Summarize what the pull contains
-+and why from the commit messages in the range, in the same voice, without
-+repeating the shortlog. Ask the caller for conflict resolutions and testing
-+that the history does not show.
+ 		cur = rcu_dereference_all(env->src_rq->curr);
+-		if (cur && cur->sched_class == &fair_sched_class)
++		if (cur && cur->sched_class != &fair_sched_class)
++			cur = NULL;
++		if (cur)
+ 			util = task_util(cur);
+ 
+ 		if (task_misfits_asym_cpu(env, cur) ||
 -- 
 2.53.0
 
