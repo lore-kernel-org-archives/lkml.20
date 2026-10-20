@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792469648;
-	b=gDnDOYnBKlZf5DifIbtGq8eAOyWyKULr/EqqmtzSL4CjD42jdyn9WxhhChD+p6woMw+7
-	 mX+BoRBlvRhuiz0fsYDKCnNQGj0HCSCspq6UlghyTQpeam92lUoGUMGLH/csitC29+cpw
-	 jJcFoHLOKJiZF6kc9yuPBiXbQMdJDMoLnqDUXNHqh+DissBthFPARxXt4rXdJIAwdHgoX
-	 0HOPlgHsTxvJB30rEnzSERPXJaVvlW/avyqWmNXNWu6joZITD6m2WWlecRdGOwXseE/dl
-	 WVM0VXHZWdXJZK06pWX9wLb6FlTEELsFHsjOr0m3fq4AjWyeZdXcMZQEDsROjvTUI7g==
+	t=1792469653;
+	b=CBjidw4JDc8ZLE05yYe3p4V29jzXFCfu3/cQX/G/i0C0MpnJHQ/WpdcTe7qixqxwOoGd
+	 t0DQn1LNWoOnqMGbSWSj4G6EspEl36V1byXFg0zRRZqFFmtYp4PG4azlsWf1PAjxG7HEi
+	 ygU1g3luwzHFFY03TdgCetM3r9NfwRqjhP4T9PozxNyB4vfxM7l25GLmuTCd5C6IBhtlf
+	 mGLYwyaixJwkw783Uq+zJnIywUeOBWoMVxe0No0l3UP0VNjOS0Bpk4QzuDbJD6sfBZQDs
+	 SoJNpEAguIiy2sa0HljpuzpuCNDZLTXs9uOXetTEn47mli1/1ZqOFmNAIvJXH7xQJJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792469648;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792469653;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o68p/6aoo8jLJxqjN+WPuuOUaI2Z1MpIHdwtTNRzrUA=;
-	b=jPS9zL8tGsW6j7VrknDWxDswoRFvL4PfRqiS43YyoIkc53m30ZOTZeyGsD3oD0PF4dAh
-	 48Jcrhlp6L+2kx/APDTXu7M6CCuTyuZGstgD5tRlLHHO+YzEWhArBK/0CCSAOZTHo3Bv4
-	 EnIoFzbPkFDezbcz4VbiH/O3e5Ro30UIsOCUvmM0r0lIcyE/XqCjE1b6SbUQ7gu4L03cX
-	 zbeqz9Bwowi5Motl2Ew1GbPwM2FX9EsnZsgFyEVJehhfyc4Eu8qheHIxVnZu3YEQdFs/W
-	 DjTN/vMuQsQIIyIF30ALM6S4WOZ3dySKoU4Q8BQnKI4FUqgVg1QQ0gexdrN0TS/7hWw==
+	bh=6qxPO83MwstX+FjXhsjKFpIDrm4MWUPHITZsYJi7m8s=;
+	b=HOs03gVKAWIv9J44P1HXgcFiN1CqpxcprGrMqnjjT4yXkMDexdMb+lCszWmO7xwpVVV6
+	 K0Vkx3GDYM4DaeXRAB3jOLxGRoqZn1bIA49XbZm33+G+GclwCr/+F8YngG30Lx9Jq1sdm
+	 O0Pr/ScOtmuKwqospfsfy2TKqhWDYilcjPhfXtCu6h8StTHO3gIcqCIGMvr1cyrmO4gk9
+	 yfEAmXrCzEDmMKfTdFFpjXYaZc1fjtTzVDtwhGa0BnWpzMeZgM2pbBljmiaWBk+w32Ct3
+	 80vCthCSzVLVN1Jb8sTJSVUZyypp2KbHUZjubBAtmgbMidVrMNBwuKDHBU5UjyKZO4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=noVuHcmG;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BGk+haZa;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D16606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99D16606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293E4606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:14:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 293E4606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=noVuHcmG
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so3464202c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:14:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BGk+haZa
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35ef6b49813so5280792eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:14:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792469647; x=1793074447; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792469652; x=1793074452; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=o68p/6aoo8jLJxqjN+WPuuOUaI2Z1MpIHdwtTNRzrUA=;
-        b=noVuHcmGayq+gNnF/+rkK7AoiGdkh5PIwlX5YO34+DjEBDCnwK+vS4/vkA/t3FPaMV
-         9mfQE8PFf1XFeS3xOsIKuAlhGrpYAbGW1bW5O+sKx3GcP8YSq1kFi+uMpGAJcPPx2/Cx
-         +U63cBtYwm72rX868LBxzBVBDnroXTcieaSPX2y5hGGuQNnjxeK2KnaNXvdN/XI72w3u
-         qFVCxGwlzS8ql0lK0uWS5/ZSNNP10TSXE8eh3mYWrOqG+IeKOdrteSO+C+kDGNDAcL4u
-         bNTwYsz+xng2wTUgf4tD62rzcyJuXlzGn5WuB3J7cpSDoszLIVVq0GtkzbBvM3c2l1hy
-         P1pw==
+        bh=6qxPO83MwstX+FjXhsjKFpIDrm4MWUPHITZsYJi7m8s=;
+        b=BGk+haZaY97myaC6uSU11n3qvvvCFMYV7WE98KKkqAgHtAM65XQu6vtcxT9c3skJ1r
+         aY/xgD/0i5VHtWUwwApJugGCo6UUASRqfP4Ze+peGxXkz6Vn5aPmiS4pSuYpTMRewAb3
+         2VB7sHp429EvIhhsRdx2IUNZlBHswtCFiPkYQViExxIfGVXhAk5ND4pz/be4hTMdmHzZ
+         sGlS/earsMHpOKIL0P2LGpE+c9PdeUHudjJL/vnA5VQzVL1flHxID4Lnr+MA7kOuf+BC
+         MfqYpvaRzQ4/yWnMo92+leDXJnrB6Uh2+OAzM74En/dEzLYQc+KB5WxhNE1h4S8fLKep
+         o9ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792469647; x=1793074447;
+        d=1e100.net; s=20260707; t=1792469652; x=1793074452;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=o68p/6aoo8jLJxqjN+WPuuOUaI2Z1MpIHdwtTNRzrUA=;
-        b=o6gZNT1umKHY+mzKcdK/Rxfe1rHvTeZs6icAtVJz5rElhVJxPARnwLguSH5aZiUr9z
-         KK2lwRzsjH2kQXBbDDOixbi4cfmMUimuhh/uCCjRs9vVKnopOSNruw1GtqEcueqYuw/0
-         0InMNCb2YVky/mfgZJY0JMtw76sqpdozukQ6KvMLhJeB0Xz9ym82qKwZXG3ramE2nkHh
-         hvdoEKHzbzjG2RDMEDDBTR8EZ6cwMbmKBfhc0BxVLcF3NdihSpm5nkqUamTRns2l/xf3
-         Pc9cSEdtK84SUMZCeJEkxAgHf7w8GBwaMNHurM9MoTDr+roNeZsihfi22s6KANKvfDfs
-         cGlA==
-X-Forwarded-Encrypted: i=1; AKwUvByOQQ7zBLa7QEj6bMqtmoEkdzyTWtX+r7BCJGIMTqShuI5fbw/OdPedfEJdTDSLh6/50hiXv5QaENTK1Yc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtjilYLGauNki3cP4hZ7YZfywrYjU1YquiGsS0+dQSbFnQ335x
-	U1mhed1wywHYmQpS9tIokizIYOViCWwZTYDLhorzP8p9YewQz+l+JHyA
-X-Gm-Gg: AYBFou2RtROrnLIPZ+ouMI4onZsw2H9p2O87SvLuqY1CeunlNXu/BX31cO5cVWSrRJe
-	sh4IxNaA5Jttj8ZPMUGoqcMz/hsISJ7NFhUYa68CqjqkJCMdLA07TvbIQAKwX5fcolX36VrmXpQ
-	FQWMOzwFyxNoQYGyMc2yl4+Q3n2/yIbZvteIA7PpwsKI0PMG12h5ZqFPWWg5Cg0n/IDKJZXSH4z
-	83AtQCEGlJ8Zn2NRmJhL8au1MSmwkvKZRmJxwO9kSP07ZbLKp6g4THziv5ExB8526vNXdn+jpQo
-	Vw/n0gPRg53iZ9mirM9++umXkszYkegII5oSpeXWnuvix2Bi8diVf511LfWI4sn6rx5Ccntx9V2
-	A2shVRBbLEpGYEBoQxPNtuIUOJc27eajuomqf9Hl618x0LQUid3Y5ofsHLkNvBRbtJucH/uW0pt
-	iKptKeYghOmNL7rQvabCy7pwDzr+XFrlzkzbxoHcRSttrEXrugCqM3Wyw71/rV5eKgyIHs2nCN+
-	2sLj3iyaN5aXw==
-X-Received: by 2002:a05:7300:7a9e:b0:361:1dd6:531b with SMTP id 5a478bee46e88-361a2052bebmr12351871eec.26.1792469646588;
-        Mon, 19 Oct 2026 21:14:06 -0700 (PDT)
+        bh=6qxPO83MwstX+FjXhsjKFpIDrm4MWUPHITZsYJi7m8s=;
+        b=Lvai8uqUuQfWHugCfQsTI+UjsBjxGTFl7sByrwf8rsr4fpTecNL1SeAf7mzplkzdTF
+         adQoUMvB2W7DFoEpn2lq0a/dvExK3GJoSjSLKdAk/yWJx8SJau/0VZPDngEyH0qhnkrS
+         erlSZLoRV2M4LUxpk+LaLRQWKsDTNXrAFZAgSwTj2zeasWL54Owl0wi4V72fvraoTI4A
+         YQGimOuD7eL5MqQvnxXqUvtbIIo1Jhjycw2JxtQmToLTCEE0RHo9HkTrTVbiQ5XWjnGY
+         fAJb3+/8Jw5Um+cgjJmEKH/G5EvvdFTU3GMbd1TabGyaJFLjXaTUtvF76PDAKTfd2LZJ
+         CT9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByZroQCidN5qpLVGU14PejdRP3/qN9MLCGImrgGuDKPep3B5Ul5LRul444xvtoxDjKrnh9cZfl6LmADt1s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzsIQ/0OJ1xMxaXnUBHmMh4mpHkaWGeM2H3Z/mL6thQbBjIsOc
+	Tz26KPUP1G9rAcooxAgnqs6EYrrhb7cZvJ1zVT24k9W0iHFuwLKyogGx
+X-Gm-Gg: AYBFou1d7vYr2yWi294TmAkkW+ClQrvyrQrSL76TGPuxcpgSLxWneqzkCI5gGdYxREk
+	XoUwXuVq/d7JtEaF5BZvwzFsNkmqPAmXTV/rYhV9Pr+qe24gUpck8g6om6qPvYNvXOviOzxRK2F
+	J32FzBv3i/463qIQ/svwiLKVgipdNgZzhvrjUbK+5OT5tRpHDrL20wPYwMWrxR0GmO/nAYkMLzb
+	8F1G/daKfg+y63YjmLhYnI7mJNB8dVdTbMs9gTjpmGvDxhhxUBNM+/eKmKb71YCJnZ7bRi+2LwL
+	UVxmWhYIB6O+pqvVUqeMJ0+AF2G4R4EFBdVyAyooL5RM2Yl4cry5qIuxv+6eXhvqC6mq9bA55/Z
+	pY7eEvsBlr5jf4vg28dMGO09Id4VCk5mFS65+bi9i+A7+mcO0sfG1qvDOsG4S4kZ8QgH5K5Youw
+	KpwekWuWcM0cQZAec68nYNQFUuVjocQVG8DX09eQsdqGBc0qMXpAi9znLDnYfh5DWSyd+3jc0+X
+	ZQ=
+X-Received: by 2002:a05:7301:430c:b0:358:8f02:e0ca with SMTP id 5a478bee46e88-361a1668b25mr13231785eec.9.1792469652048;
+        Mon, 19 Oct 2026 21:14:12 -0700 (PDT)
 Received: from fedora ([2804:29b8:508d:af45:a398:9dc5:b37c:dfa8])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360826875b3sm38861428eec.21.2026.10.19.21.14.04
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360826875b3sm38861428eec.21.2026.10.19.21.14.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 21:14:06 -0700 (PDT)
+        Mon, 19 Oct 2026 21:14:11 -0700 (PDT)
 From: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
 To: danielmaraboo@gmail.com,
 	corbet@lwn.net
@@ -86,9 +86,9 @@ Cc: skhan@linuxfoundation.org,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lucas Adryell Ramalho <lucasadramalho@gmail.com>
-Subject: [PATCH v2 2/3] docs: translations: pt_BR: process: Translate researcher-guidelines.rst
-Date: Tue, 20 Oct 2026 01:13:37 -0300
-Message-ID: <20261020041340.447727-3-lucasadramalho@gmail.com>
+Subject: [PATCH v2 3/3] docs: translations: pt_BR: Translate stable-kernel-rules.rst
+Date: Tue, 20 Oct 2026 01:13:38 -0300
+Message-ID: <20261020041340.447727-4-lucasadramalho@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261020041340.447727-1-lucasadramalho@gmail.com>
 References: <cover.1791933697.git.lucasadramalho@gmail.com>
@@ -105,222 +105,291 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Translate researcher-guidelines.rst into Brazilian Portuguese
-and add it to the process documentation index.
+Translate the stable kernel rules documentation into Brazilian Portuguese.
 
 Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
 ---
  .../translations/pt_BR/process/index.rst      |   1 +
- .../pt_BR/process/researcher-guidelines.rst   | 188 ++++++++++++++++++
- 2 files changed, 189 insertions(+)
- create mode 100644 Documentation/translations/pt_BR/process/researcher-guidelines.rst
+ .../pt_BR/process/stable-kernel-rules.rst     | 258 ++++++++++++++++++
+ 2 files changed, 259 insertions(+)
+ create mode 100644 Documentation/translations/pt_BR/process/stable-kernel-rules.rst
 
 diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
-index d072f7e46..31704e28d 100644
+index 31704e28d..29f6c7735 100644
 --- a/Documentation/translations/pt_BR/process/index.rst
 +++ b/Documentation/translations/pt_BR/process/index.rst
-@@ -64,6 +64,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
+@@ -63,6 +63,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
+    Declaração de Aplicação do Kernel Linux <kernel-enforcement-statement>
     Declaração sobre Drivers do Kernel <kernel-driver-statement>
     A interface de drivers do kernel Linux <stable-api-nonsense>
++   Tudo o que você sempre quis saber sobre as versões estáveis do Linux <stable-kernel-rules>
     Estilo de gerenciamento do kernel Linux <management-style>
-+   Diretrizes para pesquisadores <researcher-guidelines>
+    Diretrizes para pesquisadores <researcher-guidelines>
     Assistentes de código <coding-assistants>
-    O manual da árvore tip <maintainer-tip>
-    Conclave (Continuidade do projeto) <conclave>
-diff --git a/Documentation/translations/pt_BR/process/researcher-guidelines.rst b/Documentation/translations/pt_BR/process/researcher-guidelines.rst
+diff --git a/Documentation/translations/pt_BR/process/stable-kernel-rules.rst b/Documentation/translations/pt_BR/process/stable-kernel-rules.rst
 new file mode 100644
-index 000000000..8209b0e17
+index 000000000..201c87150
 --- /dev/null
-+++ b/Documentation/translations/pt_BR/process/researcher-guidelines.rst
-@@ -0,0 +1,188 @@
++++ b/Documentation/translations/pt_BR/process/stable-kernel-rules.rst
+@@ -0,0 +1,258 @@
 +.. SPDX-License-Identifier: GPL-2.0
 +
-+.. _pt_BR_researcher-guidelines:
++.. _pt_BR_stable_kernel_rules:
 +
-+Diretrizes para pesquisadores
-++++++++++++++++++++++++++++++
++Tudo o que você sempre quis saber sobre as versões estáveis do Linux
++====================================================================
 +
-+A comunidade do kernel do Linux acolhe com satisfação pesquisas
-+transparentes sobre o kernel do Linux, as atividades envolvidas em seu
-+desenvolvimento e quaisquer outros subprodutos de seu desenvolvimento. O
-+Linux se beneficia enormemente desse tipo de pesquisa, e a maioria dos
-+aspectos do Linux é impulsionada por pesquisas, de uma forma ou de outra.
++Regras sobre quais tipos de correções são aceitos na árvore "-stable" e
++quais não são:
 +
-+A comunidade agradece imensamente se os pesquisadores puderem compartilhar
-+descobertas preliminares antes de tornar seus resultados públicos,
-+especialmente se tal pesquisa envolver segurança. O envolvimento antecipado
-+da comunidade ajuda a melhorar tanto a qualidade da pesquisa quanto a
-+capacidade do Linux de se beneficiar de seus resultados. De qualquer forma,
-+recomenda-se compartilhar com a comunidade cópias de acesso aberto das
-+pesquisas publicadas.
++- A correção, ou uma equivalente, já deve existir na linha principal do
++  Linux (upstream).
++- Deve estar obviamente correta e ter sido testada.
++- Não pode ter mais de 100 linhas, incluindo o contexto.
++- Deve seguir as regras de
++  :ref:`Documentation/translations/pt_BR/process/submitting-patches.rst
++  <pt_BR_submittingpatches>`.
++- Deve corrigir um erro real que afete as pessoas ou apenas adicionar um ID
++  de dispositivo. Em mais detalhes, o primeiro caso inclui:
 +
-+Este documento tem como objetivo esclarecer o que a comunidade do kernel
-+Linux considera práticas aceitáveis e inaceitáveis na condução desse tipo
-+de pesquisa. No mínimo, tais pesquisas e atividades relacionadas devem
-+seguir os princípios fundamentais da ética em pesquisa. Para obter mais
-+informações sobre ética em pesquisa em geral, ética em tecnologia e
-+pesquisa sobre comunidades de desenvolvedores em particular, consulte:
++  - Corrigir um problema como um oops, travamento, corrupção de dados,
++    problema real de segurança, peculiaridade de hardware, erro de
++    compilação (exceto itens CONFIG_BROKEN) ou algum problema do tipo "isso
++    não é nada bom".
++  - Problemas graves relatados por usuários de um kernel de distribuição
++    também podem ser considerados se as correções resolverem um problema
++    notável de desempenho ou interatividade. Como essas correções não são
++    tão óbvias e apresentam maior risco de causar uma regressão sutil, elas
++    só devem ser enviadas pelo mantenedor do kernel da distribuição e
++    devem incluir um complemento com um link para uma entrada no Bugzilla,
++    se houver, e informações adicionais sobre o impacto percebido pelo
++    usuário.
++  - Não são aceitos problemas do tipo "isto pode ser um problema...", como
++    uma "condição de corrida teórica", a menos que também seja fornecida
++    uma explicação de como o erro pode ser explorado.
++  - Não são aceitas correções "triviais" sem benefício para os usuários
++    (alterações ortográficas, limpeza de espaços em branco etc.).
 +
-+* `História da Ética em Pesquisa
-+  <https://www.unlv.edu/research/ORI-HSR/history-ethics>`_
-+* `Ética do IEEE <https://www.ieee.org/about/ethics/index.html>`_
-+* `Opiniões de desenvolvedores e pesquisadores sobre a ética de
-+  experimentos em projetos de código aberto
-+  <https://arxiv.org/pdf/2112.13217.pdf>`_
 +
-+A comunidade do kernel Linux espera que todos os que interagem com o
-+projeto estejam participando de boa-fé para tornar o Linux melhor.
-+Pesquisas sobre qualquer material disponível publicamente (incluindo, mas
-+não se limitando ao código-fonte) produzido pela comunidade do kernel Linux
-+são bem-vindas, embora pesquisas envolvendo desenvolvedores exijam
-+consentimento explícito dos participantes.
++Procedimento para enviar correções à árvore -stable
++----------------------------------------------------
 +
-+Pesquisas passivas baseadas inteiramente em fontes publicamente
-+disponíveis, incluindo postagens em listas de discussão públicas e commits
-+em repositórios públicos, são claramente permitidas. No entanto, como em
-+qualquer pesquisa, os princípios éticos padrão devem ser seguidos.
++.. note::
 +
-+A pesquisa ativa sobre o comportamento dos desenvolvedores, no entanto,
-+deve ser realizada com o consentimento explícito e a plena divulgação aos
-+desenvolvedores individuais envolvidos. Não é permitido interagir com os
-+desenvolvedores ou realizar experimentos com eles sem o consentimento; isso
-+também faz parte da ética padrão da pesquisa.
++   Correções de segurança não devem ser tratadas exclusivamente pelo
++   processo de revisão -stable; devem seguir os procedimentos em
++   :ref:`Documentation/translations/pt_BR/process/security-bugs.rst
++   <pt_BR_securitybugs>`.
 +
-+Questionários
-+=============
++Há três opções para enviar uma alteração às árvores -stable:
 +
-+A pesquisa geralmente assume a forma de questionários enviados a
-+mantenedores ou colaboradores.  Como regra geral, porém, a comunidade do
-+kernel obtém pouco valor desses questionários.  O processo de
-+desenvolvimento do kernel funciona porque cada desenvolvedor se beneficia
-+de sua participação, mesmo trabalhando com outras pessoas que têm objetivos
-+diferentes. Responder a um questionário, porém, é uma exigência unilateral
-+imposta a desenvolvedores ocupados, sem nenhum benefício correspondente
-+para eles próprios ou para a comunidade do kernel como um todo. Por esse
-+motivo, esse método de pesquisa não é recomendado.
++1. Adicionar uma "stable tag" à descrição de uma correção que será enviada
++   para inclusão na linha principal.
++2. Pedir à equipe stable que inclua uma correção já integrada à linha
++   principal.
++3. Enviar à equipe stable uma correção equivalente a uma alteração já
++   integrada à linha principal.
 +
-+Os membros da comunidade do kernel já recebem e-mails em excesso e
-+provavelmente perceberão os pedidos de pesquisa como apenas mais uma
-+exigência sobre seu tempo.  O envio desses pedidos priva a comunidade do
-+valioso tempo dos colaboradores e é improvável que gere uma resposta
-+estatisticamente útil.
++As seções abaixo descrevem cada opção em mais detalhes.
 +
-+Como alternativa, os pesquisadores devem considerar participar de eventos
-+de desenvolvedores, organizar sessões nas quais o projeto de pesquisa e
-+seus benefícios para os participantes possam ser explicados e interagir
-+diretamente com a comunidade no local.  As informações recebidas serão
-+muito mais ricas do que as obtidas por meio de uma pesquisa por e-mail, e a
-+comunidade também se beneficiará da oportunidade de aprender com suas
-+percepções.
++A :ref:`pt_BR_option_1` é **fortemente** preferida; é a opção mais fácil e
++mais comum.
++A :ref:`pt_BR_option_2` destina-se principalmente a alterações para as
++quais o backport não foi considerado no momento do envio.
++A :ref:`pt_BR_option_3` é uma alternativa às opções anteriores quando uma
++correção integrada à linha principal precisa de ajustes para ser aplicada
++a séries mais antigas (por exemplo, devido a alterações na API).
 +
-+Patches
-+=======
++Ao usar a opção 2 ou 3, você pode pedir que sua alteração seja incluída em
++séries stable específicas. Nesse caso, certifique-se de que a correção ou
++uma equivalente seja aplicável, tenha sido enviada ou já esteja presente em
++todas as árvores stable mais novas que ainda recebem suporte. Isso evita
++regressões que os usuários poderiam encontrar ao atualizar. Por exemplo,
++uma correção integrada para 5.19-rc1 poderia ser portada para
++5.10.y, mas não para 5.15.y.
 +
-+Para ajudar a esclarecer: enviar patches aos desenvolvedores *é* interagir
-+com eles, mas eles já consentiram em receber *contribuições de boa-fé*.
-+Esse consentimento não se estende ao envio de patches intencionalmente
-+defeituosos ou vulneráveis, nem ao fornecimento de informações enganosas
-+durante as discussões. Essas interações podem prejudicar os desenvolvedores
-+ao consumir tempo, esforço e motivação, além de prejudicar o projeto ao
-+minar a confiança de toda a comunidade de desenvolvedores no colaborador (e
-+na organização do colaborador como um todo), prejudicando os esforços para
-+fornecer feedback construtivo aos colaboradores e colocando os usuários
-+finais em risco de falhas de software.
++.. _pt_BR_option_1:
 +
-+A participação de pesquisadores no desenvolvimento do próprio Linux, assim
-+como a de qualquer pessoa, é bem-vinda e incentivada. A pesquisa no código
-+do Linux é uma prática comum, especialmente quando se trata de desenvolver
-+ou executar ferramentas de análise que produzam resultados que possam ser
-+utilizados na prática.
++Opção 1
++*******
 +
-+Ao interagir com a comunidade de desenvolvedores, enviar um patch tem sido,
-+tradicionalmente, a melhor maneira de causar impacto. O Linux já possui
-+muitos bugs conhecidos — o que é muito mais útil é dispor de correções
-+revisadas e verificadas. Antes de contribuir, leia atentamente a
-+documentação apropriada:
++Para que uma correção enviada para inclusão na linha principal seja
++selecionada automaticamente depois pelas árvores stable, adicione esta
++etiqueta à seção de assinaturas (sign-off)::
 +
-+* Documentation/process/development-process.rst
-+* Documentation/process/submitting-patches.rst
-+* Documentation/admin-guide/reporting-issues.rst
-+* Documentation/process/security-bugs.rst
++  Cc: stable@vger.kernel.org
 +
-+Em seguida, envie um patch (incluindo uma mensagem de commit com todos os
-+detalhes listados abaixo) e responda aos comentários dos outros
-+desenvolvedores.
++Use ``Cc: stable@kernel.org`` em vez disso ao corrigir vulnerabilidades
++ainda não divulgadas: isso reduz a chance de expor acidentalmente a
++correção ao público por meio do 'git send-email', pois as mensagens
++enviadas a esse endereço não são entregues.
 +
-+Ao enviar patches resultantes de pesquisas, as mensagens de commit devem
-+conter, no mínimo, os seguintes detalhes, para que os desenvolvedores
-+tenham o contexto adequado para compreender a contribuição. Responda às
-+seguintes perguntas:
++Depois que a correção for integrada à linha principal, ela será aplicada à
++árvore stable sem que o autor ou o mantenedor do subsistema precise fazer
++mais nada.
 +
-+* Qual é o problema específico que foi identificado?
-+* Como o problema poderia ser reproduzido em um sistema em execução?
-+* Que efeito a ocorrência do problema teria no sistema?
-+* Como o problema foi identificado? Inclua, especificamente, detalhes sobre
-+  quaisquer testes, programas de análise estática ou dinâmica e quaisquer
-+  outras ferramentas ou métodos utilizados para realizar o trabalho.
-+* Em qual versão do Linux o problema foi identificado? É altamente
-+  recomendável utilizar a versão mais recente ou um ramo recente do
-+  linux-next (consulte Documentation/process/howto.rst).
-+* O que foi alterado para corrigir o problema e por que se acredita que a
-+  correção esteja correta?
-+* Como a alteração foi testada na compilação e em tempo de execução?
-+* Qual commit anterior esta alteração corrige? Isso deve constar na tag
-+  “Fixes:” conforme descrito na documentação.
-+* Quem mais revisou este patch? Isso deve constar nas tags apropriadas
-+  “Reviewed-by:”; veja abaixo.
++Para enviar instruções adicionais à equipe stable, use um comentário em
++linha no estilo do shell para passar observações arbitrárias ou
++predefinidas:
 +
-+Por exemplo::
++* Especifique pré-requisitos adicionais para a seleção por cherry-pick::
 +
-+  From: Author <author@email>
-+  Subject: [PATCH] drivers/foo_bar: Add missing kfree()
++    Cc: <stable@vger.kernel.org> # 3.3.x: a1f84a3: sched: Check for idle
++    Cc: <stable@vger.kernel.org> # 3.3.x: 1b9508f: sched: Rate-limit newidle
++    Cc: <stable@vger.kernel.org> # 3.3.x: fd21073: sched: Fix affinity logic
++    Cc: <stable@vger.kernel.org> # 3.3.x
++    Signed-off-by: Ingo Molnar <mingo@elte.hu>
 +
-+  The error path in foo_bar driver does not correctly free the allocated
-+  struct foo_bar_info. This can happen if the attached foo_bar device
-+  rejects the initialization packets sent during foo_bar_probe(). This
-+  would result in a 64 byte slab memory leak once per device attach,
-+  wasting memory resources over time.
++  A sequência de etiquetas indica que se deve executar::
 +
-+  This flaw was found using an experimental static analysis tool we are
-+  developing, LeakMagic[1], which reported the following warning when
-+  analyzing the v5.15 kernel release:
++    git cherry-pick a1f84a3
++    git cherry-pick 1b9508f
++    git cherry-pick fd21073
++    git cherry-pick <this commit>
 +
-+   path/to/foo_bar.c:187: missing kfree() call?
++  Observe que, em uma série de correções, não é necessário listar como
++  pré-requisitos as correções que fazem parte da própria série. Por
++  exemplo, nesta série::
 +
-+  Add the missing kfree() to the error path. No other references to
-+  this memory exist outside the probe function, so this is the only
-+  place it can be freed.
++    patch1
++    patch2
 +
-+  x86_64 and arm64 defconfig builds with CONFIG_FOO_BAR=y using GCC
-+  11.2 show no new warnings, and LeakMagic no longer warns about this
-+  code path. As we don't have a FooBar device to test with, no runtime
-+  testing was able to be performed.
++  patch2 depende de patch1, mas não é necessário listar patch1 como
++  pré-requisito de patch2 se você já tiver marcado patch1 para inclusão no
++  stable.
 +
-+  [1] https://url/to/leakmagic/details
++* Indique os pré-requisitos de versão do kernel::
 +
-+  Reported-by: Researcher <researcher@email>
-+  Fixes: aaaabbbbccccdddd ("Introduce support for FooBar")
-+  Signed-off-by: Author <author@email>
-+  Reviewed-by: Reviewer <reviewer@email>
++    Cc: <stable@vger.kernel.org> # 3.3.x
 +
-+Se você estiver contribuindo pela primeira vez, recomenda-se que o patch
-+seja avaliado por outras pessoas em particular antes de ser enviado às
-+listas de discussão públicas.
-+(Isso é obrigatório caso tenha sido explicitamente informado de que seus
-+patches precisam de uma revisão interna mais cuidadosa.) Espera-se que
-+essas pessoas tenham sua tag “Reviewed-by” incluída no patch resultante.
-+Encontrar outro desenvolvedor familiarizado com contribuições para o Linux,
-+especialmente dentro da sua própria organização, e pedir que ele ajude nas
-+revisões antes de enviá-las para as listas de discussão públicas tende a
-+melhorar significativamente a qualidade dos patches resultantes e, com isso,
-+reduz a carga de trabalho sobre outros desenvolvedores.
++  A etiqueta indica que se deve executar::
 +
-+Se não for possível encontrar ninguém para revisar os patches internamente
-+e você precisar de ajuda para encontrar essa pessoa, ou se tiver quaisquer
-+outras dúvidas relacionadas a este documento e às expectativas da
-+comunidade de desenvolvedores, entre em contato com a lista de discussão
-+privada do Conselho Consultivo Técnico:
-+<tech-board@groups.linuxfoundation.org>.
++    git cherry-pick <this commit>
++
++  em cada árvore -stable a partir da versão especificada.
++
++  Observe que essa etiqueta é desnecessária se a equipe stable puder
++  deduzir as versões apropriadas a partir das etiquetas Fixes:.
++
++* Adiar a inclusão de correções::
++
++    Cc: <stable@vger.kernel.org> # after -rc3
++
++* Aponte problemas conhecidos::
++
++    Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for <= 6.3
++
++Também há uma variante da etiqueta stable que pode ser usada para fazer com
++que as ferramentas de backport da equipe stable (por exemplo, AUTOSEL ou
++scripts que procuram commits com uma etiqueta 'Fixes:') ignorem uma
++alteração::
++
++     Cc: <stable+noautosel@kernel.org> # reason goes here, and must be present
++
++.. _pt_BR_option_2:
++
++Opção 2
++*******
++
++Se a correção já tiver sido integrada à linha principal, envie um e-mail
++para stable@vger.kernel.org com o assunto da correção, o ID do commit, o
++motivo pelo qual você acredita que ela deve ser aplicada e as versões do
++kernel às quais deve ser aplicada.
++
++.. _pt_BR_option_3:
++
++Opção 3
++*******
++
++Depois de verificar que a correção segue as regras acima, envie-a para
++stable@vger.kernel.org e indique as versões do kernel às quais deseja que
++ela seja aplicada. Nesse caso, você deve indicar o ID do commit upstream no
++registro de alterações do envio, em uma linha separada acima do texto do
++commit, assim::
++
++  commit <sha1> upstream.
++
++Ou, alternativamente::
++
++  [ Upstream commit <sha1> ]
++
++Se a correção enviada diferir da correção upstream original (por exemplo,
++porque precisou ser adaptada à API mais antiga), isso deve ser documentado
++e justificado com muita clareza na descrição da correção.
++
++
++Acompanhamento do envio
++-----------------------
++
++O remetente receberá um ACK quando a correção for aceita na fila, ou um NAK
++se for rejeitada. Essa resposta pode levar alguns dias, dependendo da
++disponibilidade dos membros da equipe stable.
++
++Se for aceita, a correção será adicionada à fila -stable para revisão por
++outros desenvolvedores e pelo mantenedor do subsistema relevante.
++
++
++Ciclo de revisão
++----------------
++
++- Quando os mantenedores -stable decidirem iniciar um ciclo de revisão, as
++  correções serão enviadas ao comitê de revisão, ao mantenedor da área
++  afetada pela correção (a menos que o remetente seja o mantenedor dessa
++  área) e em cópia (CC:) para a lista de discussão linux-kernel.
++- O comitê de revisão tem 48 horas para aprovar (ACK) ou rejeitar (NAK) a
++  correção.
++- Se um membro do comitê rejeitar a correção ou membros da lista
++  linux-kernel apresentarem objeções levantando problemas que os
++  mantenedores e os membros não perceberam, a correção será removida da
++  fila.
++- As correções aprovadas serão publicadas novamente como parte de uma
++  versão candidata (-rc), para serem testadas por desenvolvedores e
++  testadores.
++- Geralmente é publicada apenas uma versão -rc. No entanto, se houver
++  problemas pendentes, algumas correções poderão ser modificadas ou
++  removidas, ou outras poderão ser adicionadas à fila. Nesse caso, versões
++  -rc adicionais serão publicadas e testadas até que nenhum problema seja
++  encontrado.
++- É possível responder às versões -rc na lista de discussão enviando um
++  e-mail "Tested-by:" com as informações de teste desejadas. As etiquetas
++  "Tested-by:" serão reunidas e adicionadas ao commit de lançamento.
++- Ao final do ciclo de revisão, a nova versão -stable será lançada com
++  todas as correções enfileiradas e testadas.
++- Correções de segurança serão aceitas diretamente na árvore -stable pela
++  equipe de segurança do kernel e não passarão pelo ciclo normal de
++  revisão. Entre em contato com a equipe de segurança do kernel para saber
++  mais sobre esse procedimento.
++
++
++Árvores
++-------
++
++- As filas de correções, tanto das versões concluídas quanto das versões em
++  andamento, podem ser encontradas em:
++
++    https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
++
++- As versões finalizadas e identificadas por tags de todos os kernels
++  estáveis podem ser encontradas em ramificações separadas por versão em:
++
++    https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
++
++- As versões candidatas de todas as versões do kernel stable podem ser
++  encontradas em:
++
++    https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/
++
++  .. warning::
++     A árvore -stable-rc é um instantâneo da árvore stable-queue e muda com
++     frequência; por isso, é rebaseada frequentemente. Ela deve ser usada
++     apenas para testes (por exemplo, por sistemas de integração contínua).
++
++
++Comitê de revisão
++-----------------
++
++- É formado por vários desenvolvedores do kernel que se voluntariaram para
++  essa tarefa e por alguns que não se voluntariaram.
 -- 
 2.55.0
 
