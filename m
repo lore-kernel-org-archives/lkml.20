@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792538447;
-	b=m8rWMEXRBwzcdpZadevQYg7TVAlby3l5IN+DfWnrr9GwvY/4ujs1lWyQVSMLP0IBUMXD
-	 GKg34ThXLtBkSj9otuPgvC+A19A4TMGhp8/Ngd52+h2lAyt2XYSEsZYtHhLPbUBXgdOh4
-	 ApkcioYJHLGlVIjG2LJa/KgoBch8PCLA2ptWQEJo1EzcIj81VOt77fmuvSDvp18TTFw/Z
-	 p+NxH71BRxTl4hcxpctSXPcaBjN4lDoCdGbRXbW9inxjqxMBLy2HgLSuG50wqMBTUQI5v
-	 NlrD0chg3199V4ltWsJ09Jd6AZap0UEs2TDnLhRubPGUlQgqPgv9yh16X08JDyksHQg==
+	t=1792538490;
+	b=I/F8EgzxjRel5KrF8HvJ9uaOw553Tf99NaPKLgKSdQ3Y6w+WbnfYbKPKjrENmg0tGlz3
+	 OXEGAZo7/aNNHLNENXrXYPF/n1mlNW9GAodrdiN9EF5y9jME9M49CiEJ/afvjnkZRxzkI
+	 ZLRimrTueT7I+x9AEG8PCPdcs9ey9N1a/RAvEYQV9OEd7BJ5AuhUDLZ1wgVTc7q3IYg4+
+	 nLBCAF9xcn92gxisiAmaRerlLW1oizZVMM3AJ73d9JgLZQdRJXk1VyJCmNEJItmuNlfb6
+	 1r3F9wcpuu+GTRzuY5x5bPLs+2yzSUJVcv2z5ItCqSGn9zWoQEJs8R7oQcADVcmBCSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792538447;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792538490;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
 	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
-	b=bnl9SfFJ1jfa0JSWZ45GDEiDIwtTL0/241HFKSe1e6HhROwGXHxYQIpNPAOuK1YRiaqF
-	 3WkbumdEzsxpOZ1pikE+pgdwr9O8hAAxZSjr5CtQXGm4d4BvWldeU6mHoX1DPG3QKxRPg
-	 5h6ECDAGY57IEktnP7wu/gChcDj7wV9b2udZrtJs4CxXqUD2szBlpvkXX+I9UbBMeVjGs
-	 Ng6W0m3srSUCOOmysAeTL8UwA7FSNTIJjdpTasbumoGXfK/ydH/2ZXI+CdjbANbuOh+kI
-	 K469DXxtSeK49mWI2bHhbOrptaBJsVx5aOLyQSDS2rLZp8TEpSeYeuWx6zu3h42c5XQ==
+	bh=YJVYnLvaEVwucHW+x0AHb90jt4BURilSyy87F4cjKH4=;
+	b=Zhb2j1WmTbSon3bJRM7QTAYLM1I6MnSvvHbh7dI7mgcBBreqgmK+v5kTonwIKCPiRoj+
+	 JsFnaVTf/5U2M8vQ35ckfVhWSMFz6aRlJNtpFt3EyO/x0LzZmJR8oLApR7bNAB/mge8sJ
+	 J7WhK8Xu/+xpF4o/pV1HaNo1kTr4Aja9XKLkgRJ1GSL1Umi/vgTGENHKnQuMfYgeyXzJs
+	 LzDIDHk7KBB3cDkrGZqPmaWAjknBiMA7MoMKnt1KTAwTPCdCJMfPKSFfabicuUH9FGGEi
+	 bF/31nRDi/5HDw4RbrE8L7RAZG2sBLgnta6KQVfifRzNLCPPh2/4pyOfflsQW8rXMlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VydcMoJz;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="Ue/UIrpr";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SPy+1WhH;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pPN38QY+;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97C5606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:20:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E97C5606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDC8606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:21:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CDC8606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VydcMoJz;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ue/UIrpr
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SPy+1WhH;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pPN38QY+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792538446;
+	s=mimecast20190719; t=1792538488;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
-	b=VydcMoJzMNfSya2vUJ9j5qaYApS4mXXsuDBVDp1CJDQ9r869wd8HmyTIoLBYsqB0liZKUl
-	DMh3kA0G0sbBQ4pHUeHP95vCvRlA49XiNZGVpVCByos/8BpUeY2l/yyMqmnZQ5GdKYV7Kx
-	1jQ3hTweRDL0WoK3L8g/4/Qrrc2f26w=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=YJVYnLvaEVwucHW+x0AHb90jt4BURilSyy87F4cjKH4=;
+	b=SPy+1WhHri4mdCo0DVD/0prMQsg0YKg1bIKQuhQEVDVfotiW1BoW8unIC0L6g6dk5nMOWR
+	33+q/JXF3cwR9sqczFqRlP29LpbzW8kcxmUxMpu7VfDkUyaAG7cCn2Tm2LCUf8IVXWCJgh
+	0UQPCEaLQsaP8aVKYlDAAC1Jmdn6DcM=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-606-naTGym48MuyteWwm7_FlxA-1; Tue, 20 Oct 2026 23:20:38 +0000
-X-MC-Unique: naTGym48MuyteWwm7_FlxA-1
-X-Mimecast-MFC-AGG-ID: naTGym48MuyteWwm7_FlxA_1792538437
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48dfaaea30cso84137f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:20:38 -0700 (PDT)
+ us-mta-3-H9aDGvQIPz6Eu1YpBJ9tHw-1; Tue, 20 Oct 2026 19:21:27 -0400
+X-MC-Unique: H9aDGvQIPz6Eu1YpBJ9tHw-1
+X-Mimecast-MFC-AGG-ID: H9aDGvQIPz6Eu1YpBJ9tHw_1792538486
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1e489f97fso968475e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:21:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792538437; x=1793143237; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1792538486; x=1793143286; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
-        b=Ue/UIrprYHR+2XIIAYcBHSmjkR7zGegvXtlSz7Jt8tWZvBDV8M1fah4wIjTmd8Cp1n
-         q9aNpJ3rq3lPhXkzt1sjaOZIfuwvzjDd4IpgGyWH2T8vooQDgdvS7d0awY5X9txSa7Qs
-         f+hzeanNcZOYNbByt/VTBoJ3RNsHq1n3ReI25+2Cd2uqRKHuwxi0b1gdrBEM0leA6LQO
-         kGw5k9dxv5yyxzu1A8v9bJZMBag6GexyX9ytTg0NkNcZZPDX9Z7tFIq/UPP1RPXnvadX
-         QwjCDwhVN8FrTSPuuN0X45t57WwPrrj1NCSM1VXnXeo9VC0LXaS8J6yOGA3p8qiOefz+
-         u9DA==
+        bh=YJVYnLvaEVwucHW+x0AHb90jt4BURilSyy87F4cjKH4=;
+        b=pPN38QY+Q/90GQrL3H/REBLoscFnRJ+2erzMdVFFYQ7fxPVp9i8heH/2YFBk09gPxP
+         IrkZz09Yb4encLshue4vKPZYJX/ivb6RIOCn1cndpaYFDaBE1AotZoyb6h4oYiihQB9H
+         7ROi6cV/N2uKKUzko2LIjqaqDcXKzo39vgkxWR7YOSM38pTJfqDxmEDvgKNMgIe7rmP2
+         TvxNTKvhbGmNkd9lqOo5XnnJKkwXZ+CH6fd4BjRDmXMow9Xk2rcmbBnHmUSkdj1KEl2q
+         x0OPglAyN8U+agkavMABQjhIPz0g/ANdyxzPbqzRMAMsCo6Y/C1e2Y9srFkCHn7x4USC
+         p52A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792538437; x=1793143237;
+        d=1e100.net; s=20260707; t=1792538486; x=1793143286;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
-        b=0DIXP8v04TQwnkglngiOS9soF9cyi2q9sta8sqzcs0nEc4vkVwJg3IGZOHTdigY721
-         S+uyHs4p99xYicNronSMlfIYr1Y3srMzgocJqREVhRpolzAmND4aKDb/37n10wH1D6Am
-         WSHtXteQ7Ga0SfMKUaiaUxExw34QBxfcoINQdiem9OIJPagaeByt0LqgCwZI07LJd2Rw
-         FDhn7C0Rvdl/8L4GeC4T90KXfOg2/fgcpIR/sUPcj6pLa5zK2+3q82zBSoavIRXpMovZ
-         DqYgnpLx2pw6QeOsibHRnzF02rcE440MD5gY1g8Rjd7w6cQIvohdL+DCY+wC2W7t1Aac
-         b1Zw==
-X-Gm-Message-State: AFq9FYL1p/7E+QcUGjoFj+x6Y1R7GVI/lRsPBydFFjGI+EkawKSVZcmM
-	3h66mu2vLU5VLt54Ko+MQ+SHyraHLD9e9J+Eg5DtQ3C9qa3MQPyGjdpzZsB/nPpGH5JPG7mE+bY
-	umqGqNIIJ6B9s3X1nURCUUscoxmSeQcnNcmwigTSk6MOVXCbB2CL7owivRc5VitC0tw==
-X-Gm-Gg: AYBFou23/TJnsCJvgTH7PKRi5pD/G1UqDTatoRPXeFOYBORKnwHJDwSEnXnE3TvUCwQ
-	gEuVKevBK6nx++IDmcV9Z1tKFvhQ4tMLcs4z2dgWSaUSHmU/3KPu41HrvGsv7hncgW++86FQF1E
-	xu9rE1UJWovFbgsdgK2Nze1S2VToycEsJQ0GTaRWTEsh05rMUC53Kv2oIq/qOm/+DW3HUch4o0D
-	FQI07sRbkU5s28YUPswhCvyQBFWknl0O39DUj2zzig/ADgoqnPOc6DXtTblLK6riejMFzSYW8++
-	wGJcl8ej2J1tuB4G94IPQQL0XlUsk//8yQxapIyBnuXxC/Z109cDz2bwXWPaEwNN+iUcsQ==
-X-Received: by 2002:a05:6000:2313:b0:48e:d27:bee4 with SMTP id ffacd0b85a97d-48e2642ce22mr436272f8f.2.1792538437146;
-        Tue, 20 Oct 2026 16:20:37 -0700 (PDT)
-X-Received: by 2002:a05:6000:2313:b0:48e:d27:bee4 with SMTP id ffacd0b85a97d-48e2642ce22mr436239f8f.2.1792538436673;
-        Tue, 20 Oct 2026 16:20:36 -0700 (PDT)
+        bh=YJVYnLvaEVwucHW+x0AHb90jt4BURilSyy87F4cjKH4=;
+        b=CNtrzsRp1mkAKRXCRB5bwyNeFQeA8ujKM1f7kKjYTDcFWmypIZuaFUX66sYCLI84+C
+         bh7CuE5mfjOMRdOhTWGWpSH2lI+rAxFZMqnI6WFIPOolBJ07LxcscZs6HUHeYnXF8znC
+         Ls6YRDYdpuiSGASEh2HUx+qFwoGsjNAPj4sUBSALg0Syduw1JHUup8ZLXlMMq6y3U5oX
+         ucsoqJlhXxlt2jNXm1AxSPbFJEOAPy/sHkEM86vY+gcjy9FU3AeBbjU+CdKgSM1yXmfy
+         yuVU2pXTt4cZ6aTng/XIVdN5+N0mfV3VtNz0l84eanc0ValG8oD+QJ2VJCGAARwRtxXE
+         A+Qg==
+X-Gm-Message-State: AFq9FYJqkK3AHMkk/ourrrhbt51h7j9h2OPq0LBSA8eWop4aT5vQbxBB
+	wakX5ZpgAiSSDvS31u7GlX21ulwSzbSeEpt9Tv3P42YAnc1qzV6NcHvhbir+PN4i0E+6NrhYfxO
+	YhjwbS9u771e7O2WGsjIRqqFnspYpww8RwhNpOu1plCFQkm0AAYyOz44UMXdOJXJ+dA==
+X-Gm-Gg: AYBFou11r6dsQPcwtdPyDPSiQAWCVelciewk6o78fE24TMyj+V0/Ug2u8QUtzMhbanv
+	CMcpHBhGtkBw4G4sKILEXocCLUMz4JtdWZWQaI20Xa3DKTONehvfQT5DN+YOovAEgx6An2PZzoe
+	1Cr16b59jxKjeOkfq5GFlV3J7btQ67r8u+ZhFJuFhlcN4G6Fg+E5dCbf07TAfOHiRDfTH8zQizu
+	/pNXi18zhuvyF8afzgYVPk0jRpPem00WzS0KfdBl+cQjhKJ5S+AjkzceI0VFQoLmfCtyT1UFEhW
+	0+ziTcdCknzbU/2+pe9SdBZe5A8e44YZ2Ec766w3JPvhWOjKqPTU6Sta3mFht0jTomOXpg==
+X-Received: by 2002:a05:600c:3548:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a1fdd145edmr3979895e9.30.1792538486083;
+        Tue, 20 Oct 2026 16:21:26 -0700 (PDT)
+X-Received: by 2002:a05:600c:3548:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a1fdd145edmr3979245e9.30.1792538485547;
+        Tue, 20 Oct 2026 16:21:25 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581f0a2sm1544348f8f.10.2026.10.20.16.20.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd2eff9sm12797555e9.4.2026.10.20.16.21.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 16:20:35 -0700 (PDT)
-Date: Tue, 20 Oct 2026 19:20:31 -0400
+        Tue, 20 Oct 2026 16:21:24 -0700 (PDT)
+Date: Tue, 20 Oct 2026 19:21:21 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
 Cc: linux-kernel@vger.kernel.org, Chris Arges <carges@cloudflare.com>,
@@ -116,12 +116,14 @@ Cc: linux-kernel@vger.kernel.org, Chris Arges <carges@cloudflare.com>,
 	Simon Horman <horms@kernel.org>, linux-doc@vger.kernel.org
 Subject: Re: [PATCH net v3 6/8] net: add a sysctl to opt out of virtio net
  hdr checksum validation
-Message-ID: <20261020191918-mutt-send-email-mst@kernel.org>
+Message-ID: <20261020192040-mutt-send-email-mst@kernel.org>
 References: <cover.1792411304.git.mst@redhat.com>
  <6f23c55c6eba3e3ec6b2c7e3a80728a326ed58af.1792411304.git.mst@redhat.com>
  <willemdebruijn.kernel.187d58ff2bce5@gmail.com>
- <20261020165610-mutt-send-email-mst@kernel.org>
- <willemdebruijn.kernel.34b42ddc625c5@gmail.com>
+ <20261020155917-mutt-send-email-mst@kernel.org>
+ <willemdebruijn.kernel.2c9decc16892@gmail.com>
+ <20261020162048-mutt-send-email-mst@kernel.org>
+ <willemdebruijn.kernel.2eabbddbe6528@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,22 +135,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <willemdebruijn.kernel.34b42ddc625c5@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.2eabbddbe6528@gmail.com>
 
-On Tue, Oct 20, 2026 at 07:13:42PM -0400, Willem de Bruijn wrote:
+On Tue, Oct 20, 2026 at 07:12:57PM -0400, Willem de Bruijn wrote:
 > Michael S. Tsirkin wrote:
-> > On Tue, Oct 20, 2026 at 03:54:23PM -0400, Willem de Bruijn wrote:
-> > > > +/*
-> > > > + * Protects changes to virtio_net_hdr_csum_check_disabled_key and each
-> > > > + * net->core.sysctl_virtio_net_hdr_csum_check. Readers don't use a lock.
+> > On Tue, Oct 20, 2026 at 04:19:41PM -0400, Willem de Bruijn wrote:
+> > > Michael S. Tsirkin wrote:
+> > > > On Tue, Oct 20, 2026 at 03:54:23PM -0400, Willem de Bruijn wrote:
+> > > > > Michael S. Tsirkin wrote:
+> > > > > > The ingress validation as implemented by the previous
+> > > > > > patch is stricter than what it replaced: GSO
+> > > > > > packets whose checksum metadata matches no transport header are
+> > > > > > dropped, and non-GSO ones get their checksum completed in place.
+> > > > > > Such packets used to pass with the metadata unvalidated,
+> > > > > > and with no overhead.
+> > > > > > 
+> > > > > > I judge that this should not affect any deployments, but there is still
+> > > > > > some risk that it does.  In case a deployment depends on them anyway,
+> > > > > > provide a per-netns switch to get the old behavior back:
+> > > > > > 
+> > > > > > echo 0 > /proc/sys/net/core/virtio_net_hdr_csum_check
+> > > > > > 
+> > > > > > The default is validating.
+> > > > > > 
+> > > > > > Assisted-by: LLM
+> > > > > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > > > > ---
+> > > > > >  Documentation/admin-guide/sysctl/net.rst | 19 ++++++++
+> > > > > >  include/linux/virtio_net.h               | 23 +++++++++
+> > > > > >  include/net/netns/core.h                 |  1 +
+> > > > > >  net/core/dev.c                           |  6 +++
+> > > > > >  net/core/net_namespace.c                 |  1 +
+> > > > > >  net/core/sysctl_net_core.c               | 60 ++++++++++++++++++++++++
+> > > > > >  6 files changed, 110 insertions(+)
+> > > > > > 
+> > > > > > diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
+> > > > > > index e586e17fc7a5..b1a1c4714b22 100644
+> > > > > > --- a/Documentation/admin-guide/sysctl/net.rst
+> > > > > > +++ b/Documentation/admin-guide/sysctl/net.rst
+> > > > > > @@ -246,6 +246,25 @@ processes are dropped unless socket option SOF_TIMESTAMPING_OPT_TSONLY is set.
+> > > > > >  Default: 1 (on)
+> > > > > >  
+> > > > > >  
+> > > > > > +virtio_net_hdr_csum_check
+> > > > > > +-------------------------
+> > > > > 
+> > > > > virtio_net_hdr_validate? In case we do have to add more validation
+> > > > > later.
+> > > > 
+> > > > If you insist. My worry would be what if that validation is again
+> > > > user-visible somehow and we need to distinguish users who want
+> > > > to disable that future thing and users who want to disable
+> > > > just this current thing.
+> > > > 
+> > > > Hard to predict the future. But I will go with your intuition.
 > > > 
-> > > it appears that they take the mutex_lock below
+> > > Thanks, but definitely feel free to ignore my suggestions.
+> > > 
+> > > My intuition would be to define as
+> > > 
+> > > 0: off
+> > > 1: everything one
+> > > 2+: sadly needed fudge values because we keep having to tighten,
+> > >     but some crazy workloads need to opt-out to avoid breakage.
 > > 
-> > Some of them? But
-> > virtio_net_hdr_csum_check_disabled doesn't, that's the point, right?
+> > yes you said i just do not get how it will work for userspace,
+> > maybe u can explain?
 > > 
-> Yes, but the statement is then too absolute:
-> _some_ (or most) readers don't use a lock.
+> > and what specifically is needed right now, while we
+> > just have 1.
+> 
+> Right now the sysctl is boolean.
+> 
+> If we define it as a narrow, very precisely defined sysctl, then its
+> exact behavior is set in stone.
+> 
+> If we then add additional validation later, that can similarly have
+> unintended breakage of weird users, we need to add another sysctl.
+> 
+> And if that validation is not entirely independent, i.e., builds on
+> this, you get a weird set of interdependent sysctls.
+> 
+> While in general systems will run with all validation enabled, unless
+> they do something weird that gets hit by validation.
+> 
+> A single broadly defined sysctl ("validate input at the source") can
+> be refined over time, including to expand to validation of other
+> virtio_net_hdr fields or protocol combinations.
+> 
+> Even if defining it more broadly we can still leave it a boolean:
+> all validation on or off.
+> 
+> Or, optionally, we can also define additional validation levels,
+> e.g, 0:off, 1:everything-on, 2:validate-csum-only.
+> 
+> 
+> 
 
-don't use->don't need?
+So I will just rename it to validate, we will see down the road
+how it plays out?
+
+-- 
+MST
 
