@@ -1,49 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485606;
-	b=Og6w8urG2CACXroiOgNi6qiyESmzUsk5asUibAn8geMwYyqPi54Qh5pe7zeeO55sAgce
-	 BpVvS3YZpy8cAvYkgzK0fY/ctruGwaPnBett8zQFZeCkvzMrgUPoIQ7M6zuC7fR/euThy
-	 S/NLdeHZXBdxVSoIr7lrTYP4ZjdmynlaqWwIHwQo/5lL+e0cliV80FelAstOriYfcO3ta
-	 Sn7uq9YBDoVagyA59slK1S6S7qyX+UyRoa967rjQg492FUce15jMNP0Fiq4fUljQlOkR8
-	 0fFwkK1tFuO0tL/KsZyNg4DjtvNlxr7e/OvyXkxFHJOOidJQpCimpaUFEAAy6QKttng==
+	t=1792485642;
+	b=359GfK/1yMQqp3mRQzT1NFXbd8LafA46zI1z4GPHGTD8sn1WGRykL0updLAXAbRd2knc
+	 ZnNhoDAqsZaZm1iIuqB2PdjXkrHLAY4/0360/Lpby6DLqXfhY/1i2aezH/HyaVb6LiAnj
+	 jDqGcd6rt0CB+5CMkWt3plg+3jvyU66KNwlzDdgZCZbNxFXiriU2raWnY8JYZqwtpqJ6r
+	 ux1u8E1YBX6h0f0iVnkq4yCeDrXHuzwxqhNDgVLlZSGxep5TVCmLXrlqqH8HnTKT2BKrQ
+	 eaS9gERxAAJpf3Hp2SsdijS44hbNhvt6uDpuft6rDJh037uHwnN7KxiDMBc/efmGfVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485606;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=AzngUIOSj0Q717ZcOQxFXapOnqXzYvlnqdx3gTXyi0Y=;
-	b=380QgKimpOuQEJm7zrntm/I8+TqNWEtVS7gU3cl+PaurR7tz7ctFfK92xq45pRTg/vzO
-	 ouIICaTaY0IXi2k6/eY+3dA9QyJtnPp/ISkmUQND1S6Ma5Ec3WuHv+P610kBFnCta3eBN
-	 2Srg+U7uNh5zePeqJNrUjbYtCPnzgVNbqpJrHWv5TUkQ9ABmoor+SogyTzxWWCCeWOC92
-	 Orwk0E7/Kz6K2gFoxfgfwlaxQZHezSy/+wOZJUkKpqz0fYekiYZk82G6GowS9o7kxgnpw
-	 sT8E14uGM/yR94b/imW4wwUNdAPa2i8tzHznRsTBnxxKIFuN93Hblls6IeDPZxkkXpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485642;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
+	bh=9D8+32ge40Nx3n1qnTPFKi5ixMQDJp4uzpLb91F2J9c=;
+	b=wfah7HOaG7gMiiEG3kQbcMVITJmjCsEhSfnsw88I4uqhQcQ2g1GOefAqHuRc8VNjiytC
+	 jKv0TFH2k84/uyk/oI/TvN/YKuu7wtzhcIn6sX9t/tuxHNnI5yqKI1JHAjhP8vslL7Zqx
+	 4eO/OO5sUPXU+xF1Ad9g7TcO8ewg+EhVcZ++oHX+hArAM6hykkTnczB3V7SZOIhISTfaz
+	 wFLCiD91qKpsjQ1VX7zj0UHGmxThkhXqzGwxUb4dimoaN+RrdsK4gF4wCJd7WCijnoFRM
+	 yHqoHiZ5dGY6SCSmXxZXdFkMHqJMaUaZkAn2V3xBPAcWsTpFY5VDD29NQD6fOe5wXUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NnoFEyRB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jIdR+sl3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=oBmJImuh;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ooiha0q8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YG6m8lxO;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D12606A31B;
-	Tue, 20 Oct 2026 08:40:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80C5606A319;
+	Tue, 20 Oct 2026 08:40:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80C5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NnoFEyRB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807B91F000C4;
-	Tue, 20 Oct 2026 08:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792485605;
-	bh=AzngUIOSj0Q717ZcOQxFXapOnqXzYvlnqdx3gTXyi0Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=NnoFEyRBYgYZTZ+5wPXGLZ44qskz3Bl3kq8LbLxK/25QTFljIR3szM6AXU2TkixFc
-	 KeQokBZuK6+Q0piSjcU26FmJdR/EX7v1eaPyHTSIuCMeMXxh7i20g0GHg/KC33dUGK
-	 byqpSW6rhvnHoSqvG8S1ZUXN0rGMbXFOSbYrV6MGbB9pV7hnt+HOZG8ZX/cNWjZLFJ
-	 yFscZuLNKyNZRWTK7f94zkbp3/R6Fe9fayJ185dXs0r2+60cFjSQD6ByOgFxxyYy0K
-	 Kif28MH5g46+DK7DA2u0PbqPaWJMCnvV5aPdpPOc0ZEYu4W8k6GKoIhWv9Vz+4I19b
-	 0GGzDc/umgLKA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 774213924FF9;
-	Tue, 20 Oct 2026 08:40:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jIdR+sl3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=oBmJImuh;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ooiha0q8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YG6m8lxO
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D18DF1F388;
+	Tue, 20 Oct 2026 08:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792485640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9D8+32ge40Nx3n1qnTPFKi5ixMQDJp4uzpLb91F2J9c=;
+	b=jIdR+sl3tZj8tJBVd2BJ0kiqNyY8lJM4x9uziQyMHeKjaLpHx7qZ6er7B1l95WZwU/tWFc
+	KFfxnwXfZlwCwC8TNtNZmCWPIbOSFxAaGHQpGZcnpHT1XMXkktFnzMoOVklGAJKNhZcBMX
+	7W7oQAlZ+dO9h/mH8W99hkJAd9MpTDs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792485640;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9D8+32ge40Nx3n1qnTPFKi5ixMQDJp4uzpLb91F2J9c=;
+	b=oBmJImuhbq4Cv+Ul16LwIIZLC+4jGRdjwy4BrV7NueRsDqllomfZPwyMMOTPIsbxzliqSx
+	zCNbroaj/3v4ItBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ooiha0q8;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=YG6m8lxO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792485639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9D8+32ge40Nx3n1qnTPFKi5ixMQDJp4uzpLb91F2J9c=;
+	b=Ooiha0q8FEyPPeynUmtgkme05GoI+CHPsFNczCJ9Ax9vtVDuLBUP4eEMzFJu9yWPsvAZQV
+	vZ+ddif9QhT2ZXnDYzmaiOtUyMu/+SxJ+fFobOa3AZR//jCEgV0XjMY5rX1uqySgxnBQ+C
+	0IqCUon/JJQ9oAE46OzLInJ13V/Eztc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792485639;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9D8+32ge40Nx3n1qnTPFKi5ixMQDJp4uzpLb91F2J9c=;
+	b=YG6m8lxOfTSHb1J5nRrxeak2TkKQYSY6TfCTif3Q/Zd68jdk5p5jFIitiFevw3Oe7b+o59
+	xs+WMnBLPn/lt3DQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8602E136CC;
+	Tue, 20 Oct 2026 08:40:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UzGsFwcp12qlSQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 08:40:39 +0000
+Date: Tue, 20 Oct 2026 10:40:39 +0200
+Message-ID: <87fqy0ix2w.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Thomas Nemer <thomas.nemer@fortytwo.fr>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usb-audio: Skip sample-rate read-back on PreSonus AudioBox USB
+In-Reply-To: <20261019204944.28302-1-thomas.nemer@fortytwo.fr>
+References: <20261019204944.28302-1-thomas.nemer@fortytwo.fr>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,47 +113,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: gro: don't chain linear parts larger than
- gso_size into frag_list
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179248560429.3584560.3501678808812864967.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 08:40:04 +0000
-References: <20261013130250.3643916-1-her@sorah.jp>
-In-Reply-To: <20261013130250.3643916-1-her@sorah.jp>
-To: Sorah Fukumori <her@sorah.jp>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
- lixiaoyan@google.com, linux-kernel@vger.kernel.org
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: D18DF1F388
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Tue, 13 Oct 2026 22:02:48 +0900 you wrote:
-> skb_gro_receive() chains an skb into the frag_list of the held packet
-> when its payload cannot be attached as page frags: when its head is
-> not a page fragment and still holds payload, or when its head and
-> frags would overflow the frags[] array of the last packet. Since commit
-> 5eddb24901ee ("gro: add support of (hw)gro packets to gro stack"), that
-> skb may itself be a GSO packet whose linear part holds several
-> gso_size segments. skb_segment() cannot split the linear part of a
-> frag_list member across segments, so segmenting the aggregate in
-> software, e.g. when forwarding it to a device without NETIF_F_FRAGLIST,
-> hits
+On Mon, 19 Oct 2026 22:49:44 +0200,
+Thomas Nemer wrote:
 > 
-> [...]
+> The AudioBox USB stalls the UAC1 GET_CUR SAMPLING_FREQ request on both
+> streaming endpoints. After the sample rate is set, the read-back
+> verification in set_sample_rate_v1() fails and logs
+> 
+>   usb 1-3.1.2: 2:1: cannot get freq at ep 0x1
+>   usb 1-3.1.2: 3:1: cannot get freq at ep 0x82
+> 
+> on each endpoint configuration until the sample_rate_read_error counter
+> gives up. Set QUIRK_FLAG_GET_SAMPLE_RATE to skip the read-back on this
+> device.
+> 
+> Fixes: 1869c47e5d59 ("ALSA: usb-audio: Fix missing sample-rate control for PreSonus AudioBox USB")
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thomas Nemer <thomas.nemer@fortytwo.fr>
 
-Here is the summary with links:
-  - [net,v2] net: gro: don't chain linear parts larger than gso_size into frag_list
-    https://git.kernel.org/netdev/net/c/679f6929a66d
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Applied now.  Thanks.
 
 
+Takashi
