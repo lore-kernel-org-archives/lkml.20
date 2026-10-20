@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505243;
-	b=abBrdev3DH/oVzGYN5sIRSbXrk+tqNZL5xfMNcfpac59cfmjBA/ZBGQrLEKn/A76j4tI
-	 m9Bit4GuaW9Hl0o0GgqtrGd3siLFxtx2aoYab3mfI70zQvbFXxSRwBJcX0q4lO2GFpxvn
-	 wNaEvZ8xYYQMusSYKDh05AfF73nWUe5V9PRsoSB7Cxxj/wlk0/SrrpfLI3CMPrknKLpwM
-	 CTtqOUxODAtfnqOK5ho5qHw9RazUwD6dUih2vfjoKfGsIz28PNj64y+fWz1iIMC2aQNgm
-	 O2Csz7pi3CTjO1CpISgyVqWRhiCKEOljVyrW++a/PTtMNAnaLQr5lpqi+scoxntnJeg==
+	t=1792505229;
+	b=KC4GC3O2YiNO/qivhKDfIlVJYq80fHp7hC8YxFA/wpYrD3QfCrKHEkez7Zu+KIsTOWTm
+	 AGW9Go8ROpcTj+A0FSc87jQ2itZpz46DHFsIi4k1r/jUDGxkyMrcnISs4gbW9qStzRLSy
+	 BVysSuaW2FIBx1P2aMDRujj4HRYzKYRkc171kD+xo3WVIIKGCnnfye5Go1eC/qcG55NDY
+	 weUN9zxpBPbA8hFBCH401fKweuHJceWtGStNwgbSFZc72yio+VBgupmwOBPaW1JigDzka
+	 nTsV49GGww7upilCbSUvEg1tjc/klWZ+8NiQFjYcaB79qiUs+NEAUB3vhOEA9nof7zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505243;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505229;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Change-ID:Content-Transfer-Encoding;
-	bh=ZwhZ/50JHDB9yLWk9aI9TESDQvyJFGrH/l1ZLQxcavA=;
-	b=Mg9kBTtLdQUsQ5CGYEVVA+lpb8ZMLFk0H1nca22FbbV3A0HQZX0eX3IZjtOfiiL9aers
-	 kZAlkpj7hkVH1lMf3H3A5iYXCzS/WIdNuNeBgDblKi+gPB9LtPFPEs/aQKGohLYuNEyAu
-	 agCgkFVH9nqMcwnaMBA3FCwPekobLVUWhuqsWHztNud39TWE3dARJZsa3CqOD8X8pu+3J
-	 vCeeQJYMRvbxlxQv8ogtlzwuYMW2dyODiQ0eQlAHTNUtb0sG+hEhEQ1/M466+TEDJAm8h
-	 SW6qxSBlhnMOAzGPgpdnuFpEN1yjjFwZH26NtOi8bxYWHN3WECapySmMldPhiX1CtgA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4gjHPXmCn70UaULysoVyHSyhywjis8FMubgn3n0iN+w=;
+	b=VYkPCZ9swfUuPMbDhmc9CkaZixjRc4tiAuNTYqOUfA4SCvhXUFCnpZY+s6HJe+LNDN2c
+	 FjGM42sNHty1Pn+ZzWUeFYzEabRogpQthxvFa+k9wMwnE+BKKMCEqYb7cXD6E0f5YXBLK
+	 Ewlh/ViZgkJ1WLbmH+PPhUazm+eOBneWDpnGpYiShvQg61i4GSRy+B114pRf/MafvmSLG
+	 UepRPngOIvAfdDGNsqfxHno7rUlMvD0sSYOSl/aNLHlDdcOdb4PZY7JqAFL4MUeLz3Q/I
+	 wCzi5qxRsqad1N/NrBR9fGAGzQfXS7jUE7xPtG46Y6Ha+sS+VUyuJghbdxMvEXBY1dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Lri5ufBG;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=none header.from=resnulli.us;
+	spf=none smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=tsIqjQmj;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1127C606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1127C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143FF606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 143FF606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Lri5ufBG
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1f403aca0so6477125e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=tsIqjQmj
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4d870d54so2203652f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792505241; x=1793110041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZwhZ/50JHDB9yLWk9aI9TESDQvyJFGrH/l1ZLQxcavA=;
-        b=Lri5ufBG87fd24lVSVAM9X335hUrANc3syGf4gi4pyyF5iklwS7xBy0a2KbDBvfCg6
-         4/ZN6UBEqZEBeVyr0EB3lgtGA34Oc4Fp4Kzpb1V/VkhET7WTYw8HxTQh7xj/spqNHiPP
-         fUD5tyKu9KG28kCMYD+tueG7SgBNGH38kZu0Pi/3SQ4UjAUH8Ts2Xpa6OYFiuZlAnSKc
-         nDrcOTH0hGhz4gmAg30Fd2wUIhsb0xyrNSWOhfwdJNGMxE2AgSpO3XKjN3GuAqQkBNa4
-         UURP+dmGHKTBqgFXgLrQ9qrUl0jn18CpQteDE/YEns55hHIuju4cE4PWlelw1JssHBSI
-         c30g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505241; x=1793110041;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792505225; x=1793110025; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZwhZ/50JHDB9yLWk9aI9TESDQvyJFGrH/l1ZLQxcavA=;
-        b=XgKJjBMj3jLvRuXgUeURz7OPo+TjUDvAu6RG7VU28pKwURQENQqdI4Cp3qSTEgLT/c
-         NJAeew+el4PtZm+ajGI10Bj/56MA9DDe2cfEA74FabRjhOCc2XLHkGGuiXP6yZUMcedd
-         nnqyQTBXmWHFdxP45ivX6yLa1dbl2Q8xp6zNg2pWB2qcJTpArYC29wTJIdOhak1n/JNG
-         fTkytOqC5U7hNb2s4ql3i69yh+gNiqk85Pet31zo5ulkx7hW2RzdCBaIJo7y8LhiDzQ/
-         OPJkf99Csh85T7haYxSXgOFo0Sqy5Rybh/3eDmVWmy2mSx+hgXx10+HXZcdFG0wyiNCa
-         temg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2KIhsuxie8dtwrE2aC9i/6WTNbnxCnJiy0cLeAajJVrC+wmtEQeeUs6tEWXmA3qxM+UpssuwYHylJWQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWhFVVOg4Tui+phtJEgcCpUfKAPLkb/XywsAcYQm0ccoxk+zoE
-	OsLWH7tJKngILHKng1lYbHFjy8imOjZ/Sd8G4Dk7fg/cmS+xlj/cOcjKsbVhZufX/no=
-X-Gm-Gg: AYBFou3BcSQI4twdAcOMuG5IOLc5s5DUKS6K7lwHT1+HJHUL7cHeqeFem2hAmTnuA3a
-	Xlej6S0wtyawOyDq56CVklqg74JMNZJiX6mJH2G4vCoiwX0Y/y2V3zoY+ZQ6mA7YbzHRO/GnxCW
-	ch9OISxyAEVrdyfCcK/DWy2dm1W1BbnCQ/2AyhH2lfGMtNJThpAay09qhDwianmC/uMbjphQOU6
-	hnreS4YQ7Hd80UryxhMnSf1PRt4C05r4467nZ5gTC14S1dAdZudMd3rb73tv+onIdz/V4jqDhMZ
-	ReCQSwPxYuLZeB/Cmi6HXq6ZmBRHGRvOLhAYWTcet0JTSp5EkRN0P1QgOlW2asuqRDpwpgOe9FT
-	oIR/F6qAD4vc3uZPR7k5dwC83RLJoe8qCfsWNFFtbxKBx38PJd+1hsavzIr6NxYg+unrxYPLcvg
-	H3EbZNLvMNeMMEUQT6fj+BchgU7Czt4h2Yd70Q8gTaMF9PFxIsB9gvBuBX2DBQxepseZU1Lm+eA
-	+9Usg==
-X-Received: by 2002:a05:600c:3b1c:b0:4a1:d248:25c4 with SMTP id 5b1f17b1804b1-4a1d76046dbmr241521495e9.13.1792505241294;
-        Tue, 20 Oct 2026 07:07:21 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm75602805e9.14.2026.10.20.07.07.20
+        bh=4gjHPXmCn70UaULysoVyHSyhywjis8FMubgn3n0iN+w=;
+        b=tsIqjQmj1fU1tfpLvcrgyrBRhrj7LtlUxquUdDe7xmr6xxyjiTGmd6/do0ipGIfJIj
+         KZEiiI25qWShs00fvGYv4dQzT/YJ3X3avR+7M3iNfhxBJoWz8hmtNK1m95U/+sZByvrL
+         UZpGUcxw4YUtIvSpYVfcBapqP7NR1pvfI4pcVpODNcUKGLu1Lv1uBW3Tnlyt6WqcMGxg
+         ivA+yVXSBOhp6FwXKVZc01FNd/vcYoW9/6V8HhzmKY5H8rvoeDImvAfK3qSANFu0i8vV
+         ByEautfEfwZci1CQDD2aIKmNCVjDw/7+6Fi8qgQldf8RkV4ZWowoSmfemPsWzpGZn8nD
+         1VOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792505225; x=1793110025;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4gjHPXmCn70UaULysoVyHSyhywjis8FMubgn3n0iN+w=;
+        b=JHZxmTzhXwue61JLjKKgKrCYSNlYjFtB187qPljYGNsetVqFaqyXICAnxRLzuaxE0Z
+         pFPfCO/b968ZT8Ut4W/Ftr+bq/pci6AQ0w5YGH/Exrhtg8qsSWprPbwUGTkQRGXoe2M6
+         MjT6vPmwS30StnIJW9HUy9AybByp8YXCUxNU/SQrJcVxth/VIuvY1cuyqa3gBde0KmFA
+         SCYPcHcSGP8QmqqH/CcrANATPNrsWf9kdA/5MBdQon8GCSetwFmA067rp+xatXxxqf/2
+         r+LquFvn1BpAUTj2F4m7owSZ+eOdXxUsUVYapkMNdtbN33OYO9gBhT5fW6oo46T6SOgr
+         Z/5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByAbHkPj8LnBPG3+V3+tT6ouHiy5K34P0zOZ195hNxBSgFJHaMU+USIC6bhd5cCoJ3LVcpf4P7XqPHOvmQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJM7Usqu+qMi0NKl3fZhBvvw1BY/xoJsuhAtfAALqjoFg8PjJ9+
+	pP8izjDWtFtuD7bOcrysjdDvhEHT2F8QZSPsNNUbZpPo3ZWJoR1gQQ6ju+QOQ6jr9DQ=
+X-Gm-Gg: AYBFou06ztRr573kgz5BVw1C4kHnfcBnu66+jXQoUX62Jy0DtngtKIVutd0L4lkGUng
+	dF5vTsnebParaDcDnHeD91i6Tfmk9TxjSGcxQ2P3+KL6ngtEqZslyHcraSHwfePDSh32LcvTB+9
+	+Km6+gmIJjk14fQPcW1vGVyz7nJVpLcejR+86nWOa3ifRsws66IJPsebKbZUGukZK6u54dEPVAm
+	0jEbsgM1FbSRp9OXwv2m7uHig+krRlrrIdFt7Oex2i8DfrIxH4nFqcugcN2QhrPuJKqA0CrCjye
+	aNNdreB+icUkwLl+9U0KEc9eLCMxgowtB6l32blbDtPIcm29CE1e2iShWQ8jiFnwEhJNjhVMB5l
+	YTJGVI9lZydaaiLK0gO+NU7Cz6QUI0DiJOlKbxv/Ov+yIAcCXBHR5ZlUDsQeYPxRr3QTH+DHOos
+	yKsFPPmxVRgBkO+1cWUoJInSPh32murEuw27du5kS00TgcDCbvhzTyzfyGxP/47WrxHHQDIqrAG
+	SqIfxUVOhuJsLk=
+X-Received: by 2002:a05:6000:490f:b0:48b:9d80:53a5 with SMTP id ffacd0b85a97d-48e07bbe5d5mr22481939f8f.10.1792505222787;
+        Tue, 20 Oct 2026 07:07:02 -0700 (PDT)
+Received: from localhost ([85.163.81.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8214b5sm6798703f8f.41.2026.10.20.07.07.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:07:20 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>
-Cc: Aaron Tomlin <atomlin@atomlin.com>,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] module: Fixes to tracking taint flags for unloaded modules
-Date: Tue, 20 Oct 2026 16:05:18 +0200
-Message-ID: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 20 Oct 2026 07:07:02 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:06:58 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 04/20] Documentation: ctlv: Add userspace ABI
+Message-ID: <atdjqGI1GvONVJuK@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-5-jiri@resnulli.us>
+ <179245258505.58760.6612247594755628055.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,22 +104,304 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261020-taint-unload-f96d25823757
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179245258505.58760.6612247594755628055.b4-review@b4>
 
-Fix missing taint flags for unloaded modules and a data race on
-mod_unload_taint::count, plus move mod_unload_taint into tracking.c.
+Tue, Oct 20, 2026 at 01:29:45AM +0200, jgg@nvidia.com wrote:
+>> Describe the CTLV transport, discovery, wire format and userspace
+>> compatibility rules.
+>> 
+>> Assisted-by: Cursor: GPT-5.6 Sol
+>> Assisted-by: Cursor: Claude Opus 5.5
+>> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+>> ---
+>>  Documentation/userspace-api/ctlv.rst  | 507 ++++++++++++++++++++++++++
+>>  Documentation/userspace-api/index.rst |   1 +
+>>  MAINTAINERS                           |   1 +
+>>  3 files changed, 509 insertions(+)
+>>  create mode 100644 Documentation/userspace-api/ctlv.rst
+>>
+>> diff --git a/Documentation/userspace-api/ctlv.rst b/Documentation/userspace-api/ctlv.rst
+>> new file mode 100644
+>> index 00000000000000..5ebca3d4d94af8
+>> --- /dev/null
+>> +++ b/Documentation/userspace-api/ctlv.rst
+>> @@ -0,0 +1,507 @@
+>> +.. SPDX-License-Identifier: GPL-2.0
+>> +
+>> +==================
+>> +CTLV userspace ABI
+>> +==================
+>> +
+>> +:Author: Jiri Pirko
+>> +
+>
+>This could use an introduction:
+>
+>Char-Device Tag Length Value (CTLV) is a flexible way to describe system calls
+>delivered over ioctl for a kernel subsystem. It provides a 64 bit operation
+>number with variable length input/output arguments described in a YAML schema.
+>The arguments are serialized using a TLV scheme. Strong support for
+>forwards/backward compatability is baked into the schema design.
+>
+>CTLV excels for uAPIs that are too unconstrained to fit in simple structs.
+>Things that have arrays of arrays, variable size structs, variable sized data,
+>strings and similar which are challenging to represent.
+>
+>As a transport CTLV uses a global number space. Inspection tools like
+>strace/seccomp can always decode a CTLV ioctl without having to know what
+>subsystem is using it. The global number space is organized into families, which
+>roughly corresponds to a subsystem.
+>
+>A family describes what its devices accept in YAML, a generator turns that into
+>kernel metadata and UAPI headers, and CTLV validates every message before a
+>family callback sees it. Userspace sees one character device per instance, one
+>ioctl, and ``read()`` for events.
 
----
-Petr Pavlu (3):
-      module: Fix missing taint flags for unloaded modules
-      module: Fix data race on mod_unload_taint::count
-      module: Move mod_unload_taint to tracking.c
+okay, looks great.
 
- kernel/module/internal.h |  7 -------
- kernel/module/tracking.c | 28 ++++++++++++++++++++++------
- 2 files changed, 22 insertions(+), 13 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261020-taint-unload-f96d25823757
+
+>
+>> +CTLV is a transport for device control interfaces. A family describes what its
+>> +devices accept in YAML, a generator turns that into kernel metadata and UAPI
+>> +headers, and CTLV validates every message before a family callback sees it.
+>> +Userspace sees one character device per instance, one ioctl, and ``read()`` for
+>> +events.
+>> +
+>> +This document is the ABI. What each family accepts is specified under
+>> +``Documentation/ctlv/specs``; writing a family is :doc:`/driver-api/ctlv`.
+>> +
+>> +Why a TLV transport
+>> +===================
+>> +
+>> +CTLV puts the rules of every operation in one description and validates them
+>> +once:
+>> +
+>> +- One ioctl carries every operation of every family, so a new operation is a
+>> +  new specification entry, not a new ioctl number.
+>> +- Attributes are optional or required by declaration, so a message can grow
+>> +  without breaking a caller that does not know the new attribute.
+>> +- An unknown attribute is refused on a request and tolerated on a reply, so a
+>> +  new kernel can say more to an old program. A request may mark an attribute an
+>> +  old kernel is welcome to skip, so a new program can say more too.
+>> +- Bounds, lengths, occurrence counts and nesting depth are checked before a
+>> +  family callback runs.
+>> +
+>> +Devices
+>> +=======
+>> +
+>> +Each registered instance appears as a character device in the ``ctlv`` class
+>> +with a dynamic minor::
+>> +
+>> +    /dev/ctlv0
+>> +    /sys/class/ctlv/ctlv0
+>> +
+>> +Sysfs shows class membership, the ``dev`` number and the device-model link to
+>> +the parent device. There is no family sysfs attribute; ``families-dump`` on an
+>> +open descriptor is the authoritative answer to what a device is.
+>
+>I've tried to like this but, I really am not a fan. I think it
+>reflects too much of a netlink influence.
+
+Well, yes and no. In contrast with Generic Netlink, CTLV builds on
+inheritance. So *every* CTLV family is child of "root" CTLV family. So
+if user opens any /dev/ctlvX, the "root" CTLV family ops work. Then the
+families-dump op reveals the inheritance chain from root to the leaf.
+The idea is to allow generic tool to work on upper family level and
+allowing some driver-specific tool to work on the leaf.
+Think of it as a part of introspection of a device.
+
+
+>
+>My two biggest problems:
+>
+>1) This prevents us from incrementally using CTLV as a more robust
+>   uAPI. Like if I wanted to start using it in vfio for new uAPI I
+>   cannot
+
+I don't think that the existance of family-dump prevents you that. I
+have idea of a split that would allow you to attach CTVL ioctl on
+existing fd. Will try to sketch it and implement it.
+
+
+>
+>2) It destroys the kernel concept of a cdev subsystem, where we have a
+>   distinct class, /dev/ directory and cdev nodes.
+>
+>   Lots of tooling and userspace is geared toward working this way. A
+>   completely unstable /dev/ctlvX that could be *anything* will need a
+>   meaningful new methodology in userspace. For instance anyone doing
+>   containers that wants to pass these is going to need special
+>   tooling.
+
+The node is not opaque before open, though. It is a device-model child
+of the device that registered it, so /sys/class/ctlv/ctlv0/device
+points at that parent, and its uevents carry the family and its
+ancestry (CTLV_FAMILY, CTLV_COMPATIBLE_*).
+
+udev can name it from the same properties. ctlv0 is no more stable
+than sda or event3, and it gets a stable name the same way: a rule
+matches the family or the parent and adds a symlink, as /dev/disk/by-id
+does for disks, e.g.:
+
+    SUBSYSTEM=="ctlv", ENV{CTLV_FAMILY}=="ctlv-attestation-tdx", \
+        SYMLINK+="attestation/tdx"
+
+A container is then given /dev/attestation/tdx rather than whichever
+ctlvN it happened to get; no special tooling is involved. The Discovery
+section later in the doc has the details.
+
+
+>
+>> [ ... 143 lines skipped ... ]
+>> +An attribute ID names the family that declared it, a group within that family
+>> +and an attribute within that group::
+>> +
+>> +    63           48 47           32 31                             0
+>> +    +--------------+--------------+--------------------------------+
+>> +    |    family    |    group     |             attr               |
+>> +    +--------------+--------------+--------------------------------+
+>> +
+>> +    CTLV_ATTR(family, group, attr)
+>> +    CTLV_ATTR_FAMILY(attr) / CTLV_ATTR_GROUP(attr) / CTLV_ATTR_NUMBER(attr)
+>> +
+>> +An operation ID is the same shape with the group bits zero::
+>> +
+>> +    CTLV_OP(family, op)
+>> +    CTLV_OP_FAMILY(op) / CTLV_OP_NUMBER(op)
+>> +
+>> +Use generated complete IDs. A family's header defines every ID it declares
+>> +and includes its parent's.
+>
+>I'm OK with this, it seems like a fine design, very netlink inspired.
+
+Netlink actually does not have it. Attr id is not global as it is here.
+
+
+>
+>One of the nice properties is an external tool, like strace or a
+>seccomp does have enough information to capture the entire operation,
+>including all parameters.
+>
+>Though I wonder how much trouble it will be for userspace to form
+>these things.. It has to pre-determine how much memory it needs then
+>fill in this structure. That's not so easy to use.
+>
+>How hard would it be to accept a linked list, or array, of buffer
+>frags? With some strict rule that a leaf attribute cannot span frags?
+>
+>My thinking is userspace could allocate frag by frag as it builds the
+>message instead of being forced to do a size, allocate, fill sequence?
+
+There are no frags on the request side (reply has them).
+The entire message is a single buf. For request, all arrays are bounded
+and this is enforced for every family attribute. The introspection
+provides kernel-computed max size of buffer for ever op request.
+Then during processing, kernel copies the whole request buffer before it
+parses it.
+
+I deliberatelly made this limitation to keeps things simple. Makes
+sense?
+
+
+>
+>> +
+>> +Request occurrence order
+>> +------------------------
+>> +
+>> +Occurrences of one attribute ID must be contiguous within each request root or
+>> +nest. ``A A B`` is valid, while ``A B A`` is not. An ignored unknown attribute
+>> +is not an occurrence of any known attribute, but it ends the preceding run, so
+>> +``A ignored-unknown A`` is also invalid. Different IDs otherwise have no
+>> +required numeric or schema order.
+>
+>I'm not entirely sure what this is trying to say. Is it just a single
+>ID must be contiguous if it is repeated?
+
+Yes it is a limitation of ordering of attributes that occur multiple
+times in message/nest (arrays). Will reword.
+
+
+>
+>> +
+>> +Attributes a kernel may skip
+>> +----------------------------
+>> +
+>> +A request attribute, the root aside, may carry
+>> +``CTLV_ATTR_F_IGNORE_IF_UNKNOWN``. If no family the device answers declares
+>> +that complete ID, the kernel steps over the whole attribute without looking
+>> +inside it; without the bit, an attribute the schema does not place where it
+>> +appears fails the request as it always has.
+>> +
+>> +The bit forgives an ID this kernel has never heard of and nothing else. An ID
+>> +the device's schema declares somewhere is held to that schema, so an attribute
+>> +sent where it does not belong fails whether the bit is set or not, and one sent
+>> +where it does belong is checked as usual. Every other rule applies too: the
+>> +length has to fit its nest and the header may carry no bit the format does not
+>> +define. Replies and events never carry it.
+>
+>This is pretty hard to read. AI?
+
+Okay, will reword.
+
+
+>
+>> +
+>> +This is how a program built against a newer version of a family talks to an
+>> +older kernel. What that kernel knows is validated, what it does not is
+>> +ignored, and a caller that has to know which is which asks ``op-schema-get``
+>> +first.
+>> +
+>> +Executing an operation
+>> +======================
+>> +
+>> +One ioctl executes every operation::
+>> +
+>> +    struct ctlv_op_exec {
+>> +            __aligned_u64 op_id;
+>> +            __aligned_u64 request;      /* struct ctlv_attr __user * */
+>> +            __aligned_u64 reply;        /* struct ctlv_attr __user * */
+>> +            __u32 request_len;
+>> +            __u32 reply_len;
+>> +            __aligned_u64 generation;   /* queries only */
+>> +            __aligned_u64 cursor;       /* queries only */
+>> +            __aligned_u64 reserved[2];  /* must be zero */
+>> +    };
+>> +
+>> +    #define CTLV_IOC_OP_EXEC _IOWR(0xBB, 0x00, struct ctlv_op_exec)
+>
+>Generally I've ben frowning on using the size arugment for ioctl. This
+>means you can never make that struct bigger, and that's historically
+>been a bad choice...
+>
+>I've mostly been using this:
+>
+>  #define IOMMU_DESTROY _IO(IOMMUFD_TYPE, IOMMUFD_CMD_DESTROY)
+>
+>And then put a length at the top of the struct and do the
+>
+>        ret = copy_struct_from_user(ucmd.cmd, op->size, ucmd.ubuffer,
+>                                    ucmd.user_size);
+>
+>Kind of thing so there is a solid compatability story.
+
+Okay, makes sense.
+
+
+>
+>> [ ... 81 lines skipped ... ]
+>> +``ENOMEM``
+>> +    The kernel could not allocate what the operation needed.
+>> +
+>
+>EOVERFLOW for check_overflow failures
+
+Okay.
+
+
+Thanks!
+
+>
+>-- 
+>Jason
