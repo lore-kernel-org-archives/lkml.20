@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464610;
-	b=J1pbQVbzzIcMBWPmmOhV+r/GIoHW164UiTojgrtqHt9ukM1Vedxqb32l7rEGqy0Sm4ll
-	 ZxrCZX4xOviuPSbTJj1/pt8vmrp7/HiMOkklPsZIwYlrHtccegKKfPccf8XZlYIidCLcs
-	 QYG5eZruDJ657QRRKCIPtjKtuF306Ed0B5asBCdKSfxNsddagbajQDWvS+SFfebA87Y0o
-	 uAJkG6qOWXM5B9W79XckO2hG+fwu2uEVJ9WaSdRpOegxVIlY/FjeWdef4SZt7f1yvvCE0
-	 ZYVbEQm/d79v1zXxG+mziFDq2TUY9mOroQ7ysQtxlGcSac8bWcxv9dcy5DoDandm02A==
+	t=1792464611;
+	b=F9OawZPerhqecO2iAdvMGUf4E8xA8X+Jxd4qCrGapR+70QsxAjfcsO2uR7YpvmDBuWyi
+	 Orf2EYoH3sS4QpfACHPmU2jlwqy3wD3wUKoE6hNe2X9+Z7uAqG7Taji9w5Lt/m4NkeZQG
+	 TRvrafZAdYD6P9RuUFY/ql/FYGBoXIU5tU4aq0Q3mz6ZUnWWcvxwPHYm4Mzy104PD7f0z
+	 mQmMVp3QKpy00ki+HFh8/ti0QJuQYHNiUVEQ9a1+KnS3b5ojAWhxr6r+ZcJ0Em4TvzZs5
+	 hGw5EztY6iQHyw8cJYQWjMbNt6YF/99I4GHZnoOIXVVRx+bmvzQ67bRyrJrK5MNcdXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464611;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=qSqZs6kvQ73jpKV//X6SsqeslDJs9OL8i3dqvINNPv8=;
-	b=CEMyVBPJjtDwDNDIIlpCnXl0mz9jOXuGq5Pb7Vpx4PlWTHJ+a2YSXVZD5eMGh3ojjcLl
-	 u/obrvi4NKQvylU8p5hESWMLtY6iZOTfG7LO/frkmnm0v4iiEmSyjgm/3XAD3QadNQMFR
-	 cyrIqer8XWvXMUaOjSUusPh82NvRVqaoIr8aTlgkr4Z4NCxaY19p04WCy2JjieyKHeURT
-	 3B5g7MT0sPQH/r2RWVnSZtJQHek7uJ7QxilPEJr7D7WU7odnap4aIsNFRTsboxdNc1nFK
-	 cXMsUWUwMcxINiYXrVGoEelC+Pj5erbj5q9aVO6qOuqJX3DpcHXHuflvNYfmipTJVzQ==
+	bh=UVKQ7US5Q7o3zuAmWEtLYwco4w3ej7rQWppkYb72eK4=;
+	b=cRl4Hd+3Z6xVzgXoeFPctRWfPFlyPZ1GWVZWm5KSAi0AGaSaVj19wwV62dG4PmbSB5Bt
+	 ArKYCynJJy7TD6bljDQv4f3OzZMQnSf5WjtAbvwPylqrDYA31r3QGRwgheP1r3CAv37TD
+	 cr137WwnOFVOo62wDPrmu6uFTO2fm9ris8IcJ2vwVToqdytXQ0Xu4lLzzBLbGRzVeymyn
+	 b/JaHCqIKqfV9RTHB/fHPhDfQ2DqF2B0P5QvNBsHqLQ+TP/uZleBU5N/nFHrCbhN5qxwG
+	 /MlifrNp6q3GsrbSlylkev/FpjfKuBwhSyluIdlkgx5LYmL2A2QzfaOTid12o+sZITA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Cr+WWcS/";
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dzEnfoVg;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2525C606A334;
-	Tue, 20 Oct 2026 02:50:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2525C606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505BA606A33A;
+	Tue, 20 Oct 2026 02:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 505BA606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Cr+WWcS/
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dzEnfoVg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=qS
-	qZs6kvQ73jpKV//X6SsqeslDJs9OL8i3dqvINNPv8=; b=Cr+WWcS/vDlwgfM9TA
-	zmmFWxnFaSAEYN63MwVeOVcDhXvfSNnGubjHlrqRnHSnNrO1vfOkIRVSERO0ttAo
-	WuK8zUU5xV1iiA3Rqfk9s4fpu3Lb5lyImNu3vk8JMpjAz42X/hnh/ljCme2SJOO3
-	eq+WG1WycGCfdg+MHkLKxM+FY=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=UV
+	KQ7US5Q7o3zuAmWEtLYwco4w3ej7rQWppkYb72eK4=; b=dzEnfoVgaQJ4jbNdGk
+	0zoXGowT+i8lA0vEzI68KsvHKEu/q4oDswpdcepSzpsbrp4RKnsBLtGFfRMItCNs
+	eOz0d+npciqMDCKnvl0yt/SDzp4i7VR06BzWc/FijmRYgn1kxD0eF6OXZBjcft43
+	xWtEFSnwiM53Cc/f2Qvhkcl+8=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr8C+1tZqMLhIBA--.5123S8;
-	Tue, 20 Oct 2026 10:49:44 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr8C+1tZqMLhIBA--.5123S9;
+	Tue, 20 Oct 2026 10:49:45 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>,
@@ -52,13 +52,16 @@ To: Felix Fietkau <nbd@nbd.name>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Howard Hsu <howard-yh.hsu@mediatek.com>,
+	Evelyn Tsai <evelyn.tsai@mediatek.com>,
+	Bo Jiao <Bo.Jiao@mediatek.com>,
+	Money Wang <Money.Wang@mediatek.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH 6/7] wifi: mt76: mt7996: validate temperature response length
-Date: Tue, 20 Oct 2026 10:49:32 +0800
-Message-Id: <20261020024933.3205681-7-yaojiale02@163.com>
+Subject: [PATCH 7/7] wifi: mt76: mt7996: validate RF register response length
+Date: Tue, 20 Oct 2026 10:49:33 +0800
+Message-Id: <20261020024933.3205681-8-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261020024933.3205681-1-yaojiale02@163.com>
 References: <20261020024933.3205681-1-yaojiale02@163.com>
@@ -72,29 +75,29 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr8C+1tZqMLhIBA--.5123S8
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Xw4rAFW3AF48uryDAr1fJFb_yoWDZFg_uw
-	na9FnxJr18Kw4UKr42kwsrCryakay8u3Z5C3yrt3yfJay7JFW7ur93Zrn3GrZ2k3Z29F1D
-	Grn8Za47Za43ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+X-CM-TRANSID:_____wDnr8C+1tZqMLhIBA--.5123S9
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Jry7KFWkKFyfJF45CFW5GFg_yoWDtFc_uw
+	1vvFnxJr18Kw4UKr42kws3urWFyay8Zas7u39xt3yFgay7JFW7urZ3Zr15Gr9293Z7ZFyU
+	Grn8Ja13Aa4a9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
 	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbG-e7UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgg4cmrW1sildwAA38
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wk4cmrW1smTwgAA3e
 
-The temperature query reads a fixed firmware event without checking the
-response length. A truncated response can cause an out-of-bounds read.
+The RF register query reads a fixed firmware response without checking
+its length. A truncated response can cause an out-of-bounds read.
 
-Require the complete thermal event before accessing its temperature.
+Require the complete register response before accessing its value.
 
-Fixes: 6879b2e94172 ("wifi: mt76: mt7996: add thermal sensor device support")
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
  drivers/net/wireless/mediatek/mt76/mt7996/mcu.c | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
-index 5391666553d9..d87851c5fc1d 100644
+index d87851c5fc1d..c248055a2c94 100644
 --- a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
 +++ b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
-@@ -4702,6 +4702,10 @@ int mt7996_mcu_get_temperature(struct mt7996_phy *phy)
+@@ -5379,6 +5379,10 @@ int mt7996_mcu_rf_regval(struct mt7996_dev *dev, u32 regidx, u32 *val, bool set)
  					&req, sizeof(req), true, &skb);
  	if (ret)
  		return ret;
@@ -104,7 +107,7 @@ index 5391666553d9..d87851c5fc1d 100644
 +	}
  
  	res = (void *)skb->data;
- 	temp = le32_to_cpu(res->temperature);
+ 	*val = le32_to_cpu(res->data);
 -- 
 2.34.1
 
