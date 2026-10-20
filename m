@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792539950;
-	b=lwEKD4xp+78RVN00LbiqalrjXHncYRDta51qjZuiasiVfocFvWAKqSQ50LshVaTDFEVY
-	 La64xNWaNABa3WCVa2uK1jiPb96hz0sZeXZXSfScJrGA0XBzhNevJICRGZKYlgekS7wpM
-	 l68LcbD5OE8iPwgnOc7A48FalmLruHlq5ThNFtUlABA1L3oqv9E/Fti25rEwj6lf3HVed
-	 AJDYSH7xATM+rs3XBwYSFLBdMkA+92GD1kJKbnNOm/bFcRPgfNepXJoA9p9d8o1hGG3fp
-	 pcIo0Js91pZCV4TGJcNItLSzoKFXEC3OPP4cGN9B8hcG47wIOhV379a4+2BHoliw9Sg==
+	t=1792539948;
+	b=Z7XIkJ4j/+J8Y5BuQiNeb44y+sdpdiMDrq0fZzZdYxmPqZCKvtM6rmsxMIpxHe+fQWEe
+	 hmqrc+eoKejowEqCENdwOC2hUrbECiBL2F78AnmKlE8Tmz4OOzBZ2BhN8rJhM6FOYoyuJ
+	 isB/qtXFSek5Sr6gaatI0iac+zJrg04t4AzNg/RUQppFjuFhDJ1qLtiAQCDRWYyOFMxNO
+	 0+kI/Km7IXq7zZVI1IG/rYMMGAHDn+5DKInzlHZLLhARaW72q29YUEizDpVRRaSETFKce
+	 1m4c3HH1KugPXY6bLloPfOIYJBdLEpr0+YScQBHTYBIZPt2+KTuuBMM9+xQyA/2xU+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792539950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792539948;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=YEGdw3pKXaMUYTXJ7wX+CUT9vka2gOUaultJzDkOS+w=;
-	b=A6ajj/pj2UBOFZwfKCAeWsaNurxk6TEldHUP9ufVGA8x45BCfznjATeRxQUGWXuzfi65
-	 npVEcSPbjMST+GWUmu3lHffJiEB7YxTqflfltUY4KMn/U7aGTlZt8KJUbRTz/IkjykmGU
-	 iEK4zXm79c1cPEmuvdhayOHoRrJbrbLLTSR92mlBRColQj890Pq57lAZlcOM2awa2bDT5
-	 oFvFiHim84ohDB3YpSVLOUJe7qYVUQqYtXZuPZr/J1fI+NIRN5PoF7H9jTiYbux9jDqG/
-	 fz3xI4E4hJPCNUHFjeYrUtby1jWa+mZXv9g78fM/OoI4EnLtVNZXL5s8/TEjCoiAjmA==
+	bh=yDeUrlP+9V6t8Szn1Kr0YDnDSBUM+zoUIo+daTEsHVM=;
+	b=fzo+fhHI7VHuQwFid6iyLlQGSgcNi+klvFjFHvtvxDqvlOBccBFceZe5FaD4jHTzDogQ
+	 PJsTmX76G3+kQSUYE/X3+7Y9NAqpTuTQ/EkeRdVbPbNp1k4iJBUwoBtdcSS+C1WH+LRiJ
+	 Zxun4r12b4QOCBAV6FseMVmtyZyCK6DlOSG8bfsgV/GegSkvuX/gi36WQhaHE/l4sPSeQ
+	 CmBGJ+KF5B43M0Su3QV8iPz467cLSIiGMwI/5R69zDEdUZKqqJFPovR4RbadVJFqDskzw
+	 tmZQV0IDF9YwpLe/DJxDaBxFDUyIDspnINlprCJEuiCnvord+L+Ow1tFVnasimPy3zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FSkorMM0;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=vJxmDvlF;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8953606A33D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8953606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17DF606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D17DF606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FSkorMM0
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd66551e02cso87728a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:45:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=vJxmDvlF
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so532828a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:45:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792539949; x=1793144749; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792539947; x=1793144747; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YEGdw3pKXaMUYTXJ7wX+CUT9vka2gOUaultJzDkOS+w=;
-        b=FSkorMM07Od/RRtvJ+2SyAd9Jlv7qzW3os3KVctoV9c0IQMScIuWIOuSTvyBdyRQAw
-         Em74+/L158IzoCAdLOMXKtEVmdT2eaT4gKB6WQ/gbgWlgCMSM+hTgLXdrjsvpnRCZp2D
-         Vmp1KVkWXwIlWh/bU2oMiCaf7YpmPFMcA1YDdq02Yy89udZysTIYG+eSFcqIBrGlBXVT
-         8dOSXA2DUsobJSDki+wKeG8nd5AM9S9nqvj2WmZPAtBYbwyI0rMu6nI9ZsImu9uDhMUm
-         +tp+SI57VuIoCstmMZ+mSNcKDpq4w18adYVhvw+04z0OISbqp4c7Ew4t0C7OmySCl5vX
-         MlgA==
+        bh=yDeUrlP+9V6t8Szn1Kr0YDnDSBUM+zoUIo+daTEsHVM=;
+        b=vJxmDvlFA3TrD1gTBnYYf8cXIxkD7t/43sVyli+/GcdVFzkprsLocSzqWTWMEwxl7K
+         ogefd5RSDXIZTPonAzRKCBg4uEIBE8T6T8FJCwLI7mi3O1f05BbL6iq1ai2JFAcRTf4o
+         pJP1ZEs9pZePtmuE/DjYNBY1rCJ/C4NbL4717HO2qW95TNTk/u42Q9vyDCXdBFJpKRX6
+         3X6WJZoUph6odJgH03SidP8s6UignQzPA33lIoRqa7ezh0TPIHtwaJ+kZRq95QTcccAH
+         SyEa2kYotxot111VChJWiNPWSFa0N+84RJxgS/kO6mfQq3zJS4dnTRA5dB1ogdIIaGQw
+         D1Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792539949; x=1793144749;
+        d=1e100.net; s=20260707; t=1792539947; x=1793144747;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YEGdw3pKXaMUYTXJ7wX+CUT9vka2gOUaultJzDkOS+w=;
-        b=Qk4+16o5lCOZXwDS9yvZ5JiwwQp0Z4ayjvMhHMrr/mFknyycPryxVF1JCmkDk6Bhvw
-         FuASvSLxCdhNX44GB+E7YumKrfYmhOSg3yZ0lbebstQZw+8ec+iWxOug7Nrc4em+njB5
-         AU4tBCseYF6S6/up03sz8I7lDxnPmxUSVlI9BS1gNZonv0ZvZM200ojhrEwx239xhm56
-         foEse+4Ble5YXkM7IvAdnDJO4/JWOw+D2R8l99WZ2tD1I+KdM21oVOKLpYHM5lPM0906
-         Y3hPVVK3n592YrdIJLTDMhg1GWtUrcAnNWpcZhkH8bpAQsK9rrYM0FclOZLzlOgo5XDO
-         cKxw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1ADDikFQGQVvM4EZ8XEicDoE/qsfh+IdL5tzF1Cna/uazZO5Wtfcpv8LUf7titgyM+67fbneJPnujMw0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWm8pmMuJAXx6dF1x0fW2goFW54noQaD9IYTEXudaaWHnugxAG
-	3CYuhQg7UePtxxSAZHdO1ASVOxpJDUOPZELVA/KAvXFjDzSHL90GHwYH4cfg7F78PRInUUCqKkA
-	ZFRS19bfHeNkvOg==
-X-Received: from plbjx9.prod.google.com ([2002:a17:903:1389:b0:2ea:3bc:770d])
+        bh=yDeUrlP+9V6t8Szn1Kr0YDnDSBUM+zoUIo+daTEsHVM=;
+        b=VzeFuFY2BwvbM3LWrCJbbA4RC/uYK8GnKp3mgD0TwJf8D5/jnF6ImJtIlUuaBr3Cts
+         aJMLiIxcqsFuk1kZVY2+cT76Wafn5ouv0/miLaT99OvmB+6B2wtyVQCC3ttfQDt7X/XQ
+         HkqBYgy/4O4drsTUWX1LClgPh9uZ1p0YtNOfPQcj40/u+uhehPja3NKr/E2s6pkoPEVk
+         RIuKF7vPyiDnR6VpKId22NXzHWj/x8TZ7AyGumAO4S75qDDEbqtaLJSOv1nCZ8JP0dF9
+         HJCnw0RZDuukgPiWgCMJQc8d+RnRcjO48GxymIaRbCcYf8h6LCLEUVBw5oLL0C37hWeq
+         7ceQ==
+X-Forwarded-Encrypted: i=1; AKwUvByiV2A0/ieK47mqTzQHIku1XBfC2JINZegy6S9oLuEL5axbzOFTjQJ3AbVCyg3uZ/3aeF3v1Pz4nH/fuqE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/QfxLc0m9Zi9ffUH1CIWxPm/a+nkXpY3TGBA7zAnlrEfOtI3f
+	u601r6g9HoreA+pJWUjokK0UFibVMIB5SvYNCSjZGrALLtjnB9VyFMqM0Y8V4P5JyD2HV7sRvnd
+	eB/OhwCYQvMytwQ==
+X-Received: from pjbfa23.prod.google.com ([2002:a17:90a:f0d7:b0:3a8:4f60:e802])
  (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:ba06:b0:3ad:870d:1bfa with SMTP id 98e67ed59e1d1-3ad870d1c45mr212842a91.23.1792539948705;
- Tue, 20 Oct 2026 16:45:48 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:45:30 -0700
+ 2002:a17:90b:35cd:b0:3ac:a6a5:5743 with SMTP id 98e67ed59e1d1-3ad86f0bd1dmr382782a91.32.1792539946954;
+ Tue, 20 Oct 2026 16:45:46 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:45:28 -0700
 In-Reply-To: <20261020234535.3182385-1-jmattson@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,455 +81,144 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261020234535.3182385-1-jmattson@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020234535.3182385-5-jmattson@google.com>
-Subject: [PATCH 4/4] KVM: selftests: Verify MSR filter changes apply to
- passed-through MSRs
+Message-ID: <20261020234535.3182385-3-jmattson@google.com>
+Subject: [PATCH 2/4] KVM: VMX: Refresh LBR MSR intercepts on full MSR
+ intercept recalc
 From: Jim Mattson <jmattson@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: Jim Mattson <jmattson@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Yosry Ahmed <yosry@kernel.org>, Like Xu <likexu@tencent.com>
+	Yosry Ahmed <yosry@kernel.org>, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add a test to verify that userspace MSR filter changes take effect for
-MSRs that KVM has already passed through to the guest.  KVM tracks the
-desired interception state for some MSRs to avoid redundant bitmap
-updates, and such optimizations can easily cause KVM to skip refreshing
-the MSR bitmaps when only the filter has changed, leaving MSRs passed
-through despite userspace denying access.  This is a regression test
-for the SVM and VMX LBR MSR fixes that precede it.
+Re-apply the LBR MSR intercepts in vmx_recalc_msr_intercepts() if the
+LBRs are currently passed through, so that changes to userspace MSR
+filters are reflected in the MSR bitmap.  Unlike SVM, which can simply
+rewrite the intercepts in either direction, leave the bitmap alone if
+the LBRs aren't passed through, as a filter can only force interception,
+never prevent it, i.e. the bitmap is already correct.  Note, clearing
+msr_passthrough to force vmx_passthrough_lbr_msrs() to re-apply the
+intercepts on the next VM-Enter isn't an option, as doing so would
+leave stale passthrough bits behind if the guest LBR event is no longer
+active.
 
-Prime as many passthrough paths as is practical: disable APERF/MPERF
-and C-state exits if allowed, request AMX permission so that the guest
-can write XFD, and have the guest enable LBRs, set SPEC_CTRL, and set
-XFD.  Then cycle through a sequence of filters that allow everything, or
-deny reads, writes, or both for every MSR of interest, and verify that
-every denied access (and only denied accesses) exits to userspace.  The
-sequence covers every possible transition between the four filter
-states, to catch stale state tracking from any prior state.
+vmx_recalc_msr_intercepts() is invoked in response to
+KVM_REQ_RECALC_INTERCEPTS, which is raised on MSR filter updates, but it
+skips the LBR MSRs, and vmx_enable_lbr_msrs_passthrough() does nothing
+if lbr_desc->msr_passthrough is already set.  If the LBR MSRs are passed
+through when userspace installs a filter that denies them, they remain
+passed through, and the guest can access them without exiting to
+userspace.  Conversely, if a filter forced interception when the guest
+LBR event became active, relaxing the filter leaves the MSRs needlessly
+intercepted.  Either way, the bitmap remains stale until the guest LBR
+event is torn down and recreated.
 
-Add a new test rather than extending userspace_msr_exit_test, as the
-existing test focuses on the semantics of individual filters, whereas
-this test needs to prime KVM's on-demand passthrough paths before
-installing filters, and then cycle through many filters on a single
-vCPU.
+Only x2APIC MSRs are exempt from userspace filtering (see
+kvm_msr_allowed() and the KVM_X86_SET_MSR_FILTER documentation), and the
+filter is honored when LBR passthrough is first enabled, so KVM's
+behavior shouldn't depend on whether the filter is set before or after
+the guest enables LBRs.  Drop the LBR MSRs from the comment claiming
+that they can't be filtered by userspace, and clarify that
+lbr_desc.msr_passthrough tracks KVM's desired interception, which may
+not match the MSR bitmap when userspace filters are in play.
 
+Fixes: 9254beaafd12 ("KVM: vmx/pmu: Reduce the overhead of LBR pass-through or cancellation")
+Cc: stable@vger.kernel.org
 Signed-off-by: Jim Mattson <jmattson@google.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../kvm/x86/msr_filter_update_test.c          | 392 ++++++++++++++++++
- 2 files changed, 393 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/msr_filter_update_test.c
+ arch/x86/kvm/vmx/pmu_intel.c | 20 +++++++++++++++++++-
+ arch/x86/kvm/vmx/pmu_intel.h |  7 ++++++-
+ arch/x86/kvm/vmx/vmx.c       |  6 ++++--
+ arch/x86/kvm/vmx/vmx.h       |  1 +
+ 4 files changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index f43549a56f0b..9cefaf64809d 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -92,6 +92,7 @@ TEST_GEN_PROGS_x86 += x86/kvm_clock_test
- TEST_GEN_PROGS_x86 += x86/kvm_pv_test
- TEST_GEN_PROGS_x86 += x86/kvm_buslock_test
- TEST_GEN_PROGS_x86 += x86/monitor_mwait_test
-+TEST_GEN_PROGS_x86 += x86/msr_filter_update_test
- TEST_GEN_PROGS_x86 += x86/msrs_test
- TEST_GEN_PROGS_x86 += x86/nested_close_kvm_test
- TEST_GEN_PROGS_x86 += x86/nested_dirty_log_test
-diff --git a/tools/testing/selftests/kvm/x86/msr_filter_update_test.c b/tools/testing/selftests/kvm/x86/msr_filter_update_test.c
-new file mode 100644
-index 000000000000..9b9ba3fa398c
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/msr_filter_update_test.c
-@@ -0,0 +1,392 @@
-+// SPDX-License-Identifier: GPL-2.0-only
+diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+index 70a8c4816135..b945213f0b68 100644
+--- a/arch/x86/kvm/vmx/pmu_intel.c
++++ b/arch/x86/kvm/vmx/pmu_intel.c
+@@ -517,7 +517,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+ 	memset(&lbr_desc->records, 0, sizeof(lbr_desc->records));
+ 
+ 	/*
+-	 * Setting passthrough of LBR MSRs is done only in the VM-Entry loop,
++	 * LBR MSRs are initially passed through only in the VM-Entry loop (a
++	 * full MSR intercept recalc merely refreshes an existing passthrough),
+ 	 * and PMU refresh is disallowed after the vCPU has run, i.e. this code
+ 	 * should never be reached while KVM is passing through MSRs.
+ 	 */
+@@ -704,6 +705,23 @@ static inline void vmx_enable_lbr_msrs_passthrough(struct kvm_vcpu *vcpu)
+ 	lbr_desc->msr_passthrough = true;
+ }
+ 
 +/*
-+ * Copyright (C) 2026, Google LLC.
-+ *
-+ * Verify that changes to userspace MSR filters take effect for MSRs that KVM
-+ * has already passed through to the guest, i.e. that KVM refreshes its MSR
-+ * bitmaps on filter changes even if its desired interception hasn't changed.
-+ *
-+ * Intel PT MSRs aren't covered, as KVM passes them through only while the
-+ * guest is tracing (RTIT_CTL.TraceEn=1), which requires valid output setup.
++ * Refresh the LBR MSR intercepts if the LBRs are passed through, so that
++ * changes to userspace MSR filters are reflected in the MSR bitmap.  There's
++ * nothing to do if the LBRs are intercepted, as a filter can only force
++ * interception, never prevent it.
 + */
-+#include "kvm_util.h"
-+#include "processor.h"
-+
-+#define ACC_R	KVM_MSR_FILTER_READ
-+#define ACC_W	KVM_MSR_FILTER_WRITE
-+#define ACC_RW	(ACC_R | ACC_W)
-+
-+struct test_msr {
-+	u32 index;
-+	const char *name;
-+	/* Accesses to perform; never write MSRs where doing so is unsafe. */
-+	u8 access;
-+	/* Value to write for write-only MSRs. */
-+	u64 write_val;
-+};
-+
-+/* Stringify in the outer macros, before the MSR name is macro-expanded. */
-+#define __MSR(msr, str, acc, val)					\
-+	{ .index = msr, .name = str, .access = acc, .write_val = val }
-+#define MSR_R(msr)		__MSR(msr, #msr, ACC_R, 0)
-+#define MSR_W(msr, val)		__MSR(msr, #msr, ACC_W, val)
-+#define MSR_RW(msr)		__MSR(msr, #msr, ACC_RW, 0)
-+
-+/*
-+ * MSRs that KVM may pass through to the guest on Intel and/or AMD.  MSRs that
-+ * don't exist on the host, or that KVM doesn't support for the guest, are
-+ * still useful: denied accesses must exit to userspace regardless of whether
-+ * KVM would have emulated or rejected them.
-+ */
-+static const struct test_msr msrs[] = {
-+	MSR_R(MSR_IA32_TSC),
-+	MSR_RW(MSR_IA32_SPEC_CTRL),
-+	MSR_W(MSR_IA32_PRED_CMD, PRED_CMD_IBPB),
-+	MSR_W(MSR_IA32_FLUSH_CMD, L1D_FLUSH),
-+	MSR_RW(MSR_IA32_SYSENTER_CS),
-+	MSR_RW(MSR_IA32_SYSENTER_ESP),
-+	MSR_RW(MSR_IA32_SYSENTER_EIP),
-+	MSR_R(MSR_IA32_APERF),
-+	MSR_R(MSR_IA32_MPERF),
-+	MSR_R(MSR_CORE_C1_RES),
-+	MSR_R(MSR_CORE_C3_RESIDENCY),
-+	MSR_R(MSR_CORE_C6_RESIDENCY),
-+	MSR_R(MSR_CORE_C7_RESIDENCY),
-+	MSR_RW(MSR_IA32_XFD),
-+	MSR_RW(MSR_IA32_XFD_ERR),
-+
-+	/* LBRs: AMD LBR virtualization, and Intel's legacy LBR stack. */
-+	MSR_RW(MSR_IA32_DEBUGCTLMSR),
-+	MSR_RW(MSR_IA32_LASTBRANCHFROMIP),
-+	MSR_RW(MSR_IA32_LASTBRANCHTOIP),
-+	MSR_RW(MSR_IA32_LASTINTFROMIP),
-+	MSR_RW(MSR_IA32_LASTINTTOIP),
-+	MSR_RW(MSR_LBR_SELECT),
-+	MSR_RW(MSR_LBR_TOS),
-+	MSR_RW(MSR_LBR_CORE_FROM),
-+	MSR_RW(MSR_LBR_CORE_TO),
-+	MSR_RW(MSR_LBR_NHM_FROM),
-+	MSR_RW(MSR_LBR_NHM_TO),
-+	MSR_RW(MSR_LBR_INFO_0),
-+
-+	/* CET. */
-+	MSR_RW(MSR_IA32_U_CET),
-+	MSR_RW(MSR_IA32_S_CET),
-+	MSR_RW(MSR_IA32_PL0_SSP),
-+	MSR_RW(MSR_IA32_PL1_SSP),
-+	MSR_RW(MSR_IA32_PL2_SSP),
-+	MSR_RW(MSR_IA32_PL3_SSP),
-+
-+	/* Mediated PMU, Intel. */
-+	MSR_RW(MSR_IA32_PERFCTR0),
-+	MSR_RW(MSR_IA32_PMC0),
-+	MSR_RW(MSR_CORE_PERF_FIXED_CTR0),
-+	MSR_R(MSR_CORE_PERF_GLOBAL_STATUS),
-+	MSR_RW(MSR_CORE_PERF_GLOBAL_CTRL),
-+	MSR_W(MSR_CORE_PERF_GLOBAL_OVF_CTRL, 0),
-+
-+	/* Mediated PMU, AMD. */
-+	MSR_RW(MSR_K7_PERFCTR0),
-+	MSR_RW(MSR_F15H_PERF_CTR),
-+	MSR_R(MSR_AMD64_PERF_CNTR_GLOBAL_STATUS),
-+	MSR_RW(MSR_AMD64_PERF_CNTR_GLOBAL_CTL),
-+	MSR_W(MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR, 0),
-+	MSR_W(MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET, 0),
-+
-+	MSR_RW(MSR_STAR),
-+	MSR_RW(MSR_LSTAR),
-+	MSR_RW(MSR_CSTAR),
-+	MSR_RW(MSR_SYSCALL_MASK),
-+	MSR_RW(MSR_FS_BASE),
-+	MSR_RW(MSR_GS_BASE),
-+	MSR_RW(MSR_KERNEL_GS_BASE),
-+};
-+
-+#define NR_MSRS ARRAY_SIZE(msrs)
-+
-+/*
-+ * Accesses denied by the filter in each phase.  The sequence covers every
-+ * possible transition between the four filter states (allow all, deny reads,
-+ * deny writes, deny both), to catch KVM failing to propagate filter changes
-+ * from any prior state.
-+ */
-+static const u8 phases[] = {
-+	0, ACC_RW, 0, ACC_R, 0, ACC_W, ACC_R, ACC_RW, ACC_W, ACC_RW, ACC_R,
-+	ACC_W, 0,
-+};
-+
-+/* MSR filter ranges, which must cover every MSR in msrs[]. */
-+static const u32 filter_bases[] = { 0x00000000, 0xc0000000, 0xc0010000 };
-+#define FILTER_NR_MSRS	(KVM_MSR_FILTER_MAX_BITMAP_SIZE * BITS_PER_BYTE)
-+
-+/* All zeroes, i.e. deny everything in the range. */
-+static u8 deny_bitmap[KVM_MSR_FILTER_MAX_BITMAP_SIZE];
-+
-+/* Guest-only: the last value read from each MSR with no filter in place. */
-+static u64 guest_vals[NR_MSRS];
-+static bool guest_val_valid[NR_MSRS];
-+
-+/* Host-only: userspace exits observed during the current phase. */
-+static int nr_read_exits[NR_MSRS];
-+static int nr_write_exits[NR_MSRS];
-+
-+/*
-+ * Get KVM to pass through as many MSRs as possible.  Failures are expected
-+ * and ignored, e.g. if the relevant feature isn't supported.
-+ */
-+static void guest_prime_passthrough(void)
++void vmx_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
 +{
-+	static const u64 spec_ctrl_vals[] = {
-+		SPEC_CTRL_IBRS, SPEC_CTRL_STIBP, SPEC_CTRL_SSBD,
-+	};
-+	int i;
++	struct lbr_desc *lbr_desc = vcpu_to_lbr_desc(vcpu);
 +
++	if (WARN_ON_ONCE(!lbr_desc))
++		return;
++
++	if (lbr_desc->msr_passthrough)
++		vmx_update_intercept_for_lbr_msrs(vcpu, false);
++}
++
+ /*
+  * Higher priority host perf events (e.g. cpu pinned) could reclaim the
+  * pmu resources (e.g. LBR) that were assigned to the guest. This is
+diff --git a/arch/x86/kvm/vmx/pmu_intel.h b/arch/x86/kvm/vmx/pmu_intel.h
+index 5d9357640aa1..b553f63e19a6 100644
+--- a/arch/x86/kvm/vmx/pmu_intel.h
++++ b/arch/x86/kvm/vmx/pmu_intel.h
+@@ -34,7 +34,12 @@ struct lbr_desc {
+ 	 */
+ 	struct perf_event *event;
+ 
+-	/* True if LBRs are marked as not intercepted in the MSR bitmap */
 +	/*
-+	 * Enabling LBRs activates LBR virtualization on AMD, and creates a
-+	 * guest LBR perf event (and thus passes through the LBR stack) on
-+	 * Intel.
++	 * True if KVM wants the LBR MSRs to be passed through, i.e. not
++	 * intercepted.  Note, userspace MSR filters may force interception of
++	 * some or all LBR MSRs regardless, i.e. this doesn't necessarily
++	 * reflect the state of the MSR bitmap.
 +	 */
-+	wrmsr_safe(MSR_IA32_DEBUGCTLMSR, DEBUGCTLMSR_LBR);
+ 	bool msr_passthrough;
+ };
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 612ab07d4100..1c190a6303a3 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -4347,11 +4347,13 @@ static void vmx_recalc_msr_intercepts(struct kvm_vcpu *vcpu)
+ 		vmx_set_intercept_for_msr(vcpu, MSR_IA32_S_CET, MSR_TYPE_RW, intercept);
+ 	}
+ 
++	vmx_recalc_lbr_msr_intercepts(vcpu);
 +
-+	/* KVM passes through SPEC_CTRL once the guest sets a non-zero value. */
-+	for (i = 0; i < ARRAY_SIZE(spec_ctrl_vals); i++) {
-+		if (!wrmsr_safe(MSR_IA32_SPEC_CTRL, spec_ctrl_vals[i]))
-+			break;
-+	}
-+
-+	/* VMX passes through XFD once the guest sets a non-zero value. */
-+	wrmsr_safe(MSR_IA32_XFD, XFEATURE_MASK_XTILE_DATA);
-+}
-+
-+static void guest_access_msrs(u8 deny)
-+{
-+	u64 val;
-+	int i;
-+
-+	for (i = 0; i < NR_MSRS; i++) {
-+		const struct test_msr *msr = &msrs[i];
-+
-+		/*
-+		 * Denied reads are handled by userspace, so only record the
-+		 * value if the read is allowed (and doesn't #GP).
-+		 */
-+		if (msr->access & ACC_R) {
-+			if (!rdmsr_safe(msr->index, &val) && !(deny & ACC_R)) {
-+				guest_vals[i] = val;
-+				guest_val_valid[i] = true;
-+			}
-+		}
-+
-+		if (!(msr->access & ACC_W))
-+			continue;
-+
-+		if (!(msr->access & ACC_R))
-+			val = msr->write_val;
-+		else if (guest_val_valid[i])
-+			val = guest_vals[i];
-+		else if (deny & ACC_W)
-+			val = 0;
-+		else
-+			continue;
-+
-+		/*
-+		 * Writes that are allowed only ever write the MSR's current
-+		 * (or a benign) value.  Denied writes are dropped by userspace.
-+		 */
-+		wrmsr_safe(msr->index, val);
-+	}
-+}
-+
-+static void guest_code(void)
-+{
-+	int i;
-+
-+	guest_prime_passthrough();
-+
-+	for (i = 0; i < ARRAY_SIZE(phases); i++) {
-+		guest_access_msrs(phases[i]);
-+		GUEST_SYNC(i);
-+	}
-+
-+	GUEST_DONE();
-+}
-+
-+static void set_msr_filter(struct kvm_vm *vm, u8 deny)
-+{
-+	struct kvm_msr_filter filter = {
-+		.flags = KVM_MSR_FILTER_DEFAULT_ALLOW,
-+	};
-+	int i;
-+
-+	/* No ranges, i.e. disable filtering, if nothing is denied. */
-+	if (deny) {
-+		for (i = 0; i < ARRAY_SIZE(filter_bases); i++) {
-+			filter.ranges[i].flags = deny;
-+			filter.ranges[i].base = filter_bases[i];
-+			filter.ranges[i].nmsrs = FILTER_NR_MSRS;
-+			filter.ranges[i].bitmap = deny_bitmap;
-+		}
-+	}
-+
-+	vm_ioctl(vm, KVM_X86_SET_MSR_FILTER, &filter);
-+}
-+
-+static int find_msr(u32 index)
-+{
-+	int i;
-+
-+	for (i = 0; i < NR_MSRS; i++) {
-+		if (msrs[i].index == index)
-+			return i;
-+	}
-+
-+	TEST_FAIL("Unexpected userspace exit for MSR 0x%x", index);
-+	return -1;
-+}
-+
-+static void handle_msr_exit(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_run *run = vcpu->run;
-+	int i = find_msr(run->msr.index);
-+
-+	TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_FILTER,
-+		    "Wanted KVM_MSR_EXIT_REASON_FILTER for %s, got reason %u",
-+		    msrs[i].name, run->msr.reason);
-+
-+	if (run->exit_reason == KVM_EXIT_X86_RDMSR) {
-+		nr_read_exits[i]++;
-+		run->msr.data = 0;
-+	} else {
-+		nr_write_exits[i]++;
-+	}
-+	run->msr.error = 0;
-+}
-+
-+static int check_exits(const char *type, const char *name, int nr_exits,
-+		       bool denied, int phase)
-+{
-+	int expected = denied;
-+
-+	if (nr_exits == expected)
-+		return 0;
-+
-+	pr_info("Phase %d: %s %s: wanted %d userspace exit(s), got %d\n",
-+		phase, name, type, expected, nr_exits);
-+	return 1;
-+}
-+
-+static void verify_phase(int phase)
-+{
-+	u8 deny = phases[phase];
-+	int i, nr_failures = 0;
-+
-+	for (i = 0; i < NR_MSRS; i++) {
-+		nr_failures += check_exits("RDMSR", msrs[i].name,
-+					   nr_read_exits[i],
-+					   msrs[i].access & deny & ACC_R, phase);
-+		nr_failures += check_exits("WRMSR", msrs[i].name,
-+					   nr_write_exits[i],
-+					   msrs[i].access & deny & ACC_W, phase);
-+	}
-+
-+	TEST_ASSERT(!nr_failures,
-+		    "Phase %d (deny =%s%s): %d MSR filter failure(s), see above",
-+		    phase, deny & ACC_R ? " RDMSR" : "",
-+		    deny & ACC_W ? " WRMSR" : "", nr_failures);
-+}
-+
-+static void run_phase(struct kvm_vcpu *vcpu, int phase)
-+{
-+	struct ucall uc;
-+
-+	memset(nr_read_exits, 0, sizeof(nr_read_exits));
-+	memset(nr_write_exits, 0, sizeof(nr_write_exits));
-+
-+	set_msr_filter(vcpu->vm, phases[phase]);
-+
-+	for (;;) {
-+		vcpu_run(vcpu);
-+
-+		if (vcpu->run->exit_reason == KVM_EXIT_X86_RDMSR ||
-+		    vcpu->run->exit_reason == KVM_EXIT_X86_WRMSR) {
-+			handle_msr_exit(vcpu);
-+			continue;
-+		}
-+
-+		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_SYNC:
-+			TEST_ASSERT_EQ(uc.args[1], phase);
-+			verify_phase(phase);
-+			return;
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+		default:
-+			TEST_FAIL("Unexpected ucall %lu", uc.cmd);
-+		}
-+	}
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	u64 disable_exits;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+	int i, j;
-+
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_X86_USER_SPACE_MSR));
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_X86_MSR_FILTER));
-+
-+	for (i = 0; i < NR_MSRS; i++) {
-+		for (j = 0; j < i; j++)
-+			TEST_ASSERT(msrs[i].index != msrs[j].index,
-+				    "%s (0x%x) is listed more than once",
-+				    msrs[i].name, msrs[i].index);
-+
-+		for (j = 0; j < ARRAY_SIZE(filter_bases); j++) {
-+			if (msrs[i].index - filter_bases[j] < FILTER_NR_MSRS)
-+				break;
-+		}
-+		TEST_ASSERT(j < ARRAY_SIZE(filter_bases),
-+			    "%s (0x%x) isn't covered by the MSR filter",
-+			    msrs[i].name, msrs[i].index);
-+	}
-+
-+	/*
-+	 * Request permission to expose AMX to the guest, if possible, so that
-+	 * the guest can set XFD.  Ignore failure, as KVM omits AMX (and thus
-+	 * support for non-zero XFD values) from the supported CPUID if
-+	 * permission isn't granted, and priming XFD is done on a best effort
-+	 * basis.
-+	 */
-+	vm_xsave_request_permission(XFEATURE_MASK_XTILE_DATA);
-+
-+	vm = vm_create(1);
-+
-+	/*
-+	 * Pass through APERF/MPERF and the C-state residency MSRs if allowed.
-+	 * This must be done before creating vCPUs.
-+	 */
-+	disable_exits = vm_check_cap(vm, KVM_CAP_X86_DISABLE_EXITS) &
-+			(KVM_X86_DISABLE_EXITS_APERFMPERF |
-+			 KVM_X86_DISABLE_EXITS_CSTATE);
-+	if (disable_exits)
-+		vm_enable_cap(vm, KVM_CAP_X86_DISABLE_EXITS, disable_exits);
-+
-+	/* Userspace exits must be enabled before installing any filters. */
-+	vm_enable_cap(vm, KVM_CAP_X86_USER_SPACE_MSR, KVM_MSR_EXIT_REASON_FILTER);
-+
-+	vcpu = vm_vcpu_add(vm, 0, guest_code);
-+
-+	for (i = 0; i < ARRAY_SIZE(phases); i++)
-+		run_phase(vcpu, i);
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+	TEST_ASSERT_EQ(get_ucall(vcpu, &uc), UCALL_DONE);
-+
-+	kvm_vm_free(vm);
-+	return 0;
-+}
+ 	vmx_recalc_pmu_msr_intercepts(vcpu);
+ 
+ 	/*
+-	 * x2APIC and LBR MSR intercepts are modified on-demand and cannot be
+-	 * filtered by userspace.
++	 * x2APIC intercepts are modified on-demand and cannot be filtered by
++	 * userspace.
+ 	 */
+ }
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
+index dc8517f15bc4..ec6104b66009 100644
+--- a/arch/x86/kvm/vmx/vmx.h
++++ b/arch/x86/kvm/vmx/vmx.h
+@@ -667,6 +667,7 @@ static __always_inline struct vcpu_vmx *to_vmx(struct kvm_vcpu *vcpu)
+ void intel_pmu_cross_mapped_check(struct kvm_pmu *pmu);
+ int intel_pmu_create_guest_lbr_event(struct kvm_vcpu *vcpu);
+ void vmx_passthrough_lbr_msrs(struct kvm_vcpu *vcpu);
++void vmx_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu);
+ 
+ struct vmcs *alloc_vmcs_cpu(bool shadow, int cpu, gfp_t flags);
+ void free_vmcs(struct vmcs *vmcs);
 -- 
 2.56.0.212.g129ede20d9-goog
 
