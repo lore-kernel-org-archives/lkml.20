@@ -1,94 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502452;
-	b=i/7uGJ3taxxdVEKugnhTdPWf2x+CkHeGFp5ifs3QeaTwMVh3Hq/cXyjvoPxm7XxC8++R
-	 cOysQEKkkBiOtmWX/QaDiOT3lageeXm/FeiIEv8JUsVjK6zEOKm6vtTzQg3NBp/mmuxj6
-	 qMH3pIDa6K6NL58KXEkEH44KPzrA8CpZMIoUS+/1BGvNEJR4ULgowYIh5YbdyoBllIsac
-	 NLJaP890cu4kOS6eMmSvbNddyuBjlx0//OhJQS5T1QT+QsY1PrHSzUEKAx1lTvMx1FTLj
-	 ovB1yWD8SxzrwLATbOO/gjy8AIYCTjld2AdGCIGdMzQUlLVKsby/PuZz9as6fnJFCDQ==
+	t=1792502454;
+	b=qvcFu+qRP3ZT3VFKBR423cQFwVJPGdOEkjPyLr4bngV3w4nlwO+ODNufk8RMZHrLBID/
+	 ZTQq65gQIHqGnUXs2X+tXgPd89MUsj9CWJVLeFnwgw63po2bvE6Zl5bd2kdq1FpeSNWl5
+	 HhmRkKMJL8hUvxbF69CyYwf6CPTDF+u7cac6FtwAMBOZsNUvZ2PT1kcfLu+pgtu36TanS
+	 8+Kzi1vETM1geyHG3P3u3aqYn02gfLNXhTyBy9/dGhdHof2JdhmODsaNcpvSC+Eg2wr2w
+	 50MpBEYLv040UbYE77MefKXEBcP7MHnINzVP5uyzuUCCHD2OY36Y15BVd9JbKmOBpPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502452;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1aDjPA8RRZSC5RYtmkxavzjaFEuPSiecALjC0nZN+Aw=;
-	b=mf4afNjle2qToZI5NSC8nxfTbLKs9sK07EgdF1ov//NwuItKKOO97PEKh+c8QWCRMfcA
-	 XOZNcSKBk9or3lB+HE67rPb8lC9eimDosWa/j9O+mf7ZPyNtDFY4sayowz+vYv12POPkp
-	 HxOwfKaOXzy/9BIfqa3CxdygmAfhcs2wqSu+Y4QHpmZthmnLzTBPB7QC/VfRjZA7KcCVd
-	 pJ84RuAWK1SjTBuUZOAZhIiD04bKhWSJFi1Tk15v8swbQjct4gkSO16LI/MBdr3BHx177
-	 g+QHlSOexg3Cp5RLg9909Mjhgw+0bJ8M9KL1EaO0CBeewH6eeqWdqjgIgNzVOlxEHIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502454;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7hOOdwwvS68qb6hsI+X6Jqe9Kqp84lfpxhjnWTc5H9M=;
+	b=SyPLPsFlsde+v3LQH7nbeLkk6x2bFfzdBnEjfzszgjeRazdyuq8UtCp82ZiB3+AXl0hj
+	 hOU2XXmOC21g2F5tUE61Fbr+1YEDpJMPb01kGKAmGTsSdSJi0vC3s3ip/CYLo9apd+PAL
+	 IefV7sB8mEVlIBTziM8WjuwqXTK7rnmnLARfL56EPLcpVwe3ttzTXKy+vR5oguPfTywfA
+	 2Sj3j24jlr7086S7Mp1PFbrpLtb8yonHj6qPdoq0Z6ypVJ3LsKD2SPVosdajBj+avw5KA
+	 vhu/bzfq6uPXHdJ34IT4zJkUvl2Rd87AVs8OXr2K978L4kmHA4oFehYh5ttzFgKBQcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rcwmCASu;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NChkwsKK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1650606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:20:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1650606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CE1606A335;
+	Tue, 20 Oct 2026 13:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rcwmCASu
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1244806a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:20:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792502451; x=1793107251; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1aDjPA8RRZSC5RYtmkxavzjaFEuPSiecALjC0nZN+Aw=;
-        b=rcwmCASuLgxsbEPoDfm/Ukh0cXl0rSSVME+BUp10XnjMBdJVdNVCtwU5mcYvOEFGEw
-         KJ+cPp9W8g2LCGh7UAFHAdbD1bL+Yv0PT2xDja4cF4vIaU4uJIWfA5rJojhsZrTurdI0
-         bFaROH4CPUUbzDBV5Ak39vvvXhJhDa5UWSx+hl9iUTVMJWbHafdvJjiuFBlQpziQSMj8
-         FaCC5V/D3shcxw15FLRDY9FXDHVXkr86HaLFtDwfnBbUdgc8Yh9PKLvArVg1c2NoEYZS
-         VBou7r0GqJPNcGgKjMExQ86x7x/Np1eOQ+Va9kSFrRblfyG0J7pGJxX/mZpcmPrDl2Fg
-         KdMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792502451; x=1793107251;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1aDjPA8RRZSC5RYtmkxavzjaFEuPSiecALjC0nZN+Aw=;
-        b=MmdFtE0PXVDALIOv9Rx1O+Z5GtTImw5yK8AyfFb+kDRcq6Ftk4PpXqIncrTTzbIQxj
-         x54SnxjT0rO8lW7Xon/Mw1SYYYV+XoEVntWveRFCPhfCgUARNMj3VmaDZMs7KMCzp9g/
-         UIYcNJQAwzSfskTg/TdphLkzyNU3+B7CQXEl6+9WryP8NWLnoprsts3fBbwj3PjTtUJ2
-         diz0KJN61fOsxuEkWV0cxibRwYiCwh8OxV4wtJqsvTxuPg4EIAVZCNzFi5HeTiGDTPxF
-         vOCmqJQNXr6pbCIGlELN/EGeDR4g4FNvxDkNRsTXRUE8WtgNY8QFyzcYu4hnZ9Ocsf6r
-         /otA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHswlDAs1T6CwdPBG9PfD0HPqmTGikTjqDvto5cdosmg/sTp3TNvCg8GZR764NHaBHbaj9jz0TSzee7DQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+yTY7R26KIq/P55qFU2BWEpPV522ukYmN9wLvYnIIDBT3JMOj
-	NBfmo6D3gxGLNOCe6DFazsvj9zsp7/R40Yz9N3edKcZ1k3RoCqSfX1UJ
-X-Gm-Gg: AYBFou1CyI8JXacG8JlOPdT7TiPloQBACUzgBS+UZKQN3ovEZkdQPzBoLYcoFWFJY8T
-	71fXQw8mQvA8QjcRdcOiQ+dsfUDTNlbKw3KXWDZm6Wo0CRCkkIUY/Nc/Typ2BDhurnI/RxHcd8W
-	BE6yU8nLn0/jgtTkVlBQczgy7uHJg2ggEi5Lk3SoOX1td35F1voayPsWyAUXq5xrEuTbfcrepjq
-	GI4AAme+VUVQe5ppId2lYtdQFiGVPYx7I7XqjJX4NUwbFRPj+RiIJ8oO70v4ix/SA1ov9G3sVJs
-	JmLetX9KjdsQ1Fi3/MKAR6G64qP6KLIWEgx/D6FsAlOIf/UjjHgbfSL74JH0/wOT7J67Ujqiihm
-	AVGPJLHAWY6zZabw+T0vXJqSC49l2PdPyYYaXkkqeRgFbIQoV+MB6ywU5Xaz6bxzC02oCnpkkwg
-	WcSjSNsxiD8IWlYMV3ba9LENWpYzyJmm5Cog7mxKJpzezGv1TFLEpYTjDG/RQ/dTspfbgJk9drF
-	2PgbjGp5avDTVMsIMzCq6nmX1C76xB5euSUiAx21x4KYXJw2gzy5c5toGhp6IN0wYFNxB3OtnP+
-	iP+qlKvuSGsKWqiy9PgOqHgmxFph/4KN65vcGViQcQ/Ix3qi
-X-Received: by 2002:a05:6a20:6a2b:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3e22605a105mr9382056637.64.1792502451093;
-        Tue, 20 Oct 2026 06:20:51 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a0cf97sm4846882a12.24.2026.10.20.06.20.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 20 Oct 2026 06:20:50 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Mike Christie <michael.christie@oracle.com>,
-	Dmitry Bogdanov <d.bogdanov@yadro.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [BUG] scsi: target: iscsi: Text/SendTargets command reuse -> NULL-ptr-deref / UAF in iscsit_build_sendtargets_response() (remote)
-Date: Tue, 20 Oct 2026 23:20:43 +1000
-Message-ID: <20261020132043.99594-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NChkwsKK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34F41F000C4;
+	Tue, 20 Oct 2026 13:20:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792502454;
+	bh=7hOOdwwvS68qb6hsI+X6Jqe9Kqp84lfpxhjnWTc5H9M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NChkwsKKEhQs6KtzcgJns22pF4ahdQVZlJeAmMNPOPWfHAEB/j1QoKfgeDihzA7lg
+	 zhtkmBeyDaVMsBy7h8xND0Jx2P1zx/LHEJia21IDAiv7qxWjJwIz2dlH78bGQ6Lbjn
+	 ixr/ZhWOFYvMEhU//Fq5Ez6/ILtSLApvpFEJM8IkDRCHdsR4G/E1pa2qJwStVBMmOh
+	 VDWxUIS0HmWsbayWWYUiqbFuZvpbmaSqBw44jpdwf4roTbaaCp3iyuUEWrcCbs5uKh
+	 VR7aTwGqwyZGxNq/zz0Y/csSO5wYNfoOZwIc2EXrSLbKrflh+5gH/QfV1vVHiexhSb
+	 i601AlAGcZjwQ==
+Date: Tue, 20 Oct 2026 14:20:47 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Steven Price <steven.price@arm.com>, 
+	Yang Shi <yang@os.amperecomputing.com>, David Hildenbrand <david@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] KVM: arm64: Sanitise MTE tags when a permission
+ fault installs a mapping
+Message-ID: <atdqkJty3juWpngu@gremlin>
+References: <20261019132103.3836646-1-fuad.tabba@linux.dev>
+ <20261019132103.3836646-4-fuad.tabba@linux.dev>
+ <atdXdtXXTH-6DWVt@gremlin>
+ <CA+EHjTzH_GA=Vigd_nDXKDFAPCJStcANFFLeLXvsh3UqpjOpCQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,127 +66,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTzH_GA=Vigd_nDXKDFAPCJStcANFFLeLXvsh3UqpjOpCQ@mail.gmail.com>
 
-A remote iSCSI initiator can crash the target (NULL pointer dereference in the
-TX thread) by sending two Text PDUs that reuse one ITT.  The same reuse also
-yields a use-after-free and conn_cmd_list corruption.  Everything below is
-against current mainline (drivers/target/iscsi/iscsi_target.c); the paths are
-unchanged from v6.x.
+On Tue, Oct 20, 2026 at 02:17:00PM +0100, Fuad Tabba wrote:
 
-Root cause
-----------
-The ISCSI_OP_TEXT dispatch, for a Text PDU whose TTT != 0xFFFFFFFF, looks up an
-*existing* command by ITT with no state check:
+> > In the else branch? Seems neater and clearer.
+>
+> Agree, I'll move it there in v2.
 
-	case ISCSI_OP_TEXT:
-		if (hdr->ttt != cpu_to_be32(0xFFFFFFFF)) {
-			cmd = iscsit_find_cmd_from_itt(conn, hdr->itt);
-			if (!cmd)
-				goto reject;
-		} else {
-			cmd = iscsit_allocate_cmd(conn, TASK_INTERRUPTIBLE);
-			...
-		}
-		ret = iscsit_handle_text_cmd(conn, cmd, buf);
+Great thanks!
 
-iscsit_find_cmd_from_itt() returns any command on conn_cmd_list with a matching
-init_task_tag, regardless of its state.  A SendTargets command stays on
-conn_cmd_list after its response has been sent (i_state ISTATE_SENT_STATUS); it
-is freed only once the initiator's ExpStatSN acknowledges it
-(iscsit_ack_from_expstatsn()).  So an initiator that does not acknowledge it can
-hand the same command back for reprocessing.
+> >         if (is_mte_fault(kvm, s2vi))
+> >                 sanitise_mte_tags(kvm, pfn, mapping_size);
+>
+> I'd rather leave that out: the fix doesn't change that part of the
+> condition, and it only appears twice.
 
-iscsit_setup_text_cmd() then frees the text buffer and clears the pointer, but
-leaves the previously set ICF_SENDTARGETS_SINGLE flag on the command:
+Ack, just a nice-to-have that. Not a big deal.
 
-	kfree(cmd->text_in_ptr);
-	cmd->text_in_ptr	= NULL;
-
-iscsit_process_text_cmd(), seeing a NULL text buffer and a non-default TTT, takes
-the empty-continuation path and re-executes the command:
-
-	unsigned char *text_in = cmd->text_in_ptr, *text_ptr;
-	if (!text_in) {
-		cmd->targ_xfer_tag = be32_to_cpu(hdr->ttt);
-		if (cmd->targ_xfer_tag == 0xFFFFFFFF) {
-			...
-			goto reject;
-		}
-		goto empty_sendtargets;
-	}
-
-On the TX thread iscsit_build_sendtargets_response() then dereferences the NULL
-text buffer, because ICF_SENDTARGETS_SINGLE is still set:
-
-	unsigned char *text_in = cmd->text_in_ptr, *text_ptr = NULL;
-	...
-	if (cmd->cmd_flags & ICF_SENDTARGETS_SINGLE) {
-		text_ptr = strchr(text_in, '=');	/* text_in == NULL */
-		if (!text_ptr) {			/* checked too late */
-			...
-		}
-
-strchr() dereferences the NULL pointer before the !text_ptr check can run.
-
-Note that LIO never assigns a target transfer tag for Text (it always sets
-cmd->targ_xfer_tag = 0xFFFFFFFF in iscsit_setup_text_cmd() and rejects
-multi-sequence Text in the same function), so a well-behaved initiator never
-sends a Text PDU with TTT != 0xFFFFFFFF; the reuse path is only reachable by a
-hostile/buggy initiator.
-
-Reproduced
-----------
-KASAN kernel, demo-mode LIO iSCSI target on loopback (authentication=0,
-generate_node_acls=1), iblock backstore.  A custom initiator logs in to Full
-Feature Phase (normal session), then sends two immediate Text PDUs:
-
-  PDU #1: F=1, ITT=0xaabbccdd, TTT=0xFFFFFFFF, data "SendTargets=iqn.<x>"
-          -> allocates the command, sets ICF_SENDTARGETS_SINGLE, links it on
-             conn_cmd_list (harmless, normal SendTargets response is sent).
-  PDU #2: F=1, ITT=0xaabbccdd, TTT=0x00000000, empty data, ExpStatSN not
-          acknowledging PDU #1 -> finds the same command, frees text_in_ptr,
-          re-executes it.
-
-The target panics immediately:
-
-  BUG: KASAN: null-ptr-deref in strchr+0x13/0x50
-  Read of size 1 at addr 0000000000000000 by task iscsi_ttx/3430
-  CPU: 0 ... 7.1.6
-  Call Trace:
-   strchr+0x13/0x50
-   iscsit_build_sendtargets_response.constprop.0+0x18b/0x950
-   iscsit_build_text_rsp+0x94/0x380
-   iscsit_response_queue+0x3b3/0xd50
-   iscsi_target_tx_thread+0x2b6/0x500
-   kthread+0x211/0x270
-   ret_from_fork+0x333/0x590
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:strchr+0x13/0x50
-  Kernel panic - not syncing: Fatal exception
-
-Because SendTargets is how initiators perform discovery, and discovery sessions
-are frequently unauthenticated, this is reachable by a remote peer that can open
-a session to the portal; with panic_on_oops it is a remote crash.
-
-Two further consequences of the same reuse (same root cause):
- - Use-after-free: if PDU #2 is pipelined while the TX thread is still walking
-   g_tiqn_list for PDU #1, iscsit_setup_text_cmd()'s kfree(cmd->text_in_ptr)
-   frees the "SendTargets=iqn..." buffer that iscsit_build_sendtargets_response()
-   is reading -> KASAN use-after-free read.
- - conn_cmd_list corruption: if PDU #2 carries a non-empty "SendTargets=..."
-   payload with the same ITT, iscsit_process_text_cmd() runs the unconditional
-   list_add_tail(&cmd->i_conn_node, &conn->conn_cmd_list) on a command that is
-   already linked.
-
-Note for a fix
---------------
-Guarding text_in before the strchr() in iscsit_build_sendtargets_response()
-addresses only the NULL dereference; the use-after-free and the list corruption
-come from reprocessing an already-processed/linked Text command and are not
-covered by that guard.  A complete fix likely has to reject reuse of an existing
-Text command via the TTT != 0xFFFFFFFF path (LIO never hands out a Text TTT, so
-there is no legitimate continuation to honor).  Exact approach left to you.
-
-Reported-by: Yu Zhang <yuz08559@gmail.com>
+--
+Cheers, Lorenzo
