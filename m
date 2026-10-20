@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792508651;
-	b=JFlWA00oqwVHk0S2mg4GA0k104dRz30L+4EQP0cxszw803DB4QIm7UjricKG7XtiuBbL
-	 qAXedTj29xWCnUqs2QBL9/jyDSE74nUPzrRXjNIY30737C2St4G7IN9jHTQLhMEvCP8jf
-	 mmV617Lpxh/UBj60nMJWf+vsTjxIMD8WAsVX+wYrathq2+KwxA/fy/3U8SAfxNs88hAjR
-	 WIA6h9p6v4lRFQjq8yuBX3tvxizc32QlTftme5q75px4uaYo9HSbdyinfuCCcxYWh1CPU
-	 Z7FFfQIDXDEmyGSoFe3AB+8NbqS/xODAtAcOhrWWTDrBEkRuzl5/1AYDlDDHsWPBS0A==
+	t=1792508705;
+	b=NgXH714MIVcP0kHpdPern87wzaEhbHwn9UiHQdGxHaReDd+8a9Yv/UJQ5qWsib8a2chF
+	 YzZf01pLWvf2RiBRNAasCvkYw96OvgU05KqRC6JpsnkQnp9ns4KUzfKlpKvdoyyGZJBIQ
+	 HElusPxzt8aBjUcx3dHDaQB6ZqCPhVwTrsnVbzN5A7v7/jVMEXBD12h5x7ShWBcHdoQuC
+	 BlMX51nfDAucTnhO0qJzPw/1k2mvgHjHz/JnyXqr4NqzsOisjyz4kgSl5S7fYSQVslmua
+	 aNEpvXKVoBMt32bJ4WHZpLw88d0gxtOILPBDmGdcT4Y6ln4v2Z/ngfsF+8htSzFoWfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508651;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:Content-Type:User-Agent:MIME-Version:X-SRS-Rewrite;
-	bh=VLVZ9wamaCUh1k+r1gMvSGj2WV8lgpjXUirj1IZK2b8=;
-	b=DBANMR4plj0bEsKXRonbTvt7BXh5wQK0KhaAtnfnhMbVFvpIbUAdZGb3DLiWKrbt8jY3
-	 txrIiNOsKSkLn620QO8m++ns6l8B71ybRscnU/vjfKGfaVcfzQXdIPw3Nz8gh0A2oV1J7
-	 4uC9OnpNdHGxH+SxlsPhVZFeEFuToS5LKuZgBtY09Z/dsa7MTWbGkjBOuylql2YFTrGZ1
-	 IvJR6rxoFfSYIcnbaRXml9VfrJJGMEuiCDFcJlGnZZb48u6wldiGf+rMJUjDb1J0IbCZB
-	 dQEMDkc0igKTcOfEeShKfbPCTU1bg4jUoi/RmsbUfGIJxlXKiu7aOP2QRRUM3KAmQtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508705;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=lb3dQxzYe9UirhfM8OejxWBOIBGt1sWP11aSKFWiA/k=;
+	b=B7mhx31OZAaD+ec96zwFqOvImC9y3hELnVh0MNKLfjeMhQBGQav27p5B1U8B36/VrSfn
+	 mreJNwd4z9Tk64UEtU+PgsRMZGfDs1ISatB+sugbOcfbH82gZbTZNWJQ9Zu4mCSU6jk/O
+	 02DgWRtg4EaMZCBbi/zvhn8YuqwTbQOPnCTrtaZCy3/jZjtxTwuhR6IBvWS4RxSqJz4h3
+	 ygmkNxhzwasHqa7gCUjeMg5vRwOY9pBolmEHY35pvtF8XYq43OXCeR3rijInO4yXlodEV
+	 Sy6g05TSpSyb7XVH1g/ZvePmjp51BXDeein6avf5X/9UsYvZsEoPLvQCuG5yfHk4XFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=ndpsqUD8;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="QOB3Rv/v";
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79466606A31A;
-	Tue, 20 Oct 2026 15:04:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79466606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5978F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:05:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5978F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=ndpsqUD8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=VLVZ9wamaCUh1k+r1gMvSGj2WV8lgpjXUirj1IZK2b8=; b=ndpsqUD8wDoTqbcrq66wiMo4Au
-	O7oNMXCMVp9ItJ2kM42M+k6r8Ps7BBFbPLBkGxZh4kT2lYQoDNwK2wZkPnQDkRT1KkPDHqaueIboy
-	0n3FVgWoPt+ffkNxkkFA1TelOMp7kEpBvcCU9IOQku6jeuJgY81gPYawgPQK40CjWTIuno2Jy/8Jc
-	SCzdFUeZZ9sb8IJj7KREtodW1OADFbusKMSlXNYkBJYKq304cwUhQImamh9+dBkmdX7OaAB5x2Rhc
-	6rPHSPHgX8TWrgn3P8LEEjDccpCBvZugXF0D694ApZafM2DHo9r+tsYStJ8weYEWyWCvPRXgv0P/l
-	W+PsV82A==;
-Received: from 54-240-197-234.amazon.com ([54.240.197.234] helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJBNa-000000003bu-290v;
-	Tue, 20 Oct 2026 15:03:54 +0000
-Message-ID: <6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel@infradead.org>
-Subject: [PATCH] kthread: Teach lockdep about kthread_flush_work()
- dependencies
-From: David Woodhouse <dwmw2@infradead.org>
-To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
- Guenter Roeck <groeck@chromium.org>, Frederic Weisbecker
- <frederic@kernel.org>, Waiman Long <longman@redhat.com>,  Christian Brauner
-	 <brauner@kernel.org>, David Woodhouse <dwmw@amazon.co.uk>, Jann Horn	
- <jannh@google.com>, Kees Cook <kees@kernel.org>, Breno Leitao
- <leitao@debian.org>, 	chrome-platform@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long
- <longman@redhat.com>
-Date: Tue, 20 Oct 2026 16:04:00 +0100
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-5Y+JCENTnr/fcJFpYw95"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QOB3Rv/v
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c418e215671so423220466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:05:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792508702; x=1793113502; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lb3dQxzYe9UirhfM8OejxWBOIBGt1sWP11aSKFWiA/k=;
+        b=QOB3Rv/vMg/2kIYaVcFWqnSB9PUxiviqdrSF9urLSpeI+OH/ej4gH/WYebgvxqVtAb
+         girIk+QseyofpWi8BCO77roSDjSitkhq8xcGBRMZIiCwbaHxokpHVpMKs5dskm/oxw/S
+         YXmWfP6fxXhIaLlqByr9Su70fy5iCD3+Xgn2q6N/WuLdlDTXLp/2t7zUarP/wg47cb+P
+         YXwLyAi0/2U3+maDycRnEX8oXblGaqcfeIOvq3QkVGGfUuikTXSpY0l8hoWGj7SGX4rm
+         2GhCdyq2zH5Vsc6/y5f3E9C8OBuxMm/ZTcx8bscPGMWRGWfQWXu+ucwERLsTxwY2DS2p
+         FxDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792508702; x=1793113502;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lb3dQxzYe9UirhfM8OejxWBOIBGt1sWP11aSKFWiA/k=;
+        b=lhlH2XdPm+dGnsTM7UfVdAIF5onkBjMPfyAaSfHoET0zPFJhEoqskrj3ch1lsSO5qk
+         Adb39PGNKzQU5qVda42dwMFpSDmaJMfZz9fityKOUJ4QrNGfOL0sZWB7hkQCJPhWbZ+r
+         AlkQRw4/Pajj4pvF1pyBq8taLkvDHkt5t4JA94TOd1/yqYOdSAZIQ8ojyawjFI28zAvw
+         Xy9t21PtNRn/nL+80EAnUhuvdj1LsZBDLVlUKVvl0Rf5haHPc6H2XFPOIge6yrqLhMpS
+         Zy3F58M2QN/IJMFtFMsriGUpbkkQd58/xkiAe2ysQoixRoxRRbUOZ9JfsnD6urfe0uZT
+         4gVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzeC7YR4Q3qzMi3ZMf/ol82GLSWCqw9gEF4unAExCg/VO8++H51xtSIlsN8P4GRCo2eJs+4dX+FzK3f9xw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzFMDp6JJT2o9Lb0I6fDB/FxD4D3nKrnc9v7HqCwPwWboFKYqA
+	rAfIYbfu8KcfTRc+eNaUBXMofnwByK0pBZds1O811sYsINtRieSitQLVkxdokM7wHg==
+X-Gm-Gg: AYBFou0PxbVPhMKDYmjJWKBV+xlu/5Fi839zKyQYABIIorBxsE35WRogY0JIdUsjczX
+	mf2ost2vAJxSBtjVUryIgrSWdZaN5/+vVwfdEWa/pdm4cjBFRo4IAVWyiT7MnSPBchlL1Aj1E/p
+	v3KNb573oDX07S/Dz8lQdQsQ07cSzSMLFTul8jFM2qgwtqKZ/NywoJdP29HJB4x1BPHFN//Opxn
+	Mw1XnqqQJcuPLJHfy0HT7fLbRiG2Xsc1I28BwWZ3oH9cKbikJyI/PPjB83YIlOjYfr//fKO5U5Z
+	XoB0MHmTQTAxJog/W4IgRvbymoo7D9fx6Qr5cpKsqPPej/9pW2MnYXITqgcVtBKRgKCE/T33AcC
+	/AJKJjM+VH2kj6TU2hQlnudYE2Ydw1tzJ/5h6o72hIqVaKoYLC2XirCluh2n3HkVPut+95WEKsA
+	yn142nNycPj3kiZzJbt+9d9cQsC8q8sGKkDcPSKA4byZylr3KZ954E5y4IIQ9k2npgohaRM3tbh
+	j2+iKRvUtF5zyvaboSHWzMxt2nFRzPtYQ8+SsuMFeRZWHzf376fB4Q=
+X-Received: by 2002:a17:907:c305:b0:c31:c767:adfb with SMTP id a640c23a62f3a-c4196aa9278mr828308166b.0.1792508700903;
+        Tue, 20 Oct 2026 08:05:00 -0700 (PDT)
+Received: from elver.google.com (124.100.205.35.bc.googleusercontent.com. [35.205.100.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80fb69sm6137590f8f.18.2026.10.20.08.04.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:04:59 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:04:54 +0000
+From: Marco Elver <elver@google.com>
+To: Caleb Kan <calebkan1106@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>,
+	kernel-team@cloudflare.com
+Subject: Re: [PATCH RFC v2 10/11] stackdepot: share persistent stack prefixes
+ with trie storage
+Message-ID: <ateDFtLVwMByzZPG@elver.google.com>
+References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
+ <20260908-stackdepot-trie-v2-10-1996d5cef732@cloudflare.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,344 +103,2045 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-stackdepot-trie-v2-10-1996d5cef732@cloudflare.com>
+User-Agent: Mutt/2.3.2 (2026-04-26)
 
+On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
+> From: Caleb Kan <ckan@cloudflare.com>
+> 
+> Stack depot's hash backend deduplicates identical traces, but stores every
+> different trace in full. Persistent traces often share most of their
+> frames, so this wastes memory and can exhaust the pool limit. Once the
+> pools are full, a new trace returns 0 and later diagnostics can lose useful
+> stack information.
+> 
+> Add an opt-in path-compressed trie for persistent records saved without
+> STACK_DEPOT_FLAG_GET or STACK_DEPOT_FLAG_COUNTABLE. Store a run of frames
+> in each node and branch only where traces differ. Insertion can descend
+> through an existing path, split a partial match, make an internal node a
+> stored trace, or attach a new suffix.
+> 
+> Encode dense stack IDs in pool-index values that cannot name a hash pool.
+> A sparse side table maps each ID to the node where the trace ends. Fetching
+> a trace follows parent links from that node. Stored traces and IDs are not
+> recycled.
+> 
+> Use the architecture hooks from the preceding patch to store a frame in 32
+> bits only when it can be reconstructed exactly. Keep all other frames at
+> full width.
+> 
+> Allocate trie nodes and child arrays from contiguous runs of 16-byte slots
+> in the existing order-2 pools. Each pool records an upper bound on its
+> largest free run so the allocator can skip pools that are too fragmented.
+> Search from a next-fit cursor first, then scan the whole pool so released
+> holes and runs that cross the cursor remain visible. Record the exact
+> longest run only after a complete scan fails.
+> 
+> A child array must fit in one pool. On a 4 KiB, 64-bit system, one node can
+> have at most 1,024 children. An insertion that would add a 1,025th child
+> returns 0, while existing traces remain valid. The largest node observed on
+> a pre-production server had about 835 children.
+> 
+> Take the writer lock before the existing pool lock. Reserve everything
+> that can fail before publishing a trace. Release unpublished node and
+> child slots immediately, but keep registered pools, side-table space,
+> stored traces, and IDs. When a node or child array is replaced, keep it
+> until a later allocating insertion sees that its RCU grace period has
+> ended.
+> 
+> An NMI save only looks for an existing trie record and returns 0 on a miss.
+> Outside NMI, a save gets one insertion attempt when
+> STACK_DEPOT_FLAG_CAN_ALLOC is clear or its GFP flags do not allow spinning
+> on raw locks. The attempt uses only pool and side-table space already
+> available. If spinning is allowed, take the writer and pool locks;
+> otherwise try each lock once. Access to the side-table page cache also uses
+> a trylock. The attempt does not allocate, retry, wait for RCU, or fall back
+> to the hash backend.
+> 
+> Allocating saves try at most three times. One try can skip preallocation
+> after seeing new_pool, then lose that pool to another save. A maximum-depth
+> insertion can also need two new pools. Trie insertion failure returns 0
+> instead of consuming hash capacity.
+> 
+> Extend stack_depot_fetch_into(), stack_depot_print(), and
+> stack_depot_snprint() to support both backends. Keep stack_depot_fetch()
+> hash-only because it returns a pointer to contiguous depot-owned storage.
+> Print 16 frames at a time so stack use stays fixed instead of growing with
+> CONFIG_STACKDEPOT_MAX_FRAMES.
+> 
+> The hash and trie backends share stack_pools and the configured pool limit.
+> A pool used by the trie is unavailable for hash-backed GET and COUNTABLE
+> records. Hash handles reserve pool-index values through
+> stack_depot_max_pools, and trie handles use the remaining values for stack
+> IDs. With 64 KiB pages, the default limit leaves no values for trie IDs, so
+> stack_depot_max_pools must be lowered before enabling the trie.
+> 
+> Rename the persistent_count and persistent_bytes debugfs counters with a
+> hash prefix because they do not include trie storage.
+> 
+> Add the stackdepot.trie_enabled boot parameter and leave it disabled by
+> default. Initialize the trie root before enabling the static key. If no
+> handle values are available for trie IDs or allocating the root metadata
+> fails, leave the hash backend initialized at its configured capacity.
+> 
+> I collected stack depot state from four live KASAN servers using the same
+> kernel revision, 4 KiB pages, and an 8,192-pool limit. The servers ran for
+> 61 to 67 hours and remained active while the values were collected, so the
+> figures below are rounded.
+> 
+>                                arm64                 x86-64
+>                         trie off trie on      trie off trie on
+> Run time (hours)              61      64            65      67
+> Stored records              162k     87k          498k    217k
+> Registered pools           2,630     925         8,192   1,940
+> Pool budget used             32%     11%          100%     24%
+> 
+> The servers ran different workloads and stored different traces, so this
+> is not a controlled comparison. Exact memory savings depend on the
+> workload.
+> 
+> The trie figures came from RFC v1. That version did not insert a new trace
+> when a save could not allocate, so RFC v2 may store more traces and use
+> more pools than shown here.
+> 
+> On arm64, the final allocator reduced the median number of bitmap probes
+> from 36,939,363 to 1,529,482 without increasing pool use. The first-fit
+> allocator used a median of 1,101 pools, while the final allocator used
+> 1,100.
+> 
+> I also pinned a benchmark to one CPU on KASAN-enabled arm64 and x86-64
+> systems running the Linux 6.18.48 port. It inserted 32,768 distinct
+> 32-frame traces. Within each group of 64 traces, 75% of the frames were
+> shared, and all frames could be compressed. The insertion order was
+> shuffled. The warm save-hit and fetch tests then repeated the same traces
+> 32 times.
+> 
+>                          arm64 CPU ns/op         x86-64 CPU ns/op
+>                          hash       trie        hash         trie
+> Insertion                 777      9,417         792       11,269
+> Warm save hit             945      1,287         623        1,012
+> Fetch                     251        511         123          476
+> 
+> First insertion was about 12 times slower on arm64 and 14 times slower on
+> x86-64. A warm save hit was 1.4 to 1.6 times slower, and fetch was 2 to 4
+> times slower. All four runs completed without save failures or validation
+> errors.
+> 
+> Signed-off-by: Caleb Kan <ckan@cloudflare.com>
+> ---
+>  Documentation/admin-guide/kernel-parameters.txt |    7 +
+>  include/linux/stackdepot.h                      |   23 +-
+>  lib/stackdepot.c                                | 1600 ++++++++++++++++++++++-
+>  3 files changed, 1616 insertions(+), 14 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..b02bcbaef5dc 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -7449,6 +7449,13 @@ Kernel parameters
+>  			stack traces. Pools are allocated on-demand up to this
+>  			limit. Default value is 8191 pools.
+>  
+> +	stackdepot.trie_enabled= [KNL]
+> +			Format: <bool>
+> +			Enable trie storage for persistent, non-refcounted
+> +			stack depot records at boot. Disabled by default.
+> +			stack_depot_max_pools must leave unused pool-index
+> +			values for trie handles.
+> +
+>  	stacktrace	[FTRACE]
+>  			Enable the stack tracer on boot up.
+>  
+> diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+> index 7ff67c70d727..3126d17b9265 100644
+> --- a/include/linux/stackdepot.h
+> +++ b/include/linux/stackdepot.h
+> @@ -151,6 +151,12 @@ static inline int stack_depot_early_init(void)	{ return 0; }
+>   * access. This flag does not imply %STACK_DEPOT_FLAG_CAN_ALLOC and is mutually
+>   * exclusive with %STACK_DEPOT_FLAG_GET.
+>   *
+> + * When trie storage is enabled, persistent non-refcounted saves use trie
+> + * storage. Constrained callers first look up an existing stack, then make one
+> + * best-effort insertion attempt without allocating. NMI callers stop after the
+> + * lookup. Other callers that cannot spin use trylocks and fail if a required
+> + * lock is unavailable. Trie failures do not fall back to hash storage.
+> + *
+>   * If the provided stack trace comes from the interrupt context, only the part
+>   * up to the interrupt entry is saved.
+>   *
+> @@ -159,7 +165,7 @@ static inline int stack_depot_early_init(void)	{ return 0; }
+>   *          this is the case for contexts where neither %GFP_ATOMIC nor
+>   *          %GFP_NOWAIT can be used (NMI, raw_spin_lock).
+>   *
+> - * Return: Handle of the stack struct stored in depot, 0 on failure
+> + * Return: Handle of the stack trace stored in depot, 0 on failure
+>   */
+>  depot_stack_handle_t stack_depot_save_flags(unsigned long *entries,
+>  					    unsigned int nr_entries,
+> @@ -176,6 +182,10 @@ depot_stack_handle_t stack_depot_save_flags(unsigned long *entries,
+>   * Does not increment the refcount on the saved stack trace; see
+>   * stack_depot_save_flags() for more details.
+>   *
+> + * When trie storage is enabled, this can return trie-backed handles. Use
+> + * stack_depot_fetch_into(), stack_depot_print(), or stack_depot_snprint() for
+> + * backend-independent access to the stack contents.
+> + *
+>   * Context: Contexts where allocations via alloc_pages() are allowed;
+>   *          see stack_depot_save_flags() for more details.
+>   *
+> @@ -199,9 +209,14 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
+>  /**
+>   * stack_depot_fetch - Fetch a stack trace from stack depot
+>   *
+> - * @handle:	Stack depot handle returned from stack_depot_save()
+> + * @handle:	Hash-backed stack depot handle
+>   * @entries:	Pointer to store the address of the stack trace
+>   *
+> + * This helper returns a pointer to stackdepot-owned contiguous storage for
+> + * legacy hash-backed handles. Callers that need backend-independent access to
+> + * stack contents should use stack_depot_fetch_into(), stack_depot_print(), or
+> + * stack_depot_snprint(). Passing a trie-backed handle is invalid and may WARN.
+> + *
+>   * Return: Number of frames for the fetched stack
+>   */
+>  unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+> @@ -270,8 +285,8 @@ int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
+>   *
+>   * Drop a reference acquired by stack_depot_save_flags() with
+>   * %STACK_DEPOT_FLAG_GET. Calling this for a handle saved without
+> - * %STACK_DEPOT_FLAG_GET is invalid; persistent handles are owned by stack depot
+> - * for the lifetime of the system.
+> + * %STACK_DEPOT_FLAG_GET is invalid; persistent handles, including trie-backed
+> + * handles, are owned by stack depot for the lifetime of the system.
+>   *
+>   * The stack trace is evicted once the number of stack_depot_put() calls matches
+>   * the number of successful stack_depot_save_flags() calls with
+> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+> index 66c5e8594566..33e475d94131 100644
+> --- a/lib/stackdepot.c
+> +++ b/lib/stackdepot.c
+> @@ -2,9 +2,11 @@
+>  /*
+>   * Stack depot - a stack trace storage that avoids duplication.
+>   *
+> - * Internally, stack depot maintains a hash table of unique stacktraces. The
+> - * stack traces themselves are stored contiguously one after another in a set
+> - * of separate page allocations.
+> + * Internally, stack depot has two storage backends. Refcounted entries and
+> + * callers that request STACK_DEPOT_FLAG_COUNTABLE use the legacy hash table with
+> + * contiguous stack records in stack pools. Persistent non-refcounted entries
+> + * can use trie storage when enabled; trie nodes share common frame prefixes and
+> + * are published through RCU children containers.
+>   *
+>   * Author: Alexander Potapenko <glider@google.com>
+>   * Copyright (C) 2016 Google, Inc.
+> @@ -14,13 +16,19 @@
+>  
+>  #define pr_fmt(fmt) "stackdepot: " fmt
+>  
+> +#include <linux/bitmap.h>
+> +#include <linux/build_bug.h>
+>  #include <linux/debugfs.h>
+> +#include <linux/errno.h>
+>  #include <linux/gfp.h>
+>  #include <linux/jhash.h>
+> +#include <linux/jump_label.h>
+>  #include <linux/kernel.h>
+> +#include <linux/log2.h>
+>  #include <linux/kmsan.h>
+>  #include <linux/list.h>
+>  #include <linux/mm.h>
+> +#include <linux/moduleparam.h>
+>  #include <linux/mutex.h>
+>  #include <linux/poison.h>
+>  #include <linux/printk.h>
+> @@ -36,9 +44,12 @@
+>  #include <linux/memblock.h>
+>  #include <linux/kasan-enabled.h>
+>  
+> +#include <asm/stackdepot.h>
+> +
+>  /*
+>   * The pool_index is offset by 1 so the first record does not have a 0 handle.
+>   */
+> +/* Parsed before mm_core_init(); trie handle decoding assumes this is then fixed. */
+>  static unsigned int stack_max_pools __read_mostly =
+>  	MIN((1LL << DEPOT_POOL_INDEX_BITS) - 1, 8192);
+>  
+> @@ -54,6 +65,9 @@ static bool __stack_depot_early_init_passed __initdata;
+>  /* Initial seed for jhash2. */
+>  #define STACK_HASH_SEED 0x9747b28c
+>  
+> +/* Bound 64-bit print scratch to 128 bytes while amortizing trie walks. */
+> +#define STACK_DEPOT_PRINT_CHUNK_FRAMES 16
+> +
+>  /* Hash table of stored stack records. */
+>  static struct list_head *stack_table;
+>  /* Fixed order of the number of table buckets. Used when KASAN is enabled. */
+> @@ -63,18 +77,18 @@ static unsigned int stack_hash_mask;
+>  
+>  /* The lock must be held when performing pool or freelist modifications. */
+>  static DEFINE_RAW_SPINLOCK(pool_lock);
+> -/* Array of memory regions that store stack records. */
+> +/* Array of memory regions used by both stack depot backends. */
+>  static void **stack_pools __pt_guarded_by(&pool_lock);
+>  /* Newly allocated pool that is not yet added to stack_pools. */
+>  static void *new_pool;
+>  /* Number of pools in stack_pools. */
+>  static int pools_num;
+> -/* Offset to the unused space in the currently used pool. */
+> +/* Offset to unused hash storage in the current pool. */
+>  static size_t pool_offset __guarded_by(&pool_lock) = DEPOT_POOL_SIZE;
+>  /* Freelist of stack records within stack_pools. */
+>  static __guarded_by(&pool_lock) LIST_HEAD(free_stacks);
+>  
+> -/* Statistics counters for debugfs. */
+> +/* Hash-backend statistics counters for debugfs. */
+>  enum depot_counter_id {
+>  	DEPOT_COUNTER_REFD_ALLOCS,
+>  	DEPOT_COUNTER_REFD_FREES,
+> @@ -90,12 +104,695 @@ static const char *const counter_names[] = {
+>  	[DEPOT_COUNTER_REFD_FREES]	= "refcounted_frees",
+>  	[DEPOT_COUNTER_REFD_INUSE]	= "refcounted_in_use",
+>  	[DEPOT_COUNTER_FREELIST_SIZE]	= "freelist_size",
+> -	[DEPOT_COUNTER_PERSIST_COUNT]	= "persistent_count",
+> -	[DEPOT_COUNTER_PERSIST_BYTES]	= "persistent_bytes",
+> +	[DEPOT_COUNTER_PERSIST_COUNT]	= "hash_persistent_count",
+> +	[DEPOT_COUNTER_PERSIST_BYTES]	= "hash_persistent_bytes",
+>  };
+>  static_assert(ARRAY_SIZE(counter_names) == DEPOT_COUNTER_COUNT);
+> +
+> +enum stack_depot_frame_mode {
+> +	STACK_DEPOT_FRAME_RAW,
+> +	STACK_DEPOT_FRAME_COMPRESSED,
+> +};
+> +
+> +/*
+> + * A trie node stores one run of frames that all use the same payload format.
+> + * Architectures may compress some frames to 32-bit payloads; mixed raw and
+> + * compressed input is split across multiple trie nodes so each node has one
+> + * decoding mode.
+> + */
+> +struct stack_depot_frame_run {
+> +	u16 nr_entries;
+> +	u8 mode;
+> +};
+> +
+>  static_assert(CONFIG_STACKDEPOT_MAX_FRAMES <= U16_MAX);
+>  
+> +struct stack_depot_trie_children;
+> +
+> +struct stack_depot_trie_node {
+> +	/* Parent links let fetch rebuild a full stack from a node to the root. */
+> +	const struct stack_depot_trie_node __rcu *parent;
+> +	/* Children are RCU-published containers. */
+> +	const struct stack_depot_trie_children __rcu *children;
+> +	/* Non-zero when a stored stack ends at this node. */
+> +	u32 stack_id;
+> +	struct stack_depot_frame_run run;
+> +	unsigned char data[];
+> +};
+> +
+> +/*
+> + * Child nodes are sorted by first frame and searched by insertion position.
+> + * Existing child pointers are immutable. Writers may publish into unused tail
+> + * capacity; other updates publish a replacement container.
+> + */
+> +struct stack_depot_trie_children {
+> +	unsigned int nr_children;
+> +	unsigned int capacity;
+> +	const struct stack_depot_trie_node __rcu *nodes[];
+> +};
+> +
+> +/* Retired children carry an optional node through their RCU grace period. */
+> +struct stack_depot_trie_retired_children {
+> +	struct list_head list;
+> +	unsigned long rcu_state;
+> +	const struct stack_depot_trie_node *pending_node;
+> +	unsigned char data[];
+> +};
+> +
+> +static_assert(IS_ALIGNED(offsetof(struct stack_depot_trie_retired_children, data),
+> +			 1UL << DEPOT_STACK_ALIGN));
+> +
+> +#define STACK_DEPOT_TRIE_SLOT_SIZE BIT(DEPOT_STACK_ALIGN)
+> +#define STACK_DEPOT_TRIE_POOL_SLOTS \
+> +	(DEPOT_POOL_SIZE / STACK_DEPOT_TRIE_SLOT_SIZE)
+> +
+> +static_assert(STACK_DEPOT_TRIE_POOL_SLOTS - 1 <= U16_MAX);
+> +
+> +struct stack_depot_trie_pool {
+> +	struct list_head list;
+> +	unsigned int free_slots;
+> +	/* Conservative upper bound on the largest free run. */
+> +	u16 free_run_upper_bound;
+> +	/* First physical slot considered by the next reservation. */
+> +	u16 next_slot;
+> +	DECLARE_BITMAP(used, STACK_DEPOT_TRIE_POOL_SLOTS);
+> +};
+> +
+> +#define STACK_DEPOT_TRIE_POOL_FIRST_SLOT \
+> +	DIV_ROUND_UP(sizeof(struct stack_depot_trie_pool), \
+> +		     STACK_DEPOT_TRIE_SLOT_SIZE)
+> +#define STACK_DEPOT_TRIE_POOL_USABLE_SIZE \
+> +	((STACK_DEPOT_TRIE_POOL_SLOTS - STACK_DEPOT_TRIE_POOL_FIRST_SLOT) * \
+> +	 STACK_DEPOT_TRIE_SLOT_SIZE)
+> +
+> +static_assert(STACK_DEPOT_TRIE_POOL_FIRST_SLOT < STACK_DEPOT_TRIE_POOL_SLOTS);
+> +
+> +static DEFINE_STATIC_KEY_FALSE(stack_depot_trie_enabled);
+> +static const struct stack_depot_trie_children __rcu *stack_depot_trie_root;
+> +static DEFINE_RAW_SPINLOCK(stack_depot_trie_writer_lock);
+> +static bool stack_depot_trie_requested;
+> +
+> +module_param_named(trie_enabled, stack_depot_trie_requested, bool, 0);
+> +MODULE_PARM_DESC(trie_enabled, "Enable stack depot trie storage at boot");
+> +
+> +#define DEPOT_POOL_INDEX_MASK ((1U << DEPOT_POOL_INDEX_BITS) - 1)
+> +#define DEPOT_OFFSET_MASK ((1U << DEPOT_OFFSET_BITS) - 1)
+> +
+> +/* Retired fixed-size slots remain reserved until their RCU grace period ends. */
+> +static LIST_HEAD(stack_depot_trie_pools);
+> +static LIST_HEAD(pending_trie_children);
+> +
+> +/*
+> + * stack_max_pools is the split point between hash and trie handle encodings.
+> + * A handle with pool_index_plus_1 in 1..stack_max_pools names a hash-backed
+> + * stack pool. Larger pool-index values cannot refer to hash pools, so trie
+> + * storage uses that handle space to encode a dense stack ID. The side table
+> + * maps each stack ID to its trie node.
+> + */
+> +static inline u32 trie_max_stack_id(void)
+> +{
+> +	return (DEPOT_POOL_INDEX_MASK - stack_max_pools) <<
+> +		DEPOT_OFFSET_BITS;
+> +}
 
---=-5Y+JCENTnr/fcJFpYw95
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+With PAGE_SHIFT=16, DEPOT_POOL_INDEX_BITS is 13
+(DEPOT_POOL_INDEX_MASK = 8191), which equals the default
+stack_max_pools (8191). trie_max_stack_id() therefore returns 0 and
+stackdepot.trie_enabled=1 always fails to initialize unless
+stack_depot_max_pools is also manually lowered.
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+> +
+> +static depot_stack_handle_t trie_handle(u32 stack_id)
+> +{
+> +	union handle_parts parts = {};
+> +	u64 pool_index_plus_1;
+> +	u32 pool_delta;
+> +	u32 index;
+> +
+> +	index = stack_id - 1;
+> +	pool_delta = index >> DEPOT_OFFSET_BITS;
+> +	pool_index_plus_1 = (u64)stack_max_pools + 1 + pool_delta;
+> +
+> +	parts.pool_index_plus_1 = pool_index_plus_1;
+> +	parts.offset = index & DEPOT_OFFSET_MASK;
+> +	return parts.handle;
+> +}
+> +
+> +static inline bool stack_depot_handle_is_trie(depot_stack_handle_t handle)
+> +{
+> +	union handle_parts parts = { .handle = handle };
+> +
+> +	return parts.pool_index_plus_1 > stack_max_pools;
+> +}
+> +
+> +static u32 trie_stack_id(depot_stack_handle_t handle)
+> +{
+> +	union handle_parts parts = { .handle = handle };
+> +	u32 pool_delta;
+> +
+> +	pool_delta = parts.pool_index_plus_1 - stack_max_pools - 1;
+> +	return (pool_delta << DEPOT_OFFSET_BITS) + parts.offset + 1;
+> +}
+> +
+> +/*
+> + * Trie handles encode a dense stack ID. The side table maps that ID to a node
+> + * pointer for lockless fetch and print paths, which can run from diagnostic
+> + * contexts where taking a lock would be unsafe. Initialization installs the
+> + * root; early initialization also installs the first directory and chunk.
+> + * Additional directories and chunks are published lazily as stack IDs grow.
+> + */
+> +#define STACK_DEPOT_TRIE_SIDE_TABLE_CHUNK_SIZE \
+> +	(PAGE_SIZE / sizeof(struct stack_depot_trie_node *))
+> +#define STACK_DEPOT_TRIE_SIDE_TABLE_DIR_SIZE \
+> +	(PAGE_SIZE / sizeof(struct stack_depot_trie_node **))
+> +
+> +struct stack_depot_trie_side_dir {
+> +	/* Both the chunk pointer and each node pointer in it are RCU-published. */
+> +	const struct stack_depot_trie_node __rcu * __rcu *
+> +		chunks[STACK_DEPOT_TRIE_SIDE_TABLE_DIR_SIZE];
+> +};
+> +
+> +struct stack_depot_trie_side_root {
+> +	unsigned int dir_capacity;
+> +	struct stack_depot_trie_side_dir __rcu *dirs[];
+> +};
+> +
+> +struct stack_depot_trie_side_prealloc {
+> +	/* Preallocated side-table directory page for sparse growth. */
+> +	struct stack_depot_trie_side_dir *dir;
+> +	/* Preallocated side-table pointer chunk for sparse growth. */
+> +	const struct stack_depot_trie_node __rcu **chunk;
+> +};
+> +
+> +static struct stack_depot_trie_side_root *trie_side_table_root;
+> +static DEFINE_RAW_SPINLOCK(trie_side_table_cache_lock);
+> +/* Zeroed unpublished pages; get/put transfer ownership under the cache lock. */
+> +static struct stack_depot_trie_side_prealloc trie_side_table_cache;
+> +static u32 trie_side_table_last_stack_id;
+> +
+> +/* Lock order: writer_lock -> pool_lock -> side-table cache lock. */
+> +
+> +static inline size_t stack_depot_frame_run_entry_bytes(enum stack_depot_frame_mode mode)
+> +{
+> +	if (mode == STACK_DEPOT_FRAME_COMPRESSED)
+> +		return sizeof(u32);
+> +	return sizeof(unsigned long);
+> +}
+> +
+> +static inline size_t stack_depot_frame_run_bytes(const struct stack_depot_frame_run *run)
+> +{
+> +	return run->nr_entries * stack_depot_frame_run_entry_bytes(run->mode);
+> +}
+> +
+> +static inline size_t trie_node_bytes(const struct stack_depot_frame_run *run)
+> +{
+> +	return ALIGN(offsetof(struct stack_depot_trie_node, data) +
+> +		     stack_depot_frame_run_bytes(run), sizeof(unsigned long));
+> +}
+> +
+> +static size_t trie_children_alloc_size(unsigned int capacity)
+> +{
+> +	size_t size;
+> +
+> +	size = struct_size_t(struct stack_depot_trie_children, nodes,
+> +			     capacity);
+> +	return offsetof(struct stack_depot_trie_retired_children, data) +
+> +		ALIGN(size, sizeof(unsigned long));
+> +}
+> +
+> +static inline unsigned int trie_side_table_root_index(u32 id)
+> +{
+> +	return ((id - 1) / STACK_DEPOT_TRIE_SIDE_TABLE_CHUNK_SIZE) /
+> +		STACK_DEPOT_TRIE_SIDE_TABLE_DIR_SIZE;
+> +}
+> +
+> +static inline unsigned int trie_side_table_dir_index(u32 id)
+> +{
+> +	return ((id - 1) / STACK_DEPOT_TRIE_SIDE_TABLE_CHUNK_SIZE) %
+> +		STACK_DEPOT_TRIE_SIDE_TABLE_DIR_SIZE;
+> +}
+> +
+> +static inline unsigned int trie_side_table_slot_index(u32 id)
+> +{
+> +	return (id - 1) % STACK_DEPOT_TRIE_SIDE_TABLE_CHUNK_SIZE;
+> +}
+> +
+> +static struct stack_depot_trie_side_dir *trie_side_table_load_dir(unsigned int root)
+> +{
+> +	struct stack_depot_trie_side_root *root_vec;
+> +
+> +	root_vec = trie_side_table_root;
+> +	if (!root_vec || root >= root_vec->dir_capacity)
+> +		return NULL;
+> +	/* Pairs with side-table directory rcu_assign_pointer(). */
+> +	return rcu_dereference_check(root_vec->dirs[root],
+> +				     lockdep_is_held(&stack_depot_trie_writer_lock) ||
+> +				     rcu_read_lock_sched_held());
+> +}
+> +
+> +static inline const struct stack_depot_trie_node __rcu **
+> +trie_side_table_dir_load_chunk(struct stack_depot_trie_side_dir *dir,
+> +			       unsigned int idx)
+> +{
+> +	/* Pairs with the chunk rcu_assign_pointer() in stack ID preparation. */
+> +	return rcu_dereference_check(dir->chunks[idx],
+> +				     lockdep_is_held(&stack_depot_trie_writer_lock) ||
+> +				     rcu_read_lock_sched_held());
+> +}
+> +
+> +/* Published capacity remains useful if insertion fails and needs no rollback. */
+> +static bool
+> +trie_side_table_try_take_cache(struct stack_depot_trie_side_prealloc *prealloc,
+> +			       bool need_dir)
+> +{
+> +	bool taken = false;
+> +
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	if (!raw_spin_trylock(&trie_side_table_cache_lock))
+> +		return false;
+> +	if ((!prealloc->chunk && !trie_side_table_cache.chunk) ||
+> +	    (need_dir && !prealloc->dir && !trie_side_table_cache.dir))
+> +		goto out_unlock;
+> +
+> +	if (need_dir && !prealloc->dir) {
+> +		prealloc->dir = trie_side_table_cache.dir;
+> +		trie_side_table_cache.dir = NULL;
+> +	}
+> +	if (!prealloc->chunk) {
+> +		prealloc->chunk = trie_side_table_cache.chunk;
+> +		trie_side_table_cache.chunk = NULL;
+> +	}
+> +	taken = true;
+> +
+> +out_unlock:
+> +	raw_spin_unlock(&trie_side_table_cache_lock);
+> +	return taken;
+> +}
+> +
+> +static u32
+> +trie_side_table_prepare_stack_slot(struct stack_depot_trie_side_prealloc *prealloc)
+> +{
+> +	const struct stack_depot_trie_node __rcu **chunk;
+> +	struct stack_depot_trie_side_dir *dir;
+> +	struct stack_depot_trie_side_root *root_vec;
+> +	unsigned int root;
+> +	unsigned int idx;
+> +	u32 id;
+> +
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	id = trie_side_table_last_stack_id + 1;
+> +	if (id > trie_max_stack_id())
+> +		return 0;
+> +
+> +	root_vec = trie_side_table_root;
+> +	root = trie_side_table_root_index(id);
+> +	dir = trie_side_table_load_dir(root);
+> +	if (!dir) {
+> +		if ((!prealloc->dir || !prealloc->chunk) &&
+> +		    !trie_side_table_try_take_cache(prealloc, true))
+> +			return 0;
+> +		dir = prealloc->dir;
+> +		prealloc->dir = NULL;
+> +		/* Publish the zeroed directory before readers can load it locklessly. */
+> +		rcu_assign_pointer(root_vec->dirs[root], dir);
+> +	}
+> +
+> +	idx = trie_side_table_dir_index(id);
+> +	chunk = trie_side_table_dir_load_chunk(dir, idx);
+> +	if (!chunk) {
+> +		if (!prealloc->chunk &&
+> +		    !trie_side_table_try_take_cache(prealloc, false))
+> +			return 0;
+> +		chunk = prealloc->chunk;
+> +		prealloc->chunk = NULL;
+> +		rcu_assign_pointer(dir->chunks[idx], chunk);
+> +	}
+> +
+> +	return id;
+> +}
+> +
+> +static inline unsigned int trie_side_table_root_size_for_max_id(u32 max_stack_id)
+> +{
+> +	unsigned int top_size;
+> +
+> +	top_size = DIV_ROUND_UP(max_stack_id, STACK_DEPOT_TRIE_SIDE_TABLE_CHUNK_SIZE);
+> +	return DIV_ROUND_UP(top_size, STACK_DEPOT_TRIE_SIDE_TABLE_DIR_SIZE);
+> +}
+> +
+> +static int __init stack_depot_trie_init_memblock(void)
+> +{
+> +	struct stack_depot_trie_side_root *root_vec;
+> +	struct stack_depot_trie_side_dir *first_dir;
+> +	const struct stack_depot_trie_node __rcu **first_chunk;
+> +	size_t root_bytes;
+> +	u32 max_stack_id;
+> +	unsigned int root_size;
+> +
+> +	max_stack_id = trie_max_stack_id();
+> +	if (!max_stack_id)
+> +		return -EINVAL;
+> +	root_size = trie_side_table_root_size_for_max_id(max_stack_id);
+> +	root_bytes = struct_size_t(struct stack_depot_trie_side_root, dirs, root_size);
+> +
+> +	root_vec = memblock_alloc(root_bytes, __alignof__(*root_vec));
+> +	if (!root_vec)
+> +		return -ENOMEM;
+> +	first_dir = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
+> +	if (!first_dir) {
+> +		memblock_free(root_vec, root_bytes);
+> +		return -ENOMEM;
+> +	}
+> +	first_chunk = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
+> +	if (!first_chunk) {
+> +		memblock_free(first_dir, PAGE_SIZE);
+> +		memblock_free(root_vec, root_bytes);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	root_vec->dir_capacity = root_size;
+> +	RCU_INIT_POINTER(root_vec->dirs[0], first_dir);
+> +	RCU_INIT_POINTER(first_dir->chunks[0], first_chunk);
+> +	trie_side_table_root = root_vec;
+> +	static_branch_enable(&stack_depot_trie_enabled);
+> +	return 0;
+> +}
+> +
+> +static int stack_depot_trie_init(void)
+> +{
+> +	struct stack_depot_trie_side_root *root_vec;
+> +	unsigned int root_size;
+> +	size_t root_bytes;
+> +	u32 max_stack_id;
+> +
+> +	max_stack_id = trie_max_stack_id();
+> +	if (!max_stack_id)
+> +		return -EINVAL;
+> +
+> +	root_size = trie_side_table_root_size_for_max_id(max_stack_id);
+> +	root_bytes = struct_size_t(struct stack_depot_trie_side_root, dirs, root_size);
+> +	root_vec = kvzalloc(root_bytes, GFP_KERNEL);
+> +	if (!root_vec)
+> +		return -ENOMEM;
+> +
+> +	root_vec->dir_capacity = root_size;
+> +	trie_side_table_root = root_vec;
+> +	static_branch_enable(&stack_depot_trie_enabled);
+> +	return 0;
+> +}
+> +
+> +static int trie_side_table_get_prealloc(gfp_t gfp_flags,
+> +					struct stack_depot_trie_side_prealloc *prealloc)
+> +{
+> +	unsigned long flags;
+> +
+> +	gfp_flags = gfp_nested_mask(gfp_flags);
+> +	raw_spin_lock_irqsave(&trie_side_table_cache_lock, flags);
+> +	prealloc->dir = trie_side_table_cache.dir;
+> +	prealloc->chunk = trie_side_table_cache.chunk;
+> +	trie_side_table_cache.dir = NULL;
+> +	trie_side_table_cache.chunk = NULL;
+> +	raw_spin_unlock_irqrestore(&trie_side_table_cache_lock, flags);
 
-Make potential deadlocks due to kthread_flush_work() visible to
-lockdep, like the equivalent deadlocks on workqueues already are.
+stack_depot_trie_save() pops both cached pages into thread-local
+storage *before* taking stack_depot_trie_writer_lock. Under
+concurrency, every other CPU that misses in trie_find_handle() sees an
+empty cache, calls get_zeroed_page() twice, and then frees both pages
+in trie_side_table_put_prealloc() because the existing dir (262k IDs)
+and chunk (512 IDs) weren't full.
 
-On-stack users of KTHREAD_WORK_INIT move to kthread_init_work(): the
-static initializer keys the lock class on the work's address, which on
-the stack is not static.
+Worse: if get_zeroed_page() fails (e.g. GFP_NOWAIT),
+stack_depot_trie_save() immediately returns 0 even when the current
+dir, chunk, and trie pool already have plenty of free space. And while
+a can_alloc caller temporarily holds the popped cache pages, a
+concurrent !can_alloc caller crossing a chunk boundary fails because
+the cached chunk was stolen.
 
-Inspired by Sashiko finding precisely such a deadlock (not that it
-would have actually been found by lockdep in that case, since it isn't
-a normal use case that would have been tested):
-https://lore.kernel.org/all/a654a72765eaf278649b285218b0b1f6f9d45664.camel@=
-infradead.org/
+> +	if (!prealloc->dir) {
+> +		prealloc->dir = (void *)get_zeroed_page(gfp_flags);
+> +		if (!prealloc->dir)
+> +			return -ENOMEM;
+> +	}
+> +	if (!prealloc->chunk) {
+> +		prealloc->chunk = (void *)get_zeroed_page(gfp_flags);
+> +		if (!prealloc->chunk)
+> +			return -ENOMEM;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void trie_side_table_put_prealloc(struct stack_depot_trie_side_prealloc *prealloc)
+> +{
+> +	unsigned long flags;
+> +
+> +	raw_spin_lock_irqsave(&trie_side_table_cache_lock, flags);
+> +	if (!trie_side_table_cache.dir) {
+> +		trie_side_table_cache.dir = prealloc->dir;
+> +		prealloc->dir = NULL;
+> +	}
+> +	if (!trie_side_table_cache.chunk) {
+> +		trie_side_table_cache.chunk = prealloc->chunk;
+> +		prealloc->chunk = NULL;
+> +	}
+> +	raw_spin_unlock_irqrestore(&trie_side_table_cache_lock, flags);
+> +
+> +	if (prealloc->dir)
+> +		free_page((unsigned long)prealloc->dir);
+> +	if (prealloc->chunk)
+> +		free_page((unsigned long)prealloc->chunk);
+> +}
+> +
+> +static const struct stack_depot_trie_node *trie_side_table_lookup(u32 id)
+> +{
+> +	const struct stack_depot_trie_node __rcu **chunk;
+> +	struct stack_depot_trie_side_dir *dir;
+> +	unsigned int root;
+> +
+> +	root = trie_side_table_root_index(id);
+> +	dir = trie_side_table_load_dir(root);
+> +	if (!dir)
+> +		return NULL;
+> +	chunk = trie_side_table_dir_load_chunk(dir, trie_side_table_dir_index(id));
+> +	if (!chunk)
+> +		return NULL;
+> +
+> +	/* Pairs with side-table node publication. */
+> +	return rcu_dereference_check(chunk[trie_side_table_slot_index(id)],
+> +				     lockdep_is_held(&stack_depot_trie_writer_lock) ||
+> +				     rcu_read_lock_sched_held());
+> +}
+> +
+> +static inline struct stack_depot_trie_retired_children *
+> +trie_retired_children(const void *ptr)
+> +{
+> +	return container_of(ptr, struct stack_depot_trie_retired_children, data);
+> +}
+> +
+> +static bool depot_init_pool(void **prealloc);
+> +
+> +static unsigned int trie_pool_reserve_slots(struct stack_depot_trie_pool *pool,
+> +					    unsigned int nr_slots)
+> +{
+> +	unsigned int start = pool->next_slot;
+> +	unsigned int run = 0;
+> +	unsigned int longest_run = 0;
+> +	unsigned int i;
+> +	unsigned int slot;
+> +
+> +scan:
+> +	run = 0;
+> +	longest_run = 0;
+> +	for (slot = start; slot < STACK_DEPOT_TRIE_POOL_SLOTS; slot++) {
+> +		if (pool->used[slot / BITS_PER_LONG] &
+> +		    BIT(slot % BITS_PER_LONG)) {
+> +			run = 0;
+> +			continue;
+> +		}
+> +		run++;
+> +		longest_run = max(longest_run, run);
+> +		if (run != nr_slots)
+> +			continue;
+> +
+> +		for (i = slot + 1 - nr_slots; i <= slot; i++)
+> +			pool->used[i / BITS_PER_LONG] |= BIT(i % BITS_PER_LONG);
+> +		pool->free_slots -= nr_slots;
+> +		if (slot + 1 == STACK_DEPOT_TRIE_POOL_SLOTS)
+> +			pool->next_slot = STACK_DEPOT_TRIE_POOL_FIRST_SLOT;
+> +		else
+> +			pool->next_slot = slot + 1;
+> +		return slot + 1 - nr_slots;
+> +	}
+> +
+> +	if (start != STACK_DEPOT_TRIE_POOL_FIRST_SLOT) {
+> +		/* Keep holes and runs crossing the cursor visible. */
+> +		start = STACK_DEPOT_TRIE_POOL_FIRST_SLOT;
+> +		goto scan;
+> +	}
+> +
+> +	pool->free_run_upper_bound = longest_run;
+> +	return STACK_DEPOT_TRIE_POOL_SLOTS;
+> +}
+> +
+> +/* Allocate at least @size bytes from one contiguous trie-pool slot run. */
+> +static void *trie_pool_alloc(size_t size, void **prealloc)
+> +{
+> +	struct stack_depot_trie_pool *pool;
+> +	unsigned int nr_slots;
+> +	unsigned int slot;
+> +
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	if (size > STACK_DEPOT_TRIE_POOL_USABLE_SIZE)
+> +		return NULL;
+> +	nr_slots = DIV_ROUND_UP(size, STACK_DEPOT_TRIE_SLOT_SIZE);
+> +	list_for_each_entry_reverse(pool, &stack_depot_trie_pools, list) {
+> +		if (pool->free_slots < nr_slots ||
+> +		    pool->free_run_upper_bound < nr_slots)
+> +			continue;
+> +		slot = trie_pool_reserve_slots(pool, nr_slots);
+> +		if (slot != STACK_DEPOT_TRIE_POOL_SLOTS)
+> +			return (char *)pool + slot * STACK_DEPOT_TRIE_SLOT_SIZE;
+> +	}
+> +
+> +	if (!depot_init_pool(prealloc))
+> +		return NULL;
+> +	pool = stack_pools[pools_num - 1];
+> +	/* Keep hash records out of this bitmap-owned pool. */
+> +	pool_offset = DEPOT_POOL_SIZE;
 
-Assisted-by: LLM
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- drivers/platform/chrome/cros_ec_spi.c |  8 ++++--
- include/linux/kthread.h               | 32 +++++++++++++++++++---
- kernel/kthread.c                      | 39 +++++++++++++++++++++++----
- 3 files changed, 69 insertions(+), 10 deletions(-)
+depot_pop_free_pool() always allocates from stack_pools[pools_num - 1]
+at pool_offset. When hash saves (page_owner COUNTABLE, KASAN GET) and
+trie saves interleave, allocating a trie pool increments pools_num and
+sets pool_offset = DEPOT_POOL_SIZE, permanently abandoning all unused
+space in the previously active hash pool. Trie pools shouldn't be
+placed in stack_pools[] at all (they also unnecessarily consume
+stack_max_pools slots).
 
-diff --git a/drivers/platform/chrome/cros_ec_spi.c b/drivers/platform/chrom=
-e/cros_ec_spi.c
-index 28fa82f8cb07..978eaff6d045 100644
---- a/drivers/platform/chrome/cros_ec_spi.c
-+++ b/drivers/platform/chrome/cros_ec_spi.c
-@@ -655,13 +655,17 @@ static int cros_ec_xfer_high_pri(struct cros_ec_devic=
-e *ec_dev,
- {
- 	struct cros_ec_spi *ec_spi =3D ec_dev->priv;
- 	struct cros_ec_xfer_work_params params =3D {
--		.work =3D KTHREAD_WORK_INIT(params.work,
--					  cros_ec_xfer_high_pri_work),
- 		.ec_dev =3D ec_dev,
- 		.ec_msg =3D ec_msg,
- 		.fn =3D fn,
- 	};
-=20
-+	/*
-+	 * Not KTHREAD_WORK_INIT: the on-stack work needs a static lockdep
-+	 * class key, which kthread_init_work() provides per call site.
-+	 */
-+	kthread_init_work(&params.work, cros_ec_xfer_high_pri_work);
-+
- 	/*
- 	 * This looks a bit ridiculous.  Why do the work on a
- 	 * different thread if we're just going to block waiting for
-diff --git a/include/linux/kthread.h b/include/linux/kthread.h
-index a01a474719a7..279b7875b7e0 100644
---- a/include/linux/kthread.h
-+++ b/include/linux/kthread.h
-@@ -148,6 +148,9 @@ struct kthread_worker {
- 	struct list_head	delayed_work_list;
- 	struct task_struct	*task;
- 	struct kthread_work	*current_work;
-+#ifdef CONFIG_LOCKDEP
-+	struct lockdep_map	lockdep_map;
-+#endif
- };
-=20
- struct kthread_work {
-@@ -156,6 +159,9 @@ struct kthread_work {
- 	struct kthread_worker	*worker;
- 	/* Number of canceling calls that are running at the moment. */
- 	int			canceling;
-+#ifdef CONFIG_LOCKDEP
-+	struct lockdep_map	lockdep_map;
-+#endif
- };
-=20
- struct kthread_delayed_work {
-@@ -163,9 +169,17 @@ struct kthread_delayed_work {
- 	struct timer_list timer;
- };
-=20
-+#ifdef CONFIG_LOCKDEP
-+#define KTHREAD_WORK_INIT_LOCKDEP_MAP(work)				\
-+	.lockdep_map =3D STATIC_LOCKDEP_MAP_INIT("(kthread_work_completion)("#wor=
-k")", &(work)),
-+#else
-+#define KTHREAD_WORK_INIT_LOCKDEP_MAP(work)
-+#endif
-+
- #define KTHREAD_WORK_INIT(work, fn)	{				\
- 	.node =3D LIST_HEAD_INIT((work).node),				\
- 	.func =3D (fn),							\
-+	KTHREAD_WORK_INIT_LOCKDEP_MAP(work)				\
- 	}
-=20
- #define KTHREAD_DELAYED_WORK_INIT(dwork, fn) {				\
-@@ -182,19 +196,31 @@ struct kthread_delayed_work {
- 		KTHREAD_DELAYED_WORK_INIT(dwork, fn)
-=20
- extern void __kthread_init_worker(struct kthread_worker *worker,
--			const char *name, struct lock_class_key *key);
-+			const char *name, struct lock_class_key *key,
-+			struct lock_class_key *flush_key);
-=20
- #define kthread_init_worker(worker)					\
- 	do {								\
--		static struct lock_class_key __key;			\
--		__kthread_init_worker((worker), "("#worker")->lock", &__key); \
-+		static struct lock_class_key __key, __flush_key;	\
-+		__kthread_init_worker((worker), "("#worker")->lock",	\
-+				      &__key, &__flush_key);		\
- 	} while (0)
-=20
-+#ifdef CONFIG_LOCKDEP
-+#define __kthread_init_work_lockdep_map(work, _key)			\
-+	lockdep_init_map(&(work)->lockdep_map,				\
-+			 "(kthread_work_completion)("#work")", (_key), 0)
-+#else
-+#define __kthread_init_work_lockdep_map(work, _key) do { } while (0)
-+#endif
-+
- #define kthread_init_work(work, fn)					\
- 	do {								\
-+		static struct lock_class_key __work_key;		\
- 		memset((work), 0, sizeof(struct kthread_work));		\
- 		INIT_LIST_HEAD(&(work)->node);				\
- 		(work)->func =3D (fn);					\
-+		__kthread_init_work_lockdep_map((work), &__work_key);	\
- 	} while (0)
-=20
- #define kthread_init_delayed_work(dwork, fn)				\
-diff --git a/kernel/kthread.c b/kernel/kthread.c
-index 63beb59b7a3d..694599805c5c 100644
---- a/kernel/kthread.c
-+++ b/kernel/kthread.c
-@@ -957,11 +957,13 @@ early_initcall(kthreads_init);
-=20
- void __kthread_init_worker(struct kthread_worker *worker,
- 				const char *name,
--				struct lock_class_key *key)
-+				struct lock_class_key *key,
-+				struct lock_class_key *flush_key)
- {
- 	memset(worker, 0, sizeof(struct kthread_worker));
- 	raw_spin_lock_init(&worker->lock);
- 	lockdep_set_class_and_name(&worker->lock, key, name);
-+	lockdep_init_map(&worker->lockdep_map, name, flush_key, 0);
- 	INIT_LIST_HEAD(&worker->work_list);
- 	INIT_LIST_HEAD(&worker->delayed_work_list);
- }
-@@ -1020,9 +1022,22 @@ int kthread_worker_fn(void *worker_ptr)
-=20
- 	if (work) {
- 		kthread_work_func_t func =3D work->func;
-+#ifdef CONFIG_LOCKDEP
-+		/*
-+		 * Work functions are free to release their own work item, so
-+		 * hold a copy of its lockdep map rather than the map itself.
-+		 */
-+		struct lockdep_map lockdep_map;
-+
-+		lockdep_copy_map(&lockdep_map, &work->lockdep_map);
-+#endif
- 		__set_current_state(TASK_RUNNING);
- 		trace_sched_kthread_work_execute_start(work);
-+		lock_map_acquire(&worker->lockdep_map);
-+		lock_map_acquire(&lockdep_map);
- 		work->func(work);
-+		lock_map_release(&lockdep_map);
-+		lock_map_release(&worker->lockdep_map);
- 		/*
- 		 * Avoid dereferencing work after this point.  The trace
- 		 * event only cares about the address.
-@@ -1334,12 +1349,22 @@ static void kthread_flush_work_fn(struct kthread_wo=
-rk *work)
- void kthread_flush_work(struct kthread_work *work)
- {
- 	struct kthread_flush_work fwork =3D {
--		KTHREAD_WORK_INIT(fwork.work, kthread_flush_work_fn),
--		COMPLETION_INITIALIZER_ONSTACK(fwork.done),
-+		.done =3D COMPLETION_INITIALIZER_ONSTACK(fwork.done),
- 	};
- 	struct kthread_worker *worker;
- 	bool noop =3D false;
-=20
-+	kthread_init_work(&fwork.work, kthread_flush_work_fn);
-+
-+	/*
-+	 * Waiting for the work's completion makes any lock held here part
-+	 * of a dependency cycle with any lock its function takes, and with
-+	 * anything the function itself waits for. Record the wait even if
-+	 * the work turns out to be idle.
-+	 */
-+	lock_map_acquire(&work->lockdep_map);
-+	lock_map_release(&work->lockdep_map);
-+
- 	worker =3D work->worker;
- 	if (!worker)
- 		return;
-@@ -1571,10 +1596,14 @@ EXPORT_SYMBOL_GPL(kthread_cancel_delayed_work_sync)=
-;
- void kthread_flush_worker(struct kthread_worker *worker)
- {
- 	struct kthread_flush_work fwork =3D {
--		KTHREAD_WORK_INIT(fwork.work, kthread_flush_work_fn),
--		COMPLETION_INITIALIZER_ONSTACK(fwork.done),
-+		.done =3D COMPLETION_INITIALIZER_ONSTACK(fwork.done),
- 	};
-=20
-+	kthread_init_work(&fwork.work, kthread_flush_work_fn);
-+
-+	lock_map_acquire(&worker->lockdep_map);
-+	lock_map_release(&worker->lockdep_map);
-+
- 	kthread_queue_work(worker, &fwork.work);
- 	wait_for_completion(&fwork.done);
- }
---=20
-2.43.0
+> +	memset(pool, 0, sizeof(*pool));
+> +	pool->free_slots = STACK_DEPOT_TRIE_POOL_SLOTS -
+> +			   STACK_DEPOT_TRIE_POOL_FIRST_SLOT;
+> +	pool->free_run_upper_bound = pool->free_slots;
+> +	pool->next_slot = STACK_DEPOT_TRIE_POOL_FIRST_SLOT;
+> +	list_add_tail(&pool->list, &stack_depot_trie_pools);
+> +
+> +	slot = trie_pool_reserve_slots(pool, nr_slots);
+> +	return (char *)pool + slot * STACK_DEPOT_TRIE_SLOT_SIZE;
+> +}
+> +
+> +/* Release the slots for the byte count originally passed to allocation. */
+> +static void trie_pool_release(const void *ptr, size_t size)
+> +{
+> +	struct stack_depot_trie_pool *pool;
+> +	unsigned long pfn;
+> +	unsigned int nr_slots;
+> +	unsigned int slot;
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	pfn = page_to_pfn(virt_to_page(ptr));
+> +	pfn &= ~(BIT(DEPOT_POOL_ORDER) - 1);
+> +	pool = page_address(pfn_to_page(pfn));
+> +	slot = ((unsigned long)ptr - (unsigned long)pool) >> DEPOT_STACK_ALIGN;
+> +	nr_slots = DIV_ROUND_UP(size, STACK_DEPOT_TRIE_SLOT_SIZE);
+> +	for (i = slot; i < slot + nr_slots; i++)
+> +		pool->used[i / BITS_PER_LONG] &= ~BIT(i % BITS_PER_LONG);
+> +	pool->free_slots += nr_slots;
+> +	/* A release can join at most two runs bounded by the old value. */
+> +	pool->free_run_upper_bound = min(pool->free_slots,
+> +					 2 * pool->free_run_upper_bound + nr_slots);
+> +}
+> +
+> +static struct stack_depot_trie_children *
+> +trie_pool_alloc_children(unsigned int capacity, void **prealloc)
+> +{
+> +	struct stack_depot_trie_retired_children *retired;
+> +	struct stack_depot_trie_children *children;
+> +
+> +	/* Capacity counts child-pointer entries; allocation includes RCU metadata. */
+> +	retired = trie_pool_alloc(trie_children_alloc_size(capacity), prealloc);
+> +	if (!retired)
+> +		return NULL;
+> +
+> +	children = (void *)retired->data;
+> +	children->nr_children = 0;
+> +	children->capacity = capacity;
+> +	return children;
+> +}
+> +
+> +static void
+> +trie_pool_release_children(const struct stack_depot_trie_children *children)
+> +{
+> +	/* Capacity is immutable and therefore recovers the allocation byte size. */
+> +	trie_pool_release(trie_retired_children(children),
+> +			  trie_children_alloc_size(children->capacity));
+> +}
+> +
+> +/*
+> + * Return RCU-ready objects before allocating. Pending children are FIFO, so
+> + * stop at the first incomplete grace period. A replaced node shares the same
+> + * retirement cookie and is released with its former children container.
+> + */
+> +static void trie_drain_pending_children(void)
+> +{
+> +	struct stack_depot_trie_retired_children *retired;
+> +	struct stack_depot_trie_retired_children *tmp;
+> +	struct stack_depot_trie_children *children;
+> +
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	list_for_each_entry_safe(retired, tmp, &pending_trie_children, list) {
+> +		if (!poll_state_synchronize_rcu(retired->rcu_state))
+> +			break;
+> +		children = (void *)retired->data;
+> +		list_del(&retired->list);
+> +		if (retired->pending_node)
+> +			trie_pool_release(retired->pending_node,
+> +					  trie_node_bytes(&retired->pending_node->run));
+> +		trie_pool_release_children(children);
+> +	}
+> +}
+> +
+> +static void trie_retire_children(const struct stack_depot_trie_children *children)
+> +{
+> +	struct stack_depot_trie_retired_children *retired;
+> +
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	retired = trie_retired_children(children);
+> +	retired->pending_node = NULL;
+> +	retired->rcu_state = get_state_synchronize_rcu();
+> +	list_add_tail(&retired->list, &pending_trie_children);
+> +}
 
+Every interior child insertion (pos < nr_children) allocates a new
+power-of-two array and retires the old one via
+get_state_synchronize_rcu(). Once a hot node has 512..1023 children
+(8,232 bytes), two copies cannot fit in one 16,208-byte pool, so a
+burst of N new call sites in one RCU grace period forces N separate
+16 KiB trie pools to be allocated. Also,
+stack_depot_trie_save_constrained() retires child arrays onto
+pending_trie_children without ever calling
+trie_drain_pending_children().
 
---=-5Y+JCENTnr/fcJFpYw95
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+> +
+> +static void
+> +trie_retire_children_with_node(const struct stack_depot_trie_children *children,
+> +			       const struct stack_depot_trie_node *node)
+> +{
+> +	struct stack_depot_trie_retired_children *retired;
+> +
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +	lockdep_assert_held(&pool_lock);
+> +	trie_retire_children(children);
+> +	retired = trie_retired_children(children);
+> +	retired->pending_node = node;
+> +}
+> +
+> +static const struct stack_depot_trie_node *
+> +stack_depot_trie_lookup(const unsigned long *entries, unsigned int nr_entries);
+> +
+> +static depot_stack_handle_t
+> +trie_find_handle(const unsigned long *entries, unsigned int nr_entries)
+> +{
+> +	depot_stack_handle_t handle = 0;
+> +	const struct stack_depot_trie_node *node;
+> +
+> +	rcu_read_lock_sched_notrace();
+> +	node = stack_depot_trie_lookup(entries, nr_entries);
+> +	if (node)
+> +		handle = trie_handle(node->stack_id);
+> +	rcu_read_unlock_sched_notrace();
+> +
+> +	return handle;
+> +}
+> +
+> +/*
+> + * Publish only after the node and its path are fully initialized and all
+> + * fallible allocation is complete. Publication commits the path, so it cannot
+> + * then be rolled back. Side-table mappings must precede trie topology
+> + * publication that makes new or remapped nodes reachable from lookup.
+> + * Published storage remains valid until RCU retirement; only descendant parent
+> + * links may change meanwhile.
+> + */
+> +static void trie_side_table_publish(const struct stack_depot_trie_node *node)
+> +{
+> +	const struct stack_depot_trie_node __rcu **chunk;
+> +	struct stack_depot_trie_side_dir *dir;
+> +	u32 stack_id = node->stack_id;
+> +
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +
+> +	dir = trie_side_table_load_dir(trie_side_table_root_index(stack_id));
+> +	chunk = trie_side_table_dir_load_chunk(dir,
+> +					       trie_side_table_dir_index(stack_id));
+> +	/* Pairs with trie_side_table_lookup(). */
+> +	rcu_assign_pointer(chunk[trie_side_table_slot_index(stack_id)], node);
+> +}
+> +
+>  static int __init disable_stack_depot(char *str)
+>  {
+>  	return kstrtobool(str, &stack_depot_disabled);
+> @@ -147,7 +844,7 @@ static void init_stack_table(unsigned long entries)
+>  		INIT_LIST_HEAD(&stack_table[i]);
+>  }
+>  
+> -/* Allocates a hash table via memblock. Can only be used during early boot. */
+> +/* Initializes hash and optional trie storage during early boot. */
+>  int __init stack_depot_early_init(void)
+>  {
+>  	unsigned long entries = 0;
+> @@ -221,11 +918,15 @@ int __init stack_depot_early_init(void)
+>  		stack_depot_disabled = true;
+>  		return -ENOMEM;
+>  	}
+> +	if (stack_depot_trie_requested && stack_depot_trie_init_memblock()) {
+> +		pr_warn("trie storage initialization failed, disabling trie storage\n");
+> +		stack_depot_trie_requested = false;
+> +	}
+>  
+>  	return 0;
+>  }
+>  
+> -/* Allocates a hash table via kvcalloc. Can be used after boot. */
+> +/* Initializes hash and optional trie storage after boot. */
+>  int stack_depot_init(void)
+>  {
+>  	static DEFINE_MUTEX(stack_depot_init_mutex);
+> @@ -279,6 +980,15 @@ int stack_depot_init(void)
+>  		kvfree(stack_table);
+>  		stack_depot_disabled = true;
+>  		ret = -ENOMEM;
+> +		goto out_unlock;
+> +	}
+> +	if (stack_depot_trie_requested) {
+> +		ret = stack_depot_trie_init();
+> +		if (ret) {
+> +			pr_warn("trie storage initialization failed, disabling trie storage\n");
+> +			stack_depot_trie_requested = false;
+> +			ret = 0;
+> +		}
+>  	}
+>  
+>  out_unlock:
+> @@ -643,6 +1353,101 @@ static inline struct stack_record *find_stack(struct list_head *bucket,
+>  	return ret;
+>  }
+>  
+> +static u32
+> +stack_depot_trie_insert(const unsigned long *entries,
+> +			unsigned int nr_entries, void **pool_prealloc,
+> +			struct stack_depot_trie_side_prealloc *side_prealloc);
+> +
+> +static depot_stack_handle_t
+> +stack_depot_trie_save(unsigned long *entries, unsigned int nr_entries,
+> +		      gfp_t alloc_flags)
+> +{
+> +	unsigned int attempt;
+> +
+> +	/* Allow one stale pool hint before the two pools a largest insert needs. */
+> +	for (attempt = 0; attempt < 3; attempt++) {
+> +		struct stack_depot_trie_side_prealloc side_prealloc = {};
+> +		void *pool_prealloc = NULL;
+> +		depot_stack_handle_t handle;
+> +		unsigned long flags;
+> +		struct page *page;
+> +		u32 stack_id = 0;
+> +
+> +		handle = trie_find_handle(entries, nr_entries);
+> +		if (handle)
+> +			return handle;
+> +
+> +		if (trie_side_table_get_prealloc(alloc_flags, &side_prealloc)) {
+> +			trie_side_table_put_prealloc(&side_prealloc);
+> +			return 0;
+> +		}
+> +
+> +		/* The hint may race; a missing page is recovered by the retry. */
+> +		if (!READ_ONCE(new_pool)) {
+> +			page = alloc_pages(gfp_nested_mask(alloc_flags),
+> +					   DEPOT_POOL_ORDER);
+> +			if (page)
+> +				pool_prealloc = page_address(page);
+> +		}
+> +
+> +		raw_spin_lock_irqsave(&stack_depot_trie_writer_lock, flags);
+> +		raw_spin_lock(&pool_lock);
+> +		printk_deferred_enter();
+> +		trie_drain_pending_children();
+> +		stack_id = stack_depot_trie_insert(entries, nr_entries,
+> +						   &pool_prealloc, &side_prealloc);
+> +		if (pool_prealloc)
+> +			depot_keep_new_pool(&pool_prealloc);
+> +		printk_deferred_exit();
+> +		raw_spin_unlock(&pool_lock);
+> +		raw_spin_unlock_irqrestore(&stack_depot_trie_writer_lock, flags);
+> +
+> +		if (pool_prealloc)
+> +			free_pages((unsigned long)pool_prealloc, DEPOT_POOL_ORDER);
+> +		trie_side_table_put_prealloc(&side_prealloc);
+> +		if (stack_id)
+> +			return trie_handle(stack_id);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static depot_stack_handle_t
+> +stack_depot_trie_save_constrained(unsigned long *entries,
+> +				  unsigned int nr_entries, bool trylock)
+> +{
+> +	struct stack_depot_trie_side_prealloc side_prealloc = {};
+> +	void *pool_prealloc = NULL;
+> +	depot_stack_handle_t handle;
+> +	unsigned long flags;
+> +	u32 stack_id;
+> +
+> +	handle = trie_find_handle(entries, nr_entries);
+> +	if (handle)
+> +		return handle;
+> +
+> +	if (trylock) {
+> +		if (!raw_spin_trylock_irqsave(&stack_depot_trie_writer_lock, flags))
+> +			return 0;
+> +		if (!raw_spin_trylock(&pool_lock)) {
+> +			raw_spin_unlock_irqrestore(&stack_depot_trie_writer_lock, flags);
+> +			return 0;
+> +		}
+> +	} else {
+> +		raw_spin_lock_irqsave(&stack_depot_trie_writer_lock, flags);
+> +		raw_spin_lock(&pool_lock);
+> +	}
+> +
+> +	printk_deferred_enter();
+> +	stack_id = stack_depot_trie_insert(entries, nr_entries, &pool_prealloc,
+> +					   &side_prealloc);
+> +	printk_deferred_exit();
+> +	raw_spin_unlock(&pool_lock);
+> +	raw_spin_unlock_irqrestore(&stack_depot_trie_writer_lock, flags);
+> +
+> +	return stack_id ? trie_handle(stack_id) : 0;
+> +}
+> +
+>  depot_stack_handle_t stack_depot_save_flags(unsigned long *entries,
+>  					    unsigned int nr_entries,
+>  					    gfp_t alloc_flags,
+> @@ -677,6 +1482,20 @@ depot_stack_handle_t stack_depot_save_flags(unsigned long *entries,
+>  	if (unlikely(nr_entries == 0) || stack_depot_disabled)
+>  		return 0;
+>  
+> +	if (!(depot_flags & (STACK_DEPOT_FLAG_GET | STACK_DEPOT_FLAG_COUNTABLE)) &&
+> +	    static_branch_unlikely(&stack_depot_trie_enabled)) {
+> +		if (nr_entries > CONFIG_STACKDEPOT_MAX_FRAMES)
+> +			nr_entries = CONFIG_STACKDEPOT_MAX_FRAMES;
+> +		if (in_nmi()) {
+> +			WARN_ON_ONCE(can_alloc);
+> +			return trie_find_handle(entries, nr_entries);
+> +		}
+> +		if (!can_alloc)
+> +			return stack_depot_trie_save_constrained(entries, nr_entries,
+> +							 !allow_spin);
+> +		return stack_depot_trie_save(entries, nr_entries, alloc_flags);
+> +	}
+> +
+>  	hash = hash_stack(entries, nr_entries);
+>  	bucket = &stack_table[hash & stack_hash_mask];
+>  
+> @@ -763,6 +1582,8 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
+>  
+>  	if (!handle)
+>  		return NULL;
+> +	if (WARN_ON_ONCE(stack_depot_handle_is_trie(handle)))
+> +		return NULL;
+>  
+>  	stack = depot_fetch_stack(handle);
+>  	if (!stack)
+> @@ -773,6 +1594,714 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
+>  	return stack;
+>  }
+>  
+> +static void frame_run_init(const unsigned long *entries,
+> +			   unsigned int nr_entries,
+> +			   struct stack_depot_frame_run *run)
+> +{
+> +	u32 payload;
+> +	unsigned int i;
+> +	bool compressed;
+> +
+> +	compressed = arch_stack_depot_frame_try_compress(entries[0], &payload);
+> +	for (i = 1; i < nr_entries; i++) {
+> +		bool next;
+> +
+> +		next = arch_stack_depot_frame_try_compress(entries[i], &payload);
+> +		if (next != compressed)
+> +			break;
+> +	}
+> +
+> +	/* @i is the first non-matching frame, or @nr_entries if all matched. */
+> +	run->mode = compressed ? STACK_DEPOT_FRAME_COMPRESSED : STACK_DEPOT_FRAME_RAW;
+> +	run->nr_entries = i;
+> +}
+> +
+> +static void
+> +stack_depot_trie_node_frame(const struct stack_depot_trie_node *node,
+> +			    unsigned int index, unsigned long *frame)
+> +{
+> +	u32 payload;
+> +
+> +	if (node->run.mode == STACK_DEPOT_FRAME_RAW) {
+> +		memcpy(frame, node->data + index * sizeof(*frame),
+> +		       sizeof(*frame));
+> +		return;
+> +	}
+> +
+> +	memcpy(&payload, node->data + index * sizeof(payload), sizeof(payload));
+> +	arch_stack_depot_frame_decompress(payload, frame);
+> +}
+> +
+> +static void trie_node_init(struct stack_depot_trie_node *node,
+> +			   const struct stack_depot_trie_node *parent, u32 stack_id,
+> +			   const unsigned long *entries,
+> +			   const struct stack_depot_frame_run *run)
+> +{
+> +	if (run->mode == STACK_DEPOT_FRAME_COMPRESSED) {
+> +		unsigned int i;
+> +
+> +		for (i = 0; i < run->nr_entries; i++) {
+> +			u32 payload;
+> +
+> +			arch_stack_depot_frame_try_compress(entries[i], &payload);
+> +			memcpy(node->data + i * sizeof(payload), &payload,
+> +			       sizeof(payload));
+> +		}
+> +	} else {
+> +		memcpy(node->data, entries, stack_depot_frame_run_bytes(run));
+> +	}
+> +
+> +	RCU_INIT_POINTER(node->parent, parent);
+> +	RCU_INIT_POINTER(node->children, NULL);
+> +	node->stack_id = stack_id;
+> +	node->run = *run;
+> +}
+> +
+> +static void trie_node_init_slice(struct stack_depot_trie_node *node,
+> +				 const struct stack_depot_trie_node *parent, u32 stack_id,
+> +				 const struct stack_depot_trie_node *src_node,
+> +				 unsigned int start, unsigned int nr_entries)
+> +{
+> +	struct stack_depot_frame_run run;
+> +	size_t entry_bytes;
+> +
+> +	run = src_node->run;
+> +	run.nr_entries = nr_entries;
+> +
+> +	entry_bytes = stack_depot_frame_run_entry_bytes(src_node->run.mode);
+> +	memcpy(node->data, src_node->data + start * entry_bytes,
+> +	       stack_depot_frame_run_bytes(&run));
+> +	RCU_INIT_POINTER(node->parent, parent);
+> +	RCU_INIT_POINTER(node->children, NULL);
+> +	node->stack_id = stack_id;
+> +	node->run = run;
+> +}
+> +
+> +static unsigned int trie_node_match(const struct stack_depot_trie_node *node,
+> +				    const unsigned long *entries,
+> +				    unsigned int nr_entries)
+> +{
+> +	unsigned int limit;
+> +	unsigned int i;
+> +
+> +	limit = min(node->run.nr_entries, nr_entries);
+> +	if (node->run.mode == STACK_DEPOT_FRAME_RAW) {
+> +		for (i = 0; i < limit; i++) {
+> +			unsigned long frame;
+> +
+> +			memcpy(&frame, node->data + i * sizeof(frame), sizeof(frame));
+> +			if (frame != entries[i])
+> +				break;
+> +		}
+> +
+> +		return i;
+> +	}
+> +
+> +	for (i = 0; i < limit; i++) {
+> +		unsigned long frame;
+> +
+> +		stack_depot_trie_node_frame(node, i, &frame);
+> +		if (frame != entries[i])
+> +			break;
+> +	}
+> +
+> +	return i;
+> +}
+> +
+> +static inline const struct stack_depot_trie_node *
+> +trie_load_parent(const struct stack_depot_trie_node *node)
+> +{
+> +	return rcu_dereference_check(node->parent,
+> +				     lockdep_is_held(&stack_depot_trie_writer_lock) ||
+> +				     rcu_read_lock_sched_held());
+> +}
+> +
+> +static inline const struct stack_depot_trie_children *
+> +trie_load_children(const struct stack_depot_trie_children __rcu * const *slot)
+> +{
+> +	return rcu_dereference_check(*slot,
+> +				     lockdep_is_held(&stack_depot_trie_writer_lock) ||
+> +				     rcu_read_lock_sched_held());
+> +}
+> +
+> +static inline const struct stack_depot_trie_node *
+> +trie_children_load_child(const struct stack_depot_trie_children *children,
+> +			 unsigned int pos)
+> +{
+> +	return rcu_dereference_check(children->nodes[pos],
+> +				     lockdep_is_held(&stack_depot_trie_writer_lock) ||
+> +				     rcu_read_lock_sched_held());
+> +}
+> +
+> +static bool
+> +trie_children_find_position(const struct stack_depot_trie_children *children,
+> +			    unsigned long frame, unsigned int *pos)
+> +{
+> +	unsigned int left = 0;
+> +	unsigned int right;
+> +
+> +	right = READ_ONCE(children->nr_children);
+> +	while (left < right) {
+> +		unsigned int mid = left + (right - left) / 2;
+> +		const struct stack_depot_trie_node *node;
+> +		unsigned long mid_frame;
+> +
+> +		node = trie_children_load_child(children, mid);
+> +		if (!node) {
+> +			/* Tail append may produce a transient lockless lookup miss. */
+> +			right = mid;
+> +			continue;
+> +		}
+> +		stack_depot_trie_node_frame(node, 0, &mid_frame);
+> +		if (mid_frame < frame) {
+> +			left = mid + 1;
+> +		} else if (mid_frame > frame) {
+> +			right = mid;
+> +		} else {
+> +			*pos = mid;
+> +			return true;
+> +		}
+> +	}
+> +
+> +	*pos = left;
+> +	return false;
+> +}
+> +
+> +/* Initialize an unpublished container from a stable published prefix. */
+> +static void trie_children_init(const struct stack_depot_trie_children *old,
+> +			       struct stack_depot_trie_children *new)
+> +{
+> +	unsigned int nr_old = old->nr_children;
+> +	unsigned int i;
+> +
+> +	new->nr_children = nr_old;
+> +	for (i = 0; i < nr_old; i++)
+> +		RCU_INIT_POINTER(new->nodes[i], trie_children_load_child(old, i));
+> +	for (i = nr_old; i < new->capacity; i++)
+> +		RCU_INIT_POINTER(new->nodes[i], NULL);
+> +}
+> +
+> +static void trie_children_insert(struct stack_depot_trie_children *children,
+> +				 const struct stack_depot_trie_node *node,
+> +				 unsigned int pos)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = children->nr_children; i > pos; i--)
+> +		RCU_INIT_POINTER(children->nodes[i],
+> +				 trie_children_load_child(children, i - 1));
+> +	RCU_INIT_POINTER(children->nodes[pos], node);
+> +	children->nr_children++;
+> +}
+> +
+> +static void trie_reparent_children(struct stack_depot_trie_node *parent)
+> +{
+> +	const struct stack_depot_trie_children *children;
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +
+> +	children = trie_load_children(&parent->children);
+> +	if (!children)
+> +		return;
+> +	/*
+> +	 * Replacement nodes reuse unchanged descendant subtrees. Repoint their
+> +	 * parent links before retiring the old parent so fetch never follows a freed
+> +	 * node. Lockless fetches may see the new parent before publication, but the
+> +	 * old and new parent chains contain the same frames and remain RCU-live.
+> +	 */
+> +	for (i = 0; i < children->nr_children; i++) {
+> +		struct stack_depot_trie_node *child;
+> +
+> +		child = (struct stack_depot_trie_node *)trie_children_load_child(children, i);
+> +		rcu_assign_pointer(child->parent, parent);
+> +	}
+> +}
+> +
+> +/*
+> + * Split entries into runs, allocate and initialize each node once, and link
+> + * adjacent nodes through singleton children. Both trie locks must be held.
+> + * Failure walks the unpublished parent chain and releases local ownership.
+> + */
+> +static const struct stack_depot_trie_node *
+> +trie_path_alloc(const struct stack_depot_trie_node *parent, u32 stack_id,
+> +		const unsigned long *entries, unsigned int nr_entries,
+> +		void **pool_prealloc,
+> +		const struct stack_depot_trie_node **node_out)
+> +{
+> +	struct stack_depot_trie_children *path_children = NULL;
+> +	const struct stack_depot_trie_node *path_root = NULL;
+> +	const struct stack_depot_trie_node *last_node = parent;
+> +	unsigned int entry = 0;
+> +
+> +	lockdep_assert_held(&pool_lock);
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +
+> +	while (entry < nr_entries) {
+> +		struct stack_depot_frame_run run;
+> +		struct stack_depot_trie_node *node;
+> +
+> +		frame_run_init(&entries[entry], nr_entries - entry, &run);
+> +		node = trie_pool_alloc(trie_node_bytes(&run), pool_prealloc);
+> +		if (!node)
+> +			goto err_release;
+> +
+> +		trie_node_init(node, last_node,
+> +			       entry + run.nr_entries == nr_entries ? stack_id : 0,
+> +			       &entries[entry], &run);
+> +		entry += run.nr_entries;
+> +		last_node = node;
+> +		if (!path_root)
+> +			path_root = node;
+> +
+> +		if (path_children)
+> +			trie_children_insert(path_children, last_node, 0);
+> +		if (entry < nr_entries) {
+> +			path_children = trie_pool_alloc_children(1, pool_prealloc);
+> +			if (!path_children)
+> +				goto err_release;
+> +			RCU_INIT_POINTER(node->children, path_children);
+> +		}
+> +	}
+> +
+> +	*node_out = last_node;
+> +	return path_root;
+> +
+> +err_release:
+> +	while (last_node != parent) {
+> +		const struct stack_depot_trie_children *node_children;
+> +		const struct stack_depot_trie_node *node = last_node;
+> +
+> +		last_node = trie_load_parent(node);
+> +		node_children = trie_load_children(&node->children);
+> +		if (node_children)
+> +			trie_pool_release_children(node_children);
+> +		trie_pool_release(node, trie_node_bytes(&node->run));
+> +	}
+> +	return NULL;
+> +}
+> +
+> +static const struct stack_depot_trie_node *
+> +stack_depot_trie_lookup(const unsigned long *entries, unsigned int nr_entries)
+> +{
+> +	const struct stack_depot_trie_children *children;
+> +	unsigned int entry = 0;
+> +
+> +	children = trie_load_children(&stack_depot_trie_root);
+> +
+> +	while (entry < nr_entries) {
+> +		const struct stack_depot_trie_node *node;
+> +		unsigned int remaining = nr_entries - entry;
+> +		unsigned int matched;
+> +		unsigned int pos;
+> +
+> +		if (!children)
+> +			return NULL;
+> +		if (!trie_children_find_position(children, entries[entry], &pos))
+> +			return NULL;
+> +
+> +		node = trie_children_load_child(children, pos);
+> +		matched = trie_node_match(node, &entries[entry], remaining);
+> +		if (matched < node->run.nr_entries)
+> +			return NULL;
+> +		entry += matched;
+> +		if (entry == nr_entries)
+> +			return node->stack_id ? node : NULL;
+> +
+> +		children = trie_load_children(&node->children);
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static u32
+> +trie_insert_path(const struct stack_depot_trie_children __rcu **slot,
+> +		 struct stack_depot_trie_node *parent,
+> +		 const struct stack_depot_trie_children *children,
+> +		 unsigned int pos, const unsigned long *entries,
+> +		 unsigned int nr_entries, void **pool_prealloc,
+> +		 struct stack_depot_trie_side_prealloc *side_prealloc)
+> +{
+> +	struct stack_depot_trie_children *new_children = NULL;
+> +	const struct stack_depot_trie_node *path_root;
+> +	const struct stack_depot_trie_node *node;
+> +	unsigned int capacity = 1;
+> +	u32 new_stack_id;
+> +	bool tail_append = false;
+> +
+> +	/*
+> +	 * Reuse spare capacity only for a sorted tail append. Other insertions
+> +	 * replace the children container without modifying visible pointers.
+> +	 */
+> +	if (children) {
+> +		capacity = roundup_pow_of_two(children->nr_children + 1);
+> +		tail_append = pos == children->nr_children &&
+> +			children->nr_children < children->capacity;
+> +	}
+> +	if (!tail_append && trie_children_alloc_size(capacity) >
+> +	    STACK_DEPOT_TRIE_POOL_USABLE_SIZE)
+> +		return 0;
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-NDA5NlNIQTM4NDIwMjRDQTEuY3J0MA0GCSqGSIb3DQEBCwUAA4ICAQChxpuuHVw93mze9jmueUFV
-BJNzvOzZlazrt0AiW1H7TlYQutgKVXPNSEyz8s4k+WsRSjjlQMOiZerfwPEV6lo9336I0uNd+ffc
-Rf8gbjiPTiVT+gX9GD1V5AguRgtsJn/H3A6M0dlzhI3J1jsOG9/+xPloHPzy7sPn5rNkntB/VTnv
-Bix4IfUy3ScOu2vnLX0gnwP3EknfdEUvq9+kdkEEBDz7dGqQo3EuhXZoW9CHF2GM0sOpO/cuNQh2
-JzA+to3smTES7sJXYuRrt5GomCRYvtIrRiYGMalFp+z6Jw/843lEIIpNNvpWVfx5Mbawkl+wWG8k
-0IK3rF7FtbNa0it8/s288G/AEHvfsDIQYFmRLlo2LNMxxREkZO/1Qq8GHUsX/602Fi0u88I3uh5w
-bOEIeG32NzBKTKBOjdjpiUrdCA676dyaIFt967CUtnUvFti8bqGA2pe/u7pjIANthqMBAlcnY5B6
-ff2mbdD8BBLItgb4HyUOCVawzy1hc+UR2tglySwYroWeohfoG6afjesGigsl2JmnhaZ9Z0vanF74
-vFEOOmuaq7VamuLEPFQtJM4olmipOW6CzrLcFz6J/6yAecEG3P1ZDoy08eSHvM40MAUgpwGa/w6o
-9ALHQXda/c4TJvAylfHQ6wqArzAuV1pfWldwy7IOBMtKqzQBXQ4dSDGCBCAwggQcAgEBMHYwYjEL
-MAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMTowOAYDVQQDEzFEaWdpQ2VydCBB
-c3N1cmVkIEcyIFNNSU1FIFJTQTQwOTYgU0hBMzg0IDIwMjQgQ0ExAhADNSi2uzJskfEdOMo4hV0g
-MA0GCWCGSAFlAwQCAQUAoIIBezAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0yNjEwMjAxNTA0MDBaMC8GCSqGSIb3DQEJBDEiBCA8M4U/XklQnYrix95rWqxQKJmQ+e2a
-8h8txbd1L8KWezCBhQYJKwYBBAGCNxAEMXgwdjBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGln
-aUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBT
-SEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAwgYcGCyqGSIb3DQEJEAILMXigdjBiMQsw
-CQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFz
-c3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAw
-DQYJKoZIhvcNAQEBBQAEggIApRxW4dz0URPBklawlTUHR/de51VDlgCZRBCbxIB2oTvWesdtBfoz
-agBG9Yg76x39k4S/uliEJAU76FYXRSnHfBJJZUgOfVX1QiCPuli0exaaNjpJAlXoDluji5lQxHBv
-0L0/uJtL2bRxq6T4SjpwNY4LniFB+EQvsAfubRAb0JXOjUjPulWPoF3mKdGBquXAWPnhuZQGzqON
-nn+TD+hwBv1JAtw817iSKK5dO+vLoi7g0B6HR3W9dg/eUmcI+xk8elVit1jtmbL6l2keyMPum9mo
-KFh06dFPbbmPwKLxmtm3c4ipJobzxH69vToSpC8+HzVM37ayVWYWvWAU1/jFlpE2bDKM46eJVR+D
-YbPSak+sUIrN18pX5Jsfvz60lVFzAelOy5LDKiBhZfd8jX/QnLgrst9T3z1hZJfgUVCNXUIFYOlx
-RgmxAFwYVTuDkeITfpAVvL2yAblVxWVOlxmMuJLSi2k0lfa7RsX5f7PAKFpVc2qSvEDx7q95LANz
-s+u8AqOyVArhNDECoStf4zAyo2FTikGgIZxs+bAnhOzwn4wb730pYBM1GnNoTWj8qGRX6KOK+wT6
-swqDJaH8YZVNMhMRz0wK1ta3I1QKC3asCUOhl6gSUpslO9HVkgf08vn+D4DqNszTsGUYI6cTybHU
-hbvFo68doFGEeXipS/+ADRwAAAAAAAA=
+On 4K pages, STACK_DEPOT_TRIE_POOL_USABLE_SIZE is 16,208 bytes. When a
+node reaches 1,024 children, inserting the 1,025th child requires
+capacity = 2048 -> 40 + 8 * 2048 = 16,424 bytes, so every subsequent
+insert under that node permanently fails and returns 0.
 
+Because the trie is keyed from entries[0] (innermost callee) to
+entries[nr_entries - 1] (outermost caller), all traces through common
+leaf entry points funnel into single chokepoint nodes:
+- All KASAN kfree/kmalloc tracks share [kasan_save_stack,
+  kasan_save_track, __kasan_slab_free, kfree]; entries[4] is the
+  kfree() call site. Once >1,024 call sites invoke kfree() or
+  kmalloc(), all new call sites fail to record stacks forever (your
+  commit message already saw 835 children on one node in a short test).
+- As noted on patch 5, KMSAN's [KMSAN_ALLOCA_MAGIC_ORIGIN] and
+  [KMSAN_CHAIN_MAGIC_ORIGIN] nodes hit 1,024 children and break KMSAN.
+- Keying from entries[0] also branches at the leaf call site and
+  duplicates the entire 20+ frame outer syscall/workqueue chain under
+  every distinct call site. A call-stack prefix tree has to be rooted
+  at entries[nr_entries - 1] (outermost caller).
 
---=-5Y+JCENTnr/fcJFpYw95--
+> +
+> +	new_stack_id = trie_side_table_prepare_stack_slot(side_prealloc);
+> +	if (!new_stack_id)
+> +		return 0;
+> +
+> +	/* Reserve replacement topology before the path, the final fallible step. */
+> +	if (!tail_append) {
+> +		new_children = trie_pool_alloc_children(capacity, pool_prealloc);
+> +		if (!new_children)
+> +			goto err_release;
+> +	}
+> +	path_root = trie_path_alloc(parent, new_stack_id, entries, nr_entries,
+> +				    pool_prealloc, &node);
+> +	if (!path_root)
+> +		goto err_release;
+> +
+> +	/* Commit the stack ID before making the path reachable from the trie. */
+> +	trie_side_table_publish(node);
+> +	if (tail_append) {
+> +		struct stack_depot_trie_children *tail_children =
+> +			(struct stack_depot_trie_children *)children;
+> +
+> +		/*
+> +		 * Publish the node before the visible count. Readers may transiently
+> +		 * see NULL and miss; the writer-lock recheck prevents duplicates.
+> +		 */
+> +		rcu_assign_pointer(tail_children->nodes[pos], path_root);
+> +		WRITE_ONCE(tail_children->nr_children, pos + 1);
+> +	} else {
+> +		if (children)
+> +			trie_children_init(children, new_children);
+> +		trie_children_insert(new_children, path_root, pos);
+> +		rcu_assign_pointer(*slot, new_children);
+> +		if (children)
+> +			trie_retire_children(children);
+> +	}
+> +
+> +	return new_stack_id;
+> +
+> +err_release:
+> +	if (new_children)
+> +		trie_pool_release_children(new_children);
+> +	return 0;
+> +}
+> +
+> +static u32
+> +trie_split_child(const struct stack_depot_trie_children __rcu **slot,
+> +		 const struct stack_depot_trie_children *children,
+> +		 const struct stack_depot_trie_node *child,
+> +		 unsigned int pos, unsigned int matched,
+> +		 const unsigned long *entries, unsigned int nr_entries,
+> +		 void **pool_prealloc,
+> +		 struct stack_depot_trie_side_prealloc *side_prealloc)
+> +{
+> +	struct stack_depot_trie_children *prefix_children = NULL;
+> +	struct stack_depot_trie_children *new_children = NULL;
+> +	const struct stack_depot_trie_node *new_node;
+> +	const struct stack_depot_trie_node *suffix_roots[2];
+> +	struct stack_depot_frame_run run;
+> +	struct stack_depot_trie_node *split_prefix = NULL;
+> +	struct stack_depot_trie_node *old_suffix = NULL;
+> +	unsigned int nr_suffix_roots;
+> +	unsigned int old_suffix_len;
+> +	unsigned int i;
+> +	size_t split_prefix_size;
+> +	size_t old_suffix_size;
+> +	u32 new_stack_id;
+> +	bool has_new_suffix;
+> +
+> +	new_stack_id = trie_side_table_prepare_stack_slot(side_prealloc);
+> +	if (!new_stack_id)
+> +		return 0;
+> +
+> +	/* Rebuild the child's run as newly allocated prefix and old suffix nodes. */
+> +	run = child->run;
+> +	run.nr_entries = matched;
+> +	split_prefix_size = trie_node_bytes(&run);
+> +	old_suffix_len = child->run.nr_entries - matched;
+> +	run.nr_entries = old_suffix_len;
+> +	old_suffix_size = trie_node_bytes(&run);
+> +	has_new_suffix = matched < nr_entries;
+> +	nr_suffix_roots = has_new_suffix ? 2 : 1;
+> +
+> +	/* Reserve fixed split topology before the optional new suffix path. */
+> +	split_prefix = trie_pool_alloc(split_prefix_size, pool_prealloc);
+> +	if (!split_prefix)
+> +		goto err_release;
+> +	old_suffix = trie_pool_alloc(old_suffix_size, pool_prealloc);
+> +	if (!old_suffix)
+> +		goto err_release;
+> +	new_children = trie_pool_alloc_children(children->capacity, pool_prealloc);
+> +	if (!new_children)
+> +		goto err_release;
+> +	prefix_children = trie_pool_alloc_children(nr_suffix_roots, pool_prealloc);
+> +	if (!prefix_children)
+> +		goto err_release;
+> +
+> +	if (has_new_suffix) {
+> +		const struct stack_depot_trie_node *new_suffix;
+> +		unsigned long old_suffix_frame;
+> +
+> +		new_suffix = trie_path_alloc(split_prefix, new_stack_id,
+> +					     &entries[matched], nr_entries - matched,
+> +					     pool_prealloc, &new_node);
+> +		if (!new_suffix)
+> +			goto err_release;
+> +		stack_depot_trie_node_frame(child, matched, &old_suffix_frame);
+> +		/* Children remain sorted by the first frame of each suffix. */
+> +		if (old_suffix_frame < entries[matched]) {
+> +			suffix_roots[0] = old_suffix;
+> +			suffix_roots[1] = new_suffix;
+> +		} else {
+> +			suffix_roots[0] = new_suffix;
+> +			suffix_roots[1] = old_suffix;
+> +		}
+> +	} else {
+> +		new_node = split_prefix;
+> +		suffix_roots[0] = old_suffix;
+> +	}
+> +
+> +	/* Rebuild the old path as prefix -> old suffix and attach suffix roots. */
+> +	trie_node_init_slice(split_prefix, trie_load_parent(child),
+> +			     has_new_suffix ? 0 : new_stack_id, child, 0, matched);
+> +	trie_node_init_slice(old_suffix, split_prefix, child->stack_id, child,
+> +			     matched, old_suffix_len);
+> +	for (i = 0; i < nr_suffix_roots; i++)
+> +		trie_children_insert(prefix_children, suffix_roots[i], i);
+> +	RCU_INIT_POINTER(old_suffix->children,
+> +			 trie_load_children(&child->children));
+> +	RCU_INIT_POINTER(split_prefix->children, prefix_children);
+> +
+> +	/* Publish IDs, reparent descendants, then replace and retire topology. */
+> +	if (child->stack_id)
+> +		trie_side_table_publish(old_suffix);
+> +	trie_side_table_publish(new_node);
+> +	/* Old and replacement chains contain identical frames during transition. */
+> +	trie_children_init(children, new_children);
+> +	RCU_INIT_POINTER(new_children->nodes[pos], split_prefix);
+> +	trie_reparent_children(old_suffix);
+> +	rcu_assign_pointer(*slot, new_children);
+> +	trie_retire_children_with_node(children, child);
+> +
+> +	return new_stack_id;
+> +
+> +err_release:
+> +	if (split_prefix)
+> +		trie_pool_release(split_prefix, split_prefix_size);
+> +	if (old_suffix)
+> +		trie_pool_release(old_suffix, old_suffix_size);
+> +	if (prefix_children)
+> +		trie_pool_release_children(prefix_children);
+> +	if (new_children)
+> +		trie_pool_release_children(new_children);
+> +	return 0;
+> +}
+> +
+> +static u32
+> +trie_promote_child(const struct stack_depot_trie_children __rcu **slot,
+> +		   const struct stack_depot_trie_children *children,
+> +		   const struct stack_depot_trie_node *child,
+> +		   unsigned int pos, void **pool_prealloc,
+> +		   struct stack_depot_trie_side_prealloc *side_prealloc)
+> +{
+> +	struct stack_depot_trie_children *new_children;
+> +	struct stack_depot_trie_node *promoted_node;
+> +	size_t node_size;
+> +	u32 new_stack_id;
+> +
+> +	new_stack_id = trie_side_table_prepare_stack_slot(side_prealloc);
+> +	if (!new_stack_id)
+> +		return 0;
+> +	node_size = trie_node_bytes(&child->run);
+> +
+> +	/* Reserve a clone and replacement children container before publication. */
+> +	promoted_node = trie_pool_alloc(node_size, pool_prealloc);
+> +	if (!promoted_node)
+> +		return 0;
+> +	new_children = trie_pool_alloc_children(children->capacity, pool_prealloc);
+> +	if (!new_children)
+> +		goto out_release_node;
+> +
+> +	/* Add the stack ID through a clone, then reparent before retirement. */
+> +	memcpy(promoted_node, child, node_size);
+> +	promoted_node->stack_id = new_stack_id;
+> +	trie_side_table_publish(promoted_node);
+> +	trie_children_init(children, new_children);
+> +	RCU_INIT_POINTER(new_children->nodes[pos], promoted_node);
+> +	trie_reparent_children(promoted_node);
+> +	rcu_assign_pointer(*slot, new_children);
+> +	trie_retire_children_with_node(children, child);
+> +
+> +	return new_stack_id;
+> +
+> +out_release_node:
+> +	trie_pool_release(promoted_node, node_size);
+> +	return 0;
+> +}
+> +
+> +static u32
+> +stack_depot_trie_insert(const unsigned long *entries,
+> +			unsigned int nr_entries, void **pool_prealloc,
+> +			struct stack_depot_trie_side_prealloc *side_prealloc)
+> +{
+> +	const struct stack_depot_trie_children *children;
+> +	const struct stack_depot_trie_children __rcu **slot =
+> +		&stack_depot_trie_root;
+> +	const struct stack_depot_trie_node *child;
+> +	struct stack_depot_trie_node *parent = NULL;
+> +	unsigned int matched;
+> +	unsigned int pos;
+> +	u32 stack_id;
+> +
+> +	lockdep_assert_held(&stack_depot_trie_writer_lock);
+> +	lockdep_assert_held(&pool_lock);
+> +
+> +	for (;;) {
+> +		pos = 0;
+> +		children = trie_load_children(slot);
+> +		/* No matching child: attach the remaining path. */
+> +		if (!children ||
+> +		    !trie_children_find_position(children, entries[0], &pos)) {
+> +			stack_id = trie_insert_path(slot, parent, children, pos,
+> +						    entries, nr_entries, pool_prealloc,
+> +						    side_prealloc);
+> +			break;
+> +		}
+> +
+> +		child = trie_children_load_child(children, pos);
+> +		matched = trie_node_match(child, entries, nr_entries);
+> +		/* A partial child match requires a prefix/suffix split. */
+> +		if (matched < child->run.nr_entries) {
+> +			stack_id = trie_split_child(slot, children, child, pos,
+> +						    matched, entries, nr_entries,
+> +						    pool_prealloc, side_prealloc);
+> +			break;
+> +		}
+> +
+> +		/* The input ends here: reuse a stack node or promote an internal one. */
+> +		if (matched == nr_entries) {
+> +			if (child->stack_id)
+> +				return child->stack_id;
+> +			stack_id = trie_promote_child(slot, children, child, pos,
+> +						      pool_prealloc, side_prealloc);
+> +			break;
+> +		}
+> +
+> +		/* The child matched completely; continue with the remaining frames. */
+> +		parent = (struct stack_depot_trie_node *)child;
+> +		slot = &parent->children;
+> +		entries += matched;
+> +		nr_entries -= matched;
+> +	}
+> +
+> +	if (stack_id)
+> +		trie_side_table_last_stack_id = stack_id;
+> +	return stack_id;
+> +}
+> +
+> +static unsigned int trie_fetch_into(const struct stack_depot_trie_node *node,
+> +				    unsigned long *entries,
+> +				    unsigned int max_entries)
+> +{
+> +	const struct stack_depot_trie_node *cur;
+> +	unsigned int total;
+> +	unsigned int pos;
+> +	unsigned int i;
+> +
+> +	total = 0;
+> +	for (cur = node; cur; cur = trie_load_parent(cur))
+> +		total += cur->run.nr_entries;
+> +	if (max_entries < total)
+> +		return 0;
+> +
+> +	pos = total;
+> +	for (cur = node; cur; cur = trie_load_parent(cur)) {
+> +		pos -= cur->run.nr_entries;
+> +		for (i = 0; i < cur->run.nr_entries; i++)
+> +			stack_depot_trie_node_frame(cur, i, &entries[pos + i]);
+> +	}
+> +
+> +	return total;
+> +}
+> +
+> +static unsigned int trie_fetch_range(const struct stack_depot_trie_node *node,
+> +				     unsigned int offset,
+> +				     unsigned long *entries,
+> +				     unsigned int max_entries)
+> +{
+> +	const struct stack_depot_trie_node *cur;
+> +	unsigned int end;
+> +	unsigned int start;
+> +	unsigned int total;
+> +	unsigned int pos;
+> +	unsigned int i;
+> +
+> +	total = 0;
+> +	for (cur = node; cur; cur = trie_load_parent(cur))
+> +		total += cur->run.nr_entries;
+> +	if (offset >= total)
+> +		return 0;
+> +
+> +	max_entries = min(max_entries, total - offset);
+> +	end = offset + max_entries;
+> +	pos = total;
+> +	for (cur = node; cur; cur = trie_load_parent(cur)) {
+> +		pos -= cur->run.nr_entries;
+> +		start = max(pos, offset);
+> +		for (i = start; i < min(pos + cur->run.nr_entries, end); i++)
+> +			stack_depot_trie_node_frame(cur, i - pos, &entries[i - offset]);
+> +	}
+> +
+> +	return max_entries;
+> +}
+> +
+> +static unsigned int trie_fetch_handle_into(depot_stack_handle_t handle,
+> +					   unsigned long *entries,
+> +					   unsigned int max_entries)
+> +{
+> +	const struct stack_depot_trie_node *node;
+> +	u32 stack_id;
+> +	unsigned int nr_entries;
+> +
+> +	stack_id = trie_stack_id(handle);
+> +	rcu_read_lock_sched_notrace();
+> +	node = trie_side_table_lookup(stack_id);
+> +	if (WARN_ONCE(!node, "corrupt trie handle %08x\n", handle)) {
+> +		rcu_read_unlock_sched_notrace();
+> +		return 0;
+> +	}
+> +	nr_entries = trie_fetch_into(node, entries, max_entries);
+> +	rcu_read_unlock_sched_notrace();
+> +	if (nr_entries)
+> +		kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
+> +
+> +	return nr_entries;
+> +}
+> +
+> +static unsigned int trie_fetch_handle_range(depot_stack_handle_t handle,
+> +					    unsigned int offset,
+> +					    unsigned long *entries,
+> +					    unsigned int max_entries)
+> +{
+> +	const struct stack_depot_trie_node *node;
+> +	u32 stack_id;
+> +	unsigned int nr_entries;
+> +
+> +	stack_id = trie_stack_id(handle);
+> +	rcu_read_lock_sched_notrace();
+> +	node = trie_side_table_lookup(stack_id);
+> +	if (WARN_ONCE(!node, "corrupt trie handle %08x\n", handle)) {
+> +		rcu_read_unlock_sched_notrace();
+> +		return 0;
+> +	}
+> +	nr_entries = trie_fetch_range(node, offset, entries, max_entries);
+> +	rcu_read_unlock_sched_notrace();
+> +	if (nr_entries)
+> +		kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
+> +
+> +	return nr_entries;
+> +}
+> +
+>  unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+>  			       unsigned long **entries)
+>  {
+> @@ -787,6 +2316,8 @@ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+>  
+>  	if (!handle || stack_depot_disabled)
+>  		return 0;
+> +	if (WARN_ON_ONCE(stack_depot_handle_is_trie(handle)))
+> +		return 0;
+>  
+>  	stack = depot_fetch_stack(handle);
+>  	/*
+> @@ -813,6 +2344,8 @@ unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
+>  	if (stack_depot_disabled)
+>  		return 0;
+>  	WARN_ON_ONCE(!entries || !max_entries);
+> +	if (stack_depot_handle_is_trie(handle))
+> +		return trie_fetch_handle_into(handle, entries, max_entries);
+>  
+>  	stack = depot_fetch_stack(handle);
+>  	if (!stack)
+> @@ -835,6 +2368,8 @@ void stack_depot_put(depot_stack_handle_t handle)
+>  
+>  	if (!handle || stack_depot_disabled)
+>  		return;
+> +	if (WARN_ON_ONCE(stack_depot_handle_is_trie(handle)))
+> +		return;
+>  
+>  	stack = depot_fetch_stack(handle);
+>  	/*
+> @@ -851,11 +2386,53 @@ void stack_depot_put(depot_stack_handle_t handle)
+>  }
+>  EXPORT_SYMBOL_GPL(stack_depot_put);
+>  
+> +static void trie_print(depot_stack_handle_t handle)
+> +{
+> +	unsigned long entries[STACK_DEPOT_PRINT_CHUNK_FRAMES];
+> +	unsigned int nr_entries;
+> +	unsigned int offset = 0;
+> +
+> +	while ((nr_entries = trie_fetch_handle_range(handle, offset, entries,
+> +						     ARRAY_SIZE(entries)))) {
+> +		stack_trace_print(entries, nr_entries, 0);
+> +		offset += nr_entries;
+> +	}
+> +}
+> +
+> +static int trie_snprint(depot_stack_handle_t handle, char *buf, size_t size,
+> +			int spaces)
+> +{
+> +	unsigned long entries[STACK_DEPOT_PRINT_CHUNK_FRAMES];
+> +	unsigned int generated;
+> +	unsigned int nr_entries;
+> +	unsigned int offset = 0;
+> +	unsigned int total = 0;
+> +
+> +	while (size &&
+> +	       (nr_entries = trie_fetch_handle_range(handle, offset, entries,
+> +						    ARRAY_SIZE(entries)))) {
+> +		generated = stack_trace_snprint(buf, size, entries, nr_entries, spaces);
+> +		total += generated;
+> +		if (generated >= size)
+> +			break;
+> +		buf += generated;
+> +		size -= generated;
+> +		offset += nr_entries;
+> +	}
+> +
+> +	return total;
+> +}
+> +
+>  void stack_depot_print(depot_stack_handle_t stack)
+>  {
+>  	unsigned long *entries;
+>  	unsigned int nr_entries;
+>  
+> +	if (stack_depot_handle_is_trie(stack)) {
+> +		trie_print(stack);
+> +		return;
+> +	}
+> +
+>  	nr_entries = stack_depot_fetch(stack, &entries);
+>  	if (nr_entries > 0)
+>  		stack_trace_print(entries, nr_entries, 0);
+> @@ -868,6 +2445,9 @@ int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
+>  	unsigned long *entries;
+>  	unsigned int nr_entries;
+>  
+> +	if (stack_depot_handle_is_trie(handle))
+> +		return trie_snprint(handle, buf, size, spaces);
+> +
+>  	nr_entries = stack_depot_fetch(handle, &entries);
+>  	return nr_entries ? stack_trace_snprint(buf, size, entries, nr_entries,
+>  						spaces) : 0;
+> 
+> -- 
+> Git-155)
