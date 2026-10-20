@@ -1,49 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485137;
-	b=mOY1BmBIe5VHqarYSaAlArBj+d2vI4qLdSBpOBzVsXXtICgu+Ia2x/VBx/u88vraZSMn
-	 bcDkFxsPnRBUH5cc44NG3gFLikX/TVpE+kCJwMI/EjNCQchqlskZeEgxuFNHSn4saiUuE
-	 jJCj0cGod2FHKEzfcd58l12SMn4Q5l/jKlcdPUL7dVPLfle6ag7At5IHMDqs1rX8Kd0aU
-	 ETHxL2XACR6wEmID5GAPYi/OT9qsBTBZwoHKB9m7Tz/f3jY+ej2cO5PO5oHRkW/IlOm5D
-	 oVBc0HKZKOU7o0LXlUmIeOXWbF3S7VdH+ID4mryKMrVcKl9SZIkt5VTXbiVlOtafdQA==
+	t=1792485231;
+	b=f1ITwLIj8os4CkYHKu0M1k5O3LxpqyvY7ywZ9G0V330UckVlEQgQOiTIJSI3S8e1kGBF
+	 uflw3NTTVtpXby4VXoQREr0l3sQyHwpGseneHo5mZp4J2jHM8xYFDTovcJYGXSee3q5/b
+	 UJICpkFRY79k/rmBLSqOf0jTw/U7g+D+tMrMbPAwGvCOczNvZA5jm/TepbOnpXLn6fT8v
+	 llHtfpxArLSEkxRdRxNm0S+S2VqoIfllT7EmdTgAialE5WLuVDjXRpJ5uwympcnna/h5H
+	 P1Arg368pFNF1SyKmN11wL5fN/yo4ZM/bO/m+BcRHW+PHiZnN9/UKQ88O50JNJyiSIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485137;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WYwqUV0a09kbpatRxoseIFVv0mewCx3MSBetA+PMlF4=;
-	b=pJXOIzR7SZGyeorrrrp0qV9g4dIC+V4h4rzpp6THNrstbv06CwD+fCz/hYot9nY2dKvE
-	 p7kLhpQ+zPW2zOic+O5mb8sN1HSZ0xgQnFJB27xNhm68zwSJ3TciO5sCwLDS1VkvXs726
-	 RvDwKZkgyml4TRUZb1nOpC8sJUMT9xZAMpqwN8WW6X9swe3b7A2M/DfF6y/PknKWkZcYa
-	 /bkCzLXfiNOezIEWw+9Ltb/B3TtukzNHQX9YUpU93v1PzBKMkgiCnTIRHtpJ3+RABKEQH
-	 8V/mhbPINQAE4e8T8hijvYjFuzrDewIHiN2sJpsLkbYc3wz0tGG33z5hiCVWFeai+7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485231;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=p66OhLIDCBcG9nHMSWG1cULPATR7vDMq3ytT8TFvDbw=;
+	b=cUOfCMu5m78HuN1eBwDrQiWyKZ3VLLPNMcxT8rc+2BVQvKxZlU17FzDJhd+/Nje+I8s0
+	 C32uFIvWvSaR/Ida/PdSLr2rU3GXHfFvX9z4I/kNFXLugtDMvdlNTmd223NMeFA1uo65l
+	 XJo2F9cI2yEZLdeVXhVrpbpWDHwMwropNCUY324gc//DWupVG0NsFjkBTGvVqY4o/8rsC
+	 BUSjuI3Av/D1nxPRvXSBYr3ugBKKrFU6519f0Jj2L+rIEABmzXKlXpiAc+qn/3GIT6xy4
+	 D9Pyh7H0+WTgOnExdGQG8MyQvnqG9baiBsKSiHbwcLCgkQ4PY5k/iDVJ8cuK3R1PBAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TXdb5k1g;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Vf5/NbzF";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AtzhCEMJ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C091D606A319;
-	Tue, 20 Oct 2026 08:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C091D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24831606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:33:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24831606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TXdb5k1g
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792485132; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=WYwqUV0a09kbpatRxoseIFVv0mewCx3MSBetA+PMlF4=;
-	b=TXdb5k1gEb105YVtipP1+Yer3QcgbQgdv05emH8KM5SAvBIEd1douqj0sQ/QqFu6+x0JtfQavdTWImN4UGrqBOD/1HB2LkNnKqqcA/BRr6d5GmJZfEysz+cY82kw/SM3DJGlHCHDgvl3nqrS0VpJJy3hEhzgSq1XijurKuE7NI4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDCLk5f_1792485131;
-Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDCLk5f_1792485131 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 16:32:11 +0800
-Message-ID: <27f03c8f-c41d-437a-aca7-e6aecbed45f8@linux.alibaba.com>
-Date: Tue, 20 Oct 2026 16:32:10 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vf5/NbzF;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AtzhCEMJ
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8NNug3485726
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:33:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	p66OhLIDCBcG9nHMSWG1cULPATR7vDMq3ytT8TFvDbw=; b=Vf5/NbzFckgIDw9m
+	VsqvR3HDMlTjgkw7l0VUPY9u4e5S13jBuNjqRxzdCzhAtqSC9gKLyhfGqx633Yur
+	BS9opZcTtSpFIHiw7Dn2mcALKsdmfc4MXGqYNpio+zTi5v3dicw5UvE2Un2SlQtP
+	gSgsItsKlqACFEPDFt5m5j898YxsY5jOWqkWYyKD9jMC08AvLiLXbLqAM/dkLXj7
+	+vx1twhvhv28KrB/Yzbu1Ly29bB2Dud2PWUDx/qa3J9sUzcoli1yo3KQCt8lRcAg
+	1K2AjWLG/mariazX6pOvjA9nh5IqnT3sr0KrveXsU/3vw14MXxEPut5DRciObH6m
+	bif9Rg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n1n9u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:33:50 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f1f1f2ecfso96254385a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:33:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792485229; x=1793090029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p66OhLIDCBcG9nHMSWG1cULPATR7vDMq3ytT8TFvDbw=;
+        b=AtzhCEMJMpyfvrrLeIdeQXRvcXZivcWsBn08uIlh8vRANUuu1aIEvydRhlqPccJe6Z
+         /6Ev8yEvbXT+YLi+LseFVYcR26ceeJ6FF2hiSZLSSw19qCb+/g+QjN5H/fcy+F5L1oPu
+         ZDZg0hj71CXUDk3yJjvsNAyFD6DRh7rQXN7zy1Y96cd0PX05+9rGB6S1BsZNsn5OAir0
+         evuLk6/gw8CHZEcZnKlxC5hfGInpo9YtqnAx8s+5wobSyJ5ZBMgbwVVLWzmdllFcg8/t
+         Gx1Jw3OtgtWLPtgd7V9cpeU0qpO1qxR10U6/vZUFoFtvvAb4+qQSotu7zUgn8QBFLZ5s
+         dCFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485229; x=1793090029;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p66OhLIDCBcG9nHMSWG1cULPATR7vDMq3ytT8TFvDbw=;
+        b=HG5+CZOZW00n8SiDP+34bDAEEmxgiJx2q5FSWWzxPZhPBwH3VsVQTbJu3ELgRfwFo4
+         QH1g0eWZt/ebbAOUN9V6yyEJ1M1+3pjpfRW+T+IAtQYhDH4/cF+vcORV4u6XjlM92cLU
+         FLe5s2keGKAOjj51DSaCDDXFbOfyqw26pxcKq18uNaOdzRAdoFADe3zwcWxiqC5ixJMJ
+         xN4CgDzHZ6arfKi6/ETgkKe3pbU59+yXgUw1k8vdL45rdPQmldtDzwoYl7zoqV19dxqs
+         k/6lIfQ0oP5tXZy7xouhUCtQKXjvWzS5bmLyjQrmfvIgxBi7n4/1b8c6K41C5ZMEmM+r
+         /elw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4kJfM39v9yzdEuoY+fqiRDNUBWFo3+k3qQc85CkOe5nyHxS4aE0TaAWwz68zgOurIhnSdESNPAPQr65M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAMHhCpfmZ0ufnYxG73ohvE7J6AFahePw34Hh7CVeO6y3kV778
+	FdyPzg3l4FB7fzx6FnMYyKFXA7J/x0HQq0URDrtZdQCdl2UBU/R36jTds3mmEoDEvUvW8wLSTjM
+	UCz4Cp/5IbECcF2HXFLOZHFJ4FjMD7jMTJNs4LlcYDF0ba1yDezU/ka8TQRY1Xq1diYE=
+X-Gm-Gg: AYBFou3SC4geHwMqyZDBO8rBLUcopSpqNl4PYk2Y/40B1nYZOB6mY+Hr2+4Sg4P4Bu2
+	2FKjb2EoZN3F8g+uvdMD+7gK90jMkuAWOLWkO9OZCv2niRV6qNIOOxEs+34ZG4Gtyvf/6TsjXh5
+	WWu9PgzjJyEisZwPWiRkGdP5XNfbg6h4K0WD1abjjgwPvY+jpI28sHU2vfUpGmg98A/XV1hD69L
+	PBdpI8aZ9JrGWWzXEGbn2lkNraTNQyC2lf23p20oVkvHoHZQtU0wYlu8JZTv5PSmKOybFMVgSvN
+	QHqxWDNaBMYb3J5HiUIgkILCjgvIsutqqz6sfznwlXVuFiSE8y/ZatWt3kH1trCX0AVSNqT53di
+	Wp2Esk8q91Zhve4UKHZGTsA==
+X-Received: by 2002:a05:620a:7086:b0:93e:e111:2771 with SMTP id af79cd13be357-93f29beee37mr1876114685a.2.1792485229466;
+        Tue, 20 Oct 2026 01:33:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:7086:b0:93e:e111:2771 with SMTP id af79cd13be357-93f29beee37mr1876094585a.2.1792485224147;
+        Tue, 20 Oct 2026 01:33:44 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dcf123sm456787166b.14.2026.10.20.01.33.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:33:43 -0700 (PDT)
+Message-ID: <da0ec4b6-db66-4419-adc2-9600d8cc5793@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:33:39 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,184 +116,81 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a
- region's dev attribute
-To: Eklavya Singh <eklavyasingh2106@gmail.com>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Heming Zhao <heming.zhao@suse.com>, Andrew Morton
- <akpm@linux-foundation.org>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
- <20261019072936.2279-1-eklavyasingh2106@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+Subject: Re: [PATCH 04/10] clk: qcom: clk-rcg2: forward the gfx3d rate request
+ to the parent
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Joonwoo Park <joonwoop@codeaurora.org>,
+        Imran Khan <kimran@codeaurora.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Ilia Lin <ilialin@codeaurora.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+ <20261019-msm8998-fix-clocks-v1-4-370949e4d8a0@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261019-msm8998-fix-clocks-v1-4-370949e4d8a0@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aIplOr9m c=1 sm=1 tr=0 ts=6ad7276e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=RaLkOdssimeRB-vWfmoA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMyBTYWx0ZWRfX24bqB9WPemy/
+ JA3guQ2F1Hp9Bb9lLXDIwmGlWHy/esRAnXXP8ehp9nRqw69m9a+ufk8KbTh2eT2WeQF+T4cg6tE
+ g0bTsBQdfLrUdmIxg9BhM3hEQ2H2zrs=
+X-Proofpoint-GUID: Vajs8y73xI0iiChhd0iIhOa0PURe7hk8
+X-Proofpoint-ORIG-GUID: Vajs8y73xI0iiChhd0iIhOa0PURe7hk8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMyBTYWx0ZWRfX+w12R4KmW2Nk
+ cfi1l0lI8YDdNNo8Z3ZpRODP6e8WJ5vx59dekCPm6NeivEKHF4CPEXCphn+eVSap9CPsU/CnRnJ
+ ycX8B0xy1LJSqkYnTu2qx4pONEtk1ICzQWXQVMyyN5CO/tGNjYY7t7klzozbBTRS0Qn2X9F56Cc
+ kTAsqBzYDCqiuZzFnA5oX3WVKBHHAlWmhDQLwPl6KKu+Eu6PH0Mf7OY+yC1ivOrl52Ne5FZ056w
+ fCbe44rAJbRboPpmueo6MlAs5lA6Eabida9kecJqk1x7AwUEi4upPpMhK8uQ1GSIJ365uDR0sw2
+ /BromaRMKLs869il0WdGNmw+L0f1+dIasKyepgTI7E+qWeSKxtwgLvqAhcUflNWZoMwlXN/azfu
+ NUdk54VUPy2/aeRs/25QmXLgF2mEinKEajSjJrv+aETPEwYGwH84fvtQcMA92ucGjClegN+axn4
+ S8ICS4vv8CYWrjGF0CA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200033
 
-
-
-On 10/19/26 3:29 PM, Eklavya Singh wrote:
-> o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-> is already started, but nothing stops two writers from doing that at
-> the same time. configfs only serializes writes through the same open
-> file, so two processes that each open the dev attribute can both get
-> past the check:
+On 10/19/26 3:41 PM, Dmitry Baryshkov wrote:
+> GPU DVFS on SDM660 never changed the GFX3D rate. clk_gfx3d_determine_rate()
+> builds the parent request by hand and leaves best_parent_rate at zero, so
+> the PLL is asked to determine a rate for a zero parent rate and the new
+> rate is dropped on the floor.
 > 
->   A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
->   B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
->   A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
->   B: start fails, fput(NULL)
+> Use clk_hw_forward_rate_request(), which fills in the parent's limits and
+> rate the way the core expects them.
 > 
-> Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-> so the error paths can free the slot data twice.
-> 
-> syzbot hit the fput(NULL) with an unbound loop device, where every
-> start fails with -EIO. With four threads doing the same thing on a
-> KASAN kernel I get both crashes within a second:
-> 
->   BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
->   BUG: kernel NULL pointer dereference, address: 0000000000000158
-> 
-> Add a mutex to the region and hold it in dev_store(), in the
-> block_bytes, start_block and blocks stores, and in dev_show(), since
-> they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-> takes the mutex in a small wrapper rather than with guard(). It sleeps
-> with the mutex held while it waits for the heartbeat thread. That is
-> fine because neither the thread nor the teardown paths take it.
-> 
-> With the patch the same test ran for 10 minutes with lockdep on and
-> nothing was reported.
-> 
-> Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+> Fixes: af1e62f2ffe2 ("clk: qcom: clk-rcg2: Take clock boundaries into consideration for gfx3d")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
-> v2: take the mutex in a wrapper around dev_store() instead of with
-> guard(), since dev_store() uses goto for its cleanup. No other changes.
-> 
-> v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
-> 
->  fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
->  1 file changed, 26 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-> index 1c3def99bb0..003c398366e 100644
-> --- a/fs/ocfs2/cluster/heartbeat.c
-> +++ b/fs/ocfs2/cluster/heartbeat.c
-> @@ -269,6 +269,8 @@ struct o2hb_region {
->  	struct list_head	hr_handler_list;
->  	/* Serializes timeout arming against failed-start and teardown. */
->  	struct mutex		hr_arming_mutex;
-> +	/* Serializes the region's configfs attributes against dev_store(). */
 
-Naming the covered 4 region's attributes would be clearer.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> +	struct mutex		hr_dev_mutex;
->  	bool			hr_stopping;
->  
->  	/* last hb status, 0 for success, other value for error. */
-> @@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
->  	unsigned long block_bytes;
->  	unsigned int block_bits;
->  
-> +	guard(mutex)(&reg->hr_dev_mutex);
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
->  	char *p = (char *)page;
->  	ssize_t ret;
->  
-> +	guard(mutex)(&reg->hr_dev_mutex);
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
->  	char *p = (char *)page;
->  	int ret;
->  
-> +	guard(mutex)(&reg->hr_dev_mutex);
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
->  
->  static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
->  {
-> +	struct o2hb_region *reg = to_o2hb_region(item);
->  	unsigned int ret = 0;
->  
-> -	if (to_o2hb_region(item)->hr_bdev_file)
-> -		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-> +	guard(mutex)(&reg->hr_dev_mutex);
-> +	if (reg->hr_bdev_file)
-> +		ret = sprintf(page, "%pg\n", reg_bdev(reg));
->  
->  	return ret;
->  }
-> @@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
->   * this is acting as commit; we set up all of hr_bdev_file and hr_task or
->   * nothing
->   */
-> -static ssize_t o2hb_region_dev_store(struct config_item *item,
-> -				     const char *page,
-> -				     size_t count)
-> +static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-> +				       const char *page, size_t count)
->  {
-> -	struct o2hb_region *reg = to_o2hb_region(item);
-
-Would it be worth recording that hr_dev_mutex must be held now?
-
->  	struct task_struct *hb_task;
->  	long fd;
->  	int sectsize;
-> @@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
->  	return ret;
->  }
->  
-> +static ssize_t o2hb_region_dev_store(struct config_item *item,
-> +				     const char *page,
-> +				     size_t count)
-> +{
-> +	struct o2hb_region *reg = to_o2hb_region(item);
-> +	ssize_t ret;
-> +
-> +	mutex_lock(&reg->hr_dev_mutex);
-> +	ret = __o2hb_region_dev_store(reg, page, count);
-> +	mutex_unlock(&reg->hr_dev_mutex);
-> +
-> +	return ret;
-> +}
-> +
-The wrapper keeps hr_dev_mutex held across the whole start, including
-the wait for the thread:
-
-        ret = wait_event_interruptible(o2hb_steady_queue,
-                                atomic_read(&reg->hr_steady_iterations) == 0 ||
-                                reg->hr_node_deleted);
-
-hr_timeout_ms is O2HB_REGION_TIMEOUT_MS, 2000, and hr_steady_iterations
-starts at O2HB_LIVE_THRESHOLD + 1, or one more doubling again when this
-is the only region and global heartbeat is active.  So a read of the dev
-attribute that races a start blocks for roughly six seconds, or ten for
-that first region, where it used to return at once.
-
-Thanks,
-Joseph
-
->  static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
->  {
->  	struct o2hb_region *reg = to_o2hb_region(item);
-> @@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
->  	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
->  		name, strlen(name));
->  	mutex_init(&reg->hr_arming_mutex);
-> +	mutex_init(&reg->hr_dev_mutex);
->  	reg->hr_stopping = true;
->  	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
->  	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
-
+Konrad
