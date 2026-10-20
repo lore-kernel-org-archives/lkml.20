@@ -1,75 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483993;
-	b=I1/RhM/s3NkeOjLLw1/3aZmNO+ah3yfuTqliLBgE519B5swOGphiuhjvVMJZCI9iElgq
-	 MZXGUp7E9r4kTVX4Jdj9NwAIb2nLSqib84ytY31BQaDye8f1sgQIESJJiRbg7lERUPXbv
-	 2w2vVqcfVgdBLU1msUO3F/8HvjwhKyMM0i1/XHpkbsSkAm9BA+o7XcxHUJKINlxPq5trM
-	 lDAdiiIBATTFpJ+ukbcsNi5dY+GcMEndMfKnPfT1F8xRPrdszKFlsjKEJfF52lFc2OUbE
-	 E8R4coaVZgGZKq0YyEutGuYG7XiOBFZqCdzO6ckY97PbXJFxM3c19GLtMrwfbJMLZJg==
+	t=1792484027;
+	b=TdSr0AcXdtULOeMQMiCXtLHwp6PmSVVZdll0dDIzpBttbPK7fHn10JWuIDt7uEIQSKCJ
+	 S4oOg3mIYCyD9gQNpjKJ610LMHfMmHzN3BBGCfpcxHP4yPDsU268VpUvDhRxprydijD73
+	 5Cxq85dedobcNIMpmGnctwNxIYLy1EOCynKJCMmUUkIDwqvoxTWRuAtpIy5qITRCZFsD1
+	 pzWRUVXncwg/EHQ4fyrEBGVkClCYjHzwB85oRbxUpLrh1SfJFEYFs0Ql1kV+ZyBj0IHg6
+	 na8O44g5VOmvV6gfPBJqQypx2ryLSXWIqYaHBn5eiMksooUVGHa5EFurL+jFAx+yYTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483993;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
-	b=BYqNUagEj+W4gy0hDbHyrN1lpln2uncI9ZiveGZ2MiEs1L0mFD1DxfQuS2bg8slTALsu
-	 7tDx4KNquZD9ngyPwG1I4md40YCobowJa4QDFwMzGl+X4EgdERKBbdPfnY8H351ul2Xl6
-	 l4eHBo52mf455S4+W5/CeU2U20eYTkuZh6DpM7yVD/TG2kiZe2n+jaeJNfoowAlGph+uw
-	 HQ4QOGNzDOWJwlDMTitTdF+hZovyWmteII9vhJqQiDRu6i98G5Y9ymr1J9Wrh0rO+aA6b
-	 Gwlx3fU6zYPZ001Yewza3jjjzQ71jTmZefheny/+q6zmIuR4Y0Wa5qkgEZVm2fq9Byg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484027;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
+	bh=MN63htuYUqrgFOXv/xwBT/iNnGMFTc69oLMOIWBDMN8=;
+	b=TCUQm8uHANSwHG7AzCtyVIaytx5JoCKNham8Wybdy2uMUlG9qb0abvH0W2p7pB04tc4q
+	 4N89x6m4GbCY0vvEF74rTi+qX7Z74C8ay37us7ZJ5rGFm9gerhtYn7Re3lC39YCta2ASv
+	 /30inPfZynDsFWQkpy3T3mgLYufJZlpJh9KIC4R3m5oWPZx0AeTrWDZ4rv2XWfGFPxpFf
+	 vTFJgEc/aRt8NSuhq6LrzVwwCPZHl6lgxLtWJJDJzUJX4OAiE1Utmg4i4yMbbzkv1RDk+
+	 XLGrSMM/sBJ1wamw2nLVX2xXaZX0dWk3kPkneS8lmkgl8/c+/IhVnZ7kZTkanF2MOUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VGbBsq55;
-	arc=none smtp.remote-ip=209.85.218.69
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=03OZ40IQ;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC43606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC43606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEEB606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBEEB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VGbBsq55
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c293e604f0eso250294366b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:13:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792483991; x=1793088791; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
-        b=VGbBsq55SxMht3O1sFL/JYhDoUB1lktVionTe2hmEWeoz6nsvvNHdD4vuxO4EZ5VBk
-         I/ykPxUt/pVq3kzNQgQyy1bcLYXwxSvhJbpvJXriWtSEq2xHTJLOUWDAFm5GFmKXzUKU
-         zeQBf+1swtzmV6w5L41uWwYVRDI1Q5mrimf1EfENQOEGIF3TYEXUhcJNQSDB84BT7p2k
-         IvJW1mNG6gsgso6x4r/2S8pXx1o+c3sH7wMfMUmWB65O6rwESMhS8iNG6vpMGx81Q/Jw
-         oBATHwmSWWFs+gBdvOQg6BKlDe7FapxC+zmaUSwRwJZ3YnenOf/bWAs53FPtNREsDBiO
-         CK/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483991; x=1793088791;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
-        b=MaE1Pj0eLrJP3iIf53OVCD9T2mmMxbx4UUrzJez3dwmIDJaRr6YAM4XC3iBX3rQc7X
-         khN7sMH6Ygzjg6//1OcktkKhZW6MIaEWpVvbtIOroBH9MYJ2KTZ6oclD2hThkdq1SHvA
-         GSOUzLtJ8cRGmJ5B5CveYn9D80z5EVbHiuQT2JM330dzbJRvR1ixSRTDdgYCHik5ElsA
-         cIA1b4I6n48tfIXaCA48CVxSpV8DmaNfSZK9NjOJSOJEqXprOCLquiHbjSgCLb/pqvqr
-         42s0XNsMXA/AFf2+VnNmO2SL/SELMCHN10BThaiakMpygD+lsODFEDB1dKnW2Aa8/gOC
-         xzvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxt1nF3zRt6Ga3j0BZpCXLWiho0kV5BYXP4ePsuLZJfYmx18qqX+hSXgbY9lHYXGAz127p2ngF6G8dhGWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKw7BVeWPVZxdRnnrx3JF4DcjQ3XOeoDYQlYAHitUwj/G3V56GK
-	BrNWc01Kt6eu+VFsKNChbLVu1vIp0bpL51bxu7TvveXyY0IcBNMfoIhkLHUIGNRWHgFJQkckYB1
-	DX6moV1syZQj2Y5y1KQ==
-X-Received: from edt3.prod.google.com ([2002:a05:6402:4543:b0:6aa:ff76:b1f6])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:aa7:d803:0:b0:6b1:e474:e0e2 with SMTP id 4fb4d7f45d1cf-6b3a81dea57mr4861388a12.43.1792483991214;
- Tue, 20 Oct 2026 01:13:11 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:13:06 +0000
-In-Reply-To: <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=03OZ40IQ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6A52A1A1291;
+	Tue, 20 Oct 2026 08:13:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C3A060393;
+	Tue, 20 Oct 2026 08:13:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1925D10328A45;
+	Tue, 20 Oct 2026 10:13:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792484024; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=MN63htuYUqrgFOXv/xwBT/iNnGMFTc69oLMOIWBDMN8=;
+	b=03OZ40IQu92p+6zcM7lPsTtHDySziOlL6p2l7mREPKNcIKAdggk/zBqFUYfhtfeAL07r3t
+	j0n7+Dj4Rim8EAwgcKN53lOYIl9/Yff5WfFqMUb9aiKsBSfvbDGgqxJiOnLcn6+PgQkVqL
+	6wrdIiWr+5A1I3m7I67WEy034pwF4AGD9osfqoRzr73PpJXMl/jL0ll4aAKo7z5ZPQ24El
+	bw92Xh7KhRxXuz8sJe15OugBJ1GJJk58MokHZdzZImRbTlLhq5zoju5d5adGEbNXgSzaVY
+	+RxZJOfedAiiLWNpcMA0IZI7AajeBFBOdtmGTyZtvWHAmwRXKlG+rvBnwPB4mQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: Alexander Aring <alex.aring@gmail.com>,  Stefan Schmidt
+ <stefan@datenfreihafen.org>,  "David S . Miller" <davem@davemloft.net>,
+  Eric Dumazet <edumazet@kernel.org>,  Jakub Kicinski <kuba@kernel.org>,
+  Paolo Abeni <pabeni@redhat.com>,  Simon Horman <horms@kernel.org>,
+  Marcel Holtmann <marcel@holtmann.org>,  Chandru Gopi
+ <chandru.gopi.dev@gmail.com>,  linux-wpan@vger.kernel.org,
+  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wpan] ieee802154: look up the wpan_phy dump ifindex in
+ the caller's netns
+In-Reply-To: <20261020065125.896530-1-maoyixie.tju@gmail.com> (Maoyi Xie's
+	message of "Tue, 20 Oct 2026 14:51:25 +0800")
+References: <20261020065125.896530-1-maoyixie.tju@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 20 Oct 2026 10:13:40 +0200
+Message-ID: <8733u0vlfv.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,46 +74,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com> <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020081308.1768290-1-aliceryhl@google.com>
-Subject: Re: [PATCH 3/3] rust: dma: declare cfi_encoding for dma_data_direction
-From: Alice Ryhl <aliceryhl@google.com>
-To: Sami Tolvanen <samitolvanen@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
-	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 19, 2026 at 11:34:39PM +0000, Sami Tolvanen wrote:
-> bindgen generates bindings::dma_data_direction as an integer by default,
-> while C callback tables such as dma_buf_ops declare the parameter as
-> enum dma_data_direction. kCFI encodes enum types by name even with
-> integer normalization, so the type ids would not match when C calls into
-> a Rust callback taking bindings::dma_data_direction.
-> 
-> Generate dma_data_direction as a newtype with a cfi_encoding, as is done
-> for lru_status, and convert DataDirection through the newtype's
-> constants.
-> 
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+On 20/10/2026 at 14:51:25 +08, Maoyi Xie <maoyixie.tju@gmail.com> wrote:
 
-Perhaps also add:
+> nl802154_dump_wpan_phy_parse() looks up NL802154_ATTR_IFINDEX in
+> init_net, while the dump only returns phys in the caller's netns. For a
+> caller outside init_net, the result depends on what the ifindex is in
+> init_net. If no device there has it, the dump returns -ENODEV, even
+> when the ifindex is one of the caller's own 802.15.4 interfaces. If an
+> 802.15.4 interface there has it, the dump is empty. If any other device
+> there has it, the filter is ignored and the dump returns every phy in
+> the caller's netns.
+>
+> GET_WPAN_PHY needs no privilege, so an unprivileged process outside
+> init_net can use this to tell which ifindexes exist in init_net.
+>
+> Look the ifindex up in sock_net(skb->sk), as nl80211_dump_wiphy_parse()
+> does. Commit 66e5c2672cd1 ("ieee802154: add netns support") added the
+> netns check to the dump loop. It also removed the "TODO netns" comment
+> above this lookup but kept init_net.
+>
+> Fixes: 66e5c2672cd1 ("ieee802154: add netns support")
+> Cc: stable@vger.kernel.org # v4.8+
+> Assisted-by: LLM codeql
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+> ---
 
-Cc: stable@vger.kernel.org
-Fixes: c2437c43cfb1 ("rust: dma: implement DataDirection")
+Seems sensible:
 
-so this gets tracked alongside patches 1 and 2 for `6.18.y` backports.
-
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
