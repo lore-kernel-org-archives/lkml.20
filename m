@@ -1,120 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460830;
-	b=ZEv00MCuY2LWTGPzy1Ve84FJbo7OPZFtWzZwCkhQEDUh07RjoBANJI6Zm6ALl3pYDLC7
-	 drND85Pr6p1tqt4wW/1mh3DYYcDSIumNwTHSeeulywFNKI22M4XKqmYmOZsHBg/1p5McE
-	 tBSZaeNMsOR54srKQkHTb15J6QHY32Xce3t1tlz2Fkdmr0s4I5bTzpPdjY0ZhML95erKO
-	 uKm9Kxrwwva0XbklPfuFG9r2Ld+DEqEbioJj0IXw8pKLHrEF/FYYWE/NAlmDsd1j/RafR
-	 M6uvLpcfyaX9us+jNUM0kOFBhKoI3xbs872pPjpohjPnZqQCyv6DLTqH0EeMYuyqn1w==
+	t=1792460868;
+	b=qEMD9OznK6A+qOZxu+4MGSmneuan3WROl+UiqKO2XSSuKuoraKo0AKX5kWGZIbNZYH2r
+	 AZNX/5hmd837L7BHYCikKaG9wautMSPwlR3WGr7ADENV2UkxeCgoSHZe+7PgXhWXdegO7
+	 tqcuqmoj6v6nQ3i7hT5W9G4VISNnpiv1UiR/Yn97a6NMclHqufvXc/N7vMNpLff2wExGb
+	 jpUWuyTkE1wEX8kdbR0cUK0aJilBi0P/mhlo5LNFnV512Vn6gs0uXPH5vqsGZnIMit2pX
+	 iU0ghcF3TqaQ6MTEvnUPnCcpB5KygFYhGaKPxUIMHU3MTqooIk2hs00uwix9b+HrOWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460830;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460868;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=a//JYMSgX5gdFOPNNFdEi0q04WdGyS8VWuNy9LhISKo=;
-	b=XgcHBXOZQHQqSaaGhchX0jnAhMU6hkAWv7ZkbvcxjETuDIWK7ELzpdliNiuayOqPDyl3
-	 DO9uPtOykiur9NRDsfDdgS+YL0AH39uBjNFnNJQul9Jy4fkUM9Jd3J079YdcWzsKEXXcA
-	 DdEmigkZqmqFr2L95R1Bkh3k30RGy+0qWoOa1Im1BC/hW6Ij4TX5eqJMFR9nb9Mc7AO62
-	 /FGw2koHXqYbqO6WdyQj0RQ2xoZ9kVBLHI0SONQDob2Rg36GXbkGNteg56jxPTrCqB6Dc
-	 RDQUwwLS0MR4jsgS4OyuddsobjnBaTQ5IX+s1QJSetb9hVgRkrh4rhwInpmVcHH7C3g==
+	bh=lWanfy7FTxrzVuvWb4WcKHFQsIeStvxyoF5WR75KHLo=;
+	b=BZZUhfTCiS35cFUIo0ZyCMR4EIMw1CcTfTX90sLlNqZeMcE+mQZ4Q2Q4nEQQ7Z7a9Ehu
+	 FUm8t+je10XDmeUDpTuCQFMf235yzFqvh50ZtpoRVaU6VCbOil7JX7Eu/lXvGdC2iBMHB
+	 qsv2AwtxQqJIJeq8uO1b9SMmV2ZddCM0dCTeY+IOZ14h+WQm+LOxz5RGxjrjPRxp1WKFW
+	 Fu8KJE4MAryMYChyggWIrhFg5/o84sTkWnbD03pjKJbYzvBzx/5mURBz+UDfdQuWhXmIs
+	 4Md5oWCowlMBn2/IVwLQmH9CCum/EDLsvAPbxn5fWJM7ccectSxhVEr+5NB8/EAJLJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sakamocchi.jp;
-	spf=pass smtp.mailfrom=sakamocchi.jp;
-	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=IlX+lEGW;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ejA8S4cH;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yuv/CpyA";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D849A606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:47:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D849A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A94C4606A31A;
+	Tue, 20 Oct 2026 01:47:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=IlX+lEGW;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ejA8S4cH
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 262BC14000B8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:47:09 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 21:47:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1792460829; x=
-	1792547229; bh=a//JYMSgX5gdFOPNNFdEi0q04WdGyS8VWuNy9LhISKo=; b=I
-	lX+lEGWinhqAyAoGeeAsmYDQb03KAcfgRXrCmDADYhjUAXpNzO/s1O25CKli7gK2
-	qNbR2gXkZzDglAmcaMbHwbEvYTtgFBFgtTjomHuWZHoZTLMWetxnv0Hg2VfgV9NZ
-	4TQoG+mdE8OiFkz0s97HjYkhA7M0RZ7IDLG/wkHZWHQuq1K9Hq6G+V5IVSJEGWLn
-	yIM8OKo+QZPE0KiGXrmxLLDi/JxzU27MkViNw8dllCxy+l5wnqLld8282b8MRlzN
-	wl58l32fXot5QfjZ5/s5p81B/ogo02DTgs1nS56Fp0uX0APHpmDnrb0JcFGpATZP
-	YHTaPpJusawwH7X+eqfkQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792460829; x=1792547229; bh=a//JYMSgX5gdFOPNNFdEi0q04WdGyS8VWuN
-	y9LhISKo=; b=ejA8S4cHC9uoK/6DNA8FDUK2kja5db2GcjkmMTamtPytLZt1AYZ
-	JM2ODx2X1dBdGzFHFb0RY/JNCc2cO15jgDE8hOURiZkJO1Bc67TRSrY1ZYOtoA1M
-	cD8nmzqsuzg086/XIlnsnmn+NT+opEcc6DkFj3xzL0+YCu8/aOplUn7XoIpD4mPV
-	S2AMuemuawIw/jv+iNzhzFXJBTDvHBEkXNF4LzjJfYNJ2N45ei7+6k1vBb6KpQrB
-	56EbTgyAPYtsdT+OyV0Fxtu3vOlrlPomfGyB7hB8jEiEGQOdlDTWrzrPcrYePTQj
-	OSwWtGPqf+YFff2sQKV1ClfsMgItA6BVWTw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792460829; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:E4ZlGpAGhjF+M3BKUEs5BHG+YVLwmZq9Weho6Cht7BxorBr
-	wvgcLLgdi2INmH7Pb66ADxiUYHoy1LPUuexmVrOjoczlaffMIJOsM8kwUe6VAmHq
-	ZauwiwMpO5uaR5oIx0eGjElas1g65loCRe0EbGwJKqL3ghdMhzAtgCHu0BSUGPzJ
-	0AtBeGKKPi1gxPHNYmHNI63UJJG9kxxsxXErutdfqGwzHLLDXc1ek8sNn5jfX5fm
-	ezOJVCn4oKftkzAA1+finp675PmPU8M2zpFgiGU1Z4TzQHtxyjsS7zjDZWSnx4ue
-	IJgZ7vC19ncgftlH/y4+FvDALm8KEwU7ejJem4Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,mail-followup-to,message-id,mime-version,references,
-	subject,to;
-Message-Instance: m=1; h=sha256:XaPx95b//hRmuHra4vlwjcbUFt0iZBFNNQNYknJbFv4=:rEcGG14CQUuY2zsdQZdDRQ4flS4TfJnFavnPPClRYD0=;
-X-ME-Sender: <xms:HcjWarnhTebGBUjt_cJ3FteMwRpiJR4y3wx4VE392hTwB_Z4U4ysjw>
-    <xme:HcjWasyaW7RSeGEP73r35NCwQ2zK9NwmGsFEMBEaJ4Swufivokb1JqWQmJaTnnrcq
-    F4bv8ryNMnC785KhTc9rM2FVNqKC-UqMiXaeILAYF1Z3RfmFeLUjLfR>
-X-ME-Received: <xmr:HcjWapOu6p2lYrHM09PzqJ6UJPuejhHr5Qmp6Po4-K-5sI0wEZGzQLxT9uoEgyQ6k9MfIjMlS415EjD7eY9HnZtDx6xP>
-X-ME-Proxy-Cause: dmFkZTGy7mA9XdN0aisaZsUgDFVqX9lSNO7kTyoiSJfZx8dJogQVFJ8eeVjBsH3J8ov2O4
-    FxlHy1TxO5hwZbjp1VAFI/7TT6ZrnmKux5ZNeE4CaXyS5CLg81uRIHT1/8Hdwicr4I09fZ
-    ZqxARVbDEc/0lrzfGF6tDZSOPTuOJg0CUexoX/9c/wFOEBZOq8DZBPSWfrbigSK9HPdfKA
-    nqjB6zcM83uizQcqZerTKRezFZOdi3U5+8y8uiNPkwVw/rA5AOHqNvb+cdA+BQRsW3Exmw
-    Zxl0qry508ILmX0Llh1fF22bzezayPLLfmTgzB1A0ggGV1bHIXNduxBKydG2P0XMsr3oU1
-    DGarwj6Qp4Tt3vVnZL2+NGjd/BmXBAuueMeGfDhfTE1thgCM8/UjqOSBmOTItSZ8/cEpj2
-    S25xd7sUokGDhNuH4asOC7amjLTqLPKnqtSt+quOxlt7+zbcPionWba5/xCk6g6ac9yA/h
-    OTTUbJksIdDn1+v+T246ueiAhn99iDMb7FyWVwl3hIUwmDGtZ5mpeeXoVwosaTsPmJMRzS
-    va+M99BIYTzymzX17DRWFLQfSXgUh5AsXP51o9FZgOkSscceT3IE4A/O4kI/HhZ/kFH8OB
-    J1IrHTfrf27pKsagcCG6oW2kt0+DeAuyLKVvyZfy6rA/GbONnl3PaaaqZT1A
-X-ME-Proxy: <xmx:HcjWagRS4BwqjWi2IJn59liCwLqEaWj_tcOSAHLy7YjXRtqFaZKAqg>
-    <xmx:HcjWanY2d8T6V6sCLX_ts-6MLr1FZq3_A8k7R53X-yw4ysTH_M44tg>
-    <xmx:HcjWat0rSvxjlxqUnKCJohXvu8m82tPoqPOgOTh9tyGGEG92BIerGQ>
-    <xmx:HcjWanVDN1lVaLEsZbirYtbZKn3fmpdyyoYumTbZulhoH1olKC4-Pw>
-    <xmx:HcjWat7k07GBBoNkZA2dfQgihxZVRA1R8zNsWWxm3QkYTnqSfnw4tgr_>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 21:47:08 -0400 (EDT)
-Date: Tue, 20 Oct 2026 10:47:06 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] firewire: core: misc fixes
-Message-ID: <20261020014706.GA339928@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yuv/CpyA
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A2EE51F000C4;
+	Tue, 20 Oct 2026 01:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792460867;
+	bh=lWanfy7FTxrzVuvWb4WcKHFQsIeStvxyoF5WR75KHLo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yuv/CpyAVg4qbogq50443Pu+Yw78o4PnpX71ZyxAoyL9dd63kN5G5CKYE8mNHXb0O
+	 WtshbKIt4hozqxeSftxLeExQJI8pNvPypxnsNmDEJDO3BINMcjfnsZKHkrtxVk4xGZ
+	 eLQI6czrP2cpim9LKpqTnFogVSiyoXM6ZfiAz2tF5UzkdTyoSZyCpOACJmTB1It7xv
+	 sAxChPbCFp7H775nJrd3begbF0rJepqG7nS4ocGPXylnpV5MKezNc6F3XnhE4LH3sF
+	 S6VRBZlgC+PM8GxU/x00Lcch2rmAgI29TJNeWn6sO0I/djDgMpk9PD24pT6BocAqk1
+	 HZqEwMNRNpOtw==
+Date: Tue, 20 Oct 2026 04:47:43 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
+ in key_alloc()
+Message-ID: <atbIP003h_YHofQb@kernel.org>
+References: <20261020013903.1244157-1-jarkko@kernel.org>
+ <20261020013903.1244157-3-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,24 +64,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
+In-Reply-To: <20261020013903.1244157-3-jarkko@kernel.org>
 
-On Mon, Oct 19, 2026 at 09:25:53PM +0900, Takashi Sakamoto wrote:
-> Hi,
+On Tue, Oct 20, 2026 at 04:38:56AM +0300, Jarkko Sakkinen wrote:
+> @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+> struct keyring_index_key.
 > 
-> This series fixes a few bugs introduced by recent changes.
+> Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in order
+> to match the userspace limit. The constraints inherits from the one byte
+> required for the NULL character.
 > 
-> Takashi Sakamoto (2):
->   firewire: core: adjust context_unsafe() usage for lockdep checks
->   firewire: core: replace drain_workqueue() with flush_workqueue()
-> 
->  drivers/firewire/core-card.c        | 4 ++--
->  drivers/firewire/core-transaction.c | 3 ++-
->  2 files changed, 4 insertions(+), 3 deletions(-)
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Fixes: f771fde82051 ("keys: Simplify key description management")
+> Reviewed-by: David Howells <dhowells@redhat.com>
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Applied to for-next branch.
+This is now the only one, which does not have keyutils script in the
+commit message so in that sense I think these fixes look pretty good.
 
-
-Regards
-
-Takashi Sakamoto
+Br, Jarkko
