@@ -1,102 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792507509;
-	b=N/f3/+T65GkzEkAUH84XRyttC3U21HL/HXqlQbbtH8FNRWoUuTfEOOQmwh2cAPmlpgPH
-	 7MhkgjOHunoNvxtF0Gnn8Gago+/jyyV8hSu3S5JCh82qBCYhPC1RTbGEM7OqMHOAYrOyJ
-	 9RV3bdfkudTtZiSeZvgszNZjkT9rjvnhJq0CSjlL5KA13JTkH+x3IOKzvJE+0b5BwposY
-	 6JkCIY/sutyZ5NGcVnwZniXCA/x1/bxbGLTFsksdy5IyxFOqDhyRXa4LEBz1YMRdPNEfM
-	 vvHM0ZzCl5xPAdMhDXzdurad0E8byo2UntEY+k2s0rVTRdz8x+rXwYBiG/urT51d5/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507509;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fACDY/0L8yTB9c7QJqt/uxQ+rPlo1wpjlfYMExqpJWU=;
-	b=2Q6qvAq/ZDsnCvfkQFO3YVX/Wz2O70rUaejQhd0x8rnq28S1PhrLGCUaKmKDnDKF75/o
-	 x4UHXpUwsFKjPh8UhFwI/1NAsix1jJ8j/AzDbBiKkSLtB20o94U7sUI5osD2hH9f3qSg6
-	 cZQaFacyYCJXjLlrrFkSFSib6V5Lq7BGqXogAPZARWcYHxWYGFWFMHouurw03qnxhe1dO
-	 T412qZbI5z/Ln+6Ir1Qk0hOa1JI5BXssOaKEsohHM/XrZeM0QUyrpAb2X9CDZvNQiSV6U
-	 Ex3zbAo7YjWQr8uzhoGFpYe8s1asst2Ec3+AtpjCV4PjNiVutAOwD1BEce/dbwiac3Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y+sinKDk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.58
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011058.outbound.protection.outlook.com [52.101.57.58])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792507546;
+	b=BhMUZcYoKujJAs2qHJ/bAVFAMiVnwP4cMWKHydETM0P5zJcffmF25qOkGYhc7dNnbcy2
+	 OyeATfsuTRz12/jV88zJJBml6p+rNFvNtky62pJASItx43gUfXAFcbtY9U68Tl2/QCqUi
+	 dLMcLXK+aa9/CYJzCIOfxUwE6KQYQWyX+zerHnTSpiS4IREfxp7duDBNPrhXsFSYNgsTg
+	 eSJdtZKTdNbuyxln+Cw8xuqZJzWPC7eGByrvitr1j7wuw7tEIwmYYAbS3nK/zZ7Hwr8Wl
+	 7dHukSmcamRH/o0NQ8mfxWmnAu64ms35rua8W9xmULHE+SRX9jjWjNZmMQcIaO4gQ0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507546;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=8dbti84VQZnRoyeZV4350aERHO6muqhqQOQJux036u0=;
+	b=n3JFlYsyqURzqj3xkP4vD93ViHjUHVEMqQeEdB5fozV27zTrVrNWpvQVC4kSQXfKFwwW
+	 kC/lim+ErzIPK1NGnprsbxxqNp6WRyUkUIXQZFATg3lmrCtlcPJiPiIjkZqgWgE+MBjfS
+	 o/pZZ8cxe+0fcXQZNVzVpYRCZ5+eH7egoKQZSQyXdS1CjUAQGeirSn+ZB91NRyatHs0jT
+	 CKuZB4wS0MLq97tWMEA47EvyG4QtSlfsTm5+eu9vecwW5le5MK/3lYgQSiONO364hskQI
+	 0TUFECtxhkH5DKzcXm0Cx97Oi3yvQznze44to15X+irrcHbr4MOIVrq1PWSnre81onQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hLMMg0QP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PaA+9A0W;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5087606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5087606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBB2606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:45:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBB2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y+sinKDk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DsiEamC7QXWiMiKtZcvOj4IY8CHGC2bgZZ/MDeuXjeCdrAY4na4rCZej2cs1276gO++VZyDDLi7sv3CkmEANfhDWOojXfKbxsaRP0cPzYtptO3pA99CznCqlIhYR0Zj0JIdnIySxFQV62k4NLhtvPzJhOj9R+1ZyXPO0ZigTbe9J37kSvkYkMTgIxPEHinBaR/0PHxgdJTPxye9tytjqE5M1DMbpNAUD1hgf0QKBpiYUY6BT+/+1c67gOjSR2RBEv4mxRo2AKfeX6jDzaakrllClX4JiqBJxUW3rulW7ZrkyNvudB4uWPLYcGgQFI76JHKgndBUt7CxPro15qMN+3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fACDY/0L8yTB9c7QJqt/uxQ+rPlo1wpjlfYMExqpJWU=;
- b=S7n3m2k6mJJhyGjK6dUi5H1ORbmz0ZyS9UGbjQWh9AQkw3X0CruOHbo98q1NyQ20bCNOIOALXTt+/gbuI2hYcBTQXU0Gz4tBQ6jUQ58a3uWBXa3EHYFkep4usdzERRjqJYImai3pyWgmKEmqvrLvqj8NolRMJBLSoan1QdgCKlNVXHXIXpW9AfIS07Ps1m3Cz05L8bizpCKD9O6LDGSIazimgMnu7IfA8bNifjw8mMJJlWMTvc2QnhUj3eT5BS0rKxREDo5rHdhe0GH2Pj0l5dYZ+jBavJ/W0i3Llx2G+Uro7mxHfyLZMGFdxofOR9XBJ+YQtjhkgTW7kP6BJBxk5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fACDY/0L8yTB9c7QJqt/uxQ+rPlo1wpjlfYMExqpJWU=;
- b=y+sinKDkekTwpMr33LhKDVhVFqdEL0O6G+4EujcY1cZ2Pg2c1MHwa32gyoQt106QfdbJzS9IULHRq8p2FpsEhfdib4fD59aNaioGVOV6qesWNpqU3Qer5uu5q+PQVrmLrk/4+IibAX61G8DmcL1PpJxsJ/k+Im98vTDbtxeh1Ns=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18) by DS7PR12MB5814.namprd12.prod.outlook.com
- (2603:10b6:8:76::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 14:45:00 +0000
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 14:45:00 +0000
-Message-ID: <11ad129a-3e7f-4a77-9c4e-58f6681e1359@amd.com>
-Date: Tue, 20 Oct 2026 10:44:58 -0400
-User-Agent: Mozilla Thunderbird
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Don't ignore dc_commit_streams()
- failures
-To: 2564278112@qq.com
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <superm1@kernel.org>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Ray Wu <ray.wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Lu Yao <yaolu@kylinos.cn>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wang Jiang <jiangwang@kylinos.cn>
-References: <20261008071700.552056-1-2564278112@qq.com>
- <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
-Content-Language: en-US
-In-Reply-To: <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::31) To IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hLMMg0QP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PaA+9A0W
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA1DT882140
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:45:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=8dbti84VQZnRoyeZV4350aERHO6muqhqQOQ
+	Jux036u0=; b=hLMMg0QPCCSRW1jxQN0pwOX162ofZo2sdj7Uph673jP7aGe2K7a
+	/+rirvtt/Grar/hgd667SoVlXSplzEGDDDZ2NfWUXoDCmVN5b4qUntDRnmbmPLZW
+	TgfzPoiQyXQCf1RoWSLOXotJ0wH6C0ONGfHtpf68OfTxQ9XpSXEmemUvvSEcUhfK
+	xtCT8PjJSns+Z0jTYP0aRN2P5+wRFQUunr59qVRYQeM5LCKy2dIRZR2ECaXM3M7F
+	b5227oqMXtn7yoi7dcJdPnsYWxi+5W/PlyDAdAb7PqjJvuopDwM6yUDomyci9D0t
+	X3Yb9E/vByA3podX9AoPFZUamMaceyvF+2w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n2xkw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:45:45 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f13c143c8so619408985a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:45:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792507544; x=1793112344; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8dbti84VQZnRoyeZV4350aERHO6muqhqQOQJux036u0=;
+        b=PaA+9A0WMaxYn/8ATFmLRK67lIN5+2Tx9x08NIn5yVkn/jefWIA6OpOUD7T0fsBJAN
+         SQWpBr0WaEqnMYnIWqmCNp0FL6v6A7RhXa+CiXhAS8B1SE5M8Qn0lTWnq5ILOFf16J9R
+         lkqCqopbDwRtUtlTC3Pl5FpOd6C1A5zA0pJuY9d40ZMEb+VFX8C8t6jwpqI8HwU7hN8v
+         1UfHAF+XAF3ZiC/TnFluBuir+09rwymLC2VSrQiiHedXeI7kjzsFYvrjCmr04H6o7Y7h
+         36lCUF0ZpDvYUfrL/aan4uQCnn8+0VK0f/POpt+VjWmeNTbJ9f1zaI8A5mYdi55uBpUX
+         CuAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792507544; x=1793112344;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8dbti84VQZnRoyeZV4350aERHO6muqhqQOQJux036u0=;
+        b=R72P6uvr7PqTVJJN6PSO/ZDlNWcuOQ/3G6VHLb/YQvJ1WshzpNeWs7Yokf7bytgb/H
+         lyoxNVmnuOfIeFt9SAK9XTRo00zGyiECLN44uTjya3ABcF4RD17c+1D/70IG90Lhzb3o
+         fKUeELGbXfwzRiMwjC0AEfMtGSPJthOhvlrjRZIv6OrUMN1gqhiqSy8KYcBdt4H48s2G
+         238jaVnC5wkLajZg+RTNae55MDQ4eFconzC2utB8BwcOvKmT9BVpr9fZ31/H1osLPSwr
+         zgmREN1D5TCh/709rfKlAvPOFLxcCW78CU3fQ/kHoarraAhD/fOxZ9ght1RePSvPZgpl
+         dRtw==
+X-Forwarded-Encrypted: i=1; AKwUvBzs+MRbO4g1d/37wiC410HNEvBnpHwaHOESnziaXNwQJC79w7Vrz5y8yFBbZGKEUpUoGzg43iMr/jVIa4Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcYwmGR9g0AGEKCoJDEl8Sa0Vp9u6YYC3t+8ZQOmM+kIM9BVdO
+	zzm1eSmDJCH441GARR47L2cLeFhZv/c6YQFbFtkKwG0BMqDfZvsMjzkXm5x5vTGJnkPdCmeOnzc
+	K3Vxe6cPXbFwM+UFQQTC0hJoaKGsWaHwahbjRfbOpFtIJWAjB3WnJ1Jtd9Hf8lied19g=
+X-Gm-Gg: AYBFou2HhTNb6iNdag+2q+AKP3/AT2MCnVm9I12OVSk4qn/kqkeqPmgieOT0+XGG27M
+	CpUI5cGqkeL5v2wtYx6aZ1TpD3d1+ZRSpYnLOm9KXMEDVY1yWJYMFf18kX8PtIKYwNjRBptQP9s
+	BkEkImp4AZSvLw4zA3ZSmraXt36bQU747iUTIe57Qa9x+8UNfNMW5IsBf+R10Ifm1/WO2Yw7V63
+	7te8fFqu98ogGZlP2nkfcTFMAPWQ8hvzrOQIUvDSp3iYjNbLVXMYe6p2ffoYkeflhpgCju18Uvk
+	+Z/5BkjV63BFqp3d6qJemEPk6eSbPKIZk7jvb5RXL4mBDqB4ceuhEHWlaSWjHw2M0ojE1Vww9BZ
+	dNfdYN6NlVos/yDH0x5zBu/EWA94=
+X-Received: by 2002:a05:620a:7014:b0:912:1206:ddd1 with SMTP id af79cd13be357-93f29b46ad7mr1631405585a.1.1792507543010;
+        Tue, 20 Oct 2026 07:45:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:7014:b0:912:1206:ddd1 with SMTP id af79cd13be357-93f29b46ad7mr1631380385a.1.1792507540863;
+        Tue, 20 Oct 2026 07:45:40 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:4884:6e9a:d9ff:9fa6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1df370381sm179377585e9.1.2026.10.20.07.45.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:45:40 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+        Mark Pearson <mpearson-lenovo@squebb.ca>,
+        "Derek J. Clark" <derekjohn.clark@gmail.com>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Mario Limonciello (AMD)" <superm1@kernel.org>,
+        Jack Wu <jackbb_wu@compal.com>,
+        Mario Limonciello <mario.limonciello@amd.com>,
+        Zhang DM <jixianqiang1540@gmail.com>, linux-acpi@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: [PATCH v3] platform profile: Separate handler locking from sysfs lifetime
+Date: Tue, 20 Oct 2026 16:45:25 +0200
+Message-ID: <20261020144525.3265851-1-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,129 +133,313 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|DS7PR12MB5814:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9582ecbd-de84-4f5c-9dfa-08df2eb8b7ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|56012099006|260925022911599003|260925021911599003|260925021311599003|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	gHnx07z4TbvE/wb0qFmtJUC7/6d4/S1tpEh700c6navmmHv5stgR9pNhMdmgvUuKW3EZE03hnCHJ/Ph0hBdWhPEUqp1RlkUYMNoHsZYxc9ljfxMr/tYxNZMyecX2JCf4QKcscxaK0ZzqNUwaPj3DPDdJ59n8dOVuxYTfeAIO/T9PG4Jw9GM2fUZUh533Da03IIOnrouF+8qFHFKaCJ6T8aYPkiLRB7IcJ46FtRRo3W950HHlrOcuRPee3QFqBJ+QA9O3ufA+2prsZMPAOdLJL0YK2clvWP4S++L6uxYV3NFRzJzR8MpBaLtAh3ciTcF7H6KNkHOiJtpkB6jGuOxvt3WE7yq3pTx4lpDp/1hvaFLG3sQICGmRLKjtO5Z+aPKBmukqSwe93ErjnP740qcm2mGFBgHaEkMAHFOQEYH1HvbS90D7oI/8Z2R4P01qsOcpLFWw/rgzWoda8r02Lv5PcoQ/sQyjKtqXQD7ylE/agQ0iD/sp9f8hWdS+4QyEh/O60Hf0Q0TGsi9/YXX4JhmawM0myj80zKweCDAFCNryPuLlA/fZ+bqgJYwTKakqzGWtGufRyAF3dxzjkRckYGKvKLp7Ux9Vjad1yMHYvlX8KF2NGj/yFKDlL9Yw3r8A1tm4F2KquSWYK5dNQR88OuFBOQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA6PR12MB893085.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(56012099006)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dmV3MTkvVmo0V1RGbnVwR1pnTGR2a3NDMzJaMmxRdW1yR2Z2VnRIenV1dkxI?=
- =?utf-8?B?R0ZPRVhIdW44WE1reUN3NFg4SUpzNkpmMVIxN0hYY25HbHRZbjJzQytGckxi?=
- =?utf-8?B?SnhEb1lmOTh6cklOUk1RWjFKTGR5OHVGdDhQOGV6a1pBL2ZneklMV3UzRHgx?=
- =?utf-8?B?akZDOTh6bENjVm53b3VWRHJHQXAwREZsU0htM1NpdEhTWHFYT2VIUWxVSy9q?=
- =?utf-8?B?ZnNDZ1RwZkUwaXFYcGdtWk04TWlOQldFd09paDNpVHRHeVJPOUFpT2RSVnRC?=
- =?utf-8?B?NElJZ3RyV1J6ZFcyamU2aTFYTjMvdEtZVGErbWxPQmdrL3ZrUzIvWGRQWGdX?=
- =?utf-8?B?eS9yOEsrMWdUWnp4cUVLNXZtcllVRkV5M2pBUjBuTlYySlZFTkRJRFRCaHdD?=
- =?utf-8?B?eFVmWm55VHUvTXVUcm9rR0U2c0k0dS9TVUJoY0pOK0p5b3RCTUNXai9ibnlD?=
- =?utf-8?B?OXdUaDFpdEcrczd5K3lsN0RiVDdWL3dSYVd6bWVhamlqcDRUbTR1dmZPOGNv?=
- =?utf-8?B?cW9STFcxMm5wS1BCR1BDNGV5WXN1b2Z0eC94b1FqUkVIVHk2SjJhMnNXcUFm?=
- =?utf-8?B?MTJCaU9hUzZGZ1M0b2R4NTNJU3Uzd2dxRkFjRXI0MVVub2VDZWR0dzVFQm4w?=
- =?utf-8?B?L0JJdGxVSTkyYm0vVVJxbEMvbTBZbGNLc2hLSFNTclBaWnFQMXd3M3kvTGh2?=
- =?utf-8?B?QjlrRGd4WkxOYzJkdlBUdnZtd0xBS3VoWVFJU0c3VS9wWHhVenRrMUJHWm5J?=
- =?utf-8?B?TXRkdEVzZVl0L2xpZ0k2a2FBYnpZRU9UUTVDSlJQdzdiV3A5MkpvQVlJMG16?=
- =?utf-8?B?SVEzSVpXMW9qdTE4WEQ5WDN0RGZ2TlBuOS9VQVMyTUhJVFFjSm03WEpzaGtx?=
- =?utf-8?B?S0MvRysxRHFGVEs2SE5Yb0ZSNE5YbHhEeGRUWm5CR21wajI4andSSnk0dno5?=
- =?utf-8?B?OXVIbll2RkRPdksyV2pyM09LSUtSeWpZK3oreG5Xb1pPdjI4S3ZaWFAzbkpN?=
- =?utf-8?B?Z3RDN1IxMmpGNm1Ub3loQUgrVXFyRW81dkhmWmVIS0M4bUV4T2x3TGNQZ0Jx?=
- =?utf-8?B?WDAySUw5Q2pTQ1lFWmVTalUxamNzcitDU0VIbEduZ1Q0NnBiekRSdUQ0UHJz?=
- =?utf-8?B?UTkxOWhzS3Bxb2kwQXFKZkFUU2RvNC9LS3dCS2Y2cE12TUV4YzcyOTY0WEJm?=
- =?utf-8?B?ZzJ6aFZFM1FESFk5UFhJNFBXVDNmclZKRzRSaFozVXlpeUw4OHpzN1VzWXU3?=
- =?utf-8?B?QXF5V1BESE9mdlZVcTlLSFFzSytYT3AwRlpXZUNvRXloUExaQjVTSUtSaFF5?=
- =?utf-8?B?akhucW84c0FoZzZ6bTZYa1FhVnVWejN5RlI2cy9wNWVmKytkdzh4TzNLQXh3?=
- =?utf-8?B?TUcxZUlkYURHOURoYmNuUTJCemZqU21PZnpyb2NvOEd5QjFIRmdwZU8zWisr?=
- =?utf-8?B?bGZ4aEVyNjFmSkROaU9kWGVIbEtjZFc2UjF5Z09uMXZSVUxRbVdKTFh5dER5?=
- =?utf-8?B?a3hRK2JSWGNkNWtVd205eTIvRDNvVmdGb0twOGJRUk1EdmVkSWdPeWpqN3hn?=
- =?utf-8?B?T0YwMjNqeHJIRjRocCtpNkU4alFaQ2xWaHFsaFltalFsYndaMnNaWjdnMkVv?=
- =?utf-8?B?dkIxQmFuMkdPeCtWV1F5c25TQ1Zlc040N3h1SDZYZ3p4YURrYWtoT1J6NFVJ?=
- =?utf-8?B?M3lsSlBDenViMEQ3SnRBZ2VvSnUzdE9pQ0c2RGdGNGZ5YVhGTlpONGorbDhk?=
- =?utf-8?B?ejNPYXZQNUNXaGExdUFzbk1rOERCQjdjLzNFU2FiUzZVY2JHRnozRXVmbXpV?=
- =?utf-8?B?Q2I1RUxJZk56czY3Z2oxT1ZqTzAzWXl1RkVrQjdBVE4zbi82WHVGM1VhK0Jt?=
- =?utf-8?B?MDFGcFN1NUd6Qm1oTkx4MlJGcW82UWRLZTV2SnBuSW4ydENnZUlvU1hkY2pU?=
- =?utf-8?B?S1M2K3loZUxYVktraFIzalNtNFN0M1Z6RkRBbzhldS9yODY4TjJRUDBxQ2o3?=
- =?utf-8?B?SWdYRlJlNlJGZDJCaXVHZWRVTUYwVk5pdWlDdFRoMnNON2RDeGFhNjdyRFky?=
- =?utf-8?B?TXpxVnlrbmhnTzNLZEQ3S3J2eVlXMGtXUHZBQ1FDS3JVZXVOeEJpQmtoaTF4?=
- =?utf-8?B?SEFnNmtXRVRVL0pCTTZZSnFuMXNSYjJOTmlPNnY1SzNvSURKNWZrTVR3Vng0?=
- =?utf-8?B?Q0hGbXllNVppN3lVK091cWtleW5haTY2UFFBblN2Yi9DbEZwNGxFdjhEcVV2?=
- =?utf-8?B?T0NKaDA3VzhjNFRFVDQ0N0pvUjBjNXNwNllEQ21zRXkwRWlWUUlDOVVvUXQ2?=
- =?utf-8?B?UWRKVGhnbXkrSjNlMDhlWUpSNXRjdHNzc0Y1eHllT24rdUxmT0J6dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9582ecbd-de84-4f5c-9dfa-08df2eb8b7ac
-X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:45:00.1450
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VvmKnH6QdnLDU2xsC8bLzy5TA3Is0YE1VU/++YINWQylekpkmYrj+9PLfPeod8dtbYN0ZdyUs4gRaIxJ2uTuHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5814
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=aIplOr9m c=1 sm=1 tr=0 ts=6ad77e99 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=4c0kPULnjDDMktAHOzUA:9
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1OCBTYWx0ZWRfXz9tDvwJBLDHy
+ JjfwrH+FzwAdlEurTu6ru6tQ70iLk2LZ8NhLwQqB73nyyvyKl7CFr2IbHod7+m8+cfDnz1XaBBs
+ aotbM3IA9ixALYMGgFsJl0U1UgjtBcc=
+X-Proofpoint-GUID: c3EB0WKEyJSYMnv-l6AynnVvg-JuUhDT
+X-Proofpoint-ORIG-GUID: c3EB0WKEyJSYMnv-l6AynnVvg-JuUhDT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1OCBTYWx0ZWRfX041wlfLdyAdg
+ JyJEqFe3jEMDUnFswIQOsDyGxlsQgy1rh/KNBremVGomYsnQm3MetFPTneQGnnpxOo+5l9mePNP
+ z0Uarp6tuQzDjkpS4/IGrXPkZRHjcDqr0OCiYQLEEoOrESitycFDhwm+VXOYoobTxHkkJSodgnq
+ 2Fwm0thtHVix2WTU91rFitBnA2O6heYLdLbwXkIQv25o96AQoRAn/I6Xz3t/SvvZKiLGd7kHq3h
+ +WhJKRA1xfGgTIXGijgxNh3rCfLy5s/Ts7twgdQ1yvoD7Ex0Chq8mxTDQCcG7//V4t12sRiyZcm
+ 1ZYvPgAsCBbrEOG+g1yRnopPtmbskib1n6YNfoRWRbH1q01O7Lyh+xN30wodIFnDK1KBER7knXv
+ +Ofgjv68eUTlBeLvaIBZ4zGhlOgVNceomYC43El9XNm5+4IB+QbVjKzvlfPVyhbDR9HQHT4o9aZ
+ 9MMr0YNa5HhSOINpFog==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200058
 
-On 10/8/26 03:17, 2564278112@qq.com wrote:
-> From: Wang Jiang <jiangwang@kylinos.cn>
->
-> dc_commit_streams() can fail and leave the streams half committed, but
-> amdgpu_dm_commit_streams() and the reset recovery path in dm_resume()
-> only emitted a WARN_ON() and continued.  The planes are then programmed
-> against a stream list that the hardware never took, which turns a
-> recoverable commit failure into a crash.
->
-> Log the failure and stop programming further stream/plane state in
-> amdgpu_dm_commit_streams().  In dm_resume(), keep the WARN_ON_ONCE() for
-> the stack trace, but continue the reset recovery as before.
->
-> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+Registration and removal currently hold profile_lock across
+device_unregister() and sysfs_update_group(). These operations can remove
+sysfs attributes and wait for their active callbacks to finish. The
+profile read and write callbacks acquire profile_lock themselves, so a
+concurrent access can deadlock:
 
-Please look at and respond to the sashiko comments. They highlight
-some of the problems with an early return without additional cleanup.
+  Removal/update path             Active sysfs callback
+  -------------------             ---------------------
+  acquire profile_lock            hold kernfs active reference
+  remove a sysfs attribute         wait for profile_lock
+  wait for its active references
 
-Harry
+The removal path cannot finish until the callback returns, and the
+callback cannot return until the removal path releases profile_lock.
+This applies both to per-provider device teardown and to updates of the
+legacy aggregate attribute group.
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index c4c8904fea42..d88bd89da840 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1916,7 +1916,12 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
->  		commit_params.streams = dc_state->streams;
->  		commit_params.stream_count = dc_state->stream_count;
->  		dc_exit_ips_for_hw_access(dm->dc);
-> -		WARN_ON(!dc_commit_streams(dm->dc, &commit_params));
-> +		if (dc_commit_streams(dm->dc, &commit_params) != DC_OK) {
-> +			drm_err(adev_to_drm(adev),
-> +				"DC failed to commit %u stream(s) during reset recovery\n",
-> +				(unsigned int)commit_params.stream_count);
-> +			WARN_ON_ONCE(1);
-> +		}
->  
->  		dm_gpureset_commit_state(dm->cached_dc_state, dm);
->  
-> @@ -4619,7 +4624,18 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->  	dm_enable_per_frame_crtc_master_sync(dc_state);
->  	mutex_lock(&dm->dc_lock);
->  	dc_exit_ips_for_hw_access(dm->dc);
-> -	WARN_ON(!dc_commit_streams(dm->dc, &params));
-> +	if (dc_commit_streams(dm->dc, &params) != DC_OK) {
-> +		mutex_unlock(&dm->dc_lock);
-> +		/*
-> +		 * DC refused the stream list, so the hardware and the DC state
-> +		 * no longer agree. Bail out instead of programming more
-> +		 * stream/plane state for a half committed stream list (this
-> +		 * used to be a silently ignored WARN_ON()).
-> +		 */
-> +		drm_err(dev, "DC failed to commit %u stream(s)\n",
-> +			(unsigned int)params.stream_count);
-> +		return;
-> +	}
->  
->  	bool frl_stream_found = false;
+Commit 041142d7d252 ("ACPI: platform-profile: Fix possible deadlock in
+platform_profile_remove()") previously fixed this lock ordering by moving
+sysfs_remove_group() outside profile_lock. Commit 55b1e68134bf ("ACPI:
+platform_profile: Use guard(mutex) for register/unregister") reintroduced
+the issue by extending the mutex guard over sysfs_remove_group(). Later,
+commit 77be5cacb2c2 ("ACPI: platform_profile: Create class for ACPI
+platform profile") replaced that teardown with device_unregister() and
+sysfs_update_group(), still under the same mutex, extending the problem
+to class-device teardown and aggregate attribute updates.
 
+Simply dropping profile_lock around these operations is insufficient.
+Aggregate operations currently discover providers through the class
+device list. A provider being unregistered could therefore still be
+selected for an aggregate read, write or cycle while its sysfs files are
+being torn down. Concurrent registrations and removals would also race
+when updating aggregate attribute visibility.
+
+Introduce profile_registration_lock to serialize registration, removal
+and aggregate sysfs updates. Sysfs callbacks never acquire this mutex.
+Retain profile_lock for profile operations and use it to protect an
+explicit list of handlers participating in the aggregate interface.
+
+Add a handler to that list only after device_register() succeeds. On
+removal, unlink it under profile_lock before calling device_unregister().
+Acquiring profile_lock first waits for any aggregate operation already
+using the handler to complete; unlinking prevents later aggregate
+operations from finding it. Release profile_lock before draining sysfs
+callbacks, allowing active per-provider callbacks to complete before the
+device is released. Apply the same unlink-before-unregister ordering to
+registration error cleanup.
+
+Walk this list for aggregate reads, writes and profile cycling, and use
+its emptiness to determine aggregate attribute visibility. The class
+devices remain the per-provider userspace interface.
+
+There can now be an interval between removing the last handler from the
+list and removing the aggregate attributes. Explicitly reject choices
+reads and writes during that interval: the intersection bitmap starts
+with every bit set, so an empty traversal must not advertise all profiles
+or report a successful write without updating a provider.
+
+This separates aggregate membership from class device teardown while
+preserving the existing class and ACPI sysfs interfaces.
+
+Fixes: 55b1e68134bf ("ACPI: platform_profile: Use guard(mutex) for register/unregister")
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+---
+Changes in v3:
+  - Send the locking fix as a standalone patch, independently of the
+    firmware-agnostic extraction and legacy-interface deprecation series.
+  - Document that profile_lock protects handler-list membership and
+    serializes profile operations against each other and handler removal.
+    Explain why it must not be held across sysfs teardown.
+
+Changes in v2:
+  - Expand the deadlock and handler-lifetime explanation.
+  - Add the Fixes tag and describe the earlier fix, regression and later
+    extension to class-device teardown and sysfs group updates.
+
+ drivers/acpi/platform_profile.c | 80 ++++++++++++++++++++++++-----------------
+ 1 file changed, 47 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/acpi/platform_profile.c b/drivers/acpi/platform_profile.c
+index 79d2e92e5c28..d79080a20e21 100644
+--- a/drivers/acpi/platform_profile.c
++++ b/drivers/acpi/platform_profile.c
+@@ -8,15 +8,25 @@
+ #include <linux/bits.h>
+ #include <linux/cleanup.h>
+ #include <linux/init.h>
++#include <linux/list.h>
+ #include <linux/mutex.h>
+ #include <linux/platform_profile.h>
+ #include <linux/sysfs.h>
+ 
+ #define to_pprof_handler(d)	(container_of(d, struct platform_profile_handler, dev))
+ 
++/*
++ * Protects profile_handlers membership and serializes profile operations
++ * against each other and handler removal. Never held across sysfs teardown,
++ * which can wait for callbacks that acquire this lock.
++ */
+ static DEFINE_MUTEX(profile_lock);
++/* Serialize registration and sysfs updates without blocking sysfs callbacks. */
++static DEFINE_MUTEX(profile_registration_lock);
++static LIST_HEAD(profile_handlers);
+ 
+ struct platform_profile_handler {
++	struct list_head node;
+ 	const char *name;
+ 	struct device dev;
+ 	int minor;
+@@ -44,6 +54,22 @@ static_assert(ARRAY_SIZE(profile_names) == PLATFORM_PROFILE_LAST);
+ 
+ static DEFINE_IDA(platform_profile_ida);
+ 
++static int profile_walk_handlers(void *data,
++				 int (*fn)(struct device *dev, void *data))
++{
++	struct platform_profile_handler *handler;
++	int ret;
++
++	lockdep_assert_held(&profile_lock);
++	list_for_each_entry(handler, &profile_handlers, node) {
++		ret = fn(&handler->dev, data);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ /**
+  * _commmon_choices_show - Show the available profile choices
+  * @choices: The available profile choices
+@@ -306,20 +332,18 @@ static ssize_t platform_profile_choices_show(struct kobject *kobj,
+ 	int err;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &data, _aggregate_choices);
++		err = profile_walk_handlers(&data, _aggregate_choices);
+ 		if (err)
+ 			return err;
+ 		if (data.count == 1) {
+-			err = class_for_each_device(&platform_profile_class, NULL,
+-						    &data, _remove_hidden_choices);
++			err = profile_walk_handlers(&data, _remove_hidden_choices);
+ 			if (err)
+ 				return err;
+ 		}
+ 	}
+ 
+ 	/* no profile handler registered any more */
+-	if (bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
++	if (!data.count || bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
+ 		return -EINVAL;
+ 
+ 	return _commmon_choices_show(data.aggregate, buf);
+@@ -384,8 +408,7 @@ static ssize_t platform_profile_show(struct kobject *kobj,
+ 	int err;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &profile, _aggregate_profiles);
++		err = profile_walk_handlers(&profile, _aggregate_profiles);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -423,15 +446,13 @@ static ssize_t platform_profile_store(struct kobject *kobj,
+ 		return -EINVAL;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		ret = class_for_each_device(&platform_profile_class, NULL,
+-					    &data, _aggregate_choices);
++		ret = profile_walk_handlers(&data, _aggregate_choices);
+ 		if (ret)
+ 			return ret;
+-		if (!test_bit(i, data.aggregate))
++		if (!data.count || !test_bit(i, data.aggregate))
+ 			return -EOPNOTSUPP;
+ 
+-		ret = class_for_each_device(&platform_profile_class, NULL, &i,
+-					    _store_and_notify);
++		ret = profile_walk_handlers(&i, _store_and_notify);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -450,22 +471,11 @@ static struct attribute *platform_profile_attrs[] = {
+ 	NULL
+ };
+ 
+-static int profile_class_registered(struct device *dev, const void *data)
+-{
+-	return 1;
+-}
+-
+ static umode_t profile_class_is_visible(struct kobject *kobj, struct attribute *attr, int idx)
+ {
+-	struct device *dev;
+-
+-	dev = class_find_device(&platform_profile_class, NULL, NULL, profile_class_registered);
+-	if (!dev)
+-		return 0;
+-
+-	put_device(dev);
++	guard(mutex)(&profile_lock);
+ 
+-	return attr->mode;
++	return list_empty(&profile_handlers) ? 0 : attr->mode;
+ }
+ 
+ static const struct attribute_group platform_profile_group = {
+@@ -502,8 +512,7 @@ int platform_profile_cycle(void)
+ 	int err;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &profile, _aggregate_profiles);
++		err = profile_walk_handlers(&profile, _aggregate_profiles);
+ 		if (err)
+ 			return err;
+ 
+@@ -512,8 +521,7 @@ int platform_profile_cycle(void)
+ 		    profile == PLATFORM_PROFILE_LAST)
+ 			return -EINVAL;
+ 
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &data, _aggregate_choices);
++		err = profile_walk_handlers(&data, _aggregate_choices);
+ 		if (err)
+ 			return err;
+ 
+@@ -525,8 +533,7 @@ int platform_profile_cycle(void)
+ 					  PLATFORM_PROFILE_LAST,
+ 					  profile + 1);
+ 
+-		err = class_for_each_device(&platform_profile_class, NULL, &next,
+-					    _store_and_notify);
++		err = profile_walk_handlers(&next, _store_and_notify);
+ 
+ 		if (err)
+ 			return err;
+@@ -583,7 +590,7 @@ struct device *platform_profile_register(struct device *dev, const char *name,
+ 		}
+ 	}
+ 
+-	guard(mutex)(&profile_lock);
++	guard(mutex)(&profile_registration_lock);
+ 
+ 	/* create class interface for individual handler */
+ 	minor = ida_alloc(&platform_profile_ida, GFP_KERNEL);
+@@ -604,6 +611,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
+ 		put_device(ppdev);
+ 		goto cleanup_ida;
+ 	}
++	scoped_guard(mutex, &profile_lock)
++		list_add_tail(&to_pprof_handler(ppdev)->node, &profile_handlers);
+ 
+ 	sysfs_notify(acpi_kobj, NULL, "platform_profile");
+ 
+@@ -614,6 +623,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
+ 	return ppdev;
+ 
+ cleanup_cur:
++	scoped_guard(mutex, &profile_lock)
++		list_del(&to_pprof_handler(ppdev)->node);
+ 	device_unregister(ppdev);
+ 
+ cleanup_ida:
+@@ -636,7 +647,10 @@ void platform_profile_remove(struct device *dev)
+ 
+ 	pprof = to_pprof_handler(dev);
+ 
+-	guard(mutex)(&profile_lock);
++	guard(mutex)(&profile_registration_lock);
++
++	scoped_guard(mutex, &profile_lock)
++		list_del(&pprof->node);
+ 
+ 	ida_free(&platform_profile_ida, pprof->minor);
+ 	device_unregister(&pprof->dev);
+
+base-commit: d0cd1e850e1602729dd60dc3c5fd96f80e0cdc5d
