@@ -1,89 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510953;
-	b=hjbJQ7MS+z5QUvYdtdzsY8/YbIIXGYhgdD4fRYbusSAiK0kCFjGqNxG9Li+dBn0D9Omy
-	 rCapEy9ny4gb75SfLLwAV+K8twDdcn7s2PWc/kaGC9iMnsXoTFJmb/RugLCkLZvPnyNZc
-	 DTNUOZtoAdehuHkf5e45FHZ8mvas7pWYmQGG74k+jYe0EOIGhaWfwdqEDDo0FSaCCCTtA
-	 zpbj6HSh0oV6QGVOGVQNBuoquI6WaCT+ctsiBLhluYErpnipDfQ17pJka8WT8KR+dPDbK
-	 r3pK+N4t9ZOUueUjrWpCgoHIkxh1pqifuRqcpti/y0n5JVrIy6l/woAbkKaynToD/OQ==
+	t=1792511025;
+	b=Gisfs1+DhELuci+/Oy2OFZC8o+nCrZWfYQexYDzp0prnLpG5aY9PnQJQYjy//Add/a+U
+	 QQrYK/Gbfl1EeKnIhKfmk2bJ53QnBLFQM2a1/uACC6oQsLjfFS7tWbSZXibCLKPMkwlUi
+	 dVNV2PvtB9w4Y5k180cOQfwl7IfI8lBgLd4mRlUDOEI77VGg63qACeEEabh7MnfN2W/ht
+	 hSaEtuaxOb7nqsCdzaCMnaThnIVhODgNbF9OFR82godT7Swx1PZhf8XV2Z1iz+bbfXOhC
+	 mVc+LWU0uF9xW7OmHRTwAkPNJQnTl8LhQ0/483yPh32YpmiHb6qUHbfWWSokMir8Z+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510953;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ha92501mYo4eZ+6VzZrrZAGeSZLwhK583D+B3xN2u3Q=;
-	b=OkpenEs0ny4+8JXf8tUpjjjRiMy6dKiPqW/NfnOPP0nRVVcWziti47eg/bStaK115Ce1
-	 MBbv/Jxef6w94miFAJlNbB/MWslxFWono/HOx47ab867qkM/iU7hMqp2jAA2Bj9zEy5uX
-	 a+gQWJ7vZwFmi0VPsuwkZQX9SD/qzqoVGtbkRueZFwGDQkHv5U7MWw0ToevRmwfwA8817
-	 NndvfdrL2tdW8jFUMdZb8/0cGaHueLWfa+i03U+pirpVi7FZom1M6kNQ52/9sd3ApFkT+
-	 +f+5wui7tqrV0es74nyxzNcdQbfISnhO3b6PvZVQWp7F+3qXg+Qg2+AfFdBvgRJlAnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511025;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=y8SXWaXVp6eHYei7hOYj5YehcGSooBIEj+1T2E6N2dU=;
+	b=FlmXQXG05F7/Tmaw0fNcoqIY/bag3JBiF5BzlwKgPOj+5PqSFZ0IKPZ9Sz0sumDiufnm
+	 kmY+UDgQkIdrHjAvIyQn9NOmXBeu3gMVM96tA0tSO4vXUOGoVZVh5FhGcd0CB86P6r6Bi
+	 i7O7Q6ERvDoUskoNXGfyKL8/Utd+8L6EOxvwZFlWI5hrXNUx93fWaoPD2Jai7HrqjVEI/
+	 GawrduS1rSDzJ8i9GI3uFWKOc3ej5pqE09ZPmiH9LSh8pFk4dJH8n+7xgb+H5iis/vMpL
+	 p60SsZGhedsO8BPvSUHwzOyUIxWwfetI9YY6aoRZtJwXoOiFy2DjWcrGm3qu0ssK7Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OvDR6hCD;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MkOpQip9;
+	arc=none smtp.remote-ip=74.125.224.100
+Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com [74.125.224.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB827606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB827606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8493A606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:43:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8493A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OvDR6hCD
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1438d9363fbso248750c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:42:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792510952; x=1793115752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ha92501mYo4eZ+6VzZrrZAGeSZLwhK583D+B3xN2u3Q=;
-        b=OvDR6hCD7KSUIrLTxwD+wM8ADil6OW4AxS5vuW6sWk0BvkMY3CMbwghhU43+BmgJhT
-         DvimmAe5HljJSUwdraf6gsxC0dk24d3w6zGKH2G9zyPKlhF3K/QZ8XIHZdGU1hMIYYbG
-         XnjDO3hNqVUht8VdY2o0iWPfe/9C7a76hs+Yqq1Qo0ZhHszVSa2FrbpIko0JctqaygrT
-         MTeao5fBm0Z2sOKOBK/R275yKwdGt9f0LD9knr5o6nalLkEw5z+WhcihWBcq9vqclucA
-         Rmg2aX0vPfydwDjnF6AVhExJc65Ocqy63jBVYV9aeY30z2W6Pze2QTtGLciAgNXdQJVN
-         FQ0w==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MkOpQip9
+Received: by mail-yx1-f100.google.com with SMTP id 956f58d0204a3-66fca0709caso2760972d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:43:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792510952; x=1793115752;
+        d=1e100.net; s=20260707; t=1792511024; x=1793115824;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ha92501mYo4eZ+6VzZrrZAGeSZLwhK583D+B3xN2u3Q=;
-        b=t5AkKEBMjGADD9A8SrG2fUeGnNDUurkDaDJUmmI0TpL25We6DU3sOYk3uHwn5bzODp
-         m3S3Hfp+pO8nVbbDW+HGB3CL33f8QLUxfJ4p0j3v9ysLe7IVdakqNMoxQyUEaEWBGzVT
-         EQ4PgTk5z+WZ371k9QJpXJ1D+aWRBfl3Di085IvwYnsdWrb/Vnu+X5QyBrUTQse4nWmQ
-         vbNBLSE7qEgpGekzahQ4QLarWrhKEYduHdxifVlNuwyxk+hTosMb0J1FRHfMZCy80VCi
-         bEDHd6wslv92Mv78aB4pLyRLvjsqhONZKWJ0yTfz0Aq+gtOSeyX8ocAkaP/RYgXwr6YC
-         HzPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPKqLYKk//ySGKIsadEsqVwVuc8YnkoYgcXLVIu3JFQT2FILCBxa6S6WlaI88ol/GGcir7+dyWhzLqDL8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQLZqMN69CqaqkYV4Mc6IexTfmZdTCDqBxkX1OKRIqebdqHPUE
-	PCwlc3vSt4Z8JDGYm8epNN/iqjYpc5Z/Po/2w6mIksypd0rBClTwiaXp
-X-Gm-Gg: AYBFou14HwngsM/UYBnnCQ9PxTohdA0aL+noBzi/K6PgBZboAPcjOe9UQws8zzCthdY
-	EAhjZoMfUyJbLbwzWoMwK2uP3PkQXLPnM6AiYhp2gMNBhTQJesq5xfHX8Ehg3ASm+HSi5KC758/
-	9HGBLu5K6STEmwwb/evgydBX4W01AJkJhE9Vc8gRk0x0NcMEy0Ykn0PKTKkenzSgcgIjRt2cgH6
-	hWQklu3YDdJPLmKZz3/X5VO0RtK1Wr0vsQjCXpCOd7JNV5Fu0yrQCZupMFpP7agFOck0M7jI4Gs
-	zLx9iqP9KndjbD1CCyJ/fVNbZeIAvUarjbLdhyibdX+ceGVR98XQxP5MUzaiHHNT3/GojweuXjj
-	XMzqnzvezMm5SF5urm68oCJIF9RA2QARcvEvJwrHfdzHVrl0J9vlRnvpj14WH+MHZTOVOKfxaEc
-	EhEtQy9OXSwBXeVYsECzaKCLPQLd2M+G53i5EoZIH62lftG4pKt57eF0HApx2+LYExiJWcJbEj5
-	R6ALJDTJhSynA2bCPcetQQBU7MdsZoQDHnbsC2kGVEUkzuuNiLMR3lIvvEJS2ctvlCg9clY5BvQ
-	SnmwDgSIlxG58+u/bLJYCHFHVDezkQ==
-X-Received: by 2002:a05:7022:419e:b0:185:e68c:904c with SMTP id a92af1059eb24-18dbe2af64bmr5061788c88.7.1792510951564;
-        Tue, 20 Oct 2026 08:42:31 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fdfesm38145624c88.7.2026.10.20.08.42.30
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=y8SXWaXVp6eHYei7hOYj5YehcGSooBIEj+1T2E6N2dU=;
+        b=cXRUP5cvWGICZOTI0uadTzWtRHDJzpcvlyZfzA+ZGQ4JfJY3pz9j/6WzXdyerlDqOI
+         3QeDU9sD62lvbRRbAe0Ww+1/McpDMJFeOLX2kvW78HqTqs5ly5e8t3QVcIVHFesEBBhW
+         cVWwpn8d6MvBTe+kiNJx/S74P8N5ytbzU8js1tzlNZ0jyl80v3w8Xrp+KpUakJB6uJ+B
+         YSL3f6pSmQHxaLzDLH7kc4PvAoexGCoo/Wl8r0DQ5o9jI+2Ci9Y+JdfU6vNR15jlJB5Y
+         rZnwNKp1pff7hX94aaBUzVLUd1uNt3qzhnvEnrInEliwYsrucQ3FjIZo6d7j8dYKbFPg
+         PSKw==
+X-Forwarded-Encrypted: i=1; AKwUvBy3yuZ+SPSScTathq0VLPtSeH6qh6X9gb3MB9ua3Pfo2rD4bf/jQOY1ZwukSmzibuHp2YlpDh7T+0XAkLM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIr7xeEckKNgo+buq/2Kt87uQN0v9LVFojgaJPleHl4vkHipx99
+	pfTJ/Fsbt/vZaQqraASDg6/P+GwdOhC/BKhcFQnhPi30aX9Qq1jhVIpqYtaYI22ui+IpuNYtQjs
+	FJ+6TsgauNuEoJBx1RGCU3dVmAzShQaGhdqt8uGvbFnabcG1OK803IscY9TsSKqXiIxvFWWbcKH
+	nmt6H4r9dyBVDbBSDf9cX3uQ/3dI9jzOu36SHoIOOX+VwlRL+oTob0mk+igc5drj+ItNYPufIjA
+	3ODL19s6NTqr8/r5YMwiYxP
+X-Gm-Gg: AYBFou0ZDK8gcd0VvyP+MIYEhhCcpqX1l/DSMN7XgMG5JFo+fD24jGLnA0dg0bYGrqQ
+	tOWcbh+YOGuj++WxAaQnnoWM4BF6/jtAe6PztOdbZ+uFCWaDO2hk1ZsOt8Y0Ikj4vhxb2eMaXRl
+	TMzeOKqJrywACWNbzkWWAaMlJiIhJ8ceDAdJ1FRtxs16J6IXEXE2jUtqbBCYd0kIA5N4e5mSo3h
+	bIV7ULNd1/yJCtfZHPiYOA30MFs1JOyB1cQJfPL9A5HnewtWFmpKmxQRd6k42sKc5QoHdsJmeDs
+	DRfJB5+aJWPuA/VnwrLdxq7GgIfWFq/EV0zN/uORqgErwTcYW1TL8Qpbzzj+5wghJqAI9c6Z+ZG
+	pQ2dp5DNwxI6iMh5by9AL48Qorp8OyMmSd0FkaXUFFPxcCavhQqBv1HFvdVTDN4gJOiFP9OdeiJ
+	CArWYiPQ3Jac7bUJbdFoUF3Mu3TDKVPrMIdKb/MwAL
+X-Received: by 2002:a05:690e:4885:20b0:679:a4f8:e47e with SMTP id 956f58d0204a3-679ca742028mr2233290d50.32.1792511024446;
+        Tue, 20 Oct 2026 08:43:44 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-679b1f4031esm242989d50.39.2026.10.20.08.43.44
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 20 Oct 2026 08:43:44 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-533928ef33aso46171981cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:43:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792511023; x=1793115823; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y8SXWaXVp6eHYei7hOYj5YehcGSooBIEj+1T2E6N2dU=;
+        b=MkOpQip9TRLogJxJsR6nTo1Bj8isvFnwVOu/OeCcjYemELko7EG+FQzTStDXU8sYeG
+         oj8ck80CBTsFNFRPCqr6gdgbi88/D2VZPqNlcpAXgcoarJQnhOwak8CepUE/cuan7FgZ
+         8509eIgJVYfkr3ae3xzDaNPLQWyzIaySNsgqQ=
+X-Forwarded-Encrypted: i=1; AKwUvBx+97BqICfz56i6IiHuXdtBuBQ25L0TN4icyWxRWINtRtr0QhE4aA6inCxB7T7vrKHlEI8+A74zBMdLKuk=@vger.kernel.org
+X-Received: by 2002:ac8:5ac8:0:b0:532:a5f4:df25 with SMTP id d75a77b69052e-536460c6fb8mr171853221cf.57.1792511023439;
+        Tue, 20 Oct 2026 08:43:43 -0700 (PDT)
+X-Received: by 2002:ac8:5ac8:0:b0:532:a5f4:df25 with SMTP id d75a77b69052e-536460c6fb8mr171852561cf.57.1792511022781;
+        Tue, 20 Oct 2026 08:43:42 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536660162efsm62610011cf.27.2026.10.20.08.43.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 08:42:30 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e92d62d4-cd2f-40a0-a973-2f2a0e392bd1@roeck-us.net>
-Date: Tue, 20 Oct 2026 08:42:29 -0700
+        Tue, 20 Oct 2026 08:43:42 -0700 (PDT)
+Message-ID: <a111e15d-9bfa-4b38-a52e-ffa1d305fd0a@broadcom.com>
+Date: Tue, 20 Oct 2026 08:43:40 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,89 +107,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] watchdog: w83627hf_wdt: Add minute mode counting
-To: Tzung-Bi Shih <tzungbi@kernel.org>, Paul Louvel <paul.louvel@bootlin.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
- <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com>
- <atd1wP1cELjiwjXT@google.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <atd1wP1cELjiwjXT@google.com>
+Subject: Re: [PATCH net v2 1/2] net: bcmgenet: recover from a failed resume
+To: Nicolai Buchwitz <nb@tipi-net.de>, netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, f.fainelli@gmail.com, justin.chen@broadcom.com
+References: <20261019-nb-genet-fini-dma-net-v2-1-b85f6b92654a@tipi-net.de>
+ <179250090686.3135.17597197349680697960@kernel.org>
+ <a033b1e2dd424000dc5669f88bed0c89@tipi-net.de>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <a033b1e2dd424000dc5669f88bed0c89@tipi-net.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 10/20/26 07:08, Tzung-Bi Shih wrote:
-> On Tue, Oct 20, 2026 at 10:11:58AM +0200, Paul Louvel wrote:
->> All of the chips supported by the driver can be set to minute mode,
->> allowing timeout value up to 255 minutes.
->> Add it to the driver.
+On 10/20/26 07:16, Nicolai Buchwitz wrote:
+[snip]
+>> [Severity: Medium]
+>>
+>> With WoL not in use, can this early return leave an external PHY powered
+>> for the whole sleep?
 > 
-> I didn't review the patch carefully as I was thinking about a fundamental
-> question: isn't 255 seconds already more than enough for a hardware
-> watchdog?  Why does it need to support minute mode for timeouts larger than
-> that?
+> Yes, but IMHO also pre-existing: phy_init_hw() in the failed resume powers
+> it up and it isn't started again. Before this patch suspend hung instead.
+> Not leaving the half state behind is arguably a better way.
 > 
-
-One would think so, but oddly enough there are people and even large
-companies (like the one you and me work for) using such large timeouts.
-
-Guenter
-
->> @@ -49,7 +50,8 @@ enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
->>   static int timeout;			/* in seconds */
->>   module_param(timeout, int, 0);
->>   MODULE_PARM_DESC(timeout,
->> -		"Watchdog timeout in seconds. 1 <= timeout <= 255, default="
->> +		"Watchdog timeout in seconds. 1 <= timeout <= "
->> +				__MODULE_STRING(WATCHDOG_MAX_TIMEOUT) ", default="
->>   				__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
+>> [...]
 > 
-> The patch is obviously not based on the watchdog-next branch (see commit
-> b152ca999c5f ("watchdog: Replace __MODULE_STRING() with __stringify()")).
+> I really need to find a WOL capable genet board, so I can test these 
+> code paths too ....
 
+It should be somehow possible to exercise that code path on a CM4 by 
+having the system enter the "freeze" sleep state and have GENET 
+configured for WoL. We can discuss offline how to get there if you are 
+having issues with that.
+-- 
+Florian
