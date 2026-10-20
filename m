@@ -1,66 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.236.127.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496467;
-	b=VujIzwq0YdVJMmCjkfAZyIlsqb+eSyTuG5nMQLudeUhVRVKV26Ta3C84lU56sD/zYSQw
-	 Zhrh6Ul447DmOHkEi4yyumNiwHl8D5Fjfx04zJh1DtulVDV11iqg3dBIYXW4+d6VvOjDX
-	 8b8bZtSG2WEkuN0ZGiutqgkUS0AwvBA/CtxccDxH6nDgbMkHIcERYSUQzdCtOQYuivGbK
-	 SKbb3R61NiXTCe0iibtTIVWCa6pU+D0jDD3FThywilTh8+E1EjGK/KcELJuc7QxGtw7AP
-	 N1OmNrEL6FetfGxL8C31XVgeaiwN+GW6sFgQtpgXOXjV6S3WjuyQpH922FvnJESx9dQ==
+	t=1792496579;
+	b=HO2jxzCAZzEZ0uVYlAqeUhb4fHB/6N6dDeYj2dTr8WOAfvtNlnHIyrHhytjjOSSekSsm
+	 DH8p972ZSIZJXeGNZDCXg0KSheUptylsebl1o9L5tZCl2ewoNSJhAXJT3gch7mbT7Sv7h
+	 AmvB7qeg+V6/N9f8EFXEaPIqaiiiaX5qKwU1ATL9hloIvj16hSAaRaMztK0IU/aPLFeO5
+	 eHIsx1outVFcMx5Cf7J8Yu7jLTYcMuU/Plu/RCij9qGsl0O14Uah12GDaiBlaWpYewRMV
+	 9O0TWvHWVOM0U8Gim92/SWBOgCVlu5kFh8QQKZveSX7cQa51PlSk7qwMJS79a6E8OvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496467;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=eZ7l6S6Y5XERFk+DP+CPdXSj9bbGmqqxbTw6qag+4S0=;
-	b=vlAn32HkHIkXu3mG/BcPuk5RJthNpsFcRoRRbuNNIMmXScEOzpBWgsOCdhxmZFPXzJ9W
-	 yUPNLCr9ueqsG0LFZhm4l3fpkodqhRN7OnF4Syz8wHZoJwbZL11V5ZRynK3y3MSeh4UGD
-	 /cMSTQ1FCygNNXIqpRduaX3et58QrYgHsoFc79vCZ8xRamyxs6oZsXrEpLqNsIKmAJ+tk
-	 hSsjK1ApSV4tqHv5/yjeUfQh4hAHdHw8iaQ0P3le6589pHhNVZ+ZZPXTPApj8pI55gmGn
-	 QWnGDiXksi1oeJ97trHz8Tt2xqftUK2G+gn/ZtmUhW17c714+xmQipcDRXSFCSG5IZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496579;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=0fP5WnkQ/jEXyj1gQYTYNTXqYm8pVqxjqPzKb7O0M40=;
+	b=CBz2MIBrToLYDvPkiQ7UrVhjXGirqapxvx6hu/zb0v06g27AGlFxsbB9WhbgOc61qnrS
+	 vJVipSwEq8LfvbGww+ZWPodFpZGJpQ5uEi1H27GFQxlXVry3wvweDmbW0qtiS2ttcpyvn
+	 Aki5/zwW06Hhmc0y9PMSRYyIgAV1UM8HTQ+mPKs/JSBP8Qy/2mRBxSUzEPMmoSo8ub83g
+	 OfCjBqd4+b34qPUGwJyfEAFkz3p1/Kkn7gGkyBQMkeGqq1S6AJwe8TjC5c5xXsPACFfOp
+	 HAiLl51KJ/LK/QfEG/pOk4XKUv7+devY06eND+QuiDemfJAFcUNEChtYHefZj4egtkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKRE898b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PcvDx0Dq;
+	arc=none smtp.remote-ip=115.236.127.213
+Received: from mail-m127213.xmail.ntesmail.com (mail-m127213.xmail.ntesmail.com [115.236.127.213])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BEE606A31A;
-	Tue, 20 Oct 2026 11:41:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9937606A31C;
+	Tue, 20 Oct 2026 11:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9937606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKRE898b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7A21F000C4;
-	Tue, 20 Oct 2026 11:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792496466;
-	bh=eZ7l6S6Y5XERFk+DP+CPdXSj9bbGmqqxbTw6qag+4S0=;
-	h=From:To:Cc:Subject:Date;
-	b=gKRE898bArSX8Etly/VakmhY8hCrxf+2CH1sK4V/HXH6YG4nCq16Ar98Rkvd1+k24
-	 Heundw7PkPXrInmF7lrJAw8lsz8Tmc+6ZWhO23NYyWZ6T7WQ9XiEGPu4Iz6Gdftqpc
-	 MV5z0D286Th91AT6lZJwuQh1u9+3lMnE8062qT+hgDA+n+6OH9/rWcxDn12/aA1bSK
-	 2Qov8dZbYwrnW/5AIYCXIbe/R/lGxLDTxw37iropVTF4yZPWD7L/GXdp2filFsprOI
-	 /c6UjYB1TR0HUD0GEMGSOVJmwT1kKJFgSijJ21nRV/nHJfDcMPt8xUSi3rcCzCNjJg
-	 viSm1m0cBTlzQ==
-From: Thorsten Blum <blum@kernel.org>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Aditya Gupta <adityag@linux.ibm.com>,
-	Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH v2] powerpc/kexec: Annotate umem_info members with __counted_by_ptr()
-Date: Tue, 20 Oct 2026 13:40:28 +0200
-Message-ID: <20261020114029.200922-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PcvDx0Dq
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51b70239a;
+	Tue, 20 Oct 2026 19:42:46 +0800 (GMT+08:00)
+Message-ID: <0a3dc505-43d2-471b-bd7c-222860544081@rock-chips.com>
+Date: Tue, 20 Oct 2026 19:42:45 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,78 +48,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2467; i=blum@kernel.org; h=from:subject; bh=pzIMtJPYfw+P/r4Q1/Ce4+BOcaaNx/LjPyiQ5HFapz8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnXg3W/bsnb9axt65U0UbVUvc7MFu9vnpvCCxnurV5k2 3ua90VaRykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEzEZC3D/6TzEyM3fd8vncoo aR7vEKa4afq3KeUNb482HWvoViv/ycLIsPpltc4Fju1/V+4+N/Hl3MdZZulc85wLDlYeOBvf57/ yKi8A
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge
+ instead of plat_data field
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org
+References: <20261019085836.3065008-12-damon.ding@rock-chips.com>
+ <202610201309.w3JSXlP5-lkp@intel.com> <3789853.R56niFO833@diego>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <3789853.R56niFO833@diego>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1591f009e03a8kunmb99823d738c545
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUhXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShkaVktIQh9IGUsaSRgZTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0JMVUhJTE
+	1CVU9VSEtLSlkG
+DKIM-Signature: a=rsa-sha256;
+	b=PcvDx0DqHkOKPqjTQ+WfmUYCXD9mwvhFrc7mSaBffIry2c4fUYbdXMX59bNKWZBcDiTaCQ/YNMiQcmhD7Zsd1KQbLmtLq7Ltd9XK3HumvYifhWq4A4Ftt4y/jY42N+ztDwlpKKLycWUI8mg322eGJ0P3DLzIVv1imnkclT3bR5E=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=0fP5WnkQ/jEXyj1gQYTYNTXqYm8pVqxjqPzKb7O0M40=;
+	h=date:mime-version:subject:message-id:from;
 
-Add __counted_by_ptr() to umem_info::buf and umem_info::ranges to
-improve access bounds checking via CONFIG_UBSAN_BOUNDS and
-CONFIG_FORTIFY_SOURCE.
+Hi Heiko,
 
-In check_realloc_usable_mem(), return early on krealloc() failure and
-use sizeof(*buf) when deriving max_entries from the allocation size.
+On 10/20/2026 6:38 PM, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 07:36:21 Mitteleuropäische Sommerzeit schrieb kernel test robot:
+>> Hi Damon,
+>>
+>> kernel test robot noticed the following build errors:
+>>
+>> [auto build test ERROR on drm-misc/drm-misc-next]
+>> [also build test ERROR on drm/drm-next next-20261019]
+>> [cannot apply to daeinki-drm-exynos/exynos-drm-next linus/master v7.3]
+>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>> And when submitting patch, we suggest to use '--base' as documented in
+>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>>
+>> url:    https://github.com/intel-lab-lkp/linux/commits/Damon-Ding/drm-bridge-analogix_dp-Return-bitmask-from-analogix_dp_get_irq_type/20261019-165823
+>> base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+>> patch link:    https://lore.kernel.org/r/20261019085836.3065008-12-damon.ding%40rock-chips.com
+>> patch subject: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data field
+>> config: nios2-randconfig-1000-20261020 (https://download.01.org/0day-ci/archive/20261020/202610201309.w3JSXlP5-lkp@intel.com/config)
+>> compiler: nios2-linux-gcc (GCC) 11.5.0
+>> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610201309.w3JSXlP5-lkp@intel.com/reproduce)
+>>
+>> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+>> the same patch/commit), kindly add following tags
+>> | Reported-by: kernel test robot <lkp@intel.com>
+>> | Closes: https://lore.kernel.org/oe-kbuild-all/202610201309.w3JSXlP5-lkp@intel.com/
+>>
+>> All errors (new ones prefixed by >>):
+>>
+>>     nios2-linux-ld: drivers/gpu/drm/bridge/analogix/analogix_dp_core.o: in function `analogix_dp_aux_done_probing':
+>>>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:1669:(.text+0xb80): undefined reference to `devm_drm_of_display_mode_bridge'
+>>>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:1669:(.text+0xb80): relocation truncated to fit: R_NIOS2_CALL26 against `devm_drm_of_display_mode_bridge'
+> 
+> I guess the Rockchip kconfig for the Analogix-DP also needs a
+> 
+> 	select DRM_OF_DISPLAY_MODE_BRIDGE
+> 
+> similar to exynos and imx.
+> 
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
-Changes in v2:
-- Preserve the original pointer/count assignment order (Sourabh Jain)
-- v1: https://lore.kernel.org/r/20260730130248.597249-2-thorsten.blum@linux.dev/
----
- arch/powerpc/kexec/file_load_64.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+Will fix in v5. Also refine patches 9-13 as suggested by sashiko.
 
-diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
-index bd80c5fb1b1f..7f45493e7c7a 100644
---- a/arch/powerpc/kexec/file_load_64.c
-+++ b/arch/powerpc/kexec/file_load_64.c
-@@ -34,14 +34,14 @@
- #include <asm/cputhreads.h>
- 
- struct umem_info {
--	__be64 *buf;		/* data buffer for usable-memory property */
-+	__be64 *buf __counted_by_ptr(max_entries); /* data buffer for usable-memory property */
- 	u32 size;		/* size allocated for the data buffer */
- 	u32 max_entries;	/* maximum no. of entries */
- 	u32 idx;		/* index of current entry */
- 
- 	/* usable memory ranges to look up */
- 	unsigned int nr_ranges;
--	const struct range *ranges;
-+	const struct range *ranges __counted_by_ptr(nr_ranges);
- };
- 
- const struct kexec_file_ops * const kexec_file_loaders[] = {
-@@ -83,11 +83,12 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
- 
- 	new_size = um_info->size + MEM_RANGE_CHUNK_SZ;
- 	tbuf = krealloc(um_info->buf, new_size, GFP_KERNEL);
--	if (tbuf) {
--		um_info->buf = tbuf;
--		um_info->size = new_size;
--		um_info->max_entries = (um_info->size / sizeof(u64));
--	}
-+	if (!tbuf)
-+		return NULL;
-+
-+	um_info->buf = tbuf;
-+	um_info->size = new_size;
-+	um_info->max_entries = um_info->size / sizeof(*um_info->buf);
- 
- 	return tbuf;
- }
-@@ -288,12 +289,12 @@ static int update_usable_mem_fdt(void *fdt, struct crash_mem *usable_mem)
- 		return -EINVAL;
- 	}
- 
--	um_info.buf  = NULL;
-+	um_info.buf = NULL;
- 	um_info.size = 0;
- 	um_info.max_entries = 0;
--	um_info.idx  = 0;
-+	um_info.idx = 0;
- 	/* Memory ranges to look up */
--	um_info.ranges = &(usable_mem->ranges[0]);
-+	um_info.ranges = usable_mem->ranges;
- 	um_info.nr_ranges = usable_mem->nr_ranges;
- 
- 	dn = of_find_node_by_path("/ibm,dynamic-reconfiguration-memory");
+Best regards,
+Damon
+
