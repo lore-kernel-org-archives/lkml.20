@@ -1,109 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492830;
-	b=w0rvkXSs7F3DjD2aJ/DRCX4YleKNLlqnorzjfkU1Cr3hRWsWjXs1mWvpYGYIfM+WDR7a
-	 5t7KvQ5XAkU2ynoqjkCu12/HSZD/TdjzfnQDRrRMXauukCKKxfkgvjOQGcMsBV98zvoqh
-	 0lXJiR5B59mMoPyaVVIqN4XOVJ9cPTU6MWuFDIyhc+txVK+hmFCrwcAtRq8LowmOn90HJ
-	 5UqgizXQ/K3KrIOtbyh2kFzot3icLqk8dah96vZtn4DuLhqcH4dOqJ35eW9uDTlDboZT3
-	 kC1m7Z3EbjBqsNaO4DY2NBhleEnY4n1id5apvGXSWaCae5L0V5VElzxT7c0p5/q5CEQ==
+	t=1792492845;
+	b=vigtUGNW1nLcUX27VzK3kh/rLxr8L2YUoKS27+Z450Bw9zYEQ0eFIFJP3hJPbKj5Znk8
+	 Q3KEkVvQIn7qy2vXcatn080m33hWqQAkTOivkxHEEU3e6imoFeAnQCqWhEJIVQrhPoMMx
+	 GtJRgjWsgYlsJuuUGL0/Faa3Jr1pn2XhPiCqSvib0DW141+upIBUHMN1mJLKxOtRp4Iej
+	 1/Y9o4EAHjuu/JqZKCaJ8OzIXGDvHx3p1s0FnYZIhNRFFZBwJtPtjOtFKJtcZP15XDnkV
+	 Ibq/BTt+AW95LP9KRqaJIrUTODA1IvPxNcse3ykI7sDdumxUBgtGh5JSwvR0uXvsHdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492830;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition:X-Mutt-Fcc;
-	bh=VIDP3nx+FxbnMIBjBfYFZNsQEwlHUezNmijwKASBZA4=;
-	b=s1LCnFuWgrvXjWrdjRrVuzsGRkRlNybChrG3FannWHRGie6JBmzKHvp0AofXx3WJRSMV
-	 mJWUZnyajaY/1w7cNqBKnHs+4LNRvKZcgpQOYgp+FCG4IPqRPjFadonvaerCaePgfioxM
-	 rMeeYng+j9zsxstlbzcZilwSVAfE8moCrFsHqhE73F2d0mF6R6agYMJqNb0OyLSlau0pC
-	 Nbz73GALRifp5547zaciFo8WaDsnGEbXfqkqd+B5UUPk3oBydCPzfNBKZiQTHQNZFDdJ4
-	 B2g2u6jwD1K0upIf9aVnbg18GYI6WKyR1Lj8J/o6kryvQqTx70WX6cdcBopSsBhsWyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492845;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=n5EK0ziT9t6q1rI6T9BkNUVCku9SDwzvpj86BSyOcUg=;
+	b=yAA1DSE7Dn6P7u7i8bwcJ52PBp3OD6ssoFWwfTtP2RnZWKr0fZwQOda4kmb6QyJPSlX4
+	 vhDV0sNme/nZuPOqrCkZc3sliKHVilhtVqnQ44xt7T1PLC5owVEwSj++0oKEmWTo72ppo
+	 4w2hM9LTqGoVqx5StneWfsDTYWlhMDdGcKgL8xRhiOTWwlP3M2b7LWM4aiItzttMx1tRg
+	 0t226d9juqCPUZyQMSO1We+ORA3HmS99lMFODUH0CrfEk7TO0nPF0RQd+guOyXSJjYcFL
+	 eQdgeDXOfYVOnQqQJBk7yPP7uCrdA7t1QMn7bMVIi4ZHzsxMUqXrIS3REQ2Di73wTIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RmdHq4N7;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MabU5TfZ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=FTzVZRTC;
+	arc=none smtp.remote-ip=212.27.42.6
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2A0606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:40:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E2A0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A893E606A31A;
+	Tue, 20 Oct 2026 10:40:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A893E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RmdHq4N7;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MabU5TfZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792492828;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=VIDP3nx+FxbnMIBjBfYFZNsQEwlHUezNmijwKASBZA4=;
-	b=RmdHq4N7uHME6HBybqJQuPI3oaUxpgLWAL0fiClnHcx6Fgu09FS8E1LXsuI76+3nWbcK++
-	Hpf0l2raqDdKuTwZvOEKmcfhngdxVqwUWpzVkwOjb1cGTRKBAbGrKc8WIm/3yAQrZZFcsF
-	Lbnp/7aEfhgIuF0E+gpPABJ5xlo84gc=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-612-MOKPnQNfPZWTM8Zkm5Xx8A-1; Tue, 20 Oct 2026 10:40:27 +0000
-X-MC-Unique: MOKPnQNfPZWTM8Zkm5Xx8A-1
-X-Mimecast-MFC-AGG-ID: MOKPnQNfPZWTM8Zkm5Xx8A_1792492826
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1d1f26a63so22101645e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:40:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792492826; x=1793097626; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VIDP3nx+FxbnMIBjBfYFZNsQEwlHUezNmijwKASBZA4=;
-        b=MabU5TfZonnq5TntfkPQWhWGO+2UMdIlT2+GY4PWW/ZAaI860X3HZpwjka0lZo8jXn
-         vEZ9Nw2LWW1eXuMa+u2L0MA936C+BErZKwZjxsZfznXQNnSBeHjgszmoq+bdcyuO25P5
-         RKMiLAshO21FIY4sGd2gJs+ZY4Aq4B9Yke4Ak+OExDrfNIDujAx5bz9VhrP07JgLtkjT
-         it7F89YFaJ8MtWW9NZV1TGMDJKfbYqJ7uPxBqNa5R02+peIRUxUe+43I84GeVd3ctCtL
-         gnxYqyM5TVvLki0SWSga3qBvMMArEToyOQ2MxTxXsC/RlYXUnx/PtPrbPa9P1PZwWIvn
-         mbyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792492826; x=1793097626;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VIDP3nx+FxbnMIBjBfYFZNsQEwlHUezNmijwKASBZA4=;
-        b=WujkGKs4eKR4SkeusDL4BUpUzBbab+qoQhV5Ysy5yFCn3YpwshRThlg84QduI6t6eQ
-         zveWJGBjNxxn1J3C1t3YbVM00zH0He9wl5gVwpnDuNW0jqwXLtLKnPoGHxCW4mYVzzUR
-         XzY3HoV5I+KQmQ+P5pu6NiGjRa2uddJKvMZM0bp1lWnKStpdPnFBAN7aEbaD8xeU74C7
-         yDmQJSNd1gCbDupIzb9rAwA9TIei2nW2D12xxAanWRWdM+nt+/1Z5TvXqA4N2Pl/HkR3
-         wGjOpUD9kYy1DAI/scAvVuvS01bzaSU/srY0iw6RTSEx6rgpMJv/W8KKKCM6xJED2sFp
-         nvUg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6E7LHb0BzHdxMi4+GEQOpoXDPT6maf5Y+M4iCzuAuGp8ir/sFb+StgHb2en4yBVFqWyXzRu81F1u8Kt0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOUCvyfENCBBxeG88JUlD85M1bYDPVy/EcHoLnc3UNcIJC62yu
-	jTL/oy5WGewJwR/XNc3TUuAJuq1Fw/eiT08rdxLZLs87EqvlU8b8vZg/ga8T9Ku3leSQ5nQdyBh
-	uU5VV+/R4Uekh9ftSQgLTjGis7tqq0rRpia2/dGWHSAk/e44rzD/1GqnTgg1lU50N5A==
-X-Gm-Gg: AYBFou1ukmmIi4wXBLaoBcdpxI26rUFn46W0DoSpcebWcG6R1JW3U1/kE4sM8Df24Nu
-	Z07KBvBWKW9Js+95wI9tmWsMECGQp1Bt//bLtXpCmOZhJWc+SUpKOIxnd0vAEbN/BCSR6q4FgmL
-	H0LwEPU6WYNm4H++9sl6EQKPzImvmlior+scDVrVraTCYxE8u0qZ1WUvrtUd+PSteDynD1PoqWd
-	aeGdcYMgBrvT69rFokhTOmoVdp+FBc/NgGCxlhzb2RwVc+uSDpsTMoVHxWvR9NPu5SeduXtpz5r
-	Q36NLIBW7+dkwEr0ac4OBFTrQkfY0ZYfnMzp6KiLBoBskkTdSz3BLY+dSSAz2Jn2q/g0PA==
-X-Received: by 2002:a05:600c:1c19:b0:4a1:ec5b:dca with SMTP id 5b1f17b1804b1-4a1ec5b0fb6mr118200955e9.15.1792492825813;
-        Tue, 20 Oct 2026 03:40:25 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c19:b0:4a1:ec5b:dca with SMTP id 5b1f17b1804b1-4a1ec5b0fb6mr118200305e9.15.1792492825235;
-        Tue, 20 Oct 2026 03:40:25 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6dbf12sm5345167f8f.1.2026.10.20.03.40.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:40:24 -0700 (PDT)
-Date: Tue, 20 Oct 2026 06:40:22 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux-foundation.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	andrey.drobyshev@virtuozzo.com, den@openvz.org, jiri@resnulli.us,
-	kmehltretter@gmail.com, mst@redhat.com, ptikhomirov@virtuozzo.com,
-	sashiko-bot@kernel.org, tanglongjun@kylinos.cn
-Subject: [GIT PULL] vhost,virtio: fixes, features, cleanups
-Message-ID: <20261020064022-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=FTzVZRTC
+Received: from [127.0.1.1] (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id CF4B3780316;
+	Tue, 20 Oct 2026 12:40:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792492842;
+	bh=OcGHRTOxPh+n4knMtjMfIiF/9+USpuNlAmnTEgR4g0k=;
+	h=From:Subject:Date:To:Cc:From;
+	b=FTzVZRTCqbfANl9T2vgl+iQmcsvQD9HgTMBi8jT6+313VbB1qxVB/+LqJq4NGpY7T
+	 KwQ3u5raUKatm77WRlRSTdH0el38EPWYfAINazok7VoQ54zZkLJ4Ckt+yeuIz6QtVb
+	 e/x2cnvOSk5gxwYfKenDZ8r+TZl16wv7B2cnRNZNKWlG7bsk8aXAQmYUtbtJpLb3xf
+	 5gitZyzpf9f0k4TrcDhex9/7a85N24yVx8djIH8GfN9Wiu0LQ8rigoKD0r0z1uiE/X
+	 dcot1gohtY5XF8STmbyyvDxg/Gop3PHtiXdhqzNV33bd7VZd+7GELQpzWYa6ktyrox
+	 DxYtkOiXDGbcg==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Subject: [PATCH v4 00/10] can: peak_usb: fixes, cleanup and input
+ validation hardening
+Date: Tue, 20 Oct 2026 12:40:15 +0200
+Message-Id: <20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,80 +61,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mutt-Fcc: =sent
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XN0QrCIBgF4FcJrzPUrf7ZVe8RMZz+NlttQ9coY
+ u+eFkFQuzxwznceJKB3GMh28SAeRxdc18aQLxdE16o9InUmZiKY2HDGgGrVWlPqGnVTpkaL59K
+ ZG1W5AcUVRwRD4rr3aN3tJe8P7xyu1Qn1kLjUqF0YOn9/XY889T4vxezLyCmjTGVVVQibI5O7H
+ lVDwz0MeFlZT9LVKL4xOY+JiFmoAIQUEiT/i2VfmGDzWBYxyA0HvVZrKfEHm6bpCcdRvxdvAQA
+ A
+X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Hi Linus,
-I have a bunch more fixes under review, but let's get this off my plate
-first. Thanks!
+This series contains bug fixes, cleanups and input validation
+improvements for the PEAK-System USB CAN drivers.
 
-The following changes since commit 48a4ee65e677559776349128e6a81a6041986c99:
+Patch 1 fixes CAN error frame generation, where CAN_ERR_CNT overwrote
+previously set CAN error flags.
 
-  vduse: return compat ioctl results directly (2026-09-08 03:58:27 -0400)
+Patches 2, 3 and 5 are cleanups: make a public header self-contained,
+sort the CAN_CTRLMODE_* flags in ctrlmode_supported, and replace
+open-coded bitmask operations with bitops. Patch 5 also makes the
+state flag updates atomic, which patch 6 relies on.
 
-are available in the Git repository at:
+Patch 4 adds bounds checks to the PCAN-USB RX parser, so that
+truncated or malformed records are rejected instead of being read
+beyond the received data.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost.git tags/for_linus
+Patch 6 validates the channel numbers received from PCAN-USB FD
+devices, rejects records for channels that are not set up, and stops
+RX on all channels before they are released, on disconnect as well as
+on probe failure.
 
-for you to fetch changes up to c69023b5e16e5ffe9368603dca76d85bd544ee57:
+Patch 7 fixes the RX parsing of self-received RTR frames with SRR set,
+which left the RX cursor one byte behind.
 
-  tools/virtio: add missing device-id/virtio.h wrapper header (2026-10-08 18:30:04 -0400)
+Patches 8 to 10 fix related issues found while reviewing the above:
+the same channel slot check in the PCAN-USB Pro driver, the netdev
+being registered before its channel is initialized, and the dump of
+stale RX buffer bytes on decode errors.
 
-----------------------------------------------------------------
-vhost,virtio: fixes, features, cleanups
+---
+Changes in v4:
+- Register the netdev only once the channel is initialized, instead of
+  only reordering unregister_candev() and dev_free() on probe failure
+  (patch 9).
+- Link to v3: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr
 
-This adds CPR support for vhost.
+Changes in v3:
+- Fix out-of-bounds read of the error counters in PCAN-USB bus events.
+- Harden channel handling in PCAN-USB FD: publish/read channel slots
+  with smp_store_release()/READ_ONCE(), clear them on teardown, stop RX
+  on all channels on disconnect and on the siblings on probe failure,
+  and reject ndo_open() once disconnected.
+- Fix RX cursor desync for self-received RTR frames with SRR.
+- Replace open-coded bitmask operations with bitops.
+- Add channel slot checks to PCAN-USB Pro.
+- Unregister the netdev before dev_free() on probe failure.
+- Only dump received bytes, rate limited, on decode error.
+- Link to v2: https://patch.msgid.link/20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr
 
-Plus some fixes, notably for a host of races we had when callback fire
-around device reset.
+Changes in v2:
+- Kill all pending RX URBs before unregistering sibling netdevs.
+- Reject records targeting unavailable channels during device
+  initialization in rare corner cases involving malformed device
+  input.
+- Link to v1: https://patch.msgid.link/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr
 
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+To: Wolfgang Grandegger <wg@grandegger.com>
+Cc: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-----------------------------------------------------------------
-Andrey Drobyshev (3):
-      vhost/vsock: suppress EHOSTUNREACH fast-fail during CPR pause
-      vhost/vsock: re-scan TX virtqueue on device start
-      vhost: synchronize with RCU readers when freeing workers
+---
+Marc Kleine-Budde (1):
+      can: peak_usb: add missing includes
 
-Karl Mehltretter (6):
-      virtio_ccw: fix synchronize_cbs() after interrupt fallback
-      virtio_ccw: always take irq_lock in the classic interrupt handler
-      remoteproc: implement synchronize_cbs() for virtio devices
-      um: virtio_uml: implement synchronize_cbs()
-      platform/mellanox: mlxbf-tmfifo: implement synchronize_cbs()
-      virtio_vdpa: implement synchronize_cbs()
+Stefan Günther (1):
+      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
 
-Longjun Tang (1):
-      tools/virtio: add missing device-id/virtio.h wrapper header
+Stéphane Grosjean (8):
+      can: peak_usb: sort ctrlmode_supported flags
+      can: peak_usb: harden PCAN-USB message validation
+      can: peak_usb: replace open-coded bitmask operations with bitops
+      can: peak_usb: harden channel handling in PCAN-USB FD
+      can: peak_usb: fix RX cursor desync for self-received RTR frames with SRR
+      can: peak_usb: reject records for unset channels in PCAN-USB Pro
+      can: peak_usb: register the netdev only once the channel is set up
+      can: peak_usb: only dump received bytes on decode error
 
-Michael S. Tsirkin (3):
-      virtio: synchronize callbacks after device reset
-      virtio_pci_modern: move avq cleanup from reset to del_vqs
-      virtio_pci: drop callback sync on reset
+ drivers/net/can/usb/peak_usb/pcan_usb.c      | 51 ++++++++++-----
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c | 68 ++++++++++++++------
+ drivers/net/can/usb/peak_usb/pcan_usb_core.h | 15 ++++-
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 96 ++++++++++++++++++++--------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c  | 29 +++++++--
+ 5 files changed, 183 insertions(+), 76 deletions(-)
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
 
-Pavel Tikhomirov (2):
-      vhost/vsock: split out vhost_vsock_drop_backends helper
-      vhost/vsock: add VHOST_RESET_OWNER ioctl
-
- arch/um/drivers/virtio_uml.c             | 10 ++++
- drivers/platform/mellanox/mlxbf-tmfifo.c | 15 ++++++
- drivers/remoteproc/remoteproc_core.c     | 12 +++++
- drivers/remoteproc/remoteproc_virtio.c   | 39 +++++++++++---
- drivers/s390/virtio/virtio_ccw.c         |  6 +--
- drivers/vhost/net.c                      |  4 +-
- drivers/vhost/scsi.c                     |  2 +-
- drivers/vhost/test.c                     |  4 +-
- drivers/vhost/vdpa.c                     |  4 +-
- drivers/vhost/vhost.c                    | 26 ++++++++--
- drivers/vhost/vhost.h                    |  5 +-
- drivers/vhost/vsock.c                    | 89 +++++++++++++++++++++++++-------
- drivers/virtio/virtio.c                  |  2 +
- drivers/virtio/virtio_pci_legacy.c       |  2 -
- drivers/virtio/virtio_pci_modern.c       | 15 +++---
- drivers/virtio/virtio_vdpa.c             | 34 ++++++++++--
- include/linux/remoteproc.h               |  3 ++
- tools/virtio/linux/device-id/virtio.h    |  2 +
- 18 files changed, 215 insertions(+), 59 deletions(-)
- create mode 100644 tools/virtio/linux/device-id/virtio.h
+Best regards,
+-- 
+Stéphane Grosjean <s.grosjean@peak-system.fr>
 
