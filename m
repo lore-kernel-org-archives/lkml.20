@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525165;
-	b=uKfZGBZ9YFchaZTXguKB0TwaI9Z4vjHdudhsk3MsjlbuPvcyFpNrOwTh0pq0rICv3YYf
-	 mv4I0013yth4Bx0hS4OUSniiSm+eQbZiF3vGoLyqNmnYTgnVykZUEtpB+fysK634dORwm
-	 mbEFu+NjPaDfMEcEW+YVDKLaN7+SdvuGvXmkwGAsS4BZGEXyzBTZUKi7dYCYSOf/iPvkQ
-	 J3M/wzAGH+mgt7YXZAuNryz+fGbR3ikuIMovZPPA2xNdJFDTnjiEfPj0sN12W96G14Kfk
-	 WyMhv3Q352ygW6ttGrdEyOcrs8qnDVv5oGOg6hyNtGCZZIBb0sYilP/6H4hsFSruoRA==
+	t=1792525197;
+	b=yZedi4+OtLf4cAj1UP6gVqnDpxPIhJhalmsENRN/QDWzaZ4uyQ+dz7cDgNIRqtqEVRU4
+	 8Y7xryd82y4mipKgftVikuAeD2Q3SUepxuzts3+Lp8oZb5gunP8mVUR0PZh8RNdu6/U2g
+	 Gy70FA50aiBntOJzmch4yzSslBclFeLO5FvQmT15NvRrqH0pGhXf4aPhTSuH+n+U6pcHv
+	 vv+j22bgtM3LcjBySZkjlp5BuvBnkD5gGOylyW8bpq8KW0bRTAu8JIckInC/zKgrZOcHI
+	 ppLq6OcV1dgSFh7InS+gLVit3a9ln8kmFz39au2ErTNnpaBasYymd+R2HVtTdKq3pLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525165;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8tphokwrbS+HdbFZVHYS2Ey3PTd8HsI2I3XPiryFaz8=;
-	b=D3/gq+BHwPhvxDrodKTf7lpgSn91Mp0FncVYqbtRrhFZAhhWztMoeeDKcr0UmA01B+nh
-	 o82G7uSwT/HXXkkUZqIpqZKH09lrC+cVI47Bw+7YqTUHbE9I0yyxZEbszp6n1+Kapha0F
-	 Mz0pJonMAwAZAU76uaiIAm9bjQjppSTY44cPeT4uzqdEBBHw0QYC+NI2h3GEqLVIKaLUp
-	 bHJ6r6xJwGLueOMSIgNVFNh3H8/XMQlGFOTlyzZqnYBtE8NKvWI+v7q+MJOjLaHvQYm3L
-	 y1y2Mo5K7ro0qXP0OdnID2/BJYlKPw1i+K5dSucFD+1iU8NS0BRTvsX6b4x6/ypUL9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525197;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=39Jv+kqfa1W32Czq7DzcERVJw1tDLMb9xcUQlCNYUDA=;
+	b=MoEcvPsGTKu17d1I3cMQcOSBuSkwkHLXza2DK5m9IQ8FFyvE/v8wQ/kdD86AguTb7Nbd
+	 DpI+9XPI+hv/1339VDfKO7tjEgFiHwvP4ckU3McPgwECMcBYyi9MvY5lG6x95mqYelzHk
+	 pGv6TQn/BqPm9jENTJQDaGMP8BitbMfAzlYlqkVa0xX51IFsoIENaaIuTEtK2RbPaPu15
+	 nDsM+gEoDfpVvmoA1FETMbIeTzufq01GAH0o60Y3auyOmJ1Lmu7MjAwkpYp7IMizdnGr7
+	 vt8sXB1jy3YSdx1Si8JZ5brHDPVBf28wz/ES1B9cGXYhaJCB7YzWtCt/1QA+Bx66Vpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="UAhxKh/m";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=OF0OjImZ;
+	arc=none smtp.remote-ip=79.135.106.29
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72885606A321;
-	Tue, 20 Oct 2026 19:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A571606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A571606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UAhxKh/m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947C71F000C9;
-	Tue, 20 Oct 2026 19:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792525164;
-	bh=8tphokwrbS+HdbFZVHYS2Ey3PTd8HsI2I3XPiryFaz8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UAhxKh/mN7h5ci7uCwGPUZI2lvi2kyDTYDZ7j2ckCo/qpRwN9o65AyUnzUkpww67c
-	 Lx9MO/nT2bRnbxFc4KYvrLAOmED/6nUYALhFivIHGG96IGNGYSgMINsMo8G5W0QfeE
-	 gOJaTT92wsZhCHnYP5ZDFECUXHeK9p1eIWewIXck=
-Date: Tue, 20 Oct 2026 19:39:20 +0000
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <andrew@amutable.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>, Eric Dumazet <edumazet@kernel.org>, broonie@kernel.org
-Subject: Re: [PATCH v4 00/10] net: support thread-specific pidfds for send
- and connect
-Message-ID: <atfAmtsj0LmZtBZs@meerkat.local>
-References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
- <1ab71b00-fbe1-42a0-a99e-27d5cd5e5a6e@redhat.com>
- <20261016-erdball-skisport-erhaben-93d64cfd2890@brauner>
- <20261016085732.2f1ffb8a@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=OF0OjImZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792525193; x=1792784393;
+	bh=39Jv+kqfa1W32Czq7DzcERVJw1tDLMb9xcUQlCNYUDA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=OF0OjImZDwAsauYZbPVrHaaLs+pBj5Lbp5aWbOtvqEU4FcaWQKBxiBIzpkEpyJPaJ
+	 59cphzhKV4nKT5rfEWzlGrO5aB6JcS94XoYcJRj5Wd1fVWkHwNTZxwXkohoa89ImFU
+	 1pUPVrashP3er3tWCHfTIYzyBUEBxMxi7i8D/0g2+L6uFc2/qY7eAEPHlZrOgeWLnB
+	 TzHU7KMCGQr3ikEZOQKM246X3t/wkDseBqA65i0fuG4SvIFUJmiv459R0YptWXsFxe
+	 ACsHGLy4oAeTcTJhwfVt+wfPhtTEPmawOCUHVkrxg0FEDOUVYXU+csm/d0dmH22May
+	 G1hyxevuqRU/w==
+Date: Tue, 20 Oct 2026 19:39:49 +0000
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, Saikiran <bjsaikiran@gmail.com>, Mark Brown <broonie@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] i2c: qcom-cci: Recover after a target powers down under a running controller
+Message-ID: <20261020193946.51478-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 119cb6a596ebf28c973df8dc27618c54b90a8d4e
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,57 +62,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261016085732.2f1ffb8a@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 08:57:32AM -0700, Jakub Kicinski wrote:
-> Konstantin, could you consider adding a b4 option which would
-> make it apply the patches on the most recent Linus release tag
-> and then merge them into current branch as normal?
-> Simpler version is to let the user name the application base.
-> This lets other trees trivially create a branch later if they
-> want to.
+On the Lenovo Yoga Slim 7x (X1E80100) the OV02C10 front camera on CCI1
+master 1 fails to start whenever it is opened again within about a
+second of being closed. The first register write times out ("master 1
+queue 0 timeout") and the stream does not start. Two attempts so far
+treated this as a sensor power-up problem. One gave the ov02c10 driver a
+longer settle time, the other a minimum off time for the camera rails
+through regulator-off-on-delay-us [1]. Neither is needed.
 
-This was a fairly frequent request, so I made this change now:
+The sensor holds SCL and SDA low while it is powered down. If the CCI
+controller stays clocked from then until its next transfer, the master
+no longer starts transfers. The queue stays on its first command, no
+interrupt arrives, and only the reset in cci_run_queue()'s timeout path
+brings it back. A runtime suspend clears the state too, but only when
+the power domain collapses, because cci_resume_runtime() does not reset
+the controller. With the 1 s autosuspend delay, any power cycle of a
+target that is shorter than a second runs into it.
 
-    b4 shazam -M <msgid>
+Patch 1 resets the controller on every runtime resume. Patch 2 suspends
+it 50 ms after its last transfer.
 
-applies the series on the nearest annotated tag in the history of your current
-branch (e.g. v7.3-rc6), and then merges it into your branch with the cover
-letter as the merge message, just like a pull request. If the series doesn't
-apply cleanly on that tag, or there is no annotated tag, b4 falls back to
-applying on HEAD and tells you why.
+Tested on the Yoga with the driver from i2c/i2c-next, built as a module
+for a 7.2.8-based kernel whose device tree has no off-on delay for the
+camera rails. The CCI clock runs at 37.5 MHz there. Starting the camera
+with v4l2-ctl after a pause:
 
-As previously, use -H instead of -M if you just want the result in FETCH_HEAD
-so you can look at it first.
+  pause          0.05 s  0.1 s  0.2 s  0.5 s  1 s
+  failed before   19/20  19/20  19/20  19/20  16/20
+  failed after     0/20   0/20   0/20   0/20   0/20
 
-If you don't want to upgrade to current master, you can already use
---merge-base to achieve the same effect:
+With the series, 150 libcamera starts back to back all started, so the
+sensor itself starts fine after a 50 ms pause. The same two changes on
+7.2.8's driver, with the CCI clock at 19.2 MHz, gave the same result.
 
-    b4 shazam -M --merge-base v7.3-rc6 <msgid>
+[1] https://lore.kernel.org/all/20261001-regulator-off-on-delay-v4-0-258ba9=
+612da8@oss.qualcomm.com/
 
-It takes any commit, branch, or tag. The most recent master also takes a few
-new markers: _tag (the nearest annotated tag, with no fallback to HEAD),
-_specified (the series' own base-commit, which is what -M used before), and
-_guess (guess from the blob hashes in the patches).
+Birk Skyum (2):
+  i2c: qcom-cci: Reset the controller when it resumes
+  i2c: qcom-cci: Suspend the controller 50 ms after the last transfer
 
-The breaking change here is that b4 no longer uses the series' base-commit by
-default -- it was always envisioned as more of a hint for the CI systems. As
-far as I'm aware, almost every real maintainer wants to apply to HEAD or, at
-least, to the most recent tag as the base.
+ drivers/i2c/busses/i2c-qcom-cci.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-One potential pitfall: b4 can't know if "the nearest ancestor annotated tag"
-is actually useful or meaningful, so if your own annotated pull request tags
-(e.g. net-7.3-rc7) are in the history of your branch, one of those could end
-up being the nearest tag. b4 always prints which tag it picked, so if you see
-that, just pass --merge-base with the release tag you wanted.
+base-commit: bd4a545e4f5dbd5e4dd0064777429813516b8784
+--=20
+2.53.0
 
-The same logic now is in the "b4 review" TUI when taking a series with the
-merge method: the dialog shows which base it's going to use and lets you
-change it before anything is applied. I know Mark has been asking for this
-(cc'ing him for review).
 
-Please let me know if this works for your workflow, or if you run into
-problems, or if I completely misunderstood the request. :)
-
--K
