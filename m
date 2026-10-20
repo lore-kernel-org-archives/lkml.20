@@ -1,96 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792512958;
-	b=cxWhoE9qgGudh1oujPFl1rK7I/nniaS/G55AcPySX4T8nXrhLLgQ7DalfrYLwuIq6B/1
-	 3eFSpZYS25V5Rayq43nud+B9aIQBQVx+jvivz2/qOWqFahhDklBN4ZvqShZt9bQy9a4H1
-	 1ee03APa9iTA/UFqK6h9dza4XmiyzZ/Ia66HvkUhXz+gOMULw+wmkLUj4xn202Q2L2aGa
-	 p/i6V8snA1b9f91JJuXEjd7/wjUHPIr9FK576gYIXhDJJCHCDTbzrgH5TX32B/fpaE8xU
-	 3WMzlgNjnXIZUdlVjYD7mBqvf9qS5SmqQJ8EE2JCtV8pttBWFD2pW3sLWmsnQYSNa0A==
+	t=1792512946;
+	b=sJtfXMN7K3IuZ6wBvMCooqieICiZ3KVNBA2DJ7fhPggbb8cQ5NiOtos1JTA6gTMHj+le
+	 nzV7N002nwAON9bna8m1MN2ngLbcTnqI2xQPwpcyDtpSH9gTVhJ2IJO03fl49y6V+JQ+/
+	 EcFs0UnV2PHlqGebsFZs1mrzzqs9ngwUXTzXyBqx4HakHe2hfw+VkI+H8Tnyq85j2Y+Ds
+	 dPdtbzlHIgtRg2eX75FU2OD0ruE8zXWrtBGu4OoNRFkt3pX5m1g2+5sawtaqzYWL8m0p9
+	 9ZcUtmCMCzWvxvx+Bg11Gf/e6fAZACxnCIyvsAJbpGI1EC/M+tIlw93HhxEsU6Ot6gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512958;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512946;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UhDQRNkc9FLSlLZbPo9WwVAAHQKsjx+zb2EBe+RwcLY=;
-	b=NRJBb9h7dMJTgP2znfiCJKc8zfQ0RgIJdg1I8NQmJezBPQFSxZUztz3wYYktLjCXu55I
-	 3s5O5SLWSySeBBQGAHG6AXPw41PtPxGzr2t8imVGE/XP29fF4QZ+RJBaeOIjq95cYTMID
-	 lF8W5df5ny0JuVZ/QOUliID7hYs/lCSGr9kZZUf2SSLVcpuNgugR+ZX+F/bKSGvCaSvwE
-	 f39lrJ18DqwsyKSAfPkZzvzc7+gL3L/pG9KkoDlvZDtuhFy+KLhs3IeYxyXCg4Bl/S0FE
-	 1F5eVlXpnz+akqOJMcJ+n9w6Y8wE3++4TG55JtpU6T/kF2ehnB0jcus4a+oGTBdYB0g==
+	bh=jhi+Gy6QvyViB7QdmrhjBmEWelHbbWlA/V7dTA0A7ck=;
+	b=LCngLMmWKKSYMoLIYgBOwf19QBZel6SoJ53VAOwwkMF+iomj4w/C801waWqgvNty7ma7
+	 pbrKO9Ajxn8IVPY0PRZB1gM1VJm76Q1ytTCMpm2zykZVUpuTcsY4XiQX4A2l6OqgZ6ASB
+	 FU13vgWx7Gy5KaKPwZt3O/Itzj4I1mc5r8hI2AKY/nG+pJveW0/KlDVy0BedQAMgKsrjE
+	 EexVeph1XPK2dAbTXs4+y4wJ+3K0nRdmQG/twhWwR3vAzzv7D/cvmp2lhdVVILgfU31ZP
+	 OtM+sqzGd6KT0VHDXxY2ccELnK0wo50sF7/wByUU24wdrgnULI30Upy4xBTOlhQ0COQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WalPdExM;
-	arc=none smtp.remote-ip=209.85.221.174
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZdC17DZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA2D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:15:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA2D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D33606A32C;
+	Tue, 20 Oct 2026 16:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WalPdExM
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1014833e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:15:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792512957; x=1793117757; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UhDQRNkc9FLSlLZbPo9WwVAAHQKsjx+zb2EBe+RwcLY=;
-        b=WalPdExM7lHlWsTDznBX0Fyl06synozvZt4SX10rtsmo96i+4x8Zp8kY38DMvDvoAG
-         MWRjRFWn53CppNgFs0ngLw/6OtF3BoAXiUFzYSZPYJOeocKSt0J7fT0g7iAEsz3JpsT+
-         2r4FZWHtl8viYqxcPox4gn8zszaNPUXtg0cae1c/0YoLHGZ4oqBiLqTfpX6o6379QUC2
-         WP+L4eOyj1WuN60IeQSfZEI6hp8231lcqW2QoGSAH8b6A8xrR9MXledPJRkNSasLjick
-         Lv7ltYgNOVEkIbRbhiijTH+RklXVrFsjuv2a1Mb0ImqW2oeKCM3+N7Mmzj4RsUbKdjdT
-         LZiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792512957; x=1793117757;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UhDQRNkc9FLSlLZbPo9WwVAAHQKsjx+zb2EBe+RwcLY=;
-        b=fCKW/UW6khi6zgAJg0OdSEWmnMdEXzK0piOqUgvP9mhOO8CPe34UC63eRGr79SropP
-         UVfi+V6LcHb+7UDspYq6KwRKvPGqe3erQRzuEZfhm8dM3cIhkckTQHNRwPlpyq1WC78A
-         BToC750zq8t7pr5cgpngT/a8qKuLMtHNq++hTM4X8uyuGlxHR0Qvw/uMIt1XR4t6EIfN
-         r2zl1weIokjq+d79bXOljj82qdZ4SWe5Lt2ah40kHcPY+HNfn0SkNL0KcBtif5UvDOBD
-         bCtZdX2PP3DDBGtEKplv6n6ECU8pzY/AcWnVW4ADlqqWJM3CkB6b9AhpHNQCC9ZOVdYQ
-         UP3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxUPk6UrfBWG6Bsq6GEOgkxumWbEmAf93p2FH6BfhEU4NOWNF+JHAEYNWjDKApwISaxsBD/oNSAj3BKOvc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHXUdGTiOL5nMlUkhppALa5bLFZO+FXcyh93hR6eAzLxzZ1oX7
-	a3p3ricTR3D1nHKIFkc8Qova18HeH6uHvzDfopf8ikB6MbNytL1ltXSS
-X-Gm-Gg: AYBFou3g8Mn9WWyo0CciqeMzzhKuq9PC35EUg1QPq+UFKSV0uAHGGGWHy/9QZketIDH
-	t+0pKn9Mm4yoYsc74NJY6Rb636hAL/J7x/PNDYzPO+aCskXeo2PXwqBVskHDi8BOsiRiRFUi1MS
-	VEsPxvwUl315t0g20mBy5tx5pc0uKEhbc9tu1mVobCxRIRpP326O3GNRe8AnpOqjS+wof8NCPg3
-	y3WSktUmSZsMPswKVqrMuBTlSUalwETeVUdhXxzVhudT3RcBYZUx/n8hcy7CTjp69HohrDvPPp0
-	Litj4y5oUjpTuF1HhXFVD0JhsPf1YYnvtH+sgOcBfWbYUBlIRKEbh0A/5fnNhLP7xCrZyQpOmcx
-	1XnEOszQ1ds3427wtDKRnXUZJozIjKcpPUpLu7CZ0r+m2oySDGRAsLBzriEdL3VKYQFzMVK/oOT
-	TnUV2Cinl3XxF37x+pdtIBO9lJVKMkHNFgfddL6lXA0VwBVhGBNWpmM6P8qGrLzFKmxP/s4iRYb
-	7S/5OV9j5hD4sLuQXilRgnn72gXl5tZTSMW9ARfWV4mEA==
-X-Received: by 2002:a05:6122:4f97:b0:5ea:e197:93d9 with SMTP id 71dfb90a1353d-5eae19796f9mr498417e0c.19.1792512956788;
-        Tue, 20 Oct 2026 09:15:56 -0700 (PDT)
-Received: from localhost.localdomain ([190.177.181.23])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b518bc8sm12918381e0c.11.2026.10.20.09.15.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:15:56 -0700 (PDT)
-From: Cristian Papa <pcristian292@gmail.com>
-To: nbd@nbd.name
-Cc: lorenzo@kernel.org,
-	ryder.lee@mediatek.com,
-	shayne.chen@mediatek.com,
-	sean.wang@mediatek.com,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZdC17DZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C801F000C4;
+	Tue, 20 Oct 2026 16:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792512945;
+	bh=jhi+Gy6QvyViB7QdmrhjBmEWelHbbWlA/V7dTA0A7ck=;
+	h=From:To:Cc:Subject:Date;
+	b=VZdC17DZqza6hbz5Oaao6qPBCDRXocil0B76rRBuTmzIcmvv2HTX3V6HU3Fe7sjQ6
+	 QsRsKpSu8DiOLOWfsl9GizT5Slp5eLMriM1B1tFYIncWTw86Xpx522fH0quiuMlmqH
+	 sYzY18PGVBGGJurM++wavsIgoUMACt2/AXZp/AOhisy1PA+kyDyvLqru4RR0n/s0Nz
+	 X8papsIyD/A+A/DYUAmc4qXFwss0wpPRWf+2R30UUiviYnb4L/C3rWmcJ3VTt0G85g
+	 jTuiC+phlcP4IywfpO4DzSVm/aU6qofP5yBBS2gXioUlZi+Nv+8/X/zKU3m6N3o+h4
+	 3Mrjer0aSA33A==
+From: Sasha Levin <sashal@kernel.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>,
+	nic_swsd@realtek.com
+Cc: Javen Xu <javen_xu@realsil.com.cn>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Dennis Piecha <d.piecha@ymail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: mt76: mt7603: discard power-save loopbacks after wakeup
-Date: Tue, 20 Oct 2026 13:15:45 -0300
-Message-ID: <20261020161545.9330-1-pcristian292@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <6e7358fe-4070-4a88-b8da-77e2f9e9bdf8@nbd.name>
-References: <6e7358fe-4070-4a88-b8da-77e2f9e9bdf8@nbd.name>
+Subject: [PATCH net-next] r8169: clear TX LPI on RTL8168h at link up after phylink conversion
+Date: Tue, 20 Oct 2026 12:15:42 -0400
+Message-ID: <20261020161543.3712208-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,32 +67,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 20.10.26 11:48, Felix Fietkau wrote:
-> On 14.10.26 08:22, Cristian Papa wrote:
->> Discard late frames rather than retransmitting their old sequence and
->> packet numbers after newer traffic or a wakeup BAR. This loses the late
->> frame; it does not recover delivery. Use the station's sleep state, not
->> the temporary hardware PS bypass used during U-APSD service periods.
-> Why did you decide to drop them instead of pushing them to immediate tx?
+Commit 3cdeaef1754a ("r8169: disable EEE on RTL8168h/8111h") disables
+EEE on RTL_GIGA_MAC_VER_46 with phy_disable_eee() but keeps the version
+EEE-capable, so that link up still calls rtl_enable_tx_lpi(tp, false)
+and clears the MAC TX-LPI bits (ERI 0x1b0[1:0]). rtl_hw_start_8168h_1()
+does not clear them, so a warm reboot from an EEE-active state could
+otherwise leave TX-LPI asserted while the PHY no longer negotiates EEE.
 
-Hi Felix, thanks for looking at it.
+In net-next, commit 8a3c76523e44 ("r8169: add support for phylink")
+moved link handling to phylink, and rtl_mac_link_up() does not touch
+the TX-LPI bits. The merge of net into net-next kept the
+phy_disable_eee() quirk and its comment, but not the link-up clear it
+depends on. The only remaining clear is rtl_mac_disable_tx_lpi(), which
+phylink calls from phylink_deactivate_lpi() only after
+phylink_activate_lpi() has enabled LPI. With EEE disabled on this chip
+that never happens, so the bits are never cleared and the comment in
+r8169_mdio_register() no longer holds.
 
-Because the looped-back frame keeps the TXD it was first queued with.
-mt7603_mac_write_txwi() puts the 802.11 sequence number in the TXD with
-SN_VALID, and with a hardware key it also takes the PN from key->tx_pn at
-that point. mt7603_rx_loopback_skb() only rewrites Q_IDX, so a late frame
-pushed to immediate TX would go out with its original SN and PN.
+Clear TX-LPI explicitly in rtl_mac_link_up() for RTL_GIGA_MAC_VER_46.
 
-On wakeup, mt7603_sta_ps() sends the psq ahead of the newer traffic, so
-the order holds there. A loopback that arrives after that drain is older
-than frames that may already have gone out with newer SN/PN. With CCMP the
-peer's replay check would drop it, in an aggregation session it can fall
-behind the window after the newer frames or the BAR, and on an open link
-it would arrive out of order. So I expected immediate TX to mostly spend
-airtime on a frame the peer discards.
+Fixes: f49defea7668 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net")
+Link: https://lore.kernel.org/all/0e0b727e94d046b19ad463e7a1a9fe68@realsil.com.cn/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+llminus, an LLM-assisted merge conflict resolution tool, found this while
+resolving the same net/net-next conflict in our integration tree.  Not tested
+on RTL8168h hardware, and the warm reboot case was not reproduced.
 
-I haven't measured how late these loopbacks arrive, though. One that
-arrives before the newer frames go out would still be delivered in order.
-If you'd rather push them to immediate TX, I can send a v2 that does that.
+Javen's proposal in the linked thread, returning no LPI capabilities for this
+version, has the same gap: phylink then calls neither LPI op.
 
-Cristian
+ drivers/net/ethernet/realtek/r8169_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+index 88354e7570f00..cd4ebc654dd0b 100644
+--- a/drivers/net/ethernet/realtek/r8169_main.c
++++ b/drivers/net/ethernet/realtek/r8169_main.c
+@@ -6428,6 +6428,8 @@ static void rtl_mac_link_up(struct phylink_config *config,
+ 
+ 	tp->speed = speed;
+ 	rtl_link_chg_patch(tp, speed);
++	if (tp->mac_version == RTL_GIGA_MAC_VER_46)
++		rtl_enable_tx_lpi(tp, false);
+ 
+ 	/*
+ 	 * Note: This hardware does not support forcing flow control.
+-- 
+2.53.0
+
