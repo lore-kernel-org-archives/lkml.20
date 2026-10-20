@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792465420;
-	b=jPpFlyTG4QSAm7kC5JK3TdEOhKKmelkXAIm4RBMyXx4LVus4NWsB6m4tiw/GQI65JVMn
-	 BHABD0ZgonyA8X2dJrpv0JXAHRvpD0zyrBxjElJUiy+abpfeDvah7L1r8YtBoGhnbOTH6
-	 f5GV2hBHY6lP+A6tJza8EGPtzD/EF0cT5inEOQNbjWMr+zjQ/L/aBoDxg3EH/FfmoewYL
-	 ufDghoGln5K7Ygtv7xncUStZunkwovJ4ufOUy/bUBzeoq9L0ctNv+i0W5vXd2iQvF4S4d
-	 GnDIpR0eVXVac5j3oFZKCWyRWWSsXeVnML0+HFhejTbdFTdYQOC65c1YoWE2Bhr3g5Q==
+	t=1792465421;
+	b=0Ix765M3oBPKpGVKcrz1ayJ50/ezs8a7FBELio4Vnh5vTociA7TCL/TBUJw1h1dTNfqA
+	 DfsbZ7OAexNP+iws4dyKVCDDOZ5SDkqcWb5T7CKOivbU19Ebvj1G997d+Cj4/6jK20pwF
+	 DBnNRYciijrtKQ7R0YOEjDUUHL7MLi5zYgAgHuL1mSOTMIs6INzLV7fPIG0uzNehFqvV+
+	 jhnmrfO8z/H8vAx6Bs0iHoxmWnLdbVTEaB/LbC0jz81puEfIpDtEEGqjrTdvKf56CUJKN
+	 7T6wmtezR1iCwE0RyA2XJtJUNWoySwAqx5eKYkN7H/JuorlsvyYjvfw4Gj9iMoOv67A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465421;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Erlc6cYh8XO3PP+6ip90r/fbMGxpD7X3puXEMao1FdE=;
-	b=j+Oo8bg3l3L7m35V4muSvlUbuWMRL2QI/vurwUyty3ir+mVqkCBAFUH5NiBfs5m1S3TN
-	 +ULk8PZFPtPhQiRzCZgKFJVfnCztfvQmQcA74CUrdlzDC2DH7RnfxrlMqnnQCWi6OXnhz
-	 vavr9OjO8nKNmuk+fZlJ0FKR5+aIw4W6jUAy7PdkdbV2gfH8IHzShRNYSbbmGzNY5jxrX
-	 OvEVtMd+dIwXoA60XElLCfFmi81yatkz2GKSHhbc2yXUb8y0Ifdvg+vJSX8dbXLrlPdr0
-	 wvRMtDNMdH88nGl9uzkfKcZpgUThNwbA6wpsiTdqI3eTy+XOxok0uTycCx3hY0LqiRw==
+	bh=/Ab1uh8YHWrWUgLpyXRzWn4Xs0wb7H5DHI2xo0MMUWs=;
+	b=q0GMtBwwWtXxmIxx15NMYzv0oMfDpQ9oeCYs++axLxcVYTiVf+jy56S1fv5GJdC/k2Cn
+	 eZcGVorGPruYjkWODSoejpoed5r7fKoju+pbcbwS50GRB1O2cFgpkJFcHNztIbE93ssQY
+	 bAMsZp+KUmLxjVLcLLggg8pANYnDR9x5CKs/8JLYXKjL5vymx1LV1yw5lsH1ZjNtZY70z
+	 WaxPGHYsJt/jczBidMmTiITrfIxUUOMZzMaWN6Jt7SYUPGIJI5uf6+fC198e/3+lHOw5a
+	 y/te1nWaWLh/l4ijRmY01s4ziAhUpXVTELtPmEiXMAUoHYuRftNUpf5wU6e+1OwX4Kg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW3iiOl7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e50M4s84;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C885D60A2605;
-	Tue, 20 Oct 2026 03:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05679606A331;
+	Tue, 20 Oct 2026 03:03:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW3iiOl7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e50M4s84
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792465419;
-	b=0L11yO8AVkckpU+VEfOetHXLNBjI3A3b628SUgkjg8Z8ikqGkh6cSmZniM+/uq9I1pYb
-	 HTHMNizIYWClRHUA4xOLv4AHryYnVre1MIf5zONEcOzM055O+kRFvTuZYoF5JuX4zHoS8
-	 ArY5h1GSixbhiCT1dCHl7hhmdN53mjelrwN7EkHO2yjC/DDAGBm2jWqF2jYkr3ydZNJRH
-	 YCOQkVH+ujUq2MP5meYi2tyycax8Fx3dmZ3G5deUvpDVKuC/kbRxlI7F5IpHltY5CTpav
-	 fBlMU+qeADJ4tRe4qLXC2nhEBXwTYMxwbt+sR+rEYezG0qzzMlF6qyKF1gztNyLtdsA==
+	t=1792465420;
+	b=yU7GwA/+/yc7n0bmmahiR3hVyO3lSz4wbtfbrC3v3uMnJvSC2KOIrYDbLQ4DoRmTxgK5
+	 FuhzB0J3HqxSJiXlTAQMo6ahT0iouAMjjgYoPJoreyo1yOc0yVd2o4BD00I+NlyGGjngp
+	 tjbj0hYEyz8qP94b83c7xBKkN7trQXqVrhPUJ/DHS49NUhbXH8BN6qUJZ9A/vtJCIudTQ
+	 lBmIlmVVceuS5Ga32xJXPh7qjLyCAUToHLMVTIr/6Gy0gcFcDBLwIz2XebBQAvOa1hoIc
+	 uOhXvggg/imvIoRd39xYrX1wi30CdS2LlaazZe7wXnrDq6qxZPhFhSFjVZsq26s3+Iw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792465419;
+	c=relaxed/relaxed; t=1792465420;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Erlc6cYh8XO3PP+6ip90r/fbMGxpD7X3puXEMao1FdE=;
-	b=0nLhq+1u1aPr8UMXD+OG5APVGmm2qJcNysMSoPHo7k3BIOSuztjl9H9NcJXJrVlkSHdY
-	 8LfeTRRE8TMkWiSK3A/BHjM85GEtzZ92LGvGWintCo7IMTsXG1x+GRwD1bxLqJ8s49u7H
-	 /0ZsRLOuwd8b4HlIHSxxz5JNDnipIuLNSKIqb+VEv1dXt9TSkLbH/OR9+Xh3jmO7oCKM1
-	 8IAfDRPlelCMDmU7ucz5oDr4CLTem+gIGO58sTgF/89ZkgXHzfad6a8seyClvdfJPLDeX
-	 ZcDMj1fY0tzqSSCc8IWi8sx0nRBM2MUpIW713+7GVgs8tSiu9XH0L7aWF0GdA9z92yQ==
+	bh=/Ab1uh8YHWrWUgLpyXRzWn4Xs0wb7H5DHI2xo0MMUWs=;
+	b=OpUFSw9+S/ySl34yHrdTuf7ptoBZQgFLx16zRyePNh8TDjB38zuyNOma29wV6VraEaf/
+	 3Obo1JkHkZTAKSPTQw3hgBbFCNLFvpiLhHqztlb5IELZ3Nx1kPAlUwU1nF5tR5/4Afg5S
+	 rVKhpggBJiFG5MNJVgGxT5U4WKD+08Sm40SQ9Cpm/1+HqlN3xP5/2A4KOocPqjluFf7D7
+	 GIo1/MAU2wxF6BGWpMethFt4x0+llwSbdjx10TDJl+NiSM1rLqKMFvTj3tLybKyuCKfJ4
+	 MfEZoqcmaUq77g3DMXtt9yZDMml5sJcN79NRCvklvpz63HIOdj3414X/kjjCZVJlmIA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 79C971F000C7;
-	Tue, 20 Oct 2026 03:03:37 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 03E141F000C8;
+	Tue, 20 Oct 2026 03:03:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792465419;
-	bh=Erlc6cYh8XO3PP+6ip90r/fbMGxpD7X3puXEMao1FdE=;
+	s=k20260515; t=1792465420;
+	bh=/Ab1uh8YHWrWUgLpyXRzWn4Xs0wb7H5DHI2xo0MMUWs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OW3iiOl7c17zrExGHxtqGWoO7646lsMh99RGz6R64pizEM6GuEIa7ypecPHCwui0l
-	 IMCt9zk72H8jDv1vRrP72FgspePvdOmgL+wPMSrLQuU6Gs3GEeEaTZOHk1Hlwj6KNG
-	 yx13TfQpmHAW/gr9vxOp3CODSE7L0zZx0Nm2biTY/AjEYAIZn91jj5IF83FpjW9BTI
-	 hsWJfoyO36XKpMfsSV3tWnKDYg5/XWKQmZPqWx1Yvd4n5Koef10PEr5llylEuo2N0+
-	 atzAkU5kxEMIDpvax6lK/3M6kr8MT5m2+QSQfMGJBKPOzSlqfI0dlCDrwjGoL/oBYk
-	 LSI9WpZ812yug==
+	b=e50M4s8476weDuheny02SJGVt4EmSGoovYrBBZQ8nXzr7jx/TPSrML2+MwH1azd6M
+	 egMg4OY0PXGhamLmdrNZ4YOqjyGee8jeJz91UqI6srOKeTg9rGCeTQfSz6w4B44CAl
+	 DdTme9HTosVBP1D5GDIO5zCYIFaGAg/Cv5I91/H8NnfV4XIopwyYqcYzNjqMdHJq1B
+	 eh23l4ikhhgDlzDcPt5idqAW6WC1bQqd57PJbkz/23sDL2sQdgybHlr47R8RKHc6Xl
+	 h2pnnHSbn2p5DXdtukzt6tH77Fa/EKCyA/wyJkHIA/a86ft2P14qRp8lMc9/GsBWcT
+	 m90zlVOoecXAA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 465484071E;
+	by lkml.kernel.org (Postfix) with ESMTP id 644DE40738;
 	Tue, 20 Oct 2026 03:03:35 +0000 (UTC)
 From: Eric Davis via B4 Relay <devnull+eric.davis.broadcom.com@kernel.org>
-Date: Mon, 19 Oct 2026 20:03:35 -0700
-Subject: [PATCH rdma-next v2 08/13] RDMA/uverbs: factor out the queue pair
- attribute copy
+Date: Mon, 19 Oct 2026 20:03:40 -0700
+Subject: [PATCH rdma-next v2 13/13] RDMA/core: attach a memory region to a
+ queue pair
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,18 +84,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261019-uet-ib-core-v2-8-8bd654f25370@broadcom.com>
+Message-Id: <20261019-uet-ib-core-v2-13-8bd654f25370@broadcom.com>
 References: <20261019-uet-ib-core-v2-0-8bd654f25370@broadcom.com>
 In-Reply-To: <20261019-uet-ib-core-v2-0-8bd654f25370@broadcom.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
 Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Eric Davis <eric.davis@broadcom.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792465414; l=9598;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792465414; l=9799;
  i=eric.davis@broadcom.com; s=20261014; h=from:subject:message-id;
- bh=xdXkQszZ/RTpRqAzPH4bgxWH9OY3mxRumMhAV6qaiqs=;
- b=nH3ygd7BHzWRHHp9ZemgtsV/3aM6uLXbyhUR2WrTvPBDSqXGh6ShAMjQQM9/Lp4ztEwz5iasS
- KtHs/ZHKH9LAaDbwmK0lo2MyDJSJtdTUsT2WLBaD93vnXfMlG2yo+xn
+ bh=ALqFoJYTLaBFCfFuLMaETtzQCAzr0/lH33oJ0clrtDI=;
+ b=d26wyw9Mamzxg5YxMEpkab3TO2Z1qwnBQbF93z7fwUZVoPT+yrBlXauJywVRpQU0FHy5KQyqU
+ qjHFyLNYLpSBBaAqaPSAPiEwX+uUZQctu9osgmd5hRpnBV37UR5DLD8
 X-Developer-Key: i=eric.davis@broadcom.com; a=ed25519;
  pk=uy3oCTOYBipIPjryXGMynBmtPvbO6qN2FOrduzpiI4A=
 X-Endpoint-Received: by B4 Relay for eric.davis@broadcom.com/20261014 with
@@ -106,268 +106,284 @@ Content-Transfer-Encoding: 7bit
 
 From: Eric Davis <eric.davis@broadcom.com>
 
-modify_qp() validates a set of attributes that came from userspace and
-copies the ones its mask names into their kernel form. Queue pair
-creation needs the same work for a transport that is ready to send as
-soon as the pair exists, so move it into ib_uverbs_copy_qp_attr().
+A region registered against a protection domain is reachable from every QP
+in it. When a device can narrow that, let a region be attached to one QP
+and detached again, so the network only reaches the MR over that QP.
 
-No functional change.
+Which restrictions a device supports is reported through the memory region
+access capability bits.
 
 Signed-off-by: Eric Davis <eric.davis@broadcom.com>
 ---
- drivers/infiniband/core/uverbs.h     |   6 ++
- drivers/infiniband/core/uverbs_cmd.c | 191 ++++++++++++++++++-----------------
- 2 files changed, 105 insertions(+), 92 deletions(-)
+ drivers/infiniband/core/device.c              |   2 +
+ drivers/infiniband/core/uverbs_std_types_mr.c |   2 +-
+ drivers/infiniband/core/uverbs_std_types_qp.c | 110 +++++++++++++++++++++++++-
+ drivers/infiniband/core/verbs.c               |  10 +++
+ include/rdma/ib_verbs.h                       |  11 ++-
+ include/uapi/rdma/ib_user_ioctl_cmds.h        |  12 +++
+ 6 files changed, 144 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
-index 6bc7cc6621cb..8c461a172217 100644
---- a/drivers/infiniband/core/uverbs.h
-+++ b/drivers/infiniband/core/uverbs.h
-@@ -319,6 +319,12 @@ struct ib_uverbs_flow_spec {
- 	};
- };
- 
-+int ib_uverbs_copy_qp_attr(struct uverbs_attr_bundle *attrs,
-+			   struct ib_device *device,
-+			   struct ib_qp_attr *attr,
-+			   const struct ib_uverbs_ex_modify_qp *src,
-+			   u32 mask);
-+
- int ib_uverbs_kern_spec_to_ib_spec_filter(enum ib_flow_spec_type type,
- 					  const void *kern_spec_mask,
- 					  const void *kern_spec_val,
-diff --git a/drivers/infiniband/core/uverbs_cmd.c b/drivers/infiniband/core/uverbs_cmd.c
-index cca386b2c3f0..a35b743ab9bd 100644
---- a/drivers/infiniband/core/uverbs_cmd.c
-+++ b/drivers/infiniband/core/uverbs_cmd.c
-@@ -1779,7 +1779,7 @@ int copy_ah_attr_from_uverbs_ah(struct ib_device *dev,
- 
- static void copy_ah_attr_from_uverbs(struct ib_device *dev,
- 				     struct rdma_ah_attr *rdma_attr,
--				     struct ib_uverbs_qp_dest *uverb_attr)
-+				     const struct ib_uverbs_qp_dest *uverb_attr)
+diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
+index fd45decf9c4f..1b838bf3600d 100644
+--- a/drivers/infiniband/core/device.c
++++ b/drivers/infiniband/core/device.c
+@@ -3018,6 +3018,8 @@ void ib_set_device_ops(struct ib_device *dev, const struct ib_device_ops *ops)
+ 	SET_DEVICE_OP(dev_ops, query_pkey);
+ 	SET_DEVICE_OP(dev_ops, query_port);
+ 	SET_DEVICE_OP(dev_ops, query_port_speed);
++	SET_DEVICE_OP(dev_ops, qp_attach_mr);
++	SET_DEVICE_OP(dev_ops, qp_detach_mr);
+ 	SET_DEVICE_OP(dev_ops, query_qp);
+ 	SET_DEVICE_OP(dev_ops, query_qp_semantics);
+ 	SET_DEVICE_OP(dev_ops, query_srq);
+diff --git a/drivers/infiniband/core/uverbs_std_types_mr.c b/drivers/infiniband/core/uverbs_std_types_mr.c
+index 1ff45556e0b2..cb33d4e66507 100644
+--- a/drivers/infiniband/core/uverbs_std_types_mr.c
++++ b/drivers/infiniband/core/uverbs_std_types_mr.c
+@@ -42,7 +42,7 @@ static int uverbs_free_mr(struct ib_uobject *uobject,
  {
- 	rdma_attr->type = rdma_ah_find_type(dev, uverb_attr->port_num);
- 	if (uverb_attr->is_global) {
-@@ -1800,6 +1800,101 @@ static void copy_ah_attr_from_uverbs(struct ib_device *dev,
- 	rdma_ah_set_make_grd(rdma_attr, false);
- }
+ 	struct ib_mr *mr = uobject->object;
  
-+/* Validate a set of QP attributes that came from userspace and copy the ones
-+ * the mask names into their kernel form. Shared by the modify command, and by
-+ * queue pair creation which takes the same set of attributes for a transport
-+ * that is ready to send as soon as the QP is created.
-+ */
-+int ib_uverbs_copy_qp_attr(struct uverbs_attr_bundle *attrs,
-+			   struct ib_device *device,
-+			   struct ib_qp_attr *attr,
-+			   const struct ib_uverbs_ex_modify_qp *src,
-+			   u32 mask)
+-	/* regions derived from this one still use it */
++	/* regions derived from this one, or the QP it is attached to, use it */
+ 	if (atomic_read(&mr->usecnt))
+ 		return -EBUSY;
+ 
+diff --git a/drivers/infiniband/core/uverbs_std_types_qp.c b/drivers/infiniband/core/uverbs_std_types_qp.c
+index 47ca994f9ac9..4593965069f1 100644
+--- a/drivers/infiniband/core/uverbs_std_types_qp.c
++++ b/drivers/infiniband/core/uverbs_std_types_qp.c
+@@ -666,12 +666,120 @@ DECLARE_UVERBS_NAMED_METHOD(
+ 			     enum ib_uverbs_qp_attach_comp_cntr_op,
+ 			     UA_MANDATORY));
+ 
++/* bind a region to the QP that will use it */
++static int UVERBS_HANDLER(UVERBS_METHOD_QP_ATTACH_MR)(
++	struct uverbs_attr_bundle *attrs)
 +{
-+	/* Last bit is reserved for extending the attr_mask by using
-+	 * another field.
-+	 */
-+	if (mask & ~(IB_QP_ATTR_STANDARD_BITS | IB_QP_RATE_LIMIT))
++	struct ib_qp *qp =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE);
++	struct ib_mr *mr =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE);
++	u64 caps = qp->device->attrs.device_cap_flags;
++	u32 id;
++	int ret;
++
++	if (!qp->device->ops.qp_attach_mr)
 +		return -EOPNOTSUPP;
 +
-+	if ((mask & IB_QP_PORT) &&
-+	    !rdma_is_port_valid(device, src->base.port_num))
++	if (qp->real_qp != qp || qp->qp_type != IB_QPT_RU)
 +		return -EINVAL;
 +
-+	if ((mask & IB_QP_AV) &&
-+	    !rdma_is_port_valid(device, src->base.dest.port_num))
++	if (mr->pd != qp->pd || mr->type != IB_MR_TYPE_USER)
 +		return -EINVAL;
 +
-+	if ((mask & IB_QP_ALT_PATH) &&
-+	    (!rdma_is_port_valid(device, src->base.alt_port_num) ||
-+	     !rdma_is_port_valid(device, src->base.alt_dest.port_num) ||
-+	     src->base.alt_port_num != src->base.alt_dest.port_num))
++	/* the device has to implement the access class the region asks for */
++	if (!(caps & (mr->jkey ? IB_DEVICE_MR_QP_JOB_RESTRICTED :
++				 IB_DEVICE_MR_QP_RESTRICTED)))
++		return -EOPNOTSUPP;
++
++	/* a region restricted to a job serves a QP in that job */
++	if (mr->jkey && (!qp->jkey || qp->jkey->job != mr->jkey->job))
 +		return -EINVAL;
 +
-+	if (((mask & IB_QP_CUR_STATE) && src->base.cur_qp_state > IB_QPS_ERR) ||
-+	    ((mask & IB_QP_STATE) && src->base.qp_state > IB_QPS_ERR))
++	/* one QP at a time */
++	if (cmpxchg(&mr->attached_qp, NULL, qp))
++		return -EBUSY;
++
++	ret = xa_alloc(&qp->attached_mrs, &id, mr, xa_limit_32b, GFP_KERNEL);
++	if (ret)
++		goto err_claim;
++
++	ret = qp->device->ops.qp_attach_mr(qp, mr);
++	if (ret)
++		goto err_xa;
++
++	/* the QP holds the region until detach or its own destroy */
++	mr->attach_id = id;
++	atomic_inc(&mr->usecnt);
++
++	return 0;
++
++err_xa:
++	xa_erase(&qp->attached_mrs, id);
++err_claim:
++	WRITE_ONCE(mr->attached_qp, NULL);
++	return ret;
++}
++
++static int UVERBS_HANDLER(UVERBS_METHOD_QP_DETACH_MR)(
++	struct uverbs_attr_bundle *attrs)
++{
++	struct ib_qp *qp =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE);
++	struct ib_mr *mr =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE);
++	int ret;
++
++	if (!qp->device->ops.qp_detach_mr)
++		return -EOPNOTSUPP;
++
++	if (qp->real_qp != qp)
 +		return -EINVAL;
 +
-+	if (mask & IB_QP_STATE)
-+		attr->qp_state = src->base.qp_state;
-+	if (mask & IB_QP_CUR_STATE)
-+		attr->cur_qp_state = src->base.cur_qp_state;
-+	if (mask & IB_QP_PATH_MTU)
-+		attr->path_mtu = src->base.path_mtu;
-+	if (mask & IB_QP_PATH_MIG_STATE)
-+		attr->path_mig_state = src->base.path_mig_state;
-+	if (mask & IB_QP_QKEY) {
-+		if (src->base.qkey & IB_QP_SET_QKEY &&
-+		    !(rdma_nl_get_privileged_qkey() ||
-+		      rdma_uattrs_has_raw_cap(attrs)))
-+			return -EPERM;
-+		attr->qkey = src->base.qkey;
-+	}
-+	if (mask & IB_QP_RQ_PSN)
-+		attr->rq_psn = src->base.rq_psn;
-+	if (mask & IB_QP_SQ_PSN)
-+		attr->sq_psn = src->base.sq_psn;
-+	if (mask & IB_QP_DEST_QPN)
-+		attr->dest_qp_num = src->base.dest_qp_num;
-+	if (mask & IB_QP_ACCESS_FLAGS)
-+		attr->qp_access_flags = src->base.qp_access_flags;
-+	if (mask & IB_QP_PKEY_INDEX)
-+		attr->pkey_index = src->base.pkey_index;
-+	if (mask & IB_QP_EN_SQD_ASYNC_NOTIFY)
-+		attr->en_sqd_async_notify = src->base.en_sqd_async_notify;
-+	if (mask & IB_QP_MAX_QP_RD_ATOMIC)
-+		attr->max_rd_atomic = src->base.max_rd_atomic;
-+	if (mask & IB_QP_MAX_DEST_RD_ATOMIC)
-+		attr->max_dest_rd_atomic = src->base.max_dest_rd_atomic;
-+	if (mask & IB_QP_MIN_RNR_TIMER)
-+		attr->min_rnr_timer = src->base.min_rnr_timer;
-+	if (mask & IB_QP_PORT)
-+		attr->port_num = src->base.port_num;
-+	if (mask & IB_QP_TIMEOUT)
-+		attr->timeout = src->base.timeout;
-+	if (mask & IB_QP_RETRY_CNT)
-+		attr->retry_cnt = src->base.retry_cnt;
-+	if (mask & IB_QP_RNR_RETRY)
-+		attr->rnr_retry = src->base.rnr_retry;
-+	if (mask & IB_QP_ALT_PATH) {
-+		attr->alt_port_num = src->base.alt_port_num;
-+		attr->alt_timeout = src->base.alt_timeout;
-+		attr->alt_pkey_index = src->base.alt_pkey_index;
-+	}
-+	if (mask & IB_QP_RATE_LIMIT)
-+		attr->rate_limit = src->rate_limit;
++	if (READ_ONCE(mr->attached_qp) != qp)
++		return -EINVAL;
 +
-+	if (mask & IB_QP_AV)
-+		copy_ah_attr_from_uverbs(device, &attr->ah_attr,
-+					 &src->base.dest);
++	ret = qp->device->ops.qp_detach_mr(qp, mr);
++	if (ret)
++		return ret;
 +
-+	if (mask & IB_QP_ALT_PATH)
-+		copy_ah_attr_from_uverbs(device, &attr->alt_ah_attr,
-+					 &src->base.alt_dest);
++	xa_erase(&qp->attached_mrs, mr->attach_id);
++	WRITE_ONCE(mr->attached_qp, NULL);
++	atomic_dec(&mr->usecnt);
 +
 +	return 0;
 +}
 +
- static int modify_qp(struct uverbs_attr_bundle *attrs,
- 		     struct ib_uverbs_ex_modify_qp *cmd)
++DECLARE_UVERBS_NAMED_METHOD(
++	UVERBS_METHOD_QP_ATTACH_MR,
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE,
++			UVERBS_OBJECT_QP,
++			UVERBS_ACCESS_WRITE,
++			UA_MANDATORY),
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE,
++			UVERBS_OBJECT_MR,
++			UVERBS_ACCESS_READ,
++			UA_MANDATORY));
++
++DECLARE_UVERBS_NAMED_METHOD(
++	UVERBS_METHOD_QP_DETACH_MR,
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE,
++			UVERBS_OBJECT_QP,
++			UVERBS_ACCESS_WRITE,
++			UA_MANDATORY),
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE,
++			UVERBS_OBJECT_MR,
++			UVERBS_ACCESS_READ,
++			UA_MANDATORY));
++
+ DECLARE_UVERBS_NAMED_OBJECT(
+ 	UVERBS_OBJECT_QP,
+ 	UVERBS_TYPE_ALLOC_IDR_SZ(sizeof(struct ib_uqp_object), uverbs_free_qp),
+ 	&UVERBS_METHOD(UVERBS_METHOD_QP_CREATE),
+ 	&UVERBS_METHOD(UVERBS_METHOD_QP_DESTROY),
+-	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_COMP_CNTR));
++	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_COMP_CNTR),
++	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_MR),
++	&UVERBS_METHOD(UVERBS_METHOD_QP_DETACH_MR));
+ 
+ const struct uapi_definition uverbs_def_obj_qp[] = {
+ 	UAPI_DEF_CHAIN_OBJ_TREE_NAMED(UVERBS_OBJECT_QP,
+diff --git a/drivers/infiniband/core/verbs.c b/drivers/infiniband/core/verbs.c
+index ca5eac4a96b3..adcda33b04f2 100644
+--- a/drivers/infiniband/core/verbs.c
++++ b/drivers/infiniband/core/verbs.c
+@@ -1351,6 +1351,7 @@ static struct ib_qp *create_qp(struct ib_device *dev, struct ib_pd *pd,
+ 
+ 	spin_lock_init(&qp->mr_lock);
+ 	xa_init(&qp->comp_cntrs);
++	xa_init_flags(&qp->attached_mrs, XA_FLAGS_ALLOC);
+ 	INIT_LIST_HEAD(&qp->rdma_mrs);
+ 	INIT_LIST_HEAD(&qp->sig_mrs);
+ 	init_completion(&qp->srq_completion);
+@@ -1385,6 +1386,7 @@ static struct ib_qp *create_qp(struct ib_device *dev, struct ib_pd *pd,
+ err_create:
+ 	rdma_restrack_put(&qp->res);
+ 	xa_destroy(&qp->comp_cntrs);
++	xa_destroy(&qp->attached_mrs);
+ 	kfree(qp);
+ 	return ERR_PTR(ret);
+ 
+@@ -2212,6 +2214,7 @@ int ib_destroy_qp_user(struct ib_qp *qp, struct ib_udata *udata)
+ 	struct ib_qp_security *sec;
+ 	struct ib_comp_cntr *cc;
+ 	unsigned long index;
++	struct ib_mr *mr;
+ 	int ret;
+ 
+ 	WARN_ON_ONCE(qp->mrs_used > 0);
+@@ -2249,6 +2252,13 @@ int ib_destroy_qp_user(struct ib_qp *qp, struct ib_udata *udata)
+ 		atomic_dec(&cc->usecnt);
+ 	xa_destroy(&qp->comp_cntrs);
+ 
++	/* the driver ended the bindings with the QP, release the regions */
++	xa_for_each(&qp->attached_mrs, index, mr) {
++		WRITE_ONCE(mr->attached_qp, NULL);
++		atomic_dec(&mr->usecnt);
++	}
++	xa_destroy(&qp->attached_mrs);
++
+ 	ib_qp_usecnt_dec(qp);
+ 	if (sec)
+ 		ib_destroy_qp_security_end(sec);
+diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
+index 725b630a3b90..a93715323ad5 100644
+--- a/include/rdma/ib_verbs.h
++++ b/include/rdma/ib_verbs.h
+@@ -2003,6 +2003,8 @@ struct ib_qp {
+ 	struct list_head	xrcd_list;
+ 	struct xarray		comp_cntrs; /* op_mask -> comp_cntr */
+ 	u32			comp_cntr_op_mask;
++	/* regions attached to this QP, each held until detach or destroy */
++	struct xarray		attached_mrs;
+ 
+ 	/* count times opened, mcast attaches, flow attaches */
+ 	atomic_t		usecnt;
+@@ -2091,8 +2093,11 @@ struct ib_mr {
+ 	struct ib_jkey	  *jkey;
+ 	/* the region this one was derived from, NULL if registered fresh */
+ 	struct ib_mr	  *parent;
+-	/* regions derived from this one that are still registered */
++	/* regions derived from this one, and an attachment, that hold it */
+ 	atomic_t	   usecnt;
++	/* the QP this region is attached to, NULL if none */
++	struct ib_qp	  *attached_qp;
++	u32		   attach_id; /* index in attached_qp->attached_mrs */
+ 
+ 	struct ib_dm      *dm;
+ 	struct ib_sig_attrs *sig_attrs; /* only for IB_MR_TYPE_INTEGRITY MRs */
+@@ -2844,6 +2849,9 @@ struct ib_device_ops {
+ 					struct ib_mr_ex_attr *attr,
+ 					struct ib_udata *udata);
+ 	int (*dereg_mr)(struct ib_mr *mr, struct ib_udata *udata);
++	/* attach/detach a region so it is bound to single QP (restricted) */
++	int (*qp_attach_mr)(struct ib_qp *qp, struct ib_mr *mr);
++	int (*qp_detach_mr)(struct ib_qp *qp, struct ib_mr *mr);
+ 	int (*query_qp_semantics)(struct ib_device *device,
+ 				  enum ib_qp_type qp_type,
+ 				  struct ib_qp_semantics *sem);
+@@ -4863,6 +4871,7 @@ static inline void ib_mr_init_core_refs(struct ib_mr *mr)
  {
-@@ -1818,18 +1913,7 @@ static int modify_qp(struct uverbs_attr_bundle *attrs,
- 		goto out;
- 	}
+ 	mr->jkey = NULL;
+ 	mr->parent = NULL;
++	mr->attached_qp = NULL;
+ 	atomic_set(&mr->usecnt, 0);
  
--	if ((cmd->base.attr_mask & IB_QP_PORT) &&
--	    !rdma_is_port_valid(qp->device, cmd->base.port_num)) {
--		ret = -EINVAL;
--		goto release_qp;
--	}
--
- 	if ((cmd->base.attr_mask & IB_QP_AV)) {
--		if (!rdma_is_port_valid(qp->device, cmd->base.dest.port_num)) {
--			ret = -EINVAL;
--			goto release_qp;
--		}
--
- 		if (cmd->base.attr_mask & IB_QP_STATE &&
- 		    cmd->base.qp_state == IB_QPS_RTR) {
- 		/* We are in INIT->RTR TRANSITION (if we are not,
-@@ -1878,80 +1962,10 @@ static int modify_qp(struct uverbs_attr_bundle *attrs,
- 		}
- 	}
+ 	if (!(mr->device->attrs.device_cap_flags & IB_DEVICE_KEY64)) {
+diff --git a/include/uapi/rdma/ib_user_ioctl_cmds.h b/include/uapi/rdma/ib_user_ioctl_cmds.h
+index bc2797fc37fe..8de110b8db34 100644
+--- a/include/uapi/rdma/ib_user_ioctl_cmds.h
++++ b/include/uapi/rdma/ib_user_ioctl_cmds.h
+@@ -200,6 +200,18 @@ enum uverbs_methods_qp {
+ 	UVERBS_METHOD_QP_CREATE,
+ 	UVERBS_METHOD_QP_DESTROY,
+ 	UVERBS_METHOD_QP_ATTACH_COMP_CNTR,
++	UVERBS_METHOD_QP_ATTACH_MR,
++	UVERBS_METHOD_QP_DETACH_MR,
++};
++
++enum uverbs_attrs_qp_attach_mr_cmd_attr_ids {
++	UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE,
++	UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE,
++};
++
++enum uverbs_attrs_qp_detach_mr_cmd_attr_ids {
++	UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE,
++	UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE,
+ };
  
--	if ((cmd->base.attr_mask & IB_QP_ALT_PATH) &&
--	    (!rdma_is_port_valid(qp->device, cmd->base.alt_port_num) ||
--	    !rdma_is_port_valid(qp->device, cmd->base.alt_dest.port_num) ||
--	    cmd->base.alt_port_num != cmd->base.alt_dest.port_num)) {
--		ret = -EINVAL;
--		goto release_qp;
--	}
--
--	if ((cmd->base.attr_mask & IB_QP_CUR_STATE &&
--	    cmd->base.cur_qp_state > IB_QPS_ERR) ||
--	    (cmd->base.attr_mask & IB_QP_STATE &&
--	    cmd->base.qp_state > IB_QPS_ERR)) {
--		ret = -EINVAL;
-+	ret = ib_uverbs_copy_qp_attr(attrs, qp->device, attr, cmd,
-+				     cmd->base.attr_mask);
-+	if (ret)
- 		goto release_qp;
--	}
--
--	if (cmd->base.attr_mask & IB_QP_STATE)
--		attr->qp_state = cmd->base.qp_state;
--	if (cmd->base.attr_mask & IB_QP_CUR_STATE)
--		attr->cur_qp_state = cmd->base.cur_qp_state;
--	if (cmd->base.attr_mask & IB_QP_PATH_MTU)
--		attr->path_mtu = cmd->base.path_mtu;
--	if (cmd->base.attr_mask & IB_QP_PATH_MIG_STATE)
--		attr->path_mig_state = cmd->base.path_mig_state;
--	if (cmd->base.attr_mask & IB_QP_QKEY) {
--		if (cmd->base.qkey & IB_QP_SET_QKEY &&
--		    !(rdma_nl_get_privileged_qkey() ||
--		      rdma_uattrs_has_raw_cap(attrs))) {
--			ret = -EPERM;
--			goto release_qp;
--		}
--		attr->qkey = cmd->base.qkey;
--	}
--	if (cmd->base.attr_mask & IB_QP_RQ_PSN)
--		attr->rq_psn = cmd->base.rq_psn;
--	if (cmd->base.attr_mask & IB_QP_SQ_PSN)
--		attr->sq_psn = cmd->base.sq_psn;
--	if (cmd->base.attr_mask & IB_QP_DEST_QPN)
--		attr->dest_qp_num = cmd->base.dest_qp_num;
--	if (cmd->base.attr_mask & IB_QP_ACCESS_FLAGS)
--		attr->qp_access_flags = cmd->base.qp_access_flags;
--	if (cmd->base.attr_mask & IB_QP_PKEY_INDEX)
--		attr->pkey_index = cmd->base.pkey_index;
--	if (cmd->base.attr_mask & IB_QP_EN_SQD_ASYNC_NOTIFY)
--		attr->en_sqd_async_notify = cmd->base.en_sqd_async_notify;
--	if (cmd->base.attr_mask & IB_QP_MAX_QP_RD_ATOMIC)
--		attr->max_rd_atomic = cmd->base.max_rd_atomic;
--	if (cmd->base.attr_mask & IB_QP_MAX_DEST_RD_ATOMIC)
--		attr->max_dest_rd_atomic = cmd->base.max_dest_rd_atomic;
--	if (cmd->base.attr_mask & IB_QP_MIN_RNR_TIMER)
--		attr->min_rnr_timer = cmd->base.min_rnr_timer;
--	if (cmd->base.attr_mask & IB_QP_PORT)
--		attr->port_num = cmd->base.port_num;
--	if (cmd->base.attr_mask & IB_QP_TIMEOUT)
--		attr->timeout = cmd->base.timeout;
--	if (cmd->base.attr_mask & IB_QP_RETRY_CNT)
--		attr->retry_cnt = cmd->base.retry_cnt;
--	if (cmd->base.attr_mask & IB_QP_RNR_RETRY)
--		attr->rnr_retry = cmd->base.rnr_retry;
--	if (cmd->base.attr_mask & IB_QP_ALT_PATH) {
--		attr->alt_port_num = cmd->base.alt_port_num;
--		attr->alt_timeout = cmd->base.alt_timeout;
--		attr->alt_pkey_index = cmd->base.alt_pkey_index;
--	}
--	if (cmd->base.attr_mask & IB_QP_RATE_LIMIT)
--		attr->rate_limit = cmd->rate_limit;
--
--	if (cmd->base.attr_mask & IB_QP_AV)
--		copy_ah_attr_from_uverbs(qp->device, &attr->ah_attr,
--					 &cmd->base.dest);
--
--	if (cmd->base.attr_mask & IB_QP_ALT_PATH)
--		copy_ah_attr_from_uverbs(qp->device, &attr->alt_ah_attr,
--					 &cmd->base.alt_dest);
- 
- 	ret = ib_modify_qp_with_udata(qp, attr,
- 				      modify_qp_mask(qp->qp_type,
-@@ -1994,13 +2008,6 @@ static int ib_uverbs_ex_modify_qp(struct uverbs_attr_bundle *attrs)
- 	if (ret)
- 		return ret;
- 
--	/*
--	 * Last bit is reserved for extending the attr_mask by
--	 * using another field.
--	 */
--	if (cmd.base.attr_mask & ~(IB_QP_ATTR_STANDARD_BITS | IB_QP_RATE_LIMIT))
--		return -EOPNOTSUPP;
--
- 	ret = modify_qp(attrs, &cmd);
- 	if (ret)
- 		return ret;
+ enum uverbs_attrs_create_srq_cmd_attr_ids {
 
 -- 
 2.56.0
