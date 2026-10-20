@@ -1,97 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792457444;
-	b=h6eepQxe2sNOh3xGR7jpQdtce048PMdGDGnyP6dpEeioGE8IjowmtbndhMYfB0riAQj4
-	 kNgrWP9bhfpCJVd7XvUij1OC5bunNSzgiEJCbPcbwRpoCOuK44PVGazh5hAj8oHHJXcF6
-	 fexzio/6cptqgUB7qDUmIJ1x5hBXN0YSNNsgg9NIZPBRvXCZXrk1qq+3XtyQ5H5OpUp7f
-	 DqEhZqA7pHj2UKSla/NNqqOr5u0EBwxMlJc344xaZjVn1b0FSfE0rDLChfwgeRX2O7W6f
-	 KXfpPLDsz/+ylr19TxLPiVv6PX6d1KrOyAtxga5CLG5AaHwoLN6G/wr1b0X0DeEz28w==
+	t=1792457675;
+	b=gOs8YoOo4rO1z4SM44oSHtDMgmPrvYRLNMlE3JO4OGKdkxNxuGu1eeuxKM+mXXYurvi8
+	 zXzdKbDVHyiL1SexkNGeYZ9vRhAwlC9AEC7IQ4RpkL2fkjGpYXFchTIMeebAAdKxrIDDo
+	 KDiMv17EgVaHjkpEChrL5km1uDNAfTr1cmfodm0ZPC3wWHSCGvG+fU/+c5H8mmOUsX3ia
+	 60l5aHk8Wo5hXP0aTld3C7b2mWAS9oCnG1ECfMtOsyPxKayc8xK+lf1p41HiRj2Bf0mhT
+	 SnMKcY44mjoKldjnkU5SfDNXuXCWImgO0laCrIvZwDyFIrYyJXShbO9mrnjOXhr40QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792457444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792457675;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XPe0JNEbr2LiKTaVjn34vcDqNA4MmDzPEYnEmiPiiyo=;
-	b=tbzABIFRp+PJAubewgeeEjGw9lUvylpJ9DZKcilwHIrx0PYpvLWJaWoeZfU7j+DilCMI
-	 cgKZPWITDtPnDKo8770VWpKHfrUx36Jh2S3JoTEESGWSgJ+oc5h8s/Pu1kAOeTKBCF3EJ
-	 6fCc7O+nLBTJ/MMpwhrQJ10rzsK07bqtUkbx2M1UX6rxFF26jnfiiu+feyQzKEBckJ4su
-	 p9v/i9pjEIXwMUGanncD0U29+t0SHoHxbKx060BfX6Ar6k8g0xk9Ang7zb6Oijs+8ypTf
-	 MpT+vbMIjBQ8IW4ugB2grCL3WK+QzA6YHzj2lOIUwemQIDOuoG58Xl2XDT77nAi3LvQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QZ7Pz6/D14wpEk1Ddz2f2Hy8tiok/YGXHe6Nz544rD4=;
+	b=v0dHM39Mr/Lng6MyP+mEc3dbEXCirOHPUrkOizxaRCospHTM7fp1ww1hIR/37LkGaSk9
+	 hfLv9OedirSjp3Mo0me6kwVhMAxfHdJlLThIklbJkx3o+tkKdplvIT9wOH0o4g6lZo1oO
+	 GiT+YCCOCwsoTpraRCnBo1lbqeUqz88M4L9RmsXNmlriKYoS5RWC+PHXuQmiBlEEnZhbh
+	 NBbXgE2w1Wy9x73yezWDOzOd8s3/fJJ+X8tg6B05zScPQOEicHBJnY/uuL3REtB/UQ5VP
+	 eEtoo0O6fakswYSK+PxnkOAuf/zffpxDE62iKp0F0LGCkL2MpsPSZsGSyRSXzqifYqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=h6UpW3Wz;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C4E606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1C4E606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=h6UpW3Wz
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so2308503a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:50:43 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6E0606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:54:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF6E0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-705cb6cedd5so126435eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:54:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792457443; x=1793062243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XPe0JNEbr2LiKTaVjn34vcDqNA4MmDzPEYnEmiPiiyo=;
-        b=h6UpW3WznxnyArzXBPrbHGIVe1IhMpKDdTTi36iKnXZ3Eqy09f4SURmiAcGlqyhA6A
-         CfeQfpi2AuU9ozSMUH82IsrOOXYrgOCjkbbiml3RoKhYaLkN/+SfJ4c2fJY+1SR4pTYw
-         WUJzCc1V5FnKbdvJbU9yMcJCtxmLNw82nKPeQaLImlBr+Y+c7VInSrhCDYbKpMHWKIJj
-         rZ1sZQdJQC/Nkn++kkNwvz1CsW2cKVAmhM4dv19B238AXy9tWNoGjVCETYl3vDg38C9/
-         D8uQuDlnfw/+bIlA05XFQXJHt2Kc+6Y5lfBgzS5UeJkiOoOPY/+evXZD60uPqxWICleP
-         rwcA==
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792457668; x=1793062468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QZ7Pz6/D14wpEk1Ddz2f2Hy8tiok/YGXHe6Nz544rD4=;
+        b=PkMfJZUOFRCxLcMlRL0ZVTWuCLtlBoNPC9FNtc1Iavq5b3XBGwzw0hQlrucBM3w2R/
+         MpDcL55XZEkJEsaqs+VKX/LQR+rB6ZPywqquFh4wB0qBym+bFZz+PBkbdQBrix8u4DIx
+         xoJX5gtSj7Dn1FNRMpgA/JAY5NUFwsyxd6SvQ3NgyZ8UkY2McGVv3AsJbwCi84oHPO9j
+         Z1Mw6ndyCbMtuXYXqpOy6lLKjDxhfEHZvstkZGPW+uvx8+iVwYeohIYPK0dFnfGIDrsZ
+         x+t9LyaivIOuH/MY3cJP+vWcY5QMAMYCSIeJaPZu8NE6O3FAy2cKenK1W6zBoIAdtf4w
+         7ghw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792457443; x=1793062243;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XPe0JNEbr2LiKTaVjn34vcDqNA4MmDzPEYnEmiPiiyo=;
-        b=WHGlbFDyO4spkfBLqgP/Fu5LV/lM8EU8Ix5/6n/M1ExhO26y6cAxHBDIvrgxibkrxy
-         2Caa9r4KOlj5pmPgnwhkdU1YNdOKxpYCCOAv8Sft7pDGbrU/q/9m2Gx1Do8OotlJLNNN
-         Yno26FEjqIhJf939QoHG1Z0eN6a2HjgDITCD1XVjwyvyk+oABe452eXs3/LGd0S7GIYc
-         gSoEdxEyPy24Lc2l2ufV3l0HnwDJd+oet7ZFhoR+CgbqlGwq7FEw+T9R7vwDu51wBSkk
-         R9E74AHfVgiQuJK5Ik1eo/ovdXwrF/PYRMasGwjtNAbXp4++DuFLjjzDytWkhBhW7jIj
-         viUA==
-X-Forwarded-Encrypted: i=1; AKwUvBz77MhLsaubccnL/lq0GPi7AEQlmCFk6rW4am7QtWvxT/hjedBp/Z/kl1I0u5/AiKdBs9XhoVOkfv6LrDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0lkFPIWO1AN0zHbctGxvUIqovpfnkBNluF9GSAEKbWNpAkI7S
-	3aY6VCSphiFY1v87+k6csOoCrE+GbLeHPtoD02FA1hOoiM7Xr7QysqH++K6hXkvwaHo=
-X-Gm-Gg: AYBFou0zzxUgZP3TvDO2QD9Yg/0OnmFSk/jXBRrXGvsRF+99wzJ9AyuK+u34NCvNDse
-	0NczZlPD9GsoadJEyQib5Re/ZiRWSEr80SwtObkRrtvMKsl5HGmnDJ+c6y7Xht7I4L7wbrGNg9J
-	k7ITobUqXjsDXJyJYDzNUqIhC/u7HSkofgKwAktpiTuDZljrL85JRffnJPDZ8LgkM3qHYQSTB2N
-	jzbOys34vf/V2zzONvVXvR8p5xaKuRs/gix+QR7ZFRNSCdnYvLPRwrOhBPPg7qCb2K8Jda207td
-	zA+xaviuv3ONNPeBRWbnZY0P215aQpoXiz9gCoeYRs0C79JpVpebJ6gLjpJuX7p9nkSN/boWk+H
-	ji5JJFIPE4YZze8qUlInpZJJ0BwFpxB5szXRkMNTWkM+3DsTfU+sCnNNMdXWJzd1Z7RUTbLwuAb
-	+SpZU57dhMjP3lPD5UsEf/+oM5OPPJxdXNk5BwamWvAu7DZEdR9HE1wJz4zX4TB1BmMvmWupnyE
-	LlUxw==
-X-Received: by 2002:a17:90b:3b91:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3acee97ab0amr8126582a91.7.1792457443246;
-        Mon, 19 Oct 2026 17:50:43 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3b16c2asm8520499a91.2.2026.10.19.17.50.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 17:50:42 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Jeff Chen <jeff.chen_1@oss.nxp.com>,
-	Jeff Chen <jeff.chen_1@nxp.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v4 3/3] wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
-Date: Tue, 20 Oct 2026 09:50:27 +0900
-Message-ID: <20261020005027.1105121-4-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020005027.1105121-1-yhlee@isslab.korea.ac.kr>
-References: <20261020005027.1105121-1-yhlee@isslab.korea.ac.kr>
+        d=1e100.net; s=20260707; t=1792457668; x=1793062468;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QZ7Pz6/D14wpEk1Ddz2f2Hy8tiok/YGXHe6Nz544rD4=;
+        b=OJJV/+tEidk0DsJLDGwuEpc8muOBPETUYZrW6MJpT0pauklOkpOZFJ2aK/Li3HYAIc
+         0D14AKPzHuRm6IAkbwdt156IupkOy6jflrT/Pl+KcXQH/sqgnsugoC+S6xY+m+UkKabW
+         FiZ4GLF7t2iQ68TDQl+WHbMJmRjJzvnPNJ0fG6dmqHDwYpqeO/ti54pGf6CFypwo8rMU
+         3gSPekvziKek4J3RvlJeHsh+6U2eF3feyA9pseWZylfIViDHsySCXOlcuyiCUYPglfrI
+         QRyZk4KK2WXIGjCI93UxYYXUvt+Wy48FEGMkD/pgCQwSKyC/E9/a3Zjal35Y4pFQh5WH
+         9hHA==
+X-Forwarded-Encrypted: i=1; AKwUvByZhaDU+qHQ2m3cAYKs+k7cu7zU6RV6OA9lvExrFLzBCFYqq0WAXdiimBRnqdr0gvZuS2BobMI5PWscoQ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLI8RkMrEpEKqnU3WBFS+Uk3T4KEttAf5vNFHnDgM/ktYeqZqL5
+	yHNfofHDRCFnvcGE+zhaJJcp13S9dl7kz6embgfQCUjGhNgSIxjCt/uraHfyjZiWYEE=
+X-Gm-Gg: AYBFou0yM+v0mMsuuw9kOM0r+9qKtNRyVzgFGag8OdEP5/zvfVOFJHBSwVr+MNwW5nM
+	dcYmyIOme7ejOB+Qvp5PcE1jj1JkZyPf8ST3fBePOVWaW7Vycq0dpLC+giRqx9Mi+tZeMvYzVoP
+	hhjO8En6LPX5LY8VApjbvgsLU3kfsUoRoQUVLjftWeO6zDIYLV1daTuMfF/Tu7a5keh4Q1FPmYz
+	Rp9NOdL730z7iCU4sL7LFncCN3pNSdv/TSFG0J2TP51mQL3onSLAYaiybPaTysf/6GwNwEyjfcp
+	xmtEKwe1ZdwUm4KHDrHgYgAzGbaliQjRhr/FyUR4TjLAlmij93Fs3A5xDrUJhU1JITIfw4umttm
+	Z7jqmwEU/LbNP3MA7M1pBW920QO2L0MuCYxc/5TeQyWNVO7U2m4fEb2Ywfa56X8E4Vw9hZRIul5
+	8v+fItBoXBKdRW4zQf4sx9Fqs+2yFjWDQuuiioJvPti//RSQ/PCJc6q5msPqLiPTKf+pk9NQjLn
+	78jlZQNAdZFTVk1AkTQ03oehPfSwV1TMFPx6IErCRNsHnlhfcZMvEv+NQ==
+X-Received: by 2002:a05:6820:2224:b0:6f8:2e98:cfd7 with SMTP id 006d021491bc7-707b9615335mr482415eaf.9.1792457667825;
+        Mon, 19 Oct 2026 17:54:27 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a4a00f0asm9634317a34.5.2026.10.19.17.54.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 17:54:27 -0700 (PDT)
+Message-ID: <6bc4e237-353b-462f-b388-3844821dd67f@kernel.dk>
+Date: Mon, 19 Oct 2026 18:54:25 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,110 +88,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring/futex: return a wait's data to the cache when it
+ fails to arm
+To: Austin Schuh <austin.linux@gmail.com>
+Cc: peterz@infradead.org, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261019231243.802569-1-austin.linux@gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261019231243.802569-1-austin.linux@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-nxpwifi_ret_11ax_cfg() walks the TLVs the firmware returns and copies an
-HE capability into fixed-size buffers without bounding any length. A
-response shorter than the fixed part wraps the u16 walk length, and
-header->len is used as a memcpy length without being checked against the
-destination.
+On 10/19/26 5:12 PM, Austin Schuh wrote:
+> io_futex_wait() takes its io_futex_data from ctx->futex_cache, and a
+> completed wait gives it back in io_futex_complete().  A wait that fails
+> to arm kfree()s it instead.
+> 
+> The usual failure is -EAGAIN from futex_wait_setup(): the futex word no
+> longer holds the expected value.  That is routine for a waiter that
+> re-arms with the value it last read, since the word changes whenever
+> there is something to wake for.  Each such failure takes an object out
+> of the cache for good, so the cache drains and from then on waits
+> allocate.
+> 
+> The cache exists so that arming a wait doesn't have to go to the slab
+> allocator, and that matters most to the waiters that re-arm the most:
+> event loops, often real-time ones.  A kmalloc() or kfree() that misses
+> the per-CPU slab takes the node's list_lock, shared with every other
+> user of that kmalloc size on the system, and may go on to the page
+> allocator.
+> 
+> On PREEMPT_RT list_lock is a sleeping lock.  A real-time task that
+> finds it held waits for the holder, which may be any task on any CPU,
+> to get to run and release it.  Priority inheritance boosts the holder
+> only up to the waiter's priority, so the waiter still sits behind
+> whatever outranks that on the holder's CPU, such as threaded interrupt
+> handlers.  Re-arming a futex wait should not depend on any of that.
+> 
+> Put the data back in the cache on that path too, while the submit lock
+> still protects it.
+> 
+> In an event loop re-arming one IORING_OP_FUTEX_WAIT per message under
+> load, 0.39 arms per message failed with -EAGAIN, and io_futex_wait() did
+> 0.39 kmalloc()s and kfree()s per message.  With this change, 100,000
+> waits that all fail with -EAGAIN do one kmalloc() in total.
 
-Reject a response too short for the fixed part, reject a TLV longer than
-the bytes left, and reject an HE capability that does not fit its
-destination. Select the destination buffer first, by band, then validate
-and copy that one.
+Patches like this have been posted before, and my question is
+always "is this a common case?"? Reading this:
 
-The lengths come from device firmware, so this is not a demonstrated
-out-of-bounds write. The driver has not appeared in a released kernel,
-so there is no stable tag.
+> Notes:
+>     Based on for-7.4/io_uring (5b01d5955ac2).  Built for arm64 with
+>     PREEMPT_RT, W=1, no new warnings.  The numbers are from an equivalent
+>     change on 6.18.39-rt on a Jetson Orin Nano, counting kmem:kmalloc/kfree
+>     by call site with bpftrace while a test loops on IORING_OP_FUTEX_WAIT
+>     with a value the futex word doesn't hold.  Happy to turn that into
+>     a liburing test if it's useful.
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/net/wireless/nxp/nxpwifi/11ax.c | 49 +++++++++++++++++--------
- 1 file changed, 34 insertions(+), 15 deletions(-)
+makes me very much think "nope, not at all", as it's a deliberately
+failing test case. And yes if you keep issuing failing waits,
+then it'll drain the cache. The cache is for the hot FAST path,
+which is not an error path.
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-index 16bda167fa66b..be38a034be325 100644
---- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-@@ -204,7 +204,7 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
- {
- 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
- 	struct nxpwifi_ie_types_header *header;
--	u16 left_len, tlv_type, tlv_len;
-+	u16 resp_size, left_len, tlv_type, tlv_len;
- 	struct nxpwifi_11ax_he_cap_cfg *he_cap;
- 	u8 ext_id;
- 
-@@ -212,34 +212,53 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
- 		return 0;
- 
- 	he_cap = &ax_cfg->he_cap_cfg;
--	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
-+	resp_size = le16_to_cpu(resp->size);
-+	if (resp_size < S_DS_GEN + sizeof(*he_cfg))
-+		return -EINVAL;
-+
-+	left_len = resp_size - S_DS_GEN - sizeof(*he_cfg);
- 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
- 
- 	while (left_len > sizeof(*header)) {
- 		tlv_type = le16_to_cpu(header->type);
- 		tlv_len = le16_to_cpu(header->len);
- 
-+		if (sizeof(*header) + tlv_len > left_len)
-+			return -EINVAL;
-+
- 		if (tlv_type == TLV_TYPE_EXTENSION_ID && tlv_len >= 1) {
- 			ext_id = *((u8 *)header + sizeof(*header));
- 			if (ext_id == WLAN_EID_EXT_HE_CAPABILITY) {
-+				u8 *user_cap, *user_cap_len;
-+				size_t user_cap_size;
-+
-+				if (he_cfg->band_config & BIT(1)) {
-+					user_cap = priv->user_he_cap;
-+					user_cap_len = &priv->user_he_cap_len;
-+					user_cap_size =
-+						sizeof(priv->user_he_cap);
-+				} else {
-+					user_cap = priv->user_2g_he_cap;
-+					user_cap_len =
-+						&priv->user_2g_he_cap_len;
-+					user_cap_size =
-+						sizeof(priv->user_2g_he_cap);
-+				}
-+
-+				if (tlv_len > sizeof(*he_cap) -
-+				    offsetof(struct nxpwifi_11ax_he_cap_cfg,
-+					     ext_id) ||
-+				    sizeof(*header) + tlv_len > user_cap_size)
-+					return -EINVAL;
-+
- 				he_cap->id = tlv_type;
- 				he_cap->len = tlv_len;
- 				memcpy((u8 *)&he_cap->ext_id,
- 				       (u8 *)header + sizeof(*header),
- 				       tlv_len);
--				if (he_cfg->band_config & BIT(1)) {
--					memcpy(priv->user_he_cap,
--					       (u8 *)header,
--					       sizeof(*header) + tlv_len);
--					priv->user_he_cap_len =
--						sizeof(*header) + tlv_len;
--				} else {
--					memcpy(priv->user_2g_he_cap,
--					       (u8 *)header,
--					       sizeof(*header) + tlv_len);
--					priv->user_2g_he_cap_len =
--						sizeof(*header) + tlv_len;
--				}
-+				memcpy(user_cap, (u8 *)header,
-+				       sizeof(*header) + tlv_len);
-+				*user_cap_len = sizeof(*header) + tlv_len;
- 			}
- 		}
- 
+Hmm?
+
 -- 
-2.43.0
+Jens Axboe
 
