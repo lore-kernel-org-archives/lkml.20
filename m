@@ -1,112 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792511570;
-	b=fbC2qQZCb8n3RnFQJm3brHLLDsQXzPtrDCQZ+P7G10r25qocXo9SfEvfyDuNcuaBor5I
-	 xrTNm8O15uRW2pvfbO2lcTTajeOX5XC7WORkqUQrKvexw8NkOjwm9TzhBE+W4uYhIGMQU
-	 mObEsBfWQQK8Hj5Z9d+ypvZ+D9D41cze6mvf3g7Su9NoRreV/EZ2Omdq9a7jOADdH/V3/
-	 sh6Cj8ra7Ehs1rV8WmCL74PSgSmjwDou9eY/88IbP1WCvJWAuC+Y++4aXfDpuJ5B3+va7
-	 niBb9lJRpoKqv4pGafNTPXL/n/m0vvo+ojZn0aOtn0hLPxrBbeOYTIbeIzae/kUWfpg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511570;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aH4jLi8atPK96usn2LfTIYVk+m0TXGG78+/k4+u5ZQ8=;
-	b=lqNHnwYkEhfZsjG9NjjsbAIqkfordiRlPCpCXWKqjF8T/r4qgHu3Aod1QAkM4UymdPyl
-	 DLJ7WdThG6fB6CruEwFskbxVYL2V5HCqancf5qgOv6EPJ/V7GnHgibyrQy7V2L3LUqwB4
-	 musfOw8ImiidmJm82Sk3hvze6aTuoMGK6Wzk7irq4guwxQZI09kk4mlgOP99zIiqqiEXD
-	 FBfqNXMsdkKw57KrkxvQmiv4IsSZk8WUPPqu0EoqGz8QxIdL/5x6gIXXzPZGpZl1Mar+y
-	 0zT+4/h8jHw9Szvn71zjKO6orOE/1hHL3qz6Q/qRp30prTcKzSbQ+HC6ax5Tqxd+Qrw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pHrDiamZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.25
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011025.outbound.protection.outlook.com [52.101.65.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792511591;
+	b=NBpQsxfGBJ/mKT6ToZPm9Lvr3B17x3MFqTDxdmu7/lQpoWe6f9GHLrYa7DdToLjvTooi
+	 MyMshK3n7rpZcW3HVXtDL51mnmdlIxWJ7Hybk3DgtzvrJ67Xl2c3+qAwzHiMDXDVF2WVy
+	 pPaXxP0JTU5esfqZOXyulNmjYJQW4OR0feT7owxPOB4j102gTn4P6jsz97LKonHp7Uh7L
+	 0lyxbf0E+smKEXgBwkVx0LB0HCCmvljcypPWaAajcnzyUiubpZVKU3cQ652/No7l4PVji
+	 ffyzgzH2ZieHGEsY8C5atZU19OXSAxDO8lY6b1ECIhGPzeZIOTQS1D4f0CBqhbqepHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511591;
+	h=DMARC-Filter:Received:Received:MIME-Version:Date:From:To:Cc:Subject:
+	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=WBeM+RRfJBDWsLDzUHRibe0EMKqyQuZjJllD1Oecmo4=;
+	b=zWeorF6NUTyiFKkFxnWEiiUK3CeXWn9BRHWvGs9o0xV5MpswY6Ei+egrZSPDFHo6/EB9
+	 lLbW9e2fs5r6uHpt+Er580SF9lBIuy8e9ZkDdy3zwaNiS1G510po37QfLzrizKzLuMD9J
+	 82heuNwr0jPoAqxTNuW99ERTL0X/gyet75FshBduVPd6anaeFfO8KuB5GyRR35kejQRAE
+	 Z5X9iQkP8KJqSh+mM672YEBM/OZij50tpdtm+wzVhMUefInW0/9baaD9ShYu7Rnh4r20S
+	 INovMUADKt/k9iR/TFKEBdtpyazTbXCzwrJ6K59txCYQ8jmxzBnbQukzWCI3w9d5A0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CBE606A319;
-	Tue, 20 Oct 2026 15:52:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64CBE606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pHrDiamZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HE374yIK3rAH5MsJLzSbb/W4hAw/raVom2mF7ZPhviCCsGe4sezVAoJhmhzcCZEkA5mNthIlONbQA7HsaAXql23mIJ9/dB8MKqoS9izCXQMBHxoOjUTPPhmfuEheZ6ngzGKXkB54XtAaAnCzfmvMbucmeHffCa2kOAbbsQ3Bf994MadAglj5B62xIZprV7pcvMUqyx8d4XhMhRLD3OowyHEOPFY1u1WkWKUaaJ+e3ttbMon9XoOLDAgwveDHMzeRG4QUM2pJOz/jDkcRxJVuPGrvp7EHXd3RVbp3OGPbvp5gbF58sluoNntzNTBj64GrYB0qmvdWL8rfW+bIJBHl/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aH4jLi8atPK96usn2LfTIYVk+m0TXGG78+/k4+u5ZQ8=;
- b=NyYXsf3UCSkVDCwtC7F688GDDkwtnP7wRQaiIZkMmLNpnT+May4CcOaB1Cbl2QummXh6MXeXJrWGlrI4T/ZUEHd2+uFStq7mvZ0cjkGO/fGZOTEiwWsBU8A1afJ2834zX7luPlOu30SYU41h2Ybu25lQKdAd3+k2VeFQYwv2Y4MdkX+gxlZiK1wwFF27m+JDbhhZpaJ1e0Ra8t1tGUCmq4IPQNNvxFCjV+3MiA3p/R6ekA4Ig5whAMSFKeT///vWhH/EnzCR5yKIeUkSu2BZIazzuiwiKqawgTGDpdJEWuoJ2p9kCGiTu5oeRQt6PPBgAWNFPizAlArOhKMraTMd5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aH4jLi8atPK96usn2LfTIYVk+m0TXGG78+/k4+u5ZQ8=;
- b=pHrDiamZ2fRKplu+HlPZkgsoa8UcuX3s2wY9SysU2lRUPJxz21GQPtuIgJ3GO+r92etgz12tXEXyDGzmIGt0xp4S4icvUrtyEDN83mtfz7TsA2UcMRGusKo5iJzZ4p0HOwOaEa1FDCJQjgXopjvLL3eDnMkL2Zo4rw9euWSeTbDhuARIXcb0p1umUP2VDAAvPsuYbvCXZp+3Zmqg0sQF7b7Ft9R9I2Cu5XoX5jjwpK+eKW0sR0+ykVvNr3ZwvFPCRC9Yi2eAfdCXgSq+xEcjlB7XyevNeDzQ+aO1c+l2guYKHVBGrRChwl9H5HYYL7/hNsToNKjIuxcEEDGb3CKiZQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV2PR04MB11590.eurprd04.prod.outlook.com (2603:10a6:150:2c8::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 15:52:45 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 15:52:45 +0000
-Date: Tue, 20 Oct 2026 10:52:32 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
- data-enable-active endpoint property
-Message-ID: <ateOQElYylBqmpdo@SMW015318>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
- <atZ0jECm5BDeROSI@SMW015318>
- <u3zistwpxmtjstw6lqh2qfvr3mrj5ozflxfnrln2qqitjnj6lw@5ea5j3zmonw7>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <u3zistwpxmtjstw6lqh2qfvr3mrj5ozflxfnrln2qqitjnj6lw@5ea5j3zmonw7>
-X-ClientProxiedBy: PH8PR15CA0014.namprd15.prod.outlook.com
- (2603:10b6:510:2d2::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583CC606A323;
+	Tue, 20 Oct 2026 15:53:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 583CC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id 3782B80249;
+	Tue, 20 Oct 2026 15:53:08 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf06.hostedemail.com (Postfix) with ESMTPA id 38CB62000E;
+	Tue, 20 Oct 2026 15:53:05 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,90 +46,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV2PR04MB11590:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6bd3c6c-2acb-4f96-8e0e-08df2ec22edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|19092799006|1800799024|23010399003|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Cx9vlTIoAO4/W+jhLyIOdkHBgipqu0ZBa7LPc7IXGG/uOe+qej5Qr/gHcZg6m7phWrZAyTi4jLt+ZDdL+CPDCoNmZN8JBI+JTcnNDFfuE0wnebGZ4VhnDeDrVc0Z4t50V1dENt9yETkQ7rxNnIjSPiCzepZrj3lHIMlwaXfIiLUKtpBlb8Xx6ETKhAoAVReVQuG/QrnSNEP0MxourrdBmnxsFyBXBzONbuxsCl7bfmq+uGlqbRwaOe7rqpytcFU3NcFM2Pe2AGSSbOuhksSYZukfJPkH2K1i9iNRLjzH39EdC3wkPOw3mp9wX6LA6MqQRCqAU7SLCZ1imNnqmeHsyee9RwS8OkEKkv7Sdg/KlQiyJwpFPk4/hPOj9I1/naDHcYCPE4+RY8uS5TTsesE8u4XKHFPhin8fTEzL0ptcL6C5Yee5dTJX2F0DKVyrMOCq5M2v7R8pcEXewHxIP5cDfQPZcUO/nDBByJzhZV3HT3kZ1aSsJYbiQans4ZF6GiKGrsZ34QrrTldh2ZyOfQyzJYUuDQMdWB4zIVzooPfjURihpthjHA6DSDe1Av75NZ3Pa1Bqq4DTCEuH5kCS8Yhdq8jNeMw27WSgV02Wk4Q8nFPBB6i23m2gkHT8SiAJqtwsjgHvs9hkzDXdDFk83vPuGqr+c0t+3UW+ZxnsLIKJyeM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(1800799024)(23010399003)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cXBsQiA+q8X47v7CcP/YzK9fffChXwDYAT8Pv0d7o1Vnjel6UEDYnOV37J6y?=
- =?us-ascii?Q?szUYS+BWBmhifsXSCYj06nxhXk0axLFmk5lVNJ9+Xf2oYx7XDHYYfwXQWbyR?=
- =?us-ascii?Q?DPjKpRTSi6rFjxpwde+D357QW3obHCmMXsPNOzl/k1OLaKcfz4vK65SgC93D?=
- =?us-ascii?Q?20BoXZXTQ8B6MwIHYw861ccqqehx8XUTaI/5OG9LiZ8oJNB5FMrJSTi0I+A1?=
- =?us-ascii?Q?ArFsv3RHtbQ8vrDc+fCa23k+WQjpOkXRrZe4vFmR2MI2yDvmxNvAoZxnbf/6?=
- =?us-ascii?Q?mrGVAWxcj1lBkOPuFfTWzPudiBKKzgCX4IkoeSYO7Om2zPcBlKCgqOyAYKV5?=
- =?us-ascii?Q?88HxXdfComn0JOv984e4kJDniz7T7wfSj0YPdUQVbvm2IY+hfKKZhnhkcqSE?=
- =?us-ascii?Q?yv9WHT+2NH5DaD/72kOQ1g8VoSJdQDrCL9BiBXpts9fhl0mBCNBVBx57Ost8?=
- =?us-ascii?Q?uvyRUDS/Ur4uzXOqoxyBaaFMvoimHzvfHSoyb/gDoiJvGzywYeYYdAdJVpV0?=
- =?us-ascii?Q?LhV5A8p0soJL/ioCkejkqN0vQRHSAzHOH5kfOKaramGQgrXMF4HH/oXvo3sU?=
- =?us-ascii?Q?jA/Cg3zUytjQBlkST3LB6FMYxh/X+EJVylCqiSe0ITMTEYZCdl+s7/y6AK0F?=
- =?us-ascii?Q?vueFKX0EKZATYxhDXuX4vla+heJGqWSfOd8oXniyCXfpGsrKIFNj+h73qCHO?=
- =?us-ascii?Q?UM2tcRkDs3i+JD4I3q6GYek5YFYHGjrLROo90by9eLSha+ifCklqshoSBRkg?=
- =?us-ascii?Q?0nruHw6jnc3wgRkLV4malsp2tEq2mAty1Ucyq9effHzqfQW3DGpMfNCzqGN+?=
- =?us-ascii?Q?98aE/PcmcPPdtbOQGI5kYdNuX6heK0voADsRAFE6MKH8y98KbinLLtYD3iXY?=
- =?us-ascii?Q?0eB5kbqLy8Q9omAiIn/tMqQyAw/kufwUAHNe52jv38E5WZKol/Z+d/CzmGtN?=
- =?us-ascii?Q?ll3Zfs3El3O2HqvHfGP717EZaNqowhsk1O8jlirVxdO82YazY1cO6+Ghal2b?=
- =?us-ascii?Q?gq6eQNHXmtnrdgHJVrJ2OjIyqhlvdkxtkxh7QP5QuaR1gsldb8W5OTDrh7cd?=
- =?us-ascii?Q?xVF6eXWma7byOwssoRLyCUEH4h0TB+GvusaQU7DAqJECMeUe+chz13QOp1sO?=
- =?us-ascii?Q?cbvFVDAajBi3oYDDp82hkTVECD5cWS7D77RxWP3Ey/jh+yDtghFUaFjGcqk+?=
- =?us-ascii?Q?aszJCHx3xRjL2245+Gg299e3MBTfB3Vsbv+4ClEPIJIGKinPtt0BeGgqef4O?=
- =?us-ascii?Q?YDlheZLEM0X5mUrrptZpBCqxfnTuz8ViMP6T7zNrMPFIHKZG8ezVoipQ/HTe?=
- =?us-ascii?Q?UYNQEsDzj12Hre1Ho7MkF4HZ+n2i6Ze14kp0FlLOBWBWJ0JCn6SogRWFVWvS?=
- =?us-ascii?Q?wh2REoC6wLY3DcePibbe2u/VUo0ind7P6XihBVyyCco7vL/YmAJgK+5UOm6S?=
- =?us-ascii?Q?jDMxm8nlhNy324s9xzur/PBuFnNHr1bgHyeyMslajTWHCn2ghI1qHMSyFG1Q?=
- =?us-ascii?Q?CDmCAoj4iCPy22G6C83cSDbdjGdSiv9vG4T12LBX/VFQOSaaBynfIhgUOmEC?=
- =?us-ascii?Q?vvCeT4nwW1cgsC6q0QBU/GT8yoK1aeOiRHng9XIzRZy6xhU1YldO1JvmSZzT?=
- =?us-ascii?Q?6ilVmm0BciIfy5kfSPedoFNLhOnHwk73WmK9KIxKemR9Q+qt/eiEkF1YCNmx?=
- =?us-ascii?Q?g9InUF/amXQ45YROx0i1ac/w6qK7R5wRPtvXS/j3d7Yd2/Fxgiuzmn8drMW5?=
- =?us-ascii?Q?EmIPx1VCmUCTrnOqqwFQpLMuAkVJaEjBFyQDVg9RDmqmIVQetVMp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6bd3c6c-2acb-4f96-8e0e-08df2ec22edd
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 15:52:45.6756
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tcm+stFk5/VD/owdDxIuUie4MDMhlFCw37kvfpxyLqCzKWAW/yZv7rJ+KBxaT/xHzVtIuGB648qGaXppm6JGr+g49erGdOARPVpxmcLPhVGeZJTJopugW5MJMLnr/Mto
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11590
+Date: Tue, 20 Oct 2026 08:53:04 -0700
+From: Joe Perches <joe@perches.com>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, users@kernel.org, Federico Vaga
+ <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, Carlos Bilbao
+ <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, Alex Shi
+ <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu
+ <dzm91@hust.edu.cn>, Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan
+ <wy@wyuan.org>, workflows@vger.kernel.org, linux-doc@vger.kernel.org, Petr
+ Pavlu <petr.pavlu@suse.com>
+Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
+In-Reply-To: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+Message-ID: <0605a3c99b55124d1be71c9939f636e2@perches.com>
+X-Sender: joe@perches.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: 38CB62000E
+X-Stat-Signature: nm58q1jqzfpj8488pof9huhpymuwd5fu
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX18QG5lVyX5MxC/RKKUymBzbOlQ9yz2yzZM=
+X-HE-Tag: 1792511585-118373
+X-HE-Meta: U2FsdGVkX19ugfTT/zoJi5JEcD1Cug4kdNh+tK9lsl6L2sIhvX+Pxa4xiK0n3mFEVztzaLKRWLpTE6mkSUXSjgpF9MNNDen8J86O4h8+CChScKDFHH4ZXF0obh8W/2Z5iwgs5KBtBRClovGo1GHtVfSaNgylt67DVqhQnqy8ZHcQU5I04O46fB/gppP4sYek+yb7sNeytgdYdAY5UnmAiOV4/TkXJ8r7FNLxaUHoPDLTEDYlb2mUcCgAOR8aD1YHUQJ7pUGvqeu4Pk5msIqqXhJ74CEqQawTM3S7RDEfV3w=
 
-On Tue, Oct 20, 2026 at 08:15:57AM -0300, Leonardo Costa wrote:
-> On Mon, Oct 19, 2026 at 02:50:36PM -0500, Frank Li wrote:
-> > On Mon, Oct 19, 2026 at 07:17:15AM -0300, Leonardo Costa wrote:
-> > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > >
-> > > Some simple bridges, such as a resistor ladder DAC, may include a
-> > > data-enable input that must be driven at a specific polarity.
-> > >
-> > > Read the data-enable-active property from the input endpoint and fill
-> > > the bridge's input bus flags accordingly, so the upstream encoder drives
-> > > DE with the required polarity. The property is applied only if the
-> > > bridge doesn't provide its own timings struct.
-> > >
-> > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > ---
-> >
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
->
-> Hi Frank,
->
-> Sashiko's comment regarding atomic_check was a false positive, but I
-> wasn't too sure about the one regarding devm_kzalloc. It seemed to make
-> sense to me, but I'm not too familiar with this subsystem yet. Do you
-> think this was also a false positive?
+On 2026-10-20 08:35, Konstantin Ryabitsev wrote:
+> LKML has become mostly a firehose of patches that are already going to 
+> a
+> subsystem list. The reason is THE REST: it matches every file in the
+> tree, so get_maintainer.pl adds linux-kernel@vger.kernel.org to every
+> single patch. During the week of Oct 1-7, 2026:
+> 
+>   - LKML carried 13,641 messages (~1,950/day), 90% of which were also
+>     sent to at least one other list;
+>   - with ~2,100 subscribers, that is about 29 million deliveries per
+>     week for LKML alone.
+> 
+> This issue came up during the 2026 Maintainer Summit and the consensus
+> was that "always include linux-kernel for every patch" was never the
+> intent.
 
-I am also not familiar it, it looks make sense to me also.
+That's not actually true.
 
-Frank
+Lkml was the default mailing list and other lists were specific to their 
+interests.
 
->
-> Best regards,
-> Leonardo
+> This series makes THE REST a fallback as initially intended: it is only
+> added for a file when no other matching MAINTAINERS section provides a
+> mailing list that get_maintainer.pl would actually output for it.
+
+> Patch 2 updates submitting-patches.rst, which currently tells 
+> submitters
+> to send every patch to LKML.
+
+Which was the documented and then desired behavior.
+
+No worries, things change.
+
+I too stopped subscribing to lkml a long while ago.
