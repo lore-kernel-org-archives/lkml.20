@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486083;
-	b=K85JxbNxogYDCdcJFPeMj3pJ05xsvBuyhI2AOVYxudbqm0usH8NTrz34/XXhk0RH8iCM
-	 umMGWOuC9BXlteh25I+BBKFMgpHCGbTYheamPvBdotr1laF75uRu3unrB2rL1V6e4lUsy
-	 l26Q0Ok+14k809q+jr/OLQFNsmqhqdQavw+GUIAsCiMQEWX64REqJRwh9hRzwMfNSjAwk
-	 K5IzGA4/iFkxd6ngH8EJpzRxkxCyauCsWxn1LuY0Xkpu02w3pDtlggAXtC0h5aUfE31ZL
-	 wGXUMFwGgdBRkuRoQK0SRuWSdD9AONc+uKzfPjiDIT0vQv2hp/rpeJvM7MDUmvrDA7A==
+	t=1792486086;
+	b=yBWQoXkkiZIwzauPnyqCj2AGnep4YpVV1HH0Swp+So9+6ydt6CWJGjuDTMC5jS60KK0Y
+	 W0X173c9pnXNzFeiJ2uvknsyl6ONDSbXQ2FzgTJ+/ASDbezRjsFXndOK5pgcCvXIoBFf8
+	 9/AfXkh47CQgGsZ7L7e7T5Ea3oOcJXgMGNfD/kp1apNEpNFeUK1oq+n7qjckFNig8Dqtw
+	 m61Un0brFmbIcxZw43ZIXruQovMcf+MtwE4Kk4DqFL9fTmasXj81wIP+DiGnRbsyWcNxp
+	 qJm+zzKOCr72rcn8VT3T/5oR5E+S8x0965p4mNajAZrYU+9wUXug4ginOK2oFvf8Q/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486086;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-Originating-IP:X-CM-SenderInfo;
-	bh=pCYVLnKlwWFu2dTmmG/DqjRyyF+oOB7q7tn5CcP2eok=;
-	b=d3g47xQQWF4Tek59NAVVxyDIGiJgcGJm86R4hnc4cJtHBaRaTfwHBZogV7SztgGN/4V4
-	 cUX4ocay4e7gO9QjNaPhXWeEUoVWCArzOlOY5pnxrvQpSs3LHOpE1CsInij1pAM2JzKSc
-	 Dpvhh613w57wKoEHvsv4JgtdTMgdpH0DD0TH4k2GSc51CKqCYq1/pnv86Yx69b7+muFJl
-	 h4C4qmA9stDpgWYYiPbN5UuUhS0WzczrPcEvRsWLM3ZIof9cb6/C8fkibQpCJncVm5qpf
-	 EMCiKa5Mtm29ZivnYadJNziuPj6ILjOcaE/ZZsX+RNf7kj0bIPjiEmxS+KrMP22OLBQ==
+	bh=aXENEXjwtgZ7tLM7yqI+DBuwXtRjLS7fmgJEmi4RChg=;
+	b=C1T97zMme6kgxiExqBOXSVmbr2Jx7pn+C5ITW+tY/Uhka14+bTgSzmUMM+Y0D3aUouTO
+	 MppZxYoZuUxAADVjCLMM+lC6Md+Yw5FcfTS8NfLjKY41063HqyLzMLwWNeUu3AjYyqorT
+	 0N+qtqxmJfYlEKNh7XBgSEZmQBQ+Z++D3InnTR9mxss+jJdTPRpDLSmDZCgbvxSkZWiDt
+	 PU/y0j6wz73bTkwp/b/g2W0m3EDa3Dw13Lk3cOUtgYaCVwiCm7cPRYAZHdSrg7SSeV6hS
+	 2+riIA3Vn/W0u4idSXLSRCZQtu/f/EdaFoKRpZDDCkf2iq1VJBNWRyKcyVnrpISvSNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iveJbtMX;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="I/nIuIq8";
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62DE60A2639
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B62DE60A2639
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DF560A382D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:48:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4DF560A382D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iveJbtMX
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I/nIuIq8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=pC
-	YVLnKlwWFu2dTmmG/DqjRyyF+oOB7q7tn5CcP2eok=; b=iveJbtMXDThrqSv6tt
-	xQiw5qnkwq9X8stE1rAnTulT2joknZgoJpQsUtUO67ksQBTjKAPuG1qhOgI5DHcG
-	l1JhthOJe63RqX3kLfMKkyESuNM35ncHCZv6lW60aEhoOMBG2vpx1ZYKGrMTJy1r
-	AgL8W70hvS9DEvQviCU2xXiXw=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=aX
+	ENEXjwtgZ7tLM7yqI+DBuwXtRjLS7fmgJEmi4RChg=; b=I/nIuIq8ZQ+UtIu2Kp
+	o0yd3fdrQfHRoQ88PcTdmweukzGW9FLG/6gIgnkGSnzzP8jMQZ/DWv7Jyhx4EqGg
+	KNa+aXKSVJf/5EbJXX4QhB4z67kCkkKdmTwoIn3eBAwpJadHVFFOIzKdSAjQTZpL
+	vWHmLVqLxk5LGBvlkFx1deoBM=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S2;
-	Tue, 20 Oct 2026 16:47:47 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S8;
+	Tue, 20 Oct 2026 16:47:52 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -50,9 +50,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	wangxuewen@kylinos.cn,
 	wudandan@kylinos.cn
-Subject: [PATCH v4 24/31] ntfs: serialize and report export parent reconstruction errors
-Date: Tue, 20 Oct 2026 16:44:14 +0800
-Message-ID: <20261020084421.2196486-25-liubaolin12138@163.com>
+Subject: [PATCH v4 30/31] ntfs: report reparse and object ID metadata errors
+Date: Tue, 20 Oct 2026 16:44:20 +0800
+Message-ID: <20261020084421.2196486-31-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
 References: <20261020084421.2196486-1-liubaolin12138@163.com>
@@ -66,130 +66,319 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWr4DCw15XF1DAF18Wr4xtFb_yoWrZF4xpF
-	y3J3sxtrZ8JFyfurnayay5Z34Sk34fGrWUWrn3K3WSyw4qqrn29F1ftFyj9r1FkrWrJ34Y
-	qw4jga43C3yUXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1uWLUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RRIE2rXKrR19QAA3F
+X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S8
+X-Coremail-Antispam: 1Uf129KBjvJXoWfGw4kCFW3Zr1DJrW7WrykZrb_yoWDWrW5pF
+	9rG3s7t3yxtr1I9392ya1UZr13Kw1Ig3yUGrWfA3WSy3WYvw10yF42qryFgryFkrW8J3sx
+	JF45J3y5AF4UXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzq2NUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RlJFGrXKrl27AAA3Z
 
 From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-Exportfs calls ntfs_get_parent() without the child inode lock. Hold the
-child's mrec_lock across FILE_NAME lookup and parent loading to stabilize
-corruption checks against rename and rmdir.
+Report missing required reparse/ObjectID indexes or entries, short stored
+values and missing reparse attributes. Use EFSCORRUPTED for corruption
+while preserving read errors. Keep new zero-tag reparse placeholders
+valid before index insertion.
 
-Report an unused parent as EFSCORRUPTED only for a linked, non-deleting
-child. Report missing required or malformed FILE_NAME attributes, while
-continuing past malformed candidates as before. Release the lock before
-d_obtain_alias().
+Return error pointers from reparse-index lookup to preserve specific
+errors instead of replacing them with EINVAL. Retain best-effort handling
+of index-removal lookup failures.
 
-Preserve ordinary stale-handle behavior. NTFS returns EFSCORRUPTED for a
-confirmed corrupt parent reference; generic open_by_handle_at() decoding
-still converts that error to ESTALE.
+Report failed reparse writes when replacing existing data or after a
+partial write, and failures in the existing index-insertion rollback.
+Keep the initiating error separate from cleanup errors.
 
 Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- fs/ntfs/namei.c | 43 ++++++++++++++++++++++++++++++++++---------
- 1 file changed, 34 insertions(+), 9 deletions(-)
+ fs/ntfs/object_id.c | 40 +++++++++++++++-----
+ fs/ntfs/reparse.c   | 89 ++++++++++++++++++++++++++++++++++++---------
+ 2 files changed, 101 insertions(+), 28 deletions(-)
 
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 47e52270e8ee..a64ab7881052 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -1730,7 +1730,8 @@ const struct inode_operations ntfs_dir_inode_ops = {
-  * fs/exportfs/expfs.c::find_exported_dentry() which in turn is called from the
-  * default ->decode_fh() which is export_decode_fh() in the same file.
+diff --git a/fs/ntfs/object_id.c b/fs/ntfs/object_id.c
+index 89002c3759df..2a1b0f6910fc 100644
+--- a/fs/ntfs/object_id.c
++++ b/fs/ntfs/object_id.c
+@@ -37,15 +37,16 @@ __le16 objid_index_name[] = {cpu_to_le16('$'), cpu_to_le16('O'), 0};
+ 
+ /*
+  * open_object_id_index - Open the $Extend/$ObjId file and its index
+- * @vol: NTFS volume structure
++ * @ni: NTFS inode with an existing object ID attribute
   *
-- * Note: ntfs_get_parent() is called with @d_inode(child_dent)->i_mutex down.
-+ * Serialize the file name lookup and parent load against rename and rmdir
-+ * with the child's mrec_lock; exportfs does not hold the child's inode lock.
+  * Opens the $ObjId system file and retrieves its index context.
   *
-  * Return the dentry of the parent directory on success or the error code on
-  * error (IS_ERR() is true).
-@@ -1738,6 +1739,7 @@ const struct inode_operations ntfs_dir_inode_ops = {
- static struct dentry *ntfs_get_parent(struct dentry *child_dent)
+  * Return: The index context if opened successfully, or NULL if an error
+  *	   occurred.
+  */
+-static struct ntfs_index_context *open_object_id_index(struct ntfs_volume *vol)
++static struct ntfs_index_context *open_object_id_index(struct ntfs_inode *ni)
  {
- 	struct inode *vi = d_inode(child_dent);
-+	struct inode *parent;
- 	struct ntfs_inode *ni = NTFS_I(vi);
- 	struct mft_record *mrec;
- 	struct ntfs_attr_search_ctx *ctx;
-@@ -1747,15 +1749,20 @@ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
- 	int err;
- 
- 	ntfs_debug("Entering for inode 0x%llx.", ni->mft_no);
-+	mutex_lock(&ni->mrec_lock);
- 	/* Get the mft record of the inode belonging to the child dentry. */
- 	mrec = map_mft_record(ni);
--	if (IS_ERR(mrec))
--		return ERR_CAST(mrec);
-+	if (IS_ERR(mrec)) {
-+		err = PTR_ERR(mrec);
-+		goto unlock_err;
-+	}
- 	/* Find the first file name attribute in the mft record. */
- 	ctx = ntfs_attr_get_search_ctx(ni, mrec);
- 	if (IS_ERR(ctx)) {
- 		unmap_mft_record(ni);
--		return ERR_PTR(PTR_ERR(ctx));
-+		err = PTR_ERR(ctx);
-+		ctx = NULL;
-+		goto unlock_err;
++	struct ntfs_volume *vol = ni->vol;
+ 	struct inode *dir_vi, *vi;
+ 	struct ntfs_inode *dir_ni;
+ 	struct ntfs_index_context *xo = NULL;
+@@ -62,6 +63,8 @@ static struct ntfs_index_context *open_object_id_index(struct ntfs_volume *vol)
+ 	/* do not use path_name_to inode - could reopen root */
+ 	dir_vi = ntfs_iget(vol->sb, FILE_Extend);
+ 	if (IS_ERR(dir_vi)) {
++		if (vol->major_ver >= 3 && PTR_ERR(dir_vi) == -ENOENT)
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		kmem_cache_free(ntfs_name_cache, uname);
+ 		return NULL;
  	}
- try_next:
- 	err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, CASE_SENSITIVE, 0, NULL,
-@@ -1763,27 +1770,45 @@ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
- 	if (unlikely(err)) {
- 		ntfs_attr_put_search_ctx(ctx);
- 		unmap_mft_record(ni);
--		if (err == -ENOENT)
-+		if (err == -ENOENT && vi->i_nlink) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
- 			ntfs_error(vi->i_sb,
- 				   "Inode 0x%llx does not have a file name attribute.  Run chkdsk.",
- 				   ni->mft_no);
--		return ERR_PTR(err);
-+		}
-+		goto unlock_err;
- 	}
- 	attr = ctx->attr;
--	if (unlikely(attr->non_resident))
-+	if (unlikely(attr->non_resident)) {
-+		ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
- 		goto try_next;
+@@ -72,12 +75,19 @@ static struct ntfs_index_context *open_object_id_index(struct ntfs_volume *vol)
+ 	mutex_unlock(&dir_ni->mrec_lock);
+ 	kfree(name);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+-	if (IS_ERR_MREF(mref))
++	if (IS_ERR_MREF(mref)) {
++		if (MREF_ERR(mref) == -ENOENT)
++			ntfs_report_file_metadata_error(VFS_I(ni),
++							-EFSCORRUPTED);
+ 		goto put_dir_vi;
 +	}
- 	fn = (struct file_name_attr *)((u8 *)attr +
- 			le16_to_cpu(attr->data.resident.value_offset));
- 	if (unlikely((u8 *)fn + le32_to_cpu(attr->data.resident.value_length) >
--	    (u8 *)attr + le32_to_cpu(attr->length)))
-+	    (u8 *)attr + le32_to_cpu(attr->length))) {
-+		ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
- 		goto try_next;
-+	}
- 	/* Get the inode number of the parent directory. */
- 	parent_ino = MREF_LE(fn->parent_directory);
- 	/* Release the search context and the mft record of the child. */
- 	ntfs_attr_put_search_ctx(ctx);
- 	unmap_mft_record(ni);
  
--	return d_obtain_alias(ntfs_iget(vi->i_sb, parent_ino));
-+	parent = ntfs_iget(vi->i_sb, parent_ino);
-+	if (IS_ERR(parent) && PTR_ERR(parent) == -ENOENT &&
-+	    vi->i_nlink && !NInoBeingDeleted(ni)) {
-+		ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
-+		parent = ERR_PTR(-EFSCORRUPTED);
+ 	vi = ntfs_iget(vol->sb, MREF(mref));
+-	if (IS_ERR(vi))
++	if (IS_ERR(vi)) {
++		if (PTR_ERR(vi) == -ENOENT)
++			ntfs_report_file_metadata_error(dir_vi, -EFSCORRUPTED);
+ 		goto put_dir_vi;
 +	}
-+	mutex_unlock(&ni->mrec_lock);
-+	return d_obtain_alias(parent);
-+
-+unlock_err:
-+	mutex_unlock(&ni->mrec_lock);
-+	return ERR_PTR(err);
+ 
+ 	xo = ntfs_index_ctx_get(NTFS_I(vi), objid_index_name, 2);
+ 	if (!xo)
+@@ -101,18 +111,28 @@ static int remove_object_id_index(struct ntfs_inode *ni, struct ntfs_index_conte
+ {
+ 	struct object_id_index_key key = {0};
+ 	s64 size;
++	int err;
+ 
+-	if (ni->data_size == 0)
+-		return -ENODATA;
++	if (ni->data_size == 0) {
++		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
++		return -EFSCORRUPTED;
++	}
+ 
+ 	/* read the existing object id attribute */
+ 	size = ntfs_inode_attr_pread(VFS_I(ni), 0, sizeof(struct guid),
+ 				     (char *)&key);
+-	if (size != sizeof(struct guid))
+-		return -ENODATA;
++	if (size != sizeof(struct guid)) {
++		if (size >= 0 || size == -EIO)
++			ntfs_report_file_metadata_error(VFS_I(ni),
++							size < 0 ? (int)size : -EFSCORRUPTED);
++		return size < 0 ? size : -EFSCORRUPTED;
++	}
+ 
+-	if (!ntfs_index_lookup(&key, sizeof(struct object_id_index_key), xo))
++	err = ntfs_index_lookup(&key, sizeof(struct object_id_index_key), xo);
++	if (!err)
+ 		return ntfs_index_rm(xo);
++	if (err == -ENOENT)
++		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
+ 
+ 	return 0;
+ }
+@@ -139,7 +159,7 @@ int ntfs_delete_object_id_index(struct ntfs_inode *ni)
+ 	/*
+ 	 * read the existing object id and un-index it
+ 	 */
+-	xo = open_object_id_index(ni->vol);
++	xo = open_object_id_index(ni);
+ 	if (xo) {
+ 		xoni = xo->idx_ni;
+ 		mutex_lock_nested(&xoni->mrec_lock, NTFS_EXTEND_MUTEX_PARENT);
+diff --git a/fs/ntfs/reparse.c b/fs/ntfs/reparse.c
+index c05768a49440..1d076ecc2f9a 100644
+--- a/fs/ntfs/reparse.c
++++ b/fs/ntfs/reparse.c
+@@ -598,26 +598,36 @@ static int remove_reparse_index(struct inode *rp, struct ntfs_index_context *xr,
+ 
+ 	/* read the existing reparse_tag */
+ 	size = ntfs_inode_attr_pread(rp, 0, 4, (char *)preparse_tag);
+-	if (size != 4)
+-		return -ENODATA;
++	if (size != 4) {
++		if (size >= 0 || size == -EIO)
++			ntfs_report_file_metadata_error(rp,
++							size < 0 ? (int)size : -EFSCORRUPTED);
++		return size < 0 ? size : -EFSCORRUPTED;
++	}
+ 
+ 	file_id_cpu = MK_MREF(ni->mft_no, ni->seq_no);
+ 	file_id = cpu_to_le64(file_id_cpu);
+ 	key.reparse_tag = *preparse_tag;
+ 	/* danger on processors which require proper alignment! */
+ 	memcpy(&key.file_id, &file_id, 8);
+-	if (!ntfs_index_lookup(&key, sizeof(struct reparse_index_key), xr)) {
++	err = ntfs_index_lookup(&key, sizeof(struct reparse_index_key), xr);
++	if (!err) {
+ 		err = ntfs_index_rm(xr);
+ 		if (err)
+ 			ret = err;
++	} else if (err == -ENOENT && *preparse_tag) {
++		/* A newly created attribute has a zero tag and is not indexed yet. */
++		ntfs_report_file_metadata_error(rp, -EFSCORRUPTED);
+ 	}
+ 	return ret;
  }
  
- static struct inode *ntfs_nfs_get_inode(struct super_block *sb,
+ /*
+  * Open the $Extend/$Reparse file and its index
++ * @inode is non-NULL when existing reparse metadata requires the index.
+  */
+-static struct ntfs_index_context *open_reparse_index(struct ntfs_volume *vol)
++static struct ntfs_index_context *open_reparse_index(struct ntfs_volume *vol,
++						     struct inode *inode)
+ {
+ 	struct ntfs_index_context *xr = NULL;
+ 	u64 mref;
+@@ -628,14 +638,19 @@ static struct ntfs_index_context *open_reparse_index(struct ntfs_volume *vol)
+ 
+ 	/* do not use path_name_to inode - could reopen root */
+ 	dir_vi = ntfs_iget(vol->sb, FILE_Extend);
+-	if (IS_ERR(dir_vi))
+-		return NULL;
++	if (IS_ERR(dir_vi)) {
++		if (vol->major_ver >= 3 && PTR_ERR(dir_vi) == -ENOENT) {
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++			dir_vi = ERR_PTR(-EFSCORRUPTED);
++		}
++		return ERR_CAST(dir_vi);
++	}
+ 
+ 	uname_len = ntfs_nlstoucs(vol, "$Reparse", 8, &uname,
+ 				  NTFS_MAX_NAME_LEN);
+ 	if (uname_len < 0) {
+ 		iput(dir_vi);
+-		return NULL;
++		return ERR_PTR(uname_len);
+ 	}
+ 
+ 	mutex_lock_nested(&NTFS_I(dir_vi)->mrec_lock, NTFS_EXTEND_MUTEX_PARENT);
+@@ -644,16 +659,30 @@ static struct ntfs_index_context *open_reparse_index(struct ntfs_volume *vol)
+ 	mutex_unlock(&NTFS_I(dir_vi)->mrec_lock);
+ 	kfree(name);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+-	if (IS_ERR_MREF(mref))
++	if (IS_ERR_MREF(mref)) {
++		if (MREF_ERR(mref) == -ENOENT && inode) {
++			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
++			mref = ERR_MREF(-EFSCORRUPTED);
++		}
++		xr = ERR_PTR(MREF_ERR(mref));
+ 		goto put_dir_vi;
++	}
+ 
+ 	vi = ntfs_iget(vol->sb, MREF(mref));
+-	if (IS_ERR(vi))
++	if (IS_ERR(vi)) {
++		if (PTR_ERR(vi) == -ENOENT) {
++			ntfs_report_file_metadata_error(dir_vi, -EFSCORRUPTED);
++			vi = ERR_PTR(-EFSCORRUPTED);
++		}
++		xr = ERR_CAST(vi);
+ 		goto put_dir_vi;
++	}
+ 
+ 	xr = ntfs_index_ctx_get(NTFS_I(vi), reparse_index_name, 2);
+-	if (!xr)
++	if (!xr) {
+ 		iput(vi);
++		xr = ERR_PTR(-ENOMEM);
++	}
+ put_dir_vi:
+ 	iput(dir_vi);
+ 	return xr;
+@@ -678,8 +707,14 @@ static int update_reparse_data(struct ntfs_inode *ni, struct ntfs_index_context
+ 	struct ntfs_inode *rp_ni;
+ 
+ 	rp_inode = ntfs_attr_iget(VFS_I(ni), AT_REPARSE_POINT, AT_UNNAMED, 0);
+-	if (IS_ERR(rp_inode))
++	if (IS_ERR(rp_inode)) {
++		if (PTR_ERR(rp_inode) == -ENOENT) {
++			ntfs_report_file_metadata_error(VFS_I(ni),
++							-EFSCORRUPTED);
++			rp_inode = ERR_PTR(-EFSCORRUPTED);
++		}
+ 		return PTR_ERR(rp_inode);
++	}
+ 	rp_ni = NTFS_I(rp_inode);
+ 
+ 	/* remove the existing reparse data */
+@@ -693,19 +728,26 @@ static int update_reparse_data(struct ntfs_inode *ni, struct ntfs_index_context
+ 	written = ntfs_inode_attr_pwrite(rp_inode, 0, size, value, false);
+ 	if (written != size) {
+ 		ntfs_error(ni->vol->sb, "Failed to update reparse data\n");
+-		err = -EIO;
++		if (oldsize > 0 || written > 0)
++			ntfs_report_file_metadata_error(VFS_I(ni),
++							written < 0 ? (int)written : -EIO);
++		err = written < 0 ? written : -EIO;
+ 		goto put_rp_inode;
+ 	}
+ 
+ 	err = set_reparse_index(ni, xr,
+ 				((const struct reparse_point *)value)->reparse_tag);
+ 	if (err && oldsize > 0) {
++		int rollback_err;
++
+ 		/*
+ 		 * If cannot index, try to remove the reparse
+ 		 * data and log the error. There will be an
+ 		 * inconsistency if removal fails.
+ 		 */
+-		ntfs_attr_rm(rp_ni);
++		rollback_err = ntfs_attr_rm(rp_ni);
++		if (rollback_err)
++			ntfs_report_file_metadata_error(VFS_I(ni), rollback_err);
+ 		ntfs_error(ni->vol->sb,
+ 			   "Failed to index reparse data. Possible corruption.\n");
+ 	}
+@@ -732,14 +774,24 @@ int ntfs_delete_reparse_index(struct ntfs_inode *ni)
+ 		return 0;
+ 
+ 	vi = ntfs_attr_iget(VFS_I(ni), AT_REPARSE_POINT, AT_UNNAMED, 0);
+-	if (IS_ERR(vi))
++	if (IS_ERR(vi)) {
++		if (PTR_ERR(vi) == -ENOENT) {
++			ntfs_report_file_metadata_error(VFS_I(ni),
++							-EFSCORRUPTED);
++			vi = ERR_PTR(-EFSCORRUPTED);
++		}
+ 		return PTR_ERR(vi);
++	}
+ 
+ 	/*
+ 	 * read the existing reparse data (the tag is enough)
+ 	 * and un-index it
+ 	 */
+-	xr = open_reparse_index(ni->vol);
++	xr = open_reparse_index(ni->vol, VFS_I(ni));
++	if (IS_ERR(xr)) {
++		err = PTR_ERR(xr);
++		goto out;
++	}
+ 	if (xr) {
+ 		xrni = xr->idx_ni;
+ 		mutex_lock_nested(&xrni->mrec_lock, NTFS_EXTEND_MUTEX_PARENT);
+@@ -785,9 +837,10 @@ static int ntfs_set_ntfs_reparse_data(struct ntfs_inode *ni, char *value, size_t
+ 	if (valid_reparse_data(ni, (const struct reparse_point *)value, size) == false)
+ 		return -EINVAL;
+ 
+-	xr = open_reparse_index(ni->vol);
+-	if (!xr)
+-		return -EINVAL;
++	xr = open_reparse_index(ni->vol,
++				ni->flags & FILE_ATTR_REPARSE_POINT ? VFS_I(ni) : NULL);
++	if (IS_ERR(xr))
++		return PTR_ERR(xr);
+ 	xrni = xr->idx_ni;
+ 
+ 	if (!ntfs_attr_exist(ni, AT_REPARSE_POINT, AT_UNNAMED, 0)) {
 -- 
 2.51.0
 
