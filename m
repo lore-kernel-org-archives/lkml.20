@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792474189;
-	b=YgBcGbThpWeYKZe80Xd5tfiE0u+b4g+r5t6UxabqYrAo/ZxVa+TrU65uGtU8BCrkCSwy
-	 aOeMUTgDiik9Fyn02THthTAJcs0xHbN6CbwiI28dIGk3o82sEb4c4eppTot9HrYX6cnvd
-	 GlGsjTfB+BMP3X31nIfNRA9m9n7iCn8apc6FEO62SAnlWN1Y2BHdpjyY2A+ko0CD7HIK4
-	 /QQOSBCE7DMIR/d+qoXUptMU+9OJHNO6kSZS0gj80oGXFmHrdqyJkXbJfj970Rdbd+5Hi
-	 DMLYJgBapSTigNu4pvhni8u3lI1poVKVLygti3pleIx4CGyupRe1D65cjqaTFuCm85A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474189;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
-	b=OES64nwnZkkyMFv8BRA3+BQJE5dmFwJ/LUHbvfIbueium2+W4Rq53PEiztg73oQYb5c3
-	 JYG/VpEwSLRhXkfp+RVJOezJH15msJ9zrY+UBo7o7te2Mqa2UJAXxOnthIHIgIVxL4OS6
-	 zTx4zvM6MBLTucQ6D1FyjQqbgMHewYNT73glXde5G8rYgg1W5uAncelNcUwPvMR3aeB4x
-	 l4eeTKqFxz0R6UYnZm6bJRv5Ok55rDsL9Olg4rYA1/cWX+/mFAVROcGXntvOKqIRsMGNO
-	 HHqP1PUbXq6hjgFKO7RkaOo6S27+5cdzUqTVJxDzQyy00hTsGwFOnU0LyL8hscABSBA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5+kTXHa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792474353;
+	b=AavsjSnsJIJC94R/bSIu7n5Dm2fV/z/4TSDdbBtpfPzn57Zn9agMh7xR45qyEIprbMIj
+	 IXDZEhyE55Ilr+ZgVTle7TETb/Hrs1HjxDAnDKMi9qXXs5x1i7lzjaK10y+pRNx4DmAqu
+	 vS6HFrmy6ydfUeiYjtaJY0PoWtKLgLGVbkSprxEBgmCWnIjaEvJK7IuDR5E5PYwOOPN5A
+	 q51rsQufg5oerw8JRhP5Yktixq1ts2g6vp3nATAVW3XZJ/Il2+43Lo9FGoFJqEyYdwMe8
+	 llOSVungRHq+UB4uq/3BMMtTdMf+EuJr8eOn7v6rEVMmFMq8ExpD6rrypQ6XyadgpQA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474353;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KOulGVMaguEwuPmjIvDB0lBPaaawA/BwOi5X8lfpRRk=;
+	b=ujteSU46fMGtkgsrdW1WD8DOZycqAQgmx8l7x4EhIRf/cDDF/4xKMp6Ua2eWbXlZGjem
+	 Osv9ZBg16sEx0bu/uUbZ/tvhBU08xltrR9c7Lu+7M34XC1df2uKNW1r+6SMmX4bYc2NCX
+	 Bt7kzei3dU9TsGe/BBAmhflj5OvXfzReI3sVrRzhWioFJ9f3f7if6bNHHR2FCqMAaqZa8
+	 O6mVp7R+DwjADQSPmqGdYA3W+090nuYkbTi6T3wUKRTIXQUn935NXaK0euprxbOlB5Tqk
+	 tq7ufJHVJRMb9IVP5IjKBCA8/M9PXC89jIaYVj/slzp1Xsk4R2NCPK3FZ8hAC2AuGcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNEWb9e8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF37606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:29:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEF37606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FD2606A319;
+	Tue, 20 Oct 2026 05:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5+kTXHa
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f079a63b8so260688185a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:29:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792474187; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m4LSY8jsBoOPnsbyCRpCtClpKayeT2npWDvADoJXp7GyXu9+5BqnHkqhNlCOh2Z2RU
-         BEztXdDK1zLjX6RQohXDTDmTYkuMdolQk4xYaM1BySLiBp5P2MOoVLtWYy+G+sFRo/HM
-         JkzvW9GYpd5ykIQKcXG5QsWXn1FeuaVaovstNfpYE3qVKjULacAyn+/v1VGIKO00wpKe
-         QqR7hDMOSfDMWFkMN2B2+ubueY8ffPqOvSCzGOIEHGdskJ5U2TeuLtWJKkHV8+unGlBG
-         MsVj3Fj9rmmLlWjLxKWLjwtPa5L6x3bRLhSCInOWs5r42UvkjLkEzDk8FqMn3VrmlcT8
-         YHuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
-        fh=rPwvCcqYzJTaoWGp1e5vu3OShr+1d2sAmvbICsH+jXM=;
-        b=kWMg6/mASj8r747VhYpANyUaU8T/P0G3srsH6nXeZwdtjn03fbAXadnQyfAn9h5kAB
-         TfsjKDkNhnRMrBMV/q/5zVai9DPPce8QVYeiIfJ59dPPdyn3vfD50Ni3ceDbbkczZVNr
-         sCohb1Yv0sYCkRmNLPHFqPw0qmFQCOI3qtgyjuE05f2TJtlHKik/7qDnF4A+flF/RuvG
-         2pdRzVy24ZlhgknAVa2gYr0StV4HOxUrAZrNZK1vo9a14HK4epTB/GGtaQGh8lUiuyx5
-         Y27y9/Ro0JHF5IWHKdXHqCSIia9E+f5rWvrDlE/hQCNTd1SJMTSb8aUs5Y0/7lTOJPzJ
-         KgYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792474187; x=1793078987; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
-        b=n5+kTXHasuicYviffMU8HhNzFbnSLJolY/w0BEX+uxjFA8ePrLtwQdWpizr6WVFfi8
-         LrAUqDxcEqbkqllSHdwLmdrsIeN/YqHqeQL/dT5rcO5lHroYB9rjLnqdKteK8FM4Nw4J
-         jtWtLrcNEHHhk+PZhLmWUhYLScXdnxAFoTVhBriwUkd8XBLMGdRHmSwBOAZ6GY2XXQbb
-         vMuRoidzoU/Gd0jpucqoqETdJBcoRxdgiq75jbheoXtWZCAEOfmSaIiHvYzWJ0NflAvW
-         CNcY3w3Xafer+Cp4BkAZxjqAs+pA74VpWOCc6zbmG72CMDCgzpfc86I++Wk7JoIoEg5e
-         hvIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792474187; x=1793078987;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
-        b=Gk3B22jec6ipMXUakvXTTmyilsLdEba4oHV+VbMHXthwBmiLjGl3Fo2vkrwUuICsd3
-         53c6A2fowtmHy4mCbVuyhFnoY/UTbE5LAnRwMKExckaunMTA/Qgegyot6k8aekQ2TriZ
-         +48W/HAh+6Z0nD0EgWfMP5nJPzpRJVRksk/3gcj/T8w1SDTQ+qvnNA0xcUCRpnNqfT2/
-         MKenY4Aafu1IT1xgztCauxGL1qHpU+BCyXfuSeK0Ut678dwhD5arkYYhXk35c8xokK7Q
-         1xPPsMPBdZqA97VVWbgzw/vk/GON3TIJ9xMdwr7gTy9YJEiF2xtbUX4UJKVSkBQNfBJM
-         tb6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByjknovDWzZj1hK6STTxhHNGj65l0bxfKsL1C8SDFUceigOBU37hk1Bdz7nXxNIZQuCoM1IRBv2zcSOOuA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaAvYYGWDldyK3oSFMKsrQ2Hr/tb0P77sIKenneBYAAKEjlHBS
-	oMQ4Dooq6dj8qGM1DDqyJzlYRYSmmjUOe1kZcs35xunBjRMOUdB+b0M6uibYfE64CMsIM2FigEh
-	uKQBybrlGj6VoE6LPA6ql8R7BGc/MC+4=
-X-Gm-Gg: AYBFou1uJelvx0oZg9DH9IjLWv1FzavTeU5e9Wf48KSo/rdQ7lSfmt6hWD53DyccbcJ
-	84LztBUbzTGqbKCYmkPFS1R8hCF/BQkoRw4RUxV0Jyx+kOAezLDtM4k38txT94ZqGq6Dbrx8Qgd
-	BhauxZaKn01YrwhYMrlvARuc+gbXMfgrxItBRvk8w1s6/NgtYgVVO3slhYYovXkbM7Z3UA+6vEf
-	CzZr1fqPhyAqwuwXF5oAm45hUAxPHwIHcIyr2zvG4JItsFzM+RRtoimFSlcrgYVW15VhOtGYwKl
-	ZzFM+OiHTXhcU90Obj3LXhBjly4FxgVGg0iPoZj2N0AuA9B31cWs62ysEX4dVOeAB0B1YE4ukRh
-	W9nBt0hgKaaPUdiTJlplL4W5794ejNsq4j105Ig1lEYXlCKLzPLwn+E91yo+xVZGK/hG1s34A95
-	p0QVWK0/vJ4aA=
-X-Received: by 2002:a05:620a:3950:b0:93f:2463:f78f with SMTP id
- af79cd13be357-93f29d81cb5mr1631822685a.62.1792474187518; Mon, 19 Oct 2026
- 22:29:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNEWb9e8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0532B1F000C4;
+	Tue, 20 Oct 2026 05:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792474352;
+	bh=KOulGVMaguEwuPmjIvDB0lBPaaawA/BwOi5X8lfpRRk=;
+	h=From:To:Cc:Subject:Date;
+	b=kNEWb9e8ZCnLIsoikUEWNu2tWCbMiqa3oz9wt9F48SobTF/rdxgDlU/slFGMCQyRw
+	 cy8e10qrcY8Ow9/V4WZKh75kbCZ1UZrijt7JxKBij3/ylvuL7rIq4D6eTU6hy6EaU4
+	 nFCBbDxLC18wn84fEKQzjuob7BDMgwyHt+y/nuovqQjZEJQy4Q1H9dAqUUNSSFLSxJ
+	 07gBNa2lxo25BA8Vj9Ao5UtOOo+g7DU0BHXvIotK5vpfDjXdECa/PrdrKPoO3trYzW
+	 lCydXoALOSduPnbqfcHvGQ99HTAMYKW1wdG8m30haF0Bta3r2CuTY19h8LOTL1D2TZ
+	 Ar+u+p2qVycZg==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH] perf bpf-filter: Fix memory leak on bpf_link
+Date: Mon, 19 Oct 2026 22:32:26 -0700
+Message-ID: <20261020053226.55936-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,99 +62,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019231243.802569-1-austin.linux@gmail.com> <6bc4e237-353b-462f-b388-3844821dd67f@kernel.dk>
-In-Reply-To: <6bc4e237-353b-462f-b388-3844821dd67f@kernel.dk>
-From: Austin Schuh <austin.linux@gmail.com>
-Date: Mon, 19 Oct 2026 22:29:36 -0700
-X-Gm-Features: AclHuK-3C03Y2foM4nH1_Fagl2dH4K7q2dr8npdWhOWTe2qyEiaSppZtHzBVMF8
-Message-ID: <CABsbf=Gnw0+u80oebHZf24m94YSHDxFtYY2-Bq_=bMfvqUUvkg@mail.gmail.com>
-Subject: Re: [PATCH] io_uring/futex: return a wait's data to the cache when it
- fails to arm
-To: Jens Axboe <axboe@kernel.dk>
-Cc: peterz@infradead.org, io-uring@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 5:54=E2=80=AFPM Jens Axboe <axboe@kernel.dk> wrote:
-> Patches like this have been posted before, and my question is
-> always "is this a common case?"? Reading this:
->
-> > Notes:
-> >     Based on for-7.4/io_uring (5b01d5955ac2).  Built for arm64 with
-> >     PREEMPT_RT, W=3D1, no new warnings.  The numbers are from an equiva=
-lent
-> >     change on 6.18.39-rt on a Jetson Orin Nano, counting kmem:kmalloc/k=
-free
-> >     by call site with bpftrace while a test loops on IORING_OP_FUTEX_WA=
-IT
-> >     with a value the futex word doesn't hold.  Happy to turn that into
-> >     a liburing test if it's useful.
->
-> makes me very much think "nope, not at all", as it's a deliberately
-> failing test case. And yes if you keep issuing failing waits,
-> then it'll drain the cache. The cache is for the hot FAST path,
-> which is not an error path.
+Attaching BPF program returns bpf_link but it leaked like following.
 
-Fair on the test case, it only showed the mechanism.  But for an event
-loop, -EAGAIN from a futex wait isn't an error path.  Right before
-io_uring_enter() re-arms the wait that just fired, the event loop loads
-its futex word.  If the word has already changed, it handles the
-new message and re-arms with the new value instead.  A message published
-between that load and futex_wait_setup() checking the word makes the
-wait return -EAGAIN, and that is how the loop learns there is more to
-do.  The window can be shrunk, but not removed; nearly all of what is
-left is inside io_uring_enter().
+  ==51328==ERROR: LeakSanitizer: detected memory leaks
 
-Here's how often that happens, measured on a Jetson Orin Nano running
-for-7.4/io_uring with PREEMPT_RT.  The event loops are AOS (a robotics
-framework).  Each one keeps one IORING_OP_FUTEX_WAIT armed per channel,
-on the channel's queue index, and re-arms it after every wake.  One
-channel: a SCHED_FIFO 40 publisher at 2 kHz with a SCHED_FIFO 40
-subscriber, then low-priority processes publishing and subscribing on
-the same channel as well, then interrupt and system load on top.
-bpftrace on fexit:io_futex_wait counted, per process, the waits armed
-(IORING_OP_FUTEX_WAIT issued) and how many of them returned -EAGAIN
-instead of sleeping.  Two minutes each:
+  Direct leak of 1568 byte(s) in 28 object(s) allocated from:
+      #0 0x7ffbe76ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
+      #1 0x000000625df7 in bpf_program__attach_perf_event_opts (tools/perf/perf+0x625df7) (BuildId: 5e6309fda155e58708e92f1c76d44cadd585d0eb)
+      #2 0x000000beddc0 in perf_bpf_filter__prepare util/bpf-filter.c:507
+      #3 0x0000008f3def in evlist__apply_filters util/evlist.c:1421
+      #4 0x00000044bbcf in record__open  tools/perf/builtin-record.c:1469
+      #5 0x000000453f9e in __cmd_record  tools/perf/builtin-record.c:2594
+      #6 0x00000045dadb in cmd_record  tools/perf/builtin-record.c:4427
+      #7 0x0000005df56b in run_builtin  tools/perf/perf.c:383
+      #8 0x0000005dfa0e in handle_internal_command  tools/perf/perf.c:436
+      #9 0x0000005dfddc in run_argv  tools/perf/perf.c:480
+      #10 0x0000005e0333 in main  tools/perf/perf.c:581
+      #11 0x7ffbdd450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+      #12 0x7ffbdd450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+      #13 0x000000409c54 in _start (tools/perf/perf+0x409c54) (BuildId: 5e6309fda155e58708e92f1c76d44cadd585d0eb)
 
-                             real-time subscriber    low-priority procs
-                 messages/s  arms/s  -EAGAIN  rate   arms/s  -EAGAIN  rate
-  pair only           2,000   2,000        0    0%        -        -     -
-  + low-priority     12,200  11,020    1,292   12%   14,760    1,229    8%
-  + load             12,200   9,830    2,797   28%    4,120      377    9%
+  SUMMARY: AddressSanitizer: 1568 byte(s) leaked in 28 allocation(s).
 
-(messages/s is everything published on the channel, arms/s and
--EAGAIN are per second.  A subscriber arms fewer times than messages
-arrive because one wake can cover several messages.  Under load the
-low-priority processes arm less often because the load takes their CPUs.)
+Let's add an xyarray of bpf_link for the filters and release them at the
+end to fix the leaks.
 
-In all, 2,520 and 3,170 arms a second failed in the last two runs.
-bpftrace also read the futex word as each failed arm returned.  Of the
-683,303 failures across both runs, 88% found the word exactly one
-message past the value the wait was armed with.  So the arm raced a
-single publish, not a backlog.  Load makes it more likely because the
-stretch between that load and the kernel's check gets longer.
+Fixes: 56ec9457a4a20c5e ("perf bpf filter: Implement event sample filtering")
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+---
+ tools/perf/util/bpf-filter.c | 32 ++++++++++++++++++++++++++++++++
+ tools/perf/util/evsel.h      |  1 +
+ 2 files changed, 33 insertions(+)
 
-Timed from syscall entry to io_futex_wait() returning, 74% of the
-real-time subscriber's failures came within 6 us.  For the low-priority
-processes, which can be preempted in there, a third took more than
-40 us.
+diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.c
+index 72e83ac1d6a4b075..2fec6004b1aabc1e 100644
+--- a/tools/perf/util/bpf-filter.c
++++ b/tools/perf/util/bpf-filter.c
+@@ -67,6 +67,7 @@
+ #include "bpf_skel/sample_filter.skel.h"
+ 
+ #define FD(e, x, y) (*(int *)xyarray__entry(e->core.fd, x, y))
++#define LINK(e, x, y) (*(struct bpf_link **)xyarray__entry(e->bpf_links, x, y))
+ 
+ #define __PERF_SAMPLE_TYPE(tt, st, opt)	{ tt, #st, opt }
+ #define PERF_SAMPLE_TYPE(_st, opt)	__PERF_SAMPLE_TYPE(PBF_TERM_##_st, PERF_SAMPLE_##_st, opt)
+@@ -501,6 +502,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+ 		goto err;
+ 	}
+ 
++	evsel->bpf_links = xyarray__new(xyarray__max_x(evsel->core.fd),
++					xyarray__max_y(evsel->core.fd),
++					sizeof(link));
++	if (evsel->bpf_links == NULL) {
++		ret = -errno;
++		pr_err("Failed to allocate bpf links\n");
++		goto err;
++	}
++
+ 	prog = skel->progs.perf_sample_filter;
+ 	for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
+ 		for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
+@@ -511,6 +521,8 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+ 				ret = PTR_ERR(link);
+ 				goto err;
+ 			}
++
++			LINK(evsel, x, y) = link;
+ 		}
+ 	}
+ 	free(entry);
+@@ -528,6 +540,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+ 			free(pfi);
+ 		}
+ 	}
++	if (evsel->bpf_links) {
++		for (x = 0; x < xyarray__max_x(evsel->bpf_links); x++) {
++			for (y = 0; y < xyarray__max_y(evsel->bpf_links); y++) {
++				bpf_link__destroy(LINK(evsel, x, y));
++			}
++		}
++		xyarray__delete(evsel->bpf_links);
++		evsel->bpf_links = NULL;
++	}
+ 	sample_filter_bpf__destroy(skel);
+ 	return ret;
+ }
+@@ -541,6 +562,17 @@ int perf_bpf_filter__destroy(struct evsel *evsel)
+ 		list_del(&expr->list);
+ 		free(expr);
+ 	}
++
++	if (evsel->bpf_links) {
++		for (int x = 0; x < xyarray__max_x(evsel->bpf_links); x++) {
++			for (int y = 0; y < xyarray__max_y(evsel->bpf_links); y++) {
++				bpf_link__destroy(LINK(evsel, x, y));
++			}
++		}
++		xyarray__delete(evsel->bpf_links);
++		evsel->bpf_links = NULL;
++	}
++
+ 	sample_filter_bpf__destroy(evsel->bpf_skel);
+ 
+ 	list_for_each_entry_safe(pfi, pos, &pinned_filters, list) {
+diff --git a/tools/perf/util/evsel.h b/tools/perf/util/evsel.h
+index 53f3641b66e18674..c4639e6aeac2ffce 100644
+--- a/tools/perf/util/evsel.h
++++ b/tools/perf/util/evsel.h
+@@ -174,6 +174,7 @@ struct evsel {
+ 
+ 	struct list_head	bpf_counter_list; /* for perf-stat -b */
+ 	struct list_head	bpf_filters; /* for perf-record --filter */
++	struct xyarray		*bpf_links;
+ 
+ 	/* for perf-stat --use-bpf */
+ 	int			bperf_leader_prog_fd;
+-- 
+2.56.0
 
-Without the patch, each of those failures is a kfree() and then a
-kmalloc() on the next arm: about 3,000 a second here, from a slab cache
-shared system-wide, and more the busier the system gets.  On PREEMPT_RT
-the slab slow path's list_lock is a sleeping lock, which is where this
-started for us.  The patch doesn't change the armed path at all; it
-only stops the cache from draining.
-
-I can send a v2 with these numbers and this explanation in the commit
-message, in place of the synthetic test.
-
-What I'm after is a futex wait an event loop can reliably re-arm without
-latency spikes.  Is there a better way to avoid the allocation here?  If
-you'd rather not have every failure refill the cache, I can limit it to
--EAGAIN, the one failure an event loop hits in normal operation, and
-keep the kfree() for the rest.
-
-Thanks for the prompt reply!
-  Austin
