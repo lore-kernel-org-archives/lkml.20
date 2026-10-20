@@ -1,53 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460433;
-	b=eWWB1ZMZVrgWDZyUidPo1rLCT16QyWf63UC5pDU4Gg/peiv/QiJcs+iOfFGch3r8GJVN
-	 8urd2iGCjLcj6tfkD6R3YyHxDISgJcebf9+l/pTLiK16Xk2wV0EUTQsNZUlfdxk6zPnRA
-	 CkpyFPv5ETwvvbKJtZrsIKVuYSlS7n/rhcuSzCuJFEukISHeyTkqYrkjXarDhKfUXsHk5
-	 P/5G7xPS1UzSbS215v+najYP7wcN3CRlfjjpHFBMzik9xp+FPxgaSduBeAAfwID+oZnsw
-	 gr4g6d/jMN66RZ+Q3GkH2hMDw1A9PG/6eiDcQZiLJYSlgDCYAg1dSxMhDmm7C7o5AZw==
+	t=1792460451;
+	b=fMToRdN7S8FWzxh9t0g/UZCOpTEMxjQdjU0yb12Z9W2nxHDezqVLvROlkqnNsEWbNvK6
+	 w323YecNFEchxuYeAKBj6rS8BhXWuZqjErJqqho56UzgEu/P77nwNbjQRqgX1KSdAq9iW
+	 r3Mxz/Y3Pv8auI3j+iZp5M0w/DN6zWcWNskK/3oWpTYYYJxQAVYJBh1RWlsCWzK1LdX5s
+	 6Te75h/UHcpMXRowS7MSMcoDzXZU1Ti/tmCVmEAz3X1tgi04YxUEUMeeJLbajUmeK9rTx
+	 Wck7N25ht80fJxPP8klFzzzQQCYXCrJARMRQ/OYWGAnkRlrl5277LkP32S3vCuolSuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460433;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Y/v52Nt7wua3/Hqh2/eSRWr2zKr9agsfw3+QaI3Wh7o=;
-	b=d3MjsxEpDDcey3Xex7lc8FbBc7snLY8byNod9Lrx3++P4a5bs2jO8ZCuE5xEo0+j03s5
-	 eRbV85gpQbvmE14jus4s/J+bxuM0mESmxJGfpLsNi3bTE0vulpG6GkYqS9Xbdls+1bD/S
-	 2vw5lWC+JOK3P4fx1SsCH4atqEWcK76z/6xA1nlw3G7LlRrm+ExqEDm3scm5kBBfeBV67
-	 0A0W4RRP6WB7UpcvBLVZyNOOBPdxqjtvxI5gYslS4atWZqDmMsUYGtRqU+ff34GYh1Ug6
-	 4w7fHZT8+DzRC4xnrj7zCm10oBQCfqJAmRHjE6bCdYYJHXSIrckwedoNnNVW6T3yahw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PkYwyHMfJbGSQ+mbZIjKmmDSlODNjZUoD2Y1WRfOazI=;
+	b=oI+G7Fk2hGpYK2uWLws/4vB+VOAb6HBKvX298Yrv3aqtjwVI7iQ4tExwpVS2sYcvf+CZ
+	 grXjN60El8ovVupkUUoCLP8+XkktO0V/1yHF3LUQ7J1Dt+i2eLRkwlrkQiKLotFE1+cGG
+	 fvSJwIEBkacsm9z58v1RByEFkb2tOkbwzacXFketDsxkLXDMZBLLnh15bTphb0OlYh2Lo
+	 9DPNL3n/YFX82ZSlHrbaXQIx9cDuLRhOJyh2wLj1lLv0mkr0/nv2ynrSLswU9At6ljqki
+	 oUdX1rR/WIZkR6AhW+MNlOWMd/SBjqXHCp1KIONpEcsvwYOoGctLjJjceKreNI4j9Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=gz3Y0cld;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yw62Pw4s;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED9D606A31A;
-	Tue, 20 Oct 2026 01:40:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DED9D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02DA606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:40:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C02DA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=gz3Y0cld
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=Y/v52Nt7wua3/Hqh2/eSRWr2zKr9agsfw3+QaI3Wh7o=; b=gz3Y0cldVWyCo401TUdb94v8wa
-	YoSB0h8baJhpIXaCi9PlSKT+G0Ap571CVXBDOFWQnrW1IXDQY2olHhBiDqAs8u0baPqzVYPzsAcDc
-	FzGtkjvYOjmHF6SUB8pFSNuwMObtBQOQd7Flb8gBocyw1DyA5fjgKE0qBfhyclWFTfwxTxjHTKv5p
-	zXjPNqwA+XUlZCu50sJcr3fyf0qN9IjtiBlZ8hU69wnf2hTYoaVQn9aQe4fd8X2miull6Un5xUhQq
-	QO9/s4noupNuak9u8vOqWLS3ze7ZAmWHZZCzpL9QYM5ooDl36WVwy2Ovx/qhD/4YMPnyiu6x62FFF
-	2EcCKf8g==;
-Received: from [177.189.74.83] (helo=[192.168.15.93])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xIypa-0044FE-6B; Tue, 20 Oct 2026 03:39:58 +0200
-Message-ID: <83dffabb-c702-eec9-a992-ba5b9530a8cc@igalia.com>
-Date: Mon, 19 Oct 2026 22:39:49 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yw62Pw4s
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5821138eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:40:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460449; x=1793065249; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PkYwyHMfJbGSQ+mbZIjKmmDSlODNjZUoD2Y1WRfOazI=;
+        b=Yw62Pw4sArCsnM4IdWA5utZbwB57JnrIB/2ksf13OnirkbBAHxX5H6BkW38Rzv38V9
+         Jin482MenoCD03jbOZlXql3n0wYe8AzMAabGsmL3kspaZexEQrB1Z/FIIjVVaOLNSFMV
+         REXeQKHygLmkr1iDNCPmH/vWXmy40RIxqgHqjWwBfnqAJ+tVBjH2Cza0VX9bb6OubqNu
+         J+VoR4I5sGLm1KHMh8iKnS+aFN3TOnDt7AkFQRiqD9Uc5+gRF0fKtaaTiVl2T8hQycA/
+         EkdF6tf9SBJreYCotdl8RwOB+iUxY01relrAtgBZBt8B21DI3/sXa9ZG4QOUg6yiKNDS
+         E0SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460449; x=1793065249;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PkYwyHMfJbGSQ+mbZIjKmmDSlODNjZUoD2Y1WRfOazI=;
+        b=XMFokT+Y+xU+83sD04nHzXfc0YjgSsP21WRi4SpTEx6ZbJseED1AafzH6n8X/J6vnx
+         uWz9W2mrdkd+QQNhKdHoSSPPyMPKQqKBqiQ3z+w2Ac5z8ScJq89yw1HgEs8R54eO08nJ
+         +pAreSSMpjGN+vMr8jMXgesNn5kgZuzXbrDZX5eKKqxunKJ3TNCeZPEn0dfNscTENy+E
+         u3CIVkxdZpK5CDoNf4/BPnb2ynh59+rUjaZTMMIvnCSKf23L+zWYY4dl4C66Xsq07ZXb
+         zTSvIGvZ29tla7OVIBQJFwgVQ8RRX1ynMM8Zs14vozri+MT8607b52lcdinfuFj+7ugY
+         7pQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwTP0SgBN7CnqvEjqa2HPTAIbLTxYtlxBnOS8q1YHPijPyaCQu4qECBZOHR8qxcg6Sa20BjVeWPrSkQL/8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhp+bTDgQd++1nkKy4zSGTEf2VdAw5dwrvSKxtG/dhF+pggGbo
+	3qMIShuQ4yUlhwtCNEFQpSMzjWmxRL/JwmSXQ+hO/wFK+Gz3ntoPpSRy
+X-Gm-Gg: AYBFou2GdIIuI8n641GqwPeN2x3Au0ejcpTTTpN5KNfrsj7k/4bls9B+7G6Gm7qlsxY
+	xQjW91tNtJ17XuvYWQfWxD2wjUtr74gSjuYzycLSX3dd809fJZSf3q2/v0vJHjpmX5ces2FJCms
+	MKXgoo93ZoQGbZZ3Pp5XBNuCmr8Gs8buzuLtk75CHK4gXuDW+AyB2Ctnd04poljDmkShwAfrs2w
+	QItlTgBsRl+jLrVPIrkV9TMB0Sv25WoXPD6L+gFOeFMmEwRMSEOKBS1dayIzBy0yugcZst8bvjx
+	rBV/Lx39Y95l7axVJ8joLx+wQaOeqaBuW+toDkO2m7Rd6PZH+hRstth5Ltg/Xe4bOyvXbGcDqM1
+	0+FzI2xe9hGRYSv+d+aTo8dr9YiGAGWKexRnG+qwtxcY5QXEkPr5Kfqvk96ZHQEaD+Udocs7gmu
+	0ONUhj3p/uSTcJVcTZQLiHT1/BONZ/uAVF33gHzEnnl5MfsBL3hSPPUSEuQVEcslyJ+ZafaHKKw
+	BKQemm8CJE7
+X-Received: by 2002:a05:693c:810f:b0:353:7d17:9a86 with SMTP id 5a478bee46e88-361a2549c60mr14463175eec.26.1792460449367;
+        Mon, 19 Oct 2026 18:40:49 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608219f838sm36078733eec.19.2026.10.19.18.40.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:40:48 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:40:48 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ben Grisdale <bengris32@protonmail.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 5/8] dt-bindings: watchdog: mediatek,mtk-wdt: Add MT8163
+Message-ID: <efbbf24a-59ec-44c7-8738-13242c7cd90c@roeck-us.net>
+References: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-0-f2462b2d2437@protonmail.ch>
+ <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-5-f2462b2d2437@protonmail.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,100 +109,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v1 4/4] x86/vmware: Run panic diagnostics before kdump by
- default
-Content-Language: en-US
-To: Stephen Brennan <stephen.s.brennan@oracle.com>,
- Petr Mladek <pmladek@suse.com>, Zack Rusin <zack.rusin@broadcom.com>
-Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
- Joel Granados <joel.granados@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, virtualization@lists.linux.dev,
- bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
- John Ogness <john.ogness@linutronix.de>, Steven Rostedt
- <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Kees Cook <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
- Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
- kexec@lists.infradead.org, linux-doc@vger.kernel.org
-References: <cover.1788414671.git.zack.rusin@broadcom.com>
- <7487011dfb95aadda9515b22a5852680df1982c5.1788414671.git.zack.rusin@broadcom.com>
- <aquttpMVKX8e6zGB@pathway.suse.cz>
- <CABQX2QPJVg-dZB9f4ydRU_5W7nyWwVCQtDoRGoe1+9cA7wyUDw@mail.gmail.com>
- <bc0bdd14-5e6a-0676-cd04-14fb0bb93cd5@igalia.com> <87v77p9t4h.fsf@oracle.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <87v77p9t4h.fsf@oracle.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-5-f2462b2d2437@protonmail.ch>
 
-On 28/09/2026 14:35, Stephen Brennan wrote:
-> [...]
-> Hi Guilherme, thanks for CCing me! You're right, I'm interested too :D
-> Your email arrived on the first day of my vacation, so I'm sorry for the
-> delayed response.
-
-Hi Stephen! Nice talking to you =)
-No worries at all, this is also conference season heh
-
-> [...] 
-> I do think we're going to have trouble articulating exactly what are the
-> criteria for a "pre_kdump" notifier vs a "panic" notifier? Anyone
-> submitting a patch believes their notifier is important, so of course
-> they believe it belongs on the pre_kdump list! How will we draw the line
-> in the future?
+On Mon, Oct 19, 2026 at 01:40:01AM +0100, Ben Grisdale wrote:
+> From: Ben Grisdale <bengris32@protonmail.ch>
 > 
-> - Is it safety? As in "the notifier doesn't take any locks"? I feel
->   this should be part of the criteria. (Though I have never been
->   successful in predicting what code would cause a kdump/panic failure)
-> - Is it urgency? As in "without this, the expected behavior of the
->   system during a panic will not occur".
-> - Is it the fact that the notifier is communicating with the hypervisor?
+> Add a compatible string for the Top Reset Generation Unit (TOPRGU) and
+> watchdog timer on the MediaTek MT8163 SoC, along with a header defining
+> the reset IDs it provides.
 > 
-> From my perspective: informing the hypervisor of a panic is both safe
-> and urgent. If the hypervisor is configured to immediately halt and do
-> its own panic handling, great.
-> 
+> Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This is a very good point. What is the criteria? I honestly don't
-know...I think hypervisor-related things, that are safe (as you put)
-makes sense. Anything that might also make kdump work more reliably, and
-is safe as well...but everyone will judge their notifier important, in
-the end heh
+Applied.
 
-
-> Providing the last 4KB of logs seems less safe and less urgent (though
-> obviously still immensely helpful). The kernel provides a huge variety
-> of consoles through which the hypervisor could have already received
-> these logs. If the system is configured not to use them... it seems the
-> tradeoff to not be debuggable has already been made :P
-> To me, that logic belongs in a standard panic notifier.
-> 
-> Plenty of people will likely disagree with me on that, but that's why it
-> would be helpful to have clarity on what separates pre_kdump from
-> standard panic notifiers.
-> 
-
-But at the same time ... there's something else, the "self-contained"
-nature of hypervisor-related notifiers. This one is restricted for
-vmware only, so personally, I think it's not a super biggie to run it
-early. It is, in the end, a decision of vmware stakeholders. If that
-would be an arch notifier, something that all arm64 users would
-necessarily run, for example, I'd be way more skeptic on putting it early.
-
-Anyway, not sure if I helped or if I contributed nothing to the criteria
-discussion heheh
-
-But I hope to see this discussion happening, maybe should also gets
-documented as part of future Zach's patch iteration as well.
-Cheers,
-
-
-Guilherme
-
-
+Thanks,
+Guenter
