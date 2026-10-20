@@ -1,110 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488391;
-	b=PoMKYlSvlwsAmwm9YWmq4TQVKSaYD73jPXEo2Aev8lxI9XaPSqTynYGzqCosBuO31ah2
-	 nq9yr/gRRJdNdAoPkf+mPGKzlC5ZjexbcWqgcAnfCKDx0Qmj6/+0rdfvTVLvyPCNHWqqv
-	 r8zX8ily05lBKOC6pkA5GUfJj3EWM5G276N1LDafzLMKFmPvDapIBHk2nCf0GxF3vkzUs
-	 iB6DV8Mil+9EbozYKjsJMmdmsy3No0+GVu4HusLlnbV1Lh9JBlK6yTfwf+T2deS3lIZB/
-	 nEjxIwdjBN/QWjtQs076AEIlxiL0833QLMhNc/RZiCnfAalcjynE8xvS46rp9O0zvQA==
+	t=1792488481;
+	b=gmMgacLVRC6Wgvx4gQaRUJPlTbHQaMkjvlHiLJAyzQvd2rOinZ+cKD0bWqlmbOtPadA2
+	 CjWmXmlbRkTnDe8jUqVpBttKZ3jkouz+cHZeuU2v/ZUAcymiRl3c5EwzyM8ppUVOUM7TC
+	 +Tu/MZAnG8x+1l/afmF5Yhm0Bu/XGR7ijMK235VW24ZSLGF14GUQjJg1CuUrgSnc6yq5N
+	 w2irBPzq413g1m6wHe+pxgG/K9hk0WH4yWAs09Y0nfSSZl+ioTPFJF+MoJF2UC3sh7Myu
+	 iwTIAGctiWqUgw2h7Uztv3PHQkr8H4Pn6qkoOsFxYdEePCUrKHcAaEKi3eFZANmH2yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488391;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=V62r2oyMwKweJj3yBSLKefUPJg8WZq8H2U6uQoCWZWk=;
-	b=sWr56mS3nCMi9QHquigPCBK0JYyuA5L1aGNPCbUpD0fUdb9hmgJ+xy1X9JMkTRNhZAlD
-	 kRc18TVPYkNSR5WELQNuIFMSsrfognnJkT+4nswq+Cbyw5TlQQVG7oeE6obtOlO5dM9ZV
-	 MUGS/+/w0FlMuV3W18JEHNBzg5k8bP/gbQ1ZLcMmAdl36c0wSbrTg45PKqu808XVdLH6d
-	 wzujW2McBU4QuR2P7ltscxZ3xq6DWLA+YhsN+Rzp5aKvVOr2h3Is07611tmLhjF+8/H0h
-	 gUTY2cBFjehF5vsnIJFnAGOCkIRQTDk12N/jTKPBvf3a9ECx4RQZMxPayhbvDS4au9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488481;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qm5hxrzsx0yRdSYYG6OEY4PTPJuPDuREv28P0/x7drY=;
+	b=ImNdj/IzBqvSMzh64eMTY1/wprezz5cwNCJ8mxxgDrbXGl6IZxcixa7cT2tjlKxjmS91
+	 cQcBdLA2P1EQIimU/aPzSQrNiSiK14Ku8cmx25rSUSfjtdZuYzcgGxixbQJ3vKJ8GA8LR
+	 Lw9Z7UnlRoi/nByc3hT8F5TTAQo6BNlD8Mp3koCQIm9cfr8/BOasX6xnmZ7/xwk1kCT64
+	 JAH5Qof6V1jStxIrVcK5xX+26rhHdsvKriqdzwNxXzEIzAxTUB61ZAefPKeGSh9Wkb+71
+	 nUiAnvgUMcanctfWv7p14rAPrk3KygYyVbHaGsqtdbmrp+XoESrbSVlTAIPLMsCcYvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=resnulli.us;
-	spf=none smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="fhvCsC+/";
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JH5lIuMK;
+	arc=none smtp.remote-ip=95.215.58.78
+Received: from mta1.migadu.com (out-78.mta1.migadu.com [95.215.58.78])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C144606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C144606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903D4606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 903D4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=fhvCsC+/
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so2522670f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:26:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792488382; x=1793093182; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V62r2oyMwKweJj3yBSLKefUPJg8WZq8H2U6uQoCWZWk=;
-        b=fhvCsC+/L+1bMr0FsexCnKyo47rJycuSZvhM1BKIBfyQEvBc4uR/sxPFeFk4JgA7t6
-         ZUkpMEKwzeepefXulk1T2CMQpi0g/pzzFgGmJrpUjsF3g+7REVFmvCtPKN9uVKJlpyhg
-         SIXhOvTi1U/sZBl523YJrKCAFpZVjG1d+k0DGvO1WNKY4v0xlGsLDYiPW+FaRySiti+e
-         KKRSVX3h0x1tMIjBGVVVSsR9Jr+yzC3/MIAs2y7Lhpmgy1IcNGiOig7oKzPugb3huFZA
-         nuY+FFTctXbaTtHfBpdiocNGG6/21HoY8Mh07eXk3PPFlShlnFFBPcK3hwSIrKnqIgG5
-         SsQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792488382; x=1793093182;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V62r2oyMwKweJj3yBSLKefUPJg8WZq8H2U6uQoCWZWk=;
-        b=bq9cPelNmzcA2chS1FDIoXN7lVswnBymN+AuN0j03wt8nhh47kbiueVSAiPRoMY1BL
-         ptbI4EGX7HzkNcIbvOFS7lD/yHAPW0SH5L5e7ohmLzWgacnov1a7PGq/uu9rfLLvdMII
-         QN+MSqNzLQXzIDQa7GHpz3Q4NiWK1/Fh07IVWSQa+R/HDHO9QhJ5RfIlg7uFIxv4ALnk
-         YpGq+UaBQamqYj4Zjh3eK5llxjGeUg8Bfyn2O+UADMd7QSkGi0aum0C8ZV2feu992mbA
-         WGmEAI1/7LOW0P+L8q9PFpdlc8aVfKk/OyiX/mKscY7DDXXF9HsQdPfc2VEE+QDQCsve
-         Y2cA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKj4R4JRnkDYAmhRM71iszsBki9N5isFnEZnqT1bgUcm8MheHmC7m7shm/dAj6yyUlqdls/u41b5+xgfY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkl6wTIcHf1i5wSDAu5MQ/dIkrbueaVkoMfrqdROL66XAiDDzo
-	qTN+y5f8zKsGif3RNW5pCGISUKVDO8bRlrISxQPYfQZXEOo7sW9nsybfIu3lGirL1vM=
-X-Gm-Gg: AYBFou0LQx1Y2nXiJ6QbojEnMHeMNTBVeSy9xz60XQ2Xw2TZWKpOiQjMespFm4gTEug
-	ql/EF+gNgSTnGD1vkghizIabQ5/ihIq7X3n1MDH/vAa78LQ7PoRNcLN9VWxUXLUYbSsEXnrEhfQ
-	brc48oo8D+RVlCGbVh7UhAgTOHNxbA6nlWJynE631ruohpKkeK8qBSQPK7rCc32UWZJVorBdQfD
-	1LQ1NxLxsWach4PrSDTo0n4x40/wtnTaCjJ5CQASnY1/e6k/FWv0dBBaT2IuxaymNgZq5eWMcO3
-	8m5p+5LgZZPzqT4mclZLGd84dAExovZ4DyCWXBDz1uj21/9Ynwg76e0cSDyDhKpedqu5SMP9aHx
-	A3gI2Y51JeKYtzH6R0sBI8nKp2KW+nO0njZPOTm0MyujwcglF6XQx44GReYVeu37NL4usQyqd15
-	0f+/5JxPlz8ZscmKqLSvT28Krg9exzt1ikObvC2aeadQKNyWWlzABQZjTNU3886vY9te0ZS4Ftn
-	o158A==
-X-Received: by 2002:a5d:5e87:0:b0:48e:1fb5:eac2 with SMTP id ffacd0b85a97d-48e1fb5eae1mr2877151f8f.12.1792488382209;
-        Tue, 20 Oct 2026 02:26:22 -0700 (PDT)
-Received: from localhost ([85.163.81.98])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm4750276f8f.31.2026.10.20.02.26.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 02:26:21 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:26:17 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Dionna Glaze <drdeeglaze@gmail.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
-	cedric.xing@intel.com, sameo@meta.com, James.Bottomley@hansenpartnership.com, 
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com, 
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, roberto.sassu@huawei.com, 
-	zohar@linux.ibm.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <atcypJ7oQ37oY8c2@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261016234354.GA664420@nvidia.com>
- <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
- <20261017203407.GM13920@nvidia.com>
- <atPgqROZZxnihYfC@kernel.org>
- <20261017231007.GP13920@nvidia.com>
- <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
- <atX9fugGUsI0hGcA@FV6GYCPJ69>
- <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JH5lIuMK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=msM+cZjAKkwGVsfaQzIbcjbAhIHFxqTzbEiHo39glFo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792488478; v=1; x=1793093278;
+ b=JH5lIuMK8SSfFBgtPncMAzzNJQhAmW8ijEW1eP/P+r6H0R2ICX53BgNHF4WT+89bsb0fEL4A
+ eUT4F4AjH2UNdQPbWp5ZVTghVEcFbpRyi57cmo7fL1Gb+2/t4sycemaCV3Fc8PU8JXYVaAWyEGu
+ IDPsHhWlco6JEZsl44EYKkYc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f945068c0369cb3a;
+	Tue, 20 Oct 2026 09:27:58 +0000
+X-Mizu-Trace-ID: f945068c0369cb3a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8aa3e14d-6573-4359-919d-a8e9d372032f@linux.dev>
+Date: Tue, 20 Oct 2026 17:27:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,44 +58,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-new] mm/mglru: clarify the generation placement in
+ lru_gen_folio_seq()
+To: Barry Song <baohua@kernel.org>, Kairui Song <ryncsn@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+References: <20261020023548.3242028-1-ridong.chen@linux.dev>
+ <CAMgjq7BonFtsvHMRYXXToqWBHTzNa52EU9B4ZqD-k-DJ2inQDg@mail.gmail.com>
+ <CAGsJ_4yAYMiRoJRLLt9B_+qdMhOFmizDy-PSbQ3jkMxV0zJqPA@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4yAYMiRoJRLLt9B_+qdMhOFmizDy-PSbQ3jkMxV0zJqPA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
 
-Mon, Oct 19, 2026 at 06:10:31PM +0200, drdeeglaze@gmail.com wrote:
->On Mon, Oct 19, 2026 at 5:08 AM Jiri Pirko <jiri@resnulli.us> wrote:
+
+
+On 10/20/2026 4:29 PM, Barry Song wrote:
+> On Tue, Oct 20, 2026 at 4:20 PM Kairui Song <ryncsn@gmail.com> wrote:
 >>
->> Yeah, I was thinking about this and went back and forth. In the end, the
->> only reason for leaving it unbounded is to allow multiple independent
->> users of the same register. For example, IMA and systemd could share a
->> TDX RTMR. The systemd side would read the journal through the
->> attestation device and the IMA side through securityfs, but both are
->> views of the same journal. If one side truncated it, the other could no
->> longer replay the RTMR. Isn't this the valid usecase? Do you see how to
->> resolve this?
+>> On Tue, Oct 20, 2026 at 10:36 AM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>>
+>>> From: Ridong Chen <chenridong@xiaomi.com>
+>>>
+>>> lru_gen_folio_seq() computes how many generations below max_seq a
+>>> folio should be added to, but stores it in a variable named "gen".
+>>> Elsewhere in MGLRU "gen" means an index into lrugen->folios[], i.e.
+>>> seq % MAX_NR_GENS, so reusing the name for a relative offset is
+>>> confusing.
+>>>
+>>> The comment table above the code also no longer matches it. It only
+>>> covers the PG_active and the final branch, leaving out the reclaiming
+>>> and "can't evict yet" cases, and it lists LRU_REFS_FLAGS as an input
+>>> although lru_gen_folio_seq() never looks at it.
+>>>
+>>> Rename the local variable to "age", redraw the table so that each
+>>> branch maps to the age and seq it produces, and note that the result
+>>> is clamped to min_seq[type].
+>>>
+>>> No functional change.
+>>>
+>>> Assisted-by: LLM
+>>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>>> ---
+>>>   include/linux/mm_inline.h | 48 ++++++++++++++++++++++++++-------------
+>>>   1 file changed, 32 insertions(+), 16 deletions(-)
+>>>
+>>> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+>>> index ab69b9930893..a933d8c14558 100644
+>>> --- a/include/linux/mm_inline.h
+>>> +++ b/include/linux/mm_inline.h
+>>> @@ -302,34 +302,50 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+>>>                                                const struct folio *folio,
+>>>                                                bool reclaiming)
+>>>   {
+>>> -       int gen;
+>>> +       int age;
+>>>          int type = folio_is_file_lru(folio);
+>>>          const struct lru_gen_folio *lrugen = &lruvec->lrugen;
+>>>
+>>>          /*
+>>> -        * +-----------------------------------+-----------------------------------+
+>>> -        * | Accessed through page tables and  | Accessed through file descriptors |
+>>> -        * | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
+>>> -        * +-----------------------------------+-----------------------------------+
+>>> -        * | PG_active (set while isolated)    |                                   |
+>>> -        * +-----------------+-----------------+-----------------+-----------------+
+>>> -        * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU_REFS_FLAGS |
+>>> -        * +-----------------------------------+-----------------------------------+
+>>> -        * |<---------- MIN_NR_GENS ---------->|                                   |
+>>> -        * |<---------------------------- MAX_NR_GENS ---------------------------->|
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        * age        |        1        |        2        |        3        |        4        |
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        * seq        |     max_seq     |    max_seq-1    |    max_seq-2    |    max_seq-3    |
 >>
->
->Bright minds have spent a significant amount of time working on this.
->
->+Roberto Sassu, +Mimi Zohar
->IMA logs and systemd logs are both system level concerns that are
->relevant to the OS construction, not individual users,
->so I would just say to reroute IMA to use ctlv using a kernel config
->setting, then make systemd the new system manager of the holistic log.
+>> I think this comment update is not beneficial, we might have more than
+>> 4 gens in the furture, so hardcoding a number is not a good idea.
+>>
+>>> +        *            +-----------------------------------+-----------------------------------+
+>>> +        *            |<---------- MIN_NR_GENS ---------->|                                   |
+>>> +        *            |<---------------------------- MAX_NR_GENS ---------------------------->|
+>>> +        *            +-----------------------------------+-----------------------------------+
+>>> +        *            | Accessed through page tables and  | Accessed through file descriptors |
+>>> +        *            | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        * PG_active  |  PG_workingset  | !PG_workingset  |                 |                 |
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        * reclaiming |                 |                 |                 |     always      |
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        * can't      |                 |  anon && not in |                 |                 |
+>>> +        * evict yet  |                 |  swapcache, or  |                 |                 |
+>>> +        *            |                 |  PG_reclaim &&  |                 |                 |
+>>> +        *            |                 | dirty/writeback |                 |                 |
+>>
+>> I think it's better not to describe too many details in the comment as
+>> it actually easier to just look at the code.
+>>
 
-Yeah, isn't there a valid usecase for 2 separete userspace consumers
-though? It could be a limitation, perhaps configurable :S
+Fair points.
 
+What confused me about the current table is that it is not clear
+which dimension it is drawn along. The columns are generations, but
+the rows mix access paths (page tables vs. file descriptors) with
+the flags that protect each of them, and some of those, like
+LRU_REFS_FLAGS, are not inputs to lru_gen_folio_seq() at all. So
+when reading it next to the code, it is hard to tell which branch
+puts a folio where.
 
->The securityfs log contents can simply say, "log managed by ctlv" in
->this setting, in the form of the template identifier.
+How about keeping the existing table for the design overview, and
+just adding a short note above it on what "age" means, without
+hardcoding the number of generations, e.g.:
 
-Yeah, I just wanted the existing userspace IMA ecosystem *just work*
-without any distruption.
+         /*
+          * The folio is added to seq = max_seq + 1 - age, so age 1 is
+          * the youngest generation. Ages up to MIN_NR_GENS are active,
+          * and the result is clamped to min_seq[type].
+          */
 
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        * else       |                 |                 |  PG_workingset  | !PG_workingset  |
+>>> +        *            |                 |                 |       or        |       &&        |
+>>> +        *            |                 |                 |  PG_referenced  | !PG_referenced  |
+>>> +        *            +-----------------+-----------------+-----------------+-----------------+
+>>> +        *
+>>> +        * The resulting seq is clamped to min_seq[type].
+>>>           */
+>>>          if (folio_test_active(folio))
+>>> -               gen = MIN_NR_GENS - folio_test_workingset(folio);
+>>> +               age = MIN_NR_GENS - folio_test_workingset(folio);
+>>
+>> That's a very nice rename, the `gen` variable is so confusing to me
+>> for a long time, I thought about renaming it to `gap`, `age` looks
+>> much better. Thanks!
+> 
+> Agreed with the rename part. Maybe this doesn't conflict much
+> with MGLRU-FG either. It could be cherry-picked before
+> MGLRU-FG or included as part of the MGLRU-FG series.
+> I'd vote for the latter.
 
->For policy violations, only the 0... extend needs to go to ctlv.
->IMA can still keep its violation log as a ring buffer when it's not a
->1-to-1 violation to extension
->https://www.youtube.com/watch?v=gyYUYbdiN_4
+Sounds good to me. Kairui, would you like to pick up the rename, and
+the comment change above if you agree, as part of MGLRU-FG?
+
+-- 
+Best regards
+Ridong
+
