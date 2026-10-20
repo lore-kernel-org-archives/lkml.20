@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792464398;
-	b=cGgwy0fZFmC7XPozpGbsHrgc2YEsI9ZIf3iEnt+g1RqhNco4b96Yjv/5FH5v3B93pPC4
-	 D8OveeHhVwg794Xob1yKaDiQW+e8SddaZapyrHcithPR7mqi7BuI2KdP3bo8SWXfUGYlO
-	 9Ehl640JQ/orvb8Ux8lqEWicsfsjpRxGgvJZXZvWj6MC/sCPt61JDGVYi0UvFhya2azdx
-	 LXKGXLMp4CEN6FZE4BchvW/Wpn7RQC9I0JWQw9tSfMiBOKDLQzVMTBK3h8vMCWVbHSLAV
-	 G5FDEkzWL1AbEH4IYeE26VGXCgMQUbgcWv8QnLDsb4xpa3uy1hxIDU1YhqnyNMC8kfA==
+	b=RHFgkmtdtbXJV3l2DA/gkNwbHnm+EigWS/4nl+a1q+VPGfWrUVUbn+pcQpVH/D2u9IIa
+	 DKPB4juSGe4Mpx94uEQHC3cYnu4Zdymib1MawKYToNvVoKxSowM6qa/gwDBvu/T3qZF31
+	 oBE2UBiHJ/ddqtM/Ha/bFMiJGg8wrif3+wKOhMhMNT+5nri4+L03aaJ/Fn1N42zBbvs/m
+	 Q5SOYLYNvD/QPrIqrMp8gY56rWUD1k4jx1FsWtHdOF0GW+wdds1k8z4B7p5P+32au4wV/
+	 GMjqW/jYKS7H9zq9a/pLBa7xmDhw7IuMy5jmYqx5qVUCqamWcsq++kfrBlfgffr4AGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792464398;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=qG7JtnRczNxt1kKLbkWdEV0AOLzF5wKtMwKHYhdEecc=;
-	b=lrums+7hG0yQshzIaoEiYBk9FqzqIeTmrQWjIXly38+AVNGyFYlZlNXWKTFQmybYlA92
-	 vV3/6ZcUOWXkLQ5raKwEhG9km1BPR3l0vTrD/QI10UYoatNEQewW5WaDHIcmSOua4U5hw
-	 EN14AImTQtSmRaQwDq0LqIpgKT7mPBjelShTU4uPEV1E2xdoMWfuH47fh6WKwPak0MYMN
-	 weayVlmrgeCagqNJaWWZ82WH2miocdJCQMxMT8jL7SOYJw8yH5DYqiWKY9lX3DKgACcMs
-	 q+/Ux1tsyv+RYYpfeSReltw677tECjWDdB2qFCbfJFNUds8WSlN2Fke4nJVeUVSGGnw==
+	bh=qs8cAxhySWBLyThS4ZeIA5H/vVY6IeEZqZKTZ+G87Dk=;
+	b=3/Ct1YX/AjyLdl0+mNOxK56FK2JBhk9aAfdX/j1lCvv877M7YiM45sY/RIKguNvnnhHc
+	 eKSc2raBhAPYY/ZDtDG4cz5/3uQeACRiInzGuXMTjbx8cLzR/cDBngu9h1Jpbt4BADais
+	 j10v8fjzKdduqmFkDhpv2I9XakFnFERc7XdoJxvml4iD0EneArNYScHFtyz9KkkPGZ2sQ
+	 3iK6RT7I89lqDvx/qp6jsU4nJxl26Pm4D3aqQREs8LCd0qU2W09qsknYYp88mMETkYvHD
+	 oJtTIwMVbnamrg7+hESYg+7w2S9WX5UU+9XH0R6F0viJc7qHsmdc9DNFvJSpZtBgIBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UXYUz7po;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MIfIiYqP;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499D0606A320;
-	Tue, 20 Oct 2026 02:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 499D0606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B70D606A31E;
+	Tue, 20 Oct 2026 02:46:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B70D606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UXYUz7po
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MIfIiYqP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=qG
-	7JtnRczNxt1kKLbkWdEV0AOLzF5wKtMwKHYhdEecc=; b=UXYUz7poemjlMN23To
-	m6wrUyhgSoSVHHRAoRUS/d7WnKTPTmkz3slpM6wEOjY6eBGD9UtXB5P7RqM0Yh0I
-	jHSBuhgRofCvFinlCWmhjtQb20oqvHU25l1Q5MQs5NmkjiKHkUZtLJjyEUqIzdPd
-	eYNbwoW9XwnkaSL7qORyho6zE=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=qs
+	8cAxhySWBLyThS4ZeIA5H/vVY6IeEZqZKTZ+G87Dk=; b=MIfIiYqPZ+OUUruick
+	eS45VmzaiTWCBPK7QMmD7e+7KqAAc7jLH3ZZ0G7QtVAeSQIPghwaOyZMJ3etO+4V
+	9fG6Vs5PuFkeBlImlkYS4KycTD2Ea0RI4LPjFmAySSEEOg6hUPEPpl1zcyarIcf9
+	P5IeNUi7ooKTFNU9SmWtv6A9g=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H9HZ1dZq2OtmBQ--.60682S8;
-	Tue, 20 Oct 2026 10:45:55 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H9HZ1dZq2OtmBQ--.60682S3;
+	Tue, 20 Oct 2026 10:45:48 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>,
@@ -51,18 +51,14 @@ To: Felix Fietkau <nbd@nbd.name>,
 	Sean Wang <sean.wang@mediatek.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hao Zhang <hao.zhang@mediatek.com>,
-	Quan Zhou <quan.zhou@mediatek.com>,
-	Rong Yan <rong.yan@mediatek.com>,
-	Leon Yen <leon.yen@mediatek.com>,
-	Nelson Yu <nelson.yu@mediatek.com>,
+	Soul Huang <Soul.Huang@mediatek.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH 06/11] wifi: mt76: mt7925: validate register query response
-Date: Tue, 20 Oct 2026 10:45:38 +0800
-Message-Id: <20261020024544.3101738-7-yaojiale02@163.com>
+Subject: [PATCH 01/11] wifi: mt76: mt7921: validate MCU response lengths
+Date: Tue, 20 Oct 2026 10:45:33 +0800
+Message-Id: <20261020024544.3101738-2-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261020024544.3101738-1-yaojiale02@163.com>
 References: <20261020024544.3101738-1-yaojiale02@163.com>
@@ -76,57 +72,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H9HZ1dZq2OtmBQ--.60682S8
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw4rGryUXF4xCr18uw4DArb_yoW8WFyUpa
-	yUK3y5Ar1UJrsrXw4xCan3ZF43K3Z3KF17CFWxWwn5W3s5Aw1rA3WYvFyYqr43CFZYkrW8
-	Xr4qqFZxurnrWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1zuXUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wP9OGrW1eN6KgAA3z
+X-CM-TRANSID:_____wD3H9HZ1dZq2OtmBQ--.60682S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXryDWFy7CF17tF18GF13twb_yoW5XF15pF
+	WYgas8KryUJrsFgw109F4kAa15twn5JFnrtFy8uwnYqrW3A3Z8GF4F9FyYvr15tFZ5CF1r
+	Jw4vq3ZxWrWDXwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UHUDXUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhz8N2rW1dyLCQAA3u
 
-The register query reads either a basic or RF register response without
-checking its length. A truncated firmware response can cause an
-out-of-bounds read.
+The MCU parser reads receive descriptor and command payload fields
+without checking whether they are present. Truncated firmware responses
+can therefore cause out-of-bounds reads.
 
-Calculate the response size for the selected register type and reject
-short responses before reading the value.
+Validate the descriptor and each command-specific payload before
+accessing or removing it from the skb.
 
-Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
+Fixes: 1c099ab44727 ("mt76: mt7921: add MCU support")
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7925/mcu.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ .../net/wireless/mediatek/mt76/mt7921/mcu.c   | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-index bca753d8ce71..ce860e63a108 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-@@ -113,7 +113,7 @@ int mt7925_mcu_regval(struct mt792x_dev *dev, u32 regidx, u32 *val, bool set)
- 		};
- 	} __packed * res, req;
- 	struct sk_buff *skb;
--	int ret;
-+	int len, ret;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+index 40546005c743..782c8baaf776 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+@@ -26,6 +26,13 @@ int mt7921_mcu_parse_response(struct mt76_dev *mdev, int cmd,
  
- 	if (u32_get_bits(regidx, MT_RF_REG_HDR) == RF_REG_PREFIX) {
- 		req.rf_reg.tag = cpu_to_le16(UNI_CMD_ACCESS_RF_REG_BASIC);
-@@ -138,6 +138,17 @@ int mt7925_mcu_regval(struct mt792x_dev *dev, u32 regidx, u32 *val, bool set)
- 	if (ret)
- 		return ret;
- 
-+	len = sizeof(res->__rsv);
-+	if (u32_get_bits(regidx, MT_RF_REG_HDR) == RF_REG_PREFIX)
-+		len += sizeof(res->rf_reg);
-+	else
-+		len += sizeof(res->reg);
-+
-+	if (skb->len < len) {
-+		dev_kfree_skb(skb);
+ 		return -ETIMEDOUT;
+ 	}
++	if ((cmd == MCU_CMD(PATCH_SEM_CONTROL) ||
++	     cmd == MCU_CMD(PATCH_FINISH_REQ)) &&
++	    skb->len < sizeof(*rxd) - 4 + sizeof(u8))
 +		return -EINVAL;
-+	}
++	if (cmd != MCU_CMD(PATCH_SEM_CONTROL) &&
++	    cmd != MCU_CMD(PATCH_FINISH_REQ) && skb->len < sizeof(*rxd))
++		return -EINVAL;
+ 
+ 	rxd = (struct mt76_connac2_mcu_rxd *)skb->data;
+ 	if (seq != rxd->seq)
+@@ -36,6 +43,9 @@ int mt7921_mcu_parse_response(struct mt76_dev *mdev, int cmd,
+ 		skb_pull(skb, sizeof(*rxd) - 4);
+ 		ret = *skb->data;
+ 	} else if (cmd == MCU_EXT_CMD(THERMAL_CTRL)) {
++		if (skb->len < sizeof(*rxd) + 4 + sizeof(__le32))
++			return -EINVAL;
 +
- 	res = (void *)skb->data;
- 	if (u32_get_bits(regidx, MT_RF_REG_HDR) == RF_REG_PREFIX)
- 		*val = le32_to_cpu(res->rf_reg.data);
+ 		skb_pull(skb, sizeof(*rxd) + 4);
+ 		ret = le32_to_cpu(*(__le32 *)skb->data);
+ 	} else if (cmd == MCU_UNI_CMD(DEV_INFO_UPDATE) ||
+@@ -46,6 +56,9 @@ int mt7921_mcu_parse_response(struct mt76_dev *mdev, int cmd,
+ 		   cmd == MCU_UNI_CMD(SUSPEND)) {
+ 		struct mt76_connac_mcu_uni_event *event;
+ 
++		if (skb->len < sizeof(*rxd) + sizeof(*event))
++			return -EINVAL;
++
+ 		skb_pull(skb, sizeof(*rxd));
+ 		event = (struct mt76_connac_mcu_uni_event *)skb->data;
+ 		ret = le32_to_cpu(event->status);
+@@ -55,12 +68,18 @@ int mt7921_mcu_parse_response(struct mt76_dev *mdev, int cmd,
+ 	} else if (cmd == MCU_CE_QUERY(REG_READ)) {
+ 		struct mt76_connac_mcu_reg_event *event;
+ 
++		if (skb->len < sizeof(*rxd) + sizeof(*event))
++			return -EINVAL;
++
+ 		skb_pull(skb, sizeof(*rxd));
+ 		event = (struct mt76_connac_mcu_reg_event *)skb->data;
+ 		ret = (int)le32_to_cpu(event->val);
+ 	} else if (cmd == MCU_EXT_CMD(WF_RF_PIN_CTRL)) {
+ 		struct mt7921_wf_rf_pin_ctrl_event *event;
+ 
++		if (skb->len < sizeof(*rxd) + sizeof(*event))
++			return -EINVAL;
++
+ 		skb_pull(skb, sizeof(*rxd));
+ 		event = (struct mt7921_wf_rf_pin_ctrl_event *)skb->data;
+ 		ret = (int)event->result;
 -- 
 2.34.1
 
