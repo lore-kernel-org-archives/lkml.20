@@ -1,55 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464007;
-	b=mgklfd6MnApyRJTGmSGELXe4NAYz6OqZtbdFVY7oM521JUt8l6ViM22OgCi7Mc1Nrbtb
-	 iiEaSe3UZFc62ZyYwM1IfwOftfxs1JvD27M+Y+0gVfyCgR6ZYFoQHzwj0FtJtsi9R5S55
-	 +JAQe8m0GxNKRBVQ+ZmhIKM2szgnnUCMD2f2X4DPZbF/h2no+uqC2649E8W9OvEhsKM/q
-	 3bfcZ7ErMF5+8xX4F9soilOSG8fY4UqI2wndfWoSN0DO1ZnEmW4cNrSLXblraI5wSBZuF
-	 mryCceYh0W2uLtpc/AYv/5FllHRs4Ty4zmRA5RY9EwLQkrGUkD+6sqdi/iftBh8GYYw==
+	t=1792464092;
+	b=FTREwsPWwfeJOCaw+QQh2mFKQ7r2EWtZYlWtRR+PHeOJXcIZtnJh3SO5BQruEjRTyBSE
+	 dn4x481S4vik+o0OmY20ynAkD2qUAxnMBAdbY3ru7HS178GUJgI3+8j1z/T4edA4TZ6NF
+	 Cmm8LzlELeUJyb0429ShtMLqtQBreQM/AbhZnettIVZTWqKCm51jExB8zKvDBmvdCDzyC
+	 +cKHRuD+43hFvRDagW4x3RW6vgizgQLFFJzwE5zqLN+w41WWdu9cbqm0IkciGLKxmBOa9
+	 QvUyykgyUwojgKlwt197z2YNMz32K4uKYz6W86opEKKnO1qDpGxGMmYe9tOh5Y0+drg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464007;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=60QPBhNMCngRfmcAjrxpcv4Imf6U8Bv5IKWR7KuqOvs=;
-	b=eeAN0awRuJJ6mvSlK9aTCHAtizQSoCyH1ONvc73U9IrX6YWjxmE8otqr4klv7eT7rUSo
-	 xqyMJgxk8zjDgLybn6WnjmeOc9g2KuboLnMGu4IRoJh+9OjhPsWxc9YcNcYXANxHAJA8Z
-	 Vy7SWI+Sv4LQr1oZ03umTz1Cv9DAsk7tXyxDbLTk9n2QvRQSvw9CZJHmC1wna5JYvBmmj
-	 5uHTkmCQfY3XVUsT6C+sR5oF5hmxZmdyAHK/6X4c7s4qUIBrIZp/hI5GNfl5kRlw75+ZF
-	 I6zZ244dTbGc0U1+qxFbFzTdt+VEh38gcisPP3UmCe6EkG7eyo0e1qQO8u33q7W7TGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464092;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ROppqsELXHGeGLcCYxsSX2/ig91E8qLeW9utj4B4bq4=;
+	b=aYpI0eFuPbDEnUFzYWKw6vXbdcOsZYyssDwbdgztCH3H1Q5XY3oeciwn3aSTJXLBF0sr
+	 l0f+EZY6hn1ci46re2CIfcs2Qx6BLandPeQ+wzKP8Ri11ijO9fLRxkR/Q6SsX3zAqxwks
+	 BJvYGqDrC+RBPfDgSiad3AEtFCHccBThyOvH492TScUTmskGUxZUq4akfTgCZGXgmuvf/
+	 zUdCI5mbnWClNAzqtUM8s4HLcTd5WFx7vdiPyS3tnI4rQxlOPo9UytX6xVcuLhXLb8nh8
+	 b6kl/pN/fng+qsdcUhad8GsS9tXL0fqWrupOoN6lhIv2LwfWOkBFydQpnBH/KsfluWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xyqgyjm5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n2+yKnQA;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84A8606A319;
-	Tue, 20 Oct 2026 02:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E9C606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86E9C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xyqgyjm5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9241F000C4;
-	Tue, 20 Oct 2026 02:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792464006;
-	bh=60QPBhNMCngRfmcAjrxpcv4Imf6U8Bv5IKWR7KuqOvs=;
-	h=From:To:Cc:Subject:Date;
-	b=Xyqgyjm5aAEUx7O1C9+9sZ9HoyLu1TowKrpLnSkIE2mnYWjuicwO9PecBk4neY/QR
-	 qOEt0O820lHWWZw3hrx+f6My1KevhlIB/FNNOapdeq8Uub3voWMxb2nb4Sc5p+QgMB
-	 hncjtTQ25QsrGw6AmtFQKsg4WlFMZsuz0ekg82bW9XeertI7dDcyOhKPjRqT0vbvqU
-	 eGdfGNIsslgL/v044qhPF79CYZ+XN03Gbjj8gygXSkwtNGkAyAiXvg8GcgzJb4m1yz
-	 qyhk3F4OfK1NbUu5zoNOmc2UuwaXjO8xZTM4+7XL7MF6zv+DSxIYaU908k6iF2gqTW
-	 4cycCLMbtUWnw==
-From: SJ Park <sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n2+yKnQA
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35f036b17easo1758383eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:41:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792464092; x=1793068892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ROppqsELXHGeGLcCYxsSX2/ig91E8qLeW9utj4B4bq4=;
+        b=n2+yKnQA6lsbw+FYDcVL6Vr5n2JrEUCBBUKfmIDzmsFo7T+vYE22VYZEVb8o1P7uTU
+         iYzniSM2EReWW/JY+Jf3OCjQFs0z6EJFH5m1eZQzynMBnqIDFpreI+hIdkdQE+GGWBQA
+         kHBtyWAVjibfV0FCpav99yWu3AlIl4jN34i7EMcprwU5nmw8+ML/C68WZllNNi8hOl7e
+         GxRcYuWZgC7cFHxUUd181ScPDj8hmYe9r2/YRUp5VkMrdzILhKn6PaUr91vtqFNazGPD
+         sBh3PS0Z/E+okhvn/REpxD2VYPnIWsOsDhJfKvUUTybCftBvJDtG56wZSA4YRvAE2RXS
+         AFow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792464092; x=1793068892;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ROppqsELXHGeGLcCYxsSX2/ig91E8qLeW9utj4B4bq4=;
+        b=rBw98Qr/o5tyB4f+z92IFQ6xXtGTIkk5Hm1pRbpI/fnoNWnzepgE3qpd4owiW2qNYz
+         yaMs1wJ92+1QmRamogmkdmHbE1NaILknOQgZuChtBZrSJl6ZjvpXvhvq/q1RnJ3lcWId
+         wCqBXO7UHQtyzF6A4HZpC8UTMM0l1zJpJyN+addt0d3pEmGNeRzyWNw6Rxmg4ZNH38+h
+         AiLvSzYpwYirSEWmErIVprIA0GpJvxq9bVUlidNDQYC0t2+cHxPmAtAyW4J8V+LEkH77
+         XBAqDGYCybYbD5aM+2nuyuHcP+x/Bp2NPQuxQJrEXItPV4bbVDLWhoIBvfVy6ipbXJGa
+         cmaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzpJ224RavGPyPu9XFYrfLlzzjncZJ8uNePbGCswazGZjgkYJYcdQXhWGzl/WHinI5rjxJALAfera62uPw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTnNmKlm0wkDlitIv58J3fcrwKrJnSwFXMp1FKmr3yrFV3ybEs
+	0oxPYyYN3BFxpthONU1vbWBAGuSLkSrpAFZxlJFPqWk3p9SRitE775zq
+X-Gm-Gg: AYBFou00cEDvFmEKu2OcTtWx96Wy2rinbEt2PvfDa1ZTTtk+G98wPhYuX8k95xdo82N
+	Z/vgtX4FUe5W+vD9EYPWJ3KyhFCOG1l/JilUDeNDX9A5h2Jfev6mpJCO1zEQ+oXUnL8tsGZOZER
+	La2UjTNkRFgbnGSP3oHs0r8d2ArHe3i9gk5ad3Hy7WMLHaq8R1LJL9UtXudLO43qQMmmD3UWlQu
+	s680FkgvwvxVRlOE9W3Uln0TaCndbg158mq2XhK4GW2Y2BkCtSbvdgC8hKl/sENqisC8oRUjz8S
+	vBWem7GxVdLL/AQ+z2zfpFyAUw0EcWk7vQaY6SDqOiGWy1HWwXC6L5DszYnxQ3UjEOaf7YJoEHY
+	ocKBLoRyfXBc/8IWglQgg2DYVCpb92lM7gUWIMEaSUvd+ivkjv0YKvmFouw/iVM4Q2T7LeA7h12
+	B/h5UmFbYftyM76N4FcmjnjspsQI3m4zGkubBsamtAOjCU6lqrnvW6ddmn2kTXykAG1Lh/IggEG
+	tADj+sjieg1caYeSaBXYevtNgkS3wVWKrhg24mGvXjapxHIp1P9YztR9ba/OUZ3
+X-Received: by 2002:a05:693c:62dc:b0:366:6644:2839 with SMTP id 5a478bee46e88-3666644361bmr61423eec.3.1792464091268;
+        Mon, 19 Oct 2026 19:41:31 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36632d8b273sm1116057eec.15.2026.10.19.19.41.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 19:41:30 -0700 (PDT)
+From: Zhijian Han <hanzhijian1991@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH] mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Mon, 19 Oct 2026 19:39:56 -0700
-Message-ID: <20261020023958.108276-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+Cc: David Hildenbrand <david@kernel.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: khugepaged selftest: intermittent collapse_full(madvise:anon) failure and low-memory false failures on arm64 64K
+Date: Tue, 20 Oct 2026 10:41:16 +0800
+Message-ID: <20261020024116.2949892-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,83 +98,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+Hi,
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+I ran the khugepaged selftest (as of linux-next 20261019, tip 3d229ce89862,
+which includes Kiryl's "run every supported collapse order by default"
+series) across several QEMU configurations while setting up a test
+environment for mTHP collapse work. Two observations that may be worth
+acting on; full logs available on request.
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+Environment: QEMU virt, cortex-a76, 2 CPUs, khugepaged test run from a
+statically linked binary inside a busybox initramfs (no distro userspace).
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+1. Intermittent collapse_full(madvise:anon) failure on arm64 64K pages
+---------------------------------------------------------------------
+With 6G of guest memory (so order-13 PMD folios are allocatable), over 7
+complete runs I saw one failure:
 
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Cc: <stable@vger.kernel.org> # 5.19.x
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from RFC
-- RFC: https://lore.kernel.org/20261019143713.98610-1-sj@kernel.org
-- Drop RFC tag.
+  # Run test: collapse_full (madvise:anon)
+  # Collapse multiple fully populated PTE table... Fail: Bad return value
+  not ok 80 collapse_full
 
- mm/damon/core.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+The other 6 runs were fully green (102 pass / 0 fail / 3 skip each). The
+failing run did not report an allocation failure or OOM in the kernel log.
+A minimal probe (mmap 512M, memset, single MADV_COLLAPSE) succeeds
+deterministically on the same setup, so the failure seems specific to the
+test's sequence rather than a plain allocation shortfall.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 479169dc9ac75..eb1fcdabc0075 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
- 	trace_damos_esz(cidx, sidx, quota->esz);
- }
- 
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
-+}
-+
- static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- {
- 	struct damos_quota *quota = &s->quota;
-@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 			damos_trace_esz(c, s, quota);
- 	}
- 
-+	damos_fix_stale_charge_pointers(c, s);
-+
- 	if (damos_quota_is_full(quota, c->min_region_sz))
- 		return;
- 	if (!c->ops.get_scheme_score)
+This is the same symptom family as bddffa2f9cbf ("kselftest: mm: fix
+intermittent failure khugepaged test") — there may be a residual flaky
+spot on 64K-page configurations. I was not able to reproduce it
+deterministically; happy to run more instrumented iterations if that
+would help.
 
-base-commit: e558ba2a16a47baf6b8e76bb11e92eb92a491e3a
+2. Low-memory runs fail without a skip guard
+--------------------------------------------
+With 2G of guest memory, six cases fail outright (starting with
+"Allocate huge page on fault... Fail") because an order-13 (512M) folio
+cannot be allocated. collapse_compound_extreme() already skips itself
+with "PMD too large for fault-time THP construction" on this
+configuration; the PMD-order cases have no equivalent protection, so a
+low-memory or fragmentation-heavy environment reports what looks like
+kernel bugs rather than resource limitations.
+
+A skip guard along the lines of "cannot allocate a PMD-order folio even
+before the test proper — skipping" (or a documented minimum memory
+requirement) would make the suite's results readable on such setups.
+
+3. Confirmed skips on 64K (for the coverage ledger)
+---------------------------------------------------
+  ok 9   # SKIP collapse_order_mixed_sources: no supported source order below target
+  ok 91/92 # SKIP collapse_compound_extreme: PMD too large for fault-time THP construction
+
+These match the gaps noted in the v6 cover letter.
+
+Baseline for comparison: x86-64 4K with a swap device attached is fully
+green (76 pass / 0 fail / 1 skip — the mixed_sources skip).
+
+Assisted-by: LLM (QEMU test harness)
+
 -- 
-2.47.3
+Zhijian Han <hanzhijian1991@gmail.com>
+
