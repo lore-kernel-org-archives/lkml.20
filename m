@@ -1,52 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505400;
-	b=Lv5BghvzZEvUKCQi3USIlB7/zPZobYMSN07OwhDXhyAkmFF2FBJccgclK4r/cwkB/6f6
-	 4Ngn2aBFUc+tEQxDTlmyHEwIEeCoOdGS64B8JhcR99nZiW4X5rPzohZA/WjsjtUZTM4r4
-	 9UK6CigVbncEPblE6yC0bx+1lUTixl3Ppl/GG57sMBEI7dPDGWbvUYsdVgf/FnFI074qv
-	 jba1bPZhD26Gn10gaLdcnMZViETRnhPy0qtBTjvOf5JXX7Kvzkgs/xvRcgSBFAq3Bf3Co
-	 a4RpW9ww2mDEGJ87yvehZQ5PNQywBMEz7uxtJc1rTwCZF0bjI8pq1/foAud+II5sGZA==
+	t=1792505440;
+	b=WKsUP43MUN7l2y6mFy3hPnsqPMvmdlhC3Gr4XXHK4eoAWTi18z+VT/qxOiG0R7dr0Di+
+	 brjW+aH/iQIHnj4dZY2cVqMI6LdctOF+H26wIIeMk2aMOTyr77UCmnRpGtgfGE/LDn3JU
+	 gEQLUl0SHqp6z7Lt4zvPH+3AqVjlnQZfj+M5nU+xFVy5ExLjgpGWzTg9/cKXSSbhutWwe
+	 HRn3Q7yRUDfpfdC4nhfJ7e56iPpDB+63+tlCN/ZQVsEZc9MBSA+gCDz1gK14mwgqECz9o
+	 cX/GhG3dJs2W76/xxGS0nid+P3KxBbtiiHoaF5lmSiy0BOlCKNpoke6oS3w/ENeairA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505400;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=AwHv8HPvqhf4bKKO6ZBUu+5X4D7kMKQz6gRW8aYiJRc=;
-	b=l8DJw+5wy+TZhT4eL3/YIFTRfZP+qA/LP8APWZeBQWi46krvKuP14we8unOUBuvfUnVt
-	 ynjNqk7cGJjI0G5OB0EzXmRX5ViSo5mXv3I9noFMXGblbO5mgVVXIu2GkbOS2ocQxBmOx
-	 oWc49M7KncJURBz3EfwmnojRNjAK5Vknh0f0HA3X/IvSgxCA7J8V2U9r3pQZjBB6s5qzl
-	 rykC2Y6y0F3+Rb5nM6/yulGo2oQYwPFe+aGuweKUK3yV0/0uN/I4Sjl2uJE4ZmPRK9pfq
-	 /r8hifbl5k89ArtJrLFaOfY8N5GmqnwwZfL/cd1NGN6FsPwUk83rmlwQg32eSgb73ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505440;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=6OFxyQtijBXYSbvcaeMGg6HSw20JVaD24lHAGl8RQ2E=;
+	b=XOFOlViIodfVwfEDaIZ+T0EVMWiO4GJHz9qzXHz6h1Liuf0nR8Sq2iBSOB0U+CtoQP57
+	 W8A2LmjPrQ+mXZy2FVrwaU1qhLDKi/EInpL0aP12df3jftEHXzdymvkEyokWg3ZOYQSkl
+	 s9R001vkJLYFegCryBZXb94xVq2J7Ze81/0VcqK+yWswJxpSZ62KhYOEFs+Zox5UnCADu
+	 ipRp5xbxAwDirRJJl5R1lzV1JhkHXgLp4fKbaNZTWQXrSbBAx+quPxbgDgiqC8Xdx2Ian
+	 xkIyuK8aXxvmVDMyW74hf55vkDEEzgRoMa0WyqE2O+oK4e2ZNXPTEjt7AdIcmoyCuTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z78+H229;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ol6g562a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75481606A320;
-	Tue, 20 Oct 2026 14:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67904606A319;
+	Tue, 20 Oct 2026 14:10:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z78+H229
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF64B1F000CB;
-	Tue, 20 Oct 2026 14:09:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ol6g562a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3801F000C4;
+	Tue, 20 Oct 2026 14:10:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505399;
-	bh=AwHv8HPvqhf4bKKO6ZBUu+5X4D7kMKQz6gRW8aYiJRc=;
-	h=Date:From:To:Cc:Subject;
-	b=Z78+H229PqrNoOuydsnzVD0OEwWMq4Fwz5IK1mOSKlaBuf92E4mQeX8yqx5JfMog/
-	 /VlvIQTIS/hY/y6s9J98hJyTSupGzmdqkSESBdJCa3L9fK/ouFGmp1lqtUgyAE4KiS
-	 IxRsUxPSmYmG9m0kV6yjfk6dCsc9O2pJf9fPbCpBOyhS+hpLF/wam+vYNobtWb1ZMm
-	 ehxx1RaC8YpHCkNZnyZG3225QCOGLH66mFmeRJkyquKowziZN/ChKSWFs5kBCBQ/bD
-	 I0GHh6PiWr1efMSdS1pKGsBYnBpQKlilyycSPs6KLqAL/oeXt+aB5GSIWByAexSo4k
-	 mfTjq1ea/lxjw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id BA3131AC5994; Tue, 20 Oct 2026 15:09:56 +0100 (BST)
-Date: Tue, 20 Oct 2026 15:09:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Oct 20
-Message-ID: <atd2NPxTfe8vjwks@sirena.co.uk>
+	s=k20260515; t=1792505440;
+	bh=6OFxyQtijBXYSbvcaeMGg6HSw20JVaD24lHAGl8RQ2E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ol6g562a328HhuoljmZTxXatRs5NBevcNy7ffv0uafG1txZ5Lu89zsglQ57D+IXXj
+	 3fSewLLQaumJDPFb0wUgSpJr3hFmusYrkbHHJklEmQvOWf9leWpFmN7sYG0bBSa5vw
+	 1jsan5AGieccaW+dM+AfFdLheolL8u3WY7/I3CkVcMqi+aQLOVqbtw/5PGw+HrDpeO
+	 j2ynXCIrvUClI8Qfx96F+Jk1W5KfZUi6jwDR+/23DhmS5m7xLPMnF/zPOFg6VS5U75
+	 /dD9Tfm2dUDiC0Jn/92vk33QIHU6TSb49Y96N1Hj9vXn0SjITfNzLQk2Y5kdC7DPO2
+	 HbX4ELMkGaGwg==
+Date: Tue, 20 Oct 2026 09:10:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+Cc: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guochun Huang <hero.huang@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+Message-ID: <20261020141039.GB4157247-robh@kernel.org>
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261019150631.GA265407-robh@kernel.org>
+ <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
+ <2501273.NG923GbCHz@diego>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,74 +74,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="szR0u2whGL0D3THy"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2501273.NG923GbCHz@diego>
 
+On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
+> > Hi all,
+> > 
+> > On 10/19/26 17:06, Rob Herring wrote:
+> > > On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
+> > >> Hi Krzysztof, Rob,
+> > >>
+> > >>> Existing OS should ignore surplus cell if the driver is coded properly.
+> > >>> Same as adding new properties or new front-compatible.  The question is
+> > >>> how the existing driver behaves?
+> > >>
+> > >> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+> > >> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
+> > >>
+> > >> 1. Keep the second cell. Add the patch as follows:
+> > >>
+> > >> - if (args->args_count != 1) {
+> > >> + if (args->args_count < 1) {
+> > >>     dev_err(dev, "invalid number of arguments\n");
+> > >>     return ERR_PTR(-EINVAL);
+> > >>   }
+> > >>
+> > >> + if (args->args_count > 1 && args->args[1]) {
+> > >> +   dev_err(dev, "only the transmitter is supported\n");
+> > >> +   return ERR_PTR(-EINVAL);
+> > >> + }
+> > >>
+> > >>   With Fixes: and Cc: stable, the stable kernels maintained at that
+> > >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+> > >>   dts, and the receiver fails cleanly instead of getting the transmitter.
+> > >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+> > >>   It goes in with the series, since two-cell dts only exist after it.
+> > >>
+> > >> 2. Use a flag in the upper bits of the existing cell, as Rob
+> > >>     suggested. Existing kernels are not affected, unless a board enables
+> > >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+> > >>
+> > >> I will write the impact clearly whichever  approach is selected in
+> > >> the related commit messages and the cover letter.
+> > >>
+> > >> I think the cell approach is easier to read and more symmetric in the
+> > >> long term,
+> > >> but it breaks more. Which one do you think is better? Thanks.
+> > > 
+> > > I'm not a user of this platform, so I don't care. Up to the platform 
+> > > maintainers to decide if breakage is acceptible. You just need to 
+> > > document the issue in the commit message.
+> > > 
+> > > Rob
+> > 
+> > It's a bit of a pickle, all this.
+> > 
+> > I gave it some more thought. In the end this is an IP block with two
+> > PHYs. No more, no less. One cell is sufficient to address those, and it
+> > could be 0 for the transmitting PHY (DSI, display) and 1 for the
+> > receiving PHY (CSI, camera).
+> > 
+> > Of course the two PHYs can operate in either DPHY or CPHY mode. The
+> > phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+> > and this principle has been applied here too.
+> > 
+> > However, we have the special situation here that the mode can only be
+> > changed for the complete IP block (and thus for both PHYs at the same
+> > time). As Bryan points out, we need to check and complain if the PHY
+> > mode is not set to the same value for both PHYs.
+> > 
+> > I suggest using a property
+> >     samsung,cphy-mode;
+> 
+> I guess, a maybe nicer way would be mimicing
+> 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
+> 
+> with its
+> 	intel,phy-mode = <x>
+> 
+> with x coming from include/dt-bindings/phy/phy.h
+> for the distinction between cphy and dphy, so we don't introduce yet
+> another way to describe this.
 
---szR0u2whGL0D3THy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+We already have the plain 'phy-type' property which takes the same 
+PHY_MODE_x values. We don't need yet another vendor specific property.
 
-Hi all,
+> 
+> > (name to be bikeshedded) that sets the complete IP block into CPHY mode
+> > (DPHY being the default) to distinguish between the modes. Since both
+> > modes use a different electrical interface, this is clearly a hardware
+> > thing and thus suitable for device tree.
+> > 
+> > Then, we can address the two PHYs with the help of the already existing
+> > phy cell (without any bitflag tweaks to the value).
+> > 
+> > The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+> > PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+> > it should only be the former.) And we need to handle those values
+> > correctly. But I think this is not more painful than the other
+> > approaches. At the same time, this design seems to be the most correct
+> 
+> The current cell values are 10 + 11, so as long as we don't re-use those
+> exact values for the other constants the driver should somewhat easily
+> be able to recognize an old DT?
 
-Changes since 20261019:
+I think you will still have an ABI issue of what does old OS do with new 
+values?
 
-The vfs-brauner tree acquired a conflict with the origin tree.
-
-The block tree acquired a conflict with the mm tree.
-
-The kvm-x86 tree acquired a conflict with the kvm tree.
-
-The char-misc tree acquired a conflict with the rust tree.
-
-The landlock tree acquired a conflict with the security tree.
-
-The landlock tree lost it's build failure.
-
-Non-merge commits (relative to Linus' tree): 17217
-
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 434 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---szR0u2whGL0D3THy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatd2KwAKCRAv73Ows9A4
-ieBIAQDSgNP3ivS8IcykdFn5t6mFQwiEtSjRtgNxXWcECwaumAD+Nu9/Wieg3dPZ
-8U2AdBbbAvPcdbpdqdgYxRZlhs04VQs=
-=1lnq
------END PGP SIGNATURE-----
-
---szR0u2whGL0D3THy--
+Rob
