@@ -1,48 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792476856;
-	b=LjHj01zVvWYX8brKILBx4BhpOlHpcaX2WjoKdfQGjlQdBrcwKcxK/sX/VgqgPkJmI4nk
-	 n+F1VQJZnu4EA5x9BCBKyQxBuQKSGHUjvosMvlXUOQfhtARRnSGanlPRKtiR8Qnlpx74U
-	 IxKOM6aZfxh7a1AU2wt/+t+p3HYCZa7wd6n5U9hjx1Hto+oJre61uQqAcya4J9XUc8b1/
-	 inr+t7vSNr7dFCv9ZpV4QhgFUWwReWazHUG8UDgTvgpNf/S+I2KfnpHWorQbfCtqOhxOs
-	 Ddxo8aUX3S5Odxh5reYdabwTqFg2rE1J6X3UlvXOarywzyis0p2gH6dL7Hv9VYmNHWg==
+	t=1792476863;
+	b=KQpbLHhC0Zkuw2RGxM6QSyRZLon7Mc23O4kqWZAaN7fYJIOxVHQ9SDQG1bXIaZknlovQ
+	 3uJTDbslC2If00v9mXrhLo4ho0RToe+SaJ5PxCM7VMcOjyGml6Y2V5NYy6PjtfXP1/orA
+	 YX7otJ8MYS0XH5k558TbaCZpoS+OyRtP7d4St/I3RidbCaxTlTa2XhZ7CSg3Nm7iI+kik
+	 3FIrQ0CLuncC3bJYAD2Smkt+rcrnx3sqEEJE+XrTwhNJmipjxcrTwYMNk/sjX1/FbFp/Q
+	 nlQss57NHvK+35YgpdWAciCBSBNi4f9xvF64PbsEdPpjrYsELB5mJbGe61eoBPNHqWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792476856;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Pe8niGVPBJJMWKf52o3UEdkziwiRyy+zgVyIY2WXm2E=;
-	b=GEWZDS/CVwjtbSdHLeIx9YMedn881w3rPRHgKyLaYpxo44ISkz86847kHYdcdZ1w49zm
-	 KzIwlaKU6gyFQbxOATBTjYwTDJ2IjVNjBZcsQP5/BZYrPFBmkLNssx4JpxzO1EIi1ty+a
-	 NxfZ5Kl1ZKqXmA4kYEUvSUl4blz8lowDraCLEabXdpvn9E3gUYoKawYIG1x33tsQaBrtM
-	 dKjkfZz9ei+M/DFq1YlKpmZNhnjLeSQcOiySB+rKBZXnEWLm3TkWUATsR6lyAFgYO22uG
-	 ELk8ttHQ+C33cs72e1C2LLFiAJllSeDU++y0oZsriXNeXFkdwZ6rYP9LIGBCyAdtXCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476863;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=;
+	b=cBhpOUpZK0Ds/WRATOszj5EsUxLNKQZMUeoPPuyx5UlQr945K5QrkirHsvM8jyvMtlSv
+	 kbNTvUtijEEWCq2xegcd4+mvGdGYakx9taeOzl96FiQE5tQStrj/qIxDgCUgfqT5XUNBa
+	 co9At+9zTq1BAkdojH+qlBVygW1qzlIRToLdVRRveDDEwkMcD2HQ44zRyTjWI0B2tGcbc
+	 qZE3O8NzCv2kf80pLEUsdvzAjgo4mjOc9EvfYnZs9+q1jZf6tIHqmWEs4UMEbawEfI1Hs
+	 8ueABUBlMvRx5bBUHd/hvyBaUdhpZzjOHKgBeiHAz9d4iNK+hHDyJs3I57qS3RCd0Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mDLSz24r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZfKSDihK;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HOiV4n2e;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B54606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481E8606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 481E8606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mDLSz24r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753F81F000C4;
-	Tue, 20 Oct 2026 06:14:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792476855;
-	bh=Pe8niGVPBJJMWKf52o3UEdkziwiRyy+zgVyIY2WXm2E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mDLSz24rO3cf4bFtl42jH3arXZYXcZdtQDuqeQi8XxqV+ANIOEPlDv9x+KtHo/7tw
-	 tFVcDs3k6PmJdWf0wKf9am1u0WWf9gLFnuBihiMHii5Q8nek2wlOmV4bHHAjzBhLxP
-	 YfjRi12AHcXpC8asRIrWqOYJISiLmjQsHeAjUxak=
-Date: Tue, 20 Oct 2026 08:13:55 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: level0000x <level_zero@qq.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drivers/base: return bus_add_driver() errors
-Message-ID: <2026102043-ajar-sauciness-f8a9@gregkh>
-References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZfKSDihK;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HOiV4n2e
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tU3a620613
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:14:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=; b=ZfKSDihKFacIqpqS
+	d2+KviIIWhZ2wrHxLy5ztQw7gBdTjQXQXvMIA9yBUS/2k9EgKzGeNcRGHTOUeaAV
+	IgJM5M84kimu5wAu2mN/VVJEyXSErm8ksu/ZNtJKioVKCaJ6CJPDFF1SnLNZtZ8b
+	s6Re+s5FmExW6AqeoacLL19yDIMr3KBi3KTLNcH98zPJyj39tBn6YJO5am/lVAgA
+	e4SEQYzbMmIbpYtJt6Dh/N7oZ8aclFn7mtXjjj5ll9L7PAvGPk2iD7KW62Y+fsbh
+	/YBm8H8YObw3Z/0G0zHhYJQoIvGfKEJ0bqizP1ASXqty5ouvbBuUEreZMRm4kqqt
+	Dlx3kA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5ns2v9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:14:22 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ae8e7e546so625093085a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:14:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792476861; x=1793081661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=;
+        b=HOiV4n2exjuLkrjSPhWReDJKCI581JGKeqSEzq2JzamYrDDYUFRn587f+3OpvGEcYL
+         VMVqCP9D1gRocl/qF36evYClOrtj8MBNHdR7BpTCQpuHXbpbNL72FjaoNskhSRPYSSbU
+         vjlzDlDzYBVoz96r/gCRdhr2/maCjKBlLkCC7aldsFZVDFDfj71/AsTidDRZ/m8mTZ64
+         5GjQR1pYwzQxQacp8VtaIV4KZ6fc6cM37IKM/IcL4yaZdBUTLG77WubJle/ziFA0/nyO
+         mCAYSkVBXxzl7EyGp08Ac5AhCPQ0KRZK4KZXarXjxdt8IAngUSOXjVgeweysdWQjwwNH
+         QBCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792476861; x=1793081661;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=;
+        b=f5V02BovQm3vi19gOF0gcuKkmURS84w//z5PQJDuTvjeJWNhbGpRV+1yK1W+8md44y
+         u2nS13lSKE+BBaGfKgyS6aDfbkmdokDzp9RxupQxGYWJ3I4OpOqbf1fbiUeCeXRjgvEA
+         b8g0ClMhIyluUNCq7tOst/Q75R95IoaGLdl8YgVWamQTajh117+Zs4aT4fT1suyfVkIg
+         jMM7j8GwU8dZt26pRJenpOD1ohp1SLGP9U9M0wX+criAEP54JKC/6qzHyra6CG4y5ybn
+         FEf6pEMIInj9Yxihwgoje7zsaIrFIRt5B+ugKi5ctv/wNsAZljWEqnyXCv+3UsZGCPMb
+         wzsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwOsaNaBMKJ8PT8ymEmhJilbz72IDB31APEw+u0/Ih358UkQ/x+WPzHekoMlbxhXs+GqBDdElaAl2byAa0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3RsZOcZ2W5d0wayKSnfTk3U7odeY/cJp08nLra6mVFDP78032
+	gkRu02wodZqUGR9XmTbQdG0GV6yv15TMhLVEIqt3e0TonaXZVKq0BgAG4sL6/J0mtfL0utvZV8P
+	4YfncPOAd/04ICQfgJx5+RGtQGLP+e3Nhk+qAMjIdQpUOQHAOZ2Ia54UGPA+zKQsyPJA=
+X-Gm-Gg: AYBFou0k8Y0w3BmgZ3IgcoAK+JP6LqaSFoQZs7PMC8x3NLv/NE0PYsjGD1VR4hRuR04
+	eqD6rvI7ebf3ljH1RY2hQAEwsY3HNZJYZfGy+8KyzkjQbojiWjv22G2GyjlLlI5vxA1Yz18/xc1
+	u1Khu+vUz+IxRrB6u8LQIMIWBF2yC03IqxGyoQI4mZBI67b0ewbdzVlTT1lRMsQLzfCIr9XoeOX
+	sMW9Oy6OUQ1U/1oAKNyBVZ1tcQlaUjJvqqcVRF2ih3OCNntYF8HTQPI4IGTaF12Cq0cEmgSpOzF
+	/FRM9iD3MpJWXiUUuv6reIHDPYJBmvRhahlp+cqkY2MW0vR5zpORn+SlBSxUkFLaOI1rZtChqkb
+	YRv8ywMVbGUyjCOvMbHx2/pT4Qg==
+X-Received: by 2002:a05:620a:3715:b0:93e:c12c:9dd3 with SMTP id af79cd13be357-93f29e0afd2mr1621875985a.83.1792476861448;
+        Mon, 19 Oct 2026 23:14:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:3715:b0:93e:c12c:9dd3 with SMTP id af79cd13be357-93f29e0afd2mr1621873885a.83.1792476860971;
+        Mon, 19 Oct 2026 23:14:20 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1ce33ad3fsm276350095e9.5.2026.10.19.23.14.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 23:14:20 -0700 (PDT)
+Message-ID: <cdb55ed3-b19f-48c8-8803-dfa32000dc1b@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 07:14:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,120 +115,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] leds: rgb: qcom-lpg: add qcom,pmk8850-pwm compatible
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015194732.64428-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261015194732.64428-3-srinivas.kandagatla@oss.qualcomm.com>
+ <179213351749.2581328.3338477962958404050@kernel.org>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <179213351749.2581328.3338477962958404050@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX9bS8RrY3RRS7
+ jfSC/offHrktio7ZcVT6QHTn3JS85xuE/MggLqhud0iC01WUHiLO89qI4dAlov//r5CLB0arM38
+ 33/FLe+zbjivhspkb+7rcsidV35awYQ=
+X-Proofpoint-GUID: sEJXSOqdxvzbU6TgdQL-LI2u9e8wmWnu
+X-Proofpoint-ORIG-GUID: sEJXSOqdxvzbU6TgdQL-LI2u9e8wmWnu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX4uOYnu0YYk3F
+ G2fHzcykPpgFY31+lmPhY4Cd9Bma4+ooAqoSuqI5LX3gKxAS0u5gyF0tdJ+N94Z7t5QQmYofvv9
+ eDp/CQFs585eL3USC5rihFhq/dp+JmTVJHYT1lsHpVqNs8TRYR+jkL5XgUydPE1BpkNEmlt0Hwc
+ GdDeGC4EAYsqZVaaOJZqHhzy2C6TYmLo8wrLuqbHCYTtcvG+AlxvOkkU98o8mSe3RdF1/HPEPH0
+ a1yt1QicsWVDNM3Rcxq1lMM0R+krEMzx0XS1SdlCo8zU+2K1gei7XBn4uXtmR6ys/6ln8lFnyJN
+ OGTcUgchtDfDlqnBgJcocrRPAD/suCUVRy4RfcTfxabAoDS2U3aI6j89cxlzD/Dix+IxzhEXzSf
+ 8hoaZ7H56stR4uChK5yIyft3Z/Rjx8rMS89DAmOZBobRRwdeyiA/iqA5KFSmXsQg9CginPjgiQQ
+ waFrck33xd931Cb8y+g==
+X-Authority-Analysis: v=2.4 cv=TcsDJhQh c=1 sm=1 tr=0 ts=6ad706be cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=VAR32ooWsMDrCBR8X2sA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200024
 
-On Tue, Oct 20, 2026 at 11:09:34AM +0800, level0000x wrote:
-> bus_add_driver() creates the driver's uevent attribute, adds the bus
-> driver groups and the bind/unbind files.  When any of these fail it
-> only prints a message and still returns 0, leaving the driver on the
-> bus while the sysfs files user space needs to manage it are silently
-> missing: bind/unbind cannot be used and the uevent attribute cannot be
-> triggered.  Nothing retries and the caller is told the registration
-> succeeded.
+On 10/19/26 3:34 PM, Lee Jones wrote:
+> --- checkpatch.pl (1 issue) ---
+> Line 23: WARNING: DT compatible string "qcom,pmk8850-pwm" appears un-documented -- check ./Documentation/devicetree/bindings/
+this is in patch 1/4.
+> ----------------------------------
 > 
-> The device side of the same driver model already gets this right.
-> device_add() returns failures of the equivalent sysfs operations to
-> its caller and device_del() undoes each one, and driver_register()
-> already calls bus_remove_driver() when the group registration after
-> bus_add_driver() fails.  Commit 85d2b0aa1703 ("module: don't ignore
-> sysfs_create_link() failures") made the same change to
-> module_add_driver() a few lines above, so the driver side is now the
-> only place in this function where a sysfs failure is discarded.
+> On Thu, 15 Oct 2026, Srinivas Kandagatla wrote:
 > 
-> Propagate the errors so the existing unwind runs.  The new
-> out_remove_module label calls module_remove_driver() before falling
-> through to out_detach: bus_remove_driver() pairs every operation
-> bus_add_driver() performs in reverse order, but the symlinks
-> module_add_driver() creates live in the module's sysfs directory, not
-> under drv->p->kobj, so the kobject teardown does not remove them.
-> The attribute and the groups need no explicit removal because they live
-> under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
-> the caller.
-> 
-> These failures are not expected on a working system: driver_ktype
-> always supplies sysfs_ops, so -EINVAL is unreachable, -EEXIST needs a
-> bus group to collide with built-in attributes, and -ENOMEM needs
-> memory pressure.  The point is not a user-visible bug but keeping the
-> failure diagnosable and the resulting state consistent with the device
-> side.
-> 
-> Signed-off-by: level0000x <level_zero@qq.com>
-> ---
->  drivers/base/bus.c | 27 +++++++++++----------------
->  1 file changed, 10 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-> index d17bd91..e5c8a12 100644
-> --- a/drivers/base/bus.c
-> +++ b/drivers/base/bus.c
-> @@ -772,28 +772,23 @@ int bus_add_driver(struct device_driver *drv)
->  	}
->  
->  	error = driver_create_file(drv, &driver_attr_uevent);
-> -	if (error) {
-> -		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
-> -			__func__, drv->name);
-> -	}
-> +	if (error)
-> +		goto out_remove_module;
-> +
->  	error = driver_add_groups(drv, sp->bus->drv_groups);
-> -	if (error) {
-> -		/* How the hell do we get out of this pickle? Give up */
-> -		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
-> -			__func__, drv->name);
-> -	}
-> +	if (error)
-> +		goto out_remove_module;
->  
->  	if (!drv->suppress_bind_attrs) {
->  		error = add_bind_files(drv);
-> -		if (error) {
-> -			/* Ditto */
-> -			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
-> -				__func__, drv->name);
-> -		}
-> +		if (error)
-> +			goto out_remove_module;
->  	}
->  
->  	return 0;
->  
-> +out_remove_module:
-> +	module_remove_driver(drv);
->  out_detach:
->  	driver_detach(drv);
->  out_del_list:
-> -- 
-> 2.34.1
+>> The PMK8850 sleep-clock PMIC on Snapdragon X2 Elite (Mahua) exposes
+>> the same two-channel LPG/PWM block as PMK8550 at 0xe800/0xe900, so
+>> reuse pmk8550_pwm_data.
+>>
+>> Used on the Lenovo ThinkPad T14s Gen 7 to drive the eDP backlight
+>> (EDP_BL/PWMR_BV_PS).
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> ---
+>>  drivers/leds/rgb/leds-qcom-lpg.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qcom-lpg.c
+>> index 24ffe079f221..485fa2a7a848 100644
+>> --- a/drivers/leds/rgb/leds-qcom-lpg.c
+>> +++ b/drivers/leds/rgb/leds-qcom-lpg.c
+>> @@ -1837,6 +1837,7 @@ static const struct of_device_id lpg_of_table[] = {
+>>  	{ .compatible = "qcom,pmi8998-lpg", .data = &pmi8998_lpg_data },
+>>  	{ .compatible = "qcom,pmc8180c-lpg", .data = &pm8150l_lpg_data },
+>>  	{ .compatible = "qcom,pmk8550-pwm", .data = &pmk8550_pwm_data },
+>> +	{ .compatible = "qcom,pmk8850-pwm", .data = &pmk8550_pwm_data },
+> If PMK8850 is completely compatible with PMK8550, why are we adding a
+> new match entry here instead of using 'qcom,pmk8550-pwm' as a fallback
+> compatible?
+Yep, will update dts in v2 and drop this patch.
+
+--srini
+
+
 > 
 
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
