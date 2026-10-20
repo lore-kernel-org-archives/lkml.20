@@ -1,112 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478254;
-	b=KtmNQjAQT/VaalTaT79FlNuB3PxB2Boqx3pjU5b/klelwUa67gAVJsxWIB8mg/Zv3fCS
-	 KNmtjzB1gbowTghHra7jr2p2nXxeS30caXGeCYPQZVwG5WtaKb7NIvAEJtdqhSGoqlS9h
-	 zaxtu826wkaiZjMDq598E9fLY6to/MUw2hah+QoxD97thLMM9JityTc8baG9lzoi7JC4q
-	 ZOcSE5aYRax/WZ1d2LN95q8FXFCjIX0HX42JHUZ1aTfYiWsP7wZOPTpdnhYYSakql7TAZ
-	 fqkjjLCQZB5WEmqqKd8DYGtAvEiWn2zFuDj8xH9cTF7IjR26YVlc+DjDmCXGkZogUkw==
+	t=1792478289;
+	b=O5IACbldt8Jf+0ZbH0e358Rns49lj09wtUR2HUN/dewnZZh/0Fzx1jUiqfrP6FSdGlJh
+	 XWTRUQRLl8O1+6tV/2mAAagZLw+eaAj02CcggM3Y5HPa6xdvn6FKsK3GDsqNKV7xFRpiC
+	 LbUpJLKHJXtSdsx4zKYg0lQybGEt78+fxv59+pol0KhD2zDXxFFKPVSgL2MTofIfxiG8O
+	 pkdooJeg0aaxyF9BuyYLg68N0blHwDqmIh5vDZGnlFUiU8PEPmTcc0JLG1G7ioPupID5d
+	 sVokw7u3J0aZXJwMZ47wAq8XGNEoVEDIO/9hMtdvoZHp2F72/MiYiWkAxMzEu+T2MQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478254;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dkeJ+qlF3OdyfA6H4VacvMWg7dys6I2xj2MZMgj3Yc8=;
-	b=3gpRYsdecNe7k+kcYlpJQfVCaibrNKfvjKnltO1wdu+rxwglWHyyx62yZAzy6OV5/KoF
-	 6ayd9HEg0fQGROF248vxPNsofM6zuUhu/sjywhEQry4U2+QsytiOUzTlDAr72y4zORgI5
-	 V4ZSZwiDIpCDcVUmLOEgrmfxsnRHeK17Su1UTX60Zc1yq6VklrtTTR1Ea/XhjPLNmVrG9
-	 yEyAAbMUjReHsxhSdAlJoCNKA0sBmJgzw7qHXWvYwepeofQWeB7LdVCJ2dg+zleHoQG1d
-	 FJaQ17g5iM9kQpC/wJvBi4XN2wYtmM8WgbkE9+a44NwTpNdzvpGT0TEGc2evCzMa3vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478289;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UzAZEenc0KxEq0x6RyPzYufxdEkxW9SFi1K+hoFFagM=;
+	b=iuMSN09nMahbsM9pdEz4an3oEpwhvUA5XTTw2XGzaip8OiRwmvcZcxU98mmuCHvwRD4y
+	 +8Y2encoDLDIPXA/IDZSnqPzSbG8K7GeIO4zegiLOhzyxsHQT9pYAdNbEBApo0ea1d5oN
+	 Eij73vRdbFssOmKv3bsoKOIHoQpfYzK/I4bcTKrlK2kGEvQ/jb9qmBGMIX78ts+dfY8YA
+	 dQy0oss+3XUu6UqLk3sy5m2Z7F9xxDn9jas7ctifTUICPxmLEsjfaTZlaUIgPLk2rL69R
+	 ZVUe5Z5csgPIihK+5EEuXLqWiS28FdkeWp3szuMzdHmaqU+UjUqL6OGK7UILFhNUFPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Hc/kPQ22";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ISrY7ec8;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="KdI/M7KN";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB918606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:37:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB918606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4D0606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:38:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC4D0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Hc/kPQ22;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ISrY7ec8
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tP2m1211286
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:37:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dkeJ+qlF3OdyfA6H4VacvMWg7dys6I2xj2MZMgj3Yc8=; b=Hc/kPQ22WkzNYqHX
-	LUSP2d3mZ2SIDMy+h1KWfkj6ZYX2dIo0iHTATXCu3cTut1qM7lyyzMjL1ArhMPkm
-	D1MVX+yObTqSzih8zfFqsEoNmwnm1GfWWe7yj5gHYHdKH2C6vmsNXLD3TdYF8LME
-	Yo0Rnwl0MmJGyuCcmTibxasGLKFVmcQrszrTeoLRMBiGRCh29wzf62WujLhVJmiE
-	IwzZHPEnn4eOMNp22CaFkf47tMtQr5wuisDykYXNE6S2TDU8E+FOby3txGI454pI
-	4A1t6I0u+qnxUiTcPo7brWpA90qxOAjbBr9b/LR+Z2SuF+/kaP6x5WJN7mkKsKH7
-	8MD2Qw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p16xp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:37:28 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a3f673221so1064675885a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:37:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KdI/M7KN
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1efc90e7cso1846095e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792478247; x=1793083047; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dkeJ+qlF3OdyfA6H4VacvMWg7dys6I2xj2MZMgj3Yc8=;
-        b=ISrY7ec8LxQiWuc2N9xovB5OGQG2N6beSz+y336Ff6ZG1Ld1iLM7oJxTJtonSii7j6
-         rGHb5+xZRlLCrx3OSCk6yZIgpoGn0twE4/WXn8eAFQqzZHpc5Mv1uKkEZKcGPsUo3gdS
-         vUZWtjgmB6tZlBOgMP66h09voRlqxZX+pNRF5qtNrkjMsJgtzWAgqYbGP2ywfRGsHsv3
-         I5B+FIXOAs+PwDeZxzpYTA201MwNn0QgxRMhGkdnhk+75IwaMh29wTNT9miI1d1CLqY4
-         KxAjSW0Fp0V7uamjsIuL2QeHMWaUxrSZ1yBuQjEdGVqLnzgRxeksVfuHEs4qIs1mpRni
-         4k6Q==
+        d=gmail.com; s=20251104; t=1792478287; x=1793083087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UzAZEenc0KxEq0x6RyPzYufxdEkxW9SFi1K+hoFFagM=;
+        b=KdI/M7KNAmf+mbjijy9pL7ul3XOVYz1JSfuxwrGvg7QCBlvopedyQkPagbYjz51YCe
+         N15kUbT93hEG+kS/QHuwQeHHTOJ7E2HCCehDRXEfDqyIbV7UVklz4dhhcmwFcgBwM+Vh
+         KP6rfCjZG85ST4pwA1EhOL3soCxjpgg2GWhhk/5lDqW/zwGF6bSjUqblS0Lv0p0dRtAI
+         L7s4sdZfzrIWA9G4PNKwEsTPFm5xfEfkvKvGdfmAw9ctvrbMVsWzGpzikCxtBB0dCaFM
+         LzzLtgeCEtMv+3+dxohh/le6MTut5S4AVyrRy2JAVz69h7ewmKTm8GhLc5l2CAnjD93B
+         t55w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792478247; x=1793083047;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792478287; x=1793083087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dkeJ+qlF3OdyfA6H4VacvMWg7dys6I2xj2MZMgj3Yc8=;
-        b=hQnFys+/sr0tSgH3EYYOIdE1RsJSjt5CuwWejE9u/qLIlircp/Re4RmP8lot6gLf8L
-         2RDvFx4pzvYYVX/QyshEGSLaqz0DbQvlFUE1pBfU0ltp01R3qiPl/uebrpLMwa8SZTg/
-         bfSY+VtSiopobINDFoDnwD7Y5oMvlZ2LePRa0hXaYUN8+7nn927K1tOwOmz8hbZ/han8
-         CK1ygDHloqe2qiCzU7CD3Pj1oJgvHm5kswDY6X51F9IlU+4fEe3Z43aIxx+/uVR26zLm
-         Lx3ZiVLSEzsJB2IPo1qZWR4BBo9LhyGjEhLqEHUKaxHfRAQ7PKJqEAhy5uKGHJKtqw+8
-         ZAgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkqgR5yU3UpyW/g+TA4KjgzXc3/ZtERVRnNlD902Pqpm7hfWZyK/g0agdl11NRrT38TvyanN4n7Z4TqAc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsNfmP7P8YXGA7CyZIZupRuOnnS8KjDtw6ptcqslPIZK4weTE5
-	s/+NqTfxdqsnDFL3/4oqXGSaU5GM4Q3hO4eB2Cm3X9jHW5woSoJQskarPTXwdIRdt+0B3IjeyqM
-	iKq4U8uW8wf8bDGFSQHZBPaOB8wNgAZeoszPr/c4O7SGe12HkuiIqxcj5ch3khRwnj3e3pzxL45
-	I=
-X-Gm-Gg: AYBFou27QDH8fD19iFwHCgQl2hV3HZY9kCKp7gZfCrL7pFGKCZAxueyMqz1UBMdWN98
-	Z0weqYFv52CQSObPXehKBTZz1IsBggXLam161DIBkgvraAzUaQ1pMueIkasN1VsvT/KMX2xaTBa
-	bGbtrP0i65sMBOfgNig0KgbfybIkUQok799I912hhq3hfaBCp1MvmGDnc2XbBawuD0933dO2t62
-	JVbLRDIQRWleOo2c/BJDuUbZpIqRsZkq3aKzAyvFUCHKnCyVvaQy9bQsoSuxuVJMm7hT+A4DDiU
-	zPK5gKiM7NM0A7Xm1Mr06kBEq8hmtKM64ZuRfIPS4DlHiuSCT5xL70GUVv3LZu7nfSnU3079IDn
-	3ozWezNpIif/WdBk59ocBFIhxWg==
-X-Received: by 2002:a05:620a:1a0b:b0:93f:1af1:7951 with SMTP id af79cd13be357-93f29dad0efmr1717290185a.66.1792478247219;
-        Mon, 19 Oct 2026 23:37:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a0b:b0:93f:1af1:7951 with SMTP id af79cd13be357-93f29dad0efmr1717288985a.66.1792478246827;
-        Mon, 19 Oct 2026 23:37:26 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e1d810043sm4079204f8f.16.2026.10.19.23.37.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 23:37:26 -0700 (PDT)
-Message-ID: <5ace1d37-f480-463e-8705-e52ad7f34b0e@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 07:37:25 +0100
+        bh=UzAZEenc0KxEq0x6RyPzYufxdEkxW9SFi1K+hoFFagM=;
+        b=PIajQsKnMs/vWkkg4tUWQFMwu/vK2S5LvjOd3SJSLMSr5cAzDzyrzLLAFFju9pICOV
+         DMaZHtiUtEFSoQXheLS3xfca6eaXoeDrjzWgYap6pRR+cDrgSZ/gvWFqzp7zuJp4Izo7
+         29dTPD+fYUKJW+qU8O8mfxGWQoDO50Hd4D87lWpRTxS7O2cgVrwvgZ6uIm+8YKdywYkQ
+         Wie3rST0eGBaRhIZsXaGNUfB4jAC2l2uhHAWQH/A0jjW2Tquqw2eFdPqtaVZ0dXa4Bjq
+         K5/1TkFgSbWi94b1hFm8I7l9BG+CzFsz6AeWfxtKz5hyYLqvfSs6I4OGhAiuBuTY8K9y
+         Xj3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwNG4zPfrxju7GM9FfmSrMGsl4kBGQOdOSWQpzCj3svY5/ydb+nA5CdxyID74iBBsPanOQVc6Kn+b5jH9g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDq+my4DZzjtl34mAcaegGMJwk8Hh6zOG7+lqHW1BLiixD4BpR
+	eQ/a53PGZJUHGqzi2uKOd8wVQ85zyPTT3TY63FATD5OFXtbfM0yxaGta
+X-Gm-Gg: AYBFou1hl20DulTFs55DaZcl0b9N0GZ/OaicODFUwUZ/a0xft7W1L8xGWrYuB6wbHCL
+	3OG4m3lU0KfmLUUB3cA76sWs0aTuF3UK1skUaCttybyTboU0H0k+EDLNI9NaF9lkI2QqP+o9Yb+
+	CvETLBmgnoAPz1T4nv2bnWl4v9hlJ20KwuQfcveBld1HB8u2DPYzG4Ve5A3cWGiw9J0d5fj+PZe
+	g9I+y/t9Er1YBUbFVoogGTBadwA2L6bFYiz8V1KXuakgW1TRsIK8wXt0zN+4+6MWNbn8eIgH6GO
+	KISkKBYrTjIOynVXu1UHACsQJvm9fjJi1BhTf1YA9zNeF1/Z1niirwRrMOafs0mrGJX6NOkt9Wu
+	HvKYkzpxsfnJhuP6MwobLMpwxkexOlYH3tRkRVtp+/wrWhRzaEsgwS6zeaqr/3N8W56Bo9QqV+F
+	h77zY5p/PAhYL/cQX4lTJ5qAPjabluIHreueS4WZx93txLv/+myWpGB91POJgb83WY0mDPeZYhe
+	Edckbn8fJCQJBQJrYhPV0pber8EevR3HhFValunrkKjuqvP0wurgWya2RXwEIvDKoTT+M4cUMtI
+	lJEhmQ/5axgmLE8yPRpr6ve5mCxAgXIaVyvk5/otC5lcjVC7IpUTk3jFfOpfc3fd5awzunX4sNt
+	PI2ApDY44TUpn
+X-Received: by 2002:a05:600c:3114:b0:4a1:ac66:604b with SMTP id 5b1f17b1804b1-4a1f4c70117mr24583145e9.1.1792478286893;
+        Mon, 19 Oct 2026 23:38:06 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-9c92-6501-2169-eb9c-7ad3-f5db.310.pool.telefonica.de. [2a02:3100:9c92:6501:2169:eb9c:7ad3:f5db])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d820714sm3916393f8f.35.2026.10.19.23.38.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 23:38:06 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [RFC PATCH 0/6] iommufd: harden DMA-BUF PAL setup and release
+Date: Tue, 20 Oct 2026 08:37:39 +0200
+Message-Id: <cover.1792477872.git.kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,95 +110,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] ASoC: SDCA: enable pm_runtime before taking the
- initial reference
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Mark Brown <broonie@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Jaroslav Kysela
- <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
-        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261018192359.287987-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261018192359.287987-3-srinivas.kandagatla@oss.qualcomm.com>
- <atXXQv+d+AGd2VIO@opensource.cirrus.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <atXXQv+d+AGd2VIO@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: j1R3_F4gKV4DqMIPutsJ4rAb8ccgoMtS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyNiBTYWx0ZWRfX6HhgajCmSr/V
- kcIrqw5tqzP4Zaw9NQMe+W8jyZpcqLtgt6KssvTeatr8yCtzBOPf9WkXcJjoZWrZUuL5uxF7L1M
- F3FxqxnGwhOUWf+9NBHSx3+U5SffRTA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyNiBTYWx0ZWRfX+EvxdDKBqP19
- ZIc+7CYD3358cDRDc4+guTHYt/2EqqVo3LCd2NEr67b28+Huzrvri9jJKJCxitNXUPhA2lbDYAR
- 5sGpDsToJzCp2S2Zwko434oS9pdmzbSnHl4vFgaYs02zTN6w6FRMLZ8s0++ZrQIPNg/MSxXXV7u
- ECor3jY39Ux7lPxcvVpJbpGBik62u/yEv+DzarClwXpA97zaha16lp6yBbTglHiNOQ1tZkj7sga
- YFw5/297J1cNjGB+Ifg6t309xOrZ9Ezxcpozi7o/2EGC+CCIb/kW+Uk+GPvRg3Uu5We8jLaLxif
- rR4JC6p/oMp7KRf4fopsF+1VVo9/yhPsGJ1DjbTYqCvvGWzR+/kqADa3wW/2vmZ/9mnjJBfQYAS
- sm9yzYN3QINDPIE7xmJfxshQZ3GKBw8xsbHkTYPnO/ducNVKMEXNKV8wFVvfLad+yT9Aa2LbjrE
- nEZePrhhYFU8KV9CKDw==
-X-Proofpoint-GUID: j1R3_F4gKV4DqMIPutsJ4rAb8ccgoMtS
-X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad70c28 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=cEVFgFB53M-sojWUyRkA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200026
+Content-Transfer-Encoding: 8bit
 
-On 10/19/26 9:39 AM, Charles Keepax wrote:
-> On Sun, Oct 18, 2026 at 08:23:57PM +0100, Srinivas Kandagatla wrote:
->> If devm_pm_runtime_enable() failed, the usage count taken earlier by
->> pm_runtime_get_noresume() was never dropped. Reorder so the get only
->> happens once enable has succeeded.
->>
->> Fixes: 2d877d0659cb ("ASoC: SDCA: Add basic SDCA class driver")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> ---
->>  sound/soc/sdca/sdca_class.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
->> index bcc660aeb739..3361db188046 100644
->> --- a/sound/soc/sdca/sdca_class.c
->> +++ b/sound/soc/sdca/sdca_class.c
->> @@ -194,12 +194,13 @@ int sdca_class_probe(struct sdw_slave *sdw,
->>  	pm_runtime_set_autosuspend_delay(dev, 250);
->>  	pm_runtime_use_autosuspend(dev);
->>  	pm_runtime_set_active(dev);
->> -	pm_runtime_get_noresume(dev);
->>  
->>  	ret = devm_pm_runtime_enable(dev);
->>  	if (ret)
->>  		return ret;
->>  
->> +	pm_runtime_get_noresume(dev);
-> 
-> I think it would be better to drop the reference on the error
-> path. Doing it this way round there is a very small chance that
-> the device auto-suspends between the enable and get_noresume.
-> The intention was to keep everything powered on until bring up
-> was complete.
-Understood, will fix that in v2.
+This is a narrow companion to Jason's unmerged DMA-BUF mapping-type RFC. It
+fixes setup and release problems in the IOMMUFD PAL consumer and adds fault-
+injection selftests. It is not standalone and requires this exact base:
 
---srini
-> 
-> Thanks,
-> Charles
+  c37cf2824740d ("cover-letter: Add DMA-buf mapping types and convert
+                  vfio/iommufd to use them")
+
+I used LLM assistance while inspecting, testing and drafting this series.
+
+I also tested DMA-BUF paths on a Raspberry Pi 400 and Pi 500+, using their
+stock Raspberry Pi kernels (6.18.39+rpt-rpi-v8 and 6.18.34+rpt-rpi-2712).
+Both passed offscreen CPU/V3D byte checks. The Pi 400 also passed five raw-MJPG
+payload-prefix comparisons through V3D; this was not direct or zero-copy camera
+DMA. Neither board ran this RFC or IOMMUFD PAL. The Pi 500+ connector state and
+mode remained unchanged; the tested buffers were not scanned out.
+
+RFC:
+https://lore.kernel.org/r/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+
+Jason's branch:
+https://github.com/jgunthorpe/linux/commits/dmabuf_map_type
+
+This series:
+https://github.com/kmehltretter82/linux/commits/dmabuf-pal-lifecycle-rfc-v1
+
+Diederik's RK3588 testing produced a useful trace through
+rockchip_gem_iommu_map() and iommu_map_sg():
+
+https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
+
+Jason noted that this showed the same private-IOMMU-domain mapping need as
+IOMMUFD:
+
+https://lore.kernel.org/r/20261009125338.GB13920@nvidia.com/
+
+That trace is motivation only. This series neither revives my warn-only
+mechanism nor converts Rockchip. Jason's feedback on that mechanism is here:
+
+https://lore.kernel.org/r/20261009124259.GA13920@nvidia.com/
+
+Compared with Jason's branch, this series:
+
+  - preserves dma_buf_pin() errors;
+  - publishes the attachment and successful PAL list together under resv;
+  - unmaps and clears the published PAL pointer under resv before unlocking;
+  - keeps callback state alive until dma_buf_detach() returns;
+  - calls dma_buf_unpin() while holding resv; and
+  - tests pin/map failures, cleanup counters and retry on the same DMA-BUF.
+
+Patch 3 follows an earlier forced-window arm64 QEMU/KASAN double-free report:
+
+https://lore.kernel.org/r/20261016194022.62065-1-kmehltretter@gmail.com/
+
+The proposed release order is:
+
+  resv lock -> unmap and clear PAL -> unpin -> unlock -> detach -> put ->
+  destroy the pages mutex
+
+Questions:
+
+1. Is that publication and lifetime rule correct?
+
+2. Is c37cf2824740d still the right base for this companion series? If not,
+   which tree should I use?
+
+3. Can these lifecycle fixes stand independently of moving final mapping
+   selection closer to map time?
+
+   https://lore.kernel.org/r/20261016202653.97339-1-kmehltretter@gmail.com/
+   https://lore.kernel.org/r/20261019184123.GR13920@nvidia.com/
+
+4. Is the per-buffer selftest control acceptable, or would deterministic
+   setup/release race hooks be more useful?
+
+Testing:
+
+  - arm64 QEMU virt: two boots, 24 selected cases per boot, zero skips;
+  - x86-64 KVM q35: two 24-case candidate boots plus one focused four-case
+    pin-failure boot;
+  - a one-defect x86 control failed all four pin-failure variants on the
+    expected erroneous successful ioctl return;
+  - x86-64 GCC 13.3 built the exact head, headers and IOMMUFD selftests; this
+    build was not booted; and
+  - KASAN and lockdep initialized with no diagnostics in candidate runs.
+
+The QEMU/KVM campaigns use mock IOMMU domains and the selftest exporter. They
+do not cover a non-selftest PAL exporter, physical DMA/IOMMU, forced
+invalidation races, or the complete IOMMUFD selftest suite. The x86 negative
+control validates patch 1 only; the earlier patch-3 report is separate.
+
+Testing with a non-selftest PAL exporter would be welcome, especially failure
+followed by retry, invalidation during setup/release, repeated revoke, and
+multi-range buffers. Please include the base, config, architecture,
+exporter/device and full dmesg. A full IOMMUFD selftest run on another
+configuration would also help.
+
+Thanks,
+Karl
+
+Karl Mehltretter (6):
+  iommufd: Preserve DMA-buf pin errors
+  iommufd: Publish successful PAL mappings under resv
+  iommufd: Clear the PAL list before dropping resv
+  iommufd: Keep the pages mutex alive until DMA-buf detach
+  iommufd: Unpin the DMA-buf while holding resv
+  iommufd/selftest: Check DMA-buf pin and map failure cleanup
+
+ drivers/iommu/iommufd/iommufd_test.h          |  24 ++++
+ drivers/iommu/iommufd/pages.c                 |  24 ++--
+ drivers/iommu/iommufd/selftest.c              | 111 ++++++++++++++++
+ tools/testing/selftests/iommu/iommufd.c       | 121 ++++++++++++++++++
+ tools/testing/selftests/iommu/iommufd_utils.h |  30 +++++
+ 5 files changed, 298 insertions(+), 12 deletions(-)
+
+
+base-commit: c37cf2824740d833b21eb816e21f94836100291f
+-- 
+2.39.5 (Apple Git-154)
 
