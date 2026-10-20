@@ -1,124 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792491319;
-	b=sAO14x4yJMIa6fbuWZg/VNy+T7K/BlOpfokqzPZuS4yRN84L/LZDyUOo+ZNqzKNobY9v
-	 HmhuTMB6LeTWj679GrZ0Vrf7f9OKT4KtpmbB6ExV7ZTnrafM7yNasL2nCUaLzpirqq0CD
-	 UDDUHo6Way6XBD5GrHtBohBBKGR3K6o+56tltu5ZQ2XHvyAjUgj3uucbmwkhEZXKuy31I
-	 +FhrJ2PzfSBakMk5C4X21Q8aL0820nFlqougqsqbnUQLa6KTRfGbSo4cUTY9Iq9KxA/eo
-	 ugfQ7G40sp4n0qJIW4IdbykTGrIRPknLrCJv5HFabXLT02WYf2gc+D8nq6PtxvxN88A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491319;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=USzUAeXmvNCRnE9FctU6fubUlHkhva9uo5i/eKw0KrI=;
-	b=qArrRihtYUaygQFhC2lnbIzZMxOBWCtXXp2qhfmVbSI9gPvHEmsvtiJFAzBD+4z14Pr0
-	 yViuC4HT96jsZZyGMW6QL5G2IlOhxaVe3/MRy9zPR5dYKtJj0fK6PFxdybuLrHcnT3zOA
-	 pnjbSgqQY9Fjl53ywHCPYj54VMs2TqzeIvqbKU6cTlBHBrBaesqQRzi7PgJAy7+ZzZIXa
-	 JKWI7bDXjjqiew0HO3HX/P3ijgsEg27MMHCNCA6t0sgDp+2dQ2GyuLtxVfnK0tpDJOqBW
-	 Bij5jlliUBXn4UelVaxSajPTxQ9G0qrTt5nzUZIhFu9smQ7jVGLLnxD4YDYMYhnU53A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UKkTd88o;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ulz5B1US;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792491376;
+	b=JIm97pIwJ0aX2UPMQgt0qzqvsrzmZSq0h+s1D7WsFVLh+UlU5I0ubFpy4hh5UCLukrHg
+	 blRTUXdpBl8cHsJY7VAOGEJhnWYBoHm9yWRHsU85L6Px9S1ac9lyePUXT0ODQk2zC3D/8
+	 cvKkwuSnQ4OleieP+G2y1aWaB82sIJJRMuoPgUDxebCewoLVuEExeeYPmaa38EZofCJkD
+	 FtL6mjDQGW4uCa+Q/rQgXp2uX8qyvFUHQS4w65u83RS7Jci6B557pMO+QL96INAa3bvBR
+	 JZkV2qnqOrjr0o0wB10Z/OYqHiOezTTG0aJzgNxQAFNniaNU1/SNcR6YQmW1T8KBG6Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491376;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=hEUv31WpcCOcwIubujKrqCAngk4N82G4E550/XU4U0I=;
+	b=x1RxSfknLwcon2BqRqQOk2o4sv6ZLybg0QxzsylHbs+T5/wjrHpay0TN+eonjjsUSCIS
+	 21HXDrf3Ctg7ANiH1X2Q18kYVOwJwLvzyEAERzqYhmtZCt1DWIZaS0D6eVz+lKui0Se9Q
+	 AtdVC3ODGrUj/Gh54CtRhLVKiAZr6zWVTcJPhy4m5D9B6aREIbpwekpM3Ex+QEUQxvAzS
+	 RGsIlm1YRaaTX0HrEq948ZrwTBzrMvYZgx92pgyrxJSDAyy+aEviUCiWcvbSABv18JXcZ
+	 7Jtc1yaiHwGG7oWIBgqmHeB9P/+a+fKBLBCe0y1u5GZGbevNqHJzFNf8E+607iB+CpQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNbpBszR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA19606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CA19606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A49606A31C;
+	Tue, 20 Oct 2026 10:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UKkTd88o;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ulz5B1US
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8a9rO2877957
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:15:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	USzUAeXmvNCRnE9FctU6fubUlHkhva9uo5i/eKw0KrI=; b=UKkTd88oLwZdCd/+
-	YCxYihHaOby/yPYVVziRpjuEbPJJKmoW5Qq1EKX8mhlUbr+UNA4Rp9aBTauxsV7U
-	q+QAdtBVdkXyAs4ui/EUUREDU0dSc7H1CbD2lMHucZGIBbY69/eUavQu1/ttygVB
-	L5uf0QCUd2auv1Yox8L0OviRJMJf6rPA5CvPAvX2ReTBCM7TDtqFKGI7FI8r7NrV
-	IpxKEll8pVtkdc5GZVr7wmMW8doXKpFi92V/jknOgtIEYOTXntihyQnCG8I0pov3
-	pgmn2yo7SFv8/4wS6oFvnSdXuSW7mkoHv1Zr23dALiHXYlKdpsU8VGBRIVqkEdXy
-	uNy3ng==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5pt1f2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:15:18 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb6391e89so688725885a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:15:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792491317; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Eap6h1dM76GlZAU1biXP9aXx6IAaah8koSAnNayDdNhZ6iNzcIkVM/ldIJxpKwosRA
-         2THqQHfEK2MhhlW/JW2ibA2n5zEbJGfnwR3zg+W8tuAA7Ug/IqFMCcfGto14zPq58J/w
-         C/TNaqejcArZ0V2x7N4J0lD8yzWH3LzQ5wV0fhP4rb1X52kwUM5aRIo1W3GOY9NkilaI
-         p36zDOI6G4c1G15l8WML53ScUCjoUVk21+1h5lJcWG2TWHWNmIE4Ypqb46LWPYMbwOgB
-         hkRkXl8bTTP5TW+lXNM39smGleB1uPby1yzekDivn6fzENVuQFffISCct8Nz071Tfzoe
-         ERbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=USzUAeXmvNCRnE9FctU6fubUlHkhva9uo5i/eKw0KrI=;
-        fh=7M4P1dGXK+Hp833XX70aLD6t8SMjhs4T7+549tEhHRM=;
-        b=e1ArFrk+r+cGiWCLKGWiUSpxc/bEwzGBtDmb1O5JLXzd2++037akJftbvHIJRunZW7
-         ZmOwbV69qsjCQn1xlO7ML2gwTUFDVwxYnSvKryzNtrUkNj18jWKj3SuAe7TbtBeazLs7
-         56sb8ZxYaJcj+tM3fgHl4W1kaFvoo6kK4wkSLmpREI/Angzfr/rMEiHIkJfJ1JQ6pyau
-         TQv++gn6z2pdlK9mits5W7fsDZuvJfZgB+72IRR3FvslZMnk98J6gq7bLBlBwe7zHF32
-         iL6zYG9onig3BCBLDirEOAcNRK++WlCdCd1YRDTkhZF115HCeIVQjdbdvKCw5T2bAZ+p
-         aetw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792491317; x=1793096117; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=USzUAeXmvNCRnE9FctU6fubUlHkhva9uo5i/eKw0KrI=;
-        b=Ulz5B1US1WxZAdUJUv8EZC/hYQ5/YRkEuT3q80ZV8FVNrib6/z9JF0vCH2Fo4zoeNV
-         9n4k19tTy8OcPQjscNIB6/X5Re549QL/XhXFQbqwumqKebdiM/G5YaS64HMeWDkP/k9l
-         wRg6bQX+5Yuku3yyg1GKUY++JNirktoDdaYOAJMlmrJmnUBnj6/JBCU2UeOMCeYNJ12O
-         8zo9UVcC5Lq3uk7ZGIdDe0SvJwUoaRXMyFiHCgyUEU8iVGPtW9HmH6r8qyPcLVdegRbn
-         qAoFzICDUseH18WfbiSht9kS0m4xDQuNn0LyfWfdnITVE8xf6vWTXCB2lAAYAFQ9komP
-         AXXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792491317; x=1793096117;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=USzUAeXmvNCRnE9FctU6fubUlHkhva9uo5i/eKw0KrI=;
-        b=CkrZDL/U/5JfEAy6MlCJp7rOa8J/sHbWX/6XW106It/PCrNqY840wgSGDl10BNxCrY
-         ZTz/5XdfOhi2XNWORS52s7nHr5C+5yjIikUz0XT5niFJbusMOa8MmFeXUY7LVNBaTtxy
-         WeiX9n6EcydFlWlQiSqSuHmUgZ9SRDKteo9E4znIZ5JKcWFMW9MjRbTLFNYFOIa5TOym
-         rARQZ8KRh0LZFreqyRnlMBdV6mnSKH0Chmsx0ReQZ3UeLVULe0jyb7JIiV3I4CCA9A7Z
-         2HCvFLykgZCS25t3WI+OvfdcbuyOJpng/DYZyzHwoIIrNUdKS5tpDEj27VG/yd8yVu1w
-         7apg==
-X-Forwarded-Encrypted: i=1; AKwUvBzlyFi/yJj/H3suLBZCkMgRK5ou2VfI6n+q7OR9fAkrzt2cMze1q7RdIvDs9tYJpqPeHjevSFHGcNfAkSU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC8RaM2IdmYg3YnuHDELtjYZ0qZWUNSvkTGzMC4MSLBIP8ByFD
-	m6MvD1Yxt0lKRFogbn5ouft1obIYpRQ2miuJyYNF/QRbZjJAF/Acl45caTTt/63k6HPJnKt0OoN
-	LFPr2Avh9cTgqcfxckpLTub/9frmOaW/KJNJWkCTrJnibpf4Rofq1dizbvN6K6AdvY3QSqmMjSZ
-	u16W5emrMmhpNuZ91KDdDy9EQFkOW1qA6XYmwatHKi0Q==
-X-Gm-Gg: AYBFou3IqN/aFzadMylDUL82NgPa/iE/Ch7wNghcQHMnQKGk1/ux5CTUhEOTF6svKcc
-	rUWMFDsoNC0tIY8izapURGPMWGpFdhSU0kr8wafd3v/oRaNcoad+qz0uEobWxeJiJqPLy2n5O1p
-	C+Sp/yCBEK30E4xofvC2hHWNVIvZsKKl/mG+YdIYP9U+iU9NWKxEmHk0G+xSsO0Wo5MxPlpRCBp
-	cxkuM9XyirF0YzZK8xEOpl12LkhRQLJSXUpsS8I+jWOXHG+21Qt8E1jVEzfMNqMUQnbjk0bssE=
-X-Received: by 2002:a05:620a:c4e:b0:93f:1f22:96a4 with SMTP id af79cd13be357-93f29cefa8cmr1720594185a.29.1792491317485;
-        Tue, 20 Oct 2026 03:15:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:c4e:b0:93f:1f22:96a4 with SMTP id
- af79cd13be357-93f29cefa8cmr1720589785a.29.1792491316829; Tue, 20 Oct 2026
- 03:15:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNbpBszR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F6B1F000C4;
+	Tue, 20 Oct 2026 10:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792491375;
+	bh=hEUv31WpcCOcwIubujKrqCAngk4N82G4E550/XU4U0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XNbpBszRZCrAo1KUDmh4F/eflummKiYn3b7qa/FtnmQM5+O8puD71djIPsXjc0y5y
+	 N1FA9m77gEBsMw7QlrGcVPiWllUN8w0OQZZD5kykCOEg6ON0dCiI+iu7cGU5MUkUJF
+	 BCFW74KkMxKRXBV2Ix+yAX/xmOvHSJP7K91hWJH9VN5FUjEFr/l2RjXmlEGvZobTjq
+	 sl8AflyYe3wQt/BoHS5bW0qYTUyTqsPdHUS4J+K/dVQJBtw7w8edWgNz/ZEDAzzprn
+	 q2/i/a1vq/txrlHUgZ/CbkZOze3JNEahYwlY2pJHIKcSMiyu7PEgyYVR5cDmnlaiWi
+	 Y+WF9lP6f+xEw==
+Date: Tue, 20 Oct 2026 11:16:09 +0100
+From: Lee Jones <lee@kernel.org>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nikita Travkin <nikitos.tr@gmail.com>,
+	Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
+Message-ID: <179198402838.839288.17911568760182808689@kernel.org>
+References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+ <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,94 +64,310 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020094254.4017726-1-liuc63@xiaopeng.com>
-In-Reply-To: <20261020094254.4017726-1-liuc63@xiaopeng.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 12:15:06 +0200
-X-Gm-Features: AclHuK9KNDkqLpjluDp4MS8p0mVyq6DiUSCMyPi7A_OSUeyRYLDop--oOo4-vxw
-Message-ID: <CAFEp6-3dycfwn-2O3X6tMYmYuTMgDgoOgYrxGv1Qcg-F-YZ7Lg@mail.gmail.com>
-Subject: Re: [PATCH] net: wwan: iosm: validate msg_head before indexing msg_ring
-To: liuc63 <liuc63@xiaopeng.com>
-Cc: M Chetan Kumar <m.chetan.kumar@intel.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Fang Xieyan <fangxy@xiaopeng.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=DrrDa2/+ c=1 sm=1 tr=0 ts=6ad73f36 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EgahoUkMAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=laIMyccDeTmSpVvBuxYA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=D2SkTF70-_n5gOfERQdM:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX5NzuYq2FFwhp
- jLQsH9mzVyFB3CGkrX+mYXu5O2D99EcXdqu6/FveJPRXhQ5wKSPw9a3l7KGb6IRHHfy9slq5ufX
- 3LntO+1jICNTyj8wnTVPhbmcUqgg5gNwdIJR8VCb4qMy40FU9SWCeqQDKOUxlBydS95psOUbxSe
- uF0WetbM7infp9p/cW6wXPbW/+DHspBs2Ow29oCRwpMjK6PukACnyV4+XvjqK4icq0BPhT04GGB
- Mcavt0vu+QT4/azpQnLv31+91czHv26mdCxVuw1LXnpcA1bolM1r7Risi1edbWDXGTiZsKdxtLn
- FEAOJHXVYCjJQw0/5fev2+g2eNfy4FwDFn5KcRCGhpVwGeG1FK5H7+klsLIJodBKehbcJa5VwVJ
- +U/giBMZZlvjVjtcUcobXZT2l9vO6kZCE8ReWQIhpO+AgjCWzX4BWKbEmmMEWiTKHuvl5Un7zWw
- 4YYFMZp+3WHVgA60f5Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX5wMGz40NVTWB
- TldpQbihsTlAy3JrZSTmBdXVim4Vpff2Svfw/f1xXXAXeUic+FeeWbpW4HIUYb8j8fi1uJ20Snx
- nbqnS4R7v/t2IBFHZ4gfhB984atVZpY=
-X-Proofpoint-GUID: hR1DIh0zXxTba8c5b_B0lvUqyT3knZRV
-X-Proofpoint-ORIG-GUID: hR1DIh0zXxTba8c5b_B0lvUqyT3knZRV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 phishscore=0 spamscore=0 adultscore=0
- suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200040
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
+X-AI-Review-Draft: <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
 
-On Tue, Oct 20, 2026 at 11:42=E2=80=AFAM liuc63 <liuc63@xiaopeng.com> wrote=
-:
->
-> From: Liu Chao <liuc63@xiaopeng.com>
->
-> ipc_protocol_free_msg_get() reads msg_head from shared memory and
-> uses it directly as an index into msg_ring[]. If the head is out
-> of range, the subsequent memset() writes beyond the message ring.
->
-> Validate head against IPC_MEM_MSG_ENTRIES before using it as an
-> index. The ring is a circular buffer, so a value outside the valid
-> range indicates a corrupted head pointer; report the error and fail
-> the allocation instead of writing out of bounds.
->
-> Fixes: 64516f633bfd ("net: iosm: protocol operations")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Please review, explain or fix the Sashiko review(s).
 
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+If this is a set, this request includes the other patches too.
 
+--- checkpatch.pl (2 issues) ---
+Line 19: WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+Line 262: WARNING: DT compatible string "awinic,aw2027" appears un-documented -- check ./Documentation/devicetree/bindings/
+----------------------------------
+
+On Mon, 12 Oct 2026, Paul Sajna wrote:
+
+> The AW2027 is basically the same as the AW2013.
+>
+> It differs in:
+> - the max current (30mA rather than 15)
+> - the number of current levels for colour-mixing (16 rather than 4)
+> - the supply voltage max
+> - the charge indicator (unsupported by our driver at this time)
+>
+> The max current register (imax) also moves from LCFG to GCR2, and the
+> selectable current levels for colour-mixing (LCFG_CUR) take their place.
+>
+> The current driver implementation provided here sets the global imax to
+> it's maximum, and scales each led to the closest value using the local
+> imax. It's the best result achievable short of adding custom sysfs
+> entries and mucking up the linux interfaces.
+>
+> Comparison of all AW20XX chips https://www.awinic.com/en/productCompareList?id=47&ids=1022,74,96,75,72,71,928,927,73,76,578
+> AW2027 datasheet: https://doc.awinic.com/doc/202507/77b87097-27bf-48cd-af9b-9b615064c1e1.pdf
+> Vendor driver: https://www.awinic.com/en/driver/AW2027DNR/454
+>
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 > ---
->  drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/leds/leds-aw2013.c | 137 ++++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 117 insertions(+), 20 deletions(-)
 >
-> diff --git a/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c b/drivers/net/=
-wwan/iosm/iosm_ipc_protocol_ops.c
-> index f2f86f41fd10..004920068c45 100644
-> --- a/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
-> +++ b/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
-> @@ -14,6 +14,11 @@ ipc_protocol_free_msg_get(struct iosm_protocol *ipc_pr=
-otocol, int *index)
->         u32 new_head =3D (head + 1) % IPC_MEM_MSG_ENTRIES;
->         union ipc_mem_msg_entry *msg;
+> diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
+> index 216755d6010f..4da33a86af16 100644
+> --- a/drivers/leds/leds-aw2013.c
+> +++ b/drivers/leds/leds-aw2013.c
+> @@ -1,5 +1,5 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+> -// Driver for Awinic AW2013 3-channel LED driver
+> +// Driver for Awinic AW2013/AW2027 3-channel LED drivers
 >
-> +       if (head >=3D IPC_MEM_MSG_ENTRIES) {
-> +               dev_err(ipc_protocol->dev, "invalid message head %u", hea=
-d);
-> +               return NULL;
-> +       }
+>  #include <linux/i2c.h>
+>  #include <linux/leds.h>
+> @@ -20,13 +20,15 @@
+>  #define AW2013_GCR 0x01
+>  #define AW2013_GCR_ENABLE BIT(0)
+>
+> +#define AW20XX_GCR2 0x04
+> +#define AW2013_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
 > +
->         if (new_head =3D=3D le32_to_cpu(ipc_protocol->p_ap_shm->msg_tail)=
-) {
->                 dev_err(ipc_protocol->dev, "message ring is full");
->                 return NULL;
-> --
-> 2.50.1
+>  /* LED channel enable register */
+>  #define AW2013_LCTR 0x30
+>  #define AW2013_LCTR_LE(x) BIT((x))
 >
+>  /* LED channel control registers */
+>  #define AW2013_LCFG(x) (0x31 + (x))
+> -#define AW2013_LCFG_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
+>  #define AW2013_LCFG_MD BIT(4)
+>  #define AW2013_LCFG_FI BIT(5)
+>  #define AW2013_LCFG_FO BIT(6)
+> @@ -50,6 +52,13 @@
+>  #define AW2013_REG_MAX 0x77
+>
+>  #define AW2013_TIME_STEP 130 /* ms */
+> +#define AW2027_RSTR_CHIP_ID 0x09
+> +#define AW2027_REG_MAX 0x7F /* copied from vendor driver, but only up to 0x3F is documented */
+> +
+> +#define AW2027_IMAX_15MA (0)
+> +#define AW2027_IMAX_30MA (1)
+> +#define AW2027_IMAX_5MA  (2)
+> +#define AW2027_IMAX_10MA (3)
+
+Why the parentheses around simple integer literals?
+
+>  struct aw2013;
+>
+> @@ -60,16 +69,70 @@ struct aw2013_led {
+>  	unsigned int imax;
+>  };
+>
+> +struct aw2013_chipdef {
+> +	u8 chip_id;
+> +	const struct regmap_config *regmap_cfg;
+> +	u32 default_imax;
+> +	bool gcr2_imax;
+> +	unsigned int current_levels;
+> +	unsigned int current_max;
+> +};
+> +
+>  struct aw2013 {
+>  	struct mutex mutex; /* held when writing to registers */
+>  	struct regulator_bulk_data regulators[2];
+>  	struct i2c_client *client;
+>  	struct aw2013_led leds[AW2013_MAX_LEDS];
+>  	struct regmap *regmap;
+> +	const struct aw2013_chipdef *cdef;
+>  	int num_leds;
+>  	bool enabled;
+>  };
+>
+> +static const struct regmap_config aw2013_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AW2013_REG_MAX,
+> +};
+> +
+> +static const struct regmap_config aw2027_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AW2027_REG_MAX,
+> +};
+> +
+> +static const struct aw2013_chipdef aw2013_chipdef = {
+> +	.chip_id = AW2013_RSTR_CHIP_ID,
+> +	.regmap_cfg = &aw2013_regmap_config,
+> +	.default_imax = 1, // 5mA
+> +	.gcr2_imax = false,
+> +	.current_levels = 4,
+> +	.current_max = 15000,
+> +};
+> +
+> +static const struct aw2013_chipdef aw2027_chipdef = {
+> +	.chip_id = AW2027_RSTR_CHIP_ID,
+> +	.regmap_cfg = &aw2027_regmap_config,
+> +	.default_imax = 3, // 6mA
+> +	.gcr2_imax = true,
+> +	.current_levels = 16,
+> +	.current_max = 30000,
+> +};
+> +
+> +/**
+> + * aw2013_microamp_to_imax() - Finds the closest current step to the given microamp
+> + * @microamp: Desired current in microamps
+> + * @cdef: Chip definition
+> + *
+> + * Return: The closest current-step to the given microamp
+> + */
+> +static inline u32 aw2013_microamp_to_imax(u32 microamp, const struct aw2013_chipdef *cdef)
+> +{
+> +	return min_t(u32, (microamp * (cdef->current_levels - 1))
+> +			  / cdef->current_max,
+> +		     cdef->current_levels - 1);
+> +}
+
+This is hard to read, I think we can do better.
+
+Also, does it need to be a separate helper function when it only has a
+single call site?
+
+> +
+>  static int aw2013_chip_init(struct aw2013 *chip)
+>  {
+>  	int i, ret;
+> @@ -81,17 +144,50 @@ static int aw2013_chip_init(struct aw2013 *chip)
+>  		return ret;
+>  	}
+>
+> -	for (i = 0; i < chip->num_leds; i++) {
+> +	if (chip->cdef->gcr2_imax) {
+> +		/*
+> +		 * AW2027 supports 4-step global imax, and also a 16-step control for limiting
+> +		 * individual current per LED. This doesn't map to the single value the
+> +		 * devicetree provides super well, so set global imax to maximum, and
+> +		 * local imax to whatever gets us closest to the value in the devicetree.
+> +		 */
+>  		ret = regmap_update_bits(chip->regmap,
+> -					 AW2013_LCFG(chip->leds[i].num),
+> -					 AW2013_LCFG_IMAX_MASK,
+> -					 chip->leds[i].imax);
+> +				AW20XX_GCR2,
+> +				AW2013_IMAX_MASK,
+> +				AW2027_IMAX_30MA);
+>  		if (ret) {
+>  			dev_err(&chip->client->dev,
+> -				"Failed to set maximum current for led %d: %d\n",
+> -				chip->leds[i].num, ret);
+> +				"Failed to set maximum global current: %d\n",
+> +				ret);
+>  			return ret;
+>  		}
+> +
+> +		for (i = 0; i < chip->num_leds; i++) {
+> +			ret = regmap_update_bits(chip->regmap,
+> +						 AW2013_LCFG(chip->leds[i].num),
+> +						 AW2013_IMAX_MASK,
+> +						 chip->leds[i].imax);
+> +			if (ret) {
+> +				dev_err(&chip->client->dev,
+> +					"Failed to set maximum current for led %d: %d\n",
+> +					chip->leds[i].num, ret);
+> +				return ret;
+> +			}
+> +		}
+> +	} else {
+> +		/* AW2013 only supports 4-step individual current per LED */
+> +		for (i = 0; i < chip->num_leds; i++) {
+> +			ret = regmap_update_bits(chip->regmap,
+> +						 AW2013_LCFG(chip->leds[i].num),
+> +						 AW2013_IMAX_MASK,
+> +						 chip->leds[i].imax);
+> +			if (ret) {
+> +				dev_err(&chip->client->dev,
+> +					"Failed to set maximum current for led %d: %d\n",
+> +					chip->leds[i].num, ret);
+> +				return ret;
+> +			}
+> +		}
+>  	}
+
+Consider using functions instead of massive seconds of indented code.
+
+Also, the for() loops are identical and are the last pieces of both
+branches, so why are they duplicated?
+
+>  	return ret;
+> @@ -292,9 +388,9 @@ static int aw2013_probe_dt(struct aw2013 *chip)
+>  		init_data.fwnode = of_fwnode_handle(child);
+>
+>  		if (!of_property_read_u32(child, "led-max-microamp", &imax)) {
+> -			led->imax = min_t(u32, imax / 5000, 3);
+> +			led->imax = aw2013_microamp_to_imax(imax, chip->cdef);
+>  		} else {
+> -			led->imax = 1; // 5mA
+> +			led->imax = chip->cdef->default_imax;
+>  			dev_info(&chip->client->dev,
+>  				 "DT property led-max-microamp is missing\n");
+>  		}
+> @@ -323,18 +419,18 @@ static void aw2013_chip_disable_action(void *data)
+>  	aw2013_chip_disable(data);
+>  }
+>
+> -static const struct regmap_config aw2013_regmap_config = {
+> -	.reg_bits = 8,
+> -	.val_bits = 8,
+> -	.max_register = AW2013_REG_MAX,
+> -};
+>
+>  static int aw2013_probe(struct i2c_client *client)
+>  {
+>  	struct aw2013 *chip;
+> +	const struct aw2013_chipdef *cdef;
+>  	int ret;
+>  	unsigned int chipid;
+>
+> +	cdef = device_get_match_data(&client->dev);
+> +	if (!cdef)
+> +		return -ENODEV;
+> +
+>  	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
+>  	if (!chip)
+>  		return -ENOMEM;
+> @@ -346,9 +442,10 @@ static int aw2013_probe(struct i2c_client *client)
+>  	mutex_lock(&chip->mutex);
+>
+>  	chip->client = client;
+> +	chip->cdef = cdef;
+>  	i2c_set_clientdata(client, chip);
+>
+> -	chip->regmap = devm_regmap_init_i2c(client, &aw2013_regmap_config);
+> +	chip->regmap = devm_regmap_init_i2c(client, chip->cdef->regmap_cfg);
+>  	if (IS_ERR(chip->regmap)) {
+>  		ret = PTR_ERR(chip->regmap);
+>  		dev_err(&client->dev, "Failed to allocate register map: %d\n",
+> @@ -382,8 +479,7 @@ static int aw2013_probe(struct i2c_client *client)
+>  			ret);
+>  		goto error_reg;
+>  	}
+> -
+> -	if (chipid != AW2013_RSTR_CHIP_ID) {
+> +	if (chipid != chip->cdef->chip_id) {
+>  		dev_err(&client->dev, "Chip reported wrong ID: %x\n",
+>  			chipid);
+>  		ret = -ENODEV;
+> @@ -420,7 +516,8 @@ static int aw2013_probe(struct i2c_client *client)
+>  }
+>
+>  static const struct of_device_id aw2013_match_table[] = {
+> -	{ .compatible = "awinic,aw2013", },
+> +	{ .compatible = "awinic,aw2013", .data = &aw2013_chipdef },
+> +	{ .compatible = "awinic,aw2027", .data = &aw2027_chipdef },
+>  	{ /* sentinel */ },
+>  };
+>
+> @@ -437,5 +534,5 @@ static struct i2c_driver aw2013_driver = {
+>  module_i2c_driver(aw2013_driver);
+>
+>  MODULE_AUTHOR("Nikita Travkin <nikitos.tr@gmail.com>");
+> -MODULE_DESCRIPTION("AW2013 LED driver");
+> +MODULE_DESCRIPTION("AW2013/AW2027 LED driver");
+>  MODULE_LICENSE("GPL v2");
+>
+> -- 
+> 2.55.0
+>
+>
+
+-- 
+Lee Jones
