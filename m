@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480884;
-	b=tGMVeTRMDSGB6/fcwS1ygXgyUXi54ywhKQIeaQfH8thFKSRIUfY8bFnfgSuF/hlZOZXU
-	 /aKrrjOZLNh/eNHTKPdWQgWlWc6qeAYQEjXrTo7CbFw1PqDgNT16sdqx0evrcnDwOG+37
-	 27X0p+QgdA3pqh36cvg+yPc0pMVRNKEUd9Wj/XITh8hvm5yR3umKPKq8Ob3RJZPkaAHOi
-	 vAtcrp7ydB4YtxUp8nte9EzRVbsH9UoKvrsfzeH6yepT6IyFN24lsQ41bo8JLljyzElvH
-	 /+VB+8r8OyU1JUECMDUSxb9wcNa5zUOyk7R7eQXl7HVpttRYV6WPye/leEJlMSxkUoA==
+	t=1792480986;
+	b=3nsNw9ehn/SDYVafJApxNRjORe9smLlin7361MZ+B7lNkXI+c047bVXWd7hG9cVtdKmV
+	 ZFNhh6gUKW2ipFBC7d60GrtEE2UmiZMTb6d73iFzxzB/rz1idQZTpLw7XpUggtNC0SvTZ
+	 KkrxQm6bwO/CdBYmOGoPJgl1pfbqZvposQeYs94n+BskpcYmOYdqiLaSXdAHyppLZ+0Tg
+	 2A4Ddu7ZrwQiWZQ/DoMNvc5UeJu8kNxsnICeY4fPIFBbU7v0A1FolCOYkUW8PWszxMe2Z
+	 9EJt9nGHtl/vuPiJsWiUEhpjnBf8yaraI2Jim0E6OsrwigJry0tTrb2vNtdzv0Ng+kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480884;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=78ho8sxyOUaxztm7HsYhydMdI29Az8Akld6js9MO2yc=;
-	b=I9wAWyZo+KKhq2VbIH2FJ8sjEhIJKKie5Tap70Mn2jk0K2xyXkl619H83oVpH3tTmM80
-	 F25U7lyTJQKejZYll/brMUD7qNpUYYTtRwmMrZ8aB5hEdrwmARlm+krz13Zlu6Dj2cvCv
-	 K9TiVaekEaZ65UtPbm8fyfh/M43PXgtR1v8YCHBJqKApPxUHt/9L8wfFnD0h/STxQ1j8d
-	 FBrqpdIWmJl7+UXhggXDOG4v0dZx+i9MQZg7tBmcwMe2J8BlDoCCxynDq0PCnPA7vHJiD
-	 6h63qmAgboJ7nomKQFBDaSO6IB7ShBcqnSVjw+IvPkRMkbMweiNVzX79y15rjoXjvng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792480986;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=admPb6RDUUyQnHF1uTkWAohc96AfvEkkjESWlPY5zhM=;
+	b=pgqhOgEk9c0kyc2T2A20mzQJLn3GBeFv32lligBSWQsC3avYCRo8N4QfvrEBxJ30P6KL
+	 OhdDQQyqJGv+JiXm5nhB8OaqAy4JNT73ZfISDjqneDqBRRHuN4mke2S4NVq3EpT3gChA1
+	 /71Nc2Zt4Mxf+l6QEXO+LfEzDyi7QaBp/euSd5lF42KVod0YbM/N0SbxiNmOhx242QEmi
+	 5upKKqu8tBUxO3dO5lNNLdhWs0NgY7xxGLon4JMK+c2wLFAtfLC4qUb02Cg/OVGSbjfuV
+	 U4WPYIuyZLZm8y2MNe1ySAPg00/TsaqfBzD2T6okjydSy1D7TrL24grg6OdXaEzpVXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1CouIPD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcWHaBAM;
+	arc=none smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A1A606A319;
-	Tue, 20 Oct 2026 07:21:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3337C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:23:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3337C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1CouIPD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3996F1F000C5;
-	Tue, 20 Oct 2026 07:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792480883;
-	bh=78ho8sxyOUaxztm7HsYhydMdI29Az8Akld6js9MO2yc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=V1CouIPD1awmOYL+8dafrrc0ZGcALseByYGhEf8nTxVKjeFNTjjxeCp7KKlzjFjEk
-	 ir9GSrQVjfc0F+MLVK4jjOnjjiS/AFmJz3fw9v6XS/yuamlG//eJ2kynfrqw16aa0M
-	 pbTLmzObydHP2DyvMAXa+5WyUnOPzomurWi06ilBoCvn6mcyn7tBaIWjUZrVHKVMU4
-	 ChZOzYrplYc5L9pqwHt0DF+QLcRomY8++DxqGozZdd0CcU19/1qAdCAYYoon/9iTH2
-	 5Zjvd05mTDJFuoAJBYnh9mwVyO+fXamJ4kPTzh3MI2DGbxSslZoxzk0JX1uYl6aCPh
-	 ywnV3+02y6w/g==
-Message-ID: <18392c52-a635-4d7e-856d-6203c4967483@kernel.org>
-Date: Tue, 20 Oct 2026 09:21:19 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcWHaBAM
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a75f960be3so30682441fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:23:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792480983; x=1793085783; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=admPb6RDUUyQnHF1uTkWAohc96AfvEkkjESWlPY5zhM=;
+        b=KcWHaBAM3A3RRUMlcUgGVwLbCpZqI7qqbXNdLDSR3yKNfVsf3VaO/cCU8BGVRN8C4b
+         I9EyVpaDqv7ocZvf5l0o7m8IDbGcPyNhURNx17ixL2aTuCQwf93mh5MPg7lXusYipzqH
+         GkacnEfxhnyegCPlbXzqpuzTOsoKlAGxNGjpoQsQR8FViu9v2R3JtHDaBw85+B6Bdyzq
+         FkV5U3OLMmqFJvbVPiLPCm08KnJy9AEY7RIzX4Z6Y1X+2nGmJw17EwptRzHGQLUB/bBP
+         JfOYLkhCpismTni3VkMuDbNOUvKicO2nvlFPOSwL3w183tdRH4K6ZYGYmIl2kI6H5TkW
+         yTkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792480983; x=1793085783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=admPb6RDUUyQnHF1uTkWAohc96AfvEkkjESWlPY5zhM=;
+        b=pubw316jHAaI6qpf+j2bARdXRke60+ATMw3PX98sCq77C1ZyqNzuugcsyLHI6zQj7U
+         kB0QhZ9oGDbt8fA3MOI3NMwwnCTYG7QprzsrkjEXijuIkQS+JQt+0rpb7IyEZv8rC9zI
+         wVaLLTgRMKiBiLRsnutHHIIqENe0pTfq9NX1uZN5KKpTc/TWHTKguxOmN6+739uTRpPj
+         fYQF7tFVpgf9FNNvH0Ts7P+aONn4Qvhd1XzkB9cMLDJjzzEGWseVZb5HOjsTmQ+E+ZkR
+         GZNC+TIQXFts88rpuhRRMDDVsd1wXMTuEKYGx6vSixmh4lgBF+XPNH4sAmsh2J5fdcRp
+         P5Tg==
+X-Forwarded-Encrypted: i=1; AKwUvByKOpgkGxeSGzcMvXio8Om+jxZZ+ep78qOHv4qCq2qesuclfnK+q9oix8YGO4cquXQD5dKSVox5YxKKGms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpT8gqK9kVMBt/Tk456BgrnjOTG6/nxMwSX1oYn+3ZIaFkBZ7w
+	L2nZMJr9XIVQVVqM1sTjfLWZ7NZphbgv1N/N9mCjNENCbXYjV/2OPQft
+X-Gm-Gg: AYBFou1RNu6qulNB3uUoKWWpLp4fSQpe0pSyVlUsocWaU5vQuCB4iklMy88t5f1DUag
+	s9cNQh3P1XLsitt4g9aLAqKJeaiYuJ5nsO2xo9LBzt927EM2KWDvj3n+pO89CQdcJNgMvhv4Dvp
+	FrVNWjvRzwfJ5TBA0ndISUc7/4LBlmQJ6v8NPtCTkZ4TDBFkTv879IE1THhh3rfMGInQKqfSiof
+	Ry/EmYN+3IuLqUYfyj5aZD3PeU1Rup/hYKgmHF9nNv0v+HEz/XTi1y1AHbWjhN5C7KVS0GPJ68W
+	3g4gN+tUL8eFjsqfF3iazfNdIqSGS3baTuFHEbSgmrLXlzo3zaOOqcizflsVZketQ57pjs7Ebwn
+	xuZ/Zl5bHBwRxAfhy9NWIIFiFy3TA+wKSyyfHHcWp9RWDDNXIWBh5Z0lAvQ96/LUTvaL65ugor0
+	9jE2EjJu+QJs35M/yUn4/mJyPKRdRq/8jf3o4t2beKAru2AlOTRwVtNuDk8ybew18qWicibj5O
+X-Received: by 2002:a05:6512:3d09:b0:5be:4c7e:ade1 with SMTP id 2adb3069b0e04-5be50a5016cmr3395440e87.16.1792480983044;
+        Tue, 20 Oct 2026 00:23:03 -0700 (PDT)
+Received: from HachikujiMayoi ([92.36.78.63])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4be346b3sm2455631e87.18.2026.10.20.00.22.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 00:23:02 -0700 (PDT)
+From: Daniil Iskhakov <shkiper325@gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Agalakov Daniil <empt1nesss@proton.me>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Roman Razov <bonenooo@gmail.com>,
+	Daniil Iskhakov <shkiper325@gmail.com>
+Subject: [PATCH] USB: serial: mos7720: fix actual baud rate not reported back to TTY
+Date: Tue, 20 Oct 2026 10:22:47 +0300
+Message-ID: <20261020072248.7607-1-shkiper325@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,104 +97,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/page_alloc: let the highest memory node recover from
- hopeless state
-Content-Language: en-US
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, surenb@google.com, mhocko@suse.com,
- brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com,
- flyinrm@gmail.com, stable@vger.kernel.org
-References: <20261019184850.3427905-1-gourry@gourry.net>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261019184850.3427905-1-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/19/26 20:48, Gregory Price (Meta) wrote:
-> free_frozen_page_commit() clears a hopeless node's kswapd failures once
-> its zone recovers above the high watermark, but only if another memory
-> node exists for allocations to fall back to.
-> 
-> The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
-> with a higher id. The highest-numbered memory node therefore never
-> recovers on this path, and its kswapd stays disabled until reclaim on
-> that node makes progress and balances it, or demotion is re-enabled.
-> 
-> In many cases, direct reclaim many never fully run against a lower
-> node (CXL/kmem), and that means its kswapd can end up full disabled
-> in rare situations.
-> 
-> To reproduce, fill the highest memory node with bound, non-THP anonymous
-> memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
-> keeps showing node_unreclaimable 1 for that node. A lower node recovers.
-> 
-> Count the memory nodes instead. Adding first_memory_node != nid to the
-> existing test would also work, but a count says directly what the check
-> means: some other memory node exists.
-> 
-> Fixes: e7a5f249e6db ("mm: re-enable kswapd when memory pressure subsides or demotion is toggled")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+From: Agalakov Daniil <empt1nesss@proton.me>
 
-LGTM enough for a stable hotfix
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+The calc_baud_rate_divisor() function computes a divisor from the
+requested baud rate using integer arithmetic, which means the actual
+hardware baud rate may differ from the requested one. Previously this
+rounded value was never propagated back to the TTY layer, so
+tty_encode_baud_rate() was called with the requested rate rather than
+the actual one.
 
-> ---
->  mm/page_alloc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 417c427b196d9..6d4f03faf96ee 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -2929,7 +2929,7 @@ static bool free_frozen_page_commit(struct zone *zone,
->  		 * kswapd work again by resetting kswapd_failures.
->  		 */
->  		if (kswapd_test_hopeless(pgdat) &&
-> -		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
-> +		    num_node_state(N_MEMORY) > 1)
->  			kswapd_clear_hopeless(pgdat, KSWAPD_CLEAR_HOPELESS_PCP);
->  	}
->  	return ret;
+Change baudrate parameters in calc_baud_rate_divisor() and
+send_cmd_write_baud_rate() to pointers so the actual resulting baud
+rate can be written back to the caller. Update *baudrate with the
+computed value (230400 / custom) after divisor calculation.
 
+In change_port_settings(), pass &baud to send_cmd_write_baud_rate()
+and guard tty_encode_baud_rate() with a status check, so the TTY is
+only updated on success and receives the true hardware baud rate.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 65d063ab21fe ("USB: mos7720: clean up termios")
+Signed-off-by: Agalakov Daniil <empt1nesss@proton.me>
+Co-developed-by: Daniil Iskhakov <shkiper325@gmail.com>
+Signed-off-by: Daniil Iskhakov <shkiper325@gmail.com>
+---
+ drivers/usb/serial/mos7720.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/usb/serial/mos7720.c b/drivers/usb/serial/mos7720.c
+index 94459408e7fb..1052217edf26 100644
+--- a/drivers/usb/serial/mos7720.c
++++ b/drivers/usb/serial/mos7720.c
+@@ -1264,9 +1264,9 @@ static const struct divisor_table_entry divisor_table[] = {
+ /*****************************************************************************
+  * calc_baud_rate_divisor
+  *	this function calculates the proper baud rate divisor for the specified
+- *	baud rate.
++ *	baud rate and updates the baudrate parameter with the actual value.
+  *****************************************************************************/
+-static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, int *divisor)
++static int calc_baud_rate_divisor(struct usb_serial_port *port, int *baudrate, int *divisor)
+ {
+ 	int i;
+ 	__u16 custom;
+@@ -1274,10 +1274,10 @@ static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, in
+ 	__u16 round;
+ 
+ 
+-	dev_dbg(&port->dev, "%s - %d\n", __func__, baudrate);
++	dev_dbg(&port->dev, "%s - %d\n", __func__, *baudrate);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(divisor_table); i++) {
+-		if (divisor_table[i].baudrate == baudrate) {
++		if (divisor_table[i].baudrate == *baudrate) {
+ 			*divisor = divisor_table[i].divisor;
+ 			return 0;
+ 		}
+@@ -1285,18 +1285,19 @@ static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, in
+ 
+ 	/* After trying for all the standard baud rates    *
+ 	 * Try calculating the divisor for this baud rate  */
+-	if (baudrate > 75 &&  baudrate < 230400) {
++	if (*baudrate > 75 && *baudrate < 230400) {
+ 		/* get the divisor */
+-		custom = (__u16)(230400L  / baudrate);
++		custom = (__u16)(230400L  / *baudrate);
+ 
+ 		/* Check for round off */
+-		round1 = (__u16)(2304000L / baudrate);
++		round1 = (__u16)(2304000L / *baudrate);
+ 		round = (__u16)(round1 - (custom * 10));
+ 		if (round > 4)
+ 			custom++;
+ 		*divisor = custom;
++		*baudrate = 230400L / custom;
+ 
+-		dev_dbg(&port->dev, "Baud %d = %d\n", baudrate, custom);
++		dev_dbg(&port->dev, "Baud %d = %d\n", *baudrate, custom);
+ 		return 0;
+ 	}
+ 
+@@ -1307,10 +1308,10 @@ static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, in
+ /*
+  * send_cmd_write_baud_rate
+  *	this function sends the proper command to change the baud rate of the
+- *	specified port.
++ *	specified port and updates the baudrate parameter with the actual value.
+  */
+ static int send_cmd_write_baud_rate(struct moschip_port *mos7720_port,
+-				    int baudrate)
++				    int *baudrate)
+ {
+ 	struct usb_serial_port *port;
+ 	struct usb_serial *serial;
+@@ -1325,7 +1326,7 @@ static int send_cmd_write_baud_rate(struct moschip_port *mos7720_port,
+ 	serial = port->serial;
+ 
+ 	number = port->port_number;
+-	dev_dbg(&port->dev, "%s - baud = %d\n", __func__, baudrate);
++	dev_dbg(&port->dev, "%s - baud = %d\n", __func__, *baudrate);
+ 
+ 	/* Calculate the Divisor */
+ 	status = calc_baud_rate_divisor(port, baudrate, &divisor);
+@@ -1474,10 +1475,8 @@ static void change_port_settings(struct tty_struct *tty,
+ 	}
+ 
+ 	dev_dbg(&port->dev, "%s - baud rate = %d\n", __func__, baud);
+-	status = send_cmd_write_baud_rate(mos7720_port, baud);
+-	/* FIXME: needs to write actual resulting baud back not just
+-	   blindly do so */
+-	if (cflag & CBAUD)
++	status = send_cmd_write_baud_rate(mos7720_port, &baud);
++	if (!status && (cflag & CBAUD))
+ 		tty_encode_baud_rate(tty, baud, baud);
+ 	/* Enable Interrupts */
+ 	write_mos_reg(serial, port_number, MOS7720_IER, 0x0c);
+-- 
+2.51.0
