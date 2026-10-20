@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494830;
-	b=uyifYxua2DdPb+eS9l8NrFdHEbdQ2ALEj/cW6lgPbG51qq4++8i4rUEtTQbp0uDAL80S
-	 DyelXnYcThL0T9zKv2fcXz5NW36zoeqwqE6tNhqUO2DRZKqG6X4W6HsfIZwPnHpODkluw
-	 Az2v5Jc/9bnwnDWXmR+umnPAS+o5OIlc6lyosDWWpF3craqe5COi82Yr4i7oeONN6ZXuU
-	 Y1gnFq/C6Nlo0UQqSr1JXAt2iPnZDdcOFY0W/7saoeHE5MQtX6HlL9ZTeMp//aISaaejv
-	 Ugv1Usn9fGjUFvlA5Bf8H62mkh+3nVUJEA6GvSzHEQpDGWM4JWltEpiSuDez0oH7KlA==
+	t=1792494860;
+	b=xdSDOwTvaSvOwo8lCH/tIM+ixro12YsS7cKe7Mq4Amk62X1N/AMYsbS3JiYvtFci/I5v
+	 W/9jsZtgDUX3QyU2Aou6xCEFmpQ41iM3TF49DyzOZBqjV0J7FqqcPdew4XOcrnZR5/MnA
+	 wClu4I7KSViklaYxQh0Ji+i0c+6vsF3oNIiom81RrTeZBSOLZ3i4cdz87+1yfqBAaR8Bj
+	 qMMUZq32lLk4lglwAnYPRy/Bn9ggROPMCTU/xqDcEjmsn0XxPY2qZMVYZsGbFQQJ+GBPv
+	 ipKhe6dYcdfkjvjQQfdwuWqKmPT0xx3zOPWj2dBdP/KyOALkQVAhFMdxTlIvn6I7rxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494830;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ssC6O5op5kxsykPYGF90zu0HggsOhAnuDsh96PbOQGs=;
-	b=ic6XECXcpXbmaNpcqfKrbj+VHyPw28jdGMw506aTe6FYOKPCRoBVV1CCMzNuHSxOl7iw
-	 +WcwiUkAPe6WKAfiVnDBd6A+kw1uG7Hm5g+ho/1znC2g4eutc2O6ZiUj4eLHrgHxwqoZw
-	 ZFx1Ysb/QsuIK+VEkEQ4oayJbV1G56SuUiiWKliGs/1X3xW/7gGKlcXR9t27kGCChN02S
-	 DxIad/+TzPNeAYe4BrX4poI/F4IYTMjqyM6JJgAdJZlJ9vFfpJq8/QIUhUUaW3sxgCHu9
-	 b8zD2D4OTEqVrO/b3mwUMgt+i7tIb2oTMEtLc10XNZloXy6P4UjiksTrmTZvXP2KsJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494860;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=VD9PXrKPsg52orzhOiFjXJRmRbfBHyc5RoWWdwKxF0M=;
+	b=zt99Pj9GgN0b5l2nzpwZDWRnV3rWgeJ9/oiv7FZl/2Jj4qQKMv0DZK7hbMO8twKCpujH
+	 dsqQ1mooWHPOUluosLinhwKTfvWY4UgMim1sZsHNTigCHPbPEuLcR4HqoSfnQu3XhHK6q
+	 csZsEpueT2wLMeDbr4pCePPrIBly7RVt5UX0t8fvXmxfZla50+FmSn+iwpApIgUJ2/tXR
+	 00cBJEdYwlYjzpYqrun7h0mLEiDssgjvTCM2rotobRj0jKkNYPD37bL3H4Om1UDezPSCv
+	 rF2CqVFh0Ztmweo2wF14d1QF9jfzHI6IPWX9NNne9HthsEpueJV4wUTnDL4hJ2rMSCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="dVw/obaJ";
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WKhtmytc;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B35606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B35606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967BB606A31C;
+	Tue, 20 Oct 2026 11:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 967BB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dVw/obaJ
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a021c28046so31575e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792494828; x=1793099628; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ssC6O5op5kxsykPYGF90zu0HggsOhAnuDsh96PbOQGs=;
-        b=dVw/obaJLbmRSMe8phL42oKvbHj/Vj37F0RyO/lbanCD8NFFG3feJnLqrQtDt/XPXI
-         wIN/SdHF0FVrPtNmpl6SJCeAg21CJQL7jr4bA9DT0V6bqXo0l3r6giG5UK82aFN3ThJh
-         WX8f/xwi76O+3mOd4Ce9bTuZyDZz2wayoov4rWzS0HrYnYuRyq0+mpoiDEgYKNrwrZAt
-         qjPuDMpUVjkyw0JCQGDq65eGs5uo3LomyH1zIS09zmN+LNgScKqlfb9dFwyVBQAAER2G
-         HBv5F81brK53oyG0vQKNAjRwS8XO+uPREDip1rNmidXCFnNsrjLQPHx9CRvf0BHrJb7T
-         RWbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792494828; x=1793099628;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ssC6O5op5kxsykPYGF90zu0HggsOhAnuDsh96PbOQGs=;
-        b=cjGqm4wFZzBhDC/hoUVLQfQ4eHzWHW7538+C2JoOIx19icNw7SfSVlJW+E3ViJUUcV
-         2AbE2qyGbIlO+Cg/WxQjTdT4BiCo/Rc0iDzQ1GRoDEAoO/8izj4l2uJpJ/SOdPeJBJKa
-         X+wGcvHYhArT8kEoYC9aG0GOC1WMYdefrntAUzcXDAZ9db0OS6FXALs6/arAiJ4VreME
-         /sN+Hwv8IG67FO8k8+wpZDtNhHlAla8/CB7VVNEkmrkTE33wv51Z3Nw/TlZcH/HS5KWy
-         7HbjRo+phmgNoxPExwp4hdokn0N/QW8L+qPJwDrmjqo+jW2rXlUuPvX79M+/nZlpoKo/
-         NWdw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKbQwWVN/d53LgYTR2n5p9HVxfzXep6kmRix2KOwgj5DPhj/GNDYCNi9yRXCNSnPM2IQQBY6jNQOcOhLc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTM1kTXGinI/sk1cVO/6vFlZTZaqvP4jWaoU3vP7dMAPh5eALS
-	Wdl0m9H7iC3bpo7xDBYzKVuwfne/Gum/ukycZYHgzOcuDMviONRm1euwG6e8WrbCIYph1lGA1Pe
-	Y2P83Tg==
-X-Gm-Gg: AYBFou2Ga8xPFWVYLjIfxM4PmAFCQrTYAoldaX5ma66Jh67NVtaLnfviSeUpMcrJ/qp
-	KVBbI75RjfhHzI/vNFuPcz4zA21S+Sb3ad6L+OTTX2OHzOa5ytoqS/Wtn4JK5+D3BrKLAE0LKDZ
-	yfLcYvc0WQdadztDpzgNDZBziH23oMIdLShNd5mXHPda0sLTRWdSF46DW4J2Wb3lpdrEVF2eRCX
-	+4Kn2ab+v08N14CRY6I3PvLAZRhNl1HVtGtsrmcRq7ufiNtobfm5hPRMchDMWX4/O9uvdjPeS6B
-	KToffBElP48XNN9CA63r1dlrDvBTO0Yo5U2vtkPUMeNy6YEp8u3m5Nh45dCyJ99hdCS34JaYA69
-	Dgl+MBXgGNW2H7Eg8FnuZE+dEDXO9YmFBUa41+Zrmx07PGc7NVvEnB1hvdgOdv8cm5GNFB8JWbq
-	9Yx5tmXs7tbs1lCUAYAcgn4/NS/Jlz8SoEWkh8tSrYM3qZbtpsT+BXskSQ2PLeTHPoIiM6GJUU0
-	ZgK8bjA1Dpeff4stoTaQX6G18BgLWPglxywCxkl
-X-Received: by 2002:a05:600d:4447:10b0:4a1:7af1:5386 with SMTP id 5b1f17b1804b1-4a1f37a469emr748285e9.1.1792494827956;
-        Tue, 20 Oct 2026 04:13:47 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d41c8asm64987465e9.8.2026.10.20.04.13.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 04:13:46 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:13:43 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com,
-	praan@google.com, kevin.tian@intel.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
-	Cristian Prundeanu <cpru@amazon.com>,
-	Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 01/11] iommu/arm-smmu-v3: Init the vmid_map ida
- before the stream table setup
-Message-ID: <atdM52CxWJTZxOIz@google.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <058aeb235a458c5b48d918d947608c76dde0d845.1791226953.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WKhtmytc
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 3EBE4C6344F;
+	Tue, 20 Oct 2026 11:15:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 98A9260393;
+	Tue, 20 Oct 2026 11:14:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C205103289A8;
+	Tue, 20 Oct 2026 13:14:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792494853; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=VD9PXrKPsg52orzhOiFjXJRmRbfBHyc5RoWWdwKxF0M=;
+	b=WKhtmytcvf2MutFOnrTwk8Hyl4xsuxLJNdJN2WRMXFXZZLwzaI/lVjUDILPv0K4dMa6F6S
+	MB/Ca3ceDlD29We5fCzPLvqIcntcLr1FDjmgaFj86ibYCwk/J4atUSDUcuotG+45tItVqN
+	PoTEPdpR10zrh7bFc04uxHtbtUQL7qZiCrxfufI0JUaC/8eBHyAYW+c73+z7sUAJxRHvi4
+	OJ7uHDvYYvSgrazItH4tK/i41CsHShRG0nx05bXHfH4fauFlCHcRN3nTswrCcyl6rfhkW6
+	1wYWw38OR1tWNh322uXHRVgFQDqZ/z+HYjUjb6yiqI6SXc6+g2/W1EIcW6f8dw==
+Date: Tue, 20 Oct 2026 13:14:06 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
+Message-ID: <20261020131406.02bd50ec@bootlin.com>
+In-Reply-To: <atcM7MFZTFXLbap8@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-6-herve.codina@bootlin.com>
+	<atVrHkfXl10FTEye@gractus.seuss>
+	<20261019155659.4badecfb@bootlin.com>
+	<atcM7MFZTFXLbap8@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,65 +82,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <058aeb235a458c5b48d918d947608c76dde0d845.1791226953.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 05, 2026 at 12:30:44PM -0700, Nicolin Chen wrote:
-> The vmid_map ida is initialized after the stream table setup, along with
-> the devres action that destroys it.
-> 
-> An upcoming change will reserve the crashed kernel's in-use VMIDs in this
-> ida, from a kdump kernel's stream table adoption that runs in place of the
-> regular setup and returns early.
-> 
-> Move the ida_init() and its devres registration to the entry of the whole
-> function, so that the ida is ready by the time the adoption path runs.
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Assisted-by: LLM
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Hi David,
 
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
+On Tue, 20 Oct 2026 17:41:04 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Thanks,
-Mostafa
+> On Mon, Oct 19, 2026 at 03:56:59PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Mon, 19 Oct 2026 11:58:17 +1100
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote:  
+> > > > Metadata tags are tags carrying extra information, either global to
+> > > > the DTB, specific to a node, or specific to a property.
+> > > > 
+> > > > In several places (e.g. node/property iterators), these tags just need
+> > > > to be skipped. Introduce fdt_next_tag_filter() which wraps
+> > > > fdt_next_tag() and uses a user-supplied filter function to decide
+> > > > whether a tag should be hidden from the caller. Filtered-out tags are
+> > > > returned as FDT_NOP.
+> > > > 
+> > > > Introduce fdt_tag_filter_skip_metadata() a filter function whose purpose
+> > > > is to filter metadata tags; actual metadata tag filtering will be added
+> > > > when metadata tags are defined.
+> > > > 
+> > > > Metadata tags must also be handled when a DTB is modified. They have to
+> > > > be removed or skipped depending on the modification.
+> > > > 
+> > > > Here also, introduce fdt_tag_is_property_metadata() to provide a central
+> > > > check for whether a tag is a property metadata tag; actual metadata
+> > > > check will be added when metadata tags are defined.
+> > > > 
+> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > ---
+> > > >  libfdt/fdt.c             | 34 +++++++++++++--
+> > > >  libfdt/fdt_ro.c          |  3 +-
+> > > >  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-------
+> > > >  libfdt/fdt_wip.c         | 23 +++++++++-
+> > > >  libfdt/libfdt_internal.h | 10 +++++
+> > > >  5 files changed, 140 insertions(+), 20 deletions(-)
+> > > > 
+> > > > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+> > > > index 7941632f..8c026f26 100644
+> > > > --- a/libfdt/fdt.c
+> > > > +++ b/libfdt/fdt.c
+> > > > @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int startoffset, int *nextoffset)
+> > > >  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
+> > > >  }
+> > > >  
+> > > > +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *nextoffset,
+> > > > +			     bool (*tag_filter)(void *priv, uint32_t tag),
+> > > > +			     void *priv)    
+> > > 
+> > > I don't really see why a higher order function is more useful than
+> > > skipping tags you don't care about from the caller.  
+> > 
+> > Based on discussion we had related to fdt_next_tag() during the series introducing
+> > structured tags, I has been decided that fdt_next_tag() will return all tags and
+> > callers will handle them.
+> > 
+> > With that done, fdt_next_tag_filter() doesn't make sense anymore. I have already
+> > planned to fully remove it.  
+> 
+> Ok, great.
+> 
+> > > > +{
+> > > > +	int startoffset = offset;
+> > > > +	uint32_t tag;
+> > > > +
+> > > > +	tag = fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
+> > > > +	if (tag == FDT_END)
+> > > > +		return tag;
+> > > > +
+> > > > +	if (tag_filter(priv, tag))
+> > > > +		return FDT_NOP;
+> > > > +
+> > > > +	return tag;
+> > > > +}  
+> > 
+> > ...
+> >   
+> > > >  
+> > > > +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
+> > > > +				  int prop_offset)
+> > > > +{
+> > > > +	int nextoffset, offset;
+> > > > +	uint32_t tag;
+> > > > +
+> > > > +	/*
+> > > > +	 * Only inplace using nopify is supported even if we could use an other
+> > > > +	 * method involving splices if force_inplace is set to false.
+> > > > +	 */    
+> > > 
+> > > As with earlier things, I'd really prefer to see this splice, based on
+> > > principle of least surprise.  
+> > 
+> > Yes, splice will be done (already planned for unknown tags in the series
+> > adding support for structured tags).  
+> 
+> Ok.
+> 
+> > > > +
+> > > > +	tag = fdt_next_tag(fdt, prop_offset, &nextoffset);
+> > > > +	if (tag == FDT_END)
+> > > > +		return nextoffset;
+> > > > +
+> > > > +	/*
+> > > > +	 * Look at all tags related to the current property. I.e. tags after the
+> > > > +	 * current property and before either the next property, a sub-node  or
+> > > > +	 * the end of current node
+> > > > +	 */
+> > > > +	do {
+> > > > +		offset = nextoffset;
+> > > > +		tag = fdt_next_tag(fdt, offset, &nextoffset);
+> > > > +		if (tag == FDT_END)
+> > > > +			return nextoffset;
+> > > > +
+> > > > +		/* Remove metadata tags related to the property */
+> > > > +		if (fdt_tag_is_property_metadata(tag))
+> > > > +			fdt_nopify_area(fdt, offset, nextoffset);    
+> > > 
+> > > The distinction between "metadata" and other tags doesn't make much
+> > > sense to me.  Specifically why would the tag being "metadata" make it
+> > > more of a candidate for removal?  What we need to know (for the
+> > > callers so far) is whether the tag is invalidated by changing the
+> > > contents of the property: I can't see how that would be related to
+> > > whether it's "metadata" or not.  
+> > 
+> > All of this is going to be reworked based on discussion we've already had
+> > during the previous series (introducing structured tag) review.
+> > 
+> > The distinction was done because for "unknown" tags, downgrade should
+> > be done whereas for "known" tags it shouldn't.
+> > 
+> > Anyway, all of that is going to be reworked for the next iteration.  
+> 
+> Ok, fair enough.  Should I stop reviewing the current version of this
+> series, since it will probably need a lot of rework based on my
+> comments to the first series.
 
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 34e916ea339ff..792627e1c790e 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -4842,17 +4842,17 @@ static int arm_smmu_init_strtab(struct arm_smmu_device *smmu)
->  {
->  	int ret;
->  
-> +	ida_init(&smmu->vmid_map);
-> +	ret = devm_add_action_or_reset(smmu->dev, arm_smmu_destroy_vmid_map,
-> +				       &smmu->vmid_map);
-> +	if (ret)
-> +		return ret;
-> +
->  	if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)
->  		ret = arm_smmu_init_strtab_2lvl(smmu);
->  	else
->  		ret = arm_smmu_init_strtab_linear(smmu);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ida_init(&smmu->vmid_map);
-> -
-> -	return devm_add_action_or_reset(smmu->dev, arm_smmu_destroy_vmid_map,
-> -					&smmu->vmid_map);
-> +	return ret;
->  }
->  
->  static int arm_smmu_init_structures(struct arm_smmu_device *smmu)
-> -- 
-> 2.43.0
-> 
+I wouldn't say you should stop reviewing.
+
+Maybe you can have in mind that fdt_next_tag() will return all tags and so,
+filtering out tags at fdt_next_tag() or using fdt_next_tag_filter() will not
+be there anymore. This will not change fundamentally the way tags are used.
+If they are skipped by filter function in this series, they will be skipped
+by callers in the next iteration.
+
+New tags added in the series will be there in the next iteration. The meaning
+of those new tags will not be changed. As well as new dts keywords or other
+concepts such as referencing an orphan node by path.
+
+Tests introduced will also be there in the next iteration.
+
+A lot of things available in the series will be there in the next iteration.
+
+For all those reasons, I thing your review can still be useful.
+
+Maybe you will find some other patches that could be applied or move to the
+series introducing "structured" tags.
+
+IMHO, even if I (we) know that some modification discussed in the series
+adding support for structured tags will have impacts to this series, either
+due the modification itself or because I will keep things consistent, having
+your feedback and potential discussion on this series is still relevant.
+
+Best regards,
+Hervé
