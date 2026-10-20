@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792505522;
-	b=F5sLDUfLAN46WjbEMGQKcBV0px+y5b4b+qEppoHZdDVVicb4QfbOiBh/3E++FG/+96eX
-	 tIndTrbb+KP5VjS3FMVernaOpslduuMuevlcmHQLCSm70d8Dvw+C/HJ9qwfOBQ0xC7rxU
-	 +EQXrUsAqoAy/QyJgzD5qq4q8QmefpfPhh8ULAwuyMZigyjtfTZrtThdMVKX/ulh23Crp
-	 3qeFhgCD/7jzsgACmx9OpnDX1lAwVYd6hZtwLoxpaW2UzCvKOtL4DORJN/q7JGSi7M+ri
-	 1TDyWrArSUl/V4Go3zKa7n1lMR9RkX9l44U1Xu54U12jBRYu0AamquXhRojvK8lENUQ==
+	b=gKqcodafxP717R7qzm2rjB7X5et6ZDAYWROmTvDg4Ppw/EPlyjLRnUhaBeamKQ9uMD6P
+	 BG7RARlWw382ihG/Z/DCb9DK2POETd9I13dtmCCoMRVpMryEspwAw/1r7G3HwrbwCZykl
+	 2RWizTD6JGFDV7U3tmaLAuMXNQi1CyUt6ZGqhGX8c3mxORYLA358eyhJ/CJhYWDznBDn4
+	 QJJAI0RlGVwhffob+f52mLVOteW5kR4aZdnP9wb0PiwVOqvg2i3qhjbsX7KaXAfzZ+Vqe
+	 E/XKUQqGLWMTyqWW3MexEIGVhavnHINwIfxbFKWJImPjE5bYiwQEUo2KBDH7+O5hV0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792505522;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/RGMtPsTm/8QaP5dJUjKtkf6ssaRNcEBC9Nb0rlpySw=;
-	b=whVqjPOBd4peCyZD5d4aSHeVc2PS4KnyxoOcmq2J+zHQLjIZ8CWOzBK9RgW40uglcAcd
-	 mKPnXGpV9/+mIRA0k3HiRCFiolZHwCYO6dx3tEskPzmRRoZf+7mZMzTHIzLO7uTqf5/IO
-	 fnUmudgpCDfAcVJXQXEPYypxjDsOTD++ZQt8ZYpQZQgh9pEBmD8+So7lyVfKAicYZpQpU
-	 ly9i6wChOKikrTBH7TbF6Yuv2+zSRJppSPrKVIm09MiZ/oPinKBDlgtb9NrViWd6kZRq1
-	 hwezCqrykiaJz8WaQjsQdMf82kzQBuo3p1IxA0OboFItqFJ3XoGA7C9wq4y6J03o7Ww==
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=YC4U1c7hM7z4cHCi0xG72ityc8fJiVCk37JEO6H/WUM=;
+	b=Ooi5dNQFFXom91o0hAXmRLpQwEi1U3hww5gt7u34D87OHkGkdorDI+jc8cNinf/eOsbG
+	 AEDjlTmo6KFrUtyOYicQ9ZmUzovS140L354Y5OVjSgnRjx1XuvHgvus3woeY0MgASpdA/
+	 NZ9qx18IvYb35j9zAY6Rfr60P3ndScnnrobzZHsF+w8AJA4zqJD/yTnRSm8eD660ThxSF
+	 wuhdhdQDOy91V7GrdsOwJ/VN8BsOedlHj8pGdi657kpoVV3Il9eWSyUqwTu3meCDmkylg
+	 xESPTDeGNOzOqRDq+IOFQ8kNBJO0QHowYS+W2ioKsbtPBwYojFdjPQqf9y8cfgAq+qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QfeeOsni;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nofE6bjq;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB9D606AA10;
-	Tue, 20 Oct 2026 14:12:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CB9D606AA10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58CE60A3810;
+	Tue, 20 Oct 2026 14:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C58CE60A3810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QfeeOsni
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792505522; x=1824041522;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zQD3hbIPnpgaLY5T8/cjBzLo9/tZJaTRDyNNHF0TFMA=;
-  b=QfeeOsniZHdBBLuiKyzN37b4HB3pW4N16j/gijVdRdMpGvJJvtWsIwwW
-   Gw/ML+BCG/kcdvfcgUnUCbfDYuHQGwKS7HrnYoU+MPXY0yrjjZgI9rE41
-   iOFAXZS++E5oQ0G0WoIJLcway9EwlmcglkwbqhwjCgm5B237vtSzf3Guz
-   pHIMFs+SVV9Ra1FExEpu9bvHWAb0Yekc7hRpK7ufJlAXfXPcXjNE9eJxB
-   GzxxG+tS08BfRGQtTxA9cAcJftzPvDEvy+UqmBEOChAQipUrZTZzR10ts
-   9rSfXb/QSnX2fpzbSjzjr6kQjwLIxVXJuyyDtJMyuIigQ+Bu1IcbjEhMQ
-   Q==;
-X-CSE-ConnectionGUID: ZOX05/T4QUS9vsElPw5Jgg==
-X-CSE-MsgGUID: cYhpew1gQ1yR1KmK2Q84oA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1222320"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1222320"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:12:01 -0700
-X-CSE-ConnectionGUID: hx9ijRoyQ4+S64Vn60Ucdw==
-X-CSE-MsgGUID: LqACVQSYT7CA8kkf1G/Yhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2888076"
-Received: from igk-lkp-server01.igk.intel.com ([10.211.93.152])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:11:59 -0700
-From: Pawel Chmielewski <pawel.chmielewski@intel.com>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	abhinavmir <atg271@gmail.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>
-Subject: [PATCH v1 28/30] ACPICA: iASL: Fix the truncated count of external control methods
-Date: Tue, 20 Oct 2026 16:10:49 +0200
-Message-Id: <20261020141051.2194123-29-pawel.chmielewski@intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261020141051.2194123-1-pawel.chmielewski@intel.com>
-References: <20261020141051.2194123-1-pawel.chmielewski@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nofE6bjq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=YC
+	4U1c7hM7z4cHCi0xG72ityc8fJiVCk37JEO6H/WUM=; b=nofE6bjqkUzYRnhi5R
+	AKk+peBPajg21dp5T5lH7zPj/jmcBBEZ6QBqqAQPepM2Ls+dgmVvzqE3/kvpgg9Z
+	BdRemZX849l7oOj3t6UpLqvH0ht3IcTyQAdVIExafKLJyRu4B1SO7UApRQExDFm5
+	BmxRSO5SP5Ey36+r/ijuqZdYk=
+Received: from flipped.. (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgA36wqfdtdqmBjOAw--.52376S2;
+	Tue, 20 Oct 2026 22:11:43 +0800 (CST)
+From: Sicong Huang <congei42@163.com>
+To: miriam.rachel.korenblit@intel.com
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	emmanuel.grumbach@intel.com,
+	avraham.stern@intel.com,
+	pagadala.yesu.anjaneyulu@intel.com,
+	ilan.peer@intel.com,
+	avinash.bhatt@intel.com,
+	Sicong Huang <congei42@163.com>
+Subject: [PATCH] wifi: iwlwifi: mld: fix use-after-free in timestamp marker work
+Date: Tue, 20 Oct 2026 22:11:41 +0800
+Message-Id: <20261020141141.388618-1-congei42@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,52 +66,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgA36wqfdtdqmBjOAw--.52376S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr13ur1rKw1rGryxCF1fCrg_yoW5JFyUpF
+	Z5Wry2kr4vkw4vg34fAF4xZF98Jan8J39rGF4vk398urnYvF1rJr1jgFWjga40qr4DJ34a
+	9F45tFW7WFs0qFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEG-eUUUUUU=
+X-CM-SenderInfo: 5frqwvrlusqiywtou0bp/xtbC1B9VSGrXdp8UtwAA3h
 
-From: Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>
+Writing a period to the timestamp_marker debugfs file schedules
+fwrt->timestamp.wk without checking whether the firmware is running.
+The work tries to send a MARKER_CMD and reschedules itself if the
+command was submitted successfully and the period is nonzero.
 
-AcpiGbl_NumExternalMethods counts the external control methods that the
-disassembler finds in a table. Its type is BOOLEAN, which is an unsigned
-char, so the counter wraps at 256. A table with more than 255 external
-control methods gets a wrong count.
+MLD does not cancel this work when it stops the firmware or tears down
+the op mode. iwl_fw_runtime_free() only cancels the firmware dump
+works. The work is embedded in struct iwl_fw_runtime, which is part
+of struct iwl_mld (hw->priv). So if the work is still pending, it can
+run after ieee80211_free_hw() has freed that memory. It then reads
+fwrt->timestamp.delay, fwrt->fw and fwrt->trans, may increment
+fwrt->timestamp.seq, and may reschedule the freed work. The period is
+in seconds while teardown takes milliseconds, so a pending work at
+unbind or rmmod time is the normal case, not a narrow race.
 
-The wrong count makes the disassembler print a bogus warning.
-AcpiGbl_ResolvedExternalMethods is a UINT32 and keeps the correct value.
-The two counts then differ, even when the disassembler resolves every
-method. AcpiDmUnresolvedWarning() subtracts the counts to get the number
-of unresolved methods. That unsigned subtraction wraps and gives a very
-large number. A table with 300 externals, all of them resolved, reports
-"There were 44 external control methods found during disassembly, but
-only 300 were resolved (4294967040 unresolved)".
+MVM already avoids this by calling iwl_fw_cancel_timestamp() when it
+stops the device. Do the same in MLD: cancel the work in
+iwl_mld_stop_fw() before the firmware is stopped. Also cancel it in
+iwl_op_mode_mld_stop() before the memory that embeds it is freed,
+because the work can be scheduled even when the firmware is already
+stopped.
 
-A count that is an exact multiple of 256 truncates to zero. In that case
-AcpiDmUnresolvedWarning() returns early and prints no warning at all,
-even when methods stay unresolved.
-
-Change the type of AcpiGbl_NumExternalMethods to UINT32, which is the
-type of AcpiGbl_ResolvedExternalMethods.
-
-Link: https://github.com/acpica/acpica/commit/36a5217a09bd
-Link: https://github.com/open-acpica/acpica/pull/1221
-Originally-by: abhinavmir <atg271@gmail.com>
-Signed-off-by: Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>
-Signed-off-by: Pawel Chmielewski <pawel.chmielewski@intel.com>
+Signed-off-by: Sicong Huang <congei42@163.com>
 ---
- drivers/acpi/acpica/acglobal.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/intel/iwlwifi/mld/fw.c  | 2 ++
+ drivers/net/wireless/intel/iwlwifi/mld/mld.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/acpi/acpica/acglobal.h b/drivers/acpi/acpica/acglobal.h
-index 08b8270b10de..5294983a6795 100644
---- a/drivers/acpi/acpica/acglobal.h
-+++ b/drivers/acpi/acpica/acglobal.h
-@@ -294,7 +294,7 @@ ACPI_INIT_GLOBAL(ACPI_PARSE_OBJECT_LIST, *acpi_gbl_temp_list_head, NULL);
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/fw.c b/drivers/net/wireless/intel/iwlwifi/mld/fw.c
+index 7b1fb84a641c..ad529f9eb5f1 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/fw.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/fw.c
+@@ -355,6 +355,8 @@ void iwl_mld_stop_fw(struct iwl_mld *mld)
+ {
+ 	lockdep_assert_wiphy(mld->wiphy);
  
- ACPI_GLOBAL(u8, acpi_gbl_dm_opt_disasm);
- ACPI_GLOBAL(u8, acpi_gbl_dm_opt_listing);
--ACPI_GLOBAL(u8, acpi_gbl_num_external_methods);
-+ACPI_GLOBAL(u32, acpi_gbl_num_external_methods);
- ACPI_GLOBAL(u32, acpi_gbl_resolved_external_methods);
- ACPI_GLOBAL(struct acpi_external_list *, acpi_gbl_external_list);
- ACPI_GLOBAL(struct acpi_external_file *, acpi_gbl_external_file_list);
++	iwl_fw_cancel_timestamp(&mld->fwrt);
++
+ 	iwl_abort_notification_waits(&mld->notif_wait);
+ 
+ 	iwl_fw_dbg_stop_sync(&mld->fwrt);
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mld.c b/drivers/net/wireless/intel/iwlwifi/mld/mld.c
+index 6e991fb99ff3..6972846f40af 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/mld.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/mld.c
+@@ -519,6 +519,8 @@ iwl_op_mode_mld_stop(struct iwl_op_mode *op_mode)
+ 
+ 	ieee80211_unregister_hw(mld->hw);
+ 
++	iwl_fw_cancel_timestamp(&mld->fwrt);
++
+ 	iwl_fw_runtime_free(&mld->fwrt);
+ 	iwl_mld_low_latency_free(mld);
+ 
 -- 
-2.50.1
+2.34.1
 
