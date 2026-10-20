@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792535810;
-	b=yzVZLGaAuluhIB4HVs0cJYDsMQdlAL5AKvONvqF6jQhQ6xyNJkka1k/NI6H1kma1n8/d
-	 aUoSVen7b+Qwfrl/7F94cUs1Fv0gOLBmC01J3rMqtmg8SUi8IIX5MkPaX01AyQVPsIfoG
-	 rR07iwe/KrD8+5q4Xaaa5L42o5JlRC5KDqNataeV3ZIM6ew64L2aQEeMqKTziVYGO5AO/
-	 5iF8v0YWys3uNIjSJAZWBt/ACL6gqGYo54rwlBXjoWiC3oPg01ZsAg+25F9BY2nkFwlvx
-	 g4OurntnwsM3cQxi8OjgKhrtqF6AYSlykSvq2uWn2FYbJXtiBXV4rp7h8qDDkPa9CJw==
+	t=1792535836;
+	b=4SvQUBC8qPBA2bsOTZWNSLKKFKBeJQy48D1KkflhmMc77Y8FnPzHK6UMA23onZrXoIgL
+	 YIetzfklDg0E5l00n8Je7F/W6HQ0rOCusoKRG3nm3R6a1pGX7bNBkAHXp4kfG91wtW8Z1
+	 gJL4dN5+gBio3STZTPhZ+IhwAMndI1mulUqeBqMap12eLZyr7MGQNIlDqr2UEeFLhgZ3Z
+	 WLq2N3PT132LwNPk/oxXWeKC1lSo/3z+OQ6BOyM3gbStj/ecAuRxyOdizlzsTS6P/ruyn
+	 iRJTancgTdH28NcFJPq3K4qFYxn1OXsCq+oGs1TyMyRYUSmTOK/InKZWL75Ot4cSZ3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792535810;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Rv30j355ZOn02JMfZ3RVK29kwKID6foC3R1nQuJB9KE=;
-	b=n0gBBGYJtI/GxRe1Cj/Ehn0JRb4As8yVz7oA4TwjA6rqUuse2xyXr9909IJ1jgCwsYh3
-	 4p3zT5EFiKGdTo0LOi9NC/AWYA2BwkvIiQ9LKiaZKhPOIaLrzgQAu4cw1UMI3BI3veI6P
-	 nQfoNVKk5lc7P/TjThrDC3rn/m8Z6fXlt1YEomqJg5u66d1OWLviOA9zQ7TnFUwqJyrp1
-	 tpgbCCZfsuxkFyBea2VsCwKCluY5E0UxEck9JScO/Y8+TRz65LWqS+0ta0YVCWQ7cC9a0
-	 Gg73mknNNGFKQl3AyvFx0CPWiVuNB/LZmYorDhszwDVk1vV2eRoVcZ/Bt5olwULNeww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792535836;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=A5eN66WJvNjMyujMDowyUiPDaNuS7cUm4tF9E9f1lbo=;
+	b=igpQrrzrSPGYGTNg1ea/HTP24J+arIMY2UoNREiAQbs/l/vurHrpMsd/MiLCtq0JiTkd
+	 d3qOBD/XfEEv5jfKoq/K4dl5fEXG6L/+OhZhXVqGsu3kgRTaDZazCC9sWOsKjNkEXiB4u
+	 WiW9SXXE3V1BWo+tGGjXmJHk7+B7SosKBPNCY0vcoKX07dmfkdC76EPWABvIOrjnS/iGC
+	 VWwJK2fFaaj+DhgIFVdx9lve6iqHpiIoQ18Y/u0S2bLWaSC/WLJVO/LouJuGXnc4+dov8
+	 Bpm6EHLqXdLkUZ+oWpVKgJhLOxNdCJ6VDid3IL+IqlIjOFSInsWK1swVaLF0e+6M+0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=CvpUkYzR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlpuK0gL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFBA606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CE6606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=CvpUkYzR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7111F000C9;
-	Tue, 20 Oct 2026 22:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792535809;
-	bh=Rv30j355ZOn02JMfZ3RVK29kwKID6foC3R1nQuJB9KE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CvpUkYzRfhBVW8RqAWpQuWI7gU2PABbkK5qRUeeF0mF10sMgigl60Fj23MU4UcKj0
-	 8qBnMeIY1RNIFU46IX3s9ngCawWnwx3DtDIuthqPYi302K8XWN09HfpQ7uYjOGMrqP
-	 zT6EztMOTuOzA5E5gwpaOqsJcawgbYRKjaSxOGpo=
-Date: Tue, 20 Oct 2026 15:36:48 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Joanne Koong <joannelkoong@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, David Hildenbrand
- <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng
- <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin
- <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, Zi Yan
- <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts
- <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>, Usama Arif
- <usama.arif@linux.dev>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins
- <hughd@google.com>
-Subject: Re: [PATCH v3] mm: unqueue deferred split folios outside the lruvec
- lock
-Message-Id: <20261020153648.52636815691868735e9699be@linux-foundation.org>
-In-Reply-To: <20261019230646.3510790-1-joannelkoong@gmail.com>
-References: <20261019230646.3510790-1-joannelkoong@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlpuK0gL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8213A1F000C9;
+	Tue, 20 Oct 2026 22:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792535836;
+	bh=A5eN66WJvNjMyujMDowyUiPDaNuS7cUm4tF9E9f1lbo=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=AlpuK0gLmuuUPM5kJ2OJw6381b8gclhxqfh0gvdhxeFasBkk9Oaz5Ohg3DAbuOSTs
+	 aO3mNW9ia2CoT1yVoqxMbCbcAOq3g4+M5r8jlBUMLh9nwZXFvBsjXHNn8HRXZqtvpM
+	 IgqosliCRubg1NCuQzf6l2GG6cQTDuDAWO6GZyXPK944H7HFFrYPFvo916HKW8XPLD
+	 i3wNs66SoJsMzMJsCtQ9jao/tJHLvXPkQAjSPPEJdrfctIw5U+yX1813+cNdpE2rDL
+	 tQnARBmi8pbRdO5x2nVW9zdjkU0bsg7dFGYuNngCzCssFN791zi7+FQ4QqarT0S1gb
+	 WQus8vpyP4/PQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 775B53809A0C;
+	Tue, 20 Oct 2026 22:37:16 +0000 (UTC)
+Subject: Re: [GIT PULL] x86/kdump for 7.4-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261019150704.1851215-1-dave.hansen@linux.intel.com>
+References: <20261019150704.1851215-1-dave.hansen@linux.intel.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261019150704.1851215-1-dave.hansen@linux.intel.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_kdump_for_7.4-rc1
+X-PR-Tracked-Commit-Id: d949fa7b1ec54c626b656f873b95d76b8ab0d143
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 5d92881a8599025508856d8c3aa195972df775da
+Message-Id: <179253583500.248332.829316917190149233.pr-tracker-bot@kernel.org>
+Date: Tue, 20 Oct 2026 22:37:15 +0000
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: torvalds@linux-foundation.org, x86@kernel.org, linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,43 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 16:06:46 -0700 Joanne Koong <joannelkoong@gmail.com> wrote:
+The pull request you sent on Mon, 19 Oct 2026 08:07:04 -0700:
 
-> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call
-> folio_unqueue_deferred_split() on folios where the refcount has dropped
-> to zero. In these paths, folio_unqueue_deferred_split() is called with
-> the lruvec lock often held (move_folios_to_lru() always holds it and
-> folio_batch_move_lru()/folios_put_refs() usually hold it for every folio
-> in the batch except the first). However, it's not needed to hold the
-> lruvec lock.
-> 
-> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
-> the deferred split queue lives on folio->_deferred_list in
-> deferred_split_lru. The deferred_split_lru is a list_lru with its own
-> per-memcg per-node lock.
-> 
-> There are already other existing callers that call
-> folio_unqueue_deferred_split() without holding the lruvec lock (eg
-> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
-> 
-> Add folio_batch_unqueue_deferred_split() and use it in
-> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
-> unqueue each batch of zero-refcount folios from the deferred split list
-> after the lruvec lock is released and before
-> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
-> critical sections, which run with IRQs disabled and are highly
-> contended.
+> https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_kdump_for_7.4-rc1
 
-Thanks.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/5d92881a8599025508856d8c3aa195972df775da
 
-This is a speedup and not a correctness thing, yes?  Let's make it a
-7.4-rcX thing, for the 7.5 merge window.
+Thank you!
 
-I'll park it in the mm-new branch for now.
-
-If people think the speedup is sufficiently worthwhile then I can add a
-cc:stable to it, if clear justification is included in the changelog.
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
