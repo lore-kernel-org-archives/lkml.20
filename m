@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485502;
-	b=1obf51F8NapCqO99kA6zDXTCHfAN1LYruMt/baZ7R4vh5WlP1MPOv/lIvdA7FevPDPiW
-	 01bbPnxqmdILa/gD6/+IcLyBIwMjQbw7JPukcdf0bUfJui64y86KwZO4/T8pBEpAtOuUd
-	 9rjLw6X4nkU9hH0EUtgUZtXHC3oUNczV4xXuvTWrTkM7k730avgTwdRenekxmsCcaEfwE
-	 fFPIhiHVPn6LkSwy5+AMsq//k0Iji/BOU6aadblYXtuwjLdLZWtz02Mh/K71tOn/+Loq6
-	 2k9JEJm0ciwc0oiPnCRsN5swHTe3K8roXdAOYL2pVw4pEyXN+lN4qO/4LjTQlX2T01g==
+	t=1792485511;
+	b=E6LfD8pEFXYHm5vD9v7YotgEdnxanuV9krri6rCzIi5nl2V3M5BpzqJZUO+4GtH/UFZn
+	 XBdQYInqn8SqdVjUxUxBerh5CjfVUhL05/lRbhE+faxckBkh62WdRPIAfTEvoM5Ncv+A+
+	 WgUKX5VbesXzyyIYkBGoKArz2KZnhPnsgLyibWmZ0oDUUeOwd0D/JecUsq725LAO6V1zW
+	 SbahzeKDsciXZkw9UZUb9zAgBsrBK17doLBFrnAR1XXt9cgJ7/c7saPsxFXqu5z0HjFaT
+	 3LQeza6SZkGioG6CvuKly3YLWUuuBHrDZQw5X1+306kaJOAhcZQMmTrnxFOYmlqaoqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485502;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=3a978/iWfjMwwVZvL1+s6j16eVM0+TnP/Uzgo/nVM4c=;
-	b=a5U6OjUgUxL9soUZwr6ZPv+KrZd3kPY9rETBs3MpYWBusgPLk6gymF3yoXlcWzrU6XYr
-	 by3l7vMRXNocpHGg3OaoBSVUAv5m4O1HpLErz6dvpxVSuvl3KlWULCO4u81yJ/1JlCO35
-	 wDon4+ME09al/nXP8lii82h/z9nOQhVjRaPw1IL9L++Exmmis2sKVC3aQLo8ekonxyqaH
-	 REBG2h3c8WVC0WXy/fTOWcVWMg6RSJkTiiYwyf6Lk0/NfCa8H9RRp1+7EJ9sjB8GGz+Cc
-	 vJcXVC5z7BXvH7HIF6PHvQnsZQPHDhwxsVBj1bn4iehQz2qDKVkBDO9lC++Z9V8Zu5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485511;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R/5vbREqg2hZN8NvnWwzWluRjNlFiSUX/2wnLt1GUwY=;
+	b=OTeLAfJJs/YXmQZlVBtIiaoOlgH/g951dy+YZ7efesbmUK90GRpHJy7QaDBpR0YuPgRV
+	 YDuPF6TIF9pTqh2JxsQgU1xVfWEqGCN6UMAp3TSa3IgBiwvnNgSlacX6FGV49zhZwXnaE
+	 7Oom3xetW7qvrzcWdqv7RBwycaddYTfaBq9G4RA3kPIvFrlXTtQbd0tN4uEqY37KMp86M
+	 H43RxzCnyK5PeENp8r9cZTaGAfDlReVxq/KDuTWMwjq7jokFDflC7lx/Q52lUvhs7YOuR
+	 PYIe9ki5GTlVY/lUOSBjOuun0hL8fXL4n70SUH2YeJHldiwF9cpvyEGz2qplQt/cobA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=xAVz2vO7;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.218
+Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C65606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C65606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=xAVz2vO7
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1d293b293so16885235e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:38:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792485500; x=1793090300; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3a978/iWfjMwwVZvL1+s6j16eVM0+TnP/Uzgo/nVM4c=;
-        b=xAVz2vO7Ltvqn9wr2sOmxRzszaervw2B63r90/KR1p5HBng3lMJO13PjroTle5N8sG
-         yfj1SI0dEBp+cDVm2cI+7u7QwyfYohmqRC7otCtd4/Pl1NKxn2ONl1CmNErylD2j8sEy
-         b+yQnCCBQu0XcNDqd7KeXi2oeJsbCWreqLKRS5CeZeERqWBOL1YVbRZVut4sEOi1fhOo
-         +NLV+aO3bYTwW4oAuY4W1mtUG7RZ/ivkx4YsJM7GMPfTMCG35nZcbbIFlsonl06EjlOQ
-         ILj6Y1AWfjcdghOzctqkG+LL2i6LfIGHJhAuxFMapFNlLEzsI0OI+edoMEn2Iqvrn+XS
-         PrQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792485500; x=1793090300;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3a978/iWfjMwwVZvL1+s6j16eVM0+TnP/Uzgo/nVM4c=;
-        b=IzpD4JpYcY1V4iEbNwmsDa+/dM4sRPWc7SAj8SMbq97DWM3xMkZwN22kVrKhKmS5I3
-         wHeBVBM6kMTXRr1XoOE5k2u0Be8gNCO+57ix95csbGG0CCo1YfP3zcOg7Xz4GQ3Um5at
-         7TR7jc5uiavIz11OUdvtS2G2Zr/6z+1a6guNV3ijKuRUHfMk6EiZxipzgsrFXziGN3kc
-         qsrOhJrP3s9ueCpOEhUNTNLLY2fzOSNja8JFudatvJl1BhhW0BkdlAaG6zbltLCl/9Fg
-         Qpn+3AchFsvxnlNz9/CdjhMLlXIDyY3nq7jkGgqQTUEXuHUquC9vduqwhS8LjYrmuDka
-         /uog==
-X-Forwarded-Encrypted: i=1; AKwUvBy45F6PSY45y59PXWXYZiyd6iwbfwE8uqQHjPtvkEMvC7bybO/CZsSu0T4rbuOUr63Hccl2tpJNFhZvaB4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTeYpFjTIMTmdEgaIvlcrhyqsVir6lKls9TnbLaLaS7LQOV7xA
-	58/2e1jKqblGZE1IeVITyoC66SR0cJYMw4PR6OMeqkHMli0C/Aq6cCoX0BaWNOHJlEk=
-X-Gm-Gg: AYBFou0Nm5z2o7WoCWq+gq0S3cG8uW6DMGXbrCxFUZO1DKosrUMG2DMQXtMfqq7ZS/J
-	rRH50gjsKYVkzGNelzCkVYtUBy0B0VgJG0zWJR6kKnR2fN9fx9hN1LFYd1jF0+hb79EDKOEoF8d
-	uFAJ8KJVq2gqA70DXa27TzTRWSS7ZsERZSbf4s/nXRNachWm+T5ccomwtFD/KZ5xQrPdiBWmctO
-	mPyeMd81JEBftggOr605RgOvapwdE9Ajp8JLzloKk9z0hAId7B3rvHhq8IulXDEejfNI7Zdg5Ji
-	KoZWgAPAN/uni5Fw+q8WbUoDDfU7I/LxbAhAFWV8usOMBdBcKK43J9MgPlNZfdhOWTM2oxy5kV6
-	98+enkIWPooX+r+eHcp4gVPh/HOAUsG2/hQtKiwsnlTq9UrJnlHGs39aMieli+QZbYjbx+nctTc
-	8ctoad3LspmzB4n2l/uqR4aLezUJHP7XtGgoZNyvfqeTnezfB7Wm2yKS9yuS04p6pEwzBuJkcyh
-	q2bGTzhtietKcw5NcDrrlX2+Qfe+VoTYRtMP5nLYnaTpLnWCRbMX60VOOsWU/lfVyZpLQS57jQ/
-	MndbvqfZE/JJF89Vs8gOc+6mUb+fYW7ZXHJp1a8d2a6cKfDFHUcDzVPjDLw=
-X-Received: by 2002:a05:600c:4e11:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-4a1d75f2396mr206375345e9.8.1792485498960;
-        Tue, 20 Oct 2026 01:38:18 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc8e98sm59739325e9.9.2026.10.20.01.38.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 01:38:18 -0700 (PDT)
-Date: Tue, 20 Oct 2026 09:38:16 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: elder@riscstar.com, andrew@lunn.ch, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/2] net: pcs: xpcs: re-order xpcs_pre_config()
- to update after the reset
-Message-ID: <atcoeLhohLkjVz-I@aspen.lan>
-References: <20261014223100.304486-2-elder@riscstar.com>
- <179232845425.3135.8614802619087243641@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E280260A2605
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E280260A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0751195|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0562989-0.000553454-0.943148;FP=2587274393208849658|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jlWubV9_1792485503;
+Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubV9_1792485503 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 16:38:24 +0800
+From: Li kunyu <likunyu@open-hieco.net>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com
+Cc: linux-kernel@vger.kernel.org,
+	Li kunyu <likunyu@open-hieco.net>,
+	"Li Wang (Hieco)" <li.wang@linux.dev>
+Subject: [RFC PATCH 4/6] sched/fair: Restrict newidle balance to LLC domain
+Date: Tue, 20 Oct 2026 16:37:44 +0800
+Message-ID: <20261020083746.37068-5-likunyu@open-hieco.net>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020083746.37068-1-likunyu@open-hieco.net>
+References: <20261020083746.37068-1-likunyu@open-hieco.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,39 +63,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179232845425.3135.8614802619087243641@kernel.org>
 
-On Sun, Oct 18, 2026 at 01:00:54PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
->
-> Critical: 0 · High: 0 · Medium: 3 · Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
->
-> - [Medium] This patch adds a generic XPCS soft reset on Wangxun TXGBE
->   parts every time SGMII is configured.
-> - [Medium] The patch drops the interface-change check that gated the
->   SGMII reset, while the new comment still says the reset happens on a…
+[Purpose]
 
-I think some of the other Medium issues are closely related to dropping
-the interface-change check... and that it either a mistake in my part
+The newidle CPU path logic update is solely intended to quickly obtain
+eligible tasks. By restricting task acquisition to the LLC (L3)
+scheduling domain and avoiding traversal and task migration at levels
+above it, this change avoids jitter in scenarios where the entire
+machine is idle or the CPU load is relatively balanced. This is because
+each traversal of higher-level scheduling domains remains costly, and
+migrating tasks across dies (LLCs) incurs substantial short-term
+overhead, such as TLB flushes/refills and page migration:
 
-Definitely needs a respin:
-pw-bot: cr
+1. When overall CPU utilization is relatively low, avoid the
+scenario where the whole CPU is idle yet cross-die (high-latency) tasks
+are being pulled. In such cases, it is better to run only one logical
+CPU per core to avoid cache interference and frequent TLB flushes. This
+applies when:
+    1.1. the CPU has multiple sleeping tasks (with delayed dequeue
+disabled).
+    1.2. the number of runnable tasks on the CPU is less than 2.
 
+2. When overall CPU load is relatively balanced, refrain from
+pulling cross-die (high-latency) tasks. This avoids task jitter and
+prevents resource exhaustion (similar to the issues in 2.1).
 
-> - [Medium] The commit message describes a preparatory reorder that just
->   'hoist[s] the special case logic for SGMII into the parent function',…
-> - [Low] The error handling in xpcs_pre_config() now behaves differently,
->   and the commit message does not mention it.
+[Implementation]
 
+After extensive testing on a Hygon 7447v CPU server (Model 7, with 384
+logical cores), several issues were identified. For example, when the CPU
+first enters idle mode, cross-NUMA-node task pulling performs poorly in
+certain test scenarios, including MySQL, UnixBench, and tbench. Likewise,
+certain advantages were observed in tests using hackbench -l 2560 -g 4 and
+in additional test groups.
 
-Daniel.
+However, its benefits in some respects are simply too great: it avoids
+more time-consuming and extensive scheduling-domain traversal, as well
+as cross-NUMA-node task pulling (avoiding the problem of low hit rates
+from memory to L3 cache). Limiting the task-pulling range to the L3
+cache is more efficient.
+
+In actual testing, the following scenarios have shown significant
+improvements:
+
+1. unixbench: Overall improvement of 5% to 8% across 384 logical CPUs.
+
+2. mysql: TPS and QPS increased by approximately 5% (this may not be
+entirely accurate), while the 95th percentile latency decreased by
+3% to 5%.
+
+Tested-by: Li Wang (Hieco) <li.wang@linux.dev>
+Signed-off-by: Li kunyu <likunyu@open-hieco.net>
+---
+ kernel/sched/fair.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 6e2271484c86..f2bf4b53d8a9 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -14983,6 +14983,24 @@ static inline bool nohz_idle_balance(struct rq *this_rq, enum cpu_idle_type idle
+ static inline void nohz_newidle_balance(struct rq *this_rq) { }
+ #endif /* !CONFIG_NO_HZ_COMMON */
+ 
++/*
++ * is_smt_buddy_newidle_constrain - After enabling the smt_buddy_assist
++ *                                  feature, check whether the current
++ *                                  scheduling domain meets the conditions
++ *                                  for skipping statistics.
++ * @sd: The current scheduling domain that is to be traversed.
++ */
++static bool is_smt_buddy_newidle_constrain(struct sched_domain *sd)
++{
++	if (!sched_feat(SMT_BUDDY_ASSIST))
++		return false;
++
++	if (sd->flags & SD_NUMA)
++		return true;
++
++	return false;
++}
++
+ /*
+  * sched_balance_newidle is called by schedule() if this_cpu is about to become
+  * idle. Attempts to pull tasks from other CPUs.
+@@ -15080,7 +15098,8 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
+ 				weight = (1024 + weight/2) / weight;
+ 			}
+ 
+-			pulled_task = sched_balance_rq(this_cpu, this_rq,
++			if (!is_smt_buddy_newidle_constrain(sd))
++				pulled_task = sched_balance_rq(this_cpu, this_rq,
+ 						   sd, CPU_NEWLY_IDLE,
+ 						   &continue_balancing,
+ 							false);
+-- 
+2.47.3
+
