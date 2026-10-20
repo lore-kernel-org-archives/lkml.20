@@ -1,125 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501207;
-	b=X6oXNeq43pKrhPsja/FiKqblpC90OFZeJ0sZd2ttFHiNjAEljRiAsQnAPasmEouR3zv0
-	 YYHGpptaZO0zvN4Nym7vfNfMwILaU4Os9fusw6rvkBCZgZ/6XZjPBAmRKtCbBXmTSQtkn
-	 sjcFn+JkuQoQe7vbu/wgaI9DtiJXl4Q/sk7KZkof0xkiJhfw2PV4h5+u0eN3CA0v3ZAdJ
-	 /diHGXpE/MvmOiHqaysGDDvqFjq3pEz/tq0bUjyc9hQ0wmK//vZ9Y5FuOFq2L/vEGNo6f
-	 Q5fptMtRWeYOMZx0HFuJ5srB11gaUkWw9z/1PHSwVUi8z+AiJFAz4sEcBs6LEQTqb6w==
+	t=1792501210;
+	b=qoaal2sHnrhpGS9m7uz7/54QclxQlQceNzCAS4Dp56VbfyR+G4eA32Z0VUiqAtUTXatJ
+	 9G5Cn3pB96gVFkpqNVjDyAy6Jd5KHUtaTUlbDiJie2eJNrqQ8SCXXKrjLt+oJe4pfYznS
+	 5V8xY6aKBopjUEl51mRaUywlF+zARd0Gf/DLekR08f+//MROtq5Tcq5o/nrhdDpiQUuJ/
+	 vOhlmZXjUg+LOc1yEyg8iysKs9DO2etdxuiiXKmEQDl+EZX3MAfz+cjObQSHhYdN5JOeI
+	 PhTilddxTdR9W74ovGVQNwuIYR/cGW5N+YEHXc00AYaZQj5SzBbOCLeKcxiVW1+/kkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501207;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=0YA9sqWUQC5W+VQQaSJzAueTT7pF0UiI4Jt00f8SsOs=;
-	b=jcGSnYMOBjrGIqMIBr9KqmLZaKIDVgNbG8S1CQKZwhcFVmyu+Y9SI5Idcltirj6ZJohz
-	 S8rY659Sg2OxvKebXbQnBte1WNOnh8Ddx6yVBKRlXIi5JPx/Q3atVcRdy+pMd+T+E3APw
-	 TlxOfQOi1QM6coiiVv/85NKugD1/Fv3ftGjmW3tdnvfEUfGTz+noNf69ceOz4oNRz221g
-	 +U5Xur/gA2yQ5zauISqJm05ZyIy+475vEFOwoovWGAHvwlZrVaUHqfL1nGjzWM1mbW0tv
-	 daoegldaeuo8kKd6SxS5wZyHmQyVHEG4oQl986nyhMMPXmQheM0GdUhDV43fm3+2YvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501210;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0SlxZ5UQXu81xsFhH9I1ceqg/5A7Zf9sbax9KJqUchU=;
+	b=fpz2IhJgWqddxjSW/kdd4c827J0LdfwEl3zbQ3VjnGtu+J9mzRENZxoU70dKNkMdVvpZ
+	 eJYO1H1a4TCTRlynguMzIjAwuZdtoLtPPsO97cVAMH+zEZlIUhIrXyIJyZFesuOVW3hG4
+	 0H0l3fIXW95a5h7Sw4vPc3pd2HHTW2hULYKxfxUL5U8CjOWNXAPvfgitqOD402n419rg1
+	 QSIizOMkyVhlKtcWmCs3cryTlLpeL32EOOYHbRXrQGccDM+Js3/JFISJRHiZGKFx3ZM46
+	 duCiLxbOpAJhrbgSE8433wGTXoPZ2Y9VVVoampImtcN7hlmn7hmtP5Az14w0rqQyUFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nBata8Ao;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Di2gINIR;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htGvWvY7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13051606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:00:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13051606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9E8606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:00:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nBata8Ao;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Di2gINIR
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAxajb927041
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:00:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0YA9sqWUQC5W+VQQaSJzAueT
-	T7pF0UiI4Jt00f8SsOs=; b=nBata8Ao4VnQ0BieJol34j6v3+8RBs32VD7eaZhp
-	wXp9zyryFdPapgD3yxOU2W3hDf5JiYjP88Ek9vXfcuOTmpdyNSxfoBJe8FPwG06e
-	HFJYU6HG9XkXi77mdk21dStht0pSLtgXgiW5zMVJWu97Xf52mrC2xyeNv7JTnMgm
-	mTEyxSpXc82kgha5oxOYCqhQAO0D+zoKPptIjk4NtdfP6jo35Qx7IwESX7SP+B0/
-	AbLNThkdI5J6Zfup3pl/sOU+/oOR8yIs5nmnZ6TmFeT8IT7l/TTX2hX/LUlDFoQq
-	aIf7n6cVLxDjNRi7xaa45QG9c2pMkXett3AUJJOBnZ7KDg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5paj9r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:00:06 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5367e512db0so12847601cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:00:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792501205; x=1793106005; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0YA9sqWUQC5W+VQQaSJzAueTT7pF0UiI4Jt00f8SsOs=;
-        b=Di2gINIRkpvGYOKLUel8EAsnQd3B2/+SIigSZiLuf0ACgbLvoPNRBC8ASunmLwvL5Q
-         FmAk86Ged56QzGXZZs1Dkm6+hlvXmLbXgsqMjUQUb9r6aMQpEduFwDxE1b4K1IO/FNmK
-         KV0LmB/c/fFAFjM/Ed/IEr625N7Yy0/V1u0HPcmLgyD0Wz0yvEZrt4AUNaK/oA431jIs
-         8BM7sFbz6r4KYmzGufsXUlm5aFKXCeUms6mUlEo7CMyPwO0wZYGU8LurnWrq6E4vjits
-         2+7AfByosvn8bASA7pOhPevnXRDupE4k/qh53wboD2h0x6S7uZElrM7FA5B1Ir0+Z4Ry
-         Cc2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501205; x=1793106005;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0YA9sqWUQC5W+VQQaSJzAueTT7pF0UiI4Jt00f8SsOs=;
-        b=BYNX5rQCqRxkAlXwxQ1s4pLck1uh/ZAARcpydlguFP4y7sPBBE3IadLtg3dZsMCGOw
-         igcDlnJCVcZOWERX9gxg94dIdaZM2q2f8v4zDe3pDjloxUnrK081aiOxO0f1zj2TzAjc
-         bJTHaW+qYEyPUnLIMybBrLhUVa29WtJxI7TyxzUKOn6/N9KAupZUotXZyVuoKxTC6Et4
-         tQM1/ATtGoHl7lYSslBpTodPb+LqY5+4EgjkBO2ES1kcIqAWPjF457s3iyYsTE3ipl51
-         YeycPGGW73HeDknXpi9P6cqXN1k9anBbGaCLBwRlYXetjXfCiX3Vzgl8W4uyfechJnmB
-         2eeA==
-X-Forwarded-Encrypted: i=1; AKwUvByDkWVcdWAQ4i8ddz41Ah626h3VjFoPiXKathwuwTMp7IJu89gxS9h73itzHTtL1hsxKBoZg5zy0rt3km8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLA++5dkWQUWfSBX5KhnFjjYQe3taODGRMhoK0yjH5iPFJXHZj1
-	t8SY5u4OvlkMBz5TZUEVjgryo8NPnWJbIIdYbBKSHLpd8VOBoc+zfX+dzCTUZR9Y6bHxXQ0UjUD
-	yjuXJJhFUIGmg+rYJoMQqJ72FDB2WMrvozB/jGwhIo1LBu8WDtpxaLzLGayDA6LQ7szs=
-X-Gm-Gg: AYBFou041SAFZ/K5yrqosHge8s+0JEM5Hn9Y+WV31WlMQYZp7bW5+xkTT3a1KRKeFMu
-	1vNYBp+notaZClAOXw9MvvDNrGRmlepmLuMhDF82h0WNFehveQ555IR11qh7O4tDeN0ucluLZlu
-	Q4w/7Wnpf11I4d3+lufGkCBqX2gond8DSwvXid41k+pc0fqBAxa+W+POHzmAEam/MI/84MdwoIY
-	tycRbIaeEnzJuYDcgQ2ODQ2ZM45XYsiMCyOEuv/ci655QxsBgrk8vC4Z74XKOP9LsxxfdbU7evo
-	nsp+lSywL5AQz3YUogNmdxoS7MEdrqzFz4CoDdYpptCxBAi03KY+dMnxD1Kf3HHPpwfaO3U5MjF
-	rQ+VW0DQIEEms4dBM
-X-Received: by 2002:a05:620a:3720:b0:93c:6341:1d66 with SMTP id af79cd13be357-93f4c66bcedmr311664785a.19.1792501205268;
-        Tue, 20 Oct 2026 06:00:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:3720:b0:93c:6341:1d66 with SMTP id af79cd13be357-93f4c66bcedmr311648685a.19.1792501203724;
-        Tue, 20 Oct 2026 06:00:03 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2c1e0e6sm83132575e9.0.2026.10.20.06.00.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:00:02 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:00:01 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Anna-Maria Behnsen <anna-maria@linutronix.de>,
-        Frederic Weisbecker <frederic@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 6/9] arm64: dts: qcom: sm6375: Do not mark MPM as a
- power domain provider
-Message-ID: <5ad62m2ix47ynkq2ikghkxdqpcyv2tjixtojdobpjpdwbkkab6@gjklpaosvpk7>
-References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
- <20261015-b4-shikra_lpm_addition-v2-6-ac7f1a0d5638@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htGvWvY7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877C71F000CA;
+	Tue, 20 Oct 2026 13:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792501209;
+	bh=0SlxZ5UQXu81xsFhH9I1ceqg/5A7Zf9sbax9KJqUchU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=htGvWvY70hcOTpY92QXwy8gTYzLILBSSisBX8mhP1sRKfYjNS6z09IxQOvQBMZm7Z
+	 HaiPFoXiUlsj7EF2GdaS3DckfqOcJlBx5eAZmOR8drqfoFb1OWgj9srtF825m7IO+G
+	 2Eaa29YIujwB+KexjanWX0jOM/ig/GHCHk1O6MUJy129SfiOabCY5J6Lon+eKe8DrT
+	 sBmXMH+3Uvvj+ga2A8kvkYsvuv9M9lWU91nP0W7O5WrUUcq2Tdle92kI5GZ3TTrE5n
+	 ZHCbpxm/cqjOqbaze53ai+CDC6++u7Q2WEtyGk8SYfmQdNa1RRwiF/MTjbhIAWLfTz
+	 2KkdmVuPKPb7A==
+Message-ID: <3c80ab1a-d86d-4986-bfae-d513734a0d90@kernel.org>
+Date: Tue, 20 Oct 2026 15:00:07 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,41 +51,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-6-ac7f1a0d5638@oss.qualcomm.com>
-X-Proofpoint-GUID: Ps-W3mBLFn-kARnYlYx-HFZIH4oAvIx1
-X-Authority-Analysis: v=2.4 cv=fb84WEQF c=1 sm=1 tr=0 ts=6ad765d6 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EzgOzLDDTgUawJARWFgA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MSBTYWx0ZWRfXwXawaPkPr4rH
- Lf+5PderQ2shdAwV+egvB2ktrdkz4WyjPqlKaObzEsEjNdn/vF7j22JYPSKwppgc7f2xl4uAJ1X
- 2kGL/7fY+GRqSdA+sUOkMkPALedCyTKio+uQzl5gLb+5bw0y+cvKxN/9/yWJZ0C6gLCeoUZBcDg
- 2SxM/yOgVfoi1sfVvrPGjbMt515pLGuX3YvU/gMFGk+o/pDgl7eWvZHtatkQyt8eW0Ycky20TKg
- N5/TFV/r3gY/n+GwOMxczh2o29ce1rN5MlMlkmhIhZg7XhYLBFtdil4p+udx1j+KKLbcf7GtSn3
- KeuZYu6DHP2c4cXB5hO26XfnGgKTdWga2rTrtXgZK+qWatoREiQ8sCCmIdPhnKp0tnGWHW/0+7+
- iqsOBiwjEeTiP3f1XnwacD23toVciVrsUof6f73cPG4zshAOVEnqKOMg07W07vdOGdvkv9ZkhQ+
- VwmHQcrMawVcV0NRG4A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MSBTYWx0ZWRfXxXbZ7x1N2o13
- M9yO9pJbXBm5Fs3MWu0v8Qox503P9rbbuC5TdY9p9sij4Qxuy8Qob5VzhrbL+cOKQjWbwHmrkH5
- VCietQYnRVNE59PxGs19YLk0TOgWUys=
-X-Proofpoint-ORIG-GUID: Ps-W3mBLFn-kARnYlYx-HFZIH4oAvIx1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
- phishscore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200051
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] mm: userfaultfd RWP drops a populated shmem PMD
+To: shaos <shawnq1@163.com>, akpm@linux-foundation.org
+Cc: Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261020110759.960089-1-shawnq1@163.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261020110759.960089-1-shawnq1@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 26-10-15 15:25:22, Sneh Mankad wrote:
-> To make the MPM design more logical and avoid probe dependencies, the RPM
-> notification is managed by registering for CPU_PM notifications.
+On 10/20/26 13:07, shaos wrote:
+> Hello,
 > 
-> Remove #power-domain-cells property from MPM device.
+> UFFDIO_RWPROTECT_MODE_RWP can return success for a present shmem THP mapping while dropping the PMD mapping instead of leaving the populated page resident and write-protected. The next read refaults the page and completes without a UFFD_PAGEFAULT_FLAG_RWP event.
+> 
+> The PoC verifies ShmemPmdMapped=2048 kB immediately before the ioctl. After the successful ioctl, smaps reports Rss=0 and ShmemPmdMapped=0; the read completes with the original byte and no event. Re-arming the refaulted PTE and a separate 4 KiB shmem control both produce the expected RWP event. The observed issue is loss of the mapping and protection tracking, not corruption of the file contents.
+> 
+> The source path splits and clears the non-anonymous PMD for MM_CP_UFFD_RWP, but the retry does not repopulate a PTE table because pgtable_populate_needed() only recognizes MM_CP_UFFD_WP. The ioctl nevertheless returns success.
+> 
+> HEAD commit:    24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> source version: Linux 7.3.0-rc7
+> architecture:   x86-64
+> compiler:       gcc 11.4.0, GNU ld 2.38
+> QEMU:           6.2.0
+> 
+> console output: https://gist.githubusercontent.com/shaos26/3c336ea98e1e8fe09b5270c3a82ca268/raw/da13df3db0c05df09952f74bedb457f57c53b78b/console-output.txt
+> kernel config: https://gist.githubusercontent.com/shaos26/3c336ea98e1e8fe09b5270c3a82ca268/raw/baa5ee61ce748667104c480560ab5116a100e3fd/kernel-config.txt
+> reproducer: https://gist.githubusercontent.com/shaos26/3c336ea98e1e8fe09b5270c3a82ca268/raw/420975783e9d5dd88bc4a69190d8ef194faf5fdc/poc.c
+> 
+> Build the kernel from the revision above with the attached config. Build the static PoC and initramfs from poc.c; the program is /init and creates the shmem mapping itself. A fresh-boot run used:
+> 
+>     timeout 300 qemu-system-x86_64 -m 2G -smp 2 \
+>         -kernel build/arch/x86/boot/bzImage -initrd initramfs.cpio.gz \
+>         -append "console=ttyS0 panic=1 oops=panic loglevel=7 kfence.sample_interval=0" \
+>         -nographic -no-reboot -monitor none
+> 
+> Two fresh boots reported RESULT=RWP_SHMEM_PMD_BYPASS_CONFIRMED and exited cleanly. The affected code appears unchanged in upstream master f47d223627f8; I have only reproduced it on v7.3-rc7. No privilege escalation, memory corruption, or guest escape is claimed.
+> 
+> Thanks,
+> 
+> shaos
+> 
 
-Can you elaborate a bit on how the two phrases above are related?
+https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+
+-- 
+Cheers,
+
+David
