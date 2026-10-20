@@ -1,66 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515227;
-	b=z9Z27Y3pnVSmEjcuwG02JlHPClKMvYRg5omPgoY1ibrpHdgf4JdmAz11Jt1Mz+/a8ZTQ
-	 adNZZjZ93wBqsTq/Xn7Y7bg9QmO8DlYtc2avw1hh0rOhLQNg+7jj9NqtSQI+agG1AUuA2
-	 v0YAIC2ce3v6audPGfHPClBLz4KmVHZn1itmQJCXyN8QHkh0Kzz8GByUENFj7cbislyWI
-	 1MqBNBHg9F51VNkrAfx7jPEP0o4C41x0SqjhzZCywRvCPtMcdVx4aDUAc9X1GMejwDK3y
-	 JGRvzOpr2PEZCoYpFZNzV1k0rJCWXTTTNHHB5+nXJAZNr/z5xENJLlQrTXUob0cmqzQ==
+	t=1792515239;
+	b=1iAWhjaFGJuo9A7uzBSG5UaM5NW9wR9Q4Xsl8ARIKv5m5Emc3XqYYPFvepnwog625c5M
+	 r+79MpGbKTAIPhq6Izwg1dHTkv7ZlYaI/v5yfUHGjtTKvFVF1etj1YDx77tWPFuSoBJzD
+	 fCgLKrAjLBuEgCBqePq0FEDdMBuQxisN60Q20stbhNZWVPzrPOjvCaAMKSECkNpJtwpJ1
+	 4juLtFSIu77mN3Hzda5YDdOsYTtIr3iPA/1LHkbAOvbfjsheKHZPvziEBtFe9TeAg1Zws
+	 msSBnSKI+NcNezfIRPu7WJqB0yKeIdR7MCkeGRPUxNXqvY66Jeh3Pl81EbNfbwJZQ3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515227;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pFjMjrUW0NYlGV6eXcQPR970X7IB6G109x7Ig0FhqbQ=;
-	b=yZJ4wRzDXmH4h/kRqoGdgSmdHGgqb4bniOSVbSmzQPqpdpwntHhMsqKYe0fR05LdZniu
-	 UxPJ6LyAPj2DQy1KBYQJxEpF/CE8Zgc+2kU2wMchNxE52PKmLvjWgQ4tn0pZbpVL7lzcQ
-	 ZZbHAsBX8BwyUX34Mmdkkl04hOdQSgOGAeLmSGxC5YBcrruXelsm648MmEhD1xhrMT7XT
-	 uNKO4DOINmfJbmw5+fdJ5l7NqBJajzTOl8IQnpwOH6QiDvFiHkz9qBPrHKP64OCRGTZI8
-	 gNjGdZQ9hTMO4yp/S2Iwpv006kNBY+ky6utkngp0JLf/X+XZ+4/GYwVNCNcZLs6LowA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515239;
+	h=Received:Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date;
+	bh=TbMs2ngW89eX+bAbrmsJu7YdbOM/lyawGAQV6NPa8GY=;
+	b=1POufMM5Vm44/+YFs5m5FEQlYi96O0RDFDf82gNOS4boSK12yFZMJVhP0kOTTCse9HZP
+	 I2U9M+OYKJBYtpTiaCK7vXONkKfP/br184+VyP8HeOofUiB/DuQtghUn0grtZ21854FsG
+	 t0sWXfasS3dlkHwd0qx1ghvBdsA1bjzuZ1AZ3ahM9ov27CYgl7h5Xv/8QQcZghtIJcPJj
+	 WmS3R8HC2f79kxiHkSzPmeHjURCdq8PmiRr8OYJ3U5yQc5FoS2fpSsekTl7k1lVirc3dU
+	 +yAhHB+dcQPP3+RzbXHLrQ0vBpO3ndBp+vhxKQxd3/7Sqh+mv9LJZVoU81+jnbU2LqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="U9B4C7/d";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935FD606A320;
-	Tue, 20 Oct 2026 16:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 935FD606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=U9B4C7/d
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8JQf07v5z1XM4Tn;
-	Tue, 20 Oct 2026 16:53:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792515222; x=1795107223; bh=pFjMjrUW0NYlGV6eXcQPR970
-	X7IB6G109x7Ig0FhqbQ=; b=U9B4C7/dxqWoePuwLsVCiFmNZQxEdyxGesuKcdjN
-	P6SFIh7pe0Km0b/1i0E+hFozuN4Q/+3rXDuj+uFzoTe2CKcF+uR33sPknEoV0KYL
-	xGPBXe30IQRkXWTQ5gG0l7ywRzXt9oVwt6nY+qdPKM073BJ9hTgkNUti2YTPKLEO
-	U8jM1xC3DZC4DPdMicT0sYxBBhliYyYfXL/iETOH5+GlEjh0GTab9lSLyjMmYtvP
-	whmA5GNaLJiAqabeDtCaj/gdhmOb01ip/WyvWXTE4zgCFhxDQp6DAwAh7MBxwCvM
-	vNpLSV4z8a1T1iVReoCF9jU+AR+Nj84NduvlHHYeLxg5Jg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id fXs8ebs7fYK7; Tue, 20 Oct 2026 16:53:42 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8JQY4B8Rz1XM4Tl;
-	Tue, 20 Oct 2026 16:53:41 +0000 (UTC)
-Message-ID: <3a07f61f-bd49-487a-b72f-209a7b8cd3cf@acm.org>
-Date: Tue, 20 Oct 2026 09:53:40 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3EC606A31B;
+	Tue, 20 Oct 2026 16:53:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC4D1F000D3;
+	Tue, 20 Oct 2026 16:53:58 +0000 (UTC)
+Content-Type: multipart/mixed; boundary="===============8247120795320158940=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,33 +36,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] scsi: ufs: core: Remove an always-false
- WARN_ONCE()
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
- <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
- Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261020082110.3511797-1-stanleyjhu@google.com>
- <20261020082110.3511797-2-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261020082110.3511797-2-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Message-Id: <df21389eff01ccc8739c2baa97fe5832fb09da46617cb05d6337bc9ef0968adc@mail.kernel.org>
+In-Reply-To: <20261020161907.2115379-9-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-9-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v3 08/12] bpf: Recover the low 32 bits on the reverse link direction
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 20 Oct 2026 16:53:58 +0000 (UTC)
+
+--===============8247120795320158940==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On 10/20/26 1:21 AM, Stanley Jhu wrote:
-> The WARN_ONCE() in ufshcd_poll() can never fire. completed_reqs is set
-> to ~tr_doorbell & hba->outstanding_reqs on the line above, and
-> hba->outstanding_reqs cannot change in between because ufshcd_poll()
-> holds hba->outstanding_lock. So completed_reqs & ~hba->outstanding_reqs
-> is always zero. Remove it. No functional change.
+> bpf: Recover the low 32 bits on the reverse link direction
 
-Patch 2/7 has a Cc: stable tag so this patch should have that tag too.
+TL;DR:
+- New sync_linked_regs() arm may intersect contradictory 32-bit ranges to
+  empty, triggering verifier bug WARN or -EFAULT on valid programs; no prev
+  restore
+- Comment on width split is inaccurate (nit)
 
-Anyway:
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+[ ... ]
 
+> @@ -18785,29 +18785,54 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>  		if (reg->id != known_reg->id)
+>  			continue;
+>  		/*
+> -		 * The reverse direction does not work for a narrow known_reg:
+> -		 * it knows only its low 32 bits, which say nothing about a
+> -		 * wider reg's high half. Neither (u32)(base + delta) nor
+> -		 * (s32)(base + delta) inverts once the base is wider than 32
+> -		 * bits.
+> +		 * The reverse direction, from a narrow known_reg to a wider
+> +		 * reg, does not invert: neither (u32)(base + delta) nor
+> +		 * (s32)(base + delta) says anything about the base's high
+> +		 * half. It does still pin the low half, though -- both sides
+> +		 * are (base + delta) mod 2^32, differing only by their deltas
+> +		 * -- so recover that much and leave the high half alone.
+>  		 */
+>  		if ((known_reg->link_kind == BPF_REG_LINK_ZEXT ||
+>  		     known_reg->link_kind == BPF_REG_LINK_SEXT) &&
+>  		    reg->link_kind != BPF_REG_LINK_ZEXT &&
+>  		    reg->link_kind != BPF_REG_LINK_SEXT &&
+> -		    get_reg_width(reg) > 32)
+> -			continue;
+> +		    get_reg_width(reg) > 32) {
+> +			/*
+> +			 * Only @low's 32-bit half is meaningful: its var_off
+> +			 * is advanced over all 64 bits while r64 and the
+> +			 * base/step line are not, and nothing below reads
+> +			 * either. It is a scratch value, not a register state.
+> +			 */
+> +			struct bpf_reg_state low = *known_reg;
+> +			struct tnum low32;
+> +
+> +			fake_reg.type = SCALAR_VALUE;
+> +			__mark_reg_known(&fake_reg,
+> +					 (s64)reg->delta - (s64)known_reg->delta);
+> +			scalar32_min_max_add(&low, &fake_reg);
+> +			low.var_off = tnum_add(low.var_off, fake_reg.var_off);
+> +
+> +			cnum32_intersect_with(&reg->r32, low.r32);
+> +			low32 = tnum_intersect(tnum_subreg(reg->var_off),
+> +					       tnum_subreg(low.var_off));
+> +			reg->var_off = tnum_with_subreg(reg->var_off, low32);
+> +			reg_bounds_sync(reg);
+> +			goto scratched;
+> +		}
+
+Can the cnum32_intersect_with(&reg->r32, low.r32) above produce an empty
+range here?
+
+The differencing arm further down in sync_linked_regs() saves prev and
+guards against exactly that:
+
+    struct bpf_reg_state prev = *reg;
+    ...
+    if (range_bounds_violation(reg))
+            *reg = prev;
+    reg_bounds_sync(reg);
+
+Its comment explains that an empty intersection means the two sides
+contradict, that reg_bounds_sync() refuses to touch an empty range, and that
+the first later reg_bounds_sanity_check() would report it as a verifier bug.
+The new arm has no such fallback, so reg_bounds_sync() returns early on the
+empty r32, and tnum_intersect() of two contradicting constants gives an
+arbitrary const subreg.
+
+A contradiction looks reachable because the wide base can know more about
+its low half than a ZEXT/SEXT member does.  FULL against ZEXT/SEXT and ZEXT
+against SEXT pairs are skipped by the link_kind check:
+
+    if (reg->link_kind && known_reg->link_kind &&
+        reg->link_kind != known_reg->link_kind)
+            continue;
+
+but the base learns from every member: from a FULL one through the
+differencing arm, and now from a ZEXT or SEXT one through this arm.  For
+example (cpuv4, no CAP_BPF delta needed):
+
+    call bpf_get_prandom_u32
+    r6 = r0              /* wide, id N */
+    w7 = w6              /* r7 ZEXT d0 */
+    r8 = (s32)r6         /* r8 SEXT d0 */
+    if w7 != 5 goto 1f   /* new arm: r6.r32 = {5}; r8 skipped (SEXT/ZEXT) */
+    if w8 != 6 goto 1f   /* r8 low half unknown -> both paths explored */
+    r0 = r6              /* fallthrough: new arm r6.r32 = {5} & {6} = EMPTY */
+  1: r0 = 0; exit
+
+On the fallthrough of "if w8 != 6", r8.r32 is {6}.  r6 is still wide, since
+after the first sync its r64 is [5, 0xffffffff00000005] and get_reg_width()
+returns 64.  cnum32_intersect({5,0},{6,0}) returns CNUM32_EMPTY.  The
+"r0 = r6" mov then reaches reg_bounds_sanity_check(env, ..., "alu") at the
+end of check_alu_op() with "range bounds violation", and verifier_bug()
+fires BPF_WARN_ONCE.  That is a real WARN_ONCE under CONFIG_DEBUG_KERNEL (and
+a panic with panic_on_warn), and it logs "verifier bug: REG INVARIANTS
+VIOLATION".  With BPF_F_TEST_REG_INVARIANTS, which test_loader sets by
+default, the load fails with -EFAULT.
+
+The same thing happens with a FULL member in place of the SEXT one
+(r8 = r6; r8 += 3; if w8 != 8 ...; if w7 != 6 ...), where both r6 and r8
+end up with an empty r32.  Before this patch the guard simply did continue
+for these pairs, so the program verified cleanly.
+
+This is the case zext_contradiction_keeps_range_sane was written to pin for
+the differencing arm.  Would saving prev = *reg before the intersection and
+restoring it on range_bounds_violation(), as the differencing arm does, work
+here?
+
+No later commit in bbd86cb1eea3..73fbac05c8bd touches sync_linked_regs().
+The following narrowing fill and spill patches (48dc0496cddb "bpf: Track
+low-32 scalar equality across narrowing stack fills" and 3649346488fc "bpf:
+Track low-32 scalar equality across narrowing stack spills") only add more
+ZEXT/SEXT links that can reach this arm.
+
+>  		/*
+>  		 * Skip a pair of differing kinds. Where BPF_REG_LINK_FULL meets
+> -		 * a 32-bit kind the delta relationship genuinely does not hold:
+> -		 * the deltas were added at different ALU widths.
+> -		 * BPF_REG_LINK_ZEXT against BPF_REG_LINK_SEXT is not that case
+> -		 * -- both are base + delta in the low 32 bits, so narrowing one
+> -		 * really does narrow the other -- but that deduction is
+> -		 * declined on purpose. It makes an int loop counter a fresh
+> -		 * constant on every iteration, so no two iterations prune
+> -		 * against each other and the program runs to the instruction
+> -		 * limit. See sext_no_sync_from_zext_sibling.
+> +		 * a 32-bit kind the delta relationship does not hold over all
+> +		 * 64 bits: the deltas were added at different ALU widths. For a
+> +		 * wide member the low half still relates and the arm above has
+> +		 * already recovered it; a member that fits 32 bits does not
+> +		 * reach that arm and is skipped outright. BPF_REG_LINK_ZEXT
+> +		 * against BPF_REG_LINK_SEXT is not that case -- both are base +
+> +		 * delta in the low 32 bits, so narrowing one really does narrow
+> +		 * the other -- but that deduction is declined on purpose. It
+> +		 * makes an int loop counter a fresh constant on every
+> +		 * iteration, so no two iterations prune against each other and
+> +		 * the program runs to the instruction limit. See
+> +		 * sext_no_sync_from_zext_sibling.
+>  		 */
+>  		if (reg->link_kind && known_reg->link_kind &&
+>  		    reg->link_kind != known_reg->link_kind)
+
+This comment says that when BPF_REG_LINK_FULL meets a 32-bit kind, a wide
+member has already been handled by the arm above and only a member that fits
+32 bits is skipped.  Is that split by member width accurate?
+
+The arm above only runs when known_reg is the ZEXT/SEXT side and reg is the
+NONE/FULL side.  In the other direction, known_reg FULL and reg SEXT, the
+pair always reaches this continue, and a SEXT member can be wide in the
+get_reg_width() sense, since negative (s32) values give a umax up to
+U64_MAX.
+
+sext_no_sync_when_base_has_delta is exactly this case: r8 = r6 + 3 is FULL,
+r7 = (s32)r6 is SEXT, and "if r8 != 3" narrows nothing in r7.  The code
+splits by which side is narrow (direction), not by member width.
+
+Could the comment describe it by direction instead, i.e. only a narrow
+known_reg reaches the arm above, and a FULL known_reg is skipped against any
+32-bit member?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
+--===============8247120795320158940==--
