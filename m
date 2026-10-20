@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460966;
-	b=BpMOSXwDSuOQIeYE1wu3w0qWR9H86X3EmLEBT5PgCdLBh/4KZvBXBKsH7VkIFclSEYQT
-	 6mTR6cUgYNOg7BmulCl/xWKaFYI42x1WUZC1xp07xRghPo1SWCsEf1EUC3xUrMI65Is1e
-	 XQOP5mGXUzwk4MjsFwum5zb3Ejc0uVlf5AaijPBsNveoHe0ew4sy0zJFJlyuhNUO/b2EO
-	 5gJDkCLonhZi99oxi05v6oJmPWskSKHqiQ54ZMUA717ZlFX+12rUV511EJSgG8vuA5MY5
-	 QnjpEASILMe9g1GDy/U2QD942m88x7nOE38WKojO2d292h05wiVY9st3Gc3ned7W2ZQ==
+	t=1792460977;
+	b=DdfYPV9opRhUnGiQ66CpJCqIRZ0Hvg9WpQ19VOaBcsAnqfC5htblHMCi0Qdi+GbOX1wM
+	 Y4POgjR2+j64WTPqxf15Z+XVpoG7QolsFjcABC5BQUyW6OKZIdggL3Auh3iWkKj0zzWx3
+	 Scg3ikvB1yugVZN57Lqa49ukpThrtSTfyZk+hWWU4CXrBZe0H3LUXu0wEGOO41nKlLX7z
+	 auOJ/vkmY23WUVJgglYBaTSkdxdAn2yjr6m36Ay/ZOjGU4WJjLyqPe5+KBk0vlXkKQQPs
+	 K1mGhcfLeKjmr32mZrqLm4JW8bh5gJuxT/hzBwe3LjEDkN+JP9TCJ5qrFiuHfgPgbcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460966;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GI1sDXL68rILFOS5IDyHXobc25qpbCh5q48o7ZrhuAs=;
-	b=ZVKGlg8pTcPv7jTTs6KSUT9PwK5z7ydsTlQattBkOMm8T2SMDiZcyDt//adPrBwQuiOV
-	 eedNUjgbJ7yp6OVC7BWI7+qV+f/5XOeJbJhA8TXOKtMQUD4n7BLNs3Xn4J3XVLA+O+HfY
-	 VtxRSNaOiYqX/Hq3/BwWFF1SkCb4cztGSB7G0qMjWZI2inmP3Wo9twiTMJL0OqwI3X4Zk
-	 LlqdwRQRXTS3t9QX6oTHYZzFgdFNx46nu6ZrTEdi8CEteJyfyJm9cTv/Yy1sMuyufC2UB
-	 oKn1hAUPk4fR8wYCCgV9t7owHcZ5RuzKSuYhCUajIQ3sni7tNpsmFCE5u+Ro5VHv7/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460977;
+	h=DMARC-Filter:DKIM-Signature:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:To:Cc:Subject:Mime-Version:In-Reply-To:Date:From:
+	 References:X-Lms-Return-Path;
+	bh=yf4VGcXfi4tnX0bWwxta6Va+tyS9bGRKiK9sqlYKPys=;
+	b=qiXvj9F3cQp+OIl2zIt5mCN4kpaZadlWrAB7XIwnkm07ujnka/E55YKjsRz24hbfxDI0
+	 m+SmTg62LUXfkhYcXWmRfIVNQfSN3z7kELUnqSsKQyTb9mQhORaJfBRwRZagSh9kSpNAw
+	 CGMaH/k+zm4pxYW3Nvu7L2UFy/IZa0kW6N3QiX9yZVZuXkfUKBW0ssU3RJppB3avQ8d6V
+	 aVf5od02D2G2R36s78YUToJd5hLrkArs6gilGFV76+lmEqIDVPraicxB41MQWxUqw7/XI
+	 lkCjU42QXCg1hKEjFtn9RntT6WUxr/Zs6BHiHGlQbaditL1V3e9aRWpAr49RNMNDoyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j5Zy+06H;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=fnr2Cz3v;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B82606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B82606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F585606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:49:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F585606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j5Zy+06H
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535a54bed9so3802504eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792460965; x=1793065765; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GI1sDXL68rILFOS5IDyHXobc25qpbCh5q48o7ZrhuAs=;
-        b=j5Zy+06HYvqYPzoaj9knMK1wL17L7UbkhFY08X6bji2CwTZ2KbbiifP/KVdX3Q9z5W
-         i+kgyZBG44OKtizVXUD99kmzJp2OvnzAMYVWr5palMY9td9/HrRCXsmA3eMzEdxDu5Gk
-         YK9u4n6eohz7cYvcSYbcO7NsQ9ybecgkZ+0xYWkmdZODUJ4Sie5KL+wi+UxjZANDgGcc
-         Atk7lkyfdFm525ZM7UNE2j75qevy1ibAc1HiXz8Kw4GCw59TEFlMvo8VfV/ujbGlds0K
-         7RhpU9WeZm/cHO7MOIqBM/lrAxknTs7UruX71kWhte5U62tSO5m0qdWwsiZdzwfsaR7N
-         187w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792460965; x=1793065765;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GI1sDXL68rILFOS5IDyHXobc25qpbCh5q48o7ZrhuAs=;
-        b=Vh1YCbTzvjI2S/5z6746iWp8Ws91/pTDt4OmAJag4tNm0fbjlpPRKfsNV6M0CehTzw
-         2ysNKWhLRjtHCJ8oDbCydKJ9po+ritjN9s9UAJ6bA/FTFbVi87lHyRlyu46mBRtkxbry
-         pwx1Nuh5B4EKYl5Q3zlZkWnKixAX9+Qpfon5n5dcaqvoM9o2fm9+rfy1dEAtJ7s/cGso
-         ZrHXvOP+Glqd5w5VXvyPR5HRKGGoE9Y9ikr2+57kSTYUCF6VPV9zbGOTDod3xvBhE2CH
-         UNIjPpFP/gkBQLbRxrkSBmNC7ltIKslOjHD1PpqXnooDEfNFEpdVqM7LHYILB/JbkIaj
-         BNrA==
-X-Forwarded-Encrypted: i=1; AKwUvByqWgkN/ifX9n2c0nFji8Bn8/dgzD2FZGmbJl+muqRzNXP5w0zJ8NJwHkAhvNHm68Hen5BZPYDrVdo/WuE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3PJz+kaeBsU3rLppqJHZyIjHnD4RsfGpzMTJ5IzdN65Iepeki
-	uHqx4IaWCrzO8U2JeAWKBuL+1F8pxZ9vhuROjFAsE440TRyoOfFFYlIj
-X-Gm-Gg: AYBFou0m6cpgcAHzngy+T0CsZjYv7+ffAHDPAjDr9WDQTz7VDJrenqkrJEDvLzjEaU1
-	Cchrw2RQRrYrDFLzH7gs0FsysixRm7Tft7QkWgfyjZs5xqpN5g1Sw4Qg5GMABOar6wwzJKmu2zF
-	A8oXEIhkt/HSoCO7p1UKkVcICb1OL2PLREl7AnpQPbtfY2tHyMoiKLiVHU+JMrDje+zh3wK+cfb
-	tyRUhqan0w8Az5owL06EJs3fqmc6UeneHHj0mmm7XnDOaFKl+Dk34IWMOLjXgYptnRih/GtU01a
-	ISfeCTQMfl5eicDb3gQcklE6zheIJKxHnUOAf3rM8Qm5bjeqEquNuxqgteEYO57WdbcyFRgecZe
-	xeXSi9T1rhDgOUNQOc8nH9lr7DJhioceYxVx6Ly7O626A8ZffF3+inOlj0JwSgnDJzjkGk+Itj5
-	hxC+Fjm7E6VE/7tIhenYborOQSrym2DGYtMFjVJ9hW/JRt1cnsieMJpu0de4BVp3RRsVvdIbV3D
-	A1G6unBqSKJ
-X-Received: by 2002:a05:7301:271c:b0:35d:b452:902a with SMTP id 5a478bee46e88-361a2942d31mr14312652eec.34.1792460964928;
-        Mon, 19 Oct 2026 18:49:24 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm33941191eec.22.2026.10.19.18.49.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 18:49:24 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 19 Oct 2026 18:49:23 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH v3 09/11] dt-bindings: watchdog: sun4i-a10-wdt: add
- Allwinner B288
-Message-ID: <0ed8c1ac-1f9a-4cc0-b914-6b245f86d296@roeck-us.net>
-References: <20261005202731.153971-1-pmazzini@gmail.com>
- <20261005202731.153971-10-pmazzini@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=fnr2Cz3v
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792460971; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=yf4VGcXfi4tnX0bWwxta6Va+tyS9bGRKiK9sqlYKPys=;
+ b=fnr2Cz3vQ9JV+hzRuxhbJLdc8U7pDwvwRug74JLpSM2zN9lTXBUabwIJ2v7VQX9da9QN/g
+ 09W7GIMSHIx6Ux+XCntxbklDAf5itzgZwigUyLcED6ZM67B3TnLLJWfSJqi8QBMszMEFAV
+ 9CJ5pzvt5CmhyGcMc2r0YRBqF5IAVWKIUBMNcyLoNp80u93r4KHRobMxtdd/henfw0IpT3
+ UU1bpAWvYsO7tQ6+anhXTG6XVQDFyafKNzr6S0pCIdYCQiB4igEFIgMniKexh4U99kE6in
+ 10jUWGNIflf4fWD3zsKa6qHkPIFwkHGKCKWXC1WRK3oCzCMRvYt5KX+K+5A84w==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.299fa9aa.210c.4b1f.9ab7.7acb67f42a19@bytedance.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
+	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Guixiong Wei" <weiguixiong@bytedance.com>
+Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and exec()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,18 +61,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005202731.153971-10-pmazzini@gmail.com>
+Mime-Version: 1.0
+In-Reply-To: <89727492-b1d1-4f14-955a-0673ebaee753@intel.com>
+Date: Tue, 20 Oct 2026 09:49:26 +0800
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+References: <cover.1791428412.git.weiguixiong@bytedance.com> <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com> <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
+	<89727492-b1d1-4f14-955a-0673ebaee753@intel.com>
+X-Lms-Return-Path: <lba+16ad6c8a9+77c9a2+vger.kernel.org+weiguixiong@bytedance.com>
 
-On Mon, Oct 05, 2026 at 09:27:29PM +0100, Pablo Mazzini wrote:
-> Same watchdog as the A31, which it falls back to.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Applied.
+> From: "Chang S. Bae"<chang.seok.bae@intel.com>
+> Date:=C2=A0 Tue, Oct 20, 2026, 01:53
+> Subject:=C2=A0 Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic f=
+pstate and exec()
+> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
+> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
+"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
+, "H . Peter Anvin"<hpa@zytor.com>, <linux-kernel@vger.kernel.org>, <stable=
+@vger.kernel.org>
+> On 10/14/2026 5:19 PM, Chang S. Bae wrote:
+> > On 10/7/2026 10:59 PM, Guixiong Wei wrote:
+> >>
+> >> -void fpstate_free(struct fpu *fpu)
+> >> +void fpstate_free(struct fpstate *fpstate)
+> >> =C2=A0 {
+> >> -=C2=A0=C2=A0=C2=A0 if (fpu->fpstate && fpu->fpstate !=3D &fpu->__fpst=
+ate)
+> >> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vfree(fpu->fpstate);
+> >> +=C2=A0=C2=A0=C2=A0 if (fpstate && fpstate->is_valloc)
+> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vfree(fpstate);
+> >> =C2=A0 }
+> >=C2=A0
+> > Shouldn't is_valloc be cleared here, or when fpstate_reset() replaces=
+=C2=A0
+> > fpu->fpstate with the embedded fpstate?
+>=C2=A0
+> No, is_valloc is pat of the vmalloc'ed memory itself.
+>=C2=A0
+> That said, removing the original check does not seem reassuring either.=
+=C2=A0
+> Maybe, another option would be adding an internal helper:
+>=C2=A0
+> =C2=A0 =C2=A0void __fpstate_reset(struct fpstate *fpstate)
+> =C2=A0 =C2=A0{
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fpstate && fpstate->is_valloc)
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vfree(fpstate);
+> =C2=A0 =C2=A0}
+>=C2=A0
+> Then, refactor fpstate_realloc() and replace the vfree() in=C2=A0
+> fpstate_free() with it, keeping the fpstate_free() prototype unchanged.
+>=C2=A0
+
+Good suggestion, adopted in v3 with one small naming divergence
+worth flagging: core.c already has a static
+__fpstate_reset(struct fpstate *) that initializes fpstate fields,
+so I named the new helper __fpstate_free() to preserve the
+"reset vs. free" split and avoid shadowing. Final shape:
+
+=C2=A0=C2=A0=C2=A0 static void __fpstate_free(struct fpstate *fpstate)
+=C2=A0=C2=A0=C2=A0 {
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (fpstate && fpstate->is_v=
+alloc)
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+vfree(fpstate);
+=C2=A0=C2=A0=C2=A0 }
+
+=C2=A0=C2=A0=C2=A0 void fpstate_free(struct fpu *fpu)
+=C2=A0=C2=A0=C2=A0 {
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 __fpstate_free(fpu->fpstate)=
+;
+=C2=A0=C2=A0=C2=A0 }
+
+fpstate_realloc() ends with __fpstate_free(curfps) on its detached
+pointer.=C2=A0
+
+> Thanks,
+> Chang
+>=C2=A0
 
 Thanks,
-Guenter
+Guixiong
