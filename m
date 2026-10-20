@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480079;
-	b=t9NWIhNmP8u9r3huxO+S5jYHJrgpAdYRCuYCp6VCd89MhNxSjJmzM9SjncGAsnhpp0EW
-	 O39F+J5W7X/tgBEz+ioCXpdwa/viYphB7NnZ7dV33gKSWS4eMwh5dVeFLxzmQ85llzvIX
-	 qZpASKNTd93gMG4ErFzgBfC/oC8FmBBXcHBhKcSVHNrsceMVB131Y6WUVsFelxi1JGBTb
-	 YrVVoJbfNVZO9su6ZTkPDMaSIeOgaJZYUCWgkVSQ8MJZlvGoTh7zu1iSLnZt905zTd3m8
-	 TTflCs3pFh8nbPyexJsCH04bxTnvJkVJZs+7j1vBmgM/atzAwReV3+yGPP160dJLB7w==
+	t=1792480224;
+	b=rAKHVkCKc+R5Zkwhqj6zBEXReHfzRkZiU90iB2b6AXR2SzmPe33CA7rsaf0JYBgL9ILD
+	 X/yYpIiUtlsDjyqWrEGr01fiqr8BBc0JFFH2jw4IERU8ZLwgovx1FqdpXLD1/IBkh8EP1
+	 zSLzUZKphvJSfkrf+N5L9tKN75KPHj3MZU/WfigGypSRShR3US7hJJrhEU4fDELwGG3Ee
+	 xhTMLwCb3zeeZjllBXGTlywZpnotrsQ+IQ+F+8jbGC09/aNDQsrE8gAwLTXbYPz1pWDyQ
+	 bbtgJu7V/8gIgCoS9laiXcTjoFVIyLC4jW2Hehh4B+CEusDFUjmYsXLI1q9VTTtm3UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480079;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=niGpBEBKZQ30gEFAKXw7SZgk8z9v7/XaYOYlCfDIrrI=;
-	b=Aj6Obud3Jc123SARRoeA5nkhXoVAjYy02K3STWTRQLh5RbtUoLFtIP+uP/FJlt7Pai/R
-	 gSukpGATPT8/xZmqSY6wYG6lMvfPlYoWD9VGFh8eNjwr+ZdOzz7w2hqDEowA0aq8fJdul
-	 cnYeBLSJnZ115lXmqa2+V2ScgqnlKE42mCy+J7ITHWMFRgEOdB7OnTgtEd+JGvlhxYAfn
-	 J6DQB5N4zdfl1/xJVZzqCH7Ct3Q4wutslgAl1t1CU7XTIMknxINRwVj84Hbgh6leE5MJ5
-	 D9Yk6kGiY7st0CVEbcsHyr+B+PNonPfCgAR0LRtK7Bbs1HIzK/MnKUAWIL1i5DEhBhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792480224;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XsZ5jUo7Ez3Qg1joQhIaLu4Yeboe9RpEDHXpd+79SHk=;
+	b=ylT7kGadBzlD0DzTWZtsjeE95SF++u/P1kUgiDa+OLqaAIQGFcoZTNkteAuuZ3Yvog4d
+	 IVXhZIMc21eEttWfio7jQYp7zrhvdC4W0LlnSqt3BgV0tBamLncFTyQa7eHvXZyY3Ima3
+	 xneGvsvbPJ3Y+a3mn8E+dT1sX/jIZO0F6tFJaGcvEKjjotQppBfQfHIfasD0VSe2i31Y7
+	 x5eoCbkJxgmCH/DkCB/4GSNL3CcPuN+Dg/foiLVz4cH9ePmXIT7mbcACVhICaz6nv7+1V
+	 m+s+i72IlCAGXVJdQxq5119ZpB81aiTo7oAoipqFlbvM9vewlKZXoaGRxXTacakydBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YfPK1yDd;
+	arc=none smtp.remote-ip=203.205.221.231
+Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78C8606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A78C8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab260600easo617730b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:07:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792480077; x=1793084877;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=niGpBEBKZQ30gEFAKXw7SZgk8z9v7/XaYOYlCfDIrrI=;
-        b=VegMLFX36aZt64DQueuRjiFoLX4Zs1Cx4PA0LRBP1rtivwDiaVZLO1A7OvzYOROmsA
-         9wUJMXZF+Dy5vliw0k1Eax3qbE5x1Ochk8bT/+CQaOQWzkBC6LJumgjtIJiWR2YsCnBP
-         8rVABWbc4Rn2Tb4ilDzYUJpbconXCnOVavQVSLwEB9dDkFvKpm2LrfkE5EiVDWCPKoQS
-         9KFYF2KiE/j05PlbX5sLTyWDaahWkI0c7jWgjPKblJdNn936iiQHtuENJHP0tnhEAgeg
-         iKM19cyp50blPd4awOdKxcnj0ZL3k3dXwwxf3GzNedw3o4iPcsZdGFzGdPcB8Xgp64sA
-         Eosw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKfa/QUM2U7Wu6Rubuk6vQFkDBTSlGuv/IrUUUn8dYtPtNW32sB2l3wzKSBGZeAI8PSmCDMH6xQ46helc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiySaEUaqbaFAUpWMlHz1qfLcFQK0oQFK7BAzmKqpANyJfH3Nv
-	4LTDj9cHesn9C7G3Ebjfb58DRs41pnQHdpf7oEnapzeRMRBfG9jN5Hil2aC4Pth66fM/Cc3gkfO
-	S4n0aQxDslbb+niP0QnN7WuqlbSYCcK01f6q6LVP4MD/EMp1YY+DO93P+88M=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5ED606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E5ED606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YfPK1yDd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792480214; bh=XsZ5jUo7Ez3Qg1joQhIaLu4Yeboe9RpEDHXpd+79SHk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YfPK1yDdvT6C75zxpOEkuyqWhSXiAeLFzi+BG9H1CxPainIZigKoncjETf8vYU1nu
+	 67DR2zmoCnboN2FQfEZfKEzk0YRfVNR3TOahXYsKbNapKlDOC6yOr7De2CU30CURA4
+	 a+Y5fAy0tWfsPlFgkwozRckbCKQ1HsQWxz6g7eTk=
+Received: from localhost.localdomain ([223.104.162.184])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 289886FB; Tue, 20 Oct 2026 15:10:09 +0800
+X-QQ-mid: xmsmtpt1792480209tsi54rwhc
+Message-ID: <tencent_0AD505B63D2257674E40C6F22D5FB5B61209@qq.com>
+X-QQ-XMAILINFO: OYTBn1rNHH7thROZc/MJn2cvFUpGKM9osJEcpTFjyikQ7sxY1PGHRKQ2m/3O6v
+	 xjgtWvVszCtB+0cRdyESlWKgAde5wUw+nR08+bK8eAqFXewjlqTeXOJ58P9lkXhzWUkSYkew5XKE
+	 ypDRufdEjsZ/W7vV8k42QVahwz7mSFgFeeL8DfAx6uR4Y1NprRWsp94BSsumQxHiLiHKMCoV+SjS
+	 JtYgd17hiXbJXQkwvxVF0AgoCaQLRSIBLY8l3OFJn06CdRKuSigTJiUlPN9YuYqGpDgn1b/IAbI7
+	 dVLuiVaOh88SucleK0PpOkqRPBb+GZSfNdyJxocJSb+MpHcTOl+f1JV/RfgTm1EktbhyFMSInKJZ
+	 9EOHL4aDZD6g09gEIJpMTZPfGx4IrqsNsgQnPLcT3BRILlf6PS+Xvr9C/lQP3ZEhhzmQusMIyapQ
+	 0vHb3HgwAfjY6oFrTluozyPnA1MkO5sKvrqhX8awmX7uLkS98H7z1DdytSjn5jN+/pEcaP1yCzks
+	 V5I2KQUSOrKTV9X9WTQDrb2qbki6b4VDleFUQzBa2aVrxeBIS7zqw7IkwjjYjsMtoxH5xFEQzI7T
+	 I9i4J9iv010aXOHqWxpeticiapt8Bux8INmK4N4+clpSxoVJxb3oh5WSjZ3PgkWZabLaa1LBzxQx
+	 FW3oFIRyKOZ3yVRcE7LdLMzTadj4+RMQ/ZlP/3YaYSvltFjpfdptvOggeQSWxvsjiIN+IBdepBim
+	 YADJMbtGy7oswWjZpJ2hvqVGhUC7j6Wflp25IUHlg20/VC0yHhh9oTNBXWFYQAcqpindgS6WHJ35
+	 SGdSuEz0iF7DqQd31FwCOIptLyHz5d+wF3JfUyJnzac8XYEwjsLxnkrxuPC46+RKh5NjFyXgjB8U
+	 7vFK+x2qdt0zFGyfn0FYxh71vEY0o3kmjCacpsbfOCPJqhJpLwstaQ1FpPH/LViY0oK2qtpIyS21
+	 sCDyBN0yi8CR0/Sn4U1mClzzWP1K7NQa9s7qg/Jau2DzFIvN7HN1QGo/6jzl0+p77eHWY0vPm2OW
+	 P2JXNW550YzjAWVgYQLeipZqQYYvbjSfGzyzAJZ0Kjf+Lccu2jEjFqgguw8iAnxkA0EEIkiGjdGU
+	 ZF56HQviPc5lzLfBLS9L0hKkZuDQ==
+X-QQ-XMRINFO: NIY0FsY06mWik60O6xSizP/2tkZG+oPoPQ==
+From: Yemingxuan <level_zero@qq.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v6] drivers/base: return bus_add_driver() errors
+Date: Tue, 20 Oct 2026 15:10:09 +0800
+X-OQ-MSGID: <20261020071009.26718-1-level_zero@qq.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
+References: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,225 +80,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:660a:b0:4ea:935e:43d6 with SMTP id
- 5614622812f47-54d98a26ef8mr713958b6e.45.1792480077641; Tue, 20 Oct 2026
- 00:07:57 -0700 (PDT)
-Date: Tue, 20 Oct 2026 00:07:57 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad7134d.b5bd089a.6b57.0088.GAE@google.com>
-Subject: [syzbot] [fs?] possible deadlock in uvcg_default_processing_bm_controls_show
-From: syzbot <syzbot+d123c96491067a2ee754@syzkaller.appspotmail.com>
-To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+bus_add_driver() creates the driver's uevent attribute, adds the bus
+driver groups and the bind/unbind files after the driver has already
+been inserted into the bus and its module links have been made.  When
+any of these fail it logs the failure and still returns 0.
 
-syzbot found the following issue on:
+The driver is then registered but incomplete: a driver without
+bind/unbind cannot be bound or unbound from userspace, and a driver
+without its uevent attribute can no longer emit uevent notifications.
+driver_register() reports success, so neither the driver's init routine
+nor its caller retries, and nothing else ever creates the missing
+files.
 
-HEAD commit:    a0ff06b3a7bd Merge tag 'firewire-fixes-7.3-final' of git:/..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=10c64bc9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-dashboard link: https://syzkaller.appspot.com/bug?extid=d123c96491067a2ee754
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11cb5495580000
+The device side of the same driver model already treats the equivalent
+steps this way: device_add() returns failures of the equivalent sysfs
+operations to its caller, and device_del() undoes each one.
+driver_register() already calls bus_remove_driver() when the group
+registration after bus_add_driver() fails, and that branch is only
+unreachable for failures inside bus_add_driver() because of the
+unconditional successful return.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d123c96491067a2ee754@syzkaller.appspotmail.com
+Propagate the errors so the existing unwind runs.  The new
+out_remove_module label calls module_remove_driver() before falling
+through to out_detach: bus_remove_driver() pairs every operation
+bus_add_driver() performs in reverse order, but the symlinks
+module_add_driver() creates live in the module's sysfs directory, not
+under drv->p->kobj, so the kobject teardown does not remove them.
+The attribute and the groups need no explicit removal because they live
+under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
+the caller.
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor434/6013 is trying to acquire lock:
-ffffffff91402ce8 (gadget_subsys.su_mutex){+.+.}-{4:4}, at: uvcg_default_processing_bm_controls_show+0x57/0x2a0 drivers/usb/gadget/function/uvc_configfs.c:408
+The error messages are kept.  The return value of an initcall is not
+printed by the initcall machinery, so dropping them would turn a
+reported failure into a silent one.
 
-but task is already holding lock:
-ffff888000c93470 (&p->frag_sem){++++}-{4:4}, at: fill_read_buffer fs/configfs/file.c:66 [inline]
-ffff888000c93470 (&p->frag_sem){++++}-{4:4}, at: configfs_read_iter+0x346/0x6f0 fs/configfs/file.c:88
+These failures are not expected on a working system: driver_ktype
+always supplies sysfs_ops, so -EINVAL is unreachable, no in-tree bus
+defines a drv_group that collides with the built-in uevent, bind or
+unbind attributes, and -ENOMEM needs memory pressure.  The point is not
+a user-visible bug but keeping the driver model consistent with the
+device side and leaving the failure reported.
 
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #4 (&p->frag_sem){++++}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_write_killable+0x93/0x240 kernel/locking/rwsem.c:1643
-       configfs_rmdir+0x3fa/0x950 fs/configfs/dir.c:1543
-       vfs_rmdir fs/namei.c:5514 [inline]
-       vfs_rmdir+0x328/0x8a0 fs/namei.c:5487
-       filename_rmdir+0x31a/0x5c0 fs/namei.c:5571
-       __do_sys_rmdir fs/namei.c:5594 [inline]
-       __se_sys_rmdir fs/namei.c:5591 [inline]
-       __ia32_sys_rmdir+0x45/0x60 fs/namei.c:5591
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #3 (&sb->s_type->i_mutex_key#25){++++}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       inode_lock include/linux/fs.h:1024 [inline]
-       configfs_depend_item_unlocked+0xf3/0x6a0 fs/configfs/dir.c:1268
-       usbg_make_tpg+0x251/0x610 drivers/usb/gadget/function/f_tcm.c:1692
-       target_fabric_make_tpg+0xab/0x8c0 drivers/target/target_core_fabric_configfs.c:947
-       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
-       vfs_mkdir+0x364/0x850 fs/namei.c:5409
-       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5442
-       __do_sys_mkdir fs/namei.c:5469 [inline]
-       __se_sys_mkdir fs/namei.c:5466 [inline]
-       __ia32_sys_mkdir+0x6a/0x90 fs/namei.c:5466
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #2 (tpg_instances_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       tcm_alloc_inst+0x5f/0x1e0 drivers/usb/gadget/function/f_tcm.c:2687
-       try_get_usb_function_instance+0x136/0x1f0 drivers/usb/gadget/functions.c:28
-       usb_get_function_instance+0x16/0x70 drivers/usb/gadget/functions.c:44
-       function_make+0x18c/0x3f0 drivers/usb/gadget/configfs.c:626
-       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
-       vfs_mkdir+0x364/0x850 fs/namei.c:5409
-       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5442
-       __do_sys_mkdir fs/namei.c:5469 [inline]
-       __se_sys_mkdir fs/namei.c:5466 [inline]
-       __ia32_sys_mkdir+0x6a/0x90 fs/namei.c:5466
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #1 (func_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       try_get_usb_function_instance+0x26/0x1f0 drivers/usb/gadget/functions.c:18
-       usb_get_function_instance+0x16/0x70 drivers/usb/gadget/functions.c:44
-       function_make+0x18c/0x3f0 drivers/usb/gadget/configfs.c:626
-       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
-       vfs_mkdir+0x364/0x850 fs/namei.c:5409
-       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5442
-       __do_sys_mkdir fs/namei.c:5469 [inline]
-       __se_sys_mkdir fs/namei.c:5466 [inline]
-       __ia32_sys_mkdir+0x6a/0x90 fs/namei.c:5466
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #0 (gadget_subsys.su_mutex){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       uvcg_default_processing_bm_controls_show+0x57/0x2a0 drivers/usb/gadget/function/uvc_configfs.c:408
-       fill_read_buffer fs/configfs/file.c:68 [inline]
-       configfs_read_iter+0x426/0x6f0 fs/configfs/file.c:88
-       new_sync_read fs/read_write.c:493 [inline]
-       vfs_read+0x82e/0xb40 fs/read_write.c:574
-       ksys_read+0x12a/0x250 fs/read_write.c:716
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
-other info that might help us debug this:
-
-Chain exists of:
-  gadget_subsys.su_mutex --> &sb->s_type->i_mutex_key#25 --> &p->frag_sem
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  rlock(&p->frag_sem);
-                               lock(&sb->s_type->i_mutex_key#25);
-                               lock(&p->frag_sem);
-  lock(gadget_subsys.su_mutex);
-
- *** DEADLOCK ***
-
-locks held by syz-executor434/6013: 2, last CPU#1:
- #0: ffff8880500c0280 (&buffer->mutex){+.+.}-{4:4}, at: configfs_read_iter+0x79/0x6f0 fs/configfs/file.c:86
- #1: ffff888000c93470 (&p->frag_sem){++++}-{4:4}, at: fill_read_buffer fs/configfs/file.c:66 [inline]
- #1: ffff888000c93470 (&p->frag_sem){++++}-{4:4}, at: configfs_read_iter+0x346/0x6f0 fs/configfs/file.c:88
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 6013 Comm: syz-executor434 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
- uvcg_default_processing_bm_controls_show+0x57/0x2a0 drivers/usb/gadget/function/uvc_configfs.c:408
- fill_read_buffer fs/configfs/file.c:68 [inline]
- configfs_read_iter+0x426/0x6f0 fs/configfs/file.c:88
- new_sync_read fs/read_write.c:493 [inline]
- vfs_read+0x82e/0xb40 fs/read_write.c:574
- ksys_read+0x12a/0x250 fs/read_write.c:716
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7ee5fec
-Code: Unable to access opcode bytes at 0xf7ee5fc2.
-RSP: 002b:00000000ff9e98b0 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00000000ff9e9970
-RDX: 00000000000000ff RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-
-
+Signed-off-by: Yemingxuan <level_zero@qq.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Changes in v6:
+- No code change.  Fix the changelog section, which was missing from
+  the v4 and v5 postings.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Changes in v4:
+- Keep the three printk() calls.  Earlier versions dropped them on the
+  grounds that the error now propagates, but the return value of an
+  initcall is not printed by the initcall machinery, so removing them
+  turned a reported failure into a silent one.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Changes in v3:
+- Regenerate the diff with git format-patch so that it carries the
+  expected "diff --git" and "index" lines.
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Changes in v2:
+- No code change.  Fix the author name so that the patch body and the
+  mail envelope agree.
+---
+ drivers/base/bus.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index d17bd91..a63e55c 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
+ 	if (error) {
+ 		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
+ 			__func__, drv->name);
++		goto out_remove_module;
+ 	}
+ 	error = driver_add_groups(drv, sp->bus->drv_groups);
+ 	if (error) {
+-		/* How the hell do we get out of this pickle? Give up */
+ 		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
+ 			__func__, drv->name);
++		goto out_remove_module;
+ 	}
+ 
+ 	if (!drv->suppress_bind_attrs) {
+ 		error = add_bind_files(drv);
+ 		if (error) {
+-			/* Ditto */
+ 			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
+ 				__func__, drv->name);
++			goto out_remove_module;
+ 		}
+ 	}
+ 
+ 	return 0;
+ 
++out_remove_module:
++	module_remove_driver(drv);
+ out_detach:
+ 	driver_detach(drv);
+ out_del_list:
+-- 
+2.34.1
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
