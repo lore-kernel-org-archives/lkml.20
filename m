@@ -1,45 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505826;
-	b=mnJXxMhkhdx5OcQB7P/CfzjNahTomirB8rwmDkugqBPIm4pUScFpEFz6fMothkfjuTRl
-	 6TNgGt3q9TvQi1tv+qR1BVfVkVx5A+7Sz7gizxEiws6QdDJnSOXutD1RPKJDEuV00wSOe
-	 hfQb/UFX97++qnF47m5XTX8LbBbKSxg04aJy+rVrL7hVriuBZMLg+BpnRXo61vMpIPGsD
-	 DoEft49DoSn47IPnFTd+j8XfHhxF7CdaeQfibo27KQxhWZW7gpj4nlBnEq4H9F0AZ+GK0
-	 armJmIEJWA+Bt32hrzspjgMd6WTK9V+4GHS8fbY3XiZLPpViGYT4GFKn0FrLB5/dXWw==
+	t=1792505828;
+	b=Toi59e5no87jBf4q7kYedrw8G6wbWM7Opv6qhHtRAkfUFjjEH+6p8GpQqu1e2HSQ9k20
+	 UFaM2y76qg7ivQz11vgePaKM1dEcTr21wzKCBdXHbsVQbn/B31oTzeeWu3CIBtyk/OnYz
+	 QRj8hg8IAR85P5pN4/Ruz6g5x7beKaLqowGhznUZC9CCKpFhXohuk69TrPRdXejLE3qt7
+	 dbRcfmsy58kVP/bfDhak5ejSu7aYVAIfBorBhuqlLKl6RFIDmaijiErqT+7uHx/QYI6EM
+	 np2NRAfD5zGJNpiUa1wz8hfKINqznxVokS2IOuO7zQuIVEUPSWf4VWlDqGkb+Lf1lng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505826;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=Z6AN2h+UoVg9iDJypz0pTaruJDGBnqJ+VugjyNl2o3U=;
-	b=lfExI72N+O2csTBGG6CPXPrpGl25vOHRzEjIpnUPqzuM60vHRRS74f+whwndKoRM4+CI
-	 iYMBQSwdkp6K98PlfQgDuD/kDnQ3lpdis0UKCIqgy30FxKpFFM+B2ZUkAxiXAumle0SjY
-	 lO346//VV+ywOnT9ovIL1oEmb9yFNnrU1zjgIporih76jv3lh9u7aJo9AmdShIRI7VlHa
-	 ZVPZ8ulTbsda19PkJfzgNSJTrdBrat+8G7EIu7j4Yf1rBrF/A1CTSwvv1HmcOES/x93lM
-	 NW1ig6NadXtM5neaWbmQTSCnCW96umdZNUvFth+zMOgsfIvK0239fvyqT38tuJTaJTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505828;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=KzZBcixn1nkLMFly7L58yQXI8hYiFn4S/rL1DV8cbi4=;
+	b=bAfbZ2+33EI5VVTWbL6xSlr5k7V4aiiMnFOmDjDjw3naugnQBp8cZl++Ps2B+Id/OKRO
+	 NdLeAPd715qS7eoybUgBrHtyGg15to29sU1sJoOcsYPzwjFQrFGkuypZEPNzFy4YQ0so9
+	 lHH5XL1M9EHYAXBLrmcdM2NUuPUoI4T1ajbY9T93T5MyOWgLn9YsPMZPZrpnBWVCMYoz4
+	 D3Xx//fpSLfp1fLPNcpaLJ1VSi4xON40IaQAH7pmNGywkaM6OvjiWHNjQYhdxDISOT830
+	 PIWtC47vl6Xunmi6eacaGRqQKVFyo3/GWmly6MxCb866BPk7s1mElYZJQgvB+lq5E5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REg2J+6a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A92606AA19;
-	Tue, 20 Oct 2026 14:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REg2J+6a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8EE1F000C6;
-	Tue, 20 Oct 2026 14:17:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505826;
-	bh=Z6AN2h+UoVg9iDJypz0pTaruJDGBnqJ+VugjyNl2o3U=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=REg2J+6aE+m/Mx9DxhQBSj2WYcWVpAVGKk7FC3b/7If6ddd4DDawP1uqRMDEq92aT
-	 CDp8UWUTO0LxCz3jgFQx/w7oWTfGnRech4otenTnGXm4HsSla51iFHOdnkm1YEduju
-	 qoZMQnx4WmMojdm5nSZnrEr7521b7XLvjIewGHj2kBUJGDHavJ0nxzK+xrOJICgJBs
-	 kWLmoxNMx6c/5GlRO+N0ab+KH708QHM8J7Br4hP+n5cdrhCgdMsm8gjhryrkq7m2Gp
-	 Xtb0eRyx55Eviq35eZ3RZ/dULGeX7XAfLeG6lnJOYGf8wKNGvj0aPABN/jlbz5euE5
-	 mTNBNXNF75ENQ==
-Content-Type: multipart/mixed; boundary="===============1030206949800535023=="
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E3B606AA17;
+	Tue, 20 Oct 2026 14:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13E3B606AA17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E970FA155F;
+	Tue, 20 Oct 2026 16:16:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792505822; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=KzZBcixn1nkLMFly7L58yQXI8hYiFn4S/rL1DV8cbi4=;
+	b=sbmiIeqgetFkGWxwyF4SF+wQINbgAf1J+fvOoUqZX6iVTHL0Ws1Y1S6DEN1iS5MRwHCNS3
+	ci2DrF7iYoWVf35bpHKF2jWozxkylF8AYDSSxxXcddSyj1Xg1g9LlaP1Z31ZG7wM8XeWww
+	bjs3/GKY1but/fFTEHmX0zzg2/+DS2DgCrgryH2e2yj9cRajF4u5eieCqTWn6m59bCYzd+
+	YulF20Y4kp/rcA7S+YH+lGNH9GCXXqh6dLTjZE1ff3r+VhyT766Cmg8X82cU1uB7vFQYZK
+	8jBnWbcW0g3EC2fwdVCIikwDa51vOJlZUT1Vg8qWwa586NduXd0d5nxhLhZSqA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,79 +50,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <dfe1cca60761dd13e22962fea7221920539b98cdd2b0cbb949803e77e25c3632@mail.kernel.org>
-In-Reply-To: <7b248b2be4834322ddaad8ee08d22d083877a932.1792503001.git.xukuohai@huawei.com>
-References: <7b248b2be4834322ddaad8ee08d22d083877a932.1792503001.git.xukuohai@huawei.com>
-Subject: Re: [PATCH bpf-next 01/16] libbpf: Collect arena percpu data section
-From: bot+bpf-ci@kernel.org
-To: xukuohai@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,emil@etsalapatis.com,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 14:17:06 +0000 (UTC)
-
---===============1030206949800535023==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Date: Tue, 20 Oct 2026 16:16:59 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ f.fainelli@gmail.com, justin.chen@broadcom.com
+Subject: Re: [PATCH net v2 1/2] net: bcmgenet: recover from a failed resume
+In-Reply-To: <179250090686.3135.17597197349680697960@kernel.org>
+References: <20261019-nb-genet-fini-dma-net-v2-1-b85f6b92654a@tipi-net.de>
+ <179250090686.3135.17597197349680697960@kernel.org>
+Message-ID: <a033b1e2dd424000dc5669f88bed0c89@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> libbpf: Collect arena percpu data section
+On 20.10.2026 14:55, netdev-bot+sashiko@kernel.org wrote:
+> [...]
 
-TL;DR: Objects with .arena.percpu but no .maps section may get a misleading
-libbpf error naming .addr_space.1 and "global __arena variables"; it's a
-message-wording question, not a functional problem.
+> [Severity: Medium]
+> 
+> Does this return leave UMAC_CMD at the reset-default 10 Mb/s speed when 
+> the
+> next WoL suspend runs?
+> 
+> Earlier in bcmgenet_resume(), init_umac()->reset_umac() writes only
+> CMD_SW_RESET to UMAC_CMD. That zeroes the speed field (CMD_SPEED_10 is 
+> 0)
+> and the duplex and pause bits.
+> 
+> On the WoL rebuild path, the new phy_stop() above also leads to
+> phy_link_down()->bcmgenet_mii_setup() with the link down, which clears
+> RGMII_LINK.
+> 
+> bcmgenet_mac_config() is the only code that restores the speed and 
+> duplex
+> bits and RGMII_LINK, and it runs only from the phylib adjust_link 
+> callback.
+> After this early return, bcmgenet_netif_start()/phy_start() never run, 
+> so
+> that callback never fires. Meanwhile phy_init_hw() and 
+> genphy_config_aneg()
+> have already restarted autonegotiation on the PHY, which is still 
+> powered.
+> 
+> On the next WoL suspend, the new !priv->tx_cbs branch in 
+> bcmgenet_suspend()
+> returns 0. Then bcmgenet_suspend_noirq()->bcmgenet_wol_power_down_cfg()
+> does this:
+> 
+> 	/* Can't suspend with WoL if MAC is still in reset */
+> 	if (reg & CMD_SW_RESET)
+> 		reg &= ~CMD_SW_RESET;
+> 
+> 	/* Receiver must be enabled for WOL MP detection */
+> 	reg |= CMD_RX_EN;
+> 	bcmgenet_umac_writel(priv, reg, UMAC_CMD);
+> 
+> None of this corrects the speed.
+> 
+> If the PHY links at 1000 or 100 Mb/s, can magic packet reception fail 
+> even
+> though WoL looks armed? Together with the HFB_CTRL write below, a 
+> failed
+> resume could leave GENET with no working wake source.
 
-> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-> index 8fcb8cf39cc0..d79fc382319e 100644
-> --- a/tools/lib/bpf/libbpf.c
-> +++ b/tools/lib/bpf/libbpf.c
+Yes, but IMHO pre-existing: the init resets UMAC_CMD to 10M and only
+restored by adjust_link (which doesn't run anymore once init_dma() 
+fails).
+Without my patch the next suspend hangs in napi_disable(), so there is 
+no
+wake source either way. It makes the interface recoverable, not WoL 
+work.
 
-[ ... ]
+The real fix is probably to allocate before tearing the rings down...
 
-> @@ -3201,7 +3212,7 @@ static int bpf_object__init_arena_data(struct bpf_object *obj)
->
->  	if (obj->arena_map_idx < 0) {
->  		/* bpf_object__init_user_btf_maps() didn't look: there is no .maps section */
-> -		if (obj->efile.arena_data) {
-> +		if (obj->efile.arena_data || obj->efile.arena_percpu_data) {
->  			pr_warn("elf: sec '%s': to use global __arena variables the ARENA map should be explicitly declared in SEC(\".maps\")\n",
->  				ARENA_SEC);
->  			return -ENOENT;
+> [...]
 
-The condition now also fires on obj->efile.arena_percpu_data, but the warning
-still names ARENA_SEC and talks about "global __arena variables".  Is that the
-intended message for the percpu case?
+> [Severity: Medium]
+> 
+> Does writing 0 to HFB_CTRL here turn off WAKE_FILTER wake completely?
+> 
+> bcmgenet_wol_power_down_cfg() reads HFB_CTRL after this point. It 
+> unmasks
+> the filter wake interrupts only if RBUF_HFB_EN is still set:
+> 
+> 	reg = UMAC_IRQ_MPD_R;
+> 	if (hfb_ctrl_reg & RBUF_HFB_EN)
+> 		reg |=  UMAC_IRQ_HFB_SM | UMAC_IRQ_HFB_MM;
+> 
+> MPD is enabled only for WAKE_MAGIC/WAKE_MAGICSECURE. With wolopts set 
+> to
+> WAKE_FILTER only, the system would suspend with device_may_wakeup() 
+> true
+> and no GENET wake source.
+> 
+> A few lines below, the normal WoL path keeps only the RX_CLS_FLOW_WAKE
+> filters armed:
+> 
+> 		if (priv->wolopts & WAKE_FILTER)
+> 			list_for_each_entry(rule, &priv->rxnfc_list, list)
+> 				if (rule->fs.ring_cookie == RX_CLS_FLOW_WAKE &&
+> 				    rule->state == BCMGENET_RXNFC_STATE_ENABLED)
+> 					hfb_enable |= 1 << rule->fs.location;
+> 		...
+> 		if (!hfb_enable)
+> 			reg &= ~RBUF_HFB_EN;
+> 
+> Could this path use the same selection? Because tx_cbs is NULL, the
+> following resume rebuilds the rings anyway. The device is detached 
+> here,
+> so the WoL setting can't be changed from ethtool (it returns -ENODEV).
 
-Consider an object with no SEC(".maps"), the ".arena.data" marker (the
-data_in_arena case), some .data/.bss, a ".arena.percpu" section and no
-".addr_space.1" section.  bpf_object__init_user_btf_maps() returns 0 early
-because btf_maps_shndx < 0, so its new ARENA_PERCPU_SEC message never runs.
+Yes, keeping just the RX_CLS_FLOW_WAKE rules is better than my off.
+Will do this in v3, together with the clock wording.
 
-bpf_object__init_arena_data() then reaches this block with arena_data == NULL
-and arena_percpu_data != NULL, and prints:
+> [...]
 
-  elf: sec '.addr_space.1': to use global __arena variables the ARENA map
-  should be explicitly declared in SEC(".maps")
+> [Severity: Medium]
+> 
+> With WoL not in use, can this early return leave an external PHY 
+> powered
+> for the whole sleep?
 
-That points at a section the object does not have and at a kind of variable
-the user did not declare.  The real problem is the .arena.percpu variables.
+Yes, but IMHO also pre-existing: phy_init_hw() in the failed resume 
+powers
+it up and it isn't started again. Before this patch suspend hung 
+instead.
+Not leaving the half state behind is arguably a better way.
 
-The same patch adds a separate message for this case in
-bpf_object__init_user_btf_maps():
+> [...]
 
-  pr_warn("elf: sec '%s': to use arena percpu variables the ARENA map should be explicitly declared in SEC(\".maps\")\n",
-          ARENA_PERCPU_SEC);
+I really need to find a WOL capable genet board, so I can test these 
+code paths too ....
 
-So the two paths report the same condition differently.  Should the no-.maps
-path in bpf_object__init_arena_data() choose its section name and wording
-based on which of arena_data / arena_percpu_data is set?
+Nicolai
 
-The message is unchanged at the end of the series (08224ba2de19
-"selftests/bpf: Add test for arena percpu bounds"), so no later commit
-addresses this.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39434884362
---===============1030206949800535023==--
+--
+pw-bot: cr
