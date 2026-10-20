@@ -1,97 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504240;
-	b=AzoylgUvPudSwfTBYPm5aTPd3ckoCEx687xOclJhDbED2C4FOarfHTL9EFO31aRRRhfA
-	 EEl79fs3kmgAtI4lwEdfQWej00qjnVDLWjI8HijzbPlvaLu59FX9cBQ/Gb013N1pTyRrR
-	 G6QXXCWRhJ9hLmNEUx9RPgx4wqclhFjK2wRC4/1dpS7atDM05j84k5/puUGBFj7ILT82q
-	 V1yNPLnbp269qwE8DSltkLP+mXiTInyrc/zRYbB/FzYT/gawJOH6o663L9g0ua03O5odw
-	 65HYGBaPVkRrv3yMIAY9l+RmZGIgC0PurK4G5MOGJwryE2AlueC1U4qIZLm//Ufq+Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SCloQQxe4+JTc+VFVHtDAnitVmo1Mr2MvV/BTuAwc8U=;
-	b=1GLCqsDbwZyxUuEkN+lIlGoT5xEz8b4NeGkDboA/iW8ycib2+mMPLEQNs2y5cmB4IgnA
-	 NcudDTCi3bzHUXP+nzLWazLBo4xwDC1E9RfGD68QGEAmA9oubm20W4H1Ys15QmhyhpsNb
-	 gLrDmyJUhkrS7iYNeIgjkikDDzpZETZnj+aufYwT6phIettYIT1yuKTDrpiClW11q1fLX
-	 mxpfUqkXKNxbqxO7JwrOArV+IPafIeGoxEak5eaqwrhlERP+p60fQdozzz03LrGCOK6bI
-	 M42DmduwKZngfSbdnzUNhdoYH3MeuTDR2fl0DqfqJnJDX6HiV+FsVgqDmPXozzsulPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="dYpl/SO8";
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792504304;
+	b=EvYQY3wkpPNpo9h2cJWIf74u2nwLAKEF4JZbXbJC7/oY/P+IswqTIriJ5pk2PBKqPcls
+	 vh7qZMowHJqD8wNCMWvd2O5DMruZsVTjKmSPPEdvuCeByFos9g9u2mgG06sy6rMtZojcF
+	 gM1DnJPEUC0Uz/W41GefAZk0qYxGCyL5eP6motzD1vevZRskvW4JI3yuPAbLl9OBA9JAs
+	 nKJYpvUlr/NwcKdT6XsWXyrZc+nxanIWpx0pFGfhOIStKkRyqjhzsT/ePJCO4kt9clsOs
+	 u0K4XsKGGz09kuGEIhVTNOwTTUofI/tJrWf/xcmvEMzRNplcbC0wkTluO0GeGQlYEJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504304;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=nb+X0LlyVAdsaTHCiAlSJqKSYid72TX1rGIJZmQeGIQ=;
+	b=pqhY81/wqAJpyzxhMaBTL6rc5+RuICS0pktkIvNOjg1E6TEb3sy1yfQI53EXWA0oAzj5
+	 /M3rQV/N/1DV4n1bJgX33IdO0R4xaGHiv3b7rCg5GTQ9OoZ6oQu2YS8CVGAgYwG1LFNJe
+	 zl9eoRrYTZG9hSMoB6JgWbLp2rttBx6KT6znOY1wvSqea4Ds6c+W4niShmvcdQo44K99Q
+	 GQsP/YMSIxZZDjP67LvFIGYjnegd9qQWFo/kAjUJnQhQyd/RFuApml9T/V3oObH8N5ZJt
+	 4Ag3YPDR9KCBGidfppzV0wJ1PS0l+Dp2BgaDgmz5DFnKTqaBzLHQTz/rAuBYos37uhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=REFfgTN4;
+	arc=fail smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60783606B64A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60783606B64A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40031606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:51:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40031606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dYpl/SO8
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so2859931a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:50:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792504240; x=1793109040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SCloQQxe4+JTc+VFVHtDAnitVmo1Mr2MvV/BTuAwc8U=;
-        b=dYpl/SO8xlQQCeRsxB0rdon3hPAhQwGun1zaOVjVrPNGUBXIDRXoxjf8S8HwZ51bQH
-         Fq84JS5w7MJTC2Cb9P0K8QCxsGs373/nR5Co09tMzd1dXQORfUF6oJIU6osvGU86HapB
-         K3YhL6cvvrMBBGHcKQl72DqhVJd/d7Rj3zJKq19oF1bNoen3a17sQlnGXTpGECcUOU9A
-         OShUU6vxIWBvHCy/9O6PJodcnKR29OYvfam9l009rH6JATfS58uC7bU4FaWZ9YPxg0Gs
-         B/ZNicwI/qsr86eLLi3320Qe2bsO1FCiL7Lu/DENhEFjo1ujggNiTlyA5Qf+FWsGw8gW
-         OMLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792504240; x=1793109040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SCloQQxe4+JTc+VFVHtDAnitVmo1Mr2MvV/BTuAwc8U=;
-        b=lVYVwt98i/dVbxjtzifSwQ8UCDebDqXB/E/3+1WDazV4cvt7Mluna+G/erk6DX4Rtu
-         buZEJJm8lZXWlTmX1UHZxQYroaVB5KKcxjsQMX2K1j7ogWaavuYx/2UpyNOmtiKJ1fKb
-         v1CMhUZn2dBmHP7eEUNLxDbSIRLteUdp+ZBTuhMVBbW8EkT5H0VwAX3jBzo4FtvcUVnP
-         +HA0DNyd4NUH4n77K7hoBtX86Ih5gLAXs/4uCp5zEeFFsJO+gTo7oWnYuz1orUGa1ruX
-         er+Da8U9ADhMSp+XMEqZ9+mXbtNrkX9IhJJNFccu/jT3+gw2+mo9sQY3sXf8EDhJI/H6
-         eKHg==
-X-Forwarded-Encrypted: i=1; AKwUvBzI2GUC6yT+cjUKUz1QFtJFcv3xMvy+dPLRjRMGX4zr0vXEU5gWa1/RYeE+WQG5IWbXgxhSYVDZ5vcRZD8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+zqV1760zLYYzOCCmDpPgqo1ir2C0nUNxLTAUWKn9+k7sSQEv
-	fBFvl+8U9eV3eoh12afXACSqxkTm5zhyVLVLEqgJHDa2Ywwyw6qK7zWd
-X-Gm-Gg: AYBFou12ZikH+KBzZoYMKKSewKX9P2GBmyfGY12VoRtkpyLVh8Y6EXF3RmL/nFmeoWw
-	eb8faNZ/gKmqa6wzf095k+ZkiMRMNkxYoQj2JDMPHyX6/tS/ehsDHbUfjgLfmz435xP9XwF4E8z
-	eB346d94FUN/jURk10O1BYYW/Wl/OKdSRCQajHmJxCwaFUlKsLXSML1TQUk0eSwW4rAFl1wa6H7
-	x2XyZUZJt1aCQXSqe9YubjN8rOjBa2UK8lItq1FgZ7hJXnwAX28AQ1ravPBE2BJNkRzYmxXoel4
-	qGdNrc0cCz+bLmoj2JHTp/3ep8pVKKulmrFfIPkh8RFWb+s2EmgvPlRcoiM3pOOsiM1FCxLHCil
-	WPbKOeE+oPQHI71VtAo1DxvD6X1VhHa0P4hYIT3aIMh/0ZDZuWb/kQfvTYiBR0fNslZpn7xEUBK
-	STgo9vqbZrI24gvl/X3que9rqjeiqwX5KL+tLsf4CoNJoKtqNOCk7UowJyf562lLflRzY3WT1yS
-	3gE8sXblreXsTBkzKrAuk1u/XJrmSZxzpjVblKNg0Cc7+vxqBWjfhrG89bW
-X-Received: by 2002:a17:90b:48c2:b0:3a7:9413:cfae with SMTP id 98e67ed59e1d1-3acef518dadmr8985793a91.42.1792504239363;
-        Tue, 20 Oct 2026 06:50:39 -0700 (PDT)
-Received: from envzhu-ertl2024.taild6e5db.ts.net (wnetuser204.wnet.icts.nagoya-u.ac.jp. [133.6.54.204])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5df5be7asm3661825a91.16.2026.10.20.06.50.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:50:38 -0700 (PDT)
-From: Yoshifumi SHU <envzhu@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Russell King <linux@armlinux.org.uk>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Hajime Tazaki <thehajime@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yoshifumi SHU <envzhu@gmail.com>
-Subject: [RFC PATCH] ARM: v7m: entry: Convert IRQ handling to generic IRQ entry
-Date: Tue, 20 Oct 2026 22:50:25 +0900
-Message-ID: <20261020135025.2209550-1-envzhu@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=REFfgTN4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792504303; x=1824040303;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=VPl5/+zvCVTB4JZNbNgzSerRFUWbe+ai3izdTP4QZjE=;
+  b=REFfgTN41gvijZnDO+cHKwy9bwaKx0eEM+bbzdOVBZI+2q0kLEZuyP+T
+   T7aTdhtdrq1WRAIDN8Vlt+WIS2CD5Sb9AkhF1QohBplvpGtmgxEFTI4Xr
+   TrIsOnM4GfIOinu34725pSlxwQgJA2VH4vzpOzR6Z7gWmRHEogV7wSH2S
+   WEuHgXkkn56eV3eg+uaY86TW+thBr55tSCZEXZ5I5CRMdoErdQR8+bh93
+   6HDLsVni97HsjsO+1A5MkpgBDICiCCMiBP+GV6+6DzixISzzbpZ/7VNtS
+   UAWJ02FfcI8rIS03woFivc3eWkujMPF+xLuL9N169b/bpzV/R60a2oMN5
+   Q==;
+X-CSE-ConnectionGUID: cv9lmykdRmC+qcJj02w1Tg==
+X-CSE-MsgGUID: norFshRfSpKCoxoXmD3lxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1216675"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1216675"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 06:51:43 -0700
+X-CSE-ConnectionGUID: LJvAKdbWQ2+2YrFkDqUjsg==
+X-CSE-MsgGUID: RKwZIbGmSFC2jGYlDc9Nmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2884183"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 06:51:43 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 06:51:42 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 20 Oct 2026 06:51:42 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.12) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 06:51:42 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o7b2IcBiXRRnYG+aWek6HDYiL7FaIkCr4AgtikJPzF9zwm190dNomCfnrzzP7ZBe9VTrAH6C8bCXCtMZFlzjMzrooWMVBGDOoDnvNfwzlfYuWvEceN96VZskjhkDrcw6/xw62UhEx+VNqGVhx1h6bKtIOJRLMoBY+h6sdP5yKHsCCSOi6T9DDGzTZ5KeMzsQjCYj0xy9lHiJiMFcy6UhT8LsIdCgtFyffzdF0wQa35oaCExCwBG8jhkryt/ey8IrtsouN1tDSh8UqWMxCzZdUxHHFq7mBeGUkT60zTHjMD4W+dCPPniah8yBeHrh/o0HPwTrjFvPd3XlsT6095wj5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nb+X0LlyVAdsaTHCiAlSJqKSYid72TX1rGIJZmQeGIQ=;
+ b=WKgp3BxwRlIVKlOtWaB++VtgME3q8Q+xAW1mRm6bjfhznZ3WZaqNw1ysB91uzO0VzYMD+ArPxXfCLCZ4KDtwmPOkdwORh/YW0cui+wIAzCFd+IaWffu4jAyPVW5zVEuwDZKBiHv7vcAP8AR5Hk8UmY8q5CUgxGoL507DmcFsn6Vk/cVmIjIQ6LdjVRixf3Rui9jFXREr1F+MvaaeBHlRq2vzZ5hHG9gptjsksDlnJE1/RimZDUMUM5/orI1q5NHyz2FIQX9CGYe3LcCTTiTL+IdKssJgGmYz6p5o7Uvb3G18nLPXz0k6b/EaUFfbdPDtcWx+qX87F5GCdfU5RI2OSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6005.namprd11.prod.outlook.com (2603:10b6:510:1e0::19)
+ by MN0PR11MB6112.namprd11.prod.outlook.com (2603:10b6:208:3cc::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 13:51:40 +0000
+Received: from PH7PR11MB6005.namprd11.prod.outlook.com
+ ([fe80::4f64:b0b5:4ed2:39ae]) by PH7PR11MB6005.namprd11.prod.outlook.com
+ ([fe80::4f64:b0b5:4ed2:39ae%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 13:51:40 +0000
+Date: Tue, 20 Oct 2026 21:38:41 +0800
+From: Chen Yu <yu.c.chen@intel.com>
+To: Tony Luck <tony.luck@intel.com>
+CC: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
+	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
+ Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, "David E
+ Box" <david.e.box@intel.com>, <x86@kernel.org>, Christoph Hellwig
+	<hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+Subject: Re: [PATCH v14 09/24] fs/resctrl: Remove redundant calls to
+ resctrl_mon_capable()
+Message-ID: <atdu4Ws7iH_XNSsc@chenyu-dev>
+References: <20261019205031.16977-1-tony.luck@intel.com>
+ <20261019205031.16977-10-tony.luck@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261019205031.16977-10-tony.luck@intel.com>
+X-ClientProxiedBy: SI2PR06CA0015.apcprd06.prod.outlook.com
+ (2603:1096:4:186::7) To PH7PR11MB6005.namprd11.prod.outlook.com
+ (2603:10b6:510:1e0::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,323 +139,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6005:EE_|MN0PR11MB6112:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa37e744-eb00-4522-0ab4-08df2eb1440a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|261009223027099003|10067099003|56012099006|6133799003|22082099003|18002099003|5023799004|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: H3mHiBM05mYUCPuBawf1Uy3r6GfU8sEGPS9kBi97LhQouSTY5UN2Jg88DAvzJtqdqauUcLVZfU+7sI5s6JEgBQTz3Ci6jXhxkgErU5uweOEUs/317Zya2AU8reDnTEJd57uQ07h94yI53Sao5f38/kvQJQDaa8FRA2jDudJPvOJIXyuPmpm9GFfS/WLHX6jc5GEA8uv4OKdO8ADfSbgeheX13NpkI5+6TwgImJ9MYA+QSaeyePKNedkCKV/voj6Mq9UL+6FgKMKqPUAGIFoD3vjdjMfG4V1YEdw23THav6b0sepLUJhpKYTy5eol54zxpOfYBLQcO5pie0OJNJw7Va6yS7DLTVwiVKenpsfx709ikIu/rFJJoyVmtLVrxS6txyIeCTYQvfU3Wc1TB+mYrpWb1gb0O3rimTKKiiJweDK9Yt+UWElovglkbGKNW4Rcgzcna+8fjBmt6l/nrva8bCzg4ZUonwWMCQweaLGF555wuWeh7impVYVrfAmvzY+Lq0MB5shF9zKysTu37peqJHNxrNHHOpXN+dLRdps05FOE+CFkjq8yEBRj9Mjxs9Iw+pFhq9AXtaLFPv0FphKXl4Wyf4IYI32DEK7JYOXxsn5y77gh1Z79kLivHW0krgUtZorryiqENiZ3h+fwp/gwYVk8gJ/QorNuqrEXeW1Us3w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6005.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(5023799004)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?V9A8SiLROnIWffa0qE5lL/DyOxTxwXEWy5/X6bTvvEeUKI3nWQmOK/4ezocQ?=
+ =?us-ascii?Q?d5tCwuyfR9U1U+SI6t3r1pR01FITGhfxtS9oLOCJRrkWyEch/wcxCz8ZNC58?=
+ =?us-ascii?Q?9BbJa5eL2wkBdlodCRNapcZXoiNrKZul8SqJ3Sx+pMP8l2MzAb0Skt3/R9A/?=
+ =?us-ascii?Q?bLX0SXtY4LiyZPtXxP5LykZwZ6jvUAgqljEj/9gvuvmcHwBMpeQyIPG34RQA?=
+ =?us-ascii?Q?pBV4JNG8iwrQknkw/T19j0Wb1ewRMNeMP1mJfX5piXPkbEVfTog6mW1PBhBG?=
+ =?us-ascii?Q?5NLq9bcEkmCH67UPDyemyASW4u3R1T+LpXeOB63GJjNnRNwP1iqyJEgr+esc?=
+ =?us-ascii?Q?RoerJaGSR36uM3wraJG+nRo3IKxIzxEA2gCHzDhPkzCD9tw5AM6Cns5iJtTV?=
+ =?us-ascii?Q?neg0n4Q9CjFFo6eeoU6a/rgHu7QuxkbAq741bBRXsAiOmzC5QvBjzFaXej6R?=
+ =?us-ascii?Q?OGggTY88UFE9Zu1O/eV02v0/LobM3XkydQqmYhqDbNmX0NDu0aAua1Gxkg2H?=
+ =?us-ascii?Q?3FuBw3LKdNXqIiaHPWrgppDxoSKdYvhE4MfI/s/1EEuWzbCrLxxXZxAownkM?=
+ =?us-ascii?Q?nXYnYApyUv/TPnedtjff1PJCDC2k1sN03NBGI59S2xxyK2b1msqRnMBVZL5A?=
+ =?us-ascii?Q?okcKlTAYAdgp04ruw3xxuW7jd1gWIixXt0kwBfZ/yGvMYWMP/aiI/talOg35?=
+ =?us-ascii?Q?SZw58jKUyK9/uArYDgAYOUzLuS4O9CvqlqC0M5T6rEyPTKBb0B4eH11qxAiU?=
+ =?us-ascii?Q?6UDOG8J+93dJDfP9CwacIpXu/AiWSAgTAiD/wBEg1VD7yfvpNYtpfkODm6nD?=
+ =?us-ascii?Q?CPlCqSGftlKUDQDluZbw6TIsx8QwCCmCJxTYVoY1WpmOu4Nl0m57re1+3jXK?=
+ =?us-ascii?Q?TkSH9Vr/XBnCzdyReJXsQMUSw0KIxGxtJti/Bja4/kUMlbwKw2eeykf2NH2x?=
+ =?us-ascii?Q?nxQQNWCUwNebgMNrVo+HoTSV5djj7ONCdu4EtL1Irf3iBTYu56R5S2SIEVUI?=
+ =?us-ascii?Q?DZVisLk03x9w4E1KyCRj/jCe9Dl0oeZcIMnitlns0o3r05LD/o5EqPZVs0oi?=
+ =?us-ascii?Q?8vzVUPt/pbAY23DAg3qliRM9mn4EGnT9EpRQpZcwdt8J2qgkDF+LsKjMnQ6o?=
+ =?us-ascii?Q?cLCWk5VWYo97ypseUEvsAMJwnRTN8KMRxBHoGq7uU/fJrnGEb9L9KMiLRaDw?=
+ =?us-ascii?Q?x5SQ7/4dUQVlboifEu7rQ/KxO1NQ5IKZ93KB/clgzGPmf82yzFWq1pETnUjT?=
+ =?us-ascii?Q?PTpi/aoHZi3hmxNJ/FOvZQBD8pk57Wr2CivMHp6v5poIwO9IdYU7sptubaMM?=
+ =?us-ascii?Q?r2p6YDkjG4Wnlk3qOiaXLJtp6wOWSpgCiml0z69zes5bkLuwBMZK3Z+nRB+Q?=
+ =?us-ascii?Q?mgCrumrSGOLEgDqGKJrlzjrF+lat88BV3S/2BOpoRwqv8/td3eno1Jy7JpTt?=
+ =?us-ascii?Q?RcQqb+6PMhKjBKsyKyOkCKNoHkPvQPV337XbuZqqBeIzb2RSn0+gq0NyAkCq?=
+ =?us-ascii?Q?GodFaZGxcZXCekPhEsz4+C+HfRD1DTbja9DfirVnvYsj2OrHGpHpT6rx94vC?=
+ =?us-ascii?Q?dNkyDWAZbWilJ/N14HqFWKzew6sWWXRPs48i8bExMOmcn9hiKEzfWp/xVY3I?=
+ =?us-ascii?Q?Jj16Vn8q/KGMgobpwjxBBq1ERNmkMs2F5qTaBUSFgPH8C6xH7fjX25C9nZoR?=
+ =?us-ascii?Q?uEtG/ajqvA2i4bhtAGeDfwhvBfSZCoL9SOkkBoLlBpaJp/yUcgqj7E9+/ntP?=
+ =?us-ascii?Q?+ET/0sth1A=3D=3D?=
+X-Exchange-RoutingPolicyChecked: Zv+sIu779wbhXHVoPgBq+06Dk0gaJ1NjXH/wzgjvZCJ/oBye1q3t8YRzqbD+X5uJafEK4fEhBhxtUHIvhwarAbV1rBSXPYUUaObEGc8mVa+xOWHD4qcljYBD0iMpjL+ogypltCuMaQJajXvikPrAhcmxBK9jYHbvTikN/vsY8ZsxZkubsqocI9M0raEAWYjZ5kGo++ReiqMUqpIgIokcCRVXjLcd/yhqmA5lG/KGn5hTnOwFWF8r8EV0qU+N1YwQacb4CdiuN2auDTIlwfsRvOFfU7R4hWXMMEgFUurkrjXBqLYhu6iGL/rky/fijWWRmK5wXflIpbI+CTn94/4O5w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa37e744-eb00-4522-0ab4-08df2eb1440a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6005.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 13:51:40.0771
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xpm6BQWeS1eX2IRb7Jt7fT9kSR24s9jJwkl7u7Hb6CW2dyI91Y+ANFFBd9S+X1GMsopTMQJ//SxCWJCNMg61Ig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6112
+X-OriginatorOrg: intel.com
 
-The recent patch converting ARM to generic IRQ entry [1] leaves the V7M
-path using architecture-specific entry due to its distinct exception
-model. This RFC attempts to complete that conversion for V7M.
+Hi Tony,
 
-On the V7M architecture, the execution priority cannot be lowered
-without an exception return. Therefore, an IRQ handler cannot directly
-perform a context switch. irqentry_exit() may schedule, so it cannot run
-entirely in the IRQ handler. This is uncommon in other architectures.
+On Mon, Oct 19, 2026 at 01:50:16PM -0700, Tony Luck wrote:
+> resctrl_mon_capable() reports whether the system supports monitoring by
+> scanning all resources. On x86 it used to read a single architecture-provided
+> flag. Calls on paths that run repeatedly now pay for the scan.
+> 
+> Two such callers already know that monitoring is supported:
+> 
+> 1) mbm_handle_overflow()
+> The MBM overflow handler runs once per second on each L3 monitoring
+> domain. It is only set up when MBM events are enabled, which requires
+> L3 monitoring support.
+>
 
-The existing V7M code defers exit work to a PendSV (Pendable Service
-Call) handler, which runs at the lowest priority (matching the kernel's
-priority). Furthermore, kernel preemption on exit to kernel mode is
-unsupported; PendSV runs at the kernel's priority and does not preempt
-the kernel.
+There is also a resctrl_mon_capable() check in mbm_setup_overflow_handler(),
+do we need to remove it too?  But it is only called once in mbm_setup_overflow_handler(),
+leave it as it is should be OK.
 
-Convert the V7M IRQ path to use generic IRQ entry while deferring exit
-work to PendSV:
+> 2) is_rmid_match()
+> Called for every task in the system when walking the task list to read
+> a tasks file, remove a group, or unmount. It only matches MON groups,
+> which can only be created on a system that supports monitoring.
+> 
+> Remove the call to resctrl_mon_capable() from both functions.
+>
+> No functional change intended.
+> 
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
+>
 
-- IRQ from user mode: if exit work is pending, defer the exit to user
-  mode to the PendSV handler. Otherwise, exit directly in the IRQ
-  handler to avoid an unnecessary PendSV exception.
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
 
-- IRQ from kernel mode: perform generic exit handling directly in the
-  IRQ handler, with rescheduling suppressed by
-  arch_irqentry_exit_need_resched().
-
-- IRQ taken while exit to user mode is deferred: handle it as a nested
-  IRQ, i.e., as an IRQ from kernel mode.
-
-Use the separate irqentry_{enter_from,exit_to}_user_mode() and
-irqentry_{enter_from,exit_to}_kernel_mode() for these paths.
-
-This keeps the existing V7M scheduling behavior while using generic IRQ
-entry.
-
-Tested on MPS3-AN547 (Cortex-M55) and EK-RA8P1 (Cortex-M85) hardware.
-RSEQ selftests pass.
-
-Link: https://lore.kernel.org/linux-arm-kernel/20260910-arm-generic-irq-entry-v7-1-v3-1-5fd90f6859e1@kernel.org/ # [1]
-Signed-off-by: Yoshifumi SHU <envzhu@gmail.com>
----
-This applies on top of v7.3-rc1 with [1] applied.
-
-To avoid unnecessary PendSV exceptions, the bits 0..15 in the thread
-information flag are checked to judge whether work won't be triggered.
-But irqentry_exit_to_user_mode() actually checks
-EXIT_TO_USER_MODE_WORK_IRQ, which is slightly different.
-We have to be careful with this check because a judgment mismatch of
-whether work is needed can lead to performing a schedule in the IRQ
-handler, which is unacceptable here.
-I believe checking bits 0..15 is preferable to directly seeing
-EXIT_TO_USER_MODE_WORK_IRQ because:
-- EXIT_TO_USER_MODE_WORK_IRQ seems not to be intended to be inspected
-  outside irqentry_exit(). No other architecture (needs to) sees this
-  flag. The macro was introduced recently (February 2026).
-- Bits 0..15 cover EXIT_TO_USER_MODE_WORK_IRQ.
-- The existing IRQ entry and ret_fast_syscall also check bits 0..15.
-
-Modification candidates as separate series, found while testing. I can
-submit these after this RFC discussion:
-- A fix for the NVIC driver: The interrupt controller driver (irq-nvic.c)
-  sets incorrect registers for priority configurations (the actual
-  accessed address of NVIC_IPR is wrong). This can lead to nested IRQs in
-  some environments, which is not assumed in the current V7M
-  implementation.
-- On V7M, ARM_cpsr holds xPSR, a different meaning from that of
-  Cortex-A. Specifically, user_mode() and regs_irqs_disabled() may be
-  changed according to V7M semantics. Currently, both give the right
-  answer as long as IRQs do not nest.
-
-I have tested this RFC patch on MPS3-AN547 (Cortex-M55@32MHz) and
-EK-RA8P1 (Cortex-M85@1GHz) hardware.
-Also, I applied some additional patches:
-- kselftests support on nommu recently submitted [2]
-- BSP support for MPS3-AN547 and EK-RA8P1
-- AT_RSEQ_FEATURE_SIZE and AT_RSEQ_ALIGN in the FDPIC ELF loader
-- The fix for the NVIC driver mentioned above
-
-RSEQ basic_test and param_test kselftests pass on both boards. Without
-this RFC patch, under the same test setup, param_test with delay
-injection fails on both boards (e.g., "param_test -T l -t 6 -r 1000 -4
-10000").
-
-For brief evaluation, the overhead is evaluated by manually
-instrumenting the code.
-To evaluate the entry part of the IRQ handler, v7m_irq_handler is
-measured with irq_{enter,exit_rcu}() and handle_arch_irq() excluded.
-For comparison, its counterparts are measured for [1] (before applying
-this patch). Mean cycles over 5,000 samples are:
-
-                                        before    after
-  MPS3-AN547  kernel idle loop           225.2    259.1   +15%
-  (32 MHz)    user loop                  146.5    106.9   -27%
-              user loop + 1 ms SIGALRM   125.0     94.2   -25%
-  EK-RA8P1    kernel idle loop          1230.0   1822.6   +48%
-  (1 GHz)     user loop                  657.2    473.2   -28%
-              user loop + 1 ms SIGALRM   703.9    555.1   -21%
-
-"kernel idle loop" runs "sleep 10" repeatedly and is expected to take
-IRQs mostly from kernel mode. "user loop" runs a busy loop in user space
-and takes IRQs mostly from user mode. "user loop + 1ms SIGALRM" takes
-IRQs mostly from user mode with exit work triggered.
-
-"kernel idle loop" (IRQs from kernel mode) shows overhead increase while
-the others (IRQs from user mode) show decreases.
-I have not yet investigated the reasons for these performance
-differences. But I believe they are negligible since the entry part,
-measured above, is less than 3% of the entire IRQ handler, including
-irq_{enter,exit_rcu}() and handle_arch_irq() (measured on EK-RA8P1).
-
-LLM tools were used for discussion, testing, evaluation, and reviewing.
-The code was written by me.
-
-Link: https://lore.kernel.org/all/20261006085642.3852152-1-thehajime@gmail.com/ # [2]
-Link: https://lore.kernel.org/all/CAD++jL=VJsnk-GzAvR4oR8oKJayQzq9Oes+ZW7K=iHGrQ1jh0w@mail.gmail.com/
-Link: https://lore.kernel.org/linux-arm-kernel/ac3e3fce-b27a-4d17-9616-48a70ddaf28b@gmail.com/
----
- arch/arm/include/asm/entry-common.h |  9 ++++
- arch/arm/include/asm/entry.h        |  4 ++
- arch/arm/kernel/entry-v7m.S         | 49 ++++----------------
- arch/arm/kernel/entry.c             | 72 +++++++++++++++++++++++++++++
- 4 files changed, 94 insertions(+), 40 deletions(-)
-
-diff --git a/arch/arm/include/asm/entry-common.h b/arch/arm/include/asm/entry-common.h
-index c017df5f39d5..35a4905e7aca 100644
---- a/arch/arm/include/asm/entry-common.h
-+++ b/arch/arm/include/asm/entry-common.h
-@@ -4,4 +4,13 @@
- 
- #include <asm/stacktrace.h>
- 
-+#ifdef CONFIG_CPU_V7M
-+/* V7M never reschedules on exit to kernel mode */
-+static inline bool arch_irqentry_exit_need_resched(void)
-+{
-+	return false;
-+}
-+#define arch_irqentry_exit_need_resched arch_irqentry_exit_need_resched
-+#endif
-+
- #endif
-diff --git a/arch/arm/include/asm/entry.h b/arch/arm/include/asm/entry.h
-index 4a28e54b5bf3..a4a44bda7e99 100644
---- a/arch/arm/include/asm/entry.h
-+++ b/arch/arm/include/asm/entry.h
-@@ -8,5 +8,9 @@ void arm_rseq_user_enter(void);
- void arm_rseq_user_exit(void);
- void arm_irq_handler(struct pt_regs *regs, int mode);
- void arm_fiq_handler(struct pt_regs *regs);
-+#ifdef CONFIG_CPU_V7M
-+void v7m_irq_handler(struct pt_regs *regs);
-+void v7m_pendsv_handler(struct pt_regs *regs);
-+#endif
- 
- #endif /* __ASM_ENTRY_H__ */
-diff --git a/arch/arm/kernel/entry-v7m.S b/arch/arm/kernel/entry-v7m.S
-index 49a3a34e2913..0d6f2eb99ca7 100644
---- a/arch/arm/kernel/entry-v7m.S
-+++ b/arch/arm/kernel/entry-v7m.S
-@@ -39,41 +39,11 @@ __irq_entry:
- 	@
- 	@ Invoke the IRQ handler
- 	@
--	mov	r0, sp
--	ldr_this_cpu sp, irq_stack_ptr, r1, r2
--
--	@
--	@ If we took the interrupt while running in the kernel, we may already
--	@ be using the IRQ stack, so revert to the original value in that case.
--	@
--	subs	r2, sp, r0		@ SP above bottom of IRQ stack?
--	rsbscs	r2, r2, #THREAD_SIZE	@ ... and below the top?
--	movcs	sp, r0
--
--	push	{r0, lr}		@ preserve LR and original SP
--
--	@ routine called with r0 = struct pt_regs *
--	bl	generic_handle_arch_irq
--
-+	mov	r0, sp			@ regs
-+	push	{r0, lr}		@ preserve LR with 8-byte stack alignment
-+	bl	v7m_irq_handler
- 	pop	{r0, lr}
--	mov	sp, r0
--
--	@
--	@ Check for any pending work if returning to user
--	@
--	ldr	r1, =BASEADDR_V7M_SCB
--	ldr	r0, [r1, V7M_SCB_ICSR]
--	tst	r0, V7M_SCB_ICSR_RETTOBASE
--	beq	2f
--
--	get_thread_info tsk
--	ldr	r2, [tsk, #TI_FLAGS]
--	movs	r2, r2, lsl #16
--	beq	2f			@ no work pending
--	mov	r0, #V7M_SCB_ICSR_PENDSVSET
--	str	r0, [r1, V7M_SCB_ICSR]	@ raise PendSV
- 
--2:
- 	@ registers r0-r3 and r12 are automatically restored on exception
- 	@ return. r4-r7 were not clobbered in v7m_exception_entry so for
- 	@ correctness they don't need to be restored. So only r8-r11 must be
-@@ -87,14 +57,13 @@ ENDPROC(__irq_entry)
- __pendsv_entry:
- 	v7m_exception_entry
- 
--	ldr	r1, =BASEADDR_V7M_SCB
--	mov	r0, #V7M_SCB_ICSR_PENDSVCLR
--	str	r0, [r1, V7M_SCB_ICSR]	@ clear PendSV
-+	mov	r0, sp			@ regs
-+	bl	v7m_pendsv_handler
- 
--	@ execute the pending work, including reschedule
--	get_thread_info tsk
--	mov	why, #0
--	b	v7m_ret_to_user_from_irq
-+#ifdef CONFIG_KSTACK_ERASE
-+	bl	stackleak_erase_on_task_stack
-+#endif
-+	restore_user_regs fast = 0, offset = 0
- ENDPROC(__pendsv_entry)
- 
- /*
-diff --git a/arch/arm/kernel/entry.c b/arch/arm/kernel/entry.c
-index 42d9301bdf37..988555eaaf07 100644
---- a/arch/arm/kernel/entry.c
-+++ b/arch/arm/kernel/entry.c
-@@ -6,6 +6,9 @@
- #include <asm/entry.h>
- #include <asm/stacktrace.h>
- #include <asm/traps.h>
-+#ifdef CONFIG_CPU_V7M
-+#include <asm/v7m.h>
-+#endif
- 
- #include "irq.h"
- 
-@@ -59,3 +62,72 @@ noinstr void arm_fiq_handler(struct pt_regs *regs)
- 
- 	irqentry_nmi_exit(regs, state);
- }
-+
-+#ifdef CONFIG_CPU_V7M
-+/*
-+ * On V7M architecture, the execution priority cannot be lowered without an
-+ * exception return. Therefore, an IRQ handler cannot directly perform a
-+ * context switch. To fit generic IRQ entry into this hardware constraint:
-+ *
-+ * - IRQ from user mode: if exit work is pending, defer the exit to the PendSV
-+ *   handler. PendSV has the kernel's priority (that of SVCall), below all
-+ *   IRQs, so the PendSV handler runs after all pending IRQs. Otherwise exit to
-+ *   user mode directly.
-+ * - IRQ from kernel mode: exit directly with rescheduling suppressed using
-+ *   arch_irqentry_exit_need_resched(). PendSV cannot preempt the kernel, so a
-+ *   reschedule cannot be deferred to the PendSV handler.
-+ * - IRQ taken while an exit to user mode is deferred (i.e., while PendSV is
-+ *   pending): handle it as an IRQ from kernel mode. This IRQ is logically
-+ *   nested from an irqentry_{enter,exit}() perspective (see
-+ *   Documentation/core-api/entry.rst), even if its stacked frame is the user
-+ *   frame (tail-chaining, or late arrival).
-+ */
-+noinstr void v7m_irq_handler(struct pt_regs *regs)
-+{
-+	if (!user_mode(regs) || (readl_relaxed(BASEADDR_V7M_SCB + V7M_SCB_ICSR) &
-+				V7M_SCB_ICSR_PENDSVSET)) {
-+		/* IRQ from kernel mode, or IRQ taken while PendSV is pending */
-+		irqentry_state_t state = irqentry_enter_from_kernel_mode(regs);
-+
-+		if (on_thread_stack())
-+			call_on_irq_stack(handle_arm_irq, regs);
-+		else
-+			handle_arm_irq(regs);
-+
-+		/* arch_irqentry_exit_need_resched() prevents rescheduling here */
-+		irqentry_exit_to_kernel_mode(regs, state);
-+	} else {
-+		irqentry_enter_from_user_mode(regs);
-+
-+		call_on_irq_stack(handle_arm_irq, regs);
-+
-+		/*
-+		 * Check TIF bits in 0..15 to judge whether exit work will be
-+		 * triggered, as tested in ret_fast_syscall.
-+		 */
-+		if (read_thread_flags() & GENMASK(15, 0)) {
-+			/*
-+			 * Raise PendSV exception to defer the exit to user
-+			 * mode to the PendSV handler.
-+			 */
-+			writel_relaxed(V7M_SCB_ICSR_PENDSVSET, BASEADDR_V7M_SCB +
-+					V7M_SCB_ICSR);
-+		} else {
-+			/*
-+			 * Fast path: Directly perform exit in the IRQ handler.
-+			 * Safe because work won't be triggered.
-+			 */
-+			irqentry_exit_to_user_mode(regs);
-+		}
-+	}
-+}
-+
-+noinstr void v7m_pendsv_handler(struct pt_regs *regs)
-+{
-+	/* Clear PendSV pending state */
-+	writel_relaxed(V7M_SCB_ICSR_PENDSVCLR, BASEADDR_V7M_SCB + V7M_SCB_ICSR);
-+
-+	/* Call exit and perform the deferred exit work */
-+	irqentry_exit_to_user_mode(regs);
-+}
-+#endif
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-prerequisite-patch-id: 664e34728c0570f7f3602a381394fef3da5dc6d5
--- 
-2.53.0
-
+thanks,
+Chenyu
