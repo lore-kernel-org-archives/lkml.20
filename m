@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503190;
-	b=dYaiNwzhMV4vEcqPB8zj1d1J/dl7yXTAClro9++sCQnaeG2ri1FhIA2X7hQQ4h4nHCxf
-	 k0axQJmp58f44H4p5SJMBOnhdMnlvnMB2H/O2a0B2M+1GVsaQytn68826ba36ejBLAtnB
-	 HIzKCExodFxVvS9q0l3luuSwLtUvgsw7pbv0ce+us8axEiOUlnHevYW5C+rcQAfjHA8m2
-	 cCzayANHHqtSTDyCdudQHUvJ2r8B4R27HY7VnKbcaeMMbNiCI6EWOW4O+0eWE76Pmujek
-	 RGvFrr0F0HUE3gFYA23ooeKp7Br6xBghwUKrvhKUZmZcoVxcojZLHslRgMqLLP6Sq/g==
+	t=1792503207;
+	b=HvzYUxyhzgrofSuLpf7kPSh/MG2M5QlKg6niDi+WiH7uPV4TlVt99hf0C8lJkG/txg/l
+	 bx6xRdSr0IiJEG38DwsNQQy36Bv6vE2PGqyFJK4LXlzTzfaCw3+cYEbgQuwfYibqn2fDt
+	 b1eiqDeNoYUpXYU9WcTQY51ukhu8KqAg03qxsi+EPCrIuTG8JBgrv22xPWwfpLDGjb70U
+	 HGTMcfUZKhBzoUMh90PdAY6jtngALaMW6KzD8rjm8+eXu8f8X69vHR7h/ZskJr49bRPtm
+	 3ZIJq5ASnwXGs1q5+4vEl7iFQD79eTl9fqow4GhU3pSylMCQly4006aAJyCOJmBMC5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503190;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=CGrzPuac4BCqviRdihOooPny/4+gPoANGJ4ge/fXpto=;
-	b=xQcAz0BzD7WrQeoVhpgupFTNmH/Y8kb5P4V5OIe+Y2pKkt2gNuW+FPlqpzVglpaxZ4lJ
-	 PnkCBt60Gin+g+Q9zZrSvh9KOKX44+733dqBdT6CL9Umdj2HGvTBT9bWkM2eP8naWCKNu
-	 rxKtvqoCqTDuesheuEdrfvOy7YtKYHwtWG9FxqP0kOP8YN4UoEuI3/ryXgA4P/p4plSKR
-	 CjDRUlOkb28jYYK7tLeT+3hohjZINC1iYEK1SM2lCn5zA6md5Pgu/jsEkOiNxd03hwJGo
-	 jQASKKWW2HOwJPsulqhehx0UjeVE1VhkKqV3YKFVAzh57W8JisN7DH7Psg21IYmVHwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503207;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=CmgxYFLM8qJUWvWVc5vYTJVXqVY4Hx6nTGQxyWlnrto=;
+	b=ADr9ebD9VR+K9XHrFqLv0lw+jaTDuAnkz4HgtD5lamV8sc6DinXhBFBHkIhIT+Yms4bi
+	 eAhB6rXQ60MZTg+qFZU6xOMlFSLoEKopIx/DoMYhaZi55p9ajXyOZ9LbE38d2o1bCGjqE
+	 PXWrBwhomz0YrOAI+93i0xNrqIPw3DmcmB6MfjrLcMhLDY4VJ7z1fm0VfKDfhpghb7b2C
+	 xKKBfzpk5YXtadVdSxPLrNz2qVSkOj3p9+U7jO+tlS6SrK4KgpXjDK/tgsbZHW6gporcP
+	 F29Dom5hNgvWy5W5Ae3xhOGYF3+N1QfaoMYaiQ6xXf3BnUBhJq2c2Z49SOmZf/3kf1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SYMhujjY;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZNdtbkh;
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217DD606A326;
-	Tue, 20 Oct 2026 13:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 217DD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED27606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:33:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EED27606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SYMhujjY
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=CGrzPuac4BCqviRdihOooPny/4+gPoANGJ4ge/fXpto=;
-	b=SYMhujjYXT7SQgfydoLP1stjj1ocdmWvEW6oVNA6z65TUczBhtqvsIDYw6fnaZFmNwq9YVzzR
-	pI5s3Ne8X+PS8UJeMYG3QinHxAbWXPYlAKfX+wZL87XDZaI3OEQ7SjPbNVItz1TAozqQJFB5ReY
-	rWrEEmbxVFBDIFYaonvC56U=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j8Cz11mS6z1prKf;
-	Tue, 20 Oct 2026 21:33:01 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id A9A684056D;
-	Tue, 20 Oct 2026 21:33:04 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 21:33:03 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <sj@kernel.org>, <akpm@linux-foundation.org>, <david@kernel.org>,
-	<ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>,
-	<rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<damon@lists.linux.dev>, <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH] mm/damon/reclaim: allow disabling watermarks to force reclaim of cold pages
-Date: Tue, 20 Oct 2026 21:32:33 +0800
-Message-ID: <20261020133233.3920818-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZNdtbkh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AcUqUaao/jqaBmXmcRy6oGKOshGqT8aN/yaRUiJYB6k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792503204; v=1; x=1793108004;
+ b=wZNdtbkhXwUOeneyfOhn8NIG6Tkyr8jPfZyJx9gZXIN8QKYCMb2GqftN/7tYRJlZfVJSQh0C
+ 19KBpFiE6NrzROAHxHYpsRpA1UvdrAoFFJbWj84PdZ8U7STzsyo9cN2cxiv1PmFxmQscE8Pd7rO
+ nj8ubX9Zfjl5Z3Pedu/m7rDY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fb1a7d32086cf4bb;
+	Tue, 20 Oct 2026 13:33:24 +0000
+X-Mizu-Trace-ID: fb1a7d32086cf4bb
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: longman@redhat.com,
+	tj@kernel.org
+Cc: ridong.chen@linux.dev,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/cpuset: Fix partition recovery with unavailable CPUs
+Date: Tue, 20 Oct 2026 21:33:15 +0800
+Message-ID: <20261020133315.123890-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,92 +71,94 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-DAMON_RECLAIM runs its scheme only while the free memory rate is in
-[wmarks_low, wmarks_mid].  Reclaiming cold pages raises the rate, so the
-scheme self-stops as soon as memory looks plentiful again, which is wrong
-for a VMM parking an idle sandbox that wants cold anonymous pages
-reclaimed immediately.
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-So add an ignore_wmarks module parameter. When set, the scheme uses
-DAMOS_WMARK_NONE, so damos_wmark_wait_us() always returns zero and the
-scheme stays active, bounded only by min_age and the quota.
+An invalid local partition can become valid again even when its
+exclusive CPUs are no longer available from its parent.
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+This can be reproduced on a cgroup v2 system with CPUs 0-7 online:
+
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+    mkdir A
+    echo 1-4 > A/cpuset.cpus
+    echo 1-4 > A/cpuset.cpus.exclusive
+    echo root > A/cpuset.cpus.partition
+    echo +cpuset > A/cgroup.subtree_control
+    mkdir A/B
+    echo 3-4 > A/B/cpuset.cpus
+    echo 3-4 > A/B/cpuset.cpus.exclusive
+    echo root > A/B/cpuset.cpus.partition
+    echo 1-2 > A/cpuset.cpus.exclusive
+    cat A/B/cpuset.cpus.partition
+    root
+    cat A/B/cpuset.cpus.exclusive.effective
+    cat A/cpuset.cpus.effective
+    1-2
+    cat A/B/cpuset.cpus.effective
+    1-2
+
+B is changed back to a valid root even though its exclusive CPUs are
+no longer available and cpuset.cpus.exclusive.effective is empty. B
+should remain invalid until A can provide its exclusive CPUs again.
+
+Shrinking A's exclusive CPUs invalidates B in
+compute_partition_effective_cpumask(). The subsequent walk in
+update_cpumasks_hier() tries to recover B, but
+update_parent_effective_cpumask() skips the recovery checks when xcpus
+is not a subset of parent->effective_xcpus. Since part_error is still
+zero, B is changed back to a valid partition.
+
+Set PERR_INVCPUS when the subset check fails so that the partition stays
+invalid. New test cases are added to test_cpuset_prs.sh for removing and
+restoring the parent's exclusive CPUs.
+
+Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 ---
- .../admin-guide/mm/damon/reclaim.rst          | 17 ++++++++++++++++
- mm/damon/reclaim.c                            | 20 +++++++++++++++++++
- 2 files changed, 37 insertions(+)
+ kernel/cgroup/cpuset.c                            | 8 ++++++--
+ tools/testing/selftests/cgroup/test_cpuset_prs.sh | 4 ++++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
-index ec7e3e32b4ac..ef57f60a9105 100644
---- a/Documentation/admin-guide/mm/damon/reclaim.rst
-+++ b/Documentation/admin-guide/mm/damon/reclaim.rst
-@@ -159,6 +159,23 @@ this auto-tuning feature.
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 585a982249ad..be80763953ed 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1986,12 +1986,16 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 				cpumask_copy(tmp->addmask, cs->effective_xcpus);
+ 				adding = true;
+ 			}
+-		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
+-			   cpumask_subset(xcpus, parent->effective_xcpus)) {
++		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus)) {
+ 			struct cgroup_subsys_state *css;
+ 			struct cpuset *child;
+ 			bool exclusive = true;
  
- Disabled by default.
++			if (!cpumask_subset(xcpus, parent->effective_xcpus)) {
++				part_error = PERR_INVCPUS;
++				goto write_error;
++			}
++
+ 			/*
+ 			 * Convert invalid partition to valid has to pass the
+ 			 * cpu exclusivity test as well as the housekeeping
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index d04aad697b96..f1d517647ade 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -427,6 +427,10 @@ TEST_MATRIX=(
+ 	# cpuset.cpus is allowed, but those extra CPUs are ignored.
+ 	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
  
-+ignore_wmarks
-+-------------
++	# A child cannot recover until its exclusive CPUs are available again.
++	" CX1-4:P1 CX3-4:P1 .     .     X1-2    .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
++	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4 .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
 +
-+Ignore the watermarks-based scheme activation condition.
-+
-+If set to ``Y``, DAMON_RECLAIM runs its scheme regardless of the system's
-+free memory rate, so the reclaim is bounded only by ``min_age`` and the
-+quota.  This is useful when cold pages should be reclaimed even while the
-+system still has free memory, e.g. to squeeze the cold anonymous pages of a
-+just-parked virtual machine out immediately.
-+
-+By default, ``N``, so the scheme is activated based on the system's free
-+memory rate, as described for the watermarks below.
-+
-+Changes take effect when the scheme is rebuilt, i.e. on the next ``enabled``
-+``0 -> 1`` transition, like the other DAMON_RECLAIM parameters.
-+
- wmarks_interval
- ---------------
- 
-diff --git a/mm/damon/reclaim.c b/mm/damon/reclaim.c
-index 45d5557cc575..03b9a57694a6 100644
---- a/mm/damon/reclaim.c
-+++ b/mm/damon/reclaim.c
-@@ -112,6 +112,23 @@ static struct damos_watermarks damon_reclaim_wmarks = {
- };
- DEFINE_DAMON_MODULES_WMARKS_PARAMS(damon_reclaim_wmarks);
- 
-+/*
-+ * Ignore the watermarks-based scheme activation condition.
-+ *
-+ * With the default ``N``, DAMON_RECLAIM runs its scheme only while the
-+ * system's free memory rate is inside [wmarks_low, wmarks_mid].
-+ * Reclaiming cold pages itself raises the free rate, so the scheme
-+ * deactivates as soon as memory looks plentiful again.  For a VMM parking
-+ * an idle sandbox, cold anonymous pages should be reclaimed immediately
-+ * even while the host still has plenty of free memory; setting this ``Y``
-+ * makes the scheme ignore the watermarks, so the reclaim is bounded only
-+ * by min_age and the quota.
-+ */
-+static bool ignore_wmarks __read_mostly;
-+module_param(ignore_wmarks, bool, 0600);
-+MODULE_PARM_DESC(ignore_wmarks,
-+	"Ignore watermarks: reclaim cold pages even while free memory is plentiful (default: false)");
-+
- static struct damon_attrs damon_reclaim_mon_attrs = {
- 	.sample_interval = 5000,	/* 5 ms */
- 	.aggr_interval = 100000,	/* 100 ms */
-@@ -226,6 +243,9 @@ static int damon_reclaim_apply_parameters(void)
- 	if (err)
- 		goto out;
- 
-+	damon_reclaim_wmarks.metric = ignore_wmarks ?
-+			DAMOS_WMARK_NONE : DAMOS_WMARK_FREE_MEM_RATE;
-+
- 	err = -ENOMEM;
- 	scheme = damon_reclaim_new_scheme(attrs.aggr_interval);
- 	if (!scheme)
+ 	# Taking away all CPUs from parent or itself if there are tasks
+ 	# will make the partition invalid.
+ 	"  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
 -- 
-2.53.0
+2.43.0
 
