@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483580;
-	b=g3Z9JuYTA39vfaC7g52kzQxkLTIAsYnF9oDNJFRWJAdG+VzjdmsiKiCVkcaprgZDXu+g
-	 GgzNZEECP7S/IQb3MEob3K+K0Y4kuLMGILV6UBshXqMs4RsVqCEssHNA1IHmlpBMFqFGc
-	 kbDtZqFySM7E5mwHcLAa3D8t5TQvsJvFminzQ2X5CwvbCxnLQte32vzIFBSgvMBpR1um9
-	 Ucl5L8DJHrh6lI6Vnc1a362TYfh5s46fvTK+kSRzyj41bfU0XBHaNs+9Qindd3M+dEFqM
-	 HNDPMM/kMLH3jTuhiDPd2RV6AA949LjlEq8GPmBDohFUWPX60F4rK94tC0bUFlP/R+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483580;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=;
-	b=PIjp06w/8X5kunDpA0hIkDsIUJghdug76Z9P7CtGtQ7wukC9hBRtgd6ybyzOxPvXDugH
-	 r9Ht78qQIJ/yB5vK3zZksPJdFqF8Rm0OEjKkH/sfYZ5PHXpZ5pKl93XNQUhEMagxD+4BL
-	 Wvv+Xsy+iNJKzFRDNDcn7gTjjfZHuq8vMjt0wmCbvkK8CKPEBuvJYscxKLYOrXdbWA6wk
-	 otxQ56iCsmrPEcgydR6zfRP9gkbhU6pSZi6s+G0wWOom5Eb6VYkXrx3hMmxXb+93QbpGq
-	 bKOeEuDcfvt9V3xnZ7EFkGQ9ebHF6zJVpA38lh+h3vck06TiMV+PyEesTzBe+FdM0rw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KpNb66Oq;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VnQIK1jR;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792483571;
+	b=rjwiCIT6i5xON/hCJeCKS8w8KhvpVNemKdVjrkt8tB3BEy4NuJwZht2LDk3Iq/rsABWX
+	 AEqem8ctZaKdPoVR3qJcnfbW534Dnk09iIBMm42Y0ua1Ws9+crFN1YyQFUENnj8PYfglr
+	 1D1rM6HfPwzKoSijzBw/ovXQWgZdgxe0T6NefOGlFk/WTojNPSsGuInF1X6bY9uwOFTQj
+	 GIMQkKhOUpYQGUYPe5h7X1LLaueowYOPgp0GOj1DLIeUlLvofuEXriwxqtd6jHGa72XoT
+	 MAhqDz4mPx5OTF75YFGoqN/Pq2SEh3ISmMGXJ+c/4OrbisK27CTI7+QurfnCXpE0Ifg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483571;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=l4FObfvQRMO41M3XPigHMXUMperNlJvjgYrcLSCu3rE=;
+	b=sZtRzBYsVSDNfM7A+0UJzlBU9TOYpFtFgcnVCiB/W0cdpDm4jucxKt7LOWyhyme5VzC2
+	 cU9QzLu5Uc7nVvUWq0NYPPzNOk6zQBL24zx5fMjX9oGw1BCfjVmUtnx/fVFQpCTWHOdZB
+	 ZmitC6IkKZpzcw2bUSUhMo8tRsO5DOXfrPlTUIAw5vtghvCEDHQD/vpcjqwRYU4dGyRAR
+	 9Zz2p4GHss1muPS1M7wYUYKet/MTMymv8SVq61Gy2nC0SeuTN+BLoK+BWjyckHm+Lqif7
+	 i7NCd53KxFjN3132a2qeXoR1tG+Ew7UDZXM9Ut0Cofz3C8poiF/1Oz1XpKujk0ClbpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrdZ6hWj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06BD606A320;
+	Tue, 20 Oct 2026 08:06:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrdZ6hWj
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792483570;
+	b=X3y9vwiHM9kSu2bDpoSbmWDD8hAJ8gHo4E9J8Q3Daw6bCOKcSY/y27haorgawf0lGlMY
+	 WCyi6e7qAQ9pAnpK4EZPFKvFD4yA94bSx6abp3kMrK1XqpxdGofzOIl+cHqxbeU4jMhyh
+	 9tHRkYri3Ztdct34alnnzWJLTLwUuKjsrIUzznDsgKvUuXEgSEKNzP/C1lhBRGUtxwkp/
+	 w12sIFHnJo9Rd4mDIawGUkCiYgZcn72Ru4ZF5RA0t9hfwCi6IINXL9tnQ1Rg5i2tRFHpn
+	 9BFuLbPNYDZFqa+m3za61dW8ADxWmOoeaCba6HL9N60g6cjLVqD9L41sq9zhFq9847w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792483570;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=l4FObfvQRMO41M3XPigHMXUMperNlJvjgYrcLSCu3rE=;
+	b=PoPlE4B0CuOW6+Lzc3X367wTKgxBGW0rek7YPvBPQklg3BXcG3exVXy7km21692pwEA5
+	 EDZxXyFwSUTh9PVavTX708zD6VJMKFx1cF9y5xrSQsXmj1oGbwWqkqdzRrWRjMgXg8s22
+	 wQQsXFnSvjDu3amAuCjGltU2oXROOWubdL5BgqmCwubZp3ta3fgAF4r8QjUO3xZlK1uqp
+	 pG4HkI4uXd8XeJ2Y+p5DA6OqpgwjdO9fn6oxBFwDgrBgq1g72EumOvJNy1vSxgEo4Sm6i
+	 dEvbzvAdkKO5CmRlkOxR9b/qB4umXZDQ/LPI2NOLD7VmYFrtUddsQzHwk8hjVx+njow==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EEE606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:06:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75EEE606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KpNb66Oq;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VnQIK1jR
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0twmD187187
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:06:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=; b=KpNb66Oq1aRXfUnE
-	ROS4fb8H53uodsq4JHXsH/eQt9SR08bcFIM0qWPot3jle7phvh+stibRceQOEYUB
-	jumdSuExfPIM+TgERy/96l1u3ZkTccnSFB0ND9tMbFIeNZhi9pnY5Dz+M6cD9vt8
-	wgjUxwG9C826lZVkASOGAKQ8TxsjjUCKBUTS8WYx6P6UjH+yau6WGT7sR0MewrCQ
-	rsAeOYCmP46aFZJR8kfO4XK2KKi+9XvYYTq6y9vJF592TuqDSUx+AJe94fqR2CSs
-	PYuqDWna9t8k96/ExrWxtMIOIvR12yEIXh9uknEiD3JMVHDkc+gTW60DfvDMpB+g
-	1yL6mQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5nshk0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:06:19 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c008df17fso2470276d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:06:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792483579; x=1793088379; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=;
-        b=VnQIK1jRNi9zQdcfmcJJPM+DplJ0ODNgq2bOOomwHO7wjRDy0Fv4eeX6cM5lIwrkFD
-         VD08HIkcZGHHZUjk7ADApUHOHTMro/ppSjNsht8+Qj2P0IIbwwk0gcdDst+FtJZMJ4xQ
-         gZOdwl6xRh05od7dO0umTY9LL5lDGlI7aU7bsKBSkPb0zhq/iYshXoKSyEpDuFzLVeTT
-         oizK9ygTxvXlh/VDJUllMMI5+KYO5bv8u95q8RazfsDL+knclSy2RMpfeTsWqbR7cBdy
-         wTWblOnBa90bWmQqeOpW2binh5CoBV91/9MHBZaRohLjKB9MwhAeXXhylwSlnrbEBi+C
-         vWNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483579; x=1793088379;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=;
-        b=Kal/CZo28nZ4M9Ty1rAB9Xn9PFuqJUUQV2KF2hk6+t4V+1XTXLLeIs4KjY4s8FpcMi
-         9wxl0MFde6A4jxaMi6FWscW2FHOYZpQdVGp3+L+0zL6wc7S0hrAO5qz+c08dP1GsymZ2
-         vB7AuwmEx6YQX7wxaZkjBxIF7bypZ0Ym/REaiLhs+kAooY3yFW5euD7HwGLMvAgJ9mHy
-         bAwZudhlU8x+Ez9b0tBf2AYeprfXQZNr8iLhloUBVNYd7ZS0Vp/ksFQ6jL9qoGS8jkhp
-         sdPFzIqxpTmFqrSMH/u/pysBWLOTOK9e0qVEUKMkabb/xLXxTXNUBmu98NvjIVLv4gcL
-         ZIvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxf3vgLdZm8kBvzcIamm3zhRpSuSC7lffGpOMrmG2XJw5vjmv8LmsDSNNge0/Qnp9KVyhk8UTuiLgvt36I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaDKqyNtepGsiPILLUP2WR7CtK9/2KZpSRSqsahidmnAAKVe4m
-	2GyZwvQ/dps4rGSh6m05Hv7H64+J5RuKugfBJkPKo/FRRHnNpQ6D/9ry5lrtPTdbHLXEif0Makj
-	nM7wMAX7RRGXqgILKRXGCjHXX103sA9MyX1fGbhyEV5Clc7N9vIVtl1202lwaYTo6Jm0=
-X-Gm-Gg: AYBFou2hP5xKeUaUZ7HYc380Qc6pPv+k0R8hCAzMYkrIfdP2hA46UCOcD4MvlUjV28s
-	M7t3lGMdprLd7ZigT1q4qKBMqYHaLUTaFBixja8yOnJ7HJ8NBoj+jGgviH5sZLOJDROCH1vWyPu
-	h2tZpB6Cg7dW1QhL1bSx2LsAKPwtw/Obr9FcMYrQ2Vaj4WRWxQOqXxq7knWaVeVTdYbFv+qaaCm
-	6+5QxjLaaFsUuvvg61eBbiap0zozru0aqQdf0e3i3uvRSWoCT4F3zK60JdxNErBQGnCqpEUOJ/H
-	ZljuDSiO90dkXXA29jJHd4bVxxGo+Snh9Q/099rVQ5gqo23bt0PpDb1oYSwabgHX0ll3FOPNCvK
-	PYnAOSeroqmHCWnGJynWGGw==
-X-Received: by 2002:ac8:540c:0:b0:534:f411:a5ab with SMTP id d75a77b69052e-53645ff6457mr127073601cf.4.1792483578901;
-        Tue, 20 Oct 2026 01:06:18 -0700 (PDT)
-X-Received: by 2002:ac8:540c:0:b0:534:f411:a5ab with SMTP id d75a77b69052e-53645ff6457mr127073391cf.4.1792483578436;
-        Tue, 20 Oct 2026 01:06:18 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c466de84b94sm20989766b.65.2026.10.20.01.06.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 01:06:17 -0700 (PDT)
-Message-ID: <d4957cd5-c546-46c2-81e0-b2afc14a4ea6@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 10:06:15 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id E12D01F000C4;
+	Tue, 20 Oct 2026 08:06:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792483570;
+	bh=l4FObfvQRMO41M3XPigHMXUMperNlJvjgYrcLSCu3rE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=VrdZ6hWjH/P9RE79BbLPKaamfDim/9MQtL2xxBXhg5QdKQnfxgQpQLb9+Hw9SYli+
+	 LOq44JA2gbCzquAmlQ6rfrnAccEShUMplpqrWohD7fR2IhEyvIjAycnPTlO17GcFqZ
+	 V44bHBZabx3qwGG4mFI1hG9rw3dOg6maLtFjGl6heRd12Uwdssv/W1Na6bUy6ceUvw
+	 jy17uUVP2SLpKeT5xHsXqIC0HYy8dPrnbMy9WBmSjghxuBtxAPPQBGfqJeUcEXPrev
+	 ggkaE8bNL8sLOxaz/H4WVuAwrg4NOcOFT3rOPjZ7bUE3KyB5XsBGZ3auibKx5afLC7
+	 yZwPAvjlhlGdQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5C455430B6;
+	Tue, 20 Oct 2026 08:06:08 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Tue, 20 Oct 2026 10:05:50 +0200
+Subject: [PATCH 4/5] ceph: ask for LAZYIO only once the MDS turns CACHE or
+ BUFFER down
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,63 +83,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: Preserve shutdown error in
- qcom_pas_stop()
-To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260922-b4-q6v5_pas_stop_preserve_shutdown_error-v1-1-2adced730893@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260922-b4-q6v5_pas_stop_preserve_shutdown_error-v1-1-2adced730893@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-b4-wip-ceph-lazyio-fix-v1-4-f4cc62459d37@clyso.com>
+References: <20261020-b4-wip-ceph-lazyio-fix-v1-0-f4cc62459d37@clyso.com>
+In-Reply-To: <20261020-b4-wip-ceph-lazyio-fix-v1-0-f4cc62459d37@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483564; l=3543;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=vM1YJ8Qdb6EoK/7Y+Z2XaIpcesKUcnEvtBTos7L2Q+s=;
+ b=AKK4OdZXxriM/rdAq2splM2MD6YPQeGEzL3R2a8HqP3mg61t++9RgOSEncKUR/eca80XegfMw
+ 0+OuT+nwJECArMgic66FZDqCBdPhxLXYxTKF1AaXHRtoXQfSiLMBdzt
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: eo_p7f0yNGDFW4pBBnbniXwSgQuJlAJT
-X-Authority-Analysis: v=2.4 cv=DZOCOftW c=1 sm=1 tr=0 ts=6ad720fb cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=v8fyVrpRRJkhpEgro6wA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: eo_p7f0yNGDFW4pBBnbniXwSgQuJlAJT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfXywVmqS6jZp7z
- 9PmNFYBgp0E0YlxGh6s3zjUM8jPCcuWlvp5ZSbOMz8sHgES6TKXnCqJu/6gGrzSskZ8Rz45eayv
- 4b0jrpNyzNPRiJ/yiB5MlVNwQ93cxZmgjEbSaOWFs7IFOEvm6PdL44ywI5JSBb+Jlg9RBZqKzbB
- x9H7GQDeNh+bi2yK6A8cOs8qtXlO9JnEoPfE/LLu6mFrwfDCD2w9xSNdbVnqTwPX4drjfuCp+d2
- M5J6tkjgounMN3DbkyWjs+pik5wHpjTJA3YFjsks5pvWX5f68zd01V6N1+7tIP5KTx4EshWEMAP
- ZOD+0WQU2xNsoDSBmTKWQaFBW93+/0qR0h/KgVB579bd3QQrkJ08uw47slgHcSmhNUrU9JxY6rd
- R0g6eqMbCIX5R/n84YmS0yjIq6ri1KjPWLH7p9ZnSW+FCW9WHw/8XAOgqdaVyWQaKtmgIid1nZR
- 7xGCDS1PA+Jq/49dfIw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX7GUlMebdiIux
- HpT9p+oXHYPL9EZi3knPpUqsCOLYExf2Ul0cnzWplF0ONtl/2MEOy0eUx66qB/ob3qpPSRu/hOo
- ynpdNUzN3TIj70Y/YvNs49N+t0zJEcU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200032
 
-On 9/21/26 9:33 PM, Anup Vishwakarma wrote:
-> qcom_pas_stop() unconditionally overwrites ret with the return value of
-> qcom_smem_bust_hwspin_lock_by_host(), discarding any earlier shutdown
-> error from qcom_pas_shutdown(). If the primary shutdown fails but the
-> hwspin_lock bust succeeds, the function returns 0, silently masking the
-> failure from the remoteproc core.
-> 
-> Use a separate local variable for the hwspin_lock result and only update
-> ret if it is currently 0, consistent with how the DTB shutdown error is
-> already handled in the same function.
-> 
-> Fixes: 568b13b65078 ("remoteproc: qcom_q6v5_pas: Add hwspinlock bust on stop")
-> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-> ---
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+A lazy I/O open asked for LAZYIO with the other caps of its mode.  The
+MDS issues LAZYIO in LOCK_SYNC, but not in LOCK_SYNC_EXCL: an open for
+writing by the only client of a synced file makes that client the
+loner, and the MDS revokes the LAZYIO it has just issued on the way to
+LOCK_EXCL.  mdtest's "read" phase opens files O_RDWR (it passes
+O_RDONLY, 0, where the backend wants IOR_RDONLY), so with the lazyio
+mount option a file read can cost a revoke and its ack.  A reader whose
+caps came from a lookup also paid a cap message and a grant for LAZYIO
+it had no use for.
 
-Konrad
+LAZYIO only stands in for CACHE (reads) and BUFFER (writes) when the
+MDS will not give those out, i.e. when the file goes mixed.  Ask for it
+once CACHE, or BUFFER for a writer, is in the wanted set the MDS knows
+of but not issued, and keep it while it is issued.  A lazy client of a
+file that goes mixed then gets LAZYIO one cap message later than it
+did.
+
+Reading 2000 files O_RDWR from a second client cost 930 revokes and
+2916 cap messages to the MDS before this change, and costs 0 revokes
+and 2000 cap messages with it, the same as without lazyio.  In an io500
+run the mdtest-hard-read phase still sees about one revoke per file
+with lazyio (2.5-2.7M); those go away only when mdtest opens the files
+read-only.
+
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/caps.c | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
+
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index c063d3cf7d21..49e5c1c36b68 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -1126,24 +1126,32 @@ static inline int ceph_adjust_caps_used_for_lazyio(struct ceph_inode_info *ci,
+ #define FMODE_WAIT_BIAS 1000
+ 
+ /*
+- * Does a lazy I/O open want LAZYIO?  A writer does, to keep buffering
+- * when the file goes mixed.  A reader whose cache is backed by CACHE
+- * gains nothing from it, and asking for it would cost a cap message to
+- * the MDS and a grant back for every open of a file that was looked up
+- * or stat'ed before: want it only once CACHE is gone, or keep it while
+- * it is still issued.
++ * Does a lazy I/O open want LAZYIO?  It stands in for CACHE (reads) and
++ * BUFFER (writes) when the MDS will not give those out, i.e. when the
++ * file goes mixed.  Until then it gains nothing, and asking for it costs:
++ * the MDS issues LAZYIO in LOCK_SYNC, but not in LOCK_SYNC_EXCL, so an
++ * open that makes the client the loner of a synced file (any open for
++ * writing by a single client, as mdtest's "read" phase does) gets the
++ * LAZYIO it asked for revoked again on the way to LOCK_EXCL: a revoke and
++ * its ack for every file opened.  A reader whose caps came from a lookup
++ * also paid a cap message and a grant for it.
++ *
++ * So want LAZYIO once the MDS has turned CACHE (BUFFER for a writer)
++ * down, i.e. it is in the wanted set the MDS knows of but not issued,
++ * and keep it while it is issued.
+  *
+  * Caller must hold i_ceph_lock.
+  */
+ bool __ceph_lazy_wants_lazyio(struct ceph_inode_info *ci, bool write)
+ {
+-	int issued;
++	int need = write ? CEPH_CAP_FILE_BUFFER : CEPH_CAP_FILE_CACHE;
++	int issued = __ceph_caps_issued(ci, NULL);
+ 
+-	if (write)
++	if (issued & CEPH_CAP_FILE_LAZYIO)
+ 		return true;
+-	issued = __ceph_caps_issued(ci, NULL);
+-	return !(issued & CEPH_CAP_FILE_CACHE) ||
+-	       (issued & CEPH_CAP_FILE_LAZYIO);
++	if (issued & need)
++		return false;
++	return __ceph_caps_mds_wanted(ci, true) & need;
+ }
+ 
+ /*
+
+-- 
+2.53.0
+
+
