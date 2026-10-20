@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490730;
-	b=wudEcBc/UeiWlHsJhsLROQ/yzvDFHrimQxHqIoJZJ909FLbaU4FhgI0lKPV90K5RWGEj
-	 9+rwa6Rzb9rH83OSBTeUuizdK6ZX8QUGHzHLSCcnIUvkLBnBlrLiiYfbeeWPpOABBZsId
-	 Zr7ieQTand26lACJFnCNq2tOR7bI/0sM0H9e2KiLXACq9lHJP1inOMGLw3YoPfV8JSsdm
-	 RpRevVNcD2qHgtVVCoRAsFW6Dq3pA+nR61wx6PM/bHwZFF8MgN6uPZrtcK1tQIs1K9KZI
-	 ADlGgD+juq3BZOX35zGRJ3wwmx1FDyUIsYadZGS8LLkpaxi4AMLaAPg4QsjDiuXE4Rw==
+	t=1792490787;
+	b=hVZaznNTh0Fk4gC49Rh4MMHSmRRX9koztWn/HVSuQKYuJqLfET1GBMQC2HOM/s83Fo6V
+	 +I9Xeb3o1QvhPdm0wdSs5O5C1TU/CDjtEeQbnbr8WpS8m4VaRSeYxm2E/NMHbpis6biMe
+	 QBtpa+qquX+yIZVet/1LpoM3MVl+SoMknTJtIxjzu76DyMJvewzumibrSOdhZFrD7r5E5
+	 k//mjifGcLVkVdgPy4cli+RvPdpKn4zqq+P7hv202sHPr/fPHxqf9kUjFjgByw9aundVa
+	 O4VyfsQA/ouqwSlhR5uHB2HSWCJyuzFEMcBuEswXWPN6etd0HIbgx1LVS12VnuFAYuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490730;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=qItBt+DFgWhv1B9ZYISs8CvA8pwyeh2Gsl39HWiVk3k=;
-	b=XSft6vreKpvXlXMv5XiNd04ztRXpp5TPEKAp9w0nmlsQaqv6BKB3I3aKHCpY1dmgWHym
-	 csX+73IxX0ZKqYd9SgOvY5HfaH4IwBqYSnArLsilLQhVAxv1rSmkfAXI375uuZeZsWpEM
-	 nx2+hmBQG3e3565R+3/FJRZRayDWD0Gwxt2AzGSfAK75az7I6HUfgdmHRnlp6KpWIngQu
-	 uI6TgSaj7HjsA7oG9vr6qR/sNXbcRBUj7pyv/CV3M6+FjKx/EH1TpGOUC5SmHvkYmteLs
-	 AOD3uRjJ8eJbMXN8U2nEU/lkZKWLqP4kqiKc8A3lzsemos7qjarhF/N/tiwmwqhWABw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490787;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=r9QLTI7y2KKW96b0Zz1Kc2Odp0wZxzx//zKMAKbRUr4=;
+	b=UC/HvrQRFvFotUJDgcH8sRFgylPiUJLQyyDwi5bWOoZMZPDe0doFVfPhQwmAHF3U1/fy
+	 A53o+VZ/MIBO2OUt/u5q/7b7gUdSyPHDAOaAebgA1NkLGANEAmzxyQNpqrys2rVD2xGHB
+	 79zzuHYBg6PqhV3Prqqx6VXCsuI9Efz2M8UPZmxkPJmGvR80/WIms8OMD5TLDizGGCiM+
+	 MT02QHbf2co5vTi708r0GUQnDuXwBFKp3J1eSjZDg/fHMkZHTzX28Y/Rr936Z2EGwUpYU
+	 NfmFDcS7ZxX8N6rzqvYSfbNWnk+I1h/xSMlWKXTfy+Uv50tdUltowZvgrh1eTfHm3+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=oGlkVURa;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=GJN759Vn;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6C9b4NF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0585F606A31A;
-	Tue, 20 Oct 2026 10:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0585F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728EF606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:06:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=oGlkVURa;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=GJN759Vn
-Date: Tue, 20 Oct 2026 12:05:26 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792490727;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=qItBt+DFgWhv1B9ZYISs8CvA8pwyeh2Gsl39HWiVk3k=;
-	b=oGlkVURaFhoWiffZRqZp1jTkdTdBA5BVtziSWh4+/g23wdR8F2c8tEramFdEJXIK3mdczG
-	FEr7tbuuUchw00Jy73ezr/1b8Y2321LTA7Q30tR6+H8e4riDCVj2MAzFrdfU/4fPhppxs1
-	53XK8RLCXhKbXHFkwsnpuWxAdNstOdex1hIdoQWLqJM3FSoOcR7RmqNudChf5q76Y+2hBZ
-	KcqWBy8okgxRHirvpwrNZKvPvplHZ96AATFSKDvkAIADiPhOgmB+DvUTrbX37KzuBaEfaR
-	v6+zlF3LBf1obSOiOWeGlpOllbnxPd0ySCc+IfN2cBCdOuV9+T2Oyjk4+1an0g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792490727;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=qItBt+DFgWhv1B9ZYISs8CvA8pwyeh2Gsl39HWiVk3k=;
-	b=GJN759Vn2D8oORGwaNgtfecfV8I24YsXeleSX9SOS5cios2E02MvQkVQ1c6VkD6wUK6FQW
-	MUYFshEjzmLv/6Dw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Thomas Gleixner <tglx@linutronix.de>, linux-rt-devel@lists.linux.dev
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [ANNOUNCE] v6.18.57-rt9
-Message-ID: <20261020100526.bFEM4NFd@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6C9b4NF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB001F000C5
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792490786;
+	bh=r9QLTI7y2KKW96b0Zz1Kc2Odp0wZxzx//zKMAKbRUr4=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=S6C9b4NFID2J4bHjqwI2Dm/QxObsQCvuRcfPzP1YbdFCKlgGYUMKtIKd8GZ5NSF83
+	 U1SZ/G3T2SgoQHuTWBWW2hND4ru8CZyeEVL+viOBtnF9LPFV/A33mbSAbD9VlT6SFa
+	 nea3494QrJclKNJNiRjeJXT5i3Hp/TiED/Kl2Wt/pvUJDAgDcwmKLyCy8rZ7yaH3WH
+	 Wt7O6HEFfhTq345E0ajj6AqLfsYyS3L09OELHlw3DQe7p9MY/fx3xqS4Q3EmyEPOcZ
+	 RqyhrwuXXNOpSR6YF7UAtj253wHrCgllC1Euq9er9HxpwogJtMHjmVdvlMHPkbo3Fi
+	 qAMmv/IbBAVBA==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab4c608a6dso8271741fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:06:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx65J8q6qiy5GFeZj+OTH9WmK/3GzmWXPSRPixwywsT+gwCVYl72DXXZ47a2/2pq/QB/5lGsPCnmBfSqLI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWTFqJgwei/fTlMa1T2b/bH+32zLmnFsCgGqJKsuEt41wiGaTH
+	GSIvj3K63HSC/Gccr64wJi5BFZOezQP1X3SrqP76t+jqfjxZ5+lNZhAqeWjZlv7CZlt//SpHGcE
+	nKgG8O73+ffLzO0B4iDvchAC6uGD/SIbvy/q0IHWNww==
+X-Received: by 2002:a2e:a9a1:0:b0:3a9:a2fd:5932 with SMTP id
+ 38308e7fff4ca-3ab29274a45mr27643151fa.5.1792490784657; Tue, 20 Oct 2026
+ 03:06:24 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 20 Oct 2026 11:06:23 +0100
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 20 Oct 2026 11:06:23 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261017043605.1503563-2-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,37 +65,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20261017043605.1503563-1-shengchao.guo@oss.qualcomm.com> <20261017043605.1503563-2-shengchao.guo@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 11:06:23 +0100
+X-Gmail-Original-Message-ID: <CAMRc=MeiENro-ivDkve5Y8C8aVKsPyR8x+Nd6gC5h_fn4ZKoPg@mail.gmail.com>
+X-Gm-Features: AclHuK9tcMLOQ-DANRxT1WRMHcMO7kXm-3fextj9Ju-NI33QJSEyvkMQNyI4_Fw
+Message-ID: <CAMRc=MeiENro-ivDkve5Y8C8aVKsPyR8x+Nd6gC5h_fn4ZKoPg@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] gpio: shared-proxy: Fix race between concurrent
+ first users
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Dear RT folks!
+On Sat, 17 Oct 2026 06:36:02 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> The proxy lets a consumer set the line direction and reset the
+> default value and vote tally only when usecnt == 1, i.e. when it is
+> the sole requester. But request() and direction_output() take the
+> descriptor mutex separately. When two consumers probe concurrently,
+> both request the line before either configures it, both see
+> usecnt == 2, both fall into the shared path, read back the still
+> unconfigured direction (input) and fail with -EPERM.
+>
+> On Nord RRD the two DAC supplies are reg-fixed-voltage regulators
+> sharing tlmm GPIO 41. They probe asynchronously and intermittently
+> both fail, leaving the codecs without supplies:
+>
+>   reg-fixed-voltage regulator-3p3-dac: setup of GPIO (default) failed: -1
+>   reg-fixed-voltage regulator-5p0-dac: setup of GPIO (default) failed: -1
+>
+> Requesting the line is not evidence that a consumer has claimed it.
+> Instead, count proxies that have actually configured the line (set its
+> direction or voted for a value) in a new cfgcnt, with a per-proxy
+> configured flag, and allow (re)initialization only while no other
+> proxy has done so. A consumer obtained with GPIOD_ASIS that votes via
+> gpiod_set_value() without ever setting the direction counts as
+> configured, so a later user can never reset def_val/votecnt behind its
+> vote. The count is dropped when the proxy frees the line.
+>
+> Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  drivers/gpio/gpio-shared-proxy.c | 74 ++++++++++++++++++++++++++++----
+>  drivers/gpio/gpiolib-shared.h    |  1 +
+>  2 files changed, 66 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
+> index bc69b8729d19..0d1d724a6a37 100644
+> --- a/drivers/gpio/gpio-shared-proxy.c
+> +++ b/drivers/gpio/gpio-shared-proxy.c
+> @@ -21,9 +21,33 @@ struct gpio_shared_proxy_data {
+>  	struct gpio_chip gc;
+>  	struct gpio_shared_desc *shared_desc;
+>  	struct device *dev;
+> +	bool configured;
+>  	bool voted_change;
+>  };
+>
+> +/*
+> + * A proxy may (re)initialize the line - set its direction and reset the
+> + * default value and the vote tally - only while no other proxy has set the
+> + * direction or voted for a value. Requesting the line is not enough: consumers
+> + * may request concurrently, so counting requests lets every one of them
+> + * conclude that it is not first.
+> + */
+> +static bool gpio_shared_proxy_may_init(struct gpio_shared_proxy_data *proxy)
+> +{
+> +	unsigned int cfgcnt = proxy->shared_desc->cfgcnt;
+> +
 
-I'm pleased to announce the v6.18.57-rt9 patch set. 
+We expect the shared lock to be taken, so can you add lockdep assert here ...
 
-Changes since v6.18.57-rt8:
+> +	return !cfgcnt || (cfgcnt == 1 && proxy->configured);
+> +}
+> +
+> +static void gpio_shared_proxy_mark_configured(struct gpio_shared_proxy_data *proxy)
+> +{
+> +	if (proxy->configured)
+> +		return;
 
-  - A printk related change was merged upstream to workaround a Hyper-V
-    related freeze on boot. Patch by John Ogness, reported by Derek
-    Barbosa.
+... and here?
 
-Known issues
-    - Yoann Congal reported a bit spinlock in dm_exception_table_lock().
-        https://lore.kernel.org/all/Z8GTjqgDe_5EkE3t@P-ASN-ECS-830T8C3.local
-
-The delta patch against v6.18.57-rt8 is appended below and can be found here:
- 
-     https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.18/incr/patch-6.18.57-rt8-rt9.patch.xz
-
-You can get this release via the git tree at:
-
-    https://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-rt-devel.git v6.18.57-rt9
-
-The RT patch against v6.18.57 can be found here:
-
-    https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.18/older/patch-6.18.57-rt9.patch.xz
-
-The split quilt queue is available at:
-
-    https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.18/older/patches-6.18.57-rt9.tar.xz
-
-Sebastian
+Thanks,
+Bartosz
