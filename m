@@ -1,57 +1,164 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.153.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792455211;
-	b=aKtRKpxJuckFzOUHBZG7p5qSrruUajGGw5noA/4jO7Y56r8vPp0zMAdbpkRN2d8z7Omu
-	 8O63mHmHnh5NCFRzoJk/WSILiSNK2Hr/q6KO0MnFvlnq1wImcwEQOuBFaCp39fmFtKlUS
-	 K0NalnZsbFiy4dEi3SPir22jNcnj5tg0QLRtG+nhLb/a0qNC5gBr+RuXWLjmE7/son7PF
-	 Es0frIQ4Io9pB88vtiDPuu6YJoSoJFTdRbQZqQlSoqmgObhjySHYzaqIvkHc96eVvlGaT
-	 /v0X11BxQ0zu8za+4PJh+S6jvqlyNgx4VtnLnLEv5/pYOUgNiRTTHnyBOBOxgobGHbQ==
+	t=1792455228;
+	b=ss3iMNIufv40tyBt0gxuRxEjCCde1cxlwQgmmk1b7FgtKPIBKyTRY6RzKc5V+mzy2vb5
+	 jS19jFcmeCVSIzHhCbuPjkqrjDLyAZhxEpUEkSix/paBwAkM2FVlmgDxFgdzpaCtu/AM2
+	 p2AZQdsmuAHMN0r0IhTpZyOxDBaw+t6Ot/riU86imO3wzeBXr1BWYD47FlyALPx0rGn+C
+	 lqlTIdkW8xyyp+EWIPUL6X6tKUr0FexTLXw0RRFiLgK5YdSj0chweNxXTScyO2NSBOjbe
+	 SZCzCsaQNQ7yDkQR53zYUhD/av9SIXj45BFAjGyou7VTPZ76GZt7hy2eLVdDZ7pyb7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455211;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=mulxaJdMD/Jl8fsXEmtmJSnhKCmKvuqsIC3aD5htCXA=;
-	b=ZWk18qmgTSMFwG1QlKjb5UzWtTC6gXwGd+OPX/Vm2iGSrSXjTQMrb/pd5fjlOSAc1CLn
-	 GbGt6S1XgIWJlCryTWm4O2USOqb4pxIZ3YhrVA/Po6xdnSiUc2UfnawzPDOUwioQQ+7CZ
-	 F9uk9IaQFgaa3K4aVLi2oI1hRy64H6snoaGVE+b/SB9l9eXQjt5pICMnuAasP8zaxamV2
-	 YFtrpD3goDWpOs2Tlc67CXp+oSlcEnoSnA1wrt1keKAOgkq/cseTjF0SJGY2I5NbVw6I/
-	 ugYa2tUxeWR0IJYPPuK+mv6ZUEmmd/KmRmjb9+4eQanawP6+COMgzsyO6QzSlRG6yjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455228;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Language:Content-Type:Content-Transfer-Encoding;
+	bh=j0vMuNMcmabeviRrTXlh4uvQQDshpjz9HEjXMbWkueM=;
+	b=w0kF7WxNJP0fQ7yFfqgWEONx8++iQbZj+7lHQSApmlgZGnCru1XNEjL7H0bpgnUCVERl
+	 9cmyZfcl1V3wucaoGWfmR2oOWUjNRbR+RzTtNkG3flApycHSrqaAdMQY/NonhGpk5x2je
+	 yqWgCFS6eDwafCltFhRGWCMtvLvy7yrb++zUyCWeR3hZIFdg+UvNTkgHdHuZN/5x2xwbm
+	 PVOKVqiAt3VT1xBaCL7+3KPhTjceq8pe2tA3lHJUPbjTF9wGoEncLN2T44HiTGtVfTEEd
+	 TIhCwV35H32ITS+kzNeMRrVKa/ipj5tsOKQGt/T8ZEu/2QL9Sfj1zLvm8d8tGdcl+rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pNhNDrna;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dmarc=pass header.from=onsemi.com;
+	spf=pass smtp.mailfrom=onsemi.com;
+	dkim=pass header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=EpvBnvqj;
+	arc=none smtp.remote-ip=170.10.153.120
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355E3606A319;
-	Tue, 20 Oct 2026 00:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 355E3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8074606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8074606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pNhNDrna
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mu
-	lxaJdMD/Jl8fsXEmtmJSnhKCmKvuqsIC3aD5htCXA=; b=pNhNDrnaaKMWzHvQJn
-	IgrA7/Dk6dvb+Ixkdy+y1QEOK3dAUWE6BRWcUjLnEk8fJebBh8EoiBtkiZ2QKTgy
-	Ran0fv7jz9i25pEAlKaQh1SI5aTlXBTr/QUd6ubcVJFV84FaXz7hcMng7EXIpa5W
-	Ha96JNuhiicZvMYsUsBdy5w24=
-Received: from shaos.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDX8xoIstZqXXVTAw--.37817S2;
-	Tue, 20 Oct 2026 08:13:07 +0800 (CST)
-From: shaos <shawnq1@163.com>
-To: john.johansen@canonical.com
-Cc: Georgia Garcia <georgia.garcia@canonical.com>,
-	apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] apparmor: mediate AF_UNSPEC socket disconnects
-Date: Tue, 20 Oct 2026 00:12:56 +0000
-Message-Id: <20261020001256.888314-1-shawnq1@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=EpvBnvqj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1792455218;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j0vMuNMcmabeviRrTXlh4uvQQDshpjz9HEjXMbWkueM=;
+	b=EpvBnvqj4IcWqUuBs9EaKRGN/ms10j2IkCBplaqzSUQDvNYs5Nz7g06wEnFhb9Y+7WbpKj
+	xJZjcbh5/h1iPzEwVGF8aEI9pt5BHJv34mNeYy27tcMRp/gJq/J3jK7qlrFZMaZ3508WyI
+	ULsQwb4P8PXUkEFEd7OoQ5aNdIx3p71XID+Xb42kqk9bDni4LykhRr+M5HPdmTMQHDu6fu
+	W6JuM5auCwFJXykBPLUQaa515rAHhed+LzT5wtW5T+QQQLpVw5tLbaMnGXQPw+UidbO205
+	3e2lsT7IWSVS3YSYTrRHpreEOigVCPddKYTKD8SHfFBZtEKTyL4Cy7ZKUutNgw==
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011022.outbound.protection.outlook.com
+ [40.93.194.22]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ usb-mta-56-pOHAt71YOiihmOMOfLg9_g-1; Tue, 20 Oct 2026 00:13:31 +0000
+X-MC-Unique: pOHAt71YOiihmOMOfLg9_g-1
+X-Mimecast-MFC-AGG-ID: pOHAt71YOiihmOMOfLg9_g_1792455205
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com (2603:10b6:610:110::22)
+ by SA1PR02MB11579.namprd02.prod.outlook.com (2603:10b6:806:4da::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 00:13:23 +0000
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e]) by CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 00:13:23 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: Jakub Kicinski <kuba@kernel.org>, Selvamani Rajagopal via B4 Relay
+	<devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Parthiban Veerasooran
+	<parthiban.veerasooran@microchip.com>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Richard Cochran
+	<richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
+	<hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, Eric Dumazet
+	<edumazet@kernel.org>, Piergiorgio Beruto <piergiorgio.beruto@gmail.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, Jerry Ray
+	<jerry.ray@microchip.com>, Ciprian Regus <ciprian.regus@analog.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: RE: [PATCH net-next v9 00/11] Support for onsemi's S2500 10Base-T1S
+ MAC-PHY
+Thread-Topic: [PATCH net-next v9 00/11] Support for onsemi's S2500 10Base-T1S
+ MAC-PHY
+Thread-Index: AQHdWBFkAt79C072hEav0nhQ93qGbrcFl1qAgAAHxfA=
+Date: Tue, 20 Oct 2026 00:13:23 +0000
+Message-ID: <CH0PR02MB7867C0602A44EF8D4588057183672@CH0PR02MB7867.namprd02.prod.outlook.com>
+References: <20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com>
+ <20261019164413.5d4c6eed@kernel.org>
+In-Reply-To: <20261019164413.5d4c6eed@kernel.org>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR02MB7867:EE_|SA1PR02MB11579:EE_
+x-ms-office365-filtering-correlation-id: 781afbae-ded2-4bb3-bca4-08df2e3ef4a2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|56012099006|18096099006|20046099003|6133799003|22082099003|18002099003|4143699003|11063799006|38070700021
+x-microsoft-antispam-message-info: BGLAgfJDTAG9m0rI+hAT5kGsVvNewRJLjTtBxDknSyZRVNV7HOkubhT5KvjEOiM4UYvGzVdS2KPEeTFrRfXaIs/CPi7wNgs4CRcvdnkpdkqaL0i88r/6ncicLIxxbQgChkNaDMKmjVA3wgDzjbDRbOFzTQfUWyi6oJWKCyqTWyDlX0B3OIJ9bVZ0Od3zzJvTnMf6xov2njQGUnD6EnMyPaXFaj2XB9wPLWfcMo+emamRyLBV+mLnaWf5FsYIKYzySobD9eA9OKw0UnWOD01s/Xjl9BDyCwnT/KSFBfHNLPnW/t0EDBviSuEecB62DW9S9BgPwSL858RaiTiQ7qxmAlRKcSaKseIUSbwDXoJlF5tXGZuFtprgWHVlUdgBQjC7LQMlZUFzYPSXRwgWHkcuUNROaW0nAQX4CAquQ5jk9sErwZebOpWDfis5T66xfPjTdSZfukz+mTqyHS+41nzLCLG6fGH6q5yNdcJgCojr8aFIOLWxuIPF4kdNuEqpdiGnpdPyLlI4hkWf05n05yCwQ0G02/5VZajCWDX8RiJOdlb+0SlKz2XZfFngnbWO2BXRstCwML6VE9YVDn+W+9ywUVwIq7iF7lIuHTWEPuHC8UdpRuz1d7NtAEQwJb7YgffYkei/9xExl7xIhFbE66J53cJ7teqa3jtyDdv0wIpep7dmltz5MYCt7pJBVOjJajhZa8AKNhmZAXIoxjXzAvlKnsuUpnSRXaq7BWPu0ixeZ2g=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR02MB7867.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(18096099006)(20046099003)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(38070700021);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OXkwa2pZcXh1bFlWeEpucm0xczZIaUdRNXk3UjU4WjNiUXRGTTQrd01PeGVh?=
+ =?utf-8?B?Z0ZxdzhRQmltMlJSbE0vZmN2YmxHcjM2L0RFUUh1UHE5bngzY284MEc2bERS?=
+ =?utf-8?B?SEVBUTR1enJCbm9jK0xRSXk0UDk2MmljZk5RcUxGczlkNjF0bFNwSml4WC95?=
+ =?utf-8?B?VXhHMjk5RGdHekU0dHJIME91NkZudmJCMkdmYmpTY3NZOVUyZzY1cUZUYXZM?=
+ =?utf-8?B?azV3SzVEalB3T1VLTEQ2UmdhdXZCaThNa0oyU3VYeXhZN1Z2WjdRekJsS1JY?=
+ =?utf-8?B?MGdpa0xnMXNtSUlJYkw2U1BaNkVRb0d2WG1JSllMcUVkc2NjVGExTmdkblpC?=
+ =?utf-8?B?WXgrc0F1bGlRbVJBd2NiZmRzUEg1dytwc2YrblNZdGRqb090RmVvWE9hYWlF?=
+ =?utf-8?B?dHBBbkl3NlFjSzN6Nmtwc2FTemNuYll6eEJpY0dPeldkUll2UzE0ZDZIU1cw?=
+ =?utf-8?B?WTlWVlBPbzdyMkFFQTFhZys2bytFdVovamQ1ck9VT3NTb0JWYUZRa2dBempi?=
+ =?utf-8?B?VjUzcVpaV1NKaGdTblZwNFBhVUZqVUlnaWx0MWh0aFc4T0RTcDVXN0xEQXUv?=
+ =?utf-8?B?dHRhTlVLR3ZvTGNQZnRkcWVQUVlZWXNkSWVTaTdLVmp0U3MxQUxrRXdBTWEw?=
+ =?utf-8?B?VmRlSDFTUHcvUkhlMXVLcXF0dnlZdGN2aytUS2xxV3hMMHd4azlDUGd1R044?=
+ =?utf-8?B?RHY1RlI5M1hVazZNMlFxV0M2QkZLUC9SYk5BZVVldDNMaW1hc01hQ04zWUow?=
+ =?utf-8?B?OG1jZU1Qc0xkM29NZ1BDOHlxdk4yUzdGVTNkdXozOWhUWWJpQXdmVjVhLzlX?=
+ =?utf-8?B?TUxFaEhWVlExR3pIdWVyZjRtbXNRMWxhaWgybjR0OVJsUDNtdzNqdmRkWlhv?=
+ =?utf-8?B?Tkg5S1dFUjFIRVl0MXp5VCtQNjZPdkoyZGNYbElsSkJWNDQvN1k2bkorY1Vt?=
+ =?utf-8?B?dzdjNWdTSXpRR25RaUJxWEpkSGxNS1lpcThIYzcwanZiOW5CUTdNUEdTTVFL?=
+ =?utf-8?B?UFlxUXpmLzVkd0ZIdjFITk43SG4yVG44YzljdStld2xETVU3dTdvbWk3cFBn?=
+ =?utf-8?B?MVEwU3UxM0hLSjl0bUFWUTQ4ckJKOVV3STZNekNxcTVydlhXVWZ1c1ZXdGpq?=
+ =?utf-8?B?Ry9GM2RhTjlUWlgzdU9jaDlqSFNXbVRWbkxiUjRZWjlnMjE2VWZkVHNhSnYv?=
+ =?utf-8?B?WjNrenlXNk83MWRlRk5aa1JDQVNMUzhqcjVQSFVSaXRVL1BrYU9CZkhBdVVv?=
+ =?utf-8?B?ckk1UmIrdWdmbE5PM2FUc09nSmVTRzBlUHlzZ1ZSL0xqTS85LzhoN1h1bTRD?=
+ =?utf-8?B?N3l0UXIxY2dVL0RLUHgwSnhtdUg2YVJMSzJySFY4dnc5emJxanp5T3NQQXc5?=
+ =?utf-8?B?UWNiOUxHa3JyUDhlMk4yaTJSOWYyQk5ER25YWEVqTXRZemRNYUZrdnpJWUFF?=
+ =?utf-8?B?cEZ5TnFHVlVNSXhUa3NEZEJXRWVEbWt0TFhhdjd0bU5EWHhVelF1QW44L0lj?=
+ =?utf-8?B?Ni9HSk9qRy8xRzMydG5DUUJpRTBpT3FLY2h5OFNIRVJ6eFpRV3c0VlNFNFps?=
+ =?utf-8?B?S1daV0FGYkEwTUlsMEE4ang0YThnbVY5eFd0a21kTHNZUW1FSG1GRSt6dFZP?=
+ =?utf-8?B?ZW1OejVOTzZaaXVmUU1oeENNTDNxZDVmYzV1bzl2N0hjL0JuRHRWM1JtTUNp?=
+ =?utf-8?B?VGhseUFUNFM0SFpYMEJlanUwMnYrSHl3YlN6OWJFZFArMFdCZVRwVXBhT3JU?=
+ =?utf-8?B?cDVpNGRnbnFBMzRjRUQySjc5ZEZvTUpJLzBEYytRM09wMjBPLzFEU2Q4dWFG?=
+ =?utf-8?B?RVZaNmZHWXNRZ1o1enZvZWEvVzUrL1N2N2JlclNRYi81MzA4K0x3OTloMEpI?=
+ =?utf-8?B?T2JLSWZvQ3pUMGNMLzlWZUxHb0t5bmxRZ1RURm1wK1BUcDlnZkx2ZzQvR2hl?=
+ =?utf-8?B?ejRsVGE0cEtqSDM2OXlXU2RnaURtMW00SHRaVWlZclNLT1N3NnhOVkhQbWFw?=
+ =?utf-8?B?MmhXRVNLY1pvbGhWUnc4azd4WGdBRHRhMU1GaURndVpPTGFvd2NHZjAwTUtW?=
+ =?utf-8?B?bXRwM04zNFRLZjdLSklucm5heGQ3OXlzemNuYmlQLzdWb1ZvTUQ3YURVeUIx?=
+ =?utf-8?B?YlJRajFQUDgwU21pcGNrWitrN0RrV0k3cDJ1U2NWb3dtblVrQmZqdHhzTzYr?=
+ =?utf-8?B?SGlKam1yMmlQYXRVdXdzK3BOeXdCRnp6THNtUlVGNDUxa1BMNm1CQ2J5eEtO?=
+ =?utf-8?B?YlFTQ2NERHprWGcyNUFROG1tcG5TYzNkQmlxQVc2OGRrZllWalR1Tm8yc3Qv?=
+ =?utf-8?B?dy9VUm1HZmd1bTJqbE9aY3lmcFJLK1hTRS80a2R2SVNJY1JPTUlEWWIrNWNY?=
+ =?utf-8?Q?kKi81D7kRhT6cHdk=3D?=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,69 +168,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDX8xoIstZqXXVTAw--.37817S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXr1fXFWkZF4fCw1rZrW3Awb_yoW5uw4rpa
-	yYya1kKrn5GF1fJw4kt3WUWF4Fywn7Cw17Was8WFyDAa98Gr48A3yIy3y5u3W7Wws8C3y5
-	ZayUWaySkF4DCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ut8nrUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8hMBD2rWshPmMAAA3k
+X-Exchange-RoutingPolicyChecked: VrhYNM2VbWJUV2ZO3Gxi5beIiCXQLfa7GfGj279IFi19v4RnHe3Kk2ABdK3r/PqbCDkuc+19tqvJVYNjtZwacVxRGWn5bj8hyxBc/sqrJLOk2S70aNUZnoCC0Nlq4fpfvR6EgQ5OST63WzlN5wm4oidg16vGKB22cPZvDf1IQ8NH69rR+ndZLmdLYdcgeSkQBrdkrqsLoXTUVjkMxfFIf/ITE7BOepW5bN863SW33RkabzgzTesxxKrQc5ywvKfn/1r2J57tyoZ2qQeuOp8Yc64ylsAucvrVNR0oEaNj5DRzqXH23E/E4cryLgMPiNMddEosVig6bOFzs2cFA6jPCA==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR02MB7867.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 781afbae-ded2-4bb3-bca4-08df2e3ef4a2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 00:13:23.6649
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: l7QCqRbcg3uLBqtPrQPLf8fBYzm8YXRG0D1b0s+JfDdxrHKoO9U+tk+lfboE7CGh+BFdu8pLonWJl43EP5/7x8/Y0EVgcrK2sdL2v/xOC2g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR02MB11579
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: efCpHir2w0Cic-Ip-1veMHVi7nilSxI2MF1jJU_QrbU_1792455205
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Hello,
-
-aa_inet_connect_perm() returns success immediately for AF_UNSPEC before checking the active AppArmor profile.  AF_UNSPEC is the socket disconnect operation for TCP and UDP.  A process confined by a profile containing deny network can therefore disconnect inherited sockets even though ordinary socket creation and connect calls are denied.
-
-HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
-git tree:       upstream Linux checkout, local branch master
-source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
-compiler:       gcc 11.4.0, GNU ld 2.38 (build details in reproduction notes)
-
-console output:
-https://gist.githubusercontent.com/shaos26/73b057c77b9ea22d5e6813c259dbf43c/raw/fab5c58d6f184f5fab88a3a31a80c2b919efecf0/console-output.txt
-reproduction kernel config:
-https://gist.githubusercontent.com/shaos26/73b057c77b9ea22d5e6813c259dbf43c/raw/b9192c97c92fdd3b59089704bad6fbd0a33ccf06/kernel-config.txt
-reproducer:
-https://gist.githubusercontent.com/shaos26/73b057c77b9ea22d5e6813c259dbf43c/raw/92c7dd098a227276fe3daeea45996e2848e66439/poc.c
-
-Build the kernel from HEAD with the attached reproduction config, then make a one-file initramfs.  The PoC mounts sysfs and securityfs itself; DEVTMPFS_MOUNT supplies /dev/console.
-
-    mkdir -p build rootfs
-    cp kernel-config.txt build/.config
-    make O=build olddefconfig
-    make O=build -j"$(nproc)" bzImage
-    cc -O2 -static -Wall -Wextra -o poc poc.c
-    cp poc rootfs/poc
-    (cd rootfs && find poc | cpio -o -H newc --owner=0:0) | gzip -9 > initramfs.cpio.gz
-    timeout 900 qemu-system-x86_64 -kernel build/arch/x86/boot/bzImage \
-        -initrd initramfs.cpio.gz -append "console=ttyS0 rdinit=/poc panic=-1 loglevel=7 lsm=apparmor security=apparmor apparmor=1" \
-        -nographic -m 1024 -smp 1 -no-reboot 2>&1 | tee console.log
-
-Under the deny-network profile, socket() and connect(AF_INET) returned EACCES, but connect(fd, AF_UNSPEC) returned success and tore down the inherited connection and listener.  Two fresh boots matched.  A one-line control that routed AF_UNSPEC through aa_sk_perm returned EACCES and kept both sockets alive.
-
-Impact and prerequisites:
-A confined process that inherits a TCP/UDP socket can bypass the profile's network mediation for disconnect and disrupt that socket.  The finding does not permit socket creation, bind, or arbitrary peer connections; no privilege escalation is demonstrated.
-
-Run the normal connect permission check for the AF_UNSPEC disconnect case:
-
-diff --git a/security/apparmor/af_inet.c b/security/apparmor/af_inet.c
---- a/security/apparmor/af_inet.c
-+++ b/security/apparmor/af_inet.c
-@@ -425,7 +425,7 @@
- 	if (addrlen < offsetofend(struct sockaddr, sa_family))
- 		return -EINVAL;
- 	if (addr->sa_family == AF_UNSPEC)
--		return 0;
-+		return aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sock->sk);
- 
- 	/* do we need early bailout for !family ... */
- 	return sk_has_perm2(sock->sk, OP_CONNECT, AA_MAY_CONNECT, profile, ad,
-
-Fixes: 89ac6aa752ec8 ("apparmor: push inet mediation into profile callbacks, and improve auditing")
-Signed-off-by: shaos <shawnq1@163.com>
-
-Validation: Two fresh vulnerable boots showed socket teardown.  The one-line fixed-kernel control denied the call and preserved both sockets.
-
-Thanks,
-
-shaos
+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEpha3ViIEtpY2luc2tpIDxr
+dWJhQGtlcm5lbC5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjkgMDAvMTFd
+IFN1cHBvcnQgZm9yIG9uc2VtaSdzIFMyNTAwIDEwQmFzZS1UMVMgTUFDLQ0KPiBQSFkNCj4gDQo+
+IE9uIEZyaSwgMDkgT2N0IDIwMjYgMTA6MTI6MjAgLTA3MDAgU2VsdmFtYW5pIFJhamFnb3BhbCB2
+aWEgQjQgUmVsYXkNCj4gd3JvdGU6DQo+IA0KPiBZb3UgYXJlIGV4cGVjdGVkIHRvIHJlcGx5IHRv
+IHRoZSBBSSBmZWVkYmFjaywgaWYgYWxsIG9mIGl0IGlzIGludmFsaWQNCg0KDQpUaGFua3MgSmFr
+dWIuIEkgc2hvdWxkIGhhdmUgYXNrZWQuIExldCBtZSByZXNwb25kIHRvIHRoZW0uDQoNCg0KPiAo
+aW4geW91ciBvcGluaW9uKSBvbmUgcmVwbHkgdG8gdGhlIGNvdmVyIGxldHRlciBzYXlpbmcgc28g
+aXMgZW5vdWdoLg0KPiBHaXZlbiBsYWNrIG9mIHJlcGx5IGFuZCB0aGUgMTArIE1lZGl1bSBzZXZl
+cml0eSBpc3N1ZXMgSSdsbCBhc3N1bWUNCj4gdGhpcyBuZWVkcyBhIHJlc3Bpbg0KPiAtLQ0KPiBw
+dy1ib3Q6IGNyDQoNCg==
 
