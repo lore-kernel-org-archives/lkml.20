@@ -1,69 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480374;
-	b=h2WLxZb9HUz+pTZejJ9/rEZa+ZnRX5Uo1d3eauH0vkBB1BMSUNaMJXNJK04PpvV1Y8hC
-	 d1XmXxbcCHf5S2bPVWr+yjdsVgWxwohpjfEC1DrArvOgs6G423Gh8Amo0PAO/zTmgs/yF
-	 jO502ua4zNHYb2aCmi8vuFywmMHuZTn9Ui0M+QauP/K/J5aoAYtm86EtaSnGxSPc3E+ph
-	 CFV1co9sZJ3HUFZ+UpvCFBWzdOEkA1Ln9ii3NQTp+6LRpgy4nOX7YgnBx/cX2aNdHi7Y1
-	 17FaAHcMOBdBpt1xQrgvRZx8kLJp8DTR6MP+wituHIk9fMD2fkNWcow5nlirotwT6iw==
+	t=1792480424;
+	b=JBUtEpnpwF7bzSLuBJMCKeiyr/FYu9UWeFPUlyT6hLljkn3/MD1qdP423EdFLtLuT6Jw
+	 hnFLMfmLMgx4OQcBoY5z480d2yM/ulaJYd79gXa+Pp87ZFHF55iNn9IJ9sh7u8dwEoFRk
+	 wze0mwlU0qFpCwd2Ilcvheyn/dmql9HlYFf1wshjW/wAETdA0xlH28VGQJ+H1oGxmyvD/
+	 spzl6DYnK/O9L4FiTZ5Hugso+QvPWQ1F3yjevfrxDKA2ouyxKtZbwJqoClvEk600NA0xK
+	 aFCMFJo1IZQNGhF71G1BBJyrxxf6QJXoJecdxigbuEoR1gPTaIGjyYOtdOguN+O20Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480374;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=ZoV9Wz62aYiL5BWtqMeRBCY7UFLWc6enrWeTYPiqAWI=;
-	b=JOOM7c5jSS7SPAQ5kXMdKs6gOg32CLy4DG/rMhtUQEdbu/TeyLq/UdXvf2A4kXXkXe+m
-	 oA52kYDUHAeDcJTDTSJAXlDG4uZ4PiYdBYLVbPD1CqBmjrH8rW+6pdV2MQDMP/510ygnU
-	 uEruKcbb/B0tLW7lYI2oOb7QQbtBCn/V5Zz0Lg02ltVhrNL08z1BccG6tffosts97NAlv
-	 Epk8obEtjVQHf/FkKQa4YBtg0uhojFHo8IrmWyZ96enJF5hwIcrbtsHLER+yP9VC8weZA
-	 haw5YVaoXcvnKF2tGh0aQDImb/XAqNUkXFsuSEbUyns8XkgVXDmZSfhl236BnsviFRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792480424;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=nsk1TBnHNNZnBq+waXcFjtYh5QBDBxbDOQ+y6FKQ1IU=;
+	b=r8IGGnav6sH2N/pRC3wfxlGusomu+SCRlr9zuSuLSZ6HOfvshvmgFEt8dRPkYh4u9u4t
+	 ENY+Dc1G7PdyaU/7T4vFCtS58pu+T1libRUyePGGNEhXkjNkUoYdwMY7U+rzhl3CRG63v
+	 SniVHEI3G8/prvyMPkdpDAH+dQzgaGzIZRwpxhUn750Vqm63wswsWaQ9IujsAQ5hqfYxB
+	 8WQ88TfkgoFhj61VuqWSLGNM2y/lNMFth7x3uOJYXAWLH5C9DenjtjV4sMPBj8/W6gPRE
+	 AmqefobXYlC2ZgrUvs713yI18Byo/c2+qXl0kAhCcD2TaP1x9ImA52iOqhNA5/MhNpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjoFICcK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4FD606A326;
-	Tue, 20 Oct 2026 07:12:53 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hT0FMsvH;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 984EB606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 984EB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjoFICcK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738941F000CA;
-	Tue, 20 Oct 2026 07:12:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792480373;
-	bh=ZoV9Wz62aYiL5BWtqMeRBCY7UFLWc6enrWeTYPiqAWI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZjoFICcK9yvSV9CMrCCzTtYUOjwDL8HjzyDvaPkSK/DCcZ4cbeES4+CzKhNcHnRTc
-	 livyH/PgTvCrp47WoSU6gRTBvtOaMGaWvf/xN74GwwkMXMFD86E3gOyTIqZ5HivEN9
-	 QfIZCCSMFtADQ8/h7ONdm/MOogrQkvXC9xJsQMenZQCvOIRYCTP+apTHaXGbSpoFdt
-	 KczPbCtXgOGaq7IMQGGvkjjpaXEgUlXE9UjM712GdfJXDPSwa7MIqD3qNBNaliqraB
-	 JV1mFgcJqBqe83vvs2kGAfeQLWjqaBmrA6PTnVjSW7jhBH1lh5EwfiTYb46eAaGlsn
-	 PjP190VesmcSg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xJ41j-0000000508c-1NYD;
-	Tue, 20 Oct 2026 07:12:51 +0000
-Date: Tue, 20 Oct 2026 08:12:50 +0100
-Message-ID: <86wlrczvyl.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	KVM <kvm@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: linux-next: manual merge of the kvm-arm tree with the kvm tree
-In-Reply-To: <CABgObfYRYCrOj-rHDaDd3LSFMSd0ug-YoB2pD7jDA8ZgMR0sCA@mail.gmail.com>
-References: <atZJV1B79VsZoy8u@sirena.co.uk>
-	<CABgObfYRYCrOj-rHDaDd3LSFMSd0ug-YoB2pD7jDA8ZgMR0sCA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hT0FMsvH
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 751F31595;
+	Tue, 20 Oct 2026 00:13:38 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E26573F7B4;
+	Tue, 20 Oct 2026 00:13:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792480421; bh=GFDZO9lDWHSTyGL8dTcjaGMjKJsBdyYUHFP2AjdoHMs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hT0FMsvHDoY0xC/ThqYINdXznUSd57GlgnOJyJBc10KgLlLe1GD/rxSzY/nWLPyx6
+	 C9dUI9Bo2pjCAB20PL/0HroDt77p2Yv11XhaB2retpKFIyKSp5t6UxkMDstFcMRYyN
+	 Ro1MYjF00Y4C7m5+kkKvopB58yZeEfGOfXfGojjM=
+Date: Tue, 20 Oct 2026 08:13:37 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <atcUoSdggT9eU8YE@e129823.arm.com>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+ <20261019233532.GL14213@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,43 +67,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: pbonzini@redhat.com, broonie@kernel.org, oupton@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, suzuki.poulose@arm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019233532.GL14213@ziepe.ca>
 
-On Mon, 19 Oct 2026 17:56:39 +0100,
-Paolo Bonzini <pbonzini@redhat.com> wrote:
+On Mon, Oct 19, 2026 at 08:35:32PM -0300, Jason Gunthorpe wrote:
+> On Mon, Oct 19, 2026 at 03:14:32PM +0100, Yeoreum Yun wrote:
+> > The Arm Confidential Compute Architecture (CCA) introduces the
+> > Realm Management Extension (FEAT_RME), which enables the creation and
+> > management of dynamically allocated, attestable trusted execution
+> > environments known as Realms.
 > 
-> Il lun 19 ott 2026, 18:46 Mark Brown <broonie@kernel.org> ha scritto:
-> >
-> > Hi all,
-> >
-> > Today's linux-next merge of the kvm-arm tree got a conflict in:
-> >
-> >   arch/arm64/kvm/mmu.c
-> >
-> > between commit:
-> >
-> >   dd0bc00e3e920 ("Merge branch kvm-arm64/cca-7.4 into kvmarm-master/next")
-> >
-> > from the kvm tree and commits:
-> >
-> >   b44a8c32f0116 ("KVM: arm64: Abstract out memory abort handling")
-> >   892c8a0bcc8e3 ("Merge branch kvm-arm64/cca-7.4 into kvmarm-master/next")
-> >
-> > from the kvm-arm tree.
+> Same remark as the other one, this is an attestation subsystem
+> driver.. Stuff like this is *exactly* why we are building that.
+
+Yes. I'm keeping in mind.
+
 > 
-> Hi Marc/Oliver, is this something that will be fixed on your side by rebasing?
+> Also this is weirdly structured, it should just be one driver under
+> drivers/attestation/ that does the measurement register part of firme,
 
-Yes. As soon as you have a stable tag on your side, I'll remerge the
-fix branches on that, and all will be forgiven.
+JFYI, FIRME's platform attestation token doesn't have the measurement
+register. ploatform attestation token will include the firmware
+information (e.g. firmware hash) and verifier checks the firmware
+information. the meaurement with RIM/REM will be part of Realm token.
+FIRME's PAT is for host attestation and doesn't include Realm token.
 
-Thanks,
+Therefore, in the new UAPI, attestation only have the evidance
+interface and MR interface wouldn't be used by making mr_cap as NULL.
 
-	M.
+> it shouldn't have two components and some weird firme_get_instance()
+> thing to link them together. That isn't how to build HW drivers in
+> Linux..
+> 
+> Since ARM has bundled different concepts together into one SMCC FID
+> range, it probably make sense for the smccc_devices to somehow spawn
+> multiple smccc_devices for the various internal software aspects
+> rather than have one driver spawn aux devices to split it ..
+
+If FIRME were intended solely for attestation, I think your suggestion
+would make sense.
+
+However, considering that FIRME may be extended to support other services,
+such as IKE key management, I think having FIRME-related code scattered
+across different subsystems would actually make things more complicated.
+
+I initially considered introducing a dedicated FIRME bus as well,
+but I felt that would be overengineering.
+
+In my view, it would be better to manage the common FIRME functionality
+within the FIRME layer (arm_firme), either through a single FIRME device
+or by exposing multiple SMCCC devices for different services.
+
+While both approaches are possible, I personally prefer the former, as it
+keeps the FIRME-specific functionality together and provides a cleaner
+structure. The individual service drivers could then be associated with
+the FIRME device obtained via firme_get_instance() by setting dev.parent.
 
 -- 
-Without deviation from the norm, progress is not possible.
+Sincerely,
+Yeoreum Yun
