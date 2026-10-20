@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792480680;
-	b=CD5kmsHiRL9lQboFvekmcHvfZWOgobH2rV/sCc+jg/ztDcQ4tpw4/f6nBhoeMLRaGpGr
-	 ozKQxPHHhDYnQsBX3Y+j8y2NE28okocQfs1utkmG+xCyQmgoNpVOnAuo8epmNUKLegJY5
-	 gx8RID+yEyLCgl1n2mOoP7da1G36AntGDCv0a+WcgIw5QDdZ27fcKxQ8Hl2wsxQuzhl2a
-	 UBux0764vFk/XpaC5h9d04jWKhvq9CC6yFwBXWkqU7lRLkvsZGS0zJ1/49npSZU6Epb2r
-	 o9d4weFtXALSM5lWEq8LSkKnFVwnx+Eg4H+F8yywzhsHwto+LsRmTWUu/6YSpqNmMgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480680;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qot5Xi52FqwbssYZzmgms0YeUd/ghKWJhqgu1gdtdiM=;
-	b=BqriN8ecMqsILrJdEPYtRw4WkSqNky5XFuENYKcP3+NGCCjz0canGWTXoAHavGMHWYIG
-	 Re6dIL5QG748IEMbxdjvf0dLrciQXIAQrQoGWvI9yuETr2p6PNcQL6qeHVsqyeeVVkkcz
-	 Hws/aM/agAPKU+eTMPerXhONpARzm4Xhig6+s6/6H9tvfhTAeD03YcuXuibjWttqx/Ikd
-	 mpcXqOCadbEvf7NkD/6BGuJ1g83z4cr9C2Le+42SHH5bLb6XPTu4WOzRRzle6tlC6xA3H
-	 r1RJrp0xnSDCL5tY3PJGjso04BLt5yR/iLuHWE1dEquOlLpvoaEIitX1WSx1woM8K0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JsSYyUn1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792480717;
+	b=JoydA51jC+qz8o0jmEA+AEq5wc0tEf4TfF+0Yl5tbPl6KZDK3AjlYlWZTn5OlhgaF0zH
+	 hIiB0rWWbg2d6fyDknYuPUd655/f+CmJw74iK1vLrGVVjJATrxhr4Mp1lGtALAUdh6aTf
+	 UwSoDlGJyyWZupT4no+W+2k/HWc/WgzpG2B4R0TPSpIwTM0SMP5kS0UaXZAM92ipziIsl
+	 ECMFOtD9YGJaeWJ1Ck1C2qRLmEbhfb7DoPxMt9tabFOE9uX6wvmhQw5WrhMM9qEabKHYP
+	 DCAR5XvD712WAuGoukGpzIsNhkER4848wib9h+VUxFqh4lSiZ+oFb9J7ST9u5wyVLjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792480717;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ZXg29oI0BzMp9Wce8FtHMSF+MR/+HfdO6N47KyWprp0=;
+	b=IzJPEU3ESCbKZcll2VFZPPuSgslbkZUGjFEwezps090mLAUe/Uz2itdfwh+ooIIVLSGA
+	 syDVZFGI5qvE+IBHZXu/7zJ6lsJwg6hRihxpXpcJerYhDsNAnMeIm9aMK6A+eOyXbeMkL
+	 u9oPLFzSqAxiJuTUAOj2EwCzOigWaBmYeyhWfEeuAh+JccOEmwi52Opi7WXh3ZPcqybm+
+	 jQKwTnVzgmTbzL/e9FjRA8UtyieOm6sOzcYznHQYpnjZlzh2ognXHMyBjKZgzfGQ64yEq
+	 kmPNrvzwKM6Gyx63B6iPmy5va/p8/Cxb5RScJpFoVOvHIBYbQgMnO0wt0PLzRywoloA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F2Y3gNdl;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Jut2JykM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5274F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:17:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5274F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959DE606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 959DE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JsSYyUn1
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso1721964a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:17:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792480679; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LSqPmJiWjaqwj+a/Ar8hzohdxZ8cw8havuEEa2fNszHz6m/3AH/kBKbelFzixvNzt1
-         loeCCXd/jZxYVhTlJik1rvi81D4h0X/+fnGPMyflLumjO/pxWh2UTtefnuntuC9RjSi0
-         4hu4KT4vd2FN4NtnCVLRmbAtyCTGFznnOyNFgPAxJm8JtYdNJv/rdeSdB6fnXE5SKiw+
-         arsV31modLXyiVlwfD3Ym4+k9RgkCiwEDRj3j3L6ZFxHy/Xv1PPbjHiC0j+qPSLu7d6x
-         uT57wGKnp8feXFd/ieOO3SFi4rK7Wbhp//0aBhct3UsdwXhgS8J8c30ZbHPEJMKjKaxs
-         gdEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qot5Xi52FqwbssYZzmgms0YeUd/ghKWJhqgu1gdtdiM=;
-        fh=a2cJwAZlyfFNYWL/e41DmH12gjVh4E8exqbZQZWH5PE=;
-        b=Ddz8dvdCAcAqpv3d1UAHRnLzgO1RnpyL5tGQbgqTnVSSsvtDF8QP7YozXLjfBCsbPB
-         TNxMD3wdea20l+FvpdmgxK2ia83Y5/FS3ZmWy6PTqr619fx4q+MgFQv8jQhp/OWnTttG
-         sgByXq6fNpzSzKvhbJaP7XyDdKI5JqR7tZ2MfUoUZpRqzuXlFLuVuuy/nP9G/poIc7+q
-         hSqW1QtG/VgFgexkEInHUWT0ItVgqGOEfIgwkhLfYdzdBSEJjfm/Jn6MFTzABdY6YmLa
-         2GXYHOG2Tdk8M3ci20v1JDhsxrSp3dIwBnMVdpn5QyylSDZiq/1K2v8WMlVeMpIx1T/a
-         mmPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F2Y3gNdl;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Jut2JykM
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0t3Dd3485511
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:18:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZXg29oI0BzMp9Wce8FtHMSF+MR/+HfdO6N47KyWprp0=; b=F2Y3gNdlDoYAG2Xz
+	O5R0doyZP2cg2KtNO8rz0yNUGuQ3JFKJmzVuS9PjkU8vDHuaxP6BC9R+gpjAfrN4
+	/vKvpu9yhhb6LoNSWjXPxbSWo8uHtUg5B0neFEOtdEPatSpvL/h8XMCbJeoppsGz
+	SzIWalGdoQH5ryX8v+TP1t6uDwoQ80sjdH6+IyxypSK8UZkFuMx/xdZ5Eg/8p8Qk
+	ujgSetVeoBDc/QdYpbfa7Qq5BkouLTKPKOVEybjNk6+Di1bNjivvvGJ3bp+VOtjg
+	7fhJ+aPWXrzeto5TiqsVAL5kuze7b1vbBA2LauXT0vHUZErOnF1lCZZGy8kl7L8a
+	x3STAw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n1bcv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:18:35 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1de6d5c3so683845885a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:18:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792480679; x=1793085479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qot5Xi52FqwbssYZzmgms0YeUd/ghKWJhqgu1gdtdiM=;
-        b=JsSYyUn16QLQ9rMxYaGPhAPwh3bI93l3zg16zLkArlDUeTJ90Uhbn7BkQ9vKin3m/u
-         XKGAnGs0LptUbybYfQFHvyJjOrCKTi8KQmJl3RR8eM03Tu09Av3eaZKvoJoqnXPVhPXH
-         ripWGB6A5ZJtFT0KKqKHPME1DgMub3UEDfNYT5zIJ2Z/Mvj068ncLHn88qQnU5Un6/J2
-         NDqxalBPyzRtPm4yXY/9ix/ZeNPI+nhKt9pCZT+a/rt3bZT1GJcnCE83nm1mDywiC170
-         jwghC6fWGOSbhtor7VZfgUuDL+VzggkAfXHH+wr6WkgyjQKE3E2oLKwRopVmXyA/mALL
-         bLpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792480679; x=1793085479;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792480715; x=1793085515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qot5Xi52FqwbssYZzmgms0YeUd/ghKWJhqgu1gdtdiM=;
-        b=Yi1YzSQmtadBGrIst8t179PwFhjvEWrg/nF+2ExRWOsRpWzyi7G+K2ZnEf6l+ILlXa
-         Rv8xRlohPtJF8ALY/+Rns9Vl9CYN+JtZIF7ihzLKTsGvefJR1iZmx/Z6cR/HePh5kkyj
-         hZLBUQBU8g6+821CiD08FQst/8mqv2QO4UA6TvpLbhZf5qSCjcneOfP5/e0QrTZALzHz
-         e24iaW2RquKXO1jFgasKn3XVw4jnolE0EFstKOKqY6d7No3fSsWMfMqiGjgl2Yte/Sdv
-         TAEokAYYG4FahGR56P3/OvWnZ9a3G72uvxKdE0HqTMwWwQySrWmVXKRrsBCHJmtjwoT3
-         cQkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxNcOUIRO/bWq+86iJgOwv1LMRCTn0dSr5GFPoVJ0gref5CTK+GsAujGJVCRyyoVz0+PTBPVSYescOwCFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRK41tR8NI0mkn9U5V26x92ohDiZIN4jqLfE0ypPka7fbuYHNS
-	k1A9UGwrtkCt2PkqC1psrudr3ruoJ+8a+cNZ2osmkds17Iu733dS5fIBenTmcHgRey9wr5FcaBk
-	OF/QnZCLsUplDcWywoi3lQ/Ic/++sv8I=
-X-Gm-Gg: AYBFou1zy/KAFtcNhHmQwDDhnoBiYB+WRf7a3VnbmoHv19542qsKmtA40h5UhEmNiMn
-	XrZ+/O3ngJlh2SMtRZ0zIppQrY5VLUXXyV4cBG4hpMwsCKBNm/Dvm1yKUShkDyM3iS2IgYKsLTx
-	u46gzTIgxsAlQaRK7JSS6Nc1Kvl97vpbIoh/lQqHuB6SiKN9qGgHVwxQusyWvkuPEUasxhTYhU0
-	HGEkQlDYaaBLwstR0r8hJY6NiiosihDXPTpxE7Q+NJYmHPJ2Azj/oM9dVYiHeYbztjk84khQebh
-	Rc6jHCXO2JgH5oE/31JrEfu809pub0F3+CKKzSgIqW3vz/l32VL/Xg==
-X-Received: by 2002:a17:90b:48c5:b0:3a0:d265:3647 with SMTP id
- 98e67ed59e1d1-3acee296684mr7813491a91.8.1792480678528; Tue, 20 Oct 2026
- 00:17:58 -0700 (PDT)
+        bh=ZXg29oI0BzMp9Wce8FtHMSF+MR/+HfdO6N47KyWprp0=;
+        b=Jut2JykMUxV/M7c5jRsMtDUgcrnyCjkXCebJSbExQUM17lmQMweXthTgXEh3in2nOc
+         aaSlK7apGZC9bSJj748fMcO8h5j4a/JNLsNUmz+dEUfoSj3gBS2Bzkmzs3xc2yyu/McZ
+         S1jiEx+gRNHoHXns854ZuhAwAR9JjDWjv9geLSyoVkzjLy4wj4bIIxnBrpesMWUv2525
+         SkN3n4FNG776u10WATuBQx1GYaSM8Qvh4bKpf1I7cmE7+4wG6sVOs1oa0kY0hL4Gg6OX
+         X5nDA23Z7YFcITUFkeYOx6cmzzWkO5iMmtfGQN27PXJlHCE7MxjTyg3JxpQRGsrrsUhT
+         ejOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792480715; x=1793085515;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZXg29oI0BzMp9Wce8FtHMSF+MR/+HfdO6N47KyWprp0=;
+        b=dJdutm6lLGXLlR4AwcXQwdf0PW8BG6ngtEitY/y8v6JC71da8XUbP9hd6ikUQh7CXO
+         4SId7cP7O6l9vT6rpsBzsdgw9ApCohTY2GRhTiykVfXN9OfVIhEWI73VuYrs0RJO75Hk
+         wsgfC+GfXp429i6+A3CQ3VZ1tCCC4c/WiyRVtgvPzuSQTXjteYykfKmIRb5/sHth6JtW
+         hDkxhDrkDbzaccwr59HhatYgyUe9oLDMndKg2MbVq2EuITzQ3d4AXSckXhRidLV1T9JH
+         AtCeiFTQXwLKx8W1XMUWcrekNWHNTJVzRYVa0IBOmFF5igBh69JHg24cUJo+QuF8X135
+         elXg==
+X-Forwarded-Encrypted: i=1; AKwUvBxAwDbnetlXaZlLIaHdRBb46pb9URWj9Zc4DPT2EMbRj2ohWkvE5hhpeQ6PmfjtdimhtY2eX/WP0GAZHMg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZssGyPSQjiN9YICnEVon+Ft5EQ0T3oaNdtGomI1a9H10LR+CL
+	gHL+92/EX+e7v/F9/pNJW0Xqp767y+YzawcMVbUc8SKhi2KofVLsRjtZj9WizeCYfLveS28umaJ
+	Rydx0pIT6ouhTmZXdD9p6gET21XUMOrZyFFjL5pYZPRcMdw38sz7p3/5SrHzVvWnhrzI=
+X-Gm-Gg: AYBFou10HdWtNc17u7ifDovAijFPhmBbFLCUEAw9dLN7GCD0ADWuUmpS8DoHcX0ft/C
+	nw5Ivmw8vivQBiVsQ/BSp2XO9R6MzsatdWfP7CoQCV5JbEHn1TC32DTLoRM8bPDHrHtm//e5Jas
+	OLnaaHhx5Fq6dhu6zJFLIOzntN3JXU9Qebwr4Q8f2LdyLGF3J4Wwu8TgZ7p08LmDyeeRuEpJaV9
+	/aI0KU6U7f7L1NfD9mwPQuHIVJ0bOU4PdaGWWjvMErtlpVPUXackZhrTXEx1HRj0JtGHkafZdmx
+	498Gp5JxO+layN6O/GnqKH42yqCF01nm2nZX8K/ZT33hjep7zv0exi289QvWqzfCmFvSWgwEX6X
+	uHmiWSmZ9wnAnDcR7OoI6g169rQ==
+X-Received: by 2002:a05:620a:6e93:10b0:93f:34c9:9248 with SMTP id af79cd13be357-93f34c9951amr881008685a.22.1792480714839;
+        Tue, 20 Oct 2026 00:18:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:6e93:10b0:93f:34c9:9248 with SMTP id af79cd13be357-93f34c9951amr881007585a.22.1792480714420;
+        Tue, 20 Oct 2026 00:18:34 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc8e98sm54686715e9.9.2026.10.20.00.18.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 00:18:33 -0700 (PDT)
+Message-ID: <d9ea53e3-134c-4721-85ca-ebced0c772f2@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 08:18:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,503 +115,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019055301.3234571-1-shengjiu.wang@oss.nxp.com>
-In-Reply-To: <20261019055301.3234571-1-shengjiu.wang@oss.nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 20 Oct 2026 15:17:40 +0800
-X-Gm-Features: AclHuK_XHrEgWqjN8oT4VWaPu36n9bSXdgGUKzEM5PM0DLukz-LNO1f5F_U9a7s
-Message-ID: <CAA+D8APDSYbzX3S9RuLinoPiuqPHEX+L+-ZcSg-RtxxaWyvrJA@mail.gmail.com>
-Subject: Re: [PATCH V2] reset: core: Serialize concurrent deassert/reset of
- shared resets
-To: shengjiu.wang@oss.nxp.com
-Cc: p.zabel@pengutronix.de, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, hansg@kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, broonie@kernel.org, alvin.sipraga@analog.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] ASoC: SDCA: class_function: clear sconfig.bps on PDM
+ data-port terminals
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Mark Brown <broonie@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela
+ <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
+        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018192359.287987-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261018192359.287987-5-srinivas.kandagatla@oss.qualcomm.com>
+ <atXck2Ef4OllKrAA@opensource.cirrus.com>
+ <e1d55639-bdb2-4b26-876b-68c71e7f724f@linux.dev>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <e1d55639-bdb2-4b26-876b-68c71e7f724f@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aIplOr9m c=1 sm=1 tr=0 ts=6ad715cb cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=vVX-E9A3s3TWsTXgiVwA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyOCBTYWx0ZWRfX+z1YEbEn1VlU
+ 7mlS5kYVvbm+iYCg5E01Iolc1Ycu7ll5rPaKwAYzL8SWSlNq78a+m4zqhADtqG4WZyTh2WnwOpy
+ 3Xr3SztJ3zvxCDp32/lKrtP2tc27rgw=
+X-Proofpoint-GUID: srCM4dt9aVTMkV6z4RVV8OdzLRawey02
+X-Proofpoint-ORIG-GUID: srCM4dt9aVTMkV6z4RVV8OdzLRawey02
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyOCBTYWx0ZWRfX62FhPvvoQSNU
+ PBPrUNaXp244JNE3hU7jSCvUQCee1fyvpVOYAfLJT3455A35pkSORZ6bDbUUxBRLGM5sk0EzXYC
+ 8uZMinssoc81YIMn7PjVnFNRg6YbyzMpSecAPyeIxpkqvFEl0utiD4mrYmV/CG9tgT++ireXACu
+ /5us5LP5XlezjrZq2DZ1dgNMoaGraUIF6cXRhaPUzzV44vPlm3BSFITL8wE32xA50ftJ8PkhRZu
+ Ky6pQ2AOckcXGa9W/9ctLcffx3TxWg0SHBS7sQVz4jIh5dTy4kb8XUVqDcbn1BHsa3lpYytKBUL
+ xmO29Z64OwQRS/dFMV5KUnenkUhNB9J39Es0ZI9O0lwYZ9J+wSEGwtLG2fneKlyx3AK1sgzl2Yj
+ dJzihzujLoRn9HdJY2wVeNaqZ32uEeqLJggY8LHrii3HfDL2aaj95at3l+cW4UEbuROdPITG2tm
+ 684iaTXV2kK+iqt3CaA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200028
 
-Hi Philipp
+On 10/19/26 5:19 PM, Pierre-Louis Bossart wrote:
+> 
+>>>  static int class_function_sdw_add_peripheral(struct snd_pcm_substream *substream,
+>>>  					     struct snd_pcm_hw_params *params,
+>>>  					     struct snd_soc_dai *dai)
+>>> @@ -133,6 +144,7 @@ static int class_function_sdw_add_peripheral(struct snd_pcm_substream *substream
+>>>  	struct class_function_drv *drv = snd_soc_component_get_drvdata(dai->component);
+>>>  	struct sdw_stream_runtime *sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
+>>>  	struct sdw_slave *sdw = dev_to_sdw_dev(drv->dev->parent);
+>>> +	struct sdca_entity *entity = &drv->function->entities[dai->id];
+>>>  	struct sdw_stream_config sconfig = {0};
+>>>  	struct sdw_port_config pconfig = {0};
+>>>  	int ret;
+>>> @@ -152,6 +164,9 @@ static int class_function_sdw_add_peripheral(struct snd_pcm_substream *substream
+>>>  
+>>>  	pconfig.num = ret;
+>>>  
+>>> +	if (class_function_terminal_is_pdm(entity->iot.type))
+>>> +		sconfig.bps = 0;
+>>
+>> I think this is fine, as you say bps makes no sense for a PDM
+>> stream but I might need to spend a little more time working out
+>> how this all propagates through the core. I guess my concern is
+>> if other drivers don't handle PDM in the same way.
+> 
+> It's a bit odd to rely on bps when we already have a type for the stream
+> in struct sdw_stream_config:
+its the stream.c which checks bps without type check, i have now updated
+stream.c to use type check in this code path.
 
-On Mon, Oct 19, 2026 at 1:52=E2=80=AFPM <shengjiu.wang@oss.nxp.com> wrote:
->
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->
-> reset_control_deassert() and reset_control_reset() guarantee that the
-> reset line is deasserted / a reset pulse has been issued once they return=
-.
-> For a shared reset only the first caller runs the hardware op; others jus=
-t
-> bump the refcount and return early, so a concurrent caller can return
-> before the first caller's (possibly sleeping) op has finished.
->
-> Serialize the shared refcount update and the hardware op under the
-> existing per-control rstc->lock, taken before the SRCU section to match
-> reset_control_acquire()'s mutex->srcu order. The lock is taken only on th=
-e
-> shared path and only for may-sleep callers (reset_control_reset() and
-> reset_control_deassert()); the exclusive path stays lockless. Callers in
-> atomic context must use the new lockless reset_control_reset_atomic() and
-> reset_control_deassert_atomic() variants, which skip the mutex and so
-> carry no completion guarantee.
->
-> The op is now called with rstc->lock held on the shared path, so it must
-> not re-enter reset_control_reset()/deassert()/acquire() on the same
-> control; a lockdep_assert_not_held() at each lock site catches that.
->
-> reset_control_assert() is unchanged: a shared assert makes no guarantee
-> about the line state, so there is nothing to serialize.
->
-> Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
-> Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
-> Assisted-by: Anthropic:claude-opus-4-8
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
-> Changes in v2:
-> - Serialize only the shared may-sleep path under rstc->lock (taken before
->   SRCU to match reset_control_acquire()'s order); exclusive path stays
->   lockless, and reset_control_assert() is left unchanged.
-> - Add lockless reset_control_reset_atomic()/reset_control_deassert_atomic=
-()
->   for atomic callers; gate the mutex on can_sleep so no shared consumer i=
-s
->   regressed and so it works on all configs.
-> - Factor the body into __reset_control_*()/__reset_control_*_locked()
->   helpers, and lockdep_assert_not_held() at each lock site to catch a
->   controller op re-entering the API on the same control.
-> - Declare the new variants and stubs in reset.h, and document the sleepin=
-g
->   vs atomic variants in the kerneldoc and reset.rst.
->
->  Documentation/driver-api/reset.rst |  10 ++
->  drivers/reset/core.c               | 204 ++++++++++++++++++++++-------
->  include/linux/reset.h              |  12 ++
->  3 files changed, 177 insertions(+), 49 deletions(-)
->
-> diff --git a/Documentation/driver-api/reset.rst b/Documentation/driver-ap=
-i/reset.rst
-> index 932699c57d1e..0fbc1ba92dd8 100644
-> --- a/Documentation/driver-api/reset.rst
-> +++ b/Documentation/driver-api/reset.rst
-> @@ -185,13 +185,23 @@ Given the reset control, consumers can call reset_c=
-ontrol_assert() and
->  reset_control_deassert(), trigger a reset pulse using reset_control_rese=
-t(), or
->  query the reset line status using reset_control_status().
->
-> +For shared reset controls, reset_control_reset() and reset_control_deass=
-ert()
-> +may sleep and must be called from process context. Consumers that need t=
-o
-> +operate a reset line from atomic context can use reset_control_reset_ato=
-mic()
-> +or reset_control_deassert_atomic(); these never sleep, but do not serial=
-ize
-> +concurrent shared callers and so do not provide the completion guarantee=
- of
-> +their sleeping counterparts. The underlying reset controller's ops must =
-not
-> +sleep when the atomic variants are used.
+--srini
+> 
+> @type: Stream type PCM, PDM or BPT
+> 
+> 
+> 
 
-On second thought, this change lets reset_control_deassert() sleep, so
-any driver
-that currently calls it from atomic context would now block. The new
-_atomic() variants
-let those callers opt out, but I can't tell how many drivers would
-need updating, and any
-one we miss is a silent risk.
-
-Do you have another idea to fix the concurrent deassert() problem on
-shared resets
-without this risk?  Or should we go back to the original proposal?
-https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/T/#m66615477929b38f=
-788d6d22a2c0bb9ca62173e89
-
-Best regards
-Shengjiu Wang
-
-> +
->  .. kernel-doc:: include/linux/reset.h
->     :internal:
->
->  .. kernel-doc:: drivers/reset/core.c
->     :functions: reset_control_reset
-> +               reset_control_reset_atomic
->                 reset_control_assert
->                 reset_control_deassert
-> +               reset_control_deassert_atomic
->                 reset_control_status
->                 reset_control_acquire
->                 reset_control_release
-> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> index 38e189d04d09..d477935e37ea 100644
-> --- a/drivers/reset/core.c
-> +++ b/drivers/reset/core.c
-> @@ -51,7 +51,8 @@ static DEFINE_IDA(reset_gpio_ida);
->   * @triggered_count: Number of times this reset line has been reset. Cur=
-rently
->   *                   only used for shared resets, which means that the v=
-alue
->   *                   will be either 0 or 1.
-> - * @lock: serializes the internals of reset_control_acquire()
-> + * @lock: serializes the internals of reset_control_acquire() and the
-> + *        shared deassert/reset refcount update and hardware op
->   */
->  struct reset_control {
->         struct reset_controller_dev __rcu *rcdev;
-> @@ -240,12 +241,16 @@ rstc_to_array(struct reset_control *rstc) {
->         return container_of(rstc, struct reset_control_array, base);
->  }
->
-> -static int reset_control_array_reset(struct reset_control_array *resets)
-> +static int __reset_control_reset(struct reset_control *rstc, bool can_sl=
-eep);
-> +static int __reset_control_deassert(struct reset_control *rstc, bool can=
-_sleep);
-> +
-> +static int reset_control_array_reset(struct reset_control_array *resets,
-> +                                    bool can_sleep)
->  {
->         int ret, i;
->
->         for (i =3D 0; i < resets->num_rstcs; i++) {
-> -               ret =3D reset_control_reset(resets->rstc[i]);
-> +               ret =3D __reset_control_reset(resets->rstc[i], can_sleep)=
-;
->                 if (ret)
->                         return ret;
->         }
-> @@ -304,12 +309,13 @@ static int reset_control_array_assert(struct reset_=
-control_array *resets)
->         return ret;
->  }
->
-> -static int reset_control_array_deassert(struct reset_control_array *rese=
-ts)
-> +static int reset_control_array_deassert(struct reset_control_array *rese=
-ts,
-> +                                       bool can_sleep)
->  {
->         int ret, i;
->
->         for (i =3D 0; i < resets->num_rstcs; i++) {
-> -               ret =3D reset_control_deassert(resets->rstc[i]);
-> +               ret =3D __reset_control_deassert(resets->rstc[i], can_sle=
-ep);
->                 if (ret)
->                         goto err;
->         }
-> @@ -355,33 +361,11 @@ static inline bool reset_control_is_array(struct re=
-set_control *rstc)
->         return rstc->array;
->  }
->
-> -/**
-> - * reset_control_reset - reset the controlled device
-> - * @rstc: reset controller
-> - *
-> - * On a shared reset line the actual reset pulse is only triggered once =
-for the
-> - * lifetime of the reset_control instance: for all but the first caller =
-this is
-> - * a no-op.
-> - * Consumers must not use reset_control_(de)assert on shared reset lines=
- when
-> - * reset_control_reset has been used.
-> - *
-> - * If rstc is NULL it is an optional reset and the function will just
-> - * return 0.
-> - */
-> -int reset_control_reset(struct reset_control *rstc)
-> +static int __reset_control_reset_locked(struct reset_control *rstc)
->  {
->         struct reset_controller_dev *rcdev;
->         int ret;
->
-> -       if (!rstc)
-> -               return 0;
-> -
-> -       if (WARN_ON(IS_ERR(rstc)))
-> -               return -EINVAL;
-> -
-> -       if (reset_control_is_array(rstc))
-> -               return reset_control_array_reset(rstc_to_array(rstc));
-> -
->         guard(srcu)(&rstc->srcu);
->
->         rcdev =3D srcu_dereference(rstc->rcdev, &rstc->srcu);
-> @@ -408,8 +392,83 @@ int reset_control_reset(struct reset_control *rstc)
->
->         return ret;
->  }
-> +
-> +static int __reset_control_reset(struct reset_control *rstc, bool can_sl=
-eep)
-> +{
-> +       if (!rstc)
-> +               return 0;
-> +
-> +       if (WARN_ON(IS_ERR(rstc)))
-> +               return -EINVAL;
-> +
-> +       if (reset_control_is_array(rstc))
-> +               return reset_control_array_reset(rstc_to_array(rstc), can=
-_sleep);
-> +
-> +       /*
-> +        * Serialize only the shared may-sleep path: holding rstc->lock a=
-cross
-> +        * the refcount update and the controller .reset() op stops a
-> +        * concurrent caller from returning before this caller's not-yet-
-> +        * finished reset pulse has been issued. can_sleep is false only =
-for
-> +        * reset_control_reset_atomic() callers, which cannot take the mu=
-tex
-> +        * and so get no completion guarantee. The lock is taken before t=
-he
-> +        * SRCU section (in __reset_control_reset_locked()) to match the
-> +        * mutex->srcu order used by reset_control_acquire(). rstc->share=
-d is
-> +        * set at creation and is safe to read without the lock.
-> +        */
-> +       if (!(can_sleep && rstc->shared))
-> +               return __reset_control_reset_locked(rstc);
-> +
-> +       might_sleep();
-> +       lockdep_assert_not_held(&rstc->lock);
-> +       guard(mutex)(&rstc->lock);
-> +       return __reset_control_reset_locked(rstc);
-> +}
-> +
-> +/**
-> + * reset_control_reset - reset the controlled device
-> + * @rstc: reset controller
-> + *
-> + * On a shared reset line the actual reset pulse is only triggered once =
-for the
-> + * lifetime of the reset_control instance: for all but the first caller =
-this is
-> + * a no-op.
-> + * After calling this function, the reset is guaranteed to have seen a r=
-eset
-> + * pulse at any point in the past, not necessarily during the function c=
-all.
-> + * Consumers must not use reset_control_(de)assert on shared reset lines=
- when
-> + * reset_control_reset has been used.
-> + *
-> + * This function may sleep when called on a shared reset control; use
-> + * reset_control_reset_atomic() if the caller cannot sleep.
-> + *
-> + * If rstc is NULL it is an optional reset and the function will just
-> + * return 0.
-> + */
-> +int reset_control_reset(struct reset_control *rstc)
-> +{
-> +       return __reset_control_reset(rstc, true);
-> +}
->  EXPORT_SYMBOL_GPL(reset_control_reset);
->
-> +/**
-> + * reset_control_reset_atomic - reset the controlled device, usable in a=
-tomic
-> + *                              context
-> + * @rstc: reset controller
-> + *
-> + * Same as reset_control_reset() but does not sleep and does not seriali=
-ze
-> + * concurrent callers on a shared reset line. Because no lock is taken, =
-a
-> + * concurrent reset_control_reset()/_atomic() may still be in progress w=
-hen
-> + * this returns; the completion-ordering guarantee of reset_control_rese=
-t()
-> + * does not apply. The underlying reset controller's .reset() op must no=
-t
-> + * sleep.
-> + *
-> + * If rstc is NULL it is an optional reset and the function will just
-> + * return 0.
-> + */
-> +int reset_control_reset_atomic(struct reset_control *rstc)
-> +{
-> +       return __reset_control_reset(rstc, false);
-> +}
-> +EXPORT_SYMBOL_GPL(reset_control_reset_atomic);
-> +
->  /**
->   * reset_control_bulk_reset - reset the controlled devices in order
->   * @num_rstcs: number of entries in rstcs array
-> @@ -575,30 +634,10 @@ int reset_control_bulk_assert(int num_rstcs,
->  }
->  EXPORT_SYMBOL_GPL(reset_control_bulk_assert);
->
-> -/**
-> - * reset_control_deassert - deasserts the reset line
-> - * @rstc: reset controller
-> - *
-> - * After calling this function, the reset is guaranteed to be deasserted=
-.
-> - * Consumers must not use reset_control_reset on shared reset lines when
-> - * reset_control_(de)assert has been used.
-> - *
-> - * If rstc is NULL it is an optional reset and the function will just
-> - * return 0.
-> - */
-> -int reset_control_deassert(struct reset_control *rstc)
-> +static int __reset_control_deassert_locked(struct reset_control *rstc)
->  {
->         struct reset_controller_dev *rcdev;
->
-> -       if (!rstc)
-> -               return 0;
-> -
-> -       if (WARN_ON(IS_ERR(rstc)))
-> -               return -EINVAL;
-> -
-> -       if (reset_control_is_array(rstc))
-> -               return reset_control_array_deassert(rstc_to_array(rstc));
-> -
->         guard(srcu)(&rstc->srcu);
->
->         rcdev =3D srcu_dereference(rstc->rcdev, &rstc->srcu);
-> @@ -631,8 +670,74 @@ int reset_control_deassert(struct reset_control *rst=
-c)
->
->         return rcdev->ops->deassert(rcdev, rstc->id);
->  }
-> +
-> +static int __reset_control_deassert(struct reset_control *rstc, bool can=
-_sleep)
-> +{
-> +       if (!rstc)
-> +               return 0;
-> +
-> +       if (WARN_ON(IS_ERR(rstc)))
-> +               return -EINVAL;
-> +
-> +       if (reset_control_is_array(rstc))
-> +               return reset_control_array_deassert(rstc_to_array(rstc), =
-can_sleep);
-> +
-> +       /*
-> +        * See __reset_control_reset(): serialize only the shared may-sle=
-ep
-> +        * path. can_sleep is false only for reset_control_deassert_atomi=
-c()
-> +        * callers, which cannot take the mutex and get no completion
-> +        * guarantee. The lock is taken before the SRCU section (in
-> +        * __reset_control_deassert_locked()) to match the mutex->srcu or=
-der
-> +        * used by reset_control_acquire().
-> +        */
-> +       if (!(can_sleep && rstc->shared))
-> +               return __reset_control_deassert_locked(rstc);
-> +
-> +       might_sleep();
-> +       lockdep_assert_not_held(&rstc->lock);
-> +       guard(mutex)(&rstc->lock);
-> +       return __reset_control_deassert_locked(rstc);
-> +}
-> +
-> +/**
-> + * reset_control_deassert - deasserts the reset line
-> + * @rstc: reset controller
-> + *
-> + * After calling this function, the reset is guaranteed to be deasserted=
-.
-> + * Consumers must not use reset_control_reset on shared reset lines when
-> + * reset_control_(de)assert has been used.
-> + *
-> + * This function may sleep when called on a shared reset control; use
-> + * reset_control_deassert_atomic() if the caller cannot sleep.
-> + *
-> + * If rstc is NULL it is an optional reset and the function will just
-> + * return 0.
-> + */
-> +int reset_control_deassert(struct reset_control *rstc)
-> +{
-> +       return __reset_control_deassert(rstc, true);
-> +}
->  EXPORT_SYMBOL_GPL(reset_control_deassert);
->
-> +/**
-> + * reset_control_deassert_atomic - deasserts the reset line, usable in a=
-tomic
-> + *                                 context
-> + * @rstc: reset controller
-> + *
-> + * Same as reset_control_deassert() but does not sleep and does not seri=
-alize
-> + * concurrent callers on a shared reset line, so the deassert-completion
-> + * guarantee of reset_control_deassert() does not apply. The underlying =
-reset
-> + * controller's .deassert() op must not sleep.
-> + *
-> + * If rstc is NULL it is an optional reset and the function will just
-> + * return 0.
-> + */
-> +int reset_control_deassert_atomic(struct reset_control *rstc)
-> +{
-> +       return __reset_control_deassert(rstc, false);
-> +}
-> +EXPORT_SYMBOL_GPL(reset_control_deassert_atomic);
-> +
->  /**
->   * reset_control_bulk_deassert - deasserts the reset lines in reverse or=
-der
->   * @num_rstcs: number of entries in rstcs array
-> @@ -726,6 +831,7 @@ int reset_control_acquire(struct reset_control *rstc)
->         if (reset_control_is_array(rstc))
->                 return reset_control_array_acquire(rstc_to_array(rstc));
->
-> +       lockdep_assert_not_held(&rstc->lock);
->         guard(mutex)(&rstc->lock);
->
->         if (rstc->acquired)
-> diff --git a/include/linux/reset.h b/include/linux/reset.h
-> index 9c391cf0c822..ab697193dbe9 100644
-> --- a/include/linux/reset.h
-> +++ b/include/linux/reset.h
-> @@ -73,9 +73,11 @@ enum reset_control_flags {
->  #ifdef CONFIG_RESET_CONTROLLER
->
->  int reset_control_reset(struct reset_control *rstc);
-> +int reset_control_reset_atomic(struct reset_control *rstc);
->  int reset_control_rearm(struct reset_control *rstc);
->  int reset_control_assert(struct reset_control *rstc);
->  int reset_control_deassert(struct reset_control *rstc);
-> +int reset_control_deassert_atomic(struct reset_control *rstc);
->  int reset_control_status(struct reset_control *rstc);
->  int reset_control_acquire(struct reset_control *rstc);
->  void reset_control_release(struct reset_control *rstc);
-> @@ -117,6 +119,11 @@ static inline int reset_control_reset(struct reset_c=
-ontrol *rstc)
->         return 0;
->  }
->
-> +static inline int reset_control_reset_atomic(struct reset_control *rstc)
-> +{
-> +       return 0;
-> +}
-> +
->  static inline int reset_control_rearm(struct reset_control *rstc)
->  {
->         return 0;
-> @@ -132,6 +139,11 @@ static inline int reset_control_deassert(struct rese=
-t_control *rstc)
->         return 0;
->  }
->
-> +static inline int reset_control_deassert_atomic(struct reset_control *rs=
-tc)
-> +{
-> +       return 0;
-> +}
-> +
->  static inline int reset_control_status(struct reset_control *rstc)
->  {
->         return 0;
-> --
-> 2.34.1
->
->
