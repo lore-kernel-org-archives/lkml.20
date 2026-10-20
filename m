@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456534;
-	b=KHQ76rRKVr1iveGA2HBDeLayqu2RAJoan6smBn6xwvGnrNFcbRlFui7QPYayYBHE+8hW
-	 kEdORDBnI5nJt9xkXekz6Xn2UF7/dHlgFH7xwy2TWsvgNquecAmV4R/GRUEhg4JDhtMn1
-	 biuoQ0ksx9keUT+z37dt95Pn6xpO28E2XVud9kLAI4eEfBScy0pjDSGPrpv6amjhr/1nV
-	 zy5deIDP6m3cgnpuJYHGx/lH1TFjbiXrWYDQX/4Mi4fSpbga5vQSy5gbVHoqCpKZpk/OU
-	 Hr4pgAg3wsW6MmZ7mM8v0uoJOK2K0Y9TaRTP/3ApDfeDf/soiVdDb8ONw4E/LouHWdw==
+	t=1792456553;
+	b=VgORaeftqMlwGY2xe6MEr4AhKbXLnxkW5k6cL4HsnutIaLAxW4Lt5xVN6ESqGCyEmmbd
+	 RP9meccS9gjBsxWBnZO0XwP9iGrEAUGSJ+mh4zSB4ohQY1v3Itbk0nAcmMTqhE9Fbu72E
+	 5RjiJwlnjgwhVqhF4YK9/Vk9FNGdTlwl+APgNUaGElWTAk+wMLho0BMe5xQ5ZuuQY8N0O
+	 XoHf8oiWicbHAlkx0PSzil9tWChrRTk36FyJHtcBvnfgOa7MdbZuTiCasd7GIZVgoD9gK
+	 0gqGSaXluEuf4JDZUOILKNF1ezndM9/PrrNHsZe62W0u5MpM1odyGmw8qE6PLOBElwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yipExmIrTD12/1N9UAm4uOC0Smz6xuSmoLIiL1iv6ME=;
-	b=iFVxIIjr4VWRkQYzTtQKVN6Av8vjbLAjSOClZ9VRMjkliLAs1/5x3x3dY6dQSbM1+Ehv
-	 R8gsISs4SduziVOdk7OWp6a0amw94zK1mqP0gN9t1dgykccCzPvuqHwXYR79IZ3/3Tizb
-	 4TJzWfWY8dzN2M8q9Fmy2HKmMSuAvgdzjrX0+RHyPHTGICDIa37qysh0NbzveNQknJEd5
-	 5wr+zzjwHkkCbXKORo8Uzh7TuTEYi06E/8CJqC6CNj5ZNvWKbvo95/Pz5iDKhst6SmWs5
-	 qFjQ2eF5h2jTH/3cEYBNhD2CM8XRt7VPFGSjueLYhpUeW0PndDDInffFMGeKmjtt/7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456553;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NtUt4EBp1f75gVbnrDI7LLQPMBNwUZ1wb674GgkrAXQ=;
+	b=yVNCCW3ETHFQwqkhel9pnlQQY/HZiUoXZx1cfGoZDCelevH/fccC268E+ESmyU37vYDb
+	 aq1iCX7HtI1P7SmoUZYoUrMfnCiMnfwYjst5xJUGo65qaIaiNVHT0jISnihGaDWzTgp3m
+	 zXcoyUfDNGcj2bbV/We9vXLfE8KASAZV/cn+l2tr7QuseGvf5NxBpNcF3YF7JmSY6ca0E
+	 Iir9h8dwGOowGVRuxIkzZPBF2ZjsJNlD2DrylWeAGYdIYSJFDbHNKgtdrak8L1Ris8yb2
+	 suWvEdb8+0Ltp1Bqcga7DJtLlFKq8MIJWdn52e3ws+Mz+24HMb1MPeSBYWAjf1t4skA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jclark.com;
-	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AzHXSm+Q;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdolQjQh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A02F606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A02F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA1F606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AzHXSm+Q
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e987a2ba0cso22104605ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:35:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1792456533; x=1793061333; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yipExmIrTD12/1N9UAm4uOC0Smz6xuSmoLIiL1iv6ME=;
-        b=AzHXSm+Q8Fe894xwcN/n2nwtglUvPzzk12UXp5P6sOG2XezLYcUXtlP8iA8ljA+frg
-         YTMa65772oOUDpIBljZ8n48K/WGe27YyCQZSU8rKT56T4C+uT2XJDwIgtKCuk9hiaMB9
-         xIRFPyBms5dVRg6O+ojjCke3ra1wWNDHvoKRMsgCwPo3UMNHvKpa/3leT6kZSXAwpghS
-         3/MMb/0eUMFi32M8UOOGfPpoJBosc74XePAsoxzjLBbsTNrahLtJW7lRPMM/LZYwALau
-         1jZzA4rLrpHXgrt4Ht9HQOdni98Pjo4EXa63PjnVK2USa6n3XuMwBhg4Vm0dLGrrUsbX
-         c2jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792456533; x=1793061333;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yipExmIrTD12/1N9UAm4uOC0Smz6xuSmoLIiL1iv6ME=;
-        b=sCuiKVT9Pw0DffuQNBdg1VeaWbJ+eZp0A6w5eTKQougjvvOtEqbH+lYkMyxaR4oOy+
-         SWAfdWJeRqMZxpdYuYkip7A6oBTiUyJ230J+jaiwrBGkLSBY04iUAZmO9MBoJ2I1+tv1
-         0gTqtECvWX75T+wAwyF6gfk3YO+Ec3rXQVEFvHqsnDLqfcrQfyavgkGzVpZHa39TcPuY
-         OFCFRwHEe7Bi9/ktsf7NVKg7M46nR29r82fQU0HdbhI1mCMuyjHJ8EUxPVTfkc+ilpg2
-         c31WwC2jiOMPf6mSKcqNtrnQyAWSlCpSFwA7ra27RvvjuQ+t0T+rQyDcGf2sXanIYI9f
-         KjZw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6PgdqYRpAwewz82+40Z6KM9JfdgJDCCw0An+cKPJ6DwBUw4WHeuLU6qqWABnTiDjFGq/Xhjv1svHvzHQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJz8YWXjWoGkg7zF1NI/NoTQ/RWsC7ZOx5pGvNxAMRbBXejQdBa
-	85NRQ3D/OD9Zsx0RDc7vHxdEFCnQfL4HnEmSEzo3Z41T6gS9FTlnR4Rvs3Ie7l8PbA==
-X-Gm-Gg: AYBFou019L6p5M+lbHMfXJVlpzWeX/wfwORNgepwphzmyEKWeC2EhkUa3QOPmEgqSrh
-	qb5o3S0Lihwc1CaNcORQcd7+kSsmqWFUIftXOkVNmC5/dVwhxfSLbB5mU5JTljIyLD9LcBLO4RG
-	EoyR9YkhE4AyEaH+8MEuGHVLvDRpDMTT28CsCadsk5DTGe6pqEebzVaYnu4bxA7lcM42Oppc6wP
-	qroQwwnpJa9A4/ax/OYfTp4b8439pgAo6ocpVBlsxKOB48nmhsDLkky7vQ6fe+dsD/170RykN7C
-	0/kZlHGIEdjhuBx2u/zftAKPn5fuzQphqyDfrA7Gxzh7/vfbLQ3IkdGHYQwXaEuGarrlGxtMdae
-	e7IoUy2I49DzrCVAP8rrAVaaUcE3qC0/y3uwGFPajlnbds8im4TTPi5FMPD9z2k2TXqfEFJf3aE
-	qqoJ+O4H+YIp3KRDt2ky7jNFIxPbQG5TegiTdzWqCYV24NyP3HuOJ6komcconVDsBysIoAamHbk
-	EtvsiZqnSRuFmrZFMF/VPLsc036RY8rfQi5DYLAhvn6G0H+46JXhS1FO6WXB9c=
-X-Received: by 2002:a17:902:ceca:b0:2e4:4eed:5cc5 with SMTP id d9443c01a7336-2e9a6c1df91mr80141435ad.38.1792456531600;
-        Mon, 19 Oct 2026 17:35:31 -0700 (PDT)
-Received: from cantal.lan ([58.136.73.153])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea14caa857sm6836175ad.12.2026.10.19.17.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 17:35:31 -0700 (PDT)
-From: James Clark <jjc@jclark.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Richard Cochran <richardcochran@gmail.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Chintan Vankar <c-vankar@ti.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: ethernet: ti: am65-cpts: fix support for PTP_EXTTS_REQUEST2 ioctl
-Date: Tue, 20 Oct 2026 07:35:25 +0700
-Message-ID: <20261020003525.1237742-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdolQjQh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E37E1F000D2
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792456553;
+	bh=NtUt4EBp1f75gVbnrDI7LLQPMBNwUZ1wb674GgkrAXQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fdolQjQhkL0ujALk1waFv+Nz/s8AQ9DQO/nHMOTG4NsxuA5RKDI2NTHpnn0aFPhAU
+	 jRV/jKSlDbi6c8ZYrYs4D2iJDluNi+ZSHo7FcjxbGOXxl6a0LMn8wJdjJVPDuaY8fz
+	 KwpyrXuTyMjCKw9MGGwHhERv49qzjZYQveYO4OjHXO4hkNmG90EqqSVo027SpwY1YL
+	 1WRm5iqVybI6Qkf5dkcFC7Gqd9fP80oT4nzy/RzbCWuTAk1p37hk08/o1qmfQD0+MM
+	 LgOOUivAzl11PjhhxK9dLIGHOTlMERkGdsTs7uYo/nzPa+UWbN2YmCkU+I48qwvTLm
+	 AmVDFgW4e0LTw==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e63ee7b4cso306037085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:35:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw0071tb8w+NqwDCsURan3kGznbiOXX/QqE45L4jBVIbQ2BGlc/s57pBBQ5f/gNSo1mltmpgY8vuhmUBVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTzNnXdcf6PZPvCiwLrDG9f6rIK5UMYjNTxq4hPMqHIPyBAJQy
+	r9BIQoX+zxhy1rmCG6eMLgbxzlZSEHVgGuOVeHSHh1oaaRKGkTCtLlRk2bQhcEUuMOoD9i7PTNT
+	Y/5X5o7mXS37fqoBEx8d/TqjvxhOvg0o=
+X-Received: by 2002:a05:620a:394c:b0:93e:5861:34df with SMTP id
+ af79cd13be357-93f29d7be8dmr1558868285a.47.1792456552324; Mon, 19 Oct 2026
+ 17:35:52 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,43 +59,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <6ad67231.a20cb897.960b0.0042.GAE@google.com> <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
+In-Reply-To: <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 20 Oct 2026 08:35:40 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yjMP8Tq1mKWtV-1GK9NJ0HC581w0=x2V_QMOiDOm-cvw@mail.gmail.com>
+X-Gm-Features: AclHuK-KfVTEMdx8AlHQkztAVoG4bf58LyyLDo_u5rI7H9Ara0G6VsLgl9a3zt8
+Message-ID: <CAGsJ_4yjMP8Tq1mKWtV-1GK9NJ0HC581w0=x2V_QMOiDOm-cvw@mail.gmail.com>
+Subject: Re: [syzbot] [mm?] WARNING in shrink_one
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: syzbot <syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com>, david@kernel.org, 
+	gourry@gourry.net, joshua.hahnjy@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, rakie.kim@sk.com, syzkaller-bugs@googlegroups.com, 
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, linux-ext4@vger.kernel.org, 
+	Vlastimil Babka <vbabka@suse.cz>, "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to
-ptp_clock_info") modified the PTP core to validate the supported flags
-of external timestamp requests, rather than relying on each driver to
-check them.
+On Tue, Oct 20, 2026 at 7:46=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Mon, 19 Oct 2026 12:40:33 -0700 syzbot <syzbot+54f6a8926b40a171f2c8@sy=
+zkaller.appspotmail.com> wrote:
+>
+> > Hello,
+> >
+> > syzbot found the following issue on:
+> >
+> > HEAD commit:    a0ff06b3a7bd Merge tag 'firewire-fixes-7.3-final' of gi=
+t:/..
+> > git tree:       upstream
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=3D12cdb20d580=
+000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3D44ac479246d=
+4559b
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=3D54f6a8926b40a=
+171f2c8
+> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for=
+ Debian) 2.44
+> > userspace arch: i386
+> >
+> > Unfortunately, I don't have any reproducer for this issue yet.
+> >
+> > Downloadable assets:
+> > disk image (non-bootable): https://storage.googleapis.com/syzbot-assets=
+/d900f083ada3/non_bootable_disk-a0ff06b3.raw.xz
+> > vmlinux: https://storage.googleapis.com/syzbot-assets/3f4bcbceb92e/vmli=
+nux-a0ff06b3.xz
+> > kernel image: https://storage.googleapis.com/syzbot-assets/bf4df8252e54=
+/bzImage-a0ff06b3.xz
+> >
+> > IMPORTANT: if you fix the issue, please add the following tag to the co=
+mmit:
+> > Reported-by: syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com
+> >
+> > ------------[ cut here ]------------
+> > current->flags & PF_MEMALLOC
+> > WARNING: mm/page_alloc.c:4816 at __alloc_pages_slowpath mm/page_alloc.c=
+:4816 [inline], CPU#3: syz-executor/5706
+> > WARNING: mm/page_alloc.c:4816 at __alloc_frozen_pages_noprof+0x1eac/0x3=
+300 mm/page_alloc.c:5449, CPU#3: syz-executor/5706
+>
+> Thanks.  The stack trace is missing important bits for some reason, but
+> it appears to be ext4 disagreeing with page reclaim.
+>
+> __alloc_pages_slowpath():
+>         if (unlikely(nofail)) {
+>                 /*
+>                  * We don't support __GFP_NOFAIL without __GFP_DIRECT_REC=
+LAIM,
+>                  * otherwise, we may result in lockup.
+>                  */
+>                 WARN_ON_ONCE(!can_direct_reclaim);
+>                 /*
+>                  * PF_MEMALLOC request from this context is rather bizarr=
+e
+>                  * because we cannot reclaim anything and only can loop w=
+aiting
+>                  * for somebody to do a work for us.
+>                  */
+> -->>            WARN_ON_ONCE(current->flags & PF_MEMALLOC);
+>         }
+>
+> The electrical think machine said:
+>
+>
+> filemap_fault()
+>   -> direct reclaim
+>      -> shrink_slab()
+>         -> super_cache_scan()
+>            -> prune_icache_sb()
+>               -> evict()
+>                  -> ext4_evict_inode()
+>                     -> ext4_clear_inode()
+>                        -> ext4_discard_preallocations()
+>                           -> ext4_mb_load_buddy_gfp(
+>                                GFP_NOFS | __GFP_NOFAIL)
+>                              -> __filemap_get_folio()
+>                                 -> page allocator
+>                                    -> WARN_ON(PF_MEMALLOC)
+>
+>
+> The task enters direct reclaim after a filemap allocation failure.
+> Reclaim calls shrink_slab(), which evicts an ext4 inode via
+> super_cache_scan() and prune_icache_sb().  The eviction path eventually
+> calls ext4_discard_preallocations(), which explicitly does:
+>
+>     err =3D ext4_mb_load_buddy_gfp(sb, group, &e4b,
+>                                  GFP_NOFS | __GFP_NOFAIL);
+>
+> If the buddy-cache folio isn't resident, ext4_mb_load_buddy_gfp()
+> allocates one through __filemap_get_folio().  This reaches
+> __alloc_pages_slowpath() with __GFP_NOFAIL while PF_MEMALLOC is set,
+> triggering the warning.
 
-am65_cpts_extts_enable() ignores the flags, and am65-cpts was not given
-any .supported_extts_flags. Since PTP_EXTTS_REQUEST2 always implies
-PTP_STRICT_FLAGS, the core now rejects every PTP_EXTTS_REQUEST2 for this
-driver with -EOPNOTSUPP, where before that commit the same requests
-succeeded. Only the PTP_EXTTS_REQUEST ioctl still works.
+Right. The problem is that ext4, while running under direct reclaim,
+allocates memory with __GFP_NOFAIL, and that allocation can itself
+re-enter direct reclaim.
 
-Tests on a BeagleY-AI (J722S) show that the CPTS hardware timestamp push
-inputs timestamp just the rising edge. Encode this in
-.supported_extts_flags. A PTP_EXTTS_REQUEST2 for the rising edge then
-succeeds, and one for the falling edge or for both edges fails with
--EOPNOTSUPP.
+>
+> Simply removing __GFP_NOFAIL doesn't look safe.  The preallocations
+> have already been detached from the inode's tree, and failure to load
+> the buddy information can prevent their space from being released
+> correctly.
+>
+> It seems that ext4 needs a way to complete this mandatory cleanup
+> without performing a NOFAIL allocation from the slab-shrinker context.
+> Perhaps the preallocation cleanup could be restructured so that it
+> doesn't require allocating buddy-cache folios during reclaim?
 
-Fixes: 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to ptp_clock_info")
-Signed-off-by: James Clark <jjc@jclark.com>
----
- drivers/net/ethernet/ti/am65-cpts.c | 1 +
- 1 file changed, 1 insertion(+)
+Checking the code,
 
-diff --git a/drivers/net/ethernet/ti/am65-cpts.c b/drivers/net/ethernet/ti/am65-cpts.c
-index efbf2ef976a..df5659ead72 100644
---- a/drivers/net/ethernet/ti/am65-cpts.c
-+++ b/drivers/net/ethernet/ti/am65-cpts.c
-@@ -779,6 +779,7 @@ static long am65_cpts_ts_work(struct ptp_clock_info *ptp);
- static struct ptp_clock_info am65_ptp_info = {
- 	.owner		= THIS_MODULE,
- 	.name		= "CTPS timer",
-+	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
- 	.adjfine	= am65_cpts_ptp_adjfine,
- 	.adjtime	= am65_cpts_ptp_adjtime,
- 	.gettimex64	= am65_cpts_ptp_gettimex,
--- 
-2.56.0
 
+   2   5686  fs/ext4/mballoc.c <<ext4_discard_preallocations>>
+             err =3D ext4_mb_load_buddy_gfp(sb, group, &e4b,
+
+
+It does check if (err) there.
+
+                err =3D ext4_mb_load_buddy_gfp(sb, group, &e4b,
+                                             GFP_NOFS|__GFP_NOFAIL);
+                if (err) {
+                        ext4_error_err(sb, -err, "Error %d loading
+buddy information for %u",
+                                       err, group);
+                        continue;
+                }
+
+So maybe it's safe to drop __GFP_NOFAIL.
+In any case, we need the ext4 folks to look into this.
+
+>
+> The syzbot report is at:
+> https://syzkaller.appspot.com/bug?extid=3D54f6a8926b40a171f2c8
+>
+
+Best Regards
+Barry
