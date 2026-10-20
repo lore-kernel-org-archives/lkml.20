@@ -1,64 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461555;
-	b=cNhiJyD1PcEO7sk/ktJ5WtHJAX/pDBSk2O85guge7+JtsaIMh/blO/eUTkR67YmZf5Z0
-	 RqvhC9u/Ag49751TDeqcXcJn5b/YqLhrcxRb3RUfpyTtx3AjmydoQhXieJdxqZY6l507j
-	 3kTnzvYc8v5A2PDd5e8pOIBdWO3YKIl4qXiMIH18Dzn9wWPExsYFuUHzh3Y7b0tDY2iRh
-	 W0v4YQHP5Ui1qNVoxZXIZmgqXG+zl/HRLMhMzjMUXUA7nXXFizwLOIjoDJJgAjhgGlnME
-	 XHPKJpFrdODipLTI3wWaZiXwQWKeIlTcsH8MD4YDq8/lUJ5TDr3O7COso7Dc1tPGcQA==
+	t=1792461620;
+	b=j/P4JVCqN7UyZTyKlvXGB1lNy4hIuf20ItSqdE7MJE2X5M0zs0AJ7xVC1boxEu6pZCgV
+	 LGmD6E+HKZxH8CkJhs0aQocCZWxjH/am0T5MB0fkH7FGqVt/TNZn5dWTmwPFjESVW8AV3
+	 3NlhdjJOzjuvUtXoHaIxOTbIj6g60pTJdhuxdsudVjniwE41CUZJCXRIQHaqCkJveIpvW
+	 cTfNrKF8UFbIF5w7GLWTw3byfiCi6okabetmhj+1+DhCSvgDlERMaylYNMYvifGpAiCD7
+	 GcfLsiO6drmzqu6W7JyWrnkOpkZwLvb2mwpj8w6hln1gClOLr8EwNUgF6WqRciXR7aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461555;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:To:From:References:
-	 X-Lms-Return-Path:Content-Type:Content-Transfer-Encoding:Date:Cc:
-	 Subject:Mime-Version:In-Reply-To;
-	bh=sYXJfMCvNM38xnLz5UTPMcoa7jKnJKm1Thyvo+ZxcPs=;
-	b=oJeEXN/68D67eN9luYfkWjTD+HWYS8ylrknj5iupSQ52kDAMXr0mFnTxnJDpUXEn306/
-	 DlYujpElTnoqYkglJDmuQjYm/eAZhjD92wya435sXA4QEBBMp494JTbEBputGc2EGOnj5
-	 4mXPw5+ET4EL+ZraXe4h9EtB77uhwZ1oVlDvVNOw1IqVAZPf/qE5Tdm9oVDoAdmwI3vL/
-	 bspSWqyRAFwkJqJrt+9xEoABWbVvje0jwGmwjqVSaHix4WztvWUPrp/am9SqcP7vG5+x+
-	 geyt1dGUBpnTDJ4JHK76j/nBMnPU0m41qX4Gzm7lL6x9iNsgTeLLt4Gr2p3BfUB67pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792461620;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pGsi2hGwO9RITOLJ86JItlXNxgoF2FSVbW3ahP5GtgI=;
+	b=Ge476ZS3Ze3+VDxmMff/1zCppzdK5f7pLxZcmqbyBFRC0Mhzeqk60uPxc5wn4thAWx5P
+	 07HZhA1L5eS8aKTxPkEtaeTOJv7GKF/ZkQzRsaC52ORljB/TDh8bGtf7LApXxr/Z+05Ze
+	 e/xyVxjY9ZPr38V3tF0HaAyryTatUw5CdzAE5tkOaTg/FMjTn3KW/micjzfTDj+ypTA5e
+	 NJlNuLtigHj2XwRB7gdvYPlR1g8Hm6U+kMIH+vC8ZWxul0FnZ1jL6mdMrsDUOARbKpsLq
+	 5DCLpZ0w20tgT+WBw8BgY8g5zhHFdOLm2HKI/NK8hRTGpf8UFkuMpBxSrwZXsp0ImcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=erBHGhPN;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="bd/rLq/m";
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77B8606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:59:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A77B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E07606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45E07606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=erBHGhPN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792461548; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=sYXJfMCvNM38xnLz5UTPMcoa7jKnJKm1Thyvo+ZxcPs=;
- b=erBHGhPNmN7aJeRpz8VfDyDKTaXVRnnHthO7eYvW03FplIyO8iohih0H8Wt5jZ+O/pQ0a1
- Nqo+U351m+QFs212NyYO9RLsRFZI1l1FliC4wfpBiw3+VmZBBjvgCvHocMpi5QpRQK9L6I
- B31rB/sbnRqG1NsX4wPUSpxUX9KYr7gpd1aErkFlBfcUofcmVZrXNsSOoJnF4Bs4ME3uUL
- VEC3zfvj8aCtS8YCwbCF9tIkD3WmO46bFvggJE1WlqbWPWo1U8AVYzTXYe1ct0+peJ6oPX
- yaJkjAON6/jl5gMHal/NyJg9JKzLupL/uguld63u0cMoOyKHCi2D5siBC3VYQg==
-Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.bdd59707.914f.4934.b1df.56dc1f0c27b2@bytedance.com>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-References: <cover.1791428412.git.weiguixiong@bytedance.com> <11ea12962bda75b3e8ef845084546647f79eca38.1791428412.git.weiguixiong@bytedance.com>
-	<1c19df7c-76b2-4dd3-b280-d6ab8bb45d4e@intel.com>
-X-Lms-Return-Path: <lba+16ad6caea+6afa08+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 09:59:04 +0800
-Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
-	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, 
-	"Guixiong Wei" <weiguixiong@bytedance.com>
-Subject: Re: [PATCH v2 2/2] selftests/x86/amx: Test dynamic fpstate cleanup across exec()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bd/rLq/m
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1517bda04a0so2276638c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:00:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792461619; x=1793066419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pGsi2hGwO9RITOLJ86JItlXNxgoF2FSVbW3ahP5GtgI=;
+        b=bd/rLq/mAQ2LYtc8KQcgYgeeQwbMILEPb5vg/qHePffNIFHn6wxWbWIMDcbGhrfeTV
+         Pk03zSwKNE67ejR9oEF9LLX0t+LEHpqjHyvEakuK79L81aTrjePLUOTMk9/glyWOsicN
+         AZUjuk7vLOSr6v//QN4xEjP4YynR+nY+/RZau5o5pS0ZVH1518GJeCytlK8/NpeefgOF
+         Dsrpf0/fjkXB2Ka6g+gWmep5/E8ugX6Itg5RUeoNzd1cV/RfOfhgArUKYCp8ECbPTMKk
+         zU4iD7bF42APuMmCnbnuVaAu6h4NPRbkqrXZB121ZTbM0hX7+yzUjufq/R2nMqCJH++T
+         hC9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792461619; x=1793066419;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pGsi2hGwO9RITOLJ86JItlXNxgoF2FSVbW3ahP5GtgI=;
+        b=g/VuAV9m83oiBXTcJNoc126/+gRaw0Fhj3XDuEoXvj2YYHYeywmFKha4dGFGpN1T0E
+         VeSIM6GZPUTrNqFO6X8I4m4a+JOEHo+SzkWTdsRa9IK/Eai+6GGPZtDah9mH14qByuuR
+         wllwDG/YhsgaToXEme9Dw5KDDI8D8+m1svdvozsLAo9/ogYDrV6xa6e5OxYZpS9D08Y1
+         9iV5qG42IZQmfpynAeETSAaIkzsf6CTwBoQpfgk7GryG5brO+mxvxA1M0j3S70q/ZqF4
+         eSZ9SZR0TyMgXBpXt+Xcp7TKG3znvqpNfUsdvdHOAoqgYYJsoVTBCHcO98ZyYrQGF4VX
+         R3Rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqH7jlPx4pUwkVKyTK9Kb7KcT9jKCVrKXjZqFPmce6M+W2frseeyncfbH01/bhrPRUHx/oCOL38iPY1e0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzxXwSBoWfUcMTO+UFnY9fwuvltbjzWewwgtnvo28qtFTFRZrc
+	9wtzFUay6ZjhSWzMxuqTT73cSThdHcRV/LlKa9sGumt3OqknjvDIQpv8
+X-Gm-Gg: AYBFou1fbB3Tg1zW4twcHAXUrYYEdGcc2u8LekxWZBaQTt8GltUnpbaz6MQtOBbXao7
+	OR66vm/wog+pS0CpJttGqKiZnJtXBOiT/8ZTG4n+Vn9KGM/6d5pIZ87mcNqk1Hvlb60X2Hyi1oh
+	aU10MucoTcEdZha3R83KiUFk+bLxGEB7zuFoqKItgQplGCAN00YRAavX916/laR6FCnkHNxfaMW
+	X90d8aJYBcpZClCDZKV50rKmvSjaw8Ps5ENKOWzHiH7w7ijGeTgNhDwsi0a0a9YV7VflE5qrNL6
+	c1LXj8a+Pu6GnFpqBjdXrjdbVYS6h+PATww22EC2LiriXAV8iFJZ/AunO6hSi3IlFQpDuiKmgFI
+	tXSiRb7ZjQsldjmKS9Q0vCR6MBuwWwrOp/2BQYJrVxlaowMo0IyxtHoCdANqlnzAovO+8YoebJG
+	5Q4S4F5cTT8vTRBeMs0j5BFQbZ67dKwml8Z3gYqdOzR0WL+Iz85a7We4eoxTNhiz71YBNxrPIYN
+	wfrMxBIsrQZyFwpjymnzFaQMZlnvJRAiCXdtIboo9RBwwfeqByxlwKAzDo=
+X-Received: by 2002:a05:7022:7e0e:b0:154:fa0b:6df1 with SMTP id a92af1059eb24-185139aa6b9mr14485746c88.37.1792461619084;
+        Mon, 19 Oct 2026 19:00:19 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm49419897c88.11.2026.10.19.19.00.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 19:00:18 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <3e233439-d05b-4d65-a527-882043d64d7e@roeck-us.net>
+Date: Mon, 19 Oct 2026 19:00:17 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,195 +91,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <1c19df7c-76b2-4dd3-b280-d6ab8bb45d4e@intel.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/6] watchdog: w83627hf_wdt: Convert driver to the
+ driver model and add minute support
+To: Paul Louvel <paul.louvel@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org,
+ kernel test robot <lkp@intel.com>
+References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 10/13/26 06:58, Paul Louvel wrote:
+> Hi,
+> 
+> This series aims to improve driver readability and convert it to the
+> Linux driver model by means of a platform driver.
+> Furthermore, support for minute-based counting has been added to allow
+> timeout values longer than 255 seconds. When setting a timeout value
+> that is not a multiple of 60 seconds, the value is rounded up to the
+> nearest multiple.
+> 
 
-> From: "Chang S. Bae"<chang.seok.bae@intel.com>
-> Date:=C2=A0 Thu, Oct 15, 2026, 08:19
-> Subject:=C2=A0 Re: [PATCH v2 2/2] selftests/x86/amx: Test dynamic fpstate=
- cleanup across exec()
-> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
-> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
-"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
-, "H . Peter Anvin"<hpa@zytor.com>, "Shuah Khan"<shuah@kernel.org>, <linux-=
-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-> On 10/7/2026 10:59 PM, Guixiong Wei wrote:
-> > =C2=A0=C2=A0
-> > -int main(void)
-> > +static int count_dynamic_fpstates(void)
-> > +{
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0char *line =3D NULL;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0size_t line_size =3D 0;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0FILE *fp;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int count =3D 0;
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0fp =3D fopen("/proc/vmallocinfo", "r");
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!fp)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -errno;
->=C2=A0
-> The call site doesn't interprete the error code. Instead, you can simply=
-=C2=A0
-> call fatal_error() here and below on an IO error.
->=C2=A0
+Please address the issues reported by Tzung-Bi.
 
-Will do. v3 drops the -errno plumbing and calls fatal_error() on
-fopen()/getline()/ferror() failures
-
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0while (getline(&line, &line_size, fp) >=3D=
- 0) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (strstr(lin=
-e, "__xfd_enable_feature") ||
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-strstr(line, "fpstate_realloc"))
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0count++;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ferror(fp))
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0count =3D -EIO=
-;
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0free(line);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0fclose(fp);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0return count;
-> > +}
->=C2=A0
-> > +static void test_exec(void)
-> > +{
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0char iterations_arg[16];
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0char baseline_arg[16];
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int before, after, delta;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pid_t child;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int status;
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[RUN]\tCheck dynamic fpstate clean=
-up across exec().\n");
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0before =3D count_dynamic_fpstates();
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (before < 0) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]=
-\tCannot read /proc/vmallocinfo: %s\n",
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 strerror(-before));
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0child =3D fork();
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (child < 0)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("f=
-ork");
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!child) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0snprintf(itera=
-tions_arg, sizeof(iterations_arg), "%d",
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 EXEC_TEST_ITERS);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0snprintf(basel=
-ine_arg, sizeof(baseline_arg), "%d", before);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0execl("/proc/s=
-elf/exe", "amx", EXEC_TEST_ARG, iterations_arg,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0baseline_arg, NULL);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("e=
-xec");
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
->=C2=A0
-> This nested exec() with passing numbers via arguments looks more=C2=A0
-> complicate than necessary.
->=C2=A0
-> Instead, you could put the fork()/exec() sequence in a loop. Before each=
-=C2=A0
-> exec(), call load_rand_tiledata(), and adjust main() to return=C2=A0
-> immediately from the exec test. I found this also reproduces the=C2=A0
-> increase in /proc/vmallocinfo.
->=C2=A0
-Agreed, much simpler. v3 restructures test_exec() as:
-
-=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < EXEC_TEST_ITERS; i++) {
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 child =3D fork();
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (child < 0)
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-fatal_error("fork");
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (!child) {
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-req_xtiledata_perm();
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-load_rand_tiledata(&stashed_tiles);
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-execl("/proc/self/exe", "amx",
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0=C2=A0 EXEC_TEST_ARG, NULL);
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-fatal_error("exec");
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 }
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (waitpid(child, &status, =
-0) !=3D child)
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
-fatal_error("waitpid");
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 ...
-=C2=A0=C2=A0=C2=A0 }
-
-main() short-circuits when argv[1] =3D=3D EXEC_TEST_ARG and exits 0, so
-the exec'd child does nothing beyond returning. The baseline/final
-counts are taken by the parent around the loop. Confirmed on an AMX
-host: unfixed kernel reports EXEC_TEST_ITERS leaked allocations,
-fixed kernel reports 0.
-
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (waitpid(child, &status, 0) !=3D child)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("w=
-aitpid");
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (WIFEXITED(status) && WEXITSTATUS(statu=
-s) =3D=3D KSFT_SKIP) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]=
-\tDynamic fpstate allocation was not isolated.\n");
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!WIFEXITED(status) || WEXITSTATUS(stat=
-us))
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("e=
-xec test child");
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0after =3D count_dynamic_fpstates();
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (after < 0) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]=
-\tCannot read /proc/vmallocinfo after exec(): %s\n",
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 strerror(-after));
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0delta =3D after - before;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!delta) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[OK]\t=
-Dynamic fpstate allocations were freed across exec().\n");
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (delta =3D=3D EXEC_TEST_ITERS)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0errx(1, "[FAIL=
-]\texec() leaked %d dynamic fpstate allocations",
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- delta);
->=C2=A0
-> errx() terminates the entire test, preventing subsequent tests from=C2=A0
-> running. Unless this failure makes it unsafe or meaningless to continue,=
-=C2=A0
-> why not report the failure with printf() and let the remaining tests run?
->=C2=A0
-
-Will do. v3 replaces the errx() with a printf("[FAIL]\t...") and
-returns from test_exec() so later subtests still execute. The
-failure is still visible in kselftest output.
-
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]\tDynamic fpstate vmalloc us=
-age changed concurrently.\n");
-> > +}
->=C2=A0
-> Thanks,
-> Chang
->=C2=A0
 Thanks,
-Guixiong
+Guenter
+
