@@ -1,61 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504168;
-	b=JSKOJrYawtf57Qu55nKgsLDhJP+vy7PwHx5nDn8x40lycrQ4J0sxNIAi10boGC3XvUb9
-	 hySZv5htLqYN5H8k7SL4DgOzTf1bo83bCUNIqufZ4hFWb3MYMOLpJy+54S3fo4KbGIPQ7
-	 d7lE5SC2ofe7M6MLvEB1tBUVmcz7mT3c7MDIZGFaeUuCJgj0MtZ4Pgc2HmERrg+IKKrqR
-	 Q45Yq/BLnC829T0wgXD/LZ4qa1zsZg4b41NllVv2PtDvBj/yF/apFOB7RBlLNGrJW0b+f
-	 OdsrQK0fCeEbJNTk/+Gz9NG04mVqm1tnbrTYCoRS9NIUGHjY+Ame1zINVWI3m/BDXNQ==
+	t=1792504185;
+	b=QCCyXxhZnXXn0c5o1ChTmhD24uyPty7+piTkBBabk8JIOw8qLtxbS29yC7chSIFS8NhM
+	 eYh+v0dQd5xoX8HLof9xSZ/lfzKqM69EyINL1FoTAf+9yDaH+isGK0x2Hk4wjf+U527lZ
+	 g7QbVIKIj2PR1ygSHqHo6LiytlQoWojL371PzlS4Bx99T37CSfZ/GjIh6QIMhi1dUcZCX
+	 72SBP0y4ryEiOJQ/9Mo3+Kq+CbZHve2WWjIII96to1hjHDwevNiOfkmKgJuD/mNF3actk
+	 JGU7FgncnXFXMeGN8cjjeIdrLGaNXEERsyuYyiWdTtedxHV/ervy6jHnatSzZxiRowg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504168;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Hvi3uCpaINsi13oQBA18SCLqYurMB7l3si8TGKYhMB4=;
-	b=Mx68aDFqMmQ0ZGXr3Sq8TmGi7xaAceHSN9/jkYYBUDOGU51/r2IHWcZAv/8RaO72Fubh
-	 WJeZbrWFvk5FaW+EnQGI2n60E5ebiESbQ+b4IQtTnw4sfdlFMFcwxUH+7Yu509Ubh7Kmp
-	 pncaNjbwoCoaX+ERyjtnN25adbX2nB1lVKmNJDrqt072BkjRwcsIHBAXtaUkpsFuhBeAU
-	 ovmNVtWIWQfc1poX0x7lrZpiN9oIlJUtTQKV0eizGuyX6VcbB3o4jxfJGCCB+IFj3cL3S
-	 +anloY0Eu+QJEAN3GXaxzj/k2BjBehe1ZoZHHDI4Ub7A7Y+ZD2wrPRov61mwxp48QxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504185;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JoIbT4JqQMzKpOCz4KsxBI33UMCOAPIEksfMpvE0MPk=;
+	b=Pc9Q99PVU2O+HijvDdezCu5cdYIgPBpwoxCTzKjX/VQrTYbyYXy3vIjvZGWEhopfmRdk
+	 aDVY9ImCSWmbMYutVJTtIV+IpfYm2+EYoWtLri0141/KXkepglW1jlLg33QM7XYv0XjfD
+	 9rY8td5xTo0iPvlLnsa1E1qi86iwvQqO1/neEoWZaZX9+lF0Cv9vby+jIi7HomCMV1aV4
+	 MDcV4YurHh10H8JbQE3eb8RWxGKZjX8wZzaauD8uPs2iYUDzPsKcxbqfmkprQJ8fICjzG
+	 nBJHzVckiKihOl/IbkCp4XGPXeHjgnDht0ymqU9FFq/eX7HQLqiTPrpaZd4k8WXYRmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=45.249.212.51
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=neat.no;
+	spf=pass smtp.mailfrom=neat.no;
+	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=INinuD+L;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684F760A2600;
-	Tue, 20 Oct 2026 13:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 684F760A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKn4XYNzYQtwQ;
-	Tue, 20 Oct 2026 21:49:17 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 9DC3D40561;
-	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
-Received: from localhost.huawei.com (unknown [10.67.174.243])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S15;
-	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
-From: Xu Kuohai <xukuohai@huaweicloud.com>
-To: bpf@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98710606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98710606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=INinuD+L
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so2761877f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=neat.no; s=google; t=1792504183; x=1793108983; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JoIbT4JqQMzKpOCz4KsxBI33UMCOAPIEksfMpvE0MPk=;
+        b=INinuD+LKo+9OKOtdGjGbo7MWNbUAjjpsQG8E16D/TiUlQacaIn1Fyn4LNaJmPFP1y
+         wwsjXgwrevLokg8J9WrMSe5iIRzSvK1BXvZmjG2xVXEYxXM5zsxB8Qly2u0sWdYpVK5l
+         xgTrvJcal75fuMRTWiSAC0V3t78Tw7EYViQx11hid/9OiE15yw/RkTPUMP/zCK8IX54r
+         +mLH81jCGC7Y8c3j0TYSjWZgjNG+b8I47pzqGzZnRnmtCMfy0vyottO7Oy1fjunB6N8u
+         5Cs34jzs2UXFaOyAo2ZDKvz/7coumkCHF7XiRoPVZTU2OjX7TofBr5pDzgmIXPuk9QYO
+         YsYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792504183; x=1793108983;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JoIbT4JqQMzKpOCz4KsxBI33UMCOAPIEksfMpvE0MPk=;
+        b=EO/72JSH/ySzvl240tudfC35WvwaAtPEKyYnaTv19lSqGFNcl/F9lgJ4TPoP8L3OXb
+         pL/y63aV0nT9ywfxyvz/nbVz7jigyf5EghHhzHLatPIpR8K3q7Az6anD3psaEsnPKK04
+         wXUCuASXjZWhyC158V6+yujMh3xZ6fIJdfm3ROjoL/yAYHMKZ18+hx1W6gzziQ/uvHVc
+         VS/GgbgHihf8G1ywC3XL4t2L4OsZIxcbJaWASEReTIksoAy4GiSGVF3aqnDM7Vvy3fHw
+         Mhnlx9/CwheZmp2UUEKA3+jE+NOVkwsth9nUvA3Tb8v/u2y9VJ20dBUQgF8WzhHn1nO0
+         8sdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlMk1EznMUp7BRU/PvWhyxJwX0Cd5eaLL6EAgDYBLw2BJOTaAxvCWsSpK6k3REApNlWCA1d1yq5M4ssUw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzbClNUf5GA47TfhUIZb7Qogvm9javp7T0BUeuMsIuna1OPxbE
+	NjRAy9u+9xherRModkwh2idVuWKTbMVTnCjndiQWoMcsz4Mz3pK3qs8GitFcFW+OFkbj5SA0WjD
+	fXXgKzK0v0rEVlfS/vuYDgoHcoaZeENBvSAPgsHqK5SDuNkDFeIGr3SbIHH0HOAjiyZchC8Qdgc
+	Hye5shxuoO7q2YFaV6aaHSyErNZxzhfO1nVwqpgebLJM112J2D29Kq3c798Jg02PsHbB0C23z00
+	orwVGkpoVVggS2z3eQ=
+X-Gm-Gg: AYBFou1iZLLM9sIywOQTY6+d+k17iYSRSgm2y5v5YaaT0v5LTmDto741DWMrG0VLo+D
+	u7ndhsgG7u4rexMof6EGuU+67nLvCOG1T2DU8MWD2mWZsEvY6Rw34SXARMCfcZpUSo5Sl6AWooM
+	+H/QaImrK4jrdKZU6MqjgVUXLaQI9x3fGEDs7qmHONoyxQsaCmUWuymhsXL186ZyNXpeLsTZdYo
+	BdGhnNJ2j5cDSJCMi1d2qTXgQR+jMLLwCARkvYEdX9n+ie8660hhtS2r8wIbsdPsjzALMWQYCkC
+	KF2exVk31C2ErCJMdd6UoOayvGzWpzUwbZFUo4SCdQ33ZVhH1ZR1icmv28nnLZiB0TpIKv9yln2
+	3ktY93nU124vosOJ6GyDHS2PVhnCpDstz41pjcoeuJfq1YdIIYbLG21sTInJ2ZmdZALlwewjMM1
+	kvmM3Oxq4jwPG+yVyAPOgkpHwKbaqIF7l7WBCN7dPG24Gd+siUV7s7liRtJ6WtJt+iRHh2JqNVQ
+	hjCimk=
+X-Received: by 2002:a05:6000:29ca:b0:48d:f498:91e9 with SMTP id ffacd0b85a97d-48e07bb592fmr17075762f8f.9.1792504182888;
+        Tue, 20 Oct 2026 06:49:42 -0700 (PDT)
+Received: from threads.localdomain ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80fea2sm6589469f8f.10.2026.10.20.06.49.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:49:42 -0700 (PDT)
+From: Lucas Tanure <lucas.tanure@neat.no>
+To: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Yonghong Song <yonghong.song@linux.dev>
-Subject: [PATCH bpf-next 13/16] bpftool: Emit the arena percpu datasec into skeleton
-Date: Tue, 20 Oct 2026 13:22:58 +0000
-Message-ID: <a579251a284c3dd4954c305a04346acef4ec4113.1792503001.git.xukuohai@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792503001.git.xukuohai@huawei.com>
-References: <cover.1792503001.git.xukuohai@huawei.com>
+Subject: [PATCH] drm/vc4: hdmi: write SCDC TMDS_Bit_Clock_Ratio before the TMDS clock starts
+Date: Tue, 20 Oct 2026 14:49:41 +0100
+Message-ID: <20261020134941.631907-1-lucas.tanure@neat.no>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,174 +104,75 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S15
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF4kZFWUKryUCFy3ZryUGFg_yoW5uFyxp3
-	WxGFWYkrWUXFy3Cw4fWw4UCryY9r4rX34rAa4ak34rAr4fXr4DJFWIk3WYvF15Kr1SqF4Y
-	ga4Svr42kry7JF7anT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
-	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E
-	14v26rxl6s0DM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFc
-	xC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_
-	Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r
-	43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1KFAJUU
-	UUU==
-X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 
-From: Xu Kuohai <xukuohai@huawei.com>
+HDMI 2.0 requires a source to suspend the TMDS clock, write the
+TMDS_Bit_Clock_Ratio bit in the sink's SCDC registers, wait at least
+1 ms and only then resume the clock. vc4 does the opposite: the PHY
+starts at the new rate first, and the SCDC bits are written tens of
+milliseconds later from the post-enable step. On disable the bits are
+cleared while the clock is still running.
 
-Emit the arena percpu data into skeleton.
+Some sinks sample the bit only when the clock appears. One HDMI 2.0
+sink we tested then sets up its receiver for a 1/10 clock and never
+recovers: a Raspberry Pi 5 at 3840x2160@60 shows no picture, while
+1080p60 and 4K30 work and other sources work at 4K60 on the same sink.
+Writing the bit by hand before enabling the output makes the same mode
+lock every time.
 
-For an object with
-
-__u64 arena_global __arena;
-__u64 __arena_percpu data1;
-__u64 __arena_percpu data2;
-
-the skeleton gets two data sections for the arena map
-
-struct obj__arena {
-	__u64 arena_global;
-} *arena;
-
-struct obj__arena_percpu {
-	__u64 data1;
-	__u64 data2;
-} *arena_percpu;
-
-and the load function points arena_percpu at cpu 0's chunk
-
-static inline int
-obj__load(struct obj *obj)
-{
-	int err;
-
-	err = bpf_object__load_skeleton(obj->skeleton);
-	if (err)
-		return err;
-
-	obj->arena_percpu = bpf_map__arena_percpu_base(obj->maps.arena);
-
-	return 0;
-}
-
-Other cpus can be accessed through bpf_map__arena_percpu_ptr().
-
-For an object with only
-
-__u64 __arena_percpu counter;
-
-the skeleton carries a single arena_percpu section
-
-struct obj__arena_percpu {
-	__u64 counter;
-} *arena_percpu;
-
-Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
+Fixes: c85695a2016e ("drm/vc4: hdmi: Enable the scrambler")
+Link: https://github.com/raspberrypi/linux/issues/7693
+Assisted-by: LLM
+Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
 ---
- tools/bpf/bpftool/gen.c | 69 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 64 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-index ee680f7c2116..8a321ec1155a 100644
---- a/tools/bpf/bpftool/gen.c
-+++ b/tools/bpf/bpftool/gen.c
-@@ -132,6 +132,10 @@ static bool get_datasec_ident(const char *sec_name, char *buf, size_t buf_sz)
- 		snprintf(buf, buf_sz, "arena");
- 		return true;
- 	}
-+	if (strcmp(sec_name, ".arena.percpu") == 0) {
-+		snprintf(buf, buf_sz, "arena_percpu");
-+		return true;
-+	}
- 	for  (i = 0, n = ARRAY_SIZE(pfxs); i < n; i++) {
- 		const char *pfx = pfxs[i];
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 2cc46036f11d..abab7a10fa12 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -812,9 +812,6 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+ 	if (!drm_dev_enter(drm, &idx))
+ 		return;
  
-@@ -326,6 +330,14 @@ static int codegen_datasecs(struct bpf_object *obj, const char *obj_name)
- 		}
+-	drm_scdc_set_high_tmds_clock_ratio(connector, true);
+-	drm_scdc_set_scrambling(connector, true);
+-
+ 	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
+ 	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) |
+ 		   VC5_HDMI_SCRAMBLER_CTL_ENABLE);
+@@ -919,8 +916,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
+ 		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
  	}
  
-+	/* expose arena percpu  as a separate data section */
-+	sec = find_type_for_map(btf, "arena_percpu");
-+	if (sec) {
-+		err = codegen_datasec_def(obj, btf, d, sec, obj_name);
-+		if (err)
-+			goto out;
-+	}
-+
+-	vc4_hdmi_disable_scrambling(encoder);
+-
+ 	drm_dev_exit(idx);
  
  out:
- 	btf_dump__free(d);
-@@ -1511,11 +1523,58 @@ static int do_skeleton(int argc, char **argv)
- 			return %1$s__open_opts(NULL);			    \n\
- 		}							    \n\
- 									    \n\
--		static inline int					    \n\
--		%1$s__load(struct %1$s *obj)				    \n\
--		{							    \n\
--			return bpf_object__load_skeleton(obj->skeleton);    \n\
--		}							    \n\
-+		",
-+		obj_name
-+	);
+@@ -948,6 +943,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
+ 	if (vc4_hdmi->variant->phy_disable)
+ 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
+ 
++	vc4_hdmi_disable_scrambling(encoder);
 +
-+	/* The per-cpu arena data has no mmaped slot in the map skeleton.
-+	 * Point obj->arena_percpu at cpu 0's chunk once the object is
-+	 * loaded.
-+	 */
-+	{
-+		char arena_map_ident[256] = "";
-+		bool have_percpu_arena = false;
-+
-+		bpf_object__for_each_map(map, obj) {
-+			if (bpf_map__type(map) != BPF_MAP_TYPE_ARENA)
-+				continue;
-+			if (find_type_for_map(bpf_object__btf(obj), "arena_percpu") &&
-+			    get_map_ident(map, arena_map_ident, sizeof(arena_map_ident))) {
-+				have_percpu_arena = true;
-+				break;
-+			}
-+		}
-+
-+		if (have_percpu_arena) {
-+			codegen("\
-+				\n\
-+				static inline int \n\
-+				%1$s__load(struct %1$s *obj) \n\
-+				{ \n\
-+					int err; \n\
-+					 \n\
-+					err = bpf_object__load_skeleton(obj->skeleton); \n\
-+					if (err) \n\
-+						return err; \n\
-+					obj->arena_percpu = \n\
-+						bpf_map__arena_percpu_base(obj->maps.%2$s); \n\
-+					return 0; \n\
-+				} \n\
-+				", obj_name, arena_map_ident);
-+		} else {
-+			codegen("\
-+				\n\
-+				static inline int \n\
-+				%1$s__load(struct %1$s *obj) \n\
-+				{ \n\
-+					return bpf_object__load_skeleton(obj->skeleton); \n\
-+				} \n\
-+				", obj_name);
-+		}
+ 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
+ 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
+ 
+@@ -1555,6 +1552,13 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
+ 		goto err_disable_pixel_clock;
+ 	}
+ 
++	if (vc4_hdmi_supports_scrambling(vc4_hdmi) &&
++	    vc4_hdmi_mode_needs_scrambling(mode, vc4_hdmi->output_bpc, vc4_hdmi->output_format)) {
++		drm_scdc_set_high_tmds_clock_ratio(connector, true);
++		drm_scdc_set_scrambling(connector, true);
++		usleep_range(1000, 2000);
 +	}
 +
-+	codegen("\
-+		\n\
- 									    \n\
- 		static inline struct %1$s *				    \n\
- 		%1$s__open_and_load(void)				    \n\
+ 	if (vc4_hdmi->variant->phy_init)
+ 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
+ 
 -- 
-2.47.3
+2.56.0
 
