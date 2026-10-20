@@ -1,102 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483517;
-	b=xHX3camtbikk7Xttz/FgP/M5qwV6vClpYeqXbonpHWe3yywyDNMGWmdchvZl8jJHGPRP
-	 dq95xRwHDIH3St3YpR/7WZNDC7qMv6U54ZrPzuFJ5m+mV/QUds/rpzaO9DlOzsNEZMKqe
-	 0YOWtmhpACFbJowz/FJXqAwM+ZjlJP9n5btrhRtRmS19tyYcqlB5bOINSYqwFKb0mhBNf
-	 k2VQO6FJiridqwQ8K2d8FmqFIY1XaZ8JX7DkA9bXnvsGOF8lKBrNxAI9ZgMKUBw4k78vB
-	 jiFDmBqGv0MFFtUT7TwqnE9xvpxjdupEngnXPf4E2+pP74fGWtaqQR8Gua7qJiaaeuA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483517;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GPg92EprU8pd6RZNS84knIcONGEuxb3GDBAmGPh7pqc=;
-	b=ezf2wqEu/le/3YxilyvtF4jXBvIz1KhYXsDg58dreWBewZKrTIium9y/1Vb3mc6SzaNM
-	 EvuqO/mNOnLrExscs2E+RoOJnKoGAoEI3Z4cQtxL/4Kywe0dK3ShyqWdBbYbQ3qCIdjSE
-	 lurEdOvPiz0otQcF41WhWGGZ+X7v8RurCUsfj+1vpWEDEfK0rm97J89igWKG3onDJTONg
-	 IBY5/Xd0ukkD6Ee3NUlfWapk3Pxh7yb9N9UrrpJKsNr/A7t5wU+KWWxwY3WoC6U5nrQeJ
-	 4E3uqLWNXOT52G+6SWvRvz40LE5bKePPX/1A4AeWH2xCCHuO2rwvzYg68S2EGXuuotg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qFKnXVQ1;
-	arc=none smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792483571;
+	b=cwDxZMPjbqotoHFNLwm6uaKKOeV8jeCUHZ+6K4QNNixzhC5ZeZnvZk9gT6wVVAS3ZSmc
+	 ma8keNRiWun3BqCzOjwjy0+XftoyE0zBqt4TjW+NzQIzEHlbb4VV3LI90uD4b/rL0h69Y
+	 AgyssOedaadisZlTA3oFyroeuvYjmggsOwnC8hpyMiNVDhp3oVX5aX6lRsnuAxq1h42RB
+	 3T0zwjwA1kascKVdn94JsAw/3AGHMmkKuN+kfzFqWF1NWnyvdz3fw6zMGkgJRDH9MHEFO
+	 K/exph2fIyaXzbGqQz6oZq9SKmXOCO55YX7Rc1EXh9QZ6AsUy30XuQpI0tM84WLrnKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483571;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Kq2hb77e59jXCvm+vum3diAj9PrESCNjUYLmNW0/uQw=;
+	b=uY1XrSGfpanzhYnTJ5n06nLo6OOWYt6XFpccVv3zZWYsbMzB5IVPniIw9oELV7lNptYO
+	 F9MhIf7e9GGdZmIOoVHwRs7iUsUHsiB6ayv3sE46Sid7kf57yMIoNrgOD45if1sMTPG2O
+	 HprpZlZ5G1aac+SdLe5A2VQDj7S5aDeGCzXQOUcp7uH+rFGkzx/p37ANsfl2GublKkpSq
+	 Cl3hPq1mqNpOuN9aq8uHb6QQ7XbXe5o1PlfPKv4NyVDWUY96S9L5oe/wU9Ard1mQqOjs3
+	 eH5gjOJgmfVKFBiQY5SHY2XPkMi6kTIpMGG7HC0Wc06/PJauX8OkzuPx70Kllpsy1Sg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIu3FZtd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DB6606A319;
+	Tue, 20 Oct 2026 08:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIu3FZtd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792483571;
+	b=xjwuHrk4XXmOmXP3WdHJ8oCmRPrqublqW0wXrkxf8QmQitt6eeqeSdN81aIi45v7N9Me
+	 KA6gdq7mCJeu2n3hXNl06spgkNCOSgGSOPsy/Bjn/UMwY3Ex/V6L2+1XOhItzytW/ipWa
+	 y/oF2jBOboVzs3SbM2V2IsYxjht/pgT5Vj9BYEcnrqk1+jOt93vwSNIX7NDyxHm9/Kojp
+	 8J4AKoiVvfIoDtwywtD7JUlc/MwFIe/bR8tlMzcr6zF4tj5a93+PgYekFmgP5I6M7sokC
+	 fjaAXc2Ti4Qgj60qkQos5kvgzodRUmTncsXuGBk9R8AS8nEj6ouOcKIVq4blqxSiAtA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792483571;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Kq2hb77e59jXCvm+vum3diAj9PrESCNjUYLmNW0/uQw=;
+	b=O76jto2BJyNsJMxnfbCM/2hJcromIPaRpFp+F/hPQGOS1Gskmd7oEyTKw0f/tP8b2glF
+	 jiDvsKwpXAhTf+h0vExMFqjAY1CwxV9atsl/oRttieXD9kDOTEygDX++SeLwbhc8QmEO3
+	 ohtxFm+FCu4ZSF9jtdt3UrH+VInciV6WPMouzRriJTmprvz/j51+HfSt2QEATI3oup2CY
+	 FlN8UAWjvsl8NG3HHgsSoG+P+yLR0vzoNe4Z6dIvL2ZISreYX9TalJ0o+BDtsKQ3kFlxu
+	 vMATpjnOYWLquETrVdmZgb151DGK26W3VE7efT8r0DRmKasKB0raM8xB5kcnVn8O6mA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E59B606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E59B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qFKnXVQ1
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bce4e278baso549849e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:05:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792483515; x=1793088315; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GPg92EprU8pd6RZNS84knIcONGEuxb3GDBAmGPh7pqc=;
-        b=qFKnXVQ10drmnI4HN5aRXpeaLOJkYq9Tab1fnPYppELjXVdHUSWEp+Dk1VNn5ENReb
-         VwzP4JUSbupg4lvvQzvzg/36LSOMH7gG/w2Qar9ZI+ExP48nYy88fQzt3H5bv0FTd696
-         eC3KQ4TvONuZEL5tLNguddcsvPPss71h1Q6yJHss3ENVEYtGTHxETQAgx1ETPlL4Purg
-         LbiCMljC6M9zRqzNLy6pMf1A8jNVxhOh/w9t/OPaxi76TTDqxbPF0Ez44yM3cxkVvwe9
-         Mj6KMw9v9eqeb4tv+TcsTCSqVk0BqCRhIEqNB981XV21I70KGJpxyRNW0dmmwq9//noK
-         rvSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483515; x=1793088315;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GPg92EprU8pd6RZNS84knIcONGEuxb3GDBAmGPh7pqc=;
-        b=QX9DxCbplLjin5NrtJMBKXgFM88WNe+p19wQ/ot6NK8AlOP/jmLCoqW114eC7Dr9ro
-         jGndtu0JoDcDF23OdNm9yIBB8BOgR7sbasnv6mjE8DGrFu2sOsR0GUkWPVwV24rAYD2p
-         X0O4kMsgiuhYrCi+DYKPV7fzQOyB9QIFMq1GALtYR7hICCYu6i0j9Swkchl/7Jj9JZdn
-         9RrzCnSSN7u7mM+UuTexcO0PSpDtHjS+XHXrLJEuvvZ7NqUBd0w9EZV1/Z/9EaY43Jk5
-         UoSB3p8XIrqJr+YQ9dVG+bLhh87BZnxY5tliA77aVCHDYYYOqwSv2NUDqUPJD/dRQil6
-         l82g==
-X-Forwarded-Encrypted: i=1; AKwUvByPATqpifbZDsAPy0Zj3+aoMxvbNZGhfvtPJ05KE1QqWmPq7b7chnUvYjWXJEdBIKk9zXhC8jnu3+kebCg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3jt1WFpczqu69nzS2Exc/ssBqfZHGSl+hQrYmxY0sbe02cNj+
-	lwI8OHhOYoXDuBUUwnX/7QVFiinmNGX/2XXu36duCeu0RpvUZzlGmiOQ
-X-Gm-Gg: AYBFou0Y0M4OFLu0StjxH6S7ZENrlqT8/zdzjSoCFSw7LZ6swAxK8fcb9hyxai6oQOp
-	ngfu4ymjOp2obfUae9kYTNSqoX1LyjtWJ84812VvYtV2yZRvjBuIfaVOsfHt9xT9Q4rdOvqRgB/
-	fa8wxrXPzcAYK22XW6JcUtTZuowX+k4cf9oK+IA7db2Tyc3WO3hTE612yJFJOOn5iPJRvx20Cw7
-	ah8ZmlsMprQDiw7BfJwgmbnxbIfObI3eWICRN20CmAI/BIL+LmfwgfsoBZ26QqFJKEhZjusrTQ4
-	gLJFWJKMfjkQrsRYECAqN23itbRCfGkpOulCpOtonnDIhLEYJtD7AJzaWNhw3O6BG4PfHVNPsGc
-	3nkNvaSaY0lcPrRYjH/qxneBMWSQokg7y8NbNrWTu6SM+AWKyqnoeUVebylFdum0ldEkgmEB9sk
-	2W9VSbSkhAEdDXj9nd6iEv/zFZvvMRWFP7Lp60yCe3zY36BK2x6q9/2HpN9kf1EFTJQo0QOS5Qj
-	6BqG9PmHg==
-X-Received: by 2002:a05:6512:104a:b0:5bc:f2fb:f4be with SMTP id 2adb3069b0e04-5be66a23f9bmr431809e87.6.1792483514495;
-        Tue, 20 Oct 2026 01:05:14 -0700 (PDT)
-Received: from grower.astralinux.ru ([38.74.72.197])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a42b330sm2424863e87.15.2026.10.20.01.05.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 01:05:14 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: alexevgmart@gmail.com,
-	co+0ea1ac045375cf05@bugs.sh,
-	davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	xmei5@asu.edu
-Subject: Re: [PATCH 5.10/5.15/6.1/6.6] vlan: require the MAC header to be present in __vlan_insert_inner_tag()
-Date: Tue, 20 Oct 2026 11:05:05 +0300
-Message-ID: <20261020080505.279102-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026102010-hazy-clear-1f06@gregkh>
-References: <2026102010-hazy-clear-1f06@gregkh>
+	by smtp.kernel.org (Postfix) with ESMTPS id 280B81F000C8;
+	Tue, 20 Oct 2026 08:06:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792483571;
+	bh=Kq2hb77e59jXCvm+vum3diAj9PrESCNjUYLmNW0/uQw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EIu3FZtdE90Mxq/JyuSsIcLmmXjV8q67DLLmAruwJtPxCIhwUIkFkqwSTSkl4Su4s
+	 /HhU2UUzVOEbUmRVaUPtaUYv+N4NK/GURYli7YjrsRSVhC5CQU+Swxms6AKOCtT91x
+	 2S9Ym4dfEB9RUYE/GG5/bNqtad//HCXZRCY+Lq0rDH73Qs+fMSyNq+eKjLs/bvFrrp
+	 sIgKdCtV4Iajbyaw7CDou0dE2AOR5Mv1O60GU7UhjawrIqMsp0pO2PgICU0SE0CrE2
+	 P6vK4xfsMErignY4XVKjdWZUq+2yz/xpjgohYoOy08jnmcqfVRRaM6VpxPFI9/KFW8
+	 b/iMPDVLFJLng==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 62A2D430BB;
+	Tue, 20 Oct 2026 08:06:08 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Tue, 20 Oct 2026 10:05:51 +0200
+Subject: [PATCH 5/5] ceph: keep LAZYIO with the read caps of a closed file
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,13 +82,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-b4-wip-ceph-lazyio-fix-v1-5-f4cc62459d37@clyso.com>
+References: <20261020-b4-wip-ceph-lazyio-fix-v1-0-f4cc62459d37@clyso.com>
+In-Reply-To: <20261020-b4-wip-ceph-lazyio-fix-v1-0-f4cc62459d37@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483564; l=1563;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=vCRKa1jTwTRmyvIPqElXVacQQHdBR1gNvKu9DI1jLQE=;
+ b=Z/Hs4K4lnERsSrvgustj02cukELiGN4Y+hBDpPlHF02CYvdciuRLbk+RUlhqGv0YUZ9UbMxQK
+ uE+l9Vl6d98BXkY8M0bnd+BV78Pjd+GNp9uJSwzQbQo/FFbOI6K6k2s
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
+Content-Transfer-Encoding: 7bit
 
->> just a friendly reminder
->> 
->
->Of what?
->
->There's no context here...
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Of patch, which is first message in the thread
+A lazy I/O open of a file in LOCK_SYNC gets LAZYIO issued along with
+the read caps.  Once the file is closed and its wanted caps lapse,
+ceph_check_caps() keeps the shared and read caps of a file that was
+not opened for writing, but not LAZYIO, so it sends the MDS a cap
+update for every closed file only to give LAZYIO back.  With the
+lazyio mount option, io500 mdtest-hard-read sends about one such
+message per file read, from about 60 seconds after the reads start,
+and the MDS serves the reads more slowly while they arrive.
+
+Keep LAZYIO under the same condition as the read caps.  The MDS still
+revokes it together with CACHE when another client needs the file.
+
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/caps.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index 49e5c1c36b68..aca09351a094 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -2266,10 +2266,13 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
+ 			/*
+ 			 * keep RD only if we didn't have the file open RW,
+ 			 * because then the mds would revoke it anyway to
+-			 * journal max_size=0.
++			 * journal max_size=0.  Keep LAZYIO with it: a lazy
++			 * I/O open gets it issued in LOCK_SYNC, and giving
++			 * it back costs a cap message per closed file, while
++			 * the MDS revokes it along with CACHE when it must.
+ 			 */
+ 			if (ci->i_max_size == 0)
+-				retain |= CEPH_CAP_ANY_RD;
++				retain |= CEPH_CAP_ANY_RD | CEPH_CAP_FILE_LAZYIO;
+ 		}
+ 	}
+ 
+
+-- 
+2.53.0
+
+
