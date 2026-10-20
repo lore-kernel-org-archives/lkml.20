@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792462122;
-	b=oZ7ml4TQFo76fR13jLWrf7rEBV4eck/l5X0XP9TSqtztmho0xCUnpLaEPkqxGksS3Tbx
-	 VL23Nlhy/iLKgX0rfCVtlRn1jDXSWMZm7ygq7nYCnEQEYH+QINQa0NspxJfS+9UKldAAm
-	 6wXdC33JCWEDsZ5K67sMuRhAVqurLwz7UL6U3WPx92L4QejtE7+h+nf4pNOPm4Q5hsgmc
-	 39Eogsib8gX7xwxPKtBP7/05O2bNgBTj5+IqXAb8RZt7BIK7cgtKzy94SPLDnIraUsUWS
-	 yD1IIiGt5m7nAShi2mdmBcHAydjH/h9WtHyV1V9QX/F4fxQSNz2wR9T9ol3u9Q1/cNA==
+	t=1792462146;
+	b=lTZkNBbRVeUKCyZqo/YSa+TNY9uLQChc6WnFxgfuXP+GYCJG6LcK2aotA1Rooq2HoSsQ
+	 //GsIF8HOIQ0O28z4sa+luAEGtllvJ7MgoUCINNckbv3Fd07URcPxZW45BKohWS8AcO9r
+	 RXWz8VMBHz0mOVtJLBKNBgvZ5oPMHiXoVDXRvbs+XLUDBVDhzj3ujsvI1bDvG2e7elTzH
+	 qrkyr0k7YVMar8dPK+P4h+YXAhkVbT1koE6QeOBZncVhoBnztdgCLh22T5uvFEUnjFXeH
+	 URyrVhOBOkADoFt//DswW99WaS1+PLM/l227cxp0HNUNVjhOq9tONQJU60RoPDkrCBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792462122;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=NXY+q9Ti+/mmY5tIeLxmwKBspdSM1HbHB0dQsHfLd0o=;
-	b=Q1vAsMOePYEjPpYVchnvpe5byBsqkZhAXWscrvyAAi5cgrd2glvbBK8zi419oyTe6AZP
-	 Iedcu73UsIbHd02ikt1xfRaEAkWblvdxCuCQ7Pf4mh7LioOuBhFiBq1S3dNonzxM2EQp8
-	 yv5/jH/emr+Si3w7+Ed0CbjALllItotFuCAYZGTNVxFtIPThckxWoHenIwjii2ZddMBKy
-	 PFKWgyTQHFB4sWfloZoS5HEgmXfTpkcI1L3qpJ5rJ8YJ+aTgOcS3+aRqHPNDdpRjqCDSY
-	 F+LJfHr6AnmrOeuxz6goF9B/Ezjcmcn1L8CNLito/qCzcmfEI+7iXHYmvSMgetz7kaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792462146;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TeZxHpGh3vWRRTaeJFYcxVxI1elb8LVFe44ig17WH2E=;
+	b=HngU5KL8FatzZmWMRk1elWR/rA22UkRQUFxFDFzBaGvCjCsJnXl/uvMMvDdotsu5iCM0
+	 5IoXT6jSGpkmYuGtRoV05R6oJt5VpW5SPqzifuF8OwFC+sX4GCHb6HUCxor7D9U5t9Pv7
+	 tgq6kQb4ybPtYxlZNCxM4GI0UMXNoV0Q5Yfq1BIPnoXjuNz/qxGvCU2P+dtqjGLrzWMX7
+	 PM3H0miH2reHWpeDjB8mLAbtvhB3d2Y8HvB9keWRFq2kkb2EIJ253D+zZSFiBXYQBIKG5
+	 VPYbfhl1JqaairEqM4t/+aT5u46SPwlRDpPz4Xquc3Et7UxMgk++fRDKmpYzyNBA9Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QvKm9dq4;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CEF606A319;
-	Tue, 20 Oct 2026 02:08:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76CEF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QvKm9dq4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=NX
-	Y+q9Ti+/mmY5tIeLxmwKBspdSM1HbHB0dQsHfLd0o=; b=QvKm9dq4gQwTMMPMxv
-	OB4HHBUAQRb4mbKWZivNxBudF7mF6WH0K1jFS7B6eisAnJNzPGlPdORH7pip6xbH
-	0fFBSZ00HuJm874aFqBk4abe3L1I0K7JnahhRPUniLcPPM+Ol/IAn9UdkKaKKMhK
-	90Mjdx3zMFH+fdzDfui9sQRWE=
-Received: from shaos.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n_oVzdZq+DKuBQ--.57043S2;
-	Tue, 20 Oct 2026 10:08:21 +0800 (CST)
-From: shaos <shawnq1@163.com>
-To: 4ncienth@gmail.com
-Cc: John Stultz <jstultz@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] timekeeping: Require permission to set auxiliary clocks
-Date: Tue, 20 Oct 2026 02:08:21 +0000
-Message-Id: <20261020020821.1400277-1-shawnq1@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019080324.4147815-1-4ncienth@gmail.com>
-References: <20261019080324.4147815-1-4ncienth@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12148606A319;
+	Tue, 20 Oct 2026 02:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12148606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 336331fccc2b11f19a56ed5b684f684d-20261020
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:9bb30357-dc27-4730-a0a6-f1b93114ffbd,IP:0,U
+	RL:0,TC:0,Content:2,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:2
+X-CID-META: VersionHash:7db8b62,CLOUDID:ce2317bdb65c040030a3bf03e4371919,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:4|15|50|99,
+	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 336331fccc2b11f19a56ed5b684f684d-20261020
+X-User: tianyaxiong@kylinos.cn
+Received: from [10.42.13.21] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <tianyaxiong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1420643749; Tue, 20 Oct 2026 10:08:54 +0800
+Message-ID: <be63bc89-0a3a-4617-af78-587f8746f0f7@kylinos.cn>
+Date: Tue, 20 Oct 2026 10:08:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,28 +62,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] ftrace: speed up module enable by binary searching
+ module symbols
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: rostedt@goodmis.org, mark.rutland@arm.com,
+ mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+References: <20260916082715.320853-1-tianyaxiong@kylinos.cn>
+ <undine-1792423513137811483-832e0e20f49f84bd@undined.local>
+Content-Language: en-US
+From: Yaxiong Tian <tianyaxiong@kylinos.cn>
+In-Reply-To: <undine-1792423513137811483-832e0e20f49f84bd@undined.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n_oVzdZq+DKuBQ--.57043S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZF18Cw1rWFW3trWUuFW8Xrb_yoW3WFb_Xa
-	s7WF9rKw1ktFZ3C3Z5GFW0g3yrG3W8GF15AFyrZ3y3KryxKr48CFWDZr4qk3W5Ja9I9F9I
-	vF48X3WUGr1rujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbxwIPUUUUU==
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8hbI1mrWzRbK-wAA3o
 
-I tested this patch on x86_64 using QEMU TCG, with the reproduction
-configuration and PoC from my report. The patch applied cleanly to
-c03c1a14507dfaf8b856c2608f9ac216021fc222, and the kernel built and
-booted successfully.
 
-With the patch applied, an unprivileged process (uid 65534, with
-CapEff=0) receives EPERM when calling clock_settime(CLOCK_AUX0) after
-the clock has been enabled. An additional privileged control call
-successfully set CLOCK_AUX0. The CLOCK_REALTIME settime and
-CLOCK_AUX0 adjtime controls returned EPERM as expected.
+On 2026/10/19 23:25, Masami Hiramatsu (Google) wrote:
+> Hi,
+>
+> On Wed, 16 Sep 2026 16:27:15 +0800, Yaxiong Tian <tianyaxiong@kylinos.cn> wrote:
+>
+>> diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+>> --- a/kernel/trace/ftrace.c
+>> +++ b/kernel/trace/ftrace.c
+>> @@ -8010,11 +8011,137 @@ void ftrace_release_mod(struct module *mod)
+>> +
+>> +	/* mod->kallsyms is not replaced until do_init_module() returns. */
+>> +	rcu_read_lock();
+>> +	kallsyms = rcu_dereference(mod->kallsyms);
+> Consider using rcu_access_pointer(mod->kallsyms) or
+> rcu_dereference_raw(mod->kallsyms) rather than a transient
+> rcu_read_lock()/rcu_read_unlock() pair.
+Agreed, I will use rcu_dereference_raw() and drop the lock pair.
 
-For completeness, setting the disabled CLOCK_AUX1 as an unprivileged
-caller also returned EPERM; the permission check runs before the
-enabled-clock check.
+>> +	rcu_read_unlock();
+>> +
+>> +	if (!kallsyms || kallsyms->num_symtab < 2)
+>> [...]
+>> +	 * ftrace never came up, where the loop below would not run anyway; that
+>> +	 * also makes reading ftrace_disabled without the lock safe.
+>> +	 */
+>> +	syms = ftrace_disabled ? NULL : ftrace_mod_syms_alloc(mod);
+> Because ftrace_disabled is one-way flag, if you find ftrace_disabled here,
+> you can return from this function soon.
+>
+> Thanks,
+Right. I will check it once before the allocation and jump to a common
+out_cached_mods label, so ftrace_lock is not taken at all in that case and
+process_cached_mods() still runs exactly once. I keep the second check
+under the lock because ftrace_kill() can set the flag after the unlocked
+read.
 
-Tested-by: shaos <shawnq1@163.com>
+    if (ftrace_disabled)
+        goto out_cached_mods;
 
+    syms = ftrace_mod_syms_alloc(mod);
+
+    mutex_lock(&ftrace_lock);
+
+    if (ftrace_disabled)
+        goto out_unlock;
+    ...
+ out_unlock:
+    mutex_unlock(&ftrace_lock);
+    kvfree(syms);
+ out_cached_mods:
+    process_cached_mods(mod->name);
+
+>> +
+>>  	mutex_lock(&ftrace_lock);
+>>  
