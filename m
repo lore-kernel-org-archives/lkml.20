@@ -1,140 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792534864;
-	b=B0L6V7LdKdOzeqqg/m8kw6PDGAPZ6mmM0E4g/cHgoWkn58pUC/2bU8A63c4BO6ohMdzm
-	 JO018eSvjOhj6oji+K9sO3CPqq7IwzCdYrQuPzcKaLk66DnVygCeZ79PuV5YE0wvEqsN4
-	 2b7l+eu6n0O30rOFGyu4PY1Yfz5EeDjpLs78t92Zwh2PMTixZ/+j2SzeL2ZoBb8RVngmd
-	 wFwtjIr9LG60aPsk1/y/invQvyCYqzKHJWMpt2G/aB5y++Cru4yUSkjMkdxyAqazzKSjH
-	 EHvzU4Oa19HulXW7SZiTU4VRNpEckwgOpxxT4KU4JE1FkBopFLU91eLcPYoHSFiUPmw==
+	t=1792535038;
+	b=gGi5QTQZAZb7PDFXVusfchgp37hCNHd/gXKW/5CDPNXQRbeyNdS87VpKXw7yuLgkEpnk
+	 g6//G8VO1T+NEYtTiAJJ+uIerVifmPiPT8OLSG80Qjf5jFzr9bc7d5X0Xvx04RaXrvUA4
+	 kVKgVvTo+M+ishUmvK+McfzCEfK/0mJkD31xHOfn1hEt2ve4bF+XKiBukWDV1hPvHa1/G
+	 P2gC/t9znBpO2AOFKOyvu7CtPQzZSGn+AI/fKXmasaJZqoQvCl8bGwfT2aBe+8xGfGF/e
+	 89NgU94iP2G6yoVzEyB0i9fXMD2EeEvWX2DfNBC2Cv18iHI2EAcqxiwvlanP/VzbZ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792534864;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=pghdpTVdNq2MZRY0h0Gn+vje5VJFjDa/Zt8muo4zdOA=;
-	b=zeTnKhacZyGLQNz5PidT84Q6dQG2Ii+OcOi5UFkQAatbmvSKIPyaq0do/uP6QX4d8wFZ
-	 aEjsbHxWxLyFFRiCZrvCxApuY5/pjBm5Xa1z0H/Rmj0gbFKAtsyjTd1lLSqZnhKOMEx48
-	 u0E1ACxGQAM6FIKNzvuaRCjU7FGFwKvmPsP5YYUqw8WZCJi1fNW9n0Ci25PrqfN90Dels
-	 PgVdR/l9VYynfp7xuM1CE19eqa/e50u5i2EMSbY+Vi1wfhMDhobRNUk0lH8rQkJGZnc3C
-	 tIp+HREiFlvyt1KCJxXROcs3kp7QY9LgsuV1z1jr8a+G5iKOMwuwKbv3Q1yLRO6IYog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792535038;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=zgopDG4n/rFNaM7xk6N+YvJ7dhBJ5rpyuZaaQEwCtYY=;
+	b=rqbPyNeF7D758TGrsm0ITShnxtJh9Y0/Sft5fcUij2CVTHk+vFPCirJ4hcVsjW8ZGCrJ
+	 HDwXKWF4bh+ZLUyyNM0PCw793/M1mY71fLE3CFmAVFszOVvWcAC68Wcn2c/lRzeVXdyqi
+	 3mskBgg5pxR/baFP1MsdDbbmYRnyvK+DUQez+uma0AeqCMQ7B/vrOYA5KPECyhu3yWJCe
+	 NKusUqBHdf6DN7EvYj9u/Uf3OWB23tCJ/M9xWYyRJ5HWuDhA788LzWjPadmBZC/RC+NP0
+	 Yhrzp8Ocv9f1J1d6V+qG8b/BXpeeRV1e7zwHwVWxq1iawmQfrvfGKms7U7KaV03oB+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=vngB984g;
-	arc=none smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CTGoFUUo;
+	arc=none smtp.remote-ip=95.215.58.154
+Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5831606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:21:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5831606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BCB606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:23:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83BCB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=vngB984g
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b0f59a5fdeso1340497b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:21:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792534862; x=1793139662; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pghdpTVdNq2MZRY0h0Gn+vje5VJFjDa/Zt8muo4zdOA=;
-        b=vngB984guw4e/6yXsRFA0mI/1yvZR6zowP/Vyp8TvEB+TLQfLP0noNJy75rnmfeuwc
-         CCyvpm4I+jis5wvfVr8vDph1j/EgYVKQF546Upf7Y1E1DhL+2LGOKiJ52PbNwlSINjVQ
-         qsiX1XMyygB8vwGOGiwB8s4A2mJ65FCO/sRQZ+c5qZpeezuUN1JQiTb3H8v+IRBb7HzW
-         JTE5BZ3/FoZVuJ8Ui6gMuO2wup7/sBWyFW/I7rTuzANgC3S6eZlraTJi6azIPctLLVIm
-         ZzZoLUJEMvwwn92r1dt4fLDOiXezmkOc6KD0RHgJ5V1Fs1GLPjW1gQccZgPb3BiO/SLv
-         3AVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792534862; x=1793139662;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pghdpTVdNq2MZRY0h0Gn+vje5VJFjDa/Zt8muo4zdOA=;
-        b=1hZS5gulNVCNWxqMiqq1V19vLcZ3PUT8EzfIs7ze8DPv6nBL4cMwZ6mgGDQBcN3X9c
-         uOQLHcVTZuvF7LFTkTi8Xp+tg+4KP3oIQZ197l3PTIJ3N7EheOmLy5jbyhM0UE/CBODc
-         RBjJflTcwypqyXrbdPhuhXYyxThJqxW7CDdcbL+JFTyiTC+cdAxwYOvtWEYjngmIu6gs
-         M7X2Q6GlLJa+beTrwAd62e2ugmHWCHurhPZVOHloINTxPnsOX47+03b5BGVguH+Z27iv
-         rPpZkA3NIg345auJw1HRW/Q/J58xgX8zJS9tTUiFVaVIQm3kGPjTefwxb0Q7LUXCJmGE
-         8kjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9ty2f06WoEs0dmKEgTflYWj4DSE0e+6y2u9MX7FhXY6L3w7YpO7Feg1U7p3DiVOzOgnDY5FJ2e9GuaUM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJU5f4AIeUu8sEA6MR6af5kcJ7/tOlAsRhKaux1usnxqtHRLPXr
-	tbY1imjQLMbihltnGMjZ4vkn2aCgL3na+Ucvd4XjTiFoUTZ/k8oWcTkqKXhPRKuekr0=
-X-Gm-Gg: AYBFou1GLqeQgfS794wF4C7bj48rYP9CURIIwcQS0Zaykxw5at9cLpkUUVQwq9YbVU1
-	8YV/hygXpckzg5lLrMdwT30M1NbRcbyoOJSIKV+Ef78MaCK3ncXKg5oSfp9AcfQ32+SqqNqpidx
-	jpUm7E7ynN/HKrlRtlJY77zAdw6+SMZf4KHMwWZz5rSD5C3i97DMJd69aj26COc1KIKoJ8h8qbD
-	n80cMIoXWjXvMv2s6iJG1/dZZLYCBkC0TW7hxr5TSrUjn3TwC/71P0I8Nwlg9vYBy7uts+FBi6m
-	Typg76cforkeCxzg2xCa9b+uwbZVUx03vKwn0o25EuljSqbMkrbNwhnWoeVNjD9+oN/EvgBu9vS
-	OgnDUazketNX6Ao42iJxPsHOAWnhexiSCpYk3Pd78AVr7IpLxVKmUj9LazHDEkQSdZli9p6DM4/
-	x/BUi4ahuWyEL5xhKHc9hpoY6pCKv86DhdNiGyDjRTkIAP/d24klfYE4nTgiKtIGLfqneV3LHO4
-	LoR5f1qkRm3iSwmFW8XMKDQvqEh5TK7ChXbjQ9zwZj7w8USizuxSGRKiHmXoiPmOeL2C87TQgxN
-	wWDmHkAUjoQDGIzca/49SnjYFgph
-X-Received: by 2002:a05:690c:6e84:b0:8b0:d75a:9cf8 with SMTP id 00721157ae682-8b133d2a29fmr1910447b3.41.1792534862540;
-        Tue, 20 Oct 2026 15:21:02 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:9597:5848:ae16:6bc])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b13012f929sm3810567b3.33.2026.10.20.15.21.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:21:02 -0700 (PDT)
-Message-ID: <74392849b266368d821d6dcaae4eda5d459d2e22.camel@dubeyko.com>
-Subject: Re: [PATCH v6 2/2] hfs: return ERR_PTR() from hfs_iget()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: yangguikun <yangguikun19@qq.com>, John Paul Adrian Glaubitz
-	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 15:21:00 -0700
-In-Reply-To: <tencent_190DA969DF79232C4E2FA681510C3E365108@qq.com>
-References: <tencent_190DA969DF79232C4E2FA681510C3E365108@qq.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CTGoFUUo
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IglmDcOYmcyXlIMJI9vW7PPHYIyUN1EhxXZb0CKn84M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792535035; v=1; x=1793139835;
+ b=CTGoFUUo6k5DYLLLaeMo2tFnx0KpC9w4x/1jempllme8Yp8fXUJFl7WOn/3P6c+cXG9FW7Hr
+ 1GSZkg7LUUkxTUUOuUOrer7gNj+DDrI2a87aKZCshUTfky+KFOahqe0QNK4FzgDZ6iotsEOJefl
+ BtL9PLjCr8nN3rTcvh7QR9KI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a29e21cc53c6a8fa;
+	Tue, 20 Oct 2026 22:23:55 +0000
+X-Mizu-Trace-ID: a29e21cc53c6a8fa
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -144,110 +56,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Date: Tue, 20 Oct 2026 22:23:55 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <c76695aec44d818f319923495b7be5f2d1b4a699@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>
+In-Reply-To: <c14d646f-b8b1-47ce-a92e-cbd5f534503f@gmail.com>
+References: <20261006130701.120460-1-luka.gejak@linux.dev>
+ <20261006130701.120460-6-luka.gejak@linux.dev>
+ <c14d646f-b8b1-47ce-a92e-cbd5f534503f@gmail.com>
 
-On Tue, 2026-10-20 at 18:19 +0800, yangguikun wrote:
-> hfs_iget() returns NULL both for corrupted catalog records and for
-> allocation failures, so the callers cannot tell them apart:
-> hfs_lookup()
-> reports every case as -EACCES and hfs_fill_super() as -EINVAL.
+October 20, 2026 at 8:08 PM, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>=
+ wrote:
+
+
 >=20
-> Return ERR_PTR(-EIO) for the corruption cases and ERR_PTR(-ENOMEM)
-> when
-> the inode cannot be allocated, the same way minix_iget() does, and
-> let
-> the callers propagate the error.
+>=20On 06/10/2026 16:06, Luka Gejak wrote:
 >=20
-> Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
-> Signed-off-by: yangguikun <yangguikun19@qq.com>
+>=20>=20
+>=20> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, =
+the
+> >  power sequences, the efuse layout, the RF and IQ calibration, and th=
+e
+> >  chip specific coexistence handling.
+> >=20=20
+>=20>  The RTL8723B chip support is based on the initial work by
+> >  Michael Straube <straube.linux@gmail.com>.
+> >  Link: https://github.com/mistraube/rtw88/tree/rtl8723bs
+> >=20=20
+>=20>  Co-developed-by: Michael Straube <straube.linux@gmail.com>
+> >  Signed-off-by: Michael Straube <straube.linux@gmail.com>
+> >  Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> >  Reviewed-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+> >  ---
+> >  drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2534 +++++++++++++++=
+++
+> >  drivers/net/wireless/realtek/rtw88/rtw8723b.h | 14 +
+> >  2 files changed, 2548 insertions(+)
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
+> >=20=20
+>=20>  diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b.c b/drive=
+rs/net/wireless/realtek/rtw88/rtw8723b.c
+> >  new file mode 100644
+> >  index 000000000000..8bb9c03d769c
+> >  --- /dev/null
+> >  +++ b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> >=20
+>=20[...]
 >=20
-> diff --git a/fs/hfs/dir.c b/fs/hfs/dir.c
-> index e1f1fb3..0834d40 100644
-> --- a/fs/hfs/dir.c
-> +++ b/fs/hfs/dir.c
-> @@ -35,8 +35,6 @@ static struct dentry *hfs_lookup(struct inode *dir,
-> struct dentry *dentry,
-> =C2=A0			inode =3D ERR_PTR(res);
-> =C2=A0	} else {
-> =C2=A0		inode =3D hfs_iget(dir->i_sb, &fd.search_key->cat,
-> &rec);
-> -		if (!inode)
-> -			inode =3D ERR_PTR(-EACCES);
-> =C2=A0	}
-> =C2=A0	hfs_find_exit(&fd);
-> =C2=A0	return d_splice_alias(inode, dentry);
-> diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-> index a66de7b..d28fbbd 100644
-> --- a/fs/hfs/inode.c
-> +++ b/fs/hfs/inode.c
-> @@ -484,15 +484,6 @@ struct inode *hfs_system_iget(struct super_block
-> *sb, u32 cnid)
-> =C2=A0	return inode;
-> =C2=A0}
-> =C2=A0
-> -/*
-> - * __hfs_iget()
-> - *
-> - * Given the MDB for a HFS filesystem, a 'key' and an 'entry' in
-> - * the catalog B-tree and the 'type' of the desired file return the
-> - * inode for that file/directory or NULL.=C2=A0 Note that 'type'
-> indicates
-> - * whether we want the actual file or directory, or the
-> corresponding
-> - * metadata (AppleDouble header file or CAP metadata file).
-> - */
-> =C2=A0struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key
-> *key, hfs_cat_rec *rec)
-> =C2=A0{
-> =C2=A0	struct hfs_iget_data data =3D { key, rec };
-> @@ -507,15 +498,17 @@ struct inode *hfs_iget(struct super_block *sb,
-> struct hfs_cat_key *key, hfs_cat_
-> =C2=A0		cnid =3D be32_to_cpu(rec->file.FlNum);
-> =C2=A0		break;
-> =C2=A0	default:
-> -		return NULL;
-> +		return ERR_PTR(-EIO);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (!hfs_is_valid_cnid(cnid, rec->type) ||
-> =C2=A0	=C2=A0=C2=A0=C2=A0 hfs_is_system_reserved_cnid(cnid))
-> -		return NULL;
-> +		return ERR_PTR(-EIO);
-> =C2=A0
-> =C2=A0	inode =3D iget5_locked(sb, cnid, hfs_test_inode,
-> hfs_read_inode, &data);
-> -	if (inode && (inode_state_read_once(inode) & I_NEW))
-> +	if (!inode)
-> +		return ERR_PTR(-ENOMEM);
-> +	if (inode_state_read_once(inode) & I_NEW)
-> =C2=A0		unlock_new_inode(inode);
-> =C2=A0	return inode;
-> =C2=A0}
-> diff --git a/fs/hfs/super.c b/fs/hfs/super.c
-> index 5e6d66f..d201502 100644
-> --- a/fs/hfs/super.c
-> +++ b/fs/hfs/super.c
-> @@ -378,8 +378,10 @@ static int hfs_fill_super(struct super_block
-> *sb, struct fs_context *fc)
-> =C2=A0	res =3D -EINVAL;
-> =C2=A0	root_inode =3D hfs_iget(sb, &fd.search_key->cat, &rec);
-> =C2=A0	hfs_find_exit(&fd);
-> -	if (!root_inode)
-> +	if (IS_ERR(root_inode)) {
-> +		res =3D PTR_ERR(root_inode);
-> =C2=A0		goto bail_no_root;
-> +	}
-> =C2=A0
-> =C2=A0	if (is_bad_inode(root_inode)) {
-> =C2=A0		iput(root_inode);
+>=20>=20
+>=20> +static int rtw8723b_read_efuse(struct rtw_dev *rtwdev, u8 *log_map=
+)
+> >  +{
+> >  + struct rtw_efuse *efuse =3D &rtwdev->efuse;
+> >  + int ret;
+> >  +
+> >  + ret =3D rtw8723x_read_efuse(rtwdev, log_map);
+> >  + if (ret)
+> >  + return ret;
+> >  +
+> >  + /*
+> >  + * Report a power track type this driver does not implement once,
+> >  + * here, rather than on every two second pwr_track() tick.
+> >  + */
+> >  + if (efuse->power_track_type !=3D 0)
+> >  + rtw_warn(rtwdev, "unsupported power track type\n");
+> >  +
+> >  + /*
+> >  + * No firmware hardware feature report exists, so fill the hardware
+> >  + * capability here; a zero stream count kills the HT MCS set.
+> >  + */
+> >  + efuse->hw_cap.nss =3D max_t(u8, rtwdev->hal.rf_path_num, 1);
+> >=20
+>=20Another thing I noticed too late: this chip always supports only one
+> spatial stream. rf_path_num happens to be 1, so no harm done.
 
-Looks good. I have run the xfstests for both patches and I don't see
-any new issue.
+You are right, we can just set it directly, no need to derive the value.
+I have sent a patch for it.
 
-Before the patch: Failed 121 of 786 tests
-After the patch: Failed 117 of 786 tests
-
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Tested-by: Viacheslav Dubeyko <slava@dubeyko.com>
-
-Thanks,
-Slava.
+Best regards,
+Luka Gejak
