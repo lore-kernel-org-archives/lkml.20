@@ -1,81 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478184;
-	b=Rfv+gTapKW14S4lpOZBhhqC1+Y0DPgZcKWRJcjELYB8Diqoe2O5G3wlq9EC0gmi5romS
-	 z/NeblQP0DIGIUhucrnkiaYRGLnwUq5rnHWfyhSR4RLY2aq+GmTHc4zAn0WcRthqfa89B
-	 0JkJ7qW4XaZOT1ttfY+ARB3qxTcHNyXcWkYEAZ5Odq0rMUjd6xPIZLhYQVDJI9/IVOuPY
-	 RTsPcaxHwO3MmBr5/6FxKnXSekLCIfem+whwZC4rMJwqy3PieIe3x05hOruf2U/LAH7Qu
-	 MlIeZssKRy2lgT7wNXE3mSKUsvrZHBRJpGT4kVcjdHwC2s6rU9s/uTwwZTemtP8SpdA==
+	t=1792478247;
+	b=P+YMstnLIHQ6hu8urMXvZY1AHYCbM87nsrXTWgzIPh1ALpAywWJIkQvPlYGBfmU80KaO
+	 TIuIT5N1wZ3iVwDphdAkHiRy4r7Y4PVQ6XAz/9Vng0JQZjXPWwo/tLNzQ5CkEXq4V+FHE
+	 nJKtn7iHkS3y0sLIsvJQEC/hOa0eaf0u6PsSgxw+fyDd3mpMVNU9QZ5iFZ2TLwwdPiqHs
+	 N+MEJ8qkmyhbj2V1iVNtExWiXXe2Zjq6f885elKXhPB39Rsig6AKJU5pl/NuZwwjn+GV4
+	 WjQZa+1WZgAI2HM+1Aw1+9T+fH71GKq3YUARUAtTmBVI+UJy8nFc2m/d1PBzjgUB27w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478184;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:CMS-TYPE:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
-	 References;
-	bh=cMOyDvJ+4IZMD7M7ive4vsZM0ebqLEDD0cr3Jg1jYiA=;
-	b=HHZkWgpgFLsVM7L+TCDSU6Jn0ldrtRlC7J83OI+sZ0TlTMEgvgGFAD+xfU4dmCdboYER
-	 BkVEYUj+sGoIx17Xu8o6+DUIJCEe7C6yp0Up5pshRqBhkKkM6to9sANNG+pp29r7g+jwy
-	 HegbOcMbUOVKWH/7YzuuoCcDpgboXDIAMlN5IURItuap0wYNO/ovoKpRKsgpUbzKZgGKc
-	 ZJ0dZC/TzOpIS/uwmuUFKdF9U5nPTULBQuqFFeb8hxBgu53XeqpVSy6Ztx/GIcMFLA0Iy
-	 DFYxtNmP9W3AFYcHHfb4YQZF7TlOsPWrYioU6WayVYrQy8YlPb9zB9fokn4Q4lItCww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478247;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Jysg3UmDk9FTjMu2P0SUUwTrEQM4YhK98PUt0MSaa74=;
+	b=H7Xh+G/bS2FCgcWShbPlGof+b/NVsH7qBfdatnucBwnYwxEZ91UuzWLmrJjotjnNlQgU
+	 LTuaUndCD+xwgHtS7mwigChewxfkiLILZyrS7P/WDUmSy1vYxwc2b7Nu2UuXCNscMSuj/
+	 uhB0J2JAcxZjTSu3MQgqOhlQyVACk4+VhyCpnK4oG8bdoOuNcMk5qoxnl8WG5r8ia7Oe7
+	 ZapDjNii0ErN6wJ7JjKrR2YMmud0Tylh9saGOXxo0DninTnwdsIG0cOHBp9/BIwO0GsN7
+	 K3HBHJJXe2rWILyqyiBz6I7BuyGKNI/rJiihfi+tGrTSkAu6Q3TiKbaSqpObPHzcqtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DXurnG+O;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bzviSe7p;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WuCxdHgK;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B221606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B221606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EDE606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:37:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2EDE606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DXurnG+O
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261020063620epoutp018735579a2f095cba0db1261dffed128b~gKWiDi-sE1165411654epoutp018
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:36:20 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261020063620epoutp018735579a2f095cba0db1261dffed128b~gKWiDi-sE1165411654epoutp018
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792478180;
-	bh=cMOyDvJ+4IZMD7M7ive4vsZM0ebqLEDD0cr3Jg1jYiA=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=DXurnG+OrImuFVOWre/IHvrEtrR52MixdRlAxE2Mybikle6I4OhJ9ttoIkS0h+vP9
-	 USuIKfMQIJoAvLz4KHwp6ditcFMCwWfD0XgwNgP2/3QoDjwebIggA3uQqtFobZn+pf
-	 WeBDmINrF3DqXaqMNUSkKI5nSxYDh/F2j3GdQGek=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261020063619epcas5p3cbe87da155138f7d23f130a048e7700a~gKWhUrZDm0682806828epcas5p3G;
-	Tue, 20 Oct 2026 06:36:19 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.87]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j82kB4tdfz6B9mB; Tue, 20 Oct
-	2026 06:36:18 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063617epcas5p4ba00854fcd38bf211c573629ee062621~gKWfYcTjq3015130151epcas5p4j;
-	Tue, 20 Oct 2026 06:36:17 +0000 (GMT)
-Received: from vega.samsungds.net (unknown [107.108.73.84]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063614epsmtip2fdb85f2c138d315a3425597013416486~gKWcIzNpH1615316153epsmtip2_;
-	Tue, 20 Oct 2026 06:36:14 +0000 (GMT)
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-To: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
-	krzk@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	pritam.sutar@samsung.com, andre.draszik@linaro.org, kernel@lvkasz.us,
-	pengpeng@iscas.ac.cn, kishon@kernel.org, linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com,
-	Selvarasu Ganesan <selvarasu.g@samsung.com>, stable@vger.kernel.org
-Subject: [PATCH v3] phy: exynos5-usbdrd: Use dynamic phy_cfg size to prevent
- OOB access
-Date: Tue, 20 Oct 2026 12:05:59 +0530
-Message-Id: <20261020063559.3530901-1-selvarasu.g@samsung.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bzviSe7p;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WuCxdHgK
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K5mpr21333183
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:37:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Jysg3UmDk9FTjMu2P0SUUwTrEQM4YhK98PU
+	t0MSaa74=; b=bzviSe7pmEptALkpPGd0lvM3NL1SvYkEoR9LZOf3CLzbO4GnM4T
+	cmh9KgiK0L9bOYaef5BsVOM5uUC5Qo0ANL3sQwhySJhDJUO68KQ1KLQVsFu0hI1A
+	9FosSglTEG0RMqaOrOyg/IFDqz6hVciXmyn1Fvksg/xku54cy7Lqb8KrbhxE/x7C
+	7RVGHHyEA7nBPWyTD4UqkfkzBEXc8OtZaQ0o1HwwAYQhsgQEYGY2si0HmdtkAGeB
+	RTr0tcm+znrcAgyeXh5whqRpXHfwGROuSHQB7aEp3KkWcv55WCPRNmZg6IQEQP+K
+	0vCVjgoz/Jwqi/I3Ww15OIcATxLaT6N3ESQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5ph8ad-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:37:25 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbb92868263so1620236a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:37:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792478244; x=1793083044; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jysg3UmDk9FTjMu2P0SUUwTrEQM4YhK98PUt0MSaa74=;
+        b=WuCxdHgK13K/a0tNY2q3S83sojgaWXNj87q1+Zr1lqz3FJ+5FqE9lv5ME309LzYQSt
+         JXfycJjwbB4ci8NzgwarrQqvmdQq38A2veYmJI3/6X6ZepjXB1IAWtijIatOsttZx+8/
+         +LqmryvxBa4uoY5uS4YRedFdKuPKjQamLu92egfzeg3H0CBRSXkyDzSnqBo/KkJVgU+X
+         BT9fZQfGgyuH6PIe7cxeXdVdQwO/gG5fodo12mA/Sn9Dc5WuhqhKzlsIohxKQM2Fu5LE
+         meqPs3ka2+0DtxvUPC5uZ7lfazcgx4wZs54H30HKsRMtIUa7h8vSSxJJFuMswqAdzUEG
+         kCKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792478244; x=1793083044;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jysg3UmDk9FTjMu2P0SUUwTrEQM4YhK98PUt0MSaa74=;
+        b=G/lyPuPskZAcrR6CMvhtIMXtS7Dy1Xnk8Rie+D+yEZmY3G2bV7rMtFE4yLY2tKQ9bY
+         qVCmeMO2EbBgnPIaU7DknuUVC5KtBR3LwRtlCRaUhmclD2Z1vHp8bmbjDL+BCieyLrMO
+         2fLqaARv0SrecpnhAxu4O7aoZvJ4VTzyZGGiDbRf1diC2yOBy0UTGBpMi/HoFYL1Pl5u
+         4TyVlWSweLCgStk6H6jwr8sMMiLz1fYEyqtXaIAwJoqYNzZ6Obj4CjVtPj2aN7o/yUj/
+         JBELhvhzD4EfmnQ+NUpKI5OBiRu69LyZPDC5MwKQDxfgXbA7Jz2wsHYU9MClB7TMbYyJ
+         c7Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBydiR21ZMGEXkOrVlDjVc3cfLBuw5XhE741c2dkdq1CHG79WgVKQJ0gFeHw+qE72ViteJiQYuyeWCyDKfQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBHdHZxybRcHki8DC1F5bEM6yHNJwc5hi3mHgtFVaXE6iA0MNc
+	u30484vYEPijSdhWq+aiTr9R3kmZo4ZVntnok7KPE7Xf9KVp/AUfqSteUUGwFNWZZZTZsTETvok
+	h5ukWJS3zWqKCdzJtuDvXb8HjEMn/K1efIf7DbYPaEQ2dWBqzjIQcmnyZcUt4rB0g4AGDLo1i3u
+	s=
+X-Gm-Gg: AYBFou296eC+qegcRGIqpCg15asaQXDzUhldJn0V+D2HHY5jN73yA3fYzIoaFWtP0YR
+	xs6J6ZV+b8iWNR6Z2gU2pLzXDWnr0xveqtJfX3BZ3JXMEpGd982UWwtFobZ+RLBYP3kGDRBFcGp
+	tIFBcm/M7enzcqlsIG0I7tTLDUPF5vHPHoL3XepB2I4d7auANZj+1SISfrci1faplRsbw5PAouu
+	kAlBx+i2X8vvhIfBt3gRl8xLeVo7j72WoLbFtMD+luFcd2a4+9s6SsECBTVnEwWZxCnxd7B7mKR
+	HtK0UmY/VUa6pwZhmgj2a8KUSqn4k38FxyXz766+a4zfxS1lrEevLYvlYfbbbvgS2DhZhUHPrVX
+	ejARwktgm4benT5qEXApbqr3FPK0UZy+XXLubFeh9w2AG8oXimnHfM2I+bgkfNAo=
+X-Received: by 2002:a17:90b:4b92:b0:3ac:4e18:238c with SMTP id 98e67ed59e1d1-3acef52acdbmr8657021a91.49.1792478243767;
+        Mon, 19 Oct 2026 23:37:23 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b92:b0:3ac:4e18:238c with SMTP id 98e67ed59e1d1-3acef52acdbmr8656997a91.49.1792478243126;
+        Mon, 19 Oct 2026 23:37:23 -0700 (PDT)
+Received: from hangtian-z2-2004.ap.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549eea48sm4770140a12.19.2026.10.19.23.37.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 23:37:22 -0700 (PDT)
+From: Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>
+To: jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH ath-next] wifi: ath12k: keep ML mgmt tx on active link
+Date: Tue, 20 Oct 2026 14:37:19 +0800
+Message-Id: <20261020063719.3486519-1-hangtian.zhu@oss.qualcomm.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,182 +118,109 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020063617epcas5p4ba00854fcd38bf211c573629ee062621
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261020063617epcas5p4ba00854fcd38bf211c573629ee062621
-References: <CGME20261020063617epcas5p4ba00854fcd38bf211c573629ee062621@epcas5p4.samsung.com>
+X-Authority-Analysis: v=2.4 cv=a7WlZkSF c=1 sm=1 tr=0 ts=6ad70c25 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=bOrBbOSleF1CZgbF08wA:9 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: 8sHSV89Rg2tBG3xgZHf1eePHmCyrr6dX
+X-Proofpoint-GUID: 8sHSV89Rg2tBG3xgZHf1eePHmCyrr6dX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyNiBTYWx0ZWRfX+oz3PoKQ08PV
+ eOOyis5Z9bXrT0IMx/w0N9Fzoz8Ewi9g3voeKsyG/yabqsYQWAuGiBGbQCTeYyZltuHXUOyW7pG
+ UzQjXyEwyVeYfmbS3u6rTaf28Y0/e+/Ltset97GheDu77AaRU+gxP7+aDLO0wxggnhDd0eUdJIN
+ 2UwcjajkaisQq7tZqy19745E8jvDAB3jGGyZajjPJUF+UX8ttHlpDHFOCP8H1xhsihOLEJvnslz
+ jETsXL5DaIykViLNx2tmOLRJZBvXEHLUyRAOsEBXH17LORVuiU2+0ChSiKJjY8/TdEFt3vKnzWe
+ JWchznC7NP8Hk9MaAqRvPum08I+S7USQTIubrBr11SRg/iKKfYE7IC1m65hza5Skj7bmKe8THKd
+ rV3ybDUbt+piQPZDY6x67+hOp8l9Iqub4gtLcZRjklC+0UK97zAv2zrswMs1GZDCxKpC5/W2Wa6
+ kutx3DJGa1g3Ki0N2kg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyNiBTYWx0ZWRfX+5mdrZlyqRZY
+ s1vSxIX3ObYbXgKtXiJTuB7NOV7wecDBSmEYffKqGPkx4BmMuL4jxrUxpkfUY1k0AGXrS+13bZv
+ VcEysRpx31ItQvinpRUpJouWpVrC4mQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200026
 
-The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
-creating both UTMI and PIPE3 PHY instances regardless of the SoC
-capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
-and ExynosAutoV920) provide phy_cfg arrays containing only a single
-element.
+Currently ath12k_mac_get_tx_link() may select an inactive link for ML
+management frame transmission. This happens when mac80211 passes
+IEEE80211_LINK_UNSPECIFIED and the resolved deflink is inactive.
 
-On these SoCs, when the loop reaches index 1, the driver reads past the
-end of the rodata array, populating the second PHY instance with garbage
-data. Since the configuration structure contains critical function
-pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
-PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
+As a result, ML management frames such as deauthentication are sent on
+an inactive link and Tx fails (the frame gets dropped).
 
-Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
-store the actual size of the phy_cfg array for each SoC. Update the
-probe loop and the xlate function to bound their access against this
-value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
+Fix this by reselecting the Tx link only when the requested link is
+IEEE80211_LINK_UNSPECIFIED and the resolved deflink is inactive.
+Start from vif->active_links as the candidate set and prefer
+links that are both active on the vif and valid for the peer
+(sta->valid_links). If that intersection is empty, fall back to
+vif->active_links. Use __ffs() to pick deterministically from the
+candidate set.
 
-Fixes: 59025887fb08 ("phy: Add new Exynos5 USB 3.0 PHY driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Tested-by: Łukasz Lebiedziński <kernel@lvkasz.us>
-Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
-Reviewed-by: André Draszik <andre.draszik@linaro.org>
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+If mac80211 explicitly requests a link, keep that link and do not remap
+management Tx to another link.
+
+This change is limited to ML management frames. Data frames, HW-encap
+frames, and non-MLO paths are unchanged.
+
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+
+Signed-off-by: Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>
 ---
+ drivers/net/wireless/ath/ath12k/mac.c | 28 +++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-Changes in v3:
-- Added Fixes and Stable tag
-- Link to v2:
-  https://lore.kernel.org/all/20260918103147.2628614-1-selvarasu.g@samsung.com/
+diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+index 01f8c6572f65..14cffba3e354 100644
+--- a/drivers/net/wireless/ath/ath12k/mac.c
++++ b/drivers/net/wireless/ath/ath12k/mac.c
+@@ -9600,6 +9600,7 @@ u8 ath12k_mac_get_tx_link(struct ieee80211_sta *sta, struct ieee80211_vif *vif,
+ 	struct ieee80211_link_sta *link_sta;
+ 	struct ieee80211_bss_conf *bss_conf;
+ 	struct ath12k_sta *ahsta;
++	bool req_unspecified_link = (link == IEEE80211_LINK_UNSPECIFIED);
+ 
+ 	/* Use the link id passed or the default vif link */
+ 	if (!sta) {
+@@ -9645,6 +9646,33 @@ u8 ath12k_mac_get_tx_link(struct ieee80211_sta *sta, struct ieee80211_vif *vif,
+ 	if (!ieee80211_is_mgmt(hdr->frame_control))
+ 		return link;
+ 
++	/*
++	 * Keep ML management Tx on an active link only when mac80211 did
++	 * not request a specific link and the selected link is inactive.
++	 */
++	if (req_unspecified_link && !(vif->active_links & BIT(link))) {
++		unsigned long tx_links = vif->active_links;
++		unsigned long peer_tx_links;
++
++		if (!tx_links)
++			goto out_keep_link;
++
++		peer_tx_links = tx_links & sta->valid_links;
++
++		/*
++		 * Prefer links that are both active on the vif and valid for
++		 * this MLO peer. If no overlap exists, fall back to vif
++		 * active links.
++		 */
++		if (peer_tx_links)
++			tx_links = peer_tx_links;
++		else
++			WARN_ON_ONCE(1);
++
++		link = __ffs(tx_links);
++	}
++
++out_keep_link:
+ 	/* Perform address conversion for ML STA Tx */
+ 	bss_conf = rcu_dereference(vif->link_conf[link]);
+ 	link_sta = rcu_dereference(sta->link[link]);
 
-Changes in v2:
-- Updated 'Assisted-by' tag to follow the proper kernel documentation
-  format.
-- Link to v1:
-  https://lore.kernel.org/all/20260831070309.158069-1-selvarasu.g@samsung.com/
----
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-index 087d552eb511..f10cf7b6e0aa 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -477,6 +477,7 @@ struct exynos5_usbdrd_phy_config {
- 
- struct exynos5_usbdrd_phy_drvdata {
- 	const struct exynos5_usbdrd_phy_config *phy_cfg;
-+	int n_phy_cfg;
- 	const struct exynos5_usbdrd_phy_tuning **phy_tunes;
- 	const struct phy_ops *phy_ops;
- 	const char * const *clk_names;
-@@ -1173,7 +1174,7 @@ static struct phy *exynos5_usbdrd_phy_xlate(struct device *dev,
- {
- 	struct exynos5_usbdrd_phy *phy_drd = dev_get_drvdata(dev);
- 
--	if (WARN_ON(args->args[0] >= EXYNOS5_DRDPHYS_NUM))
-+	if (WARN_ON(args->args[0] >= phy_drd->drv_data->n_phy_cfg))
- 		return ERR_PTR(-ENODEV);
- 
- 	return phy_drd->phys[args->args[0]].phy;
-@@ -2021,6 +2022,7 @@ static const char * const exynos5_regulator_names[] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
- 	.phy_cfg		= phy_cfg_exynos2200,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos2200),
- 	.phy_ops		= &exynos2200_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS2200_PHY_CTRL_USB20,
- 	.clk_names		= exynos5_clk_names,
-@@ -2034,6 +2036,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.pmu_offset_usbdrd1_phy	= EXYNOS5420_USBDRD1_PHY_CONTROL,
-@@ -2047,6 +2050,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.clk_names		= exynos5_clk_names,
-@@ -2059,6 +2063,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.pmu_offset_usbdrd1_phy	= EXYNOS5433_USBHOST30_PHY_CONTROL,
-@@ -2072,6 +2077,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.clk_names		= exynos5_clk_names,
-@@ -2084,6 +2090,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos7870,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos7870),
- 	.phy_tunes		= exynos7870_tunes,
- 	.phy_ops		= &exynos7870_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
-@@ -2097,6 +2104,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos850_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos850,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
- 	.phy_ops		= &exynos850_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.clk_names		= exynos5_clk_names,
-@@ -2125,6 +2133,7 @@ static const struct exynos5_usbdrd_phy_tuning *exynos990_tunes[PTS_MAX] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos990_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos850,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
- 	.phy_ops		= &exynos850_usbdrd_phy_ops,
- 	.phy_tunes		= exynos990_tunes,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS990_PHY_CTRL_USB20,
-@@ -2661,6 +2670,7 @@ static const struct phy_ops exynosautov920_usb31drd_combo_ssphy_ops = {
- static const
- struct exynos5_usbdrd_phy_drvdata exynosautov920_usb31drd_combo_ssphy = {
- 	.phy_cfg		= usb31drd_phy_cfg_exynosautov920,
-+	.n_phy_cfg		= ARRAY_SIZE(usb31drd_phy_cfg_exynosautov920),
- 	.phy_ops		= &exynosautov920_usb31drd_combo_ssphy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB31,
- 	.clk_names		= exynos5_clk_names,
-@@ -2691,6 +2701,7 @@ exynos5_usbdrd_phy_config usbdrd_hsphy_cfg_exynosautov920[] = {
- static const
- struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_combo_hsphy = {
- 	.phy_cfg		= usbdrd_hsphy_cfg_exynosautov920,
-+	.n_phy_cfg		= ARRAY_SIZE(usbdrd_hsphy_cfg_exynosautov920),
- 	.phy_ops		= &exynosautov920_usbdrd_combo_hsphy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
- 	.clk_names		= exynos5_clk_names,
-@@ -2719,6 +2730,7 @@ static const struct exynos5_usbdrd_phy_config phy_cfg_exynosautov920[] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynosautov920,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynosautov920),
- 	.phy_ops		= &exynosautov920_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
- 	.clk_names		= exynos5_clk_names,
-@@ -2895,6 +2907,7 @@ static const char * const gs101_regulator_names[] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata gs101_usbd31rd_phy = {
- 	.phy_cfg			= phy_cfg_gs101,
-+	.n_phy_cfg			= ARRAY_SIZE(phy_cfg_gs101),
- 	.phy_tunes			= gs101_tunes,
- 	.phy_ops			= &gs101_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy		= GS101_PHY_CTRL_USB20,
-@@ -3052,7 +3065,7 @@ static int exynos5_usbdrd_phy_probe(struct platform_device *pdev)
- 
- 	dev_vdbg(dev, "Creating usbdrd_phy phy\n");
- 
--	for (i = 0; i < EXYNOS5_DRDPHYS_NUM; i++) {
-+	for (i = 0; i < drv_data->n_phy_cfg; i++) {
- 		struct phy *phy = devm_phy_create(dev, NULL, drv_data->phy_ops);
- 
- 		if (IS_ERR(phy))
+base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
 -- 
-2.17.1
+2.25.1
 
