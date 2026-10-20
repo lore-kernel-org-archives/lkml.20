@@ -1,49 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521210;
-	b=G2u16hdLgK0chWZM/P9L5iwKfr5qYrWGJA9kqqXFwGF6jOKm400NpxlGTnoiFJ923MZB
-	 Rug8ehwXPuiv+5SauvOAgeZkdztAKCYc8e8fAlu99VS2p6Y99u900GCuR53FpEMGJFHQb
-	 z7LE9LbR5icr5MaNSvvK8Tg4WKhG3CkX4xo4gThsKtrM6A0ElaCNLX+M32huO6xgnzFcD
-	 EJpeBtaMJTZoYvgx1l9IH92+XNaDdKxF1gd+FuWOH0eNrPuuSMyJ5BcS0TqN0Y6wl2FaB
-	 6rL4t719BZ9P8UuC5iaDOJIHSm7BM5qYsTR8uh/d2Z/I0PcMbegY31/ccGO1VTkckpw==
+	t=1792521348;
+	b=OIqFFFNx/wOKOVOMeWjCLdDLPzXjdGqZwviuTqndIe8iCYJZsEq6+t4x63Lf1z6aeD3m
+	 myIyRGXyK3qcUrZBdP/dU7XsfUSHpNO8iq4UDMKONxg7gBKNCp/p/TnigtbDmGbXSVhDd
+	 sUDjTvo+ldqaJ6w8AG6L7WQWLGbQfO/RLf/4aY9gECSJBSXxtZ6SOllAuxBdoJcF4QPW/
+	 gTLr2p8i0vQet7icps8zsuPrN4f2uKtUhou2lEfz5Yoc4Ltpn/aqwA2WRVrjRWj5Q0E2m
+	 TiQDLO9j+glLCbrwFnLqZOO3IvEH3xCR8U3amDsLQym5w6Uy2HfhvmA/A3jTi8JEvmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521210;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=0z9aJM5pcb7dWz5EgKYVG4y4LAG3PeNtEiLV7ggtYRc=;
-	b=SACWsYsoXfUIKrgfj3qx418gkIJo1LfaLC/kPkWEqrUg1SM1IrUi21tADYUC1Ggn+DaQ
-	 0Qkq6zybwXnXV+JihpFXikrC6CamaxAWuE+MQwk+YhEY5B8RIhuVCbNL/wa1DpQAVL1fG
-	 erEon+Ud85zcAe/A66GXa2CbDt06jBt+H3CSWmsFPtUiUJyD2qODt0ZypMH3sQXnuAz64
-	 XN8Oqd6JFk+rBk4XZs3OfHTRXHos4rvO0pKltwQ+3qR9fv0qpGwOkbeYlqAAPqH6FSM8z
-	 ZYXSk7hzkZXMNZ2ew8ggC3eijia5a/746egK3UWJi5LZlX1qYRtMZy9DU8OPE7zyiaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521348;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DGOTzV020qB20GCiRn0PGx2SM2yjPltO8CpsAfbbpWg=;
+	b=KaXhLqjXawigAqt823AOuc8T8d0SVczsTzimKcfscQeNRPNoquc9hR8kV8rw1fLZb6wx
+	 Ke7PmOjrwhZIflFPGXwbZLfOx1mdaAtaEAeqivyPcixAxK4bs1ESRk1tYgFthurm++0JK
+	 I6HxCnJh0yZHioo/8XperGp6hYO5xJOOO7EkhHPFhRYNmu6XFP9PO3aKhrpcnKWh78caw
+	 cwcX2GuozBY7eIdiRwgp4QfkErTJupnu8rZmTY0DqRo8a3cTCIos0WKDahA/vSA/oHMZg
+	 9jYgfb1voZgT2apOdMkXgjZ2J0ac4fwp063eXSlgTUUonVYSn0vM1GK5VlQ+AsSVtkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=JTwO+OeJ;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JhnTFu1T;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF01606A31A;
-	Tue, 20 Oct 2026 18:33:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF01606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC80606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:35:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DC80606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=JTwO+OeJ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 43C89A156A;
-	Tue, 20 Oct 2026 20:33:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792521198; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0z9aJM5pcb7dWz5EgKYVG4y4LAG3PeNtEiLV7ggtYRc=;
-	b=JTwO+OeJj20KZlr9tv+3kST6kEEl7JPmOCBFgFFVCNjecNVZP2qVu24zJxuFi2nmPEBTTe
-	ew5RyL0/pBeakP84TlsPY7nBlEkQpoPoYHOuOmVUMDeTaL1yAhLh2MPUfdKifAVTr7LxP6
-	fRRueY+w4hQ3NiTbFwhsHauHPjQeUDQUHzRLVzmcxvwKpIygsueKgny0vHxeWza/qTulaT
-	y2euBenaXrc9Hh9eDiSnN0Eoy29Jp52CE4QG2Ld3b4NHPDSUvxrcp4cEj+tA75GbcS81u0
-	n3CGRzhl/bb7bQHX91feDGk8ziJOAb/V/FF9YCejEtxR0YB8Jxrg4H8jo8A+tQ==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JhnTFu1T
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso302359a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:35:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792521347; x=1793126147; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DGOTzV020qB20GCiRn0PGx2SM2yjPltO8CpsAfbbpWg=;
+        b=JhnTFu1TeDRkBXHoYIsw9ulmTkE+fbuH5mj2ByzKgPZZuwEJN/jXbxBSpvJTzytQyF
+         HdVubb57dUKpj51ldO1W4slgCsC/UjO7nkFqzX7NCwhaF/vzPf7wQP8LwesnNKLE9O2B
+         gE/Uh08g/4Pt9DLWR10xxJZW2GPqqBpzoNzVd3FXxiueKf1P7/aa1mjRxpQPrwBxo/p7
+         LA9ZLMwfNmJ4gCPpffcEquJPNQlMCkCVl+xWOIfCjPo34d1kcx0JYgTJTsHeVuYkuH6X
+         hgmJuWiCL0KuCCYWmidVlE/CtxJBjVOLNcvvP63BpUmavIYF8hOxXpSq4Gewl6lS65l4
+         6IqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792521347; x=1793126147;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DGOTzV020qB20GCiRn0PGx2SM2yjPltO8CpsAfbbpWg=;
+        b=wO1DsKK5+hXgprM4lQqmW3gPgX8rKCxTRK8pp4EcZfAVBGM6cL1KU/pNP5jJhk+eTU
+         B/SVtzpvPcNbuULY8XL2E6LrrWd8kuidSdlQ9ETk4qN0J6SuINW7FnV0jAA344ekYv6M
+         Kd5uPA56PxnW/fWsci4zU26vtyQ081n4uadYdhimF4FGFZsGUCDOfHmqLyJTeUl9/TJf
+         NYUTykqF7HfMiFOWIdkGnu/dIGiWR8RTUcxQ0vgPR17ZE5a2IcxllXSqTMp9pBdKPyXT
+         c4h0+pqbw6VV8jTbzUGWEMiAZ+MGromdHoQCWUg6WU9NR7/puli5tYPH15ZIhFfsb4my
+         TjVA==
+X-Forwarded-Encrypted: i=1; AKwUvBwa02SJbr0ZW/BSoBp6K9ttSo+5h+8LVwElHlSf8ekHN83AZ701UI2ApMq9AO1LEPnohFOqretkNO1/ku0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcH+kwiIT77vJL3Msdpdv2wrfFpVC5RWK4xB8NsvKhsQvTTJ2a
+	fCcnwll4FJRL9bgLpr5btOeYxv86Fh15AuD8wIfbgSdJGiZTX94JGtaxfmMkCQ==
+X-Gm-Gg: AYBFou3527Z/Tb8rjiKVT+wiipp1qcT4H29tSXkj8vfSvlMBnftgNuU0auHngpIblVz
+	JeQHnKBPeuZHUG+8XSH1J1sgg8gqKH7lq77lLbONCoD7qxInFPRuzfFCK+/sltZYkAoqu0PONEk
+	6VtAkz4CDRzTtXjI7ksd3aorVSaSQF64bYa10hP2Fj3Zybmx3eVZ1LIRloWg4EE5yFukaz6KTOa
+	sC9OeICYaE2EaXuvC1tp1KkJYn4F8202JSHDo4dqqj6bHOvQ9gIFZo5qOdgoHRgdow/Q3L2hhV8
+	sII7wGwHsio3M3Is04obTJAExjyd374k3Xq4g44J7AcKPyfiwZGKnrYIxLhZqslzB/mGKWfcTQk
+	7clu4wI38fiRQ/JYki+MsSVVCcMRSL8PoWS9NBsRKJPFrlaCPYYNTcXFuhjPoYy0tMTG9URCEYg
+	of6gs5oTRG8O9TQza8G94Q6Bfi5RlDahnHuxep1krM3RxUjui4RXJEd0CL4CaKIwuHQz40vioyN
+	E3Gyojb+cQ5KyKLv3eD7lg=
+X-Received: by 2002:a17:90b:2d06:b0:3ac:d19e:85f1 with SMTP id 98e67ed59e1d1-3acef1792f7mr8928974a91.53.1792521347516;
+        Tue, 20 Oct 2026 11:35:47 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8035a117sm701396a91.16.2026.10.20.11.35.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:35:46 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 20 Oct 2026 11:35:45 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: xzhangjr@gmail.com
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (coretemp) Retry failed sensor creation
+Message-ID: <42ee0ffb-c0f0-4426-a568-28be267e4a93@roeck-us.net>
+References: <20261020-coretemp-retry-sensor-creation-v1-1-7dd4851a34dc@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,99 +95,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Tue, 20 Oct 2026 20:33:17 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
- <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
- on xHCI
-In-Reply-To: <20261020184244.69b78d5e.michal.pecio@gmail.com>
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
- <20261020184244.69b78d5e.michal.pecio@gmail.com>
-Message-ID: <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-coretemp-retry-sensor-creation-v1-1-7dd4851a34dc@gmail.com>
 
-Hi Michal
-
-On 20.10.2026 18:42, Michal Pecio wrote:
-> [...]
-
-> But SDM4065A is apparently pretty modern (2025) gear marketed for
-> "automatic production lines", so it's odd that it has such issues.
-> Has anyone looked if the same out-of-spec descriptor shows up on
-> Windows or (don't laught at my optimism) consulted vendor support?
-
-Not yet, but I'll check on Windows. The vendor(s) don't really seem to
-care about the bug (surprise!). It is known for quite a while and even
-not fixed with the latest 2026 firmware for the siglent. This makes me
-assume that either most of the professional users a) use Windows or b)
-use the lan interface (which we do for most of the stations).
-
+On Tue, Oct 20, 2026 at 09:39:35PM +0400, Ximing Zhang via B4 Relay wrote:
+> From: Ximing Zhang <xzhangjr@gmail.com>
 > 
-> Maybe Windows xHCI driver tries to enable out-of-spec maxpacket?
-> We could do that too, though IIRC not all controllers are happy,
-> so a SW workaround may be unavoidable.
-
-Did some quick tests and it looks good so far. If the usb maintainers
-can agree on making it less restrictive (/ compliant) it would save
-lots of efforts and the quirk would be down to the ZLP patch. In my
-tests all three devices worked with
-
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 8a8636279e844..c4306482874eb 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -1505,7 +1505,9 @@ int xhci_endpoint_init(struct xhci_hcd *xhci,
-                 err_count = 3;
-         /* HS bulk max packet should be 512, FS bulk supports 8, 16, 32 
-or 64 */
-         if (usb_endpoint_xfer_bulk(&ep->desc)) {
--               if (udev->speed == USB_SPEED_HIGH)
-+               if (udev->speed == USB_SPEED_HIGH && max_packet != 512)
-+                       xhci_warn(xhci, "EXPERIMENT: keeping HS bulk 
-maxp %u\n", max_packet);
-+               else if (udev->speed == USB_SPEED_HIGH)
-                         max_packet = 512;
-                 if (udev->speed == USB_SPEED_FULL) {
-                         max_packet = rounddown_pow_of_two(max_packet);
-
-So this looks like the better fix. How would we want it gated, a USB
-core quirk flag per device, or per controller?
-
-> [...]
-
->> The Rigols still have one issue I can't work around. They split
->> replies over 500 bytes into several transfers, and a follow-on
->> transfer that ends exactly on a packet boundary never arrives. Raw
->> libusb shows the same, so I guess it's another firmware bug. Should
->> be fine for most use cases though.
+> coretemp_add_core() only logs create_core_data() failures, but
+> coretemp_cpu_online() still records the CPU in pdata->cpumask. When an
+> SMT sibling is processed later, the mask makes the driver skip sensor
+> creation. The core interface then remains absent until all siblings are
+> cycled or the module is reloaded.
 > 
-> What exactly is the sequence of URBs you see vs would want to see?
+> Package sensor creation is similarly attempted only when the hwmon
+> device is first registered. A failure leaves the package interface
+> absent for the lifetime of that device.
+> 
+> Retry missing package and core sensors whenever an eligible CPU comes
+> online. Determine whether a core sensor exists from its temperature data
+> instead of the CPU mask, which continues to track CPUs available for MSR
+> reads and hotplug retargeting.
+> 
+> A package retry might fail after per-core data exists. Keep the core_data
+> array alive until the hwmon device is unregistered so failure cleanup
+> cannot discard live per-core pointers. Publish nr_cores only after that
+> array is allocated successfully, and rate-limit errors because a
+> permanent failure can now be retried.
+> 
+> Tested on an Intel Core i7-10510U running 7.2.5-1-cachyos. With
+> test-only fault injection, two package creation failures and one Core 0
+> creation failure left the unpatched driver without both interfaces. The
+> patched driver retried and exposed all five readable sensors. SMT sibling
+> hotplug and 20 module unload/load cycles also retained the expected
+> sensors.
+> 
+> Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
+> ---
+> coretemp currently treats a failed package or per-core sensor creation as
+> permanent for the lifetime of the hwmon device. This change retries missing
+> sensors as eligible CPUs come online while keeping the CPU mask available for
+> MSR targeting and hotplug handling.
+> 
+> Tested on an Intel Core i7-10510U running 7.2.5-1-cachyos. Test-only fault
+> injection reproduced missing package and Core 0 interfaces with the current
 
-The Rigols split anything over 500 bytes into two transfers:
-
-   REQUEST_DEV_DEP_MSG_IN #1
-   IN: 8 x 64 bytes (12 byte header + 500 data), then a ZLP
-   REQUEST_DEV_DEP_MSG_IN #2
-   IN: header + the rest
-
-That works fine, unless the second transfer happens to end exactly on
-a 64 byte boundary (e.g. 640 bytes). Then the device just never answers
-request #2 and the first IN times out. I also tried leaving the ZLP
-from #1 pending until after request #2. That fixes the boundary case,
-but then the device randomly ignores request #2 instead (roughly 1 in
-5). Raw libusb behaves the same, also with maxpacket 64 in xHCI, so I'm
-pretty sure it's just another firmware bug. What I'd want to see is
-simply the second transfer arriving :)
-
-> [...]
+Is that a theoretic or a real problem ? "Test-only fault injection" very
+much suggests that it is a theoretic problem. Have you observed it on
+a real system (without artificial fault injection) ?
 
 Thanks,
-Nicolai
+Guenter
