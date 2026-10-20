@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.80
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792535632;
-	b=ehHiSupH/086Vb8dF24Gl1ilpriC79cXA9TEC9T0b58uHC2LyUN3nYm7b3lmTXzht43/
-	 8p4uxoBDtXcPpTBYpP0C8jQ3KTbwh099BWWdLKowKsr9NUWw2ZyHsJWwYb6fFsVeqJgwS
-	 B5IMKeXQpOGbgKBD6vlzmuJ/YERXvfrHXJWwweMAjQ4gwTne0jzZwKFN7/XjWItLSgoXP
-	 AoekLCnZcI3USQYnvwQ7V+3UD8iYfo20dVzI25Y3s90sGZ1yDwtGWHzJxtVNuDraITc7U
-	 SQbm/+4CuSn5ONPqUwXLqZPjoqQ8lPNlEgwg6++4HqQDJjMsQ6kg4Zi/V1Ng0RkHsNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792535632;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BlQYdDCgFztQYGy+CQ0Alx7Ye2xhzuka8lvfPbfMkfo=;
-	b=NZIve6VWTay15J8/cRnJIopdBPIzKphy62CnJWMoZkkIGwHcprZTkCrpwtpAf//r7t2L
-	 eO/AR+PzuwdavADld637ecBK29Ms7+P8i2fAhkgbxPayxWXFr2JcMj1O5KY4M4gqRGPcd
-	 Q6rclOyXB7YvrFt1HF5UQxQhnGqrjvHBwyKY8IbfKQBGsWVsnJ3ouZAyvNW2QayoXacza
-	 DsV9cHqUboegKgSkofiH0UBbh7WzWW11ncYuruu7LJXs34NEsrPeSSpNoviJE+0G+c/u3
-	 uyJK/SxNmdBAJ6wa3MfxxsSHder90Tsh3tr6CDzZWVhim5dqI/X/cp5Lg8Vw597syuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hotmail.co.uk;
-	spf=pass smtp.mailfrom=hotmail.co.uk;
-	dkim=pass header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.a=rsa-sha256 header.s=selector1 header.b=iZ22OjXG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.80
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazolkn19013080.outbound.protection.outlook.com [52.103.33.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792535648;
+	b=ruDwKaZ0Nb0vuu78RAyV3NOOu1JpX4kUebuC1KpPHTrElfYwiM2YKybHKlbNBCT6DmgJ
+	 TclBjkxGeNCm1MOgPKe5KskpikGzmfPCgiKGMAzumIozGy8adYqZ/prq8afWVckOUdhjc
+	 h5nFOs/338zO5CtHfZk93eHWdisELA2HGRhJLWwBUGC1b851wN0+DVMECzxOt4IVwFyk4
+	 Z8rS9uP0h9rmC5EflqYxMy61JEYeMQ76WOhucJs3bX06hVuj6utUOkaJRfZtxnl10QUlG
+	 AKX17uDMl6+ZUmS4F1VDMobnNtytNQIzke99QGcuPSAY2VmF+3EjxJga0DEGTlDCX5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792535648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ilMa8acf5SBfyXhzvTTwFhD4qHERM2c6bWjfpOKNnKM=;
+	b=wZ4h7fRCKQpziT6Qba67/UcV7RF2EvcHnD+x/voBLC+/gd+TFSy4pWsUqAPP6OeMF3ZU
+	 W5X7VBAyHvylHv2aza0+Wv2YrgVMXNcOWrqnDw3y4s5IqX5IDa3X+13Mry3oSfAxEkzBq
+	 xzSoCnsVaPO7UULaC+Q+/YOUGkzUowzJH+yHiBYYo8hQLgGXmmOMVqw0l335vHCs87wXw
+	 /kQ961JjFs6SXQUWlDeSwTS/HFyoL9hmshNnc9PoGRQcvJfJ59pOmageQgj5PKwDYc4Pm
+	 hWrSZOjFhTr3qJsXrfhIEwp0hBQwWZXfqyuncITUAPHm++ECWZxCV0ggiLRIps9Posg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="NQhu9Ql/";
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C2F606A319;
-	Tue, 20 Oct 2026 22:33:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C2F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B79606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:34:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75B79606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.a=rsa-sha256 header.s=selector1 header.b=iZ22OjXG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o/NLkMkQFuNQx8a6vCoTAcmi4DNDqTQaLV+tqinA7UP1uFKuHReb1SY7EfX7Syh63mbFT5FQdEahq5e9rNODuK8uP5igcUHMwx0aZ7njrnOl4jyrSql4dClnSrpZDX65/FluF3knJCb569iz6gsNF0KNH/kILJQhSqU1yoV7GaflGBG3hVOwZB2JMvygSjKO5hra+ajbujvpK8gKQUx1J1AyaH4rOQdwZwuT983pRaWYE6mi5PmdjnhpTHRJ+eqNYsP6TQwcYRuBi5cVCe+Hi4fkXWXkSwNcDpLuebLXBN6GzSLB4bQMMzknzfP819QYr7x8RHMxZ8ldKv2LKci0Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BlQYdDCgFztQYGy+CQ0Alx7Ye2xhzuka8lvfPbfMkfo=;
- b=b+XHDdbn/ZLyooGl4p6HdK9TJNHApoGyWAym2O9NjNM5KB2bbFVbAOaZa68foWn2ouMIgxLpY9BDhoIP8PVzSXXQ80OxBYOpPj18cHnLoyz/Y+S4Lsv+Tzs+jw7J41lDlAA0RPQkLCu/HNQJrn9ng/EUMTWpBbGo4A+Fd6OLtv8laVvaZE5GCyg4nr0oy23j1t1gQ6veYfJbI8Mk+moDWfLbXm5SHLyH4k3c1mKl6tvcRx0PuLX+vLN68nGvnUNLs+8+iP9ogtaPSgmhX2k/PW42XEHo3/1LalIP3OkiQnb64VWpSTxy0mS7xi36kBe84h2ZW9ucY8JlxNTJSW+wOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BlQYdDCgFztQYGy+CQ0Alx7Ye2xhzuka8lvfPbfMkfo=;
- b=iZ22OjXGHDSNQRCF2VtSoCzObiWoIgka3KFQnH1RY6v46c2pEVJs87Fo3dj68dMaKFohrqZdtafDlbr9f938IFETxaboX9Un7+/bbtly5VUmkEEw/OxD0xTYXNavvln6RIrt6IaNZZ0nrWpLN3fD5X65Fe3HQAlEI0T4Yo0ZtQ1wgZBL6tzDxH1Xy9h1nQLTioMXQRdOx3Q9EJ91uD8gkjzFRGC2pRaoBk/KH50LMtulFKj0IisnqsqGSMevveR7tNamjv6GoH6fY/ADKcqEk0zH0KXtunznbNYBe5OL8GZv3rTAfFFNgx9nGfBznnnOM3m8EGKM9IlrXb7Y8y665g==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by PAXP251MB0132.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:204::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 22:33:49 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 22:33:48 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: netdev@vger.kernel.org
-Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Joshua Washington <joshwash@google.com>,
-	Harshitha Ramamurthy <hramamurthy@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] gve: fix out-of-bounds read in gve_get_flow_rule_entry()
-Date: Tue, 20 Oct 2026 23:33:46 +0100
-Message-ID:
- <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO6P265CA0009.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:339::14) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20261020223346.94622-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=NQhu9Ql/
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35f036b17easo164549eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:34:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792535646; x=1793140446; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ilMa8acf5SBfyXhzvTTwFhD4qHERM2c6bWjfpOKNnKM=;
+        b=NQhu9Ql/WxpK07mU0UC5DGyA39vIavQxoROnA0QiEZrs7z+1rNR9kJgd2HKsdNFj39
+         myLsL1n7IAeyp8e1oMK8BORUnkazEdW+kkhIBFkgrXZA3GZtXO9hLyroI5m+KtsrlpeC
+         MZnbx6FCQvlhw7KGAzRqtNZLnLQF1dSG0dsmLntfwwqLy4nekqkjji6lrYbDfDkvyn9C
+         2ucsuqsY0XiDaPZJ3ZyKxzlIcHItYZ25ZmM8CYogbhQxqwcaSy1PpKBuUXb0+1UewOa0
+         /C2oZwYzlvIgneXYkOZG+QrrXCmo+lucbMp/esuxw1kxHabDvKByqJkAsck8mz+fii5U
+         O0tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792535646; x=1793140446;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ilMa8acf5SBfyXhzvTTwFhD4qHERM2c6bWjfpOKNnKM=;
+        b=mP8/51JtWMDQ5HPlxMJl4bW4cRJlFqcEwCjiB5WYIf2CVBqfEmnwEJmA5g2uk3huuA
+         lxiE6XCFJ0nKZxHCPe1vdhf17GT+p/XJWAa1sog/RlM3WzNiKhspRY9B9p9QKmO6TR5U
+         dIZIVNv60y2MCat+oCS6nEFWrOJKND7vncofKZ2v5McpQio3tIoox8qyH9A869FM2CeB
+         26W2ae3Cj+gMDSU2EMk7rEgZRCmz/Z0K1FJScSdPWjzHf+zSzDD3i655wMNbsfpCm4xs
+         CWoQhFT4Tbkk7kb4X9HZW7AiT0+AB3QG0XM8Gv+L0na66/nJiOsmbxPx8JAF9GUKE2Wx
+         eyAw==
+X-Forwarded-Encrypted: i=1; AKwUvByAHE9Xsiz26XBK/B9z98G+TQiLUDaEWtrWVNVwVR4T2Gu1llQ4hYQxn9xWusvPHEwpsij03aNgkNY8vRw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJfZ5nkbrOrbq6UKoXcJjNdXdlFMHOPFx+wPAiFGJbI46kG06d
+	ROOGYnzlFkU8HitNPql4OtX6PqEsQ4VQTLSDiDOcsIyDChQGDbrgsDw1bL/9NXEvRT4=
+X-Gm-Gg: AYBFou2RRYreTF4SyJnqY4f1H5oFjot6c+EgtyWPttmgDEiFumiPPOCbcnk+VtrHEac
+	LLawyo5MLOUm5ykcyUJGEngZnfIjhe0s2qZs0NCwbUIGTE4s/vpHQmm9nBZrtVpSWNwd3Cm401R
+	sh3LeXj1nM0Thyj+TCuikfWO2lsMBFjj4YVnKWeu0AXyA6+lIggomgjS45Bdo9MVRxt4ks1Lor7
+	DP8DXfMaoUK1f4Bw21oDq1DKyiYCZEfR15I9e9M/Lg2mRDuo3KUHxrxrFSLO7rJXXvrS+ntPVRJ
+	HC3F1THDtOC5fqbVSEWKa0fsOf4HoLUP6b10Gr3al8yMehSZGWFRTEUDwwdWgdZw7byPzsrj0oR
+	w+U3HHo/0ikHrJ0QZp4HJrqJ9Zr/XgXnC60U8AVDJOw22s5k1XALxWzYU8MHwi/8SXaxppf4nsF
+	S+awTQrQH0mTu0fKiREedVuTf1HTchiBcMtPo/o+bYe3af10QnmWu9tGK6rqvCALXa94EeTs4wo
+	fbrcEQJW0wVkrMIeawTxFmwhTCowg==
+X-Received: by 2002:a05:7300:106:b0:365:f73b:510b with SMTP id 5a478bee46e88-3674e450faemr875743eec.13.1792535644539;
+        Tue, 20 Oct 2026 15:34:04 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3674206d1f1sm1519517eec.28.2026.10.20.15.34.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 15:34:03 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:34:02 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Md Haris Iqbal <haris.iqbal@linux.dev>, Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org
+Subject: Re: [v3 for-next 1/3] block: Reject unknown status tags in error
+ injection rules
+Message-ID: <20261020223402.GA1582237-mkhalfella@purestorage.com>
+References: <20260928221634.43239-1-haris.iqbal@linux.dev>
+ <20260928221634.43239-2-haris.iqbal@linux.dev>
+ <20261005084917.GA9160@lst.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,113 +100,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PAXP251MB0132:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fecb2b5-7f03-4fcd-6440-08df2efa3567
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|51005399006|8060799015|260925184616899003|19110799012|25010399006|4140399003|55001999006|24021099003|15080799012|5072599009|37011999003|25031999004|23021999003|5062599005|41001999006|40105399003|3412199025|440099028|26104999009|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?HSSvRs4eVp5JAK5I62ZVjg3/vWbSJrOVjBqeZsX7Whq79GOqs7komKYXUWgX?=
- =?us-ascii?Q?xA0rMZoUhdsMnQ/7a3nimQWnHDucmK4Rb+lEnDULU8Gsi0l9VitzbASAwkN+?=
- =?us-ascii?Q?4ySKnguMNbCrobvvXOUU158PNscWTyBwUgiQMs+Zidl6Z6ogM0nU0/J93B9E?=
- =?us-ascii?Q?NJ9KX9mroNrX74el/iSwRst9lvmvRQG5r9CzU1Ixui2g4Sp+3rAc2YMPCkJb?=
- =?us-ascii?Q?MASlMe96oRutOr8vESgXE6gwS3qQL+uvSzM6+Kwx26am5jC3HBIWahfZs+iS?=
- =?us-ascii?Q?zdPwGrF8zuDDj+LWKGmv42gKrHe4uWgtyC170Fv8eSLnqgJvw8oFjwtCvOux?=
- =?us-ascii?Q?5ajULGHH13jL5JQBC0IY/GZo+OtA7191TW3XAq2oEOT/wd10ZEhKJsDxq+Sl?=
- =?us-ascii?Q?PAkgcvnltxGMq+/29DHqw+NdKpXbSd9cXeYULpLv6F6A2LqpdSyXQam5P9rE?=
- =?us-ascii?Q?CsaHLuCW9wPBKZnF5AVSXW+nwZXtAqtGGzGXh6stHYmLQxubVKgjB9Zoz+Ql?=
- =?us-ascii?Q?Gx8O+OKQaPpuAZ/eByFZqCfjoxxQI2cKlDqDsdms+pjf0CuwlFJoMwQp1CBH?=
- =?us-ascii?Q?xlFm5ymCwifmubS7mwqGOXbS1kPN1VPemextUlhOZphLv7QINo6fldAeSEFQ?=
- =?us-ascii?Q?hnxsPTcxRETs3I5XciKTPMQPtwyyOgw5nr8fvirylkSuxcMPbLWUWaXds3Pz?=
- =?us-ascii?Q?ootCI78xlTFLilT31Zaqe3gjYw9gMoP+KlyBF/PEe4qnLi5TcZMqpOKlyTOv?=
- =?us-ascii?Q?y22uEeQ1Jef9qFXqm2btHYZpvs+xMd7uY/dhkNTdCeMNEFt2w/uUdACdFi8F?=
- =?us-ascii?Q?2fTuIs78RS0hcGMWs1gsfBeuB7hZ5b9+K6S6cFBnfjzyg1aHURE6NLpWCg8N?=
- =?us-ascii?Q?kMKi1ahEQ12VW211Dzor4+oI12ws4rsDS09tqSUBIL20pSulZIsSNHiHJDu+?=
- =?us-ascii?Q?5PRpbiut7M91ReNJWNA8OY14/CgYPc+l5E6GBt85XmORSev3psoiCB8QCkzq?=
- =?us-ascii?Q?0DnEgZjqDqgz135Kn8GYf61DiS5sV9RH2SU76DrEI3aGPQHB/rJdYyuoquvN?=
- =?us-ascii?Q?X8SWkKA2oayUHvMQntsZR8qwtBi0ZfSPdYISvtIZAZ2UiIIhqA6ovc1vrluy?=
- =?us-ascii?Q?OB6bCJYPqCBR?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iIUD1yKtP1jKy/dQmQMVwmmTE8Zrz4MdUuTUqwmFkpz11qc+6bGAjF5OumaP?=
- =?us-ascii?Q?ccHpAc0lWHzXKKjjwyku6VvecSd/FTmxsfn/eXtPB2DD2NSTXb+RQFi5w6/5?=
- =?us-ascii?Q?/FZ9klIohunCHx8fLQ+vBqAOexkEgUaypCfrpiFpJHQO1lBA4gmkeilPSFVh?=
- =?us-ascii?Q?bzer1nqmbLXePl84CxxYG52T8a1huH853hNuslL3PYks5uoXmdxpL7epY8pM?=
- =?us-ascii?Q?hPoag3uz51/Bf2m4yuACpvgnQEpIk1wQCm9dt2fAvWZGSAcfjZuuCtrgXMi2?=
- =?us-ascii?Q?KB7WkraN2oZ+rgPhv9N5m/1jzioLei0HS9GeGvPlbeBIBKK5QYvz/08/ntLZ?=
- =?us-ascii?Q?VQnNoF9ry7gATv8FLvG4JK7GLmpX7iaFUpKZxlhs4i8B53lB95fv3W90NsVz?=
- =?us-ascii?Q?YaxD0AoGVwxZalksNLlXvkw6rg7Wi1pa22jL6M9jghjXELyj2gDPfA9jGaLo?=
- =?us-ascii?Q?i1PgpCPeC0UOm38pB4eNSD9L1xb/ZZsgX/Hj0v0yIYLDOPIM8Bsakg1LHKfR?=
- =?us-ascii?Q?Z2prBJ1LEjPwuAGZj4M/a9cRhiPMSl5bXSp18m3efcPYBMnGIyORTNmbhRm+?=
- =?us-ascii?Q?YqPlrOk0NkcQi/5gTwZnskHjVtHUy5Bg/GWLjy1lEDCNibOX1tsPxpze1+pr?=
- =?us-ascii?Q?r4Oq1Gx4bJwbqycMym4bq6Ytfi/ucjZd1lkN3FAlSRfTR89QIcCdk4f0DD7Q?=
- =?us-ascii?Q?V02yfSj08sqdo+xpjTghJ0+Y8OMyFzX9P4yknYswjxg1LUpxhJX0byMb1QHx?=
- =?us-ascii?Q?Ws5Patqcx2E+TGKm0/vE/yPbeyHrgUjugJVE2cjjQB5j3r9BAu+KPQ8YrcbD?=
- =?us-ascii?Q?hHhN855s+Xvm5/pp2wZvEjQcOzrrulBhJBlyzapGNjvebLvqN9ILPjH1ftte?=
- =?us-ascii?Q?gA1aCSZh+XklkiVdDjggda8DAqC0wR6e/8j/bBP9DaDIHFNBjAm37qaHHANV?=
- =?us-ascii?Q?I+G2dqVBH4D1GEA8zrdt9VSjFYgUZwm9gu0Ij/wbnR1toiIgdGSgnIPdjBCe?=
- =?us-ascii?Q?y9zMxJD+oKOaMH4Qf9gbcWqoQUlyRjV2TaUC+0uy1h959XcY8FRf/dDkUhUt?=
- =?us-ascii?Q?VgMbzBvBzbtwKkMafFVyobQ93RnC4f1VUq7Tz884R8QYuHxrmD2e23woORAM?=
- =?us-ascii?Q?O0Ok+9x+YWkPD1XjauouJZedbM+uxA2GAmAnZzK6aT5k4SvQaf8RQC+kb0AQ?=
- =?us-ascii?Q?TSgRUZS5GkE+C+UuEb6vH9wrQReIFeA5pmTkv6xRiI279XkTvfwFap1IQWrD?=
- =?us-ascii?Q?uHGoknTja0wO8wKtrWIybVuT8xcMf4Z25/cZ/Qo+oFGZeg6rbaEJqAzIXF8i?=
- =?us-ascii?Q?n4BOp1lE8SHLIj26gUgD/yKwMEtn+uvW6ymJ2dfL7hmSQ0XaEtRmnnnZDZEu?=
- =?us-ascii?Q?ZwSEBQ3Rsnvqg2oxZgpKuDIlvK5DOchCOyvorMjslga5xFCzQi7th9ocVexS?=
- =?us-ascii?Q?+IucOH1NAHMgN386qCGW9Z0moOcZAo9i?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fecb2b5-7f03-4fcd-6440-08df2efa3567
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 22:33:48.6834
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP251MB0132
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005084917.GA9160@lst.de>
 
-gve_get_flow_rule_entry() checks the requested location against the
-first and last cached rules, but rules_cache_num can be 0 while
-rules_cache_synced is true: GVE_FLOW_RULE_QUERY_RULES returns the rules
-from the requested location onwards, so a request past the last
-installed rule - or any request when no rules are installed - returns
-zero rules, which the driver accepts and marks as synced.
+On Mon 2026-10-05 10:49:17 +0200, Christoph Hellwig wrote:
+> On Tue, Sep 29, 2026 at 12:16:32AM +0200, Md Haris Iqbal wrote:
+> > tag_to_blk_status() returns BLK_STS_OK both for the "OK" tag and for a
+> > tag it does not recognize, so a caller cannot tell the two apart. The
+> > block error injection code (which is the sole user of this function
+> > currently) relies on error_inject_add() later to reject adding a rule with
+> > status=BLK_STS_OK. This is okay for the current state of error injection.
+> > 
+> > The delay option added in the next commit makes the rule with status=OK
+> > valid, meaning the function tag_to_blk_status() now needs to explicitly
+> > match BLK_STS_OK for it, and fail for a tag it does not recognize. Hence
+> > make tag_to_blk_status() take a second param to update the matched status,
+> > and return true in case of a successful match. If a match is not found,
+> > the function tag_to_blk_status() returns false and *status remains
+> > unchanged.
+> > 
+> > A repeated status= where an invalid tag comes first is now rejected
+> > instead of being overridden by the later one.
+> > 
+> > Cc: Christoph Hellwig <hch@lst.de>
+> > Assisted-by: Claude:claude-opus-5
+> > Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
+> > ---
+> >  block/blk-core.c        | 14 ++++++--------
+> >  block/blk.h             |  2 +-
+> >  block/error-injection.c |  7 ++++---
+> >  3 files changed, 11 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/block/blk-core.c b/block/blk-core.c
+> > index 13dc70e8f55d..c45846b9c50d 100644
+> > --- a/block/blk-core.c
+> > +++ b/block/blk-core.c
+> > @@ -225,21 +225,19 @@ const char *blk_status_to_tag(blk_status_t status)
+> >  	return blk_errors[idx].tag;
+> >  }
+> >  
+> > -blk_status_t tag_to_blk_status(const char *tag)
+> > +bool tag_to_blk_status(const char *tag, blk_status_t *status)
+> >  {
+> >  	int i;
+> >  
+> >  	for (i = 0; i < ARRAY_SIZE(blk_errors); i++) {
+> >  		if (blk_errors[i].tag &&
+> > -		    !strcmp(blk_errors[i].tag, tag))
+> > -			return (__force blk_status_t)i;
+> > +		    !strcmp(blk_errors[i].tag, tag)) {
+> > +			*status = (__force blk_status_t)i;
+> > +			return true;
+> > +		}
+> >  	}
+> >  
+> > -	/*
+> > -	 * Return BLK_STS_OK for mismatches as this function is intended to
+> > -	 * parse error status values.
+> > -	 */
+> > -	return BLK_STS_OK;
+> > +	return false;
+> >  }
+> >  
+> >  /**
+> > diff --git a/block/blk.h b/block/blk.h
+> > index 2cc03aa54c53..5fa54162c686 100644
+> > --- a/block/blk.h
+> > +++ b/block/blk.h
+> > @@ -52,7 +52,7 @@ void blk_free_flush_queue(struct blk_flush_queue *q);
+> >  
+> >  const char *blk_status_to_str(blk_status_t status);
+> >  const char *blk_status_to_tag(blk_status_t status);
+> > -blk_status_t tag_to_blk_status(const char *tag);
+> > +bool tag_to_blk_status(const char *tag, blk_status_t *status);
+> >  enum req_op str_to_blk_op(const char *op);
+> >  
+> >  bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic);
+> > diff --git a/block/error-injection.c b/block/error-injection.c
+> > index e14bc4b723ef..db543fe27630 100644
+> > --- a/block/error-injection.c
+> > +++ b/block/error-injection.c
+> > @@ -171,15 +171,16 @@ static int match_op(substring_t *args, enum req_op *op)
+> >  static int match_status(substring_t *args, blk_status_t *status)
+> >  {
+> >  	const char *tag;
+> > +	bool found;
+> >  
+> >  	tag = match_strdup(args);
+> >  	if (!tag)
+> >  		return -ENOMEM;
+> > -	*status = tag_to_blk_status(tag);
+> > -	if (!*status)
+> > +	found = tag_to_blk_status(tag, status);
+> > +	if (!found)
+> >  		pr_warn("invalid status '%s'\n", tag);
+> >  	kfree(tag);
+> > -	return 0;
+> > +	return found ? 0 : -EINVAL;
+> 
+> 	if (!found) {
+>   		pr_warn("invalid status '%s'\n", tag);
+> 		return -EINVAL;
+> 	}
+> 	return 0;
 
-The next query evaluates rules_cache[*cache_num - 1] with
-*cache_num == 0. The zero-initialised cache does not trip the earlier
-comparison, *cache_num - 1 wraps to 0xFFFFFFFF in u32, and the read
-faults about 352 GiB past the cache. ETHTOOL_GRXCLSRULE needs no
-capability, so an unprivileged user can trigger it:
+Doing it this way will result in use-after-free. "tag" has already been
+freed above.
 
-    BUG: unable to handle page fault for address: ff240996c4c64fa8
-    #PF: supervisor read access in kernel mode
-    RIP: gve_get_flow_rule_entry+0xd4/0x110 [gve]
+Maybe change tag_to_blk_status() to return an int (0 on success and
+-EINVAL on failure) and use its return value without mapping it?
 
-Treat an empty cache as a cache miss and re-query.
-
-Fixes: 6f3bc487565d ("gve: Add flow steering ethtool support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
----
-Reproducer available on request.
-
- drivers/net/ethernet/google/gve/gve_flow_rule.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/google/gve/gve_flow_rule.c b/drivers/net/ethernet/google/gve/gve_flow_rule.c
-index 2c80cda..db8b9a3 100644
---- a/drivers/net/ethernet/google/gve/gve_flow_rule.c
-+++ b/drivers/net/ethernet/google/gve/gve_flow_rule.c
-@@ -206,6 +206,7 @@ int gve_get_flow_rule_entry(struct gve_priv *priv, struct ethtool_rxnfc *cmd)
- 		return -EOPNOTSUPP;
- 
- 	if (!priv->flow_rules_cache.rules_cache_synced ||
-+	    !*cache_num ||
- 	    fsp->location < be32_to_cpu(rules_cache[0].location) ||
- 	    fsp->location > be32_to_cpu(rules_cache[*cache_num - 1].location)) {
- 		err = gve_adminq_query_flow_rules(priv, GVE_FLOW_RULE_QUERY_RULES, fsp->location);
--- 
-2.55.0
-
+> 
+> to keep the code a bit more readable.
+> 
+> Otherwise looks good:
+> 
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
