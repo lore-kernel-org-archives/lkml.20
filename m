@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510308;
-	b=OA9oVqoueCd0TZSWcUjsZNhInWptJgl0T2sGDMzCA2ynsik0cqXsLvIziH6A/RMA6kvE
-	 3L75SXIWCtqgy1Ye9WDrnEhtt9xP/otFxyg8CMdpLpWaLjaQvCOy5PQECNnXvmLWVw5EG
-	 DeY3YNu4wvPfWQI6jkRvgxfnS0RcnTpb+U1Iiu7yn8E8bfJ0da8iyZdNzyleSWrZ8ojkG
-	 fgzUN6OyykfyEA9yg1/6estb8sDfv7yPlojY5aWOqKOxRjj3vnhWiPO5OKmisBCU06hZV
-	 da4d3QX5DpCMxAcJYeCwYajH9Z+6VdP52HFUR4Spdjm4iEorTvauLbKRPqD2QlkIkEw==
+	t=1792510330;
+	b=3W1lbDnnyn8GgqYDyVQlBLA4uEN1yVncoRjcOT020JqOlHd9EXveAdVjMoh5gNezMLxs
+	 CDPN77VjHkyNn2p0K1NM68xFip6fdpjL2nXYjE3ueQgmCF7o0jrmgVRm1glQB8BPyQVMP
+	 eoSyV2zqtM0j2+J8YtFwt2Q6+h2QInB7mZOnKsDjoseGm09tRokK/LJV6fe6U9YuIb2It
+	 QASeJXLQUQB8lN3nppaYCPzTqK+UEgTcdMfznm1+uTqSEUQuN5PRqtn7N4hqBKeq6wXTs
+	 WdMMEnkFW2N3UjTwUZ9Gbddow+qV6WsUCxuI+UBqM0IxxwQj01X3UZLLRIEJUe+VupA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510308;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=BmEta96ZCFVJAawFGIowoZ+NqGcNynRMIFjNrGXaO30=;
-	b=BHCM5sOr8vQh4cvMndZRRR7ZI5HUcSKCa1mN9WCPkMjSB+Jvqcy96xyckGIlGsfVi+QZ
-	 ksJua+qU+/Lxc9jVgi/WVhDCnQlXUWz1ZGb9mdAzEUMnpXfEAeNonpLXQFD9rSKib2u0y
-	 hTpzwYSZGaudt2rLSj5uN1EoG6Ukw1JPlbBeq1zRTXjlAkm6PfYnf3jhjojEKQlzypPWf
-	 3WMR19uqyIilwvQJGfluTmYdy71I7IjqrFhfGWU/593z8NsDWTI7AJ8psUeTSSI3EZAu3
-	 4o7hi23rc4lrMhbM3UaQxtc4PRvn0NYLKpeJwQ9i6jxDN6XziFl2dur9UaPmGJQZYtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510330;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=RpUsNHBHUXRzS2zghI2ldKlR03lTMuoNlBhWk95vYTI=;
+	b=VMdI573edwEUm5oe65QoTFWEWdKc+Km4bci5yzHkWJRPtAHgkbpCeNVtbR/hliaS2ZiV
+	 LtMQoWUkQiLqmhC8OI6W4Rjze18feszP+KhdjvXSZ7wYaKItpCn/ep5Fw3S0JSsVuSPei
+	 qpZ1HEQfhoppR3LQuSb8I7B8CwzkvNc92eD4jsE3rbFyb4rI5/MVR5XtYA/mmsl5PkiZQ
+	 1JVEHFbkTGgDxMr8w44IfeIrsodLRgvWQ7cBTOxL8o4iaP0LiK0340y8UivnWFlrs9WG5
+	 GWBuVSf/ZWH8lBtVNozXuv4nfmPNwrEO/BBxEsuzhFs+rJLaN6ObayNs5Nmx4Fjttnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=onurozkan.dev;
-	spf=pass smtp.mailfrom=onurozkan.dev;
-	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=JAVIuQ5X;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.69
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624AD60A383A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:31:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 624AD60A383A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=JAVIuQ5X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1792510304; x=1792769504;
-	bh=BmEta96ZCFVJAawFGIowoZ+NqGcNynRMIFjNrGXaO30=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=JAVIuQ5XsLVrafuRVQXhVcGCfFqo3zlpGGF+Vi0kBaAC6K6le54gmQo2mZadWzQ2W
-	 WD9Ea2SeE41xudGEsp6ycNjPYKumtYKaHpguXf9qVwZigTHrrIU06A1Zm81f8B5qi3
-	 /tVy1QtFP3MngszmfmlH9aCIRfSFd2vBzuWRpWg+are34QDDn1ZvfJC7pDd+oAYj7O
-	 ZWcQPzKgEa9Uw9uIvkK9aDIvYB6SgTEJbYMdxDq6nhviYCluyjT0uifflCa4dAQaRu
-	 w+TZF/oQ4/QygZjrMUWP/4M8kwC3+4P12n4FM/zJgAQByISY9OlArED4+lq63cPIC6
-	 BI06eL7Y+qVdQ==
-X-Pm-Submission-Id: 4j8Gbx0XBPz2ScPc
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: rust-for-linux@vger.kernel.org
-Cc: lossin@kernel.org,
-	lyude@redhat.com,
-	ojeda@kernel.org,
-	alex.gaynor@gmail.com,
-	boqun.feng@gmail.com,
-	gary@garyguo.net,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	will@kernel.org,
-	longman@redhat.com,
-	felipe_life@live.com,
-	daniel@sedlak.dev,
-	daniel.almeida@collabora.com,
-	thomas.hellstrom@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v13 6/7] rust: ww_mutex: implement DynLockSet
-Date: Tue, 20 Oct 2026 18:29:42 +0300
-Message-ID: <20261020153112.299745-7-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20261020153112.299745-1-work@onurozkan.dev>
-References: <20261020153112.299745-1-work@onurozkan.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E652F606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E652F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-48296f34f1dso3660166fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:32:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792510329; x=1793115129;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RpUsNHBHUXRzS2zghI2ldKlR03lTMuoNlBhWk95vYTI=;
+        b=F6KCuX9VIoIEmoJ3frrn4UHuOob5vwXVnZgCRQg0iEpAZ0Xl7yS+Jl1LfizxgYrJAm
+         zeStmQGBmhAG60Jax5jSRmurrsgLaLudl/b0thHMa1kbMBOe0/Mx+QM15c9cs97Hn0cp
+         +f8CTmMZYjTXxuRCS6kZEeSdwy85oM7U2HjJ+Wn/0ApTYb83jMBd3ZZ2hQcWtRmzNLxH
+         VVkz23e3TLHzdE7cCbvPfQ8OJ7WUGGlBa2+nHNeIoTqtSJZdVenXNLm9IktJcg2BHJa6
+         +wfgBUvvNick4kHCIF4bTlxYyZBJ6IEQNrzl8yDdApDE/PSAgjDxzb3qLwagcVA/bv+Y
+         U4lA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKJTtWGD9Sd/EbvvMM4ka52rCEVeNQNXjUn2GEjqY3BwjFm1uaOQYcghUNZhKRl3KVKgBO6XIXFmQbrWU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwg29OEP9iM9k4q3OLi0FdF4pTf9gOf6XxxL8PJrookrStCdqo
+	tTzcNj6kHvdsQsP9mO4WAvqtk8r+07JF5xCs956STkMGQtXI3jHxOBrlR6jtu95p0lNCuNZwzaz
+	Oa6XaOI20fs0RpBoUEOWY5K520vGMUwyycsNDjIvcn0MddjdT7yURCDfFgTU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,593 +58,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:13c6:b0:4f4:d7:b15b with SMTP id
+ 5614622812f47-53cc6b003a6mr9914911b6e.4.1792510329007; Tue, 20 Oct 2026
+ 08:32:09 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:32:08 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad78978.b5bd089a.6b57.008d.GAE@google.com>
+Subject: [syzbot] [block?] possible deadlock in blkdev_buffered_write
+From: syzbot <syzbot+bd975ef54294bec73f0e@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-DynLockSet is a high-level and safe API built on top of ww_mutex
-for dynamically discovered locks. It keeps acquired locks held,
-handles repeated objects and provides access to their data.
+Hello,
 
-When EDEADLK is hit it drops all held locks and waits for the
-contended mutex. It then retries the given (by the user)
-locking algorithm with that mutex held and the same acquire
-context until it succeeds.
+syzbot found the following issue on:
 
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
+HEAD commit:    2efb7a11f1aa Add linux-next specific files for 20261016
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=15344895580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=129fca4e65ab9877
+dashboard link: https://syzkaller.appspot.com/bug?extid=bd975ef54294bec73f0e
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=110b0f01580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17b99031580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/cd996cff1b76/disk-2efb7a11.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/59577d58bd5a/vmlinux-2efb7a11.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/a3dfa3b04143/bzImage-2efb7a11.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/2b9971624b86/mount_0.gz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bd975ef54294bec73f0e@syzkaller.appspotmail.com
+
+============================================
+WARNING: possible recursive locking detected
+syzkaller #0 Not tainted
+--------------------------------------------
+syz.0.40/6005 is trying to acquire lock:
+ffff888024956f68 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ffff888024956f68 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: blkdev_buffered_write+0xd7/0x160 block/fops.c:738
+
+but task is already holding lock:
+ffff888024956f68 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ffff888024956f68 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: blkdev_write_iter+0x6c5/0x810 block/fops.c:815
+
+other info that might help us debug this:
+ Possible unsafe locking scenario:
+
+       CPU0
+       ----
+  lock(&sb->s_type->i_mutex_key#10);
+  lock(&sb->s_type->i_mutex_key#10);
+
+ *** DEADLOCK ***
+
+ May be due to missing lock nesting notation
+
+locks held by syz.0.40/6005: 1, last CPU#1:
+ #0: ffff888024956f68 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ #0: ffff888024956f68 (&sb->s_type->i_mutex_key#10){++++}-{4:4}, at: blkdev_write_iter+0x6c5/0x810 block/fops.c:815
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 6005 Comm: syz.0.40 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_deadlock_bug+0x27a/0x290 kernel/locking/lockdep.c:3085
+ check_deadlock kernel/locking/lockdep.c:3137 [inline]
+ validate_chain kernel/locking/lockdep.c:3939 [inline]
+ __lock_acquire+0x25db/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ down_read+0x45/0x320 kernel/locking/rwsem.c:1574
+ inode_lock_shared include/linux/fs.h:1039 [inline]
+ blkdev_buffered_write+0xd7/0x160 block/fops.c:738
+ blkdev_write_iter+0x6d5/0x810 block/fops.c:816
+ do_iter_readv_writev+0x612/0x8c0 fs/read_write.c:-1
+ vfs_writev+0x343/0x990 fs/read_write.c:1768
+ do_pwritev fs/read_write.c:1864 [inline]
+ __do_sys_pwritev2 fs/read_write.c:1922 [inline]
+ __se_sys_pwritev2+0x177/0x2a0 fs/read_write.c:1913
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff2f2b9e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff19d23ca8 EFLAGS: 00000246 ORIG_RAX: 0000000000000148
+RAX: ffffffffffffffda RBX: 00007ff2f2e25fa0 RCX: 00007ff2f2b9e559
+RDX: 0000000000000001 RSI: 0000200000000240 RDI: 0000000000000004
+RBP: 00007ff2f2c35ab8 R08: 0000000000000000 R09: 0000000000000003
+R10: 0000000000007a00 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ff2f2e25fac R14: 00007ff2f2e25fa0 R15: 00007ff2f2e25fa0
+ </TASK>
+
+
 ---
- rust/kernel/sync/lock/ww_mutex.rs             |   4 +
- .../sync/lock/ww_mutex/acquire_ctx_backoff.rs | 138 ++++++-
- .../kernel/sync/lock/ww_mutex/dyn_lock_set.rs | 351 ++++++++++++++++++
- 3 files changed, 489 insertions(+), 4 deletions(-)
- create mode 100644 rust/kernel/sync/lock/ww_mutex/dyn_lock_set.rs
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/rust/kernel/sync/lock/ww_mutex.rs b/rust/kernel/sync/lock/ww_mutex.rs
-index 2249214959b1c..fea2603d1bd1f 100644
---- a/rust/kernel/sync/lock/ww_mutex.rs
-+++ b/rust/kernel/sync/lock/ww_mutex.rs
-@@ -7,6 +7,8 @@
- //! [`AcquireCtx`] to track ordering and ensure forward progress.
- //!
- //! [`ww_transaction`] provides automatic deadlock recovery for ordinary guards.
-+//! Use [`DynLockSet::ww_transaction`] for dynamically discovered locks and
-+//! separate acquisition and work callbacks.
- //!
- //! See srctree/Documentation/locking/ww-mutex-design.rst for more details.
- 
-@@ -28,10 +30,12 @@
-     AcquireCtxBackoff, //
- };
- pub use class::Class;
-+pub use dyn_lock_set::DynLockSet;
- 
- mod acquire_ctx;
- mod acquire_ctx_backoff;
- mod class;
-+mod dyn_lock_set;
- 
- /// A wound-wait (ww) mutex that is powered with deadlock avoidance
- /// when acquiring multiple locks of the same [`Class`].
-diff --git a/rust/kernel/sync/lock/ww_mutex/acquire_ctx_backoff.rs b/rust/kernel/sync/lock/ww_mutex/acquire_ctx_backoff.rs
-index 71ad1cba37192..c6d213f74635f 100644
---- a/rust/kernel/sync/lock/ww_mutex/acquire_ctx_backoff.rs
-+++ b/rust/kernel/sync/lock/ww_mutex/acquire_ctx_backoff.rs
-@@ -8,13 +8,17 @@
-     Mutex,
-     MutexGuard, //
- };
--use crate::prelude::*;
-+use crate::{
-+    bindings,
-+    prelude::*, //
-+};
- use core::cell::Cell;
- 
- /// An [`AcquireCtx`] that remembers the contended mutex.
- ///
- /// After [`Self::lock`] returns [`EDEADLK`], release all guards and call
--/// [`Self::backoff`] before retrying. [`ww_transaction`] handles this retry loop.
-+/// [`Self::backoff`] before retrying. [`ww_transaction`] and
-+/// [`super::DynLockSet::ww_transaction`] handle this retry loop.
- ///
- /// Mutexes must outlive this wrapper so they remain valid for retry.
- ///
-@@ -109,11 +113,36 @@ pub fn done(&self) {
-     }
- 
-     #[inline]
--    fn assert_no_locks_held(&self) {
-+    pub(super) fn take_contended_guard(&self) -> Option<MutexGuard<'_, ()>> {
-+        self.backoff_guard.take()
-+    }
-+
-+    #[inline]
-+    pub(super) fn assert_no_locks_held(&self) {
-         // SAFETY: This initialized context belongs to the current task.
-         let acquired = unsafe { (*self.ctx.inner.get()).acquired };
-         assert_eq!(acquired, 0, "ww transaction still holds caller-owned locks");
-     }
-+
-+    #[inline]
-+    pub(super) fn clear_backoff(&self) {
-+        drop(self.backoff_guard.take());
-+        self.contended.set(None);
-+    }
-+
-+    pub(super) fn restart(&self) {
-+        self.clear_backoff();
-+        self.assert_no_locks_held();
-+        let ptr = self.ctx.inner.get();
-+        // SAFETY: This wrapper exclusively borrows the initialized, pinned context.
-+        // No acquired locks remain, so it can be finalized and reinitialized with
-+        // its static class.
-+        unsafe {
-+            let class = (*ptr).ww_class;
-+            bindings::ww_acquire_fini(ptr);
-+            bindings::ww_acquire_init(ptr, class);
-+        }
-+    }
- }
- 
- impl Drop for AcquireCtxBackoff<'_, '_> {
-@@ -164,7 +193,7 @@ pub fn ww_transaction<'a, R>(
-     retry(&ctx, || transaction(&ctx))
- }
- 
--fn retry<R>(
-+pub(super) fn retry<R>(
-     ctx: &AcquireCtxBackoff<'_, '_>,
-     mut transaction: impl FnMut() -> Result<R>,
- ) -> Result<R> {
-@@ -178,6 +207,7 @@ fn retry<R>(
- 
- #[kunit_tests(rust_kernel_ww_transaction)]
- mod tests {
-+    use super::super::DynLockSet;
-     use super::*;
-     use crate::define_ww_class;
-     use pin_init::stack_pin_init;
-@@ -280,4 +310,104 @@ fn test_deadlock_without_contention() -> Result {
-         assert!(!mutex.is_locked());
-         Ok(())
-     }
-+
-+    #[test]
-+    fn test_dynamic_retry() -> Result {
-+        stack_pin_init!(let first = Mutex::new(10, &TEST_TRANSACTION_CLASS));
-+        stack_pin_init!(let second = Mutex::new(20, &TEST_TRANSACTION_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_TRANSACTION_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+        let mut set = DynLockSet::new(&ctx);
-+        let mut attempts = 0;
-+        let mut identity = None;
-+
-+        let result = set.ww_transaction(
-+            |set| {
-+                attempts += 1;
-+                let ptr = ctx.ctx.inner.get();
-+                // SAFETY: The pinned context is initialized and used only by
-+                // this task throughout the transaction.
-+                let stamp = unsafe { (*ptr).stamp };
-+                if attempts == 1 {
-+                    identity = Some((ptr, stamp));
-+                    set.lock(&first)?;
-+                    // SAFETY: `second` is initialized, pinned, and outlives the transaction.
-+                    let mutex = unsafe { Mutex::from_raw(second.inner.get()) };
-+                    ctx.contended.set(Some(mutex));
-+                    return Err(EDEADLK);
-+                }
-+
-+                assert_eq!(attempts, 2);
-+                assert_eq!(identity, Some((ptr, stamp)));
-+                assert!(!first.is_locked());
-+                // Backoff makes the contended mutex available before lock().
-+                assert_eq!(set.with_locked(&second, |v| *v)?, 20);
-+                set.lock(&second)?;
-+                set.lock(&first)
-+            },
-+            |set| {
-+                set.with_locked(&first, |v| *v += 1)?;
-+                set.with_locked(&second, |v| {
-+                    *v += 2;
-+                    *v
-+                })
-+            },
-+        )?;
-+
-+        assert_eq!(result, 22);
-+        assert_eq!(attempts, 2);
-+        assert!(!first.is_locked());
-+        assert!(!second.is_locked());
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_dynamic_error_cleanup() -> Result {
-+        stack_pin_init!(let first = Mutex::new(1, &TEST_TRANSACTION_CLASS));
-+        stack_pin_init!(let contended = Mutex::new(2, &TEST_TRANSACTION_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_TRANSACTION_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+        let mut set = DynLockSet::new(&ctx);
-+
-+        for swallow in [false, true] {
-+            let mut work_ran = false;
-+            let result = set.ww_transaction(
-+                |set| {
-+                    set.lock(&first)?;
-+                    // A swallowed or mapped EDEADLK must not poison the next call.
-+                    // SAFETY: `contended` is initialized, pinned, and outlives the transaction.
-+                    let mutex = unsafe { Mutex::from_raw(contended.inner.get()) };
-+                    ctx.contended.set(Some(mutex));
-+                    assert_eq!(set.lock(&first), Err(EDEADLK));
-+                    if swallow {
-+                        Ok(())
-+                    } else {
-+                        Err(EINVAL)
-+                    }
-+                },
-+                |set| {
-+                    work_ran = true;
-+                    ctx.done();
-+                    set.with_locked(&first, |v| *v += 1)
-+                },
-+            );
-+
-+            assert_eq!(result, if swallow { Ok(()) } else { Err(EINVAL) });
-+            assert_eq!(work_ran, swallow);
-+            assert!(ctx.contended.get().is_none());
-+            assert!(!first.is_locked());
-+            assert!(!contended.is_locked());
-+
-+            set.ww_transaction(
-+                |set| {
-+                    set.lock(&contended)?;
-+                    set.lock(&first)
-+                },
-+                |set| set.with_locked(&contended, |v| *v += 1),
-+            )?;
-+            assert!(!first.is_locked());
-+            assert!(!contended.is_locked());
-+        }
-+        Ok(())
-+    }
- }
-diff --git a/rust/kernel/sync/lock/ww_mutex/dyn_lock_set.rs b/rust/kernel/sync/lock/ww_mutex/dyn_lock_set.rs
-new file mode 100644
-index 0000000000000..d82da83839ffb
---- /dev/null
-+++ b/rust/kernel/sync/lock/ww_mutex/dyn_lock_set.rs
-@@ -0,0 +1,351 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Wound/wait locking for a set of objects discovered at runtime.
-+//!
-+//! [`DynLockSet`] keeps locks held while the caller inspects objects and finds
-+//! more locks to acquire. It handles repeated mutexes and provides access to
-+//! their protected data. [`DynLockSet::ww_transaction`] handles deadlock retries
-+//! and runs the work callback once all locks are held.
-+
-+use super::{
-+    acquire_ctx_backoff::retry,
-+    AcquireCtxBackoff,
-+    Mutex,
-+    MutexGuard, //
-+};
-+use crate::{
-+    bindings,
-+    prelude::*,
-+    types::NotThreadSafe, //
-+};
-+use core::ptr::NonNull;
-+
-+/// Used by [`DynLockSet`] to track acquired locks.
-+///
-+/// This type is strictly crate-private and must never be exposed
-+/// outside this crate.
-+struct RawGuard {
-+    mutex_ptr: NonNull<bindings::ww_mutex>,
-+    _not_send: NotThreadSafe,
-+}
-+
-+impl Drop for RawGuard {
-+    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: `mutex_ptr` originates from a locked `Mutex` and remains
-+        // valid for the lifetime of this guard, so unlocking here is sound.
-+        unsafe { bindings::ww_mutex_unlock(self.mutex_ptr.as_ptr()) };
-+    }
-+}
-+
-+/// A tracked set of [`Mutex`] locks acquired with the same [`AcquireCtxBackoff`].
-+///
-+/// Keeps locks held across loops and helper calls, handles repeated mutexes and
-+/// provides access to their data through [`Self::with_locked`].
-+pub struct DynLockSet<'ctx, 'm> {
-+    ctx: &'ctx AcquireCtxBackoff<'ctx, 'm>,
-+    taken: KVec<RawGuard>,
-+}
-+
-+impl<'ctx, 'm> DynLockSet<'ctx, 'm> {
-+    /// Creates an empty set using the given acquire context.
-+    #[inline]
-+    pub fn new(ctx: &'ctx AcquireCtxBackoff<'ctx, 'm>) -> Self {
-+        Self {
-+            ctx,
-+            taken: KVec::new(),
-+        }
-+    }
-+
-+    /// Attempts to lock the given [`Mutex`] and stores a guard for it.
-+    ///
-+    /// Returns success if the mutex is already held by this set, unless deadlock
-+    /// recovery is pending.
-+    pub fn lock<T>(&mut self, mutex: &'m Mutex<T>) -> Result {
-+        match self.ctx.lock(mutex) {
-+            Ok(guard) => self.add_guard(guard),
-+            Err(e) if e == EALREADY => {
-+                // The context may hold a guard owned outside this set.
-+                if self
-+                    .taken
-+                    .iter()
-+                    .any(|guard| guard.mutex_ptr.as_ptr() == mutex.inner.get())
-+                {
-+                    Ok(())
-+                } else {
-+                    Err(e)
-+                }
-+            }
-+            Err(e) => Err(e),
-+        }
-+    }
-+
-+    /// Acquires a dynamic set, retrying on deadlock then runs `work` once.
-+    ///
-+    /// Each call releases existing locks and starts a new transaction. Retries keep
-+    /// the same ticket. The set retains its allocation across retries and calls.
-+    ///
-+    /// `work` runs once after acquisition and must not acquire more locks. Its errors
-+    /// are returned without retrying. All locks and pending backoff state are released
-+    /// on return. The callbacks must not change the set's context or nest transactions
-+    /// on that context.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if the context holds caller-owned locks outside this set at a transaction
-+    /// boundary, including forgotten guards.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::{
-+    ///     define_ww_class,
-+    ///     prelude::*,
-+    ///     sync::lock::ww_mutex::{
-+    ///         AcquireCtx,
-+    ///         AcquireCtxBackoff,
-+    ///         DynLockSet,
-+    ///         Mutex, //
-+    ///     }, //
-+    /// };
-+    /// use pin_init::stack_pin_init;
-+    ///
-+    /// define_ww_class!(CLASS);
-+    ///
-+    /// stack_pin_init!(let first = Mutex::new(1, &CLASS));
-+    /// stack_pin_init!(let second = Mutex::new(2, &CLASS));
-+    ///
-+    /// stack_pin_init!(let acquire_ctx = AcquireCtx::new(&CLASS));
-+    /// let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+    /// let mut set = DynLockSet::new(&ctx);
-+    ///
-+    /// set.ww_transaction(
-+    ///     |set| {
-+    ///         set.lock(&first)?;
-+    ///
-+    ///         if set.with_locked(&first, |value| *value > 0)? {
-+    ///             set.lock(&second)?;
-+    ///         }
-+    ///
-+    ///         Ok(())
-+    ///     },
-+    ///     |set| set.with_locked(&first, |value| *value += 1),
-+    /// )?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    pub fn ww_transaction<R>(
-+        &mut self,
-+        mut acquire: impl FnMut(&mut Self) -> Result,
-+        work: impl FnOnce(&mut Self) -> Result<R>,
-+    ) -> Result<R> {
-+        let ctx = self.ctx;
-+        self.clear();
-+        ctx.restart();
-+
-+        let result = retry(ctx, || {
-+            if let Some(guard) = self.ctx.take_contended_guard() {
-+                self.add_guard(guard)?;
-+            }
-+
-+            let result = acquire(self);
-+            if result.is_err() {
-+                self.clear();
-+            }
-+
-+            result
-+        });
-+
-+        let result = result.and_then(|()| work(self));
-+
-+        self.clear();
-+        ctx.clear_backoff();
-+        ctx.assert_no_locks_held();
-+
-+        result
-+    }
-+
-+    fn add_guard<T: ?Sized>(&mut self, guard: MutexGuard<'ctx, T>) -> Result {
-+        let raw_guard = RawGuard {
-+            // SAFETY: The guard holds this mutex which remains valid for `'ctx`.
-+            mutex_ptr: unsafe { NonNull::new_unchecked(guard.mutex.inner.get()) },
-+            _not_send: NotThreadSafe,
-+        };
-+
-+        // Transfer unlocking to `raw_guard` before the fallible push so failure
-+        // drops only one guard and unlocks the mutex exactly once.
-+        core::mem::forget(guard);
-+        self.taken.push(raw_guard, GFP_KERNEL)?;
-+
-+        Ok(())
-+    }
-+
-+    /// Executes `access` with a mutable reference to the data behind [`Mutex`].
-+    ///
-+    /// Fails with [`EINVAL`] if the [`Mutex`] was not locked in this set.
-+    pub fn with_locked<T: Unpin, Y>(
-+        &mut self,
-+        mutex: &'m Mutex<T>,
-+        access: impl for<'b> FnOnce(&'b mut T) -> Y,
-+    ) -> Result<Y> {
-+        let mutex_ptr = mutex.inner.get();
-+
-+        if self
-+            .taken
-+            .iter()
-+            .any(|guard| guard.mutex_ptr.as_ptr() == mutex_ptr)
-+        {
-+            // SAFETY: We hold the lock corresponding to `mutex` so we have
-+            // exclusive access to its protected data.
-+            let value = unsafe { &mut *mutex.data.get() };
-+
-+            Ok(access(value))
-+        } else {
-+            // `mutex` isn't locked in this set.
-+            Err(EINVAL)
-+        }
-+    }
-+
-+    /// Releases all locks in the set.
-+    #[inline]
-+    pub fn clear(&mut self) {
-+        // `Drop` implementation of the `RawGuard` takes care of the unlocking.
-+        self.taken.clear();
-+    }
-+}
-+
-+impl Drop for DynLockSet<'_, '_> {
-+    #[inline]
-+    fn drop(&mut self) {
-+        self.clear();
-+    }
-+}
-+
-+#[kunit_tests(rust_kernel_dyn_lock_set)]
-+mod tests {
-+    use super::super::AcquireCtx;
-+    use super::*;
-+    use crate::{
-+        define_wd_class,
-+        define_ww_class, //
-+    };
-+    use pin_init::stack_pin_init;
-+
-+    define_ww_class!(TEST_WOUND_WAIT_CLASS);
-+    define_wd_class!(TEST_WAIT_DIE_CLASS);
-+
-+    #[test]
-+    fn test_lock_and_clear() -> Result {
-+        stack_pin_init!(let mutex = Mutex::new(10, &TEST_WOUND_WAIT_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_WOUND_WAIT_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+        let mut set = DynLockSet::new(&ctx);
-+
-+        assert_eq!(set.taken.capacity(), 0);
-+
-+        set.lock(&mutex)?;
-+        set.lock(&mutex)?;
-+        assert_eq!(set.taken.len(), 1);
-+
-+        set.with_locked(&mutex, |v| *v += 7)?;
-+        assert_eq!(set.with_locked(&mutex, |v| *v)?, 17);
-+
-+        let capacity = set.taken.capacity();
-+        assert!(capacity > 0);
-+
-+        set.clear();
-+        assert!(!mutex.is_locked());
-+        assert_eq!(set.taken.len(), 0);
-+        assert_eq!(set.taken.capacity(), capacity);
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_drop_unlocks() -> Result {
-+        stack_pin_init!(let first = Mutex::new(1, &TEST_WOUND_WAIT_CLASS));
-+        stack_pin_init!(let second = Mutex::new(2, &TEST_WOUND_WAIT_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_WOUND_WAIT_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+
-+        {
-+            let mut set = DynLockSet::new(&ctx);
-+
-+            set.lock(&first)?;
-+            set.lock(&second)?;
-+        }
-+
-+        assert!(!first.is_locked());
-+        assert!(!second.is_locked());
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_context_reuse() -> Result {
-+        stack_pin_init!(let mutex = Mutex::new(5, &TEST_WOUND_WAIT_CLASS));
-+        let mut acquire_ctx = KBox::pin_init(AcquireCtx::new(&TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+
-+        {
-+            let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+            let mut set = DynLockSet::new(&ctx);
-+
-+            set.ww_transaction(
-+                |set| set.lock(&mutex),
-+                |set| set.with_locked(&mutex, |value| *value += 1),
-+            )?;
-+
-+            assert!(!mutex.is_locked());
-+        }
-+
-+        let guard = acquire_ctx.lock(&mutex)?;
-+        assert_eq!(*guard, 6);
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_reject_external_guard() -> Result {
-+        stack_pin_init!(let mutex = Mutex::new(5, &TEST_WOUND_WAIT_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_WOUND_WAIT_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+        let guard = ctx.lock(&mutex)?;
-+        let mut set = DynLockSet::new(&ctx);
-+
-+        assert_eq!(set.lock(&mutex), Err(EALREADY));
-+        assert_eq!(set.with_locked(&mutex, |v| *v), Err(EINVAL));
-+
-+        set.clear();
-+        assert!(mutex.is_locked());
-+        assert_eq!(*guard, 5);
-+
-+        drop(guard);
-+        assert!(!mutex.is_locked());
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_access_without_lock() -> Result {
-+        stack_pin_init!(let mutex = Mutex::new(5, &TEST_WOUND_WAIT_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_WOUND_WAIT_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+        let mut set = DynLockSet::new(&ctx);
-+
-+        assert_eq!(set.with_locked(&mutex, |v| *v), Err(EINVAL));
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_class_mismatch() -> Result {
-+        stack_pin_init!(let mutex = Mutex::new(5, &TEST_WOUND_WAIT_CLASS));
-+        stack_pin_init!(let acquire_ctx = AcquireCtx::new(&TEST_WAIT_DIE_CLASS));
-+        let ctx = AcquireCtxBackoff::new(acquire_ctx.as_mut());
-+        let mut set = DynLockSet::new(&ctx);
-+
-+        assert_eq!(set.lock(&mutex), Err(EINVAL));
-+        assert!(!mutex.is_locked());
-+
-+        Ok(())
-+    }
-+}
--- 
-2.51.2
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
