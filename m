@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533480;
-	b=4Cj1YUTGVdUR0rV8eieqDuVx17eN3Eb7h/RvqoIPWMXwFvzCJ4kG6O+vCFml271QQ/L6
-	 lW5Lt13E7PR92abahP/7l713gwl5oMx+qd8ljR1+KDa9K4LHC5vyxagkGVr5vLYUHbvuo
-	 6MRj8IV6Mw8dVwV5S7lyfzqIORFqXXYNd2ZSjquWM9KJgiX/MNwcj49bgg7claZWslLSu
-	 15eGxQRTTTVUw9AsKOifhwNZodirercLxdaHMwLwg7eOCZxkmyuu7wwg2OeVkzCxRy9cm
-	 k6BKINypNaOyWXmZ5iIAabAy9OOKxqPG/Mf3ca926/R05iBqmrSTI8Dc4xWsL4edSmQ==
+	t=1792533549;
+	b=SWRRGwfFlCTblX0OBQthSjtEmQtorTxU1IHzpq3GZKcMmdvMMZKEGzNFTg7xzsNQcPVn
+	 dC4y1ib4MDm40SCOZ50efQoV0YoEBSZTH8pKxg7lAhQtTGP2Do91lKnI5pF1UMglPX/mF
+	 aBddgkz0Er91p0scT0xXUw2wEdhyQwmMDTabhnZeVwqYD+QB4Y4KqmXATVeXZBGyRXEPo
+	 reDeBviy5NH23oTMiZU/fp9hkJHGKyEttdLrgF86UKSZF7q7Ox93Fy1ulJLL77eR7lS5V
+	 dGSW4ZKhaHNmLBt5oGXtKEMl/W6xFDi6HZKNcadiL4zH8PTpO4EF9cbiLFYgEVJNOLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533549;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hYnXTzJewxVnTsYQsR0lTJu5zv/qnETwI2MNTZueBaE=;
-	b=Xg8VtVqgiR3t8FKpUCF5bkHDsjARM1+85g1mn7ntqHovMlfxSO3n2YxGQ8OYjTWzj6UW
-	 sWuvJ+s++FSu9pUICl11Gxe47CBWCKsghs5WGITlrKEdcGH8SepMyJcWn1xDntoZt+/Ka
-	 Xx6wrPYfg6fvegRv1upcYNMFNSMJun6ktSuyBph+WSJUzsE3nwoDahPFyvQM0jOCfJ8M1
-	 UTwPFLJDA9Nbsmr9gwA3xaspMIiGI/LjMk50pKES+kGGp4CnBpsgHj8KW1uYF+nu7nFkt
-	 zqWAzK9Fp1CMBtfhdFm51JHrBJi8kRvy5K5USmDwJlBjDikcafMMzNRPAcOx4efxNrg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OFRf0ceigKCMfSem0YJiHH5DCGenKyglDuxNlTimA90=;
+	b=u84kx/ALFWXLpJukbBfs+mZ7kBKC5A6nh+nDQqQb2sebZ1yHzP82l61yAYRerGognoe5
+	 CU+0OglRuERNuLW14EkjRzPeUEXEnXSoFinFfi4H69BMnrmWl5jToRDkb7r7GH1tZW7oP
+	 Yf8FovGL1TUVJw7dYd4i5LZDDPdYZEPNAGwulrp+lxf6Wgl1vXkYtqKiNVjT9RJCXawMq
+	 Pl4uiPtglAiAIdmCi5GvNzFQuRRpxC1U1LvrEPUJ2w5ZZ+rhWKjYYnhRb1cnGixWv8Ip2
+	 yoPFjHaWQSTpuQAkj8N54Mq5pMyGsxG2pKMfsK59VSPXYA1WtsS6wf8Fsgyy+bnSusQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J+M8k3LW;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I+BHn+Xq;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29492606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:58:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29492606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24637606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24637606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J+M8k3LW
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-34cbc588a31so5369eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:57:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I+BHn+Xq
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so593775e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792533479; x=1793138279; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hYnXTzJewxVnTsYQsR0lTJu5zv/qnETwI2MNTZueBaE=;
-        b=J+M8k3LW1y1p2rAPNOoanZEOm8pIOU1+hFBlot9nZuGIe4j/NEAa3FoXR4K0fIC/Ww
-         nMySMKfpE2Akc8lwd9+qGjYpg65pMLQArQFxr4tam3HsNsKTXdlfbPjO2xBVcl2cHAk5
-         5zHbTyv+gliwodCFR7WwgWQY720cCKozaMjhp6H0kmml3W2bYWCO0bmj2aC2HDVJlTv4
-         qR0UCKjB/bpPAJupIljMfGC8oih7hHdEW9uM09884Y/2Qa0kNX/x6LnMQp+92vf8im2B
-         qGwF2UGwdNw88cc+T6dT47t7P8G/p9wcCyLXIZf8fox/xEFre6sXoE5mS4Iui8gmh8xT
-         z51g==
+        d=gmail.com; s=20251104; t=1792533547; x=1793138347; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OFRf0ceigKCMfSem0YJiHH5DCGenKyglDuxNlTimA90=;
+        b=I+BHn+XqQ9eQyTyJTSf9be+goHH54CA/u8sthwgc8PYOryJTEmeLCHXJp8UiiQDkuF
+         2bZCdyIpbisgqT10hnlN3K9N0dsQMSGwZxPzQJLWMxSeLgk7OuOc+whZXF5WSu+HgvNN
+         NT2v76pQoZcZka1GP5jh+pnfcwUWPZAk8a0yA/ipYAZakhz/pgN1BP1Mre+cqvhzRKBw
+         otRiKNjzFMSHvfMMng17olqamENMvvnY5AaRoXGgJnB6J1kz+2nzdXlGQhTK7GYN8IaR
+         NuA18p8yjc940Fqv0/SKztrPHIytdFbM5+petY4vl90LEv8v880By42TKLqSqmjBQbls
+         0c6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792533479; x=1793138279;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hYnXTzJewxVnTsYQsR0lTJu5zv/qnETwI2MNTZueBaE=;
-        b=JsygJW5MTXiTm23LWxYIqzlrCA/YBQ3F8NhYnqstQNDqdFTtqThKlMgGWkPPu/a77x
-         BdGVCCFgYChW3AXYlcFx3wmO0YYzpjYK+pEMT2CVKU0rtgRR7BP8IMX3FmyPmy1dRCvU
-         SudUIP45SUeT0gNL+pESciihDzHhFoW8ErDIYojqcpRVbDyDFzY3OOMzNTT6rVkwnF+r
-         uCwzSKYfu/3I8ShGA8DCFUUGPGyAwP9A/7T2U4cPwqsWZCnWOoiKWGlwA+6DBhjtiN6o
-         JpIVaTkmXgCE2iaBtkk9Y1wdJFr02S8I3JpYLi85aDtCjgkfiMMEuKdmohD/A7QgC+xm
-         iZDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwEhjcbvom9aZFA0SHENx3NcEPLHp/jZdkmy4oHMVvPysQVroqUd2SU2xtze0GBPMd/hUWmNl3aZw0HZg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVXSTgPmWg4Wb6x/skG5aOi5rTfTWlD+Lya66L5MNxUt3myAec
-	dTq8xmLRnjNsXjFKrCm0dr5jZWVwNcud/bZ6yJjLc3Qe2zpNHecD0BKP
-X-Gm-Gg: AYBFou176LGRR5IajIyqXmwk18enaQS4rhRs8XDbfL7jCONJYC3Ui0q4ma5MJRVB8OX
-	JPgpAGvzdPFg4FNTQ37pMlwDrF5/KcSKVL5Y0dIt6ZMzY7b6XDNUNflbH6Ps69w70r2AJeNqD7E
-	n21odIL9RktGjnRilF8GBNI9JvkfmKwnrJ++2El2rabVgRoJcfW1BZxYLVfZwZHgMdYxnxEa+cr
-	IxVjYBo1YOmi83zUkqKhuO7jab/S+UewKX3XeY0xppiL96ieV0a8uwu2ZBccf1KRrSE/d5GIKyX
-	2o/kOsH2y91/AuFy0VH1RnhMpsTw3cNt4vteihFq94lW2qV5wFgZh1K9/WSxoQ1NDb6xH4MkaLK
-	JPS1GsFlVNTxHaM+R5gI5uNSrycBLRwL6ujp/PCzy3+ws5EjYNo9LaBl+1Ag9ETvDPg8TaU0RFG
-	byhPvfv+8NYT03rTSOsGqVxMzEgwN1Ww0lKWRNFJoViLsNFGf6fJtOqHs24WM5E+7jX/+j99mSa
-	aWG9daD8pG4OSVpeyhQAdP85zUCCcCOxQpimmF4aTXpjrn4hA==
-X-Received: by 2002:a05:7022:7e84:b0:143:4450:e1e6 with SMTP id a92af1059eb24-190a7660d75mr193063c88.35.1792533478955;
-        Tue, 20 Oct 2026 14:57:58 -0700 (PDT)
-Received: from localhost ([2a03:2880:9ff:70::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bb7f098sm1857639c88.12.2026.10.20.14.57.58
+        d=1e100.net; s=20260707; t=1792533547; x=1793138347;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OFRf0ceigKCMfSem0YJiHH5DCGenKyglDuxNlTimA90=;
+        b=yMDZFkWd+usROAoeCzdkNk2LGHYVqPv4kQR8x/vviCruvRiu15CElWfaPSkc7Hp+LL
+         5agJfQ5SG51TH7d5whE5MlDbummCl15ygd7Dm4rvubRlxB6BIiL9kOt49VvK9OT3qnds
+         UR2PzKwvBiWQ/MdGujki5qTAsZgsQ/TRlOdM6HmNo4Fj1lhIbs9Vc821ZDujr0i8iEHl
+         EsmnKCVsdkJVAmsmjUxmkNAq3SkCxWpJquCAtspg1LCfIycUCw5//UpqFDybXrUff388
+         l2cUgAWnGNSZRjFJffIloqaP5KCaphzdb03P2lB6ZNzpeI0Dj2ygYxXOYxqAihmI8Tw5
+         fySQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjtqy185ITV029ICwAaZSd5Go+Uw5Oz4h0yiSka0qLDBJUtL5t70L/73mFvJq5d/OxIMO1GMVwzcJEa4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhdWH1gFCZsM28lGMvlFWGft3JuRBab3/HzzOPmZRrHJhj9tU1
+	JXXdjKmqzP8BN8MeBMves1/36/ZXTKQ50AHFM6tuRgvqO7Gtlf74jbo=
+X-Gm-Gg: AYBFou3PFpir/ya4pc7a9aLn2/IEDovilak5l7ZrjmXD3SXtgfmNaT9gkCLYscG+ctN
+	30YWxtXuI+ATk8DAEmTVsqQPletKuJrUYMxV24OVGzAUP7E+4mPfh2UVjtaQc1ecQKElrJCQ3Ek
+	05Wgkx7+pJxZzmy8+/9aWV58TJAZabQlCmB5JbOPOYc+EeO8vlHhdgGeC/uI5AAvDqlRLDfUoHH
+	0wFjc0tUbOOpyS3jOyUn9Q1uubccRmPEx+TzKSuwSuLrd49l5Jim0MzXr9/AXFRVWYhi/9EaGap
+	ojHby1AagNfwgIL+QHnNrmwFUm1UXFeOJD3xdkr4kCBuCe8jDoj6o70kVP7O/87wOPHpvPRlqcF
+	tEGFFKehhtmkgJFgdsgHNzcWD8sSSmtfvhqCuONx38ezF/rqrzWGMNJEBdf2O14fGMqOXBeyCvA
+	DQPryZJoNR14aSMRllkZdMv225MuWJF1E9pVMiqA9Md1WQO/Sh/iZU6Oiaj4njRH9SbGBOpyQ12
+	Ir/2LWg5pllA+GMkfg9jsFfhc1FyjPpDcrD7T7ghZwqjZaGhTLQXXhiR4dfZymbIC0AAXhY97eQ
+	EwRv7o+EOUQyCi6AIg==
+X-Received: by 2002:a05:600d:82c6:b0:4a1:96a5:366e with SMTP id 5b1f17b1804b1-4a1fdb1d212mr726455e9.7.1792533547325;
+        Tue, 20 Oct 2026 14:59:07 -0700 (PDT)
+Received: from Ubuntu-2604-resolute-amd64-base ([2a01:4f8:13b:86d::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm1095988f8f.22.2026.10.20.14.59.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 14:57:58 -0700 (PDT)
-Date: Tue, 20 Oct 2026 14:57:33 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
-	Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>
-Subject: Re: [PATCH net] net/mlx5e: Stop asserting for RTNL when closing
- channels
-Message-ID: <atfjx6iJJiqAq3Io@devvm16445.scu0.facebook.com>
-References: <20261020153659.3440902-1-tariqt@nvidia.com>
+        Tue, 20 Oct 2026 14:59:06 -0700 (PDT)
+From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+To: lance.yang@linux.dev
+Cc: david@kernel.org,
+	samarth.colleges@gmail.com,
+	akpm@linux-foundation.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a page
+Date: Tue, 20 Oct 2026 23:58:49 +0200
+Message-ID: <20261020215849.730615-1-med08elkadiri@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020055518.36087-1-lance.yang@linux.dev>
+References: <20261020055518.36087-1-lance.yang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,35 +106,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020153659.3440902-1-tariqt@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On 10/20, Tariq Toukan wrote:
-> From: Cosmin Ratiu <cratiu@nvidia.com>
-> 
-> mlx5e_close_channels() has an ASSERT_RTNL() from the time when RTNL was
-> required for closing channels.
-> But the driver has been switched to using the netdev lock a while back,
-> and this fired from a flow which was forgotten during the conversion:
-> 
-> mlx5e_tx_timeout_work()
->   -> mlx5e_reporter_tx_timeout()
->   -> mlx5e_health_report()
->   -> mlx5e_tx_reporter_timeout_recover()
->   -> mlx5e_safe_reopen_channels()
->   -> mlx5e_safe_switch_params()
->   -> mlx5e_close_channels()
-> 
-> The RTNL is not acquired here, but the netdev lock is, and it is enough.
-> 
-> Rather than switching to netdev_assert_locked(), simply drop the assert.
-> Upper layers (networking core, ethtool core) provide locking and lower
-> layers (NAPI helpers) assert that the netdev lock is held.
-> 
-> Fixes: 8f7b00307bf1 ("net/mlx5e: Convert mlx5 netdevs to instance locking")
-> Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-> Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+This works for me, on b306deee4cba (mm-testing), x86_64,
+CONFIG_KSM=y, CONFIG_USERFAULTFD=y, CONFIG_DEBUG_VM=y, KASAN enabled,
+THP disabled.
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Reproducer: merge 64 identical anon pages via KSM, arm synchronous
+userfaultfd-wp on one page, then MADV_UNMERGEABLE it without touching
+it. The page should come out private with WP semantics intact.
+
+On the same commit, before applying your wp_page_copy()/handle_pte_fault()
+fix:
+
+  UNMERGE ret=0 errno=0
+  AFTER_UNMERGE target_pfn=1153393 peer_pfn=1153393 target_KPF_KSM=1
+  FAIL: MADV_UNMERGEABLE returned success but target remains shared/KSM
+
+and every run also hits this in dmesg:
+
+  FAULT_FLAG_ALLOW_RETRY missing c80
+  Call Trace:
+   handle_userfault.cold+0x30/0x3f
+   __handle_mm_fault+0xde9/0x1c30
+   handle_mm_fault+0x13b/0x440
+   break_ksm+0x8a/0x100
+   ksm_madvise+0x467/0x780
+   madvise_vma_behavior+0x1d1/0x1e40
+   madvise_do_behavior+0x431/0x14b0
+   do_madvise+0x162/0x210
+
+break_ksm()'s internal fault-in to unshare the page is landing in the
+uffd-wp fault handler, which isn't expecting it. 8/8 runs across two
+boots, same trace every time.
+
+After applying the fix:
+
+  AFTER_UNMERGE target_pfn=1063999 peer_pfn=1064929 target_KPF_KSM=0
+  PASS: target is private and no longer KSM-backed
+  FAULT event=18 flags=0x8 address=0x7f3dcb727000
+  PASS: read generated RWP fault and remained blocked
+
+No warnings or call traces in dmesg. 8/8 runs across two boots.
+
+Tested-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
