@@ -1,65 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456682;
-	b=AJZQJeRT9PxNKD6Nn0/dojrQJw63TXtEuPMja1Ugw3P+jSA+493bWx133/4pP3ZLfPy3
-	 Bt0ItNIC0SzsIITZL/LsEC5m9qpV3yRm4HYOS53LpTb3FO48swGqO2K6TO/2czKkXDVDn
-	 HGMn2hmNDJ25mPsGgN8kMCXmhIZ1UzVN0XAbRPXIUcp3f03NEPAkd6ouKDGD6zpyxwrab
-	 A1EgkxPOzkT/4HWOIIltNZtKZSUYaDePSoUWMquWrGKDziVtczm1eWkEUCjDySPNBPFDE
-	 XeBnOfBVsev+CxtiqILSMmfvxlZgPeRzGHpoQY110Y5oDcUXKRCH1cvFjDMS/fQd5Ug==
+	t=1792456767;
+	b=bHJo6Nc4U6RhO/7VafZ8S7NHvDd3s68RfmYLlVBJc/qI7Oyo9piSvdtQn6DHVrnYxcah
+	 MI6W+ZHqQTE21IFYRYl35G3GQ7pt2IuWMrFoSVTvJcMGdMhfYfSMbikqWsw5F9BWNpNsW
+	 0sphHxL4qMH0LAOd3lCB05Armpn5MI+n+jk/jFH5gxOCL1wh5VbzDGhGlZ8pPBgjpmNsC
+	 UavF9qu3gcpFl1eyxut2HTjiLv52P6W85rugfwkVkYJmpCoPgTAvU0mRhUTMn5uKAEKEe
+	 vd26f62svOveB3xzkg04FUVM9FdetuTCdyxm7whEuiEjVnpcsgcoOVUBB3mlz7h6Kqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456682;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7C34PQ0HJhARwSUXYfmXSaUUCe+8YXTHLUmbzNmGoh4=;
-	b=TgztFiZ+xws/F/k9xXrFgClW9PROmU5eIMPn9tiWeCGxoNYOI6rYKjmbhXjNBFE6OlOr
-	 6JrfjKjUE4EpEkYKNjXI0aqe7XrtBoUmDonnkrm9juDy1c0dx76iQyHpDa68oZOfNjfAh
-	 fGw8u9vxLF7/92+22NxCQi3zj8kW38MyaW5b1GEvNkOmVUytvO0Wmq7IEh31VhA+1TjqP
-	 yXcJIz5HV9XC6bE8cFtNP+cyDXtNLvGSvL4Cgz3pYXO5RaA1AhU4Rxgnk1j+K/BjSvBbM
-	 VPDc1D3S4mt7EU3z4WKfhC6jTg+GW9LzP7ykRcuyoA9KDrDH4/l2WHMa1gulVcjeiqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456767;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Nq7RuSjzu7pWdYPp8YjekN5M6ju2Fw1REuHjwrdZuO4=;
+	b=eWk7B4jJIpC/pq1tyCjgPGmmT44CenAZxtWaISQyr77+f4Q6gD+AFG7kPrp/Rn89v00P
+	 MPBS/u4rSL1htmg7Hc0x+vU16j35gUt0d2ufMygOrGoHfFNirUbZhLfOowA+nAgWuA4aU
+	 eBtiYwQ1iYA1BpA7z36FNAqaEKn+GMgFOs12B61obS0GdRWQ1UC8Uc+E1ZjmnTbfyNlPU
+	 0eO+cjtpB86gq9NyheWeIfwkoE5+izUfUYcx1tK+uocxv8x5ktwgq0lfbfoj/ai3xhVzT
+	 xChjAu/jMOR4v/HiUCTU/9r0xwxBI5zIZ5foupbLqunkCCs9LemT1wiQGmmOHiKCmiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=EPE30C0Y;
-	arc=none smtp.remote-ip=202.108.3.21
-Received: from r3-21.sinamail.sina.com.cn (r3-21.sinamail.sina.com.cn [202.108.3.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=blockcast.net;
+	spf=pass smtp.mailfrom=blockcast.net;
+	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=BmbpG36h;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303FB606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:37:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 303FB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1A9606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC1A9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=EPE30C0Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792456680;
-	bh=7C34PQ0HJhARwSUXYfmXSaUUCe+8YXTHLUmbzNmGoh4=;
-	h=From:Subject:Date:Message-ID;
-	b=EPE30C0YaQBSG48kfZHvf2ZQYZmhU58vUXrxIhx+BljDjwlPArRxcKQz+1SV7FDeT
-	 bx1ePYwHIXqENyRNwDJar4YRQlBdb6dKcwZW1Uk317clTz+tBJd3UB8EQMn9UrXZvG
-	 s9eDoCQWnHtIyilfPWoieBQ1DusX5pYGPRDI5Fiw=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AD6B7DD0000649A; Tue, 20 Oct 2026 08:37:51 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 7228286685186
-X-SMAIL-UIID: 07D6E2DA35A74F8A8ED4972E94AFB30A-20261020-083751-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+1f0fbc2561b3e5d51b91@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] possible deadlock in lock_system_sleep (2)
-Date: Tue, 20 Oct 2026 08:37:48 +0800
-Message-ID: <20261020003748.20847-1-eadavis@sina.com>
+	dkim=pass (2048-bit key, unprotected) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=BmbpG36h
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535a54bed9so3745339eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1792456766; x=1793061566; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nq7RuSjzu7pWdYPp8YjekN5M6ju2Fw1REuHjwrdZuO4=;
+        b=BmbpG36hC3Y2KRthiz9b5W6imO/DONoncdOC9SsX90owgTzsLnP1WpEC56LFwieWu6
+         OZ3bek8VW4lA8aO2p4+fGU784w0UafO8j4iYS18WsehAgq//067wVV/rxgZoJ+3d7mBf
+         8PB8Yl7US7jDTZVtthaivEPtxD1KsJg8nb7jeZoEumW9CcdIKh3DvnaGN9vdEoFyGbue
+         cP/2bja9W3pPaI5jZTxb8bE3xPSS48QtWX7QUd56FUSh2Y2mQWnEEO2S0SasW8ejwmCU
+         FTHFqt7rHTk4mwy+05YM5LlZlq7uC/FFw+fIUSwhUi9UAt00L5bKt3mEYlX237mKcJtQ
+         AYsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792456766; x=1793061566;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nq7RuSjzu7pWdYPp8YjekN5M6ju2Fw1REuHjwrdZuO4=;
+        b=U/uI3e7ltynLhQ0Kgmt/QnDGE6adLzs4lcmZ8T6p5ZerQQ8nu33pX6vi9LNSvhRPC9
+         p1Q0YvnZJik+SncFcnuI7bWrhFNvlgr5R2FAebpAEnRZZIrX20haL3GnGt+v/kzM6/3R
+         VvELZ7QoeRYGR1tnekKTgXjrhYGAjhkdZ6uVuXnyn8s97jvVxuFHBZK9Y0VTtIoY0bk4
+         gqcwOZAXsiIm9ZrrQoPa0Kl167lWlRCGMjt67bAjzy9YEoY2qLpVgu0+mISm8F/pCPkS
+         DKEdMebtw+OGOEngRKEceqJnevEOkzDBIPVhIm2v//VX0CJvEZimNv9pGGj7o6kjGknQ
+         vvMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMhz106YzwkxNopiJYyF0AsEsp7iqZq+a7r92wDpaOuGcMro4wNX41DCFAmioKPiMIBNLp3iibJA1WxJI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbRa/BIRWNVtKa8CVei2Wc5q1QbAK4xyGTeIQg6aZvEzD+l8id
+	ls8tWpbdZVWkp1xxTTan6yh7WZiYIRLTNJcsg4NZVvrtP2JmcbFn0IiNwnFgtOCMBVE=
+X-Gm-Gg: AYBFou1S34KygAFUUtsHe4rj2//pN9z2Le9D1FFLv2pREhZwc+qPA0EVyA7F3g/zBis
+	kiU1fLQEtD24ykuy+UrvYS/0TQthCZG698/Nuw1ubLNqELkOjdx2W7Uz9R5QClEdkprJyp0yrw0
+	H/vU3CnZvIHgjQYuP2O9nqZw8yv4D65PjwwRPGfMX7Rnxa5/7d3V7BMmZi2LxVj2q6TRkBgxRSk
+	rWUjgescdMucDkTxe5iUtVwBaVu7rvTz+wcn84DRCukwLD3ZD97LYYY4ElT0+GEf3RECx+ZgeqS
+	VvZA8qHL/7DageSgQBNYoboduB+i5z3bz4nAfH7dOq6u0sloPiyTR/EZ3LipEgE5ttox8VfK579
+	i8r5jSFLLbuAozg/y/X+I9XDckEUrhFzqic5I+MF58vNaML79ZnrlMTBawXGsoe4VFmN0Y1jEV2
+	SgF0np1rTc0KVKyQE5ebBSQ9uzO+NrVl5vZjFus+g+0qQMbr94L8hrYxpfEtshqC/zANily55ya
+	y+ewHE2YBNOYJINSgeqq2dw0kzQZ/T9/HV5PMTSEBVZ/b8gH6skjr0wrmWzw96A
+X-Received: by 2002:a05:693c:8814:20b0:35d:e49e:74ec with SMTP id 5a478bee46e88-361a3221e66mr13065995eec.41.1792456764917;
+        Mon, 19 Oct 2026 17:39:24 -0700 (PDT)
+Received: from devbox.ts.blockcast.net ([69.25.95.32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm59413465eec.28.2026.10.19.17.39.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 17:39:24 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: netdev-bot+sashiko@kernel.org
+Cc: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	horms@kernel.org
+Subject: Re: [PATCH net v4 0/5] amt: relay tunnel lifetime, validation and request-path hardening
+Date: Tue, 20 Oct 2026 00:39:22 +0000
+Message-ID: <20261020003922.4114766-1-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ad65cac.5a04d468.191e0a.001d.GAE@google.com>
-References: <6ad65cac.5a04d468.191e0a.001d.GAE@google.com>
+In-Reply-To: <20261020002557.3984927-1-omar@blockcast.net>
+References: <20261020002557.3984927-1-omar@blockcast.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,22 +105,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Edward Aadm Davis <eadavis@sina.com>
+Thanks for the review. The findings are addressed in v5.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 32c52ec87d62
+The group/source worker lifetime finding is valid. Taking rcu_read_lock()
+inside a delayed-work callback was too late: the callback could be dequeued,
+preempted, and its owner freed before it entered RCU. v5 gives source and
+group nodes separate deferred-GC links, clears their owner pointers while
+teardown holds tunnel->lock, and synchronously cancels each timer in the GC
+worker before kfree_rcu(). The GC worker runs outside tunnel->lock, so it can
+wait for a callback that is already running. Tunnel teardown drains the group
+GC before freeing the tunnel. This also prevents a source callback from
+running through a freed group or tunnel.
 
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 5b9691f45f5f..bc2716677a6c 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -813,8 +813,8 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
- 
- #ifdef CONFIG_HIBERNATION
- 	case LINUX_REBOOT_CMD_SW_SUSPEND:
--		ret = hibernate();
--		break;
-+		mutex_unlock(&system_transition_mutex);
-+		return hibernate();
- #endif
- 
- 	default:
+The tunnel->dead checks are now part of patch 1. amt_update_handler() checks
+tunnel->dead under tunnel->lock before either report handler, and both tunnel
+freers set it while holding the same lock. The deferred Query source check is
+intentional and is now described by patch 2: a queued Query is revalidated
+against the current remote_ip after relay changes or reset.
+
+Request-only tunnels retain the original GMI timeout in the intermediate
+lifetime fix. They do not stamp last_seen; only an authenticated Membership
+Update refreshes it and receives the 3*GMI lifetime.
+
+Patch 5's message now describes only stateless Requests, keyed Query MAC
+authentication, endpoint admission, key generations, and the liveness guard.
+The unauthenticated Request endpoint scan no longer holds amt->lock, and a
+failed verified tunnel allocation is dropped silently rather than reflected
+with ICMP. The dead comment again documents both locks.
+
+pw-bot: cr
