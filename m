@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792484748;
-	b=ur1UeKBVxhACt3/AhKVXgzbZ+uH221b2B0I9aezDFWdlmV61+Lrgocktf8V1vncqEpiV
-	 yGFyt+eJ0oXER5kjnfSPSRHJCyQdo1jY/6tk10Is3SyZ9JjyW0HTX551YdYeXbi+openB
-	 /8dyumkDuQqcQfRSRqEaOshcoNqa+8068XxhErw1yP45m3qQRdF7MCHRfxHR/oJMEsAO7
-	 +sMFfmL6522cfHTBvbsg+yv3a6da0E4IHx7QJ7BwFDQlyN/AAkv1SNZLLBJ1axhzr4n9C
-	 7E5EGsMmZDx3vlHFYy0VP16MpzC/KzW7IMIDXvk5kOCbe1ABszY9toDAnMSTVb8jKqg==
+	t=1792484750;
+	b=dhSFo+LObv4u/Q9gwbKno1OVL3abdJZqp+xtBzAFjYFQIuwwHjzZZdr3/5uL1beUmIJ7
+	 T2TLHy5gWCMgEbesI5YA+6aP2z5vqevOwUdXsrEO9eYWqfXk8MM0kNYHp9pYKjyDq/cYV
+	 phHr9o7WLydfDSRYWyKUhML8WEbIG3CN+Cct2KdVp977OtXhLcboFFx0V+bmUM7W0spxv
+	 Kb1EHsi4aobjZsb3cVLNvSO3ItR8HPk+RjcAy3RJMm4/SLqpp9CoOt5avvqcEmOt18bmt
+	 WzDNPjYwG8/kac8+LcVWi6Ii2SXvZTmf+joadV5HP2icdZ9xVhVWrQqoVijjA+Vm9IA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484748;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484750;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=eN4JBX5Yi3bsMUckUX9jCNXAb+0k7j4yV01QcPouoZA=;
-	b=j1pr/I/LG5tVSY0x1TwKI7X95YfZzFLgFQ+XgBsIV28Okt/K9b241j3d74cRD1QFDWF6
-	 fHmZqhuq6BqHbu4Rkig6d/7jAxsUn0iE2enyumyvHaD24Oy28hQPB7ZS6CzSCpPaCrQVw
-	 R+m3IIz98vkkcyc1t0WmgBXGH/VPAWb1qFlq9IBtNhtvkdrrJeR9PzFwYEfNoCAdawCoC
-	 imhnwnoWcY3UXctvaDoUOp/oeaoMDYh7fd/q8rMVLyWqye4SkDIKVbi43wZ3t6Pk1js7Y
-	 Vzx0+V+6MoORD9tihOIoV7H2XVGu3dBQR2SGpMeOKRVEcPRuuoPm+jGCoRDf4FETqKg==
+	bh=KqRn1n5iORX+7EiqCp1P4Y8MwIEiz+RAzWKAWH8qI0I=;
+	b=G8BI+SiYIzavx3EF3euA6byDTqieucC4BSaQZnO4iOuOapA3iUV05yJYMTah68SX0jv+
+	 CsVnELT4XcL3T6VhZafkoJ+ndx15DjYzkVh3tn9go9UeFB1pgbhB+HaaAbUvSF91Mecyt
+	 6IWDHsRljVXX24V9uSCf1PUWRLGanxVNdrr1XgN3vmeFah60K8wwKfenIRGoD9AxvKmWW
+	 BHfcGoOBABrdThsxZikyJaoSUFEX/633Lwj+As6DDzz3Tm7YKVKLIJEFtNVVsBRA/8A9U
+	 qSpK1eJwY1KI546p8uZs/BLLkD+9hQYO9NDZw9hbWHD+uINNS6Wh/kMfBweycLjzJBQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbINRPiW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KqTv+ULb;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49471606A331;
-	Tue, 20 Oct 2026 08:25:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70FF606A31F;
+	Tue, 20 Oct 2026 08:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbINRPiW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KqTv+ULb
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792484748;
-	b=QQ0CEUHSVT0A6fnnSDsep7+A/v69VbvPnV3joARpB5GY2eW0py9boq82qzSbbGAl+/SN
-	 RxCWGId29C45QUHTKTaGclaSNsx42uVGF7MiXltInVHv1jMoMJhNvLRmUIdlmmMPPD+q9
-	 Qzi0Y7nqZhBBWSkSN+6UyzAFTXHhf5kfG7NyIhl+uWad7T18yM8WQ8yGrZqjSnuzFKi0W
-	 Uxr0sNJyrFZl9kIk8HN533Ht7PBY9nQ65NZBpbv+6PGDhtcWKzVZj+dYn8CTuZJsSCw7e
-	 JsSOce+BReOuJsS2fqCrg+Yrk2hKDHpVxwKKa2vgUjlkEul6RTKm9l62PSPImtCc7Aw==
+	t=1792484749;
+	b=fYhJ2e7N9xjNk2kZLDdM+R/d6h+D5u4tp/fw78bWJ1JeBbWmUKtbnad3ryVqRgdVZo04
+	 nAhKSogmzhkp6oCb1zA/cmUxdegyOx0kHnMes+5SqxNtwFEJ3nNNc0RKZcjN7QeokhVpe
+	 HkyRyTdHym3WmlnFI4PJc/4zg7dwvZcIZrzrOOFNufIHPC4ygcNZFC9qktejXoZH5QT57
+	 3/7mTrXQ0ub+UWjmEuqnnwxBr+mSggHQD287ZQaS3wCF2SZrWMoKW+A/SSFlPNkGybtcw
+	 HhFTrs+NqYfzDGAhqOlzHlYht+WDBCkxNkk7Jti1GhH8i2kLHy2ynYq54VK1Gc1AI5A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792484748;
+	c=relaxed/relaxed; t=1792484749;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=eN4JBX5Yi3bsMUckUX9jCNXAb+0k7j4yV01QcPouoZA=;
-	b=fDy7plA0OASev705iOhSQQv470CpsFQndgDsoXBgUqk2vrbM3Kse0LmqE0q+2YEQ7uQH
-	 7rBds3jbk1KfkDleuMgp5uU3C23EkFSmu7KGl4vNjLVrx9mUrwPhAKc46vrDjPCoSHM+b
-	 jXRqdcFLAUMCUwBHxO7eXUp1rBOFS4fu0+2FmdSHvrkYtIVnpRMaCaJ8+x1lVQNrbHm01
-	 +VRjmHF86wTikYRazg22Nrn2zSPuTU3wTPIY8GZeYHjWMFEZ+JqAXQV9O8qsEn+XYZghy
-	 O3vB1/5VXE2Dq12aPm8upRt9nwY5F0XpVZHq5LoY9lzACb+L8VrvXBOGNANkREBb2+Q==
+	bh=KqRn1n5iORX+7EiqCp1P4Y8MwIEiz+RAzWKAWH8qI0I=;
+	b=ZzE0L5HhCA4AW8cgbaGiMqySEw4dLwF8+xPE65ayS5tXOdEb5xF/pCC0+H4Vxxfscrab
+	 r59kZc4drC+b3B3MYC8SEaehgkkYtFwFAVUQIIRMLN/wd+v7j9uA72Nb20vTPF4BBDUZ0
+	 A+x8i9zwIJ9bw0IjUmdXSaxfE9dWO0WsZxqtQXy2fIs75cHa8tmo1dpFRBsyW+12CPuUr
+	 fS4hilIzPocXLnBUgA3g6+gAHAakcJnzNv81BGgK9Emc/2xmEO4/x4EPaIxYYdh0oDnKA
+	 ufd2IKnWNobBuNmLbQ+Yc4U73cFc0lmBHWtERlsqEgty943HvGcUraXzKTKzMgE8B9w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7190B1F000CA;
-	Tue, 20 Oct 2026 08:25:47 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0A44C1F000CD;
+	Tue, 20 Oct 2026 08:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792484748;
-	bh=eN4JBX5Yi3bsMUckUX9jCNXAb+0k7j4yV01QcPouoZA=;
+	s=k20260515; t=1792484749;
+	bh=KqRn1n5iORX+7EiqCp1P4Y8MwIEiz+RAzWKAWH8qI0I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LbINRPiWNRT4+LzE3Xuy0a0LNe87uvyK1l/Ed/MmFZK80+il9Ia7twW6DTG+OIYy0
-	 Xv6Ut1vv4wySM3ZGOSDyX0wQpLBzrWIQ5VLRdRZwojqGiZ4pmA0DESOHobOSly2ZlE
-	 34X0yZMUV8gkFUpiaUWWg9G8eWh0v4vWsX+WwJM3aaEenLHrjNx6/kHasmRylqQ+t3
-	 VxqiuFceSOdnsl5bIeVyc0B3cLd8M3fDFSpflCvQ402tWdUzBX6tiacb78dnBcFhhU
-	 jC8Mvu6y5NrYssQIH7NEq0QYBUd4HoVQTG+Ew/mT2XZN9U+xo8XgCC/BTYzU+gh1HQ
-	 g/YBI+eDanH8w==
+	b=KqTv+ULbYH+nbvMaNbO/lzPrEjm1NPnJFUBfc0obhL54Os4lr2i67o7iM9KBGcnXj
+	 6iP59DpFpoKeEJnYMW3UgSifmTMr3/VhAlV7eXwHEBgf5USz6IZdO52gPAeeYRRf/Z
+	 6N2ofku10uKxyBpXVyJEkZ7F+YEk+oTJ8XH6qf+7kvGw/PX4O11hT669d3g+RySLBV
+	 5zygcaKfUK3fFzwTQVEJ71Dmmu9pfcAkYSUtKrzA+fKcTFJ5bWGfYOlZyRDH7MsSMy
+	 3hOGr83WddE4i60uTKPzoFulBUe6eLZkjuVUQTSWRi2EFrd/CWrxCmDeezl/EW7fgW
+	 DNf9IdNbFGJrQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C7FAF430E7;
+	by lkml.kernel.org (Postfix) with ESMTP id D8419430EF;
 	Tue, 20 Oct 2026 08:25:45 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 20 Oct 2026 16:25:23 +0800
-Subject: [PATCH v4 06/11] drm/tyr: add BO creation and lookup helpers
+Date: Tue, 20 Oct 2026 16:25:25 +0800
+Subject: [PATCH v4 08/11] drm/tyr: add BO-related ioctls
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-tyr-ioctls-v4-6-704de77da223@kylinos.cn>
+Message-Id: <20261020-tyr-ioctls-v4-8-704de77da223@kylinos.cn>
 References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 In-Reply-To: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -107,11 +107,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
  linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=2048;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=5835;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=NWIPbx+eohkv3FNLcTsYqaXCTEHpzUO212X/sd33Vuo=;
- b=3ajd9tKpWFuQQjti0zd8w3s07U2VeQ8WgEY97UG0waNHuy7WkKZ2mqeaEaCdFJ4AX3To52G4t
- 3p42+nfl4aICwEEhmKAqKCBpVcMI9C/JJ1KK3WdWi9Vnx2G06rTvChT
+ bh=pPJLhN0cYhR6VLbdNYY1nEjJlXnDPH5ZSxoTT9flAXo=;
+ b=4+bx5X5R13d+0MIbrPuiXx1LMwCdGrOJ+z7MxGsNiqAAJ8ZGr+AnZU3sfr7SO4qTlr2knh1FU
+ 4o9YpH3Vox0DP8PAiCLlMKJh35BKTRYhWnGWPHHU/GotEfMl7DnccCX
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
@@ -121,73 +121,165 @@ Reply-To: sunke@kylinos.cn
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-Add helpers for the BO ioctls: new_object() creates a GEM object with
-the size aligned up to PAGE_SIZE, and lookup_handle() resolves a handle
-for a DRM file.
+Implement BO_CREATE and BO_MMAP_OFFSET so userspace can allocate GPU
+buffers and obtain a DRM mmap offset for the generic mmap path.
+BO_CREATE page-aligns the requested size; BO_MMAP_OFFSET rejects
+NO_MMAP objects, which must never be CPU-mapped.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- drivers/gpu/drm/tyr/gem.rs | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tyr/driver.rs |  2 ++
+ drivers/gpu/drm/tyr/file.rs   | 73 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/gem.rs    | 18 +++++++++--
+ 3 files changed, 90 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 3bf3787f5c3fd..0e0989a48678f 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -9,8 +9,10 @@
- use kernel::{
-     drm::gem::{
-         self,
--        shmem, //
-+        shmem,
-+        BaseObject, //
-     },
-+    page::PAGE_SIZE,
-     prelude::*,
-     sync::{
-         aref::ARef,
-@@ -23,6 +25,7 @@
-         TyrDrmDevice,
-         TyrDrmDriver, //
-     },
-+    file::TyrDrmFile,
-     vm::{
-         Vm,
-         VmMapFlags, //
-@@ -53,6 +56,32 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
- /// Type alias for Tyr GEM buffer objects.
- pub(crate) type Bo = gem::shmem::Object<BoData>;
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index c0f17bc4ce2c9..f4f31b24180b4 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -227,6 +227,8 @@ impl drm::Driver for TyrDrmDriver {
+         (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
+         (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
+         (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
++        (PANTHOR_BO_CREATE, drm_panthor_bo_create, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
++        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
+     }
+ }
  
-+/// Create a new GEM buffer object.
-+#[expect(dead_code)]
-+pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
-+    if size == 0 {
-+        return Err(EINVAL);
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index 22a74b4abf3de..9ffb42f0d8851 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -250,6 +250,79 @@ pub(crate) fn vm_get_state(
+             Ok(0)
+         })
+     }
++
++    pub(crate) fn bo_create(
++        ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &TyrDrmRegistrationData<'_>,
++        bocreate: &mut uapi::drm_panthor_bo_create,
++        file: &TyrDrmFile,
++    ) -> Result<u32> {
++        if bocreate.size == 0
++            || bocreate.pad != 0
++            || bocreate.flags & !uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0
++        {
++            dev_dbg!(
++                ddev.as_ref(),
++                "Invalid BO_CREATE params: size={}, pad={}, flags={:#x}\n",
++                bocreate.size,
++                bocreate.pad,
++                bocreate.flags
++            );
++            return Err(EINVAL);
++        }
++
++        if bocreate.exclusive_vm_id != 0 {
++            dev_dbg!(ddev.as_ref(), "BO_CREATE: exclusive_vm_id not supported\n");
++            return Err(EINVAL);
++        }
++
++        let size = usize::try_from(bocreate.size).map_err(|_| {
++            dev_dbg!(
++                ddev.as_ref(),
++                "BO_CREATE size {:#x} too large\n",
++                bocreate.size
++            );
++            EINVAL
++        })?;
++        let bo = crate::gem::new_object(ddev, size, bocreate.flags)?;
++        bocreate.handle = bo.create_handle(file)?;
++        bocreate.size = bo.size() as u64;
++
++        Ok(0)
 +    }
 +
-+    let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
++    pub(crate) fn bo_mmap_offset(
++        ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &TyrDrmRegistrationData<'_>,
++        bommap: &mut uapi::drm_panthor_bo_mmap_offset,
++        file: &TyrDrmFile,
++    ) -> Result<u32> {
++        if bommap.pad != 0 {
++            dev_dbg!(
++                ddev.as_ref(),
++                "BO mmap offset pad not zero: {}\n",
++                bommap.pad
++            );
++            return Err(EINVAL);
++        }
 +
-+    Bo::new(
-+        ddev,
-+        aligned_size,
-+        shmem::ObjectConfig {
-+            map_wc: true,
-+            parent_resv_obj: None,
-+        },
-+        BoCreateArgs { flags },
-+    )
++        let bo = crate::gem::lookup_handle(file, bommap.handle).inspect_err(|_| {
++            dev_dbg!(ddev.as_ref(), "Invalid BO mmap handle: {}\n", bommap.handle);
++        })?;
++        if bo.flags() & uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0 {
++            dev_dbg!(ddev.as_ref(), "BO mmap offset on NO_MMAP object\n");
++            return Err(EPERM);
++        }
++        bommap.offset = bo.create_mmap_offset().inspect_err(|_| {
++            dev_err!(
++                ddev.as_ref(),
++                "Failed to create mmap offset for handle {}\n",
++                bommap.handle
++            );
++        })?;
++
++        Ok(0)
++    }
+ }
+ 
+ fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
+diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+index 60f6363995a5a..14f3e182b98e2 100644
+--- a/drivers/gpu/drm/tyr/gem.rs
++++ b/drivers/gpu/drm/tyr/gem.rs
+@@ -38,6 +38,13 @@ pub(crate) struct BoData {
+     flags: u32,
+ }
+ 
++impl BoData {
++    /// Returns the flags the BO was created with.
++    pub(crate) fn flags(&self) -> u32 {
++        self.flags
++    }
 +}
 +
-+/// Look up a GEM object by handle for a DRM file.
-+#[expect(dead_code)]
-+pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>> {
-+    Bo::lookup_handle(file, handle)
-+}
+ /// Provides a way to pass arguments when creating BoData
+ /// as required by the gem::DriverObject trait.
+ pub(crate) struct BoCreateArgs {
+@@ -57,7 +64,6 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
+ pub(crate) type Bo = gem::shmem::Object<BoData>;
+ 
+ /// Create a new GEM buffer object.
+-#[expect(dead_code)]
+ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
+     if size == 0 {
+         return Err(EINVAL);
+@@ -65,7 +71,7 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
+ 
+     let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
+ 
+-    Bo::new(
++    let bo = Bo::new(
+         ddev,
+         aligned_size,
+         shmem::ObjectConfig {
+@@ -73,7 +79,13 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
+             parent_resv_obj: None,
+         },
+         BoCreateArgs { flags },
+-    )
++    )?;
 +
- /// Creates a dummy GEM object to serve as the root of a GPUVM.
- pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
-     let bo = Bo::new(
++    // SAFETY: `ddev` is bound for the duration of this call.
++    let dev = unsafe { ddev.as_ref().as_ref().as_bound() };
++    bo.sg_table(dev)?;
++
++    Ok(bo)
+ }
+ 
+ /// Look up a GEM object by handle for a DRM file.
 
 -- 
 2.43.0
