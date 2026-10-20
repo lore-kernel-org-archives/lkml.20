@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.139.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480830;
-	b=wTPBvlpDkin0WELvvZuduQokCWUjQrcj3gQ1nnf1chWhGC18FnuHv8RN8yA84MdJFQ/d
-	 k+NJzHhFhdK8srO429ugsYKm9NKjlkDsn/TomEk/mxnbu2PQVH9pkv1edkuhMlPrWEwZ7
-	 lWz0xlFGD9SWBug+GbpYX+6izf7csJQLTXw9zUmFfxXuCop+wGDbDZhA66NR28fwsPByD
-	 abwHtwC/R9aUt5qVvLsWVQny8hYD678tIhwdUg+TIU2LH2Z0YPsorBnWoj3n/dxNTnwiS
-	 epNp5MkRn2sPoYnWESFMwrKRrIsOV9VWFl0694W/XMb8VDDmwH/1bEBvctmfHlSaKIA==
+	t=1792480871;
+	b=Gcn4eUKmgwywP3Jx3S6rBK96pfkKnnF3CuWlCWYtloEN2NSrjpl2EIooyKLLs1nwgN5B
+	 Vc5sYhpdwFgllVwKbfYPFi8ok382L+o5mD4T5NrFc584clBYREwmYPUI016xxjBb87cfb
+	 trsHcI9cHP0X9/rImoIP1BhkDJz8/ml+EgFouZ8Yg5UWxowb4Ibh6WUmHgEUrLrQmdQqG
+	 1CPa0jf7Bdgs8kcTf81glXRHRvkUOm++/bwyFCU1vz+a5GR4pKnuBvYa5A/vCQ6idLqjT
+	 F6T2gG4ZY1HZx1uOabLMbYXNbXUa+O9dpwq6ha3yGoSPbO+XM2Zr3zmVu+lAhmvk1Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480830;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gTfcY3KbdiQmLNtrA7EgWSIO5XWoep6EANOAU6klbBo=;
-	b=RuJCzESweX6zJ5RJUNpDeWil8OcxAVZUkk7mljgFmFOGQ4y/EsaJKCix0bP/jznbhNXE
-	 is3eZCBZksZ0JTaPgylCY32YdwM/HyLNvS8UX2SxWTjU8CyhucCPThRaXIYh9rpj7g+et
-	 822gfprKbRPLz6825Pi4fEFna4MaR/pWPqZneDncQXDHv3pxY3h8x346G8wQFueKnxlw0
-	 wnERsF7wtHxJ65IEn1MN05WKKEtgoS59RLsbZi6lBEvNAN8QNMCzsYUqCGs7rUu7vDsDe
-	 /iyje3G0+FHQplfGroPqB6OWTrDYOhcBTbe5fhbZNPtNzmTuHJv5Igz3Q8M9y4y/S7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792480871;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mnqWj0L2iKBatloG5NRziYL1v5hJ5rWUbOHkD7Qml8o=;
+	b=CsNVvZrAsJND0+WmEXU1HWlQme1b6hsaQEcBQXJQfqbcF8VgtoyF34+fcoFj0J/48T6J
+	 CRZ0bkLv59UZvOVYmq91XR55vakiuQ4WP0fjhdd2TDXEb2YT323NnjTIzJpeKAoIRAo3e
+	 AC52xd4uVYoSrZJqfnw6+UB448oy8Zdwy0Had+U4jq7QxY0N1SPZneLyW19LWLNK0hQ9D
+	 noQ00S4mm3XfnzsqDW1C5JvEHuRB5v2jTzKLHJm/HbpYZhqn0UCyxPmvFXdGe3eofxWUD
+	 345vQAOr0drdKJoB90bIJEe+0U7r4LEuu4qp5mWDEUMh+BounxsriAeKQBY6xD87Yug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=PYemcUmX;
-	arc=none smtp.remote-ip=68.232.139.139
-Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com [68.232.139.139])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="g9sn3u3/";
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11E6606A31C;
-	Tue, 20 Oct 2026 07:20:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F11E6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA99606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:21:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA99606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=PYemcUmX
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1792480835; x=1824016835;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=refqq25nv2RRzQpG9iY5BlA9ExyL3HdRLNTWhTg6kFM=;
-  b=PYemcUmXPW0BmI/cgOEC8b9cnv25SyMurrhu+/pIeoUybZGGZBQvGjKR
-   ih6KTyHxlPs3cEuEgIWTz2ViwCx9jYowZcw+U/MLs9Ib8N/ihsdLw+g3E
-   Wbxb5pn1Bf2dXfcp8fcAssOJVNNUBWYfqtNqKaDtKShsPc07bZbAVDERo
-   es2s7NmqPTI0FLdbZaTRXqHNfBT62wA48sEjuBTqgvd27c4CBSzMQkk3R
-   8qz9PX03yyuU1sGSgfm2g/lxZ6D6P215A/AHIaly7IX+r2ZPLOBEjHRzg
-   RUDMV8YrmcqR0wrbr0xK8ttsEB2gKW+nXxI+oCExK+5jLUNNOrVzdgajq
-   g==;
-X-CSE-ConnectionGUID: w3yeoTuBQiii3Ruo/LeNdA==
-X-CSE-MsgGUID: JEFuNt0nR0ahm1t3B5Ftdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="262734108"
-X-IronPort-AV: E=Sophos;i="6.27,168,1786978800"; 
-   d="scan'208";a="262734108"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 16:20:27 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 1C53242A30A;
-	Tue, 20 Oct 2026 07:20:21 +0000 (UTC)
-Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id C158B18026C6;
-	Tue, 20 Oct 2026 07:20:20 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.226.149])
-	by az2nlsmom4.fujitsu.com (Postfix) with SMTP id A09772000281;
-	Tue, 20 Oct 2026 07:20:13 +0000 (UTC)
-Date: Tue, 20 Oct 2026 16:20:12 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	kvmarm@lists.linux.dev
-Subject: Re: [PATCH v2 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
- erratum E#030003
-Message-ID: <atcTtojPd1BSS8fr@FCCLS0092175.localdomain>
-References: <20261016-monaka-fix-for-upstream-v2-0-fc7ede7f9f48@fujitsu.com>
- <20261016-monaka-fix-for-upstream-v2-4-fc7ede7f9f48@fujitsu.com>
- <87wlrg8qc7.wl-maz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g9sn3u3/
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-33baa8eb238so2073636eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792480870; x=1793085670; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mnqWj0L2iKBatloG5NRziYL1v5hJ5rWUbOHkD7Qml8o=;
+        b=g9sn3u3/Jces8Xe6tEvj1K00QiQiNW+pIFtyLVRDhg8f60C5rVwwJP/NudxcYE6WZp
+         YrB9djnf8Tyh09tJWvgTfU88oyWi65oKO/er5GDz1g6HqxTt5zvqu0LtV6N83/opgnfM
+         5eoND+DaR1Bb/5jslTMJ59wjDgigyVqTpZlkP7J3IcZ9ObG3k+BcqxRPdnMmBA1pDYcI
+         xw82UgHjLfSP4k0m2cS7Kgm2SE4kBCJmXJEE0ur0imkyEfEmBOqXMg+ksALYHg6skM5h
+         mdQ4o5d7nRiItgOly7xR8K2Cuzj13QLDbP1B7GkOYUXxZdUHem1f2i5sp5Imn3vQ/zGL
+         3qdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792480870; x=1793085670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mnqWj0L2iKBatloG5NRziYL1v5hJ5rWUbOHkD7Qml8o=;
+        b=OnTWWuWe4MaDcjM2LX1aqVsTTTt/Coo8Fj7Yb4N9ncKEIQyJcPzM18J01cF4F9jFdw
+         nofIaSL9X48ISEs+Xj39Ish7FJRrW4IZlPebm9cCOZUnYlNSy9VgezopSQjEoiB1cP5X
+         XozErzVtZDyWpiwaYAcFwGsJO9Xd950LnT0Qq/bgP39TWWvstdHLlPQGZYOUZR8jYvQA
+         hxG2jopWK7jClHuG+d/MvtrVJLCjiyd0EHGHbCaxDSX1YqYk6e4tkQkF1yUImjlnN2/H
+         iRQpyr0Pc6l0fMX9pNUzyDCRnoEK3eimblxe9yOx1UFsO2BgjlSiep8BKOWacods4v79
+         SAUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxccSewFB8GnxbNrFpJXyFhUWshQDoSv3Xo/4kUP2hCWslOB/JQczCgnBi2jdFT4tDFNkZv0bjuuwLB7JQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9+oYcA4JJYCsXzZY21lTL9kLTNwF812ZzmeFG7bOUMBl+R8zB
+	1FV401d31hGbz+BkLrFEWtwHE4L95UCJk+Mbgcu/72agDmzrB8oBuqLi
+X-Gm-Gg: AYBFou3qhlafcA9YqKb5ZR2QrezPFtDZ2NBuWr6/JDHwa+KJeq24yzFRJ9qvl7SldJR
+	5pyT0vMUR9D8Ve5z8YJQGWe0ee2gqEb+K+RzJWVDD2BLDIGSNt+SVxGTAZtdBlpRQ/+M4xkrDbv
+	kwT/mBkbOH0qZNJNN5aZudVALnA6fp0IXc8HwUe4SXAs4ZIwtYhcHkzwWWkVgcJ/Zxenn/RXsKf
+	vPqUwD5tvBdOpflBTamIgonxpyixloyDflFXoRP77zD4u7rOTgmIxzvD3yhyXj0NR7w62owqJFI
+	st/gyI08TxGNTAcvbMXemW7+xpKTc1SmezqVt/PFCKixgafP+gGXQB1ztVv0M7LDV8cT9UohBgL
+	QlTJmh54Qy1xWw6KBBgomztoRbKJIb/F6JYWlw0pJpmXeuWaYpr9qnES0UP1V59B3FUeOs+NQ44
+	O93qmtPs3EGYqJBviLe46O8pMexwttCDzl5OJ5lcdrG3utgxIfKP7tDkCWRG27P0vvGNkMnia0K
+	IlU6mKkSPCIpJZ42BrLVqP0IQ==
+X-Received: by 2002:a05:7300:a98f:b0:35a:3c46:80d5 with SMTP id 5a478bee46e88-3619b7ff05fmr19032434eec.0.1792480870323;
+        Tue, 20 Oct 2026 00:21:10 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cc23sm43988998eec.2.2026.10.20.00.21.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 00:21:09 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-um@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] um: vector: use kmalloc_objs() for the message vector
+Date: Tue, 20 Oct 2026 07:20:35 +0000
+Message-ID: <20261020072035.8980-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,105 +96,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <87wlrg8qc7.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 10/17 13:27, Marc Zyngier wrote:
-> On Fri, 16 Oct 2026 11:00:48 +0100,
-> Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
-> > 
-> > From: Kohei Enju <enju.kohei@fujitsu.com>
-> > 
-> > On affected FUJITSU-MONAKA CPUs, the erratum may occur when an SGI is
-> > generated by writing to ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1,
-> > if the operation races with CPU interface processing triggered by the
-> > arrival of a higher-priority interrupt, an update to a pending
-> > interrupt, or a transition of the PE to the Sleep state. When the
-> > erratum occurs, the SGI is lost and the system register write does not
-> > complete, causing the issuing core to hang.
-> > 
-> > Guest accesses to these registers are not affected by this erratum, as
-> > they are trapped to EL2 and handled without issuing the affected system
-> > register write.
-> > 
-> > Work around the erratum by writing 1 to the bit corresponding to the
-> > target SGI INTID in GICR_ISPENDR0 of each target PE's GIC Redistributor,
-> > instead of writing to the affected system registers.
-> > 
-> > Accessing a target PE's GICR_ISPENDR0 requires its Redistributor base to
-> > have been discovered. Affected platforms conform to SBBR, which requires
-> > PSCI for secondary CPU boot. They therefore do not use the ACPI Parking
-> > protocol, which sends an IPI before the secondary CPU has initialized
-> > its Redistributor. With PSCI, a secondary CPU discovers its
-> > Redistributor before becoming an IPI target.
-> > 
-> > Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
-> 
-> You are posting a patch on behalf of someone else, you need to add
-> your own SoB:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?h=v7.3-rc7#n448
+Allocate mmsg_vector with kmalloc_objs() so the element size is derived
+from the destination type and the allocation helper handles multiplication
+overflow. The default allocation flags remain GFP_KERNEL.
 
-Thanks for pointing this out. I'll let Tomohiro know.
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ arch/um/drivers/vector_kern.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> 
-> > ---
-> > Changes in v2:
-> > - Clarify the erratum description and document that virtual accesses are
-> >   unaffected.
-> > - Remove the gic_send_sgi_via_rdist() helper.
-> > - Remove the write-count rationale.
-> > - Use the CPU MIDR instead of the SoC ID for filtering.
-> > 
-> > Note that I have left the dsb(st) after the GICR_ISPENDR0 writes
-> > unchanged, pending clarification of the required completion point. If
-> > the writes must be observed by a specific component before
-> > gic_ipi_send_mask() returns, I will use the appropriate mechanism to
-> > provide that guarantee.
-> 
-> See below.
-> 
-> [...]
-> 
-> > @@ -1386,6 +1391,17 @@ static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
-> >  	 */
-> >  	dsb(ishst);
-> >  
-> > +	if (static_branch_unlikely(&gic_fujitsu_030003_erratum)) {
-> > +		for_each_cpu(cpu, mask) {
-> > +			void __iomem *base = gic_data_rdist_sgi_base_cpu(cpu);
-> > +
-> > +			writel_relaxed(BIT(d->hwirq), base + GICR_ISPENDR0);
-> > +		}
-> > +
-> > +		dsb(st);
-> 
-> What is this DSB achieving? As far as I can tell, not much. The memory
-> type is nGnRE, so DSB doesn't force writes to reach the end-point, and
-> only guarantee ordering that system register SGI generation doesn't
-> provide.
+diff --git a/arch/um/drivers/vector_kern.c b/arch/um/drivers/vector_kern.c
+index e902e78c5ff6..d6127944b202 100644
+--- a/arch/um/drivers/vector_kern.c
++++ b/arch/um/drivers/vector_kern.c
+@@ -528,8 +528,7 @@ static struct vector_queue *create_queue(
+ 		return NULL;
+ 	result->max_depth = max_size;
+ 	result->dev = vp->dev;
+-	result->mmsg_vector = kmalloc(
+-		(sizeof(struct mmsghdr) * max_size), GFP_KERNEL);
++	result->mmsg_vector = kmalloc_objs(*result->mmsg_vector, max_size);
+ 	if (result->mmsg_vector == NULL)
+ 		goto out_mmsg_fail;
+ 	result->skbuff_vector = kmalloc(
 
-Yes, you're right.
-
-> 
-> So either
-> 
-> (a) there is a functional requirement on this HW to have a DSB, and
->     needs to be documented,
-> 
-> (b) or there is a need for end-point synchronisation, which needs to
->     be enforced by a read back (knowing that the sysreg doesn't
->     provide this guarantee), and this needs to be documented,
-> 
-> (c) or this is completely superfluous and can be dropped
-> 
-> Which case are we in?
-
-I think this falls under (c). As far as I can tell, there is no
-requirement for ipi_send_mask() to wait for the writes to be observed by
-the hardware. I'm not aware of any hardware-specific requirements for
-this DSB either. I'll drop the DSB and test the change on our hardware.
-
-Thanks,
-Kohei
+base-commit: 4ad423aa2108485f8bc5dde51fdf9c1ed979ee4b
