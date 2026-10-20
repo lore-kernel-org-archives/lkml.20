@@ -1,75 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485396;
-	b=e4Nk8NDG6kT7TnqEFKuqRrU8WZJRrlJnyICkw5j4EsaMp34xk3M4pgOyLRYBcvXDbE+d
-	 ui3w0A+alhsAeXq2JDshLeAdDupFHUYGViNk/Y1M4btjoLW28XZnEHxNsm8U3BiQpL+Kg
-	 KGRjANDNb1bkE7dUXDgwDxv5rEocT2EUuXGbqNPE25ZaQ6J8gulwSB+737BdBxFv5fpYv
-	 nVEO2xqEn83JwDFr6nqymYmi0ruHyItkQkAzx5rw6b7hl7d54z5fvpsN5hedcoa4/+4Qw
-	 64QOqTLoxZvYyj/CZa1Zni/z79rv3q8Wq5VaT9JEHaiDlNhVIc4kUrl01DYUBcNSX7w==
+	t=1792485423;
+	b=tQm5VexRGfhT2kIw6FZwHKbwV/jP7q8JnhnPM/7A870EUMpoSs+grw2FcO9oM+eemfFX
+	 0S4nOzbVncV90qmLQLhzidJPDymvM1cTc4qS+ZQqESx/AcoLyUeCIcIcXcxzdDsXZMf2p
+	 3b2RFurQEhRZ+6rgIfuFViCxk908vN1qjDs7R7/zOPYI437ToBkuTuK9p4aPW+Wly9H6n
+	 u/Km2BP8izqfnyTFNFxjqcJYz9y3k5gcUKGBWWe56premHcwZTyrfXB37ianxZAlvK4k3
+	 +rW95P1o6MiCrysiicsbiy4OUuD7Y0/1HxLWzCMWVWWSIZw+vm6X3tv/pMAmFNK7GqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485396;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=22y+5juPWrN/VuUPPX8ILqIV9NFhSiiV1mnmbGgPo50=;
-	b=pA652a8xU+Jd0dceh8CVeCcCkbOCdmSoOFUw6fIGAfpCP4pO9OByV24Zi7Qp+JKeps6a
-	 jiFMIlgRDcemKihR38gDq+wllZO9xt3wdWUdMOd7YLMERhFQA/LbtvpHoBtoRXYOSRbYs
-	 WEFmS8NMUIUQ6AogK9ZLKi/qtX9A/DKa4lUbLdrFiVBA0+YikZKfZO+Ou/IozNEgFmX1Y
-	 7wwk2XKm13wqVqugB7Z35cu7X8BC/eB53fPuE6N2rOpkmAWOFzIrZaPxiKvQdZ2NHaL1n
-	 PZzxB2DUNcvZWg8gTyPIZoVZCZqW5WLsGsJ4PDX0QWl3uAxkh2nP6r4tm8D0zi/Xyag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485423;
+	h=DMARC-Filter:DKIM-Signature:From:Mime-Version:
+	 Content-Transfer-Encoding:User-Agent:In-Reply-To:To:Cc:Date:
+	 X-Lms-Return-Path:Subject:Message-Id:References:X-Original-From:
+	 Content-Type;
+	bh=47AFo55bTUHeomUi/clfAPlpyaEvHVred+SgTB3/Ous=;
+	b=N7of7rIP5yAVglMqmLE87wQamci5+cWCzz6NIXkfNjrmPIoqolB1Fl6IAeasbKw7EJUN
+	 DyyAUJJLDwZ1F2PAgtsxczuA/KW3ESbRZ5F72Z0xzBn72Lph7tFmqTTewm3eL5ojWEPJD
+	 iR8ZZU8MKxMNOZawaI7PxFK/n3OAJifLG7ctsWyF6+dS/TUk69GtV90IXBtVoSQn5xAwA
+	 KJrEP3xvVzbJK63f6JareWvSlMGc7V5XYkeWaAmuVvyd7i2/iVlyDg0BayoZjZVa5+Jv1
+	 IryRZDyTLc12lDDv6Mt83GYT7a/rFuRAMbi6qBnVoQGGb2TzKQmwT5HkdudoD22fiWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.178
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=jYdzB7kG;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99434606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:36:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99434606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so380982e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:36:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792485395; x=1793090195;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=22y+5juPWrN/VuUPPX8ILqIV9NFhSiiV1mnmbGgPo50=;
-        b=vIr3iP5QJzPizTyy/eubDxyABJzp6P9yQa8DQ8IuDcQ22eZo3+EinIZV0VXQ6EH75P
-         NhJyPdKuhB+xbmMuEtOHPt2ERmwTYjlD3te9jBKSBf+C0FEdQID7FJXViG4wjXTRcUmk
-         XJAM1y6UrFvUGwMD+jpyjO9fCK8izF3V7Mc9cO5V9qHnxWoZuUsQijWCUu5Og7//NK2Y
-         5hQjbiQejOsBdOChhRm5jvT53O/xA0sXtMXq2mlMbA+N5pOM5NIZI3DOsLH/PWDxKvsw
-         PE48KFVxEFmS9urqsehUaM/l7/aD68MEiXTVYL6BYvttLbsbfA4EeJlax2JQjMi4Wv+R
-         tXKw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDeK+iiWnasVrCeCpvcBWsJcBpCyArpU4RGFWZDNP0BSAAJ1mSWcGUMoDjF0IQ9Y8Df4zw1ySktjN6I5A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFynZuM21IuSbCaYGslT4bWj+xiD1p+i2KZAUa9xix1PyqrJ+O
-	O6WTbyXl0It2BA2OssZwEHVVJuf64X5pp4ZIyj/Q4y4SjX29CJM3kksQOU5E/bdH7Rg=
-X-Gm-Gg: AYBFou149a5YhPK5uFWiL0yCPL+P09Jvw/guhqByPseC//ImT9GJAiM/fRU/RaFmbBh
-	tUPX00M68j80hl0qpVQcz5oTodO/rrAW9rH2QVtjV3TTas7lb8sV8fIehVDBVIFgAeoro38dftu
-	Ah6RLa5uQKDcVGxdGurh3pt4VPZa+8NLeAezG1XRWCf3IV1QxM5TtrDt/PzMdaM8gmpOehmwpjQ
-	iYOcPytCeLgCTx6hw4zrsupac4KaNO4/gIKdYAsRJ9ReTUS1tcyB/ac6M93pbOycZpmZ+O2H9X3
-	BHRLJ+wTORTv+flj3rgez5IDuV40U34+XS6qfRp5EHCJ7eqzS1/YX+R1HesXgUeQceWniYxxISd
-	SM3GgVaJyjJsk/EVBe2CxKDh+ZoE0gKPVpvzKdFUc6r2DI+/pyLya5A0PVX+Lr4j1r8qU+KXI7p
-	9RXjpyrnTLtF8QEC0c0hmvfOBwWQZNSiqN5ySuyYHbbD0wckp8jiy3CP9aezgreMi10BRTJzv8F
-	9l7jgic5lhgyTQAM2W5q7buQ2gipiKmuMmHls6e
-X-Received: by 2002:a05:6122:2891:b0:5e9:6d96:a7cc with SMTP id 71dfb90a1353d-5eadcb7109fmr406720e0c.9.1792485395535;
-        Tue, 20 Oct 2026 01:36:35 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com. [209.85.221.170])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eaca7cc59asm5184427e0c.5.2026.10.20.01.36.32
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 01:36:33 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5eadea8f0edso187781e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:36:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByP8ezOqFbSnVLe3B3IolfuEOhhuLCwC+MeWFpQx5DocUq4attfhj1HYqC605AGHmj4xNCzf2IkSxDtJ3w=@vger.kernel.org
-X-Received: by 2002:a05:6122:8019:20b0:5ea:a09b:39cc with SMTP id
- 71dfb90a1353d-5eadccde839mr253998e0c.19.1792485392657; Tue, 20 Oct 2026
- 01:36:32 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596A8606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 596A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=jYdzB7kG
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792485416; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=47AFo55bTUHeomUi/clfAPlpyaEvHVred+SgTB3/Ous=;
+ b=jYdzB7kGA0Hba7WfCZTIjuRRK7B4iYAqc+zen88TtjpqDyquimI0n5wDlOdftnsMOUovUf
+ y00gGqoFL2W2zh32v1e6BYJx6SgkS8UwtARTsPw/hguyUSt0ZgHth/zwOTRCMVVbTJQ2A/
+ WwLhQnwqjJ78dfSBMZtAL8kDPmGHYWNcDn7H0vGl6UqJe806oTIVfOldKYijFHQPo30oGS
+ GC8jsUi9LndWo7p0WVsj/BW3ketjcA5uPV1y1l8SPMkN/aVGl8PV2lxz4B7tajuoXKxMnz
+ mVC1TnTqOzqLfbGsTrOUBF1HxsOHlEZPhtSW7NbSO2ILt9XrchWttFBBSPpxDg==
+From: "Li Zhe" <lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,79 +53,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261019170139.473808-1-biju.das.jz@bp.renesas.com> <20261019170139.473808-4-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20261019170139.473808-4-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 20 Oct 2026 10:36:20 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVJAYL7L8q0ShxF8vJ-nhmyCiTgTNLJxLv9wLcshLfLGQ@mail.gmail.com>
-X-Gm-Features: AclHuK-f5PxeHKGz-JsdxG5WRVgKsmMVDA3pua2BFWop-pdvR8thY-1maktQwAQ
-Message-ID: <CAMuHMdVJAYL7L8q0ShxF8vJ-nhmyCiTgTNLJxLv9wLcshLfLGQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] serial: sh-sci: Skip TDxE status clear for PORT_SCI
-To: Biju <biju.das.au@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Au Dang <au.dang.jx@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Frank Li <Frank.Li@nxp.com>, 
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <atYsvc9gIejcuwew@gremlin>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
+	<ziy@nvidia.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>, 
+	<ying.huang@linux.alibaba.com>, <mhocko@suse.com>, 
+	<muchun.song@linux.dev>, <roman.gushchin@linux.dev>, 
+	<shakeel.butt@linux.dev>, <weixugc@google.com>, 
+	<cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+Date: Tue, 20 Oct 2026 16:36:33 +0800
+X-Lms-Return-Path: <lba+26ad72826+5cd1eb+vger.kernel.org+lizhe.67@bytedance.com>
+Subject: Re: [RFC 1/2] mm: add source selector to memory.reclaim
+Message-Id: <661ba8ac-de50-4268-a2f1-3e0a1a228e09@bytedance.com>
+References: <20261019141401.11927-1-lizhe.67@bytedance.com> <20261019141401.11927-2-lizhe.67@bytedance.com> <atYsvc9gIejcuwew@gremlin>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-Hi Biju,
-
-On Mon, 19 Oct 2026 at 19:01, Biju <biju.das.au@gmail.com> wrote:
-> From: Au Dang <au.dang.jx@renesas.com>
+On 10/19/26 10:51 PM, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Oct 19, 2026 at 10:14:00PM +0800, Li Zhe wrote:
+>> memory.reclaim was added as a generic proactive reclaim
+>> interface for memcgs, but memory tiering makes its practical
+> ...
+>> The source= key is intentionally typed so future selectors can be
+>> added without reinterpreting the nodes form. For example, later
+>> patches may add source=tier:<selector> or other source types while
+>> keeping source=nodes:<nodelist> as the NUMA-node source selector.
+> Similar comment for the commit message as below re: simplicity.
 >
-> On PORT_SCI, the TDxE (Transmit Data Empty) flag in SCxSR is cleared
-> automatically by hardware when data is written to TDR. Clearing it
-> again from software via clear_SCxSR() generates a spurious TXI
-> interrupt, which causes the last character to be transmitted twice.
+>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>> ---
+>>   Documentation/admin-guide/cgroup-v2.rst | 23 ++++++++++++
+>>   mm/internal.h                           |  3 +-
+>>   mm/memcontrol-v1.c                      |  6 ++--
+>>   mm/memcontrol.c                         | 11 +++---
+>>   mm/vmscan.c                             | 48 +++++++++++++++++++++++--
+>>   5 files changed, 81 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+>> index 86a2a0099178..a016575010ba 100644
+>> --- a/Documentation/admin-guide/cgroup-v2.rst
+>> +++ b/Documentation/admin-guide/cgroup-v2.rst
+>> @@ -1454,6 +1454,7 @@ The following nested keys are defined.
+>>
+>>   	  ==========            ================================
+>>   	  swappiness            Swappiness value to reclaim with
+>> +	  source                Source to apply reclaim pressure to
+>>   	  ==========            ================================
+>>
+>>   	Specifying a swappiness value instructs the kernel to perform
+>> @@ -1464,6 +1465,28 @@ The following nested keys are defined.
+>>   	The valid range for swappiness is [0-200, max], setting
+>>   	swappiness=max exclusively reclaims anonymous memory.
+>>
+>> +	The source key declares where the normal reclaim aging pipeline is
+>> +	applied. It is a typed selector in the form source=<type>:<selector>.
+>> +	Currently only source=nodes:<nodelist> is supported. For example::
+>> +
+>> +	  echo "1G source=nodes:0-1" > memory.reclaim
+>> +
+>> +	This instructs the kernel to apply reclaim pressure to memory of target
+>> +	cgroup that are currently resident on nodes 0 and 1. Reclaim then
+>> +	follows the normal reclaim path for selected folios. The source
+>> +	selector does not choose a demotion or eviction policy. On tiered
+>> +	memory systems, a source node in a non-terminal tier will usually make
+>> +	progress through demotion when an allowed demotion target exists. A
+>> +	source node in the terminal tier has no demotion target, so successful
+>> +	reclaim progress from that source is eviction.
+>> +
+>> +	The source selector is a source constraint only. It does not select or
+>> +	limit demotion targets; those are still chosen by the kernel's memory
+>> +	tier demotion policy. Specifying source does not change reclaim
+>> +	completion accounting. On tiered memory systems, completion may include
+>> +	demotion progress that moves folios away from the selected source nodes
+>> +	without reducing memory.current.
+>> +
+> I'm no cgroup expert so I can't really comment on the concept overall, but can I
+> ask please that you try to make this documentation FAR simpler and clearer?
 >
-> Skip the clear_SCxSR() call for PORT_SCI in sci_transmit_chars() and
-> sci_poll_put_char(), as the hardware already handles it after each TDR
-> write.
+> I have no idea what an 'aging pipeline' is, then the paragraphs dive into
+> significant detail and I don't see why you would want this or what it's useful
+> for?
+By "aging pipeline" I meant the combined reclaim behavior that may
+demote some folios and evict others, depending on the existing reclaim
+policy. But I agree that this wording is confusing here.
 >
-> Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-
-Thanks for your patch!
-
-> --- a/drivers/tty/serial/sh-sci.c
-> +++ b/drivers/tty/serial/sh-sci.c
-> @@ -913,7 +913,8 @@ static void sci_poll_put_char(struct uart_port *port, unsigned char c)
->         } while (!(status & SCxSR_TDxE(port)));
+> You should lead with that, and keep things simple, only introducing detail
+> later.
 >
->         sci_serial_out(port, SCxTDR, c);
-> -       s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port) & ~SCxSR_TEND(port));
-> +       if (s->type != PORT_SCI)
-> +               s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port) & ~SCxSR_TEND(port));
-
-Is this issue present on both classic SCI and RZ RSCI?
-s->ops->clear_SCxSR() points to either sci_clear_SCxSR() or
-rsci_clear_CFC(). The former already has an internal check for
-PORT_SCI, the latter has not. So probably it should be handled there.
-
->  }
->  #endif /* CONFIG_CONSOLE_POLL || CONFIG_SERIAL_SH_SCI_CONSOLE ||
->           CONFIG_SERIAL_SH_SCI_EARLYCON */
-> @@ -1049,7 +1050,8 @@ static void sci_transmit_chars(struct uart_port *port)
->                 port->icount.tx++;
->         } while (--count > 0);
+> Right now it's 'types:selector' (only 1 trivial example given) -> reclaim
+> follows 'normal' path (what is 'normal'?) -> for selected folios (who selects
+> them? How is it relevant to _an admin_?) -> source selector (what?) does NOT
+> choose a demotion/eviction policy (neither defined in document) -> source node
+> in non-terminal etc. etc.
 >
-> -       s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port));
-> +       if (s->type != PORT_SCI)
-> +               s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port));
+> It's very typical of LLM-generated text - it treats the reader as a computer
+> with a large mental 'stack' for storing this information.
 >
->         if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
->                 uart_write_wakeup(port);
+> Humans don't work that way.
+>
+> The document targets _admins_ and this text strikes me as very very confusing
+> for kernel developers, let alone admins.
+>
+> It also seems to assume a lot of knowledge.
+Sorry for the confusion. I will rewrite the cgroup-v2.rst text in v2 to
+be much clearer and easier to read.
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Zhe
+>
+> --
+> Cheers, Lorenzo
