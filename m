@@ -1,39 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792485513;
-	b=yKk8qcC5z3CROMMKtOdQx/KDp3ldmfcUfSqeHm8z0sdzjH8/AE2UJqBWD6r9rC7++tQ1
-	 zHV5FuZG3LlGDaQkHmyiT4eMnniHYfurCnFP/ys9X3LUIQSOKKYWVAaRTQHFVJQO7rZwK
-	 VI5NCdMCp2U/QhBT1QtPXEDYV28GmDvxFm0qYRZaTjKgoFo89mAm4x2Mi1kzxOSgWz/is
-	 waYgtCEYq6jUok2sMt1aCKTOyDAO/r5/qhHso3rxb5Q2T1sMrC6BotA31AUaXEbsHTBLl
-	 bRjH7TC30zo8+xMkIMalpDNLL52crdy2oCY5r/H76RoJHldYvj9i7+wWi+ILYqkVqbg==
+	b=kAS2fJsY1zH2xlZ8xnWAJ2lZM2wQhnGz+S8tGtNaFYZFJCIuxFe/2r8+6kXMsWgEqNqv
+	 Et2lYDMbFNNg6WTTI4j28sjIs9jSg9H8+B4GE1LpDrQ+Y7t+Rig3aKLsoOd3VY8tOzeMb
+	 08ikP1AndzCeZEMPgdOSdhGXkXjqJFB86+PNAmoHHpViCrxGunMY0ChpaOnnVugn0yMxX
+	 hziSPsRJUfYbRWM1E/ZJfEOuxKpJBc6TnfTwfiva3YNJV4awDmTpS2sBQLKd374lkkV4J
+	 hfCd6iZmopCGfQFNTVtebxjBvj763J4XLNuZ+Aen2UZNqiqu54qv9rAOz6UR13JRpmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792485513;
 	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Gnl24MaLuJqp+e8R1thtVcYM+P99rf6MgdLSn+uGhXE=;
-	b=sVnG0u/R2571WllgXYrjdPXycKC15Dg82Wm4Kk3Bz/pJ5NBsDG/pXbveBo4ZZ41NqaH4
-	 EuJQpIRiD9sHWIW6YaOhkXe/DE679qY8V5v/q6dBIBDLLmfUCeA70A3tc4xrL+eczLYwG
-	 Rhu4VF6K5CwIK7O2OFC2hPxB4h+B+pK4EyTITlD/GFDgQs1GlniByu3cQRQQwBGMfIDT8
-	 DU+BULFX3emp22Ce4rSP7u4FvHnJiFASQXgF0h2k3mqR/h/WArc8XkR7xltIsiLfPBQY0
-	 OtYLWDcUeZZ/pMSTkrM8YX14Da8wpxe/ptaDX+3Hb4wCZUfjcmCTJOnOyAfZWrnOLCg==
+	bh=2gA4KOi3Hn2Vyaj2KE97BdlJ8z8R0YsWY+qFIgELBLk=;
+	b=wyYkCX9UpsBKLRvaDJLvNiSBfYXuLacUx4FRr5EFqGcnrzvO6OEyZR/ULQ1dzA6RK9Zv
+	 C74d3Pqcq47rTTcaXGVl4ZymxKBqYWE8Qb/KMqkOmkIWHniC9PfWugOtGSaHEt6ytpNQU
+	 1VOeJEFXfya0JGaOCSHv8c574B4XfF7QdImukmWa/vZ19KNv+34B9PAoEC7oxBIkhwUGB
+	 TbkJ7pYFrNocDbJB2/oYu5DAYnDkYyYaIOd3eUjSobE785eJhKWjTbwuHehqSrQNDMQEo
+	 Pr1KUgsAFue7fMQ9Jxz+jbHWRP445kgiog2n0zctgWOT76fB4FkoF0T2rNhHfwFan4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=open-hieco.net;
 	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.1
-Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
+	arc=none smtp.remote-ip=115.124.28.75
+Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268DB60A261D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B6D606A333
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 268DB60A261D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B6D606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436277|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.0373498-0.00136688-0.961283;FP=13139067504299873530|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jlWubXJ_1792485505;
-Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubXJ_1792485505 cluster:ay29)
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436305|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.0337373-0.00132636-0.964936;FP=3442958109706642802|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jlWubSp_1792485500;
+Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubSp_1792485500 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 16:38:27 +0800
+          Tue, 20 Oct 2026 16:38:22 +0800
 From: Li kunyu <likunyu@open-hieco.net>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -48,9 +48,9 @@ To: mingo@redhat.com,
 Cc: linux-kernel@vger.kernel.org,
 	Li kunyu <likunyu@open-hieco.net>,
 	"Li Wang (Hieco)" <li.wang@linux.dev>
-Subject: [RFC PATCH 5/6] sched/fair: Add task burst threshold for large-scale bursts
-Date: Tue, 20 Oct 2026 16:37:45 +0800
-Message-ID: <20261020083746.37068-6-likunyu@open-hieco.net>
+Subject: [RFC PATCH 3/6] sched/fair: SMT sibling exclusion after successful push
+Date: Tue, 20 Oct 2026 16:37:43 +0800
+Message-ID: <20261020083746.37068-4-likunyu@open-hieco.net>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261020083746.37068-1-likunyu@open-hieco.net>
 References: <20261020083746.37068-1-likunyu@open-hieco.net>
@@ -65,129 +65,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In practice, bursty tasks can lead to uneven task distribution. For
-example, some CPUs may have kernel-mode utilization above 50%, while
-more than 10% of CPUs in the system remain idle. To address this, a task
-burst threshold is introduced:
+In sched_balance_domains(), after a task is successfully pushed to its
+SMT sibling CPU, the pull process continues. To prevent the already-pushed
+task from being pulled again, both the SMT scheduling domain and the
+sibling CPUs are skipped during selection. As a result, SMT sibling CPUs
+are not selected.
 
-1. When a task is woken up, the scheduler first follows the original
-wake-up logic (e.g., wake-up on the current CPU or affinity wake-up)
-to select a CPU. If no CPU is selected, the task burst threshold of
-new_cpu is then checked.
-
-2. For newly created child processes or threads, only the task burst
-threshold needs to be checked.
-
-Benefits:
-
-1. The performance degradation observed in the hackbench scenario is
-resolved, allowing tasks to be distributed quickly.
-
-2. On a Hygon 7447v CPU (Model 7) server with 384 logical CPUs, UnixBench
-shows approximately 3% to 5% performance improvement for this patch, with
-a cumulative improvement of 8% to 10% across the patch series.
+This patch skips SMT sibling CPUs.
 
 Tested-by: Li Wang (Hieco) <li.wang@linux.dev>
 Signed-off-by: Li kunyu <likunyu@open-hieco.net>
 ---
- kernel/sched/fair.c | 62 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 57 insertions(+), 5 deletions(-)
+ kernel/sched/fair.c | 32 ++++++++++++++++++++++++++++----
+ 1 file changed, 28 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index f2bf4b53d8a9..0cd0c5a5f158 100644
+index 12b3223c6403..6e2271484c86 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -145,6 +145,15 @@ static unsigned int sysctl_smt_buddy_imbalance_pct = 125;
- static unsigned int sysctl_smt_buddy_imbalance_pct_min = 105;
- static unsigned int sysctl_smt_buddy_imbalance_pct_max = 200;
- 
-+/*
-+ * In certain scenarios, the task burst threshold helps distribute tasks to
-+ * idle CPUs quickly.
-+ *
-+ * (default: 4)
-+ */
-+static unsigned int sysctl_smt_buddy_balance_task = 4;
-+static unsigned int sysctl_smt_buddy_balance_task_min = 2;
+@@ -10657,6 +10657,8 @@ struct lb_env {
+ 	enum fbq_type		fbq_type;
+ 	enum migration_type	migration_type;
+ 	struct list_head	tasks;
 +
- #ifdef CONFIG_SYSCTL
- static const struct ctl_table sched_fair_sysctls[] = {
- #ifdef CONFIG_CFS_BANDWIDTH
-@@ -176,6 +185,14 @@ static const struct ctl_table sched_fair_sysctls[] = {
- 		.extra1		= &sysctl_smt_buddy_imbalance_pct_min,
- 		.extra2		= &sysctl_smt_buddy_imbalance_pct_max,
- 	},
-+	{
-+		.procname       = "smt_buddy_balance_task",
-+		.data           = &sysctl_smt_buddy_balance_task,
-+		.maxlen         = sizeof(unsigned int),
-+		.mode           = 0644,
-+		.proc_handler   = proc_dointvec_minmax,
-+		.extra1         = &sysctl_smt_buddy_balance_task_min,
-+	},
++	bool			is_smt_move_task;
  };
  
- static int __init sched_fair_sysctl_init(void)
-@@ -9937,7 +9954,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 	int sync = (wake_flags & WF_SYNC) && !(current->flags & PF_EXITING);
- 	struct sched_domain *tmp, *sd = NULL;
- 	int cpu = smp_processor_id();
--	int new_cpu = prev_cpu;
-+	int new_cpu = prev_cpu, nohz_idle_cpu = 0;
- 	int want_affine = 0;
- 	/* SD_flags and WF_flags share the first nibble */
- 	int sd_flag = wake_flags & 0xF;
-@@ -9990,11 +10007,46 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 
- 	/* Slow path */
- 	if (unlikely(sd))
--		return sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
--
-+		new_cpu = sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
- 	/* Fast path */
--	if (wake_flags & WF_TTWU)
--		return select_idle_sibling(p, prev_cpu, new_cpu);
-+	else if (wake_flags & WF_TTWU)
-+		new_cpu = select_idle_sibling(p, prev_cpu, new_cpu);
+ /*
+@@ -13377,7 +13379,20 @@ static struct rq *sched_balance_find_src_rq(struct lb_env *env,
+ 	struct sched_domain __maybe_unused *sd_tmp;
+ 	unsigned int busiest_nr = 0;
+ 	int __maybe_unused dst_llc;
+-	int i;
++	int i, smt_cpu, dst_cpu = env->dst_cpu;
 +
-+#ifdef CONFIG_NO_HZ_COMMON
-+	/*
-+	 * In practice, bursty tasks can lead to uneven task distribution.
-+	 * For example, some CPUs may have kernel-mode utilization above 50%,
-+	 * while more than 10% of CPUs in the system remain idle.
-+	 * Therefore, we define a task burst threshold:
-+	 *
-+	 * 1. For a task to be woken up, the scheduler first follows the
-+	 * original wake-up logic (such as wake-up on the current CPU or
-+	 * affinity wake-up) to return a CPU. If no CPU is returned, it
-+	 * then checks the task burst threshold of new_cpu.
-+	 * 2. Newly created child processes or threads have fewer
-+	 * considerations; only the task burst threshold needs to be checked.
-+	 */
-+	if (sched_feat(SMT_BUDDY_ASSIST) && cpu_rq(new_cpu)->nr_running >=
-+			sysctl_smt_buddy_balance_task)
-+		for_each_cpu_wrap(nohz_idle_cpu,  nohz.idle_cpus_mask, new_cpu + 1) {
-+			if (!idle_cpu(nohz_idle_cpu))
-+				continue;
-+
-+			/*
-+			 * In general-purpose scenarios, the CPU can
-+			 * typically meet task requirements.
-+			 */
-+			if (!cpumask_test_cpu(nohz_idle_cpu, p->cpus_ptr))
-+				continue;
-+
++	if (sched_feat(SMT_BUDDY_ASSIST) && env->is_smt_move_task) {
 +		/*
-+		 * Simply returning nohz_idle_cpu is sufficient, since the
-+		 * subsequent NOHZ kick will clear the corresponding bit in
-+		 * nohz.idle_cpus_mask.
++		 * Remove the SMT sibling CPU from the mask to avoid the
++		 * extremely rare case of pulling tasks from it.
 +		 */
-+		return nohz_idle_cpu;
++		for_each_cpu(smt_cpu, cpu_smt_mask(dst_cpu)) {
++			if (smt_cpu == dst_cpu)
++				continue;
++
++			cpumask_clear_cpu(smt_cpu, env->cpus);
++		}
 +	}
-+#endif
  
- 	return new_cpu;
- }
+ 	for_each_cpu_and(i, sched_group_span(group), env->cpus) {
+ 		unsigned long capacity, load, util;
+@@ -13743,7 +13758,7 @@ static atomic_t sched_balance_running = ATOMIC_INIT(0);
+  */
+ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
+ 			struct sched_domain *sd, enum cpu_idle_type idle,
+-			int *continue_balancing)
++			int *continue_balancing, bool is_smt_move_task)
+ {
+ 	int ld_moved, cur_ld_moved, active_balance = 0;
+ 	struct sched_domain *sd_parent = sd->parent;
+@@ -13761,6 +13776,7 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
+ 		.cpus		= cpus,
+ 		.fbq_type	= all,
+ 		.tasks		= LIST_HEAD_INIT(env.tasks),
++		.is_smt_move_task = is_smt_move_task,
+ 	};
+ 	bool need_unlock = false;
+ 
+@@ -14390,8 +14406,15 @@ static void sched_balance_domains(struct rq *rq, enum cpu_idle_type idle)
+ 
+ 		interval = get_sd_balance_interval(sd, busy);
+ 		if (time_after_eq(jiffies, sd->last_balance + interval)) {
++			/*
++			 * When a task is successfully pushed to its SMT sibling CPU:
++			 * 1. Skip traversal of the SMT scheduling domain.
++			 * 2. Continue pulling tasks from heavily loaded CPUs.
++			 * 3. Avoid pulling tasks from SMT sibling CPUs.
++			 */
+ 			if (!is_smt_buddy_run(sd, is_smt_move_task) &&
+-				sched_balance_rq(cpu, rq, sd, idle, &continue_balancing)) {
++				sched_balance_rq(cpu, rq, sd, idle, &continue_balancing,
++					is_smt_move_task)) {
+ 				/*
+ 				 * The LBF_DST_PINNED logic could have changed
+ 				 * env->dst_cpu, so we can't know our idle
+@@ -15059,7 +15082,8 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
+ 
+ 			pulled_task = sched_balance_rq(this_cpu, this_rq,
+ 						   sd, CPU_NEWLY_IDLE,
+-						   &continue_balancing);
++						   &continue_balancing,
++							false);
+ 
+ 			t1 = sched_clock_cpu(this_cpu);
+ 			domain_cost = t1 - t0;
 -- 
 2.47.3
 
