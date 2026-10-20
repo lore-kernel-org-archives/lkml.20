@@ -1,48 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792518116;
-	b=im+4c37EO9Ki9pViip0OdsPGrAWLf5fxgiMM4X+GQcItwV8VQGW6IWqhgWHi1Fdh7bt3
-	 2XAbXowfXP8sqlBQjDSRsJTU9qn0XkH0l0eLpjUiL9zGJ/uQULnJc9VJyOcj0uT5HbpFI
-	 Gv4vVbUo7WU12wQT9PlDKydFnYnvctXuqNxbqG8THm3FrpxnN2D808nlU+fH2d2P1HOJQ
-	 7wm5s7wDqq2RaYf8Lot+fYFIpkoPhql13w1Vpk4GS/guJYvv3GGJyTKQjqOdythxNI+9o
-	 8d3+x1WDlpvVzl04mBhXzU3ByNbEsLfF0GE3gKWxtCjNtvgAWJaYh2IMsAecKUlVglg==
+	t=1792518131;
+	b=LrXGTGCAjbxH1OGZA3Pc5HmFW90LaJz5x6RnFxlsl9hch4h/uNMONs7NNbyVYHZZ4AOv
+	 2bQRJKGKY2lBkC3vlrjGD2X1g78zmQA0aZGzn/DDal11dw0BSRxuRvWv0zh2lczrBxH9K
+	 9hpyN2f71pw5lMb+vn5Lt7H8B0o93n7DyfF7ghsfNiyVn4uXA71xUpgk61qV0AvdVvWOB
+	 /KlPZ8r3Wh1Cb8zJpSJUxG7Fb6A2qZNLxUK/BrMp5AdPUKOkHmiLeg35YQFqjWqPOMRsy
+	 cYWr4nzm/x8m27lx6GEHLFjjItI0UrSJ3tBFlZl1bA3vuXoxeWhs+hN5saC882Wef7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518116;
-	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=7kHsNvX7qhi13hNAheORWGGXQJ977zoh3p67QbCteZs=;
-	b=ZOmk327MLX5tG1SSTl9k9eFIct5y+VxQM9sxqB4e/EJPQxv0hFLA54WLXEmICeQrFWVK
-	 WBhXAMQ0DlEbV1suoNZeG3WVGGanOuUySa0NEk+VZc+qzLROmodGJNSRBN+Rd3Kb6c4m0
-	 E5oMDMSPdRY2VrHt/F8RcUug2tucJ84643Vd9K6ye5MyLbop6MZzvNux/ercCX80gB7zl
-	 nvbgfdvvI25mV6mwOitPgxdeSdsd0V0di9sIBHnQsAwGYhmNUZQ5znww4fX3M7SHC+ThE
-	 f1bRfPqwAObgGT4X92aqIbF4pP5jZVzzxapqNcVgw0WfcrVD+RPg4dvusI5z23+7BUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518131;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KcuisqKcfY3dDkZrKVJFMzd0fcQSPtB9DKKrNu6xMDc=;
+	b=f1Bxv32iuJW4/eAHQrj9fwMN8X5/SQulR9qltPnNbAJpYVjsMT4O8VjGIMd2GcgAZ64r
+	 4O9wxN/tp4HSf84cqGsGCC56phPLPuqOFSRwqEB9TCUr9ANbqQHqAQyLs9uoZnhT0HWc7
+	 Bhe6boXHGEv9O/+0BDtezeUwdTjm80bKKzAEJ4fl32z2u6P/Bs+MewoT5xZKJm2D1mgvQ
+	 bC1BUgLlAA08pN56IMXPHrgJYYF0VcuMLBcS0uQMhplEngWvZi/gl+RfyBxHMK7l6JsdK
+	 1irj8hNeph4N27luW+vYpU7S9v7Fdwp8AAcTCsh6ytv7z3098Bo08vjLjNNrqSgSV0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lptfetT5;
+	arc=none smtp.remote-ip=91.218.175.92
+Received: from mta0.migadu.com (out-92.mta0.migadu.com [91.218.175.92])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14755606A31C;
-	Tue, 20 Oct 2026 17:41:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C951F000C9;
-	Tue, 20 Oct 2026 17:41:54 +0000 (UTC)
-Subject:
- Re: [PATCH net] net: gso: complete partial checksums of fraglist segments
-From: netdev-bot+sashiko@kernel.org
-To: pylaterreur@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, kuniyu@google.com,
- steffen.klassert@secunet.com, willemb@google.com, nbd@nbd.name,
- dsahern@kernel.org, alice.kernel@fastmail.im, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 20 Oct 2026 17:41:24 +0000
-Message-ID: <179251808436.3135.4663009008988261682@kernel.org>
-In-Reply-To: <20261016-fraglist-csum-v1-1-93945be7bb5d@gmail.com>
-References: <20261016-fraglist-csum-v1-1-93945be7bb5d@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB780606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB780606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lptfetT5
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HYlZAjvPSvUg0EYki+B31cFwdxYGZdn+4RyzYF3vYvA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792518128; v=1; x=1793122928;
+ b=lptfetT5dOp/2iAjEqVDD7cYtmxdUNBZ+peHMyAKCJ7yL0nkjG/A3G/EWtl7QWmSv+d6sUaN
+ OXSRpeYp1wxjeSok+Zu8xSgZ6WdIU9LPs8soKqG/wFT8o9zuthY6jAQaYy0VyfRTGEZXJzHibTD
+ DXDkn/21wF1WWmEkjWy3LXc4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7f73adbe8e2cc93d;
+	Tue, 20 Oct 2026 17:42:08 +0000
+X-Mizu-Trace-ID: 7f73adbe8e2cc93d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2d180813-48c1-4a39-bbfa-83b813dea60a@linux.dev>
+Date: Tue, 20 Oct 2026 19:42:06 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,221 +58,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/7] HID: asus: Keep the Zenbook Duo input device names
+To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
+ Luke Jones <luke@ljones.dev>,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>
+References: <20261020092423.36380-1-p.pisati@gmail.com>
+ <20261020092423.36380-8-p.pisati@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261020092423.36380-8-p.pisati@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
 
-Critical: 1 · High: 0 · Medium: 2 · Low: 1
+On 10/20/26 11:24, Paolo Pisati wrote:
+> hid-asus renames the input devices of the keyboards it handles to
+> "Asus Keyboard", except for the ROG N-Key ones, which keep the names
+> the devices report. New devices are not renamed any more, so skip the
+> rename for the Zenbook Duo keyboards too: their input devices keep the
+> "ASUS Zenbook Duo Keyboard" names they get without this driver.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
 
-- [Critical] skb_segment_list_csum_help() runs software checksum
-  completion on the head segment while that skb is shared.
-- [Medium] skb_segment_list_csum_help() completes each segment's checksum
-  using the csum_start/csum_offset that skb_segment_list() copied from…
-- [Medium] On a segmentation failure, udp_rcv_segment() counts drops with
-  `drop_count = skb_shinfo(skb)->gso_segs`, then calls sk_drops_add()…
-- [Low] The kerneldoc of skb_segment_list_csum_help() ('Segments that are
-  GSO packets themselves (TCP fraglist GRO can chain those) are left…
-
---
-
-net: gso: complete partial checksums of fraglist segments
-
-This patch adds skb_segment_list_csum_help(). When the output features
-can't offload the checksum, it completes the CHECKSUM_PARTIAL checksums of
-the segments built by skb_segment_list(). The UDP and TCP (v4/v6) fraglist
-GSO paths call it after the protocol code has fixed up the segment
-headers.
-
-Closes: https://github.com/Ysurac/openmptcprouter/issues/4402
-
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 41beaf625421a..be3fa938e1da2 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -4782,6 +4782,46 @@ struct sk_buff *skb_segment_list(struct sk_buff *skb,
->  }
->  EXPORT_SYMBOL_GPL(skb_segment_list);
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+> ---
+>  drivers/hid/hid-asus.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index 6ee2ecca864d..69894de8f6ce 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -1712,10 +1712,10 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  		hid_warn(hdev, "Failed to initialize backlight.\n");
 >  
-> +/**
-> + * skb_segment_list_csum_help - finish the checksums of fraglist segments
-
-[ ... ]
-
-> + * Segments that are GSO packets themselves (TCP fraglist GRO can chain
-> + * those) are left alone, as skb_checksum_help() can't handle them.
-
-[Severity: Low]
-Is this still true on the base tree? Commit 66817a979426 ("net: gro: Fix
-nesting of TCP GSO SKBs in skb_gro_receive_list()") changed
-tcp4_check_fraglist_gro() and tcp6_check_fraglist_gro() so that only
-non-GSO skbs start an flist flow:
-
-	NAPI_GRO_CB(skb)->is_flist = !sk && !skb_is_gso(skb);
-
-When a GSO skb meets an flist head, it falls back to regular GRO, and
-tcp_gro_receive() flushes when the is_flist values differ. skb_segment_list()
-also calls skb_gso_reset() on the head. Put together, skb_segment_list()
-doesn't appear to produce GSO segments, so the skb_is_gso() skip below
-would be dead code on mainline.
-
-The changelog gives the same reason:
-
-  Segments that are GSO packets themselves, which TCP fraglist GRO can
-  chain, are left as they were: skb_checksum_help() refuses GSO packets.
-
-The test in the notes with a TSO veth sender can't exercise this skip
-either, because TSO packets never become flist on this tree.
-
-Could the comment and changelog describe the skip as defensive, or mention
-66817a979426? This patch is tagged for stable. On stable trees that don't
-have that commit, the skipped GSO members would still go out with only the
-pseudo-header sum.
-
-> + *
-> + * Return: @segs, or an error pointer after freeing the segments.
-> + */
-> +struct sk_buff *skb_segment_list_csum_help(struct sk_buff *segs,
-> +					   netdev_features_t features)
-> +{
-> +	struct sk_buff *seg;
-> +	int err;
-> +
-> +	if (segs->ip_summed != CHECKSUM_PARTIAL)
-> +		return segs;
-> +
-> +	for (seg = segs; seg; seg = seg->next) {
-> +		if (skb_is_gso(seg))
-> +			continue;
-> +
-> +		err = skb_csum_hwoffload_help(seg, features);
-
-[Severity: Critical]
-Can this hit BUG_ON(skb_shared(skb)) in pskb_expand_head() for the head
-segment?
-
-skb_segment_list() returns the head with an extra reference:
-
-	skb_get(skb);
-
-	return skb;
-
-So the first entry of segs has users == 2 when this loop runs.
-skb_gso_reset() has already cleared its gso_size, so the skb_is_gso() skip
-doesn't apply to it.
-
-If features have no checksum offload that fits the packet,
-skb_csum_hwoffload_help() falls through to skb_checksum_help(), which
-does:
-
-	if (skb_has_shared_frag(skb)) {
-		ret = __skb_linearize(skb);
-
-skb_segment_list() only linearizes the head when NETIF_F_SG is missing, so
-with SG set the head can still have page frags. skb_gro_receive_list()
-copies SKBFL_SHARED_FRAG from every aggregated member onto the head, and
-MSG_SPLICE_PAGES senders (sendfile/splice over TCP or UDP) set that flag.
-
-The resulting chain would be:
-
-validate_xmit_skb()
-  __skb_gso_segment()
-    __udp_gso_segment_list() / __tcp{4,6}_gso_segment_list()
-      skb_segment_list()             /* skb_get(), users == 2 */
-      skb_segment_list_csum_help()
-        skb_csum_hwoffload_help()
-          skb_checksum_help()
-            __skb_linearize()
-              __pskb_pull_tail()
-                pskb_expand_head()   /* BUG_ON(skb_shared(skb)) */
-
-Two cases look like they reach this. The first is forwarding to a tun
-device without TUN_F_CSUM, since tun keeps NETIF_F_SG | NETIF_F_FRAGLIST.
-The second is udp_rcv_segment() for a socket using IP_CHECKSUM, where
-features == NETIF_F_SG.
-
-skb_segment() doesn't have this problem because its segments are freshly
-allocated with a refcount of 1. Would it work to complete or linearize the
-head before skb_get() in skb_segment_list(), or to handle the head
-separately?
-
-[Severity: Medium]
-Do csum_start and csum_offset on each segment always point at that
-segment's L4 check field here?
-
-skb_segment_list() copies them from the head with __copy_skb_header().
-skb_headers_offset_update() then only shifts them by the headroom
-difference.
-
-The fraglist GRO path never normalizes them:
-__virtio_net_hdr_to_skb() accepts any csum_start/csum_offset that fits in
-that packet's own linear data. The is_flist branches of
-udp4_gro_complete() and tcp4_gro_complete() also don't reset them the way
-udp_gro_complete_segment() and tcp_gro_complete() do.
-
-tcp_gso_segment() rejects such packets with:
-
-	if (unlikely(skb_checksum_start(skb) != skb_transport_header(skb)))
-
-__udp_gso_segment() has the same check, but exempts SKB_GSO_FRAGLIST.
-
-Suppose the head has a large csum_offset and is followed by a shorter
-member. Could skb_checksum_help() then hit:
-
-	if (unlikely(offset + sizeof(__sum16) > skb_headlen(skb))) {
-		DO_ONCE_LITE(skb_dump, KERN_ERR, skb, false);
-		WARN_ONCE(true, "offset+2 (%zu) > skb_headlen() (%u)\n",
-
-and drop the whole aggregate with -EINVAL? For members where the offset
-does fit, the folded checksum would be written into payload bytes instead
-of the TCP or UDP check field.
-
-Crafted vnet headers written to a tap opened with IFF_NAPI | IFF_VNET_HDR
-with rx-gro-list on seem enough to trigger this. That is the reproducer
-setup from the notes.
-
-Should each segment's checksum start be checked against its transport
-header, or reset to it, before skb_csum_hwoffload_help() is called?
-
-> +		if (err) {
-> +			kfree_skb_list(segs->next);
-> +			segs->next = NULL;
-> +			/* drop the extra reference skb_segment_list() took */
-> +			kfree_skb(segs);
-> +			return ERR_PTR(err);
-
-[Severity: Medium]
-Does this error path leave the UDP drop counters at zero?
-
-After a failure, udp_rcv_segment() counts drops using the head:
-
-	segs = __skb_gso_segment(skb, features, false);
-	if (IS_ERR_OR_NULL(segs)) {
-		drop_count = skb_shinfo(skb)->gso_segs;
-		goto drop;
-
-skb_segment_list() has already called skb_gso_reset() on that head before
-skb_segment_list_csum_help() runs, so gso_segs is 0 at this point. All the
-aggregated datagrams are freed here, but sk_drops and UDP_MIB_INERRORS go
-up by 0.
-
-This can happen on receive for a socket using IP_CHECKSUM, or when IPv6
-extension headers force the software checksum. skb_checksum_help() can
-fail there with -ENOMEM, or with -EINVAL from the csum offset problem
-above.
-
-The existing late __skb_linearize() failure in skb_segment_list() has the
-same accounting gap. This patch adds a new trigger that is easier to reach.
-
-> +		}
-> +	}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-fraglist-csum-v1-1-93945be7bb5d%40gmail.com
+>  	/*
+> -	 * For ROG keyboards, skip rename for consistency and ->input check as
+> -	 * some devices do not have inputs.
+> +	 * For ROG and Zenbook Duo keyboards, skip rename for consistency and
+> +	 * ->input check as some devices do not have inputs.
+>  	 */
+> -	if (drvdata->quirks & QUIRK_ROG_NKEY_KEYBOARD)
+> +	if (drvdata->quirks & (QUIRK_ROG_NKEY_KEYBOARD | QUIRK_ZENBOOK_DUO_KEYBOARD))
+>  		return 0;
+>  
+>  	/*
