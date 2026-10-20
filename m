@@ -1,99 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792531231;
-	b=IHvS46g/zlzMn/VjkjnmdQM4dDWEcp/pYSnFv85D+qWOnWuxoDfLRP2E3NdOebecGRvO
-	 hP8V6XX7/ZKUSIA2VfFIN6ppK5FTEdQxIyNGRQLMe20FH9YM/90r1ZjyTAd1t/oxRRfpU
-	 7a1maoyzqy99ADwxpQ/jw39TnKLsSCNbmctkEt/ccy5Lr5g0Omg3u8gV0I/NaV+SgBIbP
-	 e0Jx6KWZoICBqqRxnbL2/+oYx3OBUZFfFOJ2d78EDKvFLh806ezCAyp6VFn8dP/lEBs4M
-	 J8w23/LNE9kqebXGsN86Wc4n5K89x24muuSoc8C0EfJpXMHN8oSlJgyb8PKkxdjiL6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792531231;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ke4Bp1uq0aLEbcX2egfOr2CbakS7xm41rD4rPHzU2KE=;
-	b=oQxCbVvwaNKG0tsaALuG4aGg7Xn6F2Mp96uL1feIqLCwmKODe7Q5+/AlyyNd+Su88aSN
-	 l7KbAMm6yr11qP6YJAWE5wHRPawdEZrypZKTvX5tCPuNiZTFOxpmL1wzn6wzFRP+Pdk93
-	 53lZhQ79esb2gXuDRCkDiged96KxH4JgmKgpA5JWTLGcDfxV6UhK14WcjLfB4YpVvWG12
-	 31a2LHPZci0BFWuD7I2h0Tj2A3qYbVER6nhjp4nGojB+ZZoqeGL6LW+X3OnXVOxwX05L6
-	 Y5tYK4OjSSmpmXM02Uez6ygJkGPaEUAUJIMqwoE/a44DgLSxGP0HYMkRYQoBkZf8XzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nof0WhBK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.30
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792531287;
+	b=w5SEq3csd5n+P1+T2sWXhfnzkM1ILlfaVi5w2NatG1PrnZJnHfvZanWmH0j0IZAg+DHw
+	 zIf8Yoo22GZjrL5jG8LCys9wdqM5lkEdOFQWAAsQlsdb5fSJ7HLmdhbARfFDPqurcrkPe
+	 /57p79tHwbRgAOCKZDn6XgW19PLbSg9sPWMzv/LVgqct2oNByCE/bMPtvfDGqDIVPrD/1
+	 Z/C8N296XXUSJQwo/Lh+HLAQ/JoVB+qG+ZmZutlKwry0y1RCQ9WFEDC//RtMXBLKI32Gm
+	 2CGNUmkh6zOX7JLHFlwlZ7/hnF2CptP/qjEpPOASuX1EjrDBzGOoTZJ90KurOrQPpag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792531287;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=kfPFN6p3dzzyhZDI8mEIySVXtBWL1/DWlxavyXB3fN4=;
+	b=nQiE99tu6LXzmkw+PtWoVCDQtDN6SUi+IKJ0sy5YtKl4ygPojRFsoHWXPllsb/qyq3Jn
+	 U8UIrTGqVLcLZQfUo5ZoYETqVjVXj+MWwqE969/A5EwqGGNi3boA/lofIGPpkyjGuRNkd
+	 1AD4Vv+EK97JJNMaS5hKq3AQfTg3ywhsVGvnNcY94MzT9oDJqr+MFF7H++ph/yybXIXoG
+	 k3ULxaGtCwtvP+64TOyxu0daDXd1D7OoPDTtnnzzT/sgUTbfVC+MfikVE7V/MC5TG3azE
+	 XAwshs7tnp50Gvr8FVIHK4Nd1bQXxb2S/0gLk0TTzbZszBHBRIDiN3IBRDIl/8tr4dg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evLX7g7p;
+	arc=none smtp.remote-ip=95.215.58.30
+Received: from mta1.migadu.com (out-30.mta1.migadu.com [95.215.58.30])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBBB606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:20:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CBBB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39AF606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:21:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D39AF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nof0WhBK
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-675617e81f9so39267d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:20:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792531230; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V3/R/MKy3Px1JUJxlWBa/2fIknwe48cZu28U5AJ+2cTPbUXbV4hnNan3zzIL7u8CEe
-         VbB0XJEHEC0ivIOZMD+uBiqr8VJ2riZv7MVQv97+tXkVSNPyYWaxrONmdrBiIgPk3U2o
-         CnW3zMlORAXbu0d2iSUulXWh7pRtCznGvGFoznyaiEDCnyxkulsTsRAOyIGsE3YpGVvB
-         75lanU2q37ontwz63S/3nY9zG66xIUryvEUuDybosVxYBHxnPKIC6JeaoeKDbRh0LXe5
-         qTtXfinRXfX1ZjcYwn914eWG08Y2/5XEq9vCvOUynK7KteAdvYhratgagsYUrhUtLgRC
-         Xz0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ke4Bp1uq0aLEbcX2egfOr2CbakS7xm41rD4rPHzU2KE=;
-        fh=HzWqJmUPJkSfYY1SOw86zx+bZ0rYez/kfI4eA2mC3a4=;
-        b=iKk+PgN9xp7YBuB44/3ramdNBHxeyCGur3wSd3XdFixnlnYKx79aFv7A4UswNJCNxz
-         Jw9leAjFqOQkIaM3TvzV09WnZC21kDAAtkb9fgJPW+/0kJu03ropiovL1pFEw9xlvML7
-         WzvDOnu7EyjVXqkaw4VKUSBOqbDMy2bw8iYVN11IiXVmTW7nXnEDQzjz64PbJwgAeUb4
-         vobXmoJ1L8L8mxmhh80g+WDQ9F9RerPkX0MQtRf6u1tN7w7U2Aqdc19SGnzKOeB3jyxQ
-         3LKGVeb6+s4pkQy+P4MIZkkPgDpM46GsZHbRsNn4rDhBCQYlhzxbrwso+GTYZAsco8IA
-         plvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792531230; x=1793136030; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ke4Bp1uq0aLEbcX2egfOr2CbakS7xm41rD4rPHzU2KE=;
-        b=nof0WhBKmNRkVH4Kks93Z+i4KGNUZZ5QuzCvl7f3OWL3sRevUyZAYi2Xucrm9/Vu3R
-         5yxlRMmNbbAaD4da7NJbZtejjoesKqeXymVo5pSSv7Wk/4HD28U1eDNWHwU2jCJi+n3G
-         PlTbqjJs21axO6AtsVmwqmyFeexDu3zJb+yRLWdvWXdQ7AMJ5oMAfL+wbvLfeReUeBpF
-         afmAtBJUU5ehrm1Ymzhn+4HhGJrndLHiL3H5Wr6pexy/4ro0/VOpNIH9oWh85TuAM4iN
-         MsNy+NIR9tRmDh8zQgti/PpB3EsaPU0X3ZDlnKjEfrvZ0JrjFH1ZEg2yTgnxQnbpOP9C
-         Jf0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792531230; x=1793136030;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ke4Bp1uq0aLEbcX2egfOr2CbakS7xm41rD4rPHzU2KE=;
-        b=M7WIFJ4KP1LFkSo9HDwfIvI02oZMTNLLeG7p/sXEBg9hQcBxson+Iertl0NCG+iXB0
-         siGg8BXhiEc0g2EHd5w9FG+jNxM7f5md4RwTfzkJOymMwVdtH8JsiiMi1VHECRUVCJQD
-         8e7GyB5u55ocJb8WwryCvWlj8bB0d8Y3zLZ3ZkzH1HfWj3Gh3uIubyv4rHcZfdxN9iA+
-         /mOda/YCy20Hy1JE0Ou8S5nKlwJeSyU83PZvDiWlMO1Fs/x6hG4q95Y2UYs6Zg+egEMa
-         W+j79tv2LOGURy8or+77qZb162EQr/1s0vLWSfVBmc/EDY/cFYhTDqmrW9WZKcMxTywb
-         Az4w==
-X-Forwarded-Encrypted: i=1; AKwUvBx/MlMBxVSHwtPg7j+UhHWQv+cK5uF8zHw05VY9VbeSqGkVXawnWsUQEhlUEWk5Il9W+Zl4BZA41Cp8Rp4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJY6UiPnDHlQfZnC7IN8nP+rHKXbREusEIszu2GAlWRP4ySU8cX
-	h2gUdzy4BEld0fvIDxPlhFdplPbS5cAUd232+UsmYAmlrrm1rblZGFnwooaXkhz79UlR5fUV+2R
-	wgyEBxAD10WF3wwU/+wmO9fZJCtktm107svuOvAn/
-X-Gm-Gg: AYBFou1tMqwup2PDNv/tOmhce0SWJoFo4kB899gF+CQCt5vGQz+uZTZy2cRtPCKYOjf
-	3f2YucD5XR+mrp5xWdn+J2qYEPQ7qE6o8cYAaGE4OruGI7NsS0yEweXQG61h+zZd5Xa3Sd6/aus
-	RAeWE2LCdzQxTrPkioP8vses9YQwY/B2oYYBIgsKABzHIutQ2dXb5gS0yVF90Myuuq2SlOC0p2o
-	DQlGZXbGdtSurT97srAxOBCM/XeBP+sRdRX6O+J5TlORtoEI7qQecdnvBje5rQMZ3Jm2z7TLdZ8
-	RE/yJ0XDv01pCTPTcazXIS6ijySTumVzrnaMqI0NhBu3SOTBIpVHmHiL9wn0J5teu1k4Y8rfBnL
-	akhC5Y2Ur7w==
-X-Received: by 2002:a05:690e:2061:b0:677:d67d:39b9 with SMTP id
- 956f58d0204a3-67a0e57e12dmr152508d50.85.1792531229423; Tue, 20 Oct 2026
- 14:20:29 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evLX7g7p
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XQAWskVKn7U7xT+2zsWfc+G6Pi9IJ2IbzAXQD5zOloc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792531283; v=1; x=1793136083;
+ b=evLX7g7pVPpCVP6R/sCEfJSjsP25ftzprt/nwJJYw5GG+vYMZ9ce6hIm6VDHJ5yaGkh2iuyZ
+ 68JdfilehvAXJsdFoMf3PKq9ip5bW7+Cqdx4AukYcpWz13NTekhMxEC06CNpCXiAB3zkXBMF7AZ
+ Sbu3kX0k+JVYsupwIzvUqJ7Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bdf38585b1173da1;
+	Tue, 20 Oct 2026 21:21:23 +0000
+X-Mizu-Trace-ID: bdf38585b1173da1
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 20 Oct 2026 14:21:22 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] mm/memcontrol: publish null pointer before dropping css
+ reference
+Message-ID: <atfMngq7nyZpt4u-@linux.dev>
+References: <20261020190336.3754557-1-joshua.hahnjy@gmail.com>
+ <20261020193531.181318-1-joshua.hahnjy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,117 +68,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260921230603.2518652-1-samagazaryan@google.com>
- <arY6DfVf_9tZ_TCu@black.igk.intel.com> <arZTphXbVF5wagy2@shikoro>
- <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
- <as487H8-0Gc77mXI@ashevche-desk.local> <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
- <atXmovzepBLP8Mqo@ashevche-desk.local> <atXnS1ZKGVfHDNEK@ashevche-desk.local>
-In-Reply-To: <atXnS1ZKGVfHDNEK@ashevche-desk.local>
-From: Sam Agazaryan <samagazaryan@google.com>
-Date: Tue, 20 Oct 2026 14:20:16 -0700
-X-Gm-Features: AclHuK9mNBazNNzNkA6MDDLvZ748rY_1SqbdAqI4AW1arCcvEA7ytz5DfLIBttg
-Message-ID: <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i3c@lists.infradead.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Meagan Lloyd <meaganlloyd@linux.microsoft.com>, 
-	Vitor Soares <vitor.soares@toradex.com>, 
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, 
-	Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020193531.181318-1-joshua.hahnjy@gmail.com>
 
-> Did I miss this in the initial explanation? If not, please add it next time.
+On Tue, Oct 20, 2026 at 12:35:31PM -0700, Joshua Hahn wrote:
+> On Tue, 20 Oct 2026 12:03:38 -0700 Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
+> 
 
-That is just how the existing I3C core enumerates targets during DAA,
-not something added by this series. I will add a sentence to the
-cover letter and Patch 4 commit message in v6 contrasting it with
-i2c-dev to make that context clear.
+[...]
 
-> Do we have such use cases IRL? Do we have tooling support (at least pending)
-> somewhere? Why does it require user space interaction in _this_ way (meaning
-> IOCTL and /dev node)?
+> > 
+> > So for drain_local_memcg_stock I agree, since FLUSHING_CACHED_CHARGE
+> > is set, so you can't have it concurrent with drain_all_stock since it
+> > will skip that stock. But refill_stock also calls drain_stock when
+> > it evicts the slot but the flag isn't set, so is_memcg_drain_needed
+> > can read it at the same time.
+> > 
+> > What do you think I should do? I think reordering makes the intent more
+> > obvious and maybe it's just me but I did find it a bit misleading at
+> > first that we were dropping the reference and then publishing. 
+> 
+> Oh and just for clarification, my page_counter_stock series actually
+> gets rid of this codepath and switches the order when moving it anyways.
 
-Yes, this is used in real systems today:
+Yes but this patch has fixes and might get backported, so we need to be use it
+is fixing an issue which is real.
 
-1. Tooling & production users:
+Let's try to reason how the race can happen between is_memcg_drain_needed and
+drain_stock:
 
-- i3ctransfer (Patch 5/5 of this series, and carried out-of-tree in
-AspeedTech-BMC/i3c-tools and vendor OpenBMC BSPs for several
-years).
+CPU 1						CPU 2
 
-- OCP Secure Firmware Recovery (DCR 0xBD) [1] and Caliptra Root-of-Trust
-recovery agents on OpenBMC/gBMC platforms (e.g., AST2700 / Caliptra
-MCU recovery tooling and BMC recovery daemons). Because Vitor's
-original i3cdev series was not merged in 2019, multiple silicon
-vendors and OpenBMC trees have been carrying out-of-tree forks of i3cdev;
-upstreaming consolidates those diverging implementations.
+drain_stock
+  WRITE_ONCE(stock->nr_pages[i], 0);		is_memcg_drain_needed
+  css_put(&old->css);
+  /* assume full grace period */
+  						  rcu_read_lock()
+  						  memcg = READ_ONCE(stock->cached[i]);
+  						  if(READ_ONCE(stock->nr_pages[i])
+  							mem_cgroup_is_descendant(memcg);
 
-2. Why an ioctl is required over a read and write:
-
-- In the OCP Secure Firmware Recovery v1.1 specification (Section
-8.4, "Recovery I3C Interface Block Read via Private Write and
-Private Read"), every recovery command read is a combined transaction
-consisting of a Private Write with no STOP, followed by a Repeated START,
-followed by a Private Read, and finally a STOP.
-
-- Because write() and read() only submit a single transfer at a time
-(nxfers = 1), the controller emits a STOP condition on the wire
-at the end of write() and drops the bus lock. Submitting multiple
-i3c_ioc_xfer descriptors in a single I3C_IOC_XFER(N) ioctl is
-required so i3c_device_do_xfers() queues them together under one
-bus lock acquisition and the controller emits a Repeated START
-between messages (as well as passing HDR mode/cmd parameters).
-
-[1] https://www.opencompute.org/documents/ocp-recovery-document-1p1-final-pdf
-
-> So, imagine that someone submits a kernel driver for a simple device, while
-> another person already uses the driver for multi-functional device where the
-> former one is driving only part of it. Strictly speaking the kernel driver
-> submission becomes a user space regression. Which effectively means that whenever
-> you open i3cdev, no other kernel drivers may appear. Yes, I understand that
-> a poor victim of such an unlikely course of events may recompile the kernel,
-> disable driver, et cetera, but this still raises the same question, why do
-> we do that to the mere users?
-
-Note that a user does not need to recompile the kernel if a kernel
-driver binds to a device they wish to access via i3cdev. Because i3cdev
-handles BUS_NOTIFY_UNBOUND_DRIVER, unbinding the kernel driver at
-runtime via sysfs:
-
-echo <dev> > /sys/bus/i3c/devices/<dev>/driver/unbind
-
-automatically triggers i3cdev_attach() and exposes /dev/bus/i3c/<dev>
-without rebuilding the kernel. Also, I3C drivers match against a
-target's MIPI-assigned DCR or 48-bit PID (Manufacturer ID + Part ID),
-so a driver for a simple device will not accidentally match a different
-chip's PID or a dedicated DCR like 0xBD.
-
-> P.S> Still not convinced, that this has to be an ABI. For debugfs and something
-> like this, no objections, but ABI.
-
-Production BMC recovery daemons cannot rely on debugfs, which is
-optional and restricted or unmounted on production builds. A character
-device in /dev/bus/i3c/* provides the stable ioctl those tools need and
-integrates with udev so non-root daemons can be granted access to
-specific target nodes (e.g. matching on DCR 0xBD), similar to spidev
-and hidraw.
+  WRITE_ONCE(stock->cached[i], NULL);
 
 
-> Forgot to ask, but do they interfere?
+Do you think there is possible race condition in above? I couldn't see.
 
-Is this in reference to i2c devices on the i3c bus? No, I3C transfers
-and legacy
-I2C transfers on a mixed-mode bus do not interfere:
+However I ran this through AI and it has convinced me that on PREEMPT_RT, this
+is indeed racy access.
 
-1. Both i3c_device_do_xfers() and i3c_master_i2c_adapter_xfer() acquire
-i3c_bus_normaluse_lock(&master->bus), so I3C and I2C transactions on
-the same bus are serialized by the I3C core.
+AI reasoning:
+-------------
 
-2. Attached I2C client addresses are marked as I3C_ADDR_SLOT_I2C_DEV in
-the bus address slot table, preventing DAA from assigning an I2C
-device's address to an I3C target.
+How it breaks on PREEMPT_RT
 
-Thanks,
-Sam
+On RT, local_trylock() takes a per-CPU spinlock_t (an rtmutex). That is
+rcu_read_lock() plus migrate_disable(), but the task can still be preempted
+inside it.
+
+1. CPU A, refill_stock(X): there is no free slot, so it calls drain_stock(i) on
+   old. It sets nr_pages[i] = 0, then css_put(old) drops the last reference and
+   queues the release work on CPU A.
+2. The refill task is preempted (by a tick or a threaded IRQ) before it clears
+   cached[i]. CPU A's kworker runs css_release_work_fn(), which calls call_rcu(),
+   and grace period G starts. G will wait for the refill task, because that task is
+   inside an RCU reader.
+3. CPU B, drain_all_stock() → is_memcg_drain_needed(): B has already passed a
+   quiescent state for G. It enters rcu_read_lock() and loads cached[i] == old. G
+   does not wait for this reader, because it started after G did.
+4. B is preempted right after that load (RT readers can be preempted).
+5. A resumes. It clears cached[i], puts X in slot i with a non-zero nr_pages[i],
+   and unlocks. G ends, and old is freed.
+6. B resumes. It reads X's non-zero count and calls
+   mem_cgroup_is_descendant(old, root). That reads old->css.cgroup from freed
+   memory.
+
