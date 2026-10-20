@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792511966;
-	b=heYgDGKFUedSUr0HzTqK33DN6WkK8uszx8QklAr9C0Nx8sPKUc8vbp55uvu5se787sPz
-	 d4WUc7M03eGwCXUDH6/Figek13TBREY4f0jPRjX6mY3jHaoHkYwEWQMAak0gqKTx21b9a
-	 FM7C1uDaBJqfUGccNLgUuKQnDnXuXygn0lV7pEKKJx7Jc+xOrfkomylvORTsX7q1OzMvm
-	 3TBRNokmimshnfL6DnOYoLUMUuLQD4wFvTDGE3PwiBeoLx8/f/9ERXO3P/lcOWWtLpcVe
-	 HST/NDeExR2DaXgY1PeT4NnphEcoaS+s95549r7VEsQm/p9bAoG8Eu2qKemL/BHVxgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511966;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=CVMf6oRZ6B+8F2dCoflcUl6BcEG/gpADTobYb94CITk=;
-	b=1LiLcmj6UdAscU5i0U8tugtstySZ9eoYMwsHGkCWa9GsWJzSxoRtW81rYUDoxpQS2hHr
-	 kpzX2vRHF22reQjG/n0pbFitn+HgEgBQov8XOtKyxWLDARxr7cwnIolCkP68jQS3eI8y9
-	 7tdmGEHc/8H4yMA3ehtgVPQiDuhSXR63BXfk6S0piy1EnOb/FxWSH0OYoWIcvO1urRdAt
-	 3lo5ABUqtqUH4yZ7/FKAOftOQt63ZXiCFOue4vNwDOUpo5U9QUp/4jd8magkZzZNAW3na
-	 AaldO43FKscS/SjNy2A95Dn7tudFfgDeXHofSKsO4yPYGDw7nPC5MZHIkBWGNB6kCMg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ihpFrfr5;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792512041;
+	b=Oa5yiOUs7cY7S1FwUWXm4tvl65HJjttEl46RRS0jXxJcpsgAIAq76d539GO7oYYMrMsz
+	 c0XeWxVDutSC+W6njF6yfL53zCmcWZGip3at0un6s0KEvdh4qwrFcHiJXn62YXhZLvNxS
+	 eInNb9UsQ+z0sNNHD/9BECmUf+C1fVWFdCc8YHLvJbJ4BQ2M+hidZjqvzpqU7nA/F/md9
+	 pAemdAuNFSjmGvCPoTwyb68KS8gWibqCZwE/KJ7QvfY76QaBPZo05Cfyq7lTVzh2N+ntC
+	 43/qCbKvmzk3kfmwkYozsZJktiiIl/yhprYu2/NIm/3bhzjJsuC56AALLY917UYYFKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512041;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UtZ7ioZBJ+/SVpSGZg6vG8bNIAUmtn7di7epGFJzacc=;
+	b=Fq4Ia5iHQcdZDS+wVBHSdOw/0D9JR5wqj9mQvX+BZqptlWQ3TN+BmevVoz2B3rnXiOUa
+	 ONP74ekaS52rO9U7Rme4v2YST5xXm8KnvCpqNO/skYuF27JjaR2TWwEPhyU2tepG9hUvp
+	 Dt7+4AaGIl6BV3J59SSC7Gk0K1yhGuORRrG44FF2kVRHrGp1+VCXdJGE+Zwok9Mir4BYo
+	 Aktxs5wJOh5YSBRaE0DECwVRg3W3vbfxSEOtmH6vbYHbWlAJG44tl5YQ6aZrRjrKznQRm
+	 pmx94lSEq/wM1Ty3Lx4wjh2aZres56rBDq8glLBP98zrIgLHPSwm1e+0nuaKJKoc+qw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=idlbuKhS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.20
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011020.outbound.protection.outlook.com [40.93.194.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CF4606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14CF4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D420606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:00:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D420606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ihpFrfr5
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1e477fe16so17872315e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:59:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792511964; x=1793116764; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CVMf6oRZ6B+8F2dCoflcUl6BcEG/gpADTobYb94CITk=;
-        b=ihpFrfr5EYn7VeiZgx0hVFVqSnJm+t0eTJDskZtSUhNVwWwt8cnodUKN4O1nVRRRpl
-         r7ks/XlmZTTnui7oJr0v2B9yittAsSTWRs1tc/UBIikJ4U5z077CVSBC55+25plHGUOG
-         N4GC/x1jhE0BkkO+ThkxpSPXQTmV0LJ3JMeoYyHO2QYZ+w6ogZMiaR5F4yBFaGTU3Bt0
-         XWKsIjn5Klv8A88IA1N8rbEGZ3I0BVjPU5qisFfFK4aMx/9bmv0yVDpHYmAKiPsdJ/YC
-         WnSrNi3QbTCMon43Vh/lWinmmhmHtkhpfW1eU89r8KQxDi5Rb1zPkqhoHldGGBygpqHV
-         Pkqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792511964; x=1793116764;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CVMf6oRZ6B+8F2dCoflcUl6BcEG/gpADTobYb94CITk=;
-        b=BwGiMlaCzmWcUNm0rzMqrA/8BPibeFuA5LITPYEajNqBtr2Kk4KV/7JNWpqKuybhuj
-         +r0O2Gvs8kc0JKRQQo7rLBzZYEVzXjAU9t3tXYH4ghlt8F2ixySeDJ9eW/gpXNky1FMd
-         Iy9wgBmvZzH9uQSMRRQr21YJB5TwdgkdeJ/WqfvbJ4EaqYa4QvSbkoyKSLTtl2CzkaBE
-         DoMIff1Ax1/gpQo0U8f5O5h/jl2ikzzfPmiX+TfIRsJTY2ciSKXH9BSTqrkONziB00af
-         +youRTf8a2Aav7Ie/HJsJa8izkUN62gTzMwIYC/y+6m6gzGRr0eoz3Qh9zA49xwzj360
-         rsKg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3fmc7IvKr53syTwRc/7NY9KNf+aGBaALgDlu5WjWVaJzHsEumC++65azOfVyvgVVevvSmvlZLS/jPml8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1SEolgZ/xuuqO5saueyG/sexVEsY6CiZXYwSCCwidnCHRHSU6
-	drQqSEeEA/G0cMyWrMW7H5W6YrBiGpPhv8+6Uqz5zDMlxSgRt//pIQ1T
-X-Gm-Gg: AYBFou232v/UZZBS7mRAT9+3q5SB8Hledde9xFG6NmVtA9cgbWPBtvUCV1o7J2ZgA6P
-	H9TRJhcZsROt739zZkez6z2l0vPozAdB6xAPQPaq7n7DYxhAjB/wHrliIJTNOTSm78P7aI2rFiZ
-	HpUpcyfXP/sYe+tnFMSVVgvMBNAqVCW5hqnMelH+4/cK32xKLrGkbQ2Vziy1JQyzsoAvtxGdP9Z
-	frlP02odWLadH2RCuIjpJ1o4GIvA78luof14690vGXGsDaJudcVGGVG3fsEdT0smA534B7tRoLR
-	/haR1MiwwaN6oJFICEwU3ig7CUSQn17u3QFYL5BF8EJp93j7T1pxny21Jsm2p5T7ev4klmvKB72
-	QSLvtrzJrgxUAsfTicHxRYtlnGeCl9zEb534ESvgnA0A2lBwZ+VMOneWtY/scZ6tnY8FcO7Lm8D
-	ILiZJOwmr+Phs6IPJXII+KYrAfzHZzHW66hx3CQUx4mifGgcnvv1KKkt7sQJftdGGOTWUD
-X-Received: by 2002:a05:600c:870b:b0:4a1:d487:2dc8 with SMTP id 5b1f17b1804b1-4a1d760518amr241254865e9.18.1792511964332;
-        Tue, 20 Oct 2026 08:59:24 -0700 (PDT)
-Received: from krava ([176.74.159.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb95b390sm5691555e9.14.2026.10.20.08.59.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:59:23 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Tue, 20 Oct 2026 17:59:21 +0200
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: shaos <shawnq1@163.com>, Andrii Nakryiko <andrii@kernel.org>,
-	mhiramat@kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	x86@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] uprobes/x86: uprobe syscall accepts forged trampoline
- frames
-Message-ID: <ateP2e_rLyc4YlrG@krava>
-References: <20261020003704.1012276-1-shawnq1@163.com>
- <atcbYbiI9Ez5yHhK@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=idlbuKhS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tA2IWzub53A8G8M+5iSPbEH6+EywK5aCI6b56Usxu+3BzJBPfhEleMx9jWE+Mr83KgzaMO7nXn2RoDK1r1zoJvMQHKbB+DVax50Oiob8AmZWRmMWCGeqWZ0E9GrKRop7ktqBCSNgK+TmLzWm+OMBNa6T6wS/8hZBdSi1eORX8YxwW97rDVwO7DdTkgNsZGa6wUA+V6RWSdngqv7Q83igihxo0QzYn0FgqvuvCylURc6WDWXiNeCip62OELLTk8tNwPUQFd4tJ9bXl0klgJGyf9NvrQ5KtS2qN/HIzV0C4G89UiC/DjxYmeA2vvkzydXKetJmT7TyB2pajmZ8FV/S0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UtZ7ioZBJ+/SVpSGZg6vG8bNIAUmtn7di7epGFJzacc=;
+ b=UQbtrwxSW1op4rDO9/EasaR+A9TsqjVB0oe/sPFumyDvq782XUIqwF4cgIJ6QZAObjqaQBWeCkKxBWQ6ZqJiqRERvg2q0KtFhm1z0Xfft5L3K0uXaF0QAkk8QC9M6r+X5GaPR0L0UrGnkDcIBICbM+ehy9IobaCLet9OqxSKOYiQGtWNK3Mv3sQML6TCnSuHJddgb4KshalbPtb2G9CZ1gEt9c1CXkLvji2UDuH21PNWd/z+QgcQwg9dYzzCCHVqauRkTaJVMAZi8i5RK488JwRfO4ep05csRTkjlEsqGXdPQOrAIPOntIXkoimTDmZozOqK0eHLGF8og2Y22O9uog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UtZ7ioZBJ+/SVpSGZg6vG8bNIAUmtn7di7epGFJzacc=;
+ b=idlbuKhSIoy+2MtRFzb9kJVAFbpVllcyRbGRZZNrHKzJ24iaAGxDGTyasqwQXE8Bnfqp4gGlm5JCBYDSMerlz2Xl9LRhrA2UFxSvbb+ZJLUwjBXWENmLycDj1xM0ZUWhNtEOJjytaI9qYBPNHSXFRSjCrhGF2s5X0/ly7vcnERY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
+ by IA1PR12MB9466.namprd12.prod.outlook.com (2603:10b6:208:595::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 20 Oct
+ 2026 16:00:36 +0000
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 16:00:35 +0000
+Message-ID: <9043514a-932e-436a-805d-9694b88d9caf@amd.com>
+Date: Tue, 20 Oct 2026 23:00:25 +0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 18/24] iommu/amd: Init and clear vIOMMU DevID and DomID
+ maps
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
+ chrisl@kernel.org, wvw@google.com, wnliu@google.com, dantuluris@google.com,
+ kpsingh@google.com, alejandro.j.jimenez@oracle.com,
+ joao.m.martins@oracle.com, guanghuifeng@linux.alibaba.com
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+ <20260930092344.5616-19-suravee.suthikulpanit@amd.com>
+ <179210758994.4133959.6615374486960504749.b4-review@b4>
+Content-Language: en-US
+From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
+In-Reply-To: <179210758994.4133959.6615374486960504749.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR04CA0016.apcprd04.prod.outlook.com
+ (2603:1096:4:197::7) To DSVPR12MB999171.namprd12.prod.outlook.com
+ (2603:10b6:8:388::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,75 +104,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atcbYbiI9Ez5yHhK@redhat.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|IA1PR12MB9466:EE_
+X-MS-Office365-Filtering-Correlation-Id: e06963ff-fa33-4c59-1225-08df2ec346f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|6133799003|10067099003|18002099003|22082099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	wf4ZnHoksdg9iP8VBaDQ98JZ5d//YKjDPQVbqYiz0abdyY8lHGJ4d3rBUSx68U5VAwuOl9D/L9tAONyoSbQw1JNuvdRs58ShCQHxDHG3cD5VrK9og7AWl7+ulXyLHyMPnzFWJ8rLgq1fg8VU4xxnTO/nXDRneEbJ2oe0Vk5qKg4GBUqqHW3/wdNkaY91o+fKQWXJEMb/mHCtYwENqVpz+mcufftF2vY1qtJi6yv4Qkdk03L2DtOB8Ozzb5o+Avfhg3WdqCuEPb/V7CLCjYEP+qaXsgqx0E2Chjla1o7D22QHmZo2vF7JoziW87cuq+icMOcesNvvqhJ72zZzrWGzaeOYCpbhl87u6sP7VHxCosmZ+/P6avqQYtuorBcxO/CvxfUHI4f6ZwI6byK0tCIT6pvs3K+chV+rpDdZnvBw/lDXZRDWYLDAmfC439zATauANAAmY3GZDXV157b2K2iXWRYgqhQOvIwtwn777EXlnA4eT+gNkMct07coMXOdo0BoSZjuj7lVUAPY3s7P9N+PPbOCQz0SelFenxlTXerpDiDONFSOXOSbekTRfx4vbvfnLHgiTv/icM2l4tMpVVTQTW2YsGhwC8VTdwjw5bRPie8jD4bjSvnMtq9RLQDm3VZ8h9zQxT/JGuzgEV51e+uMIM6SOhLGkhTrliyEiMkKioY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R3lsMHVMK1NwSzlNTHd3TTdrQUtpdkpnelZPNWJyWTNEOGJXRDZuNzJCcTJx?=
+ =?utf-8?B?N2o1YjF5dEZWWHUvcytvbWxEUGJ1eUo0bDJDQWlNdjI0bEovWXQxNUR3NEZh?=
+ =?utf-8?B?ZU9GeDdHNUF6dVAxV0F4SCsyaWtZajlSYTkyN1oyTDZhMlI5TFpqRnl2NEhx?=
+ =?utf-8?B?Y3U3VHZhcTR4emJvWVZNS2NMZ296WktDZWUwSVdjQTdkNDU5K3dUa3c0UG82?=
+ =?utf-8?B?eXAxK0RaWnY4QkRXVmVseTlmazMwd3dBakt3c3ZEbEp1ckovcFFBNWtaVVdK?=
+ =?utf-8?B?OWhLak1Fd1hmeGZGaVlBQXJJbCtibVlRYlB3dXpSb0VWbzRZaHVyYndYYkNp?=
+ =?utf-8?B?MkVhdzlnZXBtZ1NnUUx5SlIxbDR4ZzVXNHZaRzhQbFBSc24rVXVwdnE4MmRH?=
+ =?utf-8?B?R3VrNk1ZelpIenVaUEMxaXFBemE1MVJSQU1sU205aXo3UUhzeHFtbGF6V2k3?=
+ =?utf-8?B?THorN2wvSW1EL05rL0Z4YWhUZFZGSkc1OW85SFhlbGs4RTRrZCt1VFp5MTV6?=
+ =?utf-8?B?Y0dncEhKMlN3TTl4c3ZSb1BvbVkyRnBYaVhxRnk3ZDArRUl6K3FZSUlnK05S?=
+ =?utf-8?B?cnlrdWpGaXhDOTFJOFg0b1p0Z2RLN2FtL2RIOUFRcURvYTZNZHYzMWJWY1dB?=
+ =?utf-8?B?YlFkSFl6SHh5YkJVS2xLcklUR3Z0WG82ZkwvOFFhbHJLZlBqQ3grM1dYVFNZ?=
+ =?utf-8?B?dExmd3JNQXBZS2Nkdkg4eVI4ZDg0Wm5WUXRpcVRTWklWdlJEcFVCTVJNQ1BT?=
+ =?utf-8?B?L1ZzdFk0eWphZmFMVDVOWlE0KzhhT3dKazAva0lZa29kMmwzZ1hFUkpBWEY0?=
+ =?utf-8?B?cEQ2SVMyOGZGQkYzenJhZTdidUhBRkFzR1JsV2dlNjZoS2p6Nk5XQUl2bVhr?=
+ =?utf-8?B?RUxLbEtJSk5uaW5GalgwdEhLTCtUOUVmYklHck9IMGgyRENLcFQ1OEdROHRL?=
+ =?utf-8?B?ejRmTStyczIwcU9LRGgyWWZScXZoRlMyMU9wOUUvM3BsN2JsdWwyVXdVeVpG?=
+ =?utf-8?B?Q3pLS2xOUnNFTUs1aitYMU5KYWpsKzlzblRrc29lcWtLeFpmd2wxNXIyOFhZ?=
+ =?utf-8?B?UklGZlJwQW5XMFE0NHRlZEdlNlhkYlVrTnplVEFEM29YU0dTUWF6V2ZRbDZN?=
+ =?utf-8?B?c0xITXZEQ0J1Sy9DdWtyUlQxdHdIazZYSnVubVpsS2xjRjZLQ1VKRCt3Y1o3?=
+ =?utf-8?B?NW5WY2F2L1lHMTBmQ2RieWgwUjBFdHB5VmllM1lwOXpEazZ5OW5FQlVVTWl4?=
+ =?utf-8?B?a2Fwc0xnOHp5YXRDNmtaaTd4OTAzWUtJVUJiS2NVaXpSNGJuNFlWWTBSMS84?=
+ =?utf-8?B?T1ArcGVITG4wT3J6QW5ueXoxemxBdmU0OEZ0Mmk0VjNScENza0ZrSTVacDVv?=
+ =?utf-8?B?ZDV1czVFbVhGcHZCQWlFSy9pVkxWajl6YW5ZdWlTTlNmbTNnKzZPbUxRc1NL?=
+ =?utf-8?B?L3ZML3RrQXJWODlsbVQ2TVdBNFpsVzV5T1hlcGNTWkxWUEdPeDBUNGJRL2Rm?=
+ =?utf-8?B?UnBkSTFVWTQ2eThaaFZ0M0pFbng4akI1VnpHZEFXc0xTY1E3UVJzR2pQbDhG?=
+ =?utf-8?B?MXJuRERvdy92aFNid1piNjl2R3NEYTlnRGlNTCs4bWpXMEkwNEdrbU9RaDJp?=
+ =?utf-8?B?R3hjM3ZLTGNadVBhT1BMT29DU0ZrSW8vNVBiQTdXQVgzU0JMOFhBbE1rOUVv?=
+ =?utf-8?B?NEduT1JmeGdlZnV4OEw0VTJzT2RjZFljcE1DSmRZQmNOY3ZhUDgyNlZ4SnVh?=
+ =?utf-8?B?dHBMcGVwd1p6cmh1QmlkTkt0OVZ2d0cwY1M1OHYyRzYvSnpYaUZrLy9lSkRS?=
+ =?utf-8?B?YjVBSVRreVpvSlVlU0lTbEFqb1NmOTBVMitFYW1JMFlTMUZaTWhGTzdpR2xx?=
+ =?utf-8?B?dUVCL2VDYzg3RlE2S2EydTY5LzN2VjNtdGluOWF3dXpzei9UbDhIZDY2R1pR?=
+ =?utf-8?B?Y3lmdzFTMlA5cVUxTzU4OEptYkVUZFZrL0NEMlRIMUlkaUpNRk8rVklJUVJo?=
+ =?utf-8?B?TXJCdUVWdmtaNTk3VXNBSXlJRk9JUnhZemxDdW9mT3BnK1ZIeW4xOXdnelov?=
+ =?utf-8?B?cEVvb3JSSC85cFNGUU5jNmpQc2p3aVZTL1J6cHlwY0MyZE9WMHJMWVNkRm5j?=
+ =?utf-8?B?SEZFOHo0R01sdUZVcUdhaUNQQk5xNlo3NFptMGtRVDJ5Z0NpbHN1SGZTczY3?=
+ =?utf-8?B?eG96RWJWU0h1OWFkTW9TL3BZOVR2RjEzamJLdFdVNmNKako3dU4yM3hGY0ZV?=
+ =?utf-8?B?cHNCVFdtOTFXSlJRWFMrTlgvOGw1TXpvbEJLSjBQUGtYNmRySkx5L0p3SmVQ?=
+ =?utf-8?B?cWh0M2VYV2IrM294Y0QyMUFGRThtaElkem1hVW4yd2V5MnkxS2V5QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e06963ff-fa33-4c59-1225-08df2ec346f6
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:00:35.7687
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rno/YW/23EL4mbi7h6tQcnDE/Bd6STp7jrnB1XUevEDfY10o36UFpIJa55rOZdF2GZj7semr2vv+p7q5QWWdHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9466
 
-On Tue, Oct 20, 2026 at 09:42:25AM +0200, Oleg Nesterov wrote:
-> (resend with more CC's)
-> 
-> On 10/20, shaos wrote:
-> >
-> > The x86 uprobe syscall checks only that regs->ip lies somewhere in the caller's
-> > executable [uprobes-trampoline] VMA, then trusts ax, r11, cx and retaddr copied
-> > from the user stack.  A process can jump into that VMA with a fabricated frame
-> > and make an enabled uprobe report a hit at a site it never executed, with
-> > caller-chosen register values.
-> 
-> Yes sure. Userspace can easily fool the sanity checks in in_uprobe_trampoline().
-> This is a known issue. I think we don't care, and in fact IMO in_uprobe_trampoline()
-> can die.
-> 
-> At worst this can trigger a wrong a trace event, right? Nothing to fix, I think.
 
-+1 also I'm not sure what we could do about it
 
-jirka
+On 10/16/2026 6:39 AM, Jason Gunthorpe wrote:
+>> Before using a vIOMMU instance, prefill the mapping tables so hardware
+>> never sees an unknown guest ID. Map every gdom_id to the nest parent
+>> domain ID, and write every gdev_id with hdev_id 0. Init cannot be
+>> scoped to IDs in use; INVALIDATE_IOMMU_ALL walks the HW table.
+>>
+>> Yield vfctrl_lock every 256 doorbells so the 128K MMIO loop can
+>> resched. Attach cannot run until viommu->ops is set after init_one().
+>>
+>> On destroy, drain CONTROL0/CONTROL1 WRITE and unmap. Do not rewrite
+>> the full tables: that would start 128K DMA writes into pages about
+>> to be freed. vDevice destroy and nested_domain_free already restored
+>> idle entries.
+>>
+>> Skip VFCTRL access when CONTROL_CMDBUF_EN is already clear, matching
+>> viommu_priv_unmap_free() on the same uninit_one() path.
+> I didn't see any explanation what happens if the guest issues an
+> invalidate to a gdomid without a host domid?
+> 
+> This is related to my questions about when the IOTLB is cleaned. Given
+> this patch I would expect that once the mapping is removed the hdomid
+> is cleaned and any invalidations for the gdomid are NOPd
+> 
+> If the gdomis is used again it is assigned to a clean hdomid and those
+> NOP'd invalidations don't matter.
+> 
+> Is this how it works?
 
-> 
-> Oleg.
-> 
-> > 
-> > HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
-> > git tree:       upstream Linux checkout, local branch master
-> > source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
-> > compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
-> > 
-> > console output:
-> > https://gist.githubusercontent.com/shaos26/82a14d478c3e5b27d81713f9989693cd/raw/9eb4cfbf7c87bf4b06cd6138775a13814ded54c6/console-output.txt
-> > kernel config:
-> > https://gist.githubusercontent.com/shaos26/82a14d478c3e5b27d81713f9989693cd/raw/b1d9a09b984075b425aab4875117a6766a795110/kernel-config.txt
-> > reproducer:
-> > https://gist.githubusercontent.com/shaos26/82a14d478c3e5b27d81713f9989693cd/raw/b7e400345a004b4a4c340eccad862ac1f569aaee/poc.c
-> > 
-> > Build the PoC and run it in a disposable VM with tracefs mounted.  First print the file offsets for site1 and site2, then register and enable a uprobe event at each offset.  The forge mode executes site1 once to map the trampoline, then makes the forged syscall from a uid 65534 child:
-> > 
-> >     cc -static -no-pie -O1 -fno-ipa-icf -fno-stack-protector -o forge poc.c
-> >     mount -t tracefs tracefs /sys/kernel/tracing
-> >     cp forge /forge
-> >     /forge offsets
-> >     echo "p:uprobes/site1 /forge:OFFSET1" > /sys/kernel/tracing/uprobe_events
-> >     echo "p:uprobes/site2 /forge:OFFSET2" >> /sys/kernel/tracing/uprobe_events
-> >     echo 1 > /sys/kernel/tracing/events/uprobes/site1/enable
-> >     echo 1 > /sys/kernel/tracing/events/uprobes/site2/enable
-> >     echo > /sys/kernel/tracing/trace
-> >     /forge forge
-> >     cat /sys/kernel/tracing/trace
-> > 
-> > Replace OFFSET1 and OFFSET2 with the file_off1 and file_off2 values printed by /forge offsets.  Run as root for tracefs setup; the PoC drops its forged child to uid 65534.  
-> > 
-> > Two fresh boots emitted a trace event for registered site2, which was never executed, and reported attacker-chosen ax/r11/cx values.  Legitimate execution produced only site1; an unregistered offset produced no site2 event; calling uprobe without the trampoline returned EPROTO.
-> > 
-> > Impact and prerequisites:
-> > This falsifies tracing and profiling data for an enabled uprobe in the caller’s address space.  The evidence demonstrates event and register-value forgery, not kernel memory corruption, cross-process data disclosure, or privilege escalation.
-> > 
-> > A fix needs to authenticate the probe context before dispatching consumers.  Checking only the trampoline address is insufficient because that mapping is user-executable.
-> > 
-> > Validation: Two independent boots emitted a trace event for registered site2, which was never executed, with attacker-chosen register values.  Legitimate site1 execution, an unregistered offset, and a direct syscall without a mapped trampoline served as controls.
-> > 
-> > Thanks,
-> > 
-> > shaos
-> .> 
-> 
+When guest sends INVALIDATE_IOMMU_PAGES command with gDomID to vCmd 
+buffer, IOMMU hardware uses the gDomID to index the DomainID mapping 
+table to get the hDomID (from the entry w/ v=1). Then it uses the hDomID 
+  for actual IOMMU TLB invalidation. If the mapping entry has v=0, it 
+would generate hardware error in the host Event log.
+
+If the hDomID does not match anything in the IOMMU TLB, it would be a 
+NOP. This is the same as when host IOMMU driver submit 
+INVALIDATE_IOMMU_PAGES command w/ an unused domainID.
+
+For current implementation, the IOMMU driver prefills the DomainID 
+mapping table with nest parent domain ID (hDomID), and restore the same 
+ID when mapping is removed. This is to make sure that each mapping entry 
+has valid hDomID and not just some random domain ID.
+
+> I have to say the commit messages are no good in this series, do not
+> summarize what the patch is doing, explain why this patch is necessary
+> in the first place.
+
+I'll update the commit message.
+
+Regards,
+Suravee
