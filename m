@@ -1,52 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792471426;
-	b=0bjbxHJ3JMk3kczM7cjeD3Un8f70mOa+StCRlP+vLFnx5R/SP0vMRtdEsMZclhobAc1n
-	 FeOG3kJU7/hm1T+fKitB50wBnFriKmhycUm/blGgFzq3RRJflUQtuyVT8KjlVMDbDZAn/
-	 VIyXgiRyxtZH8WOc9H67aey+ilesCJFftjCmlYE1erWXzX961j+UfGJ+s6AaOq6saS/nJ
-	 C10m5ynA/Qr1YeUSIVZWRBZRvSrCsDwbPwZdgM2iqNKfHh9Ksk11SUkzwCjnHxfbjSdoh
-	 Nmoeh41Qo+O/XDMc9p8/YOHXCj/5/k/Hu+5DcZ1pXVzEcI9FGAc9mAQbZiO/xAf5bHw==
+	t=1792471470;
+	b=QoHfd1CVEd/Za57rPS+xGxQwviPD5pmiR+goaVenECPNkMVPbexxs6aBVqaxEDmjiHZG
+	 tqmSOTP3KYmbZ0KoU1crEHNisMbkyekloQz97w3MhJAVonlXvjghUaX7hvypKS+9ko0In
+	 HJ4e1KBqMU14vDC49U1EBRAa1DoapxRBHQ7xtsIopE2mrJfLSWY+EqhQggJF3oIwh2kQ0
+	 Hm1+r1QXjg6cGrWJeVA5REYJ34cBC7WjOWa+SRr2v33Eiq9p7GHzssbVWWSABnZ5sdU7M
+	 nKi13y8K+BV/c3iAqfCNqORGkWANtJd3nNaSX/RuxUVKFfajVq9yTkWbkDRm5OWNjeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792471426;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=TftrrPNtsyBwyu6P4BuDulXkrmUzNiS7FTTDkxdm9u4=;
-	b=p5gQx5dpbHw7AiJIBdwILJ6jXFaWLGuniy7PZwBnbhMGYlpsR0EStzWuotFTtn438G3q
-	 e2Y6OxYNgqatKVTY0zqaieHKIBpMBKjLiBkz6eknBR+QB2v+P8LCp3vq5hJTqfHa347KI
-	 MZIAavw1y6sJq8kVdjitb8KaVx09DJcuBClY4srjR7PpbCpMONtPhEVLIEsSRNICsQYn+
-	 3TkhCKaqPTz7udhlTl4d4ipyoTcrCLcP14978wGjf9+nf8UYxKzLxjzOyaJr2qaJ4KtT9
-	 qSWwYf9ODcwQP74Hy11gX8nxv6Raauw5RO9/JJTf/6WNUYJqUHyCe490QLL9JGOObFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792471470;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=szyR4KfBL/tKrcSFzd7HxZqukrrPYz3HlQOuPZYEGzE=;
+	b=wO35N6GY0qez9kNmPeSIyhv2o7twH/usH48rHQO/saC+4TBfU4iumyW26TxZvW4/wQIi
+	 5SM6oB2tnZcGKtbD+kVKaKO1gQ2QvU0pFOrv+eKEYCpEYON8nOhzQp0vSPg35Ypk2+5RZ
+	 D9BoGcETwH71xXcSyI67fi8ctiqNl5QSBcmbxM4ikdoXAzb8iMrjxGgIfJMwQ//0WLdyz
+	 lU8rmJTZjf7gOrvJgBlhSUYykIUE09E2YqvueYuObMSTNsYfUT/gf/SFc1F8QxPGDUqAc
+	 dGxsmkSgFKCFeOIXiAiRrBMXJhdLO7L8Rx1c/o56VeLHAT5Lr9OWcA5JmuurplY+YFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CC8iYWGT;
-	arc=none smtp.remote-ip=95.215.58.34
-Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Osq3aot9;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD611606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:43:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD611606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CE7606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:44:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8CE7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CC8iYWGT
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dC7VvThPiocukbh7F9YYC7tvYdPI1VO2U/KFB7y+I0c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792471422; v=1; x=1793076222;
- b=CC8iYWGTEZHJuaXzGSPaexyEz3uudLE53kxfFS+2LWFS8cY8mDDBnjJSnPKyRND3Kvjny9cV
- HhUOconMknDSG+EmPp2p9y0ZpRKJMEYVy1wJRaKdR2MSwGo3pTX1OuqzQPwdfXw0jdtqm3Ublj3
- rWcPoMwzmVFysyv+KRwm44ag=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 398ce5b28278dd5a;
-	Tue, 20 Oct 2026 04:43:42 +0000
-X-Mizu-Trace-ID: 398ce5b28278dd5a
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Osq3aot9
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4C9DB40E029B;
+	Tue, 20 Oct 2026 04:44:27 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id mebp0GSbYnDv; Tue, 20 Oct 2026 04:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792471463; bh=szyR4KfBL/tKrcSFzd7HxZqukrrPYz3HlQOuPZYEGzE=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Osq3aot9A1YbIP7BLnpmUtFxGNJTz5J5cHUAllfW4oqjPAvpgD62G9dsdTrVkz6Nv
+	 XBsoDfF3pSeKOezKfE8GJYEgv5nF2njcR48oG+6Sf5MmyTWBSborz2vEDDZtqVhxac
+	 YX3vN/GyTtLVP1Tzbj1U82eBVmOEcmlFOqHUbbwwvTB0WFOIMWu6FJCWEoB1PrPErO
+	 iPEX4NJz3VeLTDsZvy5AriTdnOXHSVEMZrJCPSQY1NGKQdRV/iqCaDBC3Cft3S/kdp
+	 BWyRkMNpY55BfiZxmXbWU3EK/A23dzvCmnsrCNY+IyDr/TUIN+Ed8P1GSvcbddFETP
+	 SBgtpgNmLPNHAVGFD+AnKM+Vlr4SzZmneIZ548hL8TqON/TpaFVs3o+IeBjXpttv7a
+	 rE7kv2hMhVcuEXz/y1XNqmQAmV1bvYT3SJhV6eCXtsioSwH4DZPIdYJ+tnEAuCvfTv
+	 D6Y3ZCviQIwc6lkCa/81cBcoNcufKU3cCewoot3QPvCORg0q1XY/CNm+60D1nqvMvO
+	 RPC2hjW3FJSnXs0a9ktjjJKGsm3DpjMgUCT0J94qihrHhV1pL9fy53f7jXUqRBbjtt
+	 XYYzzAlXrVfWzCte8sA0s78xuAObr09W245ydYURNjI3H9YNrqRuiRrlFkH/gAwD9X
+	 d4z/obFdUTc/B9MkOa3JRPzs=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9EF2940E015B;
+	Tue, 20 Oct 2026 04:44:19 +0000 (UTC)
+Date: Mon, 19 Oct 2026 21:44:15 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: x86-ml <x86@kernel.org>, lkml <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] x86/fpu for v7.4-rc1
+Message-ID: <20261020044415.GAatbxnwqKePxD-0FC@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,74 +77,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Tue, 20 Oct 2026 04:43:39 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] wifi: rtw88: allow key removal when the CAM table is
- full
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Hungyu Lin"
- <dennylin0707@gmail.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- reza1234khan1234@gmail.com
-In-Reply-To: <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
-References: <20261019165103.5990-1-dennylin0707@gmail.com>
- <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Hi Ping-Ke,
+Hi Linus,
 
-October 20, 2026 at 4:07 AM, "Ping-Ke Shih" <pkshih@realtek.com> wrote:
+please pull the x86/fpu lineup for v7.4-rc1.
 
->=20
->=20Hungyu Lin <dennylin0707@gmail.com> wrote:
->=20
->=20>=20
->=20> rtw_ops_set_key() looks for a free CAM entry before checking the
-> >  command. When all pairwise entries are in use, DISABLE_KEY returns
-> >  -ENOSPC without clearing the existing entry.
-> >=20
->=20Is this the actual case you met?
->=20
+See end of mail for some merge fun.
 
-From=20my investigation it seems reachable.
+Thx.
 
-As far as I undersrand, it needs all 28 pairwise entries (4-31) in
-use at once, so AP mode with 28 secured stations (31 mac_ids are
-left after the AP vif), or IBSS/TDLS with as many peers. Not
-reachable as a plain client. Once it is hit its pairwise
-DISABLE_KEY fails, mac80211 frees the key anyway after logging
-"failed to remove key", the cam_map bit is never cleared, and the
-table stays full until the driver is reloaded.
+---
 
-I think it can be tested with two clients by temporarily setting
-sec.total_cam_num =3D 6.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-> >=20
->=20> Move the allocation and bounds check into SET_KEY. DISABLE_KEY uses
-> >  the existing key->hw_key_idx.
-> >=20=20
->=20>  Fixes: 10d58823cb44 ("wifi: rtw88: fix out-of-bounds CAM write whe=
-n key table is full")
-> >=20
->=20Should it be ?
->=20
->=20Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
->=20
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-I=20think 10d58823cb44 is the right tag. In e3037485c68e the check was
+are available in the Git repository at:
 
-      if (hw_key_idx > sec->total_cam_num) {
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_fpu_for_v7.4_rc1
 
-and rtw_sec_get_free_cam() returns at most RTW_MAX_SEC_CAM_NUM (32),
-which equals total_cam_num, so the check never fired and DISABLE_KEY
-always reached rtw_sec_clear_cam(). The bug there was the
-out-of-bounds SET_KEY, which 10d58823cb44 fixed. DISABLE_KEY only
-started failing once the check became ">=3D". This patch also does not
-apply without 10d58823cb44, since its context has the ">=3D". Since
-10d58823cb44 is tagged for stable, I think this one should carry
-Cc: stable@vger.kernel.org too.
+for you to fetch changes up to 7606d01b963fc3e4e19dd53ca6c5fdd97f7bc1d7:
 
-Best regards,
-Luka Gejak
+  x86/fpu: Remove additional remnants of math emulation (2026-09-26 12:01:48 -0700)
+
+----------------------------------------------------------------
+- Document and cleanup the signal frame handling with the goal to allow
+  process migration between CPUs with different FPU capabilities but which use
+  only a common set of FPU features, i.e., think checkpoint/restore. By
+  Andrei Vagin
+
+- Consolidate how XSTATE features are checked by doing them once during boot
+  with the intent of removing cpu_has_xfeatures(). Latter will happen in the
+  next cycle. Work by Eric Biggers
+
+- Other cleanups
+
+----------------------------------------------------------------
+Andrei Vagin (7):
+      x86/fpu: Document signal frame layout and portability
+      x86/fpu: Clean up and rename variables in signal frame handling
+      x86/fpu: Extract restore_from_ia32_fxstate() and clean up fpu__restore_sig()
+      x86/fpu: Document reasoning of FX-only fallback
+      x86/fpu: Fix potential underflow in xstate_calculate_size()
+      x86/fpu: Pre-fault only required size of xstate buffer
+      selftests/x86: Add tests for signal frame FPU portability
+
+Eric Biggers (9):
+      x86/fpu: Check for missing AVX and AVX-512 xstate bits
+      um: Check for missing AVX and AVX-512 xstate bits
+      crypto: x86 - Stop using cpu_has_xfeatures()
+      lib/crypto: x86: Stop using cpu_has_xfeatures()
+      lib/crc: x86: Stop using cpu_has_xfeatures()
+      xor: Remove redundant X86_FEATURE_OSXSAVE check
+      xor: Add AVX-512 optimized xor_gen()
+      x86/fpu: Remove unnecessary checks for X86_FEATURE_FPU
+      x86/fpu: Remove additional remnants of math emulation
+
+ Documentation/arch/x86/xstate.rst                  |  54 +++++
+ arch/um/kernel/um_arch.c                           |  78 ++++++-
+ arch/x86/crypto/aegis128-aesni-glue.c              |   3 +-
+ arch/x86/crypto/aesni-intel_glue.c                 |   7 +-
+ arch/x86/crypto/aria_aesni_avx2_glue.c             |  11 +-
+ arch/x86/crypto/aria_aesni_avx_glue.c              |  11 +-
+ arch/x86/crypto/aria_gfni_avx512_glue.c            |  11 +-
+ arch/x86/crypto/camellia_aesni_avx2_glue.c         |  11 +-
+ arch/x86/crypto/camellia_aesni_avx_glue.c          |  11 +-
+ arch/x86/crypto/cast5_avx_glue.c                   |   7 +-
+ arch/x86/crypto/cast6_avx_glue.c                   |   7 +-
+ arch/x86/crypto/serpent_avx2_glue.c                |   9 +-
+ arch/x86/crypto/serpent_avx_glue.c                 |   7 +-
+ arch/x86/crypto/sm4_aesni_avx2_glue.c              |  11 +-
+ arch/x86/crypto/sm4_aesni_avx_glue.c               |  11 +-
+ arch/x86/crypto/twofish_avx_glue.c                 |   6 +-
+ arch/x86/include/asm/fpu/regset.h                  |   6 +-
+ arch/x86/include/asm/fpu/sched.h                   |   1 -
+ arch/x86/include/asm/fpu/types.h                   |  25 ---
+ arch/x86/include/asm/fpu/xstate.h                  |   2 +
+ arch/x86/include/asm/math_emu.h                    |  15 --
+ arch/x86/include/asm/processor.h                   |   2 +-
+ arch/x86/include/asm/traps.h                       |   2 -
+ arch/x86/include/uapi/asm/sigcontext.h             |  15 ++
+ arch/x86/kernel/fpu/bugs.c                         |   4 -
+ arch/x86/kernel/fpu/core.c                         |  13 +-
+ arch/x86/kernel/fpu/init.c                         |   6 +-
+ arch/x86/kernel/fpu/regset.c                       |   6 -
+ arch/x86/kernel/fpu/signal.c                       | 136 +++++++-----
+ arch/x86/kernel/fpu/xstate.c                       |  39 +++-
+ lib/crc/x86/crc-pclmul-template.h                  |   6 +-
+ lib/crypto/x86/blake2s.h                           |   4 +-
+ lib/crypto/x86/chacha.h                            |   3 +-
+ lib/crypto/x86/nh.h                                |   4 +-
+ lib/crypto/x86/poly1305.h                          |   7 +-
+ lib/crypto/x86/sha1.h                              |   4 +-
+ lib/crypto/x86/sha256.h                            |   4 +-
+ lib/crypto/x86/sha512.h                            |   3 +-
+ lib/crypto/x86/sm3.h                               |   3 +-
+ lib/raid/xor/Makefile                              |   2 +-
+ lib/raid/xor/x86/xor-avx512.c                      | 122 +++++++++++
+ lib/raid/xor/x86/xor_arch.h                        |  31 ++-
+ tools/testing/selftests/x86/Makefile               |   5 +-
+ .../selftests/x86/sigframe_fpu_portability.c       | 235 +++++++++++++++++++++
+ tools/testing/selftests/x86/xstate.c               |  12 --
+ tools/testing/selftests/x86/xstate.h               |  20 ++
+ 46 files changed, 693 insertions(+), 299 deletions(-)
+ delete mode 100644 arch/x86/include/asm/math_emu.h
+ create mode 100644 lib/raid/xor/x86/xor-avx512.c
+ create mode 100644 tools/testing/selftests/x86/sigframe_fpu_portability.c
+ 
+
+So if you've merged tip/perf/core first (you should have if you go through the
+pull requests chronologically) then merging this will create the below and you
+probably wanna whack that second duplicated prototype.
+
+Thx.
+
+diff --cc arch/x86/include/asm/fpu/xstate.h
+index 19dec5f0b1c7,33343e5d54b0..25308312cd78
+--- a/arch/x86/include/asm/fpu/xstate.h
++++ b/arch/x86/include/asm/fpu/xstate.h
+@@@ -110,10 -110,9 +110,12 @@@ int xfeature_size(int xfeature_nr)
+  
+  void xsaves(struct xregs_state *xsave, u64 mask);
+  void xrstors(struct xregs_state *xsave, u64 mask);
+ +void xsaves_nmi(struct xregs_state *xsave, u64 mask);
+ +
+ +unsigned int xstate_calculate_size(u64 xfeatures, bool compacted);
+  
++ unsigned int xstate_calculate_size(u64 xfeatures, bool compacted);
++ 
+  int xfd_enable_feature(u64 xfd_err);
+  
+  #ifdef CONFIG_X86_64
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
