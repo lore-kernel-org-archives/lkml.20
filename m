@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792455771;
-	b=1Dezf0ZJH5aEaN03UIe1k40tGkd5CWbCOEWcN8nLtcQFmjh2Lq6PAPh/HktFTsH7xnD0
-	 eQa17VeR4KHbXfDphK7XjbPF0kdDoFBQXiG2a7iImm2z5XQFxTEjQwW2ObP8WkSQYIjgA
-	 cXsQ8LZSiZuhYNSHhPAObFz3ckhYIJ8acxYngJ5kDsT4EC465HuZLh/YxngXo/tZyNaGE
-	 Y7NPwqqrL1V3/rqEFSFo5l4aWhBD1A+sWFrblgHRKM3LZmRiljbMI8i958UYfZ2HRigko
-	 3Y8bfVzCAl/Gwku3s3Xs5QbSdfzZO6zGaXpGMGH5be1h/EsraM43cm4CqmwsgbA8C6Q==
+	t=1792455899;
+	b=hopQb4zCmR+q7p8H15oNycSzdLXQIP1WmgKFs+1N5xFeY8OR3qhv/wkyuF9alOBKt0Gw
+	 QslbP8oJjvmdTVUBaa/CcAxUnvglg8FCY4mRWay1jCGn/6PoGfU/ZLDN2j5HNdc2cxuoA
+	 M2N4VrX7ydw1E08SLQrMo6AOnbJz/hKj2bOeSxK7RPqMG8Dbr60mOIY2CeT7/qN8IL7+v
+	 CWVkRt2e2tMLs8U/SwPK5zstkxBwFcCrlQ+bjIaonBANyEU/MlYrwSge6wknLXI7w4YOa
+	 dbq9cUQxPZeZgUulL1CzODOZjTEncArS5GD/UFcswFHJtevf8ieAFGuu4nQp8JXG6IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455771;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=cuREoA3nKFpLDq48TCNhPU6MtEhLwM7uNawqcIxEoG4=;
-	b=THbKJIiau4RdT3fTJWSAGi1P1WI6U0ZE+jrooFaLeizLzri5UL76CrC8BgqjQZcE5AMM
-	 kcEupirvJB/uddu72P5yFkMJdc8rzDUajaItZNWcSdhC/Whe9+FPQK482DXKOdXh6zgep
-	 v7uGNgq6K58IyYEe7uLX/MR4LBdRMAH+IRvyI9DZUyn4+oLj22WcRKLQJsJg9kh3Yitoe
-	 AVqlHrd6OqDchOBQFw1o/QpVemdFw3RvpubaKb+PxUquCgka4wekHi84jNYsqNzv+q6wX
-	 2CxqfHgjasg/C9quJ5KJn6F9QFd8L1rsXmAK7s4+YJHvMoRiSdWcuO+B0wsux9MMGVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455899;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=CnJ245Id2h87Ob+Q9Qzv5inIi7sztZ97my3rOiOUhD0=;
+	b=HBjK+IPg8J3A3F5Ng5bSxNMuJxFqrMThHU8XLM38Y2GrxtBdhEhrqMUqm48ptWVgKP+5
+	 icdiuD7wRiB7njYNq2xHXGI1asieLxJKlQIqDgVW4Gu+1epGAa7Xw8SJe2gSciwDKQpz6
+	 BLSpMoq4mTjooQgFcRn5PvYKQrvss0LRcRTkV0FGgfi8WqfGlyQNheq2DblOUIPDVKkc8
+	 6nngZJmU38enYb2KZ3gFqezdh8Z8hSz2x6KqBoYH4Sd8XdOKvJ/Kp8ifo5sT94b+R7Svk
+	 k4F7AjYtNKDkiY4dchYCmt9n7xEyiVrdbuyo1IpNwDBdPk82ShFYWseK7uTDsWoyxIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJCcyV7u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Vb7hgp99;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A5C606A319;
-	Tue, 20 Oct 2026 00:22:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91646606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91646606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJCcyV7u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D891F000C4;
-	Tue, 20 Oct 2026 00:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792455770;
-	bh=cuREoA3nKFpLDq48TCNhPU6MtEhLwM7uNawqcIxEoG4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QJCcyV7uEKxwmNkCjR0zo+bvbikvOGtA/gYceiaG0j0jGXLJaLRyUhKt8eVBlph2k
-	 lO8K8P5kGM5jTQ25yKnJekwMyiSzL+zOIYo8+mCSqMw2jgOCxxMcBR1JUsJi+c5FaT
-	 ExGXcDv776HAp3JBpNfC19Op9xM+zBJxC+Ra66YirJaFk6T+RZiP0WpcnMRPcZO5md
-	 jJ9IiKtOD/6WH8p4FzUsx6Pa5D+zWUtvKVuSiFKkyxAzY6joMOiwjM0mutGR71e+dT
-	 3vIQMIsn711Tatm+uioRcpmRLldrB7uD5lyzi9jFny+RQ0Dxm1EHjKSQOf8oRGNUbY
-	 74tFcSx5ITMFg==
-Subject:
- Re: [PATCH net v4 3/5] ptp: vclock: propagate physical clock sampling errors
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
- richardcochran@gmail.com, andrew+netdev@lunn.ch, yangbo.lu@nxp.com,
- mlichvar@redhat.com, edumazet@kernel.org, davem@davemloft.net,
- linux-kernel@vger.kernel.org, vadim.fedorenko@linux.dev
-Date: Tue, 20 Oct 2026 00:22:49 +0000
-Message-ID: <179245576913.3135.17393378308394380121@kernel.org>
-In-Reply-To: <20261015-ptp-vclock-sampling-v4-3-cba6ffc8ceb6@gmail.com>
-References: <20261015-ptp-vclock-sampling-v4-3-cba6ffc8ceb6@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Vb7hgp99
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9BFB640E029C;
+	Tue, 20 Oct 2026 00:24:56 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Pj6wnBYsi4rC; Tue, 20 Oct 2026 00:24:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792455892; bh=CnJ245Id2h87Ob+Q9Qzv5inIi7sztZ97my3rOiOUhD0=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Vb7hgp99tWlU+OMsZ5FgCkVu6CatFYaXaS4XApwzh1eWP+ABMFZXY7yD4HOJQ+Frw
+	 AXOc0FEW0nDkMazkqh8lPC3jEf028FMQAVFbEjaeBHPuf9M756hgHm/ZAiRUDfIe/U
+	 9DEJN9234hAbbtmsM2wyGaM2DxvByCKEfBUnQbYHnH4ANjzVS/HK8K0vMl7qbjvW8B
+	 W14MedvzzAfbbqg1yKbUnvdmMcM3VXfJIXLToa6YVXKlO5Qn7rTs+MX1I/aT6OwT/l
+	 vFgOLHcwbd9x2ZWsiW9Fa4zafuKUTLrEhX2xMqq6rcUp9JO5pcPLpGp1nC6L5EBwCM
+	 2zGen5Uo5EZpDrM0CVleGPo/moMBGM+POM4pFDONlDeCAgImljfNwJdg1QbRGYnICw
+	 S9jOkMgYBf2Er2HCIUQ6vq2kA+D4kVk9abYl9MUktXaIDL3FSLaHIpYRdFkFHlFvO9
+	 j/xN0UhkOAVHh9417UybshPEuvVIDPp+Qq+kyHJ6eentgiRxEhRyxNYcPV8aHwFNT1
+	 CKBKlhHe2vDohgMjUhwzCWmG80nR10y5w8u8a2p4UgYmtZZgzIWGEbiEFKLJQhhiKt
+	 vXdgN5awE1hwAUHN+/iO48cMxsEbUizvObsy0VmB5kspRUKbJPmruVwi2mHz2HV1Pv
+	 WfRhKj7xKMRljnDfciGLX8ok=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4D65840E029B;
+	Tue, 20 Oct 2026 00:24:49 +0000 (UTC)
+Date: Mon, 19 Oct 2026 17:24:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: x86-ml <x86@kernel.org>, lkml <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] x86/boot for v7.4-rc1
+Message-ID: <20261020002446.GAata0znTHnFvT5ePT@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,143 +77,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Linus,
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+please pull the x86/boot lineup for v7.4-rc1.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thx.
 
-- [Medium] ptp_vclock_refresh() (drivers/ptp/ptp_vclock.c) now returns
-  the fixed PTP_VCLOCK_RETRY_INTERVAL (msecs_to_jiffies(10)) whenever…
+---
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, and the commit
-  message explicitly documents it as a remaining limitation: 'prolonged…
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
---
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-ptp: vclock: propagate physical clock sampling errors
+are available in the Git repository at:
 
-This patch samples the parent PHC before timecounter_read() and
-timecounter_init(), caches the good sample for the cyclecounter read
-callback, and passes PHC read errors back to callers. It also retries
-failed refreshes after 10 ms instead of 2 s, initializes the timecounter
-before the clock is registered, and makes ptp_vclock_register() return
-error pointers.
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_boot_for_v7.4_rc1
 
-> diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
-> index 84cb527f59ccc..5f49f81891ef7 100644
-> --- a/drivers/ptp/ptp_vclock.c
-> +++ b/drivers/ptp/ptp_vclock.c
+for you to fetch changes up to dc2a1671d983d26b8ea5a4c5de9c5a028707f40b:
 
-[ ... ]
+  x86/boot: Drop unused implementation of panic() (2026-09-28 18:07:34 -0700)
 
-> @@ -13,6 +14,7 @@
->  #define PTP_VCLOCK_FADJ_SHIFT		9
->  #define PTP_VCLOCK_FADJ_DENOMINATOR	15625ULL
->  #define PTP_VCLOCK_REFRESH_INTERVAL	(HZ * 2)
-> +#define PTP_VCLOCK_RETRY_INTERVAL		msecs_to_jiffies(10)
->  
->  /* protects vclock_hash addition/deletion */
->  static DEFINE_SPINLOCK(vclock_hash_lock);
+----------------------------------------------------------------
+- Rework the early decompressor some and drop the version of panic() there
+  which used vsnprintf() supplied by the EFI stub even in legacy boot cases,
+  where the EFI stub is not present. By Ard Biesheuvel
 
-[ ... ]
+- Fix unbootable VMs with CONFIG_PVH=y and CONFIG_KASAN_GENERIC=y where the
+  compiler decides not to inline __builtin_{memcmp,memset}(). Force the
+  inlining with the kernel's own __inline_* versions; by Mauricio Faria de
+  Oliveira
 
-> @@ -151,7 +175,9 @@ static long ptp_vclock_refresh(struct ptp_clock_info *ptp)
->  	struct ptp_vclock *vclock = info_to_vclock(ptp);
->  	struct timespec64 ts;
->  
-> -	ptp_vclock_gettime(&vclock->info, &ts);
-> +	/* Do not wait another full interval with a stale cycle_last. */
-> +	if (ptp_vclock_gettime(&vclock->info, &ts))
-> +		return PTP_VCLOCK_RETRY_INTERVAL;
+- Cleanups and fixlets
 
-[Severity: Medium]
-What happens here if the parent PHC keeps failing, rather than failing just
-once?
+----------------------------------------------------------------
+Ard Biesheuvel (3):
+      x86/tdx: Share tdx_panic() with the EFI stub
+      x86/boot: Move unaccepted memory handling out of the decompressor
+      x86/boot: Drop unused implementation of panic()
 
-ptp_vclock_refresh() returns the same fixed 10 ms after every failure. There
-is no backoff and no retry limit. ptp_aux_kworker() requeues the work with
-whatever delay it gets back:
+Mauricio Faria de Oliveira (4):
+      x86/boot: Remove redundant "cc" clobber in memcmp() and document it
+      x86/asm, x86/boot: Carve out inline memcmp() into a separate header
+      x86/asm: Group inline string functions
+      x86/pvh: Really inline memcmp() and memset() to fix unbootable VMs
 
-drivers/ptp/ptp_clock.c:ptp_aux_kworker() {
-    ...
-	if (delay >= 0)
-		kthread_queue_delayed_work(ptp->kworker, &ptp->aux_work, delay);
-}
+Thorsten Blum (1):
+      x86/boot: Use BASE_BAUD and DEFAULT_SERIAL_PORT
 
-Each vclock has its own worker. By default a physical clock allows 20
-vclocks (PTP_DEFAULT_MAX_VCLOCKS), and max_vclocks can be raised through
-sysfs. One failing parent could then see 2000 or more failed getcycles64()
-calls per second. Before this patch it was one call per vclock every 2 s.
+ arch/x86/boot/compressed/error.c        | 19 ------------
+ arch/x86/boot/compressed/error.h        |  1 -
+ arch/x86/boot/compressed/mem.c          | 42 --------------------------
+ arch/x86/boot/compressed/sev.h          |  2 --
+ arch/x86/boot/compressed/tdx-shared.c   |  2 ++
+ arch/x86/boot/early_serial_console.c    | 13 ++++-----
+ arch/x86/boot/string.c                  | 13 ++-------
+ arch/x86/coco/tdx/tdx-shared.c          | 31 ++++++++++++++++++++
+ arch/x86/coco/tdx/tdx.c                 | 35 ----------------------
+ arch/x86/include/asm/cpuid/api.h        |  2 +-
+ arch/x86/include/asm/sev.h              |  2 ++
+ arch/x86/include/asm/shared/string.h    | 52 +++++++++++++++++++++++++++++++++
+ arch/x86/include/asm/shared/tdx.h       |  1 +
+ arch/x86/include/asm/string.h           | 21 +------------
+ arch/x86/platform/pvh/enlighten.c       |  3 +-
+ drivers/firmware/efi/libstub/x86-stub.c | 39 +++++++++++++++++++++++++
+ 16 files changed, 138 insertions(+), 140 deletions(-)
+ create mode 100644 arch/x86/include/asm/shared/string.h
 
-For parents without a free-running counter, getcycles64() goes through
-ptp_getcycles64() to gettimex64/gettime64. With sja1105, for example, each
-call takes ptp_data->lock and does an SPI transaction. Each failure is
-also logged with no rate limit:
-
-drivers/net/dsa/sja1105/sja1105_ptp.c:__sja1105_ptp_gettimex() {
-    ...
-	rc = sja1105_ptpclkval_read(priv, &ticks, ptp_sts);
-	if (rc < 0) {
-		dev_err(ds->dev, "Failed to read PTP clock: %d\n", rc);
-		return rc;
-	}
-    ...
-}
-
-Could an SPI/MDIO bus fault, or a switch held in reset, turn this into a
-storm of bus traffic, lock contention and kernel log messages at about 200
-times the old rate?
-
-Once an outage lasts longer than about 4.295 s, the counter wraps are
-already lost, so retrying faster after that point gains nothing.
-
-Would a capped exponential backoff still cover the isolated failure case
-the commit message describes? For example, start at 10 ms and double up to
-PTP_VCLOCK_REFRESH_INTERVAL. A bounded number of fast retries could also
-work.
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch. The commit
-message already lists it as a remaining limitation:
-
-  "prolonged read failures or worker delays can still exceed the half-wrap
-  conversion window, and a gap of about 4.295 seconds between successful
-  samples can lose a full counter wrap."
-
-When a sample fails, cycle_last keeps the last good value.
-ptp_vclock_gettimex() still converts against it without checking how old
-it is:
-
-	err = pptp->info->getcyclesx64(pptp->info, &pts, sts);
-	if (err)
-		return err;
-	...
-	ns = timecounter_cyc2time(&vclock->tc, timespec64_to_ns(&pts));
-	...
-	return 0;
-
-ptp_vclock_getcrosststamp() and ptp_convert_timestamp() do the same
-conversion. Once cycle_last is more than mask/2 old (about 2.147 s), can
-these return success with a time about 2^32 ns too early?
-
-If no read succeeds for more than about 4.295 s, the next successful
-timecounter_read() goes through timecounter_read_delta():
-
-	cycle_delta = (cycle_now - tc->cycle_last) & tc->cc->mask;
-
-That masking silently drops whole 32-bit wraps. The vclock then stays off
-by a multiple of about 4.295 s until userspace steps it with settime.
-
-Could the vclock be marked invalid, or forced to resync, after a long run
-of failed refreshes?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-ptp-vclock-sampling-v4-0-cba6ffc8ceb6%40gmail.com
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
