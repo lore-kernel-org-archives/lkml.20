@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483098;
-	b=lGEupB8DycxZBF308DM+Kib70BRvm/TQtGz3gvUlNampYiQKiGC7B58SdI+qCPgroqFj
-	 qT4J8V2ig1DGXgxYrz0qCTaf+dxdLm8bBRgPnSFW6uuYGQ8YVvUWoSCxgRp6kabhF2wFx
-	 +uy/p78gopmqNfh8TWebvpPsOEhtaDtgHAr9ghiC5GLB+dv57JkJ0RgNEa70po0wzmM9C
-	 NoLV7r4ZMP5RAI+SaOEK8BFOHYGaZbAUKm3LjS6G9aZ7AYJh2eNqUYw//zNjEpnaC8e+J
-	 SBTwnAzI7b8Pl606BbP3u2i9b82DxEnxHLmG4KALzw8CgpfJPhmrqRgiUXY+m3SDZgg==
+	t=1792483127;
+	b=2mhrvfyGaOq0sOj0CISXlTUuaRpqhOL37nzM/lxWasNEBEQpN5p5NLxC+xZjwLm2zFA+
+	 i+UHQ2F3khv0yiJMhpLXuhAkukIIDQizT9OwJo/LyDLnmxiqR/oGxIthliDUQwzHqh0hj
+	 peO8kik08ngrKHtP37ssMDxZLpO4VjiGX92bcjk1XKrcG+HEX82cJyK9Ln9LEmUV7/HkM
+	 K6DLUmkiF0ujM+hYZemsy2NUjVEiFse5F79bfbAQF/3kWwdIyvdv8k/V4bwDp+ZjAMqW0
+	 JR1DmafQGyeiQsj1Xl+tyFT1l7O6oqVz+0tH2kFbkanz46gUjHVVgke7nOMBW679/xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483098;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=x/N7tZYzK6xdleh7vPxCN7bmQeulM5jEjzJoYCwMLcU=;
-	b=Q4vxvLgxcehoLYsVysZt4BIl8HzYlAGA7hGb9eXYbPwqfUB30cgVaZ7UjCslVf60Gx37
-	 lJk6WWPvQWjRVZYfPF6P8k90aT34GL2hZGcNaPPPtJu/CmNNxHlt3bxG0XCketxEu1P79
-	 sOgv9mooJpWO4oSLcezRFBJEz0fTXnRjbr575H7IdoYe+WIeZTyukAKt/IE3b4tcaWWjU
-	 j8GLJf9aeLY0mOvmmfYLlGu18ZbL53WPYZF2vpMLVZPSZeEgk9XeX8k9Bg5JHiY5UPqQp
-	 pMSxV2Ogu0+6SpHFlTwY7uSK3hqHCOroce/YZBxhg6PiQMg3/fJotvLKlL+t5JLcWSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483127;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=BzwHU1QIdUNgRDahrI2DApNe1+Mn4e/vatv2bCfy92A=;
+	b=bmS77hCkpn37e3Wpyyyh6ZSY5HaoSyK2aNN1nbRKvQT1VJexFhQKWvnS0qP6/MFp3sgq
+	 4kmWKT4JEuuW+8bHz8n6Wl7gUrhfEslhbOMIx1LCOQiaxHp5W+iq3eJSfMzn0fv5xrWnV
+	 jXXcx3ywssknZSzZUUjEnfJ0gowCmf4aznfBorB2sKg8gYNTUkrTXxFLHpl1tJXGN71rD
+	 0mD3xAf2uK4OEI9BKsFOR+iB6swXVZmG4UdtH3bvCWocTIMbwJ3cFhrQ2xM5JSxLf2s7b
+	 mNPu1LTsBZVcBjaP2USsvZsuuWzlYstfuZNdmBJoY0nz40k0Dm2SbMDiBP3XJn9mGqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PXlobn5Y;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QitZLQjG;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328B8606A319;
-	Tue, 20 Oct 2026 07:58:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 328B8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983E6606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:58:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 983E6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PXlobn5Y
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 793C81A1291;
-	Tue, 20 Oct 2026 07:58:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45BD360393;
-	Tue, 20 Oct 2026 07:58:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6B4A10328D55;
-	Tue, 20 Oct 2026 09:58:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792483094; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=x/N7tZYzK6xdleh7vPxCN7bmQeulM5jEjzJoYCwMLcU=;
-	b=PXlobn5YY91YrjYt4+HQWg66xLmCBHutXn0IOd/i+/MuQcz8tbl0e38i6224wew3wyUJka
-	cUuC3agwcOiw1z70loEntLo7pgB9BQDEkLS9g/8nW0PuSqZJLO4Qf4PlQF8jZZXzWgyDzR
-	J82fXErRqvSYWsaa4m37H6MMw0WcwDpORHoW9QP2rHsq3q2WQ22PwCePjm/01VTSs1NoTj
-	TqjL2C+rv9mQs1pgUtX0z+acZK+w+FB4XdA8Hd9ujAaJXRJnBObOoaUxnNOhJ2NtNOO04j
-	9LR9kcl18yoimbcR1K/MjfBVa/61isapOkdjJJRS7sw24AIFfBY1795KuUhElQ==
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QitZLQjG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=BzwHU1QIdUNgRDahrI2DApNe1+Mn4e/vatv2bCfy92A=; b=Q
+	itZLQjGNEqSzKGVwBPZaw+dlWf+zKMNT8N6ATznjbzdFn51cvVjZ0R+vVPINFOHE
+	TwMHzNQM3YOu6TaT4fz6rmJyE86QA+vScMHbu0GvY5xPaDCUiq1SwDozA/gyjUWR
+	8T+9vCBfd2T2aiopQXKN0iUIcxjV5Zij4xvq2D5vq8=
+Date: Tue, 20 Oct 2026 15:57:48 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Joseph Qi" <joseph.qi@linux.alibaba.com>
+Cc: "Mark Fasheh" <mark@fasheh.com>, "Joel Becker" <jlbec@evilplan.org>,
+	"Heming Zhao" <heming.zhao@suse.com>,
+	"Tristan Ye" <tristan.ye@oracle.com>, ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH] ocfs2: validate non-coherent freefrag bitmap inode
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <f4f403bf-efc4-4629-bb7b-2c3b2cc35303@linux.alibaba.com>
+References: <20261018114118.927071-1-yaojiale02@163.com>
+ <f4f403bf-efc4-4629-bb7b-2c3b2cc35303@linux.alibaba.com>
+X-NTES-SC: AL_Qu2SAPiTvEgt4SmRY+kcn08ShO49XMOyvfoi2YFTc+MEpyPT/CwnXV1dJHjX9MKlLySpjjK2QjZX0MN8TZd4g5Xh8tKCGuF5+LNrsl2ORA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,89 +65,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 20 Oct 2026 09:58:11 +0200
-Message-Id: <DM9I84FGPQXP.15OTPO318B5N8@bootlin.com>
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Tzung-Bi Shih" <tzungbi@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Wim Van Sebroeck" <wim@linux-watchdog.org>, "Guenter Roeck"
- <linux@roeck-us.net>, <linux-watchdog@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 4/6] watchdog: w83627hf_wdt: Move register offsets
- into driver data
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com> <20261013-w83627hf_wdt-improvements-v4-4-b6f6b60a9566@bootlin.com> <atY15ssAjhTBz6kr@google.com>
-In-Reply-To: <atY15ssAjhTBz6kr@google.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Message-ID: <16659eba.6c9d.1a158510868.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:bCgvCgBHjiT8HtdqhMhcAA--.857W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BxXkWrXHvyhZAAA3w
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Mon Oct 19, 2026 at 5:23 PM CEST, Tzung-Bi Shih wrote:
-> On Tue, Oct 13, 2026 at 03:58:48PM +0200, Paul Louvel wrote:
->> @@ -42,9 +42,6 @@
->>  #define WATCHDOG_TIMEOUT 60		/* 60 sec default timeout */
->> =20
->>  static int wdt_io;
->> -static int cr_wdt_timeout;	/* WDT timeout register */
->> -static int cr_wdt_control;	/* WDT control register */
->> -static int cr_wdt_csr;		/* WDT control & status register */
-> ...
->> +struct w83627hf_reg {
->> +	int control;
->> +	int timeout;
->> +	int csr;
->> +};
->> +
-> ...
->> +static const struct w83627hf_reg w83627hf_default_regs =3D {
->> +	.control =3D W83627HF_WDT_CONTROL,
->> +	.timeout =3D W83627HF_WDT_TIMEOUT,
->> +	.csr =3D W836X7HF_WDT_CSR
->> +};
->> +
->> +static const struct w83627hf_reg w83627hf_nct61xx_regs =3D {
->> +	.timeout =3D NCT6102D_WDT_TIMEOUT,
->> +	.control =3D NCT6102D_WDT_CONTROL,
->> +	.csr =3D NCT6102D_WDT_CSR
->> +};
->> +
->> +static const struct w83627hf_reg w83627hf_w83697xx_regs =3D {
->> +	.timeout =3D W83697HF_WDT_TIMEOUT,
->> +	.control =3D W83697HF_WDT_CONTROL,
->> +	.csr =3D W836X7HF_WDT_CSR
->> +};
->
-> Nit: the order is inconsistent.  It would be better to stick with
-> the order timeout -> control -> csr.
->
->> @@ -489,6 +499,21 @@ static int wdt_probe(struct platform_device *pdev)
->>  	wdd->min_timeout =3D 1;
->>  	wdd->max_timeout =3D 255;
->> =20
->> +	switch (chip) {
->> +	case nct6102:
->> +	case nct6116:
->> +	case nct6126:
->> +		data->reg =3D &w83627hf_nct61xx_regs;
->> +		break;
->> +	case w83697hf:
->> +	case w83697ug:
->> +		data->reg =3D &w83627hf_w83697xx_regs;
->> +		break;
->> +	default:
->> +		data->reg =3D &w83627hf_default_regs;
->> +		break;
->> +	};
->          ^
-> Please remove the extra ';'.
-
-ACK.
-
-Thanks,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+SGkgSm9zZXBoLAoKQXQgMjAyNi0xMC0yMCAxNTo0MzoyMSwgIkpvc2VwaCBRaSIgPGpvc2VwaC5x
+aUBsaW51eC5hbGliYWJhLmNvbT4gd3JvdGU6Cj4KPgo+T24gMTAvMTgvMjYgNzo0MSBQTSwgSmlh
+bGUgWWFvIHdyb3RlOgo+PiBUaGUgbm9uLWNvaGVyZW50IGZyZWVmcmFnIGlvY3RsIHBhdGggcmVh
+ZHMgdGhlIGdsb2JhbCBiaXRtYXAgaW5vZGUKPj4gZGlyZWN0bHkgYW5kIHRydXN0cyBpdHMgY2hh
+aW4gbGlzdC4gQSBtYWxmb3JtZWQgY2xfbmV4dF9mcmVlX3JlYyB2YWx1ZQo+PiBjYW4gdGhlcmVm
+b3JlIGluZGV4IGJleW9uZCBjbF9yZWNzIHdoaWxlIHNjYW5uaW5nIGNoYWlucy4KPj4gCj4KPkNv
+dWxkIHlvdSAgcHJvdmlkZSB0aGUgZGV0YWlsZWQgYnVnIHJlcG9ydD8KCgpUaGUgbm9ybWFsIFVQ
+L25vbi1SVCBwYXRoIHVzdWFsbHkgcnVucyB0aGUgdGFza2xldCBmcm9tIGlycV9leGl0KCkuCkhv
+d2V2ZXIsIGlmIHRoZSBETUEgSVJRIHJhaXNlcyBUQVNLTEVUX1NPRlRJUlEgYWZ0ZXIgdGhhdCB2
+ZWN0b3IgaGFzCmFscmVhZHkgYmVlbiBwcm9jZXNzZWQgaW4gdGhlIGN1cnJlbnQgc29mdGlycSBw
+YXNzLCBuZWVkX3Jlc2NoZWQoKSBvcgp0aGUgc29mdGlycSB0aW1lL3Jlc3RhcnQgbGltaXRzIGNh
+biBkZWZlciBpdCB0byBrc29mdGlycWQuIFByb2Nlc3MKY29udGV4dCBtYXkgdGhlbiByZWxlYXNl
+IHRoZSBjaGFubmVsIGJlZm9yZSB0aGUgdGFza2xldCBydW5zLgoKQSBzaW1pbGFyIHRlYXJkb3du
+IGlzc3VlIHdhcyBmaXhlZCBieSBjb21taXQgMGNhNzk5NzkzODRmCigiUkRNQS9lcmRtYTogRml4
+IENFUSB0YXNrbGV0IHVzZS1hZnRlci1mcmVlIG9uIHJlbW92YWwiKS4gVGhlcmUgdG9vLApmcmVl
+X2lycSgpIHN0b3BzIHRoZSBoYXJkIElSUSBidXQgZG9lcyBub3QgZHJhaW4gYW4gYWxyZWFkeSBx
+dWV1ZWQKdGFza2xldCwgc28gdGFza2xldF9raWxsKCkgaXMgcGxhY2VkIGJlZm9yZSByZWxlYXNp
+bmcgaXRzIHJlc291cmNlcy4KCkZvciBteHMtZG1hLCB0aGUgZGVmZXJyZWQgb3BlcmF0aW9uIGlz
+IHRoZSBjb21wbGV0aW9uIGNhbGxiYWNrIHJhdGhlcgp0aGFuIGRpcmVjdCBhY2Nlc3MgdG8gdGhl
+IGNvaGVyZW50IGNvbW1hbmQgYnVmZmVyLiBUaGUgdGFza2xldCBjYW4KdGhlcmVmb3JlIGludm9r
+ZSB0aGUgY2FsbGJhY2sgYWZ0ZXIgaXRzIGNsaWVudCBkYXRhIGhhcyBiZWVuIHJlbGVhc2VkLApl
+dmVuIG9uIGEgVVAvbm9uLVJUIHN5c3RlbS4KCgo+Cj4+IFZhbGlkYXRlIHRoZSBpbm9kZSBibG9j
+ayBiZWZvcmUgY29uc3VtaW5nIGl0cyBiaXRtYXAgYW5kIGNoYWluIG1ldGFkYXRhLgo+PiAKPj4g
+Rml4ZXM6IGQyNGExMGI5ZjhlZCAoIk9jZnMyOiBBZGQgYSBuZXcgY29kZSAnT0NGUzJfSU5GT19G
+UkVFRlJBRycgZm9yIG8yaW5mbyBpb2N0bC4iKQo+PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8g
+PHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICBmcy9vY2ZzMi9pb2N0bC5jIHwgNiArKysr
+KysKPj4gIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykKPj4gCj4+IGRpZmYgLS1naXQg
+YS9mcy9vY2ZzMi9pb2N0bC5jIGIvZnMvb2NmczIvaW9jdGwuYwo+PiBpbmRleCBjYmU1OWQyMzE2
+NjYuLjgzODNmOTAwYzg0NyAxMDA2NDQKPj4gLS0tIGEvZnMvb2NmczIvaW9jdGwuYwo+PiArKysg
+Yi9mcy9vY2ZzMi9pb2N0bC5jCj4+IEBAIC01NzUsNiArNTc1LDEyIEBAIHN0YXRpYyBpbnQgb2Nm
+czJfaW5mb19mcmVlZnJhZ19zY2FuX2JpdG1hcChzdHJ1Y3Qgb2NmczJfc3VwZXIgKm9zYiwKPj4g
+IAkJCW1sb2dfZXJybm8oc3RhdHVzKTsKPj4gIAkJCWdvdG8gYmFpbDsKPj4gIAkJfQo+PiArCj4+
+ICsJCXN0YXR1cyA9IG9jZnMyX3ZhbGlkYXRlX2lub2RlX2Jsb2NrKG9zYi0+c2IsIGJoKTsKPj4g
+KwkJaWYgKHN0YXR1cyA8IDApIHsKPj4gKwkJCW1sb2dfZXJybm8oc3RhdHVzKTsKPj4gKwkJCWdv
+dG8gYmFpbDsKPj4gKwkJfQo+Cj5vY2ZzMl92YWxpZGF0ZV9pbm9kZV9ibG9jaygpIG9ubHkgdmFs
+aWRhdGVzIGNsX25leHRfZnJlZV9yZWMgd2hlbgo+b24tZGlzayBkaW5vZGUgaGFzIE9DRlMyX0NI
+QUlOX0ZMIHNldC4gU28gYSBjcmFmdGVkIGdsb2JhbCBiaXRtYXAgYmxvY2sKPndpdGhvdXQgdGhh
+dCBmbGFnIHN0aWxsIGxldHMgdGhlIGZyZWVmcmFnIGNoYWluIHdhbGsgaW5kZXggcGFzdCBjbF9y
+ZWNzW10KPmFuZCByZWFkIG91dCBvZiBib3VuZHMgZnJvbSB0aGUgYnVmZmVyX2hlYWQuCgpJIHdp
+bGwgZml4IHRoZSBidWcgaW4gdjIuCgo+Cj5UaGFua3MsCj5Kb3NlcGgKPgo+PiAgCX0KPj4gIAo+
+PiAgCWdiX2Rpbm9kZSA9IChzdHJ1Y3Qgb2NmczJfZGlub2RlICopYmgtPmJfZGF0YTsKCkppYWxl
 
