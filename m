@@ -1,101 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792460750;
-	b=VqA9S0w31xrxMrBeBjxku08fkJOcSGT9tcnhCZAvzseCmhiRqGknnp0TLhl6FXTAAZaV
-	 Ilxgl4xXvImrJ6Ly6ewY/BNCMWr3uknbnKiZty/ksfzy8IfT9+DZu9eMMv+D9C4557T4a
-	 zqPCc3rz1jyXAO0mGrL77oBotz6+MIRfu0YrhxIOVSoC67DSWFu+58eabULnq/iIlaACo
-	 j1mjD/++d8+D/p1ZAFodlq7MHUrgXlajg2Pg7TvFfhp87BNxZnSq2Zyskj8RNzQ/xbPDU
-	 Gg5zK21uOY6gwneYMqe+VcaZvGGGzsh/+g5wNWNSQkLpGf1AYNHkEYsHw1vqUzzfufQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460750;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wWJgLl899/e4WLkbeKxoGIPcz8yvTnQ4udN5+v69aeo=;
-	b=0Pm+jM3EuStClLyi33GXhQidyrVR/lSGYeSUiJdSid7yHOHETkmY6WzIVKrcJ5zD47Vk
-	 Um7QWSWrumJxO3kKs8o9KkaqIzfEf42+ZSorxw19gBrntswZ9Ss8IlUdLnbX7PfOoeARj
-	 ZlA3RVrLeh7QoC8i6e6RCZlqNEFxnrNjqEYKzvrrR4/z7u3BtgYNSc+nuvozF9dup0swT
-	 vX1q7pwCF57Z/t+aLFiXS9TbdOUue01enuxu2VFV8sOJVw/9lTkSmNSbQkFOnadbbFfug
-	 scMqWSdEHo+hOZon1EU4B7+l+2eS/QrXELE4X5ZryWBW/Uij0h0uGBukVcuHRmRX+VQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=fUuUWP6n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.28
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013028.outbound.protection.outlook.com [40.107.162.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792460805;
+	b=0S+4NFocvr5EDwA6nvdgUXd3KHr9xNbp+WauSOu+HZszgTTigtePpiIgMFgKtX/0fuhY
+	 lbAF+lIK+1IP/Tj6v/xjRhGWfBkqjnAJRBfYOUpuS+zwHgQ35CvEvPhzWLMutjkQAGhcb
+	 /j0ZsXCAdGlAL3CRR5Stv4K308BFBXGXRvHwcGkXa2+8HqfPYeYLN+Lc7X0rEGKKVoFzj
+	 cr9Fk0ciVLUM6lOUP2Urw3zADq+Udf7rD8AC2jZwr4ZWC688ea1iCITtf4pBnJgwpZbne
+	 lsfGDXoqsT+vfYr1hAB0U9olTSGv1qPDB5tYVtoboz1zF2YE/FRWLx8gztYvO3H2hGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460805;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=OfkrWGAPbD8i6ZVar1bqY3px5gJBe6GIbgle4FrRdTc=;
+	b=WfR+zu6z2Y0faCSaIpnDyIcF9gzwpXFxmQmyOKcPaydfDRT6bqZoo6xC/0dvV4m5hZvN
+	 Pwgh/OusE2e0LqdLEgsvPaql8aXaN7RidFjqzntiHk6EdlDGaKaaJEvFSGMVoZqD3VbzD
+	 AkB1crFmrkp1g5ZIdXk9IRa2Fnj9wtJ9YCNkMrF0QDkoAe2xgzPe1YhMM0mm/JKTkfA4Q
+	 qB8Q1UIVxETQw9EDnJOUoXIvTFzgqtgZXE2DXl1ee+A3I1BZhP48j7/V01g4dLZrjG3ZE
+	 Z/uJliK4199MEeFIgRWHL2ub4sm+QevaEKmyG1G7TwPU6pWKIfBCRiiYc8ibgjv8z4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H24mHwhZ;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4F2606A319;
-	Tue, 20 Oct 2026 01:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4F2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E423606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E423606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=fUuUWP6n
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S9YYXD09Xfy/yPyYnoY8tKAhNXLL7/fV5XvLoz9+YRUuqhODqSv07Xr3V49DEI5fozqM+NOe620Lzrfo5GAJEhsOr3nqcJpbm8dw0hsqb675CPWRWuLHzWGCeU+NT4MoPnISDYo+3TcCjvSlcdb9/WYcWaF65t9kvLnLe5ZoF/6K/kIOcKOwnRcluV+Cb9qL1IEzT1PXe6fQNwN+CzAfwSelJTLqzuOK485VWho3fAmRBO9MYZaIq1XUgjG4mHXKYm6wYpenEXpGSLcBTi3HGSdbLnt7TOupUvYOOq48hsiTQF7d6pXauOXd3CWRj+4zlmkd9E7WVJ3GHZQ8Q7S+Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wWJgLl899/e4WLkbeKxoGIPcz8yvTnQ4udN5+v69aeo=;
- b=nENQU26EeqLaXkHfC7QlK5lDQD29doJ7C1sbLoCOUbkakAFkpUqFCeQzbHscGjc7Q0YSFRFY2yB/MVU+6VsHgb9pxqP9HJIG3/dJ80ZbyWkv1GBxenfyIx0mw7iSGWD9rpJPRZIbY5TECM7NoPVHh4OnafstGBF6UbnaiSKk3Uj5sgBKqqfLVweL5+vDtepiJWwLoMFliYfpCUyzBV8UJcnA8R465Jkxz0cJof1slUCLbezvln3aC9KqDNdEguMnMqTIFn3jC846JtDo0tb7hH4M3YAHduyKHe/N7x3VzOg9+HrT5eMcdFPK1nNfd55VA35RWpTk2GjybyQvqTQLMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWJgLl899/e4WLkbeKxoGIPcz8yvTnQ4udN5+v69aeo=;
- b=fUuUWP6nkxeo5SZuGtOD3j81XjqeHpYqymwZvDb5xvJpwnQWCQHKsdFePEd/kFNRZQemHlW7Cuun3b/e0mfzWb4sKBPR8OeDYDABwRedh/fZ4pX3TQ8DZz0QXvChixWiuIghKCp1Rie/e/afSaBYdHajZGEUudSiTzzeludF6zLEE5/NkbXlps1Uh/O+tkPRHtMpMkK/M81g26bLEjuUcHF9hPRwOqS8TVeyMtOCJ69j78zL/3qfXf+TikhPSS+fWd4rQXrut63NQm/zQToZjU/zDnK1fajw7h7zYMmlEb4JMS/25Hp4wNB2HQf/F5Z9pWDei4mH/M6uBu/v9LjWcg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by GV1PR04MB10396.eurprd04.prod.outlook.com (2603:10a6:150:1c5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 01:45:43 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 01:45:43 +0000
-Message-ID: <7e41bccb-4ab4-48a0-8cc8-26995c5ce2ba@nxp.com>
-Date: Tue, 20 Oct 2026 09:47:21 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] arm64: dts: imx8qxp: Add display controller
- subsystem
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux@ew.tq-group.com
-References: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
- <20261014071657.118378-3-alexander.stein@ew.tq-group.com>
- <atBLglf0gSLS7XkW@raspi> <7640235.DvuYhMxLoT@steina-w>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <7640235.DvuYhMxLoT@steina-w>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0074.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b3::8) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H24mHwhZ
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5826949eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:46:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460803; x=1793065603; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OfkrWGAPbD8i6ZVar1bqY3px5gJBe6GIbgle4FrRdTc=;
+        b=H24mHwhZQumKgormG9wkyTxg+9MDX4keUI8LERXqqRMQtoHEJEoMi1YfMlvkSiAbTf
+         vlTzAoORPDvAMWpGkzPL5+6TpL8AVwQd9zbXxzVHuKEhU1eMmwCASsdx9H5tK0XXDytY
+         OMMH9zIoFAPQ6ILMiBzwWB+mDSgRUmh0gj9gRdxM58+FUigWiX+mihqDNhIQh5/bihnt
+         N/zaKWx2jK9vlRXf6rpnAPqVgxIZsA7d2BqKfSsVgRH4L32JnRvoZqXdNlYDFjZS1wTa
+         7aeoHUof9WMaY36mKgRB1sohp7haq0tPgzT+0g7pfdTqhesG5Hiv+SxY6PZqoJirwfKx
+         oLFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460803; x=1793065603;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OfkrWGAPbD8i6ZVar1bqY3px5gJBe6GIbgle4FrRdTc=;
+        b=ZHpPAHYTGMgZm2Q8oDJ7mU4tAUhIDAPM8sV62QScjQvTouzUBCrpg9MtTXaqE6e96F
+         WWzzmAvugMLJSLvXUOBMSzQySyTl6ZwNG4w1Hfd/X5JoJEMOmKOi14w9Eg0zB4DnMVvY
+         DT8Ucnp6BJ1J1RZE07fLN1v+MU0IyUM+HPjzOccnQwNfP83YOR2fDi/sW5kjkR7G52cP
+         GBAr57iKBk/cfK3VtrrwjEJmvcsUCz3d+PQHan/56xxQbi5UIIvG+jzf/YTqYxP4M5fm
+         ZrLrZBpIV8KR6W8SgGZtvj3ukW0j4GnjHjYjNPbPvhVcLzhWq2h5o8D13hWc1mu6I0sR
+         Mt0Q==
+X-Forwarded-Encrypted: i=1; AKwUvByIkHA/HqyWaAx/CLHbCiyhxsW+QRlvjXw2Ye1DeANDegJ+tEoJqjmAJyYdD5JX4Mj+YIduqPYzY6idagQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcHxkqquHe2mG3kBkticDk/BvXaxjRrhkcDTMkYhmWAaP6kogx
+	AClRnav4c1NucX+KtdBTv0n8/7johd51mmRg4vUhHZsM98Q/29LHUBeI
+X-Gm-Gg: AYBFou0VBAbHnm+nQjYHRNRllUUs5eMAgxWgjcPmzCHOwIxtnOQrCJjnh6nO6YwtVaq
+	u9u+kvMMf5PEu5DLnXeBtWBXFNv2z2npV3QOAbadHfZx7KEp7ZF9RpTEIwisAUbqJO8fxNILp2M
+	6qQy7KBAYW5c3svmxPN1VH13scDfa8sn02qm5N1PKgl7RefuzrtKnhnV7lH6FmvuO5NelbuJXB9
+	aw4TAkrWkDnij9wrsXu1OWoJ7NYK7Bp+T1UrVvgEExjAnHJdWwQ6/FEIw3zp/pypV6yle5p1aNp
+	EYj6r2zDgQ6oYVE8z3PrMhMrPSi7lI7YKKQEqqenQgxi2NNpP5jOy30efM1fHphGK0PaQ4V3dgn
+	Fh5pe4RcVG49rGFRI1UphRRQ+W3vH0MIpd4r2IPX7e0p4I/JRcal9eSIXZ3l4tewuaCJ4Ga+vZn
+	q5Lp6rR/BOjJ6/bboy7E9cUPVigClXixE3ARRDaKWWSq+NaoPg+EhAdQVSOZyjwZ7RRL6bHJsB7
+	3qzob9/7JffjZDSQUYkTB5bvgO4zV7K+m1TnhaAeJxKuUfYIp1XRn+4Mh6RY97pCmsl6A==
+X-Received: by 2002:a05:693c:69d1:b0:33e:c164:b5d7 with SMTP id 5a478bee46e88-3619ed114f5mr12955350eec.3.1792460803152;
+        Mon, 19 Oct 2026 18:46:43 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819bc569sm34730436eec.11.2026.10.19.18.46.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:46:42 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:46:41 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH v3 07/11] watchdog: Add ARM TWD (MPCore private) watchdog
+ driver
+Message-ID: <004d4007-d049-4257-97e7-bf7f197ae3a8@roeck-us.net>
+References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
+ <20261013-b4-cs75xx-s2-v3-7-181bb0d23f4c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,345 +111,584 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|GV1PR04MB10396:EE_
-X-MS-Office365-Filtering-Correlation-Id: bba9818d-6c62-46ee-b0ad-08df2e4bda52
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|19092799006|23010399003|1800799024|261009223027099003|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	1kOwkLePh7lAJwEV61dk89xyti4jbnlHm0rwRPet4G5dTNv+VvgFbQ1ZCMCtGSKAld+j1yBQ0EdQhToLgrdxWkefDQHmTZVhKo3BSkIJ76imEaVVNbKg6dwjwgoil0nTWhsQKDrop8aBh0SOYoUsisv24bg3ELhX8kM6IltsaD+r9xxyYEPdbldTWSmheR1lKgnfVIinpMfJ+KhV5yuZhsbzVfYNuwIr4MaI8VfLkhHaWjesM/MEopQsnm/O9hn31rPh5jTh04HifyBnxrqa3m+N0nKHcnb8cdq1KReTYWerlBrocPTzTW2dDTC81ODDM3KVI5pygD1xETPDsqOR+lproQ24VRNfZoirpBdjR0Z8JFhNmIVaiVCgGEYiI0OrEdralSCj74n26+NcyRkFatEBXi782xj9R5OSOxRii7mCb5fO0qfu/APJTad3iHvcU2hMXiF072mJuShj9ywybPGr1veCqbbaDbtg2ED20BGAhGy/mhbsqDweh8qt8pP1eZcN0GIWLimwmgY5tVp4HeHU54t1m9/9yRGMW/LTCzVNLDe6o7LNRRZ6oGzOqlMHixEx7ip8toWMK9DCRvwGjLr9UMFrPFd33iwMUSPVzQZZX9Gbwca3KqU3AVomKxILGYruM17wZ2LwNRRqOcQhmS6KhMu0yeni7mGzqPALrfY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aDF0dTJYcFNjQWw5RGlHUDFDWklzS0ZDdWlFMFJsNVEwUFJDZHJoM2xVT2k2?=
- =?utf-8?B?NjNObnhwNHJFamZUckxuQ2VobXRBQzFlNmNZdjFCY3hNbU10N2Z5QXRSMHRL?=
- =?utf-8?B?Yk9jNVFNaEdsbGFsL3R3ZVEzU2w3dTFaa1lldnllcjA4MkhHT0xnakkzSkNy?=
- =?utf-8?B?eDhiMnkrZFpXVlBMZVNmVTV0SUo0VTU1QlVtem9wWS9ZV1pTY3ZnWlIrdlhp?=
- =?utf-8?B?S3F1QWtQSlBHZDBRZGoyQ2tPdnhyekdEK1hQejNYS2xPUzRmVnJ1WERzVDdH?=
- =?utf-8?B?bHlDdjZwbzQ1TUJML3hlZUFvSHJFVGo2dGIxTFZ1VkllbWkwaUF1b1RuNkJh?=
- =?utf-8?B?Z0hJVHNnSjIyemlPeWJOSnB3WDE1cXd2azF1QWhOYlZGRG5reFlqS3lCV0w4?=
- =?utf-8?B?eVp1akFBamRMWVFnMFE3S2UramkzZERMOXZIRnljM1ZFV25RUEZERXBHbU5Q?=
- =?utf-8?B?M1hLZEhKd2FGQXNaa0l2REZqRlFWRXBsTTJ3UW51Wk01VTNNWnhqMzJIYXQy?=
- =?utf-8?B?TWJHQnRlVGZrUU10eFk5WUJpK1ppVWFkTk9GL0hUZUhWQ3U2U1hzb3NldWRK?=
- =?utf-8?B?ZTIrUUFsWkprcVJjS3FpSzRWRGI5SEc1dkd5N0gyMFdUc00vMFNneTZZSTdF?=
- =?utf-8?B?dVR6YXNSenhscjRYVGl3d0ZrR0lYVHRQdXNNUGJCVVlDTE5hOGcwcHhDbEp0?=
- =?utf-8?B?T2QzMVRwY3BSSHRRUTVpWDlVZHluSGxDWER2My95NDArb1VqNzVmaFBuKzlI?=
- =?utf-8?B?SmRPM1R5NXdVSjhQVlpSOExaR3gyRGtSL1lVR0ZIKy84OWdIOHNXNkZoZGdi?=
- =?utf-8?B?b3B2b1MxQVR6b2IvaHhJYTZGQzFFSTVjMWhxVnlBeWhFNVVBRlh0c1NkdXVw?=
- =?utf-8?B?d2RBeVZKZ09vMThicmdRUlJLR2ZxNnhKeVdkNWJCNnZKV1BMdmVqazFsRGEw?=
- =?utf-8?B?QUsxY1RZRGh1SG5tS0I3OWxjNmVUSWVxK09ZY1NqZkpPZHdXZFVZNFZ2bjhZ?=
- =?utf-8?B?eENhRkZvTGVOV1hLVVE3QURaMzhwbTBsamh6T1VWUmNiYndKZi9TRGpQMnNo?=
- =?utf-8?B?bUFvMlNjaEJNRjBiTE9JaUExRHFIeEM3VGtXdjJHQ0pLbjBDTTlXbjl6NitY?=
- =?utf-8?B?NUJoMWppTVNqTjU0a1FZRlh2R0dRcTVvL2x3ZG1HUGdYZnRabnhPRXplWGJy?=
- =?utf-8?B?ZCsyMWY0SnN0WTc0bG5tSFFSYy90bTNCMGZaa3NXRjdySGo1Q3dVNVpkQTFW?=
- =?utf-8?B?T2JHT0RoSUZEaXp5TzBETUtxZ29QdEoyUDRIT0dBclNmM0VyQ2k0Vm1ZdGNB?=
- =?utf-8?B?Mk5xeTQxRWFnMHlocFpBM3JCS1FQWENNc0xjdlltd0FUQ2lpejRhQkpsa2JR?=
- =?utf-8?B?ZDRyc0ZyeFd1aW5ldSt2TGRBaldGYkNUN01abDdmR3hKNFpyU0VlNUFHNGVj?=
- =?utf-8?B?cGpQaEdTOWYvS3lJYWNRRkpaRkljZWJ3VkZSaWNUVkdBV1ZMdTV3ZXFhSS9W?=
- =?utf-8?B?MjJMRisybmoxcDErRnFhNzg3cGNMUFJCVVNralE5VHdpTWRwMlRYZURqcFVv?=
- =?utf-8?B?WkV5NDExRVFmUnhvbHF3QTh6bW5JRFJicVJpUnZhMklFeWxjMFVPa3ExY1Nr?=
- =?utf-8?B?TWd1d2F3L3lPd1NpOEJTT09BaWIybGM2OVpTR2Y1WjZCeHVPZnpmYkRQV09U?=
- =?utf-8?B?ZDlzRzVlczY1WmlLZ0FJbUFEbGhuZlViQ2gySkxzS3JaUGNhYUFxNFRuMEhY?=
- =?utf-8?B?Nlh4M1M4d1d4NkM2dUZQSTNWc0xDeExYS2twRC9hWjhXTWJnYnJhbVMyK0dx?=
- =?utf-8?B?cTdjbmd3aENaSUlvMm4xK0NFaGhpZ3pEVzBsbzh5VkllYy9qNUMzVmZYMXhI?=
- =?utf-8?B?bW5aWlVtdGNCamt4S0V2STB6VFh5bkdnYkRrK3JGM1gwU2ppSk8ydnJzQkgx?=
- =?utf-8?B?Lzd3RzhMb0NaTkFVazRlRURURkdOSFZueDk3SVp1QUE3Rit1SnUzbUVEMnVI?=
- =?utf-8?B?bUhidTA4N0o2dFlOdVlxZmhKRkpIRlBzZjZ4cTRjWFRKWkVER1ZoWWlIODZW?=
- =?utf-8?B?SEdOTXFHUnVSVGxOSjVQRjJUYWFnTWp3dklxN1ZYQ1puUVQ3alY0TzZIQytO?=
- =?utf-8?B?VTlrek5pRm51UDBlUFFzNUxEbmVwaWhDdlpJalZuWUlmbXo4RSs3QTBuVmFJ?=
- =?utf-8?B?VzY2VXpMUWF4Y2JvVndCeWd2Y3VKeEtYTm5nTUpIYk5UdnEva3l2NUpiMVV1?=
- =?utf-8?B?TjJXRkQycklkZHV2d2pKU3FKTVJhcTdsMEJNU0FjWnhXM3d2aGEzcFAwcll0?=
- =?utf-8?B?dTY2RVNRb2MrZHBiSG9FMVhySkZHVDJEYXMxalg1OHRLNko1Q2hhQT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bba9818d-6c62-46ee-b0ad-08df2e4bda52
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 01:45:43.0935
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qf3jM+U15g9p4lUBC01+kK4vjwefBBa7LvFA6CVx8QzPfnlPcxroRv7Q83jDMlLYA+Cs1h9KQw8nJCiKSYVZHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10396
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013-b4-cs75xx-s2-v3-7-181bb0d23f4c@gmail.com>
 
-On Fri, Oct 16, 2026 at 02:46:47PM +0200, Alexander Stein wrote:
-> Hi,
+Hi,
 
-Hi Alexander,
-
+On Tue, Oct 13, 2026 at 09:07:17AM +0300, Fil Dunsky wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
 > 
-> Am Donnerstag, 15. Oktober 2026, 05:41:54 MitteleuropÃ¤ische Sommerzeit schrieb Liu Ying:
->> Hi Alexander,
->>
->> On Wed, Oct 14, 2026 at 09:16:46AM +0200, Alexander Stein wrote:
->>
->> [...]
->>
->>> +	dc0: display-controller@56180000 {
->>> +		reg = <0x56180000 0x40000>;
->>> +		clocks = <&dc0_lpcg IMX_LPCG_CLK_4>;
->>> +		power-domains = <&pd IMX_SC_R_DC_0>;
->>> +		#address-cells = <1>;
->>> +		#size-cells = <1>;
->>> +		ranges;
->>> +		status = "disabled";
->>> +
->>> +		dc0_intc: interrupt-controller@56180040 {
->>> +			reg = <0x56180040 0x60>;
->>> +			clocks = <&dc0_lpcg IMX_LPCG_CLK_5>;
->>> +			interrupt-controller;
->>> +			interrupt-parent = <&dc0_irqsteer>;
->>> +			#interrupt-cells = <1>;
->>> +			interrupts = <448>, <449>, <450>,  <64>,
->>> +				      <65>,  <66>,  <67>,  <68>,
->>> +				      <69>,  <70>, <193>, <194>,
->>> +				     <195>, <196>, <197>,  <72>,
->>> +				      <73>,  <74>,  <75>,  <76>,
->>> +				      <77>,  <78>,  <79>,  <80>,
->>> +				      <81>, <199>, <200>, <201>,
->>> +				     <202>, <203>, <204>, <205>,
->>> +				     <206>, <207>, <208>,   <5>,
->>> +				       <0>,   <1>,   <2>,   <3>,
->>> +				       <4>,  <82>,  <83>,  <84>,
->>> +				      <85>, <209>, <210>, <211>,
->>> +				     <212>;
->>> +			interrupt-names = "store9_shdload",
->>> +					  "store9_framecomplete",
->>> +					  "store9_seqcomplete",
->>> +					  "extdst0_shdload",
->>> +					  "extdst0_framecomplete",
->>> +					  "extdst0_seqcomplete",
->>> +					  "extdst4_shdload",
->>> +					  "extdst4_framecomplete",
->>> +					  "extdst4_seqcomplete",
->>> +					  "extdst1_shdload",
->>> +					  "extdst1_framecomplete",
->>> +					  "extdst1_seqcomplete",
->>> +					  "extdst5_shdload",
->>> +					  "extdst5_framecomplete",
->>> +					  "extdst5_seqcomplete",
->>> +					  "disengcfg_shdload0",
->>> +					  "disengcfg_framecomplete0",
->>> +					  "disengcfg_seqcomplete0",
->>> +					  "framegen0_int0",
->>> +					  "framegen0_int1",
->>> +					  "framegen0_int2",
->>> +					  "framegen0_int3",
->>> +					  "sig0_shdload",
->>> +					  "sig0_valid",
->>> +					  "sig0_error",
->>> +					  "disengcfg_shdload1",
->>> +					  "disengcfg_framecomplete1",
->>> +					  "disengcfg_seqcomplete1",
->>> +					  "framegen1_int0",
->>> +					  "framegen1_int1",
->>> +					  "framegen1_int2",
->>> +					  "framegen1_int3",
->>> +					  "sig1_shdload",
->>> +					  "sig1_valid",
->>> +					  "sig1_error",
->>> +					  "reserved",
->>> +					  "cmdseq_error",
->>> +					  "comctrl_sw0",
->>> +					  "comctrl_sw1",
->>> +					  "comctrl_sw2",
->>> +					  "comctrl_sw3",
->>> +					  "framegen0_primsync_on",
->>> +					  "framegen0_primsync_off",
->>> +					  "framegen0_secsync_on",
->>> +					  "framegen0_secsync_off",
->>> +					  "framegen1_primsync_on",
->>> +					  "framegen1_primsync_off",
->>> +					  "framegen1_secsync_on",
->>> +					  "framegen1_secsync_off";
->>> +		};
->>> +
->>> +		dc0_pixel_engine: pixel-engine@56180800 {
->>> +			reg = <0x56180800 0xac00>;
->>> +			clocks = <&dc0_lpcg IMX_LPCG_CLK_5>;
->>> +			#address-cells = <1>;
->>> +			#size-cells = <1>;
->>> +			ranges;
->>> +
->>> +			dc0_constframe0: constframe@56180960 {
->>> +				reg = <0x56180960 0xc>, <0x56184400 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_extdst0: extdst@56180980 {
->>> +				reg = <0x56180980 0x1c>, <0x56184800 0x28>;
->>> +				reg-names = "pec", "cfg";
->>> +				interrupt-parent = <&dc0_intc>;
->>> +				interrupts = <3>, <4>, <5>;
->>> +				interrupt-names = "shdload", "framecomplete", "seqcomplete";
->>> +			};
->>> +
->>> +			dc0_constframe4: constframe@561809a0 {
->>> +				reg = <0x561809a0 0xc>, <0x56184c00 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_extdst4: extdst@561809c0 {
->>> +				reg = <0x561809c0 0x1c>, <0x56185000 0x28>;
->>> +				reg-names = "pec", "cfg";
->>> +				interrupt-parent = <&dc0_intc>;
->>> +				interrupts = <6>, <7>, <8>;
->>> +				interrupt-names = "shdload", "framecomplete", "seqcomplete";
->>> +			};
->>> +
->>> +			dc0_constframe1: constframe@561809e0 {
->>> +				reg = <0x561809e0 0xc>, <0x56185400 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_extdst1: extdst@56180a00 {
->>> +				reg = <0x56180a00 0x1c>, <0x56185800 0x28>;
->>> +				reg-names = "pec", "cfg";
->>> +				interrupt-parent = <&dc0_intc>;
->>> +				interrupts = <9>, <10>, <11>;
->>> +				interrupt-names = "shdload", "framecomplete", "seqcomplete";
->>> +			};
->>> +
->>> +			dc0_constframe5: constframe@56180a20 {
->>> +				reg = <0x56180a20 0xc>, <0x56185c00 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_extdst5: extdst@56180a40 {
->>> +				reg = <0x56180a40 0x1c>, <0x56186000 0x28>;
->>> +				reg-names = "pec", "cfg";
->>> +				interrupt-parent = <&dc0_intc>;
->>> +				interrupts = <12>, <13>, <14>;
->>> +				interrupt-names = "shdload", "framecomplete", "seqcomplete";
->>> +			};
->>> +
->>> +			dc0_fetchwarp2: fetchwarp@56180a60 {
->>> +				reg = <0x56180a60 0x10>, <0x56186400 0x190>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_fetchlayer0: fetchlayer@56180ac0 {
->>> +				reg = <0x56180ac0 0xc>, <0x56188400 0x404>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_layerblend0: layerblend@56180ba0 {
->>> +				reg = <0x56180ba0 0x10>, <0x5618a400 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_layerblend1: layerblend@56180bc0 {
->>> +				reg = <0x56180bc0 0x10>, <0x5618a800 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_layerblend2: layerblend@56180be0 {
->>> +				reg = <0x56180be0 0x10>, <0x5618ac00 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +
->>> +			dc0_layerblend3: layerblend@56180c00 {
->>> +				reg = <0x56180c00 0x10>, <0x5618b000 0x20>;
->>> +				reg-names = "pec", "cfg";
->>> +			};
->>> +		};
->>> +
->>> +		dc0_display_engine0: display-engine@5618b400 {
->>> +			reg = <0x5618b400 0x14>, <0x5618b800 0x1c00>;
->>> +			reg-names = "top", "cfg";
->>> +			interrupt-parent = <&dc0_intc>;
->>> +			interrupts = <15>, <16>, <17>;
->>> +			interrupt-names = "shdload", "framecomplete", "seqcomplete";
->>> +			power-domains = <&pd IMX_SC_R_DC_0_PLL_0>;
->>> +			#address-cells = <1>;
->>> +			#size-cells = <1>;
->>> +			ranges;
->>> +
->>> +			dc0_framegen0: framegen@5618b800 {
->>> +				reg = <0x5618b800 0x98>;
->>> +				clocks = <&dc0_disp_lpcg IMX_LPCG_CLK_0>;
->>> +				interrupt-parent = <&dc0_intc>;
->>> +				interrupts = <18>, <19>, <20>, <21>,
->>> +					     <41>, <42>, <43>, <44>;
->>> +				interrupt-names = "int0", "int1", "int2", "int3",
->>> +						  "primsync_on", "primsync_off",
->>> +						  "secsync_on", "secsync_off";
->>> +			};
->>> +
->>> +			dc0_tcon0: tcon@5618c800 {
->>> +				reg = <0x5618c800 0x588>;
->>> +
->>> +				port {
->>> +					dc0_disp0_dc0_pixel_combiner_ch0: endpoint {
->>> +						remote-endpoint = <&dc0_pixel_combiner_ch0_dc0_disp0>;
->>> +					};
->>> +				};
->>> +			};
->>> +		};
->>> +
->>> +		dc0_display_engine1: display-engine@5618b420 {
->>> +			reg = <0x5618b420 0x14>, <0x5618d400 0x1c00>;
->>> +			reg-names = "top", "cfg";
->>> +			interrupt-parent = <&dc0_intc>;
->>> +			interrupts = <25>, <26>, <27>;
->>> +			interrupt-names = "shdload", "framecomplete", "seqcomplete";
->>> +			power-domains = <&pd IMX_SC_R_DC_0_PLL_1>;
->>> +			#address-cells = <1>;
->>> +			#size-cells = <1>;
->>> +			ranges;
->>> +
->>> +			dc0_framegen1: framegen@5618d400 {
->>> +				reg = <0x5618d400 0x98>;
->>> +				clocks = <&dc0_disp_lpcg IMX_LPCG_CLK_1>;
->>> +				interrupt-parent = <&dc0_intc>;
->>> +				interrupts = <28>, <29>, <30>, <31>,
->>> +					     <45>, <46>, <47>, <48>;
->>> +				interrupt-names = "int0", "int1", "int2", "int3",
->>> +						  "primsync_on", "primsync_off",
->>> +						  "secsync_on", "secsync_off";
->>> +			};
->>> +
->>> +			dc0_tcon1: tcon@5618e400 {
->>> +				reg = <0x5618e400 0x588>;
->>> +
->>> +				port {
->>> +					dc0_disp1_dc0_pixel_combiner_ch1: endpoint {
->>> +						remote-endpoint = <&dc0_pixel_combiner_ch1_dc0_disp1>;
->>> +					};
->>> +				};
->>> +			};
->>> +		};
->>> +	};
->>
->> I'm thinking that it would be good to have a complete display controller
->> DT node in the first place, including those prefetch engines attached to
->> fetchunits through the fsl,prg property.  In this way, display controller
->> driver's life would be easier - all child/grandchild devices are always
->> available.  I'm considering to adding a check to the Linux display controller
->> driver to ensure the availability(at least for critical child/grandchild
->> devices).
+> ARM11 MPCore, Cortex-A5 and Cortex-A9 MPCore systems have a watchdog
+> next to the local timer of every CPU, banked at the same address. The
+> binding "arm,cortex-a9-twd-wdt" exists, but there has been no driver
+> since mpcore_wdt was removed in v3.11, among other reasons because it
+> only ever programmed the CPU that ran the ioctl.
 > 
-> Well, this sounds reasonable, but this is beyond my knowledge about the
-> internals of the display controller.
-> FWIW it works (at least in my case), any additional DT node could be added
-> later on.
-
-If someone says that new kernel must support old device tree, then the display
-driver's life would be not be easy.
-
-> If there is something to test/review feel free to send it onto the
-> list. Please keep me on CC.
-
-I can try to CC you, but in case I forget to do so, the proper way for you
-is to get any patch in question by yourself - lei + mutt is a typical solution.
-
+> Program, ping and stop the watchdogs of all online CPUs together with
+> on_each_cpu(), and use a CPU hotplug state to arm the watchdog of a CPU
+> coming online while the device is active and to stop it on a CPU going
+> offline, which could not ping it any more. The watchdog is used in reset
+> mode only, its interrupt is not needed.
 > 
-> Thanks and best regards
-> Alexander
+> Bootloaders such as the one of the Securifi Almond+ start the watchdog
+> before booting the kernel. A watchdog found running on any CPU is marked
+> WDOG_HW_RUNNING and taken over with the driver's timeout without being
+> stopped, unless it runs with a different prescaler: the prescaler cannot
+> be changed in watchdog mode. Once the watchdog mode is set it can only
+> be left through the disable register sequence, which is what stop does.
+> 
+> The watchdog is also registered as a restart handler: the CPU that
+> restarts the system, the only one left running, lets its own watchdog
+> expire right away.
+> 
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
--- 
-Regards,
-Liu Ying
+The issues raised by Sashiko will need to be addressed, or you'll need
+to explain why they are non-issues.
+
+Thanks,
+Guenter
+
+> ---
+>  MAINTAINERS                    |   6 +
+>  drivers/watchdog/Kconfig       |  15 ++
+>  drivers/watchdog/Makefile      |   1 +
+>  drivers/watchdog/arm_twd_wdt.c | 472 +++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 494 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 176046436..53f6fa1c5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2508,6 +2508,12 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git
+>  F:	arch/arm/mach-*/
+>  F:	arch/arm/plat-*/
+>  
+> +ARM TWD WATCHDOG DRIVER
+> +M:	Fil Dunsky <filipp.dunsky@gmail.com>
+> +L:	linux-watchdog@vger.kernel.org
+> +S:	Maintained
+> +F:	drivers/watchdog/arm_twd_wdt.c
+> +
+>  ARM/ACTIONS SEMI ARCHITECTURE
+>  M:	Andreas Färber <afaerber@suse.de>
+>  M:	Manivannan Sadhasivam <mani@kernel.org>
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index f7d0a0c2c..907e861ec 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -465,6 +465,21 @@ config ARM_SP805_WATCHDOG
+>  	  ARM Primecell SP805 Watchdog timer. This will reboot your system when
+>  	  the timeout is reached.
+>  
+> +config ARM_TWD_WATCHDOG
+> +	tristate "ARM TWD (MPCore private) Watchdog"
+> +	depends on HAVE_ARM_TWD || COMPILE_TEST
+> +	depends on HAS_IOMEM
+> +	select WATCHDOG_CORE
+> +	help
+> +	  Say Y here to include support for the private watchdog found next
+> +	  to the local (TWD) timer of every CPU in ARM11 MPCore, Cortex-A5
+> +	  and Cortex-A9 MPCore systems. The watchdogs of all online CPUs are
+> +	  driven together. A watchdog left running by the bootloader is
+> +	  taken over.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called arm_twd_wdt.
+> +
+>  config ARM_SBSA_WATCHDOG
+>  	tristate "ARM SBSA Generic Watchdog"
+>  	depends on ARM64
+> diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
+> index 9ac406677..4ff0bced5 100644
+> --- a/drivers/watchdog/Makefile
+> +++ b/drivers/watchdog/Makefile
+> @@ -40,6 +40,7 @@ obj-$(CONFIG_USBPCWATCHDOG) += pcwd_usb.o
+>  # ARM Architecture
+>  obj-$(CONFIG_ARM_SP805_WATCHDOG) += sp805_wdt.o
+>  obj-$(CONFIG_ARM_SBSA_WATCHDOG) += sbsa_gwdt.o
+> +obj-$(CONFIG_ARM_TWD_WATCHDOG) += arm_twd_wdt.o
+>  obj-$(CONFIG_ARMADA_37XX_WATCHDOG) += armada_37xx_wdt.o
+>  obj-$(CONFIG_AIROHA_WATCHDOG) += airoha_wdt.o
+>  obj-$(CONFIG_ASM9260_WATCHDOG) += asm9260_wdt.o
+> diff --git a/drivers/watchdog/arm_twd_wdt.c b/drivers/watchdog/arm_twd_wdt.c
+> new file mode 100644
+> index 000000000..18875ae24
+> --- /dev/null
+> +++ b/drivers/watchdog/arm_twd_wdt.c
+> @@ -0,0 +1,472 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Watchdog driver for the ARM Cortex-A9/A5 and ARM11 MPCore private
+> + * (TWD) watchdog
+> + *
+> + * Every CPU has its own watchdog, banked at the same address, and any of
+> + * them resets the system when it expires. The watchdog device therefore
+> + * programs, pings and stops the watchdog of every online CPU, and a CPU
+> + * that is brought online or taken offline has its watchdog set up or
+> + * stopped on the way. Once the watchdog mode bit is set it can only be
+> + * cleared by writing the disable sequence to the disable register.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/cpu.h>
+> +#include <linux/cpuhotplug.h>
+> +#include <linux/cpumask.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/math64.h>
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm.h>
+> +#include <linux/smp.h>
+> +#include <linux/watchdog.h>
+> +
+> +#define TWD_WDT_LOAD		0x00
+> +#define TWD_WDT_COUNTER		0x04
+> +#define TWD_WDT_CONTROL		0x08
+> +#define TWD_WDT_RESET_STATUS	0x10
+> +#define TWD_WDT_DISABLE		0x14
+> +
+> +#define TWD_WDT_CTRL_ENABLE	BIT(0)
+> +#define TWD_WDT_CTRL_WD_MODE	BIT(3)
+> +#define TWD_WDT_CTRL_PRESCALER	GENMASK(15, 8)
+> +
+> +#define TWD_WDT_RESET_FLAG	BIT(0)
+> +
+> +#define TWD_WDT_DISABLE_KEY1	0x12345678
+> +#define TWD_WDT_DISABLE_KEY2	0x87654321
+> +
+> +/* Largest prescaler, the counter clock is the input clock divided by 256 */
+> +#define TWD_WDT_PRESCALE	255
+> +#define TWD_WDT_DEFAULT_TIMEOUT	30
+> +
+> +static bool nowayout = WATCHDOG_NOWAYOUT;
+> +module_param(nowayout, bool, 0);
+> +MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+> +		 __MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
+> +
+> +static unsigned int timeout;
+> +module_param(timeout, uint, 0);
+> +MODULE_PARM_DESC(timeout, "Watchdog timeout in seconds");
+> +
+> +static enum cpuhp_state twd_wdt_hp_state;
+> +
+> +struct twd_wdt {
+> +	struct watchdog_device wdd;
+> +	struct hlist_node node;
+> +	void __iomem *base;
+> +	struct notifier_block clk_nb;
+> +	/* Changed under cpus_read_lock() once the hotplug instance exists */
+> +	unsigned long rate;
+> +	bool armed;
+> +	bool resume_armed;
+> +	cpumask_t running;
+> +	cpumask_t reset;
+> +	u32 counter_min;
+> +};
+> +
+> +static u32 twd_wdt_ticks(struct twd_wdt *wdt, unsigned int secs)
+> +{
+> +	u64 ticks = div_u64((u64)wdt->rate * secs, TWD_WDT_PRESCALE + 1);
+> +
+> +	return min_t(u64, ticks, U32_MAX);
+> +}
+> +
+> +/* The following run on the CPU whose watchdog they access */
+> +static void twd_wdt_cpu_stop(void *data)
+> +{
+> +	struct twd_wdt *wdt = data;
+> +
+> +	writel(TWD_WDT_DISABLE_KEY1, wdt->base + TWD_WDT_DISABLE);
+> +	writel(TWD_WDT_DISABLE_KEY2, wdt->base + TWD_WDT_DISABLE);
+> +	writel(0, wdt->base + TWD_WDT_CONTROL);
+> +}
+> +
+> +static void twd_wdt_cpu_start(void *data)
+> +{
+> +	struct twd_wdt *wdt = data;
+> +	u32 ctrl = readl(wdt->base + TWD_WDT_CONTROL);
+> +
+> +	/*
+> +	 * In watchdog mode the prescaler cannot be changed, so a watchdog
+> +	 * started by the bootloader with a different one is stopped first.
+> +	 */
+> +	if ((ctrl & TWD_WDT_CTRL_WD_MODE) &&
+> +	    FIELD_GET(TWD_WDT_CTRL_PRESCALER, ctrl) != TWD_WDT_PRESCALE)
+> +		twd_wdt_cpu_stop(wdt);
+> +
+> +	/*
+> +	 * Load the counter before enabling, it may still be zero. A watchdog
+> +	 * that is already running is reloaded and keeps running, the mode bit
+> +	 * cannot be cleared by writing the control register.
+> +	 */
+> +	writel(twd_wdt_ticks(wdt, wdt->wdd.timeout), wdt->base + TWD_WDT_LOAD);
+> +	writel(FIELD_PREP(TWD_WDT_CTRL_PRESCALER, TWD_WDT_PRESCALE) |
+> +	       TWD_WDT_CTRL_WD_MODE | TWD_WDT_CTRL_ENABLE,
+> +	       wdt->base + TWD_WDT_CONTROL);
+> +}
+> +
+> +static void twd_wdt_cpu_ping(void *data)
+> +{
+> +	struct twd_wdt *wdt = data;
+> +
+> +	/* In watchdog mode a write to the load register reloads the counter */
+> +	writel(twd_wdt_ticks(wdt, wdt->wdd.timeout), wdt->base + TWD_WDT_LOAD);
+> +}
+> +
+> +static void twd_wdt_cpu_counter(void *data)
+> +{
+> +	struct twd_wdt *wdt = data;
+> +	u32 val = readl(wdt->base + TWD_WDT_COUNTER);
+> +	u32 old = READ_ONCE(wdt->counter_min);
+> +
+> +	/* Called on all CPUs at once, keep the smallest value */
+> +	while (val < old) {
+> +		u32 prev = cmpxchg(&wdt->counter_min, old, val);
+> +
+> +		if (prev == old)
+> +			break;
+> +		old = prev;
+> +	}
+> +}
+> +
+> +static void twd_wdt_cpu_probe(void *data)
+> +{
+> +	struct twd_wdt *wdt = data;
+> +	unsigned int cpu = smp_processor_id();
+> +	u32 ctrl = readl(wdt->base + TWD_WDT_CONTROL);
+> +
+> +	if ((ctrl & (TWD_WDT_CTRL_WD_MODE | TWD_WDT_CTRL_ENABLE)) ==
+> +	    (TWD_WDT_CTRL_WD_MODE | TWD_WDT_CTRL_ENABLE))
+> +		cpumask_set_cpu(cpu, &wdt->running);
+> +
+> +	if (readl(wdt->base + TWD_WDT_RESET_STATUS) & TWD_WDT_RESET_FLAG) {
+> +		cpumask_set_cpu(cpu, &wdt->reset);
+> +		/* The flag is cleared by writing one */
+> +		writel(TWD_WDT_RESET_FLAG, wdt->base + TWD_WDT_RESET_STATUS);
+> +	}
+> +}
+> +
+> +static void twd_wdt_on_each_cpu(struct twd_wdt *wdt, smp_call_func_t func)
+> +{
+> +	cpus_read_lock();
+> +	on_each_cpu(func, wdt, 1);
+> +	cpus_read_unlock();
+> +}
+> +
+> +static int twd_wdt_start(struct watchdog_device *wdd)
+> +{
+> +	struct twd_wdt *wdt = watchdog_get_drvdata(wdd);
+> +
+> +	cpus_read_lock();
+> +	on_each_cpu(twd_wdt_cpu_start, wdt, 1);
+> +	wdt->armed = true;
+> +	cpus_read_unlock();
+> +
+> +	return 0;
+> +}
+> +
+> +static int twd_wdt_stop(struct watchdog_device *wdd)
+> +{
+> +	struct twd_wdt *wdt = watchdog_get_drvdata(wdd);
+> +
+> +	cpus_read_lock();
+> +	wdt->armed = false;
+> +	on_each_cpu(twd_wdt_cpu_stop, wdt, 1);
+> +	cpus_read_unlock();
+> +
+> +	return 0;
+> +}
+> +
+> +static int twd_wdt_ping(struct watchdog_device *wdd)
+> +{
+> +	twd_wdt_on_each_cpu(watchdog_get_drvdata(wdd), twd_wdt_cpu_ping);
+> +
+> +	return 0;
+> +}
+> +
+> +static int twd_wdt_set_timeout(struct watchdog_device *wdd, unsigned int t)
+> +{
+> +	wdd->timeout = t;
+> +	if (watchdog_active(wdd) || watchdog_hw_running(wdd))
+> +		twd_wdt_ping(wdd);
+> +
+> +	return 0;
+> +}
+> +
+> +static unsigned int twd_wdt_get_timeleft(struct watchdog_device *wdd)
+> +{
+> +	struct twd_wdt *wdt = watchdog_get_drvdata(wdd);
+> +	u64 ticks;
+> +
+> +	cpus_read_lock();
+> +	wdt->counter_min = U32_MAX;
+> +	on_each_cpu(twd_wdt_cpu_counter, wdt, 1);
+> +	ticks = (u64)wdt->counter_min * (TWD_WDT_PRESCALE + 1);
+> +	cpus_read_unlock();
+> +
+> +	return div_u64(ticks, wdt->rate);
+> +}
+> +
+> +/*
+> + * The TWD runs from the peripheral clock, which follows the CPU clock. While
+> + * the rate goes up, count with the new rate already: the watchdog then just
+> + * fires later than asked until the change is done.
+> + */
+> +static int twd_wdt_clk_notify(struct notifier_block *nb, unsigned long event,
+> +			      void *data)
+> +{
+> +	struct twd_wdt *wdt = container_of(nb, struct twd_wdt, clk_nb);
+> +	struct clk_notifier_data *cnd = data;
+> +	unsigned long rate;
+> +
+> +	switch (event) {
+> +	case PRE_RATE_CHANGE:
+> +		if (cnd->new_rate <= cnd->old_rate)
+> +			return NOTIFY_OK;
+> +		rate = cnd->new_rate;
+> +		break;
+> +	case POST_RATE_CHANGE:
+> +		rate = cnd->new_rate;
+> +		break;
+> +	case ABORT_RATE_CHANGE:
+> +		rate = cnd->old_rate;
+> +		break;
+> +	default:
+> +		return NOTIFY_DONE;
+> +	}
+> +
+> +	if (!rate)
+> +		return NOTIFY_OK;
+> +
+> +	cpus_read_lock();
+> +	wdt->rate = rate;
+> +	if (wdt->armed)
+> +		on_each_cpu(twd_wdt_cpu_ping, wdt, 1);
+> +	cpus_read_unlock();
+> +
+> +	return NOTIFY_OK;
+> +}
+> +
+> +static int twd_wdt_restart(struct watchdog_device *wdd, unsigned long action,
+> +			   void *data)
+> +{
+> +	struct twd_wdt *wdt = watchdog_get_drvdata(wdd);
+> +
+> +	/* Only this CPU is still running, let its watchdog expire right away */
+> +	writel(1, wdt->base + TWD_WDT_LOAD);
+> +	writel(TWD_WDT_CTRL_WD_MODE | TWD_WDT_CTRL_ENABLE,
+> +	       wdt->base + TWD_WDT_CONTROL);
+> +	mdelay(500);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct watchdog_ops twd_wdt_ops = {
+> +	.owner		= THIS_MODULE,
+> +	.start		= twd_wdt_start,
+> +	.stop		= twd_wdt_stop,
+> +	.ping		= twd_wdt_ping,
+> +	.set_timeout	= twd_wdt_set_timeout,
+> +	.get_timeleft	= twd_wdt_get_timeleft,
+> +	.restart	= twd_wdt_restart,
+> +};
+> +
+> +static const struct watchdog_info twd_wdt_info = {
+> +	.options	= WDIOF_SETTIMEOUT | WDIOF_KEEPALIVEPING |
+> +			  WDIOF_MAGICCLOSE | WDIOF_CARDRESET,
+> +	.identity	= "ARM TWD watchdog",
+> +};
+> +
+> +static int twd_wdt_cpu_online(unsigned int cpu, struct hlist_node *node)
+> +{
+> +	struct twd_wdt *wdt = hlist_entry(node, struct twd_wdt, node);
+> +
+> +	/*
+> +	 * Also called for every online CPU at probe time. A watchdog that is
+> +	 * running while the device is not active would not be pinged.
+> +	 */
+> +	if (wdt->armed)
+> +		twd_wdt_cpu_start(wdt);
+> +	else
+> +		twd_wdt_cpu_stop(wdt);
+> +
+> +	return 0;
+> +}
+> +
+> +static int twd_wdt_cpu_offline(unsigned int cpu, struct hlist_node *node)
+> +{
+> +	struct twd_wdt *wdt = hlist_entry(node, struct twd_wdt, node);
+> +
+> +	/* Nobody pings the watchdog of an offline CPU */
+> +	twd_wdt_cpu_stop(wdt);
+> +
+> +	return 0;
+> +}
+> +
+> +static void twd_wdt_remove_instance(void *data)
+> +{
+> +	struct twd_wdt *wdt = data;
+> +
+> +	cpuhp_state_remove_instance_nocalls(twd_wdt_hp_state, &wdt->node);
+> +}
+> +
+> +static int twd_wdt_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct twd_wdt *wdt;
+> +	struct clk *clk;
+> +	int ret;
+> +
+> +	wdt = devm_kzalloc(dev, sizeof(*wdt), GFP_KERNEL);
+> +	if (!wdt)
+> +		return -ENOMEM;
+> +
+> +	wdt->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(wdt->base))
+> +		return PTR_ERR(wdt->base);
+> +
+> +	clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
+> +
+> +	wdt->rate = clk_get_rate(clk);
+> +	if (!wdt->rate)
+> +		return dev_err_probe(dev, -EINVAL, "clock rate is zero\n");
+> +
+> +	wdt->clk_nb.notifier_call = twd_wdt_clk_notify;
+> +	ret = devm_clk_notifier_register(dev, clk, &wdt->clk_nb);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register clock notifier\n");
+> +	platform_set_drvdata(pdev, wdt);
+> +
+> +	wdt->wdd.info = &twd_wdt_info;
+> +	wdt->wdd.ops = &twd_wdt_ops;
+> +	wdt->wdd.parent = dev;
+> +	wdt->wdd.min_timeout = 1;
+> +	wdt->wdd.max_timeout = div_u64((u64)U32_MAX * (TWD_WDT_PRESCALE + 1),
+> +				       wdt->rate);
+> +	wdt->wdd.timeout = min_t(unsigned int, TWD_WDT_DEFAULT_TIMEOUT,
+> +				 wdt->wdd.max_timeout);
+> +	watchdog_init_timeout(&wdt->wdd, timeout, dev);
+> +	watchdog_set_nowayout(&wdt->wdd, nowayout);
+> +	watchdog_set_restart_priority(&wdt->wdd, 128);
+> +	watchdog_stop_on_reboot(&wdt->wdd);
+> +	watchdog_stop_on_unregister(&wdt->wdd);
+> +	watchdog_set_drvdata(&wdt->wdd, wdt);
+> +
+> +	twd_wdt_on_each_cpu(wdt, twd_wdt_cpu_probe);
+> +	if (!cpumask_empty(&wdt->running)) {
+> +		/*
+> +		 * Left running by the bootloader: the online callback takes it
+> +		 * over with our settings on every CPU without stopping it.
+> +		 */
+> +		wdt->armed = true;
+> +		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
+> +	}
+> +
+> +	ret = cpuhp_state_add_instance(twd_wdt_hp_state, &wdt->node);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(dev, twd_wdt_remove_instance, wdt);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!cpumask_empty(&wdt->reset)) {
+> +		wdt->wdd.bootstatus = WDIOF_CARDRESET;
+> +		dev_info(dev, "last reset caused by the watchdog of CPU%*pbl\n",
+> +			 cpumask_pr_args(&wdt->reset));
+> +	}
+> +
+> +	if (watchdog_hw_running(&wdt->wdd))
+> +		dev_info(dev, "running on CPU%*pbl, taking over\n",
+> +			 cpumask_pr_args(&wdt->running));
+> +
+> +	ret = devm_watchdog_register_device(dev, &wdt->wdd);
+> +	if (ret)
+> +		return ret;
+> +
+> +	dev_info(dev, "timeout %u s (max %u s), clock %lu Hz\n",
+> +		 wdt->wdd.timeout, wdt->wdd.max_timeout, wdt->rate);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id twd_wdt_of_match[] = {
+> +	{ .compatible = "arm,arm11mp-twd-wdt" },
+> +	{ .compatible = "arm,cortex-a5-twd-wdt" },
+> +	{ .compatible = "arm,cortex-a9-twd-wdt" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, twd_wdt_of_match);
+> +
+> +/*
+> + * The watchdogs lose their state in suspend. The secondary CPUs get theirs
+> + * back through the hotplug state, the boot CPU through resume.
+> + */
+> +static int twd_wdt_suspend(struct device *dev)
+> +{
+> +	struct twd_wdt *wdt = dev_get_drvdata(dev);
+> +
+> +	wdt->resume_armed = wdt->armed;
+> +	if (wdt->resume_armed)
+> +		twd_wdt_stop(&wdt->wdd);
+> +
+> +	return 0;
+> +}
+> +
+> +static int twd_wdt_resume(struct device *dev)
+> +{
+> +	struct twd_wdt *wdt = dev_get_drvdata(dev);
+> +
+> +	if (wdt->resume_armed)
+> +		twd_wdt_start(&wdt->wdd);
+> +
+> +	return 0;
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(twd_wdt_pm_ops, twd_wdt_suspend, twd_wdt_resume);
+> +
+> +static struct platform_driver twd_wdt_driver = {
+> +	.probe = twd_wdt_probe,
+> +	.driver = {
+> +		.name = "arm-twd-wdt",
+> +		.of_match_table = twd_wdt_of_match,
+> +		.pm = pm_sleep_ptr(&twd_wdt_pm_ops),
+> +	},
+> +};
+> +
+> +static int __init twd_wdt_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = cpuhp_setup_state_multi(CPUHP_AP_ONLINE_DYN, "watchdog/arm_twd:online",
+> +				      twd_wdt_cpu_online, twd_wdt_cpu_offline);
+> +	if (ret < 0)
+> +		return ret;
+> +	twd_wdt_hp_state = ret;
+> +
+> +	ret = platform_driver_register(&twd_wdt_driver);
+> +	if (ret)
+> +		cpuhp_remove_multi_state(twd_wdt_hp_state);
+> +
+> +	return ret;
+> +}
+> +module_init(twd_wdt_init);
+> +
+> +static void __exit twd_wdt_exit(void)
+> +{
+> +	platform_driver_unregister(&twd_wdt_driver);
+> +	cpuhp_remove_multi_state(twd_wdt_hp_state);
+> +}
+> +module_exit(twd_wdt_exit);
+> +
+> +MODULE_DESCRIPTION("ARM TWD (MPCore private) watchdog driver");
+> +MODULE_LICENSE("GPL");
