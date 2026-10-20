@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792457003;
-	b=aIsuVGIo5uTHYWKQkLzicepKE/A4pBfo3sgsgKByiT/H4tWiuUJRpsqjqZ2B1GHopVuY
-	 v90rY6EqLx88C1NmGoSmNqux0hcbf7iAL1oDRzWgbKTzo6OpoV7J63Fme65pK/CpqzddW
-	 o2QZAaTBCEVrLfMVQzjjs2zI72PPib/SVtGhoh7Om9uWxUt/3iOcYjT20hBZlcEh8DGje
-	 5rjx1dltWw9vo65o4wViNX+VgRU5QP0VR2rTZWCBsoqBIwvdn1pvdbqoehaejGADHM+BU
-	 NjR3KVOaHoGYbR8/eModwkwhLinhX7zrAyc1co+G5HSEAXMx4thFF19E8/rj3zkDKHQ==
+	t=1792457091;
+	b=XDQlg1QsPF7ckWmAN1JtpY2WlR3K7u/eTknxlSj1OMZ1ssEpdcua5XPo0AsnrXhHNj4h
+	 PJEBwH3uBjJcMrrsd07HBrpRvHJuT4aIeGBTTgjW6A7WM4QkGFtDNUHwTMtoZ63dbFkSZ
+	 +jVH3bbPyPwEJ016iG0L1KbhsMFMc9QzIyp2HUbkocb2PZud/2uSjNPT8OQF+7uqhaxYB
+	 k7WboNhDQVcZOiBhU7dS4/WNtvhIO/rq010LZrLCOKwADGDou9x247CfzGAFihLFnMlrF
+	 X3HMdPnA1Ls33K7KFMmAz8qA0e0Am2F85WxWwFRBQK1XmeplKEcoCjgeaIWTyatsGMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792457003;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=f4ZdPaHrQW6w9mgMz6+ac4it4iyaDjTjOK6psKUBxIk=;
-	b=n6ZDNM+8NVaUmH4UrnV8EHhk7qFoT9h0zl65Kp1+xMIxUcV23wy08JdpA72gYCFRhZtA
-	 1yzoP7o7bNHCuUnn/MlETgkJugqdjM6KsCfXVBHmMCcp1BudEOQShmL9IpCCtVNuFIop7
-	 mUXDpSHjFPv1kYby3/Hk0xXeteKZwB16Z713d9JunrEqoKWT4i9zn4Qx3QlBNkFvLRDDB
-	 /P/hRPl4eQ5E1SYf8Wh/FI+/ugZkzIYcfSoG9K6YnYts6Fr7n2cnq2Hi9ycv3nLcQL86N
-	 wlJxd57RXeff/InJ3ENuh2qdaw4lZIFL526prSMJABOJXGeDXA3/dBkZ6fdRv3Eq8hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792457091;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=+JFWED1LbW8Q3dEA+59/6FN+gzD1OsT6twNfSqCT6CE=;
+	b=pH1Dth7kMuvNoJ6pHu/pePz1lmrCA38VlYHArYGiJSw5C67b+eVkpO5e/0RpZKPVktCH
+	 Ftk7/kB51GDSIuvl3lV5AtoW63sFe6Rt0oAF5uLqoMycH7qLqblhggfKXyrhXrApLmbvp
+	 +CVai0lxTCMTvz6li5j5GHHMIT7ObWdB9Qu6izEogHc11LnoUICpO0S90ECL1kbllJ97E
+	 mw1/xaLE3+fy97rS4ASgb2ytlVNMsI8f/gd5c+bWE9Cxn6DIQhcnofxovXNBFCapZniNv
+	 cE9T6BXVd6GXHiV7OX27mGVCsjrWMMELLNPTnJGUGBhvC6famBUrVj5JOMzg5s0xRpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU0JOoKa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDCOkUAX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4751606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:43:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9453606A319;
+	Tue, 20 Oct 2026 00:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU0JOoKa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4A81F000C5
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:43:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDCOkUAX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5781F000C4;
+	Tue, 20 Oct 2026 00:44:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792457002;
-	bh=f4ZdPaHrQW6w9mgMz6+ac4it4iyaDjTjOK6psKUBxIk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AU0JOoKaq7nzA+pLcOPR1wjiSLeTxt/51qv3AI/sFJpHZDbCw53jHvO8Yan67gXpq
-	 uxibzw9bD2Sd4dCEmYphGe6YVDBR0niQzlSGi0M+CX6SZ7MifLTKIsXXW79i5zSImR
-	 BrwAdqbAHEzSRLpeD20s0L59TpaU/BObRagL05aljpJ1PnVKovI5dSqZ8Ks4RX0o89
-	 UQUGKKfChmiPITDbOWnDB8vuYfe8JiVlQbSYn1miwcbpdbAmqFmS76egf53GLk5URK
-	 sBLsi+rurl/ZLSc+prlE0lj1+6vaeB0RYxs91DecRqYy2O5IqbTFApDAF1n4O/qH+Y
-	 f152jgG5W0Ndg==
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e6eb77f0bso252053685a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:43:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzwpPaFu08sjzFpwnqf6UQrCpRiMBJb0Q0BXmfHABZFXX3pT+u82y2DjdFOLWaeJrHWWPM9qGowLlSNZ0A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDtCxGGgI6atiuDADXxlHdfqwQ2MPykH3YXDlmvtUP3q3kP+o2
-	Jb9eXMEMk1mADiQEYL5+hUYRoVGIQjj9uetgwh/tln6Ua1uT/zl6xY1AWWnAp/Rl02xSAFJrezV
-	/9JqXbXbxLKOSTA2S3wFmJ+wJwoUSG3U=
-X-Received: by 2002:a05:620a:2989:b0:937:6de8:b40 with SMTP id
- af79cd13be357-93f29ceec65mr1607493085a.15.1792457001621; Mon, 19 Oct 2026
- 17:43:21 -0700 (PDT)
+	s=k20260515; t=1792457090;
+	bh=+JFWED1LbW8Q3dEA+59/6FN+gzD1OsT6twNfSqCT6CE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MDCOkUAXWP3dPNsIjVjiDLU/ZAueZEkOLTks2pXixFrpxqWv6MHC11nFjvTOfnw/a
+	 RyoFKXWZXuf3NjKjzo0Q0BHgBH8KZ2/OawRxlhwZr9VDxd+XqqjGpNpm8Dk259CZ2F
+	 O5TVqMkSlgEwLAW0sFG2vrVFN0hFAIRZIlMdJYBP7lHKDS5FGt42/Id5TQYFY0Lvkv
+	 woQzrWwC5yRdiS762vlYDgc3SN2AA37ftOjSEhY+LprKp3oFEoXWeZp3q0GFOxbk9f
+	 +Ky0++YQKFfjJLqh+DL5a/WBdBHba03UmoLYJwVY3cq7tKIlxUO/FjXDZSqpsBbr26
+	 oIMZiJOtUsvyA==
+Date: Tue, 20 Oct 2026 00:44:47 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Scott Collyer <scollyer@google.com>
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/chrome: cros_ec: trigger kernel_restart on
+ EC_HOST_EVENT_PANIC
+Message-ID: <ata5f5ZmYkrcdt_I@google.com>
+References: <20261008172208.1139281-1-scollyer@google.com>
+ <as8slqeTjJYWOlaa@google.com>
+ <CALUcz=3WE+SUx2j8LKFQQK-fMVXdk69rZJ9nKgBMQ_UwnWRPSA@mail.gmail.com>
+ <atWFg7gm_jLBOwxu@google.com>
+ <CALUcz=0TtozoU+EP97Pu5pPYc=_G97xM=yR3cZ9WH_kLgrxQoQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,135 +62,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
- <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
- <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
- <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com> <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com>
-In-Reply-To: <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 20 Oct 2026 08:43:10 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com>
-X-Gm-Features: AclHuK_z9u93TiyYoAZaSFwx9j8LW96gLUQ2eqyJQLstVMCqEWfGNy3WkacpWX0
-Message-ID: <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALUcz=0TtozoU+EP97Pu5pPYc=_G97xM=yR3cZ9WH_kLgrxQoQ@mail.gmail.com>
 
-On Tue, Oct 20, 2026 at 8:16=E2=80=AFAM Siddharth Chintamaneni
-<sidchintamaneni@gmail.com> wrote:
->
-> On Mon, 19 Oct 2026 at 16:36, Barry Song <baohua@kernel.org> wrote:
-> >
-> > On Tue, Oct 20, 2026 at 4:33=E2=80=AFAM Siddharth Chintamaneni
-> > <sidchintamaneni@gmail.com> wrote:
-> > >
-> > > On Sun, 18 Oct 2026 at 14:24, Barry Song <baohua@kernel.org> wrote:
-> > > >
-> > > > On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
-> > > > <sidchintamaneni@gmail.com> wrote:
-> > > > >
-> > > > > Andrew Morton reported that get_lruvec() has the same problem as
-> > > > > lru_gen_shrink_node(): when memcg is disabled on the command line
-> > > > > (cgroup_disable=3Dmemory), it returns &pgdat->__lruvec directly a=
-nd so
-> > > > > bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
-> > > > > interface calls get_lruvec(), then dereferences the pgdat pointer=
- in
-> > > > > lru_gen_seq_show() and other paths, so these can hit the same NUL=
-L
-> > > > > dereference.
-> > > >
-> > > > So userspace must have booted, since otherwise we couldn't read
-> > > > debugfs. The reachable case is therefore a memory node with no
-> > > > LRU folios when debugfs is read? So this could happen on a multi-no=
-de
-> > > > system where folios are landed on other nodes but not on this node?
-> > > >
-> > >
-> > > That is my high level understanding. I'll let Andrew to comment if I
-> > > am missing something,
-> > >
-> >
-> > I made a silly toy setup by running two numa nodes with one of them has=
- only 4KB
-> > memory, the other one has 1G-4K:
-> >
-> > qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53 -=
-nographic \
-> > -smp 4 \
-> > -m 1G \
-> > -object memory-backend-ram,id=3Dram0,size=3D1048572K \
-> > -object memory-backend-ram,id=3Dram1,size=3D4K \
-> > -numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
-> > -numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
-> >   -kernel arch/arm64/boot/Image \
-> >  -nographic -append "cgroup_disable=3Dmemory
-> > ...
-> >
-> > Then I got a machine where node1 is very difficult to have a page in lr=
-u.
-> >
-> > then i ran the debugfs for mglru:
-> >
-> > / # cat /sys/kernel/debug/lru_gen
-> > memcg 0
-> >  node     0
-> >           0      14972          0         953
-> >           1      14972          0           1
-> >           2      14972         18        3308
-> >           3      14972          0           0
-> >  node     1
-> >           0      14972          0           0
-> >           1      14972          0           0
-> >           2      14972          0           0
-> >           3      14972          0           0
-> >
-> > now you see node 1 has no page in lru but yet i didn't have any crash.
-> >
-> > i think i will need more time to figure out what is the problem and how=
- to
-> > reproduce it.
->
-> I've asked AI to repro the issue with the similar setup
->
-> qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53 -no=
-graphic \
->   -smp 4 -m 1G \
->   -object memory-backend-ram,id=3Dram0,size=3D1048512K \
->   -object memory-backend-ram,id=3Dram1,size=3D64K \
->   -numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
->   -numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
->   -kernel "$KERNEL" \
->   -initrd "$INITRD" \
->   -no-reboot \
->   -append "console=3DttyAMA0 cgroup_disable=3Dmemory
-> initcall_blacklist=3Dkswapd_init panic=3D-1"
->
-> and it was able to repo it. AI identified that kswapd is initializing
-> the pgdat during boot, so blacklisting kswap_init was able to repro
-> the crash when reading /sys/kernel/debug/lru_gen
+On Mon, Oct 19, 2026 at 03:12:37PM -0700, Scott Collyer wrote:
+> On Sun, Oct 18, 2026 at 7:50 PM Tzung-Bi Shih <tzungbi@kernel.org> wrote:
+>     We would like to drop kernel_restart() entirely and instead focus only on
+>     surfacing the EC_HOST_EVENT_PANIC event so that userspace crash reporting
+>     daemons can collect the panic dump and handle recovery policy.
+> 
+>     Specifically, for non-ACPI/LPC transports (e.g. MKBP host events
+> over ISHTP/SPI),
+>     we would:
+>     1. Register a subscriber on ec_dev->event_notifier (e.g., in cros_ec_dev) to
+>        listen for EC_HOST_EVENT_PANIC.
+>     2. Trigger the existing ec_dev->panic_notifier chain so debugfs flushes any
+>        pending console logs.
+>     3. Emit a kobject_uevent (e.g. ERROR=PANIC) on the cros_ec device kobject to
+>        notify userspace crash collectors.
+> 
+>     Does this separation of mechanism and policy align with what you'd like to
+>     see upstream? If so, would you prefer the event notifier subscriber in
+>     cros_ec_dev, or is there another location you'd recommend?
 
-Thanks!
-I guess you mean the following:
-
--module_init(kswapd_init)
-+//module_init(kswapd_init)
-
-Yes, I can reproduce it with the above as well.
-
-But kswapd_init() is definitely called before we enter userspace,
-so this doesn't seem to be an issue here?
-
-So I feel there is no bug here, but this cleanup is still welcome.
-Am I missing any other scenarios?
-
-Best Regards
-Barry
+IIUC, this patch is specifically for ISHTP.  I'd expect cros_ec_ishtp.c
+to register the event notifier and check if the incoming event is
+EC_HOST_EVENT_PANIC.
