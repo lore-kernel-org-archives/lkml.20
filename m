@@ -1,38 +1,39 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478942;
-	b=NzH8Y0tZzh9rMkQALbeGpEOik/YGRDjKHSOV5uCgEuqKiJ1oIwW1b4eFmknUlw3R99+h
-	 D29vHALC72kJaNulmVA8LQWff84nQ1y9nEzhUuJZxVboTtG70mBP9ReZcI6bAwbyNtsd4
-	 ehFWU5U4F1CI+uecp1nG0JNZAsu77Moh0d9hH0p1flJwZvhxDH2LyTI1NxMrCHSaxrrIL
-	 6WEE10F9MA3TVVv+ldmdnFwMTmVdDD1+ati+xJiMvR5Bl/DA3vgL5SdRk1I8g5+VeAggk
-	 IxWJNBNtswQG1ftzPbhpwJvFCetq6OFwHY1hsYjfYwQjArFwpbWkVTzlOJ5u2P49+eA==
+	t=1792478984;
+	b=h4qJq8WB4xaf9xC3scW96U7TBzWtScjRDMphHYNorsJtfxVGQbAuPQIj/+KCXEWE99vr
+	 qXHIkQRcz/d3SRt5t197cKC82bOHtmtMLam9OgHq2t+DBrwmF5IchXBzVPHCYZebxgbm6
+	 uWZSwbXrEX+zHrQaAk7fUcAhmzh8EA1kkj6WD/gzlv8fP3lSSz+wi2itNp9h4jzhSLnfR
+	 8bZ0E4Zjt9Pru2qgmLZrfP+2b4sYHbbo/fz6Iw3C0oSXkfY3tuFh7AXekE8UG/pPYS4mX
+	 72hQYxTGnaifF2+rwKPlKkUxvKp0W1OasZoSuMVk/4y0JWcnVZoSEy6M5qufrtw25ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478984;
 	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Cd2xjAJcvLodQXIsxE1NlllAfYcKe/ozOJbjOaiwSfU=;
-	b=i4Sh2fRaIMKsg1VKaYJX0QX+1hov3PS2WLck+DRYG4pKHuRtJRNr2dGVQV5HO36rF7n0
-	 GtPYvIB3w7QnOa5X2xImVlJV51xq2SYq+clXp+7cxUlRNk1oQGBQ0bc8cv6YPvqdI/a/e
-	 23C+lRRwVx/nxQ1zYJG/3P26uM37Pou7nbGWcceZAedopxMDeBhk2rzAsJFlMLliQ8gPX
-	 yIVGrqYhZAgf6e6cJuBtKxl6TjAuOwrmzwBH4P60nFKr3VxBJBRJFl+pWEM9cXr0z5HUB
-	 QD7DGB3yWaCGbZ0Dslmd63Iqbkqc0Z8ot5hC7ZqlcULNCuWABc5ThX8muzPwQGlXRBg==
+	bh=NrjgqyA6vgHQiLK4KkbdHl8Hwg3brlnXNKkvtFzOs0I=;
+	b=bqHvD1nfA3w6AautU5V5RRWzwT2g+hnF9x4E3jwe/jfvy9j+rWD9ag6TXWbJIKEFoin9
+	 QARTiw7Lo2Dc8m5Y9qppjPd6RKEsVxHJCgujCo2dMCAGwgQ4i8bJ757XM8JksQu3RHdqr
+	 UVcwRDdFk2n8wCdopPxNeo0vkFKwTrWARvAkghjfp5YgQse8qUTSiI9nDzctmjhbqbfwq
+	 Lj/hyrqhIJNU4fZMD9lGf2DZcpuWC2BqHjy/lCTDd74H7NhuLdpcxNiP5VxeMlL7ZI00v
+	 ji54/ZrP6cSjca/k277A5pdgyCOPsMK9zhSU5/bjdpaePVfCN3LgNo1F0KZoc8Z5L8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D08C606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433891F000C4;
-	Tue, 20 Oct 2026 06:49:00 +0000 (UTC)
-Date: Tue, 20 Oct 2026 08:48:28 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A6A606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBA6C1F000C4;
+	Tue, 20 Oct 2026 06:49:42 +0000 (UTC)
+Date: Tue, 20 Oct 2026 08:49:14 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Yemingxuan <level_zero@qq.com>
 Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drivers/base: return bus_add_driver() errors
-Message-ID: <2026102017-irate-stalling-aba6@gregkh>
-References: <tencent_82888DC1594A685D25620A7078BCAEB69D0A@qq.com>
+Subject: Re: [PATCH v4] drivers/base: return bus_add_driver() errors
+Message-ID: <2026102057-udder-arrange-c2fc@gregkh>
+References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+ <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -44,9 +45,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_82888DC1594A685D25620A7078BCAEB69D0A@qq.com>
+In-Reply-To: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
 
-On Tue, Oct 20, 2026 at 02:31:06PM +0800, Yemingxuan wrote:
+On Tue, Oct 20, 2026 at 02:35:42PM +0800, Yemingxuan wrote:
 > bus_add_driver() creates the driver's uevent attribute, adds the bus
 > driver groups and the bind/unbind files after the driver has already
 > been inserted into the bus and its module links have been made.  When
@@ -89,16 +90,15 @@ On Tue, Oct 20, 2026 at 02:31:06PM +0800, Yemingxuan wrote:
 > device side and leaving the failure reported.
 > 
 > Signed-off-by: Yemingxuan <level_zero@qq.com>
-
-Full name?
-
 > ---
->  drivers/base/bus.c | 26 +
+>  drivers/base/bus.c | 7 +++++--
 >  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> --- a/drivers/base/bus.c	2026-10-20 14:29:46.248067968 +0800
-> +++ b/drivers/base/bus.c	2026-10-20 14:29:46.266034395 +0800
-> @@ -775,25 +775,28 @@
+> diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+> index d17bd91..a63e55c 100644
+> --- a/drivers/base/bus.c
+> +++ b/drivers/base/bus.c
+> @@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
 >  	if (error) {
 >  		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
 >  			__func__, drv->name);
@@ -110,11 +110,53 @@ Full name?
 >  		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
 >  			__func__, drv->name);
 > +		goto out_remove_module;
+>  	}
+>  
+>  	if (!drv->suppress_bind_attrs) {
+>  		error = add_bind_files(drv);
+>  		if (error) {
+> -			/* Ditto */
+>  			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
+>  				__func__, drv->name);
+> +			goto out_remove_module;
+>  		}
+>  	}
+>  
+>  	return 0;
+>  
+> +out_remove_module:
+> +	module_remove_driver(drv);
+>  out_detach:
+>  	driver_detach(drv);
+>  out_del_list:
+> -- 
+> 2.34.1
+> 
 
-Are you sure that this is going to work properly?  How was this tested?
-That comment is a good indication that no one will hit this, so why even
-worry about any of this?
+Hi,
+
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
+
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- This looks like a new version of a previously submitted patch, but you
+  did not list below the --- line any changes from the previous version.
+  Please read the section entitled "The canonical patch format" in the
+  kernel file, Documentation/process/submitting-patches.rst for what
+  needs to be done here to properly describe this.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
 thanks,
 
-greg k-h
+greg k-h's patch email bot
