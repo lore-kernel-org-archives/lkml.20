@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510287;
-	b=1VjTCKxTBQcPEumKRD6sarfeorTc6IqENkzbAKc4723Pf+oDn4tB3O+PRC0bhrQ7OcNU
-	 ujpqrWqczu+AR1ajYL6gT67r74sGbiYSfW7FdwxYynqoEwo5gVmjVJyFbSWqMfl/ouHnk
-	 vlhDKSevboscPiBwBLWp/9+3y73hlpuhr5Yn/EuPnVLNXC3FtGukHNIVSSEdhy2LseiV0
-	 OYqGlSqh6gRBHixcXLaBopG+6PI4Sbzwku9V93O+YYkrqZeAfEOjIB2w5qr7dTXr1GKYp
-	 aBvgOoGfqn+FtRnvrfrWZf8bBgGa5ywSnPZFlpNYr6d3VA9OAEHJd1PQWU0XVhUQvUg==
+	t=1792510286;
+	b=Bneu81LRpM4CBFk0Pr/imEYTjEzlN+mp8pVT/J3PjgOH/0VUjrRAhmYY6Oyf9LQgdwK3
+	 tJkjSqVkysP2F8ix89//3rGow3APS+y006ERsZNomo1UbatmVvehr7d8ZfqnV9DlCZJpa
+	 nFmEDxZ7nOhEiZEjWith2VHq/apyMrs2C7gJVv1oxqAmJ3k8IZtYvjcczJEtkBZKZOs5G
+	 ksBvVj9h1S/kGDyPwYuJGyZUuj9oqhNoluMTaJhomHAPi9JyhIcU32BZELY8AxHHOZ+4/
+	 Rtsu8qnigMh/QgxhT69eAINhOSzzKHcO5EpyFFN7blVG7OILR4xqXnzVVgVPrLQiqUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510286;
 	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gD63owEzMiG0c11J7YSppIWr1GVHffvHvAxoSrCh85I=;
-	b=jUBgfYpzE1Quq8SxI2ExTrOMJet9UPyL2Rfa9ILyfCFWITn34r8ZM/PBm5Mlo6o+FBQR
-	 pBNZmk+XzhrjQrZ1Hn3FpsRu25DMk3aUOj0BZjRQmghUQy/FJHklarYiRTQcIM0GUif8b
-	 YVO2jYsc7l1rGNxR72f3wddAyPZuo+fVc+EnHFZrMnW+q232eMuTbb3/mjzoZrlnmraKv
-	 RQigNoyNA4UGIwXGCdyGAK30WaNPadrKQ0FTV9rmIhvAD3zFKJ3bYJYkN4yFE2coqes2Q
-	 VKzW0+G00NgJAFfTxyOd2pmcz8Da4MAZZSzkjuXa8khzUfbWPgGqjNNHO5W2Oz71OsQ==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VgGcNNRu5ieTR0Ko1HQUd57pN40sF3ITd5hrvhdgaCQ=;
+	b=ikJmQ2FjlCHxslRNpvfYCnN4LS17eKpacG+au5iL1QtWkfgyvoYznnPF4UC2NpI9mYw/
+	 SoAPz+kPde0Yu0JzlQHG0bJW4YEMhFJFzk9OUBw7Y18vaPn+Rk8CoiBXsKYYfTYg+841F
+	 bpHGEnaKBXiII/qWbEmS86Yx4dpe2qoDgjfMAFDSvh7bQ8/cETRBEExtRvsA14UekO1bG
+	 bV6FcfKWrXlgP50dqqQmejR9SoiSjrlyrk+JJX5ftkrI2f8Bwzw5JLF4rUYJZdzro6XYL
+	 Rsa16JemMKqfEB78bxt1WKn5bxaoV9YmtLNspwCiYxF6pLDpc6Ul/l7WE955szaLZYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=onurozkan.dev;
 	spf=pass smtp.mailfrom=onurozkan.dev;
-	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=YkuZgdB0;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=KmJ7XHIK;
+	arc=none smtp.remote-ip=185.70.43.171
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F046606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:31:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F046606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A746606A325;
+	Tue, 20 Oct 2026 15:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A746606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=YkuZgdB0
+	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=KmJ7XHIK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1792510284; x=1792769484;
-	bh=gD63owEzMiG0c11J7YSppIWr1GVHffvHvAxoSrCh85I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=YkuZgdB0XDDjHO87WI2JKqLwReIdI9y7CSPCvZiDcDyZlTKWzo6zMofgzq2YrqbIf
-	 SlRO9UVahsig1S3zrP8tUtYbSuyTFbx+ftH5DtsU/oikDd+XMlWSlX30IdUhK5p3Nr
-	 3PpLjgvMHOee+D0iqlFmk7GniFZ8vr7EPqZT0UTTKHKK0CdCPykDx6BkTz5o/Y2s4V
-	 jevpnVIvJAXFZqNnL+QWYjU0OrC+oCP6szqyLZCPeSRYdYhxrztm819rjiRa/f98Ir
-	 qdPJrXZz1Iakb8m0EoRqhVGWlQoJK0tG8fwVAiRfjb1IPW0XaTMleAN+ZdYMcwBoat
-	 RtQC0DBQUrSPA==
-X-Pm-Submission-Id: 4j8GbW4Crdz2ScPf
+	s=protonmail2; t=1792510281; x=1792769481;
+	bh=VgGcNNRu5ieTR0Ko1HQUd57pN40sF3ITd5hrvhdgaCQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=KmJ7XHIKqQHxNfM4XxFWez3nUojMdbSgQJfpa4XgPk9zDCpGS9itT+wl0Rlcda8XT
+	 /KChiw9OeHSocpboRzK54Zlwr12JebAVBYYDVZMg96vzmWiGUJwjFEo4U4mofFwXIq
+	 Yj20AXPnEuzndwQULs1zBE7yiKWzq58N29spN98LKteGbrFcSIkimpoh90zzJ35zcu
+	 M/hxJ2+RkVzfzg6aoU5vF7cSGM7nvVr47s7jdtkfl9Rp4czwu0tlF/cPkhsL6e22Ak
+	 XcoLLhyLKOoyAiFMBOdofobU5wJJaZO2gwvapQaHyWkwHISKx5gsaZ198jy+M9osvQ
+	 yyZgLBwT+vhsw==
+X-Pm-Submission-Id: 4j8GbQ6Qhfz2ScPL
 From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
 To: rust-for-linux@vger.kernel.org
 Cc: lossin@kernel.org,
@@ -67,12 +67,10 @@ Cc: lossin@kernel.org,
 	thomas.hellstrom@linux.intel.com,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v13 1/7] rust: add C wrappers for ww_mutex inline functions
-Date: Tue, 20 Oct 2026 18:29:37 +0300
-Message-ID: <20261020153112.299745-2-work@onurozkan.dev>
+Subject: [PATCH v13 0/7] rust: add ww_mutex support
+Date: Tue, 20 Oct 2026 18:29:36 +0300
+Message-ID: <20261020153112.299745-1-work@onurozkan.dev>
 X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20261020153112.299745-1-work@onurozkan.dev>
-References: <20261020153112.299745-1-work@onurozkan.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,85 +83,60 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Some of the kernel's `ww_mutex` functions are implemented as
-`static inline`, so they are inaccessible from Rust as bindgen
-can't generate code on them. This patch provides C function wrappers
-around these inline implementations, so bindgen can see them and
-generate the corresponding Rust code.
+This series adds Rust abstractions for ww_mutex, including Class, Mutex,
+AcquireCtx and MutexGuard. AcquireCtxBackoff and ww_transaction handle
+deadlock recovery with ordinary guards. DynLockSet tracks dynamically
+discovered locks and provides separate acquisition and work callbacks.
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
----
- MAINTAINERS             |  1 +
- rust/helpers/helpers.c  |  1 +
- rust/helpers/ww_mutex.c | 33 +++++++++++++++++++++++++++++++++
- 3 files changed, 35 insertions(+)
+Changes in v13:
+  - Require static classes and remove the class lifetime parameters from
+    Mutex and AcquireCtx.
+  - Make AcquireCtx's locking methods safe. Panic on context drop if any
+    acquired locks remain and check for acquired-lock count overflow
+    before entering C.
+  - Tighten AcquireCtx::from_raw()'s safety contract to cover forgotten
+    guards.
+  - Return Option from try_lock().
+  - Split LockSet into AcquireCtxBackoff and DynLockSet in separate
+    patches. Add ww_transaction() for allocation-free retries with
+    ordinary guards.
+  - Start each DynLockSet transaction with a new ticket, keep it unchanged
+    across retries and clear pending backoff state on return.
+
+Dropped Alice's Reviewed-by from the Mutex/AcquireCtx patch because the
+locking API and safety contracts changed.
+
+Previous version: https://lore.kernel.org/all/cover.1791799751.git.work@onurozkan.dev
+
+Onur Özkan (7):
+  rust: add C wrappers for ww_mutex inline functions
+  ww_mutex: add ww_class field unconditionally
+  rust: implement Class for ww_class support
+  rust: ww_mutex: add Mutex, AcquireCtx and MutexGuard
+  rust: ww_mutex: add AcquireCtxBackoff
+  rust: ww_mutex: implement DynLockSet
+  MAINTAINERS: add Onur Özkan as WW MUTEX maintainer
+
+ MAINTAINERS                                   |   2 +
+ include/linux/ww_mutex.h                      |   8 +-
+ rust/helpers/helpers.c                        |   1 +
+ rust/helpers/ww_mutex.c                       |  33 ++
+ rust/kernel/sync/lock.rs                      |   1 +
+ rust/kernel/sync/lock/ww_mutex.rs             | 449 ++++++++++++++++++
+ rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs | 179 +++++++
+ .../sync/lock/ww_mutex/acquire_ctx_backoff.rs | 413 ++++++++++++++++
+ rust/kernel/sync/lock/ww_mutex/class.rs       | 130 +++++
+ .../kernel/sync/lock/ww_mutex/dyn_lock_set.rs | 351 ++++++++++++++
+ 10 files changed, 1561 insertions(+), 6 deletions(-)
  create mode 100644 rust/helpers/ww_mutex.c
+ create mode 100644 rust/kernel/sync/lock/ww_mutex.rs
+ create mode 100644 rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs
+ create mode 100644 rust/kernel/sync/lock/ww_mutex/acquire_ctx_backoff.rs
+ create mode 100644 rust/kernel/sync/lock/ww_mutex/class.rs
+ create mode 100644 rust/kernel/sync/lock/ww_mutex/dyn_lock_set.rs
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 47946f1c507b9..198bb740f7cc2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15283,6 +15283,7 @@ F:	kernel/locking/
- F:	lib/locking*.[ch]
- F:	rust/helpers/mutex.c
- F:	rust/helpers/spinlock.c
-+F:	rust/helpers/ww_mutex.c
- F:	rust/kernel/sync/lock.rs
- F:	rust/kernel/sync/lock/
- F:	rust/kernel/sync/locked_by.rs
-diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-index 440fb7638e3cb..0287064c82c18 100644
---- a/rust/helpers/helpers.c
-+++ b/rust/helpers/helpers.c
-@@ -105,4 +105,5 @@
- #include "vmalloc.c"
- #include "wait.c"
- #include "workqueue.c"
-+#include "ww_mutex.c"
- #include "xarray.c"
-diff --git a/rust/helpers/ww_mutex.c b/rust/helpers/ww_mutex.c
-new file mode 100644
-index 0000000000000..e7aa65ac58745
---- /dev/null
-+++ b/rust/helpers/ww_mutex.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/ww_mutex.h>
-+
-+__rust_helper
-+void rust_helper_ww_mutex_init(struct ww_mutex *lock, struct ww_class *ww_class)
-+{
-+	ww_mutex_init(lock, ww_class);
-+}
-+
-+__rust_helper
-+void rust_helper_ww_acquire_init(struct ww_acquire_ctx *ctx, struct ww_class *ww_class)
-+{
-+	ww_acquire_init(ctx, ww_class);
-+}
-+
-+__rust_helper
-+void rust_helper_ww_acquire_done(struct ww_acquire_ctx *ctx)
-+{
-+	ww_acquire_done(ctx);
-+}
-+
-+__rust_helper
-+void rust_helper_ww_acquire_fini(struct ww_acquire_ctx *ctx)
-+{
-+	ww_acquire_fini(ctx);
-+}
-+
-+__rust_helper
-+bool rust_helper_ww_mutex_is_locked(struct ww_mutex *lock)
-+{
-+	return ww_mutex_is_locked(lock);
-+}
+
+base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
 -- 
 2.51.2
 
