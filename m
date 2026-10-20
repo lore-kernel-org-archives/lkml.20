@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461637;
-	b=fDLddZD2oAIRPVfl//Wc8NOskz3+E+/BWZQUbqse51bVEjYxv73ww3060N/oo3ITHDrq
-	 3jC0onYIWrinUWhbl++GHASAaOapd5T0qRcS3wvoS1zFgSFAil9dwrj4soNPFAqA2WgUX
-	 SjQBwXsH9M2Li6ilUfBDK+hDe9/YmKEtY42bOwCISARKRuSkPuSQjrfHNEZnvr9ul7QmL
-	 e2v8eREGXbZLYCiQqCeuI7A49bCFMkfYpEuuRiPaxhssF5otSHkutYqGQGxK8TP4Gvycs
-	 iRmERCAtgvLkjcovFAeGK4ElGzDxCHGZ4d/iwlLnEJMw31hC4NwgP9FxJ0sjIe8aaHQ==
+	t=1792461693;
+	b=nz4fkpUn3Tj7EqmPfEjt3l5EkefLik3NSY+Foq/4H0EhsQN/LdB2uHcQln40BP6qkPWH
+	 Uir1YbV2PiYdpM5WmxDoLXlvytydrKgAWBPyMCQ9oo7XbirwmBIyGbQPALf42BGoIdpPF
+	 K8VbMr/SH1rNI2AHP+resxRcXi9JxCSMZcC5k5lTXUPw5SoqL1B+Hrq+e8fBYSMRcafX0
+	 LA0CEAYceSg97g1mxcvAfY4EyuhyIKUVPSKso2HjsOX1fxr3EupVBNERhqBBeWDYeuv37
+	 0Mr2sqn0YFpbYz7KHqmDCtpz8lHbv7cddCWsinrw046QmWCwJHUr59id/UDejOVaT9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461637;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JlodduQldZdsStWJrjgdzJgqzFFrar5i3dmdR0/tpuk=;
-	b=vuVSDJGXtkMPlfd6SfxMMZnlAksZkYheTQ4fhzt//N8UG2OSP35Pbp1/+iN56BBHFkmL
-	 2i1X7AJFM//fEFXiZ5mBIqpATpKPOELOyy+iTX3avsjFLaQceSQvycvokKlV6qyOf5oG/
-	 JpcdSY8/3ImUYPDHWzbCHgNoew32RQMamAhbxBAr5uXCMPnR6ZBJre9UjbLHIXps5ILuZ
-	 2/WDKzi8O+rE6IM2HbuNzlOITIAtnx1iieKaSoS2igUsAA9hLiRr9cREVObfgiXDWNo0e
-	 APP4DTwax7pfEmAb4Tx9n04eopol5u/leX2dOc8ETex4ZsQ/4hauzaYB4MEzjQRfEBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792461693;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wnaxOSSamcwglqOAKuHSshc8q0Bth/jG+/jg/lNxKrs=;
+	b=q7SuvT8ZuruBPpU/GFTpWrTGxq4PN96Mt8lUoAqLJECPlwQ9DydVsGVNoNRJaMOd57pF
+	 8FUlPtTHsxh6EWQmXzPJiFpx7HrGOk0K3w3AxOM1RK2Gd5d4KuB+mwjHDeB4l6euMpSE/
+	 2uMR27kSO5M6gdVJxQOhU0egUcKQUH3ZLebHexcVyoWPgMXBBqimthkXxDXse8qyfQNjV
+	 k7gxjsAJwX4rm0RlUDDsZueyKJlk9ZlfQU444N5aMAkxJI+8sqe0ysEk64+HjefL4v/Wg
+	 yfD9LWfrv5s2A8BYC/ldyxqenVlfJ2fJzkZB/khteb562GuNnykDtV82w6y0398+pYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fX22Ah8a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=lmX2gm15;
+	arc=none smtp.remote-ip=115.124.30.110
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE345606A319;
-	Tue, 20 Oct 2026 02:00:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500C7606A31A;
+	Tue, 20 Oct 2026 02:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 500C7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fX22Ah8a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3571F000C4;
-	Tue, 20 Oct 2026 02:00:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792461636;
-	bh=JlodduQldZdsStWJrjgdzJgqzFFrar5i3dmdR0/tpuk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fX22Ah8aZrRJqDcfW+nPRCo2sGrBATBa6L38IXJVuy3esscBe+LDQwt9um8KJVp4v
-	 YQh6HqKf3aEuRWKkURcTmYh3n/6eiBAC8eF/FwfMGtXQR9k35kIxn0V4ctVOq4B9AN
-	 BnP4v4FXaTPFd0jQGkQqr/l2kQkUEvIxF7YmhP9rVgUvFBlSAyfk6UjMVbRr5dTqR6
-	 czsHrahS+ooGy+qDR3u+vK5usX8ZvoHaxAaq8jDbgMAbSuN3d0X28NwR0a3+u6f7WS
-	 w6Z5CcYccQAEEKleHBEZ+n6/nnC4XetXnvNDMzo81KGGr2+qL+yF/XjC64QQmpjiib
-	 Vhqx5p7Zzwbpw==
-Date: Mon, 19 Oct 2026 19:00:35 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Daniel Zahka" <daniel.zahka@gmail.com>
-Cc: <netdev-bot+sashiko@kernel.org>, <alexanderduyck@fb.com>,
- <kernel-team@meta.com>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
- <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <edumazet@kernel.org>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 2/4] eth: mpnic: report per-queue stats
-Message-ID: <20261019190035.4c3ebf4d@kernel.org>
-In-Reply-To: <DM3QWDZ4B408.2O12B5PXKY8AR@gmail.com>
-References: <20261012-mpnic-counters3-v2-2-8afba81c2d5a@gmail.com>
-	<179189313526.434549.10762925482009523771@kernel.org>
-	<DM3QWDZ4B408.2O12B5PXKY8AR@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=lmX2gm15
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792461689; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=wnaxOSSamcwglqOAKuHSshc8q0Bth/jG+/jg/lNxKrs=;
+	b=lmX2gm1505iNXpP5s5eTRqx+l/axR0lmuicIMM9ZEiXF3yrZK84b4NQJC4Lu1KVras082eqAmSiaPeIdcD0Q6+WCbLRzScUTSIojSxp1ZB5TBPf25qSO1m+fdF/K5W1y98sHYhm9DiWpJVJ2YkdhaUqA1jhddiE7q/3kfr6TB7k=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDB87H3_1792461687;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDB87H3_1792461687 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 10:01:28 +0800
+Message-ID: <2f07abae-1675-46d3-8142-c7dd335b671c@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 10:01:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,45 +53,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: stabilize the dentry name while tracing reads
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0088-v4-a9a0df898afb4fc65fa0@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0088-v4-a9a0df898afb4fc65fa0@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, 13 Oct 2026 09:30:02 -0400 Daniel Zahka wrote:
-> > The counter semantics come from "eth: mpnic: count packets, bytes, and
-> > drops per ring" earlier in this series. This patch is the one that
-> > exposes them as qstats rx-packets and rx-bytes.
-> >
-> > The later patch "eth: mpnic: count Rx allocation failures" also counts
-> > skb build failures in alloc_failed. Those packets still stay in packets
-> > and bytes.
-> 
-> So, the question is whether or not rx-packets, reported both to rtnl
-> stats and qstats, should count drops in the driver. Here, drops are
-> either running out of shinfo frags, but really just skb allocation
-> failure. 
-> 
-> The docs for rtnl stats strongly suggest an skb allocation failure
-> should still be counted for rx-packets.
-> 
-> The docs for qstats imply the opposite. Especially when xdp is not
-> present, which is the case as of this point. Once xdp is introduced,
-> though, counting an skb allocation failure in rx-packets becomes
-> reasonable by the qstats docs, because xdp runs before the point of skb
-> allocation.
-> 
-> Another option would be reporting rx-packets differently for the two
-> APIs. I think this is not desirable, and seems to violate what is in
-> the stats.py selftest.
-> 
-> So, I could either submit a v3, which would just be reverting to v1, or
-> take the approach here as is.
 
-The rtnl stats and qstats are supposed to behave the same if maintained
-by SW. I should have been clearer in the doc but "XDP is considered the
-first layer" was supposed to mean - if you reach the point in the driver
-where you'd call an XDP prog - its a successful Rx, whether the XDP prog
-is actually attached & called, or is NULL & skipped.
 
-I believe the series is good as is.
+On 10/16/26 1:36 AM, Cen Zhang wrote:
+> An open file pins its dentry, but not the external allocation backing
+> an individual dentry name. ocfs2_file_read_iter() passes d_name.name to
+> its trace event without holding d_lock or a name snapshot. The event's
+> __string field needs those bytes for both strlen() sizing and the
+> subsequent copy.
+> 
+> With the read event enabled, a read of an open long-named file can be
+> preempted after evaluating the trace argument. A successful concurrent
+> long-to-short rename of the same dentry can then reclaim that name,
+> provided no other name snapshot retains it:
+> 
+>   Reader                              Renamer
+>   ocfs2_file_read_iter()
+>     load old d_name.name
+>     <preempted>
+>                                       vfs_rename()
+>                                         take_dentry_name_snapshot()
+>                                         ocfs2_rename()
+>                                           ocfs2_dentry_move()
+>                                             d_move()/copy_name()
+>                                         release_dentry_name_snapshot()
+>                                       kfree_rcu() reclamation completes
+>     trace callback calls strlen()
+>       through the old name pointer
+> 
+> The pointer load precedes the rename, and sizing follows reclamation,
+> so strlen() reads freed name storage. The tracepoint's SRCU section
+> protects its probes, and the event callback disables preemption only
+> after the caller has loaded the name pointer.
+> 
+> Take a dentry name snapshot before tracing and release it after the
+> trace call. The snapshot copies inline names and pins external name
+> storage, keeping both the string and its length stable while the event
+> sizes and copies the name. This avoids holding d_lock across trace
+> callbacks. Check whether the event is enabled before taking a snapshot
+> to avoid adding snapshot work to reads when tracing is disabled.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+>     Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+> 
+>     [CPU and host details omitted.]
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? strlen+0x85/0xa0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? strlen+0x85/0xa0
+>      kasan_report+0xe0/0x110
+>      ? strlen+0x85/0xa0
+>      strlen+0x85/0xa0
+>      trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+>      ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? pmbd_probe_hit_cookie+0xe7/0x1c0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+>      ocfs2_file_read_iter+0x6cd/0xb30
+>      ? __pfx_ocfs2_file_read_iter+0x10/0x10
+>      ? selinux_file_permission+0x11d/0x540
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? security_file_permission+0x26/0x80
+>      vfs_read+0x7d2/0xc20
+>      ? __pfx_vfs_read+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_do_sys_openat2+0x10/0x10
+>      ksys_read+0x111/0x200
+>      ? __pfx_ksys_read+0x10/0x10
+>      ? irqentry_exit+0xbe/0x820
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on_prepare+0x11d/0x150
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     [User register dump omitted.]
+>      </TASK>
+> 
+>     Allocated by task 489:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_noprof+0x2de/0x780
+>      __d_alloc+0x5fc/0x8c0
+>      d_alloc_parallel+0x106/0x11d0
+>      lookup_open+0x3ff/0x13e0
+>      path_openat+0x95e/0x2020
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 0:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      __rcu_free_sheaf_prepare+0x65/0x2a0
+>      rcu_free_sheaf_nobarn+0x1d/0x50
+>      rcu_core+0x6be/0x1ed0
+>      handle_softirqs+0x1fa/0x8d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+> 
+>     The buggy address belongs to the object at ffff88810a5b2b00
+>      which belongs to the cache kmalloc-rcl-192 of size 192
+>     The buggy address is located 24 bytes inside of
+>      freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+> 
+>     [Page and shadow-memory dumps omitted.]
+> 
+> Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
+> 
+> ---
+> Changes in v2:
+> - Replace d_lock around the tracepoint with a dentry name snapshot so trace
+>   callbacks run without the caller holding the dentry lock.
+> - Pass both the name and its length from the snapshot; keep the event
+>   enabled check and release the snapshot after the trace call.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0088-v3-d628f98bfcb6784a0bfb@gmail.com
+> 
+> diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+> index d6e977ba6565..fc357c227ad8 100644
+> --- a/fs/ocfs2/file.c
+> +++ b/fs/ocfs2/file.c
+> @@ -2542,11 +2542,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+> -			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -			filp->f_path.dentry->d_name.len,
+> -			filp->f_path.dentry->d_name.name,
+> -			to->nr_segs);	/* GRRRRR */
+> +	if (trace_ocfs2_file_read_iter_enabled()) {
+> +		struct dentry *dentry = filp->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_read_iter(inode, filp, dentry,
+> +					   OCFS2_I(inode)->ip_blkno,
+> +					   name.name.len, name.name.name,
+> +					   to->nr_segs); /* GRRRRR */
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  
+>  	if (!inode) {
 
-Acked-by: Jakub Kicinski <kuba@kernel.org>
+The change looks fine.
+Six call sites feed the same ocfs2__file_ops class, which has the single
+__string(d_name, d_name), so it seems we'd better send a series to fix
+all of them:
+  trace_ocfs2_file_open
+  trace_ocfs2_file_release
+  trace_ocfs2_sync_file
+  trace_ocfs2_file_read_iter
+  trace_ocfs2_file_write_iter
+  trace_ocfs2_file_splice_read
+
+Thanks,
+Joseph
