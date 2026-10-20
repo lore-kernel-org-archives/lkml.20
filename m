@@ -1,84 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486316;
-	b=a3FAwOB6LWMPpdvUf2sXkyexIOnfTGn1QeIy4L+G+1q0dGSGJW+L8TLa5d8rz4rzWN9N
-	 POSpzxtb9omKNk8LYk4aGYNfR4XEah2eWndi210dJ1imtmDYK9DFTLcDLytplg2PIfgeV
-	 OZEZT9n3H3uESSpXGbDlsnzCXB6834LJUKFaSnslcr3h8le0dNe/cdsZoIblifEPEgD8W
-	 fJZceoXPAAGyMmRQ20URr6124CMojoo2UULJCjE46PLmwMcxiwCV2USeN0IHruBYpkbE4
-	 trdc2Iy4704DD2xb2Xi8dyT4di9NYW13+wq7j/O4PikzfXwS9f+MXx/ezgQouK//Rjw==
+	t=1792486337;
+	b=tKyLQWRfu99m4KpG9bJbQrZfP0ejXNafUZzj1q+gos2pyuBrYuUR/rJyn64IkejIAMIW
+	 lZtm+tWUGm5FzrkZxgWOFXStcPucXjpsSD+3WZtSIQkhXDPExY47ox7Fl039qQ1NPaMCo
+	 7TvIiq2V+YGV+l8/e86XtarfyLnHEysOfquBJ2bY3RTXOghHulvsAAkJykJm4ZonKgy6s
+	 3lSmRmPluUstXdyJNxJVExSFvs85gNWjjNusF9BFeTKgcjOO0wKE2oCDb6UohDtiF/7NP
+	 NhOUWGdWawDCmy5vQDT+XqTnSjq27frsXkTVDCLczOWcJo5ojt9z89aeXoR9kAzZ3Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486316;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=K5zPCjhtiYgbSzoQkdk7jJnCY7I6uAqcp7kPNPB6WFM=;
-	b=eTmsshhlTgBpyl3qCsgS991kqQtda5k3lHgWDUcGgA7HY5pHKuJR5tBKP77jCiD/mkTR
-	 gaKWoqXLgd26g6e1k/ZRgn47W6TlfYz+qdFbTehcFtpGe6XenUDuScX8GA9lltGSMSBP4
-	 Vtan5i2sjb3pIbNDJ865EBk9mFP2relQGjwSSnFqVsDF6QdqIVveagYue7SGKJ4Z1uE41
-	 5RIHN03Phpssro4aDvnnZVzUJSqS4lk9vHmRx16pDSJ+xZYulO5oBA+sqd/ZPuiI2CRwO
-	 spm+8Cfj6InaPa7W91hO2Ol63R7jHXd6c3d5yok1inGf9NIjZaf/8fL9IIZei1rC27A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486337;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tkqdn+h+quvZr9vw0T8bcJsxvQ/mJoyu/YMkcY/G2Jo=;
+	b=wyf47Wca/Y8xDHJ93TBAmUWcvPvZLhkOnlddlMh+kULNTabpi3kZsovW2LSMK7pzLq8v
+	 3FCEGkzh7UjUCMb3D2E+do0KtfVITmnf3cLDHkCUzqwC2QV+YhJKJknzsOwZlrTIYKVi+
+	 s5kCUTw7gBH2Z406LqJz+Fe7Cf/GaiDQlcXU39BfmzDp1Fc+RhBLqXFRynB8ucUtmX/eQ
+	 rM2wHSvkAF5EZLLVFb3hTr2kEFK6oqjblV+KHrtPW6ez2hFcZ6gFsd+/O2BddV3oy6U13
+	 cTgkAvWN/8GjVG7XAc+4MxNRUbbTXBA8KxuNE0CSF/tLJu4kzJN9w1cZd6QlZfbGwVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXBQFzVy;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=VifFGusi;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460CA606A31A;
-	Tue, 20 Oct 2026 08:51:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 460CA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF74606A319;
+	Tue, 20 Oct 2026 08:52:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF74606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXBQFzVy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792486316; x=1824022316;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eKzxlT0yG5FunvgfNGhCleVugyVb5jhMClq+OxxbpME=;
-  b=mXBQFzVyzSEwwjARMT64iotOnCydBoSQKrHu4iiIVfelQh2qT90rIsn4
-   qzqLC6Wm2M12DevI5aJKBBye/+cmKbut+b3IbxsdO+izjTzaL7PDFZ8Q2
-   bOouABCrBF+yvJcG9KB7sZ7NcIXGFMgyis4UfIrS1s1JtPghehOvyQvHf
-   4UtOulHcPWIHd/cfEUHApwB7D+yTSGw2uRBLlLyBVwTnKwam1wGacqR16
-   e4lxZ89rMNuXN4IOnn76XFCFz/aTQwUpRxaoXXDWJb1iyQ/1CbrOo+pak
-   7dDsETqWOiOiCHooCNAwynjwZmDz1MKmHhP8WAel5oDPOILuiVqpO/aeI
-   A==;
-X-CSE-ConnectionGUID: NR250AvBSNKSHjiLE/Jo1Q==
-X-CSE-MsgGUID: W5HexXIOQ2O9GFn5Dewqog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1285019"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1285019"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:51:56 -0700
-X-CSE-ConnectionGUID: FJ6CBaMOQmSasr/frxTWmA==
-X-CSE-MsgGUID: G7Vb0dqQQGu/0Txavvu7Ww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2823950"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:51:53 -0700
-Date: Tue, 20 Oct 2026 11:51:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <atcrpTI_R4kRM8pb@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=VifFGusi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792486333; x=1792745533;
+	bh=tkqdn+h+quvZr9vw0T8bcJsxvQ/mJoyu/YMkcY/G2Jo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VifFGusifNCRwNZ9086C0OV5AWmprlXlgTGT0U8b5CYguiRNKj6NA1yYc1sB3tdiY
+	 ahV/sbOkFqqNEQEa4sglx893CE8+7jqKlIJCc/krXJlMmIE0AT8lprEyu6VOjLpjyf
+	 KdVMsk0QtMRUr8K3OnuAKO9KDN7u1e4zVoeFR7JxX+LvnG57XpikPAsGa9hmh4nsZZ
+	 zqQfgbYuw4G9iZ8UDd42fAOKETSl08ME/6N+ANLhRTeSNEB6tRYm93xbFrSEt7A1QK
+	 d+55BdSMWPD+wbx+pzHkJATQp/Jr9eX/cmU6F6qWMtdY0Rtd8eyKwZ5knltbpXMjHL
+	 iH1/Ejhrpa/QQ==
+Date: Tue, 20 Oct 2026 08:52:08 +0000
+To: George Neacsu <geocausa@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261020085200.60619-1-lsa.uz@pm.me>
+In-Reply-To: <179247822513.25202.7960395606350309657@gmail.com>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: d8595080311558c5b70a0b31ff8f4968d8b5aff6
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,43 +64,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 05:06:10PM -0300, Vinicius Pedrosa wrote:
+Hi George,
 
-...
+On 20/10/2026 07:44, George Neacsu wrote:
+> Would you be comfortable dropping that write in the next revision? I can
+> retest the revision on the Snapdragon model and add a Tested-by once it
+> is clean.
 
-> @@ -218,7 +228,9 @@ void dw8250_setup_port(struct uart_port *p)
->  	if (reg) {
->  		pd->dlf_size = fls(reg);
->  		p->get_divisor = dw8250_get_divisor;
+Yes, I will drop that write in v2 and leave 0x0329 at its default, and
+Cc you on it. Thank you for narrowing it down to one line.
 
-In the case of existing _set_divisor, do we want to keep the possible set
-_get_divisor as well? Shouldn't we introduce a respective _get_divisor in 8250_dw.c?
+On the Intel model it makes no difference. In one boot, with the sensor
+held powered and 0x0329 set to 1, then 0, then 1 again, each state
+streamed 150 of 150 frames at 59.14 fps and restarted 10 of 10 times.
+The test-pattern frames showed no shift or extra lines in any state, so
+IPU7 does not put the status lines into the buffer, and its error
+count did not change. The full test run without the write
+matches the run with it, v4l2-compliance 46 of 46 included.
 
-> -		p->set_divisor = dw8250_set_divisor;
-> +		/* Keep a hook the driver has already installed */
-> +		if (!p->set_divisor)
-> +			p->set_divisor = dw8250_set_divisor;
->  	}
+One thing I cannot explain: on 16/10 your vd55g1 build streamed 2/2
+with 0x0329 =3D 0 written once per power-on, as v1 does it. So the write
+alone may not be what stops CAMSS; something else in v1 may take part.
+Leaving the register alone is simpler either way.
 
-On top of my previous reply, why is this hunk needed?
-
-...
-
-But now I see that we have same function name in two files. Can we rename those
-in dwlib to, for example,
-dw8250_get_divisor --> dw8250_get_dfl_divisor
-dw8250_set_divisor --> dw8250_set_dfl_divisor
-
-?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Sergey
 
