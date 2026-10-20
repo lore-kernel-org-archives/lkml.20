@@ -1,76 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480224;
-	b=rAKHVkCKc+R5Zkwhqj6zBEXReHfzRkZiU90iB2b6AXR2SzmPe33CA7rsaf0JYBgL9ILD
-	 X/yYpIiUtlsDjyqWrEGr01fiqr8BBc0JFFH2jw4IERU8ZLwgovx1FqdpXLD1/IBkh8EP1
-	 zSLzUZKphvJSfkrf+N5L9tKN75KPHj3MZU/WfigGypSRShR3US7hJJrhEU4fDELwGG3Ee
-	 xhTMLwCb3zeeZjllBXGTlywZpnotrsQ+IQ+F+8jbGC09/aNDQsrE8gAwLTXbYPz1pWDyQ
-	 bbtgJu7V/8gIgCoS9laiXcTjoFVIyLC4jW2Hehh4B+CEusDFUjmYsXLI1q9VTTtm3UQ==
+	t=1792480236;
+	b=DiBZzrmjrPfP5KXN2PdaMJl3AfcKoW7CR4GsL8IpWM/iQn1SwXAdRkRU6WL3yOlVb5lP
+	 XzUH5NF3dDDkHfDATWx9GkvNnCCUfldl8lDJ0RKGPym/neGtuD3WcM20xpFBVYW0TTvPL
+	 MZXIH5zdOJG95o++R8OZ5oQakoqOPmm51vtAVorR4jJNmbDa0XMK1DhjrlY5jR79orMjB
+	 aN9GY9kXerMVmxkbKcbQyECYsp0bcKmBre441vI9smvxY8DZnICGj/STYBNz8XkbFer4G
+	 yubKpuMLPxLg1K5XEnMsunXb7e9vaocQ113i8yK69eF4EfRvO6jQQCGYhvfXWZ7CwIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480224;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XsZ5jUo7Ez3Qg1joQhIaLu4Yeboe9RpEDHXpd+79SHk=;
-	b=ylT7kGadBzlD0DzTWZtsjeE95SF++u/P1kUgiDa+OLqaAIQGFcoZTNkteAuuZ3Yvog4d
-	 IVXhZIMc21eEttWfio7jQYp7zrhvdC4W0LlnSqt3BgV0tBamLncFTyQa7eHvXZyY3Ima3
-	 xneGvsvbPJ3Y+a3mn8E+dT1sX/jIZO0F6tFJaGcvEKjjotQppBfQfHIfasD0VSe2i31Y7
-	 x5eoCbkJxgmCH/DkCB/4GSNL3CcPuN+Dg/foiLVz4cH9ePmXIT7mbcACVhICaz6nv7+1V
-	 m+s+i72IlCAGXVJdQxq5119ZpB81aiTo7oAoipqFlbvM9vewlKZXoaGRxXTacakydBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792480236;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=pVMhRWk8qtW+u6oBSL+Up0nK8r194VsI+nQohbgpZHI=;
+	b=wUnvTV6QIIkXr6ivE3Z2VRYxKpJ4YMm5JuCBEkYRyTvswRm0T4s0ph+dXDB90rESRewe
+	 zFKhDj40wlIY2LKoS/tQ2ew21wd7WK/dZWImpBY/h8Ueh9W82fF4ycz8BkYdCzxtVseSa
+	 N7Fx+sg/PtwrsTUjzK72Qj7GoUMrx/HwyL35glJNRK/IIXdELeVpr1M74YUkAM+jav+n7
+	 YpXuAOsaUx1EgKDl93PwPQq1JUJAFGx3kd+wU+Ge7a2E/RxFhIp92lirhp8+ko5ArAOUl
+	 3P8B9HtOq2tunTNW+oXDv8qZ2so9jD+/OhTCy7M0tasvQ2ZljKlwp+9XyLVUlWlJynA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YfPK1yDd;
-	arc=none smtp.remote-ip=203.205.221.231
-Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5ED606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E5ED606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YfPK1yDd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792480214; bh=XsZ5jUo7Ez3Qg1joQhIaLu4Yeboe9RpEDHXpd+79SHk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YfPK1yDdvT6C75zxpOEkuyqWhSXiAeLFzi+BG9H1CxPainIZigKoncjETf8vYU1nu
-	 67DR2zmoCnboN2FQfEZfKEzk0YRfVNR3TOahXYsKbNapKlDOC6yOr7De2CU30CURA4
-	 a+Y5fAy0tWfsPlFgkwozRckbCKQ1HsQWxz6g7eTk=
-Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 289886FB; Tue, 20 Oct 2026 15:10:09 +0800
-X-QQ-mid: xmsmtpt1792480209tsi54rwhc
-Message-ID: <tencent_0AD505B63D2257674E40C6F22D5FB5B61209@qq.com>
-X-QQ-XMAILINFO: OYTBn1rNHH7thROZc/MJn2cvFUpGKM9osJEcpTFjyikQ7sxY1PGHRKQ2m/3O6v
-	 xjgtWvVszCtB+0cRdyESlWKgAde5wUw+nR08+bK8eAqFXewjlqTeXOJ58P9lkXhzWUkSYkew5XKE
-	 ypDRufdEjsZ/W7vV8k42QVahwz7mSFgFeeL8DfAx6uR4Y1NprRWsp94BSsumQxHiLiHKMCoV+SjS
-	 JtYgd17hiXbJXQkwvxVF0AgoCaQLRSIBLY8l3OFJn06CdRKuSigTJiUlPN9YuYqGpDgn1b/IAbI7
-	 dVLuiVaOh88SucleK0PpOkqRPBb+GZSfNdyJxocJSb+MpHcTOl+f1JV/RfgTm1EktbhyFMSInKJZ
-	 9EOHL4aDZD6g09gEIJpMTZPfGx4IrqsNsgQnPLcT3BRILlf6PS+Xvr9C/lQP3ZEhhzmQusMIyapQ
-	 0vHb3HgwAfjY6oFrTluozyPnA1MkO5sKvrqhX8awmX7uLkS98H7z1DdytSjn5jN+/pEcaP1yCzks
-	 V5I2KQUSOrKTV9X9WTQDrb2qbki6b4VDleFUQzBa2aVrxeBIS7zqw7IkwjjYjsMtoxH5xFEQzI7T
-	 I9i4J9iv010aXOHqWxpeticiapt8Bux8INmK4N4+clpSxoVJxb3oh5WSjZ3PgkWZabLaa1LBzxQx
-	 FW3oFIRyKOZ3yVRcE7LdLMzTadj4+RMQ/ZlP/3YaYSvltFjpfdptvOggeQSWxvsjiIN+IBdepBim
-	 YADJMbtGy7oswWjZpJ2hvqVGhUC7j6Wflp25IUHlg20/VC0yHhh9oTNBXWFYQAcqpindgS6WHJ35
-	 SGdSuEz0iF7DqQd31FwCOIptLyHz5d+wF3JfUyJnzac8XYEwjsLxnkrxuPC46+RKh5NjFyXgjB8U
-	 7vFK+x2qdt0zFGyfn0FYxh71vEY0o3kmjCacpsbfOCPJqhJpLwstaQ1FpPH/LViY0oK2qtpIyS21
-	 sCDyBN0yi8CR0/Sn4U1mClzzWP1K7NQa9s7qg/Jau2DzFIvN7HN1QGo/6jzl0+p77eHWY0vPm2OW
-	 P2JXNW550YzjAWVgYQLeipZqQYYvbjSfGzyzAJZ0Kjf+Lccu2jEjFqgguw8iAnxkA0EEIkiGjdGU
-	 ZF56HQviPc5lzLfBLS9L0hKkZuDQ==
-X-QQ-XMRINFO: NIY0FsY06mWik60O6xSizP/2tkZG+oPoPQ==
-From: Yemingxuan <level_zero@qq.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v6] drivers/base: return bus_add_driver() errors
-Date: Tue, 20 Oct 2026 15:10:09 +0800
-X-OQ-MSGID: <20261020071009.26718-1-level_zero@qq.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
-References: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611AE606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:10:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 611AE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1904234a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:10:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792480235; x=1793085035;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pVMhRWk8qtW+u6oBSL+Up0nK8r194VsI+nQohbgpZHI=;
+        b=MT5WNGh+8MgHpxbJHBNf9wrZ9jTB3Z3llfoQ6sireQ/7YTWATpO6TXe3k8Qzm4PNN3
+         8cetjx6HkBh73+nGl6rVk/JeJhPTvUWld08mudCcGs+K/Lq7YQZM2rW/L1j/V3rkHm2q
+         sPOchzP+eUgAoVVaBhETjmJ2BHKPzQ6YihzrydGrgCUFOVS8MW4KK5Nm7EWcpdUGfIee
+         1UlmbetqZ8Ynn8DxdMxAQaktQfVU/S5mGBnIk0WAK1eKD/Y5xRAykwHVyaDvT/cE/JvI
+         AX9GZDGgib228oKtx/wbNn32G0U17X6QBHmsSCEKNKWKgPU+E+pde5zgBn6kBwDDxKVc
+         vMBw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXyoVkSY4Cbik1Bf1BIV8uWG0sMjCIMQ5R3ItRmZv3mUdc26su/I1zEQaq8Bn9TtjTTISe7qXFsrZXL28=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmWa98kBpSv9Qa+7Cg8Muc62YuErAd3BQ43iJp7S01H5hS+77t
+	ZtW2KDkqLmWyEH2mqgXupekoTAwiks3VEs0i6qepStx7tva6Xfm3lzzz
+X-Gm-Gg: AYBFou13RlslOhvq0x9kszwKmzMGUniD/sDpUPU3tTAgzhyIdFmzNlArFPLKv1KTJaS
+	305BS3hX+ehORTMpAtRKYsTmNgJUmfaT78i2jlcsi2Gps+oFV9cJVFDA6cbEnPzsiOo8LcVB+qO
+	qq0oMf8l3WYV6wxaX9LtXI5mfhakMaPEPim6qbMdChBMbjQ8amNa75UTd3dM/nCA9ZbNp5GaF5J
+	CnLZPIWr70i+WXJC072ZYTMKNZOy8NaO/N31DfeXUOjrp8waQVU18WZRUuGVTz1Pfo+u90LeK/I
+	aNxWG0wM9Z8mKV9MO2hkTASAJFbyIRlbss+yqTnKG9tstIwkZDjkItV6758PX9lAZA56zGex1KR
+	ZXP3OTLEEUWsCaNOW519V6QCN3pfOcEUVaW0dWVuGeTkjT5NFa/hwY/Iq7mrOH8Jb4MYuJKGxHl
+	5taBlL2KNSN+sorM4+Q9bZ7fOMZIvk5HX5Eq3EFdOkXvYw/vfTFnUBFsAnTRssrtBSKAd40TIt3
+	9dEwt0R+h6ZeC5kfbTZGpdhP23tssVdHY4/P951q0xL4HL9G89NOYsiOca7gbXF/q4MiFxDscT/
+	c874y1SOAeh2endLvIcYGqjxlHhCY7aewKGrbguzlVJfvYpZkDgn3uNCiqg=
+X-Received: by 2002:a05:6a20:eec7:10b0:3e2:2d44:fc65 with SMTP id adf61e73a8af0-3e22d4507c2mr4709328637.37.1792480234627;
+        Tue, 20 Oct 2026 00:10:34 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([185.220.238.36])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549c5621sm4773692a12.17.2026.10.20.00.10.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 00:10:34 -0700 (PDT)
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
+To: Shuah Khan <skhan@linuxfoundation.org>, shuah@kernel.org,
+ valentina.manea.m@gmail.com, gregkh@linuxfoundation.org
+Cc: i@zenithal.me, bgmerrell@novell.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+b6f11035e572f08bc20f@syzkaller.appspotmail.com,
+ syzbot+a7edecbf389d11a369d4@syzkaller.appspotmail.com,
+ syzbot+bfa320b67fcbe2583c6f@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usbip: vhci_hcd: time out unanswered unlink requests
+Date: Tue, 20 Oct 2026 15:10:29 +0800
+Message-ID: <179248022909.38718.8671761249933493010@kylinos.cn>
+In-Reply-To: <bf13495a-0f70-4ce6-a2a5-77d6c1bee241@linuxfoundation.org>
+References: <20261006125652.10296-1-xiehongyu1@kylinos.cn>
+ <bf13495a-0f70-4ce6-a2a5-77d6c1bee241@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,107 +89,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-bus_add_driver() creates the driver's uevent attribute, adds the bus
-driver groups and the bind/unbind files after the driver has already
-been inserted into the bus and its module links have been made.  When
-any of these fail it logs the failure and still returns 0.
+Hi Shuah,
 
-The driver is then registered but incomplete: a driver without
-bind/unbind cannot be bound or unbound from userspace, and a driver
-without its uevent attribute can no longer emit uevent notifications.
-driver_register() reports success, so neither the driver's init routine
-nor its caller retries, and nothing else ever creates the missing
-files.
+> Did you test this change with a usbip_host and client? How does this
+> reproduce in a regular setup?
 
-The device side of the same driver model already treats the equivalent
-steps this way: device_add() returns failures of the equivalent sysfs
-operations to its caller, and device_del() undoes each one.
-driver_register() already calls bus_remove_driver() when the group
-registration after bus_add_driver() fails, and that branch is only
-unreachable for failures inside bus_add_driver() because of the
-unconditional successful return.
+Yes, end to end with the usbip tools. The server ran usbipd
+exporting a g_serial gadget (CDC ACM) on a usbip-vudc UDC. The
+client, a v7.3-rc7 kernel built with and without the patch,
+attached with `usbip attach` through a userspace TCP forwarding
+agent. Once the device had enumerated, I stopped the forwarding
+agent with SIGSTOP: the TCP connection stayed established, but no
+RET_UNLINK came back. Then `echo 0 > /sys/bus/usb/devices/1-1/authorized`:
 
-Propagate the errors so the existing unwind runs.  The new
-out_remove_module label calls module_remove_driver() before falling
-through to out_detach: bus_remove_driver() pairs every operation
-bus_add_driver() performs in reverse order, but the symlinks
-module_add_driver() creates live in the module's sysfs directory, not
-under drv->p->kobj, so the kobject teardown does not remove them.
-The attribute and the groups need no explicit removal because they live
-under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
-the caller.
+  - unpatched: the writer hangs in D state forever. Two hung-task
+    warnings, 123 seconds apart, print the same stack:
 
-The error messages are kept.  The return value of an initcall is not
-printed by the initcall machinery, so dropping them would turn a
-reported failure into a silent one.
+      __schedule+0x417/0x1910
+      schedule+0x28/0xb0
+      usb_kill_urb+0xb4/0x100
+      usb_start_wait_urb+0xd7/0x200
+      usb_control_msg+0x103/0x170
+      usb_control_msg_send+0x9e/0xf0
+      usb_set_configuration+0x69b/0x9d0
+      usb_deauthorize_device+0x3c/0x60
+      authorized_store+0x55/0xa0
+      dev_attr_store+0x17/0x40
+      sysfs_kf_write+0x74/0x90
+      kernfs_fop_write_iter+0x162/0x1f0
+      vfs_write+0x25b/0x480
+      ksys_write+0x71/0xf0
+      __x64_sys_write+0x19/0x30
+      do_syscall_64+0xba/0x550
+      entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-These failures are not expected on a working system: driver_ktype
-always supplies sysfs_ops, so -EINVAL is unreachable, no in-tree bus
-defines a drv_group that collides with the built-in uevent, bind or
-unbind attributes, and -ENOMEM needs memory pressure.  The point is not
-a user-visible bug but keeping the driver model consistent with the
-device side and leaving the failure reported.
+  - patched: the watchdog fires after 5s ("peer did not reply to an
+    unlink request within 5000 msecs"), tears the connection down
+    (stop threads / release socket / disconnect device), and the
+    writer returns instead of hanging.
 
-Signed-off-by: Yemingxuan <level_zero@qq.com>
----
-Changes in v6:
-- No code change.  Fix the changelog section, which was missing from
-  the v4 and v5 postings.
+The syzbot C reproducer, run verbatim in QEMU on v7.3.0-rc4, shows
+the same before/after: without the patch the hub work item sits in
+usb_kill_urb() holding address0_mutex and a second attach never
+enumerates; with the patch it enumerates ~30s in.
 
-Changes in v4:
-- Keep the three printk() calls.  Earlier versions dropped them on the
-  grounds that the error now propagates, but the return value of an
-  initcall is not printed by the initcall machinery, so removing them
-  turned a reported failure into a silent one.
+In a regular setup, anything that leaves the TCP connection alive
+while the peer stops replying reproduces this: a wedged proxy, a
+firewall dropping the server-to-client direction, a hung server.
+After import usbipd hands the socket fd to the kernel, so the stall
+has to be in the network path, not in the daemon itself. The
+client-side trigger is just a control transfer that times out and
+is killed via usb_kill_urb().
 
-Changes in v3:
-- Regenerate the diff with git format-patch so that it carries the
-  expected "diff --git" and "index" lines.
+Console logs of both rounds are available on request.
 
-Changes in v2:
-- No code change.  Fix the author name so that the patch body and the
-  mail envelope agree.
----
- drivers/base/bus.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index d17bd91..a63e55c 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
- 	if (error) {
- 		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
- 			__func__, drv->name);
-+		goto out_remove_module;
- 	}
- 	error = driver_add_groups(drv, sp->bus->drv_groups);
- 	if (error) {
--		/* How the hell do we get out of this pickle? Give up */
- 		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
- 			__func__, drv->name);
-+		goto out_remove_module;
- 	}
- 
- 	if (!drv->suppress_bind_attrs) {
- 		error = add_bind_files(drv);
- 		if (error) {
--			/* Ditto */
- 			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
- 				__func__, drv->name);
-+			goto out_remove_module;
- 		}
- 	}
- 
- 	return 0;
- 
-+out_remove_module:
-+	module_remove_driver(drv);
- out_detach:
- 	driver_detach(drv);
- out_del_list:
--- 
-2.34.1
-
+Thanks,
+Hongyu
