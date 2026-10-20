@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792463540;
-	b=pdDdmeegO95JKA0uEj/Sgiq05ZCM7DCGXdDQrkou3u8nh4KNDwd52u9ZdZh6zCqPLMpZ
-	 clioTcm4fNIoBDO7WJa3IiQn5fwT+WqJsdvsViSGlXd1NspalZVuliAsjN7PBzNUY0uCo
-	 2h0FELJ/uA9glA4mGDtxyVTGAAPB+JR6OJlEilCMvBQOFFTPM796bQL0OywIz2V+K5VmZ
-	 hzOGwyDv/5KX5k4+1YpyRGiFxcIlKYjG8HmvjQnL3fUfLFsrUAeu+vBrrfF3LzzwUsnEj
-	 KMVJo6Ghi5toiWk1wNEIfAjKiscipsm1QY11zBC6TiPjOllechn4qkoB5JJz0uRIsMQ==
+	t=1792463577;
+	b=aC/gLftbhvc9sDg8h7r6OQk2L7SzT4ymVazWv6U/fQm5ynotvijQMjfzmOj8mMNIJYIY
+	 GjP+Ck88vk22qn8iqG2uK6zN3FmnHeYdvAGa/DvlZmAafsKf9C8IuavZWF2d+Er6bgmcF
+	 gJWccOSySk1aPdHQrTWiqOseBJVbgJBHJkxEdlB0W3uObch+N6ZFxOcK9+g8YgtEv+VSb
+	 dfidc2JqN/3s65OmJRlMIJ377mvEXeZRX6CDgTjFsJlMoPCNRWqLSijyZkHHZwl2N0GiE
+	 5vdVwxjv2Es0AGmX/oiEYtMSKG8h0aIgk2x8QkLgjkLDTd0Rsjiwb5nhEHOT86hSqGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463540;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=ZFVTmrRXGP2jQhE1zaEcfiz4mIyP5pkWrbaNtTIcGJo=;
-	b=wHeMZRHsJqC8oacPOrjqfCJ8jzyyl53OpZQVDyFl1EJ+w83/9iWfrZiS/ay0JP5Yy1v/
-	 kProL8sm5CnvUa2mvtgJAnOiDzzP4N1qFFOn07SsHVyrszqgeVzr3b3JcpuhzAldwzr05
-	 Fk6LpyYavXlFHgwJoIGQyi+iDChwZbP6P+yV6W7XI1RCnwKmPdNszYfVkK2iArBJZGLMy
-	 KBcjqDLH1ylr943ayZ8xCUZ59alsex9k3rlJU/OPP0nj7ZQe6rWF0Dsl9MxxX5SmXyRqe
-	 UL+sJQ1CJMKX3Ep9fSpkVQFXeXl/UWwbyAA73eT1fWioSMgVFoZHJMZakC/IspfU0OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463577;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=+UeasOj6C0QSBv81NOjtXL/pSwcDJf+q6grtY75QD48=;
+	b=b1NRTJhsgPbF1+nvvNNdPO589dnr+oOpY286eUKSbghLGUuiKXEfxcqSTQaJfm81k24y
+	 xNorpIzDaX8uKYKnHEDm+gQDQi2mtjq0xiuBp0vSKUV+KRAj7b27miPC4Ph/WSuZb130o
+	 6Sj0OZ4pV3s8QHUQYbGwRb8g3LJcwZwBscX/cAf2PS2JyQREm148NK3vxQ2iGJmWAPVnJ
+	 Xf3WhnrsRcWIldFnd6VyTeypePBMjlsmyT9ybEDqh8SL9JnGsAdZ1YxRYMqIZTrnS64T7
+	 IpHj5vnDOHUyndu9pgKAiqGGJJoA8+GjPzSxtNKffc/KGimSlzHpi2OKL3cQU3D/ToA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=c6hXxvl3;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jgBMRNhe;
+	arc=none smtp.remote-ip=95.215.58.144
+Received: from mta1.migadu.com (out-144.mta1.migadu.com [95.215.58.144])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E920606A31A;
-	Tue, 20 Oct 2026 02:32:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E920606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A28F606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A28F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=c6hXxvl3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ZFVTmrRXGP2jQhE1zaEcfiz4mIyP5pkWrbaNtTIcGJo=; b=c
-	6hXxvl3h6CY37ijlO5V/S4VH+o7dBRbz1GOftx3HlAEDd6Q1aa7udy/w41p0JZKK
-	s0rHg5ATaDlF4rPYSpNgUYoKwJoQxKF4CA+tyGuAP8WG4veSk2Ltig5o/wjZtCaP
-	GBU+hwQxYPWqcfKc6fBPbgYOEioDwmaOPHan2fdKKE=
-Date: Tue, 20 Oct 2026 10:31:58 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Huang Wei" <huangwei@kylinos.cn>
-Cc: "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] usb: typec: ucsi: acpi: Check ACPI companion before
- use
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261020022707.3691899-1-huangwei@kylinos.cn>
-References: <20261017064321.3816776-1-yaojiale02@163.com>
- <20261020022707.3691899-1-huangwei@kylinos.cn>
-X-NTES-SC: AL_Qu2SAPidvE0q7iidZOkcn08ShO49XMOyvfoi2YFTc98FtwD2/gAgcWZ6I2D88/+uBy+FqSWSfhhg4+5wV5NyeAm3pi/5BR/nSBDAMsiQiw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jgBMRNhe
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+UeasOj6C0QSBv81NOjtXL/pSwcDJf+q6grtY75QD48=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792463574; v=1; x=1793068374;
+ b=jgBMRNheZKBI5mN5E7/ygI01+OFOk9dLk3mfNcNlhr/2K5tksjaBe9b9XywguOAT6nYV4j4e
+ Hcs16QQgHVkYMkPGmmhMJ65IXPtKIiA4Cw20stlqJD9ct3HzAYPYQXW+d1SCWPWkTUwBpi/9RhL
+ C4av6/ba0qR4JfXR/j1x/jrw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 8af93f4628e3430e;
+	Tue, 20 Oct 2026 02:32:54 +0000
+X-Mizu-Trace-ID: 8af93f4628e3430e
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,35 +57,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-ID: <105b5747.252f.1a15726bc8f.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3f7+e0tZqVT0lAA--.1104W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzh4sZmrW0p4hRQAA3O
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3] mm/shrinker: allocate shrinker_info_unit from a
+ dedicated kmem_cache
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com>
+Date: Tue, 20 Oct 2026 10:32:34 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <285B262E-95AF-4BBD-923C-922DDDF0E70C@linux.dev>
+References: <20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-SGkgSHVhbmcsCgpBdCAyMDI2LTEwLTIwIDEwOjI3OjA3LCAiSHVhbmcgV2VpIiA8aHVhbmd3ZWlA
-a3lsaW5vcy5jbj4gd3JvdGU6Cj5IaSBKaWFsZSwKPgo+QSBoZWFkcy11cCBvbiB0aGUgaGlzdG9y
-eSBoZXJlOiBhIGZ1bmN0aW9uYWxseSBpZGVudGljYWwgcGF0Y2ggd2FzCj5wb3N0ZWQgaW4gU2Vw
-dGVtYmVyIGJ5IFlvZ2VzaCBHYXVyOgo+Cj4gIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4
-LXVzYi8yMDI2MDkyMDA5MDcxMS4zMDAtMS15b2dlc2hnYXVyLjgzQGdtYWlsLmNvbS8KPgo+R3Jl
-ZyBkZWNsaW5lZCBpdCBvbiB0aGUgZ3JvdW5kcyB0aGF0IHRoZSBvbmx5IHJlYWxpc3RpYyB3YXkg
-dG8gcmVhY2gKPnByb2JlIHdpdGhvdXQgYW4gQUNQSSBjb21wYW5pb24gaXMgdGhlIGRyaXZlcl9v
-dmVycmlkZSArIHN5c2ZzIGJpbmQKPnBhdGgsIHdoaWNoIGlzIGEgZGVsaWJlcmF0ZSByb290IGFj
-dGlvbiwgd2l0aCB0aGUgcmVzdWx0aW5nIE9PUFMKPmJlaW5nIGlkZW50aWZpYWJsZSBieSB0aGUg
-dGFpbnQgZmxhZyAtICJpZiB1c2Vyc3BhY2UgZG9lcyBpdCwgaXQKPmRlc2VydmVzIHRoZSBwaWVj
-ZXMgdGhlIGtlcm5lbCBlbmRzIHVwIGluIjoKPgo+ICBodHRwczovL2xvcmUua2VybmVsLm9yZy9s
-aW51eC11c2IvMjAyNjA5MjEzMC10aG9uZy1zZWNyZWN5LTFkZDRAZ3JlZ2toLwo+Cj5UaGUgb3Bl
-biBxdWVzdGlvbiBsZWZ0IGZyb20gdGhhdCB0aHJlYWQgd2FzIHdoZXRoZXIgc3l6Ym90IHN0aWxs
-Cj5leGVyY2lzZXMgdGhlIG92ZXJyaWRlK2JpbmQgcGF0aCAtIGlmIGl0IGRvZXMgYW5kIGtlZXBz
-IGdlbmVyYXRpbmcKPnRoZXNlIHJlcG9ydHMsIHRoYXQgd291bGQgYmUgYW4gYXJndW1lbnQgZm9y
-IHRha2luZyB0aGUgZ3VhcmQgYW55d2F5Lgo+WW9nZXNoJ3MgdmVyc2lvbiByZWZlcmVuY2VkIGEg
-c3l6Ym90IHJlcG9ydDsgeW91cnMgZG9lcyBub3QsIHNvIEkKPmNhbid0IHRlbGwgZnJvbSB0aGUg
-cGF0Y2ggd2hldGhlciB5b3UgaGl0IHRoZSBzYW1lIHJlcG9ydCBvciBmb3VuZAo+dGhpcyBpbmRl
-cGVuZGVudGx5LgoKVGhhbmtzIGZvciB5b3VyIHJlcGx5LgpUaGUgYnVnIHdhcyBmb3VuZCBieSBt
-eSBzdGF0aWMgYW5hbHlzaXMgdG9vbCwgd2hpY2ggaXMgY3VycmVudGx5IHVuZGVyIGRldmVsb3Bt
-ZW50LgoKPgo+Rm9yIHdoYXQgaXQncyB3b3J0aCwgdGhlIGZpeCBpdHNlbGYgaXMgZmluZSAtIEkg
-cmV2aWV3ZWQgWW9nZXNoJ3MKPnZlcnNpb24gYXQgdGhlIHRpbWUsIGluY2x1ZGluZyBjaGVja2lu
-ZyB0aGF0IHRoaXMgaXMgdGhlIG9ubHkKPnVuY2hlY2tlZCBBQ1BJX0NPTVBBTklPTigpIGluIGRy
-aXZlcnMvdXNiL3R5cGVjLy4gV2hldGhlciBpdCBsYW5kcwo+aXMgcHVyZWx5IGEgcG9saWN5IGNh
-bGwgYXQgdGhpcyBwb2ludC4KPgo+VGhhbmtzLAo+SHVhbmcgV2VpCgpKaWFsZQ==
+
+
+> On Oct 20, 2026, at 00:11, Konstantin Khorenko =
+<khorenko@virtuozzo.com> wrote:
+>=20
+> shrinker_info_unit holds BITS_PER_LONG atomic_long_t of deferred work
+> plus a one-word bitmap, 520 bytes on 64-bit. kzalloc_node() takes it
+> from kmalloc-1k, so almost half of every unit is padding.
+>=20
+> Allocate the units from a cache of their own, sized to the unit. The
+> cache is not cache-line aligned: the counters of a unit already share
+> cache lines between shrinkers, and aligning the unit would only keep
+> neighbouring units off each other's boundary line, at the cost of part
+> of the saving.
+>=20
+> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
