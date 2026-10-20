@@ -1,64 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792470567;
-	b=imS39RAeHTI/ZFYexEWLUd+RCf0dTesbbXCs8Wji3OoLcNOgTJahxXItPNIo/wccSVpL
-	 bAKliM2meMzHIv06HUsOrqwpM7VCxt25E15SH5T3BYlIu4kr5HqY9tRF+Pnyi0ppSpI/m
-	 iPiUHrPGbpM81lpdHssrwLaZ2nDICALewH7UewclL6z79MKAnD3sV7EW7cgRYk7kYGsTd
-	 DN2sVylBKkFXlEIwKASNq1+2DN7ugvKouJCjoSpxPQVGQcicV0yWpkG9dmoEiFXDa0vZM
-	 p6U+RFbj6yk1zCh6aYdID9TvA5SiDEA70cxlFsk1nIDX9S4n9cPJHriiILas9GWUwrA==
+	t=1792470652;
+	b=IcGwyQB24pdawShqMoZo0AsfKxFfi+w6RbiE7hAN8h5yE5wqPG1rCSjMqai0pTZlbn62
+	 KW+RNWSCTwq/P1yJJJ/8lb0i6BrYs1saBaU7qFN6CtgCoBRloRRxmvs0kulk5uRZ6Iy2d
+	 Te6VHzoELYuQpuGY30u9cxjuCpcvWGfp3eJi5NDQJJR67wn/je6Qlkq6ttdVQV3nP0UFF
+	 wfgpms6te8gr9bZMuE+vYChwMRk4Q2VYmU+0ibr1XpNQ4oF3RSdd6UH5S1mCQv8nhqAfv
+	 GcGKgyddSqeJG8YdYpDsKUCcQxfVWX4oyC1HQsecI7x01HIDOZNVwhdSg/TEslw2wzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792470567;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mCzFoDLWuL5MueYAMxrZxEvcLjQQoXlRUXfTpC3Q9fQ=;
-	b=MzCWHSq3YygnyccCK+lRag0uHFisGTaCBqaK/5dwJhqnrkBE8Xn/q9jqrv+i6ffXtGru
-	 J84X2OmcBTJfvYKqikzrOYJrVDd8oAuY8dmt8goDzl8cwrieKlAOeAFWVkN82dNA6uy55
-	 rWhqOvumry6ChhGtOu1gRhmw/1msoxXbhIbXgfEIi3SPehKAiOB/r2Msb60F7PTSyl8LR
-	 LdfiRzHK6emK9aAgbY58H+JpFXn3P2Y4miwTfW3pUXDyjfASTdm/AtkyDl+IMk9oOF7/I
-	 N9gcC9ZfTBECLxjj7x/BbMeFVGghjmtXQZ5J29M5cGZIDnb6L2n06xkpYwb6hss2ymg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792470652;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=9j3OvoxTGWGD26yaKNg6HrpKJGkRBiGsb2UWwwP5GFA=;
+	b=u4o6mMUKQfTfSQsj8yyyQIvi0//TeZ7VNGUlB91ilMWevWAgIibCONTirLpdKDp5be0l
+	 qlNnmpf4UCWDbTNu51wLZiCYB17PWOj0rtzVpIoSq1o/68Aj6Q1dwVRFEzpcLK4tRMfOz
+	 04HKy9NCF0FyvkePggUA37cP/rd/Nw0BlqL0aBghEE7i/8qD3WEGjhUju7sIG4bMGqGrM
+	 SsOdfc551e3VyyefBDohDVWVbrMxHjf39DdA5YQ3aVMIsEy/xXhMQ7ho+P7iU/Cd5fuLs
+	 SIpBopyNhdJIVXuw8LPKS9XfiVuxPGTD6c1ugVSwL0tI0h9ENVE+v9dop3LhWj4LZHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=owQqC7yE;
-	arc=none smtp.remote-ip=61.135.153.165
-Received: from smtp153-165.sina.com.cn (smtp153-165.sina.com.cn [61.135.153.165])
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=UJeI0CaH;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2469606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:29:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2469606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24BB606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:30:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A24BB606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=owQqC7yE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792470562;
-	bh=mCzFoDLWuL5MueYAMxrZxEvcLjQQoXlRUXfTpC3Q9fQ=;
-	h=From:Subject:Date:Message-ID;
-	b=owQqC7yEfRVf+9cpH3KAts6n1Mc69iVaVP6zJGp66mGQJgtUQ3wVFpfyT3y0Y6yUW
-	 erDKwV+DpTd5Znj2KzKYu3AJNFi64rmOdoFj+0t7AsoCvyHJTn9f+IiGqF/PTRI3aU
-	 yfQEjWxkl2l2TpVPqgjR1tSrveq8AUgterLQik34=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([221.216.116.112])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AD6EE15000034ED; Tue, 20 Oct 2026 12:29:12 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 8600584457013
-X-SMAIL-UIID: DB9C999DB87D4F2A9950C4ED4CF4C86B-20261020-122912-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+059a2795ad4cff2a2695@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [x25?] possible deadlock in lapb_data_received
-Date: Tue, 20 Oct 2026 12:28:59 +0800
-Message-ID: <20261020042900.875-1-hdanton@sina.com>
-In-Reply-To: <6ad66d73.2431563d.3b88b.0026.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=UJeI0CaH
+Received: from macsyma.thunk.org (pool-173-48-113-115.bstnma.fios.verizon.net [173.48.113.115])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69K4TZx2005333
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 00:29:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1792470586; bh=9j3OvoxTGWGD26yaKNg6HrpKJGkRBiGsb2UWwwP5GFA=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=UJeI0CaHr8FD1fkb9npYaLKCJIGT3pYr63clbA+4mvZ4Uj+fb0XxcWtIt4wQPGks4
+	 Rk3uDxtlGpuYS7vrPwm7uHAnHPJt/5MPHuL95WfdxWqKAjhwef0ZuP9lcdmOD/JMzu
+	 J8IffN4VnTeTFKeJoED0wVkhIVQKjxwKsC0vjKNIdCyQLkfItnvWv4leaR4GAksmKj
+	 lUPKmnHKqFDaTj+2uUmq2Qub2zAx8P6bMQY9dpYF2HVjZY50mEgQ/EeBn6oBfxN2bX
+	 wy+6l4B2teOukwF7dZkknQNeQVVy8ejknEhipJKPUG7znpBwCTNbVA57FzFg70H7uK
+	 j5tv7qYUzLGEg==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 07C0021B27DD; Tue, 20 Oct 2026 00:28:35 -0400 (EDT)
+Date: Tue, 20 Oct 2026 00:28:34 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
+        corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+        federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+        workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Justin Stitt <justinstitt@google.com>,
+        Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Jori Koolstra <jkoolstra@xs4all.nl>, Brian Foster <bfoster@redhat.com>,
+        Christoph Hellwig <hch@infradead.org>,
+        David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
+        Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+        "David Hildenbrand (Arm)" <david@kernel.org>,
+        Vlastimil Babka <vbabka@kernel.org>,
+        "Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <atbm7w6WFSnwpduj@mit.edu>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+ <as7uqZn9rQ52USwy@mit.edu>
+ <as-Dwg8DcEOYMXki@gremlin>
+ <20261019224448.GC15441@killaraus.ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,42 +90,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019224448.GC15441@killaraus.ideasonboard.com>
 
-> Date: Mon, 19 Oct 2026 12:20:19 -0700	[thread overview]
-> Hello,
+On Tue, Oct 20, 2026 at 01:44:48AM -0500, Laurent Pinchart wrote:
+> > Recently 2 people sent 1,000 patches over 2 hours. Care to check each and
+> > every patch for 'quality'? :) Only the beginning.
 > 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    2c7935600733 Merge branch 'bpf-zero-extend-the-index-in-in..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=13598f01580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=964a8fc052e56fe5
-> dashboard link: https://syzkaller.appspot.com/bug?extid=059a2795ad4cff2a2695
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117c5031580000
+> That's the kind of behaviour that should be easy to detect, and I have
+> absolutely no issue with sending all those patches to /dev/null. This is
+> script kiddies behaviour, not the work of someone with good intentions.
+> Ignoring those patches is not "collateral damage".
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 70dd4ee72eb2
+Well, let's take the reverse.  Suppose there are 500 newcomers who
+have each sent two patches each in the same time period.  This is
+going to put the same stress on the reviewers and maintainers.  Of
+those 500 newcomers, there will undoubtedly be few (single digit
+percentage) that will eventually become valued reviewers, and somewhat
+larger percentage that will become regular code contributors of
+quality improvements.
 
---- x/drivers/net/wan/lapbether.c
-+++ y/drivers/net/wan/lapbether.c
-@@ -139,7 +139,10 @@ static int lapbeth_rcv(struct sk_buff *s
- 	skb_pull(skb, 2);	/* Remove the length bytes */
- 	skb_trim(skb, len);	/* Set the length of the data */
- 
-+	/* still with rcu lock held */
-+	spin_unlock_bh(&lapbeth->up_lock);
- 	err = lapb_data_received(lapbeth->axdev, skb);
-+	spin_lock_bh(&lapbeth->up_lock);
- 	if (err != LAPB_OK) {
- 		printk(KERN_DEBUG "lapbether: lapb_data_received err - %d\n", err);
- 		goto drop_unlock;
-@@ -343,6 +346,7 @@ static int lapbeth_close(struct net_devi
- 	struct lapbethdev *lapbeth = netdev_priv(dev);
- 	int err;
- 
-+	synchronize_rcu();
- 	spin_lock_bh(&lapbeth->up_lock);
- 	lapbeth->up = false;
- 	spin_unlock_bh(&lapbeth->up_lock);
---
+These percentages were always there pre-AI, but there were much fewer
+newcomers per unit time.  So this increase of new comers has its good
+side --- it means we have the opportunity to significantly grow our
+community.  But it also has its shadow side, which is when we only
+have a newcomer every month or two or three, the overhead of trying to
+engage with a newcomer isn't that great, even if the vast majority of
+them disappear after the maintainer attempts to work with them.  And
+if that happens, we just shrug and move on.
+
+But if there is 10x or 100x the number of newcomers, it puts a huge
+strain on the pre-existing community to engage with these newcomers.
+And when we get newcomers who send patches like this:
+
+> We could go a step further. There's also an increase in patches from
+> newcomers who send a few patches only, with the usual signs of not
+> understanding what they're doing: code changes that give an eerie
+> feeling, very large comment to code ratios, and commit messages longer
+> than the three volumes of Lord of the Rings combined.
+
+.... the question is the probability that newcomers whose first few
+patches look like this compare with the probability of newcomers who
+first patches are 100% human generated?
+
+I don't know the answer to this question, but clearly some people
+believe that the probabilities are different, and so if they need to
+make some lifeboat choices about which newcomers to engage with first,
+it might influence their choices.
+
+Even if doesn't, the reality is that with a huge influx of patches and
+newcomers, maintainers' time is finite and expecting them to engage
+with all newcomers, and review all patches promptly is a recipe for
+burnout.  So "collateral damage" isn't just not just newcomers needing
+to wait weeks before someone gets back to them (and some might never
+get a reply if their patches get lost in someone's inbox), although
+that can certainly be collateral damage.  It's also the potential of
+maintainers getting burned out; that can also be collateral damage.
+
+And having someone claim that it's the maintainers "fault" for not
+building up the reviewing community is also not helpful.  We are where
+we are, and as much as I would hate to lose a potential contributor
+who gives up because they don't get attention right away, when only a
+percentage of these newcomers become regular contributors a certain
+amount of self-care and preserving the maintainers' sanity might have
+to take higher priority.
+
+Don't get me wrong.  Getting a large number of contributions, even if
+not all of them are high priority fixes and/or high quality
+contributions, and having a large number of newcomers is a ***good***
+problem to have.  And I'm thankful that we have it.  But it still can
+be a problem that we need to solve, one way or another.
+
+							- Ted
