@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792522812;
-	b=hDQ7zFLZy5OhzKRc15MiiS1x/9Jwx3q0aIall8TJh8onNSo+s++90Tr/wutkECMBNjo1
-	 JwDnJuhVnsXYgxSCtJHEIxlCtSnJwh3BLl4satvzt3MBxlBlaI9L6AvFd+qi38zPDkkL3
-	 XEg8w3oTyKFN5Kn6O0IjnobEvnxJjaDvLW7R8fr3oRFXkL7M4s6tAmhXfzhs/yQnLzW7i
-	 FyToYfPL5XmEqoN+I00+N94S3LxeH6zx+InhlljnsrLQqNOXfuoshxCQLMMYKn9M77+27
-	 HJP0wwX5R4KIU2tA1P1nNYf6bwAbsP1B7bTZVg1Q/PvPQi/TSYsZo3VcYgdM5a0lo4Q==
+	t=1792522815;
+	b=eJ2U/gJv/pUBVJRAMrHttzpxKSV9qAsWbLdMITHqZoAjw/T+3f7Nl2ua7Of6egNA7GuZ
+	 /TaGNA4WXLFMERd1krvGO6IuwSjbqVAUO0YJGcJF+rHI7jRBgPJmrBnZlT9gL6VuWFdER
+	 9kL3bxSPfie2Fo9gzxYbhKaZ0ygLoxsmuHD6TKHNZ83hhx5Bwx/rs3b1VftQrSLdyqxJO
+	 KAWWjNJf/zB6nHDWBYh1TanEDSURDAhs75ugf7Q2q4WijXujqhKFh7MP5HuzfcAYalt9f
+	 vwJ7uPOpyzemaryYcgzfLxOBVJSxD1pGaSZM0LEWTa36+xNWsUpH8VGvogG0pZ0UBPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792522812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522815;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=kS7rklsk1M528PZqQFNZHAogQLZIvw+QNAsWcaaDZNs=;
-	b=jTFId0O9bQYRnva5PEh01mrSg7fuuaW2G9eD8StdkE1AiVsxqmZ0gN+Ysrm4rBo42a+t
-	 rL6Xv9HWtrnw5lnguujtF5VZWwX03UhW/BXtPeAF1CZeCP4H2RiGzLhutViCqsFTeQmO8
-	 idJwVQK8V0osD0sFS1SkQmLdsqG4cr4+J0BKXvNGNtpEkOAN4keYauDypQAEji8iXLfWE
-	 P8Ow1WDWsLDfBAK6J9MMLz3Z6BBkSegQ/1OG2SZ+5tVjER3u2CRvcOgTJ5ab/J6S5Yqla
-	 /2bVCbHmtZJ+/VNAdswEw8RAEdvZfikOug9CGjgJLw7g2gY/2Lj9way4+fn3WJaajmw==
+	bh=OALui8VPPsqtlTWoUZ805j+WxFMBzcSfNJPuSjq5U0M=;
+	b=te4R/2OosAETMgYGvXmBE4h/PBUXFweHtazL8aIqBrBurZLBLZ8aPbSdoRHrjvLUk9Vy
+	 Abc9fo+1Lhc5YOP0vRFn/p3exJOsiorhlHZbgxkBcI1a/ouxMdv1KuzouwuukQLfFYSTe
+	 gT3zQCvz1paAYi0Jp2wP4akumjdGBZCJ2N0f7EojQhfotsFcguMxipjEAoCVN1ErcVKR1
+	 KBS0JyZ1qFvJII6mOGqsQgRe/enSZixhVNTEJX9iVspArltb4zRiI4DN0hAO8YuwLgR79
+	 CKGDEwz8T2FObDgchWH6et+d12HYff1gRUe0SQ9Qtg9NvHoQCNfKWKwvW43Bz9proxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXkI96xI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUxkKKEO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E801606A31A;
-	Tue, 20 Oct 2026 19:00:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2005D606A31C;
+	Tue, 20 Oct 2026 19:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXkI96xI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B1B1F000C9;
-	Tue, 20 Oct 2026 19:00:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUxkKKEO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBCF1F000C9;
+	Tue, 20 Oct 2026 19:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792522812;
-	bh=kS7rklsk1M528PZqQFNZHAogQLZIvw+QNAsWcaaDZNs=;
+	s=k20260515; t=1792522814;
+	bh=OALui8VPPsqtlTWoUZ805j+WxFMBzcSfNJPuSjq5U0M=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mXkI96xI3xDMevLgzCeDXKzLv5TWVypV9COSIonPH1jZZmlyak01+Yh+iC0T39+Pa
-	 R0ItlatIEuL7iz5pkHrj4hGr/7bmxYUqOwmyJYHi/hqNJarx27qD5ND+uPH6joqxFP
-	 7xEfPG9C4APq/uewY7TGGj/x4Yw4D1hBqgbG+Rkb5L0xagbEHjqKML5CpQxfBxXHpn
-	 20wQ9m+SFNWweY2D+yb3cGGOnTiUaFR+GEcqmlRPY9pDtih7QqAd7Q1gKyFu3adKw8
-	 StU2YEuwVfI21mUNuBJYd4qojD9Mjd6WAAC+UfwwMlzMVZnPdyQ19GfzVG9Fwa2Duq
-	 BhPr9Aynad/kw==
+	b=hUxkKKEOxHjhWNzs2TFQr8CPdhjUZlZHp2V3He/8XOu3DBWn2r97HuHEhV32Bc0os
+	 3E8pSKe+diT1/XwtUBqK6xowOkrOJtsmSmnbKw16oEFkHf86JV+mPjmwVH/zFbd8qV
+	 rCUTq/MFR2uz6aC7dURljavlvawo5FyciWlJyiahEsQuTg3q8vZgyTNe5uL4/mOOh0
+	 lw5TZLWFZTiSprRn4FWtf1qvjdBsJA9hEZkVmndmQELUOk2T4omrd4ccJ63NmlCwgr
+	 PbAdjexfU8eGkHBZ0Kpa3ghD5/62hk5f86Vqa2eAe21ufnDNIBtLCqt9P23t2kBV+5
+	 PngutJKyu/sHw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15173808209;
-	Tue, 20 Oct 2026 19:00:11 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44563808209;
+	Tue, 20 Oct 2026 19:00:14 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,38 +54,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] veth: decide peer queue count from the peer's own
- attributes
+Subject: Re: [PATCH net-next v2] drivers: net: xgene: Fix dma_unmap_single()
+ size
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179252281052.159319.12461762929045255363.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 19:00:10 +0000
-References: <20261014013620.2497-1-lirongqing@baidu.com>
-In-Reply-To: <20261014013620.2497-1-lirongqing@baidu.com>
-To: Li@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
-	Rongqing <lirongqing@baidu.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ <179252281336.159319.869202945975868338.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 19:00:13 +0000
+References: <20261015124547.29996-2-fourier.thomas@gmail.com>
+In-Reply-To: <20261015124547.29996-2-fourier.thomas@gmail.com>
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: iyappan@os.amperecomputing.com, keyur@os.amperecomputing.com,
+ quan@os.amperecomputing.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 14 Oct 2026 09:36:20 +0800 you wrote:
-> From: Li RongQing <lirongqing@baidu.com>
+On Thu, 15 Oct 2026 14:45:46 +0200 you wrote:
+> In xgene_enet_refill_bufpool(), the skb->data is dma-mapped with length
+> len which is set to XGENE_ENET_STD_MTU which equals 1536. However, in
+> xgene_enet_delete_bufpool(), the same buffer is unmapped with length
+> XGENE_ENET_MAX_MTU which is 9600. This may erroneously unmap other
+> DMA buffers or cause other issues.
 > 
-> veth_newlink() creates the peer netdev from tbp, which points at the
-> nested VETH_INFO_PEER attributes when they are supplied (peer_tb) and
-> only aliases the primary device's tb otherwise. However the queue
-> reduction is gated on the primary device's attributes:
+> Change unmap length to XGENE_ENET_STD_MTU.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] veth: decide peer queue count from the peer's own attributes
-    https://git.kernel.org/netdev/net-next/c/267bc3f113d8
+  - [net-next,v2] drivers: net: xgene: Fix dma_unmap_single() size
+    https://git.kernel.org/netdev/net-next/c/03977f8f1a63
 
 You are awesome, thank you!
 -- 
