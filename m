@@ -1,112 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513843;
-	b=cbONkGbRaUDd24RIpViUpfvhT9scBt2BB+iz5IEUANn1htJrcIaCJizlX3fpTW37y93Z
-	 tFHMCu+CMk1MedjOXjetqm26g2zWZPYhb30KPVlhKdiYBljX7CTiFktWUlh713qPcB3mq
-	 SQithtzWGUgwpGVjdZ5bSbrBG4MoIuyRKDiv3Hvu26nrR1I7rE3gSnWTLW5egbvSyp0Zy
-	 pspqVdhaNs/1Wzs7rUELICp9ljGeqqUalZa5FIO1ysPO3GC+y+TZt6VqjrRYMEZ7SKavd
-	 R+wvFjAyHVxjoQlotv0nyQxgDMPzkcHxRhqrM4MMlZjKtRcsITOh9psNvNRfffwo4CA==
+	t=1792513849;
+	b=zxoRsYnX/8f7PhPkRAt7JomhN3vBhnKKDiIdjwTpIGKfriuhRRSbS+C46LxVc4bp2HDP
+	 yZT2CscNshY7azJr2s9cdevyDNIxETyJ0kZToVcb1iouB159C1UYOGJst5rLV4PJNstrh
+	 m4VMSwhMwr7zzRNx+4GU49VeEUqIkQJrCvhZlh9c+VbAnjSHpz1c79HoiziXoK3ALOyY/
+	 Xnw9EWQNcvYNI+2PAIn3LjsjaiNhgZJb6ISGPPKn9J5MTtnFEWwNh1d2rtkMn9R/yEsdX
+	 2Gy78BPJtiXOvCQCEZA0VfqzOMwfFTjHnA1Tk6X9k/oXKrtCMuMX0vzsOr2pwww9VHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513849;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Rxi6W16GNCxJzqxa7kxMIrrE0rT56lRgfjmgtAS+D90=;
-	b=uzHu70gBgCXIsjuWoGtnQaLceSvug6zVNnpJxpMcgDGOl/E5+e7YDdYq33VMnn9pyLVP
-	 /9sk5FjDKpNv9gTzlvjlMKL+RfWvnOx5Jt+Iq42JWNqHY36oceAb+qt33hPRlLSx+a2X8
-	 HtyGvF9gOeBLAETMPSzXbXHgmXy+E1VLxXzhRxl+4uuULWMSOrukZY5gHKnkdqdopSnsR
-	 cNhs9puKHOeFAEJeLLNQG9CUdUy2LDq8ksXu/rjwvFDXz2M5Ao6pLUHyelVJBJwuc3yI/
-	 d73oQdQhfYNSuTfk3MLXhUJhzbUh0h6yGnRg5rOKk/u3ohcBQlSL49qCcJzaXe06cOA==
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=;
+	b=qCHwPxs+iIR9ryS2XvMCxFpZAszcH0ZsDiICxyLwKnqKUeT9zAfBvbQiZaLITXvQUO0o
+	 8euIiohZ1hgdcrBHQLdnMmLd/u8OjF32UJx0XIDPbAi0+DEZ6dBwI9CkuH0nZ28C9zhF3
+	 ZOZorN+2/a8R+Ee+fB2jqKgrbIWPidyMXi7kVkRZNAXpempoTGaAjkHFV+5oHwF+0SXlx
+	 dtW3ohALf/HgwCuk/f2321AFYezCUKg13ZI86UoWs8q5FNMdMBJPpYtOi5ozmi8zjPuSt
+	 CBcSu9RU5pthP+k0C7+HV/suuswE9zeRSJoLtpSnBldOP0NnjfLrYy31FUthFb2FPRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KIJ7ZpY9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Al/GRjyF";
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fM3fSPH2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OSAWB4+G;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EB2606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22EB2606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C9B60A260D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7C9B60A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KIJ7ZpY9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Al/GRjyF
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KGL1iK2151474
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:42 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fM3fSPH2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OSAWB4+G
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA6WY1575279
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Rxi6W16GNCxJzqxa7kxMIrrE0rT56lRgfjmgtAS+D90=; b=KIJ7ZpY9/GZYO5vh
-	nbAHnEvozVZCM5/Alvz+UuzmFGMK14rsM4mu+w1I4OgRI6pWBpMlzHwKItFk9bpY
-	j/KjQ+dI40CebGkkpfwechxRV3v99ASaBhBRRn2GyaEZnUbRrEwNjtSLVOf+EY2f
-	IQAob8W+zRlbgHzKKHCaGTzpJPzbw2gqbc4xeEAV8eCb01ow2WkGQNlPLRM332qf
-	YpMvprbEBsKxdEIBwa0d8QNkJlUvnaAU2f6LdvyUzYYZz/Nywny8EHoVwxtnH5mU
-	/Mp0i5nDMx74wpgYg/9fWCMblhinCh1uRZdmqye4u2txA5LtQYM74hXN+OdGM1dH
-	h8TcXQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n3dxf-1
+	XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=; b=fM3fSPH2d00hRahJ
+	Yb54MpFTMI+t3Fq3EpjEGxJp/GbFtTHIqV4a5V9fjVVwgIVFulrz9UK6LGOh2r5A
+	B1tEncSv1orJNWdWwsfKqD3aGo8+0gxbG10CFFYeJ5C/sOLKHv1ve2jDqaQ4mENB
+	mGo+ouJqTHm/hDnpsA7Bn8dg2uN6toYxlXqGZ8JjChTJ27Kb3d+eTiHUkeqtYBn7
+	LOwcYoxKc+LPkJ/RA3slM2RuVDolHeiuuyWX26og9yVfuSWk/UKB2iypodJoiV9r
+	IA03mVPPJ2w0OOrfQCUuKWQzXVHYGhH3HiD1sa38GstFof0ABRTolcG1SLFCLhCs
+	vCXudg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n3d5k-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:42 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so8377315eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:30:42 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:47 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso5269921eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792513841; x=1793118641; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792513847; x=1793118647; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rxi6W16GNCxJzqxa7kxMIrrE0rT56lRgfjmgtAS+D90=;
-        b=Al/GRjyFnL8rNEsnbrnS0C9+lH7BFKX4rqwtVDc16SAEoYSubeXcqz4tgUDoFotgQ/
-         OxSzEkNycUTf+wuZAt3RUKRCmH6k4spN99RfetZQl4BK5GFNasPFsDQe8G07PYR+9pJm
-         N9EMtF8JM/s71rP+kC4dosEDlbQUISy/Z3nuJ95RHxtCIX4HVjTRNG+J6HiJTdeWpfcF
-         OHkuVubizb9ShErADL5260f7gLUuVo8W+CODnXqww19Tp9EcO+QOAoQ2nJIGOtADR3T3
-         VoSGxWmmGAJ9QnvzzRzj0Bv+CahxwVVIbSLyDjfaU7PjsbGBIMZNAOLV8Tt8PCVziLOR
-         8dow==
+        bh=XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=;
+        b=OSAWB4+G+fYpJaFX6wnGwVpaiFiX7O03kPHJ85V1jrPSMhigZeMn9iOEdLzKKitJtT
+         DFKBNEpdNAaErIjPYQPMeWAzhYx2afa03AAGnk8ICpqyece+rPpa50oGs+bfL8feR2OL
+         8eZAtQwZJiQEE6KiSTKvc6j3GfZZZV1IFEdl8GUPYdQJaYsyG1au4GYeFvVzydYEuQvl
+         7GozZEt9h/foPeAlFNWQoH2duZJDIWI6xloN3fV2Gqfvp5PmdYNHCozhtGo66YsYizS2
+         ZOV1MbQy919mPyZP+7DaXDAqYAYEOepz3laX/YLcRgkQZPwxU8fqsgGWQI7D9bePFq5N
+         jD9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792513841; x=1793118641;
+        d=1e100.net; s=20260707; t=1792513847; x=1793118647;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Rxi6W16GNCxJzqxa7kxMIrrE0rT56lRgfjmgtAS+D90=;
-        b=i9SKTmD5G6Eahgmo89tD1SRQaR899kloNvj02VECqLgASYdZafJ3GiBwINcyoydv1d
-         cwHqoEl22Bcm617fE9dykBeP7YzvKbQswZP/PynPh0CDo3qwByTy7CWA9K2XGT2epHiH
-         LzHaOm3u3zacdfsEL68XKE3YAifezyWqACuSF/RkUrG7m/oEjaiYxVWBxAd4UabFJTZ/
-         ysl5+bF1c7EW35LJmTtrDoZPYXZDWI5RLSajtStHviKu9sQqkrcFQUbBAXqMaGZL7b+J
-         6Tmh3CKg79O4Usk98Gwq0vcpdyslAfG17ni9jloBLtYjxkWIYCrHaD69xUbVAYInT8rY
-         sxng==
-X-Forwarded-Encrypted: i=1; AKwUvBxp4Jx8pMb/FXfIuf/qjmxcUHuBXxcAsOP8NCESZjuyDQzGM3MuqrEMQ24VauEUFnscRZZznhFagujO2pc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRqHjL9nZEwd0yzqF/y2MRIbF/Cvtx6cTq2qnvhDhSSjOHZW7b
-	SrZLdbohF0KQzzNRCNPWBb78I//oj6kKdYZDwUKYpXUqcw41tGfL0n/Br1+XlqpVguXZY1pOtwI
-	SsjB8mSEchqrVSTNIjWA1IYJC2J/wmOhrOxsHbU74dVXf76hEdTe5jYTUWq+UrYHZIEQ=
-X-Gm-Gg: AYBFou0lTVUmYM2R0E9krTsnIfXF4ij9XeYU1jpXcWwFuDPe3B3QGAzGhU0dS41YR1F
-	0moPefCn4TlwwM58LnVk+V2dYgaorPtFp6G0Ziq42Yjkg/Ia/MlTFhpAe+58AtREJmxaPJiaZ0H
-	oJA+aO/JJEfTLOrSA33xGw/1BJdcMi3Ki3tLqNOz3OM+frK4jzw+bBZ4kJmazzL+BliYkIhTS6h
-	5KR7RG3ztrIyhtqbDvhDl+k4AbZ2LWwlaV2pMS0l3UzPKzlcQ97ImLVVu6OZ/x+WjiOeBvsrDE6
-	E7QGnENV0SenFNdcc6NFTE0N3U0xM+GBy2D4GEnM9yySdzPsx4lfNeqrGyDj78Hl47CPOswXE5N
-	9r3SRt85yO8UFkIbqyGvg5k1fQjIre7LJrIVsu7RmLEO4YQUA80MgMaRGYiNNuzM8QuGT6acvKK
-	xnhuszinzMMmuqlPBeaAFX6+ztla2TIkNdKyM=
-X-Received: by 2002:a05:7022:1706:b0:15f:28e1:7c7d with SMTP id a92af1059eb24-18514729a89mr14433988c88.42.1792513841028;
-        Tue, 20 Oct 2026 09:30:41 -0700 (PDT)
-X-Received: by 2002:a05:7022:1706:b0:15f:28e1:7c7d with SMTP id a92af1059eb24-18514729a89mr14433959c88.42.1792513840461;
-        Tue, 20 Oct 2026 09:30:40 -0700 (PDT)
+        bh=XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=;
+        b=ZtDN2NSPi/9/Wzs9i/a0Hu0clStY1ooDtmpwUCocyufTpF0OgMJYgRKeAqZx1kqybY
+         bY2qe+N6bXC9963+viHjW6vB7MyZJ6jDv39o2lx8fqrmd8NyqaiEhQxjau6kcD6HOs/y
+         bwqn+4aENJlt9m3AQcrH8clDXWsNG6vfskcVswQGvu16ph75UrqdkmJabYuUUwKfLOr3
+         L1e/o3lnAO2j37A9FihzpQiRLbMlCHFv1yjC3VJ/HMsvEjMG3KAg6RlAcm6DihO5lMT9
+         BmGXuWwOxdkqzKvXQz8SzHaKyU7pH3XFEHPm81qfpIjhThXyQOH7ca3237UW8zxRhWDQ
+         Rucg==
+X-Forwarded-Encrypted: i=1; AKwUvBxqn4BhJjecC81CK1ud4IR658TTZsQN9L5EQvuAVCW66rEGQLST3M74Wp6FN2op886pJ/W+XFT0TEsdhyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKR1C/YwkrTFa3owBBSk+EgdcNx2MQkH+8SgunWfvhlp4AuVF62
+	EVQTvlKc8KfwmCaGpsBiMxWu0vm1Yhn9Xa3VYHhHUwLZtRzhNlsegvUYdpxIcXmugRSqvW0cpoU
+	JW6S7PaZLzPR0G9fWBNv1bVsKS0g/UguHPLXNCPxRFP7ekDAyFoAcxtRG/bfVRyvTVEg=
+X-Gm-Gg: AYBFou0gS1WLfBlFQ7L34XKS40iWUXJ27vrAbG1OAL2j3H3NgG5O2f0gz0VixY4drgO
+	2z10LhsXGHA09Rv0Bpm/TuOuoYZoCdLJOQpFBLSr+Qz7c5kVgUySifpqOV4flBGLKNTKT5dqEFR
+	LTgKc0Y4kPDqCdcEt6HuVlYyTV3sYGWO21wydZ4T+7QZptZRj2hW7z1Mg3xFAyTmmFn/V+RrHGs
+	bkingFE1gF2IKwY+MqnWkEX4MXbf2U44r6nunNvEhUZp723ahksVZrWnjAGQedQUXQ+t/uMi0EK
+	g5JaRNx1x/ZFvagcoqZ5yVMnFn3ZZkjhlD1S2f/wVxOVSPF50qOXnKLWyQ7m9U1NepT4G6dOBRJ
+	CIsQhYF3ZUgF2pc6/LKSIyDqybXLJFlhohXa26uC01MBdcCM/W0f7o6aEFmKY2UKCm46lip2Wy1
+	Uz36+zH6KyJqkur7+XkUrpQkabAQhypO0Oe7I=
+X-Received: by 2002:a05:7022:b054:10b0:190:596:4071 with SMTP id a92af1059eb24-190059640ecmr251672c88.11.1792513846495;
+        Tue, 20 Oct 2026 09:30:46 -0700 (PDT)
+X-Received: by 2002:a05:7022:b054:10b0:190:596:4071 with SMTP id a92af1059eb24-190059640ecmr251602c88.11.1792513845675;
+        Tue, 20 Oct 2026 09:30:45 -0700 (PDT)
 Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm33473794c88.14.2026.10.20.09.30.35
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm33473794c88.14.2026.10.20.09.30.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:30:39 -0700 (PDT)
+        Tue, 20 Oct 2026 09:30:45 -0700 (PDT)
 From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 22:00:26 +0530
-Subject: [PATCH v2 1/2] dt-bindings: cache: qcom,llcc: Add IPQ9650
- compatible
+Date: Tue, 20 Oct 2026 22:00:27 +0530
+Subject: [PATCH v2 2/2] soc: qcom: llcc: Add LLCC configuration for IPQ9650
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +117,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-ipq9650_llcc-v2-1-e4c492acc8b2@oss.qualcomm.com>
+Message-Id: <20261020-ipq9650_llcc-v2-2-e4c492acc8b2@oss.qualcomm.com>
 References: <20261020-ipq9650_llcc-v2-0-e4c492acc8b2@oss.qualcomm.com>
 In-Reply-To: <20261020-ipq9650_llcc-v2-0-e4c492acc8b2@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -129,66 +128,170 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: KTJK8PIkZxbmY2FavShvXuBqCpkSAhuu
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2NSBTYWx0ZWRfX1nJMBtO0FLxg
- BYR74u4b6CWOf8xNElFjiXVWjKUbm1vlBFDwyEld2uChNe4G+r4+BQwXFm887zDGbt+U4GNNpbX
- N2X41dulXaDb+QUQZdjmIujdH5T+AOg=
-X-Proofpoint-ORIG-GUID: KTJK8PIkZxbmY2FavShvXuBqCpkSAhuu
-X-Authority-Analysis: v=2.4 cv=A5z5rKWG c=1 sm=1 tr=0 ts=6ad79732 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-GUID: 30omy8wzLCBsEqMtwaSeEgDkNZloK8bq
+X-Proofpoint-ORIG-GUID: 30omy8wzLCBsEqMtwaSeEgDkNZloK8bq
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad79737 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=OsHVNsnzEVu89lbPO3AA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2NSBTYWx0ZWRfXyzP5Zv26LDDD
- kPwKHs/hnlZVhr/UhtEN2I8Lsyadk+pd9MthrRbadu1NDN2Q9sZXYVi7NeNrVZHVpp3yKufOupd
- ILg0aGgY6mdxf/Kn9VOML1lXLXfroBlfWwn2dg7zBEXlUkaZwPZku2Jm3yqpYoxo3G/pBeNM70S
- MQHO7b93rbZjeByBxSwJ4o6azDetbSD8Wpk2C/6v5RiQHEmPfLHRN/26b4KrQMXklnjOIh41mOH
- QBx5j97IID7oaK8EWzc8KU2DG7GtYL2qCxCCjCRnV2uR/V0Qk/Cbxum4VYQy2py4ADrzdYWJG3S
- dPPFZTn86rmdEPbLMV5ebLZipkOKgKsYhrWBZWB9S0JweYVTIEeMFKPJaI9MKpS2oQbciR/MIDb
- N12nyBoyj9i3zjtTea2aBSJ2KNIO9jrB9raoU4MLL7g4klQyYnlUG2W88pLkqpv+U/N741Mr0F4
- KG02n7tI8Qve2esH/BA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=g86QhdraO39nIfxGWTwA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2NSBTYWx0ZWRfX9mFwopjameFS
+ bf7lQsEU4gGk/5fGPqLYB3aljeeBQEkeNUpZDguZi+S0PgCiloFAtYDBerjcpF+lv3DCfDprP5V
+ fPUy0+sfyDfURb5hPSu+gFZzt/9vaRvkG+TWxlzYum70jmHme9aDXci9Q33tPgUlvCY89XHwZ5V
+ E9zAbmUF4ft8Q/ozADHVYXKnOF1ZXlJcR0YxJFSWBaLm+badw7VMibvI12RKNu2Fl93QyhGdq8i
+ /bOXijtrm3h5J3tjSewE6K6/a9ua3rXRAYLPpTkH+Udd/lq7PAnhspFIB9L1r4ixbyHLSZMpoLn
+ 42XUM+0ahyOfAAnwWGNrAsPG6jEP5NY7et8Mr7H0+8pfkyXWfmW+TMOSBtLMSKdCA2NhjBytd7H
+ tkvLv50If65WGT6LUc5dX3oz5kCY7eXO1FvwVxeV86bW2wyXXiIdIc/LI9bqsjCS6MKMUejHeaL
+ MB1M0u74xLEHy00XO9g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2NSBTYWx0ZWRfX5ZFliYkr9gje
+ R2MTQ8e+dK8Zkx8CeirBoW0LlQkimDJp3ahzlTIEhysd6nga7k3DWliu9zx8zcxCZLQ2LjDA6lx
+ wW0dCEYRzn8oPLDZZIQh1Y5rcRYPqrU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501 suspectscore=0
- phishscore=0 spamscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200065
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200065
 
-Document the Last Level Cache Controller on IPQ9650. Similar to IPQ5424,
-IPQ9650 does not have a broadcast region, since there is only one
-instance of LLCC.
+Add the system cache table and configuration for IPQ9650. The LLCC
+hardware version in IPQ9650 is v7.1, but similar to IPQ5424, there is
+no broadcast region since there is only one LLCC instance.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/cache/qcom,llcc.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/soc/qcom/llcc-qcom.c       | 76 ++++++++++++++++++++++++++++++++++++++
+ include/linux/soc/qcom/llcc-qcom.h |  1 +
+ 2 files changed, 77 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-index 2141e5d4de63..3efe68b08d58 100644
---- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-+++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-@@ -25,6 +25,7 @@ properties:
-           - qcom,glymur-llcc
-           - qcom,hawi-llcc
-           - qcom,ipq5424-llcc
-+          - qcom,ipq9650-llcc
-           - qcom,kaanapali-llcc
-           - qcom,nord-llcc
-           - qcom,qcs615-llcc
-@@ -91,6 +92,7 @@ allOf:
-           contains:
-             enum:
-               - qcom,ipq5424-llcc
-+              - qcom,ipq9650-llcc
-     then:
-       properties:
-         reg:
+diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom.c
+index d7a42a8040a1..37154db362f4 100644
+--- a/drivers/soc/qcom/llcc-qcom.c
++++ b/drivers/soc/qcom/llcc-qcom.c
+@@ -696,6 +696,66 @@ static const struct llcc_slice_config ipq5424_data[] =  {
+ 	},
+ };
+ 
++static const struct llcc_slice_config ipq9650_data[] = {
++	{
++		.usecase_id = LLCC_PPE_RXFILL,
++		.slice_id = 1,
++		.max_cap = 128,
++		.priority = 1,
++		.bonus_ways = 0x007f,
++		.retain_on_pc = true,
++		.activate_on_init = true,
++		.write_scid_cacheable_en = true,
++		.stale_en = true,
++		.stale_cap_en = true,
++		.alloc_oneway_en = true,
++		.ovcap_en = true,
++		.ovcap_prio = true,
++		.vict_prio = true,
++	},
++	{
++		.usecase_id = LLCC_CPUSS,
++		.slice_id = 2,
++		.max_cap = 384,
++		.priority = 3,
++		.fixed_size = true,
++		.bonus_ways = 0x007f,
++		.retain_on_pc = true,
++		.activate_on_init = true,
++		.write_scid_cacheable_en = true,
++		.stale_en = true,
++		.stale_cap_en = true,
++	},
++	{
++		.usecase_id = LLCC_PPE_RXDESC,
++		.slice_id = 5,
++		.max_cap = 192,
++		.priority = 3,
++		.bonus_ways = 0x0380,
++		.retain_on_pc = true,
++		.activate_on_init = true,
++		.write_scid_cacheable_en = true,
++		.stale_en = true,
++		.stale_cap_en = true,
++		.alloc_oneway_en = true,
++		.ovcap_en = true,
++		.ovcap_prio = true,
++		.vict_prio = true,
++	},
++	{
++		.usecase_id = LLCC_WLAN_2G,
++		.slice_id = 8,
++		.max_cap = 384,
++		.priority = 3,
++		.bonus_ways = 0xfc00,
++		.retain_on_pc = true,
++		.activate_on_init = true,
++		.write_scid_cacheable_en = true,
++		.stale_en = true,
++		.stale_cap_en = true,
++	},
++};
++
+ static const struct llcc_slice_config kaanapali_data[] = {
+ 	{
+ 		.usecase_id = LLCC_CPUSS,
+@@ -4673,6 +4733,16 @@ static const struct qcom_llcc_config ipq5424_cfg[] = {
+ 	},
+ };
+ 
++static const struct qcom_llcc_config ipq9650_cfg[] = {
++	{
++		.sct_data       = ipq9650_data,
++		.size           = ARRAY_SIZE(ipq9650_data),
++		.reg_offset	= llcc_v6_reg_offset,
++		.edac_reg_offset = &llcc_v6_edac_reg_offset,
++		.no_broadcast_register = true,
++	},
++};
++
+ static const struct qcom_llcc_config sa8775p_cfg[] = {
+ 	{
+ 		.sct_data	= sa8775p_data,
+@@ -4909,6 +4979,11 @@ static const struct qcom_sct_config ipq5424_cfgs = {
+ 	.num_config	= ARRAY_SIZE(ipq5424_cfg),
+ };
+ 
++static const struct qcom_sct_config ipq9650_cfgs = {
++	.llcc_config	= ipq9650_cfg,
++	.num_config	= ARRAY_SIZE(ipq9650_cfg),
++};
++
+ static const struct qcom_sct_config sa8775p_cfgs = {
+ 	.llcc_config	= sa8775p_cfg,
+ 	.num_config	= ARRAY_SIZE(sa8775p_cfg),
+@@ -5830,6 +5905,7 @@ static const struct of_device_id qcom_llcc_of_match[] = {
+ 	{ .compatible = "qcom,glymur-llcc", .data = &glymur_cfgs },
+ 	{ .compatible = "qcom,hawi-llcc", .data = &hawi_sct_cfgs },
+ 	{ .compatible = "qcom,ipq5424-llcc", .data = &ipq5424_cfgs},
++	{ .compatible = "qcom,ipq9650-llcc", .data = &ipq9650_cfgs},
+ 	{ .compatible = "qcom,kaanapali-llcc", .data = &kaanapali_cfgs},
+ 	{ .compatible = "qcom,nord-llcc", .data = &nord_cfgs},
+ 	{ .compatible = "qcom,qcs615-llcc", .data = &qcs615_cfgs},
+diff --git a/include/linux/soc/qcom/llcc-qcom.h b/include/linux/soc/qcom/llcc-qcom.h
+index 713cb0221b14..b0ce1a7d5d8d 100644
+--- a/include/linux/soc/qcom/llcc-qcom.h
++++ b/include/linux/soc/qcom/llcc-qcom.h
+@@ -92,6 +92,7 @@
+ #define LLCC_PPE_RXFILL		 102
+ #define LLCC_WLAN_5G		 103
+ #define LLCC_WLAN_6G		 104
++#define LLCC_WLAN_2G		 105
+ 
+ /**
+  * struct llcc_slice_desc - Cache slice descriptor
 
 -- 
 2.34.1
