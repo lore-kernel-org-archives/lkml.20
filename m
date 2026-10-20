@@ -1,93 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792473573;
-	b=2kt96Ox3tKcvz7aQUQc7GBojT0KX91o1cI3m3xbgDREOl4+LeVcvrGpWnoMtXi/4kXXM
-	 9FZkPD5ev5LualdohAVtVRDBs4w1vafh6uBO3B9uLnu9cmfhKOJb8vR8+WwsFMPPY4tLF
-	 4tGIBCAF1AU360ziFS4puiVM7TuTY9oTg6Red4FcfK07IHeGCu40aWsYYJ66oFdE3KeyP
-	 wj4KVx1Xt+dPS1gQQt5jIL6YgsVKMXriWQNrvhtZLMvGyC/z/TK9yoiJRy0NMK+iqfFq9
-	 W1YEPiDwVdA9QIEkUBg9ENgc/0UaVv8xQ83JfqWAJ4n9omwMkFE6w9j88lL8NkRPxGQ==
+	t=1792473585;
+	b=4/GEuRCGD137y9mA5BBCTOc4pmFbCRtnNHQ1T2PxPymrsI3oEhoFWDD9GOIKY2dYtubY
+	 W6FvRMqkHe0RPawCBG/+U2GSsVXzBTP9GVW1Eba/f6KCtGV7xeKYA3WZXD2bR244Rrcj+
+	 YbBjQ98o+uZ4AgglUBzs1bBQqTg7ceCywbUZ/cucT6PL7UznXjmGT2Ojddqysn2nsU10k
+	 Q0+fpip0YcBnXAus9D4bjd9Rsbth4TkLZm1VOQR6cDhXeixO4Sf+6eJFyw435fdeFWnU3
+	 hxwBVC38mo3bF5uco8lYFB+EQPmkoTIBf3jjUj3Pao4ieZorxbBDUL3uuvzQIzN2BHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792473573;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WiwuSh+FB4wlU3qM122kTHIbF58w/uDaDwSp2c2z4b8=;
-	b=odAZ3zmLqwoI2flR2KwgdYJiSrA8oCjBtsBSkGbReu0E/IIBIjEcZ+ZHcDOdHsDENsWE
-	 y9uyztDPvhemu2bIlEW8uGjIW227BxYlBqS8bruOCWWySvtx+a8tFQEGgUjY+Df+Rs3Ge
-	 8YhEgIqu9tKUjyvEYCnOTEFZCeQSghKCaxfxgFNmBN/FxaD8TgZqM1uKFERIG6utc3ohj
-	 x6AxED3/Zd5eFZM6caKRuteNKNYTyB39/3KTJMb45+sXuV7KyPHjr20XY6ckMzrKrmktE
-	 /2wMQix7hNOpvYoL83+F/Bjryk8IS3HwPfBgfqqljlIGOyM2S/HQG2qkLwDWaCFc3wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792473585;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BgiA92Rw3GBP5F1shghCZ2z8YmAbZXNEejKdnMhHo/k=;
+	b=SzUI5D1HvtI4vtPKEUOov99Ji899iB47rhxwnxAPUXAZSZPB8eIEPL/q6xrJfSa2LIm5
+	 u0ilw1mYab1xaqG+flzXGAwnE9G4dGs8bUCjSr7BFI8hpSl3lME6efZ4vzrwkU2ygb21q
+	 ezQSp0+Gi8MDfjtkaXEZvtSdHT6xhFNrD+u4WthPR6dkmC37S0Fuoz7c3V3KtQ/6EFV82
+	 EKVdQCQXGOqGfHmtTaKyeH86pY6C7Jg0q2DGqGRTZZFhc6nEmlY3FiJPL2wwKBpZvtgPL
+	 E1NUYUHeqk9nKF1HdvOEv/qGjtN5wb/bEyI0Y8keo80R4FIeCzXHpKzou95iCnbLvew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BlmUULdJ;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74034606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:19:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74034606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BlmUULdJ
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e977109392so12974745ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:19:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792473573; x=1793078373; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WiwuSh+FB4wlU3qM122kTHIbF58w/uDaDwSp2c2z4b8=;
-        b=BlmUULdJDtjKoJrEy8yAl3GreePE+o+r052NwAx8OHhqdzSv+OPzw/a8/ZsqaYvDLo
-         F4NIR/R3OH7fjK20x4vZpDatoTxUBbt+XpRYubWrKMTG45tAwqwMipIS5tHVzETdPHih
-         CqaQo3p/zIKLd2qmENh4rZlUapJeedpnS8hp5rDMHyc3o2ztD3IanpKR6W0AqOlC9oRe
-         M6lMUsGl+aOcS+YoSwYHiY0GzbtOFQ5P+h8ESYzLbvU5GqzJMAdJMA1x4sCliRmYQtiR
-         z7gpvI36Q8tDTBzIlTPaSSQ85+fArfpAXjRsSd2GrqkIHoGAoNigK9euCz08Xbv02m1S
-         pJFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792473573; x=1793078373;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WiwuSh+FB4wlU3qM122kTHIbF58w/uDaDwSp2c2z4b8=;
-        b=TohDJwxur4rTGGLNSnXLDqwrWI8HqXHckjGqVxB3a9W20aAFLYoJOV2VI2+To04mOl
-         tjNmxT8DhU6fGjsSkmzGh3xZe0DdOb7WtXtQS54VnwS1lpm/nxJhQlkUKGH9pIUScwmk
-         YbFGUNzUkc0r+TQSP0KvgjvluM8UeV5bpogHNkHZ24chnrW//51lZKStrjBSVqY5+Kuw
-         oXBKGNJHA3Xabdnd2Yzo+w9xD9UIFqnR87qdElJeuEZWndmFbpae97jbODNy2dGis2cb
-         HMAlg/3B5NBdCA+KV2AImNxFUB1PhDMZHcZgKMQcj3BiW0EGuOe0wnuXgmq1Ml+mXF9V
-         tRVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzTJlbKPZ9jh1bdCeNFe/7gVwPpH/MjYY2y8Sd5i7i5idgKXsWKSwF0tsyHqpq5/t0pgvwDkA7zzMfPrrs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvSj08RZUNoDWu/PRx323LGOV89E0fSWWt1LZzWWGiEIHGemL3
-	+GSaEQnZLxPwXKQcO0GDtmbOB6LlPynTnxqdWtBJL2qbZzRhsb4pRzBHKkKZN5Rc
-X-Gm-Gg: AYBFou3qUFzA92gQRVeXiV7ukfRUcLm23bID0QWmOoVh0yubSB7xZjIAzpnEhGYIvcI
-	oScAFHDsr/7Jvsz2t0lwoXyWcCM/raMMkeJY03drcVsHvVzgmFObP2kMsNTLyj4TUj2oBo5iW5w
-	g/b7lYHmByXOwyR+SzVhyBetCZ1rSF8gatRXhC4ibDT83Z0n+/CNPwiZSVnpikiIc9lrsgo32ht
-	x7mGZcCweNclMcegD5DB+8+I8HVB0hMJ1ioYzbYnuM2w09gB92L/SgBkH1G/2q8i907DZgcMh7a
-	pEdmH7K1UV/z7wunMmwCtsEXKbO9lTVDmS3SeSRcm4H/F2z0696H+BOPE0WBOzsDlFN30ocGK9/
-	N6xi6FAwk2P15oQkz5a9ipVYtVVQxa2ROqKN8EJnfJyDRleAAC5a0yb9mrzmdoa1CUr63DRGWku
-	kWHQxDAFrfIOg28qv8dWSfof61HIliVcZ2cx6IKmgCOk5kbuaGPYFRUuPv8ZBSJwKuoSiUhJrT3
-	1J/9mOejmWlWEPY/JWGs8+6qVberu5ysY2AZsKvLomkcT4UvU1Az8BIkPRKhiy8lmhoxVwbGtMq
-	/S1c97pg6k9JbrgwqMR/+1iERWDT1b6LUKHdmB0ZDTqtywJdYnaiz8dmkcDKpXV0iRA/+myrp8Z
-	wOcsNNpc90CvyUqJ4irbor3dKmGVKMQ==
-X-Received: by 2002:a17:903:2c8b:b0:2e9:5c55:c46a with SMTP id d9443c01a7336-2e9a6834a18mr82663075ad.7.1792473572624;
-        Mon, 19 Oct 2026 22:19:32 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea145af6c5sm8940965ad.2.2026.10.19.22.19.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 22:19:32 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_fs: check ffs->gadget in the DMABUF detach/find paths
-Date: Tue, 20 Oct 2026 15:19:25 +1000
-Message-ID: <20261020051925.92294-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DCC606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:19:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8451F000D0
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792473578;
+	bh=BgiA92Rw3GBP5F1shghCZ2z8YmAbZXNEejKdnMhHo/k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UMWCj16OBuVk0U88Aunr2hcNay/tMEVe6sCKWnZWHUOCWlPoZ+vy0CkCwTJXjGBsC
+	 pUa8wBJtW4t+MJ5+UOARI4G5IneAjBe77CMR8zJGM4CIr+dqyU8VozbKkWRBrmIFe8
+	 kRh3PZFiC3vuGVQLUOI5bEHKdiyjPrCrxfqieh7RDSukTJyaXgbh+kc2bU9zBP8fFW
+	 kLhl3q2xpKuk6BKQ4xgCll1VHSTAEO7q2/iQOivJFK6dLVn8mVFgjxsD8u/e30ucyr
+	 vt2db4Vol7IA4qF0LV3M9Oa/2F5xtU6I2Pw2FbjrezgNUcvLA3TT/3syeCcMruarhb
+	 ThIaMnm7xB3qw==
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93cb9e9405fso135379085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:19:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwQSHXbZlTMxkEWKxP6TRyS24IohAdVUepcZrYM68anV2RM0NeNX2pp3+sIOIUN6ynycsRKEaazeY+yT3g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDDg0Zd69oxb/kgAAAv9BnfNAfsk+lMFRNo6C8UnQhbF/bCiQO
+	a/xI61k8dyO8S3lgPKtJ3kaMjLYkABAuG2SFyqfwh4AD6HBfnGDRH0e7ynhEuN4jfBK9U+wMmS+
+	KC1KnWj2pR65zpX0zRIf4jUTFmHl/RxE=
+X-Received: by 2002:a05:620a:17aa:b0:93f:1ed3:a9ce with SMTP id
+ af79cd13be357-93f29db7ae8mr1618788285a.70.1792473578195; Mon, 19 Oct 2026
+ 22:19:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,89 +56,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+ <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
+ <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
+ <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
+ <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com>
+ <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com>
+ <CAE5sdEjFgVoQbWw12=+AKdCOB9cWm-akxzbX7hJzvyO3vpCtgw@mail.gmail.com>
+ <CAGsJ_4yrAosgxnxqc18qXyeJQHszYOdTxJw4TzSJqp10YQWjag@mail.gmail.com> <CAE5sdEj9biuOuXp7aej7pV1Zyjc0kqcH12Oi6gLyJCeuihF6Hw@mail.gmail.com>
+In-Reply-To: <CAE5sdEj9biuOuXp7aej7pV1Zyjc0kqcH12Oi6gLyJCeuihF6Hw@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 20 Oct 2026 13:19:26 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yApi_o0HdYokaanRAtQXFQLJ2qiCRfRdBVG3=SZ6MxzA@mail.gmail.com>
+X-Gm-Features: AclHuK-bqRkpB4GJrWRBWTc8leo0NsW47GnrpMNZ80hWNmfMyMEJyA6ae-ZLPgU
+Message-ID: <CAGsJ_4yApi_o0HdYokaanRAtQXFQLJ2qiCRfRdBVG3=SZ6MxzA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
+	Hardik Garg <hargar@linux.microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ffs_dmabuf_detach() and ffs_dmabuf_find_attachment() dereference
-ffs->gadget->dev.parent as their very first statement, without checking
-that ffs->gadget is non-NULL:
+On Tue, Oct 20, 2026 at 9:37=E2=80=AFAM Siddharth Chintamaneni
+<sidchintamaneni@gmail.com> wrote:
+[..]
+>
+> If that is the case, do we still need this patch?
+>
 
-	static int ffs_dmabuf_detach(struct file *file, int fd)
-	{
-		...
-		struct device *dev = ffs->gadget->dev.parent;
+yes. We need it as cleanup patches. not bug fixes.
 
-ffs->gadget is only set between functionfs_bind() and
-functionfs_unbind() (UDC bind/unbind). The epfile ioctls, however, are
-gated only on ffs->state == FFS_ACTIVE, which userspace reaches by
-writing the descriptors and strings and which is independent of the
-gadget lifetime: an FFS instance is FFS_ACTIVE before it has ever been
-bound to a UDC, and stays FFS_ACTIVE after unbind. So
-FUNCTIONFS_DMABUF_DETACH (and the DMABUF transfer path, through
-ffs_dmabuf_find_attachment()) can be issued while ffs->gadget is NULL,
-dereferencing NULL:
-
-	BUG: kernel NULL pointer dereference, address: 00000000000000b0
-	RIP: 0010:ffs_epfile_ioctl+0x402/0x1700
-	 __x64_sys_ioctl+0x120/0x170
-	 do_syscall_64+0xf9/0x540
-
-Reproduced by mounting functionfs, writing a descriptor+string blob so
-the state becomes FFS_ACTIVE without ever binding a UDC, then issuing
-FUNCTIONFS_DMABUF_DETACH on an endpoint file.
-
-ffs_dmabuf_attach() already guards this with
-"if (!gadget || !gadget->sg_supported) return -EPERM". Do the same in
-ffs_dmabuf_detach() and ffs_dmabuf_find_attachment() (the latter also
-covers ffs_dmabuf_transfer()): snapshot ffs->gadget, return -EPERM if it
-is NULL, and use the snapshot.
-
-Fixes: 7b07a2a7ca02 ("usb: gadget: functionfs: Add DMABUF import interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/usb/gadget/function/f_fs.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 44218be..0976db7 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -1473,9 +1473,15 @@ static int ffs_dma_resv_lock(struct dma_buf *dmabuf, bool nonblock)
- static struct dma_buf_attachment *
- ffs_dmabuf_find_attachment(struct ffs_epfile *epfile, struct dma_buf *dmabuf)
- {
--	struct device *dev = epfile->ffs->gadget->dev.parent;
-+	struct usb_gadget *gadget = epfile->ffs->gadget;
- 	struct dma_buf_attachment *attach = NULL;
- 	struct ffs_dmabuf_priv *priv;
-+	struct device *dev;
-+
-+	if (!gadget)
-+		return ERR_PTR(-EPERM);
-+
-+	dev = gadget->dev.parent;
- 
- 	mutex_lock(&epfile->dmabufs_mutex);
- 
-@@ -1570,11 +1576,17 @@ static int ffs_dmabuf_detach(struct file *file, int fd)
- {
- 	struct ffs_epfile *epfile = file->private_data;
- 	struct ffs_data *ffs = epfile->ffs;
--	struct device *dev = ffs->gadget->dev.parent;
-+	struct usb_gadget *gadget = ffs->gadget;
- 	struct ffs_dmabuf_priv *priv, *tmp;
- 	struct dma_buf *dmabuf;
-+	struct device *dev;
- 	int ret = -EPERM;
- 
-+	if (!gadget)
-+		return -EPERM;
-+
-+	dev = gadget->dev.parent;
-+
- 	dmabuf = dma_buf_get(fd);
- 	if (IS_ERR(dmabuf))
- 		return PTR_ERR(dmabuf);
--- 
-2.43.0
-
+Best Regards
+Barry
