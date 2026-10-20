@@ -1,111 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509809;
-	b=Kx2Z4yfj6MvAMP7bu+CdS9/f9a61sEBo7GNmFOo03IYwq0PdlMDpMZLPVH1mewOEFMTZ
-	 s615PsEWAczTCW/QndMAUwYEmNsoBKe007JydRKV4jkigPQlmEOIz4AxP0NCEFhydWVXI
-	 jVUJSNPXBZAYXqX6nDXXJnd0GmGkQijcfakDqnlyi/uMkpRS5qAu4DvuHjtGKN4Dbim8r
-	 ZX13vD0S31GXFbS1sOJqvSuOIQ7ozQdvxNHqF3Kutp3zhxsG2JQl4jM1B8Cq1+aS1NEtK
-	 4NmHVk+AHO62ajVBVJeVguXUKcmGPxmZ8gyRk7sJQ2f+fofuhm7Ic8KVDviHqIlfgnw==
+	t=1792509876;
+	b=jKSGK5nV/zXkO1CafQ1N8czfUtioqoP4mOFBFXFzyEU9TQQLOwvgrLrJz13NF52GnREe
+	 YrsCU8JHTQfuIMGCGuhphAr7dbqDNIVqIfmX5eUKwiMXLmz38wM6RD7hDhqxhKL6OW8zV
+	 Z2tIcI5EFt/Mj/rEIctzxtbx+f14MhyHY4W1Mmt2fbcx62ZOtZ8E+JtKXytOiu7QstkIg
+	 u2m00IzPvlMqYfQ3zeYdC5c+x7JPtbxW1b/Ug1hCbuCG6EGMAykxHhSFHgQaf9h2YMiPj
+	 TLqPMI2QGgm9YGlUED25BOQ2Nz7ttL+UtZ5YT2m4dxur5s+zT5ROjeHe0WGiVzD7mqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509809;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=LyHQMbJikx7xBSFYKoXIMj/0bcUbQtzrUPaXCrP3rzk=;
-	b=IW7kKvl6ybD0ZQCH8UNqcSQinaqyHrpET+WAbk6f3w/PyS2bfaMUjKtSZGCq5eI6GcRV
-	 K/Fy9ksZOiLO4WX1pL3oJhBDqvXekbzDURcCgy8Txopnu+PlQJvRsOgvZFMOCUMnWn2O7
-	 d+DLsNT8iJyKjJSczk2C6JTDyi/+dvrzX0hHMFj2KmgOMKMJ6Wz2DhCA/YKDZgFC+bssJ
-	 Lsw+VnOGQWlM7Psbb0AeBlOqvd77XXInvQCwaAjw8k4YhNkjRo6TMSqOLN+xUKAOIYq3A
-	 xsgBBRmx5W4PdTJzAc/86PFsZDYq5M7llak0tY9i9UhQ+yK42eq78PlzwtoC1V0d05w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Yo7lFEBSYN02LBZv7O1t6La9fyqMBtHX6dJoSLmRutM=;
+	b=W8CUmCg5jA2y4MILVHLa6EoIW5sMXHJr4Txm5kFBsi6eB5/hU/wZJzBn/sQsuZctT6u5
+	 f2j+INg3Pmoq6+UwgimiXWYmvppBBpBrUwVxOoGDJkEqsZVWiW41j1tvwWfJo8EyFD99C
+	 pDX5eEz0Hjz6iA/CeHVu6SnmPE8TVl/Bn8RldRQlbP+ErgVelm4OcVTBpaQ0AwNY4TxRQ
+	 7OeEI2sAGHML/Dk6glxqWlDPvlNUwuFzdpd2Bg9S2E5QHgAtqbk8MoOVWuDGVsahr39k2
+	 GayjW1jWw/+hVlZ5nnQZVzoKm88PEhUK+KexWdVJTtWA9Q3re9wDRJB5xcX0G1LDDSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FfTQ7Vy5;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VMGpowgT;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6BB606A32D;
-	Tue, 20 Oct 2026 15:23:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B6BB606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05999606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05999606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FfTQ7Vy5
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDEKqA1400981;
-	Tue, 20 Oct 2026 15:22:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=LyHQMb
-	Jikx7xBSFYKoXIMj/0bcUbQtzrUPaXCrP3rzk=; b=FfTQ7Vy5O1tW33td2mLFln
-	OU4X/oa3JqFpxv2V5ONpQHtGO5H6tTa8DtnvpEwRn4XAaLpdr+EE4C83nMg4yFWb
-	TlbKN0k0h0mUQ8jYsz2MjVoUjmtXyYoPWBqq1EqnDmnB8lPx+z1ruCKYWH4rdBIU
-	QWzKJYHQS0xD7ZBALLB8a2IQE7Nba8jE5WDK/td81Vn88yTro1hIxVGSWQ8VxWXA
-	5k6I5uWaQEJeei+FAckNQc8KBfSHjo2m4pSb36B0y1MdDUblEWwePsq56XNtY0yy
-	mA9j91ek9xim3WZ/65S857PM/B/7zvFXwF1Ix/z7ykywXlwXOHZrUCLbu9dyRDfg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw583fr0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 15:22:34 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDK1iG350728;
-	Tue, 20 Oct 2026 15:22:33 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcnjh2ejb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 15:22:33 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69KFLkDu2949858
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 20 Oct 2026 15:21:46 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F0F9C58054;
-	Tue, 20 Oct 2026 15:22:32 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1AFBD5805C;
-	Tue, 20 Oct 2026 15:22:30 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.185.52])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 20 Oct 2026 15:22:29 +0000 (GMT)
-Message-ID: <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Dionna Glaze <drdeeglaze@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
-        Jarkko Sakkinen <jarkko@kernel.org>, linux-coco@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-        david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-        rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-        James.Bottomley@hansenpartnership.com, aik@amd.com,
-        jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-        jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-        suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-        elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-        sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-        roberto.sassu@huawei.com
-In-Reply-To: <20261020140655.GV13920@nvidia.com>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-	 <20261016234354.GA664420@nvidia.com>
-	 <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
-	 <20261017203407.GM13920@nvidia.com> <atPgqROZZxnihYfC@kernel.org>
-	 <20261017231007.GP13920@nvidia.com>
-	 <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
-	 <atX9fugGUsI0hGcA@FV6GYCPJ69>
-	 <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
-	 <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
-	 <20261020140655.GV13920@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 11:22:29 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VMGpowgT
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso504153866b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:24:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792509874; x=1793114674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yo7lFEBSYN02LBZv7O1t6La9fyqMBtHX6dJoSLmRutM=;
+        b=VMGpowgTivqWykR+z+tts82RoCt0Akfn8flpv2XxtrBtP26GbPmJCZWmVTx8WbEFi+
+         fioWB3I4YB+s3XApsYejzO4LJkwOyzOrLnaVLkTP3YPFHtaWEXo78twbytbLdwNsEM7D
+         /x6r8bREvJmScJvoImna/VWFOA/LuVKhmJ7IfdeCw1ijNu6UaEYdC7yk+9nL/mL5Rz+5
+         b26BR/j/icX2nurs1k/9nNU+7K89piSbe4xm3GOzBEzELxZJy0d8vadZTryCrnp78d7E
+         N+hF4dGzbdlGX5K16Gy4iwcHnrlSUr8VO3QsSA8flZ0VR8s6OWH6iHj+xY4D85x8z5vz
+         lFpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792509874; x=1793114674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yo7lFEBSYN02LBZv7O1t6La9fyqMBtHX6dJoSLmRutM=;
+        b=dijmDQ19ipTs8eJlOchjogIeJjqMFG5Zx1jAPN7M95LekPxZip9mJyQ+eP2kM7aYfD
+         V0yzJEsywrB9Tqjg2q3p3bpLwXJ6xZzBsYLYpMxaV4q9Yl+3eC1EBFVFRQUSFh0sny4I
+         oKxXrG4uB7NHBYtlctb0UPo7K9zpKPgUhXoyoVC7cpAYyr9pAsZZ8stbLH4B/I/qieuZ
+         5YUhxyiOj8qHHEF+ZiKpjuTzwx2ThOI1OrmkLlOI/gpfgmE/TMB4+5+GCmjDnstDgLTl
+         dybdTNFPLFVfMraGq7Zl7IC/ra9VgDjasORpDvaTs94t5Qg44YK2746FoquLofIwYEtw
+         A7eQ==
+X-Forwarded-Encrypted: i=1; AKwUvByO67/CS0HomVIgu+2b7LbpWaRDLpmRy6q994jbChvL/nAn9x5rYZEsdBXdguaWUjQ/kCeH6TRE7+YUD7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5Y8iQacuzM48cuoDyqBiZQNadWBv5ImWADjClJReOBJEKgGnk
+	7xb1l2zPeHX06a8vY19EgHthW25htDfw3Zw+QQAk/J7oDou+MDR0KR7q
+X-Gm-Gg: AYBFou27SDBc4lgzJUhiweeycAeMKqPW7GKPhIXtlnQIwPhbx1uDiXytSV84BAw74X/
+	/tORBNy8z+OgZTBCHsMH/HyF9RWAW2Ca488s3sjyDK8CRFdb+TZzlXxuVHFs925FhxZ+m0DargO
+	jdS+p2vuTuGGgWKVzCKNK1ysrFKwPyF98FiUetp0t4drAel6qlBPqCA968Th4z2F+q0sXUZNHkj
+	qWlqXfv54bTOLmjAUiiNJOpG+XBpyQG+MIKRvItZcmhHlB34XK6eZCJK5Ue52MlJAutzmA9VNay
+	KLDL/DqcdG2thePFMFw/iwSgLQSR/jx+jmf6lNbUB+PbElzkAweqDpj5JCpfPpJuI1PZ/+iVaMC
+	xBmbZmF60zdqqz7XWVqSSy9bkubdrGcy6y57aobg7ZG6+lZ73REDsUUHx3nKk4UXufZ6U93WyM8
+	QIq/Pqf+4l/wzebmvL0HP3jh7X8NviYhu2eX5krcEERueriVpZB05Z7p6HgO+Gnu9QmGTelCkN7
+	Luh7nEFHbSxAqRI9fDD3T3kmG3mKan0Ml4bxlq/N2IcJqO034WJ11fa4ChjDmLPx1sH6dqHZvFB
+	1Qi5J2Ez0952qey+lszKTTc3Mx4xoWI3
+X-Received: by 2002:a17:907:d385:b0:c40:b59:1b with SMTP id a640c23a62f3a-c419fefec7bmr807389166b.44.1792509874132;
+        Tue, 20 Oct 2026 08:24:34 -0700 (PDT)
+Received: from Martyna-s-A34.localdomain (ip-80-113-116-3.ip.prioritytelecom.net. [80.113.116.3])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcfc5sm488110466b.59.2026.10.20.08.24.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 08:24:33 -0700 (PDT)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mehmet Fide <mehmet.fide@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Subject: [PATCH 0/2] wifi: ath9k: fix WMI command response handling
+Date: Tue, 20 Oct 2026 17:24:10 +0200
+Message-ID: <20261020152412.95560-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,101 +98,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2MCBTYWx0ZWRfXy+5R0tKb354o
- J8BGXeAuPxh5pjl5jo5BRmfiDIpfcKZpe0k2MOPBtXBUzXGWS05C5UL3hvFB/25WuZSputgV4dT
- xJUpEGNuzrQrc9R/B3GHKTKPuZqlgFg=
-X-Proofpoint-GUID: xv6GHz6zNLONi6YmOmB4pcqCAEDlm5mZ
-X-Proofpoint-ORIG-GUID: thjdnNims9VKADJbfk5fg0P1T2nPqtkL
-X-Authority-Analysis: v=2.4 cv=UOBIjyfy c=1 sm=1 tr=0 ts=6ad7873b cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=Cc2t5CyIl5whlRMK8MMA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2MCBTYWx0ZWRfX8JlxZhTEPV2s
- vT0JtiPCTq1/pMMvpW3NfmWghQTaE4RggoTVC+Z+EBpSpq60kk+zpnMIxVafbJoDPv5Q9fEajxV
- 34FsnIoJ0Q05xe3bcjVlrAwwrosgHNR7yROBqfOD27g5BmMYWg7kcKOuYa4egReyLkY8ZI2yvi6
- Cg4HxX6zy7F0GEhoOagcTF6hMKAYV06Y4atMeBw31an8GzpKM0hfC/cOBkveC9BHQMSwSHd9LIX
- deZIbCoUHHbm8uNT0GuGat19zrjsh47VBoQ9fASnyvyYPFzbaYLEbbsQiApSjp2AzuJC+gsYS7M
- TIwwItigRI4fqsu/6NO2QbbWi31iS3E85NsGX0NY1rw4u1S529CqvyH6x8jCX0VI6cn0dz+PIux
- DqYz6lW1wyLJ/OFQc3thit/n0mtmPtXmsY7Go2XRPWNc0EJgpVNrYkr6/pLlh9mnsbe2r0wo2km
- xEEDHNXrk/qZiBseLZw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200060
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-20 at 11:06 -0300, Jason Gunthorpe wrote:
-> On Tue, Oct 20, 2026 at 09:45:13AM -0400, Mimi Zohar wrote:
-> > On Mon, 2026-10-19 at 09:10 -0700, Dionna Glaze wrote:
-> > > On Mon, Oct 19, 2026 at 5:08=E2=80=AFAM Jiri Pirko <jiri@resnulli.us>=
- wrote:
-> > > >=20
-> > > > Yeah, I was thinking about this and went back and forth. In the end=
-, the
-> > > > only reason for leaving it unbounded is to allow multiple independe=
-nt
-> > > > users of the same register. For example, IMA and systemd could shar=
-e a
-> > > > TDX RTMR. The systemd side would read the journal through the
-> > > > attestation device and the IMA side through securityfs, but both ar=
-e
-> > > > views of the same journal. If one side truncated it, the other coul=
-d no
-> > > > longer replay the RTMR. Isn't this the valid usecase? Do you see ho=
-w to
-> > > > resolve this?
-> > > >=20
-> > >=20
-> > > Bright minds have spent a significant amount of time working on this.
-> > >=20
-> > > +Roberto Sassu, +Mimi Zohar
-> >=20
-> > Dionna, thank you for including us in this discussion.
-> >=20
-> > Based on my questioning AI, it sounds like the purpose of this patch se=
-t is to
-> > introduce a vendor-agnostic common attestation subsystem framework that=
- can act
-> > as an internal kernel multiplexor for any measurement consumer, like IM=
-A or
-> > DRTM. By providing a direct kernel-to-kernel call path, it allows measu=
-rements
-> > to be routed to different Roots of Trust (ROT)=E2=80=94such as physical=
- motherboard
-> > TPMs, Intel TDX RTMRs, AMD SEV-SNP registers, and PCIe SPDM devices=E2=
-=80=94without
-> > hardcoding IMA to specific device drivers.
->=20
-> Yeah, I would say that is the eventual goal, this patch series would
-> be the first small step along those lines
->=20
-> > To support this framework, IMA requires a strict, atomic execution sequ=
-ence to
-> > maintain the Measure =E2=86=92 Extend =E2=86=92 Execute (Measure Before=
- Use) guarantee. This
-> > initializes early during the late_initcall phase within the initramfs (=
-via
-> > dracut).
-> >=20
-> > If the new subsystem introduces a direct kernel-to-kernel multiplexing =
-call
-> > path, how will it ensure the mandatory synchronous wait behavior when e=
-xtending
-> > multiple hardware backends?
->=20
-> Everything has this 'measure before use' requirement. Why would this
-> be hard? Just loop over all the configured measurement targets if
-> thats the plan? Maybe I'm missing something?
+Both patches fix the ath9k_htc WMI command response path.
 
-As long as the measurements aren't queued, but actually wait for the multip=
-le
-ROTs to complete, it isn't a problem.
+Patch 1 stops ath9k_wmi_rsp_callback() from copying bytes the device
+did not send. It replaces the -EMSGSIZE approach that was reverted in
+commit 90201351a862: short and empty responses still complete, and the
+rest of the caller's buffer is zeroed.
 
-Mimi
+Patch 2 stops responses from being accepted while no command is pending
+(after completion, after a failed send, or with sequence number 0),
+which could make a duplicate response write into the stack frame of a
+caller that has already returned.
+
+Testing: temporary KUnit tests (not included) drive the real
+ath9k_wmi_ctrl_rx() and ath9k_wmi_cmd() against a fake HTC device in
+x86_64 QEMU under KASAN, KMSAN, UBSAN and lockdep: short and empty
+responses for all payload/buffer length combinations, duplicate and
+late responses, failed sends, sequence number wrap, and a concurrent
+stress test. Without the patches stale bytes reach the caller and KASAN
+reports slab-use-after-free writes in ath9k_wmi_ctrl_rx(); with them the
+tests pass with no reports. Builds cleanly with W=1 (GCC and Clang) and
+sparse.
+
+I don't have access to an ath9k_htc device, so this was not tested on
+hardware. Mehmet, if you could give it a try on your AR9271 that would
+be much appreciated.
+
+The series applies on top of v7.3, which contains the revert; ath.git
+does not have the revert yet.
+
+Michail Andreas Michalopoulos (2):
+  wifi: ath9k: don't read past short WMI command responses
+  wifi: ath9k: drop WMI command responses when no command is pending
+
+ drivers/net/wireless/ath/ath9k/wmi.c | 47 +++++++++++++++++++++++-----
+ 1 file changed, 40 insertions(+), 7 deletions(-)
+
+-- 
+2.43.0
+
