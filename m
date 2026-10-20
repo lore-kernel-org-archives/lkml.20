@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488648;
-	b=sG5dn1Cgwjm/sFmgycE/lcX7Q61gDZjElZe45821ZH+nAGW3BcUXaeunjay1cRJi6Vj7
-	 ip20jnhoiZdrTsC+O6VEvbNEKyc3WbBCi+/5cd9aT2iypJErAoe7Aj++8RWCdscdLibbh
-	 Dx/pVKoXXdRSysC+S5jd+MbgVjES/BDPWC+B37nWDnfnIjBkBDT+v1fbmsFR71cI+aJ2H
-	 94gSyTyd1V690QT8jme3EUSlTMglZI5lb2rfnfO8fYYP6lqGakYt3FWfKtjPIYqoxdfL5
-	 9rnHCvrLZQxbdziVFskQSgi6RPtJW77UX/8aOqQ1F8kRoeOTbnuUIrEgDhXQijvpnWA==
+	t=1792488754;
+	b=psfy2Px7ZhhD9qDt98WOaRcnEi2gcJPvFAHBliLNdiemWn4dNUt0RGDm4lU28a9ci6S3
+	 GKmWqYW6QN8riCnOQo2lK2E/kQxpnR/vMJ41u3WSRtJGWkhRHkpO1buAogAY4fTU47bdW
+	 badUNrkcOr1StOX4Y4wgemi1hUiQNv99lCtzx6HmPvEQlPbg3y+xPlHHE9F97bjw+sDM0
+	 vg/Tfs3IbUdae6uqkc4CxeCOEhV0lkn+adBOj6drfL52vs+wk/BlSTlI7RjLHQUjkjggT
+	 1gYzlazZOE1seYmtl/wbtaAA4MYGsfW9mRCUrC3+4ZFJBTL6SJWBRpmANZL2wpwuxbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488648;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=MuQWnkjdMm72dOOJi5IkGwcPnf9VPtgB8jgmhfg5EXI=;
-	b=Hf9hi5KewsJNdAGOEEtfCvqUWrGPpX/ljZlr4rfS+seUQObNIw7d44qe3mTYQ+95l+pP
-	 cYz8MG/M+L+j2BLiwSH6KwQb+hYqjZuVdl8hWyEcmpzMaMQoJkf+G4YHffIOQeD331aVE
-	 cLpY8olCyX2MpIW6C1zlZmF9TN0zBCWp/YZNmHjNodzrlYwXjzUeatcyGPahlo09X8LFq
-	 HKKFIIn9HUzKbRgxv/bsqpN5phg1B2VMndcyfLVsZ7ojLSVafyJIkOvRGmDsqo3Dc5cp0
-	 bKEQhfC/mNvJQCHJt0qe/0B2HdOfdYfj0dQJjlG+M+VFN3RlWCFj9HzFcLXzBDkm61w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488754;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=IEGOFRYKNjT2cDILI2yM/s/jbC6C4nGaeAuqDwjS1do=;
+	b=kQDaEjjZHmcTUQrVTuEdFeuuJgqKEjx+BJC2nJ9Pc2OFKMik8K7iq4/SXf3Qhe6zNSwX
+	 4NHWjCAy4TZZcEle/Dw+RvljqYi/6w0HqrVeKAWTIBwL/oaLeolGZvC8ukROA/LHyRjT4
+	 lztMwNtokc3Y4HWIuxp318wGQK09Jasb624HTbyYK0kXlLgyvBmi0vyb8jgeq69/iOTtB
+	 hfbDu5q5zHAeffml6/P961aehkNvi+bwB/2CQgz8SVHqS/R+ISupIgobv46MYpt4OlAke
+	 oB92W2OCi8ytLhhwOxw/jEKNb7QlRMLI0REuwRAEF5z5JrGY/usdUEvuVsAgpnpzOog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CrqSnbAC;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62EB606A31B;
-	Tue, 20 Oct 2026 09:30:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62EB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CrqSnbAC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792488648; x=1824024648;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=D5PZ+RfFqFxvF/dVjIjLDkqTgbTugFZua1E7IT+H4M0=;
-  b=CrqSnbACfRUBJrT4HjX4Hcdy+TLoSlPKW+CyIKt//sCg/290eBqGegqH
-   o5jSm3uVcQ/7rM5un7HgZTGMuZnfn+xM1kEPXHq5ibJQqcuxtFH7dE0H8
-   lxMdZFqmao8jgwINLgVAS0ftmywKR/jCcEwr0NnJvC2YTDguvOIdphA5b
-   BpHy7Ym5NcL+OgZriLFmi/JsZmdoYGU/QMimwfDkKEIFOVFv4h0jkzn8c
-   kTVrHs8TW/ccSKrY/Ib/a2M5QYs6UZz/M0+z6YAvT5PWsc96izoqLaZFw
-   77x+L+jezAb2yb6UU3edS4Yd/LSh6iZWwNclWwl7ehlEoi9MprDLNc8qc
-   w==;
-X-CSE-ConnectionGUID: GwiUto9JRqCjHhW2XM1NpQ==
-X-CSE-MsgGUID: hAsIwSn4Somz/rf37jk3HQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1080336"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1080336"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:30:48 -0700
-X-CSE-ConnectionGUID: BxAfkFYcRC+lgeJZGTFB3Q==
-X-CSE-MsgGUID: vD5gFVUkS16QRQR3dyExQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="4583349"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:30:42 -0700
-Date: Tue, 20 Oct 2026 12:30:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ankit Agrawal <ankita@nvidia.com>
-Cc: "linux-cxl@vger.kernel.org" <linux-cxl@vger.kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"dave@stgolabs.net" <dave@stgolabs.net>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"dave.jiang@intel.com" <dave.jiang@intel.com>,
-	"alison.schofield@intel.com" <alison.schofield@intel.com>,
-	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
-	"aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
-	"iweiny@kernel.org" <iweiny@kernel.org>,
-	"ming.li@zohomail.com" <ming.li@zohomail.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	"bhelgaas@google.com" <bhelgaas@google.com>,
-	Srirangan Madhavan <smadhavan@nvidia.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"Smita.KoralahalliChannabasappa@amd.com" <Smita.KoralahalliChannabasappa@amd.com>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>
-Subject: Re: [RFC PATCH 3/4] PCI/TSM: Derive the coherent-range IPA from CXL
-Message-ID: <atc0wO3ZYGg2WUXc@ashevche-desk.local>
-References: <20261005070252.84810-1-ankita@nvidia.com>
- <20261005070252.84810-4-ankita@nvidia.com>
- <as0zRXh5f5kjULVI@ashevche-desk.local>
- <SAWPR12MB9992673082391212DC2F41A6E2B0672@SAWPR12MB999267.namprd12.prod.outlook.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064D7606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 064D7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so5035193b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:32:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792488753; x=1793093553;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IEGOFRYKNjT2cDILI2yM/s/jbC6C4nGaeAuqDwjS1do=;
+        b=boNDLedt5aTxh8NTIq4nir6/4E6zIUHHW7GlirYeV9NaEvUnNQ0JAZP5SWRmkB0awO
+         hSrVw0OadVaTaMkIIAoEqODgqzghGiR9OMoanC3WZf0dlCDmbtWKOspKV2k1CeTaoF6m
+         +stI9eBQwa0pCtbjislGHF+elbNgtf5dtbuHR5VEsFxnMLxHq4ZJdkAra85RL55hgTBV
+         AQ0avf1UkhoBQVfpYO/EkDw25mbq8jptG25IBDHAE87eh4D4aSC4cRpkKICaoG4FWvvj
+         I6hA4Z6WluRGBiD5TRJTgOWOnrr2hBD7dfByR2dw5jdwO6EMvcSBVioU5tZwXDxumVQi
+         1g1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwJzVDluGJ5zOJO6dW3exDZTeewggAeAS8w8fNBK8QrasRT/+mM/fQpACB4V8WMjkENQoIfZCYEwY8JRFc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKH39sg+hreUzIhD3pSrRbCSuDGbhSxGj2ZQUaStQHIkJ/za36H
+	QcALexw7WlvDrnL4//Lgp1y5ru/BwsAEyMrxlc0M7hrI7vx+Gb6aQ/Ljg1zqkbOLQ/YuxzFlXyq
+	pcb0EmREBIQooWakmFu8uwvz9NSdejClBps/PgRq+C2P2goGp6mXsoKfROk4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,31 +58,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SAWPR12MB9992673082391212DC2F41A6E2B0672@SAWPR12MB999267.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:6b8a:b0:4d6:90f4:48ab with SMTP id
+ 5614622812f47-53ccfba424emr7865166b6e.45.1792488753042; Tue, 20 Oct 2026
+ 02:32:33 -0700 (PDT)
+Date: Tue, 20 Oct 2026 02:32:33 -0700
+In-Reply-To: <6a6944b4.d9e86bb5.297b12.003c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad73531.5c73e770.1a06c9.0104.GAE@google.com>
+Subject: Re: [syzbot] [usb?] [fs?] possible deadlock in uvc_func_allow_link
+From: syzbot <syzbot+8c0a48f6c8357c9da819@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 09:14:21AM +0000, Ankit Agrawal wrote:
+syzbot has found a reproducer for the following issue on:
 
-...
+HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1475c831580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=897740d587b37862
+dashboard link: https://syzkaller.appspot.com/bug?extid=8c0a48f6c8357c9da819
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1275c831580000
 
-> >> Assisted-by: Claude:sonnet-5
-> >
-> > Assisted-by: LLM
-> 
-> Do you want the model dropped from the tag, or is this about
-> format? I followed Documentation/process/coding-assistants.rst
-> Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+8c0a48f6c8357c9da819@syzkaller.appspotmail.com
 
-Do you have old documentation?
-It even got a new development, please drop that tag for good.
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor238/6025 is trying to acquire lock:
+ffffffff914019a8 (gadget_subsys.su_mutex){+.+.}-{4:4}, at: uvc_func_allow_link+0x76/0x3f0 drivers/usb/gadget/function/uvc_configfs.c:3651
 
-1e035297ffda ("docs: remove Assisted-by references")
+but task is already holding lock:
+ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: configfs_symlink+0x452/0x1340 fs/configfs/symlink.c:201
 
--- 
-With Best Regards,
-Andy Shevchenko
+which lock already depends on the new lock.
 
 
+the existing dependency chain (in reverse order) is:
+
+-> #3 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       inode_lock include/linux/fs.h:1024 [inline]
+       configfs_depend_item_unlocked+0xf3/0x6a0 fs/configfs/dir.c:1268
+       usbg_make_tpg+0x251/0x610 drivers/usb/gadget/function/f_tcm.c:1692
+       target_fabric_make_tpg+0xab/0x8c0 drivers/target/target_core_fabric_configfs.c:947
+       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
+       vfs_mkdir+0x364/0x850 fs/namei.c:5420
+       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5453
+       __do_sys_mkdir fs/namei.c:5480 [inline]
+       __se_sys_mkdir fs/namei.c:5477 [inline]
+       __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5477
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (tpg_instances_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
+       tcm_alloc_inst+0x5f/0x1e0 drivers/usb/gadget/function/f_tcm.c:2687
+       try_get_usb_function_instance+0x136/0x1f0 drivers/usb/gadget/functions.c:28
+       usb_get_function_instance+0x16/0x70 drivers/usb/gadget/functions.c:44
+       function_make+0x18c/0x3f0 drivers/usb/gadget/configfs.c:626
+       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
+       vfs_mkdir+0x364/0x850 fs/namei.c:5420
+       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5453
+       __do_sys_mkdir fs/namei.c:5480 [inline]
+       __se_sys_mkdir fs/namei.c:5477 [inline]
+       __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5477
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (func_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
+       try_get_usb_function_instance+0x26/0x1f0 drivers/usb/gadget/functions.c:18
+       usb_get_function_instance+0x16/0x70 drivers/usb/gadget/functions.c:44
+       function_make+0x18c/0x3f0 drivers/usb/gadget/configfs.c:626
+       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
+       vfs_mkdir+0x364/0x850 fs/namei.c:5420
+       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5453
+       __do_sys_mkdir fs/namei.c:5480 [inline]
+       __se_sys_mkdir fs/namei.c:5477 [inline]
+       __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5477
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (gadget_subsys.su_mutex){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
+       uvc_func_allow_link+0x76/0x3f0 drivers/usb/gadget/function/uvc_configfs.c:3651
+       configfs_symlink+0x695/0x1340 fs/configfs/symlink.c:211
+       vfs_symlink fs/namei.c:5804 [inline]
+       vfs_symlink+0x178/0x4d0 fs/namei.c:5783
+       filename_symlinkat+0x2a6/0x560 fs/namei.c:5829
+       __do_sys_symlink fs/namei.c:5856 [inline]
+       __se_sys_symlink fs/namei.c:5852 [inline]
+       __x64_sys_symlink+0x79/0xb0 fs/namei.c:5852
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  gadget_subsys.su_mutex --> tpg_instances_lock --> &sb->s_type->i_mutex_key#25
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&sb->s_type->i_mutex_key#25);
+                               lock(tpg_instances_lock);
+                               lock(&sb->s_type->i_mutex_key#25);
+  lock(gadget_subsys.su_mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor238/6025: 2, last CPU#3:
+ #0: ffff888025b44460 (sb_writers#13){.+.+}-{0:0}, at: filename_create+0x10d/0x400 fs/namei.c:5095
+ #1: ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ #1: ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: configfs_symlink+0x452/0x1340 fs/configfs/symlink.c:201
+
+stack backtrace:
+CPU: 3 UID: 0 PID: 6025 Comm: syz-executor238 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
+ uvc_func_allow_link+0x76/0x3f0 drivers/usb/gadget/function/uvc_configfs.c:3651
+ configfs_symlink+0x695/0x1340 fs/configfs/symlink.c:211
+ vfs_symlink fs/namei.c:5804 [inline]
+ vfs_symlink+0x178/0x4d0 fs/namei.c:5783
+ filename_symlinkat+0x2a6/0x560 fs/namei.c:5829
+ __do_sys_symlink fs/namei.c:5856 [inline]
+ __se_sys_symlink fs/namei.c:5852 [inline]
+ __x64_sys_symlink+0x79/0xb0 fs/namei.c:5852
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f17e04c5357
+Code: 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 b8 58 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
+RSP: 002b:00007ffdfd785e48 EFLAGS: 00000206 ORIG_RAX: 0000000000000058
+RAX: ffffffffffffffda RBX: 00007f17e051e1e8 RCX: 00007f17e04c5357
+RDX: 0000000000000000 RSI: 00007f17e051e170 RDI: 00007f17e051e1e8
+RBP: 00007f17e051e300 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 00007f17e051e250
+R13: 00007f17e051e298 R14: 00007f17e051e2d8 R15: 00007f17e051e1b0
+ </TASK>
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
