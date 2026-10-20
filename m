@@ -1,55 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.147.23.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479544;
-	b=5gDm1fej8Xg7y1wjovDluW5BvpHdunIUyzIJTrTtIg8lwvRyD9fPzgsQtkQpH8sLkNjm
-	 1Yll+r1O8PBX/lsK89VNR4hvb/n3suLu3jtO76h+Bgo/IW9eNTc0Y0OKAyoU+JbsMBYxs
-	 UOvjI3YeZ5dSXGNCUJY91PF/DjttNBktUnqcedrupJzU2HedcylKe0bHneo2ELvxPzVWU
-	 B80zMFOQV7+6b3bPCsIoFsG0vsS83pF75ZouuEigh2lUZcX1GG5cNSKXF6pKQ6PD3EQh1
-	 UvFbsLplZoz4yIh0NnGMzBx2kSReCbMrKC6NCbAUaRUHIrT+3AigSwWuB5oymjieO+Q==
+	t=1792479547;
+	b=ZOlyGKeGrtP5v0vojJKy/0V3pBeQAlMOL8ErIzgC4/GiHW6St5+qwmZhh+cCKrNrkZNz
+	 MjcMqeEErpEzQqzGsFX9svOvG3Wpe+PfABQxgn7s78TTU09nXkpJpdVZYJCEWGOqzYmZl
+	 TH0PdzxIdHZbqOsPCH8jJj85iRgB/fwOzzJz294yz8lKsibC0m57daIqyE8/soQzZ+HL5
+	 naj6DyWMfIXSexq33gHbsgqiNMk1tCb0jgPpMkCwD+MFAI0owLUAPHfP7CyRK+MWz/otb
+	 mKAwQR9rvBn0Z9Jx9Vawn81Fys8ZEwqQc3cO9j2kGZtviZLqjeIN3wG0KDmqP2OCM0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479544;
-	h=DMARC-Filter:Received:X-Original-SENDERIP:X-Original-MAILFROM:
-	 Received:X-Original-SENDERIP:X-Original-MAILFROM:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6jEJaHu9Y6VT1XeMg7m9SCTxjFKNA6Hnu81PQYRc5yc=;
-	b=pkOIX+hMUdJ1ToudGY1E8Wloo1ZyLlpwRGrY5Ki0uTkN+hxsLT/VrLfCmQO/WOgxtLYb
-	 MZZwTsqUBByUpSsbkR73Y9L5QeH0VZCVJ82GCFC5wQhPjgOe+VLI2iYPXEkBU1WaMDQen
-	 8bFADfiNYOa+Fh/ShLTV4jEo0JrfD/57TVGyWfVuix1hMDiXHiEFY3uGYTBX+B3WRH55w
-	 32WFVyeElQF5XJewvJxDsQCipn3PeqxjdaWkmtdSi5MqU/vcnHPhusvsOmin5+iRw8Si1
-	 9ObUGBE6MDWI+zV1JMkviKIkfC1KlS4XIh3hFX/kr3QW0G18WXFS208wumBiUKtCxtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479547;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4/hno+IzPu9Ull5daDpWz8o3VVQOt88GXjWGdsHXcmg=;
+	b=KWZTAMwclwPPRIGXynPxXQWoOnJ0dMrISQQVUEceEOMl4kgqFMDpVEgKe/Nw82uXfzcj
+	 X0+045qWYKxEB1DEiTI89Y7Zb5qt1sGKDL1LTi4E7YQasyNZdtiKoI/mwOogcxUC+k9mg
+	 aFLekrhPBOKgtG9mIbUqUNq+ETJMFNusQMoP08UePLi+Sm8Y1E34kLUEhiNfrxB5ydpkn
+	 nzf15jTmtbudy4L1lnFrYReChPRPElhiDsah70nO+mFF7R7wzyY8BNlFpb5andKsN9+eb
+	 lhiVAbIV1r8jsJwAWnk8s3QY83t/gjGTMJjHxnfvjxXXmw0odpnlPn1UQjxBYsVVrJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lge.com;
-	spf=pass smtp.mailfrom=lge.com;
-	arc=none smtp.remote-ip=156.147.23.52
-Received: from lgeamrelo12.lge.com (lgeamrelo12.lge.com [156.147.23.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3E606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA3E606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO lgeamrelo04.lge.com) (156.147.1.127)
-	by 156.147.23.52 with ESMTP; 20 Oct 2026 15:58:53 +0900
-X-Original-SENDERIP: 156.147.1.127
-X-Original-MAILFROM: youngjun.park@lge.com
-Received: from unknown (HELO yjaykim-PowerEdge-T330) (10.177.112.156)
-	by 156.147.1.127 with ESMTP; 20 Oct 2026 15:58:53 +0900
-X-Original-SENDERIP: 10.177.112.156
-X-Original-MAILFROM: youngjun.park@lge.com
-Date: Tue, 20 Oct 2026 15:58:53 +0900
-From: Youngjun Park <youngjun.park@lge.com>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
-Message-ID: <atcRLYvKavedT6Hs@yjaykim-PowerEdge-T330>
-References: <20261019160615.2348500-1-nphamcs@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146BA606A32D;
+	Tue, 20 Oct 2026 06:59:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1889B1F000C7;
+	Tue, 20 Oct 2026 06:59:04 +0000 (UTC)
+Date: Tue, 20 Oct 2026 07:58:30 +0100
+From: Lee Jones <lee@kernel.org>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Luca Coelho <luciano.coelho@intel.com>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] wifi: mac80211: ignore PM bit in non-bufferable
+ MMPDUs for PS start
+Message-ID: <20261020065830.GA1206986@google.com>
+References: <20260928100508.3487525-1-lee@kernel.org>
+ <9b3efaebb9f5460f6bfaaa284fd235e76c940361.camel@sipsolutions.net>
+ <20260928142434.GA2112133@google.com>
+ <d8227c92ab9c752dc6b591945ea8f9c5e3cc6223.camel@sipsolutions.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,83 +50,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019160615.2348500-1-nphamcs@gmail.com>
+In-Reply-To: <d8227c92ab9c752dc6b591945ea8f9c5e3cc6223.camel@sipsolutions.net>
 
-On Mon, Oct 19, 2026 at 09:06:15AM -0700, Nhat Pham wrote:
-> swap_cluster_populate() can publish a cluster's table with the cluster
-> lock dropped. A cached allocator can use and empty it before the
-> populating allocator reacquires the lock. The resumed scan can then
-> dereference a NULL table.
+Sorry for the delay.  It's been a busy few weeks.
+
+> On Mon, 2026-09-28 at 15:24 +0100, Lee Jones wrote:
+> > 
+> > The commit message was purposely vague due to the fact that the change
+> > fixes a security issue and I didn't want to publish a HOWTO guide for
+> > exploiting it.  However, I obviously overdid it a little and left out
+> > the reasoning you'd need to review the patch.  The short version is that
+> > an unauthenticated peer can currently change an associated station's
+> > power save state with frames that shouldn't be able to have that
+> > capability which can be used against the station.
+> > 
+> > Happy to send you the details off-list.
 > 
-> For example, CPU1 can retain a cached cluster offset on an SSD with
-> per-page discard disabled:
+> I think I've (conceptually) known about this issue for ... years?
 > 
->     CPU0                          CPU1
->     ----                          ----
->     swap_cluster_populate()
->       swap_cluster_alloc_table() fails
->       spin_unlock(&ci->lock)
->       local_unlock(&percpu_swap_cluster.lock)
->       swap_cluster_alloc_table()
->         rcu_assign_pointer(ci->table, table)
->                                   swap_alloc_fast()
->                                   local_unlock(&percpu_swap_cluster.lock)
->                                   mem_cgroup_try_charge_swap() fails
->                                   swap_cache_del_folio()
->                                     __swap_cluster_free_entries()
->                                       free_cluster()
->                                         __free_cluster()
->                                           swap_cluster_free_table()
->                                             rcu_assign_pointer(..., NULL)
->       local_lock(&percpu_swap_cluster.lock)
->       spin_lock(&ci->lock)
->       return ci
->     alloc_swap_scan_cluster()
->       cluster_scan_range()
->         __swap_table_get()
-
-Hello Nhat.
-
-Good catch!
-
-> Reject an unusable cluster under its lock before scanning it. Relocate
-> it only while its table is present.
+> First, arguably wake-to-doze are _less_ interesting to attack, since
+> then the TIM bit will end up getting set and if the STA isn't sleeping
+> it'll see the beacon and recover fairly easily (though not entirely sure
+> we actually implement that in mac80211), and if it keeps sending traffic
+> then the state corruption is short-lived.
+> OTOH, corrupting doze-to-wake could lead to traffic getting dropped if
+> TX filtering status isn't implemented well on the AP side/driver since
+> the STA is actually sleeping and won't see any frames.
 > 
-> Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nhat Pham <nphamcs@gmail.com>
-> ---
->  mm/swapfile.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> Second, I don't think in general this issue is fixable, and while it's
+> good to implement this closer to the spec, security wise it doesn't
+> really do anything as is?
 > 
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index c3288910b3e3..988b7316e0a1 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -981,7 +981,11 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
->  	bool need_reclaim, ret, usable;
->  
->  	lockdep_assert_held(&ci->lock);
-> -	VM_WARN_ON(!cluster_is_usable(ci, order));
-> +	if (!cluster_is_usable(ci, order)) {
-> +		if (cluster_table_is_alloced(ci))
-> +			relocate_cluster(si, ci);
-> +		goto out_unlock;
-> +	}
+> If, for example, there's any bufferable MMPDU the attacker can just
+> replay it - we've been doing this before MIC/replay check forever
+> (unless that's offloaded). It can also - although this is harder -
+> intercept and modify the PM bit, since it's not protected by the AAD.
+> 
+> It's also wrong that we're doing this *after* the reorder buffer, since
+> that potentially holds the frames for a long time, and the spec says to
+> look at the PM bit after the frame exchange sequence completes (REVmf
+> 11.2.3.2). We should fix that too, but it doesn't really matter for this
+> discussion:
+> 
+> Any unprotected complete frame exchange sequence can modify the state
+> anyway, QoS NDP for example.
+> 
+> >  - Rewrite the commit message to explain the problem and the reasoning
+> >    properly, rather than just quoting the spec.
+> > 
+> >  - Make the PM handling consistent in both directions, so it doesn't
+> >    honour the bit in one case and ignore it in the other, while keeping
+> >    the re-authenticating station case from 9fef65443388 working.
+> > 
+> > Does that work for you?
+> 
+> Well, I think it's really only a spec compliance cleanup, but then we
+> might as well try to fix some of the other issues?
+> 
+> I also think we might be better off making sure that as a client we
+> handle the TIM indicating traffic while awake and send a wake frame, and
+> perhaps checking AP side handles filtered/un-acked traffic well.
 
-If this patch is applied as bloew, does it prevent the issue described here?
+Agreed on both counts.
 
-https://lore.kernel.org/linux-mm/20260720071342.50742-2-shikemeng@huaweicloud.com/
-(This patch publishes cluster table after lock acquired.)
+Since the PM bit in the Frame Control header is unauthenticated and
+processed prior to decryption, an unauthenticated QoS Null frame can
+still flip the AP's PS state anyway, so the AP-side change is best
+treated as a spec-compliance cleanup.
 
-This patch is chagned the way I suggested during review... :(
+You were also right to suspect the client-side TIM path in
+ieee80211_rx_mgmt_beacon(), when (dynamic_ps_timeout == 0) (for instance,
+when power-save is disabled on the client interface) and IEEE80211_CONF_PS
+is not set, mac80211 currently ignores its AID bit in the TIM and never
+sends a wake nullfunc frame to flush the AP's buffered frames.
 
-As you pointed out, another context can free the table 
-without alloc context knwoing this situation.  
-I missed this situation.
+If you're happy for me to do so, I'll send the following 2-patch v3 series:
 
-IMHO, Publishing the table only after reacquiring the cluster lock, as Kemeng
-suggested, and rejecting an unusable cluster under the lock as in this
-patch both look correct to me!
+ 1. Symmetric PM-bit handling in ieee80211_rx_h_sta_process() (only
+    consulting the PM bit on data and bufferable management frames, while
+    waking sleeping stations on Auth / (Re)AssocReq as-per 9fef65443388).
 
-Reviewed-by: Youngjun Park <youngjun.park@lge.com>
+ 2. Sending a wake nullfunc in ieee80211_rx_mgmt_beacon() when the TIM
+    indicates buffered unicast traffic while IEEE80211_CONF_PS is not set.
+
+Does this help or hinder?  Your call.  If you decline, I'll go ahead and
+close out our internal (Android) report as `Won't Fix` and move on to
+something else.
+
+Thanks.
+
+-- 
+Lee Jones
