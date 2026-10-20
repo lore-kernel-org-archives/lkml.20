@@ -1,103 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492400;
-	b=a7fCX3RttiZ4JD1nGuNTgbaja8/NY4EfGsk33FpDdcJlOq7mZ4r9S8tz2JOQe7Rnkw9w
-	 sGnqpaLswNU9zStjZlfh5mqWgOmULjttBoW4EjO/sVrSXIgF3vrzOf8V/vSMNLMLVXUR5
-	 b5q3BeaHqN9PSedERXUBF0wBqlJSIksOKVtiVifqWmEZfIbXmvsXHY+xLETu/trpBwypc
-	 m9fDwbj0NX8b93WjuJQvuremxGSPupyNe4rXltGGOJpoUjpUX5qzU1nddVzkA5s002w0w
-	 GoaWSfT4ez4e3RH/geG80eNgZF7vY9FPfel5Nt8tOOUbhHpAiX5qrRnPVsObc0OoN1A==
+	t=1792492410;
+	b=MYyBUWQn0R9/33TE+BkGt5Fg+ULspFenz01qETIjX/3PDQrbyPsuD57iIO4EuBV+F0S8
+	 BdGxq+ooP7oOim04VIn0g33W6uNxYTOV3jeiNKRZ/YiuBiNlVb0VTO5Lah4aiWWXrBaCJ
+	 jxzV16jI4FLRY60mWxWqNCG51YlIub1Ez+cgWRi7GqXbUY4jh0R9m+z5xaKKjhHoshfqE
+	 muh5T2lKMKpJjxLjd5/7CnR3IEi0Cw7LAqKtJqToqFbFGNHUM6JyIUJiCI2j0zK2JwlVt
+	 0WY6s5sQ8Nn/u7qxxOHgUVlyjIAggMEQZdPyNGl0/86WeSEOOwWXeFtTnLFjDRxMTFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=iQyv3UXDKrcHPg5SiBMTwmI7JSOMjEBmbwi+E5uk+A8=;
-	b=svITp/Hs3JE2XYQrVoZBbzyDUvC1ErL4AYz3WqZgoBt5BB0jgrMfs+l/H1mqH2qFrIKO
-	 fbndgtZzLWOooFXdXN9oEC7XqZXBnUoK/ii4D5OyriiIXUuf3RLh1XqbzzHFfP/RSw3n8
-	 ZVa1WomBoqYS1HcI+JOHNYqJdPzIaO9A76IzBBuMFFOHt6VQernJe+8BXRs+JJZLLFNt5
-	 4ZbsWBYjahrGq2H/azQcYTcQkZPQ5Nf/bqmjRlt6Trw608BONlXPC61u0ifwyFkTyshRL
-	 p1sjUxbNLEpV/sbhNdC7afmJFBGXOXyceSyde8gPAJwX0n7urDjHTyt8BuOWJDJnCxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492410;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=xxhdn2OVUJtF2HEE/DiJItd1DbzLWHnmnzj0M802xSc=;
+	b=EumpFAKF1uRPwQlyCJlmO7nSgOW+GJeQdN8/xAipzPdIi7Pz2CUpllKtlIsS5fmaFuFP
+	 YCGY8XAwiCb4ajkji/x4TtbXl/bIS/2u4LzGgo4x6iH9y07g0yPXn4o16OiJYJRThsjBU
+	 j35NLx9rCO2MTB+BuHaXdlS5VUMrQpLLMbO8Rtw4bFmSL47+n5eIgYOz25VGxfN/MWKTT
+	 xCCeLPNCL8yRzCbQwpw5tBdf8oyxqXoBcvLSStY6N2bPq6ZFJ0aRGFNdvNypt5PlwRspl
+	 HLGbWI8/TgmEL3NC0IcZaXmkG2oefN95jH22xQo28hy/VEdOyh4NL9Lnm1wJ/G1ZLuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fC9GZjUE;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=BzEN+6L4;
+	arc=none smtp.remote-ip=217.72.192.78
+Received: from mout.web.de (mout.web.de [217.72.192.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA80E606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:33:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA80E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E458606A320;
+	Tue, 20 Oct 2026 10:33:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E458606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fC9GZjUE
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15354aa70e8so198904c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:33:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792492399; x=1793097199; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iQyv3UXDKrcHPg5SiBMTwmI7JSOMjEBmbwi+E5uk+A8=;
-        b=fC9GZjUEOmYIv+aaLMdcv5eL/hIbg/oG6svqLSHKOzRIqNw8UJ0uX4u7TLxJ+8G7wE
-         TC0sjxIAzJCZopM2fJd6xJVJiTeuEIAeHwXPP0cmlCFxdF0TrJFb9OBeDjt5DZDMErsM
-         7MJHCgOS3f3tYB4U1ICzDh3CZ2HUQuQZca8udKAeDZJ1iSr5GVTttuMpa8vCe9G96N+L
-         6BZ1opy8OSh6TCb2JNce7ObgWN4j+doWPWHo2ubP2E2E1Gx2hwbhRJ/dxR48tPOEdzs7
-         2dXggms9K7qzZilw4RtRBDS9OUJz6ghXbbnDwvErJ/pLXlgRSV/p35Hu96x8FWSTKy8Y
-         NJZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792492399; x=1793097199;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iQyv3UXDKrcHPg5SiBMTwmI7JSOMjEBmbwi+E5uk+A8=;
-        b=hyL+J/VbZRUe9D8n7WvJpe1VYGwXPacaIH1uPcXObs5FdtETCZiewLVsKIAJ4CQM6Z
-         PAjwbNEu6gVG7P+W3AXr9l686cdbkEcFQ/VA9wN2COMwBbO3gDtE9lZ9C2NyJzQ7SyG6
-         aMsohsoP7Xdg0TGZFlQKFmORnG1A/cnjKCa9LGK9pblgkXy3iRcPetkCCfIJklhS/poR
-         NCqUGDiHDX++rOadlkLpiynTsUSJnVtYc+nzJ/RuTXfll5LMWnGupuScBIxIT9CNhrQF
-         +/z1eiu4RTLxnwbHxkzuWERl9L3+uNEgAsZJpLMgwgADK4EDblCHzad5seiRkcf2PVz5
-         IN/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxfb047G46ZwHBdqB6qIDl4+R3n2+yyFhlNxgTdumz+3md4mT/GRa1VYvgbM80A1ghh5DlTgN+8sFr/XVo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjZzWlFPZ634Ga+0E+E7Vieji0RQ8A93V0RwrOZ4RrX+evsMiS
-	UkcfAZJvzNRzJa22SjccWE1gI1ZTZEPBe/CKxKBNGTwLDmVGJdCE5jNm
-X-Gm-Gg: AYBFou1dGh5g/S2qmi0F/tHzXU1Vbo9DU7l4DMEXxzij9FAAEqIWa9haz7A4wq+3fJE
-	DqLnw/k8uWUYxDpPBGH9YfW4KWS7oY520v8mbQ8f4qQ6GOBuUHkh5WaRiS1m7fZYWGOe0H4pJ8o
-	61cQmebFbwVDVkp9TuwbCf6O5xl4j5XFEOSI2Dme9zBkuhsdu+nYCrUR1fyfFkbB0/VSVajvJGs
-	uSoZNcfKLLKkKD6NBxM8/pR+/s4hpn6271MfXbB0JIBuNaMVD0osh3Kb+P/B3kIRIfnMWC14bJ0
-	9WhHO+PpOJm21NI6iEBN5q/BOGY5c7DiwxybRc5iLpwFXzinCkqRZHsIAny2Ts/QRrFZK9lV0WI
-	ZjCHrTbUWs5YqVB+dEQox9up+8Y+5Zo4hYQWQ9fG6nZhZ6jUnGbIx+Y6YNCKYudmFpGzGlD1aRT
-	ePe+5y023t6CftN5SPRX/+uWK/j4TfZx9OMNySmixcAp/YLQNIJitOFANBm0RdjrrZlSDtWngq0
-	zi5
-X-Received: by 2002:a05:7022:1001:b0:14c:be8e:69fe with SMTP id a92af1059eb24-1850c8da80emr20220476c88.5.1792492398134;
-        Tue, 20 Oct 2026 03:33:18 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c4d4675sm35068908c88.21.2026.10.20.03.33.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:33:17 -0700 (PDT)
-Date: Tue, 20 Oct 2026 07:33:10 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=BzEN+6L4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792492374; x=1793097174; i=markus.elfring@web.de;
+	bh=xxhdn2OVUJtF2HEE/DiJItd1DbzLWHnmnzj0M802xSc=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=BzEN+6L4Xb5b735YRuDWr23IsYY2jdjjZ/xWH29Zil4mTVNrkgJbKCfUs7DAHECV
+	 yk4dZikoi3ZuEl0rAC5vunjnNvbbRHAU+S+FNHCmOBUeljJ9KB+5p6OOVeE97JGaV
+	 yBAhT8A1r43G0rMi5P6ZaXAVYs8x8esRhWc4RDcpJTYMVZkVdofA5s5Dt/n5f4J/a
+	 NnitKG+j9Z9UsoktDgIP3Y/fDSxHDJ8WQDYoTMOb2SdR+itWLCtZBfDYo1AEvXmHd
+	 9+eaQYs1jFh8KIeRzuMN434LkAyLEMedz8h85CEbfMAyg552k1MpkKV85qaYhg9wQ
+	 nCyhiaJz9Cv8Y+l8hA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N5CQh-1wZqhE44Ob-011DnT; Tue, 20
+ Oct 2026 12:32:54 +0200
+Message-ID: <312bd510-03ca-402c-aba7-d1c60188f926@web.de>
+Date: Tue, 20 Oct 2026 12:32:38 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,48 +62,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atZxhWaUWthEHkti@SMW015318>
+User-Agent: Mozilla Thunderbird
+To: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Tero Kristo <kristo@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Vignesh Raghavendra <vigneshr@ti.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, LiangCheng Wang <zaq14760@gmail.com>
+References: <20261019213726.4145532-11-devarsht@ti.com>
+Subject: Re: [PATCH v3 10/14] drm/solomon: ssd16xx: Expose session management
+ as plane properties
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261019213726.4145532-11-devarsht@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:AAJarhhkiBAz2y4aW+ppvNMAXpTP4N19qIpvKPnuVgBlNGYQOEH
+ 4vxBCVgmwIR4tF5K665MQ4Lqf/GG0wTGeraUFqyRh5NveRun+RODho46Hc9TlPB4uH9dU6L
+ 2hgWjFO8mUPhg7FhFoD3rEWitidBEQn6rpLZZH+MJj2xqh3G1XyyfZd3pzWQqeSUpfY5bTL
+ X9YYt5W9w45IOSv5E9O6A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:r8m82L8B4u8=;uX5H6hrlye9LF/CYLwqMGj0RM9p
+ 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
+ NWeTafeQ==
 
-On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > From: Leonardo Costa <leonardo.costa@toradex.com>
-> >
-> > Add a device tree overlay for the VGA output available on the Apalis
-> > Evaluation Board, which is driven from a parallel RGB interface passing
-> > through a non-programmable video DAC to a VGA connector, without VESA
-> > DDC I2C signals.
-> >
-> > The non-programmable video DAC consists of a simple resistor ladder that
-> > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > an active-low data-enable signal.
-> >
-> > The overlay is also combined with the various Apalis Evaluation Board
-> > device trees to provide ready-to-use DTBs.
-> >
-> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > ---
-> >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> 
-> what's difference with
-> 
-> https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> 
-> Is it possible share one dtso also?
-> 
-> Frank
+=E2=80=A6
+> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
+=E2=80=A6
+> @@ -1619,6 +1725,8 @@ static void ssd16xx_plane_atomic_update(struct drm=
+_plane *plane,
+>  	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%=
+d,%d)-(%d,%d)\n",
+>  		rect.x1, rect.y1, rect.x2, rect.y2);
+> =20
+> +	mutex_lock(&device->lock);
+> +
+=E2=80=A6
+@@ -1693,6 +1800,8 @@ static void ssd16xx_plane_atomic_update(struct drm_p=
+lane *plane,
+>  		device->border_waveform_pending =3D true;
+>  	}
+> =20
+> +	mutex_unlock(&device->lock);
+> +
+>  	pm_runtime_mark_last_busy(device->drm.dev);
+=E2=80=A6
 
-Hi Frank,
+How do you think about to apply scoped lock guards?
+https://elixir.bootlin.com/linux/v7.3/source/include/linux/cleanup.h#L332-=
+L335
 
-The Apalis iMX6 one needs to set up the connection between the IPU the
-LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-the bridge on the Colibri iMX6 doesn't have any control signals, while
-this one on the Apalis iMX6 has an active-low data-enable signal
-specified on the input endpoint. Because of all of these, the overlay
-needs to be different between these modules.
-
-Best regards,
-Leonardo
+Regards,
+Markus
