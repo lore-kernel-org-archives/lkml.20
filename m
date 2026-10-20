@@ -1,103 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509592;
-	b=k3Xos24z2rh76OXW5OGKg9Aakm4p9S24ml8Wgr81U3wq3yGT8Hm9lWkRC5XGJbIXTl3x
-	 r4yzwxdRAjnrjHWo2KGWMGktRvu4csRpxTaaReBqVnsHpSKLbLWJbo1ppK9HUwITaAs/Y
-	 z3+Wf2KJMg6xo1hX6Kwz7o6BYSiNocRaV8WzQ3FT4Czf/RQUtw5UTvx1/fTI0PWSGItRN
-	 OKx1mAqlQ7HHJEMaa50HOOQw/UzgzMk3BnboYINaoLqwAOenrXjugeBg+b3Ujhg2tK56F
-	 46Rs4/7/4PqMm3mTHqzzCVk3G4RWCPgrfWRQiA8bLyGLaI70HTvqBHxAFNoNCVaeDeQ==
+	t=1792509711;
+	b=dv2pv6yTDUUIjiCZ890XDcgVe632q5BiHa/HNov0Fo1NG8EYKvy6ocUWbDN3b0bk0Wz7
+	 QcKNcJhUj6g6nTnsZGIzlubwOY0y3tcl1BAv/jDQ97Yyn8UKxWd4LtTZ+SNPHf/UOwplk
+	 SiOmEZKJo4aipm1HKsZpRH8hCm5Vx6mISHNjL97WY4JuZcHiYscTHYskSNDomuzYD18Sq
+	 AE45wF+1uiE5JUYY5uStpuHh8Xp+JNqXhzT80KuOYMb4wwT0thboRYmTrvXs6BG7X0lwg
+	 lES6sUBKQCCaXLM/ShQ84IwB7HBRcqxO6S+ahulcu8sai6gho010cZkpvjUi+cpBrIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509711;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4+dMbq4L94+2qmZ/kkxC5lVbK6QouDyt/ZY60T+Sqjo=;
-	b=A79s+LzaQI9iu7CvP1dOFvgZyyU0HocskTWm5LqDq6aiP0ysQgnwq15DHlqRPZtbcQKW
-	 GTd7mCSQBnyQxySsyxqBFyJ8BOMDVyDsL8SrgRvk2acjynmdqagYKHq5FNaeDzUfOjPWv
-	 pimrDha4v0R4g/4mEk8uCa6PztznJZtOEDB4tuawyohXIUYG1TCCTxDafjtcNvd9hkof8
-	 Ki/GO3lwV8O7CEL+xotQ3HBw7T6slHkalkAv6Yeew8vKuBBMKuzakomrkF6XApS1x0uiV
-	 IoDr/PWHR25VwEyvx0Ii+T2eIsnfsp1qvJZ+KUiTMas13lojfm4JQT4PrHEFQBhviYA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1seIWp3ctG+7IR0lg6vkqmMZtzQMv2ZC559JhpGCBKo=;
+	b=bj3iMBNjO/Snw1QxfiF0lUsj0eZ+CaSPojvSiaIuAgZbJBvxSjsCEK9g4tUTYmgagG6m
+	 A/tEfWsCpxZj1M4IR1JsvfF38886lclZxsQSvLUlcN6UsL08DI+6JTLcwuUWMwc3GQ/dt
+	 1lSe8h3gix7Lu8fhdDVcMFIjSaNOGXXu6O4T4C8Bk1I4PQKlwJzxnsbLr/HYXY0KhLpT9
+	 7+Zqb+mgAp5atFRpXxoY46Qu4YfAs37yCk/FBh620BtATnfA+Qz3BYVBtuujtnJy0l7Hw
+	 N0uEQVunmRxVada9rI1Ct1bkZaO2dnuCdpc2ySt+SGbV+DU6pd2f2uG1cdqg0d2nJqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=neat.no;
-	spf=pass smtp.mailfrom=neat.no;
-	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=CS+wb4Af;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="PCHOpcG/";
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAF9606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAAF9606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A59D606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:21:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A59D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=CS+wb4Af
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso605717f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:19:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PCHOpcG/
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-150b2fbd784so105791c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:21:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=neat.no; s=google; t=1792509590; x=1793114390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4+dMbq4L94+2qmZ/kkxC5lVbK6QouDyt/ZY60T+Sqjo=;
-        b=CS+wb4AfUEQzlE534ZwDUGreFKS43Qh4tOe19fXUA0poLpw9DxPEras0eNq9v+pZ/5
-         jTXa/2+fOrInPuQo6RiXrL8dCbLhZ8fmdvZAdjpm6PRVNftJ9VDRXPLvcmTYbvK0N0Ro
-         GA9H2U/sWHntd2l+lBkFKJCVmR0ynMPKtMN2XtQWySyFGCZQE/Oy8LdQgrOiYe2ZE+lr
-         gZ5l3OrtvYEURsVs9BuqSokV/4vj9OXU4Zv4SmWTYBkCyH8hEM7C4wDWyAp9HNSiFuoJ
-         wwUDP4SSfr/S01XEtnSHbENd1/Xjo1Vib7VMIVFlHMIulRF3yJfZ8re7zIC2chO/IelL
-         O1pg==
+        d=gmail.com; s=20251104; t=1792509710; x=1793114510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1seIWp3ctG+7IR0lg6vkqmMZtzQMv2ZC559JhpGCBKo=;
+        b=PCHOpcG/Tgpq9Dnf2nzYKPrGpw6c5Qlq6/DHPcyPmQTRQuupGofZYPQkq5Is1JCikp
+         OedWtasAHVy6YjYQZp7BwPFppblpQg6hNCzhg6HskMdIT2ZGV0MlX4M5JYNKxxPcnYEa
+         SoUJspD3Wl33kKUmljjerAk7wxc9FS4bjkNJw3wyot4k3sn+jz8Auwl2Q9+akDK/Vujp
+         jbITmKOZvGZg7gtl9yYa3I7YXZG7N+ZUoNkZZ36SfGXFCStWvgn5elZqPf+56OE3HoeE
+         8w8qynhukrsxJyd9yUzaO/+Eee049wkeudsJKJ7G1bVJ6NTZtd9QIGUv3yYU57UkgDDU
+         UJxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792509590; x=1793114390;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4+dMbq4L94+2qmZ/kkxC5lVbK6QouDyt/ZY60T+Sqjo=;
-        b=TQ4tpP1Sm3ow0WrmNveRkW2xiVgUwnPSYOzsrLSUrwkaMtkLFKKX0/mPfBAHCQQ87Y
-         jUkOs4O/bIC0jwoFEn5hffKqVEPv338wIkkO2hhE4BF6NK9CCvfQzZbOkOr8G7qfAM1E
-         tViyCsC8RtU/PkrGQhYV9LMnYfFTvuhPcVZRKd7536G4hnT6at/I8uXMEhBLYtN2hRGg
-         1jb6VZgwhQrNXhmmo7/XXYsCwIpZyoG4vTD/VYnpA5ik9USM6aKlMQwHBUGBFf+zXpA1
-         uwOBSwSdgzuS9ypUZ2OyRmSbkP37yw3qsKMSfL/+8lU8NgCbsIBelcBvbdtPNw6P3GOt
-         /hBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGXUICoLdGnFVq4LtqUFF7uXiRP/I23X/oBXpFLgXKS8XEheKnQJyEvrMftmI9aaoDCE+I3Y9+oL//Osw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRH6NmK7eZ/tzmHc5dCBVFsaRgWHjb4rSMaYT4olQ5PNNofpYb
-	EBFhOYwZoKLX34NIXF8ZdR4++G0u2K07/QINXunFdWafAZyL446GPF/Wjhh6oRnBeuZPa/2Mc9s
-	cOCAQfrEVS19/RiO5zQ7eVwKED0VPmcLMi5cdAAYoEC1dh+KybwYp/4qPYePcAKR4Eysu0wqq2b
-	9FhhYDbibwVBMBq6LCAWzXPLR+XIQ5froiwA1EIes9nJTEFlnu147NW1ssauUSGsEl9MZTjKgYD
-	Jj0Q7560ZD93uLOrSM=
-X-Gm-Gg: AYBFou3Q9qeWtxQZ+aybHDS/Um34XrKYd0kuSguQ2WtiFpPf6UiNXZ1oMrTMpW6CCcO
-	ROM72otmL+fq/pnX26vrYeVoE4zwGkYvC/YA3e/HiSXR8z02q0ow2uGInJ+n3xYXb2d6i63cQvD
-	briyLSxaeKgzUVos/bGy78SHovSERObEQBhZWB6TpZUtM06v6NUggaaNWrg+6j6rop0RIidWd8G
-	tv6/OurVGBg0he9fOSviOfrSWL0s/pFRJH6hJnTZMRYpTTOKrDS7MGROKF564LaoRPhfKWXaRLs
-	0GtK0JST/hqOWeI+8E7NUGZ1U/soIXEoTNVXWxMOmIJw5e2ULsHZiFZu3uek7G5O5zEzZJmiP1z
-	6Lus0hGaZwQj2/EFNuh60CPBrk1UGK5wp45a2GtUReHxS25ckR6qNf77GFtbjVkJkvoT2XBhtgZ
-	XzgwxcJNiHvIxEz0tj1QE6EPSpW28B7hVgJ7cAeeqJLXvgABxL1in2uanqKfoKo0L67DIFysFfB
-	4NMiR0=
-X-Received: by 2002:a5d:5d86:0:b0:48e:d40:a87c with SMTP id ffacd0b85a97d-48e1e7cc307mr6188979f8f.16.1792509590285;
-        Tue, 20 Oct 2026 08:19:50 -0700 (PDT)
-Received: from threads.localdomain ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d817d80sm7410663f8f.26.2026.10.20.08.19.49
+        d=1e100.net; s=20260707; t=1792509710; x=1793114510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1seIWp3ctG+7IR0lg6vkqmMZtzQMv2ZC559JhpGCBKo=;
+        b=nH8HdZugTyBu9YrL8NKdIXP2g/LAoZC5BUN0EWvzOxjOvFnnXYbCncu4EnIEIatxR5
+         yzUIYv7GujQY33Wo1bVTWZOuJtGweg4V7CtDPhWnqzTKm7AaOu96DuB3PObjFzNVIzKG
+         MSQR/lfLOVXxPRh2SNYn+N6EGQvfiTZyO30BNdmt16Vl8lWdg78GWomnv2K+Ubjg9IPt
+         eM8uQz4QiV+lANWkke1WIZypvIXUfrhW3WDYt9kzyvXAvu0U5ir3Cu/j45oZEHGpNit1
+         FqPl7Rpa7ZQgp4hnE+PqV2TxuFFVJy8HM80gvs9Wy/NYqm8cW5MBW99j8a4vDYWROAqN
+         ARew==
+X-Forwarded-Encrypted: i=1; AKwUvByUkzrsAGJ9a+rjqbF2J8eNJtOqHC1+jUvuKa4R3DgO6milMoXRBDEbWUGawM+sOrId++zCHFuQMYA++1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkAKeKax/y1xw9qztg98QPA28FVSvA2AKkxGJATrqYH5NrJMaw
+	HPncepXnPwY783Czhzz0p+9ZzF48jgH2CuxEqiN6UYnoYAmPA2jgpsasNMhLcqVS
+X-Gm-Gg: AYBFou1JFDZw5/iodEfsavxp9wrnMQ7+xTkseFq3YoDug8j1UMwAqb1N1pZsBxJN56R
+	/3e8Q5fhmsgia7R5ArJTxRdahB+3A0Yi59J7fLTYOUsUDw8tgK4kcAixzuKSLBRRagTPHZul8/W
+	mFrZnOeIW+pSq7EC0e4EHZBNpIPrqF91E95mEV3Tdr3H77W0LlPSntBkq52ugVWfsvlVp71B0op
+	ASl+5DU24GgbKrJh2T2iplBx1w3czBVLCFtKCYcK/rXtB1eiLf22NXv7XK4CU20BrbCfxAziq9i
+	4K87Ij2PsLQZNZq6m91cLKXPbO/ztWVowA3boBZir76Z3u13uEf5ZtS3aikb0v5lAj1wFgodFYj
+	02B2o+NkgvWNa5IFxCorT4H+IUvu9iiWVVRhp4q9+Jvjghms68O5I1ZoAr3cfU0AofGFRoVIMuU
+	QaHbNGvMtSG1D8+7sMZMLVAbRCVayF3eMpq7AL5DBPWYpAbLWmm1AIGpBhJHfRc+441QU9Otl3j
+	whKV+203EMDHkzN2lIWAmr2ux9iyJx5mCJ2k1fPBq4hMGR5datIKprzLTRuRs/JRdBa
+X-Received: by 2002:a05:701b:4212:20b0:12d:c389:ae54 with SMTP id a92af1059eb24-18510d6790cmr25881356c88.2.1792509709877;
+        Tue, 20 Oct 2026 08:21:49 -0700 (PDT)
+Received: from subhobhai943.. ([2409:40e1:7:197e:d6f5:c443:63e9:fc37])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm50682637c88.16.2026.10.20.08.21.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:19:49 -0700 (PDT)
-From: Lucas Tanure <lucas.tanure@neat.no>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dom Cobley <popcornmix@gmail.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] drm/vc4: Implement vc6_hdmi_phy_disable
-Date: Tue, 20 Oct 2026 16:19:46 +0100
-Message-ID: <20261020151948.83459-2-lucas.tanure@neat.no>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020151948.83459-1-lucas.tanure@neat.no>
-References: <20261020151948.83459-1-lucas.tanure@neat.no>
+        Tue, 20 Oct 2026 08:21:47 -0700 (PDT)
+From: Subhadip Sarkar <sarkarsubhadip604@gmail.com>
+To: catalin.marinas@arm.com
+Cc: will@kernel.org,
+	mark.rutland@arm.com,
+	patrice.chotard@foss.st.com,
+	linux@armlinux.org.uk,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Subhadip Sarkar <sarkarsubhadip604@gmail.com>
+Subject: [PATCH v1] arm: Kconfig: Fix spelling mistakes in help text
+Date: Tue, 20 Oct 2026 20:51:22 +0530
+Message-ID: <20261020152123.16589-1-sarkarsubhadip604@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,32 +100,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dom Cobley <popcornmix@gmail.com>
+Fix two spelling mistakes in Kconfig help text:
+ - arch/arm64/Kconfig: 'unexepected' -> 'unexpected'
+ - arch/arm/mach-sti/Kconfig: 'targetted' -> 'targeted'
 
-The body of this function was missing so we don't reset the phy
-when disabling it.
-
-Fixes: 0b1dbe82e051 ("drm/vc4: hdmi: Add support for BCM2712 HDMI controllers")
-Signed-off-by: Dom Cobley <popcornmix@gmail.com>
-Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
+Signed-off-by: Subhadip Sarkar <sarkarsubhadip604@gmail.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi_phy.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm/mach-sti/Kconfig | 2 +-
+ arch/arm64/Kconfig        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-index 56e6a35da357..5040f014bf7e 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-@@ -1197,4 +1197,9 @@ void vc6_hdmi_phy_init(struct vc4_hdmi *vc4_hdmi,
+diff --git a/arch/arm/mach-sti/Kconfig b/arch/arm/mach-sti/Kconfig
+index e58699e13..4dd5d0592 100644
+--- a/arch/arm/mach-sti/Kconfig
++++ b/arch/arm/mach-sti/Kconfig
+@@ -32,7 +32,7 @@ config SOC_STIH407
+ 	select STIH407_RESET
+ 	help
+ 	  This enables support for STMicroelectronics Digital Consumer
+-	  Electronics family StiH407 parts, targetted at set-top-box
++	  Electronics family StiH407 parts, targeted at set-top-box
+ 	  and other digital audio/video applications using Flattened Device
+ 	  Trees.
  
- void vc6_hdmi_phy_disable(struct vc4_hdmi *vc4_hdmi)
- {
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
-+	vc6_hdmi_reset_phy(vc4_hdmi);
-+	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
- }
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cab741a69..68f0a94f4 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1164,7 +1164,7 @@ config ARM64_ERRATUM_3194386
+ 	  * ARM Neoverse-V3AE erratum 3312417
+ 
+ 	  On affected cores "MSR SSBS, #0" instructions may not affect
+-	  subsequent speculative instructions, which may permit unexepected
++	  subsequent speculative instructions, which may permit unexpected
+ 	  speculative store bypassing.
+ 
+ 	  Work around this problem by placing a Speculation Barrier (SB) or
 -- 
-2.56.0
+2.43.0
 
