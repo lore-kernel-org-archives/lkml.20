@@ -1,61 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792508847;
-	b=jdrcUiEEjKmqKmdOWaRtSqxN4b/5u7zRNz3GENoC+Zl4PKFa8lkA7ZEtRKuXIR/LbaZR
-	 +S/GZAicXAM8XFgDlEecxCRJpjuCFkVaQG650NBKDwZcscWiTi+EhtPJHJAlh1A0bp+qj
-	 3z2EjkSjEowb/d0IbV5xCeN/isMZSoDMPa5QbjuwZEtYmZC+G+SIUnqKpT44bkX6r1Qxk
-	 FFr1XBESg3WJi1OK4kO4Zrt2Pe2R82A3pLOaznqaNi9Xfqq7oB1xeK/d3yMyMN1joIWy0
-	 JcvsLhwAM/jgcmgRZIeDuw+MPKXHu53knXwvlQuheLX92eptljOgNZTUGiJMpsJ8zUg==
+	t=1792508868;
+	b=r3o4DXbplT73poCJEsOku9rv1VFlqoOa5kTkdIl8eG+neidbW3v2JE1MMldyaE/G3qPV
+	 ySaOseemMtbBoig2JmFmnYQygR38BOTbGz4vXZxKRT6qKgwTas3jNz30rsobR5YGSvepG
+	 bAlZhONvLoerSD+b5AV44tXzSksT8g4Bu7h+J5sinOKp+qsdgqOhcaVXUsFk7we5qSwnl
+	 Lr6nIC4PKqBrK1QQIU4p9+oc9z32MnGjSIVffcGYzC1h5kYlJHE/jMSJFpBhxj18BGJFH
+	 GC/lOp2U0KZ/9uY6EVl5yE3a2yqdp7RbJdZfj51wkfLQP+FHf3v3uwZkMNkY0tZaRLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508847;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dMwYRpucwb3EFEd/V5P1GGNUlrzJQR2VuDoeGjsBU1o=;
-	b=SokUSEoqvAC6XAYsg9SWi/oeD5ABwhaica92EwauU7zQEHPlJoRSic+mf/QuwmU6xXIj
-	 4eoBersve3DCO3SDRKfvT1SQ4xie64MxaxzXaCoh3SbGxy05YCDzEAQCl10lk/C4wHFv0
-	 KIwNaetWz7m6zrG41vLBl5qnQDLeHMCl99li9BoHRd6f8lvwCC+p/V28/NLXOOq6ERYMD
-	 mBy3TvYPBoDZvPCuRZWRQuXsO7Ta4NvQUjp1ls53bMlOv4PWdWc/WYKBWKZyo+a7RdxXB
-	 q+1EB8VFiH8pvmFG7Xcc5z9RYcSCOZtX7+q6qU/PL6xhHPN5gwEVPYWNq8HlSUFwLqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508868;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=TNdGNCXkUfPvd4c5ZdXNPNix8cXInUecIS67qAo+lDI=;
+	b=tVC1zcMrJE7FE2R5DfEjQA5fgkeVyBwXnPUoVRDI5/gSYI6AqgtpzkjiU9/yAEcZ+0NX
+	 u+T5Qh9qIOZG95hO65xyIof2VZxJtCVT0MyrrpjCuepNSWVlhm3+34jta3HTzJ2W2KLID
+	 603j2ziCYbhkD/GleD58xQ+N7Af0XNTJLaOJ+LAiWMEiZFz/1jUCiluR+pHE4w53lfr1N
+	 Y7NNJPDaGLi9fbc6FnvwV0V4mcfOA8yWS15bVKNIeQfslxnYV9p0ofkXssMiYCCeiSvdM
+	 m5g0rYbo9yAuxWcAcTWRmeWdeWXZRCwWa6v1R9I7wWPfgYkkS7k5fR7wHU4tOaDz7aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=UQH1iBx3;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=H7WpaGKG;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=gMQ4P8rk;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCC060A2601;
-	Tue, 20 Oct 2026 15:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECCC060A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B9660A260F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0B9660A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=UQH1iBx3;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=H7WpaGKG
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792508808; bh=dMwYRpucwb3EFEd/V5P1GGN
-	UlrzJQR2VuDoeGjsBU1o=; b=UQH1iBx3wq6UCnf6Z3IDEJaveuqL6ClRizkM9ol5BWam2AKFBF
-	k2UY7CGb43oLZ0BIGKet3sM8mJ+DJWpqX/swxiFi97D271LNe9tW6asnXqo4m6SSAJYH9ixyyHo
-	UxRo6gadKclhy8ulgzNSC7nP9ummRIVlyy2C9EwMpc61miQZlBj0SXCrGIDP6JJmlgZib7lPzt4
-	zsI03LoQ1wq3qiv+uCGZWl366zaeCig1yspNmIn1BKE96NCly4ErSi4UVd/NZLaWtASpZMeiQSc
-	oPknT/vK3wCoir+NPV0E/mpm3VSC7AdBHLC0pjNyuso62TR9PWNBum8mlgaIqkLFhAg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792508808; bh=dMwYRpucwb3EFEd/V5P1GGN
-	UlrzJQR2VuDoeGjsBU1o=; b=H7WpaGKGwf6qjlAIkZISrzEiBciNunvcYDyVQHDhtUjv1AwmbG
-	TK+kldBe6mMU49qdHyOnmJGAJ5vuNxy6rGCA==;
-Date: Tue, 20 Oct 2026 16:06:49 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: qiang.zhang@linux.dev
-CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
- linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
- rcu@vger.kernel.org, urezki@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_rcutorture=3A_Fix_suspicious_rcu=5Fd?=
- =?US-ASCII?Q?ereference=5Fcheck=28=29_usage_for_trivial-preempt?=
-In-Reply-To: <20261020094907.15781-1-qiang.zhang@linux.dev>
-Message-ID: <BD9E8AED-23DC-4A7E-86E9-297B8FE29846@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=gMQ4P8rk
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so21737345e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:07:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792508866; x=1793113666; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=TNdGNCXkUfPvd4c5ZdXNPNix8cXInUecIS67qAo+lDI=;
+        b=gMQ4P8rkO7OQB1rMRihkEbcAQhJE/F2VBS9lM5xSrg6maRb0x6Uo8D9+/LLmaqFssg
+         C42GLWKulib90Q//He3aQMCSW4cYquyHIFUtbyapQD28AEh1JJe1zHGNfanUYKvfAIA/
+         tB5etmpZvc5NZheaq+ojWno6ROAlB6vyMUREeWAJY+7lIP7WbEHFwteE7j0lUh1MmiBK
+         iwrfJgWBEX9o4wS2woHfkiQhBJn2aZ3++DXP7g+bupyNXiYXkB8LTkQQjte2Z7otDqWB
+         j9CUOVl3V90s/3QHZgsC6rwplZw06IeNSX7076rAEEfyPHijBFXWzQygs6orPBSYmAcI
+         cU7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792508866; x=1793113666;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TNdGNCXkUfPvd4c5ZdXNPNix8cXInUecIS67qAo+lDI=;
+        b=L2rKFDevb0w0M39okK9YimYlnNSl6F7ovQRVCCssUc/m+P1vKDMItVxHzyHr8cbNEx
+         WAruz6TaE4xGgrFgE5Rg7I3TgCcK8XVPEiEdi57M6Fcg36NhN7EnSxYcTPOk0qt7L1Fx
+         rGa59F2KXKbYhWPBG96g+OOLW2eqUqs8kCHGBnnSOYTT+Y4dAtd9dcwWA2MMjG+e75Wm
+         /qdxEHNuGW7R2Lf6E753AX+PS+i0fQ3Kh0aXCOSAS6E/ObQ4myiPhyKjxsljCsTPWDsy
+         q18AM1r1HdpCvkD2dYpaC9me+XbiG+p9BhW2c5LfnWys9cwX2WZHCoL6SDIvximaZmRF
+         VV0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzHXJxjiZxepuY7EGHfWFmFlCIV10u6wShOCIUtJ4bYfysdQzNAD9/tCR5XC6WAS2D3S40JA1aHKstYM0Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6wisxW8kPKPN7gH3HVBvXJiYMKw1vW3Z5xqSnxtB7A0mE8sd0
+	xLp7aTmZuOoXibvA/NBs/nNlfh9ZfNJXRQDNLo+pBPjpuGOvwF7M5kSQmt5+rAA+EQ==
+X-Gm-Gg: AYBFou1wApVtFMb5RtaIoSy6SMTxRqoW6AznIp3ZFj4+A9UhIVU0DuUeJFupc2WzTDI
+	TQaYMA2WZNQlsIDJuslFyzNqqG72p4kB8K8b0M+A50oJQNK0OqCt5xjd2DOQn/Ro8trNDfebsfX
+	K2agFGDJ48MIHG3kP06fI8Ej33iB73K582aP88xmFuVAb2KkkgNV6Us2BjGxi5PhUaRjeh+sA4r
+	271T5kncFQ3LAr5P0IqI2QHs1eUseevB36dVjoISsIVxj1NyIBiV7NoBGYxm0ZrAgl5vsQtFGNw
+	LDNrzAatqGGYzbmuVCt8k3P1SUFg0VbhLRHQoGgq1wvht9s9PXVcylYprxgaNLECvl3UBjVZo/C
+	vtnWBs0nzqwiUKKGqNsnHhK2J0TpVzda27YPkUrW9FhXQqxWDruzEQiZwRpDzhZnmQUPiTpER0H
+	2dejmoc8XqGDzkdhFdV8VjsvR3tl5zvus62zadoYdQwUhrwoetHZli8Mrst1GQLn9EVSVm3AQoB
+	l0ZB3Zy6ephP5aV2kEoASJmdkqgh14XO30jbtQx8oEmiL7fsUCvmeU=
+X-Received: by 2002:a05:600c:3488:b0:4a1:dbb7:bb44 with SMTP id 5b1f17b1804b1-4a1dbb7bc9emr176208875e9.5.1792508865680;
+        Tue, 20 Oct 2026 08:07:45 -0700 (PDT)
+Received: from elver.google.com (124.100.205.35.bc.googleusercontent.com. [35.205.100.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d1e8ebsm73417245e9.3.2026.10.20.08.07.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:07:44 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:07:40 +0000
+From: Marco Elver <elver@google.com>
+To: Caleb Kan <calebkan1106@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>,
+	kernel-team@cloudflare.com
+Subject: Re: [PATCH RFC v2 00/11] stackdepot: reduce memory use for
+ persistent stack records with a trie
+Message-ID: <ateDvB145CN_R7CA@elver.google.com>
+References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,56 +102,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
+User-Agent: Mutt/2.3.2 (2026-04-26)
 
-On 20 October 2026 10:49:07 BST, Zqiang <qiang.zhang@linux.dev> wrote:
->Running the trivial-preempt flavor triggers a lockdep "suspicious RCU
->usage" warning from rcu_torture_one_read_start():
->
->WARNING: suspicious RCU usage
->kernel/rcu/rcutorture.c:2581 suspicious rcu_dereference_check() usage!
->...
->lockdep_rcu_suspicious
->rcu_torture_one_read_start
->rcu_torture_one_read
->rcu_torture_reader
->
->The trivial-preempt flavor .readlock_held is set to
->torture_readlock_not_held(),
->which check RCU-bh/RCU-sched critical sections. however, it's read lock
->just increments current->rcu_trivial_preempt_nesting, it's not also RCU
->read critical sections. the rcu_dereference_check() condition is therefore
->false, and lockdep report warnings. this commit therefore drop
->.readlock_held
->callback to avoid this lockdep warnings.
->
->Fixes: c6f4e552e1ea ("rcutorture: Add a textbook-style trivial preemptible RCU")
+On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
+> Hi,
+> 
+> This series reduces the memory used by persistent stack depot records by
+> sharing common frame prefixes in a path-compressed trie.
+> 
+> Cloudflare runs KASAN on pre-production servers so allocation and free
+> stack traces are available when diagnosing memory-safety bugs. On some of
+> these servers, stack depot exhausted its pool budget even after we raised
+> stack_depot_max_pools from 8,192 to 32,768. Once the depot is full, a new
+> persistent trace returns no handle and a later KASAN report can lose the
+> history needed to explain the bug.
+> 
+> With 4 KiB pages, 32,768 order-2 pools allow 512 MiB of stack storage.
+> Doubling the limit again would allow 1 GiB, but it would not change the
+> linear growth: the hash backend shares identical complete traces, while
+> two traces that differ by one frame are still stored independently.
+> 
+> The trie is opt-in and disabled by default.
 
-Looks ok to me.
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
->Signed-off-by: Zqiang <qiang.zhang@linux.dev>
->---
-> kernel/rcu/rcutorture.c | 1 -
-> 1 file changed, 1 deletion(-)
->
->diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
->index 92ff197f4789..1bbf8192786a 100644
->--- a/kernel/rcu/rcutorture.c
->+++ b/kernel/rcu/rcutorture.c
->@@ -1164,7 +1164,6 @@ static struct rcu_torture_ops trivial_preempt_ops = {
-> 	.readlock	= rcu_torture_read_lock_trivial_preempt,
-> 	.read_delay	= rcu_read_delay,  // just reuse rcu's version.
-> 	.readunlock	= rcu_torture_read_unlock_trivial_preempt,
->-	.readlock_held	= torture_readlock_not_held,
-> 	.get_gp_seq	= rcu_no_completed,
-> 	.sync		= synchronize_rcu_trivial_preempt,
-> 	.exp_sync	= synchronize_rcu_trivial_preempt,
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Have you measured how much of the memory reduction comes simply from
+storing 32-bit compressed frames (patch 9) directly inside the existing
+hash-backed struct stack_record? That alone cuts frame storage by
+~40-45% across *all* callers (including page_owner and KASAN aux stacks)
+with O(1) lookups and none of the trie/bitmap/RCU complexity. If prefix
+sharing is still needed on top of that, deduplicating fixed-size (e.g.
+4- or 8-frame) immutable segments from caller to callee in the existing
+hash table (chained via parent_handle) would avoid mutable child arrays,
+RCU retirement, and the bitmap allocator entirely.
