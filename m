@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479495;
-	b=cjad1smX07aVg9ndcBRtB5hdmdfOHvQ7gSpgOI2LhKF839hyZbZ3UUHnvTEKWwT9psBC
-	 jOBe6+6qKrTDtIiqwG9/O2ctJLbttIxH/s0B/jf9KwA5JTIuUydWEpJH5W/p8X/kogSLl
-	 gBenTS6ubLIC1G5ML+MJNWUCqEvPnh2CT58g8Oo6zfLMljxNefBTEhXGdyhQIiKAJf/OK
-	 49CtUhYaGyYKQiw/aBXou8QAtfDBiUYRYEKk+pCTqbY4BH2CYg1BC9Q+kgHvQnb/xA+5c
-	 mWpHZ+I6BJ+RsyiR+Rw+LslXLDGXm6obWU8JmsvaIKfLK6xM8YY4+7iY2ZKd3mU/M/A==
+	t=1792479514;
+	b=lkoLBMz+aEmjD2Joab3vZpTy+RGmsIeGG+EadKF1EY4hf7O0LbYaktgl4UsbybjyoFw9
+	 vDRaGmB2fZ+PC/ptWHo6/IP7zfYVOulzoOP7/HtHAh3gmWUZnzPkyR7kjhZphMNIg/Zsb
+	 P7FzcOB1yBFklwQeP5AoZ0PW11gZ/NnsFCLBej5FpYPiY0EuIlN5j5YTAG5pwrrBVYp11
+	 KYK7kx78yR6TNu9Ly1qqvZPU4PnO+W1sbGcS3S92OwVL9MoGk2SwXtgBb/mzVW0edgeQp
+	 6o11+498NiKx80EHKRUNUaU2Di+dMyJL7XTKxwnBPYfqkhH5PhHaZ1004LBoAh1Xeeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479514;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3HQS1xnKh2LG5cRmwXfGtctlu2fUP4FZq4o4BZfgch8=;
-	b=OV5PkttiIy+PTfdXMEi0rhLJel8im+B/Es2qThMAtRl7fxcYcbdavh3iapLbOm0q7zVh
-	 /PJDYjpMjwOLMGrYVjgyomj7yCaZ4ZG6UA5Gq5PzeLUjnpPMs9qQDLieNWPLRiDlmYMmG
-	 l+t5ZNtDqEcAoMG/VhD96qOjt6rGcdBptq1x+69Uh5IUwWcxLBwNFlgWxAbwe+rgGveBp
-	 RI+X63NpNW9ktWJYGOBe5coU9rMOanlHy48Okw0uCV/w3Is50ftr8iLJdS091YLwtp2nV
-	 uR9/AoBeQq6Mw14eeBf+CbvKXHKttg31YY9ivRBagRPwCqSaWmqUWhX0v1dxVAH4L5w==
+	bh=3mVdC5kDTnipn3iY5p56LzjbkerlRhb7piG9XOIde2E=;
+	b=0l0rhoDnru+o3mB0Ono1fkDKuqUskzDh+pSXDP7KVAQQohlrIJokzxduLut8b4mln+Yg
+	 YyieW/f2mAqpvWeZSfCHoq43+7kaL/22T3yuuwtcIQqJmSjpxv0JPmCTV+HlttAXIQlLk
+	 ICEaeTL1CjxG/ZXnh+uHMwv21tG/AWbGsnh343/kcTAQijc1LGx80j3U1PHUlP5Vucwwg
+	 OS3I85oznIDjMzRNK5FKV2J26lFQSKIZtNUuykwvVnW79hdmDjfFq/ON7PLQ2QgB/NWlQ
+	 rTEEuXCa1CnEVyMIqFlLqHJaOaZka0ZCyZrByap3aWxubTH5M4yuYwtWlovPuHilfuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=enX5oOZ9;
-	arc=none smtp.remote-ip=203.205.221.155
-Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ISU6U2zx;
+	arc=none smtp.remote-ip=203.205.221.240
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FE260A2614
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65FE260A2614
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD6606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BD6606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=enX5oOZ9
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ISU6U2zx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792479492; bh=3HQS1xnKh2LG5cRmwXfGtctlu2fUP4FZq4o4BZfgch8=;
+	t=1792479511; bh=3mVdC5kDTnipn3iY5p56LzjbkerlRhb7piG9XOIde2E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=enX5oOZ95CCWfNkIzafFVEGiaF2h2WVz25o17Pr2wv18xiFtaLS/Lv3Stew3HOwd8
-	 ylFpd9DXSRjidZwI01jLs4qOictfg3Zrwn5+4AimGI2E6NYCyg9KLaAXGP1FCaZAjg
-	 RmtUp/pSFV5K7cIR40xebFWVWjiDAXEOk4xdGPRg=
+	b=ISU6U2zxBV95KPb1IrMZyPRbc6ItiblFzqk0PknHhAbYGY2CBX4tyjOVS+fbWGP/J
+	 zI4cAJ8bgMeAjBX32Wvf3WZhK8eUT03n1gpT2Byr8yCW95LfYH6rUj4OOCMksM1+al
+	 quqzf7nOH1eSkr/Hvz3u/OQAqeRuRCnXBuk2bICg=
 Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id E88A1022; Tue, 20 Oct 2026 14:58:08 +0800
-X-QQ-mid: xmsmtpt1792479488tj0eu1lbz
-Message-ID: <tencent_39A2408D47D26AF689C6989CE5945678A206@qq.com>
-X-QQ-XMAILINFO: NnYhxYSyuBnLhJG/f3PCAILr/823hQSxZ6lA5p14inCLje9NrFsWCJYFmUganZ
-	 3JrBsRvbT9dp0DhOMjd8DfdRHq1Biyq4ODbpkaoRQ7LILOqxUGwSb4WVslskVBS4ABjn2JL24zSL
-	 QQjG+EU9V1x16K3G/70Qx0/qrmSZm6R8ZNVbT1Y8SY8qFBLRaGkNl5y43hAKgHrj41AxedmnXjKf
-	 P+lk4r3AXfIW2Tm3SjucBx7Fq9o5IsGg83H0JQkxdGIlsrnH7qfA8cJRcZCj0gIoChjfUDR9bBXV
-	 5U1wiVVoWm0X8Wb7JXRlgT2JqszX8mu7Ax3Swhz+WKfeYs+pRdaiKwOsCQ6LF40Ot3NbX47p71Ax
-	 FE484XtEncn9U5WjfDrP6I50jp/ykDMd/Zp4LpZv2/HLDM4+6h0TA/x/fiapB7wphz8xlPS45qtP
-	 otIvSW6iLvxvH6mkZtgF2XE1Z4AJodryfdxdg5TfrNgUWDJqjjDyF8Z2kbkk8E+xBMp3TaxxeUDh
-	 bWhYxKpEVvvLIEQ24qYQzZiN34DnlQl2B7JMDt3MVL3WZJhw24ZlfdnoyXHBMjmdRIJ86gWK/QgY
-	 uXAj3gtq7PG/I4rmAY2RBb5hcOgoiG6R/zdsz2uNdT1TYdPWqjTPmyW/fB/pvmIZwGGFFn7Nw3Yx
-	 h2xm03wzx6sGZlZGCgUiKzYqKwKSFJEbJonIge3WnlxkOa3y3ww1nxJmZvji2LFbvVgPDohCOfcu
-	 6bpbdxTGSIwiGOG4gpyZDVY8B/kqknmIiCJStDvdOq/Z2TElyUmm6u8r14C1XV7xli3qa4GyJ/48
-	 nl0LBnC7UcHRNU2/SoliKfvj0zVFGa0tVeSOfXTUwzuy0KR0Z8c2v9At12gOOjt3yxQMB0GXy8L0
-	 UMBr0lHVBit4I9FJiuK1OndSXlXn4NezTPthbODhU7pyViJF+XNw9doGHWTGzlwkR6vZl9wtwyFi
-	 qmSHxQ8T260HC3MjkfGsFymAIfgJigtkc5R1QOmlPlzLs1MGoxq1DdBQt/s5LFlec14kB4BuJ1vJ
-	 csbqRK4EmhcnmZZD33ESCAvCMSgn6RNop/GELOFLIR7QSQDiP6XrzzqH9x+DA709uge/S/VF3j6L
-	 WRv40mRFaEKOTjNxfV/QMvAYvU5g==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id E9B91261; Tue, 20 Oct 2026 14:58:27 +0800
+X-QQ-mid: xmsmtpt1792479507t5c39dn9x
+Message-ID: <tencent_0A2D81638FD4558013D83124CB53ADB84407@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3JuE7UqBPrRy19WHZn4tR5lf31gT2ZwKuR3gNC2nDwWQ4zNsXSfMo
+	 YXpDLmzdLvPqbtnIaxewLPg5VjX697FuIwEBCRU9AsIN6aytWtKZ13wGHTtcf/ieUaQvKhmeFy4l
+	 UCce+1A13vKlixI4dDszb9dldkhz+kH7DjhjuS5Yiu3/4hk+lb6t0HnZ2fqUqui6NGkyXv5kel55
+	 ci82wyeD61nLrR/NNC+v0UPEGwXtt9y3VT93V88tn6V2njm+cCD4lrO8/9VCcvFwRqUwvpAHG5Pj
+	 s5WEqZT2qpgsB7oo2GJaUgXf/2poIsWBkxsJ1lc6QwGm/QdlUfzwrO1EwaJei92z+6eaSBIHJEND
+	 4IEO4K8GGkHn2aSC0sGIg2uLAi5NPtVse+Zw2hja48FwmpBiaS0P4eqpzSIlOeo2QEVSBBI6Qfsa
+	 Usugs3Urd4dRvAgFMrsqnmfEMIQ+yYm0xSC0InWDf2zYKuhYVPBJINlqhrtSGkwnzYbgX5/PRCXp
+	 tmX1g8BEkRBAvD0KRh43mIKmxjb22Pivoc9xPgmmJNkKtqdZtHYeUSmkhODklrAZsSn/pFvAiTsj
+	 +y69nEu8gStzSHIK6VoTvz1C6jplBYVVwqYQ66jvucQtFBdGWRycTIc5AElztuvuyTIp+u1utmMz
+	 SgRiAHEuaNHMWMPqL6Pvz4bQCjJYrV4KMsHaz55SkpegcDma77n8iKzF0PHeiVtq9vBdt4+FDgtV
+	 5nHWOUAkxy8TAtijKKSW/9ZTA7onJ+qFPWPTuss9Uo0uNOD54X6WULkQ77u8x/2oyafkiXvmfb+1
+	 PSXQTR0FjbB0chxZSJpAf2JwKPBChWByQwWVfHFLSm4GZGkEZpotQNPn1hXFwzaozm/dXAdLABQz
+	 DhyJu+k58VoZYPrmlbJDnLwJ6DwrFGGmmX5LqHtSPgpzkmjydbw6EG104BtYGLWvJXkfsvfnId3T
+	 FZmP8BjVKRUhWw2S8oddEPR29oFrtgHdpmhmMobXESiaWR3aW6jzyF6CrvzCWrkMIqRzHbaAyezH
+	 k3CNz8cbPS2zOcg+hnDCePo6RQP7S40ALbi+uBJvEEkbRiE9RYSprbuCPwyRICiQLmX/qijC/7Qo
+	 vSBt0I6QqrKC/H8V+MNXp/tP/W23G/hLAGoTij
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 From: Yemingxuan <level_zero@qq.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J . Wysocki" <rafael@kernel.org>
 Cc: linux-kernel@vger.kernel.org
 Subject: [PATCH v5] drivers/base: return bus_add_driver() errors
-Date: Tue, 20 Oct 2026 14:58:08 +0800
-X-OQ-MSGID: <20261020065808.870-1-level_zero@qq.com>
+Date: Tue, 20 Oct 2026 14:58:27 +0800
+X-OQ-MSGID: <20261020065827.975-1-level_zero@qq.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
-References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+In-Reply-To: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
+References: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,11 +125,12 @@ device side and leaving the failure reported.
 
 Signed-off-by: Yemingxuan <level_zero@qq.com>
 ---
-  v5:
-  - Use the real name in From: and Signed-off-by:.
-  - Keep the error messages; an initcall return value is not
-    printed, so dropping them would hide the failure.
-  - Regenerate with git format-patch.
+ Changes since v4:
+
+ - Keep the error messages.  The return value of an initcall
+   is not printed by the initcall machinery, so dropping them
+   would turn a reported failure into a silent one.
+
  drivers/base/bus.c | 7 +++++--
  1 file changed, 5 insertions(+), 2 deletions(-)
 
