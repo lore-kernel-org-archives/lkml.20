@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792530046;
-	b=4NnwORzSQd92kqLsAvP5HaCf6JXT0bFsR1nhP75AE9h8GZnX1OU/8tNAUJcTYtYGdbJC
-	 g7ZGanWeQGCjRBdhWBe1CcLYAauztt6Rbh/jgeRZHFvgUCZ6V2qJWN3dV2kphu8kNmmTa
-	 JuGYmVbnqGY2J9tTij4PY8SpUdG3/diZEfo9w8A7ulma7IlHjsjutqHXAZrZzBOkM71VM
-	 9/kcUEdpXmkIB/GoNSIjVKo3P/a5RwerEw3hsU7O3X1+wS2z3vy5cE00uXt0DqCtwfzIW
-	 IQkJUgBgN7GOI57p7VaprsoKMkQ3mKnXMyy1q2WBd3liofch84e59LdxBruiBHuDXFw==
+	t=1792530051;
+	b=oESclLXn9fFGN8Xzkl6plc1hrtkTrRKdnCKuFbQH07UYW5oz6zYrlIC470vRiuolk8ix
+	 Fo0xMHB6sKK+URa2NuG6PKYbFHayFwzR0GZLBDpmC3wtmCvpbmhzBgQRvc4UfnjK3bgCi
+	 nBczo7xT22W63IaRqSv+wd/2cGs1mjbMFCJ3SGozPpxAmlMoXlkEX1tmY317TU//mYk0l
+	 OdwgjPKCMqhRdOCQ7sbutiir5z8I7xn4ACQLt7vv17HevlAQ27BNR1lrl1SV2e7febwu0
+	 aLV0Q+IP7SzG+6ZQ7PZNIwild+PyjEsMJCJJxj3wQaJGfP2rZPKmBUHi1CdqJgMK6pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792530046;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=s7LHFRSXHic5XGEInYp0jAmgGHudXLNGKJjFiKqPrq4=;
-	b=x+8OXnHWdA2SCN9KDQAKJt0MMJL10iH/H1v1ek83/wgaBfgexB7ZRr9AOzjh5Loz3lma
-	 ULtYYSYsuO5pwFoPjEZ3xQ8EDPUN8Y+O7Kb2I2HTfiQZIK6DhBfUAgZw+hdxfCbsmkm4N
-	 3UwdiBe+CwTnoOYORS7eNDJIVaCoiefCTRfs/APEjb+YmVoz35G37gxKXJx8rkBa0plEi
-	 /AhxxFzyL8eY9KxU8Yzsab9VaFfVqhwFL7lqs24MRcgeP/k0ij9kml6SI3fku3+tfKlNp
-	 vCAYjcmTEHHUTGm00CUkkTHPy5KZlqrNV/QSCwQKunK6FJpjwevclBW+JBLy/4XowIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530051;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ChUOIQNUtXrtFdhA00nCLe7t8Y8/cC4syEz/n6o5XYU=;
+	b=qUbbIOd/QlJdEJni2Ppc5JM1wPsL8izOnjBwm7gxPmOf6nuOIuVz5Yd1lt8NylHJsZjo
+	 Ve32W3LqEjMGggN3rSSyGbOcD/e1PgijfZFU+FsIeSwaJqIErnni5y3fvVWABqNZri9F6
+	 vu57aSlX5OMQU22rs2B5iLptfJGUHzaWrQzJZ1QfoULqFrccqxxXeI1Ua76vRfrRI7HOX
+	 qGRfPfFmUEK5gtN1E70QCvkO6YJNCCxDyONZS1MPWJmNHQLUKIkIUtEgrJreKynD7zcRt
+	 M1IQNTIRcuFTGNgvAkgSZ9H2pg+MudeWWuZYQ9EBRJkIiUMiIM0nMUNXm74bph6fTBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQci7tJF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EMGO2cU6;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2E7606A326;
-	Tue, 20 Oct 2026 21:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D59606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:00:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D59606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQci7tJF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42BAF1F000CA;
-	Tue, 20 Oct 2026 21:00:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792530046;
-	bh=s7LHFRSXHic5XGEInYp0jAmgGHudXLNGKJjFiKqPrq4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=KQci7tJF+IYLQv12efD+MqxN8J1OOwJGnXlOocHPZKc29bqs7Rn4uxmeGPDrGl9/K
-	 DlZh+oY49USpQZHxL+KjFEv0OW74s+5g6WrN4Umesz8ZSy4kJ9elFqSZiEMHh9kWav
-	 cW5alHMgELP+qd4Mj0p1uOEq+HRuwVz7Fu6mmpjK8oo/udT3qTqa3lWAJSP6l6NSuA
-	 cqQOtolImM7THpRhx7QSnEtpo7lCBakPYqUOtiVqaERF/8ITWp+Sdb+HOO0PPGlWHO
-	 weVCueq+jZPslSqNq3gslFD+60qceaw0ggnoYot0rsoW8NUlJNaaAUwhpHsjhyVO50
-	 Zc2yMZPTVRHfQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3B93809A09;
-	Tue, 20 Oct 2026 21:00:46 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EMGO2cU6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792530048; x=1792789248;
+	bh=ChUOIQNUtXrtFdhA00nCLe7t8Y8/cC4syEz/n6o5XYU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EMGO2cU68ukfaNZcc4irCWnoVMK9PEQe2KZutZSYuFH98ii1tX6U6ouPbowUh8hFW
+	 hHmanQF1HX0Ea094BIvzY1GZgJRTRZf5pbU1IUC1ucTVjVbwOzOC9cXBang3hOGXaW
+	 dtYvR2/zviLk5ErzIRUkWYJwe28ZJrxmm26ndvOn7eLPHrujUOQ+hquEKK0Pa58biX
+	 X6E+6QgJ/Jl0q6A2k3u87CQrjFJ1L0GcLKSwyi5/GsfjBQbxSm4jcinz5NgYZ4oto1
+	 2bcPNQNWoBFBzEPCy0WxEyTpiPnH1nRt1GJzaNg32uPxp/D5qzOjsEu029X2zyLlEP
+	 N5+SgkZ0/qXBg==
+Date: Tue, 20 Oct 2026 21:00:44 +0000
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hungyu Lin <dennylin0707@gmail.com>, Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion during power-off
+Message-ID: <179253004057.67768.17541883604161296564@pm.me>
+In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com> <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 3696101d2f4746d805262ac4724b99604f31f80a
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,54 +64,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3] net: mana: add BQL support
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179253004477.208021.12583295837722282628.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 21:00:44 +0000
-References: <20261013214937.145312-1-hamzamahfooz@linux.microsoft.com>
-In-Reply-To: <20261013214937.145312-1-hamzamahfooz@linux.microsoft.com>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: netdev@vger.kernel.org, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- kotaranov@microsoft.com, horms@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Wed, 07 Oct 2026 17:01:06 +0530, Vishnu Reddy wrote:
+> Release core->lock before calling disable_irq() and reacquire it after th=
+e
+> handler completes.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+When I tested 1/2, this patch was left out because it does not apply to
+7.2.8. I have now backported it, with conflicts in context only, and
+tested both patches together on the Lenovo Yoga Slim 7x (X1E80100).
+qcom_iris unloaded and reloaded ten times in a row with a decode after
+each load, the decoder runtime suspended after each of 20 decodes, and
+the decoded frames match software decoding.
 
-On Tue, 13 Oct 2026 17:49:37 -0400 you wrote:
-> MANA doesn't support byte queue limits, so each TX queue can hold 256
-> WQEs by default, and up to 16384, of up to 64 KB TSO packets, before the
-> qdisc layer sees any backpressure. This adds latency to all the flows
-> sharing a queue, and defeats AQM qdiscs such as fq_codel, which rely on
-> BQL to keep the driver queues short.
-> 
-> Report the bytes queued and completed to BQL, except for the XDP_TX and
-> XDP_REDIRECT frames. These share the SQs, but bypass the qdisc and are
-> sent even when the queue is stopped, so BQL can't hold them back.
-> Counting them would let sustained XDP traffic keep the queue stopped,
-> starving the stack, and the TX watchdog would then either fire while the
-> completions still arrive, or, if the XDP sends refreshed trans_start,
-> not fire when the completions stop. The XDP SKBs are marked in their
-> skb->cb, next to the WQE size, so that their completions are skipped as
-> well.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v3] net: mana: add BQL support
-    https://git.kernel.org/netdev/net-next/c/799cdeaa5c39
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x (X1E80100)
 
