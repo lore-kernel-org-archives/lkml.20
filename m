@@ -1,66 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504600;
-	b=sEVbWXs5WmzwpDuEOhy0Lj+cfBT1oqeFe+tjrUS0KpACmsmbEOhNvvnq2GfW/tE0VaKP
-	 rVTP9epmEIZHsc4x+ThirMZr1OVUJ9qEXSa7gTL0CFHeYaR+wlEL3ggnKjzU6PDdnp6mU
-	 ipuUABOJ9QULNtV3zV4zHJyoeZITkQcvesZ1tgurH03QLboadT093X/LgG79tps5Hw4iC
-	 oGZJRov+eOCINcsTJu8sY/B+FIMdP79ejj4j0Ky53zOqoS2vqfBTdBsDHliAHm+Y1qbiJ
-	 Rq+IFAYmKXRG8u0TgayvY/a5H5FW1fsBxnFxRqwx8lOf1ljdSTIp9+cRykXNO/Irxhw==
+	t=1792504677;
+	b=lhh06UDBubtXuDYPN22qu9HVejL4Q4OeKO2S1vgg3pIxD/sf1nghpynmpSptxwY+hveS
+	 oVcJ6k9sCrvvHiEEsqsRS/K9E1fBL1fPyhvG7UY0qS71hf+J8u7G3oSA6qHu0D3wjGPSZ
+	 /PfPNdFyKlq8eGrjBAjkED4zY73s9/ZD8t+Ten+AKvKmyFjtunhFOMNUfmDBYNUmZ6/HA
+	 WGe2lam47HuSU+Sg1MzOkdhZlzBa1zXijcpPikh3wUP1blziZOaNbixzdfVt3V9BSDpB1
+	 BbEkvEL99FSFYyFgPRPMzBg+mnMF/Chk6UHK0+oKhA5chXXx+2AqTGRtoNBlT9CMZYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504600;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=l8TpnDSr4xMVn+kzn3EMXGvx3pJwLmxiXIETZ9Ka+Pw=;
-	b=t8ojVmoSg++VVULjcwS5Ngyc5S0OdJLGTEAOkcMIRZufr9iPRROKXKCTBUoiLvsWHT/g
-	 kU4rX/pZ+DsrxJ3qIlvlYqXXfyHYd3wAX5Jy8HBdxcB5gz5hLCyqVhuRGH6BowEyeGJ7t
-	 D5vAnDSqM8OMCibsOPCVgImhXo8gbjvpyHbFDz5HOWl+DMZ7dJUU5gme7hQlEmIJGXOGF
-	 gk9pDtbT347aWqzw56jKeM/ZtBbV6Eq4mSJaPq+WaPpSdh+0YTLG0mSDZQiheXpHX/8oO
-	 E1Ww2u0tC498R8VVwtknfWZqzbs2bshFgULfItO0KrCQJcUmQBZb4QBxdkICVOJqogQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504677;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=HRpptwxP00vKcnqPDfRG8atA60JwuaQEIZY7Gn5bGx0=;
+	b=31JkDYBH6OPrcIUcqg6k0xYDvBrzYwTQsiyMfNNLdY0jdMXOUzp8XSOuNMChuo/CFdj9
+	 bPp7w1EMARKeFiJWgQIkhBM17OqRIo18XcJ7n/4cAZv0sRm/74pfkUraaJuAgMjvx85pB
+	 R39CE6C3jrTVeHdntYFkXV+4ZoQ4JshibAEEx5r3vu/Lp7cUn1/CESVOYEPJiGryNlY8r
+	 eiUSd+2Ab4WkB/Y3butsyJp2+3z3gqujr47vnf1SfyEoiCLB3ysCrD3FLXPsv9L66qV+x
+	 T/JrdVfPJ//LobraEfTn90Rg9hOc3Hb1wsx3UNcGwc4a6XSnxwMVjNZMHUmHH6/n63w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Xbn3xy8E;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OCqur4cz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fT0F+xNf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC3C606A31A;
-	Tue, 20 Oct 2026 13:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC3C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2E7606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:57:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B2E7606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Xbn3xy8E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=l8
-	TpnDSr4xMVn+kzn3EMXGvx3pJwLmxiXIETZ9Ka+Pw=; b=Xbn3xy8EZpfuq97yov
-	qknSOML+iIpfh0Q4t1XjFQbK7MHdWvwpO5ogWN7aXRlAKoEyANtrzzAVB3ybBo8f
-	sVefRMzZ1vKFi6XCKG5/Y0cCeF/oVeehlDupT6pbXwe/S2ZJaWrd48vtmri3IYiq
-	74bhyW95YsnaJAxCBKSpXLlws=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3YQntctdquSfMAw--.51436S3;
-	Tue, 20 Oct 2026 21:55:58 +0800 (CST)
-From: Xia Yan <yana06070@163.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	yana06070@163.com
-Subject: [PATCH net v2 2/2] selftests: net: check veth carrier after changing channel counts
-Date: Tue, 20 Oct 2026 21:55:44 +0800
-Message-Id: <20261020135544.24441-2-yana06070@163.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20261020135544.24441-1-yana06070@163.com>
-References: <20261020135544.24441-1-yana06070@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OCqur4cz;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fT0F+xNf
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA12n1209236
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:57:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HRpptwxP00vKcnqPDfRG8atA60JwuaQEIZY7Gn5bGx0=; b=OCqur4cz4ubjmA8w
+	+41iJPhJIEgZYmoE3Uy6GJXEMEo85yC73Op892DT/BvvNib/hma0n1shks8GJhRs
+	Fqg5l3MoNf8FY/65UqUxvEgeO907Vg1jJ4CsHocBVJyERluZszAipQhSvu9hkVls
+	0mSEiG54/UmuQEjYOI4Jtaem/mEU1JQZhoTBpZOUb8l5pN35iVfQwFaftcT368pq
+	40F/RCr02Rm28vdR/EYLDcjv+r6+mC8hqaW1aWh9xLVt+42BFMSoU5m5Fk0tlEAH
+	6TtcSIQ8PravgzbLTesKuZQgwAIamFbAaD7quKzB2W1gdkwPJ7DmlFbfN2nN+PaE
+	Zxgtnw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5pas8r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:57:56 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f1440e081so55691785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:57:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792504675; x=1793109475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HRpptwxP00vKcnqPDfRG8atA60JwuaQEIZY7Gn5bGx0=;
+        b=fT0F+xNf23pA1+yxowZian5AyWet3pSZS1TXxb1rszdB4bP4dRbhTWzNz2lGivCHNI
+         ERzRX8gmFS5FE86mKM+EDoQVsy61Yr7E3Tmm9XTklos0hEDdJMSwailJ0FG2WhB6PtAu
+         kicZiZjpIdwhymLSE6I9yAcjQrGJIhrEPsmCbtiTVPG4fBuwfhHf5A4q1PQIZN5HIZZd
+         OKa66tihrrlX8xJwAIIhmWqWR9SlJqIE9RFffb4S1d+EuTLTYXpH5RpCB15v58EHxqVf
+         JgwQQT2VriiNN8Nwn1paU0ZCo6EtlIRUCAo3w+MLg2WWDokGZU33QjHhD3NVyajB4bWp
+         XlwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792504675; x=1793109475;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HRpptwxP00vKcnqPDfRG8atA60JwuaQEIZY7Gn5bGx0=;
+        b=ec7MUO85lR7dL8kbBZz7JJLnshAxhgX0TfSbIU8rc3ZE8gW24KPmzdY77f5OeLz1YD
+         yvYY9G4VerdPCXpGycypVw9vfKnsDdow6wW5U7CUf9cqozdhUULpbpllNzPKmJgCImrz
+         k0ieGwpZ+azvXyZy3ZzPEz+MV8JIcZ6t54Mj76vRWGah4wedDxn/+kKo9jRWKbirDxap
+         teL2dhhkbZR6U/EMKsPHNE5J0/aQsaYfEyWHETCKJssWLaazEj1jdkusNlAdPfnq92gW
+         vyNDnGfmApkarcOPvI7ah1LgTH2swb/fQ6wD1muKTgR7NuwHmt0V4vpjkftmum/GMH/+
+         0B9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzfHCvPJrHXqqoBInXbQzq4X9VbWJHfgDWm8fU+C1XRgOnr/ieqlfqqt8uzsKaU9VowncWzQRxP+ESeWIU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOvMTtBE4gZTXRy2NxQhYNgtwtczQLVW7U3J1U7uDkeGxA9JbD
+	VelXrqbN/pJGsyatid6bLBVyDRpgS0lyHb8AENKLPXc9aynDe1w5cenHeX6udFkkEVZMozBYBnm
+	3b276W5IPOVFZT2jkjmzsvHE2hYp0YNoAo6awRLPgo+jQ01Y4964XkSjLBTaLc77ShNs=
+X-Gm-Gg: AYBFou3Ko+BpXMzskL8Xalneo4Knr0/YGuD0+HOa3oCMY+Nuo1++SGMoTbsRX/YNqfK
+	msRFBT/rubODuG1K2utTNHrc9aRU35N5BOcnJJ0MOgK5k0NZMiCp13bSQwq0ZD+V7uJApdZW7+F
+	dobdLRhUT1pHzsbO8N6XpriQ4U+gAN+avfEIVZve3VeKvTWMXNf2UKCbIkPoi9FP6dUWIpR9pDj
+	DWUuH7ax2SY763YcgirCf0xaguHPTSeBIiJKz3GnS/uhnlZv7WS33AAXbYgEQrXdkaZwYT9xFJ4
+	IvFxuJyV3tgXWdsZaR62pOpQh0wxoloNZoQT7kYx74ZJrnBcl9xJQoUkoglQ0KPKKWbyZtI+fLa
+	b/bgYe0YTGVMMV4vC2zsqLA==
+X-Received: by 2002:a05:620a:701c:b0:939:8148:1e3d with SMTP id af79cd13be357-93f29bbec19mr2022153085a.2.1792504675363;
+        Tue, 20 Oct 2026 06:57:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:701c:b0:939:8148:1e3d with SMTP id af79cd13be357-93f29bbec19mr2022149085a.2.1792504674838;
+        Tue, 20 Oct 2026 06:57:54 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb1c55sm490932266b.74.2026.10.20.06.57.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 06:57:54 -0700 (PDT)
+Message-ID: <e4501d93-7781-405d-b7e3-99d21358d707@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 15:57:52 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,170 +115,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add support for Xiaomi 17 Ultra
+ phones
+To: Igor Belwon <igor.belwon@mentallysanemainliners.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261019-nezha-v4-0-19c1e31eb255@mentallysanemainliners.org>
+ <20261019-nezha-v4-2-19c1e31eb255@mentallysanemainliners.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261019-nezha-v4-2-19c1e31eb255@mentallysanemainliners.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PSgvCgD3YQntctdquSfMAw--.51436S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKF4fJr18tF17Gr1kZFWDJwb_yoW7Gw1fpF
-	s3Cwn8Gr1IqF1aqw4xKw1xZFyUW3Wqqw4UX34fK34xZ3W7Kr9aqr13K34Ut3W2krs0va13
-	ZF9a9Fn2g3WDCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zifbb_UUUUU=
-X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC-A9o7mrXcu9LwgAA3c
+X-Proofpoint-GUID: VWVtpBuICIVt8Ox0OVkv5uMNtyTuOFTp
+X-Authority-Analysis: v=2.4 cv=fb84WEQF c=1 sm=1 tr=0 ts=6ad77364 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=7urghiclZBF5WMYhkxgA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NSBTYWx0ZWRfX5Q6pPyjgv2N0
+ dIQotkQzFgzw9dPBgn910RepFpL635JxXLaEb97vR1EX144nBut0Q0ZcFWKXAK88Ka9EcRClPRZ
+ 9jCzYh1Ivgovibhyc51AB/yGTik4QLYpjfLd+2x/a/oSeNwBQGfB6iaRmIOZJ3MNcHtvjKNO7kI
+ FUxkOy79kjl0iXAIdOy28KTk/gifgFm8HdETgmrhk4K2284HgeP7EM9lbVPw65fPbEVNxZx/+MP
+ 93zRnAKmvAq0tPWIGWhY4dnjQr3kdW6KZtazdgPOgFX9BWrWpCxQfr5l4/wdlhyApHhshn7WOBD
+ IAvb4IgXegxlEyvJqaFdckRA1ZGNes1geM31hXEPkRAnhcw260vqUb4lnxyCyPvUiEpFtC63kRg
+ J0s4N272b4YW2TfCHIAPQRw+3byG0x5J+rjn0/Nnlw8J6ZJmIid3SwrgQh8+y8y3nmtjQxFX+O1
+ kZ27o0N+FGHyUYIe83Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NSBTYWx0ZWRfX82IJ5H0vlei3
+ AHhXe6vGqBi2k25tOKoJhgVv2WTGRoiZ6tJD0zuEodHdSczasq6YfRvd7gWIlGEWqMKhF+5aM7s
+ 1mBECC6dg68+CUoTKFO8roHKLP7F2wU=
+X-Proofpoint-ORIG-GUID: VWVtpBuICIVt8Ox0OVkv5uMNtyTuOFTp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ phishscore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200055
 
-Add a regression test for veth_set_channels() incorrectly reporting
-LOWER_UP on a running interface whose peer is administratively down.
+On 10/19/26 5:47 PM, Igor Belwon wrote:
+> The Xiaomi 17 Ultra device, codenamed 'nezha', is a flagship mobile
+> phone released by Xiaomi in 2025 (China)/2026 (EEA). It uses the
+> Qualcomm Kaanapali SoC.
 
-Test the up/up and both mixed up/down combinations with GRO enabled and
-disabled. Resize the RX and TX channel counts in both directions on
-each end and check LOWER_UP on each running interface. Also verify that
-rejecting an out-of-range channel count leaves that state unchanged.
+Nice!
 
-IFF_LOWER_UP is masked on administratively down interfaces, so do not
-use it to assert their raw carrier state. Omit the down/down combination,
-where neither endpoint can report LOWER_UP.
+[...]
 
-On an unpatched UML kernel the four mixed up/down cases fail. All six
-cases pass with the carrier restoration fix.
+> +	reserved-memory {
+> +		/*
+> +		 * If we do not have this exact region with this exact name
+> +		 * present, the bootloader disables the display panel and
+> +		 * for some reason it cannot be re-enabled.
+> +		 */
+> +		splash_region@fc800000 {
+> +			reg = <0x0 0xfc800000 0x0 0x2b00000>;
+> +			no-map;
+> +		};
+> +
+> +		/delete-node/ pdp@81300000;
+> +		pdp_mem: pdp@81200000 {
+> +			reg = <0x0 0x81200000 0x0 0x200000>;
+> +			no-map;
+> +		};
 
-Assisted-by: LLM
-Signed-off-by: Xia Yan <yana06070@163.com>
----
+Please check if your firmware automatically carves out
+0x81200000-0x812fffff
 
-Notes:
-    Changes in v2:
-    - Limit carrier assertions to running endpoints and omit down/down, since
-      IFF_LOWER_UP does not expose a down endpoint's raw carrier state.
-    - Use log_test_skip() on veth creation failure to avoid a stale retmsg.
-    - Include the discovery and reproduction details in the driver commit.
-    - Driver code is unchanged.
-    
-    v1: https://lore.kernel.org/netdev/20261015085821.12725-1-yana06070@163.com/
-    Review: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/8081
-    
-    Validation for the revised selftest on the original net baseline:
-    - bash -n passed.
-    - Unpatched UML kernel: 2 pass, 4 fail (the mixed up/down cases).
-    - Patched UML kernel: 6 pass.
-    - Injected veth creation failure after an earlier failed case: SKIP no
-      longer repeats the earlier error; the aggregate failure is preserved.
-    
-    Reused the existing UML kernels; no kernel rebuild was performed for
-    this revision. Prior build results and their limits remain archived.
+If not, insetad add a cpucp@81200000 node to the DTSI that's
+0x100000-long
 
- tools/testing/selftests/net/Makefile          |  1 +
- .../selftests/net/veth_channels_carrier.sh    | 93 +++++++++++++++++++
- 2 files changed, 94 insertions(+)
- create mode 100755 tools/testing/selftests/net/veth_channels_carrier.sh
-
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index 590b33e..4004014 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -128,6 +128,7 @@ TEST_PROGS := \
- 	udpgso_bench.sh \
- 	unicast_extensions.sh \
- 	veth.sh \
-+	veth_channels_carrier.sh \
- 	vlan_bridge_binding.sh \
- 	vlan_hw_filter.sh \
- 	vrf-xfrm-tests.sh \
-diff --git a/tools/testing/selftests/net/veth_channels_carrier.sh b/tools/testing/selftests/net/veth_channels_carrier.sh
-new file mode 100755
-index 0000000..03c2995
---- /dev/null
-+++ b/tools/testing/selftests/net/veth_channels_carrier.sh
-@@ -0,0 +1,93 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
-+
-+require_command ip
-+require_command ethtool
-+
-+if [ "$EUID" -ne 0 ]; then
-+	echo "SKIP: root privileges are required"
-+	exit "$ksft_skip"
-+fi
-+
-+trap cleanup_all_ns EXIT
-+setup_ns ns || exit $?
-+
-+check_carrier()
-+{
-+	local dev=$1
-+	local state=$2
-+	local expected=$3
-+	local carrier=0
-+	local link
-+
-+	# IFF_LOWER_UP is reported only for running interfaces.
-+	[ "$state" = up ] || return 0
-+
-+	link=$(ip -n "$ns" -o link show dev "$dev")
-+	check_err $? "Failed to read $dev link state"
-+	[[ $link == *LOWER_UP* ]] && carrier=1
-+	[ "$carrier" -eq "$expected" ]
-+	check_err $? "$dev carrier is $carrier, expected $expected"
-+}
-+
-+check_state()
-+{
-+	local left=$1
-+	local right=$2
-+	local gro=$3
-+	local expected=0
-+	local count dev
-+
-+	RET=0
-+	if ! ip -n "$ns" link add vca numtxqueues 2 numrxqueues 2 \
-+		type veth peer name vcb numtxqueues 2 numrxqueues 2; then
-+		log_test_skip "veth carrier: $left/$right, GRO $gro"
-+		return
-+	fi
-+
-+	ip -n "$ns" link set vca "$left"
-+	check_err $? "Failed to configure vca"
-+	ip -n "$ns" link set vcb "$right"
-+	check_err $? "Failed to configure vcb"
-+	ip netns exec "$ns" ethtool -K vca gro "$gro" >/dev/null
-+	check_err $? "Failed to configure GRO"
-+	ip netns exec "$ns" ethtool -K vcb gro "$gro" >/dev/null
-+	check_err $? "Failed to configure peer GRO"
-+
-+	[ "$left" = up ] && [ "$right" = up ] && expected=1
-+	check_carrier vca "$left" "$expected"
-+	check_carrier vcb "$right" "$expected"
-+
-+	for dev in vca vcb; do
-+		for count in 1 2; do
-+			ip netns exec "$ns" ethtool -L "$dev" \
-+				rx "$count" tx "$count"
-+			check_err $? "Failed to resize $dev channels"
-+			check_carrier vca "$left" "$expected"
-+			check_carrier vcb "$right" "$expected"
-+		done
-+
-+		ip netns exec "$ns" ethtool -L "$dev" rx 3 tx 3 \
-+			>/dev/null 2>&1
-+		check_fail $? "Out-of-range channel counts were accepted"
-+		check_carrier vca "$left" "$expected"
-+		check_carrier vcb "$right" "$expected"
-+	done
-+
-+	ip -n "$ns" link del vca
-+	check_err $? "Failed to delete the veth pair"
-+	log_test "veth carrier: $left/$right, GRO $gro"
-+}
-+
-+for gro in off on; do
-+	for left in down up; do
-+		for right in down up; do
-+			[ "$left" = down ] && [ "$right" = down ] && continue
-+			check_state "$left" "$right" "$gro"
-+		done
-+	done
-+done
-+
-+exit "$EXIT_STATUS"
--- 
-2.43.0
-
+Konrad
