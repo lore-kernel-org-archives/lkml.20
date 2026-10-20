@@ -1,99 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792494326;
-	b=boFwC6/J/HO2uKxi1DdzoQRRayVSyjjoEPcnlV9Y+rVlmew1IOuYrmI0JQnLDjuxDCH7
-	 o7HHyBNAp3QIVpN+eykeA3MdxJdBStVeeuPrkMkRV4S8stUn794X7JNOE2SZNjdHjtQtb
-	 xLa3a/2l2EMlr8rPhkrT7MbjMQ6IxaXaDEEo5sVdJrqnmjAF+iVE+O5hLTHguPlJkw0qL
-	 xLzgP5fy4+9Zhc9gCK70r7xmsGF2yWTnBbodnyr2EMxItfup8w/DUwLhN/P0bh9Vot5uJ
-	 5yfy6wZoOx7I7w1nB1VsUeO0gouLrFCA9wi8sP8difyo2vP/E2Jsems0hRj2r9IFBNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494326;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NfpTenJLV11C8zLTg+eSOxW3ZLFCC14tUi1cENXKY+k=;
-	b=FoTSQqk645MHzfAsvDq3Z6pFENAEnNzMbdoAW1hnLOPSL7O/GKfCvwtZDfKVCrQPy00P
-	 YUiUCfSL8fZpMd9j62pMp0tYVkAz9Y5+UEh1TgjdlH/zqggAtVCqs2PKHkyJhv1BgesZM
-	 Xbpkymd8w0YybNErNQdBWgEy3z+TbW0C+d0DC60PSvXhCX9IQeOK39cPJm9aftAjzKIp7
-	 ZTOF6nLtcXLL1ATrMgrZs3eLeiNVNWr/7s5E91BYLI9BnTic+gAY99rVjO8wxmuguFrZp
-	 pLy2DGf0Svxi8jI99DTxUy9iUT7vPCYfYUH+L3ojAocfvRM2ewmzvQQRADW/wNMA9lA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nU7JS+lo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.65
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011065.outbound.protection.outlook.com [40.93.194.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792494409;
+	b=VnzHMxOaQVMCvOWZPV2qsmQGNGqKPLfnFLRdKs2f8YqBN3nZxzd9qR3CBlAKmn17vpw0
+	 HxQBq5nEXjzjQRwjcfvw7vtzOTccKOX8EBrFd3kXSzzVbKkOvNLMgqn+potOIZifW/nmW
+	 kkv/zKROdjE2Hqs007xa6sWcnthfOBQfBp73b3Pu7dG2OTQwUQ3WSXEM78fbw/Ka7fI5W
+	 Msdd3tgp2dOAw6e1pz7/AW61kOA/qHuGLzmkh/Xdh9e98l/3+E3HytBI/j9nglYaUfVHG
+	 IY8lEI5i7UiFcYx02W0EORAH6LZMWIoN77jvKX7lO+9GvFspNxf6hOlFZ+YM0B/H4dQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494409;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=nsrfJy/ey4fDpT1tLiGBQkd5nhrqessg78qrhYlxuN8=;
+	b=yIrW3lf18JQ9+cdO6318fUWOvGsPykepqqz97ibxFlM6yn3rcn2xMT4VeKuNmOFUSSEs
+	 prjSvFge2OXAyp2yNXmuO3P6A86wudYH+y3EgI2Op+L4BScFYenJGIXpfemF3Y15XPFoq
+	 yWqIk5cKT0USN6lTC6+8GcDsFkRhJMgZHZ6jAt99lbdpPlbjLBtPtYex8FcWOe8n1Q0+C
+	 5Q1LvnoUhPvNxzE2u4t6sAVLR+PvebN8NJpv3BJMzV8a574KcG0LD6SQesJ3WCWuz3Wbp
+	 EjNIhQ9R+yoVVxEC00khgdAf8soVV6PbPxAvRi2LvqDtoREXfqPZSL8puDE5B5zMkng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rendec.net;
+	spf=pass smtp.mailfrom=rendec.net;
+	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=d3dYfp1A;
+	arc=none smtp.remote-ip=80.86.107.70
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BAF606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:05:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75BAF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E568E606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E568E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nU7JS+lo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IvQuYpsBZR9IMnWNgi0bdcmEs3GBPB+cf28FC+OCpFgCw52hbBJyKvFRXdhIz9cw/1ocoi3zKt6DOA5xCvb1spAbfpnjBmfCkVj1vgKjhvcVnBShvk/UgCgAWY7T+SA8ag+ZTgrqQKr6AElkBSWvsIsQ51PZ7GrA4t93xvxkn2i3j/6tGgwH3dAbvgUwE6J1iRWLE00wie5XlbHMscofJPbi6DVwBydnX8RrWu1EDlWUyj/WJnNBuwesYdojMh7cLj+b/TP33gCasCuejnHInw1ZR0ets+IZ04IHHEMw4ecG6oWH5k5MQQ0dllKAmZ/zrmIZWsxD+XthG66Hu+Aphg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NfpTenJLV11C8zLTg+eSOxW3ZLFCC14tUi1cENXKY+k=;
- b=xDAE9Lywfz/xMMG4YLii/20yuUKbT0b5TqkYYhjkdMnHlsjnuriIzh9/kuZaPo6mveNBxScnOBahDRdKL/HCYTG2Go/TmKwe/VRcTQUuah4aZKjT/hzjkvanKEmZmqSGkzEvVJfdoqmYT69Qkx2qYoEWxdhnPIIrA50T4Ifu7EpEeb/mIwSE4sUedOznKcefzatmBNOg4c3FbK5RP8803u5mS3GzmuZdGG60+q/5LItKLiGXA9co+JbWPzUCA+JtH1BpwplWAL//iTLZ/m7KweVCNLbJKJ5hkUjLuNqPpHneO5yddATZ0yrOJkXA1zJF3Gpv9rTMZI2mGRH9Q1gIEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NfpTenJLV11C8zLTg+eSOxW3ZLFCC14tUi1cENXKY+k=;
- b=nU7JS+lokXGg73K0+kdyiP/HinriDsNOGNZZdb4YpM85jxcRmQVeLVgkr3sjyobCqZqpf+Lh54GJei0HBDnuCt7mXEXq55ox46ALCnLFz6up/5cYjeVukIw2FvzKQitUN3eosLUnIa/N1bvb212gXf/PnXsuw2GgQyp/lMYymns=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB6750.namprd12.prod.outlook.com (2603:10b6:806:257::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 11:05:22 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 11:05:16 +0000
-Message-ID: <9f7b3443-4b95-4bc5-affc-0e7616a4bb75@amd.com>
-Date: Tue, 20 Oct 2026 13:05:05 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: Don't BUG when a CRTC fence signals during a name
- lookup
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org,
- redducc <sushmit718@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261019161731.2341-1-sushmit718@gmail.com>
- <30a31088a0386d5f5d53e74632ea9a63566dccde.camel@mailbox.org>
- <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0184.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=d3dYfp1A
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id E5404D2328;
+	Tue, 20 Oct 2026 14:06:37 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro E5404D2328
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1792494399;
+	bh=nsrfJy/ey4fDpT1tLiGBQkd5nhrqessg78qrhYlxuN8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=d3dYfp1AEenlAqAJAsf1d1H8SA57AMYvrFbObQbVxMBs5fiEzwYZdlpXE0Q92jZ/3
+	 yKlRMJnDXYTUEyPCvdyiUDPBFtFulR4AiQtLFpKJe1aFTL2ghqh6OuktMBYbXEthqx
+	 a+E5upFPrQKIPjxk3mB+tjir8IWPFbDVakxVsLzUUXRCAxYICEPsN3ulPaIwNt8SnN
+	 je2YOes+Z45PDuJWot4+LBy306Nho3uw239mXQKqW+PvAHTLjVYN+wf92ttqFeffX9
+	 Mcd+GeeysGd/6kW23kdiV6meWXGAyT1bEc+4AKycBs6eWzSdjYOGfK+y4ky4cq/q1k
+	 XCK/rIOoMLNlw==
+Message-ID: <c01c5b7ceaef8fbdee2af384f2286f3a89350f46.camel@rendec.net>
+Subject: Re: [PATCH v6 8/9] genirq/irqdomain: Add
+ devm_irq_domain_create_linear()
+From: Radu Rendec <radu@rendec.net>
+To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
+ Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Jindong Yue
+	 <jindong.yue@nxp.com>, xuegang.liu@nxp.com, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Date: Tue, 20 Oct 2026 07:06:36 -0400
+In-Reply-To: <20261008090231.796511-9-Zhipeng.wang_1@oss.nxp.com>
+References: <20261008090231.796511-1-Zhipeng.wang_1@oss.nxp.com>
+	 <20261008090231.796511-9-Zhipeng.wang_1@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,147 +73,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6750:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b4fe8a4-9a87-46c0-d2c6-08df2e9a0598
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|4143699003|11063799006|56012099006|261009220027099003|261009221727099003|261009223027099003|261009221227099003|261009223327099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	VIb2saeUVwn+iToKO3WH4kSOQNPNNwO4i8aUn9XqvFWcI8mKcQlRCx4ywPDQiMmwpLf1nfcTMhEn5PYuLNi+TfBwrTC94cBoUuiTFqaMGJjMHcj7XwIXWLYuTNrFQ/qb8X1thGIgV1oOiz6KsyWZcCIWIgsmi3ZLpb3K8qoZ7GdizaqeRu2bi4Jdpbud3AqFKY8enbOOiRIr8lv4FPGF1w84FWwV3OElv6ncYIH159+lZXaGkS4ZtJGAu+4AMl4PqRa5B7sbrmHgXg10++Ou7eNMXqDGiWI80IV+c/Ul/AuCIIbqgfWsA2Q4Q9K4fLrizNECqKThBA1RLhJKQYV0HJBQkdOgy2PYbOBZZkm3J1QdqJn7t8QHbueahCBPzN+TiWlnevXd9/zGAMofBUd4yx17WgubC6nBYd94EELDGN18GOm7Wo0vOeLH/A2U5DynH03iqY3cFOWi97E29/EpGRpu8/Tw/4x+P2WyGJoGCvx2CNOyQdFP7e6o6MHzUh2gD3+TATXkk17pJeb+fyEZgeEV9dgv1Hh2AbLkW0j4ct4euB/Taa30XP6W3rL0t/R6WMMfJLeIfAnbOT8Dt16m5F3Eup671meYee6+9Z4M88tWotyp+XBbsjd1CRUX+UdcoH4GerFTkrM5nqaOv5sX6v4Sr2edOwCeLECQyioFy6s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(4143699003)(11063799006)(56012099006)(261009220027099003)(261009221727099003)(261009223027099003)(261009221227099003)(261009223327099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dnBHcTRFajVFSU03N1g2UTA0UkxjdEljWG1LMjFGR3REZXB3YUUxTk5OOGVt?=
- =?utf-8?B?eDM3MEplbGlma1R4djkxaThEdjF5ZWNPRHA5UGlZa2tFTTcxZzdMWXVrZUVz?=
- =?utf-8?B?cTFROGZDdnJzT1NUWUVBRkVKUkN4TU5MK202WkV6L0YzRTc4K2piRWxZWjRi?=
- =?utf-8?B?T2tIbUpOdHJZVUdlbmlCN1IwS0JaVFBNL252MG16eTcvcFRmcUtjSVVmdDVD?=
- =?utf-8?B?dEZ6NytEaEM0ekczWFM5cHdZWnlYRXlueVRtWmZuMXhVNWh6ODE1ZjNqUWVt?=
- =?utf-8?B?RHF3K2FyQm1nMndTaVNoYmtnUnBIcndTWDEzdDNHbHREQ1FnZEE0SWJ5b05P?=
- =?utf-8?B?TjJhWGFDOTRaVkE0cEJxbnlFTEF5NXNyWDVWMGx1dUlzWWRuMmcwMTUrc09y?=
- =?utf-8?B?YUZZb1hPcXc4V3M1T0cwak9KQ3BMNnBKOWY5akQ1R0FIdWFhcmRIYjVnbkpL?=
- =?utf-8?B?cjY2eVNRMWRJR0VkUGFkWVpIYjNXODR1ZXI5ZFFuaDlpMzBLUUZEbFp6NTN0?=
- =?utf-8?B?bTJWWXdzSlpvRkZ5bTZuNGNnM2FUcUo0aGZWeUFVSmpFOFU5OWZSdnZYUDJp?=
- =?utf-8?B?R1V4SWdETVE3dFJuMVFlV1IrR0pNNXEveXFNcHR0NW1iUWg0WE5tRGc4NEVz?=
- =?utf-8?B?ZlJYWElJZzBnSVN4cUpGb043NDJlRzRnc3BYMThDTGdvRlVad1Z5WUtham03?=
- =?utf-8?B?UnVPZzRwaklHY0hITGMvNmxZRXJnaHVIMnBsUXJhNUxJY2RoNUU1dHlKUkZE?=
- =?utf-8?B?SHJ2UENJZ25yWXMxelhUYmNlT0hGQkN0bXp5eWFYS2N6cEFLcDlwbk02SFRN?=
- =?utf-8?B?NlFyTyttbHNMQUtuNVFKSTQzSGk3bkNTTTY2bEMwcHdaVnppK0djQUdMaGJS?=
- =?utf-8?B?UWhaVnJ2VG5RcGx6QkJIa3BRTE00bEk2bjY5bzZ4aGJRc1NicWQ1dnMvVHEx?=
- =?utf-8?B?cXNML1lIc0lsSTBRd2NEOTJSYXh6RkNNU2k0L1RhV0doY0lSZ2R3TWUvMWxN?=
- =?utf-8?B?YWR1emRuaEp4Sjh2SGkyN3lnZHVCa3E1SC9mSlZXV1FjVWErTTBVdlRNTi9M?=
- =?utf-8?B?bGlZM2dqWjJwNXlaSThYVUdmY2hKcnNSVnZYUkhJZFZhKzY2ZWtyTXkreStD?=
- =?utf-8?B?QUNROURLbHFxcVFvVFF4c3l1cFpkcUNOakFkb2F1ZEozYXZwdUpRV09GOW5u?=
- =?utf-8?B?VFhMUXRrNkxNb2gzd1ZqOE96N3hWNlJqcStRWVVwNTRWYU9VYktrUkVrUTFC?=
- =?utf-8?B?VjExRkk0OUVFN3pLTGpiVDdKTVJCV1YrZGtpamRRSFdaeUo4dmpQWDJKYlhm?=
- =?utf-8?B?R1lCMW1kS3JCUk5IWi9kMXppb1FncXpmTzlTQ0owRTAwWjBxUXEvVmtQcVRV?=
- =?utf-8?B?MUUrbEpzaHJiQnNZOUIrTC9QaXNzbThKVTdWYVVhS1ZiZ211VE92Y1F4cEVO?=
- =?utf-8?B?ZmNFTzkxWTVZMW9HRi9IYzFKYTQyTXI1VmtYUzFueGN1VWJ1R3hMRXpiMDZk?=
- =?utf-8?B?ZnZmTlpCM2pDajUxUmZQKzZ3dmpFYWNlK2hiRENiWkIvT0VGRVZ2OGIrUSto?=
- =?utf-8?B?M1FmaUcrWXlkVTc2bStSTExmRG1YclRwTkhBZWpPT0M4NVdiN3Zpb0RhYW5Q?=
- =?utf-8?B?ZUhleXVIYjdCMzNualpKam9NeU5PeXJpRkcwWTRTRnF0aWRjcDQxQXRvZ0pz?=
- =?utf-8?B?emUxNTAxQXJ3eERXa3VLTGo2MFVTUzljVGhndjQwVUlWdTg2YjcxTnJrUWEy?=
- =?utf-8?B?ejZmNGdJRHF2dkV4NlhkanlCOXlXVWdzVTk3OEQ3UjlZY0NsUy9KVEhZKzRr?=
- =?utf-8?B?MkExelczV3BVWmZwYmh4QncwV0Y0dGtwTm1WNmd4SFBxdUVUUndEZjl1UU13?=
- =?utf-8?B?UzA4ek9sSHc0OVd6SExvbnNaa1VZOFkzVVF5aVFJeEdzTGhjdHU4SFo2bENO?=
- =?utf-8?B?WGY4STErcXk2aWcxZ2pQaGF0b3k4a2RXMCtML0o4U3BIeWdjaHQ1TjV2NTdV?=
- =?utf-8?B?dXhKQTJuak9DUUZvYUpUMWxWSnJ1cXNBQTVQNXp2ZGZkcjhLU0JMeU1VS1VQ?=
- =?utf-8?B?eXRJR1hJZmo3T25WQ1d3R09UNUpuUjZVcjdIT1lJTldrUEorZlljWXJTV2tI?=
- =?utf-8?B?Z1pzRHFJeXFQOHNHa1RueVo5bjJjbHFpNVlQMWJza3MyaVRZUCtDYUxXZ2ZD?=
- =?utf-8?B?VjZPZzBoc1hBZHVFdlFSZTVBTm9DNnF1eVg2VkpRNE5uVzJ1MDdZYjh6dkIz?=
- =?utf-8?B?Ky9yVzFxMmJpM00rQ2Mwc1FEYm5yWUxmbFZzZCs0WXV3ZGVuWUFWL2NJUVdv?=
- =?utf-8?Q?8sYnUDpEUS+lb2RyzE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b4fe8a4-9a87-46c0-d2c6-08df2e9a0598
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:05:16.6441
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SmBz6FcE8uHU/lpxYYSapM/wMJM8EiVWgZzYzIt8QgnyHpmRKIOSbTR0ZoYeSHkI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6750
 
-On 10/20/26 08:57, Tvrtko Ursulin wrote:
-> 
-> On 20/10/2026 07:53, Philipp Stanner wrote:
->> On Mon, 2026-10-19 at 16:17 +0000, redducc wrote:
->>> dma_fence_signal_timestamp_locked() clears fence->ops on signalling when
->>> the ops have neither a release nor a wait callback, which is the case
->>> for drm_crtc_fence_ops.
->>>
->>> dma_fence_driver_name() and dma_fence_timeline_name() load fence->ops,
->>> check the signalled bit and then call into the ops. If the fence
->>> signals between that check and the call, fence_to_crtc() rereads
->>> fence->ops, finds NULL and hits the BUG_ON(). This takes down any
->>> caller of SYNC_IOC_FILE_INFO on a CRTC out-fence, such as Android's
->>> surfaceflinger, which hit it on a Snapdragon 8+ Gen 1 phone (msm).
->>>
->>> The CRTC behind the fence outlives it, so reading the name after the
->>> ops were cleared is fine. Only warn when the fence carries foreign ops.
->>
->> @Christian:
->> We have now seen several bugs like these, which is one of the reasons
->> why I believe that RCU is the wrong solution for dma_fence.
->>
->> I present another rework RFC soonish.
->>
->>>
->>> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
->>> Assisted-by: LLM
->>> Signed-off-by: redducc <sushmit718@gmail.com>
->>
->> Reviewed-by: Philipp Stanner <phasta@kernel.org>
-> 
-> Hm this looked familiar so I looked around. There was an earlier fix for the same from Andre with msg-id 20260721-linux-drm_crtc_fix2-v3-2-afa8c71506e6@linaro.org which seems to have fallen through the cracks.
+On Thu, 2026-10-08 at 18:02 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
+> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+>=20
+> irq_domain_create_linear() has no devres-managed counterpart, so a
+> driver that wants a linear revmap domain tied to the device lifetime has
+> to open-code an irq_domain_info and call devm_irq_domain_instantiate()
+> directly.
+>=20
+> Add devm_irq_domain_create_linear() as the devres-managed sibling of
+> irq_domain_create_linear(): it builds the same linear-revmap
+> irq_domain_info and hands it to devm_irq_domain_instantiate(), so the
+> domain is removed when the owning device is unbound. The return
+> convention matches irq_domain_create_linear() (NULL on failure).
+>=20
+> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> =C2=A0include/linux/irqdomain.h | 30 ++++++++++++++++++++++++++++++
+> =C2=A01 file changed, 30 insertions(+)
+>=20
+> diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
+> index 73c25d40846c..b6b360cb6525 100644
+> --- a/include/linux/irqdomain.h
+> +++ b/include/linux/irqdomain.h
+> @@ -457,6 +457,36 @@ static inline struct irq_domain *irq_domain_create_l=
+inear(struct fwnode_handle *
+> =C2=A0	return IS_ERR(d) ? NULL : d;
+> =C2=A0}
+> =C2=A0
+> +/**
+> + * devm_irq_domain_create_linear - Allocate and register a linear revmap
+> + *				=C2=A0=C2=A0 irq_domain tied to the device lifetime.
+> + * @dev:	Device that owns the domain. The domain is removed via devres
+> + *		when the device is unbound.
+> + * @fwnode:	pointer to interrupt controller's FW node.
+> + * @size:	Number of interrupts in the domain.
+> + * @ops:	map/unmap domain callbacks
+> + * @host_data:	Controller private data pointer
+> + *
+> + * Returns: Newly created irq_domain, or NULL on failure.
+> + */
+> +static inline struct irq_domain *devm_irq_domain_create_linear(struct de=
+vice *dev,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct fwnode_handle *fwnode=
+,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int size,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct irq_domain_ops =
+*ops,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *host_data)
+> +{
+> +	const struct irq_domain_info info =3D {
+> +		.fwnode		=3D fwnode,
+> +		.size		=3D size,
+> +		.hwirq_max	=3D size,
+> +		.ops		=3D ops,
+> +		.host_data	=3D host_data,
+> +	};
+> +	struct irq_domain *d =3D devm_irq_domain_instantiate(dev, &info);
+> +
+> +	return IS_ERR(d) ? NULL : d;
+> +}
+> +
+> =C2=A0static inline struct irq_domain *irq_domain_create_tree(struct fwno=
+de_handle *fwnode,
+> =C2=A0							const struct irq_domain_ops *ops,
+> =C2=A0							void *host_data)
 
-Yeah I was also wondering why that patch was never pushed.
-
-I will take another look at this.
-
-Regards,
-Christian.
-
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>
->>
->> The Signed tag btw. states that you have the legal right to push this
->> code upstream, and that you agree with the kernel's licensing. It's
->> uncommon to use with pseudonyms and lessens your personal accumulation
->> of prestige ;)
->>
->>
->> Philipp
->>
->>> ---
->>>   drivers/gpu/drm/drm_crtc.c | 8 +++++++-
->>>   1 file changed, 7 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
->>> index 63ead8ba6756..1dbd0e9db536 100644
->>> --- a/drivers/gpu/drm/drm_crtc.c
->>> +++ b/drivers/gpu/drm/drm_crtc.c
->>> @@ -158,7 +158,13 @@ static const struct dma_fence_ops drm_crtc_fence_ops;
->>>     static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
->>>   {
->>> -    BUG_ON(rcu_access_pointer(fence->ops) != &drm_crtc_fence_ops);
->>> +    const struct dma_fence_ops *ops = rcu_access_pointer(fence->ops);
->>> +
->>> +    /*
->>> +     * Signalling clears ops, and can race with a name lookup that already
->>> +     * picked our callbacks, so only a foreign ops pointer is a bug.
->>> +     */
->>> +    WARN_ON_ONCE(ops && ops != &drm_crtc_fence_ops);
->>>       return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
->>>   }
->>>  
->>> base-commit: 6a56f4f29711dd2da49f03a5b99ce53779e638d7
-> 
-
+Reviewed-by: Radu Rendec <radu@rendec.net>
