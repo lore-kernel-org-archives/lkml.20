@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501941;
-	b=LPnMIGfMjd2E8WCVUvvQqSPsWRp6fO6hXKHgupRoyuyl5cg96QtdT34sbooEBjjHqWQJ
-	 41T+j/ej3qRUkhE6WYvdPdK7OVYQWKecUDhWNBOsk3XDcX5c4Hna95HMtYGrIXwM2IcD7
-	 GLNnRET5axvrO31r9tYR1195jwlSFc6Y//h+eLR4qJAMXXOwXqah2W5gppn6x4DNQdEaK
-	 sBWUNPzHgUef7j7wQHw16Z7nGO7YpadPAVpasYtbKEK8frEFXYK544/YJ8qmHtvbPUCzy
-	 DCG3UTiEpSt+kwN4uxyizEEQsTi5GjZ3tDC1tVID05m7uRraUwSYAKy94GU+5GRtoIQ==
+	t=1792501952;
+	b=B2inaqy8S0BuRfdXY9z3aiCyWe1Q8A95t/hEmx7QZRy+w/UIf8uhufJnyjzKnAHRZlfR
+	 Y9PLAGZVuB5TP6tl9qko0zdMptbsZNCBrWO03dQ2CCHz1iHaaC1Pde0SJbez4T+q5ttd/
+	 xHhvdtXKx5lrzb3ajIZDxOhEsBVJ2YaXbSZDvxulIXHsoITU4JuZJDnnZEdAlqgtKbYmy
+	 MHFp75QqFPmoBean6KMVNZE74NAkdd7FVadY+Dgf3t7f2ADzeVtPRN1lbHfpr0mWfZGwP
+	 HmLjqGQxhhvz7SrjozaXZSEyra+NADhd5vPnqfxaRFQ/ReDfuNYDVwvhImRHUIoy4FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501941;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=COtPdQGJK7jNWqfgDfzbpfDSMkuuE3aMgNhGPl3y5n0=;
-	b=ATrEeoK8jRM8Osp7kMsz5ouv/tiSRDiG86LstBK1nlThGCZ+ObiAnygoYc7oT/nbv6JK
-	 r2dao1G9AxkcR+jGaGhrvB0p9uDpP/xEZpyzDOLxYxRUbR3DvUbhMrnSjxa1JJ33mb9OC
-	 TCb+SNdYIK0oQjtJWyaopgXoRHdsMVBMPelSFRRKEOb5E6gSenuDOlPLUj8RXpYTvhkcf
-	 R9kyWkIk/qW1OMqmXMWF+suh4l2xY4wYK131BivR1B9Pa9fjpIfzruR/sxDSa4D9RaMhy
-	 5LPyvMl7yBCRI8uuyamTtr1ewrWJ3d0NP4hEqMebmwxHmDAUUmpu5cdKaouOziKPZ1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501952;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mLH7EE0P/cBxzO77Jo/U46xQ+1iDdQqu3DFFcJQaToU=;
+	b=pkM6YoQ+l4W/a0KNLvRV6QIqK/xQxuoRFUHTrr8Z8atBcQc/qHb6RrDjOUdp3DoNz/0O
+	 uI7KZGcfu8IfApfGTXNzmYcsbxITdKzJJmzlBNL/dX6yPZuna3YamStyEL8z+2mxYxNiX
+	 ZsrBKZi39+l8d7NrKM32tNVR1THMEKO7pEx6H0S5WllfRuM9uE4LT5hYYLf7LY6/Vup2c
+	 ExpRE3Z7pGBrpZynGKftTKx6/vVaSKBae4CuICrAznpoBxcj+4aZZfJRqQrEk4APnvk0x
+	 R2t+6GT7BOOmQ9Y3rg7ZSQCVzJ7YEyFfTPljkLNfHWROei/ShODSARaVG2tvA4WAjUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gYFZnEMf;
-	arc=none smtp.remote-ip=91.218.175.224
-Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgWxF8O1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCAD606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:12:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCCAD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E0B1B606A321;
+	Tue, 20 Oct 2026 13:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gYFZnEMf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Wc1RWHwk8Xdv1pW2d6s7sF1ggFAVdoXSgDjlgBucV+Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792501937; v=1; x=1793106737;
- b=gYFZnEMfowCMjOFR93SUcUyQK/m2WGEFyHp+36K3Zf0iUSDDpUuEG32E604IF0tb+F8FHLXK
- U7Wc1b3HIMr0AD0aNsmDCuqihhlYSk6WNb0OpBsCxJBBmFDNgiZhrw2bsw0S7xaD/g1cUFqHJqE
- sjKpXCdajMdJGGTQramICtj8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 41652e7101a74390;
-	Tue, 20 Oct 2026 13:12:17 +0000
-X-Mizu-Trace-ID: 41652e7101a74390
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <aabae9f2-ceed-4254-a778-aefaea4df257@linux.dev>
-Date: Tue, 20 Oct 2026 21:12:08 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgWxF8O1
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E94661F000C4;
+	Tue, 20 Oct 2026 13:12:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792501951;
+	bh=mLH7EE0P/cBxzO77Jo/U46xQ+1iDdQqu3DFFcJQaToU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HgWxF8O19xHIPWPMVKK37t9FMBVs/9GJCs7Wjo2MKp6fjEzwFg5I7Ux/sTbnW69EO
+	 RXZbltFL2HmDHfE8chUCJO7AWwtQx5ZE2eRr6BZ+hick3rc3PvDL73j35eHnU4QPXW
+	 rxShnICo/DYTEE7SKMsKMRjs+mv5zwO+lpt3UrTdnKJqcfRlFFDJEOlV/Xms2lAayG
+	 IGcusHkmPxiNeo+d3v+vbvmwARxH+myoTbbn3E9L6ymgHaVHUlh9tQrD7D0pOhtFVY
+	 B6L+g6BN3aa9DiPEOwTiai5rvppCoVbunvL+4ceNBayoLJgBlTJ5pU8shBBJB2nWE5
+	 k/caMHeSp6NOA==
+Date: Tue, 20 Oct 2026 15:12:29 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Stephane Lepain <stephanelepain@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	linux-pwm@vger.kernel.org, Kenneth Kasilag <kenneth@kasilag.me>, 
+	George Moussalem <george.moussalem@outlook.com>, Devi Priya <quic_devipriy@quicinc.com>, 
+	Baruch Siach <baruch.siach@siklu.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] pwm: ipq: fix period calculation
+Message-ID: <atdmO41XhQhbas5x@monoceros>
+References: <20260731070427.155221-1-stephanelepain@gmail.com>
+ <20260803044748.27116-1-stephanelepain@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,171 +59,276 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] mm/vmalloc: undo partial mappings inside the
- mapping functions
-To: Dev Jain <dev.jain@arm.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Uladzislau Rezki <urezki@gmail.com>, Suren Baghdasaryan <surenb@google.com>,
- Christoph Lameter <cl@gentwo.org>, Tejun Heo <tj@kernel.org>,
- Dennis Zhou <dennis@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>,
- Alexander Potapenko <glider@google.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261019054531.87652-1-hao.ge@linux.dev>
- <20261019054531.87652-4-hao.ge@linux.dev>
- <dcad793e-8814-4bbf-8b31-3ec9d0bb9ede@arm.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <dcad793e-8814-4bbf-8b31-3ec9d0bb9ede@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Dev
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="beukunx2nwgtu75i"
+Content-Disposition: inline
+In-Reply-To: <20260803044748.27116-1-stephanelepain@gmail.com>
 
 
-On 10/20/26 13:46, Dev Jain wrote:
->
-> On 19/10/26 11:15 am, Hao Ge wrote:
->> __vmap_pages_range_noflush() and friends can install some PTEs before
->> failing and leave them mapped, and the kernel callers do not agree on
->> who cleans them up. pcpu_map_pages() and kmsan_ioremap_page_range()
->> roll back what they mapped before the failure, while
->> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
->> __vmalloc_area_node() rely on the mapping functions cleaning up and
->> do not call anything like vunmap_range() themselves. When the same
->> range is mapped again, the attempt hits the leftovers and fails, with
->> a BUG() in vmap_pte_range() for huge mappings and a warning on the
->> small-page path.
->>
->> After discussing with Suren and Ulad, we decided to put the rollback
->> into the entry points of the vmap API rather than into every low-level
->> helper. __vmap_pages_range_noflush() undoes the whole range it was
->> asked to map when it fails, and vmap_page_range() undoes its range
->> for the ioremap-style mappings.
->>
->> The rollback is __vunmap_range_noflush(), it only clears the PTEs,
->> no TLB flush, nothing has touched these mappings.
->> vmap_pages_range_noflush() drops the KMSAN metadata when the data
->> mapping fails, and an empty range bails out with -EINVAL now, which
->> used to BUG_ON() on the small-page path and map nothing at all on
->> the huge-page one.
->>
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Suggested-by: Uladyslau Rezki <urezki@gmail.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>   mm/vmalloc.c | 44 ++++++++++++++++++++++++++++++++------------
->>   1 file changed, 32 insertions(+), 12 deletions(-)
->>
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 44e0eb32708f..75aa5acf5566 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -363,6 +363,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->>   	if (!err)
->>   		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->>   					       ioremap_max_page_shift);
->> +	if (err)
->> +		__vunmap_range_noflush(addr, end);
->> +
->>   	return err;
->>   }
->>   
->> @@ -683,27 +686,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->>   		pgprot_t prot, struct page **pages, unsigned int page_shift)
->>   {
->>   	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
->> +	unsigned long start = addr;
->> +	int err = 0;
->> +
->> +	if (WARN_ON_ONCE(addr >= end))
->> +		return -EINVAL;
-> IIUC this is a general change independent of this patch? Caller could pass
-> addr >= end and if we take the huge mapping path, we lose the sanity check.
->
-> So this could become a separate patch.
+--beukunx2nwgtu75i
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3] pwm: ipq: fix period calculation
+MIME-Version: 1.0
 
+Hello,
 
-OK,  and Sashiko has flagged another case:
+On Mon, Aug 03, 2026 at 06:47:48AM +0200, Stephane Lepain wrote:
+> From: Kenneth Kasilag <kenneth@kasilag.me>
+>=20
+> ipq_pwm_apply() fixes pwm_div at its maximum and derives only pre_div
+> from the requested period. Since the period spans
+> (pre_div + 1) * (pwm_div + 1) input clocks, pinning pwm_div near its
+> maximum forces pre_div towards zero for short periods: once pre_div
+> rounds to 0 the shortest representable period is (pwm_div + 1) / clk_rate,
+> and any shorter request is rejected outright:
+>=20
+> 	pre_div =3D mul_u64_u64_div_u64(period_ns, ipq_chip->clk_rate,
+> 				      (u64)NSEC_PER_SEC * (pwm_div + 1));
+> 	if (!pre_div)
+> 		return -ERANGE;
+>=20
+> Four-wire fans commonly expect a ~25 kHz PWM, which is therefore
+> unusable. On an IPQ6018 with the PWM block clocked at 100 MHz, a
+> 40,000 ns (25 kHz) request computes floor(0.061) =3D=3D 0 and returns
+> -ERANGE deterministically. Where a request is not rejected outright, the
+> high duration truncates to 0 and the output collapses to ~0% duty.
+>=20
+> Search for the (pre_div, pwm_div) pair whose period best approximates
 
-when 0 < end - addr < PAGE_SIZE, nr = (end - addr) >> PAGE_SHIFT 
-evaluates to 0,
+"best" is very subjective. The original author valued fine grained duty
+selection over the higher period range.
 
-so the huge-page path still maps nothing and returns 0.
+> the request instead of fixing pwm_div. Starting pre_div at the smallest
+> value that keeps pwm_div within its field and stopping once pre_div
+> exceeds pwm_div bounds the loop and keeps pwm_div as large as possible
+> for fine duty resolution. For a 25 kHz request at 100 MHz this selects
+> pre_div =3D 0, pwm_div =3D 3999, i.e. exactly 4000 clocks, with full 0..4=
+000
+> duty resolution.
+>=20
+> While reworking the high-duration computation, round it to nearest
+> rather than truncating,
 
-So this separate patch would cover this case as well.
+round to nearest is wrong. The official promise of the core to its
+consumers is that all values are round down. There are offenders, but
+I'm not willing to increase their number.
 
+> so mid-range duty cycles are not biased low, and
+> clamp it to pwm_div + 1. Rounding, or a 100% duty request, could
+> otherwise push hi_dur past the period length and overflow the 16-bit
+> HI_DURATION field.
 
-Thanks
+That's something that the driver has to catch if this is an issue for
+the hardware.
 
-Best Regards
+> This was first fixed downstream in OpenWrt for the qualcommbe target
+> after testing on the Askey SBE1V1K, and has since been applied to
+> OpenWrt's qualcommax target as well.
+>=20
+> Tested on a GL.iNet GL-AXT1800 (IPQ6018, 100 MHz PWM clock) whose DTS
+> requests a 25 kHz period for its four-wire fan:
+>=20
+>   pwms =3D <&pwm 1 40000 0>;
+>=20
+> Before, pwm-fan failed to probe on every boot:
+>=20
+>   pwm-fan pwm-fan: failed to enable PWM
+>   pwm-fan pwm-fan: Failed to configure PWM: -34
+>   pwm-fan pwm-fan: probe with driver pwm-fan failed with error -34
+>=20
+> The same failure is reproducible without pwm-fan, straight from sysfs:
+>=20
+>   # echo 40000   > period; echo 1 > enable   -> write error (-ERANGE)
+>   # echo 2700000 > period; echo 1 > enable   -> succeeds
+>=20
+> Because probe returns before the tachometer IRQ is requested and before
+> fan-supply is claimed, the board also lost fan RPM reporting and its
+> vcc_fan regulator stayed disabled, leaving the DTS cooling-maps with no
+> cooling device to bind to.
 
-Hao
+The waveform API is more flexible, so the right way forward includes
+converting the ipq driver to that.
 
+> After, pwm-fan probes cleanly and the fan is confirmed spinning by its
+> own tachometer:
+>=20
+>   /sys/class/hwmon/hwmon7/name                          =3D pwmfan
+>   /sys/devices/platform/pwm-fan/hwmon/hwmon7/fan1_input =3D 3548
+>   /sys/class/regulator/regulator.3 (vcc_fan)            =3D enabled
+>   /sys/class/thermal/cooling_device1                    =3D pwm-fan
+>=20
+> with idle SoC temperature dropping from ~76 =B0C to ~51 =B0C.
+>=20
+> Fixes: c436e3e9c265 ("pwm: Driver for qualcomm ipq6018 pwm block")
 
->
->
->>   
->>   	if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
->>   		return -EINVAL;
->>   
->>   	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
->> -			page_shift == PAGE_SHIFT)
->> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
->> -
->> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
->> -		int err;
->> -
->> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->> +			page_shift == PAGE_SHIFT) {
->> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
->> +	} else {
->> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
->> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->>   					page_to_phys(pages[i]), prot,
->>   					page_shift);
->> -		if (err)
->> -			return err;
->> +			if (err)
->> +				break;
->>   
->> -		addr += 1UL << page_shift;
->> +			addr += 1UL << page_shift;
->> +		}
->>   	}
->>   
->> -	return 0;
->> +	/* Undo the PTEs installed before the failure. */
->> +	if (err)
->> +		__vunmap_range_noflush(start, end);
->> +
->> +	return err;
->>   }
->>   
->>   int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->> @@ -715,7 +726,16 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->>   
->>   	if (ret)
->>   		return ret;
->> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
->> +
->> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
->> +	/*
->> +	 * The page tables undo themselves on failure. Tear down the
->> +	 * metadata that was fully set up before the mapping failed.
->> +	 */
->> +	if (ret)
->> +		kmsan_vunmap_range_noflush(addr, end);
->> +
->> +	return ret;
->>   }
->>   
->>   static int __vmap_pages_range(unsigned long addr, unsigned long end,
+I wouldn't call it a fix. The driver behaves as expected (by the core),
+so what you're doing here is not a fix.
+
+> Signed-off-by: Kenneth Kasilag <kenneth@kasilag.me>
+> [Stephane: dropped the explanatory comment, the unreachable
+>  clk_rate > 16 GHz bound and the unrelated hi_div cast, per review]
+> Tested-by: Stephane Lepain <stephanelepain@gmail.com>
+> Signed-off-by: Stephane Lepain <stephanelepain@gmail.com>
+> ---
+> Changes in v3:
+> - Resend: v2 accidentally carried a stray copy of the whole driver at
+>   t/drivers/pwm/pwm-ipq.c (a leftover verification directory that got
+>   swept into the commit). Only drivers/pwm/pwm-ipq.c is touched here.
+> - No functional change from v2.
+>=20
+> Changes in v2 (per Konrad Dybcio's review):
+> - Dropped the explanatory comment above the divider search; the rationale
+>   lives in the commit message.
+> - Dropped the "clk_rate > 16 * GIGA" bound. period_ns is already clamped
+>   to IPQ_PWM_MAX_PERIOD_NS (1e9), so period_ns * clk_rate only overflows
+>   u64 above ~18.4 GHz, i.e. ~184x the 100 MHz this block runs at; the
+>   check was unreachable.
+> - Dropped the "(u64)hi_div" cast as unrelated. It is not a live bug
+>   either: hi_dur and pre_div both come from 16-bit fields, so the worst
+>   case 65535 * 65536 =3D 4294901760 still fits u32 (effective_div on the
+>   line above genuinely does need the cast, at 65536 * 65536).
+> - Behaviour is unchanged: for 40,000 ns at 100 MHz the search still
+>   selects pre_div =3D 0, pwm_div =3D 3999.
+>=20
+>  drivers/pwm/pwm-ipq.c | 91 ++++++++++++++++++++++++++++++-------------
+>  1 file changed, 65 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/drivers/pwm/pwm-ipq.c b/drivers/pwm/pwm-ipq.c
+> index c533739..797559d 100644
+> --- a/drivers/pwm/pwm-ipq.c
+> +++ b/drivers/pwm/pwm-ipq.c
+> @@ -89,10 +89,10 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struc=
+t pwm_device *pwm,
+>  			 const struct pwm_state *state)
+>  {
+>  	struct ipq_pwm_chip *ipq_chip =3D ipq_pwm_from_chip(chip);
+> -	unsigned int pre_div, pwm_div;
+> -	u64 period_ns, duty_ns;
+> +	unsigned int pre_div, pwm_div, best_pre_div, best_pwm_div;
+> +	u64 period_ns, duty_ns, period_rate, min_diff;
+>  	unsigned long val =3D 0;
+> -	unsigned long hi_dur;
+> +	u64 hi_dur;
+> =20
+>  	if (!state->enabled) {
+>  		/* clear IPQ_PWM_REG1_ENABLE */
+> @@ -112,35 +112,74 @@ static int ipq_pwm_apply(struct pwm_chip *chip, str=
+uct pwm_device *pwm,
+>  	period_ns =3D min(state->period, IPQ_PWM_MAX_PERIOD_NS);
+>  	duty_ns =3D min(state->duty_cycle, period_ns);
+> =20
+> -	/*
+> -	 * Pick the maximal value for PWM_DIV that still allows a
+> -	 * 100% relative duty cycle. This allows a fine grained
+> -	 * selection of duty cycles.
+> -	 */
+> -	pwm_div =3D IPQ_PWM_MAX_DIV - 1;
+> +	period_rate =3D period_ns * ipq_chip->clk_rate;
+> +
+> +	best_pre_div =3D IPQ_PWM_MAX_DIV;
+> +	best_pwm_div =3D IPQ_PWM_MAX_DIV;
+> +	min_diff =3D period_rate;
+> =20
+>  	/*
+> -	 * although mul_u64_u64_div_u64 returns a u64, in practice it
+> -	 * won't overflow due to above constraints. Take the max period
+> -	 * of 10^9 (NSEC_PER_SEC) and the pwm_div + 1 (IPQ_PWM_MAX_DIV)
+> -	 *  10^9 * 10^8
+> -	 * ------------- =3D> which fits well into a 32-bit unsigned int.
+> -	 * 10^9 * 65,535
+> +	 * Smaller pre_div than this cannot represent the period (pwm_div would
+> +	 * have to exceed its field), so start the search there.
+>  	 */
+> -	pre_div =3D mul_u64_u64_div_u64(period_ns, ipq_chip->clk_rate,
+> -				      (u64)NSEC_PER_SEC * (pwm_div + 1));
+> -
+> -	if (!pre_div)
+> -		return -ERANGE;
+> +	pre_div =3D div64_u64(period_rate,
+> +			    (u64)NSEC_PER_SEC * (IPQ_PWM_MAX_DIV + 1));
+> +
+> +	for (; pre_div <=3D IPQ_PWM_MAX_DIV; pre_div++) {
+> +		u64 remainder;
+> +
+> +		pwm_div =3D div64_u64_rem(period_rate,
+> +					(u64)NSEC_PER_SEC * (pre_div + 1),
+> +					&remainder);
+> +		/* pwm_div is unsigned; the swap check below catches underflow */
+> +		pwm_div--;
+> +
+> +		/*
+> +		 * Swapping pre_div and pwm_div yields the same period but a
+> +		 * larger pwm_div gives finer duty resolution, so once pre_div
+> +		 * exceeds pwm_div every further candidate is strictly worse.
+> +		 */
+> +		if (pre_div > pwm_div)
+> +			break;
+> +
+> +		/* need room for 100% duty, where hi_dur =3D=3D pwm_div + 1 */
+> +		if (pwm_div > IPQ_PWM_MAX_DIV - 1)
+> +			continue;
+> +
+> +		if (remainder < min_diff) {
+> +			best_pre_div =3D pre_div;
+> +			best_pwm_div =3D pwm_div;
+> +			min_diff =3D remainder;
+> +
+> +			if (min_diff =3D=3D 0)
+> +				break;
+> +		}
+> +	}
+
+I didn't try to do the maths here, but usually you can determine the
+needed values without a loop.
+
+> -	pre_div -=3D 1;
+> +	pre_div =3D best_pre_div;
+> +	pwm_div =3D best_pwm_div;
+> =20
+> -	if (pre_div > IPQ_PWM_MAX_DIV)
+> -		pre_div =3D IPQ_PWM_MAX_DIV;
+> +	/*
+> +	 * If the search found no usable candidate, best_pwm_div is left at
+> +	 * IPQ_PWM_MAX_DIV; cap it so pwm_div + 1 still fits the 16-bit field
+> +	 * and 100% duty remains expressible.
+> +	 */
+> +	if (pwm_div > IPQ_PWM_MAX_DIV - 1)
+> +		pwm_div =3D IPQ_PWM_MAX_DIV - 1;
+> =20
+> -	/* pwm duty =3D HI_DUR * (PRE_DIV + 1) / clk_rate */
+> -	hi_dur =3D mul_u64_u64_div_u64(duty_ns, ipq_chip->clk_rate,
+> -				     (u64)NSEC_PER_SEC * (pre_div + 1));
+> +	/*
+> +	 * high duration =3D duty_ratio * (pwm_div + 1)
+> +	 *              =3D duty_ns * clk_rate / ((pre_div + 1) * NSEC_PER_SEC)
+                    ^
+missing space here -' to align the =3D.
+
+> +	 *
+> +	 * Round to nearest to avoid biasing every duty cycle low, then clamp
+> +	 * to (pwm_div + 1): rounding or a 100% request can otherwise push
+> +	 * hi_dur past the period, overflowing the 16-bit HI_DURATION field
+> +	 * and asking the hardware to stay high beyond one period.
+> +	 */
+
+Best regards
+Uwe
+
+--beukunx2nwgtu75i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrXaLoACgkQj4D7WH0S
+/k5ZRAf/RXPBuszebMCMpicBsyvA1p3x+/5Waw0nllho6GNQNHJo0TZZRsRdmpY2
+UCkTPVAVkp19CBXGnoHL5Lu6unWRYJhJgd/cWS84opOhxUp9TDBK5SYzg8gjypqD
+aEqKGsro8ae7JBNgPM/7Dg8ffVeuHrNYNpSwt9Q1apeHCRdHdq3gJuq6ldjPCsqF
+w74Jz0+/uPH/rnFMLYT2nFqAJRmnLidTA9usGDZ2JqyilHo1780qxrBFw0tOFZVa
+2uvPoQjOIUsGnxNTrXMc2yHesq1jHhUb8JuI5IMFoq50f8U/VKw3E3KJkstNzs+n
+dArvXSaPGphhYoBkcBJ1pRygP5ZLZw==
+=Dv9B
+-----END PGP SIGNATURE-----
+
+--beukunx2nwgtu75i--
