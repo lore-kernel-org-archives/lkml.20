@@ -1,75 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514251;
-	b=ZNtRJP9UBNcRzLvCbWinGjEsyaeawlf3By2NqzFBSeamiPIqwB1noqKw2EoSg/T8iKkc
-	 BLjmQCR26YnzU4yoAppVvFJi7AqlkGK29efTE13tCVWmKgcNmPrZaJtHj9V93D2ULYr/O
-	 qTGyQxjEdAv4UnZSKipRoTinlXLdToxq0j6/oPpBi30T/BHUVSHS7v5rcPobKpmUhEZO8
-	 0LRqZb0GCTgvBgZoBo55lL09ey8qpqpYn++7rYr6RgrhRFDt4gMewSnjy3PqwKK8tfzsn
-	 IiZIS4X9iZ4gkZC2IVfAhl5apBiYy8ojgOT6a4DcKsHzqUgaHs2kCGcivodgq/cGr4A==
+	t=1792514252;
+	b=iTlFKrYktFh4SLTrKhyVyqzDFfDaB2esQYuShhqYxf5Oh4L2zcnw/GOjkJTG1Wcrg2t0
+	 C81xrhZ5F5mQqLY3FC7tYt1oca/MsBFHrPpPlRIlds2eZJC5fl0IDoQ0nN5B0J4SirVns
+	 PumxKGotYHB3qQePIFXjf1/KA/QMWLolUP5DBzFQ85ITSC0soZiSe6DaKbSNtrVJsNQxS
+	 B4yaHaeL9fD/k3Xo8fAEjPHIgjNQSshiOdOTSaEEn1S8ZulHkQviuHIprM9hrujjVE6SP
+	 H4lv5O36raR2pmjkdDpdsnzHB4eh8+dNEoJAcEmN5rboj8Ub1MYU4Eltz65bNtOCrNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514252;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=uldJ11S4GC6ANYNLPN52z2eNeK6WE0C4dS321sOBwns=;
-	b=AyOtQ7iqUSwb2NERgQWoDMae1q6dxiqNFSmKFJ80kYkb3OCrcM3JDlezI44Zkeov/6ip
-	 yQJJ/8Yqyc+2PsjoB/ElCPSFH7qUJtwm2qlZLlCTSJtb3UTknrJWkvB+V2z5wPn2E7qF+
-	 ca8FaSuIjVgiYZ7DvkIfOGk1Y5vf/1XXPSIT6nFagBUS8tBkCoKPpuJnmGasZcA9Sbea2
-	 7w38Xt9D/05YDMquoUyeRFGaB+Vr3b5swRKXo7tGnEaH/Qvi1PdR/qPffzr3v3P+0aJcP
-	 mj3xUWetmYbCYeGJ6nqOmEWqWWv1clpRsT8tw/n4Vhc06KKs1DXXK1LXrKTcYhSrUAw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3huXbL6tfvWL0Pcc+xlEk6CMxUZ1VDARolPUJTgc12w=;
+	b=wW7BsnNT8BE8WLT63/xwr3emzcp6Jz1DXD279I5GvabBC43Oqfl6db7t/NNFRfcGCh1S
+	 0AA8UpXLExgUNE12lneoBMQSMPAn3lQ2MI7b73vUDOAyxMeFXqR/J31IgxyWdt9Ai3cm0
+	 KGu42CKUxt5jxmSS28RGQ+N4tDnSJgewfgcsngZry5VYIWg/3JfRdORoXbYcSW14Ycejo
+	 7nSx+/FVg5HM6JC6C+R5t+m69mCZ/vxIFeCtaytbzn0f96Hx10IC22pfMUYe+957gTzjE
+	 oo0g8uS/wSgyv5/WA3xpE8LOsoiXLOISQnzRxQUD6NuuPrSjZenJqwBAmF75RXsx2jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XgAcZSIT;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bRoCP+lO;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4162660A5BDF
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4162660A5BDF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6270760A5BC0
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6270760A5BC0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XgAcZSIT
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso6362698c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bRoCP+lO
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so26775745e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792514249; x=1793119049; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uldJ11S4GC6ANYNLPN52z2eNeK6WE0C4dS321sOBwns=;
-        b=XgAcZSITUl5ZNAj3dcfMYxqUwSubJHkxWi6+N9InkzUuBIINHfmMKXh4oTeXQRJ2KW
-         GjcsyUnH+bjv5JElIYlP7olBvEWEd7HKJfelKd66kP2Rb9L5MjTpGOSoLs4ac4VsncLe
-         WfsOTPfOtoaAyLEGecuTP2j+cpJhU3+0fyivxrlQgRybUrV+WTOqer0X2p/BPk4t6D8O
-         HaWJ7wMrofpQ9i36khjLhNZ/McjVsPevUyGYpaQruvzpbAzQ506tjafAKacbWMPoo96R
-         kp7V2aOj3neP68lPJXaXMilZgN/ndER9Og4rZbLnuyljNJsjGPwrqHp6oASnNkppulbd
-         RfYA==
+        d=suse.com; s=google; t=1792514250; x=1793119050; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3huXbL6tfvWL0Pcc+xlEk6CMxUZ1VDARolPUJTgc12w=;
+        b=bRoCP+lOYB9MvYeYnU/WD9nodtg1TpxMt3jMVChnQ5+WdZu1nZXgyOBllF0LtNO2cY
+         TbftwTMo3NyMKWv2DMLZhfxcKwHVBnDuRDgCplpTpoCaa8NqcpW6ftZVdN5jjx567mKp
+         ql+aeLBKafohpCRTIvjMeYPiDKT1y8wjvzOguMheytQIeH6cY/KyrBj3BaR+1bxO5qXq
+         6ubiW3fZY7lFQRGKq2crA1MHNQ/XtUam5ppwDHyePq80nrtmztZT6kUZP8gP+4OzDvPo
+         KMDA/2R1YqeZb/ElYMzCF1l7zAI33K/miq2Nxda4WnYjWBtCIke24DbeDJOJlevLURky
+         YPAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514249; x=1793119049;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uldJ11S4GC6ANYNLPN52z2eNeK6WE0C4dS321sOBwns=;
-        b=cekYxhPur1FteyXW43mvlfCzqlQf+ZFq/LqodOKY34kd5ZoRxWS8PRZZNcnPddIA5j
-         X9WHCgHkaDiiMDH4haRBCh3SNyHMqBIRXrtGokZilrdPMOFvXR9u5ay6IiveAhcXCTuh
-         htfu1YBJ01biA7Auyb82JLVSYAfpNKEVQRR5ZPlkpey2JvjcQLn45QwJCm/pFqOSCAOp
-         KHZ9KDW5b2vWo4qgaV4UJECRiB3trYGMMflrNRmVQBwLRs0c699uJM6qdRSfCV9FW7//
-         0fazSxmPKtXcdRoiXSn2tbQnxu+uxI3d/vOFPwUoq+f+d6fWDkH+VMeBlfqiozGri6RY
-         YSug==
-X-Forwarded-Encrypted: i=1; AKwUvBwOMVjfdNdRQQdTeR9xLp5VHRGb0bN0pcwayFY09JxeQ/0RfhhUEhVl9t8P8pRwZcw6Jk+hcxl8LUY3MCk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcbY70O2R2FHI91daGySdBJu8yEDAs87l+wjdT9iyGOzEWx2Oe
-	UovPbJWZ1x2GOMgr0HeFpwwDkPggyB9MZIJy+mVerNFBr8L/JgZgJmXGDGV7Y4yNxtfSBFBaaYZ
-	h02kQxcXcyg==
-X-Received: from dlak11.prod.google.com ([2002:a05:701b:290b:b0:18d:8473:d7bb])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7023:a84:b0:188:e51:e86a
- with SMTP id a92af1059eb24-1880e51e89bmr14957622c88.2.1792514248147; Tue, 20
- Oct 2026 09:37:28 -0700 (PDT)
-Date: Tue, 20 Oct 2026 09:36:38 -0700
-In-Reply-To: <20261020163640.746159-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1792514250; x=1793119050;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3huXbL6tfvWL0Pcc+xlEk6CMxUZ1VDARolPUJTgc12w=;
+        b=E3LP2voWNkyDqoAJ7H4Oy/ufPv4XBL7crJeupwdsoJaCceuA3vQ361ArwtI+vuzGQ/
+         Qm8ROVIODv2ViqXoSIoUUxfrldiJJGvRU48f3mHLUVydqJx1o0iBPd5fwPoFuDul5I5z
+         g2X+eAMXEYz2fep57rVG71NXcxoDJJHn3ZyvIGVMlJPqgzGkX2ZF/U/hBXmxt75LyfYX
+         IVloNYGpD5dxalSixW6cgIW3c8O4NP4/7ylBTYkFSBEQmtBXI5ecf3U3S/Asl0KpN9i5
+         5+hWb4TJ1zf9COofdgLjcVtRd5Edl6E5JABhZCALkssIeZ2wOzysfGckWySmoFGXRqz8
+         5v9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwn0BbZDIT8s0K3T8YiN796yrw+s4lhlIDDp7vNu1gBg+Imr9V56BFduzMoPCn6cMi/p6kVpsw40mPA50Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2wRYPGwjt5xoYU4NoLuGWvzTvHtH9b0vZwW8sR6nw6wXcTR1U
+	tw+JI5C8mjkpDzg82VC7sTasxwmJ3nj+PNaqZZKKGuqfvajQziz+9tAcJthIhqmoq80=
+X-Gm-Gg: AYBFou0nSw05WpYTfenklfFzX7M5ODOiBLu2RWI7YxMHteEsmYhtlKB5ZAQCfmn4fCk
+	BUPNR0MX807FsDBDGlP6jSA/vVNGN5RqIvS+lOjKG+2OoszxmFgwmVZXHgl1yz6DS4z/K+1Gt1E
+	k/9XxCD9+VBzZSVpB1mXQpXH/79wOGKQNMSKn7FrqxJJRoUdD1AA1dbkDzsgW52r32vIerCbuHY
+	0OHfgF91QCBuiaB1dr3HL8dhAQHIgWTEU0k6D4KsmS3h+Ijk77MiFVuK2wsw4jOGGlgmrF3iIt+
+	lGEwTuuGloif6hYBct00kp3fU2TU0g02jvCC+2F7yu+WF6OCr6VCwwd3npEKCocZaEmVipfjPWu
+	t56TMDgmGZ+93CLQbjj1gdgN2mOGPAxsVI0hgm8qRTI0NuPNwnrIvsAmuLpbYYvLBfziJrs13dA
+	VPi3ATvHcGqWUYt7/TGbI02BkNKowCghqjLP5D0vFCdRLZ8u7tE3XfFV8ymCYxLt+vWmUxtYE0
+X-Received: by 2002:a05:600c:8709:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-4a1d75f8f28mr236777835e9.18.1792514249669;
+        Tue, 20 Oct 2026 09:37:29 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d41c8asm84327885e9.8.2026.10.20.09.37.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:37:29 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:37:24 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: Zack Rusin <zack.rusin@broadcom.com>, Borislav Petkov <bp@alien8.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>, x86@kernel.org,
+	Joel Granados <joel.granados@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
+	Dave Young <ruirui.yang@linux.dev>,
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Pratyush Yadav <pratyush@kernel.org>, Kees Cook <kees@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
+	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
+	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Stephen Brennan <stephen.s.brennan@oracle.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Ian Forbes <ian.forbes@broadcom.com>
+Subject: Re: [PATCH v2 1/6] panic: Add a notifier chain for pre-kdump
+ callbacks
+Message-ID: <ateYxCu63pRY9EGq@pathway.suse.cz>
+References: <cover.1790014793.git.zack.rusin@broadcom.com>
+ <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
+ <bc783856-9480-3944-67fb-675e4c11d8c2@igalia.com>
+ <atdYIxwz8ksYNty6@pathway.suse.cz>
+ <atd7GInNurGWLUha@pathway.suse.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,272 +121,256 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261016221700.1282659-1-irogers@google.com> <20261020163640.746159-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020163640.746159-16-irogers@google.com>
-Subject: [PATCH v5 15/17] perf config, intel-tpebs, env: Add __guarded_by and
- __must_hold annotations
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	justinstitt@google.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
-	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
-	ndesaulniers@google.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atd7GInNurGWLUha@pathway.suse.cz>
 
-Add __guarded_by() and __must_hold() annotations to static parser and
-config state in util/config.c, TPEBS state in util/intel-tpebs.c, and
-bpf_progs and cgroups trees in struct perf_env.
+On Tue 2026-10-20 16:30:53, Petr Mladek wrote:
+> On Tue 2026-10-20 14:01:43, Petr Mladek wrote:
+> > On Mon 2026-10-19 19:05:21, Guilherme G. Piccoli wrote:
+> > > On 28/09/2026 14:55, Zack Rusin wrote:
+> > > > Selected crash callbacks should not require running every panic notifier
+> > > > before kdump. Add a separate atomic chain with an at-most-once dispatch
+> > > > helper, and invoke it before panic reaches the kmsg dumpers.
+> > > > 
+> > > > The helper permits another call from the crash path without repeating
+> > > > callbacks or recursing into them. Document that callbacks may run in NMI
+> > > > context, with other CPUs running and the kexec lock held.
+> > > > 
+> > > > --- a/kernel/panic.c
+> > > > +++ b/kernel/panic.c
+> > > > @@ -682,6 +707,7 @@ void vpanic(const char *fmt, va_list args)
+> > > >  
+> > > >  	sys_info(panic_print);
+> > > >  
+> > > > +	panic_notify_pre_kdump(buf);
+> > > >  	kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
+> > > >  
+> > > >  	/*
+> > > 
+> > > Hi Zack, thanks for trying to improve this conundrum called panic
+> > > notifiers heh
+> > > 
+> > > I confess at first sight I got a bit confused, and only after reading
+> > > patch 1 and 2 twice, things made sense to me: you're hooking
+> > > __crash_kexec() directly!
+> > > 
+> > > So, in my head, 2 things that would make sense upfront: merge patches #1
+> > > and #2, and comment a bit about it in the code.
+> > 
+> > +1
+> > 
+> > But honestly, the semantic and ordering of all the variables and
+> > functions is very complicated. It is very hard to follow and
+> > understand all the rules.
+> 
+> I trying to understans why I am confused by the panic notifiers code.
+> There are several aspects:
+> 
+> 1. I was involved in many mail threads where we discussed calling:
+> 
+> 	notifiers  before/after  kdump
+> 
+>    but the variable "crash_kexec_post_notifiers" defines calling:
+> 
+> 	kdump   before/after  notifiers
+> 
+>    It actually matches the code because __crash_kexec() is called
+>    twice in vpanic() before and after the notifiers.
+> 
+>    Sigh, it looks like a trivial mental switch. But it is not
+>    that trivial when we though about splitting the notifiers
+>    into more lists and discussed where to call them.
+> 
+>    The discussion always was where to call notifiers and not where to
+>    call kdump.
+> 
+>    And we are also discussing about disabling notifiers. Not about
+>    disabling kdump.
+> 
+> 
+> 2. We call the new list "panic_pre_kdump" and this patchset calls
+>    it in both vpanic() and __crash_kexec() code paths.
+> 
+>    The name "pre_kdump" suggests that it is needed only when kdump
+>    is called. But we want to call it in panic() even when
+>    kdump is not called.
+> 
+> 
+> 3. The new "pre_kdump" notifiers are called before stopping CPUs.
+>    While the rest is called in the more safe environment
+>    with stopped CPUs.
+> 
+> 
+> 4. I am a bit confused by this patch set because it allows
+>    dumping printk log before kdump. It does not fit with
+>    my understanding of having "pre_kdump" list only for
+>    the strictly needed operations.
+> 
+> 
+> 5. There is the idea of splitting the remainig notifiers into
+>    _safe and _unsafe lists, see
+>    https://lore.kernel.org/r/atcjhe4329sYHWvZ@pathway.suse.cz
+> 
+>    It would complicate the design even more. But it might help
+>    with the endless war whether "crash_kexec_post_notifiers"
+>    should be "true" or "false" by a platform-specific default.
+> 
+>    I wonder how all this fits together.
+> 
+> 
+> Top-level look:
+> ===============
+> 
+> Sigh, one problem is that the notifiers have different purpose:
+> 
+>    1. Notify hypervisor (platform). This looks like a must-to-have.
+> 
+>    2. Platform specific dump of printk messages. This is
+>       nice-to-have. But note that we also have kmsg_dump API
+>       for this, see kmsg_dump_desc().
+> 
+>    3. Print extra info. Also this is nice-to-have.
+> 
+>       Some is optional when kdump is created because it might be
+>       read from there. Some can't be found in crash dump, e.g.
+>       dumping lowlevel HW state.
+> 
+>       In addition, there is sys_info() info API which allows to
+>       dump state of various subsystems.
+> 
+>    4. Some notifiers are smp-safe and some just a best effort
+>       and more safe after disabling other CPUs.
+> 
+>       In addition, I guess that it is better to call crash_kexec()
+>       without stopping other CPUs because stopping is not reliable
+>       without NMI. And it would create extra noise in the backtrace.
+>       And ???
+> 
+> 
+> Now, different people have different preferences but mainly:
+> 
+>    + the more safe kdump the better
+>    + the more safe reboot the better
+>    + the more info the better
+> 
+> 
+> Now, the question is how to satisfy the various requirements
+> and keep the design sane. We need a compromise but where.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/bpf-event.h   |  5 ++--
- tools/perf/util/config.c      | 43 ++++++++++++++++++++++-------------
- tools/perf/util/env.c         |  1 +
- tools/perf/util/env.h         | 19 +++++++++-------
- tools/perf/util/intel-tpebs.c |  7 +++---
- 5 files changed, 46 insertions(+), 29 deletions(-)
+With the above in mind, I think about two approaches. I have the
+following constrains in mind:
 
-diff --git a/tools/perf/util/bpf-event.h b/tools/perf/util/bpf-event.h
-index da4eeb4a1a73..3f3323f98f49 100644
---- a/tools/perf/util/bpf-event.h
-+++ b/tools/perf/util/bpf-event.h
-@@ -6,11 +6,11 @@
- #include <linux/rbtree.h>
- #include <api/fd/array.h>
- #include <stdio.h>
-+#include "env.h"
- 
- struct bpf_prog_info;
- struct machine;
- union perf_event;
--struct perf_env;
- struct perf_sample;
- struct perf_session;
- struct record_opts;
-@@ -42,7 +42,8 @@ int machine__process_bpf(struct machine *machine, union perf_event *event,
- int evlist__add_bpf_sb_event(struct evlist *evlist, struct perf_env *env);
- void __bpf_event__print_bpf_prog_info(struct perf_bpil *info_linear,
- 				      struct perf_env *env,
--				      FILE *fp);
-+				      FILE *fp)
-+	__must_hold_shared(&env->bpf_progs.lock);
- void bpf_metadata_free(struct bpf_metadata *metadata);
- #else
- static inline int machine__process_bpf(struct machine *machine __maybe_unused,
-diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
-index 287401f159e6..a55f7062a09b 100644
---- a/tools/perf/util/config.c
-+++ b/tools/perf/util/config.c
-@@ -64,15 +64,29 @@ struct perf_stat_config stat_config = {
- 
- char buildid_dir[MAXPATHLEN]; /* root dir for buildid, binary cache */
- 
--static FILE *config_file;
--static const char *config_file_name;
--static int config_linenr;
--static int config_file_eof;
--static struct perf_config_set *config_set;
-+/* Parsing and rewriting share the static parser state. */
-+static DEFINE_MUTEX(config_mutex);
-+
-+/* Serializes whole perf_config__set_variable() updates. */
-+static DEFINE_MUTEX(config_update_mutex);
-+
-+/*
-+ * Protects the global config_set. Separate from config_mutex because
-+ * initializing config_set parses the config files, which acquires
-+ * config_mutex.
-+ */
-+static DEFINE_MUTEX(config_set_mutex);
-+
-+static FILE *config_file __guarded_by(&config_mutex);
-+static const char *config_file_name __guarded_by(&config_mutex);
-+static int config_linenr __guarded_by(&config_mutex);
-+static int config_file_eof __guarded_by(&config_mutex);
-+static struct perf_config_set *config_set __guarded_by(&config_set_mutex);
- 
- const char *config_exclusive_filename;
- 
- static int get_next_char(void)
-+	__must_hold(&config_mutex)
- {
- 	int c;
- 	FILE *f;
-@@ -99,6 +113,7 @@ static int get_next_char(void)
- }
- 
- static char *parse_value(void)
-+	__must_hold(&config_mutex)
- {
- 	static char value[1024];
- 	int quote = 0, comment = 0, space = 0;
-@@ -170,6 +185,7 @@ static inline int iskeychar(int c)
- }
- 
- static int get_value(config_fn_t fn, void *data, char *name, unsigned int len)
-+	__must_hold(&config_mutex)
- {
- 	int c;
- 	char *value;
-@@ -201,6 +217,7 @@ static int get_value(config_fn_t fn, void *data, char *name, unsigned int len)
- }
- 
- static int get_extended_base_var(char *name, int baselen, int c)
-+	__must_hold(&config_mutex)
- {
- 	do {
- 		if (c == '\n')
-@@ -237,6 +254,7 @@ static int get_extended_base_var(char *name, int baselen, int c)
- }
- 
- static int get_base_var(char *name)
-+	__must_hold(&config_mutex)
- {
- 	int baselen = 0;
- 
-@@ -257,6 +275,7 @@ static int get_base_var(char *name)
- }
- 
- static int perf_parse_file(config_fn_t fn, void *data)
-+	__must_hold(&config_mutex)
- {
- 	int comment = 0;
- 	int baselen = 0;
-@@ -549,12 +568,6 @@ int perf_default_config(const char *var, const char *value,
- 	return 0;
- }
- 
--/* Parsing and rewriting share the static parser state. */
--static DEFINE_MUTEX(config_mutex);
--
--/* Serializes whole perf_config__set_variable() updates. */
--static DEFINE_MUTEX(config_update_mutex);
--
- static int perf_config_from_file(config_fn_t fn, const char *filename, void *data)
- {
- 	int ret;
-@@ -737,6 +750,7 @@ static int set_value(struct perf_config_item *item, const char *value)
- 
- static int collect_config(const char *var, const char *value,
- 			  void *perf_config_set)
-+	__must_hold(&config_mutex)
- {
- 	int ret = -1;
- 	char *ptr, *key;
-@@ -853,11 +867,8 @@ struct perf_config_set *perf_config_set__load_file(const char *file)
- 	return set;
- }
- 
--/* Not config_mutex: building the set parses the config files, which takes it. */
--static DEFINE_MUTEX(config_set_mutex);
--
--/* Called with config_set_mutex held. */
- static int perf_config__init(void)
-+	__must_hold(&config_set_mutex)
- {
- 	if (config_set == NULL)
- 		config_set = perf_config_set__new();
-@@ -975,7 +986,7 @@ int perf_config__set_variable(const char *var, const char *value)
- 
- 	/* Static: the parser publishes it as config_file_name. */
- 	{
--		static char path[PATH_MAX];
-+		static char path[PATH_MAX] __guarded_by(&config_update_mutex);
- 		char *user_config = mkpath(path, sizeof(path), "%s/.perfconfig", getenv("HOME"));
- 
- 		config_filename = config_exclusive_filename ?: user_config;
-diff --git a/tools/perf/util/env.c b/tools/perf/util/env.c
-index 50993b0dedc5..9e8e5d1d822a 100644
---- a/tools/perf/util/env.c
-+++ b/tools/perf/util/env.c
-@@ -302,6 +302,7 @@ void perf_env__exit(struct perf_env *env)
- }
- 
- void perf_env__init(struct perf_env *env)
-+	__context_unsafe(/* initialization */)
- {
- 	memset(env, 0, sizeof(*env));
- #ifdef HAVE_LIBBPF_SUPPORT
-diff --git a/tools/perf/util/env.h b/tools/perf/util/env.h
-index 23d35425efe3..6b2083e3640c 100644
---- a/tools/perf/util/env.h
-+++ b/tools/perf/util/env.h
-@@ -139,16 +139,16 @@ struct perf_env {
- 	 */
- 	struct {
- 		struct rw_semaphore	lock;
--		struct rb_root		infos;
--		u32			infos_cnt;
--		struct rb_root		btfs;
--		u32			btfs_cnt;
-+		struct rb_root		infos __guarded_by(&lock);
-+		u32			infos_cnt __guarded_by(&lock);
-+		struct rb_root		btfs __guarded_by(&lock);
-+		u32			btfs_cnt __guarded_by(&lock);
- 	} bpf_progs;
- #endif // HAVE_LIBBPF_SUPPORT
- 	/* same reason as above (for perf-top) */
- 	struct {
- 		struct rw_semaphore	lock;
--		struct rb_root		tree;
-+		struct rb_root		tree __guarded_by(&lock);
- 	} cgroups;
- 
- 	/* For fast cpu to numa node lookup via perf_env__numa_node */
-@@ -223,7 +223,8 @@ int perf_env__nr_cpus_avail(struct perf_env *env);
- void perf_env__init(struct perf_env *env);
- #ifdef HAVE_LIBBPF_SUPPORT
- bool __perf_env__insert_bpf_prog_info(struct perf_env *env,
--				      struct bpf_prog_info_node *info_node);
-+				      struct bpf_prog_info_node *info_node)
-+	__must_hold(&env->bpf_progs.lock);
- bool perf_env__insert_bpf_prog_info(struct perf_env *env,
- 				    struct bpf_prog_info_node *info_node);
- struct bpf_prog_info_node *perf_env__find_bpf_prog_info(struct perf_env *env,
-@@ -233,9 +234,11 @@ void perf_env__iterate_bpf_prog_info(struct perf_env *env,
- 						void *data),
- 				     void *data);
- bool perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node);
--bool __perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node);
-+bool __perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node)
-+	__must_hold(&env->bpf_progs.lock);
- struct btf_node *perf_env__find_btf(struct perf_env *env, __u32 btf_id);
--struct btf_node *__perf_env__find_btf(struct perf_env *env, __u32 btf_id);
-+struct btf_node *__perf_env__find_btf(struct perf_env *env, __u32 btf_id)
-+	__must_hold_shared(&env->bpf_progs.lock);
- #endif // HAVE_LIBBPF_SUPPORT
- 
- int perf_env__numa_node(struct perf_env *env, struct perf_cpu cpu);
-diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
-index 1812917bfb85..fb3127aa83ce 100644
---- a/tools/perf/util/intel-tpebs.c
-+++ b/tools/perf/util/intel-tpebs.c
-@@ -39,11 +39,11 @@
- bool tpebs_recording;
- enum tpebs_mode tpebs_mode;
- static DEFINE_MUTEX(tpebs_mtx);
--static LIST_HEAD(tpebs_results);
--static pthread_t tpebs_reader_thread;
-+static struct list_head tpebs_results __guarded_by(&tpebs_mtx) = LIST_HEAD_INIT(tpebs_results);
-+static pthread_t tpebs_reader_thread __guarded_by(&tpebs_mtx);
- static struct child_process tpebs_cmd;
- static int control_fd[2] = { -1, -1 }, ack_fd[2] = { -1, -1 };
--static bool tpebs_stopping;
-+static bool tpebs_stopping __guarded_by(&tpebs_mtx);
- 
- struct tpebs_retire_lat {
- 	struct list_head nd;
-@@ -63,6 +63,7 @@ static struct tpebs_retire_lat *tpebs_retire_lat__find(struct evsel *evsel)
- 	__must_hold(&tpebs_mtx);
- 
- static int evsel__tpebs_start_perf_record(struct evsel *evsel)
-+	__must_hold(&tpebs_mtx)
- {
- 	const char **record_argv;
- 	int tpebs_event_size = 0, i = 0, ret;
--- 
-2.56.0.212.g129ede20d9-goog
+   + keep it simple (2-3 lists max)
 
+   + If people configure kdump then they want to use it.
+     Post crash_kexec() paths are just a fallback.
+
+   + If people configure panic_sys_info + crash dump then they
+     want it even in crash dump.
+
+   + If people configure any kmsg dump and configure kdump
+     then they want it before crash_kexec().
+
+   + If a platform wants to do something then it wants to do
+     it before __crash_kexec().
+
+   + If something cause problems then fix it. But allow to disable
+     it for debugging purposes.
+
+One very important aspect is when other cpus should get disabled.
+I guess that most people would want to call __crash_kexec() before
+disabling other CPU. Even though, I am not completely sure why.
+But some notifiers might be hard to do smp_safe.
+
+The disabling of other CPUs seems to be the most critical operation
+which would split notifiers into two groups.
+
+Approach A: Two list: smp_safe vs. smp_unsafe
+=============================================
+
+We could create two list:
+
+   + panic_notifiers_smp_safe_list
+   + panic_notifiers_smp_unsafe_list
+
+Where the safe list would be called before __crash_kexec().
+And the other after CPUs get disabled.
+
+In the long term, I would get rid of the controversial
+"crash_kexec_post_notifiers" options. Instead, I would add:
+
+    + disable_panic_notifiers_smp_safe
+    + disable_panic_notifiers_smp_unsafe
+    + disable_cpus_before_kdump
+
+Then we might call:
+
+	panic_notify_smp_safe();
+
+	if (disable_cpus_before_kdump) {
+		crash_smp_send_stop();
+		panic_notify_smp_unsafe();
+	}
+
+	__crash_kexec();
+
+	if (!disable_cpus_before_kdump) {
+		crash_smp_send_stop();
+		panic_notify_smp_unsafe();
+	}
+
+Where the panic_notify* functions would get implemented as:
+
+	void panic_notify_smp_safe(void)
+	{
+		if (disable_panic_notifiers_smp_safe)
+			return;
+
+		...
+	}
+
+
+Approach B: Three lists: platform, smp_safe, and smp_unsafe()
+=============================================================
+
+It is similar to approach A. We would just add an extra:
+
+     + panic_notifiers_platform_list
+     + disable_panic_notifiers_platform_list
+
+This list would be used for smp-safe notifiers which are
+required be some platform. It would be the notifiers which
+are crucial. Which are currently the reason to set
+"_crash_kexec_post_notifiers".
+
+It might be called also when __crash_kexec() is called
+outside panic().
+
+It would allow to separate the most crucial stuff from
+the rest. It might help when it might be enough to
+disable the less crucial stuff for debugging kdump
+issues.
+
+
+Conclusion:
+===========
+
+Of course, there are many details which might need to be sorted,
+for example:
+
+  + how to put this together with the existing list
+    until all notifiers are migrated.
+
+  + which list should be called when (__)crash_kexec() is
+    called explicitly outside vpanic().
+
+This patchset, adding vmware_log_notifier, might implement just
+the panic_notifiers_platform_list. The rest might be
+added by another volunteer.
+
+How does this sounds, please?
+
+Best Regards,
+Petr
