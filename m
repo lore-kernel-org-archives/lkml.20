@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792514337;
-	b=QmAitVFEqZ9sZ4Q4+yn6+1YHb+L4t4Cj+JwlcsTD1AQcWCKEg/EYIdZdhpWc6TaTTPnM
-	 0CgvlO42xmsCh8kIuA7ecWl+uja7mMZtYSduFBwuzWFk4u+nzGYX0glJS9isGZhWcn1R4
-	 4M9gSFwI8Rq+JpOFWQhDHOlesgSjHnTOrsyC/8Os3N93wZSJHSC8NPdb/oTNk4bo7ocwd
-	 MEHE016Gz7qx8SSq0qFLHL91m9MRlD2FJLTmMZ2UDplzrkKZotGl3X90FnYie8PJjsYG9
-	 cME+LMRFlKgZS9pCVAPfoyuTqt/L9PtPmFsDa+jEjHCXfPUJzO90aRbtpTbUACfMVvQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514337;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792514336;
+	b=3+TmA0l2uVADIXf5tWZMZi0zkLvXqlCO64WpHeWU4aCcsZHnSDUTiTsL/y47bxA1XWjU
+	 WjPdMPHnJVgJWwPnV7S2S8qIcOakslHfU0MgYwfC0UyYHAT4WXOMZsT6CvOgX9c++eGi8
+	 SjcILKlC+lmva+zRt1NFIZT5JKHSZJ3GMPjExbBQG1IjAlEhi5AP3zwC6dCOUM6I/0wVP
+	 HskwUluZonTOd8n1MTe1/Y9J3bTWwpjue2Cc5OahUGH8Bul7gXMlBYmyqQeV8SWzAPNg2
+	 7HpcJXyk5y7mBHpq4mej/YbNmSZ7kZL8cNglZEw37w3z2q0f3cGNqe5SN/vjCHvxR+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514336;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5h6v8PMV52XAIibb0bLKm7PVGjK4muo/m4wCC4Oc5nw=;
-	b=Fu3bmQqPVgnC13VcIVGyySU4GRlD0RN/+Yi72UcywChSJA8BKrhQdD6lxGWcsnwhxVw9
-	 ST4fHfczZI2Okt5Yi+3t5T6dNu45hOClsRulC5nV2qaNavixrb30MWkK8naCQyJwRuWNw
-	 t6+73si1vQ2U6FYfndDrly0In8Ch/41jGFLyzWG1fVIylmVV9VLYzUkM3nqfnq4HhsA/0
-	 iPC0THHBfGtzroXQ7p/CteK/B8fjIaBAHKbWGWQqvsdY6iwoaNIP88iHbU7oELEmFp/NY
-	 eQKagIGjjy1KjU2CxlnI56zXUlMCoO84xBbTWwc1UsMAcCZREPyu62E8W77stiIqGng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=GwYGVURA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=r6Qh0C8VZGXvZEDc2kZsxVXKMJiu5wqeD9DHYON/9u4=;
+	b=onfBqgun62nWu0vkjSvBnCZJhf9bafA5MlMksTUQ2/yjzxRhiLg+XJ6xTb8pypS9JK+m
+	 d7YiONxUeTgJLfHcljGDDc3ZjjE1YOSQWDScNgCfkiHNRI1HpXgnL3pKOg33vRMGZgRqs
+	 h9RnwKEPyg0YunlyLvqIAROSov2KIKeJ3jcoRXj3woudrBulRDxgbBsT6w/cIJ9dGMFuk
+	 i+nv2A1elu/awZhXY8Cmryr+RE2VU766QwBOGuUkiiO0Qm4fWr1ztF3VX8WDhPlxv4uNc
+	 Nl8HQ1UlrslIk3gpgcilPsfbaiq9yecRebrNlr/VvmMV29na14KFZ1ZA572EGkmExVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tavip.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KYgZ+C7j;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0787606D53E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B25260A2618
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:38:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0787606D53E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B25260A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tavip.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=GwYGVURA
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8ad5b31c7so19815915ad.3
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KYgZ+C7j
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89f9fdbabe1so4603810b3a.1
         for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:38:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792514336; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LqmY0ncJVguUhqxH7B1VckvRRG5Ylpj4SGvqL6SLZGa+xVxjpMhD+qUccWDU+TacJD
-         /4JXlk+mCfs6JTDIC0q47nYHsflewE10JR2JAyKNQ3T+pi/ZSfMpzrDKeWg1cuQ9LbY7
-         JOWLGRIfWCfFoEUM5iE9DXmIj7mNJVX7+eqCGdnmSo3loSV45JpydYkVqTwxa8VZFz6l
-         X3V3MZ08wPwwCj0lrgCCPqSyHf8bNv8RBZb2hBo8rfuCIAhMKXuCltT3pSa+OYM+UPC/
-         Wjag19TJCOhBCA4y/3e6WN0SC7kZMqGTOgm9TPXTkKzdgfsGBWHG4Vf+xdzE4nFdvcxm
-         cNDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5h6v8PMV52XAIibb0bLKm7PVGjK4muo/m4wCC4Oc5nw=;
-        fh=ZJH5016FevF4UtlxN+/8YWGXgE0joRYSZVU65mv++Xw=;
-        b=hv0WOOr0GqEp4cBCEhZ3dYh6q2Rap6f5i++e3xZL2g9+aJDv+p0+rXzxr1z6ZpSamE
-         SCv+tFsN72DaXhvxYwbrY+IBaPzbqwIk/I0scALUbwnllJt2AptoXPUuzaCj0LWezDnR
-         ktYh1T/jIqanrbRB4KLcyBB2ikKbkFKCRSdD6L53HFAbX+Lv9Z0n+XEcx+2k6/RuCH/l
-         j7Qf1rascH5qqVYNNAVY3NstPyS3psOLyvOAuL3NMAkJpZqsDSUSYc3d/M7m8M7f+Obz
-         9nFs51mC68MOerssbk4M+8yv0HyTKciBIQf9KVZ7sMyU7ClvZ28/nz8KRv8sECRO4Tjk
-         inMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1792514336; x=1793119136; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5h6v8PMV52XAIibb0bLKm7PVGjK4muo/m4wCC4Oc5nw=;
-        b=GwYGVURAL7E3Gqp1mE6IbppA5fK/M6QVj3T4+Mu1VqNJAQWSHTCgIBs7lXAHx7VP4b
-         X7Ol6JtjEVwHUVW/UUWijctAKk0S3FIF6sAkL2D0z4+yun1CiPIG05jQakKiuYArY+di
-         qKUZ2JssWHS9PY4Rrbam2j+K8HSVipMYAjJhVwlz0qlw5vC30c9m2oPlM5nOac4bwKsb
-         0iIOeo41vgbotndmbkqO3IW2nEL8EcaGXBwYuALkuaiWKHExqpmpd78k/kVF659++rVb
-         16kcHMvBo17gh+L06xflahlYQXJ+NMSTGDwKIeHcy9Z1IKqewLhKEpxT50Ywi1EBHbtT
-         Ya6Q==
+        d=google.com; s=20251104; t=1792514336; x=1793119136; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r6Qh0C8VZGXvZEDc2kZsxVXKMJiu5wqeD9DHYON/9u4=;
+        b=KYgZ+C7j3c5dwv4GHy9pr7LdM1CxrF5CNMfFJM5DOO+lPu665oZmc9mDHqjYT5XHAT
+         opu2QloeTeCgpu3TqIw2bzZ5kLERLZr9fFSZTY1+8wpzkqio8CzWtdHaBlfw88ZcQNw9
+         KWMy1smzR1EDbTMYIqATI7NLaKTaTsYUwdjAHrp2Zaq2m7yUM92lHDZQ4CuK3F4sLokZ
+         gIj7u1DwXOXSzTZnYv4P3t6qCabBDafQeOPiQpyMtzP+g9dmr1nyJTGByso1diZIUUDo
+         chHHb1QMHJjFp3JOD60p4vjB9oP+4p/X7szNga1rQ6Oj/7MRzzRzGNYTe+hvUIIfx3iu
+         i39w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792514336; x=1793119136;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5h6v8PMV52XAIibb0bLKm7PVGjK4muo/m4wCC4Oc5nw=;
-        b=hpETUmAP+ICfUDjjMnKnjlhr2tCFKBM3FJzqfy+z0EYtjyuwbvfTGAigEaDgZCNiaG
-         HknBgu/wWziF+HyQC0j1Ro+VAFfaZPHpVP7ZGYJxwQ4Fg4OjOatEfr23RdzCXhH5fCt1
-         PTD/gYKZxZxI1F2kK7bIZxk4xOJuP8ZEJTGeNhTuETIUXElm5SJbrzSg/SjJBEQEbG/O
-         1YPWb0KfEfxfUyOjcztHSQKe9Bzy9zHmPRWDNn71FYoq80sQLSKaMcJreakzA6vRTH5U
-         9OD1WmgYJ5VNutTU7n98Sjj6LQLSm1S814FRWPjvBY0y0vCDPxoGV2yflg9TICULGP07
-         S57A==
-X-Forwarded-Encrypted: i=1; AKwUvBy1NTcT8kQ1thjggq+HWXCT+znHe82UPCPv4uNWoWj03BR1DBpBtZ4rn8xBWAH821E5xIUfj6KfuNVy9oY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYII8EpyY5JEejHVVJCFRv2YlEOEjuenrM6gaaD5M6DUMqmdHjd9
-	dWHU/AMdF5e1k1FaHYh/iU9ViQbNqMCYm/8o5y4nXhn25R56lUQE4NPd4N/BobCznqDSU2CtXBa
-	WqFIB4+jsAvyeNnMFxWfLIqlNPtpLvis1DFyy/mY8
-X-Gm-Gg: AYBFou1KSAUDmhmE2aOfeqTuyI36PYdOgnZbYheR6ofs+nrwHmR+C3u1V96CKPQ/SlC
-	rOKYZwBn2lEsiXDLQzFByYOFDZcaB5i/Fi3BRot3TadvSejTffOeRz9Cn7BTjSfYmY2gzZB3xaX
-	c+nm5rHVX5xcGKt1UjgaxdvE3uZcH2/RfSu5/Xha/unwk/b2usAOj5Lyt/Wib1K/skbF6LpySfB
-	mDqu+ISV9drj+yNTFrUD5UMW8U+JNyCNwpKkGJ7RTbCrhKfo5S6KulLVLU0Fgzst2akr2pXFJ0l
-	4lF/eY8DmCxxQmtd6wxbFRuiA9ZdZbZbsatfuAHJW92gUeAT1GKLIMzc6kvAw8ftLhuuY/cNeTf
-	NryxtFI+ZbTc=
-X-Received: by 2002:a17:903:1111:b0:2e6:dcce:8227 with SMTP id
- d9443c01a7336-2e9a6c1a30dmr99034965ad.37.1792514336247; Tue, 20 Oct 2026
- 09:38:56 -0700 (PDT)
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r6Qh0C8VZGXvZEDc2kZsxVXKMJiu5wqeD9DHYON/9u4=;
+        b=c0fXAQetanFU5ciDixVgdvPuIyMNHMPQd+KRNehDKgvUma0aeyxoA0CI0ifmFNDuu5
+         IUTK4G8sRO/yGdXctvO9b3N2jnVspzIN6muTaTVfNlIelfYOglfoUweYL5ZL7aZJ354w
+         ImY6x8xskCHuXEVvnkC5Zoeg3yusb8IOiocZSmXwdM/veMl/4NY/c/bzY1BqEn2n7c97
+         yYSjtRDSJ1j0hU1Gv7ZY2irAOjXpNW6A1ls7lxvf3Xyxhin2mxsKFaSTABI7bsbverwk
+         M3E46hsUlyjWbtJsNuPUoto8xHtRZKLtJin1qcogmXJHFanveekxMu0X75gO2eRw990Y
+         ZeKw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+eQIgV0tcRxZbOE0I0IYq6uahhsS2xPdNYcEfqx6sBa4ZJ98+mji7QGelgxJkbgg+4Svv+dgHFGjrmyw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9DHMO/EOK41AdTUl+O+/Wo7lo9XdgTiyIAxq335KwjCUSqvDo
+	g8GovmAp/XinMiKoWSsfT5ojdGhQi5/s50YqMjNGd6NZDU5K2SqUXlgOPcCXIuHD01SlZBx4PnV
+	F3g==
+X-Received: from pgbd19-n2.prod.google.com ([2002:a05:6a02:64d3:20b0:cc7:d4f0:846d])
+ (user=tavip job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6f89:b0:3d8:1f68:59ac
+ with SMTP id adf61e73a8af0-3e225fe8c5cmr9977058637.23.1792514335679; Tue, 20
+ Oct 2026 09:38:55 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:38:35 +0000
+In-Reply-To: <20261020163835.4076594-1-tavip@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,60 +78,195 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <cover.1790088067.git.rrobaina@redhat.com> <CAHC9VhQ=FFYVNmQdiMsqg+5KDDrSC3SZS+H2=r_GkhfwQox8tg@mail.gmail.com>
- <CAABTaaBL=TScs8Qqu3b8F6KZPGMyvwy6cBC3teDaBL6MGMucNg@mail.gmail.com>
-In-Reply-To: <CAABTaaBL=TScs8Qqu3b8F6KZPGMyvwy6cBC3teDaBL6MGMucNg@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 20 Oct 2026 12:38:41 -0400
-X-Gm-Features: AclHuK9ZakV6IFm9eD67kaqUic0iU1MgVPLS7VN6RgjPgTRZmZP6_X_XOYOX9ZU
-Message-ID: <CAHC9VhROsmzbm+AP63Sm7mqCokgEy6Zu0AVMY0gxp8qY75Pqiw@mail.gmail.com>
-Subject: Re: [PATCH v3 00/14] audit: log all six syscall arguments in the
- SYSCALL record
-To: Ricardo Robaina <rrobaina@redhat.com>
-Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, bpf@vger.kernel.org, eparis@redhat.com, 
-	sgrubb@redhat.com, oleg@redhat.com, richard.henderson@linaro.org, 
-	mattst88@gmail.com, linmag7@gmail.com, linux@armlinux.org.uk, 
-	catalin.marinas@arm.com, will@kernel.org, guoren@kernel.org, monstr@monstr.eu, 
-	tsbogend@alpha.franken.de, jonas@southpole.se, 
-	stefan.kristiansson@saunalahti.fi, shorne@gmail.com, 
-	James.Bottomley@hansenpartnership.com, deller@gmx.de, 
-	ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
-	davem@davemloft.net, andreas@gaisler.com, richard@nod.at, 
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, chris@zankel.net, 
-	jcmvbkbc@gmail.com, tglx@kernel.org, peterz@infradead.org, luto@kernel.org
+Mime-Version: 1.0
+References: <20261020163835.4076594-1-tavip@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020163835.4076594-3-tavip@google.com>
+Subject: [PATCH net v2 2/2] selftests: net: packetdrill: add test for negative
+ sk_forward_alloc in tcp_wmem_schedule()
+From: Octavian Purdila <tavip@google.com>
+To: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Wei Wang <weiwan@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Octavian Purdila <tavip@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 8:36=E2=80=AFAM Ricardo Robaina <rrobaina@redhat.co=
-m> wrote:
-> On Thu, Oct 1, 2026 at 6:06=E2=80=AFPM Paul Moore <paul@paul-moore.com> w=
-rote:
-> > On Tue, Sep 22, 2026 at 3:21=E2=80=AFPM Ricardo Robaina <rrobaina@redha=
-t.com> wrote:
+Add a packetdrill test that drives sk->sk_forward_alloc negative via
+tcp_collapse() on the receive queue while sk->sk_wmem_queued exceeds
+sysctl_tcp_wmem[0], and verifies that a subsequent non-blocking write()
+under TCP memory pressure fails with EAGAIN rather than returning a
+negative copy length from tcp_wmem_schedule() and failing with EFAULT.
 
-...
+Assisted-by: LLM
+Signed-off-by: Octavian Purdila <tavip@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+---
+v2:
+- Skip the test when PAGE_SIZE != 4096 via --define=REQUIRES_PAGESIZE="4096"
+  in ksft_runner.sh (Eric Dumazet).
 
-> > * As pointed out by Sashiko, when you were converting all of the
-> > arches, it looks like you missed alpha.  I took a quick look and it
-> > appears that it should be a pretty straightforward conversion like
-> > most of the others.
->
-> I've actually dropped the alpha patch as per Magnus's request [1].
->
-> [1] https://lore.kernel.org/audit/CA+=3DFv5T4826T2sd0Gbh-nfZsqcWK_phdBKy4=
-BLWOvDTt92t5Eg@mail.gmail.com/
+ .../testing/selftests/net/packetdrill/config  |   1 +
+ .../selftests/net/packetdrill/ksft_runner.sh  |   6 +
+ .../tcp_wmem_schedule_negative_fwd_alloc.pkt  | 117 ++++++++++++++++++
+ 3 files changed, 124 insertions(+)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
 
-The problem is that as things stand, this patchset breaks the build on
-Alpha.  Perhaps this gets resolved during the current merge window,
-but as you know we can't break the kernel build ...
+diff --git a/tools/testing/selftests/net/packetdrill/config b/tools/testing/selftests/net/packetdrill/config
+index b7df8bf309200..dc3cd72a8da8c 100644
+--- a/tools/testing/selftests/net/packetdrill/config
++++ b/tools/testing/selftests/net/packetdrill/config
+@@ -1,6 +1,7 @@
+ CONFIG_HZ=1000
+ CONFIG_HZ_1000=y
+ CONFIG_IPV6=y
++CONFIG_MEMCG=y
+ CONFIG_NET_NS=y
+ CONFIG_NET_SCH_FIFO=y
+ CONFIG_NET_SCH_FQ=y
+diff --git a/tools/testing/selftests/net/packetdrill/ksft_runner.sh b/tools/testing/selftests/net/packetdrill/ksft_runner.sh
+index 0a97d5ae34699..dcda2b93c76e0 100755
+--- a/tools/testing/selftests/net/packetdrill/ksft_runner.sh
++++ b/tools/testing/selftests/net/packetdrill/ksft_runner.sh
+@@ -52,6 +52,12 @@ if [[ -n "${KSFT_MACHINE_SLOW}" ]]; then
+ 	failfunc=ktap_test_xfail
+ fi
+ 
++pagesize=$(grep -E '^--define=REQUIRES_PAGESIZE=' $script | cut -d '=' -f 3 | tr -d '"')
++if [[ -n "$pagesize" && "$(getconf PAGESIZE)" != "$pagesize" ]]; then
++	ktap_skip_all "requires ${pagesize}B PAGE_SIZE"
++	exit "$KSFT_SKIP"
++fi
++
+ ip_versions=$(grep -E '^--ip_version=' $script | cut -d '=' -f 2)
+ if [[ -z $ip_versions ]]; then
+ 	ip_versions="ipv4 ipv6 ipv4-mapped-ipv6"
+diff --git a/tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt b/tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
+new file mode 100644
+index 0000000000000..96a5d60a52cb1
+--- /dev/null
++++ b/tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
+@@ -0,0 +1,117 @@
++// SPDX-License-Identifier: GPL-2.0
++// Test that tcp_wmem_schedule() clamps negative sk->sk_forward_alloc to 0
++// when sk_wmem_schedule() fails under memory pressure and
++// sk->sk_wmem_queued >= sysctl_tcp_wmem[0], returning EAGAIN rather than EFAULT.
++
++--define=REQUIRES_PAGESIZE="4096"
++--mtu=65535
++--tolerance_usecs=100000
++
++`set -e
++./defaults.sh
++ip link set dev tun0 mtu 65535
++sysctl -q net.ipv4.tcp_rmem="4096 131072 6291456"
++sysctl -q net.ipv4.tcp_wmem="4096 16384 4194304"
++cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
++[ -n "$cgroot" ]
++echo +memory > "${cgroot}/cgroup.subtree_control"
++mkdir -p "${cgroot}/pkt_${PPID}"
++echo $PPID > "${cgroot}/pkt_${PPID}/cgroup.procs"
++`
++
++// Create listening socket in pkt_${PPID} memcg and establish connection
++0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
+++0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+++0.000 bind(3, ..., ...) = 0
+++0.000 listen(3, 1) = 0
++
+++0.000 < S 0:0(0) win 65535 <mss 36000,nop,wscale 7>
+++0.000 > S. 0:0(0) ack 1 <...>
+++0.000 < . 1:1(0) ack 1 win 512
+++0.000 accept(3, ..., ...) = 4
++
++// Move packetdrill back to its original cgroup so only the sockets remain charged to pkt_${PPID}
+++0.000 `cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
++runner_pid=$(awk '/^PPid:/ {print $2}' /proc/$PPID/status)
++orig_cg=$(sed -n 's/^0:://p' /proc/$runner_pid/cgroup)
++echo $PPID > "${cgroot}${orig_cg}/cgroup.procs"`
++
+++0.000 setsockopt(4, SOL_SOCKET, SO_SNDBUF, [2097152], 4) = 0
+++0.000 setsockopt(4, SOL_SOCKET, SO_RCVBUF, [145536], 4) = 0
++
++// 1. Warm up rcv_ssthresh to full window (~256 KB)
+++0.000 < P. 1:36001(36000) ack 1 win 512
+++0.000 > . 1:1(0) ack 36001
+++0.000 read(4, ..., 36000) = 36000
++
+++0.000 < P. 36001:72001(36000) ack 1 win 512
+++0.000 > . 1:1(0) ack 72001
+++0.000 read(4, ..., 36000) = 36000
++
+++0.000 < P. 72001:108001(36000) ack 1 win 512
+++0.000 > . 1:1(0) ack 108001
+++0.000 read(4, ..., 36000) = 36000
++
+++0.000 < P. 108001:144001(36000) ack 1 win 512
+++0.000 > . 1:1(0) ack 144001
+++0.000 read(4, ..., 36000) = 36000
++
++// 2. Queue 500 KB on TX so sk_wmem_queued >= sysctl_tcp_wmem[0]
+++0.000 write(4, ..., 500000) = 500000
++
++// 3a. Inject 6 high-density 36 KB segments (216 KB payload, 222.7 KB truesize)
++//     and read 100 bytes from the head SKB so before(skb->seq, tp->copied_seq) is true.
+++0.000 < P. 144001:180001(36000) ack 1 win 512
+++0.000 read(4, ..., 100) = 100
++
+++0.000 < P. 180001:216001(36000) ack 1 win 512
+++0.000 < P. 216001:252001(36000) ack 1 win 512
+++0.000 < P. 252001:288001(36000) ack 1 win 512
+++0.000 < P. 288001:324001(36000) ack 1 win 512
+++0.000 < P. 324001:360001(36000) ack 1 win 512
++
++// 3b. Inject 22 smaller 1000-byte segments into the remaining advertised rcv_wnd.
++//     Their higher truesize pushes sk_rmem_alloc > sk_rcvbuf (291072),
++//     triggering tcp_prune_queue -> tcp_collapse on the 216 KB of 36 KB SKBs
++//     and driving sk->sk_forward_alloc negative (-32768).
+++0.000 < P. 360001:361001(1000) ack 1 win 512
+++0.000 < P. 361001:362001(1000) ack 1 win 512
+++0.000 < P. 362001:363001(1000) ack 1 win 512
+++0.000 < P. 363001:364001(1000) ack 1 win 512
+++0.000 < P. 364001:365001(1000) ack 1 win 512
+++0.000 < P. 365001:366001(1000) ack 1 win 512
+++0.000 < P. 366001:367001(1000) ack 1 win 512
+++0.000 < P. 367001:368001(1000) ack 1 win 512
+++0.000 < P. 368001:369001(1000) ack 1 win 512
+++0.000 < P. 369001:370001(1000) ack 1 win 512
+++0.000 < P. 370001:371001(1000) ack 1 win 512
+++0.000 < P. 371001:372001(1000) ack 1 win 512
+++0.000 < P. 372001:373001(1000) ack 1 win 512
+++0.000 < P. 373001:374001(1000) ack 1 win 512
+++0.000 < P. 374001:375001(1000) ack 1 win 512
+++0.000 < P. 375001:376001(1000) ack 1 win 512
+++0.000 < P. 376001:377001(1000) ack 1 win 512
+++0.000 < P. 377001:378001(1000) ack 1 win 512
+++0.000 < P. 378001:379001(1000) ack 1 win 512
+++0.000 < P. 379001:380001(1000) ack 1 win 512
+++0.000 < P. 380001:381001(1000) ack 1 win 512
+++0.000 < P. 381001:382001(1000) ack 1 win 512
++
++// 4. Cap the socket memcg at its current usage and expect -EAGAIN on non-blocking write.
+++0.010 `cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
++echo 0 > "${cgroot}/pkt_${PPID}/memory.high"
++cat "${cgroot}/pkt_${PPID}/memory.current" > "${cgroot}/pkt_${PPID}/memory.max"`
+++0.000 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+++0.000 write(4, ..., 16384) = -1 EAGAIN (Resource temporarily unavailable)
++
+++0.000 close(4) = 0
+++0.000 close(3) = 0
++
++// Untimed cleanup command executed by packetdrill on both pass and early failure.
++`cgroot=$(mount -t cgroup2 | head -1 | awk '{print $3}')
++[ -n "$cgroot" ] || exit 0
++runner_pid=$(awk '/^PPid:/ {print $2}' /proc/$PPID/status)
++orig_cg=$(sed -n 's/^0:://p' /proc/$runner_pid/cgroup)
++echo $PPID > "${cgroot}${orig_cg}/cgroup.procs" 2>/dev/null || true
++echo $$ > "${cgroot}${orig_cg}/cgroup.procs" 2>/dev/null || true
++rmdir "${cgroot}/pkt_${PPID}"`
+-- 
+2.56.0.212.g129ede20d9-goog
 
-https://lore.kernel.org/oe-kbuild-all/202610041836.6TatRQSm-lkp@intel.com
-
---=20
-paul-moore.com
