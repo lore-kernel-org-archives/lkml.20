@@ -1,76 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513200;
-	b=u5dVauK0l0N7CyVzKNcH0NWafvhE8ueHcOJAjfW3k5Dy3P5wiQ11JgTUf2TgqwcGCOP9
-	 hbGglho1p2iWQihf6RHsWMkA1vsc3F7lSEYRn7ZFjvB8siTMU/d05oRHpD7Fkk1ymvQzZ
-	 0Nug/vUwUWkOPStHLhdgIPwOwu91ZLEIhCjvwEjWlrfOawU+YT2/PMjSDURYy8/IMOzvA
-	 3WKYw2aen014n/HrPmvTvc9gsoI7ATggteIATOxjGPdQGuKmDqNTWz5hfiPMzKunbehHj
-	 gOcn9NC+VtCh3tz9/tu7NACr2lEypoSnA6ufHcej6cjbyvJAAXcwzRdQgFB/qdcM4hg==
+	t=1792513207;
+	b=3H+jm1ncMLcHzl7qk8vO3OwfofP8rU19gfXvCOFL5b66OB9XZBmCHoUPiTm1BTVKcGjC
+	 TCCAbGeMs3r0/QRiu3rYrb+y1tb1QsRt8sV2izifQveRjwGiQabNHG28p2dk1CtmWyryT
+	 ACV8dVAEPnGXBSc2kl9DCd+ZKn9MzE9F/40xDp/ddb8/+h4Nn/kddnsHx7afzwE/KkS6V
+	 VHKIL+heH4IgaRdR3Kn1NyxO5wBJka2gpeUe01v1lB2f19MX3RIFiER+dP2vi9qqXU7sc
+	 mMyuR73cDMPUMaADZR/EoBGJ7LodMHA8bszNEAFoLXdmALI2mqsqGhsfqJ4QK1/W5PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513200;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ua7Lf9K5WBIncm71YXHcWygPR1Kpcb2CloeMCzqxAaA=;
-	b=lQI2tCNWvH49BIKn+gs4MxoriYJZZsYG1cFyq8vna1pA45QG8BQ8m4eXwgVCGjwAmX89
-	 OxhIsKDNoKh+uDYAPqLervbfVfUm1HtpejgIshq5PhVU9KzumqchdYprxxJ9i5QwCQ30C
-	 yN524iVYmC0HND+yeQ5k1gtBHiXJDqrn1cjLA3zlGcQ/eYo1qtFcmMRXhC3eAPKxtSliN
-	 OkkK46I/LMAiClP6xsAxL2cI/w+0L/3YxP31cc5G3GxzTXwn8ZT1S2UMn1jP6Cb2z7k7H
-	 lCA2HkpETsD5wtJ6fB9761x21SUgcr7juuq5Q/MhA/UEMjCNJP3KjvHLis5/M5+MIxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513207;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3RZb0SnMAOA57yM4atchQ4kYcf66cAOKXvBUnsreAV8=;
+	b=wJ2zytb3ML/dbiGxUrqdVsXwe44O4k8L/6sGU9fcnnjFkwDytlt79oAvIRtPorbyzY0i
+	 g8vgJoOO3ihJrQXYagKXOp+ejzcJWSTwiVhh1x+BJzqC7+S3xHo8/H211ySADWRmsVu6p
+	 WEnRzauuWJZiZ5DCoezdp1Axb30+Onr/JLSjMaATFYiPjNAl91ziA62T5jxZ1Imarpa3j
+	 n5WIg82w/HdcK9OwXhLQpoFY26Y0jOfgG+eSbdCPHjQt3KqA4Wtl6h03essunLaPDgIKn
+	 RGlxLKmigRZWOgfU6wFNbNpOdxmB/JKaT9DFRT9GWMDB5G8CPXu7ACzHl8rrTFAzUMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kn3ZrhCC;
-	arc=none smtp.remote-ip=91.218.175.189
-Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="H2uro9e/";
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DC760A3804
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3DC760A3804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7952C606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7952C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kn3ZrhCC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OcaKo8vBMcPK2i5mcytKpINtfxKb6f8YEnRBF3ZzBtQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792513198; v=1; x=1793117998;
- b=Kn3ZrhCC+gB/QqCHwBOmSvKUC8g/qWcvMvx9ILqJWWuAOvgAPw+Pww+LlrYe8+EixcT7Ui8J
- mkFbWWhdKGVutDR48lcNSNubhWeCDVS9D1WRKhPdPI77Sj62meNc6vpzeb0sFb4UNFLVQxqg7Lh
- EUA0vOFdj8XRbIdQsBRXVrt0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d45fc1b81ec5bdfa;
-	Tue, 20 Oct 2026 16:19:57 +0000
-X-Mizu-Trace-ID: d45fc1b81ec5bdfa
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com
-Cc: martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	shuah@kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v3 06/12] bpf: Track low-32 scalar equality across sign-extending movs
-Date: Tue, 20 Oct 2026 09:19:01 -0700
-Message-ID: <20261020161907.2115379-7-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020161907.2115379-1-vineet.gupta@linux.dev>
-References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H2uro9e/
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so1879588a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792513206; x=1793118006; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3RZb0SnMAOA57yM4atchQ4kYcf66cAOKXvBUnsreAV8=;
+        b=H2uro9e/GSZtQibqfeaZa1pdR6pxTxhB/R+lGQeD+iBMbNrUsjlUe6FdxQ3FOwKKk3
+         KlGE92cFlzzwiqXPu250W/9XD2x5ROogQdIcU7Uxs1K5G/A1DxTUdiccO9cdPgqETy3j
+         OOfHJ3FZwjd7QyqVpR/PjuoYBhV8kqKVoKJ/9ijjvvOaZRbcvQ4apAfZhGZkAV3eI8L8
+         TZIyp0fdxlT027WiIFIhHLTJRbWE9lBcltHCJMQ2m/AlDpX8z8+/mnheTqmMas5athpu
+         zMBcWMgZ7valtlVcnZQ9xUI/DLcIbNf+KkbwHM0608cJZHbHIJvlPdXM0BFJ1XzZz/Tj
+         /09w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792513206; x=1793118006;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3RZb0SnMAOA57yM4atchQ4kYcf66cAOKXvBUnsreAV8=;
+        b=FPzP/4Gv+Aq10ps1s2453KrWjy3gWQxGL0Xc8VAGbU0x8wD+SAraqGUDV5xjW4O7qD
+         BwlNmfsNHtAMUxfm2KF1M+f9vTdXJw24Xd40VM/4EXIRXcueajQNQwWxw4F+gcibQ8e7
+         8PYpnRzmXKFkYPZ9veWdAA1VuvESRa3B4cTnYxgdGjg3k+NiK8Cqj0Yazw/bN4G82FIx
+         +AgqO78xhQtrOgwTjm/naK4ytYcsxoYgr5rklcGhYc8hm2BH2VrKFeUbBNS46RAJH9Q1
+         U2Mrm39mgUofa2SZYbQ4xlTScqOlg2cXf6g6j5U1204Unx229zrZh4NqpYxD0dcDcgWo
+         askw==
+X-Forwarded-Encrypted: i=1; AKwUvBy2hP1K/WMKoM7FZAbJlo97ETwP0k9HpXD1DsHm4lgH4vBCYDIyNHYcS3rdPo22c3c08n50FP0C4LZ2wmE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSjOwpHljLkmykD+91Vt84E791VQP3VIxDKwYhSAahY1eQsGBI
+	huiXxs+GsZNqqspXw2jD5vaibu/zwk/TBGKTArH2Ud3OwEFNN28uBJxU
+X-Gm-Gg: AYBFou1YX+1OL+eb4WLeeW+cVgXRfG57RQB0hSS3dWSfnlgbBLSZ2ymleZitWVwW1Mg
+	cfcNlpdQoXBqzglfqZCT+3TYWnjNTaLVekheTXEJxGDoPuiUAnNabwQmArdXSqCXBtwsyTVcct7
+	wr824s2q5inhXFOxA2Tj7jkdXxMWqTpy9qFBi78Ai1ahjnMlH3bbGHAWmf0CBzONbYsNQg1Y5IH
+	Ml/KDHhvuPkBenFFUQBFHz+1kex0HfDxxonLwCh0QegsQwGZ7PPx2kyXEmg74li8mnrEYxCZQXr
+	MIfMSaX3vklBH7apBWM8Nm6/AwcfqQekGOdd4zfjKvaiTcF2Q2YS9Ovoe5o/n8HnPy1ATXkNDUA
+	bfaFdSddLKqSB/XiuHIuk/HmS5RuLbWpIoFbFN6n0VOXWObh/QXVe4rSN9r/LbS1ZhOtH/wY9ut
+	0qgaFjRS0CL2jP4YyqNZBwzToFQo8n8CYTXQGMcPoAu+qkb38QiXscCyBHK3/wpFWIdKkT7+VGg
+	qo3RNsb5gk=
+X-Received: by 2002:a17:90b:1d4d:b0:3ac:8ee5:e00f with SMTP id 98e67ed59e1d1-3acef538914mr9358618a91.57.1792513205657;
+        Tue, 20 Oct 2026 09:20:05 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549db75asm5009301a12.18.2026.10.20.09.20.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:20:04 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KEYS: trusted: Reject short TPM2 public areas
+Date: Wed, 21 Oct 2026 01:19:54 +0900
+Message-ID: <20261020161954.3956212-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ateELTsfmHsdCEGL@kernel.org>
+References: <ateELTsfmHsdCEGL@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,304 +102,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A 32-bit sign extension shares the source's low 32 bits too, filling the
-high half from bit 31:
+tpm2_load_cmd() reads TPMA_OBJECT with get_unaligned_be32(pub + 4), but
+does not require public_len to cover that field.
 
-  r6 = ...              /* full 64-bit unknown */
-  r7 = (s32)r6          /* 32-bit sign-extending mov */
-  if w6 == -1 goto ...  /* taken: r6's low 32 bits are all ones */
-  ...                   /* r7 is -1, not deduced today */
+A TPM 2.0 ASN.1 key blob with public_len zero makes the read begin at the
+end of the B + 4-byte decoded allocation, causing a four-byte heap
+out-of-bounds read before the TPM command is transmitted. This is reachable
+from an unprivileged add_key() call when TPM trusted keys and a TPM2 device
+are available.
 
-No constant k makes dst == (u32)(src + k) a sign extension, so this
-needs a third kind, BPF_REG_LINK_SEXT, driven by sext_32_to_64() where
-the zero-extending arm uses zext_32_to_64(). The enum already had room,
-so bpf_reg_state stays 80 bytes.
+This affects v5.13-rc1 and later kernels built with CONFIG_TRUSTED_KEYS=y
+and CONFIG_TRUSTED_KEYS_TPM=y when a TPM2 device is present. A KASAN run
+as UID 1000 with no effective capabilities reported:
 
-Both work from the base's 32-bit range, which is what a 32-bit compare
-narrows; coerce_reg_to_size_sx() cannot serve, as it reads smin/smax,
-which straddle after such a compare. tnum_sext() is the counterpart to
-tnum_cast(), keeping the known low bits where a tnum_range() over the new
-bounds would not.
+BUG: KASAN: slab-out-of-bounds in tpm2_unseal_trusted
+Read of size 4 at addr ffff888106273b48 by task exploit/160
+CPU: 1 UID: 1000 PID: 160 Comm: exploit
+The buggy address belongs to the object at ffff888106273b40
+ which belongs to the cache kmalloc-8 of size 8
+The buggy address is located 0 bytes to the right of
+ allocated 8-byte region [ffff888106273b40, ffff888106273b48)
 
-sext_32_to_64() resets the register's base/step line; the comment there
-gives the arithmetic. Note it resets unconditionally, where
-coerce_reg_to_size_sx() and coerce_subreg_to_size_sx() return early when
-the extension is a provable no-op and keep the line. That costs a little
-precision in the same case here, which is not worth an extra branch on a
-path that has just rebuilt the value from the base.
+TPMT_PUBLIC starts with the two-byte type, two-byte nameAlg and four-byte
+objectAttributes fields. Require public_len to cover all eight bytes before
+reading the attributes.
 
-Unlike the zero-extending arm, the source's delta comes along. Both
-base + d and (u32)(base + d) have low half (base + d), so dst is
-(s32)(base + d) whichever the source was:
+The exact input produced the KASAN read in 3/3 fresh boots. The fixed build
+rejected it with -EINVAL and no KASAN report in 3/3 boots; valid TPM 2.0
+ASN.1 and legacy trusted-key loads continued to succeed.
 
-	w7 = w6;	/* BPF_REG_LINK_ZEXT, delta 0 */
-	w7 += 5;	/* BPF_REG_LINK_ZEXT, delta 5 */
-	r8 = (s32)r7;	/* BPF_REG_LINK_SEXT, delta 5 */
+The issue was found with an LLM-assisted source audit and validated with an
+end-to-end QEMU and swtpm reproducer.
 
-keeps r8 tied to r6. sext_mov_inherits_delta pins it; without the
-inheritance the program is rejected. A self-mov can form a link here too,
-which is how a sign-extended int return lands.
-
-sync_linked_regs() needs no separate sext path: the differencing arm
-already copies the base and adds the delta difference, and which extension
-follows is just the member's kind. Where the base does fit 32 bits the
-reverse direction runs for both narrow kinds with the *zero* extension --
-the base is then below 2^32 and equal to the member's low half, whichever
-way the member filled its own high half.
-
-One guard gains a new meaning. BPF_REG_LINK_ZEXT against
-BPF_REG_LINK_SEXT is a sound deduction that is now declined on purpose:
-bpf-gcc compiles "i += 1" for an int loop counter into exactly that
-pair, and deducing the sign-extended half makes the counter a fresh
-constant every iteration, so iters.c:iter_obfuscate_counter runs to the
-1M instruction limit. sext_no_sync_from_zext_sibling pins it.
-
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Fixes: e5fb5d2c5a03 ("security: keys: trusted: Make sealed key properly interoperable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 ---
-v3: was v2 7/13.
- - SUBREG_SEXT becomes BPF_REG_LINK_SEXT, a value of the same two-bit
-   field, so the sign-extending link costs no space of its own, and v2's
-   separate reconstruction in sync_linked_regs() is gone.
- - new capability: a sign-extending mov inherits the source's delta.
-   Nothing in the corpus builds the shape, so sext_mov_inherits_delta
-   covers it directly.
- - assign_scalar_id_before_mov() now keeps a BPF_REG_LINK_SEXT source's
-   id. Without it bpf_iter_tasks/dump_task_sleepable hits the 8192-jump
-   limit under bpf-gcc.
- - the mixed-kind guard also covers BPF_REG_LINK_ZEXT against
-   BPF_REG_LINK_SEXT. That deduction is sound and declined on purpose:
-   making it turns an int loop counter into a fresh constant each
-   iteration and iter_obfuscate_counter stops converging.
+Changes in v2:
+- Describe the wrapper as the TPM 2.0 ASN.1 key format.
+- Explain the eight-byte minimum next to the check.
+- Return -EINVAL for a malformed TPMT_PUBLIC instead of -E2BIG.
+- Replace the obsolete Assisted-by trailer with changelog disclosure.
 
- include/linux/bpf_verifier.h |  3 +-
- include/linux/tnum.h         |  7 +++
- kernel/bpf/log.c             |  2 +
- kernel/bpf/tnum.c            | 15 ++++++
- kernel/bpf/verifier.c        | 89 +++++++++++++++++++++++++++++++-----
- 5 files changed, 103 insertions(+), 13 deletions(-)
+v1: https://lore.kernel.org/r/20260925095308.3248297-1-4ncienth@gmail.com
 
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index 081facac7b86..16e3d5a951b5 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -57,13 +57,14 @@ enum bpf_iter_state {
-  *
-  *   BPF_REG_LINK_FULL:  reg == base + delta
-  *   BPF_REG_LINK_ZEXT:  reg == (u32)(base + delta), for ANY base width
-- *   BPF_REG_LINK_SEXT:  reg == (s32)(base + delta)
-+ *   BPF_REG_LINK_SEXT:  reg == (s32)(base + delta), for ANY base width
-  *
-  *   r1 = r2;       r1 and r3 are linked to r2: id == N
-  *   r3 = r2;
-  *   r1 += 10;      r1 gets BPF_REG_LINK_FULL, delta 10
-  *   w3 += 10;      w3 gets BPF_REG_LINK_ZEXT, delta 10
-  *   w7 = w6;       r7 gets BPF_REG_LINK_ZEXT, delta 0  (r6 may be wide)
-+ *   r8 = (s32)r7;  r8 gets BPF_REG_LINK_SEXT, delta 0
-  */
- enum bpf_reg_link_kind {
- 	BPF_REG_LINK_NONE = 0,
-diff --git a/include/linux/tnum.h b/include/linux/tnum.h
-index 16682248f963..0ad7ea0d4898 100644
---- a/include/linux/tnum.h
-+++ b/include/linux/tnum.h
-@@ -63,6 +63,13 @@ struct tnum tnum_union(struct tnum t1, struct tnum t2);
- /* Return @a with all but the lowest @size bytes cleared */
- struct tnum tnum_cast(struct tnum a, u8 size);
+ security/keys/trusted-keys/trusted_tpm2.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+index 30188a0ec6766..fb45795b53327 100644
+--- a/security/keys/trusted-keys/trusted_tpm2.c
++++ b/security/keys/trusted-keys/trusted_tpm2.c
+@@ -425,6 +425,13 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+ 	if (private_len + 2 + public_len + 2 > blob_len)
+ 		return -E2BIG;
  
-+/*
-+ * Return the lowest @size bytes of @a sign-extended to 64 bits. @size must
-+ * be 1, 2 or 4: tnum_cast() above cannot express a 64-bit field, and the
-+ * shift here would be by 64 for @size 0.
-+ */
-+struct tnum tnum_sext(struct tnum a, u8 size);
-+
- /* Swap the bytes of a tnum */
- struct tnum tnum_bswap16(struct tnum a);
- struct tnum tnum_bswap32(struct tnum a);
-diff --git a/kernel/bpf/log.c b/kernel/bpf/log.c
-index a6f205653a9e..2286576ccfe6 100644
---- a/kernel/bpf/log.c
-+++ b/kernel/bpf/log.c
-@@ -654,6 +654,8 @@ static void print_reg_state(struct bpf_verifier_env *env,
- 		verbose_a("id=%d", reg->id);
- 	if (reg->link_kind)
- 		verbose(env, "%+d", reg->delta);
-+	if (reg->link_kind == BPF_REG_LINK_SEXT)
-+		verbose(env, ".sx");
- 	if (reg->parent_id)
- 		verbose_a("parent_id=%d", reg->parent_id);
- 	if (type_is_non_owning_ref(reg->type))
-diff --git a/kernel/bpf/tnum.c b/kernel/bpf/tnum.c
-index 1f620facd1b7..55d10d362eed 100644
---- a/kernel/bpf/tnum.c
-+++ b/kernel/bpf/tnum.c
-@@ -200,6 +200,21 @@ struct tnum tnum_cast(struct tnum a, u8 size)
- 	return a;
- }
- 
-+struct tnum tnum_sext(struct tnum a, u8 size)
-+{
-+	u8 shift = 64 - size * 8;
-+
 +	/*
-+	 * Shifting the field up to the top and back down arithmetically
-+	 * replicates its sign bit through the high half. Applying that to the
-+	 * mask as well carries over whether the sign was known: an unknown
-+	 * sign bit leaves every high bit unknown.
++	 * TPMT_PUBLIC starts with type (2), nameAlg (2), and
++	 * objectAttributes (4), which is read below.
 +	 */
-+	a = tnum_cast(a, size);
-+	return TNUM((s64)(a.value << shift) >> shift,
-+		    (s64)(a.mask << shift) >> shift);
-+}
++	if (public_len < 8)
++		return -EINVAL;
 +
- bool tnum_is_aligned(struct tnum a, u64 size)
- {
- 	if (!size)
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index ce7016446936..dffcaa2e1392 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -3763,7 +3763,7 @@ static void assign_scalar_id_before_mov(struct bpf_verifier_env *env,
- 	 * rY->id has special linked register already.
- 	 * Cleared it, since multiple rX += const are not supported.
- 	 */
--	if (src_reg->link_kind)
-+	if (src_reg->link_kind && src_reg->link_kind != BPF_REG_LINK_SEXT)
- 		bpf_clear_scalar_id(src_reg);
- 	/*
- 	 * Ensure that src_reg has a valid ID that will be copied to
-@@ -6057,6 +6057,25 @@ static void zext_32_to_64(struct bpf_reg_state *reg)
- 	reg_set_urange64(reg, reg_u32_min(reg), reg_u32_max(reg));
- }
- 
-+/*
-+ * The sign-extending counterpart. Signed bounds carry over directly because
-+ * sign extension is monotonic over the signed 32-bit range.
-+ */
-+static void sext_32_to_64(struct bpf_reg_state *reg)
-+{
-+	/*
-+	 * See comment at reg_step_check_unsigned(). Sign extension subtracts
-+	 * 2^32 from every value with bit 31 set, which preserves a residue
-+	 * mod step only when step divides 2^32, so the line cannot be kept.
-+	 * The zero-extending twin calls reg_step_check_unsigned(reg, 32) for
-+	 * the same reason; the unsigned form does not apply here because the
-+	 * result is not the low 32 bits but the low 32 bits moved.
-+	 */
-+	reg_step_reset(reg);
-+	reg->var_off = tnum_sext(reg->var_off, 4);
-+	reg_set_srange64(reg, reg_s32_min(reg), reg_s32_max(reg));
-+}
-+
- /* truncate register to smaller size (in bytes)
-  * must be called with size < BPF_REG_SIZE
-  */
-@@ -17544,12 +17563,29 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
- 						return -EACCES;
- 					} else if (src_reg->type == SCALAR_VALUE) {
- 						bool no_sext;
-+						/*
-+						 * A 32-bit sign extension keeps the low 32
-+						 * bits, so dst shares them with whatever src
-+						 * shares them with. Both base + d and
-+						 * (u32)(base + d) have low half (base + d), so
-+						 * dst is (s32)(base + d) either way: inherit
-+						 * src's id and delta and record
-+						 * BPF_REG_LINK_SEXT.
-+						 */
-+						bool subreg_link =
-+							(insn->off >> 3) == 4 &&
-+							(src_reg != dst_reg || src_reg->id);
- 
- 						no_sext = reg_umax(src_reg) < (1ULL << (insn->off - 1));
- 						if (no_sext)
- 							assign_scalar_id_before_mov(env, src_reg);
-+						else if (subreg_link && !src_reg->id &&
-+							 !tnum_is_const(src_reg->var_off))
-+							src_reg->id = ++env->id_gen;
- 						*dst_reg = *src_reg;
--						if (!no_sext)
-+						if (!no_sext && subreg_link && src_reg->id)
-+							dst_reg->link_kind = BPF_REG_LINK_SEXT;
-+						else if (!no_sext)
- 							bpf_clear_scalar_id(dst_reg);
- 						coerce_reg_to_size_sx(dst_reg, insn->off >> 3);
- 					} else {
-@@ -18485,17 +18521,29 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
- 		if (reg->id != known_reg->id)
- 			continue;
- 		/*
--		 * A zero-extending link, spelled BPF_REG_LINK_ZEXT: the
--		 * relation reg == (u32)(base + delta) does not invert once the
--		 * base is wider than 32 bits, so the reverse direction is
--		 * skipped.
-+		 * The reverse direction does not work for a narrow known_reg:
-+		 * it knows only its low 32 bits, which say nothing about a
-+		 * wider reg's high half. Neither (u32)(base + delta) nor
-+		 * (s32)(base + delta) inverts once the base is wider than 32
-+		 * bits.
- 		 */
--		if (known_reg->link_kind == BPF_REG_LINK_ZEXT &&
-+		if ((known_reg->link_kind == BPF_REG_LINK_ZEXT ||
-+		     known_reg->link_kind == BPF_REG_LINK_SEXT) &&
-+		    reg->link_kind != BPF_REG_LINK_ZEXT &&
-+		    reg->link_kind != BPF_REG_LINK_SEXT &&
- 		    get_reg_width(reg) > 32)
- 			continue;
- 		/*
--		 * Skip mixed 32/64-bit links: the delta relationship doesn't
--		 * hold across different ALU widths.
-+		 * Skip a pair of differing kinds. Where BPF_REG_LINK_FULL meets
-+		 * a 32-bit kind the delta relationship genuinely does not hold:
-+		 * the deltas were added at different ALU widths.
-+		 * BPF_REG_LINK_ZEXT against BPF_REG_LINK_SEXT is not that case
-+		 * -- both are base + delta in the low 32 bits, so narrowing one
-+		 * really does narrow the other -- but that deduction is
-+		 * declined on purpose. It makes an int loop counter a fresh
-+		 * constant on every iteration, so no two iterations prune
-+		 * against each other and the program runs to the instruction
-+		 * limit. See sext_no_sync_from_zext_sibling.
- 		 */
- 		if (reg->link_kind && known_reg->link_kind &&
- 		    reg->link_kind != known_reg->link_kind)
-@@ -18504,7 +18552,7 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
- 		 * Only an unlinked pair is a plain copy. Anything carrying a
- 		 * kind goes through the differencing arm below, which adds the
- 		 * delta difference (zero when the deltas match) and then
--		 * applies the BPF_REG_LINK_ZEXT zero-extension.
-+		 * re-applies whichever extension the kinds call for.
- 		 */
- 		if (!reg->link_kind && !known_reg->link_kind) {
- 			*reg = *known_reg;
-@@ -18531,9 +18579,26 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
- 			scalar32_min_max_add(reg, &fake_reg);
- 			scalar_min_max_add(reg, &fake_reg);
- 			reg->var_off = tnum_add(reg->var_off, fake_reg.var_off);
--			if (reg->link_kind == BPF_REG_LINK_ZEXT ||
--			    known_reg->link_kind == BPF_REG_LINK_ZEXT)
-+			if (reg->link_kind == BPF_REG_LINK_SEXT) {
-+				sext_32_to_64(reg);
-+			} else if (reg->link_kind == BPF_REG_LINK_ZEXT ||
-+				   known_reg->link_kind == BPF_REG_LINK_ZEXT ||
-+				   known_reg->link_kind == BPF_REG_LINK_SEXT) {
-+				/*
-+				 * Either @reg is itself the zero extension, or
-+				 * @reg has no 32-bit kind and @known_reg does
-+				 * -- the reverse direction, where the guard
-+				 * above has already proved @reg fits 32 bits.
-+				 * Then @reg is @known_reg's low half with
-+				 * nothing above it, whichever way @known_reg
-+				 * filled its own high half, so the zero
-+				 * extension is the reconstruction for both
-+				 * kinds. BPF_REG_LINK_FULL is not here on
-+				 * purpose: it relates all 64 bits and must not
-+				 * be truncated.
-+				 */
- 				zext_32_to_64(reg);
-+			}
- 			/*
- 			 * Intersect rather than overwrite. A BPF_REG_LINK_ZEXT
- 			 * link over a wide base does not propagate back, so the
+ 	pub = blob + 2 + private_len + 2;
+ 	/* key attributes are always at offset 4 */
+ 	attrs = get_unaligned_be32(pub + 4);
+
+base-commit: 722658cac48a6ba49f5506fd74d010ad9dbb2f05
 -- 
-2.53.0-Meta
+2.55.0
 
