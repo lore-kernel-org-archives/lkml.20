@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479428;
-	b=AkWCV4Qg4fZF7nyZxY6RVMyPjSdGVKz7n04qoVNdnWLM7rTxDa/KurqlZYSSq0NLhcmZ
-	 1yQA8TI5sYyROPsg/aHr9Ux7rqRb4RAKwEHkhWo7b0zKB/I5jPr1BdWzknDDz3erUsrS5
-	 xnOhAGa/tUPZRgK8AktHbAsnZ6NGXCe91irQFxII+UpCKWh7qPgqxBryo5sQHT9utexrz
-	 IC62bdRCmRIZonJPLMDkPqFU0L5rlPjJW1qO007Q9M1B6YsgsJXFr1ZP9MPDYxR051axo
-	 UVF5Z6rzsL6L3/9GAhw5OFw9b6zU18m/oUl3k+Etsl3PoBMvy0XqPRYyzaMp5y9BgXA==
+	t=1792479440;
+	b=GbA0WzKCI+CFL2x0U2T6TUYlYUGfqf3I9XiiR21pdQoh5/L9mIocKWGavlbAtabnMunq
+	 7B1Dgdqq9eugmEp0t/F8dzMEf3g+1jWKfMfU32r9Wui2dZfKLEOU/aOsY+ccH0TKiaUw4
+	 +GnqZgNj2Fpt6bGGj2bNFpHjwil3rQ0SvWn6UZU8+i1jqBD5gKzu8X/CNZf0MOyysWu8/
+	 sVkkazaeQLBSw0QoSde4rRdQYTlpjqNfoExbpoo1au7Cl4pQpGLxCgCY0eVBMiaRCeYDv
+	 G8OhVy2QE9/eAamT8R1ESeOkRFc/VnPgrfd/3QZ0CEhbUYShgf4K85vwr+7RORQW8fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479428;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AtfaIB7zNIcokdWhAV1B+vumdcEZUgvLFCxAn12t790=;
-	b=vrfabtIkbEFFiW1ClaVICm6iAtml1crHi7JPgjFidUcmEhnDUyCqn4GQ89T/dGNVrKfB
-	 FIN1FksvBZZINjMx5gPaApZaB6ntcTpVUR9TqovJj/zD9Qoo7dG3tgvomnw69wNKD32G8
-	 n9lA1Vn/7BqS3O1DmlmhdQa8ZLvdykFrJ31Y5nM+bQJ9ZbvnDzkaHifCyeD6PIpQ1VoDQ
-	 xf94CRXNIeIeQqhBEUJrYaovrAZp4SBX7q2CSPY5exUoxt3mOeTNul0kEJ8KGQcR2YXyt
-	 KIn8wXI6RkPHfngDxnz00Ti5AhV64C/AKjxpnTprJZkZ4KMGqwN+0gd752nj0kCsfeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479440;
+	h=DMARC-Filter:DKIM-Signature:Cc:Message-Id:To:Received:
+	 Content-Transfer-Encoding:Reply-To:Subject:Date:User-Agent:
+	 X-Lms-Return-Path:Content-Type:From:References:X-Original-From:
+	 In-Reply-To:Mime-Version;
+	bh=YmzrkAr1UCdFF1b7GSnZNeQasDWPbv25bVPLQoA0QTE=;
+	b=vjIb75hYLFsX6qyUsUQz2G86RF7R9kZuY4JGzuBXylBIzom5ipGRd0hRNVUBHoJaVmJ5
+	 qKnEoEiPHF0lTOYNednYVnhgf/GaZl36OgieDhjPIRs/7QbzbXkVPiwSfMvjC5xOv5unD
+	 g1LIwGThCAmcQdu2BbFTfkwEcO8befybdJdqkzNwDnsJGF6MF9tGtUzZjYXEz3o+sh/Kd
+	 s4Ld46KXRYJ4XxUODE1HbmxpojyJE0SX9cT2PPAQTRDOvsAYvKEkcBtaE+MyubKYT+ddj
+	 shKg6M/5gILjMRdf5e0UmYTYzHpqwwwWPJ7r6TM1VVxjUqHdnDSJvgau0agKBKxupmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b="wM/PVUNn";
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 92630606A31E;
-	Tue, 20 Oct 2026 06:57:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92630606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=OMdnNeHn;
+	arc=none smtp.remote-ip=209.127.231.51
+Received: from va-2-51.ptr.blmpb.com (va-2-51.ptr.blmpb.com [209.127.231.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC155606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:57:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC155606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=wM/PVUNn
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 6E42A1C007A;
-	Tue, 20 Oct 2026 08:56:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1792479417;
-	bh=8k+f6s1iBSMA7KdqSLVFKJqY4O8BHwfAeNveqUnEYQE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=wM/PVUNnw86yViL3yGqD3Wom6NcR7xLNm22vqyRI5BuZO32PHsW6+A5Ho9ukhXc2p
-	 9tsx3NP1nCI7ieT2KLMb/Lomk7e3TZKm7CxFv4TKkGFpHu39vJJ3ErYcuEc6N10kz0
-	 k5lRM3oHIVQQK6569O30JiEAjgpmXJWOzAb8pdyc=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: linux-kernel@vger.kernel.org
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	Oleg Nesterov <oleg@redhat.com>,
-	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Alexey Gladkov <legion@kernel.org>,
-	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Davide Berardi <berardi.dav@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	strace-devel@lists.strace.io
-Subject: [PATCH v8 0/3] PTRACE_SET_SYSCALL_INFO: add support for seccomp syscall skipping
-Date: Tue, 20 Oct 2026 08:56:30 +0200
-Message-ID: <20261020065635.490528-1-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=OMdnNeHn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1792479433;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=YmzrkAr1UCdFF1b7GSnZNeQasDWPbv25bVPLQoA0QTE=;
+ b=OMdnNeHnsa/x0j5hsYN3yNbcS2qb8SQ9eZpoRASiKSgY2V82t8+wNZ6lTor20AbDKTzRtS
+ pf5W4k2tx/cIl+kLCJJ9cXRwY/CPQ1dLUe67JlDi+SCr/Dvfq6/+PPK0Qy1r56MsPSrsOG
+ asiSe4KnszoJmlVNhxXun2cXLPRDHXvkL7Alxr8yEEX/knK0dpjHuTebAk5hkYnHjFxitY
+ 1E4M4APSta6jqKk2Yqc1m1cB5WGUdnoKgItjZtuCKry+8CZeUO4dl3fkVWzx+jzHmOCejT
+ JDh5xsDJoNRpqjoFVXqkAl1yXDhoreUE17YVJbIT1ysN+SCBSpXmwalD5S88Sw==
+Cc: <linux-block@vger.kernel.org>, "Jens Axboe" <axboe@kernel.dk>, 
+	"Christoph Hellwig" <hch@lst.de>, "Damien Le Moal" <dlemoal@kernel.org>, 
+	"Ming Lei" <tom.leiming@gmail.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, 
+	"Mike Snitzer" <snitzer@kernel.org>, 
+	"Mikulas Patocka" <mpatocka@redhat.com>, <dm-devel@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, "Jack Wang" <jinpu.wang@cloud.ionos.com>
+Message-Id: <e2c36f31-d198-40a7-a18d-156e1fd6fbb2@fygo.io>
+To: "Jack Wang" <jinpu.wang@ionos.com>, "Song Liu" <song@kernel.org>, 
+	<linux-raid@vger.kernel.org>, "Nilay Shroff" <nilay@linux.ibm.com>, 
+	<abd.masalkhi@gmail.com>, "yu kuai" <yukuai@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.21]) by smtp.larksuite.com with ESMTPS; Tue, 20 Oct 2026 06:57:11 +0000
+Content-Transfer-Encoding: quoted-printable
+Reply-To: yukuai@fygo.io
+Subject: Re: [PATCH v2 0/8] md: don't wait for q->limits_lock while md holds back I/O
+Date: Tue, 20 Oct 2026 14:57:07 +0800
+User-Agent: Mozilla Thunderbird
+X-Lms-Return-Path: <lba+26ad710c8+d38c61+vger.kernel.org+yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+From: "yu kuai" <yukuai@fygo.io>
+References: <20260910081114.1605746-1-jinpu.wang@ionos.com>
+X-Original-From: yu kuai <yukuai@fygo.io>
+In-Reply-To: <20260910081114.1605746-1-jinpu.wang@ionos.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,117 +75,172 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
 
-PTRACE_SET_SYSCALL_INFO is a generic ptrace API that complements
-PTRACE_GET_SYSCALL_INFO by allowing a tracer to modify details of a
-system call in which the tracee is currently blocked.
+Hi,
 
-This patch set extends PTRACE_SET_SYSCALL_INFO with support for
-skipping a system call at a PTRACE_EVENT_SECCOMP stop and setting its
-return value.  To do this, the tracer changes 'op' from
-PTRACE_SYSCALL_INFO_SECCOMP to PTRACE_SYSCALL_INFO_EXIT and fills in the
-exit union fields (rval and is_error).
+=E5=9C=A8 2026/9/10 16:11, Jack Wang =E5=86=99=E9=81=93:
+> From: Jack Wang <jinpu.wang@cloud.ionos.com>
+>
+> Writing to a queue limits attribute of an md array while a spare is
+> being re-added deadlocks the array.  I reported this earlier here:
+>
+>    https://lore.kernel.org/linux-raid/CAMGffE=3DheGA3y8FjQ0Sm1jj-kd-=3DH9=
+Y54WozKASSEZhc9UNKjA@mail.gmail.com/
+>
+> Four tasks, one array:
+>
+>    udev-worker    queue_attr_store() holds q->limits_lock, waits in
+>                   blk_mq_freeze_queue() for q_usage_counter to drain
 
-Michal pointed out in the review of v7 [1] that the register state alone
-cannot tell whether a syscall has to be executed or skipped with a
-preset return value, since on some architectures the return value
-shares a register with the syscall number or the arguments, and that
-the "already dispatched" information should be architecture
-independent rather than an architecture-specific thread flag.
+Sorry for the delay, usually blk_mq_freeze_queue() is useless for bio-based
+disks, because it can't guarantee inflight BIOs to drain. So this looks lik=
+e
+a long term problem since queue_attr_store() can still update limits while
+there can still be bios inflight.
 
-v8 does exactly that: the tracer no longer sets the syscall number to -1
-and relies on syscall_get_nr() reading it back as negative.  Instead,
-patch 1 adds a per-task flag owned by seccomp, which the tracer sets
-while the tracee is stopped.  When the tracee resumes, seccomp skips the
-system call just like for SECCOMP_RET_ERRNO, a path every architecture
-already handles without touching the return value.  This also fixes
-skipping on s390, where -1 is read back as syscall 65535.
+>    fio            holds a q_usage_counter reference, parked in
+>                   md_handle_request()'s is_suspended() loop
+>    mdadm          suspended the array, waits for reconfig_mutex
+>    md_start_sync  holds reconfig_mutex, waits for q->limits_lock
 
-On powerpc, this series depends on the fix posted separately [2]:
-syscall_set_return_value() currently sets TIF_SYSCALL_RET on the
-*caller*, i.e. on the tracer when called from PTRACE_SET_SYSCALL_INFO,
-and skipped system calls lose non-error return values.  Both problems
-are regressions in v7.3-rc and already break the existing
-set_syscall_info selftest and seccomp_bpf user_notification_basic on
-ppc64le.
+And this deadlock looks related to blk_mq_freeze_queue() concurrent with
+mddev_suspend(), hence there can be bio blocked between. So I think there
+can be a simpler solution for this deadlock.
 
-[1] https://lore.kernel.org/lkml/apWFHkZnCMfxQCEk@kunlun.suse.cz/
-[2] https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it/
+1) either remove the blk_mq_freeze_queue() from limits update for mdraid, o=
+r
+2) also add blk_mq_freeze_queue() to mddev_suspend().
 
-Testing (QEMU, v7.3-rc6, tools/testing/selftests/ptrace/set_syscall_info
-and tools/testing/selftests/seccomp/seccomp_bpf):
+If this is a mdraid specific problem, I'll suggest 2). If there are other
+bio-based drivers have the same problem, we might what to replace
+blk_mq_freeze_queue() with driver's bio suspend to fix that limits can
+update with inflight bios as well.
 
-                               x86_64 (KVM)   ppc64le (TCG)   s390x (TCG)
-  ptrace/set_syscall_info      2/2            2/2             2/2
-  seccomp/seccomp_bpf          111/111        111/111         110/111 (*)
-
-  Skipping getpid() at a PTRACE_EVENT_SECCOMP stop, with a filter that
-  kills the process on unknown syscall numbers:
-
-  op=SECCOMP, nr=-1 (before)   error          r3 left as is   SIGSYS kill
-  op=SECCOMP->EXIT (this)      -ESRCH         -ESRCH          -ESRCH
-
-  (*) user_notification_wait_killable_after_reply timed out under TCG
-      while another VM was running; it passes 5/5 both with and without
-      this series on an idle x86_64 KVM guest.
-
-  Build-tested also with CONFIG_SECCOMP=n and CONFIG_SECCOMP_FILTER=n.
-  Not tested: MIPS, arm64, riscv, loongarch, real hardware.
-
-Changes in v8:
-* skip the system call via a seccomp per-task flag instead of
-  syscall_set_nr(-1), as suggested by Michal Suchánek
-* new helper ptrace_set_syscall_info_seccomp_skip() instead of a bool
-  argument to ptrace_set_syscall_info_exit() (Michal Suchánek)
-* once the system call is skipped, reject further
-  PTRACE_SYSCALL_INFO_SECCOMP updates during the same stop
-* selftest: also test an error return value and the above
-* dropped the Reviewed-by tags of Oleg and Dmitry, as patch 2 changed
-  significantly
-
-Changes in v7:
-* rebased to Linux 7.3-rc1
-
-Changes in v6:
-* selftests/ptrace/set_syscall_info.c: improve messages in case of failure.
-
-Changes in v5:
-* reworded the explanation for not supporting PTRACE_SYSCALL_INFO_ENTRY yet.
-* selftests/ptrace: removed a redundant check.
-
-Changes in v4:
-* Reworded the commit messages for clarity.
-* Renamed the local variable child_op to op in ptrace_set_syscall_info()
-* Clean up and improve the coding style of selftests/ptrace/set_syscall_info.c
-  (suggested by Dmitry V. Levin)
-
-Changes in v3:
-* restrict the syscall skipping feature to PTRACE_SYSCALL_INFO_SECCOMP
-
-Changes in v2:
-bugfix: _NONE -> _EXIT transition was erroneously permitted
-
-Davide Berardi (1):
-  seccomp: let the tracer skip a syscall independently of its number
-
-Renzo Davoli (2):
-  ptrace: add PTRACE_SET_SYSCALL_INFO syscall skipping support
-  selftests/ptrace: add a test case for PTRACE_SET_SYSCALL_INFO syscall
-    skipping
-
- include/linux/seccomp.h                       |  33 +++
- include/linux/seccomp_types.h                 |   4 +
- kernel/ptrace.c                               |  45 +++-
- kernel/seccomp.c                              |  11 +-
- .../selftests/ptrace/set_syscall_info.c       | 220 +++++++++++++++++-
- 5 files changed, 309 insertions(+), 4 deletions(-)
-
-
-base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
-prerequisite-patch-id: abdd0fc0973bc3845ae7bfe84d855a7213ccd3d7
--- 
-2.55.0
-
+>
+> The last leg is mddev_stack_new_rdev() from ->hot_add_disk().  Since
+> commit c99f66e4084a ("block: fix queue freeze vs limits lock order in
+> sysfs store methods") the sysfs store holds q->limits_lock across the
+> freeze, so md must not block on that lock while it is holding back the
+> I/O the freeze waits for.  That is the same hazard mddev_suspend()
+> already documents for reconfig_mutex.
+>
+> v1 kept q->limits_lock outermost where it could and used a trylock
+> everywhere else.  Christoph asked for the lock ordering to be fixed
+> instead, so v2 drops the trylock and the block patch that added it.
+>
+> The rule v2 applies is that q->limits_lock nests outside reconfig_mutex
+> and the suspend everywhere, with no exceptions to paper over.  The two
+> callers that cannot own an update do not need one: check_sb_changes()
+> and md_check_recovery() only ever re-add a device that is already a
+> member, so its limits are stacked and the update is a refresh, and they
+> now take the no-stack path unconditionally.  mddev_update_io_opt() is
+> not an add and does need the update, so patch 4 defers it to a work
+> item that takes the lock with nothing held.
+>
+> Making the hoists unconditional exposed a second cycle that the trylock
+> had been hiding, which Nilay hit with lockdep on v1:
+>
+>    q->limits_lock -> reconfig_mutex        added by this series
+>    reconfig_mutex -> disk->open_mutex      pre-existing, md opens legs
+>                                            under reconfig_mutex
+>    disk->open_mutex -> q->limits_lock      pre-existing, sd_open() ->
+>                                            sd_revalidate_disk()
+>
+> Only the middle edge can go, so legs are now opened before any md lock
+> is taken.  Patch 7 does the opens and patch 8 the holder links, which
+> take disk->open_mutex too and were easy to miss because the release
+> side only takes blk_holder_mutex.  Opening without reconfig_mutex means
+> the superblock format fields have to be snapshotted and rechecked once
+> the array is locked.
+>
+> Patches 1, 3 and 6 are plumbing with no functional change.
+>
+> Two callers still take q->limits_lock inside reconfig_mutex, both with
+> the array suspended, and patch 5 says why: ->start_reshape() from
+> action_store(), which suspends before flushing sync_work, and
+> raid*_run() -> queue_limits_set() from level_store(), which already
+> hangs on its own because it freezes the queue while suspended.  Both
+> need more restructuring than belongs here.
+>
+> The patches are based on v7.3-rc2.
+>
+> v1: https://lore.kernel.org/linux-raid/20260909063029.GC29874@lst.de/T/#t
+>
+> Changes since v1:
+>   - Drop the trylock and the block patch adding
+>     queue_limits_start_update_trylock(), per Christoph.
+>   - check_sb_changes() and md_check_recovery() take the no-stack path
+>     unconditionally instead of trying the lock first.
+>   - Defer the io_opt update to a work item rather than skipping it on a
+>     contended pass (patch 4, was "md: don't wait for q->limits_lock in
+>     mddev_update_io_opt()").
+>   - New patches 6-8 to close the reconfig_mutex -> disk->open_mutex
+>     edge that lockdep reported on v1: pass a queue_limits through
+>     ->run(), open new legs before locking the array, and link their
+>     holders there too.
+>   - Rebased on v7.3-rc2.
+>
+> Testing, on v7.3-rc2 with lockdep (PROVE_LOCKING, DEBUG_LOCK_ALLOC):
+>
+>   - the reproducer below, 20 fail/remove/add cycles with fio in flight
+>     and a loop writing queue/max_sectors_kb, where the same test wedges
+>     the array before the series
+>   - array start at raid0, raid1, raid5, raid10 and linear, spare add,
+>     fail and remove, the rdev sysfs stores, ADD_NEW_DISK, array_state
+>     transitions, a level change and a raid5 3 -> 4 reshape to
+>     completion, which is what exercises patch 4's work item: io_opt
+>     goes from 1048576 to 1572864 once end_reshape() runs
+>   - HOT_ADD_DISK of an undersized leg, so bind_rdev_to_array() fails
+>     and patch 8's release path runs
+>
+> No lockdep reports, and debug_locks stayed 1 throughout.  Every patch
+> builds on its own.
+>
+> A blktests case covering this deadlock will be sent separately.
+>
+> The reproducer, for anyone who wants it:
+>
+>    mdadm -C /dev/md111 --force -e 1.2 --assume-clean -l 1 \
+>          --bitmap=3Dinternal -n 2 /dev/ram0 /dev/ram1
+>
+>    fio --direct=3D1 --rw=3Drandrw --ioengine=3Dlibaio --iodepth=3D32 --nu=
+mjobs=3D4 \
+>        --time_based=3D1 --runtime=3D180 --filename=3D/dev/md111 --name=3D=
+repro &
+>
+>    while :; do
+>        echo 128 > /sys/block/md111/queue/max_sectors_kb 2>/dev/null
+>    done &
+>
+>    for i in $(seq 20); do
+>        mdadm /dev/md111 --fail /dev/ram0
+>        mdadm /dev/md111 --remove /dev/ram0
+>        mdadm /dev/md111 --add /dev/ram0
+>        mdadm --wait /dev/md111
+>    done
+>
+> Jack Wang (8):
+>    md: pass a queue_limits down to ->hot_add_disk()
+>    md: don't wait for q->limits_lock in check_sb_changes()
+>    md: pass a queue_limits through the rdev sysfs stores
+>    md: defer the io_opt update out of the sync thread
+>    md: take q->limits_lock before locking and suspending the array
+>    md: pass a queue_limits through ->run()
+>    md: open new legs before locking the array
+>    md: link a new leg's holder before locking the array
+>
+>   drivers/md/dm-raid.c       |   4 +-
+>   drivers/md/md-autodetect.c |  38 ++-
+>   drivers/md/md-linear.c     |  30 +-
+>   drivers/md/md.c            | 661 +++++++++++++++++++++++++++++--------
+>   drivers/md/md.h            |  56 +++-
+>   drivers/md/raid0.c         |  16 +-
+>   drivers/md/raid1.c         |  26 +-
+>   drivers/md/raid10.c        |  37 ++-
+>   drivers/md/raid5.c         |  54 ++-
+>   9 files changed, 741 insertions(+), 181 deletions(-)
+>
+--=20
+Thanks,
+Kuai
