@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474353;
-	b=AavsjSnsJIJC94R/bSIu7n5Dm2fV/z/4TSDdbBtpfPzn57Zn9agMh7xR45qyEIprbMIj
-	 IXDZEhyE55Ilr+ZgVTle7TETb/Hrs1HjxDAnDKMi9qXXs5x1i7lzjaK10y+pRNx4DmAqu
-	 vS6HFrmy6ydfUeiYjtaJY0PoWtKLgLGVbkSprxEBgmCWnIjaEvJK7IuDR5E5PYwOOPN5A
-	 q51rsQufg5oerw8JRhP5Yktixq1ts2g6vp3nATAVW3XZJ/Il2+43Lo9FGoFJqEyYdwMe8
-	 llOSVungRHq+UB4uq/3BMMtTdMf+EuJr8eOn7v6rEVMmFMq8ExpD6rrypQ6XyadgpQA==
+	t=1792474483;
+	b=k8pWaPm1vUVJ1OEu0l/6RunWlYAxLW5/sTr392+eonF2XZKe78e25vgl6nsADr1VFhzA
+	 9aC9mWaVZcolmX/Anwe2zmSrrK6HWPGBhH7AKLuVDAEiBoqpTaRDe1vb2ct7+XQlRkB/g
+	 wgyfpKOwD4zBTYxPQZzRo8cjJRFwWWkvQSxW8bWwoZ9y/b6SRXw8F/aIFq3GCyoDsk1Dd
+	 NBGYzZh0SS7gva7634EsaMOi6xrm/WpyBl3ipS704Ozc/7JaTqtm4muTy+VFgTQ/8OlFG
+	 kVTiqypxDTjMXAdMXiVzC8hiWEqdOZVQSRMJaKnb5r0TpDH8oB0M6INCa5MfZB21IyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474353;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KOulGVMaguEwuPmjIvDB0lBPaaawA/BwOi5X8lfpRRk=;
-	b=ujteSU46fMGtkgsrdW1WD8DOZycqAQgmx8l7x4EhIRf/cDDF/4xKMp6Ua2eWbXlZGjem
-	 Osv9ZBg16sEx0bu/uUbZ/tvhBU08xltrR9c7Lu+7M34XC1df2uKNW1r+6SMmX4bYc2NCX
-	 Bt7kzei3dU9TsGe/BBAmhflj5OvXfzReI3sVrRzhWioFJ9f3f7if6bNHHR2FCqMAaqZa8
-	 O6mVp7R+DwjADQSPmqGdYA3W+090nuYkbTi6T3wUKRTIXQUn935NXaK0euprxbOlB5Tqk
-	 tq7ufJHVJRMb9IVP5IjKBCA8/M9PXC89jIaYVj/slzp1Xsk4R2NCPK3FZ8hAC2AuGcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474483;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=flDdnbgpLbuu0srS7vDLug/Gj+E6AwZDNNV7bkNw8vE=;
+	b=D4QYVRs+o41VI/zj6cvo/uhwVjE6BlsRrl6DESAQt6FA+n7uAbvMNNl+eHj4dqmjFJ1E
+	 N6VS2aLp9ztiFA5cHtPMPmwnjUgyWzPtkDdM+1giaGeZ0fCSkyElbZdqULPq/f76CPAdz
+	 ntrIhsmDaliKt4E15qjCdtcIVMCVnX7XChqb6KeF5OLOZKvX3dRBSHenqRBohof9zJI1w
+	 gqsdmEUyPvC8CzdOzCpljyWaP9obhKRH9eFgAIzfUE/TqnrKStcr97mLF3yepHfGmdy6r
+	 M/qv6TORF4DyDwmzntUp4SS3j0pRghn+a6gC/RfNYWipxNZ9nQcqjyMAGhk88cpIpcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNEWb9e8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qHnCnxjM;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FD2606A319;
-	Tue, 20 Oct 2026 05:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C68606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99C68606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNEWb9e8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0532B1F000C4;
-	Tue, 20 Oct 2026 05:32:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792474352;
-	bh=KOulGVMaguEwuPmjIvDB0lBPaaawA/BwOi5X8lfpRRk=;
-	h=From:To:Cc:Subject:Date;
-	b=kNEWb9e8ZCnLIsoikUEWNu2tWCbMiqa3oz9wt9F48SobTF/rdxgDlU/slFGMCQyRw
-	 cy8e10qrcY8Ow9/V4WZKh75kbCZ1UZrijt7JxKBij3/ylvuL7rIq4D6eTU6hy6EaU4
-	 nFCBbDxLC18wn84fEKQzjuob7BDMgwyHt+y/nuovqQjZEJQy4Q1H9dAqUUNSSFLSxJ
-	 07gBNa2lxo25BA8Vj9Ao5UtOOo+g7DU0BHXvIotK5vpfDjXdECa/PrdrKPoO3trYzW
-	 lCydXoALOSduPnbqfcHvGQ99HTAMYKW1wdG8m30haF0Bta3r2CuTY19h8LOTL1D2TZ
-	 Ar+u+p2qVycZg==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH] perf bpf-filter: Fix memory leak on bpf_link
-Date: Mon, 19 Oct 2026 22:32:26 -0700
-Message-ID: <20261020053226.55936-1-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qHnCnxjM
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f2f2edb19so234424385a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:34:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792474481; x=1793079281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=flDdnbgpLbuu0srS7vDLug/Gj+E6AwZDNNV7bkNw8vE=;
+        b=qHnCnxjMgmWPCmjzvHMEqIoz/N0j1p/RBkcBzvyCgrZsFQpOVON/6t+YtRxqHWpvqU
+         /6oh/rtP2LtNQj6JnShAjBjKNtvmvkVSF97dedEqG6+KYqdD6mU8J479pL3jyGJz3Dac
+         AyPBlZrMJnr/Q8fBPGeMxxVJz3pjWDEpsHvqStyohAwFBUNrPEoqrOrTyKZdXqSjk6Xw
+         9UHheShLXojrlol1FAfRsgqadklEgIploWYzo7Wk4okmDXX0ayt2oakKvrfagYx0ZZxJ
+         OQoLM/APjeP0QCoDOvtGuCoysCDk3Kl8ON3A29XTfUczA24i9lZOnCLKCPMOLJ7Of9B9
+         WVRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792474481; x=1793079281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=flDdnbgpLbuu0srS7vDLug/Gj+E6AwZDNNV7bkNw8vE=;
+        b=YB3H0EAo4MsFftilpA5qWpXSX77LunXcY2N17BGQoFR84SLSmNgHGrpEeyntExSged
+         NsyUhZDqLpMEXCCM2jbQb/SZZoqBifODoY/4LgY0o3aMAjX2nz3oW+j6n1ZguGj2hh1Y
+         jj2b1SG/eb4IWgllxrkqsbTNw+7IjxVs8O2aZQjr1NO2D0paorwtEccPCsx8XNnCBOt3
+         83l1zWs9csU4GN8nEqV8OEmofuFjCUz9MPp2RaHdjbdjKeiTooKEGqhepeWi1wV7xkdS
+         QfusmA50jY76RdpJpXSpA5lMt7VvaP0syy4C13/2FFYsDwBLUrFIrplmQ602DmC5vm1E
+         s8KA==
+X-Forwarded-Encrypted: i=1; AKwUvBycUrFUWqKx0IjLeMjlQipceQJeO+VtRciWy8dXUQfSOY9Ax0r1Yocm8kfrxdy79LYxl1/jiviPJzjZDEM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5qYjUrcX7mDhJFZ9eoN6vdnaCJl135sxB/SXajdVbPhowSRz9
+	7gHuBWMxtuf7KvvR1upbI3BphuGk6fxMrfFJazXSMKRyNQVeMnH3RwMB3N1cRQ==
+X-Gm-Gg: AYBFou0C76bMhK1zXnParcQkegSpdZgc0+03bZYvafpp88BLrBf/qKzmVmiHLa8kdGb
+	n+DU8Y0YbC31fKij8i45DJoltu8VgQFbbyFhh22TVsoB+Xx05BAqrT5O9QGyLM+OcOSZZ/HN1Un
+	HOYxDyFcpl3YOxp7kgn1rVjccpsgP9xz3uh9WFxr8c67g6TycA06e9UA9n5tulLQEii3GOA2uFa
+	AROr55hitRGb2yXYAnOHul4fMXpI+zJWhTaHl3+WcfH9UbawoZNhpk9DLixpNfYpkjOD81uDYBZ
+	QXbJFBfh1UIktKfqJ9ZqW8FFleD5L0xw+jcacbPo5Fza/a5rcPb3PdfocgHQfDOj9MbpvTeayfu
+	xoW2NgnBpm+9w11mlyY6q0jiglAReWPqk1GlxuewMBRRkou19dHPC//9y0M0VnxUglDzN1K9Gp1
+	EBO05h5UQd7gGpQtqyyIT9mCuXyi3YhsgKDYAO+zS+ta0C7ycxZRUPo2P3EJSf+glkDVajCcB16
+	Fgi6fazfFns38YftpmZBg==
+X-Received: by 2002:a05:620a:2416:20b0:93f:34c9:925f with SMTP id af79cd13be357-93f34c995bfmr845551685a.17.1792474481518;
+        Mon, 19 Oct 2026 22:34:41 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b082168sm139455685a.22.2026.10.19.22.34.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 22:34:40 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Tomasz Jeznach <tomasz.jeznach@linux.dev>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Fangyu Yu <fangyu.yu@linux.alibaba.com>,
+	Zong Li <zong.li@sifive.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1 0/2] iommu/riscv: Keep page table pages when IOTLB invalidation fails
+Date: Tue, 20 Oct 2026 01:34:22 -0400
+Message-ID: <20261020053435.1179054-4-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,121 +107,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Attaching BPF program returns bpf_link but it leaked like following.
+riscv_iommu_iotlb_sync() frees the page table pages on gather->freelist
+without knowing whether the invalidation that should have removed the
+cached references to them was queued and completed. Patch 1 makes the
+command helpers report a failure and leaks the freelist in that case.
+Patch 2 fixes riscv_iommu_queue_wait() reporting success when the
+command queue stopped on an error before the IOFENCE.C ran, so that
+patch 1 also catches that case.
 
-  ==51328==ERROR: LeakSanitizer: detected memory leaks
+Neither failure is expected on working hardware, but when one happens,
+freeing the pages lets the IOMMU walk memory that has a new owner.
 
-  Direct leak of 1568 byte(s) in 28 object(s) allocated from:
-      #0 0x7ffbe76ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
-      #1 0x000000625df7 in bpf_program__attach_perf_event_opts (tools/perf/perf+0x625df7) (BuildId: 5e6309fda155e58708e92f1c76d44cadd585d0eb)
-      #2 0x000000beddc0 in perf_bpf_filter__prepare util/bpf-filter.c:507
-      #3 0x0000008f3def in evlist__apply_filters util/evlist.c:1421
-      #4 0x00000044bbcf in record__open  tools/perf/builtin-record.c:1469
-      #5 0x000000453f9e in __cmd_record  tools/perf/builtin-record.c:2594
-      #6 0x00000045dadb in cmd_record  tools/perf/builtin-record.c:4427
-      #7 0x0000005df56b in run_builtin  tools/perf/perf.c:383
-      #8 0x0000005dfa0e in handle_internal_command  tools/perf/perf.c:436
-      #9 0x0000005dfddc in run_argv  tools/perf/perf.c:480
-      #10 0x0000005e0333 in main  tools/perf/perf.c:581
-      #11 0x7ffbdd450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
-      #12 0x7ffbdd450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
-      #13 0x000000409c54 in _start (tools/perf/perf+0x409c54) (BuildId: 5e6309fda155e58708e92f1c76d44cadd585d0eb)
+The pages that the dma-iommu flush queue frees after flush_iotlb_all()
+and the data pages released by iommu_unmap() callers are not covered,
+as the IOMMU core does not let those callbacks report a failure.
 
-  SUMMARY: AddressSanitizer: 1568 byte(s) leaked in 28 allocation(s).
+The issues were found with a static analysis tool from ongoing, not yet
+published research, and confirmed by code inspection. Compile-tested
+only (ARCH=riscv defconfig with RISCV_IOMMU=y, W=1, each patch).
 
-Let's add an xyarray of bpf_link for the filters and release them at the
-end to fix the leaks.
+Yuho Choi (2):
+  iommu/riscv: Keep page table pages when IOTLB invalidation fails
+  iommu/riscv: Do not report a stalled command queue as completed
 
-Fixes: 56ec9457a4a20c5e ("perf bpf filter: Implement event sample filtering")
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/util/bpf-filter.c | 32 ++++++++++++++++++++++++++++++++
- tools/perf/util/evsel.h      |  1 +
- 2 files changed, 33 insertions(+)
+ drivers/iommu/riscv/iommu.c | 74 ++++++++++++++++++++++++++-----------
+ 1 file changed, 53 insertions(+), 21 deletions(-)
 
-diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.c
-index 72e83ac1d6a4b075..2fec6004b1aabc1e 100644
---- a/tools/perf/util/bpf-filter.c
-+++ b/tools/perf/util/bpf-filter.c
-@@ -67,6 +67,7 @@
- #include "bpf_skel/sample_filter.skel.h"
- 
- #define FD(e, x, y) (*(int *)xyarray__entry(e->core.fd, x, y))
-+#define LINK(e, x, y) (*(struct bpf_link **)xyarray__entry(e->bpf_links, x, y))
- 
- #define __PERF_SAMPLE_TYPE(tt, st, opt)	{ tt, #st, opt }
- #define PERF_SAMPLE_TYPE(_st, opt)	__PERF_SAMPLE_TYPE(PBF_TERM_##_st, PERF_SAMPLE_##_st, opt)
-@@ -501,6 +502,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 		goto err;
- 	}
- 
-+	evsel->bpf_links = xyarray__new(xyarray__max_x(evsel->core.fd),
-+					xyarray__max_y(evsel->core.fd),
-+					sizeof(link));
-+	if (evsel->bpf_links == NULL) {
-+		ret = -errno;
-+		pr_err("Failed to allocate bpf links\n");
-+		goto err;
-+	}
-+
- 	prog = skel->progs.perf_sample_filter;
- 	for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
- 		for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
-@@ -511,6 +521,8 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 				ret = PTR_ERR(link);
- 				goto err;
- 			}
-+
-+			LINK(evsel, x, y) = link;
- 		}
- 	}
- 	free(entry);
-@@ -528,6 +540,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 			free(pfi);
- 		}
- 	}
-+	if (evsel->bpf_links) {
-+		for (x = 0; x < xyarray__max_x(evsel->bpf_links); x++) {
-+			for (y = 0; y < xyarray__max_y(evsel->bpf_links); y++) {
-+				bpf_link__destroy(LINK(evsel, x, y));
-+			}
-+		}
-+		xyarray__delete(evsel->bpf_links);
-+		evsel->bpf_links = NULL;
-+	}
- 	sample_filter_bpf__destroy(skel);
- 	return ret;
- }
-@@ -541,6 +562,17 @@ int perf_bpf_filter__destroy(struct evsel *evsel)
- 		list_del(&expr->list);
- 		free(expr);
- 	}
-+
-+	if (evsel->bpf_links) {
-+		for (int x = 0; x < xyarray__max_x(evsel->bpf_links); x++) {
-+			for (int y = 0; y < xyarray__max_y(evsel->bpf_links); y++) {
-+				bpf_link__destroy(LINK(evsel, x, y));
-+			}
-+		}
-+		xyarray__delete(evsel->bpf_links);
-+		evsel->bpf_links = NULL;
-+	}
-+
- 	sample_filter_bpf__destroy(evsel->bpf_skel);
- 
- 	list_for_each_entry_safe(pfi, pos, &pinned_filters, list) {
-diff --git a/tools/perf/util/evsel.h b/tools/perf/util/evsel.h
-index 53f3641b66e18674..c4639e6aeac2ffce 100644
---- a/tools/perf/util/evsel.h
-+++ b/tools/perf/util/evsel.h
-@@ -174,6 +174,7 @@ struct evsel {
- 
- 	struct list_head	bpf_counter_list; /* for perf-stat -b */
- 	struct list_head	bpf_filters; /* for perf-record --filter */
-+	struct xyarray		*bpf_links;
- 
- 	/* for perf-stat --use-bpf */
- 	int			bperf_leader_prog_fd;
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.56.0
+2.43.0
 
