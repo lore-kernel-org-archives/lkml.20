@@ -1,58 +1,166 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.153.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474873;
-	b=RunGC3q8FExiPZe5LYP23B1bkqsE74KeOIlKHiP36yO7oyvv49fayeysfnOnxeRIevFl
-	 D0Z1crRANDUtuBcVfrmlBjY6PEMFZip4mc2UkQ9s+BEwotkPzOcetKdC1GF6mgFmjU80k
-	 vEoPgrNBBLxyIbrp4m/BvXcPKW9vRa+FxiGhJVwzs+dpmlY2c897QPigW1XwVzBeKEScj
-	 SAYI02oW4RUO33NdI+4mk9nPzNeML50yr2TDmNsAod9dfxwBn+pSC5EknsH7bKJep0O/Q
-	 0NxLlL3tRZ+hXxXt4IpOljXBlctMmwPW0gEm1JSkmykkOhS5FxkIGKiZobUHmmuC0aA==
+	t=1792474877;
+	b=NZz57+qwRlh+GfZ4TQQmnpMucw8cCD0W+NTVZ7d0Rh6xvXg5t6oXUB8yUg2Di/pbLjAr
+	 wu3EhI3MSqt5cr6VrTA58ppXgHtajmmXagv0Bt6wsz9ZFsy13s+ier73lDhhLVKIb2XF4
+	 s4LgA/Ncb40KUu+DVrXbFQFS8K9A3rZ7IXlSWhb0fFgt5uriaDvHjmIzquhQb55MjRrgW
+	 xbKczkreIJP0bBC2CFhAvqkIRyELoEWhDB5W9lwk8xeIkwLboM2qgisH+1G+XLMSUSqhG
+	 Tk/kw+4QuTKx/GKhVZcQfSVO0+h0ItD+T5eTIH5GI24W0v5JLsdjdof3xN5Wi/dJxVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474873;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uTLoMN4OPawg9FcCWDIerqTFK0G6Yu2FDRi+Pe3MEZU=;
-	b=2Kr7Jpeu9hDZjOfJpkfl+RGEyIJiReCSEAbcpA1Dai0yheNIrmFudb1FTeSpmIP7ZdaM
-	 6OFYhW0owgqbuichkLVk/P4/yFaRxke0A6rW93gjRF+/XOXzc6o1akF3mdQSHOdLnWEDp
-	 kivTCbRFFBWAP+/kU1Eq9KtZelztYgL4RR5am07snkAzxErcSgpvjtG6iM0X3bTwLqyNm
-	 rdhtj4qKrA359m7m6NnVvtTqVnNY0oH0ydbKWcK4jDdFHCp7By0z+fv9yYiS9+WaKySGV
-	 o18O1Vm0aqD6OWSqrK7PBccgooIczXFa9rwUFDGNfUN8euLAznuAKUYkGdww/081ggg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474877;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Language:Content-Type:Content-Transfer-Encoding;
+	bh=u+u4F3tlx9eOdDeM/Y9OtmWphlt7OhZN8AyU8RRBU+I=;
+	b=u389qgMnpgX56X+W4A9z8Yt+CNXhGHC7xcrB4qKdC3b6hrDWIf5/rUwYhgv3+uqCWJYl
+	 9u/aEzf2+M1KdEuWhgHdbsH2AuQOY0X9QsXZ4CV7axKLeduaTdiyIJTB8a5DeDXOg7OxR
+	 uLUqtymT9Cq/m4jenuKJ+8tQOzLUpHnP8nBOeecPspKfPcgHzX2XhPNbG0uknU9gZWwIC
+	 QONap0FPUga7hqYlESF4psZPWVMMQeSGOvlvWeIJtUJeMA8akgUvLf29+uo65MhqsNDYp
+	 nmX/9hu27Q5h6Wcv+A1KbDK18et9cOVZmDISg+VgTEMavU8jIKkowirNRLagvnrfECA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbssqYTY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=onsemi.com;
+	spf=pass smtp.mailfrom=onsemi.com;
+	dkim=pass header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=e2Oynkeo;
+	arc=none smtp.remote-ip=170.10.153.120
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BC9606A319;
-	Tue, 20 Oct 2026 05:41:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DECA606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:41:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DECA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbssqYTY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 981521F000C4;
-	Tue, 20 Oct 2026 05:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792474872;
-	bh=uTLoMN4OPawg9FcCWDIerqTFK0G6Yu2FDRi+Pe3MEZU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XbssqYTYNiiI3JbX1bPyppyWIF5K3GB9KLe7bjzi5TVykWVhEZOxKO1RJmR0EaDJa
-	 nzHO9qEjZZivErOr3gWAFm5IgJhHcxYEF0xd42v4gunZcKouMuHeVNGy48ZBEqeeux
-	 3XCxn95DFlvWEknmkl95/OkjfpfqcjVH90wHIQzfJMhyDinJL5ETVhHC48y8jIMhWN
-	 fqO9B6wsA8xny1aAJlOiKNc07Saj7aEUpQeqNkboHkoZaJqLe+OF7cDpjLpj12SYk1
-	 ilDPJJH+zO2G+HzDxhrnVxJxGY4E1NYHlY3LuziC/YrSWC5nm74F3CE6AaI1IDU7tv
-	 Q79B34Ae0ShuQ==
-Date: Mon, 19 Oct 2026 22:41:10 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
-	jolsa@kernel.org, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, mingo@redhat.com,
-	peterz@infradead.org, eranian@google.com, ddhariwal@google.com,
-	rcu@vger.kernel.org
-Subject: Re: [PATCH v4 2/7] perf bpf-filter: Support BPF sample filters on
- tracepoint events
-Message-ID: <atb-9j8tLZ2rFtOm@z2>
-References: <20261018053710.2572636-1-irogers@google.com>
- <20261019220915.3943592-1-irogers@google.com>
- <20261019220915.3943592-3-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=e2Oynkeo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1792474875;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u+u4F3tlx9eOdDeM/Y9OtmWphlt7OhZN8AyU8RRBU+I=;
+	b=e2Oynkeozs2BNHvVP7VCc1BHkCyu5kQU2d+mKZv7YQmDjR0U0isLP6MpfOFEumAOXlwdXE
+	ZA3S0WyEP4MA7y8lUtck4gkkacCJnr9JHDXIVJw4Bwxjc2roz7Il/s21JshTqfbU/t59Wk
+	DI9z5Y5HQmENtQai/XgBB0s7wceUtIgs9/abLxpbPa6+ZTHzMFLd2zVdhm417usyNSd5Ay
+	Umy02FN0/VWB7BztbXsmf4rruuRCG5lrVqHadKHgslV9WZLDfBUaaJxd7JiMPod7y5mHSP
+	5Dvtzw0sHmo8EiQtsppt3WWDEJkWNsvgsHtY8YGGC8aTfnh4GmWkmGUMBoWvWg==
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011019.outbound.protection.outlook.com
+ [40.93.194.19]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ usb-mta-4-55lV576MMBiHf90_2g3i2Q-2; Tue, 20 Oct 2026 05:41:09 +0000
+X-MC-Unique: 55lV576MMBiHf90_2g3i2Q-2
+X-Mimecast-MFC-AGG-ID: 55lV576MMBiHf90_2g3i2Q_1792474863
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com (2603:10b6:610:110::22)
+ by SJ0PR02MB8797.namprd02.prod.outlook.com (2603:10b6:a03:3d6::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 05:41:00 +0000
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e]) by CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 05:41:00 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "parthiban.veerasooran@microchip.com"
+	<parthiban.veerasooran@microchip.com>, "horms@kernel.org" <horms@kernel.org>,
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
+	<skhan@linuxfoundation.org>, "rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>, "andrew@lunn.ch"
+	<andrew@lunn.ch>, "hkallweit1@gmail.com" <hkallweit1@gmail.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "edumazet@kernel.org"
+	<edumazet@kernel.org>, "piergiorgio.beruto@gmail.com"
+	<piergiorgio.beruto@gmail.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "jerry.ray@microchip.com"
+	<jerry.ray@microchip.com>, "ciprian.regus@analog.com"
+	<ciprian.regus@analog.com>
+Subject: RE: [PATCH net-next v9 08/11] onsemi: s2500: Add driver support for
+ S2500 MAC-PHY
+Thread-Topic: [PATCH net-next v9 08/11] onsemi: s2500: Add driver support for
+ S2500 MAC-PHY
+Thread-Index: AQHdWBFheSW5KzHdDUym8VB6YFOA5bb3Lj0AgA6u0oA=
+Date: Tue, 20 Oct 2026 05:41:00 +0000
+Message-ID: <CH0PR02MB7867DCB969D65C90B32D11E383672@CH0PR02MB7867.namprd02.prod.outlook.com>
+References: <20261009-s2500-mac-phy-support-v9-8-dcefe1d0bf0d@onsemi.com>
+ <179166122244.434549.1856310047736770607@kernel.org>
+In-Reply-To: <179166122244.434549.1856310047736770607@kernel.org>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR02MB7867:EE_|SJ0PR02MB8797:EE_
+x-ms-office365-filtering-correlation-id: f3552282-8795-4fe6-ce5b-08df2e6cb905
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|38070700021|4143699003|11063799006|5023799004|56012099006|10067099003|261009223027099003|22082099003|18002099003|6133799003
+x-microsoft-antispam-message-info: EY7S6mCezdtbc2BCsAuTwHhYE5R58bKGB8lHVaRY859LtCgfkm81HWwv2fZ6tgWOdMlrEfYgEYsbsZ4l2I4lraIizQE4wBimXJh/a1Z848Gfzyt9lwpdPfzgBniFQmAKkdaQluTv+bWjetSGx2F8LdJF8MFTPc7ax2Su6jgr7dAfufgM6oPz7GGAFcvcTQ4XggTtpt7zdFaPz6PJ8mle0WLMg8jYIM+taFKxy8yRRyMQHKMf1zRoS1G1pl9TyOLW3Uijg8/nkgRwwsAlxqFrTEKrEos9lIeIxEaSr4jH/XdKYTHzWBJYpJBe1vm49t2ZHgFhjwqNajaEH1zdABoSzf38EJQR0cCFc6FUucpuFPKum0RLM/9WrKVbKJABaOe9/iEkEnCb/NWXtoklZZojJl3vviDzF005O3bcrHBlxPVGP3zh38bcWvXMB9zHkK9AhU8QGzIfiAl25AaWz6YJNO/8oGkh3BonbGNM6evVFDH3DnPftjDynp1HsatrqX3CaW28lWJc029ERA3CgUDHvsRwJx8r+tiTeFBJOCLBBZ2XtOTS39KuryZTM/dKM6zsDz3sN7ml6Y9aVzjd0SxZWV2oU3XUWLhHUbhMBbyemGtCX+Vl+AyB74Z2Qq+4yIHjh68KPqX5vACbDyG2N6EBaa8fuWxMjb5nP5Q2CyZkoGX+jnfwgXLjVONc+ktEGmhtMTaOaWhVkTVBB+zHbK+/vIg6E628/glINwds1wu77rU=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR02MB7867.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(38070700021)(4143699003)(11063799006)(5023799004)(56012099006)(10067099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eGJHTE00YjJBVHR1ZW1tNWVZamF4S1MxWFIvQlZRc2JtZ2RsV0wwZDFwd1c3?=
+ =?utf-8?B?SllOZVNXcHlTcS9lMEN2anJnSDNVRitwOFNIU1A3aCtySGRmL2E2MytEaTVJ?=
+ =?utf-8?B?VEN1QWVKZDNwMGV5dkVaMnJieFpTVG94clUxRjdBa2w3TW1PTXhubitpaGJp?=
+ =?utf-8?B?OEJNVG1vNC9yRW5WdHN3aUpjVGxWNWtqbU5KTlJnbHd6OTRVL1BZamNFZ09N?=
+ =?utf-8?B?TTdHSW85OVZWaU00SjNlYTdJN3FsdDNVdWY0dGViMmZpaXNzZXhxaythdUl1?=
+ =?utf-8?B?bEdYWkNQWG9SR3ZQck1wZ2s0cWpwaVd4dkRtZ0diZ1VzeCs2NDFobEcyd1pP?=
+ =?utf-8?B?U2toNFVPN3g1bi9hWG53Zkx0dWVsc0lQN0ZwYlhaSjhEVVBUTVM2dnFRMFdY?=
+ =?utf-8?B?eTRvS1BPeFExM3d1ZktPSGJhdnBNT0pYM1IyR0ZTUWxmcEllSU45ZnRMN292?=
+ =?utf-8?B?bEZrR0doZmxpb2d6UUlNYWsya3NjeXJxQ1c4ZUIxbWtEdFg5bStheTY4OXpD?=
+ =?utf-8?B?a3FNVHJIRnFNMThOemlnQWxHRFN0QVN3U3lLeCsyUnAzYWd2T3o1ZjBkZkpC?=
+ =?utf-8?B?by9hRHFHMTFRZTJ6WnlKeFNpWE4yb0RDVStxdktZN3hLRGxtR1FyeWtpVmFD?=
+ =?utf-8?B?UlRkY2F2QTJUL3B4SVNuUEtyOVNaL1haeFB1U2UxWnJVbU9lZmxjSm0vU01I?=
+ =?utf-8?B?ZmR3NXAyUjVXUUgyTmhvRjJyY01yaUY4RFdLckhEMWkvVUtyaUNGcXBrWjAy?=
+ =?utf-8?B?a2hZUmdKdkoxVFl4YXVwZlVMQzRyYy9QMkxqV3FQR0xnUjdodktxY1Q5aW1p?=
+ =?utf-8?B?WjlYc0ZaditEU0Rld1ZucWtlUHhkYWNNT0pIWXREaG5rL0VXekw1T1lwd2t5?=
+ =?utf-8?B?SGZHUkJ0QjBYK0R4OXZKQ1hhaHZRb3BoK01oc2ZHTC9PTjFPcmZ5RlZFdWow?=
+ =?utf-8?B?REtWK2NaVTRJYjFtR1V5MFpoL1k3dkZYQjJwek5TNnZEV21xYlhlcHJYcmpX?=
+ =?utf-8?B?bnhXK3hGWkJUekYyNkU2d3BCZ3QxZWpYMFdVWUdUVXAxcGJDSWt4QzRnR0U0?=
+ =?utf-8?B?aTBWeXNVUzA3dytYRGJ0RHlPdEcxWW80Mk0yajF3dGQzOU9KVFQ4cG5wUlhT?=
+ =?utf-8?B?TVo2UFBzUUo2SXhnRnJhOGN2NEcxM0V4aWlhYUxId0lDUXllRytaNHlGTzFH?=
+ =?utf-8?B?VW9CL0xUNUpOc3ZkN3ZFcDF6elhiOTdpUFdoL21kM1N3MndEUm95VG9INGpU?=
+ =?utf-8?B?RDVJd0FZQ2JzaUd0RXc2M1d0LzgyVWdEekNZQmtzQjhQRmNhRThWV1lWMit3?=
+ =?utf-8?B?U2wzMm9XMG5ncW5NYzdQbHRwV3RXTWQyaUpMSUliVW4zQ0pHZlI5UUNkSUda?=
+ =?utf-8?B?WEN5NjQ5b1hJSWpxY2Z5SXNWbnZPcDBkQ0lueDV5RDU5RVcxdkp4ZjlqZ0lN?=
+ =?utf-8?B?MlhuVENBRXJ2dEp1L01IcXpHVTZKNG1LdlAwNVBoMmpocjM3NGdDbEh1Yjg5?=
+ =?utf-8?B?L2FhR00rN29tM1RPZ09CWkZtd0thdzU2TXRyWGJRNTRSUWpGdTZ0ZUJpL0lE?=
+ =?utf-8?B?R1FnRU5uUDgxZkd2MTFTYW5JV0JQdjRNVnkwOXM4UWxIbEJVWGpTeXQwNm4x?=
+ =?utf-8?B?N0NPYmVQODBweDNiY3pDUVB1Q202NzJiaEVOdm0xMnM5QzR5YWJJam9CWHZa?=
+ =?utf-8?B?dHhndzZzaXNpOTlvZWJDTnlTKzdXa1lTSGRpMm50anpTTkpWMmU2anB4M3BU?=
+ =?utf-8?B?TmZpM1NzQ09lYmkyc0VGUE9WTHhGUTUwd3ptWFhmUlNpa3FCTEIwMnV1anNx?=
+ =?utf-8?B?dCtJczh6MkhGQTZrdmdDdFBMN0RFbkZ0Y1JjN1g3Q3E5UnhTa3prV0RQaTZs?=
+ =?utf-8?B?aUV1U3FlNVYybnJSWk8yOXBPcmxmVnlSYlUzRU5PbFFVMXlHSjJMNk9zRU1X?=
+ =?utf-8?B?TmcveUZPSEVvYkdPR0lFWGtBL3R0RHNHZXNhTmxPd0R0RlhzWXltNnhJaWFD?=
+ =?utf-8?B?UXljN2Q1RFdqM0hZRisvUG1IS3J6MnB0MFFsZ09ESk5uNCtnUVdibVFqeEp3?=
+ =?utf-8?B?K1pKR1pFYW5xS01qNDB5cG00cU9uL3p4a2ZndFBENER5a0UyaDI3amUvQmov?=
+ =?utf-8?B?UzNEZE5RZWRFSXp2aTZPbCsxYlRBdUJsKzA3cDEvbGRiQUFENDF0aU5zVDlQ?=
+ =?utf-8?B?OUMwTnhwZG9VNFVIRlZ5Z1ZDYUVOamk2b0xxVVBhN09UMU94Smwza3FSdXNV?=
+ =?utf-8?B?aktTSzJ5bDhvQi9VNUY4NWZPd1FpMyt6ZG5QTXZWQW50ZUZEZFFWb1dsc3dj?=
+ =?utf-8?B?c2QyQWhKd2lxZ21Lbk5FTlJPeFVKMWdSYUhZT0FOeDJ6eTRHbWt1Y3RXc0l1?=
+ =?utf-8?Q?IzqAaXeMQ53hnupc=3D?=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,406 +170,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019220915.3943592-3-irogers@google.com>
+X-Exchange-RoutingPolicyChecked: bJkWxfcuvWGN8a5bGRK3HMJkzVbtitgdI7xVH90Iy+Wa26MGkFYiRZ9mhTRQywlRjFZWi2Chz5FSMwHXDCJZSPLZADEuSNcUI/DyQUP+i+w0pIuCzUBNsBNfm3QT4gh132+XSh2b3GaV0LD402ffAZzQzWvEpEiy1k2lmIGps29cUcStd/dGwCmAlaDKOsPXw/1O4eLyp+RQCkEL9ZWPtpAowOHkfrxIiSUc1Ct+AdtkbAUnLpD8hLWtRsPW9j4QKHd2eqMRNTui/4u0PUTy0xGbJO/wQxwBjQXfCs1wYqZ57Lcu1PTq0TPp7GUpoajIU2rHR2zZU2ilq81tHsJJBQ==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR02MB7867.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3552282-8795-4fe6-ce5b-08df2e6cb905
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 05:41:00.5044
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Zld6Z+zVEB+qgTih1BXYCyXYec0GNc5M54j+jDBlK6+7HsZyorURQYUqZWlubt1ZdvYs6eETHhRIhGjvfLKGZdR89wNFnQacu6Ckql34w8g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8797
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 9epbOKSgbKKQW3fqaZUTiyKEYemX3UQdT9oM3E3UsT4_1792474863
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-On Mon, Oct 19, 2026 at 03:09:10PM -0700, Ian Rogers wrote:
-> Commit 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
-> updated set_filter() to route non-tracepoint filter terms (such as uid
-> and gid) on PERF_TYPE_TRACEPOINT events to evsel->bpf_filters instead
-> of the ftrace tracepoint predicate filter.
-> 
-> However, in the kernel's __perf_event_set_bpf_prog()
-> (kernel/events/core.c), attaching a BPF program to a perf_event fd
-> branches on perf_event_is_tracing(event):
-> - Non-tracing events (hardware PMU, software events, breakpoints) call
->   perf_event_set_bpf_handler(), which requires BPF_PROG_TYPE_PERF_EVENT
->   (SEC("perf_event")).
-> - Tracepoint events (event->pmu == &perf_tracepoint) reject
->   BPF_PROG_TYPE_PERF_EVENT with -EINVAL and instead require
->   BPF_PROG_TYPE_TRACEPOINT (SEC("tracepoint")), which is attached to
->   event->tp_event->prog_array and executed in
->   perf_trace_run_bpf_submit() before perf_tp_event(), dropping the
->   sample if the BPF program returns 0. Furthermore, the
->   bpf_cast_to_kern_ctx() kfunc is only permitted in
->   BPF_PROG_TYPE_PERF_EVENT programs.
-> 
-> Add SEC("tracepoint") int perf_tp_sample_filter(void *ctx) in
-> sample_filter.bpf.c to evaluate context-independent filter terms (uid,
-> gid, tid, cpu, time, cgroup) using BPF helpers without calling
-> bpf_cast_to_kern_ctx(). When preparing a BPF filter on a
-> PERF_TYPE_TRACEPOINT evsel, autoload perf_tp_sample_filter instead of
-> perf_sample_filter and attach it once to the shared trace_event_call.
-> 
-> Before:
->   # perf record -e kmem:mm_page_alloc --filter 'uid == 0' -- true
->   libbpf: prog 'perf_sample_filter': failed to attach to perf_event FD 3: Invalid argument
->   Failed to attach perf sample-filter program
->   failed to set filter "BPF" on event kmem:mm_page_alloc with 22 (Invalid argument)
-> 
-> After:
->   # perf record -e kmem:mm_page_alloc --filter 'uid == 0' -- true
->   [ perf record: Woken up 1 times to write data ]
->   [ perf record: Captured and wrote 0.024 MB perf.data (42 samples) ]
-> 
-> Fixes: 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/util/bpf-filter.c                 | 136 ++++++++++++++++---
->  tools/perf/util/bpf_skel/sample_filter.bpf.c |  85 ++++++++++++
->  2 files changed, 201 insertions(+), 20 deletions(-)
-> 
-> diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.c
-> index 72e83ac1d6a4..4e99af4764f1 100644
-> --- a/tools/perf/util/bpf-filter.c
-> +++ b/tools/perf/util/bpf-filter.c
-> @@ -123,15 +123,26 @@ static int check_sample_flags(struct evsel *evsel, struct perf_bpf_filter_expr *
->  {
->  	const struct perf_sample_info *info;
->  
-> -	if (expr->term >= PBF_TERM_SAMPLE_START && expr->term <= PBF_TERM_SAMPLE_END &&
-> -	    (evsel->core.attr.sample_type & (1 << (expr->term - PBF_TERM_SAMPLE_START))))
-> -		return 0;
-> -
->  	if (expr->term == PBF_TERM_UID || expr->term == PBF_TERM_GID) {
->  		/* Not dependent on the sample_type as computed from a BPF helper. */
->  		return 0;
->  	}
->  
-> +	if (evsel->core.attr.type == PERF_TYPE_TRACEPOINT) {
-> +		if (expr->term == PBF_TERM_TID || expr->term == PBF_TERM_CPU ||
-> +		    expr->term == PBF_TERM_TIME || expr->term == PBF_TERM_CGROUP)
-> +			return 0;
-> +		if (expr->op != PBF_OP_GROUP_BEGIN) {
-> +			pr_err("Error: %s tracepoint event does not support BPF sample term %d\n",
-> +			       evsel__name(evsel), expr->term);
-> +			return -1;
-> +		}
-> +	}
-> +
-> +	if (expr->term >= PBF_TERM_SAMPLE_START && expr->term <= PBF_TERM_SAMPLE_END &&
-> +	    (evsel->core.attr.sample_type & (1 << (expr->term - PBF_TERM_SAMPLE_START))))
-> +		return 0;
-> +
->  	if (expr->op == PBF_OP_GROUP_BEGIN) {
->  		struct perf_bpf_filter_expr *group;
->  
-> @@ -427,6 +438,7 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
->  	struct bpf_link *link;
->  	struct perf_bpf_filter_entry *entry;
->  	bool needs_idx_hash = !target__has_cpu(target);
-> +	bool is_tracepoint = (evsel->core.attr.type == PERF_TYPE_TRACEPOINT);
->  #if LIBBPF_CURRENT_VERSION_GEQ(1, 7)
->  	DECLARE_LIBBPF_OPTS(bpf_perf_event_opts, pe_opts,
->  			    .dont_enable = true);
-> @@ -444,9 +456,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
->  		goto err;
->  	}
->  
-> -	if (needs_idx_hash && geteuid() != 0) {
-> +	if (needs_idx_hash && geteuid() != 0 && !perf_cap__capable(CAP_BPF)) {
->  		int zero = 0;
->  
-> +		if (is_tracepoint) {
-> +			pr_err("Error: Tracepoint BPF filter requires CAP_BPF capability\n");
-> +			ret = -EPERM;
-> +			goto err;
-> +		}
-> +
->  		/* The filters map is shared among other processes */
->  		ret = create_idx_hash(evsel, entry);
->  		if (ret < 0)
-> @@ -484,8 +502,17 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
->  		return 0;
->  	}
->  
-> -	skel = sample_filter_bpf__open_and_load();
-> +	skel = sample_filter_bpf__open();
->  	if (!skel) {
-> +		ret = -errno;
-> +		pr_err("Failed to open perf sample-filter BPF skeleton\n");
-> +		goto err;
-> +	}
-> +
-> +	bpf_program__set_autoload(skel->progs.perf_sample_filter, !is_tracepoint);
-> +	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, is_tracepoint);
-> +
-> +	if (sample_filter_bpf__load(skel) < 0) {
->  		ret = -errno;
->  		pr_err("Failed to load perf sample-filter BPF skeleton\n");
->  		goto err;
-> @@ -501,15 +528,35 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
->  		goto err;
->  	}
->  
-> -	prog = skel->progs.perf_sample_filter;
-> -	for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
-> -		for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
-> -			link = bpf_program__attach_perf_event_opts(prog, FD(evsel, x, y),
-> -								   &pe_opts);
-> -			if (IS_ERR(link)) {
-> -				pr_err("Failed to attach perf sample-filter program\n");
-> -				ret = PTR_ERR(link);
-> -				goto err;
-> +	if (is_tracepoint) {
-> +		/*
-> +		 * For PERF_TYPE_TRACEPOINT, PERF_EVENT_IOC_SET_BPF attaches the
-> +		 * BPF program to event->tp_event->prog_array on the shared
-> +		 * trace_event_call, which perf_trace_run_bpf_submit() executes
-> +		 * for all CPUs and tasks before iterating the per-CPU perf
-> +		 * events. Attach once on the first FD so tp_event->prog_array
-> +		 * does not get duplicate copies for each per-CPU FD.
-> +		 */
-> +		prog = skel->progs.perf_tp_sample_filter;
-> +		link = bpf_program__attach_perf_event_opts(prog, FD(evsel, 0, 0),
-> +							   &pe_opts);
-> +		ret = libbpf_get_error(link);
-> +		if (ret) {
-> +			pr_err("Failed to attach perf tracepoint sample-filter program\n");
-> +			goto err;
-> +		}
-> +		skel->links.perf_tp_sample_filter = link;
-> +	} else {
-> +		prog = skel->progs.perf_sample_filter;
-> +		for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
-> +			for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
-> +				link = bpf_program__attach_perf_event_opts(prog, FD(evsel, x, y),
-> +									   &pe_opts);
+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IG5ldGRldi1ib3Qrc2FzaGlr
+b0BrZXJuZWwub3JnIDxuZXRkZXYtYm90K3Nhc2hpa29Aa2VybmVsLm9yZz4NCj4gU3ViamVjdDog
+UmU6IFtQQVRDSCBuZXQtbmV4dCB2OSAwOC8xMV0gb25zZW1pOiBzMjUwMDogQWRkIGRyaXZlciBz
+dXBwb3J0IGZvciBTMjUwMCBNQUMtUEhZDQogDQo+IENyaXRpY2FsOiAwIMK3IEhpZ2g6IDAgwrcg
+TWVkaXVtOiA2IMK3IExvdzogNg0KPiANCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBEb2Vz
+ICJyeF9taXNtYXRjaF9kcm9wcyIgZHVwbGljYXRlIGEgY291bnRlciB0aGF0IGFscmVhZHkgaGFz
+IGEgc3RhbmRhcmQNCj4gdUFQST8NCj4gDQoNCj4gQ291bGQgdGhpcyBiZSByZXBvcnRlZCB0aHJv
+dWdoIHJ0bmxfbGlua19zdGF0czY0LnJ4X290aGVyaG9zdF9kcm9wcGVkDQo+IGluc3RlYWQsIHdp
+dGggdGhlIHByaXZhdGUgRVRIX1NTX1NUQVRTIHN0cmluZyBkcm9wcGVkPw0KDQoNCkFncmVlZC4g
+VGhpcyB2ZW5kb3Igc2lkZSBjb3VudGVyIGlzbid0IG5lZWRlZC4gSXQgY2FuIGJlIHJlcG9ydGVk
+IHRocm91Z2ggd2hhdCBpcyBhbHJlYWR5IGF2YWlsYWJsZSBpbiBrZXJuZWwuDQoNCj4gWyAuLi4g
+XQ0KPiANCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBJcyBpdCBzYWZlIHRvIGJ1aWxkIENP
+TkZJRzAgZnJvbSBzY3JhdGNoIGhlcmUgaW5zdGVhZCBvZiBkb2luZyBhDQo+IHJlYWQtbW9kaWZ5
+LXdyaXRlPw0KPiANCj4gVGhlIG90aGVyIENPTkZJRzAgdXBkYXRlcyBpbiB0aGUgZnJhbWV3b3Jr
+IGFsbCB1c2UgcmVhZC1tb2RpZnktd3JpdGU6DQo+IG9hX3RjNl9lbmFibGVfZGF0YV90cmFuc2Zl
+cigpLCB0aGUgWkFSRkUgaGVscGVyIGFuZA0KPiBvYV90YzZfc2V0X2h3dHN0YW1wX3NldHRpbmdz
+KCkuDQoNCg0KQ291bGQgY2hhbmdlIHRoZSBjb2RlIHRvIG5vdCB0byBvdmVyLXdyaXRlIHRoZSBD
+T05GSUcwDQoNCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBEb2VzIGVuYWJsaW5nIFJYIGN1
+dC10aHJvdWdoIHdpdGggUzI1MDBfQ09ORklHMF9SWENURSB3b3JrIHdpdGggdGhlDQo+IGN1cnJl
+bnQgT0EgVEM2IHJlY2VpdmUgcGF0aD8NCj4gDQo+IA0KPiBsYW44NjV4IGRvZXNuJ3Qgc2V0IFJY
+Q1RFLCBzbyB0aGlzIGRyaXZlciBzZWVtcyB0byBiZSB0aGUgZmlyc3QgdG8gcnVuDQo+IGludG8g
+dGhlIG1pc3NpbmcgRkQgaGFuZGxpbmcuDQoNCg0KWWVzLiBGRCBzaG91bGQgYmUgY2hlY2tlZCBp
+biBmcmFtZXdvcmsgY29kZS4NCg0KDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtzdGF0aWMgaW50
+IHMyNTAwX2h3dHN0YW1wX3NldChzdHJ1Y3QgbmV0X2RldmljZSAqbmRldiwNCj4gPiArIHN0cnVj
+dCBrZXJuZWxfaHd0c3RhbXBfY29uZmlnICpjZmcsDQo+ID4gKyBzdHJ1Y3QgbmV0bGlua19leHRf
+YWNrICpleHRhY2spDQo+ID4gK3sNCj4gPiArIHN0cnVjdCBzMjUwMF9pbmZvICpwcml2ID0gbmV0
+ZGV2X3ByaXYobmRldik7DQo+ID4gKw0KPiA+ICsgcmV0dXJuIG9hX3RjNl9od3RzdGFtcF9zZXQo
+cHJpdi0+dGM2LCBjZmcpOw0KPiA+ICt9DQo+IA0KPiBbU2V2ZXJpdHk6IE1lZGl1bV0NCj4gQ2Fu
+IHR1cm5pbmcgVFggdGltZXN0YW1waW5nIG9mZiBoZXJlIGxlYXZlIGFuIHNrYiBzdHVjayBvbiB0
+eF90c19za2JfcT8NCj4gDQo+IFRoZSBza2IgYW5kIGl0cyB0c190dHNjX3BlbmRpbmcgc2xvdCB0
+aGVuIHN0YXkgc3R1Y2sgd2hpbGUgdGhlIGNvbXBsZXRpb24NCj4gaW50ZXJydXB0IGlzIG1hc2tl
+ZC4NCj4gDQo+IElmIHRpbWVzdGFtcGluZyBpcyB0dXJuZWQgYmFjayBvbiwgdGhlIHN0YWxlIFNU
+QVRVUzAgY2FwdHVyZSBiaXQgaXMNCj4gY2xlYXJlZCB3aXRob3V0IGRlbGl2ZXJpbmcgdGhlIHRp
+bWVzdGFtcC4gVGhlIHNsb3Qgc3RheXMgcmVzZXJ2ZWQgdW50aWwNCj4gdGhlIG5leHQgZGlzYWJs
+ZSBvciB1bnRpbCB0aGUgZHJpdmVyIGlzIHJlbW92ZWQuDQo+IA0KDQoNClNlZW1zIGxpa2UgaXQg
+aXMgYW4gaXNzdWUuIFRob3VnaCB2ZXJ5IG5hcnJvdyB3aW5kb3cgbWF5IGhpdCB0aGlzIGlzc3Vl
+LCBpdCBpcyBhbiBpc3N1ZS4gV2lsbCBmaXggaXQuDQoNCg0KPiANCj4gPiArc3RhdGljIHZvaWQg
+czI1MDBfcmVtb3ZlKHN0cnVjdCBzcGlfZGV2aWNlICpzcGkpDQo+ID4gK3sNCj4gPiArIHN0cnVj
+dCBzMjUwMF9pbmZvICpwcml2ID0gc3BpX2dldF9kcnZkYXRhKHNwaSk7DQo+ID4gKw0KPiA+ICsg
+ZGV2X2RiZygmcHJpdi0+bmRldi0+ZGV2LCAiJXMiLCAiczI1MDBfcmVtb3ZlXG4iKTsNCj4gPiAr
+DQo+ID4gKyB1bnJlZ2lzdGVyX25ldGRldihwcml2LT5uZGV2KTsNCj4gPiArIG9hX3RjNl9wdHBf
+dW5yZWdpc3Rlcihwcml2LT50YzYpOw0KPiA+ICsgb2FfdGM2X2V4aXQocHJpdi0+dGM2KTsNCj4g
+PiArfQ0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+IElzIHRoaXMgdGVhcmRvd24gb3JkZXIg
+c2FmZSBmb3IgVFggdGltZXN0YW1wcyB0aGF0IGFyZSBzdGlsbCBwZW5kaW5nPw0KPiANCg0KQW5v
+dGhlciBuYXJyb3cgY2FzZSwgYnV0IHN0aWxsIHBvc3NpYmxlLiBXaWxsIHRyeSB0byBhZGRyZXNz
+IGluIHRoZSBuZXh0IHJldmlzaW9uLg0KDQoNCg0KPiA+IEBAIC0wLDAgKzEsMTc0IEBADQo+ID4g
+Ky8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyDQo+ID4gKy8qDQo+
+ID4gKyAqIENvcHlyaWdodCAyMDI2IFNlbWljb25kdWN0b3IgQ29tcG9uZW50cyBJbmR1c3RyaWVz
+LCBMTEMgKCJvbnNlbWkiKS4NCj4gPiArICogb25zZW1pJ3MgUzI1MDAgMTBCQVNFLVQxUyBNQUMt
+UEhZIGRyaXZlcg0KPiA+ICsgKi8NCj4gPiArDQo+ID4gKyNpbmNsdWRlICJzMjUwMF9od19kZWYu
+aCINCj4gPiArDQo+ID4gK3N0YXRpYyBpbnQgczI1MDBfcHRwX2dldF90aW1lNjQoc3RydWN0IHB0
+cF9jbG9ja19pbmZvICpwdHAsDQo+ID4gKyBzdHJ1Y3QgdGltZXNwZWM2NCAqdHMsDQo+ID4gKyBz
+dHJ1Y3QgcHRwX3N5c3RlbV90aW1lc3RhbXAgKnB0cF9zdHMpDQo+ID4gK3sNCj4gPiArIHN0cnVj
+dCBzMjUwMF9pbmZvICpwcml2ID0gY29udGFpbmVyX29mKHB0cCwgc3RydWN0IHMyNTAwX2luZm8s
+DQo+ID4gKyBwdHBfY2xvY2tfaW5mbyk7DQo+ID4gKyB1MzIgZGF0YVsyXTsNCj4gPiArIHUzMiBh
+ZGRyOw0KPiA+ICsgaW50IHJldDsNCj4gPiArDQo+ID4gKyBwdHBfcmVhZF9zeXN0ZW1fcHJldHMo
+cHRwX3N0cyk7DQo+ID4gKyBhZGRyID0gRklFTERfUFJFUChTMjUwMF9SRUdfTU1TX01BU0ssDQo+
+ID4gKyBPQV9UQzZfUEhZX0M0NV9WU19NTVMxMikgfA0KPiA+ICsgUzI1MDBfUkVHX1ZTX1BUUF9T
+RUM7DQo+ID4gKyByZXQgPSBvYV90YzZfcmVhZF9yZWdpc3RlcnMocHJpdi0+dGM2LCBhZGRyLCAm
+ZGF0YVswXSwgMik7DQo+ID4gKyBwdHBfcmVhZF9zeXN0ZW1fcG9zdHRzKHB0cF9zdHMpOw0KPiA+
+ICsNCj4gPiArIGlmICghcmV0KSB7DQo+ID4gKyB0cy0+dHZfc2VjID0gZGF0YVswXTsNCj4gPiAr
+IHRzLT50dl9uc2VjID0gZGF0YVsxXTsNCj4gPiArIH0NCj4gPiArDQo+ID4gKyByZXR1cm4gcmV0
+Ow0KPiA+ICt9DQo+ID4gKw0KPiA+ICtzdGF0aWMgaW50IHMyNTAwX3B0cF93cml0ZV90aW1lKHN0
+cnVjdCBzMjUwMF9pbmZvICpwcml2LA0KPiA+ICsgY29uc3Qgc3RydWN0IHRpbWVzcGVjNjQgKnRz
+KQ0KPiA+ICt7DQo+ID4gKyB1MzIgZGF0YVsyXTsNCj4gPiArIHUzMiBhZGRyOw0KPiA+ICsNCj4g
+PiArIGxvY2tkZXBfYXNzZXJ0X2hlbGQoJnByaXYtPnB0cF9hZGpfbG9jayk7DQo+ID4gKw0KPiA+
+ICsgaWYgKHRzLT50dl9zZWMgPj0gKDFVTEwgPDwgMzIpKQ0KPiA+ICsgcmV0dXJuIC1FUkFOR0U7
+DQo+ID4gKw0KPiA+ICsgZGF0YVswXSA9ICh1MzIpdHMtPnR2X3NlYzsNCj4gPiArIC8qIGJpdCAz
+MSA9IGV4ZWN1dGUgc2V0IGNvbW1hbmQgKi8NCj4gPiArIGRhdGFbMV0gPSB0cy0+dHZfbnNlYyB8
+IEJJVCgzMSk7DQo+ID4gKyBhZGRyID0gRklFTERfUFJFUChTMjUwMF9SRUdfTU1TX01BU0ssDQo+
+ID4gKyBPQV9UQzZfUEhZX0M0NV9WU19NTVMxMikgfA0KPiA+ICsgUzI1MDBfUkVHX1ZTX1BUUF9T
+RVRTRUM7DQo+ID4gKw0KPiA+ICsgcmV0dXJuIG9hX3RjNl93cml0ZV9yZWdpc3RlcnMocHJpdi0+
+dGM2LCBhZGRyLCAmZGF0YVswXSwgMik7DQo+ID4gK30NCj4gPiArDQo+ID4gK3N0YXRpYyBpbnQg
+czI1MDBfcHRwX3NldF90aW1lNjQoc3RydWN0IHB0cF9jbG9ja19pbmZvICpwdHAsDQo+ID4gKyBj
+b25zdCBzdHJ1Y3QgdGltZXNwZWM2NCAqdHMpDQo+ID4gK3sNCj4gPiArIHN0cnVjdCBzMjUwMF9p
+bmZvICpwcml2ID0gY29udGFpbmVyX29mKHB0cCwgc3RydWN0IHMyNTAwX2luZm8sDQo+ID4gKyBw
+dHBfY2xvY2tfaW5mbyk7DQo+ID4gKyBpbnQgcmV0Ow0KPiA+ICsNCj4gPiArIG11dGV4X2xvY2so
+JnByaXYtPnB0cF9hZGpfbG9jayk7DQo+ID4gKyByZXQgPSBzMjUwMF9wdHBfd3JpdGVfdGltZShw
+cml2LCB0cyk7DQo+ID4gKyBtdXRleF91bmxvY2soJnByaXYtPnB0cF9hZGpfbG9jayk7DQo+ID4g
+Kw0KPiA+ICsgcmV0dXJuIHJldDsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBzMjUw
+MF9wdHBfc2V0X2ZyZXEoc3RydWN0IHMyNTAwX2luZm8gKnByaXYsIGxvbmcgc2NhbGVkX3BwbSkN
+Cj4gPiArew0KPiA+ICsgdTMyIHNpZ25fYml0ID0gMDsNCj4gPiArIGxvbmcgYWRqOw0KPiA+ICsg
+dTMyIHZhbDsNCj4gPiArIHU2NCBwcG07DQo+ID4gKw0KPiA+ICsgaWYgKHNjYWxlZF9wcG0gPCAw
+KSB7DQo+ID4gKyAvKiBzcGxpdCBzaWduIC8gbW9kICovDQo+ID4gKyBzaWduX2JpdCA9IDFVIDw8
+IDMxOw0KPiA+ICsgc2NhbGVkX3BwbSA9IH5zY2FsZWRfcHBtICsgMTsNCj4gPiArIH0NCj4gPiAr
+DQo+ID4gKyAvKg0KPiA+ICsgKiBDb252ZXJ0IHVuc2lnbmVkIHNjYWxlZF9wcG0gdG8gYXR0by1z
+ZWNvbmRzIHBlciBjbG9jayBjeWNsZXMuDQo+ID4gKyAqIFRoZSBzY2FsZWRfcHBtIGZvcm1hdCBp
+cyBReC4xNiAtLT4gMSBsc2IgPSAxLzY1NTM2IHBwbS4NCj4gPiArICogVGhlIGNsb2NrIHBlcmlv
+ZCBvZiB0aGUgUzI1MDAgaXMgOG5zICgxMjUgTUh6KSwgc28gMSBsc2Igb2YNCj4gPiArICogYWRq
+IHJlZ2lzdGVyIExTQiBpcyAxIGF0dG8tc2VjIC8gOG5zID0gMC4wMDAxMjUgcHBtLg0KPiA+ICsg
+KiBSZXByZXNlbnRlZCBpbiBReC4xNiBmb3JtYXQsIHRoaXMgaXMgMC4wMDAxMjUgKiAyXjE2ID0g
+OCguMTkyKQ0KPiA+ICsgKiBUbyBjb252ZXJ0IHNjYWxlZF9wcG0gaW50byBhIHJlZ2lzdGVyIHZh
+bHVlIHdlIG5lZWQgdG8gZGl2aWRlDQo+ID4gKyAqIGl0IGJ5IHRoZSBMU0IgdmFsdWUsIGhlbmNl
+IGFkaiA9IChzY2FsZWRfcHBtICogMTAwMCkgLyA4MTkyIHRvDQo+ID4gKyAqIG1pbmltaXplIHRo
+ZSBwcmVjaXNpb24gbG9zcyBkdWUgdG8gdGhlIGludGVnZXIgYXJpdGhtZXRpYy4NCj4gPiArICog
+VGhhdCBmdXJ0aGVyIHJlZHVjZXMgdG8gKHNjYWxlZF9wcG0gKiAxMjUpIC8gMTAyNC4NCj4gPiAr
+ICovDQo+ID4gKyBwcG0gPSAodTY0KXNjYWxlZF9wcG0gKiAxMjU7DQo+ID4gKyBkb19kaXYocHBt
+LCAxMDI0KTsNCj4gPiArIGFkaiA9IChsb25nKXBwbTsNCj4gPiArDQo+ID4gKyAvKiBjaGVjayBv
+dmVyZmxvdyAqLw0KPiA+ICsgaWYgKGFkaiA+IFMyNTAwX1BUUF9BREpfTUFYKQ0KPiA+ICsgcmV0
+dXJuIC1FUkFOR0U7DQo+ID4gKw0KPiA+ICsgdmFsID0gKHUzMilhZGogfCBzaWduX2JpdDsNCj4g
+PiArIHJldHVybiBvYV90YzZfd3JpdGVfcmVnaXN0ZXJfbW1zKHByaXYtPnRjNiwgT0FfVEM2X1BI
+WV9DNDVfVlNfTU1TMTIsDQo+ID4gKyBTMjUwMF9SRUdfVlNfUFRQX0FESiwgdmFsKTsNCj4gPiAr
+fQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBzMjUwMF9wdHBfYWRqZmluZShzdHJ1Y3QgcHRwX2Ns
+b2NrX2luZm8gKnB0cCwgbG9uZyBzY2FsZWRfcHBtKQ0KPiA+ICt7DQo+ID4gKyBzdHJ1Y3QgczI1
+MDBfaW5mbyAqcHJpdiA9IGNvbnRhaW5lcl9vZihwdHAsIHN0cnVjdCBzMjUwMF9pbmZvLA0KPiA+
+ICsgcHRwX2Nsb2NrX2luZm8pOw0KPiA+ICsNCj4gPiArIHJldHVybiBzMjUwMF9wdHBfc2V0X2Zy
+ZXEocHJpdiwgc2NhbGVkX3BwbSk7DQo+ID4gK30NCj4gPiArDQo+ID4gK3N0YXRpYyBpbnQgczI1
+MDBfcHRwX3N0ZXBfdGltZShzdHJ1Y3QgczI1MDBfaW5mbyAqcHJpdiwgczY0IGRlbHRhKQ0KPiA+
+ICt7DQo+ID4gKyBzdHJ1Y3QgdGltZXNwZWM2NCB0YXJnZXQsIG5vdywgZGVsdGFfdHM7DQo+ID4g
+KyBzdHJ1Y3QgcHRwX3N5c3RlbV90aW1lc3RhbXAgc3RzOw0KPiA+ICsgaW50IHJldDsNCj4gPiAr
+DQo+ID4gKyBtZW1zZXQoJnN0cywgMCwgc2l6ZW9mKHN0cykpOw0KPiA+ICsgcmV0ID0gczI1MDBf
+cHRwX2dldF90aW1lNjQoJnByaXYtPnB0cF9jbG9ja19pbmZvLCAmbm93LCAmc3RzKTsNCj4gPiAr
+IGlmIChyZXQpDQo+ID4gKyByZXR1cm4gcmV0Ow0KPiA+ICsgaWYgKGRlbHRhID49IDApIHsNCj4g
+PiArIGRlbHRhX3RzID0gbnNfdG9fdGltZXNwZWM2NChkZWx0YSk7DQo+ID4gKyB0YXJnZXQgPSB0
+aW1lc3BlYzY0X2FkZChub3csIGRlbHRhX3RzKTsNCj4gPiArIH0gZWxzZSB7DQo+ID4gKyBkZWx0
+YV90cyA9IG5zX3RvX3RpbWVzcGVjNjQoLWRlbHRhKTsNCj4gPiArIHRhcmdldCA9IHRpbWVzcGVj
+NjRfc3ViKG5vdywgZGVsdGFfdHMpOw0KPiA+ICsgfQ0KPiA+ICsgLyogVGhlIHN1YnRyYWN0aW9u
+IGFib3ZlIGNhbiB0YWtlIHRoZSB0YXJnZXQgYmVsb3cgdGhlIGVwb2NoICovDQo+ID4gKyBpZiAo
+dGFyZ2V0LnR2X3NlYyA8IDApDQo+ID4gKyByZXR1cm4gLUVSQU5HRTsNCj4gPiArIHJldHVybiBz
+MjUwMF9wdHBfd3JpdGVfdGltZShwcml2LCAmdGFyZ2V0KTsNCj4gPiArfQ0KPiA+ICsNCj4gPiAr
+c3RhdGljIGludCBzMjUwMF9wdHBfYWRqdGltZShzdHJ1Y3QgcHRwX2Nsb2NrX2luZm8gKnB0cCwg
+czY0IGRlbHRhKQ0KPiA+ICt7DQo+ID4gKyBzdHJ1Y3QgczI1MDBfaW5mbyAqcHJpdiA9IGNvbnRh
+aW5lcl9vZihwdHAsIHN0cnVjdCBzMjUwMF9pbmZvLA0KPiA+ICsgcHRwX2Nsb2NrX2luZm8pOw0K
+PiA+ICsgaW50IHJldDsNCj4gPiArDQo+ID4gKyAvKiBOb3RoaW5nIHRvIGRvICovDQo+ID4gKyBp
+ZiAoZGVsdGEgPT0gMCkNCj4gPiArIHJldHVybiAwOw0KPiA+ICsNCj4gPiArIC8qIFRoZSBkZXZp
+Y2UgaGFzIG5vIGFkZC1kZWx0YSByZWdpc3Rlciwgc28gdGhlIG9mZnNldCBpcyBhcHBsaWVkIGFz
+DQo+ID4gKyAqIGEgcmVhZC1tb2RpZnktd3JpdGUgb2YgdGhlIHRpbWUgcmVnaXN0ZXJzLg0KPiA+
+ICsgKi8NCj4gPiArIG11dGV4X2xvY2soJnByaXYtPnB0cF9hZGpfbG9jayk7DQo+ID4gKyByZXQg
+PSBzMjUwMF9wdHBfc3RlcF90aW1lKHByaXYsIGRlbHRhKTsNCj4gPiArIG11dGV4X3VubG9jaygm
+cHJpdi0+cHRwX2Fkal9sb2NrKTsNCj4gPiArDQo+ID4gKyByZXR1cm4gcmV0Ow0KPiA+ICt9DQo+
+ID4gKw0KPiA+ICtpbnQgczI1MDBfcHRwX3JlZ2lzdGVyKHN0cnVjdCBzMjUwMF9pbmZvICpwcml2
+KQ0KPiA+ICt7DQo+ID4gKyBzdHJ1Y3QgcHRwX2Nsb2NrX2luZm8gKmluZm8gPSAmcHJpdi0+cHRw
+X2Nsb2NrX2luZm87DQo+ID4gKyBpbnQgcmV0Ow0KPiA+ICsNCj4gPiArIGluZm8tPm1heF9hZGog
+PSBTMjUwMF9QVFBfTUFYX0FESl9QUEI7DQo+ID4gKyBpbmZvLT5vd25lciA9IFRISVNfTU9EVUxF
+Ow0KPiA+ICsgaW5mby0+YWRqZmluZSA9IHMyNTAwX3B0cF9hZGpmaW5lOw0KPiA+ICsgaW5mby0+
+Z2V0dGltZXg2NCA9IHMyNTAwX3B0cF9nZXRfdGltZTY0Ow0KPiA+ICsgaW5mby0+c2V0dGltZTY0
+ID0gczI1MDBfcHRwX3NldF90aW1lNjQ7DQo+ID4gKyBpbmZvLT5hZGp0aW1lID0gczI1MDBfcHRw
+X2FkanRpbWU7DQo+ID4gKw0KPiA+ICsgcmV0ID0gb2FfdGM2X3B0cF9yZWdpc3Rlcihwcml2LT50
+YzYsIGluZm8pOw0KPiA+ICsgaWYgKHJldCkNCj4gPiArIGRldl9lcnIoJnByaXYtPnNwaS0+ZGV2
+LCAiUFRQIHJlZ2lzdHJhdGlvbiBmYWlsZWRcbiIpOw0KPiA+ICsgcmV0dXJuIHJldDsNCj4gPiAr
+fQ0KPiA+ICsNCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBDYW4gdGhlIGFkdmVydGlzZWQg
+bWF4X2FkaiBiZSBsYXJnZXIgdGhhbiB3aGF0IGEgMzItYml0IGxvbmcNCj4gc2NhbGVkX3BwbSBj
+YW4gY2Fycnk/DQo+IA0KDQoNClNlZW1zIGxpa2Ugc28sIFdpbGwgbG9vayBhdCBpdCBhbmQgYWRk
+cmVzcyBpdC4NCg0KPiANCj4gLS0NCg0K
 
-This link should be saves somewhere.  I've sent a fix for it.
-
-
-> +				ret = libbpf_get_error(link);
-> +				if (ret) {
-> +					pr_err("Failed to attach perf sample-filter program\n");
-> +					goto err;
-> +				}
->  			}
->  		}
->  	}
-> @@ -641,6 +688,45 @@ int perf_bpf_filter__parse(struct list_head *expr_head, const char *str)
->  	return ret;
->  }
->  
-> +static int pin_filter_object(struct sample_filter_bpf *skel, const char *path)
-> +{
-> +	char *prog_path = NULL;
-> +	int ret;
-> +
-> +	ret = bpf_object__pin_maps(skel->obj, path);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (asprintf(&prog_path, "%s/perf_sample_filter", path) < 0) {
-> +		bpf_object__unpin_maps(skel->obj, path);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	ret = bpf_program__pin(skel->progs.perf_sample_filter, prog_path);
-> +	if (ret < 0)
-> +		bpf_object__unpin_maps(skel->obj, path);
-> +
-> +	free(prog_path);
-> +	return ret;
-> +}
-> +
-> +static int unpin_filter_object(struct sample_filter_bpf *skel, const char *path)
-> +{
-> +	char *prog_path = NULL;
-> +	int ret, map_ret;
-> +
-> +	if (asprintf(&prog_path, "%s/perf_sample_filter", path) < 0) {
-> +		bpf_object__unpin_maps(skel->obj, path);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	ret = bpf_program__unpin(skel->progs.perf_sample_filter, prog_path);
-> +	free(prog_path);
-> +
-> +	map_ret = bpf_object__unpin_maps(skel->obj, path);
-> +	return ret < 0 ? ret : map_ret;
-> +}
-> +
->  int perf_bpf_filter__pin(void)
->  {
->  	struct sample_filter_bpf *skel;
-> @@ -655,6 +741,7 @@ int perf_bpf_filter__pin(void)
->  	}
->  
->  	/* pinned program will use pid-hash */
-> +	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, false);
->  	bpf_map__set_max_entries(skel->maps.filters, MAX_FILTERS);
->  	bpf_map__set_max_entries(skel->maps.event_hash, MAX_EVT_HASH);
->  	bpf_map__set_max_entries(skel->maps.idx_hash, MAX_IDX_HASH);
-> @@ -674,7 +761,7 @@ int perf_bpf_filter__pin(void)
->  		goto err;
->  	}
->  
-> -	ret = bpf_object__pin(skel->obj, path);
-> +	ret = pin_filter_object(skel, path);
-
-Why is this change needed?
-
-Thanks,
-Namhyung
-
-
->  	if (ret < 0) {
->  		pr_err("Failed to pin BPF filter objects\n");
->  		goto err;
-> @@ -683,8 +770,8 @@ int perf_bpf_filter__pin(void)
->  	/* setup access permissions for the pinned objects */
->  	dir_fd = open(path, O_PATH);
->  	if (dir_fd < 0) {
-> -		bpf_object__unpin(skel->obj, path);
-> -		ret = dir_fd;
-> +		ret = -errno;
-> +		unpin_filter_object(skel, path);
->  		goto err;
->  	}
->  
-> @@ -727,6 +814,8 @@ int perf_bpf_filter__pin(void)
->  
->  err_close:
->  	close(dir_fd);
-> +	if (ret < 0)
-> +		unpin_filter_object(skel, path);
->  
->  err:
->  	free(path);
-> @@ -740,13 +829,20 @@ int perf_bpf_filter__unpin(void)
->  	char *path = NULL;
->  	int ret = -1;
->  
-> -	skel = sample_filter_bpf__open_and_load();
-> +	skel = sample_filter_bpf__open();
->  	if (!skel) {
->  		ret = -errno;
->  		pr_err("Failed to open perf sample-filter BPF skeleton\n");
->  		goto err;
->  	}
->  
-> +	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, false);
-> +	if (sample_filter_bpf__load(skel) < 0) {
-> +		ret = -errno;
-> +		pr_err("Failed to load perf sample-filter BPF skeleton\n");
-> +		goto err;
-> +	}
-> +
->  	if (asprintf(&path, "%s/fs/bpf/%s", sysfs__mountpoint(),
->  		     PERF_BPF_FILTER_PIN_PATH) < 0) {
->  		ret = -errno;
-> @@ -754,7 +850,7 @@ int perf_bpf_filter__unpin(void)
->  		goto err;
->  	}
->  
-> -	ret = bpf_object__unpin(skel->obj, path);
-> +	ret = unpin_filter_object(skel, path);
->  
->  err:
->  	free(path);
-> diff --git a/tools/perf/util/bpf_skel/sample_filter.bpf.c b/tools/perf/util/bpf_skel/sample_filter.bpf.c
-> index e5666d4c1722..576fbed270e5 100644
-> --- a/tools/perf/util/bpf_skel/sample_filter.bpf.c
-> +++ b/tools/perf/util/bpf_skel/sample_filter.bpf.c
-> @@ -192,6 +192,28 @@ static inline __u64 perf_get_sample(struct bpf_perf_event_data_kern *kctx,
->  	return 0;
->  }
->  
-> +static __always_inline __u64 perf_get_common_sample(struct perf_bpf_filter_entry *entry)
-> +{
-> +	switch (entry->term) {
-> +	case PBF_TERM_TID:
-> +		if (entry->part)
-> +			return bpf_get_current_pid_tgid() >> 32;
-> +		return (__u32)bpf_get_current_pid_tgid();
-> +	case PBF_TERM_CPU:
-> +		return bpf_get_smp_processor_id();
-> +	case PBF_TERM_TIME:
-> +		return bpf_ktime_get_ns();
-> +	case PBF_TERM_CGROUP:
-> +		return bpf_get_current_cgroup_id();
-> +	case PBF_TERM_UID:
-> +		return bpf_get_current_uid_gid() & 0xFFFFFFFF;
-> +	case PBF_TERM_GID:
-> +		return bpf_get_current_uid_gid() >> 32;
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
->  #define CHECK_RESULT(data, op, val)			\
->  	if (!(data op val)) {				\
->  		if (!in_group)				\
-> @@ -295,4 +317,67 @@ int perf_sample_filter(void *ctx)
->  	return 0;
->  }
->  
-> +/* BPF program to be called for tracepoint perf events */
-> +SEC("tracepoint")
-> +int perf_tp_sample_filter(void *ctx)
-> +{
-> +	struct perf_bpf_filter_entry *entry;
-> +	__u64 sample_data;
-> +	int in_group = 0;
-> +	int group_result = 0;
-> +	int i, k = 0;
-> +	int *losts;
-> +
-> +	entry = bpf_map_lookup_elem(&filters, &k);
-> +	if (entry == NULL)
-> +		goto drop;
-> +
-> +	for (i = 0; i < MAX_FILTERS; i++) {
-> +		sample_data = perf_get_common_sample(&entry[i]);
-> +
-> +		switch (entry[i].op) {
-> +		case PBF_OP_EQ:
-> +			CHECK_RESULT(sample_data, ==, entry[i].value)
-> +			break;
-> +		case PBF_OP_NEQ:
-> +			CHECK_RESULT(sample_data, !=, entry[i].value)
-> +			break;
-> +		case PBF_OP_GT:
-> +			CHECK_RESULT(sample_data, >, entry[i].value)
-> +			break;
-> +		case PBF_OP_GE:
-> +			CHECK_RESULT(sample_data, >=, entry[i].value)
-> +			break;
-> +		case PBF_OP_LT:
-> +			CHECK_RESULT(sample_data, <, entry[i].value)
-> +			break;
-> +		case PBF_OP_LE:
-> +			CHECK_RESULT(sample_data, <=, entry[i].value)
-> +			break;
-> +		case PBF_OP_AND:
-> +			CHECK_RESULT(sample_data, &, entry[i].value)
-> +			break;
-> +		case PBF_OP_GROUP_BEGIN:
-> +			in_group = 1;
-> +			group_result = 0;
-> +			break;
-> +		case PBF_OP_GROUP_END:
-> +			if (group_result == 0)
-> +				goto drop;
-> +			in_group = 0;
-> +			break;
-> +		case PBF_OP_DONE:
-> +			return 1;
-> +		}
-> +	}
-> +	return 1;
-> +
-> +drop:
-> +	losts = bpf_map_lookup_elem(&dropped, &k);
-> +	if (losts != NULL)
-> +		__sync_fetch_and_add(losts, 1);
-> +
-> +	return 0;
-> +}
-> +
->  char LICENSE[] SEC("license") = "Dual BSD/GPL";
-> -- 
-> 2.56.0.212.g129ede20d9-goog
-> 
