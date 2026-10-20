@@ -1,74 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484824;
-	b=qhebESOnRLx7SPFRh6Eb145RWUPKuXja98cv96jN1tecnrYOFWFfmHJ+QY5oFRaXqqjb
-	 agxfNx5bDnum2cPLXZYouZN7xX54bgx9yPXls0ml4BMu6iHh1cbN133aK0vDWOcWlfS4L
-	 mIiq8+/aj8WDsEosQawPbAMjlZkhntyf/NPvK5yZoU1pBQpcBXEL+3koDqGiUSzInm0R2
-	 ubBexbAIYj2bKQfnz5u6zpF82AiDqQacNkrBsEg4hysKNyQKYZzxa8M/GS3iY8r01xlf+
-	 r7eD1q9lFHJ3J42rD3FNVDyERQs4N5wwdrx3gUo8dQkS26qd4OG8pJaRBUpvJgVocfg==
+	t=1792484833;
+	b=MqXKvekiAJG8V1wGuTwr/TldcJcVwXwiHW2jmzFHktRe/G6c/QITJF4mRH5TGMPfPdQ/
+	 Oi1QXOWGPEKZva+VvQ0QEV4mlTASmL47Y3hAMlDtcEMKQyEplME4Gb8jtI/zVE2eM0RUu
+	 J9WiKNjB6H+7dN6yzgYcFbg9QWZGw2foAT7ZsmwqT3dPO4jxJo6j8RlRTWjrhq0WL/wqT
+	 A30USIhqasauYJpyhURqhPr3CnJNBu4P9S3dUXDyOJ8SIWgaAjOx2Wf70NA8dyjWtIII3
+	 AOhKT7Xkw+MCSa7ineivHWMSawLvHA2rQ9g/HlWYEaCuyNkF/a0hwssNX/AcS+c7Grw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484824;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=dBS4Dm4lB33zliDNs2vZO8pI4/MBUTstFz/T9XYJKOI=;
-	b=eTOz+Zo94NaYjxe76lS/j7ibIACteW3pM3xgfWcflB5XjJKll/pNRlnXx/e8sGR3M0Zt
-	 tPKz2OQ44xp2df2OHxYHp83W1KIXhJDKm5RuCgzPXuFBnNoGA17hY/XHDpLSobrS5ByDd
-	 Xe6xfJ73cMiIjgkOJCEZsLYRoNokQAyxgclX1l7Xb3sue5g4PLLG8FrbMxu7ydssp+h8w
-	 gWkbc8mMSvdsl7Ox5S6t5jOOhfPR18j4mdOagmmE6hC2Hrp6UzGz37DNQ4XNbMHl61ZPp
-	 lyFkJbmQlP1oT9HYAokETxn7UjDqIRVwjUcryE4wKJ0DzmRwSOLkbEi22a6WGwQO5/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484833;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HScs7BYx1mULjt0N93TtDjLfdWYun+9YwohQQd+Ha1A=;
+	b=LdIF+9k66muWGdU91kvSaBqlfYNRFtKBdttlwqa6FMjfhokSsZwjfyF1XxRs3xDW7aUJ
+	 FatABdw8L3O/HbSgqraSjG8pNwkni2FHwUZTt3L2oBqMhGrxHcG1oSGbppxuw/bAyBOb3
+	 7anGSO7VK5Vy5vdGpxaCR/dgDgBE89mWfQqcQYvgUcSTh7MrCACyzdfCqVx8I2Z4OYV/y
+	 lcHG3BRypFyg7doj5hyjix+Dje0GmtjNAd86bQhihM740WcpdVDMwOT6/z5l4nalYQ/UE
+	 JKr8Wr18yvgQD5xnhbkg37xRJeJHBOL78ruEWtMHe7mPaX5cloE5SviRed9nVPEQvoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=ftwXH7BQ;
-	arc=none smtp.remote-ip=95.215.58.121
-Received: from mta1.migadu.com (out-121.mta1.migadu.com [95.215.58.121])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2CCbtUi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A63606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A63606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDB060A262F;
+	Tue, 20 Oct 2026 08:27:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=ftwXH7BQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Z3J+lTNEbNaLQ7VizdV/95/7mp/QZefx1QWIaDIcaLs=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792484821; v=1; x=1793089621;
- b=ftwXH7BQhMjiqs9c7QUTxoGOJC+t+4nEBBHC1Zg2xkLKGfrolDzhDq6sCN4vd2XiOQ0PT6Kj
- uSh/VhzQYgWAH1gcMmuXC8E+8jqj8jBqv2Hf9J2MJIw5Np6TZJH/FsAt+Frxi51BHNFJ/Zdn9Lc
- 8GEmY7bXinAWJyUFEl4Pi9ptzwJEBxscv9yxr6dx5DiVXT7KL8VHLqztGKyGI6gPZy6+SwxKg8Z
- WH1Do/wWRJzK83jzTZCyV82YgRLdRQvjQXp24st1CWoYMpdXpaqmxdL/PBfE8/KKOcuE0WPvgv0
- S9mqiY2iytveknw4XggR35bQm+KiQcCfnir353YborVpw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1103d2f00b62989c;
-	Tue, 20 Oct 2026 08:27:01 +0000
-X-Mizu-Trace-ID: 1103d2f00b62989c
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: 
-Cc: Val Packett <val@packett.cool>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
-Date: Tue, 20 Oct 2026 05:26:22 -0300
-Message-ID: <20261020082631.1509275-1-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2CCbtUi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B961F000C6;
+	Tue, 20 Oct 2026 08:27:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792484832;
+	bh=HScs7BYx1mULjt0N93TtDjLfdWYun+9YwohQQd+Ha1A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G2CCbtUiS6mzs6xjxsGIOSC7JI3lMdplrD1JhTGT6c5i6kXVAdHaDC7KLDhHJbK24
+	 TwDLmwS1ibDNk314tE7l8Kw3wiSTTNzqxuXgzaZRb5Op7/KjtyIdD64/61K+2apOlG
+	 AJzDV/aLf9sIWbQl3fJ3eoByAbpiULqVEgGb8yE7QKUNL+WLBRIIN/G5SRm8z8bgLT
+	 q+TyF4/TUAsQ8/Ydu1F2XNxbr1Fz55CGLuJKAd7ct0lBayHj2cNWV4f8d2xgXoWgTU
+	 XuiPUwsGyPjN0+42kn7fjGJZK2JcB1Z8imZONPclbsmvz7xF6oqS75++KQC+qPb0vl
+	 qNuQ4ON/cf2ww==
+Date: Tue, 20 Oct 2026 10:27:09 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, 
+	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: media: i2c: Add ST VD55G0 camera sensor
+Message-ID: <20261020-cute-peccary-of-attack-2376af@quoll>
+References: <20261019162722.25587-1-lsa.uz@pm.me>
+ <20261019162722.25587-2-lsa.uz@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,43 +62,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019162722.25587-2-lsa.uz@pm.me>
 
-Currently only wcd939x has support for USB-C SBU audio in mainline, but the
-older WCD codecs can do the same thing 939x does with USBSS, with an
-external 3rd party mux instead. This series adds support for that based on
-wcd939x code.
+On Mon, Oct 19, 2026 at 04:27:38PM +0000, Sergey Lebedev wrote:
+> The VD55G0 is a monochrome global shutter sensor with a 644x604 active
+> array, sending over a single MIPI CSI-2 lane.
+> 
+> Merged from ST's own binding in STMicroelectronics/vd55g0-linux-driver,
+> which gives the supply voltages, and st,vd55g1.yaml, whose conventions and
+> property list it follows. ST's st,out-sync and st,in-sync are left out, as
+> in vd55g1. Link frequencies run from 375 to 600 MHz, for the sensor's MIPI
+> rate of 750 to 1200 Mbps (UM2829, 13.1).
+> 
+> Co-developed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+> ---
+> The properties follow st,vd55g1.yaml nearly line for line. If a
+> compatible in that file is preferred, with an if/then for the
+> link-frequency minimum, I can fold it in there.
 
-Tested on sm7325-motorola-dubai.
 
-v2:
-  * Pull R-b for dt-bindings
-  * Add missing `depends on TYPEC || !TYPEC` to kconfig (sashiko-bot)
-  * Do not leak the of_graph device_node (sashiko-bot)
-  * Guard against NULL wcd_mbhc / mbhc->cfg pointers because typec
-    callbacks belong to the platform device which has a longer lifecycle
-    than the soc codec part (sashiko-bot)
-  * Also apply the same leak/null fixes to wcd939x, keeping it in sync
-v1: https://lore.kernel.org/all/20261018231244.1266926-1-val@packett.cool/
+https://lore.kernel.org/all/20260902204549.657228-3-pm@petermarshall.ca/
 
-Thanks,
-~val
-
----
-Val Packett (4):
-  ASoC: dt-bindings: qcom,wcd937x: Add USB-C graph properties
-  ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
-  ASoC: codecs: wcd-mbhc: guard against NULL cfg in
-    typec_report_(un)plug
-  ASoC: codecs: wcd939x: fix ref leak and NULL deref with USB-C audio
-
- .../bindings/sound/qcom,wcd937x.yaml          |  15 ++
- sound/soc/codecs/Kconfig                      |   2 +
- sound/soc/codecs/wcd-mbhc-v2.c                |   4 +-
- sound/soc/codecs/wcd937x.c                    | 167 +++++++++++++++++-
- sound/soc/codecs/wcd939x.c                    |  18 +-
- 5 files changed, 194 insertions(+), 12 deletions(-)
-
--- 
-2.55.0
+Best regards,
+Krzysztof
 
