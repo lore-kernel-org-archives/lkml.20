@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465797;
-	b=vL0zIXcgknCFgBDnvCWdfpP26vZ9Jc7nnlOhZMUdxFEOkct2K7cPL87jPG2cuJ1OJOAX
-	 zhgllkXnBr7mm4uuaf+CoE6BTWFVdBZ2yx7d02XKhe2ttxr9nw4Eo2NU1fAzeRDYIyv3Z
-	 3/XV7DDVVQDhn7zhjc/q9VIUz2taF4VSudY+C3qod9scQmx5DW2oQ2s2XcnMte3qZcuzc
-	 Hhw0VVFSwC2iba1StC3Txswzo2Gt9JMqFjlveuKeEqy5rwaMq2Dd0qO8hbIeLH7YSfr5o
-	 1NnQiywxe0pkztMwuw/axEbdj1Yx7BS2iqwLz0sxfFCzsgwn9FLyvbaburYnVKoAb+g==
+	t=1792465787;
+	b=wOod/k8OkARTFd1zvCFWSgDGNux8wVUEkrtxKD/myusxHvltQCOA8oEu/72rlgCJXGh1
+	 FjzL2w/LjxTbG1k2rBuhZNjz3Cdv86oU5sJwJOVk52QTxkofsG62NuEeHdPvNPuGsCwbL
+	 9wS8sDiLUqyN1GebbJ6k85ot7cXR3wC8aepxzhYIn0qK2FdpxsTMbOXOH87H5+TtdEUIO
+	 ka4MDjc82iizq1DNizKm4tfSZXGqQUfmXXP03Ljv/m3BE/85wDRcjX2MI9YIeOZUtmjUZ
+	 3jlWs4GvLcyGO7S7sBLAI6nL+jOMoAeyUax5f1WugAtDk75h3TjB0ZBRDQKkumYqiBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465787;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=XR8fieUdSHu2uzkq6NIVdkHb1+L3O7crv85PsrzZ8Kc=;
-	b=xqyx7/l3UwZjdLGYsmL/fzU17j4DZxugYC7fwbx7JBvD5pARjfU1uf2Xy8+1bALFgd6h
-	 OiScZXwLHpnww6+lxZpq8+z61kE523xkj6xfK8B5mlLhdaUZ0bIb76QQKMIiilF/w4cgi
-	 bRnv9Gvl55yuXTMU22Z6KZXNsi5S3QKEdx8lB4hyl+EZ0zKCqw4BF0fYbUF9zR6eBBjC4
-	 1kpQYK9g0TmoYWJnRXntQzmnon3uBi65jfS3ejeBkCCyqMVAMUw3gigIuXfSILengr2vT
-	 mi0GmcuxOhYRz47evA1qxnVGre7sW2tSEaz3UIJdhaS1TVFbNAsG0f1EO68bt0kfnIA==
+	bh=tnlku/yMuiROAdMyn0IBo9oeL5ZIvOKbKBZuqknfa3Q=;
+	b=xWeKb+033Hm4xYbG1vK3QWoGTFKhKhFzSK/0eYi/yeKTxWaAMk7MBSrHSclTnZVbPzvG
+	 7mXI6vI8dEJ4LaoApmr1hLqJT0vl+ohTNS+1ogndM9ci4c5ET3fUDWhZsb1XYliKHHjtC
+	 6wP9T7+25Cn2yrhI4FB+vLBSfOt+J8S3jW9v9vaTrtPkc77kQ2wwolDrOwnNKoqyfV7W+
+	 /snfauPg6gvIuheMoG/e1VT0EAmCeeqHX7RlzeAJC1kDjVpSHRUeN2+LD6zCNLtpspKaG
+	 KMOs7eXoNGbeY57fScVcnwHSHd+xqT9mLq0JyXFKLghvl4lN8O8WdadSKULHHb3bxtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1vjVUdt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uii1DMvy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BC6606B560;
-	Tue, 20 Oct 2026 03:09:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F44060A5BE5;
+	Tue, 20 Oct 2026 03:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1vjVUdt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287FD1F000CF;
-	Tue, 20 Oct 2026 03:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uii1DMvy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861CD1F000C9;
+	Tue, 20 Oct 2026 03:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792465796;
-	bh=XR8fieUdSHu2uzkq6NIVdkHb1+L3O7crv85PsrzZ8Kc=;
+	s=k20260515; t=1792465786;
+	bh=tnlku/yMuiROAdMyn0IBo9oeL5ZIvOKbKBZuqknfa3Q=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B1vjVUdty1PrPTCgVV7a5T+s4mj/nlmt1leDEgOUa2+/Sd4fAAxyFru+zmCGzMS9a
-	 rL2GYSEC20nis6KEXaxhh70CfT7kj9TeSZ5EL9N9sF8HbzejPp7cVzyxN8BWlA5CQs
-	 tXrji2mkuJ7BBOnusQoweAwiF+eeyLrY741SjE9E7DwOyUcwltQYk16RxrM3EQXNhv
-	 xVpfV9BNXyu7PtslHqqt9XYubmN0y+XQHol3UDqVabqi4i+v4UyTAPPy2JWaEclyHl
-	 jRkYgxyPZ4/OLyS/e4oVPSeBBxzlC5jwRitT5KAfqvbXSqPWtDfpbyUP6N0Rqh3PQn
-	 dRwzCdCffYH1g==
-Subject: Re: [PATCH net-next v14 12/12] dpll: sit9531x: model the inter-PLL
- sync net as a pair of pins
+	b=Uii1DMvyyr0SUQEQmXbaagjXwy5DAArYcHbkBt3935cqGKXM4AjGcBXjnr2eb5CMc
+	 dsrk9aWQ/EhGUl8zaOGNfccpkoDzC2NMsKdDd32wF5iR0JzlyICWzd/HF2Mnq4Yf9q
+	 Anm3KW+iL9F0aXzo+FclwummpGkdHqkG/XCFgbQOKPuMxoh34wRaOoc/wuiggv+gC4
+	 EHTElAlNG9ydwIb9zqExGXCTIOSrjlP6lM9Rhg1KZUgvkZ8vfCGr/Ef/xXWEn7nRtb
+	 Z9N5B/ax+DkLr1TMC3tJEezgrxBvh4/tMQtP4/5TrxqGgWpmh9Hr385g5ULGFhSBph
+	 S6am+X0gI+IZQ==
+Subject: Re: [PATCH net-next v14 06/12] dpll: sit9531x: implement input pin
+ state on a DPLL
 From: netdev-bot+sashiko@kernel.org
 To: arouhi@sitime.com
 Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
@@ -50,10 +50,10 @@ Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
  prabhakar.mahadev-lad.rj@bp.renesas.com, cjubran@nvidia.com,
  Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 03:09:54 +0000
-Message-ID: <179246579471.3135.7046906484988525421@kernel.org>
-In-Reply-To: <20261016005823.13690-13-arouhi@sitime.com>
-References: <20261016005823.13690-13-arouhi@sitime.com>
+Date: Tue, 20 Oct 2026 03:09:45 +0000
+Message-ID: <179246578508.3135.11298872832545978282@kernel.org>
+In-Reply-To: <20261016005823.13690-7-arouhi@sitime.com>
+References: <20261016005823.13690-7-arouhi@sitime.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,10 +67,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 10 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 2
+Critical: 0 · High: 0 · Medium: 8 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -78,364 +78,415 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In sit9531x_intsync_src_detect()
-  (drivers/dpll/sit9531x/core.c), the global INTSYNC enable (page 0 reg…
-- [Medium] sit9531x_resume() (drivers/dpll/sit9531x/core.c) re-reads
-  INTSYNC ownership (intsync_src/intsync_partial) and every output's…
-- [Medium] This patch defines an undriven INTSYNC net as having no
-  signal: sit9531x_dpll_selection_no_signal() makes the destination pin…
-- [Medium] sit9531x_intsync_src_detect() returns 'no owner'
-  (intsync_src=-1, partial=false) as soon as the global INTSYNC bit…
-- [Medium] sit9531x_dpll_intsync_src_state_on_dpll_set() forces a
-  partial-owner record only after a failed CONNECTED.
-- [Low] If sit9531x_intsync_src_detect() fails during sit9531x_resume(),
-  intsync_src and intsync_partial keep their pre-suspend values and…
-- [Low] The pin-state contract comment in drivers/dpll/sit9531x/dpll.c
-  defines predicate N as 'the input lane's clock monitor reports loss of…
+- [Medium] sit9531x_prio_table_commit() decides whether an existing
+  forced holdover belongs to someone else with `ho_foreign = (val &…
+- [Medium] Qualification failure is ignored both when choosing a source
+  and when reporting ACTIVE.
+- [Medium] After a failed commit, sit9531x_prio_table_commit() decides at
+  `release:` whether to keep or release the hold by reading…
+- [Medium] sit9531x_input_prio_set() rolls cfg_prio/cfg_known back on any
+  error from sit9531x_prio_table_apply(), including the case where the…
+- [Medium] When sit9531x_prio_table_commit() cannot release its own
+  forced holdover, it sets chan->ho_release_pending, and only the poll…
+- [Medium] ref->pll_mask alone decides when a shared input receiver is
+  forced off, and it counts only the four PLLs' priority tables…
+- [Medium] sit9531x_prio_src_live() treats the inter-PLL sync net (code
+  6) as always having signal: hw_src_input() yields…
+- [Medium] On a failed table write, sit9531x_prio_table_commit() rolls
+  back and then latches unconditionally.
+- [Low] operstate_on_dpll_get reports a value the device changes on its
+  own, but at this commit sit9531x_dpll_changes_check() polls only…
+- [Low] sit9531x_chan_routed_ref_read() writes the unlock key
+  (SIT9531X_PLL_DEBUG_UNLOCK) to PLL-page 0xBD and returns immediately…
 
 --
 
-dpll: sit9531x: model the inter-PLL sync net as a pair of pins
+dpll: sit9531x: implement input pin state on a DPLL
 
-This patch models the INTSYNC net as two pins: an output (source) pin on
-the PLL that drives the net, and an input (destination) pin on each PLL
-that can select it. It adds enable and disable sequences for the source
-configuration and a scan that detects the current owner, including a
-partial one. On resume it reads INTSYNC ownership and the output mutes
-back from the part.
+This adds state_on_dpll_get/set and operstate_on_dpll_get for the sit9531x
+input pins.  An input's state comes from whether it is in each PLL's
+priority table.  The table is rewritten under a forced holdover with a
+newly chosen active selection.  Operstate comes from the routed source on
+the debug status bus and from each lane's clock monitor.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 10609d46a7e1a..7de6584acea96 100644
+> index 78a7a1def2137..1aad598930d72 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
 
 [ ... ]
 
-> +int sit9531x_intsync_src_detect(struct sit9531x_dev *sitdev)
+> @@ -433,26 +527,595 @@ static u8 sit9531x_prio_slot_get(u8 val, u8 slot)
+
+[ ... ]
+
+> +static bool sit9531x_prio_src_live(const struct sit9531x_dev *sitdev, u8 src)
+> +{
+> +	u8 index = sit9531x_hw_src_input(src);
+> +
+> +	if (index >= sitdev->info->num_inputs)
+> +		return true;
+
+[Severity: Medium]
+Does this treat the inter-PLL sync net as always having signal?  For
+SIT9531X_PRIO_SRC_INTSYNC, sit9531x_hw_src_input() returns
+SIT9531X_INTSYNC_PIN_ID.  That is >= num_inputs, so this returns true.
+
+The net only carries a clock while another PLL drives it
+(sitdev->intsync_src).  INTSYNC can end up listed above live inputs while
+no PLL drives it, for example after a prio_set gives it priority 0, or
+when a profile ranks it first.  In that case sit9531x_prio_top_live()
+returns it, and sit9531x_prio_activesel_pick() writes it into
+CLK_ACTIVESEL.
+
+The comment on sit9531x_prio_activesel_pick() says a selection naming a
+dead source sends the PLL to it and it unlocks.  Could that happen here
+once the hold is released?
+
+Later in the series, the dpll.c side treats an undriven net as NO_SIGNAL
+(sit9531x_dpll_selection_no_signal()), but this picker does not.
+
+> +
+> +	return !sitdev->ref[index].los;
+> +}
+
+[ ... ]
+
+> +static int sit9531x_prio_table_commit(struct sit9531x_dev *sitdev, u8 pll_idx,
+> +				      const u8 *srcs)
 > +{
 
 [ ... ]
 
-> +	rc = sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL, &global);
+> +	rc = sit9531x_read_pll_u8(sitdev, pll_idx, SIT9531X_PLL_REG_HO_CTRL,
+> +				  &val);
 > +	if (rc)
 > +		return rc;
 > +
-> +	if (!(global & BIT(SIT9531X_INTSYNC_EN_BIT))) {
-> +		sitdev->intsync_src = -1;
-> +		sitdev->intsync_partial = false;
-> +		return 0;
+> +	ho_foreign = (val & BIT(SIT9531X_PLL_HO_FORCE_BIT)) &&
+> +		     chan->prio_mask && !chan->ho_release_pending;
+
+[Severity: Medium]
+Can this tell a hold the driver set from one it did not?  Any forced hold
+found while the cached table is empty is treated as the driver's own.
+Nothing records whether the driver actually set it.
+
+Path 1: the loaded profile leaves a PLL with an empty table and HO_CTRL
+bit 4 set.  Probe gives prio_mask == 0, and a user sets an input
+SELECTABLE.  ho_foreign is false, prio_mask becomes non-zero, and the
+release loop clears a force bit the driver never set.
+
+Path 2: a tool forces holdover while the table lists sources, and the
+user removes the last source.  ho_foreign is true, but the
+if (!chan->prio_mask) branch after release: returns before ho_foreign is
+checked, and nothing remembers that the hold was foreign.  On the next
+add, prio_mask == 0 makes ho_foreign false and the hold is lifted.
+
+The commit message says:
+
+    A holdover the driver
+    did not force -- set by the loaded configuration or by a tool -- is left
+    in place by such a write; only the hold the driver itself set for an
+    empty table is released.
+
+To make that hold, would the driver need an explicit flag that records
+when it owns the hold?
+
+[ ... ]
+
+> +rollback:
+> +	if (rc && written) {
+
+[ ... ]
+
+> +		for (slot = 0; slot < written; slot += 2) {
+> +			const u8 *prev = &chan->prio_srcs[slot];
+> +			u8 old;
+> +
+> +			if (slot + 1 < SIT9531X_PRIO_MAX_SLOTS) {
+> +				old = sit9531x_prio_slot_set(0, slot, prev[0]);
+> +				old = sit9531x_prio_slot_set(old, slot + 1,
+> +							     prev[1]);
+> +			} else {
+> +				old = last_old;
+> +			}
+
+[Severity: Medium]
+Can this rollback move a PLL off a healthy fallback?  Say the PLL has
+failed over from A to B and A is still in LOS.  The selection nibble in
+last_old then still names A.
+
+If the last register is in the rollback range, it is restored to
+last_old.  On an earlier failure, such as sit9531x_input_mon_fetch()
+failing, it is never touched.  Either way, the unconditional
+sit9531x_prio_prg_commit() below latches a selection that names the dead
+A.
+
+The comment on sit9531x_prio_activesel_pick() says that in this
+situation "the next table write sends the PLL back to it and it
+unlocks".  Once the hold is released, would a failed request then unlock
+a PLL that was locked to B, instead of leaving the device as the request
+found it?
+
+[ ... ]
+
+> +	if (!rc) {
+> +		sit9531x_prio_mask_build(sitdev, pll_idx, srcs);
+> +		memcpy(chan->seen_srcs, srcs, sizeof(chan->seen_srcs));
+> +		chan->seen_valid = true;
+> +	} else if (!sit9531x_prio_table_read(sitdev, pll_idx, now)) {
+> +		sit9531x_prio_mask_build(sitdev, pll_idx, now);
+> +		memcpy(chan->seen_srcs, now, sizeof(chan->seen_srcs));
+> +		chan->seen_valid = true;
 > +	}
 
 [Severity: Medium]
-Can this early return hide a source configuration that the new error
-paths leave behind?
+What happens if this read-back also fails?  prio_mask then still holds
+the table from before the write.  The release: block below uses that
+stale mask to decide whether to keep or release the hold.
 
-Say sit9531x_intsync_enable(X) writes every en_val byte and then
-sit9531x_pll_small_update() fails. The rollback runs
-__sit9531x_intsync_disable(X, false), which clears and latches the global
-bit. If the EXT unlock or the first dis_val write then fails, it jumps to
-restore_global, which does nothing when restore is false. X's EXT page
-still holds the enable pattern, but the global bit is clear.
+Case A, adding the first source to an empty table: the force write and
+every slot write succeed, then sit9531x_prio_prg_commit() fails and so
+does the read-back.  prio_mask stays 0, so the if (!chan->prio_mask)
+branch keeps the hold and clears ho_release_pending.
 
-A disconnect can end in the same state: its dis_val write fails, and then
-the restore read or write fails too.
+The next poll reads the table, which now lists the source, and prio_mask
+becomes non-zero.  sit9531x_ho_release_retry() does nothing because
+pending is false.  A retried SELECTABLE returns 0 early in
+sit9531x_input_prio_add():
 
-The re-scan in sit9531x_dpll_intsync_src_state_on_dpll_set() then
-succeeds and returns intsync_src = -1, so the partial-owner fallback does
-not fire:
+	if (chan->prio_mask & BIT(input_idx))
+		return 0;
 
-	if (changed && rc && state == DPLL_PIN_STATE_CONNECTED &&
-	    (detect_rc || sitdev->intsync_src == sitdpll->id)) {
+so the PLL stays in forced holdover while the pin reports SELECTABLE.
 
-A later CONNECTED on PLL Z passes the -EBUSY check. Its
-sit9531x_intsync_enable(Z) sets the global bit, which also re-activates
-the leftover pattern on X.
+Case B, removing the last source with the latch and the read-back both
+failing: the old non-empty prio_mask stays.  The hold is then released
+over an empty hardware table, and the PLL follows the source the
+selection nibble still names while every pin reports DISCONNECTED.
 
-The next scan matches both PLLs and keeps the lower index, with only a
-warning. If X < Z, intsync_src becomes X even though Z's request
-succeeded.
+Should the mask be marked unknown here, so that the release decision and
+the pending flag do not depend on it?
 
-After that, Z's source pin reads DISCONNECTED and a DISCONNECTED on Z is
-a no-op. SELECTABLE on Z's own INTSYNC destination is no longer refused
-either. Would that let Z select the net it drives?
-
-This also seems to contradict the commit message:
-
-  "A source that failed to take the net over ... is recorded as a
-  partial owner"
-
-A profile that leaves the global bit clear with an enable pattern in an
-EXT page would hit the same case at probe or resume.
+> +
+> +release:
 
 [ ... ]
 
-> +	rc = sit9531x_pll_small_update(sitdev, src_pll_idx);
-> +
-> +	goto relock;
-> +
-> +restore_global:
+> +	if (!chan->prio_mask) {
+> +		dev_dbg(sitdev->dev,
+> +			"PLL%c: no source listed, holdover kept\n",
+> +			'A' + pll_idx);
+> +		chan->ho_release_pending = false;
+> +		return rc;
+> +	}
 
 [ ... ]
 
-> +	if (restore &&
-> +	    !sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL, &val) &&
-> +	    !sit9531x_write_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,
-> +			       val | BIT(SIT9531X_INTSYNC_EN_BIT))) {
-> +		/*
-> +		 * Every write of the global enable, here and in SiTime's
-> +		 * sequences, is followed by the page-0 small update that
-> +		 * applies it.  Without it the bit would sit pending until
-> +		 * an unrelated commit through the same update register
-> +		 * applied it, re-asserting the net over a half-written
-> +		 * EXT page with nobody having asked.
-> +		 */
-> +		sit9531x_write_u8(sitdev, SIT9531X_REG_GLOBAL_UPDATE,
-> +				  SIT9531X_SMALL_UPDATE_CMD);
-> +		usleep_range(1000, 2000);
+> @@ -479,6 +1142,155 @@ static int sit9531x_prio_table_read(struct sit9531x_dev *sitdev, u8 pll_idx,
+
+[ ... ]
+
+> +int sit9531x_input_prio_set(struct sit9531x_dev *sitdev, u8 pll_idx,
+> +			    u8 input_idx, u8 prio)
+> +{
+
+[ ... ]
+
+> +	rc = sit9531x_prio_table_apply(sitdev, pll_idx, chan->prio_mask);
+> +	if (rc) {
+> +		chan->cfg_prio[input_idx] = old_prio;
+> +		chan->cfg_known = old_known;
 > +	}
 
 [Severity: Medium]
-What happens if this GLOBAL_UPDATE write fails? Its return value is
-ignored, so the enable bit can stay pending. The comment above says that
-state re-asserts the net when some unrelated commit goes through the same
-update register.
+Does this roll back a priority the device actually accepted?  Suppose
+sit9531x_prio_table_commit() writes and latches the table, and only the
+holdover release fails after SIT9531X_HO_CLEAR_TRIES attempts.  By then
+the commit has already run:
 
-In that case the re-scan in sit9531x_dpll_intsync_src_state_on_dpll_set()
-reads the pending global bit and the untouched EXT pattern. It records a
-complete owner even though the gate is off.
+	if (!rc) {
+		sit9531x_prio_mask_build(sitdev, pll_idx, srcs);
+		memcpy(chan->seen_srcs, srcs, sizeof(chan->seen_srcs));
 
-The commit message says "the restore is latched as every other write to
-that register is", but a failure of that latch is not checked.
+and it then returns ho_rc.  The restore here puts the old cfg_prio back
+while the hardware holds the new order.
 
-The final step has a similar problem. Suppose the disable writes every
-dis_val byte and only sit9531x_pll_small_update() fails, and the re-scan
-then also hits a read error. The cache still holds intsync_src == this
-PLL with intsync_partial == false, so the source pin reports CONNECTED
-while the net is off.
+The table matches seen_srcs, so the poll never reseeds.  prio_get (wired
+up in the next patch) then reports the old value, and the next rebuild
+for any other reason writes the old order back.
 
-The partial-owner handling in the setter only covers failed connects:
-
-	if (changed && rc && state == DPLL_PIN_STATE_CONNECTED &&
-
-In both cases, would a later CONNECTED on this PLL take this path and
-return success without running the enable?
-
-		if (was_connected)
-			break;
-
-The periodic poll does not refresh ownership either.
+The next patch's commit message says "A priority the table write refused
+is not kept", but in this case the device accepted it.
 
 [ ... ]
 
-> @@ -4894,8 +5278,35 @@ static int sit9531x_suspend(struct device *dev)
->  static int sit9531x_resume(struct device *dev)
->  {
->  	struct sit9531x_dev *sitdev = dev_get_drvdata(dev);
-> +	int rc;
-> +	u8 i;
->  
->  	sit9531x_page_cache_drop(sitdev);
+> @@ -661,6 +1474,73 @@ static int sit9531x_pll_is_active(struct sit9531x_dev *sitdev, u8 pll_idx,
 
 [ ... ]
 
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc = sit9531x_intsync_src_detect(sitdev);
+> +static int sit9531x_chan_routed_ref_read(struct sit9531x_dev *sitdev,
+> +					 u8 pll_idx, u8 *ref)
+> +{
+> +	int rc, lock_rc;
+> +	u8 v, i;
+> +
+> +	lockdep_assert_held(&sitdev->multiop_lock);
+> +
+> +	rc = sit9531x_write_pll_u8(sitdev, pll_idx, SIT9531X_PLL_REG_DEBUG,
+> +				   SIT9531X_PLL_DEBUG_UNLOCK);
 > +	if (rc)
-> +		dev_warn(sitdev->dev,
-> +			 "INTSYNC source not re-detected on resume: %d\n", rc);
-> +	sitdev->intsync_stale = rc != 0;
-> +	for (i = 0; i < sitdev->info->num_outputs; i++) {
-> +		rc = sit9531x_output_state_refresh(sitdev, i);
-> +		if (rc) {
-> +			dev_warn(sitdev->dev,
-> +				 "Output %u mute state not read on resume: %d\n",
-> +				 i, rc);
-> +			sitdev->out[i].state_stale = true;
-> +		}
-> +	}
-> +	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: Medium]
-Are pin-change notifications needed here? This rewrites intsync_src,
-intsync_partial and out[].enabled from the hardware. It does not compare
-them with the previous values and does not notify anyone.
-
-The poll won't catch the change either, because
-sit9531x_dpll_changes_check() skips all but the selection pins:
-
-		if (!sit9531x_dpll_is_selection_pin(pin))
-			continue;
-
-The comment on sit9531x_dpll_is_selection_pin() says outputs, including
-the INTSYNC source, "change only through their own set callback". The
-new source setter also says "the poll does not watch this pin".
-
-The part may lose power across suspend and come back with a different
-INTSYNC owner or different output mutes. PIN_GET would then report the
-new state, while netlink subscribers keep the pre-suspend state.
-
-> +
->  	if (sitdev->irq > 0)
->  		enable_irq(sitdev->irq);
->  	kthread_queue_delayed_work(sitdev->kworker, &sitdev->work, 0);
+> +		return rc;
 
 [Severity: Low]
-If sit9531x_intsync_src_detect() failed above, intsync_src and
-intsync_partial keep their pre-suspend values and only intsync_stale is
-set.
+Should this path also go through relock:?  Elsewhere in this patch, a
+write that reports an error is assumed to possibly have reached the part.
+The failed force write still goes to release, and slot writes are counted
+before they are issued.
 
-The poll queued here does not call sit9531x_dpll_intsync_refresh(), but
-it still reads those fields:
+If the unlock key landed despite the error, the debug page stays open.
+The comment at relock: says that leaves it "open to a stray write".
 
-sit9531x_dpll_changes_check()
-  sit9531x_dpll_pin_snapshot()
-    if (id == SIT9531X_INTSYNC_PIN_ID && sitdev->intsync_src == sitdpll->id)
-    sit9531x_dpll_selection_operstate_get()
-      sit9531x_dpll_selection_no_signal()
+The poll relocks it only by calling this function again, and it does
+that only while the PLL is tracking.  Could a PLL that becomes unlocked,
+frozen or free-running keep its debug page unlocked indefinitely?
 
-Would the poll then compute and store the destination pin state and
-operstate from the stale owner?
+[ ... ]
 
-If the stale result matches the baseline, no notification goes out. Once
-a netlink GET refreshes the cache, the next tick would send a
-notification that contradicts the earlier state.
+> @@ -976,6 +1871,71 @@ static void sit9531x_dev_ref_states_update(struct sit9531x_dev *sitdev)
+
+[ ... ]
+
+> +static void sit9531x_ho_release_retry(struct sit9531x_dev *sitdev, u8 pll_idx)
+> +{
+> +	struct sit9531x_chan *chan = &sitdev->chan[pll_idx];
+> +
+> +	if (!chan->ho_release_pending)
+> +		return;
+
+[Severity: Medium]
+Is the owed release lost on unbind?  The poll is the only place an owed
+release is retried, and sit9531x_dev_stop() only cancels the worker and
+unregisters the DPLLs:
+
+static void sit9531x_dev_stop(struct sit9531x_dev *sitdev)
+{
+	...
+	kthread_cancel_delayed_work_sync(&sitdev->work);
+	...
+}
+
+so the force bit can outlive the driver instance.
+
+On rebind, ho_release_pending starts false and the table read gives a
+non-zero prio_mask.  So in sit9531x_prio_table_commit():
+
+	ho_foreign = (val & BIT(SIT9531X_PLL_HO_FORCE_BIT)) &&
+		     chan->prio_mask && !chan->ho_release_pending;
+
+is true, and every later table write leaves the hold in place.  Would the
+PLL then stay in forced holdover until a power cycle or a manual register
+write?
+
+[ ... ]
 
 > diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index dc8d84133b72b..9826adb353c95 100644
+> index e88fa4e29bdf3..4c7cae4ce93ec 100644
 > --- a/drivers/dpll/sit9531x/dpll.c
 > +++ b/drivers/dpll/sit9531x/dpll.c
 
 [ ... ]
 
-> +static bool
-> +sit9531x_dpll_selection_no_signal(struct sit9531x_dev *sitdev, u8 pin_id)
+> @@ -241,6 +266,124 @@ const struct dpll_device_ops sit9531x_dpll_device_ops = {
+
+[ ... ]
+
+> +static void
+> +sit9531x_dpll_selection_operstate_get(struct sit9531x_dev *sitdev,
+> +				      const struct sit9531x_dpll *sitdpll,
+> +				      u8 pin_id,
+> +				      enum dpll_pin_operstate *operstate)
 > +{
+> +	const struct sit9531x_ref *ref;
+> +
 > +	lockdep_assert_held(&sitdev->multiop_lock);
 > +
-> +	if (pin_id == SIT9531X_INTSYNC_PIN_ID) {
-> +		/*
-> +		 * The driver knows the net is driven when it enabled the
-> +		 * source itself or found the configuration it would have
-> +		 * written.  A profile can drive the net with a configuration
-> +		 * of its own; then a PLL the device feeds from the net and
-> +		 * holds locked is the evidence that the net carries a signal.
-> +		 */
-> +		if (sitdev->intsync_src >= 0 && !sitdev->intsync_partial)
-> +			return false;
-> +		return !sit9531x_dpll_intsync_tracked(sitdev);
+> +	if (sit9531x_dpll_selection_active(sitdev, sitdpll, pin_id)) {
+> +		*operstate = DPLL_PIN_OPERSTATE_ACTIVE;
+> +		return;
+> +	}
+> +
+> +	if (pin_id < sitdev->info->num_inputs) {
+> +		ref = sit9531x_ref_state_get(sitdev, pin_id);
+> +		if (ref->los) {
+> +			*operstate = DPLL_PIN_OPERSTATE_NO_SIGNAL;
+> +			return;
+> +		}
+> +		if (ref->qual_fail) {
+> +			*operstate = DPLL_PIN_OPERSTATE_QUAL_FAILED;
+> +			return;
+> +		}
 > +	}
 
-[Severity: Low]
-This isn't a bug, but the pin-state contract comment earlier in dpll.c
-still says:
+[Severity: Medium]
+Should a failed qualification rule out ACTIVE here?
+sit9531x_dpll_selection_active() does not check ref->qual_fail.  So when
+the PLL is routed to and locked on a drifting lane, this returns ACTIVE
+before it reaches the qual_fail branch.
 
- *   ...  The INTSYNC destination
- *   has no monitor, so N and Q never hold for it.
+include/uapi/linux/dpll.h defines:
 
-With this change N can hold for INTSYNC. In that case
-sit9531x_dpll_selection_operstate_get() reports
-DPLL_PIN_OPERSTATE_NO_SIGNAL where the contract predicts STANDBY. Should
-the comment be updated?
+ * @DPLL_PIN_OPERSTATE_ACTIVE: pin is qualified and actively used by the DPLL
+ * @DPLL_PIN_OPERSTATE_QUAL_FAILED: pin signal failed qualification (e.g.
+ *   frequency or phase monitor)
+
+There is a related question on the selection side.
+sit9531x_prio_src_live() only tests !sitdev->ref[index].los, so
+sit9531x_prio_top_live() and sit9531x_prio_activesel_pick() can pick a
+drifting input over a qualified lower-priority one.  One example is
+removing the current source from a table [cur, drifted, healthy].  Is it
+known whether the device itself rejects drifted sources?
+
+[ ... ]
+
+> @@ -253,8 +396,163 @@ sit9531x_dpll_input_pin_direction_get(const struct dpll_pin *pin,
 
 [ ... ]
 
 > +	switch (state) {
-> +	case DPLL_PIN_STATE_CONNECTED:
-
-[ ... ]
-
-> +		if (was_connected)
-> +			break;
-> +		if (sitdev->intsync_src >= 0 &&
-> +		    sitdev->intsync_src != sitdpll->id) {
-> +			NL_SET_ERR_MSG(extack,
-> +				       "INTSYNC is already sourced by another PLL");
-> +			rc = -EBUSY;
-> +			break;
-> +		}
-
-[ ... ]
-
-> +		rc = sit9531x_intsync_enable(sitdev, sitdpll->id);
-> +		changed = true;
-> +		break;
 > +	case DPLL_PIN_STATE_DISCONNECTED:
-> +		if (sitdev->intsync_src != sitdpll->id)
-> +			break;
-> +		rc = sit9531x_intsync_disable(sitdev, sitdpll->id);
-> +		changed = true;
-> +		break;
-
-[Severity: Medium]
-How does this handle a net that a profile drives with its own EXT page
-values? sit9531x_dpll_selection_no_signal() above says that can happen.
-
-In that case sit9531x_intsync_src_detect() finds the global bit set but
-no PLL matching intsync_config, and it ends with:
-
-	sitdev->intsync_src = src;
-
-where src is still -1. Every source pin then reports DISCONNECTED while
-the net is driven.
-
-A CONNECTED on any PLL passes the -EBUSY check above, because the check
-only looks at intsync_src >= 0. sit9531x_intsync_enable() then writes a
-second source configuration on top of the profile's.
-
-A DISCONNECTED on any PLL takes the intsync_src != sitdpll->id break and
-returns 0 without touching the hardware. dpll_pin_state_set() still
-sends a change notification for the success.
-
-If the PLL the driver enabled is disconnected later, the shared global
-bit is cleared. That also cuts off the profile's source.
-
-The commit message says setting the source pin "takes the net over or
-gives it up", but for a profile-driven net it seems to do neither.
-Should a set global bit with no recognised pattern be treated as busy, or
-as an unknown owner?
+> +		rc = sit9531x_input_prio_remove(sitdev, sitdpll->id, hw_src);
 
 [ ... ]
 
-> +	case DPLL_PIN_STATE_SELECTABLE:
-> +		if (sitdev->intsync_src == sitdpll->id) {
-> +			NL_SET_ERR_MSG(extack,
-> +				       "PLL cannot lock to the INTSYNC it drives");
-> +			rc = -EINVAL;
-> +			break;
-> +		}
-> +		rc = sit9531x_input_prio_add(sitdev, sitdpll->id, hw_src);
-> +		break;
+> +		ref->pll_mask &= ~pll_bit;
+> +		/*
+> +		 * The receiver is shared, so the last DPLL to let go turns it
+> +		 * off.  That has to happen even when the table rewrite
+> +		 * reported an error, or the input stays powered with nothing
+> +		 * tracking it; the first error is the one returned.
+> +		 */
+> +		if (!ref->pll_mask) {
+> +			int off_rc = sit9531x_input_disable(sitdev, dpin->id);
 
 [Severity: Medium]
-Can this move a PLL onto an undriven INTSYNC net? For reporting, this
-patch treats an undriven net as having no signal. The selector that
-writes the active reference still treats INTSYNC as always live:
+Can this cut the reference of a PLL in manual active select?
+ref->pll_mask counts only priority tables, both here and in
+sit9531x_ref_pll_mask_rebuild():
 
-drivers/dpll/sit9531x/core.c:sit9531x_prio_src_live() {
-	u8 index = sit9531x_hw_src_input(src);
+	u16 mask = sitdev->chan[pll_idx].prio_mask;
 
-	if (index >= sitdev->info->num_inputs)
-		return true;
-	...
-}
+A profile can put a PLL in manual active select (PLL_CONFIG1F bit 6).
+The PLL then follows CLK_ACTIVESEL, or the manual input select when
+MISCINNER bit 5 is set, rather than its table.
+sit9531x_manual_sel_report() only warns about this.
 
-Nothing here checks that any PLL drives the net. With no source pin
-connected, a user can give INTSYNC a higher priority than a healthy
-external input and set it SELECTABLE. Then:
+Suppose such a PLL runs on INx and its table does not list INx.
+Disconnecting INx from the last PLL whose table lists it drops pll_mask
+to 0.  sit9531x_input_disable() then sets the force bit and clears the
+state bit for a receiver that the manual-select PLL is still locked to.
 
-sit9531x_input_prio_add()
-  sit9531x_prio_table_apply()
-    sit9531x_prio_table_commit()
-      sit9531x_prio_activesel_pick()
-        sit9531x_prio_top_live()
-
-picks INTSYNC as the active selection. The comment on
-sit9531x_prio_activesel_pick() says that a selection naming a dead source
-means the next table write "sends the PLL back to it and it unlocks".
-Would the PLL lose lock here?
-
-This path was not reachable before, because the INTSYNC destination pin
-was not registrable.
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016005823.13690-1-arouhi%40sitime.com
