@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524240;
-	b=EQWgwA6USDWY6YStvvVl5IElcDsdDb1Fm3ZLVLBmLuwfgOfxh7NOHB3NdgxD5BQDdtPR
-	 fZ6/QrZkh+vbMq/0HEBZLNTPAvL8++AzNGR86rinlWLWFUwvVvxAtdWUoUJ61LoZaPAuS
-	 K1QDST98OH5LIHGWj6i1GEEjmXe3yNwnNxfRBlmpa9UJF0bWVcKr3QXgW+GAB9jnrHaX4
-	 arJKBTQ23sU15RvP9+ZHPXmNLSh3bcW9KONxJQ6puwccqK2cxNLkyxv8M2TIl1LAkxNZv
-	 85ZkaqI3J1B21dDu6ilS1VypUJvkZnljlix+bGjTlNvNp3KnFwC5h1Vfrgu38bUYmZw==
+	t=1792524276;
+	b=XUR5DMKqw293/o40JS+dMw3lrtPO8CoZlPrK1RtEvnnBvogOwuR9QP5xzKvtQOiSmx/s
+	 3xsaHgVZF0FGvBGYvN2HnHRmdQprOXGyXTIFGo8VlU/X5SUFFJOYDsxxkzuww6NlD7y34
+	 wsRQ1EY82HPQRiQ5EJToJbCyyZvhims6cE2++o7yYjViQ7n0rL/f0EonSN7taY4dzRDse
+	 3Cr6hdR707zpLjMR7BMvWFNW8QWaziViN0d0Ox4aO5P3SrsZ08O+qbz8vRIApiXxjVbP4
+	 vk90pOA4m9KE0sdiiSKvcu2xp0Q9QwyrEMDqmMFcPuC6R+f95z8tpWNTlVWGxTCTCOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524240;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=/tfBImnshU5NpP7d0QDXb5DGBXQWNObOq9TC0JcC5V4=;
-	b=qxFUYx2h1AFI57RCYMQ8TgcCafVTyLa1VCNB5Y7QZ14wc2Dim6hQdU485ssk5ozbrgSD
-	 SsxaBPyeOfaeKpAoLZ0xqKEJV3TnFpzsnr20pOuekMWyaPy3IbufFD1j46rwr7hk1R0WL
-	 AUPF6L6kuNNo7XhLxrtbsMC10us8VuMUsKU7C12NM/hWX+2q+GQn15rZ4rAS6fGCDx2QV
-	 NegTKwDZ8KwRk+70hnnSxlP3Pgsa+hG/vZsfOOZPAj6DjDqYQK8akQXbIjfSxJUDhCywK
-	 vdrjm7NXkgwYkfqMkXGmqgN2UulLNtaU4QCsVJlwC7JnO0td9UmB+mO2c8lcc0ew/+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524276;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=M+Z/CSLfbtLNI8KeSX5aKzw16HLuhGFRAPfRi2/mK+Q=;
+	b=Jo/EZU1iJlZQYGqC8iBXMGnu9N3QQ/qDxiV3LsrZihn00j0YND9t5gLUrmgORbr/9awk
+	 v+ZBjleLJjn1XRsym6GppwGAMWIMcp3cvCYmJ5m4aA6yhQkiexr/cKZi3kQKeWNPZe5d8
+	 2GEpOCae+n6gnjZB7wIj0vEWmBbobgivPRwA3bSsuUVwqrZ2y5T2eu2t312hcYfE+C8GN
+	 oL57+Nvg64tjnfcFDzz6x0F0Wn4SkEkY4cm7sksKtYa868YnFEYLd2WyrTxFfvCsAjKni
+	 18bK3kMtYNBUCBvR+5Wxfow8KXQ5AUjHIpoS2xPe7BVIxB6DbIv79MONBiEQj9ODCOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RFmuCuKk;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SQYQbvSS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2AE606A319;
-	Tue, 20 Oct 2026 19:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD2AE606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FC8606A319;
+	Tue, 20 Oct 2026 19:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RFmuCuKk
-Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 5AC801A03AC;
-	Tue, 20 Oct 2026 19:23:57 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf15.hostedemail.com (Postfix) with ESMTPA id AD61F1B;
-	Tue, 20 Oct 2026 19:23:55 +0000 (UTC)
-Date: Tue, 20 Oct 2026 15:23:54 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Junio C Hamano <gitster@pobox.com>
-Cc: git@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, Jonas Rebmann
- <kernel@schlaraffenlan.de>, "Ricardo B. =?UTF-8?B?TWFybGnDqHJl?= (SUSE)"
- <ricardo@marliere.net>
-Subject: Re: FYI, git output messages are being used by other tooling
-Message-ID: <20261020152354.165ad128@gandalf.local.home>
-In-Reply-To: <xmqq8q3sw75e.fsf@gitster.g>
-References: <20261020141011.0015d172@gandalf.local.home>
-	<xmqq8q3sw75e.fsf@gitster.g>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SQYQbvSS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C571F000C9;
+	Tue, 20 Oct 2026 19:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792524276;
+	bh=M+Z/CSLfbtLNI8KeSX5aKzw16HLuhGFRAPfRi2/mK+Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SQYQbvSSg9eIQLU+57l0bR1dxOfpeKYESIKHUWNz9JoioDMv3Fj1lxY26LXV0jQU2
+	 EDgnWLIZJnGddMMvgFdK9940KXRUN/hCQCx1eBDArjd2jHuQ59XyPjTB3N1rEO+yZv
+	 xhxnessAWwtS6Q4+ODoiX8ThveA29T03rDZU5PR2cLp4SkGvPHVlkXsowiQaQyvFDE
+	 JAuopzelMV5mIrmmyyEguGQn1rm/NA7/avt7uYWzeiCObNSv3m3JUcMmtRDQeuuGaC
+	 XzWKbAJ51RezPlTc4qiuvamvRuN+aY2jAYwdwEP1cV3l4TTaecar8FAAOWOxlyT1jN
+	 zZvRAMatcykMg==
+Date: Tue, 20 Oct 2026 12:24:35 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: Daehyeon Ko <4ncienth@gmail.com>, David Ahern <dsahern@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 3/4] ipv6: initialize temporary ifaddr before
+ publication
+Message-ID: <20261020122435.055178e9@kernel.org>
+In-Reply-To: <20261015143230.GC1794897@shredder>
+References: <20261015050651.1841557-1-4ncienth@gmail.com>
+	<20261015050651.1841557-4-4ncienth@gmail.com>
+	<20261015143230.GC1794897@shredder>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,55 +66,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: AD61F1B
-X-Stat-Signature: o3kmb5gptbjpqdjmyg9jgy4rpjnmx8se
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19vWj6JdH42Kv6IEwrq+O1A50WgADvckvw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=/tfBImnshU5NpP7d0QDXb5DGBXQWNObOq9TC0JcC5V4=; b=RFmuCuKk5Y/bbdOniGXco2p8gqxKd0k/R9QgGiWITPpqdk54HQKmBZSiZXh+qymP2TDAqlR0lQ5rimYR7bF7z2nVaa/QQmjxWrbb1q1KTIHN8KQn6oW9yZKwGW1PZCFjAEj8J+5xSNvKeBb6fag71vi+fYcxbpVv+IDe2BznD2s=
-X-HE-Tag: 1792524235-919834
-X-HE-Meta: U2FsdGVkX1/wxXpb8npp62Mc9e7637Td92OcWwyy6p7Uc3EiJY5eBfR73cdqjYc1XIlub5V22opkvrr78dTLRc802r5YuAE02gXCRgsyVox2TqRAJy1JB6YLizx+ZklX5/F2Gr/T5vwyknYRzas8R1YCTN/hn/iZCnpXdaxQtz9F4I0OBbkADtnCQUSawsYaX2vytaxbiGI2ZBz052cCKVtvkgCbdMUI5ePc7bIXCNQd3KowM37OAizPZRxwz5PuhTFp+GOiLyrbCaCAIcKOLtHkyOrVK7YuTF3Gn9+N11wgtN72Wp6T7yKD5Ox59RIBHF3iQwYSvxdOk7dl3kvHtmyrLiMU6CvBw+AZQPp1ya711+UqV/DB6E07JZQLjRkpX8NfG1FjyCRRVjwXaX9KYiY6MbaA3D3o3rKDRiqPfLdgq0jT0etEnNqTl1AhjjgAliThsUS4/QXZbzFAR8lbII64NiKEFNo/0bep8LCwGgFpWIsarebmPR+KD1PfG1dhNhIj4uNMBvU=
 
-On Tue, 20 Oct 2026 11:37:01 -0700
-Junio C Hamano <gitster@pobox.com> wrote:
+On Thu, 15 Oct 2026 17:32:30 +0300 Ido Schimmel wrote:
+> FTR, I suggested a smaller diff [1] which you decided to change without
+> a comment. Tagging this one because it fixes the problem and because I
+> want to put this frustrating submission behind me.
 
-> Steven Rostedt <rostedt@goodmis.org> writes:
-> 
-> > Hi,
-> >
-> > I just want to let you folks know that ktest.pl (tools/testing/ktest/ in
-> > the Linux kernel repository) parses the output of git to display the first
-> > bad commit found in an automated git bisect.
-> >
-> > The output was recently updated via: 0c0f93e7fa64 ("bisect: print bisect
-> > terms in single quotes") which made ktest.pl fail to find the bad commit.
-> >
-> > The change is being addressed:
-> >
-> >   https://lore.kernel.org/all/20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net/
-> >
-> > But I figured it would be good for you to know about this dependency.  
-> 
-> Shouldn't the script instead seeing "git show bisect/bad" instead?
-
-Hmm, it also is used to see if the bisect finished or not. It looks at the
-output of the last git bisect action and has:
-
-    if ($output =~ m/^(Bisecting: .*\(roughly \d+ steps?\))\s+\[([[:xdigit:]]+)\]/) {
-	doprint "$1 [$2]\n";
-    } elsif ($output =~ m/^([[:xdigit:]]+) is the first bad commit/) {
-	$bisect_bad_commit = $1;
-	doprint "Found bad commit... $1\n";
-	return 0;
-    } else {
-	# we already logged it, just print it now.
-	print $output;
-    }
-    return 1;
-
-Where returning 0 means the bad commit has been found.
-Otherwise it keeps looping.
-
-Is there a git command to know if the bad bisect has been found or not?
-
--- Steve
+Ido, FWIW it would be more than fine for you to take over and submit
+your own patch when the author is likely an LLM jokey simply feeding
+sashiko reports and your replies into a machine.
