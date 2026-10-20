@@ -1,111 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513849;
-	b=zxoRsYnX/8f7PhPkRAt7JomhN3vBhnKKDiIdjwTpIGKfriuhRRSbS+C46LxVc4bp2HDP
-	 yZT2CscNshY7azJr2s9cdevyDNIxETyJ0kZToVcb1iouB159C1UYOGJst5rLV4PJNstrh
-	 m4VMSwhMwr7zzRNx+4GU49VeEUqIkQJrCvhZlh9c+VbAnjSHpz1c79HoiziXoK3ALOyY/
-	 Xnw9EWQNcvYNI+2PAIn3LjsjaiNhgZJb6ISGPPKn9J5MTtnFEWwNh1d2rtkMn9R/yEsdX
-	 2Gy78BPJtiXOvCQCEZA0VfqzOMwfFTjHnA1Tk6X9k/oXKrtCMuMX0vzsOr2pwww9VHw==
+	t=1792513936;
+	b=I9KErn0AQHgAPtFd3LQPGFxxBw2K3EOnoTsfLyJGjeJX0mHwTwfRvorUIMARzqcpr4R8
+	 Qj3pnWC6haYajuZ0776yQI5GOGh/IcGHqgDuJDTS0sr/wsLUfrK6D3ImCNqxSpiz2f8Pj
+	 j82LRyygqtsI7dcg6kmhd2eGT5gsNlujdbQ2B2TWjHUdS7yqPewRPEsWNG+d7VJ8KAlXv
+	 Z2X7HGCJTJ6YFq3saYAfN6R9gLrowy6A8HtpOXfSJIKgZVYpBmdGlQ152E3WLUM2N8dKd
+	 knR3YtBu4KGfgw2SnzWt6eVltENb91fo1nndTFvhZO0sRfjH/XHd8Z4aA4kC2IQgCvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513849;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=;
-	b=qCHwPxs+iIR9ryS2XvMCxFpZAszcH0ZsDiICxyLwKnqKUeT9zAfBvbQiZaLITXvQUO0o
-	 8euIiohZ1hgdcrBHQLdnMmLd/u8OjF32UJx0XIDPbAi0+DEZ6dBwI9CkuH0nZ28C9zhF3
-	 ZOZorN+2/a8R+Ee+fB2jqKgrbIWPidyMXi7kVkRZNAXpempoTGaAjkHFV+5oHwF+0SXlx
-	 dtW3ohALf/HgwCuk/f2321AFYezCUKg13ZI86UoWs8q5FNMdMBJPpYtOi5ozmi8zjPuSt
-	 CBcSu9RU5pthP+k0C7+HV/suuswE9zeRSJoLtpSnBldOP0NnjfLrYy31FUthFb2FPRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513936;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=g5G7S+YsIRVvDin71nNUSA+oEZIPCQiXkSY0KKPHZos=;
+	b=cXFhCvWbgrSPB/ew9i61aY7aMo/omuCRl3TT1L7CNpAa8Fr5CcbFilbdJD+ifT74zxGZ
+	 Qnp1cRYav5urSAlBaIOWtB77KaYTPTcfMRrNcm5/zfqnHj2aru+H0d4i1Of78ZoJJs34X
+	 Olh4EaQvugOcFt4+Zl7NZ2iaUQwUX/zGJduGLFC9/u41Nef7XNfXC3s0ln4wwf7JQXJv/
+	 9EYre/0YHXgGwvopju+fyYbN6w8PZqRXC0h3zLUq79YDa1k9JwXcSYcgU4UYp2mbAd0DV
+	 QjyiCUUs5/FrTKpsX1LoLoH8lwuVdtcklWYnwi7H2A4L1lV6fr1VbkeoREgbWfgbMKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fM3fSPH2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OSAWB4+G;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jS2LDdiw;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C9B60A260D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7C9B60A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B428606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B428606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fM3fSPH2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OSAWB4+G
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA6WY1575279
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=; b=fM3fSPH2d00hRahJ
-	Yb54MpFTMI+t3Fq3EpjEGxJp/GbFtTHIqV4a5V9fjVVwgIVFulrz9UK6LGOh2r5A
-	B1tEncSv1orJNWdWwsfKqD3aGo8+0gxbG10CFFYeJ5C/sOLKHv1ve2jDqaQ4mENB
-	mGo+ouJqTHm/hDnpsA7Bn8dg2uN6toYxlXqGZ8JjChTJ27Kb3d+eTiHUkeqtYBn7
-	LOwcYoxKc+LPkJ/RA3slM2RuVDolHeiuuyWX26og9yVfuSWk/UKB2iypodJoiV9r
-	IA03mVPPJ2w0OOrfQCUuKWQzXVHYGhH3HiD1sa38GstFof0ABRTolcG1SLFCLhCs
-	vCXudg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n3d5k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:30:47 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso5269921eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:30:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jS2LDdiw
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e832c03576so52646225ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:32:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792513847; x=1793118647; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=;
-        b=OSAWB4+G+fYpJaFX6wnGwVpaiFiX7O03kPHJ85V1jrPSMhigZeMn9iOEdLzKKitJtT
-         DFKBNEpdNAaErIjPYQPMeWAzhYx2afa03AAGnk8ICpqyece+rPpa50oGs+bfL8feR2OL
-         8eZAtQwZJiQEE6KiSTKvc6j3GfZZZV1IFEdl8GUPYdQJaYsyG1au4GYeFvVzydYEuQvl
-         7GozZEt9h/foPeAlFNWQoH2duZJDIWI6xloN3fV2Gqfvp5PmdYNHCozhtGo66YsYizS2
-         ZOV1MbQy919mPyZP+7DaXDAqYAYEOepz3laX/YLcRgkQZPwxU8fqsgGWQI7D9bePFq5N
-         jD9g==
+        d=google.com; s=20251104; t=1792513935; x=1793118735; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g5G7S+YsIRVvDin71nNUSA+oEZIPCQiXkSY0KKPHZos=;
+        b=jS2LDdiwXB3GeE/IrntSWD8xp/d4iybLewr1e6pnvXE1YY4WKv82QlAK7zmZKAcyeB
+         /FD4qdckIBRfpof+97rSc45DWsKRbaEh4diDL1rqWIxOBbjFv5Qy9tLrXuRAxBYH6d7i
+         U8RA7ernxOIpoBx3X/VcH99oQsjmTPTZwCbofTsNXdAkNk9rZN0xWu+WrggRUhJDzedg
+         rJOBQgguU5wn6YhLnoS1Yj0cjyALndQEPfTqtDZQAgDs8h2PwcB7IxuOZ/cx8txg5ziO
+         UHu+z1up56S8lQRDWrDEVstroTnz/IkSlzpcu/4pW1LA6zFz0XcgCam0kVSlYu0/I7Ko
+         GqaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792513847; x=1793118647;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792513935; x=1793118735;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XA0IAiPsmsCfgrqSEgkMXcasY5uxsfrk4i3u8mvlO20=;
-        b=ZtDN2NSPi/9/Wzs9i/a0Hu0clStY1ooDtmpwUCocyufTpF0OgMJYgRKeAqZx1kqybY
-         bY2qe+N6bXC9963+viHjW6vB7MyZJ6jDv39o2lx8fqrmd8NyqaiEhQxjau6kcD6HOs/y
-         bwqn+4aENJlt9m3AQcrH8clDXWsNG6vfskcVswQGvu16ph75UrqdkmJabYuUUwKfLOr3
-         L1e/o3lnAO2j37A9FihzpQiRLbMlCHFv1yjC3VJ/HMsvEjMG3KAg6RlAcm6DihO5lMT9
-         BmGXuWwOxdkqzKvXQz8SzHaKyU7pH3XFEHPm81qfpIjhThXyQOH7ca3237UW8zxRhWDQ
-         Rucg==
-X-Forwarded-Encrypted: i=1; AKwUvBxqn4BhJjecC81CK1ud4IR658TTZsQN9L5EQvuAVCW66rEGQLST3M74Wp6FN2op886pJ/W+XFT0TEsdhyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKR1C/YwkrTFa3owBBSk+EgdcNx2MQkH+8SgunWfvhlp4AuVF62
-	EVQTvlKc8KfwmCaGpsBiMxWu0vm1Yhn9Xa3VYHhHUwLZtRzhNlsegvUYdpxIcXmugRSqvW0cpoU
-	JW6S7PaZLzPR0G9fWBNv1bVsKS0g/UguHPLXNCPxRFP7ekDAyFoAcxtRG/bfVRyvTVEg=
-X-Gm-Gg: AYBFou0gS1WLfBlFQ7L34XKS40iWUXJ27vrAbG1OAL2j3H3NgG5O2f0gz0VixY4drgO
-	2z10LhsXGHA09Rv0Bpm/TuOuoYZoCdLJOQpFBLSr+Qz7c5kVgUySifpqOV4flBGLKNTKT5dqEFR
-	LTgKc0Y4kPDqCdcEt6HuVlYyTV3sYGWO21wydZ4T+7QZptZRj2hW7z1Mg3xFAyTmmFn/V+RrHGs
-	bkingFE1gF2IKwY+MqnWkEX4MXbf2U44r6nunNvEhUZp723ahksVZrWnjAGQedQUXQ+t/uMi0EK
-	g5JaRNx1x/ZFvagcoqZ5yVMnFn3ZZkjhlD1S2f/wVxOVSPF50qOXnKLWyQ7m9U1NepT4G6dOBRJ
-	CIsQhYF3ZUgF2pc6/LKSIyDqybXLJFlhohXa26uC01MBdcCM/W0f7o6aEFmKY2UKCm46lip2Wy1
-	Uz36+zH6KyJqkur7+XkUrpQkabAQhypO0Oe7I=
-X-Received: by 2002:a05:7022:b054:10b0:190:596:4071 with SMTP id a92af1059eb24-190059640ecmr251672c88.11.1792513846495;
-        Tue, 20 Oct 2026 09:30:46 -0700 (PDT)
-X-Received: by 2002:a05:7022:b054:10b0:190:596:4071 with SMTP id a92af1059eb24-190059640ecmr251602c88.11.1792513845675;
-        Tue, 20 Oct 2026 09:30:45 -0700 (PDT)
-Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm33473794c88.14.2026.10.20.09.30.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:30:45 -0700 (PDT)
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 22:00:27 +0530
-Subject: [PATCH v2 2/2] soc: qcom: llcc: Add LLCC configuration for IPQ9650
+        bh=g5G7S+YsIRVvDin71nNUSA+oEZIPCQiXkSY0KKPHZos=;
+        b=m/bN0DhcZ0xbaz8a8CWdnxM3yffHT+CvO7kgBZAi0XmWFUZNjbq8IyDWPfFjbGd90W
+         zaqsnnypFnG+OyWuqv0lBCmjUS6b2WpcLThkPdy1jYQmb34RqfQFn+HAkEKCO9qVJzml
+         hkAQfV+Jhjaod8rew5nZZLs/tQWF/3yAyKnguf/DN3M3MlTphDEcAklh1lrK2FfTf5+I
+         oym3MhXYgro2xpOvoUzZ9kpkkL/e4naw4ixAwo64JoqZWwGCK4cx9xgeY2svRffUvAl9
+         5rHvd1QKWVDVFHXfVM1A7+nmvzKwUJm0+YtDBAqtiefTEJm0ePnUokG2IITT+0jcGozk
+         /DUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWwDUdpLsJZ4Mqg+5jocHOD8cETW7+F+K86DW7F8dMEedjtOFwi2ndxxFaExbY6w6dj8cKb2iNuBkul+s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJK0hThx8zXG0aNI6m2hUPNpVkNMMPWvlqpJGLAJGIrxunqnL1X
+	QLNVhX0g3K45R1CLR7YQRWQVmuh+ZOvXwj3UO3Mu2jQW8CdmtvfLYVLfhgfUNeamnxV2H9TBCEI
+	uKVsFUw7qLQ==
+X-Received: from plmo1.prod.google.com ([2002:a17:903:18c1:b0:2ea:3bc:770d])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e84a:b0:2e9:4b65:368e
+ with SMTP id d9443c01a7336-2e9a6d1eaa1mr102977655ad.15.1792513935041; Tue, 20
+ Oct 2026 09:32:15 -0700 (PDT)
+Date: Tue, 20 Oct 2026 09:32:09 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,185 +75,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-ipq9650_llcc-v2-2-e4c492acc8b2@oss.qualcomm.com>
-References: <20261020-ipq9650_llcc-v2-0-e4c492acc8b2@oss.qualcomm.com>
-In-Reply-To: <20261020-ipq9650_llcc-v2-0-e4c492acc8b2@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Conor Dooley <conor@kernel.org>,
-        Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: 30omy8wzLCBsEqMtwaSeEgDkNZloK8bq
-X-Proofpoint-ORIG-GUID: 30omy8wzLCBsEqMtwaSeEgDkNZloK8bq
-X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad79737 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=g86QhdraO39nIfxGWTwA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2NSBTYWx0ZWRfX9mFwopjameFS
- bf7lQsEU4gGk/5fGPqLYB3aljeeBQEkeNUpZDguZi+S0PgCiloFAtYDBerjcpF+lv3DCfDprP5V
- fPUy0+sfyDfURb5hPSu+gFZzt/9vaRvkG+TWxlzYum70jmHme9aDXci9Q33tPgUlvCY89XHwZ5V
- E9zAbmUF4ft8Q/ozADHVYXKnOF1ZXlJcR0YxJFSWBaLm+badw7VMibvI12RKNu2Fl93QyhGdq8i
- /bOXijtrm3h5J3tjSewE6K6/a9ua3rXRAYLPpTkH+Udd/lq7PAnhspFIB9L1r4ixbyHLSZMpoLn
- 42XUM+0ahyOfAAnwWGNrAsPG6jEP5NY7et8Mr7H0+8pfkyXWfmW+TMOSBtLMSKdCA2NhjBytd7H
- tkvLv50If65WGT6LUc5dX3oz5kCY7eXO1FvwVxeV86bW2wyXXiIdIc/LI9bqsjCS6MKMUejHeaL
- MB1M0u74xLEHy00XO9g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2NSBTYWx0ZWRfX5ZFliYkr9gje
- R2MTQ8e+dK8Zkx8CeirBoW0LlQkimDJp3ahzlTIEhysd6nga7k3DWliu9zx8zcxCZLQ2LjDA6lx
- wW0dCEYRzn8oPLDZZIQh1Y5rcRYPqrU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200065
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020163210.742728-1-irogers@google.com>
+Subject: [PATCH v2 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option
+From: Ian Rogers <irogers@google.com>
+To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Arnaldo Carvalho de Melo <acme@redhat.com>
+Cc: Stefan Kerkmann <s.kerkmann@pengutronix.de>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Arnd Bergmann <arnd@arndb.de>, Christophe Leroy <chleroy@kernel.org>, 
+	David Laight <david.laight.linux@gmail.com>, Helge Deller <deller@gmx.de>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	"Jason A . Donenfeld" <Jason@zx2c4.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Eric Biggers <ebiggers@google.com>, linux-kernel@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add the system cache table and configuration for IPQ9650. The LLCC
-hardware version in IPQ9650 is v7.1, but similar to IPQ5424, there is
-no broadcast region since there is only one LLCC instance.
+Commit a339671db64b ("vdso: Switch get/put_unaligned() from packed struct
+to memcpy()") switched __get_unaligned_t() and __put_unaligned_t() from
+using a __packed struct to __builtin_memcpy() to avoid strict aliasing
+undefined behavior.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+On targets without efficient unaligned memory accesses (such as ARMv5),
+GCC may not inline __builtin_memcpy() into byte shifts and instead emit
+stack spills or much slower out-of-line memcpy() calls. Add
+CONFIG_VDSO_UNALIGNED_PACKED, defaulting to
+!HAVE_EFFICIENT_UNALIGNED_ACCESS, to use the __packed struct
+implementation on strict-alignment targets while keeping
+__builtin_memcpy() elsewhere and in tools/.
+
+Fixes: a339671db64b ("vdso: Switch get/put_unaligned() from packed struct to memcpy()")
+Reported-by: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+Closes: https://lore.kernel.org/lkml/47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de/
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/soc/qcom/llcc-qcom.c       | 76 ++++++++++++++++++++++++++++++++++++++
- include/linux/soc/qcom/llcc-qcom.h |  1 +
- 2 files changed, 77 insertions(+)
+v2: Default VDSO_UNALIGNED_PACKED to !HAVE_EFFICIENT_UNALIGNED_ACCESS
+    instead of CPU_32v5 to cover all strict-alignment targets (Sashiko,
+    Arnd Bergmann).
 
-diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom.c
-index d7a42a8040a1..37154db362f4 100644
---- a/drivers/soc/qcom/llcc-qcom.c
-+++ b/drivers/soc/qcom/llcc-qcom.c
-@@ -696,6 +696,66 @@ static const struct llcc_slice_config ipq5424_data[] =  {
- 	},
- };
+ include/vdso/unaligned.h | 16 ++++++++++++++++
+ lib/vdso/Kconfig         | 10 ++++++++++
+ 2 files changed, 26 insertions(+)
+
+diff --git a/include/vdso/unaligned.h b/include/vdso/unaligned.h
+index 9076483c9fbb..726fd15efc82 100644
+--- a/include/vdso/unaligned.h
++++ b/include/vdso/unaligned.h
+@@ -4,6 +4,20 @@
  
-+static const struct llcc_slice_config ipq9650_data[] = {
-+	{
-+		.usecase_id = LLCC_PPE_RXFILL,
-+		.slice_id = 1,
-+		.max_cap = 128,
-+		.priority = 1,
-+		.bonus_ways = 0x007f,
-+		.retain_on_pc = true,
-+		.activate_on_init = true,
-+		.write_scid_cacheable_en = true,
-+		.stale_en = true,
-+		.stale_cap_en = true,
-+		.alloc_oneway_en = true,
-+		.ovcap_en = true,
-+		.ovcap_prio = true,
-+		.vict_prio = true,
-+	},
-+	{
-+		.usecase_id = LLCC_CPUSS,
-+		.slice_id = 2,
-+		.max_cap = 384,
-+		.priority = 3,
-+		.fixed_size = true,
-+		.bonus_ways = 0x007f,
-+		.retain_on_pc = true,
-+		.activate_on_init = true,
-+		.write_scid_cacheable_en = true,
-+		.stale_en = true,
-+		.stale_cap_en = true,
-+	},
-+	{
-+		.usecase_id = LLCC_PPE_RXDESC,
-+		.slice_id = 5,
-+		.max_cap = 192,
-+		.priority = 3,
-+		.bonus_ways = 0x0380,
-+		.retain_on_pc = true,
-+		.activate_on_init = true,
-+		.write_scid_cacheable_en = true,
-+		.stale_en = true,
-+		.stale_cap_en = true,
-+		.alloc_oneway_en = true,
-+		.ovcap_en = true,
-+		.ovcap_prio = true,
-+		.vict_prio = true,
-+	},
-+	{
-+		.usecase_id = LLCC_WLAN_2G,
-+		.slice_id = 8,
-+		.max_cap = 384,
-+		.priority = 3,
-+		.bonus_ways = 0xfc00,
-+		.retain_on_pc = true,
-+		.activate_on_init = true,
-+		.write_scid_cacheable_en = true,
-+		.stale_en = true,
-+		.stale_cap_en = true,
-+	},
-+};
+ #include <linux/compiler_types.h>
+ 
++#ifdef CONFIG_VDSO_UNALIGNED_PACKED
 +
- static const struct llcc_slice_config kaanapali_data[] = {
- 	{
- 		.usecase_id = LLCC_CPUSS,
-@@ -4673,6 +4733,16 @@ static const struct qcom_llcc_config ipq5424_cfg[] = {
- 	},
- };
- 
-+static const struct qcom_llcc_config ipq9650_cfg[] = {
-+	{
-+		.sct_data       = ipq9650_data,
-+		.size           = ARRAY_SIZE(ipq9650_data),
-+		.reg_offset	= llcc_v6_reg_offset,
-+		.edac_reg_offset = &llcc_v6_edac_reg_offset,
-+		.no_broadcast_register = true,
-+	},
-+};
++#define __get_unaligned_t(type, ptr) ({							\
++	const struct { type x; } __packed * __get_pptr = (typeof(__get_pptr))(ptr);	\
++	__get_pptr->x;									\
++})
 +
- static const struct qcom_llcc_config sa8775p_cfg[] = {
- 	{
- 		.sct_data	= sa8775p_data,
-@@ -4909,6 +4979,11 @@ static const struct qcom_sct_config ipq5424_cfgs = {
- 	.num_config	= ARRAY_SIZE(ipq5424_cfg),
- };
- 
-+static const struct qcom_sct_config ipq9650_cfgs = {
-+	.llcc_config	= ipq9650_cfg,
-+	.num_config	= ARRAY_SIZE(ipq9650_cfg),
-+};
++#define __put_unaligned_t(type, val, ptr) do {						\
++	struct { type x; } __packed * __put_pptr = (typeof(__put_pptr))(ptr);		\
++	__put_pptr->x = (val);								\
++} while (0)
 +
- static const struct qcom_sct_config sa8775p_cfgs = {
- 	.llcc_config	= sa8775p_cfg,
- 	.num_config	= ARRAY_SIZE(sa8775p_cfg),
-@@ -5830,6 +5905,7 @@ static const struct of_device_id qcom_llcc_of_match[] = {
- 	{ .compatible = "qcom,glymur-llcc", .data = &glymur_cfgs },
- 	{ .compatible = "qcom,hawi-llcc", .data = &hawi_sct_cfgs },
- 	{ .compatible = "qcom,ipq5424-llcc", .data = &ipq5424_cfgs},
-+	{ .compatible = "qcom,ipq9650-llcc", .data = &ipq9650_cfgs},
- 	{ .compatible = "qcom,kaanapali-llcc", .data = &kaanapali_cfgs},
- 	{ .compatible = "qcom,nord-llcc", .data = &nord_cfgs},
- 	{ .compatible = "qcom,qcs615-llcc", .data = &qcs615_cfgs},
-diff --git a/include/linux/soc/qcom/llcc-qcom.h b/include/linux/soc/qcom/llcc-qcom.h
-index 713cb0221b14..b0ce1a7d5d8d 100644
---- a/include/linux/soc/qcom/llcc-qcom.h
-+++ b/include/linux/soc/qcom/llcc-qcom.h
-@@ -92,6 +92,7 @@
- #define LLCC_PPE_RXFILL		 102
- #define LLCC_WLAN_5G		 103
- #define LLCC_WLAN_6G		 104
-+#define LLCC_WLAN_2G		 105
- 
++#else /* !CONFIG_VDSO_UNALIGNED_PACKED */
++
  /**
-  * struct llcc_slice_desc - Cache slice descriptor
-
+  * __get_unaligned_t - read an unaligned value from memory.
+  * @type:	the type to load from the pointer.
+@@ -41,4 +55,6 @@
+ 			 sizeof(__put_unaligned_val));			\
+ } while (0)
+ 
++#endif /* CONFIG_VDSO_UNALIGNED_PACKED */
++
+ #endif /* __VDSO_UNALIGNED_H */
+diff --git a/lib/vdso/Kconfig b/lib/vdso/Kconfig
+index 597f5f0f9681..2436c20ee0ef 100644
+--- a/lib/vdso/Kconfig
++++ b/lib/vdso/Kconfig
+@@ -23,3 +23,13 @@ config VDSO_GETRANDOM
+ 	select VDSO_DATASTORE
+ 	help
+ 	  Selected by architectures that support vDSO getrandom().
++
++config VDSO_UNALIGNED_PACKED
++	bool
++	default !HAVE_EFFICIENT_UNALIGNED_ACCESS
++	help
++	  Use packed structs rather than memcpy() in include/vdso/unaligned.h
++	  for unaligned memory accesses. Enabled by default when the
++	  architecture does not have efficient unaligned accesses, as GCC may
++	  emit stack spills or out-of-line memcpy() calls instead of inlining
++	  byte shifts.
 -- 
-2.34.1
+2.56.0.212.g129ede20d9-goog
 
