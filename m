@@ -1,100 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792512073;
-	b=Tglzz0SG1LkmygRV4Za9zC1+norxZQYbpSWhVmaUQM4yNhPzs8tmH9VcEksuSZ8Fk+O0
-	 RMCtguCMCnhehSGuhl2PfY7d09cdTfeUesfXw0RiY0UhMGNjxze6pESFWRsT1fHtSuomx
-	 icJSNwQWog45w+tDrj0YrRGtvl7ZjZp4JI4kHd20qm1VXIMLur9+3gJzhqB+LhqXxbr2G
-	 BPm5R4HNuliU7A5rNQIMwrblj76z/cS+xkyaYX0nze1TWj0tS6LtWsidoKFlB64ojbNoL
-	 PeTfgjMbvwQkc6KdptqrZdo1sZ+1219wdu9oGAcOfcXl7i6THRxbi5Sz6XrcWBMB3vQ==
+	t=1792512105;
+	b=ImczN8CWa9MjlcvqtawP5/pUl8wIv2ATNu9YwPupxb9KvT8fsTC1ml9+LqGKGQUtNw37
+	 sWw62SdHKkanXoxmIcqC55DmAyGoCpfoRlhkRp2CrB7+OV0mDbESDIcZPenhjCQh9x0n+
+	 ZspTnO8yFUzHsU36jaAbqSsPr55voyIaG4MR5GdcwS/7x49fKCFZS4QCqmIlIv++reGC+
+	 9j9L4clYAPPgKAYwwyeEszGb2gTjDoZGnhA28rg+Aj6b6YfavTFjlDR8EfjAhyvAtjWUI
+	 3JAW2RsxLgwZfNmY/ejIAOJC6P+O+PX0RYoOCyewnV3AkMAfiSdCYd3vg8opcVMDWWw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512073;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HeZwgriUF7LL7AlcLgHE2qOU1a0jMQO559qSB3XGdoQ=;
-	b=VdrDSdvkcQPZ1ioUe/vFrzo0ngZlS4P9/Ohi+zxW9pLDNDhFhiqbHcoBhvaL6s1nMHCr
-	 P84ES5cU1PzUkf8dckfO7gLcoQY/ZRl3CHcABIjz0FctwGJzOgEh71ICulXeZTrwZHz2z
-	 wbVvTDZKx3N3Pgf/NsbQ2KdHn392mXnk3ALVG4G9YlfTOX2WuHuKcoxRwplfqUWZCBCOi
-	 9+qqsLdNy6CBvInTHwvYz0hP8Nugibpyi7z25wNuAKYKLdRCIoP2hqZ3kv7VIl20PbNL3
-	 Yi312/gqjpyK5WGAMzgNJWtu/NAR93AbWdAlderbKjv7Fydl+y7VyRyRA/SomE9W/WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512105;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
+	b=nNMDa4c24t8Qvndj86x03ZXU0E/aMcgf1Jzi/TWWkGVJrUfmVh06FM8ExqwVIXlfx/LK
+	 D6qWRkei7LwuUn8W61SwLadqo1wAu+KuCOw7krl/dWxHGnRalFN2IHZEX3hxF5NIChb+u
+	 2HpmckR/sK2X+UthMa9hVSRNaf3cMa2UXRMWN+wFPyAGzk1j+lu6ykVOwyHkJUEa4TXew
+	 RP+gAbHRI2MZpQ39UoyIS/iS5u1Ao7DVUTBlAiKGeMBqKeVCSj8GuHP9GH3FaCTNtgIkk
+	 /5kcQfADhGp7RgSey/mWwmY7pbabS2Rh/Bal1ubBu/LKVmLRN8s7QPCfbt3/rKZL9vA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lVVovpG3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="ByiGL/R3";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B363606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B363606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F540606A31A;
+	Tue, 20 Oct 2026 16:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F540606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lVVovpG3
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c20ce3c118aso167219466b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:01:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792512071; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZYmxae0FrOsp26f5DSUtLynrXOYA4+Tb86j7k/H+RlxcAst6A+CPr//8j40WNOYk2f
-         AHhYDbH3UwDMzFriVelEbv4yBM63YJS5IvEvw35/Q3f4dXCCes49ueduV5tqr4ShWMAh
-         BccMxxbwoqyBbPZDyX32h2RpqvP0QMaG5NvcI6ABIwTV97e5Rdl/mhiUOqRTq8LhjMWH
-         9eo5iWCUqaBMxbmTQnh/eVcLoxy2Oeu6BFCH0QbXYBMUOsyogQjkHHXwz3oq0AuLpgt0
-         Me7W5xXjV2bLM1kmadscGEeyOp+62Zcj62rPiYyzww1r+sAEZvh9jNm7G36obxr9q51K
-         xz2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HeZwgriUF7LL7AlcLgHE2qOU1a0jMQO559qSB3XGdoQ=;
-        fh=FplDIqRjViTQdPvnTZ9ccgyqXFn5qfMMyb6Yh9271XU=;
-        b=pNdUjyHghcbty9wS6Feh9jbzSuXEGgLtIoTG2KCJunGwzFF9DHAv3UxR1jPyPNE+DI
-         mOVyQIOpSNFj8GQXcW/wm7ErsNaIfGDQegH28QSaWY3qmx8ZV+fnorBE3bQtCWZ8aUF6
-         2u1dndFLQI8PKv4ECKbhhduFhPhkqtM8lKeb+nSzPdbO5jxBMX5GfQR57OezHuVFNp2j
-         i1ko59HHboJHsKexXW39EPFE9tHJBeYV9+OZCc1PQ8vw4x+FFuc0iyh7iISl6Z4RdQvC
-         z7e5ijdU0AufcCFs6yWFfQF5CKePxX2KR/GleFZbrKIJa5H0zOdbTQHJz7Y0ksh5RCL5
-         S+oA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792512071; x=1793116871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HeZwgriUF7LL7AlcLgHE2qOU1a0jMQO559qSB3XGdoQ=;
-        b=lVVovpG3HeYt/fra8iL2wBDeN5IGOjWYh/vJZHG5dwqDckweEtYPYWU0jw5swdyC9q
-         J7DA0GykuS3E7C2JJTTW0HAx6VnOnNqy21VFRxmBuyHn3EqdVCiyS87Hu7fCWmlinu1k
-         sRKWC60tofwLDRynQTu9l/7br9nn9+wLa0l0+6bT9g2PU0+l2k9IWAojzeIB/SuTN7w2
-         yn3zDMViz8ghs7fYtc8dp7ZNgdglowicTgQhRCHLULRpVOtyyXDZXJZCt0iYYeyUFkdL
-         orWjOHOhXEbHIM31SnWwOgrzVa01KTxW6azgvnmw46FiLj6Iimwkjdi0OQ6WX1CJ4PcN
-         MHNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792512071; x=1793116871;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HeZwgriUF7LL7AlcLgHE2qOU1a0jMQO559qSB3XGdoQ=;
-        b=1N/TLj+IJ+mVlwQdsg4ir6QRy3cM6shKvPWcWtcHMBTCCf5PDauxQF05ZwYjHWu+NM
-         ukh8Lk3LK/iIXo47CXwZ740EOn5JjfptJ133de6Brjq0LX/hP6r38Jcw8TdEXkU6YJIb
-         Eh9RqWtWdoy2bBakik5kImFy7wlLdp2yNCR693Tuo9HlyBiyNiirTG1xuSEnoowKpw40
-         XQgVm5lOosQQB1aJKumvPbu57Z4FXBEEtImR8BpjEbsym+KMzWzfvFIBmr+MnM4psuQ7
-         Q4G/jx7PVIlM1QQl+s6BV1VTuUxwXWbo9Bc0SAbTodtSsO+s/PgcYmgZ0TroXCDZzPXr
-         XA3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwRSHlmlxRYAWcZBPeFqLZHZNXymmf/+H2mZroWcMyp62o9unR7C8Jv3hsiwuJMVXSEO5RTLc17tIGgGVU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4DNuNHIIicWx4Q0dDOKmPwBdvbXDckUhQfRTlGUeW8+4NMiEW
-	vFVbzMiahgZnU65s7i8XrC5Yr4OvUdr+CmDW5m0NrWv013k4yw9vLWHKSOFXHC7QjKxchrHmNMf
-	tGjzGCsr7WgT0axdK6F8VaMKWSyGg1g8=
-X-Gm-Gg: AYBFou0LbgCx7+gPyVXQU6YNhMWQ0BNTcDnUmsGvwGNDWHeS0tTjyUN0Hq1RLqm5Jjg
-	/xGka4iPujP1HjBjnqw1VdEEpcormm6Jqflsob+ZL+auYmjPSB61S60u27KEuglCWZu5IIvOjkt
-	iBEw2vqzc+CB/rwlEx5uX3D3nzXu2Uj4W862PgZa7/39JTfHAgvP2DxLwcPC1wdJcMh96WFKTxT
-	A2Ch7fHWzDegr1gFCQBay1CSsoYJpUbvsXkerc3QnCT+8O7zdsXseJCZQ2TpT6B/lG0CwmND1X0
-	ab/1hs3fjMHDMilYw+HCyUDAn3Yll9KAab63rXjygcp1tzEXrmtUTPZn8dUTxjZ+74q2L4tDPC1
-	3ismvopAjjp54YdlDnxudcJDH8MlJS+i+2qiqUmREugvPSbXNdpwY/Y0MRalOIyBbKcd6zg==
-X-Received: by 2002:a17:906:1007:20b0:c42:6632:a369 with SMTP id
- a640c23a62f3a-c46044f0844mr152320366b.21.1792512070606; Tue, 20 Oct 2026
- 09:01:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ByiGL/R3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oU8amHryrJ6QlFh4H+2k7Gg9/nacT+gh6mrXCUwPtj7s2NQzcfANxLU/neHmrqwVoni2HVy0vVQjjJLjvlV6siq6BJik7fMksb2yBUk+m35xcuHRFBnEpnaQiYBvJFZAOS8NKGAi9ZYd8IXQZBzMtzutI5w9vz1p7ot6ClRdL2tdRtfLuuvEfCi9b8vtE6pgm9119MUGLjx10+VNGQryrcJ28y0vNCqqwbQV9VqpdYE/TJjd+tRnhOwTnkRNN4JuPbCuuVoq1/wCU1nsSQVywabWQNNRLBYf6EhNmpe8jI5PCIZZ95tlE849yLvDvkVAL61d4tciQVrmR7Fz6FTc/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
+ b=OEJuaHbItgRBS+k0GuaKDThWrTEJ1jUe7LpnT7RGk1yCy5tOcTUhYAHe/m8Hx6R0Ju7oCG+/JE3RCxjq9TcovCh8wt/tWrexWtjrfFw1bIvqoC0phZjuaW6Gt6ffwssxKFcrEr+/rPvoMwe4iIskDE4H1wsue+8BtRGZxBqXKjHVaVOSa8KoKlmc8/o+6/srrgwsDP4LSbsr1Z4Gp+6SQKq74BkAwXl1jM1P7cszIXdUMcrttZ4hhN3SCBBN2kcRbevQsI0EmIZJD5nbGWETICDYvurMijI29eiKUFrUJwBWpwl0HZ6llm46hiNLPyTfweu7XG2/goII8F45EjFQqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
+ b=ByiGL/R3hAyAt/Ps1YgEnUTJPOZRwvAAzfdWNyhFvP0PpzKmFPF3tU//CciMe2DnvVSfHXIA4In6nGjOY3rGlbAJ0N2mn0NTt5fFo0oo6gYRjbaK2IP3R2w1GNHgGvP9zk9H3OZWMm9NWkezNK5PipJT+m2zeso94f2TJp5IkLiBGzzcMfabJeAyplRFFhI8RCg5JA4WCBntDu2cCvevFr35kCf9qSpLaP/QnONkcInrKA6MBIE4/MSfyoNr6ppaau2+zSZ9ieo6n2+Thm0QivBZ+ivxOegVObTZv+Iwr4YBOfsGpX1YC68Iv7toBSBmbrj+vMEoNfSPa2VRBFN6+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM8PR04MB7731.eurprd04.prod.outlook.com (2603:10a6:20b:249::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 16:01:42 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 16:01:42 +0000
+Date: Tue, 20 Oct 2026 11:01:30 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
+Message-ID: <ateQWqoTtXSBSBvm@SMW015318>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
+ <atZxhWaUWthEHkti@SMW015318>
+ <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
+X-ClientProxiedBy: SA0PR11CA0124.namprd11.prod.outlook.com
+ (2603:10b6:806:131::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,192 +116,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020023548.3242028-1-ridong.chen@linux.dev>
- <CAMgjq7BonFtsvHMRYXXToqWBHTzNa52EU9B4ZqD-k-DJ2inQDg@mail.gmail.com>
- <CAGsJ_4yAYMiRoJRLLt9B_+qdMhOFmizDy-PSbQ3jkMxV0zJqPA@mail.gmail.com> <8aa3e14d-6573-4359-919d-a8e9d372032f@linux.dev>
-In-Reply-To: <8aa3e14d-6573-4359-919d-a8e9d372032f@linux.dev>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Wed, 21 Oct 2026 00:00:33 +0800
-X-Gm-Features: AclHuK9jZ-Plmsy-neTFF6d0Ihg-UjZ1hIhDVLA86eSGaSBJ72aBhXEAavtHBBc
-Message-ID: <CAMgjq7DcmsyZUcaLSQeJYWgJ67N=PSSFEo-UpOM=HrHREnZfeg@mail.gmail.com>
-Subject: Re: [PATCH mm-new] mm/mglru: clarify the generation placement in lru_gen_folio_seq()
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Barry Song <baohua@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7731:EE_
+X-MS-Office365-Filtering-Correlation-Id: 480b77e6-972a-4aac-f975-08df2ec36e82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|19092799006|366016|56012099006|4143699003|11063799006|10067099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	4sLI7FRJ+DBwq3BW4QA19l/UCAptdFTVQhO75x1jwXdvaB0/FXE+Er/aPwaeYE9S4yBl6e7OsqOS4XfSEuaqXwVYT6Tx8gfibeFWxPHiKQdTy3DSwJGlhCk3XUuc5EefolI9soVolhdo7Q4M/csIJ+buQfcVlxRbQtepQ2Acn0M/pSx4fmteizIMoszrI+p0KBtviO5PUX3G4Zt/SjzLuFdj935Gh92xxyGhe8AuRq1E6QUaXZaMvElGqlrql9MXGej/yc7EbHKc909ckqhtlF/m9ggY8mGbVKUHyWxiy/ZQmE7eRpMCgpagrl34YLBMqmW2+k7+vz/vqSEaf+AaqTly8luU51z+SKriizVXmP+M5yPR+mCHtFI4kG1F4maT8y6AOE6k6YKufQD2+4kis0XURAXEGe8eLsEM4OBn3LHXK5m4Dv2OB6NVQoN/i4449UH2Y0h3hqP5zIq09ek32fxdABYCazt2jnKJd9+YKEfraRKebSNSz/wtC521TieiJkf+eX0o8ZncU4KtA/VzKj+m28Zwt2IUP5n1J3J4PB9xZnC9C6P8ebpg/I1lAFbKrhB0ROYk9RR2eGTZv4KgHotVxbDfBEtbIWdA50z6dtLZFcP866PL3OOCE/t7+LwY
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(19092799006)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sttDgcBfncwz0+uOi7/qcvzCMaWqNj5A7duqhWGsgRtSUaJi1p29MarYw9lW?=
+ =?us-ascii?Q?MJLJKPUALmTOzYqFVC2Y1+rQqegUYTWJ04ZhxkwSdIo7AHfwGXBzu5w9fLY4?=
+ =?us-ascii?Q?PldV0lH/kVid2bCEvwv2A0ChaRhSrkV11qmYJmhI/DCS8GPUZvfNAesRBUTR?=
+ =?us-ascii?Q?53lV0jle7AqB2prVVzBjRiwnyBu0fuczFL1pK4R9fhAOILbady/AVRxnMz2K?=
+ =?us-ascii?Q?RfpeFCm8GXxM2v7dzSzFwsYvDkaXxO+A/dpe9S5BnHnEVb9VFLytdl/KlkfX?=
+ =?us-ascii?Q?wSt25awQakZ4IW1WL9njaZDxYOUdciuFGpkdxsFYcKtZzknEHnqHM6UDZE6V?=
+ =?us-ascii?Q?Ho4E46mPOejBLzntnA0AjfqBMUGuBET3VhN13xjk6bEnfhRUbPxpn3rec2lA?=
+ =?us-ascii?Q?iJuaLqJB9uwGxH4ns6d5qOylLJGiMX6Bw+FW5+FMOS6UEcw0IBJui6W5KwWC?=
+ =?us-ascii?Q?eqfmzmk5uPqIH0fcvBk8w/emujDKtUvtFUMBefWe54ymjF5ApXFgPvPNwNpB?=
+ =?us-ascii?Q?/dQCiFW6T3ER0/8sLbTdMJJulRVavV2ITnvj+r+3pT1wuOjB5jdDZF8Qs1+c?=
+ =?us-ascii?Q?72Wgr8fkWdKGTJ/nklv0bd4YYbnupwVmKDoTwwc6GZKKRUEdtSskpL5gzQv7?=
+ =?us-ascii?Q?O7Xg2bVAZN1pBr9Vf22E2j+KQtUFTkswQ/7sye07uQxcp5jpV2u9Rxz+jA/b?=
+ =?us-ascii?Q?MmWhm8CPcVOqerIpUKRuuWebTbSNSleSAF2or56R3Bdfzwigg7vHA/TY1+FC?=
+ =?us-ascii?Q?Q440rd+SvyT8pgUQb+hoqmu9R6Bk8se8G4dXOocj19czT8WkekKqaChhOMrh?=
+ =?us-ascii?Q?cC7DI6K3Thj+rSNRGybS1L+yKtPDyeKwtW+DxLcOYboPIUGg26eh6DtuV4qX?=
+ =?us-ascii?Q?FIAmvStHqoaS82/4IWGnfs0s0wuGUKMlzdYY0YsIQgwOyinq5S7ei1vlQQPS?=
+ =?us-ascii?Q?yCJh05vx05E23E1pgPe3T/vvQENX5lip2QpsZABhd5ipYsvvceiIThpGtoG8?=
+ =?us-ascii?Q?7jOryIi2Kg+W2iVUy0WZsCnP0ZzYIATtB34dySxVYL86zekcOg+IPbzIPKQs?=
+ =?us-ascii?Q?cN2gQcmaj81Je/EjmWnQJ2k728wFQ9/sDYYPirfrbmy+CEPzOkNH6CZsVtxI?=
+ =?us-ascii?Q?rzDcNdCJXXJWhvwPNX2v55d3+ZPgC2hRm9gW0P7AOC5ppg77nB7J1z7Kutxc?=
+ =?us-ascii?Q?BFP4x80URMW16CXYt5e5AuKOUASqv+ZLPL0GLxbx7MAOnKvECzSjKB9voV+1?=
+ =?us-ascii?Q?WUy1Fh+9I0uTPs7efMbZs/9ZIwH/zAQOOVTQfJuVZNzOmE5sqjQ1F5kzu5Y+?=
+ =?us-ascii?Q?nBFz3jc5sVW2XgvX71Pl0hFn8m7l6mebPtpFk6dLqEdXIyw+qpocjBTB+qSH?=
+ =?us-ascii?Q?lZkb4dcNA4R96s1efUgqzTz90m7Gqzq1s2vX+E78c2dXiYKedHdFWCd5mDiD?=
+ =?us-ascii?Q?Ah5y2hSv++ryNmcdW+4LUB8AkwSw2B+76Rc1TrlrXdyfKqOBcg3EYokoqe0a?=
+ =?us-ascii?Q?e/2c3sIXQf95443UOcHhNX7zf5d7WOKyXnp4YgDYx9VmRJ0mgUo5OqFoZkAQ?=
+ =?us-ascii?Q?AGZP5pksKj+OYmXLALS78e+l9SbElsZ20tZS1rdyevdWDIaPNXSnMbmArAKL?=
+ =?us-ascii?Q?fXjCCeOiBt9p6PApPb0q75DprmkC2/nb5IFooT0RaSRziGwsw5cDu6L5n24H?=
+ =?us-ascii?Q?OPbsoyOi37HMsBZr1VG5kbPrhVKPKuS1vqYuPAYNdXjKQFK+zioa/vy2IL3v?=
+ =?us-ascii?Q?x2IKLJ3Me8ae3hPH13+3sVntJZ1WLGzaImZKsc4mGqmGbxyoUri9?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 480b77e6-972a-4aac-f975-08df2ec36e82
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:01:41.9693
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RfRq3pwOd5jTlz2BNa2at7f8Zg7stGSheTp3fj0ZcNr+JBdo7mNnB97J3yLKEGr6rNWJII1Bqx4EmYyyvGgnHc+AzRLGMcYiZKBoheArzLeqAdbU4vyC3eqePM+/8rTS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7731
 
-On Tue, Oct 20, 2026 at 5:27=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
-> On 10/20/2026 4:29 PM, Barry Song wrote:
-> > On Tue, Oct 20, 2026 at 4:20=E2=80=AFPM Kairui Song <ryncsn@gmail.com> =
-wrote:
-> >>
-> >> On Tue, Oct 20, 2026 at 10:36=E2=80=AFAM Ridong Chen <ridong.chen@linu=
-x.dev> wrote:
-> >>>
-> >>> From: Ridong Chen <chenridong@xiaomi.com>
-> >>>
-> >>> lru_gen_folio_seq() computes how many generations below max_seq a
-> >>> folio should be added to, but stores it in a variable named "gen".
-> >>> Elsewhere in MGLRU "gen" means an index into lrugen->folios[], i.e.
-> >>> seq % MAX_NR_GENS, so reusing the name for a relative offset is
-> >>> confusing.
-> >>>
-> >>> The comment table above the code also no longer matches it. It only
-> >>> covers the PG_active and the final branch, leaving out the reclaiming
-> >>> and "can't evict yet" cases, and it lists LRU_REFS_FLAGS as an input
-> >>> although lru_gen_folio_seq() never looks at it.
-> >>>
-> >>> Rename the local variable to "age", redraw the table so that each
-> >>> branch maps to the age and seq it produces, and note that the result
-> >>> is clamped to min_seq[type].
-> >>>
-> >>> No functional change.
-> >>>
-> >>> Assisted-by: LLM
-> >>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> >>> ---
-> >>>   include/linux/mm_inline.h | 48 ++++++++++++++++++++++++++----------=
----
-> >>>   1 file changed, 32 insertions(+), 16 deletions(-)
-> >>>
-> >>> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> >>> index ab69b9930893..a933d8c14558 100644
-> >>> --- a/include/linux/mm_inline.h
-> >>> +++ b/include/linux/mm_inline.h
-> >>> @@ -302,34 +302,50 @@ static inline unsigned long lru_gen_folio_seq(c=
-onst struct lruvec *lruvec,
-> >>>                                                const struct folio *fo=
-lio,
-> >>>                                                bool reclaiming)
-> >>>   {
-> >>> -       int gen;
-> >>> +       int age;
-> >>>          int type =3D folio_is_file_lru(folio);
-> >>>          const struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
-> >>>
-> >>>          /*
-> >>> -        * +-----------------------------------+---------------------=
---------------+
-> >>> -        * | Accessed through page tables and  | Accessed through fil=
-e descriptors |
-> >>> -        * | promoted by folio_update_gen()    | and protected by fol=
-io_inc_gen()  |
-> >>> -        * +-----------------------------------+---------------------=
---------------+
-> >>> -        * | PG_active (set while isolated)    |                     =
-              |
-> >>> -        * +-----------------+-----------------+-----------------+---=
---------------+
-> >>> -        * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  L=
-RU_REFS_FLAGS |
-> >>> -        * +-----------------------------------+---------------------=
---------------+
-> >>> -        * |<---------- MIN_NR_GENS ---------->|                     =
-              |
-> >>> -        * |<---------------------------- MAX_NR_GENS ---------------=
-------------->|
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        * age        |        1        |        2        |        3 =
-       |        4        |
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        * seq        |     max_seq     |    max_seq-1    |    max_se=
-q-2    |    max_seq-3    |
-> >>
-> >> I think this comment update is not beneficial, we might have more than
-> >> 4 gens in the furture, so hardcoding a number is not a good idea.
-> >>
-> >>> +        *            +-----------------------------------+----------=
--------------------------+
-> >>> +        *            |<---------- MIN_NR_GENS ---------->|          =
-                         |
-> >>> +        *            |<---------------------------- MAX_NR_GENS ----=
------------------------->|
-> >>> +        *            +-----------------------------------+----------=
--------------------------+
-> >>> +        *            | Accessed through page tables and  | Accessed =
-through file descriptors |
-> >>> +        *            | promoted by folio_update_gen()    | and prote=
-cted by folio_inc_gen()  |
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        * PG_active  |  PG_workingset  | !PG_workingset  |          =
-       |                 |
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        * reclaiming |                 |                 |          =
-       |     always      |
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        * can't      |                 |  anon && not in |          =
-       |                 |
-> >>> +        * evict yet  |                 |  swapcache, or  |          =
-       |                 |
-> >>> +        *            |                 |  PG_reclaim &&  |          =
-       |                 |
-> >>> +        *            |                 | dirty/writeback |          =
-       |                 |
-> >>
-> >> I think it's better not to describe too many details in the comment as
-> >> it actually easier to just look at the code.
-> >>
->
-> Fair points.
->
-> What confused me about the current table is that it is not clear
-> which dimension it is drawn along. The columns are generations, but
-> the rows mix access paths (page tables vs. file descriptors) with
-> the flags that protect each of them, and some of those, like
-> LRU_REFS_FLAGS, are not inputs to lru_gen_folio_seq() at all. So
-> when reading it next to the code, it is hard to tell which branch
-> puts a folio where.
->
-> How about keeping the existing table for the design overview, and
-> just adding a short note above it on what "age" means, without
-> hardcoding the number of generations, e.g.:
->
->          /*
->           * The folio is added to seq =3D max_seq + 1 - age, so age 1 is
->           * the youngest generation. Ages up to MIN_NR_GENS are active,
->           * and the result is clamped to min_seq[type].
->           */
->
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        * else       |                 |                 |  PG_worki=
-ngset  | !PG_workingset  |
-> >>> +        *            |                 |                 |       or =
-       |       &&        |
-> >>> +        *            |                 |                 |  PG_refer=
-enced  | !PG_referenced  |
-> >>> +        *            +-----------------+-----------------+----------=
--------+-----------------+
-> >>> +        *
-> >>> +        * The resulting seq is clamped to min_seq[type].
-> >>>           */
-> >>>          if (folio_test_active(folio))
-> >>> -               gen =3D MIN_NR_GENS - folio_test_workingset(folio);
-> >>> +               age =3D MIN_NR_GENS - folio_test_workingset(folio);
-> >>
-> >> That's a very nice rename, the `gen` variable is so confusing to me
-> >> for a long time, I thought about renaming it to `gap`, `age` looks
-> >> much better. Thanks!
+On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
+> On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
+> > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
+> > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > >
+> > > Add a device tree overlay for the VGA output available on the Apalis
+> > > Evaluation Board, which is driven from a parallel RGB interface passing
+> > > through a non-programmable video DAC to a VGA connector, without VESA
+> > > DDC I2C signals.
+> > >
+> > > The non-programmable video DAC consists of a simple resistor ladder that
+> > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
+> > > an active-low data-enable signal.
+> > >
+> > > The overlay is also combined with the various Apalis Evaluation Board
+> > > device trees to provide ready-to-use DTBs.
+> > >
+> > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > ---
+> > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+> > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
 > >
-> > Agreed with the rename part. Maybe this doesn't conflict much
-> > with MGLRU-FG either. It could be cherry-picked before
-> > MGLRU-FG or included as part of the MGLRU-FG series.
-> > I'd vote for the latter.
+> > what's difference with
+> >
+> > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
+> >
+> > Is it possible share one dtso also?
+> >
+> > Frank
 >
-> Sounds good to me. Kairui, would you like to pick up the rename, and
-> the comment change above if you agree, as part of MGLRU-FG?
+> Hi Frank,
+>
+> The Apalis iMX6 one needs to set up the connection between the IPU the
+> LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
+> Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
+> the bridge on the Colibri iMX6 doesn't have any control signals, while
+> this one on the Apalis iMX6 has an active-low data-enable signal
 
-Good idea, will do!
+This make sense to use difference dtso to cover it. Is it use name
+imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
+which can reuse for other similar hardware? Or we can rename it when reuse
+happen.
+
+Frank
+
+> specified on the input endpoint. Because of all of these, the overlay
+> needs to be different between these modules.
+>
+> Best regards,
+> Leonardo
