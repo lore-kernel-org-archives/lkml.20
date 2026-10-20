@@ -1,103 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501839;
-	b=3rE0BBKSIoVMcrtGP4lw+HX9mqohVIfD8WdJ9PZG0B9VSBabRpeIXRJe+w35hJAJkJXj
-	 3Y3wCI/l6Yf55UFU1rro+5zpl+QxkPsP8TSX8ttUcdulgRsbwXehQMrvfz/SadJzuAN4P
-	 /QidlKVFQs1w0NIsl0j/KAm/VQj2s+4mnDGDsj/EF5GDvcNzpzfkTu2EGU8T4mHcEOHZj
-	 f98Zt+OaEF8KZut+MOacoNr7uIbYj+CRAsrEmT5pUTK26J+SYxF6OKYDmo7oRpwM1DELc
-	 x5vP+756D/VfydRV7h67Tblvkjsw+WOK+vqFVgCdss3hK4cG2j5Rs/0jbLx+qrAhvBw==
+	t=1792501854;
+	b=Rl8yXqyAfCBNveJkPtbDfuyzZChP22i49eKOvJyJCfSBlj0En2NId5xivCoiTzGB2gZ2
+	 3PLN+1J7DHMRioKCam/3BumN0R6fC77P4TEa2IdIPP0gm1C5Be2zsr94iUvgYY9Qjmcxe
+	 H2kAGxF33x0MT7ttMKbHN2mr/X6mC+NmdGHHnydkTmBKEUOE6llNECtz0OPOWJGhKDZNc
+	 kYY0d/4AYnIa0CeyJpHrZLW92ykwJGV34XdIFkYZbVIuCH8t8eGKc2E6KA4YqX1dYfVT+
+	 7NPujcFsmuFQm3gfbfXkwT9gDXtvP8a6PgJTQ/iEgF7+GGzmrJIhSVvNKUIrDNKPhOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501839;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
-	b=DJht93u7cBfM/Bw//+Is5/12JZ13GAIqdfIizLjSH75KbvsgW+2Lsm64ja0eBUjJpQX4
-	 dErJg610JIYpfNNOUP7HRK9qhwraVTtBcF0Vz9pWQVRWecONCqDAC8/6obu2WL4kcVV2x
-	 EvmSMUkPgAYJKux5/OYBdJCRKzZ0z3J2eIjHrCIn+x9estghRAEwsAQrzchoQsc63wpAl
-	 AVjle8XQyVIfpNxsjjJ2UxsUGCHIdtAwB1GCHhi4Ve9eiJNMjKwR5i3UyBC9TEskm1mIC
-	 nzaPMTGdGWeYIVl0RrJvw9aQ2rFWslvSmexMZBS7mr+NL06fju+O/jOemRRA1tAqYaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501854;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=zQNOmJxt2rSeS/12rmD03FzdRX9RNFsPZNdQNHDQyLg=;
+	b=lnD493We1iekv9SUhB2vVIkBpK3+dgpqJoQvxBbof7FUgqIPc4LTT0HCTnbECBVvP7Wo
+	 n8PMQRtGmaKRH3akD0ywaXKdWDAzSeV1dahaIeN9SWVQN+xVmeqRDY2ZRaoxFHKH9gZ2X
+	 t+fcAXb1uE3RFjWt1e9gxtPYVhqEvgxvibbld0UlIpBLzePVKwdi3DcsMXSI+MOuSsLXJ
+	 yNbbdxBsJG7Gux3+/KrstRjAeiLz9u/eQP2QGwiKJpn+JsUtvvX5DWaSN0uOedqYWwP7c
+	 Z7hXmGk3a8IbqSbGiFXYFuH+cRdFiEU5LKM5g/mP5RqhrmnNLDZExBQNkEZfvRpwsXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oNZAFiiQ;
-	arc=none smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GY5hP0gu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC34D606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC34D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8250F606A319;
+	Tue, 20 Oct 2026 13:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oNZAFiiQ
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a84a12aa97so899303a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:10:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792501838; x=1793106638; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
-        b=oNZAFiiQBnAgEE//WT/WoN7QPRLwv2UWIbXqFxJ7qjvsb9o9b2y9kccvGBP4dR0OKT
-         510uxjpUhCleY7Msd0imRMl3eCmaU0ClGNFawA5Ar61FhahHlxn+kGR/CzBVFxLMq6Np
-         DZ6/q2YQPdX75qwq7Uh3Z3vVzEJY8w696vvcbYXtA22x0oyqrNDAb6M+iGCa/EzHKwjz
-         /ehSOfe55yziSbfHbBLW9lEXQHYy43V1gywASVmsyM4wEiilxBQWRuTQXY9SyF/vtyev
-         qE6HpbzZPHJsEkF88cRsKu+lj2RhBBUiieBPABJnTimahRGexvHvoM9d9prF2PUg7/BL
-         jAGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501838; x=1793106638;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
-        b=VhqrUDQLPvsjLuWHI2vJul81b7qBnupF0KvM2/PRbEX4KBwfociVfuNW3+bfW+pETu
-         HKy3t/fKnYUi3E0l1FnV7Ck4Kj5njEjgVEdwpOxQqn721g2DDn1UEQRPwjXvtGf72Pre
-         ktrtwaS6judkCc6VBzaZSQeMybO/D5a8GVTE4Ax1fYFoqZntI7B+Ku/EKWwDUg+eqhJE
-         twS4ldpYmV/pLAIVKVK/76dUxVIi7qPUD7Om3SOP9nFkMgnQMqMnD6Pq7/hYKG50LwBr
-         buvhW3SvA0i4d9ZMyRcOyQyc1mg8ln62mExi9dP9VvHU+8wE4nwTRKaxteeuqksQnG0D
-         ds4g==
-X-Forwarded-Encrypted: i=1; AKwUvBy7C4RyhP+kJ8m+UJUvxa1wq9hv2w+OtpsVCts0x5p7hoC9/a/6TnEl1mA2ScozYXWcCe48pPQuVrVdvE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7DedGk4+/IuOUJPShNpoz/EW8U899XSLeKFOiNvyxNIJhGmmR
-	F85u6WckowG5bxMDOS3CUCaYazNoGXSD1weLRq/dNaJKzdoARHej7dlv
-X-Gm-Gg: AYBFou0KEHrAWkF1yDyvFtoLdrLcxvBvEnOCT2l8SL0lT9zhW+nmAonCFI6i5V/NgCu
-	q35joagBjNtS5yoYZnxY7tVaRvzK2Q0MNMH2tiwAtBnDd5X01/AtL5hk5mCHrVIjYZg4mEXHcdy
-	JD98z/i4sTOPp3Lf2Ntew6wvtOrFVVfWQDK2KvRwwWYuSbbKUaSfZ6dsrgklYsVuzg6z6soNHUP
-	VeNH+HunGkAhHb1V6Mml5rEZX/LTo8dYmC9YbWRcEAAx1oUfeMZXiqc3+03eKzXhkueHY9TxvSX
-	1iZhjOgdulciVVVcHXTvJLTOZIEXl9sCLcHuDEVvQ8v9NhB0mRbCjz6RlKrpuqNzTgRdq9SbXRi
-	HdxZz4FbPaZoVZSXPPvmPM9zqaoNagW3+UTlIPTS+q83KUOTeCspQvmzpHO0+KjOCCcvtC6toEf
-	dfDtIr1SEm0uNpn5YjF/ibfsYdJkskCncgNZXooUgYFR58/W9TacINpVs=
-X-Received: by 2002:a17:90b:570b:b0:3a4:fe48:d410 with SMTP id 98e67ed59e1d1-3acef29edffmr9320116a91.30.1792501837978;
-        Tue, 20 Oct 2026 06:10:37 -0700 (PDT)
-Received: from Linux-PC ([2a09:bac1:1980:20::1d3:a8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm10131496a91.4.2026.10.20.06.10.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:10:37 -0700 (PDT)
-From: tianshi12127 <tianshi12127@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-kernel@vger.kernel.org,
-	Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH v3 3/3] drm/panel: add driver for Smartisan TD4362
-Date: Tue, 20 Oct 2026 21:09:34 +0800
-Message-ID: <20261020130934.2289011-4-tianshi12127@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020130934.2289011-1-tianshi12127@gmail.com>
-References: <20261017083531.766557-1-tianshi12127@gmail.com>
- <20261020130934.2289011-1-tianshi12127@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GY5hP0gu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C501F000C5;
+	Tue, 20 Oct 2026 13:10:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792501854;
+	bh=zQNOmJxt2rSeS/12rmD03FzdRX9RNFsPZNdQNHDQyLg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GY5hP0gu+LmpD5EJhySCN7FoeRPxL/8LOHk68CUd10RUlpk7ulB6EQ5YJ/p6a6wcQ
+	 kbUl36HFvQZzNUUAOk+2vVLq7fXTP7rI5+8demneq2kvheF+EgZC0N7UjbEyeDuqm7
+	 X52unML1XWZciIG0vLLbaJzHkiZGaqS3T4a1W96x1nJg+R3MKLodnsnEqyEFZbFkO1
+	 186hnOZl9m4V4ecQYHxk0NBDV2LyuzKR6q40cbJ5yDOdhuWxXglfyUxvrfmKEsKLYI
+	 QTW3c/6AvdZzmef/E8ySo26VyZ8M7VakV1ZmSSGMt2P5sDNdNt1uprtKQ1Rg5NECD8
+	 x8Osww2bcJPQg==
+Subject: Re: [PATCH net-next v3 5/9] net: stmmac: mediatek: add RX/TX delay
+ stage divider in platform data
+From: netdev-bot+sashiko@kernel.org
+To: louisalexis.eyraud@collabora.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, biao.huang@mediatek.com,
+ maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, edumazet@kernel.org, kernel@collabora.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Date: Tue, 20 Oct 2026 13:10:52 +0000
+Message-ID: <179250185245.3135.2311591498079484765@kernel.org>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+References: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,330 +69,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Lu Chen <tianshi12127@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Add support for the Smartisan TD4362 1080x2242 command mode DSI
-panel found in the Smartisan R1 (trident) smartphone.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-The initialization and power sequences were generated from the
-downstream device tree with linux-mdss-dsi-panel-driver-generator.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested on a Smartisan R1 (trident).
+- [High] In the variant data this patch adds for MT2712, the delay-stage
+  dividers are the wrong way round for the hardware, and the RGMII TX…
 
-Signed-off-by: Lu Chen <tianshi12127@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig                 |  13 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../gpu/drm/panel/panel-smartisan-td4362.c    | 262 ++++++++++++++++++
- 3 files changed, 276 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
+--
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index b30d7781745c..0b413152267f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -1124,6 +1124,19 @@ config DRM_PANEL_SITRONIX_ST7789V
- 	  Say Y here if you want to enable support for the Sitronix
- 	  ST7789V controller for 240x320 LCD panels
- 
-+config DRM_PANEL_SMARTISAN_TD4362
-+	tristate "Smartisan TD4362 DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for the Smartisan TD4362
-+	  1080x2242 command mode panel found in the Smartisan R1 (trident)
-+	  smartphone. The panel is driven over four MIPI DSI lanes in
-+	  command mode.
-+
-+	  If unsure, say N.
-+
- config DRM_PANEL_SONY_ACX565AKM
- 	tristate "Sony ACX565AKM panel"
- 	depends on GPIOLIB && OF && SPI
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 4532f79021ea..bc4fad310554 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -112,6 +112,7 @@ obj-$(CONFIG_DRM_PANEL_SHARP_LS060T1SX01) += panel-sharp-ls060t1sx01.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7701) += panel-sitronix-st7701.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7703) += panel-sitronix-st7703.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7789V) += panel-sitronix-st7789v.o
-+obj-$(CONFIG_DRM_PANEL_SMARTISAN_TD4362) += panel-smartisan-td4362.o
- obj-$(CONFIG_DRM_PANEL_SUMMIT) += panel-summit.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_R63353) += panel-synaptics-r63353.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_TDDI) += panel-synaptics-tddi.o
-diff --git a/drivers/gpu/drm/panel/panel-smartisan-td4362.c b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
-new file mode 100644
-index 000000000000..b3905aee1528
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
-@@ -0,0 +1,262 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) 2026 Lu Chen <tianshi12127@gmail.com>
-+// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
-+//   Copyright (c) 2013, The Linux Foundation. All rights reserved.
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct smartisan_td4362 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data smartisan_td4362_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+};
-+
-+static inline struct smartisan_td4362 *to_smartisan_td4362(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct smartisan_td4362, panel);
-+}
-+
-+static void smartisan_td4362_reset(struct smartisan_td4362 *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+}
-+
-+static int smartisan_td4362_on(struct smartisan_td4362 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-+				     0xff);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-+				     0x24);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x82);
-+	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x0437);
-+	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x08c1);
-+	mipi_dsi_dcs_set_tear_scanline_multi(&dsi_ctx, 0x07fa);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 80);
-+
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9,
-+					 0x9b, 0x51, 0x07, 0xe6, 0x00, 0x10,
-+					 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xba,
-+					 0xbb, 0x2f, 0x1d, 0xbe, 0x00, 0x10,
-+					 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce,
-+					 0x5d, 0x40, 0x60, 0x78, 0x87, 0x94,
-+					 0x9e, 0xab, 0xb8, 0xc4, 0xcd, 0xd6,
-+					 0xde, 0xe5, 0xec, 0xf3, 0xfd, 0xff,
-+					 0x04, 0x28, 0x04, 0x04, 0x42, 0x00,
-+					 0x69, 0x5a, 0x40, 0x01, 0xf4, 0x00,
-+					 0x00, 0x04, 0xfa, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca,
-+					 0x1d, 0xfc, 0xfc, 0xfc, 0x00, 0x07,
-+					 0x07, 0x00, 0x00, 0x00, 0xeb, 0xe7,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0x64);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x03);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int smartisan_td4362_off(struct smartisan_td4362 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 16000, 17000);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 64);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int smartisan_td4362_prepare(struct drm_panel *panel)
-+{
-+	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(smartisan_td4362_supplies),
-+				    ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	msleep(100);
-+
-+	smartisan_td4362_reset(ctx);
-+
-+	ret = smartisan_td4362_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
-+				       ctx->supplies);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int smartisan_td4362_unprepare(struct drm_panel *panel)
-+{
-+	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = smartisan_td4362_off(ctx);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
-+			       ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode smartisan_td4362_mode = {
-+	.clock = (1080 + 44 + 2 + 60) * (2242 + 8 + 2 + 100) * 60 / 1000,
-+	.hdisplay = 1080,
-+	.hsync_start = 1080 + 44,
-+	.hsync_end = 1080 + 44 + 2,
-+	.htotal = 1080 + 44 + 2 + 60,
-+	.vdisplay = 2242,
-+	.vsync_start = 2242 + 8,
-+	.vsync_end = 2242 + 8 + 2,
-+	.vtotal = 2242 + 8 + 2 + 100,
-+	.width_mm = 64,
-+	.height_mm = 117,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int smartisan_td4362_get_modes(struct drm_panel *panel,
-+				      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector,
-+						    &smartisan_td4362_mode);
-+}
-+
-+static const struct drm_panel_funcs smartisan_td4362_panel_funcs = {
-+	.prepare = smartisan_td4362_prepare,
-+	.unprepare = smartisan_td4362_unprepare,
-+	.get_modes = smartisan_td4362_get_modes,
-+};
-+
-+static int smartisan_td4362_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct smartisan_td4362 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct smartisan_td4362, panel,
-+				   &smartisan_td4362_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev,
-+					    ARRAY_SIZE(smartisan_td4362_supplies),
-+					    smartisan_td4362_supplies,
-+					    &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void smartisan_td4362_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct smartisan_td4362 *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id smartisan_td4362_of_match[] = {
-+	{ .compatible = "smartisan,td4362" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, smartisan_td4362_of_match);
-+
-+static struct mipi_dsi_driver smartisan_td4362_driver = {
-+	.probe = smartisan_td4362_probe,
-+	.remove = smartisan_td4362_remove,
-+	.driver = {
-+		.name = "panel-smartisan-td4362",
-+		.of_match_table = smartisan_td4362_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(smartisan_td4362_driver);
-+
-+MODULE_AUTHOR("Lu Chen <tianshi12127@gmail.com>");
-+MODULE_DESCRIPTION("DRM driver for Smartisan TD4362 1080p command mode DSI panel");
-+MODULE_LICENSE("GPL");
+net: stmmac: mediatek: add RX/TX delay stage divider in platform data
+
+This commit adds RMII and RGMII RX/TX delay stage divider fields to
+struct mediatek_dwmac_variant. It makes mt2712_set_delay() and
+mt8195_set_delay() read the dividers from the variant data instead of
+hardcoded constants, and it guards the divisions against a zero divider.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 596411d4a5b2b..cb5bda53edb94 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+
+[ ... ]
+
+> @@ -258,6 +270,10 @@ static const struct mediatek_dwmac_variant mt2712_gmac_variant = {
+>  	.num_clks = ARRAY_SIZE(mt2712_dwmac_clk_l),
+>  	.rx_delay_max = MT2712_RGMII_DLY_RXC_MAX,
+>  	.tx_delay_max = MT2712_RGMII_DLY_TXC_MAX,
+> +	.rx_rmii_delay_stage_div = MT2712_RMII_DLY_RXC_STAGE_DIV,
+> +	.tx_rmii_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV,
+> +	.rx_rgmii_delay_stage_div = MT2712_RGMII_DLY_RXC_STAGE_DIV,
+> +	.tx_rgmii_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV,
+                                    ^^^^
+
+[Severity: High]
+
+Should this be MT2712_RGMII_DLY_TXC_STAGE_DIV? The RX line above uses
+the RGMII constant, and after this line MT2712_RGMII_DLY_TXC_STAGE_DIV
+has no users.
+
+Compared with the parent commit, this changes the RGMII TX (GTXC)
+divider in mt2712_set_delay() from 550 to 170. The commit message
+doesn't mention that change.
+
+There also seems to be a wider problem with the values. The previous
+patch in this series defined:
+
+#define MT2712_RMII_DLY_RXC_STAGE_DIV	170 /* 170ps per stage */
+#define MT2712_RMII_DLY_TXC_STAGE_DIV	170 /* 170ps per stage */
+
+#define MT2712_RGMII_DLY_RXC_STAGE_DIV	550 /* 550ps per stage */
+[ ... ]
+#define MT2712_RGMII_DLY_TXC_STAGE_DIV	550 /* 550ps per stage */
+
+The original mt2712_delay_ps2stage() used the opposite mapping:
+
+	case PHY_INTERFACE_MODE_MII:
+	case PHY_INTERFACE_MODE_RMII:
+		/* 550ps per stage for MII/RMII */
+		mac_delay->tx_delay /= 550;
+		mac_delay->rx_delay /= 550;
+		break;
+	[ ... ]
+		/* 170ps per stage for RGMII */
+		mac_delay->tx_delay /= 170;
+		mac_delay->rx_delay /= 170;
+
+The binding in mediatek-dwmac.yaml matches the original code:
+
+      For MT2712 RGMII interface, Allowed value need to be a multiple of 170,
+      or will round down. Range 0~31*170.
+      For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
+      or will round down. Range 0~31*550.
+
+The commit message of that earlier patch also seems to describe the
+original code the wrong way round (550 for RGMII, 170 for MII/RMII).
+
+With those values now stored in mt2712_gmac_variant, mt2712_set_delay()
+divides by:
+
+  RGMII RX:        550 (originally 170)
+  RGMII TX:        170 (correct only because of the constant above)
+  MII/RMII RX/TX:  170 (originally 550)
+
+Wouldn't this write the wrong stage counts to PERI_ETH_DLY?
+
+For example, RGMII with mediatek,rx-delay-ps = <1700> gives 3 RXC
+stages instead of 10. MII with 1100 ps gives 6 stages instead of 2.
+
+RMII with 5500 ps is inside the binding's 0~31*550 range, but
+5500 / 170 = 32. FIELD_PREP() masks that to 0 in the 5-bit
+ETH_DLY_*_STAGES field, while the ENABLE bit is still set from
+!!rx_delay_stage_val.
+
+The in-tree mt2712-evb (rgmii-rxid, tx-delay-ps = 1530) gets the
+expected 9 stages only because of the RMII constant on this line. The
+parent commit gave it 2.
+
+This still looks present at the end of the series. Should both parts
+be fixed together? That would mean swapping the macro values back
+(RGMII = 170, MII/RMII = 550) and using MT2712_RGMII_DLY_TXC_STAGE_DIV
+here. Fixing only one of them still leaves RGMII TX at 550.
+
+>  	.dma_bit_mask = 33,
+>  };
+
+[ ... ]
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35%40collabora.com
