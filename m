@@ -1,49 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792522821;
-	b=0vyQzoMCQS6K0dHWy6W9jmj1C3FqGbALwUXRcljeJEy3HmPjT8D3tTYPCvQCxY/FWOGB
-	 hYnzip+/arBV79ZtSuNEFh9TSjtzBwr3gYtX9vNXylHAcR/QCjcQOmWgAjEYaq3Z+UbjJ
-	 SJIHh/4dN+p0YlOLhau3fgTEyOcgKINFEmWlndQFzXjVN4XRBtRaGVNOnNPrdjMQ4fWQc
-	 ssqDGHzt2sMP79D506rvoE04kZuySxN7PEjGstlvNgfQdU6GQigAKX3bAuZHIInJNeUbT
-	 obK5B994zehJ4I7H1ZPeKU5F54/BCiAnsbvImesbu6/1kvsX9GNGnDcnqv8lRFhs4jQ==
+	b=GVUDM0VGgd36qu2px6H3dQqHiBaa7LLTYYI0QzYLsGKhBxmKlFOBkVjQgUa1j099XN83
+	 68LWYcjAbG5TEw1Ep6BPtKdjGMQnMqn4xnfVKQyvXZzvLUSH1bzVJ8MOpdbbYA6QKH3lX
+	 mFsITPgdt7AMLQyLnyGFqoYEMaxCQEUUe5AbsVCz5jP8wK5N2soGzHvVHo889oe7AetBW
+	 jo71vA6iUB+H8q1uxp+nke8sTQjXFuoIU5iexSE5rcjgCJ/XPlH6SSHSPvvJvfe5lmyLj
+	 RSjjjsbjYUBtcJScWiTz/jMErfwJNNj+rApazZqCETrnrUf+TpxVWSgkfYfQ5VyhXfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792522821;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=xGrLjgO9rmqQYilzMY/O/l1oa07fIv3cEE46t9tgqMQ=;
-	b=pKhV/OJgDA2ITG4hF2aY9NunwtFpZv7qkApvl4nqhro0AFA3J2ifMHSnraWC5NkPRDph
-	 fmEFLSeEwvSQ+Z1dO6Dvt9qIrVxHCpcL43F6MUcLz3nsKOYNIDHg/Zm/NNHl0pB22l24p
-	 Smdu9pd92Kd+KmFPXN2k6P5Nf0NOJwKvPeHh9HdUVY1hRVKYxMFxVSIJciiS3TfVq+hNq
-	 4W8N2b1wzo3yUU8tT5yKXL4Vm3NNWOZ6q09PzWOu2YoT3gn3HPoQOTghV4f3iQb/A8VMH
-	 Ah8Z0h3DX3lCl4HLzk9wE8PccHgfNPrSiYL1YpCEWbjfOZMEyqylAQDZK+i2y2HYDXQ==
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References;
+	bh=lgkDz6HUhM8jgb8b71HsHBngoPIuP4S4i7blBH75xRo=;
+	b=k/BkJIJsk53PFJFOz2FfOtLwI/a2fs7iLKrqV/mXaIoGuCsgMDDpfIfZQ2CSHrds89KI
+	 T1fpDl9w0C+jOVKEeIGyFvNbKu7Ug1x/5GMVbGt6IyTT7RATKU5WSOstIibosqd+jxLyH
+	 77HCyWV+8kqZgUcveozmTFrPHEcL1J7uDtgg1wubMX1Oe3WfYpezg2VfZT/HG1ONXsvXA
+	 kQIstEzKtM13eagmxrMSDZO3QgLo1FUxVHWR+vxMSPF/HZx6JNxNNSgXhH2Cq0moqXdPI
+	 ssidGxgzO0j9v4xvUWISXIry4AOIq/EQs+MWGGPHI0MrlR9wmnhFncd8WUNoGfkdoqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KF4YwUl7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B6fb3D/J";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7936606A331;
-	Tue, 20 Oct 2026 19:00:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA95606A329;
+	Tue, 20 Oct 2026 19:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KF4YwUl7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE68A1F000D2;
-	Tue, 20 Oct 2026 19:00:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B6fb3D/J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B1A1F000D3;
+	Tue, 20 Oct 2026 19:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792522820;
-	bh=xGrLjgO9rmqQYilzMY/O/l1oa07fIv3cEE46t9tgqMQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=KF4YwUl7P2qIoq8+j+5/5ll9js1ic8WqcC/kMLdc8Cazg6jf2gd23p49ViDHc5PyP
-	 djMNoECQyxYJqVcX05Ag6Rx/lGInS0zCrpN83YJCWq/ec4/Xceds5BbrlekyA564I7
-	 Ea7C20VwSWLChAbFf9QgRaLJOrUZGsPchag6ZLfmLbGvAESI8EnhJiZov6PhSmNiPQ
-	 UazbrXNlJ7zEoR0MrfKxlDWczfROSGjPNm2cFsyumVKidETjyDI75DXzavXNOC4SAZ
-	 QErOplJ0Lt47lhJLizqpNnNNBvySLdsSiqv18pl+XXCCusL4Xytyz2IccfrkdcavhB
-	 nYs4RsNIqbhwQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B450F3808209;
-	Tue, 20 Oct 2026 19:00:20 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792522821;
+	bh=lgkDz6HUhM8jgb8b71HsHBngoPIuP4S4i7blBH75xRo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=B6fb3D/JC1mAn4582Gu3ax6JNQ8HMxiyYGpSk5MuFjlaUDlqg96EbhNNnX/c3PloV
+	 BUun5EMS4M3znOwG/0UHC18dyoP+ejvM/oS7Xw6m+H+gTvd3Dsdmpbcr++jGNeHK4+
+	 R6aTQ9UTMpJVb6bNM4WyvZrC8OO7PKO6iuAyx9uSbGy9cH0xFc5w5IFxSf461zDjdS
+	 xs2rgOIPHBV7/sVBDMKxpbPE/1PIkGe2uTRXRRuBuQ12iE/Kzn3aiQPYuG2rRq9ZRo
+	 HhiRGpRwhYf7wLM2hTIAk1RwJnHtDGzAOdCVmbDiqb6i6zl8JpeWskmAPz4CHSHexd
+	 f5H4IMvrSRhsg==
+Date: Tue, 20 Oct 2026 09:00:20 -1000
+Message-ID: <ba9d879aa8b0474d09577b82a1d68940@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Kuba Piecuch <jpiecuch@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, David Vernet <void@manifault.com>,
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH sched_ext/for-7.4 0/5] sched_ext: Make ops.cpu_acquire/release() reliable
+In-Reply-To: <DM9V2QCIFVGI.3VSJXUCU94ICW@google.com>
+References: <cover.1792248922.git.jpiecuch@google.com> <20261019144807.1207781-1-jpiecuch@google.com> <657547efeaea54276c50a0c106399366@kernel.org> <DM9V2QCIFVGI.3VSJXUCU94ICW@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,52 +57,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v10 0/2] net: wwan: support DTR/RTS on AT ports
- via
- MHI IP_CTRL
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179252281927.159319.5542146548061223834.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 19:00:19 +0000
-References: <20261013183500.261229-1-peter.hunt@opengear.com>
-In-Reply-To: <20261013183500.261229-1-peter.hunt@opengear.com>
-To: Peter Hunt <peter.hunt@opengear.com>
-Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com, dnlplm@gmail.com,
- johannes@sipsolutions.net, mani@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
 
-Hello:
+Hello, Kuba.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+On Tue, Oct 20, 2026 at 06:02:36PM +0000, Kuba Piecuch wrote:
+> That's true if the only thing you do from ops.cpu_release() is
+> re-enqueue the local DSQ. It may not be true if you're trying to do
+> other things like e.g. kicking the sibling CPU in scx_pair.
+>
+> Fixing ops.cpu_release() would let us get rid of the sched_switch hack
+> in scx_pair, which we know isn't perfect at detecting CPU preemption
+> by a higher sched_class.
 
-On Tue, 13 Oct 2026 12:34:58 -0600 you wrote:
-> Qualcomm/Sierra SDX55/SDX65 modems (e.g. EM9291) withhold unsolicited AT
-> result codes until the host asserts DTR. The in-tree mhi_wwan_ctrl driver
-> exposes AT ports but never signals DTR, so URCs never reach userspace.
-> 
-> Patch 1 extends the wwan core with an optional ->dtr_rts(port, mdmbits)
-> port op. The TIOCM bitmask state is tracked in the wwan core, which raises
-> DTR/RTS on first open of an AT port whose driver implements ->dtr_rts,
-> drops them on last close (if HUPCL is set, which is the default for AT
-> ports) and on port removal, and passes the resolved bitmask to the
-> driver on TIOCMSET/TIOCMBIC/TIOCMBIS.
-> 
-> [...]
+What I don't like about ops.cpu_acquire/release() is that they track
+whether the CPU is occupied by a sched_class higher than SCX, which seems
+a bit out of scope for a sched_class. Wanting to know that is fine, but
+it's global system state and would be better tracked by hooking into
+system events than built into sched_ext. I don't think the
+acquire/release semantics are a good fit for it either.
 
-Here is the summary with links:
-  - [net-next,v10,1/2] net: wwan: core: propagate modem control signals to port drivers
-    https://git.kernel.org/netdev/net-next/c/241c9ed785d0
-  - [net-next,v10,2/2] net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_CTRL channel
-    https://git.kernel.org/netdev/net-next/c/d509edf90bc6
+> Part of my motivation is Google's BPF schedulers, which are composed
+> of subschedulers, and we explicitly track which CPU is owned by which
+> subscheduler. Having a reliable CPU preemption callback would help with
+> porting them over to sched_ext.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+If sched_switch isn't enough, how about adding a tracepoint which tracks
+the sched_class currently in effect on each CPU? That should cover both
+scx_pair and your use case, and would be useful outside sched_ext too.
 
+Thanks.
 
+--
+tejun
