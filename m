@@ -1,79 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.134.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509218;
-	b=adBVjZBUDk3NH7knYzILQwZMRTdE72Ai5tDUn3/szdqKgf99X7kYsRQeQTkdAlKpwnzN
-	 E7ePu5KJUppLXn8DUiEiyseOQYjLWjWTSYOYcdVWI4/FRbXSGtxuk/GWuzLm7TxZhNUIE
-	 VV44I98xeZApdBdLC5oLeJ1SINokpGbne7WdThzXCfueJSMdLambNTun6M0FRjK64BFRq
-	 oSl+nQIOAJ681FUjW+1kkp7JumXgiOVEqzrVoAkVMDb8htrfUmGcM2NzVr+zVEskqqFmp
-	 5uVd6HMpAVNZXiu5UpoNSEnWgdaSVysRZbz5Y81/k9N7chPadcy8GUT4zgKmYsRXp3A==
+	t=1792509225;
+	b=QNNiCRvBEA6CTAmJYVpqIc78jfYVU47hszM9vXzJvJezm8Tl37wD5qNHjJ2/PX5XfZgR
+	 JVw/Q1wyRGkaVraMdIzPAZay3+BcugXZOwtQBvXQ/xXYLRXCHw3efVPvaJZeQGrWIE38p
+	 lKkx5t8CaWUCnl8Ien1R5WC6PnrGKpYWOO8FmpU+E4tSAMQbl0y0NRbZhKNh1WsFXhoQw
+	 R3EsVPX0/DLihbDxvDx36y8C+lAMazSLCqzZ3Vig1EUyU7a8r1/vYA8WWJb+jFDRq7ICK
+	 RIR7lLUxFxBr+IEwLwJvSL33a0jZR9116nI151Yx9iteUkwH6ECftRnRf+2sGpTQXFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509218;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=gW7rrrhTvNhaJ7ABkNTgkXkWHwGvVO8uazQn6vOaTgU=;
-	b=FmYujjH2sbC1Q2zNZJ9xSTjtfiEJvJNyJn4GuQMv97tnJZf+YQ7IEI0jSrWpKOjAAuc2
-	 Kmss3qHNd42hvs2qc1KVm/5DS26l8l/N1ITYdw2VO0kP6n6Z+hdBlqiIQhZ9joH8G4NqR
-	 97iv0+YwWWiPAe1gcZkIMqVeVRB5LSbgJ2J2MY7OUGvIYnK0pg2Ch36vBSt7kwAxU+riJ
-	 n2cNJInddgGWTUm3IU0qQyXghq6TctV3KyWDU5OePxNxyEzffJaaKLhuNC1osw+LH5LRD
-	 OcRW2jKCuKUCzNlI0dtO60FZ+k122LNWjqi3sbzNhQSSMfnihmu2bLtFPK/JsgT4jBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509225;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=;
+	b=aMn8FYsfokOvnyiVhTEogCHiswzDlFjRXLY4w/8e16CH/pATsW3q1yYjHFlqPPCnf+P6
+	 d4PqbaI+PwtZgsjcMq/eo0NlhRPqEHN+Vs52oY8yK6K4QXZE1ybttCop24EUTdU1FHUmd
+	 N0/QWpBYrPMY1vT0ob2VXxdlcQltNafZiWgjG8637ybAo4uvCHa+bIaXSV3fsBIUQ9/A0
+	 CNlFVgBxjnPmbQCo/1388MomgOGc6mquAd9LjFWbBqd88mxIL4VqLKDbNezkpwNhuJaUd
+	 jo0T2BM2JXyEWYy3/yaqye4ZRrFks5r5N22s+9EsN3iju1Ec1qf1BU9L5dXnBFOrvsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Zg2jwCsp;
-	arc=none smtp.remote-ip=74.6.134.41
-Received: from sonic307-2.consmr.mail.bf2.yahoo.com (sonic307-2.consmr.mail.bf2.yahoo.com [74.6.134.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	arc=none smtp.remote-ip=202.12.124.154
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077EC60A262B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:13:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077EC60A262B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Zg2jwCsp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792509217; bh=gW7rrrhTvNhaJ7ABkNTgkXkWHwGvVO8uazQn6vOaTgU=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=Zg2jwCsp3P4iMf6pRdIUeLBSunTiSsyewr0xl+jmQAnHdf/piFw174yUvzoRExzOFK+i4/f6bUtWVgKgc7oGbFdQBCFJq7rxoa2WobQmoVRwEL53hHj2PxSbV7p/xfm/1xGkjxI8Qcpc0MdV4Z7IQTAkgTuxPCkJLS0bAC5X1P7fGRJVjTWP1Ta/5wjgoalO8l0cJPk8+Cc4Ug4LpCIm+ZTfO0gERO4MaXmQgsi3ymsGYli/iASTIQlP+/txsAuw5O7axIQQr6n0kGBB3Eqbx7n+pI+bWby2c9SwlR42RqXVYfVVirgf+19EPCOjWSTGChKtr84tvGtWpoTNi/CoLQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792509217; bh=gmW+bm26geerfJCjP9YQbjYnU5IJ4Zl4rDpAZaWUBKV=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=jnM2lNgJTnGWuKgQrtlNTcRKAYpKff0QTk5gJ9nlofuddaYs6U25QyNv+2SYyci4MLEOtqmAmYmIgnCrFJLbyxgEaTn8VvVVJ8V5DuJNXVsmSJIRF9ZIEge3S7t0FRUOE96UuvuzJIA1lqV+cfjgPpsnWsscXQoQ6v6bsY9E/ZRuNZZ5epy/l6QLYsV6FyjaMueibfBhCwY2oEXQddT987cmqSc4cKE05TKeYbbLSzd1Q1NnOUdATpml5rOy7rAf21zF38XNKid6r4nbbq2s3ql7IxM7h390va2FN3dioTWEn3K7GrH7IuGuiNTvSYp4qqTLYZ0rgxQohyFP9VeNLg==
-X-YMail-OSG: jCdKiA4VM1m7zt4OsFSXXgI_fAwkzi5Zm5csGs4LKuPiAa01PuRLbKdHG_Webvs
- j2CosCrrbIcRxC5XmAys1VOYgDiUQ24TBm2.rDg3FRmivj8U1cKWwdMseRzOOT7rEgZXwutuu9Kv
- y57cciW9USvDkiPX2uIFFpEI7XZ9EY.uoo50Ykmq0PklddEkV70f44_qLEwOACwhE.uWvRccuRPh
- q_9KKlGvOcV_7gyLim5eXA36w_FDNQAfcpsnNgEbthL8.pmlAOWdt9eWkAbh4Ac0dLmawscnwzAi
- wFQpMUAW9uRLjHDx6uiMdWdvttV169PFa01A42VBwmLUuMpRLPLvMNQVUgfugAA2iw0877JkxSae
- h2KW8BmwruY6jBF2ORvlTOhwFMm7.QyVNqSRyXDAJQho9xT2lTPcnZ_SBw5QucqSqxX_Dl0e4wBa
- yhm0ezh.DCt6MWEcAHTxwcQLShTTC7ImR6fzwqwpYE6fnp5l5tMdUhll.6Lwxaa9aLvy7P8bGWX6
- cKmjhG0w493LIRe7I7OZJEElN6WFvaLO0xxPVAPFcNaFCJUsK2Z_bINKpe6LsJq7_m5nXfxLz3nD
- 0zIaeOhJ6JFOulsnXb2NXV8onDLl4LjIgXbbHPjtd.W_WsSwH4oCqgLmoWabhceLXJ5EvGvzZ.jf
- W7MLyOAT2w2a6naK2DYP0h2purBRJJiweaKJuOKkPYLjq9GQnKja2D3rEPLGmTMvG1tmdfAlbRRe
- SERUsUIg5EncnbetEEKcvuy4PuTexNE7TWXXym6.2t_QOrs3y4Ngvi5MPgAonNIK8PMvKjJJ1Pk1
- 7.ylkOLoBT15HnezKrbK6mcI4aZ3Kbb4N8HKNm1ELJnwp5.W_gnaWqCxuUDiNVN4du2tHg2w7tnO
- A66sY82iIGHG2wttqCV0EACsopUL2sJkRq_N3CSfM8jzzdq9YFPDwlx7chwvhEPri46SPQG95lk_
- TkHgcu2kNWch7EMi3_Z2L4tnAl0R01l509D2PzyM1YKvmY_SMoZQ0m7fHao.jbr0CV8ke8_SsVUc
- E_d.4Lh8r9srRrx0j3khLLfCOLZ3DVqZUPL7l.lggzNtpyA67IDkOlr8nNF58l5mtpBud9i681px
- U5Pp8p.dexvPAGhjbQ0fhXCYSUExBmNubDMP363WFz3Q8rjR9gE8lTbrja3Q2PfeRaTXEM2c9Bnn
- XnYUwrP_2U8x.jt2g_lbfDez.H5KsS5fVuwM5XBSujsl0AlUQeceHtdk4c_i_wyJxFZSBce.jxGP
- n1SAw68CK49JwUq0yw7_CLK3aLk4ul7DhIINnNRhHxb64Ki1VQsgDX5Hnz2WoqXRzB2I5iUNlJTO
- eGoOSDk6ogmDPP2.p.t9Q1YLel3UOmD3y2n691jeINSlnkZ56nD4LOHaiaBGACAMXlCPYPn7BfCf
- 4bQ8d2Merjk4X67Jgn9rg3e1_R3g.98EqskjY010vmEeGBJIL5y4pgFsJkeHHW10DZzmDGMcnRhB
- OuUHcm7ZQZ7Twtf2uKQhe0cSWuw13d_DoPN0SrYtatam61XRsDp7ShW6DZ3VKQC4fo0Xs_ZcGmE2
- O4QRLgPfcUSynoZg0NUj0xy0NgHzyUIjo5onPbidnygCnKXSmKI5v7znzX5PduFBl9PDd_8l1WO_
- YHJg8.pfjoIsClik8GKgWO1ZZf_n39k9Q0fgFbTZbvjb4pgjqN6rfM_OXCZ8yAJptI7kWs3kqJPK
- gk7NMUuNvdQXD.ENewdEvCflU9WxkNzJ.hRS7Kcz7Po3XlVeqQMIGJ2OAQ2BLyxBZN8vllNEpvY_
- lUXsESPI.aB18Gtov.FrY_HyLPfARXQe.5iIFprw2Y.per9BTzDiuinhu80p1iue5CXood2C0XPI
- jldgJLzcc7aGBkhhQAHGOmKSC8Ymu9nsV3bLgdWPM.uih_76SAmkSsvLWQdUjCmAdLdrEh3vdawh
- sddnTdgmkFC8DQ5d1utVDD4leOhREQ7l6fFNpf7TS90zfRUh.q02RSnDl.rJMGvl2mRXJ0HXPNsi
- jeKDbS4mbT_KB.C3bXJW_6JS4gJ0DHtTS8lFOfB2vw6e0AcZ8iwFcXp.zqjFu_54MusaKN5MtYyK
- EXT9LTXsPWHzfctZp_.aKOxiNKMU6tvrRfE.kc2bGD7cbthqjH373fxgHfSvtLrZfZ8ipmFKFQoD
- cV2cnfasJiDG4tg8vkAcYdyNH40myIYfYDjV.4FLngWbKgNbLW2a2HRl5brAqE3ZhaQP9u7KmR6m
- ZZTqPOXRTew52tJsE6FyHibhOc41Qkw--
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: bd98e620-d938-40c4-8a3f-5b21ebedd5ce
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.bf2.yahoo.com with HTTP; Tue, 20 Oct 2026 15:13:37 +0000
-Received: by hermes--production-bf1-6d6877594b-4fmm8 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c27b5baec59ebcab6bc6425e1a3166a1;
-          Tue, 20 Oct 2026 15:13:32 +0000 (UTC)
-Message-ID: <8365f405-2686-4ea3-b216-7928b826f6a1@yahoo.com>
-Date: Tue, 20 Oct 2026 09:13:26 -0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F20C60A2613
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:13:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F20C60A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 74B0B7A00F5
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:13:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Tue, 20 Oct 2026 11:13:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792509210;
+	 x=1792595610; bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=; b=
+	M9tHlsltLlgw8brJIvmPNECIIqpgNSnV9Aufv+9Q/YQR5XCQxNS74hm7X+uiWKf+
+	r2RQNVFAkLu2UCbxuGYFHDOF9/v6jUpjNfYZ0uFnXRW1ErREow//PtDs1a2LgszU
+	pmrS6MQ70VSK5S5/sDWERsbWHCE48RDZz3xOQyhFs/nwOfBji48iH3bcHi+FloAu
+	0m3UNrWCg/A2ZVa9fhdLU1ivMoup6KWo0gqQeHZe+1OEw78Vl9fZrN8S68hcb3PC
+	I2No/U/KESQz8ffh4/L/YHalR6jT4wNDjnFtymJh42yuFhoaON06Zjz4mcqk5zfG
+	2zGSRmcFt/DGqQbYdvmz7Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792509210; x=
+	1792595610; bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=; b=H
+	a+Oa72JoYaPNulergz8Vd5ZAv5El0DBJBfPwrT+W9h87CrR4EofXeAGQX3E0G8kC
+	NiQcCMrK71JtdrEhr0WY4qf3HSwYX7eC4NCAGq6YnNndrUH60nBjsCdZbgbLXLMe
+	XkKDuk2l6F3U5vDa7KX2xhn6V+kOvkCFnIFY3DYzCOMHOEw4Jgw4BsWVTwX0vK+Q
+	dILdWkR7Orx4djHrH7CnxQQewKfc7HBcxmu+hLFijP6CBsAAFecryEnzMJ7ZA9iN
+	Gu9qeRobLTJhRFK/WJNfy6uC58RIu3x2u8nt1voGG0wbZo1Iiqdvtr1P8qImJcoU
+	sPwUkVGgGaJ0TiTA/4uRg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792509210; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:3Wh4ZvD0BPY24oUUYd6UyE3xJ7CJvUT3aLs70xquGmhilnf
+	HXy9V9p3QjT2Xj+/kTfBCsybBJEE4FizQqnaI/FLmh5ScvKcKFvUUtPSyYBXWlI2
+	BtvyHMYV1C4pdK7fiiSXn2NR4XD9u4P6rXwcNDXBiVt2xnsl18uhdsBpIfgO4Y1/
+	fwzY0REV8B8Mdnoe/rviphW40AQnsXnQLLNypu+d/83SQdkto9bPa+NeOtxb9/Xb
+	4CoXT2pzgUXAEVvs/iAOrNwMyyeCjkRLAkNCpiRSoxp5rRb5CKA/xpGkl96rCClh
+	VjYroVc9ShrqV2OXBSbKdgf6EbGFAPJ+8dmOLUQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:x6UoH16gURO7uNaEzSVSnnyT7fiCt2A6Q/EVxz0TqeY=:k2n1M8WM0uQ8ddJeYsWll/h/e8ny+5RBdyAfFdbkmOk=;
+X-ME-Sender: <xms:GoXXauZvwpfFcLL-YMIeiPXMeN17TKhhuiTr3CMrjX7NypTaKMea2g>
+    <xme:GoXXalWQhLgflFFbB6B7VSrcgA4XQG8sa5_CxEqQ6lkAYxvJGNydThokHEt0Kd6YI
+    3G9IaxbzymGYWRvC-4yTRh9IeFWnvcfeoS0FzTMQ4iNMehmAeOm3N8>
+X-ME-Received: <xmr:GoXXahcSN7dhSBTrJ5jB2YSaOXAisCe78Y6qrQbHkTU03YAv7z1vz_-sSE28gg>
+X-ME-Proxy-Cause: dmFkZTF781+OrsKyKgKiRJR6hUf4rOKz6QH6MhRz/dGUsBKW8dVXANdVTYJvd9I2M1Em0J
+    ntb8Q/VPXfsQlOyOmgO7UlmKg5nlLjY5MLTCPVBXDZzwpfNXtJQBRqG+uqKNvnimFs8omX
+    NbYKPofjgmmrHKRQ0PEt5abTXCvDu4QqG+70LRFtPhbTp/bF4uSYRUEpL0dX/M2KtG2fIe
+    6TzxzRRfwdRjIOo/0ePJqF7Ghyyo3cSRbJQTfr3gxXCMrDRnX+ycEDsPYiNgVbs7+WvPTM
+    X3rwBiFzgyUOnVb2VpybTiXuIO0AhiWs4CBKeRku1xbRknd0b7OrWBGur3xBRANIiI1oq9
+    l/fGSakfL3BFWEPT7znvBQdywUSL/kPWJgL3lbAMFwNSqYatJdrVV3l5JbF7Lhtz06Ad3e
+    PQojYG/WZYeJlGLA/mztvHnREAEblQOxi8hx/ZXtN3QTOk35uDKc7Bjsy4Xraxy8NVzccu
+    uFOc3MsykYs6+Lip7NFlaWELQAfel3Iv2V5Mt4HvmsuiQFiak5Z4tgGYunGaaMsOauzlX4
+    854Y9f0jyIQ2v0k0CG0IXcMgVYstJbrVFWOIihDISbxvK9r6wvQl63OQYlndnzK3cowV+G
+    DmtRKn9F6h4n+7wWgrswuN+oGLDoc8QFjojckSCCgUatKs1k4QjBf3FH64PQ
+X-ME-Proxy: <xmx:GoXXaqNuw42NB2jAicJhqF5QvCRhyjKy-GoGfoI8Fxe025FPzU6Pgg>
+    <xmx:GoXXahLgqBhkSScTPmFipkJPPQHMlew9D4bDAKoS_AXcNQ515lqG3Q>
+    <xmx:GoXXaomlGGWPhmXIZAXwmKp_Uvy-t_uQxGt-apbJ9OtpEuQlV1ae5g>
+    <xmx:GoXXaoa3dOjnfc5WG1PvG4M_BAUlXRn_sl-SvPAVK_HO4xI25lEZaQ>
+    <xmx:GoXXag0N2CAD-RSrji3mMAh0jPzDb8JkTsDaC3weXSh2ayhT8aeibPXS>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 11:13:28 -0400 (EDT)
+Date: Tue, 20 Oct 2026 09:13:23 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Catalin
+ Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
+ Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton
+ <oupton@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jean-Philippe
+ Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ alex@shazbot.org
+Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
+ CPU MMU
+Message-ID: <20261020091323.3c51258e@shazbot.org>
+In-Reply-To: <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	<20261015142552.4128028-13-ryan.roberts@arm.com>
+	<20261015164421.GD13920@nvidia.com>
+	<95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
+	<20261020140944.GA3008132@nvidia.com>
+	<c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,42 +136,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
- to DT schema
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
- <20261012140346.3065-1-deaner92@yahoo.com> <atH835VJLqo_mdjY@monoceros>
-Content-Language: en-US
-From: Jeremy Clifton <deaner92@yahoo.com>
-In-Reply-To: <atH835VJLqo_mdjY@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/16/26 4:33 AM, Uwe Kleine-König wrote:
-> Hello Jeremy,
+On Tue, 20 Oct 2026 16:06:37 +0100
+Ryan Roberts <ryan.roberts@arm.com> wrote:
+
+> On 20/10/2026 15:09, Jason Gunthorpe wrote:
+> > On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:  
+> >>> However.. you still have to affirm which single mm is the mm that the
+> >>> device is going to be doing DMA against. The process the opens the fd
+> >>> should not be forced to be the mm that it gets linked to.  
+> >>
+> >> What is the mm representing here? Ultimately we want to install the KVM
+> >> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
+> >> bound KVM instance (which looks like it still works using the cdev interface?)
+> >>
+> >> The guest will then install the stage1 pgtables and (pinned) ASID associated
+> >> with the relevant (guest) mm_struct.
+> >>
+> >> Do we _need_ an mm association in the host?  
+> > 
+> > Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
+> > this is using iommufd with a viommu to establish their connection
+> > between device an KVM. eg Jacob Pan's series. That's a probably a
+> > better idea to stay aligned with the common path. Though your reasons
+> > are a little different..  
 > 
-> On Mon, Oct 12, 2026 at 02:03:46PM +0000, Jeremy Dean Clifton wrote:
->> +maintainers:
->> +  - Jeremy Dean Clifton <deaner92@yahoo.com>
+> Just to check, you're referring to [1]?
 > 
-> What kind of commitment do you plan for this maintainer role? Do you
-> have the hardware?
-> 
+> I was under the impression that I could open the VFIO device through the cdev
+> interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
+> I need an iommufd at all?
 
-I don't have the hardware, but I'm willing to get it and test on
-it if it comes to that. I'm glad to answer questions about the binding
-and to review future changes to it, also.
+The cdev is not unlocked to actually access the device until it's bound
+to iommufd.  Thanks,
 
-If you'd rather have someone closer to the driver listed as maintainer
-instead, that's fine with me too. I'm happy with either possibility.
-
-Jeremy
-
-> Best regards
-> Uwe
-
+Alex
