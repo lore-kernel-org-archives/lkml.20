@@ -1,88 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792507284;
-	b=4kkxI6TZkZDhm2mqmGRLOFPwejyW54yKg1jMtXQKmnp6+/FTJUfU2ufLjvbS9pfQkeLu
-	 tkDqA1il1WCDGwr6gpTd9+WPhBRB+yP+ucvaemj3DfnPwE/CyLnP2TMoiSR7ZEN9cy/wD
-	 cM5Unp4k9ePIt36gR7tGk7kiadjS4ZfUyJDk3/64+5mUv2zj4bFONIGWjs0322Hjmb2x5
-	 gc1BEEKQeXNp82b5bQ6Fjd85IepjiXoeF692W5Z6+FR2ujqUGSA2GX5cVYun4Fk5C1tW1
-	 yadxTrp0Bui1+7yJHf+j9BWPX0EEjR3HExakfsMpgin40GC6hLM2eqtZ9EwDAFEgumQ==
+	t=1792507295;
+	b=eL6V59zppsoW+GQPLhDgp8TNtslzlIUxwr7WkDTRrCeJxzxWLv8dzWpv+rlNbcl1GLpw
+	 eQzHgmQkRohHNEHuVwGzZxTXfO3oOo3bmslwwzK10fnS8mPMszL1DMrqADVLWFtrhjfA0
+	 cCSxQREFyLJ7U54dt0EfTl28V2SLiZf3cxxYTmcR5VignBBG3SCiDIQXmSFXChzXIAJ1e
+	 cDA84aGr2inswKDKtHiNXVa0W3jN2lp1I+e2cvU4a5xP7IkOSWCvlT8J4LRYKd8cijtqQ
+	 NatjOQe374ynhrYNOsMV8Vidwd7xOdnlZyeRgU31mkGCxqihxuTroQcGfxCHkja1Ueg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507284;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=dsyyGWxhNBOvel5G5C2yuF7bzkrNytpvfSZfEsf6afo=;
-	b=ukS9gHoFeFMjtqfeUdkfqOXaFTx+W2CdgtvYDf7bMWCskwDBCCocwi6rdM3rXvBH/9l6
-	 W0pKYr/k+vMiGAB7mHYSlMwf1D/igPDZAD5YRuLVkxEZQ3rE7xIa6xrB3UZMNK0L71H3Q
-	 J2T7YCf3cx6awkOa0XoC/MyBmzpiEMp9qEt6TGlFxtLwMrYtnuVmfrjWEMJ20RHgAHWcU
-	 zihQ3A5J9W7QBO0e7H4IVT0zzmP6MtBYPzNtyoLl3CJR2P4YEaWdxJV7Nc2czFSdE6S+M
-	 WE+QVFSuXkuNf9x01thSsLMlUoauiNJ7sG5yh/BExmYXnl14DlkBibtPLnZdB2Tkfxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507295;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=obZm6fYxDBkvsgsqatxSsEtySSvVtNol2JAwOQdxyP8=;
+	b=5nfDMAA7aNzY/TRYejRL6ZQsdK6RoK09YW2g+CHcGy+pyPEf4N+VhJX2YmI2zRqQqUW0
+	 4oB7tg+6YYKXpfVSUKD6nfSACozOz/ykT7VKRNMeTpMtPO+eVdgnbIJ+kxV15EmocZAnv
+	 WMAfkirrBiITwVqm8V7GyN5+Rjn8nSD4ww9dRaQkiXEti53GMfWVo7K39MpieVRMXJWaC
+	 8SXIGPDeF81ojI3kRVJl93NEtt9c+Eo2YOGOhsI4xmn3EUIN5053PYqqb3HxJh8QXfYvk
+	 RQ8skuB5WDNQrXDNP/gVR+xwiSd7SY9bGeyT+qyjth+nX4grTaGsQqEskClFF2sZhlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Ad8rZ1sX;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=KZIpTYXr;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA217606A334;
-	Tue, 20 Oct 2026 14:41:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA217606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB719606A335;
+	Tue, 20 Oct 2026 14:41:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB719606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Ad8rZ1sX
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j8FTq6gPDzMlpm;
-	Tue, 20 Oct 2026 16:41:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792507279; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dsyyGWxhNBOvel5G5C2yuF7bzkrNytpvfSZfEsf6afo=;
-	b=Ad8rZ1sXZAjqL0R25aIKLX8FW58VDQ1i78ist/YmNQAbhtQf+Q/FKy8g47hTqo28Ya9pYW
-	JF6ObwLvGTTO1yfoeYnnFVu4wgTK2Al+u/eAHJsD6z9ESP+c/TufRO+8eW80xINo+5hY1m
-	+Cx7F16V8NYWahH86YAdb4Lca42qNIvNTSD6NRhz46TuiJTM9kfqWdIpvVZOUgnFKfIyu7
-	IWR7B+u+M6120Po1MnIQcdxXY7gKy/SYc/w2jgkMXcG9peJll2fDtWV6lB2pfjLCMXzNJ+
-	gxwLJj2ydZl0r/AA7lve4bGAOVMfuDiKfdaKTqDDpTyHEvNBulzhK8K4n/rAjw==
-Message-ID: <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Jani
- Nikula	 <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Tue, 20 Oct 2026 16:41:12 +0200
-In-Reply-To: <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
-	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=KZIpTYXr
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1B4321087B7;
+	Tue, 20 Oct 2026 16:41:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792507288;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=obZm6fYxDBkvsgsqatxSsEtySSvVtNol2JAwOQdxyP8=;
+	b=KZIpTYXrLOZeb0sWyDSqtRamX8N7fjSjraNOOVWlArE4s24uLb0AYU+UyW1juMdh/ZkGJd
+	smxH2yDoOk8ZkWPYrAiSAquObI+DVKplBXgsANRlvr7sYUP4Jq9rFR2aAtRObeqWtj4A65
+	RIO78yCfyJvsRNMnGKyQP8ykSis8A8fjfhfA/BOsenJ+s+NQBhZ4B35lI0xWX88L385IAs
+	8w5WzVK2R0jWVWrmM5Vc1ZBrbfkuyd1lE0WYd376dqn2pH07IeLYOdBDMG08IjIxxi74ym
+	m3yamkl3pp9LxSRe41HKBvL1u484D9TJtuLQRm8JonNtwsCrlDMhPTIQBCzmJQ==
+Message-ID: <087bdc09-cf57-444e-aa29-f977998b0024@nabladev.com>
+Date: Tue, 20 Oct 2026 16:41:20 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,99 +56,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: b9048a7d9fe97d9beaf
-X-MBO-RS-META: qigaa9aksrimhrpqmxh7stqras399i54
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
+ dh,dhcom-board
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ Conor Dooley <conor@kernel.org>
+Cc: "Frank.Li@oss.nxp.com" <Frank.Li@oss.nxp.com>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+ Frank Li <Frank.Li@nxp.com>, Ashish Yadav <ashish.yadav@infineon.com>,
+ Colin Huang <u8813345@gmail.com>, Sanman Pradhan <psanman@juniper.net>,
+ Thorsten Blum <blum@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>,
+ Eddie James <eajames@linux.ibm.com>,
+ Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, kernel <kernel@dh-electronics.com>,
+ open list <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
+ <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
+ <20261018-freeway-twitch-e813208aa9af@spud>
+ <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
+ <20261019-cycling-unnatural-c1adbfb5c9d9@spud>
+ <05e66d8f57a44c9aa87cac1c35e82184@dh-electronics.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <05e66d8f57a44c9aa87cac1c35e82184@dh-electronics.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 2026-10-20 at 14:02 +0200, Christian K=C3=B6nig wrote:
-> On 10/20/26 12:00, Philipp Stanner wrote:
-> > In our Rust code bases, I'm currently experiencing what we also
-> > experience in C at many places: that the dma_fence contract's RCU
-> > requirements make the API more fragile and put an unnecessary burden on
-> > the API user. Most notably, in C the API behaving correctly now depends
-> > on the API *user* waiting before free()s, waiting before unloads =E2=80=
-=93 all
-> > because dma_fence is not properly synchronized.
-> >=20
-> > The patches commit messages give more details about where I want to go
-> > with this particular RFC.
-> >=20
-> > My rough "vision" for dma_fence, where I think it should develop to, ca=
-n
-> > be described like this:
-> >=20
-> > 1. All users should use inline-lock.
-> > 2. The fence-signaled state should be our decoupling point.
-> > 3. The fence state must be consistently locked.
->=20
->=20
-> > 4. This means all callbacks are only invoked for unsignaled fences, and
-> > =C2=A0=C2=A0 the fence cannot signal while a callback runs.
->=20
-> First of all that prevents concurrent execution of the callbacks
-> which for a lot of use cases is a must have.
+On 10/20/26 3:33 PM, Christoph Niedermaier wrote:
 
-Currently only set_deadline() can execute in parallel.
+Hello Christoph,
 
-IIUC in our past discussions, your wish has been that the driver can
-take its own locks with free locking-order in the callbacks.
+[...]
 
-Thus, the callback is invoked under lock in any case, just a few
-instructions earlier or later. Thus, no callback ever truly executes
-concurrently.
+>>>>>> +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+>>>>>> @@ -0,0 +1,46 @@
+>>>>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>>>>> +%YAML 1.2
+>>>>>> +---
+>>>>>> +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
+>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>> +
+>>>>>> +title: DH electronics GmbH on-board CPLD trivial SPI device
+>>>>>
+>>>>> This does not look quite right, since compatible this is used only on:
+>>>>>
+>>>>> arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
+>>>>>
+>>>>>          model = "DH electronics i.MX6ULL DHCOR on maveo box";
+>>>>>          compatible = "marantec,imx6ull-dhcor-maveo-box",
+>>>>> "dh,imx6ull-dhcor-som",
+>>>>>
+>>>>> So the whole
+>>>>>
+>>>>>          spidev@0 {
+>>>>>                  compatible = "dh,dhcom-board";
+>>>>>                  reg = <0>;
+>>>>>                  spi-cpha;
+>>>>>                  spi-cpol;
+>>>>>                  spi-max-frequency = <54000000>;
+>>>>>          };
+>>>>>
+>>>>> Should probably use a different compatible.
+>>>>>
+>>>>> Christoph, what device is this on this board ?
+> 
+> There is no device connected to these pins, only an extension connector.
+> The "dh,dhcom-board" device was used only to test the hardware and was
+> unfortunately forgotten to be removed. In the production version, no
+> device is connected to this interface. It should actually be removed.
+> Should I create a patch for this?
 
->=20
-> Then as I pointed out before the second problem is that this again
-> makes the existing lock inversion between the signaling by polling
-> and signaling by interrupts even worse than it already is.
+In that case, I would suggest to remove this whole spidev@0 from this DT 
+with proper Fixes: tag .
 
-We asked for examples in our last discussions, and the only one ever
-presented was the list-access requiring the fctx-lock in
-nouveau_fence_no_signaling(). Nouveau is often not a good example.
+[...]
 
-Can you provide examples in the kernel where deadlock would occur?
-
-Note that I pointed out that all callbacks are already invoked with the
-lock taken, which proofs that it's doable. Future users with inline-
-lock could employ various techniques for dealing with the lock-order.
-
-Only exception currently is set_deadline(). The only user, MSM,
-acquires the lock manually and then nevertheless triggers work on a
-kthread, examplifying just one technique.
-
->=20
-> What we could use is an SRCU, but a spinlock or any kind of lock is
-> clearly the wrong approach.
->=20
-> So as far as I can see that is a big no-go and we should really just
-> use RCU for everything and remove leaking the fence look into the
-> callbacks like I outlined before.
-
-Look at patch 3. We might want to add some legacy support for shared-
-lock, but it is evident how much more simple the code gets.
-
-Also:
-
-> >=20
-> > Point =E2=84=966 means that this:
-> >=20
-> > dma_fence_lock_irqsave(=E2=80=A6);
-
-I even forgot that you also need a
-
-if (!dma_fence_is_signaled_locked(=E2=80=A6))
-
-here
-
-> > dma_fence_set_error(f, err);
-> > dma_fence_signal_locked(f);
-> > dma_fence_unlock_irqrestore(=E2=80=A6);
-> > synchronize_rcu();
-> > kfree(driver_foo);
-> >=20
-> > should simply become this:
-> >=20
-> > dma_fence_signal(f, err);
-> > kfree(driver_foo);
-
-
-:)
+>>> But in any case, the compatible string should likely be fixed here, this
+>>> does not seem right. The dh,dhcom-board was describing some CPLD/FPGA on one
+>>> of the evalboards.
+>>
+>> Ye I don't disagree there. "dhcom-board" seems not nearly specific
+>> enough about what the device is.
+> 
+> There isn't actually a user for this device, see above. It's only used downstream
+> at DH electronics for a connection to a PSoC chip. But even for this purpose, it's
+> not being used correctly. What should we do now?
+I think this patch can also be dropped, the dh,dhcom-board would be left 
+as a legacy compatible for the CPLD/FPGA on the DHCOM PDK2 board (where 
+it is not described yet, but should be) , and the dh-dhcom-board should 
+remain a trivial device, since the CPLD/FPGA is connected via some 
+parallel bus if I recall it right ?
