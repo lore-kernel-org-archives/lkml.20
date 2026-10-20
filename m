@@ -1,55 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488386;
-	b=B2AdRsZYFxOrESJPgY7BFk3xrKzWSq+3I3e4FJ/lWYKsfRr/ahxHQ64ZXYkN856Z61VE
-	 jpQRs8exzWAhStGgR53Hhii3J/F2ckzLb1gRr2N91g38mQwl7QntAX9haRY/u6WG1D1ta
-	 A3udEyzn0OydCPZ6Kq2Gh6yl/QrSSZIxVn5bq+x5gfg3y5CoWXivKH/gwnCRQ1Wc2Ap+r
-	 p6G7+UakHJyWEJFllUUDjqLkQ3Eq/cT8KZ7MgjkEpepYfLwZULwbvBEG+RHdcdtae4JF2
-	 KhI9DWDlYG3X3MMjKgfL4olMntQr+bEgzou4htBld+5kkT+EpLiiD8RqRI1KmiGys+w==
+	t=1792488391;
+	b=PoMKYlSvlwsAmwm9YWmq4TQVKSaYD73jPXEo2Aev8lxI9XaPSqTynYGzqCosBuO31ah2
+	 nq9yr/gRRJdNdAoPkf+mPGKzlC5ZjexbcWqgcAnfCKDx0Qmj6/+0rdfvTVLvyPCNHWqqv
+	 r8zX8ily05lBKOC6pkA5GUfJj3EWM5G276N1LDafzLMKFmPvDapIBHk2nCf0GxF3vkzUs
+	 iB6DV8Mil+9EbozYKjsJMmdmsy3No0+GVu4HusLlnbV1Lh9JBlK6yTfwf+T2deS3lIZB/
+	 nEjxIwdjBN/QWjtQs076AEIlxiL0833QLMhNc/RZiCnfAalcjynE8xvS46rp9O0zvQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488386;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=J0+lfnK2ji54QWZAyRSEpc2tj9spaFX2qA6M89XNIoo=;
-	b=P8ZKlPXklTaFVobyqru/++wFeJZQmud8BkmVYeaH2nyET+dgZeifYYKxUNWwtC8Sjrhe
-	 vWyGNFln0DAo2tuFz943/rRCE4j+3y8a1k7GJedlv4A025UBeEf26xByUPm05mXAGZ38s
-	 2xKFQ5YGfP6VteXRO3723f/BdcHaKw6OrMlRp+Q1KDinIukQ9GXVmkecc6vL2uLxB9sjU
-	 LZrF3RZSfqe5xjqNixgZTKoH/T7VhHmkiFPKavBFmHJuh9GTGUEGG7JHewhOno/KZIeDo
-	 dMx2qBJl5IN2YaRim93OpFgTmBIkiLv+x7wXqCD/4VWEvJr+CStEok4HmZHhh5k/ekg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488391;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=V62r2oyMwKweJj3yBSLKefUPJg8WZq8H2U6uQoCWZWk=;
+	b=sWr56mS3nCMi9QHquigPCBK0JYyuA5L1aGNPCbUpD0fUdb9hmgJ+xy1X9JMkTRNhZAlD
+	 kRc18TVPYkNSR5WELQNuIFMSsrfognnJkT+4nswq+Cbyw5TlQQVG7oeE6obtOlO5dM9ZV
+	 MUGS/+/w0FlMuV3W18JEHNBzg5k8bP/gbQ1ZLcMmAdl36c0wSbrTg45PKqu808XVdLH6d
+	 wzujW2McBU4QuR2P7ltscxZ3xq6DWLA+YhsN+Rzp5aKvVOr2h3Is07611tmLhjF+8/H0h
+	 gUTY2cBFjehF5vsnIJFnAGOCkIRQTDk12N/jTKPBvf3a9ECx4RQZMxPayhbvDS4au9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMolvZzC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=resnulli.us;
+	spf=none smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="fhvCsC+/";
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E5D606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C144606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C144606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMolvZzC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E701F000CF
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792488386;
-	bh=J0+lfnK2ji54QWZAyRSEpc2tj9spaFX2qA6M89XNIoo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AMolvZzCrE9FsqFbw4SGb9M4ZedXBvrlRBX0i+zw80ff5AI24lfl4sF8vfA1Ppbvj
-	 xXdC3K7lSP+DaIoj2HeRQZ7bv7l3w6AFluyqRstiSX4orni9afwayKb8V7asA7FTTj
-	 78w90EpeTQdHCeRLzNTbaTlyHx+kBB7ril6YFiYb5fcjgsbvQa1SolunQHgBBYlBPk
-	 iN68dMvlow/UtqwN5bc0IY5Ipu+FRt9aTWFr2tl1BppAMR+l4RT7dNTDoe5OVPIKfg
-	 fCmCkOs+oIsSPaia1EzF2YJEbd9mtCeRE15/kxVMWMeaUbZEesOLqhrCZlC4c2KEFI
-	 qvYy9oQ3teAfg==
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f1e5d7450so295862485a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:26:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwh9Af3HPyM6AOE9M6ej2Kz6cz2oMgGug5hx5cin6Md3vNg/fxfdgi/IWDGn0vmo1GvXAVDUNGxU7VjM1M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQR7fFYELv8NyOFkM0hrs/k4wJxM6n8EYfsvGO9AsRIEFQqCIi
-	Qik47WrYxDMG0hE0gQnXNho/jNeRfxto0wQ23uVz4aGJbAggiwPdaYy8uy3jwXZjOYfkhqKpnq4
-	zJ+4HVAAkdI5wH/2b6qaWj/hTEZRYdFw=
-X-Received: by 2002:a05:620a:408c:b0:93c:c162:125b with SMTP id
- af79cd13be357-93f29d1a770mr1721438885a.39.1792488385421; Tue, 20 Oct 2026
- 02:26:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=fhvCsC+/
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so2522670f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:26:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792488382; x=1793093182; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V62r2oyMwKweJj3yBSLKefUPJg8WZq8H2U6uQoCWZWk=;
+        b=fhvCsC+/L+1bMr0FsexCnKyo47rJycuSZvhM1BKIBfyQEvBc4uR/sxPFeFk4JgA7t6
+         ZUkpMEKwzeepefXulk1T2CMQpi0g/pzzFgGmJrpUjsF3g+7REVFmvCtPKN9uVKJlpyhg
+         SIXhOvTi1U/sZBl523YJrKCAFpZVjG1d+k0DGvO1WNKY4v0xlGsLDYiPW+FaRySiti+e
+         KKRSVX3h0x1tMIjBGVVVSsR9Jr+yzC3/MIAs2y7Lhpmgy1IcNGiOig7oKzPugb3huFZA
+         nuY+FFTctXbaTtHfBpdiocNGG6/21HoY8Mh07eXk3PPFlShlnFFBPcK3hwSIrKnqIgG5
+         SsQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792488382; x=1793093182;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V62r2oyMwKweJj3yBSLKefUPJg8WZq8H2U6uQoCWZWk=;
+        b=bq9cPelNmzcA2chS1FDIoXN7lVswnBymN+AuN0j03wt8nhh47kbiueVSAiPRoMY1BL
+         ptbI4EGX7HzkNcIbvOFS7lD/yHAPW0SH5L5e7ohmLzWgacnov1a7PGq/uu9rfLLvdMII
+         QN+MSqNzLQXzIDQa7GHpz3Q4NiWK1/Fh07IVWSQa+R/HDHO9QhJ5RfIlg7uFIxv4ALnk
+         YpGq+UaBQamqYj4Zjh3eK5llxjGeUg8Bfyn2O+UADMd7QSkGi0aum0C8ZV2feu992mbA
+         WGmEAI1/7LOW0P+L8q9PFpdlc8aVfKk/OyiX/mKscY7DDXXF9HsQdPfc2VEE+QDQCsve
+         Y2cA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKj4R4JRnkDYAmhRM71iszsBki9N5isFnEZnqT1bgUcm8MheHmC7m7shm/dAj6yyUlqdls/u41b5+xgfY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkl6wTIcHf1i5wSDAu5MQ/dIkrbueaVkoMfrqdROL66XAiDDzo
+	qTN+y5f8zKsGif3RNW5pCGISUKVDO8bRlrISxQPYfQZXEOo7sW9nsybfIu3lGirL1vM=
+X-Gm-Gg: AYBFou0LQx1Y2nXiJ6QbojEnMHeMNTBVeSy9xz60XQ2Xw2TZWKpOiQjMespFm4gTEug
+	ql/EF+gNgSTnGD1vkghizIabQ5/ihIq7X3n1MDH/vAa78LQ7PoRNcLN9VWxUXLUYbSsEXnrEhfQ
+	brc48oo8D+RVlCGbVh7UhAgTOHNxbA6nlWJynE631ruohpKkeK8qBSQPK7rCc32UWZJVorBdQfD
+	1LQ1NxLxsWach4PrSDTo0n4x40/wtnTaCjJ5CQASnY1/e6k/FWv0dBBaT2IuxaymNgZq5eWMcO3
+	8m5p+5LgZZPzqT4mclZLGd84dAExovZ4DyCWXBDz1uj21/9Ynwg76e0cSDyDhKpedqu5SMP9aHx
+	A3gI2Y51JeKYtzH6R0sBI8nKp2KW+nO0njZPOTm0MyujwcglF6XQx44GReYVeu37NL4usQyqd15
+	0f+/5JxPlz8ZscmKqLSvT28Krg9exzt1ikObvC2aeadQKNyWWlzABQZjTNU3886vY9te0ZS4Ftn
+	o158A==
+X-Received: by 2002:a5d:5e87:0:b0:48e:1fb5:eac2 with SMTP id ffacd0b85a97d-48e1fb5eae1mr2877151f8f.12.1792488382209;
+        Tue, 20 Oct 2026 02:26:22 -0700 (PDT)
+Received: from localhost ([85.163.81.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm4750276f8f.31.2026.10.20.02.26.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 02:26:21 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:26:17 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Dionna Glaze <drdeeglaze@gmail.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
+	cedric.xing@intel.com, sameo@meta.com, James.Bottomley@hansenpartnership.com, 
+	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com, 
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, roberto.sassu@huawei.com, 
+	zohar@linux.ibm.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <atcypJ7oQ37oY8c2@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261016234354.GA664420@nvidia.com>
+ <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+ <20261017203407.GM13920@nvidia.com>
+ <atPgqROZZxnihYfC@kernel.org>
+ <20261017231007.GP13920@nvidia.com>
+ <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+ <atX9fugGUsI0hGcA@FV6GYCPJ69>
+ <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +114,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019230646.3510790-1-joannelkoong@gmail.com>
-In-Reply-To: <20261019230646.3510790-1-joannelkoong@gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 20 Oct 2026 17:26:13 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xdZY2v=syWaGKFiJghE5TO5tR_4sk2-kmMdTy6SprRxg@mail.gmail.com>
-X-Gm-Features: AclHuK_kJOmr_OMPMizx5puB1D5dVZqP8QzAhDuMdwUBYuNlpiHafiyq-2_jg6A
-Message-ID: <CAGsJ_4xdZY2v=syWaGKFiJghE5TO5tR_4sk2-kmMdTy6SprRxg@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: unqueue deferred split folios outside the lruvec lock
-To: Joanne Koong <joannelkoong@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Usama Arif <usama.arif@linux.dev>, Lance Yang <lance.yang@linux.dev>, 
-	Hugh Dickins <hughd@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
 
-On Tue, Oct 20, 2026 at 7:07=E2=80=AFAM Joanne Koong <joannelkoong@gmail.co=
-m> wrote:
+Mon, Oct 19, 2026 at 06:10:31PM +0200, drdeeglaze@gmail.com wrote:
+>On Mon, Oct 19, 2026 at 5:08 AM Jiri Pirko <jiri@resnulli.us> wrote:
+>>
+>> Yeah, I was thinking about this and went back and forth. In the end, the
+>> only reason for leaving it unbounded is to allow multiple independent
+>> users of the same register. For example, IMA and systemd could share a
+>> TDX RTMR. The systemd side would read the journal through the
+>> attestation device and the IMA side through securityfs, but both are
+>> views of the same journal. If one side truncated it, the other could no
+>> longer replay the RTMR. Isn't this the valid usecase? Do you see how to
+>> resolve this?
+>>
 >
-> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call
-> folio_unqueue_deferred_split() on folios where the refcount has dropped
-> to zero. In these paths, folio_unqueue_deferred_split() is called with
-> the lruvec lock often held (move_folios_to_lru() always holds it and
-> folio_batch_move_lru()/folios_put_refs() usually hold it for every folio
-> in the batch except the first). However, it's not needed to hold the
-> lruvec lock.
+>Bright minds have spent a significant amount of time working on this.
 >
-> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
-> the deferred split queue lives on folio->_deferred_list in
-> deferred_split_lru. The deferred_split_lru is a list_lru with its own
-> per-memcg per-node lock.
->
-> There are already other existing callers that call
-> folio_unqueue_deferred_split() without holding the lruvec lock (eg
-> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
->
-> Add folio_batch_unqueue_deferred_split() and use it in
-> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
-> unqueue each batch of zero-refcount folios from the deferred split list
-> after the lruvec lock is released and before
-> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
-> critical sections, which run with IRQs disabled and are highly
-> contended.
->
-> This came out of the discussion on v2 of the mTHP shrinker series [1],
-> where queueing small mTHP folios on the deferred split queue was found
-> to regress Barry's fault microbenchmark. With [1] applied and
-> khugepaged/max_ptes_none=3D0 so that every folio is queued, perf lock
-> contention showed that the extra cost came from waiting on the lruvec
-> lock in the free path.
->
-> Test setup: 2-socket Intel Skylake, 40 cores / 80 threads, memory bound
-> to node 0 so that all threads contend on one lruvec, with each of 80
-> threads faulting in and unmapping 16 MB of anonymous memory 200 times.
-> With only 16K mTHP enabled, this patch reduces the queueing cost from
-> 15% runtime to noise, and lruvec lock wait time (summed across threads)
-> drops from 491 seconds to 38 seconds. Most of the remaining contention
-> moves to the deferred split list_lru lock, but runtime still drops back
-> to the unqueued baseline. This test uses a worst-case configuration ([1]
-> is expected to only queue folios of 2M and larger).
->
-> [1] https://lore.kernel.org/linux-mm/CAJnrk1a2PpUGTsCgS7jct2KET4K2zAL+_h+=
-te8G1MaU9bXs99w@mail.gmail.com/
->
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> ---
+>+Roberto Sassu, +Mimi Zohar
+>IMA logs and systemd logs are both system level concerns that are
+>relevant to the OS construction, not individual users,
+>so I would just say to reroute IMA to use ctlv using a kernel config
+>setting, then make systemd the new system manager of the holistic log.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+Yeah, isn't there a valid usecase for 2 separete userspace consumers
+though? It could be a limitation, perhaps configurable :S
+
+
+>The securityfs log contents can simply say, "log managed by ctlv" in
+>this setting, in the form of the template identifier.
+
+Yeah, I just wanted the existing userspace IMA ecosystem *just work*
+without any distruption.
+
+
+>For policy violations, only the 0... extend needs to go to ctlv.
+>IMA can still keep its violation log as a ring buffer when it's not a
+>1-to-1 violation to extension
+>https://www.youtube.com/watch?v=gyYUYbdiN_4
