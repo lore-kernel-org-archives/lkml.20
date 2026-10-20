@@ -1,96 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505677;
-	b=hkjwiOsBY/2dGts9zmEOW+LaJ9Vj4XwAwV63phdTlKEQNSZvw60HlxZo01Wzb1sqWA/5
-	 Io4gduFm6OMDN7nUBIrkDu2sF3frzitz6EaQbpecHh6slU8zbk1SK1MbUR1+tbVLpAzSf
-	 03k+xldVk9pTqiG+c9u3bhfm/eYQYqz6pFdsfvTjnHrNu3R4mGwBm9NZoQcNdXWlMb8b2
-	 sywAGDQbDiJIMSr7rGLz5MJYELEPOHbYbYBBcBXJToj7nkD71R8a2tKR85Lri/o24u8jJ
-	 pXoXb/yu/93FpQQ7tvyLsP0pBiALw10oSu6a87Gso6w+7XRfnjkHhlf099StcdoR8CA==
+	t=1792505710;
+	b=bxoHxRxLUqzxweLiwDAUcy7KZ8BB8I8KxW2KdrVYxmrZDUe62yKu7LI+MkbxhO18ZB9Q
+	 v85s0Fe9BPGg6ehYDj+lleClmggbx+LluAp16zM6UJoCPVUbwcbqlp2LpTVjJ+fuqOXgY
+	 vyTJ+qaNVHKHdhK4RX32T0+PdwfnCMhkmYBWF6WLIw5tELom0GGP1QMwsJozFfeHuNi4i
+	 /vWIbN7Nhc9GfD6iYHzZypkdyB1EyOYRYHUOf/pUoVAIPNU+SloupjSgSI3uvuE6Hss11
+	 pBNdXflVELP1quO72LzIyHvTHR5fUw2EvBNxxiJUDYKiCUr7R4VzA93PHt0LCF63VZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505677;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505710;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sQFeKDZLpv+uAiBMOa7dMDV/Pt3XjThlBAiwUAdIC5E=;
-	b=NQNOyGQlebTVxys5XwYeGEkZcm4GRSwX8bFb2OlZjErS9QLr2aCE7OjkS927lnERhk2Z
-	 BqtR8topUKsUf6pyu7xmMrhIs6BTcJfNj0Ufbmqsj5+lVX2NCJF+X0hgnwevjDG/LHsOY
-	 +w8Ag9OMFVx6AWW5M1XRbGMqIW/JDn+NfyP2AYgjyrW5H42JNZG6p2FiIUOT8fR+Ckaa/
-	 G5wpuR24E7/hxatT0wdHPkGEO1EcdkHu2W+jxO+B6VutEaBhjVM/SY4s4oOifmST7F4Zz
-	 kWG5AStLvDev5NOUUGXDnmyGr9DxFTfvaR/FlcSnM8RhidiWGp5gSIfVH08gwa5IzOQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TDt+JfMyIatB2cuVyOJQlWyBeYbAwPRRdrD/q2KXZik=;
+	b=smMpegAPCwNKAm8Y945+VvSZiXG7GqU5UIF77D84oyQoVnjjaDJY0FFIn9yw9d9jVhse
+	 Z0uwW6SoMhlFdYWLkJKpVymS/4KpEMtb1btKMZcPGbHl/pFhsKAnz55bUDdslnxCcEzhM
+	 49+uESXVnUvwLrFoRV8ZMjEMgL2Aprv1ryQDOTLR3XEd20ok31niTHW3pIPSk3yxivgfY
+	 v6TFTWe25+7yBI1jgU8DWfqUCcFekOrtfKu+47ALMkdosyxeJvwQxjuqu5TWV/csnvVMR
+	 JpIzOpHIbediQsB81P58/Qv0A2PHJRL9Stt0cij9D0rgINPFoDanYcnlVOAAzKnlH8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OfKQXqCI;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kSGUdLXv;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F21D606B24E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:14:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F21D606B24E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B3D606C8CD
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:15:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B3D606C8CD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OfKQXqCI
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b060ec084so2353114f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:14:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kSGUdLXv
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1f68a9855so4042195e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:15:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792505676; x=1793110476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sQFeKDZLpv+uAiBMOa7dMDV/Pt3XjThlBAiwUAdIC5E=;
-        b=OfKQXqCInK3LtSb1jx4q1SvB4vwl6ZrdV9HwES02TbcwjQOZTVufMk2crhU/fXbUGJ
-         oELaP5oYO8v25uh3SbUuip0awB/N88AJrABUWQ2vKTKyV/BOGANz6i4/4kXD4n/83PPC
-         kimVCL2sYyZaByzeY83hU1Hmi1jL9ePU8OV1bor+4GX23gUCrdQEYBRXpO86dZGzKr3t
-         U4b57M6aPC9iM7NOfyvHTgiKjIXei2zpgCYYxhackgw7tGp3jsmodMCH79vP6K+M4K5B
-         gMkZ7kpe8NY4TXUDx4Zyu0rBcipV/leUEfwu7JboZw29EiFL1bbAIMNtOo0BgCNDpdjP
-         /SdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505676; x=1793110476;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1792505707; x=1793110507; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sQFeKDZLpv+uAiBMOa7dMDV/Pt3XjThlBAiwUAdIC5E=;
-        b=NZWWje2IKB8/3k2aWs+AjI4TWRwT0pJCG14dMYcTmOs6MB9uYF4MiHJ1wd5FYXIXEa
-         Z0WHHVlW0VhStbWnVEF2LR84oHVH0se/RKy3c+xTVWmQdf1WYy1sJdI9UW6B+vvYxKB+
-         XaPgrYzyrssD4e15UmJAtaQdDvuki1BpwmCEYKxJERHaZfp0EO61Z1N7Sq7xeswSPYvJ
-         ZD/juDmNFduA161vHDopw2+NRlxh22XlfuqTDq1qBOc6+EQA7znEgpyCIloBvRYsKuM0
-         nIcbYpSz1lQL+D+08XFDyoVJZL4YkTSwEzQ5CAZfQWXyiEZf9XFhemSuSzJitWvjzWSS
-         0Xlg==
-X-Forwarded-Encrypted: i=1; AKwUvBxunQBGSa0hYL3Pm/SWYK4ruRgm6StSA13p8Un36jLfEV32020NI1e81R1jcSMtPLT4oBRzvJOou2nkYa0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHOuT/MyvU2qafuv3V49b1WW6B52dODYEwOJGWRGTw6cHWyLYp
-	fDYOZoTYHBSFfeTM1ZQ17Rdlm/v9SESMeXa54WWZpr5Dnf9X4TMVbLA6
-X-Gm-Gg: AYBFou3j+FkT7yvM6zEz35WK8FR90UDJHqTC5hyNnosoLljGeiNw+nlZHex9JR/pUfK
-	AIOF83pFKzKniPOPhfZZy1Fbf2SOPHza997s/SqOUQ4D5PCXTQxJyK27GVsNKDgUVcAcZMHoU7h
-	EbK0CBVTe+TELQaVz7gsE7vXSie4oQ3ZihV0STDJsghUANJgddeHfJ0PJZIGlPmlZm+Akwwywpf
-	Xtuw1fzQAPhhJSwhATsz47URRzOkqySVUbu1VE0jiIkPneke9gdO43/Bzy0Q67IB82locz8ZYJ5
-	9ZJ1grAAND4ITWnyJYQxsp/kRN9Lud9oxkV8+l7i7oqEQ2kKaYzXEv7qhUzm2XSvElgqxAtgn5G
-	bhv1EoDONVf3Y+LBkc3/dQKa6YRc+84YgJGMs9YLF3RHOeNgrsuIGwctWwXR6rR5TLuMzl+60F2
-	x/G8YMU+3cqCC1lSb2PM2zBbA3FEwzNv7j4mkHYjo+RS7CRLmuLzWjRER81FZ7ok4SKOHu6KmHN
-	+CyMezKeZnj5fPEu2JXQ3rm7dK2meXqAMJ1pSpuMT9+8oYlOTuxHelYvGmkyEXnue4wkvZ+c3Ft
-	KWITJIuLkLXdoQ1yTjJ4rFGn611Z9nDvVftVajQX9DQ=
-X-Received: by 2002:a05:6000:186e:b0:48d:ee0d:8b3d with SMTP id ffacd0b85a97d-48e07f9d49fmr25091594f8f.28.1792505675613;
-        Tue, 20 Oct 2026 07:14:35 -0700 (PDT)
-Received: from archlinux.cern.ch (ppilicho-1.dyndns.cern.ch. [2001:1458:202:228::101:227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80f9cdsm6256287f8f.11.2026.10.20.07.14.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:14:35 -0700 (PDT)
-From: Patryk Pilichowski <pat.pilichowski@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Patryk Pilichowski <pat.pilichowski@gmail.com>
-Subject: [PATCH v2 1/2] platform/x86: msi-wmi: Sort scancodes numerically
-Date: Tue, 20 Oct 2026 16:14:26 +0200
-Message-ID: <20261020141427.1580282-2-pat.pilichowski@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020141427.1580282-1-pat.pilichowski@gmail.com>
-References: <20261020141427.1580282-1-pat.pilichowski@gmail.com>
+        bh=TDt+JfMyIatB2cuVyOJQlWyBeYbAwPRRdrD/q2KXZik=;
+        b=kSGUdLXv56CsYYQqoMEwLXdX2PTpSVghTbTPqBU2xBHAHRcblfZhae/Ep+ownzeE6l
+         UVLVSJXNkO7jMVVBwOhzzB4MlDvkyvhl4MxODhaRCe5vMLQDHT4/qscmPp/trjWaS3dM
+         OJYprIyyUPDJP2Ytc2+EMrGXREFaM+Hm4jlg8g0lszrxmFJM2nfaUCO1Gh9O5qlxuDmn
+         z7wxNgMjR77l3OvVu9SYWt5Yj4IShWxONFS9c6w5vRcPZT9HmSFXO11W/gg9OWQrNyJR
+         clt19/1cCtKI6xECLoqFuVLHQeiK3ePFwcSWe5kzr5w4MQ+L+P24+kMHI220hVfBcNO6
+         4d5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792505707; x=1793110507;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TDt+JfMyIatB2cuVyOJQlWyBeYbAwPRRdrD/q2KXZik=;
+        b=S/eYW1qPLBeDMcZPjeVe59/LbwQFoDWa0I+tqDd/KtaCqfswWoCYq/Zra0vuHkkokt
+         e/F4BvMfqN/Op9hm1wP2PQLCJCUaIXn1o8SZ+1WnmqeLKqL56CLgduYgQapsvS+f06/C
+         X4hUX4w1nYVj5lWHeujSDVifrDkfC5wXbP9c25j3rB3vrNssPwpAY2RpvtRZ4i7FcK5r
+         FuY4O8eH49KSpnXw+ersSYC5ydAYPbpvI6R76UM3O7XOBvkXCqmUd8z5f3N30WgtfuEZ
+         /FmnHhJZFfccqeilHau3wVrj1zepkJaVbF956P3Br33mVhUGYA1UjiZuKxvUMzhmkbyb
+         jPyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqczRlwDNGqCTplDWXQUZDzOl66P9DBJ0QBQg1mJ66Yj8fozA2aH8N3aos28ppCU8qNOzCCKx282hDLWk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIHcVS02xUN9rUOpi+Xpza7yvNIRzgxZgGrrvQjbFqkiuZ1jCc
+	9Y/Aj/x2Af6c5hGITOuOx2nibndAJKSA5apTnCO6IR5WtkfjnrdnUOiT73fU25aVS48=
+X-Gm-Gg: AYBFou2zgNDZH2PMOfepnIRQ+nMfCGDyj4NPO/xPK48iluojlUxQPMnRH+RIA9ZOHuL
+	x08vqzC0UXxflHloTmojk5NTTNBotgSJ9oBZqgms8PMBarEAPCLIaHElgid1XSNS0XuTlKHwLHt
+	tlfqmp256fjgUEpOJIDD3X8rAxOe9Z4f/1f3kYxyAY3ZzEbU3A/+KdJXZ6EG7iXlCNsUV1uJoSq
+	gRq+4/D70v75ehyRGJ9WWmQHxV7nTQ26BjrUxC2eB10IurMLm+ssbJ33lHJrqPcArAZwUZVP0CY
+	cilbOArwpVtPJ12D1QBXBKOzxNCQIygnFEo+CfphdHvnd9ci0BgQMSiFAInmmzzOWiInKorSSfD
+	ocKtSTiszGaw2Id3YqFCKUhacqrSWhragx7LHcIkStU8vmbmg4/oCWmgSHpLmp9JhXrvc3rnLVP
+	CfumoSSEAa4+d/+jBkRU2ZIS/kKJ9PFzsqmepJeTLlz5Kbx9Hd4xHu38gLYCX6nzwR9r3veQjGD
+	ODf9/fyT75Cgh2p/zNgdHhF6MW3SOuThd5OwgxCyVRKToSc+DqkG/ZVY2nN
+X-Received: by 2002:a05:600d:82f1:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4a1fa22013amr20185225e9.9.1792505707365;
+        Tue, 20 Oct 2026 07:15:07 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d569d4sm76416965e9.10.2026.10.20.07.15.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 07:15:06 -0700 (PDT)
+Message-ID: <6c0d378e-8186-4e81-a2e7-7277fbd1cf93@linaro.org>
+Date: Tue, 20 Oct 2026 15:15:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,64 +91,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/25] perf cs-etm: Unify timeless buffer decoding
+To: Leo Yan <leo.yan@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
+ <20260915-arm_cs_support_aux_sample-v1-18-35cf6f297d20@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-18-35cf6f297d20@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The scancode enum is grouped by model, so the values are not in order
-and are hard to follow. The grouping is not meaningful either, as the
-same event codes are used across MSI models.
 
-Sort the enum by scancode, give every entry an explicit value and use
-lowercase hex.
 
-No functional change.
+On 15/09/2026 16:49, Leo Yan wrote:
+> Per-thread and per-CPU timeless decoding use separate loops for the same
+> buffer processing. Per-thread mode already collects packets in a single
+> trace ID queue, so both modes can share the queue iteration.
+> 
+> Use cs_etm__run_timeless_decoder() for both modes, keeping the thread
+> selection in the caller. Propagate packet processing and end-of-block
+> errors through the common decoding path.
 
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Patryk Pilichowski <pat.pilichowski@gmail.com>
----
- drivers/platform/x86/msi-wmi.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+This is very similar to what I've done for the JIT patches. So if we've 
+decided to base these patches of that one then this one won't be 
+required or will look quite different. So I'll wait for the next version 
+before reviewing in much more detail. The kernel changes look good though.
 
-diff --git a/drivers/platform/x86/msi-wmi.c b/drivers/platform/x86/msi-wmi.c
-index 05c35133a1b3..5369ac28f4c5 100644
---- a/drivers/platform/x86/msi-wmi.c
-+++ b/drivers/platform/x86/msi-wmi.c
-@@ -33,25 +33,22 @@ MODULE_ALIAS("wmi:" MSIWMI_MSI_EVENT_GUID);
- MODULE_ALIAS("wmi:" MSIWMI_WIND_EVENT_GUID);
- 
- enum msi_scancodes {
--	/* Generic MSI keys (not present on MSI Wind) */
--	MSI_KEY_BRIGHTNESSUP	= 0xD0,
--	MSI_KEY_BRIGHTNESSDOWN,
--	MSI_KEY_VOLUMEUP,
--	MSI_KEY_VOLUMEDOWN,
--	MSI_KEY_MUTE,
--	/* MSI Wind keys */
- 	WIND_KEY_TOUCHPAD	= 0x08,	/* Fn+F3 touchpad toggle */
--	WIND_KEY_BLUETOOTH	= 0x56,	/* Fn+F11 Bluetooth toggle */
--	WIND_KEY_CAMERA,		/* Fn+F6 webcam toggle */
--	WIND_KEY_WLAN		= 0x5f,	/* Fn+F11 Wi-Fi toggle */
--	WIND_KEY_TURBO,			/* Fn+F10 turbo mode toggle */
--	WIND_KEY_ECO		= 0x69,	/* Fn+F10 ECO mode toggle */
--	/* MSI Claw keys */
- 	CLAW_KEY_VOLUMEDOWN	= 0x21,
- 	CLAW_KEY_CENTER		= 0x29,	/* MSI M-Center main menu */
- 	CLAW_KEY_QUICK_LONG	= 0x2a,	/* MSI M-Center quick access long hold */
- 	CLAW_KEY_VOLUMEUP	= 0x32,
-+	WIND_KEY_BLUETOOTH	= 0x56,	/* Fn+F11 Bluetooth toggle */
-+	WIND_KEY_CAMERA		= 0x57,	/* Fn+F6 webcam toggle */
- 	CLAW_KEY_QUICK_SHORT	= 0x58,	/* MSI M-Center quick access short press */
-+	WIND_KEY_WLAN		= 0x5f,	/* Fn+F11 Wi-Fi toggle */
-+	WIND_KEY_TURBO		= 0x60,	/* Fn+F10 turbo mode toggle */
-+	WIND_KEY_ECO		= 0x69,	/* Fn+F10 ECO mode toggle */
-+	MSI_KEY_BRIGHTNESSUP	= 0xd0,
-+	MSI_KEY_BRIGHTNESSDOWN	= 0xd1,
-+	MSI_KEY_VOLUMEUP	= 0xd2,
-+	MSI_KEY_VOLUMEDOWN	= 0xd3,
-+	MSI_KEY_MUTE		= 0xd4,
- };
- static struct key_entry msi_wmi_keymap[] = {
- 	{ KE_KEY, MSI_KEY_BRIGHTNESSUP,		{KEY_BRIGHTNESSUP} },
--- 
-2.56.0
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   tools/perf/util/cs-etm.c | 68 ++++++++++++------------------------------------
+>   1 file changed, 16 insertions(+), 52 deletions(-)
+> 
+> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+> index baa962085dba5226d9729a0ee8039374d5fcb1a0..1a53431161e995ba6b3cfdc86e338ed26e675774 100644
+> --- a/tools/perf/util/cs-etm.c
+> +++ b/tools/perf/util/cs-etm.c
+> @@ -2681,47 +2681,9 @@ static void cs_etm__clear_all_traceid_queues(struct cs_etm_queue *etmq)
+>   	}
+>   }
+>   
+> -static int cs_etm__run_per_thread_timeless_decoder(struct cs_etm_queue *etmq)
+> +static int cs_etm__run_timeless_decoder(struct cs_etm_queue *etmq)
+>   {
+> -	int err = 0;
+> -	struct cs_etm_traceid_queue *tidq;
+> -
+> -	tidq = cs_etm__etmq_get_traceid_queue(etmq, CS_ETM_PER_THREAD_TRACEID);
+> -	if (!tidq)
+> -		return -EINVAL;
+> -
+> -	/* Go through each buffer in the queue and decode them one by one */
+> -	while (1) {
+> -		err = cs_etm__get_data_block(etmq);
+> -		if (err <= 0)
+> -			return err;
+> -
+> -		/* Run trace decoder until buffer consumed or end of trace */
+> -		do {
+> -			err = cs_etm__decode_data_block(etmq);
+> -			if (err)
+> -				return err;
+> -
+> -			/*
+> -			 * Process each packet in this chunk, nothing to do if
+> -			 * an error occurs other than hoping the next one will
+> -			 * be better.
+> -			 */
+> -			err = cs_etm__process_traceid_queue(etmq, tidq);
+> -
+> -		} while (etmq->buf_len);
+> -
+> -		if (err == 0)
+> -			/* Flush any remaining branch stack entries */
+> -			err = cs_etm__end_block(etmq, tidq);
+> -	}
+> -
+> -	return err;
+> -}
+> -
+> -static int cs_etm__run_per_cpu_timeless_decoder(struct cs_etm_queue *etmq)
+> -{
+> -	int idx, err = 0;
+> +	int idx, err;
+>   	struct cs_etm_traceid_queue *tidq;
+>   	struct int_node *inode;
+>   
+> @@ -2731,23 +2693,23 @@ static int cs_etm__run_per_cpu_timeless_decoder(struct cs_etm_queue *etmq)
+>   		if (err <= 0)
+>   			return err;
+>   
+> -		/* Run trace decoder until buffer consumed or end of trace */
+> +		/* Run trace decoder until the input buffer is consumed. */
+>   		do {
+>   			err = cs_etm__decode_data_block(etmq);
+>   			if (err)
+>   				return err;
+>   
+>   			/*
+> -			 * cs_etm__run_per_thread_timeless_decoder() runs on a
+> -			 * single traceID queue because each TID has a separate
+> -			 * buffer. But here in per-cpu mode we need to iterate
+> -			 * over each channel instead.
+> +			 * Per-thread decoding uses a single traceID queue;
+> +			 * formatted per-CPU buffers can contain several.
+>   			 */
+>   			intlist__for_each_entry(inode,
+>   						etmq->traceid_queues_list) {
+>   				idx = (int)(intptr_t)inode->priv;
+>   				tidq = etmq->traceid_queues[idx];
+> -				cs_etm__process_traceid_queue(etmq, tidq);
+> +				err = cs_etm__process_traceid_queue(etmq, tidq);
+> +				if (err)
+> +					return err;
+>   			}
+>   		} while (etmq->buf_len);
+>   
+> @@ -2760,8 +2722,6 @@ static int cs_etm__run_per_cpu_timeless_decoder(struct cs_etm_queue *etmq)
+>   				return err;
+>   		}
+>   	}
+> -
+> -	return err;
+>   }
+>   
+>   static int cs_etm__process_timeless_queues(struct cs_etm_auxtrace *etm,
+> @@ -2774,6 +2734,7 @@ static int cs_etm__process_timeless_queues(struct cs_etm_auxtrace *etm,
+>   		struct auxtrace_queue *queue = &etm->queues.queue_array[i];
+>   		struct cs_etm_queue *etmq = queue->priv;
+>   		struct cs_etm_traceid_queue *tidq;
+> +		int err;
+>   
+>   		if (!etmq)
+>   			continue;
+> @@ -2785,10 +2746,13 @@ static int cs_etm__process_timeless_queues(struct cs_etm_auxtrace *etm,
+>   			if (!tidq)
+>   				continue;
+>   
+> -			if (tid == -1 || thread__tid(tidq->frontend_thread) == tid)
+> -				cs_etm__run_per_thread_timeless_decoder(etmq);
+> -		} else
+> -			cs_etm__run_per_cpu_timeless_decoder(etmq);
+> +			if (tid != -1 && thread__tid(tidq->frontend_thread) != tid)
+> +				continue;
+> +		}
+> +
+> +		err = cs_etm__run_timeless_decoder(etmq);
+> +		if (err)
+> +			return err;
+>   	}
+>   
+>   	return 0;
+> 
 
