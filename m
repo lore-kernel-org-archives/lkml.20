@@ -1,99 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792528111;
-	b=ckQCyroz9IwFDhGGAa57Uqd46/gp+UbPTjLRNFeTgem11tZh+OofHO8KuYqRldCrKNLN
-	 oXNxX4m3tRnAvg7uhNXpnw2TVSRvgjF+bfwVnQOjDTiEoP/nhtK6NtIQk0ytyZTMmyKpq
-	 5M/nYz76qPZvP4wrnQnNbCnK1dHCWw48GgkFpMqQljE0j25NzMiHE9DkQKzXHPaCQBEnb
-	 +64DZgZGb2585emWQi6BI5IviEkY/+SXT5cjfbjwByfuURkHt2ROy6sgC17Lv2HrUVLXK
-	 m1Esl1plPlhHzYbMRQkbEbL65djoeTs18k0VfQ17DEerEP0yxd1ZF+uETTYv88YSwcQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792528111;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WD8/5T9Ciuv9waWrVcsqINmUY5GBTSG2x1F4rJwpQ/U=;
-	b=QtdF7rbU584AcGPg+0vasqi2DLFK/Sh2yJCnJnQ+adOnEqHv5Ep3QOPGQ99bZmU1OC8I
-	 inWE/4M4dGbNf93zYTQmPYHg6VO6cEoB4WbalVOt+dFkMVsFcX5O32jnLnvzVUhYFIqEv
-	 r+FzmWns/E2cOqrlzKIYSpFGkeriQNOV6mspqbD5Ylmy/lkeIWRE2UOqljmAq4VnJWnBa
-	 CUlyeia4AQK386Cv/LawpnNAwsiWiYQujyr9i36IKRlHUKSSWh40cKDfQW6+mLs+xkP+/
-	 FqVnYKrtC7qD6tCE/6LQmJIIuv1hh3glgYLY5pXv/eD7McI0EXjONnBO4WzenjDDQxQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792528125;
+	b=yV4yt3cKdLtPyphb+wnDVU7pTBeeBwgBAGSHYlsx3nb9kQDIG77WOpXBw3sn+rEyG9Ei
+	 ygMEZ1N3kLwCksZ9NPySUdnbSzsqFqj4VE/FAGTI4JWuu57WTiMTF2GiDk8VhkinRJEC1
+	 vDyhAzW5wrHNYN7lszeyREJjRXCTnskShxgtejMfKNMm3JjKnomcFstErPxwKDeiG0e2i
+	 pwHO3Zzy1kgEuoZfrnDWtmcSl4MhGwS5tvx6cGrmuD4ngdlpqd9DaDFcje4exiu0ZSomK
+	 x0wies0vRlbTRLKWvqGwHewDodAJMN8cMaBwyD1ZNz09uiuRrPqT2VRhCjf6sMgpDGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792528125;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8sxb4PUvzOuL0fOoCIuwKf0L1MN/qQQBUKKJxyF1XOI=;
+	b=5TNLXlqF/WfG++ETPW37lDRiwb7K0S43bhVvrR8t/lfF/mWsfxUWYR2Fggb9j5kdNwHD
+	 lJp0apiDmpaT1iUPUcZl7VF7/oV6OUdFB09AJrqIN8FnvMquefr4tSvkDZjC9gNRuNp15
+	 Pjy5wf3pb1JavTkMUsNsX9Y7sLqhKuJ5V24phVi9QipERvfLQCa/ryXMXd3OQ7nrTD0wn
+	 lj6+MRNBoJqy1v+97yyW3SLDDSkAnpKJ4XiTLTStDUCtN5tmfG7/KcN6KXbEAgraTbWEu
+	 xUF0ieMIpOBJ22clSuVuimFJ5HLIrmrxmQq5cxXn5O+JeC4NOz36laV7k++V2zsdSvQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=I3C7o4H8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.20
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010020.outbound.protection.outlook.com [52.101.193.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFE6606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:28:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DFE6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab4c608a6dso614961fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:28:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792528110; x=1793132910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WD8/5T9Ciuv9waWrVcsqINmUY5GBTSG2x1F4rJwpQ/U=;
-        b=AWU0KiMCQabspfqJkK9CfxUvhC0CCjGRLp7SAqZU6Rc6n5torA6hasvYpWaTV2N3ji
-         Jw0FYcG2XXVhTr+R8zjSN8ITdr9miql1hKSRtulhsSD5yOJHtwUPEUokoMiJoZEbPaXF
-         9dvaVfjIdr705QrfFXguCgF/8R1xzSnxYnJ3ppeIBDMenoU0rzOASd6YmepZFqbXjfRI
-         fVcyHLXCVnUDW31COcZk3S2+Ek+9jH10GqvZKz5mPCBdMsPVNLMMKelgmxwOCPJbcVgS
-         ZI7zFmtYew2OObafY/IKGvIlvM4FHVXbnQma71ENcRmeYEfC+naiMqtrfsUxdKifnGsc
-         9smQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792528110; x=1793132910;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WD8/5T9Ciuv9waWrVcsqINmUY5GBTSG2x1F4rJwpQ/U=;
-        b=q0BYttcFH2oQXtKds8Jg7DwpqOmU5nXzEzqBaVZHxVyUvzKwQdkAH3hfbLfZ4tfpei
-         JjXzZ2Ey5ychr67Ffm8920ch7Z6ftBABG2i03HcitaTej/e68Tv1b3vyefY7gmk4Upqx
-         QbgHh/+Y0YODqPcedEnM42jo6ijSRhDhTAX1iDXYamul6eoVGGO6/JK8rs+zbInTRfXR
-         bqoWZGB9JKWzZu1GO2idIEQw2Y35CKwYmMgUw8GVsqN9GRt9uuza9iBJ3Jf8PfM/53JE
-         7a/BRCWge7yGtBgQ/L9ewSQURtHYyVMaFd2336nbVTrQXFXKHllVSq/3yUN0qKp+3Juj
-         /7jQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJ9yw5DsqNAVfaOByG8k7CTsyrJ8UQF3lmOKnzTvrZ5fiU09PAciXtuE81JS2fubz+4p1ElfhuIXa0AOY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgeqEmHe6sQKNBsLe2BYaaqt0DLh6DovP7FR+rVhAERAlu7uix
-	ttRaX6o4mSsolDdEfW3/NguVEpEECJ6xmQOKaaxyVxW03SmDObCQ03bI
-X-Gm-Gg: AYBFou3UOCuup4USnKAULfns+D9jdefmKSQpENZtoK2gKwX1JTEAwmBWpIBMHJZNU2j
-	kZmdmevxyMSzuYrKE1xgpdorLCKmlCFWda2xLwEVVZjGobjRUDzhqSWg+aG67XdzfomgEZnH/XY
-	Si3sshy/CHwARN48Zj5ufrFWrHo5mCVlftOSCiWWRmwxgSosUNSvihQPW1GedW/4Er/r71TiYMi
-	3PtQwGhKaQgaDae02XU1mBVEVkcoiEF98YfRFl4dfq2XI3/sUn9a+g0naQS7JvwweDdUpsWCnAw
-	fXAxCUYDZp7RFOW+U+FRrOl35Wm3ifF/N3Bi/AVhvrCQrB3YAO01f/uxgL3/6yWfdMi+A3Rcp9z
-	LVqJu+FxCG4IiFQv0Z//U3N4wx6M6OaRIaMMeseZYA1l4TRe5T7sL/ePNg/KaUxBdl3hp88O6QJ
-	IOGKYATix0JghISzqW6PzzmXMmjp+vmw6cuyIr+OmyYwcbegLdNCYMew+ZasPinyJi8uyPwc9Wv
-	kR1bvrrrWuvy+uXOlEy3KQ/CCvuJhP8AdFZZ2RJbluZPkcsed1kwneIVAl6lWiZyFXXd4DSfvOs
-	glNBvnYF/ylNhtadpeC5isfl/Uj1TFjyC18My2VIwXWQW7Tr9ybAzNO9X+vYTTtSV3NfQXX/jGs
-	DSQ==
-X-Received: by 2002:a05:6512:1589:b0:5be:680d:6e18 with SMTP id 2adb3069b0e04-5bfa1be6184mr25360e87.10.1792528109517;
-        Tue, 20 Oct 2026 13:28:29 -0700 (PDT)
-Received: from kompukter-Systems ([83.142.235.16])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa1230c48sm88136e87.66.2026.10.20.13.28.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:28:29 -0700 (PDT)
-From: Andrey Derkach <gabin278@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Kalle Valo <kvalo@qca.qualcomm.com>,
-	Michal Kazior <michal.kazior@tieto.com>,
-	Richard Acayan <mailingradian@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v4] wifi: ath10k: make in-order rx amsdu buffers persistent
-Date: Tue, 20 Oct 2026 23:28:25 +0300
-Message-ID: <20261020202825.1178464-1-gabin278@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020195021.1133728-1-gabin278@gmail.com>
-References: <20261020-ath10k-a-msdu-v4-1-670b69d39059@ixit.cz> <20261020195021.1133728-1-gabin278@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A520606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:28:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A520606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=I3C7o4H8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JHzXgwYpjTO8JvL2ZnZXxtk2JKMZq1xAO4uGAHsCFNkhlO0VrcdCNerC1dkYoEMFq8cTpbdxN72vp/zafrK7WmNBjDG7KUHMbQMaowBOitFJDrUlwxsOSLLT9SapxXf4mqvI9KIs+kPV9DKFhr4SDG72uPlsHwhMiSVPl4CqUy0rKmOD/h5G1z0u8rZTZst7AMtVPnbsDC2KjHC4ZoKQKgTRBPvV5b+z+8n/nfkReHDOIKQPaNTHfvwWPwpRE1le9fPrkX+Da6YkaqoY1fCrUFizy1Xf4ZZtNADexNZ2NyK+bBZ8FYxixvzPYEK8oTHnqye6TzvURAmeetnRXyEBKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8sxb4PUvzOuL0fOoCIuwKf0L1MN/qQQBUKKJxyF1XOI=;
+ b=h9mqONLxXReUkjBmKneB+rz/yga2F5uQh5RHE/9W3+Y8m0HlF+32+V7PvX+chcgvtu1NkWUMiaNTStU1xGYtkA0p80c43Nq4HBtypAoHpwvAcCvK7W37yWms27amHYKmCO4BhcfbK9BdDMJn4JL6XrdFUlkk6Pjj8SZgjd/lXRy1KiMPhG4xVK320fHhmbSH7zVoF+bJEb0UUFPo9m6/V5z4RbFvWJgTdcfN9+azlF/IAw28W5ONcpGUEkcKKd1KvTCCv/ipPKLNf0lKVdZHU/4ufLfSRSlDEGI5E5ro1K3gxWOi7PwYN6UQMakeNtaH1ccTcK9p3H5uhoLxBDnnjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8sxb4PUvzOuL0fOoCIuwKf0L1MN/qQQBUKKJxyF1XOI=;
+ b=I3C7o4H8qVLJvH36xUZoGekpdG5XR+Mrrfs9xgjPCoTTLLr00gBfHswgmrv/pQJoslMhdie0hRJ/k4u6KY8BenuAR2+esdcW3WiDrmDH+RzrUnrLgQ6aqZv3vColgc1wnK45FbJBFf0JlqUhqTzCHAa4NA+ZbQRQ/DDMuev5OHk=
+Received: from BN9PR03CA0929.namprd03.prod.outlook.com (2603:10b6:408:107::34)
+ by SA5PPF8ECEC29A9.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 20:28:40 +0000
+Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
+ (2603:10b6:408:107:cafe::a9) by BN9PR03CA0929.outlook.office365.com
+ (2603:10b6:408:107::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 20
+ Oct 2026 20:28:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 20:28:40 +0000
+Received: from nigeria-2635-os.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
+ 2026 15:28:37 -0500
+From: Ashish Kalra <Ashish.Kalra@amd.com>
+To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>
+CC: <hpa@zytor.com>, <luto@kernel.org>, <peterz@infradead.org>,
+	<ardb@kernel.org>, <rppt@kernel.org>, <akpm@linux-foundation.org>,
+	<arnd@arndb.de>, <thomas.lendacky@amd.com>, <shivankg@amd.com>,
+	<linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>
+Subject: [PATCH v2] x86/sev: Apply the RMP table e820 fixups before memblock is populated
+Date: Tue, 20 Oct 2026 20:28:18 +0000
+Message-ID: <20261020202818.368416-1-Ashish.Kalra@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,16 +108,200 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|SA5PPF8ECEC29A9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59719039-afb2-412a-8fd4-08df2ee8ba55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|23010399003|82310400026|56012099006|11063799006|261009223027099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Uoia9SwxPCCIxgwmslnoZMbwk62yldPWm/3NIjcJ+RdU1qi+r1WlanIlxEilElZt3BeyIRmADa+8CNMX49hQ7/wJglgB5yY1ZmuGFTJmL04Ghb2T9ixGXMtY0n1x+SyA3hDyE+bq5wR+C++YDwLABchyce0l8pU/gq7VNYNCOErJ7e//vuBeauETGCJQYU4CWOmu8rwPrt6Z05vd7bBWTa3MF4UIlC3aaFpJtOlRIO9eI9/6duU/+y+y6eQwkwV0P7VQG45ATgKgiQGd2XrABM1AcZ0iMcaQQ/FuIRNGy+fSg34iSYkaEpXp+EC7GV+fbsJRFJrAkleyvjIvqNDYZXH/fRNlKCZmTXSiTwzGFA0zPAezqDsCupxu2tde0MbCZzN4UPsILIi1AGAJvhbkZr1B53Zsi8ipa++Renaht7m8s966S6pXZIi1uMnX2LbIVww2jaFGL9J2ltnGFmnpOx05dCV9Fc0/eCuiWAMjAX8dVXInmppF9myK8zrF5A791OHVDMNPMKjL9QwSP8FzwmZmYH2vdLrHZH01EBvzwMI70vo2Rc1g8sjOkZKyqEeDPqsiLQQkSDdZg3WYnJfSJVCL1sbcObvPC/dxWeYn1BBJxtett6y5/sHu0YoqeXKzQ/hvyMrd+e75OqPKSikNFFFevzFGm68BX2NynvC8l8jjNT+Q5TjGHzPsZ4q1H5OQreoXRpYyu4YPIlwynb8EBg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(23010399003)(82310400026)(56012099006)(11063799006)(261009223027099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	c+Rkth4WvYMZnByJkMJyvpgh8Zf1MP3vElnGR+fEJ7GganNOjqHLhowoV1RQBxCMl79uHcgLPGxP1k3s2GrcGvqVVHXcPgtqwtR6GfLATJaXmT81gZNKmXc/JNFfBauIBlrMpBP+KY4fVKBPZk6BxGSok9jbYSx+5VB9oIDrr5qomjRfnrb4mDeqp0ICHIX55E2cfj0ALIdK1n54Iug7AaKHoeoU+gRU3HubVeJCNOWZPLKj9dPwUn7HJmm4X9LIWB+h1/YuCuRpnp3yFRWaCYiJu9t9rfc8RsdK6VvEt+XSCmjnO3kv2t5ZyzFZ8VdsjzNyhBgpCqsXGk5DpjA8DRA92zL2QVrHYpHZb6ZNTEN2pOEDcLT1vRuF7Ihh0f8/Bj1K/+i2VfNkvnPvAxJnVrWxbRP0mI6dTdhfB+qgCSSWZbA0ESH/MB4ndTuvytdT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 20:28:40.2938
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59719039-afb2-412a-8fd4-08df2ee8ba55
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF8ECEC29A9
 
-On Tue, 20 Oct 2026 22:50:20 +0300, Andrey Derkach wrote:
-> Throughput is the same as with the old version, about
-> 60 Mbit/s here.
+From: Ashish Kalra <ashish.kalra@amd.com>
 
-The 60 Mbit/s was a board data problem on my side, unrelated to this
-patch. With the right board data the link runs at VHT-MCS 9, which
-exercises the patch much more: during a 120 s TCP download at
-172 Mbit/s the firmware split an A-MSDU 211 times in 62,700 in-order
-indications. The patch resumed all 211, with no warning and no
-recovery.
+When the start and/or end of the RMP table is not 2MB aligned,
+snp_fixup_e820_tables() converts the 2MB chunk containing it from RAM to
+reserved in the e820 tables, so that it is never used by the kernel (or
+by a kexec-ed kernel) and SNP_INIT marks it HV-Fixed.
 
-My Tested-by above stands.
+The fixups are done from mem_encrypt_setup_arch(), which runs after
+max_pfn has been computed and after e820__memblock_setup() has populated
+memblock from the e820 table. The RAM part of those chunks therefore
+remains in memblock.memory. Commit 88a921aa3c6b ("x86/sev: Ensure that
+RMP table fixups are reserved") dealt with one consequence of that, the
+chunks still being allocatable, by additionally reserving them in
+memblock, but memblock still describes them as memory.
+
+That trips up the direct map setup. init_range_memory_mapping() maps the
+memblock.memory ranges, so the RAM part of a chunk gets mapped. When a
+subsequent, lower range is mapped, the trimming in phys_pmd_init() or
+phys_pud_init() consults e820 instead, finds no RAM in the 2MB (or 1GB)
+slot and clears the already populated entry. At boot this goes through
+set_pmd_safe()/set_pud_safe() and triggers:
+
+  SEV-SNP: RMP table physical range [0x000000bf77900000 - 0x000000c037efffff]
+  SEV-SNP: Reserving start/end of RMP table on a 2MB boundary [0x000000bf77800000]
+  SEV-SNP: Reserving start/end of RMP table on a 2MB boundary [0x000000c037e00000]
+  ...
+  init_memory_mapping: [mem 0xbf60000000-0xbf778fffff]
+   [mem 0xbf60000000-0xbf777fffff] page 2M
+   [mem 0xbf77800000-0xbf778fffff] page 4k
+  init_memory_mapping: [mem 0xbf40000000-0xbf5fffffff] page 2M
+  WARNING: arch/x86/mm/init_64.c:89 at phys_pmd_init+0x389/0x4b0, CPU#0: swapper/0
+  Call Trace:
+   phys_pud_init
+   phys_p4d_init
+   __kernel_physical_mapping_init
+   init_memory_mapping
+   init_range_memory_mapping
+   init_mem_mapping
+   setup_arch
+   start_kernel
+
+and leaks the page table page that hung off the cleared entry.
+
+None of the fixups depend on memblock: the RMP table is probed and
+CC_ATTR_HOST_SEV_SNP is set from early_cpu_init(), and the segmented RMP
+case only needs early_memremap(). They do depend on the e820 tables,
+which are only built in e820__memory_setup() (which also populates
+e820_table_kexec), so the fixups cannot run any earlier than that.
+
+Move them into a new mem_encrypt_fixup_e820() called from setup_arch()
+right after trim_bios_range(), before max_pfn is computed and memblock is
+populated, so that both are derived from the final e820 table, and
+finalize the table with e820__update_table(). mem_encrypt_setup_arch()
+keeps the SWIOTLB sizing, which needs the memblock-derived memory size and
+stays after e820__memblock_setup(). The memblock reservation is then no
+longer needed and is removed.
+
+Fixes: 400fea4b9651 ("x86/sev: Add callback to apply RMP table fixups for kexec")
+Co-developed-by: Shivank Garg <shivankg@amd.com>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
+Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+---
+v2:
+ - Route the fixup through a new mem_encrypt_fixup_e820() wrapper instead of
+   calling snp_fixup_e820_tables() directly from setup_arch().  This keeps
+   the memory-encryption specifics out of setup.c (no <asm/sev.h> there) and
+   alongside mem_encrypt_setup_arch() in the mem_encrypt layer.  No
+   functional change.
+
+ arch/x86/include/asm/mem_encrypt.h |  2 ++
+ arch/x86/kernel/setup.c            |  1 +
+ arch/x86/mm/mem_encrypt.c          | 14 +++++++-------
+ arch/x86/virt/svm/sev.c            |  9 ++++-----
+ 4 files changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/arch/x86/include/asm/mem_encrypt.h b/arch/x86/include/asm/mem_encrypt.h
+index ea6494628cb0..f357df65cdd2 100644
+--- a/arch/x86/include/asm/mem_encrypt.h
++++ b/arch/x86/include/asm/mem_encrypt.h
+@@ -21,9 +21,11 @@ struct boot_params;
+ #ifdef CONFIG_X86_MEM_ENCRYPT
+ void __init mem_encrypt_init(void);
+ void __init mem_encrypt_setup_arch(void);
++void __init mem_encrypt_fixup_e820(void);
+ #else
+ static inline void mem_encrypt_init(void) { }
+ static inline void __init mem_encrypt_setup_arch(void) { }
++static inline void __init mem_encrypt_fixup_e820(void) { }
+ #endif
+ 
+ #ifdef CONFIG_AMD_MEM_ENCRYPT
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
+index cda6adb9f69c..b16b5d8fc569 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -1029,6 +1029,7 @@ void __init setup_arch(char **cmdline_p)
+ 
+ 	e820_add_kernel_range();
+ 	trim_bios_range();
++	mem_encrypt_fixup_e820();
+ #ifdef CONFIG_X86_32
+ 	if (ppro_with_ram_bug()) {
+ 		pr_info("Applying PPro RAM bug workaround: punching 256 kB hole at 1.75 GB physical.\n");
+diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+index 95bae74fdab2..07146a63af11 100644
+--- a/arch/x86/mm/mem_encrypt.c
++++ b/arch/x86/mm/mem_encrypt.c
+@@ -99,18 +99,18 @@ void __init mem_encrypt_init(void)
+ 	print_mem_encrypt_feature_info();
+ }
+ 
++/* Fix up e820 for the RMP table before max_pfn and memblock use it. */
++void __init mem_encrypt_fixup_e820(void)
++{
++	if (cc_platform_has(CC_ATTR_HOST_SEV_SNP))
++		snp_fixup_e820_tables();
++}
++
+ void __init mem_encrypt_setup_arch(void)
+ {
+ 	phys_addr_t total_mem = memblock_phys_mem_size();
+ 	unsigned long size;
+ 
+-	/*
+-	 * Do RMP table fixups after the e820 tables have been setup by
+-	 * e820__memory_setup().
+-	 */
+-	if (cc_platform_has(CC_ATTR_HOST_SEV_SNP))
+-		snp_fixup_e820_tables();
+-
+ 	if (!cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+ 		return;
+ 
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index bd70c4d0b774..73b359d3b743 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -207,8 +207,6 @@ static void __init __snp_fixup_e820_tables(u64 pa)
+ 		pr_info("Reserving start/end of RMP table on a 2MB boundary [0x%016llx]\n", pa);
+ 		e820__range_update(pa, PMD_SIZE, E820_TYPE_RAM, E820_TYPE_RESERVED);
+ 		e820__range_update_table(e820_table_kexec, pa, PMD_SIZE, E820_TYPE_RAM, E820_TYPE_RESERVED);
+-		if (!memblock_is_region_reserved(pa, PMD_SIZE))
+-			memblock_reserve(pa, PMD_SIZE);
+ 	}
+ }
+ 
+@@ -261,11 +259,12 @@ static void __init fixup_e820_tables_for_contiguous_rmp(void)
+ 
+ void __init snp_fixup_e820_tables(void)
+ {
+-	if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED) {
++	if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED)
+ 		fixup_e820_tables_for_segmented_rmp();
+-	} else {
++	else
+ 		fixup_e820_tables_for_contiguous_rmp();
+-	}
++
++	e820__update_table(e820_table);
+ }
+ 
+ static void clear_rmp(void)
+
+base-commit: 250ee734115bca1c1f7a38d838909aa83cce87ae
+-- 
+2.43.0
+
