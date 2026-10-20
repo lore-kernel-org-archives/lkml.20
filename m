@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792539004;
-	b=GWYoNt+feswy5p75FW/udWJvkq4NhoWYAQW3kc2oIDhMgSn1eIXGAFiT9yP/kcQtDK+B
-	 RH5orWzmjfpUzFRVbVYA6EwEkLfJnZXWOAus/8WT1BgdskwlIg3KV1jtSUFk0Ruli1kea
-	 UmKG9GLpYVDc2B1LEbCe5EzalcFZtTNakQDEt8+JAiFbj3OAXuEhAwBZiljSX8yzVfL4I
-	 XLXrz272VXJUSFPDehiIuBQdlHVflGd9UIGGAOiRAMkxQSt57xDhBb0EyQ2uZ+TEd03jk
-	 cT9DqSsiIydFVMCzjnpfQAVI45F/K0rnh74wPETI/F1LZt2/6aa2JyCqC0/7x+GpaoA==
+	t=1792539082;
+	b=Lz8rZL2Sgu3bpRt0TZGP3RHaiL1fLqiKv+pjIXwQZDbOFz/GXtnHS7U8X3B8S0A5/wEa
+	 Yn/25eYsfWF7Pf98JJuf1hW4f/Fbv+QuR4aB6+LWc/joN/cB+fO9GDlK7qA7eMN3SwYm7
+	 o7z85/tB8g8BKRrEHejYnC5ciWLIdCU/sS2IbhtaRRFhhIOXA4FH4+GICS+G9L2HwVpXD
+	 aNB8VhLbllvzv6/NEY2xbJn9CI1gwQsW2yiLZWYwgywpsRJuYseeQQW3+fXlh7IalENaz
+	 QELP27uLvlbwn7zFi0gw8uUZyzE3fbWaKdZFD9xbo+pEHu+T2DhNcf6P1A7QMArHebg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792539004;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vpOI+1qBW/MtfJm0O85kyO88qqkrY/yJqDCLaRNjbVw=;
-	b=VRN45EG5x2n7LZmtNevFSlWK2eQve2XBAAJ8fNKnYX5HzpQ+Yk2IUamQ9fS57fkggPXU
-	 hOhIql5D2oaSUVX5GBRXS0sc+il2eXkr5KZeheQmJ7/rn7oCeGAIX+AvCOZn3sI5NkmFm
-	 ciZHkoFbEubGEqoFZOuaoyJJ3G91voCbP7gHDd2PD+/kCTbpeYLNKAmylXLDDCErFzFzE
-	 v1mR7Okj5uoF0dhSyMABndPDkx/NCNCAS/nAoqdMoI1A6cEtpbdreYgDiEcL9OUkLcnR9
-	 fw0mNevg/XY0rlYbFnuJA+qJu7SBMhbQdPsglzm5gfetgOpfaNsvVsWk6XjrgcP76Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792539082;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:Cc:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=fgNej84WTt4OS++7vi1hUcNO4v+lufgORZL9i9nk4VQ=;
+	b=pinaJnnW0ExAtuokY3FV3onrA4vOXz1DkT254v4BUH9uWpVKy/2ZElKbRnq2d3nPtmuA
+	 x2QhSWOznXbnPvqywTBocWTbW1IMD9pjGmSobOPiP80/LOBGOmsw97XDo4iUK4TvvMGnE
+	 5HrcBpEj8e4qClxdhKIIZI1BlOV8fvfYzfFgnEC9Q8drpdPg0KZH3D5zzDGdBMug8uRjT
+	 1fOHjMcViVTpdtYvIOGOwXkI0jTbqDHLIuefaNVpUyAkbZGNrhXId3sI+3suRM6UKIEPu
+	 jA/dBF1GWwpl29vtS/hDuFZR3ynwxgeospLoovxNPAemheMyxEOci46DkNsbryUax4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QGACHvRG;
-	arc=none smtp.remote-ip=115.124.28.148
-Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A8A606A320;
-	Tue, 20 Oct 2026 23:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A8A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="MZj/iwTj";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91E31606A31E;
+	Tue, 20 Oct 2026 23:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E31606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QGACHvRG
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792538999; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=vpOI+1qBW/MtfJm0O85kyO88qqkrY/yJqDCLaRNjbVw=;
-	b=QGACHvRGyo4WyDIcoCu3SwNOb7Os6K1a/tGqS6bchdxzNZs22XEekAaMW3KzF9RtLg/OK5BHC346YsZPRNp/FURgSMUTLuEVY5HgtIlPS5Vo/3H9f+XjQ1hNUHlxhu+4iSbbryXkrM6iAOWS1PB3l+HJSPjONbGzp0DwTPn4zw8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04501025|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00619225-0.000360456-0.993447;FP=3275688948779205885|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jm3sHc-_1792538997;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jm3sHc-_1792538997 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 21 Oct 2026 07:29:58 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Cc: virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Weibin Liu <liuwb@xiaopeng.com>
-Subject: [PATCH] vhost: fix used ring index wrap in vhost_add_used_n_in_order
-Date: Wed, 21 Oct 2026 07:29:56 +0800
-Message-ID: <20261020232956.99970-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=MZj/iwTj
+Received: from [172.20.10.2] (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 116C420B7168;
+	Tue, 20 Oct 2026 16:31:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 116C420B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792539071;
+	bh=fgNej84WTt4OS++7vi1hUcNO4v+lufgORZL9i9nk4VQ=;
+	h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
+	b=MZj/iwTjaCHa98xIkbLSAmcImRmEmLR++DLkTQgg5i5o1WRny6fziE2wg+xWuMY28
+	 bwRE7BdYE7Olu5v9nUMuHd9R9zIiqc/sEHJS4FcgPS/OK4o6h3yHnzXf3lJE7OlWjP
+	 IoK7lMBot8zd6ZplFGzCKXLd87aDEDBbb7JmukG8=
+Message-ID: <7d9f70d0-1856-4424-89d9-c9f3552a8469@linux.microsoft.com>
+Date: Tue, 20 Oct 2026 16:30:55 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,59 +53,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hv/vmbus: copy dynamic IDs before dropping the lock
+To: Jiale Yao <yaojiale02@163.com>
+References: <20261019085544.1834700-1-yaojiale02@163.com>
+Content-Language: en-US
+Cc: Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Stephen Hemminger <stephen@networkplumber.org>,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Kameron Carr <kameroncarr@linux.microsoft.com>
+In-Reply-To: <20261019085544.1834700-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-vhost_add_used_n_in_order() advances start by nheads[i] but wraps it
-with a single subtraction.  If start + nheads[i] >= 2 * vq->num, start
-can remain outside the ring.
+On 10/19/2026 1:55 AM, Jiale Yao wrote:
+> remove_id_store() can free a matching dynamic ID while VMBus is
+> preparing to invoke a driver probe. Copy the ID while holding the
+> dynamic ID lock so probe never receives a pointer into a freed list
+> entry.
 
-With used-ring logging enabled, start > vq->num makes (vq->num - start)
-underflow.  log_write() then sets bits beyond the dirty-log bitmap,
-potentially corrupting adjacent userspace memory.  This is reachable on
-the vhost-net TX path with VIRTIO_F_IN_ORDER: done_idx can reach
-VHOST_NET_BATCH (64), triggering the issue with a 32-entry ring.
+Is this the same fix as:
 
-Wrap start with a mask to keep it within the ring.  VHOST_SET_VRING_NUM
-enforces a nonzero power-of-two ring size, allowing start to be wrapped
-using & (vq->num - 1).
+  3ffc4c9690c3 ("PCI: Fix UAF when probe runs concurrent to dyn ID
+  removal")
+  ef8154d8b52d ("usb: fix UAF when probe runs concurrent to
+  dyn ID removal")
 
-Fixes: 67a873df0c41 ("vhost: basic in order support")
-Cc: stable@vger.kernel.org
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
-Reproducer (verified on a kernel containing commit 67a873df0c41 with a
-temporary WARN_ON_ONCE probe in log_used(); the probe is not part of
-this patch):
+If so, consider citing them in the commit message. Also, consider taking
+inspiration from their implementation.
 
-With VIRTIO_F_IN_ORDER, num=32, and used-ring dirty logging enabled, the
-TX batch reaches done_idx=64.  In the observed run, the initial index is
-3, so the single subtraction leaves start=35.  The resulting length
-calculation wraps to 34359738344 bytes, as confirmed by the log_used()
-probe.
+Nit: this subsystem typically uses "Drivers: hv: vmbus:" for the subject
+prefix.
 
-A 64-byte canary immediately after the 512-byte log bitmap changes from
-0xA5 to 0xFF, confirming the out-of-bounds write.  The used-ring canary
-remains intact because vhost_put_used() runs before start is advanced;
-the demonstrated corruption is in the dirty-log bitmap.
 
- drivers/vhost/vhost.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+> Fixes: fc76936d3ea5 ("vmbus: add support for dynamic device id's")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/hv/vmbus_drv.c | 25 +++++++++++++++----------
+>  1 file changed, 15 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+> index 4692687cdbf3..96ad0dfaa50b 100644
+> --- a/drivers/hv/vmbus_drv.c
+> +++ b/drivers/hv/vmbus_drv.c
+> @@ -661,21 +661,22 @@ hv_vmbus_dev_match(const struct hv_vmbus_device_id *id, const guid_t *guid)
+>  }
+>  
+>  static const struct hv_vmbus_device_id *
+> -hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid)
+> +hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid,
+> +		     struct hv_vmbus_device_id *id_copy)
+>  {
+> -	const struct hv_vmbus_device_id *id = NULL;
+>  	struct vmbus_dynid *dynid;
+>  
+>  	spin_lock(&drv->dynids.lock);
+>  	list_for_each_entry(dynid, &drv->dynids.list, node) {
+>  		if (guid_equal(&dynid->id.guid, guid)) {
+> -			id = &dynid->id;
+> -			break;
+> +			*id_copy = dynid->id;
+> +			spin_unlock(&drv->dynids.lock);
+> +			return id_copy;
+>  		}
+>  	}
+>  	spin_unlock(&drv->dynids.lock);
+>  
+> -	return id;
+> +	return NULL;
+>  }
+>  
+>  static const struct hv_vmbus_device_id vmbus_device_null;
+> @@ -685,7 +686,8 @@ static const struct hv_vmbus_device_id vmbus_device_null;
+>   * If there is no match, return NULL.
+>   */
+>  static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *drv,
+> -							struct hv_device *dev)
+> +							struct hv_device *dev,
+> +							struct hv_vmbus_device_id *id_copy)
+>  {
+>  	const guid_t *guid = &dev->dev_type;
+>  	const struct hv_vmbus_device_id *id;
+> @@ -697,7 +699,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
+>  		return NULL;
+>  
+>  	/* Look at the dynamic ids first, before the static ones */
+> -	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid);
+> +	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid, id_copy);
+>  	if (!id)
+>  		id = hv_vmbus_dev_match(drv->id_table, guid);
+>  
+> @@ -773,6 +775,7 @@ static ssize_t new_id_store(struct device_driver *driver, const char *buf,
+>  			    size_t count)
+>  {
+>  	struct hv_driver *drv = drv_to_hv_drv(driver);
+> +	struct hv_vmbus_device_id id_copy;
+>  	guid_t guid;
+>  	ssize_t retval;
+>  
+> @@ -780,7 +783,7 @@ static ssize_t new_id_store(struct device_driver *driver, const char *buf,
+>  	if (retval)
+>  		return retval;
+>  
+> -	if (hv_vmbus_dynid_match(drv, &guid))
+> +	if (hv_vmbus_dynid_match(drv, &guid, &id_copy))
+>  		return -EEXIST;
+>  
+>  	retval = vmbus_add_dynid(drv, &guid);
 
-diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-index 44cac11b68d2..0226c4c59709 100644
---- a/drivers/vhost/vhost.c
-+++ b/drivers/vhost/vhost.c
-@@ -3172,8 +3172,7 @@ static int vhost_add_used_n_in_order(struct vhost_virtqueue *vq,
- 		}
- 		start += nheads[i];
- 		new += nheads[i];
--		if (start >= vq->num)
--			start -= vq->num;
-+		start &= vq->num - 1;
- 	}
- 
- 	if (unlikely(vq->log_used)) {
--- 
-2.50.1
+This check and the list_add_tail() in vmbus_add_dynid() run in separate
+critical sections, so two concurrent writers can both add the same GUID.
+Consider a preparatory patch that moves the check into vmbus_add_dynid()
+under the same dynids.lock; see 04fde70f782b ("PCI: Fix dyn_id add
+TOCTOU"). new_id_store() then no longer needs hv_vmbus_dynid_match() or
+id_copy at all.
 
+> @@ -840,12 +843,13 @@ static int vmbus_match(struct device *device, const struct device_driver *driver
+>  {
+>  	const struct hv_driver *drv = drv_to_hv_drv(driver);
+>  	struct hv_device *hv_dev = device_to_hv_device(device);
+> +	struct hv_vmbus_device_id id_copy;
+>  
+>  	/* The hv_sock driver handles all hv_sock offers. */
+>  	if (is_hvsock_channel(hv_dev->channel))
+>  		return drv->hvsock;
+>  
+> -	if (hv_vmbus_get_id(drv, hv_dev))
+> +	if (hv_vmbus_get_id(drv, hv_dev, &id_copy))
+>  		return 1;
+>  
+>  	return 0;
+> @@ -860,9 +864,10 @@ static int vmbus_probe(struct device *child_device)
+>  	struct hv_driver *drv =
+>  			drv_to_hv_drv(child_device->driver);
+>  	struct hv_device *dev = device_to_hv_device(child_device);
+> +	struct hv_vmbus_device_id dev_id_copy;
+>  	const struct hv_vmbus_device_id *dev_id;
+>  
+> -	dev_id = hv_vmbus_get_id(drv, dev);
+> +	dev_id = hv_vmbus_get_id(drv, dev, &dev_id_copy);
+
+Consider documenting in include/linux/hyperv.h that the
+hv_vmbus_device_id is only valid during probe so future drivers don't
+save the pointer (see what PCI and USB fixes did in pci.h and usb.h).
+
+>  	if (drv->probe) {
+>  		ret = drv->probe(dev, dev_id);
+>  		if (ret != 0)
+
+Please review the Sashiko comment.
+
+Regards,
+Kameron
