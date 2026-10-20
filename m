@@ -1,93 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792486578;
-	b=Ja43azodj8DJA+WNJnBO/K0DuqP+TKnZN/U7GGl/c6RM3CJEGvx3QjC9mHViV5FXlM5h
-	 sHhfrBUdU8Wzf5v5XeGiq3FQI+6BCxZ5ho6Qnap/sgWebdVQGf8KvYTX7Oa5UqicF9noW
-	 GvhAqs7G6PVISfhpHMltTYLwH2r4YJpKVPcpFEIkXQyEXsH0rRmeLqWoy1InPqXVN8kFf
-	 k1RWlsm06b712psj1ajywDLpyxX5FP4MqBLzclAJVKKcX+BGY/rwQlB2F0x8tiseAl/Yc
-	 9c8uGXZhxt7lcRuVBIlua10z8eLnwV8pwBuJ6XCgzzFvb+7LjYyY4hxL0AsiC3D4QuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486578;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=EO/Hx3wmjK2qfxxzLF6nASGr8bhB9j7KtckXSt/vRFM=;
-	b=QvO5n+5gfNK0ER/4HBA8cqS+eBZNDfiLVqz084Kq7dkvowJXztuaDfib6FmPwRORCRBA
-	 TUBviqu201NZMlHZW1enCy/RjFB3eusQ6SQq6Mi1MCJRwjRkPN+Cl7eUdvTOpYMIjyagG
-	 FVD0Np4zEDM7VD+e/JicnGNTgZJ5Ktpssvuo49T9JNcQkpDhpupfWF818FcL9FykgHkYL
-	 u0Bq/rL27xdNv8CcboskzbszHCY9Vy7OfkcWXJV4WADAyAu/KJUF97ai7VAVAa5Y8FXVA
-	 YvoQQXqN3APcv7E6hicz8MuM5M7B87nTjDLW0xVE2QEFESRvul4gEM8RQIsvGibsdBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KsMMoIBE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792486582;
+	b=f7yd0PQU5vOmELEp4XLspKYwFJreRaD9/+P8LBsWlp4bnuns/qd/JqT9ahd4sluOlUFy
+	 HkDF72qGtcVyU9TI9fDPRBDD8LEp8zcfdgoBCndIAnQAwuTmk9/vX7Mv7wqF6SoVBLdwC
+	 qPaxJbrrtlo7UbTcJYJxHF4sZDnVrOnOg2P0H2RdAiLFDVH7qFDKB/gdIQNvPLQRaYMZ5
+	 f85hV519MNg3Zp8qROQMJ9NP897/vF14vBPGf10ZvndrdTflOJLKV1gockaFwQkehJ5oj
+	 pCXw2Ok6nDTHdRHQbWLfgOxKRbMHnBx0y5AxjtcjPMMwr1uWfEL7e5vt1fbHriaxyBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486582;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BvkHiyeYubNkphK+3iSkbkxhjPqzznaVKMsZvin5s6Q=;
+	b=aToJRDZKdryU7MtRtaoop9jTYBA/t7FbUllmWtThoCPKhrJYKy8cQp10Po2NjhBKBgyf
+	 9u4eQZx+Kv99+lVAYW0R2Wbua1MawX4u0hA19RlIKfjEXZTZqwpci2eGzcSD48r2m6mvF
+	 LE91oILkbvILRBw+w8q5Zd7ShagQVABUXCVTFmvyRicf6nnRpwD42Lz6tp6zQ6SaE+LTe
+	 JEWQxSJw3rFzBV0uzPnXuiQVJa9NWPjbXBcY8wOydeGGm0/37F2Kg1AOTaTqj1CB4t4Lh
+	 aJ6JpW9bDpWy25J1Lor37Fcy07uap9m4RKfRR/t33dOESf+oSRdCHhSAxnehV21PuCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TuebpQC0;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXmvX+wn;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4FF606A319;
-	Tue, 20 Oct 2026 08:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C4FF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A2B60A2600
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A2B60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KsMMoIBE
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 147202021BD;
-	Tue, 20 Oct 2026 10:56:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792486575;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EO/Hx3wmjK2qfxxzLF6nASGr8bhB9j7KtckXSt/vRFM=;
-	b=KsMMoIBESSINtwlHfBGS7PTKPR4GJHMBS0bLT+mBSSOYVTd0JpMAhYbIJ8DRjJOL6BBKtz
-	QfeGYwGPFtcn5AwpxD8Ka7yICYW0gy4fGdJEEuQv9ib2RbSHugudVptsB585PIDCb3onZ9
-	5m5CbiCupGv1CkrmCtuam29zi7A4WqdaSibyuSHLMwEhjwTrmpwx11/YAvh+UzmKaNjQK6
-	GQTs6NS9KMK0jlz8/CjbZ6ldXEDJVyyHywVwe+aHtjmkBxRF8uGxPxg+1nJi7rbOMGSrxF
-	4Wm/D6NypOUfdcCDkCIOM4ZUOl7tBwZ0N9BU/FLSR7fR5lYRmWS2Y3oNw1Qu/Q==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792486575; a=rsa-sha256;
-	cv=none;
-	b=JXfW+AyeOKpXBKbOZIzqZhZMgxidE7qDWPqPeV1Yy8z4pO9P43LRf8s7dV5hfnnbsX2dnP
-	vVeUZHqn2P1Q5kWfXUg6uIgoHzhocC0i+Ol2X+f8SSiXmTo28NmyaKy8vQ3PkhiuH2y1Vv
-	PRLNbGX1LDGjrPRAVHhWYc4G5bFkmZs1abQOQafQD+vdReAn6FXaGIeLvBeZNT4OWi+c0q
-	ax7ZWuLkcp2ebhbbEW94N8XlZWilQcb2m9MnqGwv36nu3xeM9IFgzllNak3WKrc01IELZO
-	1cx8AlbLH7G59MDn4OqK5R2tRnwvKeBZhDPCCtulXEqNBa3aAq/jv6t8B9/XLA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792486575;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EO/Hx3wmjK2qfxxzLF6nASGr8bhB9j7KtckXSt/vRFM=;
-	b=YucF7it935v1ola3F0WLa0qGdkxEfB9rswmg+8t5EKhXIQHzwxZwSqdbPBrA0GP3NkxIE3
-	fdrnGpDfgeLxh7YmyKDswzO4+P00LmIteJgzqznL87Vfc8hA0hBHEcwKwtK+V5voHsdl/Q
-	t/ElEwFu/gmwksOdBD6gfJU/c2lg22IL8qVul00JhRledXtDSjwAelWYE3mEQh4Y/pB4Te
-	H6ZHXhO8H8PYPFvou7BEreEGESfzTvRRkuMe3+2IT73bq7DRBVQJRGFcWYNG3ycOzba2Xa
-	0ymdongaNl0u35Z0KRDL9hhnvDygrvKKygwSfMyGLCbCFCBAOqLEvYIyduPvXw==
-Message-ID: <cda25e6b8be6887da0da859b748662238025c60c.camel@pengutronix.de>
-Subject: Re: [PATCH V2] reset: core: Serialize concurrent deassert/reset of
- shared resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alvin =?UTF-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>, Shengjiu Wang
-	 <shengjiu.wang@gmail.com>
-Cc: shengjiu.wang@oss.nxp.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, hansg@kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, broonie@kernel.org
-Date: Tue, 20 Oct 2026 10:56:14 +0200
-In-Reply-To: <atcf1PFVcn5pdsVO@analog.com>
-References: <20261019055301.3234571-1-shengjiu.wang@oss.nxp.com>
-	 <CAA+D8APDSYbzX3S9RuLinoPiuqPHEX+L+-ZcSg-RtxxaWyvrJA@mail.gmail.com>
-	 <atcf1PFVcn5pdsVO@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TuebpQC0;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXmvX+wn
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8eVOY1253890
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BvkHiyeYubNkphK+3iSkbkxhjPqzznaVKMsZvin5s6Q=; b=TuebpQC0U0UNIRHD
+	1V8mdIu6HgSxSNEgjIATRpxUJPiK5MhPlXTYyCjuZU6XR15wFj5mIVhp1XXm8f0y
+	ZX9twAhdIxIPlADfQ3wgu/EsVVaoxQQrL91jYadcqBbFTxxA1qXI/uv+vz8UTb/2
+	8wEMXlwL0tMdyVyGHSS//CA5PVCIyzfzxU9N80eU34Z7zJiSANjYY+aZpTqVQeGI
+	Oj6Aa6RwqPKGmZGpe2p/GrEhrsJI/0dbCyexSOBkqcKkYAoaG0/ZbMSe77yiuFTT
+	VDp6wJ2IYFNyhGSUJfzEhdiBL5itTbWTysEmmRSJWF/yeh+hlIt7PrQr2FKLaeSL
+	+mRb/w==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n9q6b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:20 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91b89618384so3972376d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:56:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792486580; x=1793091380; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BvkHiyeYubNkphK+3iSkbkxhjPqzznaVKMsZvin5s6Q=;
+        b=dXmvX+wnTKv0X8+VSWcrlbxSEGDFon0yb8iiXko8kYTefbE8eh5xBfw1/rRFRIDIfm
+         YBTjAkAAuk99gcSuAribX/zweewRKH/a1kFELZ1taBX4ZZHsVMdSs0Xg4m+cAY1otPDh
+         I9xHMo7mXwiSih7gbfUZ9ugI/IR4fUkTozuZQDVtW9rmBljAdI/3DfzH1yOahYQ5/lPm
+         G/fCGkMZX9rJRuYSRxx25xyPxSz8Z7U47C4SkD70OE7P4fcZJtW4pCl+d4lhqWrOWFDy
+         EeKc+DU6kbRI/0uflls+dCwTDx/Pi2A8GdJNFlaCg5Ttgwag+xv66vMgnd1JaV1fOfqC
+         hZzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792486580; x=1793091380;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BvkHiyeYubNkphK+3iSkbkxhjPqzznaVKMsZvin5s6Q=;
+        b=mQet/IC+qYcOGqlGR6pbjASG/cxihjG+c1WkWzPLXLvfJDv/eYMcjF9Nt5KNBOVv/L
+         wfmT937tFmIeqz/zHkZw3L5b/cRDM98YOwMjHFfWfKf1UZbw1Gb+l6BSEYMxY7yXc9ZB
+         +atmY5qIO9gzizHIyzU2ZsNrryKfzrPw96CAuZSELa3ezSj4ZiPGAjadz5lvPiN74Fnn
+         S2Tqcrxu2GKIzrEVZomDIUJ1hriR3a4wjNMkQjIJXR3lMaq6/1bZXKmjWfK5Qg06RyAo
+         yPmyhOlJLzwN6172vWDVRkL4bFy7wDPQY7kPsL0bsHwggjfss/X2239A1TpIiLlPqcqj
+         eRyg==
+X-Forwarded-Encrypted: i=1; AKwUvBykOND+yXdl2IKU/8leAcDPkaDmG1EZCFHS39EhhRs6qfH9n8Y/A/sxD7jDMPzA2HY3SJsqf4fn+CHayHI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJap0GK027m/45UhUDPNbwHuNjvQfsweT/jt/dl2leGhgTJ146n
+	2qsKONvto0teeD49eBlqNJkqi9R4EI4xzP2dwRbNE+3zhzGQJTdWTXGiLR1rOa1A4Vso5oYQ3qX
+	KlP2WyIyMHcDX4StYTt3iX0Xtw76WPvGMEMbGqzERNt6v085Q++vr3dqpLp1Pku/sECg=
+X-Gm-Gg: AYBFou0TKZ/zS4GE31F43eRqPerRQ9BHxNDN6XJHruQ6plkXamDjjZkMLnPZ4XjPe5Y
+	p3CVLmS7uJGL31h3PtJpTGrnl23lrIMeQTg4yQ8mBQLwGk9wKLJpd5vv7Pwky/H9ybPxiC04+b+
+	M0yHIXOf54JW9zpH5kTOruEMlB+Ulhty3pCnmP4XxADzuSczP2LLkp3GZT0N5sDAk6J3L3+XxGf
+	K+u8tiR3N6ueZsnEmCzBlRPyOAGHt146tW4Hbh9UBSiGOirKlmIseDwckjuA8JKMijuKA/A2521
+	dgUZuvHOO+23kPpFMWKN6vnL/vOJXl4xXuFiIQoGr1kSPLMl6winLVH85lmdBSpydouZK2JsG8e
+	6e1Hs3AycWCjOqUTAfSoSiQ==
+X-Received: by 2002:ac8:540c:0:b0:534:f411:a5ab with SMTP id d75a77b69052e-53645ff6457mr128003691cf.4.1792486579634;
+        Tue, 20 Oct 2026 01:56:19 -0700 (PDT)
+X-Received: by 2002:ac8:540c:0:b0:534:f411:a5ab with SMTP id d75a77b69052e-53645ff6457mr128003561cf.4.1792486579189;
+        Tue, 20 Oct 2026 01:56:19 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32bc33sm462325466b.5.2026.10.20.01.56.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:56:18 -0700 (PDT)
+Message-ID: <0975b38c-381d-47e6-8894-0493e0daf613@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:56:15 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,157 +115,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix
+ ADV7535 interrupt pin
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261020-ifc6560-adv-v3-0-5da1a33fdcbd@oss.qualcomm.com>
+ <20261020-ifc6560-adv-v3-2-5da1a33fdcbd@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261020-ifc6560-adv-v3-2-5da1a33fdcbd@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: N-Zt6Mdx2cB_qT1PIf0WA1VPv0TzaYie
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNSBTYWx0ZWRfX0sRuV5sEDPZS
+ wnRNH0rCfhLU5x61yvAwCiP5ahMqs+tPbpjkyc+3Rqr5/DUTW7JEW1iGu0QTGnc+G8ldq17FM2/
+ vX7kZFUstkSQobiUS3OfiB8sjEprtGQmGOglH6nf7MHTZ0H7idHJBJMmCySKd+5PdccTWmhHxOw
+ pisb7IYy5qx4PsnUoUm0ysvBkAx6BG81f6AynZiPHAacwdKosMewJ8Det0pf8e4MShd1GIasGFH
+ 1O9CPiyJFjbQu+ph4Bb8yqxq9RT7eMgYtu3lkeMT9Oherf6/YIbbQGLuUzvd4H9STF+ftdfr5mA
+ h/MEqduxAWZCy9wFn02dC46RJgjHaNLOKjVJQI5iqmCm37+QwWzzZVVVO5hkBQIljjvnI3lG7lB
+ lRjFHe3xCN3U2p0YH8ElO0O/CJYn4SrGcics2EGRXmXti/YBcB5BsCX2MaCRBEeqfX9GdFbEEFA
+ lXB4XNhbusY5uBwclKw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNSBTYWx0ZWRfXz9RsU+8JYy1b
+ MotGsrY7+Oceu+FNF9DiGX3lvHJ2yo9099eeK50RsGifOxeP+BVJiJNAx1kZlCO+y3pw3Em7zjc
+ f9lr52zIZ8l7hCiFywujf39wOVz8QzM=
+X-Authority-Analysis: v=2.4 cv=VI9IDNPX c=1 sm=1 tr=0 ts=6ad72cb4 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=rjRgt0PbdpDDpmAIlJIA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: N-Zt6Mdx2cB_qT1PIf0WA1VPv0TzaYie
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200035
 
-On Di, 2026-10-20 at 10:29 +0200, Alvin =C5=A0ipraga wrote:
-> On Tue, Oct 20, 2026 at 03:17:40PM +0800, Shengjiu Wang wrote:
-> > Hi Philipp
-> >=20
-> > On Mon, Oct 19, 2026 at 1:52=E2=80=AFPM <shengjiu.wang@oss.nxp.com> wro=
-te:
-> > >=20
-> > > From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > >=20
-> > > reset_control_deassert() and reset_control_reset() guarantee that the
-> > > reset line is deasserted / a reset pulse has been issued once they re=
-turn.
-> > > For a shared reset only the first caller runs the hardware op; others=
- just
-> > > bump the refcount and return early, so a concurrent caller can return
-> > > before the first caller's (possibly sleeping) op has finished.
-> > >=20
-> > > Serialize the shared refcount update and the hardware op under the
-> > > existing per-control rstc->lock, taken before the SRCU section to mat=
-ch
-> > > reset_control_acquire()'s mutex->srcu order. The lock is taken only o=
-n the
-> > > shared path and only for may-sleep callers (reset_control_reset() and
-> > > reset_control_deassert()); the exclusive path stays lockless. Callers=
- in
-> > > atomic context must use the new lockless reset_control_reset_atomic()=
- and
-> > > reset_control_deassert_atomic() variants, which skip the mutex and so
-> > > carry no completion guarantee.
-> > >=20
-> > > The op is now called with rstc->lock held on the shared path, so it m=
-ust
-> > > not re-enter reset_control_reset()/deassert()/acquire() on the same
-> > > control; a lockdep_assert_not_held() at each lock site catches that.
-> > >=20
-> > > reset_control_assert() is unchanged: a shared assert makes no guarant=
-ee
-> > > about the line state, so there is nothing to serialize.
-> > >=20
-> > > Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
-> > > Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
-> > > Assisted-by: Anthropic:claude-opus-4-8
-> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > > ---
-> > > Changes in v2:
-> > > - Serialize only the shared may-sleep path under rstc->lock (taken be=
-fore
-> > >   SRCU to match reset_control_acquire()'s order); exclusive path stay=
-s
-> > >   lockless, and reset_control_assert() is left unchanged.
-> > > - Add lockless reset_control_reset_atomic()/reset_control_deassert_at=
-omic()
-> > >   for atomic callers; gate the mutex on can_sleep so no shared consum=
-er is
-> > >   regressed and so it works on all configs.
-> > > - Factor the body into __reset_control_*()/__reset_control_*_locked()
-> > >   helpers, and lockdep_assert_not_held() at each lock site to catch a
-> > >   controller op re-entering the API on the same control.
-> > > - Declare the new variants and stubs in reset.h, and document the sle=
-eping
-> > >   vs atomic variants in the kerneldoc and reset.rst.
-> > >=20
-> > >  Documentation/driver-api/reset.rst |  10 ++
-> > >  drivers/reset/core.c               | 204 ++++++++++++++++++++++-----=
---
-> > >  include/linux/reset.h              |  12 ++
-> > >  3 files changed, 177 insertions(+), 49 deletions(-)
-> > >=20
-> > > diff --git a/Documentation/driver-api/reset.rst b/Documentation/drive=
-r-api/reset.rst
-> > > index 932699c57d1e..0fbc1ba92dd8 100644
-> > > --- a/Documentation/driver-api/reset.rst
-> > > +++ b/Documentation/driver-api/reset.rst
-> > > @@ -185,13 +185,23 @@ Given the reset control, consumers can call res=
-et_control_assert() and
-> > >  reset_control_deassert(), trigger a reset pulse using reset_control_=
-reset(), or
-> > >  query the reset line status using reset_control_status().
-> > >=20
-> > > +For shared reset controls, reset_control_reset() and reset_control_d=
-eassert()
-> > > +may sleep and must be called from process context. Consumers that ne=
-ed to
-> > > +operate a reset line from atomic context can use reset_control_reset=
-_atomic()
-> > > +or reset_control_deassert_atomic(); these never sleep, but do not se=
-rialize
-> > > +concurrent shared callers and so do not provide the completion guara=
-ntee of
-> > > +their sleeping counterparts. The underlying reset controller's ops m=
-ust not
-> > > +sleep when the atomic variants are used.
-> >=20
-> > On second thought, this change lets reset_control_deassert() sleep, so
-> > any driver
-> > that currently calls it from atomic context would now block. The new
-> > _atomic() variants
-> > let those callers opt out, but I can't tell how many drivers would
-> > need updating, and any
-> > one we miss is a silent risk.
-> >=20
-> > Do you have another idea to fix the concurrent deassert() problem on
-> > shared resets
-> > without this risk?  Or should we go back to the original proposal?
-> > https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/T/#m66615477929=
-b38f788d6d22a2c0bb9ca62173e89
->=20
-> The reset core could borrow a trick from the regmap library, where it
-> uses either a mutex or spinlock depending on whether the underlying
-> reset controller's ops can sleep or not. Check the struct
-> regmap_bus::fast_io member and how it's used in __regmap_init().
->=20
-> It would also allow the problem to be fixed for atomic users. Right now
-> you still have the race even if the underlying reset controller's ops
-> don't sleep and the _atomic() API is being used. But if you know that
-> the reset controller ops don't sleep, you can serialize shared reset
-> control operations using a spinlock.
+On 10/20/26 10:44 AM, Dmitry Baryshkov wrote:
+> The board never configures the PM660 GPIO11 pad carrying the ADV7535
+> interrupt and relies on the state left by the bootloader: an input with
+> the internal 10 uA pull-down enabled, working against the pull-up which
+> the board has on that open-drain line.
+> 
+> Add a default pinctrl state switching the pad to a digital input with the
+> output buffer and the internal bias disabled, applied by
+> pinctrl_bind_pins() before the driver requests the interrupt.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Yes, that sounds like it could work.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> With the above design you can leave the consumers alone and drop the
-> _atomic() variant of the API functions. (I'll also point out that adding
-> sleepy/atomic-awareness to the core would open the door for consumers to
-> report their requirements, e.g. that the reset control musn't sleep, and
-> for the core to validate this with the properties of the consumer.)
-
-Adding _atomic() variant at the very least would require correctly
-setting can_sleep/fast_io for all reset controller implementations and
-making sure that the sleeping controllers throw an error in the
-_atomic() API.
-
-> But... it requires an audit of all reset controller providers in the
-> tree, to see if they are atomic-safe or not, and report some kind of
-> .can_sleep property to the core (like regmap's .fast_io). I have a
-> feeling this is still more straightforward and less error-prone than
-> auditing all the consumers.
-
-Seconded. I'd really like to move to an API that visibly separates
-exclusive and shared resets, as well as sleeping / non-sleeping API,
-but I'm afraid that would be a lot of churn.
-
-> The other downside is that it's not a simple patch which can be
-> backported, which might be what you are looking for.
->=20
-> Any thoughts? I can also help out if the idea seems good.
-
-How about adding the can_sleep property, setting it for reset-gpio, and
-adding the mutex first, and only then adding the other reset
-controllers and the spinlock. That could allow to backport a relatively
-constrained subset of the change.
-
-regards
-Philipp
+Konrad
