@@ -1,48 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500191;
-	b=d8h9NxUq2PM/5857VPxWp1giLE7UX0CLCwQqIDq22gK0w0T+lsa87FU2LNJtREOuOQYx
-	 VxWz8fqLVQnAqhCrNoG9mgY+dsmhSM6XS+9uk+ioBpweYOlM9hT5ZVrxJ29DaFHmUwqBy
-	 0DnxqCWLjggEVAWyQdndw7AgowI4760Mu3yCxHDAn4gqfL8ZLdsy321XPAN6puoznFG9Y
-	 ygW77/e5PHHXBE//QOjvrJj4F0ALecS3kKKaFu8EPxvQEOJqkchQYtDNqOr/7sbcKjwCc
-	 iz9Ur60BmzKd4rOMCJ8sKXhMzVC4zdYR4nhmhJnp5eF4eG4YFirupBNTITWmYTiw/0A==
+	t=1792500193;
+	b=gE2U02s3nk+hK56pIIPYAp7pDaIdggqGlJHmDIrol0Qff9lqFQy1DPygoJeT0ijl27J1
+	 wwrj5+rwhqMt8IzsyGWUC6Km2gCu153q1LRTiH2UvQHcgxmkPr/gej1nG2s4xCqXzFD21
+	 N4qw1GTa101HPekxSQOzTzfo3ETP6gO9g+cIc9TVU1jZZ7jlN16BVjMDgjvKWe81Z/V82
+	 z5t0qUVOR8W3+oMO3z2l7MZKJw0K+P9HvmT+AXIpcHLgR2ZtJUus9Q6KiopiCDl1py2F7
+	 mNq8uyH1PFjJGT4Q8d9JdrIhjiVAuTmkTNMRTAGJ9xPM603HNBodP4bU8tBonPSGy3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500191;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MVCL73K9OKscy8732C/XX4AudTbxU6kKFArkDg8Njkw=;
-	b=eI8AwkhRhXeOGQmZkve2jDWH2gWE0H2RUorr2SYXDoAFC8H0ESQ8poA7QsJVrpHY2xJV
-	 TkLaBoj2K/M4z73s3jpnsPht0ghDGovEpFVvA3LV32W8znrBPYvV0vnzigvkS6GFt8kUN
-	 eZGoora93k98kjvCGwmaOrwi0YTbapkrvH2YO2JRH6vjXM7ZnSxdQmmdJ+jOBoYLTDZU0
-	 /feztyTTpopp2hG90CzP0cEMH0+wA1y8l6pXTpMK+alpYXVK03ujQOLl/Q0JdsuOuRp9b
-	 lnezYkI2jTJfNcsG+khaOuvcVwCvS3sTmbaxoIM2/acKtDY0B6YcRBSVxTuEikCEljA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500193;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AhDmp6WvC/eC417OYA4TdSOvkunZ6fJON1hxhaqdPTw=;
+	b=pgeVwS5glCVKO5eQhhR+k2GfcL4fyCHUo4woBa8b/xA83C+/wq18lFMQ+NEvWkqUXYCA
+	 +3AeU3N5nB6rpXnzb8z+6m4976iGuCYc5Lpp1MTqkDZLdH5LfZEz9drpXPMKE5Ilj/zYp
+	 1LfmeVFmiNK3ece0q1wpi8dxqB91HmdsXzLI/Asmn5bYxGPC2ZOpHdV8EKamfPm8fgkEd
+	 e6bqrKpZk+I7dERJ1mHjIu+ZMBUqJLNzRkveM+PYh+mO8NpKyHfZk7j5M1g2Jj5RdKVjZ
+	 ceknCz1AMSGCcjhHvBuyiH6eOFkumqQ9VwqX/Z6ETfdjTVkS4oHQ00WSIqr5ozzObNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPlCBRPH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PhPVAsUQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38E9606A327;
-	Tue, 20 Oct 2026 12:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61904606A32C;
+	Tue, 20 Oct 2026 12:43:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPlCBRPH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6D71F000CB;
-	Tue, 20 Oct 2026 12:43:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PhPVAsUQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FE51F000C4;
+	Tue, 20 Oct 2026 12:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792500190;
-	bh=MVCL73K9OKscy8732C/XX4AudTbxU6kKFArkDg8Njkw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QPlCBRPHieKlq4IJu4Ni1ns6h3KSA5ICS51/VpvUKsEJVipKU4/dV5qaSu0QgzaMm
-	 7Ut05RRMWeKCY3yd3oO97fZSj+yEeQWOjTFRLoQO2hc31SjNSmXlY/XqfHNrsK5xWA
-	 kSGmtlGvCOMysvHymacOk9CVJtbxrqxVvoEOVbcsw8EhhTtF6KqUhCjUo2P+1TiOEm
-	 K3Y0SG7VwLTRP33+A0ckB21f/pIOq/NcjDCIV7dZ4dEkSMlYb6rI4dbs1u6dTM2JJJ
-	 mRuxc3tsF78T1pf6wsG9UcA9TF7Jfp1DOUKRKUSlu6gNxXA7PwxFcPXHq79WZv9hph
-	 KJKUlV4struxA==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 20 Oct 2026 14:42:06 +0200
-Subject: [PATCH 2/7] arm64: dts: qcom: sc7180: Use ICC tag defines
+	s=k20260515; t=1792500193;
+	bh=AhDmp6WvC/eC417OYA4TdSOvkunZ6fJON1hxhaqdPTw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PhPVAsUQSJAVGyzlr0tEKxDt8EHuzbvoGQPBDcFUVDq7Q9ttlTEQDN3Gotem8035s
+	 y3kkjnDc4p+POMSucSgdW+doYx9Wd3q9N+kSCx9PPq4qzXId/Dml4st4EtkKAUEKfa
+	 nDO6n0s8gGyIl4CSOBL523Gw7f/uxSlkNeZsP26AwnwwTAgyoW3IqHQVNZaIVb3LZW
+	 G4OqzWp/tjkt5TZnOfHk351Uhrevd1GwaHXcd9R5rg5MMhhcfONskzvZPl1wgg+wmA
+	 XszjnNM+hlLO3zD31uNgyqQOCvC4Sdj5g6fqU/NOl4tCmmu3d3s1n9woVSCre3ftwf
+	 HRjkS9hFlz8bw==
+From: Sasha Levin <sashal@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/7] kbuild: build the userspace tools in tools/ with the kernel
+Date: Tue, 20 Oct 2026 08:43:09 -0400
+Message-ID: <20261020124309.3022372-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <e77d6e7e-bc46-4363-8bea-d95ed521b5ab@leemhuis.info>
+References: <20261016143143.3613501-1-sashal@kernel.org> <e77d6e7e-bc46-4363-8bea-d95ed521b5ab@leemhuis.info>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,124 +75,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-topic-icc_defines_ao-v1-2-cae8d22649ac@oss.qualcomm.com>
-References: <20261020-topic-icc_defines_ao-v1-0-cae8d22649ac@oss.qualcomm.com>
-In-Reply-To: <20261020-topic-icc_defines_ao-v1-0-cae8d22649ac@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org, 
- Thara Gopinath <thara.gopinath@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792500178; l=4402;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=jdJzsPYQpyVaPuW5rFhX+L4So5dJHDkXygUX5luWybU=;
- b=jImjhZLWISZcrxy8NB6YHMrmiHJXKyjvnZBNx5HbtEwf0RXw8OrN9Aag/X3SU+dT0xflz86rk
- 8IddeQeCIy2CfOX+F03FKnKhFSsk0e3Q+MVLUmR/XCJ72NSKKk+rLE3
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Transfer-Encoding: 8bit
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Tue, Oct 20, 2026 at 01:52:17PM +0200, Thorsten Leemhuis wrote:
+>I noticed that "keeps what is built the same on every machine" in 3/6.
+>But is it explained anywhere why this is the done?
+>
+>I wonder, as the overall goal of this patch set is to increase build
+>coverage. So why disable optional features that could be built on
+>machines that have the required userland libs installed?
 
-The magic values come from dt-bindings. Use the existing defines to
-demistify them.
+Only allmodconfig and allyesconfig turn TOOLS_BUILD_PERF_MINIMAL on. It is off
+by default, and then perf is built as a standalone build would build it, with
+every feature whose libraries are installed.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+For allmodconfig the main reason is that perf's feature detection does not
+always turn a feature off when its library is missing: without libelf,
+libtraceevent, pkg-config, or python for jevents, the build stops with an
+error. Building perf with everything it detects would make those a requirement
+for "make allmodconfig all" on every machine, and cross builds would fail
+unless the target's libraries are installed as well.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 70fbfb31d4a4..29e345a6a13f 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -89,7 +89,8 @@ cpu0: cpu@0 {
- 			capacity-dmips-mhz = <415>;
- 			dynamic-power-coefficient = <137>;
- 			operating-points-v2 = <&cpu0_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			next-level-cache = <&l2_0>;
- 			#cooling-cells = <2>;
-@@ -119,7 +120,8 @@ cpu1: cpu@100 {
- 			dynamic-power-coefficient = <137>;
- 			next-level-cache = <&l2_100>;
- 			operating-points-v2 = <&cpu0_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
-@@ -143,7 +145,8 @@ cpu2: cpu@200 {
- 			dynamic-power-coefficient = <137>;
- 			next-level-cache = <&l2_200>;
- 			operating-points-v2 = <&cpu0_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
-@@ -167,7 +170,8 @@ cpu3: cpu@300 {
- 			dynamic-power-coefficient = <137>;
- 			next-level-cache = <&l2_300>;
- 			operating-points-v2 = <&cpu0_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
-@@ -191,7 +195,8 @@ cpu4: cpu@400 {
- 			dynamic-power-coefficient = <137>;
- 			next-level-cache = <&l2_400>;
- 			operating-points-v2 = <&cpu0_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
-@@ -215,7 +220,8 @@ cpu5: cpu@500 {
- 			dynamic-power-coefficient = <137>;
- 			next-level-cache = <&l2_500>;
- 			operating-points-v2 = <&cpu0_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
-@@ -239,7 +245,8 @@ cpu6: cpu@600 {
- 			dynamic-power-coefficient = <480>;
- 			next-level-cache = <&l2_600>;
- 			operating-points-v2 = <&cpu6_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
-@@ -263,7 +270,8 @@ cpu7: cpu@700 {
- 			dynamic-power-coefficient = <480>;
- 			next-level-cache = <&l2_700>;
- 			operating-points-v2 = <&cpu6_opp_table>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
- 			#cooling-cells = <2>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
+The rest is about reproducing failures: when a bot reports that allmodconfig
+breaks perf, the same build should break on the developer's machine too,
+whatever libraries it has.
+
+>Isn't that in a very limited scope what we do for the kernel itself
+>already, as some small aspects of the build environment (like the
+>versions of gcc or rust installed or the availability of things like
+>gcc-plugins) already influence somewhat what is built when you run "make
+>allmodconfig all"? Or do I misremember this bit?
+
+You remember it right. The difference is that Kconfig probes for those, so a
+missing tool turns the option off rather than failing the build, and the result
+is recorded in .config.
+
+That is how I'd like to add the selftests that need libraries: a Kconfig
+probe per library, so allmodconfig builds them where the libraries are
+installed and .config says which ones were built.
 
 -- 
-2.56.0
-
+Thanks,
+Sasha
