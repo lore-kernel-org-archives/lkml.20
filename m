@@ -1,41 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509008;
-	b=iF+bN95JK5InAD4QzyWczCk5nDQobuCfdgI2oxYzttEi77Zqv/bYsbZi6NwTvqpf5xwM
-	 mS3jL2bRy41cqfC9bCMWXoFmrZIUdlwp8z3As9uucO1HLfzzEyc+9Dk1EHDhAp3dPqOJs
-	 tHXB8PxnwOAlLPzvovii369UY5SQXZBbJKp4V6mlFe84W9WXsswJbrA2vLrP9qn6ToBG/
-	 ZCbcRe6EnzicuhRtQBzWscGOItlzvDjs+WZhQwdO+/Q00888QY0enEsqNY0HCNX+5dHCr
-	 Pu69e2M5JkXYdSB7K6gNFy5xonFuonv/MtJ96askh/yXnQtNne6hoQx63yajGw9+crg==
+	t=1792509013;
+	b=XPX0PtLEOlYm0zFPY9CcfCI4MvNae0iWqHNS0drmvy+JLQ1TMx07dosnA5I8jjGxZwEq
+	 IePi8Ce0Rx08p7pEiafhPehK9Jwkw9uhL2iIf+MOkNuo4J4KakSAZ6o4TvyKm2WvuWN2+
+	 OWhCNT1NuonF6moT0WV04HA9oFdjPLsKCwdR4e6LglSwUrPPOChuOQjW7t3hIUimC/i3j
+	 RC8lB7tTgbdBCZw/w2QCclB5tllb1V8OL5R1Iwg+ryrS32XZegww6/KIt0qcKDObAPgQd
+	 UweT4RYdAbuf6vB1yhyQaTKB37BtHGNCbRcCb5Q3dzsle6yOkfZJfMNd1OTovvFjZ3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509008;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509013;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Laxh79qXwAwsmuV6O1MzM4XcWCJ9HNwhZ1DgdfgCfZw=;
-	b=bq+jY4h0zkd9OvIoq8eTjA2bcMNMRAI/qf95OO2/Vj6o2O0oyAhtHp7YrpmZ/t/gg1Lr
-	 Ncy82fPQGB9q/mVtdrMnBV4s3GEiFfE6/TBOJwu1BbDMFYt4TLg9o+4rx9YE5+KslzSvn
-	 EQivQgFAIFd8gPLobjZO2DEMykWwdKxdULb7AncvJfsPxFCG7GAUex1hSBUk/KJpexrfx
-	 phrJEesIhPdPFvF9sNBgMu/vbhK/NpZYmmBmHlHS5A/50jBfV7Q5FmfeGX3/ZxE0tFUwW
-	 nGpstLQhyD0P+9mrysTczncXH9/RxjnortyAu3M7BRsRepU7BNyWVnq50B4WCZF1V6g==
+	bh=LM7ZG/o7cRFGsvk7gWfEkUQJIfUmCsf6qM2w0xloGcc=;
+	b=n7kfucSYR0X3rj0cUMKHkZyxWwBtcKnEJ8/4+uVTrdz+M/Z/rDjo7n1uP0cxCWwodYpj
+	 95Tt3A3G5z8eFfOGeLGm6maVCnEZ54moWj++cx3eCUkj7GmPv2A/F6K0Atq2MP6+5jLKP
+	 HXgxuhA3e31liklPmbk+VvDrndpQB8nMsSMmE8DHmrdnMK84llVfh2lWhqBYK+/F0KORu
+	 X8cj9mmzOcSKsClcEs8/E9QNW7SnQ6mK+D8jQRu/uPaittTv9e6JV4z3sOTaJBSJxSfvd
+	 Csgs71F1p1RSSOSM9vgztPV3/uI8yN/5RcciKmQ2qlCavnvBT4AZ+VcFADaNMdPw5Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DYnnHjEL;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 582CC606A31E;
-	Tue, 20 Oct 2026 15:10:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 66F1B1F000C4;
-	Tue, 20 Oct 2026 15:10:07 +0000 (UTC)
-Date: Tue, 20 Oct 2026 18:09:33 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mimi Zohar <zohar@linux.ibm.com>, linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KEYS: trusted: Reject short TPM2 public areas
-Message-ID: <ateELTsfmHsdCEGL@kernel.org>
-References: <20260925095308.3248297-1-4ncienth@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C93606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:10:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C93606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DYnnHjEL
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so25719705e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:10:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792509011; x=1793113811; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LM7ZG/o7cRFGsvk7gWfEkUQJIfUmCsf6qM2w0xloGcc=;
+        b=DYnnHjEL2Krb+JIkCKHSv56Nvzqnqy/MyvmEKG0SufCNeGbl2fCQYxgsaJzbKwpl2u
+         xBofG6hguWdfBC+YeILbWnAhrknSat53YGEmc4KwkaaPOcuM6a8/H2HS0ZwStUnLPVTE
+         oc2RGltsSV/hFidhodoV2F0CWgCCHuPpsEFoJzuVCC77GQsFP7vEEatfMyv6w8fKPbrG
+         DRMDQNbMwfzHIq4Spx3J2bIn4xXdKocEDLoZHbzUmG1n+c+9NbQ96H8fStxYGZnvISIu
+         hJLGHDjq3+0KmXHuNxBc+/pB4Uk6L/2iBRZIAmacDuIoUD41mirDnuWgwFsjluY3Plxx
+         smKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792509011; x=1793113811;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LM7ZG/o7cRFGsvk7gWfEkUQJIfUmCsf6qM2w0xloGcc=;
+        b=mMy9TgVqNcXjwvdCWsTfSB8Zd56Rs6VZ1yxRSh1CWNPDhgzCHeyTrR4TxQHOE69pv+
+         pv6pC91RjuXWsc+dXuTcGP5JMHvzakQKq5t3FKgCCt/Gs5Yput7N6a7jMPHUnAV7QHql
+         Y8toGYpCSfZi8Mu3JgPTpuplD/L1ahW4M51r5IhHdzs72AhR08QE5gLymDhdwxR2YBB6
+         anG4+R3KNlCavuFOaKUGAte/Qt09di30+UMuzqX1rUNS/ISMbhe8NfiFDbxv9AeRk0IX
+         Jw+Lvk9SkyiT+2mhktL8Gf5ngb4BnUySckpHL/h4g/SdaZMKjjuOKszy8FTl45tmxuWI
+         0zVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFU/aGCld8jTi3/Uc/qPoI+o8ipOabptANyc1fLd+6FcErS/mZt0ab8HE5Hl5jnKxwgoMHDPEpp2L1jjM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+fdi54RAoR6IqxP9XMtZimrIew6DvV9QWpqhmWIGAkAhrN7SG
+	xLMNRnSCuelIUEqoLRHsrHF//eGLYGO9TmAwM2RlpVRp/g9RrgA4Blme
+X-Gm-Gg: AYBFou2i5CWZ7mt1pUWZkJL/Qu//pFI9Sz3e+xlN9WJ5ecY7pBFcambxrv2oE6C86ii
+	FuASgKvxoQyfpib90fWswMeZH3mVw9MTzpfeyPKfbK7RQ3t6zWBNZC990blsSI0S7zDbwDbbD5B
+	opWO4b3poPV1k+uaOgI+2S615PUkKew/icllFoePCQizzDQAn9riq4hhTdEDRntWrM+CJWHP9Ed
+	0rq4AgSByzAFIRLCwSGAZgBo1+h8n5rxO9rE0BkrZ9C7XX15jJaIrZ6dUcNoYK20fFzO9jWM0kP
+	BlBvH928r5YluM2mXU/Sjfs1TtaDYzWwwdZu1nB1tx26sQtSFkAnccLb7701JT/2oz6Rsobe7ll
+	n/1QKkPb05S8J+havK9n7ia5qtRXjJ40R95nLiM8iELrz6+4XChtSB8+2+Jgqc1cZFkvTWQlgn2
+	GO2Jxh6CAXSGSdKsyXTn825Xw/20cDGK3iBarYLUsYTKON7dHshI8HsabjEQFTT1qUvJJdmda6i
+	9GxweXlwxyUD3MZE0pDwPKivpH1t9XipEQMQ9hCloudNdSiuDLlziL5Vw==
+X-Received: by 2002:a05:600c:4f06:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4a1e69d931cmr185715205e9.22.1792509010706;
+        Tue, 20 Oct 2026 08:10:10 -0700 (PDT)
+Received: from C422HJQPQG-Fractile ([150.251.170.8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82ff70sm6650580f8f.52.2026.10.20.08.10.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:10:10 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:10:08 +0100
+From: "Vishal Moola (Fractile)" <vishal.moola@gmail.com>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH] tools/testing/shared: catch a failed posix_memalign()
+Message-ID: <ateEUAMoDCgiHrrT@C422HJQPQG-Fractile>
+References: <20261020033128.1934349-1-liam@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,90 +101,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925095308.3248297-1-4ncienth@gmail.com>
+In-Reply-To: <20261020033128.1934349-1-liam@infradead.org>
 
-On Fri, Sep 25, 2026 at 06:53:08PM +0900, Daehyeon Ko wrote:
-> tpm2_load_cmd() reads TPMA_OBJECT with get_unaligned_be32(pub + 4), but
-> does not require public_len to cover that field.
+On Mon, Oct 19, 2026 at 11:31:28PM -0400, Liam R. Howlett (Google) wrote:
+> posix_memalign() returns zero or a positive error number and never sets
+> errno, so the checks for a negative return in kmem_cache_alloc_lru() and
+> kmem_cache_alloc_bulk() is not possible.  A failed aligned allocation
+> carries on with the pointer unset, into the constructor or the memset().
 > 
-> A new-format blob with public_len zero makes the read begin at the end of
-
-New-format is not anything. TPM2 protocol format might be better here (nit).
-
-> the B + 4-byte decoded allocation, causing a four-byte heap out-of-bounds
-> read before the TPM command is transmitted. This is reachable from an
-> unprivileged add_key() call when TPM trusted keys and a TPM2 device are
-> available.
+> Test for any non-zero return.
 > 
-> This affects v5.13-rc1 and later kernels built with CONFIG_TRUSTED_KEYS=y
-> and CONFIG_TRUSTED_KEYS_TPM=y when a TPM2 device is present. A KASAN run
-> as UID 1000 with no effective capabilities reported:
+> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+
+Reviewed-by: Vishal Moola (Fractile) <vishal.moola@gmail.com>
+
+It's not really a big deal, but seems this was introduced in commit
+8801c35c3672c ("tools: fix -Wunused-result in linux.c"), so +CC the
+author Shuah Khan.
+
+>  tools/testing/shared/linux.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> BUG: KASAN: slab-out-of-bounds in tpm2_unseal_trusted
-> Read of size 4 at addr ffff888106273b48 by task exploit/160
-> CPU: 1 UID: 1000 PID: 160 Comm: exploit
-> The buggy address belongs to the object at ffff888106273b40
->  which belongs to the cache kmalloc-8 of size 8
-> The buggy address is located 0 bytes to the right of
->  allocated 8-byte region [ffff888106273b40, ffff888106273b48)
-> 
-> TPMT_PUBLIC starts with the two-byte type, two-byte nameAlg and four-byte
-> objectAttributes fields. Require public_len to cover all eight bytes before
-> reading the attributes.
-> 
-> The exact input produced the KASAN read in 3/3 fresh boots. The fixed build
-> rejected it with -E2BIG and no KASAN report in 3/3 boots; valid new- and
-> old-format trusted-key loads continued to succeed.
-> 
-> Fixes: e5fb5d2c5a03 ("security: keys: trusted: Make sealed key properly interoperable")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> ---
-> Tested with QEMU tpm-tis and swtpm: vulnerable 3/3 KASAN reports,
-> fixed 3/3 clean -E2BIG rejections, with public_len 7/8 and new/old-format
-> controls passing. Stable 5.15+ requires 114f00d738f1 first; both patches
-> apply cleanly in that order.
-> 
-> The source reproducer and full logs are available privately on request.
-> 
->  security/keys/trusted-keys/trusted_tpm2.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-> index c2a69bcf381d7..b3109e0a924f5 100644
-> --- a/security/keys/trusted-keys/trusted_tpm2.c
-> +++ b/security/keys/trusted-keys/trusted_tpm2.c
-> @@ -418,6 +418,8 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
->  	public_len = get_unaligned_be16(blob + 2 + private_len);
->  	if (private_len + 2 + public_len + 2 > blob_len)
->  		return -E2BIG;
-
-I was writing summary of the changes for my v7.4-rc1 PR but this
-does not look right.
-
-
-This would really need an explanation like:
-
-/* 
- * Check that TPMT_PUBLIC fields type, nameAlg and objectAttributes are covered
- * in order to avoid out-of-bounds read.
- */
-
-> +	if (public_len < 8)
-> +		return -E2BIG;
-
-Why would you pick -E2BIG as I guess here that is not the problem?
-
-Just checking before proposing anything.
-
+> diff --git a/tools/testing/shared/linux.c b/tools/testing/shared/linux.c
+> index e0a0693df08f5..a37d2f86d3254 100644
+> --- a/tools/testing/shared/linux.c
+> +++ b/tools/testing/shared/linux.c
+> @@ -83,7 +83,7 @@ void *kmem_cache_alloc_lru(struct kmem_cache *cachep, struct list_lru *lru,
+>  	} else {
+>  		pthread_mutex_unlock(&cachep->lock);
+>  		if (cachep->align) {
+> -			if (posix_memalign(&p, cachep->align, cachep->size) < 0)
+> +			if (posix_memalign(&p, cachep->align, cachep->size))
+>  				return NULL;
+>  		} else {
+>  			p = malloc(cachep->size);
+> @@ -191,7 +191,7 @@ bool kmem_cache_alloc_bulk(struct kmem_cache *cachep, gfp_t gfp, size_t size,
 >  
->  	pub = blob + 2 + private_len + 2;
->  	/* key attributes are always at offset 4 */
+>  			if (cachep->align) {
+>  				if (posix_memalign(&p[i], cachep->align,
+> -					       cachep->size) < 0)
+> +					       cachep->size))
+>  					break;
+>  			} else {
+>  				p[i] = malloc(cachep->size);
+> -- 
+> 2.47.3
 > 
-> base-commit: 27d14d3b15d5691bcbf0683883a2ea12469edbea
-
-I'll drop this patch and postpone v7.4-rc1 at least one day so there
-is still time.
-
-Br, Jarkko
