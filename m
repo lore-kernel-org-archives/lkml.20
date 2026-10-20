@@ -1,71 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792499521;
-	b=3COrtMhnunLLndauJKd9Pn4yd50s3zxbyJO4hBRcVQFJmzoacy5s8B8nRrfGkyTBNAwk
-	 o/210dJjEjWWhTWWaQYdXy5ZvlGmLWQmwsFk/HosmjqLJbpe57uRNufOErPBj2Kxo8VA0
-	 8lyHCIUBKHqbLqOAL/00DPJ4W1Jgal6SRxFmEN+udGTiJvLnMD+Oe2BYD+DZvc6YLToeH
-	 6I+ez98WTwYxApQVwFITDx4d0gwkFG/PeiiH7Xh8Fo2syXPB8pi/cp+/tp76t9k1mo/Ro
-	 87uGJ8JaT9WrN6pjJeKT5Bb3cSGaZKw6E/s+5ylnWzRGvRqBmdF1kormECusHubc85w==
+	t=1792499571;
+	b=VOWOLfAscuH6Y4M+waKaL/r1xPA3Qr6UotJn7OAuc6NuXg75+9h7sfUUbGkVV3aOcxGw
+	 VN7otrPaf5cu00PPergvM0EC6ezjzoyvnyWuoktb3DdlgJsLl+VA737InBVjV77xWnXhv
+	 lb5suIsPL3/lSnRex90oyGaK27J7VRAT+nxQJ5+NGIC6xkidfbv2UybG5O65WpFtCBOt1
+	 vR8cwDLtEutUhLVraid/CGMt4bErmTrRPa6VWNj/59g0XvMiXe+YCguZFUPFkiC+vJVSZ
+	 Ub/wa3CjY6l9d+ZKRxF7jimo89G8RIGsQQ+RuT3suwooJSDtEYlijctN4XRze3maNGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499521;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=UeN8Ru+rAKrt0PPgXy+pM/9MH+gETzdo4cmnL5YZlDg=;
-	b=OtvfQmac/cRjOL140nOHLFtJ+Qv4aVjHUrsKYrSNdQf7jOqJyWKvq7x7vhTbAXClAqRw
-	 z9XqNiFvGkyIL7SnUWlNhfYojVaFq9XEt7GYJC+5Cw5cZyoTVChv8I+JZbK+dsO2/70o1
-	 CFbmPY5mScb/9uMV3m1fgWffJJlujVcEUXlx2ck3ktGMGzU9HCzgcGBT8Ur7/V1CX+yop
-	 9+XwU21JtyS5ZDi8ccz0L1jI3RciL+zKQD2XOVArWUo0uXX5NOuAmjFqLkU2Kjh5YK6RM
-	 DIo2ykV99jGjw26Ka4WPckQchkDJe6GdEyHGPmUDqNevdkTZ5SY01FtT+CE3khwv54Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499571;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mT2zW5I1WlZY2/7FQG2aOjw8oD42hU3uLHvKxDQfAJs=;
+	b=RzW23UTqjftv84mebjGVdShjpEve/3jme01bRqidAXAx7nLEJtktgOWzHb9Qeq4w+XPV
+	 NGBnIWh6TErxlR4kfWw84DhdjLo7HpZlMJps37XcS59juV+yMM86mQZCLWyTpSNhtvDC3
+	 QQFVauNYgYV+/QSQ18PWqzb0wjsvDHQmHfqpqZoXVq4tRwL2PfBPpras2N6ISlDQfisj9
+	 IKjzQz51Yc5ZrfcdC29EIr3be5sT0NbJUX0/ey4tlb5egM6f9MI+LHJl5Ovy5dMdjkIP+
+	 uM9pWKmSSQDWAkE5qUq9i7DQp18e1/LMHTv8qMqyynxrMvHMOivZpyg/4gN6HXDiQxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens-energy.com;
-	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
-	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=gwxB9cAg;
-	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=NIx26Tkn;
-	arc=none smtp.remote-ip=185.136.65.142
-Received: from mta-65-142.flowmailer.net (mta-65-142.flowmailer.net [185.136.65.142])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MxXkJ245;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ob6ZogyF;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304FA606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:31:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 304FA606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0A3606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC0A3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=gwxB9cAg;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=NIx26Tkn
-Received: by mta-65-142.flowmailer.net with ESMTPSA id 202610201231503dafd2fb1f0019fd8b
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 20 Oct 2026 14:31:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
- d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=UeN8Ru+rAKrt0PPgXy+pM/9MH+gETzdo4cmnL5YZlDg=;
- b=gwxB9cAgcfInTIj4dDHEUuFot4nXTZn5IMoa8m2nJW8Z/SW6r20mLTwMjK2iQYp2q/abmC
- UnxDT1jFy2ZVpTKqf7B+Dms7nRtacRSRpxUs3ZCG5/493F90g0QpJpaedRMiDcOpAsfuclui
- iODHFuTLcWIUNlIGiC8RFv2QMRGSQ=;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
- d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=UeN8Ru+rAKrt0PPgXy+pM/9MH+gETzdo4cmnL5YZlDg=;
- b=NIx26TknBkc96UyeZMGheTuELXz71beyVvzWbYGFf6P+dgWY8tf3EeE2bE1Wtp/nfkHON7
- 7KN9gWxyOB8BFGg+lloeBUrx6ktNIT9DTfCNRESaMmb9Bzbwq/lUYgeQ22xf/+R8UCmzPUwm
- HsL0E+na+ePtC6EnuPJFIDbnXr2hmOp/vVJHMGzX1BCxlqX407N+y1hSQAXU1PZ4yYuC0LPk
- 59NT5VouOHeX3FF+SDmYrckCMCxzzntV9OrQ/XLdG/cRUtmHpuTC1vj+FMRBUMuQ7qb0zEnu
- 81Silazv/+LWa3owt262yKDYhdoGqCr2ASIDpVZ7mZELGfOQ4wOirgKQ==;
-Date: Tue, 20 Oct 2026 14:31:49 +0200
-From: Simon Schuster <schuster.simon@siemens-energy.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	linux-kernel@vger.kernel.org, Chung-Lin Tang <cltang@baylibre.com>
-Subject: Re: [PATCH 1/2] nios2: remove libgcc for lshrdi3, ashldi3, ashrdi3,
- muldi3, and ucmpdi2
-Message-ID: <20261020123149.cyjzz4uo25oiiu2m@dev-vm-schuster>
-References: <20261019165015.2656521-1-dinguyen@kernel.org>
- <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
- <20261020085630.w7je2ev3f6ectshy@dev-vm-schuster>
- <686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MxXkJ245;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ob6ZogyF
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAwtfH1929062
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:32:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mT2zW5I1WlZY2/7FQG2aOjw8oD42hU3uLHvKxDQfAJs=; b=MxXkJ245Fbhum7/Z
+	7a70COi0qXtZslToWtGW2SIFV4hVPZx4qI+2rEiYtCBNvHTjUxCQC1Hh7fZNANGD
+	qAj+cuoDcakC7aXX8GfnpHyLkUY0FTw39xvM/vVnECGggOdYNQ9VTtoPEgDOvLc3
+	nltv09bE1W5HDnkmR94P3i/vKLZ1W117kVHaH95NAQHZ/5EzNgHDgg8pmQ3/Lo3X
+	bS5fzQLIPJpvrjpzGH0lKyjcZ7FPRyba5/PXY3bwdHero8mN1xwZUcOd2eNVwmxG
+	E3RF3YaHZ89r/9DGeN2hNXJ9V/s1nIbHWgk0SJHTiw3jYCZMH1EdXJrJFf15vIpJ
+	kiP+9A==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5ntcgp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:32:48 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91256a7b7b3so52638826d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:32:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792499568; x=1793104368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mT2zW5I1WlZY2/7FQG2aOjw8oD42hU3uLHvKxDQfAJs=;
+        b=Ob6ZogyFJY7a2FON4vCx0g3C8cGkF0WIkkulygDQAuS755I7imEfSUE3R8Se5pIxzd
+         hfhqeXwiiBM8KHpg+mHN/gIbH8I8L2ByFsCte7efF5VKd9aoS3Ks7sRNmDPFxIP8Agv6
+         5XRprUr2vS+p65kpo0LTDw6vwSKu39SCb1+SpA+273VJduLNTvxWKF8gunF3ok7eqEPO
+         JzMWCtQbpmb28LyOfl3ZNnTTCL4O0wAYuoVMHAPfrMGF07SzF1NE5W298PK6yod4WX5V
+         z61aT5Ea2S5HyBLmAXTtQc1meKmQH4a0r9yvyOcuSEwEy2yRKEwbt6mGeyeL9AEC6Px5
+         ksCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792499568; x=1793104368;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mT2zW5I1WlZY2/7FQG2aOjw8oD42hU3uLHvKxDQfAJs=;
+        b=b9r5tRJClYoKwIi581yW4vW1xahQ01hH1ltSOk4DQ7+nZNqucId+AEJ9ZaM6HUt7X1
+         UeR+GVlDUqwqIzi/vhN8l/58cfYNZyWMRIdZ8/SViW0rjwWpiLGWWrGMY8ccIX6v9ZA7
+         gbe1KXUdS2FP/tWyuFypEL36kD3XjDwpW6x2/Q3c8uIO4HArwe8FNx0d3uNwquW1WOZb
+         M6V6oYc5w6DsYwrDYHcHvtgr/vCO+M74RMxIwsJnfNmae5t/PNdyXm6IVteueyt/vTCy
+         xtEdFo07Bq9o5GZkxBOSrIXrXTxLc6HBS4VAnVnWzXET2lfx5c5CXzt4BJm2QNGvet0y
+         lB7A==
+X-Forwarded-Encrypted: i=1; AKwUvBycWXVWELLXZI9CvMSiG4fjjGKCbknQQEByEZd5QuxpriAknrRpnRBpExJbLzhPCavcwXYl/lDij3ChhAo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0GT2aIsFTNgYm+4ZQzhtiMH1P021RlbTJxYzHVI6nD2sNgbUt
+	Ey7c04MOGjUvjRkCeZTUYOrM8wZY+ku7J3fSrZNhMKN0tb0pHLCcb4nLlqJ/c42TqZKDZ1t3ytg
+	FXoAuj1gL66fRMGCI+0NMSKMLKDRm0Oi+IpVGxXF6rJ1EU2kOIWJ4oGTCmoXeOXFXYAM=
+X-Gm-Gg: AYBFou2Un3niAAG/fEswE2DWhaml5PYkgvubbNrqEC7JVmcVvVF4G7IVtz7Ccd69Nch
+	JqWfuVBa2TPSLbhccMHcvvjbVYvAA7hzpMx1O8oJ7B37hGp/OG+nM39TMI5rAymhmETjVy2oW8N
+	zkiFGyb53ezHEOn8rrNMzmjsmp7qtGi5tV104Ggnu1eqEEH8lVTsIqx/vruWAHT7/npEtRV6nLU
+	zo8IK0Bws9IQ1vAeO+BDpGb+mBdwK3fDb6x+R5z89HnlDct8EyDBXYo0mjv1cPtdDEJy9VsbtZu
+	IRO/UHJ2UeLFpzAKkSsoxuGoBJJkWEJekPT9gdVN4vWN7iRUj60+VXnswXrq7rDfIg3NHc+Z8D0
+	pQt0AS0mS1IyDSldYoRnLVfixQe4=
+X-Received: by 2002:a05:620a:a7d7:10b0:93f:3163:3e25 with SMTP id af79cd13be357-93f31634247mr931725285a.24.1792499568001;
+        Tue, 20 Oct 2026 05:32:48 -0700 (PDT)
+X-Received: by 2002:a05:620a:a7d7:10b0:93f:3163:3e25 with SMTP id af79cd13be357-93f31634247mr931722485a.24.1792499567536;
+        Tue, 20 Oct 2026 05:32:47 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d838dd6sm5866725f8f.58.2026.10.20.05.32.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 05:32:46 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] gpio: kunit: add test cases for platform lookup tables
+Date: Tue, 20 Oct 2026 14:32:42 +0200
+Message-ID: <179249955803.22604.7440027670903099589.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013-gpio-kunit-plat-lookup-v3-0-3907f913e964@oss.qualcomm.com>
+References: <20261013-gpio-kunit-plat-lookup-v3-0-3907f913e964@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,90 +121,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0OSBTYWx0ZWRfXymxRv409VlcD
+ 05v8hawKKVN8ObrdGHGCyFbDRYHf5vk4MC8XvPNnW4Tu+D0i/CuI1VM+iZiG3G/2L/XbVGfj6s2
+ pn1gpjM96+62frzq/MOmGDeUD0J7e9c=
+X-Proofpoint-GUID: 77OijHEAgXferjGypeZpiJnk4xlYqP6Z
+X-Proofpoint-ORIG-GUID: 77OijHEAgXferjGypeZpiJnk4xlYqP6Z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0OSBTYWx0ZWRfX061eha3zZX0i
+ J6piZMrJCbYDg9qmJL2KsNIVQH1kWzrS5BtDa8QDu9jKxWZeVi6thXOYw+oMA8YfeV/AksgbWn5
+ 3O/RusFojSaAxXc1E7Mdux2Q/9uQrsvYCw+n/KvHGc68H/ekuz27kb9jD3ymbNA2uq+Q1VmR/d3
+ KSijyIDW6q4sfSG8Niuz/is1jd/7MshlndvhGpogOVC7UIWVApwJUIOfcChpEZjTViT48Nrs/0W
+ GwdOUyHJ+FwTTSYFwp2s+zsowtwQGM7zVAfBCEzfcs+PXeI6HfGdZyQsrQ/sj+BdSeRtTOWh9mq
+ Qw4xqYwfvYeVcEMPBu+S49nigIJQZEtcJUT/XlBNHRvtp12F4iyPAo2LYRfVGS+yo0LtominUr6
+ e3W7hKQ1QmOVllXtntb/a+B7sEVIrYrk4yLERAllmol9ypzHK7/6ZOXB1H4v38cjPz6CNlVUqn6
+ 979Mdo9xI0a3kWR2kfg==
+X-Authority-Analysis: v=2.4 cv=TcsDJhQh c=1 sm=1 tr=0 ts=6ad75f70 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=FdTQldbedhwpIuYvQycA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200049
 
-On Tue, Oct 20, 2026 at 11:41:59AM +0200, Arnd Bergmann wrote:
-> The underlying problem is that the kernel is its own special environment
-> that is neither a standard C library nor a 'freestanding' implementation
-> and only vaguely similar to a mix of the two. We need certain parts
-> of libgcc but for convenience we want to force a link failure if the
-> compiler ever generates calls into functions we explicitly avoid
-> in the kernel like 64-bit division and floating point.
 
-Hmm, makes sense. The question is to what degree we assume those
-particular implementations in libgcc to not do bad things... But if we
-do, what about something like that:
-
-$ nios2-buildroot-linux-gnu-objcopy \
-        --keep-global-symbol '__divsi3' \
-        --keep-global-symbol '__modsi3' \
-        --keep-global-symbol '__mulsi3' \
-        --keep-global-symbol '__udivsi3' \
-        --keep-global-symbol '__umodsi3' \
-        --keep-global-symbol '__divsi3_table' \
-        "$(nios2-buildroot-linux-gnu-gcc -print-libgcc-file-name)" /tmp/libgcc.a
-
-$ nios2-buildroot-linux-gnu-nm /tmp/libgcc.a | grep '\sT\|D\s'
-00000000 T __divsi3
-00000088 T __modsi3
-000000fc T __udivsi3
-00000160 T __umodsi3
-00000000 D __divsi3_table
-00000000 T __mulsi3
-
-Wouldn't that fulfil the requirement as well? Only "vetted"/trustworthy
-symbols get exported/linked, while it is easy to add additional symbols
-if the need arises? (If we gracefully ignore the downsides, such as some
-degree of brittleness such as implicitly assuming that all
-dependent symbols reside in the same file as they will be switched
-to local, and the fact that this is a hack, and that we tie us more
-closely to gcc on architectures using said "hack").
-
-> > On a more practical note, while technically feasible, I'm not sure
-> > whether we can actually vendor/copy directly from libgcc; I think all
-> > code there is GPLv3 with Runtime Exception. (I'm not a lawyer yadayada),
-> > but I guess direct reuse in that way is problematic, given that the
-> > kernel is GPLv2 only? So I guess we would need to do a reimplementation?
+On Tue, 13 Oct 2026 15:02:59 +0200, Bartosz Golaszewski wrote:
+> Add test cases for platform machine lookup for GPIOs along with some
+> minor refactoring.
 > 
-> Right, the easiest way would be if you can locate a downstream gcc
-> (or clang) fork from Altera or Codesourcery before it was merged,
-> if that still has GPLv2 or a more liberal license. Reimplementing
-> the functions otherwise is of course annoying.
 > 
-> Adding Chung-Lin Tang to Cc, they contributed the original files
-> to gcc back in 2013 and may know a copyright holder that can
-> provide a GPLv2 compatible copy.
-> 
-> I also found a similar implemention for m32r that was still
-> GPLv2, maybe that one works, see https://github.com/gcc-mirror/gcc/commit/38b2d07632#diff-4de4f3b573100be00cf40045c85faaca8ded1f13ef80df1822889cbd6ad639a8
 
-Nice find, m32c-lib2.c seems identical to the modern nios2 lib2-divmod.c
-(save whitespace changes). This already covers:
-__divsi3
-__modsi3
-__udivsi3
-__umodsi3
+Applied, thanks!
 
-Regarding __divsi3_table:
+[1/4] gpio: kunit: fix the label of the dummy GPIO chip
+      https://git.kernel.org/brgl/c/26615aab18d5a2c71170cb217bd80ee2aaf937db
+[2/4] gpio: kunit: factor out common code for waiting for device probe
+      https://git.kernel.org/brgl/c/c3e8906112e0c2f139b6d2c3db25835e8ccf643d
+[3/4] gpio: kunit: rename the swnode consumer to a more generic test consumer
+      https://git.kernel.org/brgl/c/d4904cd39642e52291ec84dc9c1879cd811f4e09
+[4/4] gpio: kunit: add a test case for platform lookup tables
+      https://git.kernel.org/brgl/c/9b0183f6943516a071e74990646e95d046b082b4
 
-This basically seems to be an array of 16 x 16 (even though its
-linearized into memory) that caches the result of row_index / column_idx
-(with divisions by 0 being assigned to 0), so "reimplementation" should
-be trivial.
-
-Regarding __mulsi3:
-
-The iq2000 target seems to have a GPLv2 implementation; slight
-difference in declared datatypes (iq2000 uses unsigned, nios2 uses
-signed, I'd need to think a bit more about this), but should generally
-be viable.
-https://github.com/gcc-mirror/gcc/blob/releases/gcc-4.2/gcc/config/iq2000/lib2extra-funcs.c
-
-So we should probably be able to assemble a libgcc-free nios2 kernel
-runtime without the risk of introducing new bugs in potential
-reimplementations if desired.
-
-Best regards
-Simon
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
