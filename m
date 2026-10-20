@@ -1,98 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461190;
-	b=Gx7ZKvHaKDE7iv4nFLahx8JYaUbl2O11iH0FeQmkrq9thoV8VVR8FopyEohHoucCPQPu
-	 76D2riHL00a40/0NC6LMwHMSpJ9YtRJtz0npk0B2jKoYH3DrKFNn201vmY3YSmx99Duty
-	 boXPcdNMWmgIehekdMpjvJvMGDCHgESZE2BBhWmrZv2AK1lOu3w6YBw2RWlHdG+bYXLKy
-	 RunpO2B/9k1VkOiOmv9r1MznlVDeQc7VTnlKk+xkj2JBTsZ16nM/8Q2qJ7jOC/3xEBZuR
-	 kk+905eZPTzhYBW1g89HhkoqUX7FjaYQhOwymzwNHJdb+cRolxEYDlFQC38WUlDiuKg==
+	t=1792461555;
+	b=cNhiJyD1PcEO7sk/ktJ5WtHJAX/pDBSk2O85guge7+JtsaIMh/blO/eUTkR67YmZf5Z0
+	 RqvhC9u/Ag49751TDeqcXcJn5b/YqLhrcxRb3RUfpyTtx3AjmydoQhXieJdxqZY6l507j
+	 3kTnzvYc8v5A2PDd5e8pOIBdWO3YKIl4qXiMIH18Dzn9wWPExsYFuUHzh3Y7b0tDY2iRh
+	 W0v4YQHP5Ui1qNVoxZXIZmgqXG+zl/HRLMhMzjMUXUA7nXXFizwLOIjoDJJgAjhgGlnME
+	 XHPKJpFrdODipLTI3wWaZiXwQWKeIlTcsH8MD4YDq8/lUJ5TDr3O7COso7Dc1tPGcQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461190;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+Yn7QqCwXM8MPvwetBEr3NullDr5Aw8no0EzlhyW/Hc=;
-	b=g9tO17zxFoeQQaEZDqDzxzLJYVVk3KHIp25YsovhXftl+M78uKwcWUIeFTmAvykJOIDk
-	 wcohstsKUcYHTqLvewGHj12A2iJek7ydDpAXyFu4BmoJvYdq3AMLCQNzGh0qfIMUTnx4q
-	 76s3MThM2lswhMT9FH+u4+bj93gf2dEqGWxCaZB0qpwGDAxOhk5dwpv4pP8JWbaxFvwQC
-	 iMQ/co+IqiNKx2gHaQdkdk9SonZ2cWoEgk2M8wmGnty+T5r5o/uTW9u3O5mN9RO1lzJtf
-	 xbWjHCql7Bw3swPrwraUbj/vYHvhQRVU7C44fsn5Sw+u4NlCoxVfmp2ssdy1P/uj3eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792461555;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:To:From:References:
+	 X-Lms-Return-Path:Content-Type:Content-Transfer-Encoding:Date:Cc:
+	 Subject:Mime-Version:In-Reply-To;
+	bh=sYXJfMCvNM38xnLz5UTPMcoa7jKnJKm1Thyvo+ZxcPs=;
+	b=oJeEXN/68D67eN9luYfkWjTD+HWYS8ylrknj5iupSQ52kDAMXr0mFnTxnJDpUXEn306/
+	 DlYujpElTnoqYkglJDmuQjYm/eAZhjD92wya435sXA4QEBBMp494JTbEBputGc2EGOnj5
+	 4mXPw5+ET4EL+ZraXe4h9EtB77uhwZ1oVlDvVNOw1IqVAZPf/qE5Tdm9oVDoAdmwI3vL/
+	 bspSWqyRAFwkJqJrt+9xEoABWbVvje0jwGmwjqVSaHix4WztvWUPrp/am9SqcP7vG5+x+
+	 geyt1dGUBpnTDJ4JHK76j/nBMnPU0m41qX4Gzm7lL6x9iNsgTeLLt4Gr2p3BfUB67pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=erBHGhPN;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCA1606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:52:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCA1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8520161fdb9so1614077b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:52:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792461178; x=1793065978; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Yn7QqCwXM8MPvwetBEr3NullDr5Aw8no0EzlhyW/Hc=;
-        b=vumXSNSbI09RrtlcyVULpvJxp0EcPVGVRu33CuFCqb5NorLBDg2EPhJOoHYzUwuz+f
-         LxFgMsXL4GijHKtAhN/BqDlE9Qi3p9hYGCIOnGKa88rE5jwPUubOQuBXKPgdeQvryF6z
-         cTDvY0P/QacS26B23naXpIrswv4zBJYwfkVlFWmLaxxCSXRy1tdPB68EMsLumnwe4A+g
-         G5/PQ9b/87L91T4g2NUgqRe1o38gpLZk5NtO0oQnzCrT9cPThXF1ofoiQPSgJwbByVEU
-         RN9xqUVimW85F1iDXLYkovAABIPAD9/xGN42NYO9suCDT3daOKBldwleo0F3DxjtA2L9
-         ggjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792461178; x=1793065978;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Yn7QqCwXM8MPvwetBEr3NullDr5Aw8no0EzlhyW/Hc=;
-        b=PEy2+poZVvfd0OGNDHpTisRtHoeqAEZHTHpeNuR5Om0CWjth44sQbCWc4AXYIVML3I
-         AW5+J5Gimh+1fk9USWKUv1R39dmvJSBS8xhn6h6I3WCpXk2q14fpEhKXeGUaHNKNLw5H
-         OkdxPYVoMKo2V02/zVO+no8eBxgazLDFT1rtQCRdmOY3MtnTKusAjIt1LfFacuFp26RT
-         QQtJNXJnBP3YVNDLAK+Q/V+GnNurBEYkuV85kioYTQiv45USP8b6yAdAY87ZONe+9sNf
-         1psIHxoNqCwQ6K4g2HVqEH0gAheqebT0abkdqagj0qpoZS52q+BlKvSJ7mNbbFbOt8NO
-         ui7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzVX5uHVva5n896EMoxBo4WjhQT1omzS0oRPXMS0PXTmoa17mNr2k3ZGAm2WfjduPj/AyJhIkvK1UKs3bQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzkhR7yQt4G6Kr5Og3nS7yPxRsRmFKUxrpLxdWEbgNLQFWcrN5
-	ILEnArTEbBPRGo0HVEaKEa64CARRi4Z8uuqQpEm444M/RknQOHIZphxVPWvBDoOdsD4=
-X-Gm-Gg: AYBFou0tobSl19QaMreFGdNQZ4m43hTrIuYTFxV7wXKUqRviUVJ4smvPH7K4eCQEIkP
-	pkqYqZzMuKeXd+WqHx0YLxZFq6NuLKe5d4BcJXYrms9/DkU2W3kAx8Wx1Hz2nDbNKfceTiaJL4I
-	ZOue6M9Zzs4gM17u3peyd0sz1iCWifjavFSPl9t33RSlGfuLGFAeqdePC4l9jAbIMphFoH4x5Kb
-	TTzuZoi9WRjxSppBZjH7mthvCjhxczr08C822ErlhoNcqtoNQcVAGsNuYRmiE8DiFcAZbk+49y5
-	y1wCY7pbmJL9OJew0x9al0v9MkClkHO/zp9UokL3F+jpac6RkPX+dXtL76CbOCvNe2xD9MQcSNn
-	tzQPwC3KvXq3mom9Fmf0ocmFq54KMctKrJ0CjEwMybxpBc2L9JTnWHw1FNArW28dqPwoy0cFVJe
-	dNQ/LgplUeN148oVmFWNQ9g/cSikQK57uRZ5ZFUx8Lma6jzJQmgtZag+xJhN48UCAMxLGnM6K0P
-	aYNQg==
-X-Received: by 2002:a05:6a21:3947:b0:3e2:1418:aae2 with SMTP id adf61e73a8af0-3e22640bb6cmr7707121637.68.1792461178034;
-        Mon, 19 Oct 2026 18:52:58 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a15c57sm4551644a12.25.2026.10.19.18.52.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 18:52:57 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Fan Gong <gongfan1@huawei.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	Xin Guo <guoxin09@huawei.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH net] hinic3: bound the Rx fragment count to MAX_SKB_FRAGS
-Date: Tue, 20 Oct 2026 10:52:45 +0900
-Message-ID: <20261020015245.1117139-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020011209.13736-1-gongfan1@huawei.com>
-References: <20261010030901.1712792-1-yhlee@isslab.korea.ac.kr> <20261018170531.bILLh5Zw@linutronix.de> <20261019001037.3496843-1-yhlee@isslab.korea.ac.kr> <20261019221306.d6dfPY_y@linutronix.de> <20261020011209.13736-1-gongfan1@huawei.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77B8606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A77B8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=erBHGhPN
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792461548; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=sYXJfMCvNM38xnLz5UTPMcoa7jKnJKm1Thyvo+ZxcPs=;
+ b=erBHGhPNmN7aJeRpz8VfDyDKTaXVRnnHthO7eYvW03FplIyO8iohih0H8Wt5jZ+O/pQ0a1
+ Nqo+U351m+QFs212NyYO9RLsRFZI1l1FliC4wfpBiw3+VmZBBjvgCvHocMpi5QpRQK9L6I
+ B31rB/sbnRqG1NsX4wPUSpxUX9KYr7gpd1aErkFlBfcUofcmVZrXNsSOoJnF4Bs4ME3uUL
+ VEC3zfvj8aCtS8YCwbCF9tIkD3WmO46bFvggJE1WlqbWPWo1U8AVYzTXYe1ct0+peJ6oPX
+ yaJkjAON6/jl5gMHal/NyJg9JKzLupL/uguld63u0cMoOyKHCi2D5siBC3VYQg==
+Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.bdd59707.914f.4934.b1df.56dc1f0c27b2@bytedance.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+References: <cover.1791428412.git.weiguixiong@bytedance.com> <11ea12962bda75b3e8ef845084546647f79eca38.1791428412.git.weiguixiong@bytedance.com>
+	<1c19df7c-76b2-4dd3-b280-d6ab8bb45d4e@intel.com>
+X-Lms-Return-Path: <lba+16ad6caea+6afa08+vger.kernel.org+weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 09:59:04 +0800
+Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
+	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, 
+	"Guixiong Wei" <weiguixiong@bytedance.com>
+Subject: Re: [PATCH v2 2/2] selftests/x86/amx: Test dynamic fpstate cleanup across exec()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,19 +67,195 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+In-Reply-To: <1c19df7c-76b2-4dd3-b280-d6ab8bb45d4e@intel.com>
 
-Hi Fan,
 
-Thank you, that is very helpful, and no, it is not urgent. I found this
-by code inspection rather than in the field, so with the current driver
-unable to reach it and a complete solution already on the way from your
-side, there is nothing that needs chasing.
+> From: "Chang S. Bae"<chang.seok.bae@intel.com>
+> Date:=C2=A0 Thu, Oct 15, 2026, 08:19
+> Subject:=C2=A0 Re: [PATCH v2 2/2] selftests/x86/amx: Test dynamic fpstate=
+ cleanup across exec()
+> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
+> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
+"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
+, "H . Peter Anvin"<hpa@zytor.com>, "Shuah Khan"<shuah@kernel.org>, <linux-=
+kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+> On 10/7/2026 10:59 PM, Guixiong Wei wrote:
+> > =C2=A0=C2=A0
+> > -int main(void)
+> > +static int count_dynamic_fpstates(void)
+> > +{
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0char *line =3D NULL;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0size_t line_size =3D 0;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0FILE *fp;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int count =3D 0;
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0fp =3D fopen("/proc/vmallocinfo", "r");
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!fp)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -errno;
+>=C2=A0
+> The call site doesn't interprete the error code. Instead, you can simply=
+=C2=A0
+> call fatal_error() here and below on an IO error.
+>=C2=A0
 
-Please go ahead with your own approach for the larger packet sizes; I am
-glad to drop this patch in favour of it. I appreciate you and Sebastian
-taking the time to look into it.
+Will do. v3 drops the -errno plumbing and calls fatal_error() on
+fopen()/getline()/ferror() failures
 
-Regards,
-Yehyeong
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0while (getline(&line, &line_size, fp) >=3D=
+ 0) {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (strstr(lin=
+e, "__xfd_enable_feature") ||
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+strstr(line, "fpstate_realloc"))
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0count++;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ferror(fp))
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0count =3D -EIO=
+;
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0free(line);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0fclose(fp);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0return count;
+> > +}
+>=C2=A0
+> > +static void test_exec(void)
+> > +{
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0char iterations_arg[16];
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0char baseline_arg[16];
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int before, after, delta;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pid_t child;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int status;
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[RUN]\tCheck dynamic fpstate clean=
+up across exec().\n");
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0before =3D count_dynamic_fpstates();
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (before < 0) {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]=
+\tCannot read /proc/vmallocinfo: %s\n",
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 strerror(-before));
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0child =3D fork();
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (child < 0)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("f=
+ork");
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!child) {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0snprintf(itera=
+tions_arg, sizeof(iterations_arg), "%d",
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 EXEC_TEST_ITERS);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0snprintf(basel=
+ine_arg, sizeof(baseline_arg), "%d", before);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0execl("/proc/s=
+elf/exe", "amx", EXEC_TEST_ARG, iterations_arg,
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0baseline_arg, NULL);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("e=
+xec");
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+>=C2=A0
+> This nested exec() with passing numbers via arguments looks more=C2=A0
+> complicate than necessary.
+>=C2=A0
+> Instead, you could put the fork()/exec() sequence in a loop. Before each=
+=C2=A0
+> exec(), call load_rand_tiledata(), and adjust main() to return=C2=A0
+> immediately from the exec test. I found this also reproduces the=C2=A0
+> increase in /proc/vmallocinfo.
+>=C2=A0
+Agreed, much simpler. v3 restructures test_exec() as:
+
+=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < EXEC_TEST_ITERS; i++) {
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 child =3D fork();
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (child < 0)
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+fatal_error("fork");
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (!child) {
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+req_xtiledata_perm();
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+load_rand_tiledata(&stashed_tiles);
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+execl("/proc/self/exe", "amx",
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0=C2=A0 EXEC_TEST_ARG, NULL);
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+fatal_error("exec");
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 }
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 if (waitpid(child, &status, =
+0) !=3D child)
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =
+fatal_error("waitpid");
+=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 ...
+=C2=A0=C2=A0=C2=A0 }
+
+main() short-circuits when argv[1] =3D=3D EXEC_TEST_ARG and exits 0, so
+the exec'd child does nothing beyond returning. The baseline/final
+counts are taken by the parent around the loop. Confirmed on an AMX
+host: unfixed kernel reports EXEC_TEST_ITERS leaked allocations,
+fixed kernel reports 0.
+
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (waitpid(child, &status, 0) !=3D child)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("w=
+aitpid");
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (WIFEXITED(status) && WEXITSTATUS(statu=
+s) =3D=3D KSFT_SKIP) {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]=
+\tDynamic fpstate allocation was not isolated.\n");
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!WIFEXITED(status) || WEXITSTATUS(stat=
+us))
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fatal_error("e=
+xec test child");
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0after =3D count_dynamic_fpstates();
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (after < 0) {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]=
+\tCannot read /proc/vmallocinfo after exec(): %s\n",
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 strerror(-after));
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0delta =3D after - before;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!delta) {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[OK]\t=
+Dynamic fpstate allocations were freed across exec().\n");
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (delta =3D=3D EXEC_TEST_ITERS)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0errx(1, "[FAIL=
+]\texec() leaked %d dynamic fpstate allocations",
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ delta);
+>=C2=A0
+> errx() terminates the entire test, preventing subsequent tests from=C2=A0
+> running. Unless this failure makes it unsafe or meaningless to continue,=
+=C2=A0
+> why not report the failure with printf() and let the remaining tests run?
+>=C2=A0
+
+Will do. v3 replaces the errx() with a printf("[FAIL]\t...") and
+returns from test_exec() so later subtests still execute. The
+failure is still visible in kselftest output.
+
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0printf("[SKIP]\tDynamic fpstate vmalloc us=
+age changed concurrently.\n");
+> > +}
+>=C2=A0
+> Thanks,
+> Chang
+>=C2=A0
+Thanks,
+Guixiong
