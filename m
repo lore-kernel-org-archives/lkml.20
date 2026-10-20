@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459811;
-	b=k/p/Dz2FQalZcnP7uDiDHIOXol+3hoNuGL7QWFd+SNIDSc5rqKXzL/ObXHpbqwMwmViz
-	 aLDVjuXrQAQC4iL6pY7ZvsuDlHqnGFk3/6DDBeZZ5ZPHbcJSlaqMMpPUqDbjcdEI6mEKZ
-	 d5kdG+BZM92q7+8WIlh6J1CDpmAhqEeTZMyOakBp9CclXcvTSrLTbnXW1NrqTMTy/3yoy
-	 yBZtoW88w4eutydvmsN0vlFNTffnXCLJjFsIebzUFwJuIDuhQtiRS7FgmZZSBPiqKORYy
-	 cDDcz0LVrP1SjpgyKtCk6xgfMOCodqPx7K163CUtMGUDQfXMO8EvUBKGheAHNO0yoXQ==
+	t=1792459871;
+	b=rv3f/hzTxzew/MKYZLEfDWR6ONn17E+mDJsI71oM3WDXdhW1iSdO1/XS1pzyg1vlCBeJ
+	 oKpr9MibZ1Lk07LyO+L0i/MExsWQlS5QPcY3h2vgPQmtVr18PYSga47Eq/F2oc539J/MC
+	 0jET7XEwn/wgwhPx99fRnfLRJJUzwlxsuEpIuKryx1CxOm0UAmqCMQdbo7tyM9lQIXjz2
+	 iMG1xlH1vZBpJy7cnS4uca0xXFVaRg+z/tWPHe27QeC0V6xYRQbOm43RgQW7NW9a3/2Ag
+	 j+OX6NHNcQQIQo3RUWT1M+9i9ajCKYXC/AkyQEYzGU6XvGWLdSPcddAq9UohCTUmHbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459811;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=Nr/CEPOzBBBJCwa/nOw7aYctJE8L0LWSYjvBLUHHXPY=;
-	b=3yl0R8bHVGC0NnUlCGxzDy0TkprPlZec/hzzMvZPnlr6T2wzHT9i1/6Nwz6/PtBcjbp5
-	 0MpDoptpFS11G+XMef9DW2Y6/C6XVWlCcriuZPC9Prq/I8jVxR2TQCIMMci7cZZVSnG+l
-	 1/3Fv8h6UVRNJ91WOUe75CJJStEKxgMg7PPm8mris4o2yvPOSYcIoyuhLwF6XEhSNj4gM
-	 /cpZW/+Sse7GdfHN22wHLNfd7zZ8hhxkbxYCHwnxS5Or7rU8O/qxut0EV+MmUTvW5V3y7
-	 rRGdGf6GKGK+8fen1JRSNUhFftwZ7+Rj9hkEbsZVZfc2uED+sOCH3XDqpct5pq/N9qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459871;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=FzrF64kiEKqqwWT5o3bxL2C80x1Hbvhrh6y19AZ3iRw=;
+	b=pCV15CqsNyXo1xoM7JW8Dd4+wDlAy+NaJr7lGMVj+u/07ondn5VyauKQx7lHizF/TjHX
+	 8LmYUTsTRfdVt8mFiAGImwBv4tmgVDP5p5Haa9Bij8Dtd0pzlTUuoQlzJF/WdKG6in42r
+	 MxVJ1DeYFxdYM9MAOgmfFIvXtMxH/vHdvuqjBkMJgLLViu4EbdfeCimy/vIiLS0RnNVnc
+	 zBGSsertjhjG7W5d1LXgEsPAL1iRmBnaeREIVT/2R7EfWYYqwpvq8zPSbWEZvfIka94r2
+	 SZUHBobevWsa9hcRGEMmVXlXmBk1Rj4qMfhdmJfZA9d6zz8is/6rux10XerAToc7aPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs4TBmWI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aPdLPZff;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4A2606A326;
-	Tue, 20 Oct 2026 01:30:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCFA606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DCFA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs4TBmWI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81FA11F000C7;
-	Tue, 20 Oct 2026 01:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792459810;
-	bh=Nr/CEPOzBBBJCwa/nOw7aYctJE8L0LWSYjvBLUHHXPY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=hs4TBmWIMGctWAukjihukJ7atoeVBirF/LnPAu73mOyajryQCXsDFMf0d+2XO72qu
-	 bjG2D1Zh5FQ3e1DSdbjvDZ1NHqH2ogFtItObFiC0AMeS5ixGEskHkP0/5usG22DNL3
-	 3YMnsJxOLfYIKlx5VDbb4vsUl5ZDEVVG053ehoo+ISqgd5gQDSp16GzDWJm8gABkoB
-	 7XQUwiG0cYoex+PAwHzS3T0cjZqaNzgbdgthAFVDhs2yt5erMGRWYVZrk+pWMRL17q
-	 wwjIX4BRiAX49ilMn1knt4L/KyCDso2wxwsS7/LdRuyTV6ZfinskX/XUlqZGzhGkuH
-	 4lAbjsd0an9bQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 774283924A6F;
-	Tue, 20 Oct 2026 01:30:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aPdLPZff
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35c76e9614aso5153612eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:31:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792459871; x=1793064671; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FzrF64kiEKqqwWT5o3bxL2C80x1Hbvhrh6y19AZ3iRw=;
+        b=aPdLPZffNmo217G9eWGlRm1FdljKwmlMRRhAYx4MmC6SLEKjyRsg8qO+e+UU4wGfvK
+         IXxJKWu/71cohwDuIAM72o/901AzzXVFeZ77ai8hv9VfcGWR0iGFF03S3/8r0AkeI+rk
+         MmEHUgxBULR6/gEWt7F4jqrP4gB06tCzw0R36h3mYFNJwFKdzxAGXo8xSDD1cUZaKixW
+         JLRFEeZ5KnqR2IQdmpyRdrLMGxT2y+7geNUYN1cc7/3tZDN6dfb1ONb+fawinXq3kKiO
+         DQl1LKXtuLia+4Ta/39Xng8xFeZ6ebvCiIWk9VWm0rM+i2YkypHQHTFQDBxHRYI3Xgfc
+         72WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792459871; x=1793064671;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FzrF64kiEKqqwWT5o3bxL2C80x1Hbvhrh6y19AZ3iRw=;
+        b=FJ89aZom/1pW37Jp+94d8Rpflzy/fUWmToBfhPh/FfJlveQb3tkzvSOl5jE6KkXfIH
+         H5P5GW093fAyXQrfh2J0FENmU9gEc4fFF2s86DHhJ/mdtfegrxm2BpyY1rBx09Cor9LJ
+         Z7FCKqXW94R59vBPa7b66KT4QbTtidebqPNnWNoaUNOq/DYYvzmoEkQP6/9/Ux5t9+nf
+         f7xh104z2R1XDTN7Q4xyNw+aA+2ORxw8o0QNGkk90lUjOTZ6HSc7A3ul9UOyCVfjzkQL
+         1sIA3mJdNH+2rvGxNBVlnwfXJG9DTAkuho5RNGUghb2AwX/MUtYi4LY2k4QCasRNVbwi
+         po4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxlULJcRLEA0EnNrvAheNN4N3zTYnuhnbyVEmL3t0HLbY5I6ttNdYtLSwop8PWgjAYeXbzwr+dU6a0AcVY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxYAkf+xGwRroCFfphf6Wv4JCBtUBFT6jlGonONKScs440X51X
+	lGZ7u0uCwZi5Ur4AJjvbYOTqZ/U8lcpHTIgVIaAwAiulyVPIrJQiPe2a
+X-Gm-Gg: AYBFou2XpqUBMIujCvofrkru4sLjw+NULy2uEMKyLwo7yDfA6yJTqOm6Y3RNSWNXOVV
+	BlJi/tj24smUGUsYKvuzcgwyi/pteAtLoeKDWztq+OZt7xug1MozZfdokLTOoQxmv/r35BCgXWL
+	UYp7PtNEpYjeAqrPbQcGgJgOQfhI8B87F/4MvXXZM20zssYLwUp3Q34M5rjN0JkgZ5fd8wXcOEs
+	SeUKnvr1Fn2MmZfLDiLo5J/MwUwh5DJAQ5A8+V3QgXLHDA1ccz3xF5MEhm7SEn7Es40CFG/aZbW
+	6B+0SM8kTljWzNUMbS9ZJtJ9GKh7Vvi3ycOJ7jzfI61LvNEAH5n1qgA0FXEKrYWctKC4czsKJ/l
+	RBmslaOESqLcSiGyPCrCpSGw/twAHUz27Dc7Bz2uiNofiDzbIY0CLPTKXGhy7Bbep8TBMHbdNxF
+	eoohIN0Kc/uVj6Rn8s0+C+azbzHW4AZ1QWwZJsQByq9wLZYy50xB/Du+bM1itjiDtfwB7UaYYF+
+	uDkBF2Y3FUD
+X-Received: by 2002:a05:7022:f51b:b0:159:aa67:28c1 with SMTP id a92af1059eb24-18512b3e25dmr13513794c88.20.1792459870405;
+        Mon, 19 Oct 2026 18:31:10 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-185aaea8b24sm25427211c88.19.2026.10.19.18.31.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:31:09 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:31:08 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: watchdog: qcom-wdt: Document SM8650
+ watchdog
+Message-ID: <4b808464-c860-451b-b179-fdaa39e14fbc@roeck-us.net>
+References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
+ <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +106,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next V2] net/dcb: Validate bandwidth for non-ETS
- traffic
- classes
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179245980903.3422113.4762636508765499257.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 01:30:09 +0000
-References: <20261011083929.739261-1-tariqt@nvidia.com>
-In-Reply-To: <20261011083929.739261-1-tariqt@nvidia.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- alazar@nvidia.com, cjubran@nvidia.com, gal@nvidia.com, kees@kernel.org,
- linux-kernel@vger.kernel.org, oss-drivers@corigine.com, horms@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sun, 11 Oct 2026 11:39:29 +0300 you wrote:
-> From: Alexei Lazar <alazar@nvidia.com>
+On Fri, Oct 02, 2026 at 11:45:28AM +0200, Neil Armstrong wrote:
+> Add the SM8650 compatible string to Qualcomm watchdog binding.
 > 
-> The IEEE 802.1Qaz standard defines that bandwidth allocation percentages
-> only apply to ETS traffic classes. Reject ETS configurations that
-> specify non-zero bandwidth for non-ETS traffic classes.
-> 
-> Placing this check in dcbnl_ieee_set() enforces the constraint uniformly
-> for all drivers rather than relying on each driver to validate it
-> independently.
-> 
-> [...]
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Here is the summary with links:
-  - [net-next,V2] net/dcb: Validate bandwidth for non-ETS traffic classes
-    https://git.kernel.org/netdev/net-next/c/0e36a335c84e
+Applied.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Guenter
