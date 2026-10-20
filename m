@@ -1,96 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510276;
-	b=a2YCB9ZQ79Nsjp3KetmMc8irCePkmOEaQ5MtXH/vGxMR+lzNc4lk0F/Kd96sbeN+jfmy
-	 9BgCLXkJRA8EA0ke51fcTYP8fR96XNqQDJJOOwBGHeNFoYwIn3Kr1636T/HlgLTLikk9N
-	 SMWlk3iKOzpBo7kFMFqxfK+e8qlro9ECJomyKrSxIzDyEssF5fRqNwuSv2Ps+a0IjWtfO
-	 XYOKAzTj+tkydeDqeizR3O2fdi17dg9Qo9l0Lf6IolY1kcmtAV73aCIuWG3RU2ob66Hfh
-	 FdaTFGlNP62bquf9bC7arRMElYT93/eX/zepKL+2IJfmmvyL8+8+1JyuBC6tHcr3kkw==
+	t=1792510287;
+	b=1VjTCKxTBQcPEumKRD6sarfeorTc6IqENkzbAKc4723Pf+oDn4tB3O+PRC0bhrQ7OcNU
+	 ujpqrWqczu+AR1ajYL6gT67r74sGbiYSfW7FdwxYynqoEwo5gVmjVJyFbSWqMfl/ouHnk
+	 vlhDKSevboscPiBwBLWp/9+3y73hlpuhr5Yn/EuPnVLNXC3FtGukHNIVSSEdhy2LseiV0
+	 OYqGlSqh6gRBHixcXLaBopG+6PI4Sbzwku9V93O+YYkrqZeAfEOjIB2w5qr7dTXr1GKYp
+	 aBvgOoGfqn+FtRnvrfrWZf8bBgGa5ywSnPZFlpNYr6d3VA9OAEHJd1PQWU0XVhUQvUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510276;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qsoSLYus+M1tCAzqI/ZNpAHRrLwoOIcxK2qsa3BkpZs=;
-	b=GGXaqwUYI4W4q5kRnG8o1bPphRfJjip41zaROL5i+NgMurK6SxU/i14lAiDgNBL6oS6v
-	 YcGjIJyMhjvn/4LNJTsksFc3OR800syUA4/PQOWsDtrLlVyHbDZA4DqjrUbNUn8IiHobr
-	 53XpnKkMONS53cXO31NsFjVgPHsmxp2l/7Pubq0s3p1BkTe39OfE77uhqjNGWyrQuzkKY
-	 jXtsW0ZdQCUHG8jy6UqENGj9w2TLWVzwnlUNx9umXjtqFz8+PBkR5DqN/xhFJALbG6fb3
-	 cxiQQpats4NkyHiFP4/0BZH1CjrvdXtjvba9wuWV1fBC9IiSlrisnhm+E/x+S8Krm1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510287;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gD63owEzMiG0c11J7YSppIWr1GVHffvHvAxoSrCh85I=;
+	b=jUBgfYpzE1Quq8SxI2ExTrOMJet9UPyL2Rfa9ILyfCFWITn34r8ZM/PBm5Mlo6o+FBQR
+	 pBNZmk+XzhrjQrZ1Hn3FpsRu25DMk3aUOj0BZjRQmghUQy/FJHklarYiRTQcIM0GUif8b
+	 YVO2jYsc7l1rGNxR72f3wddAyPZuo+fVc+EnHFZrMnW+q232eMuTbb3/mjzoZrlnmraKv
+	 RQigNoyNA4UGIwXGCdyGAK30WaNPadrKQ0FTV9rmIhvAD3zFKJ3bYJYkN4yFE2coqes2Q
+	 VKzW0+G00NgJAFfTxyOd2pmcz8Da4MAZZSzkjuXa8khzUfbWPgGqjNNHO5W2Oz71OsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p9V+we3v;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=onurozkan.dev;
+	spf=pass smtp.mailfrom=onurozkan.dev;
+	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=YkuZgdB0;
+	arc=none smtp.remote-ip=109.224.244.108
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4608606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:31:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4608606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F046606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F046606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p9V+we3v
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so9760915e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:31:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792510274; x=1793115074; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qsoSLYus+M1tCAzqI/ZNpAHRrLwoOIcxK2qsa3BkpZs=;
-        b=p9V+we3v1bSecIybHxsxM454TeWmuCMmdqKwv724cigxeNMU3C48odpzjFjJVRTeuL
-         FdahkGhmGg8Vk3aMjbUQmF2HnnyNM2EqVvVCpp2HqJ/gO+vzYMtAOXAedCsninSfZ/18
-         S2phVMfDFEDnoktgmtMqyo2/jQqZ3p1FRPKIUOP/iB6dn2ND8eSsQ8SXotGJUM/GKjah
-         UnQoE2JoO+FdD7A9g7At9H5ZIKELCyCPHnJp1/NIN2/CMQn9INRy1FSs450in2BRz0Zj
-         MG0qOD1Fx2YHBke7goite6W1MayeX+DniL0xoCuKveN4maA3IMZaFfaU/8U74tH7GTjv
-         1Nkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792510274; x=1793115074;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qsoSLYus+M1tCAzqI/ZNpAHRrLwoOIcxK2qsa3BkpZs=;
-        b=IPgMeuKwNGP1CKubJUo9pxbGlXakWmCGCBOR5d/QAfxpOBEakYBdTwu7rviuviSAs/
-         jprQyG1EZ2EO8Ibqtxaa+Ho1fbXLRWsgJxjKKaM9yptho0RsYXlUOsIZmhR2x0inu3ay
-         5yEzR21FupqqQpGl11jQQCcFi/PTi3jYP+sOk8NNVRjfGw1+ieq1I3cQMHBoYM30EacE
-         B54QNYVvvrYncQS/8ZWu7Xr1FlY2Bxko7vLaH/RUnu8cnx4EXDuZV6B1cRcZWUD/xg/a
-         1DlLgIEyYZxFcqZuZA8YUzC8rr/thc9XsCjLnFzifoMh2NLc6fc3WjAUiUGip6FC0pPZ
-         mm1g==
-X-Forwarded-Encrypted: i=1; AKwUvBx/HPZFy1K54eBdDYlHdJ9mvu7eDm8M4IizT4VTME+B0mmOCbhzq8Zivt40SlwGSm6ZuzVlhmzPSm9Ar9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrc47GV9rH39R0oHKz/M/PgGCEA3Wx8VhjRYaiSPXrdraGbexX
-	VS9EEVnvSFcX5T7aUv8GIiVbUeyR9H1IpOOnmCxemOs5ZflCrT/bJAjn
-X-Gm-Gg: AYBFou1cwPrBAAVM50NpLxUY0IhS3HX+NbCs0nw0Bti711/kvVDfuD0kI97ODEQ1IQe
-	1T3s61pcHKdNjrVwFR4gKeWFhKxAQN8GY/5akYn8554Ldl/BA8etK9T8rdC9HnRsE/Exb9i96v1
-	Ijkin2TtBNDdOMPrXoRJkoU3C2ToC/Go+aQDshFjDr24g6rnVM64y8jylnWrVAZ24qGsSgYyETc
-	w3DB0HMFWpLtBDDjbnD5mys5tmOmXrkTAV0JLhzMWmTi9x+w5GNQetZEGrWiYR88k0VulbpKmJQ
-	gBU3cGiJRRUT6It14V54uvvTydvaBUV1C/Cn2n9XSO+qEvvs9m2e1ZWbW0vRMxxhbUhnN2tWEjj
-	nwuBU4+wV9BulejaxeBhC9TzZC3IZgYnVwmvV+N+IPsH5bij3RTn/JB4OxCss9zT5Ucj0uWdi8j
-	wyoR5RAWopwL5eHreLOlMXNLZn3da1OXi6HYRDO7ClRRfNK2wZa1WNIfuq+y/EOKj5YZFj
-X-Received: by 2002:a05:600c:8b2b:b0:49e:63cc:6324 with SMTP id 5b1f17b1804b1-4a1f4c80374mr69433495e9.6.1792510273908;
-        Tue, 20 Oct 2026 08:31:13 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818c59sm7271629f8f.30.2026.10.20.08.31.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:31:13 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: netdev@vger.kernel.org
-Cc: oneukum@suse.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=YkuZgdB0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1792510284; x=1792769484;
+	bh=gD63owEzMiG0c11J7YSppIWr1GVHffvHvAxoSrCh85I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=YkuZgdB0XDDjHO87WI2JKqLwReIdI9y7CSPCvZiDcDyZlTKWzo6zMofgzq2YrqbIf
+	 SlRO9UVahsig1S3zrP8tUtYbSuyTFbx+ftH5DtsU/oikDd+XMlWSlX30IdUhK5p3Nr
+	 3PpLjgvMHOee+D0iqlFmk7GniFZ8vr7EPqZT0UTTKHKK0CdCPykDx6BkTz5o/Y2s4V
+	 jevpnVIvJAXFZqNnL+QWYjU0OrC+oCP6szqyLZCPeSRYdYhxrztm819rjiRa/f98Ir
+	 qdPJrXZz1Iakb8m0EoRqhVGWlQoJK0tG8fwVAiRfjb1IPW0XaTMleAN+ZdYMcwBoat
+	 RtQC0DBQUrSPA==
+X-Pm-Submission-Id: 4j8GbW4Crdz2ScPf
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: rust-for-linux@vger.kernel.org
+Cc: lossin@kernel.org,
+	lyude@redhat.com,
+	ojeda@kernel.org,
+	alex.gaynor@gmail.com,
+	boqun.feng@gmail.com,
+	gary@garyguo.net,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	will@kernel.org,
+	longman@redhat.com,
+	felipe_life@live.com,
+	daniel@sedlak.dev,
+	daniel.almeida@collabora.com,
+	thomas.hellstrom@linux.intel.com,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH net v4] usbnet: fix EVENT_RX_PAUSED race in usbnet_skb_return()
-Date: Tue, 20 Oct 2026 18:29:09 +0300
-Message-ID: <20261020153044.18828-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: [PATCH v13 1/7] rust: add C wrappers for ww_mutex inline functions
+Date: Tue, 20 Oct 2026 18:29:37 +0300
+Message-ID: <20261020153112.299745-2-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20261020153112.299745-1-work@onurozkan.dev>
+References: <20261020153112.299745-1-work@onurozkan.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,77 +85,85 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On SMP, usbnet_skb_return() can observe EVENT_RX_PAUSED as set on CPU0
-while usbnet_resume_rx() clears the flag and drains rxq_pause on CPU1.
-The skb can then be queued after the drain has completed and remain
-stranded until the next MTU change or device stop.
+Some of the kernel's `ww_mutex` functions are implemented as
+`static inline`, so they are inaccessible from Rust as bindgen
+can't generate code on them. This patch provides C function wrappers
+around these inline implementations, so bindgen can see them and
+generate the corresponding Rust code.
 
-Synchronize the EVENT_RX_PAUSED state transition and paused-queue
-dequeue operations with rxq_pause.lock, dropping the lock around each
-usbnet_skb_return() call to avoid lock inversion. In usbnet_skb_return()
-use a double-check pattern under rxq_pause.lock on the slow path,
-keeping the normal RX fast path lock-free. Use spin_lock_irqsave() to
-match the lockdep class shared with other sk_buff_head locks taken from
-hardirq context in defer_bh().
-
-Discovered by Sashiko, not triggered, not runtime-tested.
-
-Fixes: 43daa96b166c ("usbnet: Stop RX Q on MTU change")
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
-
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Onur Özkan <work@onurozkan.dev>
 ---
-v4: Use spin_lock_irqsave()/spin_unlock_irqrestore() to match lockdep
-    class shared with other sk_buff_head locks taken from hardirq
-    context in defer_bh(); restore local_bh_disable()/local_bh_enable()
-    around drain loop to preserve BH context.
+ MAINTAINERS             |  1 +
+ rust/helpers/helpers.c  |  1 +
+ rust/helpers/ww_mutex.c | 33 +++++++++++++++++++++++++++++++++
+ 3 files changed, 35 insertions(+)
+ create mode 100644 rust/helpers/ww_mutex.c
 
- drivers/net/usb/usbnet.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-index 84f97f448b2d..9c4a23d8cb86 100644
---- a/drivers/net/usb/usbnet.c
-+++ b/drivers/net/usb/usbnet.c
-@@ -329,9 +329,14 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- 	unsigned long flags;
- 	int	status;
-
--	if (test_bit(EVENT_RX_PAUSED, &dev->flags)) {
--		skb_queue_tail(&dev->rxq_pause, skb);
--		return;
-+	if (unlikely(test_bit(EVENT_RX_PAUSED, &dev->flags))) {
-+		spin_lock_irqsave(&dev->rxq_pause.lock, flags);
-+		if (test_bit(EVENT_RX_PAUSED, &dev->flags)) {
-+			__skb_queue_tail(&dev->rxq_pause, skb);
-+			spin_unlock_irqrestore(&dev->rxq_pause.lock, flags);
-+			return;
-+		}
-+		spin_unlock_irqrestore(&dev->rxq_pause.lock, flags);
- 	}
-
- 	/* only update if unset to allow minidriver rx_fixup override */
-@@ -700,15 +705,18 @@ void usbnet_resume_rx(struct usbnet *dev)
- {
- 	struct sk_buff *skb;
- 	int num = 0;
-+	unsigned long flags;
-
- 	local_bh_disable();
-+	spin_lock_irqsave(&dev->rxq_pause.lock, flags);
- 	clear_bit(EVENT_RX_PAUSED, &dev->flags);
--
--	while ((skb = skb_dequeue(&dev->rxq_pause)) != NULL) {
-+	while ((skb = __skb_dequeue(&dev->rxq_pause)) != NULL) {
-+		spin_unlock_irqrestore(&dev->rxq_pause.lock, flags);
- 		usbnet_skb_return(dev, skb);
-+		spin_lock_irqsave(&dev->rxq_pause.lock, flags);
- 		num++;
- 	}
--
-+	spin_unlock_irqrestore(&dev->rxq_pause.lock, flags);
- 	queue_work(system_bh_wq, &dev->bh_work);
- 	local_bh_enable();
-
---
-2.56.0
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 47946f1c507b9..198bb740f7cc2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15283,6 +15283,7 @@ F:	kernel/locking/
+ F:	lib/locking*.[ch]
+ F:	rust/helpers/mutex.c
+ F:	rust/helpers/spinlock.c
++F:	rust/helpers/ww_mutex.c
+ F:	rust/kernel/sync/lock.rs
+ F:	rust/kernel/sync/lock/
+ F:	rust/kernel/sync/locked_by.rs
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index 440fb7638e3cb..0287064c82c18 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -105,4 +105,5 @@
+ #include "vmalloc.c"
+ #include "wait.c"
+ #include "workqueue.c"
++#include "ww_mutex.c"
+ #include "xarray.c"
+diff --git a/rust/helpers/ww_mutex.c b/rust/helpers/ww_mutex.c
+new file mode 100644
+index 0000000000000..e7aa65ac58745
+--- /dev/null
++++ b/rust/helpers/ww_mutex.c
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/ww_mutex.h>
++
++__rust_helper
++void rust_helper_ww_mutex_init(struct ww_mutex *lock, struct ww_class *ww_class)
++{
++	ww_mutex_init(lock, ww_class);
++}
++
++__rust_helper
++void rust_helper_ww_acquire_init(struct ww_acquire_ctx *ctx, struct ww_class *ww_class)
++{
++	ww_acquire_init(ctx, ww_class);
++}
++
++__rust_helper
++void rust_helper_ww_acquire_done(struct ww_acquire_ctx *ctx)
++{
++	ww_acquire_done(ctx);
++}
++
++__rust_helper
++void rust_helper_ww_acquire_fini(struct ww_acquire_ctx *ctx)
++{
++	ww_acquire_fini(ctx);
++}
++
++__rust_helper
++bool rust_helper_ww_mutex_is_locked(struct ww_mutex *lock)
++{
++	return ww_mutex_is_locked(lock);
++}
+-- 
+2.51.2
 
