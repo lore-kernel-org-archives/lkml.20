@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487572;
-	b=y0ImsnAidx0WWwUjWEpQhr8kJ8bwysRCGfgSk5CUEXlh6jc+PZc3FpEanKR9NCdyyuEd
-	 5hj/p5Tlq128mNxw+YTPq7nK+YVj3oRL+rSE1iBD+3RSsDm/X1CGa2oUlfQOHhHwD8Ije
-	 5yyXkhyLWaYu75rM69H+UTMsFCl4zqtXjQa4o0zv6aeaqPt18K5M7VPYnDM55sBbCZALG
-	 Rz/dtxia3xxF2/YJMAeXhuN/nMt32CTfD3shZ2hYeAQvR9fCUNCkPi4DcDpodYICd0Sl/
-	 tzswN5ntsjAhkY4klFUUdpznGic5PNpiPQ1VVnYE23D8d4BXEm7frnrbkd+nGzrC8eQ==
+	t=1792487570;
+	b=snnl9AnT9gzSVtZsfzXF4tRKmXz2GJ8fIuqzlJJKo8AipvIeD9vOc6yxexNqdy6f2LlN
+	 Dk7ecXdNcaHeSLDCU96QNHEkZ8wQExjtaJnoCZeVGFW1jOt242DexdVr3PhaQBJZ5u9jZ
+	 Xi950j+Vsl5uQppDnE/9N93RACwEaaOB1OKlnCBLZxhZgV/vEdcbpL/K/KT9cWWbkOVZU
+	 p4FeRCn8JCOpvoEHHO5tz+xbvNlhVG6hwvrNi4rbx1NSZR0BFCkvI6WreyiEH/DlawkyI
+	 VZL1gcbB6nyLy0I7fsRwqDiniETFHnjUXB0SS+276OhtJ8d4TOwfNebPEr3cpyVaUng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487572;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Message-ID:Date:
-	 MIME-Version:User-Agent:Reply-To:Subject:To:Cc:References:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=vU+z02vLYKXPdaAV10b8G93MI5kusn0c4HjxHq8ujnM=;
-	b=baYD2oIOWGJp6C4sr6sNI82QiWp4iu3LP9PL9GbX1yw6vWOSfRo4/XY+iK4IRKoNLU9u
-	 7rxOpBAim7x3WO0+GuHFc+izWhwyqdGMEOuh2oTHlywMrdfW+a2RUPeTYbWNhaC0LtSyU
-	 k/MNACZLXADJ4dar8RBY+XimqLapEGrWw0vdrW4m0Y7c8tsxuqWI5gYHEsH7Ch/aJpNQT
-	 g/SZuv0aNkiQt8HyslOewpk5ExXgObcd6tI7ilgglBczRbqjBFYo0/7vPEBQBwzNTX5Zd
-	 4jhax+cBP6SENY1cDPtpDydGnCOBKsm9Ft3sNMMvNZONr8L5mgIEA37JOedLi1itGew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487570;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Z2Yo1/XiOrcUXheVTn9+xY9fWp3kcxzw8c0Qs8GbwAY=;
+	b=O68EkngGxqjiCf3TyNzbUuItYANetsahla9JUH0jCXcA4SFxMM6tZ3w8WAO06QZrcD4R
+	 mA77UTToO4ADnhCmhVGIfTv5Y0ZgIGeaeyUxuROHhOaBaBAuJMY8FtHvyxksO2uhCmjSp
+	 jgn7ZswdxfeVQ/ZR0SyjNQivzLjFXLO9yCIruorRkOCYCy92JicJEk+XS2W5VRkjUKYBP
+	 dpcb0E+E8s1135KErI0qo2G3zR5cjsE90yDhkjkFafhT1xDPsOwQJ6B8EG/FzoXEihr/X
+	 GHue/vfgmBqHsKJFNP9kQOBNQJPtJBp+M3GjlvkGsMqXT1w6pjYQL03SptPDNZkbaRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=radxa.com;
-	spf=pass smtp.mailfrom=radxa.com;
-	arc=none smtp.remote-ip=54.204.34.129
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k5aC7rgR;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C00C606A331;
-	Tue, 20 Oct 2026 09:12:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C00C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpgz6t1792487489t04aa9426
-X-QQ-Originating-IP: xblyLXtYUkaN+mcRUZlY6MFFt1npan14bWp9+SQNemM=
-Received: from [127.0.0.1] ( [180.159.160.209])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 20 Oct 2026 17:11:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10771054805953698164
-EX-QQ-RecipientCnt: 32
-Message-ID: <C782C697D7D26A70+05200ff5-c7c6-4425-ad15-67222a2ebacc@radxa.com>
-Date: Tue, 20 Oct 2026 17:11:23 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32261606A323;
+	Tue, 20 Oct 2026 09:12:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32261606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k5aC7rgR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792487569; x=1824023569;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PYDSE242dk2ojzWGw071/FezZUjihxz5hqfoejj52PQ=;
+  b=k5aC7rgRnk5bPf6hMRHSTQmFXOgdFB+MhZi+D309cNZ2omuUTG+GpCCE
+   CFDzvK/G1GeBX7JojIxGDjNbls/D3f6uMRgQ+6UKkGu0jJqaH8p+H13cf
+   3fxKtRguBQzzrUMquCA9k324Na7yt31Nmox9grmit+87Y+Lmt0ZSZ2+ga
+   gW9aU9gGgRSup8sSLK2xtWUiKYy/xs7OPcSFR4pJFDbT1C+L2Rtd6cehc
+   pwwB7sqTmAXFlNJpr8VVwTO9xvYnNqAL7UfKfo05D4Ob0XTRk1SXR8Vda
+   6jbu3LQMbfCYZet2u4iqGrYcsbQB4vXc7bb9Z8qeH1z0wclrA4EdWlhn9
+   Q==;
+X-CSE-ConnectionGUID: Q29NaabsQGOlaOKMPhlqgw==
+X-CSE-MsgGUID: PZ/TKTLyTU+CguUkvhHSxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1196818"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1196818"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:12:48 -0700
+X-CSE-ConnectionGUID: kyXz+3AtRQ2m2UZJ9f6aJA==
+X-CSE-MsgGUID: V8cMHt+SSH+Z6mTOG6ItyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2729765"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:12:46 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B02F311F7E8;
+	Tue, 20 Oct 2026 12:12:42 +0300 (EEST)
+Date: Tue, 20 Oct 2026 12:12:42 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 01/16] media: imx678: Rework into generic Starvis 2
+ sensor driver.
+Message-ID: <atcwiviV8CG9Bddj@kekkonen.localdomain>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-1-75fcdb4163f3@raspberrypi.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,226 +91,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sophon@radxa.com
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
- dragon@radxa.com, Daniele Briguglio <hello@superkali.me>
-References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
- <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
- <3bb9a390-3b5e-4321-a25f-77e4f5c88f9a@oss.qualcomm.com>
-From: Xilin Wu <sophon@radxa.com>
-Organization: Radxa Computer (Shenzhen) Co., Ltd
-In-Reply-To: <3bb9a390-3b5e-4321-a25f-77e4f5c88f9a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: M44gPKlhuS3s9ib/HF+x2es0LH39PYX+RI5y1uBElRr3DpD4G/LYBV9+
-	jCwpMftPGiziUbPpTd+j9gQgRiapMghIYmKDzE6rZ+emvpDK4sryt5l1Vr1x7GnDaRf4Giy
-	6kRo7t+rbhCppjloVej8SJdVh7dZhBPZLnNDReUd3xH38qvJDvP3Zu8vBOF4+Xqh1z2MpQr
-	TEr+yXAoLfRD2D0/TX2CEhWVcCfsjRwVFPbIAXFqAZ8soenRlLVIl+kDkHklxvuLdEwdp52
-	xmZSGIDpYNz6iNfc2sj2BVAnzfXO3RduVWhtYsjMx8xdBHIryzWZ9xashH7riJoCFaOWU7Y
-	uH/MuT7iy7GZ6y0V+9VhMxFRvDy7Q86k6ktS8kXdwm4m1WhBdS76Tm7HLOFk9wsx5nY/jNv
-	XG1TcOeom9Ig9qGjywkpBgeFY//LZB+7+6du9UM7U1CZdtapjGFj7ozPR9kq90otC61yNky
-	cSi7mJQbBxCzGvxYA9psf6pXP9VWjoIHC55fRbUQOvugvBWlqgchMzsTKFWJDDl4CoJ8Kmz
-	RnS/R2QJ44O9KD2zCLiQDFxCWamVW4JPqTKUR31ryViJJW42o5ltGJCk7VUaxCJw3syEdeE
-	iSTgkvruCd098ui4vI/OSOCVd+DnZ5zPRturB5+oOYfi466aTwJfNmGAVULCpdBweOuA9gH
-	1QZnL74yd3SSak72Ldr1d1oF7kl36vbSb6a69TKsHfllgIC05ZwEJ7O7Nzt6bKYbo18Fkd5
-	OLcRT6VHUW7QHw0kK+c4DN9X0xrPWm+7/7Rc5n4KEh6r0mtMYPsmgbymvw7jwjG+7uByIle
-	53en9gbGG3vF/yKB4iSMuY+Cou/vPigx5rrnAe43MXjQ7sUg8scmJtAOgkJvXpvo3y/bbXn
-	kcoj+ht0rHlOJMDb8K68yrR3+IHkQ3YLu5HP+N2NRvIdVvB/yyV7hMvq9H1BquUyRHnH0jk
-	XV1IPRP3I947nL3Pwh1rMFJosTgts4mckeTVv1zjKuVJIcD4baGRvZcBVdyzFmXyuhVdsij
-	kV9lo/jIuZlgh10IQe7Srrp20BDgSQJhCGaciICyLmJzWLL1tTWO53T/GgGKLykd/MscYbX
-	CTPxSS4Y9QRhMifeGj2iwc/2GsfleKL1iwzv1/Ky4xr
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-media-starvis2-v4-1-75fcdb4163f3@raspberrypi.com>
 
-On 10/20/2026 4:27 PM, Konrad Dybcio wrote:
-> On 10/9/26 9:55 AM, Xilin Wu wrote:
->> Add initial device tree support for the Radxa Dragon Q8B,
->> a single-board computer based on the Qualcomm Snapdragon 8cx Gen 3
->> SC8280XP platform.
-> 
-> [...]
-> 
->> +	pmic-glink {
->> +		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
->> +
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +		orientation-gpios = <&tlmm 166 GPIO_ACTIVE_HIGH>,
->> +					<&tlmm 49 GPIO_ACTIVE_HIGH>;
-> 
-> Please align the '<'s
-> 
+Hi Dave,
 
-Ack.
+On Thu, Oct 15, 2026 at 04:57:27PM +0100, Dave Stevenson wrote:
+> The register layout and programming model for multiple of the
+> Sony Starvis2 sensors is identical, so prepare for supporting
+> those by renaming all common parts of the driver to a starvis2_
+> prefix, and renaming the driver.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> ---
+>  MAINTAINERS                                     |  14 +-
+>  drivers/media/i2c/Kconfig                       |  19 +-
+>  drivers/media/i2c/Makefile                      |   2 +-
+>  drivers/media/i2c/{imx678.c => sony-starvis2.c} | 773 ++++++++++++------------
+>  4 files changed, 422 insertions(+), 386 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 760791e3635f..bba095bc1a63 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25640,13 +25640,6 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml
+>  F:	drivers/media/i2c/imx576.c
+>  
+> -SONY IMX678 SENSOR DRIVER
+> -M:	Jai Luthra <jai.luthra@ideasonboard.com>
+> -L:	linux-media@vger.kernel.org
+> -S:	Maintained
+> -F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> -F:	drivers/media/i2c/imx678.c
+> -
+>  SONY MEMORYSTICK SUBSYSTEM
+>  M:	Maxim Levitsky <maximlevitsky@gmail.com>
+>  M:	Alex Dubov <oakad@yahoo.com>
+> @@ -25657,6 +25650,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git
+>  F:	drivers/memstick/
+>  F:	include/linux/memstick.h
+>  
+> +SONY STARVIS 2 SENSOR DRIVER
+> +M:	Jai Luthra <jai.luthra@ideasonboard.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> +F:	drivers/media/i2c/sony-starvis2.c
 
-> 
->> +			ports {
->> +				#address-cells = <1>;
->> +				#size-cells = <0>;
->> +				port@0 {
-> 
-> Please add a \n before the subnode
-> 
+Can you also add drivers/media/i2c/sony-starvis2.c to the generic V4L2
+CAMERA SENSOR DRIVERS entry, please? Or maybe
+drivers/media/i2c/sony-starvis*?
 
-Ack.
+> +
+>  SONY VAIO CONTROL DEVICE DRIVER
+>  M:	Mattia Dongili <malattia@linux.it>
+>  L:	platform-driver-x86@vger.kernel.org
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 7de2d095c969..8c43ae77b47e 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -324,13 +324,11 @@ config VIDEO_IMX576
+>  config VIDEO_IMX678
+>  	tristate "Sony IMX678 sensor support"
+>  	depends on GPIOLIB
+> -	select V4L2_CCI_I2C
+> +	select VIDEO_SONY_STARVIS2
+>  	help
+>  	  This is a Video4Linux2 sensor driver for the Sony
+> -	  IMX678 camera.
+> -
+> -	  To compile this driver as a module, choose M here: the
+> -	  module will be called imx678.
+> +	  IMX678 camera. This sensor is now supported by the common
+> +	  Sony Starvis 2 sensor driver.
+>  
+>  config VIDEO_MAX9271_LIB
+>  	tristate
+> @@ -879,6 +877,17 @@ config VIDEO_S5KJN5
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called s5kjn5.
+>  
+> +config VIDEO_SONY_STARVIS2
+> +	tristate "Sony Starvis 2 sensor support"
+> +	depends on GPIOLIB
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the Sony Starvis
+> +	  2 image sensors.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called sony-starvis2.
+> +
+>  config VIDEO_T4KA3
+>  	tristate "Toshiba T4KA3 sensor support"
+>  	depends on ACPI || COMPILE_TEST
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index 59e31af457cd..609208dabd07 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -64,7 +64,6 @@ obj-$(CONFIG_VIDEO_IMX412) += imx412.o
+>  obj-$(CONFIG_VIDEO_IMX415) += imx415.o
+>  obj-$(CONFIG_VIDEO_IMX471) += imx471.o
+>  obj-$(CONFIG_VIDEO_IMX576) += imx576.o
+> -obj-$(CONFIG_VIDEO_IMX678) += imx678.o
+>  obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
+>  obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
+>  obj-$(CONFIG_VIDEO_IT6625) += it6625.o
+> @@ -146,6 +145,7 @@ obj-$(CONFIG_VIDEO_SAA7127) += saa7127.o
+>  obj-$(CONFIG_VIDEO_SAA717X) += saa717x.o
+>  obj-$(CONFIG_VIDEO_SAA7185) += saa7185.o
+>  obj-$(CONFIG_VIDEO_SONY_BTF_MPX) += sony-btf-mpx.o
+> +obj-$(CONFIG_VIDEO_SONY_STARVIS2) += sony-starvis2.o
+>  obj-$(CONFIG_VIDEO_ST_MIPID02) += st-mipid02.o
+>  obj-$(CONFIG_VIDEO_T4KA3) += t4ka3.o
+>  obj-$(CONFIG_VIDEO_TC358743) += tc358743.o
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/sony-starvis2.c
+> similarity index 56%
+> rename from drivers/media/i2c/imx678.c
+> rename to drivers/media/i2c/sony-starvis2.c
+> index 8413fd44d657..b4733990d03a 100644
+> --- a/drivers/media/i2c/imx678.c
+> +++ b/drivers/media/i2c/sony-starvis2.c
+> @@ -1,8 +1,13 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  /*
+> - * V4L2 driver for Sony IMX678
+> + * V4L2 driver for Sony Starvis 2 sensors
+>   *
+> - * Diagonal 8.86 mm (Type 1/1.8) CMOS image sensor with 8.40 M effective pixels.
+> + * Many of the Sony Starvis 2 sensors share a common register layout, so
+> + * many can be supported by a common driver.
+> + *
+> + * Currently supported are:
+> + * IMX678: Diagonal 8.86 mm (Type 1/1.8) CMOS image sensor with 8.40 M effective
+> + *         pixels.
+>   *
+>   * Copyright (C) 2026 Ideas On Board Oy.
+>   *
+> @@ -26,25 +31,25 @@
+>  #include <media/v4l2-subdev.h>
+>  
+>  /* Standby or streaming mode */
+> -#define IMX678_REG_MODE_SELECT          CCI_REG8(0x3000)
+> -#define IMX678_MODE_STANDBY             0x01
+> -#define IMX678_MODE_STREAMING           0x00
+> -#define IMX678_STREAM_DELAY_US          25000
+> -#define IMX678_STREAM_DELAY_RANGE_US    1000
+> +#define STARVIS2_REG_MODE_SELECT          CCI_REG8(0x3000)
+> +#define STARVIS2_MODE_STANDBY             0x01
+> +#define STARVIS2_MODE_STREAMING           0x00
+> +#define STARVIS2_STREAM_DELAY_US          25000
+> +#define STARVIS2_STREAM_DELAY_RANGE_US    1000
+>  
+>  /* XVS/XHS sync control */
+> -#define IMX678_REG_XMSTA                CCI_REG8(0x3002)
+> -#define IMX678_REG_XXS_DRV              CCI_REG8(0x30a6)
+> -#define IMX678_REG_XXS_OUTSEL           CCI_REG8(0x30a4)
+> +#define STARVIS2_REG_XMSTA                CCI_REG8(0x3002)
+> +#define STARVIS2_REG_XXS_DRV              CCI_REG8(0x30a6)
+> +#define STARVIS2_REG_XXS_OUTSEL           CCI_REG8(0x30a4)
 
-> [...]
-> 
->> +	vcc_5v_s: regulator-vcc-5v-s {
->> +		compatible = "regulator-fixed";
->> +
->> +		regulator-name = "vcc_5v_s";
->> +		regulator-min-microvolt = <5000000>;
->> +		regulator-max-microvolt = <5000000>;
->> +
->> +		gpio = <&tlmm 159 GPIO_ACTIVE_HIGH>;
->> +		enable-active-high;
->> +		startup-delay-us = <250000>;
->> +		off-on-delay-us = <150000>;
->> +
->> +		pinctrl-0 = <&vcc_5v_s_reg_en>;
->> +		pinctrl-names = "default";
->> +
->> +		/* CH7218A needs to be powered on for HPD logic to work */
->> +		regulator-always-on;
-> 
-> Does the power supply reference at the connector node not handle this?
-> 
+It'd be nice to use tabs here, even though the old driver didn't (I wonder
+what happened there).
 
-No, the regulator will be turned off if there's no active display.
+...
 
-> [...]
-> 
->> +&gpu_zap_shader {
->> +	/* Reuse firmware from x13s as the SoC is unfused */
->> +	firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
->> +};
-> 
-> Other than the signature, the zap firmware is wholly generic.. I wonder
-> if we can just add a symlink in l-f to get a generic path..
-> 
-> WDYT +Dmitry?
-> 
+> -module_i2c_driver(imx678_i2c_driver);
+> +module_i2c_driver(starvis2_i2c_driver);
+>  
+>  MODULE_AUTHOR("Will Whang <will@willwhang.com>");
+>  MODULE_AUTHOR("Tetsuya NOMURA <tetsuya.nomura@soho-enterprise.com>");
+>  MODULE_AUTHOR("Jai Luthra <jai.luthra@ideasonboard.com>");
 
-I would prefer that indeed.
+I guess you'll add yours at some point in the set?
 
-> [...]
+> -MODULE_DESCRIPTION("Sony imx678 sensor driver");
+> +MODULE_DESCRIPTION("Sony Starvis 2 sensor driver");
+>  MODULE_LICENSE("GPL");
 > 
->> +/* M-key Gen3 x4 */
->> +&pcie2a {
->> +	/* Place ECAM and BAR space above 4 GiB to accommodate large BARs. */
->> +	reg = <0x0 0x01c20000 0x0 0x3000>,
->> +	      <0x0 0x3c000000 0x0 0xf1d>,
->> +	      <0x0 0x3c000f20 0x0 0xa8>,
->> +	      <0x0 0x3c001000 0x0 0x1000>,
->> +	      <0x5 0x00000000 0x0 0x10000000>, /* ECAM config */
->> +	      <0x0 0x01c23000 0x0 0x1000>;
->> +
->> +	ranges = /* IO (1 MiB) */
->> +		 <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
->> +		 /* 32-bit non-prefetchable memory (256 MiB) */
->> +		 <0x02000000 0x0 0x40000000 0x5 0x10000000 0x0 0x10000000>,
->> +		 /* 64-bit non-prefetchable memory (3.5 GiB) */
->> +		 <0x03000000 0x5 0x20000000 0x5 0x20000000 0x0 0xe0000000>;
-> 
-> Please drop this change on the board side, this is SoC-specific.
-> Likewise for the other ports.
-> 
-
-Ack. Do you think this change can be applied to SoC DTSI?
-
-> [...]
-> 
->> +&pmk8280_pon_pwrkey {
->> +	status = "okay";
->> +};
-> 
-> I am confused why this isn't enabled by deafult but that's of course
-> not your fault
-> 
-> [...]
-> 
-> 
->> +&sdc2 {
->> +	pinctrl-0 = <&sdc2_default_state>;
->> +	pinctrl-1 = <&sdc2_sleep_state>;
->> +	pinctrl-names = "default", "sleep";
->> +
->> +	full-pwr-cycle;
-> 
-> Hm, is that something that comes from the controller itself? Should
-> we advertise it on other SoCs too?
-> 
-
-It is observed that the boot firmware can leave an inserted SD card in a 
-state that makes the first Linux enumeration fall back to 50 MHz 
-high-speed mode. This property allows the MMC core to fully cycle the 
-controllable card supply after voltage selection so UHS-I voltage 
-switching succeeds reliably.
-
-> [...]
-> 
->> +
->> +	vmmc-supply = <&vreg_l9c>;
->> +	vqmmc-supply = <&vreg_l6c>;
->> +
->> +	cd-gpios = <&tlmm 131 GPIO_ACTIVE_LOW>;
->> +
->> +	status = "okay";
->> +};
->> +
->> +&sound {
->> +	compatible = "qcom,sc8280xp-sndcard";
->> +	model = "SC8280XP-Radxa-Dragon-Q8B";
->> +
->> +	audio-routing =
->> +		"IN1_HPHL", "HPHL_OUT",
-> 
-> Please don't break the line here, start right after the '='
-> 
-
-Ack.
-
-> [...]
-> 
->> +	usb0_sbu_default: usb0-sbu-state {
->> +		oe-n-pins {
->> +			pins = "gpio101";
->> +			function = "gpio";
->> +			bias-disable;
->> +			drive-strength = <16>;
->> +			output-high;
-> 
-> Drop the forced output state from both SBU pin states
-> 
-
-Ack. Thank you for the review.
-
-> Konrad
-
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+Regards,
+
+Sakari Ailus
