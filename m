@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494691;
-	b=XV3n2OA03wLvl5xvwDnYk5sSTOu851NhUPYe6AgiMw82VWsAx0YQW2+Kuwqk7bKQIKui
-	 Q6EO0THbjALwEGc46g/gh5AbhfraSZxLYQyF5IfBRjuI+7XrztnwfeQ38LXXgFQD2Hciv
-	 7Agy0And9GJAB6EqHjhXjHTec1hIqEiTekm4qa7lqIA/mLCRTxFjZ/s88lnAa6VTwXFgK
-	 AUNnghoPG2UFNNbIgdGxwtFLadL3G1uOiyNL50Howr3kvkJG8OTXhFketiL2pcfxJ9lFn
-	 3qDKt7FOsxLLrTe8wXjQOOLFOJ+lxC92MpyDzI1sxgcOVdLR+QhggZK3C17RlxD9/+Q==
+	t=1792494693;
+	b=0r1+j++oG62azYiyUSD9sPqfCw0BU/DyCLgpWJVIgQ8WrF2HtJTswJByMfkZ+3WfyO6V
+	 pWvfWiTvLDu5z/uxreqUl/mirnGryI+ND444toWdcCYoah7NcvKMe6xMOOwuZrjcCk1ZY
+	 2SKI5ul7KeKfmun08xdZxnKThKtwM2ZEAylmz/96HEHzRaHElQnO3NPXbSsMUPSrO3M9L
+	 aShxKrk1hmjExb4fydUMc+8a5PyYlzKWL6f9R/KfWSC1q/4Qh4dQjnQzamJisMxQZO6PJ
+	 Qwn8wqkPQQ8uT976cBDDsq7GJm7TteGh22k/g4Zc+maobzErUn/dJGDedSQTih6dt7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494691;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=ggEXMwLsYCLMlRFbTt+v08PermoODsbkyiROOo7B4QE=;
-	b=S0lJr5TH48wllZn5aOCKKdQDGNAF3bmmapsp3IbaC04x7IGHxD+mXrVhniRs8YSV7ajq
-	 73bITcon6QToZSyq1nxahyRzkX6rN1cMdhaIisgUiHLivyfFsuOzMcTtX+wCEZVBZqCCG
-	 v0ho3oktam+s04jTor5GkhtZXoFR1SUX+1MSo1AnDKEU/aHFn2q3Tme6fTY4mTwH4ooxA
-	 u2RuBe7mD7fbwReuMDQFopo/tLOgA3XKxWYOu38vZP/tMseGHYCVs8THlCQszBhvqcaMi
-	 to5fzIq47GhHkSKWgiOgEzDk0G42ky6cwbkwqnyNfNfWQG1TLk/iFuqWigqYdh7w9AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494693;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=P8oDPR9qTgswwNnzz/MrmQ7nQxlBnKmG5VhWIblWtrs=;
+	b=1ZAaIekZFiLVJETd0wqnIZcwhK6cgS0ebr0h7BtHYJBvpIyavkU+lQpbgXiKoIz0mC5g
+	 4TiuYBc8Psbm4tS4DPlNIviMBSTN51I9FvlVc2NgsD2r2rFixV5u1kQ5EN+fu0MOWBaQA
+	 pwijXOMSsXZlYDQZuNa4PstgnkjqCpCCRSjLSKQu00zJCIEXbeIcoTKGzfp2CVeqHrK8w
+	 An8eRlOBqXxXXRQpjGpymEOkO/BEE1cu2u8u5MmW+yxd6VcxiXFUNfQYVCAGfqCO6mYHY
+	 A6YgqSYOvXyMI8y5peZpat49yaCrJB4AcGu+DF+7+OrD7xd7oWT4dSZ0zWA6Duebluw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BJG9lMEF;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=motor-comm.com;
+	spf=pass smtp.mailfrom=motor-comm.com;
+	arc=none smtp.remote-ip=115.124.28.4
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9F2606A328
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B9F2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BJG9lMEF
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1ddc7c9beso14683305e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:11:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792494689; x=1793099489; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ggEXMwLsYCLMlRFbTt+v08PermoODsbkyiROOo7B4QE=;
-        b=BJG9lMEFG9kOK41/rJ3Zyr6sac4rVn95aUaKMUeUk1ZmnGuTbvCW+WEqwwj9LkooN/
-         uOXEbBFZmjJICPruSPFzP4U/VdsuOJPVp92yZzL67tZXivYVyMqWKwB2+s40Q47kVTrU
-         A4AEtTI8lt4cxhr+p/4CbN1DgUl9X3VJwDYF2zlbAsnLzuX6XTf/RG6X8q8+QAPBA8ek
-         qSDQqU1VPW5TYYCeWrpESxvxzbjX5jNzGkIXaQvRyQ1ioDi/CTPNzRJZvxszEkd8Aoz+
-         +GhcpR8s57a1d8bUYcvwW+1zlpDXYfvcNKopMqMiJaFKvBAvMuzJEw/IaTAOlRtVqthT
-         iVcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792494689; x=1793099489;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ggEXMwLsYCLMlRFbTt+v08PermoODsbkyiROOo7B4QE=;
-        b=YAn+4ITCAcZQqcrMdFhuY9ewmTSwO+wl1/+RiabJemvc603v30syzC6hjbBIkZpOZ5
-         z4XSaoTzL3Z0uYshPn9HqI6JK5AuYR/v/lYZANsxBHjy9qJ1fTAEugyBoRmLZtMCBxno
-         PaUOcGpTOay5lmjk2AKhgbIH0a7YZofLdIaXeG3sg3lm9/ybjtR4rZ0C8wnTA9PnQodm
-         ye1l00j0yrzL7Xv0+8ogq+R9sulvH6fhJhZ1flsTj4aMwStKA1xgiZx8XE10DZLedh5J
-         mo89bYbo5rZeUaN4XDyWMyYj8PSMs9PMQvhCK+CCSz9TpAtpjG36wm6/VX4eD3UrYogz
-         w7zA==
-X-Forwarded-Encrypted: i=1; AKwUvBytwQmqtOo+aHnBQgKKsXfOeMoRIAfDrjArkuDW6MhfmHQxgmCEVv4CGQC/T/khHQjYpRJZ3bMwfU40eiI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkbvakCiOvxK/voM3Ja7yT0+e7HTKBGqq2/EQFToB2kHecHljY
-	tq9/8OW+kYUWPaAj1bk8wqXim1xEUzfoZCiGgAF3E3Igg01TkpDR0PZbbax1MMOjX9WPS3IxcfA
-	Gf459qZjv
-X-Gm-Gg: AYBFou3zDQHkpdaKRpq6N/g5NOI/ZmucEpVoWPdk7MXXIWtFus9m/gOXXGB29wvq+WV
-	uXJnD8h3PpQNS6swiAexNsun6wSXlZhrKeA60sOMW1N0QxGDf8q/Q53UmFcW630Na2nEVg7HzQw
-	dR+A0ZPOWL209EB1wj9gqwwFIUDzcJiXG6xEolgfcBp4SGKDV/ACZkwHMcCjF28Ofi26ruD8HoL
-	0MvJOjcX/SZKFb/s9PE7cLF8jo01U/fWQzQQSz1lqmtPJcmmgS7FgqfzDaQCxlwGmLFAcGK+Hnt
-	qSDa5lAsoQ7oJ3rLvoy5HcrM0xOBPanL0L9NKkgTTXwx4qNnkIltFVYc1puvdJ5zdomb3eWBwtC
-	6RL22aLCq3gWhm8JuBli4TiSec5Qb+kNmf4zjn1FIudoIL9C0AU9mx6KQBarz2PqjEetKq3y638
-	e7VVLqv87t4iBSmQsv50ZsqhvGcptHSNT1U3/n+5qd5bt1ElSvEPvNYWdg3r6vOEqc3VGcqmyUJ
-	3cYrt9a0wcDcD7KxK/a0OV9jiZMzGU4PWi+RVs=
-X-Received: by 2002:a05:600c:a112:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a1d75aa9e8mr173055685e9.1.1792494688776;
-        Tue, 20 Oct 2026 04:11:28 -0700 (PDT)
-Received: from elver.google.com (11.26.205.35.bc.googleusercontent.com. [35.205.26.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm5313367f8f.31.2026.10.20.04.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 04:11:27 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:11:24 +0000
-From: Marco Elver <elver@google.com>
-To: Caleb Kan <calebkan1106@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Alexander Potapenko <glider@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>,
-	kernel-team@cloudflare.com
-Subject: Re: [PATCH RFC v2 03/11] mm/page_owner: preserve accounting with
- countable stack depot records
-Message-ID: <atdMXELJWveehYmX@elver.google.com>
-References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
- <20260908-stackdepot-trie-v2-3-1996d5cef732@cloudflare.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F24606A337;
+	Tue, 20 Oct 2026 11:11:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F24606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2934129|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0277549-0.000560708-0.971684;FP=11918766508097589140|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jlqQH4g_1792494682;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jlqQH4g_1792494682 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 19:11:23 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mmyangfl@gmail.com,
+	horms@kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: [PATCH net-next v16 3/5] net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
+Date: Tue, 20 Oct 2026 19:11:13 +0800
+Message-Id: <20261020111115.3072180-4-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261020111115.3072180-1-kyle.switch@motor-comm.com>
+References: <20261020111115.3072180-1-kyle.switch@motor-comm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,162 +66,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-stackdepot-trie-v2-3-1996d5cef732@cloudflare.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
-> From: Caleb Kan <ckan@cloudflare.com>
-> 
-> page_owner keeps stable struct stack_record pointers in its stack list.
-> It uses each record's count with a one-count bias to track live base pages
-> and reads the stored entries directly. A later patch adds a trie backend,
-> which provides neither a flat record layout nor an independent count field.
-> 
-> Add STACK_DEPOT_FLAG_COUNTABLE to keep these records on the hash backend
-> and deduplicate them separately from all non-countable records. Store the
-> discriminator in a new u16 flags field and narrow size to u16. This keeps
-> the record header size unchanged while covering the configured maximum of
-> 256 frames. Do not otherwise split hash-table deduplication: ordinary and
-> GET saves can continue to share records. Make COUNTABLE mutually exclusive
-> with GET because the two flags assign incompatible meanings to the record
-> count. Reject countable records in stack_depot_put() and require COUNTABLE
-> in __stack_depot_get_stack_record().
-> 
-> Mark both page_owner save sites countable so its existing accounting and
-> reporting continue to use stable hash records. Extend the KUnit coverage to
-> verify direct-record access and isolation between countable and
-> non-countable records.
-> 
-> Signed-off-by: Caleb Kan <ckan@cloudflare.com>
-> ---
->  include/linux/stackdepot.h   | 28 +++++++++++++++-------
->  lib/Kconfig.debug            |  3 ++-
->  lib/stackdepot.c             | 20 +++++++++++++++-
->  lib/tests/stackdepot_kunit.c | 55 ++++++++++++++++++++++++++++++++++++++++++++
->  mm/page_owner.c              |  6 +++--
->  5 files changed, 100 insertions(+), 12 deletions(-)
-> 
-> diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
-> index 734529767c8a..7ff67c70d727 100644
-> --- a/include/linux/stackdepot.h
-> +++ b/include/linux/stackdepot.h
-> @@ -53,7 +53,8 @@ union handle_parts {
->  struct stack_record {
->  	struct list_head hash_list;	/* Links in the hash table */
->  	u32 hash;			/* Hash in hash table */
-> -	u32 size;			/* Number of stored frames */
-> +	u16 size;			/* Number of stored frames */
-> +	u16 flags;
->  	union handle_parts handle;	/* Constant after initialization */
->  	refcount_t count;
->  	union {
-> @@ -84,8 +85,9 @@ typedef u32 depot_flags_t;
->   */
->  #define STACK_DEPOT_FLAG_CAN_ALLOC	((depot_flags_t)0x0001)
->  #define STACK_DEPOT_FLAG_GET		((depot_flags_t)0x0002)
-> +#define STACK_DEPOT_FLAG_COUNTABLE	((depot_flags_t)0x0004)
->  
-> -#define STACK_DEPOT_FLAGS_NUM	2
-> +#define STACK_DEPOT_FLAGS_NUM	3
->  #define STACK_DEPOT_FLAGS_MASK	((depot_flags_t)((1 << STACK_DEPOT_FLAGS_NUM) - 1))
->  
->  /*
-> @@ -144,6 +146,11 @@ static inline int stack_depot_early_init(void)	{ return 0; }
->   * Users of this flag must also call stack_depot_put() when keeping the stack
->   * trace is no longer required to avoid overflowing the refcount.
->   *
-> + * If STACK_DEPOT_FLAG_COUNTABLE is set in @depot_flags, stack depot stores the
-> + * stack in hash-backed storage for callers that need direct stack_record count
-> + * access. This flag does not imply %STACK_DEPOT_FLAG_CAN_ALLOC and is mutually
-> + * exclusive with %STACK_DEPOT_FLAG_GET.
-> + *
->   * If the provided stack trace comes from the interrupt context, only the part
->   * up to the interrupt entry is saved.
->   *
-> @@ -178,11 +185,12 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
->  				      unsigned int nr_entries, gfp_t alloc_flags);
->  
->  /**
-> - * __stack_depot_get_stack_record - Get a pointer to a stack_record struct
-> + * __stack_depot_get_stack_record - Get a hash-backed stack record
->   *
->   * @handle: Stack depot handle
->   *
-> - * This function is only for internal purposes.
-> + * This function is only for internal purposes. @handle must have been saved
-> + * with %STACK_DEPOT_FLAG_COUNTABLE.
->   *
->   * Return: Returns a pointer to a stack_record struct
->   */
-> @@ -260,10 +268,14 @@ int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
->   *
->   * @handle:	Stack depot handle returned from stack_depot_save()
->   *
-> - * The stack trace is evicted from stack depot once all references to it have
-> - * been dropped (once the number of stack_depot_evict() calls matches the
-> - * number of stack_depot_save_flags() calls with STACK_DEPOT_FLAG_GET set for
-> - * this stack trace).
-> + * Drop a reference acquired by stack_depot_save_flags() with
-> + * %STACK_DEPOT_FLAG_GET. Calling this for a handle saved without
-> + * %STACK_DEPOT_FLAG_GET is invalid; persistent handles are owned by stack depot
-> + * for the lifetime of the system.
-> + *
-> + * The stack trace is evicted once the number of stack_depot_put() calls matches
-> + * the number of successful stack_depot_save_flags() calls with
-> + * %STACK_DEPOT_FLAG_GET for this stack trace.
->   */
->  void stack_depot_put(depot_stack_handle_t handle);
->  
-> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> index fcd74edfd93a..3a78c67b6b36 100644
-> --- a/lib/Kconfig.debug
-> +++ b/lib/Kconfig.debug
-> @@ -2792,7 +2792,8 @@ config STACKDEPOT_KUNIT_TEST
->  	default KUNIT_ALL_TESTS
->  	help
->  	  Enable this option to test stack depot API behavior at boot.
-> -	  This test is built in, so KUNIT must also be built in.
-> +	  This test is built in because it exercises internal, non-exported
-> +	  stack depot helpers, so KUNIT must also be built in.
->  
->  	  KUnit tests run during boot and output the results to the debug log
->  	  in TAP format (https://testanything.org/). Only useful for kernel
-> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-> index 4da7279d9f83..66c5e8594566 100644
-> --- a/lib/stackdepot.c
-> +++ b/lib/stackdepot.c
-> @@ -94,6 +94,7 @@ static const char *const counter_names[] = {
->  	[DEPOT_COUNTER_PERSIST_BYTES]	= "persistent_bytes",
->  };
->  static_assert(ARRAY_SIZE(counter_names) == DEPOT_COUNTER_COUNT);
-> +static_assert(CONFIG_STACKDEPOT_MAX_FRAMES <= U16_MAX);
->  
->  static int __init disable_stack_depot(char *str)
->  {
-> @@ -467,6 +468,7 @@ depot_alloc_stack(unsigned long *entries, unsigned int nr_entries, u32 hash, dep
->  	/* Save the stack trace. */
->  	stack->hash = hash;
->  	stack->size = nr_entries;
-> +	stack->flags = flags & STACK_DEPOT_FLAG_COUNTABLE;
->  	/* stack->handle is already filled in by depot_pop_free_pool(). */
->  	memcpy(stack->entries, entries, flex_array_size(stack, entries, nr_entries));
->  
-> @@ -609,6 +611,9 @@ static inline struct stack_record *find_stack(struct list_head *bucket,
->  	list_for_each_entry_rcu(stack, bucket, hash_list) {
->  		if (stack->hash != hash || stack->size != size)
->  			continue;
-> +		/* Page owner countable records have a distinct count lifetime. */
-> +		if ((stack->flags ^ flags) & STACK_DEPOT_FLAG_COUNTABLE)
-> +			continue;
+Some masks assigned to u16 and u32 fields are defined with
+GENMASK(),which is an unsigned long constant and wider than
+the field type on 64-bit builds. Convert the YT921X_MBUS_CTRL_*
+masks used by mdio_bus.c to fixed-width helpers.
 
-This splits hash deduplication unconditionally even when
-stackdepot.trie_enabled=0 (the default), and even for page_owner's
-free_handle traces (__reset_page_owner()), which never touch
-stack_record->count. Prior to this patch, persistent hash records had
-refcount_set(&stack->count, REFCOUNT_SATURATED) and page_owner safely
-overwrote it with its 1-biased page count while still sharing records
-with non-GET callers.
+This is a type cleanup only, with no functional change. Other
+GENMASK() uses in the driver are intentionally left untouched.
 
-The interface looks error-prone to me.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/dsa/motorcomm/chip.c     | 2 +-
+ drivers/net/dsa/motorcomm/mdio_bus.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index ccb84f889dd2..bbb598e19a8d 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -2285,7 +2285,7 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+ 	if (res)
+ 		return res;
+ 
+-	ctrl = GENMASK(10, 0);
++	ctrl = GENMASK_U32(10, 0);
+ 	res = yt921x_reg_write(priv, YT921X_FILTER_UNK_UCAST, ctrl);
+ 	if (res)
+ 		return res;
+diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
+index 83f0212551ff..3aa1111efaa4 100644
+--- a/drivers/net/dsa/motorcomm/mdio_bus.c
++++ b/drivers/net/dsa/motorcomm/mdio_bus.c
+@@ -159,7 +159,7 @@ int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ 	mbus->write = yt921x_mbus_int_write;
+ 	mbus->parent = dev;
+ 	max_ports = priv->series->max_ports;
+-	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
++	mbus->phy_mask = ~GENMASK_U32(max_ports - 1, 0);
+ 
+ 	res = devm_of_mdiobus_register(dev, mbus, mnp);
+ 	if (res)
+-- 
+2.25.1
+
