@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486422;
-	b=TeQAaV8lebGFXro2q3JFFSCsKBbCtgNbPobyNQ+P4IZSJVZyliYU6Lh/8v6p8khICc6D
-	 SREaDwK9xN4a2+RH49MxOVVloNMZJ5EiRADbWIARcoG+RbLuCxcQPi/lvBRpPnxbuf2L2
-	 +/7Xh9zZwjLpLaBDO3b6CqQJ6kNMKr4KybGw7qPQbE99k3QZBOrLE+uJEAqPIjffOBDtA
-	 9g6zzlmctwmU07UnDN5tUetSYFjl1jEdvq2TLF7urAaWEA9J55CdbZB88e05Az2EDeVh9
-	 tBb+NvqCXGlR0z/eiGyD0Gb+Eq6J3NcQ5u7lDoEqt8UMbjT/4OsEBBaodPqyeJGVyEA==
+	t=1792486423;
+	b=D4KdeUB8m8TmiDBBmoVJhCMSmzwxqcWMIqKpbGu9LzbN7o+ro45JI1tzn0K1hq3aLSfc
+	 J9DMGsLzyDJ3DxAIkvV+D9q2sRq4p6dOUX4MWIqsO2Cc9tn3/tep5dysA8ISiiBb2MkH0
+	 LpFVB+vKyjjSSYLBy5ElXJq/fVPYyKWY99voM5ovGfyGK0JIbxedilMRzYCsx5bTc+W1D
+	 AcHyYjgBlEdkLNqng9ZOWTCP29WtKdzfTr70X0zxLvAMtTtxdMw+gkC/K3bG1H2qX0K7U
+	 nNJv/5+8nH8VlPXfuzO5llcYZQ8Lc8DwsQ1eMwB93r+IFYGXM3Rac1ktEo/lUNBl5Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486422;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=c3gW8vlxFRuwtLEYEFt3k12PKqTy0iNqFuQQwZ4eiPI=;
-	b=Q7sqbwaEUhyFy8w1Zamk1wqaJYdiRZu2BdXvjLOekhV+yOuAGXjaifzHcnmfh5NadHoZ
-	 upfqtSsNrVZXw6AF39KtBTNI7thJw7raixQ7HhBUB+k78787aPRoEYSu7dmQmJaCZNYP7
-	 W8sF/wXTPl8EOGiG/jSBwbzpkeYa2Jkbb4ow0eDbPoBwwuZhuGH5s1syIQyIRmoCsHjJQ
-	 KT14WehK4qL4LRNf84hr6hpdAm5wupXZusuRKRTcbT3X+E/VVaePK9EivMQcgOkLr3gZX
-	 pCAfHj3jkffzvNv5JC2p6K+t6dlUHT2IuHrZgwOwPFBiQg0jRtDdOC7GNonLRejsEsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486423;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=LW2Z/J5kgMKXP1MQQy5oBk/GKxhYgHES/KC5diFwAwA=;
+	b=xRDsyhB3f3bzk5mPVsNOTXaRJQB/U/kkGL1UplSM7A1Z/dCSSWAcAWhNmpOxFeI4KgoM
+	 Ar2/wK73V8rEsKtarfpnM3USy7DIg/OrW1NcDTt6PLDkZNFQpGTk2pyGcn7ppa+q3jQCE
+	 JDOWvwSAhE5PVWf+myjkG9Yko/z1Y49p+4rud+QHFjjhU10WJzTUxRl6PcNOAkBpjVbfa
+	 FwkCI0tXTyk0YTtfzD45IjhAR2m2cTqF1nyM42FfP3rjA8XnIWm5bH6t+mhp6s9NkVLEw
+	 03ni/I6Xmret1FYm9OisSd7VLrSJh4KOmGvEH+DW+2XIPvpNlUB40+6C0Xb3ux9z2vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=llcxBOhc;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NbsVxKtA;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397DA606A31B;
-	Tue, 20 Oct 2026 08:53:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 397DA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A95606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:53:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34A95606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=llcxBOhc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792486422; x=1824022422;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Qx7rYZ++L0cM+z/hd/u0+GRBOenjR3UIMqzBasDLmYI=;
-  b=llcxBOhc3oaT/yl97HJ06lJ1mnDNNLQu9T7VsRzpoCR3c/PcXMwbfWDK
-   ht1H5rDXAxGRm2mcH2PQ9isKTTU7Nhu4t65GIYB4g80zDeihu6AYE4Gds
-   X6fFBBv8mKp6/O44aalkx0AlFHFPkHSqSw7bDdBcqOJ+m27zQQJMC71mb
-   1npuqY0IvFNetkWcWCtRfbrdlpDPQ7YkScMo9qkD2bTJGzTKbQgl4CtEr
-   On9jsKfRbPoBdPXfECN+zqtku+oi2GWLPc4H3Ee9ehmBV3mgOw8VVNRsg
-   bXxV2Z6NGDVwxD1AWzDQPBnrJ5TIeDUhutRbp1qwGt/tDJi9bIiKRRqzA
-   g==;
-X-CSE-ConnectionGUID: sjJjt4JRQNmsmAZ90wE29A==
-X-CSE-MsgGUID: ORcxIeePQZ+o4/jq6ECoRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1067127"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1067127"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:53:41 -0700
-X-CSE-ConnectionGUID: gs+cmVpKQlGEHz6caynzsA==
-X-CSE-MsgGUID: 6LqGF2W0TYaC/hCwPOL+Mg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3178325"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:53:38 -0700
-Date: Tue, 20 Oct 2026 11:53:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: jean-baptiste.maneyrol@tdk.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: inv_icm42600: update gyro start and stop delay
-Message-ID: <atcsENHqXSRvn7SU@ashevche-desk.local>
-References: <20261020-iio-imu-inv-icm42600-update-gyro-start-stop-delay-v1-1-ed52290a4ca4@tdk.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NbsVxKtA
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=LW2Z/J5kgMKXP1MQQy5oBk/GKxhYgHES/KC5diFwAwA=;
+	b=NbsVxKtA29oXvQv/BfIHkDIBuquaJ8mOke66Zav3POdMVfniAavgzeyYLX4KFePFgCEEiAP8V
+	LAWFJMvvXYYOUMp0DrjKbjReXkvW9nAjpeYca8UmdFdXPeU0CXN+17VXYoRs37XNl+P0MKp1FNZ
+	OM4Cc0ebyyVRcrXWBmTXElY=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j85mQ36FBzKm5F;
+	Tue, 20 Oct 2026 16:53:26 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 701724058A;
+	Tue, 20 Oct 2026 16:53:30 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
+ 2026 16:53:28 +0800
+Message-ID: <c1e0217c-d2a8-43e2-8038-984663c08fd7@huawei.com>
+Date: Tue, 20 Oct 2026 16:53:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,29 +62,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-iio-imu-inv-icm42600-update-gyro-start-stop-delay-v1-1-ed52290a4ca4@tdk.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/14] crash: Fix several bugs
+To: Mike Rapoport <rppt@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+	<dakr@kernel.org>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<leitao@debian.org>, <yeoreum.yun@arm.com>, <sourabhjain@linux.ibm.com>,
+	<robh@kernel.org>, <coxu@redhat.com>, <kees@kernel.org>,
+	<tangyouling@kylinos.cn>, <liukexin@kylinos.cn>, <zhangtianyang@loongson.cn>,
+	<guodongtai@kylinos.cn>, <maqianga@uniontech.com>, <chao.gao@intel.com>,
+	<kai.huang@intel.com>, <vishal.l.verma@intel.com>, <seanjc@google.com>,
+	<piliu@redhat.com>, <thuth@redhat.com>, <jbouron@amazon.com>,
+	<me@linux.beauty>, <mclapinski@google.com>, <graf@amazon.com>,
+	<bgwin@google.com>, <hbathini@linux.ibm.com>, <eric.devolder@oracle.com>,
+	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <palmer@rivosinc.com>,
+	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <driver-core@lists.linux.dev>,
+	<kexec@lists.infradead.org>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <179248377975.302547.11812783408034710690.b4-review@b4>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <179248377975.302547.11812783408034710690.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, Oct 20, 2026 at 10:42:30AM +0200, Jean-Baptiste Maneyrol via B4 Relay wrote:
 
-> Following datasheet gyroscope specifications, the maximum start time
 
-What datasheet? What specifications? Please, be more precise to refer the
-Datasheet name, version, chapter, section, et cetera.
-
-> for gyroscope is 45ms. Stop time is required for letting gyroscope
-> mechanical structure settle down before enabling it back. 50ms is a
-> sufficient value for that.
+在 2026/10/20 16:09, Mike Rapoport 写道:
+> Hi Jinjie,
 > 
-> Update values to these numbers.
+> Sorry for the delay, it's been really busy time for me.
 
-Do we need a Fixes tag?
+Hi Mike,
+
+Thank you for the feedback, and no problem at all for the delay.
+
+> 
+>> As Baoquan and Catalin suggested, this patch set fixes
+>> several pre-existing code issues found by Sashiko AI [1][2][3].
+>>
+>> The major improvements and fixes included in this series are:
+>> - Fix several memory leaks for arm64, and similar issues on LoongArch
+>> - Fix out-of-bounds write on 32-bit Highmem for x86.
+>> - Fix TOCTOU race in crash memory range collection.
+> 
+> It feels like these are three independent series, maybe with slight
+> dependencies because they touch related code, but it's not really a
+> single series:
+
+Ok, will split this into three independent patch series.
+
+> 
+>> Jinjie Ruan (14):
+>>   kexec: Fix CMA segment address translation with non-zero text_offset
+>>   kexec: Record allocated CMA pages to fix release size mismatch
+>>   kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+>>   arm64: kexec_file: Fix CMA page leaks in segment placement retry loops
+>>   arm64: kexec_file: Fix elf_headers memory leak in retry loop
+>>   LoongArch: kexec_file: Fix CMA page leaks in segment placement retry
+>>     loops
+>>   LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+> 
+> The very similar commits for arm64 and LoongArch imply that that we have
+> some code duplication that should be addressed regardless of these
+
+Will clean up the duplicated code in generic kexec first, and then fix
+the bugs.
+
+> fixes.
+> 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Jinjie
 
