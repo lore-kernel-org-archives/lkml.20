@@ -1,67 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474011;
-	b=Z5CGMOf59XeqStnATdH8qEvDZbwEqXLmNceaMvFDpnrBvhoeabBDZ/rdF/gB/nm1myd7
-	 MwxQC4GzRS68Jxjc7m/uRydfFGFOZiiiH5RKkyHD5cfq/xci/Cuo4OcUnjcyJRNf/ScEi
-	 xKsYf/w2KNynzN2CgxmjspFlGd/I8BaIUy94RWXTGsNTWQcnXJRjsQbaz7VT4B7pDbkCl
-	 aYyZ8EQk1b0LilzWLGf3dDmuAb7JGstsxtUIyrJLatzv76aXjYvj/JAnJuNAgcGKV2gma
-	 2T+FA5h+7L+/QB/Sl+5jZDIoaRYvIPQBnOTlschIq4E//Cn+ooMrV8zbc+eIL+ol0NQ==
+	t=1792474083;
+	b=VuTDRP7Nn+Q/SAu8tDr/ICvWGAQ9Q414HtxtD/CY7xBLKvlEjkKJKo/C3wsKnmmLZnks
+	 AjKn3TFpPg81cyezwn7sBlThCYu+ntmkO6FGwdE0PCwdtQaVQ7t/IIec9CJJclzmHc6Rx
+	 VEsOd9G94/UX401BmRkm3s/013VsQ4VLu9PJC46lVzwbkGIa6o3uv48rr81vXQWVyPYv9
+	 uFR9v5OTvWhQKkyebOro2laGfSFPDYPO0hy6C9+1/qU3b/8Q15dvQNBLM+h4ncTSUp5VX
+	 ZK+iBcdcZ7WDKwL0Awhks+9nJGW2WPhfrRa4J1ed5hPXodcMLzMALj4DYb3Hfo8h5aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474011;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=VBaqtAYhzt9vjT0IOaJ3LEbjNlh/6yFmqmAUZP/n84g=;
-	b=QJQLQChDT2k5CAIImeEohsXMHaopodP4YF/YgpmbqZjt7rVuurQp7IfMW9x7/PIZtnTe
-	 PpTQQGvF73JtfIzt3Jwy5QX8R+gJwhb64WSjVFaehPwS5xQdmEb8odgv2aOha4dz6V6iD
-	 z0hOJB9OlZIw4YnTYM+Cwju/V05iFeysT9NXcfXDZFGCf1HP86T9xZlt4FDc9FXnUm4dM
-	 vhRl+feL2NY3KC2dz0ThqFsIdCJoZgGREkIXkxiQvdOyWVd/FWRJtKe+Av68vTd8Qo6Wn
-	 o2slmJ9ErFNbBAalTGRTx7E8jFSpWLCKEDogHgjM9+IfYhw24ygKw4oicIJ2FWzn5ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474083;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5l6pqreEYh+0Dsa58mvKfgN8V+MvlUn6xbXr6Z0vjIA=;
+	b=uc1BXLwGxgyymqxR667CQZ1Ni70IlM/JbVjZSRFYJCbV9z/bjQXI6/T2HN4j0Noqgbmn
+	 O1x28z2TWuutoyjt5kx/7WhIsBl9vcsZicFfCPf2FkwjxcMWgIhnKUeea+9F/Aq57oqaa
+	 30RNiIP7wBr4RuAWuJlyNZbJibphbX1zCioXG8QoeA/NiDaUtwtks6KlF0hhBI5zw+CY0
+	 BH8aupoZ6FwaWWLGg2Us4swd+t9s2fZagUI/XV9nEj74N1mpGN3w2ZxIimZ0tzGdE2UWg
+	 BzkjmW/Q2Ip3dfk2AN5yij+iX5a8CXhBTtPwl5E4a0yd4Z9GKzzuZYVF13M2bGFxweQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="dYEGJLl/";
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JHwqfbax;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E88606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E88606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA431606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA431606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=dYEGJLl/
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261020052641epoutp016da3eb1637a71bbd69618781694eba94~gJZuEe1RQ0455404554epoutp017
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:26:41 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261020052641epoutp016da3eb1637a71bbd69618781694eba94~gJZuEe1RQ0455404554epoutp017
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792474001;
-	bh=VBaqtAYhzt9vjT0IOaJ3LEbjNlh/6yFmqmAUZP/n84g=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=dYEGJLl/XaI8YLA9R+Ob8BLNL4Oe4NEqVu0yZo7lPIWNUon5CtaJa5P+ABxEeLhKV
-	 RdokE3KZAgTDw4/1+B9Sq4zlulMxapQI/9OppFOFp4VWgAJIEdR+igm+327fNAyrrt
-	 qJWhR/yoLNGDAg38FHqOgluaTODXTEdRRGI7VbQ0=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261020052640epcas5p27161ada23d6deba25cb84e6fcb0165b0~gJZtBVh9C2585725857epcas5p2s;
-	Tue, 20 Oct 2026 05:26:40 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.93]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4j819q3JvDz2SSKb; Tue, 20 Oct
-	2026 05:26:39 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020052638epcas5p18ff9bffbddf4c8f106a4669f4810370f~gJZrnNRuA1711217112epcas5p1J;
-	Tue, 20 Oct 2026 05:26:38 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020052635epsmtip1b24d9cf98f9333c343d2bf34c031fda5~gJZoqwYIG2871028710epsmtip1g;
-	Tue, 20 Oct 2026 05:26:35 +0000 (GMT)
-Message-ID: <40a922b9-f56f-4fe1-88f5-5bb236735951@samsung.com>
-Date: Tue, 20 Oct 2026 10:56:34 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JHwqfbax
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e985106c0cso18972715ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792474082; x=1793078882; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5l6pqreEYh+0Dsa58mvKfgN8V+MvlUn6xbXr6Z0vjIA=;
+        b=JHwqfbaxu2ccEqPpT+7EvX9ZfM9XYPHx/j3hT+0CsFN9SLD30ImeTVGAwOMdeSysP0
+         16CI2twIxghmDqjFQgOIV1tK7BY4LnqfS56/jADr8IOredmKG88y/+BbJvBZQt816DLY
+         Rxx7MA/LQeFYK5zUheARkwiayA8YmOadXS3BgVl+MnDuNur8FNbABWCD9uABpVnwSyIx
+         8Leyb9sCIsY6FNZ380HzvhZ5xRY8z65ETCG1rRdZyZhKUspGxWMYsQjh5aFPmi4I1SFJ
+         b4tbNp2wGJZIpYpACPejUI70bvJux8hGFW9+HQWqUyyBCMs67c6PEL9QQyflTqWmuMA0
+         w00Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792474082; x=1793078882;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5l6pqreEYh+0Dsa58mvKfgN8V+MvlUn6xbXr6Z0vjIA=;
+        b=QQUsFohqX7u8DjokNv6CBCMIVfVR5+T7fRX5OpDozcRLcu2SUjCQ1iyGS/4miuIhzs
+         g8oSlu8ODzhkHwQ5Z+JhUSk1bQ/HKlWIx4H1HkSjeosc0hHkk/u0Zg3qVeKuwu/qYBgr
+         GHUirDvjHUvp6+ceLzn10gVBoo25gS07+0UO5vASdXjxS1uSK6iwVB8Gl0Qjgtufo5Uf
+         b+0cYqKN0VMUGrQylRW5DU2w6zPzfFAbcDcThk57QDugwsxoPkMhPrgGIXc5pWK+DMSe
+         wGlG3cFF00NmQmoHCMP/f0Uwgxy8YbtNJt9T7NEHKHyIEY2IWmsyibJMC3E80N4BROUj
+         6dpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKiXj3W+no/cHUpxCc/kwKgjmjZsFGbedaZ9cr7pFAMjeiWjNkEnypOBZh6403KU0Vr21wUpig2ayeMi8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZ9ZyTMFoY4Wl38OXCsw0Yzw6rSy0fzBpbk6C4VwmH3APJ171g
+	ZSBKEHb7udxlbesNf7H7KOb5NFe7viuAsrVfGjOdqBuiKcnl/nGryyob
+X-Gm-Gg: AYBFou2d7fEWxL4919yTaqYJyhvVoH1nfsIPF/hV1asobjezh3noRVb0ElFXkjP9g1L
+	Ey8u+kEHm0O6ObOHeHgjN3tcOQ+Pyuqn1Eo2c2VL8gM5qkWmU6kH0Z2E1eG8ctYU+6Sg4aZxrhn
+	Uv4bkw/ZTqNbZS4v2ymEOmoFFns/uStwZlQTruTGMRdqABcfQiMNs2c1gS21053tTop8bd+7qn0
+	SZO55bcpEi9aVMs02Jk3oxdONIairCJbj16uyLFayeTkV+4fJuFsEzPgOuF8JozrKhbt3WaTlKs
+	N0uEQKHkfN6UCoUihun15Pgv3UpZKY5uQBwqsFG38d8iyCy7SUBJMGM5LSTWozxK5nWV6Xdb7JF
+	1Ht55lKzaZmQx/ArWDW7+EDMCjaZ1jX0aJxYsLV3ziNAoxFhU+/aOUypaFgF3vH8Xrd/lNE07Pk
+	DsTx/+VjNwYhxQ6UfVzizrOzw9lE1UM8xHhxlWEdt2maW+4PcwWxnJ0wmGh9wxWu3BShD1bh8fc
+	DBjeLuvieFMj9tIqhc9/rDeOopcl0ShaWQHuKPLBvvLVkIeiCFrXaH2Aen0sDLJtWxR7KBOr6GZ
+	WqM4Wc0GgUJKIg==
+X-Received: by 2002:a17:903:fab:b0:2e9:5507:b532 with SMTP id d9443c01a7336-2e9a6f587c4mr80082375ad.43.1792474082176;
+        Mon, 19 Oct 2026 22:28:02 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1fd8a55asm3333995ad.29.2026.10.19.22.27.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 22:28:01 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	cassiogabrielcontato@gmail.com,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Darren Ye <darren.ye@mediatek.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH] ASoC: mediatek: mt8196: Ensure the DAI is marked as started on success
+Date: Tue, 20 Oct 2026 12:27:47 +0700
+Message-ID: <20261020052747.568770-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,69 +107,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
- prevent OOB access
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, krzk@kernel.org,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, pritam.sutar@samsung.com,
-	andre.draszik@linaro.org, kernel@lvkasz.us, pengpeng@iscas.ac.cn,
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <as0G-bk_TKRToOkv@debian>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020052638epcas5p18ff9bffbddf4c8f106a4669f4810370f
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6
-References: <CGME20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6@epcas5p4.samsung.com>
-	<20260918103147.2628614-1-selvarasu.g@samsung.com> <as0G-bk_TKRToOkv@debian>
 
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-On 10/12/2026 9:44 PM, Manivannan Sadhasivam wrote:
-> On Fri, Sep 18, 2026 at 04:01:47PM +0530, Selvarasu Ganesan wrote:
->> The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
->> creating both UTMI and PIPE3 PHY instances regardless of the SoC
->> capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
->> and ExynosAutoV920) provide phy_cfg arrays containing only a single
->> element.
->>
->> On these SoCs, when the loop reaches index 1, the driver reads past the
->> end of the rodata array, populating the second PHY instance with garbage
->> data. Since the configuration structure contains critical function
->> pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
->> PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
->>
->> Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
->> store the actual size of the phy_cfg array for each SoC. Update the
->> probe loop and the xlate function to bound their access against this
->> value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
->>
->> Assisted-by: LLM
->> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> Tested-by: Łukasz Lebiedziński <kernel@lvkasz.us>
->> Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
->> Reviewed-by: André Draszik <andre.draszik@linaro.org>
->> Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
-> Since this patch fixes an OOB issue, it should have a Fixes tag and the stable
-> list should be CCed for backporting.
+snd_pcm_hw_constraint_integer() may return 1, which is then returned
+from mt8196_fe_startup(). ASoC only treats 0 as success when marking
+the DAI as started, so .shutdown() can be skipped on rollback.
 
-Hi Mani,
+Propagate constraint errors and return 0 explicitly on success.
 
-Thanks for your reviewing patch.
+Fixes: 57513aabfe5b ("ASoC: mediatek: mt8196: add platform driver")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/mediatek/mt8196/mt8196-afe-pcm.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-Sure, I will add fixes and stable tag in the next version.
+diff --git a/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c b/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c
+index fbeba01b086c..f69ea22cfabb 100644
+--- a/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c
++++ b/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c
+@@ -161,8 +161,10 @@ static int mt8196_fe_startup(struct snd_pcm_substream *substream,
+ 
+ 	ret = snd_pcm_hw_constraint_integer(runtime,
+ 					    SNDRV_PCM_HW_PARAM_PERIODS);
+-	if (ret < 0)
+-		dev_warn(afe->dev, "snd_pcm_hw_constraint_integer failed\n");
++	if (ret < 0) {
++		dev_err(afe->dev, "snd_pcm_hw_constraint_integer failed\n");
++		return ret;
++	}
+ 
+ 	/* dynamic allocate irq to memif */
+ 	if (memif->irq_usage < 0) {
+@@ -173,10 +175,16 @@ static int mt8196_fe_startup(struct snd_pcm_substream *substream,
+ 			memif->irq_usage = irq_id;
+ 		} else {
+ 			dev_err(afe->dev, "no more asys irq\n");
+-			ret = -EBUSY;
++			return -EBUSY;
+ 		}
+ 	}
+-	return ret;
++
++	/*
++	 * ASoC only marks the DAI as started when .startup() returns 0.
++	 * Since snd_pcm_hw_constraint_integer() may return 1, explicitly
++	 * return 0 to ensure .shutdown() is not skipped on rollback.
++	 */
++	return 0;
+ }
+ 
+ static void mt8196_fe_shutdown(struct snd_pcm_substream *substream,
+-- 
+2.43.0
 
-Thanks,
-Selva
->
-> - Mani
->
