@@ -1,114 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792521378;
-	b=YO/weO8IY069NyhhpGfYcPq3DLmndp2IhhhO/i26v586iD0NDVzodOtnC8sEjH/hOfMB
-	 uGdNd+SA9l642vntDRCeRqIh/9aXfjeeaJZj4iFlCpDWOQWiIfnUfvw9loHGRtm9hBnUi
-	 puSIKMvtIRFSuNLZFoQw0iOhQuPjMxvIII3OXuOtRbVAxURgGKdK1SucMD1lpjj/w0AJu
-	 7uHlBeuPRC2QMHj3NRfe2M83SSgyv3GZcmit7FPxzPDdPevmJ33m+M0PsbmKhjr6O0BYj
-	 +lqrXirqrLw76+0ZVa3RogecFwzjyQE4NSROVt8Qk03tvka1dAnqn+83w8tK91V5q/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521378;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bk7jnHkCaTC6apRDhn9sV5M02QmCrnv+VHnvjh6o6qg=;
-	b=BXnxNVMksNUL+ght1+CqFEfoqgNonMVtqjXbSCGs6QURtfVfDnt4zRK5SpD/5i67Ne10
-	 yJ/WWB2IMtVCgFAzP8+zqMeP02YvgL3DLx0VGy79UaY0VvG4ueJ67n7OqtXwRh+ZMC52l
-	 Uu+ByuYQTN8IIGgalmjyR7LXlSrRv+UIr6+KDR+DY69A5HHZzekYjZNd2AjQ1xNUuH+WJ
-	 XJJlVdJpkt+hXxhByQcMTZMPqSyb9+uCl7rBHWgLtvanii0ZR8Nrw5eqTcsXW+75YyoL8
-	 rIdDjm0Ukr1zoxhiSYPwBeknHWHSf3PAkYkTBxr5S3vRqS0W4OfPgNF5UjrWTXGj9FQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MqIbdFJz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.47
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010047.outbound.protection.outlook.com [52.101.85.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792521408;
+	b=bxnE/wK84YkVHGsnDiBas7l21qOSS1UaqlP9SK52HdO5CnmMDW/r3nZI00vv6RX/MfyW
+	 O7IpapylTH6Py6ZeUtJTKIvCZcOlof+gNvb5qZ36lCATuJMpkphI60O9sQaXZxLrb2RG6
+	 iY9UGaL01DNHUlGLf4UA7pz5S0Nc7oPIwqO1Gfnem+TnFvGF9moH+xILGMJOfEzqxcnk6
+	 bpfSCU6hRoo5mZHzooZ4JIE4stzOyV/e3vlrAIlAZvq0HB9/IhtpfljQ6qhW0csZ5sJAI
+	 A5OLSh1h7WZ8lxDkhtiqjoYR0wxYARR6KHewU/U/WJY/4qe90tqsg92JcQ+LZQdKfUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521408;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=ouWjU4tQYCPGaaITYf8Wcp+WRi1h9s1tRN92zBpbxMo=;
+	b=dQpjR1XP3PuhsafLZ5Db5WcY11G7kHmKZ/+WNwVhX6rwLetpCXcMdYdnL7ojoBZsUy9q
+	 3/wKnt9fdC3hnUPow6/SqI5NhWLvOIkMZWJ5I1vrEwqmBHAPP1CWrU9LkwB7JYk5NMqCf
+	 +cWZ0TeJDu+xuorON/7Z9UygNH3KpPi9g+Wu0hCuseNTshHgGWvvpd0ezBS2MfR+BvRfb
+	 WLiZTt4H4MthPqNCkZZ67NKbPVRY1J9h0Pg/WC/pFp/D3dCky3z361w0FkUs2IdAHdfw9
+	 j4RMub9SRNPOyY50nfJE62UXtAAyn84QPn/aJu/vHGaBg6e1q1qu3OQJ5jDuAXiprSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YeJ87ine;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B571606A319;
-	Tue, 20 Oct 2026 18:36:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B571606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8104E606A319;
+	Tue, 20 Oct 2026 18:36:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MqIbdFJz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fes33Vb5bVLa8XJddrFIjcBBTUwtajjaRvlffgDQ75lPnC+08QizS12KEMt7QTT9h+gjrTK2KRPoAala+Wa0z+u09gtsWHF+vbn+hspSukZMBePtE4O6/n/nf47fJMsMR5Nfz5fTXPROtF+zTHIboGDrEazSRajYnYxcWPg9Q7gAGp9AkVqgvPsfFYo3begpjbq65KOrBA0DhgDGqywatG9221nriSxITXYS2f+82uVDVFqQ/ttrIAfLsIUGLmYhVptZu8DuQzRDhrjLfDcI/0wA7+ir/sSUGhEHPXqJgki6KnQTNkHlmke5akVfC+2wIxMAmvBUs0MsPm4bz8s3og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bk7jnHkCaTC6apRDhn9sV5M02QmCrnv+VHnvjh6o6qg=;
- b=ewj+LSIvP/qUYmSWWn0k/4mS/JTyplm8pJkKZ3txZ07vNJYFFBZ78Fqi8th+PTljU4QIW9hLK+kAhhZyF+OR+EjpAkFBwDMT8PQvEEFMxi4nESTRwr2lhd0Xht5Avg+FIKh7fLpKLLVKk1JyoDsev7x5tQDJVf4sjnLKZON//bTH9vQV4vbOaetHgo55PPtMK3oTWCanBUDMvqsqTOlZ0w7tsr/4Je/48bS/UF5mOl3B3pEW+fEV4lQugbazPexdbg5D5YT5FOzCxUfFai3M67UfflcCilB64n4FjYPcs7NapEX9geHTdKQtqAk4brCnWDDKrrg4B5i7F13rU12cEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bk7jnHkCaTC6apRDhn9sV5M02QmCrnv+VHnvjh6o6qg=;
- b=MqIbdFJz2O+uKA1RQvKlyZ1nz2oX1//etAzoTK6UAwBfVXC6rS1nHh6gTXJrrImlHrrtCUuXV17hcUFDMyU52NbfEU5unNnKoqYOoIHqiNaY8TmzkKT6mzY6H1YVfIM3rV7LaFoEW7UXdLxvUH3g98PMniEwONaQuPrVfuzNbF++xZ3wxtTUvjH2gwjJzOI1Ac0VMSUgSDbzG1i4qLCoajvnwJuC6ilM9LB544tUN2cEmRoKvT/8wJWdGem8nrgZ1+zw3x60byBYm7+jlWJILI+zsDAEvp8U79doVmwLe08rEUkF/kFr8RENLlMtE6YMRAN3CG3as7f1YLlGqVOn1Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CHBPR12MB443627.namprd12.prod.outlook.com
- (2603:10b6:610:36c::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 18:36:10 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 18:36:10 +0000
-Date: Tue, 20 Oct 2026 15:36:09 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Philipp Rudo <prudo@redhat.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, Pingfan Liu <atlarge80@qq.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Simon Horman <horms@kernel.org>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Viktor Malik <vmalik@redhat.com>,
-	Jan Hendrik Farr <kernel@jfarr.cc>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	kexec@lists.infradead.org, bpf@vger.kernel.org,
-	systemd-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	Dave Young <ruirui.yang@linux.dev>
-Subject: Re: [PATCHv7 00/13] kexec: Use BPF lskel to enable kexec to load PE
- format boot image
-Message-ID: <20261020183609.GI3008132@nvidia.com>
-References: <20260322014402.8815-1-piliu@redhat.com>
- <20261011201325.GA918242@nvidia.com>
- <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
- <20261020194719.4fbd4e4a@rotkaeppchen>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020194719.4fbd4e4a@rotkaeppchen>
-X-ClientProxiedBy: BL1PR13CA0302.namprd13.prod.outlook.com
- (2603:10b6:208:2c1::7) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YeJ87ine
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A011F000C9;
+	Tue, 20 Oct 2026 18:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792521408;
+	bh=ouWjU4tQYCPGaaITYf8Wcp+WRi1h9s1tRN92zBpbxMo=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=YeJ87ineRpDBRmOg34ZDDeb3tvaGFxcbkw+4K3Q0Z5tK0ozhKcEHyP90wJps8Monc
+	 zw/PtMX2sdkSAY6tVQwUgE9XlwzAeMBL5hTxtMEoi2QLvw2Dz3dXpN3rKSB2PQ0UC/
+	 vQABkdK0PxHvDFjYJ72muumP5ixYMxoLec1slb/Fr3ypTzXEt9BPWuHk/Wd+Zlx5D6
+	 2dUd7Jh8PSDVlZ3XzTBeokGSY9eBnrU5ywn/8cj+JSY63WopfpWAcB2GopV1HNr7KJ
+	 W9svEMAsDU4R2SRTsWcQBpSOXERzUfgZa+w3K8gMwJ4jKTUACDMZh/RFBljgl21NGs
+	 VfRbDJbLqGPIQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C7352CE09E8; Tue, 20 Oct 2026 11:36:47 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:36:47 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Bradley Morgan <brads@mainlining.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Kunwu Chan <kunwu.chan@gmail.com>,
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC -rcu/dev] hazptrtorture: Release all deferred hazard
+ pointers before stopping
+Message-ID: <c0540cf0-32ba-46e8-8648-23b70936fde7@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261019162005.12888-1-parri.andrea@gmail.com>
+ <AFA8DFD1-7D1C-49FD-BE53-95747FE4302C@mainlining.org>
+ <20261019173230.73558-1-parri.andrea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,101 +72,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CHBPR12MB443627:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d3a841d-6153-4fbc-cf58-08df2ed90324
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	JeAXw9a+mn8LyJe/njYKMpNN/PPk2t/IyBWkbWzOKF2ISpR40ZME0J7zZQdiwaGeDIfhXJtA1Mwv9rvurV8psjYx0vK6o1xeKXj3WAxx7ql1eA3YdF8E4zmRJVmP0W98JV6boE22bl5HCP84bywGo0aAvmhybU1noczIkR+ydwZahIh6AA6zLRGo84kjAaybP24fPNDDdHaAvxF0WY4j0VtKXyOKKRAtdOM/8f/qU4gAHX/FKg93b40ILLbUJS1t/hIvnclu3TOu0xIwx0BnepRwHPh/LjVblRa5Vh1PPH0h7jeYbgLv6hl+c1gy03YDvxRWaAYk4sexoQj/Be7iDKh5elkQ6m14TELX1N9wM4ILe2v/9CTBByRKgEZgD9xIcfPl/g4NG6W9eiG4JKPi82xxBlw1PiC3iIewE5vNQU6o8sa3cEwssl/n9CLRg6iWmrto0S5ez0NYKMdEAysIOZlIVVgy170ziHuWAhJZ4129UZ9RbcP7vvEeq63Z4PS1vOrKi0cOff3rtUByIXhMJhA2d4OuGBtXv35RHmopRLcF0MQ3L/bUonGXYOVi4RxgaLFM8wy7OQhmzedgWyUMdClFqpz07np4SRdfvbPuQ22/sqNNDCudfFlHh6/jZrjYbvmbC+FCxkf8dVL0VHgOpOsyx+1Nz6x5hJW3qZdRcGg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?v3+H6yWAyfD5DNL5jPyCA2q3JE99nw6kysQGYRtbH+5DKzy875lLrkIEJ793?=
- =?us-ascii?Q?2NuWok1ZKkyLnEe1Yn8opIaUcGQovf2z5tavvwSlWVGK/96ZHwguHGj0hOSi?=
- =?us-ascii?Q?5REkdJdUw8hhioBF5MyUaj1DmkMOUlWMFud/BE/uHN8xoZP3c872ST3MUe5v?=
- =?us-ascii?Q?trKb5lo0TETfrV6i7ngVnh7EpkpKE3XDwoxi5IGoh1REMxq3SUe16d1omRXr?=
- =?us-ascii?Q?5C85D8KcbgK7Il5PDxVWB/EfklxIY2tS27gjH+pO4CkEanP53wBK/rXJ6RPV?=
- =?us-ascii?Q?v0oI5A1BjHBD5g6fd14nMclLd22vuAlj62kluwH05rIqk31Mya2NtPnSVrHm?=
- =?us-ascii?Q?qeXu/750Tl/I/9nZTJFhGeWaWUF1it8biMXRVsZ3RdLqZwRAlfIC7uhTN2lH?=
- =?us-ascii?Q?dH9CGktIYnn0FaHn6gD3ZOAuxnOiSjxs8sF8Km1+ELt2c2QRuMm1adfqPDPC?=
- =?us-ascii?Q?G7k7GWGlxgYfnFoK6VEcoaxh7rc/GjTKoY8M1lek7Lt16R1iVGRZgm6WXcmN?=
- =?us-ascii?Q?16vOhVWHAcqegFpGAuuhrrsX5j5xDAxIHr2Hc7ZiwCAJrI8i1E1jtx/Q7mek?=
- =?us-ascii?Q?IgZM5AQdUi15Vh/QdOIXJziorSL0AfpyiEDFsiNx3dLE1HzEDkS5WOsd+Vjm?=
- =?us-ascii?Q?3LuHFrDunQ53rnDAciEvpJPRogbED85qQuobyZzJHA2SBadlZQeWabDZi2KP?=
- =?us-ascii?Q?YTEJ7o/Emv/ficNkWz47vAdyGOMNzdefiqI67DQIvcMLl0svzLFEetRtGK3A?=
- =?us-ascii?Q?VT/oku9uQoUscaQbJU25qVqEQSK4sJZS5q7WfhXFwcoxXAeAJk5WwtaXI0S3?=
- =?us-ascii?Q?qiQ5+4CCCPnaU1EDshSEt8uYW1L+5iv+x/7CB1p8UQg76Mmy/0wSd35EfTxM?=
- =?us-ascii?Q?ZuDXEEjoQIdq4QNPpmHWDxdkAIxZaxbdiKF+FbzB73hqASIdANGwVmCthUHi?=
- =?us-ascii?Q?h7XX2Sd0v8EcrdcwDGRshEZprZauVP4NsPwTzUHrokSPE11oo9TvgN6ZmNGm?=
- =?us-ascii?Q?+4JQEzsFyIKaR9xOfxF//4RyQmMtrcE8R8PBqTZIQiz1HfCH+bjWNRa5k89X?=
- =?us-ascii?Q?qDKcWqEzG/bvyvpf4AMKmVqh9krqR2mBovqupukEK91ZX7UHlN+iie5fTATi?=
- =?us-ascii?Q?rLxVsgSlulbzO2LLWC0T0k5Miiwka70pwkbU6X0jPJ3vmChJb5ZKPA0x9l5k?=
- =?us-ascii?Q?FifOiYdx/l79mwfHCMaTZcHxzgBkoRI4SKmEwIJ4nS/pLKnfsZdQM36UNsoH?=
- =?us-ascii?Q?+VtqEaT8k6SPUVQXKzXY/7EK9URChamxdpvh75mwvOyuPxtoHmqiVN8tmhL3?=
- =?us-ascii?Q?aNhQPxHtLdLh2aQMkYNtjBdHIfYr9UMB4WrYyFiau8s4b5/kIvszpCGAlhFo?=
- =?us-ascii?Q?OzQPDi2Mk6yFOtmoxcc2FFTfFf2U7F183JndFWiP+gip1bPJmHryZl3zv5Du?=
- =?us-ascii?Q?lBxd9gy74pUMz//BrpAdTRsW/JVnq28vDIDbbU6xsGorJJHfOQei/ZgEcSQP?=
- =?us-ascii?Q?r6543fyAkOZmQsIvnmNLZJTN0l6TJDTo73Pxj7tTCHuys7ubmAHA6ES0OwqR?=
- =?us-ascii?Q?Bfx1mhtEPnfeoZgpXN8ONWxlvziR4g8ZrPkuwBzLxIt0sFnH8usBEINiLNZQ?=
- =?us-ascii?Q?FUahMTPdC0IIQJdrK+OOu5hYhpyOkgNCm1YnvPVWNGXQNV0kAbRPr8aSYSu0?=
- =?us-ascii?Q?eTO2UUme/lzrtvKpr1GCBYqK4nZCvuLsYhzdqbHwrr4Qnymb?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d3a841d-6153-4fbc-cf58-08df2ed90324
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 18:36:10.6932
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uOQ6QQFnT+g7MMZRiFdXnM9tOCTXM63RzmSbna/Al1OKLUYK7hM2ANG8db84OWbR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB443627
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019173230.73558-1-parri.andrea@gmail.com>
 
-On Tue, Oct 20, 2026 at 07:47:19PM +0200, Philipp Rudo wrote:
-
-> The reason why I and Pingfan abandoned this approach and went for eBPF
-> instead was due to security concerns. Our premise is/was that the EFI
-> stub must not be able to harm the running kernel. Be it intentional or
-> not. That's a guarantee eBPF with its verifier can give but a simple
-> file signature can't.
-
-This seems too much to me, I think the approach of signature
-verification is sufficient. If you can load a module then you don't
-need to fiddle with some covoluted EFI attack. Distros should include
-their EFI signing key in the kernel keyring so a standard UKI passes
-the test.
-
-The eBPF approach fails from my perspective because it never actually
-runs the stub code or using the EFI entry point. My interest is to
-actually use the EFI entry point, not just treat it as some convoluted
-zip file.
-
-> But that still leaves the "unintentional malicious" case. Meaning,
-> that someone tries to be "smart" and does weird stuff in the EFI stub
-
-Buggy modules exist too, it is up the signer to take a position on
-that, IMHO. How can you have an "out of tree stub" if the only things
-loaded are signed by the kernel builder?
-
-Regardles, Ard's suggestion to move the execution from a kthread to a
-user thread could provide enough isolation to mititgate even this..
-
-> Two more comments with my distro head on.
+On Mon, Oct 19, 2026 at 07:32:28PM +0200, Andrea Parri wrote:
+> On Mon, Oct 19, 2026 at 05:22:54PM +0100, Bradley Morgan wrote:
+> > On 19 October 2026 17:20:03 BST, Andrea Parri <parri.andrea@gmail.com>
+> > wrote:
 > 
-> First, kdump is extremely important to us. So the final solution needs
-> to be able to load a crash kernel as well.
+> [...]
+> 
+> > >Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
+> > >Assisted-by: LLM
+> >
+> > Why not put this into a series?
+> 
+> The two patches fix unrelated bugs, touch different files, and apply in
+> either order, so I posted them separately.  But both are for -rcu/dev,
+> and the test notes in the hazptr patch rely on this one.  I'll send the
+> next version as a two-patch series with this patch first, unless Paul
+> prefers separate submissions.
 
-And you want this to be a UKI too?
+I am fine either way.  But whatever you do, please do *not* put them
+into the same patch.  ;-)
 
-I'm not sure it is so good for crash robustness to have so much more
-complexity in the boot path..
+> [...]
+> 
+> > >+	/*
+> > >+	 * Run until hazptr_torture_cleanup() stops this kthread, not just
+> > >+	 * until torture_must_stop(): the writer can be waiting in ->sync()
+> > >+	 * for a deferred hazard pointer while it is being stopped.
+> > >+	 */
+> >
+> > Could this be shorter?
+> 
+> Yes.  The comment in hazptr_torture_cleanup() already says why, so this
+> one can just point there:
+> 
+> 	/* Keep going until hazptr_torture_cleanup() stops us, see there. */
+> 
+> [...]
 
-Though I wonder if you can run the EFI flow when initially loading and
-staging the crash kernel? Then stop at the exit boot services and wait
-for a crash before jumping back into the flow.
+The longer one is better.
 
-Jason
+> > >+	/* The readers have stopped, so nothing new can be deferred. */
+> > >+	for_each_possible_cpu(cpu)
+> >
+> > Is the comment needed? I don't know if it's nessesary.
+> 
+> I'd keep it.  A reader can defer after the last pass in the loop, and
+> kthread_stop() can then end the loop without another pass, so this
+> pass is needed; the comment says why one pass is enough.
+> 
+> > >+	/*
+> > >+	 * Stop do_pending only after the writer and the readers: the writer
+> > >+	 * may be waiting on hazard pointers that readers deferred.
+> > >+	 */
+> >
+> > May we shorten this? Feel free to bikeshed that one.
+> 
+> Sure:
+> 
+> 	/* The writer may wait on hazard pointers that readers deferred. */
+
+And same here.
+
+I am sure that it is possible to create shorter versions that keep all
+to the information, but I am OK with Andrea's original versions.
+
+Bradley, Andrea is not a native English speaker and I believe that
+you are, so if you want better wording here, please provide it to him.
+Perhaps someday he will return the favor should you ever be required to
+write in Italian (or German or Ladin, for that matter).  ;-)
+
+							Thanx, Paul
+
+> Thanks for the review,
+>   Andrea
