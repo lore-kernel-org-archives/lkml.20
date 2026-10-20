@@ -1,81 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460902;
-	b=c/N0mxwX+uA8kdr8/eDyvrXb1xpUmvI9AXZoYVdF4nkSkVrQjehQvhgTd8aAkbrmNCgz
-	 4PHRTbkhp7Get+YiTzxeY9o5lndSZr8KIAJ/t8giL3VN5Uqwoj7/RJYFtY4kOq/7iR2oD
-	 NyOqd4ulpK7s2oHFpd4KWf8GlnLtc0GvcoBKvy8eVSGYddej7vm0hJBzS8jqJrFHfQWe0
-	 RzkZ1fPckFq3joLqm9WQt78yPzqwCEjxK/Bcr6YC6alOHP4H5IH18bh7Bm/bzDjVV6CKz
-	 5BNDxF5y1fAIs6hWnwfB9medOVX8UiBxgzYfrFQABt8m4uu9HyYoD7N7E0cxsn7CaDA==
+	t=1792460908;
+	b=mXr+x+A9I61KyM6jSXH3oGlJo9INfXkk+eJmZGVgnj+/9m7BYqmpOGLE+K7wAFdc7Ho9
+	 y8nsmpPjZzm/80Rt6kOFYbuIpA3Uv3CeCNEHO+fC4rRu/eehwcy54cOPrpbVWIlCs8BRg
+	 VwrleyoLLUzG7FNP5Pe08knSgZFJsLFbhRFOSeaPGac7gXMzc7dM5xt+DNDgMACWzX+x9
+	 G29sxJXMGLVuksG2Ns05JjmObTIlwZxIwo+s3NqIlPeNhrisnhVRcy1enhP3y5XEJmmMT
+	 bp9m5P28womiaIXWtn5YbehyBx3OUf+WWYG7HLFIZ9bckrXUrEDSOPc73HVbrNTyeNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460902;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=otP8PFpD2mqwoHzL9Okmm5HXHVYcZk11YLP3TZLrwXQ=;
-	b=RVQzUfU5AFFgzTzXFPZMiYdkPLAHclXiD14X7RuWX+GUIn0ZmcILY3s9L5cYtCXLTz/S
-	 oq718158d1P9QMDiyVkYXCCj4zs5LiwYNMhkr7VEfSJ+a6MPFfAy5otABkZKzpHxzBQSO
-	 LtrnYg3i7hqVVb9mMsuHY3R8zLC3nwiSb9bsfnOzo9MPzDZC04jixBFnfgtHvChIVsDyN
-	 PLpUgVB3b5iq5PJCgC5PpvBWT//ty6j9lYjAFKxTmTDyRQadglGKosSHWY76t5ym2P3my
-	 9yvggXfJbUJi3+KNqNZOZTzHkcLBD/WBTzYKtw9ZlZ45lvXhH/Cl1jZjrZwLmlN/zUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460908;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ezGP1Yonno3ZtROnLi8FLhe0PdCDx+ACf/Q9hTx5uuM=;
+	b=iMRBsiq55eXwRuf+5ah/KL1IT/Emcd6VM1NWq8XiaWT+jWkKcWjWQS0YfgYXYWwVqY9Y
+	 mvw4ZoHu0oszBcIfd3qh6GpyQ6INtGLOTjihfJ0subflMrkOkUTAtT/CcsZpq+qB/ncKE
+	 b4xrWvJkEXYIFVeO9u0N3sQSO6LWUfn6lsh1V61pkKFWcukPG4PmjX1fbicCvZ/I26RFh
+	 v7qmIcKLocJh6yvRlzQxVFCwUVJ1yF33AojVxEfYRvQ8cTstKBBktqr8wP66O5kImBErT
+	 qdkeLgTjuCXB/Nm/Gi+sl/eqX66fG79AIdqCbOR/9mzYRM/VKKF5ouf1zBscj5QRojQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=BFnDrK8v;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FZkWFoVY;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A38606A319;
-	Tue, 20 Oct 2026 01:48:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11A38606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D726606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D726606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=BFnDrK8v
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69K1mE6V12556592, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792460894; bh=otP8PFpD2mqwoHzL9Okmm5HXHVYcZk11YLP3TZLrwXQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=BFnDrK8v1tySsBEAVSAMe3wz6x1ZGPZqR0owsV7HyaTn7IA4erIY4xo/o/2X/RCu6
-	 NgXBIgV0b1YL0kcIdbs/qmqm0vcX7XZ/xvvdwa5kv5p418mB1D5P2jEJrS9kU49WVq
-	 MT90pDkkPYvaqjN6YXcrVUAAtfeZIzxnN2K7iUVoSJnQoHFekQRtdNj0ietZm2iytb
-	 j9LhUtqtnxn9NGMnc4Seap3Xsjunx1T32w8KM+Ull3Le8qKV9BPVyE6JI1wlLwaLAZ
-	 TSUBiWpmNuyTNSGw9w+GkUashokxM7wAKlkwgnnrv/edWwI79LlMg5jgp6TmyKRGB2
-	 6TLMi9EHXd5hA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69K1mE6V12556592
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 20 Oct 2026 09:48:14 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 09:48:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 20 Oct 2026 09:48:13 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mehmet.fide@screeningeagle.com" <mehmet.fide@screeningeagle.com>
-Subject: RE: [PATCH rtw-next v6 2/2] wifi: rtw88: support channel switch in AP
- mode
-Thread-Topic: [PATCH rtw-next v6 2/2] wifi: rtw88: support channel switch in
- AP mode
-Thread-Index: AQHdWuS02ghpGGHw90yaRSTFSDbFibcEOBOw///UiICAAIlYUP//nzSAgAF6XrA=
-Date: Tue, 20 Oct 2026 01:48:13 +0000
-Message-ID: <9aac793dbdcf4c4d99800418c16a7346@realtek.com>
-References: <f4aea8175e4f4082afd50fa94787137d@realtek.com>
- <20261019105643.3282423-1-mehmet.fide@gmail.com>
-In-Reply-To: <20261019105643.3282423-1-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FZkWFoVY
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-354ba08cfd1so4957832eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:48:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460907; x=1793065707; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ezGP1Yonno3ZtROnLi8FLhe0PdCDx+ACf/Q9hTx5uuM=;
+        b=FZkWFoVYsMtjoo4moW2w7KngMWoj4ckM6+YHFDl/bGjZ/ieFwRpf8QXxMADqaL6jCf
+         oZ2vFEJ6GWTQ0h0587RDMCGKndR1Sv5wCTQAsh+TEFJUHA+uQ9nhoN+n65iGv2wXnpVm
+         zGpR1cJ1E6C1gtBxo0zeZHgULiQ0Jy2kmGA9zYIAe81Jp+aYLLToZQ8iLbGkziFwAM5K
+         sMYXKWct0/DIwBcna//boojaxbfdQiBnDmiXu711WywsAgWJuup9m11wjE2izpvRxbC/
+         ZgP6PtE6mixlMmzm/BClDggHYm4pxnNogIdIQoTrzwoqpXn7rKS6opG0v1Rimc8cEaDN
+         6NEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460907; x=1793065707;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ezGP1Yonno3ZtROnLi8FLhe0PdCDx+ACf/Q9hTx5uuM=;
+        b=XjB6sEXpzAMunae3ZdplAFyQo5py5jAadBCLe86t1HQobx0dEZ7722sn2BF6bDJKl2
+         0usXHvHWqMo36UVoqk6zMZXYx8n4Q7Cq5qakr10lAPbs5IW37DeMoGdtiwFe1hSGcFxx
+         Ip4F3MvpyKp8wEseCvaOvPSve/xDo+koAZjyuO0Ool9TLmY1ijRkHedUnWxF/VbIUZlr
+         kAgLrWDfKtXjSyMBFWyJ861h0iTJQiBQPNjxxA1q/PUvTG0iE6aaq8+PVh1sYm18IFhv
+         kQv9tvztA3zHf3WmZVwxvilrdsXfDfSiE+jqXRV1IdJRW97Z0Re62qGYXHkM73jq65Wd
+         ZXDg==
+X-Forwarded-Encrypted: i=1; AKwUvByYo6UFnJi2rg3t93Kn0Oda4fwM2E6eREQ2VRHlTaGTcIHiQeyDAFKDA0fjRHi+pt+TPF8RqXWpqaeCvu0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKu98ozOZqFXUD4hxJXHN0EpN7jvfzu+ygUcT7lmMAMSvBLojzi
+	a7SORFinfP56SSDdJ9bAh6hqAvox3Wg0Y9WfZlKGtgN2GDXpTp3eJYYr
+X-Gm-Gg: AYBFou3z/hwk5Mw2R25nbkXX0XsDr4SZI4SU3AQMxnFXItEzfatUXOqOpvU/SeRq/nZ
+	sv+QaCKhF9bKzAJxLM9xka+ND/p+Mw8UyxQQa0CDzwZrBdc6UM2ADuxVBLOTolzMIqtfO92KEYf
+	sXqDNkTMPbs2riAW8uS+KZn78esabfwpdwdY0TQsNYdrJz1dalL31sIvlOsgwEy5JWW+3jCa3mv
+	yiWPjT9J062D6D/CMc7rJMscQODUs3R/7+v/yMYhON+oQVg+ndTPjZVX971yyoZN51L2hSkpNGw
+	+s6YVWFDJ3JwvQ43vW+B2cab8HjJVmhVzQyiekftcyc3rQqbtCiX2LBWh6PiAfhVlWPPskzDOuo
+	xWEyjXAcExCt1o2Jp/L7ecs1tX7qRcCZnMutM7M3JEoey92QvP/P7+jE45mhVDc6hNqC2PkzNen
+	UJ5JMOJo5MBVNN5WQ2MEqGBVzblMKc3wPweC7jDvS5sQXQykL0MSz2PpepNDb1L0nU8M/o/1GJ+
+	Tts7z+EylsB
+X-Received: by 2002:a05:7023:c087:b0:156:3684:96d4 with SMTP id a92af1059eb24-1851238b5e7mr13733617c88.25.1792460907214;
+        Mon, 19 Oct 2026 18:48:27 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm28699903c88.14.2026.10.19.18.48.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:48:26 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:48:26 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Chuanhong Guo <gch981213@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 2/3] watchdog: mediatek: add MT7629 reset controller
+ support
+Message-ID: <4606c758-16ca-4fca-9a0c-babf15643b49@roeck-us.net>
+References: <20260926-b4-mt7629-toprgu-v1-0-c124bf9ac273@gmail.com>
+ <20260926-b4-mt7629-toprgu-v1-2-c124bf9ac273@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,80 +105,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926-b4-mt7629-toprgu-v1-2-c124bf9ac273@gmail.com>
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
-> Hi Ping-Ke,
->=20
-> On 2026-10-19, Ping-Ke Shih wrote:
-> > It'd be better to see every count stays on the air. Will you implement
-> > to handle TBTT events? Can you share a draft first or a separate patch
-> > (e.g. patch 3/3 to improve missing count)?
->=20
-> The USB chips raise no TBTT interrupt, so the countdown work reads the
-> TSF and queues itself for 10 ms after the next TBTT. That gives a
-> download about 80 ms to run late before a beacon goes out without it;
-> one later than that is still followed by its successor at once, as in
-> v6. A TSF that moved by more than a beacon interval, an IBSS merge or
-> a reset, restarts the schedule from the TBTT ahead.
->=20
-> On the 8821CU the downloads land 13 to 22 ms after the TBTT; with a
-> 60 ms delay on every second download the sniffer saw 9, 8, 7, 6, 5,
-> 4, 3, 2, 1 for count 10, with 95 ms it saw 9, 8, 8, 6, 6, 4, 4, 2, 2,
-> and the AP switched at the same time in all cases.
+On Sat, Sep 26, 2026 at 07:14:00PM +0800, Chuanhong Guo wrote:
+> MT7629 currently matches the MT6589 fallback, which exposes reset IDs
+> 0 through 11. The MT7629 CONN_MCU reset is at bit 12 of the SWSYSRST
+> register and cannot be requested through this fallback.
+> 
+> Add MT7629 match data with 13 reset IDs to cover the CONN_MCU reset.
+> 
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
 
-Do the 60 / 95 ms delay here to substitute 10ms of
-" delay =3D csa_tbtt + 10ms - read_tsf();" below?
+Applied.
 
-I think 10ms is reasonable. Not sure what is the purpose of 60/95ms ?
-
->=20
-> The idea, on top of 2/2:
->=20
->         /* csa_start: the first download goes with the TBTT ahead */
->         tsf =3D read_tsf(rtwvif->port);     /* 64 bit, 0x560 for port 0 *=
-/
->         csa_tbtt =3D tsf - tsf % beacon_int;
-
-FYI.=20
-Use proper functions to do 64-bit arithmetic, like div_u64_rem().
-
->         csa_queue();
->=20
->         /* csa_queue, after every download */
->         csa_tbtt +=3D beacon_int;           /* the TBTT this download is =
-for */
->         delay =3D csa_tbtt + 10ms - read_tsf();
->         if (delay > beacon_int + 10ms || delay < -beacon_int)
->                 /* the TSF moved (IBSS merge, reset): start over */
->                 csa_tbtt =3D next TBTT after now, delay =3D csa_tbtt + 10=
-ms - now;
->         queue_delayed_work(csa_beacon_work, max(delay, 0));
->=20
-> So a download on time runs 10 ms after its TBTT;
-
-Can you measure this on USB 2.0 port with some traffic?
-My concern is that low speed port with traffic results in missing countdown=
-.
-But it might be equal or better than v6, not worse.
-
-> one late by less
-> than ~80 ms still makes the next beacon; one later than that gets a
-> delay of zero for its successor, the catch-up of v6. Nothing else
-> changes, the download and ieee80211_csa_finish() stay as they are.
->=20
-> One thing I do not have: the TSF registers of the ports other than 0,
-> for an AP that comes up next to a station interface. rtw88 only names
-> REG_USTIME_TSF; is it 0x568 for port 1, and where are ports 2 to 4?
-
-See rtw_hal_get_tsftr_by_port() [1]
-
-[1] https://github.com/kimocoder/88x2cu/blob/main/hal/hal_com.c#L13181
-
-> If this is the way you want it, it becomes patch 3/3 of v7 with 1/2
-> and 2/2 unchanged.
-
-It is nice to me that the sniffer saw perfect countdown. Do you have
-any concern about reading TSF as parameters of CAS work delay?
-
-Ping-Ke
-
+Thanks,
+Guenter
