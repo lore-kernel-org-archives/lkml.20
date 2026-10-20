@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494592;
-	b=fHd2sBlQl5hPeIElJzqKyNIzJNPGitn5jGk6FCFsbDIHNRh/hiYdCtHq4lNk8nhH++TH
-	 +rL6ISwGtZGZ/4RHGeZMAgkwfg0D48VgqcmemrD3GM4tSymtS/yHJ/qdJ+iKGW+WLc+GV
-	 lm/dDY9ZHIHdfr1+deZOUlcJ1fe5xp8V2WlthKRtOPA8TMzVPey796yZl6j2r+8POdKla
-	 7Nq+EsoW42wrbuuU/loUjwRoPMxiR7v16Sy59aVAVVuvdpCL8hebB0dFe2EeRzCHUlj6Q
-	 pMgNs/no+KSd52kTwMR8py9j6MuKw2pJKopHkXzeJFyEBGuhvW2ZmT46MDWse2Kr15A==
+	t=1792494612;
+	b=w8SrpMQrFykejeEkVsWqdyrZWBNc5ijXc/N1gnDh7pkNvBlYJrYzsXDwEbVtRUk3ZvF+
+	 dHFeLuQElLFRbixFJD7teAcGO9S264tZX065V+4K3iAyqQCVTlkbw3fnoBrrEXnx6I9jM
+	 FZ4SzTYAXIN/66+vC3u7/V9OJbt4k+Ki1oysRhWBpFG7sZI0QsN19j/nAaIWyYLHeg4nh
+	 aGk79FquBHMZXGfvbawsNKq3zxXnA5imuyr5yAJwFdVBhw9nGzYgSdziCuSOOO87wV2OW
+	 mTVtcw32YnrHp5kGkBBu/HaNS6FziuU8lwusYAVFf53TBtbOJcCOfiqkIHWcpvQ1Evg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494592;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=qze9GsVDCuvc0w6qB++Wj9RPinmXFdwTA+6BdCxY1/M=;
-	b=2vjUxvmemqAareqxSDmyXhGOZmtfwvq3eE63+/NdzljTIyAW+AQEjy3BEjYcxDG4HZl6
-	 1r9Xg3c7oB7cT83dqW7CDtkLd3uuUpeg4A7iHWjfpCXwl5tfrj4s16kdn9Qo/FI4ekRi5
-	 NtF3gGP1lvUFqONa1VRvFkMg4Zv3/uQpnp5AEhdJT6H/0PqhkB86FqdknZXSZEOVhYr63
-	 IxuNmK65cWnJaJt4lrCqHYMGwidL/cyFVe9N/UTkWdnTPcXoNZcR0qRTfy0jcUA6FvXsl
-	 9s8CAZcFcdkl2d/kMmKuTXhaC8wRO1JKot9JkSArBn1sYrgS9Nms4tbkh0vXTQsmp3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494612;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=+3IN+A5nhPvRVvbTJkXzSBFdWFbcMb+5QoRptbxfYPc=;
+	b=RnGqd2XLqoburs4R7MBvgydfkEiE1F4+M7t+pjAYPgQ2doodjYCLC0KUGaXnphQI8HCo
+	 jYPGFsE6MGmH0DvpKMTTa1UcFRkMydXvXhFky5j4WUOE7oiGOpBgxCiIV8FwpPxxPqskq
+	 Lva4ymrcM6iX6QHWzIxmyE+kttcSBYmrNI24GF0f1FWbY2RhjMKbraBnWpbhiRWHEqkB7
+	 qrcaGxrQe/U0KFF5PxmYNWGZ0PScxwPkibGtA3ZQOL34TOr2SDlDFMGUEIIeVUtndjp1D
+	 iQZDA4smG5OHPPc+ffKd1OLoT3U5mbeu4/IcJWW5zwy3zRUp2H6NdMY+Bws32858bag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NmWXkX5k;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=QaPbA8Nk;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LGdYPtG1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF00606A323;
-	Tue, 20 Oct 2026 11:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF00606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E7606A327;
+	Tue, 20 Oct 2026 11:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NmWXkX5k;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=QaPbA8Nk
-Date: Tue, 20 Oct 2026 13:09:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792494589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qze9GsVDCuvc0w6qB++Wj9RPinmXFdwTA+6BdCxY1/M=;
-	b=NmWXkX5kiRg47zHcScMu4FDG96YeUHWrE1RYjqbPrQ1ZhB5vy01TKBsfKFr5mFWCPBJ899
-	MDXKEuI2g2g0aBFfFdSOkXqkc+QgKfYcDd6jBbrQfr1Y6Z2jKBKS0JjQzxbtXc5FGYteby
-	Z9JeX93y8BCaUd5vJpg4+9I3IYqT58hAikmwvmLgku0cyKEYCUCbCvENRTqqCHGPzWVRwX
-	a2druN3/XV93Uc8a9HhNkFyJ9/Ufi0TS4H5g4h672pvjDvsTxQLJTL3B5/HLFa/iopNwuw
-	BlPUlPEvgu97qvCqRqjQswP/pFcO5/0nooZPxNHGQIAyBLJXCClUO73jO2CZDg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792494589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qze9GsVDCuvc0w6qB++Wj9RPinmXFdwTA+6BdCxY1/M=;
-	b=QaPbA8Nkwz1OAhyo1nPjOtN2F30jqrtsR5wGbN3Df2I5yvgZqmk1ZxKGT5qns2rGAB7zLC
-	mM//MeqmqRVENJCg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	David Hildenbrand <david@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_alloc: skip shuffling and reporting for no-lock
- frees
-Message-ID: <20261020110948.wv_yGAhQ@linutronix.de>
-References: <20261005063515.6312-1-kmehltretter@gmail.com>
- <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LGdYPtG1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804261F000C5;
+	Tue, 20 Oct 2026 11:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792494611;
+	bh=+3IN+A5nhPvRVvbTJkXzSBFdWFbcMb+5QoRptbxfYPc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=LGdYPtG1MJ1ghbSsRWWiJCdPbf2TIcAqxNSWH0IzHSvEx7c2lHhK/206qutwwzpbn
+	 h18sggMQSZM5D0rgg+Owo7q92ZETXMi0KuFJa/601B5njnGKXWQJqmk/kVHSs7ck65
+	 kVyJTqPzzc4YlkQuX/XeLFP68+k6jlnJ8F+9hKfcpHVIIoDarlUE8zuflfPCr9MK+e
+	 ytoROKiDWZ7jKbyztJoVgucM+y3PsWwd8ooB2RIWxa7KMYOhfAPxkadocoSd/RFxL3
+	 +ade7ZU6ix/v0zr8WVkF3+L3+LNLosiDPKuw+OuW9V9uwBKLMlzFw2GM2F4U16GuAS
+	 roxmcI48UBsQA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7737B3808209;
+	Tue, 20 Oct 2026 11:10:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,25 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2] net: dsa: motorcomm: Remove the redundant MIB
+ clear
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179249461002.3669402.14815907556195165257.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 11:10:10 +0000
+References: <20261015004422.1554104-1-mmyangfl@gmail.com>
+In-Reply-To: <20261015004422.1554104-1-mmyangfl@gmail.com>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
 
-On 2026-10-20 12:02:01 [+0200], Vlastimil Babka (SUSE) wrote:
-> > An instrumented PREEMPT_RT lockdep run forced a random-bit cache refill
-> > while calling free_pages_nolock() under a raw spinlock. The unpatched
-> > allocator reported:
-> > 
-> >     BUG: Invalid wait context
-> > 
-> > The attempted lock was batched_entropy_u64.lock in get_random_u64().
-> > Lockdep showed the raw test lock and zone->lock both held.
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Thu, 15 Oct 2026 08:44:19 +0800 you wrote:
+> The MIB clear in yt921x_chip_setup() is redundant. yt921x_dsa_setup()
+> issues a hardware reset first, and the reset itself zeroes all the MIB
+> counters.
 > 
-> In slab we solved this by using prandom - commit a1e244a9f177 ("mm/slab: use
-> prandom if !allow_spin")
-> Could be better?
+> It does not follow the correct procedure either: CLEAN only takes effect
+> while ALL_PORT is low, so a single-step CLEAN | ALL_PORT write does
+> nothing once ALL_PORT is latched - and this write is what latches it for
+> any CLEAN requested later.
+> 
+> [...]
 
-I hated it at first but now that I looked longer at it, it is not that
-bad.
+Here is the summary with links:
+  - [net-next,v2] net: dsa: motorcomm: Remove the redundant MIB clear
+    https://git.kernel.org/netdev/net-next/c/7d23f0f650d9
 
-Sebastian
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
