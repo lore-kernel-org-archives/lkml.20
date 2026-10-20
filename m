@@ -1,91 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464878;
-	b=LwF+1zyqwCcndIDzDpfOiYsXkMRybvywtIXrTG8aWn1JOw5Tu4Y7/y3gP7y3d214nzMZ
-	 yCOLj3PnBnlfKSAcvzGrbbrKucFGs/HuRdh4sT1Eu5DR6UcsrujwvMuROwiRCxx+RNktY
-	 TlqKuF1XSI4cte4vZitCF5luErtKIGzIbQWx5Tl0hHZba+9dv/eMnTNTGE6PWrAX58Ju0
-	 SeX8dXgD7xQyfiG/tOOhBq2fbJK4mlKxpKu5LxdKJ8k53hPukQOXeBipdabn9uysPWOgG
-	 oNgSzbn+vJw/cGyuhxSWicty+k+PVKMMPnpT1H4KaqMpOhJhsDWqrwaKmOEyP6thyeA==
+	t=1792464886;
+	b=2ActkXlyTRCXSA7pFrGKNxXRXJjlyBfCQizdNaCno5YlVlE1+twwXOetGGv7ixDUumjQ
+	 32imac98Yr0MCS0wsPsFJRYhRS++9rRaEDbQxnB9X2qW4zOueS7IPM8KxPLWj3mZ48Djs
+	 yh8FjmESUcvEC+12wnSZL4TjJOCSX69PBNTb2PCV1vEJoCNryJ7PZr9z8jkXJMfalo82N
+	 cz9urJKAw1Krrc7X/AoVcXli6xTV0mhRqUIEOVjFALQxrrPmmvVKO3lwwIWF8kWjCeszn
+	 oYL0x6juJTv8qGxATi0D1FBK9t9czye01dIzQlDNDfWLpWklwOnoDZl+8WvbwlZx7ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464878;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=cHHMdux+IKbxsb4cqhar0LQ9q5oFKRSlwMjgy1dsTvg=;
-	b=lojRBUQ4thB/ho77ed0Fb/OJJXnH9pxLPRQH5n3l22HjWPt+YHeWWctsZB4XkgK81r2Z
-	 zKPv7ru1lS263cdBfV11J82uTX0bOkeqfNeg+azLhjHuThSyLc9n28yZQf1LilZsJWpbL
-	 o77Hx6/I4R5k7APonZgLu4eT/lNFvxLqonKq1bg1d2rIjRiKQunn4k0HV/wAArBRpRyib
-	 2EYqxksjaCXP6b+uMqrv2SgwjeCo0GYSknznXdcKM3NnGL4nSmMwLVRB5lGFCWlUygNC3
-	 6rUYtPdQHqDstkT9LU4SWnluP/o/6ejFiR9YmVR2cfXkIkMUc4GWENrC0swf0eEtpHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464886;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qaK8zFu57aq74kEwOz4Te5AP+DwuCrGiq1hirbm0z9E=;
+	b=qCxtOjXBfDob7S4tT3TbKesu47kD4WU0gfviaNJcx8yhhBtXx+p0SHvLDZYTSd7WdmT6
+	 /sTbDrIt+K0bv9Zmcjl7ZMSoWgNwA7LQDXdaRG3ca3SKggl5CwiDSR876CR3aUHpHGx+/
+	 ckePB8/K2UltpDGFCa/02K0IIWHnWQh8RUNXYjgusgTXIDbiLnmyfavAbbSB36++lYpO4
+	 st8nmmiwlWz1yte6KCzRDGc4GAL8/HmJL6H6w30o7EsGsVBJNQGJBmu+3RL4inWVGzL6n
+	 5bg7+dMDmRAs0180RF+poJQ70IAAnVD0MkOie0yiIDHBIGIZpP+32+Y/4GEguHa3KWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MDltKZ8o;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=WDwew8nB;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF58606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF58606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AAB606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:54:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53AAB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MDltKZ8o
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e608cd460eso15291255ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792464877; x=1793069677; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cHHMdux+IKbxsb4cqhar0LQ9q5oFKRSlwMjgy1dsTvg=;
-        b=MDltKZ8oxZDweO8myubzzv38QuevbNdw6ARAwGnS2A5Sf9qxALlLW/RA7p9kt0rGxS
-         CU34iBVZFHcRdwn0fxYBbc/n6Ialtk9T5J781UJYAF0xm/APpPXCZjDqJHU7hdEBbYfO
-         pXNeHR1NjzhNrn/nO3uRbB1tJbpIlXNT1sBsk6YhgThD8p/II/Hk2LzgPa/SlEmtLzlI
-         b/kw5ocfOmPcW/K6jFbefMNY3uV8GCE0S1RdsiK4MuG1qMUL/1Gb5kcWCum3/+9x6Ib4
-         QvaCJSc9fhN6KAKR9yPQjAmfNQDbch+oQHvxPWY9IIkxNVFMHYmltS5N5EoNDjpFyTNg
-         fbRw==
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=WDwew8nB
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 05B7F3F781
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:54:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792464877;
+	bh=qaK8zFu57aq74kEwOz4Te5AP+DwuCrGiq1hirbm0z9E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=WDwew8nBjdw0Dz09jSec5KT6hlRnZ9r7AdGFN3SBoyUj/4nb2VsuhcRFpSqa0c8Sd
+	 M8oLKH5sPAiK8+iReuCk9IS01ey59+d/nkMUGyEJw7HuQu/wtDa0knpru0xKUh8X9h
+	 +h2lwTxTdhggDRQwhDjEq4LrfcCvkyW8YfkT62NQqYO0vt8SQuJSXyVRVB3lAL5C/N
+	 1G2v4YDGpSfclTg4zMTaEL8hcNvm8nhBaRCV6w1QNrg/da0hkF3DHGD2tYJgCvG4hB
+	 WArEEJHohFXmR+K9lkQOrXgAJnr+n4zixW2uutk4YFBxYKy/A1uOrdz+s3SobWHnmQ
+	 wYlCvD7nAGrArJEYXYAPTX3u3ZpiK2Gzc06tbDKfdlMj8lhv5DAx7HiCynTq1oodJQ
+	 m89R+dxJFtsmF8osUbbfrB9s/lbN5FmliMtIYcp6v/E5jrqpPXYNlZhr8sOBXfo95i
+	 kBtKF1I/TnKKoRASvP5QqDXDwbI/CiH6tNe/zXPDrYoVT9hWMoIOeaMAHAlyFL60iz
+	 J6D8xLu2wJeSfzO4Xc7WYhnh6LBAk2MpuBHM89G53/AbaCBoUMy267diXlr44sTy4J
+	 SI6Z5y2XXaGH1DAPE51+GUCMjv8CoiuQXrI3KAlhdMNDNDWyKke2jY65snV67THc8T
+	 22pTB+zbNzG4+EMuElooQiOE=
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3acd21ba24eso2265852a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:54:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792464877; x=1793069677;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cHHMdux+IKbxsb4cqhar0LQ9q5oFKRSlwMjgy1dsTvg=;
-        b=niwHetnG4WU5pw2x73Jgj02WasuJ4gkGz6lOXT+ESytFdR9vEz1qrOiyp5rKx2jEKc
-         /hdmTaVpS+II8a5nu9SjHcrq+zV9NG58HGzhc51mmIR6bFQn8Eyk3R4LBSlgCprvSoig
-         DRTQYOJyLJ4B43wJRww/yF8JOTnj+MVV7nUAWpK0VxHe5LzcxUYlRirUwJHiULY9BhLu
-         fywvzWQSid+5sksqwHwTGQeJg6JzmY76AjjJc46pmYZU9KwV5IXRVShZ1//ykOEaIx5f
-         qpIhIQEFUavm048+mLBwZI+CTKX04892xHJv4U7BDYE/DCf8q9Tl67lUTTozSkzGRfQY
-         dXTg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+lkEBcljMSGYNFjAd8Sb/4e37uXQuykZYq/PtJDJYXUW/m0ykfbGHI1Pi11S0OFNFcioMtKnWHq8TDwM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwDFkNeh1pgTRbfZq+w1WqzcxB2CQxlwrXPg36ZOhF0mzi4oYx
-	2j8zBoD2V9ynH2IVwyqxr+8+rxagcU64X4nIrr16z3qY537B222m/nvt
-X-Gm-Gg: AYBFou2mlMzLZUNdPyDGasvl1cDLeXkQxRCIJUQIEU2cT027dRqBZyVHBrZWLJkrdq9
-	w95jUstxAjUikTRV92YyFT+Qj2WzA6go5EsZf8RuqyM28e4CwA0BG4xWVEtOuaPF9DedxqJj36f
-	QUSxqKZIguLcbyiKwtZN0wneHeF5WDsX+u+RYmYphyH+eHmsaNvyusWZ6gbVxhyl6zvxW3kNbOk
-	0/orykbcgZYfhWWl2hhN0M8i98980m1M0L+ygJvGQBTy/SyqKEjELNqMR9VbtGoq6/xXTaZrvEs
-	shiLyubvkCTkZVbslL+ZQQPerLclegihHfbmAwu+90Y+tCCxpvKwOkiM8juATotf+XcID9qtclZ
-	sX5h0qUcMqvryFvW+oVTy+XsGkUs0n6cVQBiWF7Il6DVPPccx4wpGtLXpYgTXXR2VfwA8/3lrg6
-	2D/++c61jSxbcwMURep6PFRdMGizUEyXiZVQ8OChdxlnzSqD0z2M5IIPiJrX6b
-X-Received: by 2002:a17:90b:2790:b0:3a5:c08:4c41 with SMTP id 98e67ed59e1d1-3acef153994mr7234905a91.50.1792464876928;
-        Mon, 19 Oct 2026 19:54:36 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60bf2039sm1776689a91.1.2026.10.19.19.54.35
+        d=1e100.net; s=20260707; t=1792464875; x=1793069675;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qaK8zFu57aq74kEwOz4Te5AP+DwuCrGiq1hirbm0z9E=;
+        b=Dy3GGHByPxg+wKWnZi+IwsJEhrDWfpEUKJGxQQJR04CMX6Xi9vQS26JLCOMPgLkbmB
+         5jCd2Ag61ekzFo8m2NCGAGdN9wq/fY/DVv6aaQjosJwO9V8ef5Yax1JV2XtTBBP2hrvG
+         pCjL9Ph+iStCnpqlPAEkg1HNtgZN5kMKni4QKofEjii9vQs6dQMPfIuMPleELdnGSzqd
+         PdOWdl2Nn1O+f6Jn+484uFOdz5IDAIZPJK0qBR3PexABPzx64YKwQzxGq1lLi5nNqRD+
+         WkYFzls5SsyTtvyc/hLoQSdJiZyXEqOA8lksQSfHyzuP5xmRsIWtG27eU6tWfgE/P79q
+         fvNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxvOWf4R+JGXkImPFSt+cW26RnABYF/r2ut6Xz1CzogYqIKe6d3t+Y47zJW2WYDPsAZC2eQzZyZxgwyWcE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1WXW8UdwO9u4KttDehiGLOrz88MgFEh8uH9SRcj4Ip/dTRaQa
+	Z+DFXtnMOJ88NCtt5u3i1+Iv5VdUWjMEZVaJ9uE5yZkqK7XNaPJD4jqHHEEuJh8ZSZDQHQ2bnmY
+	mRcrdGuqcEfTjrgkX2Tt21TEsQEAcARIM2ihieK19nDLv9Oo2qXxHolq8xt1QYj1gyCudls3uwN
+	vcni1NUA==
+X-Gm-Gg: AYBFou0CV40aSSIXNlEvbn5SQkPzhIumoPMQGjFm9OHQlmwdBZpSaO2wQMKl0H0eSJv
+	pjEJy3BvDGjBgdH20TH+wT6NXKuLiwdIUuIj1CfdXoztXiQRz22A8Xp6p0zFqMHgFgX/49aiB2/
+	+mvYWDUTHK7hyhu05HEwy+XIHD72h7R0SdJXQ4zWjAFlwN9LlO8SnJYHxiF0dr2RGm1dRCJ49BH
+	JUm4gf3akNadqjcADVT2ZSaa/W9kA6kSK4heftfYOnCRKueEBZz9cf5R2AJM08EWliPcU5yZvAm
+	1+F/l1PpAyyKzoIrpaR9GvzJHyFNA3QsF3m8xtc+BCskHU+V9OihQTaNWPv9lyDmZjpmtVzW2AX
+	7EZtAyCh6eQ==
+X-Received: by 2002:a17:90b:28d0:b0:3ac:83c1:2bd with SMTP id 98e67ed59e1d1-3acef13e5ccmr8407895a91.28.1792464875200;
+        Mon, 19 Oct 2026 19:54:35 -0700 (PDT)
+X-Received: by 2002:a17:90b:28d0:b0:3ac:83c1:2bd with SMTP id 98e67ed59e1d1-3acef13e5ccmr8407884a91.28.1792464874827;
+        Mon, 19 Oct 2026 19:54:34 -0700 (PDT)
+Received: from ZBook.gateway ([123.208.39.53])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d5679d5sm1962994a91.7.2026.10.19.19.54.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 19:54:36 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:54:33 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhongling0719@126.com
-Subject: Re: [PATCH v2] ntfs: handle a failed size rollback in the write
- error path
-Message-ID: <atbX6ZAHk8U4Xsuo@hyunchul-PC02>
-References: <20261019064918.152859-1-zenghongling@kylinos.cn>
+        Mon, 19 Oct 2026 19:54:34 -0700 (PDT)
+From: Changwei Zou <changwei.zou@canonical.com>
+To: herbert@gondor.apana.org.au,
+	sahil.malhotra@nxp.com
+Cc: davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	jeffbarnes@linux.microsoft.com,
+	stephane.debusne@cynove.com,
+	iuliana.prodan@nxp.com,
+	martin.kepplinger-novakovic@ginzinger.com,
+	lukas@wunner.de,
+	sahil.malhotra@oss.nxp.com,
+	changwei.zou@canonical.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] crypto: caam - Fix RSA error-path unmap and unaligned dst buffers
+Date: Tue, 20 Oct 2026 13:54:24 +1100
+Message-ID: <20261020025426.955531-1-changwei.zou@canonical.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,99 +117,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019064918.152859-1-zenghongling@kylinos.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi Hongling,
+This series fixes two issues in the rsa-caam driver.
 
-On Mon, Oct 19, 2026 at 02:49:18PM +0800, Hongling Zeng wrote:
-> ntfs_file_write_iter() extends the data and initialized sizes before
-> it copies the user data and restores them when the write then fails.
-> The restoration is best-effort: both results are discarded, even
-> though the extension is already recorded in the dirty MFT record.
-> When the restoration fails too, the extended sizes reach the disk
-> while the VFS inode keeps reporting the old ones: after a remount the
-> file appears grown again, with an uninitialized tail where the failed
-> write never put any data, and nothing records the failure.
-> 
-> Keep both undo results: on failure, set NVolSetErrors(), which the next
-> persistence point persists as VOLUME_IS_DIRTY, and log a message for
-> the errors= policy.
-> 
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
-> Changes in v2:
-> - do not roll the initialized size back on a resident data attribute,
->   where ntfs_attr_set_initialized_size() always fails with -EINVAL and
->   the data size rollback restores both coupled sizes.
-> ---
->  fs/ntfs/file.c | 46 +++++++++++++++++++++++++++++++++++++---------
->  1 file changed, 37 insertions(+), 9 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index d810ca5904bd..597fd70ed30b 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -934,22 +934,50 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->  				&ntfs_iomap_folio_ops, NULL);
->  out:
->  	if (ret < 0 && ret != -EIOCBQUEUED) {
-> -		if (ni->initialized_size != old_init_size) {
-> -			struct ntfs_inode *mrec_ni =
-> -				ntfs_base_inode(ni);
-> +		int undo_err = 0;
-> +		int init_err = 0;
-> +
-> +		/* ntfs_attr_set_initialized_size() rejects a resident one. */
-> +		if (ni->initialized_size != old_init_size &&
-> +		    NInoNonResident(ni)) {
-> +			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
->  
->  			mutex_lock(&mrec_ni->mrec_lock);
-> -			ntfs_attr_set_initialized_size(ni, old_init_size);
-> +			init_err = ntfs_attr_set_initialized_size(ni,
-> +					old_init_size);
->  			mutex_unlock(&mrec_ni->mrec_lock);
-> +			if (init_err && !undo_err)
-> +				undo_err = init_err;
->  		}
->  		if (ni->data_size != old_data_size) {
-> -			struct ntfs_inode *mrec_ni =
-> -				ntfs_base_inode(ni);
-> +			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
-> +			int data_err = 0;
->  
->  			truncate_setsize(vi, old_data_size);
-> -			mutex_lock(&mrec_ni->mrec_lock);
-> -			ntfs_attr_truncate(ni, old_data_size);
-> -			mutex_unlock(&mrec_ni->mrec_lock);
-> +			/*
-> +			 * ntfs_attr_truncate() rejects a compressed one.
-> +			 * Skip it also after a failed initialized size
-> +			 * rollback: the shrunk data size would stay below
-> +			 * the initialized size, which the loader rejects.
-> +			 */
-> +			if (!NInoCompressed(ni) && !init_err) {
-> +				mutex_lock(&mrec_ni->mrec_lock);
-> +				data_err = ntfs_attr_truncate(ni,
-> +						old_data_size);
-> +				mutex_unlock(&mrec_ni->mrec_lock);
-> +			}
-> +			if (data_err && !undo_err)
-> +				undo_err = data_err;
-> +		}
-> +		if (ni->data_size != old_data_size && NInoCompressed(ni))
-> +			ntfs_warning(vi->i_sb,
+Patch 1 fixes wrong unmap operations where rsa_pub_unmap() was called
+regardless of the key type.
 
-For compressed-file, the code only emits a warning, which causes the
-VOLUME_IS_DIRTY persistence to be bypassed even though the MFT data size
-remains expanded.
+Patch 2 adds a bounce buffer to handle unaligned RSA destination
+buffers on DMA-incoherent hardware such as i.MX8, fixing intermittent
+-EKEYREJECTED errors when loading signed kernel modules.
 
-I think that we should report the compressed rollback as an error.
+Changes in v3:
+- Patch 1: Dispatch the error-path unmap on the operation (the completion
+  callback rsa_pub_done vs rsa_priv_f_done) instead of key->d, so the
+  unmap always matches the map.
+- Patch 2: Bound the bounce-buffer copy-back to the RSA output size
+  (key->n_sz) instead of the full dst_len, so the trailing capacity of
+  the caller's destination buffer is left untouched; add Tested-by from
+  Stephane Debusne.
+
+Changes in v2:
+- Patch 1: Add Fixes: tag; pick up Reviewed-by from Sahil Malhotra.
+- Patch 2: Move the !bounce_buf check out of do_rsa_bounce_buf() into
+  the caller rsa_bounce_buf_done() so the helper is only entered when a
+  bounce buffer actually exists; add Reported-by/Closes and Tested-by
+  from Martin Kepplinger-Novakovic.
+
+Link to v2:
+https://lore.kernel.org/linux-crypto/20261004210200.290119-1-changwei.zou@canonical.com/
+
+Link to v1:
+https://lore.kernel.org/linux-crypto/20260821045555.806471-1-changwei.zou@canonical.com/
+
+Changwei Zou (2):
+  crypto: caam - Fix wrong unmap operations
+  crypto: caam - Use bounce buffer for unaligned RSA destination buffers
+
+ drivers/crypto/caam/caampkc.c | 130 ++++++++++++++++++++++++++++++----
+ drivers/crypto/caam/caampkc.h |   6 ++
+ 2 files changed, 123 insertions(+), 13 deletions(-)
 
 -- 
-Thanks,
-Hyunchul
+2.43.0
+
