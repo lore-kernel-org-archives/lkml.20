@@ -1,57 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792536182;
-	b=tf6dtKXVF6CRjJtAFEGlkJJYcTH7xtsYn8HE+no2fhHMrCfJDygJixHsnluR694dBu3M
-	 fDx795l/piMC8EWg2Z1zFQJzNbRuV8SqfoOZ/nSklT/fFQsFo3d4og14b+UoH8cvEQJLm
-	 cx8UYIwhWLU4MyYjWEwCqZtx5Qxew425aDe/wQY29PlH7wgkUFj6EP8VQmqmgx1sE/Z14
-	 8dctC6xWzhVAytjt69o+wgEfetzuQ7khR0wCCiIjsjrQMDP2vNaVJKJM2yX1wGHLlFvan
-	 NzPyi3vvb9mRGvsKktc+W2GsfqDx0npS+IJEKOm/3UU9vZ9/Oi0KgabUnxb90HdCzoA==
+	t=1792536314;
+	b=kszZMQrUoX+lKngmIKYWtrMUOYssmLTT6arnljApLEAujfZBaIrPBluQvLX/a5oYq92Q
+	 a8562bSI3iS5C7UbGV/qf9eWp5tSdM7WxcZduZ4+vvKCARNtCVpXQUUqjeqexrHAkEJ4n
+	 UFG6jBQ6XPBA0ZaAW0D/KpjSVmZujFHH1UYwKflzl7y58RakvNjGTxuBLFx2bAfq6KPus
+	 iUp91deaB5VSX5nJ0G/XJojm/EnEIxMn+0Whr6lucCp6Qk0kjToLbnws5693doVx3TM7u
+	 T0ReXMtR9f7Q7QuvotFS0IDAGPO3tvlxN7F2lAeqScbQwqO8PHpuVaPc2ZSKp24lWsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792536182;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7Bv4V7OO3mv7VLfaBLTh0ktLgqtNJpvVSxcK99c79Fg=;
-	b=Lj2wHlCA3GhiK8mD5fsH2yiwERJqXhELCzU/cHOuWUv5KbHDROuarWteuzfPqypKb0k0
-	 wAFquyvJlU5QLrlHcS/4PS9IYQc5FyVw/2UkU2fVLbCusAHZRLcIhCsS+ENz2nvmfTAwV
-	 n6n49B63jBRU62w1m5+4cdRVTIzRaFHt8KsJ4Cg1bO62JbkGKZa3zNYHbVDbKbgaAo33l
-	 ml2VS6GeHPr1watjTDGUWUwyE3wCeux3qrkCm6jhCROFnTmYQXfkEa10h12TMtNT2ZOK5
-	 BimnQaq+9aX/wqukdCJR3WhcQCum8kleU1wZYgwnMjwA7cOMwc+6yGLzcAJLBLQCKuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792536314;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=lJLnHt4bxbKF39LO9zBvyGdrg+8lnf6r+u8u5/WrGZA=;
+	b=feZ+vs5OUVpcgWhqSU5q2uKhzRRJ2ZIU+wm81SE2Uig7sfR5yrQ7s6vUwrLt6FbK7jGf
+	 mPvreXzi1brVpKdG8keytgFyteybNYOsaofVnuLkp1agyPmGnc8+HQpLnNKuOd3waRi3h
+	 Or6EUp9POU1O4SfDY4YQoFpTMZVUDznTAHpIkEUiFr99KyyTOfSscEmS9J82/nwLL/a4A
+	 gy5ZZKhhcWuQ51zSl7yja0KqAKE6DvlDXYJw3hLdRhEsQcdSqbwR0Nh7KsN8rjwYpBYyy
+	 9WFUr1uUku/rx5WGgnzgDaAfayNTBRfu9ssLy7jmErOqKj2U3ssku8KZJVHZbt2ERxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYohx7y7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hpuPhNty;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6E3606A31A;
-	Tue, 20 Oct 2026 22:43:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0DC606A31E;
+	Tue, 20 Oct 2026 22:45:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E0DC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYohx7y7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E85D1F000C9;
-	Tue, 20 Oct 2026 22:43:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792536181;
-	bh=7Bv4V7OO3mv7VLfaBLTh0ktLgqtNJpvVSxcK99c79Fg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fYohx7y72sl4Y4g7VpQAsmN7pxM2NIEb9MDWeUk1N5MrTlsltN0zQPKKDKwcc5oPI
-	 CRG3FrcIsaoSuWMMUBYKbfQ4s2kd1+w3vt54JbK6EGzzj0uY/5fGBe5Ecp/eY+VbCI
-	 6Yp3pHpOwPsbWs0rAN9JIWp7tfjkmrfd6RVEc+nYRxO5CTlCW9F+JhVefO97LSUs5E
-	 /9JCw7OtgO2WjZo7A61fBIOmfUMpdqA8l4bw9t/nUaIiMdU/uoa3EGlXCEOdcI2OwZ
-	 FRl0wwaw9XtAPuATrVQu7bk5wqnqPI1ctEpn/mgzFP6Otq/n6yNuEhfQl34LleGOrI
-	 Im+/f9+i/sncA==
-Date: Tue, 20 Oct 2026 15:42:59 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, adrian.hunter@intel.com, ddhariwal@google.com,
-	eranian@google.com, james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org, rcu@vger.kernel.org
-Subject: Re: [PATCH v5 4/8] perf lock contention: Share common BPF and lock
- type definitions in lock_data.h
-Message-ID: <atfuc1Y8pofwI2HZ@google.com>
-References: <20261019220915.3943592-1-irogers@google.com>
- <20261020205859.1080743-1-irogers@google.com>
- <20261020205859.1080743-5-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hpuPhNty
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792536312; x=1824072312;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=4qZsjXfVDronkzI5htlpTGEiOv4YO+QDYYMog/2uT5U=;
+  b=hpuPhNtyG433z7do0RMqVI1+1Ca+nwYLYhHjcjuPQbAS+yzK5MVOT/ai
+   +O7TlUSH/WjSayBgJNwHCQPuIA6pYjhawbhSjh3ciQDVdixNjJLgOvJt1
+   82aAC6KOTvcAYbGes21ewCmxdJAnqnqiZHrKctcPaBoRAkiQvdztnp/lL
+   yNsDihpXthaL5w39ia8QDE5+ImJVwqXkbo5JZqbR3a+RNPParenZVIL9Y
+   bkzR53Ym0XskpfslGvFEy7yD5DjRJFgv/bGQxI2URF+iDvsCqB9454m54
+   mZhZDHyU/S1CtX3iSu1mvY2IfOSltEbFo+WIcat1PMZPFWNKyuD9EPOcB
+   w==;
+X-CSE-ConnectionGUID: WosEtD3wRvmS4tAyuwT+tw==
+X-CSE-MsgGUID: yN6AyutLSLW4ogu5rJl8YQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1263067"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1263067"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 15:45:11 -0700
+X-CSE-ConnectionGUID: naZfbzKAQxWKEBuQXOviSw==
+X-CSE-MsgGUID: 7/2ocfsSQbazXZov9lQ3BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2990709"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 20 Oct 2026 15:45:06 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xJIZq-00000000Oby-3GFd;
+	Tue, 20 Oct 2026 22:45:02 +0000
+Date: Wed, 21 Oct 2026 06:44:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v3 6/7] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI
+ Type B panel driver
+Message-ID: <202610210605.HdtW8SAP-lkp@intel.com>
+References: <20261019095705.91062-7-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,190 +96,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261020205859.1080743-5-irogers@google.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019095705.91062-7-clamor95@gmail.com>
 
-On Tue, Oct 20, 2026 at 01:58:54PM -0700, Ian Rogers wrote:
-> Move lock_type_table, LCB_F_* flags, and the common BPF lock helpers
-> (get_lock_owner, get_current_mmap_lock, get_current_siglock,
-> get_lock_addr, check_lock_type, do_collect_zone_lock,
-> do_collect_lock_syms, do_slab_cache_iter) and shared CO-RE structs into
-> tools/perf/util/bpf_skel/lock_data.h so they can be reused by BPF
-> sample filtering.
+Hi Svyatoslav,
 
-This is fine.
+kernel test robot noticed the following build warnings:
 
-> 
-> Also add rw_semaphore.count and struct rt_mutex_base to the minimal
-> vmlinux.h and extend get_lock_owner() to support rt_mutex and check
-> the mutex handoff flag.
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next linus/master v7.3 next-20261019]
+[cannot apply to tegra/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Please do this in a separate commit.  I'd like to see this kind of
-commit only moves the existing code.
+url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-tegra-dc-Expand-available-registers-layouts/20261019-125659
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261019095705.91062-7-clamor95%40gmail.com
+patch subject: [PATCH v3 6/7] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+config: arm64-randconfig-1002-20261021 (https://download.01.org/0day-ci/archive/20261021/202610210605.HdtW8SAP-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2c419645e808a6667eee9dbb16c828f77e2fd2f0)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261021/202610210605.HdtW8SAP-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610210605.HdtW8SAP-lkp@intel.com/
 
-> 
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/builtin-lock.c                     |  27 --
->  .../perf/util/bpf_skel/lock_contention.bpf.c  | 265 +-------------
->  tools/perf/util/bpf_skel/lock_data.h          | 338 ++++++++++++++++++
->  tools/perf/util/bpf_skel/vmlinux/vmlinux.h    |   5 +
->  tools/perf/util/lock-contention.c             |  19 +
->  tools/perf/util/lock-contention.h             |  13 +
->  6 files changed, 393 insertions(+), 274 deletions(-)
-> 
-> diff --git a/tools/perf/builtin-lock.c b/tools/perf/builtin-lock.c
-> index 778923c92f42..a031709a2cc2 100644
-> --- a/tools/perf/builtin-lock.c
-> +++ b/tools/perf/builtin-lock.c
-> @@ -1482,33 +1482,6 @@ static void sort_result(void)
->  	}
->  }
->  
-> -static const struct {
-> -	unsigned int flags;
-> -	/*
-> -	 * Name of the lock flags (access), with delimeter ':'.
-> -	 * For example, rwsem:R of rwsem:W.
-> -	 */
-> -	const char *flags_name;
-> -	/* Name of the lock (type), for example, rwlock or rwsem. */
-> -	const char *lock_name;
-> -} lock_type_table[] = {
-> -	{ 0,				"semaphore",	"semaphore" },
-> -	{ LCB_F_SPIN,			"spinlock",	"spinlock" },
-> -	{ LCB_F_SPIN | LCB_F_READ,	"rwlock:R",	"rwlock" },
-> -	{ LCB_F_SPIN | LCB_F_WRITE,	"rwlock:W",	"rwlock" },
-> -	{ LCB_F_READ,			"rwsem:R",	"rwsem" },
-> -	{ LCB_F_WRITE,			"rwsem:W",	"rwsem" },
-> -	{ LCB_F_RT,			"rt-mutex",	"rt-mutex" },
-> -	{ LCB_F_RT | LCB_F_READ,	"rwlock-rt:R",	"rwlock-rt" },
-> -	{ LCB_F_RT | LCB_F_WRITE,	"rwlock-rt:W",	"rwlock-rt" },
-> -	{ LCB_F_PERCPU | LCB_F_READ,	"pcpu-sem:R",	"percpu-rwsem" },
-> -	{ LCB_F_PERCPU | LCB_F_WRITE,	"pcpu-sem:W",	"percpu-rwsem" },
-> -	{ LCB_F_MUTEX,			"mutex",	"mutex" },
-> -	{ LCB_F_MUTEX | LCB_F_SPIN,	"mutex",	"mutex" },
-> -	/* alias for optimistic spinning only */
-> -	{ LCB_F_MUTEX | LCB_F_SPIN,	"mutex:spin",	"mutex-spin" },
-> -};
-> -
->  static const char *get_type_flags_name(unsigned int flags)
->  {
->  	flags &= LCB_F_TYPE_MASK;
-> diff --git a/tools/perf/util/bpf_skel/lock_contention.bpf.c b/tools/perf/util/bpf_skel/lock_contention.bpf.c
-> index 0d9c6f55050e..0f2118006005 100644
-> --- a/tools/perf/util/bpf_skel/lock_contention.bpf.c
-> +++ b/tools/perf/util/bpf_skel/lock_contention.bpf.c
-> @@ -8,23 +8,9 @@
->  
->  #include "lock_data.h"
->  
-> -/* for collect_lock_syms().  4096 was rejected by the verifier */
-> -#define MAX_CPUS  1024
-> -
-> -/* for collect_zone_lock().  It should be more than the actual zones. */
-> -#define MAX_ZONES  10
-> -
->  /* for do_lock_delay().  Arbitrarily set to 1 million. */
->  #define MAX_LOOP  (1U << 20)
->  
-> -/* lock contention flags from include/trace/events/lock.h */
-> -#define LCB_F_SPIN	(1U << 0)
-> -#define LCB_F_READ	(1U << 1)
-> -#define LCB_F_WRITE	(1U << 2)
-> -#define LCB_F_RT	(1U << 3)
-> -#define LCB_F_PERCPU	(1U << 4)
-> -#define LCB_F_MUTEX	(1U << 5)
-> -
->  /* callstack storage  */
->  struct {
->  	__uint(type, BPF_MAP_TYPE_STACK_TRACE);
-> @@ -96,13 +82,6 @@ struct {
->  	__uint(max_entries, MAX_ENTRIES);
->  } task_data SEC(".maps");
->  
-> -struct {
-> -	__uint(type, BPF_MAP_TYPE_HASH);
-> -	__uint(key_size, sizeof(__u64));
-> -	__uint(value_size, sizeof(__u32));
-> -	__uint(max_entries, MAX_ENTRIES);
-> -} lock_syms SEC(".maps");
-> -
->  struct {
->  	__uint(type, BPF_MAP_TYPE_HASH);
->  	__uint(key_size, sizeof(__u32));
-> @@ -138,6 +117,13 @@ struct {
->  	__uint(max_entries, 1);
->  } cgroup_filter SEC(".maps");
->  
-> +struct {
-> +	__uint(type, BPF_MAP_TYPE_HASH);
-> +	__uint(key_size, sizeof(__u64));
-> +	__uint(value_size, sizeof(__u32));
-> +	__uint(max_entries, MAX_ENTRIES);
-> +} lock_syms SEC(".maps");
-> +
+All warnings (new ones prefixed by >>):
 
-Looks like un uncessasry change.
+>> drivers/gpu/drm/drm_mipi_dbi.c:79:17: warning: unused variable 'mipi_dbi_dcs_read_commands' [-Wunused-const-variable]
+      79 | static const u8 mipi_dbi_dcs_read_commands[] = {
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   1 warning generated.
 
 
->  struct {
->  	__uint(type, BPF_MAP_TYPE_HASH);
->  	__uint(key_size, sizeof(long));
-> @@ -159,22 +145,6 @@ struct {
->  	__uint(max_entries, 1);
->  } lock_delays SEC(".maps");
->  
-> -struct rw_semaphore___old {
-> -	struct task_struct *owner;
-> -} __attribute__((preserve_access_index));
-> -
-> -struct rw_semaphore___new {
-> -	atomic_long_t owner;
-> -} __attribute__((preserve_access_index));
-> -
-> -struct mm_struct___old {
-> -	struct rw_semaphore mmap_sem;
-> -} __attribute__((preserve_access_index));
-> -
-> -struct mm_struct___new {
-> -	struct rw_semaphore mmap_lock;
-> -} __attribute__((preserve_access_index));
-> -
->  struct cas_ctx {
->  	struct contention_data *data;
->  	u64 duration;
-> @@ -182,8 +152,6 @@ struct cas_ctx {
-[SNIP]
-> diff --git a/tools/perf/util/bpf_skel/lock_data.h b/tools/perf/util/bpf_skel/lock_data.h
-> index 652e114e6b87..317d8ccae63e 100644
-> --- a/tools/perf/util/bpf_skel/lock_data.h
-> +++ b/tools/perf/util/bpf_skel/lock_data.h
-> @@ -45,6 +45,14 @@ struct contention_task_data {
->  #define LCB_F_SLAB_ID_END	(1U << 26)
->  #define LCB_F_SLAB_ID_MASK	0x03FF0000U
->  
-> +/* lock contention flags from include/trace/events/lock.h */
-> +#define LCB_F_SPIN	(1U << 0)
-> +#define LCB_F_READ	(1U << 1)
-> +#define LCB_F_WRITE	(1U << 2)
-> +#define LCB_F_RT	(1U << 3)
-> +#define LCB_F_PERCPU	(1U << 4)
-> +#define LCB_F_MUTEX	(1U << 5)
-> +
->  #define LCB_F_TYPE_MAX		(1U << 7)
->  #define LCB_F_TYPE_MASK		0x0000007FU
->  
-> @@ -76,4 +84,334 @@ struct slab_cache_data {
->  	char name[SLAB_NAME_MAX];
->  };
->  
-> +#ifdef __BPF__
+vim +/mipi_dbi_dcs_read_commands +79 drivers/gpu/drm/drm_mipi_dbi.c
 
-Why is this needed?
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   78  
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22  @79  static const u8 mipi_dbi_dcs_read_commands[] = {
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   80  	MIPI_DCS_GET_DISPLAY_ID,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   81  	MIPI_DCS_GET_RED_CHANNEL,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   82  	MIPI_DCS_GET_GREEN_CHANNEL,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   83  	MIPI_DCS_GET_BLUE_CHANNEL,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   84  	MIPI_DCS_GET_DISPLAY_STATUS,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   85  	MIPI_DCS_GET_POWER_MODE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   86  	MIPI_DCS_GET_ADDRESS_MODE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   87  	MIPI_DCS_GET_PIXEL_FORMAT,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   88  	MIPI_DCS_GET_DISPLAY_MODE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   89  	MIPI_DCS_GET_SIGNAL_MODE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   90  	MIPI_DCS_GET_DIAGNOSTIC_RESULT,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   91  	MIPI_DCS_READ_MEMORY_START,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   92  	MIPI_DCS_READ_MEMORY_CONTINUE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   93  	MIPI_DCS_GET_SCANLINE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   94  	MIPI_DCS_GET_DISPLAY_BRIGHTNESS,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   95  	MIPI_DCS_GET_CONTROL_DISPLAY,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   96  	MIPI_DCS_GET_POWER_SAVE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   97  	MIPI_DCS_GET_CABC_MIN_BRIGHTNESS,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   98  	MIPI_DCS_READ_DDB_START,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22   99  	MIPI_DCS_READ_DDB_CONTINUE,
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22  100  	0, /* sentinel */
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22  101  };
+02dd95fe316936 drivers/gpu/drm/tinydrm/mipi-dbi.c Noralf Trønnes 2017-01-22  102  
 
-Thanks,
-Namhyung
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
