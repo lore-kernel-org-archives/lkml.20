@@ -1,53 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479483;
-	b=GtvDAUWsmL4MIGB4fJ42y5qI3V++Qks/9JXtNEEXidjHZXu0i2gXzYZ043BNHZ6r95AD
-	 ifgFrJPuEOvaW5ChkzK3mbRndVVUr0ikQevWu6pgg+I4X6idyT/WnH35tY4KKzD+crbmq
-	 Z91emqPNwxOsq/HCkRHJu5donczdEwuXhB1nP5vqeBK6lajGrBYTqSbGMqPhX58aeNGrJ
-	 ccPU7b59Xoqcp/vQr1Hl7UEJ2gq0wpNkB/S7HKsR/7x+lNRmycSJ5wZdYzzhyKf/YPXZ6
-	 N10JUDDxqiQcL8ih9nJv+BIJXtfwdax3h5v8FCHSVKevpJAHChL1SBVt5RBa/aX0jEQ==
+	t=1792479485;
+	b=HQut2MNLL2t9BhlJR4TknlGH9VtEA4PLQXrl4Q48ubHbbZcdZeaoJZ0qH/zme+aiSMxM
+	 OSsMOk2UC5fQlJKwfxFxOYILF4ZKGPJMgKaUnsyvliJH0bBoVyfyUSNP19hmjYoa0vFzE
+	 VDxowC2ZPE2x2KJAl2uQF6MtlCtUc4uyfxlS5IUSuU8dm519Uz0bYCdkdSzT2T0A8Z0dy
+	 u3BmNV7ZsScnAn73r2K5UasmEiLRu7yg+hfM7c1mZyfFH1sBVyMLr6L0IfTD85iRzML7o
+	 8PFp65Hm7V9Cf/PPymauIdaFiIfRhwcEvjIBlvYdM22eE5y6e7lllIavwkxsxEkviWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479483;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=x/3R0C43YAiNZIf6KcOw82RzTJCd2JeVTwUmw8+iu6g=;
-	b=BKUofMoN9KA+ZYLiNS1R6bARwyy2Sc3x+tOW/L0lLYXLX0ITLuN5m98m3OBuDicloczq
-	 AKaIR11NAsCDT10LUzSKXOkVxx4gp6xJFf1YOV9Bmw4UpW+xV2VQ7FmTU2FNW6v0hpAm0
-	 SDpVQiSEg8HngV2QLIonytUH6Xd9HZ/r/TnVE2ntRLf7N+hgBPNYjaHDIBp5NwdSWaliq
-	 aSSLQY3i/0HpbM+FGCOqcYCgUhd5rEroXofwg2pGNcCDc6/ucclYlq/GdE5Y4f++M1PG7
-	 ghNgJO+YTcC5Y5NC+hzvQIfInQ2MkilTl2gIUGWV2kVBr52+xCyr86GCxM+/6fKy7Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479485;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EOT3lPkZxc2aVvumXo5eC/VeIlkMW6noypS8upmLb3c=;
+	b=KJGzMFeCBy8zIjRyTjtWCw5bCDtSti/gxh8Krs63Dld0eJ9uY9oWYYswiYckDUySbzOj
+	 JN6jgn33fIYc543W3GQrUGHLcuO9pa+Gu5pCMX0gHc+v8VrvScvItwYVjE0mERqis6Vn0
+	 FW0aJFjFe3fUhskyyeUcVvNpErC6SUpOTffgev3OQx/MhfQ0ec+UaSyeiyQNM159Ej0UZ
+	 Lbj/0JO5lOcMkL/4PAOic7dqDy/fLGKu+YAeDvEexLxo4rCNoS5UIfmfGaD0L2CNOSAxV
+	 hmIfqMHyRq1hZ+C9jF4L9FOPqKLePq+ruMB47pPCdzVP6S9k8PD+iZsmJTrlq9hGmFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Tu80jOx+;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Wx5i6pYM;
+	arc=none smtp.remote-ip=203.205.221.239
+Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E572606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E572606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A89460A2614
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A89460A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Tu80jOx+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=x/3R0C43YAiNZIf6KcOw82RzTJCd2JeVTwUmw8+iu6g=; b=Tu80jOx+iGKr9Kje54pGhsr6Jt
-	v4KEwmJWNmNWQfudbZEjR6WfBrhlCoK7cMj3cVMzL4vCSxUVyhg/BArsV0nMNuxaYPAIjUsuvjGu+
-	LYMdiKNz04/tfcZ5NFnqUV/xVG0E4RZp/ryy5akm6VdRCtu5zTznh23nai5awECJycdT0DUHsTaCA
-	NOivDOrpLb6f3jprW7CPWOVxPLrKjuKiKDY/ygs6HtVyZronPJuqMraNECYqpNt8QooR5216rcCEo
-	s7gfS1YeTxwlKw5kbOS06OxpN0vo2qygAg7IYXoWUTaDgedYHB7Od1DIXkepTtqWPY99Z4UdfNJIW
-	sL6hJHTg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xJ3mr-004HEI-P2; Tue, 20 Oct 2026 08:57:29 +0200
-Message-ID: <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
-Date: Tue, 20 Oct 2026 07:57:28 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Wx5i6pYM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792479481; bh=EOT3lPkZxc2aVvumXo5eC/VeIlkMW6noypS8upmLb3c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wx5i6pYMZbmrBT7VbF7+RKaKM7jZtGoAw/83idM51C3IUe0Vz0yWzXzNXXWJKQz/q
+	 JZxD2SZ7Odut6MP20VA48eANpRRRFZwGNcx7dA24hdCwu7JE1zYaiDDdQdsWrnDAma
+	 mImIEgevpdcP9QoUKwdEH5e7XYBHA6tL13wNzAXg=
+Received: from localhost.localdomain ([223.104.162.184])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id E7A2B2A2; Tue, 20 Oct 2026 14:57:58 +0800
+X-QQ-mid: xmsmtpt1792479478tasf1ayhh
+Message-ID: <tencent_62F01880658E965562B3C08107D0AAE88906@qq.com>
+X-QQ-XMAILINFO: MFWpArBVhhGTRTvDQA99fJItVabeLl8BW6atXQ6+930H8ZRZYupHpvyGZuSlhc
+	 PZOH1SA9XPdUwLiBaO2dOz+R53aUjrPy+9S4F3FhjniovAylTCKBDYJJgrC8NwA+9xnSsl5DmAI2
+	 Lvo5cKs1/3ESbLRc/sdjljDwqVOfYJvqMemW1vKeQUKErsum3QnwdPoDm7uFUGiqlJE+SzgqOQUv
+	 8v61DC7tkJgKfmNxVZXWrx4tethZiVrDq6bo4Hq1hEFeGABiBykJ3veeKG4yNEGhjYVyLkfF5Q+6
+	 oOF8QDT3OP99N8olcyURuMx8QyVedolX7jHpr54OiFmpXM18tGwSGWplGnJ37zQQpypgBCyelgA6
+	 q0VudH9YU75anuv8I1+ye1PaanW1Akt1YisPsNYMnVCygOQxC2SQYYqbqt4IxXA8qmDzv4TgsJwO
+	 ln3gQYF1IRvO+ypuPBN2a/NKHHfzxWvw2dVxivsh91qwBwPNxLVPktLy/7mf79OK8MzvpxmlN1hS
+	 1011zfHOvljZfAFyS1K54xwp6h83yapAVBPII/BZbJBeQHoSeo6vPrJfeGP546Lkpez5sPxZ7RZz
+	 WZpW54PmD+9SWS0ELqsFYRALvzNnumSIzIhspqaGdFBGsfU4WCuztpy1b/sixTzQgT+Likcm294v
+	 C7hP1qW/LWBBlhZXKQn7Osh6Er3XC5MTyxb8Ptj2A1Hxq5ogukxKos7vI9/l6PYXm0se7AGZ0Gum
+	 M3V91NLlIHNK3DTP1kMXSPswJYjMXe0ukw93ajHzFTJAWAYChlxO8bK5QV220+OxMivREwxTHyom
+	 54uLNHW132okN5a0b/CZ4oVyZECfqNmZtz4MROeaMgihfC/VfIOg+OPRE5jOnC9oWmmAavjHbIwT
+	 hQ48K0cJRTzp6VwfGbrPcnL7IXsFLoYHC1GXokBUDLkPWzQQWD4tLlxM3KuWti2ZGp9PTjyfgsyD
+	 dVoFMJsLdoef4BAvKD4SFfa6+MwNiKyWCy2pRr7Y1vBvNNp+aHREjiT6XuL3bzf8ylSHg3O0f67W
+	 j8GKlPmp9GWnRYE6TAqN96SjDqjMD2sIhx2V8eFcQYgdNJxTGGG43qkjTP7kQXsBC02JRlOw==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Yemingxuan <level_zero@qq.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v5] drivers/base: return bus_add_driver() errors
+Date: Tue, 20 Oct 2026 14:57:57 +0800
+X-OQ-MSGID: <20261020065757.813-1-level_zero@qq.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,96 +79,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: Don't BUG when a CRTC fence signals during a name
- lookup
-To: phasta@kernel.org, redducc <sushmit718@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261019161731.2341-1-sushmit718@gmail.com>
- <30a31088a0386d5f5d53e74632ea9a63566dccde.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <30a31088a0386d5f5d53e74632ea9a63566dccde.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+bus_add_driver() creates the driver's uevent attribute, adds the bus
+driver groups and the bind/unbind files after the driver has already
+been inserted into the bus and its module links have been made.  When
+any of these fail it logs the failure and still returns 0.
 
-On 20/10/2026 07:53, Philipp Stanner wrote:
-> On Mon, 2026-10-19 at 16:17 +0000, redducc wrote:
->> dma_fence_signal_timestamp_locked() clears fence->ops on signalling when
->> the ops have neither a release nor a wait callback, which is the case
->> for drm_crtc_fence_ops.
->>
->> dma_fence_driver_name() and dma_fence_timeline_name() load fence->ops,
->> check the signalled bit and then call into the ops. If the fence
->> signals between that check and the call, fence_to_crtc() rereads
->> fence->ops, finds NULL and hits the BUG_ON(). This takes down any
->> caller of SYNC_IOC_FILE_INFO on a CRTC out-fence, such as Android's
->> surfaceflinger, which hit it on a Snapdragon 8+ Gen 1 phone (msm).
->>
->> The CRTC behind the fence outlives it, so reading the name after the
->> ops were cleared is fine. Only warn when the fence carries foreign ops.
-> 
-> @Christian:
-> We have now seen several bugs like these, which is one of the reasons
-> why I believe that RCU is the wrong solution for dma_fence.
-> 
-> I present another rework RFC soonish.
-> 
->>
->> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
->> Assisted-by: LLM
->> Signed-off-by: redducc <sushmit718@gmail.com>
-> 
-> Reviewed-by: Philipp Stanner <phasta@kernel.org>
+The driver is then registered but incomplete: a driver without
+bind/unbind cannot be bound or unbound from userspace, and a driver
+without its uevent attribute can no longer emit uevent notifications.
+driver_register() reports success, so neither the driver's init routine
+nor its caller retries, and nothing else ever creates the missing
+files.
 
-Hm this looked familiar so I looked around. There was an earlier fix for 
-the same from Andre with msg-id 
-20260721-linux-drm_crtc_fix2-v3-2-afa8c71506e6@linaro.org which seems to 
-have fallen through the cracks.
+The device side of the same driver model already treats the equivalent
+steps this way: device_add() returns failures of the equivalent sysfs
+operations to its caller, and device_del() undoes each one.
+driver_register() already calls bus_remove_driver() when the group
+registration after bus_add_driver() fails, and that branch is only
+unreachable for failures inside bus_add_driver() because of the
+unconditional successful return.
 
-Regards,
+Propagate the errors so the existing unwind runs.  The new
+out_remove_module label calls module_remove_driver() before falling
+through to out_detach: bus_remove_driver() pairs every operation
+bus_add_driver() performs in reverse order, but the symlinks
+module_add_driver() creates live in the module's sysfs directory, not
+under drv->p->kobj, so the kobject teardown does not remove them.
+The attribute and the groups need no explicit removal because they live
+under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
+the caller.
 
-Tvrtko
+The error messages are kept.  The return value of an initcall is not
+printed by the initcall machinery, so dropping them would turn a
+reported failure into a silent one.
 
-> 
-> 
-> The Signed tag btw. states that you have the legal right to push this
-> code upstream, and that you agree with the kernel's licensing. It's
-> uncommon to use with pseudonyms and lessens your personal accumulation
-> of prestige ;)
-> 
-> 
-> Philipp
-> 
->> ---
->>   drivers/gpu/drm/drm_crtc.c | 8 +++++++-
->>   1 file changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
->> index 63ead8ba6756..1dbd0e9db536 100644
->> --- a/drivers/gpu/drm/drm_crtc.c
->> +++ b/drivers/gpu/drm/drm_crtc.c
->> @@ -158,7 +158,13 @@ static const struct dma_fence_ops drm_crtc_fence_ops;
->>   
->>   static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
->>   {
->> -	BUG_ON(rcu_access_pointer(fence->ops) != &drm_crtc_fence_ops);
->> +	const struct dma_fence_ops *ops = rcu_access_pointer(fence->ops);
->> +
->> +	/*
->> +	 * Signalling clears ops, and can race with a name lookup that already
->> +	 * picked our callbacks, so only a foreign ops pointer is a bug.
->> +	 */
->> +	WARN_ON_ONCE(ops && ops != &drm_crtc_fence_ops);
->>   	return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
->>   }
->>   
->>
->> base-commit: 6a56f4f29711dd2da49f03a5b99ce53779e638d7
+These failures are not expected on a working system: driver_ktype
+always supplies sysfs_ops, so -EINVAL is unreachable, no in-tree bus
+defines a drv_group that collides with the built-in uevent, bind or
+unbind attributes, and -ENOMEM needs memory pressure.  The point is not
+a user-visible bug but keeping the driver model consistent with the
+device side and leaving the failure reported.
+
+Signed-off-by: Yemingxuan <level_zero@qq.com>
+---
+
+Changes in v5:
+ - Keep the three error messages.  The return value of an
+   initcall is not printed, so removing them made the failure
+   silent.  This also drops the incorrect claim that the
+   caller already logs registration failures.
+ - Use the author's real name in From: and Signed-off-by:.
+
+Changes in v5:
+- Add this changelog, as requested by the patch bot.
+- Keep the three existing error messages instead of dropping them, so
+  that a failure is still reported: the return value of an initcall is
+  not printed by the initcall machinery.
+- Use the real name in From: and Signed-off-by:.
+---
+ drivers/base/bus.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index d17bd91..a63e55c 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
+ 	if (error) {
+ 		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
+ 			__func__, drv->name);
++		goto out_remove_module;
+ 	}
+ 	error = driver_add_groups(drv, sp->bus->drv_groups);
+ 	if (error) {
+-		/* How the hell do we get out of this pickle? Give up */
+ 		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
+ 			__func__, drv->name);
++		goto out_remove_module;
+ 	}
+ 
+ 	if (!drv->suppress_bind_attrs) {
+ 		error = add_bind_files(drv);
+ 		if (error) {
+-			/* Ditto */
+ 			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
+ 				__func__, drv->name);
++			goto out_remove_module;
+ 		}
+ 	}
+ 
+ 	return 0;
+ 
++out_remove_module:
++	module_remove_driver(drv);
+ out_detach:
+ 	driver_detach(drv);
+ out_del_list:
+-- 
+2.34.1
 
