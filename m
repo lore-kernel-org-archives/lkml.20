@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792512627;
-	b=T6gTyGnPKLt/Rfhh79sIcYlzZsf4mq+aVCqOXUYBgTTDYQNwXo2CHgy8XPx5g/GTTysV
-	 wMSCGRMtbEo4kEU/vI+kyaxI9Bqick4Tgzydpky6OpPMWRrZf0VKs6M83s9Eol53bjFPQ
-	 1aCncrmjn4zQ5cguOCPkDIZJsjLMiFXi3Ez5bjglhLqpGy4WZc+4jxaj1hAMx46myd9jb
-	 4ANFQaJcljIqhyeIyTatJPIt7zgegLqOhZkd3tGiusZqq9LQ+rucYCxdAQSGiXJ9fsjux
-	 xe8N33+cHvbnI9kIGieYGvJYF0GZn4GhAJbjvO+ugN+lMjFrBbrHqeXM2B+eMUF2SVQ==
+	t=1792512632;
+	b=CVKPHjcZGJGrxmp79PryWXyiVBki3533HwA6AejQsDbUmjO/bE7RxghMJnRvPPI78Dit
+	 oC3LXuE0BkNMut8780W9dx0BHmGbL1A8D5JRTrKKGT5ydUPijXCAaaZVCyuto8+gHLert
+	 SkW0ziE/aBeftO8kSbId4QdICby9M+HDgLiKgxWuSwtc04kPTnaXIEr1FVC5HKtAK64uQ
+	 MSk0lSHZsrWA41qUMLX5GMrxPSJsK6mhbSJNV9qZ7GOeRkid6hSIAKcZnezqU6Jz3K6Vx
+	 Mruui7NGPv7mCWwDbTABRFENkgGHrfTIcDAatWt7lzAFKVPjKrn4+wQ8nh+zv1cBHZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512627;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2sNC3P1QUDjhawHsX037Mh7iiW1QRpYfhgHxBh43ZB8=;
-	b=qqLcxwQ61zw7q0svkZpgItJybpRFpwzNWqj0xL+9ylWgZvsI2f9UUOtC0O+4bqt8LDHy
-	 Zq8TUudqW6DDRwq4nhj2d1axeFFvchx9hQRF1xKKnssiP4W+Khj3maMlZsJvcTFTI7UYM
-	 BaAgsH67A0S6eEd4bvsE0j1LXvmI3dCmw3ifTryDNWFligM+zMpjEVJ8aeMxN2rjWcR29
-	 9OqEJHnwVyrbpqB+Rfh3KRenrvrFNVknBo/YLdcerBms/y9VVodCIPbG2fFz67UonXq9O
-	 5AohGdYL3h9DV8ar8K9b4hUf5FWXffitGh6wNpn9tsoY1E8XLIFRaK5ZYoJ+IGacVlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512632;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Message-ID:Subject:In-Reply-To:References:MIME-Version:
+	 Date:Content-Type:Content-Transfer-Encoding;
+	bh=c4lo9c1DzgFzppkuIe3m48wNpvzpTiu2Q7BfuVscJUc=;
+	b=FdqKsbXLPQsRsGHFLlu520I41nkfTn1UJXEwzhVk21F7OprlOvNh7EwSOS0zEEa5eNkG
+	 Z4EfAVwYmwK9a+a/SvLrfP/eIxPCUXWy6wMMMleGkEvqOWZptb6UL83Z4xJxyw5N8+IMw
+	 knBkoDcfHRNFhwVvPpbV1zNwcTljEj1eKoCuyfeatXyiFpSqOkZgcpTsuA5klLLV/otCp
+	 xG9uM3LMh4q4atg/Q8ApmOAPJ8vmA4YQl+HsJXD/pTRFdLzt+F3+7/OHqw41LWGOt2FCC
+	 wP4aEA9gG11XPh/s0Pez+hgag7qtLzZnVd3VQM8UKlYM8uMwhjf69Cj7VbytmDY03uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Wpg1QRCw;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C72D606A322;
-	Tue, 20 Oct 2026 16:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C72D606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Yb/qqOgN";
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5110606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5110606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Wpg1QRCw
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A54EA16F8;
-	Tue, 20 Oct 2026 09:10:21 -0700 (PDT)
-Received: from [10.0.128.106] (e127648.arm.com [10.0.128.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A37363F7D8;
-	Tue, 20 Oct 2026 09:10:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792512624; bh=fFFeUkThSorzl329T6P7JxtDbQyoTEDiDnc+J8On6Z8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Wpg1QRCwrOGPvXhZR9FUxX0VozNLTRjvQMuTNcNxjc2uomp6cGJHly9jixh89Y6gH
-	 utJFT62aL2HxPBqVJUD/aBbDQVjsQ1+VD8ex7Vnj9dNfLl6IjPre9LaU6bpml3Zrfr
-	 BkHCl+6I6TS+t4ZGjzsT4Xglp0OemzXxzeFbtnEg=
-Message-ID: <1cfcfd24-f0ad-4b9d-ae29-8a7bc5832294@arm.com>
-Date: Tue, 20 Oct 2026 17:10:17 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yb/qqOgN
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac749e0719so953973a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:10:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792512631; x=1793117431; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:date:mime-version:references
+         :in-reply-to:subject:message-id:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c4lo9c1DzgFzppkuIe3m48wNpvzpTiu2Q7BfuVscJUc=;
+        b=Yb/qqOgNPajBomQKW9EmdyhHhaDypJ19gFb1YQkJGyaU8/EiIanIBWY5Z4CYza1eOw
+         WOXCMNh5jwZKHSDzfYz3GjMvRARFrzLsZW6To0vXXBhPo4YCNCcA04j+Ep7971DsMKI2
+         t3Q3OtnOb0kpnUypLntPDAI+ExrDG4I2pjLeag8bfYUPImFJQyUTKuqSkJN/b1NFMP5q
+         vOkbfzXE/m2bd9CvdE9FGM1zIQzp/LQ9lfJlDqYRBaNf+30oOAKPuIeTGh/w7+CFCdn9
+         ndCvRlALFLuMedVFA/XnbXzP+z28g0ldIE4g1E+Lh2xfMr2yCSX63ec0oNazXXUUL2dU
+         F5Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792512631; x=1793117431;
+        h=content-transfer-encoding:content-type:date:mime-version:references
+         :in-reply-to:subject:message-id:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c4lo9c1DzgFzppkuIe3m48wNpvzpTiu2Q7BfuVscJUc=;
+        b=dn2BsNxpi5RROt0CJoYmto/tA0qCAAmU/Tk6sN32A0LlS5W1k/Y9HTbzsaMPF4qE3b
+         mKU26OzAY0KUTS5nn0aPuyiWGC5K286lWHklZu+Nujtoqo6HdhJOKkDOmcvSG1/ktVeh
+         Y2gxWjtCOvZOGERROkaQ5eJrD4Td8fVFgt09zzywcCJ6AQ5QJD9xPgVw7S99aXslpL7u
+         fCpY3FbWmHpOv2MRaFRaTLYcc4GJRuGEgDEDJAOnWqudotNrLMGLn2ocC9zuCvfAiGjC
+         sRtFfvbxWJ6iZa1Ju1963bnbtDJty8DUuQsfCSksb87Iocazc1ioA0L0u1U90vi6cqcn
+         LQhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzYvV6dmT/nBzbJP6rhJzsgVS2eZHYSEXXLfAfkS9xM7KGFDLCXrpfY3jPVK9ZNliCzeB8SFP39n3mmmxM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcz6lFpKVXtr5qY8P5gex+Yk/PBZIcq+oADZg2cuPGR8qp3OsY
+	r5TZGxamd9Km29EF+qIuLsdn3EL2D8r/grNgNFEgQo4o1Q9rU9ZPLia8
+X-Gm-Gg: AYBFou3ahS4Z+3hcboeTfGcj1eHBvGH1dxaF7dgwEwKG6Cjj9J0XtqtOPgQ767U16wM
+	bMbi+G6Y2unNL9AI3QnMg8cqgVS5sNiMpu6AoJyrzMrXOHRgr5lunH2dgHWNw+tCHu2ZGOvaPqv
+	7U9blvW4mxou5sryMsM4XtWQ7Vaem0rfT6RtjTk5+ScF0Jjc38thYLbT5Q2w+VPoCfC8trJHRIe
+	6ZJB0E9h1zopbJGnXeOZz+3lx2RvXTNtJEC/Pr5t2UT6wjvLvSvreDMYmj4ReEV+c8O0i+0fk8H
+	LkqJi3sYbjqizYrXC5FEaaaqZdKwF5bZa/R59ps17Bn4h0Iwn0W6LdClPYzF70VAPVjcxHy7kf9
+	huxxGPDLucXke9PIzDputWfcgIuqOghwGyKzH4uGQqOVXMCOGOETQgnUO0eNA26z+8kSy3Nd/6k
+	LOwv5tog0WpRX8ezSFiXdsRO3fz2zGz1IOpR1P2+/KdG2J/iYZvYMTMEZkO8QFe5XTkIK5XgjNe
+	fLRBk9pAok5komqK05QP5DOodOsTk/r4h8XEAO4LCoGA9u4SWf7ig7Gk0f2haO80z11gZ0=
+X-Received: by 2002:a17:90b:5112:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3acef0f47a8mr9810302a91.42.1792512630823;
+        Tue, 20 Oct 2026 09:10:30 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80cbe295sm87743a91.5.2026.10.20.09.10.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:10:29 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>, Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, damon@lists.linux.dev, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <179251032453.2.6166799753856435091.damon-watermarks@gmail.com>
+Subject: Re: [RFC PATCH] mm/damon/reclaim: allow disabling watermarks to force
+ reclaim of cold pages
+In-Reply-To: <20261020135822.85334-1-sj@kernel.org>
+References: <20261020133233.3920818-1-ruanjinjie@huawei.com>
+ <20261020135822.85334-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,161 +100,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] ACPI: CPPC: Make autonomous selection helpers take
- a u64
-To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
- viresh.kumar@linaro.org, pierre.gondois@arm.com, ionela.voinescu@arm.com,
- zhenglifeng1@huawei.com, zhanjie9@hisilicon.com, lenb@kernel.org,
- ray.huang@amd.com, mario.limonciello@amd.com, perry.yuan@amd.com,
- kprateek.nayak@amd.com, maciej.wieczor-retman@intel.com,
- pawel.chmielewski@intel.com, linux-pm@vger.kernel.org,
- linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Cc: linux-tegra@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
- vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com,
- mochs@nvidia.com, bbasu@nvidia.com
-References: <20261020121846.691218-1-sumitg@nvidia.com>
- <20261020121846.691218-4-sumitg@nvidia.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261020121846.691218-4-sumitg@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 00:07:00 +0800
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 10/20/26 13:18, Sumit Gupta wrote:
-> cppc_get_auto_sel()/cppc_set_auto_sel() use a bool, unlike the other
-> CPPC register get/set helpers which use a u64.
-> 
-> The next patch in this series saves and restores the OSPM-set registers
-> across CPU hotplug and driver unload through a common table of register
-> get/set helpers that all take a u64. The bool autonomous selection
-> helpers cannot be added to that table.
-> 
-> Change cppc_get_auto_sel()/cppc_set_auto_sel() to take a u64 so the
-> autonomous selection register fits alongside the others, and update
-> their callers.
-> 
-> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
-> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Hi SJ,
 
-Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+> setting wmarks_high, wmarks_mid and wmarks_low to 100%, 100% and 0%
+> effectively disable watermarks? Have you tried that?
 
-> ---
->  drivers/acpi/cppc_acpi.c       | 20 ++++----------------
->  drivers/cpufreq/amd-pstate.c   |  2 +-
->  drivers/cpufreq/cppc_cpufreq.c |  4 ++--
->  include/acpi/cppc_acpi.h       |  8 ++++----
->  4 files changed, 11 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-> index 8d38924e0750..11a895fa9199 100644
-> --- a/drivers/acpi/cppc_acpi.c
-> +++ b/drivers/acpi/cppc_acpi.c
-> @@ -3304,23 +3304,11 @@ EXPORT_SYMBOL_GPL(cppc_set_auto_act_window);
->  /**
->   * cppc_get_auto_sel() - Read autonomous selection register.
->   * @cpu: CPU from which to read register.
-> - * @enable: Return address.
-> + * @enable: Return address, set to 0 or 1.
->   */
-> -int cppc_get_auto_sel(int cpu, bool *enable)
-> +int cppc_get_auto_sel(int cpu, u64 *enable)
->  {
-> -	u64 auto_sel;
-> -	int ret;
-> -
-> -	if (enable == NULL)
-> -		return -EINVAL;
-> -
-> -	ret = cppc_get_reg_val(cpu, AUTO_SEL_ENABLE, &auto_sel);
-> -	if (ret)
-> -		return ret;
-> -
-> -	*enable = (bool)auto_sel;
-> -
-> -	return 0;
-> +	return cppc_get_reg_val(cpu, AUTO_SEL_ENABLE, enable);
->  }
->  EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
->  
-> @@ -3351,7 +3339,7 @@ EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
->   * @cpu    : CPU to which to write register.
->   * @enable : the desired value of autonomous selection resiter to be updated.
->   */
-> -int cppc_set_auto_sel(int cpu, bool enable)
-> +int cppc_set_auto_sel(int cpu, u64 enable)
->  {
->  	return cppc_set_reg_val(cpu, AUTO_SEL_ENABLE, enable);
->  }
-> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-> index 4bedfbfc18b6..bf7d25e89d2a 100644
-> --- a/drivers/cpufreq/amd-pstate.c
-> +++ b/drivers/cpufreq/amd-pstate.c
-> @@ -546,7 +546,7 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
->  	struct cppc_perf_caps cppc_perf;
->  	union perf_cached perf = READ_ONCE(cpudata->perf);
->  	u64 numerator;
-> -	bool auto_sel;
-> +	u64 auto_sel;
->  
->  	int ret = cppc_get_perf_caps(cpudata->cpu, &cppc_perf);
->  	if (ret)
-> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-> index 7448ca43b363..9e1214e1cb0d 100644
-> --- a/drivers/cpufreq/cppc_cpufreq.c
-> +++ b/drivers/cpufreq/cppc_cpufreq.c
-> @@ -1059,7 +1059,7 @@ static ssize_t show_freqdomain_cpus(struct cpufreq_policy *policy, char *buf)
->  
->  static ssize_t show_auto_select(struct cpufreq_policy *policy, char *buf)
->  {
-> -	bool val;
-> +	u64 val;
->  	int ret;
->  
->  	ret = cppc_get_auto_sel(policy->cpu, &val);
-> @@ -1071,7 +1071,7 @@ static ssize_t show_auto_select(struct cpufreq_policy *policy, char *buf)
->  	if (ret)
->  		return ret;
->  
-> -	return sysfs_emit(buf, "%d\n", val);
-> +	return sysfs_emit(buf, "%llu\n", val);
->  }
->  
->  static ssize_t store_auto_select(struct cpufreq_policy *policy,
-> diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-> index 4495ee4ab71e..a5545fd3f8bd 100644
-> --- a/include/acpi/cppc_acpi.h
-> +++ b/include/acpi/cppc_acpi.h
-> @@ -197,9 +197,9 @@ extern int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool e
->  extern int cppc_set_epp(int cpu, u64 epp_val);
->  extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
->  extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
-> -extern int cppc_get_auto_sel(int cpu, bool *enable);
-> +extern int cppc_get_auto_sel(int cpu, u64 *enable);
->  bool cppc_auto_sel_is_immutable(int cpu);
-> -extern int cppc_set_auto_sel(int cpu, bool enable);
-> +extern int cppc_set_auto_sel(int cpu, u64 enable);
->  extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
->  extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
->  extern int amd_get_highest_perf(unsigned int cpu, u32 *highest_perf);
-> @@ -298,7 +298,7 @@ static inline int cppc_set_auto_act_window(int cpu, u64 auto_act_window)
->  {
->  	return -EOPNOTSUPP;
->  }
-> -static inline int cppc_get_auto_sel(int cpu, bool *enable)
-> +static inline int cppc_get_auto_sel(int cpu, u64 *enable)
->  {
->  	return -EOPNOTSUPP;
->  }
-> @@ -308,7 +308,7 @@ static inline bool cppc_auto_sel_is_immutable(int cpu)
->  	return false;
->  }
->  
-> -static inline int cppc_set_auto_sel(int cpu, bool enable)
-> +static inline int cppc_set_auto_sel(int cpu, u64 enable)
->  {
->  	return -EOPNOTSUPP;
->  }
+That worked in my test with swap enabled. Agree that documenting this
+combination might be useful.
 
+Thanks,
+Aveline Noir
