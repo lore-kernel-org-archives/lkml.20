@@ -1,96 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792460689;
-	b=ZkMohvK6AVZwH23LxgramLQxhOSHTzyf2eDlAcpaDoOJKmMHuxCpUJt+F4xpfzyuYrRN
-	 Y344wMuaff0K/hC67LvXEQmYjsPPvcavFtjQZz8F4U2K7fBWttJRIfvvn/hZCRvT2jbNX
-	 bZsZ7DM4gOLOgVMl++NkD6cHjlSsUxutGqfBcSOcnZv3AK6sTre/BkgIO7+Z8Mn53MO/G
-	 hBAWyfytArgfUFSC8XycDb3HQxuJizrDcLChpIqFUUgD0u6ko5ynxBRVS4WDSGRdwns9s
-	 bhBnuKDACBDVKXVoK/qHIq5OyVpS1Qhkf0QO4RdNGFyX//zmDpCctTf4iKcCvFLjjxg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460689;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TiCEArIps0iqu06eKkijx5FOCAoVJaGKsUj5QufN/fo=;
-	b=z/WU3oIzGYbisysBExIh+1/9tqVGmAX7Awhq7aLjFb9IlskCyEnudLia9hSo0PwKWCrL
-	 7Fje2yfhJNkKJbOSEsYYPjsB9uitFKzqugqb58V62MXGlddX4qSpUs/eY2ctOAw23669P
-	 FjI1xBnl6C28imNqwIN235T+O8a0HQMSC8kf/3FldK2COLMxRbW7joPKJeGL3/e0KqCwZ
-	 mDRbpUQ5xrtxTYsasbahqiM3rQqlxCiFQwUSk95cVWoz+KEt5U9fj67Ia/dzl2jl66E3T
-	 XdP/OEDHeGyPy4ukAVXPc7d55ogEmbWQTCOwwyT1wXA3Fu8oOsejQ36Wz9U9XQKGRBA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=a4t66kQu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.70
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792460703;
+	b=WC1ivJoRq4s3Pbw8bSMc8VBcvZw9/CJujpo/X9Osr1waG7dVS6SabOmTioa8ZBXyXMpI
+	 ek8CsgvjeeIXoE/Qe4CoOBejrWM2Zu4rdBj0cbyAJoN33zvmImus4b5zhw+9AjTkQ1TNM
+	 je3cMC0lKKKkUMLwW6zDHE2jbyr0Q54hQLF6ezQ+csmDyUS1jLZ8mrWF68+iogUT4Urq2
+	 lOYj9v/GDU0Tpc0cVBx69bfjVKC8A+hJPQavnV1Sk3khsyzFuLq+q3F4g3d3oLG4rmHI7
+	 bxd+uwT2PZEgppJ07+ur9mzZ7HYoBBiEexAhjbwZ2OMj7hmFMExB/xvGyeoV7ju2sZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460703;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rZcZfYXBzlUwQ6YnCv3oAfZ9AJiBpXJOG8bn7No/VXU=;
+	b=Jyw3A3E9eCJeeh7gRFrczu9WhMC0d4TYhEnoods27iSPId4MGwktGugel5N7Tl6xHJoy
+	 zo0RNwIizycK3pPEiuiWPscgsJhKlZD5o6BjVUAIPPhJzLTxhDHcpSBSt0D0OvQVGLDvV
+	 4S3XPXFSM9IUx3wXKgsUOR1XGO/kvxzqkxw09/anWHdFIM818DGPqVCdRwS3ccUyYJYs4
+	 6KsOKxbUdZFPpuN3lgT3CbS3LCPJuP3LhItLThuo9o5oVO1/WtE8I8f99U7/mZj/Veb6e
+	 BXJj3MEOMZMujnhpNARj583EMGlwJb5/ucToG1yOKHD+WNpkkeDdH1CPiEKKC81hmYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sakamocchi.jp;
+	spf=pass smtp.mailfrom=sakamocchi.jp;
+	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=dvokr1Iz;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rsqb4gXR;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC55606A31E;
-	Tue, 20 Oct 2026 01:44:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DC55606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE24606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE24606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=a4t66kQu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YbARnQgN7IHZSSwHvzXhb+LJ2+xSlRR3FwRQsZvcbQ29S2zPnlAS4d2NOZ0xWTP1rdUn4VsFa7mt2svKVxop1lYY45jQu8N8545x2lor330PlN6/g3f3n8V7ZT3bOFZMPlBNvBpiFYmE9JjhlXth44TA9PONRUlsvxrp6ZwcU5dJzN4WF7Dzbrf5MU3eESmAq3lJoEpr0EMZnAkn9ogd+XaL06JANh6g7fl2YqPT3bpWmJJG+QaRp2hIZOquMzYRViVCb2cNS/23kHLV2VfMIEJMmHaToOpHIcEdbe37tGkkTuJA5cAd4guPaS6NQ1SeJ3gygDFOdS0egm8JiBC1dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TiCEArIps0iqu06eKkijx5FOCAoVJaGKsUj5QufN/fo=;
- b=om6uoAx0bSKW8b0J/8Yy9xx/MDypUdpIKickJqcq6mHJDD8bpBHm7zKaa6PwfaJ8NtRiELimWXTCOyFro3PCR2LCPt/hNUml0SH5qLnB5wIPI3vrPciKyIZaO7Cw1VXaDV55q7PH0ocqGQs4I/iZKDF7+dLJpSOEwK+yGYjesxFOVhxxw7nHJNwW4dY8+dYszJ8YNS0J3y7CoiTgNT1V+1kHL5ZP89yPZwNCWkNNACPFe4Zg+3pjX0D7Tc9F8Qw0m+jMRFmm9PAG0HHw2r9R5JUjRBBtuyqCOqK5wV1vUE9Vmon+SFMViVWNNorL8ZlndB7ju6o/dKJR94mFm7rtHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TiCEArIps0iqu06eKkijx5FOCAoVJaGKsUj5QufN/fo=;
- b=a4t66kQuk9ut0earCTYzq3+Bpk+YM3NsiAt3UaoYNUFv6o4D8naCE5vGFGNlGkfV+l4OgPqDE/h7ESMvaUQn4hW7781h5DEFYTarqC9sjrDId3nR9kh+VKpofkhTLoEQZaX0bMuOAdFeIZDp2HBYFdvcdWYItL/AaSgMwP8IYuQ=
-Received: from DS1P221CA0028.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::15) by
- DS4PR12MB999077.namprd12.prod.outlook.com (2603:10b6:8:2f9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 01:44:44 +0000
-Received: from DM2PEPF00003FC9.namprd04.prod.outlook.com
- (2603:10b6:8:242:cafe::6a) by DS1P221CA0028.outlook.office365.com
- (2603:10b6:8:242::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
- 20 Oct 2026 01:44:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM2PEPF00003FC9.mail.protection.outlook.com (10.167.23.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 20 Oct 2026 01:44:44 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 20:44:41 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 0/2] Fix amdgpu detection of pci=realloc
-Date: Mon, 19 Oct 2026 20:44:30 -0500
-Message-ID: <20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=dvokr1Iz;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rsqb4gXR
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id CE64714000CB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:45:00 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 21:45:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1792460700; x=
+	1792547100; bh=rZcZfYXBzlUwQ6YnCv3oAfZ9AJiBpXJOG8bn7No/VXU=; b=d
+	vokr1Iz1oTOqj/CkKLMNHSZVtPVIRGeV6t9wvqnu6lEiQc69E0Z+TwDI+WHMoqvs
+	xhsbJIkthopcImflHzgNUrbqVoQ1bdTBEJQzFLecWERPJz0EVP+a+IDFBTZ9F6nj
+	ERpybWmeeyJsh7MheuJYIp0OyrW7GikoZUX7V9G3EWzptjXeeOzId/tvsameENvG
+	aKNMhzshHpxjo3tj6NH18FyBZ3Enw+mz6VCL9HCLoLhlcRTbX28KjCLXZlt9fxl7
+	1vYM22RhGUBNodhAyRciLygmu7fjw07P7vYf3gcAGsIpnFPvmNHxeq2MLYgcEf4c
+	kw0+RiUVpOG4dtmcndmhw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792460700; x=1792547100; bh=rZcZfYXBzlUwQ6YnCv3oAfZ9AJiBpXJOG8b
+	n7No/VXU=; b=rsqb4gXRJBMYUeVVdxJ47aZVSusqxhFrMfGPPgs/VdenOoYF+oc
+	AtQ0iuxY9jpUlHDjQ9KCy+PlE3n1bSL96+wTX2BMdp2qYTZqjvSb66oqNDAKiCa3
+	C8UxD7P48p03qXSVRJUjPPgafuVwb1thJnLiKV7tkfYnV0FX0/Me+S5ARshUoqoF
+	a1GV5SeaSt//Ja2Uv5KDRYa6FHRRziXQO5YIe5nILrRK09Y1GuDJj2Iye0ZPmPqP
+	pVkyNwV68aKMBjCtaak0p9UmQ8HyuFUMUrXXfJCudJTYrNzEG1JiVsgk0oGXYbCO
+	DyECoshGhxlNpgsDMwJvoNoKeER59RXjJag==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792460700; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:eJUj/XzAUKDpIoo9piwI34IvZ9Raxc0ecDfR3FjkXyX+9Z8
+	raGJOgmzjVi3Vjyhvgjlm294NMjQeBVmo3ZDRD7vTP0f5GghgB9KnZYocFiV19tG
+	VgbhhE5EV1Ga3lEQGKlPViEqYfY2LVlCWE7feryIbSXPW9AyxoIzysTb0LzaXzDZ
+	GKaoQoQvng9kqlFNGAVFaIIZMkZxlbWLvru8SKOO7vkAoSvqYQPVL1lFYObHbe7E
+	Y0YyKqf67xcs3IeLUq0GbRaChioevwAWqxEHfNLZPJ3AoMKLYARjFHDczOzOgJ0E
+	9it8eQB8DLrIYxZA+spJXiaZOJRjctmj8s53Xeg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,mail-followup-to,message-id,mime-version,references,
+	subject,to;
+Message-Instance: m=1; h=sha256:lUvEeXc2GW6k7qtu7v55SWTUciN2VgoSlicBRnD6ZQ4=:GUp/lQENMb6M3mRWSWTQ/ABJrHcYPEzn5ohvebQulng=;
+X-ME-Sender: <xms:nMfWavNvtfHkS4lsL_bbq-o7C_mB6pjtnXo3YuM2S72sjEM1MbnPCQ>
+    <xme:nMfWahuAo8NuJlCQUfjDZOUdrnL3O8rFT9ISS5AwaDzSBHO4VGeTp9dCNlve27Z3n
+    YRGDWV5JkwCjqROTohHXAyJqyfVkxuhvV4YqEycnO0E-nOWLWcjB477>
+X-ME-Received: <xmr:nMfWahVJ-x7K_gM-xrzLHJtOevHDQc5o9zjD604yA0f3i-RARyP02wx8F6zl2PUil4roBcmpUajm6j28BtFv9P7mq0k1>
+X-ME-Proxy-Cause: dmFkZTF96aY4z4lBvgfoihxo8gJ7Tv/YcWB5RRQiAs8g0aRg+C73GFqwIQqaEwbTGJ2oDe
+    JQw2tjAA04sn0Y0tAuKtAQiEF7QPjMYG1c87OGg85QhKw9S4rnmPYcQKAnCZdpAuAD7gYP
+    /1L4+6LfrL7TirPodR+UqIZ/6g6an8GBLyRpCYh4IPvNXGX84sB61AKbIeqOkAeQTJSWhX
+    Ddscm1JGUWiSzrtTr0ThUgk17KpwzstjBoE515qBRKZ6v7V4LWneNFM7kt9EEIgh1+OKb2
+    0EWMUuTkS0TN8P9mW5qIH9ozaeH9uMioxggB3nyg+6dGZHoOF0aKsR6cj956DiC8FPf+nC
+    PqbHbuGvN+/gZL244W5mYgX7vLDIP37IHP13+26GUB7wqr0fh0bDovZ56y5FzjXYcvDqRx
+    3fF10eLicDQAS1mU+2OW+R5siGqlbZApq4lUN64wRgkvUbtE92BSXrDWxiaWOzowQ5rMyN
+    7hNErVOYnWvtHazRx+mKoWXrwf/nTBxf3L2AZbyyKoL9YFVe4EDYDBH8pNZg9yfiKs+GYS
+    9AAEGfT1qumlPNMnkzsPvMYoTiVz2khSd43xPGyjUxIoTYrClz4yKgrlwxvS/BfTdBEUP7
+    UYhkKk//dH839LJdRetPn6jVHOL9OCFY+l6ryNLiuasC1zMkEm63DP3AvKQg
+X-ME-Proxy: <xmx:nMfWaht9lJSikY1_I-s9VGQXvaQVCK5mvw4UYZc4tbsGcNZrC-zDrA>
+    <xmx:nMfWalWQVtjj915SnNn_IjLfLv1-5LhzkSZdZ3wj3FThKW3qt-xjPQ>
+    <xmx:nMfWasmSEgogg6A613J4viw0KlDQOzbxrLBUq8X511XmBercpwMUeQ>
+    <xmx:nMfWamYj_wbYDGfdqA2LbIhHN1PGyt2zSNr0KKVQv3tVR2d7PJ2_dA>
+    <xmx:nMfWar8IpQ38w1dXoBgZo6-muJY5cyxZ_yIMoq-tN0sC6F1_BcvPkQGq>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 21:44:59 -0400 (EDT)
+Date: Tue, 20 Oct 2026 10:44:56 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the ieee1394 tree with the origin
+ tree
+Message-ID: <20261020014456.GA335452@sakamocchi.jp>
+Mail-Followup-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Mark Brown <broonie@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <atZBEI6G3PgKHKaW@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,75 +128,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAH7H1moC/yXMQQ5AQAyF4atI1yYxDYKriAWjQy2QFpGIuxssv
- +S9/wIlYVKooguEDlZe5gAbR+DGdh7IcB8MmGBuE1uaw7vNCA1C+m4N2hS9y7DIsIXwWoU8n1+
- xbn7r3k3ktjcD9/0Ar0p483MAAAA=
-X-Change-ID: 20261019-vfct-regression-2142fc52852a
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
-	<alexander.deucher@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>, Mario Limonciello
-	<mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-X-Mailer: b4 0.15.1
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC9:EE_|DS4PR12MB999077:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ac6400b-6d49-418f-d646-08df2e4bb776
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|56012099006|11063799006|10067099003|261009223027099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	6N3QJUweF8dOfeDXttahDYjd3izXSFpG/YsKFLyGFiNC4ZokZPg1Hn7eJMZls+dHqLQn+xrSWXe1AoYBwIgVSkN1l80M3KMRXUaAnrfEKHuuEWuUvcgmBoBHhzHV+k2hYYvdjmIJNgtwClFv1qJDy7W1o6+RSxpno7lPPcqzsjfQzNLJKqHlOyelBOr3ntFRzGZZ2mD7lLBhSF6SvLiHeMpWhvFNTXksu6DBk2BX+NP/qbiuMEf4jVrjZjYmJUJBGrwysJtBnebsIv+OHFdGne6nHbRx/VPeb5h9hdd5cZPGVXQJT+/IdIxLFBp7zcuWYGT3Y48V9CFs0ZUkS025apQa0A11khhbap4AElylaUFu8c0AJ7w2UMtAy9B/vNFDY/Y2D1f7ot+FmSPDi3RzZskzLQqMVVzWQQj4YwZTYalATZvdAKBpT1soHC82G18bQPV6vWTCIiAH7DCTF77cSVwY0s6laXqoxcha/OYo3P6VE+V0tOl0H5DU/1qdNrwZc6Wiki283rpHJtm4oB/tbTUK+LsIwer6RtmRbJcF6JUlXMvimj3sVFDQfWROgae58TuSx1JHlU2aqaClvwPGEzVo/rCnrq5uNtGfVaZ6zdix1cBVQDAsvsPmO3+K9Y6T3t+65ob2mjtDNzBB0N4CPQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(10067099003)(261009223027099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bl7goFAZZtS2IUMTuOwxUHChTohxFdHs5Eq6UxTsCr2kiKJJYB/WWbzaHoLU3mXUhATEu5YvvFGd39HoDRKZlJrmunN1CvW2AfweLd+s97YNlGc20NewMXgXVm7WU7sy5SB9h6jRuIz8fC9aSlOK5AFGHDvsxJlt5N62elnn2EmqAkSMGk1OACPidJwlejHzC4sdmOi+yB2XGlkpTRo7sJ28fv1r8LRaxXcndk/PkzTd/XXmZAsQBstWTzt8ORuveOsre5hypEkVfVquBjjmDBEX9IpZ741nZASjUK0JSLOgxjvyKo6Jo+in8mIVRtQgAaGxHpWM6n0BkWLAQN+qf7W67doJguRXNOiQUcTzVY+C1zZ9nSBwUf8mkUevpk7GyQOVXaHKpaRajRdWVE6YkHqU0q2fBhT/KM54+49MR4yz6d/aLKHaOuIRBK0x9/m2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 01:44:44.4563
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ac6400b-6d49-418f-d646-08df2e4bb776
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM2PEPF00003FC9.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999077
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atZBEI6G3PgKHKaW@sirena.co.uk>
 
-amdgpu needs to know the bus number the platform assigned a device to
-be able to match firmware images against the right device.
+Hi Mark,
 
-This was previously adjusted to be a soft filter due to
-commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with
-soft filter") where if everything but the number matched to take a device.
+Thank you for reporting the merge conflict.
 
-This however fails when there are two identical devices.  Instead save the
-initial bus number to the PCI device structure and then match that.
+The ieee1394 tree has now been rebased onto v7.3 tag to include a fix from
+this PR[1]. This may have introduced a conflict in the linux-next tree.
 
-Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
-Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-Mario Limonciello (2):
-      PCI: Preserve the initial bus number in pci_dev
-      drm/amdgpu: Match VFCT using initial PCI bus number
+I believe that linux-next will merge the v7.3 tag and merges all or
+required branches onto it  within a few days, at which point the conflict
+should disappear. However, I'm not entirely familiar with how you maintain
+the tree.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 17 +++--------------
- drivers/pci/probe.c                      |  1 +
- include/linux/pci.h                      |  1 +
- 3 files changed, 5 insertions(+), 14 deletions(-)
----
-base-commit: 87bba57a9f33e2b5e90d4ad70973675333182a2c
-change-id: 20261019-vfct-regression-2142fc52852a
+Please let me know if you encounter any further issues related to ieee1394
+tree.
 
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
+[1] [GIT PULL] firewire fixes for v7.3-final
+https://lore.kernel.org/lkml/20261018103634.GA346762@sakamocchi.jp/
 
+
+Thanks
+
+Takashi Sakamoto
+
+On Mon, Oct 19, 2026 at 05:10:56PM +0100, Mark Brown wrote:
+> Hi all,
+> 
+> Today's linux-next merge of the ieee1394 tree got a conflict in:
+> 
+>   drivers/firewire/core-transaction.c
+> 
+> between commit:
+> 
+>   7f9f2d6abc40f ("firewire: core: fix race condition in split transaction handling")
+> 
+> from the origin tree and commit:
+> 
+>   0f7228de31f1c ("firewire: core: expand close_transaction() into its callers and remove it")
+> 
+> from the ieee1394 tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
