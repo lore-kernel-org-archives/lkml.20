@@ -1,102 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.97
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514407;
-	b=JihA7Thme6iGeKiuyNmiL+8oOrH9iU8tSZHVVcTqQ/aWnugHI+osEHoN11RRQo3yCCjE
-	 WDepIOlfhcRxGPrNZN59nZhUqqJPE+b41LsZgSxvX+KbBwUcUBQGW4Xy6vZ/CxiXU1XoS
-	 p5Y1+vvLMD6eja3uoZ2T7x0rA8c7X4OZDCMee4D9U3cSSzXjbOG+dbsYrwfYXj8dDoRhs
-	 dO8/t/KRHD7/vaS7TT1VksKi5esJnZQdsHZZxVXkJ1R/UaeyMe0yNtJpsK8Ss0DN8/bqK
-	 V0Bk867zx7elmiTTdHtAJfygFoVmY+96AD+XvEIBthhznmmuayvvr7QqP+Ftr90G3yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514407;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=h4e35O9vinCVQ3Dvv8AyNcp+IPtrtbVDIcNsVfa87Fg=;
-	b=DJTnkrnak713nKzrdIUXu/ldYBdHqBmNZaRxVHW/zocnCasTm6in+KUMoDPwFaUNG8L2
-	 kRFqqUTTUXJlpqG/lubzX0R66P+iBKj3C8EL2X5+7H4bjAzhWueTKYoD9aVcQGQkUsa4N
-	 EFv3NWkXDj6QNW3yZxRgMAK+f9hTAQ8R1tPHGrL7GXtPGfQ5zL35XOCEhw8qaCCJJNIG4
-	 3UlybAkK1A/EcwOqGMQF0Q8vB1dgLd4nC6gg64wUPJRmjt05D5ncSeXdF07d+NBR67aSX
-	 kdVa1I916AUYDrDAEHmnVJck5AfXaECLxMAR10o4eSmbySOy4/OphgAftq819wIxglA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=f5ZAn2ui;
-	arc=none smtp.remote-ip=74.125.224.97
-Received: from mail-yx1-f97.google.com (mail-yx1-f97.google.com [74.125.224.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792514502;
+	b=E4WRJAKhLci3R0vsJgzK3Bxx9haJeQ+viIYGNmLwPYhpT57qFHLGDKOHOqJjfDdCkA8C
+	 n7KtS7G65ZyXcNqJZqcBgcbFliLoJjQUVjmMnvHRcCgv/NWK0CvcQr0EvIlanDqj5Nloy
+	 wMscio4vkpqUtRlGLlR/aEEd82SPrx4P21CDw8+dphHVCiOXEmg97/ziOkB6R9hAQWE5E
+	 RoK/ielH2rzcVWbLJTtgpLWubn6KB1gKCep0bfh+k1gj4YHMkzkAq8fWiYsX+TGLwRDvg
+	 BqWLGk/+SE6mSStSEhPmkbPTOuC3BHstEySHupSMMG54x88kBq4rKmPHDaJ3IuF79zw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514502;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=A/a6L5ZWhFngG0hDySABF2+e4+TtXX7Lt2NcRi8PT6w=;
+	b=2ZQxCBkBvykBLBgKsj5sEkZKiodkujd30ykK1+cvLQgBZuMC0GZs5bxMsbGKOD7wgCRo
+	 XsNvWoJPMTNUHstumNigkcAcN7yMpLWgMrZ8aE8eiYjLQ4opRxK9Pk0F1htzC88n+ELv+
+	 J5ejSc7tzLGkkmDptsT3V0Kv/CaPptdKz+b6/4klksHqjDK1IOAQ3LVhuXS/j1LwOHi3j
+	 uLu+1h3yG7wHaKFhTD1fb9qFJiuUDBhV+UjJGI35xXNa1KTpShUQ8vRF+0ZSENhWvimKn
+	 CsU5JJgMN7hGBefn4zeRX1QM8Qx2k8fNrKx49NvTO4NZ4kNDJdCJsboL+xfog4xM05A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mkMF6ZiG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.16
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013016.outbound.protection.outlook.com [40.93.196.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39118606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39118606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA75606A31A;
+	Tue, 20 Oct 2026 16:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA75606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=f5ZAn2ui
-Received: by mail-yx1-f97.google.com with SMTP id 956f58d0204a3-677dbe051d4so3110532d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:40:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514406; x=1793119206;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=h4e35O9vinCVQ3Dvv8AyNcp+IPtrtbVDIcNsVfa87Fg=;
-        b=jf+Rhc88p0sozhtRKl1GOF1y9MMF8O/bz105OgFgP+jG7iM71xSj+h1v0rzA7NU5KZ
-         RkVWWiGHZ1fG1rYr/Osnx/mjbQWF9+scCbyS+sWAZJ76ENgc9/hyE3Gjkls5PInPzX8/
-         CC5ApMnjidNK6KtuNPfJBjn5+pYChhXhOAd850Mz7m/fsBTQc6Og4cB7drwPL1Z8OYXo
-         lfrmpI+qfJq5smziArpjZ9jlKiQMNZ3gC2pHjBZhmZwtkbfW+ihUmVYb1OfrdCtp2dI8
-         ocPMuOVTfVA2a4Pf3354UMfptWs99lAQgITWzDcRjzWAoo39ASUnNMkIbsS6u/M1PhYY
-         MMoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgf/Ip7joNJmY/Dybxf3rBRxdW6qvouDtOkRODHbgt4SZRRvMlLIM5a0H5kTSCcmeOj9DTmp6cLaxNt40=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJE6lseSLNe3qYQCXesuHGc9XEijsWrO3Pgz7K+t+tKYcJesSHC
-	ofLR/ZkW41V7llsj7AIIsVrwWWA5eu7xh9rjyb8gW2fwlES5ivxVzl7qy3n2m7Ovmof1mYdR/1l
-	KGy4T+YUZnxh05pBuMehMJIQCuYwQTXiu7i4w3cXCLm5RSrruZRyJF5TbCFHIv2QUfrlDLSKv3y
-	bCTeV0TBseGr/52MHxvme3XpznWNeV7Uegcu6jat2HN5eCB2G8mOeyhqPKUV2Es4kbeSETYFkkL
-	K2sMwE1c7RtfA6f7edQfAMp
-X-Gm-Gg: AYBFou2OdFK1MbxvWo3Ge4Q0JlFcxXns5jUjWH42rpBVeMlyLGxL8foTBVuPp+MxMbm
-	wYwXuRiOwuD+1RwDRBKYHfNUJ1eCzYCZmdrKq2X2V9jQpr4AZPpFrd1dZyfMYd/7tg4hcq4CQrU
-	INAS2FqwbqYgiqNpeUcgIyhOl1YJZMQLxGNrvbyY92P9ulkBJMOhyeBPLM6wTPFEnyV3PDt5dwn
-	rN+6f7Wc65egChhrM1f2jpy6lxCDvdA/sRAZMzbGpAIU+eYfStmMm/ratZDhREm20acUcTk4u98
-	RHLIVhfODVSfrMaXRqxZYo1meDXf7xYDQozFHF2zPcNLdDkTrgpleDVf+bu8x9ZnuxNsPm4wbl7
-	lY6Bl/0ItKYYdxB67HrcfLfSQ3eXS1CIzgu4D9kcrECHYzIs58Xdm27Pk9W8bCVgjCIzMWcEcJV
-	vwhFXzUws+zWTEQoU0ZXZbUwqYbl2tB9n2MHpR5VNsi0c=
-X-Received: by 2002:a05:690e:4393:b0:679:5b51:3396 with SMTP id 956f58d0204a3-679ca7ca9eemr1699192d50.44.1792514405523;
-        Tue, 20 Oct 2026 09:40:05 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-679b1e26ff3sm247156d50.8.2026.10.20.09.40.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 20 Oct 2026 09:40:05 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91be1227fdeso68067646d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:40:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792514405; x=1793119205; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h4e35O9vinCVQ3Dvv8AyNcp+IPtrtbVDIcNsVfa87Fg=;
-        b=f5ZAn2uisPrO4JPbTpZIaiPAlniZ1m3q9gcugHsL9B2seyjs95OenZNxs2SH1v5lpK
-         JwwESNmIE7wZUSFPrO2JYciOg20S8vnx2u08K84gP510xqGhqXaQMwGvo1AVKclmkg5n
-         OfW//GcLbQK3bPZW2UAcjTaqdS4/cIWzECA/g=
-X-Forwarded-Encrypted: i=1; AKwUvBxsyzgRqArB2enpBDhG/5zQ+3Eknv6U7CQRiU6EYhFBVqxRyNdIpU4u5fWLHiz/KN9xxCwGSxX/YbsbD8o=@vger.kernel.org
-X-Received: by 2002:a05:6214:62cc:20b0:91c:5ca:801b with SMTP id 6a1803df08f44-91c05ca85ccmr31567626d6.24.1792514404544;
-        Tue, 20 Oct 2026 09:40:04 -0700 (PDT)
-X-Received: by 2002:a05:6214:62cc:20b0:91c:5ca:801b with SMTP id 6a1803df08f44-91c05ca85ccmr31567116d6.24.1792514403938;
-        Tue, 20 Oct 2026 09:40:03 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10bb221fsm2310886d6.20.2026.10.20.09.40.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 09:40:03 -0700 (PDT)
-Message-ID: <14d6f296-c117-4f72-a5a6-a4e97fa32a0f@broadcom.com>
-Date: Tue, 20 Oct 2026 09:40:00 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mkMF6ZiG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hPlCv63/Qh/ltGI09o/geDwHkFMli/j62N+ADa/yftM5uWIP9t7jdzBT2DRlgQNNtQZYzZtnEqzdbYseSVXK2/E9kOpteLJDCR+N9kLb//0F3zSi+DYLqxw+8kwAp+3dq4fct84jL+lp6k5pfsTSYee7eVwX6BOUrHef1DNv6b2iFiLFRx0jnWjtSDTgz4BUlGFTrgFROhyIeEuF+5M6wGh6vozu1sp9fk1N+iFrd3bTdFA6AqkAuuYMgXdgq4Xud7oIaO1xetI/yE+xmkRmIumIumDjhLF51jU9/A8KJaFDV6tAnGQ0OsB6oR80Cbe/RMScR+tIoo0r78tWfamLZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A/a6L5ZWhFngG0hDySABF2+e4+TtXX7Lt2NcRi8PT6w=;
+ b=OlzfyQz8GaMFvW2QgD73iqmulfUEpqxC/C1Z1Jb/G32cdxDtGiTNRIyQPP0US9Iy2o3q8caxXfU5Bn/sHmDl1Krs6v/kuSDWLe79xDL9sT93mpsTKPDd+EXtZg2nR5CcRYQwmklOZWE/603bWjuAbdRolU5x1h6UsgE92tN8TkBOMBeeKI6Cgn6t9IjSTjoqy49IG/bhIGnj5R/j8o9+yowj6Yn1aOqrkgh5j32J1D8gcjstWLQYQBPRNiyya1T+PybhU9Lbm88UrJS7GS0dWnlooTdbPayeJpCjb6mXQPPOuT1QyGHkCeeKgCxBw/VYxrdyQnm+KsF+A+UZa4BgaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A/a6L5ZWhFngG0hDySABF2+e4+TtXX7Lt2NcRi8PT6w=;
+ b=mkMF6ZiGY6G80ldHLbtAcDOKxnu702sgQRlok5JAKLEK/4htrU0hFC0MTVa1bozwQa7tEIAFClpsRdxm4sKsR0hrMyX4x952aicyBuKQBe53ouxr1Ujlqban06IGW+5JXM8H/hvg63E6voj3suLYsDlDjuKvz5JqAw8CDGF4fKA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by DSVPR12MB999308.namprd12.prod.outlook.com (2603:10b6:8:423::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 16:41:35 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 16:41:35 +0000
+Message-ID: <917d4ad6-badf-4e34-98dd-6e05e20b04fa@amd.com>
+Date: Tue, 20 Oct 2026 11:41:31 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 15/18] fs/resctrl: Reject mode changes for groups
+ backing kernel mode
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, tglx@kernel.org,
+ mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+ fenghuay@nvidia.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ akpm@linux-foundation.org, rppt@kernel.org, dapeng1.mi@linux.intel.com,
+ elver@google.com, enelsonmoore@gmail.com, jlayton@kernel.org,
+ kuba@kernel.org, ebiggers@kernel.org, seanjc@google.com,
+ ewanhai-oc@zhaoxin.com, binbin.wu@linux.intel.com, peterz@infradead.org,
+ ashish.kalra@amd.com, superm1@kernel.org, chang.seok.bae@intel.com,
+ prathyushi.nangia@amd.com, kim.phillips@amd.com, ackerleytng@google.com,
+ elena.reshetova@intel.com, naveen@kernel.org, darwi@linutronix.de,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org, eranian@google.com,
+ peternewman@google.com
+References: <cover.1790867441.git.babu.moger@amd.com>
+ <d0392cc08e4bf28998a4815943525a0461003801.1790867441.git.babu.moger@amd.com>
+ <bf296951-e4bf-41f9-b12d-3c20930cbd21@intel.com>
+ <592ae38c-3e73-4940-9720-d23f396f83a3@amd.com>
+ <e65c5f31-266a-4411-b7d4-873086451065@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <e65c5f31-266a-4411-b7d4-873086451065@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR07CA0014.namprd07.prod.outlook.com
+ (2603:10b6:610:32::19) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,100 +114,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: iproc: Skip BCMA-attached controllers in the
- platform bus driver
-To: Semih Baskan <strst.gs@gmail.com>, Bjorn Helgaas <helgaas@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <rafal@milecki.pl>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, bcm-kernel-feedback-list@broadcom.com,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-References: <20261019065249.552-1-strst.gs@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261019065249.552-1-strst.gs@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|DSVPR12MB999308:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd06c684-4739-4094-3ee2-08df2ec90126
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|56012099006|260925022911599003|260925021911599003|260925021311599003|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	s5z92LafmbZzBaboBuhOQJQ67kiro1Ig/XjKXY6ty1csE5zU8RyMqwOWeYL7uDMCWEQwqQEUj47s+Is3PHpCPcBJn/Fdl7Qy9XFDTlaUSSLYz+JxdxboKWqRNoT7frU7e97FXI5ejGxY5oxPD8triViWg7PMImKA4BZcV1B3Vy64lT7YvRGNd00OWd/Yl027BB8lRWW8ETDhbFe5bpfZeMI1NPtTTKL6FB7ojYcaXxPOiy7OlMze5vjlb2kFI0nXyezoSAJIQhPK38ViQ4DH1p6oyR0+shfHEoCly70EyEUiE5JjAb31mV5olSjaP6MxdO6EmAKRASicoM3i37+MJtHbV8CvLH1U3+64/1Zy7DfBE6KiP5JlJP7nLFhPdjhFZL/LDcUEHRnzj1G+YZscd+xYMCgKe7xxA7PM7Ek3IfCTN+9R8YLu3JlyF7CJUWIYQQtOXv7eo03G9BN8uh0zhNyYA8c1P40TGDDXTSxAIYvf5AbhpTGlQO5hv3vkOhgEG6VjlAF/f/9VpKbqeHEPFr3cPU3tU2T7xVWxb6SfmtoVC3CUCYQV4+9HTz0Qok4Umq6JiratmYSg4IQO0ES63PiPneXihF6e9GjlCNgI+6w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(56012099006)(260925022911599003)(260925021911599003)(260925021311599003)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VDNlbU5vd2FoOUszT3VkZlVySUM5ZUpPTjc3QjlaTHVFVTlzNThpWTVublBy?=
+ =?utf-8?B?NFRpZ1pPMGJEMmM3OHY1N0VScXlKKzZjUnBqektnK3lmVnFpNWcvcW9HNVNu?=
+ =?utf-8?B?UDJ4MlRqak1kR0xDN2hjaGNQTXhDb05wV3dXQ2lvN1kxbmhaNzBaeVRXU0l4?=
+ =?utf-8?B?K0tEbDV5WWxtS1VsRHpyV1gzdStFMDJZQlIxdkRrMzJDekNFa0VTMitEOGwy?=
+ =?utf-8?B?blhuSEcrVG1rY1RiZnRDMFlPR0lhay9QVjMvQ1pBNUpyWlV4N1R1ZFI1clQz?=
+ =?utf-8?B?UjBTQWlzcG5kMzQ1RnBseTdPcGZjLytqa0ptMnNKL0IzNFlJZEdsVXBUTTlO?=
+ =?utf-8?B?c3I4SG5YRXBTUnNxQ0pvclZCdXZpY1piczRMWHJTeHh5dE9sK3U3aHBiYm9L?=
+ =?utf-8?B?RENzRzcyTWJJMm5FbWN6bnU2bmM1c0dGOUFOZGxVWlJhT2Y3WFZDb2Jlbk9X?=
+ =?utf-8?B?STAzakhnUE9TaTA0cmtkRm14dFFaTDd3dHBvbTlZTHFHMUJqSW9IWVNZalBj?=
+ =?utf-8?B?bVZESEtuOWlIV2I1RGpydmJjY3ZTaCthQ3pwd2V0cjBYZng5QXJHT1ViWFJD?=
+ =?utf-8?B?d2VvL0NGWm9KSG9QYndmbDVjL0tNTGVoQzNWWGZYSjVmVTFSbHdYb2JybDVq?=
+ =?utf-8?B?dFhLeEhnQWdrUVZLTXZWRGVhcUdVOWJHWU9YZ3JuNUs0T0Fyc3ZNbFp3Nldj?=
+ =?utf-8?B?MlRqWnRZTDZVVmkxOW1KczRoUnBWVUZ4R0tUTmNJNk95MHJMSy9scGF3dTIv?=
+ =?utf-8?B?dnFULzJ6cUJWT0hxbXlYdllBOXNtQTVOVU1qYVljMjVDMW1rK2lsemZpRVps?=
+ =?utf-8?B?Y2tUblhrTzRhZE0rTkJoVmpnUm0vT0gzWmNuKy9kN1pzc3RsZjltcmRSWjFE?=
+ =?utf-8?B?TWFWUnBka1VLZ053OE5OeFdmOFhqaTFyZUl2WDUzdzhFd0hjaDB6SDJ5R1RM?=
+ =?utf-8?B?b3JyWllyOERXZVVocmhFNTV5c3o2dHZuUWVZRkVGeXY0MFVhVlBJdTdtcUxL?=
+ =?utf-8?B?aDc3ZWRLUjlDbFU4eDJqcXFpYTRsK1pMYmJLdmw2TGp5c3E1aG5WWkpWdm9o?=
+ =?utf-8?B?N3h2REdvQ3h3RFBPVlhCSkEwNlE3RGRFaDFZbEpFK0ZyQWd4RkJRSHRGaEVQ?=
+ =?utf-8?B?SDFZYjdBbkllSTVjL3hhMXlJZFhTVVZIamFQYVIrSUFkcHQ0Y1RqeEx6ekpL?=
+ =?utf-8?B?S0RNNGY1aTNzYjZ0Rml2TnZLUGd3eFZyTkdrYURGWURrUjk2MGcyelZiRENM?=
+ =?utf-8?B?QkcyUUlVRjlMUUVIMDRZNVJhM3FncjR4THU4YU9IcGpmWlRQUWdZSW9Nc2Jz?=
+ =?utf-8?B?VWRKVFp2cDFPS0t2RXROb3NNVjBpb2szdjlQVWRzcEVaZ3RkVFRGZk9aR1Q3?=
+ =?utf-8?B?REFGUXdhM2Noc1JvQjR0ckxzT1IyeU5ib2w3ZEI1ZXNteDBjZDM2VjZ5RW5U?=
+ =?utf-8?B?ZXNtWEdpN2FqMVFUVDZkQmpXL2dpSStUWWRldWtPaGRQYVZ1cE54T2hrTG5l?=
+ =?utf-8?B?UHNTUSszOWJmMG80Y1hoTms2TGhMMmFmU29Ha0dSdDk1S1FJWnE1clcyMndZ?=
+ =?utf-8?B?VTROSnNJKytaWFRMRG00QjhhYjBEOE5DMmlScnFDZ3VHK3IvSjNRaGdSTTYy?=
+ =?utf-8?B?TGdBSUhxbDMrL2dyaWdzbUo1RFFLdmpndFp6azltMndyckxvOTlCV1pwb1pK?=
+ =?utf-8?B?YmVaNmhvbzVzVmhoUzhEZlF5RFNqanJPY3ZmWm9YWkNmTEFsUW9BUWlkdVpV?=
+ =?utf-8?B?RUg1ZWxBZjNNRzFpazhHVWNwVG01QXduUElQV0MrcXdxZEpCd1FjQVdJRDBk?=
+ =?utf-8?B?Rm5rcUZkdHNZYVFzRXpjSnExNGdBZ1Z3bzRhK21CZlVRRHFveFFnMGlRb3B6?=
+ =?utf-8?B?bU9IcG9mVk1XZU11eHpiS3NGc2ZobkxCb0dPQU1aS2EycSthWG1qa09Kbllt?=
+ =?utf-8?B?SFYrWmwrOEo2dzVNUU1SVTVxd1FhMmE1VTdXUGRud3hJL2VmQVEySi9WUXRB?=
+ =?utf-8?B?dFAxcVpIbHVNVGpyeENQQmlqMzJLY2RjbXZ2SzhNK3A5TEFKOW44eTc1eFFF?=
+ =?utf-8?B?WTNKMDk3OURyMU8vQzVCUGEwWWZjNGhTRXBqSVF0OXkxcVhVNE9YdmN3L3Bx?=
+ =?utf-8?B?MEc5Zmgxb3BDRnpPM0RIcDdaN1VRb25sUFFhS2ljS2tnVUtXcU1BL3dNeHFx?=
+ =?utf-8?B?eWg3bDAvV1lLMzhySitaRk9HUGFsYVJERzdYallkVTNIVzYzYVBKcW1OaWlW?=
+ =?utf-8?B?SHBWQ1dsWmRnbVFuWCt4SFpLU1lVY0lSdzBCNzlvWWJIUTV5TzdHV1hQYTBu?=
+ =?utf-8?Q?yNQNQFComlGFkzBAJc?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd06c684-4739-4094-3ee2-08df2ec90126
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:41:35.6211
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: o3tstWl8jY02CPNay7G/vmDdHb69Xjf2Rpcz/I7JgUMkQETxGiGfEMNwijpcQz1m
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999308
 
-On 10/18/26 23:52, Semih Baskan wrote:
-> Since commit 767012397976 ("ARM: dts: BCM5301X: Describe PCIe
-> controllers fully"), the Northstar PCIe nodes under the "brcm,bus-axi"
-> node have compatible = "brcm,iproc-pcie". bcma_bus_register() creates
-> platform devices for the children of that node before it registers its
-> own cores, so pcie-iproc-platform probes these controllers before
-> pcie-iproc-bcma does, as IPROC_PCIE_PAXB.
-> 
-> IPROC_PCIE_PAXB sets has_apb_err_disable, so the first config read on
-> bus 1 reads APB_ERR_EN at offset 0xf40. The report in the Closes: link
-> shows that read taking an external abort. On a BCM47081 (PCIe core
-> revision 0x01) with a device behind the root port, the board does not
-> boot, and it boots when has_apb_err_disable is cleared.
-> 
-> Return -ENODEV for a controller whose parent is "brcm,bus-axi", before
-> the driver allocates or maps anything, so that the controller is left
-> to pcie-iproc-bcma. The devicetree stays as it is. The check does not
-> depend on CONFIG_PCIE_IPROC_BCMA, because a kernel with only
-> pcie-iproc-platform does not boot on the BCM47081 either. On a BCM47094
-> (core revision 0x07) pcie-iproc-platform enumerates the devices on its
-> own, so there a kernel without CONFIG_PCIE_IPROC_BCMA loses PCIe, as
-> before v7.1. CONFIG_PCIE_IPROC_BCMA defaults to y on ARCH_BCM_5301X.
-> 
-> Tested on an ASUS RT-N18U (BCM47081) on a 6.18 kernel with the
-> controller/iproc-bcma changes backported. With both drivers enabled,
-> pcie-iproc-bcma binds controller 0, the BCM4360 behind it enumerates
-> and the platform driver logs nothing. With only pcie-iproc-platform
-> enabled, the board boots without PCIe. Without this change, neither
-> configuration boots on this board.
-> 
-> Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
-> Reported-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> Closes: https://lore.kernel.org/r/0dcfb2db-5536-465a-bee1-afe160535748@broadcom.com
-> Suggested-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Signed-off-by: Semih Baskan <strst.gs@gmail.com>
+Hi Reinette,
 
-On a SmartRG SR400-AC which is based upon BCM4708:
+On 10/19/26 17:01, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 10/19/26 10:43 AM, Babu Moger wrote:
+>> On 10/15/26 10:49, Reinette Chatre wrote:
+>>> On 10/1/26 8:10 AM, Babu Moger wrote:
+>>>> Prevent mode changes for a resource group that backs the active kernel
+>>>> mode. Also prevent mode changes to the parent control group of a backing
+>>>> monitor group, and prevent a backing monitor group from being moved to a
+>>>> different parent. These restrictions ensure that the active kernel-mode
+>>>> association remains valid and consistent.
+>>>
+>>> "These restrictions ensure that the active kernel-mode association remains
+>>> valid and consistent." could this be more specific?
+>>>
+>>> This patch does two things:
+>>> - prevent user from switching the mode of the resource group backing the
+>>>     global per-CPU kernel mode. Why? The reason for this is never given and
+>>>     there is only a hint in the *code* of the *next* patch that requires the
+>>>     resource group to be shareable. The next changelog does not mention
+>>>     this requirement either.
+>>>     This is important to highlight since a resource group backing the global
+>>>     kernel mode would have all its resource allocations shared by kernel work
+>>>     done on behalf of *all* tasks. This makes it a clear requirement for this
+>>>     group to be shareable and for its mode to never change.
+>>>     This highlights that there is an ordering issue with the patches since this
+>>>     series establishes the requirement after it enforces the requirement.
+>>
+>> This check is only exercised when userspace attempts to activate the kernel mode, which is introduced in the next patch.  I can merge this change in the next patch.
+> 
+> The next patch is already quite large. I would instead suggest that the
+> changelog of next patch includes why a resource group backing the global
+> kernel mode is required to be shareable. This patch can then follow after
+> that to ensure that the mode of a resource group backing kernel mode cannot
+> change.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Sure. Will move after patch 16.
 
-Thank you Semih!
--- 
-Florian
+> 
+>>
+>>> - prevent a monitor group backing global kernel mode from being moved to
+>>>     another control group. Why should this be prevented? Could the global
+>>>     kernel mode not just be reconfigured, just like when user space
+>>>     provides it a new group? This is a design decision that is never motivated.
+>>
+>> [1] There is no specific reason for preventing it. I just did not
+>> consider it a use case. Also, changing the parent of a backing
+>> monitor group affects both groups because the kernel resource
+>> allocation is moved from one group to another.
+>>
+>> If there is a valid use case for supporting this, we could allow it
+>> and update the kernel mode association accordingly. What do you
+>> think?
+> 
+> Up to you, but please make these design decisions explicit. Do not hide them
+> behind hand waving like "These restrictions ensure that the active kernel-mode
+> association remains valid and consistent.". If you choose to delay this support
+> until your customers ask for it then please change the message to something
+> that highlights this. For example, "Cannot move a group that backs kernel mode"
+> can be something like "Moving the MON group that backs global_enable_per_cpu kernel
+> mode is not supported."
+> 
+
+Ok. Sure.
+
+
+>>>> Signed-off-by: Babu Moger <babu.moger@amd.com>
+>>>> ---
+>>>> v6: New patch to fix sashiko feedback.
+>>>>       https://sashiko.dev/#/patchset/cover.1787772750.git.babu.moger%40amd.com
+>>>> ---
+>>>>    fs/resctrl/internal.h |  2 ++
+>>>>    fs/resctrl/rdtgroup.c | 35 +++++++++++++++++++++++++++++++++++
+>>>>    2 files changed, 37 insertions(+)
+>>>>
+>>>> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+>>>> index 6b8d14c4bd83..84238e9e8e15 100644
+>>>> --- a/fs/resctrl/internal.h
+>>>> +++ b/fs/resctrl/internal.h
+>>>> @@ -462,6 +462,8 @@ ssize_t resctrl_mbm_assign_mode_write(struct kernfs_open_file *of, char *buf,
+>>>>    void resctrl_bmec_files_show(struct rdt_resource *r, struct kernfs_node *l3_mon_kn,
+>>>>                     bool show);
+>>>>    +bool rdtgroup_has_kmode_global(struct rdtgroup *rdtgrp);
+>>>
+>>> Does not look like this is needed, can this function just be static within fs/resctrl/rdtgroup.c?
+>>
+>>
+>> Yes. The only issue is the build dependency. Since the function is
+>> declared static, it needs a caller in the same patch. One option is
+>> to merge this change with the next patch, which is where the
+>> function is first used.
+> 
+> There is a caller in this patch, no?
+
+
+My bad.
+
+> 
+>   
+>>>
+>>>> +
+>>>>    int resctrl_num_mbm_cntrs_show(struct kernfs_open_file *of, struct seq_file *s, void *v);
+>>>>      int resctrl_available_mbm_cntrs_show(struct kernfs_open_file *of, struct seq_file *s,
+>>>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>>>> index 98451b417fe3..dcf9f26540d6 100644
+>>>> --- a/fs/resctrl/rdtgroup.c
+>>>> +++ b/fs/resctrl/rdtgroup.c
+>>>> @@ -1738,6 +1738,27 @@ static bool rdtgroup_mode_test_exclusive(struct rdtgroup *rdtgrp)
+>>>>        return true;
+>>>>    }
+>>>>    +/* True when @rdtgrp or one of its monitor groups backs the kernel mode. */
+>>>> +bool rdtgroup_has_kmode_global(struct rdtgroup *rdtgrp)
+>>>> +{
+>>>> +    struct rdtgroup *child;
+>>>> +
+>>>> +    if (!resctrl_kmode.rdtgrp)
+>>>> +        return false;
+>>>> +
+>>>> +    if (resctrl_kmode.rdtgrp == rdtgrp)
+>>>> +        return true;
+>>>> +
+>>>> +    if (rdtgrp->type != RDTCTRL_GROUP)
+>>>> +        return false;
+>>>> +
+>>>> +    list_for_each_entry(child, &rdtgrp->mon.crdtgrp_list, mon.crdtgrp_list)
+>>>> +        if (child == resctrl_kmode.rdtgrp)
+>>>> +            return true;
+>>>> +
+>>>> +    return false;
+>>>> +}
+>>>> +
+>>>>    /*
+>>>>     * rdtgroup_mode_write - Modify the resource group's mode
+>>>>     */
+>>>> @@ -1778,6 +1799,12 @@ static ssize_t rdtgroup_mode_write(struct kernfs_open_file *of,
+>>>>            goto out;
+>>>>        }
+>>>>    +    if (rdtgroup_has_kmode_global(rdtgrp)) {
+> 
+> Above calls rdtgroup_has_kmode_global().
+
+You are right. This can be static.
+
+> 
+>>>> +        rdt_last_cmd_puts("Cannot change mode for kernel-mode assigned group\n");
+>>>
+>>> The messages to user space also switch back and forth between kernel mode and kernel-mode.
+>>
+>> Will change to  "kernel mode".
+>>
+>>>
+>>>> +        ret = -EINVAL;
+>>>> +        goto out;
+>>>> +    }
+>>>> +
+>>>>        if (!strcmp(buf, "shareable")) {
+>>>>            if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP) {
+>>>>                ret = rdtgroup_locksetup_exit(rdtgrp);
+>>>> @@ -4697,6 +4724,14 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+>>>>            goto out;
+>>>>        }
+>>>>    +    /* Reject moving to different parent if group backs kernel-mode */
+>>>
+>>> Comment states the obvious. Could it instead state *why* this is rejected?
+>>
+>> Same reason as in [1].
+> 
+> ok ... but could the comment be changed to reflect this design choice instead
+> of stating what is obvious just by looking at the code?
+
+Sure. Will do.
+Thanks
+Babu
