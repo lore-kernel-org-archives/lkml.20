@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456553;
-	b=VgORaeftqMlwGY2xe6MEr4AhKbXLnxkW5k6cL4HsnutIaLAxW4Lt5xVN6ESqGCyEmmbd
-	 RP9meccS9gjBsxWBnZO0XwP9iGrEAUGSJ+mh4zSB4ohQY1v3Itbk0nAcmMTqhE9Fbu72E
-	 5RjiJwlnjgwhVqhF4YK9/Vk9FNGdTlwl+APgNUaGElWTAk+wMLho0BMe5xQ5ZuuQY8N0O
-	 XoHf8oiWicbHAlkx0PSzil9tWChrRTk36FyJHtcBvnfgOa7MdbZuTiCasd7GIZVgoD9gK
-	 0gqGSaXluEuf4JDZUOILKNF1ezndM9/PrrNHsZe62W0u5MpM1odyGmw8qE6PLOBElwg==
+	t=1792456545;
+	b=p8wu5JtbHzTApBU03u59BC53Wl9UCnixbtvAULYOE+BqfIod/uvbkxRGFCJvvE03/oFS
+	 PifAPmMfvYJ7afxe945FAjnKMjpYr7Ech879MlEmi1UPDeaol5Rbe5Bpe1yN3EFXs740E
+	 Cfbh5jQXH8Rxnbku4kvMIdD/P674W4z3fwaEzdCdWfCNX1UcglX0+tSV4hNjFMJNIX52i
+	 sO2xGO91cKcjgJTHi3/Y/1jMiYszzYgs9liAh6+jlff/ZtD5qKIKzB4uOwH1lcU6JMimY
+	 vrW5fuc89uDuK6UawW77cmmpTfSZf4Sx55VhXTflg9yGXJE8z7YiTcI8uBsz4IG2MRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456553;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=NtUt4EBp1f75gVbnrDI7LLQPMBNwUZ1wb674GgkrAXQ=;
-	b=yVNCCW3ETHFQwqkhel9pnlQQY/HZiUoXZx1cfGoZDCelevH/fccC268E+ESmyU37vYDb
-	 aq1iCX7HtI1P7SmoUZYoUrMfnCiMnfwYjst5xJUGo65qaIaiNVHT0jISnihGaDWzTgp3m
-	 zXcoyUfDNGcj2bbV/We9vXLfE8KASAZV/cn+l2tr7QuseGvf5NxBpNcF3YF7JmSY6ca0E
-	 Iir9h8dwGOowGVRuxIkzZPBF2ZjsJNlD2DrylWeAGYdIYSJFDbHNKgtdrak8L1Ris8yb2
-	 suWvEdb8+0Ltp1Bqcga7DJtLlFKq8MIJWdn52e3ws+Mz+24HMb1MPeSBYWAjf1t4skA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456545;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=7C7GZbdbo3a4H8A+zEhg8yGiQ1HjOPz6tQYB0uZWjAU=;
+	b=FsBi9t4SkhjXdQKk+UB5NASYeghe4am/mMAcEuzb1UP/IyigdKIprFg8CJLFMZiWCEAk
+	 mf5Q9n3TTE1Fuwa0qxOwkehsxvC3UHy488bmsgy3qC20Yw//Nm0hLKGidQHOeHNNnevax
+	 DqlL3gJ+HNaJOm9VEph3KByN1c5Z6jdt5XHwUYDUw7gZEQmZEN4OVe3AYpXuJEcWOxpsN
+	 KRf7WClBh0CUlY2BSHSZ3QHL8UsdocOlA3J9SOZOKAGZctA9SsJuBzGfqK61Qk3Wa2LuW
+	 LJCwublvHZlGcPL+BRPjajM+Vcumzpxhi+i9wIdGV/TSbt45VT7yZZHStlRyGzqswVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdolQjQh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="XF/nunrU";
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA1F606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC248606A31C;
+	Tue, 20 Oct 2026 00:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC248606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdolQjQh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E37E1F000D2
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792456553;
-	bh=NtUt4EBp1f75gVbnrDI7LLQPMBNwUZ1wb674GgkrAXQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fdolQjQhkL0ujALk1waFv+Nz/s8AQ9DQO/nHMOTG4NsxuA5RKDI2NTHpnn0aFPhAU
-	 jRV/jKSlDbi6c8ZYrYs4D2iJDluNi+ZSHo7FcjxbGOXxl6a0LMn8wJdjJVPDuaY8fz
-	 KwpyrXuTyMjCKw9MGGwHhERv49qzjZYQveYO4OjHXO4hkNmG90EqqSVo027SpwY1YL
-	 1WRm5iqVybI6Qkf5dkcFC7Gqd9fP80oT4nzy/RzbCWuTAk1p37hk08/o1qmfQD0+MM
-	 LgOOUivAzl11PjhhxK9dLIGHOTlMERkGdsTs7uYo/nzPa+UWbN2YmCkU+I48qwvTLm
-	 AmVDFgW4e0LTw==
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e63ee7b4cso306037085a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:35:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0071tb8w+NqwDCsURan3kGznbiOXX/QqE45L4jBVIbQ2BGlc/s57pBBQ5f/gNSo1mltmpgY8vuhmUBVU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTzNnXdcf6PZPvCiwLrDG9f6rIK5UMYjNTxq4hPMqHIPyBAJQy
-	r9BIQoX+zxhy1rmCG6eMLgbxzlZSEHVgGuOVeHSHh1oaaRKGkTCtLlRk2bQhcEUuMOoD9i7PTNT
-	Y/5X5o7mXS37fqoBEx8d/TqjvxhOvg0o=
-X-Received: by 2002:a05:620a:394c:b0:93e:5861:34df with SMTP id
- af79cd13be357-93f29d7be8dmr1558868285a.47.1792456552324; Mon, 19 Oct 2026
- 17:35:52 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=XF/nunrU
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=7C7GZbdbo3a4H8A+zEhg8yGiQ1HjOPz6tQYB0uZWjAU=; b=XF/nunrUjxJNxPqxShgWFi9C6M
+	JA8D5R9y3ZprWQFKpc7FmVKI8wCk2I/4QWLL7XHS3KM/blKVbwvfowcKdfDGDIrfEm4+usnTnAtiT
+	f5JAEABnDuYY0PcX2H8rIMaOdxbPfWzXtkaoxQbvEpNzJijHuu9/oF7RfHqFGgTzgeLY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xIxpE-00BjMd-Jj; Tue, 20 Oct 2026 02:35:32 +0200
+Date: Tue, 20 Oct 2026 02:35:32 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Woojung Huh <woojung.huh@microchip.com>, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net v4 2/2] net: usb: lan78xx: reject short register and
+ statistics transfers
+Message-ID: <5c1e5db0-1149-473d-b71d-f30d3b96b5f7@lunn.ch>
+References: <20261020001621.2920-1-law.wei.jie@gt.tech.gov.sg>
+ <20261020001621.2920-3-law.wei.jie@gt.tech.gov.sg>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,160 +69,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <6ad67231.a20cb897.960b0.0042.GAE@google.com> <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
-In-Reply-To: <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 20 Oct 2026 08:35:40 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yjMP8Tq1mKWtV-1GK9NJ0HC581w0=x2V_QMOiDOm-cvw@mail.gmail.com>
-X-Gm-Features: AclHuK-KfVTEMdx8AlHQkztAVoG4bf58LyyLDo_u5rI7H9Ara0G6VsLgl9a3zt8
-Message-ID: <CAGsJ_4yjMP8Tq1mKWtV-1GK9NJ0HC581w0=x2V_QMOiDOm-cvw@mail.gmail.com>
-Subject: Re: [syzbot] [mm?] WARNING in shrink_one
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: syzbot <syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com>, david@kernel.org, 
-	gourry@gourry.net, joshua.hahnjy@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, rakie.kim@sk.com, syzkaller-bugs@googlegroups.com, 
-	ying.huang@linux.alibaba.com, ziy@nvidia.com, linux-ext4@vger.kernel.org, 
-	Vlastimil Babka <vbabka@suse.cz>, "Theodore Ts'o" <tytso@mit.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020001621.2920-3-law.wei.jie@gt.tech.gov.sg>
 
-On Tue, Oct 20, 2026 at 7:46=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Mon, 19 Oct 2026 12:40:33 -0700 syzbot <syzbot+54f6a8926b40a171f2c8@sy=
-zkaller.appspotmail.com> wrote:
->
-> > Hello,
-> >
-> > syzbot found the following issue on:
-> >
-> > HEAD commit:    a0ff06b3a7bd Merge tag 'firewire-fixes-7.3-final' of gi=
-t:/..
-> > git tree:       upstream
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=3D12cdb20d580=
-000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3D44ac479246d=
-4559b
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=3D54f6a8926b40a=
-171f2c8
-> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for=
- Debian) 2.44
-> > userspace arch: i386
-> >
-> > Unfortunately, I don't have any reproducer for this issue yet.
-> >
-> > Downloadable assets:
-> > disk image (non-bootable): https://storage.googleapis.com/syzbot-assets=
-/d900f083ada3/non_bootable_disk-a0ff06b3.raw.xz
-> > vmlinux: https://storage.googleapis.com/syzbot-assets/3f4bcbceb92e/vmli=
-nux-a0ff06b3.xz
-> > kernel image: https://storage.googleapis.com/syzbot-assets/bf4df8252e54=
-/bzImage-a0ff06b3.xz
-> >
-> > IMPORTANT: if you fix the issue, please add the following tag to the co=
-mmit:
-> > Reported-by: syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com
-> >
-> > ------------[ cut here ]------------
-> > current->flags & PF_MEMALLOC
-> > WARNING: mm/page_alloc.c:4816 at __alloc_pages_slowpath mm/page_alloc.c=
-:4816 [inline], CPU#3: syz-executor/5706
-> > WARNING: mm/page_alloc.c:4816 at __alloc_frozen_pages_noprof+0x1eac/0x3=
-300 mm/page_alloc.c:5449, CPU#3: syz-executor/5706
->
-> Thanks.  The stack trace is missing important bits for some reason, but
-> it appears to be ext4 disagreeing with page reclaim.
->
-> __alloc_pages_slowpath():
->         if (unlikely(nofail)) {
->                 /*
->                  * We don't support __GFP_NOFAIL without __GFP_DIRECT_REC=
-LAIM,
->                  * otherwise, we may result in lockup.
->                  */
->                 WARN_ON_ONCE(!can_direct_reclaim);
->                 /*
->                  * PF_MEMALLOC request from this context is rather bizarr=
-e
->                  * because we cannot reclaim anything and only can loop w=
-aiting
->                  * for somebody to do a work for us.
->                  */
-> -->>            WARN_ON_ONCE(current->flags & PF_MEMALLOC);
->         }
->
-> The electrical think machine said:
->
->
-> filemap_fault()
->   -> direct reclaim
->      -> shrink_slab()
->         -> super_cache_scan()
->            -> prune_icache_sb()
->               -> evict()
->                  -> ext4_evict_inode()
->                     -> ext4_clear_inode()
->                        -> ext4_discard_preallocations()
->                           -> ext4_mb_load_buddy_gfp(
->                                GFP_NOFS | __GFP_NOFAIL)
->                              -> __filemap_get_folio()
->                                 -> page allocator
->                                    -> WARN_ON(PF_MEMALLOC)
->
->
-> The task enters direct reclaim after a filemap allocation failure.
-> Reclaim calls shrink_slab(), which evicts an ext4 inode via
-> super_cache_scan() and prune_icache_sb().  The eviction path eventually
-> calls ext4_discard_preallocations(), which explicitly does:
->
->     err =3D ext4_mb_load_buddy_gfp(sb, group, &e4b,
->                                  GFP_NOFS | __GFP_NOFAIL);
->
-> If the buddy-cache folio isn't resident, ext4_mb_load_buddy_gfp()
-> allocates one through __filemap_get_folio().  This reaches
-> __alloc_pages_slowpath() with __GFP_NOFAIL while PF_MEMALLOC is set,
-> triggering the warning.
+On Tue, Oct 20, 2026 at 08:16:21AM +0800, Wei Jie Law wrote:
+> lan78xx_read_reg() and lan78xx_read_stats() read from the device into
+> a freshly kmalloc()ed buffer, but only treat a negative return value
+> from usb_control_msg() as an error. A device that answers with fewer
+> bytes than requested leaves part or all of the buffer uninitialized,
+> and those bytes are then used as the register value or the counters.
+> 
+> Treat a short transfer as -EIO in both helpers. lan78xx_write_reg()
+> does not use uninitialized data, since it fills its buffer before the
+> transfer, but make it fail on a short transfer as well, so that all the
+> register helpers report a partial transfer as an error.
+> 
+> The write path validation was suggested by Andrew.
+> 
+> Found by code review with LLM assistance and reproduced with an
+> emulated USB device (raw-gadget + dummy_hcd).
+> 
+> Fixes: 55d7de9de6c3 ("Microchip's LAN7800 family USB 2/3 to 10/100/1000 Ethernet device driver")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Andrew Lunn <andrew@lunn.ch>
+> Assisted-by: LLM
+> Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
 
-Right. The problem is that ext4, while running under direct reclaim,
-allocates memory with __GFP_NOFAIL, and that allocation can itself
-re-enter direct reclaim.
+It probably never happens or users would of noticed. Please post to
+net-next, without the Fixes: tag, once the merge window closes.
 
->
-> Simply removing __GFP_NOFAIL doesn't look safe.  The preallocations
-> have already been detached from the inode's tree, and failure to load
-> the buddy information can prevent their space from being released
-> correctly.
->
-> It seems that ext4 needs a way to complete this mandatory cleanup
-> without performing a NOFAIL allocation from the slab-shrinker context.
-> Perhaps the preallocation cleanup could be restructured so that it
-> doesn't require allocating buddy-cache folios during reclaim?
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Checking the code,
-
-
-   2   5686  fs/ext4/mballoc.c <<ext4_discard_preallocations>>
-             err =3D ext4_mb_load_buddy_gfp(sb, group, &e4b,
-
-
-It does check if (err) there.
-
-                err =3D ext4_mb_load_buddy_gfp(sb, group, &e4b,
-                                             GFP_NOFS|__GFP_NOFAIL);
-                if (err) {
-                        ext4_error_err(sb, -err, "Error %d loading
-buddy information for %u",
-                                       err, group);
-                        continue;
-                }
-
-So maybe it's safe to drop __GFP_NOFAIL.
-In any case, we need the ext4 folks to look into this.
-
->
-> The syzbot report is at:
-> https://syzkaller.appspot.com/bug?extid=3D54f6a8926b40a171f2c8
->
-
-Best Regards
-Barry
+    Andrew
