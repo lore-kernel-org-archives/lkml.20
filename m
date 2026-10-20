@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464611;
-	b=zoa9itY+S67tjqBFne5rl+fB4la1krzwiuUPn2HHruAxXj7VmB/vxO31cgspRIhIws+A
-	 F7c+FUFxnrZR8tfz4yWL/gmeRxXDC9tHonBtXkkgb/lUpE6QGGRBpi4JQ9fmN+coPYDqz
-	 +4pFnhiEv8iCSC+4TAfUq7Ehr4AmqhpIbGROi01iM7cg5hdYnQTdAW2Zx/+GPC+W7vwyG
-	 y12hGzAXiojs1QinNS7qtZGTXXG4Kdkt/HC/VNmaz7sY2HR6RclO7b9HaFfjKr0qgrGXB
-	 O1WsjbhWZHPPV255oLsqEpAYpAhlBPMCx3PgvGo/txzXF8ZO/XqdZ4oKIns7HEXI0dQ==
+	t=1792464606;
+	b=NUnYd+Cz7qxnaOYRy+S0dN6anIB/hnvaIEK+GwszvpRFDnW4fa5udjX3cS7O1xSsBvk+
+	 N0zwYrG7AZP9BjsGOgnLViH0d6ogvFqubJtpDthDl25NQMjYdamRyjQhp6aJOqipike4e
+	 cc0onKd2BS1M7MaS+GHAESfiIB6seIQxZrYheRw0ZccxPlYlJ1m2wpTz2wTJU4R3L2LzG
+	 RSfwFChWmPv0LATFXTcCOnLL4omuIpq0Xpwd2zIuXoNcEyJKBP4LZugYHwPv7hEJyQqnl
+	 f3a6MLytpIBntO5bSWkoNtYuWRDLcLaKZVUbV6ruaM7ZTHeteYCVfnh023lI5WmoYvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464611;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=E1wQ0lQppwgJy+LQuVEEB2dNmxOpABDONeSzv3dOwiw=;
-	b=zOz4u2Tf96yHQYh73izAbzEfmu1Nznt2AkAsoEKZ/84mBVAKdj1aGoaOJWyDq1aP5g1i
-	 inEFd/gwD3ghLlvC48LrIJ0jQ4jIbmhvmKy0RLgkpDrmh7xG2l0O96AwoeWTmPZHel1+s
-	 sVudClry6F0kJMaa/PU8CMZ6K1rtfIekHWY4z7FnrvTcj67ZYE/NMDpjaqpa9wv9J1ulq
-	 YFH78FIXY2y4/ZEjqWKOy9DrepMr09jAZWoKapVoLwzYG+bc2FVMDTx+UAp/FbQm3X3/S
-	 gVFSkIvoRZpf7kxtEEFYGDRv/L1EDwnkIUJuuW5TM87nGF+DhF1qlNola3KfCuy8r4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464606;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
+	b=0TMjVt+LlvokeOU2YUvSVZACIrTwaDYIYzGe6LxrtlhHBZLeqnkuwoQW6mokbcNoSD5U
+	 ZA579WXEMmFwoFoVilI8QLnP79Qcul9IID1rEaHCHPge92N6qgtS/S4Gx5bA/f7OoyTz9
+	 aET/k3mNhoioI8riKP6CEa364vTM/Q1N/+Ft3/DUvLL7lp+V4j862dXB7KOivh4IWgUst
+	 VScMzH0Zd03Hu8qPDozBZLzBODou1KHbxYD8WyRWgcnFajEF7cHPB73JnTv8B7fn1bNlG
+	 xlePHDw5xwU3kM9nhE3mM8njPP2f+Dq4E+d7G5Hfh5J5NrVnoe1TWfynRNFBwlS+Kiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="XJvPpY/z";
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PX8Dojiy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439A4606A338;
-	Tue, 20 Oct 2026 02:50:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 439A4606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B73606A31B;
+	Tue, 20 Oct 2026 02:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XJvPpY/z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=E1
-	wQ0lQppwgJy+LQuVEEB2dNmxOpABDONeSzv3dOwiw=; b=XJvPpY/zGajeEENbR6
-	Ve3sdXt5s3zTIuWSmMoSmtoinqZxXAHsIyOt4IBYg7EpHopHxdiY+r3iYsH6Yg8s
-	qNjt1keD5GVJZ5FFhF0W1EPqCLRRo0qIVjdb6Rijn8z/l9h1Jy0qwgREtNKwYJbx
-	MyrkDKGonIenygWh4lGuFpASM=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr8C+1tZqMLhIBA--.5123S2;
-	Tue, 20 Oct 2026 10:49:36 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Money Wang <Money.Wang@mediatek.com>,
-	Bo Jiao <Bo.Jiao@mediatek.com>,
-	Peter Chiu <chui-hao.chiu@mediatek.com>,
-	StanleyYP Wang <StanleyYP.Wang@mediatek.com>,
-	Elwin Huang <s09289728096@gmail.com>,
-	Howard Hsu <howard-yh.hsu@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH 0/7] wifi: mt76: validate mt7996 MCU responses
-Date: Tue, 20 Oct 2026 10:49:26 +0800
-Message-Id: <20261020024933.3205681-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PX8Dojiy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9DD21F000C4;
+	Tue, 20 Oct 2026 02:50:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792464605;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PX8DojiyryI8Cy1W42bSDNXBQxGKz69zvqwMB0FqDPAXUUIBTsNmNh51pOnTyHQgE
+	 rgZiJUMRf/uRxf0HnWYtZU1ixK0R0y+9wopFIRMZPlr5zffQt+TDIEV9slVCq7cbXy
+	 o3sbCyv2W7PZzhbnFiXU7i/44qSf1/f2zG6J7kTlup7xpmlFRgG7rH4GSpp0gcJ+re
+	 pBU1x3e5dASkUXRj4uAYWzUuzfOL2AVbjvuG25E1hXKP8ORiZj8eoFTHnESPhUMWqc
+	 WBC33eD51hHl/xY/lbHcE9viWynHpKXywBtJudsY548NpmusvhC4gPjfVg3y2k05u2
+	 CSkw50Z2Pol2Q==
+From: netdev-bot+sinfo@kernel.org
+To: Binbin Deng <18983559317@163.com>
+Cc: shshaikh@marvell.com, manishc@marvell.com, GR-Linux-NIC-Dev@marvell.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] qlcnic: Protect loopback filter hashes
+Date: Tue, 20 Oct 2026 02:50:04 +0000
+Message-ID: <179246460434.3290.5287647652531785251@kernel.org>
+In-Reply-To: <20261020024417.517941-1-18983559317@163.com>
+References: <20261020024417.517941-1-18983559317@163.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,34 +63,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr8C+1tZqMLhIBA--.5123S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZry7ZrWUZF45uryUJFy3CFg_yoWftrg_Zw
-	4vyr98Xr18KFWDta47K3srAryxArWIyry7C34rtF15Jwn7trWjkFs7Jr4rZFn29F17tr4Y
-	yrnruay8ZwnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8S1v3UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AA2cGrW1sA0ewAA3T
 
-Several mt7996 MCU paths trust firmware response sizes before reading
-receive descriptors, fixed events, or variable data. The asynchronous
-IE countdown handler also walks firmware TLVs without bounding their
-lengths. Malformed responses can therefore cause out-of-bounds reads.
+Hi!
 
-Validate fixed response fields and payloads, and constrain the IE
-countdown TLV walk to the skb.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Jiale Yao (7):
-  wifi: mt76: mt7996: validate MCU response lengths
-  wifi: mt76: mt7996: bound IE countdown event parsing
-  wifi: mt76: mt7996: validate EEPROM response lengths
-  wifi: mt76: mt7996: validate free-block response length
-  wifi: mt76: mt7996: validate channel MIB response length
-  wifi: mt76: mt7996: validate temperature response length
-  wifi: mt76: mt7996: validate RF register response length
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
- .../net/wireless/mediatek/mt76/mt7996/mcu.c   | 97 ++++++++++++++++---
- 1 file changed, 85 insertions(+), 12 deletions(-)
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
--- 
-2.34.1
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
