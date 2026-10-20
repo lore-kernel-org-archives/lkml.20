@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792486560;
-	b=0zbWK31qCmsJxSNE+b+MAsIMtIwctE2xGHkj3ggmeXVpJR0WdmczbBeh5TJRHNUL/dzV
-	 Phd7S1Yj6M9E4kJw8viY9G28e4egfXGZBSMRUZV9KpaRvVEROIiE0QaOQBmSgXFJrnyRV
-	 n7Wz6J2eb0sA5dRY0HzelHoH/g/x/G8CQ+Pgwy/Mnk1isskKBvLEvC5fxwZwfkJ0/AZBn
-	 76AvQ8I6hFy0IGg52GMfCaQCbZIKUHmwwN26ofytyI0dhgYhl7LKJO9RtmegqEfo5lNIO
-	 AwZS4FMpWakypWVXgWvTfsitL/XVOZphg9cVI/8hmUpvQNcUKiKq0edo2hPX4PCoAXQ==
+	b=aYrV3YSDkGRwTjscCaYWnIb5xA1i3VgpmSUoJ7TWAAjlMWe6luiN9+A5kap0lKFYl+CC
+	 KJU5eZoK+QP6H+Mv8NAbYevyLlz+lGjEW64G+m7I91Za9zzWxh7czD2SEj45VhuIaEo3V
+	 zDBk3IsfiFo8H6xqVtsNrU0teGV0pdszFMwMQiJMK3pYH/H+3uOKWrM4HKALEWi3/+K4L
+	 UQ1f0rAN83qeQ60W0sUnE/mb5wF6QUW6yI8Dz0XSgmwqxsl46q7a526TiSTtGD2BAQUuf
+	 cu2GYLaEPUurukyz4qkW+/oWMJjzZFkkiLis9x6g/5rBqamS6OKBFlOIisl7tu/j4NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792486560;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:From:Content-Language:
-	 Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=XlQpqxMRX2HU2uhm8SxtYuDE1WGAscTMQBDBwk7Z4UU=;
-	b=3w67JDoauv3F4p4+mkZFC0Giqv8gCcVBwq2L3vl+6Mf0UknHPaoYFI5yNDSSjZ5MYlku
-	 YOrUNHybZK8wY+Y83mp1kyOhZJ1l7joelkHTQDBFrWOQmCtPQhisnSd29v/aO3Fdse9tM
-	 L5AUQbZFbFJHD7rFp7+Xb6fRSfmmPNOr4zSqe4CY1cTD4MmMAziHnZrtLr58gycXCB3+f
-	 Qi0FnQPlPNdfwbACMy9qeNHRy6h9UT5eVFEtJX64fLaZeSBCX1lmqHoPOym6yOxqVhhnL
-	 fiZLDEiWZbMFTzfU2hljjCkjKLFxBI4ssk2eoUQpkU8oE5tZMWrCealJdlu8YoFqY4A==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sdNaoVSRuGZpGug/DK6AKDScm0L5vKpD110CMZcWZBE=;
+	b=UR9hS1lRAwI/OYlUnEiy8QdFZW7GueBjuR3Vnx5CYyTI+eq+3rtJfXBR1uQvPXnHNJgk
+	 5rB2o0riCT7irJ1Ugacj4ZSLqybOUK4UKwAfl14pi16giAMq3BfT/wJu3CU9Wdp57tsfa
+	 rl02nf00PgEIsfWv2raGT0L9i1rH1YepvWlTTAA6eRx0mEIXancs+lw1gg802Fk+wCScG
+	 DQB4uhsm6N63DL3zIh+fpmzEzU7MtWGhgOZh6ikncU6KT3Jfc05oYxvVxoiHkt6xrSEaA
+	 PbSMEsvwZXdKKe0l+6aj6DanSfhLjueaUQqRYIORXN+KgrzOOeIxZEfsRL858Ffc/1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A+3Bnczc;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmWgsbwA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2505E606A31C;
-	Tue, 20 Oct 2026 08:56:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2505E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3446606A319;
+	Tue, 20 Oct 2026 08:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A+3Bnczc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792486560; x=1824022560;
-  h=message-id:date:mime-version:subject:to:references:from:
-   cc:in-reply-to:content-transfer-encoding;
-  bh=4nJ1AELYVgWN4UjiEx/SGOxAu2AWTS83yfs0aMMhJjs=;
-  b=A+3Bnczcgn37KXlOTBmdbpBGTFR4diWCfYHDJ3zBc9QF2AGSly/h0hNK
-   k3YNirnJa+3tectb1mzViUSe9SUfELpMakuRdNLzmzUiotyPWR2/lK7dJ
-   zRU5bqR6jTr9HNXPhSWHh8ZvkXiw3LPzPBkAY8ozwWU+hRWfWOaaQA160
-   tiqR8MoMZOQ1VQCsxwTIM5jVCj83oEJP7qaPYNpzTsTR+e+6fyw7WkDvm
-   XNHTj9rus5tQqh5NZYwA4i78QYIJ78xlNGv6YzjxLQoK8K8cDbvazkKDK
-   tk11OX06FV08pUxwhJJEJcxyEH6/plOLTCSS8oyt9nQymvnh4jvrXDpwP
-   A==;
-X-CSE-ConnectionGUID: dNTUsBGrT9qlCXNS6dietQ==
-X-CSE-MsgGUID: 90OZbTnLS3SIlHcbTxHorA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1073440"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1073440"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:56:00 -0700
-X-CSE-ConnectionGUID: 3ZelUOtIQSyTRAxtXNnDUg==
-X-CSE-MsgGUID: nHBKbUWCTR+lKJuwUVxRow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="4518302"
-Received: from unknown (HELO [10.238.0.148]) ([10.238.0.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:55:56 -0700
-Message-ID: <d872b0f0-9992-455f-9f04-4313fd185cf2@linux.intel.com>
-Date: Tue, 20 Oct 2026 16:55:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmWgsbwA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090AC1F000C4;
+	Tue, 20 Oct 2026 08:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792486559;
+	bh=sdNaoVSRuGZpGug/DK6AKDScm0L5vKpD110CMZcWZBE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nmWgsbwAIgJnmmPfeTwzZvOKWfuxsBYnYGAP4QVf+75YOZKM+R4nz74AbmledcGnK
+	 gODFHcOXfzrNyZTjztWdT75yf2Naj7epndP0uzJBHLnvzYoZtNJXexcFLwO8paQ3Mm
+	 9z78gclw9xIVRIzPv2aoPROmFXQfAjmpZt9pSIwsOOVmPfW8DLpd+OGE+8uMRiV6J0
+	 Qmox650orB0WXCRXulBh5yMtyQARAcGbQdKoDH2B1L6hJ6Cxy2xVtudpoRpjWyy4eK
+	 cWJcyWCzqgVprWsd/fMCQIpzu0J3mtJHUu3LmzgUelf26MtAYUxxPeM5i6cgCkm/6N
+	 aWB4/OuuiiA3A==
+From: Maxime Ripard <mripard@kernel.org>
+To: Helen Koike <helen.fornazier@gmail.com>,
+	Vignesh Raman <vignesh.raman@collabora.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Maxime Ripard <mripard@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] drm/ci: Add CI pipeline for drm-misc branches
+Date: Tue, 20 Oct 2026 10:55:53 +0200
+Message-ID: <179248655167.2849206.582866226743194201.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911-drm-drm-misc-ci-v2-1-1847f89585cb@kernel.org>
+References: <20260911-drm-drm-misc-ci-v2-1-1847f89585cb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,69 +70,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/virt/tdx: Drop tdh_phymem_page_wbinvd_*()
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>
-References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
- <20261015191710.3632302-3-rick.p.edgecombe@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com,
- x86@kernel.org, kas@kernel.org, adrian.hunter@intel.com,
- yan.y.zhao@intel.com, binbin.wu@intel.com, xiaoyao.li@intel.com,
- chao.gao@intel.com, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- nik.borisov@suse.com, yilun.xu@linux.intel.com, tony.lindgren@linux.intel.com
-In-Reply-To: <20261015191710.3632302-3-rick.p.edgecombe@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 10/16/2026 3:17 AM, Rick Edgecombe wrote:
-> In the early days of TDX it was expected that pages being reclaimed from
-> the TDX module would need any cacheline from their private KeyID alias
-> flushed. The TDX docs describe doing this in a couple narrow cases, for
-> example reclaiming the TDR memory or guest private memory.
+On Fri, 11 Sep 2026 14:18:04 +0200, Maxime Ripard wrote:
+> The DRM CI infrastructure builds upon Mesa's CI to run IGT tests on
+> hardware. Its focus is on functional testing on a selected number of
+> targets.
 > 
-> Similar to how the CLFLUSH_BEFORE_ALLOC features0 bit was never actually
-> set in any TDX module, the flush of the private KeyID cachelines turned
-> out to not be needed by the final TDX HW either. However, the TDX docs
-> were never updated to reflect that.
+> The concern for drm-misc is different: it merges a large number of
+> patches across many platforms, and build or unit test breakages happen
+> on a regular basis. Adding build and unit testing for drm-misc has been
+> on the back of our minds, and a first attempt was made last year. The
+> feedback was to rely more on the existing infrastructure.
 > 
-> CLFLUSH_BEFORE_ALLOC handles flushing when giving memory to the TDX
-> module, where the alias that needs flushing is the default, normal KeyID
-> 0. This was done with a clflush of the kernel's KeyID 0 mapping of the
-> memory. For the reclaim path, instead it is the TDX KeyID aliases that
-> need to be flushed. Since virtual mappings for these aliases are
-> restricted to the TDX module, the module is the only thing that can map
-> the page to do the clflush. The TDH.PHYMEM.PAGE.WBINVD SEAMCALL leaf was
-> created to facilitate this.
-> 
-> The docs are being updated to clarify that calling TDH.PHYMEM.PAGE.WBINVD
-> is not needed. So drop the kernel code that calls this SEAMCALL and the
-> helpers that facilitate it. With the removal of
-> tdh_phymem_page_wbinvd_tdr(), tdx_global_keyid no longer needs to be kept
-> around as a global variable. It just needs to be selected and provided to
-> the TDX module during initial setup.
-> 
-> However, don't churn the code to remove the global variable because
-> it fits neatly with the other KeyID partitioning global data. It is also
-> foreseeable that this would be used in the future for other SEAMCALLs that
-> require passing the global KeyID.
-> 
-> KVM previously needed to call different types of tdh_phymem_page_wbinvd_*()
-> helpers for different types of reclaim. So it had a stack of helpers and
-> some open coded logic to use them in the rarer TDR reclaim case. Now that
-> the wbinvd is gone, the steps for each operation are logically equivalent.
-> So collapse the helpers and just call tdx_reclaim_control_page() from the
-> TDR reclaim path.
-> 
-> This unification brings TDR reclaim in line with the behavior of the other
-> reclaim paths, by handling TDH.PHYMEM.PAGE.RECLAIM failure by leaking the
-> page and setting the TDR page pointer to NULL. This results in reclaim not
-> being tried a second time, which is reasonable because the first reclaim
-> failing suggests a problem with the TDX module.
-> 
-> AI was used to review the change.
-> 
-> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> [...]
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Applied to misc/kernel.git (drm-misc-next)
+
+[1/1] drm/ci: Add CI pipeline for drm-misc branches
+      commit: d1025d345b21261ddc10e598ec736aa5875aedbd
+
+Thanks!
+Maxime
