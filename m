@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486018;
-	b=WslpGAr6af3PEKnBSOdHk9DgYzrg3ssESr2kmgWcBuU2jbkY2V+cgB2UQJd3YjIiVVtS
-	 cToDxU4fztEEBHcpg3nBxEb3ECwGkzHqm/m/46/RABTmaX6FzSZxU2Ie5Ffv6y99jhBQj
-	 9JP+zjy1l9JqhYZm4A8JVfVy5gj7heX5zcZQpS+NCHDolDoAOF9MA1W9CdP/bjc79OaUv
-	 Mb0W9DNlTFe6UM+/vPpDKlmWxRJ45Lu6BSN+GKYbyI7t7wXqo9wUjb2gQ6I8ZJhjSM+RC
-	 wmNNOjUsuKVkeqjK5NElIcW1rsDgGEfnQLpwkCBbwmuwW4GP1nWTpnnU2uCYrSYt3wg==
+	t=1792486031;
+	b=oH3+KaxXKAfjycDZLNnjfil8IjOwqQbT4YgsPDr8bqlz/zm5RAU2DS9zD8Gv4oajkPmm
+	 Syd5e9kwIrjKSDVSOPG79wq0QEHW3en70WemnqcqWyH9P5CJB9bzWIxvcNpB2oXGxYmYj
+	 KCY3v/Ubot3dI2sxyJ2M8c9Z0liA12FINs5jeWCTNMfPkMKXMKmZPhtyvvrtvSfPDhNim
+	 cInpw9r2bd2Abe2m8y9pOkB/QVpxKaCiyOQ+ww5uir/LCjXW0e/FT5Pm1z7dXDKckRn/a
+	 xc78nIHOa5+hc28GXSCgqlEQ8L6zB6z6duef/OhwXUgykh9u1yW6riRjXljfqr2UmyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486018;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=droGiVyXDFADHLQn+PKq9DnZDJSgtzNDX5/XFLcN3Ro=;
-	b=3VMpvhMzMFiCa+lUxrBQyhTLRbOdN0kRlf581B4TSw5+/yfWh1y5CaRlRJFWIruUqDlT
-	 Qgk5ct0v/aE3Qv9IXbuhBYmaDsT7K6h5laUCfIqXJkqHfYpolQ93AUXLc/mZ6iJCbYfd3
-	 WO+C2OrM3xIz7v3QCRspH1zdxBJ0Sx82xElymiW03UfTvxLjrGlrc+TQ0AURqsHZAbgPk
-	 cTIpgjMOTsXIsw/clqgyYxXjoQD+DNKvkBVopN0gIwbLhjYmyXfyxRC4A+cvSXdnHNwwO
-	 2VzfMCOobpac92vBkVaYSJGlGTf9Axiqdqr4XPypEBGePygwxp6BQE82b6BxywgkgkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486031;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=o8jL9+xqK4LJj7BKge88qreAePQ3lh/N/cSVmh2Ciyc=;
+	b=tvANl3sY9rX2TsiE+FQ6t08ZMgJaHQCCssyUGAxMywFI4w4lGFPEDPS7wkPwmtVcmZeN
+	 6eoAdwAjFtbKXRZLJymoPlMXZRL2k4vllF8WQldvB072Z1qR4zRyQ0zUmWQ0vic3CI8iS
+	 ANlzES5AhntRNVxzii6Ajfucvd3SMzlo1l4Yf2DvMV8uCx7BDh7e/oTZEi+MPtcUxNSIo
+	 qA7qwUkwCfE5zk6FZJkyGZZMeZU26Al0izDMLzANQvaMGy3eLL3VApORZoKKe0TYdmh1J
+	 JeWhJ9RDXIoEpIu6sJOB+7qRXog2geN1TLroK4sNjePS4w++zU0qmRAuVmAPSFNc4JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="l/M7aWbu";
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTyHgKdQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7DA60A380C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A7DA60A380C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0300E606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:47:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=l/M7aWbu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=dr
-	oGiVyXDFADHLQn+PKq9DnZDJSgtzNDX5/XFLcN3Ro=; b=l/M7aWbuzdn+6VUPDj
-	Je5d9/JMJDsNn9EmW/GVtp5at1FCiyGyPS1keD8vri9s4MKcKyt7mm96fuus0xM7
-	ASgaSv/Z12JaujLzhh91i4jt5ghoNldgridqAZa4rZPztqNgqbEz3kNTpT/+K75m
-	dT5Rktb20wfDllvI7gGc2E4lQ=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3X_tvKtdqGocHBg--.23211S9;
-	Tue, 20 Oct 2026 16:46:46 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	wangxuewen@kylinos.cn,
-	wudandan@kylinos.cn
-Subject: [PATCH v4 23/31] ntfs: report namespace and file recovery errors
-Date: Tue, 20 Oct 2026 16:44:13 +0800
-Message-ID: <20261020084421.2196486-24-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
-References: <20261020084421.2196486-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTyHgKdQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC5B1F000C4;
+	Tue, 20 Oct 2026 08:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792486030;
+	bh=o8jL9+xqK4LJj7BKge88qreAePQ3lh/N/cSVmh2Ciyc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aTyHgKdQbCeZMl4qnEalSfONfzkg+pOWAJVo9pu//fpm5DvhUilKGpqE24MGZUWjz
+	 e8wxDLjsEt2LRRovfsWbp6+ueCLXRemNDU6ru5LyLo/RdmMYkehj0hdY/BfezN0SIR
+	 6rXorPnoRbg0Gq6FTNKawXTYNP/YCIN+XKqwFxrqJX7TBPK+xsgnC8/CNv2AEYMna+
+	 IWr1p90dtow6W/Zi6KWUYe/5p/IQxNtKZ+ys4kpDRpBKPU7GTg8+cvWjOZzISVxAgz
+	 9gqz1fIOsSgPv5CPQan0og26oJfnPuQtRw2OFs282EWySnp6PYyV2TdjEAQH5EC+u/
+	 yMkpHFF5r+KMg==
+Message-ID: <23623534-a163-4ffa-8538-b5aff7daecaf@kernel.org>
+Date: Tue, 20 Oct 2026 10:47:07 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,342 +51,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X_tvKtdqGocHBg--.23211S9
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Cr4rtr1UGw1ftw1xAFWDArb_yoWkXr1DpF
-	W7Gws7t393JryIgrnaya1qvw1SkF97W3yUWrWUG3Z3A3Z0kw1IgF4UtFW29FWrtrZ5J3s8
-	XF4DK3yUCr4DXFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzq2NUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RY4A2rXKnZojwAA3C
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hugetlb: retry private VMA locking when unmapping folios
+To: Daehyeon Ko <4ncienth@gmail.com>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261015170551.2656546-1-4ncienth@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261015170551.2656546-1-4ncienth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Dandan Wu <wudandan@kylinos.cn>
+On 10/15/26 19:05, Daehyeon Ko wrote:
+> hugetlb_unmap_file_folio() takes a reference to the hugetlb_vma_lock in
+> vm_private_data when its VMA trylock fails. It then drops i_mmap_rwsem and
+> waits for the lock in the established order.
+> 
+> That fallback is only valid for VM_MAYSHARE VMAs. Since commit
+> bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs"), the
+> trylock can also fail for a private owner VMA. Its vm_private_data contains
+> resv_map | HPAGE_RESV_OWNER, not a hugetlb_vma_lock. The fallback then
+> performs a misaligned refcount operation and treats reservation-map list
+> fields as an rwsem.
+> 
+> Private reservation maps have no stable VMA backpointer. Drop i_mmap_rwsem
+> and restart the interval-tree walk when their trylock fails. Keep the
+> referenced fallback for shareable VMAs.
+> 
+> On a system with a pre-provisioned hugepage pool, an unprivileged
+> reproducer racing mprotect() with hole punching triggered the refcount
+> warning followed by a general protection fault in rwsem_down_write_slowpath
+> on v7.3-rc5 and 6.12.111. With this change, a v7.3-rc5 KASAN+LOCKDEP build
+> completed 1,000 rounds and 64,000 hole punches without a warning, lockdep
+> report, oops, or panic. The reproducer is available privately on request.
+> 
+> Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+> ---
+>  fs/hugetlbfs/inode.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 7611a8470ea265..9a676228e2070a 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -402,6 +402,17 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
+>  			continue;
+>  
+>  		if (!hugetlb_vma_trylock_write(vma)) {
+> +			/*
+> +			 * The referenced fallback below is specific to the
+> +			 * hugetlb_vma_lock stored by shareable VMAs.  A private
+> +			 * owner VMA stores a tagged resv_map pointer here instead.
+> +			 */
+> +			if (!(vma->vm_flags & VM_MAYSHARE)) {
+> +				i_mmap_unlock_write(mapping);
+> +				cond_resched();
+> +				i_mmap_lock_write(mapping);
+> +				goto retry;
 
-Report stale directory references, missing FILE_NAME counterparts and
-missing index entries during deletion. Return EFSCORRUPTED from the
-affected failing lookups; ordinary missing names remain valid results.
+That looks like we can just live-lock now?
 
-Report independent cleanup failures during create, link, rename, file
-size restoration and preallocation trimming. Use directory attribution
-where appropriate and volume reports during failed creation.
+> +			}
+>  			vma_lock = vma->vm_private_data;
 
-Report missing required parents and attributes during file fsync while
-retaining its best-effort lookup handling. Preserve the writeback errno
-from the buffered fallback of direct writes instead of replacing it
-with EIO.
 
-Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
----
- fs/ntfs/file.c  | 29 ++++++++++++++---
- fs/ntfs/namei.c | 86 ++++++++++++++++++++++++++++++++++++-------------
- 2 files changed, 88 insertions(+), 27 deletions(-)
+This whole function is a mess.
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index cd5ed8bf3164..9c4d9dbab19e 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -117,14 +117,17 @@ static int ntfs_trim_prealloc(struct inode *vi)
- 		if (err) {
- 			kvfree(ni->runlist.rl);
- 			ni->runlist.rl = NULL;
-+			ntfs_report_file_metadata_error(vi, err);
- 			ntfs_error(vol->sb, "Preallocated block rollback failed");
- 		} else {
- 			ni->allocated_size = ntfs_cluster_to_bytes(vol, vcn_tr);
- 			err = ntfs_attr_update_mapping_pairs_locked(
- 					ni, 0, ni);
--			if (err)
-+			if (err) {
-+				ntfs_report_file_metadata_error(vi, err);
- 				ntfs_error(vol->sb,
- 					   "Failed to rollback mapping pairs for prealloc");
-+			}
- 		}
- 	}
- 
-@@ -341,8 +344,13 @@ int ntfs_file_fsync(struct file *filp, loff_t start, loff_t end,
- 					le16_to_cpu(ctx->attr->data.resident.value_offset));
- 
- 			parent_vi = ntfs_iget(vi->i_sb, MREF_LE(fn->parent_directory));
--			if (IS_ERR(parent_vi))
-+			if (IS_ERR(parent_vi)) {
-+				if (PTR_ERR(parent_vi) == -ENOENT &&
-+				    !NInoBeingDeleted(ni))
-+					ntfs_report_file_metadata_error(vi,
-+									-EFSCORRUPTED);
- 				continue;
-+			}
- 			mutex_lock_nested(&NTFS_I(parent_vi)->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
- 			ia_vi = ntfs_index_iget(parent_vi, I30, 4);
- 			mutex_unlock(&NTFS_I(parent_vi)->mrec_lock);
-@@ -373,6 +381,11 @@ int ntfs_file_fsync(struct file *filp, loff_t start, loff_t end,
- 			attr_vi = ntfs_attr_iget(vi, ctx->attr->type,
- 						 name, ctx->attr->name_length);
- 			if (IS_ERR(attr_vi)) {
-+				if (PTR_ERR(attr_vi) == -ENOENT) {
-+					ntfs_report_file_metadata_error(vi,
-+									-EFSCORRUPTED);
-+					attr_vi = ERR_PTR(-EFSCORRUPTED);
-+				}
- 				kfree(attr);
- 				continue;
- 			}
-@@ -810,7 +823,7 @@ static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ret2 = filemap_write_and_wait_range(iocb->ki_filp->f_mapping,
- 				offset, end);
- 		if (ret2) {
--			ret = -EIO;
-+			ret = ret2;
- 			goto out;
- 		}
- 		invalidate_mapping_pages(iocb->ki_filp->f_mapping,
-@@ -934,12 +947,16 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 				&ntfs_iomap_folio_ops, NULL);
- out:
- 	if (ret < 0 && ret != -EIOCBQUEUED) {
-+		int rollback_err;
+I have the following AI fix in a queue-of-fixes to go through and send out.
+
+The description is a bit mouthful, but the fix itself looks much cleaner (just skip the
+write-lock for VMAs that don't need it):
+
+
+Does that make sense?
+
+
+commit 12a35d8ee3e638129080c2bb13c0a35c873b5257
+Author: Josef Bacik <josef@toxicpanda.com>
+Date:   Thu Oct 8 06:55:26 2026 +0000
+
+    hugetlbfs: fix unmapping a folio from a private vma
+
+    hugetlb_unmap_file_folio() unmaps a folio which is about to leave the
+    page cache from every vma that maps it.  Where it can not get the lock of
+    a vma with hugetlb_vma_trylock_write(), it takes vma->vm_private_data for
+    a struct hugetlb_vma_lock, gets a reference to it, drops i_mmap_rwsem and
+    sleeps on its rw_sema.
+
+    Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private
+    VMAs") the trylock can fail for a MAP_PRIVATE vma that owns a reservation
+    map, too.  The lock of such a vma is resv_map->rw_sema, which every fault
+    in the vma holds for reading, and its vm_private_data is the address of
+    the resv_map with HPAGE_RESV_OWNER in bit 0.  kref_get() and down_write()
+    then work on the bytes of the resv_map, one byte off.
+
+    A private vma maps a folio of the page cache after a read fault.  Three
+    threads of an unprivileged process are enough, on a hugetlb memfd: one
+    reads a page through a private mapping, one writes to another page of
+    that mapping, one allocates the first page with fallocate() and punches
+    it out again.  ftruncate() and MADV_REMOVE do as well as the hole punch.
+
+      refcount_t: addition on 0; use-after-free.
+      WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x6a/0x90
+       remove_inode_hugepages+0x49d/0x530
+       hugetlbfs_fallocate+0x4bf/0x5f0
+       vfs_fallocate+0x13d/0x330
+
+    On x86-64, saturating the "reference count" stores 0xc0 into the first
+    byte of resv_map->lock: the next fault in the vma spins in region_chg()
+    for ever.  down_write() either takes a list pointer, shifted by one byte,
+    for the owner and dies of a general protection fault, or spins with
+    interrupts off on what it takes for the wait_lock, in both cases with the
+    fault mutex and the inode lock held.
+
+    Leave the lock of a vma that is not shareable alone, as it was before that
+    commit.  That lock keeps faults out of the vma until MADV_DONTNEED has
+    freed its pages.  It is not needed here: the caller holds the fault mutex
+    of the index, so nobody can map the folio or replace it by a copy, and
+    i_mmap_rwsem, held for writing, keeps the vma in the file's tree and its
+    page tables in place.
+
+    Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
+    Assisted-by: LLM
+    Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index d21dbcdc705ed..02cec281ceba5 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -401,6 +401,19 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
+                if (!hugetlb_vma_maps_pfn(vma, v_start, pfn))
+                        continue;
+
++               /*
++                * Only a shareable vma has a struct hugetlb_vma_lock.  The
++                * lock of a private vma lives in its resv_map and keeps
++                * faults away from MADV_DONTNEED; it is not needed here:
++                * the fault mutex holds off faults on this index, and
++                * i_mmap_rwsem everybody who zaps or frees page tables.
++                */
++               if (!__vma_shareable_lock(vma)) {
++                       unmap_hugepage_range(vma, v_start, v_end, NULL,
++                                            ZAP_FLAG_DROP_MARKER);
++                       continue;
++               }
 +
- 		if (ni->initialized_size != old_init_size) {
- 			struct ntfs_inode *mrec_ni =
- 				ntfs_base_inode(ni);
- 
- 			mutex_lock(&mrec_ni->mrec_lock);
--			ntfs_attr_set_initialized_size(ni, old_init_size);
-+			rollback_err = ntfs_attr_set_initialized_size(ni, old_init_size);
-+			if (rollback_err)
-+				ntfs_report_file_metadata_error(vi, rollback_err);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 		if (ni->data_size != old_data_size) {
-@@ -948,7 +965,9 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 
- 			truncate_setsize(vi, old_data_size);
- 			mutex_lock(&mrec_ni->mrec_lock);
--			ntfs_attr_truncate(ni, old_data_size);
-+			rollback_err = ntfs_attr_truncate(ni, old_data_size);
-+			if (rollback_err)
-+				ntfs_report_file_metadata_error(vi, rollback_err);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 	}
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 8918379140f1..47e52270e8ee 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -236,14 +236,21 @@ static struct dentry *ntfs_lookup(struct inode *dir_ino, struct dentry *dent,
- 				goto handle_name;
- 			}
- 			ntfs_error(vol->sb,
--				"Found stale reference to inode 0x%lx (reference sequence number = 0x%x, inode sequence number = 0x%x), returning -EIO. Run chkdsk.",
-+				"Found stale reference to inode 0x%lx (reference sequence number = 0x%x, inode sequence number = 0x%x), returning -EFSCORRUPTED. Run chkdsk.",
- 				dent_ino, MSEQNO(mref),
- 				NTFS_I(dent_inode)->seq_no);
-+			ntfs_report_file_metadata_error(dir_ino, -EFSCORRUPTED);
- 			iput(dent_inode);
--			dent_inode = ERR_PTR(-EIO);
--		} else
-+			dent_inode = ERR_PTR(-EFSCORRUPTED);
-+		} else {
-+			if (PTR_ERR(dent_inode) == -ENOENT) {
-+				ntfs_report_file_metadata_error(dir_ino,
-+								-EFSCORRUPTED);
-+				dent_inode = ERR_PTR(-EFSCORRUPTED);
-+			}
- 			ntfs_error(vol->sb, "ntfs_iget(0x%lx) failed with error code %li.",
- 					dent_ino, PTR_ERR(dent_inode));
-+		}
- 		kfree(name);
- 		/* Return the error code. */
- 		return ERR_CAST(dent_inode);
-@@ -303,8 +310,11 @@ static struct dentry *ntfs_lookup(struct inode *dir_ino, struct dentry *dent,
- 				if (unlikely(err)) {
- 					ntfs_error(vol->sb,
- 						"Inode corrupt: No WIN32 namespace counterpart to DOS file name. Run chkdsk.");
--					if (err == -ENOENT)
--						err = -EIO;
-+					if (err == -ENOENT) {
-+						err = -EFSCORRUPTED;
-+						ntfs_report_file_metadata_error(dent_inode,
-+										-EFSCORRUPTED);
-+					}
- 					goto err_out;
- 				}
- 				/* Consistency checks. */
-@@ -339,7 +349,8 @@ static struct dentry *ntfs_lookup(struct inode *dir_ino, struct dentry *dent,
- 
- eio_err_out:
- 		ntfs_error(vol->sb, "Illegal file name attribute. Run chkdsk.");
--		err = -EIO;
-+		err = -EFSCORRUPTED;
-+		ntfs_report_file_metadata_error(dent_inode, -EFSCORRUPTED);
- err_out:
- 		if (ctx)
- 			ntfs_attr_put_search_ctx(ctx);
-@@ -534,7 +545,7 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 	if (IS_ERR(dni_mrec)) {
- 		ntfs_error(dir_ni->vol->sb, "failed to map mft record for file 0x%llx.\n",
- 			   dir_ni->mft_no);
--		err = -EIO;
-+		err = PTR_ERR(dni_mrec);
- 		goto err_out;
- 	}
- 	parent_mft_ref = MK_LE_MREF(dir_ni->mft_no,
-@@ -725,9 +736,11 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 		rollback_err = ntfs_attr_remove(ni,
- 				AT_SECURITY_DESCRIPTOR, AT_UNNAMED, 0,
- 				&rollback_sd_vi);
--		if (rollback_err)
-+		if (rollback_err) {
-+			ntfs_report_metadata_error(ni->vol, rollback_err);
- 			ntfs_error(sb,
- 				"Failed to roll back security descriptor.\n");
-+		}
- 	}
- 
- 	if (rollback_data) {
-@@ -735,12 +748,18 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 
- 		rollback_err = ntfs_attr_remove(ni, AT_DATA, AT_UNNAMED,
- 				0, &rollback_data_vi);
--		if (rollback_err)
-+		if (rollback_err) {
-+			ntfs_report_metadata_error(ni->vol, rollback_err);
- 			ntfs_error(sb, "Failed to roll back DATA attribute.\n");
-+		}
- 	}
- 
--	if (rollback_reparse)
--		ntfs_delete_reparse_index(ni);
-+	if (rollback_reparse) {
-+		int rollback_err = ntfs_delete_reparse_index(ni);
-+
-+		if (rollback_err)
-+			ntfs_report_metadata_error(ni->vol, rollback_err);
-+	}
- 	/*
- 	 * Free extent MFT records (should not exist any with current
- 	 * ntfs_create implementation, but for any case if something will be
-@@ -750,14 +769,22 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 		int err2;
- 
- 		err2 = ntfs_mft_record_free(ni->vol, *(ni->ext.extent_ntfs_inos));
--		if (err2)
-+		if (err2) {
-+			ntfs_report_metadata_error(ni->vol, err2);
- 			ntfs_error(sb,
- 				"Failed to free extent MFT record. Leaving inconsistent metadata.\n");
-+		}
- 		ntfs_inode_close(*(ni->ext.extent_ntfs_inos));
- 	}
--	if (ntfs_mft_record_free(ni->vol, ni))
--		ntfs_error(sb,
--			"Failed to free MFT record. Leaving inconsistent metadata. Run chkdsk.\n");
-+	{
-+		int free_err = ntfs_mft_record_free(ni->vol, ni);
-+
-+		if (free_err) {
-+			ntfs_report_metadata_error(ni->vol, free_err);
-+			ntfs_error(sb,
-+				   "Failed to free MFT record. Leaving inconsistent metadata. Run chkdsk.\n");
-+		}
-+	}
- 	unmap_mft_record(ni);
- 	kfree(fn);
- 	kfree(si);
-@@ -1013,6 +1040,11 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 			ntfs_attr_reinit_search_ctx(actx);
- 			goto search;
- 		}
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(ni),
-+							-EFSCORRUPTED);
-+		}
- 		goto err_out;
- 	}
- 
-@@ -1021,8 +1053,14 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 		goto err_out;
- 
- 	err = ntfs_index_remove(dir_ni, fn, le32_to_cpu(actx->attr->data.resident.value_length));
--	if (err)
-+	if (err) {
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(dir_ni),
-+							-EFSCORRUPTED);
-+		}
- 		goto err_out;
-+	}
- 
- 	err = ntfs_attr_record_rm(actx);
- 	if (err)
-@@ -1234,7 +1272,7 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 	struct super_block *sb;
- 	struct inode *vi = VFS_I(ni);
- 	struct file_name_attr *fn = NULL;
--	int fn_len, err = 0;
-+	int fn_len, rollback_err, err = 0;
- 	struct mft_record *dir_mrec = NULL, *ni_mrec = NULL;
- 
- 	ntfs_debug("Entering.\n");
-@@ -1245,7 +1283,7 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 
- 	ni_mrec = map_mft_record(ni);
- 	if (IS_ERR(ni_mrec)) {
--		err = -EIO;
-+		err = PTR_ERR(ni_mrec);
- 		goto err_out;
- 	}
- 
-@@ -1265,7 +1303,7 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 
- 	dir_mrec = map_mft_record(dir_ni);
- 	if (IS_ERR(dir_mrec)) {
--		err = -EIO;
-+		err = PTR_ERR(dir_mrec);
- 		goto err_out;
- 	}
- 
-@@ -1307,7 +1345,8 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 	if (err) {
- 		ntfs_error(sb, "Failed to add FILE_NAME attribute.\n");
- 		/* Try to remove just added attribute from index. */
--		if (ntfs_index_remove(dir_ni, fn, fn_len))
-+		rollback_err = ntfs_index_remove(dir_ni, fn, fn_len);
-+		if (rollback_err)
- 			goto rollback_failed;
- 		goto err_out;
- 	}
-@@ -1325,6 +1364,7 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 
- 	return 0;
- rollback_failed:
-+	ntfs_report_file_metadata_error(VFS_I(dir_ni), rollback_err);
- 	ntfs_error(sb, "Rollback failed. Leaving inconsistent metadata.\n");
- err_out:
- 	kfree(fn);
-@@ -1428,7 +1468,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 
- 			ni_mrec = map_mft_record(NTFS_I(new_inode));
- 			if (IS_ERR(ni_mrec)) {
--				err = -EIO;
-+				err = PTR_ERR(ni_mrec);
- 				goto err_out;
- 			}
- 			err = ntfs_check_empty_dir(NTFS_I(new_inode), ni_mrec);
-@@ -1453,9 +1493,11 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 		ntfs_error(sb, "Failed to delete old ntfs inode(%llu) in old dir, err : %d\n",
- 				old_ni->mft_no, err);
- 		err2 = ntfs_delete(old_ni, new_dir_ni, uname_new, new_name_len, false);
--		if (err2)
-+		if (err2) {
-+			ntfs_report_file_metadata_error(VFS_I(new_dir_ni), err2);
- 			ntfs_error(sb, "Failed to delete old ntfs inode in new dir, err : %d\n",
- 					err2);
-+		}
- 		goto err_out;
- 	}
- 
+                if (!hugetlb_vma_trylock_write(vma)) {
+                        vma_lock = vma->vm_private_data;
+                        /*
+
 -- 
-2.51.0
+Cheers,
 
+David
