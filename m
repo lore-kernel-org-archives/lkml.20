@@ -1,111 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484736;
-	b=uQevDEL2wgTkRD4B1GkTX6y6HuV6NZh3L5O5wR4l4f815o5o6h9Z78vqjdcaVx31Xqny
-	 EfoIQzna258/pAA887yZfyQbE8XQCP10yIkoU4pxBSo915V81yaVeRRbqqylQZ7FqmBxk
-	 ZNEhOyws4BmrhsfOjjjP60EIZTyZfZXIzeH9uOnydBEMDYybpTz0lQoNzDWhssU25uYOR
-	 wCpCevq6erXGR/J+6fxyDvhZHSDDsFeyIr6yUGHWHSLG02keCLjdxaJGj+vHHJOocwf9t
-	 w5/e37OqYPnS/ANlnejs6MDDqPxpyOzKj40YFmhICFn2WZZssFc/dP1/reopPJa3w/A==
+	t=1792484744;
+	b=Vmtyoxz6CCxuiw3XyHZblMPbI13KEN8WhjhKMKEmuaXJAJQIyqcKDjGaGkP2go6JHzKQ
+	 0TvoFHGMG/gJ5xF+RfziMGFHzw2wFSrHjyBFU5AVxTee90k8yB2Sg83CLr4V7Yrctgqvm
+	 rD+4Q9Kxr6g2V7IxEcJ0poFeClEvRyxr+hVovkZtMRQ73v3i0t6ig2hpS3RMTwaK6U2J/
+	 EpS4u5DD+YhyhGPxGtIEZnwztu1mD/3YH8pocf7opeNtjyK5PF9Lw01zxwoc461G7imO9
+	 W2MxCM/ZJJNxSQCk1N6MtFQZK3PPuaQRg4+VVIJ6LAjRDFi7EODUONE4us+kHo8GjcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484736;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=OOWziecHO99tmLi2InK5sCFNWlNwHdhEH/JAdyr5Svw=;
-	b=RgSJ/aCcuLzPDfdz1+wjc8a1igeqxMnm5hlPP8suHII07klHDa0ceHaHWdhvOCpcx5gh
-	 ddF2knV+RutgDyFZ5F/W3fxMi1aUUYff/UGW/ehXk5Ixr5w0gfufyuUicrgPJ8ttvLYiX
-	 HTgK1yQMSjd8b5ANdh6VE88/5wdgfbywYT6YKTcPQHmvNEI16Au6So0eoB/C4Vko/NfYw
-	 oayEHX1QYhEiA33TeBD1SVEVVZh8yaa0xNv5IFqVnl77Ai7PKgyruaM8y09pL0vWVnO9m
-	 ag50+6nTrL7BB7drW7RRLm4yOBPHYJoiyxsk2Yrq5V2lomnkoCTDjHiqmrJ+BS9tTLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484744;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=jAJohs9jM4C9qmzSTrnzOJHD+AEB6zrnbjv7P5LD8bM=;
+	b=4RoQ5NI26Qeq/y0gcZTzkfKhyHlaK3AkMAWCOKJ+nhYzmUasQ1DLGINhIUtrcwRoLd6l
+	 4FbXM2+L3A5D94sA3c3Tvv5DWKLPoPVIqx7BPblJ0Eln8YVwRr/14lSobH+wjXk/QzL6J
+	 L9V4cUkTIwX3h9EzAwLG8p+po0LkZf6YQKii2FagI0mVFKokyUlQCe7m5AbZOVBDS9gCL
+	 FFlWWzQidLlKYKJn48x2Tr5yPbw8nSu5LH2wI7b9ou+1ZKDMMjWoq3xrm5o/wach29lZm
+	 EQkNxT9eM3X7jIMMMenXMxjGL/F1KULKtKNOlvWRT0s3S9Nyr0iJVdA0YwXYtorTnnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=gVsMzc4p;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IBiQG7Ut;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=RcjK16qB;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C37606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C37606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D36C606A319;
+	Tue, 20 Oct 2026 08:25:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D36C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=gVsMzc4p;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IBiQG7Ut
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id AB92F1D00161
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:25:34 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 04:25:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792484726;
-	 x=1792571126; bh=OOWziecHO99tmLi2InK5sCFNWlNwHdhEH/JAdyr5Svw=; b=
-	gVsMzc4pE7RXb0PD1PFSe7U9KAKo+LOfnrpCZ9bGvHxQed7bfXRPVZaXFO6RI0rE
-	gYqVssJtY3XpYADIXLgRBcAivyYUTqSu8/U6eyNyRwp83RN01jMkBsdi3XSrhfGn
-	kcF6F5coIfSOKgdgbd85wqMKYqRaJnkQlyeHKPGzHIqseXyjDgBaqtDhCRjj46g7
-	68UwP3Q+PH2S8H6mzo0CE9icu1ZVRb4prOaDAupmoyxVSNeCP69TfOUMleKnhNMm
-	8ENYBcOnJ+sGDMOlWdebTCqj9MCTkHYw6M9FqX6TSr5+advz0T/TTmuGuAPIkXsn
-	kVpNl96YZB5Kp92uAuC5HA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792484726; x=
-	1792571126; bh=OOWziecHO99tmLi2InK5sCFNWlNwHdhEH/JAdyr5Svw=; b=I
-	BiQG7UtPpvPCySro50zQU5JqtAIrUz0JrU5gJXsRkNxCic3ZY8SiKef5exwqvb5B
-	vp49UBM4fWL/diBc3NpoeR29xdBei4dSPQj9oYTlEQEgveGPxzhNmuRKE7uwiL1n
-	pyXdAjkvfkJkSUpax6c/pNurM+2SXECpBDAJYjS5Sa/2kL/U/12swZ0ZUb2v0JDY
-	vTembThXwFHx2QUSa0abSxxuX4NFFPzN0hKVXFvsRCv82DbGTr5AF3LpmeZN43VC
-	0XvFd3hjxHZMmRm0gs3K2Y/TKq4TRz/cEIdcuXJJ+56HNYZjjvoxWpsqbCORpA4V
-	P69rs+rDWFvNO/FEHUeGQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792484726; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:JjgNAGZWoLPCwH2SIcsb21glfr58cWkmtigBKMFLuOZ9GLn
-	N4ePFSX2hMh8UrRapxp55emo9o9lsT4txt/8IWNe7jIRo1iVcuT5m164dZR77/02
-	+9lejN46D07Ym/hLikT6e+r4VSdvo28CIHfFIq+ZKPkRmeXzxZsojg3VjNIhUaaP
-	OhOd/W2U8yE/Hn3IVCLZxYke+gFQcELBvEDi/hjg+Dr1p7a4mzjqVA5U+x6d68/g
-	aYfb6EYcRyDIbz7zR46VA9tuTH1dFn5517i2s+4fgCFzgHzmZK5IYmBVRnGL2vib
-	nOTAQKG/eNHPV/dybDMssWi7RL2PpMJ+bIEN0Xw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:cNtNee0u9nf0BQwKITDllCmw839Es7Nzqxp6USKMn7I=:zjOrROw10opHbIrx9y1YCbZGw8cKUW0tmJxEUPyp5KE=;
-X-ME-Sender: <xms:cSXXavuXr_oR9TttEhY3jnM7ek0xt-zPp5V24wUYJ-hsvYHZ8QYjJQ>
-    <xme:cSXXarQLQiAu_-g06K-OFmt7RHvAPdIS3mou4Q2pW8Q5GH_FkCLZtw1ekTO4-RSIo
-    48fwg0FvnC4EySl8wGi3Aw-D_qbWXrj8BG2Pmb71WI0CLm_Sm5u-Ck>
-X-ME-Proxy-Cause: dmFkZTGzVLg4yuouvFwz5PrOMh7i8iS+/9vnsYEjZvv91aX0C/a0or3CnXqR+7HkqrsIiK
-    +hbffc7OOTeXxTe1v9gFoS8U9vff/jgK4QFpfy8cbkxv4eAUv56tiyScm/QBvbm4RDlUyy
-    iWngEYpMK7gGQjp61AP6vkDvTpqlvIdEIHhJOIc0z/80tKwxgojEYw36ffUsZT7g5//AwT
-    mWBIWSvEfnJN3aqM8IxjtEndMLYwKs1m7VhEVf6nLsTvrWFLY6G1zP4njgQwR1UJVpZuXf
-    FqFDYDwlN5ARRFzRFZcVaO0tsI1F6BzU94OxKNK+hUUOqwGbZLmaqQa8pcE/xQtRMO5apF
-    7dE8Sgl5caMJsXZpb6zjnBgWORBsiJsebqBq2oMbYzsbUZh0DMQYBoe795+nrObGTFmxG7
-    uj6oNWndAeqc8k22aR8UNBzzmGn62bA0KLJ6ImNBLOFZfM7I7Fq7xLkqJ3OoIFIjaoVs9P
-    cZFunWvqyrM8QPQm+6EVIKsKAGO/U2n6r8fpt5HwpV6E7hQ8aUUsimkyZXc8ullR/9cAbS
-    yldvWHI9p7AMheF9F3ruGAsVVMA/pGhcbPS8JFgiel5WbD6XbntgbTEPdwN/vDezQ7Ss63
-    M06F6G0F1gCQsadzsoRaGkAY+M3aoYyrR3oBcz3NGBYxjyN3wnnGLAl0pNTw
-X-ME-Proxy: <xmx:cyXXaiBEe6m2VyR1-2qmJUdiZyq2c0jIqKNI95ZZU7EsXIf-HAECqg>
-    <xmx:cyXXanPH3VQ4SyHaeVYkVBEa3wV4P8G1aU4o9eL5me7WzKXmABtmSA>
-    <xmx:cyXXauQHJakWwnfhTPMAJ5IHUPAIq5R8hCl7RMp6Rrb-3o-T9-ZEqw>
-    <xmx:cyXXan7WAAK-b5pSlQRTzRNSjuNrbupUP5PyhKJFXGYAHB2gGSbB_w>
-    <xmx:diXXatkkvVghptf4jn_4AAkjBNPb2wpqxtasfqzSdthrDUdky69a8qTu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 44A6232A0093; Tue, 20 Oct 2026 04:25:21 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=RcjK16qB
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K1ENHR4176854;
+	Tue, 20 Oct 2026 08:25:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=jAJohs9jM4C9qmzSTrnzOJHD+AEB6zrnbjv7P5LD8
+	bM=; b=RcjK16qB/2LH7X6b83KR75wtihO0XSKdlxjmKOinFid0CZdUl5YS+gLHI
+	0kEHvU0YgVC/N41k9+SwC2EpndVMRvGM0Bq1vvhSKosXhXaJaXzCL3Owsc+jzjX9
+	r3ODH2IEj9BuAm1OlSzobAIVgvElwGKgL9jN/KD01xfs7JlPVzrE228CixevDe5o
+	domYQXWb2NtWmU6OA/3bC+ptSH4Z0CkEFxCVgPKF32wQv+oihZjQaKTzWSzWyXc6
+	435G9tCvSCyj1xSanGxXZ4jVr5y/x4Sm3Q10xd3JE6c7o+w+FZcFzn8iD+5gILG0
+	ZU9fBJ7mSl0xfkwncoXq6roU39Iow==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw581p7u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 08:25:40 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69K6vVs5794894;
+	Tue, 20 Oct 2026 08:25:40 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcp1yh1ft-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 08:25:40 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69K8Pcuk18285216
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 20 Oct 2026 08:25:38 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6E55F58050;
+	Tue, 20 Oct 2026 08:25:38 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C2A3358054;
+	Tue, 20 Oct 2026 08:25:35 +0000 (GMT)
+Received: from b46lp13.lnxne.boe (unknown [9.87.84.240])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 20 Oct 2026 08:25:35 +0000 (GMT)
+From: Gautam Gala <ggala@linux.ibm.com>
+To: borntraeger@linux.ibm.com, kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: frankja@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org,
+        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        svens@linux.ibm.com, akrowiak@linux.ibm.com, pasic@linux.ibm.com,
+        pmorel@linux.ibm.com
+Subject: [PATCH v1 1/1] KVM: s390: pqap: fix AP status written to wrong half of GR1
+Date: Tue, 20 Oct 2026 10:25:34 +0200
+Message-ID: <20261020082534.481867-1-ggala@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,68 +93,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ATLhSvAouVZo
-Date: Tue, 20 Oct 2026 10:24:51 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Marc Kleine-Budde" <mkl@pengutronix.de>
-Cc: "Ian Rogers" <irogers@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
- "Andy Lutomirski" <luto@kernel.org>,
- "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
- "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
- "Christophe Leroy" <chleroy@kernel.org>,
- "David Laight" <david.laight.linux@gmail.com>,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>,
- "Namhyung Kim" <namhyung@kernel.org>, "Eric Biggers" <ebiggers@google.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Jason A . Donenfeld" <Jason@zx2c4.com>,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
-In-Reply-To: <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
-References: <20261019201257.3805356-1-irogers@google.com>
- <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
- <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for ARMv5
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX1stH9jO+DoIW
+ bKahL0Z3YB6PqoqtJo0AHFS3HIl7ZNQfbke9TQu9XpNOPrSk10SxIn0zyQz/MJC/WReOrcwHENU
+ ApK+fx5HLC6aUtqA8cc3ubw9fxB1O3U=
+X-Proofpoint-GUID: LpeQUKuIyJmjA8GLABCRRgCQZqo51mhB
+X-Proofpoint-ORIG-GUID: LpeQUKuIyJmjA8GLABCRRgCQZqo51mhB
+X-Authority-Analysis: v=2.4 cv=UOBIjyfy c=1 sm=1 tr=0 ts=6ad72584 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=dCozhJJj6gtuAxkZyfYA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX7iQjd7pbtWcS
+ Hxkr1xC/OT5W7a8iIt4huK3uTc/QxhIAXnPKlpmJbxJBR8GEFxYPSylhQw+sRoQvBMi1RUDW7SH
+ TdPL+vrEcbthhuT4J+Q0IH0aQIsuu3B0OPD5chEG9zaiqAyamZAG8AmBzVUt/u3CxXgVXRCVPBE
+ I+KsE3qYDuXc3rRZDFpTJvzJ6dIRuPN9Lpy3J8f4nZxZGaQjceUkqIyjG8t2UTYf5wrlPQdJ9ZL
+ zeOcsAHpkAAjtEJrwsdIByV7T7T6CjpWGBgpctoOrf6LHCz/HlRZ2GppAw2YNs/MeT16lw8E1DW
+ ze6JgRlcl8EwC9dfGnazghu7s0xl3UySR9YmLn2rjjX+sACLNxvv4q4jZZJAwfpy2TvJV44hEp7
+ k0R7ZqTKa9CGyLtEf1XiYvve+Cg4NmoKnhO2ZM0R0NUV1oJkabSWUJsstytrsJdiGhPVYyIsXYf
+ 3DW5O+nTzPVXUBbFzcw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200032
 
-On Tue, Oct 20, 2026, at 08:44, Marc Kleine-Budde wrote:
-> On 20.10.2026 00:12:57, Arnd Bergmann wrote:
->> On Mon, Oct 19, 2026, at 22:12, Ian Rogers wrote:
->> > +
->> > +config VDSO_UNALIGNED_PACKED
->> > +	bool
->> > +	default CPU_32v5
->> > +	help
->> > +	  Use packed structs rather than memcpy() in include/vdso/unaligned.h
->> > +	  for unaligned memory accesses. Enabled on ARMv5 where GCC may emit
->> > +	  out-of-line memcpy() calls instead of inlining byte accesses.
->>
->> As explained, I think this misrepresents the problem as Arm specific and
->> isn't the correct method for -munaligned-access targets on Arm, which
->> include CPU_32v3, CPU_32v4 and CPU_32v4T along with CPU_32v5.
->>
->> I still hope we can use a version that just produces the intended code
->> on both -munaligned-access and -mno-unaligned-access targets like the
->> old version did.
->
-> FYI: there is the kconfig Symbol HAVE_EFFICIENT_UNALIGNED_ACCESS. Can we
-> make use of it?
+The AP Queue Status Word (APQSW) occupies bit positions 32-63 of GR1,
+i.e. the low 32 bits of the 64-bit register, while the upper 32 bits
+are reserved.
 
-That would be better, but I still hope we can just get back to the
-portable code across all architectures for the in-kernel version.
+The no-hook fallback path in handle_pqap() synthesizes an APQSW and
+copies struct ap_queue_status directly into GPR1 using memcpy(). On
+big-endian s390 this places the APQSW in the upper 32 bits of the
+register rather than in the architecturally defined APQSW field.
 
-I have one more request for you: can you check /proc/cpu/alignment
-on the system that shows the performance regression with and without
-the patch? In your original report, you have shown that Ian's patch
-caused the drop in performance and that it caused the added function
-calls, but I don't see any sufficiently hot code path that would
-actually explain the scale of the regression, unless there is now
-also a case where get_unaligned() ends up doing the wrong case and
-running into a fixup handler. If this happens, you should see a
-nontrivial number of fixups listed in /proc/cpu/alignment. On
-a working system, the numbers should all be low but likely nonzero
-because there tend to be callers that still lack get_unaligned()
-wrappers and just access misaligned pointers directly.
+Use union ap_queue_status_reg and assign its value directly to GPR1.
+This places APQSW in the correct half of the register and aligns the
+fallback path with the register layout used by the AP infrastructure.
 
-      Arnd
+Fixes: e5282de93105 ("s390: ap: kvm: add PQAP interception for AQIC")
+Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
+---
+ arch/s390/kvm/s390/priv.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/s390/kvm/s390/priv.c b/arch/s390/kvm/s390/priv.c
+index b3cb2c2c3aa7..ccb2a7830265 100644
+--- a/arch/s390/kvm/s390/priv.c
++++ b/arch/s390/kvm/s390/priv.c
+@@ -592,7 +592,7 @@ EXPORT_SYMBOL_FOR_MODULES(kvm_s390_is_gpa_in_memslot, "vfio_ap");
+  */
+ static int handle_pqap(struct kvm_vcpu *vcpu)
+ {
+-	struct ap_queue_status status = {};
++	union ap_queue_status_reg status = {};
+ 	crypto_hook pqap_hook;
+ 	unsigned long reg0;
+ 	int ret;
+@@ -661,8 +661,8 @@ static int handle_pqap(struct kvm_vcpu *vcpu)
+ 	 * No hook means no driver to enable the SIE CRYCB and no queues.
+ 	 * We send this response to the guest.
+ 	 */
+-	status.response_code = 0x01;
+-	memcpy(&vcpu->run->s.regs.gprs[1], &status, sizeof(status));
++	status.status.response_code = 0x01;
++	vcpu->run->s.regs.gprs[1] = status.value;
+ 	kvm_s390_set_psw_cc(vcpu, 3);
+ 	return 0;
+ }
+-- 
+2.56.0
+
