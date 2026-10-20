@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460941;
-	b=lFt7Pf0ETQFmYJWiGX1RRILxHlQF+/TpUE0R8HTmlXTpaURpSlvEqKYAbwxuFOvXI0Mr
-	 YcegYxQYEpr0M0VrZl3b2cWSBfED8ABaZmgm0HZYvbkngus2RphmeSXtwo4m+FEcijQsF
-	 lwvhx9sS9lKFezCGwyy64LPckoKjhKbG0tvWslEFLHFgf0S22+Hpk2rPx0+4fWIRztxD1
-	 nX8cTSQgIblejEB6jjSxScOChVX203802ooQxC/K0LGhGRp2o3HETNpNXWNeYUpoERGlK
-	 f11ik2FoEioHRF+ZapRGdcWTDbKwWDJcfKH8QTFZROUzdKRB9OtkXL/FYfYYpro8gvQ==
+	t=1792460966;
+	b=BpMOSXwDSuOQIeYE1wu3w0qWR9H86X3EmLEBT5PgCdLBh/4KZvBXBKsH7VkIFclSEYQT
+	 6mTR6cUgYNOg7BmulCl/xWKaFYI42x1WUZC1xp07xRghPo1SWCsEf1EUC3xUrMI65Is1e
+	 XQOP5mGXUzwk4MjsFwum5zb3Ejc0uVlf5AaijPBsNveoHe0ew4sy0zJFJlyuhNUO/b2EO
+	 5gJDkCLonhZi99oxi05v6oJmPWskSKHqiQ54ZMUA717ZlFX+12rUV511EJSgG8vuA5MY5
+	 QnjpEASILMe9g1GDy/U2QD942m88x7nOE38WKojO2d292h05wiVY9st3Gc3ned7W2ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460941;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vWuv+g6YMwm8Pkj5cSlXWYyt4r7CaiX7obNleT+9GD4=;
-	b=j/PGVlelUv0X6wKTr3tROgKaTSxrXaO2p5xa66L1nR/PaYqcSh+ESsjC8aWSm9zUyHb5
-	 Yxn81F96QPp4o8+5ai8zueLOf2NIoJsqfTFdaIT5fLOkxM0fNcYlz85fYGUANOVCA8DLL
-	 yI0mtzH2wB4w8BDJAFBPgvHv6Bj0Nh3dQuKtZMG9T6bmPMJiz1yVCgUIz9zo1sYYuHy31
-	 pD3pTfSONPDeKuswGlkBB23c7MfBxOt4Mo20+ZeCHBiaRVfICWQW24G/VMjD9rLIDLeDT
-	 wKF/sFHhfKxLocxIEmZH2Sjqiu9DQ8hTOXfHAhSyfmQT39t3aFzDEDj54vy/Jveyy5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460966;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GI1sDXL68rILFOS5IDyHXobc25qpbCh5q48o7ZrhuAs=;
+	b=ZVKGlg8pTcPv7jTTs6KSUT9PwK5z7ydsTlQattBkOMm8T2SMDiZcyDt//adPrBwQuiOV
+	 eedNUjgbJ7yp6OVC7BWI7+qV+f/5XOeJbJhA8TXOKtMQUD4n7BLNs3Xn4J3XVLA+O+HfY
+	 VtxRSNaOiYqX/Hq3/BwWFF1SkCb4cztGSB7G0qMjWZI2inmP3Wo9twiTMJL0OqwI3X4Zk
+	 LlqdwRQRXTS3t9QX6oTHYZzFgdFNx46nu6ZrTEdi8CEteJyfyJm9cTv/Yy1sMuyufC2UB
+	 oKn1hAUPk4fR8wYCCgV9t7owHcZ5RuzKSuYhCUajIQ3sni7tNpsmFCE5u+Ro5VHv7/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3QFRNLS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j5Zy+06H;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD30606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:49:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B82606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B82606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3QFRNLS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878B11F000CC;
-	Tue, 20 Oct 2026 01:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792460940;
-	bh=vWuv+g6YMwm8Pkj5cSlXWYyt4r7CaiX7obNleT+9GD4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3QFRNLS/dqRYbyr0rVazlU8AkrWzxo8HLfAoWyV87M2LCrRnNLFuaKPAdOhGjBUn
-	 zV3A0YSGAXqo5QuHJOmj9xd9JUWe1l4MZpaPGMR68+yByjWmKGocUlsYgKVPtAcWbc
-	 CkAjwUiPeHFpcoPvWrgBH6z5R7OyXIMnyd0RtIkk3eK567SOX6ucptmlWJNzTU96Kw
-	 hnQF7HfwITl0xDVLQuRJiwP7EFf2K0ac2rzM9QPR+t0g0i6GSEywYY5nl7hGVBq/1g
-	 D2UJxXr40bFZSsovqZO7YqIr4rwJRNzxI8JdNjL5LkVPR1zY8pxK4dLtyIXGpptL5P
-	 5uA1KWEYloS/w==
-Date: Tue, 20 Oct 2026 09:28:55 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Deepak Gupta <debug@rivosinc.com>, Zong Li <zong.li@sifive.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-riscv@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] riscv: mm: Do not make execute-only PTEs readable in
- pte_wrprotect()
-Message-ID: <atbD14yBffqVLQ3Z@xhacker>
-References: <20261017162229.796020-1-nickolai@csail.mit.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j5Zy+06H
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535a54bed9so3802504eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:49:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460965; x=1793065765; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GI1sDXL68rILFOS5IDyHXobc25qpbCh5q48o7ZrhuAs=;
+        b=j5Zy+06HYvqYPzoaj9knMK1wL17L7UbkhFY08X6bji2CwTZ2KbbiifP/KVdX3Q9z5W
+         i+kgyZBG44OKtizVXUD99kmzJp2OvnzAMYVWr5palMY9td9/HrRCXsmA3eMzEdxDu5Gk
+         YK9u4n6eohz7cYvcSYbcO7NsQ9ybecgkZ+0xYWkmdZODUJ4Sie5KL+wi+UxjZANDgGcc
+         Atk7lkyfdFm525ZM7UNE2j75qevy1ibAc1HiXz8Kw4GCw59TEFlMvo8VfV/ujbGlds0K
+         7RhpU9WeZm/cHO7MOIqBM/lrAxknTs7UruX71kWhte5U62tSO5m0qdWwsiZdzwfsaR7N
+         187w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460965; x=1793065765;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GI1sDXL68rILFOS5IDyHXobc25qpbCh5q48o7ZrhuAs=;
+        b=Vh1YCbTzvjI2S/5z6746iWp8Ws91/pTDt4OmAJag4tNm0fbjlpPRKfsNV6M0CehTzw
+         2ysNKWhLRjtHCJ8oDbCydKJ9po+ritjN9s9UAJ6bA/FTFbVi87lHyRlyu46mBRtkxbry
+         pwx1Nuh5B4EKYl5Q3zlZkWnKixAX9+Qpfon5n5dcaqvoM9o2fm9+rfy1dEAtJ7s/cGso
+         ZrHXvOP+Glqd5w5VXvyPR5HRKGGoE9Y9ikr2+57kSTYUCF6VPV9zbGOTDod3xvBhE2CH
+         UNIjPpFP/gkBQLbRxrkSBmNC7ltIKslOjHD1PpqXnooDEfNFEpdVqM7LHYILB/JbkIaj
+         BNrA==
+X-Forwarded-Encrypted: i=1; AKwUvByqWgkN/ifX9n2c0nFji8Bn8/dgzD2FZGmbJl+muqRzNXP5w0zJ8NJwHkAhvNHm68Hen5BZPYDrVdo/WuE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3PJz+kaeBsU3rLppqJHZyIjHnD4RsfGpzMTJ5IzdN65Iepeki
+	uHqx4IaWCrzO8U2JeAWKBuL+1F8pxZ9vhuROjFAsE440TRyoOfFFYlIj
+X-Gm-Gg: AYBFou0m6cpgcAHzngy+T0CsZjYv7+ffAHDPAjDr9WDQTz7VDJrenqkrJEDvLzjEaU1
+	Cchrw2RQRrYrDFLzH7gs0FsysixRm7Tft7QkWgfyjZs5xqpN5g1Sw4Qg5GMABOar6wwzJKmu2zF
+	A8oXEIhkt/HSoCO7p1UKkVcICb1OL2PLREl7AnpQPbtfY2tHyMoiKLiVHU+JMrDje+zh3wK+cfb
+	tyRUhqan0w8Az5owL06EJs3fqmc6UeneHHj0mmm7XnDOaFKl+Dk34IWMOLjXgYptnRih/GtU01a
+	ISfeCTQMfl5eicDb3gQcklE6zheIJKxHnUOAf3rM8Qm5bjeqEquNuxqgteEYO57WdbcyFRgecZe
+	xeXSi9T1rhDgOUNQOc8nH9lr7DJhioceYxVx6Ly7O626A8ZffF3+inOlj0JwSgnDJzjkGk+Itj5
+	hxC+Fjm7E6VE/7tIhenYborOQSrym2DGYtMFjVJ9hW/JRt1cnsieMJpu0de4BVp3RRsVvdIbV3D
+	A1G6unBqSKJ
+X-Received: by 2002:a05:7301:271c:b0:35d:b452:902a with SMTP id 5a478bee46e88-361a2942d31mr14312652eec.34.1792460964928;
+        Mon, 19 Oct 2026 18:49:24 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm33941191eec.22.2026.10.19.18.49.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:49:24 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:49:23 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH v3 09/11] dt-bindings: watchdog: sun4i-a10-wdt: add
+ Allwinner B288
+Message-ID: <0ed8c1ac-1f9a-4cc0-b914-6b245f86d296@roeck-us.net>
+References: <20261005202731.153971-1-pmazzini@gmail.com>
+ <20261005202731.153971-10-pmazzini@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,189 +105,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261017162229.796020-1-nickolai@csail.mit.edu>
+In-Reply-To: <20261005202731.153971-10-pmazzini@gmail.com>
 
-On Sat, Oct 17, 2026 at 12:22:28PM -0400, Nickolai Zeldovich wrote:
-> On riscv, a user page mapped execute-only becomes readable when the
-> kernel write-protects its PTE. An unprivileged process that writes to
-> a MAP_SHARED file mapping, changes it to PROT_EXEC with mprotect() and
-> then has the page written back (msync(), or any writeback of the file)
-> can read the page afterwards, although every load from it faulted
-> before the writeback; the same happens to an execute-only anonymous
-> THP in the parent and the child of a fork(). The mapping stays
-> readable until the next mprotect(). Nothing else breaks, but
-> execute-only memory loses its point: code that relies on it not being
-> readable from user space can be read. This affects every kernel since
-> v7.0.
+On Mon, Oct 05, 2026 at 09:27:29PM +0100, Pablo Mazzini wrote:
+> Same watchdog as the A31, which it falls back to.
 > 
-> Since commit 540de7ade1e1 ("riscv/mm: update write protect to work on
-> shadow stacks"), pte_wrprotect() sets _PAGE_READ unconditionally, so
-> that a shadow stack PTE (XWR = 010) becomes XWR = 001 rather than the
-> non-leaf encoding 000. That commit assumed that every other PTE it is
-> applied to already has _PAGE_READ. Execute-only PTEs (XWR = 100,
-> PAGE_EXEC, used for PROT_EXEC mappings) do not, and pte_wrprotect() is
-> applied to PTEs that are not writable: the writeback path
-> folio_mkclean() -> page_vma_mkclean_one() write-protects every present
-> PTE that is dirty or writable, and mprotect() keeps _PAGE_DIRTY in the
-> PTE (_PAGE_CHG_MASK), so a written page that was made execute-only is
-> turned into XWR = 101. copy_huge_pmd() write protects an anonymous huge
-> PMD whether or not it is writable, through pmdp_set_wrprotect() ->
-> ptep_set_wrprotect() for the parent, which open-codes the same
-> expression, and pmd_wrprotect() for the child.
-> 
-> Set _PAGE_READ only when the PTE is writable, which is the shadow stack
-> case the bit was added for (a writable PTE without _PAGE_READ is only
-> ever a shadow stack PTE), and use pte_wrprotect() in
-> ptep_set_wrprotect() instead of repeating the expression. For a PTE
-> that is not writable pte_wrprotect() is a no-op again, as it was before
-> 540de7ade1e1.
-> 
-> Tested under QEMU (riscv64 virt, defconfig with an ext4 disk): after
-> write, mprotect(PROT_EXEC) and msync(MS_SYNC) a load from the shared
-> file page succeeds without this patch and faults with it; with
-> CONFIG_TRANSPARENT_HUGEPAGE the execute-only anonymous THP is readable
-> after fork() without this patch and not with it.
-> 
-> Fixes: 540de7ade1e1 ("riscv/mm: update write protect to work on shadow stacks")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+Applied.
 
-> ---
-> 
-> Notes:
->     The second hunk (ptep_set_wrprotect()) conflicts with "riscv: mm: Make
->     ptep_set_wrprotect() atomic again" (posted 2026-10-16), which already
->     computes the new PTE with pte_wrprotect(); if that patch is applied
->     first, only the pte_wrprotect() hunk of this one is needed, and the
->     fork/THP case is fixed through it.
->     
->     Reproducer (riscv64; the file case needs a block-backed filesystem such
->     as ext4, the THP case CONFIG_TRANSPARENT_HUGEPAGE; no privileges):
->     
->         /* An execute-only mapping must not become readable through writeback or fork. */
->         #include <fcntl.h>
->         #include <setjmp.h>
->         #include <signal.h>
->         #include <stdio.h>
->         #include <sys/mman.h>
->         #include <sys/wait.h>
->         #include <unistd.h>
->     
->         static sigjmp_buf env;
->     
->         static void segv(int sig)
->         {
->         	siglongjmp(env, 1);
->         }
->     
->         /* 1 if a user load from p succeeds */
->         static int readable(volatile char *p)
->         {
->         	if (sigsetjmp(env, 1))
->         		return 0;
->         	(void)*p;
->         	return 1;
->         }
->     
->         int main(int argc, char **argv)
->         {
->         	const char *path = argc > 1 ? argv[1] : "/mnt/xom";
->         	size_t thp = 2UL << 20;
->         	int fd, bad = 0;
->         	char *p, *a;
->     
->         	signal(SIGSEGV, segv);
->     
->         	/* Shared file mapping: write, make it execute-only, write back. */
->         	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0600);
->         	if (fd < 0 || ftruncate(fd, 4096))
->         		return perror(path), 2;
->         	p = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
->         	if (p == MAP_FAILED)
->         		return perror("mmap"), 2;
->         	p[0] = 1;
->         	mprotect(p, 4096, PROT_EXEC);
->         	printf("file: before msync readable=%d\n", readable(p));
->         	msync(p, 4096, MS_SYNC);
->         	printf("file: after msync  readable=%d\n", readable(p));
->         	bad |= readable(p);
->     
->         	/* Anonymous THP: write, make it execute-only, fork. */
->         	a = mmap(NULL, 2 * thp, PROT_READ | PROT_WRITE,
->         		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->         	a = (char *)(((unsigned long)a + thp - 1) & ~(thp - 1));
->         	madvise(a, thp, MADV_HUGEPAGE);
->         	a[0] = 1;
->         	mprotect(a, thp, PROT_EXEC);
->         	printf("thp:  before fork  readable=%d\n", readable(a));
->         	if (fork() == 0)
->         		_exit(0);
->         	wait(NULL);
->         	printf("thp:  after fork   readable=%d\n", readable(a));
->         	bad |= readable(a);
->     
->         	printf("%s\n", bad ? "FAIL: execute-only page became readable" : "PASS");
->         	return bad;
->         }
->     
->         riscv64-linux-gnu-gcc -O2 -static -o xom xom_min.c
->         ./xom /mnt/ext4/xom
->     
->     Before (mainline 70dd4ee72eb2, defconfig + THP, QEMU virt):
->         file: before msync readable=0
->         file: after msync  readable=1
->         thp:  before fork  readable=0
->         thp:  after fork   readable=1
->         FAIL: execute-only page became readable
->     
->     After:
->         file: before msync readable=0
->         file: after msync  readable=0
->         thp:  before fork  readable=0
->         thp:  after fork   readable=0
->         PASS
-> 
->  arch/riscv/include/asm/pgtable.h | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-> index 40b1ed4f3ea8..872b8b6a944b 100644
-> --- a/arch/riscv/include/asm/pgtable.h
-> +++ b/arch/riscv/include/asm/pgtable.h
-> @@ -406,7 +406,11 @@ static inline int pte_special(pte_t pte)
->  
->  static inline pte_t pte_wrprotect(pte_t pte)
->  {
-> -	return __pte((pte_val(pte) & ~(_PAGE_WRITE)) | (_PAGE_READ));
-> +	/* Shadow stack is XWR = 010: keep a leaf by making it readable */
-> +	if (pte_val(pte) & _PAGE_WRITE)
-> +		pte = __pte(pte_val(pte) | _PAGE_READ);
-> +
-> +	return __pte(pte_val(pte) & ~(_PAGE_WRITE));
->  }
->  
->  #ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP
-> @@ -692,8 +696,7 @@ static inline void ptep_set_wrprotect(struct mm_struct *mm,
->  	 * encoding 000b which is wrong encoding with V = 1. This should lead to page fault
->  	 * but we dont want this wrong configuration to be set in page tables.
->  	 */
-> -	atomic_long_set((atomic_long_t *)ptep,
-> -			((pte_val(read_pte) & ~(unsigned long)_PAGE_WRITE) | _PAGE_READ));
-> +	atomic_long_set((atomic_long_t *)ptep, pte_val(pte_wrprotect(read_pte)));
->  }
->  
->  #define __HAVE_ARCH_PTEP_CLEAR_YOUNG_FLUSH
-> 
-> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
-> -- 
-> 2.53.0
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Thanks,
+Guenter
