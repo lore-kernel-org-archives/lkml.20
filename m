@@ -1,62 +1,139 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491045;
-	b=gBGFavcAJSUkC0shxvJvSvgZAMpmrTXb3l3LJMHlULyaYBJ/bK4RlNXBXpIB8IEB8Bw2
-	 6sdikJcQ6SRRxeiOlqpBzlCo6z4XZwnCapXI9fTqG1V25Yo12y/n0QAhHqdPX8DaJv7hh
-	 ZVBnaiFcMaXv2oO7Eg2kG6oM8T6PwtczKaKkg/fN1gjjVNDHVSTu85Hr6/unIqiA1YeNU
-	 IWxH7iAK9T3UUOiTOXsS0lywE42ZV5daYiFO+SOV+WvntW4U/SaCXLSUqsH4twhB/9KrV
-	 0m9C8ewFwwpL6DPZ6Jy49ZMW+LiiUY3HtY3s7qWoVJ9RdY7N0UtzsRxPwoa3XrWpceA==
+	t=1792491049;
+	b=obPuu52rnjBlTQzARjGc7oM+TtaLAxfAjTHUQbeXlu2uHyYrjIpgVCrUiXRfGerVawfz
+	 NOSRzmmhsBpQSQ51gIHruaRrMv0jPC1yofIXWDOAIrjedc+XfbAeGmZa+1zTSBS3r9V8r
+	 Tc4+3LBe0sv0SkwSwUUiJsXcPT5N4Or6K8QSfP09AW5oD86HWTKk5mHcVkhJk1gUJaRRh
+	 Hr3abXnrYJwlIlTHjPIOEimt82rrExW9+VRH9itd0yirJTGrAHVuXyJrYgWOfmoXNqWsC
+	 kETW2SrU2waH9QDXXuAYM1GVRFs7MBorXzz0+rjpaCid2+S93xCs/MFcRd7+mYKFIuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491045;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=MMHFHJsHvrQ6vsAyrpqxqCfyIZhO9hxrgzTqYUNgKyM=;
-	b=MTSnTQdOgOsl3VYtkzMHcjcQlgWnuFG2N1C3AckoYXHwYdIM+W/DBsJxeq9Ps9FHTMOu
-	 7DZW97Rx6BvLfssBdRibCtoWWiCanBspDThfw5sB9j5fFL6Dx6FCOnrWsslJqfaQ8WxHe
-	 t9kKNX7p2pPbhTXdj1io1kGEO0MMZUtUupaRhVqYiNaf6JE3sj3i2AJW51eiB0JAjRfuK
-	 yEQpi87d8t5Z0eZ0ikhhH9j4VGgTDnaWdOoxrsyRAhR01OvlD2ILaUzFfg8vX8GCAQ86K
-	 M/roRcQ87/JHygrhJ1d2wT/8mauc51Syuo+ngAo6eWYq2tFwGp83v8WS6wukvW95Fjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491049;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=2ws4735qh4wR/HsDhw2lJB9bz2bPEpAWvlil4rhqeZ8=;
+	b=BzX0wOTk98kcuzrOMsCZNpFIEvaPzD4h4ejROXB3RG2ma/dll60iAx7l7HQpnGOD+dHv
+	 kubgTQf1gDLGBQDHIhyWAAQM9r/du1LCxY03bjqXI/igME6gpgc6qu1+XSwJ3LvwwscEL
+	 B2mar8IP3cjZJTFMZLd0TGWcTnv2OlwMKWXbRyxeei0iHpggC02XGS+bNDA6mTM8GSU2z
+	 M2EKHS+48Goe3Moi844xehWW211qPyjuwb3mdTtR0TLk8Mq3TPsiIViAJu1qPL9fMuJW4
+	 lQ2Z7xu/gc1hQDlBhlVDdxTOdXyisPCubuob77pHIbo+ea0v0rvW8U0oWHp68Sb/vDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJ0vlel+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bx+azzKj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i1ddJ30F;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3BA606A33C;
-	Tue, 20 Oct 2026 10:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3E160A2635
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:10:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F3E160A2635
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJ0vlel+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39D71F000C6;
-	Tue, 20 Oct 2026 10:10:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792491045;
-	bh=MMHFHJsHvrQ6vsAyrpqxqCfyIZhO9hxrgzTqYUNgKyM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YJ0vlel+0ZFenaF2Hs5rWNEGQjMJkDJ44Nx1JIrKo56KCi3vKcYnbcDKuPBKAIzmM
-	 8NBUWIHgtC9DUO4r4g9QegKQXQL1hh0UuFG2hcFlE60B9QU2Si1mJvy7Det0bqdnyx
-	 LMAnW/UshLwIVESQwSuNUVWj4G34muIkjl+T0HQisunWR1sCJQOC7fMy9UVgz6Dtng
-	 i289+FAQMOiYodKRf4YlIlA1+TA2RX0gm5HFrz7Puzad2xxI986j/MvV5rSCQO1IGS
-	 /nIZHjyCwCKNgjTSdqnmIQGFIvPKnKjFQfURJdOj4qgnMrQPZH9h2Kd9NXLHFwdx+Z
-	 p7n3bkdXSGZLg==
-Subject: Re: [PATCH net v5 4/5] net: ethernet: mtk_wed: setup WDMA_RING_TX(0)
- for non-DBDC MT7986
-From: netdev-bot+sashiko@kernel.org
-To: hujy652@gmail.com
-Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- sujuan.chen@mediatek.com, rex.lu@mediatek.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-Date: Tue, 20 Oct 2026 10:10:44 +0000
-Message-ID: <179249104422.3135.15395792602371896876@kernel.org>
-In-Reply-To: <20261016-wedfix-v5-4-8b02e78fd34f@gmail.com>
-References: <20261016-wedfix-v5-4-8b02e78fd34f@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bx+azzKj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i1ddJ30F
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8D4Xe4033201
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:10:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=2ws4735qh4wR/HsDhw2lJB9b
+	z2bPEpAWvlil4rhqeZ8=; b=Bx+azzKjdEpWAZ29MxriNvuN/bpRtf4SUZlWdF7M
+	sBmGqesvDT9x84K3FFggEf688tCYYfCBDIRh0dqL2iKUCw8wl1hFb8wkFcanZYsD
+	tfGpZsuT8NiwfjTxiQxp90UAMaoDU7LOurdfXV6Rkt3OYwRZz+TdSQh82i3iC1uO
+	YsxSiA5Jdp9Z8avezlbGbUFWiH3cbBIARD1ET8VAlaEdDjNBRCJ0iU/IHwyIKW45
+	V3dSddkwWvDO5ExUlG4qnjLwu64D7rKSKDrYbK3MR1ckJkTWj1pgT1mtcX1HOHDZ
+	50qpRgs5g25LIjdGIvIsIovUTAgowlMSfVnK1CggL2Kj5A==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5q9yam-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:10:48 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5337b591609so40541081cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:10:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792491047; x=1793095847; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ws4735qh4wR/HsDhw2lJB9bz2bPEpAWvlil4rhqeZ8=;
+        b=i1ddJ30FBlnpMa3/PtZMQZtAr8t7fGAkTMTkn94NJsNkI48eTCXEiCj5yNO5e9aVAA
+         I3/kmwbWuQjSAdsAKcwhPqbF819F8KA6usedje1bRZ+2YgmnAkUb0cj0ro3N3RjH9Jh1
+         fpHusyqxaN5ftI6e+9axPFHbkWZH66+mTSyGw5N4cstg5HxP12QcXfLn/ND+BixoJTzy
+         Qs84pNF0pYtoMuLA4DtIb7/tGSA/b9w+5LpFri8PE5t/h2OzkMzpnkk+DUoYYZzl6cbN
+         ezDFTMIXeEgDIaEKnMwR/GIUCoHtfkIVdYtGpPZMyRIa7blII7jE+Dr8CM+3vFCiabPf
+         n0xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792491047; x=1793095847;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ws4735qh4wR/HsDhw2lJB9bz2bPEpAWvlil4rhqeZ8=;
+        b=ZhOyJ/elJLtXzjUl0z6kY0yilQKpCBC02hIcFrbopoeNoGl/WB82wqTufpDBK+ayGr
+         BLEX3SQvyU47bXPl3NOTVwHXcQDxBglnvo9RQAXIHIA69PLkdprwdWvLl+zt44ksl4jR
+         wVbrkemx0TvzxQHVb1I6Hpr/9WdksTfJjKlZuIzjKYeRpvtGdahKxqB71Gm9uwk1XdXO
+         2J2aTnK/3UHiQh3DgiZrmE/72TRdILhq05Xtq4AFyhiA+B+qfpLHrQyqwON/19Mw7kjZ
+         XobuiKzDmtgah1rE92B/fg+9M1iOnG84jcABAFrj/hqzcr/JPP7EwV33LSSYrObG4NYP
+         7uyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7sg68fNWevTAhY5KM0rkvFNgaHgpibJhhxsjC6a+lAphSUB1YpChpzYzCFKFjfY33Y1G4TUsoJKkFoyE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaEAAe/ahK0NTiisKy0A3orpixiM0QYFYP5aPyc69uJbj288R8
+	yGhgFC0Nh0gDV4TwwSiV8bx7ehh6Ox2D5zdvRcJvvECwToLkkmMI57IspfJawLJcGVVU6meWXDD
+	//9yOqIVxvHQEqxfuMp+qPdyjHM6Euo/wH9xVvDM5F6zk30rGVLh97zdLoktDrIb28GBsoN1pno
+	c=
+X-Gm-Gg: AYBFou3E6Y22NyhzrNu6vfw0ZeyMaqIRpbioAtBVQdlwl3XKtXvW/gkRwGQtkULTvqk
+	8YmwmBKNlfn2PSQ6KZLWaC459KQSNlWen3f5rq3KzxSoov21ChsJdMaBkqh7so1lGxwO4C01YEw
+	ySMFaJtWlYCxnYNs7jeU6bKSphB6wlNmCXw0SQ+XdGLk5v5jF4P1QXa4VWLKHRdFXQk0o2KQWEb
+	I1BN/d5NhS6tK+vpSvaoPGUrlWshgoraig7o85Wofn4Y7/Sgb5tRr359aflJPzlOBf31N3dSb8i
+	SZ/EgvHGNLUmMyywFrj93u2A1NbZlelxJKgHfgP6Y91pSiOWp5eBnwUiTjceyova4EkfaXCN8Lg
+	a/fDByuIJw6+JbU49v+INFsTZymz2/n/0CZvwq3i9f1EyDirvtJROBbXBRxR8ddx+79sSFcn/XZ
+	r+eU7fuSyDd/Pn
+X-Received: by 2002:a05:620a:bc4:b0:93e:c12c:fbcd with SMTP id af79cd13be357-93f29dce8f8mr1810485185a.73.1792491047346;
+        Tue, 20 Oct 2026 03:10:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:bc4:b0:93e:c12c:fbcd with SMTP id af79cd13be357-93f29dce8f8mr1810478785a.73.1792491046763;
+        Tue, 20 Oct 2026 03:10:46 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fceafsm2479209e87.4.2026.10.20.03.10.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:10:43 -0700 (PDT)
+Date: Tue, 20 Oct 2026 13:10:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Joonwoo Park <joonwoop@codeaurora.org>,
+        Imran Khan <kimran@codeaurora.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Ilia Lin <ilialin@codeaurora.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        Christopher Obbard <chris.obbard@oss.qualcomm.com>
+Subject: Re: [PATCH 05/10] clk: qcom: cpu-8996: move off the ACD leg while
+ the PLL speeds up
+Message-ID: <iqwdlpjvsilp2zwvp4kljoc4txwaw6h6ndz42hgvakfcgc4lqo@ajr7xrkiwmle>
+References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+ <20261019-msm8998-fix-clocks-v1-5-370949e4d8a0@oss.qualcomm.com>
+ <c3ac769f-59be-408a-81c8-9d6a2693d3f2@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,124 +143,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c3ac769f-59be-408a-81c8-9d6a2693d3f2@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 8LSRVsAi_Yq7G643rg_appClNIwEDu5U
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX9qmocfgV8/SN
+ C4GTe/joZNDoPThtO/+RzH+HlU39rQ9WAlT89pGewQu99ffw9O3kke+hTCx2URoW0YlVyQUFVk2
+ XiU/s8XKGmqL7OEpNTMy8KFEqCrvohu/dH98VOk1Spn7Nrhdb/5BG6kLX0cekESMi3nm9VQWk8N
+ RaJCP/WnJPaftqsmVpdPb7LisAPVZdO4Wyjm3PR4Ftydv63RX7lX4pFRvjBOpViecjoJ9a+Pfjp
+ UBnYhUrbROuPhLNbEM937gS0eBuzcaxSbllhy1vylmXpW4R+R913G8sq7kx5E/AAqtdsCWPzKgh
+ NZ7dxiIOKn7o5nglmU0Ijk6s03rxKpUJcx2ym3XcY0Uxw9PlZcsyts/aEUMKP5TeMAu1Chaahic
+ SdP6j9AvTYvuRIri+DL8B6IMufW81+oK/fJejDIud3s7NJSFSdVm3ujDDYIyFTWrtCUh+Fg9Yzf
+ jzh5Octt1W67/1mNRfA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX3gY93GCEJMmo
+ lPZfayYfRag/kjJ11Nl+fZCogLnCD2X9xuVLhiu8H6hw0LXI3arr+5RrenLaMr1OOwEMr4NUJ8D
+ NeeSoAz5fWkECPO801xIGfo3TZQRKDI=
+X-Authority-Analysis: v=2.4 cv=LpcHWXdc c=1 sm=1 tr=0 ts=6ad73e28 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=et-XlBO-5GXiIU7lIcEA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: 8LSRVsAi_Yq7G643rg_appClNIwEDu5U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200040
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Tue, Oct 20, 2026 at 08:52:49AM +0200, Konrad Dybcio wrote:
+> On 10/19/26 3:41 PM, Dmitry Baryshkov wrote:
+> > The MSM8996 CPU clusters sometimes run at half the rate they report
+> > after going up between two frequencies above 600 MHz, and stay there
+> > until the cluster drops below 600 MHz. The PLL, the muxes and the rest
+> > of the cluster clock registers are all as expected: it is the ACD that
+> > latches at half the rate when the PLL is reprogrammed to a higher rate
+> > underneath it, and selecting the ACD leg again clears it. The driver
+> > only moves off the ACD leg when going below 600 MHz.
+> > 
+> > Like the vendor kernel, run from PLL/2 while the PLL goes up and return
+> > to the ACD leg afterwards. Point the SMUX at PLL/2 at probe time instead
+> > of XO, so that the cluster does not drop to 19.2 MHz on the first such
+> > switch.
+> > 
+> > Fixes: 03e342dc45c9 ("clk: qcom: Add CPU clock driver for msm8996")
+> > Reported-by: Christopher Obbard <christopher.obbard@linaro.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> 
+> LLM has the following comments:
+> 
+> For old rates above 1190.4 MHz the SMUX output is old/2, which
+> exceeds MAX_PLL_MAIN_FREQ (595.2 MHz). Downstream does not do this.
+> clock-cpu-8996.c acd_safe_freq() returns freq/2 only up to
+> 1190.4 MHz and MAX_PLL_MAIN_FREQ above that, and pre_set_rate()
+> retunes the PLL to that value before the increase. The comment there
+> says the main output is what keeps voltage constraints satisfied,
+> which implies a 595.2 MHz limit on that output.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+The 595.2 MHz isn't a hardware limit. It's the rate at which it is
+possible to start using non-divided PLL output.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> 
+> Up to 1190.4 MHz the two approaches are equivalent: both move the
+> cluster off the ACD leg and run it from the non-ACD path at half the
+> old rate. Above that they diverge.
+> 
+> Either clamp the SMUX choice to match acd_safe_freq(), or explain why
+> old/2 is safe above 1190.4 MHz. The second needs the hardware limit
+> for the non-ACD output, which is not in the patch or the cover letter.
 
-- [Medium] In mtk_wed_start()
-  (drivers/net/ethernet/mediatek/mtk_wed.c:2362-2363), this commit adds…
-- [Medium] mtk_wed_free_rx_rings()
-  (drivers/net/ethernet/mediatek/mtk_wed.c:954-956) decides whether to…
-- [Low] The new comment in mtk_wed_start() describes the motivating case,
-  a non-DBDC MT7986 that allocates only rx_ring[1]/tx_wdma[1].
+Downstream isn't keeping the main output below 1190.4 either. After
+pre_set_rate(), cpu_clk_8996_set_rate() asks the HF mux for the target
+rate, which makes mux_set_rate() set the PLL rate and then switch the mux.
+So the main output follows the PLL up to new/2, e.g. 1075.2 MHz on the
+way to 2150.4 MHz, on every increase above 1190.4 MHz.
 
---
-
-net: ethernet: mtk_wed: setup WDMA_RING_TX(0) for non-DBDC MT7986
-
-This patch makes mtk_wed_start() set up WDMA_RING_TX(0) on WED v2 devices
-when rx_ring[0] was not allocated. This is the case on a non-DBDC MT7986,
-which only sets up ring index 1. If tx_wdma[0] is already allocated, it is
-reset instead of being allocated again.
-
-> diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
-> index b8264435acbe5..3a7c2bb33691f 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_wed.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_wed.c
-> @@ -2355,6 +2355,13 @@ mtk_wed_start(struct mtk_wed_device *dev, u32 irq_mask)
->  		if (!dev->rx_wdma[i].desc)
->  			mtk_wed_wdma_rx_ring_setup(dev, i, 16, false);
->  
-> +	/*
-> +	 * non-DBDC MT7986 allocates only rx_ring[1] and tx_wdma[1] during setup
-> +	 * but tx_wdma[0] is also needed for WED to function.
-> +	 */
-> +	if (mtk_wed_is_v2(dev->hw) && !dev->rx_ring[0].desc)
-
-[Severity: Low]
-This isn't a bug, but the comment covers less than the condition does. The
-guard matches any WED v2 device where rx_ring[0] was not set up, and MT7981
-also has .version = 2. It is not limited to a non-DBDC MT7986.
-
-Could the comment describe the condition as it is implemented, the way the
-commit message does?
-
-> +		mtk_wed_wdma_tx_ring_setup(dev, 0, MTK_WED_WDMA_RING_SIZE, !!dev->tx_wdma[0].desc);
-
-[Severity: Medium]
-Should the return value of mtk_wed_wdma_tx_ring_setup() be checked here?
-
-On the first start, tx_wdma[0].desc is NULL, so reset is false and the
-helper allocates the ring. If the allocation fails, the helper returns
-before it programs any WDMA or WED ring register:
-
-mtk_wed_wdma_tx_ring_setup() {
-	...
-	if (!reset && mtk_wed_ring_alloc(dev, wdma, MTK_WED_WDMA_RING_SIZE,
-					 dev->hw->soc->wdma_desc_size, true))
-		return -ENOMEM;
-	...
-}
-
-mtk_wed_start() keeps going anyway. It calls mtk_wed_hw_init() and then
-mtk_wed_dma_enable(), which does:
-
-	wed_set(dev, MTK_WED_WDMA_GLO_CFG,
-		MTK_WED_WDMA_GLO_CFG_TX_DRV_EN |
-		MTK_WED_WDMA_GLO_CFG_TX_DDONE_CHK);
-
-It then sets dev->running = true. At that point WDMA TX is enabled but the
-ring 0 base was never programmed.
-
-The other caller of this helper, mtk_wed_rx_ring_setup(), does pass the
-failure back:
-
-	if (mtk_wed_wdma_tx_ring_setup(dev, idx, MTK_WED_WDMA_RING_SIZE,
-				       reset))
-		return -ENOMEM;
-
-A later patch in this series, "net: ethernet: mtk_wed: bail out when
-failed to set up rings in wed_start", wraps this call with a dev_err()
-and a return. With that patch applied, the end of the series is fine. Can
-the check be added in this patch so it works on its own?
-
-[ ... ]
-
-[Severity: Medium]
-This code is not part of this hunk. It comes from the earlier patch in
-this series, "net: ethernet: mtk_wed: free up rings during detach". It is
-mentioned here because mtk_wed_free_rx_rings() is also what frees the
-tx_wdma[0] ring added above. Does the flag check test the right array?
-
-mtk_wed_free_rx_rings() {
-	...
-	for (i = 0; i < ARRAY_SIZE(dev->rx_ring); i++)
-		if ((dev->tx_ring[i].flags & MTK_WED_RING_CONFIGURED))
-			mtk_wed_free_ring(dev, &dev->rx_ring[i]);
-	...
-}
-
-mtk_wed_rx_ring_setup() sets MTK_WED_RING_CONFIGURED on
-dev->rx_ring[idx].flags, not on tx_ring[idx]. So if rx_ring[i] is
-configured and tx_ring[i] is not, the coherent descriptor buffer for
-rx_ring[i] is not freed. After that, __mtk_wed_detach() calls
-memset(dev, 0, sizeof(*dev)) and the pointer is lost.
-
-One setup where this appears to happen is MT7988 with an MT7992 using
-hif2. mt7996_dma_init() registers the band1 rx queue on the primary WED
-as MT_WED_Q_RX(1). mt7996_register_phy() sends band1 tx to wed_hif2. The
-primary WED therefore has rx_ring[1] configured but not tx_ring[1].
-
-Does primary rx_ring[1] then leak on every detach, for example on a
-module reload? Should this check dev->rx_ring[i].flags instead?
+The main difference is where the cluster waits before the PLL moves: downstream
+first lowers the PLL to 1190.4 MHz and parks the output at 595.2 MHz, while
+this patch parks it at old/2. Both are lower than the target rate. Following
+the downstream approach would mean reprogramming the PLL from inside the pmux
+notifier while CCF is changing the rate of the same tree, which feels incorrect
+to me. Also it wouldn't lower the peak.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-wedfix-v5-0-8b02e78fd34f%40gmail.com
+With best wishes
+Dmitry
