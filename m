@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792455102;
-	b=Q5xMVyYlVWUcoUwCYgiBok9wGaDt8WoYMKbcdMAdthI40s1MG7vmGY525KViLkPItV/g
-	 0zSJjeK8aG4rBnJzeizcq3xGTlL36WJ+kg9txIIQ6yIAj1JRqFyGrWx3x+Sw28NFkKnlp
-	 cK+HNOG/ungMQnIRjy2IXcQ3HL4xdoqhisqaFTmGoUTqFIjyuLWHJZSyYOr01N6/sbcl4
-	 kTHPB5tukMR/lCr9feqpaMrMh4L/qMfpAOvCnrilEu4jBL6D9YnKtEFBr+vO22N6Gp4Ng
-	 HQXlWEVzUg+Ln44uMNPY7bR0ENIfPQJFLZ+qtJEGGR+rBcfY/FP7xtNXs4aYaXza54A==
+	t=1792455103;
+	b=DIt5q46R9PZ35+POCR7tV4+wTE1mRHMwX48ckwAcc9AzebDSjpN7jYQV6nTPyOgGHxua
+	 78nXx58kFE0jsiu5Q1/VVZKr78V/J/ekf5Ypq9C/tMOMMTh3IORm++AUVKICCdx1+68cJ
+	 vZ5fDxMf0p7B13rlxFvzXlYksiZX6Fn1j6wHZewez+F0F27n9hWnZaItHEFPnoHlqkCrM
+	 hoB5dr9H5thpAZLi1yAtcDmDGdlychHr0BfroQVkVpLkuBxt3s7TPEWRPygyhBUwK45RO
+	 tpznTn1i37pXrL0U5ozmzQ1ZW7oE4Hmn2zZtzpvHgeEOUyfdJN71QboLJkgxoPBnskQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455102;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455103;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=qva+Wuvhvi5xYBylvYmDKoiHnTRmRzjjr8+Z9U75ogY=;
-	b=W6gTh+mGCakyBUXyzg3hjJYxNF14scWjdDvN6FtzYOOTht5BUU7BlUSlT/uTuU269qlL
-	 WBMLH3YSxUj2QDbO+OSjtV1zmHn0LeeOLgtSlSAHT7UBJ90Bu8hP8CYxneRfWgUVNDB8J
-	 Llml21vIJ+taDAdhuRrLuenlh5jSRh57g8C3HfGsO3VBEiGcElG8C4vjIf8RSv0+/Wv8Y
-	 Yzou9itg2/VE8prtu/WEOWiXBKgpcAQ0kM+7NrovX7TiIBwFhiSiMG3FAnC85CmXVXEt+
-	 ynzl22GSiIngueU4KfB0XA4Yf+veAA/Czc5GYPQ+UJ7xAFs/iNbuuMZGnrZVEBrizZg==
+	bh=TX/AmFkks3H0g4CWvqpLNWfwUl8ryEPz0ZAPB2HjWpA=;
+	b=bh0AJhDhEyqbWdKfbLdCw75cg1du1cfBUNea7NjixCv9/D8T8LTwAFzGlJimT170tSx8
+	 r6ohbupYdRtuvEZeqZ2mvHbzIaQs+6Z66zJPrfH56hsdMqP7PFgKDVcgDFDL6xn31Bg5Y
+	 ahyqfoxulLkkR8loOBT0Jm4s71KN+0+MQrXmW1kT6bikQSRDfGgH4zG+QCKLWMWTgjm2f
+	 Fywl7oljh0faoufM0nw7juovFFs1fkHiLGjjjeFsAtNW5cnN65QmBunkmm/0fIeqWXvaG
+	 4dkfIfA5DDSJftuVztDkLioM7gSrJULVDKgEy1WHtKGkP5A2wTGEKPIHYuWLZHg21mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=snhsCe5W;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=grUgxhXZ;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DEF606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:11:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9DEF606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35562606A33E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:11:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35562606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=snhsCe5W
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-14394530ec6so1709706c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:11:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=grUgxhXZ
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35d0be18c71so214041eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:11:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792455101; x=1793059901; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792455102; x=1793059902; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qva+Wuvhvi5xYBylvYmDKoiHnTRmRzjjr8+Z9U75ogY=;
-        b=snhsCe5WoJHBjxyCaH0+C3cwsJX2JM5gtm6Jbbrm+1fNUGxLhZoqXyte1WQZsU+DJn
-         Eoq3IbfoZQLhAvhviiEFhQYdrdCGpuSyetkrSpr0XTAOfhnfSP4Rwv/ciVlf8unDBkLt
-         t2lfBLgLgAX3ztMnOJqTiaiJz+7aulxpE0cYHvDRE0vLOXNAq0aHBwG8k++kGnambvzX
-         opsNnLw+1z/SoLV3T0cWy7f6bjEFr4R3bLj3djCxqjdA8J7XuulYdXQzxSGyysBJBFKW
-         HRgDREcNBPAJ+kceMQ8PblFt/Dhq4nVED7FySLdVTLnS1G8/EyDYodMS35GbeGLmkw8D
-         bQHQ==
+        bh=TX/AmFkks3H0g4CWvqpLNWfwUl8ryEPz0ZAPB2HjWpA=;
+        b=grUgxhXZ6+29LGrcUVVVsZE8b1rw2f59+9Mfc/ZULw1SzNi/RUcB0Xdr9donMLMglg
+         MFUpfyd8QxxoRN60c2isq+X07nq0LZaMnzs93I6J4z9JgZ41e7lJ9IeAKC/CEl3g9vB7
+         dhvGEJcN1OfN2FRgq2C1B/JkEYubFJ0gUmS2YwVUW+VjCJItm4fpl0sWo3lKILBttlBY
+         Pew8XlHbIHzHMSFIsVKOmKFfKKt59GhU1EBCkAUA2FxRk3rzbS/v6zgOjEaBvBuUWNZI
+         xIea4hjYcTPFF0fGzN8F3bqdolHf6tPKkf7c1Stkpj54NLHMu667HA45LsQ5xjKenmHZ
+         uokw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792455101; x=1793059901;
+        d=1e100.net; s=20260707; t=1792455102; x=1793059902;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qva+Wuvhvi5xYBylvYmDKoiHnTRmRzjjr8+Z9U75ogY=;
-        b=anpYfki41c/H51MsfL7uWUyBHRYGvSivbb+0VLM9NODgn0t84b6l0UFC0skvjPUWxG
-         t5TT4GkagBKUTNoDjKcbBTqUMOO5GJ5PLjfdiNE48eJYVr8iJdEN4NLNbR8kjR4ERBml
-         9leh8Wl4bQmYfbhlY53fq97+v7sLiXF7Piw5/XgJoMvwigtHyVbQqj4SFx3Bf8WE2JJT
-         sanxOGhwBDzq5idvxmzGNmViolaG9YC2jypIk7XvPAesiV5rb0qH7qrP+GOLTpy2JUoA
-         jf2bCt+KprEl+GgF1oZHNMNYQ7tqgqZuNc/fhq94Xtqe1uxBxVTPnmWcOE1AH8frXgqs
-         AtfA==
-X-Gm-Message-State: AFq9FYL5Ps+DOGUdT4gbOGVCcJ/vDf8/qfrNZFY7vXTdX7xUkmiPOSZe
-	z/HQ0i0arq0diWy6CDL4QZvG4PlifIWpDNe+Xv9EwPGlkIDmKTesmWjFpRgEdA==
-X-Gm-Gg: AYBFou3fGGKPiHzzj8qPGZiz1S3sL0oVMGwBC1XjcNk4vZE8eGJ6R9DGRZXIQJs8zxi
-	ArL5am0aHlbzh5XGmSprP7OpAGFgJ98Xq8qSUaDF33UnH/smN09tghtBJ6MH7eTilfZSmZale86
-	VnrvCs0yMHm9V8Kk8o+Jx/AJ1TCZT5F7ujxq+yfFHc1c2pavPX3yVPOspqt1DDr74cH3v2tAtdR
-	AaohdwBsRXKkZfDG7xj3yDo9DUQJUQwYcNxhKQFphkj8D5/VGjN3I9Zr6ns4x5FfTdRpuIKjSfq
-	Vm/09tUYFHaavTFBF/lGLNpC6vguOptLq+DaVU/vRMwcB363lZ0N0e9+Uy+d2NhRjtTkTkLPJnh
-	R+GVuERQdkcHriEYKiuwt+X2wlt5HX4xqQhqwY2Hki4Ps39zJwwh2W2nLGeZNAXkICllvum5o3+
-	j1Kh/490RVDrsGQ5plZ2ER+mjcbed4YsnSpNHytiFfft6F0L7NqB6UKRl7hLpICSXXpFn8NNbTM
-	0PUB9TnRu5h0Iub8QuBeJtlLfXbZh8JO2XORwKRKdLKfZCCGi4vBwcwUnqs0UOzkA==
-X-Received: by 2002:a05:701b:4644:b0:165:55e2:2d69 with SMTP id a92af1059eb24-18514edde6cmr11736030c88.46.1792455100675;
-        Mon, 19 Oct 2026 17:11:40 -0700 (PDT)
+        bh=TX/AmFkks3H0g4CWvqpLNWfwUl8ryEPz0ZAPB2HjWpA=;
+        b=pif10sLl5eP+lPhaMrTB3hNtGG3F9+zLG0o96zO1joFv+pqnbE9yOLLywolYES2nbN
+         4EEs6/SLClZ0fpKRcapbydXDoqFHwhSN/8TyICNJj8+bQqC1QIO1EZYGjOC9ciT2cAIK
+         nQpoBbEZfFWoPDkbiUYReK5BgZCjqsIikjUII8KtT0NJyA1NU4S0bZRDD2FS59U4zrFn
+         OgaUfcbvtBYCJz4S2od5My0DBnaYaVFZ0MTP7/4TGCWTpawlCdqYnysSeKi13q/VgTR8
+         bEzTDaGvpcXBwjJ+j6E5NaMUmo/BBmhYSrirpVLIiWQTd7SVAAZ7n/VlQwKEKubMYChG
+         HCRg==
+X-Gm-Message-State: AFq9FYLtgY/5zz5TyXwB2bg6uvAbTVVAl8IkdnsFzCdT/DXNycFbcb5G
+	N6F+McCV30b2LlIrb6Wsslxqrf6xFPkDqV8lkohQjfjdff1ty/Si1wp4a0/VAg==
+X-Gm-Gg: AYBFou2qLf82vo+SLCcEMmPt6V0I2hYHMGnYacmsDnip6uF2hXvAehFOZSeK3NaOeuK
+	3WXWQl3keiAVjXFG0Sc5a4NzhC/BoTWOpY03krCtA6dNz1was97BYnkcMPaDW9R31NWeYKZ8rcv
+	0IsUSddLppN0JaGgYQ7Itwqr4hKfAWbOI8qdwyk0dPjBgAdtBYSPF1UAWmdf5nSQRZjkp59Zaj0
+	IAd/bOFwc4ygSfmdzuHepYOgCl8U2F5bMcccY6oTw0mylJKT6iM9qm2AGZlDYVzHUD/1jOlqOQm
+	pKKqEvtZgVNymrqLo1wp+fOggJe6zhTIADqvhOeSeTNJ+qJcu/brLVYg/IY+Bd+M9sELiJnXfPu
+	Z/FIT2KE8AeYN8z4VHLHW6AFIdNam2tgzDrdAAF3cUJZ1kYRyzjXNLXBEUl5gP3mEsKvaBeAG5a
+	9dXx6yJmpH3RFIOJ4UWWaANDRfszl4V0xipXP91K+CF79/OJKOVXRUNLhLLdXSck4D20dMa1B9c
+	flZtDCEiOB1BS21PlSTPOUoKCgiXa42loWHJi5FtLCaESWldXNHz5Q=
+X-Received: by 2002:a05:7022:eb44:10b0:183:e184:86b with SMTP id a92af1059eb24-18dbe2af4cbmr810057c88.5.1792455102036;
+        Mon, 19 Oct 2026 17:11:42 -0700 (PDT)
 Received: from pop-os.tail4adac7.ts.net ([129.210.115.107])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm37258981c88.0.2026.10.19.17.11.39
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm37258981c88.0.2026.10.19.17.11.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 17:11:39 -0700 (PDT)
+        Mon, 19 Oct 2026 17:11:41 -0700 (PDT)
 From: Cong Wang <xiyou.wangcong@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Lutomirski <luto@amacapital.net>,
 	Kees Cook <kees@kernel.org>,
 	Will Drewry <wad@chromium.org>,
 	Christian Brauner <brauner@kernel.org>
-Subject: [RFC PATCH 7/9] selftests/seccomp: test fork result records
-Date: Mon, 19 Oct 2026 17:11:22 -0700
-Message-ID: <20261020001124.974063-8-xiyou.wangcong@gmail.com>
+Subject: [RFC PATCH 8/9] selftests/seccomp: test held fork results
+Date: Mon, 19 Oct 2026 17:11:23 -0700
+Message-ID: <20261020001124.974063-9-xiyou.wangcong@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261020001124.974063-1-xiyou.wangcong@gmail.com>
 References: <20261020001124.974063-1-xiyou.wangcong@gmail.com>
@@ -101,206 +101,29 @@ Content-Transfer-Encoding: 8bit
 
 From: Cong Wang <cwang@multikernel.io>
 
-Cover SECCOMP_USER_NOTIF_FLAG_RESULT:
-
- - a successful fork is reported with the entry's id, the child's pid
-   and pidfs inode number, the child can be opened as a pidfd by that
-   inode number, and its first notification arrives only after the
-   record, even when it was queued first;
- - forks rejected by kernel_clone(), copy_process() and clone3() are
-   reported with their error, and an unread record is freed with the
-   listener;
- - a new thread is flagged as one;
- - the flag is refused for a non-fork system call and without CONTINUE.
+Cover SECCOMP_USER_NOTIF_FLAG_HOLD: a held child does not run until the
+held notification is continued, the held notification refuses anything
+but a plain CONTINUE as well as ADDFD, a failed fork is held too and
+keeps the parent from returning, killing the parent turns the held
+notification into a one-way record and releases the child, and closing
+the listener releases the child too.
 
 Signed-off-by: Cong Wang <cwang@multikernel.io>
 ---
- tools/testing/selftests/seccomp/seccomp_bpf.c | 389 ++++++++++++++++++
- 1 file changed, 389 insertions(+)
+ tools/testing/selftests/seccomp/seccomp_bpf.c | 190 ++++++++++++++++++
+ 1 file changed, 190 insertions(+)
 
 diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index 0622bc2acad4..d5dd5bc22faa 100644
+index d5dd5bc22faa..80faa3a35cf4 100644
 --- a/tools/testing/selftests/seccomp/seccomp_bpf.c
 +++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -47,6 +47,7 @@
- #include <sys/ioctl.h>
- #include <linux/kcmp.h>
- #include <sys/resource.h>
-+#include <sys/stat.h>
- #include <sys/capability.h>
- #include <linux/perf_event.h>
- 
-@@ -4964,6 +4965,394 @@ TEST(user_notification_wait_killable_after_reply)
- 	EXPECT_EQ(0, WEXITSTATUS(status));
+@@ -5353,6 +5353,196 @@ TEST(user_notification_fork_result_einval)
+ 	close(listener);
  }
  
-+#ifndef FD_PIDFS_ROOT
-+#define FD_PIDFS_ROOT -10002
-+#endif
++static int hold_pipe[2];
 +
-+#ifndef FILEID_KERNFS
-+#define FILEID_KERNFS 0xfe
-+#endif
-+
-+static int user_notif_fork_filter(void)
-+{
-+	struct sock_filter filter[] = {
-+		BPF_STMT(BPF_LD|BPF_W|BPF_ABS,
-+			offsetof(struct seccomp_data, nr)),
-+		BPF_JUMP(BPF_JMP|BPF_JEQ|BPF_K, __NR_clone, 2, 0),
-+		BPF_JUMP(BPF_JMP|BPF_JEQ|BPF_K, __NR_clone3, 1, 0),
-+		BPF_JUMP(BPF_JMP|BPF_JEQ|BPF_K, __NR_getppid, 0, 1),
-+		BPF_STMT(BPF_RET|BPF_K, SECCOMP_RET_USER_NOTIF),
-+		BPF_STMT(BPF_RET|BPF_K, SECCOMP_RET_ALLOW),
-+	};
-+	struct sock_fprog prog = {
-+		.len = (unsigned short)ARRAY_SIZE(filter),
-+		.filter = filter,
-+	};
-+
-+	return seccomp(SECCOMP_SET_MODE_FILTER,
-+		       SECCOMP_FILTER_FLAG_NEW_LISTENER, &prog);
-+}
-+
-+static int send_fd(int sock, int fd)
-+{
-+	char cbuf[CMSG_SPACE(sizeof(int))] = {};
-+	char c = 0;
-+	struct iovec iov = { .iov_base = &c, .iov_len = 1 };
-+	struct msghdr msg = {
-+		.msg_iov = &iov,
-+		.msg_iovlen = 1,
-+		.msg_control = cbuf,
-+		.msg_controllen = sizeof(cbuf),
-+	};
-+	struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-+
-+	cmsg->cmsg_level = SOL_SOCKET;
-+	cmsg->cmsg_type = SCM_RIGHTS;
-+	cmsg->cmsg_len = CMSG_LEN(sizeof(int));
-+	memcpy(CMSG_DATA(cmsg), &fd, sizeof(int));
-+
-+	return sendmsg(sock, &msg, 0) == 1 ? 0 : -1;
-+}
-+
-+static int recv_fd(int sock)
-+{
-+	char cbuf[CMSG_SPACE(sizeof(int))] = {};
-+	char c;
-+	struct iovec iov = { .iov_base = &c, .iov_len = 1 };
-+	struct msghdr msg = {
-+		.msg_iov = &iov,
-+		.msg_iovlen = 1,
-+		.msg_control = cbuf,
-+		.msg_controllen = sizeof(cbuf),
-+	};
-+	struct cmsghdr *cmsg;
-+	int fd;
-+
-+	if (recvmsg(sock, &msg, 0) != 1)
-+		return -1;
-+	cmsg = CMSG_FIRSTHDR(&msg);
-+	if (!cmsg || cmsg->cmsg_type != SCM_RIGHTS)
-+		return -1;
-+	memcpy(&fd, CMSG_DATA(cmsg), sizeof(int));
-+	return fd;
-+}
-+
-+/*
-+ * Fork a child that notifies clone, clone3 and getppid to a listener,
-+ * hands the listener to us and then exits with what @fn returns.
-+ */
-+static pid_t fork_result_child(struct __test_metadata *_metadata,
-+			       int (*fn)(void), int *listener)
-+{
-+	int sk[2];
-+	pid_t pid;
-+
-+	ASSERT_EQ(socketpair(AF_UNIX, SOCK_SEQPACKET, 0, sk), 0);
-+
-+	pid = fork();
-+	ASSERT_GE(pid, 0);
-+
-+	if (pid == 0) {
-+		int fd;
-+
-+		close(sk[0]);
-+		if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0))
-+			_exit(100);
-+		fd = user_notif_fork_filter();
-+		if (fd < 0 || send_fd(sk[1], fd))
-+			_exit(101);
-+		close(fd);
-+		close(sk[1]);
-+		_exit(fn());
-+	}
-+
-+	close(sk[1]);
-+	*listener = recv_fd(sk[0]);
-+	close(sk[0]);
-+	ASSERT_GE(*listener, 0);
-+	return pid;
-+}
-+
-+static bool is_fork_nr(int nr)
-+{
-+	return nr == __NR_clone || nr == __NR_clone3;
-+}
-+
-+/* Receive a fork family notification and continue it, asking for a record. */
-+static void continue_with_result(struct __test_metadata *_metadata,
-+				 int listener, pid_t pid,
-+				 struct seccomp_notif *req)
-+{
-+	struct seccomp_notif_resp resp = {};
-+
-+	memset(req, 0, sizeof(*req));
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, req), 0);
-+	ASSERT_EQ(req->flags, 0);
-+	ASSERT_EQ(req->pid, pid);
-+	ASSERT_TRUE(is_fork_nr(req->data.nr));
-+
-+	resp.id = req->id;
-+	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE |
-+		     SECCOMP_USER_NOTIF_FLAG_RESULT;
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0) {
-+		if (errno == EINVAL)
-+			SKIP(return, "Kernel does not support SECCOMP_USER_NOTIF_FLAG_RESULT");
-+	}
-+}
-+
-+static void recv_result(struct __test_metadata *_metadata, int listener,
-+			const struct seccomp_notif *entry,
-+			struct seccomp_notif *rec)
-+{
-+	memset(rec, 0, sizeof(*rec));
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, rec), 0);
-+	ASSERT_NE(rec->flags & SECCOMP_NOTIF_FLAG_RESULT, 0);
-+	EXPECT_EQ(rec->id, entry->id);
-+	EXPECT_EQ(rec->pid, entry->pid);
-+	EXPECT_EQ(rec->result.nr, entry->data.nr);
-+	EXPECT_EQ(rec->result.arch, entry->data.arch);
-+	EXPECT_EQ(rec->result.__reserved, 0);
-+}
-+
-+static int pidfd_open_by_ino(__u64 ino, int flags)
-+{
-+	/* struct file_handle with room for a pidfs handle */
-+	struct {
-+		unsigned int handle_bytes;
-+		int handle_type;
-+		__u64 ino;
-+	} fh = {
-+		.handle_bytes = sizeof(ino),
-+		.handle_type = FILEID_KERNFS,
-+		.ino = ino,
-+	};
-+
-+	return open_by_handle_at(FD_PIDFS_ROOT, (struct file_handle *)&fh,
-+				 flags);
-+}
-+
-+static int fork_result_fork(void)
++static int fork_hold_fork(void)
 +{
 +	int status;
 +	pid_t pid;
@@ -309,217 +132,183 @@ index 0622bc2acad4..d5dd5bc22faa 100644
 +	if (pid < 0)
 +		return 1;
 +	if (pid == 0)
-+		_exit(syscall(__NR_getppid) != USER_NOTIF_MAGIC);
++		_exit(write(hold_pipe[1], "x", 1) != 1);
 +	if (waitpid(pid, &status, 0) != pid)
 +		return 2;
 +	return !WIFEXITED(status) || WEXITSTATUS(status);
 +}
 +
-+TEST(user_notification_fork_result)
-+{
-+	struct seccomp_notif entry, rec, req = {};
-+	struct seccomp_notif_resp resp = {};
-+	struct pollfd pollfd;
-+	int status, listener, pidfd;
-+	struct stat st;
-+	pid_t pid;
-+
-+	pid = fork_result_child(_metadata, fork_result_fork, &listener);
-+	continue_with_result(_metadata, listener, pid, &entry);
-+
-+	/* Let the new child queue its getppid() notification first. */
-+	usleep(100000);
-+
-+	recv_result(_metadata, listener, &entry, &rec);
-+	EXPECT_EQ(rec.flags, SECCOMP_NOTIF_FLAG_RESULT);
-+	ASSERT_GT(rec.result.val, 0);
-+	EXPECT_EQ(rec.result.child_pid, rec.result.val);
-+	ASSERT_NE(rec.result.child_ino, 0);
-+
-+	/* The record names the child race free, without privileges. */
-+	pidfd = pidfd_open_by_ino(rec.result.child_ino, 0);
-+	ASSERT_GE(pidfd, 0);
-+	ASSERT_EQ(fstat(pidfd, &st), 0);
-+	EXPECT_EQ(st.st_ino, rec.result.child_ino);
-+
-+	/* The child is only heard from after its record. */
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	EXPECT_EQ(req.flags, 0);
-+	EXPECT_EQ(req.pid, rec.result.child_pid);
-+	EXPECT_EQ(req.data.nr, __NR_getppid);
-+
-+	resp.id = req.id;
-+	resp.val = USER_NOTIF_MAGIC;
-+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+
-+	pollfd.fd = pidfd;
-+	pollfd.events = POLLIN;
-+	EXPECT_EQ(poll(&pollfd, 1, -1), 1);
-+	close(pidfd);
-+
-+	EXPECT_EQ(waitpid(pid, &status, 0), pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+	close(listener);
-+}
-+
-+static int fork_result_fail(void)
++static int fork_hold_fail(void)
 +{
 +	struct __clone_args args = {};
-+	int fd = -1;
++	bool failed = sys_clone3(&args, 1) == -1 && errno == EINVAL;
 +
-+	/* Rejected by kernel_clone() before copy_process(). */
-+	args.flags = CLONE_PIDFD | CLONE_PARENT_SETTID;
-+	args.pidfd = (unsigned long)&fd;
-+	args.parent_tid = (unsigned long)&fd;
-+	args.exit_signal = SIGCHLD;
-+	if (sys_clone3(&args, sizeof(args)) != -1 || errno != EINVAL)
-+		return 1;
-+
-+	/* Rejected by copy_process(). */
-+	memset(&args, 0, sizeof(args));
-+	args.flags = CLONE_SIGHAND;
-+	args.exit_signal = SIGCHLD;
-+	if (sys_clone3(&args, sizeof(args)) != -1 || errno != EINVAL)
-+		return 2;
-+
-+	/* Rejected by clone3() itself. */
-+	if (sys_clone3(&args, 1) != -1 || errno != EINVAL)
-+		return 3;
-+
-+	return 0;
++	return write(hold_pipe[1], "x", 1) != 1 || !failed;
 +}
 +
-+TEST(user_notification_fork_result_fail)
++/* Start a sandboxed fork, continue it with HOLD and wait until it is held. */
++static pid_t fork_hold_start(struct __test_metadata *_metadata,
++			     int (*fn)(void), int *listener,
++			     struct seccomp_notif *entry)
 +{
-+	struct seccomp_notif entry, rec;
++	struct seccomp_notif_resp resp = {};
 +	struct pollfd pollfd;
-+	int i, status, listener;
 +	pid_t pid;
 +
-+	pid = fork_result_child(_metadata, fork_result_fail, &listener);
++	ASSERT_EQ(pipe(hold_pipe), 0);
++	pid = fork_result_child(_metadata, fn, listener);
++	close(hold_pipe[1]);
 +
-+	for (i = 0; i < 3; i++) {
-+		continue_with_result(_metadata, listener, pid, &entry);
-+		EXPECT_EQ(entry.data.nr, __NR_clone3);
-+		if (i == 2)
-+			break;
-+		recv_result(_metadata, listener, &entry, &rec);
-+		EXPECT_EQ(rec.flags, SECCOMP_NOTIF_FLAG_RESULT);
-+		EXPECT_EQ(rec.result.val, -EINVAL);
-+		EXPECT_EQ(rec.result.child_pid, 0);
-+		EXPECT_EQ(rec.result.child_ino, 0);
++	memset(entry, 0, sizeof(*entry));
++	ASSERT_EQ(ioctl(*listener, SECCOMP_IOCTL_NOTIF_RECV, entry), 0);
++	ASSERT_TRUE(is_fork_nr(entry->data.nr));
++
++	resp.id = entry->id;
++	resp.flags = SECCOMP_USER_NOTIF_FLAG_HOLD;
++	EXPECT_EQ(ioctl(*listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), -1);
++	EXPECT_EQ(errno, EINVAL);
++
++	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE |
++		     SECCOMP_USER_NOTIF_FLAG_RESULT |
++		     SECCOMP_USER_NOTIF_FLAG_HOLD;
++	ASSERT_EQ(ioctl(*listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0) {
++		if (errno == EINVAL)
++			SKIP(return pid, "Kernel does not support SECCOMP_USER_NOTIF_FLAG_HOLD");
 +	}
 +
-+	EXPECT_EQ(waitpid(pid, &status, 0), pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	/* The last record outlives its task, and closing frees it unread. */
-+	pollfd.fd = listener;
++	pollfd.fd = *listener;
 +	pollfd.events = POLLIN;
-+	EXPECT_EQ(poll(&pollfd, 1, 0), 1);
-+	EXPECT_NE(pollfd.revents & POLLIN, 0);
-+	close(listener);
++	EXPECT_EQ(poll(&pollfd, 1, -1), 1);
++	return pid;
 +}
 +
-+static void *fork_result_noop(void *arg)
++/* Has the held task run past the hold? */
++static bool hold_released(int timeout_ms)
 +{
-+	return arg;
++	struct pollfd pollfd = { .fd = hold_pipe[0], .events = POLLIN };
++	char c;
++
++	return poll(&pollfd, 1, timeout_ms) == 1 &&
++	       read(hold_pipe[0], &c, 1) == 1 && c == 'x';
 +}
 +
-+static int fork_result_thread(void)
++TEST(user_notification_fork_hold)
 +{
-+	pthread_t thread;
-+
-+	if (pthread_create(&thread, NULL, fork_result_noop, NULL))
-+		return 1;
-+	return pthread_join(thread, NULL) != 0;
-+}
-+
-+TEST(user_notification_fork_result_thread)
-+{
++	struct seccomp_notif_addfd addfd = {};
++	struct seccomp_notif_resp resp = {};
 +	struct seccomp_notif entry, rec;
 +	int status, listener;
 +	pid_t pid;
 +
-+	pid = fork_result_child(_metadata, fork_result_thread, &listener);
-+	continue_with_result(_metadata, listener, pid, &entry);
++	pid = fork_hold_start(_metadata, fork_hold_fork, &listener, &entry);
 +
 +	recv_result(_metadata, listener, &entry, &rec);
-+	EXPECT_EQ(rec.flags,
-+		  SECCOMP_NOTIF_FLAG_RESULT | SECCOMP_NOTIF_FLAG_THREAD);
++	EXPECT_EQ(rec.flags, SECCOMP_NOTIF_FLAG_RESULT | SECCOMP_NOTIF_FLAG_HELD);
 +	ASSERT_GT(rec.result.val, 0);
 +	EXPECT_EQ(rec.result.child_pid, rec.result.val);
 +	EXPECT_NE(rec.result.child_ino, 0);
 +
-+	EXPECT_EQ(waitpid(pid, &status, 0), pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+	close(listener);
-+}
++	EXPECT_EQ(hold_released(200), false);
++	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ID_VALID, &rec.id), 0);
 +
-+static int fork_result_einval(void)
-+{
-+	if (syscall(__NR_getppid) != USER_NOTIF_MAGIC)
-+		return 1;
-+	return fork_result_fork();
-+}
-+
-+TEST(user_notification_fork_result_einval)
-+{
-+	struct seccomp_notif_resp resp = {};
-+	struct seccomp_notif req = {};
-+	struct pollfd pollfd;
-+	int status, listener;
-+	pid_t pid;
-+
-+	pid = fork_result_child(_metadata, fork_result_einval, &listener);
-+
-+	/* Not a fork. */
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	EXPECT_EQ(req.data.nr, __NR_getppid);
-+	resp.id = req.id;
++	/* A held fork can only be continued. */
++	resp.id = rec.id;
++	resp.error = -EPERM;
++	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), -1);
++	EXPECT_EQ(errno, EINVAL);
++	resp.error = 0;
 +	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE |
 +		     SECCOMP_USER_NOTIF_FLAG_RESULT;
 +	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), -1);
 +	EXPECT_EQ(errno, EINVAL);
-+	resp.flags = 0;
-+	resp.val = USER_NOTIF_MAGIC;
-+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
 +
-+	/* A fork, but RESULT needs CONTINUE. */
-+	memset(&req, 0, sizeof(req));
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	EXPECT_TRUE(is_fork_nr(req.data.nr));
-+	resp.id = req.id;
-+	resp.val = 0;
-+	resp.flags = SECCOMP_USER_NOTIF_FLAG_RESULT;
-+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), -1);
++	addfd.id = rec.id;
++	addfd.srcfd = listener;
++	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), -1);
 +	EXPECT_EQ(errno, EINVAL);
++
++	EXPECT_EQ(hold_released(0), false);
++
 +	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
 +	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+
-+	/* The grandchild's getppid(). */
-+	memset(&req, 0, sizeof(req));
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	EXPECT_EQ(req.flags, 0);
-+	EXPECT_EQ(req.data.nr, __NR_getppid);
-+	resp.id = req.id;
-+	resp.flags = 0;
-+	resp.val = USER_NOTIF_MAGIC;
-+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
++	EXPECT_EQ(hold_released(-1), true);
 +
 +	EXPECT_EQ(waitpid(pid, &status, 0), pid);
 +	EXPECT_EQ(true, WIFEXITED(status));
 +	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	/* No record without RESULT. */
-+	pollfd.fd = listener;
-+	pollfd.events = POLLIN;
-+	EXPECT_EQ(poll(&pollfd, 1, 0), 1);
-+	EXPECT_EQ(pollfd.revents & POLLIN, 0);
++	close(hold_pipe[0]);
 +	close(listener);
++}
++
++/* A held result need not be a new task: the parent does not return yet. */
++TEST(user_notification_fork_hold_fail)
++{
++	struct seccomp_notif_resp resp = {};
++	struct seccomp_notif entry, rec;
++	int status, listener;
++	pid_t pid;
++
++	pid = fork_hold_start(_metadata, fork_hold_fail, &listener, &entry);
++
++	recv_result(_metadata, listener, &entry, &rec);
++	EXPECT_EQ(rec.flags, SECCOMP_NOTIF_FLAG_RESULT | SECCOMP_NOTIF_FLAG_HELD);
++	EXPECT_EQ(rec.result.val, -EINVAL);
++	EXPECT_EQ(rec.result.child_pid, 0);
++	EXPECT_EQ(rec.result.child_ino, 0);
++
++	EXPECT_EQ(hold_released(200), false);
++	resp.id = rec.id;
++	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
++	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
++	EXPECT_EQ(hold_released(-1), true);
++
++	EXPECT_EQ(waitpid(pid, &status, 0), pid);
++	EXPECT_EQ(true, WIFEXITED(status));
++	EXPECT_EQ(0, WEXITSTATUS(status));
++	close(hold_pipe[0]);
++	close(listener);
++}
++
++TEST(user_notification_fork_hold_killed)
++{
++	struct seccomp_notif entry, rec;
++	int status, listener;
++	pid_t pid;
++
++	pid = fork_hold_start(_metadata, fork_hold_fork, &listener, &entry);
++
++	/* Kill the parent before the held fork was received. */
++	EXPECT_EQ(kill(pid, SIGKILL), 0);
++	EXPECT_EQ(waitpid(pid, &status, 0), pid);
++	EXPECT_EQ(true, WIFSIGNALED(status));
++	EXPECT_EQ(SIGKILL, WTERMSIG(status));
++
++	/* The child is still reported, no longer held, and runs. */
++	recv_result(_metadata, listener, &entry, &rec);
++	EXPECT_EQ(rec.flags, SECCOMP_NOTIF_FLAG_RESULT);
++	EXPECT_GT(rec.result.val, 0);
++	EXPECT_NE(rec.result.child_ino, 0);
++	EXPECT_EQ(hold_released(-1), true);
++	close(hold_pipe[0]);
++	close(listener);
++}
++
++TEST(user_notification_fork_hold_closed)
++{
++	struct seccomp_notif entry;
++	int status, listener;
++	pid_t pid;
++
++	pid = fork_hold_start(_metadata, fork_hold_fork, &listener, &entry);
++
++	/* Losing the listener releases a held fork. */
++	close(listener);
++	EXPECT_EQ(hold_released(-1), true);
++
++	EXPECT_EQ(waitpid(pid, &status, 0), pid);
++	EXPECT_EQ(true, WIFEXITED(status));
++	EXPECT_EQ(0, WEXITSTATUS(status));
++	close(hold_pipe[0]);
 +}
 +
  struct tsync_vs_thread_leader_args {
