@@ -1,87 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459396;
-	b=vDh57G1MDqLjmzg4XsDl9Gj5fYobEPFH85RLQjakNVPAvw59l1EKM67nNcBOecmJlUUn
-	 7gRcN1xY7hu5PHIs6IcHgI/jf9cqY8YwxxYvS/XEWulR/u/dTlAMdIWm+mzp3py/89ovR
-	 EUn7kU41Dd79kMxGVVEnis1ylsYINAcKHPBWezW1imYkNertcRSVqdsD5/ur0f5DbUw3j
-	 3KB+Q553yzaNDCBZUKiPiLIoM4GjwPYUtsFco38pDDFoeUW16SAUo3e+uopZ0DoGIKZ6K
-	 YAv29e3xY20pfwutmLRbT2LPh6bKhb6JJ5vDkPBxogLQnMyyhFPKnSqZaEsTc81h9wA==
+	t=1792459459;
+	b=ryw/cG8iqdKK+C73b9BD+z92sVyFdUDieSL2X8gThFmuunJdhaZJglHNzJ/okIqnuo4w
+	 mTPQlZIcwRD2BABSgCO5Ic+vlzt8OcjUBRYRAE3ZxgCeOvqSTothIIupKVe5a1agtyTmN
+	 hMSCu3IyagN8IZXBfVKBtfSUIToa/3zv3chXm4RwoIpgz+LZbW+nWKl39vlvRCz5GGklf
+	 +wp9hPnEVVtJLq49niB1OlprjmjDWtjtKksoaTbKDcBgkhHfJ2dKFiMVdvPX8j7s+gBEZ
+	 Wm8XePX+gAkw+6H/8NvV2qhzFe5GRfpOLxaJh1VzSXsQBX34ESS5JxkU0Ti3nCLD8QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459396;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459459;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=df+72LAtxdjU5yqYctiMIQug27OaJJKNFKp3UtgKQf4=;
-	b=F1YSqf3c7IO9w9n6JmNQ8RfRVuOHHt1OuULNZhKDikyj+25y8kiJoH+aggzC1+P9H/5y
-	 oT78c0tZaMimq5OmmWjNxYmGztF+v8zttMtNs8YYd5Du03oMdo6HRI3NORCD064Yafgm2
-	 WtI9chfubJRvH5dT5IWKi4p5jeE98orsi2qV/lXD6n2KtYBEXgWQ2NKqbaAvSneI4mCvR
-	 0KRBPUC+OuI/ZYj4cfjIWzjux7maeaaQ13K70aA4e3YA0ffISm78gpCvN8om9krIwMtY0
-	 Q08pXFHDf2YwE1ConF2QodarjYk/H79U1tfpT5AnwV4cfWGhntEnOCCn3kjGIJgRioA==
+	bh=q3EOLIaJ2qdXdEiMGxALnePEn7hmKAP9M8QU5KMiV3E=;
+	b=CFN3T9hhO84p4yBB54eKdxYftH6szZfSlWElkoXM8xILBdTS63YKHsSJZYk/hklisDnX
+	 j3QS5wrcx+QDmJdmweJsrxGYHkIOmy62sM2NYywYAqxv9iViFJVUwSyArgGYE3wQlYE2Q
+	 T2C7lnl6rrSTV2dOY75W68WlRMmLZbU2jlQI/YWk8qhVyvvwxmq9uALHxPK+MOe8vs7pT
+	 Epf/JreJf/y6PpjNftWbCiVOQuG2eBEqJka9liAwKxRt/4zzJNntlqlh+eElWjb4SVLTe
+	 4TEH/uTkSqPg1U4hpnqELnlxV84/E/06dIi/WqZ+SeprtZ8uqiK4neBLGPQmfCEPLCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FykZU5hY;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=a3vc1LjO;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A38606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30A38606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CB8606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:24:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40CB8606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FykZU5hY
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8198a3a54d7so213922a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:23:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792459394; x=1793064194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=df+72LAtxdjU5yqYctiMIQug27OaJJKNFKp3UtgKQf4=;
-        b=FykZU5hYld6g/fiSOZubNgxx/gA0GRszrDob1YkMimN+YEkuo0ab5LnoDUVwhh+Io1
-         SxxvVjbPIyf1323wDoUhd2bZ7bbR6LRZ/OgJdXDYMgwR0hVWeVil6bTIyYiwYG/xWrDJ
-         oEuh1o7Fig4V/7t3QEU9YxZP7lszhI1dMcmGzN3s3D4YUis6dagcNni9D4g6R5zCjgNq
-         pDAD7wA9r/+XM1RzITVGmqM9UBJL0EqPAq3K4YnYGsxIF7VrfLzAiopNWGtGuEjw/cCc
-         +hO6EfpzZO0lWCSi+Ps+QWENt1jaVmyBdcjX0KRpP/tpvxgv3zFpm8IrAousTr6nE7U7
-         MQPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792459394; x=1793064194;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=df+72LAtxdjU5yqYctiMIQug27OaJJKNFKp3UtgKQf4=;
-        b=PPKo4QMscSCcy0mIpK/CdO9Zm5CwjRn31znRRp5qhDq1TxtX7CbaxGuorCQC7geN7m
-         OsweVz+5nfFl1CN73Zc/QJczrAtbQUgIY3RY5P2RV1ZZo0q7F/3XPX7Lacg2m8JwuLwP
-         5KI7r6ELW764dPkBjySY16FHFR3pkagBGNviJOLQEkhWTfBlE0rM+dpBtWWRFW7MesTb
-         sneNO6r5hCtTPTKSBrx2GG5Y+QJrYZH9ZybOLuGDC5h5b73NhPAa+P057kWHADWntO64
-         uXDbMM0obZlGHA8QjKfZUybxKbN73K7ttwpxLw97/G0w8vueVrnho4TIoYmuXQrlG5+w
-         qKpA==
-X-Forwarded-Encrypted: i=1; AKwUvBytlRV6QnpLndz6jGMOBbshgD51rZIQ3z7HdmXTOt81bmyfIm/t2J5lEBMEIu+UdDhzjm7nrI99kKPTbvc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXpgFLKU/4wrVeVVEO7u8HjQvfnseBWYgsq7ah2GFlwJKQHyCv
-	crn+YSSzJI5jartcikiW+W2UPrim3MC7PZuiRhLQH7J2sGM7awUw74FpPIrUAM7r/FI=
-X-Gm-Gg: AYBFou1e6uE1dI70A8hUG/pE0OCvigafN74PEqMyJ+6XrZPLk48eMTPqCr3d0sRj/dZ
-	/+oVyk7pcUoKklQSLEy76P+1dguOVmdDP0v8njV5IMcT384379XXdRFuUzNZi7aIJShJ6BUdFpz
-	z0Gbjhj33LTHHuAfz30kT+1W24FOfEwL+k7UDPGcJgZamfsIJyVmlleoQammsUJ4YsF2EQtC3Y4
-	etuh2aCmcEBIUmGpDXoc9OMLL8gfo4rEpp9I8h3CSlwyiBn23sCN74xx2fWHZOsRVliLBHnHxiH
-	lrNcnJ0bKsA/28JnCzF2b0CPanwakiS+2vRXrSEI6wKGz2riebym9gvmsuJhvUetRECq3oM7OuG
-	q4BxA2To5lb1JVaG9cirKZXCzIaXhfEPs7Vs9kZYYJSLLP+qbuGAoRYNFDatVJnb85M6m2Z3VrZ
-	BpdBhMOhwKckFgetRWxwSDq7LRA5BDCPKaBMbC0Sp8pSMxoQR3/jbB39b9ZOsRpzGxjbhKgJ1cV
-	jifHn3V1q3ZJ2fx2UvN3+2giiAlIqq1cYFfQbdoFnxmYOBHUVaVU1u4zQ==
-X-Received: by 2002:a05:6830:3352:b0:818:a1fb:8fbf with SMTP id 46e09a7af769-84b7878b574mr435399a34.29.1792459393990;
-        Mon, 19 Oct 2026 18:23:13 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-849859184easm3988307a34.23.2026.10.19.18.23.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 18:23:13 -0700 (PDT)
-Message-ID: <3ede4588-ffac-42ec-8058-b37c241b6830@kernel.dk>
-Date: Mon, 19 Oct 2026 19:23:12 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=a3vc1LjO
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792459449; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=q3EOLIaJ2qdXdEiMGxALnePEn7hmKAP9M8QU5KMiV3E=;
+	b=a3vc1LjOyKIsguPHtmRuIHSOG8kQwx0y1QLjXpFdGETNfvN/9xiy4XkrkYAyflFRqqYjChjrB6xn5rq7c707jiwL3LP5LX8uRrZVBqDtDBasmpZPIoo/SoHVlKwIO9iJRWYrWzCgyaGv9aeTi2GFun0W7ziqoW779rSvYL5M/rM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XDB1Dh._1792459444;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDB1Dh._1792459444 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 09:24:06 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tanchi25@mails.ucas.ac.cn
+Cc: alex@ghiti.fr,
+	andrew.jones@oss.qualcomm.com,
+	anup@brainfault.org,
+	aou@eecs.berkeley.edu,
+	atish.patra@linux.dev,
+	baolu.lu@linux.intel.com,
+	fangyu.yu@linux.alibaba.com,
+	gsh517025@gmail.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joerg.roedel@amd.com,
+	joro@8bytes.org,
+	jroedel@suse.de,
+	kevin.tian@intel.com,
+	kvm-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	skhawaja@google.com,
+	tomasz.jeznach@linux.dev,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [RFC PATCH v4 10/10] iommu/riscv: Add IOTINVAL.GVMA after updating DDT/PDT entries 
+Date: Tue, 20 Oct 2026 09:24:03 +0800
+Message-Id: <20261020012403.22247-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261019133536.1610-1-tanchi25@mails.ucas.ac.cn>
+References: <20261019133536.1610-1-tanchi25@mails.ucas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,73 +86,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] loop, nbd: drop partitions left behind by the
- GD_NEED_PART_SCAN removal
-To: Cyril Brulebois <kibi@debian.org>, daan@amutable.com
-Cc: Christian Brauner <brauner@kernel.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, nbd@other.debian.org,
- Christoph Hellwig <hch@infradead.org>, Bart Van Assche <bvanassche@acm.org>,
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, stable@vger.kernel.org
-References: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
- <20261019233109.55q3cd266dfmkpa2@mraw.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261019233109.55q3cd266dfmkpa2@mraw.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/19/26 5:31 PM, Cyril Brulebois wrote:
-> Hi,
-> 
-> Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org> (2026-08-24):
->> Commit 267ec4d7223a ("loop: fix partition scan race between udev and
->> loop_reread_partitions()") stopped disk_force_media_change() from setting
->> GD_NEED_PART_SCAN. The caller audit in that commit only considered the bit
->> as a request to rescan partitions, but it did more than that:
->> bdev_disk_changed() drops every entry in disk->part_tbl before it consults
->> disk_has_partscan(), and only the re-adding half is gated on partition
->> scanning being enabled. The lazy scan on the next open was therefore also
->> the only thing removing partitions from a device that has partitions but
->> no partition scanning.
->>
->> Loop devices without LO_FLAGS_PARTSCAN are exactly such devices, and they
->> are not unusual. bdev_add_partition() only rejects GENHD_FL_NO_PART disks,
->> so BLKPG_ADD_PARTITION works while GD_SUPPRESS_PART_SCAN is set, and
->> parted, libfdisk and systemd all fall back to BLKPG when BLKRRPART fails
->> with -EINVAL, which is what a loop device without LO_FLAGS_PARTSCAN
->> returns.
->>
->> Commit c4f4c0fc551c ("loop: remove manually added partitions on detach")
->> fixed the detach path after this was reported as loop devices picking up
->> partition devices from a previously built image:
->>
->>   https://bugs.debian.org/1141434
->>
->> These two patches fix the two remaining places that relied on the same
->> lazy cleanup, LOOP_CHANGE_FD and NBD_CLEAR_SOCK.
->>
->> Regression tests for both paths have been submitted to blktests:
->>
->>   https://github.com/linux-blktests/blktests/pull/259
->>   https://github.com/linux-blktests/blktests/pull/260
->>
->> Signed-off-by: Daan De Meyer <daan@amutable.com>
->> ---
->> Changes in v2:
->> - Rewrap the comments added by both patches so they fit in 80 columns
->>   (Christoph Hellwig).
->> - No functional change, so the review and test tags from v1 were carried
->>   over.
->> - Link to v1: https://patch.msgid.link/20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com
-> 
-> It would be nice if those fixes could get picked up eventually. They
-> received a few Reviewed-by and Tested-by already, and that v2 is only
-> about line wrapping anyway.
+>Hi Fangyu,
+>
+>I wonder if riscv_iommu_iodir_set_mode() also needs a global
+>IOTINVAL.GVMA now that second-stage translations are supported.
+>
+>It currently issues IODIR.INVAL_DDT and IOTINVAL.VMA after updating
+>DDTP, but cached G-stage translations may still remain, for example
+>when the IOMMU is reinitialized after a previous kernel used
+>second-stage domains.
+>
+>Would a global IOTINVAL.GVMA (GV=0) be needed here as well?
+>
 
-They need a respin.
+Good catch.
 
--- 
-Jens Axboe
+Per the spec, adding an IOTINVAL.GVMA here is more accurate when
+second-stage translation is enabled.
 
+I'll add an IOTINVAL.GVMA in set_mode() in the next version.
+
+Thanks,
+Fangyu
+
+>Thanks,
+>Tan Chi
+>
