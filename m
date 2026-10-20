@@ -1,76 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515149;
-	b=SJnwbzrUfSvcM9EQtcwweRDDXSjiJwO9qsG56utH/SwTXWxovcVS3yFUOf8whP8bg0fI
-	 e1a3iucgmI9cp/S2i4Hwxb7AAqVR+hFSFTFGDJ2ZPHQLtnxWx92DkkfsgIofSw7s4gPc2
-	 DFnozERJi7DEogQEFmmL+Yplg/HBzJ4Q2qE9sWV+l+1nxK6ls4eaxBYBLtNkJBRGl5jlZ
-	 SxTmfwRqGlZQEJwHqxyyHs+4l1cQ+arehLS/Bec85lHV3DhoQlim6QPzj6CjgniKbIlwc
-	 16IMSJOPXUNxJNanVyYXNJy6p2khB86Jnt1uUEtR57UcwAzSkZV9Ul7OUX5+y5I0KxQ==
+	t=1792515151;
+	b=bNAD285MKvofDaOF7lJH3H5UJKN8K7CyRHNy6AvQVX/qD0ACXbJtJmMMweTTVWjFjSsu
+	 e67N/tnxWoObpV7MjjaAPjyaXXHPcSoJrwKh65nbPWMVOHuWDfuGDEhKIlFrXyIuCpTHx
+	 fhoho56UuXpzeT/Ittf4jRGVetbQ+b9twnO8ZARpucFDbpqfVv9mi+wBWwP7dSS/Pct6p
+	 F/fKuebgj9KTMmbXmJbneQnrvJXyT6WUdaShMAudrtfRXrE7Tp50B8p041JpYbRpZWVUt
+	 K+ucmPy3HCmXtceZfkelPwJQq5KJPlkD9v2ilXGbexOttfEFu8pW5Z7tnxGsD//HCJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515149;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CTna/wiXP5/NUyBLzytTu4ESJYNBaE3GOT6pFR2PaGg=;
-	b=HmiVYUA+sV/n4jAZzYpO5+Dt0/+TatDDj2ztePvtXnWarKZ6VJ4zuyWD1jSPP+z8zBx7
-	 nRUUB829lVqpjTH0wMHNIMbI+1/B5evzQSPGbsV/S5HXmLReIOD5Mpi6BsUtAGMajZiuV
-	 9ySS1LSc5iDO/TC1YKqcteEm+xkMB5VFafTpRsTXHodE/Vg/KjD4XEHNhRi/ps/T31TcF
-	 EzPk6KJcZalH0EZCmSzJBhMyBPyIRPnkSZ+48oLVzjkA1Q9yO/tF97mUU/vSDUv0ZTs9Y
-	 RcFoSWKQgDdKaonwc1YOJ/4PghUqbHUyx5jBRr6Ocmol18dq+i/WEvPyhQ5sXZKixiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515151;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=v7xkHl3uAJvD4/78sgLN77kYpieA8BRah0ZBUP6Shl0=;
+	b=F6PtJz1FzeH2cM3t6TefUDO5HlTBt6TYDu6iYe5llkyLdBEEGrsBUeF6/Gw+bhzHJWxv
+	 NYzz7a4awYxn5HlXYkwFn4vjqqExiw0ecCV9qyUd+SLNka9kpJQZbO3CIUQXbS6iidnDN
+	 TBAcg8tdsnGLdf2DgiiiPUZPLZyal9DqdNI+px3kLt4bjrh7vq6mL6l+4nVSKEVoNrkq1
+	 9HSozqz653HAK9/swXVQ5+o03g9VAgCH5WF7XA3DDwUfg5hXz7eB77z9uclZrN0arJaG9
+	 S/cJF//3WphB7+LtPxijJkX0c7ceJiS06ks4UloeVGI2wARWnV51VlCRRem93kqD7oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=htQ9zVqA;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SAq8W9JE;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48045606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48045606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDEB606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FDEB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=htQ9zVqA
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd0e92d64a1so793348a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:52:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792515148; x=1793119948; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CTna/wiXP5/NUyBLzytTu4ESJYNBaE3GOT6pFR2PaGg=;
-        b=htQ9zVqAo9WPU86wVQfP20KbZ7MoXvrApGqlN9lwOhbXxDKE1zPEx4OJ55vUqLKFkr
-         bdC+cC3vPJDmmL/KfqBMOf1D3Fx58caGP8oGNMLghzRpIB2VU7CR7+xkqcvq/pjtNBn9
-         wAztO6TuGqwMzPoSgiwmMLpH8wRX+Euq1/M3gYNQ9XlcZmfuassFBEOVr2NZ0bmSm6uY
-         187NgBNPQ45T0YjyENf9+hPiRyIAVdXGASqsnqL2Gq0Ll36aSQUbxsILiijufPqdZTyN
-         Dmv/Dg65duHy6AmVT2QQ05VaSoTH3kfhKOjt/p0v+gHDny7yeiCVNVEkqp9lxcKZTMiR
-         SjPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792515148; x=1793119948;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CTna/wiXP5/NUyBLzytTu4ESJYNBaE3GOT6pFR2PaGg=;
-        b=v3HoYgP6nxdINH+T0VDGp96/oYHGb9hZw6fn0ozfpMnP7n7HYWH3sUHT42oy/FAs4s
-         93QW8Ra+qrFprv1EjF5Vz/Vu68i2BDCOQn3ffjCwHufh/bI3IpMqbwjxiGqvxjo+nDcv
-         8rp+p9vhW3Js4VuCLO4PNbBpQR2GyGrztKs/Wlh1fiy6TxKDymtJDN1LkgZecvAS59S6
-         LACJkOgTei4b93HhgpKlUaYGsmIkKQYMLxIlNyjXL0qN1Ct1APsyuT21MRsPFLBzdC4s
-         S4uU8P1olaaXJe+eTFFErHWzKHZcRTxigvEsZ404Pi+ZfsDH2rt4rUb6zCUOMNIc/Q+B
-         fA1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwG30lLSqes66vCfZQ9qFTpMwExkjwVA0kPZ3mW8oe2ZvXCPCzF717p74B4j19CckkCYBnxq3DFohd5wdU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuTSr8DZwhOycX7YjuXomtjwA7tWsp5GugAnpFPLxfUOVX8Rrs
-	k4Ms+dY0HMQyxl1OOvBd9NHYnnApYifL5333QxNLo6O7XWjzvVlUlTc3c0wAZfPO8H7helYlSv4
-	PXYtHYg==
-X-Received: from pghm19.prod.google.com ([2002:a63:f613:0:b0:cd6:1195:61cb])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:328c:b0:3e2:43f9:b56
- with SMTP id adf61e73a8af0-3e26fdcd926mr1596048637.50.1792515147352; Tue, 20
- Oct 2026 09:52:27 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:52:26 +0000
-In-Reply-To: <willemdebruijn.kernel.1a81a5aacc334@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SAq8W9JE
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 90363C5CD64;
+	Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 023E460393;
+	Tue, 20 Oct 2026 16:52:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CE0F910328C52;
+	Tue, 20 Oct 2026 18:52:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792515143; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=v7xkHl3uAJvD4/78sgLN77kYpieA8BRah0ZBUP6Shl0=;
+	b=SAq8W9JEdMZVH+u7Z0hsckBD2XtVfIZAtGxGb7CU6htgMi2KduNM9WCDCoW4pMKR3Qwd/I
+	fghA5CB7bb22DmIat5VmrCiz2NQemh05J5q9zoB7DwOFEG9EFuS6mwOz5NfqgBgKdm8qKF
+	q7ZRaLyxJkWk8fVoK/rgvFCcnCOFEajig2aFliuJFX7vsA5/0nis1oRJWnGpe0lz3sskPX
+	yK8Lv3Cqp+dnzk6L79DDkzityxIqjxDWaXG+HqCX+yAe6Lf0SwADHTgPhpgvLgG/EeibHR
+	SK+2K3YX+SNS3t57WWKlr/gSP+CiEF2uT+5w3/aFsDpeJWon5/w4eripxL7ibA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,60 +58,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019230758.2960779-1-joshdon@google.com> <CAL+tcoBjWDwA+MrjzRapUeAom-4siL-cnXXLQrVf-A4myNRxyg@mail.gmail.com>
- <willemdebruijn.kernel.1a81a5aacc334@gmail.com>
-Message-ID: <ateasbpJlRipuEmi@google.com>
-Subject: Re: [PATCH] udp: Add noinline_for_tracing annotation for udp{,_v6}_send_skb()
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Jason Xing <kerneljasonxing@gmail.com>, Josh Don <joshdon@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 04/14] drm/bridge: it6505: unregister DP AUX adapter
+ on bridge detach
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Hermes Wu <hermes.wu@ite.com.tw>, Allen Chen <allen.chen@ite.com.tw>, 
+ Pin-yen Lin <treapking@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+In-Reply-To: <ae0941be8fb5e20a309f2e30b5e2d8818168aa38.1790552614.git.daniel@makrotopia.org>
+References: <cover.1790552614.git.daniel@makrotopia.org>
+ <ae0941be8fb5e20a309f2e30b5e2d8818168aa38.1790552614.git.daniel@makrotopia.org>
+Date: Tue, 20 Oct 2026 18:51:39 +0200
+Message-Id: <179251509976.78870.2847307917157375162.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 20 Oct 2026 09:50:32 -0400, Willem de Bruijn wrote:
-> Jason Xing wrote:
-> > On Tue, Oct 20, 2026 at 7:08=E2=80=AFAM Josh Don <joshdon@google.com> w=
-rote:
-> > >
-> > > We hook udp_send_skb() and udp_v6_send_skb() using BPF fentry program=
-s
-> > > to monitor UDP transmits. Both functions are static and have two
-> > > callers: udp{,v6}_sendmsg() and udp{,_v6}_push_pending_frames().
-> > >
-> > > After an FDO profile update, udp_v6_send_skb() is now inlined into
-> > > udpv6_sendmsg(), while an out-of-line copy remains for
-> > > udp_v6_push_pending_frames(). The fentry program still attaches
-> > > successfully, but it is silently bypassed for all uncorked sends.
-> > >
-> > > To address this, make both functions noinline explicitly for tracing,
-> > > as was done for tcp_drop_reason() in commit dbd5e2e79ed8 ("net: tcp:
-> > > Add noinline_for_tracing annotation for tcp_drop_reason()").
-> > >
-> > > Assisted-by: LLM
-> > > Signed-off-by: Josh Don <joshdon@google.com>
-> >=20
-> > I actually mentioned this thing a few times before. The original
-> > thread was from Breno who tried to apply a similar change for tcp
-> > sendmsg. The fact is until now we don't guarantee those functions
-> > should be kept noinline like how uAPI works just for BPF prog. What I
-> > suggested was to select a series of functions in one Doc so that we
-> > could tell people those functions should be noinline or whatever else
-> > just for tracing in a soft way?
-> >=20
-> > Otherwise people would argue there are more functions that should be
-> > done in the same way because they internally trace it.
-> >=20
-> > Willem, Kuniyuki, any thoughts?
->=20
-> We'll have to review hooks on a case-by-case basis for performance
-> impact.
->=20
-> If possible, it's preferable to select hooks that cannot be inlined.
-> Over limiting what the compiler is allowed to do.
+Hello Daniel,
 
-Agreed, FDO is critical especially for UDP, e.g. udp_rr
-w/ 20000 flows will gain high performance boost 14Mpps -> 21Mpps.
+> The DP AUX adapter is registered in .attach() but only unregistered
+> in i2c remove(). Unbinding and rebinding the DRM device while the
+> i2c driver stays bound registers the adapter a second time, which
+> fails. Also unregister it in .detach() and on the .attach() error
+> path, which so far leaked the registration. remove() keeps its call,
+> which waits for in-flight AUX device users before devres frees the
+> regmap; drm_dp_aux_unregister() does nothing for an adapter that is
+> already unregistered.
+
+The drm_dp_aux_unregister() docs don't say it is idempotent, so is it fair
+to assume it is and always will?
+
+I think it would be much cleaner if user drivers took case of calling it at
+the appropriate times, not more.
+
+A flag similar to it6505->extcon_state used in patch 3 could allow that?
+
+Best regards,
+Luca
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
