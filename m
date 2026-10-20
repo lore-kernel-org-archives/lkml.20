@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792459209;
-	b=RZH2QM63dHLf4Qt0Of9vOwIcb5Bmu2h3/HhagF/4asVHoKCsuqw8/AkgZOPk4wIxM/YC
-	 iN5dWppGBgy3Z/PZ3eKOgh6c+Xb8q4yL6ZfLUZSj4KCIdqDls0mkgTd8QD+VeBa5qqFWU
-	 UDJItuIaWd/Yd8pis9u2uJ2yXZFXGpLO2FyK18fXvhplgpVNKUMFHtW+qVm90XGKM4ONB
-	 6AfjcV2ZGSUy0vPb1Qko5RC6F1PwoOMjKLiS0hPTlb5xAwJTpv5/xdjR79SvL91d0G0+Q
-	 FT0vVA5vHWSDIJ2jShQcYVhLPJD/fHWUWgDgp74Yn3NEHUmHLp8a4GWIavSuCKfTiQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459209;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gll0oA4zkPNMV81jQfOkhNSBCWmgQfeLFvzCe0OxeXI=;
-	b=nuK4gD9oAoupnTB5Kzdvq5IrEpC4q6mOBCj/vUiCQTAUR0PvdqssdTbfOduztiJpR5LS
-	 7vHYk4cY7QnM2jTBMIkou4je5grvffx8NEmiD8PgI6/hOjzwCu/J/5xpHNcA2pYCY7gEK
-	 UZpqKAsmi9sy+fW6szBwQQ3JpJzIPkMrgSkJsQAO7F+OGppnB10Xa3MQX2SVBBlrNhtFI
-	 VRYJ9flVlusl9tlljT+OTkcZO80w8W1jf7UiUak5T+Hch9OmnlnajJWJPwj2JOf4hnIap
-	 sW5I/pz3LJ1hYlcLQpObIFdakoYwZlW/lwQqbbcGuYkMqc/2ZvGWDryp+StkF+Z7mVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BmDH6h8d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792459212;
+	b=iM4QwM49Tu3BKTdz+d8aEcN7uCfrt+R6lwlhBK0yWFBs+eKnvMi5o4cyyKICXiRxBy8H
+	 PqL8+sit0O2Z5kQmNB2NqS3CBvjBP1xn5idBddhiGbdWF04l/WaUSxaJGk1bLK5VvHZsY
+	 +TpadDwRRzJLW+wNXCIkMtmA+vVDiJ5hQpGtPoBBuvO4mpFVTtbr0lZJe3uL0n5DWA+IN
+	 iICdjKnmn9Uja8pULVyZyCP4xPbjyR1ERr+UPwn31njfwXUyJfpFVnwGMld/Dezf8TmSI
+	 AoqQdcfKulQpu0b1TUf/2uznAmhQVNx5cuY7LJMVqKQDN6sys1DgdKq6sxOqiH3NXwQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459212;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mdN55TTbw0U+5htfZUR2VCgK6iVR6j3/f8Ws052RgS0=;
+	b=5dDcZjFSxBlxaegrclF7008tt/LwFT8q1ZfQ//TYT6aOO1ODoRjFHtYCelZtoe8Hg39R
+	 eqS7vLLufZDkL93DR13BbYnJ57kxZnXNvmvud1aDZws31ZEUvVAFnnR1dSss1mRWIX40G
+	 5tL736NJteLMoL0TLSGNyzg4+Cuv4ua7VI4djwFDo9kQ9GTLk07YuTl2gVpuy/hMZmZyK
+	 UbWib34Wa2jN5efcr6f9qKXeYDT4gZYpA5EtM4fwnbzpiN1caZntcVtazkOJjYc/KbDa6
+	 3lCSquw295va7zA8Dstwdr6TQ0gF2wl4iN+qPlEjXGpga/5ocqeXNa1RV5X5kqSk9Mg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7OGn8fG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012DF606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:20:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 012DF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F5B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BmDH6h8d
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c5358fc28so2247211f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:20:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792459207; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UEikiT5NJ3dRjchkAvPr6U6u5hmDhbXmOgFNgzKyktMvlIGBLdknUdrP+R5kUW+nWm
-         m0J8rUagPZbMM4xiuW0eofZfE1xptiGgaM//9Ed9n0DcW0r9VVga6FwBUFqbYjnaW50m
-         x9yKWwXza+DTBnnMIIGbFL1LqD+Jdf0DJsRPvz0BgrI7H+6GaaCmVqgoAKxGu2DsauzP
-         0yZj2ii449ygVylpqTrvNu92fMgv2hvI9Ayb26wcGMcDB2wKcPX0GbrEVnsJCPXxpVBQ
-         ZDrplIfqYNVnWx5BnLoaw3T7IZegwhtDKU7NFH5fAo35NGGFHQjZ9zCe8xCXRhAi8hE7
-         UGRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gll0oA4zkPNMV81jQfOkhNSBCWmgQfeLFvzCe0OxeXI=;
-        fh=wQttcwdtcjGTKkgXpcfH/kREX9HZx1k56cEMrUkujWA=;
-        b=sYwO6Dy4heRTDBOGJZj4kRdEiAqhSwNeRoxUZVivmVw7lqhz4EEFcu2i8sjuG3arU7
-         +HauPKDpqtUiv6Dp+Bs0tdNh7WdKqO27LL9LUXMNP2Ml/X0j4+ByD6TjJ/gwZLrwEJkF
-         9tppqMzk/2kskEJZxMForGxDzdDiBp4g9vM6wYZHU0qQd/ezTV2BEtPjqW8EoOxHTw1e
-         uN++sk3bN+VH8RIhfE4kCheJO0XVH9d7kK/Wf/DeTo1IsI1B3t+ycW+x7sClM7br6t65
-         YJXaH/ZtJMLDDM4C4g07rRWfUXVdLYUQcN+oXPIbTDmv4/m1uuh4tesltTiI9s3BSz51
-         T1oQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792459207; x=1793064007; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gll0oA4zkPNMV81jQfOkhNSBCWmgQfeLFvzCe0OxeXI=;
-        b=BmDH6h8d94nYHhbeuKlxs6/mnr4ggKkXGLZORzWUpWPoYtOnuzSNePYEdONn/Iew2h
-         /P1HkQqEQJfOLox0RWmzZgYrG1IxFbCc0dEwlBvieMh1R30zY4H/zrObc9FXwcMrePrp
-         FLBSddgpcGJk7WtIN4FyWicUcnHPnsOS7mgVBxslO1x72vPBeVKz1Kkmdw/BIga5roGj
-         BgFjxywuPL0YAnZZ1Chjv7nRyNZxH0qf0rgaePqk8ox3WxaEytWEpRjg8ohmiDdylOJ/
-         8dcXoaS9cyBMHu0U0r9zfDVOk9XIlEOScYTNYqGseMmusKze1hOSUoXQGtIRuvXwGNmC
-         RmRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792459207; x=1793064007;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gll0oA4zkPNMV81jQfOkhNSBCWmgQfeLFvzCe0OxeXI=;
-        b=jaY/noXyQD+FbRMmAC/6EMDYmxIMdofct+7KCAxNPmDsYQIOr+ggZGxXS8bOHzSb4C
-         Oak+rFp2ZINxPszYrdMLH5ikGURg7NoIad/V4HSkxhWeZ76enYKMrY7CWi4Hb4Eb50Bi
-         x6r5UholJ6jYyXxol3R7hfo5EeNrrmFVa+SycqpFFB0ipmgVvmfqNuYHlmiwhjBUrCG1
-         mwYjAl3N84VVjNbayJ8jiT0q1vYX8Q7pycYFprN2aHDSFwkr9kLzw2VXOt3J+oUvhoD9
-         EGrHDpRuHg7BY63u+Ytaki6Yg4N3vo7fhtPufEmxYMCSU65XqvJTdikILoRjr05NCVqT
-         mBpg==
-X-Forwarded-Encrypted: i=1; AKwUvByxA3wgd2i3LD4ajownsd6J6aVO3eDDDflj+H+Z9P1DS/gGBNBHPryS1acSD/ggmjNX4Blsz2F3bCawMf0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhzu79fmLsI/oc8pmd6Fpy+dekW5NbzOk/5VkopksEbkMMyxSu
-	1c3qqnliIxPIlb0DmNFoae3pSPHCdlpvbCNOjw/gHkzIyLf9pa1ofdvGUkb/DEOFhAmwcpCf0tB
-	IW9A5zBNkC0F8UfZ2V3tWkk80DYOl3kBrDMp/WoU=
-X-Gm-Gg: AYBFou1OaitW8tAr0Kq9OHgDfh15uUku3RXrucpr79fD1Q/9yc18FWM+XXNcWt0oTsD
-	Kwv10st3FBBUU1uoKITzrBE65Tw0bhwP4P/XlXGaSU1/Y+YsMECzXOdAhJ847Q6Is3gJdEwzZ75
-	jGJTMG6+R5WzxgGZgdJiIe7Cb8uw3Q0amQO5+jzLZAxs8B9yguViXJ1lp6Ncr5moLV1vB1IDlmD
-	qo8EhU9ogwFA/PBvlJ83qB07YtB1Dow+Fl+J58aoizDhMFYLmnnXr3ByQjr2TkQ0FsByxZuZrae
-	1qQT7JRE8AyMAJDxTKOvveJ0OvwfcV0cfzY5xlX7wBss7n2jLhzFOsvMsFoCMAotTPOZwvaXIJ7
-	cV04VZ+nhwuCIXVHrz9LgXN/77Y4DbDOr1gncz52a5ewuvHcZw/XqOZ9W3JzWqO/3zOBZXqZvqJ
-	MfyXZGjvzyBwbXvMCFgw==
-X-Received: by 2002:a05:6000:25ed:b0:48d:fbf4:895d with SMTP id
- ffacd0b85a97d-48e07bbe6acmr18262851f8f.19.1792459206869; Mon, 19 Oct 2026
- 18:20:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7OGn8fG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A54D1F000D0
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792459212;
+	bh=mdN55TTbw0U+5htfZUR2VCgK6iVR6j3/f8Ws052RgS0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=a7OGn8fG461GryeWDftKmbd0r9jq4CpnKIo5bj2PLMkbPJjsPCLgd7XOfkQIG3mzk
+	 cOZ0S9YCTNLGDXb1KAcKqsE5jngLbN6/VW5YPAMubSOuEnJ+f43Le1Y2j0LlyJzlCh
+	 I8t5kfaDiMrjvzKulC27qKJggdJ9kgulsn44Z6pWXi36mA/X8DkMYdhhhRPnPHDT/K
+	 c+0IIDPUxiQ5S9D3aF+6pTJc//erkv5HIkIE2noCEPNqKEMLbHsP19siEFsxkEzhSV
+	 XwAWTouTdRnzRhA0N6BaTvPa8R6NGK5Ta+NywuL3o6CK1D5LQ9sM6gth8ONqKsKUBQ
+	 XjuYw9FexNCqw==
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f36c18b75so138955785a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:20:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy3AI9JHpftZv7e0jqSJWb1+F32NpNVA5tdbnFHvIMpsvfVyhQDIAq/NDXG3Kn7N0zM3Y+jUlCEU06h9KU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnZktL8pRYjysKEeKpQO2kaM2k5iCpWwW+epeA45wHcvsD3ymJ
+	V5AYJuO4iU1TnVi942t7jlpDg2OalTUt1SMr396cmwiNVL7op5m+5yjnM504LgQsFoz86kM58NE
+	pppuedxdcmWFPcHVTKMK/I6cnhXeVOQ4=
+X-Received: by 2002:a05:620a:44cd:b0:93c:68f0:f09b with SMTP id
+ af79cd13be357-93f29b7fa3fmr1545675885a.5.1792459211376; Mon, 19 Oct 2026
+ 18:20:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,83 +59,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020003641.1012025-1-shawnq1@163.com>
-In-Reply-To: <20261020003641.1012025-1-shawnq1@163.com>
-From: John Stultz <jstultz@google.com>
-Date: Mon, 19 Oct 2026 18:19:54 -0700
-X-Gm-Features: AclHuK_84z5UzNN4cH3Q461JqQt5946Jj9_dwyHMWOkEQ3FMJTpayiAMsl1cJC8
-Message-ID: <CANDhNCpYAVgxsF=+3YE8oG_HzDxrohADkvqbZVSbeNJhB-vXLA@mail.gmail.com>
-Subject: Re: [BUG] timekeeping: unprivileged clock_settime can change an
- enabled auxiliary clock
-To: shaos <shawnq1@163.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org
+References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+ <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
+ <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
+ <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
+ <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com>
+ <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com> <CAE5sdEjFgVoQbWw12=+AKdCOB9cWm-akxzbX7hJzvyO3vpCtgw@mail.gmail.com>
+In-Reply-To: <CAE5sdEjFgVoQbWw12=+AKdCOB9cWm-akxzbX7hJzvyO3vpCtgw@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 20 Oct 2026 09:20:00 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yrAosgxnxqc18qXyeJQHszYOdTxJw4TzSJqp10YQWjag@mail.gmail.com>
+X-Gm-Features: AclHuK9xt7Olf4mZCtGBt5rmDDZTYfTK8Foa3EtnoHBlxoLgp0J3AiuCJekg4AM
+Message-ID: <CAGsJ_4yrAosgxnxqc18qXyeJQHszYOdTxJw4TzSJqp10YQWjag@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
+	Hardik Garg <hargar@linux.microsoft.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 5:36=E2=80=AFPM shaos <shawnq1@163.com> wrote:
+On Tue, Oct 20, 2026 at 9:02=E2=80=AFAM Siddharth Chintamaneni
+<sidchintamaneni@gmail.com> wrote:
 >
-> Hello,
+[...]
+> >
+> > Thanks!
+> > I guess you mean the following:
+> >
+> > -module_init(kswapd_init)
+> > +//module_init(kswapd_init)
+> >
+> > Yes, I can reproduce it with the above as well.
+> >
+> > But kswapd_init() is definitely called before we enter userspace,
+> > so this doesn't seem to be an issue here?
+> >
 >
-> aux_clock_set() validates the requested timespec and clock state but perf=
-orms no permission check.  After an administrator enables CLOCK_AUX0, a pro=
-cess with no capabilities can set the system-wide auxiliary clock with cloc=
-k_settime().  The same clock's adjtime path and CLOCK_REALTIME setter both =
-reject the same caller.
+> Looking at the callee sites of get_lruvec, all of them happen after
+> boot. So it should be fine. Anyway code clean up will address the
+> issue.
 >
-> HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
-> git tree:       upstream Linux checkout, local branch master
-> source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
-> compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
+> > So I feel there is no bug here, but this cleanup is still welcome.
 >
-> console output:
-> https://gist.githubusercontent.com/shaos26/189eb1fec9f2b4e69e979642496f5c=
-54/raw/75acb2f68b89a64dd4719f2493e4c2a161e38cb1/console-output.txt
-> kernel config:
-> https://gist.githubusercontent.com/shaos26/189eb1fec9f2b4e69e979642496f5c=
-54/raw/01c9b3f973d527975537280bd7631127537531e0/kernel-config.txt
-> reproducer:
-> https://gist.githubusercontent.com/shaos26/189eb1fec9f2b4e69e979642496f5c=
-54/raw/003a5649dccbd0218da367d906093594ddf3c8c9/poc.c
->
-> Build the kernel from HEAD with the attached reproduction config.  The Po=
-C acts as /init, mounts proc and sysfs, runs the test in a child, then powe=
-rs off the disposable VM.
->
->     mkdir -p build rootfs
->     cp kernel-config.txt build/.config
->     make O=3Dbuild olddefconfig
->     make O=3Dbuild -j"$(nproc)" bzImage
->     gcc -O2 -static -Wall -Wextra -o poc poc.c
->     cp poc rootfs/init
->     (cd rootfs && find init | cpio -o -H newc --owner=3D0:0) | gzip -9 > =
-initramfs.cpio.gz
->     timeout 120 qemu-system-x86_64 -kernel build/arch/x86/boot/bzImage \
->         -initrd initramfs.cpio.gz -append "console=3DttyS0 rdinit=3D/init=
- panic=3D-1 loglevel=3D4 nokaslr" \
->         -nographic -m 1024 -smp 1 -accel tcg -no-reboot 2>&1 | tee run.lo=
-g
->
-> Two fresh minimal-kernel boots returned success for clock_settime(CLOCK_A=
-UX0) and read back the injected value.  CLOCK_REALTIME settime and CLOCK_AU=
-X0 adjtime returned EPERM; disabled CLOCK_AUX1 returned ENODEV.
->
-> Impact and prerequisites:
-> A local unprivileged process can alter a globally visible auxiliary time =
-domain after an administrator enables it.  This can disrupt consumers of th=
-at clock.  It does not change CLOCK_REALTIME, CLOCK_MONOTONIC, or the core =
-timekeeper, and no memory corruption or privilege escalation is demonstrate=
-d.
->
-> Validation: Two fresh positive boots returned success for the unprivilege=
-d CLOCK_AUX0 set and read back the injected value.  CLOCK_REALTIME and CLOC=
-K_AUX0 adjtime returned EPERM; disabled CLOCK_AUX1 returned ENODEV.
->
+> Are you ok with the patch as is, or would you recommend  changing the
+> callsite of get_lruvec to mem_cgroup_lruvec?
 
-Looks like a fix to this was submitted earlier today:
-https://lore.kernel.org/lkml/20261019080324.4147815-1-4ncienth@gmail.com/
+Overall, I'd be happy to see MGLRU-specific code being removed.
 
-Maybe could you validate it resolves the issue for you and share a
-Tested-by: tag?
+If possible, could we split this into a two-patch series? The
+first patch would be this one, and the second would drop
+get_lruvec().
 
-thanks
--john
+In any case, if this isn't a bug fix, there's no need for a Fixes tag or
+a stable backport.
+
+BTW, I've been struggling to understand why MGLRU introduced
+its own version in the first place. Maybe your follow-up
+patchset will help clarify that :-)
+
+Best Regards
+Barry
