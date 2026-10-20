@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487978;
-	b=Z2t7I7BsLIRuZ4TRFMt5FdK8ZA/oBTyeTPOF0s/9NJXkUHPIjSvzPi8jk99IY9jNc+sz
-	 1JuxKpgaHbH7qROu2UJSkNQyQOWFeDcU64dGcuQzYBs/rHXKcztbYEw4VAfZIVvToUb8O
-	 3Ai/8BzaIUCF7ydq7ggDmUq7wBVM0tWVpZtu0s8IYAMvDmon4tcf+St4zBgb8azaMk+og
-	 Eo6sjyn3waZ7iO+oSud1cwQoFbF4RvYctS/0Q+Pi6ngck/z1WtaE6cKiuHM36Ht/WGgo+
-	 IGPvBsVa7qwRcCSVMwI2FjEdJXUizwkPr6B4dlmInuNT/z8YLKyO+lazk1OZZGxyZfQ==
+	t=1792488002;
+	b=MYtNLP7VPnvBgLKq24jWi3LrmXA5sGZFLAR0wUXQyOu0o1plhBQgfU5OogoZdL/z5ohD
+	 JAnzamEg5ciHOlaonyCYOVzijHBtoFKgiQO+G0a8SIbKKeFdR1+3fv0R1BP0jiXSFEbq+
+	 g1chhddn2KJMn5i740//0rrZbWkailX+syUX23OutQkkg18tgAIkG/7yv90wm87aFYn3h
+	 mi+/YKDy6G7baDQbZquCKWihbaRO0T2CBbhSoanT2oukEfTQQZYue2f7ulRgaSZcLSKRH
+	 xvnuQWq8cOTn2LaVqc0RRnrQ7eg/kOShkabMP3i49gFDE0g3j2VaRgpJWW9izEsutzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488002;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
 	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
-	b=HgGV4bqidxa4t0qLgbOfWSsfEYgHyxtDJD5essVOcl6dTkAo4tKs5FjgtfLWkpDVzTfV
-	 v7Xj1fDx+Q6wy1YYTVIvjo98LI2lr1n9gWrBsFD2VXzAW+ZGa49vnlXZGJS/SC0sb1zId
-	 ui6JAAMO9I1QI/3KNKhKtY3WtlEK+ZRsKwYOUCC1JQzhj06yXH/5d1vejE7qfhPuz9I8h
-	 q9rBDKa5CJYdiAAgFOnzORxG2u8yZTq95Ms0fJnY6L23oA3+06a1/ybc425S9efVWSk9S
-	 0jktCrF2QhfiD9TtTW8CChxU7+Qn0qDuMiueUaxr2djr8HEFt+eYRubfYtRIgjNdHhQ==
+	bh=VvtetNybFvpR2bcqOeI5rfwt1MRTMkbqxUE2U+5+8c0=;
+	b=hN2pjhjLkQQvKtgYBNVyd9HVV8GzioqCd/lhXPzVvp/atA63wnlEeSKurgKIIQCjkjy6
+	 lFY46Opmwu4JGXv4dXMg19WxpXb+ZYZ6D1s/Imoq5wHA9fpz4ypyWx5OkkIkJX1jUVTFZ
+	 9KdM4SWrQVoNQeV3MiXGS64fdOmDNlokKevk1K6SO7vmVrlIkRDi/hjXk6H3uXl7bUetw
+	 mt3ekFCdVb/jMYBdwC4PEv/tZMYWR6yFlQWYT5uPXCRvBEoW4H+SpoYWEfqMoMVFj2jI1
+	 FKzYdHlNvkGfqf6tamc2LpjlPpJmkxoT5BsyZZKsByu1Q8qElvuDbDAUjw4gSYh9h2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="ZvoC/0Hj";
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="rI/aYFEJ";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CE8606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:19:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10CE8606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E734B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:20:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E734B606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZvoC/0Hj
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1531348f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:19:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rI/aYFEJ
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so17631595e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:20:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792487976; x=1793092776; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792488000; x=1793092800; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
-        b=ZvoC/0HjoWQBe6v4RhWlvN8gU1HwGS3CXsFeZbO9CKrYN76M87wee0pPAkvi3zWerB
-         5gbyQCOC4M32KxMEbgF11ebqOvSHUnLNEK3oGaKiw/XUY6VdqRMHSijI2S0xJu6e/6n2
-         4QI4NicD7mO6c51s6t8+jOaoGHYam10T2WhM4xRO9RpH/CZC+SHMlZRilh0pbhkT4koW
-         Icn25SHGSLXG2rV6FXIoSwoROrRtXxGnufkJqNquKjOVxPzC+bwaXpYZNNEBm4sPtinz
-         nwjDdZXQduUeK8bzZPNxIuBsFxCR/YDyVYtsWi9HpsCPzAZjw5A86NjCDccgQeav4zik
-         tn/g==
+        bh=VvtetNybFvpR2bcqOeI5rfwt1MRTMkbqxUE2U+5+8c0=;
+        b=rI/aYFEJvfYmrkEMAwT9ZLOtYYvsIN2RzloIRTCc8l7swAy7LLLpN28HihTkCBXvPh
+         +Mdgk4fDkZuQjt391FMat60ZEYACOcoDWDSMUjaw+qaC4HDH5HQFk5sVcn5jUw/PynfR
+         Twms6EMcr+RogweQ8HSfe9JMTjYkbT2LMlDy5SLmwMXGoSL6gNQsx+fAdcF7cvb2kdc8
+         rhxKkmz2Z5iS1pubznLpIKpbGZgl9HijlQhMzUGiKb7zJTm4dL/QtbS/wNwthIHQDNOF
+         CETV9wgcrIYx/yefAXaNGs1jI+Zbyk6nAsqpoPVN7Ym9fmeVfgx71/KL3HR3lPw3kuR8
+         8gGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792487976; x=1793092776;
+        d=1e100.net; s=20260707; t=1792488000; x=1793092800;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
-        b=AUVdO4w/5hJcBS1J3l+RmWMpxN3zby/t1jgJn9pw+7BIUfeAmr6sws9SDRPaq7igAi
-         ZQRMDiZ++xo1YEZlTba/vjuylqgl9csALSSCc5TY/uae2uTQZFWOjLRd6+NR72a5UkpP
-         ntOO9khZBUvOedyIQu49rMAkJMRZp/4Dfh70h4cTXfx6hDCgTKxA+E//2MfwOo01UKkF
-         NzfSb/CIvpqE2Wct7QQztn0IYEPifRsh4BieQTSf2QSzzaKmIbjKl7MrkZqRcBe3NwJ3
-         2kAbSHpawouJqXCFb/AQLiXwoO52ZDzaWFs8f5eeLV0TKPiw3QC0OMAd2jGbmOVPTI3q
-         KQtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAGM6a1LhxX/Ie77fEwLNwmSzfxkjjHN9I0uK+8ddw8XdvmcmNhj4PM+oQS0TM9iel7TepA9a3pXXNXAA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl6aKKd0ghENp/+hseNBCHCXI0S3Afn6dc3hoPmkSC1nhcNQIM
-	KBwm1dhZO6RvIo/IM3WDziBM2pDMmFkDbZ+OdiMcu+mMRqK9kR9AM0suts9QrEZY3A8=
-X-Gm-Gg: AYBFou1508ppVd8HAdy4gDp6yru3gowTE4aEfS3q3N47znUhg/n9M8enUgFwB4WWv9L
-	IDfO3nBPQ7OpjX4mTeGD43P0KBSyI9WZb51Vb3VtxJL5IIKjUl3WfGLH9Ha/MXHT3AO2czDFJhm
-	ELxFIC3R3WlYqxdnwC3tup9NXdjKK03QDa8rxatjex1EoBgOWL+6UM84eIeN4S+2ew1Rc2kwGxG
-	WHsUyKOm1llliETzm4LqRQGFJgI/IY6nWcHDxZVuKpVvq6wsn16fBiz0BfVJLE03INDS8RrEmcv
-	NIp8Pen51K3VZjb2sn2iD0DqYlxpLgc9j+amry6ACr/JSD13KZw2mCyUc8xaLPU4VerCELl3V8B
-	Yy2h4HXVoHjS4+3J/De+V3wD0g52rm6RWUo+dJJw4ix4t6IzRxgnvrnI0caqYZozUrZGHAnKk+E
-	4DyOCeVkJ+sPrS6bJq7LTbTGpeftBczxG7NyBr5F+yD/1Kx6F8hZzm1JDVin73sQq0X2SWwVp50
-	pckTJDj457MEheKO/3PuJdPDt0kuOh6yK8WXmkgeGb8/GzMO9J9rw==
-X-Received: by 2002:adf:e19a:0:b0:48e:6f:a9c1 with SMTP id ffacd0b85a97d-48e07fa6ffamr21235031f8f.54.1792487976218;
-        Tue, 20 Oct 2026 02:19:36 -0700 (PDT)
+        bh=VvtetNybFvpR2bcqOeI5rfwt1MRTMkbqxUE2U+5+8c0=;
+        b=G/KSArM+lB6awgZy1BnmuxL/yNUqE6SNL1HtlWCmP88U3YKq2ke8IvOfxK3SiOACuo
+         k37WOG/mkEJBaRXSaZi7t9dRqopJpEnv8jXtNfkZet/w9627lpCMCyXOLGbJuQK0BNJU
+         soKGxEhcdtF5j6gRLHw5LlgdqEb/PWku6rBOW9TyI1BAx/BdjHhEtSwsSrs8V6ifKoqE
+         c3P/Tw9nbjwPe9J1uYLi7RrWjU26UG9Ho2wx0EpCt0ns91ogjwZhGAr7ww/SgSAuNNJ/
+         u62jMdApbhZCojXEhMu0nyfvJHTCVVva4uTaMpcN8UEHjsQ0pdIXYBq8yGsCmgTNuasC
+         ePkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxwcfhY4g6F+iXCY+jzsH+EyvZX/91V8XAjhlghHkjGfCTduuNisTcQCeyo7sEgbAC9UheyI0clvhdFmH0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBOSlUz0PY6ra7OjEOjKvAg76hFZb5GSFKzqJiKlzXsB8eXUax
+	0STs0rVIcFUt6pNzqBQD9X3nQ7wHs1oKxq+K8efZ2U9fzDWmEVRomb8iyao/zm4Y8O8=
+X-Gm-Gg: AYBFou32SqmuhVuxWAP8OBH3JOhS3xLklh0l/1v5UILgZ1WwGcAtE/g4KZS4iZMxgaK
+	dLl2F3NCfmVBBrwlx2kzBg3JMuswH8cXG8fmzplvSCwR1aM7XX7Xf9SJU2FcG6xz/X5dVdAi62f
+	hmCtLjyNJTUfo5Ldaf0TW0kq2xwvjPO7pTwnYaQ72G9AkhKOj6ijr2biEOw05fjLIEL0GyshDST
+	s4yiIOQ8qx21vRmVUw17EiF5NAadCZ3Sxd8zH8/cL3YVbp6rrk9cUBjm1O9e7ZjM0sbw5QlqpYu
+	LiU8CUgd6SpKegGoTTIHZkVLv6jq1uiurJe75msDrSxN7c+cNk3yKAZ1HiCiEhElyQIil4KRIBy
+	LsddMHmo1HSgHXddFyVj7UGVUmATp/ae8rtpQDgWO4WX6tfa6aFKkt2NXRcTTSnhxhYT7h0eGa2
+	5BL5HUkHFIBhMOPg4I/1lA/ZxjLWi7QzvbGIa8Z8aKJbI41Quvj4WJ7M8tbyCtsH7gOAe73B4yY
+	mykIbHU2U52Dar8W9fkkx0liDz8m7fiUD8b91nJs41EXeqabOmWQ2o=
+X-Received: by 2002:a05:600c:3baa:b0:4a1:e586:6328 with SMTP id 5b1f17b1804b1-4a1e5866352mr167712225e9.12.1792488000132;
+        Tue, 20 Oct 2026 02:20:00 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:e3a1:1a65:a394:be54? ([2a01:e0a:106d:1080:e3a1:1a65:a394:be54])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208b1sm5114545f8f.33.2026.10.20.02.19.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6dbbb0sm4872571f8f.5.2026.10.20.02.19.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 02:19:35 -0700 (PDT)
-Message-ID: <9bf6d1b1-d287-49bf-9755-a3ce42b85823@linaro.org>
-Date: Tue, 20 Oct 2026 11:19:34 +0200
+        Tue, 20 Oct 2026 02:19:59 -0700 (PDT)
+Message-ID: <fbb6c91e-cf8d-4bba-82cd-57f0d1b2c698@linaro.org>
+Date: Tue, 20 Oct 2026 11:19:58 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,8 +94,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref
- with USB-C audio
+Subject: Re: [PATCH v2 3/4] ASoC: codecs: wcd-mbhc: guard against NULL cfg in
+ typec_report_(un)plug
 To: Val Packett <val@packett.cool>, Srinivas Kandagatla <srini@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
@@ -105,7 +105,7 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20261020082631.1509275-1-val@packett.cool>
- <20261020082631.1509275-5-val@packett.cool>
+ <20261020082631.1509275-4-val@packett.cool>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -132,86 +132,48 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261020082631.1509275-5-val@packett.cool>
+In-Reply-To: <20261020082631.1509275-4-val@packett.cool>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 10/20/26 10:26, Val Packett wrote:
-> Some code issues were found during review of a port of typec code from
-> wcd939x to wcd937x, pointed out by sashiko-bot:
+> mbhc->cfg is only set by wcd_mbhc_start() which is called by the codec's
+> set_jack op. wcd_mbhc_typec_report_plug/unplug are called by the platform
+> device's typec callbacks, which are not synchronized with codec ops, so
+> a hotplug could be reported before set_jack was called. Though unlikely
+> to happen in practice, add a check to be safe.
 > 
-> * wcd939x->wcd_mbhc may be accessed by the typec callbacks which are
->    independent of the ASoC codec lifecycle, don't leave it as NULL/PTR_ERR;
-> * wcd939x->typec_switch reference was leaked on unbind, put it there;
-> * the device_node reference returned by of_graph_get_remote_node() was
->    being leaked, add a __free annotation to the declaration.
-> 
-> Fix them in wcd939x as well.
+> Found by sashiko-bot via review of wcd937x Type-C integration patches.
 > 
 > Cc: stable@vger.kernel.org
-> Fixes: 10f514bd172a ("ASoC: codecs: Add WCD939x Codec driver")
+> Fixes: 0c105997eefd ("ASoC: codec: wcd-mbhc-v2: add support when connected behind an USB-C audio mux")
 > Signed-off-by: Val Packett <val@packett.cool>
 > ---
->   sound/soc/codecs/wcd939x.c | 18 ++++++++++++++----
->   1 file changed, 14 insertions(+), 4 deletions(-)
+>   sound/soc/codecs/wcd-mbhc-v2.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
-> index 26fe0b6313cd..56e041e70fd4 100644
-> --- a/sound/soc/codecs/wcd939x.c
-> +++ b/sound/soc/codecs/wcd939x.c
-> @@ -2466,6 +2466,7 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
+> diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
+> index 850be84d65ce..fd40c1686d66 100644
+> --- a/sound/soc/codecs/wcd-mbhc-v2.c
+> +++ b/sound/soc/codecs/wcd-mbhc-v2.c
+> @@ -594,7 +594,7 @@ static irqreturn_t wcd_mbhc_mech_plug_detect_irq(int irq, void *data)
+>   int wcd_mbhc_typec_report_unplug(struct wcd_mbhc *mbhc)
 >   {
->   	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
->   	struct wcd_mbhc_intr *intr_ids = &wcd939x->intr_ids;
-> +	struct wcd_mbhc *mbhc;
 >   
->   	intr_ids->mbhc_sw_intr = regmap_irq_get_virq(wcd939x->irq_chip,
->   						     WCD939X_IRQ_MBHC_SW_DET);
-> @@ -2482,9 +2483,12 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
->   	intr_ids->hph_right_ocp = regmap_irq_get_virq(wcd939x->irq_chip,
->   						      WCD939X_IRQ_HPHR_OCP_INT);
+> -	if (!mbhc || !mbhc->cfg->typec_analog_mux)
+> +	if (!mbhc || !mbhc->cfg || !mbhc->cfg->typec_analog_mux)
+>   		return -EINVAL;
 >   
-> -	wcd939x->wcd_mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
-> -	if (IS_ERR(wcd939x->wcd_mbhc))
-> -		return PTR_ERR(wcd939x->wcd_mbhc);
-> +	mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
-> +	if (IS_ERR(mbhc))
-> +		return PTR_ERR(mbhc);
-> +
-> +	/* May be accessed by platform dev typec callbacks, only set if valid */
-> +	wcd939x->wcd_mbhc = mbhc;
+>   	if (mbhc->mbhc_cb->clk_setup)
+> @@ -611,7 +611,7 @@ EXPORT_SYMBOL_GPL(wcd_mbhc_typec_report_unplug);
 >   
->   	snd_soc_add_component_controls(component, impedance_detect_controls,
->   				       ARRAY_SIZE(impedance_detect_controls));
-> @@ -2499,6 +2503,8 @@ static void wcd939x_mbhc_deinit(struct snd_soc_component *component)
->   	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
->   
->   	wcd_mbhc_deinit(wcd939x->wcd_mbhc);
-> +	/* May be accessed by platform dev typec callbacks, clear */
-> +	wcd939x->wcd_mbhc = NULL;
->   }
->   
->   /* END MBHC */
-> @@ -3171,7 +3177,7 @@ static int wcd939x_populate_dt_data(struct wcd939x_priv *wcd939x, struct device
+>   int wcd_mbhc_typec_report_plug(struct wcd_mbhc *mbhc)
 >   {
->   	struct wcd_mbhc_config *cfg = &wcd939x->mbhc_cfg;
->   #if IS_ENABLED(CONFIG_TYPEC)
-> -	struct device_node *np;
-> +	struct device_node *np __free(device_node);
->   #endif /* CONFIG_TYPEC */
->   	int ret;
+> -	if (!mbhc || !mbhc->cfg->typec_analog_mux)
+> +	if (!mbhc || !mbhc->cfg || !mbhc->cfg->typec_analog_mux)
+>   		return -EINVAL;
 >   
-> @@ -3434,6 +3440,10 @@ static void wcd939x_unbind(struct device *dev)
->   	put_device(wcd939x->txdev);
->   	put_device(wcd939x->rxdev);
->   	component_unbind_all(dev, wcd939x);
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +	if (wcd939x->typec_analog_mux)
-> +		typec_switch_put(wcd939x->typec_switch);
-> +#endif /* CONFIG_TYPEC */
->   }
->   
->   static const struct component_master_ops wcd939x_comp_ops = {
+>   	if (mbhc->mbhc_cb->clk_setup)
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
