@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510237;
-	b=y3Aozo/ONzJJay8gGwnqNsVh4UEJB+yM2UNO7ysK8c3SPKga62mJ3iNnrjsnk166aypN
-	 ZUmXE+55ysirS63AmxP+q44Yt1np0R/jkO7AFTWN7SgXXXnQnFOmAwPSmLx78u24jGfbt
-	 k1uQU7erJMD/YKZs1nnpP7ZO8HdORGlI5MO7lUgt77mi+8oRAMFifC/D2FRRVIPGG1h5Y
-	 +UJlSM/a1EaUNkElMELEvZvFfaHAd5uiPB7zrrsnVf7c8cPZ9y2YouUGsmQbeaEK9KprJ
-	 qVk4EXxzW8ggVRLerYZ9x1MUOoCoJemhacQ6XiVIBXS+VlwfQ7pVKpdGvzRW42b3diw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510237;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FXgaLSYZ83aSOhpB3j6nH7HqeJaxN9MwPk9cCwVPoEg=;
-	b=M5E6QssHkP40ydsZk5Fi9DRU4iZMUJTNH8e8xXUveBOYUEDXvRvC9/s7sFxOOeBCjd4p
-	 HqmU/Jvi7OvFJybRLmSGKndMK2m2i9Qk+Rjq4aaPdv/LCiGriNuD/WjOfHswihyJFE6ma
-	 0be/wK2KznXv2A3ds1njjy4UlVDZdEN/kxcp40cHjQdJFK08lxa7IfnfTL/YExh8DlW31
-	 Fs53QG0YD9oePChl1J3XZW0vL5Bg8PIfghgThIcBkfg2nNhyCOIwu9vhEzmbRpLqnHhkX
-	 yVFB//tDZrnug9oJqY+jtgAWWPB7dOWyfN7hsh/brraJUs263dQ233kVHh6SDg1xhCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="LusYo5e/";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7BCF606A31D;
-	Tue, 20 Oct 2026 15:30:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7BCF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792510242;
+	b=ZZNZfu0kG8K1jk3DzdzLqkiPaEioIa8vMxBlVAFbD18Pg+Slxaz+K55b8fRtFyA5Fo4G
+	 4exz/k7Luoe2d6x527QihMBDqdF8FBEx4AdHAw+gO/X454kIy4pKP6z3jNAgJWuO3Xmqk
+	 zhTIpNWXp+UeqAkJWV4uwyRXPljiT2AfPQK4VmcG7j4EyHU6/4C30zPxNs8H9YPIIpqvU
+	 lLt7h9EGu5XKp+Y1ndQmT/HS7+JG81ISjcoBK71WYXs3fasbItNCJGzEgSm2SjHEBvcl6
+	 z/tDZ0KaXM7QOZ2BB6XGU7gcwXFOwaL9O5iRiKKBg9JWZ1Yj/FlbZr/od0fxwru9GQQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510242;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CJ/2JjOfv7jKYX1UxnOtzLnNxCxfLnpcbv11NxnLJuM=;
+	b=hyLAlvErmGXoKG+t97iIwuDPzve24nqgOWjBgDlq+afenc0Oa9iVdHHWyyXHsmHTYtq4
+	 o88hUGSSYzRfzNSj3I6uXLeqS4fm9RIS1MQsWG2jaZGjQPCbYTyq5aESrV2ZqbT8Ahy6i
+	 tWNGO2S17q5v6JB8W3TJ5LsBod97A+Y3WZXKv+jeUxlTDEhJlXPa/foqeRRQ9TUvDryXt
+	 hQgW9RvJ/PrkQVH1tm9AcdLQ2s//zVv03sf996CWFc6fFYHmuO5ACtrzrt4CcL55hkvKw
+	 /l/fkw9A0dBSYZByt1IaKJUt40gulOOgKpWMB5A9DtHouIVCBLBgSbUUkAFoYhhIHtQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=HHjx68Bd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7492E60A260F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7492E60A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LusYo5e/
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B008516F8;
-	Tue, 20 Oct 2026 08:30:31 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 823C23F7B4;
-	Tue, 20 Oct 2026 08:30:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792510234; bh=uX61sNx/pMOXT8smCyah17rnMVB+Ex6Ja4uPMIwFAAg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LusYo5e/E9i+iF1dMk4IpxTeUvZsvx2T1cz4iq5jALW9HTUcRxR4K6412qCsht28i
-	 M1Pj/Fz4RmC/EkQHLKa/8gqjVUH82jWPY+ITsoiZewYZKLNr+Q3hpsYBD7tPJ3HL2/
-	 APV4RlGoaBr+cY6wATyO0XqANhu+8yQlXbwkpsKs=
-Message-ID: <605a143f-d452-408f-9fcf-259af8ad004b@arm.com>
-Date: Tue, 20 Oct 2026 16:30:30 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=HHjx68Bd
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e8623790f8so78505ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:30:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792510241; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fpCwW+uMZKCyvJpTHgFmEkh1UG28I3tM2iySGYgJXWbFx0KmqZx3C0OQdTLkjXSe5F
+         3oNBDOj9U9PO0gzQxSRJZSB74Jso3TZp3ClRRgD7HX1YcUAD2UnmK0jwULe/ApyTc/Ek
+         axa2gN8dLuz1CKC1oK9b03JwEW/yAjOlQZsprvblHxM8PyNlq1PAKSF1zxZYZ7YWFj0G
+         5vWIh44Lie/lHFdtIE2W5De2k+QKuQRvTJ6CgV/7rcpPJ8GRPNFSALIUaYOj/qzSBNKO
+         Lar3iaU91Jtu9lBJvZLFSyMG8S5QQ6E1CGdGBxeWwN8KXkih9VOmUa6SoR8oI3o8BWvz
+         nUkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CJ/2JjOfv7jKYX1UxnOtzLnNxCxfLnpcbv11NxnLJuM=;
+        fh=eG5/HHmYKm1PltuUCCmklFNiQwQu6b/S4VWK2mCCExo=;
+        b=kavboUrKIoD3l9fq0U5hXLrEwzZ7kErLs6qlhY0kbHrt20DchOEMgaflQOPOxTvAHx
+         2hkdAS1Jl5SCCyeckX+EBPjbbTdJiIYvSe8GvPTQhDB27H53sicZGulNTUZA3CaRB63R
+         thwy8TRS4coD8wfrdN7dFLv2bmjwTFdfi72q6zO8U8Uw68kG/F6KGzGDmky4+W5PSQiv
+         R/MhLFuVEiBpdeMj1u3OF/cOTDpzrIFOayanRzzh9qiLvEWgd+5BD+ceEjcdZhgzEHmY
+         44ZO135GqSTd55u/4bZxwFXJwrXsjk5kw99EaIejMfxnoTri65SSpezAkltc4VMdIO9l
+         6lKg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792510241; x=1793115041; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CJ/2JjOfv7jKYX1UxnOtzLnNxCxfLnpcbv11NxnLJuM=;
+        b=HHjx68BdSfsUKb2Ijmp4YWBQ7qCb4HitJ4/z8W1s63pnmzFffQ22nOclBVMvPyYCqa
+         zlNfY1Men1BOjbZdq7SmDvpTGWSPC0LtSw12DtgmH3XUOrgjLdQ41WmJGS8Nqae36Okj
+         V61h0EBbqsxsfQ0/6uV0JvGS2Hi7XbhnkUCTQl7vkXEDoIDi7tHH32xk2iOJ7gWc6ioU
+         6+srm6N2ZguJZCy8hR0yHSKeRkpl5vN/pK96YvszDf49luFYXK+Aj5oopjFRbRih1L3k
+         15rZw7PU4yikKQkRQm6P9Rie5EBUpzl/YPlZnTXqBPWedxx8Pcxs+oHjgsywBYGW95ME
+         5b4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792510241; x=1793115041;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CJ/2JjOfv7jKYX1UxnOtzLnNxCxfLnpcbv11NxnLJuM=;
+        b=s/RxgVXUGlpFSnGOeZh6b+MQOOIS0nlRcyyeyBZLheHnqNxB0Dj+2SPljblx95OAXr
+         GKF3WAU2o2F5IXCPQLQLtPt6Q78xRe8frNTkrzL2pMH7VUlnFTK/qytMZXypOnVUyjHt
+         xnOvXOeVV1y2q+ag3HLch572drDJv7JVnwypGaGk57feVlfAByyvDhBKAa8NgWbdDGMb
+         2yc9r+LeQCCZEV+lxtf+/MOqNvJaXFuuM8KaltSxdMRxasgOfwAdjo+or2DOm40Z4jX5
+         oqZE7p7O24BZ1eOX4SOSdcPB4DpoN4hBzTnEzimEJ9gWfiunkOpm7G2p4HrRS2e3C2A2
+         vqAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzD3IphYtqoaEupgJvKMW0L/UuFUnAkITsCD0YSVdx35bxrEsCwIdbR3g0dyiOIrdC3r8fmtDQ5AX8xlvU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLC4JAgu8jUBevz3mtNnRm/U7ZrA2rMEPqOwjPs8hyaPFlI9a+A
+	4793rHzvX77Usrai09nZszO3dOtrpzkphRIu0O2zLp6w4bUlbk1XBrCD1JUcGcuTxPNkEu1iliQ
+	Ec6B1lhQMBODA2iJQ1Iv9Ech/MDqSafJu7SAzKoXq
+X-Gm-Gg: AYBFou1z2XSY1LE8KzArmnDpNy8l+T+wNM8Mo6rnNb9sz3ZeunYXgd6mbPN4F3dv4A0
+	W7/cQeke0r8kwRFa/sVgQj5oOA3UhHWx4b6/W4guopf2vgIzlPikZMD5Gy/sDYHf/kErLpe4A+U
+	ay3un8vWDM9OBuG1uAwsSGGs+fhVrqoOIcJ3lQ62/TdmDRRrNvu3ZoBDyiFawqsCJno0XGunXl/
+	vJoCbA4rS+R2pZpAIeOYIRjmQg3AeYZQ4PdGAqLF9LlupDJ3lwOUOCywF8b4M3pAvtPwDKpwhmR
+	Wirpv3XYLIHqwkdYA7ODBizbyuO0FW7rkb1XQQhW16iTiJjWOoPZlO0ASjdzK598VuyteBOOwQ8
+	Kwu/Wik2Ud8+TGgTjbVTGzxWg7oArOljzkYnAilJNByTGChXCsv6Vfwm7i9Akisp6jM0=
+X-Received: by 2002:a17:902:e810:b0:2d5:c090:3810 with SMTP id
+ d9443c01a7336-2ea1acd888fmr5174455ad.2.1792510239970; Tue, 20 Oct 2026
+ 08:30:39 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,294 +104,509 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/11] iommu/tegra-smmu: Use a DMA API default domain
- per swgroup
-To: Mikko Perttunen <mperttunen@nvidia.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
- Thierry Reding <thierry.reding@kernel.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
- <20261016-b4-arm32-iommu-dma-cookie-v2-11-b06842a01938@nvidia.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-11-b06842a01938@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261018053710.2572636-1-irogers@google.com> <20261019220915.3943592-1-irogers@google.com>
+ <20261019220915.3943592-3-irogers@google.com> <atb-9j8tLZ2rFtOm@z2>
+In-Reply-To: <atb-9j8tLZ2rFtOm@z2>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 20 Oct 2026 08:30:26 -0700
+X-Gm-Features: AclHuK98mcceTeTYd5_ymsTCReegYXkk62EobxKKHMTzqvXMKl2m3o9Szpose10
+Message-ID: <CAP-5=fUbsiir_4K1rhpy=TxWpgGLzuR7-fvMiiQ9htTUM3ibng@mail.gmail.com>
+Subject: Re: [PATCH v4 2/7] perf bpf-filter: Support BPF sample filters on
+ tracepoint events
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
+	jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	eranian@google.com, ddhariwal@google.com, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 16/10/2026 7:46 am, Mikko Perttunen wrote:
-> Everything is now in place for the Tegra SMMU to give devices a real
-> IOMMU_DOMAIN_DMA default domain.
-> 
-> Some device drivers still rely on explicit domains (and being able to
-> detach a legacy ARM DMA domain if any), so DMA default domains are
-> enabled on a per-swgroup basis via a use_dma_api flag. As drivers are
-> converted to DMA API usage we can eventually get rid of this. Initially
-> the flag is enabled for TegraDRM and Host1x devices.
-> 
-> On multi_v7_defconfig (where CONFIG_ARM_DMA_USE_IOMMU was always
-> enabled), this will fix TegraDRM probing with certain probe orderings
-> where the legacy implementation's lack of support for multiple devices
-> in one IOMMU group would cause breakage.
-> 
-> On tegra_defconfig, as this now enables CONFIG_ARM_DMA_USE_IOMMU, all
-> devices move to either the legacy ARM DMA path or the new one. This
-> should in principle not cause issues as the drivers would already have
-> been verified on multi_v7_defconfig.
-> 
-> Also set .release_domain to the identity domain to ensure the AS is
-> released appropriately now that the domain can be non-static.
-> 
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> ---
->   drivers/iommu/Kconfig           |  1 +
->   drivers/iommu/tegra-smmu.c      | 59 ++++++++++++++++++++++++++++++++++++++---
->   drivers/memory/tegra/tegra114.c | 13 +++++----
->   drivers/memory/tegra/tegra124.c | 10 ++++---
->   drivers/memory/tegra/tegra30.c  | 16 ++++++-----
->   include/soc/tegra/mc.h          |  7 +++++
->   6 files changed, 87 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-> index 6e07bd69467a..817e84e0e6ab 100644
-> --- a/drivers/iommu/Kconfig
-> +++ b/drivers/iommu/Kconfig
-> @@ -252,6 +252,7 @@ config TEGRA_IOMMU_SMMU
->   	depends on TEGRA_AHB
->   	depends on TEGRA_MC
->   	select IOMMU_API
-> +	select ARM_DMA_USE_IOMMU if ARM
->   	help
->   	  This driver supports the IOMMU hardware (SMMU) found on NVIDIA Tegra
->   	  SoCs (Tegra30 up to Tegra210).
-> diff --git a/drivers/iommu/tegra-smmu.c b/drivers/iommu/tegra-smmu.c
-> index 6779528a9e7c..1c1910f25553 100644
-> --- a/drivers/iommu/tegra-smmu.c
-> +++ b/drivers/iommu/tegra-smmu.c
-> @@ -994,16 +994,31 @@ static int tegra_smmu_of_xlate(struct device *dev,
->   
->   static int tegra_smmu_def_domain_type(struct device *dev)
->   {
-> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +	struct tegra_smmu *smmu = dev_iommu_priv_get(dev);
-> +	unsigned int i;
-> +
-> +	if (!fwspec || !smmu)
-> +		return IOMMU_DOMAIN_IDENTITY;
+On Mon, Oct 19, 2026 at 10:41=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
+ wrote:
+>
+> On Mon, Oct 19, 2026 at 03:09:10PM -0700, Ian Rogers wrote:
+> > Commit 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
+> > updated set_filter() to route non-tracepoint filter terms (such as uid
+> > and gid) on PERF_TYPE_TRACEPOINT events to evsel->bpf_filters instead
+> > of the ftrace tracepoint predicate filter.
+> >
+> > However, in the kernel's __perf_event_set_bpf_prog()
+> > (kernel/events/core.c), attaching a BPF program to a perf_event fd
+> > branches on perf_event_is_tracing(event):
+> > - Non-tracing events (hardware PMU, software events, breakpoints) call
+> >   perf_event_set_bpf_handler(), which requires BPF_PROG_TYPE_PERF_EVENT
+> >   (SEC("perf_event")).
+> > - Tracepoint events (event->pmu =3D=3D &perf_tracepoint) reject
+> >   BPF_PROG_TYPE_PERF_EVENT with -EINVAL and instead require
+> >   BPF_PROG_TYPE_TRACEPOINT (SEC("tracepoint")), which is attached to
+> >   event->tp_event->prog_array and executed in
+> >   perf_trace_run_bpf_submit() before perf_tp_event(), dropping the
+> >   sample if the BPF program returns 0. Furthermore, the
+> >   bpf_cast_to_kern_ctx() kfunc is only permitted in
+> >   BPF_PROG_TYPE_PERF_EVENT programs.
+> >
+> > Add SEC("tracepoint") int perf_tp_sample_filter(void *ctx) in
+> > sample_filter.bpf.c to evaluate context-independent filter terms (uid,
+> > gid, tid, cpu, time, cgroup) using BPF helpers without calling
+> > bpf_cast_to_kern_ctx(). When preparing a BPF filter on a
+> > PERF_TYPE_TRACEPOINT evsel, autoload perf_tp_sample_filter instead of
+> > perf_sample_filter and attach it once to the shared trace_event_call.
+> >
+> > Before:
+> >   # perf record -e kmem:mm_page_alloc --filter 'uid =3D=3D 0' -- true
+> >   libbpf: prog 'perf_sample_filter': failed to attach to perf_event FD =
+3: Invalid argument
+> >   Failed to attach perf sample-filter program
+> >   failed to set filter "BPF" on event kmem:mm_page_alloc with 22 (Inval=
+id argument)
+> >
+> > After:
+> >   # perf record -e kmem:mm_page_alloc --filter 'uid =3D=3D 0' -- true
+> >   [ perf record: Woken up 1 times to write data ]
+> >   [ perf record: Captured and wrote 0.024 MB perf.data (42 samples) ]
+> >
+> > Fixes: 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
+> > Signed-off-by: Ian Rogers <irogers@google.com>
+> > ---
+> >  tools/perf/util/bpf-filter.c                 | 136 ++++++++++++++++---
+> >  tools/perf/util/bpf_skel/sample_filter.bpf.c |  85 ++++++++++++
+> >  2 files changed, 201 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.=
+c
+> > index 72e83ac1d6a4..4e99af4764f1 100644
+> > --- a/tools/perf/util/bpf-filter.c
+> > +++ b/tools/perf/util/bpf-filter.c
+> > @@ -123,15 +123,26 @@ static int check_sample_flags(struct evsel *evsel=
+, struct perf_bpf_filter_expr *
+> >  {
+> >       const struct perf_sample_info *info;
+> >
+> > -     if (expr->term >=3D PBF_TERM_SAMPLE_START && expr->term <=3D PBF_=
+TERM_SAMPLE_END &&
+> > -         (evsel->core.attr.sample_type & (1 << (expr->term - PBF_TERM_=
+SAMPLE_START))))
+> > -             return 0;
+> > -
+> >       if (expr->term =3D=3D PBF_TERM_UID || expr->term =3D=3D PBF_TERM_=
+GID) {
+> >               /* Not dependent on the sample_type as computed from a BP=
+F helper. */
+> >               return 0;
+> >       }
+> >
+> > +     if (evsel->core.attr.type =3D=3D PERF_TYPE_TRACEPOINT) {
+> > +             if (expr->term =3D=3D PBF_TERM_TID || expr->term =3D=3D P=
+BF_TERM_CPU ||
+> > +                 expr->term =3D=3D PBF_TERM_TIME || expr->term =3D=3D =
+PBF_TERM_CGROUP)
+> > +                     return 0;
+> > +             if (expr->op !=3D PBF_OP_GROUP_BEGIN) {
+> > +                     pr_err("Error: %s tracepoint event does not suppo=
+rt BPF sample term %d\n",
+> > +                            evsel__name(evsel), expr->term);
+> > +                     return -1;
+> > +             }
+> > +     }
+> > +
+> > +     if (expr->term >=3D PBF_TERM_SAMPLE_START && expr->term <=3D PBF_=
+TERM_SAMPLE_END &&
+> > +         (evsel->core.attr.sample_type & (1 << (expr->term - PBF_TERM_=
+SAMPLE_START))))
+> > +             return 0;
+> > +
+> >       if (expr->op =3D=3D PBF_OP_GROUP_BEGIN) {
+> >               struct perf_bpf_filter_expr *group;
+> >
+> > @@ -427,6 +438,7 @@ int perf_bpf_filter__prepare(struct evsel *evsel, s=
+truct target *target)
+> >       struct bpf_link *link;
+> >       struct perf_bpf_filter_entry *entry;
+> >       bool needs_idx_hash =3D !target__has_cpu(target);
+> > +     bool is_tracepoint =3D (evsel->core.attr.type =3D=3D PERF_TYPE_TR=
+ACEPOINT);
+> >  #if LIBBPF_CURRENT_VERSION_GEQ(1, 7)
+> >       DECLARE_LIBBPF_OPTS(bpf_perf_event_opts, pe_opts,
+> >                           .dont_enable =3D true);
+> > @@ -444,9 +456,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, =
+struct target *target)
+> >               goto err;
+> >       }
+> >
+> > -     if (needs_idx_hash && geteuid() !=3D 0) {
+> > +     if (needs_idx_hash && geteuid() !=3D 0 && !perf_cap__capable(CAP_=
+BPF)) {
+> >               int zero =3D 0;
+> >
+> > +             if (is_tracepoint) {
+> > +                     pr_err("Error: Tracepoint BPF filter requires CAP=
+_BPF capability\n");
+> > +                     ret =3D -EPERM;
+> > +                     goto err;
+> > +             }
+> > +
+> >               /* The filters map is shared among other processes */
+> >               ret =3D create_idx_hash(evsel, entry);
+> >               if (ret < 0)
+> > @@ -484,8 +502,17 @@ int perf_bpf_filter__prepare(struct evsel *evsel, =
+struct target *target)
+> >               return 0;
+> >       }
+> >
+> > -     skel =3D sample_filter_bpf__open_and_load();
+> > +     skel =3D sample_filter_bpf__open();
+> >       if (!skel) {
+> > +             ret =3D -errno;
+> > +             pr_err("Failed to open perf sample-filter BPF skeleton\n"=
+);
+> > +             goto err;
+> > +     }
+> > +
+> > +     bpf_program__set_autoload(skel->progs.perf_sample_filter, !is_tra=
+cepoint);
+> > +     bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, is_t=
+racepoint);
+> > +
+> > +     if (sample_filter_bpf__load(skel) < 0) {
+> >               ret =3D -errno;
+> >               pr_err("Failed to load perf sample-filter BPF skeleton\n"=
+);
+> >               goto err;
+> > @@ -501,15 +528,35 @@ int perf_bpf_filter__prepare(struct evsel *evsel,=
+ struct target *target)
+> >               goto err;
+> >       }
+> >
+> > -     prog =3D skel->progs.perf_sample_filter;
+> > -     for (x =3D 0; x < xyarray__max_x(evsel->core.fd); x++) {
+> > -             for (y =3D 0; y < xyarray__max_y(evsel->core.fd); y++) {
+> > -                     link =3D bpf_program__attach_perf_event_opts(prog=
+, FD(evsel, x, y),
+> > -                                                                &pe_op=
+ts);
+> > -                     if (IS_ERR(link)) {
+> > -                             pr_err("Failed to attach perf sample-filt=
+er program\n");
+> > -                             ret =3D PTR_ERR(link);
+> > -                             goto err;
+> > +     if (is_tracepoint) {
+> > +             /*
+> > +              * For PERF_TYPE_TRACEPOINT, PERF_EVENT_IOC_SET_BPF attac=
+hes the
+> > +              * BPF program to event->tp_event->prog_array on the shar=
+ed
+> > +              * trace_event_call, which perf_trace_run_bpf_submit() ex=
+ecutes
+> > +              * for all CPUs and tasks before iterating the per-CPU pe=
+rf
+> > +              * events. Attach once on the first FD so tp_event->prog_=
+array
+> > +              * does not get duplicate copies for each per-CPU FD.
+> > +              */
+> > +             prog =3D skel->progs.perf_tp_sample_filter;
+> > +             link =3D bpf_program__attach_perf_event_opts(prog, FD(evs=
+el, 0, 0),
+> > +                                                        &pe_opts);
+> > +             ret =3D libbpf_get_error(link);
+> > +             if (ret) {
+> > +                     pr_err("Failed to attach perf tracepoint sample-f=
+ilter program\n");
+> > +                     goto err;
+> > +             }
+> > +             skel->links.perf_tp_sample_filter =3D link;
+> > +     } else {
+> > +             prog =3D skel->progs.perf_sample_filter;
+> > +             for (x =3D 0; x < xyarray__max_x(evsel->core.fd); x++) {
+> > +                     for (y =3D 0; y < xyarray__max_y(evsel->core.fd);=
+ y++) {
+> > +                             link =3D bpf_program__attach_perf_event_o=
+pts(prog, FD(evsel, x, y),
+> > +                                                                      =
+  &pe_opts);
+>
+> This link should be saves somewhere.  I've sent a fix for it.
 
-Dead code - by this point tegra_smmu_probe_device() has already run (and 
-we've literally reached this call via dev_iommu_ops(dev)) so the device 
-is definitely valid.
+Good catch! I'll follow up on that change.
 
-> +
->   	/*
-> -	 * FIXME: For now we want to run all translation in IDENTITY mode, due
-> -	 * to some device quirks. Better would be to just quirk the troubled
-> -	 * devices.
-> +	 * Only clients known to work with the DMA API get a DMA default domain.
-> +	 * The rest keep running in identity mode.
->   	 */
-> -	return IOMMU_DOMAIN_IDENTITY;
-> +	for (i = 0; i < fwspec->num_ids; i++) {
-> +		const struct tegra_smmu_swgroup *group;
-> +
-> +		group = tegra_smmu_find_swgroup(smmu, fwspec->ids[i]);
-> +		if (!group || !group->use_dma_api)
+> > +                             ret =3D libbpf_get_error(link);
+> > +                             if (ret) {
+> > +                                     pr_err("Failed to attach perf sam=
+ple-filter program\n");
+> > +                                     goto err;
+> > +                             }
+> >                       }
+> >               }
+> >       }
+> > @@ -641,6 +688,45 @@ int perf_bpf_filter__parse(struct list_head *expr_=
+head, const char *str)
+> >       return ret;
+> >  }
+> >
+> > +static int pin_filter_object(struct sample_filter_bpf *skel, const cha=
+r *path)
+> > +{
+> > +     char *prog_path =3D NULL;
+> > +     int ret;
+> > +
+> > +     ret =3D bpf_object__pin_maps(skel->obj, path);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     if (asprintf(&prog_path, "%s/perf_sample_filter", path) < 0) {
+> > +             bpf_object__unpin_maps(skel->obj, path);
+> > +             return -ENOMEM;
+> > +     }
+> > +
+> > +     ret =3D bpf_program__pin(skel->progs.perf_sample_filter, prog_pat=
+h);
+> > +     if (ret < 0)
+> > +             bpf_object__unpin_maps(skel->obj, path);
+> > +
+> > +     free(prog_path);
+> > +     return ret;
+> > +}
+> > +
+> > +static int unpin_filter_object(struct sample_filter_bpf *skel, const c=
+har *path)
+> > +{
+> > +     char *prog_path =3D NULL;
+> > +     int ret, map_ret;
+> > +
+> > +     if (asprintf(&prog_path, "%s/perf_sample_filter", path) < 0) {
+> > +             bpf_object__unpin_maps(skel->obj, path);
+> > +             return -ENOMEM;
+> > +     }
+> > +
+> > +     ret =3D bpf_program__unpin(skel->progs.perf_sample_filter, prog_p=
+ath);
+> > +     free(prog_path);
+> > +
+> > +     map_ret =3D bpf_object__unpin_maps(skel->obj, path);
+> > +     return ret < 0 ? ret : map_ret;
+> > +}
+> > +
+> >  int perf_bpf_filter__pin(void)
+> >  {
+> >       struct sample_filter_bpf *skel;
+> > @@ -655,6 +741,7 @@ int perf_bpf_filter__pin(void)
+> >       }
+> >
+> >       /* pinned program will use pid-hash */
+> > +     bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, fals=
+e);
+> >       bpf_map__set_max_entries(skel->maps.filters, MAX_FILTERS);
+> >       bpf_map__set_max_entries(skel->maps.event_hash, MAX_EVT_HASH);
+> >       bpf_map__set_max_entries(skel->maps.idx_hash, MAX_IDX_HASH);
+> > @@ -674,7 +761,7 @@ int perf_bpf_filter__pin(void)
+> >               goto err;
+> >       }
+> >
+> > -     ret =3D bpf_object__pin(skel->obj, path);
+> > +     ret =3D pin_filter_object(skel, path);
+>
+> Why is this change needed?
 
-Similarly, dev->iommu_group is already assigned with whatever valid 
-group tegra_smmu_device_group() returned, so you could perhaps just do a 
-single iteration over smmu->groups for the lookup.
+Before this patch, sample_filter.bpf.c only contained a single BPF
+program (perf_sample_filter), which was always loaded. This patch adds
+a second program (perf_tp_sample_filter) to the same skeleton (and
+patch 4 adds the lock-tracking programs to it as well), and uses
+bpf_program__set_autoload() before loading the skeleton so we can
+select only the program(s) needed for a given event.
+
+In perf_bpf_filter__pin() and perf_bpf_filter__unpin() (for 'perf
+record --setup-filter pin|unpin'), only perf_sample_filter is used,
+because the pinned filter mechanism shares a single program across
+privileged sessions by looking up kctx->event->id via
+bpf_cast_to_kern_ctx(), which is only available to SEC("perf_event")
+programs. So autoload is disabled for perf_tp_sample_filter (and in
+patch 4, for the lock-tracking programs) when pinning and unpinning.
+
+A consequence of disabling autoload on any program in the skeleton is
+that libbpf's bpf_object__pin() and bpf_object__unpin() fail:
+  - bpf_object__pin() calls bpf_object__pin_maps() and
+bpf_object__pin_programs().
+  - While bpf_object__pin_maps() skips maps that have autocreate
+disabled, bpf_object__pin_programs() and bpf_object__unpin_programs()
+iterate over every program in skel->obj without checking whether
+autoload was enabled.
+  - When bpf_program__pin() or bpf_program__unpin() is called on a
+program that wasn't loaded (prog->fd < 0), libbpf returns -EINVAL
+("prog 'perf_tp_sample_filter': can't pin/unpin program that wasn't
+loaded").
+
+pin_filter_object() and unpin_filter_object() avoid this by calling
+bpf_object__pin_maps() / bpf_object__unpin_maps() for the maps and
+explicitly pinning/unpinning only the loaded perf_sample_filter
+program.
 
 Thanks,
-Robin.
+Ian
 
-> +			return IOMMU_DOMAIN_IDENTITY;
-> +	}
-> +
-> +	return IOMMU_DOMAIN_DMA;
->   }
->   
->   static const struct iommu_ops tegra_smmu_ops = {
->   	.identity_domain = &tegra_smmu_identity_domain,
-> +	.release_domain = &tegra_smmu_identity_domain,
->   	.def_domain_type = &tegra_smmu_def_domain_type,
->   	.domain_alloc_paging = tegra_smmu_domain_alloc_paging,
->   	.probe_device = tegra_smmu_probe_device,
-> @@ -1108,6 +1123,40 @@ static void tegra_smmu_debugfs_exit(struct tegra_smmu *smmu)
->   	debugfs_remove_recursive(smmu->debugfs);
->   }
->   
-> +/*
-> + * The default domain type is a property of the IOMMU group, so all swgroups in
-> + * one group must agree on use_dma_api. Otherwise the core sees conflicting
-> + * def_domain_type and falls back to identity for the whole group.
-> + */
-> +static void tegra_smmu_check_groups(struct tegra_smmu *smmu)
-> +{
-> +	const struct tegra_smmu_soc *soc = smmu->soc;
-> +	unsigned int i, j;
-> +
-> +	for (i = 0; i < soc->num_groups; i++) {
-> +		const struct tegra_smmu_group_soc *group = &soc->groups[i];
-> +		int dma_api = -1;
-> +
-> +		for (j = 0; j < group->num_swgroups; j++) {
-> +			const struct tegra_smmu_swgroup *swgrp;
-> +
-> +			swgrp = tegra_smmu_find_swgroup(smmu,
-> +							group->swgroups[j]);
-> +			if (!swgrp)
-> +				continue;
-> +
-> +			if (dma_api < 0)
-> +				dma_api = swgrp->use_dma_api;
-> +			else if (swgrp->use_dma_api != !!dma_api)
-> +				break;
-> +		}
-> +
-> +		WARN(j < group->num_swgroups,
-> +		     "SMMU group %s mixes DMA API and identity swgroups\n",
-> +		     group->name);
-> +	}
-> +}
-> +
->   struct tegra_smmu *tegra_smmu_probe(struct device *dev,
->   				    const struct tegra_smmu_soc *soc,
->   				    struct tegra_mc *mc)
-> @@ -1142,6 +1191,8 @@ struct tegra_smmu *tegra_smmu_probe(struct device *dev,
->   	smmu->dev = dev;
->   	smmu->mc = mc;
->   
-> +	tegra_smmu_check_groups(smmu);
-> +
->   	smmu->pfn_mask =
->   		BIT_MASK(mc->soc->num_address_bits - SMMU_PTE_SHIFT) - 1;
->   	dev_dbg(dev, "address bits: %u, PFN mask: %#lx\n",
-> diff --git a/drivers/memory/tegra/tegra114.c b/drivers/memory/tegra/tegra114.c
-> index 2883c4f91144..024c63bdd480 100644
-> --- a/drivers/memory/tegra/tegra114.c
-> +++ b/drivers/memory/tegra/tegra114.c
-> @@ -1029,15 +1029,18 @@ static const struct tegra_mc_client tegra114_mc_clients[] = {
->   
->   static const struct tegra_smmu_swgroup tegra114_swgroups[] = {
->   	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-> -	  .defer_enable = true },
-> +	  .defer_enable = true, .use_dma_api = true },
->   	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-> -	  .defer_enable = true },
-> +	  .defer_enable = true, .use_dma_api = true },
->   	{ .name = "epp",       .swgroup = TEGRA_SWGROUP_EPP,       .reg = 0x248 },
-> -	{ .name = "g2",        .swgroup = TEGRA_SWGROUP_G2,        .reg = 0x24c },
-> +	{ .name = "g2",        .swgroup = TEGRA_SWGROUP_G2,        .reg = 0x24c,
-> +	  .use_dma_api = true },
->   	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
-> -	{ .name = "nv",        .swgroup = TEGRA_SWGROUP_NV,        .reg = 0x268 },
-> +	{ .name = "nv",        .swgroup = TEGRA_SWGROUP_NV,        .reg = 0x268,
-> +	  .use_dma_api = true },
->   	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
-> -	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250 },
-> +	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250,
-> +	  .use_dma_api = true },
->   	{ .name = "msenc",     .swgroup = TEGRA_SWGROUP_MSENC,     .reg = 0x264 },
->   	{ .name = "ppcs",      .swgroup = TEGRA_SWGROUP_PPCS,      .reg = 0x270 },
->   	{ .name = "vde",       .swgroup = TEGRA_SWGROUP_VDE,       .reg = 0x27c },
-> diff --git a/drivers/memory/tegra/tegra124.c b/drivers/memory/tegra/tegra124.c
-> index a38fbf2baf6c..17068aaf163f 100644
-> --- a/drivers/memory/tegra/tegra124.c
-> +++ b/drivers/memory/tegra/tegra124.c
-> @@ -1071,13 +1071,14 @@ static const struct tegra_mc_client tegra124_mc_clients[] = {
->   
->   static const struct tegra_smmu_swgroup tegra124_swgroups[] = {
->   	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-> -	  .defer_enable = true },
-> +	  .defer_enable = true, .use_dma_api = true },
->   	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-> -	  .defer_enable = true },
-> +	  .defer_enable = true, .use_dma_api = true },
->   	{ .name = "afi",       .swgroup = TEGRA_SWGROUP_AFI,       .reg = 0x238 },
->   	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
->   	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
-> -	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250 },
-> +	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250,
-> +	  .use_dma_api = true },
->   	{ .name = "msenc",     .swgroup = TEGRA_SWGROUP_MSENC,     .reg = 0x264 },
->   	{ .name = "ppcs",      .swgroup = TEGRA_SWGROUP_PPCS,      .reg = 0x270 },
->   	{ .name = "sata",      .swgroup = TEGRA_SWGROUP_SATA,      .reg = 0x274 },
-> @@ -1093,7 +1094,8 @@ static const struct tegra_smmu_swgroup tegra124_swgroups[] = {
->   	{ .name = "sdmmc2a",   .swgroup = TEGRA_SWGROUP_SDMMC2A,   .reg = 0xa98 },
->   	{ .name = "sdmmc3a",   .swgroup = TEGRA_SWGROUP_SDMMC3A,   .reg = 0xa9c },
->   	{ .name = "sdmmc4a",   .swgroup = TEGRA_SWGROUP_SDMMC4A,   .reg = 0xaa0 },
-> -	{ .name = "vic",       .swgroup = TEGRA_SWGROUP_VIC,       .reg = 0x284 },
-> +	{ .name = "vic",       .swgroup = TEGRA_SWGROUP_VIC,       .reg = 0x284,
-> +	  .use_dma_api = true },
->   	{ .name = "vi",        .swgroup = TEGRA_SWGROUP_VI,        .reg = 0x280 },
->   };
->   
-> diff --git a/drivers/memory/tegra/tegra30.c b/drivers/memory/tegra/tegra30.c
-> index 0ee4715413ba..df6b5a499ccc 100644
-> --- a/drivers/memory/tegra/tegra30.c
-> +++ b/drivers/memory/tegra/tegra30.c
-> @@ -1140,19 +1140,23 @@ static const struct tegra_mc_client tegra30_mc_clients[] = {
->   
->   static const struct tegra_smmu_swgroup tegra30_swgroups[] = {
->   	{ .name = "dc",   .swgroup = TEGRA_SWGROUP_DC,   .reg = 0x240,
-> -	  .defer_enable = true },
-> +	  .defer_enable = true, .use_dma_api = true },
->   	{ .name = "dcb",  .swgroup = TEGRA_SWGROUP_DCB,  .reg = 0x244,
-> -	  .defer_enable = true },
-> +	  .defer_enable = true, .use_dma_api = true },
->   	{ .name = "epp",  .swgroup = TEGRA_SWGROUP_EPP,  .reg = 0x248 },
-> -	{ .name = "g2",   .swgroup = TEGRA_SWGROUP_G2,   .reg = 0x24c },
-> +	{ .name = "g2",   .swgroup = TEGRA_SWGROUP_G2,   .reg = 0x24c,
-> +	  .use_dma_api = true },
->   	{ .name = "mpe",  .swgroup = TEGRA_SWGROUP_MPE,  .reg = 0x264 },
->   	{ .name = "vi",   .swgroup = TEGRA_SWGROUP_VI,   .reg = 0x280 },
->   	{ .name = "afi",  .swgroup = TEGRA_SWGROUP_AFI,  .reg = 0x238 },
->   	{ .name = "avpc", .swgroup = TEGRA_SWGROUP_AVPC, .reg = 0x23c },
-> -	{ .name = "nv",   .swgroup = TEGRA_SWGROUP_NV,   .reg = 0x268 },
-> -	{ .name = "nv2",  .swgroup = TEGRA_SWGROUP_NV2,  .reg = 0x26c },
-> +	{ .name = "nv",   .swgroup = TEGRA_SWGROUP_NV,   .reg = 0x268,
-> +	  .use_dma_api = true },
-> +	{ .name = "nv2",  .swgroup = TEGRA_SWGROUP_NV2,  .reg = 0x26c,
-> +	  .use_dma_api = true },
->   	{ .name = "hda",  .swgroup = TEGRA_SWGROUP_HDA,  .reg = 0x254 },
-> -	{ .name = "hc",   .swgroup = TEGRA_SWGROUP_HC,   .reg = 0x250 },
-> +	{ .name = "hc",   .swgroup = TEGRA_SWGROUP_HC,   .reg = 0x250,
-> +	  .use_dma_api = true },
->   	{ .name = "ppcs", .swgroup = TEGRA_SWGROUP_PPCS, .reg = 0x270 },
->   	{ .name = "sata", .swgroup = TEGRA_SWGROUP_SATA, .reg = 0x278 },
->   	{ .name = "vde",  .swgroup = TEGRA_SWGROUP_VDE,  .reg = 0x27c },
-> diff --git a/include/soc/tegra/mc.h b/include/soc/tegra/mc.h
-> index ea67972fd585..1cbd990fc0f4 100644
-> --- a/include/soc/tegra/mc.h
-> +++ b/include/soc/tegra/mc.h
-> @@ -78,6 +78,13 @@ struct tegra_smmu_swgroup {
->   	 * tegra_smmu_enable_translation().
->   	 */
->   	bool defer_enable;
-> +
-> +	/*
-> +	 * Set once the clients behind this swgroup are known to work with an
-> +	 * IOMMU_DOMAIN_DMA default domain. All swgroups of a
-> +	 * tegra_smmu_group_soc must agree.
-> +	 */
-> +	bool use_dma_api;
->   };
->   
->   struct tegra_smmu_group_soc {
-> 
-
+> Thanks,
+> Namhyung
+>
+>
+> >       if (ret < 0) {
+> >               pr_err("Failed to pin BPF filter objects\n");
+> >               goto err;
+> > @@ -683,8 +770,8 @@ int perf_bpf_filter__pin(void)
+> >       /* setup access permissions for the pinned objects */
+> >       dir_fd =3D open(path, O_PATH);
+> >       if (dir_fd < 0) {
+> > -             bpf_object__unpin(skel->obj, path);
+> > -             ret =3D dir_fd;
+> > +             ret =3D -errno;
+> > +             unpin_filter_object(skel, path);
+> >               goto err;
+> >       }
+> >
+> > @@ -727,6 +814,8 @@ int perf_bpf_filter__pin(void)
+> >
+> >  err_close:
+> >       close(dir_fd);
+> > +     if (ret < 0)
+> > +             unpin_filter_object(skel, path);
+> >
+> >  err:
+> >       free(path);
+> > @@ -740,13 +829,20 @@ int perf_bpf_filter__unpin(void)
+> >       char *path =3D NULL;
+> >       int ret =3D -1;
+> >
+> > -     skel =3D sample_filter_bpf__open_and_load();
+> > +     skel =3D sample_filter_bpf__open();
+> >       if (!skel) {
+> >               ret =3D -errno;
+> >               pr_err("Failed to open perf sample-filter BPF skeleton\n"=
+);
+> >               goto err;
+> >       }
+> >
+> > +     bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, fals=
+e);
+> > +     if (sample_filter_bpf__load(skel) < 0) {
+> > +             ret =3D -errno;
+> > +             pr_err("Failed to load perf sample-filter BPF skeleton\n"=
+);
+> > +             goto err;
+> > +     }
+> > +
+> >       if (asprintf(&path, "%s/fs/bpf/%s", sysfs__mountpoint(),
+> >                    PERF_BPF_FILTER_PIN_PATH) < 0) {
+> >               ret =3D -errno;
+> > @@ -754,7 +850,7 @@ int perf_bpf_filter__unpin(void)
+> >               goto err;
+> >       }
+> >
+> > -     ret =3D bpf_object__unpin(skel->obj, path);
+> > +     ret =3D unpin_filter_object(skel, path);
+> >
+> >  err:
+> >       free(path);
+> > diff --git a/tools/perf/util/bpf_skel/sample_filter.bpf.c b/tools/perf/=
+util/bpf_skel/sample_filter.bpf.c
+> > index e5666d4c1722..576fbed270e5 100644
+> > --- a/tools/perf/util/bpf_skel/sample_filter.bpf.c
+> > +++ b/tools/perf/util/bpf_skel/sample_filter.bpf.c
+> > @@ -192,6 +192,28 @@ static inline __u64 perf_get_sample(struct bpf_per=
+f_event_data_kern *kctx,
+> >       return 0;
+> >  }
+> >
+> > +static __always_inline __u64 perf_get_common_sample(struct perf_bpf_fi=
+lter_entry *entry)
+> > +{
+> > +     switch (entry->term) {
+> > +     case PBF_TERM_TID:
+> > +             if (entry->part)
+> > +                     return bpf_get_current_pid_tgid() >> 32;
+> > +             return (__u32)bpf_get_current_pid_tgid();
+> > +     case PBF_TERM_CPU:
+> > +             return bpf_get_smp_processor_id();
+> > +     case PBF_TERM_TIME:
+> > +             return bpf_ktime_get_ns();
+> > +     case PBF_TERM_CGROUP:
+> > +             return bpf_get_current_cgroup_id();
+> > +     case PBF_TERM_UID:
+> > +             return bpf_get_current_uid_gid() & 0xFFFFFFFF;
+> > +     case PBF_TERM_GID:
+> > +             return bpf_get_current_uid_gid() >> 32;
+> > +     default:
+> > +             return 0;
+> > +     }
+> > +}
+> > +
+> >  #define CHECK_RESULT(data, op, val)                  \
+> >       if (!(data op val)) {                           \
+> >               if (!in_group)                          \
+> > @@ -295,4 +317,67 @@ int perf_sample_filter(void *ctx)
+> >       return 0;
+> >  }
+> >
+> > +/* BPF program to be called for tracepoint perf events */
+> > +SEC("tracepoint")
+> > +int perf_tp_sample_filter(void *ctx)
+> > +{
+> > +     struct perf_bpf_filter_entry *entry;
+> > +     __u64 sample_data;
+> > +     int in_group =3D 0;
+> > +     int group_result =3D 0;
+> > +     int i, k =3D 0;
+> > +     int *losts;
+> > +
+> > +     entry =3D bpf_map_lookup_elem(&filters, &k);
+> > +     if (entry =3D=3D NULL)
+> > +             goto drop;
+> > +
+> > +     for (i =3D 0; i < MAX_FILTERS; i++) {
+> > +             sample_data =3D perf_get_common_sample(&entry[i]);
+> > +
+> > +             switch (entry[i].op) {
+> > +             case PBF_OP_EQ:
+> > +                     CHECK_RESULT(sample_data, =3D=3D, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_NEQ:
+> > +                     CHECK_RESULT(sample_data, !=3D, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_GT:
+> > +                     CHECK_RESULT(sample_data, >, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_GE:
+> > +                     CHECK_RESULT(sample_data, >=3D, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_LT:
+> > +                     CHECK_RESULT(sample_data, <, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_LE:
+> > +                     CHECK_RESULT(sample_data, <=3D, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_AND:
+> > +                     CHECK_RESULT(sample_data, &, entry[i].value)
+> > +                     break;
+> > +             case PBF_OP_GROUP_BEGIN:
+> > +                     in_group =3D 1;
+> > +                     group_result =3D 0;
+> > +                     break;
+> > +             case PBF_OP_GROUP_END:
+> > +                     if (group_result =3D=3D 0)
+> > +                             goto drop;
+> > +                     in_group =3D 0;
+> > +                     break;
+> > +             case PBF_OP_DONE:
+> > +                     return 1;
+> > +             }
+> > +     }
+> > +     return 1;
+> > +
+> > +drop:
+> > +     losts =3D bpf_map_lookup_elem(&dropped, &k);
+> > +     if (losts !=3D NULL)
+> > +             __sync_fetch_and_add(losts, 1);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >  char LICENSE[] SEC("license") =3D "Dual BSD/GPL";
+> > --
+> > 2.56.0.212.g129ede20d9-goog
+> >
