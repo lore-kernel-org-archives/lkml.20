@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792511098;
-	b=XGTAjwAi97/58zVxJziYTEGs2sjmqjkT2VgQJPjhVRCUOp7xGms9Cj6DMN2oTIU6Y3Wb
-	 7mTzBvlg0voiPDJDdFgMsBuDqnwO9yTo8SZcAlMHDxT11fM3osOIQHf272NRvcil2fW9a
-	 6TG0/VKJ+K9AXa82GOqcfPW1/anHAdBRlsq82ulcASv/9YTQK6lJcUb/Ou7ht0fMZhpeJ
-	 jhhxSrQsQQfniqJSuvsiboIwPvyrYOWEX/qipuo3HYYjtXalvqndpnzVLNah9x8qMUbiH
-	 jbzZhfwld2yi3X1ckRXlD3SZDYmYTyg6e/CFfX7DYbYF5C9/1QAGTPTUb98vG780BUA==
+	t=1792511154;
+	b=MvcXsgl2BzCcyMel25FeZQtEjsXEyim8cQyI4fc4rkh5BApqHhoLZpjlHwV9Y63NSEua
+	 YytH0mFYYCqPJp7RYFrqWXT0/c/WyN6vAgWlACdz7wsGHgFbpaIvci8mz2SwJSkaT2UxH
+	 LKXd9YlZATVKs943ZA318AGLEu1NqfJeVTo98W66x2vcLwGRh3+WrzAiQDhD7rMQrtB+2
+	 G5fzGZv9lAkUEBcXuLCQIaaJQZDIefQohzaEQuJabnI7QtuwS5gGGHONtBiKYepHhlQdO
+	 ASdgvr/KO9jnIN0q6KOz8eA8xZ93tzz0ZNxI36eW87BJlPBbGrYFwVi3u81PGh/aonw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511098;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=i1mO6MuWQfpqagLYjVpfTRaUcgdVFipQ47H+IkmGB/Q=;
-	b=nMC6YPiVCj2qTHpUdoBRkBzNMN4TptuZfgfIqnHw3QLK9fRTFRAKUW76Ikp+pyLkgKkR
-	 b25k8KJfNpGoBSOpixmg4mgx/kUXM6QU/QZs3r3QJNacss3dIsBtLHGNmGlEx9h7InG+c
-	 DFWcdZuQxG5FmIYMKMupo/CuU3Ui8bibojKJNsWeLRs43PLNME9muBPvkHN8hr34qmgPE
-	 zbVsRVNVSugrwvIaWh6CgAx+VHcVZzqt7jUDlyi1pdoEeCIbOjqxwNTX3x+8D8e6kg8AT
-	 SBQQI9HuO25JpHE+ayz12ShasBGiArX8fxBjteUqGpFOh2lnjtr/4oYOfOCi+Km1R/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511154;
+	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=2cAZVCLAQpN5a+aDVXVz9w99JGOZYk0P7w6fotRmbJI=;
+	b=MSW4O/r/x3g4HhS9QqY/baxOxtopgDQpO6e4AlPB7aJSNE48Rv7hep+5sY/qYoZB0+mA
+	 8FBm/wJwrAqUKfGk34Q+O5ypSVIfa0V2fc+0DblufXCpQU/E9HSlJRj9FkEu+FzJ5DUo/
+	 Tw1DHZr12T4iJqmN2igiPC2DhpEBW7vWi0dpW9msgcEHoE8tiDxJG7cfkK7T8Yl+vTlVH
+	 +wdl5mBMP2M28V7mBTJJO8uXvjt/74/2Ozl9gPKentvfVIyCHPH60Zn0FY0cqziG8veyc
+	 b9+7nfOlLsY4EkQsamgbMvM2KFGVF78lkZftJBp2I+qPefkPEjJJHT+NL7yxfeEgXjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L0ezWE83;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49B3606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D49B3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L0ezWE83
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792511096;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i1mO6MuWQfpqagLYjVpfTRaUcgdVFipQ47H+IkmGB/Q=;
-	b=L0ezWE83MAGBlKT+xHwjsFwAlaf/lwC/CidT9ZNVQwcm8ks6xS2dyhHMMCglPlAyNcjOVh
-	mPFaon8QboBoIOGKZzd9zPXwsMRgEeM9Ikw3ixDir+fhDaQY3EwjTNqsBxfoQxZmqbxuk8
-	JvlNv1z4TJcfgphXqdOk2pwXPxTSQIY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-164-wZzDOMMSMDSlMPLuSJEkog-1; Tue,
- 20 Oct 2026 11:44:53 -0400
-X-MC-Unique: wZzDOMMSMDSlMPLuSJEkog-1
-X-Mimecast-MFC-AGG-ID: wZzDOMMSMDSlMPLuSJEkog_1792511092
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B98B618003FD;
-	Tue, 20 Oct 2026 15:44:51 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0E8315BC;
-	Tue, 20 Oct 2026 15:44:47 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: baochen.qiang@oss.qualcomm.com
-Cc: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	jjohnson@kernel.org,
-	johannes@sipsolutions.net,
-	jtornosm@redhat.com,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] wifi: ath12k: fix MLO station firmware crash recovery
-Date: Tue, 20 Oct 2026 17:44:45 +0200
-Message-ID: <20261020154446.2131752-1-jtornosm@redhat.com>
-In-Reply-To: <4f2a06f4-601b-4e96-826b-a5453bc03ec9@oss.qualcomm.com>
-References: <4f2a06f4-601b-4e96-826b-a5453bc03ec9@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABED606A31C;
+	Tue, 20 Oct 2026 15:45:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF6A1F000C5;
+	Tue, 20 Oct 2026 15:45:53 +0000 (UTC)
+Subject: Re: [PATCH net-next v2 2/3] dt-bindings: net: qcom,ipq9574-ppe: Add
+ IPQ5332 support
+From: netdev-bot+sashiko@kernel.org
+To: mail@tk154.de
+Cc: netdev@vger.kernel.org, jie.luo@oss.qualcomm.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
+ quic_pavir@quicinc.com, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org
+Date: Tue, 20 Oct 2026 15:45:22 +0000
+Message-ID: <179251112267.3135.4070073484020309929@kernel.org>
+In-Reply-To: <20261016152449.934312-3-mail@tk154.de>
+References: <20261016152449.934312-3-mail@tk154.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,32 +54,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi Baochen,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> Johannes doesn't like option 2, let's forget it now. Instead, are you interested in
-> (working on) option 1?
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-I can study option 1, but I think Johannes pointed out that taking
-rtnl only around cfg80211_shutdown_all_interfaces() could not work,
-so it would mean holding rtnl for the full recovery (~1.3s). It could
-be a significant rearchitecture of the recovery path to not take a
-lot of time with no response.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->> sense for you to land this series as an interim fix while that is
->> worked out as a follow-up?
+- [Medium] The IPQ5332 port conditional in
+  Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml (allOf[1]…
 
-> Jeff can make the call.
+--
 
-Jeff and Baochen, in order to get some fix, would you be open to
-landing this series while option 1 is worked out as a follow-up?
-Happy to continue with this.
+dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5332 support
 
-Thanks
+This adds the qcom,ipq5332-ppe compatible to the IPQ9574 PPE binding. It
+also adds per-SoC conditional blocks that constrain clocks, interconnects,
+EDMA resets, interrupts and ring names. IPQ5332 port nodes are meant to be
+limited to port IDs 1 and 2.
 
-Best regards
-José Ignacio
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> index 6d0b21a10732a..1e95f3a1d0b12 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
 
+[ ... ]
+
+> @@ -229,6 +246,65 @@ required:
+>  
+>  allOf:
+>    - $ref: ethernet-switch.yaml
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,ipq5332-ppe
+> +    then:
+
+[ ... ]
+
+> +      patternProperties:
+> +        "^(ethernet-)?ports$":
+> +          patternProperties:
+> +            "^(ethernet-)?port@[0-9a-f]+$":
+> +              properties:
+> +                reg:
+> +                  maximum: 2
+
+[Severity: Medium]
+The commit message says:
+
+  IPQ5332 takes four interconnects and only port IDs 1 and 2 ...
+  Apply the port-count limit to both container and port naming forms.
+
+Does this block reject port ID 0? It only sets maximum: 2. The only lower
+bound in the file is in the base ethernet-ports schema:
+
+  ethernet-ports:
+    patternProperties:
+      "^ethernet-port@[1-6]+$":
+        ...
+        properties:
+          reg:
+            minimum: 1
+            maximum: 6
+
+That pattern does not match ethernet-port@0. It also does not apply to a
+container named ports. Nodes like these are matched only by the generic
+'^(ethernet-)?port@[0-9a-f]+$' pattern in ethernet-switch.yaml, which is
+just type: object.
+
+With compatible = "qcom,ipq5332-ppe", would both of these pass
+dt_binding_check?
+
+  ethernet-ports {
+      ethernet-port@0 {
+          reg = <0>;
+      };
+  };
+
+  ports {
+      port@0 {
+          reg = <0>;
+      };
+  };
+
+If so, the accepted set is {0, 1, 2}, not {1, 2}. Port 0 is the CPU port
+according to the updated description.
+
+These nodes also skip the per-MAC clocks, clock-names, resets and
+reset-names. Those are only required under "^ethernet-port@[1-6]+$". The
+ports/port@ spelling already skipped them on IPQ9574, but this block now
+applies per-SoC port constraints to that form as well.
+
+Would adding minimum: 1 next to maximum: 2 here fix this? A shared lower
+bound in the base schema that covers both naming forms would also work.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016152449.934312-1-mail%40tk154.de
