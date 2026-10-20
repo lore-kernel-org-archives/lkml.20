@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502098;
-	b=mwAu4RJGxlm60qyeM2jChp3w2I2RyHrj7CXnXLswSTLTD9yn5VliIwhBQzcgwQaRZnl4
-	 1GxXs5Ux0h0J3ytaIccgoi/vDQf+5n3h+fePJKqcBGVvs2Pyd7Rexi1NyvgFnZkNskZwu
-	 gp9L8kltlZt/14CcJ9ZpfdfUv2u1wW+p1TD/9HzoYpIeixcsJgZr7X/GRJPyRzJiDPb71
-	 FwqnCxMRXzHJ/UQAwm/kPTTC0FaU9RSo7Y8LIJ+lQtzW8NukSCcTpI7Rvtss8tC6yjgql
-	 8WB/u/KUrA3WTPW0BH82jsaeBZ5YNno/knRStjRxlTSQxqLf17FGJBfnGdabG0FxANQ==
+	t=1792502103;
+	b=PbPgv68LcN8FaUd30yXlKNlfnGUUIZWpfPz4tCqB/sZjBo/+Y3xvreG6uG6s5Mz6Rv/d
+	 GyMHNayr9DuciY4/pUm/8hcp1QGb2DA88HxZnRQLmuWTehcyNi22YKoveo7CFTd7eG3as
+	 iXBAV2MGqIFbpFNWIkiqON7+do0K6KihjCnaKEX/E+XyXQyRFWhNX/q/PoRv238/hTv81
+	 O3bmVR+kH04jTPDxrsrUqbRRVSj5MiJmYlc54WYiT4HKGjz7Kl49YCKKRRo9CiqPP73i1
+	 Ez+YSDTfcoOjxoHKWuBA7A6OY7dJvMso4f59pYT0Z68OzPx+gA64VsxltEiQ1zXFGbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502103;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Scanned-By;
-	bh=bw4lYiwjLEPSm4Dy3CtJY5F6jT11MLgP2bjSbOIY7js=;
-	b=EFtA0UXVB7BVGTVFvqjzYvdIGSxH/29meQhLBGTTosnG6dnO/IdPTPoOZK1M3slEyTuR
-	 NHubjO6o5eY65FwFEIP5qZ8WoxYGIYaTzQ2+/ADJwe8ii+3xM72EyGWBxfWNpOaNILb9c
-	 qX9S8F61qYfR/HNRFGsbVMGSpzE5dpkCHA4s93AK753nqvs2uUQqc2U3sM3AJ+uw7i1yf
-	 jhGJzpA463QdWgQ9xvG/sEPGnyxOLnyNMlRnkrDt0b32Zim7MHsIFICJ/pJ2ncz9jCjjC
-	 7hudiRh5WryNNZCb+FPUngy/gJgUps3VYTLvt0LHaJnb+EVFMp0mOfsH7BXKVaHItAA==
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=tuNkSWZVJR9pU7AFRF8BvGrXZ1Ry6Li/NkjogDbT3rc=;
+	b=dDjglJPPti2e/OcCjhUwMIJyvyj8uvk1Jbh9LcZal6OSZoMUR5R+npMmw0tTGH8oWBmu
+	 9avKJaEjGo981T+4kfIgVg20YF3/a6+LR1nrxEjBm+tU2ddXQ7or0FS77HKsvMkxGp+zW
+	 0iyUp1gnXuSPjKAI+q1xWhifb5LnmNrmj1JVw60yPUBJDeQGuS5MYyxDcuZBLmM7pNBkS
+	 5HXjNhoCi8BPDoDKPy3fAUxC9B6qwxEYtjJpD1VCVDBaQZN2VYs2ZfY5Pti0o/iU/nq/j
+	 7bNzjRiLeCAOMUG022wV+isJNipTe4hFHYsyIwFpPDA3wU2vkrGvlSxiR3Ty6Dn6iDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H9FuhXel;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VjXg1g5K;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0642B606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:14:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0642B606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCDE60A2606
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FCDE60A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H9FuhXel
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VjXg1g5K
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792502097;
+	s=mimecast20190719; t=1792502101;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bw4lYiwjLEPSm4Dy3CtJY5F6jT11MLgP2bjSbOIY7js=;
-	b=H9FuhXel3X4mB1GELRUDKwfv4XH33e5ty4YH5whwo9VfyU8bmBjZcirMKSiYuvVdkvyuT5
-	zTBnSCretXulkxVL4OmbgXMuyGlaA92Gfejx6CoWOWXIAlkefZnaD3T4xWzsbPxwOqO9as
-	90NClte6172hOrcU6xzNg4ZbTcyTeUo=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuNkSWZVJR9pU7AFRF8BvGrXZ1Ry6Li/NkjogDbT3rc=;
+	b=VjXg1g5Ks/fNgDf2YsLSivg/nAoG2t7iNWHui3CPPwLZa+vMku/uOLpDCWa0zqnr6orVKl
+	GIvfCH4xB0pWMATYyItVyfIDBN8F4nanb0VpPzG8XUgxTIkIpCG7H6DOebPVO+SWd8uPEC
+	zyRqe1IoRb7omW+XptWElYOC5wIRT/g=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-21-8WFv5sO-MNiInMcxl51rGA-1; Tue,
- 20 Oct 2026 09:14:51 -0400
-X-MC-Unique: 8WFv5sO-MNiInMcxl51rGA-1
-X-Mimecast-MFC-AGG-ID: 8WFv5sO-MNiInMcxl51rGA_1792502089
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-511-JzrOb0XxOCOiUpHh44vFrQ-1; Tue,
+ 20 Oct 2026 13:14:53 +0000
+X-MC-Unique: JzrOb0XxOCOiUpHh44vFrQ-1
+X-Mimecast-MFC-AGG-ID: JzrOb0XxOCOiUpHh44vFrQ_1792502092
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 947AC1956040;
-	Tue, 20 Oct 2026 13:14:49 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1F93E1955EA9;
+	Tue, 20 Oct 2026 13:14:52 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 528C418005B7;
-	Tue, 20 Oct 2026 13:14:48 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1A5D01800257;
+	Tue, 20 Oct 2026 13:14:51 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
@@ -69,9 +70,11 @@ Cc: Ackerley Tng <ackerleytng@google.com>,
 	Shivank Garg <shivankg@amd.com>,
 	Yan Zhao <yan.y.zhao@intel.com>,
 	Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 0/3] KVM: Kconfig fixes for the VM-wide private memory attribute
-Date: Tue, 20 Oct 2026 09:14:44 -0400
-Message-ID: <20261020131447.122096-1-pbonzini@redhat.com>
+Subject: [PATCH 2/3] KVM: x86: leave the legacy private attribute in for TDX and SEV
+Date: Tue, 20 Oct 2026 09:14:46 -0400
+Message-ID: <20261020131447.122096-3-pbonzini@redhat.com>
+In-Reply-To: <20261020131447.122096-1-pbonzini@redhat.com>
+References: <20261020131447.122096-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,47 +88,42 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-A late review of the guest_memfd attributes changes...
+As of today, and presumably as of Linux 7.4's release date, there
+is hardly any VMM that supports guest_memfd attributes.  Support the
+legacy VM attribute for private memory if SEV or TDX are requested;
+default it to disabled if only the software-protected VM is requested,
+since it is only used by guest_memfd selftests.
 
-With Linux 7.4 the "private" memory attribute was moved from the VM
-to the individual guest_memfd file descriptor.  The old semantics are
-available for backwards compatibility via CONFIG_KVM_VM_MEMORY_ATTRIBUTES,
-and disabled by default.
+While in-place conversion is the best option, it is way too
+early to enable it by default.
 
-This change has two problems: first, it ties support for VM memory
-attributes entirely to a backwards compatibility symbol for distros.
-Second, it is incompatible with all released versions of QEMU (and
-perhaps most other VMMs?), thus the default is arguably not the
-right one.
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Fix the first problem, by making CONFIG_KVM_VM_MEMORY_ATTRIBUTES an
-internal configuration symbol that is the equivalent of the old
-CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES, and use a more descriptive name
-for the private memory attribute.  Fix the second by changing the
-default to y if either SEV or TDX are enabled; leaving it n for
-CONFIG_KVM_SW_PROTECTED_VM as it is only useful for selftests.
-
-The last patch is a simple code cleanup to remove the static call
-and module parameter overhead when the VM-level attribute is absent.
-
-Thanks,
-
-Paolo
-
-Paolo Bonzini (3):
-  KVM: split CONFIG_KVM_PRIVATE_MEMATTR_VM out of
-    KVM_VM_MEMORY_ATTRIBUTES
-  KVM: x86: leave the legacy private attribute in for TDX and SEV
-  KVM: compile out all !gmem_in_place_conversion code unless
-    CONFIG_KVM_PRIVATE_MEMATTR_VM
-
- Documentation/admin-guide/kernel-parameters.txt |  4 ++--
- arch/x86/kvm/Kconfig                            |  6 ++++--
- include/linux/kvm_host.h                        | 13 ++++++-------
- virt/kvm/Kconfig                                |  3 +++
- virt/kvm/kvm_main.c                             | 15 ++++++++-------
- 5 files changed, 23 insertions(+), 18 deletions(-)
-
+diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
+index 01a683a9042a..4f7d75ec8c40 100644
+--- a/arch/x86/kvm/Kconfig
++++ b/arch/x86/kvm/Kconfig
+@@ -80,6 +80,7 @@ config KVM_PRIVATE_MEMATTR_VM
+ 	bool "Enable per-VM PRIVATE vs. SHARED attributes (for CoCo VMs)"
+ 	depends on KVM_SW_PROTECTED_VM || KVM_INTEL_TDX || KVM_AMD_SEV
+ 	select KVM_VM_MEMORY_ATTRIBUTES
++	default KVM_INTEL_TDX || KVM_AMD_SEV
+ 	help
+ 	  Enable support for tracking PRIVATE vs. SHARED memory using per-VM
+ 	  memory attributes.  Using per-VM attributes is deprecated in favor of
+@@ -87,7 +88,7 @@ config KVM_PRIVATE_MEMATTR_VM
+ 	  CoCo VMs using a VMM that doesn't support guest_memfd memory
+ 	  attributes.
+ 
+-	  If unsure, say N.
++	  If unsure, say "Y".
+ 
+ config KVM_SW_PROTECTED_VM
+ 	bool "Enable support for KVM software-protected VMs"
 -- 
 2.52.0
+
 
