@@ -1,108 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493286;
-	b=JhMsXMaQQF/nJaw+KjxAvN7tbpq/B4MDdGB+s0/NQ9/4INv5IaOFNGccszmTOy6HXdvG
-	 fXU/9WBmvl0SKArAYM4g3fSgYBqEeIiodjy7gL3q3tV9eZXYYDnhQjboYLuqDVmVA4Qyo
-	 dX2ccj2mVowlWraAFP/64m9GWo4xiyrnQOWNqWeqX8L1L+QlTwPRWrddVGI41EMmm4Zxs
-	 BASY5njRxdIKWH2tIPjL/4t3I23B1lI5kpx8IT1+iVb7AFqsw7sf6wWnsvH8Le4kqH6UW
-	 KyozJ0zlhdcmn+vgTEvWFmDMnT3W9e2kqIzT1TvlsD90xvQyEPM/JUI7FLnRo62eP8w==
+	t=1792493295;
+	b=Wa81QSaLzDlrbh1zAD7FMlDV3wxH/mPpMMeTtxAdvjf88AxdnASJZnV6FXZ1NLRI5N/h
+	 u1t0V+YvXqlpF7MkuJE7txK6Rm1BVCbBdW7NJZAlH30SdHfva8NgD5pXeoSmX2IfDamY7
+	 rOvAyV0vCqaY0TPzbUfYKJ/DKmWiqQ2HuawHY+aGOs+1eVF3ysGgplYIc6JkkJgeq1sP7
+	 EIU4n8NEi7A7N9MTXgzGqF1bOWz7kYrthpIbKFL1d/mc6gDrQHbHHhAu0vIavfuKRfZmj
+	 M+y0ZoXS7dW7JL2WYeA0atuGsEG283R28QrxSxX9zidVODhATdjyCkL5C8O88m2QrEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493286;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-	b=Cj1vl3EiQ54s/jMZil6Dlo+Nj1zLkPv1LqQY/XuUMIUvfDB6FBgPUuU2CKjkbOhjDksg
-	 nhgun3cVObHJXRMsG+2pGjx7CPWgN8ZMYs/KxuZJxXO9rRXLyFtR7UM5sSegBub8A1423
-	 lktwZq5ojFwdp1tDzVOrSVvcM0dE/Jav1fQmYjOTINf8GuKOWwktVYbEa9XLAp6wbBI7F
-	 PO2euoGx4r574kK6+Wt91y1VjFDLzFTC0AZYT6T08VENk84df7WToo35ADy4bEmVLlRlG
-	 l8/eWYokdSC+i7Vl0NkbD3anuooMaA1L3J62ChQydblh5gA9xL3V+HXx3skoeQyOSDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493295;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9Zw24p/saADZ7syx7j8QqBGFYl8Xd5k3nVSaKsS8org=;
+	b=m1SP+krfuT2bVhevZjbyUzk6QkQmOrusBFYjq1vX62yNV5z1mJkYffUxc9kCOPzkaLW7
+	 1cDER6PXNdIp8VKnS8m1f9vswyTVOWRDlOZHXPzFMy42Hp+TttVdwRYczX0vhgtQ0KVKT
+	 a2BaEadD9ou7D5bReJDiEIW3J4YTzSBDv8RrGvLSncUPxaEfeyjBRerYwW9uO05xATHmA
+	 U9usWXclnU6k/r+ewhH5Y9D+z9RWnmddj7KyRphTmSLWYqLlzzQnusI9ttHI8g/CToR2d
+	 /WOhMK7YQn0GL6+GVOyZLytOZ9eXpelvZHji0GTPlAJ8tIwB+Ft59WqBuBlCTlh1l0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fiGsEbWV;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqJFDAox;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B11460A260C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B11460A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1E2606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:48:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fiGsEbWV
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36661f953e4so621793eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:48:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792493285; x=1793098085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-        b=fiGsEbWV8Q8RM6j7ZxuVSvjNOICcG6msaUt4ksLEKv+iwv6d8mxyjI+a+1OU0I2GKw
-         F6luj7kc9MNOSHVKmv+62GQZAdeQzjs0durajglBeRLj++pSzmkAq961oZr4j8SXZELj
-         JXdXl+6PIKVfjB48KQKvWRtyW8qHoTRIiGHSLRi5EVhek3fVAbfA/y6+onr+iY2O/bHx
-         KMmmpB8oRIDXzcsu3MVc8a1X9tfsNan5xDoWsVMKchyzXgoTALcRdTArn7Q0oDFxM1fp
-         glTTGMeSvFQkiHXwWmnRf74xc/RdAusZLhgtR0DICZDjNauabVu08HwZiM4jWCxGQ19J
-         SS/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792493285; x=1793098085;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-        b=0t55Y2XW2A4acO4a0WvpZveAO8MSuSwqhbG2xC303cl+fugXIL0REfAOz1XSBWEujX
-         yaXl53Z+07koeTiC5zfmDScn+gs720Pr57TdMizQbZeZ60mEUoP5epmSPkDtpSoMGrSZ
-         MLwsDFOI9GHHhS+flqdsl/qIDpNQx5OfWsZXqEGqHudUdLHVhaFeuKZSIQx8kt8BQsgl
-         4NLcfBVowJF8ShbhoRe1SXHvXSh5/vaunjjlD1wrYedrlQsCbP3xjD2cIICDtSYbp8ib
-         +h7cO9IEnS1ka0v3XA19I0d+CBzTQv1aNun8zpv6hjvNXYRJly9SZ5kbn/eD4BbQUKT3
-         aBZQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfaK+HnomTImBeVv2N+qjjNf/VOoFzCncH9oYUcnz1lpGU+Ihcx1erW9j4m05/HJU9wd8n92h/PB8L6n8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9lzO6EXe8pAr1IT4QbKpYo8Ivk4yJtmITX2fJtst4jFCBMzQS
-	HwiLRqAOG1a3d7XSig0oGaXl7gI2CzvKc34Es8OQ96nOhj152QsfCXrQ
-X-Gm-Gg: AYBFou1aNXvKKY/9XujunkTV8f2QTVtDN+U4gXb8pgkNhQvJlWy832eINVMA+bCToxt
-	VctfGYUno3D+ik/pZfVmWRc7A4qd0o/CDkiK3DeRc4dLhfR09CN5NH10MPjrO3Ls2n+aKslSRLh
-	ze6LPFdvibmJ2FmwM9nJZvCdD3FMpppPnbIQw9KfqPmbvIZRVClJVvfQz+/Wp87tWGhRWzvDiA+
-	vw46WiayzIWSE02EDHbvA7Ge8idr0aqH4xH6qh4yzmu1kGlDqnchoZTomQyZ4e5zpd2iCYxkbiJ
-	u16L4rVLABwBzsGuOEsB4J9M6k34dcm0xvnIqH7ObNBvV9TTYlWGlN6J3EyOeuIKzz6DQ3jnt3H
-	mzQnqksUDqgn6msjpxSB0ULUf60HX/SLUqKrNMxyfJPmzIT2vA5hkAQUApBhOVE4gZohgxZH3aA
-	/1Fmw8TdXlp6ZLxTThf2012z8VpN99ybGqzJ5YaRx66ZS2U+Rlqn30wnaa3FGvNO8OF89bCnJFy
-	s+7tgEvrAvt0sa/PRClP9EJojXVnzxsNBazb4eGZUVy9fR/dOGXbxqE5qlHVfk+vb+OAU8w5LAy
-	HqXGXLo=
-X-Received: by 2002:a05:7301:4305:b0:35f:227b:f8bc with SMTP id 5a478bee46e88-361a1465355mr13074342eec.11.1792493285129;
-        Tue, 20 Oct 2026 03:48:05 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm39596320eec.14.2026.10.20.03.48.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:48:04 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Tue, 20 Oct 2026 07:47:53 -0300
-Message-ID: <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atcrpTI_R4kRM8pb@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <atcrpTI_R4kRM8pb@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqJFDAox
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D31F1F000CB
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792493294;
+	bh=9Zw24p/saADZ7syx7j8QqBGFYl8Xd5k3nVSaKsS8org=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dqJFDAoxRt1W8nDk4gwL8Z07sDdJKsQJt/PY8NoYEOY72CHEACr9xaijQNMaLPoYO
+	 zLVAYvMU0u6r6M1V+bo2MC/IHypyOYCuExl/Di12ZywZqyyKbVeLI706FG6l7D3iJ4
+	 PJgPO4Rjllw1WgsYRVkNleIFPzOzJDwRZg88KzT4GXQP+SLZFdXi/gPbwIcEsuZ/bi
+	 pTc9VLLfbBN/bcdZFcwM0cMvvfNdu8rQ8wY0E7piXilmSy+8MGtlPEXhYHW1lBeYkI
+	 9UuJ5nTtsvDNGkyBQgmQpOJe/kNJpsbg2SKNhb+aGz/z8/Tja0/+jBuCCuD6ynI6QE
+	 zjG88N+4HH/6w==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso4793481a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:48:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByE4vBnjkAvFxhtTVKukAab2n8aLJzb58wXM8fgojf/r3MIHBGqo1oH1IiUy7QYDPkBdIhCFjENXDfKM/Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/64N+R3QNekLrXw7rSi9uCJbobtjUbgJAaP1JWrGCSfjNNjoT
+	7oi2nc60WBFJDeamus6KbVbt3wv1M+fQMmGADtJqJS7fot0lSdn0sVglq4MlQLeKGtQPyARG0s1
+	PN9HZI68+nUyVYrsWYMWkPmssOT/VNgo=
+X-Received: by 2002:a05:6402:518c:b0:6b3:c088:3646 with SMTP id
+ 4fb4d7f45d1cf-6b3c0883973mr5683359a12.19.1792493293238; Tue, 20 Oct 2026
+ 03:48:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,42 +59,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261016081006.26069-1-yangtiezhu@loongson.cn> <20261016081006.26069-2-yangtiezhu@loongson.cn>
+In-Reply-To: <20261016081006.26069-2-yangtiezhu@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Tue, 20 Oct 2026 18:48:02 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H63qesMYvT-KyJFDJckZxdvKRr=++D=dMxtuvOZuO7TQw@mail.gmail.com>
+X-Gm-Features: AclHuK8hXtMJqt-eUZHz9NQiocHWzQn_jEAdqjkfZ7FHF9J_UYI2Ikx9rQXlYgE
+Message-ID: <CAAhV-H63qesMYvT-KyJFDJckZxdvKRr=++D=dMxtuvOZuO7TQw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] LoongArch: Add CPUCFG2 DIV32 feature detection
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andy,
+This one is applied, thanks.
 
-On Tue, 20 Oct 2026, Andy Shevchenko wrote:
+Huacai
 
-> > +		/* Keep a hook the driver has already installed */
-> > +		if (!p->set_divisor)
-> > +			p->set_divisor = dw8250_set_divisor;
+On Fri, Oct 16, 2026 at 4:10=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn=
+> wrote:
 >
-> On top of my previous reply, why is this hunk needed?
-
-dw8250_probe() installs the BUSY-safe dw8250_set_divisor() before
-dw8250_setup_port() runs. Without the !p->set_divisor check, detecting
-DLF replaces it with the dwlib setter, which is the BUSY problem
-described in the commit message.
-
-> In the case of existing _set_divisor, do we want to keep the possible set
-> _get_divisor as well? Shouldn't we introduce a respective _get_divisor in
-> 8250_dw.c?
-
-8250_dw.c doesn't install a get_divisor, so there's no existing getter
-to preserve. The dwlib getter is still needed when DLF is present,
-because it computes the fractional part used by the preserved BUSY-safe
-setter.
-
-> But now I see that we have same function name in two files. Can we rename
-> those in dwlib to, for example,
-> dw8250_get_divisor --> dw8250_get_dfl_divisor
-> dw8250_set_divisor --> dw8250_set_dfl_divisor
-
-I'll also clean up the naming in v3: dw8250_update_dlf() with a frac
-parameter, static inline after dw8250_writel_ext(), and the dwlib-local
-helpers renamed to dw8250_get_dlf_divisor() and
-dw8250_set_dlf_divisor().
-
-Thanks,
-Vinicius
+> The LoongArch Architecture Manual defines a hardware capability bit
+> CPUCFG2_DIV32 (bit 26 of CPUCFG 0x2). When this bit is set to 1, it
+> indicates that on 64-bit machines, the division and mod instructions
+> (DIV.W[U] and MOD.W[U]) will ignore the upper 32 bits of the input
+> registers and only compute based on the lower 32 bits.
+>
+> On certain CPU cores without this feature, these 32-bit instructions
+> require both input operands to be properly sign-extended. Otherwise,
+> the hardware execution results can be randomly meaningless values.
+>
+> Add CPU_FEATURE_DIV32 to detect and export this hardware capability
+> via elf_hwcap and cpu_has_div32. This provides the infrastructure
+> for subsystems like BPF JIT to safely choose either native 32-bit
+> instructions or fallback instruction sequences based on the actual
+> CPU hardware capabilities.
+>
+> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+> ---
+>  arch/loongarch/include/asm/cpu-features.h | 1 +
+>  arch/loongarch/include/asm/cpu.h          | 2 ++
+>  arch/loongarch/include/uapi/asm/hwcap.h   | 1 +
+>  arch/loongarch/kernel/cpu-probe.c         | 4 ++++
+>  arch/loongarch/kernel/proc.c              | 2 ++
+>  5 files changed, 10 insertions(+)
+>
+> diff --git a/arch/loongarch/include/asm/cpu-features.h b/arch/loongarch/i=
+nclude/asm/cpu-features.h
+> index 62059c5551b9..3e7cf1987171 100644
+> --- a/arch/loongarch/include/asm/cpu-features.h
+> +++ b/arch/loongarch/include/asm/cpu-features.h
+> @@ -69,5 +69,6 @@
+>  #define cpu_has_msgint         cpu_opt(LOONGARCH_CPU_MSGINT)
+>  #define cpu_has_avecint                cpu_opt(LOONGARCH_CPU_AVECINT)
+>  #define cpu_has_redirectint    cpu_opt(LOONGARCH_CPU_REDIRECTINT)
+> +#define cpu_has_div32          cpu_opt(LOONGARCH_CPU_DIV32)
+>
+>  #endif /* __ASM_CPU_FEATURES_H */
+> diff --git a/arch/loongarch/include/asm/cpu.h b/arch/loongarch/include/as=
+m/cpu.h
+> index 91b96938861e..d1cf5dd5eceb 100644
+> --- a/arch/loongarch/include/asm/cpu.h
+> +++ b/arch/loongarch/include/asm/cpu.h
+> @@ -127,6 +127,7 @@ static inline char *id_to_core_name(unsigned int id)
+>  #define CPU_FEATURE_MSGINT             31      /* CPU has MSG interrupt =
+*/
+>  #define CPU_FEATURE_AVECINT            32      /* CPU has AVEC interrupt=
+ */
+>  #define CPU_FEATURE_REDIRECTINT                33      /* CPU has interr=
+upt remapping */
+> +#define CPU_FEATURE_DIV32              34      /* CPU has DIV32 feature =
+*/
+>
+>  #define LOONGARCH_CPU_CPUCFG           BIT_ULL(CPU_FEATURE_CPUCFG)
+>  #define LOONGARCH_CPU_LAM              BIT_ULL(CPU_FEATURE_LAM)
+> @@ -162,5 +163,6 @@ static inline char *id_to_core_name(unsigned int id)
+>  #define LOONGARCH_CPU_MSGINT           BIT_ULL(CPU_FEATURE_MSGINT)
+>  #define LOONGARCH_CPU_AVECINT          BIT_ULL(CPU_FEATURE_AVECINT)
+>  #define LOONGARCH_CPU_REDIRECTINT      BIT_ULL(CPU_FEATURE_REDIRECTINT)
+> +#define LOONGARCH_CPU_DIV32            BIT_ULL(CPU_FEATURE_DIV32)
+>
+>  #endif /* _ASM_CPU_H */
+> diff --git a/arch/loongarch/include/uapi/asm/hwcap.h b/arch/loongarch/inc=
+lude/uapi/asm/hwcap.h
+> index 90e96113ba51..00bf93683c74 100644
+> --- a/arch/loongarch/include/uapi/asm/hwcap.h
+> +++ b/arch/loongarch/include/uapi/asm/hwcap.h
+> @@ -20,5 +20,6 @@
+>  #define HWCAP_LOONGARCH_LSPW           (1 << 14)
+>  #define HWCAP_LOONGARCH_SCQ            (1 << 15)
+>  #define HWCAP_LOONGARCH_LAM_BH         (1 << 16)
+> +#define HWCAP_LOONGARCH_DIV32          (1 << 17)
+>
+>  #endif /* _UAPI_ASM_HWCAP_H */
+> diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cp=
+u-probe.c
+> index 74d31f260dfd..c50fcba805f7 100644
+> --- a/arch/loongarch/kernel/cpu-probe.c
+> +++ b/arch/loongarch/kernel/cpu-probe.c
+> @@ -236,6 +236,10 @@ static void cpu_probe_common(struct cpuinfo_loongarc=
+h *c)
+>                 elf_hwcap |=3D HWCAP_LOONGARCH_LBT_MIPS;
+>         }
+>  #endif
+> +       if (config & CPUCFG2_DIV32) {
+> +               c->options |=3D LOONGARCH_CPU_DIV32;
+> +               elf_hwcap |=3D HWCAP_LOONGARCH_DIV32;
+> +       }
+>
+>         config =3D read_cpucfg(LOONGARCH_CPUCFG6);
+>         if (config & CPUCFG6_PMP)
+> diff --git a/arch/loongarch/kernel/proc.c b/arch/loongarch/kernel/proc.c
+> index d4ce5b585453..c8d6f397de55 100644
+> --- a/arch/loongarch/kernel/proc.c
+> +++ b/arch/loongarch/kernel/proc.c
+> @@ -94,6 +94,8 @@ static int show_cpuinfo(struct seq_file *m, void *v)
+>                 seq_puts(m, " lbt_arm");
+>         if (cpu_has_lbt_mips)
+>                 seq_puts(m, " lbt_mips");
+> +       if (cpu_has_div32)
+> +               seq_puts(m, " div32");
+>         seq_puts(m, "\n");
+>
+>         seq_printf(m, "Hardware Watchpoint\t: %s", str_yes_no(cpu_has_wat=
+ch));
+> --
+> 2.42.0
+>
