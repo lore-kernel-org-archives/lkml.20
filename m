@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527786;
-	b=eBAQCUSCu6SESXXPGz1ApM2P7eJPQnL3bBBMw3CLdL04pbhK0SJTgWe1UUOJrbmw76M2
-	 sH+SDJt4X/Bcf5PAUT1phNcWzDpuUKY6d43ufcMCbxxaIdwaTsbWj0CGi051OMMmjNZRk
-	 rH8z2ngw+46po3kw1dw18He66CcJaPJtw9an2vjR7RsRvCAekg+4ftuMDdsCUTOKDkk8M
-	 YdoZWkAOGEA0jzp+WKJ/qdS5TazVH8HAqUm0UAcSjmzZjFiTEQJ/k9Zw1aQVjNYoCc8I+
-	 c3HC8M8mSZo1YkGAuCdGejPLlKlxscsbAGqBUUPjo6AhDel6tG1Aejp702Z3QEKbYkw==
+	t=1792527822;
+	b=ZlIBXUsxE4ubjEuvG/Xr71r8P+X+M9V3KbHbVnLOHXEhxtk44Jv2Hs4F+bZL4vnyWqa+
+	 9z9XUysp30qycXalmmy3W7t65QiPZ/P6wdpsrTFsTRKtKvohQjJc7wptBKWJ+g4dAo25C
+	 b8kWc1fynK6Y4OthlbJ1eZJS+watR5ebcgrJvw+w3Udoa4wWFDkdIQIc6aWsx87goBSbb
+	 aCeuqeIa87F68ZZk6r+BR1mSB2XmtddhjP+0Mfs54bqfzT5ZLMHwxUaNovxW4iRjLHL3g
+	 xx66JQJQK3J/0sWdMHBP69DC1dozSUNgXAmekUM8RLgJg8Iire97PR9mtB0kPGT7NRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527786;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:
-	 References:Content-Language:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527822;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=n5elWTo4Gr/AcWLbIXuiNBGXz1a8BX2Xbm0Ac3PsmY0=;
-	b=SfL78w6yJa7oqG88lHNbeNRLYPIwo7k3NzwNoTjft6LwaQbDG5fM6zCPNaPc7DT54CA1
-	 UqupQVOJ/cgzG4fH/CdVFDWLerymxldlqSr6npY8jAQctpNxXyYimtdetYg5ut2lTi5qv
-	 kKFjzXC5HhbgbaxCQMgwXvaobKqPCVda1K6WoLjLBpFAFyY82iZa9q8KwR42rEF0ImHyN
-	 +LKZp+f+fMPqh8T//r+bLWqJZL66KoSUD0HokiBywcky+4dDEX9gLskXErqbsJKsb79rI
-	 o2rXZt0ACifWqHSKsWl1fLY680XiI+sIe3BaOv2vLCgYkVRruP/7rFGrx80GP1TKGgQ==
+	bh=dksK0LI9fiDIV7Sk6UMzvHNbgK5hpd3kcFd8ssFu2So=;
+	b=lNqRKanj3XZAhKfOHeF2AaY2Rkl0IOju8+eXJNbthlCemTOHvNFFqtVRfy6orA8K5syn
+	 /W9kBPxLqUY2jp2jST26myiwsVyLUsORksoEbZlgMWXlaG/ny/YzfhQNl1EDqTwS3W8Np
+	 lQ6HN0oOOJDSUbZUwwB+oCYiYDYGr/Hn7fa5+EDZU4ddzt796nnme4+1731Q5uEGWeG5h
+	 A1VAo3xVEk+qPcP5B/di51XUMQfCTX9C4jV6D/BFJ7rCb9u99U7zqoWhyoas9a0IGfbIO
+	 cd8SYRgNeGw3T2nDnb7Vu+mI+tObXHjW4EL89wNwOY10FTBMrzODWBnAB8oDBQsQpRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="Cr2/0DOi";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=+XLj+flM;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF86606A319;
-	Tue, 20 Oct 2026 20:23:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF86606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22253606A31C;
+	Tue, 20 Oct 2026 20:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22253606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Cr2/0DOi
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8P493Hllz1XM4Tn;
-	Tue, 20 Oct 2026 20:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:content-language:references:from:from:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792527781; x=1795119782; bh=n5elWTo4Gr/AcWLbIXuiNBGX
-	z1a8BX2Xbm0Ac3PsmY0=; b=Cr2/0DOicVJ/BYpViOxIU2LO8ew6AILP2+Evy+71
-	+GEYbayeHOBwJJCUdVlQc/X+JHgBlQOXIxmkpJpCnvr8j6MxCBnc3zQCDuOjxfvX
-	zwo9PaqYVK694DasVGetBuArMZ8q6LPGMbVQ4wMuthaSO5cifKt1+Rl4CHUsa3eM
-	xdzaujo2o1bmiYe4ru04z9WujfjKuJ07ENaPWC3hZdDcnbPUJnv0zeh22IgslFex
-	lT4nrPC+1xMQargEymrfd61kefUU4VL9GKvSKGkI3rZv7tHrmjgjye6ZRRldfhwj
-	xbsnVcvbwduyMyWW74eSim1dA5KEJJMaLXUmh0l3G3yXMg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 1KcBPbR2dg_8; Tue, 20 Oct 2026 20:23:01 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8P4405Hpz1XM4Tl;
-	Tue, 20 Oct 2026 20:22:59 +0000 (UTC)
-Message-ID: <12223e71-cf78-41ac-bddd-f7efabc5aed1@acm.org>
-Date: Tue, 20 Oct 2026 13:22:59 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=+XLj+flM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=dksK0LI9fiDIV7Sk6UMzvHNbgK5hpd3kcFd8ssFu2So=; t=1792527821; x=1793737421; 
+	b=+XLj+flMO/avX97FfAAGs7F8H+Gxuz0imXvF/WcpN17og9Bx1vVsSo0pp6AZTEj+CyFUVO5rua2
+	JP8VUZPlF1fJONnV/ql0u8FkTz6BvSF9Vy5zbrAk/87DuO2SxMZB2J07lsCSdMoq23qHJtGcQnIpW
+	zECbTHgoK1SM/djrCcd1QQyhgJXnQRtHqmFuvmdRW92vPRjt9WsOSiJ4++/1NA9C6GheIGb9jcn/B
+	LYywhCFWneLHYsLaik2dohpf42CFaxPceAHSzw9nhtUtvq+xtKTBenG4WydXDEACX3SZBY+KdcD/j
+	rhzIpfBtEtjvgs760w0NZu2NN6CB3Pd4L6RA==;
+Date: Tue, 20 Oct 2026 22:23:35 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>, Aaro Koskinen
+ <aaro.koskinen@iki.fi>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alan Stern
+ <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] usb: ohci-omap: implement overcurrent handling for
+ GPIO-based power control
+Message-ID: <20261020222335.7133c8a2@kemnade.info>
+In-Reply-To: <CAB_t1-ACDiUrXneHbqVy6GWcuCJqnQNdM0poRyrdv_y7G6TKzg@mail.gmail.com>
+References: <CAB_t1-ACDiUrXneHbqVy6GWcuCJqnQNdM0poRyrdv_y7G6TKzg@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,39 +64,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
- helper and fix double completion
-From: Bart Van Assche <bvanassche@acm.org>
-To: Peter Wang <peter.wang@mediatek.com>, Bean Huo <beanhuo@iokpp.de>,
- Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen" <mkp@kernel.org>,
- linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
- Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261017084403.875420-1-stanleyjhu@google.com>
- <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
- <2060a8da-581b-46d1-a510-779f4df716cd@acm.org>
- <78888420b7c60d2d5177cbf76f5efba04fab5d7b.camel@mediatek.com>
- <c2de51a1-cfbd-4f96-ab02-f6d55c563ec7@acm.org>
-Content-Language: en-US
-In-Reply-To: <c2de51a1-cfbd-4f96-ab02-f6d55c563ec7@acm.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/20/26 9:46 AM, Bart Van Assche wrote:
-> On 10/19/26 8:16 PM, Peter Wang wrote:
->> So, should we remove the call to __ufshcd_transfer_req_compl from
->> ufshcd_abort, which was added by commit=E2=80=AF
->> 64180742605f (=E2=80=9Cscsi: ufs: Fix the SCSI abort handler=E2=80=9D)=
-?
- >
-> Removing the __ufshcd_transfer_req_compl() call from ufshcd_abort()
-> sounds good to me.
-(replying to my above email)
+On Mon, 19 Oct 2026 19:45:15 +0330
+Muhammad Mahdi Amirpour <ampr.mhd@gmail.com> wrote:
 
-Please ignore what I wrote - the __ufshcd_transfer_req_compl() call
-should be retained in ufshcd_abort().
+> I do not have the hardware to test this patch, so I cannot verify it
+> at runtime. Given that this is a legacy driver, I am happy to drop
+> this patch and work on something else if you think that would be
+> better. Otherwise, I can send a v5 addressing the Sashiko bot findings
+> (the IRQ handler ordering and the probe falling-edge race).
+> 
+> Please let me know how you would like to proceed.
 
-Bart.
+So this patch practically only used on omap1, it does not improve
+maintainability (e.g. by removing the last user of some API) or
+apparently not a critical bug. So it should be tested.
+
+It should probably not be first priority to implement something you
+cannot test.
+
+@Aaro do you think that improves something valuable?
+
+Regards,
+Andreas
