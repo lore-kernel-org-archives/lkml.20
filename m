@@ -1,99 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491534;
-	b=t9HJAOYmi0owt/QKDMrHztXiyjwEsjywtBNfkwI5P+yb4LQnb/CnqtOUTnpsQypUS9S/
-	 u55v62gpuQqNTNQTtms2teHlQXSz/fLz0gizjvJQJdD+WfTXCTRdr53NWxb1H2D0bPMM+
-	 8/hll2YUFEl3Cta0N2/mvcqOib9XthBFQ2sYW7d9N6j1gqtpxbzmU06S3dmHqmNDlM/5u
-	 +TPz16ybyI7Mbndn15HxTbJFsIo4sv2x4z7KIQ8rvlVNLCIaxBZNJxprpMPjwnVEAkg7D
-	 XjA1otocImyFh4zQAzOcLl6qoMN8Zxv5GHJj98ZRrVTRl9DBYh8iu/nDMlXD7gzsrCg==
+	t=1792491583;
+	b=KY3dsopyTqmdSOB4XZYtxpcETGNuNrJR6WzAgi0rGXM929wh2vrEX8f1X/4Qr8pqJ/do
+	 cjWhWsCqY7ZYXH2mM3fKYz+mT/RfWVv+sqnAYGVbakqxJq6wbbJJIu/SgZpk9uVFXbFHL
+	 TltpHPkt1rCYy6OJjxsnG56AvrMn2uhtHZ64iNJlreVv0pCQy9obgq3Z8uhMdVrak9QnD
+	 AVt/vgzOKDa3BDMu+Im20Auv93XnA1jFp33Wbl6IbJFldBR9H0Pt3FItZ4UCe0jK/iyF1
+	 uzxDr39wBp+ojbOmHTU26IsfEGhneARsh0LU2sVahR3l1tfym5kwAleyQdp/tcDJDvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sp+fVpNyhFhuAR4dBtfI2xyizMOxfhym5j/l32YJ/u8=;
-	b=aGIz9Trijwq0sLiiKwnKL6lkki6EyzGTibLCEzUe0lddrUV1/TC5J0uRPpkZPKAohu6S
-	 sYkDBl8EYimyXvvd192JobPOIBEABq9icwlNmH56cO8lFCFtIUEnItqiYK7mBD+GzEg6Y
-	 7jr9z4nfEDeZBOYqqqsLFLM2Km1ZsmoBjiR5BAWx7PiCXryxubldZo1qDhHQsdOlLrHuc
-	 q58sgNuvyZ3LDWFtotssOE+xdvSXjT5UTjKWlRZ2sqtK5iLdl+ulGaeSlvEgi1TqCIoCJ
-	 4GsSO6Z6JtlExZhJDlE22AOGMOtUvZVSs27OWagFh5vv0CjnYXLDkbcLNF+c/1W0H8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491583;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bc/m0CzcqxWth93tLtYdqczHcrTbNNUtQOBrsyNweF4=;
+	b=I4aWx4QyreAQQ9aFGxr1A4BLItZOSgSi7F8ZJPb0cbTPqtD7R/CPjjXx8kLPGWBz8ets
+	 er1FwnjQWJu0FefISRDKlBMCcO0d7RU1/9ZCe3dm+CiTpoRDRMGbN51+i293xTlUMPGUm
+	 DgiPf75CLpYO85nGgrDHwVd9kOjQ0TbhodSsPCYhNEXEKrvZe2x5irFNiXqX2DYpZQj7A
+	 aDwKDgBAK5OzGT98s/i0bg4SSCJ5wb372mce0WUeue2rYgA2JxJ/sJ2kNAclzNkZLVquV
+	 SWz1oeDuji4vmBHiMH7dgI6xDxS/T/jFqRh7wLAyucbUe1gim/swcp5xjT1OHLP285Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFBN4KRF;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ICRh2WBd;
+	arc=none smtp.remote-ip=203.205.221.240
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83FB60A2636
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E83FB60A2636
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FEB606A321;
+	Tue, 20 Oct 2026 10:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6FEB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFBN4KRF
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso1652283a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:18:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792491533; x=1793096333; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sp+fVpNyhFhuAR4dBtfI2xyizMOxfhym5j/l32YJ/u8=;
-        b=JFBN4KRFAZ43sCeTjeCE1szadaKAUH8DaeSNJoSbW350D3FK6xZe0sGxcfgSBPZl+s
-         8ZnKpscdxT5pg7lvsIl3t8JOgV0lzwX4IhdgYSSuYYKRjNgn+mtFG8SOvIs96W9pYXFC
-         xp5/OVn+QhS9Y4RJkRwE2rt/K2WhZ0HCX+zqBL9VjRmUuvCsxIIsG2daC5mogziqzbH6
-         ikP9Iig7ySjDmD79GiglVWN9sOHXKVf8QOb/MwkX7/2Tha+8xpWwhWtjyhI06HK5TsHn
-         qE238JBOFQPecUsoZDLo+E7cGUp1qxmEkOlYAFZkk7Z3t1m1cKenlpLLY3yZG4deec4l
-         6pCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792491533; x=1793096333;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sp+fVpNyhFhuAR4dBtfI2xyizMOxfhym5j/l32YJ/u8=;
-        b=wtfmt0ooZI3AitjpOZlELRmXq6Dzv7fW7RIF41J8AZMHkdhuGpDVmS9ooEV/fuBLIY
-         FNnGqv3FlKlFDZzjJeo/XmGgKxQELd1ancHJJ351MY7hsYIWGeDlskQZVa+FUc6cKv7U
-         IcSEABLzR0BsuYEB5G46V1H9u1LboBJhNZJPnf1jRxcus3uSfzwVKV9gVd0UbjLdXoQo
-         l+InD4JgT4wOONZsStbBAzsi19RHSw3DF0pd5eUcvfJhlkq1+Fe1vbKMofNjZuGvgZZp
-         cuI5wa/Ee+hlGI+mF5sTClboxn8YLgNQI9bQFVko7llkgCEf7yjkOoivnpAjqmLAstYv
-         e17g==
-X-Forwarded-Encrypted: i=1; AKwUvBw40CpCVKHGijswxXa2YdXReu/rhN+l+JCjj+zQrD7oZbz2EmxmLJPur3TxvpBPb5h+ZO13lkrlB2qFUKo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpGeEsLZCKIy9BQIyu239Qbi6ldSoqa2F2iV7OK4dkVd0Ve1L/
-	li47b+6gfDurZLN1RUWD8v64Fe2PG/O3TQGBDeIPc7NkoACHHA5MgtuP
-X-Gm-Gg: AYBFou1hppUA8iW43dLrFkZtVcVKGdxBKpfuTtdEL5bbAGLz2SLcAb1fC+ZT5LEuu0R
-	yEXb71v2tWgVZqDlQ5oMJKmw3kBDccZtwMUUUy5CCCvDJkYS2bGMjjUR/jVj5smHU+ckAELD//z
-	RP2n8Nl0RfrJecJvEMx7qvPvp09uFYkqFvE7hIZwRrqCBi7mcbfKmYqOMCytFoAad+v+3dvTZ5e
-	Wd2yxDuYUNeLeXExecr5LuXeZByvVi9coW2rQD9BVEn5DXZgSQw4pdnIhTcznORc5nqjtroNYtc
-	qAOqm/JqudifVaO1ZGO2imnNl3MHq94I3zzvHPHJOT+GUW6PVcn72JNLvKcOAJhEFTcTmSelP5V
-	vtXt4KwXdt4YkJN+nTiey0OFBsjpDKXfWfBXT+0XQ1spUg0sVPa59SD7gXyxO6+Sqh4JTJR0Hb3
-	ux4poD2ll2Dj5UbsCqVV04aXfw3Vq/MrXGANJJalwmH1Cy3M5/BxNmIfJf4G3IKTfqgUI1WBVp5
-	HEbT0wRA0TOZujL4qlr0J/8C7JGAYN9vP4xtNwTZ/b5rP5wCyH5Ijf9L+Sl3SDRTS09D0qy+3OC
-	Bc1Y20QCMT0jJr6CEhFOD+Tgxzn08IsRSNioiJLGlnSYOSWFKXsweirYFRyNy8gVPjg=
-X-Received: by 2002:a17:90b:28c7:b0:3ac:945c:7f69 with SMTP id 98e67ed59e1d1-3acef15c97cmr8904570a91.66.1792491533262;
-        Tue, 20 Oct 2026 03:18:53 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad6100ba34sm2873904a91.16.2026.10.20.03.18.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:18:52 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 2/2] selftests: ALSA: pcmtest: Make room for the longest fill pattern
-Date: Tue, 20 Oct 2026 19:18:37 +0900
-Message-ID: <7cbbcef84d2c14a2f0ec0ad2ba55c6ba0a15a8d8.1792390197.git.sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792390197.git.sammiee5311@gmail.com>
-References: <cover.1792390197.git.sammiee5311@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ICRh2WBd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792491579; bh=bc/m0CzcqxWth93tLtYdqczHcrTbNNUtQOBrsyNweF4=;
+	h=From:To:Cc:Subject:Date;
+	b=ICRh2WBdr1w+OiQvfWeTq4JJcOydREAhVRJ3sdpevT0Q6rPx0f80eSSf+94RJi7oS
+	 zsaUrDzDDVXGLjm4PEbMC2zJ6MExhKJjn8lsn8LcmLwEgZMHyhdCcr+bBmM6vWDghM
+	 9EJ5AhV86iJbmcCDA1oiICNHtqHbxyF1wJChuuSs=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4E1B60EE; Tue, 20 Oct 2026 18:19:33 +0800
+X-QQ-mid: xmsmtpt1792491574tsoiclk6o
+Message-ID: <tencent_190DA969DF79232C4E2FA681510C3E365108@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25GVZS4gdzzyrTkJEIEhBsc7696qTYBcS1mfdqG2mf1OqM2f3ZvuJ
+	 oFBlJTzCHjWpERulNcZBE5DaGnDOvzVVAko/XKg/kBb5KY5cWDPhhQUKqrsPM24BEcozLtPHYYRJ
+	 bg/MbJVlG0YgN/U9ELbJpFGjEuEPBhBlfsygCw6ObCCafxR16Hn1OfeShj8jFeZGFYhMMV/QKnev
+	 7xK7KuUNbvm1+7wHSboZGVs/WsolMCStUFw2w6H2j4S0mNh66ExypxPsE0LuJDy8if2/a/SJyKYf
+	 zK9MHIQKpjyT5wWdEA22zLRmZ4Bbzu7pZaWk+laUDeql+d+S/j9qQbmKdvObkssKglzC9oSuVv9e
+	 Oclj0Sy1Ytureg/1fitrvR6bJDYj6GrGgMjy+pFfPz3RJ5cISsTI+rY41jnbq5IHZiDl2wjg9diw
+	 8oOLVbPT3krLbp8W7PkVN7AAJ3U7NaWeLwyxBJ1QbzRjLAelRRebPVODXnnS+jNLK19ywjDwPwGy
+	 DZGNCpfd7A342Lja/FftKg2jYL6A1/djpTyZxDQGv9FizML/JZRGj6t3oRcCbSXsnBA7bvE31G83
+	 xCgNRNmhDwyQFaH6FRnaj/QfchxQ4/FvIZopvtkfAhTPHhSxYRuK4ho8E53dMNniGY1UleZuKilv
+	 2XlkrWTfoywxtJV9+aqFZ9x8wGQPafx6ZIsMCYjr6E5giuqyw3NkvxUxku6ZG4tAGGVjWFNQmViM
+	 ZVD5JJXsapQkKTfydEanEFtpZk1LlLQhOyD5itfi0Puy0rEFKz6VAm519jY12DcRVVo11hGOUz3u
+	 i6FD4byrpt4/9Kj95HYpErmDCa7wJxEwNdK7vFMbj7ysOxSVaJ2f8T0O+kgtDAQO6je7f5jOXuFq
+	 RzNNQfVXQSYH6RlFhwInZ/6dj1+eGzHpmj07xywbohqUCuAOXteeiuMFZRlw0GOCSxzKztM45tN8
+	 RXlH3VfC5TWU6SEV2xJoLBgwKbqYfyCoOU6PTRpGLeF+V924Ewdh4NBPWR+1+WCi9D38RjZ2oQQN
+	 8+2v+3+7C8EIBn7sTnNuWAEKXO8MLevnEEUun42XAyVKJM80QOKvZzSpJ011Sf26KpDt0lZswmXa
+	 sqRI26N48HeY+wOojltTaFoRYG3C1Lpwdwq4tem7yf+yreCcU=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: yangguikun <yangguikun19@qq.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v6 2/2] hfs: return ERR_PTR() from hfs_iget()
+Date: Tue, 20 Oct 2026 18:19:37 +0800
+X-OQ-MSGID: <20261020181937.18360-v622-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,39 +77,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The driver accepts fill patterns of up to 4096 bytes, as pcmtest.rst
-documents. The test reads each pattern into a 1024-byte buffer, using
-the length the driver reports. So a pattern longer than 1024 bytes
-overflows the buffer into the next pattern and past the array.
+hfs_iget() returns NULL both for corrupted catalog records and for
+allocation failures, so the callers cannot tell them apart: hfs_lookup()
+reports every case as -EACCES and hfs_fill_super() as -EINVAL.
 
-Size the buffer to the driver's maximum.
+Return ERR_PTR(-EIO) for the corruption cases and ERR_PTR(-ENOMEM) when
+the inode cannot be allocated, the same way minix_iget() does, and let
+the callers propagate the error.
 
-Fixes: 10b98a4db11a ("selftests: ALSA: Add test for the 'pcmtest' driver")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- tools/testing/selftests/alsa/test-pcmtest-driver.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: yangguikun <yangguikun19@qq.com>
 
-diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-index 5bba17434a6b..e025a7bac26b 100644
---- a/tools/testing/selftests/alsa/test-pcmtest-driver.c
-+++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-@@ -10,9 +10,11 @@
- #include "kselftest_harness.h"
+diff --git a/fs/hfs/dir.c b/fs/hfs/dir.c
+index e1f1fb3..0834d40 100644
+--- a/fs/hfs/dir.c
++++ b/fs/hfs/dir.c
+@@ -35,8 +35,6 @@ static struct dentry *hfs_lookup(struct inode *dir, struct dentry *dentry,
+ 			inode = ERR_PTR(res);
+ 	} else {
+ 		inode = hfs_iget(dir->i_sb, &fd.search_key->cat, &rec);
+-		if (!inode)
+-			inode = ERR_PTR(-EACCES);
+ 	}
+ 	hfs_find_exit(&fd);
+ 	return d_splice_alias(inode, dentry);
+diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
+index a66de7b..d28fbbd 100644
+--- a/fs/hfs/inode.c
++++ b/fs/hfs/inode.c
+@@ -484,15 +484,6 @@ struct inode *hfs_system_iget(struct super_block *sb, u32 cnid)
+ 	return inode;
+ }
  
- #define CH_NUM 4
-+/* The driver accepts patterns of up to 4096 bytes */
-+#define MAX_PATTERN_LEN 4096
+-/*
+- * __hfs_iget()
+- *
+- * Given the MDB for a HFS filesystem, a 'key' and an 'entry' in
+- * the catalog B-tree and the 'type' of the desired file return the
+- * inode for that file/directory or NULL.  Note that 'type' indicates
+- * whether we want the actual file or directory, or the corresponding
+- * metadata (AppleDouble header file or CAP metadata file).
+- */
+ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_rec *rec)
+ {
+ 	struct hfs_iget_data data = { key, rec };
+@@ -507,15 +498,17 @@ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_
+ 		cnid = be32_to_cpu(rec->file.FlNum);
+ 		break;
+ 	default:
+-		return NULL;
++		return ERR_PTR(-EIO);
+ 	}
  
- struct pattern_buf {
--	char buf[1024];
-+	char buf[MAX_PATTERN_LEN];
- 	int len;
- };
+ 	if (!hfs_is_valid_cnid(cnid, rec->type) ||
+ 	    hfs_is_system_reserved_cnid(cnid))
+-		return NULL;
++		return ERR_PTR(-EIO);
  
+ 	inode = iget5_locked(sb, cnid, hfs_test_inode, hfs_read_inode, &data);
+-	if (inode && (inode_state_read_once(inode) & I_NEW))
++	if (!inode)
++		return ERR_PTR(-ENOMEM);
++	if (inode_state_read_once(inode) & I_NEW)
+ 		unlock_new_inode(inode);
+ 	return inode;
+ }
+diff --git a/fs/hfs/super.c b/fs/hfs/super.c
+index 5e6d66f..d201502 100644
+--- a/fs/hfs/super.c
++++ b/fs/hfs/super.c
+@@ -378,8 +378,10 @@ static int hfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	res = -EINVAL;
+ 	root_inode = hfs_iget(sb, &fd.search_key->cat, &rec);
+ 	hfs_find_exit(&fd);
+-	if (!root_inode)
++	if (IS_ERR(root_inode)) {
++		res = PTR_ERR(root_inode);
+ 		goto bail_no_root;
++	}
+ 
+ 	if (is_bad_inode(root_inode)) {
+ 		iput(root_inode);
 -- 
-2.43.0
+2.53.0.windows.1
 
