@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505840;
-	b=ilYTxzNZGpmZ689IZtljzfzdluY0Xq2tgpG7qy8b9XqLT00la3QgC4TGdPaFBK/OWDky
-	 8HLezXEzsb2z03aiO/84Bd6WReJgc6oGv42yHCltAFAvZuv0830GqlqQhAh5Kb6ud6ey8
-	 G8pD9IKjdH6xfhkSY/BzPQT1T4fghtMKMK76+5tj9TpQq1+SZM8M6dk5N6OD2WxUC9kd/
-	 x4tt/4x2uSSXE1bgjHXHkd64hKFcijng4xBPOFxQNRuYrfTUbcSj+3EYTfoq6DwhM7lUy
-	 6LqvdtMB1hGVyVGwPgQ78zbUTJr62hi0WY/kGBdl/8A58HxlnnmwR/h/T4CQ7ClWlAQ==
+	t=1792505833;
+	b=hn7F8x+01Y7k/eEJ3ymbhVUca5Dy6OMoYTblA0oQbayvicQjZnr2rsiJ5MITWVN3l8Z7
+	 EhQ748gXUlAtQ6xfhPCjAO/ChMoHzUu501Uz7IUYdrdMDOVfb+Lv3ICsBx4ufOK/zIJCx
+	 2obgC0d4Q7uBiTq6YnQJx3WbeCWRaag0/gDdjv8cidV/BFvTKt/ckbxUOqRDUBjcezBH6
+	 1llRqTUdhPH/RkJqso5PG7UcX6EZvDwDzT2DME47ICuYI3862RVkE/DR4ryF1b1PsFGml
+	 kbVA4V3zmx4gN9wMFaBfgQLtIcUrD5v8ipprzOyYxu7xQ3mdL+zWO5ieddicTnRhuJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505833;
 	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
 	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=h9yFrw4govaK3v2B/JZCV+F4mrTwJZiAYy2bn7NeXj4=;
-	b=oSDYkF2sUtzAIR+YzzIGL/+9mbKpiBOVDNSeVsvQxSroB2fSawDNdjoCeeoPLLes2c6E
-	 DJNnaFBHCYSVNy4EZ5fEdahDanq+tLXqBPW4qfYpPE8VGzz1s4nC5LUaCvd3UU98mFOpH
-	 21yNZJUVFivyZuPXzUnJ8Xqgk9+9x4fMZLBFKBpIcl8gby+EsG9HaGw9ZjIkXgomFzCBc
-	 fSNn0wKFyylFq7gX3Hj9Chp4N3n9SLU1+hg2qG4A2xLikEuvKz0pdGZzGVz2vRY1bDSS3
-	 l8C4Oj/rbOCrf6hMIQx2RqcZH5RA7HoCrYJdAE+2XrL0LWkAW9c2PIi7oDmID0xPuyQ==
+	bh=5aps/Snk/97VbpxbTZxlLa446dwmv9p9tV7iyoVQ2CE=;
+	b=PcvbT/PzvquT7tsbV9m7troDhLAJYib3+z+RmMD5Cql0F0Uk9KQrLwM8tSnTpguu7iZT
+	 SkmBwGpilexjlhIhiw9KakvLsbFdYcczq1ENA1Q+p2NFWTexxqqhqAsy0z6jHkyBsnh2k
+	 XYcjczlJovQ6s/YNgDWCPIDkcg2EIn/r4cDs8uThbjWdxPfQJl6x9WW0Os67LPOC4pQnz
+	 8x8UO+pqc3gx3i6/OH34VwjUZKe/rtAjxH5ed70vkrX96bXnwS+h0nAqsPqDL659g77/m
+	 xotTro8UTzpOw0vD5CI+xJIa+d//bdCDkpHjB3JTMVuq+qUdfQN60RnPpSbNgDJQ3CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhZ1P3H1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWe+pKBw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5941606A33F;
-	Tue, 20 Oct 2026 14:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B38D606A319;
+	Tue, 20 Oct 2026 14:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhZ1P3H1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE261F000C6;
-	Tue, 20 Oct 2026 14:17:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWe+pKBw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6D121F000C4;
+	Tue, 20 Oct 2026 14:17:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505839;
-	bh=h9yFrw4govaK3v2B/JZCV+F4mrTwJZiAYy2bn7NeXj4=;
+	s=k20260515; t=1792505833;
+	bh=5aps/Snk/97VbpxbTZxlLa446dwmv9p9tV7iyoVQ2CE=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=fhZ1P3H1tBUmwM9HzEn3AeGsUuz44m2Brj5kxPXNjGJBd6SB94xB0JX0iHKhQOstF
-	 YzjznTKYD0uXT+2iY8NkL3omUuMutB7kRnb01psYk1hA+S1JUPeN5Asg9BlbiAufvW
-	 JrdfGVWaF3N+Biu2WIEE3awVIDF6W5CUyeHLSaaGV12tur53P4d1FUzgPyqOmEW3KP
-	 XIRUws95xq15LbW89ONdx8ifiuWnpiKSr1+OWLR1qb7d8ShctxneKcrfTgfpUlJ3ea
-	 +/VM3vTYq+nswD22/CjT/5B4VTK8w8vRbd/lLAuxw8Q2x53OrNFmLRGggGQNQG7mzd
-	 33eYnrF6OnlKA==
-Content-Type: multipart/mixed; boundary="===============1170969253696388872=="
+	b=SWe+pKBwEX1q31nsvL6OeRTJx7W4k/0ZCidtjhjTRfvVOis+27Lsf+2jojlFOU8jw
+	 2tJOmjB9WM5iLXk7byZI4W+5ZdTRlpSGojnBjTSD5ED5p0vpNQdzGyjdpVoIR8zEBU
+	 Rbe6NiIaYj0Im+Ilkb+GF7bf6WrYet6poCYz8XeYINK3WYQA8n/hFPHZbGXCrhesSo
+	 ZgY5xZ67XvGLc4IvIHjXAyqrrCiKRjeXByoYTGR7U+6Ci7NaTMU/xnO+AwsJA8vPE7
+	 QM6h+Gc/qF3d2huggefJyNnCtbkopimiwhpTqDolKrY6r3iMw3ogBiwjY9k/4BkFCS
+	 KcShhSOsc/TTw==
+Content-Type: multipart/mixed; boundary="===============8920557451821548780=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,134 +49,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <8279ae353583c0148d24530d4aebb476539793bbedbf7883110a7f39c7249278@mail.kernel.org>
-In-Reply-To: <114861b89f9ea8789e8572c53b1c88774c311460.1792503001.git.xukuohai@huawei.com>
-References: <114861b89f9ea8789e8572c53b1c88774c311460.1792503001.git.xukuohai@huawei.com>
-Subject: Re: [PATCH bpf-next 04/16] libbpf: Copy the percpu chunks into the bpf arena
+Message-Id: <582d4780b89df462674ebf66e2eb1829cfe164209a095266966be9a0861ca47d@mail.kernel.org>
+In-Reply-To: <e596c9878df94ac93c172d93106c8ebd2dac4bb7.1792503001.git.xukuohai@huawei.com>
+References: <e596c9878df94ac93c172d93106c8ebd2dac4bb7.1792503001.git.xukuohai@huawei.com>
+Subject: Re: [PATCH bpf-next 05/16] libbpf: Add the arena percpu chunk attribute to map creation options
 From: bot+bpf-ci@kernel.org
 To: xukuohai@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
 Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,emil@etsalapatis.com,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 14:17:19 +0000 (UTC)
+Date: Tue, 20 Oct 2026 14:17:12 +0000 (UTC)
 
---===============1170969253696388872==
+--===============8920557451821548780==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> libbpf: Copy the percpu chunks into the bpf arena
+> libbpf: Add the arena percpu chunk attribute to map creation options
 
-TL;DR:
-- arena_percpu_populate() may pin the loader thread to cpus the app excluded
-  (isolcpus)
-- the final affinity restore may permanently shrink the thread's cpu mask, and
-  its failure is unchecked
+TL;DR: New fields inserted before log_opts in struct bpf_map_create_opts
+appear to break libbpf ABI: binaries built against 1.8 may have log_opts
+ignored or map creation fail with -EINVAL. They should likely be appended
+after log_opts.
 
-> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-> --- a/tools/lib/bpf/libbpf.c
-> +++ b/tools/lib/bpf/libbpf.c
-
-[ ... ]
-
-> @@ -5649,6 +5650,49 @@ static struct bpf_map *bpf_object__sec_map(struct bpf_object *obj, int sec_idx)
-> +/*
-> + * Copy the percpu chunks into the mmapped bpf arena, one chunk at a
-> + * time. Before copying each chunk, pin the thread to the chunk's cpu,
-> + * so the copy faults the chunk's pages in from that cpu's NUMA node.
-> + * If pinning fails, fall back to copying on the current cpu.
-> + */
-> +static void arena_percpu_populate(struct bpf_object *obj, void *arena_mmaped)
-> +{
-> +	size_t chunk_sz = obj->arena_percpu.chunk_sz;
-> +	cpu_set_t *saved_set = NULL, *one = NULL;
-> +	size_t set_sz;
-> +	void *base;
-> +	int cpu;
+> diff --git a/tools/lib/bpf/bpf.h b/tools/lib/bpf/bpf.h
+> --- a/tools/lib/bpf/bpf.h
+> +++ b/tools/lib/bpf/bpf.h
+> @@ -70,6 +70,10 @@ struct bpf_map_create_opts {
+>  	const void *excl_prog_hash;
+>  	__u32 excl_prog_hash_size;
+>
+> +	/* offset and size of an arena percpu chunk */
+> +	__u32 arena_percpu_chunk_off;
+> +	__u32 arena_percpu_chunk_sz;
 > +
-> +	base = arena_mmaped + obj->arena_percpu.offset;
-> +
-> +	set_sz = CPU_ALLOC_SIZE(obj->arena_percpu.nr_chunks);
-> +	saved_set = CPU_ALLOC(obj->arena_percpu.nr_chunks);
-> +	one = CPU_ALLOC(obj->arena_percpu.nr_chunks);
-> +	if (!saved_set || !one || sched_getaffinity(0, set_sz, saved_set) != 0) {
-> +		/* no affinity info, fall back to copying on the current cpu */
-> +		for (cpu = 0; cpu < obj->arena_percpu.nr_chunks; cpu++)
-> +			memcpy(base + cpu * chunk_sz, obj->arena_percpu.chunk, chunk_sz);
-> +		goto out;
-> +	}
-> +
-> +	for (cpu = 0; cpu < obj->arena_percpu.nr_chunks; cpu++) {
-> +		CPU_ZERO_S(set_sz, one);
-> +		CPU_SET_S(cpu, set_sz, one);
-> +		sched_setaffinity(0, set_sz, one);
+>  	struct bpf_log_opts *log_opts;
+                              ^^^^
 
-Can this loop move the calling thread onto cpus the application deliberately
-excluded?  saved_set is fetched but never consulted, so the loop pins to
-every cpu in [0, nr_chunks) regardless of the caller's mask.
+Does inserting these two fields ahead of log_opts break the layout of
+struct bpf_map_create_opts for existing users?
 
-The kernel's __sched_setaffinity() only intersects the new mask with
-cpuset_cpus_allowed(), not with the thread's earlier mask.  An application
-that limited its threads with taskset or sched_setaffinity() (for example to
-housekeeping cpus 0-3 on a box booted with isolcpus= or nohz_full=4-63) would
-have libbpf run on every isolated cpu during bpf_object__load().  Each pin
-also forces a migration through stop_one_cpu() that preempts whatever is
-running on that cpu.
+log_opts was added by 702259006f93 ("libbpf: Add syscall common attributes
+support for map_create") and is already in a released libbpf (3ead4ead078f
+("libbpf: Start v1.9 development cycle") says libbpf 1.8.0 has been
+released, and 702259006f93 is an ancestor of it).
 
-Would it work to pin only to cpus that are set in saved_set, and copy the
-remaining chunks without pinning?
+The OPTS_HAS(opts, field) scheme relies on the caller-supplied sz and
+offsetofend(type, field), which only works if new fields are appended at the
+end.  On x86_64 the layout changes like this:
 
-> +
-> +		/* faults the chunk pages in from the target cpu's NUMA node */
-> +		memcpy(base + cpu * chunk_sz, obj->arena_percpu.chunk, chunk_sz);
-> +	}
-> +
-> +	sched_setaffinity(0, set_sz, saved_set);
+  old (1.8): excl_prog_hash_size @64, log_opts @72, sizeof == 80
+  new:       excl_prog_hash_size @64, arena_percpu_chunk_off @68,
+             arena_percpu_chunk_sz @72, log_opts @80, sizeof == 88
 
-Does this final sched_setaffinity() actually give back the original state?
-The kernel's sched_getaffinity() returns:
+Consider an application built against the 1.8 headers that sets
+opts.log_opts (opts.sz == 80), running against a shared libbpf that includes
+this patch.  In bpf_map_create():
 
-    cpumask_and(mask, &p->cpus_mask, cpu_active_mask);
+  attr.arena_percpu_chunk_off = OPTS_GET(opts, arena_percpu_chunk_off, 0);
+      /* 80 >= 72: reads old padding */
+  attr.arena_percpu_chunk_sz = OPTS_GET(opts, arena_percpu_chunk_sz, 0);
+      /* 80 >= 76: reads low 32 bits of the old log_opts pointer */
+  log_opts = OPTS_GET(opts, log_opts, NULL);
+      /* 80 < 88: NULL */
 
-so saved_set holds only the cpus that are active at the time of the call, not
-the thread's full cpus_mask.  A thread with default affinity has a cpus_mask
-covering all possible cpus, so after this call its cpus_mask shrinks to the
-cpus that were online when the object was loaded.
+So the caller's log_opts is silently ignored, no log buffer is filled, and
+true_size is never written back.  The kernel also receives a non-zero
+arena_percpu_chunk_sz.
 
-Because the syscall sets SCA_USER, that snapshot is also stored as
-p->user_cpus_ptr, and __set_cpus_allowed_ptr() clamps later cpuset updates
-to it:
+On kernels without the arena percpu attr, BPF_MAP_CREATE_LAST_FIELD is still
+excl_prog_hash_size in kernel/bpf/syscall.c at this commit, so
+CHECK_ATTR(BPF_MAP_CREATE) sees non-zero bytes past that field and returns
+-EINVAL.  Does that mean every map creation that passes log_opts, which used
+to succeed, now fails?
 
-    if (p->user_cpus_ptr && !(ctx->flags & (SCA_USER | ...)) &&
-        cpumask_and(rq->scratch_mask, ctx->new_mask, p->user_cpus_ptr))
-            ctx->new_mask = rq->scratch_mask;
+On kernels with the later d7935093885b, an ARENA map would get a bogus chunk
+size (rejected as unaligned, or accepted with a wrong layout), and other map
+types would silently lose their log.
 
-For example, take a vm with possible=0-63 and online=0-15, loading an object
-that has .arena.percpu variables.  From then on the loader thread, and every
-thread or process it creates afterwards (cpus_mask and user_cpus_ptr are
-inherited), could never run on cpus 16-63, even after they are hot-added or
-the cpuset is widened.  Before this patch, bpf_object__load() never touched
-scheduling state.
+The reverse case also looks problematic.  An application built with the new
+header sets arena_percpu_chunk_sz but not log_opts, then runs against libbpf
+1.8.  The 1.8 library reads offset 72 (arena_percpu_chunk_sz plus padding) as
+a struct bpf_log_opts pointer, and OPTS_VALID(log_opts, bpf_log_opts)
+dereferences it.
 
-The return value of this sched_setaffinity() is also ignored.  If it fails
-(-ENOMEM from alloc_user_cpus_ptr(), or -EINVAL when a concurrent cpuset or
-hotplug change leaves saved_set with no allowed or active cpus), the thread
-stays pinned to the last cpu it was moved to, and nothing reports it.
+Nothing later in this series (a6e6ab7a4b2f..08224ba2de19) touches
+tools/lib/bpf/bpf.h, so this is not fixed by a following patch.
 
-The commit message and the function comment only cover the case where pinning
-fails.  They do not mention changing or restoring the caller's affinity, and
-no later patch in this series changes arena_percpu_populate().
+Should the two new fields be appended after log_opts instead, with the
+last-field marker updated?
 
-Would doing the per-cpu copies in a short-lived helper thread avoid touching
-the caller's thread altogether?  Otherwise, could the return value of the
-restore at least be checked and reported with pr_warn()?
+	struct bpf_log_opts *log_opts;
 
-> +
-> +out:
-> +	CPU_FREE(saved_set);
-> +	CPU_FREE(one);
-> +	zfree(&obj->arena_percpu.chunk);
-> +}
+	/* offset and size of an arena percpu chunk */
+	__u32 arena_percpu_chunk_off;
+	__u32 arena_percpu_chunk_sz;
 
-[ ... ]
+	size_t :0;
+};
+#define bpf_map_create_opts__last_field arena_percpu_chunk_sz
 
 
 ---
@@ -184,4 +153,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39434884362
---===============1170969253696388872==--
+--===============8920557451821548780==--
