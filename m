@@ -1,65 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456545;
-	b=p8wu5JtbHzTApBU03u59BC53Wl9UCnixbtvAULYOE+BqfIod/uvbkxRGFCJvvE03/oFS
-	 PifAPmMfvYJ7afxe945FAjnKMjpYr7Ech879MlEmi1UPDeaol5Rbe5Bpe1yN3EFXs740E
-	 Cfbh5jQXH8Rxnbku4kvMIdD/P674W4z3fwaEzdCdWfCNX1UcglX0+tSV4hNjFMJNIX52i
-	 sO2xGO91cKcjgJTHi3/Y/1jMiYszzYgs9liAh6+jlff/ZtD5qKIKzB4uOwH1lcU6JMimY
-	 vrW5fuc89uDuK6UawW77cmmpTfSZf4Sx55VhXTflg9yGXJE8z7YiTcI8uBsz4IG2MRw==
+	t=1792456552;
+	b=Xg3VAx6zaR4PZJRjoP/Q4jd4olwlivCYXuKl31Fzq9qmjRA/bTl0JS73OngICF0lfUwQ
+	 kBcVjs60gF9VIwELjNH2+y57JXnFQlvox3pLty3b4UrnC+Vb25QKmTuLoZOJpQpShTMes
+	 FDE8+NjTZLMWyOXa979z0xnGQyJI3M2n+okXyPPtdz4+NlKpoL2rLOz8Ki0bOpv8bQjqk
+	 E/vVH98QWiE0HaiEif+ZArgsZmCBXQ7RhTCrocfSoMMDTgwhjdg4gtqWG8gH3yFg3woj/
+	 ightvQZB7AoBm6Wkw/LC1CXkCa+5FbSmqubetGfX0UuPORNQzXYg19vCY8nWSJowGSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456545;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=7C7GZbdbo3a4H8A+zEhg8yGiQ1HjOPz6tQYB0uZWjAU=;
-	b=FsBi9t4SkhjXdQKk+UB5NASYeghe4am/mMAcEuzb1UP/IyigdKIprFg8CJLFMZiWCEAk
-	 mf5Q9n3TTE1Fuwa0qxOwkehsxvC3UHy488bmsgy3qC20Yw//Nm0hLKGidQHOeHNNnevax
-	 DqlL3gJ+HNaJOm9VEph3KByN1c5Z6jdt5XHwUYDUw7gZEQmZEN4OVe3AYpXuJEcWOxpsN
-	 KRf7WClBh0CUlY2BSHSZ3QHL8UsdocOlA3J9SOZOKAGZctA9SsJuBzGfqK61Qk3Wa2LuW
-	 LJCwublvHZlGcPL+BRPjajM+Vcumzpxhi+i9wIdGV/TSbt45VT7yZZHStlRyGzqswVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456552;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
+	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
+	bh=oayzeq/ffRRZK2XsT9LR9PLQ/VgPUckLtfFvkcIvl5I=;
+	b=V62XTbmDgmkIv5QCJNAoc5+WQ/aSn5PbsXj5S1xyKV+H5gV8ifXo+xNEUeZv5TtWnWMl
+	 oLzKZgUXk8Bn3O/W/KFfQ++B8fvbDZMKmSM/cXU/H2i6LAXWC+ww039JTbc+A2K6WEakn
+	 cj/99V303r68thvWvANft2X3vVeyudaChAr/v693MSQa/M5OvLPm4Q01YKqEg9ECL921s
+	 wdAYklYZrqciSOBoAyj3uKXGvDsvwGK2jFlqoUy3tmNsgS4KA/gHWPMPKWHm8Bxa7YHVi
+	 8WdNkaSIOjTmzByxEaC8y6ScjX1G/vVDGAXWG42t+7w4ogWWZg8ACZtArlcUPu+KLvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="XF/nunrU";
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eAEVRu2V;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC248606A31C;
-	Tue, 20 Oct 2026 00:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC248606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2350C606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2350C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=XF/nunrU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=7C7GZbdbo3a4H8A+zEhg8yGiQ1HjOPz6tQYB0uZWjAU=; b=XF/nunrUjxJNxPqxShgWFi9C6M
-	JA8D5R9y3ZprWQFKpc7FmVKI8wCk2I/4QWLL7XHS3KM/blKVbwvfowcKdfDGDIrfEm4+usnTnAtiT
-	f5JAEABnDuYY0PcX2H8rIMaOdxbPfWzXtkaoxQbvEpNzJijHuu9/oF7RfHqFGgTzgeLY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xIxpE-00BjMd-Jj; Tue, 20 Oct 2026 02:35:32 +0200
-Date: Tue, 20 Oct 2026 02:35:32 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Woojung Huh <woojung.huh@microchip.com>, netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Wei Jie Law <98lawweijie@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v4 2/2] net: usb: lan78xx: reject short register and
- statistics transfers
-Message-ID: <5c1e5db0-1149-473d-b71d-f30d3b96b5f7@lunn.ch>
-References: <20261020001621.2920-1-law.wei.jie@gt.tech.gov.sg>
- <20261020001621.2920-3-law.wei.jie@gt.tech.gov.sg>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eAEVRu2V
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so1490010a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:35:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792456551; x=1793061351; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oayzeq/ffRRZK2XsT9LR9PLQ/VgPUckLtfFvkcIvl5I=;
+        b=eAEVRu2V4UqcP56T4HZZ1IlytaLi5bONS8LprSycjgJbf6TD/KsczqfSf33xwoFgiP
+         cO2CNmUYrXJl1hyP73PYfr4VL3zcDyPMQuXqD8A3/m3qg17pDBC+FwZMchuT1GEVYkqk
+         Pno/b/ifwhs88auTwgvA4hVBT9I0+QanT3SIWcEM8qinBfPLg2YMUKPorVsKw8OIvSRR
+         pfUJN9UZ+YcsaxATxIwIOPMNsc+q0p+0SwvkszAbxKE6vg+XgyxyV/UcvARA+I7QZjXb
+         f8O8GAbTEe7rNqCQj2mcN0+QhyQ35IqE1ZGA/SqzpRwP/EUm3ht4nFbFBTSEGZzual/A
+         LOBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792456551; x=1793061351;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oayzeq/ffRRZK2XsT9LR9PLQ/VgPUckLtfFvkcIvl5I=;
+        b=LMPtnLoextNsqQcZcnuC3w1RJBCIY8sMmgqyOVWjGzcbVBdEFNXhPgu3AulzFe6y5c
+         wk7IjYk7QNQ6WtcS7MK0lMWoHbyYBvkzXwpIrtabGbvzzQ26/p14uC+t3JowM/tUEdZY
+         u85sBlH2Xx7A4rj4W5Y0yK+g400UDE/iejFspehMEBD7UZ9lEufgn3UMiThyxi1qv7tl
+         ODfoTyD8V7/Y+nebNodzqenfe2r8YDhzZGE8rL//U4sLZz8+Tt7UZS3XQ0/W/eVzcdom
+         6/TCNL8mw5AULQl7PhOA5TbFhWEbZbrQxnYY3VYou2xBcOY4mH3cCfoTtKjVBROYGWG8
+         RkKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwrxwoQ1HZwiB5HwtMf2qctBGQ/gVhJSKljI7yMFj8OjFKOAxvlfF2ts3Ff7lO1kA44Qgng4ElRGtPIMIM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkkZMpT9IKUA0svtL/i///U8gbXSxZTu8vKTOD2YAZ4Z7zVvlm
+	N7KeGL8ECF+BukMG38JcN6mJhYRG1MyCyLeCFFtFXZpHdjFlam35nLOY
+X-Gm-Gg: AYBFou1IbgnJj3GiiYlRAQIBPbcjMMgqXH7oQUiHx4afo09kj++7C/AcRwSb/WX3ckb
+	qgRpd+Q4RVqNCV6/HPvcU36qYZ3HsCAPBeTJlCCWZyOiwIvSNbTIJ8fy4T7IRqBUSRDSDvI5XKl
+	f4ssGmmudUKBDyzDYZRZmakkMwSzAX542q/rdt3Rqga7zSBGvUhFBOQlL4j5HOd4NWRHNZZHQyH
+	LCj41guBuXvKaWDa8GOv7f1C7mc3pBQIr7fW5kQJbKpPQeaRp5sLKWtmVE7cWwACyFhz5tJk9Sy
+	mOc76Q/sujRqSHM1i+mkeP9hdYcJq66UKQgTtKOtvFOdrfzqTYhTCZLuK+CYyENyWJiQt2c3HHk
+	D6lg/OGS+U1cfAjAxlkwYAyyD60dFzKCGI85x51Rab7paIi6C7OcGE2w6DGmnnyJ9XAHFr8Sntx
+	bN8oSINd37O8Pb9dyjqrOKNAJmvvjSu306teY0V6Nmt46p195OoEB/FFactsZQnEgPyPvD9wDqn
+	lB/AF18iH37Oips90JcXDZvU2h0XlqBPNfZOKvIRxyGweynTgnpzyE6tyitdgd2Um9ptIyN+GO0
+	uG4=
+X-Received: by 2002:a17:90b:35cb:b0:3ac:8fff:5a1b with SMTP id 98e67ed59e1d1-3acef3d9570mr8518570a91.34.1792456551322;
+        Mon, 19 Oct 2026 17:35:51 -0700 (PDT)
+Received: from localhost ([153.61.198.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d56eddbsm1552366a91.9.2026.10.19.17.35.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 17:35:50 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 00:35:50 +0000
+Message-Id: <DM98TFI010XS.5UZ5IEJBS2RQ@gmail.com>
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: =?utf-8?q?Adri=C3=A1n_Garc=C3=ADa_Casado?=
+ <adriangarciacasado42@gmail.com>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>
+Cc: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next] bpf: Add __printf attribute to
+ bpf_diag_source()
+In-Reply-To: <20261019195916.186225-1-adriangarciacasado42@gmail.com>
+References: <20261019195916.186225-1-adriangarciacasado42@gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,36 +104,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020001621.2920-3-law.wei.jie@gt.tech.gov.sg>
 
-On Tue, Oct 20, 2026 at 08:16:21AM +0800, Wei Jie Law wrote:
-> lan78xx_read_reg() and lan78xx_read_stats() read from the device into
-> a freshly kmalloc()ed buffer, but only treat a negative return value
-> from usb_control_msg() as an error. A device that answers with fewer
-> bytes than requested leaves part or all of the buffer uninitialized,
-> and those bytes are then used as the register value or the counters.
-> 
-> Treat a short transfer as -EIO in both helpers. lan78xx_write_reg()
-> does not use uninitialized data, since it fills its buffer before the
-> transfer, but make it fail on a short transfer as well, so that all the
-> register helpers report a partial transfer as an error.
-> 
-> The write path validation was suggested by Andrew.
-> 
-> Found by code review with LLM assistance and reproduced with an
-> emulated USB device (raw-gadget + dummy_hcd).
-> 
-> Fixes: 55d7de9de6c3 ("Microchip's LAN7800 family USB 2/3 to 10/100/1000 Ethernet device driver")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Andrew Lunn <andrew@lunn.ch>
-> Assisted-by: LLM
-> Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+On Mon, Oct 19, 2026 at 12:59 PM Adrián García Casado <adriangarciacasado42@gmail.com> wrote:
+> @@ -794,6 +794,7 @@ static void diag_print_insn_context(struct bpf_verifier_env *env, u32 insn_idx,
+>  	}
+>  }
+>
+> +__printf(4, 5)
+>  static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
+>  			    const char *fmt, ...)
 
-It probably never happens or users would of noticed. Please post to
-net-next, without the Fixes: tag, once the merge window closes.
+1. This doesn't apply to bpf-next. 
+2. The warning was fixed a month ago:
+commit 7f2b0b57a8d7 ("bpf: Add printf attributes").
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-
-    Andrew
+pw-bot: cr
