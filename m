@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485237;
-	b=hlH83Nn3fJoRyKVUJjf3vc7Lhzq3X1jtRAPp8VLlKqWJwm1nXKzrFqgMUSTclAIjdW7q
-	 OlAUGZMMZ67RxPmI3vTOrki3vSaMZI5950hrzIHlWwpo5DMk9VsM1wD+kE18+r5lyvjy7
-	 s7snpY9w2ovis7HWQ/rNqr1LVS0RzV3SJwsGWy7dnDmU+D5yTwpr4ioR9cBxRKihLbV3M
-	 Niq0xSCo6xXT6kSHLoqc8MDcG1ITmk/muAasacSQnTc+Pnwfb17YDEglaz2uZDtKHoklg
-	 WFoenmNqi9hIU9pScXKpJfIgcRmmQdC9+qmWNE1+KHvrRlQeLNrH82aqm4jPB4lrVFA==
+	t=1792485260;
+	b=5r8xQRXg9k+cpxR3+vmyAC/2IT+lNfXW0wIYmMYEmiAA1ncjcoHcYEU9x79XksWNgtBl
+	 8D2vEl64KY8eeFAM9UaOBPSJ3mhxNo8jjfqHw7vsMH7eXj1tsKpXHw1n6t0eckt8HInAa
+	 PTb99bLtCsqojHLKXyCui7eVjGvC4SlTyAL78YFmDO1UmKlzVV6wdseMpw9aURN1EbpO6
+	 zaeXmjxHWkxIuxtKsYjhmtDQC1ZwBhVWnXUfJ2OuWAtpfQgS5ChFnmtTXxx4d8HkxxWGp
+	 sw4A9Hj/Iv7WAslo4KnqiAblirFDdYWXuHI8dD292kvX9Oa0j6TwIuHdZLtCyYRlaPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485237;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=iTKxLK7MUSiAzkn1IgcQvxPJWtCNPLN0//THVXyyz5c=;
-	b=uaFJ16srgBdxW8He2DItLK2aetWTE5mDSOiVIG9Zm73UgDPN2ED5bwEYamNLJ1DZkVKa
-	 MbQR3+DuImlKFNRSPBGsTvTAdEBK/Ybt+G4UcFjDO56aeA7uD5DxVbVvQsIxMM26JiXLz
-	 eqp4fr+Z3hH7pQGd6pma7VVNRStNfIBvf6i65nC1cuJl+PF5asm1qc6CbaxqktD8EMgud
-	 cicQuGj4y51ycHfCshctYZa8Z9KscQrPDj29eWODWV+N71lAZDJgnb76hx2nkchRZZKUq
-	 QRUJm08XyxI6wcnAaoh5o7cIZMxg40nu0Z1kJOccb/OVxM2nGPJqfvJYxiW+pmBY2Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485260;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=vBKNWH+6fXgb7uSlyDkZ/sbNDxzLeASFOGVrmanI1ag=;
+	b=ISUVohFkTA09W1dIJKCZDtlq0oB7LoMAizvkQv4Q2LKqd0qS7Lwl52msIlfixzr/wquX
+	 sjtZA4zEOJPt8ovY1MQ0ipLUKL7X3mG9x53V2KOwdsubB1GuQWJnllvR+SBeUWhcgy0XR
+	 SoLWR4iIvfwOVvh04+FrpUbC9GDupxx6De0NsR+hlBBaxbHeDbrczf+L++wMO9Ox6+Klz
+	 lzuBL0khiWIgTzqW464dHvYWIDPwlPmYdCWLnetJjruRJsrkX2/A0ed+/eI86xmNHBMbU
+	 1nR9MveC+1HQNttZ8kdX+aW/hLvgIw/bx+OcENXO85iJLkNs1jUnAewvlj+zMeRUa0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=N0HCy1of;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Kk+jgumG;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E418C606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E418C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D1F606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:34:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D1F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=N0HCy1of
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a16db51147so14026275e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:33:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792485235; x=1793090035; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iTKxLK7MUSiAzkn1IgcQvxPJWtCNPLN0//THVXyyz5c=;
-        b=N0HCy1ofPHQT50aRQpXEeE2FKKnFo9xNtMXDh40rrBUAHu+F8qSw+d1kKQDEsC1mMD
-         WU4D7itliauJYaxJhNPs63ybtyJGEAMgrSUw7a8S4Sjlc3V2pF3OwImM6pbJji2kURwT
-         mDQzk8n42Or5WTcHyP9Cf07akuDQN3bMLROlI2MA7tknmNQP+xXY/3/TtZIiofZZaWzi
-         uIH8/hjLp+ftjcTFyIgSm1u+VZrXZqSsduvfEY+eFzysRK3enNttd7CzNkQzAb0uR/7h
-         PqNSm38kksSc4C0TXzAIWx4Wu8uXUz0Qh2FxPT0+R7hGx0U+T6PrKm2dA2QhRA0gdZhH
-         J6Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792485235; x=1793090035;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iTKxLK7MUSiAzkn1IgcQvxPJWtCNPLN0//THVXyyz5c=;
-        b=JzUOGBkOp9OJzyakAVVHhN3Q/HLF4keHHi2i2hhMhc1zo8JTnzKWN+20Ws31DOxduQ
-         NI4Pihfxomh3lNa4FPuJ6QtS8xPgkSVX99meKTVAelmE8nb+lFQTG+aRhlHezKbAhUGp
-         rhlIz5wN2FARBHOmqrfth5FhP5KNUh1i0oxT8xDEJqMkFBkG5+chNo9b7ozxCd4EDQcU
-         3NWZTGJqOOdXbPGkRJ7BHxxTRi5Ik15m6T4q3VBNV807UZRnGxy4enxjGt5+3VzkE3IG
-         BfKQSU7Qx9HeM+ptGFtURQY839fmaOnlHrZ/U8qilSOufVo9KDKPax7iurZkm3nkwcBg
-         rPoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy283s/QAml15OcZKgpUowjIQGT9vWgx0O9trq8JtV0T9RoGfcxw9zixM6TbqAhNkK3XHu1nziQVqbOvcg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoocQ90CWgwiidRzlKFxfoAmYL8G9dHM1MZ1yi2D7rcNjc5k/j
-	+9BNprW1FTPWxYtR0yCHPc+ddV4PgtL/Gwxn5wcmpqY4ZKWT/PBECphQ64B8XCd/FIsrXhCOW00
-	n4gIgz2w8zwkHafrHmA==
-X-Received: from wmbb17.prod.google.com ([2002:a05:600c:5891:b0:4a1:e474:4216])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e11:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a1d75f24b4mr207613465e9.9.1792485235001;
- Tue, 20 Oct 2026 01:33:55 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:33:53 +0000
-In-Reply-To: <atarvxFKYYuHhXGQ@um790>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Kk+jgumG
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=vBKNWH+6fXgb7uSlyDkZ/sbNDxzLeASFOGVrmanI1ag=;
+	b=Kk+jgumG+pv7XnaPZDeeAU8MQ3LXTfm6oVnCbW8jazUZnqZ/ORtrC7JgFvxdnO+cDQzOI4t2U
+	7vALOi9vHSSqoltGoZVUZISYSqkFZA0i7RhDVImMBjBBYnv3lpqm+y9AiV7PJ3swzXlcKzvnvXx
+	8keUXFd5fYMskZHOl9KyGJI=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j85L156ycz1K9Xh;
+	Tue, 20 Oct 2026 16:34:01 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0A9C04048B;
+	Tue, 20 Oct 2026 16:34:05 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
+ 2026 16:34:02 +0800
+Message-ID: <d7dc6528-4ec8-46d0-b21e-8a4c38edd4ce@huawei.com>
+Date: Tue, 20 Oct 2026 16:34:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,68 +61,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com>
- <20261016-b4-dev_query_fixes-v3-2-f8071cda3515@collabora.com>
- <atXOd-EeFkdA-trn@google.com> <atarvxFKYYuHhXGQ@um790>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020083353.1821078-1-aliceryhl@google.com>
-Subject: Re: [PATCH v3 2/2] drm/tyr: allow userspace buffers to be mismatched
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/14] kexec: Fix CMA segment address translation with
+ non-zero text_offset
+To: Mike Rapoport <rppt@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+	<dakr@kernel.org>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<leitao@debian.org>, <yeoreum.yun@arm.com>, <sourabhjain@linux.ibm.com>,
+	<robh@kernel.org>, <coxu@redhat.com>, <kees@kernel.org>,
+	<tangyouling@kylinos.cn>, <liukexin@kylinos.cn>, <zhangtianyang@loongson.cn>,
+	<guodongtai@kylinos.cn>, <maqianga@uniontech.com>, <chao.gao@intel.com>,
+	<kai.huang@intel.com>, <vishal.l.verma@intel.com>, <seanjc@google.com>,
+	<piliu@redhat.com>, <thuth@redhat.com>, <jbouron@amazon.com>,
+	<me@linux.beauty>, <mclapinski@google.com>, <graf@amazon.com>,
+	<bgwin@google.com>, <hbathini@linux.ibm.com>, <eric.devolder@oracle.com>,
+	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <palmer@rivosinc.com>,
+	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <driver-core@lists.linux.dev>,
+	<kexec@lists.infradead.org>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-2-ruanjinjie@huawei.com>
+ <179248377975.302547.13172455257147735569.b4-review@b4>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <179248377975.302547.13172455257147735569.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mon, Oct 19, 2026 at 04:46:07PM -0700, Deborah Brouwer wrote:
-> On Mon, Oct 19, 2026 at 08:01:59AM +0000, Alice Ryhl wrote:
-> > > +    transmute::AsBytes,
-> > 
-> > Usie the trait from zerocopy instead.
-> 
-> If this other series making zerocopy available to Tyr gets merged,
-> then I could rebase this series on it and switch over to IntoBytes:
-> 
-> https://lore.kernel.org/rust-for-linux/20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com/T/#m9a9a24e0cf1ae10451e3fc84955873b405d0da0b
 
-Rebasing this series on top of that one makes sense to me (you can also
-already send v4 based on it and note the dependency in the cover letter).
-Note that set_uobj will need T: IntoBytes + Immutable and can call
-writer.write_slice_partial(src_obj.as_bytes(), 0)? unless write_truncated()
-is also updated to use zerocopy.
 
-> > > +    let mut writer = UserSlice::new(UserPtr::from_addr(usr_dst as usize), size).writer();
-> > 
-> > On 32-bit this will truncate upper bits. I guess that probably matches
-> > what Panthor does. Is it what we want?
+在 2026/10/20 16:09, Mike Rapoport 写道:
+>> kimage_load_cma_segment() and kimage_map_segment() both translate
+>> a CMA segment using page_address(cma), which returns the CMA base
+>> address. This ignores segment->mem.
+>>
+>> On arm64, image_load() adds text_offset to segment->mem before the
+>> segment is loaded:
+>>
+>> 	kernel_segment->mem += text_offset;
+>> 	kernel_segment->memsz -= text_offset;
+>> 	image->start = kernel_segment->mem;
 > 
-> Yes, that's what Panthor does; it uses the "u64_to_user_ptr()" macro to do
-> this deliberately.
-> 
-> Since UserPtr only accepts a usize argument, I have to cast in Tyr,
-> but instead, what do you think if I added another method to UserPtr
-> to accept a u64 address and cast it to usize just like in the C macro.
-> Something like:
-> 
->     /// Create a `UserPtr` from a u64 userspace address.
->     ///
->     /// Deliberately truncate upper bits for 32-bit systems.
->     #[doc(alias = "u64_to_user_ptr")]
->     #[inline]
->     pub fn from_u64(addr: u64) -> Self {
->         Self::from_addr(addr as usize)
->     }
+> That's true, but since commit 751c263bb74f ("arm64: remove TEXT_OFFSET
+> randomization") TEXT_OFFSET is always zero. This is upstream from v5.8,
+> so no LTS kernels has non-zero TEST_OFFSET.
 
-Adding UserPtr::from_u64() like that sounds good to me! That keeps UserSlice
-construction infallible (matching u64_to_user_ptr(), including when the slice
-length is 0), and we can also use it to replace the existing `as usize` casts
-in drivers/android/binder/thread.rs.
+Yes, My concern is what if the kdump kernel is an old one without this
+patch?
 
-Alice
+Should we just add a WARN_ON_ONCE(text_offset != 0); here?
+
+> 
+> Maybe we should rather start deprecating .text_offset in arm64?
+> 
+
+-- 
+Best regards,
+Jinjie
+
