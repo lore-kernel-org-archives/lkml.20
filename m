@@ -1,97 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505246;
-	b=TGxNvRbPCoL7QXcLSLpu6sZnoAsKl5Hk2mjDztyo4Jqw0Jn1yDYRJiMwTte7bG9kEwAk
-	 lCYSnTr5/0AZV4lXTKSfQWObT54f6WiQo1zTID0S3vUpmVUSUeqqVxIbBYJWP0ZSgDwk2
-	 YLExRCIjkA21UtF0KLxJAoE9tsrbWU7rgujz4Z8jEzdfPrzgHM8kLnRymb/iiUBL9tbzx
-	 JirJXK/H53DNlen4+TfJXYD6OeIULZXtVPAdxBRbyZDqTk7+YS0Wx0ZJFtc6wnmfKf8vT
-	 EV8r//Rcny8Aq2srnWx4EoLeQArQuE+VeluQtFu1PS56aRcsHc0CNqrubJx+cFD90wA==
+	t=1792505275;
+	b=H5zsvXpBoVz/7r4djqsy1j87CG/WmnKQYuTKxD0YDH7n1sj4CNftGp7NL7d7ki7JXNR8
+	 R0sD868m9v6XTMk18TBzKP+dR6rHPw9/fJEgIeZ9+RGaPoWe1pEvMVOo6uaSXTInxqf34
+	 cHNjadcAALVpQazil9qk+Z/xvnHsDsZGIr8IgCFdniz7rS32FCtJrWmzmnXr/Ow43CWcr
+	 E1CDthxaNz783uNWZrkqhq/MIKzVB9OhnUl2cmLnRbF1H8lc3eVMqBFpFqF8MqLgWIlRb
+	 xHs/utX1RFqxdmct0xpKAOEuMT7amSkAtdfDbDA47+XL60fO1Z+6PcsCKMThcu/Z2+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505275;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hUv7uf8ufBNBf/i6W9qgwPGx5KWz5jW4iKKV5HAxgy0=;
-	b=XWnxfoTQ4VF0RTu85wEeUik/65t9chkV5npbzzTeR4cxINa70CM0xd+A8D/2+a3pLaW7
-	 LdEyiB5L14NM6xHaXb4Yc1MjKa3G5Fa3xEb+gFyMZh+UkpMPLAjuG/WaCLScBqaRLepaN
-	 fUaG0NaGPIBpNHbc+/FXQVa/RpAY884eZlcfUwJ12kuQhZTptE/8gOl4msDMog9miOQAA
-	 IBTRJs7h14wNy355pa9SJ6aDhHh/JoIamrQAhJ0JOlwBDMRS8tsY8Co82IRwopDHSOWaa
-	 gLupuBC7xPfqp2IjMNlCQLSilAUyL94wqSX6gW/3aC0LAHOtbeIlHz69QNr7jpDUfig==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=o+EfFrr6u+uTNXFgvPFyR21Dr/tevP4cbAxZ6qNFw/g=;
+	b=bGv+D+I8eR8DXfQYQYPzqWxKhfT65cbQIUf47Zii+QJNiXlH62kV/3fpR9bta/8XX7CZ
+	 jwcXhSxnGXZSy6fUXX7ncWZTdnAEuNXfwYGikYF78m60t0ELkRE13G33NLk1hERs/Sarp
+	 PfkYfasPTsVwq9obtadEz24wRKUAHzvTxmdekx9m4t0+NIzN5/Po81CcgPiazPip39mBl
+	 PkYC8dLXEKLc3CbChomJmBX2k3A8+7YKxjDWJ07SgoL+8XBX3yvzTkZaIyDtKR6sM3csi
+	 WtdU8vk7UJvBnWC8Wu6VuD6kVrx4T1ksdafTCiXUIYWVJqf4c4BB9nV1Lq6K+iBS0QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RKgmoIyf;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=none header.from=resnulli.us;
+	spf=none smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=bYnh9Nzy;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A744260A2626
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A744260A2626
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73841606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73841606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RKgmoIyf
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso5453665e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=bYnh9Nzy
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so549429f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792505244; x=1793110044; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792505273; x=1793110073; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hUv7uf8ufBNBf/i6W9qgwPGx5KWz5jW4iKKV5HAxgy0=;
-        b=RKgmoIyfmeN+1A/ODaqCWjVB7LBKWoUaJ3vU6tbeGRWCdveT9YGfE/A7Ax/gYE196J
-         TqjLniQbMy/lWZfRjzdG2a0xn9D1YURb2EIhEbiAhBd+A+l7TUziWm+x7Alixsygt2yM
-         CEeHFYI3rflQ9zY90CkeA28esvIjhjHwJpX9040H43k3iXcKizmQ5M+Rp11Og+jKQ9F2
-         lFK0AgQ6lQStulC0Uq7TEzak73HxGAkJBw7b1mKZ/LFKiBHUaQsXy/UwUsWn6wyinQ53
-         Df+z26BEgxLc8bPXztW93id/wVzZT6RbptXmxsnr/1p0rLjXnVYiKcS9R4jJV2JNfIqy
-         n77A==
+        bh=o+EfFrr6u+uTNXFgvPFyR21Dr/tevP4cbAxZ6qNFw/g=;
+        b=bYnh9Nzyqli4bkwECf7KhQVk8jCjNLNbQzkaT8LJHZiv4XJM7PfFIFcY1VCEzrtknq
+         9EylpBWwbFBk22NvshQ2OoXHOhzxu/mCg2UQjEaPPH3fdtURPoKV2hoB08DUuAj5Os8W
+         +/K5zFQrhC+iQ3fhAmcYbzV5P7yr99fEu30Z6/tsRqQxJtfen76pOCtrQVqNGfsiSEy5
+         HecTgNN2hp2lUa7et+pqZCg9b7fzBeyXrvZw2748bTxfZcptj0i7lobluoX0Gwi5I65C
+         3uRJs3KotsJzoFHlAh0kUpxPPodcH6LntlsfMsLNQZZKDzy2ukRTDU9cu0Ukxqmfaeih
+         3MVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505244; x=1793110044;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792505273; x=1793110073;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hUv7uf8ufBNBf/i6W9qgwPGx5KWz5jW4iKKV5HAxgy0=;
-        b=T8GT060864qHKnoKlH3OX43VUE7RUvQqVE9nigwGhrbgVLKRdsBlTkta5R3dpHJ27N
-         kTzLjzn6GElATUn4CzCiyvHBJIAIn46Gfy3Vfqkfd/BZ/ISeDEtGoR461MTxJnw3PHGZ
-         tbiXsvCAV0UltyvEHo1GHDRw9jEVzGqzePN8CHUTlldL+Fs0k/suI0fBzrGvML4/rT0R
-         6njRbMsGO8+XRg2t5aUTj9E5gyyNQGQnnDZnL30MX8fKhKTKPf+8kKZlhRFNpW68E8XC
-         idL7qAXaIlQVvW1CngA/zHJMee/rMaG3LNhGUBGIwl9Kzrkw0KnClDxYTYObRAvgd/j7
-         j7Rg==
-X-Forwarded-Encrypted: i=1; AKwUvByUT/DE3mpuiausTijbycyK4e84k46axh+hsRW5nf5iJL0aNmUXOLobc8gscqhHCOFD0s7QXjAgnMsIrtI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7R4jPORNvjdKaQw/Wv7l09hKBpDN372xIp/c8wtsGWMhhZPms
-	JujDDIFQAIGL7dflDMKnM2nTnsXlSDemjpkSY692wCGd6UJOO+AnW8YNq1UKC4QW0O8=
-X-Gm-Gg: AYBFou0GWXcuRMn490ndRl4DORqQ4kndAMPYjLlk1VRPB7KT/QDzAWr21iDPbjrNh0F
-	GmUEYudgDboybKKsrRuvRrlry6nKxOnjuqv5y3D9YwakOsiNAK9ipwzN4bckV6ofqZMJnIcquMO
-	KwMa5MfKQWllCirqgXbx4P01uIdYCF+M+vsgd8ddfmmpBfJTZfFbqZuP2pMIB3Y4MSJG64Cge/5
-	OR7ytB1tyrzUj3ylVNBpQh7BflptzGGjgZ18qme99wm6tiIoXWs9X9wjFALjbyF/lmLlzFS2uVQ
-	hmO+qvF8ubbX0917CWC5ck8wOnfLyTX+DFQMTqqpwhTrY7mYhvDYu95+ruCvrQryHM9taSqqxEw
-	oLGES0ukvA9ZXYbi+PlIYaIgrJT8n+vOtcIk36RKS66d9FzmcLKDJsP+J9PwDAnGQYUPmlfdvOT
-	+tp7HQpMpivyQAHZ1X6jXgq4QMn5E2nmQcMpV2FUgCRDzh/ntMdL/eT9mIopWMYfzWvjO/295qu
-	dV6GPgcqs5GHBb+
-X-Received: by 2002:a05:600c:1c19:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a1f4d81b75mr58480915e9.8.1792505244014;
-        Tue, 20 Oct 2026 07:07:24 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm75602805e9.14.2026.10.20.07.07.22
+        bh=o+EfFrr6u+uTNXFgvPFyR21Dr/tevP4cbAxZ6qNFw/g=;
+        b=H6pH8uyRPH/He84BxsMR/ieEcobbosWuInh8gtPy5VdqquoM5OzbYBiIkpwgFDG5No
+         DBlso7ToZQqQuapRaRBxN6N3Pd28Qe7hFjahQkHytUCy5OxozcJGmAbm42LrbtFL+vpO
+         D7bYKvUUILqdGNQvmjvIk/fCGF2efU6omjho3aYqcpuAs0c+2Sp8oSknoWvYM7N0ZY62
+         ZcDcu/wE1eWENhw7LYh02kpNytOJBXUts4cL4xZoZRzvjbwW00ydeD4WtYzHUaII57JR
+         mzfQSeL+KH9xY4HTTcypS8Kgf0ORFI9at5dZcPI2XGL6v0yppDRmKrpSWz8Bk/6s/rVD
+         jIQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynVSyTgBNM9kGf1s835SeAP4cGY/dNRvYUFMft5W9DSy9ArNBqb8OwnyRbmjti69ECLBZAwUJ8cgwPgwU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKK8hGY3rUzInG2WLVKhOusz5NNIWhrHpXB4uTh+cikrw0A8qad
+	dGMA886BPNdn3PYS3FUbsey2fDBio3U8uU6beNvipezEgzll/yhzDYb/JCNcwWY97Yk=
+X-Gm-Gg: AYBFou2HY2PJbO/Qb6JJQHylKNq9pOvyVkpaCd3x5Kn4V+vXhMIlnRX8mAKkxwQuG/c
+	qDH8l1x6HTzLRrFBDjgXzky3nh+TbpGVoPiJle6KTmAmMw+wXr/Q5frSC6f8WY0FMgTOEdnxCxm
+	0Sj+SvOAmva5DMJgGwi15LHXgBakLSUjKc/w2fKP/9lbleOj0Tth8SyDE98ArnTEDkrbgy2Dqug
+	MIA0m8DiinltadI83dBy50bWnhjpdzunLLOfy84/bqmPHQHz66s2caw3d9xdTFe3u4kcL9MLsiu
+	q/wtr7hb/q9sXxh354Xb9ROcoljc0GIbLIV3a6D8v6Oj/lUCkr4zZkbxtTO6yEpmyCNMMEKoOO0
+	QndoHJoeT11woteCwpf1VRevN5ccSNvchnnWM7xgZfEs1ILQW/w9wBQIHkxY7WuJDqBn9ZmRxwm
+	GBqDslqgMB+t+j3Hvl2M/73F82IFalOdjlMuhKEYxRG+6x0hPoDmec+8nGURg8xd/FslBbquPMH
+	Wbn
+X-Received: by 2002:a05:6000:188b:b0:48d:eac6:5c2c with SMTP id ffacd0b85a97d-48e1e7bdaffmr4987751f8f.15.1792505272557;
+        Tue, 20 Oct 2026 07:07:52 -0700 (PDT)
+Received: from localhost ([85.163.81.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208e0sm6913917f8f.36.2026.10.20.07.07.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:07:23 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>
-Cc: Aaron Tomlin <atomlin@atomlin.com>,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] module: Fix data race on mod_unload_taint::count
-Date: Tue, 20 Oct 2026 16:05:20 +0200
-Message-ID: <20261020-taint-unload-v1-2-d1c764889afc@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
-References: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
+        Tue, 20 Oct 2026 07:07:52 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:07:48 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
+	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 03/20] ctlv: Add the root family specification and
+ generated files
+Message-ID: <atd1rKbCweUfCCBu@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-4-jiri@resnulli.us>
+ <179245258505.58760.6060356114682279013.b4-review@b4>
+ <atdeH3nA_gkLwPLM@FV6GYCPJ69>
+ <20261020125520.GN14213@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,79 +107,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020125520.GN14213@ziepe.ca>
 
-Updates to mod_unload_taint::count are serialized by module_mutex. However,
-readers may access this value concurrently with these updates. Since the
-counter is a u64, this can result in torn reads on 32-bit architectures.
+Tue, Oct 20, 2026 at 02:55:20PM +0200, jgg@ziepe.ca wrote:
+>On Tue, Oct 20, 2026 at 02:28:55PM +0200, Jiri Pirko wrote:
+>> Tue, Oct 20, 2026 at 01:29:45AM +0200, jgg@nvidia.com wrote:
+>> >> [ ... 238 lines skipped ... ]
+>> >> --- /dev/null
+>> >> +++ b/Documentation/ctlv/families.yaml
+>> >> @@ -0,0 +1,13 @@
+>> >> +# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
+>> >> +%YAML 1.2
+>> >> +---
+>> >> +# Append-only registry of CTLV family names, indexed by family ID: the entry at
+>> >> +# index N has family ID N, up to 65535. The root family owns ID 0 and heads the
+>> >> +# list, and every other entry comes after the entry of the family it inherits.
+>> >> +# An entry may be marked deprecated, but never reordered, removed, renamed or
+>> >> +# reused, its position being its wire identity. Every entry must have a
+>> >> +# specification in specs/<name>.yaml, and is added by the change that adds the
+>> >> +# implementation. Fixtures under tools/ctlv/tests/ are not registered.
+>> >> +
+>> >> +families:
+>> >> +  - ctlv
+>> >
+>> >I see where you are coming from with this, but it is going to be
+>> >problematic from a global kernel perspective. Given CTLV is imagined
+>> >as a general tool for any subsystem we cannot control the tree that
+>> >things merge through. It will not be like netdev where there is one
+>> >authoritative tree with a linear history.
+>> >
+>> >So if Bob and Jane maintainers both add their own subsystems by the
+>> >time it gets to Linus the IDs will get scrambled, and bisection will
+>> >be lost. 
+>> >
+>> >Either changes to this file must be strictly done in a single tree
+>> >with shared branches (which is going to be a bit hard process wise)
+>> >
+>> >Or we need to put the ID #s here and have some simple process to
+>> >coordinate them during the development process. Since new families are
+>> >probably rare it shouldn't be a big deal
+>> 
+>> Exactly. Collision is not very likely. Explicit ID or implicit, scramble
+>> would still happen. And in that case it is resolvable.
+>
+>I think because of process if it is kept like this we will have to
+>merge 'dead code' to reserve spots for people doing new work..
+>
+>But at a minimum this comment above needs a big fat warning not to
+>change this file without consulting with XYZ to coordinate merging.
 
-Fix the issue by changing mod_unload_taint::count to 'unsigned int' and
-using WRITE_ONCE()/READ_ONCE() to access it.
-
-Fixes: 99bd9956551b ("module: Introduce module unload taint tracking")
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
----
- kernel/module/internal.h |  8 +++++++-
- kernel/module/tracking.c | 12 ++++++++----
- 2 files changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/module/internal.h b/kernel/module/internal.h
-index 061161cc79d9..70ef20b97c84 100644
---- a/kernel/module/internal.h
-+++ b/kernel/module/internal.h
-@@ -257,7 +257,13 @@ struct mod_unload_taint {
- 	struct list_head list;
- 	char name[MODULE_NAME_LEN];
- 	unsigned long taints;
--	u64 count;
-+
-+	/*
-+	 * Number of times a module with this name and taint combination has
-+	 * been unloaded. Updates are serialized by module_mutex and use
-+	 * WRITE_ONCE(). Readers that may run concurrently use READ_ONCE().
-+	 */
-+	unsigned int count;
- };
- 
- int try_add_tainted_module(struct module *mod);
-diff --git a/kernel/module/tracking.c b/kernel/module/tracking.c
-index 5bcd1c2701f0..873fceb30526 100644
---- a/kernel/module/tracking.c
-+++ b/kernel/module/tracking.c
-@@ -28,7 +28,10 @@ int try_add_tainted_module(struct module *mod)
- 				lockdep_is_held(&module_mutex)) {
- 		if (!strcmp(mod_taint->name, mod->name) &&
- 		    mod_taint->taints == mod->taints) {
--			mod_taint->count++;
-+			unsigned int count = mod_taint->count;
-+
-+			if (count != UINT_MAX)
-+				WRITE_ONCE(mod_taint->count, count + 1);
- 			goto out;
- 		}
- 	}
-@@ -57,8 +60,8 @@ void print_unloaded_tainted_modules(void)
- 
- 			l = module_flags_taint(mod_taint->taints, buf);
- 			buf[l++] = '\0';
--			pr_cont(" %s(%s):%llu", mod_taint->name, buf,
--				mod_taint->count);
-+			pr_cont(" %s(%s):%u", mod_taint->name, buf,
-+				READ_ONCE(mod_taint->count));
- 		}
- 	}
- }
-@@ -92,7 +95,8 @@ static int unloaded_tainted_modules_seq_show(struct seq_file *m, void *p)
- 	l = module_flags_taint(mod_taint->taints, buf);
- 	buf[l++] = '\0';
- 
--	seq_printf(m, "%s (%s) %llu", mod_taint->name, buf, mod_taint->count);
-+	seq_printf(m, "%s (%s) %u", mod_taint->name, buf,
-+		   READ_ONCE(mod_taint->count));
- 	seq_puts(m, "\n");
- 
- 	return 0;
-
--- 
-2.55.0
+Agreed.
