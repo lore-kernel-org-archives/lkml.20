@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792520684;
-	b=cxmIdFBgeX8nZqtMV4/X9ll/CGc0b36NxjTTqXuGUeMNU/g/qUsNlr1t7yBKtng/a5IW
-	 rnLMGlfFe0i43PVw7e/n1oz/JH4teThDIcM9kHSuOj5/9hRjVyLGa7c5YADFd/Lk8T4w1
-	 WDfdMm1KQFoj0sAfGEMryhu45GQQcy8Md/FZHK4RLyrQvo7bRQ95VeriFyfHZQzJWS63S
-	 X7KkXIRT280960KRcX8hiAOgnuhqFDKFp//tjjn8B+6+xie58ngDaNaE114VzOPaVKB5U
-	 HM1SJgdO94lGGKn33B2rDVFg6bRHQ3TjLQ+vdEZSJ2yl7Fd74dR34La26wv0t4MUNAw==
+	t=1792520686;
+	b=iSJIHx0DVSInRKesnOewv9sb2CyX2VYKyh7ViJtEbu+V1Yojl9DiVsJ4HKUKtje2b+pQ
+	 Hrc67swftLbipit37Ooa+VO4+/K0VHixLhXiqBjsCqas/Asezsv7LPjRmtwpM9nTgSaFn
+	 BMDq2UWpkd1VGV0jTE6uVCWcIyttn5nbSfmdvoM5SAMGdfqzVtCaijzRe1ti6djVjDoBN
+	 JJXypQy9TDKk24m+foLePwprXhLtI9gXqh7ZIyBsJHb4Kg3U8Vkfm/ZKR+8AslgyqG7Mr
+	 mJqXR7+fdUsmRi+TBlVDp5WTrPxRw+BNOnXhjKI7kEtUJoXtiksHtTzfVxj9QCc1smw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520684;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 Reply-To:MIME-Version:Content-Transfer-Encoding;
-	bh=X9IgOVKkLpQ1ZKnnSNRsmikwcvRAYdkY+NKhG4LXiUE=;
-	b=nodZ6EvTg9yjdKKd9PMKaCv4/AyV46X5ti3t4UFbAp1dL1v8SgNfz+T7SuoQbHPRHSjm
-	 UcUX3BHw2r14wJ0YVFKTSfm0iPSlIbdlvHONkSn+RfSQ1kEraZGJnF42t08ZqeonMrxxq
-	 ijpLq4VVMbA+y0+YmaAV+GlmXH9vEfdaQAMWgneoZOhcOcUILQxX9jzelICmsL8L7wjdF
-	 cNERAoqEI7zXi+dTfsI/+gJvYhL0TlNYwRc25eEmXUz4SMQtoI3Treffe4PZIePL1Bl5S
-	 DSrmw0QXwrauh+8onIOS6g/1KnLnE6S/JGsqOGrtXHa7hollzkB71GL4mVjc+Mk3f5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520686;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=JtJbWi9XblqGf/oBFuSjQ+CThYnu2eCXkRHoK4PJRfI=;
+	b=OFo8D/DpzJMcJu4jbAoftWlIS3l/k9MeVx/2+O5Neh60VhrlaHx6JSahskIxmcdqEZGd
+	 Lm/YRvJjLEm8awhkiwtmzZTjmJuQxHAmCgUxzyDqSZHe3j3e1lm3DPx6Sm/nRP6WOenyJ
+	 28m+XrTmtCXdQPLIPg4n2peMA3GXPd3Q/uCnWUsphuVkl72JZ2kqWhn5SIox5fT8gBOrN
+	 DkVZ2OL/IOvynt1ZktmvctvoyEHqtJHjyn7yhmvDIjXxP/Lg75oyGvcwhhf6GzxhG0jb0
+	 rcVVd4C+ZxAtU5xYJuZwc58w6Ohkfwrw7Eom1Ku7g9Na7Rp84jcXmNV++t6kqoM0PYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bIYqeafH;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC56606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC56606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bIYqeafH
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2264013a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792520684; x=1793125484; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X9IgOVKkLpQ1ZKnnSNRsmikwcvRAYdkY+NKhG4LXiUE=;
-        b=bIYqeafHaX8PX++2LHb1j07gXXgFIeJcbT9Bi7cK64iwIj2rPqq4AE+TcNn9cN3OPP
-         evaUU6idlsW4MkJX5vHfhD8FbJRd2GPrEwmsm4QqxKa5TF3eNQQ9T3KCJ38trkv7Rmw1
-         x3IvoKO4PkrfrmiKM4UowPDAC7FPmBQk09DQLDI8rf2A6Cp07Krn1C3o68wncKGHbtyb
-         Jz94vWUAXQ9LjeOB3XLQhXhFKskNOsaXkcs438BkIzgmCnB03gwf4sWd6pDM/EG021lx
-         sY+BDr9o52pZ77PiP6N9tpzzN4kmXa2Fw+OZwO91quZXgUUlK5Z60nbewAryqKfWLbo8
-         YcfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792520684; x=1793125484;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X9IgOVKkLpQ1ZKnnSNRsmikwcvRAYdkY+NKhG4LXiUE=;
-        b=liCS++kiQQLPVmM3N6WsSFKhzmdubHJTKWF8GBNLIZtVBm8M3lQm7grrm1hA/9GjOy
-         P9bsqe2Jz4e/7MrtDXldAJ8+WpE883wFvjxoxLqGEeztnBSWMnTRDe7XKrA80QoRkhM3
-         +YxyAxuhrFBZjalIprW100XD4ep3UnkDXhPg9XFQb+BG51Cjg33lqHVVQ3b11AZHLKHC
-         VXg2p+2tWgu+6KnTgkAeuUfCWAbCyR1pQ8FUDp+nxLDBNMXGhVpe6y24Kl3e7fWWbfl6
-         78ueRsALJEqkDqp4VY+VNGcWLSFXX50srxQ0Tvbq42mSMf1cdSZh+HH11gYYVcOsJhXb
-         XqTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwA8amucIOk2urRTpBSRh2tQYYeCNWaAHnmVVIhe3weTyRCUQgk9mbPLGyNU7mW7azzj3rO0UDGq8nkWc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqoLkCpEerK1Oll53HpBi+4D1U5A934yIJk3c3YPTPk21dyQNA
-	fr4wCl8sj9Xstf8MNHgtI4iGWOVWNoSKaMcSA5R3cnB2j9BNx/9xt9jy
-X-Gm-Gg: AYBFou2AAQT6kjVHFB/l5oX4jkMX6dJhpEXHjjqE0QTADNuX0p+1ghBh+nyC9fWbvSP
-	+bWb5G/IycTyKXsbBTxY7A0nwNfCLhTGNZjkffFO4bDt3nlrMzL275WrMC46KjFdwKYPT/CoH4g
-	sz7G/wRo+sC00qGhdkN/RX3Vw46nd1qz5bkERq/HByJqfTWvcdCWtaTfxIrjxuvpr00PQJwOho4
-	gAOOWLy9RB0CZSo2xlsFiJuyMhI9hrqFljrQvnAD2GV8v0fLKt/IsOmvrzGlTfQ+AhY+dlfY+gK
-	NwaALsc/9nZkZDYXl+8cOritfuA1VP3Xj8aak4miD39W+oeuWbZNeYEClhQDA5ZF6uyVC1oW8Qx
-	Ke50AIiHzym9hd93JFbvbNOJ/O3CT4dpsiuGKbeKZOswZ+xWpQhBT+LNKlaLih4iGS7/ltsLciC
-	LGN+p/nyE7IOl3n9sc2zx7vOGL9SUVFOEDds193vrNreBukr+MUCY15HEZ9utFmMkPH9y5UvCWs
-	foqOHK5AS/7zlras/roahNV+Vm5LGoxGzFPltmsCBe4W5TAaZTm9DD+h/EFQ/ZALzjmTaEvrxY=
-X-Received: by 2002:a17:90a:d010:b0:3aa:ff61:9504 with SMTP id 98e67ed59e1d1-3acef134b64mr9721601a91.20.1792520683712;
-        Tue, 20 Oct 2026 11:24:43 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b464dd7sm2159985ad.52.2026.10.20.11.24.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:24:43 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org
-Subject: [PATCH 1/1] PCI: hv: Spread load across CPUs when selecting effective affinity CPU
-Date: Tue, 20 Oct 2026 11:24:33 -0700
-Message-Id: <20261020182433.336637-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F370606A31C;
+	Tue, 20 Oct 2026 18:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F370606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=JtJbWi9XblqGf/oBFuSjQ+CThYnu2eCXkRHoK4PJRfI=; b=BEt9j0U6juqDHsTxevzqy6Cbwj
+	ZhdZHc8X2xr8Y0EjV/ex/W3jqfYBfr5aT0wdoMG+sMeIzYq+rrc6VORSsNunbuqoLYGyCPfpOz6Y1
+	G8Ii0CAgrY5R/3CCWgfyzJss4+Kc+D/ALPzaherJ2GbCmS5zJcZxXnm4/nLh17rCKEPdNqb6RVMe1
+	8naKvOPt12qJv8rSaMd+YtIEWf9GWLhFywOGIR72ZqBwAq/hsgbhnmzP8FUJhWWQsw1Xiy1E4qjlF
+	sMZrCh25Muyv8QgvFd+a5G6vR73nYS+VTLNaiyKoCE58dXw8bRwb9IC8prm9g7zbNBVRToteZOgH/
+	fyHjy4bQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+ Michael Riesch <michael.riesch@collabora.com>
+Cc: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add a cell
+ to select TX or RX
+Date: Tue, 20 Oct 2026 20:24:22 +0200
+Message-ID: <2778734.k3LOHGUjKi@diego>
+In-Reply-To: <94d47cab-10c6-4ec3-84a0-3bddc9d67f5f@collabora.com>
+References:
+ <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <25254818.ouqheUzb2q@diego>
+ <94d47cab-10c6-4ec3-84a0-3bddc9d67f5f@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,242 +72,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-In a system with multiple devices with the same configuration (such as
-NVMe controllers), the affinity masks are the same for all such devices.
-Linux typicaly must select a single CPU from each mask to be the effective
-affinity. If a fixed algorithm is used, such as picking the first CPU
-in the mask, interrupts from multiple devices are assigned to the same
-CPUs, while other CPUs are not assigned any interrupts, producing an
-interrupt load imbalance.
+Hi Michael,
 
-On x86, the "APIC" IRQ chip avoids this problem by spreading the
-interrupts across the CPUs in an affinity mask. It tracks the number
-of IRQs assigned to each CPU, and chooses the CPU in the mask that
-has the fewest assignments. Because Hyper-V vPCI device IRQs eventually
-parent to APIC, the spreading done by APIC accrues to Hyper-V vPCI
-devices, so all is good in x86 systems.
+Am Dienstag, 20. Oktober 2026, 20:04:33 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Michael Riesch:
+> On 10/20/26 16:57, Heiko St=C3=BCbner wrote:
+> > Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleurop=C3=A4ische Sommerze=
+it schrieb Rob Herring:
+> >> On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko St=C3=BCbner wrote:
+> >>> Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleurop=C3=A4ische Sommer=
+zeit schrieb Michael Riesch:
+> >>>> Hi all,
+> >>>>
+> >>>> On 10/19/26 17:06, Rob Herring wrote:
+> >>>>> On Mon, Oct 19, 2026 at 04:15:03PM +0800, =E6=A5=8A=E6=99=BA=E6=88=
+=90 wrote:
+> >>>>>> Hi Krzysztof, Rob,
+> >>>>>>
+> >>>>>>> Existing OS should ignore surplus cell if the driver is coded pro=
+perly.
+> >>>>>>> Same as adding new properties or new front-compatible.  The quest=
+ion is
+> >>>>>>> how the existing driver behaves?
+> >>>>>>
+> >>>>>> As you pointed out on 5/8, the xlate checks args_count !=3D 1. The=
+ DC-PHY
+> >>>>>> driver was merged in v6.15, so every kernel since 6.15 fails on a =
+second cell.
+> >>>>>>
+> >>>>>> 1. Keep the second cell. Add the patch as follows:
+> >>>>>>
+> >>>>>> - if (args->args_count !=3D 1) {
+> >>>>>> + if (args->args_count < 1) {
+> >>>>>>     dev_err(dev, "invalid number of arguments\n");
+> >>>>>>     return ERR_PTR(-EINVAL);
+> >>>>>>   }
+> >>>>>>
+> >>>>>> + if (args->args_count > 1 && args->args[1]) {
+> >>>>>> +   dev_err(dev, "only the transmitter is supported\n");
+> >>>>>> +   return ERR_PTR(-EINVAL);
+> >>>>>> + }
+> >>>>>>
+> >>>>>>   With Fixes: and Cc: stable, the stable kernels maintained at that
+> >>>>>>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+> >>>>>>   dts, and the receiver fails cleanly instead of getting the trans=
+mitter.
+> >>>>>>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+> >>>>>>   It goes in with the series, since two-cell dts only exist after =
+it.
+> >>>>>>
+> >>>>>> 2. Use a flag in the upper bits of the existing cell, as Rob
+> >>>>>>     suggested. Existing kernels are not affected, unless a board e=
+nables
+> >>>>>>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+> >>>>>>
+> >>>>>> I will write the impact clearly whichever  approach is selected in
+> >>>>>> the related commit messages and the cover letter.
+> >>>>>>
+> >>>>>> I think the cell approach is easier to read and more symmetric in =
+the
+> >>>>>> long term,
+> >>>>>> but it breaks more. Which one do you think is better? Thanks.
+> >>>>>
+> >>>>> I'm not a user of this platform, so I don't care. Up to the platfor=
+m=20
+> >>>>> maintainers to decide if breakage is acceptible. You just need to=20
+> >>>>> document the issue in the commit message.
+> >>>>>
+> >>>>> Rob
+> >>>>
+> >>>> It's a bit of a pickle, all this.
+> >>>>
+> >>>> I gave it some more thought. In the end this is an IP block with two
+> >>>> PHYs. No more, no less. One cell is sufficient to address those, and=
+ it
+> >>>> could be 0 for the transmitting PHY (DSI, display) and 1 for the
+> >>>> receiving PHY (CSI, camera).
+> >>>>
+> >>>> Of course the two PHYs can operate in either DPHY or CPHY mode. The
+> >>>> phy-cells have been (mis?)used to select the proper mode of combo PH=
+Ys,
+> >>>> and this principle has been applied here too.
+> >>>>
+> >>>> However, we have the special situation here that the mode can only be
+> >>>> changed for the complete IP block (and thus for both PHYs at the same
+> >>>> time). As Bryan points out, we need to check and complain if the PHY
+> >>>> mode is not set to the same value for both PHYs.
+> >>>>
+> >>>> I suggest using a property
+> >>>>     samsung,cphy-mode;
+> >>>
+> >>> I guess, a maybe nicer way would be mimicing
+> >>> 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
+> >>>
+> >>> with its
+> >>> 	intel,phy-mode =3D <x>
+> >>>
+> >>> with x coming from include/dt-bindings/phy/phy.h
+> >>> for the distinction between cphy and dphy, so we don't introduce yet
+> >>> another way to describe this.
+> >>
+> >> We already have the plain 'phy-type' property which takes the same=20
+> >> PHY_MODE_x values. We don't need yet another vendor specific property.
+> >=20
+> > even better then ... and I didn't look deep enough it seems.
+> >=20
+> >=20
+> >>>> (name to be bikeshedded) that sets the complete IP block into CPHY m=
+ode
+> >>>> (DPHY being the default) to distinguish between the modes. Since both
+> >>>> modes use a different electrical interface, this is clearly a hardwa=
+re
+> >>>> thing and thus suitable for device tree.
+> >>>>
+> >>>> Then, we can address the two PHYs with the help of the already exist=
+ing
+> >>>> phy cell (without any bitflag tweaks to the value).
+> >>>>
+> >>>> The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+> >>>> PHY_TYPE_CPHY values that some OS in the field might pass. (For Linu=
+x,
+> >>>> it should only be the former.) And we need to handle those values
+> >>>> correctly. But I think this is not more painful than the other
+> >>>> approaches. At the same time, this design seems to be the most corre=
+ct
+> >>>
+> >>> The current cell values are 10 + 11, so as long as we don't re-use th=
+ose
+> >>> exact values for the other constants the driver should somewhat easily
+> >>> be able to recognize an old DT?
+> >>
+> >> I think you will still have an ABI issue of what does old OS do with n=
+ew=20
+> >> values?
+> >=20
+> > wasn't the main contract, a newer kernel should support old DTs ?
+> >=20
+> > Aka the DT is parked in some firmware part (u-boot?) and gets handed
+> > to the newer kernel.
+> >=20
+> > I don't see deliberately handing a newer DTB to an older kernel as a
+> > very common occurence?
+> >=20
+> >=20
+> > And from a practical standpoint:
+> >=20
+> > We're talking about devices with DSI displays that are at stake here,
+> > so we're in the embedded world.
+> >=20
+> > In other areas we're still fighting basic functionality like actually
+> > handling the type-c orientation correctly in the usbphy.
+> >=20
+> > So I really don't see a device with a user-updateable mainline kernel o=
+ut
+> > in the field, apart from people hacking around on their devices to try
+> > out new features and new kernels, simply because core functionality
+> > is still evolving in mainline.
+> >=20
+> >=20
+> > RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
+> > completely incompatible DTB afterall.
+> >=20
+> >=20
+> > So yes, supporting old devicetrees on new kernels I do see as important
+> > but someone working extra hard to combine a new DT with an old kernel,
+> > I really don't see as an issue here.
+> >
+>=20
+> Just to make sure I understood it correctly: the current suggestion
+> would be the standard integer property (optional)
+>=20
+>   phy-type:
+>     description: D-PHY (default) or C-PHY mode
+>     enum:
+>       - 10 # PHY_TYPE_DPHY
+>       - 11 # PHY_TYPE_CPHY
+>     default: 10
+>=20
+> plus changing phy-cells to:
+>=20
+>   "#phy-cells":
+>     const: 1
+>     description: |
+>       Argument defines whether receiver or transmitter PHY is used.
+>         - PHY_DIRECTION_TX
+>         - PHY_DIRECTION_RX
+>       See include/dt-bindings/phy/phy.h for constants.
+>=20
+> plus handling the case where an old DTS may still have a line
+>=20
+>   phys =3D <&mipidcphy0 PHY_TYPE_DPHY>;
+>=20
+> and the new kernel will convert it to something equal to phy-type =3D
+> PHY_TYPE_DPHY and phys =3D <&mipidcphy0 PHY_DIR_TX>;
+>=20
+> plus ignoring the whether or not an old kernel can work with a new DTS
+> or not.
+>=20
+> By the way, if we handle the case of the old DTS with the new kernel
+> correctly (which we should IMHO) then we do not need to change the
+> existing DTS nodes, thus eliminating regressions.
+>=20
+> Is this summary correct?
 
-On arm64, the "ITS" IRQ chip for the GICv3+ITS does the same kind of
-spreading for LPI interrupts. But Hyper-V provides guest VMs only with
-a virtual GICv3, not including an ITS or LPI support. IRQs for vPCI
-devices on arm64 are mapped to SPIs and parented to the "GICv3" IRQ
-chip. The GICv3 IRQ chip always chooses the first CPU in the affinity
-mask as the effective affinity, producing an interrupt load imbalance
-for Hyper-V vPCI devices in arm64 systems.
+Yep, that's what I had in mind ... though dependent on DT-maintainers
+not disagreeing on the reasoning ;-)
 
-The Hyper-V vPCI driver already has an arm64-specific IRQ chip to
-allocate and managed SPIs for use by vPCI devices. Solve the imbalance
-problem by extending this IRQ chip to implement a "set affinity"
-function that tracks SPIs assigned to each CPU, and chooses the
-least-loaded CPU as the effective affinity. Then invoke the parent
-IRQ chip (GICv3) to actually set that single CPU as the effective
-affinity in the virtual GICv3 hardware. As a result, IRQs are spread
-across CPUs like on x86 and interrupt load imbalances are avoided.
+Heiko
 
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
-As an alternative, this spreading functionality could be implemented
-for SPIs directly in the GICv3 IRQ chip, similar to what the ITS IRQ
-chip already has for LPIs. While Hyper-V's scheme of using SPIs for
-vPCI interrupts is allowed by the arm64 architecture, it's atypical.
-So the original decision was for the Hyper-V vPCI driver to handle
-the allocation and management of SPIs for this purpose rather than do
-it in generic GIC code. That led of the introduction of the "MSI" IRQ
-chip in the Hyper-V vPCI driver. This implementation of the spreading
-functionality follows that original decision by extending the "MSI"
-IRQ chip. If reviewers have reasons to prefer enhancing the GICv3 IRQ
-chip driver instead, I'm open to doing that.
-
-I have not added any documentation to Documentation/virt/hyperv/vpci.rst.
-That documentation needs an entirely new section on the IRQ domains
-and chips, and their hierarchy differences on x86 and arm64. I'm
-working on a separate patch to add that documentation. But I don't
-want to hold up this improvement for that larger documentation task.
-
- drivers/pci/controller/pci-hyperv.c | 144 +++++++++++++++++++++++++++-
- 1 file changed, 142 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 85d826f8f68d..1706090cebeb 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -746,10 +746,132 @@ struct hv_pci_chip_data {
- /* Hyper-V vPCI MSI GIC IRQ domain */
- static struct irq_domain *hv_msi_gic_irq_domain;
- 
-+/*
-+ * Data structures and helper functions for spreading the CPU in the
-+ * affinity mask that is picked for the effective affinity. Such
-+ * spreading is done by the "APIC" IRQ chip on x86 and by the
-+ * "ITS" chip for LPIs with GICv3+ITS on arm64. But Hyper-V provides
-+ * only a GICv3 with SPIs (no ITS or LPIs) to arm64 guests. For SPIs
-+ * the "GICv3" IRQ chip always picks the first CPU in the affinity mask,
-+ * which can overload that CPU and reduce parallelism in processing
-+ * interrupts.
-+ *
-+ * While the Hyper-V configuration is architecturally allowed, it's not
-+ * typical, so the spreading is done here in pci-hyperv.c with the "MSI"
-+ * IRQ chip parented to "GICv3". Track how many SPIs have been assigned
-+ * to each CPU, and use that data to spread the IRQ load evenly across
-+ * the CPUs instead of just picking the first CPU. The code follows a
-+ * pattern similar to the spreading logic for the "ITS" IRQ chip.
-+ */
-+
-+struct cpu_spi_count {
-+	/* Index 0 is unmanaged. Index 1 is managed. */
-+	atomic_t	count[2];
-+};
-+
-+static DEFINE_PER_CPU(struct cpu_spi_count, cpu_spi_count);
-+
-+static void hv_pci_inc_spi_count(struct irq_data *d, int cpu)
-+{
-+	int idx = irqd_affinity_is_managed(d);
-+
-+	atomic_inc(&per_cpu_ptr(&cpu_spi_count, cpu)->count[idx]);
-+}
-+
-+static void hv_pci_dec_spi_count(struct irq_data *d, int cpu)
-+{
-+	int idx = irqd_affinity_is_managed(d);
-+
-+	atomic_dec(&per_cpu_ptr(&cpu_spi_count, cpu)->count[idx]);
-+}
-+
-+static unsigned int hv_pci_arm64_get_min_load_and(struct irq_data *d,
-+					   const struct cpumask *cpu_mask1,
-+					   const struct cpumask *cpu_mask2)
-+{
-+	unsigned int cpu = nr_cpu_ids, tmp;
-+	int count = S32_MAX, this_count;
-+	int idx = irqd_affinity_is_managed(d);
-+
-+	for_each_cpu_and(tmp, cpu_mask1, cpu_mask2) {
-+		this_count = atomic_read(
-+				&per_cpu_ptr(&cpu_spi_count, tmp)->count[idx]);
-+		if (this_count < count) {
-+			cpu = tmp;
-+			count = this_count;
-+		}
-+	}
-+
-+	return cpu;
-+}
-+
-+static unsigned int hv_pci_arm64_get_min_load(struct irq_data *d,
-+				       const struct cpumask *cpu_mask)
-+{
-+	return hv_pci_arm64_get_min_load_and(d, cpu_mask, cpu_possible_mask);
-+}
-+
-+static int hv_pci_arm64_select_cpu(struct irq_data *d,
-+			  const struct cpumask *aff_mask)
-+{
-+	int cpu;
-+
-+	if (irqd_affinity_is_managed(d))
-+		cpu = hv_pci_arm64_get_min_load(d, aff_mask);
-+
-+	else if (cpumask_intersects(aff_mask, cpu_online_mask))
-+		/* Try the intersection of the affinity and online masks */
-+		cpu = hv_pci_arm64_get_min_load_and(d, aff_mask, cpu_online_mask);
-+
-+	else
-+		/* If that doesn't fly, the online mask is the last resort */
-+		cpu = hv_pci_arm64_get_min_load(d, cpu_online_mask);
-+
-+	pr_debug("IRQ%d -> %*pbl CPU%d\n", d->irq, cpumask_pr_args(aff_mask), cpu);
-+	return cpu;
-+}
-+
-+/*
-+ * Track the count of SPIs assigned to each CPU. Pick a single CPU from the
-+ * affinity mask based on the SPI loading data, and have the parent IRQ
-+ * chip (should be "GICv3") set the effective affinity to that single CPU.
-+ */
-+static int hv_pci_arm64_set_affinity(struct irq_data *d,
-+				     const struct cpumask *mask_val,
-+				     bool force)
-+{
-+	unsigned int cpu, prev_cpu;
-+	int ret;
-+
-+	prev_cpu = cpumask_first(irq_data_get_effective_affinity_mask(d));
-+	if (prev_cpu < nr_cpu_ids)
-+		hv_pci_dec_spi_count(d, prev_cpu);
-+
-+	if (force)
-+		cpu = hv_pci_arm64_get_min_load(d, mask_val);
-+	else
-+		cpu = hv_pci_arm64_select_cpu(d, mask_val);
-+
-+	if (cpu >= nr_cpu_ids)
-+		goto err;
-+
-+	ret = irq_chip_set_affinity_parent(d, cpumask_of(cpu), force);
-+	if (ret < 0)
-+		goto err;
-+
-+	hv_pci_inc_spi_count(d, cpu);
-+	return ret;
-+
-+err:
-+	if (prev_cpu < nr_cpu_ids)
-+		hv_pci_inc_spi_count(d, prev_cpu);
-+	return -EINVAL;
-+}
-+
- /* Hyper-V PCI MSI IRQ chip */
- static struct irq_chip hv_arm64_msi_irq_chip = {
- 	.name = "MSI",
--	.irq_set_affinity = irq_chip_set_affinity_parent,
-+	.irq_set_affinity = hv_pci_arm64_set_affinity,
- 	.irq_eoi = irq_chip_eoi_parent,
- 	.irq_mask = irq_chip_mask_parent,
- 	.irq_unmask = irq_chip_unmask_parent
-@@ -888,21 +1010,39 @@ static int hv_pci_vec_irq_domain_alloc(struct irq_domain *domain,
-  * composing MSI from the hypervisor. GIC will eventually set the right
-  * affinity for the irq and the 'unmask' will retarget the interrupt to that
-  * cpu.
-+ *
-+ * The first cpu is always used for initial activation because spreading the
-+ * initial CPU would have to be done without information about affinity groups
-+ * that may exist. The resulting assignments would pollute the "least loaded"
-+ * data for making the final assignments. Everything would still work, but
-+ * the spreading would be less even than it could be.
-  */
- static int hv_pci_vec_irq_domain_activate(struct irq_domain *domain,
- 					  struct irq_data *irqd, bool reserve)
- {
--	int cpu = cpumask_first(cpu_present_mask);
-+	int cpu = cpumask_first(cpu_online_mask);
- 
-+	hv_pci_inc_spi_count(irqd, cpu);
- 	irq_data_update_effective_affinity(irqd, cpumask_of(cpu));
- 
- 	return 0;
- }
- 
-+static void hv_pci_vec_irq_domain_deactivate(struct irq_domain *domain,
-+					     struct irq_data *irqd)
-+{
-+	int cpu;
-+
-+	cpu = cpumask_first(irq_data_get_effective_affinity_mask(irqd));
-+	if (cpu < nr_cpu_ids)
-+		hv_pci_dec_spi_count(irqd, cpu);
-+}
-+
- static const struct irq_domain_ops hv_pci_domain_ops = {
- 	.alloc	= hv_pci_vec_irq_domain_alloc,
- 	.free	= hv_pci_vec_irq_domain_free,
- 	.activate = hv_pci_vec_irq_domain_activate,
-+	.deactivate = hv_pci_vec_irq_domain_deactivate,
- };
- 
- #ifdef CONFIG_OF
--- 
-2.25.1
 
