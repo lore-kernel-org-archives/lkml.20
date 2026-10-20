@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464677;
-	b=F/D5Iqk5xJFQ8A1bq+S7C8TY5mXMpSmeQHXNviB4FPq5Aql9wMI4m4dzqCqsFyeu48J7
-	 XshPQEDJQVNYSy0sKi/BNXJAaeAXzt8BHKgjC8w6tDzWs8BNOmWi86kRRCsntHrrAPaOX
-	 Uo6wht1XoAOYuy/9x/aecO1DAMLSuXU6x1xqG5fiNwXEWxDG5kO6i+p4LftKwDlrDV3Vn
-	 xLQrHuqugfXbe8n3EHSBzOj01d1fAH3GvGK7vdoV8771emqxyRPAcUoD+Awf0jCOLT5qK
-	 OK2yhodklRAsDJvdNiGgU+T+/oONWJD9+PU3lWbJfjN2yuYSfNQXHGrztME2ppVveAg==
+	t=1792464801;
+	b=vu98logSwLwO8HRKhG46hb2MVt5kYn9G7Eyc3zpMXxBJbRzOGs86226rz33Vwa9WMgWD
+	 OUIwaMOmCkFYXYgq0/hYjZTYsLpodnHytogn2ItihocvL0qoBBfe3wiSwcAdHEcUSHajW
+	 w6vpJVMel18l93OWz95i3NBT1Hgj5Q68km2XHVYYtn/v8sCHIzKUIMc5bHbVn5fXaLhQK
+	 N491hrjhcmswRoFGRAROTRwpDHFXtyuTiXdhz8KjjUtHrdOtxDJLTSK35wQAehkvydzCF
+	 7IlCSYIEaJkjRXMl83hSxFmorF83TP6FvoR/lhsPXvrjid0h3ChsjtZ8Rh33R/4LBdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464677;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9hHNuq8VUc33E92tTq5jQ+KBZqXa+5yqvOaNMaHxjXk=;
-	b=jOkM5XlVSS4qExtTQfM1qa1hEKsmw8NHpS/rrk74o/bysiehErjMACds4KfCE0bQmjke
-	 QNUzU/je4FmnDyTMmQaCpY854t2lLYRhHK4CHq9+ThPjOjYswQpVHyu+BB1PZoe7GlnOY
-	 MeKX0yrBN2XmloxBHBKwg+dz9ZTp++m4+35QhJ0hq8gY9Nw0ZFmHxLaytN60nlIO9i4m9
-	 qOzoKp6lAymU1aAaXHuvwZ2/XmhsGa3YMxJj/9aViiXL+3HDVvTPyyIm9OXXmvDOUtm+2
-	 mLbqLwE3zpYekP+JnLmdRlNfg+V+h4GUcZuu7L8eywdwm5zdYoBNDHRO3L21rzZolxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464801;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cbv6/xqF0y1tqpovj3pgoKgCHdKboVOC8kilnGDdCk4=;
+	b=nTZWdOhD+jLs5xouHZlA5FMHVrHyg/33PWRwNXvEvRuP+7hlzO7my/Kdr/TXUdqPZH19
+	 CxZcE+QH28frDzTQmufk0KK6dDKx7d1/pFXLNFvYMVVLdMGi+Q9cp1DLL73lcS+lF9Xkx
+	 Z6cBcNGt0olH2dyTLxJxPd3AIRm1dOqgRYMbQIMvQMmA/9kRAImOv+ZncyoUoh8CZvzn9
+	 c73Iif7B3uLkq6WPDipn+VinJwR//NgSs02r1Cr6fNxa3dwBZKecTYBl/mk2+HA5MgBX8
+	 o3S0PNN22/e6cPbkh9Bs1dof68Rkoii+5UrhU0OvT2YX1QbiQL/MT2ztTzWqDkElfvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Opp1I/1e";
-	arc=none smtp.remote-ip=95.215.58.28
-Received: from mta1.migadu.com (out-28.mta1.migadu.com [95.215.58.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD6C606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD6C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Opp1I/1e
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0LhUCCHbEICJb3ocD63LGJtcQVmKNGI1w3XPmkE83mg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792464673; v=1; x=1793069473;
- b=Opp1I/1evXffFl25B7tpnPy9Gm6fePTJZ0Tix1L9fiXdnBLs3V2Wteh+Q/NMn7TgLBLlsRix
- KMsEJFqx8nSIXInlpJB8PRA780msCNl3vuARlmF8jnKyMicB//W/oYDVT13lpRL8tVoD2E+bj5g
- oSaXjLns3Lxmp6YYGmovSSms=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bfee1020aa42ebdf;
-	Tue, 20 Oct 2026 02:51:13 +0000
-X-Mizu-Trace-ID: bfee1020aa42ebdf
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <56d84287-3de3-4a57-a92f-ca63d6dcda96@linux.dev>
-Date: Tue, 20 Oct 2026 10:51:05 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E84D606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E84D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 63e45224cc3111f19a56ed5b684f684d-20261020
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:eb72053e-1b74-4aa1-8a7d-fb698bba45f0,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:c04fe1dbfda81541598a5a288292b987,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 63e45224cc3111f19a56ed5b684f684d-20261020
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 204011034; Tue, 20 Oct 2026 10:53:12 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v3] ntfs: handle a failed size rollback in the write error path
+Date: Tue, 20 Oct 2026 10:53:08 +0800
+Message-Id: <20261020025308.664764-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,46 +70,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] cgroup/cpuset: Fix partition updates using stale CPU
- masks
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Ridong Chen <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20261010075947.333549-1-guopeng.zhang@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261010075947.333549-1-guopeng.zhang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,Longman
+ntfs_file_write_iter() extends the data and initialized sizes before
+it copies the user data and restores them when the write then fails.
+The restoration is best-effort: both results are discarded, even
+though the extension is already recorded in the dirty MFT record.
+When the restoration fails too, the extended sizes reach the disk
+while the VFS inode keeps reporting the old ones: after a remount the
+file appears grown again, with an uninitialized tail where the failed
+write never put any data, and nothing records the failure.
 
-Could you take a look at this patch series when you have a chance?
+Keep both undo results: roll the data size back through the same
+VFS-facing truncate ntfs_setattr_size() uses, which also supports
+compressed attributes, and on failure keep the VFS size on the
+durable data size.  On an undo failure, set NVolSetErrors(), which
+the next persistence point persists as VOLUME_IS_DIRTY, and log a
+message for the errors= policy.
 
-Thanks,
-Guopeng
+Fixes: 9c87959601e8 ("ntfs: update file operations")
+Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Changes in v3:
+- skip the initialized size rollback on a resident attribute;
+- roll the data size back through __ntfs_attr_truncate_vfs(), which
+  ntfs_setattr_size() uses, so compressed attributes roll back too;
+- keep the VFS size on the durable data size if the rollback fails.
+---
+ fs/ntfs/file.c | 34 +++++++++++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 7 deletions(-)
 
-在 2026/10/10 15:59, Guopeng Zhang 写道:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> 
-> These patches fix two cases where partition updates read stale configured
-> CPU masks:
-> 
-> 1. Shrinking cpuset.cpus of a remote partition can leave a removed CPU
->    unavailable to the top cpuset.
-> 2. Updating cpuset.cpus.exclusive can leave an invalid local partition
->    unable to recover after the mask becomes valid.
-> 
-> Move each configured mask update before partition_cpus_change().
-> 
-> Guopeng Zhang (2):
->   cgroup/cpuset: Fix cpuset.cpus update in a remote partition
->   cgroup/cpuset: Fix invalid local partition recovery
-> 
->  kernel/cgroup/cpuset.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index d810ca5904bd..e66814d08f59 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -934,22 +934,42 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 				&ntfs_iomap_folio_ops, NULL);
+ out:
+ 	if (ret < 0 && ret != -EIOCBQUEUED) {
+-		if (ni->initialized_size != old_init_size) {
+-			struct ntfs_inode *mrec_ni =
+-				ntfs_base_inode(ni);
++		int init_err = 0;
++		int data_err = 0;
++
++		/* ntfs_attr_set_initialized_size() rejects a resident one. */
++		if (ni->initialized_size != old_init_size &&
++		    NInoNonResident(ni)) {
++			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+ 
+ 			mutex_lock(&mrec_ni->mrec_lock);
+-			ntfs_attr_set_initialized_size(ni, old_init_size);
++			init_err = ntfs_attr_set_initialized_size(ni,
++					old_init_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 		}
+ 		if (ni->data_size != old_data_size) {
+-			struct ntfs_inode *mrec_ni =
+-				ntfs_base_inode(ni);
++			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+ 
+ 			truncate_setsize(vi, old_data_size);
++			/*
++			 * ntfs_attr_truncate() would reject a compressed
++			 * attribute; the shrink path also clamps the
++			 * initialized size down.
++			 */
+ 			mutex_lock(&mrec_ni->mrec_lock);
+-			ntfs_attr_truncate(ni, old_data_size);
++			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
++					old_data_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
++			/* Like ntfs_setattr_size(): stay on the durable size. */
++			if (data_err)
++				i_size_write(vi, ni->data_size);
++		}
++		if (init_err || data_err) {
++			/* The failed sizes stay in the dirty MFT record. */
++			NVolSetErrors(vol);
++			ntfs_error(vi->i_sb,
++				   "Failed to roll back the size update: %d",
++				   init_err ?: data_err);
+ 		}
+ 	}
+ out_lock:
+-- 
+2.25.1
 
