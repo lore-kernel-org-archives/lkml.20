@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792512742;
-	b=trHaU5DFf6LwkxlpalpYLq7/NJ2EjOcJD865B744s+fW8Z8vKAbANn8wVYkNyIR2UAnz
-	 /xmCObuvnrNGVbItu5iN8FwI5oe+WThxOxgpQ6E5y9DIS4G4Lekizaj/d6K/Wzc4LMWTJ
-	 FgvFrcatxpSLpmidnLrX7ltPCZvwDx5E0K7aAvudymdGG7MnfmFXEBJzGxddOtsCKRsbv
-	 wEMEAvDXB3Tw1AZbrLP2m6FzKbBrFVTOcQxA88HABFVBQWvFNh2VaYx5yqyBaYXrwbM9M
-	 3x1a7HriHbFFQnHg5TlKrylAlee61RO0lmcQcN7YOz+UL+QL+eYxKnMIvNN5csU/zSw==
+	t=1792512811;
+	b=ZAFSmvN2yQurR+f8BY592LRAIvChF6O7wt6by2sm9WNHFXqsk5GpIUFfmLk2grCdgArW
+	 g+RqG4Aq2L4VcKo4i46AlvWOeGJwk+FFd3cGIjOs/hLCaVGe/6X5NWkUkMEv63Q3/6HiN
+	 8nNzK6hNz5HyFCC74987+1hbmw9W6VOamwWQu3tD8cY436txaS8P8JpcHLSSurflK9Zk6
+	 HfqgVGhTksQoxh/gw7pz+511xfOcb3uWY6Ee2xL1EtPMFK6i6KYi1x0BosuQ9cyt0rXHR
+	 4RLWSqHtVYAFMh5MRejEMtCSolHU+CYebITBE0ummlVwMcw2mrJ3ECepkAEva/ZnKCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512811;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Message-ID:Subject:In-Reply-To:References:MIME-Version:
-	 Date:Content-Type:Content-Transfer-Encoding;
-	bh=Ud9ISIbyr7bf+XRYkVCQzyTUHoKhr948RmgOVkz5o0U=;
-	b=d1FxPfQRRE/PwupJHOedzoyzfp8EunzqlqhrZ8Y3efhdhcnGfPmB+d1/1VtzWQJ9uZMr
-	 6vUqI8STfU+jL5uyED8YEHSTlT0h/R4YRrBLKd18gum+okYKKhAezT47aQDWXX5o2p23k
-	 JtMVvUPMvIYrYrEcSTT07/07oolFU78S4qMOIN40/QISXNVwY2bES/dJ4iGP2uuAzU1EI
-	 wAX7Yw0onspgz1Cb0iozfCIDItPmfyW3oVDV+jXSTV2gHuplr7PZA2QSVfRHKZ4HDPLjI
-	 TteodhltC7wRQqU6BPQARpS7XbddXdD0YBB4meoZ6R4yni/CoE443wLePKDJ0RK6Bww==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=81mwhGpyTQyS9ZkVfD6pCekgh9MbFG84V8B+r1a/GCI=;
+	b=Nw3gCera6c5kZbueHNQJdawjhxq1lUxuzFeA5d+TpdAuw/3+dE4FdLA9YrJ6TShH6b7B
+	 5S3jyQlO6WVkDhPA7F7UYtN2O10GGk+e9doIoQsk7val5qcH9L3CVe3Hxdd6UoZ8K1Ny4
+	 wkKAUSH80EDE4eIf7Uyl7jPCTjMSL6qSYhGLLTrpzxRHWEm00v4sJeTBcmvZZdAcpaPur
+	 upFWkTuJ9vi3oGTjv2REf+n1g1HvX6v/mwjK2q4Z7AOQ4V0paKfErgCcrh1Hnf5GE5REg
+	 IH/Glc9iLYDjAbCEP4idl/oDtrDwKpeEaYU24+ygzcfNGW7OhGDYu0oiKIz03XHiBxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E2vFNLob;
-	arc=none smtp.remote-ip=74.125.227.136
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LhLx608N;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68AC3606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68AC3606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE376606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE376606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E2vFNLob
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so2118694a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:12:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LhLx608N
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35dc2af1f2fso1762263eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:13:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792512742; x=1793117542; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:date:mime-version:references
-         :in-reply-to:subject:message-id:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ud9ISIbyr7bf+XRYkVCQzyTUHoKhr948RmgOVkz5o0U=;
-        b=E2vFNLobuM1uNFvi1K7QF/KCmFea5TMrpE2B2KZBBxHolXTITqmS3z5yvesZqTuNb9
-         AYsjwlMx4eED0vTtfK/6Vi6+8tfoRp27ziIkbRZWVh8tuIMOPkQ+jUYMb1JcyZaW3iAo
-         tEKHWPNb/CMYIPi4ohgJ/5jACzo/JWKDoC5cvDRP+fuhT6WXB9ofZnRD905ZDNtZBlGX
-         M3yQbDwbPZjvQBvsrfjkaCnRm3u2KgyOTMn4bxWKln9Fbo4KHu/ossuA03D6Jp/W3M04
-         9B7V/zCuJsFvySIu/NMWoNMqNBnDKmEBM2EoC6moy5zyAWoctaP43qMCN0KGRIigcagL
-         Xriw==
+        d=gmail.com; s=20251104; t=1792512810; x=1793117610; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=81mwhGpyTQyS9ZkVfD6pCekgh9MbFG84V8B+r1a/GCI=;
+        b=LhLx608N3LUYyvG4ZkvU57cySokPcA3LxVvLvZ3KUJWWdbvRwPGVtyrryZPA4GaPn2
+         /foZu3daLKSqANAh3G3DYy5elw/YF5XIofLx01GokDGrJtSqbfznwFOUMkedxIglP/lS
+         gT3pp1MbB+rZyAWGFAQ+DXAvn31g6sHN8nKMAfIEcwNKmOU2WX+xllWc3n3IJVGPxRNb
+         aWGjWT6+P0EQlhIzObWGsy7EAXan1mf89BzyW3Oz6BnNHuYn2UqGfbQgQzQPqAOnzESf
+         Tdr7WNFToIFaywqj0LyILMfz5w/86wK95WKsCCbNfC17FKKuZ3NqPFQmNJzorZ2q0C+f
+         zyuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792512742; x=1793117542;
-        h=content-transfer-encoding:content-type:date:mime-version:references
-         :in-reply-to:subject:message-id:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ud9ISIbyr7bf+XRYkVCQzyTUHoKhr948RmgOVkz5o0U=;
-        b=G8XvcKOXRbCcq45B2pDWB55TguVIFjC6UsJZAeu8JTr3G4Gz19YtNX0EuoSuJZ/qEz
-         f+W9FRiq4FIC4D1p7s6CQ4O5hmuqHH+WSbuRQtWUttzDG5JsxsQeqjDGo9I7vPjj0OjN
-         Rbf8S3wH9yHdMjAFyY9i5uLMOmUrfXLSuLcfyF7Hl88OgF+urnhsYUaXApa4tAWzMj57
-         EFxnyiNJ0EqT5pdUHmkT47b8qGTcgenPLVGy0edvvx7UAWzktyju7bf9/6VMGlX9Oz6h
-         bDwD2Mj4598djPxHGtf523gALiVeBHP91Ly7u0IyTb6Wuth7BAqjUrFtMmA2JmIBXqHz
-         Yqtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwrXt3kHprUEztOVC04QFczumDDt26HVeHPYZ7YHeAtSwJvPxCobNedmLwjd36fLJR11PHQKyYuQp0AyYE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5K5GLK4JWMvL4CfO7BH1ZwNaSR3q7dIeVt2RboKSGwmee5yxf
-	9tfBG1zbXgi1MXaLaG7bONIw2DJTofRwLhgsbmS+zVQyTQTM2AXbQ7nE
-X-Gm-Gg: AYBFou2fSI12iINvwqI4r36G0LYzk19kzTcHvgNHZkZh5yiQzdRgErfCCmQ9GhCi8sg
-	isRSMDGL4Q+lUGuKqdlLEuqZfDM0KW6IV0uobs8rjrTBXpcRFyneLSFuGBEK4elaZ8CKyQNkF9d
-	1x2+k7/Iq2xBXdlJVUbqEtgCVdKwqUcZqvOlGMweOKpUdDSbduM7MNhb5M+4XFaJco3hYgOvfj8
-	x0IxOsiBjPfaQ9ZK6V5menir3iZzPs1ZaEtQ0Hl7u973sGpSprayGFNMAaXttg6E9d079Tx5PLd
-	ECdMk/1mUJi/3Jyld5NlJ58TUl2DgYV1maUKRRfWFhJq9gYzOA3CwNwzDDCdTvCpSdK2XQagP4u
-	3q7tqokADVgEf1A593rmmW2FP2TkpOObtsEp+VgQbF/c2AGmaTuMxayfQBIh2RXuVi2UtPXW5xa
-	irPFL5TUfQhSuG4l9akkH6ObDPyKhcvrRo39RSWDSmAuyqUv5yInBX1a9nUsDdbWQ60p0zMpWZ8
-	p4rZXKwSzA5/460vH6X/bUbMOfIALq2XetIxqbFp1XRJe+6fVRKOoU1urL04MfYCGWO8qWaKoxW
-	vdJ6BCY=
-X-Received: by 2002:a17:90b:51c2:b0:3a4:f75d:d1a3 with SMTP id 98e67ed59e1d1-3acef0c891cmr10365935a91.32.1792512741637;
-        Tue, 20 Oct 2026 09:12:21 -0700 (PDT)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80219f83sm240190a91.6.2026.10.20.09.12.15
+        d=1e100.net; s=20260707; t=1792512810; x=1793117610;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=81mwhGpyTQyS9ZkVfD6pCekgh9MbFG84V8B+r1a/GCI=;
+        b=CzebKETd9Abmqkmn5MeFsAcIOrBTgf4L2xBrHHmsLtllVFXw2hsSeOQvtgxeFeB/Hh
+         DRitJPXRG2GJ8is0GaOra+z/CrNJR20ebb+j+8O6Pjw7nFVTS7VO+zrt89zjKOYgG5RE
+         soNNNM23SFzUrQjc9p/C7b3r/ba/ryzo9wAahjXtBLf0RBIedaYXlsQtVKts/4gN9V7F
+         pFxpyHyOxH7HLPUjb3dhVqHR2ct76JKZrJ9HpDJkrlrorA74X/LmwzbkDHG0QB2dsknk
+         uwUkWyxEzkqlF+dvCiUISgjJdz6ySddx57aOV6uAwh4wWv+BQkoI5f4HyPNKSXiO5KoR
+         V7fw==
+X-Gm-Message-State: AFq9FYIwX6F2gkHf5WsEcbKaegDHD5OZJ08H/eY4B0Budkb+Jup4I5D8
+	S6eBKYoEWHO9AgEa/Ze+wtrxeo5sDn3tjwWsyd0ytPoEeQqh9r88/uuK
+X-Gm-Gg: AYBFou1Y5l+sM4nSMrbAzAmSTU57oM2iOQ+S3B1WIDGizOcoONQftvoo0XLTRUD6Kxq
+	BpYLhwz4fPpZmblJSAW2GZQ0QIPzC8lVq2qZADwcoimswGYgBvsQH8/SyJmb2NpLGN+LEGMHqNa
+	gIuKIx6oHEDDWgzc6bNudRezsa5lM1m3Dbu9DwZU+RaaMa7Vi7Ms1uViVXAwLutm5OOdkPZvxDI
+	EommIZiEHxIuC5yadXhONVq527tp2Wv+Wp/D85DdiSldP342xzgsYwV28EeX+/7Cvq38szt6b32
+	DRGWKUh14gysT12+MACc+adhZ3QLHSYQa3yLjBIKiMZCR92n7B3UzVotbKdKonAifOLnmqMjtjk
+	vfdmWvrGRbdJwR2Fmat0eiiOJpj9ODuf/tKqdZJfIngRqqZ7EKZ3F9qKQU7ehAsaAFta6qu0T4I
+	NJAttHNz+C7s6jqYj4l81XIvI4Ifbr6I4D2J2cfpKl2+adjESS64R948IyFQha/t3BaBXFgmfXw
+	UwP8XT1iCDMVOCNYxgd49MCQw==
+X-Received: by 2002:a05:7022:1508:b0:151:70a0:6bfd with SMTP id a92af1059eb24-18512b439afmr17399760c88.24.1792512809857;
+        Tue, 20 Oct 2026 09:13:29 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b859142sm37128393c88.18.2026.10.20.09.13.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:12:21 -0700 (PDT)
-From: Aveline Noir <jm5905938@gmail.com>
-To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: stable@vger.kernel.org, damon@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Message-ID: <179251038772.2.11838017412675823324.damon-filter@gmail.com>
-Subject: Re: [PATCH] mm/damon/core: filter out damos address filter-split
- failed region
-In-Reply-To: <20261020004119.106690-1-sj@kernel.org>
-References: <20261020004119.106690-1-sj@kernel.org>
+        Tue, 20 Oct 2026 09:13:28 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: anna-maria@linutronix.de,
+	frederic@kernel.org,
+	tglx@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] posix-timers: Accept NULL clock_getres() output in stubs
+Date: Tue, 20 Oct 2026 16:11:21 +0000
+Message-ID: <20261020161121.85042-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,20 +93,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 21 Oct 2026 00:07:00 +0800
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi SJ,
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-> Filter out the entire region if the split is failed.
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-The Patch looks good to me. I injected -ENOMEM at both address-boundary
-splits on x86-64 KVM and checked that no action was applied.
-Normal-split and filter-order controls also passed.
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Aveline Noir <jm5905938@gmail.com>
-Tested-by: Aveline Noir <jm5905938@gmail.com>
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 9b6fcb8d85e7..5a27335a917e 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
 
-Thanks,
-Aveline Noir
+base-commit: 348f54c435bf3177baa78201952810b255d44b30
