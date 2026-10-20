@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488952;
-	b=E2N7zlVf3mv9HtD3+AXIIRmZgrN++QW75jj+BtiCsESUGDiiMKNHTn5G+hmsrLhlU830
-	 i8pJefzGYTRsv1lZLxXweiOAlnlOrv8riKO9G4KRArnznpRao0QwjPk1Xn8bele12M3eU
-	 GuTv8NJp9EfLabR3RY0ptQEADFlwgQWupTrrKTtF4831oC3ckZzrnjVuXmykS+JbX8TiI
-	 AbwA+/z42F74ebt/fFzyrLdZX2IEAtgKMhKVpdtpMgfBllJQtbKHRzcxwdcnoo9HK6Az9
-	 xytJq2sxWInQ0xkJyD+N4XVK9ekdQEo0Zy8bQNWabe8pak0wJA5DByycCz69sxh4ghQ==
+	t=1792488956;
+	b=3Z7LQiHmHHQsaJ88RpC+DsJwZJeEY64BzxB/j/VqQLarJUrTr7dEJMgZaOfDokBUDEYt
+	 batIGB1oVcvRTzYRUY+dvgDh6o5WKoJSMfsofvw/HQXdYriwZmrLcUG4kgY4QmSM90hc8
+	 rPI4I8l4OTQ2D17dAYeDesDZ/F5G+Lvj5E5hwJYtyI57KcYhqnrlZ/A0lnxFZ8IcPCQCe
+	 qRDY4yAk5Vwxo/r/xsCGD0vQaElqVJg9a0kijRtJvktrZq9NgFALLuMT4bc6DhiKlNRa2
+	 SCi7g7WIbMcBbXveE+hSx6TI9QaFBCQcHoYt4sfJOxVakR9zMjm8Nii1CP1/5B6fuVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488952;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Virus-Scanned;
-	bh=xQaeHm0XXJnSVYUyU+gItJomu67kge3hzFFJ233evnA=;
-	b=5nmdxGb+Jn6sxwCRmKtdvXGaXwA95uecfCNv3YwkhKR/q3wfceb7VMJAVvAWv47jRRyZ
-	 2/WqzJs6HOpeDVFwABPpxMcxrEFAJbKcbrJbwf6XwKcbpsRpT2SQyiY2eiJjvQa+QbP+D
-	 8slp9dvFeuALsk3vb/60Q+TKQFeL5YnbxwmtfyPK9BWrOdvRKL1bdAp4aPaT2WIY2zNil
-	 reNywPneXsqQhx4ICth+NgvGOHWnwahSR57r7s30eSwfLLzCUN2gK+sedbNIEqOOC/jdv
-	 RHosbQtI21kh3wSROIQ5pZ2DUZTmtDQ25JlChtj5Y6P8q5WCe0RrKzBQ4PWFAQZoFSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488956;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=DmBZqT4kDURn/Q/aVDSwiHBGADQ7218v0k2fMHT5IG4=;
+	b=ZtBH5ZVvVBWxtATynUU8H3MT747S0WfQZQJEE0Vnle5RgHDI656KJ64QT3MaBkbUySOq
+	 RhaYnRQGIEXCN7zMJVGdhqc5jc45J21TnFfceYqB5n1GR6PsSASYyDPG/iIvhLbHovsQ9
+	 g/wdqfcykSFbp/wgxRPvpVclmezjGDbcScI7enEyRlhyPpgoHDgw00rW+OVC50LdWjUiJ
+	 WitYMnNtWVjYSihmCqvSoojEzbjPc+8CTov39skhJBIcIWAA9Qa8TwSQX+Wtd+WO1hF12
+	 Vf5KHPabR7lar2XmnidosjVIFMh/3CdFUhAvE7gcQ0fwskstbzl7WgLas7lU3OOcXEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iogearbox.net;
-	spf=pass smtp.mailfrom=iogearbox.net;
-	dkim=pass header.d=iogearbox.net header.i=@iogearbox.net header.a=rsa-sha256 header.s=default2302 header.b="KX9nX4r/";
-	arc=none smtp.remote-ip=213.133.104.62
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G/n6xe59";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3FC606A31E;
-	Tue, 20 Oct 2026 09:35:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B3FC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B56606A32F;
+	Tue, 20 Oct 2026 09:35:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iogearbox.net header.i=@iogearbox.net header.a=rsa-sha256 header.s=default2302 header.b=KX9nX4r/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=xQaeHm0XXJnSVYUyU+gItJomu67kge3hzFFJ233evnA=; b=KX9nX4r/77OBqaWv1pfPEM2nNn
-	euS5Kp2IO52RYFZ6jDNwqVGFGS6a43yqxMwqf8QwoTfvTQtiGS6/VmzLkJSk2sQQe8FlUSyYVYR7b
-	y+ZdD5l0CkVn/3ZKKgKFtddI9IPxH51oQ2TQpfC6V2cwb4qt9XYNvJY2NU0HyfDQwrRHwSpDDnOED
-	QiZLSBmKgsk2XK8r2jKJYoCDIkJbp6csYpSmnlV1nQtfRskfidAwY7YlB1OaCqu4rSzcsfY7Cs691
-	FAkBIOv0sX/oOLYkqfOfS78jx0OF+RXgNewBnWymz7WdWRlowF0PtE5CAG57iUi/nnGfZSRV+SJj/
-	bMnLNiTQ==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1xJ6Ft-000E6m-0U;
-	Tue, 20 Oct 2026 11:35:37 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1xJ6Fs-00063z-0P;
-	Tue, 20 Oct 2026 11:35:35 +0200
-Message-ID: <d86445fe-aae3-4d37-9289-7e06cb210a74@iogearbox.net>
-Date: Tue, 20 Oct 2026 11:35:34 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G/n6xe59
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA5C1F000CA;
+	Tue, 20 Oct 2026 09:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792488956;
+	bh=DmBZqT4kDURn/Q/aVDSwiHBGADQ7218v0k2fMHT5IG4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=G/n6xe59JHFjBkoLCQ5PZ5cvrjM74taW5CSYGC3gZeiyPLlCjonLaXlzkS284Kpe5
+	 LyDjZCx7jKRo4zBy0UkeCDPzIPSSnZfc9zrNn22Mi11SX62Mr3sbuy5XjLm14VYVSM
+	 QRfkHngjo5gKylr3QFDf+Vb+U3+NBW9jfzR+Qd/NhI4uOYMKq75holjS/sqLjnzynr
+	 9e1DEakPN/fOu73gR0Xpd+Zig3JtaxLYoZRYPKEedLu/yHl3IhCnuTnxyDqe/DrREx
+	 h+lpt0iL3N1ISCBgI6a802kzG9BXFRRyeLNVtA6UP7P66d2lDyyvy86aYH3jR0RSKb
+	 MSYLh91V/C8Uw==
+Subject: Re: [PATCH net-next 3/3] net: qrtr: implement shutdown()
+From: netdev-bot+sashiko@kernel.org
+To: chunkai.deng@oss.qualcomm.com
+Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tao.zhang1@oss.qualcomm.com, peter.chen@oss.qualcomm.com,
+ jeff.johnson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com
+Date: Tue, 20 Oct 2026 09:35:54 +0000
+Message-ID: <179248895481.3135.9231497728918795508@kernel.org>
+In-Reply-To: <20261016-qrtr-add-shutdown-v1-3-e1cc01ca5919@oss.qualcomm.com>
+References: <20261016-qrtr-add-shutdown-v1-3-e1cc01ca5919@oss.qualcomm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,41 +64,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2] tools/bpf: Remove legacy BPF tools
-To: yanxia <yanxia@cmss.chinamobile.com>, bot+bpf-ci@kernel.org,
- bpf@vger.kernel.org
-Cc: yana06070@163.com, ast@kernel.org, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, richardcochran@gmail.com,
- netdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20261020083713.905006-1-yanxia@cmss.chinamobile.com>
- <a02301c0ff8593349602f81cdf0c21f1b38db0b60118f8eed3199a6a38330234@mail.kernel.org>
- <20261020092119.918464-1-yanxia@cmss.chinamobile.com>
-Content-Language: en-US
-From: Daniel Borkmann <daniel@iogearbox.net>
-In-Reply-To: <20261020092119.918464-1-yanxia@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28159/Tue Oct 20 08:24:12 2026)
 
-On 10/20/26 11:21 AM, yanxia wrote:
-> Thanks for the review. Agreed: the table lists mnemonics, addressing
-> modes and descriptions. I'll fix the wording in the next revision:
-> 
->    The instruction set consists of load, store, branch, alu, miscellaneous
->    and return instructions. This table lists the assembly notation and what
->    the corresponding opcodes defined in linux/filter.h do:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-sgtm, and please add a full name to the Signed-off-by once you respin [0].
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-   [0] Documentation/process/submitting-patches.rst
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Best regards,
-> yanxia
+- [Medium] net/qrtr: shutdown() API violation leaves sendmsg() threads
+  hung
 
+--
+
+> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+> --- a/net/qrtr/af_qrtr.c
+> +++ b/net/qrtr/af_qrtr.c
+> @@ -1193,6 +1194,36 @@ static int qrtr_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+>  	return rc;
+>  }
+>  
+> +static int qrtr_shutdown(struct socket *sock, int mode)
+> +{
+> +	struct sock *sk;
+> +
+> +	if (mode < SHUT_RD || mode > SHUT_RDWR)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * This maps:
+> +	 * SHUT_RD   (0) -> RCV_SHUTDOWN  (1)
+> +	 * SHUT_WR   (1) -> SEND_SHUTDOWN (2)
+> +	 * SHUT_RDWR (2) -> SHUTDOWN_MASK (3)
+> +	 */
+> +	mode++;
+> +
+> +	sk = sock->sk;
+> +
+> +	/*
+> +	 * Do not use lock_sock() here: sendmsg() holds it while sleeping on
+> +	 * remote flow control, which would block shutdown() indefinitely.
+> +	 * The spinlock only serializes concurrent shutdown() callers.
+> +	 */
+> +	spin_lock_bh(&sk->sk_lock.slock);
+> +	WRITE_ONCE(sk->sk_shutdown, sk->sk_shutdown | mode);
+> +	spin_unlock_bh(&sk->sk_lock.slock);
+> +	sk->sk_state_change(sk);
+> +
+> +	return 0;
+> +}
+> +
+>  static int qrtr_release(struct socket *sock)
+>  {
+>  	struct sock *sk = sock->sk;
+
+[Severity: Medium]
+With this change shutdown(SHUT_WR) returns 0, but a thread that is
+already sleeping in qrtr_tx_wait() from qrtr_sendmsg() is not woken.
+sk->sk_state_change() only wakes the socket wait queue. The sender
+sleeps on flow->resume_tx instead, and the wait condition in
+qrtr_tx_wait() only looks at flow->pending, flow->tx_failed and
+node->ep, never at sk->sk_shutdown.
+
+The changelog does call this out, but it breaks the common pattern of
+calling shutdown() from one thread to kick a blocked writer out before
+joining it. That now hangs until the remote hands back credit or a
+signal arrives. Before this patch userspace at least got -EOPNOTSUPP
+and knew it had to use some other mechanism.
+
+The stuck sender also still holds lock_sock(). So the close() that
+normally follows the shutdown() then sleeps uninterruptibly in
+lock_sock() in qrtr_release(), as do ioctl() and the other
+lock_sock() users, which is hung task territory.
+
+Would it be feasible to also check SEND_SHUTDOWN in the qrtr_tx_wait()
+condition and wake the relevant flow->resume_tx from qrtr_shutdown()?
+The flow is keyed by node and destination port, so it is not obvious
+how to reach it from the socket. Did you consider recording the flow
+the sender is waiting on, or is there a reason to leave this for a
+follow-up?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-qrtr-add-shutdown-v1-0-e1cc01ca5919%40oss.qualcomm.com
