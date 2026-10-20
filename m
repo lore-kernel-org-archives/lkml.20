@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456503;
-	b=3Cfd8S4J08FEo8zB37ghqFXbbN1R6upYSmBnw2orZTLNi6UNqf3tdjInXMMRPVt109o5
-	 m4JfxfTWjLGDAXxFMYBMDA4SHgZqVnj9Y/AEA0Nm7pSDHPkAcAAZw5IGTQ2foTgxgFgnO
-	 lzBYMVC9CyMUqOhSughoTsSXFfeC/nYwExpxteikQ2X3MiB8dwTSL3MTbVjA+93oxMMK/
-	 /Dqr238Aq2QVfgmL6dUzmJIw1vWzjXNU6QnpKLQP9Hn+mUnoYxooYP6L9pJ7A8TUKIQ1Q
-	 S0WODd/yjfh8rjgchwgDXR++7r41AAgM9cWbqwl7t8DfQHvKvTEbTht5lTBs75dyUxA==
+	t=1792456515;
+	b=TkZzR2IlS+ulAKW7cBjCDalqVty4WPWRtthVKEP4rVW8nERBCR4aeqHBJ3YKbeUnv2ws
+	 Kq5A1mMx57fb5imAfHFSdYsltiXt1+aeboaymkZ7vNQfF6BmjsDmvd3C0+5Ka+HLiBdW+
+	 TDhDdQNpxqEyFkdoQa/KCwNZCS5hCgOD0v2JWZjKmsRJYQ3ysSSdxkrOTEKcf3ZLLC4XG
+	 BC/3H7vCMRk/Vb38K1Lecoym3KAIU1D8VDFV/UTXYRxCIOU0FyRx4T080L8Qp+H2I1WdE
+	 6D2EPqHLOQDMZTAPbQyndATj3sMBZp18aBuQT+XsSYiTu2aCDiraVnODwkKhOrJ+fhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456515;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=OBz0ZWTSJo6VaFHPQJeL7weuIDpkBIRGsLQFEK0yJPs=;
-	b=UKZzaLvubFW+wzFVqjO/6x4zca4kHALAn5vXjs06zJNFMEXjpAb4BLKyqZe4nfD1MoSA
-	 u9ggU6payL/p4QI9MHib9KCO9vhUxdBK8XSLNWpzBnMANNh44XvUHHf55CHItl0ObfFpc
-	 VsN3HOuDosaEvnWoTXbLzR/RGq/q6s4IKjOXZdig/2rcA8k3iEibhxrcTlf92KMba0Ocq
-	 M+MDSfjsJgC8fT9/DD5R0OY7OVqSXVH0Fu+ytJxkL+9Txsrvvq0jmoP7AC2TSpOCBqvbY
-	 rh/DNuStVaiLlV49zbHEhaMsaaCucJszbqrev0JYfWsc1TRO3Y7DqoSWda7EKPVUx4A==
+	bh=hITz8gs0faWLxZ/glASJObi4AjjcjXrRjtX1RaulOvA=;
+	b=SG9sTItkCBdonbUQm/zMhpICoSnCRRk8ePRCTjcIfzQTfkrcTJ9zPqDdQT593vu0nEku
+	 am+Q/XAqMzSOmPguXzEqBfgX0PEzxzOFSgWacB50E4mOBJQefxiBGaLUldvD7y3N8MPSA
+	 V6JxYE/qG9bqmdPdzjeVVqvVfdwT93Bs1v2ekPcFg1oByy+jj0Ltr6gvCgxXIGXry+9+m
+	 ozgVPzDe7az7rSMrK9800+SGqKDNJiR24rDX7pQ6oTu7fI62PSfKN9N5+gUPKwggZE+W1
+	 6irZTXtLtuD3j/a0CXEzIt9bOQNtNPn9ochrQM9aiuV6x3GbzUH8FOUIM/gc/T8y8TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=V6e5n5Zk;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=csSyvirw;
 	arc=none smtp.remote-ip=117.135.210.5
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E854606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E854606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E6F606A31A;
+	Tue, 20 Oct 2026 00:35:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E6F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=V6e5n5Zk
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=csSyvirw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=OB
-	z0ZWTSJo6VaFHPQJeL7weuIDpkBIRGsLQFEK0yJPs=; b=V6e5n5Zkei/cx90LVf
-	sR4bFWeAr0uywpDF48XmJHX5VUscxSqd86tTNSX0aQK5AVjjTnVy2vxGgcih+7/N
-	lcywyLiIZyKpKOHa0GJ7HsoheotF9LkdJgBI6XRbE0hjrgMUSf6G1S4GmmE15xw9
-	zERT/9DLyAMZ0ZkGGA9w1GC8g=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hI
+	Tz8gs0faWLxZ/glASJObi4AjjcjXrRjtX1RaulOvA=; b=csSyvirwUcN2OOYkK7
+	KPshFZYZPY2PK1JLtGZL16iEnYDzx/k3nF/yUPbMMcxxExooNQGqT+xHJ83GeZgh
+	4faz+PM8v+RBb0SLsCcvlCbKY73UCM4kR7+kC5FFN//gZsgX5l61hHfAFELsixM+
+	C7KRd5HEuY/3I3SeoikhChIrc=
 Received: from shaos.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDn92YVt9ZqVYMqBA--.11309S2;
-	Tue, 20 Oct 2026 08:34:30 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgB3HZktt9Zq616PAw--.45303S2;
+	Tue, 20 Oct 2026 08:34:53 +0800 (CST)
 From: shaos <shawnq1@163.com>
-To: miklos@szeredi.hu
-Cc: fuse-devel@lists.linux.dev,
+To: jhs@mojatatu.com
+Cc: Jiri Pirko <jiri@resnulli.us>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] fuse: copy_file_range exposes stale EOF data when extending a file
-Date: Tue, 20 Oct 2026 00:34:29 +0000
-Message-Id: <20261020003429.1009226-1-shawnq1@163.com>
+Subject: [BUG] net: sched: em_meta accepts shifts outside the integer width
+Date: Tue, 20 Oct 2026 00:34:53 +0000
+Message-Id: <20261020003453.1010097-1-shawnq1@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,16 +61,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn92YVt9ZqVYMqBA--.11309S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7trW7XF47JF43tr1kAryrWFg_yoW8tF1Upr
-	WqqFWftr1vqr47tF93CFW8Xr10gws7Aa13JFyqq3yxuws8Jw17tFWak3yj9a48JFn3WryI
-	vw4jga4xXws8XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Upv3nUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8RZDUWrWtxY7wQAA3S
+X-CM-TRANSID:PygvCgB3HZktt9Zq616PAw--.45303S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ury5Ww4DZFykArWDZr45Awb_yoW8tr1DpF
+	yvk3W3JF9FkF4qqw4q9a1UX39Y9wsakw15G3WkC3W8urW5Kr1YkryFqFW5Wa47Wrn5G34Y
+	vFs0q3s7W3yDAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0OJ5UUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8Q1JV2rWty09hwAA3+
 
 Hello,
 
-On a cached non-writeback FUSE mount, __fuse_copy_file_range() truncates cache pages covered by the copy, then publishes the larger file size.  If the destination had a partial old EOF page and the copy starts beyond that page, bytes dirtied past the old EOF remain in cache and become readable after extension.
+em_meta accepts a user-controlled shift exponent in tcf_meta_val and meta_int_apply_extras() applies it to an unsigned long without checking the range.  A shift of 64 on a 64-bit kernel reaches C undefined behavior in the network classifier.
 
 HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
 git tree:       upstream Linux checkout, local branch master
@@ -77,25 +78,25 @@ source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
 compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
 
 console output:
-https://gist.githubusercontent.com/shaos26/b7d8226d784c14ce316263de1779bd94/raw/59a9f0c87769dae27cff05ace7e808daa10ad2f5/console-output.txt
+https://gist.githubusercontent.com/shaos26/4d0a6531f00fd3baeabe040993953402/raw/1677be670d3d39c0054b4ecd40c69b375630381c/console-output.txt
 kernel config:
-https://gist.githubusercontent.com/shaos26/b7d8226d784c14ce316263de1779bd94/raw/441739e20934d6b36aabbbbfe5153d11b70dfd34/kernel-config.txt
+https://gist.githubusercontent.com/shaos26/4d0a6531f00fd3baeabe040993953402/raw/e47da1b0ca0ffe6d0ac3a988e2c30c7eb634ede3/kernel-config.txt
 reproducer:
-https://gist.githubusercontent.com/shaos26/b7d8226d784c14ce316263de1779bd94/raw/6ffd0112d0654714a15618f2877d9ddd1a9723f1/poc.c
+https://gist.githubusercontent.com/shaos26/4d0a6531f00fd3baeabe040993953402/raw/1f5f1944a0a8d87af969b58f80c4dfb10e50eca2/poc.c
 
-Build the standalone PoC and run it on a host or guest where FUSE mounts are allowed:
+Build and run the standalone PoC on a 64-bit kernel with UBSAN enabled.  The program creates its own user and network namespaces, installs the em_meta filter, and sends the triggering packet:
 
-    cc -static -O2 -Wall -pthread -o fuse_eof_copy poc.c
-    ./fuse_eof_copy --mode=copy
+    gcc -O2 -Wall -Wextra -static -o em_meta_shift_poc poc.c
+    ./em_meta_shift_poc pos
+    ./em_meta_shift_poc ctrl
+    ./em_meta_shift_poc nofilter
 
-The program creates its own cached non-writeback FUSE server and client mount, dirties the old EOF page tail, performs copy_file_range() to extend the destination, then reads the newly in-range bytes and checks server writeback.  The retained QEMU run used the same PoC in the copy-mode initramfs.
-
-Three fresh QEMU boots read back 3072 bytes of 0xee from the newly in-range old EOF tail and recorded a server-side stale write.  A same-path no-pollution control and a write-based extension control returned zeroed bytes.
+Two fresh boots with shift=64 reported UBSAN shift-out-of-bounds in meta_int_apply_extras(); shift=8 matched without a report, and a no-filter control was clean.  The observed effect is undefined behavior and a wrong classifier result; x86 masks the hardware shift count, and no memory corruption or privilege escalation is shown.
 
 Impact and prerequisites:
-This is a data-integrity and stale page-cache exposure bug for cached non-writeback FUSE files.  The demonstrated read is within the same process's file; no cross-process leak, memory corruption, or privilege escalation is claimed.
+The demonstrated result is kernel undefined behavior visible under UBSAN and incorrect packet classification.  UBSAN is needed for the diagnostic; the current evidence does not establish a production crash or a security boundary violation.
 
-Validation: Three fresh positive boots exposed the stale tail.  The same-path no-pollution and write-extension controls returned zeroed bytes.
+Validation: Two fresh boots reported UBSAN shift-out-of-bounds for shift 64.  Shift 8 and no-filter controls were clean; no memory corruption or privilege escalation was observed.
 
 Thanks,
 
