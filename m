@@ -1,112 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485368;
-	b=gEFiouy/kMfzvwfaF+vIxPEjSLeR5gn077xJmC3E2sKaSe8CV7yTwQ8JDH6495a868r3
-	 REP23LG6IIgwJOFD23ehK0vnsLgu+w0Gk2skV+kUAtKcOpjoG+rujLzEy/k+TuusQ+SQN
-	 /oNJu/auGZeq9ETj/tdqWKq4f8PlaagN+KXTw9mlRxtKNrVIgdre65vKfCm5GvgXzSqeZ
-	 aSgfxpHg2M6cmhRm1K1nUaC53lbrhpPSy9gNzDl6D4ADbOhIvRimWKDFxrfy1cy9KWQIP
-	 bzI4uWtqTUbkgw3opsFeY5pTy7mqELhjiXe0X9yfFpFquODzrfoMZv8xhPuOHfBGE0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485368;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=g7ps3zGn8OLAF7lPgMJ7MKFZ8AlgIpWWo0Niz22K4DI=;
-	b=4Kv7bnEBdicmrPl1OaAYHA5QXR97SNmkWhvjCVV2EsRBCpj3dk+CFpJgUmR+G8g55dXs
-	 H4Nwl2qStMs3X7TJbp5Sh8XcDSeUSPi30OcVSpkyjWaNyZ9OpWqzaMInrFmlV8Lby6uOL
-	 jPVyZCa1YRyCw6HrPRVXo2p3e9pgGJUpBMrI/BxHjx7fXb58CHU0Yugjg8O1uqT86Z04C
-	 kX2WkLlIgxvA6jLFaHapQaIOc0TrzdgT3Dah2jK/cfZNL743+mGLOxes80inFeWNntu64
-	 Fe/lEaF3bc2BHDKyi0judN55osMSbh1kgNnGDEyRaN9UyWiyWm1gxp17VTldVUzmv6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WOVgfKFI;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.83
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792485380;
+	b=EJGqX6avBCTo0LTWCmSsg2jsPcVyl8LMLzQYWQANhiM9d0pP/H0mgYu5x1Ero+Y7pJVd
+	 kjT7iepzAXEP9KkLomEztMQ9ZRieBwecUsAhOEEMX8kUI1EGo+WEwYuoWyPIdO+SpfLgs
+	 lYUS+wuEws6OT9JzGIoilciml1HT3tng808YWNFQ7P2vf/5BhUVHkAJpEmBSDrWm83frT
+	 g6BrhPETUONxeki/1r23mRyYrqVmnusZS2sQtmPnxY6REeOGJbZVdO99x8i8aO7sxB8kr
+	 ySuBFPL6mBr0L0PHaDsU5iIgJGEqHAWWQizTVBIDEiuxfqcp8m3UYwSqggh6bEpEL0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485380;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XuobEXwqHlVu11oTVerMEEAVkHjwS0JpvhTUTNPJjRg=;
+	b=uMNucYZ56AWlhmMbjSf2ZW2qyQ+ZSunVMlGfNtk/nWEX5Zj1LyKCVFqOEasBez4t5e84
+	 aMCFqh5MS1SwjXFGuOiKIysdSb0GTprB+aar6rcZfy9K/q83TNSN/gXi5McsO/fPILF2r
+	 u/vFwo8KUejS7xlkevNMzHhGvhx4UXAWAEj0tHu95E3fNLXvtaPhgusSFrjDu+D2sjEuq
+	 WzqCOwcQwMKvcB4lVbxDC6iVEx1ss1iIQg1mN34vDWZqJF5SPYTuSR9bacYJ9yclM2Ld3
+	 HEfZ5ggjGs/HdTp01x0OYEMroKx9nGBe82jX0hd2XQ/egLXk034Gi7OLzeNh4ld+hDA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VmfJZcDf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.83
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021083.outbound.protection.outlook.com [52.101.125.83])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD5E606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BD5E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568EE606A319;
+	Tue, 20 Oct 2026 08:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 568EE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WOVgfKFI
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso287006f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:36:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792485366; x=1793090166; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g7ps3zGn8OLAF7lPgMJ7MKFZ8AlgIpWWo0Niz22K4DI=;
-        b=WOVgfKFIeMhLkSQ89iOREKUhaTsMPtY2BQqZucVjrLI0JKf6o2dkBJ9qcCqJQUUTFv
-         xy21PS7CFEXYAAsmi+gfcvTCnF1LZ4Ap3KUHY6c06ygKdBiR2lZWCPkywuxvjZD+LNCZ
-         mTdBgrbFKqm9ZbZxIzcD6aO+F4f0mKHfDHFTqNAHYud4U6qXAaKPLub9ExF7tuHHqu2Z
-         kCbL7msj7Nf1aJWUPg3LYcDXB/H1Rh4yWybIXK/zfSd+dm7/OQV5JDVv0WgfR3MS88Zg
-         q8TbrtNzwo3z3XeJ52adZd8P73ldSxeQ806iDKN4UOUKooiQLJ/BJhSeQeqyygs5/x0G
-         zWJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792485366; x=1793090166;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g7ps3zGn8OLAF7lPgMJ7MKFZ8AlgIpWWo0Niz22K4DI=;
-        b=GRR1aLPSE1a6zUILl3hlwJEveWU3m+XI2fDSSW9oh8WBu97FnX8fdaOwq0tCtHfJh+
-         kB5ZenBEhDa9vpLc7NJi+peDyLJzB9YRpvfRJcX8DRi6QMUXQzsC1aHDauBrB+HbeBGe
-         +ymSNPt4xbsC9GWaMdUrOAc8gH7e/gTU1KNkESU1oVkjT2sISQZwa1sOm4pxJrG9zYys
-         zAY8Rjnz0drtKQgEM7ljhCpQj97l4kH+Jbcmsoeujt33UzfrqCqbtVkLwjM9I2h3u0IZ
-         x4UwXPyprzknlNZn3dJCHgec4Idh/WU2Axdyo00emrImeqfjS4PgG0jgDWiDQlmm8i7p
-         k3vA==
-X-Forwarded-Encrypted: i=1; AKwUvBximMREMvd5O8hcooJ9Pb2syivbMDRjWYYb3sgGD065kE+h4gjOcuyh2/waV0rMuyiQ/GVE9BLkMBPq8aY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmqfmprxxhLlJna24xSoHQu9mCTa8fuNfGU5EEX/FWqX+l5Nb3
-	09MTkoziNB8T1lfORhpd5OyKx4muKlHk4SBdU8zjCmQY2VhRxNrGzc4A
-X-Gm-Gg: AYBFou10Q/wWqhxTgU3U93jIy6q13YP3DcLt4pf27futgsEMPy+O2NvySRwNMdtmSus
-	oMzf4TV1RyQJoXv85bC4jZlAGVKt6d7JMxEvhgBg64C3FL9vQnS9NcXUZjEwlHX265eSw00yCeD
-	994ekYId4N4Nk5yS6/3QF1pEmqxp8cD7l2cZmlYE4uGtTREPbG5qlD3qpSWUL3+2ftneP5+/+LK
-	U2YyaixlGjXtEG8+7gy6Zaif228KCnGuXqLvFa08L8E/XXIdzg2VnbnIBbQaM6J1N+YyFGapRp6
-	DoxUbnEg5cXJGeK+9o774lV3OLTBjegYnMSqtlnJGutn+U/OEMBz4ZAIQn4DUs4CZcd/kLyVzNB
-	l+UWjmZFcFjouCCsFPSud2gkZHMXZChRpr1vjYIPHhE3z04Jbx17rIE+HtGXTMyibWAyxzehQ9R
-	QCJ7uAptPHh046Y/R4LEepGWIIpSnqTr1m5aFMq3O7fxbUzkqJUsVQN35FxRugL9mr+7K4MQXxy
-	x67cdc3D5p6GvQ8V4Er6Zy3BTfURoLR5Bc=
-X-Received: by 2002:a05:6000:29da:b0:48b:946:c1f7 with SMTP id ffacd0b85a97d-48e1e9f1ed6mr2300674f8f.31.1792485366166;
-        Tue, 20 Oct 2026 01:36:06 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208b1sm4903632f8f.33.2026.10.20.01.36.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 01:36:05 -0700 (PDT)
-Date: Tue, 20 Oct 2026 09:36:04 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Arnd Bergmann" <arnd@arndb.de>
-Cc: "Ian Rogers" <irogers@google.com>, "Marc Kleine-Budde"
- <mkl@pengutronix.de>, "Thomas Gleixner" <tglx@linutronix.de>, "Stefan
- Kerkmann" <s.kerkmann@pengutronix.de>, "James E . J . Bottomley"
- <James.Bottomley@hansenpartnership.com>, "Helge Deller" <deller@gmx.de>,
- "Andy Lutomirski" <luto@kernel.org>, "Vincenzo Frascino"
- <vincenzo.frascino@arm.com>, "Arnaldo Carvalho de Melo" <acme@redhat.com>,
- linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org, "Eric Biggers"
- <ebiggers@google.com>, "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christophe Leroy" <christophe.leroy@csgroup.eu>, "Jason A . Donenfeld"
- <Jason@zx2c4.com>
-Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from
- packed struct to memcpy
-Message-ID: <20261020093604.286e072a@pumpkin>
-In-Reply-To: <18c92ae1-deaa-4c09-adca-157819cf005b@app.fastmail.com>
-References: <20251016205126.2882625-1-irogers@google.com>
-	<20251016205126.2882625-3-irogers@google.com>
-	<47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de>
-	<20261006-dynamic-succinct-woodpecker-a36c7f-mkl@pengutronix.de>
-	<2f6094ff-f585-4b8b-8c25-20c11d1bfc7d@app.fastmail.com>
-	<CAP-5=fVt81pYz_EXj+QNG+hFGomb-xcpm-6=ZNzNm+c2sbP6UA@mail.gmail.com>
-	<b2a50293-d6f7-41eb-854c-c43bc9874ffa@app.fastmail.com>
-	<CAP-5=fW25k8uOeamGRhwbFUUZ8D0D1n5YK-NFF7_2JMJcGOsiw@mail.gmail.com>
-	<20261019-rapid-loutish-porpoise-ac4efb-mkl@pengutronix.de>
-	<CAP-5=fUwDOv9k1Ptz22h9kKYFJowg9UPa+LzWnnswJ72ptF8tA@mail.gmail.com>
-	<18c92ae1-deaa-4c09-adca-157819cf005b@app.fastmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VmfJZcDf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y0z0KweqSJTELyq8cMgbEv4dVsGkYDE5h3oJO9UULwwkgeJR2DRcWNz2lyrOCi54/g/bm+GJkisk90iJadxpkhp8qTZZQNKFIlTSRB8F3opo86rseJYsiD7k0NJBkXBWDAg/DnZnGmUU0XQm71u9JKe2fPJCff1kgTNfKnWloFq9laCH48fuIqtNXOXApyZn53tnSDS+5lMJz3Wisxvmo6j8kCD2DqLua5gSgfO95FWv7I7l5pJPJHzm46xV6Qrol6GOIMBXX62wxm/IW6s9Ew6Bv1AV4hAWOCoIHCLw4GCA9vwkR/+L3WkZAd7/9S9QIxFwadXUt3/lVKb9y5MQIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XuobEXwqHlVu11oTVerMEEAVkHjwS0JpvhTUTNPJjRg=;
+ b=gDhp3ivfB46gmRWyHduxPXOM+IYE6ShAdKZrX00bkyyoGDe7oVRz/uAyZ74Hhv0tQ7YNEjq+SzmPGgnFVcgiKwMHdcKjejt8eS8VDWgiqXm2QQqXiX+kdIwirkzVfnXnEP7cVw3Ze+bsHYtNIsTdvBj2VZjT+VRMpFizLRHNAiq/2BMzbj/b3ceK8qXdrzZ8EyMmkj4VGwA/c597/YJqAZHCb/hlfCPRVUG0k6rGLFvcJ1jKopZycHZFrHmU31VWNg1O8pPhNF9PYYJ8XnoZ90Zj+pIHU/lzx9OVOIpDGAmvJLEr7+f0Q0kd1dLTNns8qoRhvwKO8r3xfR8rij3+UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XuobEXwqHlVu11oTVerMEEAVkHjwS0JpvhTUTNPJjRg=;
+ b=VmfJZcDfnOimbFsT40N9R9nD0wwbqbd1I73Ns75dLcYaSznU2WFWi7VnG3qlGwEM9u/ltltg6ox635jpWbzL4c2xfOXnMnoFbZ1gwOKZNBcNT+ANzNrxc7BrYXvo9Csg2VGo2dHWKJ75KfRC4Gjk3tOBxB/txTcDi0SAIQNHwxc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TYYP286MB4112.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:14e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 08:36:10 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 08:36:10 +0000
+Date: Tue, 20 Oct 2026 17:36:08 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Xincheng Ji <jixincheng@ultrarisc.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Niklas Cassel <cassel@kernel.org>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Jia Wang <wangjia@ultrarisc.com>, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: dwc: Skip MEM outbound iATU setup for identity
+ mappings
+Message-ID: <w4cjahbo4niiid7oinmkwjnnzgy44pfviz5pstwrb6ixkqazif@oifxwekunhcx>
+References: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
+X-ClientProxiedBy: TY4P301CA0094.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37a::13) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,98 +100,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYYP286MB4112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c1c2e19-4489-4251-dedc-08df2e85313c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|10070799003|18002099003|22082099003|10067099003|261009223027099003|56012099006|27256017;
+X-Microsoft-Antispam-Message-Info:
+	UczkAktnrdEn4frC1m+bggz5FatO7p88gSvWN8uTGKD4fCglOV9K/9wlWPVnedKsWvUygo7mP6LzTWe2zWch+WkQzSXiJXyT2L0cLC4XaPzUyaU5B/eI+MFCq8Op9rndQ+ILqoUvL0LBxclCoZnEJHLB4XCLqIb1aEcM0QCybfMrIRbIFFmeUOraeohNa0fXbxhwg394kalN94czTP+itoF33sxuaz2kja4VDmd4qMvmLmzS7vxMlx/uObcOwS6E3JHckTgax2se6zFL5X/efafu4oYwwGnXFLvvYZ8muqbg49iQqkfjcx3AdtYI0l7M+PztLH0v9g0y62Ht5dqyVH+Y93k7cI67crIheeZarUCBe3sgp9bwDBBG6hjKkdk+lmqRmToQbsJ7Zks1Q54cBtne7s5ezkqz5/vqVA2iFoh7PYcCACNXlrW1TRX1h+c8TdiRPdV/SBHU8OZFNWvN0KoacQsXuZZkRqNbcLnpfGph2zmANtrdj5fuCRDG1VEKmLeM3+CW9WTaHFn+qg8NDAixSoI7jSfKOHD64BkShKt0SYvA498Km/PQhh8aV5b/bt0rvtynt6ghJpb8GAfTjtHzJ7y+biQbRxCEouaa061e6j1AyxPLrncp+VO4ngbs9doxINA0kOACkOFrWMjd4KXtAbZzX8o4neKBS8oBido=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(10070799003)(18002099003)(22082099003)(10067099003)(261009223027099003)(56012099006)(27256017);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OEPSBPMzuUV9ujjZ53K+D7MSDDYRcGDdhEhsXmSLOt7UxdF+UbgtMgg7BDNi?=
+ =?us-ascii?Q?ByJ/dzKrAy1bj3PgWHKZUL+XQGE3sGQcYg8PgP/R4Up/qsLK8tbc9yEZiK1C?=
+ =?us-ascii?Q?v7wJMHNyRnz+rP3+0Ltmak+xF4YB8Wo+49IS8kEKkP9MOzCPeh3mf4lihhlX?=
+ =?us-ascii?Q?n5/TK2N9fbQty2iWg0GHmZBTSiZeZNxBi41SUxc5hAIYHgMa4AHf85TNN3rN?=
+ =?us-ascii?Q?nd/N1peK+/SvVYdioBHJHc6kXooI0lVc9LfAfc1z/psU8yhd/A2p5M2qJ7/K?=
+ =?us-ascii?Q?54u7K+jTRDdwvdooXwHnUzK5EucuI/hqv3ti9SfET5cl2DTk86RfRHjaYzUP?=
+ =?us-ascii?Q?u7o9prokabTFvbX2YlTpCgJfYahkt7sPRebeINddaqVqnbd+3KIZytBUf/Nk?=
+ =?us-ascii?Q?sy2nX/N0oj/Wl3vZpkWkeuEb5yYk25I3kzKwAzN8P1/Z8jZIdFMmVOmx7Wi+?=
+ =?us-ascii?Q?27F+5wS+Z78IHryTT2Ds3Gpt2jb9QVCeUZ9mNuhTK7Pk4LCouXgH+ArzuVGk?=
+ =?us-ascii?Q?yPl7oXv66MkpTIfUZowacGxnTzxW7mlSLGmiR6GHDxIea/V4mbrUXXUPgmjr?=
+ =?us-ascii?Q?5q0vp0T0a4i5qezwb+CMUYuGmqW73KUmnQFbaqkjukEZ2NTiR0S5Yb/JAoXZ?=
+ =?us-ascii?Q?TIYmwkLvOUH3rIk02hVE1QMnBuF/c7Ft+rX6Zjy3BDd5aXPdQ5dWfyWCGJ9s?=
+ =?us-ascii?Q?wRIKO9d0mAswWa5HLJ1VzPJ3SugZ9O2FJzf6MIK8e+96q7fW4/XC2I0hqVWw?=
+ =?us-ascii?Q?YDMSM38n/ZeDrfm10vw5rxyNGdln6p5TVDdWIy5IsDpIC/vjg13ncKVOQ9D0?=
+ =?us-ascii?Q?wYjgwikzLYQUrjwB/yz2TgAPWbwAXV8gHpLF/2+aEUWKp7gtO/dC+SO6LNMy?=
+ =?us-ascii?Q?aoGJQ4zMQH3EJ5PaxJcCsqM8140U3iRMJk1y5SgCZfSiHSeZBgkFqnx6UQ+R?=
+ =?us-ascii?Q?R9Wo9kqNMPSH4YmPK94AsxHbXythzVhefgLCSd0QxaZq7Ru8ACejzaCaNhb8?=
+ =?us-ascii?Q?mqbram3QNG+TRkxI9HOLuwx1JR3niYuLKsK+iAG3ebxl/4gG/bZhw5Y7tJtq?=
+ =?us-ascii?Q?OPUuuV5kNHznmTqQi6zS4SH0tYydO54RTV2An00JgYpaI5u9PdSGdra1E902?=
+ =?us-ascii?Q?WyR1rHJQ0VX8MtV4uvx/m9dm6SXuAFTQOpkX39tBv5b9u9i3G4HyFvaeriXU?=
+ =?us-ascii?Q?K3dfFLEpCKM5rG2QHgMmix5XPh9WGxEzLXnFgYTqEwET7tTlDqbxNYdpppru?=
+ =?us-ascii?Q?HjV0fmyOO6BzxB+uANqVH3Jo0Wrpu/uGpxqnRB8Vw+n04IdzyzXRf6Hh6lIK?=
+ =?us-ascii?Q?oInyF/PmQ+8nCSGQskxe9Bgh3aXug5rLNKGUwkFRipLt91MCyTOEA375Q7H8?=
+ =?us-ascii?Q?5ES8xg69te7Z378j5BfNHcME9DtT9PzllZD93C0LcgVCgWMlsvNMedK1PUWl?=
+ =?us-ascii?Q?HT/kIKRYkThFG4a1XajcmV7eGRjBZDIEu6wHm8Oab7FJnKgLD8b+6d340few?=
+ =?us-ascii?Q?D7yc2X13//PSNA93DTsrxNO6K9QVImpWU/CkLmeBB7tQY+2Y/fVX3kXW+TTu?=
+ =?us-ascii?Q?qsNayAOd9bNiFHetxpYo0dnRe79iMTdBzrutU5ntjv7uGdoRu3D6/SaOlQWc?=
+ =?us-ascii?Q?M4gEMI6N+07By7CvmwG3zwqbR4OpdMCWck+8ZVjB8VpxdKc8mDsaY46Hn9Ye?=
+ =?us-ascii?Q?YIgqA2VnIVXtmQb4lMQPH/h3/IkZn/5ociafmWShv2HTAJkZ4+2l5XDbsTKu?=
+ =?us-ascii?Q?n8ze0GHMBfjw8o927CC4vjHbb0kafT31BIlT2pt+bot5JgLOiaof?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c1c2e19-4489-4251-dedc-08df2e85313c
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:36:10.3624
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ri1bax3rwjg++axH6kJxgvD/TmQhjTTAXORpZXTvctfWX7+PseehjYU518Y4XzTv8ywkxZRoeUASPW+mvw2NdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4112
 
-On Mon, 19 Oct 2026 18:27:24 +0200
-"Arnd Bergmann" <arnd@arndb.de> wrote:
+On Tue, Oct 20, 2026 at 10:37:35AM +0800, Xincheng Ji wrote:
+> No outbound iATU translation is required when the parent-bus address
+> matches the PCI address. This is a DesignWare controller property, not
+> an UltraRISC-specific behavior.
+> 
+> Compare the addresses directly and skip MEM outbound iATU setup when
+> they match. Remove bypass_ob_mem_iatu and the UltraRISC-specific setting.
+> CFG and I/O accesses, as well as non-identity-mapped MEM ranges, still
+> use outbound iATU windows.
 
-> On Mon, Oct 19, 2026, at 17:10, Ian Rogers wrote:
-> > On Mon, Oct 19, 2026 at 5:37=E2=80=AFAM Marc Kleine-Budde <mkl@pengutro=
-nix.de> wrote: =20
-> >> On 10.10.2026 08:04:42, Ian Rogers wrote: =20
-> >
-> > It is a little more manual than automagic :-) When perf builds there
-> > is a script that complains if the tools' version of files is
-> > out-of-sync with the kernel's:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/tools/perf/check-headers.sh#n28
-> > It doesn't break the perf build, it just adds noise to it. =20
->=20
-> I see that the include/linux/unaligned.h and tools/include/linux/unaligne=
-d.h
-> headers have not been in sync for a long time, so maybe it's just not
-> a big deal there.
->=20
-> > My understanding, biased by my opinions, is that the preferred option
-> > is to add a config variable controlling whether to use memcpy or a
-> > packed struct. My preference, to avoid undefined behavior, is to
-> > default to memcpy but set it to use packed structs for ARMv5. I will
-> > vibe code this up, and apologize in advance for any offense such a
-> > patch series may cause (ie I'm sure someone on LKML will want to
-> > complain at me for using memcpy at all and give me a lecture about
-> > strict aliasing being nonsense, etc.). Arnd or someone else may have a
-> > different preferred solution, to which I'm more than happy to defer. =20
->=20
-> As I wrote, we need the packed struct version at least on mips32,
-> mips64, openrisc, riscv32, riscv64, sh4, sparc32, and sparc64 to avoid
-> the external library calls the same as on armv5, but I would prefer
-> to just always use that in the kernel. My guess is that this list
-> is actually the same as the architectures that lack unaligned word
-> access instructions in hardware, and armv5 is certainly not
-> a special case.
->=20
-> For 7.4 (and stable kernels) reverting the in-kernel header seems
-> best to me, and then we can think about what to use for the tools.
->=20
-> Looking at the uses of get_unaligned() in the tools directory,
-> I notice that at least some of them should just not exist, e.g.
-> struct debug_entry in tools/perf/util/jitdump.h is just
-> needs a __packed attribute to correctly describe what it does,
-> and tools/testing/cxl/test/mem.c does not need the unaligned
-> helpers at all because the structs are all packed already.
->=20
-> I'm also a bit suspicious of the usage in=20
-> tools/testing/selftests/bpf/test_kmods/bpf_testmod.c, which
-> looks like it may run into a corner case:
->=20
-> __bpf_kfunc int bpf_kfunc_test_uninit_alias(int *out__uninit, const int *=
-in)
-> {
->         int value =3D get_unaligned(in);
->         put_unaligned(42, out__uninit);
->         return value;
-> }
->=20
-> The current version of get_unaligned() turns into __builtin_memcpy(),
-> and the function prototype defines both arguments as pointers
-> to naturally aligned objects. Do you see anything that would
-> stop the compiler from replacing the __builtin_memcpy() with
->  an invalid pointer dereference?
+Tested this on R-Car S4 (DWC PCIe 5.20a) in RP mode and did not observe any
+issues.
 
-Historically it has definitely done that.
-And you can't 'cast away' the alignment implicit in a type.
-The alignment can get tracked into an inlined function.
-Plenty of crashes on sparc32 from that one.
+Tested-by: Koichiro Den <den@valinux.co.jp>
 
-Any structure that might be misaligned in memory better be packed.
-
-But what is actually wrong with using byte access? eg:
-u32 get_le32(u8 *p) { return p[0] | p[1] << 8 | p[2] << 16 | p[3] << 24; }
-On x86, arm64, ppc (etc) both gcc and clang generate a single memory read
-(byteswapped if necessary).
-
-https://godbolt.org/z/d33hvesr8
-
-David
-
-
-> This bit is probably fine
-> because of the way gcc handles __builtin_memcpy() optimization,
-> but I'm not sure if that's an implementation detail or required
-> by the C standard, especially if strict aliasing rules say
-> that the int* argument cannot overlap a misaligned int*.
->=20
->        Arnd
->=20
-
+> 
+> Fixes: 17b478b29cf1 ("PCI: dwc: Allow drivers to skip MEM outbound iATU setup")
+> Fixes: 8da2b970ed4c ("PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000")
+> Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
+> ---
+> This series follows up on the recently applied MEM outbound iATU support.
+> 
+> The DesignWare outbound no-match path does not translate addresses. Skip
+> MEM outbound iATU programming whenever atu.parent_bus_addr matches
+> atu.pci_addr, rather than relying on a driver-specific flag. CFG and I/O
+> accesses, as well as non-identity-mapped MEM ranges, continue to use
+> outbound iATU windows.
+> 
+> The UltraRISC DP1000 driver has removed the now-unneeded 
+> bypass_ob_mem_iatu, and the general DesignWare PCIe host 
+> code has also dropped bypass_ob_mem_iatu, directly comparing 
+> the parent bus and PCI addresses before setting up the MEM 
+> outbound iATU window
+> ---
+> Changes in v2:
+> - Merge patch1 and patch2, because they depend on each other
+> - Link to v1: https://patch.msgid.link/20261019-dw-pci-fix-v1-0-9b7860f919b9@ultrarisc.com
+> ---
+>  drivers/pci/controller/dwc/pcie-designware-host.c | 17 +++++------------
+>  drivers/pci/controller/dwc/pcie-designware.h      |  1 -
+>  drivers/pci/controller/dwc/pcie-ultrarisc.c       |  6 ------
+>  3 files changed, 5 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+> index cf5ca281e91b..c593a1f1c2e0 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+> @@ -918,19 +918,12 @@ static int dw_pcie_iatu_setup(struct dw_pcie_rp *pp)
+>  		atu.parent_bus_addr = entry->res->start - pci->parent_bus_offset;
+>  		atu.pci_addr = entry->res->start - entry->offset;
+>  
+> -		if (pp->bypass_ob_mem_iatu) {
+> -			/*
+> -			 * The no-match pass-through path preserves the correct
+> -			 * PCI address only for identity-mapped MEM ranges.
+> -			 */
+> -			if (atu.parent_bus_addr != atu.pci_addr) {
+> -				dev_err(pci->dev,
+> -					"Cannot bypass outbound iATU for non-identity MEM range %pr\n",
+> -					entry->res);
+> -				return -EINVAL;
+> -			}
+> +		/*
+> +		 * No ATU translation is required when the parent-bus address matches
+> +		 * the PCI address. This is a property of the DesignWare controller.
+> +		 */
+> +		if (atu.parent_bus_addr == atu.pci_addr)
+>  			continue;
+> -		}
+>  
+>  		/* Adjust iATU size if MSG TLP region was allocated before */
+>  		if (pp->msg_res && pp->msg_res->parent == entry->res)
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+> index 799c05213ae3..128729fee607 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.h
+> +++ b/drivers/pci/controller/dwc/pcie-designware.h
+> @@ -471,7 +471,6 @@ struct dw_pcie_rp {
+>  	struct pci_config_window *cfg;
+>  	bool			ecam_enabled;
+>  	bool			native_ecam;
+> -	bool			bypass_ob_mem_iatu;
+>  	bool                    skip_l23_ready;
+>  	bool			skip_pwrctrl_off;
+>  	/* Set if the RC loses power during suspend */
+> diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> index 523f454c6c52..a0d328c0c09b 100644
+> --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> @@ -154,12 +154,6 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
+>  
+>  	pp = &pci->pp;
+>  
+> -	/*
+> -	 * DP1000 routes MEM transactions without outbound iATU windows, which
+> -	 * avoids the 16-window/4GB-per-window aperture limit.
+> -	 */
+> -	pp->bypass_ob_mem_iatu = true;
+> -
+>  	platform_set_drvdata(pdev, ultra);
+>  
+>  	ret = ultrarisc_pcie_init_clks(ultra);
+> 
+> ---
+> base-commit: 0a2602de077462d3111eb9fd3da5b12a57fc6c93
+> change-id: 20261015-dw-pci-fix-c8e51f83be02
+> 
+> Best regards,
+> --  
+> Xincheng Ji <jixincheng@ultrarisc.com>
+> 
