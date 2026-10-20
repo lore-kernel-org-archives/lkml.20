@@ -1,99 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792500109;
-	b=iqdu7XazNBbwEhe6iOEH5vdqMEtJOEluoFSLKWgK5cfSpUdSMKwIq08Jn3uMDIX3qU09
-	 /rluPXgeYRTtIPgyEy07D9bDH+3q+dLb1rqRhT00L3eq1Hn7ioClqFUh4odkl2D2NsUBH
-	 OD2/SI4tvQaTqjJNDr/2R3r+uoX23b6GG27TDe6Z66+8/ujLH+1Ti7tQar6Zz+e4W3sRE
-	 WSypvBfGSy1A3IukuZUHdzN9OygL9us2xKQy/0I5z+jgOlMe9kQuTSQxxIbwmonDR8YPB
-	 A/ItlTFs/DyK7qVknqqu3IgQCvi2h8gBDVdECD01C+9296Ve1Wa35ZR5UfQiOjrMsXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500109;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=p8bm92MLAfprF56KAcVBwuAIjjS+4yuOAO1OmW0MjWA=;
-	b=Fi5+alJKxml7x0ceO3iVspBL3o0vfWAyUiDiAPW2Q+kCUqCGOBxoW+XXlVf6tFQMOZ1d
-	 eAdJ937fZm4YSF8VSbz8plsViJBkNq6drZBXp79jwB84/Ir+k3h1A94DYPwzyolYr9Khf
-	 82Lo76qlq5hFfd4reC4wr8XiNH7SH3/i9nMchqcsDlBkAlaVOjXqhD4+gHWj2/xGBrSwZ
-	 Oft/kLdzPYhIPrJ5xq2kgRxSaiXhcn7krWCMncF1/hoRT3F+Mxo+pgjnkkkFeysJzeHCG
-	 RT8vw5HOaVCs8HPSgmTelF+ZeWk696tUP0pGYoO01nJCmygqyc3IP2bs273iXKkr+2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Zbzo2ESK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792500119;
+	b=NEyYWug5upsNGEmx5pu3n2u2i3N61xc6G9cxjuithbHlLCr4/Nn66C1nSPK83bPL6WFP
+	 54p2lmVNX4waj9NDAfL8b4t4/BcE4X6bP3zIu8745lmZi9XFWdCZW8jsFtRKslZDubgrU
+	 LPhGK2oTBs39tN9+gXNQQzB4JnY0IUPJTw/wTdLI+dq6AzvbsL93kahTyWOYdplM+FdOe
+	 wNIBpT7oHeIb9lez30bi3kmH8m5wU6gqDQf6PW1pgXeMwKRl0oaG64SXuhG9AYtv95inp
+	 zxpggJpQwWt/kPj0y7dLLox+X2gxURqCDw6p2tO6yEMxEiALxHDwS7cBKueXH0Djthw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500119;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=YVgAwVbGT77dwzosKyXh3279DX5DYFH/EToqrcKE5QE=;
+	b=fRw36cG7F7vdg++mhcIL8o7sAxzdOIYZL1j9iRAYlK7gHTB/w7DY7r8PPjKNbHcXmZ03
+	 ud2iMU6G2n12pTWInYFs2L4GBXAhpYZBeJuz1ISyAsJtB7DrpBNm3Ep1o/lbZpunFR6V1
+	 Qi6tEZ5ZFkzVEs2QjzHfG5RjT/3TvzhmEyAYOY1Y/2Jmf22rZSR/p5gHpTw193uxo65WN
+	 V3TdcZnFj1TPpQor0IV+vpqgVVL1AMMnmSn3J3X0sQJPQezhPvRjmf9wPAhpMI/vurUOC
+	 HkI2i/qatSBZQnwI5GklF1jxRPuTAxM06DOfW49qiOXejGf1R0QYpBabcPmojXXbI4Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dmMPfEsx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NXpNaWBy;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4BB606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:41:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD4BB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10BF606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D10BF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Zbzo2ESK
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be3db57938so2731381e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:41:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792500107; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JlOlW7CODkuuBLs3ptroHuts7buvbQm2+pqlc/yesWUZ6LAAfmb3eC4YcnH00kdpRi
-         Ugoy4aWkAm0Epn8FCwemnhEKFq244jpzZkv/HVFXzvE1WR8By5vekEOR0tD4GDT8ylLm
-         omqe6Z6hMrFOSOQ6MMme5zGSf9xYZNQtXyfKHlnukrz7SamsK9OrV8j8dMNVRtNIjFq7
-         R5qpomcqGUUgzAAXH9d8iuUjHPp+sBgsW7C4hhTP3kQiUVvGjaWaA2QWEK9ps+g70sWY
-         gML0W/PJngt1eOF+9z3bjnStRl3/FxS2sjahjuejB+w8IAiU0O/wElUS8xb3nPFKNshY
-         MFoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=p8bm92MLAfprF56KAcVBwuAIjjS+4yuOAO1OmW0MjWA=;
-        fh=lbNwiAh7B4cpYjFhNladpQ4ewebo/7rj0xXVxY2XyyE=;
-        b=OwDu80hEUnMvhmh2ih2RaUDxyPWwzLjsMg6s8pbfLoa8ng5CorpIrbsaFHPkL6ML99
-         yaSjFJmhEFSXwFkY5VvMHvsbuC2JT338Nyn8jvedGXqBvpkemCluUWyl2iXW9IgAEJe5
-         IKBfxJh4zQtGfR+mWftC3fWCV/P7vLs20vP5uTy1TxdK89p0LXjWkvcF+lHcBKR5aBGf
-         RRFiLnp/Efzg29w9VvzwTdWDzvNfUHc7R6GGCFBdG/kcVkB3nAEVtsaTyiXMCWzJWU2H
-         AjN8u0p4OL8VOp9TF4K3jYWsNeRqCW/a3b5VVs9CiKMVXoz1GX+Du2nwjD2skEpB1BFM
-         Kezg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dmMPfEsx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NXpNaWBy
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAx29S599715
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:41:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YVgAwVbGT77dwzosKyXh3279DX5DYFH/EToqrcKE5QE=; b=dmMPfEsxr3Yvy9mp
+	lfVOSRCaeoTcvPMCdqQbJNOz6g6NgYX97nh+G/FKaK7cQHYTrxMdU23wImycdA76
+	3BiGTVYNxcZUVS/E4fUiYC8qVD45jf005NqkRn+jbb6dS71+6QPWvqSMouyaVmXo
+	hxQ1xRELTI2TDYmuhwUPUPKIzsj+b/DilaNEduoAMfiwC8/i+10Y4oZAtkJRBS6K
+	D4k3zRPU9I0q9aifNPTi7DPaZgM9jQmxHCKgeMtdCXsg/dgURLSNDgUQ5/GdU5Xh
+	iEhv/mVEloKfvTjhKWbTuwkwIqjxiO22fkhX06D17EVXVv9dm/ezi3lSvbq7sXAo
+	nDJeJQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n2fcm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:41:58 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f1f2fafeaso441788885a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:41:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792500107; x=1793104907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p8bm92MLAfprF56KAcVBwuAIjjS+4yuOAO1OmW0MjWA=;
-        b=Zbzo2ESKVI13KKBJi4R3Vt+HuHspiVmMhWJcCtF6UjuHx1st9FaC2Pn5iZzFcHEHZ2
-         rjROeJUPOULjcKSdLlUADa0u5VT6OvEhVF16ebwfSTU7rAtVJdxaHy+gKtcclYx7ghef
-         ngICxKuM0/iAU79w825/tAVen/jh6saJ7OyzSv/n1lJruZYpkk5W2ZrFlyVDKxMQ9XRT
-         i8P/nHiCBZi5pWVj0hXo/K0+MBjMVPg0dkVA3JBVCW1hBfzgLPxez/eWlbm9hNRz0+g4
-         robn5zAgjGaECSMfD4AU4TpNYqowaD+nG1QthTJljSF9UVsavb2Se1w1wepIQyCxKvkn
-         E0Zg==
+        d=oss.qualcomm.com; s=google; t=1792500117; x=1793104917; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YVgAwVbGT77dwzosKyXh3279DX5DYFH/EToqrcKE5QE=;
+        b=NXpNaWByqK4GCgMHrFUI5saJSihBBt3qUPZjXUi01qGQXJLE2zS5RoqFu3zzQcMnuE
+         7PxQJVPsShln9ZW4eOGzdQXSXB29/Ugi7TkAll9TALmOLDRjGFfibLycnEBG37AecT1L
+         u5zSuShpcpQsGIX34FEy3lH6MGfHiaZq5BZjHn2a9O3uyF/Ntw2cs3TsryMHr4KZbC92
+         zByVjrvuxGrE4A711QIBhs7IaIqsUFlXHfqMm4RU8ZP1N5tWAYdYD+G4UKxRWxkA+L/9
+         SdztBuz/OYS5JSgqxz3JWSxvJKEjdbAZZr6iiKdcl68hYwHcA3qayzunprHb4V5UzwgM
+         o9yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792500107; x=1793104907;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p8bm92MLAfprF56KAcVBwuAIjjS+4yuOAO1OmW0MjWA=;
-        b=bnxf8Kmybn17ehz53651f7T3sdQcc9VWWLhs44XPRNWv9DtjTf/p+3tRf57lYRxmA5
-         oPUeOKEbEVKWq9di2hStnhdc3QyhZjgsrN2nQXBAFGqhJ0G/IoW6X+u2eDhBl9F3gzRr
-         Stu0+bxRHdFYNWYzUMfq64x0HarH6oZ+B1ThRdWkMZTV01zkZ9U5VDsXp8YfLklF7LPT
-         D6i9x1lvRde25pQuuizcBiQgjfzeya3PlcIDWwfjqjgjgVk2fy5GR0aQD6g/mxE/t8ZJ
-         +sVZouU5RnMZvGWm+eKQ5Iz3AsS4VcTe40ThMs9x1LJMKOrQxngeuhWtaA4pfbgtH4IX
-         GTag==
-X-Forwarded-Encrypted: i=1; AKwUvBwzr4VQLSrFIGJCDr/STeT/dhol8a714lpRpRbrsDKmRHE/fmeULGH9moyqAG92x67GrLnFYJ6Y93bXtBA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5I945Z6AfhHJKITLj2LHT10692Er8VW7HVWJIejNyUc6BRNtW
-	bUMCGkoQHjeqw0Qa0LtlwBHwWiveYOxV70aIF79xqavRjNtm2He6MuT6QW2vE/rocyZOG9tB+tl
-	acj2wHoqtPIfsmksWPWfwQyO3kh/CArpMK1yOs0Q=
-X-Gm-Gg: AYBFou1K61kAtw1v1LVkc7tLzYpLSrJCt90EFX27wpQpG5VyT+EDBSyvAKVzlPxbOIw
-	h4OhzDAVzbtYl2xbaZ0Dx7OQ0IojA3nlEO9yjFXaB/Z8fJauuwbqjP7W7Js6VUffqZvYmrryi48
-	8BhsDHA4ui1mMAE+p04ACTG7Nx1UotQpf9Ag0BbOZ+ENfb3+WzowvWxelU2aS2dz8+Ca/jisVIs
-	qOPIzHJzKWEiwjyWXVoZ2nolOazqGuyo+bhqYnjzcGsDMnJaX9d9Jn5NdDFd+GX/f/pHHtp2LVo
-	BGT5zwO/Uk40luHze5LhlQwA1undVusaZ4T5RbmRyGFaA/ElhoHW548J++9jtIQ9+hI=
-X-Received: by 2002:a05:6512:694:b0:5be:41a1:d2c3 with SMTP id
- 2adb3069b0e04-5be50a71b65mr2918162e87.49.1792500106374; Tue, 20 Oct 2026
- 05:41:46 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792500117; x=1793104917;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YVgAwVbGT77dwzosKyXh3279DX5DYFH/EToqrcKE5QE=;
+        b=lf4CMB/Czuzd7lWIzsCZCkpMxYQ6x0MTBse37UnuQNivYVs4cwr93Kq5boHg5DwFJ8
+         VBmu//VZ9S/KQdu1pbnukae+67TnjkpiaRXWgDWRqSzi3IxBbTXXio/XxxvMmFfOwHAm
+         KVB8fjQZe7l4c5fMvOCBoaQR4n0OJeWzjsbDanOYXCgA2OHeDm8I280kXi+gElQYS1Vz
+         Z/LMkFGRqPSvwOgdwwWsNULBSkVqNfkjrb2gru1UxuAYSZN9L1co8EfyTSZQIVd7kkA/
+         /ELANwwOE/RaLE1jQWaSPeyTUJU7DiCMJISO0EQP5WdlQXOjm36vGr/0tSdgbh8xFh10
+         xT3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxgBBIaqvGS3tP8mrOunaHh5nTu9DZjoeid7BXF5nqKB623H/RPnacFUNeJQW4APWMZbrSTytOMFxM4/Tw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcUNoy825ACGSuygfgTd2nWImuC9EGtZkkKz+h1MVcUbNCKaBO
+	17HLfHNgUGH503HShwyvklvJPJdcCOLdV063MVON3JKyP1TkJ79jxClEcaBYr4Djs2MrfYmfHYI
+	JQgqeX2/bQpD3VNyxEa3VptvxwX8139FeVmkPSbXABgpqEqLepS4l2yT1J1cVAweUCBiYKut3FH
+	Q=
+X-Gm-Gg: AYBFou0QaP1/0buYMpUiFmLIFGWRZze4R9q14hN3LPAXDhGVcu0fbOH9LpCFDS2dxAi
+	taJ7/PX6Q+vyL6jTXfjgIBlC10nZKikI4awI+ibdfFh9oCB/FGvbggHqF0E3eIbu7KBmWZL9Z4C
+	BEmpv5mCIIwAkl/xJx4/WJuTRbC8aVyEP+HTgO1e4F3YMen3dzyR9Qm7tona0K86fvAxiXHVMc3
+	5AIRURi5td75c5GnB+1GBzSgFTz+LvqXbs+04BYQyLA/tEqBF19XiunraDQhGqiypKNuj9PzerV
+	EIgcsBull7K8uyuNhyO1ient6x97dWS0eDf1mBB7yiHJEsay8FaeG25vpwjvBKfCVT2RYU0KvQF
+	zeTftZ0GCd+PaS+2N
+X-Received: by 2002:a05:620a:1b82:b0:93c:b10:7243 with SMTP id af79cd13be357-93f29b80a1dmr1660119585a.5.1792500116887;
+        Tue, 20 Oct 2026 05:41:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b82:b0:93c:b10:7243 with SMTP id af79cd13be357-93f29b80a1dmr1660113385a.5.1792500116235;
+        Tue, 20 Oct 2026 05:41:56 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cd482bsm69803725e9.12.2026.10.20.05.41.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 05:41:55 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:41:54 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: gcc-eliza: Use retention for PCIe power
+ domains
+Message-ID: <hmslxyt7kj3w2lyniw5sup2dcjfvsndckwhrrrk2v5ofpry6zz@nrjflylnt77j>
+References: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
+ <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
+ <e255ml7kf2pyjnw4k3ssi3jp4hkovw7x62cln6n3xbf7tz5q7y@ijqwv75233a6>
+ <CAFEp6-3YP29y5JYp+6Cw3T7bGEJHjfGD9mYsiQXGaTSegsMWXQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,227 +133,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260910105359.12915-1-syedtayyabfarooq08@gmail.com>
-In-Reply-To: <20260910105359.12915-1-syedtayyabfarooq08@gmail.com>
-From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-Date: Tue, 20 Oct 2026 17:41:33 +0500
-X-Gm-Features: AclHuK__MO6wHI7OcpVN978QT4p9YiM32kUAU8tkBjxW8Bkn0HEWZTrXWo8Xppo
-Message-ID: <CAKD4hN7z8Mf-EXJ9DUhDuxzbbEWShGM1aSQ2=5SQ=8F1wfVprw@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: gadget: u_serial: fix use-after-free between tty
- open/close and gserial_free_line
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Cc: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFEp6-3YP29y5JYp+6Cw3T7bGEJHjfGD9mYsiQXGaTSegsMWXQ@mail.gmail.com>
+X-Authority-Analysis: v=2.4 cv=aIplOr9m c=1 sm=1 tr=0 ts=6ad76196 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Wx7Y5S4uw_J0ShrtzzkA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MCBTYWx0ZWRfXzXa7YO6XrP73
+ +7ERWbvkfW3Yt3LLQUIiR8O77evkyY9sjIs+3tdY6PhHAkxfH0LOSFcc9pN3FhmiGzg6ElOl+s8
+ qpqZXfwcTtSYzSCcxbcHsMDKspTzrXw=
+X-Proofpoint-GUID: 8CD2NiPXUZsbFyAOC90ClYvuZHQmk482
+X-Proofpoint-ORIG-GUID: 8CD2NiPXUZsbFyAOC90ClYvuZHQmk482
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MCBTYWx0ZWRfX3pVkJ2C4B7R4
+ rSXhs6c+GVxOBrWX8RdH78uKg1lbnS3EG9G8fmXmvRS07ued9A5KJ++vemFe5d9Y/5gP0igTuAw
+ tBHMP8meE2fW3GmF00hFmR6fHfBx6BWe+O1C4sa7RX/B61PE4KF1PZjZLJOQXiLgZE8Dt7VJfon
+ IvuMbnU9Vpzqmj7U94JsiftoNCaEgNSoWcWsB7456OScFeHE77nUNmKaDY1BlkyD4uLYPm4qjrY
+ 7In1k1mOU+blmEYofhr9N1HDD/aj+KvfNLpBB7GssolrYT2M2bcLFpZ/ItEB/abfRJxIH486Qoy
+ bn0+ckAWWyqE9A1v+0sc09m7ibQEXujMWKMJCY9PoJpG8ubjVsd+HJNnAZI3p8JzNOtmxl4n+YA
+ zfErimT2JxwuNVTXRB0xr9xhQyXoxgsr2x4DuwQ2vFtDyMHjZMkRSx3vsxmrIWwkv0W8lzMicjR
+ XR1ZO2OKxuqR/unWFHA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200050
 
-Hi,
+On 26-10-14 14:09:04, Loic Poulain wrote:
+> On Wed, Oct 14, 2026 at 1:59 PM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> >
+> > On 26-10-12 14:58:43, Jagadeesh Kona wrote:
+> > >
+> > >
+> > > On 10/12/2026 1:29 AM, Abel Vesa wrote:
+> > > > When resuming from system suspend on Eliza CQS EVK, gcc_pcie_0_gdsc
+> > > > gets stuck off when powering back on, preventing the system from resuming.
+> > > >
+> > > > Use retention for all four PCIe GDSCs, as on SM8550, to preserve their
+> > > > state across suspend and allow the system to resume.
+> > > >
+> > > > Fixes: 3d356ab4a1ec ("clk: qcom: Add support for Global clock controller on Eliza")
+> > > > Assisted-by: LLM
+> > > > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > > > ---
+> > > >  drivers/clk/qcom/gcc-eliza.c | 8 ++++----
+> > > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > >
+> > >
+> > >
+> > > Hi Abel,
+> > >
+> > > Using PWRSTS_RET_ON keeps the GDSC forever ON after first enable and the GDSC never
+> > > collapses.
+> > >
+> > > For similar issue on Lemans (pcie_0_gdsc gets stuck off when powering back on), picking
+> > > the below changes from PCIE side helped to power ON the GDSC properly without any issue.
+> > >
+> > > https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+> > > https://lore.kernel.org/all/20260729071514.859778-1-manivannan.sadhasivam@oss.qualcomm.com/
+> > >
+> > > Can you please try if above changes are helping on Eliza also?
+> >
+> > Thanks for the hint. Mani's patch (v2) is already upstream, so just enabling
+> > CONFIG_HOTPLUG_PCI_PCIE did the trick.
+> >
+> > Suspend/resume works fine now on Eliza, so this patch can be ignored then.
+> 
+> So should the retention configuration above be conditional on
+> CONFIG_HOTPLUG_PCI_PCIE, or should we simply depend on
+> CONFIG_HOTPLUG_PCI_PCIE?
 
-syzbot has tested this against the reported issue, and the test passed
-successfully.
-
-Best Regards,
-Tayyab
-
-On Thu, Sep 10, 2026 at 3:54=E2=80=AFPM Syed Tayyab Farooq
-<syedtayyabfarooq08@gmail.com> wrote:
->
-> syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
-> involving struct gs_port. The port is allocated when a gadget serial
-> function instance is created via configfs mkdir (gserial_alloc_line())
-> and freed via a plain kfree() in gserial_free_port() when the instance
-> is removed via configfs rmdir(). Nothing prevented a concurrent
-> open("/dev/ttyGS*") from racing with rmdir: the tty core could still
-> reach gs_open()/gs_close() and dereference the gs_port after it had
-> already been freed, since the ports[] table entry these functions
-> looked up was a bare pointer with no refcounting tied to the tty core.
->
-> Fix this by giving struct gs_port proper tty_port-managed lifetime:
->
->  - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
->    the port once under ports[idx].lock, takes a tty_port_get()
->    reference, and stores the result in tty->driver_data. gs_cleanup()
->    drops that reference when the tty_struct is released. This ties the
->    gs_port's minimum lifetime to the tty_struct using it, so it can no
->    longer be freed out from under an open tty.
->
->  - Give tty_port a destructor (gs_port_destruct()) that does the
->    kfree() that gserial_free_port() used to do directly, and
->    switch gserial_free_port() to tty_port_put() instead of an
->    unconditional kfree(). Also, tty_port_destroy is automatically called
->    when the reference reaches 0. The struct is now only actually freed on=
-ce
->    its last reference (held by either the ports[] table or a live tty)
->    is dropped.
->
->  - Stop gs_open() from independently re-deriving the port from
->    ports[port_num].port and reassigning tty->driver_data. gs_install()
->    is now the single place that looks up and pins the port; gs_open()
->    re-deriving it separately could, on an unlucky race with the port
->    index being freed and reallocated, leave tty->port and
->    tty->driver_data pointing at two different gs_port instances, with
->    the one gs_close() uses left unprotected. gs_open() now just uses
->    the already-validated tty->driver_data, while still holding
->    ports[port_num].lock across the first-open kfifo allocation to
->    serialize concurrent first opens against each other (kfifo_alloc()
->    needs GFP_KERNEL, so it can't run under port_lock).
->
->  - In gs_close(), a tty's .close() can legitimately run against a port
->    whose port.count is still 0, e.g. when gs_open() fails and the tty
->    core unwinds via tty_release(). The previous code treated this as
->    an impossible state (WARN_ON(1)), which trips panic_on_warn on
->    syzbot and isn't actually a bug -- it's an expected outcome of a
->    failed open. Treat count =3D=3D 0 the same as any other "not the last
->    closer" case and return quietly instead of warning.
->
-> Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dfe63e4d633540f230624
-> Fixes: c1dca562be8a ("usb gadget: split out serial core")
-> Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-> Assisted-by: Claude:sonnet-5-medium
-> Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-> ---
-> v2:
->  - Added Assisted-by tag.
->
->  drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
->  1 file changed, 57 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/=
-function/u_serial.c
-> index cdd1dfc666c4..9da860589861 100644
-> --- a/drivers/usb/gadget/function/u_serial.c
-> +++ b/drivers/usb/gadget/function/u_serial.c
-> @@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
->
->  /* TTY Driver */
->
-> +static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-> +{
-> +       struct gs_port *port;
-> +       struct tty_port *tport;
-> +       int ret;
-> +
-> +       mutex_lock(&ports[tty->index].lock);
-> +       port =3D ports[tty->index].port;
-> +       if (!port) {
-> +               mutex_unlock(&ports[tty->index].lock);
-> +               return -ENODEV;
-> +       }
-> +
-> +       tport =3D tty_port_get(&port->port);
-> +       mutex_unlock(&ports[tty->index].lock);
-> +
-> +       if (!tport)
-> +               return -ENODEV;
-> +
-> +       ret =3D tty_port_install(tport, driver, tty);
-> +       if (ret) {
-> +               tty_port_put(tport);
-> +               return ret;
-> +       }
-> +
-> +       tty->driver_data =3D port;
-> +
-> +       return 0;
-> +}
-> +
-> +static void gs_cleanup(struct tty_struct *tty)
-> +{
-> +       tty_port_put(tty->port);
-> +}
-> +
->  /*
->   * gs_open sets up the link between a gs_port and its associated TTY.
->   * That link is broken *only* by TTY close(), and all driver methods
-> @@ -615,7 +650,7 @@ static int gs_open(struct tty_struct *tty, struct fil=
-e *file)
->         int             status =3D 0;
->
->         mutex_lock(&ports[port_num].lock);
-> -       port =3D ports[port_num].port;
-> +       port =3D tty->driver_data;
->         if (!port) {
->                 status =3D -ENODEV;
->                 goto out;
-> @@ -648,7 +683,6 @@ static int gs_open(struct tty_struct *tty, struct fil=
-e *file)
->         if (port->port.count++)
->                 goto exit_unlock_port;
->
-> -       tty->driver_data =3D port;
->         port->port.tty =3D tty;
->
->         /* if connected, start the I/O stream */
-> @@ -695,14 +729,16 @@ static void gs_close(struct tty_struct *tty, struct=
- file *file)
->         struct gs_port *port =3D tty->driver_data;
->         struct gserial  *gser;
->
-> +       if (!port)
-> +               return;
-> +
->         spin_lock_irq(&port->port_lock);
->
->         if (port->port.count !=3D 1) {
->  raced_with_open:
-> -               if (port->port.count =3D=3D 0)
-> -                       WARN_ON(1);
-> -               else
-> +               if (port->port.count > 0)
->                         --port->port.count;
-> +
->                 goto exit;
->         }
->
-> @@ -911,6 +947,8 @@ static int gs_get_icount(struct tty_struct *tty,
->  static const struct tty_operations gs_tty_ops =3D {
->         .open =3D                 gs_open,
->         .close =3D                gs_close,
-> +       .install =3D              gs_install,
-> +       .cleanup =3D              gs_cleanup,
->         .write =3D                gs_write,
->         .put_char =3D             gs_put_char,
->         .flush_chars =3D          gs_flush_chars,
-> @@ -1203,6 +1241,18 @@ static void gs_console_exit(struct gs_port *port)
->
->  #endif
->
-> +static void gs_port_destruct(struct tty_port *tport)
-> +{
-> +       struct gs_port *port =3D container_of(tport, struct gs_port, port=
-);
-> +
-> +       kfree(port);
-> +}
-> +
-> +static const struct tty_port_operations gs_port_ops =3D {
-> +       .destruct =3D gs_port_destruct,
-> +};
-> +
-> +
->  static int
->  gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
->  {
-> @@ -1222,6 +1272,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_lin=
-e_coding *coding)
->         }
->
->         tty_port_init(&port->port);
-> +       port->port.ops =3D &gs_port_ops;
->         spin_lock_init(&port->port_lock);
->         init_waitqueue_head(&port->drain_wait);
->         init_waitqueue_head(&port->close_wait);
-> @@ -1258,8 +1309,7 @@ static void gserial_free_port(struct gs_port *port)
->         /* wait for old opens to finish */
->         wait_event(port->close_wait, gs_closed(port));
->         WARN_ON(port->port_usb !=3D NULL);
-> -       tty_port_destroy(&port->port);
-> -       kfree(port);
-> +       tty_port_put(&port->port);
->  }
->
->  void gserial_free_line(unsigned char port_num)
-> --
-> 2.43.0
->
+None. I think QCOM_PCIE should select it.
