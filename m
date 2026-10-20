@@ -1,76 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792512672;
-	b=KsYUX//0wq4oGsu4J2n/toq2AMRFSswHx/9F5ZaHk7QzLYCSVEzAW4z4/mxcvZP3OJ8x
-	 Anpzx2MNgUUiLmmCrSohmO+ceBdXGv487ZF9q4RGrA9ejQ1NWI/2ANNrppmvXa3RCkLzB
-	 eyqbf8bcBrv+ntj6kR13hs8weoLM2hxdmqOpm7UhxUXMd9gTTRWJ1FPO3IDSOnNnVQLPR
-	 xQBtXxQxF06ld0d7sBBW+BwmK4EYn7eDdo0ZFID7q4seitKxKV6psfQlIurxd3X51UdE8
-	 HURl+W38DoXocNykKtYx4PBK0CiYcbmR4cBP7OVqHXJyzV4xydXNcxzyrEP5bfxo7Hg==
+	t=1792512711;
+	b=wgc1A2g1Tl6CwstomOy4qFXWFWxXMMeuNZ2FVyrJhhX+LsGFY+YERLpywqK//Tbtgypt
+	 SLgtXrjo5+BSnn67Zrin+Fenfs4RP3Kaoeu9IY2VcCSU31igPZoKMnZAuv+cn2xXBhJTK
+	 g9RanlzYD+mLTfhjWKHfTa9YI68U3YPn2sPTi+7qmatyn49okIG/WUacF0XfLnk6pbmTq
+	 L3+fDy8z+AAQC1E1U5xLueTrxmDmG/Ddfnt12PRDbtofahX7amT/2anw9Y6loz+QIFeZa
+	 oSnR01jkigoX8zT+FEyVL46pdLpFL+TupdCr/Ys8yTfTM29A/Ix61L/rbRv+OTa4yZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512672;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=qGagtzPPLeE5JUUJiGkA5WeVK5upm/IW7i7tq6L22jA=;
-	b=gCmdbdRasR/AstaeIolUPfzSSAnYa4KWg5YYM5fMGfkdV4U8nK2CAAZtI+1/3NfvTC3I
-	 rSMKFGrTJ68gZUsKaeGPrQRycMQW/Cq0CuAT2fep+0K3xAnYf7VttA5zUTHU6o24RK76r
-	 EHgk9rung9mOYJkbU55p8Fg3KYatJ1tMEQiZneagGpjw5xEXPPWfnwdxDbq/nkYZBLitS
-	 HLBGE0LU7Y6XnbOfDQES/gQOFRIVVwsYx1SIstEm6Rtv+INmYgswlfIj/I/zo/9iungRu
-	 yW3ipofok7r4pOTxpv08dw+3F7hXX3B8+lwFT/utVOqBdtUlnctfjHVDQEhuzjKF3Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512711;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Qd6+I1Wz5bOCO3hAh5nu1qluklfJQVsCoEPG0kv9fa4=;
+	b=gU6uLxoTIyzgPpOgGaI//7yjnpvhCo1ylf6x6RpaTB5Ob+DmxTVtM/J1UXNYJPT0FVw/
+	 rg98LLLCGoE6dEhTFmyI1c52mcbF/m/P/+mcE/FBgOGuLjyvDL+PHvF3g+B/gqtk9R+et
+	 msdQfG67LDMAM1hG+aUpWMvwA4qkPE/k7OCxf4TryDNnBzgASED2gxbqxY0AAfIsH1AjY
+	 Kf08WJl5jKJqafG9/NLAe0HVPtT8z1moOXt15T45a5wNNfvokS7N8B82vRL2F5efbXiiK
+	 JfvOQ9mV2xgNuvzI3e/RpNKRrwgXYklS7EptPv5PeSJ0xNSyn2vIVZ7lDLi3S39wBOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DbShED55;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Ylv/EMm1";
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB1A3606A31D;
-	Tue, 20 Oct 2026 16:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB1A3606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EED3606A31E;
+	Tue, 20 Oct 2026 16:11:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EED3606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DbShED55
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ylv/EMm1
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A766C152B;
-	Tue, 20 Oct 2026 09:11:07 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 412653F7D8;
-	Tue, 20 Oct 2026 09:11:06 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 273E82103;
+	Tue, 20 Oct 2026 09:11:47 -0700 (PDT)
+Received: from [10.0.128.106] (e127648.arm.com [10.0.128.106])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A3FF3F7D8;
+	Tue, 20 Oct 2026 09:11:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792512670; bh=Onq6jxRqEq1WaTY8fGmgczAqDI9uWyGv9j4N9Vll460=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DbShED55IdZ5GqRBbk415/IcFxQD5ednAiW31MbR9Rn1dtNulHbKnhX4wEJI3XFbs
-	 So+6u7EYH07FhsbRc0NWVaadc13WVhntS6CtJqRJQy7gS9S0cW3VjfLRdokRqWdJnl
-	 7dkTDfkWhwCDWfk/tw8ZbIKAh3fG4SMLUV5JGvtQ=
-Date: Tue, 20 Oct 2026 17:11:03 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Mimi Zohar <zohar@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Dionna Glaze <drdeeglaze@gmail.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jarkko Sakkinen <jarkko@kernel.org>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-	roberto.sassu@huawei.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <ateSly15N5mLrM1m@e129823.arm.com>
-References: <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
- <20261017203407.GM13920@nvidia.com>
- <atPgqROZZxnihYfC@kernel.org>
- <20261017231007.GP13920@nvidia.com>
- <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
- <atX9fugGUsI0hGcA@FV6GYCPJ69>
- <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
- <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
- <20261020140655.GV13920@nvidia.com>
- <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
+	t=1792512710; bh=JvYp5A9GETNlfpQxlRjSH9/++M7IGKhy58KqiTyx1fs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ylv/EMm1/P1GVqg6OHUXHzq3X8PhUt5hV70PB/zh0g5qc8LQcjqj+e4Jp54IoK7WN
+	 KXZTHfJNPvs7ipTULxQRLULDfWGHNIzwGZsoDfByEXvmqSVjWS9maeRDgSxqjALrY4
+	 7kDK3M96Vq3RJtwMQEWUUCkNkJUzjYfNWbVHNDP0=
+Message-ID: <cf4e3153-ff80-4d0d-94f7-572a26f369c1@arm.com>
+Date: Tue, 20 Oct 2026 17:11:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,73 +53,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/5] cpufreq: CPPC: Preserve OSPM-set registers across
+ hotplug and unload
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org, pierre.gondois@arm.com, ionela.voinescu@arm.com,
+ zhenglifeng1@huawei.com, zhanjie9@hisilicon.com, lenb@kernel.org,
+ ray.huang@amd.com, mario.limonciello@amd.com, perry.yuan@amd.com,
+ kprateek.nayak@amd.com, maciej.wieczor-retman@intel.com,
+ pawel.chmielewski@intel.com, linux-pm@vger.kernel.org,
+ linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
+ vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com,
+ mochs@nvidia.com, bbasu@nvidia.com
+References: <20261020121846.691218-1-sumitg@nvidia.com>
+ <20261020121846.691218-5-sumitg@nvidia.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261020121846.691218-5-sumitg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-> On Tue, 2026-10-20 at 11:06 -0300, Jason Gunthorpe wrote:
-> > On Tue, Oct 20, 2026 at 09:45:13AM -0400, Mimi Zohar wrote:
-> > > On Mon, 2026-10-19 at 09:10 -0700, Dionna Glaze wrote:
-> > > > On Mon, Oct 19, 2026 at 5:08 AM Jiri Pirko <jiri@resnulli.us> wrote:
-> > > > > 
-> > > > > Yeah, I was thinking about this and went back and forth. In the end, the
-> > > > > only reason for leaving it unbounded is to allow multiple independent
-> > > > > users of the same register. For example, IMA and systemd could share a
-> > > > > TDX RTMR. The systemd side would read the journal through the
-> > > > > attestation device and the IMA side through securityfs, but both are
-> > > > > views of the same journal. If one side truncated it, the other could no
-> > > > > longer replay the RTMR. Isn't this the valid usecase? Do you see how to
-> > > > > resolve this?
-> > > > > 
-> > > > 
-> > > > Bright minds have spent a significant amount of time working on this.
-> > > > 
-> > > > +Roberto Sassu, +Mimi Zohar
-> > > 
-> > > Dionna, thank you for including us in this discussion.
-> > > 
-> > > Based on my questioning AI, it sounds like the purpose of this patch set is to
-> > > introduce a vendor-agnostic common attestation subsystem framework that can act
-> > > as an internal kernel multiplexor for any measurement consumer, like IMA or
-> > > DRTM. By providing a direct kernel-to-kernel call path, it allows measurements
-> > > to be routed to different Roots of Trust (ROT)—such as physical motherboard
-> > > TPMs, Intel TDX RTMRs, AMD SEV-SNP registers, and PCIe SPDM devices—without
-> > > hardcoding IMA to specific device drivers.
-> > 
-> > Yeah, I would say that is the eventual goal, this patch series would
-> > be the first small step along those lines
-> > 
-> > > To support this framework, IMA requires a strict, atomic execution sequence to
-> > > maintain the Measure → Extend → Execute (Measure Before Use) guarantee. This
-> > > initializes early during the late_initcall phase within the initramfs (via
-> > > dracut).
-> > > 
-> > > If the new subsystem introduces a direct kernel-to-kernel multiplexing call
-> > > path, how will it ensure the mandatory synchronous wait behavior when extending
-> > > multiple hardware backends?
-> > 
-> > Everything has this 'measure before use' requirement. Why would this
-> > be hard? Just loop over all the configured measurement targets if
-> > thats the plan? Maybe I'm missing something?
+On 10/20/26 13:18, Sumit Gupta wrote:
+> Values written to OSPM-set CPPC registers via sysfs can be lost in two
+> ways:
 > 
-> As long as the measurements aren't queued, but actually wait for the multiple
-> ROTs to complete, it isn't a problem.
+>   - Across CPU hotplug: the platform may reset a CPU's registers while it
+>     is offline.
+>   - On driver unload: the value the driver wrote is left in the register
+>     instead of returning to its pre-driver state.
+> 
+> Add a small table-driven mechanism that handles both:
+> 
+>   - On init(), capture each register's firmware value before the
+>     driver programs anything.
+>   - On offline(), read back each register's current value (whatever was
+>     last set via sysfs) so it can be reapplied, then restore the firmware
+>     value.
 
-But, I have a related concern about deferred probing of RoT devices.
+Sorry for the late suggestion, but all the ospm-set registers I think we can
+save ourselves some headache by just saving these at sysfs_store (and not deal
+with potential read-errors during offline/suspend (which actually may happen!).
 
-For example, if TPM probing is deferred until after the attestation
-subsystem has been initialized, how would the subsystem handle the
-TPM becoming available later (This is reason for IMA_INIT_LATE_SYNC).
+>   - On online(), reapply the value captured at offline() after
+>     reprogramming the performance controls. A failed write to the controls
+>     does not skip the reapply, as no other path restores these registers.
+>   - On exit(), nothing is needed, as the core calls offline() first, which
+>     already restored the firmware values.
+> 
+> Cover the Autonomous Selection (auto_sel), Energy Performance Preference
+> (EPP) and Autonomous Activity Window (auto_act_window) registers. Writes
+> to EPP and auto_act_window only have meaning while auto_sel is enabled,
+> so write auto_sel before them when enabling it and after them when
+> disabling it. While autonomous selection stays disabled, the platform may
+> ignore those writes.
+> 
+> Suggested-by: Pierre Gondois <pierre.gondois@arm.com>
+> Link: https://lore.kernel.org/all/86780f97-29ee-4a72-b311-38c89434b707@arm.com/
+> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+> ---
+>  drivers/cpufreq/cppc_cpufreq.c | 176 ++++++++++++++++++++++++++++++++-
+>  1 file changed, 173 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+> index 9e1214e1cb0d..1b733f15d641 100644
+> --- a/drivers/cpufreq/cppc_cpufreq.c
+> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> @@ -29,6 +29,166 @@
+>  
+>  static struct cpufreq_driver cppc_cpufreq_driver;
+>  
+> +/*
+> + * OSPM-set CPPC registers tracked for save/restore. A value the OS wrote is
+> + * reapplied from online() across CPU hotplug, and the firmware value is
+> + * restored from offline().
+> + *
+> + * Autonomous Selection (auto_sel) is kept first, as the registers after it
+> + * only have meaning while it is enabled.
+> + */
+> +enum cppc_saved_reg_id {
+> +	CPPC_SAVED_AUTO_SEL,
+> +	CPPC_SAVED_EPP,
+> +	CPPC_SAVED_AUTO_ACT_WINDOW,
+> +	CPPC_NR_SAVED_REGS,
+> +};
+> +
+> +struct cppc_saved_reg {
+> +	const char *name;
+> +	int (*get)(int cpu, u64 *val);
+> +	int (*set)(int cpu, u64 val);
+> +};
+> +
+> +static const struct cppc_saved_reg cppc_saved_regs[CPPC_NR_SAVED_REGS] = {
+> +	[CPPC_SAVED_AUTO_SEL] = {
+> +		.name = "auto_sel",
+> +		.get = cppc_get_auto_sel,
+> +		.set = cppc_set_auto_sel,
+> +	},
+> +	[CPPC_SAVED_EPP] = {
+> +		.name = "epp",
+> +		.get = cppc_get_epp_perf,
+> +		.set = cppc_set_epp,
+> +	},
+> +	[CPPC_SAVED_AUTO_ACT_WINDOW] = {
+> +		.name = "auto_act_window",
+> +		.get = cppc_get_auto_act_window,
+> +		.set = cppc_set_auto_act_window,
+> +	},
+> +};
+> +
+> +enum cppc_saved_type {
+> +	CPPC_SAVED_FIRMWARE,
+> +	CPPC_SAVED_REQUESTED,
+> +	CPPC_NR_SAVED_TYPES,
+> +};
+> +
+> +/*
+> + * Per-policy values saved for each register in cppc_saved_regs[], U64_MAX
+> + * if there is none:
+> + *   CPPC_SAVED_FIRMWARE  - value before the driver touched it, captured at
+> + *                          init() and written back when the policy goes
+> + *                          offline
+> + *   CPPC_SAVED_REQUESTED - value in effect when the policy last went offline,
+> + *                          reapplied at online()
+> + */
+> +struct cppc_policy_state {
+> +	u64 regs[CPPC_NR_SAVED_REGS][CPPC_NR_SAVED_TYPES];
+> +};
+> +
+> +static DEFINE_PER_CPU(struct cppc_policy_state, cppc_policy_state);
+> +
+> +/*
+> + * Per-policy state is kept in the per-CPU variable of the first CPU the policy
+> + * manages. related_cpus (the policy's full set of CPUs) never changes while the
+> + * policy exists, so this CPU (unlike policy->cpu) stays the same across CPU
+> + * hotplug, and every callback reaches the same copy.
+> + */
+> +static struct cppc_policy_state *
+> +cppc_cpufreq_policy_state(struct cpufreq_policy *policy)
+> +{
+> +	const struct cpumask *policy_cpus = policy->related_cpus;
+> +
+> +	/*
+> +	 * related_cpus is empty until the core fills it in after init(), so
+> +	 * fall back to policy->cpus, which has the same first CPU.
+> +	 */
+> +	if (cpumask_empty(policy_cpus))
+> +		policy_cpus = policy->cpus;
+> +
+> +	return &per_cpu(cppc_policy_state, cpumask_first(policy_cpus));
+> +}
+> +
+> +/*
+> + * Save each register's current value, either as the firmware value, captured
+> + * before the driver programs anything, or as the requested value, to reapply
+> + * at online().
+> + */
+> +static void cppc_cpufreq_save_regs(struct cpufreq_policy *policy,
+> +				   enum cppc_saved_type saved_type)
+> +{
+> +	struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
+> +	unsigned int cpu = policy->cpu;
+> +	u64 val;
+> +	int i;
+> +
+> +	for (i = 0; i < CPPC_NR_SAVED_REGS; i++) {
+> +		if (cppc_saved_regs[i].get(cpu, &val))
+> +			val = U64_MAX;
+> +
+> +		st->regs[i][saved_type] = val;
+> +		if (saved_type == CPPC_SAVED_FIRMWARE)
+> +			st->regs[i][CPPC_SAVED_REQUESTED] = U64_MAX;
+> +	}
+> +}
+> +
+> +/*
+> + * Write one tracked register, skipping it when there is no saved value.
+> + * A register the platform does not allow writing is not an error.
+> + */
+> +static void cppc_cpufreq_write_saved_reg(unsigned int cpu,
+> +					 enum cppc_saved_reg_id reg, u64 val,
+> +					 enum cppc_saved_type saved_type)
+> +{
+> +	const char *op = (saved_type == CPPC_SAVED_FIRMWARE) ?
+> +			 "restore firmware" : "reapply saved";
+> +	int ret;
+> +
+> +	if (val == U64_MAX)
+> +		return;
+> +
+> +	ret = cppc_saved_regs[reg].set(cpu, val);
+> +	if (ret == -EOPNOTSUPP)
+> +		return;
+> +	if (ret)
+> +		pr_debug("Failed to %s %s=%llu on CPU%u (%d)\n", op,
+> +			 cppc_saved_regs[reg].name, val, cpu, ret);
+> +}
+> +
+> +/*
+> + * Apply the saved firmware or requested value to each tracked register.
+> + *
+> + * Write auto_sel first when the value being applied enables autonomous
+> + * selection and last when it disables it, so the writes to the dependent
+> + * registers can still take effect. While autonomous selection stays disabled,
+> + * the platform may ignore those writes. Do not enable it temporarily to force
+> + * them through.
+> + */
+> +static void cppc_cpufreq_apply_saved_regs(struct cpufreq_policy *policy,
+> +					  enum cppc_saved_type saved_type)
+> +{
+> +	const struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
+> +	unsigned int cpu = policy->cpu;
+> +	u64 auto_sel, val;
+> +	int i;
+> +
+> +	auto_sel = st->regs[CPPC_SAVED_AUTO_SEL][saved_type];
+> +
+> +	if (auto_sel)
+> +		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
+> +					     saved_type);
+> +
+> +	for (i = CPPC_SAVED_AUTO_SEL + 1; i < CPPC_NR_SAVED_REGS; i++) {
+> +		val = st->regs[i][saved_type];
+> +		cppc_cpufreq_write_saved_reg(cpu, i, val, saved_type);
+> +	}
+> +
+> +	if (!auto_sel)
+> +		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
+> +					     saved_type);
+> +}
+> +
+>  #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
+>  static enum {
+>  	FIE_UNSET = -1,
+> @@ -800,6 +960,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+>  	policy->cur = cppc_perf_to_khz(caps, desired_perf);
+>  	cpu_data->perf_ctrls.desired_perf = desired_perf;
+>  
+> +	cppc_cpufreq_save_regs(policy, CPPC_SAVED_FIRMWARE);
+> +
+>  	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+>  	if (ret) {
+>  		pr_debug("Err setting perf value:%d on CPU:%d. ret:%d\n",
+> @@ -843,12 +1005,14 @@ static void cppc_cpufreq_cpu_exit(struct cpufreq_policy *policy)
+>   *
+>   * The platform may have disabled CPPC and reset the performance controls
+>   * (desired, min and max performance) while the CPU was offline, so re-enable
+> - * CPPC and reprogram them.
+> + * CPPC and reprogram them. Also reapply the OSPM-set registers that offline()
+> + * reset to firmware values.
+>   *
+>   * Report failures without returning them, or the core would free the policy and
+>   * leave the CPU without cpufreq. A failed write to the performance controls is
+> - * not fatal, as the governor's next request programs them again. A failed CPPC
+> - * enable stops the restore, as the writes that follow may not reach the
+> + * not fatal, as the governor's next request programs them again. The OSPM-set
+> + * registers are reapplied even then, as no other path restores them. A failed
+> + * CPPC enable skips both restores, as the writes that follow may not reach the
+>   * platform.
+>   */
+>  static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
+> @@ -896,6 +1060,8 @@ static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
+>  		WRITE_ONCE(cpu_data->perf_limits_valid, true);
+>  	}
+>  
+> +	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_REQUESTED);
+> +
+>  out_fie:
+>  	/* Restart what offline() stopped, with a new counter snapshot. */
+>  	cppc_cpufreq_cpu_fie_init(policy);
+> @@ -915,6 +1081,10 @@ static int cppc_cpufreq_cpu_offline(struct cpufreq_policy *policy)
+>  	unsigned int cpu = policy->cpu;
+>  	int ret;
+>  
+> +	/* Save what the OS set, and leave the platform in its pre-driver state. */
+> +	cppc_cpufreq_save_regs(policy, CPPC_SAVED_REQUESTED);
+> +	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_FIRMWARE);
+> +
+>  	/*
+>  	 * Stop the frequency invariance updates and cancel the pending work, so
+>  	 * that no sample spans the offline window. online() restarts them with
 
-In particular, when I see breifly proviers/tdx.c and imange for TPM,
-once if it's failed to get tpm_default_chip() in module_init(),
-There is no way to retry and TPM seems not to be exported as RoT device.
-
-Am I missing something?
-
--- 
-Sincerely,
-Yeoreum Yun
