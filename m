@@ -1,101 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792455399;
-	b=2PFncWO9DtC5BLg+8HNpJrYmCFxc9zvJjrjqTPK8Ai8Bs6JJburLTko2Nx9Kof6wakuR
-	 Gz/1+WhBpJvr5IZF0K5JdNBf+9+bPDSgNj59PjkMOqYanTT9YSJcN0hN3JtD7GBkQNR7B
-	 dCovKgHi0VP/sndrWicR01Lst4iDqXsk2x6raqqd+7PbnW0SjXIva/eYoyxlcnbsNYBoy
-	 HlUk4mxqFQEMaELBf0aAi6jyMGwVT32W8fqz45Rf2DgGDcYM39WtXx4nu59Vzsed4eHa0
-	 P7RugDbtiwaX8X7DAnVV9TfemezTQdfkCJ8y0sLkv+Iakmjh8XYkxtRp5B7C2kjlhgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455399;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oeN6lMsAWhAX3rKxSpB3MVxlEglVTKUqWIRPPdmiiXQ=;
-	b=5JAVaoTBXJVEZLRA5Mm+qu544JPj97cq6E08XQkb/h+4T+qOurErIvjeVzzuVo/X+I1b
-	 bfM78ztMOvp5A3hpnG2gZkli1gC3SbK6yLMF6wiMNKNajWvMSezTLZ16nKz+u4aQK5Rc2
-	 PgKjOnP2/7ik5Ow71euf8GA29PNGCUJ3896gkHqrEjgQkUUoq3dgdoCgmJxCLVs1/vVM3
-	 qu+dk+SjeJMpL8k0diZ5vznH26QKafxaBea5GoWOMLnjdJCoR89/5dN6IUr9vSGb+tx97
-	 CuKwnr4bpJ/ksO1AY4rOjMjH9MKg2ubMhcaQI13Vcs/7L1Gx5tWGaGBNgPITGyAYpxA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtSaiqpa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792455402;
+	b=1hK1bH3sXI4iUNoXtSObPBLfY2tgm9sCKQMjtZlxOoq6wi+fCFr+eYKkYe3McHD874EE
+	 u+BGXVhVGsUcPVjp1w9ZcyU8tXeEYV3tJZwV8LNeOygI3k7OJLDGtrbj0qXI7ANqBZMxa
+	 ymTuobGvht+LfUb3K7sbP8iaudl8VjSQccIzzdFFEIM08Sanh/cCijZGiB0gLe/XDheFs
+	 5O73+mssVERHv88beykmpLdZgwVm45+Nx78wnU92uFH3+99vWSvI2tiHdMwFicqgUtgA4
+	 P7s82lvJVDe+iplYdXAePSp/ZOBARsL8hJEshI8NstV6IkW8uySKnZ8RJc8en6LP4gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455402;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=HOD+pvsCAakPIqAhHkyWdm2kYq6q1N6qhotia7J/S1c=;
+	b=VGv8ZBtVViLa5kMj4c7rAD+DVRzTnzZQwgggjp0yo1jjaO25Db5S58hJ9nU5BTtjNh+N
+	 bYkX9m5BgYbl22KWWT97r69iDG6szTNCQtKaKZGTpfAHKZg2A/+qGaoc0JVS7mExwJOC9
+	 mFhhw7fjtW0RPLxscKQLf9ZW7AnhT/8+21tdq3C/rYRFEGlGXcLhOq0LSsanGZqqrJ0WG
+	 UKbDk2DTEbeIztw00VbtYYK6m1wDrkisxJEOk1kZQY9TOCC3NGEGiJA042DDcj+DCtPCJ
+	 K9cbLuLqqXI5jtA8tiM3Ngmfvurogs96xS/1y1EXGZumiOrBbZcF14MgVQuqDmX3vrw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0A9606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:16:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC0A9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtSaiqpa
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8ab3d3c5761so22027487b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:16:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792455398; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UJDz6ehxK+UuZ2uydEOOX1e7Arrj3r0082n8dN82WYwdLV6LLPAr/FUAozWOUwykvL
-         8Y+lzYSkLHGArAuYpXmPY4jle+uetiX8IkhM5+Ow8LwY61JXWCqMLHANMXSyReJvow+p
-         AcWSQUf1YRQtdKOU9uBLWcB2wgpHJvydtG7j9pD1yyVk0P1VdT73yX9mSPq/6HKOkxwZ
-         HGB8GgL9YN7Nib6oc2VtDtC5raJomneuImhhUZYfExArMBNtds+QROL6iywpPftrN0ZP
-         Tj9iLuGxQ5HuApeJC2K5QIUWx/2aYOIg34HB0wSSi8fPDg5h/WJq667JOytkc5bWLQuN
-         s2Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oeN6lMsAWhAX3rKxSpB3MVxlEglVTKUqWIRPPdmiiXQ=;
-        fh=fXJUSflQwC3BW86F6ZR+WqQoZxayrlRLvyZZJ3aPHPI=;
-        b=U3A0Kvz8BsOEA5cXZAeO0wkYBIrJGg0cn3wwifVbHhw9EFfvH5+NXkUtgYQG9GA/XL
-         YRfXBTPR+pvbUhbg89grpTZnhx1nvv3bvkdIJ3QHbqsb0RjuS+3viv9cp0eQ+DfDeRNX
-         GwtLrjE5reBfI+LQ5LcowDbzsi40DOjaH4MOBf2MThUETXYzsdDlrn1KoHDfkZcFBpdQ
-         BHE9hcac6Eo23Yett24lyjxbDd6jI+PqfOEqFN3d+eB2ZATpie3lpyeSm9vmTe0r5zLv
-         f/upaSAosJnlyvIppY9hg1XN7J8LXCSOfIXmcZi/88aSjFtBtJ5xNiLegWF6OUmI81p8
-         hzOg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792455398; x=1793060198; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oeN6lMsAWhAX3rKxSpB3MVxlEglVTKUqWIRPPdmiiXQ=;
-        b=mtSaiqpaXPHOTOYZxrcYudF+/TTIssk3CHGyluy/NHZU2UHfPIW/kkkts3ygzRgiZM
-         rgcWXcanDp5plSca1bT1nbkKqcNc45w7wHKtkEr+pKo/7wtW0uM16vdarUN3tPMtOsm/
-         3P1TA5Y0CSOkAhJzXUamdiA1a8huenoB6taH1YlIjysj7e3VK++qfLcN7CgcYVIkYW+7
-         +dn/1yn+Zl8BoQUH+EoaR3lS0j3K0uqE12VL+QDzvj4/mYTgwSByJfeVvKfRcl/iKMdt
-         Bva66lFkCqm5lcp5xI9PVxNHzqf4oLSczUzdDMwU8Mbmzj+riuLGAgkRpdv6J5yGKQ9Q
-         N09A==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C933606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C933606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so4365771b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:16:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792455398; x=1793060198;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792455400; x=1793060200;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oeN6lMsAWhAX3rKxSpB3MVxlEglVTKUqWIRPPdmiiXQ=;
-        b=0Qm8eieq8pHwQEZiTBlxTB3ymzsSPY749frTw7BZcpoRgtsv9sPF3tPJe2Csgjv79M
-         yuxJwB5O8bnO4pLXYHrQpNEhxETRmfGnvd1M9MtWd0p+64Uow+CdxJqFZYJmkCMUh5QB
-         ++As5FUT3brbs/M9mkChfhLkCUGauuSJTPB9I+JozNa3LwRH6BnS+ehgGPYHfagOsE+f
-         XlzDOW1TpfJYTNG3TUQcDLtcj0SeN1iDxJALzIZ7ot3xgu1mbtLmoQy0YlN+Q2dPvsss
-         Mkb9YEuRZWoFzamv3BlyxCj6081AlT+nYl84XJHQFK2fjIYF3BlRi5v7had8QyfrW3mk
-         yKiw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUCcrv71SGKVjBHJYSWFxchBbyH1Gda//qKtp7RUoWWUbBKMXQuZfpSG+2s20ATWB+XeUVCxcP2camFR0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzXMKMRnA3ukQZpwKHhYAYlMM9p5Zf1GmDVq2dPU9yhGBEuMiR
-	yK7UaL48fGXuekljKRzi0pnK72nRvSKImcvm1F1zyCQH7dpVmga/I6IWks9hhhYpQ8D3B2Mv/c6
-	mNMS9d11zEankEF2+BZlnVQWlSMdxcPQ=
-X-Gm-Gg: AYBFou2cKc12p8d65XGUAjAK+FEEL488m31vNBQze1x8w9meX72gaWLw1CViQ4bZw0O
-	omVS+TRRxF4Vq9Q719vIGvI8atskR0CYd6mKI/Lzthw3Ga8xe9v0/BWmoKZGHMwa8UDPuMT6shK
-	qjtUyqKm99uy0MAXdxY/efVbW1TUi3SOHFJIFuNCQ6gAdtvLg8qkBj8RPAsAdjVjkYUjclI7e3X
-	QmJ6DLqH/p65ShYPJlnxTHv2XC7+oxvf8EzSiGW03MUXP6brDZEI1RHtaQupdAx5/cRDqUG8YRz
-	JBD/Wg04P5q8skkVxbX4baCK/nMbm6dnK/rGn9N8jAftGqr6m/2D9XOBhA3VItcWn9FbLZKEl7c
-	dIf8ekKiVxzDcwnOYklR5YACAcZP2zh03PwN43FC4zXx7OCsqV3UFqiiCubaE3/9gb7B5KFaoWx
-	Eoo27UCdeYGoUo1UQJw1ojt3pwYpHXNuy8ww==
-X-Received: by 2002:a05:690c:f8c:b0:8b0:f116:122a with SMTP id
- 00721157ae682-8b0f214020cmr42505667b3.14.1792455397879; Mon, 19 Oct 2026
- 17:16:37 -0700 (PDT)
+        bh=HOD+pvsCAakPIqAhHkyWdm2kYq6q1N6qhotia7J/S1c=;
+        b=f4XdgSyDVpkOgd7nOWvAaOr2MR7BCHNRpxF3b8yLjls4crIjho7b/VgROL8AAscLsm
+         MjWfl+Pzv0L2aT+CrFO0OY/ZIwUzby7wiLYoIgEBuEPJFrCssH/f+hYaRehCnCnlesFv
+         yiM1F2ZmHWrzZ16sEuHcizDx5VoN9Dfw4zxTpHXaK+U9W72ypIFuCsYUU6VEsfi3/hVG
+         JIHbxzUkrXkIoDyxG1/ctxQTm3inK0ZAmD+jaQEySN7X1kJ4Pgb3XQwfsBliWIXTrRzL
+         i6MKKrzUdr1JKWdM+limF6KiGtBE2kLTMG/L2+1ksnR8gH+lBXi2SLcrrS6abuMZEgfm
+         /3sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWY6kXXOHrQWt+9ddgW/Woluk6+q4OnPoNCeh/KYR2JPJKg4SJVeoo9UJmgeetqOD4iQcyP0eWlU6wyrM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhtRQnoWoXTv8mwFycgRQjRi/b7ngz+Hc4OB7BQyqI5FOd1SDh
+	R1NVrYEDBj7ceFJthlyWQnKfa9uOCUhzGRzXOZr7wzQJcAr+qy0wIW5kMWwg6+tkKfG8B9iq86h
+	sZ5BOVpZotVQClJtqWkMRIJnLzTcE1r0qDRgkId9+w4yzscMruwQ2Q6rmYUE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,180 +58,296 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
- <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
- <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com> <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
-In-Reply-To: <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Date: Mon, 19 Oct 2026 17:16:27 -0700
-X-Gm-Features: AclHuK_duovmGh6MgK6NvBiqxnyMv5OCjdQqCPJY238RVK32rd2T9hHtvaZrtRM
-Message-ID: <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
+X-Received: by 2002:a05:6808:4f53:b0:4f6:1336:cdf9 with SMTP id
+ 5614622812f47-53cd42a766amr8944900b6e.35.1792455400424; Mon, 19 Oct 2026
+ 17:16:40 -0700 (PDT)
+Date: Mon, 19 Oct 2026 17:16:40 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad6b2e8.b5bd089a.6b57.0083.GAE@google.com>
+Subject: [syzbot] [acpica?] KASAN: slab-use-after-free Read in acpi_ns_check_package
+From: syzbot <syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com>
+To: acpica-devel@lists.linux.dev, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, maciej.wieczor-retman@intel.com, 
+	pawel.chmielewski@intel.com, rafael@kernel.org, robert.moore@intel.com, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 19 Oct 2026 at 16:36, Barry Song <baohua@kernel.org> wrote:
->
-> On Tue, Oct 20, 2026 at 4:33=E2=80=AFAM Siddharth Chintamaneni
-> <sidchintamaneni@gmail.com> wrote:
-> >
-> > On Sun, 18 Oct 2026 at 14:24, Barry Song <baohua@kernel.org> wrote:
-> > >
-> > > On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
-> > > <sidchintamaneni@gmail.com> wrote:
-> > > >
-> > > > Andrew Morton reported that get_lruvec() has the same problem as
-> > > > lru_gen_shrink_node(): when memcg is disabled on the command line
-> > > > (cgroup_disable=3Dmemory), it returns &pgdat->__lruvec directly and=
- so
-> > > > bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
-> > > > interface calls get_lruvec(), then dereferences the pgdat pointer i=
-n
-> > > > lru_gen_seq_show() and other paths, so these can hit the same NULL
-> > > > dereference.
-> > >
-> > > So userspace must have booted, since otherwise we couldn't read
-> > > debugfs. The reachable case is therefore a memory node with no
-> > > LRU folios when debugfs is read? So this could happen on a multi-node
-> > > system where folios are landed on other nodes but not on this node?
-> > >
-> >
-> > That is my high level understanding. I'll let Andrew to comment if I
-> > am missing something,
-> >
->
-> I made a silly toy setup by running two numa nodes with one of them has o=
-nly 4KB
-> memory, the other one has 1G-4K:
->
-> qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53 -no=
-graphic \
-> -smp 4 \
-> -m 1G \
-> -object memory-backend-ram,id=3Dram0,size=3D1048572K \
-> -object memory-backend-ram,id=3Dram1,size=3D4K \
-> -numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
-> -numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
->   -kernel arch/arm64/boot/Image \
->  -nographic -append "cgroup_disable=3Dmemory
-> ...
->
-> Then I got a machine where node1 is very difficult to have a page in lru.
->
-> then i ran the debugfs for mglru:
->
-> / # cat /sys/kernel/debug/lru_gen
-> memcg 0
->  node     0
->           0      14972          0         953
->           1      14972          0           1
->           2      14972         18        3308
->           3      14972          0           0
->  node     1
->           0      14972          0           0
->           1      14972          0           0
->           2      14972          0           0
->           3      14972          0           0
->
-> now you see node 1 has no page in lru but yet i didn't have any crash.
->
-> i think i will need more time to figure out what is the problem and how t=
-o
-> reproduce it.
+Hello,
 
-I've asked AI to repro the issue with the similar setup
+syzbot found the following issue on:
 
-qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53 -nogr=
-aphic \
-  -smp 4 -m 1G \
-  -object memory-backend-ram,id=3Dram0,size=3D1048512K \
-  -object memory-backend-ram,id=3Dram1,size=3D64K \
-  -numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
-  -numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
-  -kernel "$KERNEL" \
-  -initrd "$INITRD" \
-  -no-reboot \
-  -append "console=3DttyAMA0 cgroup_disable=3Dmemory
-initcall_blacklist=3Dkswapd_init panic=3D-1"
+HEAD commit:    0fcb05b72344 Merge tag 'libcrypto-fixes-for-linus' of git:..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10dab29c580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
+dashboard link: https://syzkaller.appspot.com/bug?extid=e1268acad3c273b12120
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-and it was able to repo it. AI identified that kswapd is initializing
-the pgdat during boot, so blacklisting kswap_init was able to repro
-the crash when reading /sys/kernel/debug/lru_gen
+Unfortunately, I don't have any reproducer for this issue yet.
 
-[    1.347868] Unable to handle kernel access to user memory outside
-uaccess routines at virtual address 0000000000005040
-[    1.347920] Mem abort info:
-[    1.347929]   ESR =3D 0x0000000096000005
-[    1.347950]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
-[    1.347964]   SET =3D 0, FnV =3D 0
-[    1.347974]   EA =3D 0, S1PTW =3D 0
-[    1.347986]   FSC =3D 0x05: level 1 translation fault
-[    1.348249] Data abort info:
-[    1.348277]   ISV =3D 0, ISS =3D 0x00000005, ISS2 =3D 0x00000000
-[    1.348291]   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
-[    1.348302]   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0
-[    1.348345] user pgtable: 64k pages, 48-bit VAs, pgdp=3D00000000485f6600
-[    1.348369] [0000000000005040] pgd=3D0800000043640403,
-p4d=3D0800000043640403, pud=3D0800000043640403, pmd=3D0800000043620403,
-pte=3D0000000000000000
-[    1.349148] Internal error: Oops: 0000000096000005 [#1]  SMP
-[    1.350414] Modules linked in:
-[    1.350896] CPU: 0 UID: 0 PID: 1 Comm: init Not tainted 7.3.0-rc7+
-#9 PREEMPT(full)
-[    1.351111] Hardware name: linux,dummy-virt (DT)
-[    1.351411] pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=
-=3D--)
-[    1.351581] pc : lru_gen_seq_show+0x5c/0x460
-[    1.351800] lr : lru_gen_seq_show+0x4c/0x460
-[    1.351898] sp : ffff80008034f9a0
-[    1.351975] x29: ffff80008034fa20 x28: ffff0000035e67e8 x27: 00000000004=
-00cc0
-[    1.352297] x26: 000000007fff0000 x25: ffff0000035e67d8 x24: 00000000000=
-00000
-[    1.352454] x23: ffff80008034fb00 x22: ffff80008034fb28 x21: 00000000000=
-00000
-[    1.352626] x20: ffff0000035e67b0 x19: ffff00003ffc2f20 x18: ffff8000803=
-60060
-[    1.352775] x17: 0000000000000000 x16: 0000000000000000 x15: 00000000000=
-00000
-[    1.352915] x14: 0000000000000000 x13: 0000000000000000 x12: 00000000000=
-00000
-[    1.353058] x11: 0000000000000000 x10: 0000000000000000 x9 : ffffa3468a0=
-20c5c
-[    1.353226] x8 : ffff000008b07000 x7 : 0000000000000000 x6 : 00000000000=
-0003f
-[    1.353367] x5 : 00000000ffffffff x4 : 0000000000000003 x3 : 00000000000=
-01000
-[    1.353511] x2 : ffff00003ffc2f20 x1 : 0000000000004000 x0 : 00000000000=
-00000
-[    1.353732] Call trace:
-[    1.353925]  lru_gen_seq_show+0x5c/0x460 (P)
-[    1.354110]  seq_read_iter+0xec/0x4c0
-[    1.354213]  seq_read+0xfc/0x148
-[    1.354290]  full_proxy_read+0x78/0xc0
-[    1.354377]  vfs_read+0xd0/0x338
-[    1.354453]  ksys_read+0x7c/0x120
-[    1.354528]  __arm64_sys_read+0x24/0x40
-[    1.354611]  invoke_syscall+0xa8/0x120
-[    1.354695]  el0_svc_common.constprop.0+0x4c/0x100
-[    1.354791]  do_el0_svc+0x28/0x40
-[    1.354865]  el0_svc+0x48/0x2b0
-[    1.354939]  el0t_64_sync_handler+0xa8/0xf0
-[    1.355026]  el0t_64_sync+0x1b8/0x1c0
-[    1.355250] Code: f9000fe0 f9432661 aa1303e2 91401021 (b9504033)
-[    1.355647] ---[ end trace 0000000000000000 ]---
-[    1.356555] Kernel panic - not syncing: Attempted to kill init!
-exitcode=3D0x0000000b
-[    1.356888] SMP: stopping secondary CPUs
-[    1.357525] Kernel Offset: 0x234609c00000 from 0xffff800080000000
-[    1.357675] PHYS_OFFSET: 0x40000000
-[    1.357762] CPU features: 0x0,00000000,09000020,00100002,0800821b
-[    1.357901] Memory Limit: none
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-0fcb05b7.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d63a4093e9d7/vmlinux-0fcb05b7.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/238bf14f8b3f/bzImage-0fcb05b7.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e1268acad3c273b12120@syzkaller.appspotmail.com
+
+ACPI Error: AE_NO_MEMORY, Could not update object reference count (20260408/utdelete-651)
+FAULT_INJECTION: forcing a failure.
+name failslab, interval 1, probability 0, space 0, times 0
+CPU: 0 UID: 0 PID: 5326 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ fail_dump lib/fault-inject.c:73 [inline]
+ should_fail_ex+0x410/0x560 lib/fault-inject.c:174
+ should_failslab+0xa8/0x100 mm/failslab.c:46
+ slab_pre_alloc_hook mm/slub.c:4638 [inline]
+ slab_alloc_node mm/slub.c:4974 [inline]
+ kmem_cache_alloc_noprof+0xa1/0x600 mm/slub.c:5010
+ acpi_ut_create_generic_state drivers/acpi/acpica/utstate.c:90 [inline]
+ acpi_ut_create_update_state+0x76/0x110 drivers/acpi/acpica/utstate.c:165
+ acpi_ut_create_update_state_and_push+0x2a/0x70 drivers/acpi/acpica/utmisc.c:172
+ acpi_ut_update_object_reference+0x2c0/0x870 drivers/acpi/acpica/utdelete.c:563
+ acpi_ds_do_implicit_return+0x2ba/0x3c0 drivers/acpi/acpica/dsutils.c:113
+ acpi_ds_is_result_used+0x7a/0x8c0 drivers/acpi/acpica/dsutils.c:156
+ acpi_ds_delete_result_if_not_used+0xb1/0x190 drivers/acpi/acpica/dsutils.c:320
+ acpi_ds_exec_end_op+0x1015/0x1b00 drivers/acpi/acpica/dswexec.c:740
+ acpi_ps_parse_loop+0xfa3/0x23f0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x388/0x1020 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_method+0x89d/0xa70 drivers/acpi/acpica/psxface.c:190
+ acpi_ns_evaluate+0xd05/0x1320 drivers/acpi/acpica/nseval.c:205
+ acpi_ut_evaluate_object+0xe1/0x560 drivers/acpi/acpica/uteval.c:60
+ acpi_rs_get_prt_method_data+0xb2/0x150 drivers/acpi/acpica/rsutils.c:446
+ acpi_get_irq_routing_table+0x98/0xe0 drivers/acpi/acpica/rsxface.c:137
+ acpi_pci_irq_find_prt_entry+0x163/0x1040 drivers/acpi/pci_irq.c:215
+ acpi_pci_irq_lookup+0x45/0x690 drivers/acpi/pci_irq.c:299
+ acpi_pci_irq_disable+0x151/0x340 drivers/acpi/pci_irq.c:499
+ do_pci_disable_device drivers/pci/pci.c:2203 [inline]
+ pci_disable_device+0x1d6/0x320 drivers/pci/pci.c:2239
+ pci_device_remove+0x99/0x1c0 drivers/pci/pci-driver.c:535
+ device_remove drivers/base/dd.c:616 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
+ pci_stop_dev drivers/pci/remove.c:27 [inline]
+ pci_stop_bus_device+0xf6/0x120 drivers/pci/remove.c:94
+ pci_stop_and_remove_bus_device drivers/pci/remove.c:129 [inline]
+ pci_stop_and_remove_bus_device_locked+0x77/0xb0 drivers/pci/remove.c:137
+ remove_store+0xe5/0x150 drivers/pci/pci-sysfs.c:524
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f32c179e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f32c2588fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f32c1a25fa0 RCX: 00007f32c179e559
+RDX: 0000000000000001 RSI: 0000200000000580 RDI: 0000000000000009
+RBP: 00007f32c18358b0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f32c1a26038 R14: 00007f32c1a25fa0 R15: 00007fff5dc47ed8
+ </TASK>
+ACPI Error: AE_NO_MEMORY, Could not update object reference count (20260408/utdelete-651)
+==================================================================
+BUG: KASAN: slab-use-after-free in acpi_ns_check_package+0x163c/0x1950 drivers/acpi/acpica/nsprepkg.c:274
+Read of size 1 at addr ffff888000d624e9 by task syz.0.0/5326
+
+CPU: 0 UID: 0 PID: 5326 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ acpi_ns_check_package+0x163c/0x1950 drivers/acpi/acpica/nsprepkg.c:274
+ acpi_ns_check_return_value+0x22f/0x3a0 drivers/acpi/acpica/nspredef.c:136
+ acpi_ns_evaluate+0xd5f/0x1320 drivers/acpi/acpica/nseval.c:261
+ acpi_ut_evaluate_object+0xe1/0x560 drivers/acpi/acpica/uteval.c:60
+ acpi_rs_get_prt_method_data+0xb2/0x150 drivers/acpi/acpica/rsutils.c:446
+ acpi_get_irq_routing_table+0x98/0xe0 drivers/acpi/acpica/rsxface.c:137
+ acpi_pci_irq_find_prt_entry+0x163/0x1040 drivers/acpi/pci_irq.c:215
+ acpi_pci_irq_lookup+0x45/0x690 drivers/acpi/pci_irq.c:299
+ acpi_pci_irq_disable+0x151/0x340 drivers/acpi/pci_irq.c:499
+ do_pci_disable_device drivers/pci/pci.c:2203 [inline]
+ pci_disable_device+0x1d6/0x320 drivers/pci/pci.c:2239
+ pci_device_remove+0x99/0x1c0 drivers/pci/pci-driver.c:535
+ device_remove drivers/base/dd.c:616 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
+ pci_stop_dev drivers/pci/remove.c:27 [inline]
+ pci_stop_bus_device+0xf6/0x120 drivers/pci/remove.c:94
+ pci_stop_and_remove_bus_device drivers/pci/remove.c:129 [inline]
+ pci_stop_and_remove_bus_device_locked+0x77/0xb0 drivers/pci/remove.c:137
+ remove_store+0xe5/0x150 drivers/pci/pci-sysfs.c:524
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f32c179e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f32c2588fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f32c1a25fa0 RCX: 00007f32c179e559
+RDX: 0000000000000001 RSI: 0000200000000580 RDI: 0000000000000009
+RBP: 00007f32c18358b0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f32c1a26038 R14: 00007f32c1a25fa0 R15: 00007fff5dc47ed8
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:351 [inline]
+ __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:377
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x2b9/0x600 mm/slub.c:5010
+ acpi_ut_allocate_object_desc_dbg+0x8c/0x230 drivers/acpi/acpica/utobject.c:359
+ acpi_ut_create_internal_object_dbg+0x4d/0x310 drivers/acpi/acpica/utobject.c:69
+ acpi_ds_build_internal_package_obj+0x126/0xbe0 drivers/acpi/acpica/dspkginit.c:92
+ acpi_ds_eval_data_object_operands+0x337/0x5c0 drivers/acpi/acpica/dsopcode.c:638
+ acpi_ds_exec_end_op+0x1307/0x1b00 drivers/acpi/acpica/dswexec.c:-1
+ acpi_ps_parse_loop+0xfa3/0x23f0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x388/0x1020 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_table+0x352/0x440 drivers/acpi/acpica/psxface.c:295
+ acpi_ns_execute_table+0x5d0/0x890 drivers/acpi/acpica/nsparse.c:116
+ acpi_ns_parse_table+0xef/0x170 drivers/acpi/acpica/nsparse.c:268
+ acpi_ns_load_table+0x131/0x430 drivers/acpi/acpica/nsload.c:71
+ acpi_tb_load_namespace+0x2ca/0x880 drivers/acpi/acpica/tbxfload.c:158
+ acpi_load_tables+0x53/0xf0 drivers/acpi/acpica/tbxfload.c:59
+ acpi_bus_init+0x82/0x360 drivers/acpi/bus.c:1373
+ acpi_init+0xa1/0x1f0 drivers/acpi/bus.c:1486
+ do_one_initcall+0x250/0x870 init/main.c:1362
+ do_initcall_level+0x10a/0x1a0 init/main.c:1424
+ do_initcalls+0x59/0xa0 init/main.c:1440
+ kernel_init_freeable+0x29d/0x3e0 init/main.c:1675
+ kernel_init+0x22/0x1d0 init/main.c:1565
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 5326:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kmem_cache_free+0x182/0x650 mm/slub.c:6636
+ acpi_os_release_object+0x1d/0x30 drivers/acpi/osl.c:1661
+ acpi_ut_delete_object_desc+0x9b/0x110 drivers/acpi/acpica/utobject.c:402
+ acpi_ut_delete_internal_obj drivers/acpi/acpica/utdelete.c:316 [inline]
+ acpi_ut_update_ref_count+0x174c/0x1d10 drivers/acpi/acpica/utdelete.c:436
+ acpi_ut_update_object_reference+0x4a8/0x870 drivers/acpi/acpica/utdelete.c:632
+ acpi_ds_clear_implicit_return+0x156/0x1f0 drivers/acpi/acpica/dsutils.c:55
+ acpi_ds_exec_end_control_op+0x533/0xe00 drivers/acpi/acpica/dscontrol.c:226
+ acpi_ds_exec_end_op+0x799/0x1b00 drivers/acpi/acpica/dswexec.c:462
+ acpi_ps_parse_loop+0xfa3/0x23f0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x388/0x1020 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_method+0x89d/0xa70 drivers/acpi/acpica/psxface.c:190
+ acpi_ns_evaluate+0xd05/0x1320 drivers/acpi/acpica/nseval.c:205
+ acpi_ut_evaluate_object+0xe1/0x560 drivers/acpi/acpica/uteval.c:60
+ acpi_rs_get_prt_method_data+0xb2/0x150 drivers/acpi/acpica/rsutils.c:446
+ acpi_get_irq_routing_table+0x98/0xe0 drivers/acpi/acpica/rsxface.c:137
+ acpi_pci_irq_find_prt_entry+0x163/0x1040 drivers/acpi/pci_irq.c:215
+ acpi_pci_irq_lookup+0x45/0x690 drivers/acpi/pci_irq.c:299
+ acpi_pci_irq_disable+0x151/0x340 drivers/acpi/pci_irq.c:499
+ do_pci_disable_device drivers/pci/pci.c:2203 [inline]
+ pci_disable_device+0x1d6/0x320 drivers/pci/pci.c:2239
+ pci_device_remove+0x99/0x1c0 drivers/pci/pci-driver.c:535
+ device_remove drivers/base/dd.c:616 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
+ pci_stop_dev drivers/pci/remove.c:27 [inline]
+ pci_stop_bus_device+0xf6/0x120 drivers/pci/remove.c:94
+ pci_stop_and_remove_bus_device drivers/pci/remove.c:129 [inline]
+ pci_stop_and_remove_bus_device_locked+0x77/0xb0 drivers/pci/remove.c:137
+ remove_store+0xe5/0x150 drivers/pci/pci-sysfs.c:524
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff888000d624e0
+ which belongs to the cache Acpi-Operand of size 72
+The buggy address is located 9 bytes inside of
+ freed 72-byte region [ffff888000d624e0, ffff888000d62528)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xd62
+flags: 0x7ff00000000000(node=0|zone=0|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 007ff00000000000 ffff88801c0a0dc0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000200270027 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 3956366881
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7418
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
+ acpi_ut_allocate_object_desc_dbg+0x8c/0x230 drivers/acpi/acpica/utobject.c:359
+ acpi_ut_create_internal_object_dbg+0x4d/0x310 drivers/acpi/acpica/utobject.c:69
+ acpi_ds_build_internal_object+0x294/0x690 drivers/acpi/acpica/dsobject.c:94
+ acpi_ds_build_internal_package_obj+0x599/0xbe0 drivers/acpi/acpica/dspkginit.c:202
+ acpi_ds_eval_data_object_operands+0x337/0x5c0 drivers/acpi/acpica/dsopcode.c:638
+ acpi_ds_exec_end_op+0x1307/0x1b00 drivers/acpi/acpica/dswexec.c:-1
+ acpi_ps_parse_loop+0xfa3/0x23f0 drivers/acpi/acpica/psloop.c:553
+ acpi_ps_parse_aml+0x388/0x1020 drivers/acpi/acpica/psparse.c:489
+ acpi_ps_execute_table+0x352/0x440 drivers/acpi/acpica/psxface.c:295
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff888000d62380: fb fc fc fc fc fa fb fb fb fb fb fb fb fb fc fc
+ ffff888000d62400: fc fc 00 00 00 00 00 00 00 00 00 fc fc fc fc 00
+>ffff888000d62480: 00 00 00 00 00 00 00 00 fc fc fc fc fa fb fb fb
+                                                          ^
+ ffff888000d62500: fb fb fb fb fb fc fc fc fc fa fb fb fb fb fb fb
+ ffff888000d62580: fb fb fc fc fc fc fa fb fb fb fb fb fb fb fb fc
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
