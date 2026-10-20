@@ -1,62 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503384;
-	b=TL2OdW9LmymSKUrSScnPJQrtK+riUST7+zypbTm717FVwZ2UliBMlZc/IgtgJyaEvlpl
-	 7BsrmgImNxO4awGZwWzd1SdzCSHn9S7VU3b4H3AJGm7ozEqh/wJVlUtc5i0o6z/QbmE3l
-	 frDENW8HQ/gh41j6N8d8nswrsDfo5fTRZndIYHQddpFsGFlQcMScvi988lgNoRWcDza+Y
-	 IrJzji0KIj5oH1qXyW9pq5/REiBbZo2/U3mvtzvx1fmA8pfGY0k/5tsUlv3JgmfsOtrJM
-	 sC5f+rVKPYIsEih1CQuPd88YCD7kSWujJ0X/Sicyiw/Uavs+bzEMOTFt6478wcguPHA==
+	t=1792503390;
+	b=1dMTsuJ5qqYkXIVYqCWnA/F7/0iZwOn07I4NZ20VWiN165LVySZlD3WBVnq2hqt9fQ6o
+	 TnfhrsIWmtHxq0EAtE6j64mlgONjIulubO99ZLz2SgdLC2C3oYlkb/q+klBUaGNrrIa5+
+	 jub6SLfvxVpkYx4hwadWFRFezzjmzwZoLVhpNzR6piJ7w7sKURxAGg59IaUnoIGvKz258
+	 SWsH79/jXW9XMxAiUmVhvqk47pi4NmoO6GWN1yaim5j02pcPK7nsWrZSsO4rN+ZYAERII
+	 1Ny/OrjLNzvkyFdkGzuqHb8KA+K7lpeRzgOoCeqvo3oKDqM93UMYe/k0HFfbpeEZkog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503384;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=MGUvIugS+lpW0/60pXJG7rA3wOxjL11PdzpzXL8pcZo=;
-	b=upDb2f0vN1aCYY8MfV4l/G1PmYMutN2bjXg69t5BHzStR+qyXo5jlYbpwV4VSM0gMCKM
-	 nEGQaRc4EoIFG+k7+y9p+2t0rwTrd3g6CHS6OxI0bECVmL5f6diovPkI1uWVcYHXtkaPV
-	 LaNeSekiRyfCnRC0ForntZeAeZ37v9bHLnrb4KTbToEnOF8HG2Uvs5ffo5Y8ET7eqdxEl
-	 mdf5iJB8ZpHPn6vuVNrhO337hDI0HspIaJezACmkbRAfLkZUIvvW0YMlux5ueZCb/arZh
-	 L6sglhu/ihortMffLTvuZWNrZ+bbF60LKObsO56ZJ9jo63ow97cHYaVAUMbesO0UjHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503390;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=mf8k7XTI/zTxzeprUjIQpoEOfwu4NGyWtykxH2O6lr0=;
+	b=SGR+V8vKTBbUB/a7DXNlO+Tl0m+34zx+liOD0r6202FlzabUjkTe9XBp/2+srNqctnoN
+	 dIyRpI4PZKcure3QuxnoY9ZQdfg6vkapcPREq4AN0hb+pFtfoZGSs/Jt3x/dqPJn+BW4o
+	 dn+uTeU0xAlAJeGaP7EArhoCpGvDIauoKyxf+XgKlj52vRlplPlMcGZ4C2f10OhgufBAH
+	 QP/2Mkvg+eeBMQlnmA1xgNLqQKGlrkjLTE5WErxyx+kh5UP3xvLL7akEB2PDHl8UJvC8S
+	 AuwuRnalczWqFIjh7NjUw/hn2X1IqLcdCT/HamPw1xmjKJ1BlM4fVN5KalqLccIxe6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz86LGvj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Uv00ZFBg;
+	arc=none smtp.remote-ip=91.218.175.150
+Received: from mta0.migadu.com (out-150.mta0.migadu.com [91.218.175.150])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4247606A325;
-	Tue, 20 Oct 2026 13:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B17606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B17606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz86LGvj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6113F1F000C4;
-	Tue, 20 Oct 2026 13:36:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792503383;
-	bh=MGUvIugS+lpW0/60pXJG7rA3wOxjL11PdzpzXL8pcZo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Qz86LGvj9yWwJN/K/AHZMy7IW8jhQJh1oKBhZloxbJCsWbH0+08ea4SJe1gaiTNpF
-	 Kq3SXPLD6rfVJmMzBl9fS4HggSUs9BXB/m80uC0gM6JQKqRfuRYFVxNs8NE/lIy/gW
-	 9InrqeD8s3ueIzMg/RHi66Ii4slBd9tcHwHGfhSMeUpiuGRXVFsQUTd848inK6wF77
-	 uMOTODJnnRJm3TNZVaG9efh9NbmsOv/lyuJGGSr9/gFQg7tGvyaVTvfVPLR5OXuqJq
-	 JcosddMyaKfwB8tZWzqbZZrjrEwqS4mj/eMDTZBIW2UTk+RR4We0TS3/TIHQPuyXCj
-	 PoRtpLyhrfcjg==
-Subject: Re: [PATCH net-next v2 3/5] net: phy: mxl-gpy: release MxL86211C
- Super Isolate
-From: netdev-bot+sashiko@kernel.org
-To: robert.marko@sartura.hr
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, lxu@maxlinear.com, hkallweit1@gmail.com,
- linux@armlinux.org.uk, michael@walle.cc, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
- luka.perkov@sartura.hr
-Date: Tue, 20 Oct 2026 13:36:21 +0000
-Message-ID: <179250338193.3135.601268020281366283@kernel.org>
-In-Reply-To: <20261016112033.949026-3-robert.marko@sartura.hr>
-References: <20261016112033.949026-3-robert.marko@sartura.hr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Uv00ZFBg
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mqlNuzWiK+UMeR8XNNFBfexTXPgP+qQFSEcNjwZbRo8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792503386; v=1; x=1793108186;
+ b=Uv00ZFBgfYdZWcZaw8Qc/W6heAdCP8SwkOM0jwS6piuLuBn0eC2iZ1czAkq/s392o+Ts4Sff
+ xoBbTVZwSQM8ApPy0p1ZdozM3tXKjH0Z38k+xRiRLMjIjgcXloYgvK39Ql88zpKjG3+Hs3/IXn2
+ 7Oa7GIdQ7u+c7ECuyWe//RqQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3c43797985b64205;
+	Tue, 20 Oct 2026 13:36:26 +0000
+X-Mizu-Trace-ID: 3c43797985b64205
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: longman@redhat.com,
+	tj@kernel.org
+Cc: ridong.chen@linux.dev,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/cpuset: Fix task checking when enabling a partition
+Date: Tue, 20 Oct 2026 21:36:15 +0800
+Message-ID: <20261020133615.124373-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,212 +70,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+Creating a child partition can fail when tasks are present in its
+descendants, even though the parent has no tasks of its own.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On a cgroup v2 system with CPUs 0-7 online:
 
-- [High] This series breaks existing MxL86211C setups, and this patch
-  makes the new Super Isolate (SI) release depend on the same supply.
-- [Medium] The VDDP (MDIO/MDC/MDINT pad) supply is acquired with
-  devm_regulator_get() in mxl86211c_probe() but never enabled.
-- [Medium] net: phy: mxl-gpy: firmware version read while PHY is halted
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+    mkdir A
+    echo 1-2 > A/cpuset.cpus
+    echo root > A/cpuset.cpus.partition
+    echo +cpuset > A/cgroup.subtree_control
+    mkdir A/B
+    echo 1-2 > A/B/cpuset.cpus
+    echo +cpuset > A/B/cgroup.subtree_control
+    mkdir A/B/C
+    echo 1-2 > A/B/C/cpuset.cpus
+    echo $$ > A/B/C/cgroup.procs
+    echo root > A/B/cpuset.cpus.partition
+    cat A/B/cpuset.cpus.partition
+    root invalid (Parent unable to distribute cpu downstream)
+    cat A/cpuset.cpus.effective
+    1-2
 
---
+B should be a valid root, leaving A with an empty effective CPU list.
+The task in C belongs to B's partition and does not need CPUs in A.
 
-net: phy: mxl-gpy: release MxL86211C Super Isolate
+partition_is_populated() is called with B as excluded_child, but
+continue only skips B in the pre-order walk. The walk still visits C
+and finds the task there, so A is considered populated.
 
-This adds an MxL86211C config_init callback. It reapplies the MDIO pad
-voltage from the VDDP supply, then clears the Super Isolate bit in
-VSPEC1_PM_CTRL, then calls gpy21x_config_init(). A PHY strapped into
-Super Isolate is then released after each hardware reset.
+Fix this by skipping the whole excluded subtree with
+css_rightmost_descendant(), as is already done for valid child
+partitions. Also add a test case to test_cpuset_prs.sh with a task in
+a grandchild cpuset.
 
-> diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
-> index fbac7c49b4759..8bc119655f104 100644
-> --- a/drivers/net/phy/mxl-gpy.c
-> +++ b/drivers/net/phy/mxl-gpy.c
+Fixes: b1bcaed1e39a ("cpuset: Treat cpusets in attaching as populated")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+ kernel/cgroup/cpuset.c                            | 4 ++--
+ tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-[ ... ]
-
-> @@ -422,6 +423,23 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
->  			      VSPEC1_PM_CTRL_MDIO_VOL, val);
->  }
->  
-> +static int mxl86211c_config_init(struct phy_device *phydev)
-> +{
-> +	struct gpy_priv *priv = phydev->priv;
-> +	int ret;
-> +
-> +	ret = mxl86211c_configure_mdio_voltage(phydev, priv->vddp);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-Does this make releasing Super Isolate depend on the VDDP supply
-reporting exactly 1.8V or 3.3V?
-
-If mxl86211c_configure_mdio_voltage() fails, mxl86211c_config_init()
-returns before VSPEC1_PM_CTRL_SI is cleared. Clearing the SI bit has
-nothing to do with the pad voltage.
-
-This adds to a problem from the earlier patch in this series ("net: phy:
-mxl-gpy: add MxL86211C VDDP supply"), where mxl86211c_probe() now
-requires the supply:
-
-drivers/net/phy/mxl-gpy.c:mxl86211c_probe() {
-    ...
-	vddp = devm_regulator_get(dev, "vddp");
-	if (IS_ERR(vddp))
-		return dev_err_probe(dev, PTR_ERR(vddp),
-				     "failed to get VDDP supply\n");
-	if (!vddp)
-		return dev_err_probe(dev, -EOPNOTSUPP,
-				     "VDDP supply requires regulator support\n");
-
-	ret = mxl86211c_configure_mdio_voltage(phydev, vddp);
-	if (ret)
-		return ret;
-    ...
-}
-
-MxL86211C support is older than this series and has never used a supply,
-so no existing DT has a vddp-supply property. Without that property,
-devm_regulator_get() returns the dummy regulator. The dummy has no ops,
-no fixed_uV, no supply and no supply_name, so
-regulator_get_voltage_rdev() returns -EINVAL for it:
-
-drivers/regulator/core.c:regulator_get_voltage_rdev() {
-    ...
-	} else if (rdev->supply_name) {
-		return -EPROBE_DEFER;
-	} else {
-		return -EINVAL;
-	}
-    ...
-}
-
-With CONFIG_REGULATOR=n, the stub returns NULL and probe fails with
--EOPNOTSUPP instead. Non-DT setups and PHYs found by MDIO scan go down
-the same paths.
-
-In every case mxl86211c_probe() fails and the mxl-gpy driver no longer
-binds to the PHY. That loses SGMII/2500BASE-X handling, LEDs, WoL and
-stats.
-
-The binding select only matches nodes with the ethernet-phy-idc133.5400
-compatible, and no in-tree DTS uses that compatible. So dtbs_check won't
-flag existing nodes that lack the supply.
-
-Neither commit message says existing setups stop working. The last patch
-in the series ("net: phy: mxl-gpy: support MxL86211C lane mapping") keeps
-the same probe and config_init ordering, so the problem is still there at
-the end of the series.
-
-Could the supply be made optional, with the pad voltage setup skipped
-when no supply is described and the SI bit cleared either way?
-
-> +
-> +	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
-> +			     VSPEC1_PM_CTRL_SI, 0);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does gpy_probe() still read the firmware version while the PHY is
-halted?
-
-mxl86211c_probe() calls gpy_probe(), which reads PHY_FWV once and
-caches priv->fw_major and priv->fw_minor. With this version, Super
-Isolate is only cleared from mxl86211c_config_init(). That runs from
-phy_init_hw() on attach and resume, well after probe:
-
-mxl86211c_probe()
-  gpy_probe()
-    phy_read(phydev, PHY_FWV)
-...
-phy_attach_direct()
-  phy_init_hw()
-    mxl86211c_config_init()
-      phy_modify_mmd(..., VSPEC1_PM_CTRL, VSPEC1_PM_CTRL_SI, 0)
-
-The commit message says a strapped PHY stays halted after reset until
-software releases it. Suppose PHY_FWV is filled in by the PHY
-firmware. Then on a strapped board, probe caches whatever the register
-holds before the firmware has run, most likely 0. Nothing re-reads it
-after SI is cleared, so the bogus value sticks for the life of the
-device.
-
-That value is printed as the firmware version in dmesg. It is also
-used by gpy_sgmii_need_reaneg(), which compares it against
-ver_need_sgmii_reaneg to decide whether gpy_config_aneg() applies the
-SGMII re-ANEG workaround. A zeroed version would not match any of
-those entries, so the workaround would be skipped on firmware that
-needs it.
-
-v1 cleared SI in probe. Is PHY_FWV valid while the PHY is in Super
-Isolate? If not, should SI also be released in mxl86211c_probe()
-before gpy_probe() reads the version? Or should config_init read the
-version again after clearing the bit?
-
-[Severity: Medium]
-Is the VDDP supply ever enabled?
-
-mxl86211c_probe() gets it with devm_regulator_get(). There is no
-regulator_enable() or devm_regulator_get_enable() call, and the only use
-of the supply is regulator_get_voltage() in
-mxl86211c_configure_mdio_voltage(). So the consumer use_count stays at 0.
-
-Suppose the VDDP rail can be switched and is not always-on. Examples are
-a GPIO-controlled regulator-fixed, or a PMIC LDO marked only
-regulator-boot-on. In that case regulator_late_cleanup() turns the rail
-off after boot:
-
-drivers/regulator/core.c:regulator_late_cleanup() {
-    ...
-	if (rdev->use_count)
-		goto unlock;
-    ...
-	if (have_full_constraints()) {
-		rdev_info(rdev, "disabling\n");
-		ret = _regulator_do_disable(rdev);
-    ...
-}
-
-If the rail is off at boot, nothing turns it on.
-
-phy_init_hw() calls mxl86211c_config_init() on attach and on resume,
-often after late cleanup has run. It then does read-modify-writes on
-VSPEC1_PM_CTRL over MDIO pads that may have no power:
-
-phy_attach_direct() / mdio_bus_phy_resume()
-  phy_init_hw()
-    mxl86211c_config_init()
-      mxl86211c_configure_mdio_voltage()
-        phy_modify_mmd(..., VSPEC1_PM_CTRL, VSPEC1_PM_CTRL_MDIO_VOL, val)
-      phy_modify_mmd(..., VSPEC1_PM_CTRL, VSPEC1_PM_CTRL_SI, 0)
-
-Can these accesses fail, or read all-ones and write back bad values,
-leaving the PHY in Super Isolate?
-
-The binding does not require the rail to be always-on. The missing
-enable comes from the earlier "net: phy: mxl-gpy: add MxL86211C VDDP
-supply" patch in this series.
-
-Should probe keep the supply enabled, for example by using
-devm_regulator_get_enable()?
-
-> +
-> +	return gpy21x_config_init(phydev);
-> +}
-
-[ ... ]
-
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 585a982249ad..71644482faa7 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -478,10 +478,10 @@ static inline bool partition_is_populated(struct cpuset *cs,
+ 
+ 	rcu_read_lock();
+ 	cpuset_for_each_descendant_pre(cp, pos_css, cs) {
+-		if (cp == cs || cp == excluded_child)
++		if (cp == cs)
+ 			continue;
+ 
+-		if (is_partition_valid(cp)) {
++		if (cp == excluded_child || is_partition_valid(cp)) {
+ 			pos_css = css_rightmost_descendant(pos_css);
+ 			continue;
+ 		}
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index d04aad697b96..9978c560b398 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -452,6 +452,9 @@ TEST_MATRIX=(
+ 	# Enabling partition with child cpusets is allowed
+ 	"   C0-1    C1      .    C2-3    P1      .      .      .     0 A1:0-1|A2:1 A1:P1"
+ 
++	# Tasks below a new partition belong to it, not to its parent.
++	" C1-2:P1 C1-2 C1-2:T    .      .      P1     .      .     0 A1:|A2:1-2|A3:1-2 A1:P1|A2:P1"
++
+ 	# A partition root with non-partition root parent is invalid| but it
+ 	# can be made valid if its parent becomes a partition root too.
+ 	"   C0-1    C1      .    C2-3     .      P2     .      .     0 A1:0-1|A2:1 A1:P0|A2:P-2"
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016112033.949026-1-robert.marko%40sartura.hr
+2.43.0
+
