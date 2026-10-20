@@ -1,78 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510300;
-	b=nw9kXtFnlGTN+d4dCgVXarq67DMtKRX23H6DrR40juMpwFf/CGODgisolF1akNniETTR
-	 PEpEg/R4buO6v2pfbeYIEtuqFYHjW+GGv9yCeU/nihfdAE+SCW6bXhkJncfFqyedRB8lH
-	 jJ56igmfshs9ZNVE2Via5sxTHsJgcVpVu0nuJhSQuEYT+5khxoA+lntXlo2YTcEJj3LN0
-	 24OBofYiD9xK0d/PxaWh1lzVp1DZORIDzMlNFIkaUZS3MjGndlhNNtP9fsMdTiP5KXAEM
-	 Q/kpvlgTQxrdBNyntEpwjc5+tUqPYKuT5a7gd7cfUFt3HOdE0f6fd2cbJ9aWt0IgCqg==
+	t=1792510306;
+	b=StPmzjJ4RpmT07o5EaNxv7TOvFZ4d0hueE8JDIm6pTzNuxXa4basGxS2EG4QqDT8+mVZ
+	 i8CyLbLzybeyWs9Fl6bOc/xiqyVQVpflw+C2oqo4ZKo15S3FGxRmFd/ss89hVTSOz0wRm
+	 WeDzUmaHFvA+4OC7h7cIq20lPsCR29rgQICzx1yHbltfdn7ZBi1n4zBeGJicgKWEBExFB
+	 C/fh08sn4axQ0GgEreWRoSlmZyPBMPoMuuBx2xyS/sR933MQKKSb537EXOOqPlBo5gKMZ
+	 73CucsRB7F1JlfNfd4NEGQCSiB1QGnfWxZbUNZRUeQDO5EXd4seGqoJduNDtlIrGguQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510300;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZbThbmpySPWpvkpJSYqpQSNbvUjssjuJKdv2vpTlQwQ=;
-	b=USGG1SQeIEJq5KuCmOf9pIAuLrbt8a803wgido7H8NMusAKOxa+/u9ateYX8ksqOCIgR
-	 Rm8NJgIPf8VvfSipVMwbgQ8GQl+JpVC/dB33WM/UaLQA8Jh38BFG4/wZ6zU84UPABwMo0
-	 oqyrcuNMlkjzFJ1AT78vF2xv1fg2UPCcTLpIKoEdoc9WbQfjjy7+UsCyKINoyyewQ0xiw
-	 XxVrKXQ7x4oOCJaAksyN6j+LMlGJVDg1MD8bC0t4Hq07ZdI6EVY4wtJ9HbAvHF7StZlxs
-	 EXxXSMVFx3VwkJ0gYWqpYsOP8FfkxGvkNLUKwVfDWjxmjBzii3iJexV0sXqcLf2GfGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510306;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=F/xZ2QSRGTW4CINPeKVQ6TPwAJsUcgs4ci8OmxiBPkU=;
+	b=B+z6ZOV51zrhT/HZtfntKxlwUszzD/NKBBmVrxLvc1mm5aoSsJIDAYVBYFWpMeRYqxEj
+	 /JtYjF4Vf83x0zrrczIJ8YBf6WowxPH+beAaGAJ/siMgykH2W5g4qx9NXDmwTtQlz0fXe
+	 vceF5F5Jxm4Zk0t1vCx2shX9YVulMGMEzS3ap3D+YOuEQsHL2mvndfdJanU7zban5KDQK
+	 tHBEvB6K9Oiz6Ef97Gq/D2+sLVz3Rwk6i+paRJ21nUrshxdGHdwpZxH2bqOYRhK3yHQ0h
+	 AK5OKzvGNSzu/0wMEKgzfa/wNrPanG7FXmgcK7o07JCpzIBCIB29O6gv9paDVTFUXyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=onurozkan.dev;
-	spf=pass smtp.mailfrom=onurozkan.dev;
-	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b="CjoE/t4X";
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=clCR4jBJ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QTecDdc3;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562660A2619
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1562660A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4182B606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4182B606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=CjoE/t4X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1792510296; x=1792769496;
-	bh=ZbThbmpySPWpvkpJSYqpQSNbvUjssjuJKdv2vpTlQwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=CjoE/t4X/e7DPX/m3K7p0ybwb4akHoLQ62T9rRzvoVY+pCNBlc48dh3/50dMmWYtP
-	 q+xAM+cTTHCmad6hT5FaefDStl3mi1R1VtXatE/JQNXJ0eiYQqQeGj/HnuCj67xHAg
-	 U+OM66VQfHKd2JlnUe6AUs99CejZndfB0If/as2gxbExvQeT8HHYLcoufUUvO2FV0Z
-	 /NmEmpI2v6y46d+CS0dHKoJ34+6sfZIvEYWK+9Ep+/KycS2yleIR9R4vWZcm35KSfR
-	 gAAms+demBgTD4NVT+7BpFzTGCapZ0F0k3jHrCqAz1UtK0Mqfn0+1wumtnD8lFIh05
-	 5zTu2xQ05ie1A==
-X-Pm-Submission-Id: 4j8Gbm0wx2z2ScPc
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: rust-for-linux@vger.kernel.org
-Cc: lossin@kernel.org,
-	lyude@redhat.com,
-	ojeda@kernel.org,
-	alex.gaynor@gmail.com,
-	boqun.feng@gmail.com,
-	gary@garyguo.net,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	will@kernel.org,
-	longman@redhat.com,
-	felipe_life@live.com,
-	daniel@sedlak.dev,
-	daniel.almeida@collabora.com,
-	thomas.hellstrom@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v13 4/7] rust: ww_mutex: add Mutex, AcquireCtx and MutexGuard
-Date: Tue, 20 Oct 2026 18:29:40 +0300
-Message-ID: <20261020153112.299745-5-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20261020153112.299745-1-work@onurozkan.dev>
-References: <20261020153112.299745-1-work@onurozkan.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=clCR4jBJ;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QTecDdc3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792510305;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=F/xZ2QSRGTW4CINPeKVQ6TPwAJsUcgs4ci8OmxiBPkU=;
+	b=clCR4jBJSbfC6jipD3kxwtxlp3XYEpVvTVcspVtew1uoSyTkXanZ3P62vsgK7cF63Olt0N
+	YIF+I44bO+ulbTPLOKrCeRxU/4VBgBZJGJxQbL1zd4BB8InvAoFQ01Q7L35m/jWzl3hLwU
+	N8MqD7ThReJL58EeI4iGOwLH97X8rcQ=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-401-FxXuUPLAN8yoZWREh0CaAA-1; Tue, 20 Oct 2026 15:30:57 +0000
+X-MC-Unique: FxXuUPLAN8yoZWREh0CaAA-1
+X-Mimecast-MFC-AGG-ID: FxXuUPLAN8yoZWREh0CaAA_1792510256
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a16db51147so16255605e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:30:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792510256; x=1793115056; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F/xZ2QSRGTW4CINPeKVQ6TPwAJsUcgs4ci8OmxiBPkU=;
+        b=QTecDdc31ZmYQbvpxSdDqssheouf46jXeTFHN5pQ3EBK1qqgWNrb1aJ3TdQTCespIr
+         62VTpfacyCAbN0X/R/rPebGj7gd7auCzmskO/3ignYLlrxXTf4c9seOv3/lUR86TCmox
+         8ZvLsNj2bg/PUgHQ3frSsqwtru2yWjKcNmXUuxECka7rJXsr41uoqNm9/3igv/1Tzpqm
+         l4Qvmvi2GSEoEmWn1iE+k8WECJV9SkU0T/S2VN4NDbQX6NJ4lBEGqKCwa6yHznJxv0DD
+         mDh/uYi/1vSqJS4hLS4OC79UQIJav/03qGUgdZn6g7peUIy6xXhprUi0sxi6j553ZEcT
+         npCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792510256; x=1793115056;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=F/xZ2QSRGTW4CINPeKVQ6TPwAJsUcgs4ci8OmxiBPkU=;
+        b=Bbz4lxfhGbXabajZjkcwaaADbxJwUg2f0N/OUabraBO/NI8/u/256bkt+oLLKt+cAE
+         hUkxL9IKq/QofZrHMpZEAaYWMyJOu8zR5TDuNu7gTHjnqtP2qhdNEhkIND2pMvBNFfuP
+         menC2wjiHz1ECTxPTmTpgA+xL9vkxAHNGZUyBCBg2AU38GWvcu+E63YgpBmMlyVK1i4/
+         SVr6jv60GA5eMuXBlN/SskikTkk6Hl0HFWzcSceLLBPkOjRaDLRnW5zX2aeq4y9Z3FFb
+         wTL/v6i5FQcIAedwzCAibYjgOpcKGzjjF7gN5jEejewor/Gf6tZ81Yx1PRKTTQh+tPaJ
+         ZlNw==
+X-Forwarded-Encrypted: i=1; AKwUvBydMr3UtEB10LsZSQFT+TfEGm2NBgyvGWo9WlX2d5Asc0IqdqeDcmHZlg1Cc/R/ytflJAv6OUQvCpsp5Rc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLynLJajOUfRocOGbosDm3OnbHXY26Iu9TVa4vVrGu7mL0FZzUl
+	avgcqO0s9C3+sRg5LgBTQ5ukSIUVfzi+MW8GyEzPKbdPogGcDVdXXkPWBuDnBtBJuymO6DKchxW
+	3Ge0otwTacU6cl5Lxnmykfb3AvyPc+kBkgPl4gU5u2fldmsODGkxB6GT4aYTx2u1+iFrUHYIT/A
+	==
+X-Gm-Gg: AYBFou3ShKOdj4yi3czNBQ6jNVVQR3OptFMaEIq+AfXc5VwPSgm2IOMig1S795qA0y4
+	wUoRA7iomALtwBmp+CHM6cT53PmNGuodbab6Pdb805oMqUkYHxflneFA2suBP0h2cCeHS+IXSJy
+	F8oqFE8dQzQmW0DOj9EIv1YoM0mh1rcx0K8jpbNL/f6wHMiiJ5UD3Hihfx5yCJ4sLB3CTKqkZqj
+	FneZfdZgMMJMPLPYNHcwwRb3fGgNwRlJNTbcgU1272FavPYHoLXyAlQKo8PK/S2AAMZ75sMAxiC
+	i5+VAc0j0i13WCpnhXEGgVLMnU1ZOvbdN+E2u5H+ZwjD6B9SLmkJwTG1hCCug04orTCXqCmKDUp
+	HZQu8w03lOv70LfVF2nvEhYnANQ==
+X-Received: by 2002:a05:600c:4f47:b0:4a1:e0db:8cf8 with SMTP id 5b1f17b1804b1-4a1e0db8f0amr236159235e9.3.1792510256352;
+        Tue, 20 Oct 2026 08:30:56 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f47:b0:4a1:e0db:8cf8 with SMTP id 5b1f17b1804b1-4a1e0db8f0amr236158215e9.3.1792510255803;
+        Tue, 20 Oct 2026 08:30:55 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.134.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d85a9bsm90078985e9.15.2026.10.20.08.30.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:30:54 -0700 (PDT)
+Message-ID: <8e13471b64e11218cab612e7662e8068c34e1219.camel@redhat.com>
+Subject: Re: [PATCH v7 00/14] rv: Add task latency over budget RV monitor
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Wen Yang <wen.yang@linux.dev>
+Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 20 Oct 2026 17:30:50 +0200
+In-Reply-To: <6a8b5d26-37cc-4a8f-ab1d-0df2c2e6c2d3@linux.dev>
+References: <cover.1791745088.git.wen.yang@linux.dev>
+		 <3eb0948c9ca67f64b3b311f823cd0f7628033c68.camel@redhat.com>
+		 <6a8b5d26-37cc-4a8f-ab1d-0df2c2e6c2d3@linux.dev>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,647 +132,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Covers the low-level locking API (lock, try_lock and
-interruptible variants) and integration with kernel bindings.
+On Tue, 2026-10-20 at 03:18 +0800, Wen Yang wrote:
+>=20
 
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
----
- rust/kernel/sync/lock/ww_mutex.rs             | 431 ++++++++++++++++++
- rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs | 179 ++++++++
- 2 files changed, 610 insertions(+)
- create mode 100644 rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs
+> > there's been a conversation at the LPC conference about completely migr=
+ating
+> > RV
+> > to BPF.
+> > While we aren't sure of its feasibility yet, and it will take time, it'=
+s
+> > something to keep in mind for new contributions.
+> >=20
+>=20
+> Understood, and I have been following that direction.=C2=A0 I spent the l=
+ast
+> few days reading the v2 "rv: Add support for BPF monitors" series in
+> detail, so the comparison below is against that code rather than the
+> general idea.
 
-diff --git a/rust/kernel/sync/lock/ww_mutex.rs b/rust/kernel/sync/lock/ww_mutex.rs
-index 727c51cc73af8..91eaa6cf2a189 100644
---- a/rust/kernel/sync/lock/ww_mutex.rs
-+++ b/rust/kernel/sync/lock/ww_mutex.rs
-@@ -1,7 +1,438 @@
- // SPDX-License-Identifier: GPL-2.0
- 
- //! Rust abstractions for the kernel's wound-wait locking primitives.
-+//!
-+//! It is designed to avoid deadlocks when locking multiple [`Mutex`]es
-+//! that belong to the same [`Class`]. Each lock acquisition uses an
-+//! [`AcquireCtx`] to track ordering and ensure forward progress.
-+//!
-+//! See srctree/Documentation/locking/ww-mutex-design.rst for more details.
- 
-+use crate::{
-+    bindings,
-+    container_of,
-+    error::to_result,
-+    prelude::*,
-+    types::{
-+        NotThreadSafe,
-+        Opaque, //
-+    }, //
-+};
-+use core::cell::UnsafeCell;
-+
-+pub use acquire_ctx::AcquireCtx;
- pub use class::Class;
- 
-+mod acquire_ctx;
- mod class;
-+
-+/// A wound-wait (ww) mutex that is powered with deadlock avoidance
-+/// when acquiring multiple locks of the same [`Class`].
-+///
-+/// Each mutex belongs to a [`Class`], which the wound-wait algorithm
-+/// uses to figure out the order of acquisition and prevent deadlocks.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::{
-+///     define_ww_class,
-+///     sync::{
-+///         lock::ww_mutex::{
-+///             AcquireCtx,
-+///             Class,
-+///             Mutex, //
-+///         },
-+///         Arc,
-+///     },
-+/// };
-+/// use pin_init::stack_pin_init;
-+///
-+/// define_ww_class!(SOME_WW_CLASS);
-+///
-+/// let mutex = Arc::pin_init(Mutex::new(42, &SOME_WW_CLASS), GFP_KERNEL)?;
-+/// let ctx = KBox::pin_init(AcquireCtx::new(&SOME_WW_CLASS), GFP_KERNEL)?;
-+///
-+/// let guard = ctx.lock(&mutex)?;
-+/// assert_eq!(*guard, 42);
-+///
-+/// # Ok::<(), Error>(())
-+/// ```
-+#[pin_data]
-+#[repr(C)]
-+pub struct Mutex<T: ?Sized> {
-+    #[pin]
-+    inner: Opaque<bindings::ww_mutex>,
-+    data: UnsafeCell<T>,
-+}
-+
-+impl<T> Mutex<T> {
-+    /// Initializes [`Mutex`] with the given `data` and [`Class`].
-+    #[inline]
-+    pub fn new(data: T, class: &'static Class) -> impl PinInit<Self> {
-+        let class_ptr = class.inner.get();
-+        pin_init!(Mutex {
-+            inner <- Opaque::ffi_init(|slot: *mut bindings::ww_mutex| {
-+                // SAFETY: `class` is valid indefinitely.
-+                unsafe { bindings::ww_mutex_init(slot, class_ptr) }
-+            }),
-+            data: UnsafeCell::new(data),
-+        })
-+    }
-+}
-+
-+impl<T: ?Sized> Mutex<T> {
-+    /// Checks if this [`Mutex`] is currently locked.
-+    ///
-+    /// The returned value is racy as another thread can acquire
-+    /// or release the lock immediately after this call returns.
-+    #[inline]
-+    pub fn is_locked(&self) -> bool {
-+        // SAFETY: It's safe to call `ww_mutex_is_locked` on
-+        // a valid mutex.
-+        unsafe { bindings::ww_mutex_is_locked(self.inner.get()) }
-+    }
-+
-+    /// Locks this [`Mutex`] without [`AcquireCtx`].
-+    #[inline]
-+    pub fn lock(&self) -> Result<MutexGuard<'_, T>> {
-+        lock(self, None)
-+    }
-+
-+    /// Similar to [`Self::lock`], but can be interrupted by signals.
-+    #[inline]
-+    pub fn lock_interruptible(&self) -> Result<MutexGuard<'_, T>> {
-+        lock_interruptible(self, None)
-+    }
-+
-+    /// Tries to lock this [`Mutex`] with no [`AcquireCtx`] and without blocking.
-+    ///
-+    /// Returns `None` if the mutex could not be acquired.
-+    #[must_use = "if unused, the lock will be immediately unlocked"]
-+    #[inline]
-+    pub fn try_lock(&self) -> Option<MutexGuard<'_, T>> {
-+        try_lock(self, None)
-+    }
-+}
-+
-+impl Mutex<()> {
-+    /// Creates a [`Mutex`] from a raw pointer.
-+    ///
-+    /// This function is intended for interoperability with C code.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that:
-+    ///
-+    /// - `ptr` is a valid pointer to a `ww_mutex`.
-+    /// - `ptr` must remain valid for the lifetime `'a`.
-+    /// - The `ww_class` associated with this mutex must be valid indefinitely.
-+    #[inline]
-+    pub unsafe fn from_raw<'a>(ptr: *mut bindings::ww_mutex) -> &'a Self {
-+        // SAFETY: By the safety contract, the caller guarantees that `ptr`
-+        // points to a valid `ww_mutex` which is the `inner` field of `Mutex`,
-+        // that it remains valid for the lifetime `'a` and the associated
-+        // `ww_class` remains valid indefinitely.
-+        //
-+        // Because [`Mutex`] is `#[repr(C)]`, the `inner` field sits at a
-+        // stable offset that `container_of!` can safely rely on.
-+        unsafe { &*container_of!(Opaque::cast_from(ptr), Self, inner) }
-+    }
-+}
-+
-+// SAFETY: `Mutex` can be sent to another thread if the protected
-+// data `T` can be.
-+unsafe impl<T: ?Sized + Send> Send for Mutex<T> {}
-+
-+// SAFETY: `Mutex` serialises access to the protected data, so it is
-+// `Sync` as long as the data is `Send`.
-+unsafe impl<T: ?Sized + Send> Sync for Mutex<T> {}
-+
-+/// A guard that provides exclusive access to the data protected
-+/// by a [`Mutex`].
-+///
-+/// # Invariants
-+///
-+/// The guard holds an exclusive lock on the associated [`Mutex`]. The lock is held
-+/// for the entire lifetime of this guard and is automatically released when the
-+/// guard is dropped.
-+#[must_use = "the lock unlocks immediately when the guard is unused"]
-+pub struct MutexGuard<'a, T: ?Sized> {
-+    mutex: &'a Mutex<T>,
-+    _not_send: NotThreadSafe,
-+}
-+
-+impl<'a, T: ?Sized> MutexGuard<'a, T> {
-+    /// Creates a new guard for the given [`Mutex`].
-+    #[inline]
-+    fn new(mutex: &'a Mutex<T>) -> Self {
-+        debug_assert!(mutex.is_locked());
-+
-+        // INVARIANT: Locking and `from_raw` ensure that the current task holds the mutex
-+        // and transfer sole responsibility for unlocking it to this guard.
-+        Self {
-+            mutex,
-+            _not_send: NotThreadSafe,
-+        }
-+    }
-+}
-+
-+impl<'a> MutexGuard<'a, ()> {
-+    /// Creates a [`MutexGuard`] from a raw pointer.
-+    ///
-+    /// This function is intended for interoperability with C code.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that:
-+    ///
-+    /// - `ptr` is a valid pointer to a `ww_mutex`.
-+    /// - `ptr` must remain valid for the lifetime `'b`.
-+    /// - The `ww_class` associated with the `ww_mutex` must be valid indefinitely.
-+    /// - The current task holds the mutex.
-+    /// - The caller transfers responsibility for unlocking the mutex to the returned guard
-+    ///   and must not unlock it separately (including through another guard).
-+    /// - Any associated acquire context remains valid until the mutex is unlocked,
-+    ///   even if the returned guard is forgotten. The context must not be finalized or
-+    ///   reinitialized before then.
-+    #[inline]
-+    pub unsafe fn from_raw<'b>(ptr: *mut bindings::ww_mutex) -> MutexGuard<'b, ()> {
-+        // SAFETY: By this function's safety contract, the caller guarantees that `ptr` points to a
-+        // valid `ww_mutex` which is the `inner` field of a `Mutex`. The caller also guarantees
-+        // that `ptr` is valid for the lifetime `'b` and its `ww_class` is valid indefinitely.
-+        let mutex = unsafe { Mutex::from_raw(ptr) };
-+
-+        MutexGuard::new(mutex)
-+    }
-+}
-+
-+impl<T: ?Sized> core::ops::Deref for MutexGuard<'_, T> {
-+    type Target = T;
-+
-+    #[inline]
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY: self.mutex is locked, so we have exclusive access.
-+        unsafe { &*self.mutex.data.get() }
-+    }
-+}
-+
-+impl<T: ?Sized + Unpin> core::ops::DerefMut for MutexGuard<'_, T> {
-+    #[inline]
-+    fn deref_mut(&mut self) -> &mut Self::Target {
-+        // SAFETY: self.mutex is locked, so we have exclusive access.
-+        unsafe { &mut *self.mutex.data.get() }
-+    }
-+}
-+
-+impl<T: ?Sized> Drop for MutexGuard<'_, T> {
-+    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: self.mutex is locked and are about to release it.
-+        unsafe { bindings::ww_mutex_unlock(self.mutex.inner.get()) };
-+    }
-+}
-+
-+// SAFETY: `MutexGuard` can be shared between threads if the data can.
-+unsafe impl<T: ?Sized + Sync> Sync for MutexGuard<'_, T> {}
-+
-+/// Locks a mutex with an optional acquire context.
-+#[inline]
-+fn lock<'a, T: ?Sized>(mutex: &'a Mutex<T>, ctx: Option<&AcquireCtx>) -> Result<MutexGuard<'a, T>> {
-+    let ctx_ptr = match ctx {
-+        Some(ctx) => {
-+            ctx.validate_mutex(mutex)?;
-+            ctx.inner.get()
-+        }
-+        None => core::ptr::null_mut(),
-+    };
-+
-+    // SAFETY: `mutex` is pinned and valid. `ctx_ptr` is null or refers to a pinned context of
-+    // the same class. Callers keep the context valid until the mutex is unlocked.
-+    let ret = unsafe { bindings::ww_mutex_lock(mutex.inner.get(), ctx_ptr) };
-+    to_result(ret)?;
-+
-+    Ok(MutexGuard::new(mutex))
-+}
-+
-+/// Locks a mutex with an optional acquire context, allowing interruption by signals.
-+#[inline]
-+fn lock_interruptible<'a, T: ?Sized>(
-+    mutex: &'a Mutex<T>,
-+    ctx: Option<&AcquireCtx>,
-+) -> Result<MutexGuard<'a, T>> {
-+    let ctx_ptr = match ctx {
-+        Some(ctx) => {
-+            ctx.validate_mutex(mutex)?;
-+            ctx.inner.get()
-+        }
-+        None => core::ptr::null_mut(),
-+    };
-+
-+    // SAFETY: `mutex` is pinned and valid. `ctx_ptr` is null or refers to a pinned context of
-+    // the same class. Callers keep the context valid until the mutex is unlocked.
-+    let ret = unsafe { bindings::ww_mutex_lock_interruptible(mutex.inner.get(), ctx_ptr) };
-+    to_result(ret)?;
-+
-+    Ok(MutexGuard::new(mutex))
-+}
-+
-+/// Tries to lock a mutex with an optional acquire context without blocking.
-+#[inline]
-+fn try_lock<'a, T: ?Sized>(
-+    mutex: &'a Mutex<T>,
-+    ctx: Option<&AcquireCtx>,
-+) -> Option<MutexGuard<'a, T>> {
-+    let ctx_ptr = match ctx {
-+        Some(ctx) => {
-+            ctx.validate_mutex(mutex).ok()?;
-+            ctx.inner.get()
-+        }
-+        None => core::ptr::null_mut(),
-+    };
-+
-+    // SAFETY: `mutex` is pinned and valid. `ctx_ptr` is null or refers to a pinned context of
-+    // the same class. Callers keep the context valid until the mutex is unlocked.
-+    let ret = unsafe { bindings::ww_mutex_trylock(mutex.inner.get(), ctx_ptr) };
-+
-+    if ret != 0 {
-+        Some(MutexGuard::new(mutex))
-+    } else {
-+        None
-+    }
-+}
-+
-+#[kunit_tests(rust_kernel_ww_mutex)]
-+mod tests {
-+    use super::*;
-+    use crate::{
-+        define_wd_class,
-+        define_ww_class,
-+        sync::Arc, //
-+    };
-+
-+    define_ww_class!(TEST_WOUND_WAIT_CLASS);
-+    define_wd_class!(TEST_WAIT_DIE_CLASS);
-+
-+    #[test]
-+    fn test_ww_mutex_basic_lock_unlock() -> Result {
-+        let mutex = Arc::pin_init(Mutex::new(42, &TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+        let ctx = KBox::pin_init(AcquireCtx::new(&TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+
-+        let guard = ctx.lock(&mutex)?;
-+        assert_eq!(*guard, 42);
-+
-+        // Drop the lock.
-+        drop(guard);
-+
-+        let mut guard = ctx.lock(&mutex)?;
-+        *guard = 100;
-+        assert_eq!(*guard, 100);
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_ww_mutex_trylock() -> Result {
-+        let mutex = Arc::pin_init(Mutex::new(123, &TEST_WAIT_DIE_CLASS), GFP_KERNEL)?;
-+        let ctx = KBox::pin_init(AcquireCtx::new(&TEST_WAIT_DIE_CLASS), GFP_KERNEL)?;
-+
-+        // `try_lock` on unlocked mutex should succeed.
-+        let guard = ctx.try_lock(&mutex).ok_or(EBUSY)?;
-+        assert_eq!(*guard, 123);
-+
-+        // Now it should fail immediately as it's already locked.
-+        assert!(ctx.try_lock(&mutex).is_none());
-+
-+        drop(guard);
-+        assert!(ctx.try_lock(&mutex).is_some());
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_ww_mutex_class_mismatch() -> Result {
-+        let mutex = Arc::pin_init(Mutex::new(123, &TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+        let ctx = KBox::pin_init(AcquireCtx::new(&TEST_WAIT_DIE_CLASS), GFP_KERNEL)?;
-+
-+        assert_eq!(ctx.lock(&mutex).err(), Some(EINVAL));
-+        assert_eq!(ctx.lock_interruptible(&mutex).err(), Some(EINVAL));
-+        assert!(ctx.try_lock(&mutex).is_none());
-+        assert!(!mutex.is_locked());
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_ww_mutex_is_locked() -> Result {
-+        let mutex = Arc::pin_init(Mutex::new("hello", &TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+        let ctx = KBox::pin_init(AcquireCtx::new(&TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+
-+        // Should not be locked initially.
-+        assert!(!mutex.is_locked());
-+
-+        let guard = ctx.lock(&mutex)?;
-+        assert!(mutex.is_locked());
-+
-+        drop(guard);
-+        assert!(!mutex.is_locked());
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_ww_acquire_context_done() -> Result {
-+        let mutex1 = Arc::pin_init(Mutex::new(1, &TEST_WAIT_DIE_CLASS), GFP_KERNEL)?;
-+        let mutex2 = Arc::pin_init(Mutex::new(2, &TEST_WAIT_DIE_CLASS), GFP_KERNEL)?;
-+        let ctx = KBox::pin_init(AcquireCtx::new(&TEST_WAIT_DIE_CLASS), GFP_KERNEL)?;
-+
-+        // Acquire multiple mutexes with the same context.
-+        let guard1 = ctx.lock(&mutex1)?;
-+        let guard2 = ctx.lock(&mutex2)?;
-+
-+        assert_eq!(*guard1, 1);
-+        assert_eq!(*guard2, 2);
-+
-+        ctx.done();
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_mutex_without_ctx() -> Result {
-+        let mutex = Arc::pin_init(Mutex::new(100, &TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+        let guard = mutex.lock()?;
-+
-+        assert_eq!(*guard, 100);
-+        assert!(mutex.is_locked());
-+        assert!(mutex.try_lock().is_none());
-+
-+        drop(guard);
-+        assert!(!mutex.is_locked());
-+
-+        let guard = mutex.try_lock().ok_or(EBUSY)?;
-+        assert_eq!(*guard, 100);
-+        drop(guard);
-+        assert!(!mutex.is_locked());
-+
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn test_guard_from_raw_unlocks_mutex() -> Result {
-+        let mutex = Arc::pin_init(Mutex::new((), &TEST_WOUND_WAIT_CLASS), GFP_KERNEL)?;
-+        let guard = mutex.lock()?;
-+
-+        // Keep the mutex locked without leaving another guard responsible for unlocking it.
-+        core::mem::forget(guard);
-+
-+        // SAFETY: `mutex` and its class remain valid for this test. The current task holds
-+        // the mutex, and forgetting the previous guard lets this guard take over unlocking it.
-+        let guard = unsafe { MutexGuard::from_raw(mutex.inner.get()) };
-+        assert!(mutex.is_locked());
-+
-+        drop(guard);
-+        assert!(!mutex.is_locked());
-+
-+        Ok(())
-+    }
-+}
-diff --git a/rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs b/rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs
-new file mode 100644
-index 0000000000000..777d177f985ff
---- /dev/null
-+++ b/rust/kernel/sync/lock/ww_mutex/acquire_ctx.rs
-@@ -0,0 +1,179 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Provides [`AcquireCtx`] for managing multiple wound/wait
-+//! mutexes from the same [`Class`].
-+
-+use super::{
-+    lock,
-+    lock_interruptible,
-+    try_lock,
-+    Class,
-+    Mutex,
-+    MutexGuard, //
-+};
-+use crate::{
-+    bindings,
-+    prelude::*,
-+    types::Opaque, //
-+};
-+
-+/// Groups multiple [`Mutex`]es for deadlock avoidance when acquired
-+/// with the same [`Class`].
-+///
-+/// Dropping the context panics if any mutex acquired with it is still locked.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::{
-+///     define_ww_class,
-+///     sync::{
-+///         lock::ww_mutex::{
-+///             AcquireCtx,
-+///             Class,
-+///             Mutex, //
-+///         },
-+///         Arc,
-+///     },
-+/// };
-+/// use pin_init::stack_pin_init;
-+///
-+/// define_ww_class!(SOME_WW_CLASS);
-+///
-+/// // Create mutexes.
-+/// let mutex1 = Arc::pin_init(Mutex::new(1, &SOME_WW_CLASS), GFP_KERNEL)?;
-+/// let mutex2 = Arc::pin_init(Mutex::new(2, &SOME_WW_CLASS), GFP_KERNEL)?;
-+///
-+/// // Create acquire context for deadlock avoidance.
-+/// let ctx = KBox::pin_init(AcquireCtx::new(&SOME_WW_CLASS), GFP_KERNEL)?;
-+///
-+/// let guard1 = ctx.lock(&mutex1)?;
-+/// let guard2 = ctx.lock(&mutex2)?;
-+///
-+/// // Mark acquisition phase as complete.
-+/// ctx.done();
-+///
-+/// # Ok::<(), Error>(())
-+/// ```
-+#[pin_data(PinnedDrop)]
-+#[repr(transparent)]
-+pub struct AcquireCtx {
-+    #[pin]
-+    pub(super) inner: Opaque<bindings::ww_acquire_ctx>,
-+}
-+
-+impl AcquireCtx {
-+    /// Initializes a new [`AcquireCtx`] with the given [`Class`].
-+    #[inline]
-+    pub fn new(class: &'static Class) -> impl PinInit<Self> {
-+        let class_ptr = class.inner.get();
-+        pin_init!(AcquireCtx {
-+            inner <- Opaque::ffi_init(|slot: *mut bindings::ww_acquire_ctx| {
-+                // SAFETY: `class` is valid indefinitely.
-+                unsafe { bindings::ww_acquire_init(slot, class_ptr) }
-+            }),
-+        })
-+    }
-+
-+    /// Creates a [`AcquireCtx`] from a raw pointer.
-+    ///
-+    /// This function is intended for interoperability with C code.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that `ptr` points to the `inner` field of an initialized
-+    /// [`AcquireCtx`] belonging to the current task. The context must remain pinned
-+    /// and valid for the lifetime `'a` and until all mutexes acquired with it are
-+    /// unlocked, even if their guards are forgotten. It must not be finalized or
-+    /// reinitialized during that time.
-+    /// The associated `ww_class` must be valid indefinitely.
-+    #[inline]
-+    pub unsafe fn from_raw<'a>(ptr: *mut bindings::ww_acquire_ctx) -> &'a Self {
-+        // SAFETY: By the safety contract, `ptr` is valid to construct `AcquireCtx`.
-+        unsafe { &*ptr.cast() }
-+    }
-+
-+    /// Marks the end of the acquire phase.
-+    ///
-+    /// Calling this function is optional. It is just useful to document
-+    /// the code and clearly designated the acquire phase from actually
-+    /// using the locked data structures.
-+    ///
-+    /// After calling this function, no more mutexes can be acquired with
-+    /// this context.
-+    #[inline]
-+    pub fn done(&self) {
-+        // SAFETY: `self.inner` contains a valid, initialized acquire context.
-+        unsafe { bindings::ww_acquire_done(self.inner.get()) };
-+    }
-+
-+    /// Locks the given [`Mutex`] on this [`AcquireCtx`].
-+    #[inline]
-+    pub fn lock<'a, T>(&'a self, mutex: &'a Mutex<T>) -> Result<MutexGuard<'a, T>> {
-+        lock(mutex, Some(self))
-+    }
-+
-+    /// Similar to [`Self::lock`], but can be interrupted by signals.
-+    #[inline]
-+    pub fn lock_interruptible<'a, T>(&'a self, mutex: &'a Mutex<T>) -> Result<MutexGuard<'a, T>> {
-+        lock_interruptible(mutex, Some(self))
-+    }
-+
-+    /// Tries to lock the [`Mutex`] on this [`AcquireCtx`] without blocking.
-+    ///
-+    /// Unlike [`Self::lock`], no deadlock handling is performed.
-+    ///
-+    /// Returns `None` if the mutex belongs to a different [`Class`] or could not
-+    /// be acquired.
-+    #[must_use = "if unused, the lock will be immediately unlocked"]
-+    #[inline]
-+    pub fn try_lock<'a, T>(&'a self, mutex: &'a Mutex<T>) -> Option<MutexGuard<'a, T>> {
-+        try_lock(mutex, Some(self))
-+    }
-+
-+    /// Checks the mutex's class and the acquired-lock count.
-+    ///
-+    /// Returns [`EINVAL`] if the [`Mutex`] has a different [`Class`] or
-+    /// [`EOVERFLOW`] if the acquired-lock count cannot be incremented.
-+    #[inline]
-+    pub(super) fn validate_mutex<T: ?Sized>(&self, mutex: &Mutex<T>) -> Result {
-+        let ctx_ptr = self.inner.get();
-+        let mutex_ptr = mutex.inner.get();
-+
-+        // SAFETY: `ctx_ptr` is a valid pointer for the entire lifetime of `self`.
-+        let ctx_class = unsafe { (*ctx_ptr).ww_class };
-+
-+        // SAFETY: `mutex_ptr` is a valid pointer for the entire lifetime of `mutex`.
-+        let mutex_class = unsafe { (*mutex_ptr).ww_class };
-+
-+        // `self` and `mutex` must use the same class.
-+        if ctx_class != mutex_class {
-+            return Err(EINVAL);
-+        }
-+
-+        // Check for overflow of the count checked by `AcquireCtx`'s destructor.
-+        // SAFETY: `ctx_ptr` points to a valid context owned by the current task.
-+        if unsafe { (*ctx_ptr).acquired } == u32::MAX {
-+            return Err(EOVERFLOW);
-+        }
-+
-+        Ok(())
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for AcquireCtx {
-+    #[inline]
-+    fn drop(self: Pin<&mut Self>) {
-+        let ptr = self.inner.get();
-+        // SAFETY: `ptr` points to this initialized context, owned by the current task.
-+        let acquired = unsafe { (*ptr).acquired };
-+        assert_eq!(
-+            acquired, 0,
-+            "ww acquire context dropped with locked mutexes"
-+        );
-+
-+        // SAFETY: The assertion above ensures that all acquired locks were released.
-+        unsafe { bindings::ww_acquire_fini(ptr) };
-+    }
-+}
--- 
-2.51.2
+Great, I'm going to review your series when I get some time.
+
+> > First of all, would dropping RV in-kernel support negatively affect you=
+r
+> > current
+> > workflow?
+> >=20
+> Yes, it would.=C2=A0 Some concrete points, all from the current tree.
+> (a) Event ABI.=C2=A0 event_da_monitor / error_env_* in
+> =C2=A0=C2=A0=C2=A0=C2=A0 kernel/trace/rv/rv_trace.h are plain tracepoints=
+, so trace-cmd,
+> =C2=A0=C2=A0=C2=A0=C2=A0 perf and anything else reading tracefs consume t=
+hem today with no
+> =C2=A0=C2=A0=C2=A0=C2=A0 extra userspace.=C2=A0 The BPF series delivers e=
+vents through a ring
+> =C2=A0=C2=A0=C2=A0=C2=A0 buffer read by the rv tool, so the two backends =
+are not
+> =C2=A0=C2=A0=C2=A0=C2=A0 interchangeable for existing consumers.
+
+Good point, you might have noticed a similar discussion is happening also o=
+n the
+RV-BPF thread. We cannot have the absolute same ABI in BPF, but we probably=
+ need
+tracepoints or anything that can easily interact with other tracing tools.
+
+> (b) Build and deployment.=C2=A0 On the images we target, BPF is often not
+> =C2=A0=C2=A0=C2=A0=C2=A0 compiled in or not permitted:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_BPF_SYSCALL=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 default n
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_BPF_EVENTS=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 needs BPF_SYSCALL
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_DEBUG_INFO_BTF=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 needed for CO-RE; depends on
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !DEBU=
+G_INFO_REDUCED and pahole
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 LOCKDOWN_BPF_READ_KERNEL=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 disables the probe_read helpers
+> =C2=A0=C2=A0=C2=A0=C2=A0 Those are product constraints, not local build i=
+ssues.=C2=A0 tracefs/RV
+> =C2=A0=C2=A0=C2=A0=C2=A0 works in all of these configurations.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 There is also a size cost: BPF implies CONFIG_DE=
+BUG_INFO_BTF, and
+> =C2=A0=C2=A0=C2=A0=C2=A0 .BTF is resident in RO_DATA and kept in the boot=
+ image - about
+> =C2=A0=C2=A0=C2=A0=C2=A0 5 MB uncompressed on a full kernel, 1.2-1.6 MB c=
+ompressed, plus
+> =C2=A0=C2=A0=C2=A0=C2=A0 roughly 25% per module with DEBUG_INFO_BTF_MODUL=
+ES.=C2=A0 On a
+> =C2=A0=C2=A0=C2=A0=C2=A0 16-32 MB kernel partition that matters.
+>=20
+
+I've vaguely heard automotive folks saying they don't want to build BPF sup=
+port
+several times. Finally I get a proper technical reason!
+
+Now I think this isn't easy to sort out, if that's a hard requirement, we a=
+re
+probably going to need to keep in-kernel monitors around.
+
+> (c) Timing semantics.=C2=A0 tlob arms a per-task hrtimer with
+> =C2=A0=C2=A0=C2=A0=C2=A0 HRTIMER_MODE_REL_HARD.=C2=A0 bpf_timer is fixed =
+to
+> =C2=A0=C2=A0=C2=A0=C2=A0 HRTIMER_MODE_REL_SOFT and the verifier states "b=
+pf_timer callbacks
+> =C2=A0=C2=A0=C2=A0=C2=A0 are never sleepable" .=C2=A0 On PREEMPT_RT the c=
+allback runs in a=20
+> threaded
+> =C2=A0=C2=A0=C2=A0=C2=A0 softirq, so the expiry time carries scheduler la=
+tency.
+
+I haven't looked into this yet, but from what you say, the bpf_timers code
+doesn't really support PREEMPT_RT.
+
+> =C2=A0=C2=A0=C2=A0=C2=A0 For a budget monitor the expiry time is the outp=
+ut, so this is a
+> =C2=A0=C2=A0=C2=A0=C2=A0 semantic change, not just overhead.
+
+Well, the expiry time you get from an hrtimer is what you configured + some
+system jitter. The jitter here is just going to be less predictable but is =
+it
+really the output you need in your monitor?
+Or am I missing your point?
+
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 What a BPF tlob would look like once those exist=
+:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - model: still tlob.dot, with rvgen =
+-b extended to the hybrid
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 backend;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - state: one record per task in BPF_=
+MAP_TYPE_TASK_STORAGE (or
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 the per-object hash map =
+the series has today), holding the
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 state, the binding id an=
+d the budget;
+
+Yeah I wasn't aware of BPF_MAP_TYPE_TASK_STORAGE before, I have a draft V3
+(coming some time after the merge window) using that.
+But I'd assume this type of storage would simplify the design of your monit=
+or,
+which is currently using a PER_OBJ just to add more things to a PER_TASK.
+I'm going to keep in mind your use-case where you essentially extend the st=
+orage
+(which is perfectly fine in BPF since we don't use the task_struct slot).
+
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - window: two uprobe programs attach=
+ed to PATH:START and
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PATH:STOP, with the bind=
+ing id and budget passed through the
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 attach cookie or a small=
+ config map populated before load;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - expiry: a bpf_timer in the same re=
+cord, armed on state
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 transitions and cancelle=
+d on STOP, submitting an error entry
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 to the monitor's ringbuf=
+;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - output: the rv tool reads the ring=
+buf and prints it, and the
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reactor is linked in wit=
+h bpf_linker as v2 already does.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 The DA engine and the ringbuf/reactor plumbing w=
+ould carry over
+> =C2=A0=C2=A0=C2=A0=C2=A0 unchanged.=C2=A0 The three missing pieces are th=
+e uprobe
+> =C2=A0=C2=A0=C2=A0=C2=A0 attach/configuration path, the timer and env han=
+dling in
+> =C2=A0=C2=A0=C2=A0=C2=A0 da_monitor_bpf.h, and the hybrid backend in rvge=
+n.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 None of this argues against migrating.=C2=A0 It =
+argues that the BPF
+> =C2=A0=C2=A0=C2=A0=C2=A0 backend has to reach parity on (a)-(c) before th=
+e in-kernel path
+> =C2=A0=C2=A0=C2=A0=C2=A0 can be removed.
+>=20
+
+
+Thanks for taking time to assess this, it looks like the right direction.
+
+Gabriele
 
