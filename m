@@ -1,111 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483411;
-	b=RjwgE79hSmC0pwHq1pH/H620wJWvjCT2QAxVcgrymD9zMvFBKG6bdRsa1EHnqzBsQ7R3
-	 IQtvSSYn49bvIUTS2EesU63SeT43liRRJ7Ik645P03wKr9UMMJth85HGvm7ZIv/CQUZGx
-	 n51ZfIWepCWGAf7PmZbkPj2eQPb8yzozKaWihwiqcz2JAW6qaJKdBlUYQ2u0oaXrZ/f75
-	 D9vY3auJfubYeT9ove+MfnTYpjNbW63TKz7PdkDpZW9T75nEhQnOk4uMBeIKZgbLhngMR
-	 TnXd+Ky2GgyRct/M/vcvfK38KZlOw/CHKzPTHq/rUoCiU+jmbo0LgrMg1RDlBJcxpFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483411;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=f29Q3ZfnBob9EdezqKkkesN/jdQEI8id6w6S8zkChjY=;
-	b=azfT1by3Rd8M6FC+nhrAxrqtS7NNUNnc4Ypa5CvezHx4EoMhMmcW8dC4V0eVSgXzRSsu
-	 /Ke+t82ZHdmTYOIpguC7TzFYvUWQ80zameI699jvuJeu+FoIZj7GAEciMScQfKG14u830
-	 E7TKo+lTQ6iB2yKqlWVSvkB/a+M4e+VJinFN6nTaD8q8byVw8xYGGwOScCvFlNkMjkQrm
-	 U+y+68s3SrLfjXqCyyvj2cHvI/hmOMs1CBpzuqKeU/RTQc7peA6dBg4hP9SLfqLZr5wA7
-	 vrm6JvcjziSKDNWIfLJGXwuJB29QFkHWkN8YHJvBBYjYVdvKdWr+YThavvmRE7uFmVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AwIW49qS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YO86+gJU;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792483478;
+	b=WJoEWRURt735GDCe/A1ziT5hKok0R4RD+HnVjoNFMYzfNKbZZcQ2jSyZmmm8rrWZg8CH
+	 hTEzQepL/ZQtbqlgP6Krn0GceXPxSp98i3zAUxpaxBxPak72fvDD3RsTqLc3IZrWgBakV
+	 TMR5YHd6LHfqOm5f+Zbjx2fgt2UN3BsnfbUaxr+D0zpONGzYmBTKQ8y8ruGrlt4lN3Ir7
+	 eSrANiTWLMvAUHGLlNbdpGbRUY3dgISYFpQ34HJ3zVu8D6lZ2ZUyaNAbiY2tO+fWK1vBo
+	 FmNmLAFEDRmS3SyOFtKYjyjIwuJlimQNv14MN+c7BjzPwbLAN09sjy3SNAuPuuRAGEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483478;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=RsPUpmXJkjhxaSiSdamMeh8eU/v++wxZwE9nUKEw08g=;
+	b=FiIrbmZPY3aryfwS4wrWxigXV335xywtdr+/u6rnBzSVjqEEm/2WidkPySPrs0yizeKp
+	 ksO2fa1N3teCXkDGKrF8ibTpueZ2sq2R2sPi4bo/imS2v0TX/VFcr82AFTtfOFzhU8fNl
+	 gFhl1M+IZW2yi4+R3qGoyBq/WhkAyKG4o2C+Oo3fdEZEyLmQvFJ1/T3vZWEYBbbqtn1Q2
+	 Naa07MtjVimBrugYP/OUqzD+IxsSxcJASN0Kag7TB4ES28vIck0cJQ+3UQ+bYFAwnlaDh
+	 KLJSjs2Wrl8DMJ7D6PUkdXV17Jg6oPS5/x7zYJlovv4jcWhrvZgUCgVy/4Z8hTnUkpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MFmxFV3P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A965606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A965606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BC8606A319;
+	Tue, 20 Oct 2026 08:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6BC8606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AwIW49qS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YO86+gJU
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K7mcR21595758
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:03:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	f29Q3ZfnBob9EdezqKkkesN/jdQEI8id6w6S8zkChjY=; b=AwIW49qSYs4fGCDL
-	VwFeNJDN7IHzBkHSnFSTpR8xzs+O9CbaFMAA6TXvDlQxZZ+5VrutOEkGYwc09Yi+
-	ynaGEduK5MdNSy6n44A68TTi5B4TTaVVrs1n1AyBlx0z95x2z+IYVdo5PFQY4pp3
-	wvPwf9tC6NpfcbVjId4CC+TV9IPERa3TeoD3ZNgyaDf7Pwx94LoEUZ5AI0Aux8bg
-	wWNla66lhwhxS/kc0mBuE7tLF8qPeMr2EiG1WRXTfTq56NcKD+j6T3JfJYBToBKK
-	b9lzH6uVC7Pp5cjxt6uRAps7kBC5mxQqFQZh3Lajh7VRGLzmikUPwI1NiXXgzjri
-	z3/3SQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5phhta-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:03:29 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-536708d1a3eso5058381cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:03:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792483409; x=1793088209; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f29Q3ZfnBob9EdezqKkkesN/jdQEI8id6w6S8zkChjY=;
-        b=YO86+gJU+to7GUZLjzW/UqfInXi3I7Oxr8dYsgt8QfWTdQNX++WsKv7y8HC3bTv93N
-         wUl1D2ZOfjxkgRJkYoSNp2ShA7dcr5IE/ROuzKzftH4+yM0cIF8bfGjexao3fXThopNt
-         d/OpGLxk2L7ZvbAOh+3t3+V4zoZZu2T4VjLj1FY7ZgEsLQEOCe/8Ttaqhq91HmJOcuNb
-         xnNe6BHjRloCVxMSE7hm0L9jx2ETO+CNvo5nsyDNmUBdyYNypJ8+rHTA9Z6nn96ctqjF
-         /zBdvc/8VIM5feZYw7YdtjfZzfcPMgEhNJwmGDxIfMQo0UlfKbyFI+xKyiGek0Ep9mAC
-         dfuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483409; x=1793088209;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f29Q3ZfnBob9EdezqKkkesN/jdQEI8id6w6S8zkChjY=;
-        b=MpMdcb35ZC9sRDFZQtMpTvwl4Xj0rBaftcvTcQ5ieypyUluBeALUudKFarYoqG15Uw
-         ifAZxWwSQjuo2plJpkTIm5Yn9QWIJCneCnEHpIbQNvqDBN1ZJ8ES04kVhvqOO5ea1DdY
-         v/qfBOvDMyQozOKo6eBAQQeNojz/lzuy7oE6eZsM26DBA5LOGVNZoiwINB+vX1ui+158
-         0Dz5dq3JGOprYM+F+hIhMhRiIlmL9k5hdi75yZfwnzsByPUskNPRm0Ti6JhOWmpSsGC7
-         y1ixjGJL0dm9Lg7Zn0RSHbyfDP06GSATUyuPezBX8cS6XSAYTaYxEwec0uLPYMz3TnRV
-         q7DA==
-X-Forwarded-Encrypted: i=1; AKwUvBwN0bJie+3oRqspVAov2bG4jJqVAlxsN6l+UdvlMqFYK6J0uGOS5qNL3LKdrUwD9QXmIFS12L+aRsFh1EM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwyn+Yr4bVmErkaSpOdZCso7C99ty1CbwrSq36GDW2drGajDdw
-	No79oHzIksmvEB95V2hvUt+ilPP5npbuVg4jZamCTXjnqa5FBKRArF5n8vomG5+BpenQbZhLCev
-	1cdr32wXUGOThW7/eXQInGG2R7lisgrHhIuUDsFPkBle+ucHrwJWzoDou2Q4S9940ApE=
-X-Gm-Gg: AYBFou1xz21zt42dNQAF6LbmkMX4TJ1IqRDMFJ9X53MN8LeQjSGD8eobgXwrWA/MbEq
-	+mkKuxYc3fRAj9EpZLIND2MN+HIz+CWFfNVu1CErUegN2yEjgNxJObAmjbik8v3QXfdY5XwAboF
-	EsaQsGZq1XRokCQCHKsC0tDWP/3fUANin4Df8QBD5Fb6hXJu0vUcGDTD4jJg5ZrAqjQZIPJoAKj
-	2UQ7dlz0fuShb0KRpiHXlvyOOlehgTl8cLhsmsW46oXmhvTsu6yNPYcuZ8O3MnFFDhPVdMOrvpq
-	d8YrJG6Ky+Crh/XA5Qrx+EFM0sAFIT4/1wqCPvq/vLT7kGRExtLw1f+ZrVd43aMIrs02Mc57OYQ
-	EV0h2c5COIjIkCfTa8CXksA==
-X-Received: by 2002:a05:622a:1304:b0:535:496:56ab with SMTP id d75a77b69052e-536459e2a4amr180282391cf.0.1792483408828;
-        Tue, 20 Oct 2026 01:03:28 -0700 (PDT)
-X-Received: by 2002:a05:622a:1304:b0:535:496:56ab with SMTP id d75a77b69052e-536459e2a4amr180281231cf.0.1792483407204;
-        Tue, 20 Oct 2026 01:03:27 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0402sm460634166b.61.2026.10.20.01.03.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 01:03:26 -0700 (PDT)
-Message-ID: <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 10:03:24 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MFmxFV3P
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9CB68200758;
+	Tue, 20 Oct 2026 10:04:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792483473;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RsPUpmXJkjhxaSiSdamMeh8eU/v++wxZwE9nUKEw08g=;
+	b=MFmxFV3P1TI8jUpSDeAW49gnO2abLO9fDSBFR6L8J0zRRRoSupw60IA3giiOJfOuRwZuVO
+	FYyPwDxSPGz7QhNB0ic5ZMWMGMARYaQWRFbJ5TvZ6UzxYbsqFqG+yXKOAYxk6oLV51/Ewj
+	T0zUudSch+3ygRqc32rjOVYzJBRLMvUVoa2CgP24IFPQ3Ed9h9Mhvjwd6tqBkawoXragew
+	HyartKiAtkjn+zTznFjzR7qqzpvkDPJfLy4TxL3Ju1vwftLadG/zTewKVXp/9JM6aRpuTN
+	99ZfQxE1s/0wdogxWYyamcEi7DmtElzaxm0hf0RAihJ0JIGGIrjY1UnauhStKA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792483473; a=rsa-sha256;
+	cv=none;
+	b=bPKGaWdO+WxMzcXeOie56ENJoaaTaWJRtq2sYNrC0RN+v9SHhDwhPwELwJ7QLTYY+yE9A6
+	jCrzVZGUCvZPdv98srVOC7lbR2hS4BABUJIgefyIei1pqbQPUFBG/PLBJCoFm00u+q569u
+	r8z2pEiyfqh8F3B6nXkaotmIElZgiJuGPYjPIjxIhWeDRYc52C1vbtB1nulPlVp4TlBCz/
+	T14bS2aGfddkDrZxKr5cURS7wwumHad7lMJ2Xevn0IdRU0frKqtMIYvtKvLO35tc/fK2Wo
+	dSk/rDbriBoC9G8oQf3NMktkicwlLx635KClHcHAIDVHV9xnuZUlflPokW3xwg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792483473;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RsPUpmXJkjhxaSiSdamMeh8eU/v++wxZwE9nUKEw08g=;
+	b=F3wiYBFuGeRG12gPsEzAOGaARhyYdA3qflmyl1uRG7D7J23DmsgCdXk3RITR2QDj/PIClO
+	KB2sBd5htv6XoewwNqOi2WzjjDVe0mP7HbmaI3htXrwDo/Mcbfph8Kwq+l1xFWvJf4k+sy
+	xYLuuoW96z9YakZ+BCSlQb/9ahPlfa+xTNXG4Fv7S+4SJJtd8JkZYqqR94nNdRwVo6S9hP
+	d2d9yoPTdDYXc8y8wFtMHsP9wbMh/Ez0HSpXgmQc75F3hXSELnfE6B/BH7gpbB496/aLqI
+	IGCgY3ZQQuftQ0s83cVVkOpaASI6bwDnJeAVij7SzLwPwf3kAWjVOtUGMwkctA==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xJ4pl-000LAF-1g;
+	Tue, 20 Oct 2026 10:04:33 +0200
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 3A9E55C9CAB;
+	Tue, 20 Oct 2026 08:04:33 +0000 (UTC)
+Date: Tue, 20 Oct 2026 10:04:33 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Chaosheng Qu <quchaosheng000406@163.com>
+Cc: Robin van der Gracht <robin@protonic.nl>, 
+	Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de, Oliver Hartkopp <socketcan@hartkopp.net>, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH net v5] can: j1939: validate the EDPO packet number
+Message-ID: <20261020-brilliant-caiman-of-fertility-df8245-mkl@pengutronix.de>
+References: <20261020025036.74454-1-quchaosheng000406@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,105 +100,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
- <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=a7WlZkSF c=1 sm=1 tr=0 ts=6ad72051 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=Nmv2DHgxKDD6GQ1_MrcA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: 9V66q4v2BR91hzZf9BA0Eh8vLDXZK8bs
-X-Proofpoint-GUID: 9V66q4v2BR91hzZf9BA0Eh8vLDXZK8bs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMSBTYWx0ZWRfXykCvDYRWq4h4
- 1vq9CRUmZHFcg1tGgudxhxDK6af2JykVXGF+Y9lyeUP7J9ptoCVEAIZr7NufX21e3bwB8LdQDQM
- VEJniml8wf966USt3XIBVFK3frOOfMp66J5TPANTYZCRw0sCa/N5ZX/X5WgFpdP/DoM8WHFxBCn
- 3etGVNRUSaJw55tLYxn19cZbYXA+8TPcDh3rCgSG6mmQ9+kgNl431OXEp5PL9477aA64cvGXHZC
- KjjlhMevVAaiPlZLhD+S8OakdpH4DDIMraFfnr1SkTcenRNQKm6YVtGvWGhFAVSWZwxgqNnX7Nd
- 9OLNHz7ueTZieZwxZiG4DjKD8h7ctF3g38sWoiCp79vaYbERcwLHFODHZyF64TyevBz8RkiP/7l
- Ty+CgUQ0sslC7WsYsCAdMWOILc9iBZkGeNWDrjWs13dNezxcWz4RizKfHwpGU4LLwPwpvxYHjH9
- BvBVy9ek9WJbkrL8Seg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMSBTYWx0ZWRfX104K3Z89IaP4
- 39U7eRRIoQiSGN++MFGokc009rkUcSk6Yl/5SjJT6H7E+Sz2OKRcMtQ7VKRmAHYTwf/f6RvxSnA
- PGX2mTrPb5KfD5+WulKh+WVU/BrL5DA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200031
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yu4uwihbrfjcxii7"
+Content-Disposition: inline
+In-Reply-To: <20261020025036.74454-1-quchaosheng000406@163.com>
 
-On 9/28/26 8:36 AM, Anvesh Jain P wrote:
-> Add support for back cover, keyboard, and SoC thermal zones through
-> temperature sensors hosted on the EC for Glymur and Mahua CRDs.
-> 
-> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+
+--yu4uwihbrfjcxii7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net v5] can: j1939: validate the EDPO packet number
+MIME-Version: 1.0
+
+On 20.10.2026 10:50:36, Chaosheng Qu wrote:
+> ETP.CM_DPO is peer controlled and its packet number is accepted without
+> any validation.  It names the packet a transmission window starts at, and
+> j1939_xtp_rx_dat_one() places incoming data at "dat[0] - 1 + pkt.dpo", so
+> a value past the end of the message moves pkt.dpo beyond the reassembled
+> buffer.
+>
+> The transfer can still complete in that case.  With pkt.dpo =3D=3D pkt.to=
+tal,
+> a closing ETP.DT frame with dat[0] =3D=3D 0 evaluates to packet pkt.total=
+ - 1,
+> which is the last in-order packet, so pkt.rx reaches pkt.total and the
+> receiver emits its own EOMA.  The local loopback of that EOMA runs
+> j1939_session_completed(), which asks j1939_session_skb_get() for offset
+> "pkt.dpo * 7".  That offset is past the end of the queued skb, so the
+> lookup returns NULL.  Before this patch the NULL was passed to
+> j1939_sk_recv(), which dereferenced oskb->sk.
+>
+>   ETP.CM_RTS (size 1786)  -> total =3D 256 packets
+>   ETP.CM_DPO (packet 0)
+>   ETP.DT seq 1..255       -> packets 0..254, pkt.rx =3D 255
+>   ETP.CM_DPO (packet 256) -> pkt.dpo =3D 256, unvalidated
+>   ETP.DT seq 0            -> packet 255 =3D=3D pkt.rx, completes the tran=
+sfer
+>
+> Reject an EDPO that names a packet at or past pkt.total and abort the
+> session with J1939_XTP_ABORT_BAD_EDPO_OFFSET, the SAE J1939-21 abort code
+> for this case.  The check has to be ">=3D" and not ">": pkt.total is a
+> packet count, so the last valid packet is pkt.total - 1.
+>
+> The EDPO is also looped back to the transmitter session.  A peer can make
+> that role see an out-of-range EDPO too by putting an oversized packet
+> number in ETP.CM_CTS: j1939_xtp_rx_cts_one() only rejects packet 0, and
+> stores "packet - 1" in pkt.tx_acked without comparing it to pkt.total.
+> j1939_session_tx_dpo() then copies pkt.tx_acked into the EDPO.  Rejecting
+> the looped-back EDPO aborts the transmission instead of letting it run
+> with an offset that cannot be encoded.  Validating ETP.CM_CTS is a
+> separate change.
+>
+> The abort branch must not strand a session that is already waiting for
+> an abort.  j1939_session_cancel() re-arms the abort timer only while the
+> state is below J1939_SESSION_WAITING_ABORT.  On a second out-of-range
+> EDPO the first call has already moved the session to that state, so
+> j1939_session_timers_cancel() removes the pending timer and the second
+> j1939_session_cancel() does nothing.  Make j1939_session_cancel() report
+> whether it started the abort, and force-deactivate the receiver when it
+> did not.  This is the same recovery used by the second-RTS path.
+>
+> Guard j1939_session_completed() against a NULL skb as defense in depth,
+> so a future regression in the offset arithmetic degrades to a dropped
+> message instead of a kernel panic.
+>
+> Tested on v7.3.0-rc5 under QEMU, with the reproducer below:
+>
+>   - an unpatched kernel panics in j1939_sk_recv()
+>   - the guard alone does not fix the bug: it drops the message but the
+>     transfer still completes, so it is not the fix for the bad offset
+>   - the range check alone survives the single-EDPO reproducer
+>   - two out-of-range EDPOs followed by two RTS frames leave the receiving
+>     session deactivated; no netdev reference remains stuck
+>   - a full 1786 byte ETP transfer between two J1939 sockets still
+>     completes with the payload intact.  Its last EDPO announces
+>     pkt.total - 1, one below the rejected boundary, and exercises both
+>     the receiver and the transmitter loopback
+>
+> Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260928193312.553632-1-mkl@pengutro=
+nix.de?part=3D3
+> Assisted-by: LLM
+> Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
 > ---
->  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 45 +++++++++++++++++++++++++++++++-
->  1 file changed, 44 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> index e27c697e3170..571c98124a40 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> @@ -594,10 +594,12 @@ &i2c9 {
->  
->  	status = "okay";
->  
-> -	embedded-controller@76 {
-> +	ec: embedded-controller@76 {
+> v5:
+>  - Make j1939_session_cancel() report whether it armed the abort timer.
+>    A second out-of-range EDPO now force-deactivates a receiver that is
+>    already waiting for an abort instead of leaving it without a timer.
+>  - Drop the claim that the range check and the NULL guard are both
+>    required for the original reproducer.  Both survive that sequence;
+>    the guard is defense in depth, while the range check is the fix for
+>    the bad offset.
+>  - Drop the incorrect "one full packet past the end" description.  The
+>    offset starts six bytes past a 1786 byte reassembly skb.
+>  - Correct the transmitter-role statement.  An oversized ETP.CM_CTS can
+>    make the looped-back EDPO out of range, because the CTS path does not
+>    validate its packet number against pkt.total.
+>  - Add the Fixes tag.
 
-"ec" is a super short label, perhaps let's spell out
-embedded_controller
+Thanks for sticking with it and continuing to work on the patch. A few
+remarks regarding the process:
 
-[...]
+- only send the series/patch once
 
-> +&thermal_zones {
-> +	ec-back-cover {
-> +		polling-delay = <10000>;
-> +		thermal-sensors = <&ec 2>;
-> +
-> +		trips {
-> +			trip-point0 {
-> +				temperature = <90000>;
+Some comments regarding the change log:
 
-This is *really* hot!
+- keep it short and dense
+- bullet points are preferred over prose text
+- only add description of changes compared to the last version
+- the rationale for those changes are not that important, as the
+  motivation for the whole patch should be explained in the patch
+  description
 
-> +				hysteresis = <5000>;
-> +				type = "hot";
-> +			};
-> +		};
-> +	};
-> +
-> +	ec-keyboard {
-> +		polling-delay = <10000>;
-> +		thermal-sensors = <&ec 1>;
-> +
-> +		trips {
-> +			trip-point0 {
-> +				temperature = <90000>;
+regards,
+Marc
 
-Likewise
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-Konrad
+--yu4uwihbrfjcxii7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatcgjgAKCRDMOmT6rpmt
+0jcpAP9/1LG7+Bh3+PB0U7Vqmrz7EREpSzWgRAGxRhjEUSFPIgD9F8xcE+uttZnQ
+5LJEBRp4u7jM8MkUPu1ojZDIOf+JhAQ=
+=S90W
+-----END PGP SIGNATURE-----
+
+--yu4uwihbrfjcxii7--
