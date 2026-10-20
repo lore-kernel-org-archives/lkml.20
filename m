@@ -1,49 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491012;
-	b=YBzfMs/ZSyZ2v9qQPdIReThEzXGGuTkESk5u8hIvL+BK4RsVfCqnZ/3tJGzvSmON5X19
-	 ut8fCWKpVEfDueqIBksmdVwPqaBL1u0nlViUtyU1/5PZqMpgRF+O6M5jLlScYXqWqFg1M
-	 IBOEzbpD/7KEezSq6AGRefOvUoRzoIFBpWJTn7TxFfjC7mvj3ibX4hNTQtWIbYCaBaeMJ
-	 G04CowQ5n+kHFg8SP6iLa1agyvpnxfoaSSQJTMu04tOHsFqiGURsvGTmiX1Z9FYsVYEVY
-	 o9wuGLy4lud/2wmD6YF5bH8qBDp2DzQ72UTBaiZMJnYbfcQttGDdJoKG32LZDym3Yiw==
+	t=1792491043;
+	b=EtlQqP++jYqIoI/QJLMh4fbBvHoNDKPFPvPaA4pvd4rKRKqRsWOLch9vgg7yTh0TkzvH
+	 SmiYveHigTcdyQML9NUu1UGbLXfHVHGu4IqXMnuGTGcxs5nCndeaVQteu2LYmmlWsOlHB
+	 /Nwlqvhlbrt0fLRoysWiKY9hu4pCIGIHkJLSKATq0tnezK3LGsra/Lhs5K7wuU2gCbD1r
+	 ay0SqHf7cQWTMllUxs6Y4dTUO/3DgRD8s02RacHEqXkVEXvQA5TqfsMr9kVyIOF6NT7Io
+	 j+K8WuPTQA7VbbNQJtQO/yylGA+fD+0G4VyJmHQC//Q6ai7sfsM2+AZC6a8nmcL2e2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491012;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=uoicQO4f1oIlbMf/wnSoUvyWA9k0FDoFbK9w/tU9zzY=;
-	b=myugojFyM1IIcO/bOoVImZ6VlguOmJOgdtPpwhj7n3mLHSPDxJFv0XCnIkCle22nPkMU
-	 WyyNh0wqL3BJZa+pxO6Gd/VvgfFhm8DAvm9LmFsVO2QG/8P7w9iZJPBnmC9u/QC+EO1SA
-	 NCsCBpjMOfbYE61sJfCKpwkvoXwxyOx0m9P2/ywhQhWSq7pGclkQtBIngruHy2IGJ2BG4
-	 HLqh3j8IGnhZBAChi+zmXoTSpJ3vvElYHo8b1ltd5z1LOh1OFz95ImsecirCvqHKrzh5m
-	 1LPTDP/QAUcGdEk+nJi6+dKa60OOvkDQHt4XQ05Yz3gorgXG/7VKrngKY66YeoBy+vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491043;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Bh9xFMrMUcNCltBKfyRaDPZe6ka6eyNBp32oRnvdPjk=;
+	b=0jkQYf8RygXMz7d8b1o+utLOtm2e9+e4rSGjP9/mN6kvewLWC+yjMr+6wDqPPVrLCwh+
+	 IeM452dNz+Nx/7rs9MUhBnw8/rhiwCeLdvokPoC2PZiBtaS5Yfh5hdfOwraeufckF9/44
+	 QvWi2SGrrIi24uEWjzbZt5otoZeCLv4ThGkG0fxx/saBFhZm6ej0BDBELuihLR6/BU4oP
+	 sRTkGVO3xCewOu3E0SP9zS/bH6nHBARDRzHZ7Z+kfUFzeKE5gYVncsFylO++M3zi39f17
+	 ajeA6PidpK1+vNAa5AxcbBohMvIyEQIOYtAmn7G4WnYTE9v0j3/4eH8Bgo6rrFLILrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NQaf/wCW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Drp4JXrl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7D1606A31D;
-	Tue, 20 Oct 2026 10:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF08606A319;
+	Tue, 20 Oct 2026 10:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQaf/wCW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4F41F000C7;
-	Tue, 20 Oct 2026 10:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Drp4JXrl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1DFE1F000C6;
+	Tue, 20 Oct 2026 10:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792491011;
-	bh=uoicQO4f1oIlbMf/wnSoUvyWA9k0FDoFbK9w/tU9zzY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=NQaf/wCWjOpeXVy7VgCUltILC98GqxD5mv7n1q4o+gNv7QPjZJdZOU7c+R1ea19wa
-	 HHpvcWPQfip6dc5q6ssF98ErRyAPxasHc5Ak8dSbFoLfolwXVyizZHmPIjW4+EVtK3
-	 DUyfPWNSOZ/x8CUVGogMEiWJan1HJEySJzZHDVuvTLHxRi2x94efoCQz8KT08Em7AW
-	 fnJGa5oueMf339Lvm2o46F4Ui7j2tiE6bftFbYyRAszdGDcFPRRsalw6GZTOx+rHsI
-	 DdytqtPSHitZbQIN06bYgwAiEAHxOU9pdd8+PlriXBc6cj49/EUDi+kzO3gktPYyLE
-	 fc1lelZQ1RVlA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B443F3808209;
-	Tue, 20 Oct 2026 10:10:11 +0000 (UTC)
+	s=k20260515; t=1792491042;
+	bh=Bh9xFMrMUcNCltBKfyRaDPZe6ka6eyNBp32oRnvdPjk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Drp4JXrlplx+lS7qurSjPflAV3uulAv2Ndb12n1kdwtv/dR/0GXGs+foaoVDzbcSf
+	 11YA3u9W5DHbjuLCLQJq4KcpW3KVgYwii7+v09FLtCCQK1bjqNosjOrkZHFtAUoL5n
+	 DLrHgoGSDtf9k94/Ppf3GJN82r8Lv3k4qIajSWGG8ov6/lFooCakjjKrnjNapaY8bq
+	 qKaY6wur20axcXFArlSgKY9wNb5TpapfUBeKSyYk1rYqyH69SCTENpprumfzY6QFOx
+	 LHNbhY3SOzCKUdMQZD4rZ5Mp16xZePSccuZwozEy8QPCLWQohINyJEJTBDFIVLwUZQ
+	 ageQ/3u8cCIlw==
+Subject: Re: [PATCH net v5 2/5] net: ethernet: mtk_wed: fix reset condition
+ for rx wdma
+From: netdev-bot+sashiko@kernel.org
+To: hujy652@gmail.com
+Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ sujuan.chen@mediatek.com, rex.lu@mediatek.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+Date: Tue, 20 Oct 2026 10:10:41 +0000
+Message-ID: <179249104136.3135.17477394405108454102@kernel.org>
+In-Reply-To: <20261016-wedfix-v5-2-8b02e78fd34f@gmail.com>
+References: <20261016-wedfix-v5-2-8b02e78fd34f@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,59 +66,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3 0/6] net: unify symmetric netmem and page_pool
- refcounting
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179249101026.3632927.6502845375265155678.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 10:10:10 +0000
-References: <20261014173945.373295-1-almasrymina@google.com>
-In-Reply-To: <20261014173945.373295-1-almasrymina@google.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, bpf@vger.kernel.org, ayush.sawal@chelsio.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, tariqt@nvidia.com, horms@kernel.org,
- steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- ncardwell@google.com, kuniyu@google.com, john.fastabend@gmail.com,
- sd@queasysnail.net, ebiggers@kernel.org, kees@kernel.org,
- aleksandr.loktionov@intel.com, petrm@nvidia.com,
- u.kleine-koenig@baylibre.com, j.raczynski@samsung.com, wang.zhan@smartx.com,
- willemb@google.com
 
-Hello:
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Low priority / nit picks for your consideration:
 
-On Wed, 14 Oct 2026 17:37:14 +0000 you wrote:
-> netmems (pages and net_iovs) have two independent refcounts: a non-pp
-> refcount (page._refcount or binding->ref) governing backing memory
-> lifetime, and pp_ref_count governing recycling within a page_pool while
-> page_pool holds a single backing non-pp reference. SKBs with
-> pp_recycle=1 own pp_ref_count references on page_pool fragments; SKBs
-> with pp_recycle=0 own non-pp references.
-> 
-> [...]
+- [Low] The commit message for "net: ethernet: mtk_wed: fix reset
+  condition for rx wdma" only says the condition in mtk_wdma_rx_reset()…
 
-Here is the summary with links:
-  - [net-next,v3,1/6] netmem: rename __get/__put_netmem() to get/put_net_iov()
-    https://git.kernel.org/netdev/net-next/c/a868720467d9
-  - [net-next,v3,2/6] net: skbuff: add napi_pp_get_page() and use it in tcp_recvmsg_dmabuf()
-    https://git.kernel.org/netdev/net-next/c/729a47b803b5
-  - [net-next,v3,3/6] net: skbuff: replace skb_page_unref() and __skb_frag_unref() with skb_netmem_unref()
-    https://git.kernel.org/netdev/net-next/c/4d688084070e
-  - [net-next,v3,4/6] net: skbuff: replace __skb_frag_ref() with symmetric skb_netmem_ref()
-    https://git.kernel.org/netdev/net-next/c/1f6f88105e1d
-  - [net-next,v3,5/6] net: skbuff: use skb_frag_ref() in skb_try_coalesce()
-    https://git.kernel.org/netdev/net-next/c/447f58db3505
-  - [net-next,v3,6/6] net: kunit: test netmem, page_pool, and skb frag refcounting
-    https://git.kernel.org/netdev/net-next/c/2285346afc99
+--
 
-You are awesome, thank you!
+net: ethernet: mtk_wed: fix reset condition for rx wdma
+
+This commit inverts the check in the rx_wdma loop of mtk_wdma_rx_reset().
+Allocated WDMA RX rings now have their CPU index cleared. Unallocated
+rings are skipped.
+
+> In mtk_wdma_rx_reset, only the wdma rings that weren't allocated are
+> reset which is wrong.
+>
+> Fix this by inverting the reset condition so allocated rings will be
+> reset.
+
+[Severity: Low]
+This isn't a bug, and the code change looks right. Could the commit
+message say what goes wrong for users, and which paths are affected?
+
+mtk_wed_start() sets up every rx_wdma ring that doesn't have a
+descriptor yet:
+
+drivers/net/ethernet/mediatek/mtk_wed.c:mtk_wed_start() {
+    ...
+	for (i = 0; i < ARRAY_SIZE(dev->rx_wdma); i++)
+		if (!dev->rx_wdma[i].desc)
+			mtk_wed_wdma_rx_ring_setup(dev, i, 16, false);
+    ...
+}
+
+So once the device has started, all rx_wdma rings normally have a
+descriptor. The exception is when buffer or ring allocation fails.
+
+With the old condition, the loop in mtk_wdma_rx_reset() would then skip
+every ring. MTK_WDMA_RING_RX(i) + MTK_WED_RING_OFS_CPU_IDX would never be
+cleared for any live ring.
+
+mtk_wdma_rx_reset() has two callers:
+
+mtk_wed_reset_dma()
+    /* 2. reset WDMA rx DMA */
+    busy = !!mtk_wdma_rx_reset(dev);
+
+__mtk_wed_detach()
+    mtk_wdma_rx_reset(dev);
+
+Could the message add a sentence on the symptom? For example: stale WDMA
+RX CPU indices after a WED/SER reset, or after detach and re-attach.
+
+That would help reviewers and stable maintainers judge how urgent this
+Fixes: patch is.
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-wedfix-v5-0-8b02e78fd34f%40gmail.com
