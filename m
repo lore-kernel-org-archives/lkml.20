@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505244;
-	b=mYziIlrS9nm8JzIusvu/QFUxaIuUOBMEEGkHC8cNE0ea6JqY2kvSY4fBEhseeM2emXZB
-	 eHVHBcXL5wc8arck51pTH4hLnS7+0VwaBrISj90uoJkuCC6Tm0chGaLSC4ee2D6umd7Eo
-	 QyW/ZNW5qbSxU0GX/SyKxf/xr+WBUBqEkbZuBKCDZhd6tpyhfqSX/x0GBY7lFOM3Le8WV
-	 sA64dPoFLjZ2lS6KOvVqnudIwgq8JpEKdYbrrO7812eZqmFLhLeV9teaHKa3SYbqZcuQm
-	 r4n0RJZ+tEgJy3rypjfj/SqseNF+3hsYjxBjlIXetJenxX32tTvU9mjGqLr3KkzYg3w==
+	t=1792505247;
+	b=bhR5p28Du6sKIWsR4RhS2NXvBK6kWxR8olMNncP7r0jVOT2zWnhJ/QmxvSxAj4MKh5fe
+	 CFKRtd5mvxhP3Hl86QuYqSWJR1CcZThro3q7Dc26YEOxgAJBkAZq3XKpQc3iZPIAlZ/2s
+	 XAMGblNdmIceS5VElrI76xkZ8mal8a3L4YX7pjkMTfHE/OqJhe5NH+EggRw2Okoyy8sxY
+	 yILCFuyZKlYfW+dIR3TF+6yuxB9ZzFqKPMZhQUUNct0UkYI1xPaOSeQvSnEs+MSkcwrfE
+	 R2GBVBdpZKzO496fvByPHzHpPbhsMyik4Hj6Re3IZ8AfkROEDriW5kEM//+3Js3w4ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505244;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505247;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yqzr7T74YopIyEsmLhSJLIYifVJNuH0p+OusXcMit/E=;
-	b=uSdDthW1PzDFiByw5w/WMXH/Ahr+cBbrWXDmsVLlkOsDyDeDAAy9dW2E73cImOmQg/Zf
-	 C+ixaTj+pNToDH8T/UI9PvxlETneqlAQkkhCRDz1+UWbG2Hr5aQRFHp9pqvma3dkxnhww
-	 jTVWK8RAu/LSz0F8Y/R6QCoWfSS44j3qqAOKdneZURv754elm8jtSZQzDC3CXHR2NjX+D
-	 0nfmOF/Hiy7Pd5acT3CS2oSVzmeqEJfCyHg4ZM9YrdnhdF7uNiH9aaQV48UjZrOuIbuHj
-	 Bx7YQkOehHCGqaYG8qm8mKdXSN74DT7e+oS5aGSmpZWj1qj931LE3GOJKHpSGZ47p2g==
+	bh=0MP30nw0IIRx244dAjoQ+sXac7dSmGXhgCJfSLXreiw=;
+	b=3AlgOQ9eJE43cxtid7Gk2z9xgSFrpSpUuqyUtG96OaaHf+LHphwm5WxnPo097gTFxL/V
+	 rIvm+K1qzhA12oIki4EFftKh1VL5pO1rT9lMlaIGbrAXj2fn5P84rMmMRuBQc++FJlhCl
+	 9O8oSdR7iFcLOPCDeakqgh1qI5ZSKpp4eqccTAKrE+wDwTXKLeeknrM4BJqZnBz7+He8N
+	 I+X6jhz7PE3UmBdvPZ8w0EMEMxWlmBkaFAw9A8k1chE83FyG0vZ02f+nbliXTIIwD9ya1
+	 iGkqxfaUfhOCjEW12p0wkJaBaPs+YHAbgzVeY5xA+EBd3Yq5dY5BZpniQJ2k3N2gylw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="H/DcupzG";
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PiJ9AoaR;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBB2606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBB2606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AC160A263D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2AC160A263D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=H/DcupzG
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2553715f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PiJ9AoaR
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso22940395e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792505242; x=1793110042; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1792505245; x=1793110045; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yqzr7T74YopIyEsmLhSJLIYifVJNuH0p+OusXcMit/E=;
-        b=H/DcupzGIPy2rKq5ryf1glRSjAMq3FJyCOsCh7jelGCke0rWrLJdyeWq8w+1Czdjgz
-         w04NTWX3yamH+rVRLOWQuq7Fqmr2JwBY/PgaEXOteldXrMri1yI2Xpe9meckMNOvho0E
-         iU7an/A5HtlfJNwVITksCfhWj61kYX5yRJ8/Z5DC6yEprPSXs8slCjq/UtJOFM4onqNH
-         /E1Rv7meEsLn6Zr7iKGAtjWvMaSKRNFAZccAEmGQGbWL4CwxsDQE9Su0gzg0UQ9/Ud06
-         or8a9BIWR606p9ee/G6TgQBFCJWARiyLykGHceQJeKn68aT3tNhYD526jkLFR/yAgmyZ
-         jhSA==
+        bh=0MP30nw0IIRx244dAjoQ+sXac7dSmGXhgCJfSLXreiw=;
+        b=PiJ9AoaR0HMKHeEwK7TitYoY6Y56ApwuluhWcQFtkEo5nw6XDL21eZZN0/FDaSB6E+
+         12p+bA6tosrGoWErSa3cj61/lAhieh0fPU4o4SgBo/84qERPd8kaAPxL5knJ2fmZF3vQ
+         3rC58BdOSWB2KptW7YBKVVeEheZUH0FgVPL3Rg2Uq+etDWfwXl1bqXq9VmiheLezVAUQ
+         7VlohMz818x8uAWgJtuD4q8kgfP4ejcFmEpP+fDznL+JVlLUvdp9Zo3MCzjLltfie1ei
+         gYbUs1MWe27/bpOHuzTnw7yVPdJ9O28r3LS3CToTnwBmi+ahokdJo9Pu+F922jXfX1Oi
+         6yhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505242; x=1793110042;
+        d=1e100.net; s=20260707; t=1792505245; x=1793110045;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yqzr7T74YopIyEsmLhSJLIYifVJNuH0p+OusXcMit/E=;
-        b=LIuFmaxXfrZhbbq3R97FMTPxshiD3KRgB9h+mBGiNCkwf9YHQPq86ZNwzP+KGsyZqW
-         LTcPm8DYr60WJFYTZAwjxZKC/EOpDyPpeQJUoUUOSreu3QQFgYGSlBfq9+OzUBDwEw2+
-         cgpnsw1zu3Nb3qOZ07grDbH3XphPm8on6USeJeej+kcu/l255T25E2wsR6XyAbK+2AM0
-         pcZNnx92UCDdJFwtAPJ3cELMNCguh7okgafds9yUYJunDOvEvq5d4vFwfMOmsk8UqyYl
-         dhEeqPugANn/904gN+hCKN8urY6BGop/sQZxm0kIeXXWNZjrYyQAiOH0joPcwIc55OFy
-         Lk+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzciS3Xh3jcxaWsvrshHLrdISuQLpgtSVFitOb6ZRLaeOnysoKA3pvTGsHB0iTyytecFEnTjeiwzDWCnD8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKD6gfNmOFHeHVevRjF17BihviNrke0S5eFkKcWGfHaIkeCLOqn
-	UpWyQjp+WPJQg1UXNtumdlL2zEJhO/ktPOkXz75V4mhuJkr5S/FYod04iNhHV9f+l+Y=
-X-Gm-Gg: AYBFou3trfuQ4Q3SqldAG0rVtTYEf56nlRWfKtfNfVcvs0CJfcB2i8XuHWuLE2qjyra
-	R8BcprNRTpp23Nvh/s0uL3mnWXLU/FvVpcKCcvAFnXJR+G/co/oJmfHxDaARmioN7qsm+lhFHxj
-	7/tK3Al+XNFRW9KHEsZd5PD/9MAzHIj2GEnnwdhtqYT2VCVSW/2tBVR/R2MOx9fWL2LlSfrFW7s
-	mh1M1Dh11ulEvBjnJbojlcMHjr1Jd4GUlKt8J7QKo3+c4p/wk/zVrCoezINipbpLLu7qGyHjT7h
-	5GfdQsiq/fqlsf4KHDKuE7IVdr8Akpf5jrnfJjD4KH92nbe+n7U0NTm9j5cfb0LePpssBfeCYQD
-	wgZsN1amqYY6SbaNz4laGZaqVx5DJHpWZYN1/NCFFGHUfBQPNrtPK/kfwWSXWPqkWRUYjHIQluh
-	fyZtFN6+t/ic0MZzRut3Mk/SY7hpuy6xpsBETUlMbcK1xnKz3N2l/ZvvYAiD/9O3Xt+O8+q3/LM
-	Oy3BX4VFGjfKRac
-X-Received: by 2002:a05:600c:3b1e:b0:49f:fdca:c361 with SMTP id 5b1f17b1804b1-4a1d75f9341mr256235205e9.12.1792505242418;
-        Tue, 20 Oct 2026 07:07:22 -0700 (PDT)
+        bh=0MP30nw0IIRx244dAjoQ+sXac7dSmGXhgCJfSLXreiw=;
+        b=ujLL5n5bqq1o/EtqTPc891jCvVQjJ6irUCFYzScJ26pBzrfYAi76+Ufr0Co1rE1m3p
+         AtMJl6m4nrnETsT69Hj/V2Z7Tm+M45vuOV1tyQ+P0kjA3P/K9db2Aqxu8R0KkUHjn24h
+         rYrRjFCRLEAXFRHv3+zF8bAsoXM09sIsH7JgPUT833oUC7kVGTDYflrW7UntMF3dGepT
+         ZQsAGbrSy6RumWCLwCb2qvpj9zw6sEPvEVA5dQFldaBmfrnW2gB4NXiH6qJDdGHB9aRp
+         YzOL0nRrOO9D8jonJzueT43oMkUrWiIMfOPFkKFQkEqT9L+faU0ITP7WDh8lXFIG0yUT
+         ppOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTbQcC4XgMF6nrwNl2d7Svpk5tSpmtRdg04V/hHZtwSqLvh6aecBjowP9/GSIX30/qnfGG90jxLpYIVn0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdKTAYiCCXPN+Dipd/FFWsb6UWvWiPLF98ts8NTR2rcbmEUB1y
+	2g/6USdrOdG7t8ZyR+/A+4VYTH8Qdx8mftUU3d+r753G8VQ3lmccdOTGa5Hm7H+H43c=
+X-Gm-Gg: AYBFou2c4uEx8NHstWGPjfjaIxdjYRqkHaitoJvWavzEyl8UdmaQk01JleYiP3tKQv3
+	jSGTgrxZ6b4dMdYS/kNjf/7ZltzR0f4xiM+n3gFn9uqn3sIN1T8wIr/M9+kJGU6qovP6fapygmx
+	bqSteDupkAg8b69Np1FrHX1JhaWdU00xQSe5ieBdVFVBctq1VWF36eu2Mz+mCTfCko95Oqg+3oy
+	x9cTTITFsVi3VA7Hg6DgusvgtmQe/4p8r2fl0qvQ3lfuSy1uqR+yCUNNihY86QbrL4jDFHTgGK7
+	a+kq9u+L2F1etLyl70yMFLr4NDXhggzNdpJdQqAQDJc0UeXSXIqKdTQk2Cni7Dz66PihfkXwmyu
+	Yfh+DThZ7ykKrNza2HdIwBhEbmCWZL3uc8OezusOd1kvwkKwDV9Rdo10489w5lHJe0HRTlKFpGq
+	jZwBICwSsek6yK1pNFo5Hw5ERsLG3W6PwKHy+bbHxxlEgwEEks+f5WlYIz3R1fD/HtMA0ImiBdx
+	mWp9Q==
+X-Received: by 2002:a05:600c:c16f:b0:4a1:b29e:f72d with SMTP id 5b1f17b1804b1-4a1d7466674mr249825155e9.0.1792505244986;
+        Tue, 20 Oct 2026 07:07:24 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm75602805e9.14.2026.10.20.07.07.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm75602805e9.14.2026.10.20.07.07.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:07:21 -0700 (PDT)
+        Tue, 20 Oct 2026 07:07:24 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Luis Chamberlain <mcgrof@kernel.org>,
 	Petr Pavlu <petr.pavlu@suse.com>,
@@ -86,9 +86,9 @@ To: Luis Chamberlain <mcgrof@kernel.org>,
 Cc: Aaron Tomlin <atomlin@atomlin.com>,
 	linux-modules@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] module: Fix missing taint flags for unloaded modules
-Date: Tue, 20 Oct 2026 16:05:19 +0200
-Message-ID: <20261020-taint-unload-v1-1-d1c764889afc@suse.com>
+Subject: [PATCH 3/3] module: Move mod_unload_taint to tracking.c
+Date: Tue, 20 Oct 2026 16:05:21 +0200
+Message-ID: <20261020-taint-unload-v1-3-d1c764889afc@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
 References: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
@@ -104,35 +104,69 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-When recording taint flags for an unloaded module, try_add_tainted_module()
-can fail to record some of the module's flags if a record for a module with
-the same name already exists and the two have at least one flag in common.
-This happens because the function uses 'mod_taint->taints & mod->taints' to
-determine whether to merge the new module with the existing record. As
-a result, the final report may not provide accurate information about the
-taint flags of unloaded modules.
+Move the definition of mod_unload_taint from internal.h to tracking.c, as
+it doesn't need to be exposed to other module code, and remove the
+redundant declaration of mod_debugfs_root from tracking.c, as it is already
+declared in internal.h.
 
-Fix the duplicate check by using the stricter equality comparison.
+This is a non-functional change.
 
-Fixes: 99bd9956551b ("module: Introduce module unload taint tracking")
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- kernel/module/tracking.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/module/internal.h | 13 -------------
+ kernel/module/tracking.c | 14 +++++++++++++-
+ 2 files changed, 13 insertions(+), 14 deletions(-)
 
+diff --git a/kernel/module/internal.h b/kernel/module/internal.h
+index 70ef20b97c84..3aca22253296 100644
+--- a/kernel/module/internal.h
++++ b/kernel/module/internal.h
+@@ -253,19 +253,6 @@ static inline void kmod_dup_request_announce(char *module_name, int ret)
+ #endif
+ 
+ #ifdef CONFIG_MODULE_UNLOAD_TAINT_TRACKING
+-struct mod_unload_taint {
+-	struct list_head list;
+-	char name[MODULE_NAME_LEN];
+-	unsigned long taints;
+-
+-	/*
+-	 * Number of times a module with this name and taint combination has
+-	 * been unloaded. Updates are serialized by module_mutex and use
+-	 * WRITE_ONCE(). Readers that may run concurrently use READ_ONCE().
+-	 */
+-	unsigned int count;
+-};
+-
+ int try_add_tainted_module(struct module *mod);
+ void print_unloaded_tainted_modules(void);
+ #else /* !CONFIG_MODULE_UNLOAD_TAINT_TRACKING */
 diff --git a/kernel/module/tracking.c b/kernel/module/tracking.c
-index 9033ff54c4e2..5bcd1c2701f0 100644
+index 873fceb30526..46840dc22dcb 100644
 --- a/kernel/module/tracking.c
 +++ b/kernel/module/tracking.c
-@@ -27,7 +27,7 @@ int try_add_tainted_module(struct module *mod)
- 	list_for_each_entry_rcu(mod_taint, &unloaded_tainted_modules, list,
- 				lockdep_is_held(&module_mutex)) {
- 		if (!strcmp(mod_taint->name, mod->name) &&
--		    mod_taint->taints & mod->taints) {
-+		    mod_taint->taints == mod->taints) {
- 			mod_taint->count++;
- 			goto out;
- 		}
+@@ -14,8 +14,20 @@
+ #include <linux/rculist.h>
+ #include "internal.h"
+ 
++struct mod_unload_taint {
++	struct list_head list;
++	char name[MODULE_NAME_LEN];
++	unsigned long taints;
++
++	/*
++	 * Number of times a module with this name and taint combination has
++	 * been unloaded. Updates are serialized by module_mutex and use
++	 * WRITE_ONCE(). Readers that may run concurrently use READ_ONCE().
++	 */
++	unsigned int count;
++};
++
+ static LIST_HEAD(unloaded_tainted_modules);
+-extern struct dentry *mod_debugfs_root;
+ 
+ int try_add_tainted_module(struct module *mod)
+ {
 
 -- 
 2.55.0
