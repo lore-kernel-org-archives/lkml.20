@@ -1,86 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.64.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521430;
-	b=YQyyruJ0kbjuFtxt6q/tkcEfl4WePpQBrjbHL9w3trUlYKplKged36z0rpzON1um11uW
-	 qt2bWAErZORZSXS9ZreUucgQj1fyeE2gCShEcDXg7NikABzEGW2zXgsjfnxKkFjkFYwfV
-	 kVnq87lsjyRhLfmqDWxQqb0zXmvfdh2pVgcnzd9qwb0avrh5exMNOfF1Y+LenA8YBHDqz
-	 03uKKMnGPlmvjdtu9n4Y3/oPMnRiu5BRdWyV7xp78YhmxJyCgEWvKUsFdctDHOgc80dvn
-	 qIhGSzlmh73MGUlEZyMUsoWMFyc/J/fPuJeQ42qJBc1lY3Lgb7jKmCg1OYcTywUvPNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521430;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-Mailer;
-	bh=uKjP4PhEv6h6oryOUkaipQ7zazivOxdCQR8xjjU99uA=;
-	b=HHzWuftGHwp0sy4JLe/c52OnhBaQvgYKX2liL8wE0gNLGuvbjDru0k5mQR9orGU2L70J
-	 VnTT2ZpfKZg06LTLXT2Uc/RyCb6DnwhnvfcDAIJXu4tgv/5VsmQHjC2oI2ELN+u+ErZ6L
-	 C2m/aLbH2V2tqWGCiPi/j/Jkriog9maJJ8UsXP9gOxBZHYj1cr4yy1SV6nxadNHwH7WYm
-	 OLQvARjovS37eoQ9Liyz5jIsrBwtHlqEOpd+PTHPjWQ0Ur3l8/4k/iK30WtQQwviQhENi
-	 fl7vbWI3FphZ//oh+0UkDhzfhfrknYFBnGiVXwgdccoOSzFsYiDqL3ps7FOhaWF05qw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ByuzWqlN;
-	arc=none smtp.remote-ip=34.2.64.18
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792521481;
+	b=kBpqRZP6hfyhAOCG1GP94rY9d3+pOMRSGePo/jofS5D5Mhq7tIrE46Bzh/sIgqaafc+j
+	 +YGU/ReSUZoo3aRu563AC/WIJn9ehF/18aBfaBLb8SL0LYb+twYy5XoEskQX02nXvmkv+
+	 fvoJkDbGIwdiqCWhXSOth7ue/ecBQs5M7EKtMyNOV7sqaYO82itQjB9QqSKrRUBkCHiGD
+	 JVU/vTfk8GSyUn3a3/in/eHzIPDZ3J2IGKcnMW8f32aBZP79GHTH1Dtw5cQ1Fp8D1dSiR
+	 KmgFLMJ5cGzdasu2XBAgHolu+eHuVPiO7GdgxvIuTSZ3LB/OjkFWXtAiIab8rBFNo4Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521481;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=t/X6HYubv1PXqFt3KdzrYTRsDThfZg6ZMUqKpu2PLNQ=;
+	b=lEdv/d8xMBOCAe2bd7z4qZ35P6e1Dr+E26IsaH0gJCH12yz+aFw5zM/cBcv07dF4Hb7i
+	 hmZ8YDj+iP4Ae0LdvQZ8YjpiVE6rKIzLGVPE2v/nVh1/d05NLraHF4bpx1DzQRJ9J3D2G
+	 Ex/Y63AYoIvhIAev+IT32zdQpsEt2VhB9e80sf8YpqoFA1OR3Cdrl3DWjQEgpSDdiw8m9
+	 c3r7ZajEhkSFP7BAAAMkC5oC+l9CO+YKZgQDJ6zgyVw9kNSMthoipZeQ0QHrwScCVU3C6
+	 AVO1Xc6DuLIF//5j2M5aUwvfEX/Am+DBWGtJmVJvF4fkJZcN35kiukcN7Dc8qoqQmNQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NOi+FJEe;
+	arc=fail smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFC5606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFC5606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA20606A319;
+	Tue, 20 Oct 2026 18:38:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FA20606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ByuzWqlN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792521428; bh=uKjP4PhEv6h6oryOUkaipQ7zazivOxdCQR8xjjU99uA=; h=From:To:Cc:Subject:In-Reply-To:References:Date:From:Subject:Reply-To; b=ByuzWqlNLpdr1zZVVQ8kvVWDiY80UYgomU8KGPAKoXoI6MmdmjX/zp49+YO+nRrd3ipLE0jM0veVeqB2bkbX7iUVZ/XNfcQU4MDw3zgkwHUVbwgYdCp8ul5MddaLxtwIvgBYTkuG0QJa+0LAt1Rw6bnCV5wZb7+ZO+3ewVNZJ3AmasroOzCkakzahP0HOs9duV2fWmgEZPSK1Yl6ALxztRGTYmZogDfYVfD95LqQErHaQti+WLqpijIX77GjFcSQbmpMDa7Cuj+MNF15atYwZ+Kvt7/a+eLxMZPaY/Ojs/RyZnq4qGWNt7mBk18+i9d5oAR+uL8PGIeCmlTuwTkGTA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792521428; bh=VT1vJ2eTnBG62j+sXGyHHpF2FrfcuiSSmE375IoQ6JG=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=BmLBupnD7akZTNXXM/b6GHt2JTeDy8B0COV5JzaF3U0cjMucTJoP/HT2KL+CRZoYuEArtPXrsCHhkfoABoYHDWZ+9LWu2NDhfcqfpzB2nq90A+ItqP92Q6AmOy3TBBMRlYG+12MgygGbYNWj/vCYSBBtcVUovulKir7C0gvxoGI8ycM/mTf43FOc0AuGrhNs5w8dwTrccAmw/p2wxqpiaXqUWEs/9vAwUcPyq9WuRd9jVLW5kxWPTJULgOgsaoAXXsN6uYf8PhrQdEPyM+mP5tZM/CCwQ8FjpxbshvTI1CSosaxQt/92jPRMSsjNz74QQpUipjxJsFrumANhpUr9SA==
-X-YMail-OSG: tMmAiVQVM1nyWZpopzmNi.y0Q6ac7wMbUFCxl06PlbWehOboM4IIlcsHAtGwz9s
- nHOSqg9YEn7oS_pAAHuRIWoAiqNCzKP1nC8yz6EeH1dGQpi06pA0ZijTd2lu37bM1n6KB5awVKbR
- UJ_pnLhggR2l_Sleq_nfYYUIXRKeTMxVr7sKp3.iJIyPvDGtyA4MMifMx7XzhTeWYl0bhZmZP5KN
- HPig_kaXumm9APttv4kwJXvIK2w6w0GQ48ZdYCWhP6p9Ru1DSEVPOX2tsmiv7r4IeLCXtdpP68.4
- 4ltHAy323cep6VDMgb2uyRfuze1XZhPlK8EKQa.iycFk2KMJY1.BhuUtbcOa0hvVoWVms8lmsQ6l
- dguoOlBSefL1vd6TlyNLrVqMzt51jd2MaBL_W2M3SgQRw8XQJyloBMWosWXFZES00UyPIukqhHdl
- SwBa6t9MIHfeL8JefFR7FkiBgh5oK5OnWsaAfFgP8.Yf8DbzJDHHIQauPDYNCPuLr0CKsPgImgq_
- yKTomPXucd1KH1YblXFupMp5huYcqA2GEXVdbUvF_ndo2QikUa309qhB.7fb3gMikWtVC5CUvXRk
- Fos4pLcvN3hOVauoi_Z6D_SKuUzc0RAsfzSfpFbV9jPhtcGm1Fz0DcjXYZZxfxlhxe6mepSLblNi
- p401sOSMxUn5kqXSCEoj_4hqviSKYW50JRQuSGB1YYT1UHx5YdvRCds1qx3lxXo9JeZfrctdoA3t
- jmL_ONsae3HH6aGH9WaPbj2WtTzD4ULu..1nqFXzmFa1KPA1OgB6mD5OIlR3VNKbZeAJ.2RWvDi4
- 3oHnBNbBxrdNYf_OHW_TMJq4u7ykwNVxN9NISmpLzo.pB3NXc7xY_3BX6gLvn3wvMi8aTGCK3q.a
- 0opsAWNJK3mICOpC5KAEzEexnVGV0s7IOwaHDND8PQZkR8RJWq6anARQ7mSfQNYM6q45zEVH1r4i
- _pdxHXmDuFlFwIJOiMR7lmTsWnzYLdyqihNBDTnkZbaW7dDj3gVkPWajKw_ZQur5nybmPMxuqa9u
- 7NY9wAfJjdKpRS_SnBE.0J5cxNUIZ3SlcxAYvgmKLGGzBCsDvVkCQuoxuTfoyt3j4Uq7GYH0sMWp
- 98bAAfCNKl8fcuZOSDZaEFZa4LBeh8jdNKjMXKoc6M8xxP3u1VZUBEtrlRXEYu4VSgi1N2FxDKbe
- W4_8DtgNdwJ5MkZ8NA2cYUBcwpq7hd3yUo2GhXk2YGpFB1CdJmO50ztm7pQ2NL3msB_gtMo80Ir0
- OJYmhJlkmsS.ha2b.1bHsYpz2ixAjnMTUbjyym.PXoFXiwUdXow6k4dZ1K5y2y1mh1grH3X4V04D
- 6L6WFz5ReavSe0cyt0Id6vJz8Ql3cbKB7lOUdGVODyObMs_f7SjjgZPkE4un.RhOr6VFyPAiOggs
- eJtciAiST7ze.cJ3Md3gcucQO1Xs9CNSrNMNluBaSOJ74zRoID5YCCGjHsOR1RugTMalZVQREO9f
- AY8umjmNxGO7d_KPpMlfkna7MOS4djR1Zj12kuUPFvJmhObKAqvPrc1m7ngfJ5Ks7t0MShpxAsoO
- cxuH89zKXL7gtj4t4PpnZ_n5ZsLcGqIhG85roW2LFmyx2J7egMIlBAYOgsHAY4i_PGZyym89S8kW
- vKzgnCa4lugEMRKX.awRV4bwuSKZ8huBVUOz0c6.pvADYBcD2KrrfNGGx9YkzF7iGFYxD9aTQMuI
- mCAkxRSMgDbXtBwNUOlVBrg7PKHf5sYiXMhBiw6rYn7z9opdneTiY.DlekGsaXcRJ7v0gx871awh
- taLk37nRUWhp7GsHdhBXcMt6oJLfKWfiT946GBa1p5DZKtHqI5MWh9kPzYtx1w0fBYnsR7RPmWQG
- JeydFKoflxyF8VfiaTDqNfVxakZU0ZNoTbgYJdhwws3dv4PT1qz31it66td_As.E7miDkvijlwwV
- bV1GsPhI4pnmmgo09bLcOSi6H183ZgtpH6.UdOTFvKP8Bb33tXPAOuE9gWiXULn6lVTCWvM.ofHp
- nZKiTPf9HPz3PHBwXJbo-
-X-Sonic-MF: <capitain_jack@yahoo.com>
-X-Sonic-ID: 3dbfca32-40be-4856-8db1-d8e14c9724d4
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Tue, 20 Oct 2026 18:37:08 +0000
-Received: from dip109.lsn.bf1.yahoo.com ([67.195.177.118])
-          by hello (SMTP) with SMTP ID 1ef2aaac2e463c76687331ab09204a2e;
-          Tue, 20 Oct 2026 18:37:06 +0000 (UTC)
-From: Daniel Campos Ramos <capitain_jack@yahoo.com>
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
-In-Reply-To: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
-References: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
-Date: Tue, 20 Oct 2026 15:36:39 -0300
-Message-ID: <179252139906.1666014.10596432029920554734@yahoo.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NOi+FJEe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792521480; x=1824057480;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=a5It84XmfgFr5afBWYfoq9kYMFtb8xLHHetx7LdR9zs=;
+  b=NOi+FJEeVGxr0+qXtyYll18ptlAxLaaxGviv7ueE4hyFYOaACQx36rDb
+   LRU7UvTb7+GH+bHFNM7K3YOMvb1ihRYCwWdtYLCTmcN/i9jLfKUj5Gq0C
+   nUetya0tPZTWlI9t13sA3qQ0k619sIhgMhtzA++g2rGe6ZU7zoSd+eXl3
+   4tLuQFhzE4g7KqY0XbwuQZQNAWdlT913hBozGLmv3hC0SJ35xpLk4iaOS
+   4B6z8T6ZJw29sB06Mn3U0QKGM/0tkUE9d/Bccp5jWFOUkG2NLZcWw31Qj
+   4rq/IPFgo+fV32zjcv3oMhf0YZuGmXpIbF+anOiBgeFv9V10W5JZcID4U
+   Q==;
+X-CSE-ConnectionGUID: 9GPCcFhUQ/ipFWDvIoTILw==
+X-CSE-MsgGUID: wigfpOcdQT+Zki1bosXmjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1138288"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1138288"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 11:37:59 -0700
+X-CSE-ConnectionGUID: RaRIQQcgRqGUw8VNQUslQg==
+X-CSE-MsgGUID: m6eX3/lvSJ23rK9RulV20A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3286643"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 11:37:59 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 11:37:58 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 20 Oct 2026 11:37:58 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.54) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 11:37:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tlwiaMUvtRVUM9t7bnSrfnUdQIgzwl0IH7A+/f6UHzSzOmHy/OzTyvFTrFvmgnfH+zi4BgtyS/U1/dwHSWryaoRmzQocDPBx4u8GLirNMqtT0PFnjYxBLjEJOO/0xhUnrV4KDOMF3anfJjWVoXPfYDIUakENdtV97jMCqLS/GEdRC2ggwjM0Vh8Qcmg+YFaD8RuVTrbP4hHYrYHroKGsF5VOxvpWOuCgS1p/9EGT8WPv+KwIjXmmvyPH1fKE7540gM1UsY32D+LT4Vmx8z5bGHzVDlbVO4DuhvKfXJWxI48Lj+wjd9YyfEbBVohQ0CV6wkNb02oPTOTBYQmWbMC96w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t/X6HYubv1PXqFt3KdzrYTRsDThfZg6ZMUqKpu2PLNQ=;
+ b=oO891VUgRamcs5ht6PJrm53zPN3yQvxXmahj53zI2mnaKLPzET7nIygmVe9nZ03yTDHMEpVHdjyOJ4HzD0KkJbDNV4sSD1PIwtnTAaLeu3yNavNFQhGcP5AibFoHrS9aJs8SVxNh/JxdGCMjl+Tx8zFqjgNeH0OV9hUIXdH2/Kq7JH74xnSf+3sYrh2x9hFGVjMMzvzafpD57jSzzJjtwE+/1We06DjQHOfxz7B9R3yD8Lsy2LgrX1YBxuyu+qJQrWhrxaLrrxqY9r+VZ6AtWtd3pquqKb4gr+/TQelGa4QuD01d6ykJ82UFNtOBu8YB/tAt6sNJXlJLgDv7j3PxxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by PH0PR11MB5077.namprd11.prod.outlook.com (2603:10b6:510:3b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Tue, 20 Oct
+ 2026 18:37:56 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 18:37:55 +0000
+Message-ID: <49444078-0777-4318-9f8b-0d582d8a29ad@intel.com>
+Date: Tue, 20 Oct 2026 11:37:52 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+To: Drew Fustini <fustini@kernel.org>, Adrien Ricciardi
+	<aricciardi@baylibre.com>, Alexandre Ghiti <alex@ghiti.fr>, Albert Ou
+	<aou@eecs.berkeley.edu>, Atish Patra <atish.patra@linux.dev>, Babu Moger
+	<babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>, Borislav Petkov
+	<bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>, Conor Dooley
+	<conor.dooley@microchip.com>, Conor Dooley <conor+dt@kernel.org>, Dave Hansen
+	<dave.hansen@linux.intel.com>, Dave Martin <Dave.Martin@arm.com>, Fenghua Yu
+	<fenghuay@nvidia.com>, Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai
+	<gsh517@gmail.com>, <guo.wenjia23@zte.com.cn>, James Morse
+	<james.morse@arm.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>, "Liu
+ Zhiwei" <zhiwei_liu@linux.alibaba.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>, Peter Newman <peternewman@google.com>,
+	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, Rob Herring
+	<robh@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, Clark Williams
+	<clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, Tony Luck
+	<tony.luck@intel.com>, Vasudevan Srinivasan <vasu@rivosinc.com>, "Ved
+ Shanbhogue" <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, yunhui cui
+	<cuiyunhui@bytedance.com>, Zhanpeng Zhang
+	<zhangzhanpeng.jasper@bytedance.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+	<x86@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <linux-doc@vger.kernel.org>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-2-52fd8be98dcf@kernel.org>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261003-dfustini-atl-sc-cbqri-dt-v9-2-52fd8be98dcf@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0278.namprd04.prod.outlook.com
+ (2603:10b6:303:89::13) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,51 +156,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26740 mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|PH0PR11MB5077:EE_
+X-MS-Office365-Filtering-Correlation-Id: e22a3857-a8c6-4dc0-dac9-08df2ed941cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|56012099006|4143699003|261009223027099003|11063799006|5023799004|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: W7IeX/CXK7H0u6TxIbru1eCx1WWfnuDc5f4+WZzm5UkNtQ/Nu1cJITQCRNCBUiI1bh5nNbo6Pdwh9EgMdX8C5fE1hgad8Bqz5qWLBPFxUJ/FgmwKRlSmaB4Toab8Dih3ruD0JKJJbWpTK98xnWeJF6lH0eM7OqqiT/RO1DdF0ansHGFZAo5dqmzZ1K9kEAYKVVPiwDHSWsHtTRD8jskxeqx+UvhqN2TqLtiRuS4FPhjLnvWRyIjX2oFXSLqIQiOfUlOp5tK0OpEW6M3b+VPrF2eTxdPR9eem8xwX2N0U1v7sD2tBmxCjzRKJ7yB60E5zhqyKh1Z3sTmF5e5AUnw/5wgnUeXxZKmRwUFMxYuRCBVevKjjuzhxKHxaIa9R/v3hLQptNS1jFswfKuZjfGB+SR8Nz8XhSiSmdLUHOwnLyJs/NpcPHmJZ//gP0eFgnKavmUIyBgD+cRrjFO1BNwj5MJQGzRphJTxqmU1v/VMOFvbFPuEhUo23a2kqbdGbCErNv4iS5F13VBGbkQZ2njdazXQw+fBACQI6kU3sTLFMes2ZOEfLbGZHagy2Jyzxyf+F1dp1b3vmmbSbtLRc3TG/j2/RsDA+5lvtCt5fB4hSpbt4ibxgmnsuXGsb69lTkVHHsJw4ran5timmfZPAe2s//CNW2ZuHlNc5eCwnBGxgpH6ExFzxL9qZ5AuvroFk3/zocZWpU31UIM51U6pGcKTnCg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(56012099006)(4143699003)(261009223027099003)(11063799006)(5023799004)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDFkY0lkN1FoSkZ6QmN5b2NnMVBRYmxBMDNqdlIwTVNMV0ZZWlV2SFl2MjYr?=
+ =?utf-8?B?RExZTEYxcnduc3hKdVlHUE1aaHBOYkhybXJ4eXlyanZ3Um0ydDNrMHkzODRj?=
+ =?utf-8?B?bC9KTTdNanZNMXlzMVUwSlEwZXNvNTNEcHhTODMrWFBSQ2FjY1ByZTVvZFJl?=
+ =?utf-8?B?Y0hoVjBjRlQrMWdnK2NBbjk4c3pQV2c0UkRKQVFxaDNHd2NBdUpnR2IzV3g1?=
+ =?utf-8?B?VDkwWjNSNGxxSUtpNXZNVmRzUE5tY2pVYmxLSndZM3k5aHJscFpkbW8zWVND?=
+ =?utf-8?B?TFY1KzMvSjVHNGhqdFNvb3dZdk43WjNXQnBFaUR3RVgxL3BXdlJXV29kbXow?=
+ =?utf-8?B?aWRTalFqVnVGdksvbHRKblJnbEF2eHptNVI2Qlp1QU9yaWVPb3dZRXNrWi9a?=
+ =?utf-8?B?SUE4Z1pLa0tqa1JxOURmUUZiTWNZWXh0ZXhCR0Uxd3RJeUxHNmpQMjhGVFVJ?=
+ =?utf-8?B?SEsyc1o3SnlmTU94UjI5NnBUdFBlVlZRNWhkOUVycHJUZkhKUWtrNE41SlBt?=
+ =?utf-8?B?Zm4zOHRJak5MTjJRSncwMlc0SWJjc3FWM1BFNXFxL3JFcnpRTHgxVVl0Kzlo?=
+ =?utf-8?B?VkJLMEx4blNmNnJjc2svUTV2WkIyeWVTR3dVOTZMVzU5M3dhNkhrVVRuRFZD?=
+ =?utf-8?B?d1lOU1EvSTd0K0J5NWszektlamFwdnJTZmJKY0lCNHd5UVFZQXExcHZqYldQ?=
+ =?utf-8?B?cHhJWjhrUk4vNjl2TnZYOXM3NEpFMm9uNEhTV05mdW15emhoTlAzb3p1Tzc5?=
+ =?utf-8?B?Nk41RE43cFJDaXVMblZVd09SOUlTejJXQ3NIZTJDNFJZdmNRY0tNdjFMaDVx?=
+ =?utf-8?B?dTVuQ01iOC9uTVBLSWNnS3Fic2JBL21seHRWdzVrWFRLbHUyeUxYMzQvLytj?=
+ =?utf-8?B?d050cDZlUEdROHZtd3FzZVVtdGlMc1pZOHdQQmFKRkN3bkdkRkVBNzhqR1c3?=
+ =?utf-8?B?Vlp6c1BaREtxN01XOVJac2ZPQlVIZG9PSms3SFNKZFVsNzExaEVkSkd3ZXVD?=
+ =?utf-8?B?T01ZMGo0bUVnTjlSVVhXd3FpUUZUL3JVOVVYSnNLQ285RXhOeDZPblVGY1Qv?=
+ =?utf-8?B?b2wrZkc3V0o1Vk5jSTNQV2VrejZYSE9IaXRkNXcrMlB5Nmd2YmZ1R3A1VWZa?=
+ =?utf-8?B?WVB3NmFwTnlNRzBNM1hDNmZLRVFWMEt0cW9JbDl5RnljemhNcURvRkxFbVJH?=
+ =?utf-8?B?bVJ5WUMwL2laUEdHYno2R1NZdnBSbEZjazlFUlZERDFIT3ovYWRrRVFBZE93?=
+ =?utf-8?B?WDM4bmNZVzVmOEVSZGdJbkJXNkdVNFloYkZITXlRalRhYkdobWIwLzhEUjRm?=
+ =?utf-8?B?aWRvdVlkSU1Qc3lsMG5XSU4ra0tSWnc2UjJCMHBoZjhkNG1BVFJ5OXFjeWtv?=
+ =?utf-8?B?UmdOUkhjN25VNHM5b0crTkVFdE5WemxyVXg4MFFaNFlwbDcrV01mVXFYQ2hD?=
+ =?utf-8?B?RlNZNzhXVC9qaHdGZWIyamxOaG9CWWEyc0FNS0dSak5TTXlrOFhWVmlnREZu?=
+ =?utf-8?B?UVhIOERTTE1OTm4xWDdDWFNtV0dSVTFGUFBPT3REbklSTmtUc3ZneVByQ1FD?=
+ =?utf-8?B?T284cWlob1cwS3lzanVvRTE5NjZSWjJ4SGYyUHlla2c4WUFYQklObUVyNGlV?=
+ =?utf-8?B?RThJa01ueGkwR0ZWb0NWYTYyRWxpRlFTS3Vja0s5ajFPRm1NSFlmby9yVi9R?=
+ =?utf-8?B?WXpXQ0ZOeTdyYVhHT0JmbWdBcDlKbmFUT3htTjZmVi9md2RQWnpJOXZXRVRE?=
+ =?utf-8?B?Um1oMFY2R1VoM0paY0ExOUQvK3kzb0JjdFpqK2F0Y2tBUzFpZ1dSZmFtVXhY?=
+ =?utf-8?B?Q2pPd2JnMGFFdG9hOHR2S3ZYbm93YWNNczJ4NTZjQ3UxZHk3WU0zd3ZQN05R?=
+ =?utf-8?B?dzhmakdFcVZSdFNZMHhMWjB1bHJ0Yk95YnVXSFhiZ1FvNVRkZ2RWYTNNYVVP?=
+ =?utf-8?B?amc4bVFGblh4ZWh0R2tIQmc1Ry9BUUtMOGpocWNuak12dEs0WjNuNFVUdkVY?=
+ =?utf-8?B?UXVCaWlhUkJCbWFMdTlqdjdybDR0U0dsd0h2dzhhZHZ5bE5hT3hWYlM5UFJy?=
+ =?utf-8?B?M3hiMURwMDJFV2cvSFk2aThJTEo5RHN3SVgzaGxzT2h1SXBYTnMvSGtNMUgx?=
+ =?utf-8?B?cENnbmIvclBjaFhrRHRRTlpmR0NFN0tQTzR2cVlFWWZ5YkVhV2ZZYmExUGF4?=
+ =?utf-8?B?WWswMlBjWXlmWHlQSHVnV2oxNTNNN1hmVDZSTSszQTgyRmlhVGdyb255TzVM?=
+ =?utf-8?B?bnJtVThNeWhVaXJrUlZmQzFUTC94K1VkZkpMK3g2UWZDNStqNUU5eDM5S1pk?=
+ =?utf-8?B?azdrVFZtVXliVTk2TkdZUk9pMnlEVUZPdjhjT3dBQVJzdjV2QnNacm42MmZF?=
+ =?utf-8?Q?J1U2WmCiCfrIR584=3D?=
+X-Exchange-RoutingPolicyChecked: Sf4juE++NV2jjTrlNo24jcr4yOg4y4K2WTlWxOp2mKpkGYKBP9gv7VQNMkItbf2Y1bGxF6TzEWVQfo1jM4/I4scX04OGgo3tD2U08uhRnYc/GPq3gkhyQunC9mOjBGw9apdCFbRJMDqt3cohYHnHoGnF0UI4g9USX+RiEUSSjyj1OIVq1Nym+QYMnKboV/U7ZfEtQb5z/HxMquJ21ePO+l1FHpepGXbDwQuYbqpFOuZJqyreOsISMdEMFyV0HZgdR2xap8lVgseD/4ZgvxCnS/2RdXRd/hIVn93Aw5tpGeeA6bziPK+2DGvKha2zbrxdPUsOmdyRzApxeksxkZvv3A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e22a3857-a8c6-4dc0-dac9-08df2ed941cc
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 18:37:55.8190
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sGGYvMhh14vklTrMV3kzvM8rob56nqASxQiGaWJvo/YIYB/QElTXTTPt/1xcyaWPbo9S/2By7h912eKj95xpVln8XF/QT6RhqjQqRNU1gTQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5077
+X-OriginatorOrg: intel.com
 
-Hi Lorenzo, Linus,
+Hi Drew,
 
-I maintain Sparky Stereo OS and have preliminary measurements of preparing reduced compiler inputs ahead of consumption.
-Our Lean Code pipeline retains the complete authored source and generates a representation with removable comments eliminated, preserving required directives and source locations.
-The aim is fewer bytes for repeated consumers to read and scan.
+On 10/3/26 12:12 AM, Drew Fustini wrote:
 
-On an AMD A10-9600P laptop with 12 GB RAM and SATA SSD storage, our 17 October header experiment changed 6,290 files out of 10,352 examined.
-The changed subset went from 61,154,706 to 44,167,571 bytes: 16,987,135 fewer bytes (27.8%).
-Preparing it with two workers took 258.94 seconds.
-These are file-size figures, not measured disk reads.
+...
 
-Using the prepared headers, the elapsed-time medians were:
+> diff --git a/arch/riscv/include/asm/resctrl.h b/arch/riscv/include/asm/resctrl.h
+> new file mode 100644
+> index 000000000000..867db663d958
+> --- /dev/null
+> +++ b/arch/riscv/include/asm/resctrl.h
 
-                             pairs   authored     lean
-Qt umbrella, syntax only       20    9,284.25 ms  9,259.50 ms
-Qt umbrella, -O2 -g            20   10,970.60 ms 11,046.45 ms
-Qt umbrella, preprocessing     20      882.45 ms    890.25 ms
-acpi_call module, -j1          10    4,672.95 ms  4,677.45 ms
-v4l2loopback module, -j1       10    6,572.40 ms  6,541.05 ms
+...
 
-All builds exited successfully, but these measurements do not establish a compilation speedup.
-The experiment used engine 0.1.2, always ran authored before lean within each pair, and used different header paths; it does not establish binary equivalence either.
-We have not measured full-kernel builds.
-Any benefit from reuse must also repay the preparation and verification cost.
+> +/**
+> + * resctrl_arch_mon_ctx_alloc() - allocate per-monitor-event arch context
+> + * @r:     resctrl resource being monitored
+> + * @evtid: which monitor event needs context
+> + *
+> + * The CBQRI driver implements no monitoring events, so there is no per-event
+> + * context to allocate and the stub returns NULL. fs/resctrl references it
+> + * unconditionally before checking resctrl_arch_mon_capable().
 
-Separately, with engine 0.1.3 on the same laptop, eight paired application-start rounds with variant order reversed each round gave these median paired window-time changes:
+The last sentence is unexpected. fs/resctrl only calls resctrl_arch_mon_ctx_alloc()
+from mon_event_read(), __check_limbo() and mbm_update_one_event(), and none of these
+can run on a system that does not support monitoring.
 
-                    cold       warm      cold pairs faster
-plasmashell        -159.9 ms   +43.8 ms       7/8
-Dolphin             -66.7 ms    -6.9 ms       5/8
-Discover            -70.6 ms    -1.4 ms       6/8
-System Settings     -38.1 ms   -41.9 ms       4/8
 
-Those used 95 selected runtime text files in a nested headless environment.
-CPU temperatures ranged from 63 to 91 degrees C, so these are preliminary observations, not evidence of a general speedup or a kernel-build result.
+> + */
+> +void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_event_id evtid);
+> +
+> +/**
 
-The policy and implementation are public:
-Policy: https://github.com/danielcamposramos/driver_stereodisplay/blob/main/sparky-os/LEAN-CODE-POLICY.md
-Implementation: https://github.com/danielcamposramos/driver_stereodisplay/tree/main/sparky-os/lean
+...
 
-Would a controlled kernel-build comparison, including preparation cost and repeated-use break-even, be useful to this discussion?
-I can provide the raw records behind these preliminary numbers.
+> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
+> new file mode 100644
+> index 000000000000..f10a24761b25
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_resctrl.c
 
-I develop this with Claude and Codex as AI partners and take responsibility for this report.
+...
 
-Daniel Campos Ramos
+> +void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
+> +{
+> +	u32 num_closid = resctrl_arch_get_num_closid(r);
+> +	struct rdt_ctrl_domain *d;
+> +	enum resctrl_conf_type t;
+> +	u32 default_ctrl;
+> +	u32 i;
+> +
+> +	lockdep_assert_cpus_held();
+> +
+> +	if (!num_closid)
+> +		return;
+> +
+> +	default_ctrl = resctrl_get_default_ctrl(r);
+> +
+> +	list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
+> +		for (i = 0; i < num_closid; i++) {
+> +			for (t = 0; t < CDP_NUM_TYPES; t++) {
+> +				int rerr;
+> +
+> +				rerr = resctrl_arch_update_one(r, d, i, t, default_ctrl);
+> +				if (rerr)
+> +					pr_err_ratelimited("rid=%d reset RCID %u type %u failed (%d)\n",
+> +							   r->rid, i, t, rerr);
+> +			}
+> +		}
+
+
+Above looks to be an open-code of cbqri_init_domain_ctrlval(). The loop
+is unexpected here due to the duplicate writes impacting types not used by current
+CDP mode that the comment within cbqri_init_domain_ctrlval() justifies.
+
+> +	}
+> +}
+> +
+
+...
+
+> +
+> +static int cbqri_init_domain_ctrlval(struct rdt_resource *r, struct rdt_ctrl_domain *d)
+> +{
+> +	u32 num_closid = resctrl_arch_get_num_closid(r);
+> +	enum resctrl_conf_type t;
+> +	int err = 0;
+> +	u32 i;
+> +
+> +	for (i = 0; i < num_closid; i++) {
+> +		/*
+> +		 * Seed both DATA and CODE staged slots so a later mount
+
+nit: This seems to refer to d->staged_config[] that is only populated by resctrl fs.
+
+> +		 * with -o cdp does not see stale CODE values.
+> +		 * On non-AT controllers cbqri_cc_alloc_op() masks AT to 0
+> +		 * so all three iterations land on the same hardware state.
+> +		 * The redundant writes are harmless.
+> +		 */
+> +		for (t = 0; t < CDP_NUM_TYPES; t++) {
+> +			err = resctrl_arch_update_one(r, d, i, t,
+> +						      resctrl_get_default_ctrl(r));
+> +			if (err)
+> +				return err;
+> +		}
+> +	}
+> +	return 0;
+> +}
+> +
+
+...
+
+> +/*
+> + * Attach a CPU to the picked capacity controller at each cache level whose
+> + * cache the CPU shares. On failure, detach the CPU from everything attached
+> + * so far: the cpuhp core does not run this state's offline teardown when
+> + * its startup fails, so a partial attach would otherwise leak into the
+> + * domain cpu_masks. Caller holds cbqri_domain_list_lock.
+> + */
+> +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
+> +{
+> +	static const u32 levels[] = { 2, 3 };
+> +	struct cbqri_resctrl_res *hw_res;
+> +	struct cbqri_controller *ctrl;
+> +	struct rdt_ctrl_domain *d;
+> +	struct list_head *pos;
+> +	struct cacheinfo *ci;
+> +	int i, rid;
+> +
+> +	lockdep_assert_held(&cbqri_domain_list_lock);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(levels); i++) {
+> +		ci = get_cpu_cacheinfo_level(cpu, levels[i]);
+> +		if (!ci)
+> +			continue;
+> +
+> +		rid = cbqri_cache_level_to_rid(levels[i]);
+> +		hw_res = &cbqri_resctrl_resources[rid];
+> +		if (!hw_res->nr_ctrls)
+> +			continue;
+> +
+> +		ctrl = cbqri_resctrl_find_ctrl(hw_res, ci->id);
+> +		if (!ctrl) {
+> +			pr_warn_once("no L%u controller for cache id %u, CPU %u is not controlled at this level\n",
+> +				     levels[i], ci->id, cpu);
+> +			continue;
+> +		}
+> +
+> +		d = cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_domains,
+> +					   ci->id, &pos);
+> +		if (d) {
+> +			cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
+> +			continue;
+> +		}
+> +
+> +		d = cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res, cpu,
+> +					     ci->id, pos);
+> +		if (IS_ERR(d)) {
+> +			cbqri_detach_cpu_from_all_ctrls(cpu);
+> +			return PTR_ERR(d);
+> +		}
+
+Should a failure to set up one domain prevent the CPU from coming online?
+
+As I understand the driver already brings a CPU online without a domain (albeit
+with a pr_warn_once()) at a level when its cache has no controller (the earlier
+cbqri_resctrl_find_ctrl()), so I wonder if here (on domain creation failure) the
+CPU could just be left without a domain at this level without failing the CPU
+online entirely? It looks like cbqri_detach_cpu_from_all_ctrls() keeps the domains
+consistent.
+
+In the end this is a driver design question, so up to you.
+
+I just have a few nits and a check-in on the design but all the resctrl filesystem 
+interactions look good to me.
+
+The one open is the coordination with Tony's series that moves the
+resctrl_arch_alloc_capable() and resctrl_arch_mon_capable() work into
+resctrl filesystem. Thanks for making the switch to use alloc_capable, that will
+simplify the accompanying RISC-V changes.
+
+Acked-by: Reinette Chatre <reinette.chatre@intel.com>
+
+Reinette
