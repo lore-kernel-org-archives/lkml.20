@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792496986;
-	b=afpI9mwQ3uKOZGT34sgfUMYcQ3DUULrK4JPtE3NvmFE6xb+fy7eSuyTGYf3ms2IqTxMp
-	 Hzt9cmEGD/Ug+p7sQq9aiqqrXd0x+OYBvOSCq/F0tMElxADQJgEqSuD54qKsEkSTa3yws
-	 W7cSSnlsbnRH8z+o6S4COepasUvG/k7MJchTUOgVVauDzH5H1Xha9eISYOnDKve5S5+UE
-	 tkJAMoDJGucFnd9YJ5Bw3RR1X9WmXlxTPdJw/ZcM0mqrnUwcpKo3OGokfHnav2zCo9Qv9
-	 q/GlFq9cLc7pVroGdqSjCaiKkwUuQ+wuOyh2yTd+ut9pKZU3+M0RClQXRucZNnRl/QQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
-	b=u/PXUWyAU8CZlt6H1kN9MPtl8AuXFW5PZSv3kVkW28zR1tpNxcJ5vGx080emrRFzWC25
-	 bOwh4NNWmy+zDQKRl9Zd8blkbSiRIJTXtAhi+SLqoegTUK54LvQH8A0KIRSgWHfZxJYKW
-	 HCy4EHKRIxxmQ+TRfH3/TtPDXU8S8VtNLYGlsPEbH8MwDr26sd3gyKVDgsjM99EUK3YEs
-	 /gMueZgaPXlQe2wnnic3aLrqBT2nTQEAcJuf7shJoSrNhREYxI324IN81aE5pHpkC4M8l
-	 MRIHU4rBFzSG4LfqZhyemKClEYcrY4FbxvZs5v1dTWMkD3y+RTl0qLOIDVFMP6yY9Tg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kiddier.org;
-	spf=pass smtp.mailfrom=kiddier.org;
-	dkim=pass header.d=kiddier.org header.i=@kiddier.org header.a=rsa-sha256 header.s=google header.b=jcEXUuFN;
-	arc=fail smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792497067;
+	b=A3HEUo7Qyqjb5nh3JnocZ1jMH4hOLqD6IKjXLI/xruL4hIMGKe1qtllbUS01M+uG7GxK
+	 AosCFcpPaCRagWJemDdSfSbfT1Dq4GVuXPgaHOIC9gQg7dyaN8AhfyL7YkgqJJUNMQshU
+	 1d9JaM+7BKWNFEIXy7QJtgookDLZlJfkTI9qISR3rhCPplvDRxwZw50X/7lj/EWVVnurs
+	 ovos+4SrYUdGYu2bdXC4sPioJy4JCft2C2ChO9CZ0+frrAEspqTs7VAZOerA7t+0VSDx6
+	 s+4ECicc6lvLStYmWbu32jlJSWhLZj10dIhlNW3Lebn8PTGDvLqryVXhYoaNBxZWpsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497067;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=kjIus0/Z7THMqH+fmdFt+9x90O1BbsB0s2G1vUB5BlU=;
+	b=4Ogf2OGx2fOpqiiZ/eIaaeHARC4cI6ofnmT3kOZEKKKN9L9/qLC9aEhj9cYPCM0ShahH
+	 2lyxiAMvSaIuqyTamETZpFD+ShlySidmx9p+0QGxC45zHtymcIEju0VyXCOVP5NaXOpCR
+	 jXr7Fq+Uierfv8ELRZG75qi/vEMfrXnbFCnQOaRx/BrZVd+sj+QELYho3wEhYNAeX1hiI
+	 /6lIO9UAL8EMz1JfE1GkgYEz5eYyG71SUVdXcWz4Ry0A/69lZY6j+SbhyXA7sx+/wOYGz
+	 /mlCkvvrxO0skeimWQ+xwKptiPTSr7ZGH3KiPmHQEzTOnZZE7GSgPVVGCOghKY942EQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lUwWStw7;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060C2606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:49:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 060C2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kiddier.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kiddier.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D74606A319;
+	Tue, 20 Oct 2026 11:51:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41D74606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=kiddier.org header.i=@kiddier.org header.a=rsa-sha256 header.s=google header.b=jcEXUuFN
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5e941201909so945338e0c.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:49:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792496985; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fVGUTgPdWZVPj6R5qzulExi4zg/0jyAYCm/Hne90WmKp5xgDn1K1CuJU1HDyH093zI
-         vZTSPNZ6+8jNvjumDUvazqnEm7ogLIulIfTsEC00Zm4pB5sgILzM2YFkEgX/y5/QOvux
-         7W4PVzrdL2x9qPCR6kNZwPYBjsuV1do7J5sVQSGpU9LH+D7OtJ1ck/GVBWhqkoHwPP5M
-         c5GoAekrh0Y0WGahWYIwnvALKeNLdK8yYis9fHphyJzg8i3lNRfcK3an1eViIkLr1Lj6
-         FzPoRjCntdfXtyX7BkufsgY/Jjdinkr11PIdt9qFvcjYsI6SufZMKyDnvhYNg0KIZkIn
-         RCWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
-        fh=JL+77x43m6LoSmP/A2qGPQcehWOmFUXVIitFVjoGvLk=;
-        b=eDKp9FDk2Qki7WWpVMAikJd76g2emawHk7QCg+RjsySz+ZSwa+ipTBtEMxHII3vfvz
-         rHNuJtD5+0ANV22nswsxKF74FTRf4Z0jrCldKx51YLte9fFv9cBl4ec8X2wJYJh/f/0C
-         gM2RSpynLiXbTB9Se3lD1+hCo+/fqSn7IpuLQleWTmXIj87WUhOSc/jtm6E3mqNOVp6v
-         sYVPdYFvp2phcAe1CoBC6vWNOZGf2HhiazvAoUaOWFd43yK/+N5lQS99odS7CQjabF6T
-         uFvCFBV89y645wNN85Zah19w72u1p7fGXhHQZuyf1EbXpfrrNHhNh/uayDzQoi9Trsa8
-         UPUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kiddier.org; s=google; t=1792496985; x=1793101785; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
-        b=jcEXUuFNMltH+U9bsfQhaoEJcw3oYpquLvoEe01+X9wWxXWVoLM1NWoQ5VmxHTpO72
-         CUDxuZC/MlUj6w0dEYWAgd+KNbwbAbUZTaCw/G1YeFJSNCUf8LHNp4Gw8tfsNQHImRfw
-         NcVz6VVZKV1sZw3L5/1LyAKyJEVQP4JJdRmxI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792496985; x=1793101785;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
-        b=rYpxwkdRYVlD+l0RyTkKp4y3NudRzo72rpw713pGrsnjqZxu9k9eK4SJ3Ba1xHr3mF
-         prHBwzq7/Gbo/p9Cog0hQdyGWXEvU5K9YrFzelCnTv2Ix4XT/GI08tUtI2TVdN4c94Zh
-         kxFdZNu+MFBzdEoD4veeEa6Amm1Ap0GJ93g2ZrmLtlI42UZffuVt7UqCf7MERpPzHv39
-         AOZm45ev4c+dzN+nyVBS/2nuZ/anDSYlpGlPcC6wUvhZ/d6I0Vq65yc5lolERuP/aU2A
-         41Um29FbsHndxiUmNDSUqGuej1hecEHlmpuSBLv0c0vuTWL8+6oOhc0t3J9lW1OIjgCV
-         pgcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxhTYZaqZXT8axBY40+ILWg2k4Sr0LjC4lQc5WqvsNOzqwNmfpzke9WCOFNxKkZUW8WFxOhUXIRqtquvmY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0pujiUuDdJEx1So0moTUF5DMrEZwZDtgOqaVYuqBjlmsFevXq
-	qLkEmcjSk+9KetAPCoX5POSNXesFbAa55FrbDf/W1rcqZnNSE6v/QF8g+dUhr61/ObN/5j3tXPz
-	vcbhiYibvtsyiBQ0lYKic6TkqczjiYmBYZT9q+cjTaQ==
-X-Gm-Gg: AYBFou2SRL1z6rNJmNQ67hs2KhsYbx7UBSQw3y32iR8ytBcTgH1+4OnmKc4HeDFa4Nu
-	wRWnJSGBmjkmN7r6QyuJ7Llh8FibFcIBddBSJycrHN6P0UDeUB4ATdpTApcq1heDPoJPvgtx80m
-	nQskEjdkm+pBJOv3Pf9y0F1DM8J+GNQnp7mNIGMZ1oSQLmj4wKTLlvmfepZfYiQ77z2c99Le/GC
-	3ebZ8dQNt4grHspbaIP5ADvEg9VKkoHApE/KQWQiLiVQewJqoblq85dqLMYgrVOtq1rPsmMreic
-	bSB21NgtbV0bZNj8osoSm8XTSompz45ijzv8NV2vBMmC/1h+g3YYIplNqw==
-X-Received: by 2002:a05:6122:8c1:b0:5da:9b81:1aa4 with SMTP id
- 71dfb90a1353d-5eaaa3c174cmr3451932e0c.5.1792496984909; Tue, 20 Oct 2026
- 04:49:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lUwWStw7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792497068; x=1824033068;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=vZOZVuw0ZwLdXOpr1UleOlDXx5oOWBvkj4gsvs1vsuA=;
+  b=lUwWStw708zBGMj1ZE8dkplhKeQnBnmoQ2vo6Nfp7SIFI5PaFv2h+gEC
+   dtWslWb7whElHx8vp6K6NKc4TcnpelkICvInopLNbTtXp+2AynHM3NSQL
+   AKps9D8L6YbUPWx7SVa8DaFhzGCazOpWH/i5SYibaqov44RK0PcIjGwNJ
+   bnlm94NuvGmc6N6i2xuKJnf0mU3KmspHi4JjWYywJ1zKoy9LTx/KKuasS
+   hmnBeIkbyphq0K1olPNe4SuJeMq2PVSXvA8BFjsCd9QNlM7df5hFCyfMs
+   vhANBfB4sXBQGpMjAx7QukPIVLaxTtxq3f/ZPjDcPngc88+Qk5Go5SLMa
+   w==;
+X-CSE-ConnectionGUID: 6wJtUXUrRLqCaGuzqKg1Qw==
+X-CSE-MsgGUID: U1Xu49YHSJqkHI+5RS94cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1098546"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1098546"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:51:07 -0700
+X-CSE-ConnectionGUID: Rgz5036KQxSUgIH5S/JUhg==
+X-CSE-MsgGUID: lWP5tft+RLebTMNLYPQWxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2852905"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:50:59 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 20 Oct 2026 14:50:53 +0300 (EEST)
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+cc: Jiri Slaby <jirislaby@kernel.org>, 
+    Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, robh@kernel.org, 
+    krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-sunxi@lists.linux.dev, 
+    Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+    Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, 
+    Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF
+ readback
+In-Reply-To: <atcm2zqDs1P_EDr0@ashevche-desk.local>
+Message-ID: <09812a6a-dd0d-9c47-e1ad-5220f1954648@linux.intel.com>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org> <atcm2zqDs1P_EDr0@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,118 +87,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CA+3E589O46nj=c1Y+Rwk_nPZZKEUjFvMfWaAFmQ2-7De9iUxFw@mail.gmail.com>
-In-Reply-To: <CA+3E589O46nj=c1Y+Rwk_nPZZKEUjFvMfWaAFmQ2-7De9iUxFw@mail.gmail.com>
-From: Peter Kiddier <peter@kiddier.org>
-Date: Tue, 20 Oct 2026 22:49:33 +1100
-X-Gm-Features: AclHuK_KgzridKLRANvtLJkSHaLWJWHnmxsRRdoNj6COaR_e09DKIcJwjLUSHC0
-Message-ID: <CA+3E58-2N-uVNsmwvOGDKZvtnDQ1DF=GzFbTyRLuN8FpAd4qdg@mail.gmail.com>
-Subject: [REGRESSION] BCM4355 Wi-Fi fails with Intel IOMMU on 7.3.0-2-t2-noble
-To: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev, iommu@lists.linux.dev, 
-	arend.vanspriel@broadcom.com, regressions@lists.linux.dev, jgg@nvidia.com, 
-	kevin.tian@intel.com, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
-	dwmw2@infradead.org, baolu.lu@linux.intel.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-Adding the IOMMU maintainers and linux-kernel.
+On Tue, 20 Oct 2026, Andy Shevchenko wrote:
 
-The original report and test results are below for context.
+> On Tue, Oct 20, 2026 at 08:11:06AM +0200, Jiri Slaby wrote:
+> > On 19. 10. 26, 22:06, Vinicius Pedrosa wrote:
+> 
+> ...
+> 
+> > > -	if (reg) {
+> > > +	/*
+> > > +	 * DLF is a bit field starting at bit 0, so a real one reads back as
+> > > +	 * 2^n - 1. Any other value means this offset is something else.
+> > > +	 */
+> > > +	if (reg && !(reg & (reg + 1))) {
+> > 
+> > Do I understand correctly, that this equivalent to:
+> >   if (is_power_of_2(reg + 1))
+> > ?
+> 
+> Yes, and since we check for reg to be "not zero", this will work the rest.
 
-I haven't tested a vanilla upstream kernel, and may have limited time
-for further testing, but wanted to share the findings in case they're
-useful.
+For is_power_of_2(), 0 is not a power of two. And it also wouldn't make 
+sense to have zero bits in the bit field as it's same as no bit field so 
+using just is_power_of_2() should be enough.
 
-Thank you.
+It could be that's what Andy meant, but the wording left too much room 
+for interpretation.
 
+-- 
+ i.
 
-On Tue, 20 Oct 2026 at 22:32, Peter Kiddier <peter@kiddier.org> wrote:
->
-> Hello,
->
-> I am reporting a Wi-Fi regression on a 2018 Apple MacBook Air with a
-> T2 chip, running Linux Mint Zena based on Ubuntu 24.04.
->
-> The Broadcom BCM4355 Wi-Fi device works with kernel 7.2.11-3-t2-noble
-> but fails with 7.3.0-2-t2-noble. Disabling the Intel IOMMU using
-> intel_iommu=off restores Wi-Fi on 7.3.0-2.
->
-> Hardware:
-> - Apple MacBook Air 2018 (MacBookAir8,1)
-> - Wi-Fi: Broadcom BCM4355 802.11ac Wireless LAN SoC
-> - PCI ID: 14e4:43dc (subsystem 106b:0843)
-> - Driver: brcmfmac
-> - Interface: wlp2s0
->
-> Test results:
->
-> - 7.2.11-3-t2-noble, default kernel command line: Wi-Fi works.
-> - 7.3.0-2-t2-noble, default kernel command line: Wi-Fi fails.
-> - 7.3.0-2-t2-noble with intel_iommu=off: Wi-Fi works.
-> - Reloading brcmfmac on the failing configuration does not restore Wi-Fi.
->
-> On the failing 7.3.0-2 boot, the driver detects the device, loads its
-> firmware and creates wlp2s0:
->
-> brcmfmac 0000:02:00.0: enabling device (0000 -> 0002)
-> brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac4355c1-pcie for
-> chip BCM4355/12
-> brcmfmac: brcmf_c_process_txcap_blob: TxCap blob found, loading
-> brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4355/12 wl0: Jul  8 2023
-> 17:49:51 version 9.30.503.0.32.5.87 FWID 01-e74b9cb0
-> brcmfmac 0000:02:00.0 wlp2s0: renamed from wlan0
->
-> However, Wi-Fi subsequently stops responding. The kernel log reports
-> errors including:
->
-> brcmf_msgbuf_query_dcmd: Timeout on response for query command
-> brcmf_cfg80211_scan: scan error (-5)
-> brcmf_run_escan: error (-5)
-> brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
-> brcmf_cfg80211_get_channel: chanspec failed (-5)
->
-> There is also an error creating the P2P interface:
->
-> brcmf_cfg80211_add_iface: add iface p2p-dev-wlp2s0 type 10 failed: err=-52
->
-> I tried reloading the driver using:
->
-> sudo modprobe -r brcmfmac_wcc
-> sudo modprobe -r brcmfmac
-> sudo modprobe brcmfmac
->
-> The driver and firmware loaded again, but Wi-Fi remained unusable.
->
-> The firmware files are present under /lib/firmware/brcm/, and the
-> firmware version reported by the driver is the same on the working and
-> failing kernels.
->
-> The brcmfmac module metadata differs between the kernels:
->
-> Working kernel 7.2.11-3-t2-noble:
-> srcversion: 3B6176FDB720DDE8E7C596B
->
-> Failing kernel 7.3.0-2-t2-noble:
-> srcversion: 3DCA38D52402541701276CF
->
-> I did not find obvious PCIe AER or fatal errors in the failing boot's
-> kernel log.
->
-> It has been suggested testing intel_iommu=off after reloading
-> brcmfmac. The driver reload did not help, but booting with
-> intel_iommu=off restored Wi-Fi.
->
-> This strongly suggests an interaction between Intel IOMMU handling and
-> the BCM4355/brcmfmac driver in the 7.3.0-2-t2-noble kernel.
->
-> I have not tested a vanilla upstream kernel, so I cannot yet confirm
-> whether this reproduces outside the T2 kernel packages. Unfortunately,
-> I have limited time available for further testing, so I may not be
-> able to investigate additional requests promptly. I wanted to report
-> the reproducible behaviour and the intel_iommu=off workaround in case
-> it helps identify the regression.
->
-> Could you advise on further diagnostics, or whether this should be
-> investigated as an IOMMU or brcmfmac regression?
->
-> Thank you.
