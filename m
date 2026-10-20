@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502637;
-	b=Ey1TAisJ5OeWNHeZz22rxuocFoNZV0zHIfj5Jld5V1nF5GnubgyVkg695+9Z9gSqy4lc
-	 5+543jvymCPUkXlxku/rBO261mUJEWb9rQMcukITrTaVuE2GIr/nIwfWThhRGLWJ1UAU8
-	 9FtUytBVF/9tIxMexYD1PQTAAUYSXxNuq3cr074QPJZkJxHzDdvPtnb2pg/zvH9OuQB8q
-	 Xjl4trN07CWm+kQQdgOfVfsagz6wHfbtusrG4glqYs/JIT6MF3uhT5LyOjAKbsiXFvZcN
-	 pS1IiLkMthzLBvDiixUKj9sb8t2kC7kGM7MpQowwGwaWQKMfdYs2+2B7/AhHBxZMf6Q==
+	t=1792502638;
+	b=QGcWHf+Zr7ndMrHi213uaiH4Wd6VKoGbVm3tTHwZ44BLp6059syV3wM1QXVuN2XwDzZ8
+	 km8jlSdSybykD9fmE+M6y+uzsrkXyE900A6odkCO6Mfs2ZU8HaNVD5hx0R/T5VT0MhcVw
+	 qa9fC11RdlHArpa2A6UCTY7ixRBCkx18Uj35vKaL2YSW3BA7MXB461mQuPj2b7lJHPyRy
+	 J83a23uk2CjrqZkY/NL6GJFmlK6Mg5fad8eXevKba5luKH+01IsiXZGyYKvPDd8ltU42O
+	 NAi1i0oy/uY1wvudiQlTnZeyqeDVav6YlJ+wZuaSMxE+lsB9eUbHpNVjQnqqSIw39jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502638;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vOwJdBkJQT2ZZgsV9Tvx4zTJRIWa7XIIOUhJ8h1ztTI=;
-	b=ZLj09lsbmD3u+cRyLVUnNhUZN/YDjBoxOW6PeuW6Yn3GG/QtyzBcyJnBKMM5JfnURQig
-	 qXj8xzhfJIzz2/8cKOUgtxepnF315YM8hrMX5YMJZpoThDu1bwXPFFsS2BgGuSdNuFgTS
-	 /qjDVwqKQVIHhWLBN/IKVnUeKWMyLw7N4s7XIJiR1cJl0DiEnCLiQXAFQHFYwgHlXkWmC
-	 clJgiupZ+5lLExJyaMQjIeoelhxhiQjd/ltpqtkD6lthxJxvGPU96F9cNMvSDgG5jbNTQ
-	 FnvkwP9qH0cuqjyrMW14+uSwwQy80n7qnK49xhNonydU9GE8Ox5Y2YMaAT0rL3EHg4w==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=T2uaYBqUftcRpD2L16JDkdO6wqmonuMoZFfOWWQv7Gg=;
+	b=ztTYoz7h7K7p9gimh/ntFMzOfL3qv60NZYveTCN/4DL5MNemj/b/RberZM8bU1+l73hY
+	 BFJkcq/BbRBEOC1St3NL4pbp9JcGgHmW8zmoyIc0sVu4rTLG+B6odsPcAf+gf5nOKtwtV
+	 +qbh/E+bKVYvFbqufMmhBIv5fcyzaWYh8AhQC6V1rDVl3a/M3P37MQtxECZS5i0g6t+eL
+	 3fM9GJ4cGo5139kfxIMlyLOuP2BFwwdXvoOJvp7X2ZdE5mSj07kP/N0IlgN8eCqJRaSnc
+	 VrVQ5nRmFkbQ4yJwkv+bmeO6+AwMg7Sv37lBBSUCd90X0bzm7h1QqlaU3JmuPZOPXbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hOqFBXvw;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TUnDbbJ6;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682BB606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:23:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 682BB606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5345C606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:23:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5345C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hOqFBXvw
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a07078200fso795872b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:23:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TUnDbbJ6
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so8081295e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:23:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792502637; x=1793107437; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vOwJdBkJQT2ZZgsV9Tvx4zTJRIWa7XIIOUhJ8h1ztTI=;
-        b=hOqFBXvwIqfLxs4G+ZTGW17EGdDcEoatHHgJDFqPnmSt9WtAeYWXTUUwWWl2pcT37u
-         NpnQT/lwgz37PVRADHzRQd/qQ91udzQuNswOUANj0LLj/TMwrE/v6Bs++I4N7brqkjpl
-         0FBNI1KmNNmgtPLPF57K+IyXhaJFw/SS7ropGRa2lGHjofqxX7ypaOHAdT4SFm72XKNB
-         Vn4DpgwHsY9SWKIY4SMaijoNIEmPrDBbFrunchSl/DsuYKVV1DHfbzk1eovQHXLKXqxE
-         L/9Ry+U3/pd0bdJqDVfPTdKgpT08ARfWFHooTTv1psuIp1c8io/aJyABc9vp4MRJwfF8
-         HGxA==
+        d=linaro.org; s=google; t=1792502637; x=1793107437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T2uaYBqUftcRpD2L16JDkdO6wqmonuMoZFfOWWQv7Gg=;
+        b=TUnDbbJ6pu9r+QN0gnuvY663hk4hHY1RCA0GjoO0As/x+/jReLTgoosYhEFRmvbuXD
+         Z1v81IluqYPJElSH8ZndEpfUjKZCAouMKjQSVHdbkG8Y/CQQ+9nvFs3P4an/XEwcTGvw
+         qaJ4J9pJsiRD+lta+FH+4wZTFrpXpW6neGfqi06aJcBw2dHjdnN3GdX/86+t5puH2yQD
+         TX9uX8X30tRzlS3ibC0wc86fm9SuGmbHKvHQOYmeMb7y8ctBpA7wjUAmWZgUhdMRjv1T
+         +yg6+zhbeOv/Z9dP3EHqBRLwoU49JaqaKm+F5TlgieBy2hhIHOp/fgqvVkVEKgM8gXMY
+         Gt2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792502637; x=1793107437;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vOwJdBkJQT2ZZgsV9Tvx4zTJRIWa7XIIOUhJ8h1ztTI=;
-        b=jUHkJ+e/KIv3G3vB8B63iOdMsAFJ9dr8MFMpal7BlrXIF3KNLwHPn4sYYus3gAZi8Y
-         Xy9j0SzYWF9+SJBQUOKb7flVM/AzN9rnUqlJl7rNM4yjuzwnAgs0DvAQ5HR7f6VOlDEn
-         MeA7fmTEhNjq5qp8jGBza5Bs6jVXhHM5CLiPHCsiNdTW9bRr7EPMuFfkIUm4N0P4LZhH
-         QWRuJE3Ur+7eJYu6LfYw0VPMbFIYQl4YzsiVzXO2Agx01MjphEQpSICoW8r6JCP4kue4
-         QY32t3+OVrUVr8nM9gkawDgpILHbW6IpW29dT3Aun/euo3ll8byES/GzGa4Q3jltDt/e
-         J9Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBx08vjuz893PHCmFwC6mRFIn5LLyesrML63JbtT8a6ASbrR4U1cHYvPtW9VM9sMwAG13+9AtX3OFbi786w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZ8FEwtkC0uBVuPSdjjwraZgJw206AiqFdJJcFy3AQKojGGl+S
-	QEHzcsfCveylUwYBJSWONyi0ckZcMzoVAW0nAynOjIrDcmJQUZZGe/6T
-X-Gm-Gg: AYBFou3YBLPmoQTf/5Upjuin1h7uQTIb4581Tyk2c9ssmP0QZ1dfT8yMDpFUnWQwuoG
-	ZdGKw5cR3mhk9UHAJmdqnKMTSSFfj87cVdmZxSQoUj3bLs4uVhS63IRfGqIaG5u3i/S/wheCy7z
-	FtKzp22XUyzJGEAv5+FHCWu/WF57TG0k6A0CvF30s5WStjh7ZrjgpkMdFFF/enWa5zwAQyFz0H0
-	71Y5umcDi5Qaf2ZNFkgFsh2eNGxfwtKlGlXc6/Var64sJM/zhKEEKsqjdPfoQcw1oHrxDOBtZS2
-	+U4apFwAuhqDW751uITres0xKA7+QvrroAHM3hkw+H4RtTyUoPyE2/eFk1GkgyllhirK8AYYqsa
-	DUvPJP+czRXAZp/AllvdjOkxe7k0YZCgDJjYr+LGOJcXwrdXJj6jQ8lmakCXfkI1qU4fjcC3e1h
-	LquiJd1jgnxqoGxKoShnp+MuuD2hQDsFiJl4ACtxfamPbH3egbcDUiAL4uLAufx4RhCn/IEN5Rx
-	NSTh/yfPmcHZw==
-X-Received: by 2002:a05:6a00:2794:b0:89f:c156:d211 with SMTP id d2e1a72fcca58-8a04caf9590mr8276728b3a.31.1792502636753;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T2uaYBqUftcRpD2L16JDkdO6wqmonuMoZFfOWWQv7Gg=;
+        b=qZKHajjlgW0nY/kxSZPd3hJm936W/Kdl2kfdAa8LvvI1R8MIVh9P1QJIJzwpxNaosL
+         KgpliQSgmQR7WicitC1w/V3z85XeCEewbVC7wKKTvdXdFUmr5R/q3KYqwOzmrCmBhfac
+         fG0QND4TPILH2KLkH8wBYgUuenSei/V4O2m93NLsrOwT9cluZyew8VrQSrTCOo9YV4a7
+         hDkGGdKvFr2JYF8eZEghh5nmC8iUXaLrjPF4JLOwT0/Y5m7t6NyX6JxhxpeUd1gOj1L+
+         ZLXV5yxqQ7uerrmGUCkJhF/rr6Cu3cKLTmulJZKdyfOe7OtAmG0oSxGJ9omFe2G7H4mr
+         Fb9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxPd4IjdDJDI1Ffj4ErO06aS7PsL/RnLzxG0BA7gIft+68LU5DZ2obkbcFsQmwl8a063ZN0NQAbRvCxG18=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCzA8L+4tw4aob/RkIuL9TYW1bEK77jCn9Z/2OYbJCuuPYIegh
+	ctPt/r2H4jiacr1qJSrvrLzGvgAFY3q2tQ5GfkTLiSnLEj9XF71raps/rSOD1TKawf4=
+X-Gm-Gg: AYBFou0sQW0igtNUtHprGwIRaW3AyVC7pMszuuqqu9NhPp/4sNdhv9tRHvxwI/s1kls
+	8QPnMyJn/ldQs/JslpqPAbSHT0OCURVUigGOCFNOHAEJ7SN7HCaCygCprfPsaWaIA+fYpca1hEu
+	38ynLdWgC9k9GK81I10B1ES5l3hyySgVSSz5+NLnQgV/vB6+WqcMo56VXGIglGes8VGvwYf2/Rp
+	8P8wTv/nZ1d5s4j1UN3jo3+APOoOybfRyiZjagRoxmXMduIHuV9hmWzytP14AcdjDQPgPmLpmt6
+	WvlfNeMSNiRRhcb28ezpoOa/kqWMwvvIg/3j2pKZ/vw1AfG9FfUTzj/YzrOMd1yf17cGBmwU+Du
+	J5WzL6dFanWTNy+9EUl/s9oODpYq6crgQuSJZhqrodS4flqZhYhTCBHfJq+JGV76TeSXbDVdRTS
+	8xCYplLXIZghOClVzLL1de62o0HQhdwfQAQ3IRQrmuHT/WLt+KlIYV3LDUxCVWTU0epQskPksiI
+	9hwhdMK+urRUpQ=
+X-Received: by 2002:a05:600c:638e:b0:4a1:a7f8:c124 with SMTP id 5b1f17b1804b1-4a1f4d7afcdmr43701515e9.7.1792502636695;
         Tue, 20 Oct 2026 06:23:56 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58208cc3sm4831503b3a.52.2026.10.20.06.23.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce2b8bsm74994275e9.15.2026.10.20.06.23.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Tue, 20 Oct 2026 06:23:56 -0700 (PDT)
-From: joonhoekim <26rote@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Joonhoe Kim <26rote@gmail.com>,
-	sre@kernel.org,
-	kamal.wadhwa@oss.qualcomm.com,
-	anjelique.melendez@oss.qualcomm.com,
-	dhruvin.rajpura@oss.qualcomm.com,
-	andersson@kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] power: supply: qcom_battmgr: expose the charge current limit
-Date: Tue, 20 Oct 2026 22:23:48 +0900
-Message-ID: <20261020132350.953-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <4ec618a6-052b-47de-8418-e0e319af10ce@oss.qualcomm.com>
-References: <20261016124806.1789-1-26rote@gmail.com> <20261016124806.1789-2-26rote@gmail.com> <4ec618a6-052b-47de-8418-e0e319af10ce@oss.qualcomm.com>
+Message-ID: <69dcbd3f-25bd-465e-a173-2729095f2dda@linaro.org>
+Date: Tue, 20 Oct 2026 14:23:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,36 +91,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 17/25] perf cs-etm: Allow history collection for samples
+ with zero IP
+To: Leo Yan <leo.yan@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
+ <20260915-arm_cs_support_aux_sample-v1-17-35cf6f297d20@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-17-35cf6f297d20@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Joonhoe Kim <26rote@gmail.com>
 
-On 10/20/26 11:55 AM, Konrad Dybcio wrote:
->> +	mutex_lock(&battmgr->lock);
->
-> guard(mutex)(&battmgr->lock)
 
-Will do.
+On 15/09/2026 16:49, Leo Yan wrote:
+> Perf clears the IP of a user-only PMU sample when its interrupt skids
+> into the kernel. The timestamp and TID remain valid, but the zero-IP
+> check prevents --itrace=L from attaching decoded branch history.
+> 
+> Remove the IP check and keep matching samples to trace by time and
+> thread.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   tools/perf/util/cs-etm.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+> index 00407a80933e1c0b76260aed5894dece50b9aecd..baa962085dba5226d9729a0ee8039374d5fcb1a0 100644
+> --- a/tools/perf/util/cs-etm.c
+> +++ b/tools/perf/util/cs-etm.c
+> @@ -3097,6 +3097,8 @@ static int cs_etm__br_stack_init(struct cs_etm_auxtrace *etm,
+>   /*
+>    * Add decoded branch history to an existing sample. The sample keeps its own
+>    * ip, callchain and event identity; only an absent branch stack is filled in.
+> + * A user-only PMU sample can have a zero IP when the interrupt skids into
+> + * the kernel; its thread and trace window still identify valid history.
+>    */
+>   static int cs_etm__process_sample(struct cs_etm_auxtrace *etm,
+>   				  struct perf_session *session,
+> @@ -3107,7 +3109,7 @@ static int cs_etm__process_sample(struct cs_etm_auxtrace *etm,
+>   	int err;
+>   
+>   	if (!etm->synth_opts.add_last_branch || sample->branch_stack ||
+> -	    !sample->ip || !sample->time || sample->time == (u64)-1)
+> +	    !sample->time || sample->time == (u64)-1)
+>   		return 0;
+>   
+>   	/* Adding branch history to existing samples supports the host only */
+> 
 
->> +	if (!ret) {
->
-> LLM suggests to add:
->
-> -	if (!ret) {
-> +	if (!ret && !battmgr->info.charge_ctrl_limit_max)
-> +		ret = -ENODATA;
-> +	if (!ret) {
->
-> to prevent a possible zero-maximum value coming from the FW
-> from messing with us here
+Looks like we can fix this up in Amir's patch that introduced it when I 
+post it as part of the JIT stuff. Then this commit can be dropped.
 
-Agreed. This firmware reports a maximum of 12.4 A, but a zero maximum
-would clamp every write to 0, and a limit of 0 stops charging here until
-the end threshold is moved below the capacity and back. Returning
--ENODATA is better than that.
-
-Both in v2. I'll wait until Jingyi has had a chance to check the sign
-in 1/2, then resend the two together.
-
-Thanks,
-Joonhoe Kim
