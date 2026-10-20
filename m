@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482615;
-	b=ICSo0+gisboTvJUc+EzWebhfGnq4VE4UWnKauD3+G/vJx4T1zm/q9zD5lrcVva1Cd2j9
-	 GUByWWwK27rC4/WF+ZAEfC3hTqJnZM8uiHXfE3yvSY1fL78fHQt2GPpBzaZEYps83Dgbx
-	 M9lE0QTHfPso2zCTZOxMo+tY+8AS4tbl2KFLN2H7DyTUuLwSaDVoTgvjHxN37LUb+EBYk
-	 7o5nGGXV/UplRcdm5rzS9OBR7+7gbe9jZN0xV880XtZdMRNJ1mYuk4p7BommadRqv4ETS
-	 /oOyMU5/8GMUXjPSSlb4KNrH6P6HBsYqYFFAktrme1K7AHkdNOfNIxRRyarNgKPRIOA==
+	t=1792482634;
+	b=t2cBoEtMVxfYizj9IBc3DN5QVzL8KFziBugYDQBixRx9ThRkr1jIJ8xdomIsAtiLX43i
+	 WG2M480liowrhTokUqL7PWUbsyTQUiQCBxNwdZhGlsSradACZnfiTaKYKWyFm/Le+Pyse
+	 lDmySndgW0K5kO+By5HM+B7NSvuRS9x6EpMt31LcGeXsBp16tnARv0TVfOq/BwIDAdj/7
+	 jsJOOL7bb06i8SLSG/iqFtQiLBVhWjGCfFbBpQ9AFuaJ9Fg98Lp3f6PCKcgENVfSbJdGB
+	 O99C14SjDhdl7Rb35GE4sxOdEoCkajy8QgKbQ6mQWZPKzvi3AFrj/88C5lhUJ3mLZPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482615;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=aj9CdbUCldx2gcYOrVi6loEUg6OKj3IJyLv5f0F4OfA=;
-	b=sT8raBW8i6Xw3REl4nxQPzmhJhzUVSqauOCpHKHY+MVlncN17cVINkIWuegCi+K6vc4N
-	 9enkFUl6EUYlaJKLYDS1cpNAXmcJr1mU+sVdY0g5B2oAe3xNh9AT50eYGAxk7lXxiGCls
-	 Z2d8xFv4+GUvUSTw5mz9FMCAVqS7oC/uCCv7WbsKYQkZP/LWeQY0vgXt3LmilY424yrSS
-	 mZmP6bo1vyvz08+iL+HvXbzPWmEVmfb/SO5gkAalgv3RZf6zOVofCpXJ2B1F8oZIMrdng
-	 TMqhm08Opp0AuH1Rpq3cNZ4gbELZEPHKMHYQPxtjHdWckVZcROww1IpD0SSUIINnaOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482634;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Pu3C9gNSSW1SZOaOvtYdw2Ykdk6v6QqTygLjRHUJrNw=;
+	b=ZIuk7WVZOJ4Tcvi5aVwygskjaejEttsy9Ez+LxavstBNI1xVWVxqMENafkfBRRjnb9Dm
+	 dRkFFRDDQXipLu/al6Itawvyl1pjzodoAoj7xOCF+Z2OWzcoIU+dF6LG47HnOopdHALxV
+	 BRC+8b0lrpHz94zNwS/lE7eLsmnxCWft0yL01szGnik1sd93PTy0T6KwIa9DUnXQDvZ8x
+	 KkJe9tCJti2Izmubtb0TJ82B6iUGgO64JzBsKhtszCsRDYeMwOpK3Tl/I4uX9njhNV+nD
+	 mnaD9Z/3B0cuPVTOogIF13EMyWAEUWkro5trzac8kOBOa8304CcgcPWwOVTPHeR+96g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQ85VuFY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=PJr9Kqdf;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC9C606A319;
-	Tue, 20 Oct 2026 07:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C3B606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C3B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQ85VuFY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 084BC1F000C4;
-	Tue, 20 Oct 2026 07:50:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792482615;
-	bh=aj9CdbUCldx2gcYOrVi6loEUg6OKj3IJyLv5f0F4OfA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=cQ85VuFYm0aDwNjIgJsBjUS9GEmSSn07zHUJJRF+Ra+0U4wgO3vjcfGYJk14QqooQ
-	 Ns5R7Seu/MgBw1S6shCFnxMfmPbLVqmvBqZhKw1kZVACrwvl0PkZ1Wzu6o7F0KEvzz
-	 rX2JeoGA17/x2hNhcV/jKkVXXt5VpHeATvLFXVjOjFADYl+fCRM491USNbPJzmfGyK
-	 b39AxtS4QzXwGAWeWootrar5CCMjkLGnAVxIBjsgNUMwUw339m5eu4K/lgFMR1BaQX
-	 cdsDQqU3SrG0IiNYz4fOgMxGH+9Z7OcBM1aLun5Xm3b8KWtpOb4G8eUvW3jFq9Qlry
-	 qf52dHaWnB6XA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F14623924FDE;
-	Tue, 20 Oct 2026 07:50:14 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=PJr9Kqdf
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b1d43907c2so3284010a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792482632; x=1793087432; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pu3C9gNSSW1SZOaOvtYdw2Ykdk6v6QqTygLjRHUJrNw=;
+        b=PJr9KqdfaDzRfjtsAvgQg5FfN4Sg7xt6H1TiRlhpquo78+A8JFEgvVh8kHEs+e6yaO
+         8Tj2nssWIbNbceaBfhVyRNH1yjBbxyGspF0vAN6sDJOH74Xa8MY8wpNerZdYjlfN808w
+         NWL2o5biLZK2hFH7hOFZupVx2uVn+xmYROrQ+0Ebo71e/9r8Uf5wUlrZykzhuS4BvGxp
+         72rPuWJ4CEuaLWT/LF7pXw/GzKvyfdHO7aOjT8cJq9EW8N7vuDpfHWWNf3lrNuIDrcQq
+         ZuFk4atAapHIxXtwDwjAAJT8OZOqgDnIX5GHx982WmWOKyOY1f+dI6X1UTZxFHB2fJ1E
+         q9mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792482632; x=1793087432;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pu3C9gNSSW1SZOaOvtYdw2Ykdk6v6QqTygLjRHUJrNw=;
+        b=pFV8svhxK6FoneiOi8ZmiWUqqWAQOB6kEVDjkbS2w2Bzo5GIn/RM48D91WqKJpx3n4
+         kmEaLqmHO/B057rYTX0LoeUxIXr0bGm+ltZ5kO7LicOcyfGiEfdeNlf69oW7iNZ+3CLs
+         7NZ/DMZ69kaKMAAB3gmyo0bY5z/MLXh8msb5jenUsU/HA9XUm+h1Vk0+DfaPHaZ4uaJe
+         93x/egRgsSqRNS6IX7o7X+Dg/ODupfDq4AFnlpY2W0PJnq94mFKTlGQyRi9qdAxnSRSt
+         Xze5V0/lrXDM24JURCjVB3Cxt0RshsrE6hoORHPSTCyAPTke6yMxMcF7nr4+Gj4bOCDN
+         eR1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxGTnhheRqC+kn7gZ/yhNUKW/HMpyz5QbunVuQfZYErEIr6bdm4lOisT2hKuArkg8Z0nr2BWQFsFd/FxCs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGbhJkjqGe/HvL8HOXcrJEI5zceQIgJuXFMWjty0PzqLFxoPiH
+	KBQ885RYEerpekVfUE6DjqnYNLpmmDe2zdgucq7Rha7NqfaswvlNvtOsmtWNMocUIw+yAZUv7UF
+	bkIwQLa48FF9UdU9fTQ==
+X-Received: from edr4.prod.google.com ([2002:a05:6402:44c4:b0:6ac:b90c:5524])
+ (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:44da:b0:6b1:b849:c7d8 with SMTP id 4fb4d7f45d1cf-6b3a81ac904mr4648985a12.38.1792482631297;
+ Tue, 20 Oct 2026 00:50:31 -0700 (PDT)
+Date: Tue, 20 Oct 2026 07:50:29 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,67 +75,441 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v11 0/9] net: macb: implement context swapping
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179248261378.3556861.3740380461349419952.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 07:50:13 +0000
-References: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
-In-Reply-To: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
-To: =?utf-8?q?Th=C3=A9o_Lebrun_=3Ctheo=2Elebrun=40bootlin=2Ecom=3E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, pvalerio@redhat.com, nb@tipi-net.de,
- vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
- benoit.monin@bootlin.com, tawfik.bayouk@mobileye.com,
- thomas.petazzoni@bootlin.com, stable+noautosel@kernel.org,
- sashiko-bot@kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020075029.330343-1-michalblk@google.com>
+Subject: [PATCH v2] selftests/sched_ext: Add class_switch_stall test
+From: Michal Blaszczyk <michalblk@google.com>
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
+	Changwoo Min <changwoo@igalia.com>
+Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Kuba Piecuch <jpiecuch@google.com>, 
+	Michal Blaszczyk <michalblk@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Add a test for a task which leaves SCHED_EXT while it's waiting. Its
+scheduler keeps the task waiting on a DSQ after it wakes up. The test
+switches the task to SCHED_OTHER while it's waiting, lets it sleep outside
+of SCHED_EXT for longer than the watchdog timeout, then switches it back
+and wakes it up. The scheduler keeps it waiting again, for longer than the
+watchdog interval but shorter than the timeout, which the watchdog must not
+report as a stall.
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Without commit 993e8fbfecbb ("sched_ext: Reset runnable_at when a task
+leaves its scheduler"), the watchdog charges the task for the time it
+spent outside of SCHED_EXT and aborts the scheduler.
 
-On Tue, 13 Oct 2026 15:16:38 +0200 you wrote:
-> MACB has a pretty primitive approach to buffer management. They are all
-> stored in `struct macb *bp`. On operations that require buffer realloc
-> (set_ringparam & change_mtu at the moment), the only option is to close
-> the interface, change our global state and re-open the interface.
-> 
-> Two issues:
-> - It doesn't fly on memory pressured systems; we free our precious
->   buffers and don't manage to reallocate fully, meaning our machine
->   just lost its network access.
-> - Anecdotally, it is pretty slow because it implies a full PHY reinit.
-> 
-> [...]
+Assisted-by: LLM
+Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+---
 
-Here is the summary with links:
-  - [net-next,v11,1/9] net: macb: close race between NAPI polls & ndo_stop
-    https://git.kernel.org/netdev/net-next/c/ba16ad3c8769
-  - [net-next,v11,2/9] net: macb: introduce macb_context struct for buffer management
-    https://git.kernel.org/netdev/net-next/c/435345c65180
-  - [net-next,v11,3/9] net: macb: avoid macb_init_rx_buffer_size() modifying state
-    https://git.kernel.org/netdev/net-next/c/b8ab596dabde
-  - [net-next,v11,4/9] net: macb: make `struct macb` subset reachable from macb_context struct
-    https://git.kernel.org/netdev/net-next/c/9bfec20d011f
-  - [net-next,v11,5/9] net: macb: change caps helpers signatures
-    https://git.kernel.org/netdev/net-next/c/dd1aaefee4f6
-  - [net-next,v11,6/9] net: macb: change function signatures to take contexts
-    https://git.kernel.org/netdev/net-next/c/ed16494c2c50
-  - [net-next,v11,7/9] net: macb: introduce macb_context_alloc() helper
-    https://git.kernel.org/netdev/net-next/c/88e99640fcd0
-  - [net-next,v11,8/9] net: macb: use context swapping in .set_ringparam()
-    https://git.kernel.org/netdev/net-next/c/dcc3288b9433
-  - [net-next,v11,9/9] net: macb: use context swapping in .ndo_change_mtu()
-    https://git.kernel.org/netdev/net-next/c/a98375924d64
+Notes:
+    v2: Raise the watchdog timeout to 3s and the park time to 2s, set
+    timeout_ms from userspace, shorten the time outside of SCHED_EXT to
+    TIMEOUT_MS + 1s, and derive the second read timeout from TIMEOUT_MS
+    (Andrea). Rebase on sched_ext/for-7.4-fixes, which has the fix this
+    tests, and refer to the fix by its commit ID.
+    
+    v1: https://lore.kernel.org/r/20261019124146.3582127-3-michalblk@google.com
 
-You are awesome, thank you!
+ tools/testing/selftests/sched_ext/Makefile    |   1 +
+ .../sched_ext/class_switch_stall.bpf.c        | 120 +++++++++
+ .../selftests/sched_ext/class_switch_stall.c  | 245 ++++++++++++++++++
+ 3 files changed, 366 insertions(+)
+ create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.c
+
+diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
+index c5d3a2eaea7da..44083f1c65969 100644
+--- a/tools/testing/selftests/sched_ext/Makefile
++++ b/tools/testing/selftests/sched_ext/Makefile
+@@ -165,6 +165,7 @@ all_test_bpfprogs := $(foreach prog,$(wildcard *.bpf.c),$(INCLUDE_DIR)/$(patsubs
+ 
+ auto-test-targets :=			\
+ 	cgroup_nr_cpus			\
++	class_switch_stall		\
+ 	create_dsq			\
+ 	dequeue				\
+ 	dequeue_iter			\
+diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c b/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
+new file mode 100644
+index 0000000000000..8268dcb45a0cc
+--- /dev/null
++++ b/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
+@@ -0,0 +1,120 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A scheduler that keeps the target task waiting on a DSQ when it wakes up,
++ * until it's switched out of SCHED_EXT or, if @park_ns is set, for @park_ns.
++ * This lets userspace switch the target out while it's waiting.
++ *
++ * Copyright (c) 2026 Google LLC.
++ */
++
++#include <scx/common.bpf.h>
++
++char _license[] SEC("license") = "GPL";
++
++#define PARK_DSQ 0
++
++UEI_DEFINE(uei);
++
++s32 target_pid;		/* set by userspace */
++bool park;		/* set by userspace, cleared when parking */
++u64 park_ns;		/* set by userspace, how long to park, 0 for no limit */
++u64 nr_parked;		/* how many times the target has been parked */
++u64 nr_released;	/* how many times the target has been released */
++
++static bool released;	/* set by the timer, cleared when parking */
++static s32 target_cpu;	/* CPU to kick when the timer fires */
++
++struct release_timer {
++	struct bpf_timer timer;
++};
++
++struct {
++	__uint(type, BPF_MAP_TYPE_ARRAY);
++	__uint(max_entries, 1);
++	__type(key, u32);
++	__type(value, struct release_timer);
++} release_timer SEC(".maps");
++
++static int release_timerfn(void *map, int *key, struct bpf_timer *timer)
++{
++	released = true;
++	scx_bpf_kick_cpu(target_cpu, 0);
++	return 0;
++}
++
++s32 BPF_STRUCT_OPS(class_switch_stall_select_cpu, struct task_struct *p,
++		   s32 prev_cpu, u64 wake_flags)
++{
++	/* Don't dispatch directly so that wakeups go to ops.enqueue(). */
++	return prev_cpu;
++}
++
++void BPF_STRUCT_OPS(class_switch_stall_enqueue, struct task_struct *p,
++		    u64 enq_flags)
++{
++	struct release_timer *rt;
++	u32 key = 0;
++
++	if (p->pid != target_pid || !park || !(enq_flags & SCX_ENQ_WAKEUP)) {
++		scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
++		return;
++	}
++
++	park = false;
++	released = false;
++	target_cpu = scx_bpf_task_cpu(p);
++	scx_bpf_dsq_insert(p, PARK_DSQ, SCX_SLICE_DFL, enq_flags);
++	__sync_fetch_and_add(&nr_parked, 1);
++
++	if (!park_ns)
++		return;
++
++	rt = bpf_map_lookup_elem(&release_timer, &key);
++	if (!rt) {
++		scx_bpf_error("failed to look up the release timer");
++		return;
++	}
++	bpf_timer_start(&rt->timer, park_ns, 0);
++}
++
++void BPF_STRUCT_OPS(class_switch_stall_dispatch, s32 cpu,
++		    struct task_struct *prev)
++{
++	if (released && scx_bpf_dsq_move_to_local(PARK_DSQ, 0))
++		__sync_fetch_and_add(&nr_released, 1);
++}
++
++s32 BPF_STRUCT_OPS_SLEEPABLE(class_switch_stall_init)
++{
++	struct release_timer *rt;
++	u32 key = 0;
++	s32 ret;
++
++	ret = scx_bpf_create_dsq(PARK_DSQ, -1);
++	if (ret)
++		return ret;
++
++	rt = bpf_map_lookup_elem(&release_timer, &key);
++	if (!rt)
++		return -ESRCH;
++
++	bpf_timer_init(&rt->timer, &release_timer, CLOCK_MONOTONIC);
++	bpf_timer_set_callback(&rt->timer, release_timerfn);
++	return 0;
++}
++
++void BPF_STRUCT_OPS(class_switch_stall_exit, struct scx_exit_info *ei)
++{
++	UEI_RECORD(uei, ei);
++}
++
++SEC(".struct_ops.link")
++struct sched_ext_ops class_switch_stall_ops = {
++	.select_cpu		= (void *)class_switch_stall_select_cpu,
++	.enqueue		= (void *)class_switch_stall_enqueue,
++	.dispatch		= (void *)class_switch_stall_dispatch,
++	.init			= (void *)class_switch_stall_init,
++	.exit			= (void *)class_switch_stall_exit,
++	.flags			= SCX_OPS_SWITCH_PARTIAL,
++	.name			= "class_switch_stall",
++};
+diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.c b/tools/testing/selftests/sched_ext/class_switch_stall.c
+new file mode 100644
+index 0000000000000..2d0ca85caabb7
+--- /dev/null
++++ b/tools/testing/selftests/sched_ext/class_switch_stall.c
+@@ -0,0 +1,245 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Check that a task which leaves SCHED_EXT while it's waiting doesn't carry
++ * that wait over to its next stay on SCHED_EXT. If it did, the watchdog would
++ * count the time the task spent outside SCHED_EXT as waiting and abort the
++ * scheduler.
++ *
++ * Copyright (c) 2026 Google LLC.
++ */
++#define _GNU_SOURCE
++
++#include <bpf/bpf.h>
++#include <poll.h>
++#include <sched.h>
++#include <scx/common.h>
++#include <signal.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/wait.h>
++#include <unistd.h>
++#include "class_switch_stall.bpf.skel.h"
++#include "scx_test.h"
++
++#ifndef SCHED_EXT
++#define SCHED_EXT 7
++#endif
++
++/* watchdog timeout, the watchdog checks every half of it */
++#define TIMEOUT_MS 3000
++/* longer than the watchdog interval, but shorter than the timeout */
++#define PARK_MS 2000
++/* time spent outside of SCHED_EXT, a stale wait would exceed the timeout */
++#define OUTSIDE_MS (TIMEOUT_MS + 1000)
++
++static enum scx_test_status setup(void **ctx)
++{
++	struct class_switch_stall *skel;
++
++	skel = class_switch_stall__open();
++	SCX_FAIL_IF(!skel, "Failed to open");
++	SCX_ENUM_INIT(skel);
++	skel->struct_ops.class_switch_stall_ops->timeout_ms = TIMEOUT_MS;
++	SCX_FAIL_IF(class_switch_stall__load(skel), "Failed to load skel");
++
++	*ctx = skel;
++
++	return SCX_TEST_PASS;
++}
++
++/* Echoes back each byte from @in_fd. */
++static void child_main(int in_fd, int out_fd)
++{
++	char c;
++
++	while (read(in_fd, &c, 1) == 1) {
++		if (write(out_fd, &c, 1) != 1)
++			_exit(1);
++	}
++	_exit(0);
++}
++
++static bool read_byte(int fd, int timeout_ms)
++{
++	struct pollfd pfd = { .fd = fd, .events = POLLIN };
++	char c;
++
++	return poll(&pfd, 1, timeout_ms) == 1 && read(fd, &c, 1) == 1;
++}
++
++/* Waits for up to 1s for @pid to be in interruptible sleep. */
++static bool wait_for_sleeping(pid_t pid)
++{
++	char path[64], buf[512], *state;
++	bool sleeping;
++	FILE *f;
++	int i;
++
++	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
++
++	for (i = 0; i < 1000; i++) {
++		f = fopen(path, "r");
++		if (!f)
++			return false;
++		/* The state follows "(comm)", and comm may contain ')'. */
++		state = fgets(buf, sizeof(buf), f) ? strrchr(buf, ')') : NULL;
++		sleeping = state && !strncmp(state, ") S", 3);
++		fclose(f);
++		if (sleeping)
++			return true;
++		usleep(1000);
++	}
++	return false;
++}
++
++/* Waits for up to 1s for the target to have been parked @cnt times in total. */
++static bool wait_for_parked(struct class_switch_stall *skel, u64 cnt)
++{
++	int i;
++
++	for (i = 0; i < 1000; i++) {
++		if (skel->bss->nr_parked >= cnt)
++			return true;
++		usleep(1000);
++	}
++	return false;
++}
++
++static bool set_policy(pid_t pid, int policy)
++{
++	struct sched_param param = {};
++
++	return !sched_setscheduler(pid, policy, &param);
++}
++
++static enum scx_test_status run(void *ctx)
++{
++	struct class_switch_stall *skel = ctx;
++	enum scx_test_status status = SCX_TEST_FAIL;
++	int to_child[2] = { -1, -1 }, from_child[2] = { -1, -1 };
++	struct bpf_link *link = NULL;
++	pid_t pid = -1;
++	int i;
++
++	if (pipe(to_child) || pipe(from_child)) {
++		SCX_ERR("Failed to create pipes");
++		goto out;
++	}
++
++	link = bpf_map__attach_struct_ops(skel->maps.class_switch_stall_ops);
++	if (!link) {
++		SCX_ERR("Failed to attach scheduler");
++		goto out;
++	}
++
++	pid = fork();
++	if (pid == 0)
++		child_main(to_child[0], from_child[1]);
++	if (pid < 0) {
++		SCX_ERR("Failed to fork");
++		goto out;
++	}
++	skel->bss->target_pid = pid;
++
++	if (!wait_for_sleeping(pid) || !set_policy(pid, SCHED_EXT)) {
++		SCX_ERR("Failed to switch the child to SCHED_EXT");
++		goto out;
++	}
++
++	/*
++	 * Keep the child waiting on the DSQ after it wakes up, and switch it to
++	 * SCHED_OTHER while it's still waiting.
++	 */
++	skel->bss->park_ns = 0;
++	skel->bss->park = true;
++	if (write(to_child[1], "a", 1) != 1 || !wait_for_parked(skel, 1)) {
++		SCX_ERR("The child wasn't parked");
++		goto out;
++	}
++	if (!set_policy(pid, SCHED_OTHER) || !read_byte(from_child[0], 1000)) {
++		SCX_ERR("The child didn't run after leaving SCHED_EXT");
++		goto out;
++	}
++
++	/* Let time pass while the child sleeps outside of SCHED_EXT. */
++	if (!wait_for_sleeping(pid)) {
++		SCX_ERR("The child didn't block in read()");
++		goto out;
++	}
++	usleep(OUTSIDE_MS * 1000);
++
++	/*
++	 * Bring the child back and keep it waiting for longer than the watchdog
++	 * interval, but shorter than the timeout. Its wait must start now, not
++	 * when it started waiting before it left SCHED_EXT.
++	 */
++	if (!set_policy(pid, SCHED_EXT)) {
++		SCX_ERR("Failed to switch the child back to SCHED_EXT");
++		goto out;
++	}
++	skel->bss->park_ns = PARK_MS * 1000000ULL;
++	skel->bss->park = true;
++	if (write(to_child[1], "b", 1) != 1 || !wait_for_parked(skel, 2)) {
++		SCX_ERR("The child wasn't parked again");
++		goto out;
++	}
++	/*
++	 * A stall is detected up to a watchdog interval after the timeout. Wait
++	 * long enough for it to be reported by the exit info below.
++	 */
++	if (!read_byte(from_child[0], 2 * TIMEOUT_MS)) {
++		SCX_ERR("The child didn't run after the second wait");
++		goto out;
++	}
++
++	/*
++	 * Only the watchdog aborting the scheduler lets the child run before
++	 * it's released. The exit info is recorded asynchronously, wait for it.
++	 */
++	if (skel->bss->nr_released != 1)
++		SCX_TIMED_WAIT_UEI(skel, uei, 1000);
++
++	if (UEI_EXITED(skel, uei)) {
++		SCX_ERR("Scheduler exited (kind=%llu): %s",
++			(unsigned long long)skel->data->uei.kind,
++			skel->data->uei.msg);
++		goto out;
++	}
++	if (skel->bss->nr_released != 1) {
++		SCX_ERR("The child was released %llu times, expected 1",
++			(unsigned long long)skel->bss->nr_released);
++		goto out;
++	}
++
++	status = SCX_TEST_PASS;
++out:
++	if (pid > 0) {
++		kill(pid, SIGKILL);
++		waitpid(pid, NULL, 0);
++	}
++	if (link)
++		bpf_link__destroy(link);
++	for (i = 0; i < 2; i++) {
++		if (to_child[i] >= 0)
++			close(to_child[i]);
++		if (from_child[i] >= 0)
++			close(from_child[i]);
++	}
++	return status;
++}
++
++static void cleanup(void *ctx)
++{
++	struct class_switch_stall *skel = ctx;
++
++	class_switch_stall__destroy(skel);
++}
++
++struct scx_test class_switch_stall = {
++	.name = "class_switch_stall",
++	.description = "Verify that leaving SCHED_EXT ends a task's wait",
++	.setup = setup,
++	.run = run,
++	.cleanup = cleanup,
++};
++REGISTER_SCX_TEST(&class_switch_stall)
+
+base-commit: e2859566ffbc3a9f33308255114ccf167124e048
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.56.0.212.g129ede20d9-goog
 
