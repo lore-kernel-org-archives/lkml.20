@@ -1,99 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792523051;
-	b=qfD8u2AlflQbVmGnTe22UkQMizIC7If7tJcBHdEgmM0NQHb4tpfMU0/ZZvvOP7o+wVJz
-	 qo1WCv6hENZhjxZDkeHDpft4W0+8jqxO8oh824D0orHmSD3DcoYkepcLv6Q1kV9xGAv1K
-	 UfntRE3nd2tRcMd514GpLuNnNyG5/ad5e1TnD/fRslg2pN1tJfCvzoLVqdqeF677lC1wR
-	 UOlM1sxgaenlRwQaY6wi+ULXtpdPqqufk6uzChm2+v3uocnmxsjh9wyTLtg0xWfSitPlD
-	 Ca/dj/GPEdN4Mvaa906jXCkksAw3jB87k7+5UuOUm3M6hGkMXjneN4XWFq5DPamJ4RQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792523051;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=7NqznRIlKLn/pELhTMEco0REzkh4v7wlCaqZptITogI=;
-	b=ni6yAPZfQFTY4V3zsNWKBSETZkI4cc9iu9E2a/enhrkMJW9e1JIzYD9PCR44CqmcNu04
-	 Ddz5bFSTRwsPCdmRN4Tv4K/MZFnuBVCDyoQCgP2FLqhO7/A4iTUiWCdhDOwluadviE6zq
-	 gk0t8kePCETIjml9XiVug/wDLkY9kKBI8S+U2xSokhseI8SnWeeB8kIb4FxiW+fuZWYZT
-	 Hd7I88Bqfmu/A/Nvrih9J8YepBxMOXAx5Ha+ccq+EOD4kfIyZmntkKhjj2yy547jpccnA
-	 2fXMMLsq8+VL7nX08QEemCs/QV/d/j9nT6wvzSfAzRFc39+AMAvLKiSxFJn7uXHVxaw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hLr4Pt+J;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792523145;
+	b=oOnH4z6EuoiIN5+3OquIvbSyLlbIO1wAfJ2oWLZBdlpFWun4H13iITyvdWrkJLnq+3YY
+	 xwkyB/7JJ00bdAJ1jrYF/4oQ2k3zZsPn2/BYZx5wozlgz1HWxanxzWmjFqWBSsFUnkGzV
+	 Z1MsoXYr2mgCqVhNmjxMfvtgfBE43DXsucudtdHtbc0P3Vq+spxKO4oTihaoaCotVcNTr
+	 p/v04XnRu6BnNA1/jStEbag+WVz1LgMMnYyItp7RxBg6eaxkgpD1ywU28oipaGpVXGyTT
+	 ZynP+Qt+d/ENvzvDBIT9AkzwNeuxaJbWEyPykSAtxjyPpDDYXAqwEtbeCi6L3HOC/uA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792523145;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=84DuYqgRB63EwlBZ+rtf1oK62VdWr/vyD33Zw1q2IXA=;
+	b=tsrWlZyz4OQmDbCPntjVbOe/+ByTY8ldunEvfeBHEafvufkVGRqcniTDWwU7ltM4gMJj
+	 0C/S+H4i+92VV1wcVhoqVX/f/Yz4j8b9HtuuwCMVOumkIsc26cTLfqgADGkpTSPN3jAIt
+	 hKW4Q7R7OTz5NGpaVxJLofMQko3qwB7cDbisVk5V34jUgHJL8rGOMUI6fJCKyFBcrDMSn
+	 J3+oksKY/gzD+mhiENuUeIF6E5XoB0H5zt6CGYW/DQdNXImMCWO2MpitRJziZ2cbYgxTz
+	 JnCvZ8/1JiR9HWeDKnth51NzIM2ngkhpRq1Rb8Bm7kdLaXjhhVBnBjSXxpxbU6XijVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pIbGPXgC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.15
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011015.outbound.protection.outlook.com [40.93.194.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3714E606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3714E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08E3606A31A;
+	Tue, 20 Oct 2026 19:05:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E08E3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hLr4Pt+J
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-17bc533fda3so4292658c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:04:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792523050; x=1793127850; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7NqznRIlKLn/pELhTMEco0REzkh4v7wlCaqZptITogI=;
-        b=hLr4Pt+JNnJwfVdSIiwSzVwN2M1EdektMGoj8qGvTIg2MHi43g6P3LOjqDktLIrXJc
-         /LbjGbnm0fv1Cio5pJKxGcmBKzdvQ1Bf8jSuV8V5JJip79CY3ECKV2x7PotCCn1kvzCQ
-         4YaZ8G9IpdE+7Ow3oYO6+adNmYfrSPrPRZiHksLbJk7N1fryAL33UOp5jSq6Nup2ngpH
-         wOl0+Aik0n+dpNKqrXJHKnb8BU2rkXjhhP8rhu7nQdn7ktiO6XlCo5a1Jmr294bKdHsr
-         TPkfN5DqX8YEfDV0yTlKP0LpctSqRfqyj58P+bLiOitnTlcAmXRX4sdFHQMGgmS5yS9g
-         opWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792523050; x=1793127850;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7NqznRIlKLn/pELhTMEco0REzkh4v7wlCaqZptITogI=;
-        b=kr5+R6dAxl2p//j0GXhqmmG1nwty8jNU79PvdVliq8oTRtFdpHGItAxHcD1mhNWvyL
-         83ito9VSKNXt3jooH2Fry7z2t29ohFDAAenRbhbKnW7avtg2Uk5Qf+aLdwNijaFhSWXX
-         8qJsvDS+mRvXzVX+nt5FZYm267hVxv9XLmaouZYLnAS6TtoVYL/yApbs8wQDeYpcicS2
-         zZ/AUx2S4UNdhGRE++FTsYxgQk9pd/Cz6csfpq+0MRTkKz/N5h0p185ynUcmiGus6lf3
-         Dn0sQV9e2xsGJ8bkKsB+sLV9qQBt7FdD0H7/485AGKB7e1bpPNTNNSA6reBfW5JuydxB
-         SmzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwP6AkeaWU2bkd6koEoho/fhd5+Qt3jEbZG2/IC+JqhwkcJsRnkwrg5TawgLBwSr6eA/1oLruPLGTb2Tew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJI+uEMk15I9ohYKyjydpONTsFVxUxGUXMtloxqLYkm1Xml6kTk
-	HKCe+7fRTLQ1VTI+nf7kqPG3k33vpx7uB9qvxu6PyygwvRqE5jD9sQlR
-X-Gm-Gg: AYBFou2A3OBxCiYs/ypBxHA5KP8pcu9tR5dlx38Nm24byFUzo5FkdBaLpsWAWGzefVM
-	37So+mae22CSXyIO59v+2cTphPNoN2tJ74vgSRhnwnoVDTc4OTSh2UoSXtuFxPWJVUrAX9JjvNu
-	pa6uB3gfZ/1T4UJVbNxzn5Pd7mDXb60B2wodHNUrierhgoAlFiJxaF+MYYi24fet0QKik9UxxvL
-	Afui6wWnxd794sDKjujNe8/o8iP7jOQIYNMN12AWcNXa7f0WBc2tqn/2Mtcgr5vXJFKUn4hsar5
-	msC9/FdgiqslYads2Jb8TS7QCXfiPTSW0RQoPg6XsZUbRVXZerBSvRwjLvqEKy4CZ8BGCZm98Qt
-	nRejHIFjHF7dO/gkCb1xOkL7Ku64crH//0TPRz9QIbtDs6dBDyGpxOKndgs1ZF4WV2EkCp6KaNW
-	jTVMPIf5GRyJlCH0cEWd6sSoAlcJ490LSJPsrKm+o1wDGlOYmYyhtQ5OHbCrq05z3R/9FdDnhQT
-	Vs8PSF10OcKdmTwPlCrIBv+JEnz4fjQshgoIIS3cwEcNqh6l9g=
-X-Received: by 2002:a05:7022:e804:b0:13b:3132:6e99 with SMTP id a92af1059eb24-18512c38164mr17695167c88.20.1792523049985;
-        Tue, 20 Oct 2026 12:04:09 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903aefe90asm552320c88.9.2026.10.20.12.04.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:04:09 -0700 (PDT)
-Date: Tue, 20 Oct 2026 12:04:05 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
-	Ion Agorria <ion@agorria.com>, =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v12 3/7] input: serio: Add driver for ASUS Transformer
- dock keyboard and touchpad
-Message-ID: <ate5K6ZdrSoBUI08@google.com>
-References: <20261019100406.103687-1-clamor95@gmail.com>
- <20261019100406.103687-4-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pIbGPXgC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yJtjIEX7RmhMGR9ZfSc7f1028kcOytQKegZ87yybEgQzzP0jf/Fp9WMyiqSU/n2V15VWG1qvVWTSTh+9v1eUsp4bbxXQQfDd4D0jW+xxfH9bjrlVq2sEyqb2S36GL3b178G4kM8qya9MEroYd+/Mlq60EGjEzzWexpXfM8efJBTL7CEJ9ZQK+mr4O65QIgxEs4e5Ew3h0aQOVmJI7WOGXUbhapbu0JbjWmcQAIOI4IzCh1bt48bcDBBeO3FNtlmPEeMUq83LsvsU583J028SX61yZJLXl8wO+yPn2luUtersPgmcO7zaNHBoVrN/bsNXdc2Wk3ppHufouDmd+3Rj8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=84DuYqgRB63EwlBZ+rtf1oK62VdWr/vyD33Zw1q2IXA=;
+ b=bidD03hGNbXuOSBiTgB2voplLuxoZ6sLi1EJ2eQtKam7aA0YXwzDgdVP8JFPaa3jPfwnrm9I16ZueB4bwaWYmHph61p883tQYVUCWfFR3BVtbvyDl88RIz6QzFsE5pyRQRO9xZvKwzFMuZmSN9FeyaIzkjhvFBAxy8B4s2md5YttPuFyrEDPgGffE+M+VkJ7grOEvG3yg1dR9gArb3wEPUpiXAhPNPo+6lK/Sb9xj5qVR7WGkPbjrVBvtn564Q6oBQb35srdsfA1HhVpcGqNqAhTf9MJBpFVAgznLotHLBUaI/0Qb/U846BP64c6oRLy0FstC8t6RrU63BF+TBcRoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.dk smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=84DuYqgRB63EwlBZ+rtf1oK62VdWr/vyD33Zw1q2IXA=;
+ b=pIbGPXgCF4k77eFk7J3oyRIeOjJiOdNE5pi8inpQefVhaRvrX4OxP2dUm4LJX/J3gpcZb0wjdqpvvxDUJu7mH4RaQZe4z4kWTrii1Znv3avcttaDBO85Y3SDUD9pXmZygy1eHC60Haa86qSdcPYDOg76MGZ4GjEkRI0i/xTgD6Bofi24SVB35BIhMiZ+8sszahVUDSzedLLnyym0Wkfj1+S1t7uN2PWqoOh8LhjCMX80UrD7tZGSGOwqyS2G+vFsfrDo2qD/fx6JqpJbzgXdEjUGtWlp1lQHHbQY9k3cYA/ARRyHXiRvAKMkpc9QGBQ87w3fZHldFxp1rW7QVAs0nA==
+Received: from YT1PR01CA0082.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::21)
+ by IA1PR12MB6556.namprd12.prod.outlook.com (2603:10b6:208:3a0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
+ 2026 19:05:40 +0000
+Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
+ (2603:10b6:b01:2d:cafe::4) by YT1PR01CA0082.outlook.office365.com
+ (2603:10b6:b01:2d::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
+ 20 Oct 2026 19:05:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.0 via Frontend Transport; Tue, 20 Oct 2026 19:05:39 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
+ 2026 12:05:12 -0700
+Received: from 82875d6-lcedt.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 12:05:12 -0700
+From: Nirmoy Das <nirmoyd@nvidia.com>
+To: <axboe@kernel.dk>
+CC: <tom.leiming@gmail.com>, <yuyufen@huawei.com>, <bob.liu@oracle.com>,
+	<yebin@huaweicloud.com>, <linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Nirmoy Das <nirmoyd@nvidia.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] block: keep flush error across tag iterator reference drops
+Date: Tue, 20 Oct 2026 12:04:26 -0700
+Message-ID: <20261020190426.1073318-1-nirmoyd@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,65 +111,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261019100406.103687-4-clamor95@gmail.com>
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|IA1PR12MB6556:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a56c6fb-cd3d-4de7-d8fb-08df2edd21bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|56012099006|11063799006|261009223027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	InnAnVcXOb3laCjXVrrFOMoJPNqPu+c4uf2W6s5jed306UEeQOd/rcvy6n215O4mu8QvQlAo42JDcLXj8Qbj5/jCvbPqNjaAk8swsLFEPF18Uh6wLHx7OdCk5U4zzfI40DpKnX4OCgOU4jfGe0TRy0kCZbySOA5KnZa4JX9WtQn+P6acLxMRhN7eVLM+6FWNlyz0lo2uo6a3Tn5GL7qCiz8mETgsMIfK4IscXqWGhJNd2DGLAkUwMtyXTrUY0aNKnWxa160vhOnQjaKeAju4Uty+YOyYJvrg+ga9AZXmw4+o2f+cEK6uuvPzk4uhyMvI9uOPIdJCXJWl2Ehf7kK5GWgBNYLyxsM4qO2p+v2WtNFFEFPByo99MUi4juzZ0Nc9YbazkZRpdwXc5HNqF/ZRZJ4Zt8ytfm0CKXmkPnGE9CHC8fTP74+9EEGmK3W75FJI3Mzdef0A6wihoFW13/MFoTIEADvRDJDSIlH/Yu3A+DB3JGAXNpRoHXRc8kY4l4poHznQUUG3T4VnysVh4UHBJ+J6POAw9DhVLVlRS7Sj5trM3JjzJiAX4KMphPP6xVpF5W+141/jXwmqu/KSJ8fwfayRQUtybCLl7xHp6g3xV4yOE3Xrb5Ug3NNOrjGcBlbvhQIs1lJztIR5sVHG32Hg99C3BL86BOPN4mtqHMdat3ZXlcQ3evGBYovD4hYm0AfID3wAb0YI0C+J9z/xn9fT3A==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cPSoNs7yYAgLieiMwTuC55OLBsoneBbosUBam4CVfF09ABY+yuIVwdUsIaA+1XG0OZezu6PjI6cvODHxWC368xV6qBv8q0OkSP2E5hm+kpmajW4xfV6k8uHT/T4d9zgxA3mU4iUztI6OU3/EhRDDndHdfXPzQ4PUY0QUg6Yvkf7wZtj/Q7+4Yos7qn+O1prKaXe/d+/RpqOmGzq9X5TWdp2NyDAcizIrF2AiqU5QasqyslBUQvtBiFPONBiVFYaut4qYUdY+bDJgbQGKIsaRsxOjQT8fyiiKf+aBtPyX2BSmSLrBdlFye9kCdX6/8xnNEUgs4AArDibAViZQTmWtOaUkld73uOpROIvKOiY1MeKeic9VZNMTS5BzIQwxAzxbzHEplGY00A1L99Hxc0MEUPG2IS/iJabP/pricGPI3bsUPbIsCLnKDhLSjvPaTuI1
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 19:05:39.6790
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a56c6fb-cd3d-4de7-d8fb-08df2edd21bc
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DF.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6556
 
-On Mon, Oct 19, 2026 at 01:04:02PM +0300, Svyatoslav Ryhel wrote:
-> From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
-> 
-> Add input driver for ASUS Transformer dock keyboard and touchpad.
-> 
-> Some keys in ASUS Dock report keycodes that don't make sense according to
-> their position, this patch modifies the incoming data that is sent to
-> serio to send proper scancodes.
-> 
-> Co-developed-by: Ion Agorria <ion@agorria.com>
-> Signed-off-by: Ion Agorria <ion@agorria.com>
-> Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Tag iterators such as blk_mq_queue_tag_busy_iter() take a reference on
+each busy request, the flush request included, and drop it with
+blk_mq_put_rq_ref(). For the flush request that calls flush_end_io()
+with a zero status. When that put is not the last one, flush_end_io()
+stores the status in fq->rq_status for the last put to report, so the
+iterator's zero overwrites an error the device completion stored there.
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+With two iterators holding references, the device completes the flush
+with an error and flush_end_io() stores it, the first iterator drops
+its reference and stores 0, and the second drop reports success. The
+requests waiting on the flush complete without the error and fsync()
+returns 0.
 
-> +static int asus_ec_kbc_probe(struct platform_device *pdev)
-> +{
-> +	struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
-> +	struct asus_ec_kbc_data *priv;
-> +	int error;
-> +
-> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	priv->ec = ec;
-> +	priv->parent = to_i2c_client(pdev->dev.parent);
-> +
-> +	error = asus_ec_register_serio(pdev, 0, "Keyboard", 0);
-> +	if (error)
-> +		return error;
-> +
-> +	error = asus_ec_register_serio(pdev, 1, "Touchpad", I8042_CMD_AUX_SEND);
-> +	if (error)
-> +		return error;
-> +
-> +	priv->nb.notifier_call = asus_ec_kbc_notify;
-> +
-> +	error = blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
-> +	if (error)
-> +		return dev_err_probe(&pdev->dev, error,
-> +				     "failed to register blocking notifier chain");
+Only store a nonzero status in fq->rq_status, so dropping an iterator
+reference can't clear an error.
 
-I think sashiko is right that we need to register the notifier first,
-and in it check if serio ports are ready/registered or not. For that we
-probably need a lock and set pointers or flags in serio's start()/stop()
-or open()/close() methods.
+Reproduced on v7.3 in an x86 QEMU guest with scsi_debug, failing every
+SYNCHRONIZE CACHE through its debugfs error injection while 16
+processes read /sys/block/sda/inflight:
 
-This can be done as a followup I think.
+  modprobe scsi_debug dev_size_mb=64 ndelay=100000
+  echo "2 1 0x35 0x00 0x00 0x02 0x04 0x44 0x00" > \
+      /sys/kernel/debug/scsi_debug/<h:c:t:l>/error
 
-Thanks.
+fsync() returned 0 for 35 of 18000 calls on /dev/sda and for 46 of 18000
+calls on a file on ext4 without a journal, over six runs. With this
+change every call failed.
 
+Fixes: 8d6996630c03 ("block: fix null pointer dereference in blk_mq_rq_timed_out()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM Specula
+Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
+---
+Ye Bin's "blk-flush: fix possibe deadlock when process nvme_timeout()"
+(not merged yet) adds lines right after the same assignment, so the
+second of the two to be applied needs a trivial rebase.
+
+ block/blk-flush.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/block/blk-flush.c b/block/blk-flush.c
+index 403a46c8641172d..65697e2efad290b 100644
+--- a/block/blk-flush.c
++++ b/block/blk-flush.c
+@@ -212,7 +212,8 @@ static enum rq_end_io_ret flush_end_io(struct request *flush_rq,
+ 	spin_lock_irqsave(&fq->mq_flush_lock, flags);
+ 
+ 	if (!req_ref_put_and_test(flush_rq)) {
+-		fq->rq_status = error;
++		if (error)
++			fq->rq_status = error;
+ 		spin_unlock_irqrestore(&fq->mq_flush_lock, flags);
+ 		return RQ_END_IO_NONE;
+ 	}
 -- 
-Dmitry
+2.43.0
+
