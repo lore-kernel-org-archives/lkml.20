@@ -1,73 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456614;
-	b=QSgdE9dqXhyr2xfxGzaJRqcHvK6eWF6hA2q15kK13uYReEBnHbybbvnAiAz3uxPb8Lz7
-	 +obAmRwCxiKiMJl7NfEUGODsmvxDUKBnzBjYPYNzUtOOzN3fZp0KmpkzKV2HwE4vJUQpJ
-	 cAOrZhWMix4zwqsaq0vEYD3yYtN1MlNUoX1joApuozb2KgUuRTC856U4+9uM44r0+SKh1
-	 UfC7amx6okbetwA10lnljLCnhBvXuwzHk64QBlJGd+mMmrrARrV4Rz4XEGO+OJPdtNQqu
-	 wzaIjZS61wsD1ey1FD0rRMTOCUzVlmW3IH+roqK1YhJEL5nHlYrvJPU4XT6HxhQKd+w==
+	t=1792456626;
+	b=qJI+pw82PG2EFcVRzSTULNknrUaiwVhhferOz7w35p4+fI68l4jtwtjcmnE3QdAAvb6E
+	 i8pA5pZyzVaOYHWRcCjGCA7YADweyDge+m5rStDFlvM9nZITqPYRVoqq+liZNBvHBvnuU
+	 c+a4r34KrUlNJOvt085TN3Bu2ky75J+17pjCrtH/wJI43tHt+SsULNMYgBLwuxIRCpKxl
+	 y2pQ65lvhfl+QVnImMtrICV0Ai2T0L7+9upOD3HwM/quTTzXamqREV7fDpSKPk6S8fxoT
+	 EOrjKsc1Ywni7qIr4AZxqXOxT4R7qD4yrolgtPIb0yTj/VZEzE4gpcrd3nqxPgSwfug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456614;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tYLzgEFMLbU+10QLZBwGrlpV/UdgmwvgieWaGFdOtj0=;
-	b=uTbhEnRwdAFtucdm1sHIrewwKlf5BE77cnjH3rC0lZYNP5GZ9jClSgEpVGWi5X9Sh0sz
-	 9gHQqLMlBOT7fezLvPQJgeH0zQ6Q5Y6eNZhH/BiCvTa24hL+fhLSJaitEPsbiCGLfUEp2
-	 9RKnBvCWHqLsy0vX2zadhjo0nVcaH+EMY8c3xTgIN30ZD78EvYUzlpNezvG3R2ub7OFKR
-	 e4goYjxghKdYoOzdBKSv18wLRY/3XMkwGo0Doj/UGCKGJbxWLD/7HntDwF5htGW56JlAa
-	 aEqC5fGPDaAcQQc0gMfAD/vmwh0uU75qCtnRKbggdI0+awA4DQEWiLro9v+agz8zU3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456626;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=ff/6rcWCZ7J0WwRFerwLHBmUW/zOpnAz33rL1YX7OI0=;
+	b=oY62x2J3vjmQxtNIZswBqGH2ZYrxyB9JgaizHgXHjFxMbiP8VVoC8+k7bR2MJFRi9Vna
+	 /eC9EJdAJNPMOgopAdyuQtPmqP4YbJpoK5E30JXjRg2pBrAsRuQlcXmhi+rwszY4v5IYw
+	 xhP0ZWEk5eqavCEgBqIo7OSjzDFy6ghLGw/sW2lTbp1CuRgfX8MYj9VLYavHpcIAfa3UP
+	 ogFWmiQYNgL4Rhwik1y98zf4hHHD8v88HriuyS5d/xpfU7GDgnW297LjhBslUPAtDKj1J
+	 egk8SKeJHrtPtIdiXST6+FMAoRO9MFiash3Hqo/Y0p0okMeVmCHqmK7CROcBMLQfrtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=otZInzdJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IzKIAkI2;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7303A606A319;
-	Tue, 20 Oct 2026 00:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBC1606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:37:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBC1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=otZInzdJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D3C1F000C6;
-	Tue, 20 Oct 2026 00:36:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792456614;
-	bh=tYLzgEFMLbU+10QLZBwGrlpV/UdgmwvgieWaGFdOtj0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=otZInzdJ0WqqGTrJUKQhZw7pVa7NMN17igKQC+9rr6tbJdzP51fDgHCFkWSl9LtZ8
-	 fM8YmPLMMJ1yKftyPi2B8nEG2QZVpyCxJ/Pq9nXCGH3W377WSFxbn5KLkEAbz4vzX9
-	 FMIVuIbgRapHFExU9ZkKgfor7qZLd4s862FaHTb7Vl71owzqXEJsDd+tmMmko5jv0s
-	 H3IqK7C/hb3UEMRTu6t+JZbgh2U2VLdm0U+L370MeF4WXqHxh9I452ZMUaXSSY3Ah3
-	 m7xrHUpoiXZ2nxhGQ8MCQGfRhzAULebfxudD25lHj1z4C2H8GVrZliOyF0uPKa5LI+
-	 TWRMqqWS8u2lA==
-From: SJ Park <sj@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: SJ Park <sj@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	hannes@cmpxchg.org,
-	david@kernel.org,
-	mhocko@kernel.org,
-	ljs@kernel.org,
-	dave@stgolabs.net,
-	roman.gushchin@linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive reclaim
-Date: Mon, 19 Oct 2026 17:36:45 -0700
-Message-ID: <20261020003646.105993-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IzKIAkI2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ff
+	/6rcWCZ7J0WwRFerwLHBmUW/zOpnAz33rL1YX7OI0=; b=IzKIAkI2B7f0uwfWSw
+	cvJpfV+gCumiVOwuLpGUrZKtfT7vAuZAvksN/EFwcLCOlRNF5zKuCMlVCfg63bHy
+	bc2/FR6ZYuGJI2mZIjeSoW2wgNeoJbprY/vJ7vidQQEFXY+ec0JZ1uuc2Bv9t/q1
+	zJEGs/kr4aHq1qec1SwZ3be7c=
+Received: from shaos.localdomain (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgCn6hmat9ZqaiNXAw--.37946S2;
+	Tue, 20 Oct 2026 08:36:42 +0800 (CST)
+From: shaos <shawnq1@163.com>
+To: jstultz@google.com
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] timekeeping: unprivileged clock_settime can change an enabled auxiliary clock
+Date: Tue, 20 Oct 2026 00:36:41 +0000
+Message-Id: <20261020003641.1012025-1-shawnq1@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,34 +60,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgCn6hmat9ZqaiNXAw--.37946S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyxArW3WF4DXryDAw4xWFg_yoW5GF45pr
+	Wvk3y5Kr4vqa18J3yvkF4rXryYgwnrG343JFn8Grn7ua9xAw1DAry8try2qa9rArs5u39I
+	vayrXasrJayru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UWyIUUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzxpkcmrWt5rx8QAA3S
 
-On Mon, 19 Oct 2026 14:50:02 -0400 "Gregory Price (Meta)" <gourry@gourry.net> wrote:
+Hello,
 
-> user_proactive_reclaim() limits per-node reclaim to
-> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
-> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
-> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
-> reclaims a node's movable memory. A movable-only node, such as dax/kmem
-> or hotplugged memory onlined movable, reclaims nothing and fails with
-> -EAGAIN.
-> 
-> To reproduce, fill a movable-only node with clean page cache and write
-> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
-> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
-> 
-> Scan every zone, as memory.reclaim does.
+aux_clock_set() validates the requested timespec and clock state but performs no permission check.  After an administrator enables CLOCK_AUX0, a process with no capabilities can set the system-wide auxiliary clock with clock_settime().  The same clock's adjtime path and CLOCK_REALTIME setter both reject the same caller.
 
-Both the issue description and the fix make sense to me.
+HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
+git tree:       upstream Linux checkout, local branch master
+source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
+compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
 
-> 
-> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+console output:
+https://gist.githubusercontent.com/shaos26/189eb1fec9f2b4e69e979642496f5c54/raw/75acb2f68b89a64dd4719f2493e4c2a161e38cb1/console-output.txt
+kernel config:
+https://gist.githubusercontent.com/shaos26/189eb1fec9f2b4e69e979642496f5c54/raw/01c9b3f973d527975537280bd7631127537531e0/kernel-config.txt
+reproducer:
+https://gist.githubusercontent.com/shaos26/189eb1fec9f2b4e69e979642496f5c54/raw/003a5649dccbd0218da367d906093594ddf3c8c9/poc.c
 
-Reviewed-by: SJ Park <sj@kernel.org>
+Build the kernel from HEAD with the attached reproduction config.  The PoC acts as /init, mounts proc and sysfs, runs the test in a child, then powers off the disposable VM.
 
+    mkdir -p build rootfs
+    cp kernel-config.txt build/.config
+    make O=build olddefconfig
+    make O=build -j"$(nproc)" bzImage
+    gcc -O2 -static -Wall -Wextra -o poc poc.c
+    cp poc rootfs/init
+    (cd rootfs && find init | cpio -o -H newc --owner=0:0) | gzip -9 > initramfs.cpio.gz
+    timeout 120 qemu-system-x86_64 -kernel build/arch/x86/boot/bzImage \
+        -initrd initramfs.cpio.gz -append "console=ttyS0 rdinit=/init panic=-1 loglevel=4 nokaslr" \
+        -nographic -m 1024 -smp 1 -accel tcg -no-reboot 2>&1 | tee run.log
+
+Two fresh minimal-kernel boots returned success for clock_settime(CLOCK_AUX0) and read back the injected value.  CLOCK_REALTIME settime and CLOCK_AUX0 adjtime returned EPERM; disabled CLOCK_AUX1 returned ENODEV.
+
+Impact and prerequisites:
+A local unprivileged process can alter a globally visible auxiliary time domain after an administrator enables it.  This can disrupt consumers of that clock.  It does not change CLOCK_REALTIME, CLOCK_MONOTONIC, or the core timekeeper, and no memory corruption or privilege escalation is demonstrated.
+
+Validation: Two fresh positive boots returned success for the unprivileged CLOCK_AUX0 set and read back the injected value.  CLOCK_REALTIME and CLOCK_AUX0 adjtime returned EPERM; disabled CLOCK_AUX1 returned ENODEV.
 
 Thanks,
-SJ
 
-[...]
+shaos
+
