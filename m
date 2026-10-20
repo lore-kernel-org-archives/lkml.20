@@ -1,93 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525632;
-	b=lWrbcuMZuKiWEK8AhqnprAl5jeZEF9hy104L5t6mj6v9Ld89tIDxEQlOekFJT/qzWIwB
-	 RVTY4ZG+E+2juiqWy3Ocvq7FVcQ5VZw8lrqjLmb6xUp9LYPTO/z1o4RMEJHf+ATiizUeG
-	 +dMzAtkyheBV+GKttSpWKYaPZrH8p26VVSDNTG3ZHbTk+OKe05nDwTUiaf4dmr1rYGxaq
-	 JvYTK/RcK9frf3m6aEzEsppSRCJeJme1zCM6Pruiwt+sgxCG35IWZMIwKcPDRc2fYOzCd
-	 zaV4mUsxYWhswj19in8HNDauFuceEYofnmPxcQgrZeoB9KdeNsibv2XQ1hLe1yIPTCw==
+	t=1792525829;
+	b=AReNybXriOOlbXqKCxLycKZgsKDMr+4/oLNVasZKNFOwEo4yB8XHEtnPWh6sfiXX01Ns
+	 a2O3VReNBAI/PjOfRwZh6FUs28P1hJey2uPwCAxMEcwJho5QSqn3DUvDgFn+l3PoLo/p4
+	 37R0kFyBZosFXtR8fNX4IJL6z1VCupo4EHlrre1s3av9IzkbonHWowBM9HOEkHKtCdP0K
+	 3lEEGlRFwZN7IActEHjjAKu21O3xprRrcfYRYsQ8JlewvB4qI9A7xSHpQBYkp5BnLqoEY
+	 zXjO2moxjyDuPcYgPo6YhFuv58hCBGrDDIfTZk9nxKLbZPtRnkCUJ3OZlOhoFEf0qNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525829;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=y+sSUnHde30RD2/J7ts5O/Z4HnAlTV31DI3NhnWgYf8=;
-	b=TXa7yfrKmZzYiZLvoiHZkCy1y1qsysvVUTalDVUUKwGIL0dggr46KPBM/HytOUTop3N+
-	 tAFWi+6u393vnTjR0JbJeFEYjXrYbAEdsboNDZOPvsCXk2nI2Ly8BH7GcHdbN5ATIUwio
-	 IotwTUi5lYdO5+nTbqlOI9+y3+Be3IUmTY48jHtxR0pHCIQoudfqGKaVvWX5Z3VRSMZzm
-	 tXwz8qa6epv/5I7xADH5e2TPdReVv8qFOQCZP4Wqo68GGBa/zYhAknIeLAimD57G5gEJ6
-	 2hpQez2d9MV1E+B77ROYqfRXn2zhnJAKgWEqPk3MsAnMu9GOwcoDN4vIowrjHuGfQHQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hPa4PG254yePdehpmJWqML5hqKXw+sws5WB7y+lwM98=;
+	b=muCUPoyMwZnq0VLPtyOwzEz5u5uxrp0Cqn6mrk9qbzJVCZkn7pKOWENdMrCIu/9NQQDe
+	 bOM8KvQer2rJo1fs/ASoCSqus33tC7FDGyCOUZl9J9P+ZefkzuNcsLggXsBX9K1JWdyTG
+	 CZgYwhWzNo0wBcbLKw2u8ZH7gVuRRFJUtWhwKcNfLA/k0/E49bDMNhmBjHLuoJj44t9se
+	 I7w37+hEVE6f2tZNTeZsHTx0xPEXZVW14FB8vBsYDXMkT9hgMqSmPTIA2hgKFaogNWbbL
+	 lLkqeetqMXv43iTYwqvhcPMC9PQgJzjHev8+trMUHAqlB02sU9RuphCO4GTY/fCgonA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rZG+/Kr7";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NuIBbCyO;
+	arc=none smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEC9606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:47:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AEC9606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD21606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD21606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rZG+/Kr7
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1e2957d7eso26476085e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:47:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NuIBbCyO
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be47159f2bso2962335e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:50:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792525630; x=1793130430; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y+sSUnHde30RD2/J7ts5O/Z4HnAlTV31DI3NhnWgYf8=;
-        b=rZG+/Kr7OgHG5o0r4x60PwIDYM9dRqh0JLPQ4hlqE96/1PFDX5lfGwdwxOHNHhrvKW
-         kf/QTLGiZK5tOZxxYZXAUVbTAqabvK1CXnj/opPIIFJQPmD9rx/JNfW9sbAA2g/3u6e3
-         ZX8DT8+yuKIROGhF6hQxLzYNbimbHtQg/6N4T7EeJyndyUJkWl7yiUez1L2B3JOuOHZl
-         x/IbYF9NGnWjiT3rya8Ki6o7ZmkTiEX/7Rhh5VWlSnNsjnApPiw1+L2KfexlkMXlapyI
-         h70tIlbLBEKmCkxcLFtD4wVlK7jdFt+SkWC7BtYXebpVuClQDpQCjTVKbZJ5X7NdAQaT
-         Ltyw==
+        d=gmail.com; s=20251104; t=1792525827; x=1793130627; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hPa4PG254yePdehpmJWqML5hqKXw+sws5WB7y+lwM98=;
+        b=NuIBbCyOHLjMgBRgN0U2pccaR1TZLAsQhr1eI7b9dpYjk5TlNnN94DdOAXN19YkR7D
+         FAf8nTaWqBcQbkylIxVI5KyXHkXknkDYt7DbtIn1A08do1AD1oVysJRCpy81PHz37BEm
+         x014kEN3iJ04lFyi8hElEoVGeEPXX/8cBi5LcFdm5PQXylCE54Y2pr0yKGA4R6VQAHdi
+         /HLYIHUAF/4tIGEKKW05bLQEnDiGo1snPRRas0w4qeATPZuUYn9RTZssEOckbbc6bnQ0
+         pDMMs1XJUDvJJslhQxV2fG2OAscyUOSOnaNVGwJjLjWHyWx9fVUSKYloowuqwMfn+P9z
+         ydRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792525630; x=1793130430;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y+sSUnHde30RD2/J7ts5O/Z4HnAlTV31DI3NhnWgYf8=;
-        b=mfhf9T8Sa7MEJwiq5lm4JCWvEmm2AxQVQqwtwxHGlAHkWnptz9/KbgDJ2kWBpnU1P/
-         +LZrb8jmn2EY33ex9N9/toOg5AK+iZAr8Ph3R6hPzdCvETet3Ta60U5VP8t68zLTgJZB
-         XKUsQhwCaZODa6c55STO66b+VkPF8yTAxqyyg+KcLlbUSeNMZ5nrpDfwyz8DM4rLnY1b
-         VXGOIG31XEtHvFArtNfFnZxRBO1+kCZ/rwgphNa3emujcB920uv4/b+MbiAQuokJbDoF
-         k2cMh32FJRR09IIAB2KjPT4xuTmANLvcy2xqweanz7eKLh3/mjzqf+5bHN7J2s8F9c/V
-         Xqig==
-X-Forwarded-Encrypted: i=1; AKwUvBzWdIsetQsw5UnoMT7QK5VM+Hsyr1NKjpgtsU9/Z7N/G+CZmd3givljZ53SJwvH0PotG9a21jdkDxFkrJ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISiSP21hDkDP0b3g9JCkRN2oD1nJuZZ4LrQtnj/X4YAGzAoTWZ
-	kFEywoHyR5AuYLnQ2VfhDcrJX4WWQ/n0r/jxYBVuqN8kHuJNB9G7unZx
-X-Gm-Gg: AYBFou1+LylY7w2VkYQVAkaicY7nU1dFEcbdRe8VA8BmuqOV/m1k6yGZtNhO2gp+vTo
-	RLsLpDxIXJpbPgWhAEaiRryTNEnDKFrLIpTGwotNL1/bzxekLRKiAvzx8sUhucgVSD+nnRaSI1n
-	Tpo7WW4PcJEEGyqAyIv6vSXENQPaMAbQUuePxPtQ+0XXGDccxjqebsU3ogG3B0GP1TO47BF8p+o
-	w65C5tDpcU00Xky6Mi+MeIHzHaN54zQVoaxm+sxUyxF09RvqNZKJYXiNczb+4gAw5bdd3ZN60AT
-	OkVsPuIBF414KK+BiSJI07Jpqy7Ysmq/tUvdntnJElzhP/A6X1b60Y6XoEojOFjyw5K3/03Tuu2
-	e2Vrbc2CjdzZMAFXlM8qj+8VUT6QF2kB+ByjShH/OK/5AIB62U/3BX41uhrs5JgeybY/TClAH0T
-	W0/svtLuyosgSUjiHIGdrR9wkMdb+x3YJHlT8U7PIysGJ++mPttvH/ckC0kbUatzU2P5m84Xc3y
-	TCvXNvKjnk=
-X-Received: by 2002:a05:600c:4e03:b0:4a1:d292:9d9d with SMTP id 5b1f17b1804b1-4a1d7644192mr276958415e9.35.1792525629690;
-        Tue, 20 Oct 2026 12:47:09 -0700 (PDT)
-Received: from ADRIAN-PC.lan ([171.22.87.31])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828caesm450994f8f.29.2026.10.20.12.47.05
+        d=1e100.net; s=20260707; t=1792525827; x=1793130627;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hPa4PG254yePdehpmJWqML5hqKXw+sws5WB7y+lwM98=;
+        b=S38YbD4SQnN85h96Fb8Z8hHMY/Y3MzZy0S2tvbC3U1YOrBKViZk1+jKR9Dr0UixUcG
+         /g9T5utmhgkZpCxsHWkP9/v1SkzLjORzTCcb//rM9OG3YCY+e6xGiVElFVMLNVQXtA80
+         x1h6RFF5c4xqO6QDSYPQszhAsNVbLj/3w4WVs8PsFuTyWtVAEpI/BFq75BquZQTt5CFu
+         CZjfToWkcqs8irM8cbpB8/oV3NRAiEZ1xicnbmyOcGbQDXvyGRmi/ZVXXR5yQHvoRjsK
+         VuutHHg2KDVZtyGNlDA9uJGHShCUJRBkS6dq4ORblgC/glLvN65o7HpikpekIuntsALA
+         snmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKh2olTzyiUHjTbjLaUT1FsDccR/J7T94rLyggcdQWoTS60AR1f16b3wtAnAlvnh+f/ZhcVIcfLnqlJNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKE7f4Wd5ojNLQD/TKKliVNVtO3Gu/fwpaBDp1zbLIyoUwYKw0S
+	W5NeFkJjecZerDYz/Vh0QQDD3VhqYFoS0+1cCIbXM0caG+2XDWdmF3F0
+X-Gm-Gg: AYBFou0z6x+1AaDRIPj0WC7OYVW40fAAu2ttkHv7W1BMdJqD7xjBIsnvc1XMbDQC26G
+	kjPDCiuKbae2+mu+vXoA2o3vVNWkJHEnhrD6+JNouSY5dMu/+S7r5jEbpicSZRxeAtZAiQg6Vsr
+	QE53txCLF+eR5B8Lgo+c+KSzVgJIkJ0T7qoAMJpV0qqCHpCKGOlFj6UxxeR+4v69gddiFyNlFfk
+	CSMQmtOrCUGQBarK6cNKMVEoTc8oZFMD/znYcP3ewFnoK+vXxL9bvwh9TbHbi+Gin3ecLGxkGbH
+	MxIEcY8dQrQ8imXYFOJhhLsIpxn/DHSMEJyozenIUckfYpL1QEFN+71R7HVnrlQOYkgGVxMiIvY
+	njGlJfxVI75bWkt8ePvFZMc0vVRc0/W9lQqx4OVEcIGMtuYr5283JikniN0OuvITfu9/oZW4biJ
+	qqF0OWAjEDzNN7pIr3o0w/lHVwNrD5J2gAVY1dbwB3YTjo2WuKbFujkP2gFQuUb0Ghgb1ZD7NCA
+	/dLyvOgfmiY+txlzZ+n3h7wRCgmzKJ8xvgN1sxzyMaDU1YgPiXsqjHxtBNHrWygLDCWncfNfnkx
+	5r4vzg9xGejrq/2zSNmfz4ha0DGk/EJblnngtqPdu0mc24ay1la50knjgSUXrbDHWxypjYOG1ll
+	BWQ==
+X-Received: by 2002:a05:6512:3a8a:b0:5b8:bc5e:b57f with SMTP id 2adb3069b0e04-5bfa1c1fb76mr4379e87.55.1792525826617;
+        Tue, 20 Oct 2026 12:50:26 -0700 (PDT)
+Received: from kompukter-Systems ([83.142.235.16])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa11a8caesm75345e87.5.2026.10.20.12.50.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:47:07 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-To: David Sterba <dsterba@suse.com>,
-	Filipe Manana <fdmanana@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	linux-btrfs@vger.kernel.org,
+        Tue, 20 Oct 2026 12:50:26 -0700 (PDT)
+From: Andrey Derkach <gabin278@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Jeff Johnson <jjohnson@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Kalle Valo <kvalo@qca.qualcomm.com>,
+	Michal Kazior <michal.kazior@tieto.com>,
+	Richard Acayan <mailingradian@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	ath10k@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-Subject: [PATCH] btrfs: add __printf and __cold attributes to do_abort_log_replay()
-Date: Tue, 20 Oct 2026 21:46:59 +0200
-Message-Id: <20261020194659.246816-1-adriangarciacasado42@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4] wifi: ath10k: make in-order rx amsdu buffers persistent
+Date: Tue, 20 Oct 2026 22:50:20 +0300
+Message-ID: <20261020195021.1133728-1-gabin278@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020-ath10k-a-msdu-v4-1-670b69d39059@ixit.cz>
+References: <20261020-ath10k-a-msdu-v4-1-670b69d39059@ixit.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,37 +106,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-do_abort_log_replay() formats its variadic arguments via struct va_format
-and %pV, and is only called in error paths when aborting log replay via
-the btrfs_abort_log_replay() macro.
+On Tue, 20 Oct 2026 20:52:07 +0200, David Heidelberg wrote:
+> The WCN3990 firmware may split an A-MSDU across multiple HTT "in-order"
+> indications. Mainline drops these ("failed to extract amsdu: -11",
+> rx_confused, recovery), collapsing throughput under load on affected
+> devices. Stash the MSDUs of an incomplete MPDU in the driver state so
+> it can be completed by the next indication instead of being dropped.
 
-Because %pV hides the format string from the compiler, GCC does not warn
-about the missing format attribute under -Wsuggest-attribute=format, and
-callers do not get compile-time format string validation.
+Tested on a Lenovo S5 Pro (SDM636) with a 7.2.3-based tree, on top of
+"wifi: ath10k: trigger hardware recovery upon rx failures", replacing
+the older out-of-tree version of this patch we carried before.
 
-Add the __printf(5, 6) and __cold attributes to do_abort_log_replay(),
-matching __btrfs_handle_fs_error() and __btrfs_panic().
+During TCP downloads the firmware split an A-MSDU across two in-order
+indications (once in about 39,000 indications so far, counted with
+kprobes on the stash and resume paths). The patch stashed the MSDUs and
+the next indication completed the MPDU, with no warning and no
+recovery. Throughput is the same as with the old version, about
+60 Mbit/s here.
 
-Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
----
- fs/btrfs/tree-log.c | 1 +
- 1 file changed, 1 insertion(+)
+Tested-on: WCN3990 hw1.0 SNOC WLAN.HL.1.0.1.c2-00455-QCAHLSWMTPLZ-1
 
-diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
-index a00094604e..5ecc585061 100644
---- a/fs/btrfs/tree-log.c
-+++ b/fs/btrfs/tree-log.c
-@@ -158,6 +158,7 @@ struct walk_control {
- 	struct btrfs_path *subvol_path;
- };
- 
-+__printf(5, 6) __cold
- static void do_abort_log_replay(struct walk_control *wc, const char *function,
- 				unsigned int line, int error, const char *fmt, ...)
- {
--- 
-2.39.5
-
+Tested-by: Andrey Derkach <gabin278@gmail.com>
