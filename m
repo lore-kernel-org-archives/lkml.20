@@ -1,99 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792520813;
-	b=zyJyDvgGz64ZQppQZ+4JKMBMmevstgxmlqE0Sk3Im65zsneBbXuVy8uFwCuw2dFYsyf0
-	 nr2K8761yc/Smpjrmux75W73VII91aGTH71IAeDym0xwR6YL3m27FEMkw5NtjSFlf2S7P
-	 Qpv2V5nXpIQuR5msSvQ37P2umAAW+EQOMAF+0t60sfOqDqt2bd5Bh4IA7iQvXk7h1pB8c
-	 ajBx8kOup9PHF43wSgqxMWOTd0gWGWeT24b/96pxWS1mALEVl3C/vYakjUJLj2zajls6I
-	 2WwqhE8RL9WAYx55iqOjeHxG0mSyE0P+irfgoOZzESkuxplwq9FTSXS7ReUgLLyA0TQ==
+	t=1792520821;
+	b=pgngQn0qKm218T6NT6IxKNFBI2Ybpn/qhrN7iwgrWed9H4c1WZGUyzFK1zMSFetnu7IK
+	 kB1GyQQGvl/0NVhIEYB9yC/iwLhh2IIgsJLrfgJ2mheAnCwVraF+jN3dl4CDYEjpvhzEj
+	 ef1sGdAjc2J2NwCu86xCqsnWhpnGre+Vtgp2ROzE3gp4ckHxqaUsSec17qQ+WzBwDfHDS
+	 phMxcK7Qwjbaw6GTWwVUYhUeXL83eVslgq8xhhAAP0h2k6mZDqYLIaQRln63x8HA5KPI4
+	 bsa/1FgDh20q9D+A20VmXoaEbNv2+XnLqskYHIrCISOW630dDZCSXWYROeEW2T9lkug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520813;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
-	b=5Jrs5MYZyeLMQMESfRTUGCXB2J+z3NxJWsRG1PnhXAixgl8+49duQG6CXUZk/9bSj6ko
-	 uerxMbJmUBfMrPvKBlVja/B2/x1xLfwjrYO56gX2rDnOnqy8TTKZ298JXEuhkPdjG0aPP
-	 9TAFYrvxhZ6SW6QKghkfCXCR9uy26F51QBKwhIsq5YV8B3mT1GHIgcAw5XcUSSuHkkIgu
-	 k3B3CukIm2Bn5VD/iXqR+LhmhMqp91OUTrg0SKyHb0DwGt1gXTxrMgBsbqFueJgSA4VRF
-	 O4yeEo1vzDrwSJKTfAnQs5D7IWZde13138iIM0pXn0Dq16LB+f/ou3l/iSwAkWb556w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520821;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3OmwLlRNyLvNMujIWUf2Ri23JC1fyr6rgOiVHuG/6jI=;
+	b=B/BdyZMJ7NIfMvqhrgodRkeNwjKi0OJGoh91HZ+jTWBD8+mAnaSnmbtJsa93YlOcWqHk
+	 YnFiEb/9B3fzn5K/HOA+XxC1fR/bxtaM7nhqDjHgX+KteNgHR2zsn37jD2ZI5bsk8q6m7
+	 biH19WDfNwlCWXYachor/vejgzWWRD85BrhOKvmCV6TRzyoXFivgWqpTFrJIj3BP6+mOU
+	 rjRFshzIotgtpK3dMVoaDSnSgKt5TZNlJTt1AKZROxxxy0JK7Xzl5fcWzh8TTDSuiooyo
+	 N1aeAz5W76Vke3BcgaKzFAVq+SE2D+Xx9YKsAPNh6xek6CyaNNMJBhmKWFDjb06WeKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fsom6qjs;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FBXIGrkZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B760606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B760606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3664B606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fsom6qjs
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35f1f76ea84so6344986eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792520812; x=1793125612; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
-        b=fsom6qjs9j+gTUdI/+x3+Gh68FRqWXehv4w7tWPmCte8tL+IdPkP8flEfDqEgglN4R
-         pjghddV73hurJBcW0fgkySjmyIiIrY5+G4CPJb6cpsIw+ZDCyDCPosrdcZ7PhbNbiJ8y
-         Hf+J333mq/VDsOCud9RSwn0Suv52NihGBdLl2CYJnOclv1DNVoFm0fw3Kvpr2Hfpk8uO
-         XfN9QE9vYeNEDZfQ8x1+90Zpqm2mTSSZsiFM34XD9PWUTkoLJzshbFntrKQ982VchN2t
-         mTMlB7U2+/5aWl6zvSEivRQtMCOZvlXG+4ZgBx5yHgO0jG7FchZE1bOuolCl4A+1hpKS
-         fSfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792520812; x=1793125612;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
-        b=DtqKAd7dRwOSutSmmZmXWmGPlUAUFnsksPQT456nVqdMGvQnKfaZd1JYf5pWTLIaxZ
-         KO2AnOz9JzveJ0KD/SL2cJ1nH/6v2VbyrDy22oVnJXaO50gMkU2URfo7rVzccIZvBJIE
-         Rnr8UL4k7tM6fy51rIVZnJD0E2yeoYZP/43ZQvrh76Rm0ImxbuuBhA06eu4lvp/nYudq
-         5HtQ3xv2zrlDjeNspDc8PtWMnAPQsC6NqANeg29PUjmv6cblFfllBRb0R/vJ7sjjvU8J
-         guHUzqV4f/+bZICf1BeGgOwXs8lWb8APmRt6Of4okJuaVPM+Q95Dm8od8p9Hifz00kij
-         VUfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzIP2jkgrLCBhYQ73fN8htCyDooPrm3B4s7xLCr9Tw8ePoM+VY56ikGSQUe68jGBTM4caG6/5P+Yaopv54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7PFoGCYtszbBKJvcZPAIJ8BceCd3Xl8rOw1TYqMF3h/MMzyFd
-	VSHPfOAp9GYcpHet7TqFbyFclOyaWu/IfIh50GYPuy4hYfryzTVB9DP8
-X-Gm-Gg: AYBFou0hXa4AGPtmW6y1c/RtCMfaUbDt1b/E0jE7R+Jh9uP6pnFqnm4bBnhkDj7X0Cv
-	AFPwgPJP6Pyknw8DOsKXRfRVRNhwoqHH85S4hA+7bpoDW3GtEQ0EptlHyeJW4DZwuwXq6Km5AGC
-	C+qFwA6gZgdYqAzfvlAtLFGYknxEfQQpP2VX23PCN6RX5q3mmOIeX6HOw4waGlO9ThPn3GYC/Bk
-	CSmII1PtIH4gz2jXbJg/0iuAUmx7kcpYw0gkUVyxkfRkalol+3GCoZbTcLKGs3zyRE6wvE4vonW
-	aaq9e971rlN6JTXXPtaGyUnknOTzXfPQgjwhmZf+sLIhEd8PPAWPBA4Ow6LsQgbgBsOg87pdPM+
-	Z0KPDnD5tuI6hWLoHIT7fuPNYe4yO/jNtTXatf1WrkNLb/SJpI0QwPV9X6xxdvOr2+zE4r5N/Qr
-	ka2w0YcSl3XX2uu6PZYMw5hkieS2m1fouhM8P/9c+g7f/pZVLwLK/10cpE0JBPRQdJ2gv2qQ8fV
-	8l0V8h/sKHnqyvR9X7OMQfDV3j0KS74NQOemcBuLigbha541vHDeOHYWPUp47NKESrdSrYjV61t
-	ESLbKGzgY1uD42NiWFIOt6K1jrjy2PuW4mOxq/M1
-X-Received: by 2002:a05:693c:87da:20b0:35e:9c54:d41b with SMTP id 5a478bee46e88-3674db4d065mr98253eec.21.1792520812113;
-        Tue, 20 Oct 2026 11:26:52 -0700 (PDT)
-Received: from LAPTOP-97G9G880.bbrouter ([106.51.148.253])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm549302eec.18.2026.10.20.11.26.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:26:51 -0700 (PDT)
-From: Karthikeyan KS <karthiproffesional@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Hubbard <jhubbard@nvidia.com>
-Cc: Karthikeyan KS <karthiproffesional@gmail.com>
-Subject: [PATCH RESEND] vhost-scsi: use FOLL_PIN for DMA page pinning
-Date: Tue, 20 Oct 2026 18:26:40 +0000
-Message-ID: <20261020182640.2048506-1-karthiproffesional@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FBXIGrkZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91F51F000C9;
+	Tue, 20 Oct 2026 18:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792520820;
+	bh=3OmwLlRNyLvNMujIWUf2Ri23JC1fyr6rgOiVHuG/6jI=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=FBXIGrkZdZaQtbzSA7di429TuHZcgqZRrqkPmXwZj6/34Ans0MGsqh7QS2C9aUGAK
+	 50KQobrqVK4AnZ1k2jzMyzsqNJDdILCl2r+Vo9/7IT5dSbAxsvKcARflC33CLI3GEJ
+	 ZYmCZNLSvoYur0MFvSxYc/9oPbbKRwZzdSQDZPMj76vRP99tSFO6qGUEkrnFaIopSG
+	 vBofHJor34nZ31Y2XnQknAm2dDMrman4iWeq9jqQUxs5cxbBvboic3LZaPM8EktHsJ
+	 biXK6oPh2uOVfGQpnx7t24Czy2Psmeod6AyHfq3BtuT2HkFugSzplXsEfadvhkhrpC
+	 8Q98dfEft/87A==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 74172CE09E8; Tue, 20 Oct 2026 11:27:00 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:27:00 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2] x86/nmi: Enable panic() when NMI handler runs too long
+Message-ID: <47884f06-820d-4a95-8036-4c75f45fbb6c@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
+ <8b14bd35-8f7e-4e41-9aae-e085f9a536f6@paulmck-laptop>
+ <20261020045247.GEatbzn7VKvUfDTbR4@fat_crate.local>
+ <5182974b-500a-4076-b9a1-5c67dded8380@paulmck-laptop>
+ <d8a05f9e-42ac-4c19-8713-558e1f002bd0@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,162 +67,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <d8a05f9e-42ac-4c19-8713-558e1f002bd0@intel.com>
 
-vhost_scsi_map_to_sgl() pins guest buffer pages via
-iov_iter_get_pages2() (FOLL_GET), which does not prevent
-copy-on-write or page migration while DMA is in flight. Switch to
-iov_iter_extract_pages() (FOLL_PIN), which does.
+On Tue, Oct 20, 2026 at 09:45:48AM -0700, Dave Hansen wrote:
+> On 10/20/26 09:15, Paul E. McKenney wrote:
+> >>> +	toolong_nmi_panic= [X86]
+> >>> +			Cause a panic upon return from an NMI handler
+> >>> +			that took longer than the specified number
+> >>> +			of milliseconds.  The default value of zero
+> >>> +			suppresses these panics.
+> >> Cause a panic after an NMI?!
+> > When the NMI handler runs for more than ten seconds, life is hard anyway.
+> > And no, these were not bugs in the several affected NMI handlers themselves.
+> > 
+> >> Oh boy, is this trying to solve a Meta fleet problem and you're thinking, why
+> >> not upstream it too?
+> >>
+> >> Because I fail to use the usefulness of this...
+> > I might be wrong, but I doubt that Meta's fleet is the only place where
+> > such bugs appear.  😉
+> 
+> Yeah, I once upon a time had a bunch of problems with NMIs taking
+> forever to run. In my case, it was some actually wonky firmware, but
+> differentiating the broken firmware from NMI handlers just being slow is
+> what motivated the existing "took too long to run" message next to which
+> you added the nmi_panic().
 
-Cc: Jason Wang <jasowangio@gmail.com>
-Cc: Mike Christie <michael.christie@oracle.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Michael S. Tsirkin <mst@redhat.com>
-Cc: virtualization@lists.linux.dev
-Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
----
- drivers/vhost/scsi.c | 49 ++++++++++++++++++++++++++++++--------------
- 1 file changed, 34 insertions(+), 15 deletions(-)
+I guess I am glad that it is not just us seeing this sort of thing.
 
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 7a1f39a327da..e14b4da4ea9c 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -115,6 +115,8 @@ struct vhost_scsi_cmd {
- 	u32 tvc_sgl_count;
- 	u32 tvc_prot_sgl_count;
- 	u32 copied_iov:1;
-+	u32 tvc_need_unpin:1;
-+	u32 tvc_prot_need_unpin:1;
- 	const void *read_iov;
- 	struct iov_iter *read_iter;
- 	struct scatterlist *sgl;
-@@ -433,8 +435,13 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
- 
- 			if (tv_cmd->copied_iov)
- 				__free_page(page);
--			else
--				put_page(page);
-+			else if (tv_cmd->tvc_need_unpin)
-+				unpin_user_page(page);
-+			/*
-+			 * Else: iov_iter_extract_pages() took neither a ref
-+			 * nor a pin on this page (ITER_KVEC/BVEC/etc), so
-+			 * there is nothing to release here.
-+			 */
- 		}
- 		kfree(tv_cmd->read_iter);
- 		kfree(tv_cmd->read_iov);
-@@ -443,8 +450,8 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
- 	if (tv_cmd->tvc_prot_sgl_count) {
- 		for_each_sgtable_sg(&tv_cmd->prot_table, sg, i) {
- 			page = sg_page(sg);
--			if (page)
--				put_page(page);
-+			if (page && tv_cmd->tvc_prot_need_unpin)
-+				unpin_user_page(page);
- 		}
- 		sg_free_table_chained(&tv_cmd->prot_table, vs->inline_sg_cnt);
- 	}
-@@ -773,7 +780,8 @@ vhost_scsi_get_cmd(struct vhost_virtqueue *vq, u64 scsi_tag)
- 
- static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
- 					     struct scatterlist *curr,
--					     struct scatterlist *end)
-+					     struct scatterlist *end,
-+					     bool need_unpin)
- {
- 	size_t revert_bytes = 0;
- 	struct page *page;
-@@ -782,7 +790,8 @@ static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
- 		page = sg_page(curr);
- 
- 		if (page) {
--			put_page(page);
-+			if (need_unpin)
-+				unpin_user_page(page);
- 			revert_bytes += curr->length;
- 		}
- 		/* Clear so we can re-use it for the copy path */
-@@ -812,9 +821,9 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 	size_t offset;
- 	unsigned int n, npages = 0;
- 
--	bytes = iov_iter_get_pages2(iter, pages, LONG_MAX,
--				VHOST_SCSI_PREALLOC_UPAGES, &offset);
--	/* No pages were pinned */
-+	bytes = iov_iter_extract_pages(iter, &pages, LONG_MAX,
-+				VHOST_SCSI_PREALLOC_UPAGES, 0, &offset);
-+	/* No pages were extracted */
- 	if (bytes <= 0)
- 		return bytes < 0 ? bytes : -EFAULT;
- 
-@@ -837,7 +846,7 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 		    cmd->tvc_sgl_count > BIO_MAX_VECS) {
- 			WARN_ONCE(true,
- 				  "vhost-scsi detected misaligned IO. Performance may be degraded.");
--			goto revert_iter_get_pages;
-+			goto revert_iter_extract_pages;
- 		}
- 
- 		sg_set_page(sg, pages[npages++], n, offset);
-@@ -849,14 +858,17 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 	*sgl = sg;
- 	return npages;
- 
--revert_iter_get_pages:
--	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg);
-+revert_iter_extract_pages:
-+	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg,
-+			is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin);
- 
- 	iov_iter_revert(iter, bytes);
- 	while (bytes) {
- 		n = min_t(unsigned int, PAGE_SIZE, bytes);
- 
--		put_page(pages[npages++]);
-+		if (is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin)
-+			unpin_user_page(pages[npages]);
-+		npages++;
- 		bytes -= n;
- 	}
- 
-@@ -926,6 +938,7 @@ vhost_scsi_copy_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
- 	}
- 
- 	cmd->copied_iov = 1;
-+	cmd->tvc_need_unpin = 0;
- 	return 0;
- 
- err:
-@@ -950,11 +963,17 @@ vhost_scsi_map_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
- 	struct scatterlist *sg = sg_table->sgl;
- 	int ret;
- 
-+	if (is_prot)
-+		cmd->tvc_prot_need_unpin = iov_iter_extract_will_pin(iter);
-+	else
-+		cmd->tvc_need_unpin = iov_iter_extract_will_pin(iter);
-+
- 	while (iov_iter_count(iter)) {
- 		ret = vhost_scsi_map_to_sgl(cmd, iter, sg_table, &sg, is_prot);
- 		if (ret < 0) {
- 			vhost_scsi_revert_map_iov_to_sgl(iter, sg_table->sgl,
--							 sg);
-+					sg, is_prot ? cmd->tvc_prot_need_unpin :
-+						      cmd->tvc_need_unpin);
- 			return ret;
- 		}
- 	}
-@@ -1392,7 +1411,7 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
- 		/*
- 		 * If T10_PI header + payload is present, setup prot_iter values
- 		 * and recalculate data_iter for vhost_scsi_mapal() mapping to
--		 * host scatterlists via get_user_pages_fast().
-+		 * host scatterlists via iov_iter_extract_pages().
- 		 */
- 		if (t10_pi) {
- 			if (v_req_pi.pi_bytesout) {
--- 
-2.43.0
+The existing "took too long to run" message is a good thing, but in
+our case we needed a global timeout and we needed it to be quite long,
+as in multiple *seconds*.  I did not see a nice way to integrate what we
+needed into the existing ->max_duration checks, perhaps due to a failure
+of imagination on my part.
 
+> That said, I'd much prefer something more generic than something
+> NMI-specific.
+> 
+> Would the systems that set toolong_nmi_panic=1 also set panic_on_warn=1?
+> Are there any other "extra" panics that these systems also find useful?
+
+We do often also set panic_on_warn=1 on our fleet, so in theory we
+could make this be a WARN_ON() instead of a direct call to nmi_panic().
+In practice, we would need to do something like make check_panic_on_warn()
+check in_nmi() and invoke nmi_panic() if so.  Other adjustments might
+be needed, I don't claim to be familiar with this code.
+
+Or is there a better way?
+
+> I'm kinda curious if, for instance:
+> 
+> 	hung_task_panic=1
+> or
+> 	softlockup_panic=1
+> 
+> would also panic() these systems.
+
+They did not do so on our systems because the NMI handlers ran for "only"
+a few tens of seconds, which is not long enough to trigger these panics.
+We did get the occasional RCU CPU stall warning at 21 seconds in, but
+these proved to be unhelpful in this case because the IPIs used by this
+stall-warning code are deferred until exit from the NMI.
+
+							Thanx, Paul
