@@ -1,62 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501828;
-	b=46M1TZnPqZrYjrwtM8hsUAkNrQyWQbGMpl8UuYRKlv09tnQSbMO5/xeaDu6xrBqF9ZoC
-	 tG7JZxNkoKN2hEzDmGCSr92ZGp47OQsiSsAdILTWjfMSMVhCH0Cpe+Rq9i0toD+fSm5ne
-	 WCqq+FM2hdMuQHov+k4ZhuYEktUoCB4oSUaNzZNnoXUoJFkqZqH8eJIsSpFSStnmd2Uma
-	 mS4zZ8dboTxdBoMHVX+bQSU2Hx3mGwa9wjwuG3kn8tRVjlaju2SS8K/ZPHOHQeigGx/ZK
-	 rulLh9rqU2LavAy/wiYRn3E9FBcAgwHhNlL5LLNTXE9ZQiGTE9M04JCK0bSza+7pcxw==
+	t=1792501829;
+	b=hbXbjWClv27kUFnCtVSiD6b6VEUpBFa2lLZPbJQv4g5PExXwR88fwvblUTHOO6JIniVs
+	 JijBjDB/S50Y7BtsnxydniylDnSUjG4Z/Xt6C3QmrFsMPOJItJIsQhbDbz3loxEA0uY/i
+	 VhRgyPUAqnHdBQkiN+N3AI14cRYNtSRagN1kgS5LMo8zXuEYEU7Nxg4hyRi+ddKlnRz2O
+	 +2Ui3gs+dTnp+Q74ayo5DfBpzArdc1GDuTVrwOoyhj+aSii8XRK+L72hUBOrFCur0xh+b
+	 /5JT+KtxUGw4UopotS4jjZ4r20OEkdcilsGAwIpqKERAWDLfiLvYQcsLXvx7Ir8pZYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501828;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=9m/I1RoZLvF6ehI7aCwLnUGlQK9U6ng9p3EUpENngvw=;
-	b=3Johf6QnYQl9htile1gTQrMnz5DatVF5cW8BjETQMRYlELY2Ofa8fXpjeSSrPiZawYKr
-	 KXnldmDZvKudl0l4mtnIA/XzBp14fj5BHn1WJZOGB+uTTFGk5K9Q94/hGylQ2osN+l511
-	 ZzOjts0M1g9UI4hWLYXzXpCNWUYJs5fupcGDioeWVa7pS2MeS91xRzKkTPCPA88/ZYrXi
-	 UuLvFhVyIiUj3EwqrNgmPOMKmQbGklD6sFK3+Hlv+jVuhWZgclfwajoXx3VfZajj/3tZP
-	 JlwFDB5LhMi5v458ZxEgJFmABIbeEIwiYyyZRlug2cLlC8hJm8shHYVs0qIuXBxWFPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501829;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UMXtQLb7sV43jXsaXOJM86dQ9CSAx4ee+JilsAAN6V8=;
+	b=OpSSXjIPa0+cvwV2iSUsimrX9/ST+2tCWJosMEecjZGr+px9DGZMVJRptb88UA+wGUVR
+	 BbgWFm+vki18C3zFYunBdEowACD5/z+OW3hw7TzTTY2z8UqcZaACLHlt+ho+PGGOeDz1K
+	 XmMcsTSZhzrwsA4KVcpni5xPtmXhfC9a510XDzCdE+Oj7E1SXllkHGwpcfDCfkfP5xU/K
+	 Ftw+nuowjazHcsx88lm26nJquAlYmG7k+7NsrCrCq2LgNMWH3QXxAzZU6b5unxt6uDiw6
+	 mscpl/H85rO4OByO/T6qgu1EHtLqs/RaPlGXUJoStgAmV2wR24NqHEX3cyxKsZrWH9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MdBGF8Iy;
-	arc=none smtp.remote-ip=91.218.175.164
-Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jCZeVSVW;
+	arc=none smtp.remote-ip=74.125.227.135
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D30606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:10:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94D30606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE00760A2622
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:10:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE00760A2622
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MdBGF8Iy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yKLSf2H2uB/fvU8iF2pBxn3hRQc14Pjhc5mRWAVCgkA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792501825; v=1; x=1793106625;
- b=MdBGF8IyZH3vWs07hT9uc08LO/5YfqMomc4G1nWhFghFXWpd0ZK+OYfQWeaI2jL0ZbMxwBtV
- qDgkLaLjTOy6n8KC8CFjH8Mg/2d0FzXc7MQBHnsTXj3GN1ouz+sc9S+N/U1hQOM5A7sd+B/UcXN
- EW5Bdlzr0kATCcxY4qDmFDlI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a8faf15bf44fae39;
-	Tue, 20 Oct 2026 13:10:24 +0000
-X-Mizu-Trace-ID: a8faf15bf44fae39
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be58ad9600so8497e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:10:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzGpd9fH1rOyR/iWkGx8rEpGb9ZkSIhV3EJcKmBoNRW00WBpGl6tqh7bki6cZXd95sgu/t70nl017kYm8s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQEkhNacVjr1nLN27MEc4IKPTl/asAVxZ53lGgMXegx8jjbICx
-	QDTCsGy0MjrSFWUa11aM5irxMwaS7Fo0BQkIItEyJ17dWlxWiUKRtcUnbbHf7PANa1kkxbTP/WT
-	XRZoIinKP4lPEFhDU409XzmkuDmTtCcOQSdCo82Ny
-X-Received: by 2002:a05:6512:32d5:b0:5bf:6c49:434c with SMTP id
- 2adb3069b0e04-5bf6c4946d8mr42473e87.10.1792501822812; Tue, 20 Oct 2026
- 06:10:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jCZeVSVW
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-3ac63aee1ecso998062a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:10:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792501828; x=1793106628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UMXtQLb7sV43jXsaXOJM86dQ9CSAx4ee+JilsAAN6V8=;
+        b=jCZeVSVWy6Yo/7XVtt/sUEblyWqkHqmvfXfy7ooW/vphOjTrtORGd8o9KjDduRAyhg
+         VJCqqEp5ojGhVuqBFMF4McBe/VfyLPusySjqayYAuIHsnRqEBYu8tDYpGLWH4Sh3JiO2
+         ckYF6AZTGjkkt1W2k9cL5p5GDAQYsZkSumEpcgBKRBZDKG+kq3mIk2/hEE5VGA3aY1VR
+         OJE8ejk9AgNeYCosOChmElUf8i3iMbvTCJys8NL7nW6Lx2BOmk+g3vDZO0srunlZVCeF
+         T1HERafpenE5QlliPwxhx5RhDt9Kb0M8rVPBkNQj56UGjMXmlmJbrLgIzHBrjxVel9Ma
+         W5zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792501828; x=1793106628;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UMXtQLb7sV43jXsaXOJM86dQ9CSAx4ee+JilsAAN6V8=;
+        b=Wd2zsNLyDlYhDa9zSgduJ9Jb9pjnLuWOcb7MUeR/kBFKmVM6Xg8DZSQNxQV12G3tm6
+         EBCyNvWPEKPZK3prxd9l9PT9bAIT9/b6x2E10uuDCXee7dUMmazi+7OEyg6npsDyvLni
+         ft09ER68BxeEUFdcOHrU4cDvUcEEhZUK9X7BwhAS+ZvsbULNgqk/GPl+C0X9iWTb596o
+         HqKvNtRK590T/CowGJKawd4HPKJaj8AN+gr2Sj3cp2lvdXzifOjQ91Cki60q73T2Um30
+         o9ZhSrUvFETeUCGhfqreJ5366GEYtyH7BB3XOz9gMQnY7QslllXbtzHbgNW9seo7DRBj
+         Sjbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzH1YdFdQ/U1NjcYKLjIzRx5EhAuZBWnzB2FBIKbVkc3jRe94I2in6DItR08f/WvwO60nhpbWqql/g8aC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgzhrkprfZPpkQZCSwv72hD7A6rdrWaw4k2Pur/zhgZSYR4ltw
+	lpvm7e0f0gyMs9aWBAB4HrerfaMbC6BawEKo71Dml+LRBmW9GcXRG02m
+X-Gm-Gg: AYBFou2r8M6Xp01BWEK/zLVEE5yZgDWwT+z0iHAsHN1+oOjCJ2Rv1gBHBsAh3TUucfS
+	bUXZlqMJjabWBziSe/gW5BDW6wZ9+zWjRrGtZDEPQM93RYvyNXKnnb+Qsh86RWoJqrtryuo2fx6
+	NcGzQ77dGnCqSUeMBYIVlfZmUA/8qlVmOj/Vv2naZ1qzRtdM1LnFY3s+qD5rE8bXucVxddrKE5L
+	/ffwD/PWjyCV0LmNw6FtFC1fK7ejwK7MC2AjVMwhoaKZNL/WMs+dBiy9gQTHBmW4G6i4IpXB/Hr
+	FzUw8r88XK5XTxUNspjPZlatVj3pd0OWcaNSXY0Skkqj44P/RVxklV+rUtx5dfNIN5MnHq++S3H
+	uAar6/KRKMjp2zKVre4RRXWSRfOrHxdwmfp7D1kaBujMloQKW+erlJN2Vns+iby9SaRNPhoCBBw
+	eUPJJuYcmayI1Rjnm+61koRLN8WtqHVoSz08C3yjpdHTTKoaZwk9sDZU8=
+X-Received: by 2002:a17:90a:d00b:b0:3ab:f38:2b41 with SMTP id 98e67ed59e1d1-3acef29e6ccmr8123502a91.39.1792501827888;
+        Tue, 20 Oct 2026 06:10:27 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac1:1980:20::1d3:a8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm10131496a91.4.2026.10.20.06.10.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:10:27 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	linux-kernel@vger.kernel.org,
+	Lu Chen <tianshi12127@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 2/3] dt-bindings: display: panel: add Smartisan TD4362
+Date: Tue, 20 Oct 2026 21:09:33 +0800
+Message-ID: <20261020130934.2289011-3-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020130934.2289011-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
+ <20261020130934.2289011-1-tianshi12127@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,78 +109,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019132103.3836646-1-fuad.tabba@linux.dev>
- <20261019132103.3836646-2-fuad.tabba@linux.dev> <atdUzfOA1Obd7Mir@gremlin>
-In-Reply-To: <atdUzfOA1Obd7Mir@gremlin>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 20 Oct 2026 14:09:45 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTykGoHmDt82Cz=eEeBoqpjDRnhKEVGnOhTprn4dLxLZKQ@mail.gmail.com>
-X-Gm-Features: AclHuK8UhwO50ViPhbRl1kWyZ66tD2KPFO0KN-W-K2Tt6gXRY6TnmJPvFFaY-jU
-Message-ID: <CA+EHjTykGoHmDt82Cz=eEeBoqpjDRnhKEVGnOhTprn4dLxLZKQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] KVM: arm64: Clear the whole hugetlb folio when
- sanitising MTE tags
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Steven Price <steven.price@arm.com>, Yang Shi <yang@os.amperecomputing.com>, 
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Lorenzo,
+From: Lu Chen <tianshi12127@gmail.com>
 
-On Tue, 20 Oct 2026 12:52:54 +0100, Lorenzo Stoakes (ARM)
-<ljs@kernel.org> wrote:
-[...]
-> On Mon, Oct 19, 2026 at 02:21:01PM +0100, Fuad Tabba wrote:
-> > sanitise_mte_tags() clears the tags of the pages about to be mapped at
-> > stage-2 before marking them tagged. For a hugetlb folio the flag covers
-> > every page in the folio, but the loop only covers the mapping being
-> > installed. Stage-2 maps a folio in pieces for the contiguous hugetlb
-> > sizes, and for any size under dirty logging. The first fault then marks
-> > the whole folio after clearing only its own piece, and the rest keeps
-> > its previous owner's tags for the guest to read.
->
-> I'm guessing the folio size is always >= size here?
+Document the Smartisan TD4362, a 1080x2242 command mode panel
+found in the Smartisan R1 (trident) smartphone.
 
-Yes, the stage-2 mapping of a hugetlb VMA is never larger than its
-hugetlb page size, so it always sits within one folio.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+---
+ .../display/panel/smartisan,td4362.yaml       | 75 +++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
 
-[...]
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-[...]
-> > @@ -1514,7 +1514,8 @@ static void sanitise_mte_tags(struct kvm *kvm, kvm_pfn_t pfn,
-> >          if (folio_test_hugetlb(folio)) {
-> >                  /* Hugetlb has MTE flags set on head page only */
->
-> Is this comment redundant now?
+diff --git a/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+new file mode 100644
+index 000000000000..d9a18cbe635a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/smartisan,td4362.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Smartisan TD4362 MIPI-DSI panel
++
++maintainers:
++  - Lu Chen <tianshi12127@gmail.com>
++
++description:
++  The Smartisan TD4362 is a 1080x2242 command mode panel found in the
++  Smartisan R1 (trident) smartphone.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: smartisan,td4362
++
++  reg:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O voltage rail
++
++  vsp-supply:
++    description: Positive source voltage rail
++
++  vsn-supply:
++    description: Negative source voltage rail
++
++  reset-gpios:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - vsp-supply
++  - vsn-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "smartisan,td4362";
++            reg = <0>;
++            vddio-supply = <&vreg_l14a_1p88>;
++            vsp-supply = <&lab>;
++            vsn-supply = <&ibb>;
++            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++            backlight = <&backlight>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++
++...
+-- 
+2.56.0
 
-I'd keep it: it's why the whole folio has to be cleared, as the flags
-on the head page cover every page in it.
-
-> >                  if (folio_try_hugetlb_mte_tagging(folio)) {
-> > -                        for (i = 0; i < nr_pages; i++, page++)
-> > +                        page = folio_page(folio, 0);
-> > +                        for (i = 0; i < folio_nr_pages(folio); i++, page++)
->
-> I know it's a stable fix, but the fact that this pattern exists in multiple
-> places really argues for a mte_clear_folio_tags(), which would make this
-> trivially:
->
->         mte_clear_folio_tags(folio);
->
-> And avoid the re-use of page etc.
->
-> It's not a huge change and makes the next patch in the series simpler too so
-> arguably could be part of the series?
-
-I think you're right about the helper, but I'd rather keep the fixes
-as small as possible for the backports. I'll send
-mte_clear_folio_tags() as a separate patch on top of these, using it
-in mte_sync_tags() too. In v2 the loop uses folio_page(folio, i)
-rather than reusing page.
-
-Thanks,
-/fuad
