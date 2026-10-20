@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484447;
-	b=VMWTNcyuwvLRVrPYUzeA9MFIRy2Nj9+YGSikHTWe+F25BGktQ72Ta5c4h87fyjf4WZ2D
-	 QEZkm7hdjlEwCFFXDwU6QxQ5fztdocpnTa4UqpHKC+omkcNSjn5t99T1G2+JVKI6qyzCp
-	 DcxCCNPNNRXwJnoL2JPuHFzXKGIWP5LzT5YpnSFeIChaQFdL2oh41X6Kw/cXb81v0vxlQ
-	 ylwt5KadRX07SMU0+1cLrCY8W5KeFFow02pnLpTtjTnmXv9DsZmkI+jygFmgT+3LOcVE1
-	 SQwhVfdU3ErmZJm8U42zdSlinJXjFzp1eHGV/mIMZQ0YAABASWmbst7XvrqeyJC5eSA==
+	t=1792484473;
+	b=K0RENvP7sGmNmbnICGkwBcrd7ZJgVpop79VcItZ2RZnRca3PN0joYKiLsW+fT2fwOztO
+	 BYQuDMog9NEFk9k7rtDfyEiP+/iv8/NcpPamirYBZtfJVxoIm7ltpy6RAJcBoY0InQCn4
+	 67MHLLj4XJS8wBFICOOwlK2WMpXJLC7r+Aw62QZC73bEe517oRwmbdDG7Os6IteTWYaYV
+	 +CntIQjVoJO2Z85KvTtDJHy4ws/zJHjF4hyHwSMKfqY41IZIZcu0PahGs7xkBr28DVbXh
+	 Fltt6+1UEqSOVNPADRlpkk1c5snNZq2vrIyVgWhB8WsZSJzHm8QW4C+BPkntZ2g/m9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484447;
-	h=DMARC-Filter:DKIM-Signature:Content-Type:Date:X-Mailer:In-Reply-To:
-	 Message-Id:Content-Transfer-Encoding:X-Lms-Return-Path:Subject:
-	 X-Original-From:References:Mime-Version:Received:To:Cc:From;
-	bh=Br+RwhEUUjij+LQeVh8KN+b6c87vkCnWluLTXLQF6m4=;
-	b=C5avexenoLrvV2BnXQP5mNXbwCISRciMrZ9eHAREz3M/a6Hs1ksDIznJVu+8KNwK5nfD
-	 QBXYelZN9vLzLSXHmHqXwz+L9DosClF6Gi/Rh+ss9QPUVXCOXOCI4pWCXXqGp05h4S7TE
-	 UF7nYCXHU3IM0IgYdDdG8bY3NrSsbZNEuPpp54LHOuEB7pBJ7PQPaoeIu2ee5SKQwL9TS
-	 LErEOFD2+Fca7+LEAL1cTCl7xRsCT72yZ/ejairS7G3Xc3xZc1uozaEYhVG7eyn+D23WU
-	 QRHyyYXAIydwaxP/aMDk8zVANtUM2U/fe0rbKlWNhgtCnF13Oi0+h64wjNfOGwz/zLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484473;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=xE59jIBZZHvUjKrjm7mkHjm9YH7/I5FFkNh3MoDpP5o=;
+	b=D8olTfd6EZ1ItWqsQCqFyGTw1Pk0Dawo00B8X/bfEIbDKZ57+l5jwmR1bCKzuCiqPa/v
+	 xXMwS1UHwqvKd6G9nxufqJjiUhTac8yo/CSnh1SOyAWTpiJWEUIgRqTi+HEVcfjz0SFWW
+	 j3qSiigYKM+eL6B9qwSFIkEPG6DBmLiIdI+1Djr0y2IkLpZ8OoidUPRuIWwNx6pgU94A6
+	 CgYOQ/BEqPiUD8BYWEfob4LFj66R+99q9/RMbQD+EjJfDgTbd6MbsFGogj8wxc3giG8wT
+	 J/sgJ656tz9P3t6GGNiOvwyViy0QE+V0uw9Pc5Vlsg+fiXVk/kJaqIssQpwEXwrpGoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=w4Y4kjo9;
-	arc=none smtp.remote-ip=209.127.231.30
-Received: from va-2-30.ptr.blmpb.com (va-2-30.ptr.blmpb.com [209.127.231.30])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=egqzuDqa;
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C3F606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:20:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9C3F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139A0606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 139A0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=w4Y4kjo9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1792484437;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=Br+RwhEUUjij+LQeVh8KN+b6c87vkCnWluLTXLQF6m4=;
- b=w4Y4kjo9R9evDZzjuKM13vSvVSPv6tNy9R9p82g0GvtZITTnyNtLyR9USU6vCJp+Dq/RmX
- A8MNAe8NFAbAUqE8bYcQ+HXm0rNCCPMYWihtCjzW+lIS92WgbpeCsHpFlC0RrweoUhgceW
- VGe4OnVOzGhBygTw2gQhWsDyk61mzB/MjA1nIBX1S/Gs9L4ycMLqOp8+BWjd1qN4285HB3
- VTMtMxBAgGRS6G1usmDtg9LOl++MI8yk4zePj9xr/ReRLHCpwZcPj0jBqju3nmRaymb80q
- ZB9dBbRZnd77CahnZYwPLrCjbjfw0nbUeD7mcJQaXNGsh9EdajlQbbVvGdDzEQ==
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 20 Oct 2026 16:20:15 +0800
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020081633.3673704-1-sandie.cao@deepcomputing.io>
-Message-Id: <20261020082015.3673761-1-sandie.cao@deepcomputing.io>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26ad72453+1586e8+vger.kernel.org+sandie.cao@deepcomputing.io>
-Subject: [PATCH v2 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-References: <20261020081633.3673704-1-sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=egqzuDqa
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd5ca3840c5so3419855a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:21:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792484472; x=1793089272; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xE59jIBZZHvUjKrjm7mkHjm9YH7/I5FFkNh3MoDpP5o=;
+        b=egqzuDqaROCxpA9wEPwuX8gFaIAR8VyfSaNwp22zn/Eqn7+TL6Qph5xBbaUimxZmJM
+         N6LbIdAa2pBT+CUw/LaVFkFlcDqUGFvlpXeXlsl0+6XoJeQnvg2vRsgtbxMeGvLzW+x2
+         f3JJesiR47syfW0Kl9P++l1hCIgtOofUOXxwaPs2ZUvo7XbG8SWvAnKFMUBUvKWKnjDi
+         wKK1pT6VP6ZVweHGcJSpSnOGJjZvY38+vi66E/QvBnhilrBZ9ckPp/UPlYl3y7PMyusp
+         0SMfOsGfgANkS1yAvUgfcS9Bl+hnjCuIHXI6ljQdseNqdY5CCXnyRz9Npax4nkRvEmav
+         2VBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792484472; x=1793089272;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xE59jIBZZHvUjKrjm7mkHjm9YH7/I5FFkNh3MoDpP5o=;
+        b=F68QAnSIuZAJafWtw6+7PHtx71AjbEUfzOXMnccsIYca7WOvGrG3OSmUIdmdEw6yPt
+         JbAdU57y5jA8pfBeHHDsSF3hVBkq+dBYTOTeg1yt1fQkk04LraYWmCtQD2mbjCdrTVUb
+         Tz01FRy4njKvTYKTcTAF0RRVlOwqt4G0R9i3u4jkoss3zXBDxBXmBMbNlghhsERjlbAG
+         kuRWe42JPgkwYmmcGSa+5GBXr2nnECthIenGjQ6fbt5UkOl+1BL+GlYq9nUElztr6Tw3
+         2eBLYbiibLQVS0YlaEaARLGWuNxVwb0zIWU4kghip2Z5pDa/1V8asUaJZnQkjkZYN2qb
+         QF9w==
+X-Forwarded-Encrypted: i=1; AKwUvBz1NG07bIugbonZxkVU2olzuDPYrk3UEMrPY+uLa9AW0JG9CjoPFF165THLG4HMf4d5PiSTWiXcM1a3iw4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJm/U+4SbSUQzXE9yx1m356oMtE7x+sjdmr1IYjLfEKRsvIO3fI
+	aMOBGvnrA9ZnCJJgHc4j2u7eSTek5aS7zpnMf0yclUdlDHqrIC/3aZFz6me1eipqHVz2xR1i8ld
+	Y2GqgrU5xVBEgDJtB4dRqng==
+X-Received: from pgfd11-n1.prod.google.com ([2002:a05:6a02:654b:10b0:cc9:f487:a423])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:4903:b0:3e2:d8f:600f with SMTP id adf61e73a8af0-3e22613d7e1mr9017309637.72.1792484472121;
+ Tue, 20 Oct 2026 01:21:12 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:21:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,61 +76,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([14.155.180.235]) by smtp.feishu.cn with ESMTPS; Tue, 20 Oct 2026 16:20:34 +0800
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020082110.3511797-1-stanleyjhu@google.com>
+Subject: [PATCH v3 0/7] scsi: ufs: core: Factor hba->outstanding_reqs helper
+ and fix double completions
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add the device tree node SDHCI-0 controller for Micro SD card slot.
+In Single Doorbell (SDB) mode, multiple completion and error handling
+paths can race on the same transfer request when bits in
+hba->outstanding_reqs are not claimed atomically with completing the
+request. A stale bit in hba->outstanding_reqs lets a later poll or
+reset complete the request again and unmap its DMA buffers twice.
 
-Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
----
- .../dts/spacemit/k3-deepcomputing-fml13v05.dts | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Patch 1 removes a WARN_ONCE() in ufshcd_poll() whose condition is always
+false.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-index 84f66dd8f962..09e3d46a2ea3 100644
---- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-@@ -2,6 +2,7 @@
- /*
-  * Copyright (C) 2026 DeepComputing (HK) Limited
-  */
-+#include <dt-bindings/gpio/gpio.h>
- 
- #include "k3.dtsi"
- #include "k3-pinctrl.dtsi"
-@@ -184,6 +185,23 @@ &combophy {
- 	status = "okay";
- };
- 
-+&sdhci0 {
-+	pinctrl-names = "default","uhs";
-+	pinctrl-0 = <&mmc1_cfg>;
-+	pinctrl-1 = <&mmc1_uhs_cfg>;
-+	bus-width = <4>;
-+	non-removable;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+	cap-sd-highspeed;
-+	vqmmc-supply = <&aldo1>;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_0_cfg>;
+Patch 2 adds __ufshcd_clear_outstanding_reqs() and
+ufshcd_clear_outstanding_reqs() to share the bit-claim logic across
+ufshcd_poll() and ufshcd_abort() with no functional change.
+
+Patch 3 uses the helper in ufshcd_clear_lu_cmds() to fix a double
+completion during LU reset.
+
+Patch 4 converts ufshcd_eh_timed_out() to the helper as a cleanup.
+
+Patch 5 uses the helper return value in ufshcd_eh_timed_out() to prevent
+releasing driver resources for a request already completed by another
+context.
+
+Patch 6 uses the helper in ufshcd_abort() to fix a double release in
+the missing-interrupt path.
+
+Patch 7 skips releasing reserved requests at the end of ufshcd_abort().
+
+This series is based on mkp/for-next (db8b4d2bf2d3).
+
+Tested on QEMU ARM64 UFS in SDB mode across LU reset, abort, and PM
+timeout paths without double DMA unmaps.
+
+Changes since v2:
+- Move WARN_ONCE() removal to 1/7 and use __must_hold()/guard() (Bart).
+- Add patch 5 to fix a double release in ufshcd_eh_timed_out().
+- Add patch 6 to fix a double release in ufshcd_abort() (Bean, Bart).
+- Add patch 7 to skip releasing reserved requests in ufshcd_abort().
+- Link to v2: https://lore.kernel.org/r/20261017084403.875420-1-stanleyjhu@google.com
+
+Stanley Jhu (7):
+  scsi: ufs: core: Remove an always-false WARN_ONCE()
+  scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+  scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
+  scsi: ufs: core: Use ufshcd_clear_outstanding_reqs() in
+    ufshcd_eh_timed_out()
+  scsi: ufs: core: Fix double release in ufshcd_eh_timed_out()
+  scsi: ufs: core: Fix double release in ufshcd_abort()
+  scsi: ufs: core: Do not release a reserved request in ufshcd_abort()
+
+ drivers/ufs/core/ufshcd.c | 56 ++++++++++++++++++++++++---------------
+ 1 file changed, 35 insertions(+), 21 deletions(-)
+
+
+base-commit: db8b4d2bf2d3e02b4ff78bbf69d00e11795840de
 -- 
-2.43.0
+2.56.0.212.g129ede20d9-goog
+
