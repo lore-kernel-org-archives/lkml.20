@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464660;
-	b=mKVNWjueD79VF2wOFrdfQmLMq5fqgDACzIEm60BO51tYGEx0ENedfxZAWOpyhpKhPH3s
-	 1Iw42Hqi+pNk4z9ChUor6K7o6rRr5MrA+pi2Bj+EkrsqEC3NJOAqCxbW65wzEK86JD9qS
-	 CO1qruU2nzIoov0c5AYdQg/ecN+CItNC6ExiJH1FinEliXBqUDKEcvOVksV+DkU9pU4LU
-	 vn7Nngyc7T7hLsPNAkZ6aDDYlQ0xeBSX6hDdbWch6dhtsnfyTXHRlAmArbe+DNyfDOZ9r
-	 j7sW/myy3M4oXPp7Ou2lIShNDFqCRrMP26khrwZAdGmAk0z5fEjIn2cJd/jVdE9/kHw==
+	t=1792464666;
+	b=Vb6g+YqbgOyc9OFz3mcSU7NoiiX1ONhsmMA2S9Y+UkQdB/D3GTDDUZeVy5uVhsc5yGnN
+	 ImftfqACBhpnt4Sq4WqojN5SGYmqCnLx1ZXMebCtcUK9Maa+NcMR6hJQZQ3P6MT2iMG1A
+	 UeSZ1ErK6p3URilUGz6TSD8SNQ15lZiGLTDvkMmq+qWQbkRn2U945c4frMF0bHTZREVlk
+	 qnulN9NB6AzhbxPu39jZ/yBkPkxWyc1oJffqSs+56mHwRsBsx7R7lAYT3CbxCi+ejGU6f
+	 D22mYKAI62UiRXlPTe3ivR9jhsmnXGooXbOWExnnzB2flZRIkhxhD1MPAK5e2R3zAyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464660;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YrHXlTj62K9347P7OmkxD9vCvcqzaK1MyEYVZ/+sypU=;
-	b=a6BBALiuesOvc65S1Wsr8e7k10gZMmpuOxeLmH0IxzvmNv1KjRUjdZ39YI3Fqw1B0ye7
-	 vMLjOCLNs5+K205XVmet9WItxLQ2Dr8sZ7UB/uwCS35X9obHh6zVF8+QeqHygHO93ZVqJ
-	 Haj59E/NSipMlykStzvJQY9RRT53jC+h2bXsBCAnJxtKUDRrYRRdM3d7FRddgMLj+E+V+
-	 u9am2RQLs418viScxh2704uXyvMNvlzCzLONGnF5IjSzBImFz472pw4K5dKhyGwgbpdg4
-	 KEFJMTLNRScJeupSRe/NWmtL/cLgUT5DNGEGE9xX84uWMhT2La1h7RtVGHl791G+Hgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464666;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=/uRS3Vea5xa2usxGVceBMi/4OQCMX3rft1XIK4h03p4=;
+	b=hcM2ldYG6q5W1WHOrZB/GaLydjzFf2xtXLdUssKJIwPmHxNs91smpRhnTnUfR2sKcXtl
+	 nIB7sDEEV7jwwEpL7mp4wY6Qn2pD56m+ix78cXCWjZjLawLRTBrfclqNGRuqeM8/L1oyL
+	 vfRhBNPoyUj2HERTf/HUQPwR3B2cfi4vBCqtq4orEnNSRMFHfSt1LILvhNFkUrsIbf2Jl
+	 UwQQHRndRM/rzep8IHfN6t2Yj707k1Qeoe1KhisrooCxP/3jWB3nLTEi0lZM9zBDWgY/h
+	 /yezmZvt/VKriy/ESD6aHK1XImNuKAvZvIla3vN21CkoGIoV+M7wlYdmT+glmY51mlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DRml406R;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=F71XTr1K;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B6D606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:51:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B6D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89683606A31F;
+	Tue, 20 Oct 2026 02:51:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89683606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DRml406R
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1090784a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:51:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792464659; x=1793069459; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YrHXlTj62K9347P7OmkxD9vCvcqzaK1MyEYVZ/+sypU=;
-        b=DRml406RG57NaOdh3ED/sNM7uMKO6h2ZVf4JyUI7Yk9/FGJXnsLtzqX2zgSBgjPwMx
-         MV3k0gwCdFs566QTZVddeTG2eTcpk9xAYqMwr/sgLL0WKB/ZjBYrV3aOznguUjFaL54G
-         d/cVRElUpyNt4HQQOka3Us+qQBakbxpqVWa1TqM0BepWGCv7DXKxOQsFS6MB6Lbcnr2v
-         Q0z5vjX7HcL7+IrK7teMhWmMl4hTcyCjnrAdeTjC2cTO6f2UFGa/MywT8kZv9pZ0D+pc
-         xfm4oOeHPxFb5dhfSpCWSxytZ4X+huZfO2E/X7kQeE4xO/RdgzbqjDiPpJvhUJ3YHpv3
-         Tiuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792464659; x=1793069459;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YrHXlTj62K9347P7OmkxD9vCvcqzaK1MyEYVZ/+sypU=;
-        b=Zk+UDfLUrqQaOLEAeQrHEPxsuRpZiZKe3SisfZDmVeEipCVdMmQKORgDno4fUAT1IQ
-         Zwz3Wn5FNNKouqDI9Ldm1999GVpIFE3JfWYN7dlqzVFZCFjUlKSOEkFVkS7TqWWAyDQp
-         JoduL+6CI+LarQ0B4Riek2ZDCKTPAzaVdsZy8ZYBxsdqcBHHRPXIHYDB43ELUaes6e6f
-         oatoBVqTUBv40xzW4XGAtn47dsh8ndty/O9Clw75HqkJYVDl564cL6ih8rsEmB7Q2Jh3
-         uVU5Ub656upTQ7bpk4hZ5E3T6LJKj7Byl5KPKKwoflUjwe9YouF9GRs3+5WueHB65wgY
-         zECQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfiiZBuIVKze96NgAx8bZW/LQC7Thb9TLtHXM8pIMI18pAjO93GOmjdRcYklFU1SKTl/oJ3TOs1O1CksA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLVAKf7SP2oSD0oLRbB9P8AkB8uBBmmdzryJvPxmqt+W3mGlLs
-	Atk+Np+tnDeXRiTn6Y8V2KBbxfXnguhHRmRHyMmbHS7CkqD2GxQ+wTGQcGk0/i5l
-X-Gm-Gg: AYBFou2hHSllAwJN6NWiWYgPMZMOMTJxf0u/hOdgKF2roE8Bn5Op72gAejDR6TYrk8v
-	u3vMyCRe4NQLSQng77NVTs+dU8mLGe/0GxLocRryOPoaM3jYlnUTHAZLOJg4uEHfHq1xvqQrWu9
-	bF+0T3tGm9CK7P4hy32lQ8T79kQ8/ctyM+5y8Stp9B6dhE9Ltd03lCH7KhlnOWXpvs3qONBS6Iw
-	FPkXSZKqz1ZmW46eiD292FoLJOI05Xe7mBhFzWaheyDljrIWNTfeIAgb+gOIDPckbKIY3aF3nqo
-	SVgUhIhEmpYSiAAkJbNtQjro79M+ltYulyb/eMdOwfC4X1pJKK5mJ3V/ARYqtoXCkN9GeSChx1Y
-	8DP55resDuM8Ww5HnhCHBUA3WzkeTdvQvMq4KWOu94s/887CpjsoBsr0m+xP+hiC4i/GK14GdDj
-	DvEFuwsuXUVctYV8O4W7VASit4tweB4MMK/VwXYAzttnCyeYEEiFxS21Nf0soOmm9O6U1aiEgSG
-	hoZb5NPYW3zQjhNwgCC8jtxJJFUU8aNzizh6knAHWnjD84KkjYrTraq0I+pZTfyvL7l5jHacXn0
-	aOYuZ8Wa3Gfsexfi4SrQu6w+NPehB6uWoevAZBBGP8Nj3O09
-X-Received: by 2002:a05:6a20:a121:b0:3de:76da:6b9 with SMTP id adf61e73a8af0-3e226057ab4mr8478461637.68.1792464659552;
-        Mon, 19 Oct 2026 19:50:59 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579464besm4613442b3a.34.2026.10.19.19.50.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 19:50:58 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Maurizio Lombardi <mlombard@arkamax.eu>,
-	linux-nvme@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=F71XTr1K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/u
+	RS3Vea5xa2usxGVceBMi/4OQCMX3rft1XIK4h03p4=; b=F71XTr1KWqj8R9BkOT
+	QyuIYc/JK1f2kd8fO/rOHfVvmKDBdqWXOmb/IoYT4oiCoItzP5+88dvbVAOE5h0v
+	UpHYMsfZlAErdCKsrOzITX5TgjQFllpfEMcpP6DP/WLRY/abwaiz7lPINS8nDwRe
+	fUm1Hdt1NzSO2jITEySDVymAY=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgC3Z6b81tZqKuWeAw--.50653S2;
+	Tue, 20 Oct 2026 10:50:37 +0800 (CST)
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: quchaosheng000406@163.com,
+	Robin van der Gracht <robin@protonic.nl>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	kernel@pengutronix.de
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nvmet: take subsys->lock while force-reconnecting in nvmet_subsys_attr_qid_max_store()
-Date: Tue, 20 Oct 2026 12:50:47 +1000
-Message-ID: <20261020025047.88297-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014054727.53183-1-yuz08559@gmail.com>
-References: <20261014054727.53183-1-yuz08559@gmail.com>
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net v5] can: j1939: validate the EDPO packet number
+Date: Tue, 20 Oct 2026 10:50:36 +0800
+Message-ID: <20261020025036.74454-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,60 +66,188 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgC3Z6b81tZqKuWeAw--.50653S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtr1UurWrCFWrAr17KryUWrg_yoW3WF47pF
+	W3KryUGryDJr4xAr4xJrWDX34Syws3XryrJFy7t3s2k3y5AF45tFn8tryfWayqy3s5u3y3
+	u3Z8Xan8Gr40g37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUUHUhUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x5FumrW1v7rbgAA3P
 
-nvmet_subsys_attr_qid_max_store() sets subsys->max_qid and then walks
-subsys->ctrls to force every controller to reconnect, but it holds only
-nvmet_config_sem (for write).  subsys->ctrls is protected by subsys->lock:
-nvmet_alloc_ctrl() adds an entry under subsys->lock, and nvmet_ctrl_free()
-removes it under subsys->lock with list_del() + kfree() (not kfree_rcu).
-The free path takes no nvmet_config_sem, so the two locks are independent.
+ETP.CM_DPO is peer controlled and its packet number is accepted without
+any validation.  It names the packet a transmission window starts at, and
+j1939_xtp_rx_dat_one() places incoming data at "dat[0] - 1 + pkt.dpo", so
+a value past the end of the message moves pkt.dpo beyond the reassembled
+buffer.
 
-A controller teardown (host disconnect, keep-alive timeout or fatal error
--> nvmet_sq_destroy() -> nvmet_ctrl_put() -> nvmet_ctrl_free()) can
-therefore list_del() an entry while qid_max_store() is iterating the list,
-corrupting the walk.
+The transfer can still complete in that case.  With pkt.dpo == pkt.total,
+a closing ETP.DT frame with dat[0] == 0 evaluates to packet pkt.total - 1,
+which is the last in-order packet, so pkt.rx reaches pkt.total and the
+receiver emits its own EOMA.  The local loopback of that EOMA runs
+j1939_session_completed(), which asks j1939_session_skb_get() for offset
+"pkt.dpo * 7".  That offset is past the end of the queued skb, so the
+lookup returns NULL.  Before this patch the NULL was passed to
+j1939_sk_recv(), which dereferenced oskb->sk.
 
-KASAN, concurrent "echo 128 > .../subsystems/<nqn>/attr_qid_max" racing
-nvme-loop controllers connecting and disconnecting, panics in seconds:
+  ETP.CM_RTS (size 1786)  -> total = 256 packets
+  ETP.CM_DPO (packet 0)
+  ETP.DT seq 1..255       -> packets 0..254, pkt.rx = 255
+  ETP.CM_DPO (packet 256) -> pkt.dpo = 256, unvalidated
+  ETP.DT seq 0            -> packet 255 == pkt.rx, completes the transfer
 
-  BUG: KASAN: null-ptr-deref in nvmet_subsys_attr_qid_max_store+0x10d/0x1b0
-  Read of size 8 at addr 0000000000000090
-  Call Trace:
-   nvmet_subsys_attr_qid_max_store+0x10d/0x1b0
-   configfs_write_iter+0x1a7/0x250
-   vfs_write+0x5df/0x940
-   ksys_write+0xfd/0x1e0
+Reject an EDPO that names a packet at or past pkt.total and abort the
+session with J1939_XTP_ABORT_BAD_EDPO_OFFSET, the SAE J1939-21 abort code
+for this case.  The check has to be ">=" and not ">": pkt.total is a
+packet count, so the last valid packet is pkt.total - 1.
 
-(also seen as a general-protection fault dereferencing a LIST_POISON
-pointer at the same instruction.)
+The EDPO is also looped back to the transmitter session.  A peer can make
+that role see an out-of-range EDPO too by putting an oversized packet
+number in ETP.CM_CTS: j1939_xtp_rx_cts_one() only rejects packet 0, and
+stores "packet - 1" in pkt.tx_acked without comparing it to pkt.total.
+j1939_session_tx_dpo() then copies pkt.tx_acked into the EDPO.  Rejecting
+the looped-back EDPO aborts the transmission instead of letting it run
+with an offset that cannot be encoded.  Validating ETP.CM_CTS is a
+separate change.
 
-Take subsys->lock around the list_for_each_entry() loop, matching every
-other subsys->ctrls accessor.  ->delete_ctrl() only queues asynchronous
-controller teardown, so it does not re-enter subsys->lock under the loop.
+The abort branch must not strand a session that is already waiting for
+an abort.  j1939_session_cancel() re-arms the abort timer only while the
+state is below J1939_SESSION_WAITING_ABORT.  On a second out-of-range
+EDPO the first call has already moved the session to that state, so
+j1939_session_timers_cancel() removes the pending timer and the second
+j1939_session_cancel() does nothing.  Make j1939_session_cancel() report
+whether it started the abort, and force-deactivate the receiver when it
+did not.  This is the same recovery used by the second-RTS path.
 
-Fixes: 3e980f5995e0 ("nvmet: expose max queues to configfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
+Guard j1939_session_completed() against a NULL skb as defense in depth,
+so a future regression in the offset arithmetic degrades to a dropped
+message instead of a kernel panic.
+
+Tested on v7.3.0-rc5 under QEMU, with the reproducer below:
+
+  - an unpatched kernel panics in j1939_sk_recv()
+  - the guard alone does not fix the bug: it drops the message but the
+    transfer still completes, so it is not the fix for the bad offset
+  - the range check alone survives the single-EDPO reproducer
+  - two out-of-range EDPOs followed by two RTS frames leave the receiving
+    session deactivated; no netdev reference remains stuck
+  - a full 1786 byte ETP transfer between two J1939 sockets still
+    completes with the payload intact.  Its last EDPO announces
+    pkt.total - 1, one below the rejected boundary, and exercises both
+    the receiver and the transmitter loopback
+
+Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260928193312.553632-1-mkl@pengutronix.de?part=3
+Assisted-by: LLM
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
 ---
- drivers/nvme/target/configfs.c | 2 ++
- 1 file changed, 2 insertions(+)
+v5:
+ - Make j1939_session_cancel() report whether it armed the abort timer.
+   A second out-of-range EDPO now force-deactivates a receiver that is
+   already waiting for an abort instead of leaving it without a timer.
+ - Drop the claim that the range check and the NULL guard are both
+   required for the original reproducer.  Both survive that sequence;
+   the guard is defense in depth, while the range check is the fix for
+   the bad offset.
+ - Drop the incorrect "one full packet past the end" description.  The
+   offset starts six bytes past a 1786 byte reassembly skb.
+ - Correct the transmitter-role statement.  An oversized ETP.CM_CTS can
+   make the looped-back EDPO out of range, because the CTS path does not
+   validate its packet number against pkt.total.
+ - Add the Fixes tag.
+ net/can/j1939/transport.c | 46 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 41 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 2b69ffc..23418fa 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -1684,8 +1684,10 @@ static ssize_t nvmet_subsys_attr_qid_max_store(struct config_item *item,
- 	subsys->max_qid = qid_max;
+diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+index 8fcfd13e5e6f..8e171b713859 100644
+--- a/net/can/j1939/transport.c
++++ b/net/can/j1939/transport.c
+@@ -1158,13 +1158,16 @@ static void __j1939_session_cancel(struct j1939_session *session,
+ 		j1939_sk_send_loop_abort(session->sk, session->err);
+ }
  
- 	/* Force reconnect */
-+	mutex_lock(&subsys->lock);
- 	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
- 		ctrl->ops->delete_ctrl(ctrl);
-+	mutex_unlock(&subsys->lock);
- 	up_write(&nvmet_config_sem);
+-static void j1939_session_cancel(struct j1939_session *session,
++static bool j1939_session_cancel(struct j1939_session *session,
+ 				 enum j1939_xtp_abort err)
+ {
++	bool active = false;
++
+ 	j1939_session_list_lock(session->priv);
  
- 	return cnt;
+ 	if (session->state >= J1939_SESSION_ACTIVE &&
+ 	    session->state < J1939_SESSION_WAITING_ABORT) {
++		active = true;
+ 		j1939_tp_set_rxtimeout(session, J1939_XTP_ABORT_TIMEOUT_MS);
+ 		__j1939_session_cancel(session, err);
+ 	}
+@@ -1173,6 +1176,8 @@ static void j1939_session_cancel(struct j1939_session *session,
+ 
+ 	if (!session->sk)
+ 		j1939_sk_errqueue(session, J1939_ERRQUEUE_RX_ABORT);
++
++	return active;
+ }
+ 
+ static enum hrtimer_restart j1939_tp_txtimer(struct hrtimer *hrtimer)
+@@ -1243,9 +1248,18 @@ static void j1939_session_completed(struct j1939_session *session)
+ 
+ 	if (!session->transmission) {
+ 		se_skb = j1939_session_skb_get(session);
+-		/* distribute among j1939 receivers */
+-		j1939_sk_recv(session->priv, se_skb);
+-		consume_skb(se_skb);
++
++		/* The offset "pkt.dpo * 7" is not necessarily covered by a
++		 * queued skb, e.g. when a peer names a packet past the end of
++		 * the message in an EDPO.  j1939_simple_txnext() already
++		 * guards its call the same way; dropping the message is
++		 * better than handing a NULL skb to j1939_sk_recv().
++		 */
++		if (se_skb) {
++			/* distribute among j1939 receivers */
++			j1939_sk_recv(session->priv, se_skb);
++			consume_skb(se_skb);
++		}
+ 	}
+ 
+ 	j1939_session_deactivate_activate_next(session);
+@@ -1823,14 +1837,36 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
+ 				 struct sk_buff *skb)
+ {
+ 	const u8 *dat = skb->data;
++	unsigned int dpo;
+ 
+ 	if (j1939_xtp_rx_cmd_bad_pgn(session, skb))
+ 		return;
+ 
+ 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
+ 
++	dpo = j1939_etp_ctl_to_packet(dat);
++
++	/*
++	 * EDPO is peer controlled.  It names the packet the announced window
++	 * starts at, and j1939_xtp_rx_dat_one() places data at
++	 * "dat[0] - 1 + pkt.dpo", so it has to stay inside the message.  A
++	 * value past the end moves pkt.dpo beyond the reassembled buffer and
++	 * makes the ETP completion path look up offset "pkt.dpo * 7", which is
++	 * no longer covered by any queued skb.
++	 */
++	if (dpo >= session->pkt.total) {
++		netdev_warn(session->priv->ndev,
++			    "%s: 0x%p: EDPO %u out of range (total %u), aborting\n",
++			    __func__, session, dpo, session->pkt.total);
++		j1939_session_timers_cancel(session);
++		if (!j1939_session_cancel(session,
++					  J1939_XTP_ABORT_BAD_EDPO_OFFSET))
++			j1939_session_deactivate_activate_next(session);
++		return;
++	}
++
+ 	/* transmitted without problems */
+-	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
++	session->pkt.dpo = dpo;
+ 	session->last_cmd = dat[0];
+ 	j1939_tp_set_rxtimeout(session, 750);
+ 
 -- 
 2.43.0
 
