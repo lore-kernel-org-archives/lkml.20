@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503397;
-	b=Z1af0pGWlP8vsTgCcPeCIfLeLNiHbbOah+LCQwh2oqggea6W4bEelSyeuM7kMfU6gmQE
-	 HV/9ZvH5fvrdZfUjeJOtNQQYq7UQNzSz5YZbD0E7An8BdmZeV+1yg9041sBvm0lp1a6Nk
-	 qO/tnR9rwlUVZxbRRWNzyIKp2Qu37F+KWh3iSOaHMFMsd/UNOxw+e0RXjuJC2r+3kuITZ
-	 mcc3hwGZICIW0b2KkBq3gb0e1saxoOgu60MiUcQ8Yhqnq3OdqMkEnjVH1gdAaCN52a9u0
-	 XqWG0CA/fZ4D4cGvG7DJ7uB8QOqid/Yka7z2Y44CELvlrv7XonN/lkShwk8zrR5mD0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503397;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=MTcLZ13M8wQqh5NfAuT+FDOrmigvvwT1NksmdqftjC8=;
-	b=mUgNeGnlruB1poOPHR23tViNRlpXmtvhMIkOpZ6Tn/6+aL9pkKQKDPkUC9dItt1DLBgf
-	 R3SSopozXpjjfL8JOpjERZL15Aqs6rsTVNRkyMytGAuSPVJw1RxRgr2wmsWtu98d0B46h
-	 uooPbn1nBJZ1mnvyKgYfiWPybHU3bm2fOvYMinVXGz6zzrKorbNnwVvB9zWR7nKKKXA10
-	 sVgitGmOCqF7emwVdl5mooR+I0WRSgRcla2F0LXcYqw+cLT3pKxNqKCE4ngaMN7ZeE0tD
-	 NHxHgfGMOpO8b4uoiLC9CSY2y2d7Zq5eeq1e/ySJyDYOFZSxEiTsoB1NvIpy0UAIUSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yd1KJ+oQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.92
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792503433;
+	b=3LDu9GAzyZuo89XAPAcfLZr/ZsLd3BcCFMoDvLuOJc+k794X+CBmI/JwNW+J2Nnnvo15
+	 2tPLg7ruQxpayCFOFDzjoz7aUMT4ReXmvgHePsSRur6U60XzFjgAv3WnHmIOphF4XN0mE
+	 03HxvQFTOa/kKKYgyjbG9ZFINhyyTYdAb3gm2Z51v1MnVETEGSuKxK5ww1uyOjqn+s/ch
+	 1owFMgmSeLI+5v/s8ys+SkPpGCBFGXctoESVed04Z5H0DNLazqiuXa6w6hcPl8bhOCMVH
+	 eBzov3UIv+bfJ/QNh4xwVK/KN7+7MbsvsiLTWu1374gIiztLbE+Qb+lF2xpcPdVmJgw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503433;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GEzMky08bQyMX+eeMACSqxKHMATyk6e+NKIYHRU3SjQ=;
+	b=ViUQvwvi+gGBvWoLJlZFA0Dawypi70F4kiXU3oeJYVqF/AiwGnl6wvQGKfuw8fEBXFVM
+	 dbEafoS1CoXzRQiZ52xlbw5VcPAeoTJF1/OqSvqucinn1+pZIVQJfABe4NEYX2AGsAmmq
+	 fLab63HDf3CAN5/zMt6+bGJL2uo7LZEfTPWcZrd98z36uSvbo/uYJS1m3GXWismEncrND
+	 7KpWkXN0wKJ4hQIOxYt0xKk/nDD3WRkmVdebNROrObQW5noQtTSgo4LevrJzMQL0JkzjH
+	 rgvqT4gYaxnpCkO3gMgC5uLN+iGL4lnDnVhw4hZrYPkiiag4MuKgJuy/DgDhQEcXmzQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=EGhryio0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.92
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021092.outbound.protection.outlook.com [40.107.74.92])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3719B60A4AE1;
-	Tue, 20 Oct 2026 13:36:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E763606A323;
+	Tue, 20 Oct 2026 13:37:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E763606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yd1KJ+oQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354DB1F000C7;
-	Tue, 20 Oct 2026 13:36:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792503396;
-	bh=MTcLZ13M8wQqh5NfAuT+FDOrmigvvwT1NksmdqftjC8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Yd1KJ+oQ+3H4EFsXkBHw1APCdwWCw6IB2ZncTYDYsaQApOL4yIcyn4MeHJH3ljIum
-	 yKlIklv8ARIzhhYigJ++D4MWVC+BDJiJUIGOLAKTp/Q3PI6aiVdcFspmNzN/kPlbMD
-	 Ocnkn8KrfUgc9MTyER1V+qssriXvAWknZ3lv5YUNUjFvRvZMhuXuu8M8ZJijlUnGHD
-	 n0wBa3KUxdkWr/WaWInoRU0b+beLLFChtyFaL8NAR2FBW25sQRfBwwATRbZ05mJpp7
-	 +AF+ew03KP4gWjb61y9sw6rGok18++RxNpBuosO2HhfRurdj12XIqXkFc80zmJBmJg
-	 X9A+zrWR8gW4g==
-Subject: Re: [PATCH net-next v8 4/4] net: mana: add dynamic HWC queue depth
- with reinit path
-From: netdev-bot+sashiko@kernel.org
-To: weh@linux.microsoft.com
-Cc: longli@kernel.org, kotaranov@microsoft.com, kuba@kernel.org,
- davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
- andrew+netdev@lunn.ch, jgg@ziepe.ca, leon@kernel.org, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, shradhagupta@linux.microsoft.com,
- horms@kernel.org, ernis@linux.microsoft.com, stephen@networkplumber.org,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- gargaditya@linux.microsoft.com, kees+treewide@kernel.org, kees@kernel.org,
- mawasthi@linux.microsoft.com, weh@microsoft.com, edumazet@kernel.org
-Date: Tue, 20 Oct 2026 13:36:34 +0000
-Message-ID: <179250339474.3135.8335532818248262678@kernel.org>
-In-Reply-To: =?utf-8?q?=3C877e674c0255820b0517f863e535615b4028a48a=2E1791998?=
- =?utf-8?q?462=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
-References: =?utf-8?q?=3C877e674c0255820b0517f863e535615b4028a48a=2E17919984?=
- =?utf-8?q?62=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=EGhryio0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k6GY9+ZxOFmurLe6k8sR2+T1wZ7u6WvRBjaBd+Houe4DWhpgLQ+gQe4ik8WcGiwhD+0hFuRAi9Mi8I4c99P+mXEa3iRtMpegXU+QQjoFqUOwPnu2F2aGHayxEIhkd9r+fC+2fsqKvT/TXXdvCeVbd4Zbg9xqOwtkBTyd0D0A/V/Lsfawv49luZAEXfTRKGegybFpi0r3pz1H1dbJB72HBmbgRGVsfXxnp/qw39+HCunK2vf+EuBPfiSJZnCq9l2J3/Ekyo6OGqKUo5PuwTdr5hzwYOPG92LP9WuFFZgLK6ME4D86UgWSKeC/a8i+I9EaGXQdk8EqHUwY+md8T1lc5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GEzMky08bQyMX+eeMACSqxKHMATyk6e+NKIYHRU3SjQ=;
+ b=BJgn5JejmKTOKdw1x36PvvRpF2E3XfpvSmJulyr7bW5Tz0pCaE68xINVVs4rivyLj/fF2wTEBdVysH290Uq/p3I4WKr9+NtorQc/bllfCovLoZ9CuDA8ZCbTy+ejo+kwE2MZBUTw+rpNZ2xttCvsszMb1ckzrL6sM9xgMaegGhRZxYKtHmuDJt3ZTuzEMfdms51EBnCysur4GFYtt8buLndoBwJAy/fwHobTXqk5EDMZKiN3XWGxqp3/JqkQKHMdr1n+qWfincGfK4sqaNoelY9MBHlUlrhm2GpDMmiUJzU5D84Wt8J1KwgzQsWdQ1mJ9/NeT4HoZ7H9QswipI6xUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GEzMky08bQyMX+eeMACSqxKHMATyk6e+NKIYHRU3SjQ=;
+ b=EGhryio05w/OurvWl0WH/K9Upoyz8LSx8Kd2X0GUwo0eRZcmGeQklYaL1j1ZKNWXT6XedN4vxZRb1b4KSl1p5eJfDk5AAjMHRleMFMHf//69/Eod/w2xBKxitxgtoDSn3ocJEAYXJzeV2LItL4YhOcHtpsuIBYhaDXS3+PTT8T0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OSCP286MB5658.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:3ca::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
+ 2026 13:37:08 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 13:37:08 +0000
+Date: Tue, 20 Oct 2026 22:37:07 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@kernel.org>, 
+	Niklas Cassel <cassel@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, ntb@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] PCI: endpoint: pci-epf-vntb: Honor MSI-X selection
+Message-ID: <pzyfs2bwt2ey2te6kpc2ttco3btwto34yzaq3jggomsshjjold@gynf2ztpfnz3>
+References: <20261014053256.2378817-1-den@valinux.co.jp>
+ <as-UJX1jD8ZFiBxk@SMW015318>
+ <x53diijgm6cqfjc5rlihi5q2q54nxdbgvs5u3cfxg5zfdo5w4z@hayq2svzwfes>
+ <j43nhj3wyu5tocjiots2xm4v2yxtngsxoaafkvxtputxxttw7j@snrzxkr66vkp>
+ <atBo0WvV9S2xhVc4@debian>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <atBo0WvV9S2xhVc4@debian>
+X-ClientProxiedBy: TYCP286CA0024.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:263::14) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,187 +104,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSCP286MB5658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e6d6dcd-66ec-4f04-117a-08df2eaf3cd9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|22082099003|18002099003|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ldctSTbGZrakanlCulCnvyNp1gobQHhXTIxRhrvzsrpYCYJF8+QQOlilaOA0WzvYMMFDvwjULjyQQmKhm2nXvbG+CcdUYBoaWit55uXGeANHHUnhuQtcFHVzFHMSGAPJX9SALFYMs+jAk9O7VyyNaaXxTWF0/M+mQEUvl9DRUFABLRUB6DzZk2IGwfTO672ZE0lfVe17e/qGfMazXFOow55PzoeKPGQiaAjq+6x/CWjrcMvJtqpwfSRF431D/qBzwvlDR7lOVZ+ANCd58NqnIS3pF9/HP11akJNwM82FoCd0fg9HRMsIgV4Hyeb/iUB0JrBKzOoqy6KVaaSWTk1dGa+HAJ0reKqCcWpVBToLD12uFaUbusRmYzUBBX9lC8ou6ekrHnn9G7CiuF7kFsz1QYd+kxf0SlN9Dpg+NUTuThAKEMrs7CLd2QaKtZn9DiyoGhyaFLg2WgbdVDC8iZicae+Z+sv0E8cBbipSNvzJzTqF6Lki58Ci/e2A+Xw9BVV5FO4L1jFXKCYRo+QvKOaM/dmqq1FhaTyzTfuGcSQa2wSAGbxWt7OUJMWP4Cmb5axziWDxxTi4Qv4+3NEnC3R6utArrTWY8vSHx4JP7aAFOTqVc0bf0cEHU2tIuNYiPttiXDsoIwSzabtwmbwlY4N/E6iPz4r7HlY9k9j90efw9XI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bW9ROVZkckhERVE2RWdFeHM0cWlDNzBlbitXL25vSWRLNzNzY0M5NEk3UUZr?=
+ =?utf-8?B?blpUWXp2MDNMNlF1bjIzYlZQc3lscnFxV08xcWwzQkFzUXJlUXQvUnlpTzZM?=
+ =?utf-8?B?QWhocDM3RWFSem8zcmtEY2I1UC9EakhMSWtTc1FCeHR5QWIxb3NHRnBvTXor?=
+ =?utf-8?B?S0VzYnZDYkpiL29tSVVyL1F6Y2toa09QUTdkK0RYNnpHdW5reW80NllLVEg1?=
+ =?utf-8?B?cU5KRlltWHI3a2hBdXd5MWhaMEhrMy9DZDlsWSs1bVFRUEwwTmR2L0JrTzVZ?=
+ =?utf-8?B?QlE4OXNTUnl5Nk82alBHUVlacFVyeWU0Wk5JMnB0dGxtcmFLbm9oSFMxdTNL?=
+ =?utf-8?B?WjBsVk1jL0w3Tnl0K0JFakZyL1J4RHFJT2hiQzBMVm0yUWZpMGRpRHFDN2VQ?=
+ =?utf-8?B?cmpSdVdZU1p5UThHZ0orSERCdi9EVkVVeXowZGlnbDdrL2NJdWZhNFBheTlz?=
+ =?utf-8?B?K3krdmFsU1prNjlYeXJJeVRBZWh0TW91YlFGYmEybitvOS9MUEF4SC9hT3Zj?=
+ =?utf-8?B?R2ZuSGpGRlBzT21Eek1yc0ZSWlNMdVJxdmVCUjZnSzF6Y05KWHAzSWhoUHIx?=
+ =?utf-8?B?bVVuM0VrZHVsUW1JVm5Zb2lweU9YdFE3VWdmSjhJaWZSUlNEUlFGRFBCVEpp?=
+ =?utf-8?B?TE5CQ292Q1VCZ3F5NWU2NytjU09EMFdnaUhoeFNmQkRJL2VkSURNcG0rbmh5?=
+ =?utf-8?B?enZzSEdPd0RBa1duMk1hNXl3QVlXaDZNQU9HTzN2UWppYnBWNmwzKzZjK1ox?=
+ =?utf-8?B?YzFPWHJyWkJEWEZyTU5ZaGpaaFVJdGx2OU1uRzZuenovVk4vNkhBcWk0ZXAw?=
+ =?utf-8?B?MFFYNDBOMGZWMlBCOWNkajFzZHBIMG9EM0xoY0NXM1R2dGM0UTVxdS9LNzFX?=
+ =?utf-8?B?S2VtYnB0U2hQYWJTSzNpNkpiMGgyaGtlQ3B3ODBuQi9DakEzK3ZwbTF5aTF0?=
+ =?utf-8?B?c1J5d3pDZGNCMm1RbEcxUGJTTEhPazMzYi9CMkxER2dFaldvMmJQd0ZydkJB?=
+ =?utf-8?B?aFkvcjN5TCtkcTZVSUhwVG5vbG1rcFNGZHk3enl3WEJTbGZPTVZkdSttZ1I1?=
+ =?utf-8?B?ek9RQlRGM0o3ODh4Zm1TZnd2WUFzd2ZSQ1VzSEplMXNNKzg3WFRaemEwVURV?=
+ =?utf-8?B?L3p1MG1EZUZwSmdFL2ZuNW1VZ2tDOVo5a3RJbHc1RTdxRzVFQlFQazlEa0NO?=
+ =?utf-8?B?S1NhdTIzSVAvc3Vvc0piekNVUW9rSWZvTWZaM1U4YzFXZkFpTklHbUpYTkli?=
+ =?utf-8?B?YVRXR3JJTEJCOEs0MGhyd3E4OEVXSWxkblhlSVgrMERhTFg3SkpMUjNuOFVR?=
+ =?utf-8?B?SzNPb1ZPS2p4YmZpRG9rZk1JWXpOY0NxazBuSEpBNGNkWlJIWnhqRmNIZndW?=
+ =?utf-8?B?WjNYMGN5RzRodTM5RW1GRFVyZ0RvVTVUUWp2V0FWQXJUNlhRbkdPOWFVUWda?=
+ =?utf-8?B?ZFk5Z1cwaG5rVmNtVlpxeGFnUldGTXg2SjRrWlU0cThka2dSa2VJeXFsTzgz?=
+ =?utf-8?B?bXRobzIzc1FaL1RXbkJoNWgyRUQzUGtFN1AvakdrNnhWWHJrV1piOHJSV2xZ?=
+ =?utf-8?B?amRiMXN2dzUzVGF6K1NITDdJY1J6aSs0dlJiUnlDNEpKNEhOVWFJaVk5Sits?=
+ =?utf-8?B?ZGJTRnhoMVp6RnRPejc0MHN1U01GeWM0cFpzUkc0SVAxdngveDZPYW1nRFRj?=
+ =?utf-8?B?d1BBYkJscWZkTE85ZXIvSTgrb3RkQ0dldjNXUmU1Y3RXcm93ekpCbGZaSEQ0?=
+ =?utf-8?B?SUc1MTZDRFQ4OU1xaXFVaWJGaklZRVFKeWNBU0o0RGxwaUI3SkhpdDRNc0hN?=
+ =?utf-8?B?OHV4SW8zaG5HSi9kdjExVDlHUE4zUTF5cUFzRmdoZUh1NE94VkN6eTVYTVFS?=
+ =?utf-8?B?T25BdFEwUUc3NFhBTVRvejNKU2MxZ09mSmUvSXhiMXBPYjk4MFI0cS9oRVNW?=
+ =?utf-8?B?czlpR3ZhMFNtWThYanlyWWZDdjRQSXNFSTdkSHowQkRHdXVQSW04S0xsUzIr?=
+ =?utf-8?B?QXFIaXF3SmIzTTBiWWlZVGZqYVFQVGJMcFhreE9UQnpReFlXeGpka2RreWto?=
+ =?utf-8?B?cE1pUjR6R2NFOGlrY0szblRYQnNFT3NzZ1JaVVVSc05nR05yYTY3bGx6N25E?=
+ =?utf-8?B?VE9SWEM1TCtTQWZVaWZMQzd5aU5mOE1zVVVidk8yRHk4OUx5UUR3LzBvT2ZI?=
+ =?utf-8?B?RVVNRE1EUitqR3h1ejJtRGsxYnlHN24rZWlqUHpmTHgvZlQ5a1hZWlREc056?=
+ =?utf-8?B?MjNueDdYdDlZU1ZpdGk0NG56SVd0OTN0Q3lxUXllSUJQVkVTNjhvVnVrYTF3?=
+ =?utf-8?B?T0ZEV2o5ZGFUcEZISm9KcG9xTFRjcHNmZDF0S2drbEJiblhoL1dBUmM1R09i?=
+ =?utf-8?Q?YfDRbpwERUGhdFFuTrvvjGXwOPmbfEZ67MbC0?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e6d6dcd-66ec-4f04-117a-08df2eaf3cd9
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 13:37:08.6337
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y/c33RoeR2MH28veoV0mb4OsgCp3qriE9ab7VX1xKo+kwhHh71zaEMsvA2GsOL0OCwxCyPm8TeSyKrSFz2SyRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB5658
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Thu, Oct 15, 2026 at 11:21:55AM +0530, Manivannan Sadhasivam wrote:
+> 
+> [...]
+> 
+> > (+To: Mani)
+> > 
+> > BTW, I'm thinking of basing the next revision on [1] (thanks for the review
+> > there too). This MSI-X fix conflicts with it, and it's not just a textual
+> > conflict; the new link-event notification also needs to care about the MSI vs
+> > MSI-X selection.
+> > 
+> > Since [1] already has your Reviewed-by,
+> 
+> You mean Frank?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Yes I meant Frank. Sorry for the confusing placement of the "(+To: Mani)"!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+My apologies for the very late reply.. I somehow missed this email and only just
+came across it while going through my inbox.
 
-- [Medium] Rebuilt HWC rings change size with depth, but the PF is never
-  told the new size.
-- [Low] The fix for the unchecked HWC init doorbell index ships inside a
-  large feature patch, and the patch has no Fixes: tag.
-- [Low] mana_hwc_rebuild_channel() saves hwc_timeout into timeout_ms on
-  entry.
+> 
+> > I expect it to land in pci/endpoint
+> > first. Please let me know if you have any objections to adding [1] as a
+> > dependency.
+> > 
+> 
+> It mostly looks good to me. I'll apply it today so that you can send this patch
+> on top of pci/endpoint.
 
---
+Thank you!
 
-net: mana: add dynamic HWC queue depth with reinit path
+Best regards,
+Koichiro Den
 
-The HWC now starts with depth-one bootstrap queues. When the PF reports a
-depth from 2 to 128 with 4096-byte maxima, the channel is torn down and
-rebuilt at that depth. If the rebuild fails, the driver falls back to
-fresh bootstrap queues. Request sizes are bounded by the negotiated limits
-in the GDMA and RDMA builders, and the HWC init doorbell index is now
-validated against BAR0 before use.
-
-Link: https://lore.kernel.org/r/20260908035201.402424-5-longli@microsoft.com
-Link: https://lore.kernel.org/r/179196575846.434549.7933818740976196422@kernel.org
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> index 9ea67c076ebda..c4cae1baaef4d 100644
-> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-
-[ ... ]
-
-> @@ -247,8 +263,18 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
->  	switch (event->type) {
->  	case GDMA_EQE_HWC_INIT_EQ_ID_DB:
->  		eq_db.as_uint32 = event->details[0];
-> +		if (!mana_gd_is_valid_doorbell(gd->gdma_context,
-> +					       eq_db.doorbell)) {
-> +			dev_err(hwc->dev, "HWC: invalid doorbell %u\n",
-> +				eq_db.doorbell);
-> +			WRITE_ONCE(hwc->hwc_init_error, -EPROTO);
-> +			complete(&hwc->hwc_init_eqe_comp);
-> +			break;
-> +		}
-> +
->  		hwc->cq->gdma_eq->id = eq_db.eq_id;
->  		gd->doorbell = eq_db.doorbell;
-> +		hwc->hwc_init_doorbell = true;
->  		break;
-
-[Severity: Low]
-This isn't a bug, but the unchecked HWC init doorbell index fixed here
-dates back to ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure
-Network Adapter (MANA)").
-
-Before this patch, mana_hwc_init_event_handler() did:
-
-	gd->doorbell = eq_db.doorbell;
-
-with no bounds check. mana_gd_ring_doorbell() then used that index to
-compute the MMIO address.
-
-The fix looks self-contained: mana_gd_is_valid_doorbell(), the
-INVALID_DOORBELL check in mana_gd_ring_doorbell() and the hwc_init_error
-completion. Would it be easier to review and backport as a separate patch
-ahead of the dynamic depth rebuild?
-
-The similar hardening commit 89fe91c65992 ("net: mana: hardening: Validate
-doorbell ID from GDMA_REGISTER_DEVICE response") was merged without a
-Fixes: tag, so leaving the tag off here may be intentional.
-
-[ ... ]
-
-> @@ -1179,32 +1258,168 @@ void mana_hwc_free_retained_channel(struct gdma_context *gc)
-
-[ ... ]
-
-> +static int mana_hwc_rebuild_channel(struct hw_channel_context *hwc,
-> +				    u16 q_depth,
-> +				    struct mana_hwc_init_report *report)
-> +{
-> +	u32 timeout_ms = mana_hwc_timeout_read(hwc);
-> +	int cleanup_err;
-> +	int err;
-> +
-> +	err = mana_hwc_teardown_queues(hwc);
-> +	if (err)
-> +		return err;
-> +
-> +	err = mana_hwc_build_channel(hwc, q_depth, report);
-
-[Severity: Medium]
-How does the PF learn the size of the rebuilt rings?
-
-mana_hwc_create_cq() and mana_hwc_create_wq() size the rings from the
-depth:
-
-	eq_size = roundup_pow_of_two(GDMA_EQE_SIZE * q_depth);
-	cq_size = roundup_pow_of_two(GDMA_CQE_SIZE * q_depth);
-	queue_size = roundup_pow_of_two(GDMA_MAX_RQE_SIZE * q_depth);
-	queue_size = roundup_pow_of_two(GDMA_MAX_SQE_SIZE * q_depth);
-
-At depth 128 the CQ is 16 KiB, the RQ 32 KiB and the SQ 64 KiB. At depth
-1 every ring is 4 KiB.
-
-The ESTABLISH_HWC message built by mana_smc_setup_hwc_locked() carries
-only the four frame addresses, their high 4 bits and the EQ MSI-X index:
-
-	hdr->msg_type = SMC_MSG_TYPE_ESTABLISH_HWC;
-	hdr->msg_version = SMC_MSG_TYPE_ESTABLISH_HWC_VERSION;
-
-It has no size or depth field, and the message version is unchanged.
-
-mana_hwc_rebuild_channel() sends this message for the depth-N rings. If
-that fails, mana_hwc_restore_bootstrap() sends the same message for 4 KiB
-rings, after the PF has already accepted a depth-N establish. A later
-driver reload does the same, because mana_hwc_create_channel() always
-starts with a bootstrap establish.
-
-If the PF sizes the rings from the depth it advertised, could it write
-EQEs or CQEs past the end of the 4 KiB bootstrap rings? If it assumes
-4 KiB instead, would the owner-bit phase diverge after the first wrap of
-a rebuilt ring and stall the HWC?
-
-The check_depth test in mana_hwc_validate_report() confirms the depth the
-PF reports, not the ring size it actually uses. Is there a firmware
-contract that covers this? If so, could it be documented here?
-
-> +	if (!err)
-> +		err = mana_hwc_validate_report(hwc, report, q_depth, true, true);
-> +	if (!err)
-> +		err = mana_hwc_finish_channel(hwc, report);
-> +	if (!err)
-> +		return 0;
-> +
-> +	dev_warn(hwc->dev,
-> +		 "HWC depth %u rebuild failed, restoring bootstrap: %d\n",
-> +		 q_depth, err);
-> +
-> +	cleanup_err = mana_hwc_teardown_queues(hwc);
-> +	if (cleanup_err)
-> +		return cleanup_err;
-> +
-> +	/* Do not carry the failed test's reduced wait into the retry. */
-> +	mana_hwc_timeout_update(hwc, timeout_ms);
-
-[Severity: Low]
-Can this restore overwrite a timeout that firmware set during the
-rebuild?
-
-timeout_ms is read once at the top of mana_hwc_rebuild_channel(). While
-the depth-N channel is being built, its EQ is live with
-mana_hwc_init_event_handler(), which can run this from IRQ context:
-
-	case HWC_DATA_CFG_HWC_TIMEOUT:
-		mana_hwc_timeout_update(hwc, val);
-
-mana_hwc_timeout_update() replaces any nonzero value. If the rebuild then
-fails, this call writes the stale snapshot over the firmware-supplied
-value, not just over the value of 1 left by mana_hwc_timeout_reduce().
-
-The commit message says the restore is there so that "a failed test's
-fail-fast reduction does not poison the retry". Would a cmpxchg from 1 to
-timeout_ms match that intent and keep concurrent firmware updates?
-
-The effect looks temporary. Once mana_hwc_create_channel() succeeds,
-mana_gd_verify_vf_version() queries the PF timeout again through
-mana_gd_query_hwc_timeout() when GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECONFIG
-is advertised.
-
-> +
-> +	return mana_hwc_restore_bootstrap(hwc, report);
-> +}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791998462.git.weh%40linux.microsoft.com
+> 
+> - Mani
+> 
+> -- 
+> மணிவண்ணன் சதாசிவம்
