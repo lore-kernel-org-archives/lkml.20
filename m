@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486600;
-	b=uty4RXD0Xi3xHaQ/1lNPcoN3OXE8IXOfAFJw4rMU7s5egbHR44KVAVThhAlhSFmZd4iJ
-	 6rI4c8peZw138nM8MIB4mpPaZIpvdWeuSc/6cXcKoZDL2jAqiGLvzvK69DqjlW/rGWmVn
-	 e51PSulWUUj2S9f8B8eFQWNpwqj8QENnYJBZBzcDGNsQuGgFfeD7IMkS0h7AJuVUfqyEV
-	 AXzeHxe2OLLC/KuPd0+lZCY5RAfq3fF9dKV4DjoCnyQ4T8+/KNh5uep8vrWGA4k4UIqdD
-	 387q18xc7N/UAO7w6ZUwkx4h687NTyV+k2Mv+rGen+PwwueZi6oZ5cMSdXNcu3byMaA==
+	t=1792486603;
+	b=TBs5g9e7HG7p0D1baY1vm4s/62UmmO7/itaKAB664C4cvgNxwLFh1qvpGfH0PnPW9YxR
+	 75ETFhhoN5puZxT6x/ujgW6+t0YTAwN+4N/GlyyXUqMJyXe/q6QB6Fp/VtOyLyLMuCD3a
+	 X6G3iet84ta4n1/CLKR9cLgB7rPmJoSgLBofejJbEQoC197pRJoB1MzzLzr3fR+QXfZxT
+	 ROJxXZEMnbHHAaGBqOei5C4WG3xeZUcTAHSvboxXMNms5YdD4JBqDvYCi1saFrTP2ymou
+	 NL4EUUUYMCSut/wLNRcYfammanSSruRJbQF3seFLxtdi7TxlvSXH+KeebNl/8URI33A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486600;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=McrTiUbg6EZriE8j8VkFoRkisw7c+uzkDaypGtect48=;
-	b=FzRlJDRIoLn7131FOTe8F6qLzydOrpWYtzfFpLHNWTgs0wgnokEXgTTIek+7YX30e8h7
-	 yVJYMnqQEYbAWLWS3AYKf/PZmJvSSYPKFbnA55pCsdHeF6rLhxTKB4jnxXFQMVzIOqlho
-	 CaJWOMt1+gfyAihL2Y30QSCoX0IyaqJxAxIDJeCYciWCnvqabRgZdaH56xINx3TywrNTG
-	 lFAfOnYjwYcwz99tYcElCJVeakATF0orN9yhifqPLBa+tFIqECx/UYRlSzQRAGmPB25Ik
-	 O6pAewYvMlnuGT77ReYKGRVjPUk5zPfNWEkct8FTF3khmhcOEoDimJq95/NTQJIieCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486603;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=6lRRpof9/ex1G3TdchHFpSqu8iuP8pTd5flOxKqoxAg=;
+	b=bKe+1PwDPH5blqRqVr3zrE4VF9FMTQU1vUmh+jui1UST3XneM8TUyjZcForqaDYUfWyk
+	 yU6IbLLUujR51+Brt3ym4I80vivzYUg+BY5JWL6SbQZTonb8oY3q4Fsc0fDxPQfIyvqfr
+	 GSsKNNEnUYyFK4Kga6CTu4SfPA6MqtKWk/RDHII7bepZ5RV2kgKN8dA5ZKQglj4tTu9qg
+	 lLroCQDwyvbGACfaDunNOL9g90SknHXnPR5f5qyz4eIorwaa6IufgYLyAdtz56sYSEdcV
+	 +2meMzAU+q4wo6cM+tj3ZB6hpUQl7WCfhbfYOymQ00gw+FnyBO205taxHUFAFMTOj0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7GyUXZP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=siemens-energy.com;
+	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
+	arc=none smtp.remote-ip=185.136.65.133
+Received: from mta-65-133.flowmailer.net (mta-65-133.flowmailer.net [185.136.65.133])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDEA606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7GyUXZP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429E01F000C4;
-	Tue, 20 Oct 2026 08:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792486599;
-	bh=McrTiUbg6EZriE8j8VkFoRkisw7c+uzkDaypGtect48=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h7GyUXZPkJOIJO7nSf76sVYqy2RVTUXCQDJ6I8vqZ8YasE+voazj8H17eSgLcq6IE
-	 TC96O2bsiATCYbJgc9gXKqJO24FPu+bJ8JjAdyhdhoGFpkaYD394k3yDcmyUl7RIqW
-	 NE+Ct72HgraxCgWuCMKxtQBMTIv2gOz+vqRy6iTehEIl4Ed4j1Vmmzw2r6Bukf1bcj
-	 ky32EBS6BbjL9N9FCFmfDKDKQV06K7bJ8zTsn416qtNKoijZ0Lne1n+9gh3kOQqopJ
-	 uiEElzL+zD76qMPYaUwY5+/WkT5JqeTibBg07KDGsYSVUWp8ndX/GkrVj6Ys1v7Qk2
-	 qr2VVt0RvjN5g==
-Message-ID: <91eb0dca-773a-4906-b8fb-9ed6854966ec@kernel.org>
-Date: Tue, 20 Oct 2026 10:56:34 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA190606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA190606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
+Received: by mta-65-133.flowmailer.net with ESMTPSA id 20261020085632be56b7ff5f0019fd8c
+        for <linux-kernel@vger.kernel.org>;
+        Tue, 20 Oct 2026 10:56:32 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
+ d=flowmailer.net;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=6lRRpof9/ex1G3TdchHFpSqu8iuP8pTd5flOxKqoxAg=;
+ b=bbWfePclAqRG+3XxDAVxj1DoxlYkv8xUCoUBXypY3MVXP4vSXtm/RZ7ZxAxzwfQsi5pel7
+ Coxp5z/wB3yo2Vuyl7bNV7b5RZ5j0uu3KH3P4NZh4g/Jo4wLsymnUs7p+hpxe0SqJ8idRsSq
+ y8WTw+Xl2gO4aEBrBcqc/1ooqGbE8=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
+ d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=6lRRpof9/ex1G3TdchHFpSqu8iuP8pTd5flOxKqoxAg=;
+ b=PqPU43kR9MVZo33S5PAO9TbQkKghHC2pitMuioTVvSnta7hngIi3GI+Ubp+47ONxxGjdeE
+ 4IibI8mQsMi6emR9a8BnllvIF8AGtZJNn++ASFudyUbrgTQ1Iwu50Uo47kMEnaPFjXyqqweV
+ BB9hpCddf9+wnQmYFJNDh0ckO+yhPqZUdG4vzeb4aC1YES76ow1idfmn3OURGn/X/JIQ+HvU
+ g/nrhDOkdbSZon3yuwIVfcVhK1tF1JyTxpNuM+4004JNsPcKoQdLWaqMaYCAqHNlyMJMvOfI
+ BfzSKvdEX1tkdsxZ1TOOMZO3ygNsjtGeZPOPbrbFO7qJtrOrvR+YZrVA==;
+Date: Tue, 20 Oct 2026 10:56:30 +0200
+From: Simon Schuster <schuster.simon@siemens-energy.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] nios2: remove libgcc for lshrdi3, ashldi3, ashrdi3,
+ muldi3, and ucmpdi2
+Message-ID: <20261020085630.w7je2ev3f6ectshy@dev-vm-schuster>
+References: <20261019165015.2656521-1-dinguyen@kernel.org>
+ <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,124 +68,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: Split a 1G direct mapping that hot-remove only
- partly covers
-To: Cong Wang <cwang@multikernel.io>
-Cc: Cong Wang <xiyou.wangcong@gmail.com>, linux-kernel@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- x86@kernel.org, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>
-References: <20261019041606.641716-1-xiyou.wangcong@gmail.com>
- <abbefd94-2a4c-4e12-99c5-89a5520563e7@kernel.org>
- <CAGHCLaTe9h0JACdhgAiUw851veDWX=y6KxUPLU1NzHzut3QE4A@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAGHCLaTe9h0JACdhgAiUw851veDWX=y6KxUPLU1NzHzut3QE4A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
 
-On 10/19/26 22:32, Cong Wang wrote:
-> On Mon, Oct 19, 2026 at 3:26 AM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
->>
->> On 10/19/26 06:16, Cong Wang wrote:
->>> From: Cong Wang <cwang@multikernel.io>
->>>
->>> Hot-remove works on memory blocks, 128M and up, while the kernel maps
->>> boot memory with 1G pages where it can. Removing a block that sits in
->>> such a 1G page covers only part of it, and remove_pud_table() then
->>> walks the memory that 1G page maps as if it were a PMD table. The
->>> removal succeeds, but it corrupts the first page of the 1G region, may
->>> free that page while still in use, and leaves the removed memory
->>> mapped.
->>>
->>> Map the 1G leaf through 2M leaves first, under pgd_lock as
->>> set_memory_*() may change it for the rest of the 1G meanwhile.
->>>
->>> Reproduced in a 3G QEMU guest booted with movablecore=1280M. We used a
->>> test module fills the first page of a 1G-mapped region with a known
->>> pattern, then calls offline_and_remove_memory() on one 128M block in
->>> that region. Before this patch, part of the pattern is zeroed and the
->>> 1G page stays. After this patch, the pattern is intact, the block is
->>> unmapped, the rest stays mapped through 2M pages, and adding the block
->>> back works.
->>
->> Which in-tree mechanism can trigger this?
->>
->> I would imagine only DIMM hotremove on bare metal. But let's be real, that is
->> never going to be < 1 GiB.
->>
->> All other mechanisms (including DIMMs in virtual environments) get removed in
->> the same granularity they were added.
+Hi,
+
+thank you all for the patches and suggestions!
+
+On Mon, Oct 19, 2026 at 11:20:56PM +0200, Arnd Bergmann wrote:
+> diff --git a/arch/nios2/Makefile b/arch/nios2/Makefile
+> index f1ff4ce0f1a2..173588c31abf 100644
+> --- a/arch/nios2/Makefile
+> +++ b/arch/nios2/Makefile
+> @@ -19,8 +19,6 @@ UTS_SYSNAME = Linux
+>  
+>  export MMU
+>  
+> -LIBGCC         := $(shell $(CC) $(KBUILD_CFLAGS) $(KCFLAGS) -print-libgcc-file-name)
+> -
+>  KBUILD_AFLAGS += -march=r$(CONFIG_NIOS2_ARCH_REVISION)
+>  
+>  KBUILD_CFLAGS += -pipe -D__linux__ -D__ELF__
+> @@ -37,7 +35,7 @@ KBUILD_CFLAGS += -DUTS_SYSNAME=\"$(UTS_SYSNAME)\"
+>  KBUILD_CFLAGS += -fno-builtin
+>  KBUILD_CFLAGS += -G 0
+>  
+> -libs-y		+= arch/nios2/lib/ $(LIBGCC)
+> +libs-y		+= arch/nios2/lib/
+>  
+>  INSTALL_PATH ?= /tftpboot
+>  nios2-boot := arch/$(ARCH)/boot
 > 
-> You're right.
 > 
-> The only in-tree path I can see is ACPI hot-remove of boot memory,
-> where the direct map was built over contiguous E820 RAM and a 1G page
-> can straddle DIMM boundaries that are not 1G aligned. I agree that is
-> unlikely on real firmware.
-> 
-> Where I actually hit it is removing 128M blocks of boot memory
-> (offline_and_remove_memory()) for the multikernel work, which is not
-> upstream. Happy to carry this patch downstream.
+> I expect you'll have to copy a few functions from the last gcc release
+> into arch/nios2/lib/ to make this work, at least (a GPLv2 compatible
+> version of) libgcc/config/nios2/lib2-divmod.c but maybe more.
 
-It should definitely not be tagged as a fix. Given that we don't expect in-tree
-users (and also don't endorse ones that remove arbitrary boot memory they don't
-actually own), I'm not sure if we want this at this point.
+So I did test this with allyesconfig plus minimal hardware support
+configured in nios2:
 
-I'll leave it up to x86 folks.
+CONFIG_NIOS2_ARCH_REVISION=1
+# CONFIG_NIOS2_HW_MUL_SUPPORT is not set
+# CONFIG_NIOS2_HW_MULX_SUPPORT is not set
+# CONFIG_NIOS2_HW_DIV_SUPPORT is not set
+# CONFIG_NIOS2_FPU_SUPPORT is not set
+# CONFIG_NIOS2_CI_SWAB_SUPPORT is not set
+CONFIG_NIOS2_CI_SWAB_NO=0
 
-(IMHO we should, however, definitely warn if we would run into this situation)
+I used gcc-14.4.0 as the reference; this is what I required to get
+allyesconfig to link (apart from some requied -Wno-...'s, but thats
+another story), and along with the typedefs from lib2-nios2.h:
 
--- 
-Cheers,
+diff --git i/arch/nios2/lib/Makefile w/arch/nios2/lib/Makefile
+index 9d5bf1df520c1..28d6a78533ba1 100644
+--- i/arch/nios2/lib/Makefile
++++ w/arch/nios2/lib/Makefile
+@@ -7,3 +7,6 @@ lib-y += delay.o
+ lib-y += memcpy.o
+ lib-y += memmove.o
+ lib-y += memset.o
++lib-y += lib2-divmod.o
++lib-y += lib2-mul.o
++lib-y += lib2-divtable.o
 
-David
+This seems to be the minimal set of runtime dependencies.
+
+In particular, modpost wants (across various modules):
+- symbol '__divsi3'
+- symbol '__modsi3'
+- symbol '__mulsi3'
+- symbol '__udivsi3'
+- symbol '__umodsi3'
+
+Interesting enough, divtable is not explicitly exported but implicitly
+linked via libgcc all the time. It seems to be required e.g. by lz4_compress:
+
+> lz4_compress.c:(.text+0xaec): undefined reference to `__divsi3_table'
+
+This makes me wonder a bit about the how and why of eliminating libgcc:
+I fully understand that we are playing catchup with gcc/libgcc here;
+when gcc decides to emit calls to a new lib, we have to export that as
+modules might use it; but where is the difference between pulling it
+from libgcc or from the kernel runtime? Longterm stability against
+'disappearing' symbols?
+
+So, for NIOS2, the situation is quite simple, as gcc is not exactly a
+moving target any more, but what is the situation with other
+architectures?
+
+On a more practical note, while technically feasible, I'm not sure
+whether we can actually vendor/copy directly from libgcc; I think all
+code there is GPLv3 with Runtime Exception. (I'm not a lawyer yadayada),
+but I guess direct reuse in that way is problematic, given that the
+kernel is GPLv2 only? So I guess we would need to do a reimplementation?
+
+Best regards
+Simon
