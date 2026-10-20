@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533451;
-	b=NANHuFXqhYECu4EK0VycJGh/QkBy62QCc0zI1akibG4pzYB6bu87n21fjCx6z2wjJ1G3
-	 j8XAhIApakO7RXkbsacduDiCUrXh97Q1HnHDs3Hs7qJo48Xm4JWoO7cLd4/yzyWbAVsyX
-	 JyaN0L0SB9CyKm/Rs4T99Y5DuMRe/wO+2d36yZ1Cyet686F8R537//u21f19URIrkfi5A
-	 GPR/86ITD1J5ms+b01c+OiMZ86NbDuDbKi0KIssSIBNjYvtR+RHeYDmVERSCimKldKBEC
-	 hcNStxCULGVowVtkIv8ckk6AK5Crl6JMEqRDAbnqEXJGC/DS6R3OAinrBtNvIGVyu/g==
+	t=1792533461;
+	b=vLy6oEUm9f/epg9iUnLREMbEQhLKmNG4oWGexy8G+GOJ5aDcsYXn8aRJdZ3Stp/Gefvk
+	 4D4l4Mhhrm5rpKpKdoqjY9gz2Aaw6WDD76gFm8wsdUeexH/+DU5kpg7C9Bf3TZgdKbP97
+	 QeW2NuJ8J8fsJZIFecyqr4JksLCkgEx6fOBwsqDmgczG1FrV+84KaqSWeRJ5AaoEIVBjP
+	 wReomgqy4spkNtzXB8QGQfIzzsivczDB8D48MuX3NfyDrYiztYIMcxXHB8UuT15jh0Abn
+	 9M0yJgXA4fxCK3KLFEqoZM7yrxcZhGCUxR2WECvmHorGchiIOtXNqsI1D3M5w4VOWag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533451;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1biL32O0URscMupcZUKkJxDdoG2Ofnd/Dm3Cof5TZFQ=;
-	b=LXIeH87Vz8ovFu6Y9aeKC6f5FlkvSDG49iUb7+GKqfYakrDtYwL6rQ62fBur45j8JbNW
-	 bwbgMfmUhUl7HNfWtV6EmFDcDtnZP2ut7SXzKlf000b7mEFs4NRTSnkOiVtL16y2th1K8
-	 CIOvHb6tDHw8nZd3abzMRmHp4U5V1ObIoThPu+68E9kNyiZ0MsguUzLk/WZ0VhWEtr5Cj
-	 UpMsWhhLHKxd9w4owtA0W6ChYrXloqX3hJD8NAG7k9cTP+I1tIjRcnbe2yRVv5OI1YaDl
-	 WGkytfBDwxCXOROyOTFBL/XgUgDCLE9MOGcliRQpIaXrYenmuf7eradRtOw4qooUk6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533461;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=QK/YljhqoxIaQvyPSrRlCKIVyw6mUGuU9xXtkL4C7Ow=;
+	b=bYFA8DtON1Zf/0AQcqLD5m7l5kkjIJwbnZJtAMFesLeDXocjaJnei90BwZfNGkmkAQfV
+	 T7urbkVJsjS/ISaJV9JzZ2/PAZgMcj+Q7DjaH7PbB163QXQMGv8yXUyLcZAnIe9IHduqJ
+	 k15MQOas9g3DwnvhfkXowuYvx0tUdQpT6iEmi6WG5YDRVN11qIQmbmgxsuyq22ymtoeus
+	 x5GkRwUpIMy8FeEh2chfgyT0re9k1GfGdmiQxpxVUiw2MKlue/BUPh6FhF5MtntdffUC4
+	 UeXEj7j1O/H1LdGeIHf3M/tC9XF4wC0xs98221eP+2Dl6rvKQuRXo+30qP+ec6MBL8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lBRnV7mV;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=mD2I4jbw;
+	arc=none smtp.remote-ip=185.70.43.103
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D99E606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D99E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34FA606A31A;
+	Tue, 20 Oct 2026 21:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F34FA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lBRnV7mV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792533438; bh=1biL32O0URscMupcZUKkJxDdoG2Ofnd/Dm3Cof5TZFQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lBRnV7mVfrW7VswgoXZznyYkjoATiYslPUS46JaekVe5f2Ra4TxGR2xm9W+2jvyX8
-	 GjtGmnW5ttmzvvqWoJGBPoURKxpCkmQtSjWwDPxoT42jmcilC1aCMeadlVfTbPYfEd
-	 c2KWQmy8X8rS2/8qeqzMOrkfTIU0G8DSqf4WcuOk=
-Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id E5019018; Wed, 21 Oct 2026 05:57:16 +0800
-X-QQ-mid: xmsmtpt1792533436tnhh6uyor
-Message-ID: <tencent_965A48896102A91E4AAB7D27396396967508@qq.com>
-X-QQ-XMAILINFO: NVgpBExadli5wLHnwMJlroZsmHF7koQ7QZnu6YJyU//I3xTKR+Z+4RnmIJzNhl
-	 I/UwCFcwwNaR/98pmvj4lzlcCeMTK1l7Sc8IpXnERXrqKgVYvOiufXEpLNjNkNQLdpH+2jLI4FDJ
-	 sBCCDSeIBcaltnTK9Q4BS3KM2pnQo7oSLpmhlUJfQY9Ir4V4dhZg1hwL/WHnAIJsjA9X2PqFnSdR
-	 bKratYXEk2Anm/sSyKWM6xMSNU9VDkbbnhVsPhFr3vrrS7tUchOtQC4MGFnomvedhxCUg+mUw8Y8
-	 WpBvCdwoeKY2Zms6v5KA7JVnJgJBjBHI6U5oAgg+FnnPHwLcnEYbrSZ9eQXttOj0XX09O+V/KFXe
-	 lhOKVN1HqNbR9uB5IY1ZGZNtjlG5OJgyyDE0det43aUp5esWkoCttU/uHyORIJp+jQc9vcyt6YG/
-	 BtfBPkfjLERW0tXIhBwh57DntvoG3VX5VE70QG3InO5eYTjTRv0C5ZgtAJdtO+Okm9IMWwfO7sNh
-	 dTzckap+WZ3gNe7QoKSjZeZ1lp+TnyNSmDzpF5fAKgMW7VlLyKs9gqSjakLeZRKQ2MBFRDN9LEoR
-	 9eUXoxJ/LQdpmXR71yR/4C7MauIx+8Jhkjm4x4nTn6Tw24ci2yIqMgtHi3COu2W59lOu6CNIkTf5
-	 S2RHowRa4r1aEA8iK5f1tFpDW8t/+vH5kaXoIplTu+/0qIJZyebD61IjhYtiH6pzIh7pGb75oqk9
-	 aFUmZkiTsI4f22EC2zA5/fZUB0zBMN1gz6TJghclFqVKFljMa/ECeCDE5Rzf6GxaR0MVhWYdbOxS
-	 BcsPy1eaK8y2rQ9TvR4xjpRdp0fdjgC6IkA5yMiXYNEOI5lLW5/eDf6gLB2QvimYei3cpFGptV7d
-	 kV69ts7MNx0inwEkgHrIqzIhx8tpmMvw73FJZV5mY/dgWuPGpQ3D9/9PXm9AYVIY0AaUWTbANfFK
-	 KBuR03cDFO7CZZ3v/AhzAq7k+eA1hvdlVQLYl+EZgq5+rVIveWjgJbCNnnK+sU4NQAz3gzxrqhVV
-	 FgDnPIe6M2dKTxusx8/bgTwYWTiJUGAK54I0g3Vs3JDoVExyJamWG/HYFteQk23QMyMeLFYhqqfo
-	 Gv+rcB3ncwKf2h9arofdoyQuJ0wA==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Ye Mingxuan <level_zero@qq.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drivers/base: return bus_add_driver() errors
-Date: Wed, 21 Oct 2026 05:57:15 +0800
-X-OQ-MSGID: <20261020215715.396-1-level_zero@qq.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026102017-irate-stalling-aba6@gregkh>
-References: <2026102017-irate-stalling-aba6@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=mD2I4jbw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792533457; x=1792792657;
+	bh=QK/YljhqoxIaQvyPSrRlCKIVyw6mUGuU9xXtkL4C7Ow=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=mD2I4jbwM1t2n0zEzBF58s3i4Yl9x031D0cRFJ22yO0dYhu9eGMXJejJiuPB7Sxdg
+	 SItKeeMleUAQ2UDulZwBqDAnEviCud6SHDEqcR3VQUVfyTXZn4xVx3qnci/7StLixs
+	 tXdYLLX7wYv01FdvQwZEP4//8zv7y/h9SMn3YNWbKmc1BTFMNOmAnxJiQ0ZpYkgCXL
+	 CSNDgmpWbrg8hDEq2kTNis4Uwa9h6e4VsnXh76etbphLkBk2gIxm5GNCwFOwkmgoWk
+	 xJ+UfkOOowW7EyCxPHCiGKuUOjsozkxGK6wDnfhdLl1xV/qnncYgpOyqO26o/+JVsn
+	 vRP9ByPhtpgRw==
+Date: Tue, 20 Oct 2026 21:57:32 +0000
+To: Jeff Johnson <jjohnson@kernel.org>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, linux-wireless@vger.kernel.org, ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] wifi: ath12k: don't count a vdev restart as a started vdev
+Message-ID: <179253344933.341.13555520643136725760@pm.me>
+In-Reply-To: <20261020213505.31624-1-birk.skyum@pm.me>
+References: <20261020213505.31624-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 16f2dbbdf0422d27200edafa112b129d38041074
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,17 +64,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Greg,
+On Tue, Oct 20, 2026 at 11:35:05PM +0200, Birk Skyum wrote:
+> With this change the Yoga went through the AP's next switch of that
+> link, from channel 128 to channel 36 at 80 MHz, without a single
+> timeout, and the switch completed in under two seconds.
 
-Sorry for the flood of identical messages you just received - that was my
-sending script going wrong, not an intentional resend. It is stopped now.
-
-My full name is Ye Mingxuan, and the two questions you raised were
-answered in my earlier reply: the patch is being dropped.
-
-Sorry again for the noise.
-
-Ye Mingxuan
+A few minutes after I sent this, the AP also widened the same link from
+80 to 160 MHz on channel 36. That is a bandwidth-only change like the
+one that started the timeouts without the patch, and with the patch
+there were still no timeouts afterwards.
 
