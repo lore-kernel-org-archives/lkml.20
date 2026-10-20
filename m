@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513031;
-	b=GyydYDsx+/egzFSSl1iawV8pQ3IkHKaOB8gOoFXEvCAJsdNYOQ2jv9/Qoct0uxkTbo3g
-	 FDJ0lhxmPuFJRFzeDqEpdZCL/b+NP9ancMtenTRriYs8bIlPRSEK6PE0HN9D+FtFmkLDx
-	 8cGZq3rfqXiDoH525I5zzE2Oj1BOmvuYLr0iqClTJjSjJRNJJMFn5rbmr3V6W9wjEbh4V
-	 Pas9NtX/fOh3IVvk7nI4yCxbU7hkFwCv3DA2scN8MiFxJ4sebaEDQ0eu0eUs5rAgW3IyI
-	 V6T5k3QJH9sNMJ6YgUdi6OeM1H+xxOUK/p3P3gE6FxHqESBUUoksd85Z4tFKhruTCxw==
+	t=1792513037;
+	b=1loX7N9ibkEqJaLfAKNFXKOlhvp8CIBIZ8OPAK2WWupDYRlZyW0JkgJZfyBTbwrmvvd8
+	 uOdIV9tLG3FhWT3Uqo/XT4qHq1WFRDYlCn5L3Xz2jagI6xKjptAXDgHNoC/j38obXIYPJ
+	 RSaYKl6XAPxTARgS5fvaIjGxX8n8SCuzuDSIMf0NoTPIC2dX9J5+zQREo8qBJZ5WrEtYA
+	 VjZrRTuJtul2aUFJPFSBpZE8Rf//P5i/UCQTN68O2kXJT8fEs4JMNywhSMVsjutCC3WXo
+	 4XEcK9/Pa1ORsRZaTnvGW9LEgAwdkIvvmyBWGwvNBUZAswRjzSw+Rp6JtdrgWFfXYRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513037;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bBTTI+QB2qQ53J0Dr/MoUAb2MNIGyWZXrr66z8NyYG0=;
-	b=1zslXE8wKFbxLw2w66Hd+c5AP5/9A22r7Qy1k2akN934jCgHDP+uHXXRzVZMSMip75Yc
-	 kPNdkgSc7yhUV7ZUR+3UA+sjKq8YcKCwgGs41mNU6tnkX+eYFgitQy62oFs5bJ3jjXEhB
-	 Nqt92iSHjwdPs/QrheaIGm8aa7oCBsqAeZDHtxAtY2CoIbKTsw4oPj3ajkgmLmNEmanFW
-	 a0Irt1pkV9QA7ju8Ll7sXi/Lf+/1lSYd4mxkGbY0z1hwuIgC3BnVWFP7ek7yWWoLwEPrs
-	 bKYyY5ivIEzR+kHz/YE4hI+kuMkpFlcv9qwjx0UDonnthWmTQKAcNE4dJGHSX1otmMA==
+	bh=nea+QD7GAUur9SzUgDdzk1XI/GJ1nwq4WxYJu+DEP5Q=;
+	b=q3j2iu8ljQ1KWDL41lq1DeQu/h0Sm9OCa6UnlId5cm12dbWWnAhiQGtQU/rN8+ooVCEm
+	 TJ9O/u4pzJkIrRAR2O5ver4o3KZtUVb4MUiYNtBbSwq/FEwYmWcRHyDpVS2gEXax8NkG8
+	 CAz/R0ftnm/AWI2SBwKcv445CjnRskCZ/qhFxvsNRqJK0gzc6vphXfdNDkQXPhLreDyls
+	 bJ/USmJ2031JdpRBQLFOB4GfLhBa6HjeFE4IAHfpCEPQ/M+IY1UjjUsjjPdJBu6vgm57M
+	 wmbQ8vtGEPVv8T5JCprWk/a7TT2lDeLcA5iMqtk/Hp0HUR74W5jkSyzzeUo9LNDWgfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WVNQ6/IP";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PcgdOCdm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9276760A2622;
-	Tue, 20 Oct 2026 16:17:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3007C606A337;
+	Tue, 20 Oct 2026 16:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVNQ6/IP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992731F000C5;
-	Tue, 20 Oct 2026 16:17:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PcgdOCdm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFD01F000C4;
+	Tue, 20 Oct 2026 16:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792513030;
-	bh=bBTTI+QB2qQ53J0Dr/MoUAb2MNIGyWZXrr66z8NyYG0=;
+	s=k20260515; t=1792513037;
+	bh=nea+QD7GAUur9SzUgDdzk1XI/GJ1nwq4WxYJu+DEP5Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WVNQ6/IPJ4zCegk7EffQTGQnk4ga4u5B5nZBvlx6JPq0YzCaj0DBAV/VQd6E961hg
-	 i/v7u1+UVnN27NAf+zWMPBwmBc8jlsBERp1HOb6PT6XR93p7b+fEyoN92R1yEgQEFN
-	 RtgWMcC/4C+211fOXn93IPCUrxN4glLmh/IUOYnsGRMrOvZIox/8TYayAJHb2Rn66+
-	 XHtvbYHqlB1c7GPDxX4ngnNhHnsljOmgs9farnfcLik1I8lFhnLKHAKZaj7pRENU/k
-	 uUDrpgvKkS6ERkCU7mOxLBP6j9EBcp4byecbsWOHwHxV7kYUK1BuwwQ6YVCatM8Y8p
-	 1aDUJiuaz5n7Q==
+	b=PcgdOCdmFglTEqFajkbpIkuPmS7eTp8GwFFFXBB4QowV4PBXF4a6XrnzEThJh8Lzt
+	 Bfx9bquCNdYJhb1FovxkW84efTh4CmOFri9mNZBSqNvE1focX1X90ZRDsNTqHRrUYl
+	 TbbRK0erFXUdn7iuJmUDvOPzbAKIn5FoRHnJcVWqBGcunXAe+7zrQBj9ie7FWK75TZ
+	 iqIXkDz+ngTZMJzlY0sQMCpDEAlU+zGJUpeHELAO2ErANOPJYLTbkJYAwn4j4YP/yY
+	 w69MtDKCCud2cuQCVY2g0C2g5NWbQkSNnXq2VNuBBY+XEcInQd/60sZ7JIGf2MHHHz
+	 KDjOroRY9Mv1w==
 From: Sasha Levin <sashal@kernel.org>
 To: workflows@vger.kernel.org,
 	ksummit@lists.linux.dev
@@ -64,9 +64,9 @@ Cc: linux-doc@vger.kernel.org,
 	SJ Park <sj@kernel.org>,
 	Bradley Morgan <brads@mainlining.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH v4 3/5] agents: add a skill to determine stable tags
-Date: Tue, 20 Oct 2026 12:16:40 -0400
-Message-ID: <20261020161642.3713052-4-sashal@kernel.org>
+Subject: [PATCH v4 4/5] agents: add a skill to find other instances of a fixed bug
+Date: Tue, 20 Oct 2026 12:16:41 -0400
+Message-ID: <20261020161642.3713052-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261020161642.3713052-1-sashal@kernel.org>
 References: <20261020161642.3713052-1-sashal@kernel.org>
@@ -81,130 +81,186 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Whether a fix needs a stable tag, and which releases it should reach, is
-decided by hand and is often missed or left too broad. Add a skill that
-sends the agent to stable-kernel-rules.rst for the decision and the tag
-format, lists the kinds of changes the stable trees take and leave out
-in practice, and adds the checks agents tend to get wrong: finding the
-first release that contains each introducing commit, checking that the
-fix applies to the oldest affected release, giving every stable tag the
-same version, and following the subsystem's stable policy.
+A bug fixed in one place often exists elsewhere, in copied code, sibling
+drivers, or other users of the same interface, and reviewers routinely
+ask whether that was checked. Left alone, agents tend to audit the whole
+tree by reading it. Add a skill that states the defect as a rule,
+searches for it through shared interfaces, copied code, the introducing
+series and earlier fixes, and verifies each candidate before reporting
+it.
 
-If the decision cannot be made, the skill returns no tag. Point the
-bug-fix procedure in coding-assistants.rst at the skill.
+When Coccinelle is available, the skill searches with a semantic patch:
+it looks for an existing one under scripts/coccinelle/, checks that the
+rule marks the fixed site in the code before the fix, runs it over the
+whole tree with coccicheck, and checks which code spatch could not
+parse. These steps live in references/coccinelle.md, which the agent
+reads only when it uses Coccinelle. The semantic patch is returned with
+the results, so that the commit message of a fix can include it.
 
+Tested on the parent of commit 989fe6771266 ("drm/nouveau/gsp: fix
+mismatched alloc/free for kvmalloc()"): both the existing
+api/kfree_mismatch.cocci and the example rule mark the two kfree() calls
+that commit fixed, and a whole-tree run found the same bug in four other
+drivers that were later fixed separately.
+
+The sites found are reported, not fixed. When the same defect turns up
+in several places, the skill also reports whether the interface invites
+it. The missing of_node_put() calls that iterators/for_each_child.cocci
+finds were fixed one driver at a time for years, until
+commit 34af4554fb0c ("of: Introduce for_each_*_child_of_node_scoped() to
+automate of_node_put() handling") made the put automatic. Whether to fix
+the interface or each site is left to the developer.
+
+Point the bug-fix procedure in coding-assistants.rst at the skill.
+
+Link: https://lore.kernel.org/r/DM6DXZJSMPO3.J5PONDJ3HWNP@gmail.com
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
 ---
- Documentation/process/coding-assistants.rst |  7 +-
- agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
- 2 files changed, 77 insertions(+), 2 deletions(-)
- create mode 100644 agents/skills/stable-tag/SKILL.md
+ Documentation/process/coding-assistants.rst   |  5 +-
+ agents/skills/find-siblings/SKILL.md          | 36 ++++++++++
+ .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++++
+ 3 files changed, 106 insertions(+), 1 deletion(-)
+ create mode 100644 agents/skills/find-siblings/SKILL.md
+ create mode 100644 agents/skills/find-siblings/references/coccinelle.md
 
 diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index ddff951856dce..fc4e98fd96e11 100644
+index fc4e98fd96e11..a89a33980c41f 100644
 --- a/Documentation/process/coding-assistants.rst
 +++ b/Documentation/process/coding-assistants.rst
-@@ -37,6 +37,8 @@ The following skills are available:
- 
- * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
+@@ -39,6 +39,8 @@ The following skills are available:
    checks an existing one.
-+* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
-+  returns its stable tag, or checks an existing one.
+ * agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
+   returns its stable tag, or checks an existing one.
++* agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
++  tree.
  
  Licensing and Legal Requirements
  ================================
-@@ -101,8 +103,9 @@ these steps:
+@@ -101,7 +103,8 @@ these steps:
+ 5. Build and verify that the fix works either using the reproducer or by
+    re-running a complete analysis; drop any fix that doesn't work and try
     another one. The fix must not add build warnings and must pass the
-    checkpatch.pl checks (see submitting-patches.rst).
+-   checkpatch.pl checks (see submitting-patches.rst).
++   checkpatch.pl checks (see submitting-patches.rst). Then look for the same
++   bug elsewhere with the find-siblings skill.
  6. Commit the working fix with a detailed message describing the problem, the
--   solution and a Fixes tag determined with the find-fixes skill. Do not add a
--   Signed-off-by tag, and add an Assisted-by tag, as described above.
-+   solution, a Fixes tag determined with the find-fixes skill, and a stable tag
-+   if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
-+   add an Assisted-by tag, as described above.
- 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
-    Documentation/process/security-bugs.rst shows how to do that.
- 8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
+    solution, a Fixes tag determined with the find-fixes skill, and a stable tag
+    if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
+diff --git a/agents/skills/find-siblings/SKILL.md b/agents/skills/find-siblings/SKILL.md
 new file mode 100644
-index 0000000000000..d87bcc95089d3
+index 0000000000000..8d007472675d9
 --- /dev/null
-+++ b/agents/skills/stable-tag/SKILL.md
-@@ -0,0 +1,72 @@
++++ b/agents/skills/find-siblings/SKILL.md
+@@ -0,0 +1,36 @@
 +---
 +# SPDX-License-Identifier: GPL-2.0-only
-+name: stable-tag
++name: find-siblings
 +description: >-
-+  Decide whether a Linux kernel fix should be backported to stable kernels
-+  and return verified Cc: stable tag lines. Use when preparing or reviewing
-+  bug-fix patches, drafting their commit messages, or checking an existing
-+  stable tag.
++  Find other places in the Linux kernel tree that have the same defect as a
++  bug being fixed, and verify each candidate. Use after fixing or reviewing
++  a bug fix, or when asked whether the same bug exists elsewhere.
 +---
 +
-+# Determine a stable tag
++# Find other instances of a bug
 +
-+Read Documentation/process/stable-kernel-rules.rst. It says which changes go
-+to stable and how to write the tag, its prerequisites and its version. Follow
-+the rules for skills in Documentation/process/coding-assistants.rst.
++Follow the rules for skills in Documentation/process/coding-assistants.rst.
 +
-+Judge a change by what it does, not by how its description labels it: a
-+"cleanup" that releases a resource on an error path fixes a leak. In practice,
-+the stable trees take:
++- State the defect as a rule that does not depend on local names, such as
++  "memory from kvmalloc() is released with kfree()".
++- Search the tree as it was before the fix, not the working tree. Look at
++  other users of the same interface, field or lock, code copied from the same
++  origin, the rest of the series that introduced the bug, and earlier fixes
++  for the same defect. Limit history searches to the relevant directories.
++- If Coccinelle is available (`spatch --version` works), search for the
++  defect with a semantic patch as
++  [references/coccinelle.md](references/coccinelle.md) describes. Otherwise
++  use text searches and report that limit.
++- A match is a lead. Read each candidate with its callers, locking and object
++  lifetimes, and classify it as confirmed, safe or undetermined, with the
++  reason. Check whether a confirmed site is already fixed in the current tree
++  or in a pending tree such as linux-next.
++- If several sites have the same defect, check whether the interface they use
++  invites it, for example by making every caller drop a reference by hand when
++  it leaves a loop early. If it does, report that the defect is better fixed
++  in the interface, along with the sites. The developer decides which way to
++  fix it.
 +
-+- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
-+  deadlocks, data corruption and security issues.
-+- Fixes for use-after-free, double free, NULL pointer dereferences,
-+  out-of-bounds accesses, integer overflows, uninitialized data, reference
-+  counting errors, and memory or resource leaks.
-+- Fixes for races, including data races.
-+- Fixes for incorrect behavior, such as wrong results, wrong hardware
-+  programming, or endianness and type errors.
-+- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
-+  KCSAN and UBSAN sanitizers.
-+- New device IDs and quirks for drivers that exist in the stable trees, device
-+  tree fixes, and device tree additions for hardware that existing drivers
-+  support.
-+- Corrections to documentation that is wrong.
-+- Performance fixes that prevent lockups, stalls or hangs.
-+- Reverts of commits that are in a released kernel.
-+- Fixes for bugs introduced by commits that were backported to stable.
++Return the searches you ran and their scope, with any semantic patch you
++used, and the classified sites with their maintainers. Do not fix the sites or
++the interface.
+diff --git a/agents/skills/find-siblings/references/coccinelle.md b/agents/skills/find-siblings/references/coccinelle.md
+new file mode 100644
+index 0000000000000..6b09ce9d04c8c
+--- /dev/null
++++ b/agents/skills/find-siblings/references/coccinelle.md
+@@ -0,0 +1,66 @@
++<!-- SPDX-License-Identifier: GPL-2.0-only -->
 +
-+They do not take the following, unless a fix that is taken depends on it:
++# Searching for a bug pattern with Coccinelle
 +
-+- New features, new user-visible interfaces or behavior, new drivers, and new
-+  module parameters or sysfs attributes.
-+- Refactoring, code movement and other preparation patches.
-+- Optimizations that do not prevent lockups, stalls or hangs.
-+- Cleanups that do not change behavior, such as style, renames and comment
-+  changes.
++Documentation/dev-tools/coccinelle.rst describes `make coccicheck` and its
++options. The semantic patch language is documented at
++https://coccinelle.gitlabpages.inria.fr/website/docs/.
 +
-+Then work out which releases need the fix:
++1. Look under `scripts/coccinelle/` for a semantic patch that already covers
++   the defect. Read its rules rather than its name: `kfree()` of memory from
++   `kvmalloc()` is covered by `api/kfree_mismatch.cocci`, while
++   `api/kvmalloc.cocci` only flags an open-coded `is_vmalloc_addr()` test.
 +
-+- Determine the Fixes tags with the find-fixes skill first. A change with no
-+  introducing commit, such as a new device ID, a quirk or a build fix, or a
-+  bug older than the available history, affects every release that contains
-+  the code it changes. Otherwise, if the Fixes tags are unresolved, so is the
-+  stable decision.
-+- For each Fixes tag, find the first release that contains the commit, not the
-+  release it was based on. If no release contains it, check whether the
-+  commit was itself backported to stable.
-+- Check that everything the fix uses exists in the oldest affected release.
-+  If something is missing, list the commit that added it as a prerequisite
-+  if it is small and fit for stable, or start the tag at the first release
-+  that has it.
-+- Give every stable tag in a commit the same version: a tag without a version
-+  asks for every stable tree and overrides the versions in the other tags.
-+  The stable tooling reads the first version number in a tag comment as the
-+  version, so describe what older trees need in the commit message.
-+- Follow the stable tag policy in the maintainer profiles, the `P:` entries in
-+  MAINTAINERS, for the changed files.
-+- Ask the caller whether the fix addresses an unpublished vulnerability, as
-+  described in Documentation/process/threat-model.rst.
++2. Otherwise, write a semantic patch outside the repository. Match only what
++   the defect needs, not names or statements specific to the fixed site. Mark
++   the lines of interest with `*`, and declare `virtual context`: coccicheck
++   passes `-D context`, and spatch rejects a mode the file does not declare.
++   A minimal rule for memory from `kvmalloc()` released with `kfree()`, a
++   case that `api/kfree_mismatch.cocci` covers more completely:
 +
-+Return the tag lines with the reasons for them, or the reasons for no tag. If
-+the decision cannot be made, return no tag and say what is missing.
++       virtual context
++
++       @@
++       expression E;
++       @@
++       E = \(kvmalloc\|kvzalloc\|kvcalloc\|kvmalloc_array\)(...);
++       ...
++       * kfree(E);
++
++3. Check that it finds the site you fixed. Coccinelle reads the files on
++   disk, where the fix is usually already applied, so copy the file as it was
++   before the fix to a directory outside the repository and run
++   `spatch -D <mode> --very-quiet --sp-file <rule> <copy>`, with a mode the
++   rule declares on a `virtual` line, such as `context` or `report`. Without
++   `-D`, rules that depend on a mode do not run and nothing is reported. The
++   rule must mark the fixed site in that copy, and nothing in the fixed
++   version. If it misses the site, correct the rule before searching further.
++
++4. Search the whole tree:
++
++       make coccicheck MODE=context COCCI=<rule> DEBUG_FILE=<new log file>
++
++   - Use a `MODE` the rule declares on a `virtual` line, as in step 3.
++   - In context mode the output is a diff, and each line starting with `-`
++     is a line the rule marked; report mode prints one warning per site.
++     coccicheck searches the files on disk, so a site you already fixed
++     there is not marked; step 3 covers it.
++   - The kernel's `.cocciconfig` makes spatch skip files that do not contain
++     the rule's identifiers, so a whole-tree search is usually quick when the
++     rule names distinctive functions. Add `M=<dir>/` only if it is not.
++   - Give `COCCI` and `DEBUG_FILE` as absolute paths. With `M=`, coccicheck
++     runs from that directory.
++   - Read the log. Without `DEBUG_FILE`, spatch errors are discarded and a
++     broken rule shows only as "coccicheck failed". coccicheck refuses to
++     reuse an existing log file.
++   - Header files are searched only with `SPFLAGS=--include-headers`, or with
++     a `// Options: --include-headers` line at the top of the rule.
++
++5. Check what was not searched. Coccinelle skips code it cannot parse without
++   saying so. Run `spatch --parse-c` on the searched files or directories: a
++   nonzero `nb bad` count means part of them was skipped. Search those files
++   another way and report the gap.
++
++If the rule marks many sites that turn out to be safe, tighten it, for example
++with `when !=` constraints, and run it again rather than discarding candidates
++by hand.
 -- 
 2.53.0
 
