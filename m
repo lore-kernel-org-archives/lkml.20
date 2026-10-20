@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479514;
-	b=lkoLBMz+aEmjD2Joab3vZpTy+RGmsIeGG+EadKF1EY4hf7O0LbYaktgl4UsbybjyoFw9
-	 vDRaGmB2fZ+PC/ptWHo6/IP7zfYVOulzoOP7/HtHAh3gmWUZnzPkyR7kjhZphMNIg/Zsb
-	 P7FzcOB1yBFklwQeP5AoZ0PW11gZ/NnsFCLBej5FpYPiY0EuIlN5j5YTAG5pwrrBVYp11
-	 KYK7kx78yR6TNu9Ly1qqvZPU4PnO+W1sbGcS3S92OwVL9MoGk2SwXtgBb/mzVW0edgeQp
-	 6o11+498NiKx80EHKRUNUaU2Di+dMyJL7XTKxwnBPYfqkhH5PhHaZ1004LBoAh1Xeeg==
+	t=1792479518;
+	b=lxbxLHwZFjQwOeVa6V1wIHibR1o/pN58WkMlu2c0K4FyU59iaUEcp5iJCuFbbljVWej+
+	 dSMNVD9wV5mhc8GAtV5mPmqAzm1nSZ8U0WBctGvX3KCg9yhNotDOpNKmqbxeoeW6E3tX6
+	 dDzHyFnI0gpUwYx/C0/XdTHsdPBLfYvBxe8DmtMdK3neu7Q+a/a6Oj7Q6EtDRX8ExqnWd
+	 YNuE8b0zqnAHxvWZS9/GhdsaZWfycs3mRPScRE/aRAKKu9CmcwXRzujyU1JcDtNUoddKy
+	 bcgqK57I177IsVpSm8BeJu7shDVZR1+ZMn1I7qhL38cWDjHjzbmpcQLTkpELE4pdKhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479514;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479518;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
 	bh=3mVdC5kDTnipn3iY5p56LzjbkerlRhb7piG9XOIde2E=;
-	b=0l0rhoDnru+o3mB0Ono1fkDKuqUskzDh+pSXDP7KVAQQohlrIJokzxduLut8b4mln+Yg
-	 YyieW/f2mAqpvWeZSfCHoq43+7kaL/22T3yuuwtcIQqJmSjpxv0JPmCTV+HlttAXIQlLk
-	 ICEaeTL1CjxG/ZXnh+uHMwv21tG/AWbGsnh343/kcTAQijc1LGx80j3U1PHUlP5Vucwwg
-	 OS3I85oznIDjMzRNK5FKV2J26lFQSKIZtNUuykwvVnW79hdmDjfFq/ON7PLQ2QgB/NWlQ
-	 rTEEuXCa1CnEVyMIqFlLqHJaOaZka0ZCyZrByap3aWxubTH5M4yuYwtWlovPuHilfuQ==
+	b=BGEuAoM3R5PwvkUzk8TNZbPF3/CvJK5NFFzxLy4Sl9mS54kXSMZqzZxuXzAqFGKyX+eK
+	 2BhZktJVWf5xzq7577Ih8xxKS1IB8zK1y8HzSqVaJANNxapVRX9XZrhKp6LJ1NTKWF7wu
+	 QD9ySYAVnTukpgwnvNWjQwoYJzsvCt16oTB8VmBAyx8NdpVkZVop+8r3hWOUrHjZ72sEo
+	 Ph4tsg1vPMOEvTRAf65OYLQ0gapXB1XYfOhJ4TaKdZ4rS39RjaKWztoJhl5kjWdqahGZG
+	 ax6FsPRQmKXIvuouztC0m6WYxP9P4PlddKh3Xh/WwShy5/2SK1cuaMcXf42t0LJqPVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ISU6U2zx;
-	arc=none smtp.remote-ip=203.205.221.240
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=eWu+K4mz;
+	arc=none smtp.remote-ip=203.205.221.202
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD6606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BD6606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8A160A2637
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C8A160A2637
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ISU6U2zx
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=eWu+K4mz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792479511; bh=3mVdC5kDTnipn3iY5p56LzjbkerlRhb7piG9XOIde2E=;
+	t=1792479509; bh=3mVdC5kDTnipn3iY5p56LzjbkerlRhb7piG9XOIde2E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ISU6U2zxBV95KPb1IrMZyPRbc6ItiblFzqk0PknHhAbYGY2CBX4tyjOVS+fbWGP/J
-	 zI4cAJ8bgMeAjBX32Wvf3WZhK8eUT03n1gpT2Byr8yCW95LfYH6rUj4OOCMksM1+al
-	 quqzf7nOH1eSkr/Hvz3u/OQAqeRuRCnXBuk2bICg=
+	b=eWu+K4mzv62ab/5dTu/F/ZMtAWCXq2d9DO+2nQiNItGGllo+EmK7du8Ld8ivgc9Iy
+	 xvCUQa7f2mYE5cVWt9d5+DYZ3nHz+l3UZ8ma6j0HVLgQlLk68zMrnhKev2uFAVxyrW
+	 b7ZHEZAbTgMCuiPU5d2//+gLvdVJ1gSiDaJOokOw=
 Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id E9B91261; Tue, 20 Oct 2026 14:58:27 +0800
-X-QQ-mid: xmsmtpt1792479507t5c39dn9x
-Message-ID: <tencent_0A2D81638FD4558013D83124CB53ADB84407@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3JuE7UqBPrRy19WHZn4tR5lf31gT2ZwKuR3gNC2nDwWQ4zNsXSfMo
-	 YXpDLmzdLvPqbtnIaxewLPg5VjX697FuIwEBCRU9AsIN6aytWtKZ13wGHTtcf/ieUaQvKhmeFy4l
-	 UCce+1A13vKlixI4dDszb9dldkhz+kH7DjhjuS5Yiu3/4hk+lb6t0HnZ2fqUqui6NGkyXv5kel55
-	 ci82wyeD61nLrR/NNC+v0UPEGwXtt9y3VT93V88tn6V2njm+cCD4lrO8/9VCcvFwRqUwvpAHG5Pj
-	 s5WEqZT2qpgsB7oo2GJaUgXf/2poIsWBkxsJ1lc6QwGm/QdlUfzwrO1EwaJei92z+6eaSBIHJEND
-	 4IEO4K8GGkHn2aSC0sGIg2uLAi5NPtVse+Zw2hja48FwmpBiaS0P4eqpzSIlOeo2QEVSBBI6Qfsa
-	 Usugs3Urd4dRvAgFMrsqnmfEMIQ+yYm0xSC0InWDf2zYKuhYVPBJINlqhrtSGkwnzYbgX5/PRCXp
-	 tmX1g8BEkRBAvD0KRh43mIKmxjb22Pivoc9xPgmmJNkKtqdZtHYeUSmkhODklrAZsSn/pFvAiTsj
-	 +y69nEu8gStzSHIK6VoTvz1C6jplBYVVwqYQ66jvucQtFBdGWRycTIc5AElztuvuyTIp+u1utmMz
-	 SgRiAHEuaNHMWMPqL6Pvz4bQCjJYrV4KMsHaz55SkpegcDma77n8iKzF0PHeiVtq9vBdt4+FDgtV
-	 5nHWOUAkxy8TAtijKKSW/9ZTA7onJ+qFPWPTuss9Uo0uNOD54X6WULkQ77u8x/2oyafkiXvmfb+1
-	 PSXQTR0FjbB0chxZSJpAf2JwKPBChWByQwWVfHFLSm4GZGkEZpotQNPn1hXFwzaozm/dXAdLABQz
-	 DhyJu+k58VoZYPrmlbJDnLwJ6DwrFGGmmX5LqHtSPgpzkmjydbw6EG104BtYGLWvJXkfsvfnId3T
-	 FZmP8BjVKRUhWw2S8oddEPR29oFrtgHdpmhmMobXESiaWR3aW6jzyF6CrvzCWrkMIqRzHbaAyezH
-	 k3CNz8cbPS2zOcg+hnDCePo6RQP7S40ALbi+uBJvEEkbRiE9RYSprbuCPwyRICiQLmX/qijC/7Qo
-	 vSBt0I6QqrKC/H8V+MNXp/tP/W23G/hLAGoTij
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id E993F67F; Tue, 20 Oct 2026 14:58:25 +0800
+X-QQ-mid: xmsmtpt1792479505t9ikfwqbl
+Message-ID: <tencent_5258AD658E5651628F009A47CBAAD0C9D806@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25GAxUlqkVjZxQic9tu9IHE1ACMtF+tj5AGr/62VZkV4sChL1LQ31
+	 Rhnu/sWGBvOTUf4MS1ffx4Ang7J4wrkjRpIvDeiXHsU0je+GHYBy5dv9tox0zQE7RodY1Se6TQrh
+	 7wPTqZ4VqK9ccicLbRuYUVCbS2bSdBOlKZkm+zqVmuH5FOUCQqxrOcfsIT+CkMrOjNZC3T1/N/Qa
+	 yCSqlZmSKEj7oSU1xB0BT05FrPcfSFYzL3Q0anL6POcMhUJKDVogE7wvAFgrmHe4KfyiVKgLNM7l
+	 OHXKVZzZV5VP6qs/OpTqT8BN9QQFYjLf9581BvAH/fULCkj+ebVou1FQiXIztPUOY62j6tWhnQUO
+	 sMyLPzGSOxB0340xX2tvKqlirB7WvHRwaS0hnA2232EzplQAePDzUuAtNB6gDZEqJC8pcXiA/63+
+	 Bwe1aSUaPAzD2Iox0lMFwPyg6OCP63U6Bv1OJdcmYmsJfhNvjjXJ5ayTdV981heNFwY9UHB0avAV
+	 yqQTUgLz7CFbG63YVhVVmStU4AAFUg9yZoZhaekk8anv/gWDobY/7zhh1spdQXmZyX3nWa2C4VkJ
+	 tIuQx+wsRrkrSYuT5h62jQ22dilOG5OWHvHV+VJb1XGujt9AyAmUK3GN1Y1Q9Tcs7IzF+eX0vizf
+	 XZ9dy/q1UmGWxgylQXwy2a/b7l0EuiXb/pDU6IPuF+wVu2zyHnFWpIWaPBuAWoiU3G/D7gl1ds3s
+	 S17cqaA+r2yMV4kKGugCcxElOI6lc46utcjb29bvqWa+i3i1UwdUArWoVP2IxhYKl/ADAWikoY5w
+	 mwdBi5w5ylyjqWvGLqGeobFBVh/L/n7mWAFwJghNJ9FZ4pbRjhfcaDKICOtEWXLVOH53NQiR25ga
+	 XUpecszBgdBeFMx5mzTtnUoCLNmgoJfDnKDhki1udUDUf3mjUlUXAMR7cb/vtUQXji8RmCpP0AtA
+	 Ie9Ru4bTNqmY2Ir76WKacbpkWaMW0KW7OcTwehfAoSvCd9vrzf008NvJpmElsY5awOVtglTVGZqE
+	 0ZAaB19RibcqkPAdvRRfnOLpUPfmQw6RYGz74VJXr2D9c+oGQuan60gSJUJ63VTVKyfHj6KLriZR
+	 2SPTJewjlrv9Cv+qIHlLyPOJbYIkkuKVOTBwU7
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 From: Yemingxuan <level_zero@qq.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J . Wysocki" <rafael@kernel.org>
 Cc: linux-kernel@vger.kernel.org
 Subject: [PATCH v5] drivers/base: return bus_add_driver() errors
-Date: Tue, 20 Oct 2026 14:58:27 +0800
-X-OQ-MSGID: <20261020065827.975-1-level_zero@qq.com>
+Date: Tue, 20 Oct 2026 14:58:25 +0800
+X-OQ-MSGID: <20261020065825.953-1-level_zero@qq.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
-References: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
+In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
