@@ -1,77 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.126.93.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465784;
-	b=b0Smq/5qZpsbnwSRpXwrTqnrMdjlZrChrFpLoeKA4gjXGHPZ/atrrR9Z+afIffGpc1+2
-	 o5Mm7WjrK+HloVhaadCMariR1p6ZvldxJyiL3EOmpB5j6gExNgM+IqzhdVIGjgETPYDCH
-	 ODYwpiB0/JDBsRuW6uxfg/I2PxOwYoaWpDO2+rbiBAnBkFW8hCMbr/97HLK3ZUgTIoUR5
-	 9drEK2CzBHYNvTwIpnhF7+WI0/ZqeYHNf5mbPe+CDOwy8PtiMPYo1RTZ7SGtObqwFlBzc
-	 wty+rxd3rbR5smsq5KgAqkN/hQuBESiyy4YSEoXaggbfaUmomTUxuxWBTxux8EA3IuA==
+	t=1792465787;
+	b=iOpr8ORoVqh8v1TIxYxR8wE3MnfrOVQrKBO7ageOKv3ekEqVBk6bZTiUVCKNaWcQlrZV
+	 GXM6xmU3yEJXHIfDAn/reG9wHpnJIRqZAPXLEud8+yR2gZTDCH68vxJxHkTDexePCKoaX
+	 +eCz+zwjM7B9F+rIxEWcsSHfFhuF7O3NDu1hZP7ultYO8HSvV1aQ4oCfY4nupYx1dfljg
+	 JK55sHbNIBwJLC1Sq7QzRfFmf0iJCV2tsmXFHY01ptZih7bhtq+/mOhkKXLNr4Kd83Kqe
+	 ykA9BwyCAhW0lbrHI9UwG7jJ14z5RC4C/KzraEfYutSO0OX9+owdG8G34sQoj6VD4ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465784;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=PIme3hcZlC53RfvT2IEjzq2swieDeYbsRW7Jr3b/EnY=;
-	b=PQZLjSwrCANQGGbWGjNfjU68R1eN75ZPkcOZSgLhIKsGPCm+l91G6vtSlgc1h5ow85+1
-	 CQe9x8XeiTKpXEHV92FMFygm9Z5pdOIB2cfedqFAFKFvw6qdHC0WH5D4/e52Ldqq22OxS
-	 484uX6iiz8ZIvwOfh5zRQq10x/m9iBPlfgPNUfEJJAPUUCzbUKCkZPjl6UJbZc7uhyJ/Y
-	 zLYf5DCMztQ/kNq5tLrUIRYWTIjxp0eo5iDCR2tmp5b4VCXQtfcT7JL4uMc1slzWLkNLC
-	 XfjlGvB38yZIGJHtVPZQV/GEDOykzLB0eBt3x2CgHmjm8tYs5oVDo5tzFkI67CHuC4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465787;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=hx8ZUs2osT32CLoIm+k1ENydU4E6VfLpr8Xnugi22lE=;
+	b=U0ZFtvFHJr8uXCsWP5jFjcizMrfY4mNLajTdVdKlZtmvZ3rgdE59oaY/6uvaYOWeP0hX
+	 b/qb3NqqOXhWHl/x2uNlEcHTxz/dDxzjlcp9ZVd6lZt0rEKbULAPVUOvkkYpRx6GfQqXo
+	 cj/BFSfoW13d/Xbwc24W1o7S6V4PEUU+C/q6y/HNdIzywQ5tprEKP2C4PEnRqZwlAknfq
+	 5eH+iAG7sYTKiDc8p20c4NFU6FN/MKOkqWUr4DInelm6cBF6TNxDEHs4CS5LYRtSUReN0
+	 fZKTPBEvKkIXEXJynE1izAUf9PZYz6riUnO8sYPdyfwIdq7TTlVVrOf/Poiq1rr1xBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=L0GRG5h6;
-	arc=none smtp.remote-ip=103.126.93.42
-Received: from mail-m9342.xmail.ntesmail.com (mail-m9342.xmail.ntesmail.com [103.126.93.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ydTGq7Oi;
+	arc=none smtp.remote-ip=203.205.221.149
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579A160A3816;
-	Tue, 20 Oct 2026 03:09:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579A160A3816
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A4760A4ADA
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A4760A4ADA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=L0GRG5h6
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51a4ceebc;
-	Tue, 20 Oct 2026 11:09:33 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 5/6] drm/rockchip: analogix_dp: Add support for RK3568
-Date: Tue, 20 Oct 2026 11:09:15 +0800
-Message-Id: <20261020030916.3223833-6-damon.ding@rock-chips.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ydTGq7Oi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792465777; bh=hx8ZUs2osT32CLoIm+k1ENydU4E6VfLpr8Xnugi22lE=;
+	h=From:To:Cc:Subject:Date;
+	b=ydTGq7OiSeeRmGW/ylJIvfhavoYbyIur+wCd1+zs75vtntVoixoAt6ZrdQJtKAUSc
+	 bZJaXbCtNN/73w6pZ57XXQgER2BBnsQH2EKYd+Ss9rJA/qo2kornYAGrYZbplyRJRX
+	 vmU1qlgSDPo0Zqvtig4HQN9uIOSK0WpLXXFJH0p8=
+Received: from localhost.localdomain ([112.17.237.94])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 262BD6BF; Tue, 20 Oct 2026 11:09:34 +0800
+X-QQ-mid: xmsmtpt1792465774tgop9s622
+Message-ID: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25G6ppPf3UVlFohnShE16vw1E0hqMxOQ7jAWFTbnCxm65eiM7mFG7
+	 vvEq/WrY8TCOeWeBOCLhbp82RB7PHBbByBwfth3wDDh49JyhSdfvr5ZezoyZxWsN8BxS1OOpcryF
+	 5UwTIqwR5kg6CmGY++Xm3c0kv8oOPojMMYL0LQrOYoi8uXI7wu0HYvRl+TzYdQgManiWTUMHzU8V
+	 1KYgyz+1vWTKmTJQ2KyPxsQVx3cyCY+o9kcbGSHfjajd6sxfrGlgAsc0mUXYNpEg6gGXv9Kwew92
+	 a1DH9QRcrcNXQUoKmqFBuHClks4NcAXwEMk06TS5XjEitOWuxfKJH4hTneotw6Sn5lpkBPGvkvKs
+	 bDkBWtWx/F45DUamw1s16QYoQaq/Gtq9mFbyAZf+qPhZDhJIU0fpSPiPoytlJohd0tvV5+8MeYz4
+	 u6Ful9/rrpHPBxpR6m6+0GQ28IweaS/LZAxHMW/qrZC/uQ9SoVcYLUvyN9tNlr7j3i/n8tYsys09
+	 keRFjgm6MDajNnOZhoeCQL4MWT5nlhq3seeMQSrgot5KD/EZwFXPLYbLzLm31kNsh7y/q/ZB1L4t
+	 Kxc31uePki6SQKcwsl56Nk3Y/XVzAaqb5uIdedTwlGisQLmafwjBwn2FkRGU/rl1xiJi/qKppOI+
+	 F45fb7KteMRfkzCDA/8by7ChBJVvcNjgJ8Zq3jOOoDakBJv/kCFnVpZSY35DONTdrh8JWKZvC9+R
+	 OZJNMO/EtmO2dD7jmvPWRrFK+LQboDSB1Nw0OtMmOsZVEXlR5traeRAccgYKCbpm7iHbx93uiAhz
+	 9TjtNPFueBmYNVGAjW437jteJ8VFh/DarCQnLzULL7ctlfs/d+izD/+nfur1IWF4yyZzdXFzebLY
+	 bXpDJqXb+o3oyXegajGZhLZcBeI49ngx9WOqrUl2gvOV2Vcb5utPWCk7pOVWT3dB1fZAJWiuv7FU
+	 AQAIZ2gAXHeMlyq+ol46PgpGq06R/kQNPVsFQM9p6SjBxF/aYO6PPRF04e0Ycxbch5Fk9fPXW5EW
+	 oOcyQE2uf5mN6yyIByd8V2PdKsyBjHkVGjoPDdDPU1ZzlRO4eFOuqHW3RzOfpwYLswD4tnPnPvp3
+	 K+nYXb70C4+L5+cWW25FXwbqradg==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: level0000x <level_zero@qq.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	level0000x <level_zero@qq.com>
+Subject: [PATCH] drivers/base: return bus_add_driver() errors
+Date: Tue, 20 Oct 2026 11:09:34 +0800
+X-OQ-MSGID: <20261020030934.401-1-level_zero@qq.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020030916.3223833-1-damon.ding@rock-chips.com>
-References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,97 +79,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa15749229303a8kunmfd20f05334c78f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkpJVkwaTx9JGhlOQ0tJT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=L0GRG5h6UBqPdZoOzncwl9bjfmfKLEpR1+D+v0ATg2rRCRzOYAsoMajwTwPFcDze9GhuUM8Cfm3eVmf/8jkO0WdlJTL/KbOZVUkRxJZVN7GHDvUcSnacoAgcs6xPEvd6+70VvHa7gY1RKFmKhEJhy9fZyT+2nED3ieHLyNipHs0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=PIme3hcZlC53RfvT2IEjzq2swieDeYbsRW7Jr3b/EnY=;
-	h=date:mime-version:subject:message-id:from;
 
-The RK3568 eDP controller does not require any GRF configurations,
-so make the "rockchip,grf" property optional.  Also enable the
-optional avdd-0v9 and avdd-1v8 supplies which power the eDP PHY.
+bus_add_driver() creates the driver's uevent attribute, adds the bus
+driver groups and the bind/unbind files.  When any of these fail it
+only prints a message and still returns 0, leaving the driver on the
+bus while the sysfs files user space needs to manage it are silently
+missing: bind/unbind cannot be used and the uevent attribute cannot be
+triggered.  Nothing retries and the caller is told the registration
+succeeded.
 
-Add the "rockchip,rk3568-edp" compatible along with its chip data;
-the register base in the chip data is used to match the platform
-device memory resource.
+The device side of the same driver model already gets this right.
+device_add() returns failures of the equivalent sysfs operations to
+its caller and device_del() undoes each one, and driver_register()
+already calls bus_remove_driver() when the group registration after
+bus_add_driver() fails.  Commit 85d2b0aa1703 ("module: don't ignore
+sysfs_create_link() failures") made the same change to
+module_add_driver() a few lines above, so the driver side is now the
+only place in this function where a sysfs failure is discarded.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Propagate the errors so the existing unwind runs.  The new
+out_remove_module label calls module_remove_driver() before falling
+through to out_detach: bus_remove_driver() pairs every operation
+bus_add_driver() performs in reverse order, but the symlinks
+module_add_driver() creates live in the module's sysfs directory, not
+under drv->p->kobj, so the kobject teardown does not remove them.
+The attribute and the groups need no explicit removal because they live
+under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
+the caller.
 
+These failures are not expected on a working system: driver_ktype
+always supplies sysfs_ops, so -EINVAL is unreachable, -EEXIST needs a
+bus group to collide with built-in attributes, and -ENOMEM needs
+memory pressure.  The point is not a user-visible bug but keeping the
+failure diagnosable and the resulting state consistent with the device
+side.
+
+Signed-off-by: level0000x <level_zero@qq.com>
 ---
+ drivers/base/bus.c | 27 +++++++++++----------------
+ 1 file changed, 10 insertions(+), 17 deletions(-)
 
-Changes in v2:
-- Fail the probe when the chip data requires GRF configurations while
-  the "rockchip,grf" property is missing.(Sashiko)
----
- .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 24 ++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index ccdd4b9ecdb8..38c78360842f 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -320,12 +320,17 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 	struct device *dev = dp->dev;
- 	struct device_node *np = dev->of_node;
- 	struct clk *clk;
-+	int ret;
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index d17bd91..e5c8a12 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -772,28 +772,23 @@ int bus_add_driver(struct device_driver *drv)
+ 	}
  
--	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
-+	dp->grf = syscon_regmap_lookup_by_phandle_optional(np, "rockchip,grf");
- 	if (IS_ERR(dp->grf))
- 		return dev_err_probe(dev, PTR_ERR(dp->grf),
- 				     "failed to get rockchip,grf property\n");
+ 	error = driver_create_file(drv, &driver_attr_uevent);
+-	if (error) {
+-		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
+-			__func__, drv->name);
+-	}
++	if (error)
++		goto out_remove_module;
++
+ 	error = driver_add_groups(drv, sp->bus->drv_groups);
+-	if (error) {
+-		/* How the hell do we get out of this pickle? Give up */
+-		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
+-			__func__, drv->name);
+-	}
++	if (error)
++		goto out_remove_module;
  
-+	if (!dp->grf && (dp->data->lcdc_sel.valid || dp->data->edp_mode.valid))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "missing the required rockchip,grf property\n");
-+
- 	dp->grfclk = devm_clk_get_optional(dev, "grf");
- 	if (IS_ERR(dp->grfclk))
- 		return dev_err_probe(dev, PTR_ERR(dp->grfclk),
-@@ -351,6 +356,14 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 		return dev_err_probe(dev, PTR_ERR(dp->apbrst),
- 				     "failed to get apb reset control\n");
+ 	if (!drv->suppress_bind_attrs) {
+ 		error = add_bind_files(drv);
+-		if (error) {
+-			/* Ditto */
+-			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
+-				__func__, drv->name);
+-		}
++		if (error)
++			goto out_remove_module;
+ 	}
  
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-0v9");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
-+
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-1v8");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
-+
  	return 0;
- }
  
-@@ -530,6 +543,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3568_edp[] = {
-+	{
-+		.chip_type = RK3568_EDP,
-+		.reg = 0xfe0c0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3576_edp[] = {
- 	{
- 		.chip_type = RK3576_EDP,
-@@ -555,6 +576,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3568-edp", .data = &rk3568_edp },
- 	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
++out_remove_module:
++	module_remove_driver(drv);
+ out_detach:
+ 	driver_detach(drv);
+ out_del_list:
 -- 
 2.34.1
 
