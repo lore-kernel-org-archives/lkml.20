@@ -1,107 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792508975;
-	b=r1ZsB0vnsNbev0kpx3GqDDkXYR9cFtgD4x5k7wU9IQJ38dnmD5eIu88xbGain2XAasMJ
-	 HFcB/7Cfr1OZaSiknhWDT35oOxAq531bPxkPOppWXKGyUCtgA6lf1/mL6k56G7CzhEjbD
-	 58aJKDfyqNP0pqgkGZrLWcyXHE5UGVanMjZpgJ6AfKB+hqKlz+LEyvxXk6XKrhnBxUfzB
-	 JOk8X3a7oWqdD3Cg6Vb8dvLf9SORRFcERwFrFsuWPBGErMyCBCrRckiiDW5NRBTzGHSNw
-	 TH79mkA3z4e/e5n0B+CcUyVpvF+YM3GGw/1fy01YUwDznhpIuF0WsVbHXX25PzlCChg==
+	t=1792509008;
+	b=iF+bN95JK5InAD4QzyWczCk5nDQobuCfdgI2oxYzttEi77Zqv/bYsbZi6NwTvqpf5xwM
+	 mS3jL2bRy41cqfC9bCMWXoFmrZIUdlwp8z3As9uucO1HLfzzEyc+9Dk1EHDhAp3dPqOJs
+	 tHXB8PxnwOAlLPzvovii369UY5SQXZBbJKp4V6mlFe84W9WXsswJbrA2vLrP9qn6ToBG/
+	 ZCbcRe6EnzicuhRtQBzWscGOItlzvDjs+WZhQwdO+/Q00888QY0enEsqNY0HCNX+5dHCr
+	 Pu69e2M5JkXYdSB7K6gNFy5xonFuonv/MtJ96askh/yXnQtNne6hoQx63yajGw9+crg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508975;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Action:X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Server;
-	bh=Sls3bPmQCZyMAO5iplXNtOsVZo7FofwN1/WgYR7lQ8o=;
-	b=joTBE47J9zh5eHYikrVdPm51yleYXwcCAGuzBlltBD/wo5xF62cGRNP6eBYduKBdRB8n
-	 NBpgvef6gQR6wuUi5xPkve03rqzZF2IdYE93UBALNnJuoHBm2nrY3AzbrWPB2HflUF10U
-	 GwHGXX+jyZ4RrMlHY5TLnB6mJxek4taYXa2B2oH9XYQVa0dl5G+HK0u9DlE16KCac752H
-	 6f0+eXh5OD4rrYkubONd9ciD4BNB55ZMBt4xxDxhgRDZ/P3aP7dYJjEhyaK7Hd+oLBlLV
-	 aj1RNU5bWKrhxAuvV4iOyg2mXq6Nwwul65ByJ+UEkUtpwbBRHk+ZIDTIVBUxT4vfkrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509008;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Laxh79qXwAwsmuV6O1MzM4XcWCJ9HNwhZ1DgdfgCfZw=;
+	b=bq+jY4h0zkd9OvIoq8eTjA2bcMNMRAI/qf95OO2/Vj6o2O0oyAhtHp7YrpmZ/t/gg1Lr
+	 Ncy82fPQGB9q/mVtdrMnBV4s3GEiFfE6/TBOJwu1BbDMFYt4TLg9o+4rx9YE5+KslzSvn
+	 EQivQgFAIFd8gPLobjZO2DEMykWwdKxdULb7AncvJfsPxFCG7GAUex1hSBUk/KJpexrfx
+	 phrJEesIhPdPFvF9sNBgMu/vbhK/NpZYmmBmHlHS5A/50jBfV7Q5FmfeGX3/ZxE0tFUwW
+	 nGpstLQhyD0P+9mrysTczncXH9/RxjnortyAu3M7BRsRepU7BNyWVnq50B4WCZF1V6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pb3uhxZT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Yk4FrAyW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pb3uhxZT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Yk4FrAyW;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41577606A325;
-	Tue, 20 Oct 2026 15:09:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41577606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pb3uhxZT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Yk4FrAyW;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pb3uhxZT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Yk4FrAyW
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 56E341F7CD;
-	Tue, 20 Oct 2026 15:09:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792508966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sls3bPmQCZyMAO5iplXNtOsVZo7FofwN1/WgYR7lQ8o=;
-	b=pb3uhxZTVaeXbRHucS6qREAJHNTXDF47MRY8XnKdSS2JjzHiciBJyy3ZVLDY4hwTFZfNS0
-	pDb1pcjAmbLt+/TAoVDRVvK0KpMzHd2F3u4GOijl97WYoe5kH1VHdmpZzPOUfzmyxYmYzR
-	YDOr1V1TuYfip17W0zq3FUsiPr85oPo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792508966;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sls3bPmQCZyMAO5iplXNtOsVZo7FofwN1/WgYR7lQ8o=;
-	b=Yk4FrAyWhpjc8hCSSRcO2E/2FRWOsuQJmEA1JWoM83yRnOSiiWtSHtOO9Bn+GswR78zKK2
-	STg1nVkn6KMMZJCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pb3uhxZT;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Yk4FrAyW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792508966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sls3bPmQCZyMAO5iplXNtOsVZo7FofwN1/WgYR7lQ8o=;
-	b=pb3uhxZTVaeXbRHucS6qREAJHNTXDF47MRY8XnKdSS2JjzHiciBJyy3ZVLDY4hwTFZfNS0
-	pDb1pcjAmbLt+/TAoVDRVvK0KpMzHd2F3u4GOijl97WYoe5kH1VHdmpZzPOUfzmyxYmYzR
-	YDOr1V1TuYfip17W0zq3FUsiPr85oPo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792508966;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sls3bPmQCZyMAO5iplXNtOsVZo7FofwN1/WgYR7lQ8o=;
-	b=Yk4FrAyWhpjc8hCSSRcO2E/2FRWOsuQJmEA1JWoM83yRnOSiiWtSHtOO9Bn+GswR78zKK2
-	STg1nVkn6KMMZJCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2357B136CC;
-	Tue, 20 Oct 2026 15:09:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jTk2AiaE12pEaQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 15:09:26 +0000
-Date: Tue, 20 Oct 2026 17:09:25 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, 
-	frederic@kernel.org, tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] blk-mq: dispatch kworker to housekeeping CPU when
- hctx cpumask is empty
-Message-ID: <a6b3d7c6-64fd-4b92-8428-964a863ea9e8@flourine.local>
-References: <20261016052203.489760-1-atomlin@atomlin.com>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 582CC606A31E;
+	Tue, 20 Oct 2026 15:10:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 66F1B1F000C4;
+	Tue, 20 Oct 2026 15:10:07 +0000 (UTC)
+Date: Tue, 20 Oct 2026 18:09:33 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mimi Zohar <zohar@linux.ibm.com>, linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KEYS: trusted: Reject short TPM2 public areas
+Message-ID: <ateELTsfmHsdCEGL@kernel.org>
+References: <20260925095308.3248297-1-4ncienth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,129 +47,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261016052203.489760-1-atomlin@atomlin.com>
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.dk,gmail.com,suse.de,kernel.org,ashe.io,vger.kernel.org];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,kernel.dk:email]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 56E341F7CD
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+In-Reply-To: <20260925095308.3248297-1-4ncienth@gmail.com>
 
-On Fri, Oct 16, 2026 at 01:22:03AM -0400, Aaron Tomlin wrote:
-> Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
-> CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
-> threads from executing block work on isolated CPUs. When all CPUs mapped
-> to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
-> evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
-> the intention of offloading execution.
+On Fri, Sep 25, 2026 at 06:53:08PM +0900, Daehyeon Ko wrote:
+> tpm2_load_cmd() reads TPMA_OBJECT with get_unaligned_be32(pub + 4), but
+> does not require public_len to cover that field.
 > 
-> However, kblockd_workqueue is allocated as a per-CPU workqueue
-> (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
-> workqueue core resolves the target CPU via raw_smp_processor_id().
-> Consequently, if a task executing on an isolated CPU submits I/O and
-> triggers an asynchronous queue dispatch with zero delay (e.g. upon
-> hardware queue congestion, tag/resource exhaustion returning
-> BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
-> the local isolated CPU's worker pool. This causes the local per-CPU
-> high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
-> the isolated CPU. In real-time environments, an active SCHED_FIFO workload
-> will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
-> in addition to introducing unwanted latency jitter on nohz_full cores,
-> thereby defeating the original objective of commit a46c27026da1.
+> A new-format blob with public_len zero makes the read begin at the end of
+
+New-format is not anything. TPM2 protocol format might be better here (nit).
+
+> the B + 4-byte decoded allocation, causing a four-byte heap out-of-bounds
+> read before the TPM command is transmitted. This is reachable from an
+> unprivileged add_key() call when TPM trusted keys and a TPM2 device are
+> available.
 > 
-> Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
-> from housekeeping_cpumask(HK_TYPE_DOMAIN) via
-> cpumask_any_and_distribute() when executing on an isolated CPU, and
-> otherwise fall back to WORK_CPU_UNBOUND. Use this helper across the
-> unbound fallback paths in blk_mq_hctx_next_cpu()
+> This affects v5.13-rc1 and later kernels built with CONFIG_TRUSTED_KEYS=y
+> and CONFIG_TRUSTED_KEYS_TPM=y when a TPM2 device is present. A KASAN run
+> as UID 1000 with no effective capabilities reported:
 > 
-> This ensures that:
->     1.  When executing on an isolated CPU, deferred queue work is
->         cleanly offloaded to an online housekeeping CPU across single-queue
->         devices, hardware queues with empty cpumasks, and offline CPU
->         fallback paths.
+> BUG: KASAN: slab-out-of-bounds in tpm2_unseal_trusted
+> Read of size 4 at addr ffff888106273b48 by task exploit/160
+> CPU: 1 UID: 1000 PID: 160 Comm: exploit
+> The buggy address belongs to the object at ffff888106273b40
+>  which belongs to the cache kmalloc-8 of size 8
+> The buggy address is located 0 bytes to the right of
+>  allocated 8-byte region [ffff888106273b40, ffff888106273b48)
 > 
->     2.  The per-CPU high-priority kworker on the isolated CPU is not
->         scheduled, avoiding priority inversion and latency jitter.
+> TPMT_PUBLIC starts with the two-byte type, two-byte nameAlg and four-byte
+> objectAttributes fields. Require public_len to cover all eight bytes before
+> reading the attributes.
 > 
->     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
->         preserved, maintaining optimal local execution with zero CPU
->         bouncing.
+> The exact input produced the KASAN read in 3/3 fresh boots. The fixed build
+> rejected it with -E2BIG and no KASAN report in 3/3 boots; valid new- and
+> old-format trusted-key loads continued to succeed.
 > 
-> Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
-> Cc: Ming Lei <ming.lei@redhat.com>
-> Cc: Jens Axboe <axboe@kernel.dk>
+> Fixes: e5fb5d2c5a03 ("security: keys: trusted: Make sealed key properly interoperable")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> Assisted-by: LLM
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 > ---
-> Changes since v2:
+> Tested with QEMU tpm-tis and swtpm: vulnerable 3/3 KASAN reports,
+> fixed 3/3 clean -E2BIG rejections, with public_len 7/8 and new/old-format
+> controls passing. Stable 5.15+ requires 114f00d738f1 first; both patches
+> apply cleanly in that order.
 > 
->  - Query housekeeping_cpumask(HK_TYPE_DOMAIN) instead of HK_TYPE_TIMER
->    to align with cpu_is_isolated(), workqueue affinity rules, and cpuset
->    isolated partitions
+> The source reproducer and full logs are available privately on request.
 > 
->  - Query the housekeeping cpumask under guard(rcu)() to safely handle
->    dynamic cpuset updates without lockdep warnings
+>  security/keys/trusted-keys/trusted_tpm2.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
->  - Validate that cpumask_any_and_distribute() returns a valid cpu ID
->    before returning, falling back cleanly to WORK_CPU_UNBOUND
-> 
->  - Link to v2: https://lore.kernel.org/all/20261015020225.422107-1-atomlin@atomlin.com/
-> 
-> Changes since v1:
-> 
->  - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
->    to an online housekeeping CPU only when executing on an isolated
->    core, preserving WORK_CPU_UNBOUND and local cache locality for
->    housekeeping cores
-> 
->  - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
->    blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
->    (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
->    CPU fallback path.
-> 
->  - Elaborate in the commit log on the triggers for asynchronous queue
->    dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
->    plugging) and the SCHED_FIFO worker starvation hazard on isolated
->    cores
-> 
->  - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
+> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> index c2a69bcf381d7..b3109e0a924f5 100644
+> --- a/security/keys/trusted-keys/trusted_tpm2.c
+> +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> @@ -418,6 +418,8 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+>  	public_len = get_unaligned_be16(blob + 2 + private_len);
+>  	if (private_len + 2 + public_len + 2 > blob_len)
+>  		return -E2BIG;
 
-Looks reasonable and related to my patch as well
+I was writing summary of the changes for my v7.4-rc1 PR but this
+does not look right.
 
-  https://lore.kernel.org/all/20261014-nvme-fabrics-isolcpu-v1-4-355156be27b2@kernel.org
 
-and I was able to create a blktests for it:
+This would really need an explanation like:
 
-  https://lore.kernel.org/all/20261014-nvme-isolcpu-v1-0-2fd175a8ef00@kernel.org
+/* 
+ * Check that TPMT_PUBLIC fields type, nameAlg and objectAttributes are covered
+ * in order to avoid out-of-bounds read.
+ */
 
-Would it possible to extend those tests or add a new one so we get this
-also tested? And these two patches then should/could merge.
+> +	if (public_len < 8)
+> +		return -E2BIG;
+
+Why would you pick -E2BIG as I guess here that is not the problem?
+
+Just checking before proposing anything.
+
+>  
+>  	pub = blob + 2 + private_len + 2;
+>  	/* key attributes are always at offset 4 */
+> 
+> base-commit: 27d14d3b15d5691bcbf0683883a2ea12469edbea
+
+I'll drop this patch and postpone v7.4-rc1 at least one day so there
+is still time.
+
+Br, Jarkko
