@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792503053;
-	b=oovabPE/ajFt3x5Eg1tD3HYG8Jpl4qWUzVrdqYTuVai2SEG3wYOBejyCiaUGF1bCQvNO
-	 5L7t5DnR/sHOy7PxobbMHDOK767SVXav89qPEyXaoSF31wXJabZVg8k5yfGs5TbBiIu7X
-	 P3rhOD5/6iHMkL0XmzyGiTguORJoW0auOU3cUxJ10HY5YCTdKTH/cwkWlaBoC9XTpx1xv
-	 lXckyisQcz7jYZb2AZkpOaGjc6g8lK5br64VNSHBk6p6Gy5SXm+HUa8nlppPQ5SsboKwf
-	 FuA/QctpWUQP6HoZST4OajSlTp2U4SkjQHRiRIqJA7s+Lzty2UnpENLoRrMGP5dcuRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503053;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=aRXYllM9CBSwb+oBFdWQ8OrqxDITeiZO+tNWy7el8F8=;
-	b=3Q6XbsISU4/R4j5KTEeyPXNqUeOW0ttBV8C15w6rp1She1qRRVbbJLgTTcCWvtO58XlO
-	 cuZvHomafcMmUNy67ORbooDefnAGTy1wyGW4P+rZ0T2kgOIeaB9bNLknTrOMUIH6krj9Z
-	 VxYKIjUjsREJqTguGBhJj3/dqvlztm7V4RdtvIhco+7Sz7CpN0VrEUSLoC1ko6rPSYEKl
-	 2w6gUyeBYYZs798LuHSL5KXI1wu/Ha1PgJzDQg231AOnFwwrFvv2VBhdLyoGhX20dzJtK
-	 IjqUNk2WQFHBRCgQz9589Ox/+KMfq6VCXoHq3xgmqtEnh+LISi00WtJvFyL2B8+XbXw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ac8XmBNT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70334606A321;
-	Tue, 20 Oct 2026 13:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ac8XmBNT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792503053;
-	b=QAHArxlXTIBYxLe1QZjAulY/YTJnVV7150GtGDKNSPDDSOlWLuSK5t+RkmdkR2NTSqux
-	 QQyrHlPnGKeKHORTLBMXvUlDLgH2C9RMk7YNT8mrQQgcmIhg4O7Oertr9zHHjlkC8NRdx
-	 WUzyBP3sM9WmOaTizIzvENsM38o2W06L2O0hJ1O4GTGkJXSv5Hpn280QqEJ46OcFVRC7Q
-	 g0lsY8SKMqS1JtFwlwizwmjvYPCoKrehjPp8sSWv85mqnXBQSR9inqgQZ95aWhAzSuYjM
-	 eeUMzMu/Fmcr1WMODU5heSsgrlUkk51MOnYJs22ja2v91K9RZ+Wo27f/NvvjUpt3kNQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792503053;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=aRXYllM9CBSwb+oBFdWQ8OrqxDITeiZO+tNWy7el8F8=;
-	b=lgnw58m6DeEb5LwvvKpnYdcHvBEXoHxtV8lARyRYLDiOzLq5GP0L4810gW1OCTyDXIVd
-	 Ufq76sXSGM3DZB5/r45h7j7MipBOM3mzmIuBcsCEuhi8m02C4f13Q/iBIyRW3U/TUTOl8
-	 D68UW5G5YFAL1lNe1KQ5w8fTF+vm1zveMOxRuX5rktga3hg3oAQvVU4xJy0roPmAJ5QQB
-	 0eB6V69/QAyBJVO1dgTQcGGyUdypy+IykV1KpMSrE6M6kY+UQPvfqZgZG/+lR6xvwLupB
-	 0wK7E1Gkl/wvaD3/r6Exv5qtX85SRerdSVvW1kZTZme4ep+kW4PjrvhCv3dmwvTR4Uw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.58
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792503109;
+	b=bEe6V6NwXdww2NZH6bs6ScMhUQxoJyefnIXOkcohJb1+f6bQ8VaqQtTPV5fxRTtxgl5y
+	 fIFPkueS6rilTg1YqWhDfhUuIQIfk+lohXFDeSA2hqVi8Rp6accJ9/NUgXByfzQzA8y4d
+	 sZL5+AGPmLDgezrCX1NHDKa/kO6Xjno3fkc5pH/8aJjmr3kkMmR+S6Tst2fkH6SXIew2g
+	 LXTSWjI17A9NU2gce1rjpOfBwzpC2iwKsirElxjYxEwO0cHkPZsyPoKBZG1+1QytwEArj
+	 66bTDJu4iCuv041Xt/mOH4hYxSRG7kTi0Qxn3iYAa6RBcvDlMKYECfyHKfzGWvLheOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503109;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bgejzNpzFsos1ceD0Tyakzy9X/up4gxl6mutO9Y2A2Y=;
+	b=yW91VFErOHCShuIAiiYPwnVgwvbQ6VNTJDR26NSUBwmktHvxLimQjrgwhtzi4PkJS9gi
+	 4fMDOjW2GLHWwch7UjapUnSg8wHyGbGXIJxY9l5Hx6QFa/j1K8BW1LT9ymbeLAr8kWTO/
+	 Ug1rdaICPSGIhPMwwGlhbQIzielCp6qQQRa/7wL44O30wnwZksVRiZ9ezs6Rk/rMbZ5O8
+	 pGTCFv6fMjhSZ2Lif7lb0GoZJ27n//H0qx/AxLCScRmaeI75XZunqVgVd03qZep92A2De
+	 1ioLAlE7jtw2kiyF1uFfOxHEOgfLk5LfQj4poX8SAmVLcaHJzZqabp5wYj9he75tEpw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WRTeGXwl;
+	arc=none smtp.remote-ip=95.215.58.58
+Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2F2161F000C7;
-	Tue, 20 Oct 2026 13:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792503053;
-	bh=aRXYllM9CBSwb+oBFdWQ8OrqxDITeiZO+tNWy7el8F8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ac8XmBNTPlZJHkaw5UIYLi1PqsiHw3QsDYt7gQoSeBQ+/X7yqNfIgqI+6NA1EfZWk
-	 VDpQMT6g99cKRUvq1VfFjm15duKzCFjLaFfmBR3nk5vFxJ3mv+1WWlIjSONlUF4R0c
-	 s3/zp4PWllefQAp0eN5ApQSTaL7NmtB+OiTzqq4eBj4XPRWNlU86fKb++ktxiVO0sq
-	 oi5nrwC5TZH8rblljfZM3Ke9z3i/MT9qywWO0kn1hpyUCh6wlSI/Mb4vTma3n7owvZ
-	 QX+fOLhXeja8Ke2SA9aLLw8k6Sl83/i0vHm0OUQMYZNFHzMeSqkW53L2jAfr2Ss5UK
-	 oP9LZwMdEIXpA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 95AD143181;
-	Tue, 20 Oct 2026 13:30:51 +0000 (UTC)
-From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Tue, 20 Oct 2026 15:30:42 +0200
-Subject: [PATCH v5 03/10] can: peak_usb: sort ctrlmode_supported flags
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BB6606A328
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93BB6606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WRTeGXwl
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7ZCru1odRA7o2VqH04VeCwToaD1wfxYt4FcZF/5+H7Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792503106; v=1; x=1793107906;
+ b=WRTeGXwlI6uzGTIwXebYRG7lkXHUpp3h/VE8J64NtOtom4i3+ypXKJGTGCqXQ3TrFDsbgA7Q
+ 5HBz31P5CvWHJYbfWJYFzZGwOplBckCh3g5CMYwO1/ljde2Cu+yPR6wRLKmK2V0vaY8w2iAd2/B
+ /exexrJenXWT7k88klQ3Dtuk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 42b62126c2217a5b;
+	Tue, 20 Oct 2026 13:31:46 +0000
+X-Mizu-Trace-ID: 42b62126c2217a5b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <23d3756c-1a87-402d-80b4-c838dfc29f4d@linux.dev>
+Date: Tue, 20 Oct 2026 21:31:38 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,138 +58,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-canfd_check_channel_idx-v5-3-a62b35b867f0@peak-system.fr>
-References: <20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr>
-In-Reply-To: <20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792503050; l=4357;
- i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=MYONh3sP/YxQkbkdVfbPovx+Teoc4eh5O2DBc8w60Zc=;
- b=76WdxrlsI8SxoEpv+uK7hJTHTHWwzibP18zCF+DpfzGbxWRvI1Ngrcn8E/jvWZ/jNAEEYjZ3S
- ydfETGBpDytCnY419cWFIdSt0RfT4oLHNlo5wUZch1oWS9jBBM5P3Ei
-X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
- pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
-X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
- with auth_id=1250
-X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
-Reply-To: s.grosjean@peak-system.fr
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned
+ pages
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Huang, Ying" <ying.huang@linux.alibaba.com>,
+ Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, vbabka@kernel.org, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, ziy@nvidia.com, wangkefeng.wang@huawei.com,
+ tujinjiang@huawei.com, mgorman@techsingularity.net, chengkaitao@kylinos.cn,
+ muchun.song@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+ <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
+ <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
+ <20260929034123.2705745-1-xiangzao@linux.alibaba.com>
+ <877bjowf9i.fsf@DESKTOP-5N7EMDA>
+ <fbd5ae06-b6da-48f6-9c46-188fb6ba9684@linux.dev>
+ <bc1b3255-99f7-49c8-bb52-bada6df80f72@kernel.org>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <bc1b3255-99f7-49c8-bb52-bada6df80f72@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-Order the CAN_CTRLMODE_* flags in ctrlmode_supported according to
-their numerical values.
 
-This is a cosmetic change only and does not alter the driver
-behavior.
+在 2026/10/20 21:07, David Hildenbrand (Arm) 写道:
+> On 10/20/26 13:27, Kaitao Cheng wrote:
+>>
+>>
+>> 在 2026/10/11 21:14, Huang, Ying 写道:
+>>> Yuanhe Shu <xiangzao@linux.alibaba.com> writes:
+>>>
+>>>>
+>>>> Agreed, and nothing here replaces copy_mc.  Two things the check adds
+>>>> while that work is pending: on archs without copy_mc the plain copy
+>>>> does not fail, it consumes the poison - the same poison consumption
+>>>> commit 841a8bfcbad9 ("mm: prevent poison consumption when splitting
+>>>> THP") refused to risk on the split path, at your suggestion; and the
+>>>> refusal happens before the copy is attempted at all, while copy_mc
+>>>> recovers only during the read.  The check and copy_mc compose.
+>>>>
+>>>
+>>> Is it good to implement the trick in copy_mc_user_highpage() and
+>>> copy_mc_highpage() if the macro copy_mc_to_kernel is undefined?
+>>
+>> On architectures with hardware error correction and exception recovery
+>> support, accessing faulty memory automatically triggers an exception,
+>> which itself guarantees atomicity.
+>>
+>> On architectures without such support, even if we implement this logic
+>> in copy_mc_user_highpage() and copy_mc_highpage(), checking the hwpoison
+>> flag and copying the data remain two separate operations. They cannot
+>> be performed atomically, so there is still a race window between them,
+>> however small.
+> 
+> Yes. And you need proper architecture support to fix it?
 
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb.c     |  3 ++-
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c  | 32 ++++++++++++++++++-----------
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c |  3 ++-
- 3 files changed, 24 insertions(+), 14 deletions(-)
+It does require architecture support, but that doesn't seem practical, haha.
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 785224e00c4e..169c00d93463 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -1016,7 +1016,8 @@ const struct peak_usb_adapter pcan_usb = {
- 	.name = "PCAN-USB",
- 	.device_id = PCAN_USB_PRODUCT_ID,
- 	.ctrl_count = 1,
--	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
- 			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_USB_CRYSTAL_HZ / 2,
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-index 0d46f4ce5dca..82502594a409 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-@@ -1198,9 +1198,11 @@ const struct peak_usb_adapter pcan_usb_fd = {
- 	.name = "PCAN-USB FD",
- 	.device_id = PCAN_USBFD_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-@@ -1274,9 +1276,11 @@ const struct peak_usb_adapter pcan_usb_chip = {
- 	.name = "PCAN-Chip USB",
- 	.device_id = PCAN_USBCHIP_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--		CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--		CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-@@ -1350,9 +1354,11 @@ const struct peak_usb_adapter pcan_usb_pro_fd = {
- 	.name = "PCAN-USB Pro FD",
- 	.device_id = PCAN_USBPROFD_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-@@ -1426,9 +1432,11 @@ const struct peak_usb_adapter pcan_usb_x6 = {
- 	.name = "PCAN-USB X6",
- 	.device_id = PCAN_USBX6_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_FD |
--			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
-+			      CAN_CTRLMODE_ONE_SHOT |
-+			      CAN_CTRLMODE_FD |
-+			      CAN_CTRLMODE_CC_LEN8_DLC,
- 	.clock = {
- 		.freq = PCAN_UFD_CRYSTAL_HZ,
- 	},
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-index b6be8c19e537..4c3d89a160af 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-@@ -1072,7 +1072,8 @@ const struct peak_usb_adapter pcan_usb_pro = {
- 	.name = "PCAN-USB Pro",
- 	.device_id = PCAN_USBPRO_PRODUCT_ID,
- 	.ctrl_count = PCAN_USBPRO_CHANNEL_COUNT,
--	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
-+	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-+			      CAN_CTRLMODE_3_SAMPLES |
- 			      CAN_CTRLMODE_ONE_SHOT,
- 	.clock = {
- 		.freq = PCAN_USBPRO_CRYSTAL_HZ,
+>> Moving the hwpoison check after the copy might address this issue.
+>> Is there anything wrong with my understanding?
+> 
+> Will architectures that are not prepared for copy_mc_user_highpage() not simply
+> crash if they trigger an MCE during an access?
+> 
+
+Do we need to check both before and after the copy? This feels a bit
+redundant, and I'm not sure whether such a small race window warrants
+an additional check.
 
 -- 
-2.53.0
-
+Thanks
+Kaitao Cheng
 
