@@ -1,60 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491376;
-	b=JIm97pIwJ0aX2UPMQgt0qzqvsrzmZSq0h+s1D7WsFVLh+UlU5I0ubFpy4hh5UCLukrHg
-	 blRTUXdpBl8cHsJY7VAOGEJhnWYBoHm9yWRHsU85L6Px9S1ac9lyePUXT0ODQk2zC3D/8
-	 cvKkwuSnQ4OleieP+G2y1aWaB82sIJJRMuoPgUDxebCewoLVuEExeeYPmaa38EZofCJkD
-	 FtL6mjDQGW4uCa+Q/rQgXp2uX8qyvFUHQS4w65u83RS7Jci6B557pMO+QL96INAa3bvBR
-	 JZkV2qnqOrjr0o0wB10Z/OYqHiOezTTG0aJzgNxQAFNniaNU1/SNcR6YQmW1T8KBG6Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491376;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792491385;
+	b=g2aIGXQfTrO7F0nqUMUwoZcEYO28FEHWlGOdIzy4stYMjyc+VYkTEepGs1Nt16rZw2Hy
+	 NZGYr/toHhZXDtRLDHlxXOfHmEnSnPLVwbcG+3acaBUC421W4twDf6Sl9EJePN5F402zI
+	 NU9y/tbgEo/9ueKlbqsTQeJhSXMVTdZ4fNrYs1uaR+eGBVZs9JZzUZCb9MPf9plJM3H73
+	 j5F/iRQpdiN8XU8NMwGRuqztxmZBE4P2v8ZZGQ/9b36PMGl1eS4OWnh6cNsN+8jMK1Aph
+	 GYx/EEhJ/3JLxaDv+HBj4wNJksmoPYXkBpEWo/bCRtKNHRGIoQl6cRkUbh3aSQuytOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491385;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=hEUv31WpcCOcwIubujKrqCAngk4N82G4E550/XU4U0I=;
-	b=x1RxSfknLwcon2BqRqQOk2o4sv6ZLybg0QxzsylHbs+T5/wjrHpay0TN+eonjjsUSCIS
-	 21HXDrf3Ctg7ANiH1X2Q18kYVOwJwLvzyEAERzqYhmtZCt1DWIZaS0D6eVz+lKui0Se9Q
-	 AtdVC3ODGrUj/Gh54CtRhLVKiAZr6zWVTcJPhy4m5D9B6aREIbpwekpM3Ex+QEUQxvAzS
-	 RGsIlm1YRaaTX0HrEq948ZrwTBzrMvYZgx92pgyrxJSDAyy+aEviUCiWcvbSABv18JXcZ
-	 7Jtc1yaiHwGG7oWIBgqmHeB9P/+a+fKBLBCe0y1u5GZGbevNqHJzFNf8E+607iB+CpQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNbpBszR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Reason;
+	bh=F0nRg6DarXbJ7PLNTJjNFqgOBSBcBU7E+Qn8QGb2BjI=;
+	b=MEV7DGBFYl6xM24SS7ayy0kftL2WmSXEH4IvF+bD5JvY66tLjMgJUAyPgAEucVA66M4D
+	 vPYODdwM6nq8/JDIUKlShdTbXig2ThqX2Y5eOR7/uaUCNjU4gq2T7SPYQt7iPeTovvMPE
+	 tZj3WT74lPjJsfqXCedS0bQ0/mOWl9LuWCWO4UA21A8TVvaFR8BWBuwE/VZl4yrfb5q1t
+	 saY6zUSVGmaxpTSOP2bhh1h26/otbUcT/C4kOHbCKiAhoMLXMn3BFcaEv6g/H4smSGeLO
+	 CQBsbCSaxH0A+IpvDKsTu6Rex6QU1gaM2WiES3351OISSyqjg47dNRM/0qQdYAPJjyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b="O/I5O12c";
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=mP6FwbAL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A49606A31C;
-	Tue, 20 Oct 2026 10:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6289C606A325;
+	Tue, 20 Oct 2026 10:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6289C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNbpBszR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F6B1F000C4;
-	Tue, 20 Oct 2026 10:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792491375;
-	bh=hEUv31WpcCOcwIubujKrqCAngk4N82G4E550/XU4U0I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XNbpBszRZCrAo1KUDmh4F/eflummKiYn3b7qa/FtnmQM5+O8puD71djIPsXjc0y5y
-	 N1FA9m77gEBsMw7QlrGcVPiWllUN8w0OQZZD5kykCOEg6ON0dCiI+iu7cGU5MUkUJF
-	 BCFW74KkMxKRXBV2Ix+yAX/xmOvHSJP7K91hWJH9VN5FUjEFr/l2RjXmlEGvZobTjq
-	 sl8AflyYe3wQt/BoHS5bW0qYTUyTqsPdHUS4J+K/dVQJBtw7w8edWgNz/ZEDAzzprn
-	 q2/i/a1vq/txrlHUgZ/CbkZOze3JNEahYwlY2pJHIKcSMiyu7PEgyYVR5cDmnlaiWi
-	 Y+WF9lP6f+xEw==
-Date: Tue, 20 Oct 2026 11:16:09 +0100
-From: Lee Jones <lee@kernel.org>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nikita Travkin <nikitos.tr@gmail.com>,
-	Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
-Message-ID: <179198402838.839288.17911568760182808689@kernel.org>
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=O/I5O12c;
+	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=mP6FwbAL
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JNi6BC3322721;
+	Tue, 20 Oct 2026 05:15:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=F0nRg6DarXbJ7PLNTJ
+	jNFqgOBSBcBU7E+Qn8QGb2BjI=; b=O/I5O12cPSfPO8WGhAaMMNEf0HT23u+0pf
+	EzhF/60M24Irv4vc8J0PKxqUnohxudBwy6G/tWNg3RGgAPh2wvOBSz2zEvFeXKs8
+	OTcfnLQ983rCnucYbPPodPJvLcb6klghrna/Uco32OcU9ObTRhoaSsNmyBzmRoa5
+	dEZcDTqlMUvSCyVC66GX3MjdG9wHyBBbXFXn137aE3iNIsyp1zS/esfWH8uiO7Mm
+	pUpAsx/ZgZkhoOnLbnmx3KianOaondtYW5cHkpmXJGmSwTJ/0JKRN+8sTPQEInnj
+	SOJT3hj6IvJ3qXQ9SZOJg0jwuCFuyBsouQMih7ug25WmcBVEqXdw==
+Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11021075.outbound.protection.outlook.com [52.101.62.75])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hdw4vrmv5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 05:15:07 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U6WWwesWlrOVCt5Wgkl7/s2VlIPitO8cR4huArdyWZ+UIOXmnsToldjwiCYmnXuY4Th63h0lMW5iCICW6a+g33C1dWsQVFmIUkCU+7H/eju/poJTcgy0hYun8VwS9aQDdWPOIf2NiqC1TinILHXa4xKQrAc6eFc0OM+zxJUlCFQG9lKS4m8DfmFzCac9dPrAwO8VJHWhPuPh3o60qUgC4RtU+dQPaV1n1vIv6iGVD2hVBPehZjugKcSFVKs0fgcWYbV1EZbWpSEF994qISCZ0Lus6yGXg5cwJcQauMPEkT3EZQneoNViD4jvCAEUNVczapBXwe92kRSNbx1s+SONsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F0nRg6DarXbJ7PLNTJjNFqgOBSBcBU7E+Qn8QGb2BjI=;
+ b=wJWGA8FHGiH/ICZofesrewIpcO5kzLQZa40PiSJRRPxWoPm7ZsYEMWfNuLsi9abM8b92StHLa04RyXQOBx6wm5eseEZThgz/WMCtePjoP5RxBxs2vUATh2aYkh3FkDdenriOl8eHLWPuSouvROAsN1P5y0SVYTfRbVl7SDTheCC623d1JRxvpnPH3n3d714ctcmyn8ys5Pd5y5CFFGgt9cQR+sWoOQCpigKDHHs/KYw3bkP8U1GLV9eAwF4eVtPxo+wR9YQjGEDYf/Tb9LNq8yHzGIA12cu6YoQaFYCVAWKg8L0fa5rCOVb4IZqQ57o9jA7CGUAX4I2ZRAnqSw/qDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=alsa-project.org
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F0nRg6DarXbJ7PLNTJjNFqgOBSBcBU7E+Qn8QGb2BjI=;
+ b=mP6FwbALtnp8hTPjg8X/d0gQhvwWIgDz8l0P8vOqp548ph/ym3GOV3FFWLtMQREaT5qRmI5CEL+Xu0Ii2VPQKqA6LxYN1aA2h18K0RcF2THQsexWNIiY33sPfKT0pyFJU2ntdiBuslsv9ie4uyhCV2Bhr92wDMfo82ks3Hzoxmw=
+Received: from MW4PR04CA0148.namprd04.prod.outlook.com (2603:10b6:303:84::33)
+ by IA1PR19MB7231.namprd19.prod.outlook.com (2603:10b6:208:42c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 10:14:45 +0000
+Received: from MW3PEPF00001657.namprd21.prod.outlook.com
+ (2603:10b6:303:84:cafe::a3) by MW4PR04CA0148.outlook.office365.com
+ (2603:10b6:303:84::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
+ 20 Oct 2026 10:14:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ MW3PEPF00001657.mail.protection.outlook.com (10.167.249.201) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.0
+ via Frontend Transport; Tue, 20 Oct 2026 10:14:44 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 32C83406540;
+	Tue, 20 Oct 2026 10:14:43 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 1907882026C;
+	Tue, 20 Oct 2026 10:14:43 +0000 (UTC)
+Date: Tue, 20 Oct 2026 11:14:42 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Sanyog Kale <sanyog.r.kale@intel.com>, Takashi Iwai <tiwai@suse.com>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] ASoC: SDCA: add sdca_asoc_dai_is_pdm() helper
+Message-ID: <atc/EirmsA8P47Ay@opensource.cirrus.com>
+References: <20261020073856.1177749-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261020073856.1177749-5-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,308 +138,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
-X-AI-Review-Draft: <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
+In-Reply-To: <20261020073856.1177749-5-srinivas.kandagatla@oss.qualcomm.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PEPF00001657:EE_|IA1PR19MB7231:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a8019b7-b9d4-4225-a270-08df2e92f6ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|23010399003|7416014|376014|82310400026|36860700016|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003|16102099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	3zeWqzMUmLQgAYxTToocjHFjOCPdsSakuDqyNp8FzWCB1kbIkSrnvASE31CwYWMCi3Xl0BmJAZhh9IuPe5d9awsPEMd2IIJdng6KKamSeFQVOAj30zA7xC0IKO767ZqyoqM4QMiyseEs0pcquKRVfTkTbuyQAwOvgewwOYrp3iwGNVPLfzKNzuPian84dcTIVNYv/+df5g2qIOtb/oo6c4J+mbHa41n+9yNppDx5eXK76LKV2jc0roedEppAGuYQApTq8ZFluI11d0taSRFxtXEU5+88tVS5hIuALYSdbeeKwTYnCJLt+aOYzS5JXqrwME4ueIsJZ3XMm6CfziyAX2HOYLDri8LyZZyP5NTSoii6NW5g95TZzpzMWEnkEGRBEadWf1DbhWGBSixHaiZac7L5Th9Cunm9y8au/qGWl/vJTLzh7naSDnVIcuZoIeQ11ibFWNm49eGqkPvNrGWhIJfxGqVAZlWok8NVJMS34LCuRcE/jV2bhWfdxdbGs2UvXgqyPWi2eLdTJhXsB2q5qFpY3z6hORrKGLgG1nZF21FBdk7lD1jkrEwvkq5NVPobv5cFqdeVIFIi2TCuS8OqxqMG2r1pvTx8tgdLcG+nNa46DLpPBr9wzLtRlpGVp+Q+zQ5fVIMdMVxcAPLg8fSML3IfMA82fozCmj6TNqlTbde8lfzLagEbsWA/hNSoEaVQL5QZ5yNClge6rL7dmDSS7w==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(7416014)(376014)(82310400026)(36860700016)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(16102099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Our34fwdguKt+xW99vgtu6XufNrNQRMHqQhfZakGghLYnRjNngbK7XnszLkuuplGO8zEEQi9DeJXWEnzO8T+WvlxH+IZFB+uMTiWASlrrT9/yLd20Z4yXzQOONbptWuTrxhcnxEclPGFEj7XaEge/wyVmKL94fPrzFyeRcMi3oNdtS7pEbRllw8gOXOFW9SY7KDE/dcyIZWYNUHow/Cr0VzUfG7umvBfrRsdKnl/ZDS67+yUoHJmKZAd7w30PQPtMCw3qHrR0Db9n9nGMVBLw86jxTqKL9wd8Y+JuncNPIg3MARoJqPomWVfNP4O+tYrRQ/pFfxvWz2+Ul4uMJPkK4VchhrDUt5BtFetdeB/NB9889dr9+rArp4muqSvb5dPFO8TdZpYStHmQdNNZMN8DArdRpzu1Tp84nv5P/Pv54M1xfgjJP2YW0fAsBycjG/Q
+X-Exchange-RoutingPolicyChecked:
+	FRpnLGF1ErdfaZThPL7bQT+ykwLJvpp4TbkdUoPZzeJlurgNSYijOtETW9aX9uTYJO+cd7qV6l5M2xUeK4UR4cvHlDZTIfLGKrUzBhJUgOrnaCdx0PgkqgVCQvkOQ6au3YBrR8435oTGHvdpIbyH8Sgca0yXkjJNSlblvL115p7zrUWqSp5PFDJAx41zX01BgZuinSIxS5oV4rp5v44Z3jY0KcrlleEYdzpwmG2b6owxuPK1Z0gCTSIQVHgpmamiwQRDd/IMWVy1TF7SiLnZ9wmIijiEnc0bTC7d5/VxbcIiFBSwS8XQrIMWqxDgCentsAp6sCA7qLxZ8NQ/hBDbaQ==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 10:14:44.5246
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8019b7-b9d4-4225-a270-08df2e92f6ac
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MW3PEPF00001657.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR19MB7231
+X-Proofpoint-ORIG-GUID: yJwrdRFekFQlONn1x6soExwAOBfmq781
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfXwjQf3ueL7uKC
+ yfeTruGrqik/AqI96t81dRei6vMondwuofpAAjf7jYh50kwqHSWF89qaiVpE7NmIU8MTj2Hv1h0
+ bgtRXx4dFWib4+FdiIntCLtpjGIiIzI=
+X-Authority-Analysis: v=2.4 cv=H7tOUOYi c=1 sm=1 tr=0 ts=6ad73f2b cx=c_pps
+ a=APgIdIbuBBIe7PXa++EYhg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=EUspDBNiAAAA:8 a=w1d2syhTAAAA:8 a=PMMAhKxhBvsIc1GxJQ8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: yJwrdRFekFQlONn1x6soExwAOBfmq781
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX1UWTTgLbFMAu
+ 9mRfOg6qXf7YTiSHPsM4LNTTxIB6IhtQ2zcDoQH/XxPpuGiU0PjmGammyz6q+HJgVASVRih+qJg
+ RM/0tlF9tPYtijS2VBQmL4Oks2aJSBDGH5X0M2KM3uSeeCFoPuxXj+1PEx7Ea1yF9sXCNe33b6H
+ MHM9p0yWzBSwbET3W/9yID+4JYEedWCgNaTmkVjfIzzBaNP8IBqIzI/s7+c/FAHJEgqDMAb1s4C
+ c9I5PLqBJzaRFqvtU0cBeS3tUyfU2J7hVoZH1Y4uczJefVpR9K+vArlQuvWekntg16OsuCI5fZf
+ ZQk1WGaiLYHkhBXlBIXF6ah6MlhFGDFz7A6Czd947g4ZKm2sc3dL+5GFle0IvZ6iRuIfjJ+udSH
+ sUbLe3QdnC+rmR34KKMVICHh0B0txI6FPFByN1oobIvZmMqc8J0t1Wu64MyRKhMV3GoQv957+lY
+ Vw7HhbtQXWa9XHpByzg==
+X-Proofpoint-Spam-Reason: safe
 
-Please review, explain or fix the Sashiko review(s).
-
-If this is a set, this request includes the other patches too.
-
---- checkpatch.pl (2 issues) ---
-Line 19: WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-Line 262: WARNING: DT compatible string "awinic,aw2027" appears un-documented -- check ./Documentation/devicetree/bindings/
-----------------------------------
-
-On Mon, 12 Oct 2026, Paul Sajna wrote:
-
-> The AW2027 is basically the same as the AW2013.
->
-> It differs in:
-> - the max current (30mA rather than 15)
-> - the number of current levels for colour-mixing (16 rather than 4)
-> - the supply voltage max
-> - the charge indicator (unsupported by our driver at this time)
->
-> The max current register (imax) also moves from LCFG to GCR2, and the
-> selectable current levels for colour-mixing (LCFG_CUR) take their place.
->
-> The current driver implementation provided here sets the global imax to
-> it's maximum, and scales each led to the closest value using the local
-> imax. It's the best result achievable short of adding custom sysfs
-> entries and mucking up the linux interfaces.
->
-> Comparison of all AW20XX chips https://www.awinic.com/en/productCompareList?id=47&ids=1022,74,96,75,72,71,928,927,73,76,578
-> AW2027 datasheet: https://doc.awinic.com/doc/202507/77b87097-27bf-48cd-af9b-9b615064c1e1.pdf
-> Vendor driver: https://www.awinic.com/en/driver/AW2027DNR/454
->
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+On Tue, Oct 20, 2026 at 08:38:54AM +0100, Srinivas Kandagatla wrote:
+> Resolve the SDCA terminal type for a DAI and return true for the
+> spec-defined PDM terminals (SDCA_TERM_TYPE_RAW_PDM_MIC and
+> SDCA_TERM_TYPE_PDM_RENDER_STREAM).
+> 
+> Used by sdca_class_function to tag PDM streams; expose it so other
+> SDCA codec drivers can share the check.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 > ---
->  drivers/leds/leds-aw2013.c | 137 ++++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 117 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
-> index 216755d6010f..4da33a86af16 100644
-> --- a/drivers/leds/leds-aw2013.c
-> +++ b/drivers/leds/leds-aw2013.c
-> @@ -1,5 +1,5 @@
->  // SPDX-License-Identifier: GPL-2.0+
-> -// Driver for Awinic AW2013 3-channel LED driver
-> +// Driver for Awinic AW2013/AW2027 3-channel LED drivers
->
->  #include <linux/i2c.h>
->  #include <linux/leds.h>
-> @@ -20,13 +20,15 @@
->  #define AW2013_GCR 0x01
->  #define AW2013_GCR_ENABLE BIT(0)
->
-> +#define AW20XX_GCR2 0x04
-> +#define AW2013_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
-> +
->  /* LED channel enable register */
->  #define AW2013_LCTR 0x30
->  #define AW2013_LCTR_LE(x) BIT((x))
->
->  /* LED channel control registers */
->  #define AW2013_LCFG(x) (0x31 + (x))
-> -#define AW2013_LCFG_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
->  #define AW2013_LCFG_MD BIT(4)
->  #define AW2013_LCFG_FI BIT(5)
->  #define AW2013_LCFG_FO BIT(6)
-> @@ -50,6 +52,13 @@
->  #define AW2013_REG_MAX 0x77
->
->  #define AW2013_TIME_STEP 130 /* ms */
-> +#define AW2027_RSTR_CHIP_ID 0x09
-> +#define AW2027_REG_MAX 0x7F /* copied from vendor driver, but only up to 0x3F is documented */
-> +
-> +#define AW2027_IMAX_15MA (0)
-> +#define AW2027_IMAX_30MA (1)
-> +#define AW2027_IMAX_5MA  (2)
-> +#define AW2027_IMAX_10MA (3)
 
-Why the parentheses around simple integer literals?
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
->  struct aw2013;
->
-> @@ -60,16 +69,70 @@ struct aw2013_led {
->  	unsigned int imax;
->  };
->
-> +struct aw2013_chipdef {
-> +	u8 chip_id;
-> +	const struct regmap_config *regmap_cfg;
-> +	u32 default_imax;
-> +	bool gcr2_imax;
-> +	unsigned int current_levels;
-> +	unsigned int current_max;
-> +};
-> +
->  struct aw2013 {
->  	struct mutex mutex; /* held when writing to registers */
->  	struct regulator_bulk_data regulators[2];
->  	struct i2c_client *client;
->  	struct aw2013_led leds[AW2013_MAX_LEDS];
->  	struct regmap *regmap;
-> +	const struct aw2013_chipdef *cdef;
->  	int num_leds;
->  	bool enabled;
->  };
->
-> +static const struct regmap_config aw2013_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = AW2013_REG_MAX,
-> +};
-> +
-> +static const struct regmap_config aw2027_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = AW2027_REG_MAX,
-> +};
-> +
-> +static const struct aw2013_chipdef aw2013_chipdef = {
-> +	.chip_id = AW2013_RSTR_CHIP_ID,
-> +	.regmap_cfg = &aw2013_regmap_config,
-> +	.default_imax = 1, // 5mA
-> +	.gcr2_imax = false,
-> +	.current_levels = 4,
-> +	.current_max = 15000,
-> +};
-> +
-> +static const struct aw2013_chipdef aw2027_chipdef = {
-> +	.chip_id = AW2027_RSTR_CHIP_ID,
-> +	.regmap_cfg = &aw2027_regmap_config,
-> +	.default_imax = 3, // 6mA
-> +	.gcr2_imax = true,
-> +	.current_levels = 16,
-> +	.current_max = 30000,
-> +};
-> +
-> +/**
-> + * aw2013_microamp_to_imax() - Finds the closest current step to the given microamp
-> + * @microamp: Desired current in microamps
-> + * @cdef: Chip definition
-> + *
-> + * Return: The closest current-step to the given microamp
-> + */
-> +static inline u32 aw2013_microamp_to_imax(u32 microamp, const struct aw2013_chipdef *cdef)
-> +{
-> +	return min_t(u32, (microamp * (cdef->current_levels - 1))
-> +			  / cdef->current_max,
-> +		     cdef->current_levels - 1);
-> +}
-
-This is hard to read, I think we can do better.
-
-Also, does it need to be a separate helper function when it only has a
-single call site?
-
-> +
->  static int aw2013_chip_init(struct aw2013 *chip)
->  {
->  	int i, ret;
-> @@ -81,17 +144,50 @@ static int aw2013_chip_init(struct aw2013 *chip)
->  		return ret;
->  	}
->
-> -	for (i = 0; i < chip->num_leds; i++) {
-> +	if (chip->cdef->gcr2_imax) {
-> +		/*
-> +		 * AW2027 supports 4-step global imax, and also a 16-step control for limiting
-> +		 * individual current per LED. This doesn't map to the single value the
-> +		 * devicetree provides super well, so set global imax to maximum, and
-> +		 * local imax to whatever gets us closest to the value in the devicetree.
-> +		 */
->  		ret = regmap_update_bits(chip->regmap,
-> -					 AW2013_LCFG(chip->leds[i].num),
-> -					 AW2013_LCFG_IMAX_MASK,
-> -					 chip->leds[i].imax);
-> +				AW20XX_GCR2,
-> +				AW2013_IMAX_MASK,
-> +				AW2027_IMAX_30MA);
->  		if (ret) {
->  			dev_err(&chip->client->dev,
-> -				"Failed to set maximum current for led %d: %d\n",
-> -				chip->leds[i].num, ret);
-> +				"Failed to set maximum global current: %d\n",
-> +				ret);
->  			return ret;
->  		}
-> +
-> +		for (i = 0; i < chip->num_leds; i++) {
-> +			ret = regmap_update_bits(chip->regmap,
-> +						 AW2013_LCFG(chip->leds[i].num),
-> +						 AW2013_IMAX_MASK,
-> +						 chip->leds[i].imax);
-> +			if (ret) {
-> +				dev_err(&chip->client->dev,
-> +					"Failed to set maximum current for led %d: %d\n",
-> +					chip->leds[i].num, ret);
-> +				return ret;
-> +			}
-> +		}
-> +	} else {
-> +		/* AW2013 only supports 4-step individual current per LED */
-> +		for (i = 0; i < chip->num_leds; i++) {
-> +			ret = regmap_update_bits(chip->regmap,
-> +						 AW2013_LCFG(chip->leds[i].num),
-> +						 AW2013_IMAX_MASK,
-> +						 chip->leds[i].imax);
-> +			if (ret) {
-> +				dev_err(&chip->client->dev,
-> +					"Failed to set maximum current for led %d: %d\n",
-> +					chip->leds[i].num, ret);
-> +				return ret;
-> +			}
-> +		}
->  	}
-
-Consider using functions instead of massive seconds of indented code.
-
-Also, the for() loops are identical and are the last pieces of both
-branches, so why are they duplicated?
-
->  	return ret;
-> @@ -292,9 +388,9 @@ static int aw2013_probe_dt(struct aw2013 *chip)
->  		init_data.fwnode = of_fwnode_handle(child);
->
->  		if (!of_property_read_u32(child, "led-max-microamp", &imax)) {
-> -			led->imax = min_t(u32, imax / 5000, 3);
-> +			led->imax = aw2013_microamp_to_imax(imax, chip->cdef);
->  		} else {
-> -			led->imax = 1; // 5mA
-> +			led->imax = chip->cdef->default_imax;
->  			dev_info(&chip->client->dev,
->  				 "DT property led-max-microamp is missing\n");
->  		}
-> @@ -323,18 +419,18 @@ static void aw2013_chip_disable_action(void *data)
->  	aw2013_chip_disable(data);
->  }
->
-> -static const struct regmap_config aw2013_regmap_config = {
-> -	.reg_bits = 8,
-> -	.val_bits = 8,
-> -	.max_register = AW2013_REG_MAX,
-> -};
->
->  static int aw2013_probe(struct i2c_client *client)
->  {
->  	struct aw2013 *chip;
-> +	const struct aw2013_chipdef *cdef;
->  	int ret;
->  	unsigned int chipid;
->
-> +	cdef = device_get_match_data(&client->dev);
-> +	if (!cdef)
-> +		return -ENODEV;
-> +
->  	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
->  	if (!chip)
->  		return -ENOMEM;
-> @@ -346,9 +442,10 @@ static int aw2013_probe(struct i2c_client *client)
->  	mutex_lock(&chip->mutex);
->
->  	chip->client = client;
-> +	chip->cdef = cdef;
->  	i2c_set_clientdata(client, chip);
->
-> -	chip->regmap = devm_regmap_init_i2c(client, &aw2013_regmap_config);
-> +	chip->regmap = devm_regmap_init_i2c(client, chip->cdef->regmap_cfg);
->  	if (IS_ERR(chip->regmap)) {
->  		ret = PTR_ERR(chip->regmap);
->  		dev_err(&client->dev, "Failed to allocate register map: %d\n",
-> @@ -382,8 +479,7 @@ static int aw2013_probe(struct i2c_client *client)
->  			ret);
->  		goto error_reg;
->  	}
-> -
-> -	if (chipid != AW2013_RSTR_CHIP_ID) {
-> +	if (chipid != chip->cdef->chip_id) {
->  		dev_err(&client->dev, "Chip reported wrong ID: %x\n",
->  			chipid);
->  		ret = -ENODEV;
-> @@ -420,7 +516,8 @@ static int aw2013_probe(struct i2c_client *client)
->  }
->
->  static const struct of_device_id aw2013_match_table[] = {
-> -	{ .compatible = "awinic,aw2013", },
-> +	{ .compatible = "awinic,aw2013", .data = &aw2013_chipdef },
-> +	{ .compatible = "awinic,aw2027", .data = &aw2027_chipdef },
->  	{ /* sentinel */ },
->  };
->
-> @@ -437,5 +534,5 @@ static struct i2c_driver aw2013_driver = {
->  module_i2c_driver(aw2013_driver);
->
->  MODULE_AUTHOR("Nikita Travkin <nikitos.tr@gmail.com>");
-> -MODULE_DESCRIPTION("AW2013 LED driver");
-> +MODULE_DESCRIPTION("AW2013/AW2027 LED driver");
->  MODULE_LICENSE("GPL v2");
->
-> -- 
-> 2.55.0
->
->
-
--- 
-Lee Jones
+Thanks,
+Charles
