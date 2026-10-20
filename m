@@ -1,61 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502676;
-	b=xkuP4H9FvCKy1ksOqwJOTLddtHhOKbTlew7jirDDXJi1Dk4E8FVtKWrSZGOefr9/UbrC
-	 dcGh1/DRppDFbjiBZITxmrC3zqT/rB88fmae/DiXc56u6MVzdT0tLgxXi22OwkhPFG1TS
-	 xQIn8CHZ5f0xnFuJA+GLt3iXYslEcdMNVznIz2gq+mvKcYwozuvXZX9SOaN1C71ltJqR1
-	 nfZMcW3E6vaXHp1g/ZPQcABbREh6TbrylWacsMqxEa35U3Ckhtks/0KA4Ich2put6vwX1
-	 MEQXAaAQNCSh7DsI+yr2u0uk0WlbkfLKuNFHNs4NnBshSiC41+78tWSNu69TNB6pNAg==
+	t=1792502679;
+	b=bXe+PcagHhI3g02xxZmGio1Yenxz8S/HIzrlpfi6k4EhksRKdwLJUuAO29kGjsh9SHZK
+	 vDAhosuFzNwDiW5sdtr7Eckx/1E8H4Vo/AedBBN2yrmDE9UvOG8aRb8dObuKo/5Tqgk9L
+	 SrcPvZLt4s0N2+zEq6OQntPUR227rlNqmYVUkVzXTBBE2RWLXb4DYJeFhFSTFMzLCvhx+
+	 LuacjCfSQJAYPcy2FyD/RdeWNg6cId6fmk24mFsIYQznRg0x9Nv6RzgtUxuW194vV9fMC
+	 5u1BHvSoP0crKMYpci5mdK7d30FZqHUhFfyhT/jasoJe4y1YnkVu3quGTk/K5vdM1Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502676;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=COWPlZdRueN7pSY6pOWaLdT4Jys7uGpWmTmqPkHcMl8=;
-	b=3XsuCrmt/B6Al0OftKhukFPngkdArlUQuJmElSOdLir38QbmsKm5SnxLW9gFC3F0WLsN
-	 fNz7Y2xaPFd/3sheIOm4W008SPFgp66t1OUFspIxTt9uxrw9K20Qd5SaV01wkEv63YA+o
-	 TXWt3fKLVoF3iJ+H1qlgTtdRZDlPcl5tpXlMt9IGZqyM4lHNeTFN1eY2JR16q7yKY46pR
-	 KQY8U5nxAW2NDEUJVdsVbWg/krKJg6OKr+n4EfYqU/oC7YJIEhh/kA9DuBDmO1Emt+89P
-	 qO7Pym/hSyRUSe3f3Wa57ZVOLY6ZaTWQm3rVTAd6VmAoIeDcjNaKu4/agx8287d1FAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502679;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cbkSJksY8o+Ofg/AeXbkqolH52cZOpuyoJMWdVSYS2g=;
+	b=KecL/rd9VoIuO8v0XNplbCH+qjxNXQ4UDvMdk4Ik2DDuzNPup6ZROtC+piVR7KMsPMkr
+	 Ek4R9/3ah2iol5bYn6NKrko+ifA/UR+wIltrCC5NDS/MOpCQnqeboNUyWOBTKSjIWBclA
+	 4EchoERxGp1X5ziKvDlYZHFJgHyWrQRY8vj04JNlABD8MWPqv31D3IHl6fp9gmRG6IKNL
+	 Y8klhLhvfHwCI/6Hg2RYOG3nDBWilabIHhcG5ICjBEFonCBv2dWVN7rm+45c/daFkW5yV
+	 RZnvTitpBErt5S7zdfHNK0KvTrXyFBgSLLr8P1OuZTvkiwoeSp8/4Pg9um5tLqL8smg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PmEXTee3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LM5bjUL3;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086F0606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE2F60A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:24:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBE2F60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PmEXTee3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF2D1F000CF
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:24:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792502675;
-	bh=COWPlZdRueN7pSY6pOWaLdT4Jys7uGpWmTmqPkHcMl8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=PmEXTee3Pb1/Z2oHDK9VdfnvCM4Ux1PZEFvf8G7QLnqQLAgFCDKb2xcoijp+hqKzL
-	 o5CSN3VuG7XuaQUgKnXm6CHAzH16T/4cqXRSG5ZF80eXFkch5OaCwuDIQ3N6HOuZP+
-	 5RP2iflcCjL8T5WmD4RP2zZ9SUCfTbNEJ6Exjj+kLGPIvJmwzFX6Dicy1kx6px4ctK
-	 pEIiwLxlr2czPJg5c1S+oJ2yY3yX8wOoNBKc0ly8amOeVEF7w+whT5p4NsfJQ9Ec4z
-	 RsvTj3+w6iYxxmVwFKKNpTixzeE1sR2whQocKWE6HJ8EY/koowwyafEAFo4Aj43wos
-	 bY0qoENVV78HQ==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ab4354db11so13059291fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:24:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxkfEcvlVpJ4uEEShiklhNQqlRV8Qj91v8S5yL8Iy1c73Juoa9j29mLIVL7kliKEbgmcg3m7fcUtZ0gH7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILeV0nZrz1p3jOmLo0VXyiKJJBgTZTiC0K2XNVASkUNNIRJEw+
-	Qe5H74QYUa3bqSYYISk3+hdCiM/UTFJ3hVRARduUNHhTEneM0wBvrBLTvtU21/9pRQQHjBvH4eO
-	66+VvrfyhbJYGMDUeZ8ByxTFU6+Y953XnfJiwXYk5yg==
-X-Received: by 2002:a05:651c:2108:b0:3ab:4412:354b with SMTP id
- 38308e7fff4ca-3ab44123804mr14301701fa.1.1792502674348; Tue, 20 Oct 2026
- 06:24:34 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 09:24:31 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 09:24:31 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <cde9d00a-bfe4-4093-b03d-f76a122e4ded@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LM5bjUL3
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06b436dffso743478b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:24:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792502678; x=1793107478; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cbkSJksY8o+Ofg/AeXbkqolH52cZOpuyoJMWdVSYS2g=;
+        b=LM5bjUL3+mj3TL6zTzf0NObne+OV9vWzb6zKGJc8M5qxVHNdtxpFDxYVG2tm7XZ0l+
+         frrrxmC3qwL/RNgt79tE+upVvNnNly2L/kiG30GEpdYfAVQv8hyyHbtMJC3CwVpQvMmP
+         Cf4MTp7HwiMuP2tliuH3qIot5CeowmV8D1foCvDUcAUI/tm39YP9rubXYgwPnos4/odx
+         O1C65UUAjcHY+DENihTLTlOEY+TBma6z94QNPmFUaxX87US8lQTidF3yJqrzaPgjHTo4
+         6kTj9D/5Q3an7MC9qbBpo8toDPjp1GmQzgkSIXzEyH4j2rIRZ/LUcpsBRtdMVEcZeMcT
+         H5Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792502678; x=1793107478;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cbkSJksY8o+Ofg/AeXbkqolH52cZOpuyoJMWdVSYS2g=;
+        b=iK8bBZiRixt04P6PfhQRIBPu4LEgNNr8LmO5fc2qw2sduu9pEO/GvMFHL7z1ePmycJ
+         50Kx+ftN+PJlmS7Ybj2E61C/6UYerXT0SgHC1iAB5CluGYCL1OZBht3jVahBbTqjXWCT
+         O32NioCov69c4gZzIMJid7TTwHIPaUqvqCb9GwB101lIHc2EZElhOHcFGyI8KAWNwqQe
+         ifEmSr/zwAkqgjB2eS0imNvlxiQzE/xGofz3zrC0tHYPBjYVstlVe4QgaTYB7HjRxGCt
+         AVU7IhBQxcF/mSlifays5lkB41dAo4K8YC5UEQyrDZCAK2vC2SC+yD80tJ8F4f3s83ez
+         xrkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxhCxoHczp2WoOpAqtbwjsModSOcz8Awl2v2n0fRPljG0Tf6VPkjvWX2QUNNV5TJSk2ECbQFe1ZMKCmVE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWHGlFt16dEjIFzSbuADCRq8YrAD6gMqR5X4YDEBYLqf7+NC0p
+	qfkf8MP4LRhrGt1t6EZrMBd+rbMjoJMK0ilZ/vGirMwA0dCCN4C/ytlo
+X-Gm-Gg: AYBFou13Zhez6fQ/UQsuy9SccrvRMqB1ByU5cZUD0uInI2Oxhf9F0wA41imPFxfSblz
+	FUIwm2vc4yDC8oqibYne6hDtKK8WNYOUEx4TYoNZbrldh/vtAArrgBAEnd1JE0fIEg2fs+WadUj
+	wly8rIpnEUJRhExcg006ILXkn3J03qDiYQ3RV26ktu+KfTzsxKqYO+93CL7cnEzUTyxrvJtedFh
+	kiIqHXArC/FLrrH3y2kRR3lnhaf8PAcXCO/0CkeaekQ5C0f8qrmza6WB5BG1LHfUA3jm0ShyOJB
+	3W0wrKu3MNRosrRDpcUO0elzrPs0hctt/HdyCPqB7yjAmKSmCBB1APK4QD3DjfR8U3XreGDAOVR
+	ShCCKdfKiI2TwKJ1KMEDh2AeNPRhC+KZVQxd3r/NPIUVDGn4QpEU/T+rrCCsn+3HPfiCigM+rCh
+	rVvj9QkOzdXKxz1+Y3smRvrKL70WMNPVe4hZiH4WZDMORomCBNe+5iCsaH9D/sg5CVn5apW3vI5
+	RXSwErwYtu/glBjdeTvW6uv
+X-Received: by 2002:a05:6a00:a8d:b0:899:53a9:1dd9 with SMTP id d2e1a72fcca58-8a04d34d8b6mr8875311b3a.57.1792502678125;
+        Tue, 20 Oct 2026 06:24:38 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f56c8b931sm4779680b3a.9.2026.10.20.06.24.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:24:36 -0700 (PDT)
+From: joonhoekim <26rote@gmail.com>
+To: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Joonhoe Kim <26rote@gmail.com>,
+	heikki.krogerus@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	lumag@kernel.org,
+	johan@kernel.org,
+	neil.armstrong@linaro.org,
+	casey.connolly@linaro.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] usb: typec: ucsi: Schedule connector worker on freezable workqueue
+Date: Tue, 20 Oct 2026 22:24:30 +0900
+Message-ID: <20261020132432.998-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261018150136.5896-1-tvlad744@gmail.com>
+References: <20250205-ucsi-schedule-conn-worker-on-freezable-wq-v1-1-107d1356b77b@linaro.org> <dp5ohy5piss7osycibuke7kwnfl5elnmc6gfvqgfh6mzzrldla@sru3ylzrtuea> <20261016125044.1085-1-26rote@gmail.com> <20261018150136.5896-1-tvlad744@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,70 +107,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
- <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
- <CAMRc=Mfn7+uQYvLjGLxU9wMOnRwx5pyPgaLp6oNx+ZcFXyXL=A@mail.gmail.com> <cde9d00a-bfe4-4093-b03d-f76a122e4ded@baylibre.com>
-Date: Tue, 20 Oct 2026 09:24:31 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mfu6moWg6bomoPHqgR=7F9QoPVy62Za_EegP3eb8+jctQ@mail.gmail.com>
-X-Gm-Features: AclHuK_UJ2IGCUSDhuuXQjxJ1GUIk0fxrp4qAJiEjRQoj2s0LGafMJ4oqarMM3M
-Message-ID: <CAMRc=Mfu6moWg6bomoPHqgR=7F9QoPVy62Za_EegP3eb8+jctQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
-To: David Lechner <dlechner@baylibre.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>, 
-	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, 10 Oct 2026 15:46:30 +0200, David Lechner <dlechner@baylibre.com> said:
-> On 10/10/26 4:00 AM, Bartosz Golaszewski wrote:
->> On Sat, 10 Oct 2026 01:25:52 +0200, "David Lechner (TI)"
->> <dlechner@baylibre.com> said:
->>> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
->>> the gpio-controller property is present.
->>>
->
-> ...
->
->>> @@ -2574,6 +2726,12 @@ static int ads112c14_probe(struct i2c_client *client)
->>>  	if (ret)
->>>  		return ret;
->>>
->>> +	if (device_property_read_bool(dev, "gpio-controller")) {
->>
->> I think the right one to use is device_property_present().
->
-> I thought this was the one case where device_property_read_bool() is
-> actually correct because gpio-controller property is a
-> /schemas/types.yaml#/definitions/flag.
->
-> Otherwise, we should just remove device_property_read_bool() from the tree
-> because there would never be a reason to use it.
->
-> My understanding is we should use device_property_present() for non-boolean
-> properties when we want to know if it is present or not before reading the
-> value of it.
->
+From: Joonhoe Kim <26rote@gmail.com>
 
-Right, I remembered seeing commits from Rob Herring changing read_bool() to
-present() but it's like so:
+On Sun, 18 Oct 2026 18:01:36 +0300, Vladyslav Tymoshchuk wrote:
+> With the connector work on system_freezable_wq, both unplug runs
+> resumed (2 of 2).
 
-commit a570feff16bd4fdaa247b4ef13f4d28f8c73903b
-Author: Rob Herring (Arm) <robh@kernel.org>
-Date:   Mon Nov 4 13:06:49 2024 -0600
+Thanks, Vladyslav. So the same connector work runs before the devices
+it calls into have resumed, and breaks three different consumers: the
+FSA4480 switch here, the PS8830 retimer in Abel's original report, and
+the dwc3-qcom role notifier on your board.
 
-    interconnect: Use of_property_present() for non-boolean properties
+Abel, the RFC has not moved since February 2025 and two more boards
+now need it. Do you still plan to respin it? On Dmitry's question,
+7d0767c5cd87 took the same approach for the altmode worker as a
+stop-gap until the PMIC GLINK rework, which may help here too.
 
-    The use of of_property_read_bool() for non-boolean properties is
-    deprecated in favor of of_property_present() when testing for property
-    presence.
+For the RFC as posted:
 
-    Signed-off-by: "Rob Herring (Arm)" <robh@kernel.org>
-    Link: https://lore.kernel.org/r/20241104190650.275278-1-robh@kernel.org
-    Signed-off-by: Georgi Djakov <djakov@kernel.org>
+Tested-by: Joonhoe Kim <26rote@gmail.com> # Lenovo Legion Tab Y700 Gen 5 (SM8850)
 
-So only for non-boolean properties. You're right.
-
-Bart
+Thanks,
+Joonhoe Kim
