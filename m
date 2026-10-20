@@ -1,47 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792495961;
-	b=D67ryBRF8yy9IAZHxKSU9QfU+1LJN+RvjgKt+M0Ms58p3i5q8XrRsLgNUmExDlenLTiP
-	 CQBnK4NDPxWnMZSiLq7dptDKXek41+UYBBCJvvk4a5PMFnRmX6Gjye+uSrJRhsDzM2SGP
-	 ZahFFWxHAKtqT4TMVvK0oK8ZdnuayO/vWOJ8piZ9s2TLKBIa9WRQOt/V5XfDD1TeHv1eJ
-	 NSvPNOytnqlHDcZIyMqQ53nzTT8/XCkiOJ1zUYWiTzUPJkmM53EQpDQZ0AYrFJnz2ovVw
-	 OEoWA2k6zvzYMxmx7KnxTLR44TvEHCwbWDUDr9dJXikby1Ng2yTShcV2qPav4CL0zfA==
+	t=1792496062;
+	b=VJG2U2YvgXtdqcHUC0oLnKqJW6a5ABYh+r6AUq5P8c/Nou+Txd3m1CdbNSQvCbgb6X1N
+	 s+cvWPB9pNz6Vs88scQ4VTvz0xQaYG1LdzJPHKWMVLNdsXmju3GJ8Klhcd7AYg8eHUvLu
+	 +UWWzwwCLALJXuES6Aoux4RCRFDkekKwP4UnSrrpTkdgLBx3eNb2lOOQGuGb7fzQ3BL7K
+	 PBcY2hsD9guq06XH9hpjTr4nJ1JfTeb/azAHR1KJJNDqwmnkrjuh7Rvvk3ucarZtpZmF9
+	 AHsK7utUXrLQZTNxCsCjcz5OoVvC9ALAk9xXu4X/SqdqUpoF/BNlC+88xxH8bEZC2vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792495961;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Sp5oihtLvg49MCLp/n/qyNEd5ihDt74z2SKQHiNYLbE=;
-	b=wUrCHMlC+2cBDiN/o97kEqC36nP11jsJOH96Dngrl6NQgo9OIUTZ6Ypw79YncbLblWRX
-	 /SO4fXAaSqL6PNldqyxckMqwU7GCiW/rSTXxUeT3bx/CVj5BCz/m5eMGzp0ZRiD61PVeS
-	 QugVdCTeP6dgIFIQtbaFV3uWcVWEbUmnDYB9KRNDFH0RC6WM2GXbrRg90B4huKkdfoRoZ
-	 PcjD8SZ+z5Em78wClcgQhZNwb/P3VVOHORDmF8cvr+Ai9B9Ls+vmt8wSya08ScNLR1hHD
-	 LwP2na5/YHXtV0YbMOutNXCy7QR6wT1G2fmtYSVJ1dO1EY8+3cDLDTDIP8Ixjcpzztg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496062;
+	h=DMARC-Filter:Received:Received:From:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=NLbq3VXoYb8Pt372mEk41S2SaoxcfIfMfhiTEQEnkKQ=;
+	b=Z74LW2Lcy3RgwgKMGtOgrCD3eFjrzN3C/5QtQfgusZuUrnNIBohrpvAPCxy99K2gVAMO
+	 qSpOpJ2U0uhpy+r4rdSiJYOFmRTu1qQNumCTtSLakIjtiKwHnd3h77KU1NTmw4O4lX2OO
+	 S1fKVcBimqgOeWl4wnA4F++Au4pywGbUxBpw958cu6h+CPQuLQoZyHEfAXqJqNFwVnbDY
+	 549CBpuc6792lFlYks9DaeKL5uw4Nk05/NL8F0nhwv9clstwnqBZhh5WS7ET+GKw3zA4d
+	 F/P9ySW53XXTFtanWNJcpbo+WcJsZyxnrqK1EFUsrzr5f2fq24opmpChV5+/dWGiSig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jpYqxBJB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AAA606A31A;
-	Tue, 20 Oct 2026 11:32:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jpYqxBJB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39A301F000C4;
-	Tue, 20 Oct 2026 11:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792495961;
-	bh=Sp5oihtLvg49MCLp/n/qyNEd5ihDt74z2SKQHiNYLbE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jpYqxBJBSJIS/6C50M/aTHWoWlaB0rsoKl9Kb3tr/jlBhef/bLfaK48s8b7VFjrrU
-	 a2f2ImaCJU2kz0+GZmSj6mpWXl94MKI/0C31ePLDd7u3kikh8SyFD0ZYeHO4tZEqmc
-	 HBAaUBzRWJNqjbx83kwJ8xMQV0EOrNXzPSQYBEIbT00P6+GWnWrt0U8/MzTbEeN83t
-	 PonyHx/M+HdAwaoUU46b2dG9q9zLTeVlHz01ZEehRQnwes4t3PofyEGlzNwlZqsyk0
-	 Op4fsmVLJdutqfQiu2KzYwwZSqgFkz+lY5IZzLNKiGW/FwfWhuhiDBaZYtYTYEUBAq
-	 //USVk3tW0c6Q==
-Message-ID: <2fd0111b-8dc9-40e5-b705-d9f3d5265035@kernel.org>
-Date: Tue, 20 Oct 2026 13:32:28 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AF8606A331;
+	Tue, 20 Oct 2026 11:34:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48AF8606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 20 Oct
+ 2026 19:34:13 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 20 Oct 2026 19:34:13 +0800
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+Subject: [PATCH net-next v4 0/7] net: ftgmac100: Add AST2700 support
+Date: Tue, 20 Oct 2026 19:34:11 +0800
+Message-ID: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,160 +49,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
- gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
- Thinh.Nguyen@synopsys.com, mani@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
- dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
- eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
- thiagu.r@samsung.com
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
- <CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
- <20260916122229.2604003-3-selvarasu.g@samsung.com>
- <20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
- <fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
- <7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
- <ad11251d-6632-498d-95f6-04a7c6dade72@samsung.com>
- <6643fece-aa39-42e6-8cd6-5264f15e12ff@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6643fece-aa39-42e6-8cd6-5264f15e12ff@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALNR12oC/23NwYrDIBQF0F8prmt5PhMTu+p/DMNg9dm4aBLUh
+ gwl/15xUQrp8nK55z5ZohgosfPhySItIYVpLKE5HpgdzHgjHlzJDAEVKJQ8PeZ5ivnPpIwdAFe
+ 9vwrVONO0lpXVHMmHtYo/bKTMR1oz+y3NEFKe4n+9WkTtq6qx26mL4MC1B+lRO7Q9XkyaiVwmO
+ 5zsdK/ggm9EAKg9ggWRylEr/LUHpb4i8gMR7R6RBeldp7UWnTC22SHbtr0AidtV+EcBAAA=
+X-Change-ID: 20260623-support_ast2700-68fb164da45c
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
+	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
+ Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
+	Andrew Lunn <andrew@lunn.ch>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792496053; l=6847;
+ i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
+ bh=Yds/NwfjB1reHnu8XcL7pcgERRJuEaARPT4bGqdxCh4=;
+ b=EoU99xXyyRlDM1BCDIiTyVRa/lDRgbNotVm7uVPx7JTdfwDp/Ajvc81zj7y8uLTURKGz6N32A
+ 1t3RmZjxWaGDBxLQ/xsGoZ8SFZWL91QmuG6BunBVX8DMOw8On98bBkW
+X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
+ pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-On 20/10/2026 10:02, Selvarasu Ganesan wrote:
->>>>>> +properties:
->>>>>> +  compatible:
->>>>>> +    items:
->>>>>> +      - enum:
->>>>>> +          - samsung,exynos8855-dwc3
->>>>>> +      - const: samsung,snps-dwc3
->>>>> And this fallback is not really accurate. Samsung does not have snps
->>>>> device, because snps is a vendor. Anyway, generic fallbacks should go
->>>>> away, drop, so you are left with samsung,exynos8855-dwc3 only.
->>>> Hi Krzysztof,
->>>>
->>>> Thanks for your review comments.
->>>> And We apologize for our repeated below explanation, but we wanted to
->>>> ensure our intentions were clear for each point to avoid any
->>>> misunderstanding.
->>>>
->>>> The original intent of the generic fallback was to support existing
->>>> Exynos dwc3 bindings from a parent/child representation from
->>> How does it support existing bindings? I don't understand. There is no
->>> such fallback in existing bindings.
->>
->>
->> Sorry for the misunderstanding, Yes there is no such a fallback in 
->> existing bindings.
->>
->> Our intention was to use new proposed generic fallback compatible 
->> string that will support USB dwc3 flatted node for all Samsung soc 
->> when those are migrated in the future without adding SoC specific 
->> compatible string in driver.
->>
->> Agreed, Here using generic fallback name (samsung,snps-dwc3 as a 
->> reference of qcom,snps-dwc3) is incorrect as snps is vendor not a device.
->>
->> As per DTS101 slide , Now we clear that the future Exynos SoCs could 
->> use  samsung,exynos8855-dwc3 as a fallback when they are compatible 
->> with the Exynos8855 hardware definition, rather than introducing a 
->> generic samsung,snps-dwc3 fallback. The dedicated compatible would 
->> still describe any SoC specific differences, such as clocks.
->>
->> And Understood that we were mixing the current Exynos8855 binding with 
->> the longer term migration plan for the existing Exynos SoCs and future 
->> SoCs.
->>
->> We will drop the generic fallback and use SoC specific compatible 
->> samsung,exynos8855-dwc3 (vendor,device), following 
->> samsung,exynos-dwc3.yaml as the reference.
->>
->> Regarding the binding filename, if the flattened representation is 
->> expected to support multiple Exynos SoCs where there is only 
->> differences in clock in the future, similar to how 
->> samsung,exynos-dwc3.yaml covers multiple SoCs with the legacy (parent 
->> and child) node representation, should we use a common binding 
->> filename for the flattened representation instead of a SoC specific 
->> name like samsung,exynos8855-dwc3.yaml.
->> For example,
->>     samsung,exynos-dwc3-flattened.yaml.
-> 
-> 
-> HI Krzysztof,
-> 
-> I am writing to kindly follow up on my previous inquiry regarding the 
-> binding filename for the flattened representation.
+Add the pieces needed for the FTGMAC100 driver to run on Aspeed AST2700
+systems.
 
-I started to ignore overly long answers, because to me that means
-contributor expects me to devote a lot of time to their contribution. Or
-second option: LLM proxy. There is even a trend where people paste
-prompts or LLM-chat-confirmation-like answers. I often do not correct
-even such cases, just put the ignore list.
+AST2700 keeps using the FTGMAC100 MAC IP, but the enablement is not
+limited to a new compatible string. The SoC can boot with the MAC on
+ARM64, needs the Aspeed-specific RMII mode bit programmed when a port is
+wired for RMII, and requires the driver to use the upper DMA address
+fields in the ring base registers and packet descriptors. Those fields
+expose a 35-bit DMA address range on AST2700, so the driver must request
+a mask that matches the address bits the hardware can encode.
 
+The series first documents and wires up the aspeed,ast2700-mac
+compatible. It then treats AST2700 as an Aspeed MAC in the driver,
+enables the RMII mode programming, writes the AST2700 high descriptor-ring
+base registers, carries the RX/TX descriptor high address bits, rebuilds
+full DMA addresses before unmapping buffers, and requests a 35-bit DMA
+mask. The high ring base registers are only touched for AST2700 so older
+Aspeed device tree register windows remain unchanged. With that in place,
+the FTGMAC100 Kconfig entry can be made available on ARM64 while keeping
+the existing Aspeed MDIO dependency for AST2600 and newer ARCH_ASPEED
+systems.
 
-> 
-> To recap, I would like to know if we should use a common binding 
-> filename, such as samsung,exynos-dwc3-flattened.yaml, instead of SoC 
-> specific names (e.g., samsung,exynos8855-dwc3.yaml). This would be 
-> consistent with how samsung,exynos-dwc3.yaml covers multiple SoCs in the 
-> legacy representation, especially if we expect to support multiple 
-> Exynos SoCs with only clock differences in the future.
-> 
-> I would appreciate your guidance or suggestions on the preferred naming 
-> convention for this implementation.
+RGMII delay is configured at the bootloader stage, the same way it is
+handled for AST2600, not by this driver. Aspeed's SDK bootloader
+configures both AST2600 and AST2700 boards with the RGMII delay
+disabled and advertises "phy-mode = rgmii-id" to match, mirroring the
+OpenBMC bootloader change that stopped inserting delays on AST2600 so
+its device trees could use the correct "rgmii-id" setting. On AST2700,
+every on-chip MAC is likewise configured by the bootloader with RGMII
+delay disabled and "rgmii-id" phy-mode. Because the delay is already
+resolved before Linux boots, the ftgmac100 driver does not need to
+program any RGMII delay for either AST2600 or AST2700.
 
-Please use the naming expressed in on of the rules for writing bindings,
-so one matching the compatible or fallback compatible.
+This series has been validated on AST2700 EVB and AST2600 EVB.
 
+Patch layout:
+- patch 1 makes the existing aspeed,ast2400-mac, aspeed,ast2500-mac,
+  and aspeed,ast2600-mac compatibles standalone, dropping the
+  requirement to pair them with the generic "faraday,ftgmac100"
+  fallback compatible.
+- patch 2 adds the aspeed,ast2700-mac compatible to the binding, with
+  its RMII RCLK gate, reset support, and the "phy-mode" requirement.
+- patch 3 adds the AST2700 match data and OF compatible.
+- patch 4 programs the AST2700 RMII enable bit and documents why
+  netdev->phydev can never be NULL at that point for AST2700.
+- patch 5 makes "phy-mode" a required device tree property for AST2700
+  and fails probe if it is missing.
+- patch 6 adds AST2700 upper DMA address handling for rings and
+  descriptors.
+- patch 7 enables the Faraday/FTGMAC100 Kconfig options on ARM64 and
+  selects MDIO_ASPEED for ARCH_ASPEED.
+
+Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+---
+Changes in v4:
+- Split the dt-bindings patch into two: one making the existing
+  aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
+  compatibles standalone, and a second adding the new
+  aspeed,ast2700-mac compatible, per review feedback that these are
+  two separate concerns.
+- Link to v3: https://lore.kernel.org/r/20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com
+
+Changes in v3:
+- Require "phy-mode" in the devicetree binding when the AST2700
+  compatible is used, matching the driver's probe-time requirement
+  added in v2.
+- Drop the "faraday,ftgmac100" fallback compatible requirement for
+  AST2700; "aspeed,ast2700-mac" now stands on its own in the binding,
+  matching how the driver already matches it independently.
+- Drop the same "faraday,ftgmac100" fallback requirement for
+  aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac as
+  well, per review feedback. The same EDORR/EDOTR bit mismatch applies
+  to all of them if a node ever bound through the generic
+  faraday,ftgmac100 entry alone; there is no evidence this has ever
+  happened in practice since ftgmac100_of_match[] has had dedicated
+  entries for these SoCs since commit 03a2aba50b2c, but keeping the
+  binding correct avoids leaving the same landmine in place. Folded
+  into this series rather than sent as a follow-up, to avoid
+  self-conflicting with a later series touching the same "compatible"
+  block. Note this makes `make dtbs_check` warn against
+  arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
+  aspeed-g6.dtsi, which still declare the two-string compatible; that
+  .dtsi change will be sent separately through the Aspeed/arm-soc tree,
+  since dt-bindings changes don't go through that tree.
+- Document in the RMII-enable patch why netdev->phydev is always
+  non-NULL by the time ftgmac100_start_hw() checks phydev->interface
+  for AST2700: ftgmac100_probe_dt() always attaches a phy_device
+  before register_netdev() can succeed, via a discrete PHY
+  (phy-handle), a fixed-link node, or NC-SI's internal fixed 100Mbit
+  PHY, and any failure in that setup aborts probe first.
+- Drop Reviewed-by from Krzysztof Kozlowski on the dt-bindings patch
+  since its content changed.
+- Link to v2: https://lore.kernel.org/r/20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com
+
+Changes in v2:
+- Make "phy-mode" a required device tree property for AST2700 and fail
+  probe if it is missing, instead of silently defaulting to RGMII.
+- Document in the cover letter how RGMII delay is configured at the
+  bootloader stage for AST2600 and AST2700.
+- Simplify the MDIO_ASPEED Kconfig select to ARCH_ASPEED only, dropping
+  the redundant MACH_ASPEED_G6 condition, and update its help text to
+  mention AST2700.
+- Pick up Reviewed-by from Krzysztof Kozlowski on the dt-bindings patch.
+- Link to v1: https://lore.kernel.org/r/20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com
+
+---
+Jacky Chou (7):
+      dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone
+      dt-bindings: net: ftgmac100: Add AST2700 compatible
+      net: ftgmac100: Add AST2700 compatible support
+      net: ftgmac100: Enable AST2700 RMII support
+      net: ftgmac100: Require phy-mode for AST2700
+      net: ftgmac100: Add AST2700 upper DMA address support
+      net: ftgmac100: Allow building on ARM64
+
+ .../devicetree/bindings/net/faraday,ftgmac100.yaml | 26 ++++--
+ drivers/net/ethernet/faraday/Kconfig               |  7 +-
+ drivers/net/ethernet/faraday/ftgmac100.c           | 98 +++++++++++++++++++---
+ drivers/net/ethernet/faraday/ftgmac100.h           |  7 ++
+ drivers/net/mdio/Kconfig                           | 16 ++--
+ 5 files changed, 123 insertions(+), 31 deletions(-)
+---
+base-commit: f09123082704b08d56fd044a2166e3e39fa68563
+change-id: 20260623-support_ast2700-68fb164da45c
 
 Best regards,
-Krzysztof
+-- 
+Jacky Chou <jacky_chou@aspeedtech.com>
+
