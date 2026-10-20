@@ -1,108 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501761;
-	b=sOENAgAgQnD1iNGkzCeUw6/6kQo6xbk3NW9MGugDXHx8JkN4dPB6J7qzV9c/WFtdaKRJ
-	 WWmIM9MoJus/Rb60iFhBcVY9n2ju1gpR/xLRR5BCF8Rv4DH0HmMMSFa9ZNWj5HnS+ESel
-	 DJC4Dx0mdqsgieI3RghKO3so5CD7KQX1BGfbg3C/zw2kSYUMvwgV1ll0Wmr8+bztVrS8J
-	 iwUl388Gsknef0zFmaEdygoqBFbZbexwS2SqbCbdYROaL4rmNmkPuD/Gdpm6xQPvs1JF9
-	 6uMzEvx2V7sF+TBYvTb8HNH0GxTBNj/00rfMl2nm56K0KPMk+BRx6GkkRxMJFV2/wzw==
+	t=1792501799;
+	b=QOjLzl7xfFH9kGoki806T8qDgzqGZZmdQgrJRwPiSxVE4SnKEzpOVvtPjRzQxRJ5KJtj
+	 5FaC0ObPqSXPV4mD7Mj7ktSpcTbcNa2n1OfYtMYI0xrjObQ0HNgfoAsAan3EbbEmHYieH
+	 nJizPL7QnvMajB/NOp7JtzUVvNiNvdTZZnEBAvWPHGkayI91PF3bQKm13UlWb2UhFbeIj
+	 4hE1n4lX+HCmtoFCHPzZaUooMc1ncHPn+5503IEopbQRIfnZJcnvdaUBnEmHi8ARuUd5k
+	 IGADCRffmsoYfoQn4abodZykRaPR+8wPDoz9GLas+BzAjeIgp18hwGyhD0jwYvM5mPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501761;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spamd-Result;
-	bh=/vWu1JTtU9S+xGFWXFKlG5MqZV2GeDCjz3J0e7BzN4A=;
-	b=qgu3cUZydPCZv7nqu/eOsdI9UoKJBmHlbqrYd9KygrUjaUZpBl5dtRuGMcXYILNsBRsu
-	 whoYY1vKUBLDCAtmajiPyent/+JNhcX24ZPQrFQ4HFdS32fCl97MjedhzoiJk3/ryu70v
-	 pdWQ3VHE0E5qE4Q0gUW4Yc3ltUtGX5WRlC6YeG/xaM6G2MTl5YBc3xV/b9Nib4CD9OQYX
-	 uIwtrmI0ij51yBJLKF+EUbna+y6Aj8T7T7HEbp8IOCNgHsFYbxnxqtiFlaaSri0c9AW4J
-	 xWlLhx+zvEWPu7/Yv6FSR25sXW3GYCRskuM35RYKkrkSnyFAfnD2knIiVmYyL1fPNfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501799;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=r7db5+BopgpcFDUxO3SJq0ATIR0htP6s/SGZniIH6PQ=;
+	b=qt6qMlT4PFG3hlvJKS6+TenTf4DxeGt4dPYRTLicY3ufELRQt0cn5niQqB57OTzQFn5s
+	 kycWZ34SgZ4bA8fQ2Vs8i5f2UUbLtHCz+27WUhsxv+KpuT+Q6V5cZ9gJzzhXtiMWf6wiC
+	 0Xmu0yW+6gwIhhbzN/mtu0TBmoO4tQ8uNgg2q/wYRXST5jXUm0HHGRRGxAfazvSBmI+2X
+	 FsbvaqMzoVZRLMTsTCzccza9IZ828+dV8BCFVBdvtb2UMTo1bMlkQdyx1nJW1z3HpUNHE
+	 BHk5m919TDetKW7/x036n7mkaGsD/el/idl2PKDpcH5U7b1YGlwHqItn/pU7f6VpM8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SY2PHhv0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="t6/DSe3j";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SY2PHhv0;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="t6/DSe3j";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OyCtfD6v;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AED5606A31B;
-	Tue, 20 Oct 2026 13:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AED5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36D0606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E36D0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SY2PHhv0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=t6/DSe3j;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SY2PHhv0;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=t6/DSe3j
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OyCtfD6v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792501798;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=r7db5+BopgpcFDUxO3SJq0ATIR0htP6s/SGZniIH6PQ=;
+	b=OyCtfD6v3ZK3BJFmeb2yyylswkxFkkno9wdxUNocA0bwtobM3atHrJ6aEkJzmxWR+6A5yA
+	B78X/7YP/efMWnPydnqmpzIY1MTYu+dJOvOAxvkXnTEfPRkhOABzWxQX4UwHMwPC/5hEAg
+	/s+YLq99tF1NuatvxvjCnCRXqDh+lgw=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-300-GjRzZyDDNB-mlwpQ4uaVZg-1; Tue,
+ 20 Oct 2026 13:09:53 +0000
+X-MC-Unique: GjRzZyDDNB-mlwpQ4uaVZg-1
+X-Mimecast-MFC-AGG-ID: GjRzZyDDNB-mlwpQ4uaVZg_1792501791
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8F4391F7D4;
-	Tue, 20 Oct 2026 13:09:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792501759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/vWu1JTtU9S+xGFWXFKlG5MqZV2GeDCjz3J0e7BzN4A=;
-	b=SY2PHhv052HkGOIiwH4Wxtu83F465yFL3Wq6NTBhJg1cfqwjtqt8SrxbX+D666KkzEyJnb
-	d6QLLxy6jg3SN4tlTqStyJVQSBnw1T9VvL7ZS2wK/ps6XbdZOTzMgvuLt+/PvJdLBFAfBd
-	tL7TFRjp60HPwymsJGw4IhBe6XzMoLs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792501759;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/vWu1JTtU9S+xGFWXFKlG5MqZV2GeDCjz3J0e7BzN4A=;
-	b=t6/DSe3jSe54yrhPTe6h0EEcyflFwTfMEplezeIu0qLhqhx/p1+yVDnBmYWHNiN53S7QSQ
-	rHqITuUCGTC0lOAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792501759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/vWu1JTtU9S+xGFWXFKlG5MqZV2GeDCjz3J0e7BzN4A=;
-	b=SY2PHhv052HkGOIiwH4Wxtu83F465yFL3Wq6NTBhJg1cfqwjtqt8SrxbX+D666KkzEyJnb
-	d6QLLxy6jg3SN4tlTqStyJVQSBnw1T9VvL7ZS2wK/ps6XbdZOTzMgvuLt+/PvJdLBFAfBd
-	tL7TFRjp60HPwymsJGw4IhBe6XzMoLs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792501759;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/vWu1JTtU9S+xGFWXFKlG5MqZV2GeDCjz3J0e7BzN4A=;
-	b=t6/DSe3jSe54yrhPTe6h0EEcyflFwTfMEplezeIu0qLhqhx/p1+yVDnBmYWHNiN53S7QSQ
-	rHqITuUCGTC0lOAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4007A136CC;
-	Tue, 20 Oct 2026 13:09:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id iw3nBP9n12pSaQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 13:09:19 +0000
-Date: Tue, 20 Oct 2026 15:09:18 +0200
-Message-ID: <877bjch62p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rong Zhang <i@rong.moe>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 0/4] ALSA: usb-audio: Add dB scale quirks for AB13X and Xiaomi Speaker Mini
-In-Reply-To: <20261020-b4-uac-ya-audio-v1-0-2d6e053b7f50@rong.moe>
-References: <20261020-b4-uac-ya-audio-v1-0-2d6e053b7f50@rong.moe>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B2A641954B14;
+	Tue, 20 Oct 2026 13:09:50 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 5CDEB362;
+	Tue, 20 Oct 2026 13:09:47 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Tue, 20 Oct 2026 15:09:50 +0200 (CEST)
+Date: Tue, 20 Oct 2026 15:09:46 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Allison Henderson <achender@kernel.org>
+Cc: Joel Granados <joel.granados@kernel.org>,
+	kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
+	lkp@intel.com, linux-kernel@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org,
+	wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
+Subject: rds_wq UAF
+Message-ID: <atdoGiW_sHlWgOwt@redhat.com>
+References: <202610190310.9737b2e3-lkp@intel.com>
+ <atYB0bm9eEXp8A2g@redhat.com>
+ <atYW0K3t57puHeLW@hobbes>
+ <atYuE1xnVYe0BDG4@redhat.com>
+ <atY42k00k0Waj6o4@redhat.com>
+ <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,60 +86,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.995];
-	MIME_GOOD(-0.10)[text/plain];
-	URIBL_BLOCKED(0.00)[rong.moe:email,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Mon, 19 Oct 2026 22:18:21 +0200,
-Rong Zhang wrote:
-> 
-> I recently got two devices with insane volume control, so I tried to
-> measure their volume mapping and add dB scale quirks for them.
-> 
-> PATCH 1 collects the code snippets for dB scale override into a helper
-> function, with unified info and warning messages, and also deconflicts
-> playback dB scale quirks of DragonFly.
-> 
-> PATCH 2 applies the MV-SILICON linear volume quirk only to the affected
-> mixers, instead of the whole device.
-> 
-> PATCH 3 adds dB scale quirk for an AB13X variant.
-> 
-> PATCH 4 adds dB scale quirk for the Xiaomi Speaker Mini.
-> 
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
-> Rong Zhang (4):
->       ALSA: usb-audio: Unify dB scale override
->       ALSA: usb-audio: Apply MV-SILICON linear volume quirk per mixer
->       ALSA: usb-audio: Add dB scale quirk for an AB13X variant
->       ALSA: usb-audio: Add dB scale quirk for Xiaomi Speaker Mini
+(change subject)
 
-JFYI, I postpone this for 7.5, as 7.4 merge window was already opened,
-and the code change amount is slightly too big as a last-minute fix.
+On 10/19, Allison Henderson wrote:
+>
+> On Mon, 2026-10-19 at 17:35 +0200, Oleg Nesterov wrote:
+> > >
+> > > But. rds_init() can also fail even if CONFIG_SYSCTL=y, after
+> > > rds_sysctl_init(), so to me this looks like a bug in net/rds/.
+> > >
+>
+> Yes that's a separate bug, so I'll send a separate fix for that.
 
+Let me try to summarize.
 
-thanks,
+If rds_init() fails after rds_threads_init() for any reason,
+rds_threads_exit() will destroy/free rds_wq.
 
-Takashi
+If rds_rdma_init() is called after that, and rds_ib_init() fails
+after rds_ib_mr_init(), rds_ib_unregister_client() will try to
+flush the already freed rds_wq.
+
+But we have
+
+	module_init(rds_init);		// net/rds/af_rds.c
+	module_init(rds_rdma_init);	// net/rds/rdma_transport.c
+
+and IIUC the order of these initcalls is not defined. So if
+rds_rdma_init() -> rds_ib_init() is called before rds_init(), it
+can do flush_workqueue(rds_wq) when rds_wq == NULL on failure.
+
+With or without CONFIG_SYSCTL. Right?
+
+But it seems that rds_ib_init() doesn't need to flush rds_wq on failure,
+so how about the patch below? Of course, I have no idea if net/rds has
+more similar issues with rds_wq.
+
+Oleg.
+---
+
+diff --git a/net/rds/ib.c b/net/rds/ib.c
+index 786f39169bc1..cde2d1bfabbd 100644
+--- a/net/rds/ib.c
++++ b/net/rds/ib.c
+@@ -619,7 +619,7 @@ int rds_ib_init(void)
+ out_sysctl:
+ 	rds_ib_sysctl_exit();
+ out_ibreg:
+-	rds_ib_unregister_client();
++	ib_unregister_client(&rds_ib_client);
+ out_mr_exit:
+ 	rds_ib_mr_exit();
+ out:
+
