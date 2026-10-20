@@ -1,94 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792463790;
-	b=UAueigFAdWlhWvQsxrj9IsyqayPT0uljVrQB+qDuk2kZA/zThA+tAsueEDSx7UXFGA+9
-	 PN0841u3NXIaOBW3a3ODLISnisSt17jQ35jPSmA7zr3hw9+9Cyh+BorMr7kt9tFiLkxb7
-	 z3vSSxBu5yojBxNlO5sybDK+zag+jcBSVp/sxbSRgC/vVbaY7KOex1AI2ZRIMsD6302o5
-	 mS8SzEhDz6LIdndOUp6HlFmBVm0hog0yqQsCSTVIHtTD7AjT4ReY12QbZ5e+d1NsnWJcB
-	 CDifjgOmDRx6dXuEFcP/ao3C9GZeUwcMAB3Ajz7BSBiTp4UoRNt0f/k84sX3pf1ZD4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463790;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:References:Content-Language:From:Cc:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=taR3WdY/X0IrrsjgQ9gMVQ96JpoUNFHa/Bj2bKCdPDY=;
-	b=eNzAuzusVEwedOWMCwQwiCmx7Kg3Hpc3QQU/vkrjot20ByWVg1V/PL9xukQPd+BmWLBx
-	 Uc8vz2yjIyOfcVLR1zyabXDY7p6Rka4JmhdJsLb491Zal69lpfEiixPbU0G0lgkH3TGcV
-	 ZIUqQenRXNTi0HS7KNO1LZyBiOJh0wm+ufh1v89b6f8LDxeNCOLMmuCk77iuko95k1wJl
-	 wWK2CVlnUjTVZhDtfvXXdIP0CNadfV+Lkrjxern2hn6XxChQiIlRSPh+3oyQQRzSeDWFU
-	 HgAXanpvUr1vSHnnie2X1fFJXXo4u2RzchCyFD1+pATqJ32AAC9vmV7HtTh6IUI6QYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Z8WEcnCQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.4
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010004.outbound.protection.outlook.com [40.93.198.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792463837;
+	b=t13AKGDuGkGvIYt8Iph8LqnkV2e4Fnd1OT5qY61B/ZCY/A6wi7pPtGeSyQpdpJ64ZgQi
+	 7mgUdE+deKzFAjzfd5Ax6X26VmAy3REJ5YC8JJrmWk1Ul6tilWkYEA/Ji9SLew5fCeKin
+	 C3xhtd9XwEi7QFIOs2cb6rIeLhWwicy+WL3fZb/i78DDFXAsiy5sX7jfI4UxfSJjBWu2g
+	 Fbl7r8gdXidW8XhDCYz/zj6PT5leYfFWZraR8C2X+QtVdAoA/uXTYh7rsVkJImB3TUBQr
+	 5/TsRa1LZJX1ls8UKFtSs5qQENnckbTCaBmbkU0uRTgpWj8O4WKrDp3Jv1yA5HeXBMQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463837;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=ol1e3LZ+WQpkRPH2WIDwNMApljA/2dpVqJj/X5XPkVY=;
+	b=LGBbXYIEE0ir81o9ILgWnc4mRrcANR7J9hCNqJcdUFvbZxHvv7IkiUIebhpPjMW8BiUU
+	 m0frp2HTZy6fjLajoVmmuuXikih7GyUgzu6NnCrzgX/mEE4qsY5QX2twfD1WS9O2w+8+h
+	 mdlLifPz3NIZ/bUp1QXeCun3lVONEb49ziwqRoBeh9ndeuxsSNvmnsEIyoSOVjltA4zrS
+	 tx+NvYycbDWiUt58jcKNlZXdd8MUy0yIIz6Dwbe3PxrdCmgPiMQt63/0tsyJgxBWt5rvb
+	 RZsvJWx8g06YKTBK5a3Je1Wmn712wfVUgLWilv9fKvMPVsMtmnVtFkOKIy/MHYzX74Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hzecWLHZ;
+	arc=none smtp.remote-ip=91.218.175.29
+Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8050E606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8050E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CD3606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:37:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84CD3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Z8WEcnCQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ekeRKQfwqlrvbBDxDdP/MZHgJaBs3tJKBbWwDpBfdltqSK0m5bkqhHUQJeHJN1H1CtirGxLc62HaZWD37puccNw384xhjK72Sl1WtuudqU1FQN52ho0Muh67AvM74Cs8IoZ/VOJEyQrNSehWWYlM8TLTAi+DCg3p7xdYQhQVkC2wMKV950PhvH5D3AY57bAiw6PgTwNoixui5lLg3QdIEeAMH6CGVH3kc5TTA/09OSq86FefmgP0QHpobu1KsLs78jckv1D9HwcxdNgdbDy8Rif0z8BxdPv1UGZiT4bZG2AlJyg8H1rJQnN0V49v1+QpS4GWABqCqU1W7SPX7PzygA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=taR3WdY/X0IrrsjgQ9gMVQ96JpoUNFHa/Bj2bKCdPDY=;
- b=KD8lJI4aBTs3K64GJtKxSpbZRJQNMgWw1syMIUKqRVHRelyGWzUyDCrPCY72Ypq0RhJiO74rulK+4v86i/iu0oeMjKCMYIaV7Kd1acGcCXh3vJxxArk9+agQQ+wp8g0IQULwn6KfE5EtfhpOrtKvtCUM9Fn0+CObP5EB7FBa8+qJyeoz7w8CvJAVcQf3s4PkxIBtn9+FXAePQ0JQ9N48XlWwVK0L2UeVrxbrAeo/hPpSpVzxuXneifmB07kkwplTJKRYd5XNakCQufKtQ4Lb/xkIdiQ3JhHgmGTIjfp/o9vwm1D+oDSSXCx6Zo7oSa5VDz1Be3U3HpOzqtfu3frI5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=taR3WdY/X0IrrsjgQ9gMVQ96JpoUNFHa/Bj2bKCdPDY=;
- b=Z8WEcnCQ8QyjNGSVBfT/36BtwOWdNmue+0pDLqs6L6CkQr8PFlw67MyHAyF9WDQpySwSpjmC/+3vJ8RxPvGImBIdaiPcbULgFS6hw4bbqg0ue8Px2boXNjprxrbFo888LNAwPw8rVQv663WXvTTOrDKw1oQfk4M/1xRiVWnbBQE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from EAYPR12MB999181.namprd12.prod.outlook.com
- (2603:10b6:303:2be::15) by DS2PR12MB432622.namprd12.prod.outlook.com
- (2603:10b6:8:70b::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 02:36:25 +0000
-Received: from EAYPR12MB999181.namprd12.prod.outlook.com
- ([fe80::34f9:80b7:5167:9d43]) by EAYPR12MB999181.namprd12.prod.outlook.com
- ([fe80::34f9:80b7:5167:9d43%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 02:36:25 +0000
-Message-ID: <54db5f22-ba63-433d-b98d-d6dc6b17b27f@amd.com>
-Date: Tue, 20 Oct 2026 09:36:19 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/amd: Restore three-stage vector cleanup for IR
- affinity migration
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>, joro@8bytes.org,
- vasant.hegde@amd.com, will@kernel.org, robin.murphy@arm.com,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261015042347.1823813-1-guanghuifeng@linux.alibaba.com>
-Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-Cc: "Shu, Ming" <Ming.Shu@amd.com>, "Shukla, Santosh" <Santosh.Shukla@amd.com>
-In-Reply-To: <20261015042347.1823813-1-guanghuifeng@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR02CA0023.apcprd02.prod.outlook.com
- (2603:1096:4:195::11) To EAYPR12MB999181.namprd12.prod.outlook.com
- (2603:10b6:303:2be::15)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hzecWLHZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Z1bpBOf3gpnD87avLrWw9Ticz9/aGhESz7/L3iRdACk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792463834; v=1; x=1793068634;
+ b=hzecWLHZgHq2wY0vaNS+L2yrCfAQ8MI5CyqKAIg1/Je3bNHgku0/TfhzmAsszDNoH10z4bbs
+ 5tqFXttWw9AVPjL+UuCXG5mRAbo1uQtlh9tT1TYUUWzEH2vDvspdjmzDo5yPUU7U1kE9/hae81z
+ MJxNrBP/GPFmMxib37afvpyk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 39161de2dc349537;
+	Tue, 20 Oct 2026 02:37:14 +0000
+X-Mizu-Trace-ID: 39161de2dc349537
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,352 +56,613 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR12MB999181:EE_|DS2PR12MB432622:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70775ccc-1627-4620-8948-08df2e52efc8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|22082099003|18002099003|10067099003|3023799007|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	v0n8sYnqT18M1gZhBsX3gQCE4dCbhs9eyMAmZCvc1NpCadTPjvMzTevjYdFzSHMXazEMUyXalSh4RgGGfrGakkGGnLls8D9XRILMVsPQh1GiNMZkiVhkLj2kj5WeWa80/HAeubguseN0U0COCKEThSgxzbaSsW4ZF3sn2pIuxFwSSdsMWiodxQKQX9hj59TT6XNkvkUhm4eOLj9SsOmZZn+pCUZm3dT++gZeW+CgNfGl2UMwS/FYgngStFCULcfxodBRD8wzpHNoyr+Vypck6LS3wjNqGbDbsgUMbAE5OCVD8G79pLvZTgmJyB2yHNKuQt/xUM3DCjE0FVfhhd5y13wt9iJLtZk7hJQBLoFAQLjRyxEXpWOTKsgnTlKTKoXIv+YwQ1R+udYMOKqr8dJUlKwrqn2pNMBcSspbLWgpCrOgA5QySvGMDL6aIR9Es6eLI2akIE3QkoO+73V1hFpUmoSm12rIzU0Rh0IR0fqnLvpfpzfEFJrHWT3gKTIJiXQ/bffgWHmCoy24qoMgPZgeCbIY2D7O65Jtn4exlC10H0pzaki28ccOpwEnR/dJAq53sNEIsXW74NPh8R1ARtZVS3U0BEU5VCgAeBUinMGfRj3x1qK0Ki2913gCgMPpPmNDDDEfgNM3lkzCsmrLV39vXXLtYiUAfGRcIhKaIH3PEYk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:EAYPR12MB999181.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnpqWmVmS2FzNmo0Yk1RWDN0S2pGWWhWYXVZMkEvMFJnYWVFVGd5RklwZVBR?=
- =?utf-8?B?MmZHb21TRFBobk9vM3FyWnlwVUFoVklObktKYmJERzhXYytpTWMyOHBkNVNl?=
- =?utf-8?B?ejhQL25jTEIrRk1sbGgrMmc0Q0tNRnRhMWpPVkRNdlNTdGxzV0JpbWF0azlZ?=
- =?utf-8?B?VkU3SUZEVGVBaHBFUXFJTXVvRVZZem4xZDMzZDZSK0JSVHk4aXJKS0tFYXU0?=
- =?utf-8?B?cklacUtIMTl4Y0V3QXdlVFh2cE96RVlKOHlsckdiMWpyaXRpWmtwY09ST0c1?=
- =?utf-8?B?UmZIY3NoWjlJbWR6Z3hCdjRZMkxhUUl2ejhza2FGdHcrTFpseS9FQjNWSStS?=
- =?utf-8?B?cVRoc2dRdTh3bFR5dHMvZU5MdVRIamZXUXM1dys4Uko1WWVIeTIyRUdIWVdh?=
- =?utf-8?B?UXhPaGpsN1RLV0xQRjNlV1piRWhRWDZrUVZnbEdwRzNmYkpjV25yUkZ0Tlpo?=
- =?utf-8?B?T3V1bmM2YURPVFRUOExxWHpkU0xIUE1nbmFWK3RqdURGQVR4U2F4aXZ5Q2tp?=
- =?utf-8?B?bldWUnNDdXFUZWpTSjVQZWlhejVJdjhkOStVeUovZ1dwelpuakZJWWRac2s1?=
- =?utf-8?B?RlR0QVRLek9FMEtjOTltRnVqd3pQZ2cyNmUrMFYrT0wwT3BibG5keDRxK0Q5?=
- =?utf-8?B?OWo3eDBxMEJnNzNkN0hoUk1kVVI0b1UzekxBU0RnMUJYMktZbGJ1dkpJdnlH?=
- =?utf-8?B?b1Z5TjF0T0d3dFEyeDFXWVhyMWtGekZDZ2xLakV1dnE5Tlk3RG5QWEhONTF2?=
- =?utf-8?B?a0Qzb3NlaDRKalFnLzVaQ2VoSkRRUnRhN3RlY1hzbm1GK3hCS3Flb2h0N1M1?=
- =?utf-8?B?WWVSRENoK0ZsVnpwbEdsMm1ybmN2UFdmZDIvSWovK0RmUS84SVpobTNoUHJU?=
- =?utf-8?B?TlNGaC9DWXRyYVlRWncrNnlOcUllcm80MlVpSkFTeFMvaVJEK3pSZFNucnJj?=
- =?utf-8?B?RjN3aWtua0JDRWhvL29TekFsQWk1WnA0QXh5RDBKRnY1djVtUiszWEN2UWRi?=
- =?utf-8?B?TFczWXZIVTFxVjdpR1Zybjd1N3dYSWxTdGJlODZVZmQxZXBLUEFHVDlocnVp?=
- =?utf-8?B?c2x0ckVpbG9HSGxjbjd6YnhsY1VnOGNhclpINnQ5Qm5uWHJWNkszS2Uxdks2?=
- =?utf-8?B?bzR3MFNMbzcrVVNPRHQyRmRjRUEyKzc2SFlyT0tONUtzMWF2cnU2R1NlblFv?=
- =?utf-8?B?dlY0RnFna1loR0NmcHZrQW82NVhIRmpVMnljZ1BlNDlPYVpvZ1p5WDcvdENF?=
- =?utf-8?B?enBpUFlGSTR5N1haTjY2emFLdENkakt2NXpyMEcrRjQ1eTJpVEF1V0dzK3h2?=
- =?utf-8?B?VmpWUHk2NW1YNzlpRTVGeVNDMTFFdzRHSzdZbUEzeTJNVnk1UWtqamY0dTRp?=
- =?utf-8?B?MGE0RmtZVkJuWTYvZ1RzRnZmdkE5VU1ITTRDOWkwQTQyODUvRGs2aythVTk4?=
- =?utf-8?B?VCtONkw5a1FOeHZFUUxzaDIycTJXNXZFeUJWd2VxR0w0SCtFWE0rUHc2SFNy?=
- =?utf-8?B?d1NybXQvTVRsdFN4UzBIS2c0S0czWEJodVArem1JN2Juek9MNnZUcWZHVVJk?=
- =?utf-8?B?OFh0aVVSMXJ6WSs1anBQR2xiKzk3MkRWYUpCT3Q0VnJzTnVjaWx2bHRjcEVw?=
- =?utf-8?B?b1V6cXFVcHoxQmZ5RWNKUkFmVFRlV0NmMXdSVG9McmJoL29RZXpFZ1B4QmQy?=
- =?utf-8?B?eG1ZdElsRlNuMlNQMDNpYU9tZ0cxMmxEanRreE5kYTZReXR0NzN3RDV5REJZ?=
- =?utf-8?B?Q0VqTlloWlZKWHdhYkJlTk54Tk55UEtmSUIwTktIOFl4dFhMRWkxdnUwRitQ?=
- =?utf-8?B?YnRvV1VnN1ZyKzdPc2pmb21QL2s3TVMvaXFaTi9jY3Vsb0xtakJjVDFwQk1U?=
- =?utf-8?B?aUdXaUg1TDhvWkNqc2dqblBoYS83Y2dLeU8zRGxnYlhjdE9peUdyMXFVL2VI?=
- =?utf-8?B?K1JVRXpXMVQyMFhiVW9HWVRlNU5JaENqQ3RINU50ODBKMHBzbTltaG5BN2Jz?=
- =?utf-8?B?K0dGRDJKRTZCWG13dVhaODFMRXc3SVJHb0lmMHpOQkZGQW1OcmMxUnY2QVJC?=
- =?utf-8?B?ZEh0YmQ5K1dqbWQ5bGxxZVJraEJZR29BUGtLSE1tRkdiemczTmNaQnNrcllr?=
- =?utf-8?B?dElKQmcrTzVjcGx6azhqUTlaNDQzRFR5dmViaDZydTBuVkVGazBaS2JxU1N0?=
- =?utf-8?B?Uit3Z3pJV0xSMkhKNmYwbHpVbkFXNDFLM3FialBPZEE1KzZTV2hqeXFDS0RD?=
- =?utf-8?B?a3UwOSsya1lEbkhid0VYSTd3SEJKQ1RHZDhsblFoWmQ4MURnMkVpUUVVNEZX?=
- =?utf-8?Q?CAYmud9UgaZjJXh06s?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70775ccc-1627-4620-8948-08df2e52efc8
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999181.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 02:36:25.6286
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xCDOd7QBAb8przywdauTa9vK5ZCJE0F3M+n0+KV+7CRbHQLMHOa+Tp+WeZ/kBcSv6vs0GEiWtF8lWh7TrMFaTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB432622
+Date: Tue, 20 Oct 2026 02:37:14 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: haoran.jiang@linux.dev
+Message-ID: <e6e123b78ffe040e80800db1c4aafbbfd20d2f56@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] LoongArch: add KASAN_VMALLOC support
+To: "Huacai Chen" <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org, kernel@xen0n.name, "Haoran Jiang"
+ <jianghaoran@kylinos.cn>
+In-Reply-To: <CAAhV-H6o9SrtdPx6g7-rFXSc8BcowR+Umdt60me62BEwFo_EHg@mail.gmail.com>
+References: <20261012080448.134274-1-haoran.jiang@linux.dev>
+ <CAAhV-H5jO2HYT+64usWxCuDYu3oVLV__vkBL3J8MpOKEGKL_XQ@mail.gmail.com>
+ <4c3a6be6aeef21fc2a19c3525f87485322c47a57@linux.dev>
+ <CAAhV-H6o9SrtdPx6g7-rFXSc8BcowR+Umdt60me62BEwFo_EHg@mail.gmail.com>
 
-Hi Guanghui,
+2026=E5=B9=B410=E6=9C=8817=E6=97=A5 16:24, "Huacai Chen" <chenhuacai@kern=
+el.org mailto:chenhuacai@kernel.org?to=3D%22Huacai%20Chen%22%20%3Cchenhua=
+cai%40kernel.org%3E > =E5=86=99=E5=88=B0:
 
-On 10/15/2026 11:23 AM, Guanghui Feng wrote:
-> From: Guanghui Feng <guanghui.fgh@linux.alibaba.com>
-> 
-> AMD IOMMU specification (Rev 3.10) does not define interrupt message
-> draining semantics for INVALIDATE_INTERRUPT_TABLE + COMPLETION_WAIT.
-> This creates a race between vector_schedule_cleanup() and in-flight MSI
-> messages still transiting the Data Fabric after IRTE modification.
-> 
-> Intel VT-d is architecturally safe due to explicit interrupt draining
-> guarantees.  VT-d spec Section 6.5.5 states:
-> 
->    "An interrupt request is considered drained when the interrupt is
->     accepted by the processor Local xAPIC (for fixed and lowest priority
->     delivery mode interrupts this means the interrupt is at least
->     recorded in the Local xAPIC Interrupt Request Register (IRR))."
-> 
->    "Interrupt draining is performed by remapping hardware after Interrupt
->     Entry Cache (IEC) invalidation requests.  For IEC invalidations
->     submitted through the queued invalidation interface, interrupt
->     draining must be completed before the next Invalidation Wait
->     Descriptor is completed by hardware."
-> 
->    "For index-selective IEC invalidation requests, hardware only
->     guarantees draining of non-committed interrupt requests referencing
->     interrupt indexes specified in the invalidation request."
-> 
-> Additionally, Section 6.5.2.8 (IEC Invalidate Descriptor) mandates:
-> 
->    "As part of IEC invalidation, hardware must drain interrupt requests
->     that are already processed by the remapping hardware, but queued
->     within the Root-Complex to be delivered to the processor."
-> 
-> Therefore when qi_flush_iec() + qi_submit_sync() returns (Wait Descriptor
-> reports QI_DONE), all non-committed interrupt messages referencing the
-> invalidated IRTE index are guaranteed to have been delivered to the
-> target LAPIC IRR.  The subsequent vector_schedule_cleanup() is safe
-> because is_vector_pending(prev_vector) will always observe the drained
-> message in IRR, causing the cleanup timer to rearm until the interrupt
-> is properly serviced.
-> 
-> In contrast, AMD IOMMU spec Section 2.4.5 defines
-> INVALIDATE_INTERRUPT_TABLE only as:
-> 
->    "instructs the IOMMU to invalidate all cached interrupt information
->     for the device"
-> 
-> with no completion condition, no drain semantics, and no ordering
-> guarantee for previously-remapped interrupt messages.  Section 2.4.11.2
-> ("Invalidation Commands Interaction Requirements") limits the completion
-> guarantee exclusively to DMA transactions:
-> 
->    "Invalidation commands are considered complete only when the IOMMU can
->     ensure there are no DMA transactions in flight anywhere in the system
->     fabric that relied on translation cache contents prior to
->     invalidation."
-> 
-> The words "drain", "drained", or "draining" appear zero times in the
-> entire AMD IOMMU specification (Rev 3.10, 48882-PUB, Feb 2025) in
-> connection with interrupt messages.
-> 
-> Consequently, iommu_flush_irt_and_complete() returning does NOT guarantee
-> that old (vector, destination) interrupt messages have been delivered to
-> the previous CPU's LAPIC IRR.  The immediate vector_schedule_cleanup()
-> after IRTE modification races with in-flight messages on the Data Fabric:
-> the cleanup timer reads IRR clear (message still in transit), calls
-> free_moved_vector(), then the message arrives at the old CPU hitting
-> VECTOR_UNUSED -- producing "No irq handler for vector" and permanently
-> losing an edge-triggered MSI.
 
-Please describe the scenario you encountered to reproduce this issue.
+>=20
+>=20On Fri, Oct 16, 2026 at 11:05 PM <haoran.jiang@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> 2026=E5=B9=B410=E6=9C=8814=E6=97=A5 12:43, "Huacai Chen" <chenhuaca=
+i@kernel.org mailto:chenhuacai@kernel.org?to=3D%22Huacai%20Chen%22%20%3Cc=
+henhuacai%40kernel.org%3E > =E5=86=99=E5=88=B0:
+> >=20
+>=20>  Hi, Haoran,
+> >=20
+>=20>  On Mon, Oct 12, 2026 at 4:05 PM <haoran.jiang@linux.dev> wrote:
+> >=20
+>=20>  >
+> >  > From: Haoran Jiang <jianghaoran@kylinos.cn>
+> >  >
+> >  > For the page table of the VMALLOC shadow region,
+> >  > only a partial page table needs to be established,
+> >  > allowing the complete page table entries to be
+> >  > populated on demand during use.
+> >  >
+> >  > ---
+> >  > 1,Through the kasan_shallow_populate_pgd/p4d/pud/pmd/pte functions=
+,
+> >  > page tables are established for the modules and vmalloc regions,
+> >  > but the page tables are not fully populated; the complete page
+> >  > tables are established automatically when vmalloc is used.
+> >  >
+> >  Why also change modules together with vmalloc regions? Because they
+> >  can both alloc/free dynamically, and the current approch can only
+> >  handle "one time" for modules?
+> >=20
+>=20>  The shadow memory for modules regions is the same as that of vmall=
+oc regions=EF=BC=8C
+> >  full page tables can be built on demand during usage. Memory is allo=
+cated
+> >  when loading modules, and the shadow memory of the allocated memory =
+establishes
+> >  complete page tables via `kasan_populate_vmalloc_do`
+> >  (load_module->execmem_alloc->kasan_populate_vmalloc_do), similar to =
+riscv and arm64.
+> >=20
+>=20The current code can also handle modules, so I want to know the
+> difference. I guess the current code can only handle a module loading
+> once, but this patch makes it possible to load/unload modules
+> repeatedly. But I'm not sure. Anyway, I don't want something to become
+> worse.
+>=20
 
-> Fix by restoring three-stage cleanup semantics for the normal
-> (guest_mode=0) path:
-> 
->   1. Change amd_ir_chip.irq_ack from apic_ack_irq to apic_ack_edge,
->      which calls irq_complete_move().  This ensures cleanup is only
->      scheduled when the new vector first arrives at the new CPU --
->      providing a natural delay (device interrupt period + PCIe transit +
->      IOMMU translation + Data Fabric delivery) that far exceeds any
->      residual in-flight message transit time.
-> 
->   2. Remove the unconditional vector_schedule_cleanup() from
->      amd_ir_set_affinity() for the IRTE-modified path.
-> 
->   3. For guest_mode=1 (AVIC/guest interrupt virtualization), the IRTE
->      is not modified and no host-vector interrupt will arrive (interrupts
->      are delivered to the vAPIC backing page instead).  Retain direct
->      vector_schedule_cleanup() in this case to prevent move_in_progress
->      from permanently blocking future affinity changes.
+1,With=20the current approach, the shadow page tables for the modules=20
+region=20are established via `kasan_map_populate` and `KASAN_VMALLOC=3Dn`=
+.
+A test module performs an out-of-bounds write to a global array. After=20
+repeated=20`insmod`/`rmmod` cycles, the test module reports false positiv=
+es.=20
+This=20is because the current flow does not properly clean up the shadow =
+data.
 
-Please describe the permanently blocking scenario.
 
-> The combination of stage-2 natural delay and stage-3 IRR gating
-> (is_vector_pending + timer rearm) provides robust protection against
-> the AMD-specific lack of interrupt drain guarantee.
 
-Adding some arbitary delay does not necessary guarantee the delivery 
-before clearing the old vector.
+Taking x86 as an example, since x86 can be configured with KASAN_VMALLOC=
+=3Dn,=20
+when=20KASAN_VMALLOC=3Dn, the correct flow is as follows:
 
-> Intel VT-d, Hyper-V, and UV platforms are not modified as Intel is
-> architecturally safe per the spec guarantees cited above.
-> 
-> Fixes: 5478844b12d3 ("iommu/amd: Move interrupt remapping to its own file")
+execmem_arch_setup -> flags =3D EXECMEM_KASAN_SHADOW, the flag is set to =
+EXECMEM_KASAN_SHADOW,=20
+and=20the subsequent flow should select the correct path based on the EXE=
+CMEM_KASAN_SHADOW flag.
 
-Is this the correct commit? I could not find this commit. Could you 
-please provide link to the commit?
+insmod -> execmem_vmalloc -> (kasan && (kasan_alloc_module_shadow(p, size=
+, GFP_KERNEL)=20
+->=20register_global -> kasan_poison-> rmmod -> kasan_free_module_shadow=
+=20
+->=20vfree(kasan_mem_to_shadow(vm->addr));
 
-> Signed-off-by: Guanghui Feng <guanghui.fgh@linux.alibaba.com>
-> ---
->   drivers/iommu/amd/amd_iommu_types.h |  2 +-
->   drivers/iommu/amd/iommu.c           | 46 +++++++++++++++++++++--------
->   2 files changed, 34 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-> index 8241ef922519..35024e3f5b90 100644
-> --- a/drivers/iommu/amd/amd_iommu_types.h
-> +++ b/drivers/iommu/amd/amd_iommu_types.h
-> @@ -1037,7 +1037,7 @@ struct amd_irte_ops {
->   	void (*prepare)(void *, u32, bool, u8, u32, int);
->   	void (*activate)(struct amd_iommu *iommu, void *, u16, u16);
->   	void (*deactivate)(struct amd_iommu *iommu, void *, u16, u16);
-> -	void (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
-> +	bool (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
->   	void *(*get)(struct irq_remap_table *, int);
->   	void (*set_allocated)(struct irq_remap_table *, int);
->   	bool (*is_allocated)(struct irq_remap_table *, int);
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index 56262f6b1f70..60e769384e8b 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -3634,7 +3634,7 @@ static void irte_ga_deactivate(struct amd_iommu *iommu, void *entry, u16 devid,
->   	modify_irte_ga(iommu, devid, index, irte);
->   }
->   
-> -static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
-> +static bool irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
->   			      u8 vector, u32 dest_apicid)
->   {
->   	union irte *irte = (union irte *) entry;
-> @@ -3642,9 +3642,11 @@ static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u
->   	irte->fields.vector = vector;
->   	irte->fields.destination = dest_apicid;
->   	modify_irte(iommu, devid, index, irte);
-> +
-> +	return true;
+This flow it establishes the shadow page tables, then poisons them,=20
+and=20cleans up the shadow data when the module is unloaded.
 
-This blindly return true regardless of the return value from modify_irte_ga.
 
->   }
->   
-> -static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
-> +static bool irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
->   				 u8 vector, u32 dest_apicid)
->   {
->   	struct irte_ga *irte = (struct irte_ga *) entry;
-> @@ -3656,7 +3658,11 @@ static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid
->   		irte->hi.fields.destination =
->   					APICID_TO_IRTE_DEST_HI(dest_apicid);
->   		modify_irte_ga(iommu, devid, index, irte);
-> +
-> +		return true;
->   	}
-> +
-> +	return false;
 
-This blindly return true regardless of the return value from modify_irte_ga.
+However, the current situation on LoongArch is as follows:
 
->   }
->   
->   #define IRTE_ALLOCATED (~1U)
-> @@ -3933,7 +3939,7 @@ static void irq_remapping_free(struct irq_domain *domain, unsigned int virq,
->   	irq_domain_free_irqs_common(domain, virq, nr_irqs);
->   }
->   
-> -static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
-> +static bool amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
->   			       struct amd_ir_data *ir_data,
->   			       struct irq_2_irte *irte_info,
->   			       struct irq_cfg *cfg);
-> @@ -4153,7 +4159,7 @@ static int amd_ir_set_vcpu_affinity(struct irq_data *data, void *info)
->   }
->   
->   
-> -static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
-> +static bool amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
->   			       struct amd_ir_data *ir_data,
->   			       struct irq_2_irte *irte_info,
->   			       struct irq_cfg *cfg)
-> @@ -4163,9 +4169,9 @@ static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
->   	 * Atomically updates the IRTE with the new destination, vector
->   	 * and flushes the interrupt entry cache.
->   	 */
-> -	iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
-> -				      irte_info->index, cfg->vector,
-> -				      cfg->dest_apicid);
-> +	return iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
-> +					     irte_info->index, cfg->vector,
-> +					     cfg->dest_apicid);
->   }
->   
->   static int amd_ir_set_affinity(struct irq_data *data,
-> @@ -4176,6 +4182,7 @@ static int amd_ir_set_affinity(struct irq_data *data,
->   	struct irq_cfg *cfg = irqd_cfg(data);
->   	struct irq_data *parent = data->parent_data;
->   	struct amd_iommu *iommu = ir_data->iommu;
-> +	bool irte_modified;
->   	int ret;
->   
->   	if (!iommu)
-> @@ -4185,13 +4192,26 @@ static int amd_ir_set_affinity(struct irq_data *data,
->   	if (ret < 0 || ret == IRQ_SET_MASK_OK_DONE)
->   		return ret;
->   
-> -	amd_ir_update_irte(data, iommu, ir_data, irte_info, cfg);
-> +	irte_modified = amd_ir_update_irte(data, iommu, ir_data, irte_info, cfg);
-> +
->   	/*
-> -	 * After this point, all the interrupts will start arriving
-> -	 * at the new destination. So, time to cleanup the previous
-> -	 * vector allocation.
-> +	 * If the IRTE was actually modified (guest_mode == 0), rely on the
-> +	 * three-stage cleanup: apic_ack_edge() calls irq_complete_move() when
-> +	 * the new vector first arrives at the new CPU, which then schedules
-> +	 * the cleanup of the previous vector allocation.  This avoids a race
-> +	 * where in-flight MSI messages, still on the Data Fabric after the
-> +	 * IRT invalidation because the AMD-Vi specification provides no
-> +	 * interrupt drain guarantee, arrive after the old vector has been
-> +	 * freed.
-> +	 *
-> +	 * If the IRTE was NOT modified (guest_mode == 1), no in-flight
-> +	 * messages exist for the host vector and the new host vector will
-> +	 * never receive an interrupt (those go to the vAPIC backing page
-> +	 * instead).  Schedule the cleanup directly to prevent
-> +	 * move_in_progress from getting permanently stuck.
->   	 */
-> -	vector_schedule_cleanup(cfg);
-> +	if (!irte_modified)
-> +		vector_schedule_cleanup(cfg);
+execmem_arch_setup -> does not set EXECMEM_KASAN_SHADOW
 
-The !irte_modified is really checking guest_mode == 0 before calling 
-vector_schedule_cleanup(). The name is misleading. I also do not see how 
-this resolves the issue instead of calling vector_schedule_cleanup() 
-unconditionally.
+insmod -> execmem_vmalloc -> does not call kasan_alloc_module_shadow=20
+->=20register_global -> kasan_poison-> rmmod -> kasan_free_module_shadow=
+=20
+->=20does not call vfree(kasan_mem_to_shadow(vm->addr));
 
->   
->   	return IRQ_SET_MASK_OK_DONE;
->   }
-> @@ -4205,7 +4225,7 @@ static void ir_compose_msi_msg(struct irq_data *irq_data, struct msi_msg *msg)
->   
->   static struct irq_chip amd_ir_chip = {
->   	.name			= "AMD-IR",
-> -	.irq_ack		= apic_ack_irq,
-> +	.irq_ack		= apic_ack_edge,
+LoongArch does not set EXECMEM_KASAN_SHADOW during initialization, which=
+=20
+causes=20the shadow data not to be properly cleaned up at unload time,=20
+potentially=20leading to false positives the next time a module is loaded=
+.
 
-The apic_ack_edge() basically calls __vector_schedule_cleanup() before 
-apic_ack_irq() on the new cpu, which should have already been called 
-during irq_set_affinity() and clears the move_in_progress. So, the 
-apic_ack_edge() would not be calling __vector_schedule_cleanup(). I do 
-not see how this would make a different.
 
- From AMD IOMMU hardware standpoint,
 
-1. The IOMMU considers the interrupt "done" at the point the write 
-completes at the fabric level (i.e. when the upstream posted write is 
-accepted). There is no round-trip back from the CPU APIC.
+On RISC-V/arm64, KASAN_VMALLOC is enabled by default, and the shadow page=
+=20
+tables=20for the module region are established and torn down via=20
+kasan_populate_vmalloc_do/kasan_release_vmalloc.=20This is exactly=20
+the=20approach that kasan_shallow_populate aims to implement.
 
-2. When SW issues an interrupt table invalidation followed by 
-COMPLETION_WAIT, the IOMMU must drain all in-flight interrupt before 
-acknowledging the COMPLETION_WAIT. This ensures any stale IRTE data has 
-been flushed before the invalidation is considered complete from the 
-software's perspective.
 
-3. The time to drainthe data fabric should be much less than the 
-1-jiffie during the vector_schedule_cleanup().
 
-Regards,
+2,kasan_shallow_populate requires fewer page tables than kasan_map_popula=
+te,=20
+and=20it can also save memory during initialization.
 
-Suravee
 
->   	.irq_set_affinity	= amd_ir_set_affinity,
->   	.irq_set_vcpu_affinity	= amd_ir_set_vcpu_affinity,
->   	.irq_compose_msi_msg	= ir_compose_msi_msg,
-
+> >=20
+>=20> >
+> >  > If the address is pgd-aligned, the page table is established
+> >  > down to the pgd level; if it is pud-aligned, it is established
+> >  > down to the pud level, and so on. While establishing the
+> >  > /pgd/pud/pmd levels, the page table entries must be initialized
+> >  > to none. For example, a pmd entry of none is an invalid_pte_table.
+> >  > Only in this way can the correct page tables be established at
+> >  > use time. At the same time, boundary issues must be considered
+> >  > when the address is not aligned. For example, mem_to_shadow(MALLOC=
+_END)
+> >  > and mem_to_shadow(vmemmap) are in the same pmd, and the region
+> >  > [mem_to_shadow(vmemmap), mem_to_shadow(VMEMMAP_END)] needs to be
+> >  > mapped to page 0. To avoid affecting the mem_to_shadow(vmemmap) re=
+gion,
+> >  > only the pmd entries for [mem_to_shadow(MALLOC_END) & PMD_MASK, me=
+m_to_shadow(MALLOC_END)]
+> >  > need to be initialized to invalid_pte_table. The remaining pmd ent=
+ries are left as they are.
+> >  >
+> >  kasan_pgd_populate(early) populate the page table to early shadow
+> >  page, kasan_pgd_populate(!early) populate the page table to normal
+> >  shadow page, and kasan_shallow_populate() populate the page table to
+> >  invalid_{pud,pmd,pte}_table?
+> >=20
+>=20>  It seems you are do similar work as RISCV, and RISCV use three API=
+s
+> >  for this purpose: kasan_{,early,shallow}_populate_pgd(). But LoongAr=
+ch
+> >  use the same API for the 1st and 2nd purpose, can we add a "shallow"
+> >  parameter to kasan_pgd_populate() so we can also handle the 3th
+> >  purpose?
+> >=20
+>=20>  Yes. `kasan_shallow_populate()` builds incomplete shadow page tabl=
+es for vmalloc and modules
+> >  regions and needs to handle boundaries. As an example:
+> >  `mem_to_shadow(VMALLOC_END)` and `mem_to_shadow(vmemmap)` share one =
+PTE table.
+> >  The PTE entry for `mem_to_shadow(VMALLOC_END)` must be none, whereas=
+ the PTE entry
+> >  for `mem_to_shadow(vmemmap)` points to `early_shadow_page`. The fina=
+l page table
+> >  layout is shown below
+> >=20
+>=20>  pte +------
+> >  +------------------+
+> >  |early_shadow_page |
+> >  pmd +------------------+
+> >  +----------------+ |early_shadow_page |
+> >  |early_shadow_pte| +------------------+
+> >  +----------------+ | global |
+> >  | ptep |-----------+------------------+
+> >  +----------------+
+> >  | ... | pte
+> >  +----------------+ +--------------+
+> >  | ... | | global |
+> >  pgd +----------------+ +--------------+
+> >  +------------------+ | ptep |---------------| global |
+> >  | pmdp +----------+----------------+ +--------------+
+> >  +------------------+ pmd
+> >  | pmdp |----------+--------------+
+> >  +------------------+ |invalid_pte |
+> >  | | +--------------+
+> >  | ... | |invalid_pte |
+> >  | | +--------------+
+> >  +------------------+
+> >  | ... |
+> >  +------------------+ pmd
+> >  | ... | +------------+
+> >  +------------------+ | invalid_pte|
+> >  | ... | +------------+
+> >  +------------------+ | invalid_pte|
+> >  | pmdp |---------- +------------+
+> >  +------------------+
+> >  | ... |
+> >  +------------------+
+> >=20
+>=20>  `kasan_pgd_populate()` can handle the third case by adding a param=
+eter. I will implement this in the next version.
+> >=20
+>=20>  >
+> >  > 2,The removal of kasan_populate_early_shadow(mem_to_shadow((void *=
+)VMALLOC_START),
+> >  > mem_to_shadow((void *)KFENCE_AREA_END)) achieves the same effect a=
+s
+> >  > kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_N=
+ODE, true);
+> >  > both map this region to a shared zero page. (KASAN_SHADOW_START, K=
+ASAN_SHADOW_END)
+> >  > already covers (mem_to_shadow((void *)VMALLOC_START), mem_to_shado=
+w((void *)KFENCE_AREA_END)).
+> >  > Other architectures such as arm64/riscv need kasan_populate_early_=
+shadow
+> >  > because clear_shadow(KASAN_SHADOW_START, KASAN_SHADOW_END) is perf=
+ormed before
+> >  > kasan_populate_early_shadow, so the reserved region must be mapped=
+ to the zero
+> >  > page again. On LoongArch, however, the entire shadow space is firs=
+t mapped to
+> >  > page 0 via kasan_pgd_populate, and then page tables are establishe=
+d for the
+> >  > required regions, which is simpler and clearer.
+> >  >
+> >  > 3,pgd_none/p4d_none/pmd_none/pte_none were added to the definition=
+s of
+> >  > __pgd_none/__p4d_none/__pud_none/__pmd_none/__pte_none respectivel=
+y
+> >  > because kasan_populate_early_vm_area_shadow requires them.
+> >  > kasan_populate_early_vm_area_shadow establishes complete KASAN sha=
+dow
+> >  > page table mappings for the early vmalloc regions before vmalloc_i=
+nit.
+> >  > At this point, complete page tables need to be established, but
+> >  > kasan_populate_early_vm_area_shadow is called after step 1, at whi=
+ch time
+> >  >
+> >  I'm a little confusing here. What is "step 1" here?
+> >=20
+>=20>  Step 1 refers to `kasan_shallow_populate()`. The page tables creat=
+ed after
+> >  `kasan_shallow_populate()` are shown in the figure above. We need to=
+ check
+> >  for empty entries using /pgd_none/p4d_none/pmd_none/pone_pte(). Only=
+ then
+> >  can `kasan_map_populate()` build the full page tables.
+> >  `kasan_populate_early_vm_area_shadow()` runs after
+> >  `kasan_shallow_populate()` but before `vmalloc_init()`.
+> >  At this stage, page tables for vmalloc regions cannot be automatical=
+ly
+> >  populated on demand, so we need to build full page tables here.
+> >=20
+>=20Then it is better to use `kasan_shallow_populate()` rather than `step=
+ 1`.
+>=20
+>=20Huacai
+>=20
+>=20>=20
+>=20> >
+> >  > only incomplete page tables have been established for the vmalloc =
+region.
+> >  > The condition for a page table entry to be none requires the
+> >  > pgd_none/p4d_none/pmd_none/pte_none checks. Only by correctly dete=
+rmining
+> >  > whether an entry is none can the complete page tables be establish=
+ed properly.
+> >  >
+> >  > Test=EF=BC=9A
+> >  >
+> >  > https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-l=
+oongson.git
+> >  >
+> >  > CONFIG_KUNIT=3Dy
+> >  >
+> >  > CONFIG_KASAN_KUNIT_TEST=3Dm
+> >  >
+> >  > Add `kunit.enable=3D1 kasan_multi_shot` to the cmdline.
+> >  >
+> >  > Test with 3-level 16K pages and 4-level 4K pages respectively.
+> >  >
+> >  > before this patch:
+> >  >
+> >  > ...
+> >  >
+> >  > [ 502.760009] ok 68 vmalloc_oob # SKIP Test requires CONFIG_KASAN_=
+VMALLOC=3Dy
+> >  >
+> >  > ...
+> >  >
+> >  > [ 504.016000] # kasan: pass:49 fail:0 skip:26 total:75
+> >  > [ 504.016092] # Totals: pass:49 fail:0 skip:26 total:75
+> >  > [ 504.016171] ok 1 kasan
+> >  >
+> >  > after this patch:
+> >  >
+> >  > ...
+> >  >
+> >  > [ 531.630760] ok 68 vmalloc_oob
+> >  >
+> >  > ...
+> >  >
+> >  > [ 532.891057] # kasan: pass:50 fail:0 skip:25 total:75
+> >  > [ 532.891142] # Totals: pass:50 fail:0 skip:25 total:75
+> >  > [ 532.891219] ok 1 kasan
+> >  >
+> >  > Signed-off-by: Haoran Jiang <jianghaoran@kylinos.cn>
+> >  >
+> >  > ---
+> >  > arch/loongarch/Kconfig | 2 +
+> >  > arch/loongarch/mm/kasan_init.c | 173 +++++++++++++++++++++++++++++=
++---
+> >  > 2 files changed, 164 insertions(+), 11 deletions(-)
+> >  >
+> >  > diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+> >  > index 2067d1f2ad7a..c95c6fd8a138 100644
+> >  > --- a/arch/loongarch/Kconfig
+> >  > +++ b/arch/loongarch/Kconfig
+> >  > @@ -119,6 +119,7 @@ config LOONGARCH
+> >  > select HAVE_ARCH_JUMP_LABEL
+> >  > select HAVE_ARCH_JUMP_LABEL_RELATIVE
+> >  > select HAVE_ARCH_KASAN if 64BIT
+> >  > + select HAVE_ARCH_KASAN_VMALLOC
+> >  >
+> >  I think this should be limited by 64BIT.
+> >=20
+>=20>  Huacai
+> >=20
+>=20>  I will fix this in the next revision.
+> >=20
+>=20>  >
+> >  > select HAVE_ARCH_KFENCE if 64BIT
+> >  > select HAVE_ARCH_KGDB if PERF_EVENTS
+> >  > select HAVE_ARCH_KSTACK_ERASE
+> >  > @@ -187,6 +188,7 @@ config LOONGARCH
+> >  > select HOTPLUG_SMT if HOTPLUG_CPU
+> >  > select IRQ_FORCED_THREADING
+> >  > select IRQ_LOONGARCH_CPU
+> >  > + select KASAN_VMALLOC if KASAN
+> >  > select LOCK_MM_AND_FIND_VMA
+> >  > select MMU_GATHER_MERGE_VMAS if MMU
+> >  > select MMU_GATHER_RCU_TABLE_FREE
+> >  > diff --git a/arch/loongarch/mm/kasan_init.c b/arch/loongarch/mm/ka=
+san_init.c
+> >  > index 92ca0ba86406..962c37316200 100644
+> >  > --- a/arch/loongarch/mm/kasan_init.c
+> >  > +++ b/arch/loongarch/mm/kasan_init.c
+> >  > @@ -17,28 +17,28 @@ static pgd_t kasan_pg_dir[PTRS_PER_PGD] __init=
+data __aligned(PAGE_SIZE);
+> >  > #define __pgd_none(early, pgd) (0)
+> >  > #else
+> >  > #define __pgd_none(early, pgd) (early ? (pgd_val(pgd) =3D=3D 0) : =
+\
+> >  > -(__pa(pgd_val(pgd)) =3D=3D (unsigned long)__pa(kasan_early_shadow=
+_p4d)))
+> >  > +((__pa(pgd_val(pgd)) =3D=3D (unsigned long)__pa(kasan_early_shado=
+w_p4d)) || pgd_none(pgd)))
+> >  > #endif
+> >  >
+> >  > #ifdef __PAGETABLE_PUD_FOLDED
+> >  > #define __p4d_none(early, p4d) (0)
+> >  > #else
+> >  > #define __p4d_none(early, p4d) (early ? (p4d_val(p4d) =3D=3D 0) : =
+\
+> >  > -(__pa(p4d_val(p4d)) =3D=3D (unsigned long)__pa(kasan_early_shadow=
+_pud)))
+> >  > +((__pa(p4d_val(p4d)) =3D=3D (unsigned long)__pa(kasan_early_shado=
+w_pud)) || p4d_none(p4d)))
+> >  > #endif
+> >  >
+> >  > #ifdef __PAGETABLE_PMD_FOLDED
+> >  > #define __pud_none(early, pud) (0)
+> >  > #else
+> >  > #define __pud_none(early, pud) (early ? (pud_val(pud) =3D=3D 0) : =
+\
+> >  > -(__pa(pud_val(pud)) =3D=3D (unsigned long)__pa(kasan_early_shadow=
+_pmd)))
+> >  > +((__pa(pud_val(pud)) =3D=3D (unsigned long)__pa(kasan_early_shado=
+w_pmd)) || pud_none(pud)))
+> >  > #endif
+> >  >
+> >  > #define __pmd_none(early, pmd) (early ? (pmd_val(pmd) =3D=3D 0) : =
+\
+> >  > -(__pa(pmd_val(pmd)) =3D=3D (unsigned long)__pa(kasan_early_shadow=
+_pte)))
+> >  > +((__pa(pmd_val(pmd)) =3D=3D (unsigned long)__pa(kasan_early_shado=
+w_pte)) || pmd_none(pmd)))
+> >  >
+> >  > #define __pte_none(early, pte) (early ? pte_none(pte) : \
+> >  > -((pte_val(pte) & _PFN_MASK) =3D=3D (unsigned long)__pa(kasan_earl=
+y_shadow_page)))
+> >  > +(((pte_val(pte) & _PFN_MASK) =3D=3D (unsigned long)__pa(kasan_ear=
+ly_shadow_page)) || pte_none(pte)))
+> >  >
+> >  > static void *mem_to_shadow(const void *addr)
+> >  > {
+> >  > @@ -242,6 +242,160 @@ static void __init kasan_map_populate(unsign=
+ed long start, unsigned long end,
+> >  > kasan_pgd_populate(start & PAGE_MASK, PAGE_ALIGN(end), node, false=
+);
+> >  > }
+> >  >
+> >  > +static void __init kasan_shallow_populate_pte(pmd_t *pmdp, unsign=
+ed long addr,
+> >  > + unsigned long end, int node)
+> >  > +{
+> >  > + unsigned long next;
+> >  > + pte_t *ptep =3D pte_offset_kernel(pmdp, addr);
+> >  > +
+> >  > + do {
+> >  > + next =3D addr + PAGE_SIZE;
+> >  > + if (__pte_none(false, ptep_get(ptep)))
+> >  > + pte_clear(&init_mm, addr, ptep);
+> >  > + } while (ptep++, addr =3D next, addr !=3D end);
+> >  > +}
+> >  > +
+> >  > +static void __init kasan_shallow_populate_pmd(pud_t *pudp, unsign=
+ed long addr,
+> >  > + unsigned long end, int node)
+> >  > +{
+> >  > + unsigned long next;
+> >  > + pmd_t *pmdp =3D pmd_offset(pudp, addr);
+> >  > +
+> >  > + do {
+> >  > + next =3D pmd_addr_end(addr, end);
+> >  > +
+> >  > + if (__pmd_none(false, pmdp_get(pmdp))) {
+> >  > + phys_addr_t pte_phys =3D kasan_alloc_zeroed_page(node);
+> >  > +
+> >  > + if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >=3D PMD_SIZE) {
+> >  > + kernel_pte_init(__va(pte_phys));
+> >  > + pmd_populate_kernel(NULL, pmdp, (pte_t *)__va(pte_phys));
+> >  > + continue;
+> >  > + } else {
+> >  > + memcpy(__va(pte_phys), kasan_early_shadow_pte,
+> >  > + sizeof(kasan_early_shadow_pte));
+> >  > + pmd_populate_kernel(NULL, pmdp, (pte_t *)__va(pte_phys));
+> >  > + }
+> >  > + }
+> >  > + kasan_shallow_populate_pte(pmdp, addr, next, node);
+> >  > + } while (pmdp++, addr =3D next, addr !=3D end);
+> >  > +}
+> >  > +
+> >  > +static void __init kasan_shallow_populate_pud(p4d_t *p4dp, unsign=
+ed long addr,
+> >  > + unsigned long end, int node)
+> >  > +{
+> >  > + unsigned long next;
+> >  > + pud_t *pudp =3D pud_offset(p4dp, addr);
+> >  > +
+> >  > + do {
+> >  > + next =3D pud_addr_end(addr, end);
+> >  > +
+> >  > + if (__pud_none(false, pudp_get(pudp))) {
+> >  > +
+> >  > + phys_addr_t pmd_phys =3D kasan_alloc_zeroed_page(node);
+> >  > +
+> >  > + if (IS_ALIGNED(addr, PUD_SIZE) && end - addr >=3D PUD_SIZE) {
+> >  > +#ifndef __PAGETABLE_PMD_FOLDED
+> >  > + pmd_init(__va(pmd_phys));
+> >  > +#endif
+> >  > + pud_populate(&init_mm, pudp, (pmd_t *)__va(pmd_phys));
+> >  > + continue;
+> >  > + } else {
+> >  > + memcpy(__va(pmd_phys), kasan_early_shadow_pmd,
+> >  > + sizeof(kasan_early_shadow_pmd));
+> >  > + pud_populate(&init_mm, pudp, (pmd_t *)__va(pmd_phys));
+> >  > +
+> >  > + }
+> >  > + }
+> >  > +
+> >  > + kasan_shallow_populate_pmd(pudp, addr, next, node);
+> >  > + } while (pudp++, addr =3D next, addr !=3D end);
+> >  > +}
+> >  > +
+> >  > +static void __init kasan_shallow_populate_p4d(pgd_t *pgdp, unsign=
+ed long addr,
+> >  > + unsigned long end, int node)
+> >  > +{
+> >  > + unsigned long next;
+> >  > + p4d_t *p4dp =3D p4d_offset(pgdp, addr);
+> >  > +
+> >  > + do {
+> >  > + next =3D p4d_addr_end(addr, end);
+> >  > +
+> >  > + if (__p4d_none(false, p4dp_get(p4dp))) {
+> >  > +
+> >  > + phys_addr_t pud_phys =3D kasan_alloc_zeroed_page(node);
+> >  > +
+> >  > + if (IS_ALIGNED(addr, P4D_SIZE) && end - addr >=3D P4D_SIZE) {
+> >  > +#ifndef __PAGETABLE_PUD_FOLDED
+> >  > + pud_init(__va(pud_phys));
+> >  > +#endif
+> >  > + p4d_populate(&init_mm, p4dp, (pud_t *)__va(pud_phys));
+> >  > + continue;
+> >  > + } else {
+> >  > + memcpy(__va(pud_phys), kasan_early_shadow_pud,
+> >  > + sizeof(kasan_early_shadow_pud));
+> >  > + p4d_populate(&init_mm, p4dp, (pud_t *)__va(pud_phys));
+> >  > + }
+> >  > + }
+> >  > + kasan_shallow_populate_pud(p4dp, addr, next, node);
+> >  > + } while (p4dp++, addr =3D next, addr !=3D end);
+> >  > +}
+> >  > +
+> >  > +static void __init kasan_shallow_populate_pgd(unsigned long addr,
+> >  > + unsigned long end, int node)
+> >  > +{
+> >  > + unsigned long next;
+> >  > + pgd_t *pgdp;
+> >  > +
+> >  > + pgdp =3D pgd_offset_k(addr);
+> >  > +
+> >  > + do {
+> >  > + next =3D pgd_addr_end(addr, end);
+> >  > +
+> >  > + if (__pgd_none(false, pgdp_get(pgdp))) {
+> >  > +
+> >  > + phys_addr_t p4d_phys =3D kasan_alloc_zeroed_page(node);
+> >  > +
+> >  > + if (IS_ALIGNED(addr, PGDIR_SIZE) && end - addr >=3D PGDIR_SIZE) =
+{
+> >  > + pgd_init(__va(p4d_phys));
+> >  > + pgd_populate(&init_mm, pgdp, (p4d_t *)__va(p4d_phys));
+> >  > + continue;
+> >  > + } else {
+> >  > + memcpy(__va(p4d_phys), kasan_early_shadow_p4d,
+> >  > + sizeof(kasan_early_shadow_p4d));
+> >  > + pgd_populate(&init_mm, pgdp, (p4d_t *)__va(p4d_phys));
+> >  > + }
+> >  > + }
+> >  > +
+> >  > + kasan_shallow_populate_p4d(pgdp, addr, next, node);
+> >  > + } while (pgdp++, addr =3D next, addr !=3D end);
+> >  > +}
+> >  > +
+> >  > +static void __init kasan_shallow_populate(unsigned long start, un=
+signed long end, int node)
+> >  > +{
+> >  > + unsigned long vaddr =3D (unsigned long)start & PAGE_MASK;
+> >  > + unsigned long vend =3D PAGE_ALIGN((unsigned long)end);
+> >  > +
+> >  > + kasan_shallow_populate_pgd(vaddr, vend, node);
+> >  > +}
+> >  > +
+> >  > +#ifdef CONFIG_KASAN_VMALLOC
+> >  > +void __init kasan_populate_early_vm_area_shadow(void *start, unsi=
+gned long size)
+> >  > +{
+> >  > + unsigned long shadow_start, shadow_end;
+> >  > +
+> >  > + if (!is_vmalloc_or_module_addr(start))
+> >  > + return;
+> >  > +
+> >  > + shadow_start =3D (unsigned long)mem_to_shadow(start);
+> >  > + shadow_start =3D ALIGN_DOWN(shadow_start, PAGE_SIZE);
+> >  > + shadow_end =3D (unsigned long)mem_to_shadow(start + size);
+> >  > + shadow_end =3D ALIGN(shadow_end, PAGE_SIZE);
+> >  > +
+> >  > + kasan_map_populate(shadow_start, shadow_end, NUMA_NO_NODE);
+> >  > +}
+> >  > +#endif
+> >  > +
+> >  > asmlinkage void __init kasan_early_init(void)
+> >  > {
+> >  > BUILD_BUG_ON(!IS_ALIGNED(KASAN_SHADOW_START, PGDIR_SIZE));
+> >  > @@ -297,9 +451,6 @@ void __init kasan_init(void)
+> >  > /* Maps everything to a single page of zeroes */
+> >  > kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_N=
+ODE, true);
+> >  >
+> >  > - kasan_populate_early_shadow(mem_to_shadow((void *)VMALLOC_START)=
+,
+> >  > - mem_to_shadow((void *)KFENCE_AREA_END));
+> >  > -
+> >  > /* Populate the linear mapping */
+> >  > for_each_mem_range(i, &pa_start, &pa_end) {
+> >  > void *start =3D (void *)phys_to_virt(pa_start);
+> >  > @@ -309,9 +460,9 @@ void __init kasan_init(void)
+> >  > (unsigned long)mem_to_shadow(end), NUMA_NO_NODE);
+> >  > }
+> >  >
+> >  > - /* Populate modules mapping */
+> >  > - kasan_map_populate((unsigned long)mem_to_shadow((void *)MODULES_=
+VADDR),
+> >  > - (unsigned long)mem_to_shadow((void *)MODULES_END), NUMA_NO_NODE)=
+;
+> >  > + kasan_shallow_populate((unsigned long)mem_to_shadow((void *)MODU=
+LES_VADDR),
+> >  > + (unsigned long)mem_to_shadow((void *)VMALLOC_END), NUMA_NO_NODE)=
+;
+> >  > +
+> >  > /*
+> >  > * KAsan may reuse the contents of kasan_early_shadow_pte directly,=
+ so we
+> >  > * should make sure that it maps the zero page read-only.
+> >  > --
+> >  > 2.43.0
+> >  >
+> >
+>
