@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.90.84.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489983;
-	b=Dnnqp1//bv/LZvqkdVgy/px0VEaTE7htNHULikcqoQ70yOpSKwxWFlzPnThN/3mRVDPz
-	 3OUB+l4rHgZPSdT5VC8ADi43Zh1T+7Hgrap2CEjBnT61qQOfJW7+FlkHafb5GKLk3icEL
-	 m3zN53PJ6iXj1+pVO5Nxletu0rz9g7TVJnZ/C+SpP8MTVZGhjM83z+8zlAKM1rV4YwZoG
-	 axGRShHPOSlbt4IETlU0m6OxGuq/UZ/jTX5cmfWfAsV3ikKsTG79glDz3FL0CVAJxm8/h
-	 GYxHgtyughpn+tyT0MYITB5cwkc04KKl/8KUwKbMrwG3gunKJ5wu7/P/QihYrbkLz1A==
+	t=1792489995;
+	b=WkjX7bEVJWxp6PdpxkJmqCNTHs/fDDe3VsmcR5CE2rbKVkc+/slhZsdrV6wXUdtXPQO9
+	 PrkOSErAwBwntmZAyHy25owh4KU+H+1Gj/l7Px26lVwQSsHQhA/WgAvh6LcCbUWZzBrl4
+	 XffIiA0Lz9W5Zrbu/PV9mLmVzEAnS/eKGiv1RHX/rP5AFeMLDGINX4NJk2ev+UdmkhS/D
+	 IUjqCHNHY2vJj89tbdpw5Qbf0XIuq0r2pPmWfna1esY5I69otoOKo5j86dvzrgJXnqJIr
+	 CAT6Dh4Wuu5383Xg5gMmpr+pfkTpK645lTQRFSujHhHWCNvTOhpgDVlZWlw8oWd3mpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489983;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=YS8avYxqYm9He26pPgQ1C7oVGAea1Xa+Sj31NtGOY38=;
-	b=wqZEeVzdyFlrxPVe1nDl7GsS39Ftj9Xc6/z7eT85M27qrIxntn/SeWbkh+A4e5zWs3wQ
-	 h2hqE5l76kgWCJCwAaO8AbC6fJl1ENd6SBopTZ8d7YnSLJHEmqD8siELAJGdNg/m9eZsv
-	 gLuL2/Y/x9Pjb+hndFbtp+7O1rLhkxGvrTDivKjEvJmIdS6dY1GfvGzfo6vJquOkzvD3S
-	 SOt1rlXqe6H45TUP/Azp6KSCMPvgSP32A8RirSIidcCecR08SlCGW6ES78i+N0cGdU8Zy
-	 YM/NXIS8VXpd2gk8NOHWQP+qf5J1QNmP4uYgdjLPuzt5N9xTH0V331AliAw7VUoWXew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489995;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=hjiDGPYB2K+D7Y1vJcaKbb6AEjbcs6XdQq2usn0rk9w=;
+	b=mWyuelkkvc4l9dwYTs6lsyce6/cSt4BS8BaXpj6sClwyIN9fc00vxL2I6kQz3NTNP5hK
+	 KZOXlLcrNLjsA5EHsqUDWtWcZbQ+KCWQFihnvEpllMzLzpkS4Tm1881HwD19XIuGbUEQJ
+	 jOmf0ozLxLGkzD1S8ANWlSUBFhyu2PcSV/7gUkQdPpTrIOM4fJAsHL/njKY9gt/oSlecy
+	 fWSNu5BMHRc0XBgz3evhAd9KOi7SLK4jODbfxcxaaCGWiMUESMJ4whwBbD8F4HSZNkhAQ
+	 zEL9nQEgZ3X4F+RlxZXNVta/2JCH65mt8KDIBlODuxhEHnD+m6jI1bz9xJVefGUwJvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OEWlK6rJ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=tuxedocomputers.com;
+	spf=pass smtp.mailfrom=tuxedocomputers.com;
+	dkim=pass header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=VxYlYkF7;
+	arc=none smtp.remote-ip=157.90.84.7
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD266606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD266606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586CC606A31A;
+	Tue, 20 Oct 2026 09:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 586CC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OEWlK6rJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792489981;
+	dkim=pass (1024-bit key, unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=VxYlYkF7
+Received: from [127.0.1.1] (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 600812FC0065;
+	Tue, 20 Oct 2026 11:53:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1792489986;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YS8avYxqYm9He26pPgQ1C7oVGAea1Xa+Sj31NtGOY38=;
-	b=OEWlK6rJS8pVKFidncGgBMe27srV0uHjWlWcgUiWPC3wsRNKmMNDf7lbOyq4Ssn3G/RhXd
-	uEjUG8/AKw5eQ8R18mSGEzB1xgVVSpg/f8u8VFZ1Oy9gqG4SZZ7S9LrBkMHNa+qbDUpPF/
-	Bz24RtMGRu36NCXuo3DbUAsuGaEz4bo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-228-fKxQD40XNpy74d3mygqPaQ-1; Tue,
- 20 Oct 2026 09:52:58 +0000
-X-MC-Unique: fKxQD40XNpy74d3mygqPaQ-1
-X-Mimecast-MFC-AGG-ID: fKxQD40XNpy74d3mygqPaQ_1792489977
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DCCAE180256B;
-	Tue, 20 Oct 2026 09:52:56 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id B358E195608B;
-	Tue, 20 Oct 2026 09:52:54 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Tue, 20 Oct 2026 11:52:56 +0200 (CEST)
-Date: Tue, 20 Oct 2026 11:52:53 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: fujo <hooyan2024@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] selftests/pidfd: wait for POLLHUP before reading exit
- info
-Message-ID: <atc59R5-oBnyOIb8@redhat.com>
-References: <20261017054356.7874-1-hooyan2024@gmail.com>
- <179226499044.847.17334319321039510150@gmail.com>
- <atTy6LziL5fdGTkn@redhat.com>
- <179234213014.649.6368924662349703640@gmail.com>
+	bh=hjiDGPYB2K+D7Y1vJcaKbb6AEjbcs6XdQq2usn0rk9w=;
+	b=VxYlYkF7LjAmxOJb9c3rmdg0kgNg52FYHlsIai9zEbdvFEFZ3W71/xhl2HOqM9aA1omlBa
+	5zAsbxtBg7+1GUyOzF+YnmzsuyWd7ckPb/WIu7oPk5yW7oD7DbGZ4gaKKHzklA/k4CAyuL
+	3fmL6NvCbLKuqpJ9+S/u8UCAIf85gMk=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+Date: Tue, 20 Oct 2026 11:51:48 +0200
+Subject: [PATCH v7 2/3] HID: generic: add LampArray support via
+ hid-lamparray helper
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,17 +62,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179234213014.649.6368924662349703640@gmail.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-hid-lamparray-v7-2-47418b667b47@tuxedocomputers.com>
+References: <20261020-hid-lamparray-v7-0-47418b667b47@tuxedocomputers.com>
+In-Reply-To: <20261020-hid-lamparray-v7-0-47418b667b47@tuxedocomputers.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Cristian Mazzotta <cmmazzo@icloud.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, Armin Wolf <W_Armin@gmx.de>, 
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-leds@vger.kernel.org, Tim Guttzeit <tgu@tuxedocomputers.com>, 
+ Aaron Erhardt <aer@tuxedocomputers.com>
+X-Mailer: b4 0.15.2
 
-On 10/18, fujo wrote:
->
-> The zero-timeout liveness check in autokill_pidfd_open_no_effect keeps
-> POLLIN; it verifies that the child has not exited yet.
+The hid-generic driver now checks for LampArray support after
+hid_parse() and optionally registers a lamparray instance. Failures in
+the helper do not abort device probe to keep the device unchanged.
 
-Confused... V3 still changes the 1st poll(&pfd, 1, 0) to use POLLHUP?
+LampArray resources are released on driver remove.
 
-Oleg.
+This patch was successfully tested on the Microsoft MacroPad reference
+implementation (https://github.com/microsoft/RP2040MacropadHidSample
+1d6c3ad) and in combination with the tuxedo_nb04_wmi driver, albeit only
+functional with a recent fix posted to the LKML.
+
+Link:
+https://lore.kernel.org/all/20260728115918.125349-2-aer@tuxedocomputers.com
+
+Co-developed-by: Tim Guttzeit <tgu@tuxedocomputers.com>
+Signed-off-by: Tim Guttzeit <tgu@tuxedocomputers.com>
+Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+---
+ drivers/hid/Kconfig       |  1 +
+ drivers/hid/hid-generic.c | 41 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 934e502ba5058..919d495090d97 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -82,6 +82,7 @@ config UHID
+ 
+ config HID_GENERIC
+ 	tristate "Generic HID driver"
++	depends on HID_LAMPARRAY if HID_LAMPARRAY
+ 	default HID
+ 	help
+ 	Support for generic devices on the HID bus. This includes most
+diff --git a/drivers/hid/hid-generic.c b/drivers/hid/hid-generic.c
+index c2de916747dec..fde772c5014bb 100644
+--- a/drivers/hid/hid-generic.c
++++ b/drivers/hid/hid-generic.c
+@@ -20,6 +20,7 @@
+ #include <asm/byteorder.h>
+ 
+ #include <linux/hid.h>
++#include <linux/hid-lamparray.h>
+ 
+ static struct hid_driver hid_generic;
+ 
+@@ -60,6 +61,7 @@ static int hid_generic_probe(struct hid_device *hdev,
+ 			     const struct hid_device_id *id)
+ {
+ 	int ret;
++	struct lamparray *la;
+ 
+ 	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
+ 
+@@ -67,6 +69,34 @@ static int hid_generic_probe(struct hid_device *hdev,
+ 	if (ret)
+ 		return ret;
+ 
++	/*
++	 * Optional: attach LampArray support if present.
++	 * Never fail probe on LampArray errors; keep device functional.
++	 */
++	if (IS_ENABLED(CONFIG_HID_LAMPARRAY) && lamparray_is_supported_device(hdev)) {
++		/*
++		 * Use HID_CONNECT_DRIVER to make sure requests are
++		 * processed in hid_report_raw_event. Without this,
++		 * hid-core will skip parsing for devices that are only
++		 * claimed by hidraw, thus making it impossible to query
++		 * the required information.
++		 * See 7704ac937345 for more information about this flag
++		 * and why it is necessary.
++		 */
++		ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT | HID_CONNECT_DRIVER);
++		if (ret)
++			return ret;
++
++		la = lamparray_register(hdev, NULL);
++		if (IS_ERR(la)) {
++			hid_hw_stop(hdev);
++			hid_warn(hdev, "LampArray init failed: %ld\n", PTR_ERR(la));
++		} else {
++			hid_set_drvdata(hdev, la);
++			return 0;
++		}
++	}
++
+ 	return hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+ }
+ 
+@@ -78,6 +108,16 @@ static int hid_generic_reset_resume(struct hid_device *hdev)
+ 	return 0;
+ }
+ 
++static void hid_generic_remove(struct hid_device *hdev)
++{
++	struct lamparray *la = hid_get_drvdata(hdev);
++
++	if (IS_ENABLED(CONFIG_HID_LAMPARRAY) && la)
++		lamparray_unregister(la);
++
++	hid_hw_stop(hdev);
++}
++
+ static const struct hid_device_id hid_table[] = {
+ 	{ HID_DEVICE(HID_BUS_ANY, HID_GROUP_ANY, HID_ANY_ID, HID_ANY_ID) },
+ 	{ }
+@@ -90,6 +130,7 @@ static struct hid_driver hid_generic = {
+ 	.match = hid_generic_match,
+ 	.probe = hid_generic_probe,
+ 	.reset_resume = hid_generic_reset_resume,
++	.remove = hid_generic_remove,
+ };
+ module_hid_driver(hid_generic);
+ 
+
+-- 
+2.43.0
 
