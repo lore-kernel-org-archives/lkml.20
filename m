@@ -1,74 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792470492;
-	b=nat7FCrB3kWs/PaZT0dppqPcL6uUi+p1cVNFmcpyUlRO/WmTHlzPl4fRTzh9qUf1L4Wy
-	 OmPEVReKt5FN/iK+x6bgOAQmQfHNjqqtnKsG3E1Tc0uorxAuasPZwHIZjG9CGaPuyUEvr
-	 A7CGzaK0GeyKxm5n23LR3lf0J5LA4pnYrvAWSJiRYYHais/DvzBh+tnOoi4gNA/0a/OwR
-	 a6ADD3JKVLsYr4vaLhTpOWwilFZacZfZdC6TLYxFp3kKscns2AR/0aRp4oUXJ7L/b18tj
-	 iXXyBb8aVSc3i4QYyx2Z83rXyrKHaL2PjawZBZVDbpuQUTV262P+UcMgnpb889XNqGQ==
+	t=1792470567;
+	b=imS39RAeHTI/ZFYexEWLUd+RCf0dTesbbXCs8Wji3OoLcNOgTJahxXItPNIo/wccSVpL
+	 bAKliM2meMzHIv06HUsOrqwpM7VCxt25E15SH5T3BYlIu4kr5HqY9tRF+Pnyi0ppSpI/m
+	 iPiUHrPGbpM81lpdHssrwLaZ2nDICALewH7UewclL6z79MKAnD3sV7EW7cgRYk7kYGsTd
+	 DN2sVylBKkFXlEIwKASNq1+2DN7ugvKouJCjoSpxPQVGQcicV0yWpkG9dmoEiFXDa0vZM
+	 p6U+RFbj6yk1zCh6aYdID9TvA5SiDEA70cxlFsk1nIDX9S4n9cPJHriiILas9GWUwrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792470492;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=bmehFgwVRnUa6nikz4hkDREK8DqOmKWW9Zk/XGD2B3A=;
-	b=KmqD2ntSxlzzWOA54qVk87yS+lN7f8OGjJaKmfy2YjjXJfutSFwACyWRGMkh2jW6wI83
-	 19P34f5tRwr2I+jcTgmlOYg9PzJAAsOLY6OmnnylD/6139CNzLsy6c4oxuK7CV0UMyzfj
-	 R0hyXNsP1rkApNnTes3mXQ4S5N49oYX//IbE+NeNaa+fi4ZV0LQJeiW+s7UHK8SODSjF/
-	 uA+pW+UQPxEUD3ivbLd3ryAc2/X6+jlTFldgB9J+JQ4WnkryikDz6A6qU4GYudZy/tJ9k
-	 pVDfgEARf5WMfojsC6sdO8aDHyP543IrhYWWqpIt1/8uu8QeDddagmfdrY5nV0MtypQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792470567;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=mCzFoDLWuL5MueYAMxrZxEvcLjQQoXlRUXfTpC3Q9fQ=;
+	b=MzCWHSq3YygnyccCK+lRag0uHFisGTaCBqaK/5dwJhqnrkBE8Xn/q9jqrv+i6ffXtGru
+	 J84X2OmcBTJfvYKqikzrOYJrVDd8oAuY8dmt8goDzl8cwrieKlAOeAFWVkN82dNA6uy55
+	 rWhqOvumry6ChhGtOu1gRhmw/1msoxXbhIbXgfEIi3SPehKAiOB/r2Msb60F7PTSyl8LR
+	 LdfiRzHK6emK9aAgbY58H+JpFXn3P2Y4miwTfW3pUXDyjfASTdm/AtkyDl+IMk9oOF7/I
+	 N9gcC9ZfTBECLxjj7x/BbMeFVGghjmtXQZ5J29M5cGZIDnb6L2n06xkpYwb6hss2ymg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="d4WUqqT/";
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=owQqC7yE;
+	arc=none smtp.remote-ip=61.135.153.165
+Received: from smtp153-165.sina.com.cn (smtp153-165.sina.com.cn [61.135.153.165])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F299606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F299606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2469606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:29:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2469606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=d4WUqqT/
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88629a452e0so1702397b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792470491; x=1793075291; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bmehFgwVRnUa6nikz4hkDREK8DqOmKWW9Zk/XGD2B3A=;
-        b=d4WUqqT/ugdSV/vev8VVX+KiV9oN5rngtzS06jooCvYrn+rIgo1DA7lYkBfuKBLrcz
-         4PQv/HHNZLQ74SAy3RBoE2SmV+7YEoWl05DTBtA8mQLGto0RJNaKPyGnuBHz+K27vkCN
-         inzUrmNuz3kTBxzxTndkItq7X2qxPerm7viy8phPjyO10KT5cXXsrWIS4HE9awU8Mga1
-         bIFyv/6jW5b9oe/ugmL6JQsQfkrhMTpPOTpsujNaCL2i7w8mcB/cRCgHlJIQm65c4q2P
-         +gv24xa4VsVqcS3DsPzZYZ4sOAJ7GJqOURySWfpVfCHegtD+eA5uU0MnYuRxgDfU1fwd
-         Yjmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792470491; x=1793075291;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bmehFgwVRnUa6nikz4hkDREK8DqOmKWW9Zk/XGD2B3A=;
-        b=bJlQetSF7u5veunRJUv4KCSlxksHWBqgXpdtcocMVopIEI5dwOn6mcEgONrPqymSAT
-         uvOPdQGlfJTQDlCM4/mIUhoZtKj+M0Jf3Z2E4t76U+nkOfk3uwGhAOan8CfB8pijGvac
-         hszgCJE74ZFKTT3bTE2ShQXQYAyXDoxYF00S3jSJvvssjIVGlRR/mYmINhlBcfgFOdy/
-         FNXEo+psQE3JM1DnC7ZXxjYNquTCt9VN0rpd7M56sW4NkAIZfOzuc40uTv9Z0Pv2aYLA
-         EWzzacJuWu6PKsWsUvNupi0esXMD1tmSCNr46h//mOjLnV0KW4iaiTlHm1QDuAg5L1Vu
-         QRKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhMLgRJ+PeT/C49Yxr+CKBgv1D84hj6Ly0Z8sW3UBe0+LPCffJSMTOyf2mzcc63Yt7Cst/G5bC0cUaCwc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSqX9vcVfa62Pi8nkuG39VzM6cCv7neeePQjOm5HycFds10yVp
-	kn2OJy7wASFyCDbpRAaXT+i+wBQdUtBqYJOkIVWw3rLfnZZ6LMxOoGcsMXHiU1eoA0Jog4G007e
-	7M9CaWw==
-X-Received: from pfgu40.prod.google.com ([2002:a05:6a00:9a8:b0:887:5ba8:7334])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:a8d:b0:899:53a9:1dd9
- with SMTP id d2e1a72fcca58-8a04d34d8b6mr7973176b3a.57.1792470490721; Mon, 19
- Oct 2026 21:28:10 -0700 (PDT)
-Date: Tue, 20 Oct 2026 04:28:10 +0000
-In-Reply-To: <20261019230758.2960779-1-joshdon@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=owQqC7yE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792470562;
+	bh=mCzFoDLWuL5MueYAMxrZxEvcLjQQoXlRUXfTpC3Q9fQ=;
+	h=From:Subject:Date:Message-ID;
+	b=owQqC7yEfRVf+9cpH3KAts6n1Mc69iVaVP6zJGp66mGQJgtUQ3wVFpfyT3y0Y6yUW
+	 erDKwV+DpTd5Znj2KzKYu3AJNFi64rmOdoFj+0t7AsoCvyHJTn9f+IiGqF/PTRI3aU
+	 yfQEjWxkl2l2TpVPqgjR1tSrveq8AUgterLQik34=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([221.216.116.112])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AD6EE15000034ED; Tue, 20 Oct 2026 12:29:12 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 8600584457013
+X-SMAIL-UIID: DB9C999DB87D4F2A9950C4ED4CF4C86B-20261020-122912-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+059a2795ad4cff2a2695@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [x25?] possible deadlock in lapb_data_received
+Date: Tue, 20 Oct 2026 12:28:59 +0800
+Message-ID: <20261020042900.875-1-hdanton@sina.com>
+In-Reply-To: <6ad66d73.2431563d.3b88b.0026.GAE@google.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,79 +67,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019230758.2960779-1-joshdon@google.com>
-Message-ID: <atbsxDZecXYSDBqH@google.com>
-Subject: Re: [PATCH] udp: Add noinline_for_tracing annotation for udp{,_v6}_send_skb()
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Josh Don <joshdon@google.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 23:07:58 +0000, Josh Don wrote:
-> We hook udp_send_skb() and udp_v6_send_skb() using BPF fentry programs
-> to monitor UDP transmits. Both functions are static and have two
-> callers: udp{,v6}_sendmsg() and udp{,_v6}_push_pending_frames().
+> Date: Mon, 19 Oct 2026 12:20:19 -0700	[thread overview]
+> Hello,
 > 
-> After an FDO profile update, udp_v6_send_skb() is now inlined into
-> udpv6_sendmsg(), while an out-of-line copy remains for
-> udp_v6_push_pending_frames(). The fentry program still attaches
-> successfully, but it is silently bypassed for all uncorked sends.
+> syzbot found the following issue on:
 > 
-> To address this, make both functions noinline explicitly for tracing,
-> as was done for tcp_drop_reason() in commit dbd5e2e79ed8 ("net: tcp:
-> Add noinline_for_tracing annotation for tcp_drop_reason()").
+> HEAD commit:    2c7935600733 Merge branch 'bpf-zero-extend-the-index-in-in..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13598f01580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=964a8fc052e56fe5
+> dashboard link: https://syzkaller.appspot.com/bug?extid=059a2795ad4cff2a2695
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117c5031580000
 
-Unlike tcp_drop_reason(), udp_send_skb() is a hot function as
-inlined by FDO.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 70dd4ee72eb2
 
-Did you see how this change affects to udp_rr performance ?
-
-Also, net-next is closed.
-https://lore.kernel.org/netdev/7a0446eb-8539-4300-ae0b-a3d66a692cbc@redhat.com/
-
-
-> 
-> Assisted-by: LLM
-> Signed-off-by: Josh Don <joshdon@google.com>
-> ---
->  net/ipv4/udp.c | 4 ++--
->  net/ipv6/udp.c | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-> index b090bd1f59e86..487c8cc8ab206 100644
-> --- a/net/ipv4/udp.c
-> +++ b/net/ipv4/udp.c
-> @@ -1110,8 +1110,8 @@ void udp_set_csum(bool nocheck, struct sk_buff *skb,
->  }
->  EXPORT_SYMBOL(udp_set_csum);
->  
-> -static int udp_send_skb(struct sk_buff *skb, struct flowi4 *fl4,
-> -			struct inet_cork *cork)
-> +noinline_for_tracing static int
-> +udp_send_skb(struct sk_buff *skb, struct flowi4 *fl4, struct inet_cork *cork)
->  {
->  	struct sock *sk = skb->sk;
->  	int offset, len, datalen;
-> diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-> index 93478d1ad5769..fe92538835176 100644
-> --- a/net/ipv6/udp.c
-> +++ b/net/ipv6/udp.c
-> @@ -1366,8 +1366,8 @@ static void udp6_hwcsum_outgoing(struct sock *sk, struct sk_buff *skb,
->   *	Sending
->   */
->  
-> -static int udp_v6_send_skb(struct sk_buff *skb, struct flowi6 *fl6,
-> -			   struct inet_cork *cork)
-> +noinline_for_tracing static int
-> +udp_v6_send_skb(struct sk_buff *skb, struct flowi6 *fl6, struct inet_cork *cork)
->  {
->  	struct sock *sk = skb->sk;
->  	int offset, len, datalen;
-> -- 
-> 2.56.0.212.g129ede20d9-goog
-> 
+--- x/drivers/net/wan/lapbether.c
++++ y/drivers/net/wan/lapbether.c
+@@ -139,7 +139,10 @@ static int lapbeth_rcv(struct sk_buff *s
+ 	skb_pull(skb, 2);	/* Remove the length bytes */
+ 	skb_trim(skb, len);	/* Set the length of the data */
+ 
++	/* still with rcu lock held */
++	spin_unlock_bh(&lapbeth->up_lock);
+ 	err = lapb_data_received(lapbeth->axdev, skb);
++	spin_lock_bh(&lapbeth->up_lock);
+ 	if (err != LAPB_OK) {
+ 		printk(KERN_DEBUG "lapbether: lapb_data_received err - %d\n", err);
+ 		goto drop_unlock;
+@@ -343,6 +346,7 @@ static int lapbeth_close(struct net_devi
+ 	struct lapbethdev *lapbeth = netdev_priv(dev);
+ 	int err;
+ 
++	synchronize_rcu();
+ 	spin_lock_bh(&lapbeth->up_lock);
+ 	lapbeth->up = false;
+ 	spin_unlock_bh(&lapbeth->up_lock);
+--
