@@ -1,63 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501857;
-	b=4vSfVQ9SFfWKvVMMReP78qUQ9239E6vwTQ1t1D8yhbKUcSCdQeDvlmcH7HT9NTKU7k8w
-	 7hXaom5okAG+m+PuyyXBqNNoheOKSllzhn6qZ58vhsDSA1tBay8LxgJu0VzV+zTGgi701
-	 XOXbGdakALk9PRBmH2uZw1X94bzvk1LAjJq4kilcmLmflkhX9r+sae3Tm9JV77avC02qK
-	 MvX+A9RgXdsj8KNRgXjyCpi9cnTLJNgp0vtURZDK3l5nWct1XQn2GCuur5d8ajBpublj3
-	 Q8vKCq4iLiUz8jZEYApVRTM1IsF0qz3yrhZAvpoDwZTpyXcGV0vAm3hh4pl46cc4RdA==
+	t=1792501860;
+	b=kf8tMykC1SuqozPf8japRH7Z6iDj5IgwA6bHbpSogxam8s+qwhEPVBTPjqd02gk+LgE0
+	 rhdhpL5sUiCnVHzmRz1HbrESAlY6lL83wKO7uRzfDl2GdlNhuCsKCxC2CK40Q9mrOcW9V
+	 yhwB2CCawnyb2VN4LpS8PK9cS4b04OVqv7yvxB/pNewapKGP+EL66GzHk/E/WhQwQ8Vqm
+	 9qKI97fWvzwQjyENUlz+sDs1Y+HD97FmjMVs6rWSmgA2O/2lPhpF/rOMu+YwDWM/bseel
+	 ep9D3dh8IVgAzi+zpn43a9KO4M5ObKnaIJQgR1tkUw/TWt2f0YYEMshS2aBc3KThTDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501857;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501860;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=S3Sb419tcnHgsczc/SWcwDkky5azghj0g+2RQPB3KEA=;
-	b=PZBayuu4HJAZOBpvsPZNvQ70aY2JMGr4i/QkIZ0getO+eAvCaq/EQ18xm99IkUBCwAdx
-	 jvhFg9ShHSVINzxO9HldDAZgvnaDHXvHwDlbYGQebVnZLylNsinuQBUG85Vf/Z/wcJolf
-	 xpnholLOgT4FcIItgHduZZ9WnvDCToCaudzUA1rSBxOScPISusp/2XW42Xm6z0TsEmlWl
-	 xOPU1Ko7rTbPPJJr8ti9J3O/wD4uQMFXZmC0rRHXI7xScZunv9d6Q+dGQ+c5vEB6NFAKZ
-	 hyU0e45+kwXpCZlRODe9O5hWl/djssXDuxVepkJB6+L9HkMC8VIRRkidrtIcfmzbAbQ==
+	bh=BgtBHnxdOVXZopSmsnS/chjAyd2c5e1oaSz23YMKP0A=;
+	b=YGqV+hek0ycZwOWG8VnPfIziOip8bTIDNjjAnJCiRT32OjMfPt2W3J7Z0D9mGKvf1vu8
+	 UQfSEz5SfMuWA3VJk2fBWDIryJR84EboDh9rObYNeTFqfFf/nMfmYtqHydx4pBekr9zWV
+	 t6vX4shp1U6jqTGIU/C0BJ4BBC4Ess2zFuTEDV852qI7J3JPyVtvOyVfO2T7wD3levyvd
+	 aM/oVbwksJX7Wjc63nnvwjw8r1aAiAZAh4SKm498qs3m27+6zqD6gJ1U8/gR6HDfZ/Acv
+	 4mYPrmy2eqooQxK6O532qy4EiUO1269hqLkyxbBRd3CTFPdSpLzrmJUvkpEYH7PN/AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPZ5KfkL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OlLMsskF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984A160A261E;
-	Tue, 20 Oct 2026 13:10:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173C960A380C;
+	Tue, 20 Oct 2026 13:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPZ5KfkL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FCE1F000C7;
-	Tue, 20 Oct 2026 13:10:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OlLMsskF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0051F000C5;
+	Tue, 20 Oct 2026 13:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792501856;
-	bh=S3Sb419tcnHgsczc/SWcwDkky5azghj0g+2RQPB3KEA=;
+	s=k20260515; t=1792501859;
+	bh=BgtBHnxdOVXZopSmsnS/chjAyd2c5e1oaSz23YMKP0A=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aPZ5KfkLYnGUCoEyYowA72827WT2AYMDPraxg7tQjRbHfbK7xQfbqq6EMnF5mcgTY
-	 dMhRaAr9lsTMy6lEdLKhzit1GSb3U4ZS3uNDAlumlimYtHhc2UCwxL5ly5PAHw20y9
-	 y3vEI7ywsh9sNzRth3PPWQLBFzF5oejKvg5le4QuGY7FvJkmsWGBoBunT4/BzmUCFt
-	 fzGjeOSpq6O8HSt/3JSjnqVqJWlZ56yZSFI7QJqMasnuXFehj0IN+MwqRvM1gHTx91
-	 BEa+y00+xKYrL8Qiri66Jc3Z4c7Gbr5VSVLst5A3VanHjXtlKsSl5zjQ1TTCBd8uKr
-	 GFFGB8mzJ9EqQ==
-Subject: Re: [PATCH net-next v3 7/9] net: stmmac: mediatek: use TX clock phase
- shift in RGMII mode with 1Gbps speed
+	b=OlLMsskFsoFxLF+IvX8Llhosc1jUFdCZttH/kXyszE6omWbJJ4shiJEy/D95AhcBt
+	 karqWrU9lA9umLHRJaznYWE7sbbD3lUM+8ZgnNaID971IUK73aAFjAiYEUdiuW6/p5
+	 Yf/vMXBPSx8hNbTapMpLiGYncoBrWFWJm0zGK9TZ3zZTQEkvr71iKS/CRgkG9gK73A
+	 ooH4NndEVtfDdo1j1zVDv/ABnSEktffo49qlYTnDKa2dawZXdNNm9Yt1eBLmjr48EP
+	 soIMzog+8n+h/yh8s5jbKjjmpH3xqSOZnMzhoW5Ib4jbzGHUyisK6nwl1143sNkDpf
+	 HQ+Z00FCEUtFw==
+Subject: Re: [PATCH net] ice: fix Tx hang dump using stale tx_buf[0].skb
 From: netdev-bot+sashiko@kernel.org
-To: louisalexis.eyraud@collabora.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, biao.huang@mediatek.com,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, edumazet@kernel.org, kernel@collabora.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 20 Oct 2026 13:10:54 +0000
-Message-ID: <179250185440.3135.3867297612747113346@kernel.org>
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
-References: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
-X-sashiko-severity: Medium
+To: choiniere.vincent@hydroquebec.com
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ intel-wired-lan@lists.osuosl.org, aleksandr.loktionov@intel.com,
+ michal.kubiak@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 20 Oct 2026 13:10:58 +0000
+Message-ID: <179250185873.3135.10101707471960530546@kernel.org>
+In-Reply-To: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
+References: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -70,10 +65,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -81,145 +76,154 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] At 1Gbps on RGMII, mt8195_fix_mac_speed()
-  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) treats the DT…
-- [Medium] At 1Gbps, mt8195_fix_mac_speed()
-  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) silently clears…
+- [High] The new `tx_buf->type == ICE_TX_BUF_SKB` guard in
+  ice_tx_hang_reporter_dump()…
+
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the patch
+  keeps it and adds another access to the same storage.
 
 --
 
-net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps speed
+ice: fix Tx hang dump using stale tx_buf[0].skb
 
-This commit adds a fix_mac_speed callback to the MediaTek dwmac glue and
-implements it for MT8195. When an RGMII link comes up at 1Gbps and the DT
-requests a TX delay, the callback turns on the fixed 2ns TX clock phase
-shift (RGMII_TXC_PHASE_CTRL). At other speeds it falls back to the coarse
-delay macro circuit.
+This commit changes ice_tx_hang_reporter_dump() so it reads the Tx buffer
+at event->next_to_clean instead of always reading tx_buf[0]. It uses that
+buffer's skb only when the buffer type is ICE_TX_BUF_SKB, and skips the skb
+dump otherwise.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 7dd46cd5a49e1..4b2d5280f7030 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
 
-[ ... ]
-
-> @@ -430,9 +433,65 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
->  	return 0;
->  }
->  
-> +static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
-> +				 int speed, unsigned int mode)
-> +{
+> diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
+> index 8e9a8a8178d48..059859c36dfb2 100644
+> --- a/drivers/net/ethernet/intel/ice/devlink/health.c
+> +++ b/drivers/net/ethernet/intel/ice/devlink/health.c
+> @@ -390,12 +390,15 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
 
 [ ... ]
 
-> +	if (!mac_delay->tx_delay ||
-> +	    (interface != PHY_INTERFACE_MODE_RGMII &&
-> +	     interface != PHY_INTERFACE_MODE_RGMII_RXID))
-> +		return;
-> +
-> +	/*
-> +	 * When link speed is 1Gbps with RGMII interface, and a TX internal
-> +	 * delay needs to be applied on MAC, prefer to override the delay
-> +	 * settings with a 2ns fixed delay which is controlled by
-> +	 * RGMII_TXC_PHASE_CTRL. Otherwise, fallback to HW delay macro circuit
-> +	 * for 10/100Mbps link speeds.
-> +	 */
-> +	if (speed == SPEED_1000) {
-> +		reg_val = MT8195_RGMII_TXC_PHASE_CTRL;
+> -	skb = event->tx_ring->tx_buf->skb;
+> +	tx_buf = &event->tx_ring->tx_buf[event->next_to_clean];
+> +	if (tx_buf->type == ICE_TX_BUF_SKB)
+> +		skb = tx_buf->skb;
+
+[Severity: High]
+Is this type check enough to stop devlink_fmsg_dump_skb() from reading a
+freed skb when Tx cleanup runs at the same time?
+
+The dump runs from the service task:
+
+ice_service_task()
+  ice_report_tx_hang()
+    devlink_health_report()
+      devlink_health_do_dump()
+        ice_tx_hang_reporter_dump()
+
+The only lock held on that path is reporter->dump_lock. Nothing disables
+NAPI, takes the Tx queue lock or takes a reference on the skb.
+
+ice_service_task() calls ice_report_tx_hang() before ice_reset_subtask(),
+so the ring's NAPI and queue IRQ are still live while the dump runs:
+
+	if (pf->health_reporters.tx_hang_buf.tx_ring) {
+		ice_report_tx_hang(pf);
+		pf->health_reporters.tx_hang_buf.tx_ring = NULL;
+	}
+
+	ice_reset_subtask(pf);
+
+In ice_clean_tx_irq(), the skb is freed before the type is changed, and
+tx_buf->skb is never cleared:
+
+		/* free the skb */
+		napi_consume_skb(tx_buf->skb, napi_budget);
+
+		/* unmap skb header data */
+		dma_unmap_single(tx_ring->dev,
+		...
+		/* clear tx_buf data */
+		tx_buf->type = ICE_TX_BUF_EMPTY;
+
+This means the reporter can see ICE_TX_BUF_SKB for an skb that has already
+been freed.
+
+The index is racy as well. ice_report_tx_hang() copies
+tx_ring->next_to_clean with a plain read of a field that NAPI updates, so
+it can name the slot NAPI is reclaiming at that moment.
+
+After this check and before devlink_fmsg_dump_skb(), the dump makes many
+devlink_fmsg_put() calls that allocate with GFP_KERNEL. It also copies the
+whole descriptor ring. That is a long window in which the task can be
+preempted.
+
+The scenario in the commit message seems to set up exactly this case. The
+descriptors have completed and only the queue IRQ is delayed. NAPI can run
+on another CPU, as the RT IRQ thread preempting the kworker, or because Rx
+traffic on the shared q_vector kicks it. Whenever it runs, it frees the
+skb at next_to_clean. devlink_fmsg_dump_skb() would then read skb->len,
+skb_shinfo(skb) and skb->sk from freed memory.
+
+Could that cause the same page fault this patch is meant to fix, or copy
+freed memory into the dump? The notes below the commit message already say
+"the skb lifetime against concurrent Tx cleanup still needs review".
+
+Would it work to call napi_disable() and napi_enable() on
+tx_ring->q_vector->napi around reading and dumping the skb? Two other
+options are to capture the skb fields while cleanup is excluded, or to
+dump only the skb pointer and not the skb contents.
+
+> @@ -409,7 +412,8 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
+>  	ice_fmsg_put_ptr(fmsg, "skb-ptr", skb);
+>  	devlink_fmsg_binary_pair_put(fmsg, "desc", event->tx_ring->desc,
+>  				     event->tx_ring->count * sizeof(struct ice_tx_desc));
 
 [Severity: Medium]
-At 1Gbps, does this treat mediatek,tx-delay-ps as an on/off switch rather
-than as a delay amount?
+This isn't a bug introduced by this patch, but the patch keeps it and adds
+one more access through the same saved ring pointer. Is event->tx_ring
+guaranteed to still be valid when this dump runs?
 
-The gate checks the raw picosecond value in mac_delay->tx_delay.
-mediatek_dwmac_config_dt() stores that value without rounding:
+ice_prep_tx_hang_report() saves a raw ring pointer from watchdog context:
 
-    if (tx_delay_ps < plat->variant->tx_delay_max) {
-        mac_delay->tx_delay = tx_delay_ps;
+	buf->tx_ring = tx_ring;
 
-Both mt8195_set_delay() and the new 10/100 branch round the value down to
-290ps stages (180ps on MT8189). So a value of 1..289ps means no delay at
-probe time and at 10/100. At 1G, the same DT value now gets the full ~2ns
-phase shift.
+ice_service_task() uses it later with no lock and no reference. It holds
+neither rtnl nor ICE_CFG_BUSY, and ring teardown never clears the saved
+pointer.
 
-For every other value (290ps, 870ps, 8990ps, ...), the configured amount is
-replaced by a fixed ~2ns at 1G. GTXC_ENABLE and GTXC_STAGES are in the
-update mask, so the coarse delay is also cleared, with no warning.
+ice_set_ringparam() runs under rtnl and does not check
+ice_is_reset_in_progress(). It calls ice_down(), which runs
+ice_clean_tx_ring(). That frees every skb, clears tx_buf and resets
+next_to_clean to 0. Then ice_set_ringparam() does:
 
-The same DT setting therefore gives a different MAC TX delay depending on
-link speed. Could boards that tuned tx-delay-ps to their PCB skew end up
-with the wrong total skew at gigabit?
+			ice_for_each_txq(vsi, i) {
+				ice_free_tx_ring(vsi->tx_rings[i]);
+				*vsi->tx_rings[i] = tx_rings[i];
+			}
 
-The binding in Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-still describes the property as:
+ice_free_tx_ring() frees tx_buf and desc and sets both to NULL.
 
-      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
-      multiple of 290, or will round down. Range 0~31*290.
+If ethtool -G runs while the service task is dumping, can
+ice_tx_hang_reporter_dump() do any of the following?
 
-The commit message also doesn't say that the configured value is ignored at
-1G.
+- Index freed or NULL tx_buf memory using the old next_to_clean.
+- Dump count * sizeof(struct ice_tx_desc) bytes from a freed or NULL desc.
+  The count and desc values may also come from different ring
+  generations.
+- Dereference q_vector->name.
 
-None of the in-tree boards seem to hit this. mt8395-genio-common and
-mt8395-radxa-nio-12l use rgmii-rxid with 2030ps. mt8390-grinn-genio-sbc uses
-30ps, but its phy-mode is rgmii-id, which skips this path.
+On VSI rebuild, ice_vsi_clear_rings() frees the ring structs themselves
+with kfree_rcu(). That would leave the saved pointer completely stale.
 
-The later commit "net: stmmac: mediatek: add support for MT8189 SoC" also
-wires mt8195_fix_mac_speed() into the MT8189 variant, so MT8189 gets the
-same behaviour.
+ice_stop() is mostly blocked here. ice_tx_timeout() sets ICE_PFR_REQ, and
+ice_stop() returns -EBUSY while a reset is in progress.
 
-> +	} else {
-> +		if (variant->tx_rgmii_delay_stage_div) {
-> +			tx_delay_stage_val = mac_delay->tx_delay /
-> +					     variant->tx_rgmii_delay_stage_div;
-> +		} else {
-> +			tx_delay_stage_val = 0;
-> +		}
-> +
-> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
-> +				      !!tx_delay_stage_val);
-> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_STAGES,
-> +				      tx_delay_stage_val);
-> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_INV,
-> +				      mac_delay->tx_inv);
-> +	}
-> +
-> +	reg_offset = variant->peri_eth_ctrl_offset + MT8195_PERI_ETH_CTRL0;
-> +	regmap_update_bits(priv_plat->peri_regmap,
-> +			   reg_offset,
-> +			   MT8195_RGMII_TXC_PHASE_CTRL |
-> +			   MT8195_DLY_GTXC_ENABLE |
-> +			   MT8195_DLY_GTXC_INV |
-> +			   MT8195_DLY_GTXC_STAGES,
-> +			   reg_val);
-> +}
+The tx_hang_buf fields are also written and read with plain accesses.
+Because ice_service_task() clears tx_ring after reporting, it can drop a
+newer timeout record. The head and intr values may also come from a
+different event than tx_ring.
 
-[Severity: Medium]
-Does the 1G path clear the TX clock inversion requested by
-mediatek,txc-inverse?
-
-MT8195_DLY_GTXC_INV is in the regmap_update_bits() mask. The SPEED_1000
-branch, however, sets only MT8195_RGMII_TXC_PHASE_CTRL in reg_val. GTXC_INV
-is therefore written as 0 whatever mac_delay->tx_inv says.
-
-The 10/100 branch above keeps the inversion. mt8195_set_delay() also
-applies it for all RGMII modes at probe and resume:
-
-    gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv);
-
-The 1G case is also inconsistent with itself. With tx-delay-ps = 0, the
-early return leaves the inversion in place. With any non-zero tx-delay-ps,
-it is cleared.
-
-The binding describes mediatek,txc-inverse as "tx clock will be inversed in
-MII/RGMII case", with no exception for any speed. Should the SPEED_1000
-branch also include FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv)?
-
-No in-tree MediaTek board uses txc-inverse today. MT8189 is affected too,
-once "net: stmmac: mediatek: add support for MT8189 SoC" wires in the same
-callback.
-
-[ ... ]
+The old code had the same exposure through
+event->tx_ring->tx_buf->skb.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35%40collabora.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-ice-tx-hang-dump-v1-1-3df0f5979a51%40hydroquebec.com
