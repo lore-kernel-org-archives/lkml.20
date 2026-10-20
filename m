@@ -1,102 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.109
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792503986;
-	b=SZlBg/J95fnhbv8XF9h6EYRvGbPdCo48JSOnxu/tD2mNr8VpEuTaIdZPrB1ABNUzwZJY
-	 gMJtfUJwybsRq2fQBTZJLBopU0tDux2SwpE4enEsbxbUpelPbdQgkXb5LHnqiKOV4AZbp
-	 6moZcw9qA2etm11eVsJPLNce9XiXHCeYmfX/FtEya3Ud3hDDHw4oYl2CR6aXg/Aqmzsb3
-	 81aRLV0qiaU5vc3mexmxhLc34srbombr74DCzUCmSuwkXHOgEq3OuXwZGljcQqI/nmApY
-	 gItUdzQj5Ve5G184zNA04alUiJRJoscsEDmgB5x3LdYXlESk+rCpNLBz8Tvf5pW2ogw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503986;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ohxtpPEB0GujAkRh5xWBozRhQNX2xo1JQx/fiZFRbs8=;
-	b=CXULsm4bbFR5VnqLk7MxKFHeR3XkD9db8N2ux95H3BdqUv3fTjpkcXYWIsm1nIY1HGR7
-	 7B+5ZbRxwFEl5D5jXzIKHTLZS4y4PCn2I/uEKBg+Uf3PSNSjbY9KTOsyFOW9DqbBDUls4
-	 2JpRAgwWbLZhc0Dt2FOmGwxG13r3dTrQSFsFRhcc/oltxChSBPmbBj72lv0ljzAdgQBNA
-	 rIT/6hlnmpGEwX/Awu7ZRUjiHJaSMAZpNbYKTPMfnYz4t+MhWdM3JbRWd+0mhdRCdgqEe
-	 8wyI5R2sV+VImUV/7s68NZJRoh2G9Obhnjyqet0mx1vNA0n+qbrnGSBN4oaX0XAr6jA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=MoVWrOtD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.109
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020109.outbound.protection.outlook.com [52.101.228.109])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792503974;
+	b=XpkYHJH8NYu+IBFn0EqNst0IrTln8Iy5zEtpOSW/P3Bw4Euim+AY3xDdVWst+CWR/qc/
+	 eLOWDUlYHEGrKomJLVKHCkpONJOP36qX/lCRYRD7ccAlIpiF7xbvBUcX65j1v34jRS0oy
+	 zpP22MmU6Ul7yBlZOsUvJVsUuUmQotb+hzPAV3vAh97fuzonojmw4HJymoGhltL98+Zsy
+	 yesa27i3lgMn2mgYNOzaw19FjGyEICfjh5InoG8kfXqIYqzitA+nAYHRFneiRttobcSvY
+	 ytL7m5fjXC6J1HCnN9ClvIDOhrlB7bCVrIlattQZKqFw4378O31stxJ6oyiRKVuyy7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503974;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Ne+kxRzni4R4xgsdByfC9nqq25DT1OpDyAiPTUIZxrg=;
+	b=MRtU4bE9zW2/wHzX3M35dQdBJtz8We4vKxQMv307jsh+RQlrt1IRxDspPSJUXtfW7pzo
+	 19dxusiP8Nzn4J8II6+6VJVc0j5tbQubJzj2dDmLCrgdqwr/0pBNMdpEqKrY6gZ03ndQ8
+	 FcQip/htfZ27jpvPOmYIu9fzq1/7UCxfYXaS2u79Mt0K7IWq0t1m2SBH6DXVRyxrmDBNB
+	 jZBewb3donIP7mqyv0KaXZhifuLj71JYgJFDgQ0KsNnRQbneF0fAPoDU/6sVdrPHPnOLD
+	 NmQKxiYCS6KyJmAFC4rId3Bu9Qho+zWiBjdXRBPopLiQ51Yc77vqtptV2BvJ7QE4Oxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=45.249.212.56
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B492606AB36;
-	Tue, 20 Oct 2026 13:46:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B492606AB36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=MoVWrOtD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ABZEV5+APAUxBI0OJWw+hMYvPeRhRZtOTvCFUwRC2Hlfgr4rYCYvr5W4++7ZsShghrEcRvpw73IKOVh7wzbt/DxZNDMKo3j87nqcswQRqfQvRGyH9gqfR5Bl1DOOWxbEFQXpS8LFXfrM1jC9d7LyN4iSW7srSotJsPsuEdE3648mCwPvcIpbj848n5g4gmP1ty2ycp3amyHqIaGiuwAKFPjkGuxTNz2IiazuO+6iyPje0dnE6Oy0mOJQaaaJuV1OAi7m7LxJtZTAped+mY2P8h6+uSAgawWvxKyF+s9vxyC2XUGBHiIITSV4MQop65yVuyx60DIpUICS2TARr+PH9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ohxtpPEB0GujAkRh5xWBozRhQNX2xo1JQx/fiZFRbs8=;
- b=im0nXGx1Oqds2M/B5etpiXpmIYFvlnHik/9KcOs8GGvlFktyZAISnJT7dcB8KRE3GF8zMXFMKEr0bB2CbTwhk5/GqLrLccUAa2Vgh5V2ym4+L7BgPexnb2S0hoqfOWKIKzVZNsFT0aUmQJF1zHgUQTjyHs5AFx8bMYssS6UVoEjfSp3sO6sdQ0jWzSKe4IGmrbjYz3qleoPLljH7xjAWlSIyi3FsAaqdssuUCKy7i2IsVQTSWfc4t97Kn853+wL+3q7JqDuGdILgcaQ67TTy1EKCASB6V0n14cV0O19pVdbYU1NWqKdm9YV8Vfpg1qnRyDrZSZDb977yRMchWwQdrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ohxtpPEB0GujAkRh5xWBozRhQNX2xo1JQx/fiZFRbs8=;
- b=MoVWrOtD411A0GbuiiHZwDBrS/8QFk1eFFAZdCMs+lRF4V/duK70EiAjowAwkqq/XwdTj3QDJNcbS9X0QRvzFE8JwSd5nFE2GOgeFdYgXc9Mco82Fz7LDjU9sxdUfe+sxe2e0PZJTWMDZTDicJCZb3YyngYTYUGMIfssorykaco=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OSCP286MB5194.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:34c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 13:45:22 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 13:45:22 +0000
-Date: Tue, 20 Oct 2026 22:45:21 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	Shawn Lin <Shawn.lin@rock-chips.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 10/17] PCI: dwc: Free the MSI domain after the host
- .deinit() callback
-Message-ID: <aqjnpvg6mupkoyl5ripnwd4togg6wktbui2cp7yjpjcuv5r2lw@t7blhltn7242>
-References: <20261020031049.969895-1-den@valinux.co.jp>
- <20261020031049.969895-11-den@valinux.co.jp>
- <CAMuHMdV2wTNjaT3HacNiAAwSNU9MtvXqdFg6uSk-pZUBh+9tXQ@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdV2wTNjaT3HacNiAAwSNU9MtvXqdFg6uSk-pZUBh+9tXQ@mail.gmail.com>
-X-ClientProxiedBy: TYCP301CA0017.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:381::8) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C7760A262E;
+	Tue, 20 Oct 2026 13:46:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C7760A262E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j8DFn4SsDzKHMcL;
+	Tue, 20 Oct 2026 21:45:49 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.75])
+	by mail.maildlp.com (Postfix) with ESMTP id 89FE24056D;
+	Tue, 20 Oct 2026 21:45:59 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgB3QOaGcNdq8xegBA--.22174S17;
+	Tue, 20 Oct 2026 21:45:59 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Namhyung Kim <namhyung@kernel.org>,
+	james.clark@linaro.org,
+	xueshuai@linux.alibaba.com,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	leo.yan@linux.dev,
+	Li Huafei <lihuafei1@huawei.com>,
+	Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Zecheng Li <zli94@ncsu.edu>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH v8 15/15] perf annotate-arm64: Support 'mrs' instruction to track 'current' pointer
+Date: Tue, 20 Oct 2026 13:45:11 +0000
+Message-Id: <b67056e2496c2939d1b16c8ff97a545735891b0c.1792411435.git.wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1792411435.git.wutengda@huaweicloud.com>
+References: <cover.1792411435.git.wutengda@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,101 +76,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSCP286MB5194:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3e4006c-323b-4701-03bf-08df2eb06311
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|22082099003|18002099003|10067099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	3BIEdhQJv6UgZ2Njvlk2/P9BxfIaWcSOfNJTL4Dp08+5hT5ir2NHG+dUaiVSp5dLCTchsDgo9SOAr4nhXpHoszcctIVJn7wLUE6bH1u/z4CwVZIFpiadBSRjV6OEgOzd3Tiap/JLfDKgKZXyP/KL77/AAVaqUlkH8FVIzAqLEvxidYF/GNN/Ztr7hdzWdk+JyWO3teGNu4vKs/dMixnxmmWfPoJEMl+iBI+du2WdOSCjRYx/kPTFXXbqAX738wnm+RnNszXCpm85XLG0oz7sHA6uz88JzgWb7ZCajYVtlcNTiz3reqLgmwK10JS0Ddo+B+pAQsjFLhFu9eVMdfYOrCevvtm/ZNxYQPOTCk6G6sf0wT+lp6RWw0hy0xw4Z0PZFBVUHT4bhifIidQPLncsIsF0ZDuHBUyCHc3WiNfkTpoCnD5Gn4dET4eTIoAzALwmtSleM3wJryIdgjf+MpdssMr+oPgJEIfymxbRerLuDuLmQXTHXf1fCQnfyqwQ3YrDviMi0F9PU9Elyd9sMpTPHNuGaZt+x07UfO3j69ZbVfCtxy0kKoFVqPNxoz9Xq8MjyUUXhwq0w7hthA6p/ADDHAPcl0Q/4Lgyuxfn1AI23ajCDTy4HwcW+XJ6mHrtgnC9RLokPYNriZ4E+LEkmxrZs9/fKYkiQl2hVy2lyS1GAFM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zQusJKiK8d6ic5FDc+NVCbOmwV7gt/L7K3xdYskj/MFYy2A4DZ2fqVHqTxTO?=
- =?us-ascii?Q?i1hdfc4gMDkLB0+Onv0DS3g0234Thqhg/bwGyOZKj3GwayIPRPP8BwSSDHIV?=
- =?us-ascii?Q?tVcmTSo+es5/K+fEaQywo/Sshuz+i0OqcW9UiiucBXeIrNHrBUUkN6XTF+Y0?=
- =?us-ascii?Q?Xi4qUruNonp5xcjIsr4EHqI8ynNkDJ91aLmHCCBC14mN3iyVWa/6Jr6//tQn?=
- =?us-ascii?Q?LHX4qXE0UDTAeKorIX3DrxDVi3qvWU6ll7iz4FC5kEUkpZVt68u6Gn2sSNIg?=
- =?us-ascii?Q?68YkwpZjUcENRSFC9n5nko0yUwe9Udhlxs0syLwZNmiQIBwOR/j/HNeVOyhU?=
- =?us-ascii?Q?/cZeU3NzXnkqBScOJUsBgmJa+OSBsnwszg3S3arjfWu+kOPirhNB0YTWy1qP?=
- =?us-ascii?Q?VvVHygvXNqRZ5Y88z91N0Ibh5iVqJ8qYE53+52wnE5oyZUtOoroJKI96j9rs?=
- =?us-ascii?Q?2KSvRPXSzduCKa+QKQiFduxdFvSGk/JPYxx3Ls8NoOuyaIpFZAwu2Ub4xZPt?=
- =?us-ascii?Q?Cg/kmPUknE51Bg6ZSXxNlEdHunnB+nJSo/LAri76wH+y61j+DSd9jYCHgCtI?=
- =?us-ascii?Q?PRQYd2hiIi+CUCosHKR7KVLOwDz4iPwJ+eOeHELUTONMnGia/Abyn4uKFIfi?=
- =?us-ascii?Q?BSolbaUBNDcLo10lxb2wj6xVsiicY/etpfVLtBsbbXGV19nNUXblDO97WunW?=
- =?us-ascii?Q?8KALp6U8AijqqMqiyzPWo04J3jUrfafPCiqakmIhdhbys+1Fe13Zl9F8V18y?=
- =?us-ascii?Q?bzYXNwhRX241oFHvS5L4fkQ/phnLfNJS3bYKmt/tm1a7Nfi9UzUHBf/W2TJs?=
- =?us-ascii?Q?O4SuW4K8RkIqCaxsX4ObUHssISft9guBLaAyPJ7+TdcT6EJfvnnV46XKBD4Z?=
- =?us-ascii?Q?J0b9SJm30I6F6JUKzp90ImDuathM2VKj3IJPXATjz+C4KR5EOkqG0Bv6+34G?=
- =?us-ascii?Q?ilUHINkuRQuKW+mx2GKnwMN17ov7w7qGWkpPILFisRK/fmklhCovBD4bTJYY?=
- =?us-ascii?Q?fRXUrmhw3ucBG+Bcpm2B4sLagODttHpGcAp5SRE1k8I5EN32KcW3+D8VII2j?=
- =?us-ascii?Q?paVoZmWjVsBp4z4vE0OKRABfDxlEnfEZeIvgT7NCNqFn2Sf6iO4OuGPAEJM7?=
- =?us-ascii?Q?xrkqveYnNR+roN/YSJcxSMQTDjA4DXloMngBZW/oeMp8S6+Hi5rV9LHlbHsm?=
- =?us-ascii?Q?IZnRYj9JJIJPmGY0N5gAxmvZtfLIsuZOWpNRCFIDjurM0JSilE0EA2gUSxR4?=
- =?us-ascii?Q?jy9SH8tH+0uRUEXCwFxilZ3gUI74kOjGbzbRrHC1MCrg3d2t+AAYNXZlwr34?=
- =?us-ascii?Q?DFOaphusp3iw3E7OECofD19AY/6CoPqCmetAqArDvQTJziwPZkGiyytwWiu1?=
- =?us-ascii?Q?nGJqp8J3yARdNefXk1osoR25DevKYJdO+Q78QPKzWYW0fTbBjiHZOxdkfL3g?=
- =?us-ascii?Q?1hVxkpWPUC6AxVFE/W/IMBI5muf+u3xat90+Y0C4yUXYelXbZWOnX189H48E?=
- =?us-ascii?Q?ViNOWJl/5aa1eTTt2ocDXxS6I0HtFhOc7YyDeMXWVxO2DohJxEKDT4rzpxX4?=
- =?us-ascii?Q?22OBlO/aeScckQMibjoNPTQfuQ3kS8YesYh/X9DMwmyXj86K3ks8RYICmlc8?=
- =?us-ascii?Q?za/uD1Appxkl1Z1n4myOEhudrdgofzdlwdUKFMfeeig3KuNrHl9C6/LkFnCl?=
- =?us-ascii?Q?TnOrEbQc2goLD2rBXimml6ie3+UfPp3G6veqj+375ECWznSpvpYUc7hnGdKq?=
- =?us-ascii?Q?DoKiewYZ+/7y2bzw07MyfUBDvdOjlvFJVS2Yd5AofOjwSKlkh8w7?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3e4006c-323b-4701-03bf-08df2eb06311
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 13:45:22.1855
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gHtu4ZfrGETd5R3lmBUplFSGVvc5dQCIWa91GhmO3S7D/r9rne5XKTVvbemH8jzsnDmCt5VtfUDpeMo7bCTFJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB5194
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:Syh0CgB3QOaGcNdq8xegBA--.22174S17
+X-Coremail-Antispam: 1UD129KBjvJXoWxAw4kWryrGrW3Aw1DWr17ZFb_yoWrKr4kpa
+	yDC34UWrs8Gr42grsxXFWxZryfWw4xW34Uur90y39ayFW2kr1rt3WktFW2ka15Jrykuw13
+	GrZrKr4DGw4I9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHFb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x02
+	67AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I
+	80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCj
+	c4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YV
+	CY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY1x0264kExVAvwVAq07x20xyl
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJV
+	WxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjTRQYFCDUUUU
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-On Tue, Oct 20, 2026 at 01:47:22PM +0200, Geert Uytterhoeven wrote:
-> Hi Den-san,
-> 
-> On Tue, 20 Oct 2026 at 05:11, Koichiro Den <den@valinux.co.jp> wrote:
-> > dw_pcie_host_deinit() frees the iMSI-RX domain before calling the host
-> > .deinit() callback. For a core-owned parent interrupt,
-> > dw_pcie_free_msi() removes the chained handler right before the domain.
-> > A glue driver that owns the parent interrupt and demultiplexes the MSIs
-> > itself through dw_handle_msi_irq() can only stop its handler in
-> > .deinit(), after the domain is gone, so a late interrupt can still
-> > dispatch into the freed domain.
-> >
-> > Remove the domain after .deinit(), in dw_pcie_host_deinit() and in the
-> > dw_pcie_host_init() unwind. Keep removing the chained handlers of
-> > core-owned interrupts before .deinit(), which powers the controller
-> > down. Clear pp->irq_domain when the domain is removed so the unwind can
-> 
-> FTR, this is now pp->msi_irq_domain since commit 8f0b8cc3a655f56b
-> ("PCI: dwc: Rename pp->irq_domain to pp->msi_irq_domain") in pci/next.
+Extend update_insn_state_arm64() to handle the 'mrs' instruction,
+enabling the tracking of the 'current' task pointer in the kernel.
 
-Yes, thanks! Shawn also pointed that out. I'll rebase once those changes reach
-linux-next, and update the commit message too.
+On arm64, the kernel uses the 'sp_el0' system register to store the
+address of the currently executing 'struct task_struct'. This is
+typically accessed via the 'get_current()' inline function, resulting
+in the instruction 'mrs xN, sp_el0'.
 
-Best regards,
-Koichiro Den
+To resolve the data type of the target register, first verify the
+access is to 'sp_el0' within a kernel DSO. Then, locate the
+'get_current()' inline function's DWARF Die at the current PC and
+extract its return type (which should be 'struct task_struct*').
 
-> 
-> > tell whether it exists.
-> >
-> > Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-> -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
-> 
+A real-world example is shown below:
+
+  ffff8000800deee8 <kthread_blkcg>:
+  ffff8000800deef0:  mrs  x0, sp_el0    // x0 = current
+* ffff8000800deef4:  ldr  w1, [x0, #44]
+
+Before this commit, the type flow starts with no information:
+
+  chk [c] reg0 offset=0x2c ok=0 kind=0 cfa : no type information
+  final result: no type information
+
+After this commit, the tracker identifies the 'current' pointer
+from the system register:
+
+  mrs [8] sp_el0 -> reg0 type='struct task_struct*'
+  chk [c] reg0 offset=0x2c ok=1 kind=1 (struct task_struct*) : Good!
+  found by insn track: 0x2c(reg0) type-offset=0x2c
+  final result: type='struct task_struct'
+
+Reviewed-by: Ian Rogers <irogers@google.com>
+Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Li Huafei <lihuafei1@huawei.com>
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+---
+ .../perf/util/annotate-arch/annotate-arm64.c  | 71 +++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+
+diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
+index 270f35876511..81369ae47290 100644
+--- a/tools/perf/util/annotate-arch/annotate-arm64.c
++++ b/tools/perf/util/annotate-arch/annotate-arm64.c
+@@ -4,6 +4,7 @@
+ #include <inttypes.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <strings.h>
+ #include <linux/ctype.h>
+ #include <linux/string.h>
+ #include <linux/zalloc.h>
+@@ -15,6 +16,7 @@
+ #include "../dso.h"
+ #include "../map.h"
+ #include "../symbol.h"
++#include "../strbuf.h"
+ 
+ struct arch_arm64 {
+ 	struct arch arch;
+@@ -1114,6 +1116,73 @@ static void update_adrp_insn_state(struct type_state *state,
+ 		     insn_offset, tsr->imm_value, dreg);
+ }
+ 
++static void update_mrs_insn_state(struct type_state *state,
++				  struct data_loc_info *dloc, Dwarf_Die *cu_die,
++				  struct disasm_line *dl,
++				  struct annotated_op_loc *dst)
++{
++	struct type_state_reg *tsr;
++	Dwarf_Die type_die;
++	u32 insn_offset = dl->al.offset;
++	int dreg = dst->reg1;
++	Dwarf_Die func_die;
++	Dwarf_Attribute attr;
++	u64 ip, pc;
++	struct strbuf sb;
++	char *type_name;
++
++	if (!has_reg_type(state, dreg))
++		return;
++
++	tsr = &state->regs[dreg];
++	tsr->copied_from = -1;
++
++	/* Handle case difference: LLVM (SP_EL0) vs objdump (sp_el0) */
++	if (!dso__kernel(map__dso(dloc->ms->map)) ||
++	    strcasecmp(dl->ops.source.raw, "sp_el0")) {
++		invalidate_reg_state(tsr);
++		return;
++	}
++
++	ip = dloc->ms->sym->start + dl->al.offset;
++	pc = map__rip_2objdump(dloc->ms->map, ip);
++
++	/*
++	 * Find the inline function 'get_current()' Dwarf_Die and obtain its
++	 * return value data type, which should be 'struct task_struct*'.
++	 */
++	if (!die_find_inlinefunc(cu_die, pc, &func_die) ||
++	    !die_compare_name(&func_die, "get_current") ||
++	    !dwarf_attr_integrate(&func_die, DW_AT_type, &attr) ||
++	    !dwarf_formref_die(&attr, &type_die)) {
++		invalidate_reg_state(tsr);
++		return;
++	}
++
++	strbuf_init(&sb, 32);
++	die_get_typename_from_type(&type_die, &sb);
++	type_name = strbuf_detach(&sb, NULL);
++
++	if (!type_name || strcmp(type_name, "struct task_struct*")) {
++		invalidate_reg_state(tsr);
++		goto out_free;
++	}
++
++	tsr->type = type_die;
++	tsr->kind = TSR_KIND_TYPE;
++	tsr->offset = 0;
++	tsr->imm_value = 0;
++	tsr->lifetime_active = false;
++	tsr->lifetime_end = 0;
++	tsr->ok = true;
++
++	pr_debug_dtp("mrs [%x] sp_el0 -> reg%d", insn_offset, dreg);
++	pr_debug_type_name(&type_die, tsr->kind);
++
++out_free:
++	free(type_name);
++}
++
+ static void update_insn_state_arm64(struct type_state *state,
+ 				    struct data_loc_info *dloc, Dwarf_Die *cu_die,
+ 				    struct disasm_line *dl)
+@@ -1130,6 +1199,8 @@ static void update_insn_state_arm64(struct type_state *state,
+ 
+ 	if (ins__is_call(&dl->ins))
+ 		update_call_insn_state(state, dloc, cu_die, dl);
++	else if (!strcmp(dl->ins.name, "mrs"))
++		update_mrs_insn_state(state, dloc, cu_die, dl, dst);
+ 	else if (!strcmp(dl->ins.name, "adrp"))
+ 		update_adrp_insn_state(state, dl, dst);
+ 	else if (!strcmp(dl->ins.name, "add"))
+-- 
+2.34.1
+
