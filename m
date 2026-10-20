@@ -1,46 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516555;
-	b=oZe/xtfVkhYW1SfMqIBVAatsc3eXfWzq2EM6ibCkFNFmTyqZetMve7i4okJy6EHG+2cK
-	 F6v/YlI0q4fGJqH6d0spTr7WfSBqFa5RBfS5SHffZbvRn83ZaKaE8i4ZSpGPcZAczwe4d
-	 VizkBvU2pwzSSJKYCNCr0IiAhaEA3hvw+UrlPxdJhFxyf9B0cfotWAKTNQL9+fHLKZB3Y
-	 cYHPgeRhgzq+e9pWJYW3C8zho5aSxLwTBRZS2s/K3HahrxWlRqmkltzlMAcsoowK6+IBk
-	 CZxKlJteNJf0axcwvJcCg01QKzA2EF5vNIIi/G7aDZ5/3acINGSAXbuKUaL/COmKj4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516555;
-	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=2C9aGTBmEw3wkVMau9GTRh6vveuhsKXE+x7UwSIHdcM=;
-	b=nhJn3fiVxMNi02mttUIy67Gs9/LrWC5Ag319xeTbsN92S/sfYgFkBJMla+xakaqXIXcs
-	 quXj2jFSRkDU51eQMdSVqb/xyrHUqowItqer1mx/VKarGsrmtIXzONLWpzRg139G9beQv
-	 jdcxTEh38YSSkZzUTa4yM4Jl5VI7cvZNLFlVWL9fk9Em2qAtSN9l7GYs6DkU7MsXOFXfm
-	 B2fh+Mj69hiHPFZ/B3CQ6McTSBGJ+DOZnpDr7q9M+JrAw/1+1K1jlxn6i/2sGo1QWQnoc
-	 G4nAnnXS5MQHcaduliu5KYtFokAyzWIuXNDs1Pnv0Ry1b3eNiVLn57WUoVE5pZUnqJg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792516572;
+	b=KWu87R+Ti00PdfXciDSAWd8PZPLSX10ZxkDDQiXQ7cigvodx7oEDigkkUQNzpSIuRwL0
+	 pBAGCWnXvysAFB690090eI2ZJyi7As/WDDRu/v2ZUq0Q24iBpcZbcJ1KSes2x7+DWAgPe
+	 EyOocrwqnfqOIhaGH8snDExaPj49Vf77XlTDtkcfAkZM2VSDoxZYZkmHY4J9D0jhd0EJ6
+	 LlMc0csyznIEeAyS9wSYtfKeXfA8SGQOBRNz6so49nfuzWoMyzwwBkvsLPhqCuVL93l9j
+	 w3uYHju8SXeABJqgv8Tk/4iw88ksUvInlzlZELaa81BDL4At0c5rmzOohnG/+zAv62A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516572;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
+	b=WBtLDSKvCxYLj+YHVYx5Ge0YciIQ5BzTfEtnt1HYg83fTWk+u5uaMSkUeSD24kTuc6zM
+	 MX/nWoA+C261Yy8TbX6AOad7jKcqtHFhK21dhqUOPT5v/QjaSVgkLuWoqgAgPtOoQ5Xwy
+	 6qXxkClbfgVPygfOQr6vZe9yzUJqv+eMWUF+QThfeZQVExoSEmY0uSHCgcV1g4GbMdnoE
+	 ZdcBcJ7/6GoGmucthpVZxTo7JTe0SUxFHA1wxV9gtE5GhI27ocB5R8uv3I4enffEKtNzO
+	 +1D8kQodG7VUYXmcxpi6CWdK9Wy43rBx1GnCeyRH+77PCvYv3E67XHvT0JR5Sjguj2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="HAdTSY/x";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RTR1tuVd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3CA606A335;
-	Tue, 20 Oct 2026 17:15:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 522AF1F000CD;
-	Tue, 20 Oct 2026 17:15:54 +0000 (UTC)
-Subject:
- Re: [PATCH net-next] net: phy: Add JLSemi JL21xx Gigabit Ethernet PHY driver
-From: netdev-bot+sashiko@kernel.org
-To: cyan2254650260@gmail.com
-Cc: andrew@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- hkallweit1@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Tue, 20 Oct 2026 17:15:23 +0000
-Message-ID: <179251652395.3135.9790628596697229408@kernel.org>
-In-Reply-To: <20261016161543.444356-1-cyan2254650260@gmail.com>
-References: <20261016161543.444356-1-cyan2254650260@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADDC606AA1C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ADDC606AA1C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HAdTSY/x;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RTR1tuVd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792516571;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
+	b=HAdTSY/xjVIEOV5jak/gtngl8UZ3+Yp2pajm5PiAFIe8xfNVXqF41Rg6Trbd+9nvQZVr8p
+	WKol7WmevGyO7zJXw7CM6d8kY4Aqtqnl5RoctBsbySd5C3oiif4nCOoPtZJKz+Iz3r/Shs
+	oq0m5qOta5kk/rOsd3KpA+Nf/gPEd+I=
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-441-Q5riAOovM9yphc6bQLPy2g-1; Tue, 20 Oct 2026 17:16:08 +0000
+X-MC-Unique: Q5riAOovM9yphc6bQLPy2g-1
+X-Mimecast-MFC-AGG-ID: Q5riAOovM9yphc6bQLPy2g_1792516568
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9907539aff7so2897796241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:16:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792516568; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y9DiQ/cZ/CZQCd3hXLEUGBQpZfa8Xf6v4PEhmxQtrINx5emRg+HQBvKgyRXWgkVKcG
+         eNhHiPcTIDOm0lKXM6lUqeHZK2qXSilCKqKM1PTqUGXiwBU1a04Sgg3B9DTrfMgVK9P7
+         xBi16YfXV9aF7JXtLCW9yOtNAtoNLAhbVW1bs6JYiKn16lrfQ4AlRYvdsoQU2pIYi4HF
+         HjDdklY2M8n/Ox8n/ImPzww11n/A+BGyqCD2+icR6Y0vepZX6cELITk+0NlwhSPLZ0vR
+         x1CCJfXZ9CjhrWLrvqoNLG5qsgHnMJYocchC8eeqivGgtTZO2tDslCCYxjX0CMRXb5Pm
+         xHzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
+        fh=f9N++zfxRdy/dtxyX+WlX1FPOPMkvmdq42+WeARsZRs=;
+        b=r90hL7Kqq5LfDk2Vz69xtmAeZ85nqGKIb7VOhqeecq4YwwK5ld+frocljOtX0xluoP
+         setlrjml6lCES0qsIsLmfTkCljaSdFWsVpMqeWyeiSj/gnYlc5GAUuB04pqsLT08LiVi
+         96lBYa3Jw4p6+NTXVJE2wBayqVGKTEHRf9kCQZCLqbosXmY9QNda+Hi1Tod5BBlO1MLP
+         CRr4XxoudZOPBtgEt6Ife6bYn5DJy5KhjfG4/tPW4tz7pEwFaaYiB62/xm5Nuklp37d/
+         y+CiTLhR9YQojSlo1hgx3WY1V5K9SO60ZPLoWK/TWH7d44pV0lX+NImWxBY9AvGG0Y3e
+         kBPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792516568; x=1793121368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
+        b=RTR1tuVdDUHEn2ze9H0ohlkt3ebd/D9SNxeKWODVXZQhpsFgpYk6JwWTN7hONZN1By
+         ilI4c70pSxdaJAD8xOn2Tij9xfPC3yZf264U8QH18P2oaXTYQV1Df0UnpJbAwBQj3scN
+         KsNZ9qxMAD5WISFxDRN9lhW4g7WcpnSt24ilP5OOpGpr9tIwm6LI4G3rY4E8L4m8Ywam
+         +miLtYZNvR7evgHh4FH3sgCgNx0tjkEGtoYSabCtdfYQg5FwSFyXWtijwKwVGB9mYLSx
+         UbBoGu4Y3qufmKbf+VOdR0+k255Uq2ab8Dnj2JkqEi3w1LF1E8zW8y2/Tb7qyEsG3iOh
+         aqrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792516568; x=1793121368;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
+        b=YU2+Sgzwh9HOTxaW/CTprmbBE9NKyXDBCz4l2coJUpJ+YhQtT9z9T2uL+qiFLMssgT
+         J5a8bTuLetRBccNPbLZNC0+t5AouH/Kaf5XGaEWX/ZLGgQU7GQi5oqWIgvNITXT2tSfs
+         dk3TmIugIDfAmbai1AuoLNR0KsOj+CYubw+GJxNES5o/dHe6Ny3ukEZNd4EZsnz1a+0t
+         VQAK1w/0BvY+ZhZxUmc/Xi+7Wa/ib8Mb2sI/Wd5hbKHKofh04+i95XVFwpNjwSUUMvTF
+         4w8VxND/EP20WJy5HE7F0iWfyEpH4CBMs2lfFuDD1OKQCrewWYRbPm6kVETfy9cFNRy9
+         TUbA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHX7TrnMRADGxgH+QafimUwPmq11yd2UMTcMKjdmnT0uVMXCaiW96+2vCLBVxjycA4Ge9W4eIyVrjyJvk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFXMx5Heir4TNbOrU+6gQ6VuB7CVRPaKwCcL8UU/U7CEJ36N4V
+	7Xd0cgd2DiPJ7V6MaK5IQmSMFziEUPfCHv2PfzDSQtS9iXdHagpaB2tS9MKYrungP72kKikWMWV
+	utLozSu+oNJpTtz3Bp2/V1cgsi0EmRHJ/fHoDjkUDfrfm0LHmbmypXgAcJUmhIXfDM+d6vkiXaA
+	dRk2jdo7f5JtzUc2elL9PxgY/uOCRTRbSvq6vstEZy
+X-Gm-Gg: AYBFou1vyowev8PXbk+QKhOIuTGIo4V6z33KdI+ZLU9TAECxKnHvkRqjzH6u4yUbdVX
+	cCMJMrEeFPT9roBEO2PjO2/rfTQOT+7Y2JCuLc70bArw4UaVPEaqu5U+jBSxDNA9cU9Ixoes1yg
+	MufFOBhZvE7+lWKG9YK1+y3JeGahV0k655oRqenFLZOA/iqlyvteXERNGUWvvIxErTfbZEjbBMj
+	W3Jlm3XlkTwq9tZInGSjomQs4tK3hy+uANbhany1zqC478w6T4GUaL/42l6mAXAzBtMkuTTmbrG
+	K6NjrASbaFuQIa/BHU86taScKw==
+X-Received: by 2002:a05:6102:358d:b0:7c3:b15:a981 with SMTP id ada2fe7eead31-7cc3695de87mr3672350137.15.1792516568141;
+        Tue, 20 Oct 2026 10:16:08 -0700 (PDT)
+X-Received: by 2002:a05:6102:358d:b0:7c3:b15:a981 with SMTP id
+ ada2fe7eead31-7cc3695de87mr3672333137.15.1792516567403; Tue, 20 Oct 2026
+ 10:16:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,465 +126,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <cover.1792498351.git.amarkuze@redhat.com> <20261020160537.GD699485@google.com>
+In-Reply-To: <20261020160537.GD699485@google.com>
+From: Alex Markuze <amarkuze@redhat.com>
+Date: Tue, 20 Oct 2026 20:15:56 +0300
+X-Gm-Features: AclHuK8IZ3rN_Kb2MqxIXzdba8gBbiLwQmfRP__gRggxXmiCnqZNpSqi1Sf_34w
+Message-ID: <CAO8a2SjWStsoCQ7eeoBb5oY3nSUQVFVMT9Rvj1ZcFGNBctuEvg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] ceph: support subvolume quarantine
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: ceph-devel@vger.kernel.org, idryomov@gmail.com, xiubo.li@clyso.com, 
+	slava@dubeyko.com, viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-fscrypt@vger.kernel.org, tytso@mit.edu, 
+	jaegeuk@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+My bad, resending.
+
+On Tue, Oct 20, 2026 at 7:05=E2=80=AFPM Eric Biggers <ebiggers@kernel.org> =
+wrote:
+>
+> On Tue, Oct 20, 2026 at 12:52:32PM +0000, Alex Markuze wrote:
+> > CephFS subvolume quarantine isolates a subvolume while allowing recover=
+y
+> > clients with q/Q MDS auth caps to access it. Advertise support only aft=
+er
+> > cached data and metadata access paths can enforce quarantine.
+>
+> No base-commit given, and this fails to apply to current mainline,
+> current linux-next, and also to the current default branch of
+> https://github.com/ceph/ceph-client.git which MAINTAINERS lists for
+> fs/ceph/.  So it isn't possible to review this.
+>
+> Note that Sashiko was unable to apply it too, so no reviews from Sashiko
+> are available either.
+>
+> It's getting to the point where I should just immediately delete all
+> patches that don't have a base-commit.  It's a waste of time to even
+> bother trying to look at them.
+>
+> - Eric
+>
 
-Thank you for your contribution! Sashiko AI review found 10 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 6 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] jlsemi_set_wol() can leave the MDIO bus mutex held permanently.
-- [Medium] Wake-on-LAN cannot work, yet the driver tells userspace it is
-  enabled.
-- [Medium] When WoL is enabled, jlsemi_set_wol() writes JLSEMI_WOL_RMSQ
-  (0x1fff) to page 0xd8a reg 17.
-- [Medium] jlsemi_config_init() always calls
-  jlsemi_disable_autonomous_eee() (clears PHYCR2 bit 5) on every…
-- [Medium] When the LED's three link-speed bits are all set,
-  jlsemi_led_hw_control_get() returns TRIGGER_NETDEV_LINK_10, LINK_100…
-- [Medium] jlsemi_set_wol() ignores every hardware-programming error and
-  always returns 0.
-- [Medium] In the interrupt-disable branch of jlsemi_config_intr(), `err
-  = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER, 0)` is never…
-- [Low] The register map and most of the logic in
-  drivers/net/phy/jlsemi.c are a near-verbatim copy of the RTL8211F…
-- [Low] jlsemi_config_rgmii_delay() handles rx-/tx-internal-delay-ps
-  inconsistently.
-- [Low] jlsemi_handle_interrupt() reads INSR (0x1d) once.
-
---
-
-net: phy: Add JLSemi JL21xx Gigabit Ethernet PHY driver
-
-This commit adds a new phylib driver for the JLSemi JL2101, JL2121 and
-generic JL21xx Gigabit PHYs. It covers paged register access, RGMII delay
-configuration, vendor status register parsing, interrupts, hardware LED
-control, magic packet Wake-on-LAN, autonomous EEE disable and
-suspend/resume.
-
-Link: https://www.jlsemi.com/
-
-> diff --git a/drivers/net/phy/jlsemi.c b/drivers/net/phy/jlsemi.c
-> new file mode 100644
-> index 0000000000000..c3acff48d4618
-> --- /dev/null
-> +++ b/drivers/net/phy/jlsemi.c
-> @@ -0,0 +1,551 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Driver for JLSemi Gigabit Ethernet PHYs (JL2121 / JL2101)
-> + *
-> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
-> + */
-
-[ ... ]
-
-> +/* Wake-on-LAN settings */
-> +#define JLSEMI_WOL_PAGE			0xd8a
-> +#define JLSEMI_WOL_SETTINGS_EVENTS	16
-> +#define JLSEMI_WOL_EVENT_MAGIC		BIT(12)
-> +#define JLSEMI_WOL_RST_RMSQ		17
-> +#define JLSEMI_WOL_RG_RSTB		BIT(15)
-> +#define JLSEMI_WOL_RMSQ			0x1fff
-
-[Severity: Low]
-This isn't a bug, but the register map looks identical to the RTL8211F
-support in drivers/net/phy/realtek/realtek_main.c. That covers PHYCR2 0x19
-bit 5, INSR 0x1d, INER page 0xa42 reg 0x12, RGMII page 0xd08 regs
-0x11/0x15, WoL page 0xd8a regs 16/17 with RG_RSTB BIT(15) and RMSQ 0x1fff,
-MAC page 0xd8c, and LEDCR page 0xd04 reg 0x10 with 5-bit per-LED fields.
-
-jlsemi_led_hw_is_supported() and jlsemi_led_hw_control_get() also follow
-rtl8211x_led_hw_is_supported() and rtl8211f_led_hw_control_get() closely.
-The same goes for the set_wol, suspend and resume flows.
-
-Neither the commit message nor the file header mentions this origin. The
-header lists a single copyright holder, while realtek_main.c has others.
-
-Some later fixes in the realtek code also didn't come across:
-
-  - wakeup-source and wake IRQ setup in probe
-  - disabling PME events at probe
-  - the RG_RSTB pulse in suspend
-  - device_can_wakeup() gating in get_wol/set_wol
-  - the msleep(20) after resume
-
-If these parts are register compatible with RTL8211F, could the IDs go into
-the realtek driver, or could the code be shared, instead of keeping a copy?
-
-[ ... ]
-
-> +static int jlsemi_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct jlsemi_priv *priv;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	phydev->priv = priv;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can Wake-on-LAN work with this driver? Nothing here marks the mdio device
-as wakeup capable. There is no device_set_wakeup_capable() or
-device_init_wakeup(), no wakeup-source handling and no
-devm_pm_set_wake_irq(). Compare rtl8211f_probe():
-
-drivers/net/phy/realtek/realtek_main.c:rtl8211f_probe() {
-    ...
-	if (device_property_read_bool(dev, "wakeup-source") &&
-	    phy_interrupt_is_valid(phydev)) {
-		device_set_wakeup_capable(dev, true);
-		devm_pm_set_wake_irq(dev, phydev->irq);
-	}
-    ...
-}
-
-Because dev->power.can_wakeup stays false, device_may_wakeup() is always
-false. device_set_wakeup_enable() in jlsemi_set_wol() returns -EINVAL. That
-error is ignored and set_wol returns 0, and jlsemi_get_wol() still reports
-WAKE_MAGIC as supported and enabled.
-
-On suspend, phy_may_wakeup() falls back to the driver's WoL state, so
-phydev->wol_enabled becomes true. PHY_ALWAYS_CALL_SUSPEND then skips the
-core's -EBUSY guard:
-
-drivers/net/phy/phy_device.c:phy_suspend() {
-    ...
-	phydev->wol_enabled = phy_may_wakeup(phydev) ||
-			      (netdev && netdev->ethtool->wol_enabled);
-	/* If the device has WOL enabled, we cannot suspend the PHY */
-	if (phydev->wol_enabled && !(phydrv->flags & PHY_ALWAYS_CALL_SUSPEND))
-		return -EBUSY;
-    ...
-}
-
-jlsemi_suspend() checks only device_may_wakeup(). It skips the INER=PME
-setup and calls genphy_suspend(), which sets BMCR_PDOWN.
-
-Doesn't this power down the PHY while magic packet matching is armed? And
-since phydev->wol_enabled is never checked, doesn't this also take the
-copper link down when the MAC provides WoL?
-
-For comparison, rtl821x_suspend() checks !phydev->wol_enabled before
-calling genphy_suspend(). rtl8211f_get_wol() reports no support and
-rtl8211f_set_wol() returns -EOPNOTSUPP when !device_can_wakeup().
-
-> +
-> +static int jlsemi_config_rgmii_delay(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	if (phydev->interface != PHY_INTERFACE_MODE_RGMII_TXID)
-> +		rx_delay = phy_get_internal_delay(phydev, NULL, 0, true);
-> +
-> +	if (phydev->interface != PHY_INTERFACE_MODE_RGMII_RXID)
-> +		tx_delay = phy_get_internal_delay(phydev, NULL, 0, false);
-
-[ ... ]
-
-> +	if (rx_delay >= 0)
-> +		val_rxdly = rx_delay > 0 ? JLSEMI_RX_DELAY : 0;
-> +	if (tx_delay >= 0)
-> +		val_txdly = tx_delay > 0 ? JLSEMI_TX_DELAY : 0;
-
-[Severity: Low]
-With a NULL table and size 0, phy_get_internal_delay() returns the raw
-picosecond value whenever rx-internal-delay-ps or tx-internal-delay-ps is
-present. Any positive value is then mapped to the single fixed delay bit.
-
-So a DT value like <100> or <500> silently enables the full fixed delay,
-and unsupported values are never rejected. Would passing a delay table let
-phy_get_internal_delay() validate the value or pick the nearest supported
-one?
-
-Also, the RX property is never read for rgmii-txid, and the TX property is
-never read for rgmii-rxid. ethernet-phy.yaml says "If this property is
-present then the PHY applies the RX delay". Is it intended that the
-property is ignored in those modes?
-
-[ ... ]
-
-> +static int jlsemi_config_init(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	ret = jlsemi_disable_autonomous_eee(phydev);
-> +	if (ret < 0)
-> +		return ret;
-
-[Severity: Medium]
-Should this be called unconditionally from config_init? The same function
-is also registered as .disable_autonomous_eee. phylib calls that op only
-from phy_support_eee(), when the MAC says it handles LPI, and then sets
-phydev->autonomous_eee_disabled. phy_init_hw() reapplies the disable only
-when that flag is set.
-
-Calling it here turns off autonomous EEE on every phy_init_hw(). That
-includes MACs that never call phy_support_eee().
-
-phy_probe() leaves EEE advertised by default. Couldn't such a MAC
-negotiate EEE and then get LPI signalling it doesn't handle, or at least
-lose the power savings of autonomous mode?
-
-For comparison, rtl8211f_disable_autonomous_eee() is wired only through
-the ops table and isn't called from config_init.
-
-The commit message says:
-
-  - Autonomous EEE disable to prevent interoperability packet drops
-
-Is there more detail on which packet drops this refers to?
-
-[ ... ]
-
-> +static int jlsemi_config_intr(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	} else {
-> +		val = 0;
-> +		err = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER, val);
-> +		if (!err)
-> +			priv->iner = val;
-> +
-> +		err = jlsemi_ack_interrupt(phydev);
-> +	}
-
-[Severity: Medium]
-Is the result of the INER write lost here? If phy_write_paged() fails and
-the INSR read succeeds, err is overwritten with 0 and jlsemi_config_intr()
-reports success.
-
-phy_disable_interrupts() and phy_init_hw() would then assume the interrupt
-sources are masked, while INER may still have LINK_STATUS enabled. Could
-the PHY keep asserting its IRQ line after phylib has stopped handling it?
-
-[ ... ]
-
-> +static irqreturn_t jlsemi_handle_interrupt(struct phy_device *phydev)
-> +{
-> +	int irq_status;
-> +
-> +	irq_status = phy_read(phydev, JLSEMI_INSR);
-> +	if (irq_status < 0) {
-> +		phy_error(phydev);
-> +		return IRQ_NONE;
-> +	}
-> +
-> +	if (irq_status & JLSEMI_INER_LINK_STATUS) {
-> +		phy_trigger_machine(phydev);
-> +		return IRQ_HANDLED;
-> +	}
-
-[Severity: Low]
-The INSR read is also what acknowledges the interrupt, since that read is
-all jlsemi_ack_interrupt() does. What happens if LINK_STATUS and PME are
-both latched in the same read?
-
-The early return means pm_wakeup_event() is never called for a PME that
-the hardware has already cleared. One example is a PME latched during
-suspend plus a link change around resume, after jlsemi_resume() restores
-INER.
-
-Could both bits be handled from the single read?
-
-> +
-> +	if (irq_status & JLSEMI_INER_PME) {
-> +		pm_wakeup_event(&phydev->mdio.dev, 0);
-> +		return IRQ_HANDLED;
-> +	}
-
-[ ... ]
-
-> +static int jlsemi_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-> +{
-
-[ ... ]
-
-> +		oldpage = phy_select_page(phydev, JLSEMI_PHYSICAL_ADDR_PAGE);
-> +		if (oldpage < 0)
-> +			return oldpage;
-
-[Severity: High]
-Does this return leave the MDIO bus lock held? phy_select_page() takes the
-lock in phy_save_page() before it reads the page register, and it returns
-errors with the lock still held:
-
-drivers/net/phy/phy-core.c:phy_select_page() {
-	oldpage = ret = phy_save_page(phydev);
-	if (ret < 0)
-		return ret;
-
-	if (oldpage != page) {
-		ret = __phy_write_page(phydev, page);
-		if (ret < 0)
-			return ret;
-	}
-    ...
-}
-
-Its kernel-doc says phy_restore_page() must always be called afterwards,
-whether or not it succeeded. phy_restore_page() is also what unlocks the
-bus.
-
-If the page read or write fails with an MDIO error, this early return
-skips the unlock. Every later access on that bus would then block forever,
-including the state machine, the threaded PHY IRQ and other PHYs on the
-same bus. The disable branch below has the same early return.
-
-> +
-> +		__phy_write(phydev, JLSEMI_PHYSICAL_ADDR_WORD0,
-> +			    mac_addr[1] << 8 | mac_addr[0]);
-> +		__phy_write(phydev, JLSEMI_PHYSICAL_ADDR_WORD1,
-> +			    mac_addr[3] << 8 | mac_addr[2]);
-> +		__phy_write(phydev, JLSEMI_PHYSICAL_ADDR_WORD2,
-> +			    mac_addr[5] << 8 | mac_addr[4]);
-> +
-> +		ret = __phy_write(phydev, JLSEMI_PAGE_SELECT, JLSEMI_WOL_PAGE);
-> +		if (ret < 0)
-> +			goto restore;
-> +
-> +		__phy_write(phydev, JLSEMI_WOL_SETTINGS_EVENTS,
-> +			    JLSEMI_WOL_EVENT_MAGIC);
-> +		__phy_write(phydev, JLSEMI_WOL_RST_RMSQ,
-> +			    JLSEMI_WOL_RMSQ);
-> +restore:
-> +		phy_restore_page(phydev, oldpage, ret);
-> +	} else {
-> +		oldpage = phy_select_page(phydev, JLSEMI_WOL_PAGE);
-> +		if (oldpage < 0)
-> +			return oldpage;
-> +
-> +		__phy_write(phydev, JLSEMI_WOL_SETTINGS_EVENTS, 0);
-> +		__phy_clear_bits(phydev, JLSEMI_WOL_RST_RMSQ,
-> +				 JLSEMI_WOL_RG_RSTB);
-> +
-> +		phy_restore_page(phydev, oldpage, 0);
-> +	}
-> +
-> +	device_set_wakeup_enable(&phydev->mdio.dev, !!(wol->wolopts & WAKE_MAGIC));
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can jlsemi_set_wol() return anything other than 0 once the page has been
-selected? The three MAC address writes and the SETTINGS_EVENTS and RST_RMSQ
-writes are all unchecked.
-
-If the switch to JLSEMI_WOL_PAGE fails, the code jumps to restore with
-ret < 0. The return value of phy_restore_page() is discarded, though, and
-the function still calls device_set_wakeup_enable() and returns 0.
-
-In the disable branch, the __phy_write() and __phy_clear_bits() results
-are ignored. phy_restore_page() gets a hard-coded 0 and its result is
-discarded too.
-
-phy_ethtool_set_wol() passes that 0 back to userspace. If the page restore
-fails, register 0x1f is left on page 0xd8a or 0xd8c. Wouldn't later
-unpaged accesses, such as INSR 0x1d in the IRQ handler or PHYCR2 0x19, hit
-the wrong registers?
-
-The realtek version at least returns the result of phy_restore_page().
-
-> +
-> +static int jlsemi_suspend(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	if (device_may_wakeup(&phydev->mdio.dev)) {
-> +		ret = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER,
-> +				      JLSEMI_INER_PME);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		jlsemi_ack_interrupt(phydev);
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Is the WoL block ever taken out of reset? jlsemi_set_wol() writes
-JLSEMI_WOL_RMSQ (0x1fff) to page 0xd8a reg 17, and that clears RG_RSTB.
-For the same RTL8211F register, the realtek driver's comment says "Set the
-maximum packet size, and assert WoL reset". Nothing in this driver sets
-RG_RSTB again.
-
-rtl8211f_suspend() pulses RG_RSTB low and then high after enabling the PME
-interrupt:
-
-drivers/net/phy/realtek/realtek_main.c:rtl8211f_suspend() {
-    ...
-		/* Reset the WoL to ensure that an event is picked up.
-		 * Unless we do this, even if we receive another packet,
-		 * we may not have a PME interrupt raised.
-		 */
-		ret = phy_read_paged(phydev, RTL8211F_WOL_PAGE,
-				     RTL8211F_WOL_RST_RMSQ);
-    ...
-		wol_rst = ret & ~RTL8211F_WOL_RG_RSTB;
-		ret = phy_write_paged(phydev, RTL8211F_WOL_PAGE,
-				      RTL8211F_WOL_RST_RMSQ, wol_rst);
-    ...
-		wol_rst |= RTL8211F_WOL_RG_RSTB;
-		ret = phy_write_paged(phydev, RTL8211F_WOL_PAGE,
-				      RTL8211F_WOL_RST_RMSQ, wol_rst);
-    ...
-}
-
-jlsemi_suspend() has the INER=PME write and the INSR read, but not the
-pulse.
-
-If the JLSemi part has the same RG_RSTB semantics, wouldn't the magic
-packet matcher stay in reset? PME would then never be raised, even after
-the wakeup capability problem is fixed.
-
-[ ... ]
-
-> +static int jlsemi_led_hw_control_get(struct phy_device *phydev, u8 index,
-> +				     unsigned long *rules)
-> +{
-
-[ ... ]
-
-> +	if ((val & JLSEMI_LEDCR_LINK_10) &&
-> +	    (val & JLSEMI_LEDCR_LINK_100) &&
-> +	    (val & JLSEMI_LEDCR_LINK_1000)) {
-> +		__set_bit(TRIGGER_NETDEV_LINK, rules);
-> +	}
-
-[Severity: Medium]
-When all three speed bits are set, this returns LINK_10, LINK_100 and
-LINK_1000 plus TRIGGER_NETDEV_LINK. That is also the hardware state that
-jlsemi_led_hw_control_set() writes for a plain link rule.
-
-netdev_trig_activate() copies the bitmap straight into trigger_data->mode.
-netdev_led_attr_store() then returns -EINVAL for any write that leaves
-LINK set together with a LINK_xx bit:
-
-drivers/leds/trigger/ledtrig-netdev.c:netdev_led_attr_store() {
-    ...
-	if (test_bit(TRIGGER_NETDEV_LINK, &mode) &&
-	    (test_bit(TRIGGER_NETDEV_LINK_10, &mode) ||
-	     test_bit(TRIGGER_NETDEV_LINK_100, &mode) ||
-	     test_bit(TRIGGER_NETDEV_LINK_1000, &mode) ||
-    ...
-}
-
-Wouldn't toggling rx, tx, link_10 or link_1000 from sysfs then fail with
--EINVAL until link is cleared first? Should this return either the
-aggregate LINK rule or the individual speed rules, but not both?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016161543.444356-1-cyan2254650260%40gmail.com
