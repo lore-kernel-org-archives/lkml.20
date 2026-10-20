@@ -1,39 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478984;
-	b=h4qJq8WB4xaf9xC3scW96U7TBzWtScjRDMphHYNorsJtfxVGQbAuPQIj/+KCXEWE99vr
-	 qXHIkQRcz/d3SRt5t197cKC82bOHtmtMLam9OgHq2t+DBrwmF5IchXBzVPHCYZebxgbm6
-	 uWZSwbXrEX+zHrQaAk7fUcAhmzh8EA1kkj6WD/gzlv8fP3lSSz+wi2itNp9h4jzhSLnfR
-	 8bZ0E4Zjt9Pru2qgmLZrfP+2b4sYHbbo/fz6Iw3C0oSXkfY3tuFh7AXekE8UG/pPYS4mX
-	 72hQYxTGnaifF2+rwKPlKkUxvKp0W1OasZoSuMVk/4y0JWcnVZoSEy6M5qufrtw25ZA==
+	t=1792478996;
+	b=MLJpyK8gfwEmQRfmlenVa/tzLxutcarTaUOkb8sYhqDzIKtrZf43QbP2Js8cAZPRlGIJ
+	 ghmhLxItm8z7jNGUPXubHyRVks5QVx/IPdVo6AuvxVy7PWG5yHQmQVO01v+TIcTnFlnmy
+	 3AAWLUW39OuDGnrc9Bk9IyGGMxG+7aCdekSln/eM6cQtig20YCTiove3Y0+X7UHFMS/Jx
+	 twB167KZEkxRMJ66PVMGc3IWDI4ECchX+1/2jme4Cq4l5lxF0MMHAR/mrrsgDZRLTMsbO
+	 rluqNaP4Ex7si0lOtoLiWManWBUW62Wjfa4/dCsn0sMjASEwtNdv3GmP6hFLoRybRYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478984;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=NrjgqyA6vgHQiLK4KkbdHl8Hwg3brlnXNKkvtFzOs0I=;
-	b=bqHvD1nfA3w6AautU5V5RRWzwT2g+hnF9x4E3jwe/jfvy9j+rWD9ag6TXWbJIKEFoin9
-	 QARTiw7Lo2Dc8m5Y9qppjPd6RKEsVxHJCgujCo2dMCAGwgQ4i8bJ757XM8JksQu3RHdqr
-	 UVcwRDdFk2n8wCdopPxNeo0vkFKwTrWARvAkghjfp5YgQse8qUTSiI9nDzctmjhbqbfwq
-	 Lj/hyrqhIJNU4fZMD9lGf2DZcpuWC2BqHjy/lCTDd74H7NhuLdpcxNiP5VxeMlL7ZI00v
-	 ji54/ZrP6cSjca/k277A5pdgyCOPsMK9zhSU5/bjdpaePVfCN3LgNo1F0KZoc8Z5L8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478996;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=maBUpjo3g0KZFtGYzIJqew6LPOZ23uD7gqeYdMcjDLU=;
+	b=UQyjheN/+R1BPk4IkrXy8rq1fPp628TrEMsmfOJUjk9AlwHby8w9NDV0KTNGitCypdqX
+	 GeZZZeZ2fQaAYZ9z2W94Pa8DvftA6Dbe1XRA20n7IkTR3tiifU26Ur0dtk5PJmF4pKrqu
+	 49jG3NYISClQlMRbfwIRg7l6DHOilI43asPDMLWwhUxgK+P5A9kvTGb/Pu7RQSlYDNC41
+	 boQIo5kvkTRPLMjqG5TnMGoIB/QpefTo7pxy5VRWbXtI/NLY2yLB32mplTUdUm24kDTbQ
+	 /KAUTOS7KtCg4unRB9/bFnhPfN6fO3NDQYS0MZKueBCKc/OS0M/nE0teO9n4WXIoGQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="PEdh/jOS";
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A6A606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBA6C1F000C4;
-	Tue, 20 Oct 2026 06:49:42 +0000 (UTC)
-Date: Tue, 20 Oct 2026 08:49:14 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Yemingxuan <level_zero@qq.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drivers/base: return bus_add_driver() errors
-Message-ID: <2026102057-udder-arrange-c2fc@gregkh>
-References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
- <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AFD606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AFD606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PEdh/jOS
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261020064953epoutp041578277c1ee45e08ae35e768b4f9606c~gKiXhC2Hf2433124331epoutp04E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261020064953epoutp041578277c1ee45e08ae35e768b4f9606c~gKiXhC2Hf2433124331epoutp04E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792478993;
+	bh=maBUpjo3g0KZFtGYzIJqew6LPOZ23uD7gqeYdMcjDLU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PEdh/jOSgTkNQkU5mo45CSwtqWiuRlOhh0CqeDx7uEx+bXFnvjfKFGlXFmjeX2irz
+	 eEa7VZE5Xy8DqSzGMBK+wUAqs7mk2JR2B2aw72kJQzrR9e5+qwbYjT8MJuQWn0eO6i
+	 Ax64mxCiQt/HhdrkIZy02HR1j3hFAPBzt7Np/nNQ=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261020064953epcas5p30ff0f5805bdd1f0ce0daac03ded0bc2e~gKiXEUW_E2196521965epcas5p3l;
+	Tue, 20 Oct 2026 06:49:53 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j831r2fHzz6B9m9; Tue, 20 Oct
+	2026 06:49:52 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261020063833epcas5p102d557293024c00b1aaf00b6969f9978~gKYdgjM031479414794epcas5p1P;
+	Tue, 20 Oct 2026 06:38:33 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261020063830epsmtip147b74f688192e34b5eb651e9bb8bd9dd~gKYa81B4x0381003810epsmtip11;
+	Tue, 20 Oct 2026 06:38:30 +0000 (GMT)
+From: Raghav Sharma <raghav.s@samsung.com>
+To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+	conor+dt@kernel.org, raghav.s@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
+	pokala.reddy@samsung.com
+Subject: [PATCH v3 12/14] arm64: dts: exynos8855: add cmu_peris clock DT
+ nodes
+Date: Tue, 20 Oct 2026 12:25:56 +0530
+Message-Id: <20261020065558.1829402-13-raghav.s@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020065558.1829402-1-raghav.s@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -43,120 +84,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_4592542B31D15B00CDA368D5E884674CC805@qq.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261020063833epcas5p102d557293024c00b1aaf00b6969f9978
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261020063833epcas5p102d557293024c00b1aaf00b6969f9978
+References: <20261020065558.1829402-1-raghav.s@samsung.com>
+	<CGME20261020063833epcas5p102d557293024c00b1aaf00b6969f9978@epcas5p1.samsung.com>
 
-On Tue, Oct 20, 2026 at 02:35:42PM +0800, Yemingxuan wrote:
-> bus_add_driver() creates the driver's uevent attribute, adds the bus
-> driver groups and the bind/unbind files after the driver has already
-> been inserted into the bus and its module links have been made.  When
-> any of these fail it logs the failure and still returns 0.
-> 
-> The driver is then registered but incomplete: a driver without
-> bind/unbind cannot be bound or unbound from userspace, and a driver
-> without its uevent attribute can no longer emit uevent notifications.
-> driver_register() reports success, so neither the driver's init routine
-> nor its caller retries, and nothing else ever creates the missing
-> files.
-> 
-> The device side of the same driver model already treats the equivalent
-> steps this way: device_add() returns failures of the equivalent sysfs
-> operations to its caller, and device_del() undoes each one.
-> driver_register() already calls bus_remove_driver() when the group
-> registration after bus_add_driver() fails, and that branch is only
-> unreachable for failures inside bus_add_driver() because of the
-> unconditional successful return.
-> 
-> Propagate the errors so the existing unwind runs.  The new
-> out_remove_module label calls module_remove_driver() before falling
-> through to out_detach: bus_remove_driver() pairs every operation
-> bus_add_driver() performs in reverse order, but the symlinks
-> module_add_driver() creates live in the module's sysfs directory, not
-> under drv->p->kobj, so the kobject teardown does not remove them.
-> The attribute and the groups need no explicit removal because they live
-> under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
-> the caller.
-> 
-> The error messages are kept.  The return value of an initcall is not
-> printed by the initcall machinery, so dropping them would turn a
-> reported failure into a silent one.
-> 
-> These failures are not expected on a working system: driver_ktype
-> always supplies sysfs_ops, so -EINVAL is unreachable, no in-tree bus
-> defines a drv_group that collides with the built-in uevent, bind or
-> unbind attributes, and -ENOMEM needs memory pressure.  The point is not
-> a user-visible bug but keeping the driver model consistent with the
-> device side and leaving the failure reported.
-> 
-> Signed-off-by: Yemingxuan <level_zero@qq.com>
-> ---
->  drivers/base/bus.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-> index d17bd91..a63e55c 100644
-> --- a/drivers/base/bus.c
-> +++ b/drivers/base/bus.c
-> @@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
->  	if (error) {
->  		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
->  			__func__, drv->name);
-> +		goto out_remove_module;
->  	}
->  	error = driver_add_groups(drv, sp->bus->drv_groups);
->  	if (error) {
-> -		/* How the hell do we get out of this pickle? Give up */
->  		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
->  			__func__, drv->name);
-> +		goto out_remove_module;
->  	}
->  
->  	if (!drv->suppress_bind_attrs) {
->  		error = add_bind_files(drv);
->  		if (error) {
-> -			/* Ditto */
->  			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
->  				__func__, drv->name);
-> +			goto out_remove_module;
->  		}
->  	}
->  
->  	return 0;
->  
-> +out_remove_module:
-> +	module_remove_driver(drv);
->  out_detach:
->  	driver_detach(drv);
->  out_del_list:
-> -- 
-> 2.34.1
-> 
+Add required dt node for cmu_peris block. Also add sysreg_peris node.
+sysreg_peris contains DRCG SFRs bits which are used in clock driver.
 
-Hi,
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+---
+ arch/arm64/boot/dts/exynos/exynos8855.dtsi | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+index 2e5dc79d66bc..b461de6a7548 100644
+--- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+@@ -146,6 +146,27 @@ soc: soc@0 {
+ 		#size-cells = <1>;
+ 		ranges = <0x0 0x0 0x0 0x20000000>;
+ 
++		sysreg_peris: syscon@10020000 {
++			compatible = "samsung,exynos8855-peris-sysreg",
++				      "syscon";
++			reg = <0x10020000 0x10000>;
++			clocks = <&cmu_peris CLK_GOUT_SYSREG_PERIS>;
++		};
++
++		cmu_peris: clock-controller@10030000 {
++			compatible = "samsung,exynos8855-cmu-peris";
++			reg = <0x10030000 0x10000>;
++			#clock-cells = <1>;
++
++			clocks = <&oscclk>,
++				 <&cmu_top CLKCMU_DOUT_PERIS_GIC>,
++				 <&cmu_top CLKCMU_DOUT_PERIS_NOC>;
++			clock-names = "oscclk",
++				      "gic",
++				      "bus";
++			samsung,sysreg = <&sysreg_peris>;
++		};
++
+ 		gic: interrupt-controller@10200000 {
+ 			compatible = "arm,gic-v3";
+ 			#interrupt-cells = <3>;
+-- 
+2.34.1
 
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for what
-  needs to be done here to properly describe this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
