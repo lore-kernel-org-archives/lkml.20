@@ -1,96 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500631;
-	b=HSvQjv5dRP7H9OqtLh673vsAE/bbKcIIV3Hk+kPh4TsgOl35hgP3WJNF8yWp1PpJLBji
-	 MWBp5zS65rscZNAEXPR2Sf1LhAEyIZja+drVq2DajeodwgjKieiqlH94aUEPaFhdmJEMd
-	 ZmRXEOYhQxdp1Epmk8dovSA1Zugc7pW2eNf8TSnbYXkifVhozbo64SM69c52JXr2DaX6O
-	 qnzjQycBCiAtmjM8WQQAtsqWnlEfb/arkvh/7Hk+DJ6m/JwxfF8/038gHB2mnUih2/8qn
-	 cYrI6g271nF+KYjIZhJiJIm/Xy6vqfYibtYkzAgJzQqSZG6jOFvNh1keaIfqtngrMfA==
+	t=1792500633;
+	b=NWEdZA66WK3jc665rvshVXjP4TYCyJuJFEgkuRU12qSwHfKY9oCEuExpooK9g9aiaiw2
+	 wmlE0b/azHmLSEqNRGcZfSXBjvdWhCSlk6AQCzqtmwTTZFUmbSzXlINNnfx1HTpxi2LmM
+	 Xn06l/cy06IhRT/IEpOlN4o2DfZyg5KkHhOccygEtGItez+j5dAO1eFHCN+wT6rGLIGjK
+	 zNOlqxdbL3JOGQyiKIyRPJjbVel4gsruhzWcC7zC/4Oy0AVhDgdpw6eUpPBs0JWNGHCQQ
+	 G8h+Ss9++ez3z5HNoSw+9RGmmd29u4KKRJdu3pv0bKdFKMXfD3ArR4RlmYf0OSuY+fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500631;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MXdHjYF/iFD/DCy7EzXB6+0TlqrWF/Nncm8XHDPT76g=;
-	b=nLlQy3xV1jpBMv8PXZZtzbinJ5rmh3ZPnBnJpiNqpfkPRsZ8SRuk40QlOdhOw5S3R1sC
-	 3RjFVHFzivyqJNLyVyoMesWW4ObOz0ekl2up+R7RmkFLbC+uB7McVRChsV/ScUpPNKPM5
-	 5lB8n1jasknyGnKT+HRtvkcnrgD2FEXmO44Mw5u3W8nFTJW12ZJ6Ry9aQcLY+5PC05cva
-	 y0k3I9wKEY2qKyC78k3Ps2y0IrXBdAQx5u0F2eVK+R0s8BRvMwgvHoAPq8hl8tBVZZYYC
-	 8r4wirEmNDf2enroTsn03NRV6H8oKeGhUuEw8w4hCaBpz/UJDP9kZM9tnWICEB7RRiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500633;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=KpSvEb1ZmSOewVyzZaYexwDFI9NVYIxSu0bLN4vULYs=;
+	b=iAPBZ+HUUU8QE3h9Hnja8pMxTnKvbgaCePMobx0gQ4Tmr6UK84E2poxiT4m2TuWXK4L1
+	 yyIXZBq4DmVOlBKkbSduepPHzgDdAmkU8HvkVbhRT+kwcxeflYVn5D7PwL6CoCN/Zws3h
+	 9rS+mNofX5IQQpxpxOJacZJjZV5M+tICPnPycYTwqnG3ZTbmUtUmQxTiE4haLikaqI0ok
+	 LhQrgJU/F3aDPXGL2KDZTku4/R6LxaFxEILM09nhDtIwlLZZzPnfP+70c5BiOXmkOho6j
+	 ZRiqE+I3XPcrHGn8D6+Bfuq+5y+EToZBtHoAXm+/wrBv3XBRm0ubGGkSCHrSUrjWykQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IHCblJZf;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b="C+/fZsuX";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Srk91qOQ;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66858606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66858606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65C4606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A65C4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IHCblJZf
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e608cd460eso17444405ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:50:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792500631; x=1793105431; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MXdHjYF/iFD/DCy7EzXB6+0TlqrWF/Nncm8XHDPT76g=;
-        b=IHCblJZf3H7599IBWylg66gU0BdWkqOQqEm/SXRhQR1bUZoFbQktsi2LBaQRTQeR5m
-         Hj+fW8zZoHJTNJj1PHYnEdUekhAcSKhL4rDIWZoe6EhAUiL5hKfkgkvhMNTkQXlu1Sgh
-         Hf1lJR03QSEY4hAbCLfviHGJyrGpC4KByDFUnEAK1gJTpwW8CJn0Z66von5N0T2Mi7p0
-         gwJK3UlGsFIPvB9DcM8nmC+TVpt7Yjf8Z+kBI5up04AXWwmWL+AFkfCre8ORKyhUzAtP
-         jXXPUAbKE+Wna1Irkj7ES7OKkZ85qTx0YcsS2fuocZmn2xpypw3PyoU55nQuhoEDbm8l
-         dTMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792500631; x=1793105431;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MXdHjYF/iFD/DCy7EzXB6+0TlqrWF/Nncm8XHDPT76g=;
-        b=b+Th74k7wcnrhUVhyeOwbsGhF+O+QztjtK6xkU1KQbVEImvtNrgeuOO2h+/CTOF5SE
-         8IFJD+lQBXJkG94PlI5s54tdlaSOQ27e5l/GyR7FvGLjyQMvtWKvpwE+pDRzzjY1Mf/X
-         nbqBAi59D+RdRlH2gRNo5ghe+ShzmNmn4vK1yq26Nkbp41UpzpyilF7oHzcoVrrDuOl6
-         XLEPDMdEwxGU5mL2SxKj8mapD4IJ/dJgCsZ5HN0STBfwat1N1DusOG9hiuHc/Pw1uVTu
-         zWCNTqUn/BjsU9sLDFN+XlG3B3XYJJp03imiFLNxOT2R2fdBo1Ja/LdXN7PZ90r+iEqH
-         2ZVg==
-X-Forwarded-Encrypted: i=1; AKwUvBz07sCTGWlrove40gYJd2zfWxIknvdPFGSnTj9tM9MPIOscJ0VakKcZRzA8uo1a7BuI06HvNPGQVf3fvms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLs6y/NFcVbbEnbq4oJ0+c9L3gVxj58An0MMEZE2XWKI9zhHdXc
-	p4CUrROAG06+ZfyFEsA1o3foj5AfwKjM+UjZA3NTTapQdC9t15XbAeMJ
-X-Gm-Gg: AYBFou3SbLPFurhfinxxwtpGSnxiBvo9G6JHZ67lOgVPL2Wwz4H6mCKSsY684stXyyW
-	q1z566j04BZ1M5Venrr0KJ7eIBjnHKxTAuaI0KMWeyEwHfWEEcM2v2+ff7HKC7Rruf+5TQXfupC
-	DCyWr0ApUeP3A1F45610eONPEqNufmv2pCWPxnMJSY0FpWIBkNWXj9Iy/h8NdzkPcKar8HROczA
-	VvxPMUOrSgphbI88nXLE08EybFRo9vVqA2c7kF205g4Se/9pWB1k/cPTsWb1u2IYims2Ox+pqd9
-	8JPaJb9nVijfptgmxLBSJLwj8AQKJ8Z4T/hxREzqRJcubiboIWq8AXX+cokyaNwMbftZba6cC9Y
-	IW9dO7gC0sopWfwgZG9YVD0qNWzsxTNRA5l6Ieul0Zf5jDHfCTdiDEzWlcIII8iVdDHvCsYWvP3
-	lv5XUhN68JjAWXfqXCWa4nEnj43+1dHhp+vTkK/RE419z0EJpwgmlpgmWWdTMKD6UCZznxt8Piz
-	KKIttwzy6M=
-X-Received: by 2002:a17:903:41cf:b0:2d9:520c:38e7 with SMTP id d9443c01a7336-2e9a68346e4mr91135645ad.1.1792500630628;
-        Tue, 20 Oct 2026 05:50:30 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45b:2646::3d0:4a])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea151a2a85sm11467305ad.71.2026.10.20.05.50.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 05:50:30 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: paul@paul-moore.com,
-	eparis@redhat.com
-Cc: audit@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	jack@suse.cz,
-	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v2] audit: don't use the caller's root when it has no fs
-Date: Tue, 20 Oct 2026 19:50:24 +0700
-Message-ID: <20261020125024.8550-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=C+/fZsuX;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Srk91qOQ
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 01C76140012D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:50:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Tue, 20 Oct 2026 08:50:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792500631;
+	 x=1792587031; bh=KpSvEb1ZmSOewVyzZaYexwDFI9NVYIxSu0bLN4vULYs=; b=
+	C+/fZsuXU060k6/s7dA9jM6XcTcVilUWUX/jyaYNcv9MYe0Tgr5eJjpQPogb6sWb
+	+QV1ajue5HvpKe8PiM8lXKvMYzqXq+XeXzC6crJhUvs88iVCUsHFQsc4+TDW2ZQc
+	YYJA22LOvnYmjYIkA3K5NhHa46P8sfvW5sigl3ucojRtEYhYfIcrsqF1g30liTmh
+	WnjUeufI5/i4Vp0HmsH/wHTRtrjKitcnmzHdWgDZ8MXGKfTtXCd+ft0LQ5+xGlxt
+	iYdhNvDPr8Fp0Mk5e2xXq4QF2/RrOOCd6JG/f7kAQWNbOEJGQ0YEuf5tLGsApngC
+	fYvPE8jcEmr/piJ6kH8bpw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792500631; x=
+	1792587031; bh=KpSvEb1ZmSOewVyzZaYexwDFI9NVYIxSu0bLN4vULYs=; b=S
+	rk91qOQR8BrawTth/rYIaPGAJJxaYRjeDgW61xfDD/b9UfbUcSe0iJV7okQYUW49
+	RZcKrRxidtW3s2bqWte5e7ECqbFcExp0577D+4uCsMySG4ay/5r5tMXgeLveRcso
+	0xhhuR6CxqFQ4LX5c7IvhdQvRMd7jFieqOM8jDyILeM419C6aEwKjVhzI/Hp8esy
+	MS9bY2mrtC+iaRDo+PkOkPb/tjJjPvLeI0MrdywixPxA1cbtaBVr3kWp/BHEanwK
+	6ia6UX58DI5Z3Jp8gGzF2gxZwqsuJm+OX4B6rgDsV3r25VOBxHXAyh631ryc7Kix
+	RK2xirDmOwwM++SLryC8A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792500631; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:HmhyGbY+1Vwr52I7fBJfaaLPLHOkM39sqbfYB4LU5iBySfR
+	v8xAHO7AlnP8G+xDVpUt3Ho4vlu2guppsuR4YXuXfVDXci6+OVOK+5z0gHVsGQ/R
+	q9zv4/LrDaqaXNR5E2DTJONoz0ttRZ4ym13yrr8OpLQF2Cz4vOThwy+n2ilHPGHd
+	W36f2K1HyEhGGHDF8gQUuomz+PMIhs+bM3CWttGoACJgb7JMXJx2jxiG9YIqcA5C
+	fF26qr0JshUK5SNJNx09OTvb4xQ8rKl4/CPmfEteQwsx/WLuWfIkTj6aKAlIL7nD
+	MQ0DBMZbXo/Hq8L4J3npCs7RecLd91GopiRBN0A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:s2UGIG31dVFUg3IePb3OGKYWRiFAu1bRFyBtld4V9rk=:fCMs0Pv52oKfJdphB7XHmJehRsKvOrbbtcXx2K/iuPU=;
+X-ME-Sender: <xms:lmPXaqvm6TsRdD7Rk8n7lXyo4RcWWU07K9mGyQsghorgzAJhk-6U1A>
+    <xme:lmPXaojO5_BmGqNx20cIDnR7yTyjvi3KrpAE4SdPxp5RbX8QBU0UBhKKDBts3z4m1
+    jAVdosNltlNp8EkvIYEQ-uAdnrbJ17u9wIp3dIeV3iWACVXqkLQq6Q1>
+X-ME-Received: <xmr:lmPXau18DTCQ3SlZ1PG7G4DI6j3kQono1KoGjwaSQSG_KhfRdscYMwwaWyZrMPVgfOsoDrnJ1nx3a-DIaUrECO9I>
+X-ME-Proxy-Cause: dmFkZTE2Du0we4KvtkwYGASTx0hsJNnuyBM3jUnEi/7RiemtGh+Gi0SLRw0/E5muq2rj5U
+    BDAFL3o8mLH4+ktrQxfXyDWU5V/1tUk4UxTY4LeN0jAH8Zb/xWk9hzgwE2ZDxDluGf6Hrv
+    RSxQxazp/9a0nqUgmKSSDk9xluPL/KvCZ4J/CrVBUdjkdifEVky7xSWmza9/3vURTQ8bvH
+    CNzXdcwkDR7FT2ENYBkIxO0hK0srKpVTmaqskyiHfdL8bY+hToKretRYCrDogijKG86zLj
+    m94QHMmk6HCu7iMtfNc88kpN+Q2Xc7SESlfdfmTg3Q8ATafFxKkvtSmzVxxfvK4xw3N6eC
+    oBmVmuvYx9GCYkb6t0IixCLfUJKcOkZ0vVcG6V5HT7viNYzwheW8pnMwIB46hqQmLstf/l
+    4j7O2XSKEj/lqlBm/K9j6SsKpawo1L75ZIWV5yTmkSjRLqOQKFnqddXcPELFJND9rTQJnu
+    yTBTCPpWYjWzeQCbLrhYIdDzKjygdPMdLi9lmEE/vLVnFZ8z9IHqixRn9NnA8LAPd43Osz
+    1dmcVr52wuCiFY0BS1MgxHGz1k4Y5rSqToCO+fs4DL+P5rciXnuu5N7b/Q9Y4wYqRE5IuG
+    cCt3/EAtOhTZS8TlOST85YLRfLBMiauEeOYhjMsavRkk0lE3RY82/+VWskdQ
+X-ME-Proxy: <xmx:lmPXag-eWWXNxbItODDt9kzZIknDUPOuxeVjmHg6Akm_2rXQZpkWrw>
+    <xmx:lmPXakPN1bkDIfsF-QIkjDZHkqAl5qkO5Bn7LmBQ9PR3w6YOpDEX8g>
+    <xmx:lmPXasBO53G1DjDOsrA94AueZWKWqMYm1a7BgA3221no_14u2VJwqQ>
+    <xmx:lmPXauPcxJ-yrGxSHB4C6kpDfaKjq32eSqxw0_ZP2fWRV-3Q5g6rEw>
+    <xmx:l2PXakcnVJ8i7xP0jAilcp_hwDF8i58YOhPIozmeGkyM1U8svR6Hm1w9>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 08:50:25 -0400 (EDT)
+Date: Tue, 20 Oct 2026 21:50:22 +0900 (JST)
+Message-Id: <20261020.215022.576606933901583722.tomo@flapping.org>
+To: samitolvanen@google.com
+Cc: ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
+ daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
+ work@onurozkan.dev, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, abdiel.janulgue@gmail.com,
+ robin.murphy@arm.com, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Subject: Re: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for
+ hrtimer_restart
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
+References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
+	<20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,60 +132,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-audit_log_d_path() calls d_path(), which resolves the path relative to
-current->fs->root. do_exit() runs exit_fs() before exit_task_work(), so
-a deferred __fput() runs with current->fs == NULL and d_path() oopses:
+On Mon, 19 Oct 2026 23:34:38 +0000
+Sami Tolvanen <samitolvanen@google.com> wrote:
 
-  ima_file_free() -> ima_update_xattr() -> ima_calc_file_hash()
-    -> dentry_open() -> smack_file_open() -> smack_log()
-    -> common_lsm_audit() -> audit_log_d_path() -> d_path()
-    -> read_seqbegin(&current->fs->seq)
+> The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
+> generates as c_uint. C calls them through hrtimer->function, which
+> returns enum hrtimer_restart. kCFI encodes enum types by name even with
+> integer normalization, so the type ids never match and every call fails
+> the CFI check.
+> 
+> Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
+> for lru_status, and adapt HrTimerRestart to the newtype.
+> 
+> Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
+> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+> ---
+>  rust/bindgen_parameters     | 2 ++
+>  rust/kernel/time/hrtimer.rs | 6 +++---
+>  2 files changed, 5 insertions(+), 3 deletions(-)
 
-Without an fs there is no root to be relative to, so log the absolute
-path with d_absolute_path() instead.
+Tested the hrtimer doctests on x86_64 QEMU with CONFIG_CFI=y. Without
+this patch they hit a CFI failure in __hrtimer_run_queues, and with it
+they pass.
 
-Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
-Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Changes in v2 (Al Viro's review of v1, which patched d_path() itself):
-- d_path() is meant to be relative to the caller's root, which is
-  meaningless here, so leave it alone and fix the caller instead.
-- audit_log_d_path() uses d_absolute_path() when current->fs is NULL.
-
-Reproduced in QEMU (x86_64, KASAN, Smack+IMA+audit) with the syzbot C
-reproducer: without the patch the first exiting child hits a null-ptr-deref
-in d_path(); with it the reproducer runs to completion with no KASAN/Oops,
-and the audit record still carries path="...".
-
-Al, does this match what you had in mind? A final fput() in some unrelated
-task still logs a path relative to that task's root; this patch does not
-change that.
-
- kernel/audit.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 9412af9144bc..32085674d0be 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -2218,7 +2218,11 @@ void audit_log_d_path(struct audit_buffer *ab, const char *prefix,
- 		audit_log_format(ab, "\"<no_memory>\"");
- 		return;
- 	}
--	p = d_path(path, pathname, PATH_MAX+11);
-+	/* No fs after exit_fs(), so there is no root to be relative to */
-+	if (current->fs)
-+		p = d_path(path, pathname, PATH_MAX+11);
-+	else
-+		p = d_absolute_path(path, pathname, PATH_MAX+11);
- 	if (IS_ERR(p)) { /* Should never happen since we send PATH_MAX */
- 		/* FIXME: can we save some information here? */
- 		audit_log_format(ab, "\"<too_long>\"");
--- 
-2.43.0
-
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Tested-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
