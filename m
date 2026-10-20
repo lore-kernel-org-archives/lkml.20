@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792520558;
-	b=4HcLomzvN6OeK13IQVRT7uoNephSScRiVWyfpzR6Swo+nkmaTXf8+J15unJA6ehyHeWr
-	 MTsAVQAPLVpyfwxf2oEWwc/kfxoU3Aje/DriQ0tkFgL+/7XSOQ5tJqYkc7XUNLmz9CH/s
-	 EEFFdxEaaY0clRO3o6qgY4l6VHSlqKJgEsiRPghTejvAZZDgFu4qP7z8bbok4xRmXQ61L
-	 F2rH8bF3/iUq2KkzRhEqBcwPL2s8DZbw9SbL84ohDelFTgYPz1NKfVlWW+dRbj+mRceP3
-	 U0z5JJzqpgKsx1XHglpdxx1qaXunj+AzDXWrt67n6NpwAKpLnP3D+m9xvVHkbhj9ciQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520558;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792520564;
+	b=mIyVCqdoTlLE53dIyCfH6XPNc0cHIgZpoPnFSPrHzHu3AXW0LWGjoQWKqutH0W9vO0Ra
+	 RK03bSz/chefUV0G45BUgcS7M05PfItfxV0DPrga1SjwtBce8GPZkDyaaRER+jTTk2kAn
+	 tuKYr/ZgAvg47XyZbji8CwS7m2NV0+Zzj6YRMt3teR4RRo+SlU2pLEX6rrAmzvN3HVo+i
+	 jQ4y/98UU5pGN45mZo5Fn/ZwQhiSCEInFmxJVTWLs9U1lDvuPh+VKlJ0M4uw5zpgwNaLz
+	 v/dcGfEPpZUTVOt0u383sYc0Ux6EZBJ27CPMLaf7JJvRfu/VdkSUFesnZztlIqb4JGw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520564;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=RHLyyCKYeuOzEypTTHpByT6eNu3x1tlDaVLz6hUSTes=;
-	b=2hq/Oef5Ub8sEJwqPrv8Z1hYLmQSyC294HsPvIy5jTaPSdhTLlH8xkF5wZerVat+6apC
-	 M90J5xPHEMl33m28q6FLn72PTvDXU1u1UhBRYN41Y+3EIk4BpWJWAMj3QfLolI7hWGlcw
-	 VFLKzETDV8wDRKmFk1oBDE9+EZxoTSRe5iSV/wbjV/+EcWANFAuLp8lwAxLEBvP8wEACG
-	 wI4iyGa5B15CtZno/wi3dZAGLktZDcFR7StTW0LvC0oGaWxj7yqyf9ug3Kz9p6z3mnsiD
-	 D6MhljaKirndG8iPQxeKk1FVq8qt+PZNX15kBK6csU5J+jCE5RsaDjSM+hBqm+gELbw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jCpPoMO5;
-	arc=fail smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QBkELidHnujeG3xBjThPr+adF0FJwgUwsd5WBy30Lkc=;
+	b=engHe+oTQWEAJqOv2G3XEvsvSN+L9CFwQKHc/rift4r/D4tYUekGsjRPIqvMdBHEJKql
+	 keDRfElL16wFsnsaSBZC8ErbnOiQJCv83RVMvhLhPySAOhRdIr0yO0XoPyKM0PyzCIuCH
+	 mvMEVTK4BBBOpu4t4nd+z7d/gAveXlq9XcckQRsUUkQljNhPLKSxs5jaW5JG8k4knZusK
+	 VaiId0hNQNY6v8CFpcY3wWEJ2NzwTmH+pxKA1TnkjKRKqBpwMKTZU2Y/Kf47KQ4AoBXO0
+	 Ns9xPH4HPCJuTnkGaXnaHWImpmU8LZZZxkG46+sL7Ua4Q77nHG+nIqsOoXtvk4i8dtg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UCiKwgE1;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88C9606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:22:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E88C9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15F5606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:22:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B15F5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jCpPoMO5
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67583c777abso1159206d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:22:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792520557; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RQqdqqvzFP7S3ww8LQ6IobdsekLZeXjcM3CJNpcgdekOOKlu2wVGkV83WRZOgX800c
-         hUGwyEjzac6eLxnYjHUX3v7I9IL5qn3xYXQiD4MBx9kbpzhmt3o/18hml0OAmcc2t4Qf
-         nlGVYdu8G9v4Cl4+14caK+p5xuvYBeW+kfvk+vJrJ3G2Qo52A5tDeerSo1dhwKTkdwxx
-         adwVbV5+ut0Zhfx/JM6o0H/tgGoiqN2QjmPgp+qMgNxJcWAdY32zD2f51TdOXYV5J31Q
-         DF1UOIWhHAkOarkQ2Ec7XEYSbKRFpHuI4leRmsKLbt2FIFcBhhI/T5FSbwKenQNY++zE
-         95hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RHLyyCKYeuOzEypTTHpByT6eNu3x1tlDaVLz6hUSTes=;
-        fh=HuIb1jl/Sz0FEe9SjkWPHLXcqFRPtag+TaWqaEYICKY=;
-        b=q7/GANq8iSEGOX5n3sMXELqfwVRX+u+Hp9zVqLeC63jBNA+vEXWSHPJzILjte+ny4j
-         hwoWlLqRpbJiXTKE1NHoI6wOuvvsCsZ1b7VRH+SygRR2ccVzNaXOB2Uly5NMpbVCCh9F
-         bkX308aVg+hbppq2LZfBgsPzsS22gvbQ4uYpwjN/uvC5TGC9XxF+nZ8RE9LBKRNAUiWk
-         2r+P0h/BsPQGKT86Vv5M/5kB0Dx5zQzeO1Sl7xM5st30hWZyysU3cZ/uDnhApe4lzeQs
-         6VVziiCLXrrOU7nHq+LOrlz/ap8XlBRgpxhBs9n6Cnv1c5Zjz/hHbWd+Ymo1aV/tBEae
-         NLow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UCiKwgE1
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3514b90bb89so9736884eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:22:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792520557; x=1793125357; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RHLyyCKYeuOzEypTTHpByT6eNu3x1tlDaVLz6hUSTes=;
-        b=jCpPoMO58y6sJRNyUMWUWt3Xaw377KaYeVqrCJswRAQ7oKQE3kKZ95epr4PHsw8jDo
-         +Vymhp4pDTcYix/GYcYigVbhJ1c35neN7bD/cng2pd+6S7s+QzkwOXRmFWhmrZrBgKtS
-         uF9e/+MT5cJsEuOOvqCc7whuK+e6LEQbbFr6JTp6HpsdMQassQUMqaIylxCgHB7Nna4X
-         DLnrnpOCODqRFSx8BjU8GCmq/xzr12NndAQ9cVvg0WQ8c0FEhJ/i5779DSYCzc6Mmt29
-         TZInkgPURMOVAxBDShoWsPQiMMC6ZVT87Cq5hblK6YvF0yoLo69dvfI3KNOWArT7GB0M
-         CZrw==
+        d=gmail.com; s=20251104; t=1792520563; x=1793125363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QBkELidHnujeG3xBjThPr+adF0FJwgUwsd5WBy30Lkc=;
+        b=UCiKwgE1munICdPucccsS61rgAr8sNDaXJOSU/TLALuS9a1Dr23yGosoCSNij4gb5N
+         aMItYkFB9I8uAu5e5l+qi7ilgNrv+u4c8WgoXeTS2GplpXRa/KlRUxzGg2cl+GEGAuEe
+         pfHXIe5HE5dtKMBixNO6bpP/CdhGjFqSW0Wg29BHp8X704DryyV1PnCKszt4YDmpZyLS
+         IbIz4GjiQxwRTdUwFuZbSaEv5et6adr71xuAb+NOjTVvvCgAgMwK5hFVWtP/4DHYs+xd
+         Ydjy65sfKvXYuJcbyZ+TmlK+G44mejeyiWB5i58vYOXiJSAyxZ6YImS5hyFm8+g5Mew/
+         DPTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792520557; x=1793125357;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RHLyyCKYeuOzEypTTHpByT6eNu3x1tlDaVLz6hUSTes=;
-        b=Y09V/mLvxlqXRFnZeBasSOWLpKxWop7BJDa0kADJm23/i297DdK7/WN8RMDkuNfeFD
-         PwOmeFAr4S2UdzJfmG98mJ57F80FrhKPLq8ESOhlbXXQuyVqNPyM96kx5xtcKBtFAH1t
-         Iyif/jxw17KHnokrs2quJJk0/eL/BzTFYgVsHs4bNHkYsHL1WcjIMVLOa1dLRqHvjUZt
-         bvZgZVEszq5SYbWtlZa956N5Nt7wq3W2LWRLN+4JXK4xYoWqZVgaMJ3VA1V4xdtlpsKG
-         UjJMCY4E0Bvak6pOXhUfvwEBhgmjP2DKmQcJbFZQGRPn9kEvgnzMJBfx/9Sa43zOEj5O
-         xtIg==
-X-Forwarded-Encrypted: i=1; AKwUvBwMqajgStEorIp3Und7ozhKLGgHrB8imtWZ3YUyWf0o12HKPooKwHEwsWYZ1ixdiZOCqkWofEW+0pxttBc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1geym72X6lcPHwOJfRXxJRhGZGKDc2uixJT0T878Mps50dFkH
-	7ImBMJzU/0Sq+2Rvw6HMzIFtWZKANRC9XE5ZdWc2aCKGuh4jFgogkR15Yyt5AKAPAmQGbq//f5x
-	X36Bv2O2Fmjh1e7hq3VRUnOS66eRIHRPA8ZTeZtnD
-X-Gm-Gg: AYBFou0bcYKkE2sHjI3+Afq90fFzsepu2A0gFi8pJJonMHIzNayxR4HkBSJdxdVE7Oz
-	H849izic97Zl09qQkD/l2TDyWi8lSVHHndScqRfSVUA2mdXeS6PshDPgCNPEJeGta08DKsjUWTh
-	zOg1hduTCHZPsri0vUH7DzSnc/PQFXXpsb274bUgL+kpX0l+apa4ABFMEOahQoZVa9u+PzCJ5H7
-	H0F2b0mLW5RxMW03FhHHEXSAbuqTwMTzxXSPf9Hv4xE/rPiWHTS+O7t6t5O7ZOwefCNn/+EKjVq
-	x0oQmhpQzOK74c8MOnVjzcO+ruyURO8UKZx/7gL8Jh0y8iIwdl3rHnpH4fA3+9iuEKcoP051yab
-	+VgoyNfd0i3o=
-X-Received: by 2002:a05:690e:1508:b0:675:61ed:ae79 with SMTP id
- 956f58d0204a3-67a0e53f3camr15368d50.40.1792520555651; Tue, 20 Oct 2026
- 11:22:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792520563; x=1793125363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QBkELidHnujeG3xBjThPr+adF0FJwgUwsd5WBy30Lkc=;
+        b=Qnxd8SfVYx7MFnAnymfLpPOEEd8rUOBWX0cLRLwhv38pkTlG/MPD7ewiLdVil6PZ+5
+         MmA8DqtU3336qwfOuzTEmVup45Ha6R2Q6tcmA22apNz5tt5X6TLNRGjOVxXGLLUEHmj5
+         OrjuHoW3yX0H7L3GvFMbxAFX4cd2VvGtfwacV7uVWVoEpRt6u4ZSCWmztvfzbChRtksO
+         7nf0e0RVoQkiBqNJLqXkQ9byPhyUZrLmYspkGjFB0/+eIxcHlfA68FZTs9JXsdtuc1sY
+         NvjqCnjaQVdSkzvhPjOoz1d/SUsZqMdFuTDsSLGzDbq5XCDKGDQLkIo5cHxlU8XoLUhP
+         leOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5dyeJMi5n0m4mROBFOsPKZpyNFm+S99Y8/dtTq+zUGoOaen8w6mf3tRH1j+2iF7924G4jitDDnaVg5LM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILMQdz7+2UZ7sybbEOeVUu6oqICpcJzbZXJAmhaIeJlUdHVcq2
+	/QJfuYfWhzgl84ENScN173QYqB+ygLgkqDm8CYSZQ3JVRLRO6BdBWhiV
+X-Gm-Gg: AYBFou022v+AuD7nok7Vxx55wQrhsRwWYzBS1UjoozsuFkW8LAkZpXtzkUJUiBpGCwL
+	qthVLwnyCzdJpLwefv3BV8YhPMRLBAV2bqry6BRCqyh4vhxcEjTjPRqtvq4UuxzZxgwbCWrwtai
+	pKannOgP9gRxT2HdMtcd4i5DUmGshmwEAMc1HwCoJRxNTY6Ea9Y9zxysSBjvLueUFooPdUp8hT1
+	GLNr4Ij9i/+RzeXsGl3x8OE09MLB//I3plHhprrDuTq6TQWlRNXGrdFtK0w6p8Num2tlidnKtpA
+	h2OoAdtqaO690lXyegVPmw5GXFcPVAf3gOQNnck/1yL7Hi7dveNAHUNt8v1kgdUfHgxLtyJrPqC
+	CZPNapYw2J3XLir498DRgSaxVTgui8X88Lxevb+uosk1m673/0qiHq0nqEH886CQ3Q1D+Y8dFVj
+	OeeUO7j3WWNKa8nAPjzHUbLtB9KFoXJHVhEXhGNrhQTogm48GQErM5J3Z4ahEkHGYBlbaYKy0xQ
+	n7lm94mad5+D89IfX6ZpaBDRuKU4O5uYNEzGlvpnBGV/eg8KPMZ9ek=
+X-Received: by 2002:a05:693c:65cc:b0:367:23b6:94e1 with SMTP id 5a478bee46e88-3674e25bf5cmr71459eec.41.1792520562401;
+        Tue, 20 Oct 2026 11:22:42 -0700 (PDT)
+Received: from localhost.localdomain ([206.206.192.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm402866eec.11.2026.10.20.11.22.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:22:41 -0700 (PDT)
+From: Yibo Liu <yiboliume@gmail.com>
+To: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: drbd-dev@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+0845f49852fd568f@bugs.sh,
+	Yibo Liu <yiboliume@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drbd: validate digest size in checksum resync and verify requests
+Date: Tue, 20 Oct 2026 18:22:00 +0000
+Message-Id: <20261020182200.236875-1-yiboliume@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,61 +100,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015145714.3327543-1-elver@google.com> <DM8X51YCN6AA.1HV7J3R3PIYY9@garyguo.net>
- <CANpmjNPALPJQDZFfNAqo8v0eu_0uNvj+rJ5xqeC3ZZSvs9zQwA@mail.gmail.com>
- <CANiq72mCixHhc5tU6ueiJNEfE7yHXHXekhWDcvhFdfd414Q3yw@mail.gmail.com>
- <CANpmjNNmnTMqxSJ_R+wYeAkFOxnJcUmwktNuG990GunjxhcvbQ@mail.gmail.com> <CANiq72ns9P6gxOWmwL5VMAnAA8eASUjVUdSai3_iqXvM72mF=A@mail.gmail.com>
-In-Reply-To: <CANiq72ns9P6gxOWmwL5VMAnAA8eASUjVUdSai3_iqXvM72mF=A@mail.gmail.com>
-From: Marco Elver <elver@google.com>
-Date: Tue, 20 Oct 2026 20:21:56 +0200
-X-Gm-Features: AclHuK_xIgQ2EfRpHmzLAMkZfp67LMe6ufygxtV1abJhpWdiWd3lua4TQ51kRJc
-Message-ID: <CANpmjNMNo67fgFY9u8zurGJOxOY10C1CKwb1UvUbHo01cU+_Sw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] kbuild: rust: enable KCSAN support
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Gary Guo <gary@garyguo.net>, Alexander Potapenko <glider@google.com>, 
-	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Yury Norov <ynorov@nvidia.com>, David Gow <david@davidgow.net>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Alvin Sun <alvin.sun@linux.dev>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Petr Mladek <pmladek@suse.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 at 19:09, Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
-> On Tue, Oct 20, 2026 at 12:34=E2=80=AFPM Marco Elver <elver@google.com> w=
-rote:
-> >
-> > Happy to take it - but in the interest of avoiding conflicts, thought
-> > it might be better suited for the Rust (or Kbuild trees).
->
-> Same -- happy to take it too next cycle, whatever you prefer.
+receive_DataRequest() sizes the digest buffer of P_CSUM_RS_REQUEST and
+P_OV_REPLY packets from the length the peer puts in the packet header,
+without checking it against the digest size of the negotiated csums-alg
+or verify-alg. w_e_end_csum_rs_req() and w_e_end_ov_reply() later
+memcmp() crypto_shash_digestsize() bytes of that buffer; the D_ASSERT()
+on the size only logs a message.
 
-If you think there's a low risk of conflict, I'll take it.
+A peer that sends a shorter digest thus causes a slab-out-of-bounds read
+in the worker, and a peer that declares a huge length makes the receiver
+attempt an oversized kmalloc() that triggers a page allocator warning.
 
-> > Needs some -next time, too.
-> >
-> > If I don't hear otherwise, I'll pick it up later this week / next week.
->
-> Do you mean for this cycle? Linus may not like that, but up to you of cou=
-rse.
+  BUG: KASAN: slab-out-of-bounds in memcmp (lib/string.c:676)
+  Read of size 8 at addr ff11000007b9d630 by task drbd_w_r0/601
+  Call Trace:
+   memcmp (lib/string.c:676)
+   w_e_end_csum_rs_req (drivers/block/drbd/drbd_worker.c:1182)
+   drbd_worker (drivers/block/drbd/drbd_worker.c:2189)
+   drbd_thread_setup (drivers/block/drbd/drbd_main.c:314)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
 
-No, next cycle. I'd pick it up next week, push it to a branch the test
-robots see, and then update my -next branch after the current cycle.
+  Allocated by task 605:
+   __kmalloc_noprof (mm/slub.c:5439)
+   receive_DataRequest (drivers/block/drbd/drbd_receiver.c:2715)
+   drbd_receiver (drivers/block/drbd/drbd_receiver.c:5371)
+   drbd_thread_setup (drivers/block/drbd/drbd_main.c:314)
+   kthread (kernel/kthread.c:436)
 
-Thanks,
--- Marco
+Reject the packet and drop the connection unless the declared digest
+length matches the digest size of the corresponding transform, or if
+no such transform is configured.
+
+Fixes: b411b3637fa7 ("The DRBD driver")
+Cc: stable@vger.kernel.org
+Reported-by: co+0845f49852fd568f@bugs.sh
+Signed-off-by: Yibo Liu <yiboliume@gmail.com>
+---
+Changes in v2:
+- Drop patch 1/2 (P_DATA_REPLY size check); this is now a single patch.
+- Check the digest length only in receive_DataRequest(), before the
+  buffer is allocated, and leave drbd_worker.c unchanged: with the exact
+  size enforced on receive, the sizes compared in the worker always match.
+
+v1: https://lore.kernel.org/all/20261015222800.85928-1-yiboliume@gmail.com/
+
+ drivers/block/drbd/drbd_receiver.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index 2135c14354a8..d45c4e68f83b 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -2711,7 +2711,17 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 		break;
+ 
+ 	case P_OV_REPLY:
+-	case P_CSUM_RS_REQUEST:
++	case P_CSUM_RS_REQUEST: {
++		struct crypto_shash *tfm = pi->cmd == P_CSUM_RS_REQUEST ?
++			peer_device->connection->csums_tfm :
++			peer_device->connection->verify_tfm;
++
++		if (!tfm || pi->size != crypto_shash_digestsize(tfm)) {
++			drbd_err(device, "%s: unexpected digest size %u\n",
++				 cmdname(pi->cmd), pi->size);
++			goto out_free_e;
++		}
++
+ 		di = kmalloc(sizeof(*di) + pi->size, GFP_NOIO);
+ 		if (!di)
+ 			goto out_free_e;
+@@ -2742,6 +2752,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 			goto submit_for_resync;
+ 		}
+ 		break;
++	}
+ 
+ 	case P_OV_REQUEST:
+ 		if (device->ov_start_sector == ~(sector_t)0 &&
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.34.1
+
