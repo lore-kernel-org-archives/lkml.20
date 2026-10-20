@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533400;
-	b=BYa9Dywo1eA+Y/cQwSPZ3Bs/scQoPpCQf++SfV1wTiwN7diM3yYSQx3cYxyMkO/ue85z
-	 dE5aSQ4tnG3Wj/Iu9xCNSgnJgPL8d/BQSdoxDmQRVzfTeppcXt55hF64HnfJT54a5CJkF
-	 83CjEfTTFv4DOagEIM4HHwZ7OgAdAQ3wkHxyQJVjhBc3gG/JEl7Tn+d+lmKwEY8ic5Idb
-	 qd/LQdxHS2TqhgoqE5s8ZNklpbR+VpeH5H8vyXWKmhrTAjfSJZf721N0CR/UpKTE7nSBf
-	 kLOSVUssQ6Qxr0KvyQ+tTPQk54Ds3OTO27P6iTySg1mJPp93vO40QIga1vysF6nfj4Q==
+	t=1792533451;
+	b=NANHuFXqhYECu4EK0VycJGh/QkBy62QCc0zI1akibG4pzYB6bu87n21fjCx6z2wjJ1G3
+	 j8XAhIApakO7RXkbsacduDiCUrXh97Q1HnHDs3Hs7qJo48Xm4JWoO7cLd4/yzyWbAVsyX
+	 JyaN0L0SB9CyKm/Rs4T99Y5DuMRe/wO+2d36yZ1Cyet686F8R537//u21f19URIrkfi5A
+	 GPR/86ITD1J5ms+b01c+OiMZ86NbDuDbKi0KIssSIBNjYvtR+RHeYDmVERSCimKldKBEC
+	 hcNStxCULGVowVtkIv8ckk6AK5Crl6JMEqRDAbnqEXJGC/DS6R3OAinrBtNvIGVyu/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533400;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=52iPltIhF2fGc3CBAkYS6Xkv/utcTNaQcV9LE1JX8fE=;
-	b=NF3ALjwIGx0GU9MDP0LfmrwKRh+IwzZ5VCoWwrCV8yGRRsPsQ9x4dU4FhQb9HADxkt5s
-	 hCeMfGAVHYNYOlyTybU/T1YoNJ8/ltPYPs9AAtYUVRglw5eVIQAlsF0tlb22YhWXVm+hj
-	 kWvmDEAWNjDlTUzL1LFFt+rxJgRdG/5aUDQfzQb7Xp4JAzHxv80ZOupDf8uvKKtQz4j7u
-	 SYDNRf4JrzUvMSpbZg1ljfMeDm/du5/WucdruAwrzwX2ozN4pi7q2Asb2DuuhhBqJQmSC
-	 UcdGOLlIZaqJRy0FX/MH+DlPqc7tCKSYdOgrv6rljSGf+iMNObxyIhGfNh6UHKOcS2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533451;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1biL32O0URscMupcZUKkJxDdoG2Ofnd/Dm3Cof5TZFQ=;
+	b=LXIeH87Vz8ovFu6Y9aeKC6f5FlkvSDG49iUb7+GKqfYakrDtYwL6rQ62fBur45j8JbNW
+	 bwbgMfmUhUl7HNfWtV6EmFDcDtnZP2ut7SXzKlf000b7mEFs4NRTSnkOiVtL16y2th1K8
+	 CIOvHb6tDHw8nZd3abzMRmHp4U5V1ObIoThPu+68E9kNyiZ0MsguUzLk/WZ0VhWEtr5Cj
+	 UpMsWhhLHKxd9w4owtA0W6ChYrXloqX3hJD8NAG7k9cTP+I1tIjRcnbe2yRVv5OI1YaDl
+	 WGkytfBDwxCXOROyOTFBL/XgUgDCLE9MOGcliRQpIaXrYenmuf7eradRtOw4qooUk6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=iFRbK4SA;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lBRnV7mV;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156F1606A319;
-	Tue, 20 Oct 2026 21:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 156F1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D99E606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:57:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D99E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=iFRbK4SA
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 738D814C2D6;
-	Tue, 20 Oct 2026 23:56:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1792533389;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=52iPltIhF2fGc3CBAkYS6Xkv/utcTNaQcV9LE1JX8fE=;
-	b=iFRbK4SACLMJfl0vDm0SabyGgozqFh3iTLRttfGvux233rzvslmhpzR7ly8H7oRtKB4jOq
-	k+OzIrnEzIqDyVpMRV6beyddFstiyC+3ej5N5MZ6orEVovbX0X9shVfIt8QBdwxcGShnla
-	5lnz0W4OehIB6vW2y2ncKhFCMS/w8Ztr/XYWNLP1gCyqlmG3QRUFc9Y+X1uv3nFDohOMS0
-	Y5TfaPMm7+jVaR7uSTtIjfSRcaw6uWHZB3xlC4NvYyrr6dEWjEE+fxo+1rkTujcL4l7KsU
-	Ep9TvIll8gV/sZWzR5cHVP2oM5fZp+Jd1kreyYHmA6PpwZgNhEWlvREhApVyiA==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id f4cde85c;
-	Tue, 20 Oct 2026 21:56:21 +0000 (UTC)
-Date: Wed, 21 Oct 2026 06:56:06 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lBRnV7mV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792533438; bh=1biL32O0URscMupcZUKkJxDdoG2Ofnd/Dm3Cof5TZFQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lBRnV7mVfrW7VswgoXZznyYkjoATiYslPUS46JaekVe5f2Ra4TxGR2xm9W+2jvyX8
+	 GjtGmnW5ttmzvvqWoJGBPoURKxpCkmQtSjWwDPxoT42jmcilC1aCMeadlVfTbPYfEd
+	 c2KWQmy8X8rS2/8qeqzMOrkfTIU0G8DSqf4WcuOk=
+Received: from localhost.localdomain ([223.104.162.184])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id E5019018; Wed, 21 Oct 2026 05:57:16 +0800
+X-QQ-mid: xmsmtpt1792533436tnhh6uyor
+Message-ID: <tencent_965A48896102A91E4AAB7D27396396967508@qq.com>
+X-QQ-XMAILINFO: NVgpBExadli5wLHnwMJlroZsmHF7koQ7QZnu6YJyU//I3xTKR+Z+4RnmIJzNhl
+	 I/UwCFcwwNaR/98pmvj4lzlcCeMTK1l7Sc8IpXnERXrqKgVYvOiufXEpLNjNkNQLdpH+2jLI4FDJ
+	 sBCCDSeIBcaltnTK9Q4BS3KM2pnQo7oSLpmhlUJfQY9Ir4V4dhZg1hwL/WHnAIJsjA9X2PqFnSdR
+	 bKratYXEk2Anm/sSyKWM6xMSNU9VDkbbnhVsPhFr3vrrS7tUchOtQC4MGFnomvedhxCUg+mUw8Y8
+	 WpBvCdwoeKY2Zms6v5KA7JVnJgJBjBHI6U5oAgg+FnnPHwLcnEYbrSZ9eQXttOj0XX09O+V/KFXe
+	 lhOKVN1HqNbR9uB5IY1ZGZNtjlG5OJgyyDE0det43aUp5esWkoCttU/uHyORIJp+jQc9vcyt6YG/
+	 BtfBPkfjLERW0tXIhBwh57DntvoG3VX5VE70QG3InO5eYTjTRv0C5ZgtAJdtO+Okm9IMWwfO7sNh
+	 dTzckap+WZ3gNe7QoKSjZeZ1lp+TnyNSmDzpF5fAKgMW7VlLyKs9gqSjakLeZRKQ2MBFRDN9LEoR
+	 9eUXoxJ/LQdpmXR71yR/4C7MauIx+8Jhkjm4x4nTn6Tw24ci2yIqMgtHi3COu2W59lOu6CNIkTf5
+	 S2RHowRa4r1aEA8iK5f1tFpDW8t/+vH5kaXoIplTu+/0qIJZyebD61IjhYtiH6pzIh7pGb75oqk9
+	 aFUmZkiTsI4f22EC2zA5/fZUB0zBMN1gz6TJghclFqVKFljMa/ECeCDE5Rzf6GxaR0MVhWYdbOxS
+	 BcsPy1eaK8y2rQ9TvR4xjpRdp0fdjgC6IkA5yMiXYNEOI5lLW5/eDf6gLB2QvimYei3cpFGptV7d
+	 kV69ts7MNx0inwEkgHrIqzIhx8tpmMvw73FJZV5mY/dgWuPGpQ3D9/9PXm9AYVIY0AaUWTbANfFK
+	 KBuR03cDFO7CZZ3v/AhzAq7k+eA1hvdlVQLYl+EZgq5+rVIveWjgJbCNnnK+sU4NQAz3gzxrqhVV
+	 FgDnPIe6M2dKTxusx8/bgTwYWTiJUGAK54I0g3Vs3JDoVExyJamWG/HYFteQk23QMyMeLFYhqqfo
+	 Gv+rcB3ncwKf2h9arofdoyQuJ0wA==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Ye Mingxuan <level_zero@qq.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/858] 6.12.114-rc2 review
-Message-ID: <atfjdn7YLnWB7Kf9@codewreck.org>
-References: <20261020075246.861837975@linuxfoundation.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drivers/base: return bus_add_driver() errors
+Date: Wed, 21 Oct 2026 05:57:15 +0800
+X-OQ-MSGID: <20261020215715.396-1-level_zero@qq.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026102017-irate-stalling-aba6@gregkh>
+References: <2026102017-irate-stalling-aba6@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,31 +80,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020075246.861837975@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-Greg Kroah-Hartman wrote on Tue, Oct 20, 2026 at 09:57:31AM +0200:
-> This is the start of the stable review cycle for the 6.12.114 release.
-> There are 858 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 22 Oct 2026 07:51:15 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.114-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
+Hi Greg,
 
-Tested 9fb48106e91d ("Linux 6.12.114-rc2") on:
-- arm i.MX6ULL (Armadillo 640)
-- arm64 i.MX8MP (Armadillo G4)
-- arm64 i.MX8ULP (Armadillo IoT A9E)
+Sorry for the flood of identical messages you just received - that was my
+sending script going wrong, not an intentional resend. It is stopped now.
 
-No obvious regression in dmesg or basic tests:
-Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
--- 
-Dominique Martinet
+My full name is Ye Mingxuan, and the two questions you raised were
+answered in my earlier reply: the patch is being dropped.
+
+Sorry again for the noise.
+
+Ye Mingxuan
+
