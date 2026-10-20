@@ -1,49 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792529412;
-	b=ljmUZlAULYsQ24Kl/2vofPMyw0R8n+GBIQkxHuO1M23MK6aZzbrJiJFFQQTkv8tIgmWF
-	 OxTe29Ox83idUbekOQDKBRnj7atsVV1yYX3C/5sBnX71EtO1ZANUw0WD6icHt6bvukcR0
-	 fLZKtEQbukq37+xTN6t90vY3nHx89Q2HtgCbTmHWNoyobDBa5Acc0w4An+R0naajrsIRh
-	 qMzy7BxdvN7YjCmO7DB/Mpmy+gDw5uQkzsWnMcuDeoGxbTmIasrMLBVPSKZwSvc8DrswZ
-	 VhSwlclof1TUsiP/ZQR2LTKxAA/WyuooMQb+VHRSSSw4mtb2rd7tBaDn5l2EJeQT1tg==
+	t=1792529602;
+	b=BennO3DIjwurS8Byth0LRkDNJSFS5mGH4xadMW47L2KU8aMITmG5jHPPtYHbSzl+eJCt
+	 1qO3Qgl0jWF92EDdUq9r/QzYXWm4x/SWaWLFriovOl67P0im5EAv7bmcOn/8DFslS5lAp
+	 yDOpbXsQIald4rNVfD0sN3U3GN7D+HIq7Qjymeaq5yvri/Lgx9G8iQ4g6qF106yQAt0M5
+	 34cY/Dpbyvf9r9wEZ1ZiP++2kT1dVevxMwt/NqDKmPcFzImzs34drEUXvtVHNSlrd+g1x
+	 LmTJSy6WNn+JEqr+D9NXBuyU/R18PvJs620uBWlY+4dCEjNcW221p+Ax//PD71ky/yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792529412;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=4kBeYw1QN9RLpUkse88tUQ3URyvYGAihH6x26tvte7s=;
-	b=fSn6SdQnue+cd8q6n9EO7IuqGk93EwfGmOasywFR45dCFlZvlCiLPCCRpyZM7Lh/thR4
-	 gEOH8VA39dgyVF+MBzD7LFtmz1yySNnV41sO/XJp+u2ok9Hbcylz+qQ4+HF9wMjW1sL8p
-	 t9ZTjTKEwnSdBxNr3hbFMm+Pbpq+ho8OfA862jRjQOkiLrcN3FpbdlOf4cThMQIehgkpB
-	 fjNHhgWkybvQ7q6qhWqe28tCHVsdew1dgzdngMQYcxc+vVG86fbulxB7gJYiXmk4rtd3R
-	 14+2ci++0EdR787/pllJQvh9O4SAJfPGw1yG9znGOXmY5BhmJdADX0Dt8jKBGRhXrYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792529602;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fLQPyZNKQPhltfb8QjbLH6GiiK70H5pcOSO0dY3JeC8=;
+	b=Yoz0C4vBVSi70+v8OG551yBQOJ7K89PHV13LeLxTRrCIDaYqsBBQr3kYL0AL9WJFlcQb
+	 89UdZ6Zwx2HN+/EbWSUkt0JASO3itnLdKVa6UDNkyge0OleyYGKrpETtVkiyaEHyukq7D
+	 3Y9uMWHsoACDHWj7fEYOA0s8ZfLj9uxuWPuw5o8t8/9gRBRguz6TuuFH/4cyHCnOBIIQc
+	 wfTUbWEgj3ZzVijccmkKnpbduNeHSVTQx6BwErh36sqqk0az9rjbDJRBDgUqGHyF9YWKz
+	 gR5mwzjg9QKgRgDvzwTzqcdeSuITsj/aKZSOaNAFkM1YOH6QRIyO04cBTA/cwme3TSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wsyos3W6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZiVDGH/q";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED74B606A323;
-	Tue, 20 Oct 2026 20:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C9C606A319;
+	Tue, 20 Oct 2026 20:53:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wsyos3W6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39431F000CE;
-	Tue, 20 Oct 2026 20:50:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiVDGH/q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15831F000C9;
+	Tue, 20 Oct 2026 20:53:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792529411;
-	bh=4kBeYw1QN9RLpUkse88tUQ3URyvYGAihH6x26tvte7s=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Wsyos3W6vCyeubB6c2YWrKr4wfiTG3RJqLkIPj+G3WrVMFGCyooyplR86mxQqqqVt
-	 PU/kfFwK3u3Fkdig6SNbSJhM+DVxdzDlNC0J9k/Z3yxXlgg6MPI5gF+RVZI9HF9Fit
-	 lQ/6PVRKeHiI349prrgERWlYCZYJ/yAbKtcCKfQIjLNlrH8flsgLfbfkYg3mLVqhw9
-	 Fqn7kP6OxzdosCWtIgSq6p2+vKY3nTbTQ5gobA4f2mpt8dz2tRzbhw7Z3JiPQN4bn1
-	 0/ZO/9tZsrXkPc4E5c9WZsKkid/RIdqgD8Mo8q/EFepDSWG/i1+T+gk295A0aaBb9A
-	 4aKI1vwszk8Cw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B49033809A09;
-	Tue, 20 Oct 2026 20:50:11 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792529602;
+	bh=fLQPyZNKQPhltfb8QjbLH6GiiK70H5pcOSO0dY3JeC8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZiVDGH/qgbA6MPW2SFLOcaeSO3h33sIn4htawp1MNSG8QzdpkQHv0bJPvDTXgEbH9
+	 OrENY9zavE2QkXyJwShRZf8cMhX3Gc2lZ9BK6JK9m6GGW29G8wVXy7TkjiPmffZC0i
+	 Lz2ce30reDQGclIexXoDh3slnayl9V84kpfwhEeM0tqjYm7DmcmWfArkAp/6vTwFKe
+	 8FsblU4kXgMi/rI2g9T+z84vc/8jXw6vLjvtkg+s7zQIpI2/wUWRgOjYk/93h/vCXm
+	 sv1N110esZJ6wbuAHXuymIpY927/ATqT+7PVYmHViHlQm7Cu/zKk9dzasL0mLJ+Ih0
+	 r34a2d6wUwxSA==
+Date: Tue, 20 Oct 2026 13:53:21 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: netdev-bot+sinfo@kernel.org
+Cc: Wei Tao <taowei@kylinos.cn>, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net/sched: cls_fw: allow filter replace without
+ re-specifying mask
+Message-ID: <20261020135321.21517b1d@kernel.org>
+In-Reply-To: <179194621915.160550.4770507189079039972@kernel.org>
+References: <20261014024548.37874-1-taowei@kylinos.cn>
+	<179194621915.160550.4770507189079039972@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +61,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] net: axienet: release every RX buffer in
- axienet_dma_bd_release()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179252941027.202014.1920735438863244312.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 20:50:10 +0000
-References: <20261015084743.1798326-1-maimon.sagi@gmail.com>
-In-Reply-To: <20261015084743.1798326-1-maimon.sagi@gmail.com>
-To: Sagi Maimon <maimon.sagi@gmail.com>
-Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com, michal.simek@amd.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, andre.przywara@arm.com,
- robert.hancock@calian.com, horms@kernel.org, joe@dama.to,
- suraj.gupta2@amd.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Wed, 14 Oct 2026 02:50:19 +0000 netdev-bot+sinfo@kernel.org wrote:
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 15 Oct 2026 11:47:43 +0300 you wrote:
-> The RX walk in axienet_dma_bd_release() stops at the first descriptor
-> without an skb, assuming that such a slot and all after it were never
-> filled.  That holds on the axienet_dma_bd_init() error path, but not once
-> the ring has been running: when axienet_rx_poll() fails to allocate or
-> map a replacement buffer it leaves the slot it emptied with a NULL skb,
-> in the middle of a populated ring, until a later poll refills it.
-> Closing the interface before then leaks the skb and the streaming DMA
-> mapping of every descriptor after that slot, which can be most of the
-> ring, and is most likely under memory pressure.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next] net: axienet: release every RX buffer in axienet_dma_bd_release()
-    https://git.kernel.org/netdev/net-next/c/b59787892d04
-
-You are awesome, thank you!
+You are expected to reply to these questions. If this is an LLM-based
+report please be more considerate of maintainer's time. If you actually
+use this feature please include the response to the question above in
+the commit message and repost. The repost should not carry a Fixes
+tag, it's not a real bug.
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+pw-bot: cr
