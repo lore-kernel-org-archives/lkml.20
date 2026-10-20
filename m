@@ -1,20 +1,20 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.113
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792465870;
-	b=0R7jjI7pcNvud4JOHL+DPuGnQ55VKZSe1AJZs14cR3yxlXSfF355DlKZk0COzjk6S/15
-	 2Pq6kb2J8+xbSHZjgEQSxmvkvAsmcpPFpAyTI1NiUUeqvdL763H4p/zaiN58oSFtJatAm
-	 2MuiouOS0qQV2l+8zLQ9YwYelHuXlGsIxafDqTQUOYYYLzl4WPEVvueDhmj0LRd0SPHDF
-	 MdI02JsMeoHEducbvIVhzwImHJOO3nnp4umASSMdN+oVCcR3M/WfJI+sp68qs3b/O4Ns1
-	 QeD2mB3MHornjYmbfAQmrP2rQ+BQdKEZGqAJ+3fw4iHxt/asWfw6yOs7YdWZfpZVY0A==
+	t=1792465862;
+	b=1KzsNWfxwj+1ZgruocDOdn6JuPQ1PX9CbNRD/+9L+O6bXZUauTkSIVavGvZ71AfZ9+Ji
+	 gS5SIn3rRUCH9mpN2HZ45uTCROwG+h/GkManqJKO+jRcfv4iA9p+wEbARXFmUmwYPQ7tj
+	 7QYszlnJBEGLguGOmwxeSeccsxI+AwrytdmrE+txTKefobxZ8EcRaDCHIhzfGt60QUyNf
+	 KVa2/Tl8L8xlsDJzuUjY69V11b7zyMhEgtT1CikS9TEhydJw25bqW3vitz1pMTHyZPM1t
+	 cqKeye0nrRoR2xiLiPOrO7tPw1ZJKjI1WnyrqygbPnYLoIkEnZdCQVlZdAKn58FFHVA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465862;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,54 +24,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YA6EAAmf8a6N729gZJUj68VzcwGviHhdcQV2SeUx0Ug=;
-	b=pVl3zloSlE3OITmOyEwOCdVo0uTbbEybqub1BdEByG9WRU3OrqSB64kxyHTre2WsGbkk
-	 Jv6pa3GROu54uHm1XvK7gNq7TMoPzU5+m/iTzIgKt1p0H2R3KyrVckLFMR7oB8j47izer
-	 dXUNxIdzQRjdaa/DUvEvFRZhg37aewk5IUHForY6sjjapyIji23bvPwd3IGUXV93nP7wi
-	 EeV15nhWBSQ51Vj5dHUrBebyoQcDFBNDlImuo1770BtBvwLJ8XHoHzUIBbSzif17VIr5R
-	 MGCDo52cax85+IgrniZQaAEd6EXDbLU+es7oxPiKNFO6ad3dg4pj0cI4tZsGUunrqvA==
+	bh=r9Mwu06pbMEZNkg8nZvpeCRzkM9iXcaFS6Sv7DgxTrE=;
+	b=P69cdry7wZ0m7sgQDTmuekvicUcmp65mECbFgMmAuOzaOyUTtyICDCd7ZW4ef3GQ76QQ
+	 WKInjRKAF+ks9aBsRDXyv6V9TPZeE5Dr/IkrEr6CzW9UJMYUVPY03cgInrHXHumiC6MLo
+	 7kXly5EHtPtPRPOodbhKncXAu4bhGNWI5+RR3uy9uxDYKnHLjeJJ3ID4CKpel9/Zc190a
+	 w4F7h4qNZv7S9Up+zArUcNWPLid5MZlocgUsIrLLEG6W833//L1GeSibQwvCtsjP/YHM3
+	 pV9SRa8NrSuqOZ24puahljXIDfmBBG4iOCO+TFSczZJjwmwUg5PFQgPo/KLHAwcoBkQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=valinux.co.jp;
 	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=WzEEQgT9;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=lbVd4w8Z;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.113
 Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020113.outbound.protection.outlook.com [52.101.229.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48C360A2630;
-	Tue, 20 Oct 2026 03:11:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D48C360A2630
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA59606A31C;
+	Tue, 20 Oct 2026 03:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FA59606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=WzEEQgT9
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=lbVd4w8Z
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bMBTU/DEh/jmsJzSVx3caS8Ra2kyD8py2862EsOJgLvpledWAhW9mUyL+6JfZSl3T0MsxXGaNlahiht37R8MsX5vEG5sH7DK1UqrgIWl0MB0L7hNubhLSDz36gLKAO0zNIO6tk0lfYgV2Sq1cJKmIZNKelOMVfm5D5DwRDP/QwwCtJ5YhbLMJqu+g0BAUn2PQrqr72uVujADSrgN/Ju6hCwIYiatyO1jOg67/0gYHevZLv4nUt3d+hv9o7fmvdKO1jhAHcHRxgOraNx7sSVkN2j8oh9fz6Tv8iYEBzakkbWiNcjmvoax9C7iS0jV2jpL4FHhOBMgMZFZKOamWPU4AA==
+ b=FWSU5vj3/2O8EnJd+YJIyLe7ZKBZtDJzLoPiNefwV60707Ewd7oHP+g5Y6eYQtyfds1uK6LBtuxY6dXr0DIb7/WcL068LChDtqeVFOEi52p0Zb+e/m1Jcq7MxBeK8yEawyE9HiEFTdRrMxUJsdwzLL7kW0UNh1jAZjjP+A3EmUe+GcUNUu75dfxk6IXWdHbC/v070oE5oiPU2+h3PYMLYevznoqOUqi4bHC8VtJ6ANLiu1endlpSGjMysAHJd+NSIlyb5YZKS4HhZ5KuPQYh4uB0m+ZutkD10rb2DKjswpYu7fGVA3RV//vUFuhqdxwFp5CwBUOEinCv9ezjYJnKaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YA6EAAmf8a6N729gZJUj68VzcwGviHhdcQV2SeUx0Ug=;
- b=gLJEmakQJ2t4WaL37snDzRQz+ttt7/xyku9Tuu/S7yjbFdvv8CJn1G4uVVyihEXf+UXbxjlzq1g2cJH80Sr60vmUNAC+MchTeYQrh47YtFc3ki69LoOSAYj8JHUqJTo/CpofF+Sk70/yNefytyRuEd7u7rdKsOdGJx2cn/d0Lf4MQZ9oxHOTzBzmjyz8zzJQMAN/MOlZ7rUSJjONBe1kBtdyCoMBD/fKVUOcYIJy0Q2ouRmrmUI10oDo/Ev1wrdzRxZSX3qaEU3VRCq4+tBnYuwvIu6rPg8iR37KCuHZBawp5Hhj90wvtcYPudSVYxxS3DV4nem/oMjPmlbuXDG8ig==
+ bh=r9Mwu06pbMEZNkg8nZvpeCRzkM9iXcaFS6Sv7DgxTrE=;
+ b=IRLQueoDEL4anuLp2EtVO985zfTz2owet/ge5HjH9pGr0hKdd2MMRmtJarkwc26V+Pt6fu8twR7peOFAOIu8oS9mhpEQic5jrOqlq9au605Ihd6C3O5yzePABjwHwsNVy4Pxe9am002INo0ODFRcs4pvnhulOI2Dkvf369Y0zFO++q9BkFpHOf7gSgErmXPBQ4ao7TpijJcSFjb+RLvwwN6jrPGa4R8fLiMB8vj+zYP1+ola23uqLGLrmr9xOClFDJKvdB2BzoH0g0lRRFYO3mr4n0EbENuu4Q53VWhkawblau3QpkdiYbPNVAtTR+SfafIazYJEdZTi9bGGn2cUww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YA6EAAmf8a6N729gZJUj68VzcwGviHhdcQV2SeUx0Ug=;
- b=WzEEQgT9+By88iUMkBQ+XSdAhyXNAuOT9ay23mbPilhP1phxNggYMpYa0QRToyBFQmWAsr5lbY6koILtxLdME3Q2mzJ9E967Ga185vVp5CY8ZZ136+O0nR/JUiybrjBShPZfhuZy4dg1JJOWgfiEu0gvUoLPgSRgx2Q3nHw74QU=
+ bh=r9Mwu06pbMEZNkg8nZvpeCRzkM9iXcaFS6Sv7DgxTrE=;
+ b=lbVd4w8ZO8c5eQ20wAnzPPPFubumPM63unT9xu3FCisW4sAzN/GqV+WuxYzUfPEO2E1aVj9Ay8nPTLcMEsRaRNusmE1QIl1r9Oq3gF8i26yv6WQyu1vrKlqXigs6rxO3b2YJvXqZ4QoZizD3cVIUTTcgoKr3AxUUjdeWTF3s4yY=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
  by OS9P286MB7503.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:44f::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 03:11:07 +0000
+ 2026 03:10:58 +0000
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 03:11:07 +0000
+ 03:10:58 +0000
 From: Koichiro Den <den@valinux.co.jp>
 To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -95,16 +95,14 @@ Cc: Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 10/17] PCI: dwc: Free the MSI domain after the host .deinit() callback
-Date: Tue, 20 Oct 2026 12:10:42 +0900
-Message-ID: <20261020031049.969895-11-den@valinux.co.jp>
+Subject: [PATCH v5 00/17] PCI: rcar-gen4: Recover from link down and route Root Port interrupts
+Date: Tue, 20 Oct 2026 12:10:32 +0900
+Message-ID: <20261020031049.969895-1-den@valinux.co.jp>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261020031049.969895-1-den@valinux.co.jp>
-References: <20261020031049.969895-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4P286CA0107.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:380::7) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCP286CA0035.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29d::8) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -117,169 +115,363 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS9P286MB7503:EE_
-X-MS-Office365-Filtering-Correlation-Id: acf61f39-4a9f-45fe-dbc3-08df2e57c8aa
+X-MS-Office365-Filtering-Correlation-Id: 0cc8c1cd-b39a-493a-269b-08df2e57c320
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|1800799024|376014|10070799003|22082099003|18002099003|921020|10067099003|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|23010399003|366016|7416014|1800799024|376014|10070799003|6133799003|18002099003|5023799004|921020|260925022911599003|10067099003|261009223027099003|260925021911599003|260925021311599003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	Sz/sO7InryKfFRa9PU1IWxz0Rbb9gj7DwuMM5HnobS5hFAYc7M1YDe7vOJ1Twskyk9KteCX3/u50A9aSyZeE0uuAb3gs3+argiYE6gUkxL4MUoRXp+SNH5J+5oMFcOUcTtFy2ZK8BJh04bjmYz+iI/OtNDqdbWTljqrHTLTzq7rUXtSrv1eCJzd/qmCpiN9JUHHXakYpG6HPO+hVd2H54Ptm7szTd1E9pRwl5Qi4RMAGGmay+6F3zni0dkMVNtGfll6togYMHZWlqVMz9dtYvyJiTTkxr3KD7/BEMEZ+OXo1tG7HK8jU4SACjpK88/Sns3ECZa2qfjn9tBqRF85flojVb6fTDWHA0iCQqOEcscVKglMrWWXX4ChSLUS+NEvClNg9YnYDvOwyHSvS5JSMD6R7+zf6qKi55eclyZVxbAIbNUvwqTJavH2h5Ox5PCGGHzjH6bBmR0M8DvB7V2+Mi54h6EFyveseGpxyWwBSEsThYJ9CZhcU6biZeTHmhpb3itU3glcArzktC1P7Mw3yCQcPfqL07thzEAkRhq3RO5zTnEBzYJ+U6gD67vX/2W42sjLQPlRQFka4hiSFRnXVTLN/hwyluEHGAfz9KFNmAPV7iKVlvqsbJD2HmO2Hf4RiMf+u2Z3Mw/nI2k8TdG9emkHZBdXwXCJkXHo9MSd0SqdkF//kMAvsTKjD7sNsJXqSe3mJDgNLRYhrQ9vnMRywNw==
+	nROFO/ytpC1WUr6SGnblW3TYVuG7CjJ16ushcktQD5gVaI4u6iSELLb1tnPLQ5PIWxF+doZTuEiZafz/GiUi0tSgmsyUUv1Zp2uPjd2mZ5mZl+r96/memecbPR/EzAqFCyd0Jsgx3/sPcnGoc9pqK9FizyWw5/ymwjdiQs9OAd+4ZPFxc3BH1leAUVvBGi8umgPPQhZVXj4IQjllAa3IMNshJtn1sdwkelhW6Jd9B6PX6JFmCx2tUFYmpYD+2U9vUYjM1UKWg4aItC9o8BlaogMdKzXQLDDoRqT80vvjyeWi9R6WjtqTT0grE9/2CaT+mqL8aXu1PwtPJyfkTLDVX0k47Zy5VqIcOm0NUYS5apfh4VyEYzP2NEpb7Qvlaw8k3S1oh8CQYd1LIFGTlT1Y2xm3SBYqACwhnFpa9t7ZeRfhlmYTCoiz+Uh28irjQU3lwk0AqA3G5XIVx9RJTtZHLDddpSnNyVL3zr2JAPxSbArLRsJOT5OZ/unzcoMkrBwAiwWRT0PobVHdlmqCNs6MJgQqYsGoTef3KmLyyCxd/2vqPvI2IcY8GBk/pE++LS0Tc++JiX44jJ8EoPgL2IFpAwSqhzAla2X/veKYmB4IzdnpSAD3gTp17GfrUhySmUsgleyhSuipdcFlu3IdzMe7iAU1EqwW63wuMYvFFMWf5Xk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(10070799003)(22082099003)(18002099003)(921020)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(10070799003)(6133799003)(18002099003)(5023799004)(921020)(260925022911599003)(10067099003)(261009223027099003)(260925021911599003)(260925021311599003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Lq4C9JfDQ2NxLp0nuxZnLfRuAaT4t3PX4QGaKGVM3Qyygw/ejy2u7avyat0F?=
- =?us-ascii?Q?EwBOh2V/7p5Ic19TUA+sKSbSsCmjjiaM8PzhqrAClUSMOm/49wxZqKkKAhTd?=
- =?us-ascii?Q?YYAFMpuCGUA5kW1/ZVepO6+WTxQA5cE3v+C0C8+P8bNahNVMipVtH26lcrP1?=
- =?us-ascii?Q?UTeOdIISaRxzX9k0i+gsVKUHfs6KhXyWLZJkH4O8dzdlqQdJawLC01CmFMYc?=
- =?us-ascii?Q?aTx4m68Iv34uXFUH7cHREjxq5KqcLu+DWE7CWzYCduwIwrqRCdg017FeZtd7?=
- =?us-ascii?Q?TjY8iy8+hi3qYCCy4FXREDIhj+BcdDik1xHszLiybeaAxUrSez5ks+B6xpg7?=
- =?us-ascii?Q?WOXfxg6IujPDsYq9M8FzCUIDq3Ba+Z54BrBIHjd/IiNS3zqRaeKXOw9e2roU?=
- =?us-ascii?Q?04HXEoYEIHQfWFjzqVYzfEDgBTy6zzVE4ute8N1Mq4m4ZWQ+eFXzGLTRGc3X?=
- =?us-ascii?Q?c2JYEx2et+vpbzJ45oEkEUTB4o3OPmOQxGXzcf1OxjcMe04oNLLfwec3HZz7?=
- =?us-ascii?Q?dYCZN2cNm5SqKaxwVyAO8NOOS6SKNjVV8hURM9OeGwqeIm77qQ367s40yiTu?=
- =?us-ascii?Q?K95TRp/sL7qP49blYxaCimgH2yN35jjBu7J6fnmrU+MON41Qk6eeKzJkp2I2?=
- =?us-ascii?Q?ULDEIg1+Q5Mby8zZS0IfggeViJ+atTMsd1eTeOIRutD3PN7iuVkt2XwneVUX?=
- =?us-ascii?Q?iz+ZNEPUMsaloKpLe66KyPSZgOlHk+WIcSSOW6J3mafqduR6uT3vLuhQweUy?=
- =?us-ascii?Q?AUIKXSWg5ss8InLtK3LmmZfkVDL7Ij9/EjC2OQ9w1YKlBDj7nzObKmXsWO4d?=
- =?us-ascii?Q?O3O3Si7n++i06wWLUqBjjadTnJRf2uoJ0tuF2j/JzBhfbUxSPnpJcWVtor5y?=
- =?us-ascii?Q?ycz2aqV8IsXuwiLTc26PiaSuFlWKvRwiPqNGk3mbTyRlvvcfZbMzZzI1SHU1?=
- =?us-ascii?Q?+mK+srAgbMdfoVrKfkh/hE0eWWGcHk1X9UjEKXu4ZoudtG0Vav+7FUhxbki+?=
- =?us-ascii?Q?SZ2YZFyD+S4fMi++cbgo+CA3g1eQerWkjwevZbDH5GLRYXaQtYGlryk94dE9?=
- =?us-ascii?Q?gvTUvB60ERYW/wlOFbs/l9tPWbUFeaFlFd/kG3wNGz7eAeBltN82K0K5Xbfr?=
- =?us-ascii?Q?wAyNqLxDkhjUB9L3PIq1H+S8BZEDEKB/xldhmbcgnIZHW8VPmY9zPcZqmd3R?=
- =?us-ascii?Q?YoDOhKJhvnC0ksQOqbUAvfjANSNB+byItdPD5hS6K+IKNPt7oEP7FqlQoa6p?=
- =?us-ascii?Q?FxNNAWof8Kfxgtq/NbwDpqgW78zgRmrG9j5ejkFVAFxBtMF3E/l5RoKZoy8G?=
- =?us-ascii?Q?SDZl0+BnSa24IcP8GhwOGn64WN36adjrVFHVrC7XGPugb6xWRxDHKuoILJOn?=
- =?us-ascii?Q?JOLjCqiwDVND2VzQWToRD/paRS0DV/xfMVnqzQ7NRiRFPati4kkKkyxU20zJ?=
- =?us-ascii?Q?hFFg7hq82JhrxXx2cJsFGq+kf4B7LwW3r+RxypHGSYVLrWsMztGxoiZk15u7?=
- =?us-ascii?Q?HeJJEjycYJX8hZfEU56K0Snp4HAPf1R8+6o8FsELuEt8DASbm2i+Yf5jlNgL?=
- =?us-ascii?Q?VyFn1X6Evu94jY8+OtjWCoCTe2yFLAEtMNUN7pC6YKCUEEbNyo9jzMeW86Cm?=
- =?us-ascii?Q?ZpXB+vgMFsGXqmf0ZSt2c7/R0CXky/3xQ8nS4Bg0jXeEDjTQ3euMt91jRnp5?=
- =?us-ascii?Q?cvvccidHqL82IBiz40C1OrELk3GPVAJ3+9GaODst+Ww1EVO+yYiYKONl6hMx?=
- =?us-ascii?Q?p5ycD3OCuCWd5MGrL5pJfgvI4KoQ7pX1l3hJLKnh1wCYrzWMZQm0?=
+	=?us-ascii?Q?GPVDzTirfpwQh5w70n7dQ60c54sUx978a2N21KphogcZWMse2IHKUKgMVLiX?=
+ =?us-ascii?Q?6YyQaSbsxLIR/4BkdyztaTVTXtMaRJ28e5sRSSHDQmWJgECbv5sUrMebQf+Q?=
+ =?us-ascii?Q?mnNldHdWIHXthOfqIZx+d/UgfAwwn9NlU3AvPFfA8eQ0WifL+sRpAvwqJqpu?=
+ =?us-ascii?Q?QG6U70VXC8Ga4G8v1Y88JC8K+v9ggPur3DXM7Ej95fsXRvSmwCZU8kohfL0c?=
+ =?us-ascii?Q?j1rGwLCFFAJLAxxHTg/g2iqACgDUXc7fhGqJz/AMBhNEA4kMukK87XjR2v9F?=
+ =?us-ascii?Q?ksjREvJ/PPgAbi0VGF5zq07co7lKsFvRUFpuv5HOSiKFwDrLBhDYQZCFMFm4?=
+ =?us-ascii?Q?xgQavO8enSSxt/N+fjwiUpMr+iQsLL0AKov5MO8/I9EfPpd26h3pBXukH5Xc?=
+ =?us-ascii?Q?DGJy8ZB9QqNbjhaWZE81Iw5DgJCY94wC9q2HECzrWyx1B5VLm+h7vjNlsqb9?=
+ =?us-ascii?Q?CjNO4Aokt1rIHUaEoNZUvnHH+8Y/Aa8Ztc1TwnQ6YtedW+lwDAhkoEjH8mqb?=
+ =?us-ascii?Q?K8xPdxLKcc3MDyDsnZgG0CN1CYD5gOBeYSNZn1tG+YmvwGKMes6A8iCZcaDy?=
+ =?us-ascii?Q?/2F5/p6D0dKDVrtqNJy3seU4vUb9yAmHgzMjxDiTQmOsvZVmUjEsO3Y/D/1t?=
+ =?us-ascii?Q?LMjCsGLXOFG3UU9YIE+wZcqFmA5IixlTxWvloNVPQtyGO/xv6+UmEpZ419rL?=
+ =?us-ascii?Q?P3EGiXgHnlYbPQNQN3otqO2gsf42ByeffniMBNnwfQWfTg/9jfxLqNcG9mT+?=
+ =?us-ascii?Q?ParBz9TFFnHaeJ2fPruHOwoLOJtZeve65f3+uoxXUpAxtIVHVQ/QEnYqBnYQ?=
+ =?us-ascii?Q?b8JF86PTjNjUWge0c/58Nvgvukqt/1/tO6Pb6CKOYMcW84kFN+iJnm3B7nd9?=
+ =?us-ascii?Q?C03TuRZvnWnIokEN1nIoBGY36DCSLreQtMA7oEBCwEjzQ2B1OfjHeGE8h5nw?=
+ =?us-ascii?Q?DybHcSb5YCwYxE9nHEJaeTIA1JACDf+BNzn9WWsQHGz28jiMP07nR6cgrbCM?=
+ =?us-ascii?Q?WkAlTykwr7sgle8cYQxARHG4ZttP4h5geFAIrnfVl2/67JklxzOD5VDHgvhR?=
+ =?us-ascii?Q?rI5jya9rtDXQNveBzqZN8DnaX+2+RENuJyvxzbwTeKW+UDFD6Fa1olGV0gCB?=
+ =?us-ascii?Q?7vRx9vNZqPU5W1Ce19NxAFJxA6sSyBXgZp2yWqru9a0ywQEE2AVF3Qn/E5qz?=
+ =?us-ascii?Q?sKNVLDvVw4o9fJ7TSHpvGVmJdlyuNooYle5AYuz8wvMfULMP6iTTjPSWJclo?=
+ =?us-ascii?Q?Bv5usjz0WD4EpJOuaKtVgg3El8h8m1O5Qaw+gCs42dodPdqYjx4WR1bcqLFJ?=
+ =?us-ascii?Q?2kpPQ7i2ek+A2ytYc7MicXMwZJokxtcq76nQFwbjHEkWOKtoAnO3Kzvs89C2?=
+ =?us-ascii?Q?nC6XK9KhQJKc8Q4jaTjKz98pJHOVnudQZPtGTev3KW+mXRwt/cfa48lW2uYE?=
+ =?us-ascii?Q?tPk3a5dj41RG6JM3HgF0fpxJ7Dx5b27hoZrGDE/XkDe5J8S+wbTSiGuN7Tay?=
+ =?us-ascii?Q?ayyW5rUphP2F+emhL/R8qUhGIDJ05k2ZJvpeyijtGtDtrxqxjC9QZLtL02Dt?=
+ =?us-ascii?Q?y99iVwrH2AFEX+9bbD1pZ0Q//lRqBYv+X+JCprEzkkmrqGyK3gDOv+DhZt31?=
+ =?us-ascii?Q?d1IfJ/Sr0Tf6Rg1T29qZP4rciBsaRqOCfkSCnW4jVXJKmUS1sRvRVm5XSWpI?=
+ =?us-ascii?Q?f+qQX+sNdYP+NNLIqbHoXu+hic45SKRX2onup4eQwVDdO8/StiWEUMCk0kgK?=
+ =?us-ascii?Q?ovK9mu9MIsKVy7DQ/TkHwhfBrWV9S/sOUiEqTJbmrtaVDrkT3pOY?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: acf61f39-4a9f-45fe-dbc3-08df2e57c8aa
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cc8c1cd-b39a-493a-269b-08df2e57c320
 X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 03:11:07.4290
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 03:10:58.2045
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tmsWVvFIqBS4SS0zIjjrfIpIbxI2X4uUAiYq0DHI4mAvodh5eJsJMd3VyryZMp5R7gmcUGDQ2nUe7a3WIVbfIg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: iQohaHlIasj1Fe6FQAtBxGg1rRXxTZqVwhwja3t+P8nyH5sIlQqs+maymfhCM45pDbC2Yjujn6bmFspHxqSv/Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB7503
 
-dw_pcie_host_deinit() frees the iMSI-RX domain before calling the host
-.deinit() callback. For a core-owned parent interrupt,
-dw_pcie_free_msi() removes the chained handler right before the domain.
-A glue driver that owns the parent interrupt and demultiplexes the MSIs
-itself through dw_handle_msi_irq() can only stop its handler in
-.deinit(), after the domain is gone, so a late interrupt can still
-dispatch into the freed domain.
+Hi,
 
-Remove the domain after .deinit(), in dw_pcie_host_deinit() and in the
-dw_pcie_host_init() unwind. Keep removing the chained handlers of
-core-owned interrupts before .deinit(), which powers the controller
-down. Clear pp->irq_domain when the domain is removed so the unwind can
-tell whether it exists.
+This series improves error handling in the pcie-rcar-gen4 driver, which
+supports PCIe controllers in R-Car Gen4 SoCs and the PCIe4 controller
+in R-Car Gen5 SoCs. It fixes unexpected link-down handling so the host
+doesn't hang, and wires up missing Root Port interrupts (AER, PME,
+bandwidth notifications) so port services actually work. I tested on
+an R-Car S4 Spider (r8a779f0); Marek tested the link state fix and the
+Root Port AER and bandwidth paths on an R-Car V4H Sparrow Hawk.
 
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
+A few hardware quirks made this tricky:
+
+1. PCIEINTSTS0 link-up bits don't track the actual link state. The
+   driver never noticed when the link dropped and kept trying config
+   accesses on the dead link. Patch 3 combines the APP link-up event
+   check from Figure 104.5 with the PORT_LINK_DEBUG1 live link check,
+   which patch 2 factors out of the DWC core. Startup clears the APP
+   latches before enabling LTSSM, and the DWC core polls the combined
+   condition on the RC side.
+
+2. On S4, a DBI access immediately after an unexpected link down can
+   hang the host. Commit 0056d29f8c1b ("PCI: rcar-gen4: Assure reset
+   occurs before DBI access") describes an SError on V4H after reset
+   deassertion, but whether the S4 hang shares the same underlying cause
+   has not been verified.
+
+   Adding a delay before the DBI access avoided the hang in my tests,
+   but that alone would not provide link-down recovery. Also, the reset
+   request shares intreq_pcim_sub with iMSI-RX, while AER arrives on
+   another IRQ. Delaying AER dispatch alone would therefore leave the
+   MSI handler exposed, and both paths would still need coordination
+   with the controller reset.
+
+   The driver handles the reset request itself and schedules
+   pci_host_handle_link_down(), as the rockchip and qcom drivers do.
+   This also provides recovery with older DTs that have no "aer"
+   interrupt, without relying on AER to initiate it. The reset callback
+   shares the reset sequence used at probe, including the reset-status
+   readback and delay added by 0056d29f8c1b.
+
+   This covers the interrupt paths that fire on link down. Port service
+   threads or work already queued or running at that point are not
+   stopped.
+
+3. Root Port interrupts only trigger APP status bits on platform IRQs.
+   The controller appears to lack SII2MSI, so Root Port MSIs never reach
+   the GIC ITS. The Root Port's INTx is routed to intreq_pcim_sub as
+   well, which the driver holds, so port services can't request it
+   either. This series works around it by hiding Root Port MSI caps
+   across the board and emulating INTx using a virtual IRQ domain, fed
+   by the "aer" IRQ and intreq_pcim_sub.
+
+Patch 1 is only loosely related: it adds Renesas to the RAS DES VSEC
+list so the DWC debugfs error injection works on R-Car. I used it to
+test the Root Port AER path (see below) and included it here for that
+reason. Happy to send it separately if preferred.
+
+Note: backward compatibility with older DTs is kept. Without the "aer"
+      interrupt, only Root Port AER remains unavailable. See the testing
+      section below.
+
+
+Dependencies
+------------
+
+- [PATCH 0/2] PCI: dwc: Clean up DWC PCIe register macros
+  https://lore.kernel.org/r/20260911162537.469018-1-18255117159@163.com/
+  (*already landed in controller/dwc and pci/next)
+
+- [PATCH v5] PCI: rcar-gen4: Add missing PM ops
+  https://lore.kernel.org/r/20261004011851.866833-1-marek.vasut+renesas@mailbox.org/
+  (*already landed in controller/dwc-rcar-gen4 and pci/next)
+
+- [PATCH] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ with AER IRQ on R-Car Gen5
+  https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
+  (*under review)
+
+Applies cleanly to -next (e.g. next-20261014) with the latter two
+prerequisite patches applied first.
+
+
+Proposed merge plan
+-------------------
+
+With v5, this series seems to have almost converged, so I'd like to ask
+how maintainers would prefer to merge it. Any advice would be greatly
+appreciated. Here's what I have in mind:
+
+To Mani:
+
+  I'd expect patches 1-14 to go through the PCI tree.
+  One option would be a two-stage approach like:
+
+  1. Take patches 1/2/5/10 through controller/dwc ("PCI: dwc:" patches).
+  2. Once those patches are available in controller/dwc-rcar-gen4,
+     take the remaining patches 3/4/6-9/11-14 there
+     (the R-Car driver and binding patches).
+
+To Geert:
+
+  Once patch 4 is available in renesas-devel, I'd like to ask you to
+  take patches 15-17 together.
+
+
+Re-tested with v5
+-----------------
+
+Setup: R-Car S4 Spider (RC) linked to another S4 Spider running the
+       pci-epf-test endpoint. pci_endpoint_test is bound on the RC side.
+
+  1. Link down / recovery. On the EP side, toggle the endpoint controller
+     off and on. The short pause keeps the endpoint away long enough for
+     the RC to notice, but brings it back within the reset window so
+     recovery can succeed. Adopted the test approach from [1]. Make sure
+     that the unused function 0000:01:00.1 was removed on the RC before
+     testing.
+
+     # cd /sys/kernel/config/pci_ep
+     # echo 0 > controllers/e65d0000.pcie-ep/start
+     # sleep 0.1
+     # echo 1 > controllers/e65d0000.pcie-ep/start
+
+     Expected on the RC dmesg:
+       pcieport 0000:00:00.0: Recovering Root Port due to Link Down
+       pcieport 0000:00:00.0: Root Port has been reset
+       pcieport 0000:00:00.0: AER: device recovery successful
+
+     and the "msi" (intreq_pcim_sub) interrupt count going up in
+     /proc/interrupts. Without this series nothing shows up here: the
+     link comes back on its own once the endpoint returns, but the RC
+     never notices the outage and the endpoint is left unconfigured
+     (see 4). Config accesses issued while the link is down hang the
+     host.
+
+     [1] https://lore.kernel.org/r/abFMa6DCGGLUHddA@fedora/
+
+  2. Bandwidth notification. On the RC, retrain the link:
+
+     # setpci -s 00:00.0 CAP_EXP+0x10.w=0x0c23
+
+     Expected:
+     - the virtual Root Port IRQ (rcar-gen4-rp in /proc/interrupts,
+       shared by PCIe PME, aerdrv and PCIe bwctrl) fires once
+     - bwctrl clears LnkSta.LBMS
+       (setpci -s 00:00.0 CAP_EXP+0x12.w reads 0x2024 again).
+
+     Before the series LnkSta read 0xe024 afterwards, LBMS and LABS
+     stuck.
+
+     This test does not generate a PME. The PME service shares the
+     virtual IRQ, but its path was not exercised separately.
+
+  3. Root Port AER. On the RC, inject an LCRC error with the DWC debugfs
+     (patch 1) and issue one config read so a TLP actually goes out:
+
+     # cd /sys/kernel/debug/dwc_pcie_e65d0000.pcie/rasdes_err_inj
+     # echo 1 > rx_lcrc            # error detected by the Root Port
+     # setpci -s 01:00.0 VENDOR_ID.w
+     # echo 1 > tx_lcrc            # error detected by the endpoint,
+     # setpci -s 01:00.0 VENDOR_ID.w    # reported back with ERR_COR
+
+     Expected on the RC dmesg, respectively:
+      pcieport 0000:00:00.0: PCIe Bus Error: severity=Correctable
+      pcieport 0000:00:00.0:   [ 6] BadTLP | Receiver | Data Link Layer
+
+      pcieport 0000:00:00.0: AER: Correctable Error message received from 0000:01:00.0
+      pci-endpoint-test 0000:01:00.0: PCIe Bus Error: severity=Correctable
+      pci-endpoint-test 0000:01:00.0:   [ 6] BadTLP | Receiver | Data Link Layer
+
+     plus the virtual Root Port IRQ count and aer_rootport_total_err_cor
+     going up by one each time. The link stays up throughout, the DLL
+     retry recovers the TLP. Before the series nothing is reported.
+
+  4. Regression check. Run pci_endpoint_test after step 1. PASS/FAIL/SKIP
+     counts match a run without step 1.
+
+Configurations:
+
+  a. Without this series**
+  b. GIC ITS, DT with the new "aer" interrupt (this series)
+  c. GIC ITS, DT without "aer" (b43aa6a6ebe8 ("arm64: dts: renesas:
+     r8a779f0: Add GICv3 ITS and update PCIe nodes") or later)
+  d. iMSI-RX, DT without msi-parent, msi-map or "aer"
+
+Result:
+             recovery   bwctrl       RP AER    pcitest
+  ---------------------------------------------------------
+  a.           none         no         no      all FAIL
+  b.            ok          ok         ok      no change
+  c.            ok          ok         n/a*    no change
+  d.            ok          ok         n/a*    no change
+
+  *  Root Port AER needs the "aer" interrupt; without it the behaviour is
+     unchanged from before the series.
+  ** Only patch 1 applied on top of the base, so the same debugfs error
+     injection could be used for the comparison. pci_endpoint_test fails
+     across the board there because nothing restores the endpoint after
+     the toggle.
+
+Best regards,
+Koichiro
 ---
-Changes since v4:
-  - Add Marek's Reviewed-by tag. No code changes.
+Changes in v5:
+  - Drop no_rp_msi patch; handle it in R-Car host setup instead. (Shawn)
+  - Use scoped_guard() in the MSI setup error path. (Marek)
+  - Collect R-b tags from Marek, Shawn and Rob. Thanks for reviewing!
 
- .../pci/controller/dwc/pcie-designware-host.c | 31 ++++++++++++++-----
- 1 file changed, 23 insertions(+), 8 deletions(-)
+Changes in v4:
+  - Rebase onto next-20261014 with Marek's Gen5 AER binding fix.
+    Only patch 4 needed changes.
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-index 63b38532d069..774e1936d999 100644
---- a/drivers/pci/controller/dwc/pcie-designware-host.c
-+++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-@@ -228,7 +228,7 @@ int dw_pcie_allocate_domains(struct dw_pcie_rp *pp)
- }
- EXPORT_SYMBOL_GPL(dw_pcie_allocate_domains);
- 
--void dw_pcie_free_msi(struct dw_pcie_rp *pp)
-+static void dw_pcie_remove_msi_handlers(struct dw_pcie_rp *pp)
- {
- 	u32 ctrl;
- 
-@@ -236,8 +236,18 @@ void dw_pcie_free_msi(struct dw_pcie_rp *pp)
- 		if (pp->msi_irq[ctrl] > 0)
- 			irq_set_chained_handler_and_data(pp->msi_irq[ctrl], NULL, NULL);
- 	}
-+}
- 
-+static void dw_pcie_free_msi_domain(struct dw_pcie_rp *pp)
-+{
- 	irq_domain_remove(pp->irq_domain);
-+	pp->irq_domain = NULL;
-+}
-+
-+void dw_pcie_free_msi(struct dw_pcie_rp *pp)
-+{
-+	dw_pcie_remove_msi_handlers(pp);
-+	dw_pcie_free_msi_domain(pp);
- }
- EXPORT_SYMBOL_GPL(dw_pcie_free_msi);
- 
-@@ -633,7 +643,7 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
- 
- 	ret = of_pci_get_equalization_presets(dev, &pp->presets, pci->num_lanes);
- 	if (ret)
--		goto err_free_msi;
-+		goto err_deinit_host;
- 
- 	/*
- 	 * Allocate the resource for MSG TLP before programming the iATU
-@@ -649,7 +659,7 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
- 
- 	ret = dw_pcie_edma_detect(pci);
- 	if (ret)
--		goto err_free_msi;
-+		goto err_deinit_host;
- 
- 	ret = dw_pcie_setup_rc(pp);
- 	if (ret)
-@@ -686,14 +696,16 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
- err_remove_edma:
- 	dw_pcie_edma_remove(pci);
- 
--err_free_msi:
--	if (pp->use_imsi_rx)
--		dw_pcie_free_msi(pp);
--
- err_deinit_host:
-+	if (pp->use_imsi_rx && pp->irq_domain)
-+		dw_pcie_remove_msi_handlers(pp);
-+
- 	if (pp->ops->deinit)
- 		pp->ops->deinit(pp);
- 
-+	if (pp->use_imsi_rx && pp->irq_domain)
-+		dw_pcie_free_msi_domain(pp);
-+
- err_free_ecam:
- 	if (pp->cfg)
- 		pci_ecam_free(pp->cfg);
-@@ -718,11 +730,14 @@ void dw_pcie_host_deinit(struct dw_pcie_rp *pp)
- 	dw_pcie_edma_remove(pci);
- 
- 	if (pp->use_imsi_rx)
--		dw_pcie_free_msi(pp);
-+		dw_pcie_remove_msi_handlers(pp);
- 
- 	if (pp->ops->deinit)
- 		pp->ops->deinit(pp);
- 
-+	if (pp->use_imsi_rx)
-+		dw_pcie_free_msi_domain(pp);
-+
- 	if (pp->cfg)
- 		pci_ecam_free(pp->cfg);
- }
+Changes in v3:
+  - Rebase onto next-20261002 with Marek's PM ops v5 applied first.
+  - Keep parent IRQs registered across suspend/resume to fix the
+    unbalanced enable Geert reported. Request them in probe with
+    IRQF_NO_AUTOEN and enable/disable them in .init()/.deinit().
+  - Use a freezable workqueue for recovery and reject suspend while
+    reinitialization is pending. Re-arm Root Port events only after
+    resume has set up the link.
+  - Factor out the PORT_LINK_DEBUG1 check (patch 2) and reuse it in
+    patch 3. (Marek)
+  - Replace .reinit() with .configure, folding v2 patch 8 into patch 9.
+    Drop the reset mutex and rely on PCI core serialization. (Marek)
+  - Free the MSI domain after host .deinit(), so the driver can stop
+    its parent IRQ first (patch 10). This closes the known gap in v2.
+  - Reset the controller if recovery finds no Root Port, so a successful
+    reset can restore interrupt delivery.
+  - Drop the raw lock around virtual IRQ dispatch. Preserve MSI-form
+    latches in irq_ack() while the IRQ is in progress or disabled,
+    avoiding lost notifications without nesting port service locks.
+  - Add patch 7's Fixes tag, clarify SoC generations, separate guard()
+    from goto-based cleanup, and simplify IRQ return statements.
+    (Marek, Sashiko)
+  - Add the V4H and V4M DTS patches 17 and 18. (Marek)
+  - Collect Reviewed-by (Marek, Krzysztof) and Tested-by (Marek) tags.
+    Drop Marek's Reviewed-by from the reworked patches 12 and 14.
+
+Changes in v2:
+  - Rebased onto next-20260925, including Marek's R-Car X5H support.
+  - Keep .link_up() and require both the APP link-up events and the
+    PORT_DEBUG1 live link check. Clear the APP latches before enabling
+    LTSSM and reuse the DWC core's polling on the RC side. (Marek)
+  - Let the R-Car driver own intreq_pcim_sub in all configurations (new
+    patch 10) and check the reset request from its own handler instead
+    of hooking into the DWC chained handler. Replace the pre_msi_irq host
+    op from v1 with an export of dw_handle_msi_irq() (patch 4). (Marek)
+  - Keep the reset_control_status() check before asserting the power
+    reset. (Marek)
+  - Separate controller reinitialization from .init()/.deinit() and split
+    out preparatory changes.
+  - Use bool flags instead of a state bitmask. (Marek)
+  - Keep Root Port AER notifications masked until .post_init, after
+    enumeration. In v1, they could be enabled during port-service probing.
+  - Keep APP interrupt sources masked if the Root Port reset callback
+    fails, regardless of the reset trigger.
+  - Hold a reference on the Root Port in the link-down recovery work.
+  - Clear only the MSI-form Root Port latches through PCIEINTSTS0CLR;
+    the INTx bits are reserved there.
+  - Serialize dispatches to the virtual Root Port IRQ from its two
+    parent interrupts.
+  - Collected Marek's Reviewed-by on patches 1, 3 and 15.
+
+v4: https://lore.kernel.org/r/20261015033103.3076869-1-den@valinux.co.jp/
+v3: https://lore.kernel.org/r/20261006084638.3821710-1-den@valinux.co.jp/
+v2: https://lore.kernel.org/r/20260928165230.3397664-1-den@valinux.co.jp/
+v1: https://lore.kernel.org/r/20260918032038.2216471-1-den@valinux.co.jp/
+
+
+Koichiro Den (17):
+  PCI: dwc: Add Renesas to the RAS DES VSEC list
+  PCI: dwc: Factor out the PORT_LINK_DEBUG1 link-up check
+  PCI: rcar-gen4: Check live link status in link_up()
+  dt-bindings: PCI: rcar-gen4: Add optional "aer" interrupt for R-Car
+    Gen4 SoCs
+  PCI: dwc: Export dw_handle_msi_irq()
+  PCI: rcar-gen4: Move deinitialization helpers before SoC
+    initialization
+  PCI: rcar-gen4: Assert resets when Gen5 SoC PHY initialization fails
+  PCI: rcar-gen4: Separate hardware setup from resource acquisition
+  PCI: rcar-gen4: Add Root Port reset support
+  PCI: dwc: Free the MSI domain after the host .deinit() callback
+  PCI: rcar-gen4: Take over the iMSI-RX interrupt
+  PCI: rcar-gen4: Recover the Root Port on link down
+  PCI: rcar-gen4: Route Root Port AER to a virtual Root Port IRQ
+  PCI: rcar-gen4: Route Root Port PME and bandwidth notifications
+  arm64: dts: renesas: r8a779f0: Describe the PCIe AER interrupts
+  arm64: dts: renesas: r8a779g0: Describe the PCIe AER interrupts
+  arm64: dts: renesas: r8a779h0: Describe the PCIe AER interrupt
+
+ .../bindings/pci/rcar-gen4-pci-host.yaml      |  13 +-
+ arch/arm64/boot/dts/renesas/r8a779f0.dtsi     |  10 +-
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi     |  10 +-
+ arch/arm64/boot/dts/renesas/r8a779h0.dtsi     |   5 +-
+ .../pci/controller/dwc/pcie-designware-host.c |  32 +-
+ drivers/pci/controller/dwc/pcie-designware.c  |  15 +-
+ drivers/pci/controller/dwc/pcie-designware.h  |   1 +
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c   | 725 ++++++++++++++++--
+ include/linux/pcie-dwc.h                      |   2 +
+ 9 files changed, 721 insertions(+), 92 deletions(-)
+
+
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+prerequisite-patch-id: 5b4c9da1333342baa90cf6a86dc879e8382d3f65
+prerequisite-patch-id: 258bbb5c2aaf676b727308d4e97d52f9c313eec0
 -- 
 2.54.0
 
