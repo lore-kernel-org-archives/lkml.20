@@ -1,50 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488974;
-	b=TB2FVx+OymI2/mqiUgW56ms6zcH8K+bIN2GW+dgC4crDah+Ja1jQ5IJt4VlbH/6j36nw
-	 pDmTOYjNSHqdzRr2VrFSKWPGBTURp44QS/JaW7cL45tmoz3VSDAl50g7DBPVpjmfPzLmq
-	 h3mGo4ASsswx8nOlqALpkvhRG6/1+rD49r//fl1iqnsLM1sAPOc49v1yLKpuS0wcLOnDC
-	 1lHBQ4Fo0qdGGuQXH/JajE9tyWzg0DmLRE5O7ceMpwKGqItZdqP9T0VEAS/43FZPmdMki
-	 rjsHjqrgEef7EzHFkI4vyIa7kkR8LmPqxLAWXLIneHJLs0ONglKW+G1pseAk7se9JFQ==
+	t=1792488982;
+	b=MogV+w/UTG5G9AZB9M1fGBvPGpT1t2U0Y+CT1HMgwsvR3ix0WXXSzb4tRxTmMPopzWaT
+	 Tg0KP6emRIT7NGKNimjgq+PwIC6MPHCCvfz0qgDsU+o9UOuW1zWSm99DfP2ujQ778eHND
+	 LjPeB7XDFYmkK89gPP/nZmQfWUHEFaAYearNmTa07QTTaks8QVo9Ip7ZbFEI/gWyCGI/d
+	 jU+gGmgvkSnef44PKpQ99SFnq2vT1KmaoVUp0sEhXjf0vvbFu3ZMVyNEIEADV+yWuWvGO
+	 vKaun/fbHWHQVB4uaOG54BksykCFXkjvyhpxN4p9kPztiV6brKcZaLEuxA9e1Wg3zvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488974;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ynyE+fA5NTfw2+uhvHohwdPTh6sK8d+mcL5qpPLSA1A=;
-	b=WsMtPJOtTkS38KbbHLGtzN2oGi9rnKvhO78Er9o4OmCJ58g6PStZ1FgjLDmZH99Ie+9o
-	 tNnPpcUxh1DPbz5S0n6KoHLjKAnb9prWDHU1N1+AsX7DP+ZnilBUnilibFgG/RIVzavCc
-	 Nth0gnA7MukMdiPtjeI3bkTEGHhc3Hrg0rLH28y/Kuc2se+a+xV4HFFfe41YiF+W4Jx9k
-	 C34AH+jcqrC/AKAMijpaJfP75JaB92oPRRvH1d8+VlX4r2fU3wLQ6VZFLLPL/avjoSFMX
-	 FcnkDqn/jDSFJG7nkISG3zJohKWYFXySZxWKXWbYmVyyLXpCObDrASfKUceM6wNJxOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488982;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=4n+etd17kWY75uo06/KgtPiuqzHBy7OLAf8ZWW1+Os0=;
+	b=BiHu7Ubm0bXIqmM1VA9Puc7c3FRdcz9W9tK7BgpC9/OMxm8XVrXlQxgqXR8D9ED6M88a
+	 yCEsWcAksjZe4ZIutau3yVYCCF9JHdtx+Z4sSphTjkjuVsiSdg2d6Hz1mGsfDlOZk+UB6
+	 o3FBp2EiTbf/Qw2Eyw27LfgEopbaT+opLof2sozoqRuEqL6munatVGNXKsWDeLw2YPUNS
+	 4bfuYWWrR9KfC05W47/NxXOz7H1tvvkFAJ1qDThapaqGfyWBkdR0pattrtxwBcL9ulBI3
+	 vqjnFqhPXQ/MDTjoFgXCp1BZOG5ZjMNBAOyRfjHrKajUtrLCoRcP0v2LbkeFVlt44oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ciMiB0Fy;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="DHS6/S5i";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m7Eq00Dz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="DHS6/S5i";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m7Eq00Dz;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14503606A33E;
-	Tue, 20 Oct 2026 09:36:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14503606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4045D60A2600
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4045D60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ciMiB0Fy
-Received: from [192.168.33.26] (185.221.141.235.nat.pool.zt.hu [185.221.141.235])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6D4112E9;
-	Tue, 20 Oct 2026 11:34:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792488843;
-	bh=Iv2yHbGaosk29+ndUAO2qtiC5IJ8/X2fH8ie6cTjmyU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ciMiB0FyxDyLFci9A18xtIcNNBLizuaaiATabqgJTpDLfhWLxnp/Wp3QRZKNdzzNj
-	 j2xY6SfbluAM8Yo1FqcVOp7N80Zr0gdLz7nxMN0QanLM7r/12rBdQkhhFgMRPSvod7
-	 m79B/XKKjsmMn9aFCkN9VKm40U+qFpePmdn6kpUk=
-Message-ID: <6c8e77c9-c0a2-40c6-8e7f-7e2d51c71740@ideasonboard.com>
-Date: Tue, 20 Oct 2026 11:36:04 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DHS6/S5i;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m7Eq00Dz;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DHS6/S5i;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m7Eq00Dz
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 727A41F799;
+	Tue, 20 Oct 2026 09:36:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792488980; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4n+etd17kWY75uo06/KgtPiuqzHBy7OLAf8ZWW1+Os0=;
+	b=DHS6/S5icgKNpGYywSSHizjoxayQszIGA6xizV7fOiJb1mXHltw+ATaqaCTR3xRbhZ8QEW
+	dPjq3E2VPOvUZasObWXDebdAMZoopaYpHeZn7bTO92yU8SRVNG+fBLzrtcdLKi+wxeiTvD
+	ABNBng+pp0rvAmtwXp3bpPP2+mSgmNg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792488980;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4n+etd17kWY75uo06/KgtPiuqzHBy7OLAf8ZWW1+Os0=;
+	b=m7Eq00DzwWYMSfrkIbfzUgDyvYrshqE9eREGIE7Zwwodf9MEN3WOS4f4D/g3Q26VO5tiw7
+	7VIWhfH5IpuXwFCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792488980; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4n+etd17kWY75uo06/KgtPiuqzHBy7OLAf8ZWW1+Os0=;
+	b=DHS6/S5icgKNpGYywSSHizjoxayQszIGA6xizV7fOiJb1mXHltw+ATaqaCTR3xRbhZ8QEW
+	dPjq3E2VPOvUZasObWXDebdAMZoopaYpHeZn7bTO92yU8SRVNG+fBLzrtcdLKi+wxeiTvD
+	ABNBng+pp0rvAmtwXp3bpPP2+mSgmNg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792488980;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4n+etd17kWY75uo06/KgtPiuqzHBy7OLAf8ZWW1+Os0=;
+	b=m7Eq00DzwWYMSfrkIbfzUgDyvYrshqE9eREGIE7Zwwodf9MEN3WOS4f4D/g3Q26VO5tiw7
+	7VIWhfH5IpuXwFCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 39648136C6;
+	Tue, 20 Oct 2026 09:36:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id p8XBBRQ212o7BQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 09:36:20 +0000
+Date: Tue, 20 Oct 2026 11:36:19 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 10/18] nvme-tcp: Use CCR to recover controller that
+ hits an error
+Message-ID: <d1e6b53b-3d14-4cc0-8153-dffd5da7673b@flourine.local>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-11-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,102 +113,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] media: rcar-isp: ispcore: Honour requested
- bytesperline on RAW input
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>,
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
- Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?=
- <barnabas.pocze+renesas@ideasonboard.com>,
- Yusuke Goda <yusuke.goda.sx@renesas.com>,
- Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
- <20261019-v4l2-add-nv12-v1-1-4a84736803b6@ragnatech.se>
-From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
-Content-Language: en-US, hu-HU
-In-Reply-To: <20261019-v4l2-add-nv12-v1-1-4a84736803b6@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920182936.2317916-11-mkhalfella@purestorage.com>
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi
+On Sun, Sep 20, 2026 at 11:28:08AM -0700, Mohamed Khalfella wrote:
+> @@ -2731,13 +2755,15 @@ static enum blk_eh_timer_return nvme_tcp_timeout(struct request *rq)
+>  	struct nvme_tcp_cmd_pdu *pdu = nvme_tcp_req_cmd_pdu(req);
+>  	struct nvme_command *cmd = &pdu->cmd;
+>  	int qid = nvme_tcp_queue_id(req->queue);
+> +	enum nvme_ctrl_state state;
+>  
+>  	dev_warn(ctrl->device,
+>  		 "I/O tag %d (%04x) type %d opcode %#x (%s) QID %d timeout\n",
+>  		 rq->tag, nvme_cid(rq), pdu->hdr.type, cmd->common.opcode,
+>  		 nvme_fabrics_opcode_str(qid, cmd), qid);
+>  
+> -	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
+> +	state = nvme_ctrl_state(ctrl);
+> +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
+>  		/*
+>  		 * If we are resetting, connecting or deleting we should
+>  		 * complete immediately because we may block controller
 
-2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
-> From: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> 
-> The RAW input video device always overwrote the bytesperline requested
-> by userspace with width * bpp. The input buffers are however shared with
-> the VIN, which may use a larger line stride (for example 3296 instead of
-> 3280 bytes for a 1640 pixel wide 10 bit image). The dmabuf exported by
-> the ISP was then smaller than the VIN buffer size, and queueing it to
-> the VIN failed with -EINVAL:
-> 
->    __prepare_dmabuf: invalid dmabuf length 4042752 for plane 0,
->    minimum length 4060672
-> 
-> Use the requested bytesperline if it is larger than the minimum.
-> 
-> Signed-off-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> [Niklas: Use max(min(..)) instead of if statement]
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> ---
->   drivers/media/platform/renesas/rcar-isp/core-io.c | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> index b60b91f43d42..badde72352c1 100644
-> --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-> +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> @@ -5,6 +5,8 @@
->    * Copyright (C) 2026 Ragnatech AB
->    */
->   
-> +#include <linux/sizes.h>
-> +
->   #include <media/v4l2-ctrls.h>
->   #include <media/v4l2-event.h>
->   #include <media/v4l2-ioctl.h>
-> @@ -335,6 +337,7 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
->   				     struct v4l2_pix_format_mplane *pix)
->   {
->   	unsigned int bpp = 0;
-> +	unsigned int bpl;
->   
->   	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
->   			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> @@ -352,11 +355,17 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
->   		bpp = risp_io_input_formats[0].bpp;
->   	}
->   
-> +	/*
-> +	 * Honour the line stride requested by userspace, the buffers are
-> +	 * shared with the VIN which may use a larger stride than the minimum.
-> +	 */
-> +	bpl = max(pix->width * bpp, min(pix->plane_fmt[0].bytesperline, SZ_64K));
+The documentation should be updated, maybe something like:
 
-   clamp(pix->plane_fmt[0].bytesperline, pix->width * bpp, SZ_64K)
+          state = nvme_ctrl_state(ctrl);
+          if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
+                  /*
+                   * If fencing has finished or we are resetting, connecting or
+                   * deleting we should complete immediately because we may
+                   * block controller teardown or setup sequence
+                   * - ctrl disable/shutdown fabrics requests
+                   * - connect requests
+                   * - initialization admin requests
+                   * - I/O requests that entered after unquiescing and
+                   *   the controller stopped responding
+                   *
+                   * All other requests should be cancelled by the error
+                   * recovery work, so it's fine that we fail it here.
+                   */
+                  nvme_tcp_complete_timed_out(rq);
+                  return BLK_EH_DONE;
+          }
 
-?
-
-And does the device really accept any value between these two limits?
-
-
-> +
->   	pix->field = V4L2_FIELD_NONE;
->   	pix->colorspace = V4L2_COLORSPACE_RAW;
->   
->   	pix->num_planes = 1;
-> -	pix->plane_fmt[0].bytesperline = pix->width * bpp;
-> +	pix->plane_fmt[0].bytesperline = bpl;
->   	pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
->   }
->   
-> 
-
+          /*
+           * LIVE state should trigger the normal error recovery which will
+           * handle completing this request. In FENCING state the request
+           * must not be completed before fencing has finished, so just
+           * rearm the timer and let the error recovery pick it up.
+           */
+          nvme_tcp_error_recovery(ctrl);
+          return BLK_EH_RESET_TIMER;
