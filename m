@@ -1,67 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498376;
-	b=r35K9eavj/etKhMtqOB15+ndcrpaQ6DBtSxrN2xl/43+C2gNE6Q8jkV/ojK8e+iVYhR/
-	 3v3m7/BbNQOVlithm53dMEmK6N/HMHKXISsYdHRyvg40Yx/IGE2Yy5OBXpEMcDYjnopmj
-	 H43M5QBHyPV3l+sFrC2h3HajlSGeryvN/XxzzV0hbAB9KwmqNErQ/obyCECq550213I+u
-	 ejxHOFCNriIIoqHzzwrNCdZnwKTID0A5MU0a2b9xKyeDWRWgNGGOQ3jsI0qewTYQYLzUq
-	 GjloH88OESlvnUIoVNIJObWMzX2C7IQxWtVwxuAKKreG5ha4PvbqFZ9eSM/jeScNJ0Q==
+	t=1792498384;
+	b=0p2hdAHrz1vilR9G67/gPckP2sx6H+LHZRQFXVxBLtIh4vhblhQMpi8463vQhI3wPAUU
+	 JtTp3kN7ghPuE+GawuYI/+x5h/w47dV9AAVe99TH/YPZTViDV8tZJG/U5uBQ1GkwHVyuJ
+	 h2Wn6RSPaZlmDE7ExBXlkyw8i558vujVYMvjuk0eQrRcTuSPO2yf1x8U5+1cNWXpDofW2
+	 zG6flk8MMrQG5XsSSEJd2w9PIK5aNEZGuTIH61JdBEcasyokrjdLt6PyykRXMJahhTyGv
+	 ZZrAWLeILP1xDIzmFGlkMKP/pfSrtTGy0Cx7DZ0LC42IVd6Sa+RZepV6chsxVnky3iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498376;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=+3aP9S+I4hN8ayAzr2FdVXGfcpVuzHhgRmKY7lrV5LU=;
-	b=EP5U8yXhXxZlIzq3ZOnSoX7WqsStdyJi6+45+P1o96V/M1VCToNBUuUC4OSBokonlhdx
-	 D8PLEjufUF/Zr3ds8QrHec/6td1TbtFLvfs66v7q835vAkf0AQRQLGYadNS5acYrjDf2J
-	 XPJDmfN6N4cBK9gMflizGHFCvdxWyceEFzRZGjLG9msHMoVnv0QrDtGplXxjXvX/APRFr
-	 4HfTMw34o6rOnfR/yhaS3uWMkMhqhSl1PcRU94qSLK2yKBWRbmYSePx5LYwtwC/44N24d
-	 Hf91sgLOR5eUZIrQHwZVO6NkQu5IsNh95wbo9NDIFezab98hGLm5b46ZR0HgktdZu3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498384;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=marfXXsbgu5torGG2Tfm7m7T6gJaUV9y274JBymp8SA=;
+	b=gtcy1Yih40428v6kR2wax5XU7nMqkBl9DQL6izSEZpiU4buudmP0LcRKf+P8BfblkQOF
+	 CwW9KaY7hEtpoGIrwwuuCCb+rGxxxEn/t1yi2Q9WPgnSk67ZLk+I1iDwOFPbHSHrPHgvC
+	 Ns5fdfEV4G4SYNXvjKmcSGkFv8y/wpmjEdc8BWhXN20Ft6IhgBeuvCwMoO/ZJ5OmY5VKl
+	 WlfLDEOpbqwYAHwKBporOsXBBdWKRKP8qW58yAQTfVtg6UnlWGWc6amVaPUgiicyQNthC
+	 dwEXxylInYjPNt3sUUVTu9fwTIDOw5/v3cbBcJi6X2QITNsaRuEJ4W8SVyEGAnrv4Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q9KMvSBE;
-	arc=none smtp.remote-ip=91.218.175.195
-Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nlYWZGR6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RLmXifFA;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1405606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:12:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1405606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEAE606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAEAE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q9KMvSBE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pHt6jSjv0iNign9HC3Cohxdp/lbHFVpVVhQ1kwkIEhI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792498374; v=1; x=1793103174;
- b=q9KMvSBEXRZHEK7AmP+Eif3Mgy+vhxvZyI3cUHdSMzwUHcO4qE8bE+CfIe66VaLGQdYy0Dxm
- WIo5Il2/9bQn+o4baJa3+fguXruOvYOMx0B/Ruj0jZO5nfUH+vje3qV6wrH26Bmo+ITI94HQtyh
- Z412TWwJm+E6cBRxokIjMPII=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c323d3c4687816b9;
-	Tue, 20 Oct 2026 12:12:54 +0000
-X-Mizu-Trace-ID: c323d3c4687816b9
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org,
-	sd@queasysnail.net
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] tls: fix the open record check in the max payload size setsockopt
-Date: Tue, 20 Oct 2026 20:12:39 +0800
-Message-ID: <20261020121240.29082-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nlYWZGR6;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RLmXifFA
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAxHJ71292872
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	marfXXsbgu5torGG2Tfm7m7T6gJaUV9y274JBymp8SA=; b=nlYWZGR6bF4T/Kbn
+	yyjan0QGcs6p2vpw6wh0H5ajn4DHki0Fg32MYd2pWRuXS72/Cv1qMHz3DZpWxjOC
+	leT03jaeUUQFAUL7iYmXUsj8IrhB8O0Q6/ZY+nF9Dueechv/QTHTeIKtNw/fZssD
+	gT29WqPWFuDNdW4yyeKOdFU68Mxg+2um8VeYi9mOQGCrhUMenb4uX3He2BXwBPvO
+	jczupB0aTzAP45l1LmQkWu+Hyz1rULlk+MfETpRs0m4lulLNj6rn8pVkPJ4/7WeH
+	VeYsWJ3x56BgZKZu7QOaXTvGxXKoJgW0cwpxfQNA3wa4yMTETkqg97V4LkimnHP2
+	huUeqw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n2d17-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:02 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cc50fb0d2so76776785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:13:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792498382; x=1793103182; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=marfXXsbgu5torGG2Tfm7m7T6gJaUV9y274JBymp8SA=;
+        b=RLmXifFAg4qnhvK9FAhtheyi8hr+AI4BeWZXF2aaBCq9/71ftjK6+b1JQUK74hhRCt
+         DKsZjewjvsKnuZz1v9HeWB5NG5vbAdZkHK5YvAYsU0pI9koijhprjLm1V9WFLmxyugQP
+         sgTcf+EJ09SKTJR7LLqBpexE4gjQ5AW4pkwi1HJ13uHXUlI1N9lvtNKD/qZCOafKMqYi
+         ouGaWMlQic05Q6YbrwfqrkF5hkT39hRVYmKq+/OTBl0BCGWg3Zon1Up9ON3vYs+n05mW
+         VIb3ZQenql4u604EqlErvsbYXzW3emIXQpAT17Ev0dSlisQj+euIh292lpFKWRGkTkzC
+         3OPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792498382; x=1793103182;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=marfXXsbgu5torGG2Tfm7m7T6gJaUV9y274JBymp8SA=;
+        b=wZ22z3kv23qRo+XjaZkyFXZmeWRa70idBp5cTW96ZrmFKI5Ze+03gITnNXp6Mk1ke2
+         AyoeBZrPVXIT7QBlJ7ZujvOgkkuB95A/i6SU7J5asXPnkF6Wl0VVTj6IIqcuArHwo3n5
+         pXzF2ojoCiHfSSYHDtHh8hXVHBmgVqreNkMC2QHc273bY2+VzQK2ocN6HHJvvG0UYa4u
+         8Qn8fFLz42h9PBESy7y/yYecys4tUZ+JF38zl2WOyJoInXKytx/TfTkayefZGuhsvi09
+         dKLk7o9Ute/Ng8GH2n7TsKUGvT5ZA3As/mDY6lRZEabZR0zjl4DwlEslk+VB2OoI1eAl
+         Xkig==
+X-Forwarded-Encrypted: i=1; AKwUvBzGeUeMfzLVp61pmJHSUsoQFVqWyIicrTQe0I+K6mZ8XKk0dRFoltMvtLUcUpZQPGt73VYZxQ5A0K3YalU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv5yIy86VpGU2Ot+hEHfKU1EjkBBsJ39p0Cbd0pLu+cL+uawlI
+	4fAE915GVrAMKUclo+7+QWzmcbOAIpeKeJfMfY9RCGFhNiKTwM7BZwZkbYwHM4GUgxo7IqPtf5j
+	7E1xqIAHZcGcHbM3kx7e3CQM/mOPfDhy4+J2wjJXFizDGGmI5l+I8yE7OCq6LAdC+apo=
+X-Gm-Gg: AYBFou0qCRqLNpSdILH3oFeIgCPREbHQYTdsTMKPUVefePOZTtaFxD1RQ3HofpcXcJX
+	dZisawsZEi0nMQsh/+/AMYQs2hhptUUCaxJgL6B/85jWLxMiAOMRMj+0JzmHns4mfcnRdLpxZEk
+	LKLY4ZrGx4YnO3dLqe5f1Oqqp++oyIm6l0rYm3cqZ6Kpi+jIejy+HXqVTSz+6SccoQwENC21iKW
+	mP0quLAscEY1CkjtSJBk8Ho/PF/lGtPmM1t8gTkIGcfER6s3IDBIpMfZ+K3NpB6Wb9gzdFsrW5Q
+	/2UWuMrDpXSik0PRD6QLsHczAOmWjA5vlFWcPbjdE/2gsYtleJMa2J6Emx9lfopYFnV4bz7mKZQ
+	OZfcqzCSvTBqKiBkYso119Q==
+X-Received: by 2002:a05:620a:618e:b0:939:8bc:8826 with SMTP id af79cd13be357-93f29b72ce3mr2031674885a.2.1792498382002;
+        Tue, 20 Oct 2026 05:13:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:618e:b0:939:8bc:8826 with SMTP id af79cd13be357-93f29b72ce3mr2031668885a.2.1792498381498;
+        Tue, 20 Oct 2026 05:13:01 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1e9db0sm5256665a12.33.2026.10.20.05.12.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 05:13:00 -0700 (PDT)
+Message-ID: <6257f715-265b-4a33-bf44-5f5c5449f046@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 14:12:59 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,122 +115,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/7] arm64: dts: qcom: lemans: Add label for firmware
+ and reserved-memory
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-5-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015023711.721837-5-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: yWzlwGj0H3C6oJZ8Fc1FP6Wh8m-E34gC
+X-Proofpoint-ORIG-GUID: yWzlwGj0H3C6oJZ8Fc1FP6Wh8m-E34gC
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad75ace cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=fHRsoPW1gXWW0LuZJBkA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0OCBTYWx0ZWRfXwBWNWy0dqppY
+ Eakd3YZK0MWmHnhqWyNAXgZSmXTFSXYf35UaZQ8scK570GCdW3Vw7tmXekJd/feMTr9wcxo63//
+ GWImGqbIrAI+GzVXBQgAQcDHh1LQj5JJRBvBzEfj1DPZWwofa5npXxlpgdeXm87y24BdxLMURUh
+ AIjtzYMHaZ8HDzyJwhlVQ76W+0dMh7G0J9yGl7iaJE5bmXw2cV2vnkzE+kbbkTFYXZLgpVIMWhk
+ e/+mb71OdTpN9KXbnJFgJ6zxItLnkfbPMPZp8JRh+PtATTSGZdA7J4V0/DeXwkynsIcK4aVI5BT
+ FHG39+d4XQ5QgKwpgKPrTCTxBP9lwp1RD/S1prz6TFa06ucEjGeKEqlFbhWGvf8guMp4o+qvQR1
+ BF3vTXYVqYMgiox53t5af5M78Es5tWqNW58eIlrrM7AqRY0NBoMk5hLXJxTg8bpwVsSCFL9GXN0
+ htmOaVryAHHWfPMVQig==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0OCBTYWx0ZWRfX9dokZCUduaeF
+ AN9cfM7d/qv/QpHwgykf5EnHEPbK961Pqd2e/5I99vg8sg7SI4MdOIa9CU6uU+MuGdtzmn417TE
+ PwxWM4T+z4XURyfAdP2CGI7ex5tWcTA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200048
 
-do_tls_setsockopt_tx_payload_len() refuses to resize records while one is
-open, but the check is broken in two ways.
+On 10/15/26 4:37 AM, Shawn Guo wrote:
+> Add label for firmware and reserved-memory node to make it easier for user
+> to override the default configuration.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-It reaches for the open record through tls_sw_ctx_tx(), an unchecked cast
-of ctx->priv_ctx_tx.  Under device offload that pointer is a
-tls_offload_context_tx, so the check reads a field of the wrong struct: it
-returns EBUSY on whatever happens to be there, and never sees the record
-that really is open.  Dispatch on tx_conf.
+There's no reason for this commit to be separate but okay
 
-The socket lock alone is also not enough to tell no sender is in flight.
-The device tx path drops it in sk_stream_wait_memory() after
-tls_push_record() cleared open_record, so setsockopt can slip in
-mid-sendmsg and shrink the limit.  tls_push_data() latches the limit once
-per call, and a record left open by MSG_MORE can then be bigger than the
-new limit, making the u32 subtraction in the copy clamp wrap around and
-build an oversized record.  Take tx_lock like the sendmsg paths do so
-setsockopt waits for in-flight senders.  Re-reading the limit inside the
-tls_push_data() loop could close the wrap too, but a parked sender would
-still finish with the old limit, so serializing on tx_lock is simpler.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Take tx_lock interruptible, as tls_sw_sendmsg() does.  Both sendmsg paths
-keep it across sk_stream_wait_memory(), which sleeps until the peer reads,
-so a plain mutex_lock() could park setsockopt in D state for as long as
-the sender waits.  The lock_sock() after it is fine uninterruptible: a
-sender sleeping for memory has released the socket lock, so that wait only
-covers short critical sections, like every other setsockopt.
-
-Fixes: 82cb5be6ad64 ("net/tls: support setting the maximum payload size")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-v2 -> v3:
-  - no code change, explain why tx_lock is taken interruptible, in the
-    commit message and the comment (Paolo)
-  - resend, v2 was marked "changes requested" in patchwork, thanks to
-    Sabrina for the reminder:
-    https://lore.kernel.org/netdev/atdJUP6Jb0jODBYE@krikkit/
-v2: https://lore.kernel.org/all/20260901072927.128688-1-jiayuan.chen@linux.dev/
-v1 -> v2:
-  - also take tx_lock in setsockopt, the socket lock alone can't stop a
-    device sender parked in sk_stream_wait_memory() (AI review on v1)
-v1: https://lore.kernel.org/netdev/20260831025607.62927-1-jiayuan.chen@linux.dev/
-
-base on my netdevsim + tls (in progress)
-https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
-
-Previous finding:
-b17cf742eaad ("tls: device: fix out-of-bounds write in tls_append_frag()")
----
- net/tls/tls_main.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-index 8bdb78718a8d..42ab291eee42 100644
---- a/net/tls/tls_main.c
-+++ b/net/tls/tls_main.c
-@@ -831,15 +831,29 @@ static int do_tls_setsockopt_no_pad(struct sock *sk, sockptr_t optval,
- 	return rc;
- }
- 
-+/* priv_ctx_tx holds a different structure on each TX path, so tx_conf has to
-+ * say which open record to look at.
-+ */
-+static bool tls_tx_record_is_open(struct tls_context *ctx)
-+{
-+	switch (ctx->tx_conf) {
-+	case TLS_SW:
-+		return !!tls_sw_ctx_tx(ctx)->open_rec;
-+	case TLS_HW:
-+		return !!tls_offload_ctx_tx(ctx)->open_record;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
- 					    unsigned int optlen)
- {
- 	struct tls_context *ctx = tls_get_ctx(sk);
--	struct tls_sw_context_tx *sw_ctx = tls_sw_ctx_tx(ctx);
- 	u16 value;
- 	bool tls_13 = ctx->prot_info.version == TLS_1_3_VERSION;
- 
--	if (sw_ctx && sw_ctx->open_rec)
-+	if (tls_tx_record_is_open(ctx))
- 		return -EBUSY;
- 
- 	if (sockptr_is_null(optval) || optlen != sizeof(value))
-@@ -860,6 +874,7 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
- static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
- 			     unsigned int optlen)
- {
-+	struct tls_context *ctx;
- 	int rc = 0;
- 
- 	switch (optname) {
-@@ -879,9 +894,18 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
- 		rc = do_tls_setsockopt_no_pad(sk, optval, optlen);
- 		break;
- 	case TLS_TX_MAX_PAYLOAD_LEN:
-+		/* Take tx_lock like the sendmsg paths do, the socket lock is
-+		 * dropped while a sender waits for memory, maybe with no record
-+		 * open.  Senders sleep with tx_lock held, so take it interruptible.
-+		 */
-+		ctx = tls_get_ctx(sk);
-+		rc = mutex_lock_interruptible(&ctx->tx_lock);
-+		if (rc)
-+			break;
- 		lock_sock(sk);
- 		rc = do_tls_setsockopt_tx_payload_len(sk, optval, optlen);
- 		release_sock(sk);
-+		mutex_unlock(&ctx->tx_lock);
- 		break;
- 	default:
- 		rc = -ENOPROTOOPT;
--- 
-2.43.0
-
+Konrad
