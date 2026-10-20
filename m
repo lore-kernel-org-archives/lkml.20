@@ -1,68 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492314;
-	b=Ql2jleRRPD0loIg+kfFXRtrPlWirwqu0CjIlpBAFXKUNXGlwiDsmwsH1DEj3/AMVP5OW
-	 YRKjvWba+A87VyTW/jBO+NJutjUusK3ckZludVS3cq5y5RPB+ZabjqkQxOW5/mdzR91Fo
-	 qq2APwBhTaGFuatoELzmc1f9IBniUE4Rdg1BORnncZDW9AgLGRyPs7vEJx14OtWNaBN38
-	 GyoEESWd6FY35vCs+Q4St9wWx6l81zkaBy6P+fRXUoSt/R2QNH09sCrPhZ0Wy524gDUEJ
-	 IQtYoe4xlJFF8cVRuq1lMTCAUdS0Bb6U0DaEa7ZMmhZwVkEHwnq0iKv97JegvR+na5w==
+	t=1792492344;
+	b=HCkhgvnCS1luax0LwW/GDdLe/MJcVAJF1fYGwL6Nvhk8D8NckENqKPRMY9jxPjSk0tiS
+	 FShbFBG8Fv9HTeb3Z0d1C3/ZeOfkSaiEAUIE46nWnX78+pS6YGvNOLlLm6CzRDEtvhbBo
+	 BLtOeqsTXPGw5n9xflSaOtJ11oEGhwtdJc8Ii9tWL6Rh0NiOs0xqpoe9LYqhZU/+xab3v
+	 oaj2ktS6pPJYlmQ7UvKJozfBWmvpdsXs19+3MOLsHSd5SvyatkTZJRbddsB7UUU3f7quf
+	 LJEqd1QW7hJ/f9AWs9MyPWvY8lRf/vWicnM7tEvY8Szphxj48zTAZ37vIYK+Pxn8kZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492314;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:From:To:
-	 Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:X-NTES-SC:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=+VuC4JgfbbKtomG49xe1m2V8q/PY9vIxlL9yX3m7W7Q=;
-	b=pgYGbQOJkCNR/mC2kcJKR/E7jCwxj3eH5Il/pEQaCcGA+NzV1yeTj2Iz2mnkYUDLMjn6
-	 VWb+HkyEkOdY1pVtyt6P/AKZKXX0moOf+PwIBX+9ZupstVNyy7+wDLjae2oubxASKcOsn
-	 w1NfCwMz3R8RAjsffJY7idwzCjzG/LZXgHDrA3aCbftNu3EEhdKfotreBVuJzVUg0Y/xY
-	 c264x4QEf807i4hEkoOEBT/guoxPDUI9zQTN1+cG1uA/qCD4gWX553NJbD4nkzRILswvb
-	 uKtmSG/eINp5x6gqrNVllotUxT0h63giQKDBuKS0zbzF5Z559+8D57lmO/nr2eBY7EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492344;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
+	 Content-Language:Content-Type:Content-Transfer-Encoding;
+	bh=CQ2B9zBnVBqiFew2RiY9TRcPZBaOrzRNqLKcxfukyf0=;
+	b=5KC8Z1tsJNJqUZPPkGq/E/krSjr1gx/kE59kZrI2GcWIOVUPtr1G++PB7jcDvEK2qbv4
+	 Xv2mSsKSGs3OHWVt4Vi3z5xhxp3eWwszbR5HvOrL0ppuGU5SzYtQy4px0d7rMk8XVmtFf
+	 QNsxcHeeB4nXi4/hqB10kj4Gd8zeBQiXNODH4iF2gMzhdrwG7Yy9BMFkHuBgYVPAzqVUX
+	 ROAMjsoRSDP4kjvmJmLvquzJO5RhvcHL/4hgXtgUOD6b3xJbZI4f8BTGCzGUNsRdK2kSP
+	 hlWMPApewZPsNieHkN4U6k6LQCRy8FeOdxpzh43uVGzTDMD5mWwgul9MWPUCzZSeRQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iWXn27U7;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PRPZBAhS;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FC9606A31F;
-	Tue, 20 Oct 2026 10:31:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43FC9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B24606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B24606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iWXn27U7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=+VuC4JgfbbKtomG49xe1m2V8q/PY9vIxlL9yX3m7W7Q=; b=i
-	WXn27U73ko9bmjAJYrY3O2e7fCFafeM5jJG5+e/2+9DcgK6gWHr13RveorZLRYl6
-	px6WMgmkzLwSWVgZMC0FFRKwI3kL4XvIkJfXydO23HMlVLVKGoxZadhtIklmBCIX
-	IWv7s5Z0t7+gE3mQp5gHpLZABmB3p/pPNHXuQ8q59w=
-Received: from slark_xiao$163.com (
- [2408:8459:3c10:539b:d4b2:3883:2280:43f4] ) by ajax-webmail-wmsvr-40-141
- (Coremail) ; Tue, 20 Oct 2026 18:31:31 +0800 (CST)
-Date: Tue, 20 Oct 2026 18:31:31 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: mani@kernel.org, jeff.hugo@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re:Re: Re: [PATCH] bus: mhi: host: pci_generic: Update the default
- autosuspend_delay_ms as 5000ms
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAFEp6-3o6gCb61hCQTJydiH2aD6CBVRa947tpmLe4L9j85Jg5w@mail.gmail.com>
-References: <20261019055109.49922-1-slark_xiao@163.com>
- <CAFEp6-2XUE4AQPm5hinnRGyrrsHok2ftsFXragiHgDSKKtKWow@mail.gmail.com>
- <70714501.3175.1a157532149.Coremail.slark_xiao@163.com>
- <CAFEp6-3o6gCb61hCQTJydiH2aD6CBVRa947tpmLe4L9j85Jg5w@mail.gmail.com>
-X-NTES-SC: AL_Qu2SAPiSvUoi5yKQYukdkksQgec4UMu1ufkm1YVQc+sGugXc3i4+fHFvBVny3+OmISWKkzSKXApu6MN/RJhgumkNQhMiUoB9mNopWRNBNQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PRPZBAhS
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd76b1361dso3738275ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:32:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792492343; x=1793097143; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:content-language:cc:to
+         :subject:from:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CQ2B9zBnVBqiFew2RiY9TRcPZBaOrzRNqLKcxfukyf0=;
+        b=PRPZBAhSjTPBAThHKPulnLb0g2gKd6OAYkMQjPd6ETZA/d8EX7q9/M0byH9DVxCB3N
+         nfg3N08ADqu+wmr/iCRY9WvSdxyQoPUwIKVGF3jmk9f28zTCeqkcuUh0WRDNdzsDRIPL
+         16LxUjMJ9nLKG/l+sb8bSgww4QzN34hKpDJcnljc7eOgDwDS3PMWZAg/563GpThyR2dJ
+         B/Kc0GDfIUsDsik84RE1Vmjln+I3uX9C8mQ5HaZBeYj8HQzWGzwNaEprvMmefCoqeL6i
+         zwV1+6ylGWn52E8Zqn+xlylc+YUc90DNN2tsqtoKtCaALqBpLuQufno35hBxyaxgFrcT
+         eNog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792492343; x=1793097143;
+        h=content-transfer-encoding:content-type:content-language:cc:to
+         :subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CQ2B9zBnVBqiFew2RiY9TRcPZBaOrzRNqLKcxfukyf0=;
+        b=Zu+H3D2ECMZVa6dytCDx1cyKy+WYHr3Cg1gz8Pu2cjDIVuXhg9DKuR1v8QT8OJHXHq
+         G5fcZ0nbGwUHjcyhsBXwIuOAnZw42zknEKNpAoaTx4SHmLkiwbtATy7dvD7/+R3QEWCK
+         ZV7RoqIO4kitPQgVPIJIWbZ5ra21p6na/WSZXIJecbKsMFq1NMIUYU18zW/oJj6S3yPm
+         io5cajdJcBQuiCk9uwZ3cTw8w27MtJ2pBuu4RAQQRF/HHbEsv9e+nBYM63JvX6tF+xN+
+         GcUtaD4k2bawP/86nu7TtYf8sQScFi03gT8S2lbGoH2X6FI3Qfmb9LO6HLFRcQhW/y/r
+         nZfg==
+X-Forwarded-Encrypted: i=1; AKwUvBwkPaRq02037LAdAKOEO7075hVein0GNYHIVeGRB5aojX4wn528G693+z9FRFBz3FD5NvpS0hD5iUxQg4Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUMaqTqSANNw+HNUmu5GJGMqQdyTbw6Cc1vvAQ2fXdDFOG2GMC
+	Qqr1+K0ZllLSgl0/J+iVJMCN2xa/G/schnnmjdMlmhiI00MFKQJV9t5hH6lEsnaW
+X-Gm-Gg: AYBFou099bok/CFe1B+IqV76zz7rEk14W4wf/z7ZjplpkDPGGCfg3ahEeLTD0NRasSc
+	5ONAX83Wad9mP9E9wny+2l4mV/Kqu1YvjMity/v4+oJksPbUjX6zuLprt5eqai1hCUQwRB3Js/M
+	/UVESVRgM2B0xTA2/W9Fjj8g/4wPZ2WL21Y9tk3buVCun7CwTxEhLWSlzmYEO6AOzVR+/J6Dw5+
+	Ucv8E0EiZBzg7XuiNSR3ODCXS150uWY2TB2/4QdWqYLazhY1wTfIYi3iM/UW32Y3IoSvx6y8B6G
+	pVvRL5+miEA1QCKGoEk7unVceZmrMHVye25HvRwVbl53DQYDiLZHnU4MjxZRKDyocfIRCbSq5Sr
+	Bkz58YISyzAkVE2w6VqQSMel1FaqqPZSQXl2ZTNA9ej7ppopRh3RYka2Iy51VuN7TvmKks8SgFj
+	QrEhU7aPTYg6I7grusYSSGllExttRBf4wcrKXoNaIrt4GogUxa/PetvMNtQpVcxS4Khn6n811Pq
+	UV+PGE=
+X-Received: by 2002:a17:90b:4ccc:b0:3ab:9f1a:3825 with SMTP id 98e67ed59e1d1-3acee2937ffmr8422582a91.4.1792492342981;
+        Tue, 20 Oct 2026 03:32:22 -0700 (PDT)
+Received: from [10.122.167.120] ([45.117.247.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60f90a4fsm2883645a91.14.2026.10.20.03.32.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 03:32:22 -0700 (PDT)
+Message-ID: <baf51d2a-e2f8-4c01-ab2b-3fd8834c94ca@gmail.com>
+Date: Tue, 20 Oct 2026 22:32:17 +1200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +89,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <65d8a1b5.8e5b.1a158ddc4de.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jSgvCgD3PwADQ9dqbyVcAA--.370W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6ANhxWrXQwPZ8gAA3Z
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Betterbird (Linux)
+From: Ajanesh Lal <ajaneshlal3@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Add mute and mic-mute LEDs for HP ENVY 16
+ (103c:8be5)
+To: tiwai@suse.com
+Cc: perex@perex.cz, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-CgpBdCAyMDI2LTEwLTIwIDE1OjI3OjQzLCAiTG9pYyBQb3VsYWluIiA8bG9pYy5wb3VsYWluQG9z
-cy5xdWFsY29tbS5jb20+IHdyb3RlOgo+SGkgU2xhcmssCj4KPk9uIFR1ZSwgT2N0IDIwLCAyMDI2
-IGF0IDU6MjDigK9BTSBTbGFyayBYaWFvIDxzbGFya194aWFvQDE2My5jb20+IHdyb3RlOgo+Pgo+
-Pgo+PiBBdCAyMDI2LTEwLTE5IDE1OjQxOjI3LCAiTG9pYyBQb3VsYWluIiA8bG9pYy5wb3VsYWlu
-QG9zcy5xdWFsY29tbS5jb20+IHdyb3RlOgo+PiA+T24gTW9uLCBPY3QgMTksIDIwMjYgYXQgNzo1
-MuKAr0FNIFNsYXJrIFhpYW8gPHNsYXJrX3hpYW9AMTYzLmNvbT4gd3JvdGU6Cj4+ID4+Cj4+ID4+
-IEZvciBzb21lIE1ISSBkZXZpY2VzIGluIHNvbWUgc3BlY2lmaWMgc2NlbmFyaW8sIHRoZSBkZWZh
-dWx0IHZhbHVlCj4+ID4+IG9mIGF1dG9zdXNwZW5kX2RlbGF5X21zIG1heSBub3QgZW5vdWdoIHRv
-IGhhbmRsZSBsYXN0IHdha2UgZXZlbnQuCj4+ID4+IFRoaXMgbWF5IGxlYWQgdG8gc29tZSB1bmV4
-cGVjdGVkIHByb2JsZW1zLgo+PiA+Pgo+PiA+PiBSZWZlciB0byB0aGUgUXVhbGNvbW0ncyBXaW5k
-b3dzIHNldHRpbmdzIGFuZCB3ZSBjaGVja2VkIHRoaXMgd2l0aAo+PiA+PiBRdWFjbG9tbSBvdmVy
-IGNhc2UsIFF1YWxjb21tIHJlY29tbWVuZCB1cyB0byBzZXQgdGhpcyBhcyA1MDAwbXMuCj4+ID4K
-Pj4gPlF1YWxjb21tCj4+ID4KPj4gPj4gUXVhbGNvbW0gYWxzbyBzdWdnZXN0cyB1cyB0byB1cGRh
-dGUgdGhpcyBmb3IgYWxsIE1ISSBkZXZpY2VzLgo+PiA+PiBTaW5jZSB0aGlzIHNldHRpbmcgaGFz
-IGFmZmVjdGVkIHNvbWUgZXhpc3RlZCBrZXJuZWwgdmVyc2lvbnMsIGl0J3MKPj4gPj4gYmV0dGVy
-IHRvIGJlIGFwcGxpZWQgdG8gc3RhYmxlIHZlcnNpb24uCj4+ID4KPj4gPlRoaXMgbG9va3MgbW9y
-ZSBsaWtlIGEgd29ya2Fyb3VuZCB0aGFuIGEgcHJvcGVyIGZpeC4gSXQgd291bGQgYmUKPj4gPmhl
-bHBmdWwgdG8gZGVzY3JpYmUgdGhlIHVuZGVybHlpbmcgaXNzdWUsIGluY2x1ZGluZyB0aGUgdGlt
-aW5nIGFuZAo+PiA+c2VxdWVuY2Ugb2YgZXZlbnRzIHRoYXQgbWFrZSB0aGlzIG5lY2Vzc2FyeS4g
-SW4gcHJpbmNpcGxlLCBlaXRoZXIgdGhlCj4+ID5kZXZpY2UgY2FuIGJlIHN1c3BlbmRlZCBhdCB0
-aGF0IHBvaW50IG9yIGl0IGNhbm5vdC4gUmVseWluZyBvbiBhCj4+ID5kZWxheWVkIHN1c3BlbmQg
-ZmVlbHMgZnJhZ2lsZSBhbmQgbWF5IGVuZCB1cCBtYXNraW5nIHRoZSByZWFsIHByb2JsZW0uCj4+
-ID4KPj4gSGkgTG9pYywKPj4gSG9uZXN0bHksIFF1YWxjb21tIGhhcyBiZWVuIGFuYWx5emluZyBm
-b3Igb3ZlciAyIG1vbnRocyBhbmQgc3RpbGwgaGFzbid0Cj4+IGlkZW50aWZpZWQgdGhlIHJvb3Qg
-Y2F1c2UuCj4+Cj4+IEFjdHVhbGx5IEkgaGF2ZSBleHBsYWluZWQgdGhlIHJlYXNvbnMgYmVoaW5k
-IHRoZSBldmVudHMgdG8gTWFuaSBpbiBhbm90aGVyCj4+IHRocmVhZCwgeW91IGNhbiByZWZlciB0
-byBodHRwczovL2xvcmUua2VybmVsLm9yZy9taGkvMjAyNjA5MTkwOTU1MDYuOTU3MC0xLXNsYXJr
-X3hpYW9AMTYzLmNvbS8KPj4KPj4gRnJvbSBRdWFsY29tbSdzIHBlcnNwZWN0aXZlLCAyIHNlY29u
-ZHMgaXMgbm90IGVub3VnaCBmb3IgdGhlaXIgZGVmYXVsdCBkZXNpZ24uCj4+IFRoZXkgcmVjb21t
-ZW5kZWQgdXMgdG8gdXBkYXRlIHRoaXMgdmFsdWUgdG8gNSBzZWNvbmRzIGFuZCBNYW5pIGNoZWNr
-ZWQgdGhpcwo+PiBpbnRlcm5hbGx5IGFzIHdlbGwuIFNvIHdlIGRlY2lkZWQgdG8gdXBkYXRlIHRo
-aXMgNSBzZWNvbmRzIHNldHRpbmcgdG8gYWxsIE1ISSBkZXZpY2VzLgo+Cj5UaGFua3MuIEknbSBy
-ZWFsbHkgc3VycHJpc2VkIHdlIHN0aWxsIGRvbid0IGhhdmUgYSBtb3JlIHByZWNpc2UKPnVuZGVy
-c3RhbmRpbmcgb3IgZGVzY3JpcHRpb24gb2YgdGhlIHVuZGVybHlpbmcgaXNzdWUuIFRoYXQgc2Fp
-ZCwgSQo+dGhpbmsgaXQncyByZWFzb25hYmxlIHRvIHByb2NlZWQgd2l0aCB0aGlzIGFzIGFuIGlu
-aXRpYWwgd29ya2Fyb3VuZC4KPgo+Q291bGQgeW91IHBsZWFzZSBzZW5kIGEgdjIgdGhhdCBpbnRy
-b2R1Y2VzIGEgZGVmaW5lIGZvciB0aGUgNTAwMCBtcwo+dGltZW91dD8gSXQgd291bGQgYWxzbyBi
-ZSBoZWxwZnVsIHRvIGFkZCBhIGNvbW1lbnQgZXhwbGFpbmluZyB0aGF0Cj50aGlzIHZhbHVlIGlz
-IHJlcXVpcmVkIHRvIGFjY29tbW9kYXRlIHRoZSAnbGF0ZSB3YWtlLWV2ZW50IGlzc3VlJy4KPgo+
-UmVnYXJkcywKPkxvaWMKCkRvIHlvdSBtZWFuIHNvbWV0aGluZyBsaWtlIGJlbG93PwoKLyogQWRk
-IGRlZmluZSBvZiAgaW5pdGlhbCBhdXRvc3VzcGVuZF9kZWxheV9tcyB0byBhY2NvbW1vZGF0ZSBh
-IHBvdGVudGlhbCAnbGF0ZSB3YWtlLWV2ZW50JyBpc3N1ZSAqLwojZGVmaW5lIE1ISV9BVVRPU1VT
-UEVORF9ERUxBWV9NUyA1MDAwCi4uLi4uLgogLSAgICAgICAgICAgICAgIHBtX3J1bnRpbWVfc2V0
-X2F1dG9zdXNwZW5kX2RlbGF5KCZwZGV2LT5kZXYsIDIwMDApOwogKyAgICAgICAgICAgICAgIHBt
-X3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2RlbGF5KCZwZGV2LT5kZXYsIE1ISV9BVVRPU1VTUEVO
-RF9ERUxBWV9NUyk7CgpUaGFua3MKCj4+Cj4+IFRoYW5rcwo+PiA+Pgo+PiA+PiBGaXhlczogZDM4
-MDBjMWRjZTI0ICgiYnVzOiBtaGk6IHBjaV9nZW5lcmljOiBBZGQgc3VwcG9ydCBmb3IgcnVudGlt
-ZSBQTSIpCj4+ID4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+ID4+IFNpZ25lZC1vZmYt
-Ynk6IFNsYXJrIFhpYW8gPHNsYXJrX3hpYW9AMTYzLmNvbT4KPj4gPj4gLS0tCj4+ID4+ICBkcml2
-ZXJzL2J1cy9taGkvaG9zdC9wY2lfZ2VuZXJpYy5jIHwgMiArLQo+PiA+PiAgMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4+ID4+Cj4+ID4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2J1cy9taGkvaG9zdC9wY2lfZ2VuZXJpYy5jIGIvZHJpdmVycy9idXMvbWhpL2hv
-c3QvcGNpX2dlbmVyaWMuYwo+PiA+PiBpbmRleCA3MTkzYTM4NGNjYTQuLjQwNzM1YmViNDZjYiAx
-MDA2NDQKPj4gPj4gLS0tIGEvZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYwo+PiA+
-PiArKysgYi9kcml2ZXJzL2J1cy9taGkvaG9zdC9wY2lfZ2VuZXJpYy5jCj4+ID4+IEBAIC0xNDgz
-LDcgKzE0ODMsNyBAQCBzdGF0aWMgaW50IG1oaV9wY2lfcHJvYmUoc3RydWN0IHBjaV9kZXYgKnBk
-ZXYsIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkICppZCkKPj4gPj4KPj4gPj4gICAgICAgICAv
-KiBBbGxvdyBydW50aW1lIHN1c3BlbmQgb25seSBpZiBib3RoIFBNRSBmcm9tIEQzSG90IGFuZCBN
-MyBhcmUgc3VwcG9ydGVkICovCj4+ID4+ICAgICAgICAgaWYgKHBjaV9wbWVfY2FwYWJsZShwZGV2
-LCBQQ0lfRDNob3QpICYmICEoaW5mby0+bm9fbTMpKSB7Cj4+ID4+IC0gICAgICAgICAgICAgICBw
-bV9ydW50aW1lX3NldF9hdXRvc3VzcGVuZF9kZWxheSgmcGRldi0+ZGV2LCAyMDAwKTsKPj4gPj4g
-KyAgICAgICAgICAgICAgIHBtX3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2RlbGF5KCZwZGV2LT5k
-ZXYsIDUwMDApOwo+PiA+PiAgICAgICAgICAgICAgICAgcG1fcnVudGltZV91c2VfYXV0b3N1c3Bl
-bmQoJnBkZXYtPmRldik7Cj4+ID4+ICAgICAgICAgICAgICAgICBwbV9ydW50aW1lX21hcmtfbGFz
-dF9idXN5KCZwZGV2LT5kZXYpOwo+PiA+PiAgICAgICAgICAgICAgICAgcG1fcnVudGltZV9wdXRf
-bm9pZGxlKCZwZGV2LT5kZXYpOwo+PiA+PiAtLQo+PiA+PiAyLjUzLjAKPj4gPj4K
+The HP ENVY Laptop 16-h1xxx (PCI SSID 103c:8be5) uses an ALC245 codec
+with CS35L41 I2C speaker amplifiers. No LED fixup is applied for this
+subsystem ID, so the speaker mute LED and the microphone mute LED are
+never driven and do not follow their keys.
+
+Add a fixup that calls the existing ALC245 mute LED COEF helper and the
+GPIO mic-mute LED helper directly, then chains to the CS35L41 I2C
+amplifier setup so the speakers keep working. Use it for 103c:8be5.
+
+Tested on an HP ENVY Laptop 16-h1xxx running kernel 7.2.11: the
+hda::mute and hda::micmute LEDs appear and follow their keys, and the
+speaker amplifiers still bind (CS35L41 Bound in dmesg). The mic LED
+GPIO pin and polarity are not verified on other hardware.
+
+Assisted-by: Claude:claude-haiku-5-5
+Signed-off-by: DragonicRage13 <ajaneshlal3@gmail.com>
+---
+  sound/hda/codecs/realtek/alc269.c | 17 ++++++++++++++++-
+  1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c 
+b/sound/hda/codecs/realtek/alc269.c
+index e98cc42e1..850a15801 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -1572,6 +1572,14 @@ static void 
+alc245_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+      }
+  }
+
++/* mute LED via COEF bit and mic-mute LED via GPIO, called directly */
++static void alc245_fixup_cs35l41_mute_micmute(struct hda_codec *codec,
++                          const struct hda_fixup *fix, int action)
++{
++    alc245_fixup_hp_mute_led_coefbit(codec, fix, action);
++    alc245_fixup_hp_gpio_led(codec, fix, action);
++}
++
+  static void alc245_fixup_hp_mute_led_v1_coefbit(struct hda_codec *codec,
+                        const struct hda_fixup *fix,
+                        int action)
+@@ -4230,6 +4238,7 @@ enum {
+      ALC245_FIXUP_BASS_HP_DAC,
+      ALC245_FIXUP_ACER_MICMUTE_LED,
+      ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
++    ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED,
+      ALC236_FIXUP_HP_DMIC,
+      ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
+      ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
+@@ -6859,6 +6868,12 @@ static const struct hda_fixup alc269_fixups[] = {
+          .chained = true,
+          .chain_id = ALC287_FIXUP_CS35L41_I2C_2,
+      },
++    [ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED] = {
++        .type = HDA_FIXUP_FUNC,
++        .v.func = alc245_fixup_cs35l41_mute_micmute,
++        .chained = true,
++        .chain_id = ALC287_FIXUP_CS35L41_I2C_2,
++    },
+      [ALC236_FIXUP_HP_DMIC] = {
+          .type = HDA_FIXUP_PINS,
+          .v.pins = (const struct hda_pintbl[]) {
+@@ -7361,7 +7376,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+      SND_PCI_QUIRK(0x103c, 0x8be1, "HP Envy 15", 
+ALC287_FIXUP_CS35L41_I2C_2),
+      SND_PCI_QUIRK(0x103c, 0x8be2, "HP Envy 15", 
+ALC287_FIXUP_CS35L41_I2C_2),
+      SND_PCI_QUIRK(0x103c, 0x8be3, "HP Envy 15", 
+ALC287_FIXUP_CS35L41_I2C_2),
+-    SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", 
+ALC287_FIXUP_CS35L41_I2C_2),
++    SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", 
+ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED),
+      SND_PCI_QUIRK(0x103c, 0x8be6, "HP Envy 16", 
+ALC287_FIXUP_CS35L41_I2C_2),
+      SND_PCI_QUIRK(0x103c, 0x8be7, "HP Envy 17", 
+ALC287_FIXUP_CS35L41_I2C_2),
+      SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17", 
+ALC287_FIXUP_CS35L41_I2C_2),
+-- 
+2.56.0
+
+
