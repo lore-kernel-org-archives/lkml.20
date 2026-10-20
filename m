@@ -1,75 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500776;
-	b=yAOesMazb2vfoeYP0q8+Rglx+Xs7nj+ngpO5RUqf6nUVDAWbOdHnUQbWHT36a6QljWa/
-	 nycN5nj0ILona0+Ec+DqH23Cj7eVxM6zoSrZxcxoFtrBdJXi2GwUelg+VNM6uZyM+IzRh
-	 jcJRshqUOxugl44hnBWCjBO/AnFtUmGax1a/ct+v5FBUcKI3Hnddk8/D5OyLcFRBPp5JC
-	 37wZUZQ4oaizFHHDu996+m9ziuJZtXprVlz71XpVY4xYOyuLfHDKUuv9R6c5l5SX+vEk6
-	 Tfo8iNPg+fy2ojjNLlb/RZdSlCs6YXiWRi1AZqsRQcwOGzuyC+30EhyBQ6KbHgYZyEg==
+	t=1792500771;
+	b=Uss7tDw+mpBJDe6me3no1TZlZjN9rSEGph9Ix4TeUIgTd4GsIQWK10ztHBYVSzErUcNM
+	 71bJdUFf//oM9PcFR9lCEdh5nwyUNX520XQNX7Ex7AVIlVsFFx0U3hskHmNZ/EXWbZz6k
+	 wgyw+apfYn3l7cgFBIFEpbXfZXxnWjIBWrN0qoyL/ii2/Io/HT7sesxe+i63rH5JCkVzP
+	 qnJO4QlB0QfU6eBNSJ+QDt1oBf0O/3TzqLUFVItCVONuRaUBfavhR1zKTtYvF9kJMGN4D
+	 moT6xOHzGYIGTEKV5GwP5ngWjbUUsbFBFbs8JakiHpTr8HM8H3a0F+lFs1L9u5THy1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500776;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=VjN4SgCHff53zWvbD6Ulm9nG1pvOkOeafS89+kwLb04=;
-	b=yEPP6I/cIzQC9GgiFs1YnnB6UhiKOv1ZO0ss9sbMawfoW547cII8gaRarEWvDCAiFFVv
-	 aR6ScjuLX/fl9AUFGn6GVwu3T3y6Y4m23A1VAZQueGoxlkyUaev6qEqKZIO4bVWv7Lihd
-	 slPNIYs8bqYyK+qLl+qWEJS7y5lb9o2hB1hGW2g+dVAa6O0fv4UNnCcUptPvVxq44W7yg
-	 nayxWpZPqYJmIUrtfLqECjGsCwUt1S6/nY37s7EyVmcZ/Q1zC/bpi9672KOqZp946SM2Q
-	 iIuClSgzaWfzLcleyHPUjvNuKTZ3A5J92qVvQS2k7+ipTjYlqck1kCJ0KFLj9LquZtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500771;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=Iog5cj9gQ1VLcQX/ZJ4/JUmApqIRY63Pzim15xBJZA4=;
+	b=q+usvC98NW9+JThLL0YcAd4nO9y2gr7jlvVXANXNJR6R8+P09Ro0SCwInjbpWF/7aidv
+	 VHjtaJE8q8WOJ89Fy5gwt4oWUoXgtfgbRO0RoiyH2nggGBiv6zl+BL2dDdFgYnOchZ8JD
+	 5JHm7HjW+iCecHa0BymOCarVV18OcPIpSugyYsUagnyFNOwoMihBnkDIRtAefOE7arvek
+	 DFANqJaTpflliDoNi2sY6pr1MYHEhWdNtEXhO069SVfJBK3EHEHxi0+alwLfDoQp9nyV/
+	 GUjAJLQAOEzsvVMaAxCvc2PqB6NMQjDjYT59AnULNQLuK7eNEQFpPu16/LneTi90z9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Q+Pvq25F;
-	arc=none smtp.remote-ip=209.85.221.72
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tcl8IopX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F4560A4AF8
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6F4560A4AF8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548A660A2607
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Q+Pvq25F
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b01a74792so2317064f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:52:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792500774; x=1793105574; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VjN4SgCHff53zWvbD6Ulm9nG1pvOkOeafS89+kwLb04=;
-        b=Q+Pvq25Fi2ZIi65Xpo2QW92umiqrhYXoUjr7QskNZy5n2gWezLsyXzqtKyJNybsHaF
-         VkMMYkvzpHmS7CVYNjje2sIHuxoZup1KRmiuvxMiTkeoMxEkYcGclDG6gPHqHCo3SVnW
-         DCr3eaQGnqrwp66ELB2Llm3qYK76AzUpxWVwdSYqqfVqLPSMRrKgeSF75F/O/i44b0s5
-         5EuNd6jp4hXr/DunSgnsA+5sgcM3edog2gsmASK0jwgPA4xgP25T7dWuak4QHvU5pnLy
-         /LDACy8LDaAJB9m0QAOw0BeNKfdeAGD0MAbhDYREp19D1jP0J6nxBH/VTAPJXXC4x095
-         eDQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792500774; x=1793105574;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VjN4SgCHff53zWvbD6Ulm9nG1pvOkOeafS89+kwLb04=;
-        b=xY5qDzHS3Li9dfH27BUp5Qdx6ySGETQuvNuMoI9ts8Fc76M9rCsl689ZOiPtYDADzZ
-         8q1vaClckCqn6CRKBFyX1zovy7j2wjF/FpmnXzddK25GJ5rRzXw/RvuxagPIJAdzQzmU
-         V8N3NVa++v0IXpWmHCYDRA6vpPp/DOY/O5Hdf5QvgkUVCNeSYqPEQvYuc5Yxzl07ARW4
-         uw3Z8mofNXZ3/4ezNaJsZ6YL0tl8Oyw98iLuiHlD84DIJwn7MgkxpS1VJYZpah1Gz1Yi
-         lsiEwW0zyCw3Bsg4fc6OpdTUFq5qeYKkJ1n0kFM9g3I44yjfzA98k3xtU1Yg4OrRmEeq
-         vZqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwouW52jW9wEt3xDszIHaWmwjCNZsjuIrlex/IO38MTO8QzLhivk+bjQkJTyjjJSaaZngaA/CUv9zuAP4M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtN0gq93qDwnuvLNM5ayoJ1xpxoThzGglRhX+6QOOuR0/Zql8x
-	4PvT6Hym1BODnKgYqLBUVVQfhnO3Gm5yuyuBtLhyrFcdLFOxm2fbHYCZN6dXyPN1JovYYv/vBpn
-	cwg5A7+xZX6sZJ7S5tA==
-X-Received: from wmbeu8.prod.google.com ([2002:a05:600c:81c8:b0:4a1:94fd:6415])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4443:b0:4a0:89:6727 with SMTP id 5b1f17b1804b1-4a1d75f9261mr236301505e9.16.1792500772172;
- Tue, 20 Oct 2026 05:52:52 -0700 (PDT)
-Date: Tue, 20 Oct 2026 12:52:38 +0000
-In-Reply-To: <20261020-rust-workqueue-v3-0-ea7c74d02068@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tcl8IopX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AD61F00ADF
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792500771;
+	bh=Iog5cj9gQ1VLcQX/ZJ4/JUmApqIRY63Pzim15xBJZA4=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Tcl8IopX5XfgaCedFUCGnnX0qpLjXEfggFrl4g6uF0J9pj2ZByCxfjOKZhvjf29OT
+	 jyRZuEMaP+YsyaKXuH7/hX/aY07mqXNVV4LO8+f4vrcvMJBaBHK/vgvD6bqnZQoggG
+	 QmsW3kbSDYN4OLZz6SprO/PkstsWSmGXjHfa96tybNAqxlgR6r68ILHZyG8U3skR5p
+	 iZfHum1fWwYY7PCqVKD0/TqkffuGi8ZQN9TWachUoSMbvG1ruVtWESZ29ZpqRwRhP/
+	 s94Ge/xbVFsRNjGzYNFfkQVJ+9mlgllQjFQLQMDnF++TXXYNRy8qMtFagnQRiqbRW5
+	 d1Gt1sKrWNd1Q==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so17706001fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:52:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxdq8XFuV2C9J0OHp438+CGtSCyAvCGUc94h5UEvrCRX6L4bCG6opxqwrdSa0hLhOw6kv6NFwhVd9AsqjM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLO8A9cDm1H9jcp2oGThMFdWnkj79nX2V427paH/f+d5yhQ91u5
+	T7QV1Y8p1VSbGkgD+iqSgpoqlLo3v90FB0xWMvCgyCYLS2obkWznS17IeWppx30v6lzejP1mxdm
+	uGnOMyzVp52u3VFxR2okjXfj26N4Kc3DOVSuRMTmSIg==
+X-Received: by 2002:a05:651c:a214:20b0:3a8:d9d5:f9d3 with SMTP id
+ 38308e7fff4ca-3ab29175de5mr15085321fa.16.1792500769655; Tue, 20 Oct 2026
+ 05:52:49 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 20 Oct 2026 13:52:48 +0100
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 20 Oct 2026 13:52:48 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <179206391202.36987.1416057976823693032@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,529 +64,315 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020-rust-workqueue-v3-0-ea7c74d02068@google.com>
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15812; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=4Dwia5Ize/w+E6SB6x2sv0rxMk+RFAv7w39zQea/qT4=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq12QeUfnKVSOphwVi3/hO792GgwfFBOx0F/uFR
- 8EEX9O1Yn6JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatdkHgAKCRAEWL7uWMY5
- RmItD/41zZaIEWPJTc9CVELL9YC3myWzQ+gOFWT3Cg7+7BKj0o4fvoOPPN6v8GE2S/HwUIZxsmp
- hk6g3vudIriVxFMKLMzonlfw9QYUk74gjYe2gJgvSL3NEXx7TRngE6GaNn3GHNSTHukV+6h+R3J
- Hw7WqBEKqw5DvXKQSKNdndaKRvMw9S3dMF73sR5YA7ycRAz8kGAEciTYXu/VNo6x6r9e/5aky0w
- c2/gZIJj/MsH+tj/5R1zbtRp3oLdkGURD2OTEc8DNKRgx74aGyby54DdQOVN4CgI2u4mBxwnGM6
- wfPobQGEjH1SDBySmKqDN826LTXXNf1aaVonJwJpsi+cawE/J5ypBi7KhnDY0C9m4hTdGnOHlxI
- HQSS35Ov5rl8Xq/1oEs480Hwa1HAZOvq7MOp5pw3eAInp9cp/zqdYMqKPe5rK0Pe300fhyIuW6R
- Z99T9qSgvQOSaCL+f/iGkEuM31t15QwgS7+K/yLMZm+5KjUdrVluuaeHKPR1Uw2X59ybH/MMJUv
- /kmwBxcfk7NBzMvOUWY3KXMLm4puv2NYDsHzwe9YD5SEpQ7o1NS0UPdb3qFoZ81kK6BB1x5f8u0
- nn+dN+imJ5RpIZtT8CBaVM51edAR7tGOm8Pfm8pC9mJMf6ACgzQUT11nLD8+JLKQI3Qmo5t6G8L nh5dbB/fEjDluhg==
-X-Mailer: b4 0.14.3
-Message-ID: <20261020-rust-workqueue-v3-3-ea7c74d02068@google.com>
-Subject: [PATCH v3 3/4] rust: workqueue: add creation of workqueues
-From: Alice Ryhl <aliceryhl@google.com>
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
-	John Hubbard <jhubbard@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
-	Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+References: <179206391202.36987.1416057976823693032@pm.me>
+Date: Tue, 20 Oct 2026 13:52:48 +0100
+X-Gmail-Original-Message-ID: <CAMRc=Mf_93HM8RFq3i3Cuy1_L=VFskt6NcgkcwsyZVH7ymO1Yw@mail.gmail.com>
+X-Gm-Features: AclHuK_FLO2OQBomfcZDzAChpS6bYz-U0182uXSwbxihEnP3jdGgRRa6mwaU0dc
+Message-ID: <CAMRc=Mf_93HM8RFq3i3Cuy1_L=VFskt6NcgkcwsyZVH7ymO1Yw@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: qcom: Restore the pin configuration after hibernation
+To: Birk Skyum <birk.skyum@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Creating workqueues is needed by various GPU drivers. Not only does it
-give you better control over execution, it also allows devices to ensure
-that all tasks have exited before the device is unbound (or similar) by
-running the workqueue destructor.
+On Thu, 15 Oct 2026 13:31:54 +0200, Birk Skyum <birk.skyum@pm.me> said:
+> A hibernation image is restored after a power cycle. The TLMM registers
+> then hold what the boot firmware and the kernel that loaded the image
+> made of them. The restored kernel has the configuration it applied in
+> memory only, and nothing writes it to the hardware again, so every pin
+> that the loading kernel did not set up the same way stays wrong.
+>
+> On a Lenovo Yoga Slim 7x (X1E80100) the Bluetooth and Wi-Fi enable lines
+> are two of them. Their drivers are loaded from the root file system, so
+> the kernel that loads the image never touches the pins. This is
+> /sys/kernel/debug/gpio before the hibernation and after the resume:
+>
+>   gpio116 : out low  func0 2mA no pull
+>   gpio117 : out high func0 2mA no pull
+>
+>   gpio116 : in  low  func0 2mA pull down
+>   gpio117 : out high func0 16mA no pull
+>
+> The driver that owns gpio116 still believes it drives the line.
+>
+> Save the control, output and interrupt configuration registers in
+> freeze_noirq and write them back in restore_noirq, the output level
+> first, so that a pin drives the right level from the moment it becomes
+> an output. Changing the interrupt configuration can latch an interrupt,
+> so the status is cleared where the register changed, as
+> msm_gpio_irq_set_type() does.
+>
+> Only the GPIOs the kernel uses are put back: those requested as a GPIO,
+> muxed to a function or used as an interrupt, as pinctrl-intel does. A
+> valid GPIO without an owner may be in use by firmware. The SDC pads
+> after the GPIOs are configured without a mux function, so they never
+> have an owner, and their control register is always put back.
+>
+> msm_pinctrl_dev_pm_ops gets the two callbacks and x1e80100 starts using
+> these ops. With that x1e80100 also gets their suspend and resume
+> callbacks, which apply the sleep and default state of the controller's
+> own pins where a board defines them.
+>
+> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+> ---
+> Changes since the RFC:
+> - Put a GPIO back only when the kernel uses it, as a GPIO, through a
+>   mux function or as an interrupt, as pinctrl-intel does (Bartosz).
+> - Save and restore the SDC pads after the GPIOs as well (Bartosz).
+> - Allocate the save area under the same option as the callbacks,
+>   CONFIG_HIBERNATE_CALLBACKS (Sashiko).
+> - Clear the interrupt status only where the restore changed the
+>   interrupt configuration (Sashiko).
+> - Say in a comment that a both-edge interrupt emulated by flipping the
+>   polarity is not primed again. No SoC with such pins uses these ops.
+> - Rebased on pinctrl-qcom/for-next.
+> - Link to the RFC: https://lore.kernel.org/r/179163141354.18006.80461347454353634@pm.me
+>
+> Tested on a Lenovo Yoga Slim 7x with v7.2 plus this patch. The kernel
+> also carried the PCI change in [1], without which this machine does
+> not resume at all, the smp2p change in [2] and a GENI serial change
+> that is not posted. The Bluetooth driver had [3] applied. On
+> pinctrl-qcom/for-next the patch builds without warnings with W=1 and
+> sparse, with hibernation on, off and without sleep support.
+>
+> - Before the hibernation 45 TLMM pins have an owner, gpio116 and
+>   gpio117 among them (wcn7850-pmu), and four are interrupts.
+> - pm_test=core and test_resume pass.
+> - After a hibernation with a real power-off the TLMM part of
+>   /sys/kernel/debug/gpio differs only in the level read on two inputs
+>   (gpio93 and gpio153), as it did with the RFC.
+> - A suspend (deep) and wake still works.
+>
+> The Yoga has no SD card slot and its SDC2 pads have no owner, so this
+> only shows that putting them back does no harm. I did not read them
+> back.
+>
+> Not covered here: the LPASS LPI pin controller, whose pins also come
+> back at their reset values after a hibernation.
+>
+> [1] https://lore.kernel.org/r/179181074907.22199.10556821368232442334@pm.me
+> [2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
+> [3] https://lore.kernel.org/r/179163212446.46972.2306254853726299632@pm.me
+>
+>  drivers/pinctrl/qcom/pinctrl-msm.c      | 147 +++++++++++++++++++++++-
+>  drivers/pinctrl/qcom/pinctrl-x1e80100.c |   1 +
+>  2 files changed, 146 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
+> index 27f06bbc113c..0dd478e80e30 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+> @@ -39,6 +39,15 @@
+>  #define MAX_NR_TILES 4
+>  #define PS_HOLD_OFFSET 0x820
+>
+> +/* Register values of one pin group, kept across a hibernation. */
+> +struct msm_pin_state {
+> +	u32 ctl;
+> +	u32 io;
+> +	u32 intr_cfg;
+> +	u32 intr_target;
+> +	bool saved;
+> +};
+> +
+>  /**
+>   * struct msm_pinctrl - state for a pinctrl-msm device
+>   * @dev:            device handle.
+> @@ -58,6 +67,7 @@
+>   * @soc:            Reference to soc_data of platform specific data.
+>   * @regs:           Base addresses for the TLMM tiles.
+>   * @phys_base:      Physical base address
+> + * @saved:          Pin registers kept while a hibernation image is taken.
+>   */
+>  struct msm_pinctrl {
+>  	struct device *dev;
+> @@ -80,6 +90,8 @@ struct msm_pinctrl {
+>  	const struct msm_pinctrl_soc_data *soc;
+>  	void __iomem *regs[MAX_NR_TILES];
+>  	u32 phys_base[MAX_NR_TILES];
+> +
+> +	struct msm_pin_state *saved;
+>  };
+>
+>  #define MSM_ACCESSOR(name) \
+> @@ -1583,9 +1595,133 @@ static __maybe_unused int msm_pinctrl_resume(struct device *dev)
+>  	return pinctrl_force_default(pctrl->pctrl);
+>  }
+>
+> -SIMPLE_DEV_PM_OPS(msm_pinctrl_dev_pm_ops, msm_pinctrl_suspend,
+> -		  msm_pinctrl_resume);
+> +static bool msm_pin_has_own_intr_target(struct msm_pinctrl *pctrl,
+> +					const struct msm_pingroup *g)
+> +{
+> +	return !pctrl->intr_target_use_scm && g->intr_target_reg &&
+> +	       g->intr_target_reg != g->intr_cfg_reg;
+> +}
+> +
+> +/*
+> + * A GPIO is only put back when the kernel uses it, as a GPIO, through a mux
+> + * function or as an interrupt. Other valid pins may be in use by firmware.
+> + * The pads after the GPIOs (SDC) have no GPIO and are configured without a
+> + * mux function, so they never have an owner and are always put back.
+> + */
+> +static bool msm_pin_in_use(struct msm_pinctrl *pctrl, unsigned int i)
+> +{
+> +	const struct pin_desc *desc;
+> +
+> +	if (i >= pctrl->chip.ngpio)
+> +		return true;
+> +
+> +	if (!gpiochip_line_is_valid(&pctrl->chip, i))
+> +		return false;
+> +
+> +	desc = pin_desc_get(pctrl->pctrl, i);
+> +
+> +	return desc && (desc->mux_owner || desc->gpio_owner ||
+> +			gpiochip_line_is_irq(&pctrl->chip, i));
+> +}
+> +
+> +/* Remember how the pins are set up when a hibernation image is taken. */
+> +static int msm_pinctrl_freeze_noirq(struct device *dev)
+> +{
+> +	struct msm_pinctrl *pctrl = dev_get_drvdata(dev);
+> +	const struct msm_pingroup *g;
+> +	struct msm_pin_state *s;
+> +	unsigned long flags;
+> +	unsigned int i;
+>
+> +	raw_spin_lock_irqsave(&pctrl->lock, flags);
 
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Co-developed-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- rust/helpers/workqueue.c         |   7 +
- rust/kernel/workqueue/builder.rs | 370 +++++++++++++++++++++++++++++++++++++++
- rust/kernel/workqueue/mod.rs     |  51 +++++-
- 3 files changed, 425 insertions(+), 3 deletions(-)
+Sorry I didn't point it out earlier but can you use a lock guard here?
 
-diff --git a/rust/helpers/workqueue.c b/rust/helpers/workqueue.c
-index ce1c3a5b2150..e4b9d1b3d6bf 100644
---- a/rust/helpers/workqueue.c
-+++ b/rust/helpers/workqueue.c
-@@ -14,3 +14,10 @@ __rust_helper void rust_helper_init_work_with_key(struct work_struct *work,
- 	INIT_LIST_HEAD(&work->entry);
- 	work->func = func;
- }
-+
-+__rust_helper
-+struct workqueue_struct *rust_helper_alloc_workqueue(const char *fmt, unsigned int flags,
-+						     int max_active, const void *data)
-+{
-+	return alloc_workqueue(fmt, flags, max_active, data);
-+}
-diff --git a/rust/kernel/workqueue/builder.rs b/rust/kernel/workqueue/builder.rs
-new file mode 100644
-index 000000000000..d253c2f8ed4a
---- /dev/null
-+++ b/rust/kernel/workqueue/builder.rs
-@@ -0,0 +1,370 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Workqueue builders.
-+
-+use kernel::{
-+    alloc::AllocError,
-+    prelude::*,
-+    workqueue::{
-+        OwnedQueue, //
-+        Queue,
-+    }, //
-+};
-+
-+use core::{
-+    marker::PhantomData,
-+    ptr::{
-+        self,
-+        NonNull, //
-+    },
-+};
-+
-+/// Workqueue builder.
-+///
-+/// A valid combination of workqueue flags contains one of the base flags (`WQ_UNBOUND`, `WQ_BH`,
-+/// or `WQ_PERCPU`) and a combination of modifier flags that are compatible with the selected base
-+/// flag.
-+///
-+/// For details, please refer to `Documentation/core-api/workqueue.rst`.
-+pub struct Builder<Kind> {
-+    flags: bindings::wq_flags,
-+    max_active: i32,
-+    _kind: PhantomData<Kind>,
-+}
-+
-+pub enum TypeUnbound {}
-+pub enum TypePercpu {}
-+pub enum TypePowerEfficient {}
-+pub enum TypeBH {}
-+pub enum TypeOrdered {}
-+
-+/// Entry-points to the builder API.
-+impl Queue {
-+    /// Build a workqueue whose work may execute on any cpu.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from unbound wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_UNBOUND")]
-+    pub fn new_unbound() -> Builder<TypeUnbound> {
-+        Builder {
-+            flags: bindings::wq_flags_WQ_UNBOUND,
-+            max_active: 0,
-+            _kind: PhantomData,
-+        }
-+    }
-+
-+    /// Build a workqueue whose work items are bound to the CPU they are queued on.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_percpu().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from percpu wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_PERCPU")]
-+    pub fn new_percpu() -> Builder<TypePercpu> {
-+        Builder {
-+            flags: bindings::wq_flags_WQ_PERCPU,
-+            max_active: 0,
-+            _kind: PhantomData,
-+        }
-+    }
-+
-+    /// Build a power-efficient workqueue.
-+    ///
-+    /// A power-efficient workqueue is per-CPU by default, but becomes unbound when the
-+    /// `workqueue.power_efficient` kernel parameter is set.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_power_efficient().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from power-efficient wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_POWER_EFFICIENT")]
-+    pub fn new_power_efficient() -> Builder<TypePowerEfficient> {
-+        Builder {
-+            flags: bindings::wq_flags_WQ_PERCPU | bindings::wq_flags_WQ_POWER_EFFICIENT,
-+            max_active: 0,
-+            _kind: PhantomData,
-+        }
-+    }
-+
-+    /// Build a single-threaded workqueue that executes jobs in order.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_ordered().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from ordered wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "alloc_ordered_workqueue")]
-+    #[doc(alias = "__WQ_ORDERED")]
-+    pub fn new_ordered() -> Builder<TypeOrdered> {
-+        Builder {
-+            flags: bindings::wq_flags_WQ_UNBOUND | bindings::wq_flags___WQ_ORDERED,
-+            max_active: 1,
-+            _kind: PhantomData,
-+        }
-+    }
-+
-+    /// Build a workqueue that executes in bottom-half (softirq) context.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_bh().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from BH wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_BH")]
-+    pub fn new_bh() -> Builder<TypeBH> {
-+        Builder {
-+            flags: bindings::wq_flags_WQ_PERCPU | bindings::wq_flags_WQ_BH,
-+            max_active: 0,
-+            _kind: PhantomData,
-+        }
-+    }
-+}
-+
-+/// Options that may be used with all workqueue types.
-+impl<Kind> Builder<Kind> {
-+    /// Mark this workqueue high priority.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().highpri().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from highpri wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_HIGHPRI")]
-+    pub fn highpri(mut self) -> Self {
-+        self.flags |= bindings::wq_flags_WQ_HIGHPRI;
-+        self
-+    }
-+
-+    /// Creates the workqueue.
-+    ///
-+    /// The provided name is used verbatim as the workqueue name.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// // create an unbound workqueue registered with sysfs
-+    /// let wq = Queue::new_unbound().sysfs().build(c"my-wq")?;
-+    ///
-+    /// // spawn a work item on it
-+    /// wq.try_spawn(
-+    ///     GFP_KERNEL,
-+    ///     || pr_warn!("Printing from my-wq"),
-+    /// )?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "alloc_workqueue")]
-+    pub fn build(self, name: &CStr) -> Result<OwnedQueue, AllocError> {
-+        // SAFETY:
-+        // * c"%s" is compatible with passing the name as a c-string.
-+        // * the builder only permits valid flag combinations
-+        let ptr = unsafe {
-+            bindings::alloc_workqueue(
-+                c"%s".as_char_ptr(),
-+                self.flags,
-+                self.max_active,
-+                name.as_char_ptr().cast::<c_void>(),
-+            )
-+        };
-+
-+        // INVARIANT: We successfully created the workqueue, so we can return ownership to the
-+        // caller.
-+        Ok(OwnedQueue {
-+            queue: NonNull::new(ptr).ok_or(AllocError)?.cast(),
-+        })
-+    }
-+
-+    /// Creates the workqueue.
-+    ///
-+    /// # Examples
-+    ///
-+    /// This example shows how to pass a Rust string formatter to the workqueue name, creating
-+    /// workqueues with names such as `my-wq-1` and `my-wq-2`.
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::{Queue, OwnedQueue};
-+    ///
-+    /// fn my_wq(num: u32) -> Result<OwnedQueue> {
-+    ///     // create a percpu workqueue called my-wq-{num}
-+    ///     let wq = Queue::new_percpu().build_fmt(fmt!("my-wq-{num}"))?;
-+    ///     Ok(wq)
-+    /// }
-+    /// ```
-+    #[inline]
-+    pub fn build_fmt(self, name: kernel::fmt::Arguments<'_>) -> Result<OwnedQueue, AllocError> {
-+        // SAFETY:
-+        // * c"%pA" is compatible with passing an `Arguments` pointer.
-+        // * the builder only permits valid flag combinations
-+        let ptr = unsafe {
-+            bindings::alloc_workqueue(
-+                c"%pA".as_char_ptr(),
-+                self.flags,
-+                self.max_active,
-+                ptr::from_ref(&name).cast::<c_void>(),
-+            )
-+        };
-+
-+        // INVARIANT: We successfully created the workqueue, so we can return ownership to the
-+        // caller.
-+        Ok(OwnedQueue {
-+            queue: NonNull::new(ptr).ok_or(AllocError)?.cast(),
-+        })
-+    }
-+}
-+
-+/// Indicates that this workqueue is threaded.
-+pub trait TypeThreaded {}
-+impl TypeThreaded for TypeUnbound {}
-+impl TypeThreaded for TypePercpu {}
-+impl TypeThreaded for TypePowerEfficient {}
-+
-+/// Options that are not available on BH or ordered workqueues.
-+impl<Kind: TypeThreaded> Builder<Kind> {
-+    /// Set the maximum number of concurrently executing work items.
-+    ///
-+    /// For percpu workqueues this is per-CPU. If not set, a default value of
-+    /// `WQ_DFL_ACTIVE` is used. The maximum value is `WQ_MAX_ACTIVE`.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().max_active(16).build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from wq with max_active=16"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    pub fn max_active(mut self, max_active: u32) -> Self {
-+        // If provided `max_active` is greater than `i32::MAX`, then we need to trigger the C-side
-+        // comparison with `WQ_MAX_ACTIVE`, which we can do by clamping to `i32::MAX`.
-+        self.max_active = i32::try_from(max_active).unwrap_or(i32::MAX);
-+        self
-+    }
-+
-+    /// Mark this workqueue as cpu intensive.
-+    ///
-+    /// Work items will not contribute to the concurrency level, preventing
-+    /// them from stalling other work items in the same per-CPU worker pool.
-+    /// This is meaningless for unbound workqueues.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().cpu_intensive().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from cpu-intensive wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_CPU_INTENSIVE")]
-+    pub fn cpu_intensive(mut self) -> Self {
-+        self.flags |= bindings::wq_flags_WQ_CPU_INTENSIVE;
-+        self
-+    }
-+}
-+
-+/// Indicates that this workqueue runs in a normal context (as opposed to softirq context).
-+pub trait TypeNormal {}
-+impl TypeNormal for TypeUnbound {}
-+impl TypeNormal for TypePercpu {}
-+impl TypeNormal for TypePowerEfficient {}
-+impl TypeNormal for TypeOrdered {}
-+
-+/// Options that are not available on BH workqueues.
-+impl<Kind: TypeNormal> Builder<Kind> {
-+    /// Make this workqueue visible in sysfs.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().sysfs().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from sysfs wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_SYSFS")]
-+    pub fn sysfs(mut self) -> Self {
-+        self.flags |= bindings::wq_flags_WQ_SYSFS;
-+        self
-+    }
-+
-+    /// Allow this workqueue to be frozen during suspend.
-+    ///
-+    /// Work items on the workqueue are drained and no new work items start
-+    /// execution until thawed.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().freezable().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from freezable wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_FREEZABLE")]
-+    pub fn freezable(mut self) -> Self {
-+        self.flags |= bindings::wq_flags_WQ_FREEZABLE;
-+        self
-+    }
-+
-+    /// This workqueue may be used during memory reclaim.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::workqueue::Queue;
-+    ///
-+    /// let wq = Queue::new_unbound().mem_reclaim().build(c"my-wq")?;
-+    /// wq.try_spawn(GFP_KERNEL, || pr_info!("Hello from mem_reclaim wq"))?;
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    #[inline]
-+    #[doc(alias = "WQ_MEM_RECLAIM")]
-+    pub fn mem_reclaim(mut self) -> Self {
-+        self.flags |= bindings::wq_flags_WQ_MEM_RECLAIM;
-+        self
-+    }
-+}
-diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.rs
-index aa8a472f4547..78e6a7bb960a 100644
---- a/rust/kernel/workqueue/mod.rs
-+++ b/rust/kernel/workqueue/mod.rs
-@@ -186,7 +186,10 @@
- //! C header: [`include/linux/workqueue.h`](srctree/include/linux/workqueue.h)
- 
- use crate::{
--    alloc::{AllocError, Flags},
-+    alloc::{
-+        self,
-+        AllocError, //
-+    },
-     container_of,
-     prelude::*,
-     sync::{
-@@ -200,7 +203,14 @@
-     time::Jiffies,
-     types::Opaque,
- };
--use core::{marker::PhantomData, ptr::NonNull};
-+use core::{
-+    marker::PhantomData,
-+    ops::Deref,
-+    ptr::NonNull, //
-+};
-+
-+mod builder;
-+pub use self::builder::Builder;
- 
- /// Creates a [`Work`] initialiser with the given name and a newly-created lock class.
- #[macro_export]
-@@ -346,7 +356,7 @@ pub fn enqueue_delayed<W, const ID: u64>(
-     /// This method can fail because it allocates memory to store the work item.
-     pub fn try_spawn<T: 'static + Send + FnOnce()>(
-         &self,
--        flags: Flags,
-+        flags: alloc::Flags,
-         func: T,
-     ) -> Result<(), AllocError> {
-         let init = pin_init!(ClosureWork {
-@@ -359,6 +369,41 @@ pub fn try_spawn<T: 'static + Send + FnOnce()>(
-     }
- }
- 
-+/// An owned kernel work queue.
-+///
-+/// Dropping a workqueue blocks on all pending work.
-+///
-+/// # Invariants
-+///
-+/// `queue` points at a valid workqueue that is owned by this `OwnedQueue`.
-+pub struct OwnedQueue {
-+    queue: NonNull<Queue>,
-+}
-+
-+// SAFETY: `OwnedQueue` uniquely owns a valid `Queue`, which is `Send + Sync`.
-+unsafe impl Send for OwnedQueue {}
-+// SAFETY: `&OwnedQueue` only provides `&Queue` (via `Deref`), which is safe to share.
-+unsafe impl Sync for OwnedQueue {}
-+
-+impl Deref for OwnedQueue {
-+    type Target = Queue;
-+    #[inline]
-+    fn deref(&self) -> &Queue {
-+        // SAFETY: By the type invariants, this pointer references a valid queue.
-+        unsafe { &*self.queue.as_ptr() }
-+    }
-+}
-+
-+impl Drop for OwnedQueue {
-+    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: This `OwnedQueue` owns a valid workqueue, so we can destroy it. There is no
-+        // delayed work scheduled on this queue that may attempt to use it after this call, as
-+        // scheduling delayed work requires a 'static reference.
-+        unsafe { bindings::destroy_workqueue(self.queue.as_ptr().cast()) }
-+    }
-+}
-+
- /// A helper type used in [`try_spawn`].
- ///
- /// [`try_spawn`]: Queue::try_spawn
+> +	for (i = 0; i < pctrl->soc->ngroups; i++) {
+> +		g = &pctrl->soc->groups[i];
+> +		s = &pctrl->saved[i];
+> +		s->saved = msm_pin_in_use(pctrl, i);
+> +		if (!s->saved)
+> +			continue;
+> +
+> +		s->ctl = msm_readl_ctl(pctrl, g);
+> +		if (i >= pctrl->chip.ngpio)
+> +			continue;
+> +
+> +		s->io = msm_readl_io(pctrl, g);
+> +		if (!g->intr_cfg_reg)
+> +			continue;
+> +
+> +		s->intr_cfg = msm_readl_intr_cfg(pctrl, g);
+> +		if (msm_pin_has_own_intr_target(pctrl, g))
+> +			s->intr_target = msm_readl_intr_target(pctrl, g);
+> +	}
+> +	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * The image is restored after a power cycle, when the pins are back at what
+> + * the firmware and the kernel that loaded the image made of them. Nothing else
+> + * writes the configuration again, so put back what was there.
+> + *
+> + * A both-edge interrupt that is emulated by flipping the polarity gets the
+> + * polarity it had, which is not primed for a line that changed meanwhile. No
+> + * SoC with such pins (one-bit detection) uses these callbacks.
+> + */
+> +static int msm_pinctrl_restore_noirq(struct device *dev)
+> +{
+> +	struct msm_pinctrl *pctrl = dev_get_drvdata(dev);
+> +	const struct msm_pingroup *g;
+> +	struct msm_pin_state *s;
+> +	unsigned long flags;
+> +	unsigned int i;
+> +	u32 val;
+> +
+> +	raw_spin_lock_irqsave(&pctrl->lock, flags);
 
--- 
-2.56.0.212.g129ede20d9-goog
+And here?
 
+> +	for (i = 0; i < pctrl->soc->ngroups; i++) {
+> +		g = &pctrl->soc->groups[i];
+> +		s = &pctrl->saved[i];
+> +		if (!s->saved)
+> +			continue;
+> +
+> +		if (i >= pctrl->chip.ngpio) {
+> +			msm_writel_ctl(s->ctl, pctrl, g);
+> +			continue;
+> +		}
+> +
+> +		/* Set the level before the pin starts driving it. */
+> +		val = msm_readl_io(pctrl, g);
+> +		val &= ~BIT(g->out_bit);
+> +		val |= s->io & BIT(g->out_bit);
+> +		msm_writel_io(val, pctrl, g);
+> +
+> +		msm_writel_ctl(s->ctl, pctrl, g);
+> +		if (!g->intr_cfg_reg)
+> +			continue;
+> +
+> +		if (msm_pin_has_own_intr_target(pctrl, g))
+> +			msm_writel_intr_target(s->intr_target, pctrl, g);
+> +		val = msm_readl_intr_cfg(pctrl, g);
+> +		msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
+> +
+> +		/*
+> +		 * Changing the configuration can latch an interrupt. One that
+> +		 * is latched with the configuration unchanged is a real one.
+> +		 */
+> +		if (val != s->intr_cfg)
+> +			msm_ack_intr_status(pctrl, g);
+> +	}
+> +	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
+> +
+> +	return 0;
+> +}
+> +
+> +const struct dev_pm_ops msm_pinctrl_dev_pm_ops = {
+> +	SYSTEM_SLEEP_PM_OPS(msm_pinctrl_suspend, msm_pinctrl_resume)
+> +	.freeze_noirq = PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
+> +			       msm_pinctrl_freeze_noirq),
+> +	.restore_noirq = PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
+> +				msm_pinctrl_restore_noirq),
+> +};
+>  EXPORT_SYMBOL(msm_pinctrl_dev_pm_ops);
+>
+>  int msm_pinctrl_probe(struct platform_device *pdev,
+> @@ -1663,6 +1799,13 @@ int msm_pinctrl_probe(struct platform_device *pdev,
+>  	if (ret)
+>  		return ret;
+>
+> +	if (IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS)) {
+> +		pctrl->saved = devm_kcalloc(&pdev->dev, pctrl->soc->ngroups,
+> +					    sizeof(*pctrl->saved), GFP_KERNEL);
+> +		if (!pctrl->saved)
+> +			return -ENOMEM;
+> +	}
+> +
+>  	platform_set_drvdata(pdev, pctrl);
+>
+>  	dev_dbg(&pdev->dev, "Probed Qualcomm pinctrl driver\n");
+> diff --git a/drivers/pinctrl/qcom/pinctrl-x1e80100.c b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
+> index e4c0abcd95b9..bfe122fc7e79 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-x1e80100.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
+> @@ -1855,6 +1855,7 @@ static struct platform_driver x1e80100_pinctrl_driver = {
+>  	.driver = {
+>  		.name = "x1e80100-tlmm",
+>  		.of_match_table = x1e80100_pinctrl_of_match,
+> +		.pm = &msm_pinctrl_dev_pm_ops,
+>  	},
+>  	.probe = x1e80100_pinctrl_probe,
+>  };
+> --
+> 2.55.0
+>
+>
+>
+
+Otherwise looks good to me so if there are no objections, I intend to queue
+it for v7.5 with guards added.
+
+Bart
