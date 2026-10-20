@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792458134;
-	b=PRG4WLuvKKHekAp+HNKTxq87fPCDuoWv7hNk+9bApYF5Gi8QerABD5Nb0Gu+a9kcW2Mi
-	 zJu1Glb7w1od8lRZiqbOgvEtJEajSxfsFJTU/zMVV+iYg3aavIRF/l+Z09zSzpLxyrb+G
-	 yujwDJSGWtCiVWyIpx5eMWgbiexRhIo1e/0f8iFJVcSNq8UE4l0O5bBLkil3x6NKmVQLu
-	 OnulbErmIvTlv4YcmdJPFmvnP6e26FkBQiuK+PzPgsOqrSQXReWCuFeVcOWx8sF0CHSeK
-	 hjbIEQSxINqrqh0MjcohMkec6CUlq2zIP66nNNGUP14FNTXrPoxbZWo+e03G72OgZHA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792458134;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=B/WVBOtkMP6M1xXLJUzfcGRzgTR4eIpAO+QQLGvxAdw=;
-	b=CDZI8kApruTbDyfVwOVG/LM+kyFH4CkgYiwajp6LKf1AJ1JnZJtOMjqv0162xBvzda0Q
-	 hgkNiNsRvsOBHxiJ61MZ4ml2/QySSZIxWJR+b1Xazh9TkbsCaW5IhRkxKW8kNFAF938bn
-	 RNN02NN6mGqUBgEAG7N2CswFpGDgJwSiPOmf6DCVfewOdhKzvtH0sW1phwAReNdsoFXzN
-	 pIT4dbqIfJOe45SyH4yTeWBRtru2tx4y65xIp2Lek116C2aY5RJsxKQ7ojmtieSOl6xD8
-	 c3oQsh/dOfDYs+DCRpvyPbpxKPR/R8hO4ghznA9tqEblChv+Phl8OlwP3n+fDwuXtRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gH25syzu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792458271;
+	b=exqkabM+d1arLyfjf2HdA1MxtlYf8SNTOmd7a0jnNnBWUhzjT+rQAemo4vrVxQ4n6Qe5
+	 m9AtbqODE06JcKkvpX1Y03hKthWuPNSKPLoCrWe4eTlbZoco/rvVOVfqBC3xzFBhZgZqT
+	 AiKJGhTC61HAFgNPCr9yBL5TSjRNTNiEYEoGY1Q0pG1lsBBfhwtDdpzZ+7heshZQgr9Vq
+	 gG0Er06ZVrIpaC9AqyG8jlckOkJm6XONY+lvRj7UtKz+sIl9NezAgJRcxkGxsu9aKanpR
+	 hDvhOxP5W0Js/bSnsV3PUBE8zHItVHiou/qKHKbVfD+gdA8UklxjkWS5ARzocZGqYvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792458271;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=l/hNaEYX7pwjnbOy9kQT5DzXVQgH4HbRFHOPYgj+TYc=;
+	b=TyCxurwd1Gf61eaPxGxFxQ7QOiNlli4ZUKJvDEX2pu8dNwR7klM+qY0D3Mk8Wqm+pv4v
+	 Ywc8xHKdRjx4kTMGPJBQhY/cFV6Ehq/UU03b2wb/yQx9xT2eQQNuT2MLn22FIPf9uY1JI
+	 hCKjiMJ7Oc0BOCz6FKFELohU30h/iDQ09JOWxMRNE7dyVsYtRGnJCcuFUc6Marxc2+C1Y
+	 SGB6asZcZLsUwvXHuOr9HXxlgSieXj+1u0GE7F9dQnUWFZBENlgfD1qUmtOcCKynv1XAG
+	 f1wzHtjPy69xfWNAgXuSFdt3K47brF9ZNoEPpbtWHA3/0SEIEEpW/LnEZI6amP+DZLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=s1jvQjTY;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C31C606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:02:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C31C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7628D606A31A;
+	Tue, 20 Oct 2026 01:04:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7628D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gH25syzu
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8565d77c277so19777347b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:02:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792458133; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a3uEZKaQq4EDj1+kB96qQTr9GS6NXEgXn512hfpcDeg5cjn2IGqq87o+lxbEeWAD2n
-         Z7CnS5erA/AbYCJbCTlS4drvvG7Cqv/dAXlKC6qzminnR1RBrVLNvP3DqCPk7WvT0qKt
-         5Qot1XuOZCDw9Lh4k5uy0tkj9mRjp0s2qrOkOGtAmGNKsJC+2/kDxU0HWQ/4ygeOnmUi
-         dDzTZjdAQQbbrq+yvRCeiVKI8IzDZ97hCYmudzM1aPIfpwHRKHKZPEsT2iMzGhl4VxUG
-         cpSICmh8Avo33kSpXwTDVfylX31vqw837EXzcGdlfijk2CiTV3b1QDyO9ABXUVZnV5pw
-         kI+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=B/WVBOtkMP6M1xXLJUzfcGRzgTR4eIpAO+QQLGvxAdw=;
-        fh=0QWy+Vz854869r+RwfXvN0jf/x+xoI6ow/2a9vS4Bq0=;
-        b=g0+M2MG/3pUtKIUViVC8eFEAENblilkmOzZfc9trRUyUrWKCohE2G0MRFFMXf+X9Jl
-         XIQrkOwiSfC2aXbTbNnfLLbVszkF6CWClRcFn7ctqy4xMu3vfjdbyqgCkSAgKcvm9cHJ
-         zMJROoZGHWC2deq4eXvYApJgmMBMAqs37OonONCdwUFN8X/bOJWQAMXyKQmeAq4d85Bt
-         eSaEYR56SivlxeJK1KzUz6eT1I+8h43SsCWkaMBnBoJwBipBNhDyHBSkUgIikazROOqT
-         +shn8jC4UyRr2Cx2g0Zhs1UWOEjia7N/lD+BCa/DPz06m1Gq1APzw7yTN+BalWU1fR/X
-         BNVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792458133; x=1793062933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B/WVBOtkMP6M1xXLJUzfcGRzgTR4eIpAO+QQLGvxAdw=;
-        b=gH25syzuggQs+bSMqDvkNi4lUdbQvCsLZqS3Zt1blZ4gsOSKiufEvf7ZH2GOmNlNqo
-         C640sWZH5g5eZQxh2WkCLOYKmhU3CqVCmcmag7pWq+1B27e+D2CNKNEFNyGKMHFC4mVQ
-         49xc81Shu2hPVHepsK7tEwY+VgX3RjSkJHmd8v19785v41ajyHlU4pgRR0DJXIAYEijK
-         LlzRUdYo3lYcmwIslSDVbG1E6v1lLzPLdXsQuW+giA3sq5hOZxx/8ukkHAVSrFRL/ZlN
-         GsSATJrvNaG6PDWzEeEa2UZUhAfWMtV8Oce5Yeem0cGChfxRyn7ULEeCa3wflSus/46q
-         9hag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792458133; x=1793062933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B/WVBOtkMP6M1xXLJUzfcGRzgTR4eIpAO+QQLGvxAdw=;
-        b=UBuEODiUgMAXiHeBufXHQZDvZLjC8YDjF248eTo4ocvofTY7oQgscG1lZjZHx/sUCZ
-         FJg9Isb3fJ/u70fi4uYamYPVG6PDJYoLJy6VbgbngWXbacCYX6+Z3KYmIWf85+qODR2E
-         didO4Zj6fl2kd58dJ3iWZVPx2YZuncvu9OFWNYCyWJzcWHAvZYc7gVhALR8ek2rR47As
-         ey7tTRav44OoWhdSPwX+WC6kRMTL1AlfznTUGmylZjpgs32Q5kaEqKKM9c1JJNuV3LvQ
-         w3KEd4GGFkvFniqi/iYp/uEuEJf6DmXZG5q07r/RuOjgrvt72LadVTGgdiv8C3zY2NVg
-         /LeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5/HJayXEUM9I7XntWV6sHiV/So/06snJ0EipLo+7Kb7Q8rS1xRRABweXMzopCB9uGs5sdHhOnezmiwpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIGTjGUrANS/tCx16K1a6cSqIHaym2WCZBVtakB8Mf+q+SFV43
-	W5Y+y+x3jmkyf2tnClBHcUhPOxFfBsSWNA9clJ9Ssm2jBU1bUVVn9GT0tcwJH4x3cEaG47tuXce
-	QpZqD2JQVszURtugC46ISgxb1j/l1nJg=
-X-Gm-Gg: AYBFou2OIFvP5Lw9IKsJyHNZEaELZ4AmSGJ2oRA6qog1mpPm/MOWYw3R4oLSoa/J3Ou
-	C4U/khajlGddImA3TjwiI4pHx1TH4lmMsrtO1NFbNqG//SdM+TsHOdwH6dA2B2+33aFw7ims/JK
-	yq7X6cFBwu0HPknV0yaUmm8j/wD6MlHc52FT48bWOVB5ryervp7oNZBwzIdym9bwhdx50JcqWso
-	phj+l3tcu4CPIK2r3FLAeEtidiyGNnt9iHtjl4kvLcoJd1AqPiZARWJMbtmSBpOn8JmnpUa6mr7
-	HttPo+EpukeiLaM/x3Z3ZnkuWo/yogVHZb+pDg4SoMUuvd9bprkwM13QV+NCr3qlXph0CJKgWnR
-	gl3oD0cWxGhHf2K1r6QGeaI+dyhqjrA/all1AomYUC5PuMyxHMDMMi2iuvL+WiLiwoRLhtqRDs6
-	9vP+R2ZybN7bCFxYCXxWupk5sZO+R4HMyARw==
-X-Received: by 2002:a05:690c:5687:b0:864:6f4d:ef7f with SMTP id
- 00721157ae682-8b0f2072b1dmr27038117b3.7.1792458133104; Mon, 19 Oct 2026
- 18:02:13 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=s1jvQjTY
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792458261; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=l/hNaEYX7pwjnbOy9kQT5DzXVQgH4HbRFHOPYgj+TYc=;
+	b=s1jvQjTYnZhmePGm0bkEKOZ5/y1N7l4MVPuI80gB8d9ywoio2DJirxlHSoOrL2I6Jzp9dpIPgJsLgZHyTIbrZIhknc48rLQy526y5fK/c5zTDXm7A6CiX8CBi2QTMi+wd64tgTXkivR9Gj0SB1LesNr8brNj/U6Znmk0LTCD6f4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDAoyyL_1792458259;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDAoyyL_1792458259 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 09:04:20 +0800
+Message-ID: <1beb38aa-e068-456c-a4d8-6590f2bd1266@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 09:04:19 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,151 +53,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
- <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
- <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
- <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
- <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com> <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com>
-In-Reply-To: <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com>
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Date: Mon, 19 Oct 2026 18:02:01 -0700
-X-Gm-Features: AclHuK_oIVGKOtgd9hzF8OI86eJwFkNPW92AAHzmGdzCl9JR3GH39OUDY1L-Ci0
-Message-ID: <CAE5sdEjFgVoQbWw12=+AKdCOB9cWm-akxzbX7hJzvyO3vpCtgw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: drain quorum work before removing the cluster
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ akpm@linux-foundation.org, christophe.jaillet@wanadoo.fr, blum@kernel.org,
+ kees@kernel.org, sunil.mushran@oracle.com, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0064-v4-51daf51db746eedf7533@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0064-v4-51daf51db746eedf7533@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 at 17:43, Barry Song <baohua@kernel.org> wrote:
->
-> On Tue, Oct 20, 2026 at 8:16=E2=80=AFAM Siddharth Chintamaneni
-> <sidchintamaneni@gmail.com> wrote:
-> >
-> > On Mon, 19 Oct 2026 at 16:36, Barry Song <baohua@kernel.org> wrote:
-> > >
-> > > On Tue, Oct 20, 2026 at 4:33=E2=80=AFAM Siddharth Chintamaneni
-> > > <sidchintamaneni@gmail.com> wrote:
-> > > >
-> > > > On Sun, 18 Oct 2026 at 14:24, Barry Song <baohua@kernel.org> wrote:
-> > > > >
-> > > > > On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
-> > > > > <sidchintamaneni@gmail.com> wrote:
-> > > > > >
-> > > > > > Andrew Morton reported that get_lruvec() has the same problem a=
-s
-> > > > > > lru_gen_shrink_node(): when memcg is disabled on the command li=
-ne
-> > > > > > (cgroup_disable=3Dmemory), it returns &pgdat->__lruvec directly=
- and so
-> > > > > > bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
-> > > > > > interface calls get_lruvec(), then dereferences the pgdat point=
-er in
-> > > > > > lru_gen_seq_show() and other paths, so these can hit the same N=
-ULL
-> > > > > > dereference.
-> > > > >
-> > > > > So userspace must have booted, since otherwise we couldn't read
-> > > > > debugfs. The reachable case is therefore a memory node with no
-> > > > > LRU folios when debugfs is read? So this could happen on a multi-=
-node
-> > > > > system where folios are landed on other nodes but not on this nod=
-e?
-> > > > >
-> > > >
-> > > > That is my high level understanding. I'll let Andrew to comment if =
-I
-> > > > am missing something,
-> > > >
-> > >
-> > > I made a silly toy setup by running two numa nodes with one of them h=
-as only 4KB
-> > > memory, the other one has 1G-4K:
-> > >
-> > > qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53=
- -nographic \
-> > > -smp 4 \
-> > > -m 1G \
-> > > -object memory-backend-ram,id=3Dram0,size=3D1048572K \
-> > > -object memory-backend-ram,id=3Dram1,size=3D4K \
-> > > -numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
-> > > -numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
-> > >   -kernel arch/arm64/boot/Image \
-> > >  -nographic -append "cgroup_disable=3Dmemory
-> > > ...
-> > >
-> > > Then I got a machine where node1 is very difficult to have a page in =
-lru.
-> > >
-> > > then i ran the debugfs for mglru:
-> > >
-> > > / # cat /sys/kernel/debug/lru_gen
-> > > memcg 0
-> > >  node     0
-> > >           0      14972          0         953
-> > >           1      14972          0           1
-> > >           2      14972         18        3308
-> > >           3      14972          0           0
-> > >  node     1
-> > >           0      14972          0           0
-> > >           1      14972          0           0
-> > >           2      14972          0           0
-> > >           3      14972          0           0
-> > >
-> > > now you see node 1 has no page in lru but yet i didn't have any crash=
-.
-> > >
-> > > i think i will need more time to figure out what is the problem and h=
-ow to
-> > > reproduce it.
-> >
-> > I've asked AI to repro the issue with the similar setup
-> >
-> > qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53 -=
-nographic \
-> >   -smp 4 -m 1G \
-> >   -object memory-backend-ram,id=3Dram0,size=3D1048512K \
-> >   -object memory-backend-ram,id=3Dram1,size=3D64K \
-> >   -numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
-> >   -numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
-> >   -kernel "$KERNEL" \
-> >   -initrd "$INITRD" \
-> >   -no-reboot \
-> >   -append "console=3DttyAMA0 cgroup_disable=3Dmemory
-> > initcall_blacklist=3Dkswapd_init panic=3D-1"
-> >
-> > and it was able to repo it. AI identified that kswapd is initializing
-> > the pgdat during boot, so blacklisting kswap_init was able to repro
-> > the crash when reading /sys/kernel/debug/lru_gen
->
-> Thanks!
-> I guess you mean the following:
->
-> -module_init(kswapd_init)
-> +//module_init(kswapd_init)
->
-> Yes, I can reproduce it with the above as well.
->
-> But kswapd_init() is definitely called before we enter userspace,
-> so this doesn't seem to be an issue here?
->
 
-Looking at the callee sites of get_lruvec, all of them happen after
-boot. So it should be fine. Anyway code clean up will address the
-issue.
 
-> So I feel there is no bug here, but this cleanup is still welcome.
+On 10/16/26 12:57 AM, Cen Zhang wrote:
+> The configured cluster must remain available until an in-flight quorum
+> decision has finished using its fencing method. o2quo_make_decision()
+> drops qs_lock before calling o2quo_fence_self(), which marks heartbeat
+> regions for unclean stop and then reads
+> o2nm_single_cluster->cl_fence_method. Cluster removal clears the
+> singleton without waiting for this independent system-workqueue item.
+> 
+> When a failed-quorum decision overlaps removal of the heartbeat regions,
+> nodes and cluster through configfs, the worker can be preempted after
+> marking the regions and resume after the singleton has been cleared:
+> 
+>   Quorum worker                     Configfs removal
+>   select fence; drop qs_lock
+>   o2hb_stop_all_regions()
+>                                     remove regions; join heartbeat threads
+>                                     remove nodes; stop o2net
+>                                     clear singleton; release cluster
+>   read cl_fence_method
+> 
+> The resumed read dereferences NULL instead of applying the configured
+> fencing method. The heartbeat thread's dependency protects the local
+> node only until the thread exits, and draining o2net does not wait for
+> qs_work.
+> 
+> Call the existing o2quo_exit() flush before clearing the singleton in
+> o2nm_cluster_group_drop_item(). By this point the heartbeat regions and
+> nodes have been removed, so their work publishers are stopped. The
+> flush lets any pending or running decision finish while the cluster is
+> still available. It introduces no new state or locking; the worker does
+> not acquire the configfs mutex held by the removal path.
+> 
+> KASAN report as below:
+> 
+>     Oops: general protection fault, probably for non-canonical address 0xdffffc000000011b: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x00000000000008d8-0x00000000000008df]
+>     CPU: 0 UID: 0 PID: 72 Comm: kworker/0:2 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Workqueue: events o2quo_make_decision
+>     RIP: 0010:o2quo_fence_self+0x65/0x200
+> 
+> Register dump omitted.
+> 
+>     Call Trace:
+>      <TASK>
+>      o2quo_make_decision+0x345/0x3a0
+>      ? __pfx_o2quo_make_decision+0x10/0x10
+>      ? process_one_work+0x834/0x1b40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      process_one_work+0x9a8/0x1b40
+>      ? __pfx_process_one_work+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? lock_is_held_type+0x8f/0x100
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      worker_thread+0x65c/0xe40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0x177/0x220
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_worker_thread+0x10/0x10
+>      kthread+0x351/0x460
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork+0x659/0x940
+>      ? __pfx_ret_from_fork+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __switch_to+0x74f/0xf70
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork_asm+0x1a/0x30
+>      </TASK>
+>     Modules linked in:
+>     ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: f6656d26d17b ("ocfs2/cluster: Make fence method configurable - v2")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
+> 
+> ---
+> diff --git a/fs/ocfs2/cluster/nodemanager.c b/fs/ocfs2/cluster/nodemanager.c
+> index e08850a5d736..13d7f579047f 100644
+> --- a/fs/ocfs2/cluster/nodemanager.c
+> +++ b/fs/ocfs2/cluster/nodemanager.c
+> @@ -12,6 +12,7 @@
+>  #include "tcp.h"
+>  #include "nodemanager.h"
+>  #include "heartbeat.h"
+> +#include "quorum.h"
+>  #include "masklog.h"
+>  #include "sys.h"
+>  
+> @@ -740,6 +741,8 @@ static void o2nm_cluster_group_drop_item(struct config_group *group, struct conf
+>  	struct o2nm_cluster *cluster = to_o2nm_cluster(item);
+>  
+>  	BUG_ON(o2nm_single_cluster != cluster);
+> +	/* Drain quorum work before it loses access to the cluster. */
+> +	o2quo_exit();
+>  	o2nm_single_cluster = NULL;
+>  
+>  	configfs_remove_default_groups(&cluster->cl_group);
+------------------------------------------------------------------------
+o2quo_exit() is the counterpart of o2quo_init(), and it is called from
+o2net_exit() when the module goes away.
 
-Are you ok with the patch as is, or would you recommend  changing the
-callsite of get_lruvec to mem_cgroup_lruvec?
+I'd like a separate drain helper, say o2quo_flush_work(), to describe
+this better than reusing the exit function.
 
-> Am I missing any other scenarios?
->
-> Best Regards
-> Barry
+Thanks,
+Joseph
