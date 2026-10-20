@@ -1,39 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485513;
-	b=kAS2fJsY1zH2xlZ8xnWAJ2lZM2wQhnGz+S8tGtNaFYZFJCIuxFe/2r8+6kXMsWgEqNqv
-	 Et2lYDMbFNNg6WTTI4j28sjIs9jSg9H8+B4GE1LpDrQ+Y7t+Rig3aKLsoOd3VY8tOzeMb
-	 08ikP1AndzCeZEMPgdOSdhGXkXjqJFB86+PNAmoHHpViCrxGunMY0ChpaOnnVugn0yMxX
-	 hziSPsRJUfYbRWM1E/ZJfEOuxKpJBc6TnfTwfiva3YNJV4awDmTpS2sBQLKd374lkkV4J
-	 hfCd6iZmopCGfQFNTVtebxjBvj763J4XLNuZ+Aen2UZNqiqu54qv9rAOz6UR13JRpmQ==
+	t=1792485522;
+	b=K8prRKNYijhViheyJbAHD2MfHy1fzojcR0zifh9G1Kv33whcbQzb8uxa23DvMhcRnZex
+	 yE28N0wC8nYKy2NxwuYu0ADlESS0zolBFnoJiJgur7sYTtSs6+4zad74DdJSLVI3jO+GQ
+	 sOg8yv5UFRO0t0E7f4o7uYRdEPPxwG95Qfj5NeHxfTPjfc9nmFd2hFSFhpQoF5KNFqvSF
+	 POfLubBSz0Zpx9fyuP6ifOz6hjXSkwFwDmTjT3mkdoJlpZm3QE9O76IoQgM4YUc02bEUB
+	 CSsa6uAIZQYD3meA3kc/R+x+oB0j7QnXuyhTllKmInj5YR1DBhZas7BBWiK6PlIV3kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485522;
 	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=2gA4KOi3Hn2Vyaj2KE97BdlJ8z8R0YsWY+qFIgELBLk=;
-	b=wyYkCX9UpsBKLRvaDJLvNiSBfYXuLacUx4FRr5EFqGcnrzvO6OEyZR/ULQ1dzA6RK9Zv
-	 C74d3Pqcq47rTTcaXGVl4ZymxKBqYWE8Qb/KMqkOmkIWHniC9PfWugOtGSaHEt6ytpNQU
-	 1VOeJEFXfya0JGaOCSHv8c574B4XfF7QdImukmWa/vZ19KNv+34B9PAoEC7oxBIkhwUGB
-	 TbkJ7pYFrNocDbJB2/oYu5DAYnDkYyYaIOd3eUjSobE785eJhKWjTbwuHehqSrQNDMQEo
-	 Pr1KUgsAFue7fMQ9Jxz+jbHWRP445kgiog2n0zctgWOT76fB4FkoF0T2rNhHfwFan4w==
+	bh=MPKFv2kcn64e74AAZhc5slVqhnco4fPykUTsk+vl37Y=;
+	b=KbNoJQWws46Qes31D+GdH3AsVAVlTNElC+hWDmKFS04fWCV+8O6WQpvX/bYg5MF8z+zo
+	 BoTb629NxhNzMpGGDtgdNWnD+cT25rwpszGMa5jH4VTClulz/FqZ40HCzXTwd9uY/VDHo
+	 pd0MCuLdrd1R4orhC1r6VToQPNzWn8Buef/rU3Kx3hInHryjQma9ghC964iNrth4++EO0
+	 2qwtrTzXjJf68ub3m8H8Cksi8FnUWxk/mLUKP+kiNteXV+4bnBNz1NuFDeyMMWO90wGwx
+	 sxniOMyqKxvogDXVvs1V7131b8YH/QAxZljtaIIP2B+2QeOzsbkQ3AKW71jHKvDok5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=open-hieco.net;
 	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.75
-Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
+	arc=none smtp.remote-ip=115.124.28.195
+Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com [115.124.28.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B6D606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B6D606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81639606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81639606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436305|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.0337373-0.00132636-0.964936;FP=3442958109706642802|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jlWubSp_1792485500;
-Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubSp_1792485500 cluster:ay29)
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.234709|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0159135-0.0011102-0.982976;FP=7178836482150245534|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jlWubaq_1792485508;
+Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubaq_1792485508 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 16:38:22 +0800
+          Tue, 20 Oct 2026 16:38:29 +0800
 From: Li kunyu <likunyu@open-hieco.net>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -48,9 +48,9 @@ To: mingo@redhat.com,
 Cc: linux-kernel@vger.kernel.org,
 	Li kunyu <likunyu@open-hieco.net>,
 	"Li Wang (Hieco)" <li.wang@linux.dev>
-Subject: [RFC PATCH 3/6] sched/fair: SMT sibling exclusion after successful push
-Date: Tue, 20 Oct 2026 16:37:43 +0800
-Message-ID: <20261020083746.37068-4-likunyu@open-hieco.net>
+Subject: [RFC PATCH 6/6] sched/docs: Add documentation for SMT Buddy Assist feature
+Date: Tue, 20 Oct 2026 16:37:46 +0800
+Message-ID: <20261020083746.37068-7-likunyu@open-hieco.net>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261020083746.37068-1-likunyu@open-hieco.net>
 References: <20261020083746.37068-1-likunyu@open-hieco.net>
@@ -65,99 +65,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In sched_balance_domains(), after a task is successfully pushed to its
-SMT sibling CPU, the pull process continues. To prevent the already-pushed
-task from being pulled again, both the SMT scheduling domain and the
-sibling CPUs are skipped during selection. As a result, SMT sibling CPUs
-are not selected.
-
-This patch skips SMT sibling CPUs.
+Document the SMT Buddy Assist mechanism, including its motivation,
+enabling method (sysctl interface), and implementation overview. This
+helps users understand when and why the feature engages, and how it
+interacts with existing CFS load balancing.
 
 Tested-by: Li Wang (Hieco) <li.wang@linux.dev>
 Signed-off-by: Li kunyu <likunyu@open-hieco.net>
 ---
- kernel/sched/fair.c | 32 ++++++++++++++++++++++++++++----
- 1 file changed, 28 insertions(+), 4 deletions(-)
+ Documentation/scheduler/smt-buddy-assist.rst | 126 +++++++++++++++++++
+ 1 file changed, 126 insertions(+)
+ create mode 100644 Documentation/scheduler/smt-buddy-assist.rst
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 12b3223c6403..6e2271484c86 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -10657,6 +10657,8 @@ struct lb_env {
- 	enum fbq_type		fbq_type;
- 	enum migration_type	migration_type;
- 	struct list_head	tasks;
+diff --git a/Documentation/scheduler/smt-buddy-assist.rst b/Documentation/scheduler/smt-buddy-assist.rst
+new file mode 100644
+index 000000000000..c252f4fe955f
+--- /dev/null
++++ b/Documentation/scheduler/smt-buddy-assist.rst
+@@ -0,0 +1,126 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+	bool			is_smt_move_task;
- };
- 
- /*
-@@ -13377,7 +13379,20 @@ static struct rq *sched_balance_find_src_rq(struct lb_env *env,
- 	struct sched_domain __maybe_unused *sd_tmp;
- 	unsigned int busiest_nr = 0;
- 	int __maybe_unused dst_llc;
--	int i;
-+	int i, smt_cpu, dst_cpu = env->dst_cpu;
++================
++SMT Buddy Assist
++================
 +
-+	if (sched_feat(SMT_BUDDY_ASSIST) && env->is_smt_move_task) {
-+		/*
-+		 * Remove the SMT sibling CPU from the mask to avoid the
-+		 * extremely rare case of pulling tasks from it.
-+		 */
-+		for_each_cpu(smt_cpu, cpu_smt_mask(dst_cpu)) {
-+			if (smt_cpu == dst_cpu)
-+				continue;
++1. Introduction
++===============
 +
-+			cpumask_clear_cpu(smt_cpu, env->cpus);
-+		}
-+	}
- 
- 	for_each_cpu_and(i, sched_group_span(group), env->cpus) {
- 		unsigned long capacity, load, util;
-@@ -13743,7 +13758,7 @@ static atomic_t sched_balance_running = ATOMIC_INIT(0);
-  */
- static int sched_balance_rq(int this_cpu, struct rq *this_rq,
- 			struct sched_domain *sd, enum cpu_idle_type idle,
--			int *continue_balancing)
-+			int *continue_balancing, bool is_smt_move_task)
- {
- 	int ld_moved, cur_ld_moved, active_balance = 0;
- 	struct sched_domain *sd_parent = sd->parent;
-@@ -13761,6 +13776,7 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
- 		.cpus		= cpus,
- 		.fbq_type	= all,
- 		.tasks		= LIST_HEAD_INIT(env.tasks),
-+		.is_smt_move_task = is_smt_move_task,
- 	};
- 	bool need_unlock = false;
- 
-@@ -14390,8 +14406,15 @@ static void sched_balance_domains(struct rq *rq, enum cpu_idle_type idle)
- 
- 		interval = get_sd_balance_interval(sd, busy);
- 		if (time_after_eq(jiffies, sd->last_balance + interval)) {
-+			/*
-+			 * When a task is successfully pushed to its SMT sibling CPU:
-+			 * 1. Skip traversal of the SMT scheduling domain.
-+			 * 2. Continue pulling tasks from heavily loaded CPUs.
-+			 * 3. Avoid pulling tasks from SMT sibling CPUs.
-+			 */
- 			if (!is_smt_buddy_run(sd, is_smt_move_task) &&
--				sched_balance_rq(cpu, rq, sd, idle, &continue_balancing)) {
-+				sched_balance_rq(cpu, rq, sd, idle, &continue_balancing,
-+					is_smt_move_task)) {
- 				/*
- 				 * The LBF_DST_PINNED logic could have changed
- 				 * env->dst_cpu, so we can't know our idle
-@@ -15059,7 +15082,8 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
- 
- 			pulled_task = sched_balance_rq(this_cpu, this_rq,
- 						   sd, CPU_NEWLY_IDLE,
--						   &continue_balancing);
-+						   &continue_balancing,
-+							false);
- 
- 			t1 = sched_clock_cpu(this_cpu);
- 			domain_cost = t1 - t0;
++SMT introduces scalability features that constrain the scheduling domain
++within the LLC (L3) cache via the newidle CPU path. Combined with the ability
++to push CFS tasks to SMT sibling CPUs and to quickly distribute tasks to idle
++CPUs using select_task_rq_fair, this improves overall CPU performance under
++varying loads.
++
++2. Design
++=========
++
++The detailed implementation approach is as follows:
++
++Load balancing-related procedures are primarily categorized into two
++major directions:
++
++1. The periodic load balancing path, comprising periodic load balancing
++and NOHZ kick, retains the original logic and continues to maintain
++overall CPU balance.
++
++2. The newidle CPU path logic has been updated solely to quickly obtain
++efficient tasks. By restricting task acquisition to the LLC (L3)
++scheduling domain and avoiding traversal and task migration at levels
++above it, this change avoids jitter in scenarios where the entire
++machine is idle or the CPU load is relatively balanced. This is because
++each traversal of higher-level scheduling domains remains costly, and
++migrating tasks across dies (LLCs) incurs substantial short-term
++overhead, such as TLB flushes/refills and page migration:
++
++  2.1. When overall CPU utilization is relatively low, avoid the
++scenario where the whole CPU is idle yet cross-die (high-latency) tasks
++are being pulled. In such cases, it is better to run only one logical
++CPU per core to avoid cache interference and frequent TLB flushes. This
++applies when:
++    2.1.1. the CPU has multiple sleeping tasks (with delayed dequeue
++disabled).
++    2.1.2. the number of runnable tasks on the CPU is less than 2.
++
++  2.2. When overall CPU load is relatively balanced, refrain from
++pulling cross-die (high-latency) tasks. This avoids task jitter and
++prevents resource exhaustion (similar to the issues in 2.1).
++
++Of course, the change to the newidle CPU path logic has also introduced
++new issues, including:
++1. bursty task creation, where a few CPUs spawn a large number of
++processes or threads in a short period of time and these tasks cannot be
++migrated to low-load CPUs in a timely manner.
++2. uneven system-state load across CPUs. For example, some CPUs show
++0% to 2% user-mode and 30% to 80% kernel-mode utilization, while others show
++0% to 2% user-mode and 10% to 30% kernel-mode utilization. In addition, more
++than 10% of CPUs remain idle.
++
++To address the aforementioned issues, a more lightweight implementation
++was adopted to avoid the interference caused by the original newidle CPU
++path. Subsequently, select_task_rq_fair() is used to quickly select the
++most suitable CPU, as follows:
++
++1. The original task wake-up logic remains unchanged: it first runs the
++current-CPU wake-up, affinity wake-up, and similar paths. when the task
++count on the found CPU exceeds a threshold (default: 4) a burst-task CPU
++allocation process is used.
++
++2. For newly created processes or threads, there is less cause for
++concern. Since the CPU selection in the selected scheduling domain meets
++the burst-task condition during the slow path, applying the burst-task
++CPU allocation process is optimal, as it can quickly utilize idle CPUs
++and thereby achieve rapid overall task distribution.
++
++This series of patches also introduces a notable design: in the periodic
++load balancing path, tasks are pushed to SMT sibling CPUs to quickly
++distribute load within the same core, while also pulling tasks from
++other CPUs (excluding SMT siblings) during the current scheduling domain
++traversal. This provides a new mechanism for evenly distributing tasks
++across the entire machine and strongly supports the change to the
++newidle CPU path.
++
++2.1 SMT_BUDDY_ASSIST
++--------------------
++
++Enable feature:
++    echo "SMT_BUDDY_ASSIST" > /sys/kernel/debug/sched/features
++
++3. System interface
++-------------------
++
++3.1. smt_buddy_imbalance_pct
++----------------------------
++
++When pushing tasks to SMT siblings, the current CPU must exceed a certain
++imbalance ratio before its CFS runqueue is considered heavily loaded.
++
++The imbalance ratio threshold is constrained to a range of 105% to 200%,
++covering both mild deviation and severe imbalance scenarios.
++
++Mild deviation:
++For example, when the pull imbalance ratio within the SMT domain is around
++110%, this feature provides a comparable and configurable trigger condition.
++
++Severe imbalance:
++For example, when the runnable time ratio of the local CPU's cfs_rq is 20%
++while that of its SMT sibling is 40%, load balancing is explicitly required
++to restore fairness.
++
++3.2. smt_buddy_balance_task
++---------------------------
++
++The task-burst detection mechanism employs a configurable threshold derived
++from two primary metrics: the runqueue waiting time of a task on the local
++CPU, and the comparative cost of migrating that task to a remote (cross-die)
++CPU versus allowing it to execute locally after a prolonged wait.
++
++A default threshold of 4 is selected such that migration is triggered when
++the queuing latency approaches the execution duration of an individual task.
++The marginal benefit of migration increases monotonically with the number of
++tasks enqueued on the local CPU.
++
++A lower bound of 2 accounts for scenarios involving long-running tasks, which
++require more aggressive distribution across the CPU topology to avoid localized
++congestion.
 -- 
 2.47.3
 
