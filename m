@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524329;
-	b=rbHMXOt7WEzVEcUq0prq1icwCS+GzWPWImyl/xuqyquU5drcK3CQeW2Fb8Lf07OKa6ln
-	 WQplbunvCMCeIK0sL1mLjQQaNCC3ymWsfNOafOFaSBAPit613VtOsat96hSF8oq6n87Qs
-	 +TTERRvGuL4G1ZNbhAf5NZBJnluvJ00e+dPrsYyWc+6IG9qLTe2KkNKg+bvIlhNCl1v3K
-	 rLDSe7Sl7ReOR/jYQtYByuJIWq5aP/fJ4KdR4DnQloShzrgNG1I59tOs0fadlu7Z9ndKP
-	 ckJiSdy2iLvUIxC16MiWnnrl55bhsXixPiIk1p5ZsmrtEmtAqh0sjFxrlqiCQB3c3eQ==
+	t=1792524368;
+	b=nXCJHNPmmYZ/ZGUQbxij3HadgHjj5dIzk2S52qVo/jWF+ZiSacKqIQziH6bLCTGNGF3q
+	 /+ijjLiHhBbAZ1xu50VEfaUEhO65jepz84UNfa6eGM5jxptL7DaKY223Yac3zigGj3Nu+
+	 pcyM6o9KWTDxYIZnCJyj1lkVPoZMFSB2yHmWVkiXMs6X3LAFJ7lWUrXrrXIWn6nw3x8QM
+	 YDPdl8vMkXYHlBGwn/TJLjfjtDOKkyBExIQXGEnzpJHY/kygEuxXFczeLzEKZC6eAoEfz
+	 usblAgmglTPJvFiC+hJW/QZGyUsUElwNWkMvlI6dhAqTs+TBAoGghq2Ye3hwxUgFmGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524329;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=wMnlkFybsSYZisbKMqEXfYf08l8WhyMyTNYDad69ys0=;
-	b=Ln5OXchTesEgzOWS6x2oTF5BhJF1atSWGoLADSUufn5sgSVSkEitaWiapRGCgdak8H7B
-	 EqCoFcyOWIFykNYpKOoVK9PQeCugpODUNZ9LKHmUqQCba8udbvQ4LBHX41KckFsKSU9V5
-	 w2I0d/VEsCvTv71PpMb4YcowZKagUwNpoJQweT8C4BVbm+vJTIjOAMBH23fWuTSsWac2v
-	 KWNXjJkSHx0gMxLQqege2C4iDDGpVfhe41c4XhaoyIhOEPfcO2D3ibXbTbbsT2UN593kd
-	 ncFvhY/c4WcJciBUEqXDN5lYF6SyBwgQBw9YKSFr6QqGm6diEfvSZWOygDAlyYreiOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524368;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=d8iT+nIigZclQtdJb3ocEDCDEeLGdU8ozshP6cEFsSU=;
+	b=DKLkCj3+44EazQPpv80sR2uLlP4PqOUOcn0aX56WM7FFo4K1o0f7pvBHoNwVnKXuUM4e
+	 jHOjIyBk0BjkYAbAl7BJd/9+wfHFWLxomPxiqkZgRcWFSZbhYSNCHLO2R+rWst1sfEoEe
+	 2ilbuZEnpXyPwedalVPhW3gCpzkyRVDxJ5jKdPpVqUGJ5aJiWlp6cZQWXF6Cr3BRvwwgT
+	 ABEgwsxB8TiPWi6WCuR4nq3oJw9XqtY3lQxQA6bNTDkTm7Ty/GsR91fRHZ7tdhrHFv2zf
+	 zooKv4sV+wWUZniLVZgJItFpE2je8z2e8VY7SsGoHAP6ktkqDGKINGR8UfZBx/MgPTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BMUwYfdm;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F5CA606A31E;
-	Tue, 20 Oct 2026 19:25:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F5CA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=NtvrTuaT;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=bfyt4A+9;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293DE606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:26:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 293DE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BMUwYfdm
-Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.lan (unknown [52.177.6.131])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5939A20B7166;
-	Tue, 20 Oct 2026 12:25:15 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5939A20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792524316;
-	bh=wMnlkFybsSYZisbKMqEXfYf08l8WhyMyTNYDad69ys0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=BMUwYfdmgyINJJ/c3dP+e93eQ/hERMIM9q4hmv2CBTuDueagRgi5omkTHkAFBKozZ
-	 pHKyWAWXAkTWXRJPCh1QmMfj51NbOs92jMreGOvw3Y7ZXRZLh8tkOrCZF22/aoabGL
-	 4fqpy+Nx4GubSfRydDCGovW91ISZrAd7bmhzNrSQ=
-From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-To: horia.geanta@nxp.com,
-	pankaj.gupta@nxp.com,
-	gaurav.jain@nxp.com,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/1] crypto: caam - fix in-place RSA payload DMA mapping
-Date: Tue, 20 Oct 2026 15:25:10 -0400
-Message-ID: <20261020192511.3389133-1-jeffbarnes@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=NtvrTuaT;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=bfyt4A+9
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792524362; bh=d8iT+nIigZclQtdJb3ocEDC
+	DEeLGdU8ozshP6cEFsSU=; b=NtvrTuaTZydKV1C9o6JTzJVg4sCpdtlR0qKjAS/gzewSCGXnH8
+	3P7DGKoi6GivCxcTf6aGqNPXZQQJe4qMmjZaXxyzbD6pfoZGGxR3LW106t0D4zv6mPazpNT1y2r
+	BYMydwIUuMVBtOgsMDM8uVUlk/LYTHvj+B7423rIGFlysPtLw+6ldeKtULMrNu0/1+xbZlcQLa1
+	aBYYNVIu1c8JfN9BtRkvq47kWCptH+bXRzZq9Vtqakzpd0coiR4gOCxMdHHM/VNZTgLBC5meVcb
+	lIWt6Z911wgofYHn+V9C6f0LCBg9SlvZ/5V8742UFOamM0uVNhH56aBnf50z7M19XKQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792524362; bh=d8iT+nIigZclQtdJb3ocEDC
+	DEeLGdU8ozshP6cEFsSU=; b=bfyt4A+9rqoMWhqmYdO9idYwsGEZlQA+i1jCzNMpZk+ftYof2v
+	+lkXKSBZCY7dLj1Oib9O2rFa3tTa+NAif/Aw==;
+Date: Tue, 20 Oct 2026 20:26:01 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
+CC: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com, Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+In-Reply-To: <4162b48c-0101-4900-9d80-3c091774bb09@paulmck-laptop>
+References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop> <2f65337241e230cd26c130bc3183ad230c7c40e4.camel@physik.fu-berlin.de> <62138DD6-F054-4992-810C-EDE92C835346@mainlining.org> <4162b48c-0101-4900-9d80-3c091774bb09@paulmck-laptop>
+Message-ID: <ADFC31D3-392F-4789-8CC7-842ACD2A26F2@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,104 +65,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+On 20 October 2026 20:21:31 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Tue, Oct 20, 2026 at 07:54:38PM +0100, Bradley Morgan wrote:
+>> On 20 October 2026 19:48:32 BST, John Paul Adrian Glaubitz
+>> <glaubitz@physik.fu-berlin.de> wrote:
+>> >Hi Paul,
+>> >
+>> >On Fri, 2026-10-16 at 20:51 -0700, Paul E. McKenney wrote:
+>> >> However, it sadly does not permit easy implementation of all
+>algorithms
+>> >> needing on two-byte atomic operations because there are some systems
+>> >still
+>> >> supported by Linux that do not have native two-byte store
+>instructions.
+>> >> There is reason to believe that these systems will soon no longer be
+>> >> supported by Linux.
+>> >
+>> >Since this paragraph has produced a headline today [1], would you mind
+>> >clarifying what you meant here? What architectures are you talking
+>about?
+>> >
+>> >Thanks,
+>> >Adrian
+>> >
+>> >> [1] https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG
+>> 
+>> Annoyingly my name isn't on there :(
+>
+>But your name is prominently mentioned in the pull request linked to by
+>the
+>article.
 
-This RFC fixes a DMA ownership problem in the CAAM RSA driver when the
-effective source and destination are the same scatterlist.
+I bet they saw Bradley Morgan and went, ^W^W^W^W^W^W^W^W^Wmeh, Paul is more
+famous
+let's
+involve him and not the guy who made the patches^W^W^W^W^W^W^W^W^W^W
 
-rsa_edesc_alloc() currently maps the effective source with DMA_TO_DEVICE
-and the destination with DMA_FROM_DEVICE. For an in-place request, this
-maps the same scatterlist twice concurrently with different DMA directions.
+>
+>> But I'm happy it IS a headline :)
+>
+>Me, I am a bit surprised that this made Phoronix, especially given that
+>Linus hasn't pulled it yet.  Perhaps there is someone out there who,
+>like a number of the commenters, got confused and read "architecture"
+>when both the article and the pull request said "system".  ;-)
 
-dma_map_sg() is allowed to modify the scatterlist DMA metadata. On the
-arm64/IOMMU system where I reproduced this, the two mappings returned
-different DMA addresses. The second mapping replaced the metadata needed
-to tear down the first one.
+Me personally I got a notification on my phone, they tend to talk about
+arch "improvements" anyway. I like pheronix.
 
-Completion subsequently unmapped the destination and then attempted to
-unmap the source using the overwritten scatterlist metadata. This resulted
-in ARM-LPAE/IOMMU unmap warnings from the CAAM RSA completion paths.
+>
+>							Thanx, Paul
 
-The user-visible crypto self-test failure included:
-
-  alg: sig: sign test failed: invalid output
-  alg: sig: test 1 failed for pkcs1(rsa-caam,sha256): err -22
-
-The warnings were observed through the CAAM RSA public and private
-completion paths, rsa_pub_done() and rsa_priv_f_done().
-
-The patch gives an exact effective-head alias a single DMA owner.
-CAAM reads and writes the shared payload, so the scatterlist is mapped
-once with DMA_BIDIRECTIONAL and unmapped once with the original SG count.
-Requests with distinct effective source and destination heads retain the
-existing DMA_TO_DEVICE / DMA_FROM_DEVICE mappings.
-
-There is one intentional limitation in this RFC.
-
-For the existing direct hardware representation, a shared mapping
-returning one DMA segment is straightforward. A shared mapping returning
-multiple DMA segments is not. The logical source and destination may
-cover different extents of the shared scatterlist, while the existing
-SEC4/PDB bookkeeping uses the mapped source/destination counts to select
-and locate those hardware views.
-
-Source analysis found request shapes for which assigning the shared
-returned count to both views causes the destination SEC4 table position
-to differ from the offset reconstructed by PDB setup. Short-source
-public RSA also raises a separate source-view selection issue.
-
-Rather than send a representation known to be incorrect to CAAM, this
-RFC unmaps a shared mapping that returns more than one DMA segment and
-returns -EOPNOTSUPP before SEC4/PDB construction or job submission.
-
-I would particularly appreciate feedback on two questions:
-
-1. Is a single DMA_BIDIRECTIONAL mapping the preferred ownership model
-   for an exact effective source/destination alias?
-
-2. For a shared mapping returning multiple DMA segments, should CAAM
-   grow separately bounded source and destination SEC4 views, or should
-   such requests instead use a distinct destination, for example through
-   a bounce-buffer path?
-
-I tested the patch on an LX2160A arm64 system with CAAM Era 10 behind an
-ARM SMMU.
-
-The rsa-caam and pkcs1(rsa-caam,sha256) self-tests passed, and the
-certificate-verification RSA selftest completed successfully, with no
-recurrence of the original ARM-LPAE/IOMMU unmap warnings.
-
-I also exercised the RFC containment path with a targeted full-width
-2048-bit RSA request. The same two-entry scatterlist was supplied as
-source and destination, using two separately allocated 128-byte entries.
-This reached the multi-segment shared-mapping containment path.
-
-The operation returned -EOPNOTSUPP synchronously, no completion callback
-ran, and no CAAM descriptor/job-ring, DMA/IOMMU, WARN, Oops, panic, or
-invalid-output error occurred during the test interval. The test module
-unloaded cleanly.
-
-There are related RSA DMA fixes under discussion. CAAM work for unaligned
-RSA destinations uses a bounce-buffer approach, which may provide one
-possible direction for the general multi-segment alias case. Separately,
-work on RSA buffers on non-coherent DMA systems identified a cacheline
-sharing problem and also demonstrates legitimate in-place RSA requests.
-
-Neither is required by this RFC. This patch is based on current Linus
-master and addresses the independent problem of acquiring two streaming
-DMA mappings over the same live scatterlist.
-
-Thanks,
-Jeff
-
-Jeff Barnes (1):
-  crypto: caam - fix in-place RSA payload DMA mapping
-
- drivers/crypto/caam/caampkc.c | 79 ++++++++++++++++++++++++++++++------
- drivers/crypto/caam/caampkc.h |  3 ++
- 2 files changed, 69 insertions(+), 13 deletions(-)
-
--- 
-2.43.0
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
