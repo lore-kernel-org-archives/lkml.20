@@ -1,120 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486157;
-	b=wY2N2KEvLMJulCtqI9ffEjvmPUGg3UCeRKbQzhAUGnp9kx4IGr8IXBq6VfRggM7OV/+3
-	 QBNTrlKpFSfX8AA4gPzF9DiME8JjWrRIOdbvaR+puVa2hMwToVKqzYsABqbX0e3ewT9lZ
-	 vDihWbKfmwbWB0myuMSB70HUEPVYt1SZxIAAC/4MH/7fdSPfiXCj3v8QA1FnAFHn349W8
-	 kJ11TOAwNIyZK/h2MTgT9Ndt/ngpfDvp1NoXsBrVROCp67JjNtJTj5bkbMthkZEoiSRgA
-	 p/0C1y6rKO+9/g8jVMaN624LlrBk839i7TxqDKqSQOdd9krw2fIIRspjw6ov3+Jm2JQ==
+	t=1792486278;
+	b=3kFQVD0HnWGeOdg8dhAphBV+ChoS6WzlvaBs36qmULTjslIauzRV78y01OSUp/6lNbxB
+	 VGn6b3JGyag4dJjXAZNzYHHXv5JaW/+bwh5B8EgzsEV9FGsUM5riBC7Zj4JxsfMaBpoF8
+	 J9jfrI5ojwLrwJ+4XG2UndM0T/0h+bxkGrdz5SMaqU+np5vkuUzQkkazlUewifqPmOH2B
+	 pBBF8C+3aMkloNvyfCuwXON/tvnB4FeCpoj/Otirtt8ePN/h8VLouI+bkS5OmCWbWbJYj
+	 Bf74fRXJkFhrUln4oilVeABdzsvk1o9oi42FSnZpe2wlGLJl/4akmjcEGzZTLn65v8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486157;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0/bwyW8UsnwQhwKI8DmK2AwaAcEZQ5pGOOAly+nFvG0=;
-	b=I8tY8rZSKA6GOtydTfhEvFhHkuvALrIOTlLLFXCW1uph0EQuBWPziEmkcjiCVg2F97yq
-	 sCmZMn/p4R95UpVrkgaeT7TnPL9jjhgy76/plFqcZieA3E748giVrpHiSVWEJ4h/YMObu
-	 Z6y0cBendImSBRqGwm97aDhY4TdRN4+Ag3ARYZW5grvaMtDG2UCsQ5HEoWQhPfvm6Ay+t
-	 GLE3amnd+o7S+a3fnxn46r6NW7blMFUzu+BVzJ5oTD13o1U4XJe///jfCM6eMeRMaBKi3
-	 L79A8d3E6BvdN8kVed7jKac8f1PSWdSoEvXGlYygZCOvGrrLMSAvDUOYOfn5e2Huh8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486278;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5SW2IO2rseXzuOFXMzCYvlLaiKwdefVPHk6QIet+9Es=;
+	b=yV1W7FJ0F977/lqKLjF3jE6ngEKTGqlerX42bBmoW0rgELcImlOZ45G9O/xNxlo2lPPU
+	 YhJse7I/yzx0XXiClf6CpxEyTagKXtunHZdlqkySxXy+tuwEz1j9vA6nSdF/PHydthMOx
+	 EvURhEvSKncw4KLw1w3MVcsHKzEI7Bs8fkD9/6p6Lz5Iorki0iafN0RtFcGywh6D8LOrR
+	 2jBg3CDjSt+eCf3Gg9OfrxBTON9/BjRVnuGs56OC9pXqkSN36O0GLten2jDtMrH7NslPO
+	 dGpAVQAZptM5jQxqxonAhcWWpUT0Y4YoQ4AvSnNRt0d0SI4CD2uegduk+CJ0JuL8eTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GGApLlW0;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GU8MIr3t;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jYljraek;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC2C606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:49:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FC2C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9C4606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:51:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9C4606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GGApLlW0;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GU8MIr3t
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8EMUQ1254528
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:49:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0/bwyW8UsnwQhwKI8DmK2Awa
-	AcEZQ5pGOOAly+nFvG0=; b=GGApLlW0BJVZ/RIvl5xIBB5hxywoiAKZgzOiFuLe
-	11FLS0Z7tSAl2YgW8XgxLNpU279wunc6zotOOJqeUP07RhR/Hxpjr5P8CjFSLjxc
-	pBGamxuNp/sCWgzJqSZBK3pRHCK/J4S/Un39tiiWb7jmIaeKakjJYmjMpPdQCBus
-	A5nFCe4Xq/D1LmH2U/cdX9TelQiODCFeXLAx35U0wtmfTIRs5OmpVcYFmQORliOD
-	Pxh55DyXxkP2DFPe/GLIAFH1d2qxt9elA5ME1RJ0LOfzzBTH2U6Jm1hv4hYdMqFO
-	PR3Ee7f76k5kohnE1ElBk3X+dLPOOznZLjRch4bLn3I2+g==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n9p6v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:49:15 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b7e90fef1so10576106d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:49:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jYljraek
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35943f55c06so719237eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:51:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792486155; x=1793090955; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0/bwyW8UsnwQhwKI8DmK2AwaAcEZQ5pGOOAly+nFvG0=;
-        b=GU8MIr3tPPPU8IAs7prEc2CUiW4KNdX3azdR0qJDT6aXg92zMVFutWjXb6Bor16QIj
-         32ZC2N/i0yJMdBoYZpJTJ1v3znWzuYusyjRQSAKN9BFv/xa6UnZAoUJcivPvDhSOEgBl
-         JNvSkD8pa/jRgxHVxvZLq813D/jJRGaaaJpFFASH5LBfURKQOhPgGI7n/QDrMSkumiAG
-         IIeXV+u7Qz9Vbt/zEShFu9n+OXrEdSu9uJbMZwlxEj+eOuuh2/GCZ7rdCjGZWXIvFyWr
-         fvCaIzUCUtRT7OLGcvUU51GeKsYuw+kHKAoTx4nnAjsWf++WELs43AdErnSPARA4EsUJ
-         BVtw==
+        d=gmail.com; s=20251104; t=1792486277; x=1793091077; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5SW2IO2rseXzuOFXMzCYvlLaiKwdefVPHk6QIet+9Es=;
+        b=jYljraekuZuVw1dg9ZUUQJ3EsEwOCz+ct1H0F0oS+76s1h6RHrEh+5NIrI/t5YyVCc
+         tPvS3E3gIUpT336fvtsSKqa7P5MYxsYiCKoQKGd7lbt5jh7FDfTBUFjWsBCANMhfOrbd
+         6ZdX9Z5xaU2L73WT+tH299V0na3HzJn2ZEGjuEARyfNGqLW+x93IKNw9UysbclVfq3tQ
+         XQyF1oA8Xvbh3QpGFpNlMOo4tP2MK+/ZM5Zc8rbpu1gSyu0bgqdCtyydeWRBh3HOI4tR
+         rNFenSW2ykYCgGSfgyVcU7YB0Aqh2IeZg25X9+/uwvQ8VEqE3DOEW7hgpNP4ykFUCuKc
+         TbsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792486155; x=1793090955;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0/bwyW8UsnwQhwKI8DmK2AwaAcEZQ5pGOOAly+nFvG0=;
-        b=P323zU9GaSlZTReOkfVIYVZsIR673Tp8O5iN/TksdjWugUzVIOUu25qhvHNHRiYSdN
-         fCHPGGc/aSqMYgGVgi1XC1+K03h9qI5Mfj6clkkKTwvjVIDGiSlHKAbDDcy+DT6t51xF
-         ddrT7ZCw7Pe9fkA2GcabltflHQKfxvaw+iTyVRs5N5Z3X4ykwq2CdMoTElUvoX5Ybx8M
-         cnmXz2kNbxrRHzhg7nMHjk9BW0+9uy08ePndchvMY4wHrL98C44pP9KlIS0TODk2PxUN
-         Kr8ut+jIlSfyjnFYRm14oraD/ckaUYxjszB5l/g8h7Bnj62guVwdRz6Zxe7+q1pZ99+d
-         La6g==
-X-Forwarded-Encrypted: i=1; AKwUvBzXi+XoHFixxjtSMuak7Uq3VtsBpyHiZHOckGH8xBOpbvBqfYKwbCzaQb2CyyfteLL5HcmvCPqu2VpkRxA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwkRX8WiVU/YQGtq2lQfSJSvMa73zFcCNx5ilEhCnFqW3Jyr/C
-	54+8+nZHOzqWnf8ftJdFESCcsojvxMJek/HnJOifftCVRodrcudTH7jFn/rCgb6ST2rGeSmR48F
-	PKOqHc75lpZsm5+6fNZkAZFjDlNgjaDtU8BabSZp5GR8Cx88RYFZecgzHBsm3C7cnWWE=
-X-Gm-Gg: AYBFou0HdQ6yaMakjud7uOV7kiR2exP5yhxGGYiC9c+0q1LPwY/TcjXolfUfPUPEuow
-	qj5lUI2B5xOOGK3dKNdoMa2H5YIYHMguajdeYHWKSKrDaU6ZAG2+TqyArUTQtROANK8udjTjGJp
-	tFUbqm3z0heIYDzbHHe9IbRuMezH63TyCpelDVMiELpCLXVSaryA2S5Q1M8DXV7gzY2vm1BEQPN
-	Qn/D4Cqr5Z25q+FIQPC4E2sI4R2k2oW/UqyqR+92Uyj+Y4XY8+iPPxTa3NSJZQh3KklKt/6Wqty
-	LPK0dMJWtXQ5rQKssaasP+T00mv4oVGlonvWL+TLQ8SgW/pRBXhaVHGW1r3LJEGwCZxJkRpv+8Q
-	5aQ4RpPh3jU2Vnrh0qy4XZ717Yast7Ta5QMoQx41xn6VXteIXtQDW7cxe4izZN8ZpAO72seRpVS
-	QQleqlnpum6WsR
-X-Received: by 2002:a05:620a:3720:b0:93e:6481:c8e0 with SMTP id af79cd13be357-93f4c1c4284mr210096885a.10.1792486154562;
-        Tue, 20 Oct 2026 01:49:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:3720:b0:93e:6481:c8e0 with SMTP id af79cd13be357-93f4c1c4284mr210095585a.10.1792486154122;
-        Tue, 20 Oct 2026 01:49:14 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab2e4e05c2sm23596581fa.25.2026.10.20.01.49.12
+        d=1e100.net; s=20260707; t=1792486277; x=1793091077;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5SW2IO2rseXzuOFXMzCYvlLaiKwdefVPHk6QIet+9Es=;
+        b=t/ggwI60qdxOuaEMPnqgXt/zbt/FDRZJki2C7sBPWDKWXfpZ2qY5IUxkjpAX/aQBYf
+         wAVExd+/fQjER7ZvtY05R2UTm8j5shA6MKr3WwL5DVP9bpz199Vd6bcE3rcO5QfnijgD
+         GlzlMy0RQb3I3OfSqt7IM9PTRPqQRtggDxVFk1xs8bBmykDT4QjQygk2DjoB02zu6kAo
+         aiiktJkKwpVLtKK4r/SYQ5hHD3uYFqbv2aBi1e1RfLDq7X7NN6dSulbCtDV0PFJIPPud
+         04e1SkTq6Jfnby3UAIRxtsgoofeFkdp4WAv1vnsrnDNlee7HxTNJUhRXh3PEgmuZ3sxo
+         SHDA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvS00tbchdmAZTiYfWvJUnKZZj7Z2AtFnwIJobTdpSKfrCyuyQtAW0NBiskSo+TcdRBjh4OsDFgZ1mdWA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLB+JGkGmsxNfe6ttGxoUgwUnGzt0B/bM4Q8WqkP2xN3JtP6N2Q
+	i0ZeBuZw7nqro8Jrsjfxkvoglop3A3HTGQKRjuf+JjKBwxsOoG8fviv/
+X-Gm-Gg: AYBFou27HV7u6Z/p0/tjZ4PEAWlKQdoQC5FOk4tG5HbNfLZqUN1YMo7uGzJnaTmEbcB
+	vFQ7OvoDQUvZIrTBu3+H+PlaMqIjGTQGK78JjeIYapzIfPi0Ph3ELqtesqQ3/qu6n6/m3JYLpyg
+	daHJY333og66VxMqnjzCLG/H5lWLDuDtk2Pg60ZnE4a+qiGEPvEEm4Zv5Y6YuH5D6e6dnE4nDwn
+	fUhgFsp1WwHQJARjESccoJI76Vfy1I8FQj+XE2cFlW4fEf7ueUiYYD87/vX+QGTyMVZbrQcni/P
+	YxDt2xPQsOKRQYWqERAL2PHMwwTsPLEPBWoi9psPcbcgiFQfVJzp2R/MB1GBG9vux2LHDzBiBwv
+	M5yWTB2sRVLGlbOcD4w3Qs7CazvDcp/EZhsD2NwveQale/+1uCiINiwsKY/O7QN3qWa1HmUdlRW
+	qDsXoI/9/NoXxlSOi0vfWc2GTUgmIG2266BaxkYTUp2K7nQZcWg7IbttjDJ7Lif6OcFwRcsrH9x
+	TedCr8mfhQAP9/v0jXjItHRqOv0cffdSERewd5OSa9h7S9LLmLY/atTTJhi9Ftmfhn77bN1Db+D
+	+qVlBoZf0bfA2a+LwDU85FYIGVnoxNqmbTR3kDEnLmLkpw==
+X-Received: by 2002:a05:693c:62cc:b0:358:a1b6:3ad4 with SMTP id 5a478bee46e88-365fa491f31mr2292136eec.4.1792486276837;
+        Tue, 20 Oct 2026 01:51:16 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:fdcb:6ff9:fb3c:351a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm40264160eec.16.2026.10.20.01.51.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 01:49:12 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:49:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] arm64: dts: qcom: eliza: Add FastRPC support
-Message-ID: <ec2vb232k5u6w4pqoiqc5lhq2zj3xuf6yaifpiyzjjgaffpcih@ulainigpj4l6>
-References: <20261016-dts-qcom-eliza-add-fastrpc-v3-1-4e3fb632300b@oss.qualcomm.com>
+        Tue, 20 Oct 2026 01:51:15 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	akpm@linux-foundation.org
+Cc: zzzccc427@gmail.com,
+	kees@kernel.org,
+	ericterminal@gmail.com,
+	christophe.jaillet@wanadoo.fr,
+	kurt.hackel@oracle.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Subject: [PATCH v2] ocfs2: fix use-after-free in o2hb_region_dev_store
+Date: Tue, 20 Oct 2026 14:21:00 +0530
+Message-ID: <20261020085100.8819-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,76 +105,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-dts-qcom-eliza-add-fastrpc-v3-1-4e3fb632300b@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: kNSXQn5vKEiKUAAjMRyiNRe2FK-qy9yN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNCBTYWx0ZWRfX+hYt7/X72QJx
- DXe6XIxUQ/KXDlNXKwWzSWYag9zj8ZbCxjQrByM84nRj5k3iJFNqS0jwQbnDvv38qhZ2rKjBPJD
- ceoZ2gvtDaZTtyW7x45ShLk6S9C41Z1IMdbME5yIljmAMIi6liLuM5ZXBxSOWp5dPN4TSmXVp2r
- z5KXnpHxzDkZDrym1FqqdzoqWGPPqKMFOFgzqujFAkW1EVCzdNUW9p5lXmp/Giobb/7Hm4Vnqzq
- /OVhyXC6ysC8gxjfZ8Mth99T3xFXltlKFjs4tjyaxrXBmjZy+s41zLT5ODLKy8JOkMEbaUFlfH1
- 8BTxanCkJ7riZ+NDXmcEqasHSGqukcPb3gzkrEhWaFJYAqBIg98ttSWWI5m70l0My+XhlIMBcwf
- EUk0cFm1y+V/9XWoSr8aWlU34JlVFvhjhPG8GGYFb6WrkkVgtER3wxKDzhursZMWjLfjdBssKcQ
- 3Ix3H1dgejQ8r/VVADQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNCBTYWx0ZWRfX6gtk/0M0gs92
- Tb3kcGdVJSExg1nsNgX+ewBrhdFLst5m99x4i2zzGSFpgaJwZOfI71iqvIWN/6l88in9qrwQ6o2
- ryvtI0iKnNM6/qi9hOUUNof6t/Lw/B8=
-X-Authority-Analysis: v=2.4 cv=VI9IDNPX c=1 sm=1 tr=0 ts=6ad72b0b cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=aMj0She71zyoh_EkCE4A:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: kNSXQn5vKEiKUAAjMRyiNRe2FK-qy9yN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200034
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 02:17:10PM +0300, Abel Vesa wrote:
-> Describe the FastRPC nodes for both ADSP and CDSP remoteprocs, along with
-> the ADSP remote heap memory region needed by the Audio PD.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Rebase onto next-20261015.
-> - Add the ADSP remote heap memory region (no-map) and VMIDs.
-> - Link to v2: https://patch.msgid.link/20260916-dts-qcom-eliza-add-fastrpc-v2-1-95ed704ff268@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Rebase onto next-20260915.
-> - Drop the CDSP glink-edge description, as it was merged with the
->   CDSP remoteproc support.
-> - Use the documented 0x1063-0x1066 secondary ADSP SID values.
-> - Drop the undocumented tertiary ADSP CB7 stream (0x1087).
+Two tasks can concurrently write to the same region's "dev" configfs
+attribute, each through its own open fd. configfs does not serialize
+separate fds against each other here.
 
-Hmm, you still have this in place.
+The only guard against a second writer is an unlocked check near the
+top of o2hb_region_dev_store():
 
-> - Link to v1: https://patch.msgid.link/20260721-dts-qcom-eliza-add-fastrpc-v1-1-cbea68d8e01b@oss.qualcomm.com
-> ---
->  arch/arm64/boot/dts/qcom/eliza.dtsi | 160 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 160 insertions(+)
-> 
-> +					compute-cb@7 {
-> +						compatible = "qcom,fastrpc-compute-cb";
-> +						reg = <7>;
-> +
-> +						iommus = <&apps_smmu 0x1007 0x40>,
-> +							 <&apps_smmu 0x1067 0x0>;
-> +						dma-coherent;
-> +					};
-> +				};
-> +
->  				gpr {
->  					compatible = "qcom,gpr";
->  					qcom,glink-channels = "adsp_apps";
+    if (reg->hr_bdev_file)
+            return -EINVAL;
 
+This check happens well before hr_bdev_file is actually assigned;
+several validation steps and an fd lookup sit in between. If a second
+task runs this same check before the first task has assigned
+hr_bdev_file, it also reads NULL and also proceeds.
+
+Both tasks then call o2hb_map_slot_data(), which allocates
+reg->hr_slot_data, and later, on any failure, o2hb_unmap_slot_data(),
+which frees it. Since hr_slot_data is also unprotected, one task can
+free it through its failure path while the other task is still
+populating the array, producing the use-after-free reported by syzbot.
+
+Race flow:
+
+  T1: dev_store()                      T2: dev_store()
+  if (reg->hr_bdev_file)  // NULL      if (reg->hr_bdev_file)  // NULL
+  ...                                  ...
+  reg->hr_bdev_file = ...
+  o2hb_map_slot_data()
+    alloc reg->hr_slot_data
+    populating slots...
+                                       reg->hr_bdev_file = ...
+                                       o2hb_map_slot_data()
+                                       failure -> out:
+                                         o2hb_unmap_slot_data()
+                                           frees reg->hr_slot_data
+  writes to freed slot data  <-- UAF
+
+Fix this by adding a per-region mutex, taken at the top of
+o2hb_region_dev_store() before any region state is modified and held
+until the function returns.
+
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
+Tested-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6a9b3f7a.2e649fcc.1e1977.0001.GAE@google.com/T/ [v1]
+Assisted-by: Claude
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+v2:
+ - Expanded the description with the race flow
+ - Updated Fixes: tag
+ - Use tab for indentation
+ - Dropped locking in o2hb_region_release(); configfs already
+   serializes store and rmdir
+ - Take the lock before the hr_node_num assignment, using
+   guard(mutex) so every early return releases it
+---
+ fs/ocfs2/cluster/heartbeat.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 1c3def99bb07..e20ef0459f54 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -273,6 +273,8 @@ struct o2hb_region {
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+ 	int			hr_last_hb_status;
++	/* Serializes concurrent writers of the "dev" attribute */
++	struct mutex		hr_dev_write_mutex;
+ };
+ 
+ static inline struct block_device *reg_bdev(struct o2hb_region *reg)
+@@ -1879,6 +1881,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	guard(mutex)(&reg->hr_dev_write_mutex);
++
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -2149,6 +2153,8 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 
+ 	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+ 
++	mutex_init(&reg->hr_dev_write_mutex);
++
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
 -- 
-With best wishes
-Dmitry
+2.43.0
+
