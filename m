@@ -1,44 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497593;
-	b=gu3jb4lE9ksjfIsHcXTK/aq2Xf56sZ+pC4z1No8DHweRrk43z8bFsaJq6rHzVD05Wr8q
-	 w3HffgAQl/jwWdQztzO14IByTXxTDqribabE6CgXU+XOSPAV6GhkZUbQadcixViC8U/Dq
-	 MZVCZMedRT88qhEPdXaECpH1s5iL5x/pNCrcZpuitx+fB4zZ/s7XoZwJOwILx2NDMvSE5
-	 OF9yQI/O+hz4l2kFdimUUKCJMctyo59yIL085cYlwprlgZ+zYi8pd3wIkcpcu9eJR999R
-	 2ApmoEv6s1V629VHKEcQUgGTkGy2Lkuyn0rMfF7TOFtQhFyiXpxO1bRsZZA6dxv4sFg==
+	t=1792497659;
+	b=KjnUJNLWQ+bE1LEkQnyo5JK1DktSB7sAD0Krsuk3CYPe4Ji8v5zfy2mrv4Wgc58yaG77
+	 WnCX5GZagold8LkA8JJNcca4dwomEMRMZq4va7OQgeLpnLeIkEiO7IKdjkC/JE6BMUvvl
+	 rGyEStq33MLlXyOgAvbrgeTAawtMRw/3aJnVqf7k3xgQxQ3bhVoiMkZI0AA8OCNKDFuSc
+	 hzn8ds6ykJ9fqfNiITQBGo3xC/HdL5VJxua2uXA1T3DlupgCkf1k2ZpSLD0igVcvU3NW8
+	 ipz845KUfZ54tiziVJArrOQokyG1Dwvy8/YwIFyngGujNgKAO+eYOIQzWRbmzGqmmMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497593;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=LC/OjFTpCCvkIsv7pAPuEZkfOKc3BfQoa6IiutvgXsQ=;
-	b=lYk92OELkhGQ4H7E4l6pTHuo0vup6W3mJTG2PnbfYwr9PBtRrqxo2PcmW2dbvvywH3dl
-	 CcbuHksnJ2KQnqFc09vAKc/1v/sMn+sBy+2d6glOXxiRsiAOhnTGcxZUgd8c3P26itlCe
-	 QFOQkMWevgDKzFZvn8QLzaLqa/sh4u+ORk/GWyOEiqv3lXejW9XahJna5YGkVmTxB24JZ
-	 NX5b4x9lSzfRzdHGBzMOVXgGE2Zw3nOSK5vSslDQ4eK8PJkm68xQJdYJD7mG2tEGlphTI
-	 24TlZRn4UrRMOnXIJfKtPZzp3Vjph53LTw5Zrpqhl2dzGr3uGGAxbHjIvIGbkma5gyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497659;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=eFZVTyF20/Zx4HBaZT3lO0bzlutBA0qs6TPlDnVyFyY=;
+	b=fuw9jtD+7y5PAGwkk+XBCFTFqBmjeD+RIiM9p/XIx2uQxD/9cKg8wePpcv6CeP8zmDxl
+	 73icKuD7Yo98gBuE+XULpYX2ytcCCgEHe2iYdLmbCTtLKOLq869DZ2sP+7rW23hJhRNhk
+	 F7kYoq/zu6d56k6lw5baaNaR7k5TJeQnVOqtDX6dFIltRvyZJFoDyzPFWp1yCHd1pStZw
+	 ZXXKZ7pex7xuJglOXo8KGt1giORiCTJZEZY7Jbu32GLWVGrot0LfAbMaF0VfNLoI5ykia
+	 7MFb5SDhbI+oWLh9HNAyFduYdY5fy28+RtnZY5flko0K9k29dJDUochW//+kOk8LAVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=lpQgG4gD;
+	arc=none smtp.remote-ip=195.10.208.52
+Received: from mout-b-203.mailbox.org (mout-b-203.mailbox.org [195.10.208.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108A9606A334;
-	Tue, 20 Oct 2026 11:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 108A9606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 20 Oct
- 2026 19:59:50 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 20 Oct 2026 19:59:50 +0800
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Tue, 20 Oct 2026 19:59:49 +0800
-Subject: [PATCH v10 1/3] dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7C8606A319;
+	Tue, 20 Oct 2026 12:00:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A7C8606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=lpQgG4gD
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-b-203.mailbox.org (Postfix) with ESMTPS id 4j89wb5pJ5zLmB0;
+	Tue, 20 Oct 2026 14:00:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1792497647;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eFZVTyF20/Zx4HBaZT3lO0bzlutBA0qs6TPlDnVyFyY=;
+	b=lpQgG4gDp/QVBZrN7bzzPbOIUMUd/0raix82VZ5dsf5pVSZ6zrZYHnEbyl2k+LeXyxYsM5
+	QrCR1MdiYmCJeA/uRyYm0PWxxJIMBA06P7zq6aANLzyK/eI/BfNDweDAiIlnYiCV8e6wbq
+	xMqAPvhjchlva8cp0f3976vHWhPWXUgaBURKlBAFGJT4+IVmOiPe5emUZPn7R7bKs9uOUJ
+	4QKfxXuCBF4WwwTb/qkJOL7cjqVe5ByrJ8skgw6+uz4N+U64QuiuTvzzUHP3W9JRzbE6oO
+	vOuCFI0HKCWMirQw0K4F9Zamyuac1HPPvfmdLWLXREjDNXPTMc1EnEIMpb7xjg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+From: Ralf Lici <ralf@mandelbit.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org,
+	Antoine Tenart <atenart@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with accurate DMA directions
+Date: Tue, 20 Oct 2026 14:00:42 +0200
+Message-ID: <20261020120042.359215-1-ralf@mandelbit.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <atHquk_AUj2Ys7Su@gondor.apana.org.au>
+References: <atHquk_AUj2Ys7Su@gondor.apana.org.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,96 +75,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261020-upstream_pcie_rc-v10-1-fba209af8656@aspeedtech.com>
-References: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
-In-Reply-To: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>
-CC: <linux-aspeed@lists.ozlabs.org>, <linux-phy@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792497590; l=1816;
- i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=R1Rp45+kmKh9eM16JpYNajIX3lEUCLAV021oQUooi3w=;
- b=Xdz92dN612PvoOTD+/ca/mYNCNaAw+XoC5l7R9jvXBL00yppDccJtEgvEGBu9esn7E1XDoVeW
- N7n2MFuEQ6nAWWFff8w4ZhCTQrUh20i2vNTFAlB6HWwFp/v0lxO8ODx
-X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
- pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4j89wb5pJ5zLmB0
 
-Introduce device-binding for ASPEED AST2600/2700 PCIe PHY.
-The PHY provides the physical layer used by the PCIe
-controller when operating in root complex mode.
+Hi Herbert,
 
-Describe the compatible strings, register range, clocks and
-phy-cells value required by the PHY provider.
+On Fri, 16 Oct 2026 20:13:30 +1100, Herbert Xu <herbert@gondor.apana.org.au> wrote:
+> On Tue, Sep 15, 2026 at 01:32:12PM +0200, Ralf Lici wrote:
+> >
+> > @@ -748,8 +833,17 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+> >  			return -EINVAL;
+> >  		}
+> >  		if (sreq->nr_src > 0) {
+> > -			src_mapped = dma_map_sg(priv->dev, src, sreq->nr_src,
+> > -						DMA_BIDIRECTIONAL);
+> > +			if (ctx->aead)
+> > +				src_mapped =
+> > +					safexcel_map_aead(priv->dev, src,
+> > +							  sreq->nr_src,
+> > +							  sreq->output_offset,
+> > +							  sreq->output_len,
+> > +							  true);
+> > +			else
+> > +				src_mapped = dma_map_sg(priv->dev, src,
+> > +							sreq->nr_src,
+> > +							DMA_BIDIRECTIONAL);
+>
+> This path doesn't actualy matter because BIDIRECTIONAL is safe
+> even if you use it unnecessarily.
+>
+> > @@ -775,8 +869,17 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+> >  		}
+> >  
+> >  		if (sreq->nr_dst > 0) {
+> > -			dst_mapped = dma_map_sg(priv->dev, dst, sreq->nr_dst,
+> > -						DMA_FROM_DEVICE);
+>
+> So this is the really buggy path.  Why don't you just change it to
+> BIDRECTIONAL, perhaps with a comment referring to the assoc data?
+>
 
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
- .../bindings/phy/aspeed,ast2600-pcie-phy.yaml      | 49 ++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
+I tried that simplification on the MT7986 before respinning, but
+unfortunately mapping the complete AEAD destination DMA_BIDIRECTIONAL
+does not fix the corruption.
 
-diff --git a/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml
-new file mode 100644
-index 000000000000..686b2e3d9457
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml
-@@ -0,0 +1,49 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/aspeed,ast2600-pcie-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ASPEED PCIe PHY
-+
-+maintainers:
-+  - Jacky Chou <jacky_chou@aspeedtech.com>
-+
-+description:
-+  The ASPEED PCIe PHY provides the physical layer functionality for PCIe
-+  controllers in the SoC.
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - aspeed,ast2600-pcie-phy
-+          - aspeed,ast2700-pcie-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+    description:
-+      Fixed 100MHz reference clock provided on the board.
-+
-+  "#phy-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    phy@1e6ed200 {
-+      compatible = "aspeed,ast2600-pcie-phy";
-+      reg = <0x1e6ed200 0x100>;
-+      clocks = <&pcie_refclk>;
-+      #phy-cells = <0>;
-+    };
+The relevant ovpn layout is physically:
+
+    [ AAD ][ tag ][ payload ]
+
+and is described to the AEAD implementation in logical order as:
+
+    [ AAD ][ payload ][ tag ]
+
+The entries do not overlap in bytes, but a small AAD entry and an
+adjacent output entry can share a cache line. When mapped
+DMA_BIDIRECTIONAL on this non-coherent system, the AAD entry is bounced.
+After the accelerator has written the output to RAM, unmapping the AAD
+copies its unchanged bytes back through the CPU. This dirties the CPU's
+stale copy of the cache line corresponding to the memory where part of
+the accelerator output now resides. Cache maintenance, while unmapping
+the adjacent output entry, can then clean that line and overwrite the
+output with stale pre-crypto bytes.
+
+This also affects the in-place path. Although an in-place request uses
+the same scatterlist as source and destination, its AAD entry remains
+input-only. Mapping the whole list DMA_BIDIRECTIONAL therefore gives
+that entry an unnecessary and harmful copyback.
+
+So I don't think the source/in-place handling can be dropped on this
+platform. I can add the physical/logical layout and the simplified A/B
+result to the next cover letter to make the reason for the finer-grained
+mapping clearer.
+
+Thanks!
 
 -- 
-2.34.1
-
+Ralf Lici
+Mandelbit Srl
