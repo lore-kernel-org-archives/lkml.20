@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792528793;
-	b=yqRllIT0WT6Xh2FjTIUSJEqrvK6bo9yb6mb5pV8pc9/WZay7U3exTsDWFP5QsOfcPTzr
-	 6HVjafcwpQETD1HiWJRolmHE0tEkCCM0DliAyvhx2hcJkAxliceNjZ6kQdR0ngCEthix3
-	 twjVJz28pzYwEUT13ajW0r9/hFXjIJL/4oi9ThY3zR1z/4Q6vKFjt40Vy8NSKZxQ5rOyS
-	 buIkw+Lt6KXuZ0xJJxnq2F/95F1ZSQ9gTHvdiZtvGmE6MG2kprHJABxqTc89pKbVVKGyv
-	 n4+ocoPqH08ZJ9gZZM3Mv4YENnunh2sBbWoJLvDfQHBLg12rVSdnV0we+0HAoM82/pg==
+	t=1792528850;
+	b=fLezBih1lJLX0wt+uyj9o604BILFo8nv7Pev8c18ZWtSVFBDdmh5bpvjEHCheGWLrJCu
+	 pF/dwOLamCsmn5IYNIl3ZR8l/tTM8EJWpCfjk9lAKULJl5PAggzR1EygL6vQyFq2f2QLA
+	 D+nY1HES8FdbnbAmWB8OnZEg1yBZNSUSiKEb5ArYsGMDGXeQIidB5wrJ9qv4OxAb7xj2E
+	 zno74s8lOrLsxbUYu1kETMt4ieDUXDS0kg/RDMVJAsieZfpjOZFkObjV8LIw7fEMHJBxc
+	 t1BgP9hKt8MCrUFurU1puvm2YF/8YnatbFMHzGb20F1SbgPIh1S5SLdICPwcKOUVx0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792528793;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=69ZsWlJYKqcYYqFI8rMOizWSH2P8Ln8H/nLJiISKOi8=;
-	b=ktoa/+AoMZdrs4v0nhlBdJaq5qKZYmn0anmNzaRvIZVmDm+6FYKGU5w6a07SnCvAtV2D
-	 bp38vQ0hGzi91BjbPJjTqmmuIK74S+rTjU6hM1wS+/qqmBgBSCwjrSIHJ2UEPOfIRuzRy
-	 mMc/JGOwq0mHyBHToQc1u0WSk9zVIoOkr1N3tALrgHtvWDm3XlG9wOHNLwKMRIXrvwYad
-	 GwAohe0/vPoU+ZKNevnq9cz+5uWp+LHe6pSaZxvfB0v1nszWPXFLydnhKYFK6OiFB8wSJ
-	 GB+gWf4+NoHcF79Pk/BaajrfLkvYWNngZe6UKlRGYr6Z4mS3SBZAHd6uVgBQOL8cMag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792528850;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=nmC/incgC44p0YLHcQ1YsL8k+YChQ6lTfX1k4mMNozs=;
+	b=l0gSSUtdV89e/eo3ZQN/gWiHiwpZiMmMy8nIci0nQZq4egClWf10nFoKwsyznNGLf6kl
+	 E5G0N8YIN0dklUuQLva7k3nI/DO8PKsGUL8L0UTfNOgxhmG4k4LSl6Y7uSGEqjV/KlhUf
+	 zU5Bv+aLNpyQBtZdkutPvZhHaeGAdRyfrR1yodJf1FsNJbAIEZcOXuHSTeSC5CQO97a/q
+	 /ZURwRo+LkR93HQwAnFvgCtQn9vWjmrpwxHVhkKPDjOri6GTSIwnObtEHqgMuiif8S8Nt
+	 ANeTyFemN0PXNm1onTRmtBlBvynl0CqDnNkKq/OC+Hckkm4FHUf4ClEtTdjlV/JjTVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZuXLBJj4;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Eyv12zPY;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECDC606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:39:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ECDC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB51606A31A;
+	Tue, 20 Oct 2026 20:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EB51606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZuXLBJj4
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so22855e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:39:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792528791; x=1793133591; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=69ZsWlJYKqcYYqFI8rMOizWSH2P8Ln8H/nLJiISKOi8=;
-        b=ZuXLBJj46sgMBE9x8Gk6ifw6twa5jmlOsicpDnX4Av6p/OAg1Djc1Cwkqo8rE0t2Qh
-         H++gYz0eyNkuK/ORdEUtey8C/fWfjw2QdZ5uzeLEGVQarM8A/JLh6A4/ORdUj1GfkaQ9
-         bg5XZtpzzXKqA5tQj4qOHE18O0PedfnhhfzPdssVvRioJa8pZ+HBeaYTEPU+IYoUs0je
-         WM2i4WRHjPHv17vmr13Y2KjIrPzLAx1b7BRT8fBns/c9UcyLhUP6Z52VAxQVAYj0QdZ6
-         w7KrTJV+V2b2ShFC6jPAPpoD30u+uj+xo3fKxkYsvDhm/5ofdakfjntqfeBZqo0oKhaX
-         9VlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792528791; x=1793133591;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=69ZsWlJYKqcYYqFI8rMOizWSH2P8Ln8H/nLJiISKOi8=;
-        b=GsyNm8cwv695s0lP114q9Bnogd1GJ3egT07eumHjiSSJfw6Lzo+HnACKWldKjSJr5P
-         hyzCgRiDjDss0h6m/lpVwuMoHUUamcOK1PEqkCe9V9pCzAO0JOySKox396+sCJOndQfu
-         uViRk+gJJwUrAwEA0vixPQlTRgMZ6jfA9P2FGE0GRsTSfdE46WpCCPhwJxuj3LtGfg/g
-         iry5fKZEUkCWX+ygND3+YPuRclBZoWhpeDGT+iejlp8XFKeKKzp02hEvY/e2aTKSY9N2
-         JYVkeSZkNNQ0MsPdIX1ems8z7Gsn8SrhEZo7gDnU1xwfmCC4AjgC/Eem4QV1h0VZ/1PF
-         1naA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ6lpv381Bel44p29aniJKrVYT1WCjl8E10txBKRS8WBwm1tdbk7qw9hkaZpsyDrMB6kc9RkInm6ebQyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWwZ1ufh1QjcXPY5E9UXooQnjZW4BiXAvSdIKE0MPx4ljUoBa1
-	+iUMYVdvpbqOCxu4b31lwakPPiGwiJLuOPimO4SmNycBzMI4MPNlxsnt
-X-Gm-Gg: AYBFou11NAmY7dJCCxxvkGklZKf12L2TCcNqXtphgrayrSzQwn7RngBcMemDzQQw93z
-	vW8G+GhxOwmgLeEGtBNfUVVVcz/wi6+gzifrLfYD6T0D0J4GSfhDQ+nWWViQeZfn1F9DUzXyJZ6
-	lWEdOuXmGcOXG5iznOjF5813lEaoWPY8czRke1fuD8Tt+M4o1XdKFsHNuCj1cxciRfVW4IHa2jD
-	+i+NMRaZkM+Ydc0yGaQOxzgUgg3VqGARBBGmL+NCIhrQdjcb3M3TM0gW6ZSdZCB3WXWDijCUPWG
-	pkVpnxPktG/fxwOfFoR1d0lDeA9iK2sJLc5hg0l4UWSFKL5Nw2HLQTuhph2RLh7qWm1WJY+dZKz
-	IWSyrGHRGqYWR4qe1spnnIxnk+ouznebvUDlbZ76jvVyFMT6sKh460dWUZRWKJ5s3kkqasbRqY3
-	YpaBUFOAUUkRUN4QMGenSSlbKKUsIjjq5vJGAoHWzE93s9r9LRo7xAjtOMgQvsgoEzEsjrUIcpE
-	A==
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:dbdf:17a8 with SMTP id 5b1f17b1804b1-4a1dbdf1a18mr238063555e9.2.1792528791378;
-        Tue, 20 Oct 2026 13:39:51 -0700 (PDT)
-Received: from vitor-21h1cto1ww ([2001:8a0:c4c6:f00:691:6627:6830:68b9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d324f8sm90720295e9.6.2026.10.20.13.39.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:39:50 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Vitor Soares <vitor.soares@toradex.com>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] wifi: brcmfmac: skip bus_reset cancel when the work was never initialized
-Date: Tue, 20 Oct 2026 21:39:13 +0100
-Message-ID: <20261020203916.381637-2-ivitro@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Eyv12zPY
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KHEPYL3067822;
+	Tue, 20 Oct 2026 20:40:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=nmC/in
+	cgC44p0YLHcQ1YsL8k+YChQ6lTfX1k4mMNozs=; b=Eyv12zPYcwSqGAvQOd6/tM
+	O0wEtbsLeoEegPD5Y0YbawQ+3VZO6hPc3abEsk+7Z9LdnRLaquXCqzYHJgSRgeF8
+	ZoHkiKDIsMEJq9iP/4k7x4VKE19Ek/xkePZZol/Eu7MB1wiJQGYh93Pbw+ketQqT
+	MAjJlpe2yUHDhKpgzDI9VqoBSFS6gKjfwEDTE/7FCQKgfDK5GR3GMicDuKE4mMnU
+	g+O1N2UcHYgKOUzLtg6EbGavueClSat/8xyDLJ/Gr9wnmXPRquUo7RbWZKIYPpAX
+	+dSeyXevy8S1ZjqiWFkAGRcTFW4at61KDGVmr3X8iUfVqLNhxkvPLS7GkccBQXhw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw59w3sn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 20:40:25 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69KHJoTP1793404;
+	Tue, 20 Oct 2026 20:40:25 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hckqvm2gk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 20:40:25 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69KKeOsa7078418
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 20 Oct 2026 20:40:25 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D299F58068;
+	Tue, 20 Oct 2026 20:40:24 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4C89258060;
+	Tue, 20 Oct 2026 20:40:24 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 20 Oct 2026 20:40:24 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,60 +83,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Oct 2026 15:40:24 -0500
+From: Wen Xiong <wenxiong@linux.ibm.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, wenxiong@us.ibm.com,
+        Brian King
+ <brking@linux.vnet.ibm.com>,
+        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+        Joel Stanley <joel@jms.id.au>
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+In-Reply-To: <20261015103307.3ba25345.michal.pecio@gmail.com>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+ <20261002102931.3cb06009.michal.pecio@gmail.com>
+ <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
+ <20261002161828.365ff859.michal.pecio@gmail.com>
+ <55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
+ <20261006125546.10471489.michal.pecio@gmail.com>
+ <64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
+ <20261015103307.3ba25345.michal.pecio@gmail.com>
+Message-ID: <5510281a5d91bbd435d9920431a3fa75@linux.ibm.com>
+X-Sender: wenxiong@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MCBTYWx0ZWRfX4XtqGvhWkg4f
+ 8kQxnN6848X+gcsx7WALTF9DKcCLIt0kO4rLLU7t6fghQ1hMzccXt+FsP2bmOQc975fLakJ1Non
+ y6Nww9Ml2L1UXE45PciOVA3+UXPGwSRIbeLI+cVucbRH7bZNlbWRwgg+51tesQrU88IufLW5Fod
+ wbcEhnbFXqZqUjvCgmN2bV4cFPgBfRASs7RTETZ1tfuGoy7FUDz1ynSaDa8EpAZHXjFjV7LzfiN
+ onUZcAsI7C+fZegwPQ5uZxOlwVJ5dMOctpEvOKclYKCxs0sn9z9xKexvDBZwXD8jaA5L1qVqvtb
+ 7iT0BH1kW79pjGQ0Fc+c+ag9xYIMYL7Wdszh603C8sKSlYSPsNoqM86lS9W8HhtBcHCsqYQMxBJ
+ QfuErwWkoJWrdybP87puPjA03gcXCklUyi5iszIq+qGvifIKxxQGVmvVfZaCeyIww7F7AUZ0lNK
+ MYuxWQq3Beuv99zhG3Q==
+X-Proofpoint-ORIG-GUID: y6EkgGZBlFtU8poduQyeycfDwTpiLXTs
+X-Proofpoint-GUID: ULvzCJmwWIHRjaPUnlzOOJ02bZjFnke-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MCBTYWx0ZWRfX6H5CSDYMVph1
+ N6irgTUk2d/1JOgG1GIDieWHUuFQ2E3pJAuB3zB9Lv4D0Xbizc7PSNibc0944hsCLokAAvl5CpJ
+ PLQMzFQyjVLg9njUHV6r0FYb9swEvlk=
+X-Authority-Analysis: v=2.4 cv=ZfSIpcVA c=1 sm=1 tr=0 ts=6ad7d1ba cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=nViXcNDWPswa_XI7mFQA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ clxscore=1015 phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200080
 
-From: Vitor Soares <vitor.soares@toradex.com>
 
-When the firmware request fails, brcmf_pcie_setup() releases its own
-driver, which runs brcmf_pcie_remove() -> brcmf_bus_cancel_reset_work().
-At that point brcmf_alloc() has set bus_if->drvr, but brcmf_attach() has
-not run, so drvr->bus_reset was never INIT_WORK()ed. cancel_work_sync()
-on the zeroed work then trips WARN_ON(!work->func) in __flush_work():
+> If it doesn't help, it will look like you have something (machine FW?)
+> monkeying with the chip during kexec. Then we could try fixing some
+> known bugs in quirk_usb_handoff_xhci(). Maybe this will be enough.
+> 
+Above patch is similar like my V1 patch.
+It works fine and all usb devices are showed up after executing a kexec.
 
-  brcmfmac 0000:01:00.0: Direct firmware load for brcm/brcmfmac43752-pcie.bin failed with error -2
-  brcmfmac 0000:01:00.0: brcmf_pcie_setup: Dongle setup failed
-  ieee80211 phy0: brcmf_fw_crashed: Firmware has halted or crashed
-  WARNING: kernel/workqueue.c:4409 at __flush_work+0x318/0x338, CPU#0: kworker/0:1/10
-  Workqueue: events request_firmware_work_func
-  Call trace:
-   __flush_work+0x318/0x338 (P)
-   cancel_work_sync+0x6c/0x90
-   brcmf_bus_cancel_reset_work+0x3c/0x54 [brcmfmac]
-   brcmf_pcie_remove+0x5c/0x124 [brcmfmac]
-   pci_device_remove+0x44/0xd8
-   device_remove+0x4c/0x80
-   device_release_driver_internal+0x1d0/0x22c
-   device_release_driver+0x18/0x24
-   brcmf_pcie_setup+0x58/0xc94 [brcmfmac]
-   brcmf_fw_request_done+0x14c/0x198 [brcmfmac]
-   request_firmware_work_func+0x5c/0xe8
+If we can combine above patch + my V2 patch(set flag to TI devices in 
+quirks), it should work fine.
 
-brcmf_bus_schedule_reset() already gates on bus_reset.func for this
-reason. Apply the same check on the cancel side.
+Or you can other ideas?
 
-Reproduced on a BCM43752 PCIe module with the firmware file absent.
-With this change the same failure path completes without the warning.
-
-Fixes: 43b25879f004 ("wifi: brcmfmac: drain bus_reset work on device removal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-index 92ec269f43b2..a3d662348711 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-@@ -1186,7 +1186,7 @@ void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
- {
- 	mutex_lock(&bus_if->bus_reset_lock);
- 	bus_if->removing = true;
--	if (bus_if->drvr)
-+	if (bus_if->drvr && bus_if->drvr->bus_reset.func)
- 		cancel_work_sync(&bus_if->drvr->bus_reset);
- 	mutex_unlock(&bus_if->bus_reset_lock);
- }
--- 
-2.53.0
-
+Thanks,
+Wendy
