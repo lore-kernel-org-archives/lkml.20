@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503207;
-	b=HvzYUxyhzgrofSuLpf7kPSh/MG2M5QlKg6niDi+WiH7uPV4TlVt99hf0C8lJkG/txg/l
-	 bx6xRdSr0IiJEG38DwsNQQy36Bv6vE2PGqyFJK4LXlzTzfaCw3+cYEbgQuwfYibqn2fDt
-	 b1eiqDeNoYUpXYU9WcTQY51ukhu8KqAg03qxsi+EPCrIuTG8JBgrv22xPWwfpLDGjb70U
-	 HGTMcfUZKhBzoUMh90PdAY6jtngALaMW6KzD8rjm8+eXu8f8X69vHR7h/ZskJr49bRPtm
-	 3ZIJq5ASnwXGs1q5+4vEl7iFQD79eTl9fqow4GhU3pSylMCQly4006aAJyCOJmBMC5Q==
+	t=1792503209;
+	b=jFxywDljgVMeU121pxxxyg+7qop37pt6B5ASPQXyHDkzGzaefWftcyFyIINMHJaPkVp8
+	 CWR3hd8PgxTu9c1NafzICdzWzUXzinMyd6vIRBV/COXaO047o2EFQ0c91P1B1JWa5Eqlx
+	 0hD4mXo68qBKZb6k362UPUzzkYOvkrQFinregjuOs/8e3zxchdJc16zTSNHwaIiKlyYPi
+	 zxlbT2X4AznTyWRSRvHFW02cw4MGJ4wy0IYb+5a8EG4T0C/3E/2gNP1Di11GEJSirVVMV
+	 dgycmVg8T2c7Me8zf+Ug/jjortpNYkfP2ooMW9mIli9MjC6stCJNDq7CxtTpm8OnK7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503207;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=CmgxYFLM8qJUWvWVc5vYTJVXqVY4Hx6nTGQxyWlnrto=;
-	b=ADr9ebD9VR+K9XHrFqLv0lw+jaTDuAnkz4HgtD5lamV8sc6DinXhBFBHkIhIT+Yms4bi
-	 eAhB6rXQ60MZTg+qFZU6xOMlFSLoEKopIx/DoMYhaZi55p9ajXyOZ9LbE38d2o1bCGjqE
-	 PXWrBwhomz0YrOAI+93i0xNrqIPw3DmcmB6MfjrLcMhLDY4VJ7z1fm0VfKDfhpghb7b2C
-	 xKKBfzpk5YXtadVdSxPLrNz2qVSkOj3p9+U7jO+tlS6SrK4KgpXjDK/tgsbZHW6gporcP
-	 F29Dom5hNgvWy5W5Ae3xhOGYF3+N1QfaoMYaiQ6xXf3BnUBhJq2c2Z49SOmZf/3kf1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503209;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=BCOSugtDU7tYNM6qAZB9kUtVTwATXbzzWeOKKEyoHy8=;
+	b=Pe50FZK4iBt4eA1S/sF80XGKzT/NuJB32hRaULJp1cpJ8z1/kFmGt53Kgcli3i/B+Din
+	 +ibSUVTTnIXb/+dZwZgIASGmbqHJthN5WWYx0AwCfYC6oLwCU9ZbdCPZ1kv4st00y76yo
+	 GH27qR7srXC9JKBQ/WMACDLosxy3H04sUy86sq+By91Eu1Lzw0/9FUI1Jx8S246p8JFaF
+	 EqdEy3vePzM3lECEBb78+vwJBVCdiKoI59SGMeNvzPB27amwbwK0awXtCm+kli+JgF5mG
+	 A0wDvm31yYSbxM5JsoSyvqdSSDzM776ha+5FO8VIdJsMjvOAJPtW9FjTcTXijEJVW3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZNdtbkh;
-	arc=none smtp.remote-ip=95.215.58.125
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GAwzRXJ/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED27606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:33:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EED27606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81529606A330;
+	Tue, 20 Oct 2026 13:33:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZNdtbkh
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AcUqUaao/jqaBmXmcRy6oGKOshGqT8aN/yaRUiJYB6k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792503204; v=1; x=1793108004;
- b=wZNdtbkhXwUOeneyfOhn8NIG6Tkyr8jPfZyJx9gZXIN8QKYCMb2GqftN/7tYRJlZfVJSQh0C
- 19KBpFiE6NrzROAHxHYpsRpA1UvdrAoFFJbWj84PdZ8U7STzsyo9cN2cxiv1PmFxmQscE8Pd7rO
- nj8ubX9Zfjl5Z3Pedu/m7rDY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fb1a7d32086cf4bb;
-	Tue, 20 Oct 2026 13:33:24 +0000
-X-Mizu-Trace-ID: fb1a7d32086cf4bb
-X-Migadu-Flow: FLOW_OUT
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-To: longman@redhat.com,
-	tj@kernel.org
-Cc: ridong.chen@linux.dev,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH] cgroup/cpuset: Fix partition recovery with unavailable CPUs
-Date: Tue, 20 Oct 2026 21:33:15 +0800
-Message-ID: <20261020133315.123890-1-guopeng.zhang@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GAwzRXJ/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419F71F000C4;
+	Tue, 20 Oct 2026 13:33:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792503209;
+	bh=BCOSugtDU7tYNM6qAZB9kUtVTwATXbzzWeOKKEyoHy8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GAwzRXJ/SXGdNFvE3WzUM52GqWsfodP4EUDmh/Sf1M/wBBzhKbiM+Oai8idRpVWCM
+	 sO0lCnRRdXRb1mECDi4lri/nK2v1tNOYV5+/SARitQ4LjOOau9KpZbetSm/7UujSlf
+	 g3WPrxWbOWGOejH2smdBRrW05gsrTN6T0Z0CnGT1DLSZd/P4/UccoJ0Uk+HS6aK+Y1
+	 Chxek2IIoNklIP8LBc2bmER4950LXqEjQ4f96OwP9kH5hUsMcN6U9s+rNCbmc5SaTA
+	 aq+J+tunc8a5bFKNKNtn1tYSIS6Qk5oFC+9F40xH+Ek87x1pXE4DG2CsWYnZSMM8dt
+	 zaqCy6lixjAXw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 9AB001AC5994; Tue, 20 Oct 2026 14:33:26 +0100 (BST)
+Date: Tue, 20 Oct 2026 14:33:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	helpdesk@kernel.org
+Subject: Re: linux-next: test failure after merge of the landlock tree
+Message-ID: <atdtpq6msC2Fhy4I@sirena.co.uk>
+References: <asmHRyx_uDkK-tJs@sirena.co.uk>
+ <atZepZTcoR9teu-r@sirena.co.uk>
+ <20261019.Za1phooV2oom@digikod.net>
+ <atc6Vczti_EjFrQq@sirena.co.uk>
+ <20261020.ij4euziuYovo@digikod.net>
+ <atdmcnGhgZ9U8g_S@sirena.co.uk>
+ <20261020.shai5aMoosai@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,95 +66,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DxNPYEuw6LsaSOxJ"
+Content-Disposition: inline
+In-Reply-To: <20261020.shai5aMoosai@digikod.net>
+X-Cookie: You buttered your bread, now lie in it.
 
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-An invalid local partition can become valid again even when its
-exclusive CPUs are no longer available from its parent.
+--DxNPYEuw6LsaSOxJ
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This can be reproduced on a cgroup v2 system with CPUs 0-7 online:
+On Tue, Oct 20, 2026 at 03:16:51PM +0200, Micka=EBl Sala=FCn wrote:
+> On Tue, Oct 20, 2026 at 02:02:42PM +0100, Mark Brown wrote:
 
-    cd /sys/fs/cgroup
-    echo +cpuset > cgroup.subtree_control
-    mkdir A
-    echo 1-4 > A/cpuset.cpus
-    echo 1-4 > A/cpuset.cpus.exclusive
-    echo root > A/cpuset.cpus.partition
-    echo +cpuset > A/cgroup.subtree_control
-    mkdir A/B
-    echo 3-4 > A/B/cpuset.cpus
-    echo 3-4 > A/B/cpuset.cpus.exclusive
-    echo root > A/B/cpuset.cpus.partition
-    echo 1-2 > A/cpuset.cpus.exclusive
-    cat A/B/cpuset.cpus.partition
-    root
-    cat A/B/cpuset.cpus.exclusive.effective
-    cat A/cpuset.cpus.effective
-    1-2
-    cat A/B/cpuset.cpus.effective
-    1-2
+> > What I have today is f349c073889ff7694b470ca34dae9bd94d47b0cc which is
+> > "landlock: Fix superblock use-after-free in release_inode()" rebased on
+> > the 16th (I just tried refetching and there was no change).  It seems
+> > very surprising that there might have been an infrastructure issue
+> > fetching the tree all of Thursday, Friday and Monday?
 
-B is changed back to a valid root even though its exclusive CPUs are
-no longer available and cpuset.cpus.exclusive.effective is empty. B
-should remain invalid until A can provide its exclusive CPUs again.
+> Commit 0da3cb3db77e3fe2202ddb637f6d27668dc360f7 appears in the
+> transparency log:
+> https://git.kernel.org/pub/scm/infra/transparency-logs/gitolite/git/1.git=
+/commit/?id=3D0da8a8d3dc37ec9a71b76f9739957297d64d4b73
 
-Shrinking A's exclusive CPUs invalidates B in
-compute_partition_effective_cpumask(). The subsequent walk in
-update_cpumasks_hier() tries to recover B, but
-update_parent_effective_cpumask() skips the recovery checks when xcpus
-is not a subset of parent->effective_xcpus. Since part_error is still
-zero, B is changed back to a valid partition.
+This probably needs reporting to helpdesk (CCed), when I fetch:
 
-Set PERR_INVCPUS when the subset check fails so that the partition stays
-invalid. New test cases are added to test_cpuset_prs.sh for removing and
-restoring the parent's exclusive CPUs.
+   https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git next
 
-Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
----
- kernel/cgroup/cpuset.c                            | 8 ++++++--
- tools/testing/selftests/cgroup/test_cpuset_prs.sh | 4 ++++
- 2 files changed, 10 insertions(+), 2 deletions(-)
+or go to:
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 585a982249ad..be80763953ed 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1986,12 +1986,16 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 				cpumask_copy(tmp->addmask, cs->effective_xcpus);
- 				adding = true;
- 			}
--		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
--			   cpumask_subset(xcpus, parent->effective_xcpus)) {
-+		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus)) {
- 			struct cgroup_subsys_state *css;
- 			struct cpuset *child;
- 			bool exclusive = true;
- 
-+			if (!cpumask_subset(xcpus, parent->effective_xcpus)) {
-+				part_error = PERR_INVCPUS;
-+				goto write_error;
-+			}
-+
- 			/*
- 			 * Convert invalid partition to valid has to pass the
- 			 * cpu exclusivity test as well as the housekeeping
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index d04aad697b96..f1d517647ade 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -427,6 +427,10 @@ TEST_MATRIX=(
- 	# cpuset.cpus is allowed, but those extra CPUs are ignored.
- 	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
- 
-+	# A child cannot recover until its exclusive CPUs are available again.
-+	" CX1-4:P1 CX3-4:P1 .     .     X1-2    .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
-+	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4 .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
-+
- 	# Taking away all CPUs from parent or itself if there are tasks
- 	# will make the partition invalid.
- 	"  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
--- 
-2.43.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git/commit/?id=
+=3Df349c073889ff7694b470ca34dae9bd94d47b0cc
 
+what I see is the commit referenced above being the head of your next
+branch, not this other one you are mentioning.  I'm on the fra mirror.
+
+--DxNPYEuw6LsaSOxJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatdtpgAKCRAv73Ows9A4
+ic6HAP9MZz82JxjEk8ctDHW434cjQo4zGi5CNPsara4JGwYZjwD/Sod9LMvQlBqg
+KLt4X6nTY3fz1RVLck3SE7cb9Bn/WgM=
+=S82K
+-----END PGP SIGNATURE-----
+
+--DxNPYEuw6LsaSOxJ--
