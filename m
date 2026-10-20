@@ -1,75 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483810;
-	b=YDc6WdtFb/vml+jHBVZHQ9zfAoC1tIP/Q+HdazhqnRNaLWyx0hUF79RjE0vZKwnDhCff
-	 nhWh5ZHsJat5cbZXgpfAhW48Yfny1kgDWm1/3lvWWcoZGQHaqerCKANobL07GeBLMYNi9
-	 bOcKJcG9EEjQV3Na0kpBLPsYeGLikXFjpr7AB6xQqwcJ7XOn5I1adNa+LCrsRKp1TtTPq
-	 xIBRNR7LdD2uCON8SL7PMaCf43OjTamTofgkl18VxWzeIPkNsHibrzhl4MTTtWfn8q+RN
-	 gjUNKaDosDO94kK54V1FrOAVNg2O8iRXenwljMQenHFPnNh8IbePtZHor3kUl8RaPxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483810;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=XtoIu8lT4HxFhQlGLc/Y+wRIrAeV43o+yENerewR5Dw=;
-	b=WtF//1YWi3YGFbzlXng1wt4DH/e2/GP47oXknwpy6M0bMIxCycE65TKxAdb/+zzXRCE6
-	 1UITe3FbNJoreMphO1qGqaEOwM4aqnsIsj2JL2kEjKTQsUYVH159gEXscBlbBiRWcDD90
-	 cZ10jvmvCk9VRD9VZ6wOHEyZt7V0Dbns6kocK/jDITz4mg/5YmPhvdtrnQB5lfa7e0U3f
-	 GzKIpysIHkyDXT6eYASQHf/bjOhyS7NgtftwFHrjf9ASrky2VwnePgBT+5B4p1NjecqKT
-	 IFpHwxgcieJlqwwFl/GP4NTji2xh+A+DxuA2fyFy59HY3tj+XoIsq85lfxVhEF7/Vyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792483814;
+	b=WGMOCXutuDB/daZm9PdVsfgwrZDcElL1fhBy9SpVem3eDi5nFkp5C6lwUXu+8WjaXMk+
+	 Z1ly/IpkVWMCCRExV1PayypAuAv6dXCHBpNGbDw58bEUnYM3UqX62xaAVuDqabRQOpImz
+	 HpFjHFVee67gAh5G8g56mQ58KVW/1JGogGt7Si5cBRb5tmS5MF5EtFCkNY/qrXzgALcfR
+	 v6har/5Y2ZQGBjKLpPeyLNBeoWF7TE1v6t4LpExTz2n9jtDHEZKdTG3yk5NxX0t1v4udY
+	 a3xLBFetRFjGW1jOqlUsQWwWQOG+vf+c4gaJZog+3COGYtHhBponQMG8YWsZEFTEavw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483814;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8wInV1bks4Iw6mcSksXlHLW/myLfLZCb6aK36BGNRtY=;
+	b=aN2yUC+lMzKcRg+QNEs8MoRhnhhCfxx4scWQOPufV6mPLn3lBjyzGTxqq0KKWYuJOSXO
+	 yXwYIedKM5KiZOvv2flg+INUjlpmFE5bpg+9uyiFF07kx9BUNwghFeEYkK1h1ukYxpNn0
+	 YKHyQi5lJRc+WTeoq7qZQexvuh+Cu+rALILrfd67e2TSSX3muPM3BuZ+2+pCEs30/AWla
+	 LZLxOFbay3v+AUhwCjSAI9wleMt3WO4/5kdw/R/41bobiuTYldtrHlqzCgML0dU7Cmts3
+	 wA4QC/19rRheQVz6Fu7HjSsmhlCGYTu6EQVZvEY+NDtsWY9BkwgVvGJGZUl8vFyDzag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=crzNBzZX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6F660A2609;
+	Tue, 20 Oct 2026 08:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=crzNBzZX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792483814;
+	b=yDeOZaaUaj/7VyaQZ+OaCvQZnFM2FvKdT3HCfr7i60aFwbMNCRMx7ED4vm0MNRlYw2dK
+	 2/zm18PwOwfLb6S3BPG9doqMQpFeHB/s9s8oCWICXvccEaA+zK7ZHFABfNCIf9rRq32yT
+	 CoU8YpWZIzYFJo2WQ0ONGvAsWmQyBhjtHpOXNV614bZza30xLFKgPACnr3KjhKLf2NclT
+	 7mloQLVH822kr1/UqXDSbimRVqSum4+ySZ0ZRoDtVgjlqnAGzlpCNQ8Cg6+IGzxw+NA4D
+	 G4WWsNjcYIRqL96U50cXme7Q2ljEqiHUBXmWe4FOgRVGAT3kmP6h2jtO0SFuA5PtnfA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792483814;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8wInV1bks4Iw6mcSksXlHLW/myLfLZCb6aK36BGNRtY=;
+	b=G7jmenU0QmUU7hxTuMc7M7Fg6k/Bg4ER5HLXw2AkMH6lqxAg6jA+eZZpP0fevnfiT9K6
+	 uVBR0i63eZZYfHSkqkYbs3Pw20vKZoWZSisC+jEavmmNfyeYqGBrgtgyIAV6RU5kKGMDU
+	 unk757iiQydAyxE93Ff+ghb/xv3jOngas1DHLxe8D01AaOnutItaf/Ii8q3Vp077FhLl0
+	 V98HkylYEZOfD9jHQE2hKcu34E6b3APFu/lg4o9hd+P5VatmUeRL1oEXMk9wTQk6eMXst
+	 LE0u9EhHMzPQ/dHpkxT9zyRCGQSZAB2wJ9jxHfcMl23tEB/oWp6pAAaF402DLyl0sog==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2AF606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:10:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E2AF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b8306b9f8so45570886d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:10:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483809; x=1793088609;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XtoIu8lT4HxFhQlGLc/Y+wRIrAeV43o+yENerewR5Dw=;
-        b=XTjW3fTDr15WtYuwITgZuBTMzcYHV99k2ZYnUxGt0+sRDFQxekfxZSO6c4gQu6fvkt
-         ZxZEG8XCOpEyspL2Kdx1+gcKzFJuFtOEj1VE0C73jL9sQUlpO+VsT+TsP9UMu5Pevgsf
-         07rF8UzEtZi8OBtOdPeh87eRjB9RFqaz1YimQrhU2FMIVxa/Ep9WbAnGI4TplkORluwA
-         FeVW9ISs3Ouf5ntJUN4TYA0F6Kz01jkubJiA97QrY/9Nsngj3DABpPKFC3c/jTzIkfMe
-         InRcTXn8MWmhhv1nmHpqCkOiQYQ+AiehUXNzmK4VoyjEI7v8FC9U/EYaPKnHmC8LD9so
-         BN8g==
-X-Forwarded-Encrypted: i=1; AKwUvByDGjW4LrbvPbIS7X0P7f+XfzGx/C8sQ2zpzvacb7ONI9tzZ4/2DcFKSFd3BzNrPq1G7vOIwAR+jSsQFqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJo1EhHawu+bfuyPLMoaeIAoSUmV/uJgcvK5vBWnFUh1E/k+nNW
-	eaeH9xZR0p76vikC8Kig+Ef0PSTKWOG3WDk/09CePyxOuS95nBLC8JRg34Y3UmGC/cw=
-X-Gm-Gg: AYBFou2WxHbd7hBrAb9J/1nsgYkODlJPqOlFCuou2006tXUEj7ckrz7G8ywC9oFE5uu
-	fW8pH3JfZMwAAd7vErFwDKkSwks/mIKtE0jP/QBCsYA6PdTPSYdr9/qf0ru2gZYewZyEjEk821/
-	PHnmsJIcspqIQktxtbWSUPtAiGZ4gNnnlDb8uuSEyGLXFuAn8+D7TkXwG/wYSl4TFxglYnvThW4
-	S+WkI08NuKwW2YfbAQiOmtsULzFq5svO/VW3yAw7U0MU2OQtQIGNgm3+XKvDE+CtkgucJq3IbTY
-	lFYhj+hlaOYW7MBylNkJnmcsL7g6El180Zgb0LdpzVbhR+4Hsd9ySFzcjo7Ihn5xwdVW4rupq5B
-	ZDTPGq6oArGQPzljPQyQXvjbZvaTV9GaBwLYZG774WR0GvSYqSeA3zpgsqvYd20nYMcj4tdDgCl
-	XFvGAsRs6Vm+FhHmYbgLwaBnHNjvPIv2Dh6TQCds5rCBpcgYvM6o8OF55A8vs8FP1f02LDQO9BD
-	BJXHJO4NrL/TaqER1HoldMCnaodLlYj5YEgE9AV3wSkWCg=
-X-Received: by 2002:a05:6214:29c1:b0:91c:524:465d with SMTP id 6a1803df08f44-91c05244db1mr24965496d6.9.1792483809162;
-        Tue, 20 Oct 2026 01:10:09 -0700 (PDT)
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com. [209.85.219.46])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c08b675fasm10651596d6.33.2026.10.20.01.10.08
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 01:10:08 -0700 (PDT)
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91b52ba422cso36409426d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:10:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxJmJQuX+MPE8jMJ1LK6Ro14aCIxvvAZdbkQwGx/dQu30kItxvefz/CIgxmxIsNQfa4BnmGyNQFNi4UI0k=@vger.kernel.org
-X-Received: by 2002:a05:6102:419e:b0:7b3:4199:2dd7 with SMTP id
- ada2fe7eead31-7cc364a1700mr3331202137.0.1792483414556; Tue, 20 Oct 2026
- 01:03:34 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9B5A61F000D0;
+	Tue, 20 Oct 2026 08:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792483814;
+	bh=8wInV1bks4Iw6mcSksXlHLW/myLfLZCb6aK36BGNRtY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=crzNBzZXwCgxhRhW4VpOA69tQow/inJzohm33majkpvlX/Wk+manyC9oDGy0tE5dJ
+	 UH3N63464j1Ad5D3E5L2x+ZFXVZdCICgz+4jHRzTa0cMBtevqBLtsnC9vFaGlt6wQl
+	 fTfqirvV803vhJWuxzYCbMjVFudiryK0ncYpZ6gW4mlsNBB6F8pu5iZ3skGSgpI9ya
+	 OkCXVByLa/i2NxLXg0aiunEp3mN6gt6Pi3dMD51wOMZbgbibtfQw8WTKpHt+7gzKlB
+	 JslL6tBHZMcj6qbcfWJVzgLZr+QYERf7j45qms0eOOOhnkV6moAoDgUml4/L3QEcx5
+	 6bVK01PqqGy0g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DB0F3430BF;
+	Tue, 20 Oct 2026 08:10:11 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Tue, 20 Oct 2026 03:10:07 -0500
+Subject: [PATCH v3 1/2] drm/tegra: Support swapping chroma planes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,69 +82,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020031049.969895-1-den@valinux.co.jp>
-In-Reply-To: <20261020031049.969895-1-den@valinux.co.jp>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 20 Oct 2026 10:03:23 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW=CEC8_Ta11oLmKWs9rkGsy20C_g9K+n9ej6qsNF6=zg@mail.gmail.com>
-X-Gm-Features: AclHuK8DND9FbZy7IbKb735A7LxSnsy1udn9Z5wpI7Xg7SlqXYAKq5qlFx-pakA
-Message-ID: <CAMuHMdW=CEC8_Ta11oLmKWs9rkGsy20C_g9K+n9ej6qsNF6=zg@mail.gmail.com>
-Subject: Re: [PATCH v5 00/17] PCI: rcar-gen4: Recover from link down and route
- Root Port interrupts
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Shawn Lin <Shawn.lin@rock-chips.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
-	Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa <wilfred.mallawa@wdc.com>, 
-	Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-tegra-drm-yvu420-v3-1-7f19a834ba98@gmail.com>
+References: <20261020-tegra-drm-yvu420-v3-0-7f19a834ba98@gmail.com>
+In-Reply-To: <20261020-tegra-drm-yvu420-v3-0-7f19a834ba98@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483811; l=4205;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=aseBG4+nsmwlogE8nfji0wIaNX+2LJ0Usy3RCoj2p3w=;
+ b=+kv2t7CxKtklxPPslCL2P6ENlUlcpoNJU1sOtYT9/pKSItwbcFMIr4PQZZKw89mJyLBEtvNQY
+ b9sZzXIBXywBqRuurN9xoOTttST3H9Z1wHYnMoRaf3WIw5b+dtGWB5r
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Den-san,
+From: Aaron Kling <webgeek1234@gmail.com>
 
-Thanks for your series!
+The Tegra display controller supports some yuv types, but not their
+chroma swapped variants. For example, yuv420 is supported but yvu420 is
+not. For tegradc, this can be efficiently worked around by just passing
+the hardware said chroma planes backwards. For nvdisplay, there is a
+window group flag to do the swap in hardware. Add a flag to the plane
+state struct and handling to both tegradc and nvdisplay paths.
 
-On Tue, 20 Oct 2026 at 05:11, Koichiro Den <den@valinux.co.jp> wrote:
-> Proposed merge plan
-> -------------------
->
-> With v5, this series seems to have almost converged, so I'd like to ask
-> how maintainers would prefer to merge it. Any advice would be greatly
-> appreciated. Here's what I have in mind:
->
-> To Mani:
->
->   I'd expect patches 1-14 to go through the PCI tree.
->   One option would be a two-stage approach like:
->
->   1. Take patches 1/2/5/10 through controller/dwc ("PCI: dwc:" patches).
->   2. Once those patches are available in controller/dwc-rcar-gen4,
->      take the remaining patches 3/4/6-9/11-14 there
->      (the R-Car driver and binding patches).
->
-> To Geert:
->
->   Once patch 4 is available in renesas-devel, I'd like to ask you to
->   take patches 15-17 together.
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ drivers/gpu/drm/tegra/dc.c    | 6 +++++-
+ drivers/gpu/drm/tegra/hub.c   | 7 +++++--
+ drivers/gpu/drm/tegra/plane.c | 5 ++++-
+ drivers/gpu/drm/tegra/plane.h | 3 ++-
+ 4 files changed, 16 insertions(+), 5 deletions(-)
 
-I don't think I have to wait that long, as there is no hard dependency?
-As soon as the DT bindings (patch 4) are accepted in pci/next, I can
-queue the DTS patches in renesas-devel?
-
-Thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index b0bfa946e6979..39c2e920d76a6 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -740,7 +740,8 @@ static int tegra_plane_atomic_check(struct drm_plane *plane,
+ 
+ 	err = tegra_plane_format(new_plane_state->fb->format->format,
+ 				 &plane_state->format,
+-				 &plane_state->swap);
++				 &plane_state->swap,
++				 &plane_state->swap_uv);
+ 	if (err < 0)
+ 		return err;
+ 
+@@ -872,6 +873,9 @@ static void tegra_plane_atomic_update(struct drm_plane *plane,
+ 			window.stride[i] = fb->pitches[i];
+ 	}
+ 
++	if (tegra_plane_state->swap_uv)
++		swap(window.base[1], window.base[2]);
++
+ 	tegra_dc_setup_window(p, &window);
+ }
+ 
+diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
+index 448f49f3a7d7e..5a86f8260f136 100644
+--- a/drivers/gpu/drm/tegra/hub.c
++++ b/drivers/gpu/drm/tegra/hub.c
+@@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(struct drm_plane *plane,
+ 
+ 	err = tegra_plane_format(new_plane_state->fb->format->format,
+ 				 &plane_state->format,
+-				 &plane_state->swap);
++				 &plane_state->swap,
++				 &plane_state->swap_uv);
+ 	if (err < 0)
+ 		return err;
+ 
+@@ -642,7 +643,9 @@ static void tegra_shared_plane_atomic_update(struct drm_plane *plane,
+ 	base |= addr_flag;
+ 
+ 	tegra_plane_writel(p, tegra_plane_state->format, DC_WIN_COLOR_DEPTH);
+-	tegra_plane_writel(p, 0, DC_WIN_PRECOMP_WGRP_PARAMS);
++
++	value = tegra_plane_state->swap_uv ? SWAP_UV : 0;
++	tegra_plane_writel(p, value, DC_WIN_PRECOMP_WGRP_PARAMS);
+ 
+ 	value = V_POSITION(new_state->crtc_y) |
+ 		H_POSITION(new_state->crtc_x);
+diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.c
+index 2148b0c59815c..757bc552809fe 100644
+--- a/drivers/gpu/drm/tegra/plane.c
++++ b/drivers/gpu/drm/tegra/plane.c
+@@ -59,6 +59,7 @@ tegra_plane_atomic_duplicate_state(struct drm_plane *plane)
+ 	copy->tiling = state->tiling;
+ 	copy->format = state->format;
+ 	copy->swap = state->swap;
++	copy->swap_uv = state->swap_uv;
+ 	copy->reflect_x = state->reflect_x;
+ 	copy->reflect_y = state->reflect_y;
+ 	copy->opaque = state->opaque;
+@@ -319,11 +320,13 @@ int tegra_plane_state_add(struct tegra_plane *plane,
+ 	return 0;
+ }
+ 
+-int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
++int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv)
+ {
+ 	/* assume no swapping of fetched data */
+ 	if (swap)
+ 		*swap = BYTE_SWAP_NOSWAP;
++	if (swap_uv)
++		*swap_uv = false;
+ 
+ 	switch (fourcc) {
+ 	case DRM_FORMAT_ARGB4444:
+diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plane.h
+index e33a581e6490e..dba5f1b254e98 100644
+--- a/drivers/gpu/drm/tegra/plane.h
++++ b/drivers/gpu/drm/tegra/plane.h
+@@ -49,6 +49,7 @@ struct tegra_plane_state {
+ 	struct tegra_bo_tiling tiling;
+ 	u32 format;
+ 	u32 swap;
++	bool swap_uv;
+ 
+ 	bool reflect_x;
+ 	bool reflect_y;
+@@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *plane,
+ int tegra_plane_state_add(struct tegra_plane *plane,
+ 			  struct drm_plane_state *state);
+ 
+-int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
++int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv);
+ bool tegra_plane_format_is_indexed(unsigned int format);
+ bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *planes, unsigned int *bpc);
+ int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.54.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
