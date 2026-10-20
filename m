@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485495;
-	b=qAe+OGkOZ1LJlQ2J5zIEN4ASa9qym7XRvPLYJkcd5dIL0y9hvwMFj0u4e9LpesSPv9xq
-	 DZxjIlCnLwbovMQ9W1m4mJMsAS8lBmmZZORFqkfIoGPTIN0Cq/TMCvcwMwiCQgkYxb2lb
-	 T1TB7+5nLpYxhEqZbhQS9hPWQiXaIM2rqVl1g6zhF9O6Faq1ThIrjKVkwqr/AQK5kMgkz
-	 d2F2oSmmIFlxg1ujqixHpjUddpTRj3VMyR6TIsy/X9ee16M4dV+J7Lo0C7dp71tQvL9Y1
-	 vPoG7MY6j8gTs6F7HLUldSn7gDVDQTz87cnpxX04BfOOs5c5QvVgf3OunRY5Jn3U30A==
+	t=1792485500;
+	b=TStbTgfsaY8+abgk96P75I88gddS7bT6yYQ/unDhfYlZqL6H2Upm6iPU18atgcZEvLq6
+	 oW0cJB9VIoqIoivG0P7UgZ4zp0luuTR6L+TUX01P5nnBqgQXhZRtY8pGBvx1VPiwqxenA
+	 BtzQrEwVg3hkXOnwR6VXvqbKy0kWSWDdLs7+7eeC/7CmgexbE/BJ6wcJ/8CItEcFviqc4
+	 C5EnHyD2+jUGykWLepecNYOXrxPVVvZemXYR0yoa0Lrpn5hOlPxckOM890nelhEsSjXvq
+	 +cQJ4jB0z/9lrOJXDjIkccCiilmXRI9rHmj65gGJ/Ze2l0ZRqKfG4032QSpGVjcx0Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485495;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ZdFOZo7LWaxQNBpUW6ZdsOmYz5y22ulR9ZW0yxAt+gA=;
-	b=Fh180+mM3zsQM1LeSWiW9cv7S+EdSCTboKkxpAFdWX2KHfgQYnOdMKlvZruheDJ0f/6g
-	 mVPSWVtXn4hRGB9+MelVdECm+DsLtLCZHbEqBWJJL+IYVCzYvYnvntTYG6IYRiv8IuNma
-	 Q3+jAh21WNNOWrfV9oaJmYpoLmZKnf7N7WJhFPwbQ7M0BFj6b3/XA7DQVAokrP9cv3Esv
-	 0IFLS74wZ8ATe2F12SuMrFkTq7y+3Ji5XKgx94e4qru+lSNHXpELg23VMZaAOMtxF1sDR
-	 CEpIVTur0gdTOvOHo3c9U1p1rmShBZcsYjbp6L7vLZwh/8YVZ9ye5qCk1gEthfYXKWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485500;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=zxlqtwdy5MkemcZ3DgYXyAKijDFis3QUI4KwyahstZA=;
+	b=3eYWsoGu14drJsX1xjmEVM+ux2heBF3G2xIYTodjXqt0+1hAoIeP3uYgU07AG3ygHfKo
+	 tdFtYc0nF+MvoLCTcuMrfnq107aJrO9vCh4Ol7AKD9ZPJsr0VIrRtdjh1cSoipG+fmEe7
+	 QIUaZSAGK1aVqURG1iSQT67klCYwZUUfVuDniIajemHPIQy4mKb0xlHbgRbACKOnRJpwU
+	 3YhPf4OGh7ldt8DihLmQ+Nn+jwS3xgfDQ4bE3UEaMtfARnUzL0cZwa0QT9+Q+rdLcqlQr
+	 7oXdTXGm3LtNQ6jHRbnDOcOFsV9xahGNu1OC3dVpEdEfe9jKFwf7q+tTKhzZB4YjtSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.23
-Received: from frasgout11.his.huawei.com (frasgout11.his.huawei.com [14.137.139.23])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.121
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12F1606A32F;
-	Tue, 20 Oct 2026 08:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12F1606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j85GJ5pyHz1HCLQ;
-	Tue, 20 Oct 2026 16:30:48 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.157])
-	by mail.maildlp.com (Postfix) with ESMTP id B9D7C4055E;
-	Tue, 20 Oct 2026 16:38:04 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.204.63.22])
-	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0Dmy2FaKNdqLzcBAA--.5746S2;
-	Tue, 20 Oct 2026 09:38:04 +0100 (CET)
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	robh@kernel.org,
-	saravanak@kernel.org
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	zohar@linux.ibm.com,
-	noodles@fb.com,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Roberto Sassu <roberto.sassu@huawei.com>
-Subject: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with CONFIG_HAVE_IMA_KEXEC(_OF)
-Date: Tue, 20 Oct 2026 10:37:27 +0200
-Message-ID: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526F3606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 526F3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1639225|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0212322-0.000737175-0.978031;FP=2585374935525098718|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jlWubDa_1792485488;
+Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubDa_1792485488 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 16:38:09 +0800
+From: Li kunyu <likunyu@open-hieco.net>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com
+Cc: linux-kernel@vger.kernel.org,
+	Li kunyu <likunyu@open-hieco.net>
+Subject: [RFC PATCH 0/6] sched/fair: Introduce the SMT_BUDDY_ASSIST feature
+Date: Tue, 20 Oct 2026 16:37:40 +0800
+Message-ID: <20261020083746.37068-1-likunyu@open-hieco.net>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,164 +60,267 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:nRC2B0Dmy2FaKNdqLzcBAA--.5746S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGFWxJw17urW3JF48GF48WFg_yoWrKw4xpw
-	n0yr18JFZrWFs8t3yjga48Wry5Zan7JrW3urs5C34kZFy3A3yDur1vq3W7ZFyj9rWkKFy8
-	uFyrWFy09w4UKaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
-	w2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
-	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a
-	6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
-	kF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
-	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUIF4iUUUUU
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrW3LUGaQAHsg
 
-From: Roberto Sassu <roberto.sassu@huawei.com>
+[Background]
 
-On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
-implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
-buffer location through setup_data, not through the device tree, so the
-buffer is never found and the IMA measurement list is not carried over
-across kexec.
+In high-performance computing (HPC) and cloud computing scenarios,
+maximizing overall compute throughput and sustaining peak CPU capacity
+remain critical optimization goals. Within the scheduling domain, the
+primary optimization focuses include:
 
-Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
-and select it for the architectures that pass the IMA buffer location
-through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
-powerpc and riscv). Build the device tree implementation of
-ima_get/free_kexec_buffer() only if the new option is enabled.
+1. Timely responsiveness for task wakeup and execution startup.
 
-Select the new option also on LoongArch, to preserve the current behavior
-and avoid a link failure. LoongArch does not pass the buffer location to
-the next kernel yet; this will be addressed separately.
+2. Fast and balanced distribution of CPU utilization across cores.
 
-Finally, don't select it for x86, and use x86's own setup_data-based
-implementation regardless of CONFIG_OF_FLATTREE.
+3. Preferring task migration within shared-cache domains (e.g., L3)
+before burst workloads arrive, so as to reduce cross-die or
+cross-node overhead.
 
-Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
-Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
----
+During development, the following issues were encountered. The above
+approach ultimately yielded measurable performance improvements.
 
-v2:
-- Reworded the commit message (no code changes), suggested by Mimi
 
- arch/arm64/Kconfig      | 2 +-
- arch/loongarch/Kconfig  | 2 +-
- arch/powerpc/Kconfig    | 2 +-
- arch/riscv/Kconfig      | 2 +-
- arch/x86/kernel/setup.c | 2 +-
- drivers/of/kexec.c      | 4 ++--
- kernel/Kconfig.kexec    | 4 ++++
- 7 files changed, 11 insertions(+), 7 deletions(-)
+[Problem]
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b5a51b0ef944..4b7e248b6c91 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1697,7 +1697,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
- config ARCH_SELECTS_KEXEC_FILE
- 	def_bool y
- 	depends on KEXEC_FILE
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 
- config ARCH_SUPPORTS_KEXEC_SIG
- 	def_bool y
-diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-index 2067d1f2ad7a..b5420d482da4 100644
---- a/arch/loongarch/Kconfig
-+++ b/arch/loongarch/Kconfig
-@@ -690,7 +690,7 @@ config ARCH_SELECTS_KEXEC_FILE
- 	depends on KEXEC_FILE
- 	select KEXEC_ELF
- 	select RELOCATABLE
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 
- config ARCH_SUPPORTS_CRASH_DUMP
- 	def_bool 64BIT
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 2580e27e4328..096c6061893b 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -643,7 +643,7 @@ config ARCH_SELECTS_KEXEC_FILE
- 	def_bool y
- 	depends on KEXEC_FILE
- 	select KEXEC_ELF
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 
- config PPC64_BIG_ENDIAN_ELF_ABI_V2
- 	# Option is available to BFD, but LLD does not support ELFv1 so this is
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index f8e26c4bed2b..161bf8a65beb 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -1118,7 +1118,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
- config ARCH_SELECTS_KEXEC_FILE
- 	def_bool y
- 	depends on KEXEC_FILE
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 	select KEXEC_ELF
- 
- config ARCH_SUPPORTS_KEXEC_PURGATORY
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index cda6adb9f69c..bc17e353c099 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -421,7 +421,7 @@ static void __init add_early_ima_buffer(u64 phys_addr)
- #endif
- }
- 
--#if defined(CONFIG_HAVE_IMA_KEXEC) && !defined(CONFIG_OF_FLATTREE)
-+#ifdef CONFIG_HAVE_IMA_KEXEC
- int __init ima_free_kexec_buffer(void)
- {
- 	if (!ima_kexec_buffer_size)
-diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-index 029903b986cb..724f29fef0c0 100644
---- a/drivers/of/kexec.c
-+++ b/drivers/of/kexec.c
-@@ -116,7 +116,7 @@ static int do_get_kexec_buffer(const void *prop, int len, unsigned long *addr,
- 	return 0;
- }
- 
--#ifdef CONFIG_HAVE_IMA_KEXEC
-+#ifdef CONFIG_HAVE_IMA_KEXEC_OF
- /**
-  * ima_get_kexec_buffer - get IMA buffer from the previous kernel
-  * @addr:	On successful return, set to point to the buffer contents.
-@@ -196,7 +196,7 @@ static void remove_ima_buffer(void *fdt, int chosen_node)
- 	size_t size;
- 	const void *prop;
- 
--	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC))
-+	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC_OF))
- 		return;
- 
- 	prop = fdt_getprop(fdt, chosen_node, "linux,ima-kexec-buffer", &len);
-diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
-index 15632358bcf7..c6ed60f04ea4 100644
---- a/kernel/Kconfig.kexec
-+++ b/kernel/Kconfig.kexec
-@@ -17,6 +17,10 @@ config KEXEC_ELF
- config HAVE_IMA_KEXEC
- 	bool
- 
-+config HAVE_IMA_KEXEC_OF
-+	bool
-+	select HAVE_IMA_KEXEC
-+
- config KEXEC
- 	bool "Enable kexec system call"
- 	depends on ARCH_SUPPORTS_KEXEC
+It was found that on servers equipped with the Hygon 7447v CPU (Model 7,
+384 logical cores), migrating tasks across LLC scheduling domains during
+load balancing caused significant performance degradation:
+
+1. A low L3 cache hitting rate (due to factors such as non-shared L3
+caches).
+
+2. The traversal overhead of higher-level scheduling domains (e.g.,
+cross-NUMA scheduling domains).
+
+Similar issues were also observed on CPUs from other vendors during
+testing, though the degree of memory bandwidth increase and other
+latency effects varied. Consequently, a series of patches was developed
+to address and improve these issues.
+
+
+[Solution]
+
+This RFC patch series introduces the SMT_BUDDY_ASSIST scheduling
+feature. The main work is as follows:
+
+1. Push CFS tasks to SMT sibling CPUs during periodic load balancing.
+
+2. Skip SMT-domain balancing after a successful push and avoid pulling
+the pushed task back.
+
+3. Restrict newidle balancing so it does not pull from higher-level
+scheduling domains.
+
+4. Compensate for the resulting load imbalance with a burst-task wakeup
+path that sends tasks to idle CPUs.
+
+
+The detailed implementation approach is as follows:
+
+Load balancing-related procedures are primarily categorized into two
+major directions:
+
+1. The periodic load balancing path, comprising periodic load balancing
+and NOHZ kick, retains the original logic and continues to maintain
+overall CPU balance.
+
+2. The newidle CPU path logic has been updated solely to quickly obtain
+efficient tasks. By restricting task acquisition to the LLC (L3)
+scheduling domain and avoiding traversal and task migration at levels
+above it, this change avoids jitter in scenarios where the entire
+machine is idle or the CPU load is relatively balanced. This is because
+each traversal of higher-level scheduling domains remains costly, and
+migrating tasks across dies (LLCs) incurs substantial short-term
+overhead, such as TLB flushes/refills and page migration:
+
+  2.1. When overall CPU utilization is relatively low, avoid the
+scenario where the whole CPU is idle yet cross-die (high-latency) tasks
+are being pulled. In such cases, it is better to run only one logical
+CPU per core to avoid cache interference and frequent TLB flushes. This
+applies when:
+    2.1.1. the CPU has multiple sleeping tasks (with delayed dequeue
+disabled).
+    2.1.2. the number of runnable tasks on the CPU is less than 2.
+
+  2.2. When overall CPU load is relatively balanced, refrain from
+pulling cross-die (high-latency) tasks. This avoids task jitter and
+prevents resource exhaustion (similar to the issues in 2.1).
+
+
+Of course, the change to the newidle CPU path logic has also introduced
+new issues, including: 
+1. bursty task creation, where a few CPUs spawn a large number of
+processes or threads in a short period of time and these tasks cannot be
+migrated to low-load CPUs in a timely manner.
+2. uneven system-state load across CPUs. For example, some CPUs show
+0% to 2% user-mode and 30% to 80% kernel-mode utilization, while others
+show 0% to 2% user-mode and 10% to 30% kernel-mode utilization. In addition
+, more than 10% of CPUs remain idle.
+
+
+To address the aforementioned issues, a more lightweight implementation
+was adopted to avoid the interference caused by the original newidle CPU
+path. Subsequently, select_task_rq_fair() is used to quickly select the
+most suitable CPU, as follows:
+
+1. The original task wake-up logic remains unchanged: it first runs the
+current-CPU wake-up, affinity wake-up, and similar paths. when the task
+count on the found CPU exceeds a threshold (default: 4) a burst-task CPU
+allocation process is used.
+
+2. For newly created processes or threads, there is less cause for
+concern. Since the CPU selection in the selected scheduling domain meets
+the burst-task condition during the slow path, applying the burst-task
+CPU allocation process is optimal, as it can quickly utilize idle CPUs
+and thereby achieve rapid overall task distribution.
+
+
+This series of patches also introduces a notable design: in the periodic
+load balancing path, tasks are pushed to SMT sibling CPUs to quickly
+distribute load within the same core, while also pulling tasks from
+other CPUs (excluding SMT siblings) during the current scheduling domain
+traversal. This provides a new mechanism for evenly distributing tasks
+across the entire machine and strongly supports the change to the
+newidle CPU path.
+
+
+[Implementation]
+
+This patchset gathers 3 different parts:
+
+- Patch 1-3 In periodic load balancing, tasks are pushed to SMT sibling
+  CPUs, and pulling them back should be avoided.
+
+- Patch 4 For newidle CPUs, avoid pulling tasks from cross-die
+  (high-latency) CPUs.
+
+- Patch 5 This change fixes the local limitations introduced by patch 4
+  (e.g., the hackbench performance regression), improves overall
+  performance, and quickly distributes tasks to idle CPUs based on the
+  task surge threshold.
+
+
+For detailed information on each patch, please refer to the respective
+patch description.
+
+
+Enable feature:
+    echo "SMT_BUDDY_ASSIST" > /sys/kernel/debug/sched/features
+
+
+[The test results are as follows (Hygon 7447v CPU)]
+
+The overall average improvement is approximately +9.26%.
+Testing on other hardware platforms is working in progress.
+
+hackbench:
+group   base    smt_buddy pct
+g=1	0.262	0.2646	  -0.99%(degeneration)
+g=2	0.2878	0.2954	  -2.64%(degeneration)
+g=4	0.4074	0.347	  +14.83%(improve)
+g=8	0.5674	0.5328	  +6.10%(improve)
+g=16	0.8358	0.8418	  -0.72%(degeneration)
+g=32	1.411	1.2166	  +13.78%(improve)
+g=64	2.4726	2.3564	  +4.70%(improve)
+g=128	4.5024	4.5424	  -0.89%(degeneration)
+Average improvement: +4.27%.
+
+
+tbench(Throughput):
+clients base       smt_buddy    pct
+1	475.968	   487.169	+2.35%(improve)
+2	714.484	   808.752	+13.19%(improve)
+4	1349.733   1435.15	+6.33%(improve)
+8	2058.997   2085.303	+1.28%(improve)
+16	4364.247   3692.093	-15.40%(degeneration)
+32	8325.17	   6772.693	-18.65%(degeneration)
+64	12614.197  12448.367	-1.31%(degeneration)
+128	15845.067  17133.367	+8.13%(improve)
+256	20837.933  22958.567	+10.18%(improve)
+512	29820.667  28242.767	-5.29%(degeneration)
+1024	25969.933  22917.733	-11.75%(degeneration)
+Average improvement: -0.99%.
+
+
+schbench(99th):
+threads base    smt_buddy  pct
+1	10.75	7.6	   +29.30%(improve)
+2	11.2	10.8	   +3.57%(improve)
+4	12.8	12.2	   +4.69%(improve)
+8	13.8	15.0	   -8.70%(degeneration)
+16	14.8	15.0	   -1.35%(degeneration)
+32	17.0	17.4	   -2.35%(degeneration)
+64	27.2	28.8	   -5.88%(degeneration)
+128	2844	2845.6	   -0.06%(degeneration)
+256	5656	5672	   -0.28%(degeneration)
+512	9676	10096	   -4.34%(degeneration)
+Average improvement: +1.46%.
+
+
+stream-10:
+operation  base         smt_buddy       pct
+Copy	   103034.5	126128.4	+22.41%(improve)
+Scale	   100012.0	131812.34	+31.80%(improve)
+Add	   128469.0	151501.48	+17.93%(improve)
+Triad	   114401.24	158818.78	+38.83%(improve)
+Average improvement: +27.74%.
+
+
+stream-100:
+operation  base         smt_buddy       pct
+Copy	   122156.6	169662.65	+38.89%(improve)
+Scale	   127074.8	168375.375	+32.50%(improve)
+Add	   140021.52	154840.075	+10.58%(improve)
+Triad	   136455.38	151062.275	+10.70%(improve)
+Average improvement: +23.17%.
+
+
+unixbench:
+cpu     base      smt_buddy     pct
+1 	1808.3	  1853.1	+2.48%(improve)
+384 	113834.2  122562.6	+7.67%(improve)
+Average improvement: +5.08%.
+
+
+sysbench_mysql_test:
+operation    base       smt_buddy     pct
+TPS	     128.955	134.555	      +4.34%(improve)
+QPS	     2579.085	2691.055      +4.34%(improve)
+95% latency  1060.31 ms	1022.805 ms   +3.54%(improve)
+Average improvement: +4.07%.
+
+
+Several benchmarks show performance regressions:
+
+1. tbench 32      8325.17    6772.693     -18.65%(degeneration):
+Each tbench sample was run three times. Initially, some measurement
+error was observed. Moreover, this patch series essentially utilized all
+idle CPUs, whereas without the feature enabled, 5% to 10% of idle CPUs may
+remain idle. This led to more CPUs experiencing cache interference and
+other effects. The results are benign and within an acceptable range.
+
+2. schbench(99th) 8       13.8    15.0       -8.70%(degeneration):
+The situation is similar to that observed with tbench. Each sample was
+tested five times. The primary regression occurs under bursty task
+scenarios, in which tasks are spread across idle CPUs, resulting in
+increased memory bandwidth contention, cache latency, and other delays
+over a short interval. This is also considered acceptable.
+
+
+Li kunyu (6):
+  sched/fair: Add SMT sibling push in periodic load balance
+  sched/fair: Add is_smt_buddy_run() to skip SMT domain
+  sched/fair: SMT sibling exclusion after successful push
+  sched/fair: Restrict newidle balance to LLC domain
+  sched/fair: Add task burst threshold for large-scale bursts
+  sched/docs: Add documentation for SMT Buddy Assist feature
+
+ Documentation/scheduler/smt-buddy-assist.rst | 126 ++++++++++
+ kernel/sched/fair.c                          | 239 ++++++++++++++++++-
+ kernel/sched/features.h                      |   9 +
+ 3 files changed, 364 insertions(+), 10 deletions(-)
+ create mode 100644 Documentation/scheduler/smt-buddy-assist.rst
+
 -- 
-2.43.0
+2.47.3
 
