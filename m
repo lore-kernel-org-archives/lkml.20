@@ -1,50 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533150;
-	b=5j5v+k4CT9KM1xlwistKD6LH+/udTNNjO6RcejHwWFJUhtUFvWcCCNnLLf7ET5QXMOzR
-	 hJw+lquObp/5ztUiraF2+ARBzZhUbPYmWYdKChdSw0Ic5ibZ7rzTzNF7hZBM5r0k21UrN
-	 8vRrBrmKLHz4bLCfWhczL0XQj1gQNVsRy4HZNbVUmTE3WJMf35sgiz85MbEy3fIaJS+5A
-	 sTiFesuEkmLUsrR8n13IzQo/t7ANFMAz2aU0+WD//ppp1XDHGl2QlK2bUnaEnDGjhka3N
-	 u5kigCSqFURMk7OOyeUUtYPhopmExlpgT+OoWci8tgu/MR0s3hMHdFCxBAIl96OYHXQ==
+	t=1792533155;
+	b=jN/0FQjjw9cpRuflNXPQ7yCE3AhJgKafBFD5mzmbrr2/F3sCATeX1fy7tigxf2gc7lgI
+	 uwcG2+jEKNApG/mal8LEzrxCrc7zAWoQOC49yBWN6nhwW06OOdooznMfI3ex3duUjKfia
+	 FtLN2MSvMxYGzESkNapvTlg4teaOsnOkPMsmmtfqCBL0q0zkXhNydigWT6u0Eso3xFq2w
+	 1DfT987SPiUf1S48v1NtBern5JqjWzWf3pL4+sFXxcwXfyRCveKteJL5pgVMzxqMvAjqy
+	 uy34JiGsbJhc5LAklr3nOUE2HGaTHz0cuIygzmAu09TkucdaRI4G0oX9qYzCg7Arnvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533150;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hIZqfHvkeV48wYKVgFESXaKGPL4jCR6YGzUw6vDNOiE=;
-	b=WKTj/+o/kcPFXqwYdBeXlyWataBc8HNn5ZVpwOqTXUqjY0UPwVCHRyHkGiPfWGCbXFPl
-	 cXA05QgY4wxtr78Hj5xyKoGa8l5HlJci4i3jaGsuy9zYoL67PDDmwIv3we5NIacbTBb45
-	 yNnUXzYOKH+jqboAGo7/ZBQEvRtYy/f+KVsNDU9NsXOypBJpYOoMb6tS7G+nIGbpvAzQR
-	 9VqMNOsuL28hNOa0qkmN4S98/BP1c7llgk+1uU5irxYpaMqXyff7WN3zRggxDplXMvptK
-	 Y6ONYTDtKu7fgHDUI7flSq2aVoNlbfFrSv9qQRIB0q69nfB5QWH2yvtoTCfPJyH0SZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533155;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=VJm44DGgOC5xDuMHC8w1pzd7B6Ver7ipXPOgtznarBc=;
+	b=ZwjeOocxaZDChV0jaPjGf/3ecC7zeb8Y6W6dFR50O8GVvzWzCzy2d8QZpGpCEP/ofwCj
+	 PrbXaCw4oLUmZD93au3CiftC13dEQhMwyyquhZSrssz6ufMZhFuhfNi/pWSNz9/G99l52
+	 JJWQUp1MilkCEqZiR2g6H5SkhSzMUygRLZF0+qDI7hiVMCJ4ctrKhTev5QFyQHSGSK0ZP
+	 EYrRQ+QZDCoK3Rw6V23lhQ+AZ22HEwk0d7JDi2dG2FjKVkWZuUs1yjzs84x+mKqKnW5fn
+	 HnmWalFxhzBCwX/VVyEYRysJr9ffvXFADNnZW4lw0F0rdhovqf+97FeoohLs9CXgCrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5CbzX8s;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qNCCfzH4;
+	arc=none smtp.remote-ip=35.162.73.231
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A17606A31A;
-	Tue, 20 Oct 2026 21:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D022B606A321;
+	Tue, 20 Oct 2026 21:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D022B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5CbzX8s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0D61F000CF;
-	Tue, 20 Oct 2026 21:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792533149;
-	bh=hIZqfHvkeV48wYKVgFESXaKGPL4jCR6YGzUw6vDNOiE=;
-	h=From:Subject:Date:To:Cc;
-	b=W5CbzX8stvqc7tXLuLY0WiKQqgETZYSS2a2gj9p4YCZCWPk0sYqfBLaZJ/+0DWPRB
-	 MVZuyVQUY1D+I8j4+/DPWeUEwMi3gP0t74VyvL1dZBjNuL2ILfwhwwvH/Hxiu4Pd60
-	 mCPIkPaVfMaZUlsudU//4i7AcmQEwiCDthAXLjfqxMBBYHBcpEl9l+Q6Ye6hapPlOj
-	 5x96MEvgge7sZJehJz+FxAEqZL3+HtV4hbf/mwnmY8IjnIsVQHD0OHu2OoGo10X74z
-	 R6RO2YMYhFmziUitr5s7jRJ1ohOOAHcfbPYlFQ2BsndwSZey6Nkoy39EsH/CnvVUoN
-	 voDYTg/diIWbQ==
-From: Nathan Chancellor <nathan@kernel.org>
-Subject: [PATCH 0/2] kbuild: Fallout from moving '-mfentry' check into
- Kconfig stage
-Date: Tue, 20 Oct 2026 14:52:17 -0700
-Message-Id: <20261020-kconfig-fix-mfentry-check-v1-0-428258bc0fc0@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qNCCfzH4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792533154; x=1824069154;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=VJm44DGgOC5xDuMHC8w1pzd7B6Ver7ipXPOgtznarBc=;
+  b=qNCCfzH4wYnPd5MrRHA1GXQs5C1LDzOp7dHvuB6yM6WICUujiI1FqQ9i
+   gFo2RgsxwOfwTlILcN6vmmGZSAR2Jn3Q6kINbzstmisbI31P/aW+D0ZgM
+   N7N/FJc3hKODuIFbpL6QAI4GWd628wYR05BQNMjKzClXXvroszeD3QauX
+   P3cGw4AA+g5+NVhi0qYGMD+6Nb7eRaRL+zOgdKNyG3UpEc4BPLkj2WoSQ
+   eSJ+t4HT3auSNHnZ5MQUPxyd62oUUEUFfX45hX3C7Kb7DtUM7loQ3F1k2
+   84xP2D/6osYK9KM1U5/WQ9rLwTxZjoDATpTDgNiH/cEXbZ5Eg8tomEoDC
+   Q==;
+X-CSE-ConnectionGUID: cD6Y3KDCSD23rWAQHjicug==
+X-CSE-MsgGUID: pXYURbvJQdaHH+kDoOMELQ==
+X-IronPort-AV: E=Sophos;i="6.27,168,1787011200"; 
+   d="scan'208";a="31601609"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 21:52:34 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:31492]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.1:2525] with esmtp (Farcaster)
+ id 27c2f569-8c9a-4699-91a9-aee12897a8dd; Tue, 20 Oct 2026 21:52:34 +0000 (UTC)
+X-Farcaster-Flow-ID: 27c2f569-8c9a-4699-91a9-aee12897a8dd
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 20 Oct 2026 21:52:34 +0000
+Received: from dev-dsk-youyouyu-2c-7ec217cf.us-west-2.amazon.com
+ (10.189.234.25) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Tue, 20 Oct 2026
+ 21:52:33 +0000
+From: YouYou Yu <youyouyu@amazon.com>
+To: <jack@suse.cz>
+CC: <brauner@kernel.org>, <dgj@amazon.com>, <gunnarku@amazon.com>,
+	<lichliu@redhat.com>, <linux-fsdevel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <viro@zeniv.linux.org.uk>,
+	<youyouyu@amazon.com>
+Subject: Re: [PATCH] quota: initialize dquot cache before mounting rootfs
+Date: Tue, 20 Oct 2026 21:52:29 +0000
+Message-ID: <20261020215229.31406-1-youyouyu@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <4x3ngu2v723xnbommkln6yjwj27qdiy53dphxp74thsbihfqcr@rehvrhj7egvk>
+References: <4x3ngu2v723xnbommkln6yjwj27qdiy53dphxp74thsbihfqcr@rehvrhj7egvk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,55 +87,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDsQA3HhVYqLOE7MNBglsaUi3
- t2oyw/e+3fInIQztNUOiX+SZY4F9asC8jaOjDIUg1a6qZVWGGiOTkZ08sfJcVzThuSZAhpltOn
- J2IYslP+SuIzu9rt7nL/9h2m9gnAcJ2/ZXxZ9AAAA
-X-Change-ID: 20261020-kconfig-fix-mfentry-check-50525bc5a6ca
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: Julian Braha <julianbraha@gmail.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>, linux-s390@vger.kernel.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1067; i=nathan@kernel.org;
- h=from:subject:message-id; bh=frpQhPa8vDtdOo+LjW/wRQXA5GT8qEG7+AzXAKCkRJw=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnXH01X+C8W8bCL5X2VY1ZBrs6+TYabzlid+x/jtPFrp
- /CH54wlHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiAvcZGTYsEH5z8yuzwe/k
- E4fD2D8puB9KWBZ4USdImjn+Psvaj78YfrMcO/b9UWP44jmnL2WfLy9t/XdW9+wzN3Elzi+rXFv
- 4GDkA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi all,
+Hi Jan,
 
-Ricardo reported an issue from moving the compiler test for '-mfentry'
-into Kconfig. In testing that patch, I noticed that the kernel.org GCC
-builds for s390 were not probing correctly for '-mfentry' support.
+Thanks for reviewing.
 
-The first patch moves the check for '-mfentry' back into Kbuild where we
-have the proper information for whether this flag is actually supported.
+On Mon, 19 Oct 2026 12:44:49 +0200, Jan Kara wrote:
+> I definitely don't think anybody sane wants quotas on initramfs. Is this
+> just a fuzzing result or are you really interested in that functionality?
 
-The second patch documents the reasons for these issues for future
-travelers to hopefully avoid these problems.
+The truth is it's not a fuzzing result, we are really interested in it.
+We run systems that extensively use rootfs and we want to limit per user
+usage on it the same way tmpfs quotas allow on any other tmpfs mount.
 
-I plan to take this via kbuild-fixes after sufficient review/comments.
+> Instead of pulling quota into early boot I'd just refuse tmpfs mount in
+> this case (same result as original behavior but clearer error message :)).
 
----
-Nathan Chancellor (2):
-      kbuild: Move testing of '-mfentry' back to Makefile from Kconfig
-      scripts/Kconfig.toolchain: Highlight cc-option differences between Kconfig and Kbuild
+Refusing the mount would avoid the crash, but rootfs would then be
+the only tmpfs instance where quotas can't be used, even though
+initramfs_options= exists to pass mount options to it. That said, if
+initializing this earlier is a concern, I'm happy to rework the patch
+if you have a preferred approach.
 
- Makefile                  |  3 ++-
- scripts/Kconfig.toolchain | 23 +++++++++++++++++++----
- 2 files changed, 21 insertions(+), 5 deletions(-)
----
-base-commit: 997208ce9f43f01febac956cf9aeffe89945e3c1
-change-id: 20261020-kconfig-fix-mfentry-check-50525bc5a6ca
-
-Best regards,
---  
-Cheers,
-Nathan
-
+Thanks,
+YouYou
