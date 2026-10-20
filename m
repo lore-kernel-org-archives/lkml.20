@@ -1,95 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792514236;
-	b=z7VrcYqcZGOKMEYeYO/wNQqalKgtuwAkckFdNPMiWULo5aGZHs3OOyVJ8l+aYKRxxqSj
-	 hWzgxxafTrUKPw8X1DU9sWG7U2Xfz/dMdOMim3Xd3oNjBba3AsUPJMyyEVvqdtIZmF/Ma
-	 IZXuGVRzx4SbyY6UsT7eaksde+ThEBp3XzvIB3VJCLQYEvoWlbZAmWw4YCLl1LNKJR6OW
-	 h/p0LCHYI1O8E3wLol98NxZ20qr0vs6LP1oqcSTGZ4hmsIseqSqpyoVl6B+V+0WZ+cfC7
-	 Vpv+WuWrnKA9l07TC8tvaB+VHpalg6JdrPLeZ5onY2kBV0BR3UauLW5fDWIP9fF0pOg==
+	b=NCvzBP1Q+rrEopehlF3Hmlif4UgCEFEEa/avL1AetSAm0z/O5Wvzw6LYA5tGKuxLtHQm
+	 1jVhfECXQ9qlHCv3ycRrNJ89Sa7dOo25u7Yd49rUJFTju1U0F/UQfkMiPPVlP5Km34aQS
+	 Ymx9OJZAB2p8Vi+k9Mw5RiD7N+y7KsIVO6CidU0YBFdF/pTTurzASgt1jN9HubsroH7DA
+	 xi0MJU+DQs+R+vp5GeDtzgcjQk86p6WjXCLAzyB56IKoUb4Hd8rS/DHJjRhSAR8Md6JYF
+	 n7cbelsBokI0ZxaddnKSuWPp/SWLFsUd6HBn0F9UwbJ1Eto08XwPteLwLwLL92bCkxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792514236;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rDJB4+RNQq+2GGn7bCoZbRLSivKXqiepj5wyQ8N3btg=;
-	b=3+UQwktqLE7uy1sI2bzZFS9KI9AD90u3puShF0sCx8kMF0xeFPp3YvNaYMK9jj9VsSsp
-	 JaNOimnuFKoGZ8AkY/3LdohnxGQROfGLn1T3POi8U9ESKNBV8Rf7KRUMW5RqvIh4bkjtg
-	 GPUnmeZx+6fUmiTJUEXc7a2LN0IWfA5J5YWA33TabmkDFYrMN146TYGGdxYrFD6xnjucv
-	 8N/ctRj/QpK0Q3t2m4dlsXE5tvdEcXrsQdJda2vm1lqr5oZnvPolqE0qDiI/1GVjgJXxc
-	 cVlwEuxABW2v6yRQ5L0S3rFdKdd6/SWrQczKqm9LjA0zglvVg0iTd/O9TvmzW7qAd2Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=hxCnvxUTZp1il/bb781Ce5TYlehlCEiYcvgLpzeabqc=;
+	b=i2nOsJLD3rYA9hgzbz5l6rbPY/T9d5dK+qTIjPKqEVt+Dsedjfy9xxrsCHVpThVr3T+9
+	 bCIpeuk/5hLgeyhetmUnTeG71tk2XA46CP+NkCKhfEbR/XnuLUzIlgDVKzHeJQsWgggf2
+	 paJB6BPTvmaZ5JZpcrOyyHKRMz54fWHfoVMXe8whC4iN5fUwmTIMTQ0XfLBSoSDasqyNM
+	 Z3VR6lXD9EAM/OG8aUHpjcCjm2cRhUYyQgkPF16bLnc5COeeUYGFywQIy0ey166F73AuE
+	 oVNXLL5eYXUEfYF/L6E9wKahWqbz1OWTGxsJC8fbMyI8vXZKH8Mc0FFFvScz9jItDQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XqCQ9ygA;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uEGesjWD;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D00960A3834
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67ECA60A3832
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D00960A3834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67ECA60A3832
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XqCQ9ygA
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e00eee27dso2055657f8f.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uEGesjWD
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so9679220eec.1
         for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792514234; x=1793119034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rDJB4+RNQq+2GGn7bCoZbRLSivKXqiepj5wyQ8N3btg=;
-        b=XqCQ9ygA3wdNL766DLnX49Mjx7DsoaPHu8/2dY3QTaGa13+55YliyIeJlbSKWDDBOP
-         kYigoY4GhBCVQdKAz1o1oBZDORZ+eFalLv21PwR74pEt+nDMa3gCye3AWoLEIm4OKi5F
-         /ll4MSTjvSw86Zfh+maNyroeCqeMOCbU3t8AEXt5PN9kFdQu4qHLk8I5chiFBIcTXffv
-         NLaGKyb7QyFAPSnt0Jn9fcHTCNevUjp/07zrR6w2o4Xuwihix7RXyLubvnSm+YUGMDR1
-         8hLIdiZCyPB7aGLM5upx5Tu5bMkIIQ3zichayBsVZLBLx1J+bnsnybi7zPIvy08+i+7A
-         V9mA==
+        d=google.com; s=20251104; t=1792514236; x=1793119036; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hxCnvxUTZp1il/bb781Ce5TYlehlCEiYcvgLpzeabqc=;
+        b=uEGesjWDZfGqRynle0v8G7vzwJNMEzjjYM/yCe4Cf+GNG3d2RluQo8jfbpEMDqzMi7
+         K6BlD6BX2bKtsXZWU6wLOGW5E4jmwo4QS6XLw1vPYk/Ibyt/IqvdfdaEO4UohQucwjWp
+         n+fXW7Ht6xcZ5T+VCvducqz0yUUMfHpdEJuDSrmBpi0QQbNzCS2+/eu9PuCk8lO8lPKT
+         j8v8Yz0NeBTm8EDn3nr2QCJLbGmCD3AUTQ49aZNQjtv/KiUJsvciRk+fYqW8Rc4Le+hD
+         ina6iOjEYq9UGDfKOWURnV5lDZKRU+HwelR+8+W+l9g3foyp0j6Ab16ayjbUSLuPeASL
+         KDWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514234; x=1793119034;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792514236; x=1793119036;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rDJB4+RNQq+2GGn7bCoZbRLSivKXqiepj5wyQ8N3btg=;
-        b=FpzZYQ7pGxBljqoUnHhQCBX5ZDC9Nnh7meYHsOefSQJhv2Fb/frMQLxZedRAfMmpth
-         zXfRzLF5E1Gu7LscQty5RruQEzlb/657bLuscNG8TbFt6LidFE80OiP76kxOh0KfFJtP
-         ObfeBha4ikO/8XZUJEP5KilTjWy9nclyfvx5sCTjIoIrYNcPFo9KQhKQN20xTj16sakL
-         IAfIsYGI38sp9i9/cIW8QZX+eQDXiUNyDZxbxxEum8x/dDGPMRr4F2OOdhZwe4JUOTAC
-         oNtyhjYUP4zUnJxGQ56LSjev0e9Yc5PQakEaHSYZ/axQChzDLmc6s2/YtfykidCqB2n0
-         Fcmg==
-X-Forwarded-Encrypted: i=1; AKwUvByVfJ0urhGimPvnWx2l6FPTqnHYr2M/K9eHUwxqzs84hw4QrtFiTtefvnj76tzcvp0fuK9DdbQcPpFhU3U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIi4hnDGYo/jJJG/mBdCwxQpMgCUZM3n4GlH8BW37LBl3UkYeNf
-	AoufrM/JJ4CquG4HWiavsypi7ApwqJIrvi845oh5IISeeumqbm5c0PUO
-X-Gm-Gg: AYBFou23E9sEXzUzr9aR83o0BcO4mULH9ZqJ3z51qgj9SW+vjkJqyWuCbmra9DlkOzO
-	/Vgp5lrA76mnqsNGmDZlTfNwlln584rX8teVTjxpbZ0zlh6MidVO56AfII/IhfkDcfVzTzKWOBH
-	uBT0vSzf+fu5xSDaFAfBJCuSfstkFhr38/nWJK67sjgXhLbt9qF2UCbPXE2cbc2SHJ6Uhdj2TKG
-	n9a26BL1OfY6X15lV8ZvtMKq1CDyk/8BPpKNe6MygNZhb8PebiPkO5MOh65ryzMfyQd/9rNpEkg
-	eeLaCXa7O07Ve2H8boEjd3+JcCSEgvDkHCws6MvAFvw89tqJ+vxwbRnwEGVT+6kleghmjDFY3lW
-	EyePY9O8bg6DCOigX4/NWhwFlC5M+O88r0gr6NeRa3b6WRi0LVHQ8dEBNYLQ/JoijHssmQRuREc
-	52KKn4ptB82UYQ6TtPFk2GjxtuKXXxJMJ586kEBxZExQelqgH7496RgK+P7MsSVt43TjBG11a1z
-	rciQ3aKTELvmveR1n5e4ObqQe9bi7XLSqs=
-X-Received: by 2002:a05:6000:29cd:b0:48d:ff71:dd8e with SMTP id ffacd0b85a97d-48e079800c8mr15957718f8f.3.1792514234297;
-        Tue, 20 Oct 2026 09:37:14 -0700 (PDT)
-Received: from Ubuntu-vm ([39.62.145.176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6db78csm7471967f8f.2.2026.10.20.09.37.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:37:13 -0700 (PDT)
-From: Haasham Khan <haasham93@gmail.com>
-To: pure.logic@nexus-software.ie,
-	johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	outreachy@lists.linux.dev,
-	Haasham Khan <haasham93@gmail.com>
-Subject: [PATCH v2] staging: greybus: remove unnecessary goto
-Date: Tue, 20 Oct 2026 16:36:36 +0000
-Message-ID: <20261020163636.7629-1-haasham93@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=hxCnvxUTZp1il/bb781Ce5TYlehlCEiYcvgLpzeabqc=;
+        b=Lm4Y3UD+PURa1e3HzNw9qZVq6SqTFbTHjAFb2rczYhiY3xFoygw+RSCjFUlsxud9as
+         iEJh0PPOTMAjFAMVS/4x5W5i+2HXGjfAP0VkhvwB9BAJgl8pq6gzKFYWNM+11LZoeU+c
+         LdBUdRgDcZiLiSlgqcL0dcBRtPVONo1PAJksuq6AEQDe9owzO0Oeg0v3i6MoyVG04HFl
+         6F3uBTR/Qs9DudA9Y3vH15S7VVSg3rCCr1zmYSocIV6phC+ZiJKpsA46jEwTm/dNrARl
+         Emrxerq8pDDTgkEbV605omcCEcopPY3ZK0l1BRdq5PyWdoFW+JNZsgAmlSymPWWWtt+H
+         hG5g==
+X-Forwarded-Encrypted: i=1; AKwUvBwb51qMOplwxRCJQLNOCthwVasz9bhRCBvL+Juc081CgGE/FGGaRHXrdf9lC42KFU27lGNh1sZW2Gn28a4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPmeSqIwhqOeWreVbrK+ki48oYMgrRXfO8ocF/lO0JjSMIzNPf
+	evvt5Y8wV70sViG3ZDRKeD8XsDFe11oPhoH/EXXL3CybvU3gX/wuWnCVApHurbGBHnV4dpNTLwc
+	st3eWPmszHA==
+X-Received: from dlai13.prod.google.com ([2002:a05:701b:270d:b0:190:ad1:4d8e])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4309:b0:168:3243:c91a
+ with SMTP id a92af1059eb24-18511eb6891mr17156154c88.13.1792514234420; Tue, 20
+ Oct 2026 09:37:14 -0700 (PDT)
+Date: Tue, 20 Oct 2026 09:36:33 -0700
+In-Reply-To: <20261020163640.746159-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,35 +78,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261016221700.1282659-1-irogers@google.com> <20261020163640.746159-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020163640.746159-11-irogers@google.com>
+Subject: [PATCH v5 10/17] perf dsos: Use read lock fast path in dsos__findnew_id()
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Remove the conditional jump to gb_error, as both success and error
-paths proceed to free the request and return the result.
+In dsos__findnew_id(), try finding the DSO under the read lock first and
+only acquire the write lock when a new DSO must be inserted or an
+existing DSO needs its ID updated (checked via dso__needs_improve_id()).
 
-This simplifies the control flow without changing the function's
-behavior.
-
-Signed-off-by: Haasham Khan <haasham93@gmail.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/staging/greybus/loopback.c | 4 ----
- 1 file changed, 4 deletions(-)
+ tools/perf/util/dso.c  | 16 +++++++++++++++-
+ tools/perf/util/dso.h  |  1 +
+ tools/perf/util/dsos.c | 10 ++++++++++
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-index efc69c10cffe..284935fded12 100644
---- a/drivers/staging/greybus/loopback.c
-+++ b/drivers/staging/greybus/loopback.c
-@@ -609,10 +609,6 @@ static int gb_loopback_async_transfer(struct gb_loopback *gb, u32 len)
- 					     request, len + sizeof(*request),
- 					     len + response_len,
- 					     gb_loopback_async_transfer_complete);
--	if (retval)
--		goto gb_error;
--
--gb_error:
- 	kfree(request);
- 	return retval;
- }
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index f0e02062c09c..4dc518f7cb7d 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -1685,6 +1685,18 @@ const struct dso_id dso_id_empty = {
+ 	}
+ };
+ 
++bool dso__needs_improve_id(const struct dso *dso, const struct dso_id *id)
++{
++	const struct dso_id *dso_id = dso__id_const(dso);
++
++	if (!id)
++		return false;
++
++	return (id->mmap2_valid && !dso_id->mmap2_valid) ||
++	       (id->mmap2_ino_generation_valid && !dso_id->mmap2_ino_generation_valid) ||
++	       (build_id__is_defined(&id->build_id) && !build_id__is_defined(&dso_id->build_id));
++}
++
+ void __dso__improve_id(struct dso *dso, const struct dso_id *id)
+ {
+ 	struct dsos *dsos = dso__dsos(dso);
+@@ -1692,6 +1704,8 @@ void __dso__improve_id(struct dso *dso, const struct dso_id *id)
+ 	bool changed = false;
+ 
+ 	/* dsos write lock held by caller. */
++	if (!id)
++		return;
+ 
+ 	if (id->mmap2_valid && !dso_id->mmap2_valid) {
+ 		dso_id->maj = id->maj;
+@@ -1715,7 +1729,7 @@ void __dso__improve_id(struct dso *dso, const struct dso_id *id)
+ 
+ int dso_id__cmp(const struct dso_id *a, const struct dso_id *b)
+ {
+-	if (a == &dso_id_empty || b == &dso_id_empty) {
++	if (!a || !b || a == &dso_id_empty || b == &dso_id_empty) {
+ 		/* There is no valid data to compare so the comparison always returns identical. */
+ 		return 0;
+ 	}
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 9f026ccb0eb6..394960cd2004 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -802,6 +802,7 @@ void dso__delete(struct dso *dso);
+ int dso__cmp_id(struct dso *a, struct dso *b);
+ void dso__set_short_name(struct dso *dso, const char *name, bool name_allocated);
+ void dso__set_long_name(struct dso *dso, const char *name, bool name_allocated);
++bool dso__needs_improve_id(const struct dso *dso, const struct dso_id *id);
+ void __dso__improve_id(struct dso *dso, const struct dso_id *id);
+ 
+ int dso__name_len(const struct dso *dso);
+diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
+index 40267d3a725d..b5c8086941d5 100644
+--- a/tools/perf/util/dsos.c
++++ b/tools/perf/util/dsos.c
+@@ -348,6 +348,16 @@ static struct dso *__dsos__findnew_id(struct dsos *dsos, const char *name, const
+ struct dso *dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
+ {
+ 	struct dso *dso;
++
++	down_read(&dsos->lock);
++	dso = __dsos__find_id(dsos, name, id, false, /*write_locked=*/false);
++	if (dso && !dso__needs_improve_id(dso, id)) {
++		up_read(&dsos->lock);
++		return dso;
++	}
++	up_read(&dsos->lock);
++	dso__put(dso);
++
+ 	down_write(&dsos->lock);
+ 	dso = __dsos__findnew_id(dsos, name, id);
+ 	up_write(&dsos->lock);
 -- 
-2.53.0
+2.56.0.212.g129ede20d9-goog
 
