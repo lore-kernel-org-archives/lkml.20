@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515129;
-	b=kT3oDT4o0apZacChoLXIu7He6LPxEr3Q5kXQy03VkylF45XBF3ffKh4KcnstzZjiha8t
-	 r4NjUr8/w+LCTkxVjIxfnjITuicoCwo3/0R3efv5zzNGUC/+EN0sxwiEqft4IcaGB5qzF
-	 FOTiPCUb1jlOpuKWW7yVUeZpGfiuWn6fIpdK/m8ZzMcCjNKKvuwoHI2za1uMU1ZgEJ5Ri
-	 R64/Y5rqZMg1/igrTzG1mvDk6szolSz7HorZKMzRDkCOpJdaGDyaLOzT7laCTa6jwJ7IS
-	 o4I1UxaSZzj0drTkvDuMlgY8KFPf10w7O122/pcYDrT5k7pRFf5IdGLsN8b8GjyTkQA==
+	t=1792515134;
+	b=Gvb/xBtOZ8G/CLh8j0kXq/ILMoDYLgitc/vtiWOiyA7qFTOsHwM8tkJCpUJjJ0luJHPC
+	 FNh5dnrMwcFV0ebYyi+jm6y+R6iBTIMm15TScMIUBh+sMCTk0i/F6E9Vag2zUQzs2V+3Y
+	 U2CR+eazMXvPRaBQt28MiXL7dtfqaMWcYumBW8zdXw4XkX4DtOEWYyTR9YszlpKvOLTf/
+	 adRXOjraLR2m729eNLo4+c+g7O2QpJMKzWMaEHkwKocNEFFHk+MigknYHyxFVdG1LyTJm
+	 UBtdwyidWwuqj0EufQJ9XJNEXeB0ZBk04ZLOcmyZggXO5zVnJU37Xcf20gFztSdy1yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515129;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515134;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
 	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=oSwcbatNs/0w1ybzYQUcJ96P49RIqvbDSPb+DvWsh68=;
-	b=WdfOmsUyZMm1zauX9AlLEq9law+P9qE+a9OAmAHznul/nhYlFDMBRtxlf2OKAYUNzrLW
-	 Fgel71i9cauUFF7Z21/b/OsoBpnnk+uUp3FkNHb7W6vgdbRXGBHUDpaygg8gJLz2Do68e
-	 QRR4q+mcXEkK4UOLmnmxUq3nglNDyVg6Wohd0kwKTcTKcANqdPI5vQJ/0ac7hCwoya9hT
-	 BMJJr43gqzHkluvFVPmzJM9o6X71pighwKkRC8RWP8dnN6rbrfJOt0FJ0gBVecZ0JucLv
-	 pC1I6xW9mgAov70q0ZqDh5ZRek/coGB6iGj3TKjRrKt84qGW8JV1l9LfIYdPuhfdzVw==
+	bh=La8BSzU6EOhtfkyhIFlJpnRIC4j2c2GRZKQvEm7Ei+8=;
+	b=yeWa5sZz68xs9n+n7b2BIPrNTUNCj6JG03WQGA0oLrwlQz7j7/8NROsYdgEqq/uLBNBV
+	 WpKtYO3jRJR76tH1nKlkG1yNrxynCJp118Egy0ZfEZ4flSS1Pc93CZN37GqtWMi9TgGdd
+	 Skb8lBxvPTR4HGioJtjh43HRV6/BcRswZPiV4SwKjvvwVQGvYblKbxK39qByidqcv5dfZ
+	 kiaEPpgBFBnk9SsbUFatOcabik50JvTbBjE81jASyd67P2KrfryQ7d7XyXy+dhxoLTM3A
+	 VrdmKFTb2Filau4rHRw+eOkJ2jZeYrJpO/7uxulevuXcmQxjsXzhzuYVaBz5LuxdBQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Bequcv+J;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k3+Fxa8z;
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F265606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:52:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F265606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CEF606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:52:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2CEF606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Bequcv+J
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k3+Fxa8z
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 0BF6BC62200;
-	Tue, 20 Oct 2026 16:53:02 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C9378C6220D;
+	Tue, 20 Oct 2026 16:53:09 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 317CA60393;
-	Tue, 20 Oct 2026 16:52:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8C5110328D20;
-	Tue, 20 Oct 2026 18:51:44 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3B8EC60393;
+	Tue, 20 Oct 2026 16:52:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 27B1910328D3B;
+	Tue, 20 Oct 2026 18:52:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792515117; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792515125; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=oSwcbatNs/0w1ybzYQUcJ96P49RIqvbDSPb+DvWsh68=;
-	b=Bequcv+Jg52fBKJhrJ+2pPNgXW9jgM3F5Dw/WyO4tABcbekj85upeLJnZiyaBvB/ZHjBLF
-	KZZRwL+zYFedV4RXGhj24geCAZHpUyXOpigdOvjHH7QmBThF6dQUS6gGgTxLEVLd42VLYw
-	IF5yqtwsXSPyQ1vawmEa8b3SLSXZLZQJ3WJCqMCWqhPZhNCw6Ms0fhV6n2BaD8uJY4e+9b
-	A1HVp7ER6JVY9qzJo0bxRskh5dpH5yw3hSPzViWu2ix0QBXiYHAZj2MrMi7lUn5Dg1P2OE
-	wMu2NvCb0hTuT2VvDJKvEHo4KwocXunLgMPBqmuM5VSM2zd9hqfygVuN3bP6JA==
+	bh=La8BSzU6EOhtfkyhIFlJpnRIC4j2c2GRZKQvEm7Ei+8=;
+	b=k3+Fxa8zo7GnSCkZ0k0esCei06gWxur8ZWyCR7Zg7xc88FoeIGhVldzYe2h/pLuccTCmO5
+	vifLPpFUN5nHzS8szl09bh7quVai8bPenBfwaRN580IWtIg/ScDdagziQnNvRcsILOQP3T
+	PHYqhsYM1oopfItNe7MBmhhtehQe8nb//XBlYjjPUZor7X9dpZNO5qZZ6Jg+3czHupV+7G
+	n19b3h5bPdgk09PZJP7/7LQ7FNaZ89ryH73J1sqfVOoDvob7N0D+CfZefOzAIPqnmldsAy
+	wIOKBJTaFvx4vQSXZfFO8MMrlkz2HcC6Y1HNPKpysgyisWX+ztv611b745i+Cw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,8 +61,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 01/14] drm/bridge: it6505: quiesce event sources and
- work on remove()
+Subject: Re: [PATCH v8 02/14] drm/bridge: it6505: quiesce work items before
+ powering off
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Daniel Golle <daniel@makrotopia.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,34 +79,26 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Pin-yen Lin <treapking@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <3f7ab3881c9dc575da02ddcd9b110a834a11f2ad.1790552614.git.daniel@makrotopia.org>
+In-Reply-To: <f9780400c44f9bb24754588503257d6dc86d3c77.1790552614.git.daniel@makrotopia.org>
 References: <cover.1790552614.git.daniel@makrotopia.org>
- <3f7ab3881c9dc575da02ddcd9b110a834a11f2ad.1790552614.git.daniel@makrotopia.org>
+ <f9780400c44f9bb24754588503257d6dc86d3c77.1790552614.git.daniel@makrotopia.org>
 Date: Tue, 20 Oct 2026 18:51:39 +0200
-Message-Id: <179251509973.78870.17205773072726643371.b4-review@b4>
+Message-Id: <179251509974.78870.11099004101869522210.b4-review@b4>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-> struct it6505 is freed by devres right after remove() returns, but
-> remove() cancels none of the driver's work items, so link_works,
-> hdcp_wait_ksv_list, hdcp_work and extcon_wq can still run afterwards
-> and dereference freed memory. Cancelling alone would not be enough:
-> the threaded IRQ and the extcon notifier stay live until devres
-> teardown and can requeue the works.
->
-> Unregister the extcon notifier and disable the IRQ first, then cancel
-> all work. Make it6505_remove_notifier_module() idempotent, tracking
-> the registration in a flag under extcon_lock, as both .detach() and
-> remove() call it now. The notifier_call pointer is left intact:
-> extcon traverses its raw notifier chain without holding a lock, so a
-> traversal racing with the unregistration may still invoke the
-> callback. Also initialise extcon_wq in probe: cancel_work_sync() on a
-> never-initialised work item trips WARN_ON(!work->func).
->
-> Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-
-Looks good:
+On Mon, 28 Sep 2026 00:49:45 +0100, Daniel Golle <daniel@makrotopia.org> wrote:
+> it6505_poweroff() asserts the reset line and disables the regulators
+> while link_works, hdcp_wait_ksv_list and hdcp_work may still be
+> running. The work items and the register accessors only check
+> it6505->powered, and the flag is cleared last, so a work item keeps
+> driving link training or HDCP authentication into a chip that is
+> already off until the flag catches up. Cancel the three work items
+> before touching the power rails. None of them takes a runtime PM
+> reference or extcon_lock, so the synchronous cancel is safe from
+> every context that powers the chip off.
+> 
+> [...]
 
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
