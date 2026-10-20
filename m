@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.212
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792463347;
-	b=qMm15aK9BH/RDO3T0AYxt46Oj3WNSS/pRjxVlXXK7D0MTReGeVT0zfrjMPzoil7dRsvj
-	 455v6Ks+H7sPE1OKYXczzDZpotlPF6Hvzgg+tAniwstN5RHz8ptSm6gKWCUnkxItUunF0
-	 /0nuAyQe4Gd5uyENmicfbHmp5bPUUIL/sMfjBCjyg2TTlJuVjp9SjK15IIPGvDF9xTKZ7
-	 hj6VPpB/S87+vNBrsmjTuaoZP3F89eMZwkfT+GH1Yi07c1H7EClXP69FNRDrzHO0EXpb2
-	 BWgl/KuM46M9zb3hl5kwP+wGu9dtc9AHLPGD/tco1i7xAnGCeTb3ecD0bkByMRukYAA==
+	t=1792463373;
+	b=CW2pnqUmA81iWq4LW2DM32Rg10tCk674MJksAPFukAocW5FXuBLfYr7G+IP8rJeqHYz2
+	 ooAxJ18l0tGmscdgVSIy6VahQPspGE5Qz/4YQ6PoWOIoNNSAPzxPPQrruc9EZiU7f+E+b
+	 o51Rhi/zleKFIsfpjvmmBbLCVgAjFF+gDWDQXoBPYEI9Z7kLv+o7IVH9+XLBgZyFnol1e
+	 dR7DbzlgtyELFnm+t/AxPJREUcetyomumaMALFpe67G6u3YHTtvPIAPv2USum82cHLscy
+	 +dejn2qYxFBR/bRNyz2KW7kCPbnOqrOX3qKlhsChbIMZoZQw33zEqASdQNL2p+z7baQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463347;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=TQXRxNel2NXPGE7cNmLoxbySMwttErvNQDqeGZaxUwE=;
-	b=VryIRC46XD1CDHjKbsvQdX6zwERT0X6GnAONbkfBz28emjIhxWTE68GLpMPX5Ov5zBQk
-	 LyTfwF8UjpW7sIP+mHHI5jhkz96k9GjakQGqablxsCJvtDlTq4o+s97uq7OH1JHFx6n0Y
-	 dFqzbl+A+c0eeEU9uC8T2HJrSzBUeLbuoqt744ngIgJCz8GzCtLf8UB4mT/HfP0W/EN/v
-	 9KoXosOdkqvqkZ++9JsqnxUG35e9QY8lkg/xIXPWMiKPlDrI8bb9QCa26q5EX8pECkygA
-	 lWJ99qdqOSTIDM3IrHdm6L1t0mmFjQDtc4pbWELbatG+0TsOXS68twfddiHxLlxnLXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463373;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hxsyEcelzfwAgBR4zNN5oG01/wpUWW34zbIR80jT05k=;
+	b=aCe7ztkvsEkKa8cgkLHHrq5Wb+coYfSzlXZZWVHg7z/DVcLhJN9fhjVFXa0AHYgGWKTC
+	 NQcfue2cMFAEQaIYCBh8AOMgfhKfoolo/mAmxwlpLgR3obijDzauLFBlBrm+wzTJse6Ea
+	 npvmlTpOkkpsE/4SqrgKojPJjxqMNrF7AF9mjIBnq/V3pQiXK6JGQzEA0iljJ5lCsjskI
+	 L03PJ2JOOi5pYKQu/WhbJdLjD6aKJXadpPqL7Plx+BVD6fwZcDm4WO3lA92oG6QlmO/vm
+	 SoAgobNpxe00qAsJIN0UA3Zc9cdou1IbtgAzdyC7e3rqAZJ6asrHxNpPDJ+u39/a9mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qUDJQ0nV;
-	arc=none smtp.remote-ip=91.218.175.212
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kncVHfTR;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92AB606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A92AB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E245606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E245606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qUDJQ0nV
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TQXRxNel2NXPGE7cNmLoxbySMwttErvNQDqeGZaxUwE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792463344; v=1; x=1793068144;
- b=qUDJQ0nVu66LxGsLtYCr/KVQJFS05FiWeAJBMMrJC3WaqrUDSH9uHHQvV9KYmdtuRY0+skGR
- tRK5Ibf7+XzfGK6IMfjrPeOQ6aqfvh55SY3rB+Gu7MMwMUgZaQjHoRVujLojDirG0ZKftgDcJB3
- G6RLNbf8n3EeO+FHXUWjzZ6s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d23a11d20bf69b7a;
-	Tue, 20 Oct 2026 02:29:04 +0000
-X-Mizu-Trace-ID: d23a11d20bf69b7a
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kncVHfTR
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso14289915ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:29:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792463372; x=1793068172; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hxsyEcelzfwAgBR4zNN5oG01/wpUWW34zbIR80jT05k=;
+        b=kncVHfTRKCcj1KhIOQ8ENNpt4TZYhM2PX1iQq2AMonZkG8eiNDHgIq4Clu4Wt92HUi
+         zxIZIe3WafztLTtIxsRGDvynWF7M7uBl2+BBwgQXOaVQlxvVy1/qmPKHCH9ck1ob5Kow
+         Bp1HfBr62bmeTRuiibfA9eB8VXFBlvLuQ7AF2Y5VgCZ+zB+zmGhWFae2QBBlDUUnEXUw
+         FwSPL9F1tZVC/UggYKognImwM1j+wrPaoPMJ+mUCeGEnXfiw5tcvaVuJjZ60xyNW1tiL
+         NQF6ruKDkdkfAqZSLVcbec9Bt3gMDqE6LqG+1qI5alkn4abHFlp4S9/4dc5PpJQ7t+7Y
+         mN5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792463372; x=1793068172;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hxsyEcelzfwAgBR4zNN5oG01/wpUWW34zbIR80jT05k=;
+        b=ruIXC1N5lG1FyTWaw/SkvY6DYDUH6EgDydrOCFv1JvU+i0OGOhsZ8g2Hdjc2Zmb/UU
+         2YfBY1vBoJPXh5gmibkV9xiOHb1EcLhWMvORsNW868QVL3vt3Fl3xRqbA61RKC8Rtwda
+         SH13p4JldE1vTbQzajw7VrXYUWNpZqNy0/Qv5na3WPjCqn9M5ctoG/UKowSagxARiSrL
+         ChGHHxoMX9D5OWmJgZc+i4igZCzrr0SPdSkhDqbdkC4n4SEHYq31eFsRKSw/lIdavx3J
+         HmDFW67PBnqhYroLaimQj0bgIH0vFe0C/zEe/zZPndiTSg0COg9o9chbyTQOtTVkqMhF
+         mMzw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+s3hhJDvx4Fy4xf4PHekbjpMk76Auooe2YTH2O/n9fqTf3xdAdXCxH8iswqIDGXw1h+XC6157YlFi2uw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgCWVuRWGBm+bYVAOWuvH3GHaxfI5QEAIO6FGPUlLvBR0/0pG5
+	Ovd2reDCksXDukEA2HfKiGcgNJnWnvPoUvqYMWUM+9/zS1zg8OuEK5lv
+X-Gm-Gg: AYBFou0i9gX8X0estb/QIwfJm916+vH7Y+s21yJ++yAq0ZsHaaUVxK9dq54iQE4LrgM
+	IiuL02g26EEE2LzZrZgi8WHpeA9rTYhxZ7TMrkk6oIFwYQEx3UY24p8HMzSvWG2aIVZrgc1Eako
+	r3OiGa7skO3X32MFgWpTN7gwgGvydDOJRO6zDoluH2oe7cTa2IGS+U5VA9x/bRUtuu1cuBWAZ38
+	TLVZv3DqhVpcWUiowVFN1vKMrsGwDdfcuPmJrfWRZN2IxQTnoAx7FQu2RZK1T0BkHZlcqv0yf8e
+	q/L+QFH+/8PivNUL7Oqp9P/46o5VPVq9euJAOqOczpGybudASdMmKXr2QP2IgwC1ssLOWrPPx+y
+	Rqrv/1Q2ElrFrXwU7RMdDKJpZTYgPjGjGJQ4L6cNqcd1hWDmgigAsftkrwWQL5tA/kacqCLz/k6
+	MWCOndzcBgKc2QLhbLxtau4T19GaTAWc/TG+ZZ7QJcyEshMQ+5n9LNF8EojFyGOdt6QQ==
+X-Received: by 2002:a17:90b:2ec3:b0:3ab:e588:c295 with SMTP id 98e67ed59e1d1-3acef51e29dmr7744767a91.42.1792463371828;
+        Mon, 19 Oct 2026 19:29:31 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5c72df56sm1973136a91.0.2026.10.19.19.29.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 19:29:29 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: pcm: Drain proc writers before freeing preallocated buffers
+Date: Tue, 20 Oct 2026 10:29:24 +0800
+Message-Id: <pm-pmb-2439c851f82c443c3600-v4-9e7df0ea42c36afe6171@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,102 +95,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v3] mm: unqueue deferred split folios outside the lruvec
- lock
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261019230646.3510790-1-joannelkoong@gmail.com>
-Date: Tue, 20 Oct 2026 10:28:44 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Barry Song <baohua@kernel.org>,
- Usama Arif <usama.arif@linux.dev>,
- Lance Yang <lance.yang@linux.dev>,
- Hugh Dickins <hughd@google.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F1FD7E12-C456-4E0E-A604-FCFB45F125AA@linux.dev>
-References: <20261019230646.3510790-1-joannelkoong@gmail.com>
-To: Joanne Koong <joannelkoong@gmail.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+The prealloc proc write callback changes a substream's DMA buffer under
+pcm->open_mutex. Final PCM cleanup frees that buffer without the mutex,
+before removing the stream proc entries. A pending callback can therefore
+race the free or allocate a replacement after the final buffer cleanup.
 
+This is reachable through codec-only HDA sysfs unbind while the card
+remains registered. With CONFIG_SND_VERBOSE_PROCFS, HDA creates writable
+prealloc files with a nonzero maximum. Buffer a valid size different from
+the current preallocation and leave the file open, without a PCM runtime.
+Cleanup reaches snd_pcm_free() through hda_codec_driver_remove(),
+snd_hda_codec_cleanup_for_unbind(), codec_release_pcms() and
+snd_device_free(). The proc file pins the card module, not a codec PCM
+reference, so it does not prevent this component cleanup.
 
-> On Oct 20, 2026, at 07:06, Joanne Koong <joannelkoong@gmail.com> =
-wrote:
->=20
-> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() =
-call
-> folio_unqueue_deferred_split() on folios where the refcount has =
-dropped
-> to zero. In these paths, folio_unqueue_deferred_split() is called with
-> the lruvec lock often held (move_folios_to_lru() always holds it and
-> folio_batch_move_lru()/folios_put_refs() usually hold it for every =
-folio
-> in the batch except the first). However, it's not needed to hold the
-> lruvec lock.
->=20
-> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
-> the deferred split queue lives on folio->_deferred_list in
-> deferred_split_lru. The deferred_split_lru is a list_lru with its own
-> per-memcg per-node lock.
->=20
-> There are already other existing callers that call
-> folio_unqueue_deferred_split() without holding the lruvec lock (eg
-> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
->=20
-> Add folio_batch_unqueue_deferred_split() and use it in
-> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
-> unqueue each batch of zero-refcount folios from the deferred split =
-list
-> after the lruvec lock is released and before
-> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
-> critical sections, which run with IRQs disabled and are highly
-> contended.
->=20
-> This came out of the discussion on v2 of the mTHP shrinker series [1],
-> where queueing small mTHP folios on the deferred split queue was found
-> to regress Barry's fault microbenchmark. With [1] applied and
-> khugepaged/max_ptes_none=3D0 so that every folio is queued, perf lock
-> contention showed that the extra cost came from waiting on the lruvec
-> lock in the free path.
->=20
-> Test setup: 2-socket Intel Skylake, 40 cores / 80 threads, memory =
-bound
-> to node 0 so that all threads contend on one lruvec, with each of 80
-> threads faulting in and unmapping 16 MB of anonymous memory 200 times.
-> With only 16K mTHP enabled, this patch reduces the queueing cost from
-> 15% runtime to noise, and lruvec lock wait time (summed across =
-threads)
-> drops from 491 seconds to 38 seconds. Most of the remaining contention
-> moves to the deferred split list_lru lock, but runtime still drops =
-back
-> to the unqueued baseline. This test uses a worst-case configuration =
-([1]
-> is expected to only queue folios of 2M and larger).
->=20
-> [1] =
-https://lore.kernel.org/linux-mm/CAJnrk1a2PpUGTsCgS7jct2KET4K2zAL+_h+te8G1=
-MaU9bXs99w@mail.gmail.com/
->=20
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+The text write is applied at file release, rather than by write(2).
+A close in the gap can leave a replacement buffer behind:
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+  PCM component cleanup           prealloc file close
+  ---------------------           -------------------
+  snd_pcm_free()
+    free preallocated buffers
+                                  snd_info_text_entry_release()
+                                    snd_pcm_lib_preallocate_proc_write()
+                                      allocate replacement buffer
+                                      replace dma_buffer
+    snd_pcm_free_stream()
+      remove and drain proc files
+      free substream
 
-Thanks.
+The same late allocation can occur without a concurrent close: the later
+proc rundown itself invokes the buffered write callback. In either case,
+there is no final buffer free after the callback installs its replacement.
+
+Move each substream's preallocation free into snd_pcm_free_stream(),
+after snd_pcm_stream_proc_done() has removed the proc entries and drained
+their callbacks. Keep rundown outside open_mutex, which the callback needs
+to finish. Both stream directions and construction-error cleanup still
+free their preallocations before destroying the substreams.
+
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+ sound/core/pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 1e4e0ecb3dbd..ce577c303a1c 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -825,6 +825,7 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
+ 	substream = pstr->substream;
+ 	while (substream) {
+ 		substream_next = substream->next;
++		snd_pcm_lib_preallocate_free(substream);
+ 		snd_pcm_timer_done(substream);
+ 		kfree(substream);
+ 		substream = substream_next;
+@@ -861,7 +862,6 @@ static int snd_pcm_free(struct snd_pcm *pcm)
+ 	}
+ 	if (pcm->private_free)
+ 		pcm->private_free(pcm);
+-	snd_pcm_lib_preallocate_free_for_all(pcm);
+ 	snd_pcm_free_stream(&pcm->streams[SNDRV_PCM_STREAM_PLAYBACK]);
+ 	snd_pcm_free_stream(&pcm->streams[SNDRV_PCM_STREAM_CAPTURE]);
+ 	kfree(pcm);
+-- 
+2.43.0
 
