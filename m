@@ -1,91 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525567;
-	b=2aq9kk2hVcWVbTGemmiFX2yRVYXzSjKeQdlwC3OD5Yr6O7uU1okoTs41V5Jg3f85mkVO
-	 n47WtZQzY+xDY1Pd3/g7Pqxe2NHcPpkP/eI38GZIeVeggehtymcPOjKSRTgVqulD1LCop
-	 l7PeZAT0KPt/eA9lmc46ajzx3uuc2GJPnP5UDf8oZb+ZffjEjz7ucdgIKp8Juj+FQkE9Q
-	 Qve8cqxSOND1ywsGKlVKZa8HBZReOWuSFviChRugj1NjFVcrqTcPow6tYIUJyavoHd/Da
-	 xeK924IY832FXd5ZwDBwbiB7MElujUU03dSbxs1UjHjSvBOVayyzxL+Jz9DypDsU7jQ==
+	t=1792525566;
+	b=KudAONsAoHzgBZ7JQMErz+J4by5Ky2PhRQlfUTy/xwl0+o/bLTBVc94D9vsGHNazOpyA
+	 jki6n63F88ok8GWZXOO468h1EzzrzZAFDp+Psh6EBEHM3Rvz+e5syDcwtvF6xN6cpSSde
+	 yhxsazbZdu4wY0YdPqncyXwBO+wOFnB6FzlDrFFdVItkzHvaSvo7yJi+7NJL3wpG/7ibF
+	 MfVP48X8njBRy8c13vXhTDYPKpXC3lynbK4qcpBpXhZRV33Mgi9UthHmTLbu+BPkMSw7A
+	 GqHv975bLVZN93GM1Uf7Yswl8YxQiXnlqrKrYBc0OfCTlgkSrIn4TGsLDbz8syurlIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525567;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=p6e7dDbW65lUB5780MXdw05Kr0ggowfzgS++oqUtaXo=;
-	b=LTntsrObpVt+65unO+thWr3zrQ8qzqKYEBYvrSUHd0CQEatVCzZ3Z/1GIALeVGTaUXEK
-	 KMF6YXgGy4E66kJKyifYlidIa2d2XKuiRqDzcKQHcjwWQ5iUdhpFQFvFYjRZbSvW2r4Z4
-	 gLec+NWTMw7ka8KpwDx48nBZIlhig7vDpNvFdk2tmFykhl97hKkcluInn3dCzoMp/2Dit
-	 KIOHMn39UgeTf7vpetPemF83mJ1OC7uYGRIIp4qmgNkRd1XHgTNDQlt2xb57RYAPR8rWo
-	 1Y9MbY5OySmwX1d561npzeZf+pKt2UP88qTrAMekIueWOVDmk1DV3IbKv0aQeXFk/og==
+	bh=0Dz/HJwUNOagY1cibG3m6O3ofOzpUbQLthWmzopo71w=;
+	b=PSCoUry9o39PUE+9Y7/JfgFz+bsfp0XnQbFdgZ+7NTz+l/9b7pUsZzg7UJZuKfZI5Rfr
+	 ChGrMmlll6zBLp6JrInLVwDdQ7IsEQucx6orpBVSGZ+s7E/bwh8PgUlgYuwplUK4xxu3J
+	 ZhyiNpXMj4tGGOw/lfye4drtxp5+4jbdkri00tz5eSjAXtX6bAMGHQTlvejh+LO3A2N5b
+	 GlGwrXCsYGi/h4AeXG+MYCnIBoHe70E8lglK2fdIF52p7C/5iTIQltgq35isju7vxrL7+
+	 vozL0J4dTAo7HlcsbLyp56QMDl0xXMbL8vKtHnVR1jMb/NYJn5ShG/McpxI97P3wuXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jDZSN9Gg;
-	arc=none smtp.remote-ip=74.125.230.137
-Received: from mail-qv2-f9.google.com (mail-qv2-f9.google.com [74.125.230.137])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G7JjI2I0;
+	arc=none smtp.remote-ip=74.125.230.138
+Received: from mail-qv2-f10.google.com (mail-qv2-f10.google.com [74.125.230.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F71606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:46:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F71606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2779606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:46:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2779606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jDZSN9Gg
-Received: by mail-qv2-f9.google.com with SMTP id 6a1803df08f44-91033ce28ceso356306d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:46:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G7JjI2I0
+Received: by mail-qv2-f10.google.com with SMTP id 6a1803df08f44-91b81cce44fso770086d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:46:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792525566; x=1793130366; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792525565; x=1793130365; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=p6e7dDbW65lUB5780MXdw05Kr0ggowfzgS++oqUtaXo=;
-        b=jDZSN9Gg74xk1ouM340nDY3cjpo17LA4WCg1MM1hRUrWf2dyYpr4u9hYF0iTGcnYfG
-         PXJJUG4LSOq61ntg5nomKfwMyL/ypZ/IBL+nq0VM+3wdU6Jfn2LLeo8dTp01dA7WixbK
-         Nvc5aDeyD4bBnjTYBm1bPP+uBr2amYzK3t9+wMC2v4pZp+onQhL5MgI9/LZNTEoTjxSx
-         ODcbxVT3oWmnu/lUyBhcGnKZachM8KdYintB4xNKW+K4PJOvX6a4wKjhRUjNvXW8PPG7
-         XVqSj6g9YWkPkY3Q4iNuZa3dCWDzT1hpkT6Gsc5g4Nca7yFwCn5ePKhLrDHruRIna9Nl
-         nbVQ==
+        bh=0Dz/HJwUNOagY1cibG3m6O3ofOzpUbQLthWmzopo71w=;
+        b=G7JjI2I0kSRfhJwoviEIb0sARcyrU8OjLKEDoXBRv55kViEau98lD025falnDP+3rI
+         gq/9X/JZqOCyRPWfN/lJ/yHd43Q0O+f2fVIlNfRfrPH1XkOiq9kuoa61q9kgcNkdukXi
+         4sGashUYcnXqWYpAxNOL80HCvtlUCFr/cFT3A7VhuKwqc/HQXdQoskvQiCuzg6kHOzgg
+         Aw+IIoldLSRPFpZdDvfyvzRYdGltJFIA0xsaZMjHYihZLxeR/zo+2rCbDxutv0RKuJ6A
+         9+ha+EQeQ7ED3BPHPn63oe2XhiPDUElQs6qj3OhKRSGJKEkOOVB8D+UM6yLiCByihj5g
+         FjLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792525566; x=1793130366;
+        d=1e100.net; s=20260707; t=1792525565; x=1793130365;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p6e7dDbW65lUB5780MXdw05Kr0ggowfzgS++oqUtaXo=;
-        b=FakK6f0gyhoPaOjahhGfkRQNsuIrVp3EUaj/O6QZIxYOOcu/9Qxh4o0jbi4T9krKOQ
-         LtAvJ4Cpl+HwP4KwW2H9THwl7poGX8+nbQmS+N3NCDNrsfcwZ5mc2YiJ3LxU81Q+NZPj
-         W93kh1NyD6EmaIV78bwTaXRZH15uoZNv7XXX4PBKrGkIG2aI9Ib1D5oNSsxaH18E/hNm
-         imrR30ysBBCQZj8FMgQRGHJhKPW4irUGUtOjydyIrW0qrLigOZMU7MOud5j5UTK0dRgr
-         bIRsVBLYCUDi1l39INPRuS9A3Z2c0y9SU1bQdjvpcMW/kU02fY2jvu9xH3gd3/Umd9gd
-         PgAg==
-X-Forwarded-Encrypted: i=1; AKwUvByzrXfqhBzQLeCrEI3u40iOyFrIW9NEj3OU6dtr+rOlnKeFD4Xb9UPdxgt1imcdlZtIzE7CS+QgiD5LNkk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLe2t94hPJKxmAdlGaAaev1qwF3oE6P9B1BSkX27UhiJKpoShx4
-	gduYlDvMmhTVNh6uiLTNMhjLOQPq6qaG0zH1Jd0VNeVeHoJ0aGS5tB2T
-X-Gm-Gg: AYBFou0/bJ6QBfwfflb40/89jKTbhqz+x+PMHbpxtuVXSu8/NsLK8cYNdRWDfLxDwYj
-	OZJjdyOdIIcxuj6adFHs0Z2gAXaUNIW1VsTSbYGkjKtk7WCm+a2G3wIN4pDJK7HtUbBKouoD6sK
-	vKfzW5vrnHxG5d6hjSOUwkYNHE+r3OYu55C8Qjio30Hy9wdicAP4OcDTULUkd1uDoWnMsyQHXkJ
-	r0P6710nPZvrkp5z+3zMluTxMMH0hpeicVvTxcHKaIHvzm7EV9L3yft6z99XW1JN6vJgXB6347q
-	JPT/VjcVRl9EGm892dUZd3UySm7pSpzVvok2k6yjCnHXScVfslRwFiDwMvmxux18eX+Hs56yHC3
-	Xddyqlfk3+W7ZVmGrgkACmZhuUztrMspAkOaHFFFs5xYd/0g2DJ2l6A+pv/ShX0tqveLjVRpCI2
-	PAFeq/orvo0FxdF4AynBwMWFMU+8VPJF4jmjNwU3izXkRgeStAjpXdnI7Ej3/VeY4Xc2BjADvQY
-	d1c3sM=
-X-Received: by 2002:a05:6214:262d:b0:91b:de4f:d3d9 with SMTP id 6a1803df08f44-91bdf19316dmr192640906d6.57.1792525565860;
-        Tue, 20 Oct 2026 12:46:05 -0700 (PDT)
+        bh=0Dz/HJwUNOagY1cibG3m6O3ofOzpUbQLthWmzopo71w=;
+        b=19K9a+pZ8XWcMzQXIUqUnp1IUpILetmxBPBbPKvM0PtDx/kdmS5qBPypU2B0Ica2Xt
+         cOW46ct/4L+vgMML9Zy2NK+N4ktO8BnD813cqbEyFO73OQhqipUS2+K3JxMRDT7kl3Lb
+         WJcpcd/IYjbyYrzsNRhenq70FAmuTRqtTeEIu9L4HzpO0Dk79iqz2Y0IBlfculNgbrKF
+         PG3ZgJpvzjsUC2ZWTWp5Hwtkb3H6HK9Mm88EbiU/BC26R0AkZCmPc9VllTL8U61NllnI
+         JcMUO80F0Q1BI9iACwzpn7BqDpNR5/u+kCCo0/FZFxtwe1h3tT/imZNt9Sh965M0lFE9
+         WZvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFJa+U13lfDaNllTTFzpQwLbvI1VX2Nug0+/7ffvwdGOX0Yrb8KLbAc0M/3RVeqknmIQo9JWM7RW3Di84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjCFB4bVbMpz67AVSyWc4+xG4J01BP7hkiFuBqwG5upiYZ09sQ
+	FZJycGW5SGSjAGkjSw0c6pCyAON4XXWGNGWK2+9MVo3ZyM/owp+Qwyev
+X-Gm-Gg: AYBFou1CHM5GqR5vj7sputeoJRy1oAFz9Aix3etc0JnhkCUc9p88IZErEHznQtBOr2p
+	dXfLJrRqrO+W84fVqlbYMI87Z0ekbcet6/ZiYr0w19F7nH/EWNhOHVGiXe1/iAg+HrAnJDf9+QU
+	8OrLnVzePJ6HIbjfh0oIvhsj4YamqiQtji7iTwzJw9RPh5IqEK+rh4d8r/amIJctq25uf1aGUXP
+	hj5FsAdOEYnPsdTIFi1Y3sgt2LtTnFt2A+7uW18+h+GnfD7BUQrCIwPQGx4kwYmekbHucoNiyp7
+	w9Y0AIlMEoxOOTNp3iD4S2jmFbyljErmNXev8jHrlUmaBlkML7LyqIEjbFSxSMkLmuTRQElTYr0
+	hHHkJSLvk+hhxWY5V9tiTg11EpPrNOh9s+PhWgRFQdQ6eL3be1tBLXDo0xXeyNAXQIDl6HW6ll1
+	Uo2nq/C87QBTmG4ZoDP6oxJ/Jy8OAhsitZFNHmjUiPJ8ZNlcLs8ZP2MnbcUrkpukS4aD1PYS1Yh
+	nWvReo=
+X-Received: by 2002:a05:6214:2489:b0:917:1f8f:6d3a with SMTP id 6a1803df08f44-91bdf02224dmr210632286d6.17.1792525564731;
+        Tue, 20 Oct 2026 12:46:04 -0700 (PDT)
 Received: from Fujo.localdomain ([142.188.41.221])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10b71583sm6336516d6.15.2026.10.20.12.46.04
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10b71583sm6336516d6.15.2026.10.20.12.46.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:46:05 -0700 (PDT)
+        Tue, 20 Oct 2026 12:46:04 -0700 (PDT)
 From: fujo <hooyan2024@gmail.com>
-To: linux-fsdevel@vger.kernel.org
-Cc: Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>,
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v4] selftests/pidfd: wait for POLLHUP before reading exit info
+Subject:
+ Re: [PATCH v3] selftests/pidfd: wait for POLLHUP before reading exit info
 Date: Tue, 20 Oct 2026 15:45:18 -0400
-Message-ID: <179252551833.59967.12617794775210688694@gmail.com>
+Message-ID: <179252551833.59967.6484153471898928809@gmail.com>
 In-Reply-To: <atc59R5-oBnyOIb8@redhat.com>
 References: <20261017054356.7874-1-hooyan2024@gmail.com>
  <179234213014.649.6368924662349703640@gmail.com>
@@ -102,155 +103,17 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-The CLONE_AUTOREAP tests poll for POLLIN and then immediately call
-PIDFD_GET_INFO with PIDFD_INFO_EXIT.  PIDFD_INFO_EXIT is only published
-from release_task() -> pidfs_exit(), which runs after the pidfd already
-reported POLLIN for the exited task.  A poller woken by
-do_notify_pidfd() can therefore read a mask without PIDFD_INFO_EXIT;
-under KASAN the autoreap_multithreaded case fails this way.
+Hi Oleg,
 
-POLLHUP is returned once the task linkage has been removed from
-struct pid, which happens after pidfs_exit() has published the exit
-information.  Wait for POLLHUP and check it in revents.
+> Confused... V3 still changes the 1st poll(&pfd, 1, 0) to use POLLHUP?
 
-The zero-timeout liveness check in autokill_pidfd_open_no_effect keeps
-POLLIN; it verifies that the child has not exited yet.
+You are right, and I'm sorry for the noise.  I fixed the source but
+amended the commit without staging the fix, so the v3 patch still
+carried the old hunk.  That was my mistake and it wasted your time.
 
-With this change all tests pass ten consecutive runs on an unpatched
-kernel.
+v4 no longer touches that poll at all; only the polls that are followed
+by PIDFD_GET_INFO wait for POLLHUP (and check POLLHUP in revents).  With
+the corrected tree the tests pass ten consecutive runs.
 
-Signed-off-by: fujo <hooyan2024@gmail.com>
----
- .../selftests/pidfd/pidfd_autoreap_test.c     | 34 +++++++++----------
- 1 file changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/tools/testing/selftests/pidfd/pidfd_autoreap_test.c b/tools/testing/selftests/pidfd/pidfd_autoreap_test.c
-index 1c586482f..59bf9b5b3 100644
---- a/tools/testing/selftests/pidfd/pidfd_autoreap_test.c
-+++ b/tools/testing/selftests/pidfd/pidfd_autoreap_test.c
-@@ -149,7 +149,7 @@ TEST(autoreap_rejects_thread)
- 
- /*
-  * Basic test: create an autoreap child, let it exit, verify:
-- * - pidfd becomes readable (poll returns POLLIN)
-+ * - pidfd becomes readable (poll returns POLLHUP)
-  * - PIDFD_GET_INFO returns the correct exit code
-  * - waitpid() returns -1/ECHILD (no zombie)
-  */
-@@ -172,10 +172,10 @@ TEST(autoreap_basic)
- 
- 	/* Wait for the child to exit via pidfd poll. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Verify exit info via PIDFD_GET_INFO. */
- 	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-@@ -225,10 +225,10 @@ TEST(autoreap_signaled)
- 
- 	/* Wait for exit via pidfd. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Verify signal info. */
- 	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-@@ -334,10 +334,10 @@ TEST(autoreap_reparent)
- 
- 	/* Wait for it to exit via pidfd poll. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/*
- 	 * The grandchild should have been autoreaped even though
-@@ -421,10 +421,10 @@ TEST(autoreap_multithreaded)
- 
- 	/* Wait for the process to fully exit via pidfd poll. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Verify exit info. */
- 	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-@@ -512,7 +512,7 @@ TEST(autoreap_no_inherit)
- 
- 	/* Wait for the autoreap child to exit. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
-@@ -571,7 +571,7 @@ TEST(nnp_sets_no_new_privs)
- 
- 	/* Wait for child to exit. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
-@@ -631,7 +631,7 @@ TEST(autoreap_no_new_privs_unset)
- 	ASSERT_GE(pidfd, 0);
- 
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
-@@ -695,10 +695,10 @@ TEST(autokill_basic)
- 
- 	/* Wait for the child to die via the pidfd_open'd fd. */
- 	pfd.fd = pollfd_fd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Child should be autoreaped — no zombie. */
- 	usleep(100000);
-@@ -813,10 +813,10 @@ TEST(autokill_pidfd_open_no_effect)
- 	close(pidfd);
- 
- 	pfd.fd = open_fd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Child should be autoreaped — no zombie. */
- 	usleep(100000);
-@@ -884,7 +884,7 @@ TEST(autokill_without_nnp_with_cap)
- 
- 	/* Wait for child to exit. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
--- 
-2.53.0
-
+Thanks for catching this,
+fujo
