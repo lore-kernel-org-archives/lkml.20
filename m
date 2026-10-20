@@ -1,44 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=47.251.158.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792476631;
-	b=NGBgeYoVn7GBVIeN1J3HD2nKnYcPDa4zofuVKt/kPPBqmmUwuYa+wCIB6mF1nXax293W
-	 mM7ZISdpKwqT0TmtTS8Daq3uIkQPPwXQrzVnB+Us45DcohCgQ0HIM64zM+DipivK0uqre
-	 8nFcBljd+ed3Rbt1oLTGkARKxzV/Z7PHa/PFeLHfAHuH6xYfub02A5uSh4gC6WIKasrsU
-	 +/m0jBGa4Cee89ZoZwFc8gxXtUvLkvHn8Nlu/21ccxBDJHSfe8qhj4A4IQ92ujRKq4qwW
-	 DHUF4JGb+JxKsggrB5r+if7Fuz4VeS0mC8BBuGtQOQr3WduqWVzpwyk57EnVWI6gOOA==
+	t=1792476659;
+	b=pR45E0pk8GqgJ8pwGfNrY1GGjWWj7KXZR+B+bEPdmcPOnabLxvVl6+rHUXmUV6s68rJV
+	 mj+dfHPIpmwHMqhCTlRN3LfFxFLPzXAsvqS8lJ0p3MXp5QWxE1B5bVIcbqbAwXHpwfuhT
+	 SiRNQxw+yxGPly5RNh48rvl6WjREapLiXGbKCiMoUcKMivbx3yZevj0UfMXQBCRIPO8w5
+	 xfWX3dg1ntGYra2SKkEoEKBZv8QrJYI9Vr0PDdR18L8NbtEDGnvky8C9lp6rBUWexwi95
+	 JGHX/KK5CH6ew0l86zii9K3YCudBGhTTtHLrwNMY9oMzqFnLiuwb3T3TUA017C+AKsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792476631;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=dfwCW3XzFrA/MwgKr2yXEIAy57FlBEW9MYzAJ88RhlA=;
-	b=UTMpGwqiNBdsGlikzZslF1HaOwhi0xD6wSBmJF6ErZPmLXx3Ft7q6F9ggZQEK+Q0WUHd
-	 6aBCfJ+mPyIYvpvC2JFS0okq/CGnuyDD6CzZ6A5Cmu3VKyGZJhwXL7fa7OkXdYenXLpFB
-	 sWRgsegydYMpWB0iIzEZmO6iCgkZZow4lcRl2QYRlZJNoflZQRIAO/ENRpC45AljXNgba
-	 Jx/PyWicJqJirJgTDXMT3Cex9S8L9pYZmRQaKxJYUrtMfYqwUYhNLu3PgX3cD9hoCqf+Z
-	 uTFAsIg5twoEzIB5ixTrEzTKxUsnAU3O2WS5VyYuSRahWunvXyg/ih6ltvptQe4kYyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476659;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=cS6pFcdr0G2iGELigekAsBdFkK/RBG24WDWNE/2IQ9o=;
+	b=F/3jjG8B9ol510dr//X3ZMYJMks+s+C2iJsq7ftHDrJX02I7AD/pyThby9cBgyoj1YwQ
+	 lCtKmWIfCtF3GRM6NjfLih6bNmXvv+jYT4SrgfZzYwSPIjnwaVqew/PftwUQgS7wtjl/q
+	 QlvKnPtsJVd4b0hJmaZwdotowGKU16gKIoGJm48LmUW6aFdYguTn9OTwnRSPGCdF398ai
+	 MdLMKJvAvlFmGysEZIombnZ4lWjCY2S49FXdhdynOb1kSj+gaEfPrcjmIZwqo8YjQ/myW
+	 Se+aEC39UpcBOCPoqEWtEXQ0p7cQkGxBWvl9RTAnJdS42XBBdH94unAu9Dr9nptRsuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Cx5fgsys;
-	arc=none smtp.remote-ip=47.251.158.125
-Received: from mail-m158125.netease.com (mail-m158125.netease.com [47.251.158.125])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bwbzEbCB;
+	arc=none smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301C9606A31B;
-	Tue, 20 Oct 2026 06:10:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 301C9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00E606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:10:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC00E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Cx5fgsys
-Received: from [172.16.12.48] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51aa6b3ae;
-	Tue, 20 Oct 2026 14:10:16 +0800 (GMT+08:00)
-Message-ID: <aa480e97-e8c1-4954-8ed8-9de195030315@rock-chips.com>
-Date: Tue, 20 Oct 2026 14:10:15 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bwbzEbCB
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3aae7df0971so19354681fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:10:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792476656; x=1793081456; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cS6pFcdr0G2iGELigekAsBdFkK/RBG24WDWNE/2IQ9o=;
+        b=bwbzEbCBKLILFMcjDjfHaekztqM7Pyji2tFufkZ8htUzXdgMg+CPqH6tgjR0Nz84+g
+         q8D/v3kagHhkZMH1nqqK3ZDki3gyzly0NzhRzk6c1mnXH6gnqn8zCvqxK0CIVBt0DuRk
+         ykaHaW1H2mfano4cteTwnuS/YqTQ34t6DVFpQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792476656; x=1793081456;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cS6pFcdr0G2iGELigekAsBdFkK/RBG24WDWNE/2IQ9o=;
+        b=v8+FtFWlgdQDu/UkBKzpUdM3bXxl1VLXcg9b3q/3v2k6mLJPsglPaUbCYAiUlM86N8
+         MYFlnvRSs3EOBgihdhNK3cg2sfBrGDcZ5BMg+7oZdqbGXZ1d4PPrkx7Gr7MJe+ijVyTL
+         IhRz7wu5Y+/wy99jyni9oikqPpyvI4kMjVw2sKFQve7zHMDV1IHG0V9BxmfxKZ22FzoD
+         l41X+JJdpAxwppDxwmTMqxFwyGINztT7fJZCZ1Qttca6gqgvf0ncvBFcRrwD520NXdG2
+         E1PdUEQ3kJ8FmPhlaMqpL091ye8IhM6VlQdHMj1lqENBjQTePIH9k86eXsR/iUskZsWf
+         AU6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwUvIE2/6sodQiucQuAcdWE+5K8OH7V5gt6MLLngO6y+rPO4Vxl3cZBTDsWNczQweFCMgoOhJQlabcQO8w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWZpgJTc1oQq70GSfy4tBVLBg+h4SmPnwK3TRzla9YLrkjuub4
+	VYzs7GxFjUygGeJyz1SWSyaS/Sx+7VWjGybAKI6v1PGAYZ3fw9hzr+jKGg6ElQ/wZlsLTfxyUz5
+	hGCI=
+X-Gm-Gg: AYBFou1ZMet4pgZyeLHTlWh7J5u+/h6gLtZ5fg3YfoCjYdav4HPmgoRlrmkV49YC9TC
+	ThJHrbwvETHlF6pfkPKOvp+gdViepTvvq2Nbag1YSDpWZXhXeRifd3es5lPrWK9O8Kzkxb5ITLc
+	5yIGmkadgA2oMkuy/6d4ouTXup7+cFylg8qSLo1RrPk7mI7lfZKEiyOj5M4zGdFFGPAY3gJsLmk
+	GiWM+vflLG+8o16TFxjT4bxrawhYwkJvp6T0Pp2h7YFiTFeesSjgzs2Qo+uIoINS7E/OBuHTCpR
+	jd9RjoXe0haV2dazoPv2DzRoDLZmUzN/jutg9t5Uuk+rc7L2FXeSsySyUhSAGek9VK+92/z22rj
+	N3tG1cvBKrz2NLY9XKEbYM+bmZ5I+l58GZAU1bY6HGwSr+MMDWATVgH12t9rchpZigYxhKpULPf
+	LfJRio4AhVbaWcyEm8RMEw6FwZsWLkGZ0BwcSu5p9dHNamVNNU5l+MCaqbwHflmZDD3vme7v/1k
+	tCTi4/OL6KWn8ZMr3TFIYjl9AIMGo+dpgCWPhFoCN0zrtkg+RqRt8E=
+X-Received: by 2002:a05:6512:3da1:b0:5be:4ed2:1e22 with SMTP id 2adb3069b0e04-5be50a81189mr3184228e87.51.1792476656072;
+        Mon, 19 Oct 2026 23:10:56 -0700 (PDT)
+Received: from ribalda.c.googlers.com (166.141.88.34.bc.googleusercontent.com. [34.88.141.166])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fce99sm2370782e87.9.2026.10.19.23.10.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 23:10:55 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 20 Oct 2026 06:10:52 +0000
+Subject: [PATCH] kbuild: pass -fno-pic when probing for -mfentry
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,145 +87,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: dwc: Skip MEM outbound iATU setup for identity
- mappings
-To: Xincheng Ji <jixincheng@ultrarisc.com>, Jingoo Han
- <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Niklas Cassel <cassel@kernel.org>,
- Xincheng Zhang <zhangxincheng@ultrarisc.com>,
- Jia Wang <wangjia@ultrarisc.com>
-References: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa157ee96d503a4kunma914cf2f9369dd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQxodTFYZTU8aGEJMGk
-	JJSkJWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Cx5fgsys7xQjmIH6eBkVTO4LlmbYsYmlv5MusFWdD75Ha69b3dRyNyPEXz9NFpgmhMf6hmDEK2/AhuStu3TKsZa/zidtJxv31m9Y6F3p8+gdAMwBzdaeFcNSJ/xRAToTI1tSgOY1EIXzOHs3vl9YMH2aVoW8X05LCxGNM1lme7g=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=dfwCW3XzFrA/MwgKr2yXEIAy57FlBEW9MYzAJ88RhlA=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-pie-v1-1-9be09f2324b1@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAOsF12oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyMD3YLMVF0zc3OTlDQjgySDtEQloMqCotS0zAqwKdGxtbUAaz1zzVU
+ AAAA=
+X-Change-ID: 20261020-pie-6774df20b0fa
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Julian Braha <julianbraha@gmail.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-在 2026/10/20 星期二 10:37, Xincheng Ji 写道:
-> No outbound iATU translation is required when the parent-bus address
-> matches the PCI address. This is a DesignWare controller property, not
-> an UltraRISC-specific behavior.
-> 
-> Compare the addresses directly and skip MEM outbound iATU setup when
-> they match. Remove bypass_ob_mem_iatu and the UltraRISC-specific setting.
-> CFG and I/O accesses, as well as non-identity-mapped MEM ranges, still
-> use outbound iATU windows.
-> 
+Some distros (namely Debian) configure their 32-bit toolchain with
+--enable-default-pie.
 
-Just make sure there is no regression on my Rockchip platforms, so
+To properly probe for -mfentry on them we need to pass -fno-pic,
+otherwise allmodconfig will fail with:
 
-Tested-by: Shawn Lin <shawn.lin@rock-chips.com>
+./arch/x86/include/asm/ftrace.h:9:3: error: #error Compiler does not support fentry?
 
-> Fixes: 17b478b29cf1 ("PCI: dwc: Allow drivers to skip MEM outbound iATU setup")
-> Fixes: 8da2b970ed4c ("PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000")
-> Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
-> ---
-> This series follows up on the recently applied MEM outbound iATU support.
-> 
-> The DesignWare outbound no-match path does not translate addresses. Skip
-> MEM outbound iATU programming whenever atu.parent_bus_addr matches
-> atu.pci_addr, rather than relying on a driver-specific flag. CFG and I/O
-> accesses, as well as non-identity-mapped MEM ranges, continue to use
-> outbound iATU windows.
-> 
-> The UltraRISC DP1000 driver has removed the now-unneeded
-> bypass_ob_mem_iatu, and the general DesignWare PCIe host
-> code has also dropped bypass_ob_mem_iatu, directly comparing
-> the parent bus and PCI addresses before setting up the MEM
-> outbound iATU window
-> ---
-> Changes in v2:
-> - Merge patch1 and patch2, because they depend on each other
-> - Link to v1: https://patch.msgid.link/20261019-dw-pci-fix-v1-0-9b7860f919b9@ultrarisc.com
-> ---
->   drivers/pci/controller/dwc/pcie-designware-host.c | 17 +++++------------
->   drivers/pci/controller/dwc/pcie-designware.h      |  1 -
->   drivers/pci/controller/dwc/pcie-ultrarisc.c       |  6 ------
->   3 files changed, 5 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-> index cf5ca281e91b..c593a1f1c2e0 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> @@ -918,19 +918,12 @@ static int dw_pcie_iatu_setup(struct dw_pcie_rp *pp)
->   		atu.parent_bus_addr = entry->res->start - pci->parent_bus_offset;
->   		atu.pci_addr = entry->res->start - entry->offset;
->   
-> -		if (pp->bypass_ob_mem_iatu) {
-> -			/*
-> -			 * The no-match pass-through path preserves the correct
-> -			 * PCI address only for identity-mapped MEM ranges.
-> -			 */
-> -			if (atu.parent_bus_addr != atu.pci_addr) {
-> -				dev_err(pci->dev,
-> -					"Cannot bypass outbound iATU for non-identity MEM range %pr\n",
-> -					entry->res);
-> -				return -EINVAL;
-> -			}
-> +		/*
-> +		 * No ATU translation is required when the parent-bus address matches
-> +		 * the PCI address. This is a property of the DesignWare controller.
-> +		 */
-> +		if (atu.parent_bus_addr == atu.pci_addr)
->   			continue;
-> -		}
->   
->   		/* Adjust iATU size if MSG TLP region was allocated before */
->   		if (pp->msg_res && pp->msg_res->parent == entry->res)
-> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-> index 799c05213ae3..128729fee607 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware.h
-> +++ b/drivers/pci/controller/dwc/pcie-designware.h
-> @@ -471,7 +471,6 @@ struct dw_pcie_rp {
->   	struct pci_config_window *cfg;
->   	bool			ecam_enabled;
->   	bool			native_ecam;
-> -	bool			bypass_ob_mem_iatu;
->   	bool                    skip_l23_ready;
->   	bool			skip_pwrctrl_off;
->   	/* Set if the RC loses power during suspend */
-> diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> index 523f454c6c52..a0d328c0c09b 100644
-> --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> @@ -154,12 +154,6 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
->   
->   	pp = &pci->pp;
->   
-> -	/*
-> -	 * DP1000 routes MEM transactions without outbound iATU windows, which
-> -	 * avoids the 16-window/4GB-per-window aperture limit.
-> -	 */
-> -	pp->bypass_ob_mem_iatu = true;
-> -
->   	platform_set_drvdata(pdev, ultra);
->   
->   	ret = ultrarisc_pcie_init_clks(ultra);
-> 
-> ---
-> base-commit: 0a2602de077462d3111eb9fd3da5b12a57fc6c93
-> change-id: 20261015-dw-pci-fix-c8e51f83be02
-> 
-> Best regards,
-> --
-> Xincheng Ji <jixincheng@ultrarisc.com>
-> 
-> 
-> 
+Fixes: 454e00cf8ee5 ("kbuild: avoid re-running compiler and linker probes")
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+I found this while testing next with media-ci.
+
+Full logs:
+https://gitlab.freedesktop.org/linux-media/users/ribalda/-/jobs/113299249#L4729
+---
+ scripts/Kconfig.toolchain | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index b0b9a663ddbe..53b361cf365a 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -170,8 +170,10 @@ config CC_HAS_MNOP_MCOUNT
+ 	def_bool $(cc-option,-mnop-mcount)
+ 
+ # s390-linux-gnu-gcc did not support -mfentry until gcc-9.
++# 32-bit x86 gcc does not support -mfentry in combination with -fpic, which will
++# be enabled by default when gcc is configured with --enable-default-pie.
+ config CC_HAS_MFENTRY
+-	def_bool $(cc-option,-mfentry)
++	def_bool $(cc-option,-fno-pic -mfentry)
+ 
+ config LD_OPT_FORCE_GROUP_ALLOCATION
+ 	def_string "$(ld-option-str,--force-group-allocation)"
+
+---
+base-commit: 3d229ce89862b8e82d71a9e11d6f840ca272a6d6
+change-id: 20261020-pie-6774df20b0fa
+
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
