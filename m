@@ -1,44 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479547;
-	b=ZOlyGKeGrtP5v0vojJKy/0V3pBeQAlMOL8ErIzgC4/GiHW6St5+qwmZhh+cCKrNrkZNz
-	 MjcMqeEErpEzQqzGsFX9svOvG3Wpe+PfABQxgn7s78TTU09nXkpJpdVZYJCEWGOqzYmZl
-	 TH0PdzxIdHZbqOsPCH8jJj85iRgB/fwOzzJz294yz8lKsibC0m57daIqyE8/soQzZ+HL5
-	 naj6DyWMfIXSexq33gHbsgqiNMk1tCb0jgPpMkCwD+MFAI0owLUAPHfP7CyRK+MWz/otb
-	 mKAwQR9rvBn0Z9Jx9Vawn81Fys8ZEwqQc3cO9j2kGZtviZLqjeIN3wG0KDmqP2OCM0w==
+	t=1792479553;
+	b=uX5WR+9cB9vddEW1eGnbHFDjR48hJGhfgOfu0Ks17abyBqmoseToi59qbgKNoOaeFEyr
+	 ROorBBZS8oaQ/4+tmLJMha4tF+juPpRBHn4tiUB5872qT66mLWf8s53iKwRQ9RIHUQT8T
+	 Hz79y2UGQHuiAkg3+bdkce8IwudglHCQstD4+lOfK6q/awG84qN98p91nf8L/JgeAbo/B
+	 78oEubNmIgcBuWmIyNbIaiv6AoINYxpLq02MYbI0vMG6UgUiOIjwp24qRGrzQAi0/1m97
+	 IH6GooxUepgdPjAJpxnsV7P3hvlf9GsQfsmevQlIPElUmAaJqeW5Hz1ANDD6noYZHSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479547;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4/hno+IzPu9Ull5daDpWz8o3VVQOt88GXjWGdsHXcmg=;
-	b=KWZTAMwclwPPRIGXynPxXQWoOnJ0dMrISQQVUEceEOMl4kgqFMDpVEgKe/Nw82uXfzcj
-	 X0+045qWYKxEB1DEiTI89Y7Zb5qt1sGKDL1LTi4E7YQasyNZdtiKoI/mwOogcxUC+k9mg
-	 aFLekrhPBOKgtG9mIbUqUNq+ETJMFNusQMoP08UePLi+Sm8Y1E34kLUEhiNfrxB5ydpkn
-	 nzf15jTmtbudy4L1lnFrYReChPRPElhiDsah70nO+mFF7R7wzyY8BNlFpb5andKsN9+eb
-	 lhiVAbIV1r8jsJwAWnk8s3QY83t/gjGTMJjHxnfvjxXXmw0odpnlPn1UQjxBYsVVrJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479553;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7L8VOZ1Mgmf1+RYeXFC9mvtl2/avF8cFjlj9LPSdp+M=;
+	b=5dGaZoC3mQuJHNUmXKJ60CXCQhk7WX445BbeIReVlnpsauKsfIWxOHya9wK01w9AdLim
+	 HNN7Qj/JUYLuwwxN247L2eT+BTE14U0GuubvLpbPb39Q1pWM0eUzX6lzuAQuoEF9vuYrV
+	 jw3WcUO4L4z8m7mAqmZvl9oLTaMJQssi5JLv2BELsG1fXuhKhkCil6r50IolboqNO9Dgu
+	 A0BLOGhKd0LEikABsnWSdw1JC/o/is34D9OKSiM4VWehimLpeu2OMCbzmEXzQVpI1s/kh
+	 1ZxFNJK3AAeOw/FzkO8N36Mi+xJcCj+sArYXZ++QZMr5YpDCc0YBCGC/FaEWQ6QpnvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="W8N/Kx+4";
+	arc=none smtp.remote-ip=203.205.221.202
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146BA606A32D;
-	Tue, 20 Oct 2026 06:59:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1889B1F000C7;
-	Tue, 20 Oct 2026 06:59:04 +0000 (UTC)
-Date: Tue, 20 Oct 2026 07:58:30 +0100
-From: Lee Jones <lee@kernel.org>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Luca Coelho <luciano.coelho@intel.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] wifi: mac80211: ignore PM bit in non-bufferable
- MMPDUs for PS start
-Message-ID: <20261020065830.GA1206986@google.com>
-References: <20260928100508.3487525-1-lee@kernel.org>
- <9b3efaebb9f5460f6bfaaa284fd235e76c940361.camel@sipsolutions.net>
- <20260928142434.GA2112133@google.com>
- <d8227c92ab9c752dc6b591945ea8f9c5e3cc6223.camel@sipsolutions.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6911C606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:59:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6911C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W8N/Kx+4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792479549; bh=7L8VOZ1Mgmf1+RYeXFC9mvtl2/avF8cFjlj9LPSdp+M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W8N/Kx+4AMhfYXcmVYvagsSxV3rztIjVqd4sSsoFwxZlGiryyAVznTBWaWHzIggyL
+	 CnQUEPcV3Q3VWsTOUiBvU9UbDdr0D+6/O4uoUhggX9rVkCrNduZbXJEbUI+IgU5sUw
+	 N7IUdaBQnVP8zJ7inXOzBlJTqzCHWPvpaBefTg2s=
+Received: from localhost.localdomain ([223.104.162.184])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id EC4038BF; Tue, 20 Oct 2026 14:59:04 +0800
+X-QQ-mid: xmsmtpt1792479544tgsun87fq
+Message-ID: <tencent_E4D492428B38715120C10368D5F5047ACC05@qq.com>
+X-QQ-XMAILINFO: Mhzd+K3mccYx0Wjfywtljku4lecHKg0IZf5hZBDdDFMwM1HRBjCiO0+9BxRG0P
+	 V2uz3i/3GPxiV0jCGpejws7WIOWw19mqySjvFrWqbJsj1hixrHatTIrtkhZustMi2b2qarWgCzXW
+	 QLYuYeXDsuEZtM1397kGNtFmKcut/WpJm7PXlH7HILdUrdoKIFlLST1Tlfvz41qPv3VKt2PKuhNu
+	 S3XSbQas/NgTleRAfndv/R7aoIEBhD/Q+0tRMv+JfckeMzw9cjhIDP9tHArD6bI2lYcxa6vPRgXw
+	 Ie7/J+OSTIqp+pGzWYPgj7IzRjLzBUH0oN16b4ohx8GDct+W/elSQ+GzheQ/5nBULlxTOZNvNtJ2
+	 Ie9Yt76odYz2Bj4cp4ZMh3qGKKBJWLXSQoBBWZcYexH3PIrTncGY1GqjGDwpnn0RoQ3MIOt5f05R
+	 AZCAofnVTBGXF5W3Za11NG0sB2hR6uZQhGbYVIWZfgnWqWMf9ZnlC17Hqykn6YwEeLXw+dosxgdT
+	 YP22MHkR4VnNKiYNlaVTfMH7VBDCYEIHcVshWERajzqgIME/9GcR6brbBjvG7FUgCB1H6XXZIHyw
+	 BkHEGwCG4EQMU7GU/UHhTbz8o5O8rCKjL6pErO2ZwccHPczblC552b2JXQGKABKMLgaZd3qs/yRF
+	 NcjXF3PW6s+uddAh4vefQqA17ygIsElxBUacgDqh0gCEa9q1OuHFwJc+988cfMujyVCKemE+XY4s
+	 cHtNjMCzGz264ZMgDbjOy0cz1FfQPboVIknMHVA2TdnNJPjwdMqxkS0jagv1gLFl7/uS2x087tLa
+	 0cCmjx1R99126n+/tdstdCSLIcm58ZN0VnJncUh/drhmXrmzFYgn74ThA0PGqTBOCV0n+0Xz/EMD
+	 otLNULM+12DL78b2i5kVtHBtYZZsfcFlEpX4OaEbNT15uGtvzkQ95wgMe48TNrUz7eu+5EL5gJaw
+	 oZJsOG0hTUcOQV3+kWBaTzUWaN04oH4iKRHtRbropn6ie3GmwTSBLw/hIlXduPaOQjdX3bsjg6q6
+	 DyecJzK+n1fS3dDVYmkYpS23NDZuiHyhHtEb31vQ/S7Y80uttoPYGX5LABIO2aiPXKVHHhoDAqfA
+	 Ig1Jxjiu8s+8/FNBwi+l/RQ8PUqQ==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Yemingxuan <level_zero@qq.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] drivers/base: return bus_add_driver() errors
+Date: Tue, 20 Oct 2026 14:59:04 +0800
+X-OQ-MSGID: <20261020065904.1226-1-level_zero@qq.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,96 +80,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d8227c92ab9c752dc6b591945ea8f9c5e3cc6223.camel@sipsolutions.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Sorry for the delay.  It's been a busy few weeks.
+bus_add_driver() creates the driver's uevent attribute, adds the bus
+driver groups and the bind/unbind files after the driver has already
+been inserted into the bus and its module links have been made.  When
+any of these fail it logs the failure and still returns 0.
 
-> On Mon, 2026-09-28 at 15:24 +0100, Lee Jones wrote:
-> > 
-> > The commit message was purposely vague due to the fact that the change
-> > fixes a security issue and I didn't want to publish a HOWTO guide for
-> > exploiting it.  However, I obviously overdid it a little and left out
-> > the reasoning you'd need to review the patch.  The short version is that
-> > an unauthenticated peer can currently change an associated station's
-> > power save state with frames that shouldn't be able to have that
-> > capability which can be used against the station.
-> > 
-> > Happy to send you the details off-list.
-> 
-> I think I've (conceptually) known about this issue for ... years?
-> 
-> First, arguably wake-to-doze are _less_ interesting to attack, since
-> then the TIM bit will end up getting set and if the STA isn't sleeping
-> it'll see the beacon and recover fairly easily (though not entirely sure
-> we actually implement that in mac80211), and if it keeps sending traffic
-> then the state corruption is short-lived.
-> OTOH, corrupting doze-to-wake could lead to traffic getting dropped if
-> TX filtering status isn't implemented well on the AP side/driver since
-> the STA is actually sleeping and won't see any frames.
-> 
-> Second, I don't think in general this issue is fixable, and while it's
-> good to implement this closer to the spec, security wise it doesn't
-> really do anything as is?
-> 
-> If, for example, there's any bufferable MMPDU the attacker can just
-> replay it - we've been doing this before MIC/replay check forever
-> (unless that's offloaded). It can also - although this is harder -
-> intercept and modify the PM bit, since it's not protected by the AAD.
-> 
-> It's also wrong that we're doing this *after* the reorder buffer, since
-> that potentially holds the frames for a long time, and the spec says to
-> look at the PM bit after the frame exchange sequence completes (REVmf
-> 11.2.3.2). We should fix that too, but it doesn't really matter for this
-> discussion:
-> 
-> Any unprotected complete frame exchange sequence can modify the state
-> anyway, QoS NDP for example.
-> 
-> >  - Rewrite the commit message to explain the problem and the reasoning
-> >    properly, rather than just quoting the spec.
-> > 
-> >  - Make the PM handling consistent in both directions, so it doesn't
-> >    honour the bit in one case and ignore it in the other, while keeping
-> >    the re-authenticating station case from 9fef65443388 working.
-> > 
-> > Does that work for you?
-> 
-> Well, I think it's really only a spec compliance cleanup, but then we
-> might as well try to fix some of the other issues?
-> 
-> I also think we might be better off making sure that as a client we
-> handle the TIM indicating traffic while awake and send a wake frame, and
-> perhaps checking AP side handles filtered/un-acked traffic well.
+The driver is then registered but incomplete: a driver without
+bind/unbind cannot be bound or unbound from userspace, and a driver
+without its uevent attribute can no longer emit uevent notifications.
+driver_register() reports success, so neither the driver's init routine
+nor its caller retries, and nothing else ever creates the missing
+files.
 
-Agreed on both counts.
+The device side of the same driver model already treats the equivalent
+steps this way: device_add() returns failures of the equivalent sysfs
+operations to its caller, and device_del() undoes each one.
+driver_register() already calls bus_remove_driver() when the group
+registration after bus_add_driver() fails, and that branch is only
+unreachable for failures inside bus_add_driver() because of the
+unconditional successful return.
 
-Since the PM bit in the Frame Control header is unauthenticated and
-processed prior to decryption, an unauthenticated QoS Null frame can
-still flip the AP's PS state anyway, so the AP-side change is best
-treated as a spec-compliance cleanup.
+Propagate the errors so the existing unwind runs.  The new
+out_remove_module label calls module_remove_driver() before falling
+through to out_detach: bus_remove_driver() pairs every operation
+bus_add_driver() performs in reverse order, but the symlinks
+module_add_driver() creates live in the module's sysfs directory, not
+under drv->p->kobj, so the kobject teardown does not remove them.
+The attribute and the groups need no explicit removal because they live
+under drv->p->kobj, and kobject_cleanup() drops the sysfs directory for
+the caller.
 
-You were also right to suspect the client-side TIM path in
-ieee80211_rx_mgmt_beacon(), when (dynamic_ps_timeout == 0) (for instance,
-when power-save is disabled on the client interface) and IEEE80211_CONF_PS
-is not set, mac80211 currently ignores its AID bit in the TIM and never
-sends a wake nullfunc frame to flush the AP's buffered frames.
+The error messages are kept.  The return value of an initcall is not
+printed by the initcall machinery, so dropping them would turn a
+reported failure into a silent one.
 
-If you're happy for me to do so, I'll send the following 2-patch v3 series:
+These failures are not expected on a working system: driver_ktype
+always supplies sysfs_ops, so -EINVAL is unreachable, no in-tree bus
+defines a drv_group that collides with the built-in uevent, bind or
+unbind attributes, and -ENOMEM needs memory pressure.  The point is not
+a user-visible bug but keeping the driver model consistent with the
+device side and leaving the failure reported.
 
- 1. Symmetric PM-bit handling in ieee80211_rx_h_sta_process() (only
-    consulting the PM bit on data and bufferable management frames, while
-    waking sleeping stations on Auth / (Re)AssocReq as-per 9fef65443388).
+Signed-off-by: Yemingxuan <level_zero@qq.com>
+---
+v2: 只改了格式，没有内容变化。补丁体与邮件信封的 From 头现在一致。
 
- 2. Sending a wake nullfunc in ieee80211_rx_mgmt_beacon() when the TIM
-    indicates buffered unicast traffic while IEEE80211_CONF_PS is not set.
+v3: 同 v2，修正了补丁 diff 格式（由 git format-patch 生成，含 diff --git
+和 index 行），此前用的是 diff -u 的手工拼接版本。
 
-Does this help or hinder?  Your call.  If you decline, I'll go ahead and
-close out our internal (Android) report as `Won't Fix` and move on to
-something else.
+v4: 保留了原来的 printk() 调用。前的版本删掉了它们，理由是"错误会传播",
+但 initcall 的返回值不会被内核打印，删掉那些消息会让失败变得完全静默。
 
-Thanks.
+v5: 本版本没有任何代码变化，只是补上这节 changelog。
+---
 
+ drivers/base/bus.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index d17bd91..a63e55c 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -775,25 +775,28 @@ int bus_add_driver(struct device_driver *drv)
+ 	if (error) {
+ 		printk(KERN_ERR "%s: uevent attr (%s) failed\n",
+ 			__func__, drv->name);
++		goto out_remove_module;
+ 	}
+ 	error = driver_add_groups(drv, sp->bus->drv_groups);
+ 	if (error) {
+-		/* How the hell do we get out of this pickle? Give up */
+ 		printk(KERN_ERR "%s: driver_add_groups(%s) failed\n",
+ 			__func__, drv->name);
++		goto out_remove_module;
+ 	}
+ 
+ 	if (!drv->suppress_bind_attrs) {
+ 		error = add_bind_files(drv);
+ 		if (error) {
+-			/* Ditto */
+ 			printk(KERN_ERR "%s: add_bind_files(%s) failed\n",
+ 				__func__, drv->name);
++			goto out_remove_module;
+ 		}
+ 	}
+ 
+ 	return 0;
+ 
++out_remove_module:
++	module_remove_driver(drv);
+ out_detach:
+ 	driver_detach(drv);
+ out_del_list:
 -- 
-Lee Jones
+2.34.1
+
