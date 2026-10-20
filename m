@@ -1,49 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487409;
-	b=A1nXFuoCJgRWcAezduSVSSQoHkOmerGx53y0TQSfr+Hgm495dQpNADIWCHUJneu8dCOH
-	 jx/RUU4Lea6xoZ8hbkQARGzXjMWFvcwpuiqHpPAap+y7IrSUOsi5bwuqBRQeqr6VGqMYe
-	 gDrDGO9Ezgp8zdOEQ2cv3KQR+e33lHAG5w6jiVF3coSeyIGB2PCQ1xI+BAogzI1g46mSE
-	 4bIbtBcedcueVWiQm7TUMZvCzajoMdor8amMt6nppO8yexBBnz0W4tRzY+vfoGpFSvwFx
-	 kmORgDNTyvoXIT2lD1AuGtv9Vryrr8eB+QkA2tgt0o/QRTpacveIBdX/j3+Ve4nEbxw==
+	t=1792487431;
+	b=hByWCW5ja6JmK3qpjV+Gu08g4lruaa9ZHAtZbBWzbGV0g22Y4WoMngweBN50M+okfZ7A
+	 0iggN7iDZcerpdgrxu0WE9NNI0FSN0zoAOTKEZUioq59xeE62QkqWhJLx5OeVOqSzpP0u
+	 WJxx107+ooDnqrlfUvF+jQZVB9FHGpikboBRVIzZHz1Z/eXLX141tAObjmV+7oBUsLEr/
+	 5RLzKCCqldgGiCloEGCfAbsqbolc7iAdbXcZMZqIHm3VoVQHsMwCkptxYUuYWyNFT13s8
+	 g/XBWXRzEeQZeYK3/6sf9UM56D8bHNxhMLOwRTTSTG4gVKLXeC8EeRoKK3TsPSVhtLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487409;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=fU9U0uIRH8WBIkNkp2Lbc2R5Qf6sT3RKPiKH0b8/2Vs=;
-	b=vRPjnMUr++a45/N4FtPBmQ8FVIQCdtXSfVh9Tdgy2yhfpwq3wzWX8Ifx8XEnJlkaA31X
-	 qimAcJn6T5o5WCvcORPqz6RtuNWj5qKJplXuCBX/spkHJB8Fm5/YxXpeOYeKUXafLwqS+
-	 fdmR1lugt0wz89Tc14XUzoOtMMWhbr5lfdapdz6ukoXib+lacal8zfOPJKb2GYbahJhmL
-	 W50tkSeKX3TgJ91lDobt6FkyFriOsmKL/Z7KnV2rYwV8Tc+xYfaxnBjzd5cmsIYzKqDLK
-	 h7VWfZ8c1c1k8XTemAUWfrY3qplAqqAMKA5foH99DI4Wvb5X5AmpB0ofqc/gruxA0SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487431;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Rw1GbtwByZXxzLCSeP+8NcVEZSmlSZm+cwOSW01XRPA=;
+	b=LR4wCmbiA+UW8fGKJSMIyuBTjF7WLW9W+eXkvjTJAs+hVuVO0NpSNrbj2+hAXvBbGtEP
+	 9SETSjsU2fBTPQ/KbW8PQzemPGk90bGACB7+csXpy7i/qqLwAskf4tguSRaXs6+EisuRV
+	 XchJ/7iA23nDUbJJSN4BpuntIpNBu4aPEoYGdvtqQSJGEdpQAfi8kY8hGnsYr9VCr+Fqt
+	 zxsiHtznO3atOieT7Je/UAEvnmSJoBJwoOzcnAs8pMEW3Kp2+gTFJxoWXTLfwRVhVpZQX
+	 B/M6zu8tZFZpfdKCh26oHoynRVKFq8TUg9cQ3fMwI0GUaH6prz0SweD6oqsZRGLbzxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WciBHmUQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEUGyCKz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69804606A321;
-	Tue, 20 Oct 2026 09:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A8A606A31B;
+	Tue, 20 Oct 2026 09:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WciBHmUQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C271F000C8;
-	Tue, 20 Oct 2026 09:10:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEUGyCKz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB34B1F000C6;
+	Tue, 20 Oct 2026 09:10:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792487409;
-	bh=fU9U0uIRH8WBIkNkp2Lbc2R5Qf6sT3RKPiKH0b8/2Vs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=WciBHmUQqiu0nh62RO0RHj3LQpuTIqMpjvLXuY8JNdeZgPgZImvIBf9mwKavTHsA/
-	 tXkiXW8lOr8MJTYGnPhC7WMHWn5vA56Q5Tu57sGHY9nxT9eogVm27Ht+m8Q31Rmnk2
-	 WkLWwWuQB5RQ5H0RR/i/cn6SuJCAh63oTN6PGH9ORKB7Fsd3yQAtSE+Y0iNIr9nqzv
-	 djJvT4BFK5glKfeGGmnXuiSX7GcxYu0mGabOOnN0XW0ZL2qpPhLwSB4hyr35Dhyi4S
-	 wqfmA1JSH29xmdp5zwxPBHs9mWei9PD0G/jXXZtx2HoEceQIJ4GnSlabs628lDP1bD
-	 crM5BJPrzKboA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F160D3808209;
-	Tue, 20 Oct 2026 09:10:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792487430;
+	bh=Rw1GbtwByZXxzLCSeP+8NcVEZSmlSZm+cwOSW01XRPA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PEUGyCKz3k+i0RxmNjzmJqSunWV4gKvEKGBX9rY8yII33Efdg4veOJUEhcn+zjs4i
+	 VF7LKsOIe2B+tJ8Sfrz4Aoy1H0egKGj+kOmSYRShCdVihqpf/I8ZqPCeYD1Kr1tgt9
+	 lvri6SPlK6v3bgzYIHmWr3gs/vISi6YtfsrP11OgR2iOCInr2F6EpDobTX9Cd8DsZs
+	 dh5N7TRKtBGvXZ+F/TJrn97qvW/4fLaeoP5RcGCpNAdV3pi0m961GOqJy+2SFoJcqg
+	 sNdXM8GM/Cbxr60ntdkblCH6UqBTzirHfBTi8EZFjGK2wB7dPyZ7BVIQreAJnYJwhf
+	 aXwdojKG4n36Q==
+Date: Tue, 20 Oct 2026 10:10:25 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Julian Braha <julianbraha@gmail.com>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kbuild: pass -fno-pic when probing for -mfentry
+Message-ID: <atcvqoE2jjdIZKZe@gremlin>
+References: <20261020-pie-v1-1-9be09f2324b1@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +56,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3] tun: use pskb_may_pull_reason() and remove
- SKB_DROP_REASON_HDR_TRUNC
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179248740778.3599760.15657338483590300771.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 09:10:07 +0000
-References: <20261014054615.1656074-1-littlesmilingcloud@gmail.com>
-In-Reply-To: <20261014054615.1656074-1-littlesmilingcloud@gmail.com>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org, willemdebruijn.kernel@gmail.com,
- jasowangio@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- idosch@nvidia.com, linux-kernel@vger.kernel.org, willemb@google.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-pie-v1-1-9be09f2324b1@chromium.org>
 
-Hello:
+On Tue, Oct 20, 2026 at 06:10:52AM +0000, Ricardo Ribalda wrote:
+> Some distros (namely Debian) configure their 32-bit toolchain with
+> --enable-default-pie.
+>
+> To properly probe for -mfentry on them we need to pass -fno-pic,
+> otherwise allmodconfig will fail with:
+>
+> ./arch/x86/include/asm/ftrace.h:9:3: error: #error Compiler does not support fentry?
+>
+> Fixes: 454e00cf8ee5 ("kbuild: avoid re-running compiler and linker probes")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Thanks! Makes sense to me, so:
 
-On Wed, 14 Oct 2026 08:46:15 +0300 you wrote:
-> tun_get_user() is the only user of SKB_DROP_REASON_HDR_TRUNC. It sets
-> it when pskb_may_pull() fails to pull the Ethernet header of a frame
-> written to a TAP device.
-> 
-> pskb_may_pull_reason() reports why the pull failed: PKT_TOO_SMALL if
-> the packet is shorter than requested, NOMEM if pulling the data into
-> the linear area fails. Use it for both header pulls in tun_get_user(),
-> on TAP and on TUN devices, and remove the now unused
-> SKB_DROP_REASON_HDR_TRUNC. The pull of the IP version byte on a TUN
-> device with IFF_NO_PI was reported as NOT_SPECIFIED and now reports
-> PKT_TOO_SMALL, for example when only the virtio-net header is written.
-> 
-> [...]
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Here is the summary with links:
-  - [net-next,v3] tun: use pskb_may_pull_reason() and remove SKB_DROP_REASON_HDR_TRUNC
-    https://git.kernel.org/netdev/net-next/c/47b393b997ae
+> ---
+> I found this while testing next with media-ci.
+>
+> Full logs:
+> https://gitlab.freedesktop.org/linux-media/users/ribalda/-/jobs/113299249#L4729
+> ---
+>  scripts/Kconfig.toolchain | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+> index b0b9a663ddbe..53b361cf365a 100644
+> --- a/scripts/Kconfig.toolchain
+> +++ b/scripts/Kconfig.toolchain
+> @@ -170,8 +170,10 @@ config CC_HAS_MNOP_MCOUNT
+>  	def_bool $(cc-option,-mnop-mcount)
+>
+>  # s390-linux-gnu-gcc did not support -mfentry until gcc-9.
+> +# 32-bit x86 gcc does not support -mfentry in combination with -fpic, which will
+> +# be enabled by default when gcc is configured with --enable-default-pie.
+>  config CC_HAS_MFENTRY
+> -	def_bool $(cc-option,-mfentry)
+> +	def_bool $(cc-option,-fno-pic -mfentry)
+>
+>  config LD_OPT_FORCE_GROUP_ALLOCATION
+>  	def_string "$(ld-option-str,--force-group-allocation)"
+>
+> ---
+> base-commit: 3d229ce89862b8e82d71a9e11d6f840ca272a6d6
+> change-id: 20261020-pie-6774df20b0fa
+>
+> Best regards,
+> --
+> Ricardo Ribalda <ribalda@chromium.org>
+>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+--
+Cheers, Lorenzo
