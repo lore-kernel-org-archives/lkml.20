@@ -1,111 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792477160;
-	b=jSXFx1PiOV0D6CdJDt60ZKd39VAebPExCk6s0jcazKfD7xzA8U8HBtEdKNURHDOrIcWb
-	 gw247uOaoKD9mQnfi7kFXV7nzPtJS4tVn81yFKZ2SUJQy3fBLFFz+8srYnVLGgrduodkG
-	 xpe8cph4829x4QFVopBbte82x6YqgSWRihlONXw0V2wdOqiB7WH1CKTeE9guMd14uwQD/
-	 QoiibNSijiCEEYbshDQWNeCtUawKlLWyXStKwQcn2k8i3SWY6aOW2hnxn4hdqsqwpf7qm
-	 HMbS7js7ZQ675Z4sY1hNVpEwkjtTFewF/1qHM8yS8Dv792/VEa81pwEH5LcSHo2aK6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792477160;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pqZQfZiYxPSu/7WSL1QBG0oS8S7CYXTdmoMJsV2CUPA=;
-	b=xRn9cquRVAQyGI1xRnUU8EOKik/w8QlIjnWRyTRuYynzISjfgELbuS2JaFHkvVp4AlVV
-	 bWTx7OXA4WzM2qMy1uQt0iaBVZRB76IUJOXxQfJQDcSybTZvsT+SZfEngKhTslgGEe8LB
-	 EsrFYROam+es0qsCSX0CTO8UuEJJtkooUpBZ1tEXMU7ffu/KUEmlR2ZntfPh2gpU7dQsz
-	 72v2d+rKc0rXZQV36MBSxGWAuaR5PhNOYwYl6Y+NJ+VJuA2OAMELAyIf9K3uTe9o+ieB+
-	 H8d+m/h6eY1xQJtCsXeJcjr4TeP14xC7cjhgLLnzGvfFawm2tA4EEGVGs32FL3hwLgg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hmKULjJG;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YUJRKQNP;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792477342;
+	b=dwg6Y1oEo2Q8a1dKRo/kkENdADbJn9RkI4OmqO5+fjYNX/9n3AusZgOraiHEzEaZ1mDf
+	 C1sQfOA6H2G3mrZKzg8mnpcEv4V1Gp6K+ftkX+HBXddN8kIdBC49I/Vxe+so96pIonGNN
+	 2qBirwIdIhB73ZuB3BjofDyE0SixysD8rvJ0H7QjuyEmt6OAMprQoB0YInal4ukJFHlDB
+	 aSAZ9+djv52jcyMPUiZKN+iUztnEcmqYDaMfMFDjq5LktsVan3HBxn4lMc2MhTgoOk+ek
+	 d9Wx666CFAAvu+6RG2RCXN1W5ZaET6AXh4ktji8cccED1hw89mRYlW//bT4711hGHNw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792477342;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kf8/+k3Jjj7ru8eZKZwxf7K+ABa74mbZZPeMICUo+Y4=;
+	b=PL0ceOIvGpj4zUXu0Xrca2+XEWldmF6Ztajl/r+0VwBOylPjM1KiJQ2YRrspN3N14TJv
+	 F0Ja5kzC7A1xLuX3b41RSDxu6P0HNu9sKlaTDdMjJTFn03Pf8V135e3rxnz71mqmysfuU
+	 /SxPIgTGTB+ZJDWE1O3XE8Ty0WyC8jIbHuInApH0g7bl0tv5phCSFLewJXKbJ121K9TcL
+	 hOoaZWrZpqKSaYDHaj9RH79fXOrPqDDpmyLQKb9UJSkhN7NQreU5cB98068PbJFb0++sm
+	 +uXiFaAG3pm0+ZwEZmBiWXHXisYJU5IWUrwULy18Ou5UquDv1MFYJU/J7X/e5PigjWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lKX2o7+H;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41857606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41857606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95148606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:22:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95148606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hmKULjJG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YUJRKQNP
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tPdK4178143
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:19:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pqZQfZiYxPSu/7WSL1QBG0oS8S7CYXTdmoMJsV2CUPA=; b=hmKULjJG91h85Eb+
-	MfL31RtrWFg7XMCJzYHN3/oRNN/AW5rGAi6phBylb6dQtxaCvE8f9cFiTN1VQzFt
-	qNeSlf5/usy5Dr8DUUXUOFQdQU3wInGz6PUmIRq0TTvKWRJX4PEGpnUxXIxpVC5Z
-	ifVzNSoAOq5T5HkOOJjtOVXEGHKEz5Fd9tHQdyq9hNglfK1L1CCTdYbqtWp87416
-	cWE3HRY0iteBKVFC4LZiZwF0C8ysGu0lMhasaYOrxw1HlKDNNHnwxKK5NKLUyJIB
-	FZbThnKBmEWocSibznkXIqopJ3LX8YpW2f6r1tuVaZw8XeF7AiKzdOA5vB87RPKN
-	8TMIBQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n1412-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:19:19 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e629c7b16so57410085a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:19:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lKX2o7+H
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e901e114fdso14093285ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:22:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792477341; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SUB09wRNcpPTXE5uzGkBOsv1cwhrtHDRJKRyYbjNQXmGUcYH5OBPtIevBQPTQZDmvn
+         Z1HQuVufNdqUs0qS2aLMSO64n28l3bHKm9gdr9ozlW0oNLlaoSI+7C3jWTkFESHx1YKS
+         886SweyKHdAMkhvdzRDF5DBisul+5qMBbx3z56zU8u5T020rsrot1TconVgRvOAdG32W
+         ZdULcNm+rVj2OTj8AUzt+B52XDWrUy2HiutPlamOhBMotqnZHzquKEIln+9QzIe3unZ1
+         0qHc+7+90AWQMxF7tzWHaam20go8aLK8TidHF0U7xV9cFnuvgDh+/NwdqHQpCZg3iuDo
+         KqQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kf8/+k3Jjj7ru8eZKZwxf7K+ABa74mbZZPeMICUo+Y4=;
+        fh=pEQ9sG/crUBgGfCNdQFiQxPdxe2koxOP+gvebdKzqLI=;
+        b=j8NsjO9qvBPhDwk/3ktGcXEg8FFSewe/NHmYwE83l/rWwMcIpWKVmqDDQwApjixuuT
+         K7ibxY+DTf6KXhUzqqcjpi/wSAYKf6cASP30/DFlaUwziF3bVf5aHT6hCJ4xpe79LcX/
+         0dvhmbIzAwiWjh+tt8qlPEHUal24tfph71urN99jE86uKX6m1ADVZVh0gQ967NGQNGgD
+         Qgp/WFgPtzBVlCFqo56zcF3wu9W9lHDxqmPtVhOAIqUdnAllAMQGCWaZmTr3+1o8wL9g
+         rDcJupC58GanZY3WJ6GK/0+OKCw1O8xCDekNJClQcVjsVxNA+nAHeYJTB9Ri1j0YY4gL
+         hdQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792477158; x=1793081958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pqZQfZiYxPSu/7WSL1QBG0oS8S7CYXTdmoMJsV2CUPA=;
-        b=YUJRKQNPqHMX6m0fVOCn0VGSalZiZGmaMFEMAwgm7Vi07cebkZXlffaPLSqxVAl2Nd
-         LFUkVtTboYGn0SPopcNflP5zjKcwhQbRFnIfYX/cVLOqe+VYQz0MR0zB7SMKrDNJNOSy
-         5Elk+u4i5Ph6N32q0gH9CUp0Ekvic3UxxNYOSCAG5yYYRwIY9cGKLMWS6azsNvUCyDAK
-         F3G1N5SEpp2IekbMXMdxXASMl2diEqDK3iOf4Qh1WIZkM1cpHQTfC+khJc7KyjH1eaVN
-         AIvVyg48FNsOMUkieOkB3aJ7djejXeR2dI3/L7epFJE0WF2tR4P6gjZEv9fTpKenMBLR
-         aojA==
+        d=gmail.com; s=20251104; t=1792477341; x=1793082141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kf8/+k3Jjj7ru8eZKZwxf7K+ABa74mbZZPeMICUo+Y4=;
+        b=lKX2o7+HuD5fpQzZNTLEVq9KL1e8Mg8z16cabHaSJ/2C7LS6z3N6JJwzDTah6U7qBI
+         0Lj4Nw1Z6+fnib8fx9+Q7HnXTwIWwK9PuO4Ap4RAkWDiDNOrml42b3GiPpLZ7uqQbsYm
+         2CWHNx7TTHt2PQdvvmwyLu6JL14GB2SIAM3kcTBbj7gXgc9FNj5+tctXSfSLVQhuQ8Av
+         Wjt1JUWa7uWleeCanSskhVMMuuU0Gpu544YbSCxqAF1tJH5nTQd2lquAcOtWdgTEpbL3
+         rWxG3PRAJVitBBMaUDBkGgKW7mWpMCzCIfVJDBTZ/TtIQUwdIa9PTmGbyArlFuSM8Yai
+         Zzmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792477158; x=1793081958;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pqZQfZiYxPSu/7WSL1QBG0oS8S7CYXTdmoMJsV2CUPA=;
-        b=FonHyL8igebnM4/2e/P7U/eltKw4jXqlzXCeW696R25E3Tmq++iY636FtInbiF5Tn8
-         lnsviLh43mdfYNTGlhxXhg6xmgMLktVouCuSnfGFwKoAVX6mHObneNMLXnID/TVs/HQo
-         vmGbsA/NE4j6PMzlsVg459nPrL0kNx3h7Vt3lf55RuQllPVnTsbiDykGu+Xzntk6zW7G
-         7nLoinLlQAl5MJcV38KiwHTZEkU3i848OSb9PrOO6m6p88am+IbhrZcSN9EuyPLfnDhC
-         9aK07IHOXUO4DyHcZvkM9cPuOiS1F2dLpTIysZL4x7CNxNmg16IuOpYbgqcQYlDwviP/
-         MV9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx1wMI1Flsv/7//PKwKJalmAeqzt86glhPKdbMC9NKt2PoeVvMWxQdeHDIpqROwOINMHYa/RUfNh9ZMuFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjW76wac1giY61WWGwsnxwtkhmWBlgGoL2EweJngHm+FRb9Syw
-	HS8JHKSG2DjF0b5GoIJeTvUJPsGJXjeSd36VIENb6alPIB4I7JeWK+243sMlWD0tnW5KWdRDP1B
-	kof1Pru2v9jxU1vw50XEGgSVX0jHeMDydyd3C5rvTuSmLZnlLLpwUoMIqrGHpE0fax5c=
-X-Gm-Gg: AYBFou1EiAkbnsaiiISsKv9jjCvfN2se/f0bSDiG9oWQlkiDao597eiwoKprVQ9kwMr
-	CF66xLNOG5ogQsukI1qm0t/ZQUPoZf7D6gt7lhmhM85FELjL54MvUZdJ7f6/qGcqPgb6+KpIoV/
-	PoKKl6KBlsZxSyK2/nhi6hHq0SiXCtXZgdYv5PV131yffnRjtlflqNWWXl6nZPJF/LIJWjxATmr
-	4H50SBaJP1Cb6/xDzyBVNFaz9qQO5fpY+l/v86gS3qR8+/gpF+BUL7WXhS1ZYJ0tzAM7IA04gUQ
-	yd3DqYRl3dJR7k6vj2GndtB6LlIYs0d0zaui47AaeVMoFU/HH3S/LNHZLF51+dcpcO6OBzMsmGL
-	xvkOjhi+IRGLO3Bz6hm0wcA==
-X-Received: by 2002:a05:620a:800b:b0:939:eb09:4458 with SMTP id af79cd13be357-93f29ce0b63mr1993128485a.3.1792477158424;
-        Mon, 19 Oct 2026 23:19:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:800b:b0:939:eb09:4458 with SMTP id af79cd13be357-93f29ce0b63mr1993125685a.3.1792477157890;
-        Mon, 19 Oct 2026 23:19:17 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd10ebsm448275366b.22.2026.10.19.23.19.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 23:19:17 -0700 (PDT)
-Message-ID: <3dd32c54-eb1a-410f-8c42-9152e87ecb2c@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 08:19:14 +0200
+        d=1e100.net; s=20260707; t=1792477341; x=1793082141;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kf8/+k3Jjj7ru8eZKZwxf7K+ABa74mbZZPeMICUo+Y4=;
+        b=vWmvirf2SSQuQSdr+ew3GmNISF4SIK8ISLA2xKcLZPdRdGIA+GKsAOPGJfzjUgvvZH
+         kw6b2yT/811YTAkhNtWRZrmvKJ2Nb3zB1QmFcMO3RVAo+qeoJFhul3GDIH6zX4QmoyuR
+         7k6ZIU0BY0zjdMExE7OP668chPp6iOBapBTSkq1nddEXIiBinIapQkbJAhqV882g7yMW
+         Hu6Kd6dxzANrMGkgIFOyXpVOZvPwZXpv5tww06hYobm/zXbhoFst+7d3o/KgnKAnQ3Jt
+         SDxmfUGYIrbl58+L4x3nL6kh3fsdpnCmtb7yRp9YnYioilyGPxGuBv+4wLSWxQy/pozr
+         4/dA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCrs/0o8YFkJw3iBgQhAdMbRGZXO5t9FG05s2/9nlMg4C3JvckGpBQESIdXQzm1gRREDkJ9yBVKiwMtQQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1Rbvj+JljYB5i1JLAi9GORo2ViciM1p0DgP09/3u3sr1We7gL
+	lXM9uOOzonGjF3WC+WgbFbsHsHoFPLjOI/cc36RmIe5NsOnrXejwUKzPOX586sfM/FHJM6pbq45
+	HLAMf41G27DNfnHM2KAnHDDXIBmXP8/A=
+X-Gm-Gg: AYBFou2QiUbasNtl65HcyWiV4wwp593XGewwHkquQhWecHcOU60ZwvhG6NrbPMs73iP
+	AAMGcxmqKTfWU1FKwTkJRKc+mTwVS+LJfaidErh8HGPrNkEtB0tGw/qktzUAXXpQYSUPiqG5G+3
+	1xqncyti8KSOlx3wpWfFOT7PdW3lA22cq9Uv5anq/9V/FiCN5lK+5GGIBp/z0W4Uks8ZvU5NLPT
+	aX6lMuikF367+0gd2v37Bz2eIt75o91FcVGQHMnymksC/lnQ3spisJjlKcY0524KvMsygd/z1Q8
+	Ad5e/AWRXIFXTZhqrwRlFO5l/e4JxbQIw+lprVBnOpu5xYhijeepeJA=
+X-Received: by 2002:a17:902:ce81:b0:2e5:334f:f47e with SMTP id
+ d9443c01a7336-2e9a69ea07fmr86514295ad.21.1792477340861; Mon, 19 Oct 2026
+ 23:22:20 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,81 +103,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/msm/a5xx: Reset the GPU when resuming it
-To: fabricioakio@gmail.com, Rob Clark <robin.clark@oss.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Paul Sajna <sajattack@postmarketos.org>
-References: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
- <20261019-a5xx-gpu-pm-v2-1-457aafbb28da@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261019-a5xx-gpu-pm-v2-1-457aafbb28da@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: SLnsjFp__qMP1550HoR84E-Po9mppvU-
-X-Proofpoint-ORIG-GUID: SLnsjFp__qMP1550HoR84E-Po9mppvU-
-X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad707e7 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=IPAj4E8Ak8Ehd_2eMQ0A:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX/maI6niT9j9O
- Vgk1BCi/IrF/432dRtIM+bd8tyzoijxvVXr5QjexlQqTnMHB7Vl1UGygw446ldZrfoot7z7Vtbj
- KpN4DZgSprzRtMZUHxKpvwlZZ2Cns0VJRnPIObn8X6YH1m3ep8MNmIYSTS3lLWa+QSi2capsxez
- MN0JlfeOgy5A+GvgevGg9JJmViEbt46EKD1/AweL3zJVUR7B0OgtEk7B0oPiz+Tz4m7lyPIcRqI
- ouD1K5gThEFdWew2VWW7wsER+mg1DitmzD4gtzc8RRg5aodx3Fu3+lXVI60s9r5kfy633y16/1i
- O9s1ItNB4wySSvpvZOfeCBoTZUTWgZ4idjxytJIdhOSKF3HT028XQR25SlPVurn2XoQ1IS15Nb/
- /wx+tG8qey8nJ8EvBIXz6UFp1KfiAw1ujoGMBtGSwmkyvbmo/crbxSe7UTnJr5gx4mEL4shvFJx
- rYugN3C1cy1hulC5mRA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfXyd9MLnCZYR3X
- y4peOWZnJDp2Y0T8fDb/nw0Ezjs3VP9gzloivH/XVNDjTg15D6THmgn1N2+c4qSHfRHWYMtZ9AX
- L9Nblgc9ZH4Wz9cyB3K+4PXXktLvYSw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200024
+References: <20261018-cgroup-kill-exited-leader-v1-0-c71ad94c20cc@gmail.com>
+ <20261018-cgroup-kill-exited-leader-v1-1-c71ad94c20cc@gmail.com> <atYTukAn0-7CAXmp@redhat.com>
+In-Reply-To: <atYTukAn0-7CAXmp@redhat.com>
+From: Kirill Kolyshkin <kolyshkin@gmail.com>
+Date: Mon, 19 Oct 2026 23:22:09 -0700
+X-Gm-Features: AclHuK9ygSdoDJEA1JRd9ZHGPjt0wCVb9_5HzGSf6_SYCV4LA_12hP3cAjxp2vw
+Message-ID: <CAGmPdrypQQnmE1iCTWS46c47P0puRsA0Z4jYnXFFnZ0Um7KJOQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] cgroup: fix cgroup.kill for exited thread group leader
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Serge Hallyn <serge@hallyn.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Christian Brauner <brauner@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, "Eric W. Biederman" <ebiederm@xmission.com>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/20/26 4:05 AM, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
-> 
-> On SDM630, SDM660 and MSM8998 the GPU's GX power domain belongs to its
-> SMMU, not to the GPU, so GX switches off only once the SMMU suspends as
-> well.
+On Mon, Oct 19, 2026 at 5:57=E2=80=AFAM Oleg Nesterov <oleg@redhat.com> wro=
+te:
+>
+> On 10/18, Kir Kolyshkin wrote:
+> >
+> > cgroup.kill does not work in case a process' thread group leader is gon=
+e
+> > but other threads are still running. This is because __cgroup_kill()
+> > only walks the thread group leaders and sends SIGKILL to each of them
+> > with send_sig(), which uses PIDTYPE_PID:
+> >
+> > 1. The exited leader is still listed by CSS_TASK_ITER_PROCS as long as
+> >    the process has live threads, but a signal directed at a single
+> >    exiting task never takes effect: complete_signal() does not look for
+> >    another thread to deliver it to, and __send_signal_locked() now drop=
+s
+> >    it altogether.  The process keeps running.
+> >
+> > 2. The live threads of such a process can be migrated to another cgroup
+> >    by writing any of their IDs to cgroup.procs, while the exited leader
+> >    stays behind.  The destination cgroup has no thread group leader to
+> >    iterate, so writing to its cgroup.kill does nothing at all.
+>
+> ...
+>
+> > Case 1 can be fixed by using do_send_sig_info(..., PIDTYPE_TGID) instea=
+d
+> > of send_sig(), so that the signal is taken by a live thread even if the
+> > task found by the iterator is exiting. Note it was pointed out by Eric
+> > in [1] while reviewing v2 of cgroup.kill patchset, and v3 was meant to
+> > switch to it, but the change was only made in cgroup_post_fork(),
+> > leaving __cgroup_kill() with send_sig().
+> >
+> > Case 2 can only be fixed by iterating over all threads, so this is what
+> > the fix also does. Once a thread group is being killed, its other
+> > threads are skipped since they already have a fatal signal pending.
+>
+> ...
+>
+> > --- a/kernel/cgroup/cgroup.c
+> > +++ b/kernel/cgroup/cgroup.c
+> > @@ -4289,7 +4289,7 @@ static void __cgroup_kill(struct cgroup *cgrp)
+> >       cgrp->kill_seq++;
+> >       spin_unlock_irq(&css_set_lock);
+> >
+> > -     css_task_iter_start(&cgrp->self, CSS_TASK_ITER_PROCS | CSS_TASK_I=
+TER_THREADED, &it);
+> > +     css_task_iter_start(&cgrp->self, CSS_TASK_ITER_THREADED, &it);
+>
+> I guess this change alone is enough to fix both problems?
 
-This is because the DT part is a huge slop (artisinal free-range
-grass-fed slop from before AI times which I partook in.. sorry!).
-The ultimate fix would be to land:
+Correct; my initial version only had this change, and it fixes
+both issues.
 
-https://lore.kernel.org/linux-arm-msm/20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com/
+>
+> But even if I am right,
+>
+> > @@ -4299,7 +4299,7 @@ static void __cgroup_kill(struct cgroup *cgrp)
+> >               if (__fatal_signal_pending(task))
+> >                       continue;
+> >
+> > -             send_sig(SIGKILL, task, 0);
+> > +             do_send_sig_info(SIGKILL, SEND_SIG_NOINFO, task, PIDTYPE_=
+TGID);
+>
+> I agree that do_send_sig_info(PIDTYPE_TGID) makes more sense.
 
-on other SoCs we scrape by with overzealously assigning various
-power domains, as all of the power requirements are managed by
-RPM and other pieces of firmware. On msm8996/msm8998/sdm630/660,
-that requires a long chain of HLOS-programmed values:
+Indeed, I added it for "making sense" (rather than for fixing the
+issue) after reading through the initial cgroup.kill patchset reviews.
+Eric flagged both places in v2, but only one was fixed in v3.
 
-- VDDCX/MX from RPM
-- GFX_LDO
-- MEM_ACC-GFX
-- CPR3/H-GFX
-- GPMU on the bigger SoCs
-
-I believe Dmitry is working on getting most of that in order and
-should have something to show in the near future.
-
-Konrad
+>
+> Acked-by: Oleg Nesterov <oleg@redhat.com>
+>
+>
+> Either way, I am not sure about SEND_SIG_NOINFO. Perhaps __cgroup_kill()
+> should use SEND_SIG_PRIV? I dunno.
+>
+> Oleg.
+>
