@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517875;
-	b=JARIQj7hGvRXnxjYiFBlnIpcDL7dw493e8jj4H38EpdPUrdEfc07A6paFIucwuKOIvSZ
-	 TRMKKNcNcaj+kfG3EoD4UtXtdvFRTVFqowOMC1Rf+G/95fZT6Xw/P8q+7wKFfT2jf1nUV
-	 8fVkpb8AcZFnkl4FPHyZ9R0Mt0HQdDmszw6kISCKfAR3ria0TjxnEkllyKOzOR7hCCvBC
-	 ok3lvtZVK/guo41g/UI7NlJvHJL7+DG3tknMtwa8SYJpgOh+PQKDGHFKIBjk5M7TjOiSU
-	 6T8tAxeE2CrF6kh4A1rSG9brocGnkJqf+0RSZKR0EXtyKZqsHC3ek2FcUNsk2MjLT+g==
+	t=1792517861;
+	b=J0ebjihZ1m5K6oNFgwf1iaLZbxMBXOslgDrsf1OA5RqsWOYNRO0hti+xw4/SjfjB8Rub
+	 ZP0QL54+xmeZejr1WJ0Do1h0W8LseBGuTDCAb9217YwqWLua1/TuVYFX/Q4WMy8/S5gRV
+	 xpzrjP0HGShpzNwYEDoa72FAoyYXPakc08oTs7+XiKRrF00R2t2731khA6AsL312quy6B
+	 I1TCmDtUOgP0xSzXXXmFSf7933lOLH1arcxSsRINrSrkqNABoc4fUT/B7t32M86KhJKeE
+	 9k95xquel2zizGmdZDo8jXOku2uyKDsBHefHEWD22Xb90z4quC9R2V6wD+1vMg2iMkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517875;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=C4ODyxk4b1WWvMCw/VDISB8aylVl2NcwfKuwjiW99ok=;
-	b=BnLQMpbRTk2kuonDIZc415xhj9C7BzhqM0FxcIhE8Pjp/fGVQqh8DU9lR08javCrCFxY
-	 tpy4I7EANf4UpzN2YrKveOkBePC8UDK3GAg4cWeljoikc9rJMCxLRoZ733TzRmCd7LXB0
-	 Vtfv1D0C5Kflvke8UbBNZ4K095upg6zCpIgSvq5LSc+8IEz+oA7dSBOcAj8kW/53ZAQsN
-	 6VOsGgGnhE5bakowN8buEXZtjuPQCYpwNXRBJZ6YpjndqXeH/rXo6HHgIkLSngtsyqeMJ
-	 jnNTFz+rulBuUirewwH8UIrKm627a4h6wwMO0H+tBd3JL13NLCFAEoWdUoMHaBwzlkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517861;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PCz/m/c0hrv+w+UfpzDjo15sDLKbVAPCRpnlY8c/hao=;
+	b=On7gfhThbhXuyYrqSBXiKivIje3gtrxxOAhxL1h5uxSboACuzuC/Qz9ENa8MBDvJX4ln
+	 a5QHyRZu+yMPKagMl5r3h6NdFHDrqigIx+70OISMiojww4Eu7IIrdK8CXE3zFdjkRtLwk
+	 Oa5hPhHlK24UZO2/W3rCYTD1AeqIKYbuC+1u8KhSab6cvV6fRhwkhqq+zUVvG/Pz9XUUC
+	 F3XS4zbOJkt+i78ZRkQ6WfCclYxrBu+yz0ANlCWHVt/2SVWKs7/RSbox0mcOKoEyUHtXW
+	 2+aIWU2fDoywQDPUZgGFHcuiYwCrRifdgmgzQZ49JlipcfKlDFu2rkWBkTKwFS4nNuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PVZAeIg7;
-	arc=none smtp.remote-ip=91.218.175.27
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NIymKI7A;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75BE60A4AF3
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:37:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A75BE60A4AF3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B799D60A2609;
+	Tue, 20 Oct 2026 17:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B799D60A2609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PVZAeIg7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=llPR+65kBsxEo/GGcB0AIVjyy5+viBv+cJvYuf6Os6c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792517872; v=1; x=1793122672;
- b=PVZAeIg7d8+juM+2DeuH0GvmMKS/jp/jX7H+jxhFPlJSZRmd/CwugXQqgnV5RAmMJy3mScuA
- BNdQI0SSC7ViF5VZSMJv/ISCp6RzQu+JApYDr7CEGNhI1zkVR2lVhKhslsDGUqBz3xAsqYihFJC
- x7Lu2bmser43kQO7JsfGhD6Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fe535625422d4b45;
-	Tue, 20 Oct 2026 17:37:52 +0000
-X-Mizu-Trace-ID: fe535625422d4b45
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bbcd5640-9464-4c80-8443-96cf15fe6e74@linux.dev>
-Date: Tue, 20 Oct 2026 19:37:47 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NIymKI7A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792517859; x=1824053859;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=RUyd6kZ+YfWyuoa7IgqAcMEVhKzI1d/tst80lIZ4YJ8=;
+  b=NIymKI7A3jsFQF7cu7kF7x0wlbnEm6g/S1mPBkVve++keaFmH9PVO00j
+   oBZjRjEZIA96nWd3xIGDgZWZU1PBDefi6Ea1DbgViNy4UIk/IwtlgS8y1
+   CnG8a0qDuykjdAmEz4sor141LUSDFqa8EYBv9kxUFi9HqPLLwW8lZt+Jm
+   flcfG92dnIyGE4nYnmr6cuh580XE4kvHqjAPDm/rvfY24UjTDAMIicVer
+   zj0WuzS4qz2vUm6v9Ugo43ws9qwPbH9S95AiSggbn2c16p/XsUbcRv4yD
+   ALAYVl1Bje4/Lmf1W7XyBLSHCHi4DKwGLSblGADXYbx4RrR/3fdzT+WmI
+   w==;
+X-CSE-ConnectionGUID: gyik0q9RQZqlTn4iSYMRsw==
+X-CSE-MsgGUID: kcKm0x8AQqWHsKiBF6ew5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1240985"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1240985"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 10:37:39 -0700
+X-CSE-ConnectionGUID: HxxsQgfXS4Kbw/wpKlkfsw==
+X-CSE-MsgGUID: 4G7+9sKVSiqsPwilTyfZng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2875821"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.amr.corp.intel.com) ([10.3.206.11])
+  by orviesa009.jf.intel.com with ESMTP; 20 Oct 2026 10:37:39 -0700
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>
+Cc: Pavel Popov <pavel.e.popov@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	virtualization@lists.linux.dev,
+	linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 2/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+Date: Tue, 20 Oct 2026 10:37:36 -0700
+Message-ID: <20261020173736.81755-3-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261020173736.81755-1-pavel.e.popov@intel.com>
+References: <20261020173736.81755-1-pavel.e.popov@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,144 +93,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/7] HID: asus: Fix up Zenbook Duo report descriptors
-To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
- Luke Jones <luke@ljones.dev>, Ivan Levchenko <me@livan.pro>,
- Nathan Chancellor <nathan@kernel.org>
-References: <20261020092423.36380-1-p.pisati@gmail.com>
- <20261020092423.36380-2-p.pisati@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20261020092423.36380-2-p.pisati@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
+upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
+VMware guests, passthrough devices appear directly on virtual root
+buses without host bridge devices. In Hyper-V guests, each passthrough
+device appears in a PCI domain of its own without a host bridge
+device. Consequently, P2PDMA checks evaluate endpoint Device IDs
+against the host bridge whitelist, causing P2PDMA requests to fail
+regardless of host support.
 
-On 10/20/26 11:24, Paolo Pisati wrote:
-> From: Joshua Leivenzon <hacker1024@users.sourceforge.net>
->
-> The Zenbook Duo keyboards (UX8406MA, UX8406CA, UX8407AA) ship the same
-> broken vendor hotkey collection as the T100CHI/T90CHI keyboard docks:
-> the Input item of report 0x5a is preceded by a single Usage (76h)
-> instead of a Usage Minimum/Maximum range, so none of the hotkey codes
-> get mapped and every key press logs
->
->   Unmapped Asus vendor usagepage code 0x76
->
-> Extend the T100CHI/T90CHI fixup to the Zenbook Duo: the descriptor is
-> 90 bytes long with the bogus usage at offset 66 on the USB hotkey
-> interface, and 257 bytes long with the usage at offset 176 over
-> Bluetooth.
->
-> The dock fixup only moves the 12 bytes between the usage and the End
-> Collection item, as nothing but a bogus trailing 0 byte follows them.
-> That is not true of the Zenbook Duo: the collection goes on with a 15
-> byte feature report (also ID 0x5a) after the Input item, and over
-> Bluetooth a further collection follows it, which a 12 byte move
-> corrupts, leaving stray 0 bytes at the end. Move everything after the
-> usage instead, after dropping any trailing 0 bytes, and allocate the
-> two bytes the usage range adds. The result for the T100CHI/T90CHI is
-> unchanged.
+This affects discrete devices such as GPUs, NICs and NVMe drives.
 
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Add an explicit list of the Intel Xeon server generations from
+Skylake-SP to Diamond Rapids to cpu_supports_p2pdma(). These are the
+CPUs whose host bridges are in pci_p2pdma_whitelist[] without
+restrictions. AMD Zen and newer are already covered by
+cpu_supports_p2pdma(), so only Intel entries are needed.
 
-> Signed-off-by: Joshua Leivenzon <hacker1024@users.sourceforge.net>
-> [pisati: fold the USB offsets and the padding removal into this patch,
->  bound the padding removal, move the whole tail of the descriptor, and
->  initialize rsize_orig and offs so clang does not warn that they may
->  be used uninitialized]
-> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
-> ---
->  drivers/hid/hid-asus.c | 44 ++++++++++++++++++++++++++++--------------
->  1 file changed, 30 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-> index 27c1c3188513..c2ba2d825191 100644
-> --- a/drivers/hid/hid-asus.c
-> +++ b/drivers/hid/hid-asus.c
-> @@ -102,6 +102,7 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
->  #define QUIRK_ROG_ALLY_XPAD		BIT(13)
->  #define QUIRK_HID_FN_LOCK		BIT(14)
->  #define QUIRK_FILTER_CAMERA_COMPANION	BIT(15)
-> +#define QUIRK_ZENBOOK_DUO_KEYBOARD	BIT(16)
->  
->  #define I2C_KEYBOARD_QUIRKS			(QUIRK_FIX_NOTEBOOK_REPORT | \
->  						 QUIRK_NO_INIT_REPORTS | \
-> @@ -1707,43 +1708,58 @@ static const __u8 *asus_report_fixup(struct hid_device *hdev, __u8 *rdesc,
->  		hid_info(hdev, "Fixing up Asus T100 keyb report descriptor\n");
->  		rdesc[74] &= ~HID_MAIN_ITEM_CONSTANT;
->  	}
-> -	/* For the T100CHI/T90CHI keyboard dock */
-> -	if (drvdata->quirks & (QUIRK_T100CHI | QUIRK_T90CHI)) {
-> -		int rsize_orig;
-> -		int offs;
-> +	/* For the T100CHI/T90CHI keyboard dock and Zenbook Duo keyboards */
-> +	if (drvdata->quirks & (QUIRK_T100CHI | QUIRK_T90CHI | QUIRK_ZENBOOK_DUO_KEYBOARD)) {
-> +		u16 rsize_orig = 0, offs = 0;
-> +		u16 new_rsize;
->  
->  		if (drvdata->quirks & QUIRK_T100CHI) {
->  			rsize_orig = 403;
->  			offs = 388;
-> -		} else {
-> +		} else if (drvdata->quirks & QUIRK_T90CHI) {
->  			rsize_orig = 306;
->  			offs = 291;
-> +		} else if (drvdata->quirks & QUIRK_ZENBOOK_DUO_KEYBOARD) {
-> +			if (hid_is_usb(hdev)) {
-> +				rsize_orig = 90;
-> +				offs = 66;
-> +			} else { /* Bluetooth */
-> +				rsize_orig = 257;
-> +				offs = 176;
-> +			}
->  		}
->  
->  		/*
->  		 * Change Usage (76h) to Usage Minimum (00h), Usage Maximum
-> -		 * (FFh) and clear the flags in the Input() byte.
-> -		 * Note the descriptor has a bogus 0 byte at the end so we
-> -		 * only need 1 extra byte.
-> +		 * (FFh) and clear the flags in the Input() byte, shifting
-> +		 * the rest of the descriptor by the 2 bytes that adds. Drop
-> +		 * the bogus 0 bytes some descriptors end with first, but
-> +		 * never the Input() item that follows the usage.
->  		 */
->  		if (*rsize == rsize_orig &&
->  			rdesc[offs] == 0x09 && rdesc[offs + 1] == 0x76) {
->  			__u8 *new_rdesc;
->  
-> -			new_rdesc = devm_kzalloc(&hdev->dev, rsize_orig + 1,
-> +			new_rsize = rsize_orig;
-> +			while (new_rsize > offs + 14 && rdesc[new_rsize - 1] == 0)
-> +				--new_rsize;
-> +
-> +			new_rdesc = devm_kzalloc(&hdev->dev, new_rsize + 2,
->  						 GFP_KERNEL);
->  			if (!new_rdesc)
->  				return rdesc;
->  
->  			hid_info(hdev, "Fixing up %s keyb report descriptor\n",
-> -				drvdata->quirks & QUIRK_T100CHI ?
-> -				"T100CHI" : "T90CHI");
-> +				drvdata->quirks & QUIRK_T100CHI ? "T100CHI" :
-> +				drvdata->quirks & QUIRK_T90CHI ? "T90CHI" :
-> +				"Zenbook Duo");
->  
-> -			memcpy(new_rdesc, rdesc, rsize_orig);
-> -			*rsize = rsize_orig + 1;
-> +			memcpy(new_rdesc, rdesc, new_rsize);
-> +			*rsize = new_rsize + 2;
->  			rdesc = new_rdesc;
->  
-> -			memmove(rdesc + offs + 4, rdesc + offs + 2, 12);
-> +			memmove(rdesc + offs + 4, rdesc + offs + 2,
-> +				new_rsize - (offs + 2));
->  			rdesc[offs] = 0x19;
->  			rdesc[offs + 1] = 0x00;
->  			rdesc[offs + 2] = 0x29;
+Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
+cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
+
+Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+---
+ drivers/pci/p2pdma.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 6b4f0843b404..cb9084fb0990 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -21,6 +21,11 @@
+ #include <linux/seq_buf.h>
+ #include <linux/xarray.h>
+ 
++#ifdef CONFIG_X86
++#include <asm/cpu_device_id.h>
++#include <asm/intel-family.h>
++#endif
++
+ struct pci_p2pdma {
+ 	struct gen_pool *pool;
+ 	bool p2pmem_published;
+@@ -520,6 +525,21 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+ }
+ 
+ #ifdef CONFIG_X86
++/* Intel Xeon CPUs whose host bridges support p2pdma */
++static const struct x86_cpu_id p2pdma_intel_cpu_ids[] = {
++	X86_MATCH_VFM(INTEL_SKYLAKE_X, NULL),
++	X86_MATCH_VFM(INTEL_ICELAKE_X, NULL),
++	X86_MATCH_VFM(INTEL_ICELAKE_D, NULL),
++	X86_MATCH_VFM(INTEL_SAPPHIRERAPIDS_X, NULL),
++	X86_MATCH_VFM(INTEL_EMERALDRAPIDS_X, NULL),
++	X86_MATCH_VFM(INTEL_GRANITERAPIDS_X, NULL),
++	X86_MATCH_VFM(INTEL_GRANITERAPIDS_D, NULL),
++	X86_MATCH_VFM(INTEL_ATOM_CRESTMONT_X, NULL),
++	X86_MATCH_VFM(INTEL_ATOM_DARKMONT_X, NULL),
++	X86_MATCH_VFM(INTEL_DIAMONDRAPIDS_X, NULL),
++	{}
++};
++
+ static bool cpu_supports_p2pdma(void)
+ {
+ 	struct cpuinfo_x86 *c = &cpu_data(0);
+@@ -528,6 +548,10 @@ static bool cpu_supports_p2pdma(void)
+ 	if (c->x86_vendor == X86_VENDOR_AMD && c->x86 >= 0x17)
+ 		return true;
+ 
++	/* Listed Intel Xeon CPUs support p2pdma */
++	if (x86_match_cpu(p2pdma_intel_cpu_ids))
++		return true;
++
+ 	return false;
+ }
+ #else /* !CONFIG_X86 */
+-- 
+2.53.0
+
