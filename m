@@ -1,64 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498418;
-	b=xa1BQvJ5Okqib0fkRu0wXXnOZ+0ipV8EvIxZHHuTxnuAzu6D1hKafK1Lr4XeEV26IKn0
-	 taxcg+Sc9vVDbhNV59dAGPj4J9SS9liwWGqPYs3e9ExK9LB5/CVkHlUeZAaEaktJE6l2X
-	 HcVvvBqZDZMr8n965Uf4w4rEZuA4KHL09ixWiTtOIT9/1FITLs0GaNGWxqfE0XVkNHf8k
-	 5QNVJoCbsdD0brWxI+Txv4R2ZFEjUaaAkw67jtgjF9rSa/LCl0kABcWVja0rr7rbS/vjk
-	 iV8rh5MLUL1iEjEhrboKDsPrwwRR9tLWPyAFVXW/f/JhxkkbXHE6H9dt5/1VKtTKQoQ==
+	t=1792498441;
+	b=hRVAyEkuNbJ5OOe2+0RVfJm/4o4n3XJh7fJUdaRIealqQxESrkRrcNkk6eMAsll7X9uU
+	 6IvpcOlgQemkTeHqRjWlWuK6lGIqBWhBK6YPbOxxEu3uBB5Ohr/LzD4YJS8UXNH3NOndC
+	 mNOyP+w/0oBUrqQG/uRz88h6Yx10/bR6+2IpuzwgbKza74zGEm37D4qMNrblMboJVsb+b
+	 pPRLom4nicUZDtK3+AMC7up6gNMrGtfyARHqV+OcxN3VPvIgqy9gADyttH0DsTH20akGP
+	 1Mlh9Jiye2hDEggw3oZVjWNVcA0dSie0SU7VnLWs3tdMX2W0OYCaXCTQJeJEEzFo5lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498418;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=wLIq/j6Lu+uP0L9kgDFB3USz+FZ01OLIPPeNche/6JE=;
-	b=iDMgfn6ujXauajopxep1n2dq6X5cYZcHFxJgkW0xnqaFxd5e0LRaew1Bn0MKOmNslDm+
-	 Wyilw2CccjNlowm3LDldJMTuPuokof1vIDrkQMA7fUaS023chXry50PLX/N0sjvVevJua
-	 akegA4+kkmQwMa6XbGBnSs/Vaf1gMIGbtqrjCwglOj1rTJCXP7l2HIGNXhcajWXxt+9AG
-	 4rLB4py73lqTKxAkCaoxgZmEaPYaKwtWdAEk1QcPE550GBaa7++AoL1oreL4w5VFTIDk6
-	 Xd0Fe6bwSC/KMtYNbr0+wN82RHWfCukFYp41LhqTEC/QMHuTOK8+1d4r+JO/VRcIbJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498441;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=W2q+lbg8FZt9W6yyGG9psoCNajA3HujtwITzTDuoWFg=;
+	b=Q+tbD9yOcID84IrhH6P7Je9w9hGjUe8xsNvpgx2MvqgetjpoG3mDrHwTnT7ixDKsUCim
+	 FlOKa3aImzvYCGM2lUflN3ihwLuKLB2zrYlbbCh3uqnalOyEE534b1YYhgZeA6c7x+IQW
+	 t260m8HQ4z9bcO8/IH4vTZ5hCPdvBWyMm3fZWxFn875YxH7y4Ps1St3fM4WOmkvkaWNw/
+	 RZv9pLCn8Pa+ypWSOqMk0PuxMA61aI8ihbDQacrqe8AxD7XQF+Nn1tsiH9e+iaC+/5StF
+	 Fr9hUXH/2le691s3LuACAEFAuG7w6rwGSthOzAOHLJVr5Fw/fGhRvb0hIqg7JIcao6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="X/QTEL6y";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Y+7Y7xsq;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874FF606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 874FF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261020121334epoutp0181d4bed13a1323e6436e1a81e46c0e08~gO8_PM_qf0676006760epoutp01g
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261020121334epoutp0181d4bed13a1323e6436e1a81e46c0e08~gO8_PM_qf0676006760epoutp01g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792498414;
-	bh=wLIq/j6Lu+uP0L9kgDFB3USz+FZ01OLIPPeNche/6JE=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Bf/R7kBxjDk8d/h6NQwIAjLmX7PAZ7nYeCiYMZmMpcbC/xL2bw2FMUasCh1AY0PLl
-	 0P23ybo/aJqvMh6n20cbXDr7ZD2tVvrACU1CSHQVWRn1qDjX6RAVXpsBfma1uOamYk
-	 /cOF2bLor7U6Rm0n4pDaCPqGOvL3mJGM4rSJcC4w=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261020121333epcas5p1cefd2208a1ba69c3eadff2affe837be0~gO89WhIbt0386603866epcas5p1J;
-	Tue, 20 Oct 2026 12:13:33 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j8BCJ30DRz3hhT4; Tue, 20 Oct
-	2026 12:13:32 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020121331epcas5p145a58f26f6c55972c547caed56823b9e~gO87OXQvS2930829308epcas5p1r;
-	Tue, 20 Oct 2026 12:13:31 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261020121328epsmtip284d74fcc662d998520715b4f4c9248ca~gO84dUVRu1265412654epsmtip24;
-	Tue, 20 Oct 2026 12:13:28 +0000 (GMT)
-Message-ID: <2afcbcc4-476a-4350-abc5-cd3b98c185f4@samsung.com>
-Date: Tue, 20 Oct 2026 17:43:26 +0530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8809C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:14:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8809C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=X/QTEL6y;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Y+7Y7xsq
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAxN4P1293037
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=W2q+lbg8FZt9W6yyGG9psoCN
+	ajA3HujtwITzTDuoWFg=; b=X/QTEL6y+4vBfavAGOSbpoRzqkdjB4AMtmucd7TQ
+	EHxjN5AZomNfcdGUFEL2814Gnu98WBWmjWOJrUecRUOZttxweWpASb/dH4PlCN65
+	wiL2nlyq0jeNzlVobS24UwiXJbxDXgeI3TXrvo5f/DmzNvSRQEv3JpwNjn23JFb7
+	G7KrjiyyGjZ1gMq6vHDqPEiHXk9R7SzxC2F1cEqfVJAjAztNgWfhsKX88RmSEzoM
+	7T9xy04/sMVWL2GTakYxrpYxa3ynLMRtyQcI/PDiVXGZ2xo9tau3QcObv2DkN5FX
+	63ii62l6n71CtRIZ8bDSLchBu3WhlgAUNrd6l4uzUhpUuw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n2d50-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:13:59 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f13c143c8so592128185a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:13:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792498438; x=1793103238; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W2q+lbg8FZt9W6yyGG9psoCNajA3HujtwITzTDuoWFg=;
+        b=Y+7Y7xsqjcuQnE2/15+dFHbqbDgW98DcQrbIvSDdY2lnRWhkas13GNDIlGovPgszgY
+         YzTb46PIxNLfCMB5xxbmgyYs7dCTq+/GiMWKRFDybXSu1N6uu3/ZyqEnDYvILZa7S3Ve
+         +SHB2rBrF1OtpZZ87wS70Rs29pYzD0Jup930q8CfgZ3moDQqGHXau+oCIsgZbrvLSdUL
+         g59QwlkDOcMW4RMFJQdGGTDDFNWPXtA7ZyUSWSmN9uLgkJGqW9oivih7uIUj1KIV2fBW
+         1u44X+q8NydjTrm0xrUnhQ5McXUHNs9sdSXkUNuQrOdDYiMmJQdOC6fTUuL8PT//JG+a
+         MgBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792498438; x=1793103238;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W2q+lbg8FZt9W6yyGG9psoCNajA3HujtwITzTDuoWFg=;
+        b=PPjvwlMA6RwjWxWtik7PZZs2UrHHeUklfllxa7wd3evWS/kTPuXfnkRGaDbWdSxpj8
+         YHuRAKeoq0DMgsqasv+g/aux0wYYyxastU7RNKxzxiKbK/k8Z9zK5vBfEACoDM+9ruAK
+         yRiJXpXK7srVDpHha0JOu8WtRfb4B9O+ebYWPIYdHJnfj6aJHaCTgYLThAp51kbcmCfV
+         5eXEmEDN3u6ezBGurNZqUsw5CO+vNrkCVk7lgBhJFvh8XZ0i6Y5cYhqr/OacUlM24KEI
+         HDgzEGrEetKBtWXyMhduRH6COI9Pa4NksNxkGAGwpBHaFzi35LI0l4YhZigyH2H+S0LI
+         Ak4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwyIwLoWu8rKQ67YhOrj6bqymCQR8fY4vJ+h5Y1e5129SZzxAk/kb/yivwlxE8Ho3HD5jQmZPKMmW5GWh8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwNjGf+cux4SGePajIdC+mo7VWQnJDr5pVrHyNYNHIiKH5XYCu
+	CPE8DSJis/8t4mhUAp1dt8brRa9fqNhy8njuaAvSjezkDtAOWZeyHPa7Qi/dfwxXYabYQhYQimK
+	8wCdC2NV/twb5BddqHssOsqa14XRH1IFT3qt4E3e+Aa2LuQrFkik0ONMuyHiZMRY0YK8=
+X-Gm-Gg: AYBFou0TkZu5GdpLSLdNZHNrvFLL8ul8Wgwndi78tT07Vx5NuVmLco3OI721i9HrF3N
+	9aSF/K8ld7O6wSAsyAsn8YewR+rTP4gz8gDICwzUEPT3wm1hMPCCUnDhqVOw27+KuFmWOpI7bGS
+	bFtBSmiAy5UdOXfqnXzyBZOd6/dSy8iDKwwrjdK2GPoeXEI3xuF2UqMZBY/mpCAGBtI1Xl0qb+b
+	ZcAtoOjy5KkLOG7T+GYf8U3GIhsBYMiNLWpXAJHpY/Gh0aWb1T6KUJNC1q3mvPQuWHjnltwpKBe
+	vC+SkEaZ0cD5puDvKj1UDyP+AeaNiDp2wU25z0rSI96g4w210z7agfnMFpk3PbY/ouhfWhyCWmN
+	bj4xq64VADDETQZF7
+X-Received: by 2002:a05:620a:444d:b0:93e:c12c:4412 with SMTP id af79cd13be357-93f29dc9d10mr1630170385a.78.1792498438314;
+        Tue, 20 Oct 2026 05:13:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:444d:b0:93e:c12c:4412 with SMTP id af79cd13be357-93f29dc9d10mr1630164785a.78.1792498437609;
+        Tue, 20 Oct 2026 05:13:57 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82456asm6351362f8f.42.2026.10.20.05.13.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 05:13:56 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:13:55 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] arm64: dts: qcom: lemans: Move pinctrl states
+ into lemans-embedded.dtsi
+Message-ID: <mwi6zi6imuay5dkfrddevix2qorvkqxvvptdywv5irlez2yd44@wmorlob4ygjd>
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-3-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,135 +125,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
-	Thinh.Nguyen@synopsys.com, mani@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
-	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
-	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
-	thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <2fd0111b-8dc9-40e5-b705-d9f3d5265035@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020121331epcas5p145a58f26f6c55972c547caed56823b9e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
-	<20260916122229.2604003-3-selvarasu.g@samsung.com>
-	<20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
-	<fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
-	<7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
-	<ad11251d-6632-498d-95f6-04a7c6dade72@samsung.com>
-	<6643fece-aa39-42e6-8cd6-5264f15e12ff@samsung.com>
-	<2fd0111b-8dc9-40e5-b705-d9f3d5265035@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015023711.721837-3-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-GUID: dJjS-GRXY2jXEr5kUvU2w5hgham9IHVQ
+X-Proofpoint-ORIG-GUID: dJjS-GRXY2jXEr5kUvU2w5hgham9IHVQ
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad75b07 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=1Mba6klkf1WT3IQPbzUA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0OCBTYWx0ZWRfXxMVRB0Z+jZwS
+ qVcsR04e5EuJ6IxsTsGL90EXLFKuhMNA/6ga7hzSyg/Z7ujdM6HrThp8YHQjjeextI08eyP5gbU
+ tdet804QT/H0t3qBh2GWquNK1s5o04T0WdXaHFIB1ce0RXjtHKkilll6WTi8EqCRR2Y1IWagi0W
+ BDltaUSG7Vz59fsLp80phKUqCPe3V1aa/CBtaRkSBk4Wu0LhnLyj+Puh8QXHDeA+wEXQIwtH8Ls
+ +Y90xmLgW0Vn4X93haOC7R4QqmaSXx5v5VJ2WsLY4X1ZUldsaxj9+rSe6z2PpdZNINJKUkfkXPB
+ LTswo1SGWWdf/x3FUf0DRKOjAOVUErHvOFbfdUiNsm1TpxCGLrqtSWO9n3Ma52L+tsInCjYvlWB
+ V8omBcgtBmHOycFMupHUHMGYYIJh88R5oOWPizv7LekX5Zf41OMe00RDydgWnRUDJx7j7ZgTuNX
+ cHqOkVfNFxHqkRB6FOQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0OCBTYWx0ZWRfX92NtI6jEvDk/
+ hLn5x+26u1FztcG3XfpNCiXZYDsSAITca4irlPUFyHp92ukdJHs50ta/HuWoDuemU53EMdljFwy
+ d0tNxrDtt7ByX/Y4jSdZRfxQ7ZdAQhw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200048
 
+On 26-10-15 10:37:06, Shawn Guo wrote:
+> The lemans.dtsi will become a base devicetree shared by all Lemans
+> series SoCs. Move those pinctrl states into lemans-embedded.dtsi as
+> they are used by Embedded variant (IQ9/SA8775P) only.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-On 10/20/2026 5:02 PM, Krzysztof Kozlowski wrote:
-> On 20/10/2026 10:02, Selvarasu Ganesan wrote:
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    items:
->>>>>>> +      - enum:
->>>>>>> +          - samsung,exynos8855-dwc3
->>>>>>> +      - const: samsung,snps-dwc3
->>>>>> And this fallback is not really accurate. Samsung does not have snps
->>>>>> device, because snps is a vendor. Anyway, generic fallbacks should go
->>>>>> away, drop, so you are left with samsung,exynos8855-dwc3 only.
->>>>> Hi Krzysztof,
->>>>>
->>>>> Thanks for your review comments.
->>>>> And We apologize for our repeated below explanation, but we wanted to
->>>>> ensure our intentions were clear for each point to avoid any
->>>>> misunderstanding.
->>>>>
->>>>> The original intent of the generic fallback was to support existing
->>>>> Exynos dwc3 bindings from a parent/child representation from
->>>> How does it support existing bindings? I don't understand. There is no
->>>> such fallback in existing bindings.
->>>
->>> Sorry for the misunderstanding, Yes there is no such a fallback in
->>> existing bindings.
->>>
->>> Our intention was to use new proposed generic fallback compatible
->>> string that will support USB dwc3 flatted node for all Samsung soc
->>> when those are migrated in the future without adding SoC specific
->>> compatible string in driver.
->>>
->>> Agreed, Here using generic fallback name (samsung,snps-dwc3 as a
->>> reference of qcom,snps-dwc3) is incorrect as snps is vendor not a device.
->>>
->>> As per DTS101 slide , Now we clear that the future Exynos SoCs could
->>> use  samsung,exynos8855-dwc3 as a fallback when they are compatible
->>> with the Exynos8855 hardware definition, rather than introducing a
->>> generic samsung,snps-dwc3 fallback. The dedicated compatible would
->>> still describe any SoC specific differences, such as clocks.
->>>
->>> And Understood that we were mixing the current Exynos8855 binding with
->>> the longer term migration plan for the existing Exynos SoCs and future
->>> SoCs.
->>>
->>> We will drop the generic fallback and use SoC specific compatible
->>> samsung,exynos8855-dwc3 (vendor,device), following
->>> samsung,exynos-dwc3.yaml as the reference.
->>>
->>> Regarding the binding filename, if the flattened representation is
->>> expected to support multiple Exynos SoCs where there is only
->>> differences in clock in the future, similar to how
->>> samsung,exynos-dwc3.yaml covers multiple SoCs with the legacy (parent
->>> and child) node representation, should we use a common binding
->>> filename for the flattened representation instead of a SoC specific
->>> name like samsung,exynos8855-dwc3.yaml.
->>> For example,
->>>      samsung,exynos-dwc3-flattened.yaml.
->>
->> HI Krzysztof,
->>
->> I am writing to kindly follow up on my previous inquiry regarding the
->> binding filename for the flattened representation.
-> I started to ignore overly long answers, because to me that means
-> contributor expects me to devote a lot of time to their contribution. Or
-> second option: LLM proxy. There is even a trend where people paste
-> prompts or LLM-chat-confirmation-like answers. I often do not correct
-> even such cases, just put the ignore list.
-
-Hi Krzysztof,
-
-Thank you for the feedback. And i apologize for the long answers.
-
->
->
->> To recap, I would like to know if we should use a common binding
->> filename, such as samsung,exynos-dwc3-flattened.yaml, instead of SoC
->> specific names (e.g., samsung,exynos8855-dwc3.yaml). This would be
->> consistent with how samsung,exynos-dwc3.yaml covers multiple SoCs in the
->> legacy representation, especially if we expect to support multiple
->> Exynos SoCs with only clock differences in the future.
->>
->> I would appreciate your guidance or suggestions on the preferred naming
->> convention for this implementation.
-> Please use the naming expressed in on of the rules for writing bindings,
-> so one matching the compatible or fallback compatible.
-
-
-Understood, I will follow the binding rules and use a filename that 
-matches the compatible (e.g., compatible: samsung,exynos8855-dwc3, and 
-the file name will be: samsung,exynos8855-dwc3.yaml for this new SoC)
-
-
-Thanks,
-Selva
->
->
-> Best regards,
-> Krzysztof
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
