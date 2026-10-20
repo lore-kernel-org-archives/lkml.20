@@ -1,97 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792489010;
-	b=D305KR2yM5GGkvmAm9M0MNJQT/hAivvbAFYCE88L57v5/rRrGkRJ/QOR+NkYb0Zof8HF
-	 0l865FzudcYcUyCdG1/UERxbRsVZ+88m/ZvrvfVtS5lyu87TnAmKYzeR4Nr1NXAKUnra9
-	 TM5e7DJ4ogZvvApqlFTgZnvOYhSB8cazwFR2wzHLJLhh18gZkGeRroijB78ajgVZmVDsE
-	 m+f4N1MMqxy0d9Ele97TEL0ofeWZ13SoGxYLwfEnbBQYjbHPBzb0E3lH/4hTlJMGxcCgJ
-	 jikfH9Va27nDNhBzt2GhCq4t23ZttX5iitVgk6+d454+xXZRasXglWIg/sV+TY4VjcA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489010;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LRx8UvWVm9ikAdxF4Wgsmj+ch4zzS3+JSv2XCIzVAzQ=;
-	b=l1PqhnN+lGpaVPY1v9AZrAczmjAuk2Q011fXN9RBLK/Rk6JxMwxKGbNuNs07/KJbgqID
-	 LP5fE63TLIswLxt0x8D6X6OpRkjJBlED02FG6rYagcfRH3hQLAEH4lbbydwJZXOxFu8m6
-	 pKRpAX5l2jR4pcYJPvemDEZzaMouh7HC7Y4+0EaoPvi7lCzzqxD9WUSRjQwnIsvrq+Vb2
-	 vx0miSrG6CnjILzoyV8pe80aiBZsburE8xH0Lvy8rqtKgXLHIXFfiDZO3NadH6iVAa7dZ
-	 DTFwvFZkw2eHdXruG7ruicnV7qMucsjQ3re1DyRuSpjzfFP3LcUi+XmERmuBcESbfog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=jqRThY4Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.17
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010017.outbound.protection.outlook.com [52.101.228.17])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792489023;
+	b=gS+W32fNSzgaZtxaoJLtihubV+MkCR5hSzpbjBMfdXuXVbNHovj7cIO8xAux8l5NOzus
+	 0jdmEI+x0h77EFnFQE90R/AxlMdsrs5pABnOAfGQQ6QO7YgeH6Ylu19WjBJGIuNXoP04M
+	 VuYJhoBhrVW8mrPq27Rbp96rHjVgnktqKfZj7b4hOW24DdbxfKcHt4KqAtfwzQdVzYrub
+	 ro6zBcPE66xJQ59I8VFD1zK+Ih+mBiaK+Iy92vRPegYjsO/tb0Elra+DH1m0ela9oL8xs
+	 2CnnBgm8936xnt4JYJ/bD/lWGRtTurOLFSgq9Amsx3sbrTL/1Ysy/YiYEez6VqeamjA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489023;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
+	bh=iNVwXEKTBC/72qphnT2ap3ikWCo3v6If04rWDXywPlM=;
+	b=PcTSMf1xDYQzlEjZr3j3c9Eo4o46yzDNer3U8rWgtjLX1mWOhB6HSMSHyXR3ZOMw4emB
+	 BphMhpcYRzNNtTMVgDQ7vzkYxxfjnRd2ZmxRTtnyas4vDB5cmgglmSSHdX+g4sCHVZNMa
+	 gl79aYxhD3YrQt8ZWG4IDd8MJ6BvLojtXl574Ef3UZJPaERqT6RR4PYZoNHgV5oVL1hm0
+	 GMGOdTYhbid7Y9GGIoiL4+lFvsmUGtGCJA4LqVRzHwe6f3OXE6TfrcZnFS7DrHh4xqtkV
+	 Qylfnh8Cs5IxI2j/unHedMLJ421/JqzD+gzzTFFJ6yKXH8vN7u2b8PevWR7DjipXsMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=JNWQmoxr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zO4Ds2zy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=JNWQmoxr;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zO4Ds2zy;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444C7606A319;
-	Tue, 20 Oct 2026 09:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 444C7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DE160A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08DE160A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=jqRThY4Z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xDcfETciTc3C/pc3q/jbyxT3Ve8+2Ls0Yql1g6G+48ZYFqxUkLffiPM0cM9AVtilaLb858weE9XRA8mZALt03F+zL6ZTuUJq8WEjoJ7kr6NkBvpVSVzC++hPDlvZtczHKexSZ6DQ4yS6wWMyY1iHgyFY7/cRyQkWTvOkErZU3lm98LlazvbExPhaFz/OiUA09AMJo8GneLmyFyW6ZkV/OB1Lm5owV82Nn27cVkju459FmFCgPC8qDewfIlmV6GNwMffaO+w9BasXREJvoK29imTg2+yaZ/CZ7exW+8XpZ8w5ofu83vEu4VvHvLAVNeqlh0ORHcWyQshUKq/kGeLCKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LRx8UvWVm9ikAdxF4Wgsmj+ch4zzS3+JSv2XCIzVAzQ=;
- b=Xm5eqCTnTa952bnS8Ouy3TQuFOmPFmf7yn5lBJIq1groa5DiYga5DL9hA4xq53o1trZpC4DN7tp/Ga6ofWOZZwqFlFKDNYMU2UrYsiwwEByUALkf+yMjmAyt/KFxP3fTWgknYejJdY/WEnCjpkIf5+VMxK3q+BYUtvXTpRV74Ibmvqa9e+yCqBg97H/6jga6CN5IQCdP5QlgqjApYfWIXTPABwNj2EgSndrVCIqQVZgWvY4OteLoIJHbpit1MJU/iRuLCr52W+lcbeN70bfu2VuN+MrxmK1TBCtxm8JSF/GiLORc1pTJTUiPVN6BP1guG19JeLv6LhkzT3T/FakdTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bootlin.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LRx8UvWVm9ikAdxF4Wgsmj+ch4zzS3+JSv2XCIzVAzQ=;
- b=jqRThY4Zi2v9VE84aH45TH55N/GqKqUYC+03XtxxtXLbrjJCnPGY4i3Ju4zGMmcrnGNzqjjix5Njcc0HMLEO087WYWrk3VelWuv1mukjHCX3JKdWf/uOtuT3tq0AT/O9Lyrtgo/JDWnjIckC7ApegcPSmQmOb0DALKpTqQAli7U=
-Received: from OS0P286CA0060.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:9f::11)
- by TYCPR01MB9643.jpnprd01.prod.outlook.com (2603:1096:400:197::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 09:36:44 +0000
-Received: from OS3PEPF0000003C.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:9f:cafe::11) by OS0P286CA0060.outlook.office365.com
- (2603:1096:604:9f::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
- 20 Oct 2026 09:36:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
-Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- OS3PEPF0000003C.mail.protection.outlook.com (10.167.240.5) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15
- via Frontend Transport; Tue, 20 Oct 2026 09:36:43 +0000
-Received: from [192.168.1.82] (unknown [10.226.92.108])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 3F93C3000250;
-	Tue, 20 Oct 2026 18:36:37 +0900 (JST)
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Date: Tue, 20 Oct 2026 10:36:26 +0100
-Subject: [PATCH 1/3] dt-bindings: i3c: renesas,i3c: Document analog noise
- filter control
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=JNWQmoxr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zO4Ds2zy;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=JNWQmoxr;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zO4Ds2zy
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2B32321C13;
+	Tue, 20 Oct 2026 09:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792489021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iNVwXEKTBC/72qphnT2ap3ikWCo3v6If04rWDXywPlM=;
+	b=JNWQmoxroueCA0tPjH8HCx93RvPXWROb9vW5w506dgIkyoXP8/wBfHqKRt3ZlsOx84c4zP
+	JwWSVOweAQ9H+cqryXbf/tZa9n9Od0Ti95tVu6V4bKvnCg5pcOdtiZG+jvFoKRp8RBTE9/
+	+YIBZvWGqpCDnc2TBWumAyIvnu+NwYE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792489021;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iNVwXEKTBC/72qphnT2ap3ikWCo3v6If04rWDXywPlM=;
+	b=zO4Ds2zyTTbURvetQrlnPSpFHitNwrjBJbXmTNY+XlzAfGz5TTi/gtyGRkIyKz2elzmNbi
+	3P2Y8fXgh0m8+eBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JNWQmoxr;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=zO4Ds2zy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792489021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iNVwXEKTBC/72qphnT2ap3ikWCo3v6If04rWDXywPlM=;
+	b=JNWQmoxroueCA0tPjH8HCx93RvPXWROb9vW5w506dgIkyoXP8/wBfHqKRt3ZlsOx84c4zP
+	JwWSVOweAQ9H+cqryXbf/tZa9n9Od0Ti95tVu6V4bKvnCg5pcOdtiZG+jvFoKRp8RBTE9/
+	+YIBZvWGqpCDnc2TBWumAyIvnu+NwYE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792489021;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iNVwXEKTBC/72qphnT2ap3ikWCo3v6If04rWDXywPlM=;
+	b=zO4Ds2zyTTbURvetQrlnPSpFHitNwrjBJbXmTNY+XlzAfGz5TTi/gtyGRkIyKz2elzmNbi
+	3P2Y8fXgh0m8+eBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ECBAF136C6;
+	Tue, 20 Oct 2026 09:37:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 4lH1MTw212qJBgAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 09:37:00 +0000
+Date: Tue, 20 Oct 2026 11:36:56 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 11/18] nvme-rdma: Use CCR to recover controller that
+ hits an error
+Message-ID: <8cfb3b90-7629-4a8c-a393-7f724f01c19c@flourine.local>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-12-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,103 +115,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-b7ad60cde650@renesas.com>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
-In-Reply-To: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Diogo Ivo <diogo.ivo.sx@renesas.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792488992; l=2002;
- i=diogo.ivo.sx@renesas.com; s=20240529; h=from:subject:message-id;
- bh=OsDiHkQl0rNMt1LGCUhEbRtyt6e5VPNbctXsKp+X02o=;
- b=smyVoJdPHfqph2Te6ToODkhqHxct1+T59mAwriNOr/NvP30fwZSXcKEw3n2tX7/8pP9/tpipR
- CT9bBXmu+TqBr6igJHpXRoNUfTf08PZ+nz8RkEViKIGC84KTJNvRETd
-X-Developer-Key: i=diogo.ivo.sx@renesas.com; a=ed25519;
- pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PEPF0000003C:EE_|TYCPR01MB9643:EE_
-X-MS-Office365-Filtering-Correlation-Id: ace5554f-392b-4ae5-3c40-08df2e8da6ac
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|7416014|1800799024|23010399003|18002099003|10067099003|20046099003|22082099003|3023799007|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	1FG+xykS+7yhynU8TARs2XiR5G4hU0kTaM1AsBl8ClOB955Y/5tpdmOKT0IvHSgoyrtkz8lfoSTgr9RXXI42TexW0lg1zw274+T0ORKZLKArKm8T8JT2n/9I+ZrheWCIn9sfV50vcoBKMh9AC2lJzLWBH48vO/93iwAcSvX2ltOTMAsiGVpW46kajNNxrgas4nM1ehYWold2oA5DQeksmpoODC6SRmbG4nNoT5Y7ARb1HbQffRgPamMlZP+Bk3iN8P1b/muJHSbNwIgjV/c/qnl2/R/V6mR1jFUGehd8UzwpTr7kCZIaYBh+DbWYbE568fX0zwkXLD1IRh+oHoTkL8dV87bgHawLEMnhoCc6+x4JHVmeToPDFzONmzMDRKezaKM4GZIpkAbtr/MSB4gZMw5+kpYGZrLG4Xf3kgM2FUzoDd2LHsVlDuBATSE3H9+/bIeRZMzKV1beUZ2xZE+aO0vSwJ9v+4xNEbzaAdpmZHoOUVb2sPMd/eqckYH4l/+aEuqBXTfFxwDySgUHiFyI59RuJLm2+Kvre2vwu9XVjPfE1aI/8AYyvvfpmDKGgDacR5aMABgjsXn+Nqu96ZlPaT2Qz89G/vcn4eosuZKwko6ixqjXZxP4PyWMw0PlsP2siceHNT8SHjCNjBdq/eP3qj1+4KqcbpTMiU3Ai/NRVlHnZOR6YPiW2Ts87oJkGVZ+xwIPKF5edZkqh2QVYYL1/Q==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(7416014)(1800799024)(23010399003)(18002099003)(10067099003)(20046099003)(22082099003)(3023799007)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CrhPPnB6us3SQOtDPQr+jVd0oVTr5xkRUY4RLlvxCzw4mhnemnKvNksZCnz1SpJIjtNaZnCGV9yPmFkTLqNpHyoQvwohvofjLu3/rZaASrSdpxyUuRvQ5SlPbUdu9AgQbzr60Cxa0eHvrXJfCeTlsmO3H0rgnPc5oWSU1u25YLP/JKqkWOszWEnsFWvkq2/28jdTvb2i53PLtFjKxQkqnHSmrK3mF6rNSHcYiEsCZl4QFr9qGxJ+p9nP0EInDlSYw1KfrjlKq1d8dMjxjx3cO4VI2kHTIH4ptT5SaPQ/XD9AtsUmI7dHHsyjVnw33ku0NK6pKIPCrNd+Kt86OPEvdTMUfLOjBzFaiOcXaAAaWFHbuP3B43y2E2+HLz8VbJnsYew6YdGiWUHweGP+trzsgMN0J9jwvPztrscCLXbXcMUiWU7guvKvEFRvgu59xW23
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 09:36:43.0850
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ace5554f-392b-4ae5-3c40-08df2e8da6ac
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS3PEPF0000003C.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9643
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920182936.2317916-12-mkhalfella@purestorage.com>
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 2B32321C13
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-The analog noise filter for the input terminals (I3C_SDA, I3C_SCL) of
-the Renesas I3C controller is controlled through the SYS_I3C_CFG
-register of the system controller. Document the
-renesas,analog-noise-filter property, which references the system
-controller together with the offset of the SYS_I3C_CFG register and
-the state of the filter: 1 enables the filter and 0 bypasses it.
+On Sun, Sep 20, 2026 at 11:28:09AM -0700, Mohamed Khalfella wrote:
+> @@ -1990,13 +2014,15 @@ static enum blk_eh_timer_return nvme_rdma_timeout(struct request *rq)
+>  	struct nvme_rdma_ctrl *ctrl = queue->ctrl;
+>  	struct nvme_command *cmd = req->req.cmd;
+>  	int qid = nvme_rdma_queue_idx(queue);
+> +	enum nvme_ctrl_state state;
+>  
+>  	dev_warn(ctrl->ctrl.device,
+>  		 "I/O tag %d (%04x) opcode %#x (%s) QID %d timeout\n",
+>  		 rq->tag, nvme_cid(rq), cmd->common.opcode,
+>  		 nvme_fabrics_opcode_str(qid, cmd), qid);
+>  
+> -	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
+> +	state = nvme_ctrl_state(&ctrl->ctrl);
+> +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
 
-The property is optional: device trees not providing it keep the
-filter at its reset value.
-
-Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
----
- .../devicetree/bindings/i3c/renesas,i3c.yaml          | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-index 08fcea89a015..381807844351 100644
---- a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-+++ b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-@@ -96,6 +96,25 @@ properties:
-       - const: presetn
-       - const: tresetn
- 
-+  renesas,analog-noise-filter:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description:
-+      Analog noise filter for the I3C input signals (I3C_SDA, I3C_SCL),
-+      controlled through the SYS_I3C_CFG register of the system
-+      controller (SYSC). Three entries specifying the system controller,
-+      the offset of the SYS_I3C_CFG register and the state of the filter.
-+      If not present, the filter keeps its reset state.
-+    items:
-+      - items:
-+          - description: phandle to the system controller node
-+          - description: offset of the SYS_I3C_CFG register within the SYSC
-+          - enum: [0, 1]
-+            description: |
-+              state of the analog noise filter:
-+               - 1: enable the filter, performing noise reduction on the
-+                 I3C_SDA and I3C_SCL input signals
-+               - 0: bypass the filter
-+
- required:
-   - compatible
-   - reg
-
--- 
-2.56.0
-
+documentation needs to be udpated like in the tcp patch.
