@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497920;
-	b=e4UojtnesfGYPlQNobF2jLmRpdvCGdY5JezZCiPNhy+mhwLKZxENMZkaZixfqmVG+Yfo
-	 ouCvph2I6PBWDWS+PKKQEZ2XeIdBPsWXjgHWDVebfUy3uUhcw1Qirpeu6eLUMMG8zEwg4
-	 BRZFqAFZoJYXdSq09lENpvJbBLUOkuqBhgkVKG217xQFfv5w5ERmujuSE31p/kTSlZITA
-	 8uOmbVmr2Oyxza5ZgRmqy+sV4++s97qoq4AKnGZ2vBRz+RTG1/+pdFA7vnz3iy3r0/U+k
-	 pibfP3zjGbtS7wL9hnOkja83lnWlLTe1yjVqVTDT7RWg/F3AyunFLqzFB9QxVad+4Fg==
+	t=1792498127;
+	b=B6eM5SFp/4VgRc7woJSh/9v9yYfPco56pY0Ye6T2jQw6Y5/7Fv5S2gE1r4PKEW5u/1+1
+	 LGK/xMeha4ITVB6Ntl1CVZba+ZNKOocaeYtr/uLIkfiOCOE5qkycV+yUaGO23STD6WMRo
+	 gNrVcd+LovJW4d/Fs64z2BRRppY82KxhUZdBTbMSAwVN7x4hRMU65j7VjbA28lgZsb8Ta
+	 fmSDdclAn3Zj+0LcXGbIiQi2bbnMsdC4ILYZFFVU2ZjXV/0SAIZSQ6GQJYNHHeHgpzgd/
+	 Ui8Mk0MuDf8jL3Frn1mI/fR6kCDl0AMeNWbOdxBhUFTL05TMf2qnOTkz4fRNk/P3fjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497920;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=037It5JgAOu4z9VMKcMbYkeaMZRVptrSOJrPIu7UqgY=;
-	b=B2r1VdN7n4oUjFpske6Hz+puIJhXhNg5Tnw5BF1nrDI4+D/HWqlrK/6QAuX6jE2hFULT
-	 y4ulB5sE3bDtO84nnWIF+XYZTS1EH40ZIhaRuBZUfVRHsMp8lZN2LY5L2LdqdIMVA38iI
-	 chro82c0QH6fr+TY7a3nSDedazVxs/OwL0FBLzzqwJfnofcVrn3uiN4V/PrXhpH3uTp5t
-	 0GQJO+clH7QIrwYLjFxbSxA84fj/v53zBNEOfZlbSF+MSa8esqR+N/w9cqsBA3+ShYRwe
-	 pr4JwuxO3zChGjuohYcF0oKfEctxwiSrpZ1ppCaX2uc3Tl8OD2b0QbZl6IGf/skbc2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498127;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=o3HYFtbT84qJYX+FGS49qE6dDheWm1z/RgZhsb4Q7ek=;
+	b=fHgidu+nP7KyiI7rs6OD6w80tQiP6HYT4hCzBOALvKyeDnS+ItYY41tIH8Ck910J8QBr
+	 1DacW/UEWMS3xb27PpFJe6TmQH+sH6/xx+AVdmxP/hePel3YbK+a2f7pPo/f47GKFalcP
+	 1TRqYOMoxhsbEH1MkpgnIQMns3KJ8TnUdTzcwVYW7ynvChCZOxs+XaSxX//KP48jKiFRY
+	 M41qJPACVHntISEoe9jcSeIQCI7ZdR1mbJoDu2SMOnaQpgGs6d9MrrvI1NcfCgwpMI3XH
+	 mwtlq6HatKHg3dHPqJl65a/INYAIeV9dpZIHHlEELVtzwaORS2bllhPnxbLiyEsR5wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NApZQGOH;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ay8DbV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC500606A31E;
-	Tue, 20 Oct 2026 12:05:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC500606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AC9606A31B;
+	Tue, 20 Oct 2026 12:08:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NApZQGOH
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792497916; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=037It5JgAOu4z9VMKcMbYkeaMZRVptrSOJrPIu7UqgY=;
-	b=NApZQGOHBBTy9cGr4Nsiq6EF2M0qrLExdlkDTU0Pz/32rncqOj1cXGH88zGdTPN1jNgnbz0AXanQUoQaRdyfeym79X3Q8qwo1gIwGUSyKOAo4+SvmcNT13BfsaW1IDSP5zOOU5/9FUkDgx5q0S3+Vw4DliZ5RIboI6Vjrr8Wbe0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R641e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDDJQnq_1792497915;
-Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDDJQnq_1792497915 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 20:05:15 +0800
-Message-ID: <018d8feb-2e63-4a73-ba36-10a5f94f3341@linux.alibaba.com>
-Date: Tue, 20 Oct 2026 20:05:14 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ay8DbV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0825A1F000C4;
+	Tue, 20 Oct 2026 12:08:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792498127;
+	bh=o3HYFtbT84qJYX+FGS49qE6dDheWm1z/RgZhsb4Q7ek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A3ay8DbVa1wWHxg17DxkKHb3vCbWSfi1ox+BHqlHep0/rx4ZG/Gs2PyrorGSVPEXl
+	 zwVrapUZYB/m9GHL3gCX2uYHBWPmQMrufqVk8p3rQV9qQXOsE2QhwSI1s7ZJQRKagl
+	 rl7zQ8OfPaQqje6Vth7vUJcvogVV9P5oGNJKjyf2Harai41X0IWithef6b6SQ9gIWr
+	 /OtkE53t5X2FTvjmfcEM455Hs1Srm/ymkylnbPWxLbAKBLDg8/S+CR9NdDc7IYSsvh
+	 fPRsCHegPyQJExkPJUqserXIaG60w9H51lOAIvJ0uaI7r1XIxQY34tXPyhRBmQieyU
+	 u+vy6prXFBTHA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 325841AC57D0; Tue, 20 Oct 2026 13:08:44 +0100 (BST)
+Date: Tue, 20 Oct 2026 13:08:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>, linux-next@vger.kernel.org
+Subject: Re: Missing signoff in the drivers-x86 tree
+Message-ID: <atdZzEMsMWhzO2gO@sirena.co.uk>
+References: <arUBQuAfW4HJQHik@sirena.org.uk>
+ <4ad00775-b067-452b-9869-29d5b6712f66@sirena.org.uk>
+ <asOdosd0zROmuzu1@sirena.co.uk>
+ <1a363159-02b9-4644-9cc8-38e210d97d5d@sirena.org.uk>
+ <atZqoXnT_27rGAn9@sirena.co.uk>
+ <e1119f07-83cc-8178-3c6a-e87778d3cb16@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,57 +64,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: Cache the mount context for dentry lock
- callbacks
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="P3j17JiV0CwEqRby"
+Content-Disposition: inline
+In-Reply-To: <e1119f07-83cc-8178-3c6a-e87778d3cb16@linux.intel.com>
+X-Cookie: You buttered your bread, now lie in it.
 
 
+--P3j17JiV0CwEqRby
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19/26 9:49 PM, Cen Zhang wrote:
-> ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-> DENTRY lock. This lets inode eviction release the local inode and open
-> locks before a remote unlink can proceed past the DENTRY lock.
-> 
-> A DLM callback can still arrive before the DENTRY lock has been dropped.
-> ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-> which can access a freed inode when the downconvert thread drops the
-> last inode reference in its post-unlock callback:
-> 
->   Downconvert thread                     DLM callback thread
->   ------------------                     -------------------
->   ocfs2_process_blocked_lock()
->     ocfs2_dentry_post_unlock()
->       ocfs2_dentry_lock_put()
->         ocfs2_drop_dentry_lock()
->           iput(dl->dl_inode)
->           [inode reclaimed after RCU]
->                                          ocfs2_blocking_ast()
->                                            ocfs2_get_dentry_osb()
->                                              dl->dl_inode->i_sb
->           ocfs2_simple_drop_lockres()
-> 
-> Store the mount context in the DENTRY lock resource's l_priv field and
-> use the default mount-context lookup. Recover the containing dentry
-> lock with container_of(), as already done for refcount locks, and remove
-> ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
-> freeing the mount context, so callbacks can use it without accessing the
-> inode. Preserve the existing iput-before-unlock order to avoid delaying
-> local inode and open lock release until after the DENTRY lock is released.
-> 
+On Tue, Oct 20, 2026 at 02:07:02PM +0300, Ilpo J=E4rvinen wrote:
 
-ocfs2_dentry_convert_worker() still reaches the inode via
-OCFS2_I(dl->dl_inode) and writes oi->ip_flags |= OCFS2_INODE_MAYBE_ORPHANED
-before its OCFS2_LOCK_FREEING/dl_count guard, and ocfs2_unblock_lock()
-invokes the worker without testing OCFS2_LOCK_FREEING.
+> Something odd is likely going on here. Neither of those commits above are=
+=20
+> in my tree anymore.
 
-Thanks,
-Joseph
+> Your latest merge:
+
+> commit 233956951080612ff68d0c54f620606c53a1c91c
+> Merge: 67f116b3a9f8 98f039265e58
+
+> I don't know how you got that 98f039265e58 but that hasn't been in pdx86=
+=20
+> tree for multiple days by now:
+
+> https://git.kernel.org/pub/scm/infra/transparency-logs/gitolite/git/1.git=
+/commit/?id=3D1bd7f5b78426fd94a4a3f75c79835a4416809e87
+
+That's what I fetched yesterday, I don't know if there was some infra
+issue which caused the fetch to fail.  What I'm seeing for today is
+commit 893018d51f27ec0449155b0afe371aaf65380630, hopefully that's what
+you expected.
+
+--P3j17JiV0CwEqRby
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatdZywAKCRAv73Ows9A4
+ieZPAP90JcMoLywyS8JowlZIy+wPuOozvfAHCOSp0rYg1y8G9AD/UH++c7kbWw0p
+FKgloovNB7HW4fQWVt1IKeTNJXSEcwg=
+=neIK
+-----END PGP SIGNATURE-----
+
+--P3j17JiV0CwEqRby--
