@@ -1,45 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792483839;
-	b=CRwAW9Nsev9fW3rcDa7YipoQMzMMmoPK+kl7A8+H6mpFNxLiEgE4FxGw6aD3MGiJ2Ydv
-	 RY+jpf/YGTmsaAKWJ5kHvAZ6MO4j5l2UL/TlALhlkCnlciMuIdOPjnCbmW0LFcHFkM6lT
-	 dT3s+hxqCEXf7S/wsAP/qCD2hQlm5qVTipQ1tMZsS2MqFznJZcgZrtxyefA5xHD6UaYJZ
-	 dw9d3qKNBu1TjCmF/bVmxC0Oqw1Ux07jDnUl2mlqNu33oryGPOd7zss9QjXGJGtXVQi5t
-	 yygDBXr1Q1p09gL3dYyAvY5QzNouenGhFNS0DUEZwXZzWqiDBAohDttmkZnVhxA4Ytg==
+	b=cvhFFKVEXQ/gaIHZBdOnmVOLiAgfFRxvrXENPRuX5ZBcjnBE3Q+HnzAAyNyypiUmmItw
+	 fyUGU00kZ8rw2KRxygOqwZ9isylFE4rUKXRhGB9YO0Mh8EN4zHiQtcqPEr2uFJCgaXzKZ
+	 C4PfJIym1RxAiL97aoLB3Qa6reXymHK0QM2ojpJXJwmzTVHcRlsXwC0QV5nJFuqgTBU+Z
+	 7So7tEY1bf36syaQG+YutiZReyqUqz6YhahbcaAPjyG5QTFTTY6pu7e3Nqhjq1atgHgy4
+	 e2N2ugkKkhPx7Ro70C/N+lbXuk5Pgdy7k56vwgIk6j0zVdXdXW7sfWYv5H+lx17+nIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792483839;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=qE6OXYMZCNhpTVqGUe213qDW93yxbpeyhbeKhLS4ZJQ=;
-	b=UeySqhhUQ96YuulBgPHRXrJK+NWXf/BuZz+/TbZW2WyjZicz6z+S6L7p99CJJf21ly0+
-	 RUnDLu/NcNfj/dan2YdrSc6Pu2sk8vQ7JJiqjfWCPIg9uaH5j5uFtdFP1DTn1PLtl5ceK
-	 PqQuVpJOmgKmaDDbKbhjcsBOsg1Zp3qtOKA6gyIpGLWLl2n6KtVCc9b/DI3xcfcuXLgrL
-	 Kc/BCsKB35bePF1xZuy9FZCLdMMXJqk1zytTz0r6dtnAYCFkbqcyk8YpKQtB0X/uT+6UL
-	 pOKQ9bCtFrAAZiDCuy2JJUG0R5EB7FFJXJFttGjF/wCb9fcnsdZZT0Z81e3iKwhq2wA==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=+HbM2fnAiuFc369BfM90FYmeo4ajL0do8Ug+Pa2Ga0c=;
+	b=VBlFkZUOU5KjIWJ1AUiLS4Mgs5RtgW1khDAHyvi6QTW/CkF73dCGWw/eWe0cNkW+/TCC
+	 /Jo5JynmNiSISxSQhRjAWUqFdDMvQ+Rcnpf85MA2HJPsey6UIsAPJvNKUnDrLekKwWLhI
+	 m87SC2fGsUgD6gtGG7/NsfEifHM+1TMgqBO0TESvuSE4pGcsUf+2mFoln8Whr5VF+yIwo
+	 5Tm+8kwBAg4s2JRNUgPT2/WD0GNwU/0Mtf6en66Lyw8zAcRKL/Fp7YuZtGLP2t5Pv+ocH
+	 RzlMgNcCahUjNzX2lHGsqePpQUPUz3+NsA42ru6hFEFD86hwRotkFYgvQmHZep73cwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzyGO92R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ux3Twm3l;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EED606A321;
-	Tue, 20 Oct 2026 08:10:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8919F606A31B;
+	Tue, 20 Oct 2026 08:10:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8919F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzyGO92R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1FC41F000C7;
-	Tue, 20 Oct 2026 08:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792483839;
-	bh=qE6OXYMZCNhpTVqGUe213qDW93yxbpeyhbeKhLS4ZJQ=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=IzyGO92Roy0DLQa95pMkJ03Bsx6UAwYJ9RGvSlTqTRAN5PpmHyGaPT0JR/f6L2Gqs
-	 Q7DLgOTXUy3kHWVjtLJhTqjualhaQ1wu+ge85rzJEHCMK8KDS3daees6n7Ec5J6IyW
-	 EK2hsFBuOeriYkFpDN3PJeTEIDYoNI3CcC/GFyPYdIPcVzgT6G1+FSPBq2Lv0jmSh2
-	 AUkAFSkHj1F6OOlyiafKVljw4qbKhWr7KG0+Jkv9LQAs/393EOwra7DqAiXyB7U27t
-	 Ud66NV0Hiv+XPejPYXfQRJKi8lofyLyoH7kNkBaIBpjUFCfpS7M2yDHuDCXiAzh6rF
-	 IQn8Ye8g66exw==
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ux3Twm3l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792483839; x=1824019839;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=25f8hy5Y2bKimiVXz8+NoWweTrntm2IbNIZ2eSjEsrA=;
+  b=Ux3Twm3lWqKkq9revxlKs9uXUgjTF4o4K8iYNi2gJZBnyyr6zbXRPXYN
+   /TSP2n4B7mJCZ4JcE7XavYfKhhf30JDN2MHIrQ7OtcShEJt72OZJ5y9/1
+   vo+Iy03WJNtXIkMpinecWjV/eKF9CAmld/+K0hoznlWpHSC4gt4Sv8K2I
+   9LUIStgxNhoB+dBqWb/rq1JV4b3xSx/bmlr+sUx+MQ0UMYfE6k+4mDzmq
+   1Fnb9DdKO8l9Jd74MvzchotMcEw7nWwjkpcXZdf8Eo53Zd+qKIwnF2OS4
+   EOCeLp26p8VS3E/RQ+lXiVtPigy1NvJvje0BnHMmzrwuwjfcPGu+8ZBYK
+   A==;
+X-CSE-ConnectionGUID: 44Jm8SJ+S2yxYPQmnQHshQ==
+X-CSE-MsgGUID: qPCzpZ8DQuenhk3sUqESVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1187391"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1187391"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:10:38 -0700
+X-CSE-ConnectionGUID: K9icsDRHSsS/miovNg3cTQ==
+X-CSE-MsgGUID: Qrstw2AtSp+MKb3a3XZzuQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3115888"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:10:35 -0700
+Date: Tue, 20 Oct 2026 11:10:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: vidhu.linux@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
+Message-ID: <atch-NQ78VUdfgxW@ashevche-desk.local>
+References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
+ <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,93 +85,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 04/14] arm64: kexec_file: Fix CMA page leaks in
- segment placement retry loops
-From: Mike Rapoport <rppt@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
- chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
- ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org, 
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
- gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, 
- leitao@debian.org, yeoreum.yun@arm.com, sourabhjain@linux.ibm.com, 
- robh@kernel.org, coxu@redhat.com, kees@kernel.org, tangyouling@kylinos.cn, 
- liukexin@kylinos.cn, zhangtianyang@loongson.cn, guodongtai@kylinos.cn, 
- maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com, 
- vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com, 
- thuth@redhat.com, jbouron@amazon.com, me@linux.beauty, 
- mclapinski@google.com, graf@amazon.com, bgwin@google.com, 
- hbathini@linux.ibm.com, eric.devolder@oracle.com, 
- takahiro.akashi@linaro.org, james.morse@arm.com, palmer@rivosinc.com, 
- x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, driver-core@lists.linux.dev, 
- kexec@lists.infradead.org
-In-Reply-To: <20260921090450.807575-5-ruanjinjie@huawei.com>
-References: <20260921090450.807575-1-ruanjinjie@huawei.com>
- <20260921090450.807575-5-ruanjinjie@huawei.com>
-Date: Tue, 20 Oct 2026 11:09:39 +0300
-Message-Id: <179248377975.302547.8678981752345638279.b4-review@b4>
-X-Mailer: b4 0.16.1-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> During kexec image placement retry loops, any midway failure causes
-> the loader to truncate `image->nr_segments` back to its initial state
-> to purge the failed segments.
+On Tue, Oct 20, 2026 at 12:03:43AM +0530, Vidhu Sarwal via B4 Relay wrote:
 > 
-> However, this truncation introduces a memory leak. The CMA pages
-> allocated via kexec_add_buffer() during the failed attempt are tracked
-> in the `image->segment_cma` array. Because the subsequent cleanup paths
-> only iterate up to the truncated `nr_segments` boundary, these allocated
-> CMA pages outside the new boundary are permanently leaked.
+> Add a driver for the Benewake TF-Luna, a single-point time-of-flight
+> LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
 > 
-> Fix this by explicitly releasing the associated CMA buffers in
-> the failure paths before `image->nr_segments` is reduced.
+> The sensor is run in trigger mode. Each read starts one measurement and
+> waits for the timestamp register to change before reading the result.
+> In continuous mode a read can catch the sensor in the middle of updating
+> its result registers unless it is synchronised to the data ready output,
+> which this driver does not use yet.
+> 
+> When the signal strength is too low the sensor reports a dummy distance
+> of 0, so such readings, as well as overexposed ones, return -ENODATA
+> instead of a distance.
 
-I looked and how load_other_segments() implements error handling and it
-seems it really needs more than these fixes.
+On top of my previous reply.
 
-It does not really follow "all or nothing" and it's use of "goto
-out_err" is quite loosely coupled to actual error handling.
+...
 
-The same applies to LoongArch.
+> +static int tf_luna_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct tf_luna_data *data;
+> +	struct iio_dev *indio_dev;
+> +	unsigned int mode;
+> +	u8 signature[4];
+> +	u8 version[3];
+> +	int ret;
 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Breno Leitao <leitao@debian.org>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Yeoreum Yun <yeoreum.yun@arm.com>
-> Cc: Baoquan He <bhe@redhat.com>
-> Cc: stable@vger.kernel.org
-> Fixes: 07d24902977e4 ("kexec: enable CMA based contiguous allocation")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  arch/arm64/kernel/kexec_image.c        | 1 +
->  arch/arm64/kernel/machine_kexec_file.c | 5 ++++-
->  2 files changed, 5 insertions(+), 1 deletion(-)
+It also makes sense to have local variable here
+
+	struct regmap *map;
+
+
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +
+> +	ret = devm_mutex_init(dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+
+> +	data->regmap = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "Failed to initialize regmap\n");
+
+	map = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
+	if (IS_ERR(map))
+		return dev_err_probe(dev, PTR_ERR(map), "Failed to initialize regmap\n");
+	data->regmap = map;
+
+> +	ret = devm_regulator_get_enable(dev, "vcc");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
+> +
+> +	/* Boot time is not documented, about 350 ms was measured */
+> +	fsleep(500 * USEC_PER_MSEC);
+> +
+> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_SIGNATURE, signature,
+> +			       sizeof(signature));
+
+Make it split logically and taking into account the above either
+
+	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE,
+			       signature, sizeof(signature));
+
+OR
+
+	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, signature, sizeof(signature));
+
+(perhaps you can shorten the 'signature' to 'sign' to fit).
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read signature\n");
+> +
+> +	if (memcmp(signature, "LUNA", sizeof(signature)))
+
+Hmm... No. Please, make signature to be __?e32 and use a definition for this
+FourCC [1] in the hexadecimal with the comment, and compare as regular integers...
+
+> +		dev_info(dev, "Unknown signature %*ph, continuing\n",
+> +			 (int)sizeof(signature), signature);
+
+...and here use %*p4c?.
+
+#define	TF_LUNA_SIGN	0x... /* "LUNA" in ASCII */
+
+	__?e32 signature;
+	u32 fourcc;
+	...
+	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, signature, sizeof(signature));
+	...
+	fourcc = ?e32_to_cpu(signature);
+	if (fourcc != TF_LUNA_SIGN)
+		dev_info(dev, "Unknown signature %p4c?, continuing\n", &fourcc);
+
+where '?' represents either 'b' or 'l' depending on what you have and what you
+want to see printed.
+
+> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_VERSION, version,
+> +			       sizeof(version));
+
+	ret = regmap_bulk_read(map, TF_LUNA_REG_VERSION, version, sizeof(version));
+
+(or 'version' --> 'ver', for example).
+
+> +	if (ret)
+> +		return ret;
 >
-> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-> index b70f4df15a1ae..ffcb7f9075e62 100644
-> --- a/arch/arm64/kernel/kexec_image.c
-> +++ b/arch/arm64/kernel/kexec_image.c
-> @@ -107,6 +107,7 @@ static void *image_load(struct kimage *image,
->  		 * We couldn't find space for the other segments; erase the
->  		 * kernel segment and try the next available hole.
->  		 */
-> +		kexec_free_segment_cma(image, kernel_segment_number);
->  		image->nr_segments -= 1;
->  		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
->  		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+> +	dev_dbg(dev, "Firmware version %u.%u.%u\n",
+> +		version[2], version[1], version[0]);
 
-Sashiko comment about turning the loop into an infinite one seems valid
-to me:
+Yeah, I need to post my series to also make this to be a pointer extension.
+
+> +	/*
+> +	 * In continuous mode a read can catch the sensor updating its result
+> +	 * registers unless it is synchronised to the data ready output. Use
+> +	 * trigger mode and start each measurement on demand instead.
+> +	 */
+> +	ret = regmap_write(data->regmap, TF_LUNA_REG_MODE, TF_LUNA_MODE_TRIGGER);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * The sensor silently drops writes it is not ready for, so check that
+> +	 * the mode was set. A write takes up to 100 ms to read back.
+> +	 */
+> +	fsleep(100 * USEC_PER_MSEC);
+
+msleep() as it's known to be big enough.
+
+> +	ret = regmap_read(data->regmap, TF_LUNA_REG_MODE, &mode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (mode != TF_LUNA_MODE_TRIGGER)
+> +		return dev_err_probe(dev, -EIO, "Failed to set trigger mode\n");
+> +
+> +	indio_dev->name = "tf-luna";
+> +	indio_dev->info = &tf_luna_info;
+> +	indio_dev->channels = tf_luna_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(tf_luna_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+[1]: https://en.wikipedia.org/wiki/FourCC
 
 -- 
-Sincerely yours,
-Mike.
+With Best Regards,
+Andy Shevchenko
+
 
