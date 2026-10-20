@@ -1,83 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533155;
-	b=jN/0FQjjw9cpRuflNXPQ7yCE3AhJgKafBFD5mzmbrr2/F3sCATeX1fy7tigxf2gc7lgI
-	 uwcG2+jEKNApG/mal8LEzrxCrc7zAWoQOC49yBWN6nhwW06OOdooznMfI3ex3duUjKfia
-	 FtLN2MSvMxYGzESkNapvTlg4teaOsnOkPMsmmtfqCBL0q0zkXhNydigWT6u0Eso3xFq2w
-	 1DfT987SPiUf1S48v1NtBern5JqjWzWf3pL4+sFXxcwXfyRCveKteJL5pgVMzxqMvAjqy
-	 uy34JiGsbJhc5LAklr3nOUE2HGaTHz0cuIygzmAu09TkucdaRI4G0oX9qYzCg7Arnvg==
+	t=1792533153;
+	b=jzhyhloj+RwJsellVq2lXkuFI1uhxldhwT2qNYXnGRndhXkHqEP4hCyFQ+VgyQQfKXWh
+	 hViaECHAWOVHTQH8XfMUEHOaThYdfga+Vhm1j/6UNaZBGM5k675FglKkC4moWgGY1CTGT
+	 Uw8zxv9CESrbsv+k/0xFBQLmcSj6iHngRrCRNpUuSSYfVj+aCPt2vO7eJaMxOi+qAyMh7
+	 gApSc5y2qoth2OCrpnp2L803/x0yvoXjgSkV3FNEFuybycV5JAAYCmauuArTnEgvb0mOX
+	 y0wsl9GSjY+l8uCenAddhtbakk+q9Wg4OYPOS3xx15T+vBZlg9Ate1oXhjKuh8ylh3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533155;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=VJm44DGgOC5xDuMHC8w1pzd7B6Ver7ipXPOgtznarBc=;
-	b=ZwjeOocxaZDChV0jaPjGf/3ecC7zeb8Y6W6dFR50O8GVvzWzCzy2d8QZpGpCEP/ofwCj
-	 PrbXaCw4oLUmZD93au3CiftC13dEQhMwyyquhZSrssz6ufMZhFuhfNi/pWSNz9/G99l52
-	 JJWQUp1MilkCEqZiR2g6H5SkhSzMUygRLZF0+qDI7hiVMCJ4ctrKhTev5QFyQHSGSK0ZP
-	 EYrRQ+QZDCoK3Rw6V23lhQ+AZ22HEwk0d7JDi2dG2FjKVkWZuUs1yjzs84x+mKqKnW5fn
-	 HnmWalFxhzBCwX/VVyEYRysJr9ffvXFADNnZW4lw0F0rdhovqf+97FeoohLs9CXgCrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533153;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=7S/r3nCqrPBJQnBWzVEH2BQBDOeVZBR50FG9XiS4wco=;
+	b=IuXmfnYUcemRXMsSbMQoezDTe6Kb5422yB8kYkuDGPiL6knTohWpMrvoZSiZ2ymSvflt
+	 NE2ILsw7Ts3RD6QXq/YtK/fp6Bx5wntQL/mTDi/fglwo6kNFWQt42nTVoGeUxv5DRbInD
+	 UcIRvks++w9IcuJi31fQuQQNxT1WZk8+a6A5oDIICSzffrTl0rGd3Os/mi2Zlg4eTZxsa
+	 38L/BNsozLZCuhUtegPPN8x7jvdxjg+NYAXKL0e0Ma6pljPAyYh4krOpL0UDH1bbFrNwj
+	 tCJctSeTQvl1zerZ/57i4Ltt9ySrK1GVpU+Vn25dU43fywV9yo5n4/8Ut9YqVpnT+Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qNCCfzH4;
-	arc=none smtp.remote-ip=35.162.73.231
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4Pb7I6x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D022B606A321;
-	Tue, 20 Oct 2026 21:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D022B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93425606A32A;
+	Tue, 20 Oct 2026 21:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qNCCfzH4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792533154; x=1824069154;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=VJm44DGgOC5xDuMHC8w1pzd7B6Ver7ipXPOgtznarBc=;
-  b=qNCCfzH4wYnPd5MrRHA1GXQs5C1LDzOp7dHvuB6yM6WICUujiI1FqQ9i
-   gFo2RgsxwOfwTlILcN6vmmGZSAR2Jn3Q6kINbzstmisbI31P/aW+D0ZgM
-   N7N/FJc3hKODuIFbpL6QAI4GWd628wYR05BQNMjKzClXXvroszeD3QauX
-   P3cGw4AA+g5+NVhi0qYGMD+6Nb7eRaRL+zOgdKNyG3UpEc4BPLkj2WoSQ
-   eSJ+t4HT3auSNHnZ5MQUPxyd62oUUEUFfX45hX3C7Kb7DtUM7loQ3F1k2
-   84xP2D/6osYK9KM1U5/WQ9rLwTxZjoDATpTDgNiH/cEXbZ5Eg8tomEoDC
-   Q==;
-X-CSE-ConnectionGUID: cD6Y3KDCSD23rWAQHjicug==
-X-CSE-MsgGUID: pXYURbvJQdaHH+kDoOMELQ==
-X-IronPort-AV: E=Sophos;i="6.27,168,1787011200"; 
-   d="scan'208";a="31601609"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 21:52:34 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:31492]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.1:2525] with esmtp (Farcaster)
- id 27c2f569-8c9a-4699-91a9-aee12897a8dd; Tue, 20 Oct 2026 21:52:34 +0000 (UTC)
-X-Farcaster-Flow-ID: 27c2f569-8c9a-4699-91a9-aee12897a8dd
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 20 Oct 2026 21:52:34 +0000
-Received: from dev-dsk-youyouyu-2c-7ec217cf.us-west-2.amazon.com
- (10.189.234.25) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Tue, 20 Oct 2026
- 21:52:33 +0000
-From: YouYou Yu <youyouyu@amazon.com>
-To: <jack@suse.cz>
-CC: <brauner@kernel.org>, <dgj@amazon.com>, <gunnarku@amazon.com>,
-	<lichliu@redhat.com>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <viro@zeniv.linux.org.uk>,
-	<youyouyu@amazon.com>
-Subject: Re: [PATCH] quota: initialize dquot cache before mounting rootfs
-Date: Tue, 20 Oct 2026 21:52:29 +0000
-Message-ID: <20261020215229.31406-1-youyouyu@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <4x3ngu2v723xnbommkln6yjwj27qdiy53dphxp74thsbihfqcr@rehvrhj7egvk>
-References: <4x3ngu2v723xnbommkln6yjwj27qdiy53dphxp74thsbihfqcr@rehvrhj7egvk>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4Pb7I6x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74191F000CB;
+	Tue, 20 Oct 2026 21:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792533153;
+	bh=7S/r3nCqrPBJQnBWzVEH2BQBDOeVZBR50FG9XiS4wco=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=g4Pb7I6x6cSqFoBc+autmrzcCOkpBoM2XuThUyOaf/ETt+LhDGkoIf6VH3ZhQiAmH
+	 rhVUyqgMYa6bZb9R2TEpFY+E8fV13hEo7U3hPVCc/u5ZMNhiyHr4msQnE9m3vlAL0p
+	 2fLjf9NfjKVT6hUMvO98g9adR9cB8nP+q9AaZvlW8ZrEWJPjz/i4w0b1FV+oacp+Ug
+	 xhdFPpDQNKBSZaV/HZvB42Bw3R9+MGWKsFOPbskICN1eU/BLem+QIhAwSTKGtm9Hu1
+	 NdsT5jVaNgDtMmpuhiBZHsSKtzVt+L2IRX/6DlGTdcpnmezjeLU6ihMiR0/O+9aQxP
+	 ZGn8JU0KZDDbA==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Tue, 20 Oct 2026 14:52:19 -0700
+Subject: [PATCH 2/2] scripts/Kconfig.toolchain: Highlight cc-option
+ differences between Kconfig and Kbuild
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,31 +53,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-kconfig-fix-mfentry-check-v1-2-428258bc0fc0@kernel.org>
+References: <20261020-kconfig-fix-mfentry-check-v1-0-428258bc0fc0@kernel.org>
+In-Reply-To: <20261020-kconfig-fix-mfentry-check-v1-0-428258bc0fc0@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: Julian Braha <julianbraha@gmail.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3330; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=+PNZrEjPykP63QNBf5/g9JAUdPUKbbxqTVMbFSaOkYQ=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFnXH82YqPn9fXsS34K7HD8PbMtPsI670raAfX/KkrYXd
+ dIlr8s2dpSyMIhxMciKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJPFzAyPD7eoFcS8Z9rw89
+ u/u23P6aO//xr8T1xy/nqpzI2t+t1SXNyHCanXmL2sLbgaffiU26kqNYZzHvT9rsFWcvRnjqigg
+ +eskBAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Hi Jan,
+Performing cc-option checks in Kconfig instead of Kbuild can help speed
+up incremental builds where the configuration does not change, as the
+results of the probes can be easily cached. However, there are two
+potential issues that folks need to consider when using cc-option in
+Kconfig compared to Kbuild.
 
-Thanks for reviewing.
+The first is that in Kbuild, cc-option additions are cumulative, so
 
-On Mon, 19 Oct 2026 12:44:49 +0200, Jan Kara wrote:
-> I definitely don't think anybody sane wants quotas on initramfs. Is this
-> just a fuzzing result or are you really interested in that functionality?
+  KBUILD_CFLAGS += $(call cc-option,-mfoo)
+  KBUILD_CFLAGS += $(call cc-option,-mbar)
 
-The truth is it's not a fuzzing result, we are really interested in it.
-We run systems that extensively use rootfs and we want to limit per user
-usage on it the same way tmpfs quotas allow on any other tmpfs mount.
+results in '-mbar' being tested with '-mfoo' if it was supported. In
+Kconfig, '-mbar' would be tested without '-mfoo', which could change the
+result if '-mbar' depends on '-mfoo' being present, so it would need to
+test support with
 
-> Instead of pulling quota into early boot I'd just refuse tmpfs mount in
-> this case (same result as original behavior but clearer error message :)).
+  $(cc-option,-mbar -mfoo)
 
-Refusing the mount would avoid the crash, but rootfs would then be
-the only tmpfs instance where quotas can't be used, even though
-initramfs_options= exists to pass mount options to it. That said, if
-initializing this earlier is a concern, I'm happy to rework the patch
-if you have a preferred approach.
+The second is that the Kconfig stage is where questions like "is the
+target architecture 32-bit or 64-bit" or "is the target architecture big
+or little endian" are answered, which very much matters for testing
+compiler options. Toolchains may be configured for either option, so the
+kernel needs to pass compiler flags like '-m32', '-m64',
+'-mlittle-endian', and '-mbig-endian' to properly match a user's
+configuration choices. Without these flags, '-mfoo' is tested against a
+toolchain's configured default, resulting in an inconsistent answer to
+whether the flag is actually supported for the requested configuration.
+This could manifest as a build breakage from an unexpectedly included
+but unsupported flag or missing functionality from an unexpected omitted
+flag.
 
-Thanks,
-YouYou
+Add a big comment summarizing these two issues to help future travelers.
+
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ scripts/Kconfig.toolchain | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index 01b49fa5d6be..a99d875489ee 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -144,6 +144,25 @@ config CC_HAS_ASSUME
+ config CC_HAS_NO_PROFILE_FN_ATTR
+ 	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
+ 
++# Beware of two problems when using cc-option in Kconfig compared to Kbuild
++#
++# 1. cc-option in Kbuild tests the provided flags with all previously added
++#    CFLAGS, whereas cc-option in Kconfig only tests the provided flags with a
++#    small, constant set of additional flags.  If a flag (e.g., '-mfoo')
++#    depends on another (e.g, '-fbar') to function properly, the dependency
++#    must be included in the cc-option call (e.g, '-fbar -mfoo').
++#
++# 2. Bit and endianness flags ('-m32', '-m64', '-mbig-endian', and
++#    '-mlittle-endian') are not present in Kconfig cc-option checks because
++#    they may be included in KBUILD_CFLAGS / KBUILD_CPPFLAGS based on the
++#    finalized configuration result. This can result in inconsistent results
++#    when probing toolchains that support either option, as the toolchain's
++#    configured default tested in Kconfig may not support the tested flag but
++#    the post-configuration result in Kbuild would.
++#
++#    In general, prefer adding truly generic compiler flags to avoid this
++#    pitfall.
++
+ config CC_OPT_ZERO_INIT_PADDING_BITS
+ 	def_string "$(cc-option-str,-fzero-init-padding-bits=all)"
+ 
+
+-- 
+2.56.0
+
