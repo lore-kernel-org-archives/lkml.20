@@ -1,71 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792507296;
-	b=ng4/d7Z8rdDC0n6hK7DUtM7l1dAZyc8M3Dc2l5LUGJUclud9P1ibm+YXB6sdXErt7Qzo
-	 PrYYHfnS5TAx6whMx9/tzmwtD5EA/E2hBxz66J23oUveoEOq5Vp5aFs1JWveJ1pJNJADI
-	 zJpu33yjWiBStZpHrItiIEP6xPa8wv5sJ3Dh3u2aeXpkvYh4Dn+qqVvSvuyPpDkg2WXre
-	 eqOdyz4kFhEwOmkobpaiEAg3A0PhCwrOWxnzpI6g6jnYcJy7dmYcycRlewWS5cRxTc//i
-	 g3DgJIF4k+ODbw1aT8SWMyq2KuWTvg3cwxJyKuJnhb8B9/6qTYIYjjoGKjvnQVa8rWA==
+	t=1792507433;
+	b=LVhPhmJUh0bqdQR9sktaGiD5IXHkAy3F2wobSMcFPLkFJE1XwZ1+fkmu3ro2WuCQzw7z
+	 q9GFriS90xQWOvYLyx//D1Eq9tHRnTMzG+tbnQqEiO2jExpAR2YhMtF+UNNc+0cH8QZ11
+	 QTkfkFEdloY/ZIoIX4LoZsP4ASbLlu00be/Gun4DksnXNw7UbSA31hI+Nm0MpkToVEgvd
+	 h8dnjJydu6f3QbG+3lyV/UI0ui7LQYgc2Uycp7XfVO0PlyOI5Hz9z6UyFZLFXliBrxIuq
+	 6jbbnLvCwnAP7ja/qTC/0xvqVk36FxYr+jef7VJLXHgFaxgIEsgUoY7uCZLu5+k1b9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507296;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=u2R+vKwDQK40EH2xxgxsG9RudDTuTEMR/+RO0OXMR9I=;
-	b=muC9wDKfxUeUNNC/8In2LVw/NsMHr3+OJx3VPJLbGDDZBDtclHxC8fs7U6Vk3vKXcKys
-	 4NKLBUT1k45QsubL8Xo26EFGOnZgBQM95UhKDYxpTK+OHMyAbfj3sIpOA2w/V88lcq+Fm
-	 cOdBXYXX34wzh1VsS9gdc2ptwSCiW3ddoItB9yN9HGq/dd1SL43h45YYmPmLot134Pur4
-	 AxYg9XG6le5r8R10WTTyDbtbqrYFiUJ6oEik7IPa/09AY3//mc48Jf8qpTWvwzoBM0AX2
-	 n6IAk3U7yPuVVhHK0Gkgr6YkEPgyLcryrkefCq4AuEhVBHsOgwvRDOcdQXdMAM9IyRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507433;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=tszaJSkqKNg/gD6sLTsFGX7FDn5XDitEJB0LfKIiqEg=;
+	b=RU+PPrqfi76BQHdTXX1Z0nlxW3wPz9VGrrfMnC1EARaJ6vUCfn3eKybiDCF6zDPI2/dH
+	 nThGZxP0i44ZoquzHKXyFpQ9OPSe3G+lC7W5RfCtl+Ki7V29QIh3m6sxmuz6aqDBhjkwh
+	 Am0nr8G6SkcYIYg1SMX325/A+nCMv7PyfLZislz+uRbry0qw68aImHXRKyPzroIbaC3dv
+	 RbvxmPQxYgg6IzgkrvmzrcxjVIc49s1VauUnU8IfXPzmlqpZpEB0ZAckjFGERlvPLcWDi
+	 BZXSHxUzY9cPLyGA5Xcm15vWYTCSWVjWfW51VrbnKKNO8/Q2vIsD03M7324cS03ob+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sqs9pVvX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15416606A33D;
-	Tue, 20 Oct 2026 14:41:36 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Flm2RA8p;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CB48606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:43:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CB48606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sqs9pVvX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828C41F000C5;
-	Tue, 20 Oct 2026 14:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792507295;
-	bh=u2R+vKwDQK40EH2xxgxsG9RudDTuTEMR/+RO0OXMR9I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sqs9pVvX5FbF15Ru/G3v0PTg4JqJJHMjtR1s4STZZFueQpv0DBUi1sDxYIbfHxDmV
-	 LKcKiRNjz/hScOnrBAe64ONzM3BW178D/ePqk/E/d5i/FJy2npUdM1UJmWrTd8b7Cv
-	 UKdS89l9nBR+ctGgof78zUkIflKkP0nP8HqCTyrGEl8/zkD7flKlhp29ibqjd7S9W5
-	 UxmpaMZisduZfOpMbJVEOTLyaf7z5pfW1LHwLGPV7SqlulaBMdklo81vK4ZMVZRzRf
-	 oqbK4gC4jnFTN9YwjLlI8c6anpJoo/YA+uxdjrN1cWnYJo8nPQOkyFk8bt2OsB30KT
-	 cnbh/EM21B8Tg==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.12 000/858] 6.12.114-rc2 review
-Date: Tue, 20 Oct 2026 16:40:17 +0200
-Message-ID: <20261020144017.171634-1-ojeda@kernel.org>
-In-Reply-To: <20261020075246.861837975@linuxfoundation.org>
-References: <20261020075246.861837975@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Flm2RA8p
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6DA5C2103;
+	Tue, 20 Oct 2026 07:43:48 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CA1943F7D8;
+	Tue, 20 Oct 2026 07:43:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792507431; bh=ai4CxfHeJGRIqDqehiHXoYeWahRJlQGznfMvaCHUgDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Flm2RA8pFqaKopRDXQeefae7/VimisOEoCJEbluSS7T0/WgQQcubrPzP/h3Yw9KEL
+	 5q1JvjnnsBBEg6nJtiSbWugJId8gxKKYKAvHk7SYJ0oTT077wcke/d3oArCP654MkW
+	 Y6jPeUkZtobPsJudSRBSP9WRwTZy7YhpEw/5LZFY=
+Date: Tue, 20 Oct 2026 15:43:47 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <atd-I059nHAwcZFE@e129823.arm.com>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+ <20261019233532.GL14213@ziepe.ca>
+ <atcUoSdggT9eU8YE@e129823.arm.com>
+ <20261020124536.GM14213@ziepe.ca>
+ <atdvnMJuHUJlqX8t@e129823.arm.com>
+ <20261020135006.GO14213@ziepe.ca>
+ <atd2_9Q2wTv_3MXz@e129823.arm.com>
+ <20261020143620.GP14213@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,24 +74,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020143620.GP14213@ziepe.ca>
 
-On Tue, 20 Oct 2026 09:57:31 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.12.114 release.
-> There are 858 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Tue, Oct 20, 2026 at 11:36:20AM -0300, Jason Gunthorpe wrote:
+> On Tue, Oct 20, 2026 at 03:13:19PM +0100, Yeoreum Yun wrote:
+> > > I wouldn't over complicated it. We already have smccc bus to do this,
+> > > we don't need layered stacks of busses here. Just change smccc bus to
+> > > be able to break up the multi-function SMC into several devices.
+> > 
+> > I think my explaination was poor. Apologise...
+> > I'm not saying another bus making but just wrapper of smccc-bus APIs
+> > for firme specific and definietly, this would separate the
+> > multi-function SMC to defien each firme device (attestation and IDE).
 > 
-> Responses should be made by Thu, 22 Oct 2026 07:51:15 +0000.
-> Anything received after that time might be too late.
+> I don't see that kind of complexity is necessary.. I think it is
+> better to just have the root smcc bus spawn them 
+> 
+> > But, the *base* is common. and I couldn't find any proper location to
+> > deploy *common* code unless making arm_firme.
+> 
+> What common code excatly?
+> 
+> There shouldn't be? Getting an attestation is entirely orthogonal to
+> set link ide, for example?
+> 
+> If you can identify what you think would ever be common that might
+> help clarifgy what to do..
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64:
+I mean the BASE service of firme and typical example is shared buffer
+allocation. I agree IDE and attestaion service are orthogonal. but
+in case of base-service is not. it could be used for both service.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Therefore, the firme_device wouldn't export all functions. In case of
+attestaion, it's enough to export base-service and attestation-service
+only. for the IDE, base-service and ide-service via union.
 
-Thanks!
+Also We don't need to export base-service firme device as part of smccc
+device. It's enough to export two devices -- attestation and IDE via
+base_ops. But, to share the base-service opeerations to both devices,
+I think it would be better to have current arm_fimre layer.
 
-Cheers,
-Miguel
+-- 
+Sincerely,
+Yeoreum Yun
