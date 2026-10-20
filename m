@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792495021;
-	b=1VEPkCbhDbedICezPvG+XuchUj0xglxTS0uXS0AzsCAVF/dLuySjQf8cYNHZ21m1ZkNp
-	 huIwwdxDNlQdRf8zdL0YA6ADb2TEaeL5+HRT1fB/8RYvA5Ct7czIfylLCesKjB1albY6O
-	 OVfLWUh0RSO7J6gSHg8pV7aHu1v201fXhYsxYYFjrcdbXLW6dr1xUlkZEI7tXN472KZ3Y
-	 bxy3r6MJWTJlot/G/8wDdtebd0nEV0qUbaZBtFppV7PxvUdYVyOt7cefR6xHCkKnwAleN
-	 iNvl1Zl3d9gAe2a5uq9loDXUTxf8VHO93iREaFG48PBaFjGAtGSOQieRuIxwNULNntg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792495021;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=bVNQzZPkVhaJesZfY8LQ/WfX4unos7POmP6IgKPN9ZE=;
-	b=t6zZt1/CdN3EQegJsZcwwEMWi6WNn9dYSkGbDy6W4KtD9OfiRbVIlN6IfjTqWin2yeJ0
-	 rq9QAszH2MvxSLXGAj7YY4SqvgVuVbcgXHaC4uSlSvCDhh0H4XQ4QhaF/zQkZs8Dr9APZ
-	 erNeaR4rKo2VsbknVM+6KPJ/Nux0X53pBlLHqiTbcZsFT0o0fM9XKkGwuRzaC9VqTVqEo
-	 z7bRwOY7tyxr6DEhl5mSV1ZMtTReBH59ksfK3bhFktyCqsemAHWG1KcizaKCZaKidELvz
-	 +G8mrwmuq9WB2/ETyl8jC+25AyFS5M4yEz9Y8rjGe5AV0DBnySA+LUl2JMs3CkSLANQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iKiQI0YZ;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792495026;
+	b=1Sc1lIbyuDTtAoKah5OdVv4LzuiYdHZMC5jwaW8fRrYttvER3a/EKGRPP/z3JCmapMfa
+	 XZgh8wyE6oW/vYkjacA/wlfC6kDGbu4qSkhGSx8oH7B67QM+mrk2xWCEzWmznI1UCvuIb
+	 jyulOpavPJAPgWhj8XQioaa6m24P+PN/s+oCMMOogNi4sTIygu0N+gLtXfN7H0d1n8zYP
+	 LzJz0W43HOF4zc9GwssLusJLSo0p4uN7Ee4hZ1WtFY+ehaEUncH3UeNdp21gpMPHF1Q2B
+	 h2BCdrAXu75TW3llk7x5hiIA1Wu90SNnD59liKMp/qvapUWBt6ZxmREGtlygxpqj/ng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792495026;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OwAiG+IuDFOhS4WdMboHbI/OdvEEQ40mmizdjnVgry8=;
+	b=yNlMvd9bH175f39dLsTLw70Pm93+ZZ7dTLX5Zk6RtEOQCOsM6RMn2Tg/hmOoJMuMrMp0
+	 56dYXgCHmUEMTlVpvGyQEVBVOsBBX+FxHI6GiALwa0UE8gIda8XYBMGgB+mjMBb2wIjdD
+	 22HpVU7ou3jyGgHGkwftA+67N9I1ixaYF1068f2evoSPVVyp+XepqszgViuLjCbNMHZfk
+	 HeqZ4qmx/scWzLYc4GOenVLZlQW7ZQbC6JsFyPfQfToXZv2ljt4b1DI4WO5wlSNXVAvSU
+	 XvHSG5hpi2iN8xtpCdVEqC++p5bs/fN5FNljUIGAAidT57T+StrrvqL63Tw36A5cWnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=arMjr9wf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.49
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011049.outbound.protection.outlook.com [52.101.62.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B2B606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66B2B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B0D606A31E;
+	Tue, 20 Oct 2026 11:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00B0D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iKiQI0YZ
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1d2ec9aadso41155e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:17:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792495020; x=1793099820; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bVNQzZPkVhaJesZfY8LQ/WfX4unos7POmP6IgKPN9ZE=;
-        b=iKiQI0YZCWITQAbPXullO3qjXuhOR285XcVYT1QqdOKcjgtOzM4f4AcZ2nExQg2KC7
-         5ATbzBgIf+GKUBp5ZmoUucVxHxS5PpCZ5EHTzkoUgCmuwDYqPgjS4orvn6OSovaYQqD2
-         9vaeM6qBHCZcsBYlFS10WJ6AUmgD4UD7ier3Q3rza48K9Fz0sO6nl5jhk3sWSsMjHdED
-         VhTxIPwqhet0Hx2yY4LC5tpEMlQzuYag9u+YwCcMW7auYGP0s9dhilow5FDYP2SDQuie
-         WLivaTceW5p+aQhihbvt61DAg+RnPFNI14uoiPCfi2vcxN6+QoaqhgbzXCS03gs/k1cK
-         iKWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792495020; x=1793099820;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bVNQzZPkVhaJesZfY8LQ/WfX4unos7POmP6IgKPN9ZE=;
-        b=an03MQO6mXB+K2L9dmoVrV05mS2hp0+Hi8xknA/b3GvcCadHaJAOMcvN2jMiM7wlj5
-         LJw9nUovxa0kcguCucQQgHBd3b4k3Z40tP234Dw0cI808jyX3fD1kc4fLLqIu/YuJo2B
-         iN4s6aGmx1959iailU8CuOEj1BZaMZmJPrQCA8G1gqiZsiv3uKhakitL2U0PxQ9LGQP4
-         uJFns1NjvVNNCMmYei513aJ1XfjHTTTWbBhWhAVXQVg28pfXx8gmPjOdkrWndpxtyXFg
-         Iw8qcY3GybFDhjnKQ2pWZazhJW8nCvIEVDGGlgWvXGSfknodAKHSZimrEDLEiRLYq5Tf
-         oPkw==
-X-Forwarded-Encrypted: i=1; AKwUvBye67UwZpeu1Se1eC7BaqaxP19oVg+nyGkVE6qqpvR8TUU/pTGwcxn7NZYtDs6HcqiOh0Lgp+3bR721pFg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMopezOnvZOPamPbNRpmDrjGGx+/hKhIhdV0HJ/sfbGj6XRk/r
-	S4x1q0Xetpmi/cfNNalgSNk1uSNSfS9rQ38j5/UmALhFPaxf5V44gFoE9kHBr5KdmA==
-X-Gm-Gg: AYBFou3StaDSy0mDJnaasc88cX0ZtcoHoSF7jQytHmNj8GXYe7Ks0Jl6V4ZCF7CWzRJ
-	mX30Fixvc878IG2kONOt4wgzwT+xP51kbG/gL9rrtBieXjJyE6OY02fIYONi/yiOh8Ac4ZBxOcJ
-	mNkMHFvV3kZjGgUlO/20yQdjVzdOkrRK9ia33b3GAE+DbhP48xR3fhRRJAmDgm5QelXcPyiF2S7
-	yC3pZu1QyX+kVkIG3E0CYnPEi3kEgmwZeAMj5futhdavgMHoOkW50IGsDDA38ja1vO9zGsh6pvm
-	7l+MwTN9KXIrWl6SbHAcbuBryIam3s7JCLUYp28FEEk5q3Ut/Qe5PTmUjenCQGun+VDkPVCb9eu
-	5lXRXGtG89HGjSPIscxgMaw8dIAJgJIyhx7UqsdCJl8ZR36Y3yptK3MjXg1X1VKDdxAJU1SciB1
-	KA/xmGaP+XUtQmjBQtFw4dSlcLGVf27U+HpMSoThK/3LbGmNF8DWSYq3SQk5IFBbuVzjVj4+Iyx
-	X4DPUD7KMddd9oEp6nx8jbaKg==
-X-Received: by 2002:a05:600c:a3a5:b0:4a1:a48c:17eb with SMTP id 5b1f17b1804b1-4a1f59a5836mr572995e9.11.1792495019224;
-        Tue, 20 Oct 2026 04:16:59 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82fe82sm5139903f8f.51.2026.10.20.04.16.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 04:16:58 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:16:54 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com,
-	praan@google.com, kevin.tian@intel.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
-	Cristian Prundeanu <cpru@amazon.com>,
-	Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 04/11] iommu/arm-smmu-v3: Add ARM_SMMU_FEAT_EVTQ for
- the event queue
-Message-ID: <atdNpl732M7D4dXz@google.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <250a57bbdd232bbb1e3511b7768a1c9ae3d204e6.1791226953.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=arMjr9wf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IPQQroJ+BQG/6VZ3asy2h3NuO8N+8KqF7shXnyOZrWoDdRe4/x/owFmGKNWPC+nbhAGFuLa0gT3jagH0jlxurZcK7xCJDJ+kFL4WkV0DPhCfRuHS07GzLYmoAxd9hNHlOgKzLf22qjtWcG+soKLwgZLM2eG57L5EIck8oasqDjFxfcgwW7kGfLiWeTmlZXu/evNGSgMyOAt8LerM02S5glYkXovRh4L1vEWX8YEN+9sluL6DEpQ7sb/q5NpVM2jsc5K8+KzPUFMlR8OJGnB9WF/jr7lGksOb7sU6Y2SDT62g/wi8LfFKgEMWhoueZbL7UavxHxfglynyh4W0PfZRqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OwAiG+IuDFOhS4WdMboHbI/OdvEEQ40mmizdjnVgry8=;
+ b=EtccXJyMlHM5199j7hbbn5RgVKD7qVDR7JcaItjAR61OTkf1Ahs1e75qtVvN//sYE5iWi1CzIqVL9Bt2l3wrCWtfIXGYdqPQnmNiprx1ZNlNSJKu2Nh2LkpLCRhzdBiLp8MuFXYHCou54/FxyBbl3Rx9qASVRrjSFQXAnY4tkiTBrVHSm4tEpdZ91ZIvimBBcqHjYekycKWyCvBqGNV0AdjIO/vDulHva0Ko11NkGtGmrxdzJpobihNCRy4m7ezxVx4mq8WOUKLcn+oL7AxfVQ0xqiizfRYQ9q5MYuiiKm1T7HKcA6ZQG8zZHHJ2Aku+/TJ6Tbi5+V0U+ZQ97STwag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OwAiG+IuDFOhS4WdMboHbI/OdvEEQ40mmizdjnVgry8=;
+ b=arMjr9wf+9/yjkzzNyKwRK8w7GgftXJQWxYtGfKfCEkX6bUp6HBPWhym0K+RWHEVegCaLGGU8v4SrzhyG1zxemWsDqWJuiKP6E9xpndGej2saAe4ApQTSPvYoHk55JNIEq5z2qy7EnzIg6wIepUBUt7Ouvz1v0+w4viL5MHh/4jiGjgKNe4heB4Osc+W9yQVyKNSfgkKbnFw9qZBIQ0qzyT4pG5SbStXbOHyNMFVyjyxC1vnPluyoTBtfbLE6uqlpYxEcpTYU8Z/d2aR5P0bzd30sMYrx7zi/oH7czDgWV9xzQQo3fizuTCuS+5CfWeQeM2dTc7KEdACRF2J8ReHbg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS4PR12MB634945.namprd12.prod.outlook.com (2603:10b6:8:514::7)
+ by SJ2PR12MB9088.namprd12.prod.outlook.com (2603:10b6:a03:565::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Tue, 20 Oct
+ 2026 11:16:53 +0000
+Received: from DS4PR12MB634945.namprd12.prod.outlook.com
+ ([fe80::24ec:530f:4816:dc]) by DS4PR12MB634945.namprd12.prod.outlook.com
+ ([fe80::24ec:530f:4816:dc%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 11:16:53 +0000
+Date: Tue, 20 Oct 2026 22:16:26 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [RFC PATCH 0/6] iommufd: harden DMA-BUF PAL setup and release
+Message-ID: <atdKZpEJVZY0enR2@nvdebian.thelocal>
+References: <cover.1792477872.git.kmehltretter@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1792477872.git.kmehltretter@gmail.com>
+X-ClientProxiedBy: SY5P282CA0105.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:204::6) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,218 +100,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <250a57bbdd232bbb1e3511b7768a1c9ae3d204e6.1791226953.git.nicolinc@nvidia.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB634945:EE_|SJ2PR12MB9088:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc70fd08-054d-4ea2-bb8d-08df2e9b9e2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|56012099006|5023799004|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	rNK2r0RfxZomZjMtrbKrFKEg4dg6P2Fh/gaZ1F+9pLygdzHgOcKpN6jl8UKlMdyTiht2HcgaIsGNDubVP5+uvKwb+lZ+pcIWrMULlNJ7+yFr8TRpGCy8s8ghw7BZjPmGCJF5Ooyl+N837pIbm85lLOwbst9xOYLKFy1edHWgYoB3mHydl7t71karkgLVFyTN80+j/c7nL7L0J/9CKjM3MtgqA8SqD8K5BlqYMiF5+Efyiu9CQufZC1o2Jgt81DxlyqA5oz9E75HNZbSRjnzFZx6n4YqoHXDNgTxpbPAlUWm10jXmV78S6v5e5UqPkMAzRTJaDeWvOYrMcpyRytPTHJGa1aUiHSouYvwuxY9SMggA758tiWtn52dZm/p0p7rOWLCVugMG8QdMr5t/E1lqCKNi/XIwt4cbG4VYpQSRbdZLWNXWb5kn3CoqKGrewu9E/zdz3EeUSb4jx0R8YfKFlKQ+MCAxk+9mjrAVUSygP95nFrg17lhWBDSNA0DrBO7aLt+f8ya3d2bNXo9EhHo17qR6mOZTkDCnbhAUIkn0BIqURT7LZvAQuZTyXWajG1eTiUjg7BwVZAXqsgU43DuwvpdM+OXeEDMgXpPZX1clunAfO64A4AvvHOIK/Fuf5n0bBGf0oZD7eijd1a9GPBPMgN8MnYKA8PcymL65oI+zY8s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB634945.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cCSbc8oFHTP3XVV3870tYP8v3rm4yJl77Ag2j78lqq04pmPjp4RKMxbce0F4?=
+ =?us-ascii?Q?eOrap6E5hk3qyLOq1h7B8aA05NncvE6hOkjTAZm4Tmxwh6rZ/HG6mabl6DTk?=
+ =?us-ascii?Q?Hj1aR76xPU2wr6XZ4x9ScjFcdM6IQjSICCTnxGw2soRTsWnhbcmJ24JjFxHZ?=
+ =?us-ascii?Q?Ge83jNySJ8wTJauJxtjB0/zTQQlN/Bz194FTdXZ+iztKROXPaVD6GxRrMJIT?=
+ =?us-ascii?Q?RJjA4ENbP4hSfzv7PVfYVlTjmnrda9p/pxOKj5IXesHgVa+ykxrR3BXRusdn?=
+ =?us-ascii?Q?FZ/hnQz9FCMGP8gQrMCy/NQTpjH1CUvJ4LQ4xwhFkoR5bzv5jk/wPtE2+qr5?=
+ =?us-ascii?Q?jmwZZTCA1bUBUaDODwM3KJ+Tfonax0945I/YDcqA4MJFExFdrEA9wQLze8IZ?=
+ =?us-ascii?Q?6GhM6a8SZs3p4Q0YhsYaNTePHSu+JMvn3m46b81Q3jAi3M8BMNPhlgIcGOv0?=
+ =?us-ascii?Q?Y3nzEuPoQAyTVqgugMhswVoEIAykIXwOvBL9U+j2Abc6SwDU9a11i+B3V8H8?=
+ =?us-ascii?Q?IoebGYkFl24cmTE2KUQXNAYSotmjU3iM33nE5do6xEx0vJkmcFc4n9Ywaau7?=
+ =?us-ascii?Q?Kwm5zcbD+16CWnyZPYXPcVxiZAVJYamG2xjZX3TymqMF7OJmFNFnUYjq9Thh?=
+ =?us-ascii?Q?HdA6aU2qEUrRts/bkbBdeWT22Hs0j0CNFoVykbTb/ZVS2tun8xIKWdYwJJMs?=
+ =?us-ascii?Q?XNJuYqwBbhxzN7Rzn28s/ImEXZK2dBvU+XBAclJCcpYZtdJsmZhHjpOUXEoj?=
+ =?us-ascii?Q?odTmKGUqo616NEHHsR6gC2MMuxF4R+S5Fqb/+9eUuBjF59HsY5luTfKsG4cL?=
+ =?us-ascii?Q?89Mp9P/NQvBUM6Lr3gPFCnX2KWkgxmZ12px9n/R14hbZ3JwrHOGHMmx/JKzc?=
+ =?us-ascii?Q?ID0tsL6pzkVFdwUUjO6Bi91h/K/0Bne+rAmh7AkcitfMOlcmqtJ9dIyHnLLA?=
+ =?us-ascii?Q?5HViRKnyanWggbYKHJ8VSHyEzc19GOeBwzg0vUqrAn+lYfxDyUs7YD+RQTf0?=
+ =?us-ascii?Q?R6TbnQNKK4+PfteuZySWT0UPhNDd+GncbCkiv0FQdIAr8BqFM9Az4SsWn+d/?=
+ =?us-ascii?Q?7ddRUT9v4th1+Owtv2qBEafJyhrhcrK8CqiUGJIchtsyj22K+pchTj7J76ci?=
+ =?us-ascii?Q?Rjr1azp663wSk1sxiC9kGw7dGsFi5XxocVjkrr1MWjpDEUHTWM2xiD43SfFI?=
+ =?us-ascii?Q?LTOINKfSPX5A6Ulg1FCoxyKJ+kZSwVh0FfpSqSiWqOy5FjTehBSvgR5wGBcL?=
+ =?us-ascii?Q?kD1OrbyOdbzvgNYUN31BEI6lqowvirVz9WPuUjzmGylVdNtVtaGyEHAFtJr5?=
+ =?us-ascii?Q?P9g30TZYxe1BiMEfXgSsRpSV7EOjFwxtJhdyMkJuJrV1jNHi9Whr4qrWjP2E?=
+ =?us-ascii?Q?fDS0PNiPDcBNJgJj/y7Vc3G4wx2RYa/t5a+B6dmMZXaXiotYAHSyI7HmlzOC?=
+ =?us-ascii?Q?vuE1oEbldFY5m6k0qs1dCGWgFv22dYrgmqEMIAgIlVKBJY7oUkYpAo8V7pRl?=
+ =?us-ascii?Q?1Mc0k+zoeCNDIyUja6vZqca9Lc8x692yj7WFyhEXG/oOboDEAv5a6YAnrbGD?=
+ =?us-ascii?Q?rEEx0d0IwY0x/CqOXiKU98ZFptRbMJ/r/zTJ+x9AyYGzGLhVOat727OaSikq?=
+ =?us-ascii?Q?gqNgHOb/wDlIvQaeL52f2v9pG6k+eJEMHY1ibGxhExolmKCSsHXhlySwQR4P?=
+ =?us-ascii?Q?JzrluOhJHA3QhvdmlXTp1ii65tyxBcSHEfiNfTDU1rhu3MLzmLk/C2s4mIYi?=
+ =?us-ascii?Q?DF+mzkxB9w=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc70fd08-054d-4ea2-bb8d-08df2e9b9e2a
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:16:53.6365
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pk8NIe37UhdEhiT85jBJ2R9KxuFeLJWdHfc/fok7omkJ5pmHqdH1jKbwdSjF/ZPWQEKoWnytoGqGJmyYhaeYlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9088
 
-On Mon, Oct 05, 2026 at 12:30:47PM -0700, Nicolin Chen wrote:
-> The driver programs and enables the event queue unconditionally, while the
-> PRI queue has an ARM_SMMU_FEAT_PRI gating each of its touch points. Yet a
-> kdump kernel wants to leave both of the queues alone, which would take an
-> is_kdump_kernel() test at every one of those places.
+On 2026-10-20 at 17:37 +1100, Karl Mehltretter <kmehltretter@gmail.com> wrote...
+> This is a narrow companion to Jason's unmerged DMA-BUF mapping-type RFC. It
+> fixes setup and release problems in the IOMMUFD PAL consumer and adds fault-
+> injection selftests. It is not standalone and requires this exact base:
 > 
-> Add an ARM_SMMU_FEAT_EVTQ that the probe always sets, as the event queue is
-> architecturally mandatory, and gate the queue's allocation, its interrupt,
-> its MSI vector, and its CR0 and IRQ_CTRL enables on it. A subsequent change
-> will turn the queue off in a single place.
+>   c37cf2824740d ("cover-letter: Add DMA-buf mapping types and convert
+>                   vfio/iommufd to use them")
 > 
-> No functional change intended.
+> I used LLM assistance while inspecting, testing and drafting this series.
 > 
-> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-> Suggested-by: Robin Murphy <robin.murphy@arm.com>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Assisted-by: LLM
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
-
-There is a nit below though.
-
-Thanks,
-Mostafa
-
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  1 +
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 89 ++++++++++++++-------
->  2 files changed, 61 insertions(+), 29 deletions(-)
+> I also tested DMA-BUF paths on a Raspberry Pi 400 and Pi 500+, using their
+> stock Raspberry Pi kernels (6.18.39+rpt-rpi-v8 and 6.18.34+rpt-rpi-2712).
+> Both passed offscreen CPU/V3D byte checks. The Pi 400 also passed five raw-MJPG
+> payload-prefix comparisons through V3D; this was not direct or zero-copy camera
+> DMA. Neither board ran this RFC or IOMMUFD PAL. The Pi 500+ connector state and
+> mode remained unchanged; the tested buffers were not scanned out.
 > 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> index 8f2c0b1cc4a8d..559bfa8cbc5e0 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> @@ -972,6 +972,7 @@ struct arm_smmu_device {
->  #define ARM_SMMU_FEAT_BBML2		(1 << 24)
->  #define ARM_SMMU_FEAT_HAFT		(1 << 25)
->  #define ARM_SMMU_FEAT_DS		(1 << 26)
-> +#define ARM_SMMU_FEAT_EVTQ		(1 << 27)
->  	u32				features;
->  
->  #define ARM_SMMU_OPT_SKIP_PREFETCH	(1 << 0)
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 6ff61565f7583..756825e004774 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -2381,7 +2381,8 @@ static irqreturn_t arm_smmu_combined_irq_thread(int irq, void *dev)
->  {
->  	struct arm_smmu_device *smmu = dev;
->  
-> -	arm_smmu_evtq_thread(irq, dev);
-> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ)
-> +		arm_smmu_evtq_thread(irq, dev);
->  	if (smmu->features & ARM_SMMU_FEAT_PRI)
->  		arm_smmu_priq_thread(irq, dev);
->  
-> @@ -2390,7 +2391,12 @@ static irqreturn_t arm_smmu_combined_irq_thread(int irq, void *dev)
->  
->  static irqreturn_t arm_smmu_combined_irq_handler(int irq, void *dev)
->  {
-> -	arm_smmu_gerror_handler(irq, dev);
-> +	struct arm_smmu_device *smmu = dev;
-> +	irqreturn_t ret = arm_smmu_gerror_handler(irq, dev);
-> +
-> +	/* Without either queue, the thread would have nothing to drain */
-> +	if (!(smmu->features & (ARM_SMMU_FEAT_EVTQ | ARM_SMMU_FEAT_PRI)))
-> +		return ret;
->  	return IRQ_WAKE_THREAD;
->  }
->  
-> @@ -4763,11 +4769,14 @@ static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
->  		return ret;
->  
->  	/* evtq */
-> -	ret = arm_smmu_init_one_queue(smmu, &smmu->evtq.q, smmu->page1,
-> -				      ARM_SMMU_EVTQ_PROD, ARM_SMMU_EVTQ_CONS,
-> -				      EVTQ_ENT_DWORDS, "evtq");
-> -	if (ret)
-> -		return ret;
-> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ) {
-> +		ret = arm_smmu_init_one_queue(smmu, &smmu->evtq.q, smmu->page1,
-> +					      ARM_SMMU_EVTQ_PROD,
-> +					      ARM_SMMU_EVTQ_CONS,
-> +					      EVTQ_ENT_DWORDS, "evtq");
-> +		if (ret)
-> +			return ret;
-> +	}
->  
->  	if ((smmu->features & ARM_SMMU_FEAT_SVA) &&
->  	    (smmu->features & ARM_SMMU_FEAT_STALLS)) {
-> @@ -4950,7 +4959,15 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
->  
->  	/* Clear the MSI address regs */
->  	writeq_relaxed(0, smmu->base + ARM_SMMU_GERROR_IRQ_CFG0);
-> -	writeq_relaxed(0, smmu->base + ARM_SMMU_EVTQ_IRQ_CFG0);
-> +
-> +	/* PRIQ's vector needs EVTQ's to be kept */
-> +	WARN_ON_ONCE(!(smmu->features & ARM_SMMU_FEAT_EVTQ) &&
-> +		     (smmu->features & ARM_SMMU_FEAT_PRI));
-> +
+> RFC:
+> https://lore.kernel.org/r/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+> 
+> Jason's branch:
+> https://github.com/jgunthorpe/linux/commits/dmabuf_map_type
+> 
+> This series:
+> https://github.com/kmehltretter82/linux/commits/dmabuf-pal-lifecycle-rfc-v1
+> 
+> Diederik's RK3588 testing produced a useful trace through
+> rockchip_gem_iommu_map() and iommu_map_sg():
+> 
+> https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
+> 
+> Jason noted that this showed the same private-IOMMU-domain mapping need as
+> IOMMUFD:
+> 
+> https://lore.kernel.org/r/20261009125338.GB13920@nvidia.com/
+> 
+> That trace is motivation only. This series neither revives my warn-only
+> mechanism nor converts Rockchip. Jason's feedback on that mechanism is here:
+> 
+> https://lore.kernel.org/r/20261009124259.GA13920@nvidia.com/
+> 
+> Compared with Jason's branch, this series:
+> 
+>   - preserves dma_buf_pin() errors;
+>   - publishes the attachment and successful PAL list together under resv;
+>   - unmaps and clears the published PAL pointer under resv before unlocking;
+>   - keeps callback state alive until dma_buf_detach() returns;
+>   - calls dma_buf_unpin() while holding resv; and
+>   - tests pin/map failures, cleanup counters and retry on the same DMA-BUF.
+> 
+> Patch 3 follows an earlier forced-window arm64 QEMU/KASAN double-free report:
+> 
+> https://lore.kernel.org/r/20261016194022.62065-1-kmehltretter@gmail.com/
+> 
+> The proposed release order is:
+> 
+>   resv lock -> unmap and clear PAL -> unpin -> unlock -> detach -> put ->
+>   destroy the pages mutex
+> 
+> Questions:
+> 
+> 1. Is that publication and lifetime rule correct?
+> 
+> 2. Is c37cf2824740d still the right base for this companion series? If not,
+>    which tree should I use?
 
-I can't see how we can end up in this case, I’d suggest dropping it
-if I am not missing something.
+The discussion upstream on whether the PAL approach is acceptable still hasn't
+settled AFAICT. I'm starting to look at alternate approaches but don't have
+anything concrete yet. However as part of that work I have rebased Jason's
+branch onto a more recent upstream (v7.3-rc5) so if you wanted to rebase this
+work onto that it could be useful.
 
+I haven't had a chance to look at these patches yet, but if some of them are
+fixing bugs in Jason's series it might be best for us to fold them into that
+series, with correct attribution of course. Anyway I will take a closer look in
+the morning.
 
-> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ)
-> +		writeq_relaxed(0, smmu->base + ARM_SMMU_EVTQ_IRQ_CFG0);
-> +	else
-> +		nvec--;
->  
->  	if (smmu->features & ARM_SMMU_FEAT_PRI)
->  		writeq_relaxed(0, smmu->base + ARM_SMMU_PRIQ_IRQ_CFG0);
-> @@ -4987,16 +5004,20 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
->  	arm_smmu_setup_msis(smmu);
->  
->  	/* Request interrupt lines */
-> -	irq = smmu->evtq.q.irq;
-> -	if (irq) {
-> -		ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
-> -						arm_smmu_evtq_thread,
-> -						IRQF_ONESHOT,
-> -						"arm-smmu-v3-evtq", smmu);
-> -		if (ret < 0)
-> -			dev_warn(smmu->dev, "failed to enable evtq irq\n");
-> -	} else {
-> -		dev_warn(smmu->dev, "no evtq irq - events will not be reported!\n");
-> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ) {
-> +		irq = smmu->evtq.q.irq;
-> +		if (irq) {
-> +			ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
-> +							arm_smmu_evtq_thread,
-> +							IRQF_ONESHOT,
-> +							"arm-smmu-v3-evtq", smmu);
-> +			if (ret < 0)
-> +				dev_warn(smmu->dev,
-> +					 "failed to enable evtq irq\n");
-> +		} else {
-> +			dev_warn(smmu->dev,
-> +				 "no evtq irq - events will not be reported!\n");
-> +		}
->  	}
->  
->  	irq = smmu->gerr_irq;
-> @@ -5029,7 +5050,7 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
->  static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
->  {
->  	int ret, irq;
-> -	u32 irqen_flags = IRQ_CTRL_EVTQ_IRQEN | IRQ_CTRL_GERROR_IRQEN;
-> +	u32 irqen_flags = IRQ_CTRL_GERROR_IRQEN;
->  
->  	/* Disable IRQs first */
->  	ret = arm_smmu_write_reg_sync(smmu, 0, ARM_SMMU_IRQ_CTRL,
-> @@ -5055,6 +5076,8 @@ static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
->  	} else
->  		arm_smmu_setup_unique_irqs(smmu);
->  
-> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ)
-> +		irqen_flags |= IRQ_CTRL_EVTQ_IRQEN;
->  	if (smmu->features & ARM_SMMU_FEAT_PRI)
->  		irqen_flags |= IRQ_CTRL_PRIQ_IRQEN;
->  
-> @@ -5173,16 +5196,21 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->  		smmu, arm_smmu_make_cmd_op(CMDQ_OP_TLBI_NSNH_ALL));
->  
->  	/* Event queue */
-> -	writeq_relaxed(smmu->evtq.q.q_base, smmu->base + ARM_SMMU_EVTQ_BASE);
-> -	writel_relaxed(smmu->evtq.q.llq.prod, smmu->page1 + ARM_SMMU_EVTQ_PROD);
-> -	writel_relaxed(smmu->evtq.q.llq.cons, smmu->page1 + ARM_SMMU_EVTQ_CONS);
-> -
-> -	enables |= CR0_EVTQEN;
-> -	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
-> -				      ARM_SMMU_CR0ACK);
-> -	if (ret) {
-> -		dev_err(smmu->dev, "failed to enable event queue\n");
-> -		return ret;
-> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ) {
-> +		writeq_relaxed(smmu->evtq.q.q_base,
-> +			       smmu->base + ARM_SMMU_EVTQ_BASE);
-> +		writel_relaxed(smmu->evtq.q.llq.prod,
-> +			       smmu->page1 + ARM_SMMU_EVTQ_PROD);
-> +		writel_relaxed(smmu->evtq.q.llq.cons,
-> +			       smmu->page1 + ARM_SMMU_EVTQ_CONS);
-> +
-> +		enables |= CR0_EVTQEN;
-> +		ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
-> +					      ARM_SMMU_CR0ACK);
-> +		if (ret) {
-> +			dev_err(smmu->dev, "failed to enable event queue\n");
-> +			return ret;
-> +		}
->  	}
->  
->  	/* PRI queue */
-> @@ -5330,6 +5358,9 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->  	u32 reg;
->  	bool coherent = smmu->features & ARM_SMMU_FEAT_COHERENCY;
->  
-> +	/* The event queue is architecturally mandatory, unlike the PRI queue */
-> +	smmu->features |= ARM_SMMU_FEAT_EVTQ;
-> +
->  	/* IDR0 */
->  	reg = readl_relaxed(smmu->base + ARM_SMMU_IDR0);
->  
+Thanks.
+
+ - Alistair
+
+> 3. Can these lifecycle fixes stand independently of moving final mapping
+>    selection closer to map time?
+> 
+>    https://lore.kernel.org/r/20261016202653.97339-1-kmehltretter@gmail.com/
+>    https://lore.kernel.org/r/20261019184123.GR13920@nvidia.com/
+> 
+> 4. Is the per-buffer selftest control acceptable, or would deterministic
+>    setup/release race hooks be more useful?
+> 
+> Testing:
+> 
+>   - arm64 QEMU virt: two boots, 24 selected cases per boot, zero skips;
+>   - x86-64 KVM q35: two 24-case candidate boots plus one focused four-case
+>     pin-failure boot;
+>   - a one-defect x86 control failed all four pin-failure variants on the
+>     expected erroneous successful ioctl return;
+>   - x86-64 GCC 13.3 built the exact head, headers and IOMMUFD selftests; this
+>     build was not booted; and
+>   - KASAN and lockdep initialized with no diagnostics in candidate runs.
+> 
+> The QEMU/KVM campaigns use mock IOMMU domains and the selftest exporter. They
+> do not cover a non-selftest PAL exporter, physical DMA/IOMMU, forced
+> invalidation races, or the complete IOMMUFD selftest suite. The x86 negative
+> control validates patch 1 only; the earlier patch-3 report is separate.
+> 
+> Testing with a non-selftest PAL exporter would be welcome, especially failure
+> followed by retry, invalidation during setup/release, repeated revoke, and
+> multi-range buffers. Please include the base, config, architecture,
+> exporter/device and full dmesg. A full IOMMUFD selftest run on another
+> configuration would also help.
+> 
+> Thanks,
+> Karl
+> 
+> Karl Mehltretter (6):
+>   iommufd: Preserve DMA-buf pin errors
+>   iommufd: Publish successful PAL mappings under resv
+>   iommufd: Clear the PAL list before dropping resv
+>   iommufd: Keep the pages mutex alive until DMA-buf detach
+>   iommufd: Unpin the DMA-buf while holding resv
+>   iommufd/selftest: Check DMA-buf pin and map failure cleanup
+> 
+>  drivers/iommu/iommufd/iommufd_test.h          |  24 ++++
+>  drivers/iommu/iommufd/pages.c                 |  24 ++--
+>  drivers/iommu/iommufd/selftest.c              | 111 ++++++++++++++++
+>  tools/testing/selftests/iommu/iommufd.c       | 121 ++++++++++++++++++
+>  tools/testing/selftests/iommu/iommufd_utils.h |  30 +++++
+>  5 files changed, 298 insertions(+), 12 deletions(-)
+> 
+> 
+> base-commit: c37cf2824740d833b21eb816e21f94836100291f
 > -- 
-> 2.43.0
+> 2.39.5 (Apple Git-154)
 > 
