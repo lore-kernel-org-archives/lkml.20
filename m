@@ -1,54 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792519355;
-	b=TejGSACFFKdLA+TH5spJ/bc/kEEu6q3uZln+KAOCAJidOKqcAHxqahU5KXOKzerJN6an
-	 qT0VkStUtNAFMfpiPbKwZDGsPBuXEs+PjL6mUOYwd8k46z5hIFRLC9tJBo6kHSX8TMeCG
-	 wfmG9F2T2QoNlMzt4TtEHZPskcu9H7MsynKBbJUrKA2Jo6eUbrh81Pigrp6L3yOXbt2eo
-	 D+2yD7hGlYc2DCVaT1PPXNOLhWTmXpNNNlpHwP13jzV0jDefCu5OqodVcQIcLuLO8VJKb
-	 3BKPmMP0ff+/mlpqoR92fzAiW/atlAqJ4nVCcCntvIKW5bh/Ue/yBIrCufAk++7NBfw==
+	t=1792519359;
+	b=pdmjHOmSCYPRfnODfEQfrgWY32wsLmrKBPm8fnRrxZCCyg5GJcWSj3KUPwiXmGQFizYQ
+	 vTWgtYkRHkB6gabwZjYb7CZUd46fPdZnL0f6MDSuEMwD5CPPcpZvp4An9+IJQ0nI0FhTT
+	 7c/VIRCdqIfV8OGnfKVpkcL/liDImKeKL4qbtg5fI4mCPGUszOIA2o5uG79ejWSfgSJ23
+	 1jCQ7ygkPm181FUffE1jma/EYtGWb3FRnJeAuVkTzYd7xRTsaK6OJCamhuj/EOnfA8Z1u
+	 BNJ3IscNZ/m9+4fjHRZ04H8CI4t5XIaCQat6bswdxq7h5tgXdJ4XUOE7S1sdFLBxLrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519355;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=JsIf75pgBfXgz3QM+D4kRHPKjGuwSu8RptO+WiIEYR8=;
-	b=OC0jTUSRJWkkayMauL9LlD7pEqeoIXFEQb15jfMnmM0NQHEn8CDWawcKkO7UhAwioRME
-	 +zl5/mPUnrhQO6Wm196cLnbcw5OG9ekN9WgqS5OPLP12yhjhe6MRKElZvvfoBa7Mo2PZL
-	 chcmnGywBcBJtP1M2k6IkztEAK5QXpVPJfLlOtxunqyRE5y3Eg8haJEUrf9BEwr/we+zh
-	 AdYHrbLGVVXHc1jvrZEe3lI2CFWmJb/AJP8IulKkwdYs+OMp9JcWHN3RJjXUNhLDufKH8
-	 2YpcwQN6v8WanzWnSi+WGTq7A1/6BDad1egfQWK9be2qYYs5qjfaX0g3SCae+j8Ly/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519359;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=C8rpwcTwhR1wNZ4MDDmn36u6aY9QjfzBpyzkSNu0dN4=;
+	b=i7lwohD0i7FTYjYWTSdQn62M1gk/ytzHfxnIminIuBbHAHy3KcFEsZY47B9EwgmjiWkS
+	 fqNhPMogetGuMkcxE2gB7AbPT60JHxCf6NYiWInAsMY2Hpzk4aPloss2AvQIrq4smFAMw
+	 2LGMkeRceCtA8SlJQwm71Kxaqet/tcGm4IONqIBB3nZSOOqxriWWeffd4HJ5igkjuKUC6
+	 Dq7dDgaXJlyAWqscr0EGIyUWnVDwShHywH8TyMA+G2q99D2w/OmM3W3+juoHhObvGCjGF
+	 /YJAycUY0OEe5M6Nul6D1LWm8OprQAWRLys7tqXF27lBcgIF8rEEZ/bItMgNq2nVSjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bi2CSdGl;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=p8bz6OYg;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436EC606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:02:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 436EC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B83606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:02:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7B83606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bi2CSdGl
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id E52651A0347;
-	Tue, 20 Oct 2026 18:02:32 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 4B0E918;
-	Tue, 20 Oct 2026 18:02:31 +0000 (UTC)
-Date: Tue, 20 Oct 2026 14:02:29 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Ricardo B. =?UTF-8?B?TWFybGnDqHJl?= (SUSE)" <ricardo@marliere.net>
-Cc: John Hawley <warthog9@eaglescrag.net>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ktest: Accept quoted bad term in git bisect output
-Message-ID: <20261020140229.41edd7bc@gandalf.local.home>
-In-Reply-To: <20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net>
-References: <20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=p8bz6OYg
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so28360355e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:02:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792519357; x=1793124157; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C8rpwcTwhR1wNZ4MDDmn36u6aY9QjfzBpyzkSNu0dN4=;
+        b=p8bz6OYgN2TDkrAYVXnERjp07KlNyo0Boi1qFKJJ1BXDOcDAWohD/7hArdhyZHVqNI
+         nmgk7qGRpFKJXqCCUZu/IyNdKR6BJLHSDLCQjBkCdUHQX3exgqk8wgXWagKstnmcy3o+
+         2PzdZvoa3eJ4jctzsryM/cLefcus46IqARkXBRGq1NF0uiPaAVv+v0ZSCuWJKOnQowHU
+         7nPbo+WHVsM/VQ+cHpU7DU8Cwa2DjL9gQvEvuNF6uzqkM3We3LjquvP+rNhLlpWMw2Ng
+         Wc/y/BQawcVNcBeEMIhq7Gc2hb71uPe6j+PXkZ204iHqQRLpQBGcMGJM6eqxB41pt7nN
+         h98Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792519357; x=1793124157;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C8rpwcTwhR1wNZ4MDDmn36u6aY9QjfzBpyzkSNu0dN4=;
+        b=rNDt/qADKEr4aV2WSk+/2glE4rfe9QNIy8OslrI3bruo+irJ4y8rZUo7SRI/u/52tb
+         1ipaG5Uw6uTjehBANdE/RN7XctUefAa0CE4Q09bphOSxK+SW7dLcWOEJ01O5dbT5R6if
+         xGs+Y4JiLEpHADVUo3c+5KfORoiuyxBWA2Wa6jb9SLL4+zPHS4X0OvWu37riQHYsgOHB
+         9Qj1PQL9Ssp5EZvrApXsgBPq/duceK3qTRnB/iipC25Ku8GUqiUA8QnFtH9xVBGefL6i
+         F3TyMvE7wKu1wtxGXU4FIDRLfw4rAl+J9zD7eZxGvfOFA54Pj05VPxvAvaFxQ/1y88q3
+         rvJQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWp4/TD9gF2ZUmugRCKsmPMoVPtNASvt8Cpq3Gugsw94qfOhwpQMNd/sOKNMWKy43MVlEDLhYJvVWPLRM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvO4AEqA3cjqKDl+Qw+Zo1xAvfVnboQjR4oJZ8Mn6IUUpv9qHQ
+	0u32aXneleX//rKqV7UGYjDrRfGrD57EyeSa6rdWXKTOQ5Xac7sc4k/IQNT4zBuXYjtE/XVXoiO
+	MuwlmZ5tRwmjKqg==
+X-Received: from wmfv5.prod.google.com ([2002:a05:600c:15c5:b0:4a1:b6ba:c116])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:6289:b0:4a1:dadf:9876 with SMTP id 5b1f17b1804b1-4a1dadf98d1mr226083295e9.23.1792519356899;
+ Tue, 20 Oct 2026 11:02:36 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:02:36 +0000
+In-Reply-To: <657547efeaea54276c50a0c106399366@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,70 +78,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Stat-Signature: wmq14fqd119mg7stc8a4mra1zztjszf6
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 4B0E918
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18h+EinY2gdEiYIaT49VcDShNHge0izcpg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=JsIf75pgBfXgz3QM+D4kRHPKjGuwSu8RptO+WiIEYR8=; b=bi2CSdGllEFJ+VRmWXR3y/Ub8Bo2jqMPb122vY33mMixEpzhLUp3HfSwfYCcEBZXJQRMRPAfZnQzo07IdtnF8reUzghYotkfpHGLsLZuRqg1vEnk42SJlr+xPhrjMG9W4ExcYHJiKmkbCHrYmatdK1oHugwbxmoR4B8w/mgtcBM=
-X-HE-Tag: 1792519351-803413
-X-HE-Meta: U2FsdGVkX19YYyMBcaLHAf9eNjoyuVaHip4m+jK2YCPCwDofsPMiv/WNRQnBTeW6Fv7b8VdAOAjhoaw1YSm6RxilplDHQ7Z3uCmOQJSjb4ARA8BD9R9lyjrpE/1cLuSlry8jFoLtIO3jFX1ZjN2pE5bkPgYcXDWoXjmwRregkG9afCXFBNghcPQVtvT9nkhWJC1aSWP/EYs/nQ4FYL+JcZcJgyX4abMwNNFwoPWKPiKPJfWiXlqLPQo6Mb35H1YLi3JOtqq/DAhXPEAQTl2PTTtXTknY9s5COZ31O8vGKnnPK9lDWubS0vxsaEEEtA37xfW8/VlTxT9gNgV5B53uVIBSMFsW0TDq/F/PSzsOszK//UC2Xjo0qgSr40Y+yQW8L6KF3Ucv1IXfSxYBd+PePA==
+Mime-Version: 1.0
+References: <cover.1792248922.git.jpiecuch@google.com> <20261019144807.1207781-1-jpiecuch@google.com>
+ <657547efeaea54276c50a0c106399366@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+Message-ID: <DM9V2QCIFVGI.3VSJXUCU94ICW@google.com>
+Subject: Re: [RFC PATCH sched_ext/for-7.4 0/5] sched_ext: Make
+ ops.cpu_acquire/release() reliable
+From: Kuba Piecuch <jpiecuch@google.com>
+To: Tejun Heo <tj@kernel.org>, Kuba Piecuch <jpiecuch@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, David Vernet <void@manifault.com>, 
+	Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, <sched-ext@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 09 Oct 2026 22:13:23 -0300
-Ricardo B. Marli=C3=A8re (SUSE) <ricardo@marliere.net> wrote:
+Hi Tejun,
 
-> Git commit 0c0f93e7fa64 ("bisect: print bisect terms in single quotes")
-> changed the completion message to put single quotes around the bisect ter=
-m.
-> run_git_bisect() only recognizes "is the first bad commit", so it misses
-> completion and continues the bisect loop with newer Git.
->=20
-> Accept both quoted and unquoted forms to retain compatibility with older
-> Git versions.
+On Tue Oct 20, 2026 at 12:31 AM UTC, Tejun Heo wrote:
+> I don't really see a lot of utility in ops.cpu_acquire/release(). As it
+> currently stands, it doesn't add anything that can't be covered by IMMED,
 
-Thanks for this fix.
+That's true if the only thing you do from ops.cpu_release() is
+re-enqueue the local DSQ. It may not be true if you're trying to do
+other things like e.g. kicking the sibling CPU in scx_pair.
 
-I think we need to let the git folks know that the output is being used by
-other tooling so they don't change messages so easily.
+Fixing ops.cpu_release() would let us get rid of the sched_switch hack
+in scx_pair, which we know isn't perfect at detecting CPU preemption
+by a higher sched_class.
 
-I'll go and do that.
+> and given how asynchronous the events are, I'm not sure an edge-triggered
+> view of CPU availability is particularly useful. IMMED works because it's
+> something the kernel can check and enforce. If there are holes in it,
+> let's plug them, but I don't think the holes justify keeping or updating
+> ops.cpu_acquire/release().
 
--- Steve
+ops.cpu_acquire() is synchronously invoked in the dispatch path, and
+ops.cpu_release() would be invoked when the sched_class of rq->donor
+goes above ext_sched_class, so either in __schedule() or when changing
+the sched_class of a running task. It doesn't strike me as particularly
+asynchronous.
 
+Part of my motivation is Google's BPF schedulers, which are composed
+of subschedulers, and we explicitly track which CPU is owned by which
+subscheduler. Having a reliable CPU preemption callback would help with
+porting them over to sched_ext.
 
->=20
-> Link: https://git.kernel.org/pub/scm/git/git.git/commit/?id=3D0c0f93e7fa6=
-45c1058226a9bfde9e2b4441edf96
-> Assisted-by: LLM
-> Signed-off-by: Ricardo B. Marli=C3=A8re (SUSE) <ricardo@marliere.net>
-> ---
->  tools/testing/ktest/ktest.pl | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/tools/testing/ktest/ktest.pl b/tools/testing/ktest/ktest.pl
-> index f94ed2e98887..9d63a1dcdb3e 100755
-> --- a/tools/testing/ktest/ktest.pl
-> +++ b/tools/testing/ktest/ktest.pl
-> @@ -3019,7 +3019,7 @@ sub run_git_bisect {
->      doprint "SUCCESS\n";
->      if ($output =3D~ m/^(Bisecting: .*\(roughly \d+ steps?\))\s+\[([[:xd=
-igit:]]+)\]/) {
->  	doprint "$1 [$2]\n";
-> -    } elsif ($output =3D~ m/^([[:xdigit:]]+) is the first bad commit/) {
-> +    } elsif ($output =3D~ m/^([[:xdigit:]]+) is the first (?:bad|'bad') =
-commit/) {
->  	$bisect_bad_commit =3D $1;
->  	doprint "Found bad commit... $1\n";
->  	return 0;
->=20
-> ---
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> change-id: 20261009-ktest-git-bisect-a894f472843e
->=20
-> Best regards,
-> -- =20
-> Ricardo B. Marli=C3=A8re (SUSE) <ricardo@marliere.net>
+> Can you please send the IMMED fixes separately?
+
+Will do.
+
+Thanks,
+Kuba
 
