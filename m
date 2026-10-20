@@ -1,88 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792523804;
-	b=OdcDPTSFj3uC4lzKiwZL9PI+v0TmlMdyEdh99bAEg7za3T/e3f1CorLag5mALMIorXoK
-	 osuPgS/XtU5+UndDV7ZTmkjYjrbgBX3YwluDsBvl0mHQVmffGjrjBKAOHd+08W6A10+Ey
-	 hE8e9a6DB5QFE1Gtyo5nU7irVTTI2Wdy+iBz6Ee6/23pcCjLVaOB+grJ09yve5O22XGjq
-	 y93/JR/tmOgUQkDTpVUT5JkQ31OXyabZWP7xOkq9Pjk0DOCTznG0TOxOo0EMtcabA6ir9
-	 ZDUoIbjSyugBcyxDpLYQiQk2KTlOShYDrIPOCgwlz3VAS4x9dfAAUJ9Ti/1Vsh6sFIg==
+	t=1792523824;
+	b=wUKQjrKPnwaWOnkgWphcyJYDUsPZ7JJrDS2RPGiymAxWn2R/hOsRwszHmob0YYchoxTE
+	 iI1MSdq8s4KdjoTFEsmfyyJ5rlGXiH/rA6R7zBu5jre8s2ICS89oYhepQBXy8JFv6bVNM
+	 IQUSRuBM9moPfHcEPe3rlxbIrJ5/jekNz1pK2hhXiCgpyXgSZsTJsSenxEv7E/FxpgSem
+	 cm6j4JpUBNfjJPcJcv4u1LSFLcWc/px/vjTwdS8fnL5z/HjiQh2aQ7XsxXLaw3UQ8eOkZ
+	 Cbs6iL11b8m0z1sHvn/KcJhTWLG+98HPMECpVz2tdhobg7rTjOFuZZnQYDIV2mE3scw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792523804;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=xjeYmFOMQk/3GAoCfGCaNLcjZofvqHQmiwq5oS0Geio=;
-	b=wLy5/TVELfi/jdihPlp+wsVuGhnQPrt5+dkymg+cS0kyeGwHn54kTdYqDW/QIADwg4aR
-	 QiKlkka1bG1ijSco9Ggp7S4YDC0V0Alggcz0TsHsQbMKOzYGDW8kpXnftNM71l9Aj8vw/
-	 FuhT3GaanJ66wjns+CFYd11sLRETFcpcBvDEj2YB0M/f6nxCDKF2QznN51KTQR6gM7Rf1
-	 4wkU78ZghuEn5AO9H29HzIRZuUU3wODbKZHqqVm8vNZAyMOY0CaykRH+tsLrCKK4ZHgau
-	 e0IecBRvbC+EANOBTrjfSZIgH8ISY1dhwFC1fZVifmaV39H7XQqRImiKlilXGyROqAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792523824;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=SWQgkR3Fjde1WyXhbg8hl8+vmi9aICLhiAaiA94/m88=;
+	b=h8+pd5xuFnqg5b/dn7TTPlueF0TgZAVqsdKNcayYuvuGa2qXPLQqvdXvmxBCYf/EyEWd
+	 5ep6iKTaI6r3uGYSXuFBhR9QxRzQfYDzbjuUw09DB+Cjb/AVxxOaCFws37wd1Avdb8PHj
+	 XNBNBailHnL+BqjwKAQBgJRYyyuvsMYP7zrKukITI4hqKIKBL/cuXfJookzNGtgqsJBp2
+	 7mXWd3JaVsLPdJpy5AfJlAyHc0Ot8WTaNlGb7GOCu84RlKe+6CX13WnzivjnPHLUdvHrZ
+	 WtR1PezJB+oxvQXd52dtAhRJQ6ifD/MCsymFFM1L2NZH0awXASH90zVp6VDSBNiyE/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cyrfkV6h;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TQXv2cKV;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A80F606A31C;
-	Tue, 20 Oct 2026 19:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A80F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF952606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF952606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cyrfkV6h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792523801;
-	bh=xjeYmFOMQk/3GAoCfGCaNLcjZofvqHQmiwq5oS0Geio=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=cyrfkV6ha0jjFMC5+POuSqYp6neXNS/pXveFeVRbShCDCb38yDNkVerSyJNGuoQGi
-	 Bt2r6ru44Wi64MWO1m3HbRFDMGtJ8Lcf670Ig1xalzZDu1qkZUtg4QD8ElLXIOS8+U
-	 1m0Zcjzcx7i5T1oyUxVX1aJxIOM4u05OjEbRJeH4+YKvlsP19RWTWkHvX2HP7y/xMa
-	 n1InUcFHW3rd1v2D6w9BwppplJf81RWQIdoR5jJWBbamRDrqEecwkYFC2eR95AIPY8
-	 a7XgNGg4AvOaC34ruKFD6G8ZvInLLzUtPvXO6VYk5VprCqWDqzK/CTllf6FORVIU8a
-	 oDPuD4W5zwOLg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D2AFA17E01D6;
-	Tue, 20 Oct 2026 21:16:40 +0200 (CEST)
-Message-ID: <ecdc24931abc4f84bc0bd8e2025f77406ab476b2.camel@collabora.com>
-Subject: Re: [PATCH] media: chips-media: wave5: Fix possible ERR_PTR
- deference
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Alper Ak <alperyasinak1@gmail.com>, Markus Elfring
- <Markus.Elfring@web.de>
-Cc: linux-media@vger.kernel.org, Jackson Lee <jackson.lee@chipsnmedia.com>, 
- Nas Chung <nas.chung@chipsnmedia.com>, LKML <linux-kernel@vger.kernel.org>,
- Hans Verkuil	 <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>
-Date: Tue, 20 Oct 2026 15:16:39 -0400
-In-Reply-To: <92af2072500ec68990cc643256929044bc54e184.camel@collabora.com>
-References: <20260207103224.609938-1-alperyasinak1@gmail.com>
-		 <c4938298-41b9-43c5-bdd5-96f37536ffa6@web.de>
-		 <CAGpma=4=J2-fmekpANH0EHNCs_TwPKp-t3Hd5h9S2BBDjF_r_w@mail.gmail.com>
-	 <92af2072500ec68990cc643256929044bc54e184.camel@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-BR4+iphLtmvgPqa1gXEC"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TQXv2cKV
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1680a50e64eso40733c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792523823; x=1793128623; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SWQgkR3Fjde1WyXhbg8hl8+vmi9aICLhiAaiA94/m88=;
+        b=TQXv2cKVihdtx5kpexG7XQm4QNN/w6uXcgF0zlm4ZH0FcoiD9pThtQIvNexSD0/KDh
+         g++T9SxuqHlYRzbr1lnG2WmRE9JHeuMtgVa7T+2o+3vI0i092RYXqZdyCGEqyxcDS1wu
+         PYfI5fKQqhD2VHwMNyYhzXcBgY/GL24bA0cGNt9IKZCYOu3oy4zt5/KDXtVc5EbrBQws
+         CvgTSdGAhZncBFJXc0Zw1C/6OVlP4lI856SBYPQCpQ/5h5JajU/p1770kp9ZWkV54cKo
+         eGG09yBPBLzZ/jPUh/7KalXIVvXtvR0e8o4HwsrAWFN3oQtVKV5CEE5LzHYf6v1WK85T
+         eBdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792523823; x=1793128623;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SWQgkR3Fjde1WyXhbg8hl8+vmi9aICLhiAaiA94/m88=;
+        b=xhFuDlJyyoUQP93ll/6rbdGefDkvzqQR+3Lv7i4os0xB4CyJh0BownnryesWSMjg8I
+         b7CnN+C3WR3g4BZdC/2TYOZbP8fL8hu0GYPPlEh83HCfLxKnQSodAKKXsVMeb/OQLLf6
+         nGlLw9AWG7zMwDQkrbwgYwL8qBUOw8QBo+y+kIimWnJY+QzMXQUsXUyL1xeYK4NIvGMI
+         UkS2b5cyAHN4OpUMd85EbzzVg4QhGjjZLp6GU6q4JsvZcYKAB+v4ExWxkluv8wFKO3pE
+         fP3i/TOh6KW7KKbEnJ+aY9y942MLqn8fFlPeqS7yQbO63wkzmjHt9xDLIOQZaeGpIWE1
+         dLsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxAryxfEshdUVsLhJ7eoHoJIldVpyZs2qRBwa44AjmZ0ghqtr/4J+opnDueC/5/Tvg6dGyLRSmAkLT8Uzo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwgrc4KkRJTe3pfMEEmY6wuDyaLXraAYdvRecLW/ylzSz+kiY/
+	/p1ME5SxicFniFZjtRqDvr4exnSkyBkdenjEh9h6gZgAc87otSdCVe66
+X-Gm-Gg: AYBFou3eZnPSEBDk3XmAORTv6jVj8V8/wkgXXvQj8G2KF3kQI1ylEIAY/dfY3s24ryl
+	Pc5ey2ldk0zBAhNgYWrcjm97xXyLR9yTf8pUOZrgwBfQQztfQO7Hv5YmTKntBVgXbhtaQVYfI34
+	gfwvJb+d3H8AB5AN8Y9e7DNUR3fam2Cw9ADqkCbZVUWeu4Ge8m3442tiqvwx75Omibf5bjhxnoX
+	L+0gJ0Hm2MyP6NJCa3c/pu/W2ksWS9HJhu+5v/pjND5+dN8AbSNFyvX8EZdMrhy+4+JPaa2C45D
+	yUJbTSIv0odhLkux0AcURcKxJ7aMEWxZ2BlZfg5Oj7oniQuw9wF9Ca1P4FJQ+3d3DJKekFbcBwB
+	YXxdkGBYjX5oohsEzL+h80+iygGo9O9vG1oARr1XNFAot1Js4QXjVzE0w1uhTpX5qEU945Mgoul
+	SOxAObkBPJe7ETGrynUeiDLDlLBczmScPMD4deBHd4MaU89Bd5WZYYwrZUB6TquEGVnw==
+X-Received: by 2002:a05:701b:280f:b0:17f:641e:7f6b with SMTP id a92af1059eb24-1850fa07d82mr20915641c88.1.1792523822861;
+        Tue, 20 Oct 2026 12:17:02 -0700 (PDT)
+Received: from localhost ([200.10.125.114])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035926035sm587423c88.1.2026.10.20.12.16.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 12:17:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,84 +85,181 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-
-
---=-BR4+iphLtmvgPqa1gXEC
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 16:16:58 -0300
+Message-Id: <DM9WNTXQM9N8.2G10WSI71TL88@gmail.com>
+Cc: "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
+ kernel review list" <bcm-kernel-feedback-list@broadcom.com>, "Jai Luthra"
+ <jai.luthra@ideasonboard.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Stefan Wahren" <wahrenst@gmx.net>, "Phil
+ Elwell" <phil@raspberrypi.com>, "Laurent Pinchart"
+ <laurent.pinchart@ideasonboard.com>, "Umang Jain" <uajain@igalia.com>,
+ "Kees Cook" <kees@kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-staging@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
+Subject: Re: [PATCH] platform/raspberrypi: vchiq: register bus at
+ subsys_initcall
+From: "Gaston Gonzalez" <gascoar@gmail.com>
+To: "Martin Wetterwald" <martin@wetterwald.eu>
+X-Mailer: aerc 0.20.0
+References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com> <20261013131435.1454019-1-martin@wetterwald.eu> <DM5Q9NKRO89O.22R04QM8YBKWM@gmail.com> <CAFERDQ12QwtC6cCVWQGU1b5KCv988kAvahNKwosxG2z8Mzm4sw@mail.gmail.com> <DM8869QP3IID.1I1KT6A7M2UNB@gmail.com> <CAFERDQ3DWBnkSok_SiVZGx+GTmYKP=Q46yFYkNt9YQkKxxQxyw@mail.gmail.com>
+In-Reply-To: <CAFERDQ3DWBnkSok_SiVZGx+GTmYKP=Q46yFYkNt9YQkKxxQxyw@mail.gmail.com>
 
-Hi,
+On Mon Oct 19, 2026 at 9:26 AM -03, Martin Wetterwald wrote:
+> On Sun, Oct 18, 2026 at 9:53=E2=80=AFPM Gaston Gonzalez <gascoar@gmail.co=
+m> wrote:
+>
+>> Running 'speaker-test -t wav -D plughw:1,0 -c 2' crash the system, so
+>> thinks seem not to be working with that interface.
+>>
+>> Im trying to debug what happens in that condition; I will need a couple
+>> of days I guess. So far, this is what I could check.
+>>
+>> Any feedback on the test or debugging would be appreciated.
+>
+> Hi Gaston,
+> Thanks for digging into this.
+>
 
-Le vendredi 06 mars 2026 =C3=A0 08:50 -0500, Nicolas Dufresne a =C3=A9crit=
-=C2=A0:
-> Hi,
->=20
-> Le vendredi 06 mars 2026 =C3=A0 09:32 +0300, Alper Ak a =C3=A9crit=C2=A0:
-> > Hello everyone, look like this patch hasn't been applied. Did I miss
-> > something I needed to do to get it applied? If there is anything I
-> > need to do, please let me know.
->=20
-> You received an Ack from the maintainer, and got a tested buy. But the pa=
-tch has
-> been submitted while the merge window was closed, which is fine, but mean=
-s there
-> is a small delay. It should be processed within the next two weeks. Your =
-subject
-> suggest a theoretical bug, so it has not be been prioritized over other p=
-atches
-> in the queue.
+Hi Martin,
 
-I discovered now that I missed this one in latest fixes batchs, be reassure=
-d
-that its not assigned to me in patchwork and will be applied soon.
 
-Nicolas
+> The patch only changes when the VCHIQ bus and driver are registered durin=
+g
+> boot. So it's enough to check these two cases to validate the patch:
+> - without my patch: dmesg shows the "unable to register with bus_type
+>   'vchiq-bus'" error, and bcm2835_hdmi is absent from /proc/asound/cards.
+> - with my patch: the error is gone and bcm2835_hdmi is present in
+>   /proc/asound/cards.
+>
 
->=20
-> regards,
-> Nicolas
->=20
-> >=20
-> > Markus Elfring <Markus.Elfring@web.de>, 13 =C5=9Eub 2026 Cum, 14:38
-> > tarihinde =C5=9Funu yazd=C4=B1:
-> > >=20
-> > > =E2=80=A6
-> > > > or ERR_PTR() on failure. The return value was not checked and in th=
+Understood. Of the two cases, the second one is already tested if I'm not
+mistaken. I will check the 'without your patch' case first, and then
+I'll rerun the test with your patch.
+
+> (Since the Pi Zero has no Headphones jack, you need to test both cases wi=
+th
+> snd_bcm2835.enable_hdmi=3D1 in the command line. Otherwise the card never=
+ shows
+> up, even when everything works.)
+>
+> Could you check these two cases?
+>
+
+Yes, will do.
+
+>
+> Testing that you can hear the sound going through bcm2835-audio is a full
+> functional test that goes even further than the patch: it does not only t=
+est
+> bus registration but also that the audio driver is working.
+>
+> On my side, without vc4-drm, I can successfully hear sound through both b=
+cm2835
+> Headphones and bcm2835 HDMI:
+>
+>   # aplay -l
+>   **** List of PLAYBACK Hardware Devices ****
+>   card 0: HDMI [bcm2835 HDMI], device 0: bcm2835 HDMI [bcm2835 HDMI]
+>   [...]
+>   card 0: HDMI [bcm2835 HDMI], device 1: IEC958 [IEC958]
+>   [...]
+>   card 1: Headphones [bcm2835 Headphones], device 0: bcm2835
+> Headphones [bcm2835 Headphones]
+>   [...]
+>
+>   # speaker-test -D plughw:0,0 # (HDMI)
+>
+>   # speaker-test -D plughw:1,0 # (Headphones, not on the Pi Zero)
+>
+>
+> If you still want to output sound through bcm2835_hdmi (optional):
+>
+> There can only be one owner of the HDMI port: either the firmware or the
+> kernel.
+> When the Raspberry Pi boots, the firmware first owns the HDMI and display=
+s a
+> rainbow splash. Then it launches Linux.
+>
+> There are 2 ways for the kernel to deal with the video output:
+>
+> 1) With vc4-drm (CONFIG_DRM_VC4), the kernel takes over the HDMI controll=
+er
+>    from the firmware and handles everything itself (this is your case).
+> 2) With simple-framebuffer (CONFIG_DRM_SIMPLEDRM or CONFIG_FB_SIMPLE), th=
 e
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 error pointer
-> > >=20
-> > > =E2=80=A6
-> > > > Add proper IS_ERR() check after kthread_run(), log the error, set
-> > > > dev->irq_thread to NULL and fail the probe to prevent the driver
-> > > > from operating in a broken state.
-> > > =E2=80=A6
-> > >=20
-> > > See also once more:
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
-ee/Documentation/process/stable-kernel-rules.rst?h=3Dv6.19#n34
-> > >=20
-> > >=20
-> > > Would a summary phrase like =E2=80=9CPrevent error pointer dereferenc=
-e in
-> > > wave5_vpu_probe()=E2=80=9D
-> > > be more appropriate?
-> > >=20
-> > > Regards,
-> > > Markus
+>    kernel leaves the HDMI to the firmware and just writes pixels to a
+> memory area
+>    (the framebuffer) set up by the firmware.
+>
+> I get a similar problem on my side when sending sound through bcm2835_hdm=
+i with
+> vc4-drm loaded: my screen shuts down (but the kernel is still alive).
+> It most likely comes from the firmware and the kernel both trying to driv=
+e the
+> same HDMI port: with vc4-drm, the kernel owns the HDMI controller, and th=
+e
+> firmware (which bcm2835-audio talks to through VCHIQ) is not supposed to =
+touch
+> it.
+>
 
---=-BR4+iphLtmvgPqa1gXEC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Ah ok, I did not know that. Thank you for the explanation.
 
------BEGIN PGP SIGNATURE-----
+> A simple way to output sound through bcm2835_hdmi is to not use the vc4-d=
+rm
+> driver at all, and use simple-framebuffer if you still want a display.
+>
+> To remove vc4-drm:
+> - Do not compile the driver into the kernel (CONFIG_DRM_VC4=3Dn) or black=
+list the
+>   module.
+> - Remove any vc4 overlay in config.txt file (e.g. remove dtoverlay=3Dvc4-=
+kms-v3d).
+>
+> To enable simple-framebuffer, use one of the two configs:
+>
+>   CONFIG_DRM=3Dy
+>   CONFIG_DRM_SIMPLEDRM=3Dy
+>   CONFIG_DRM_FBDEV_EMULATION=3Dy
+>   CONFIG_FRAMEBUFFER_CONSOLE=3Dy
+>
+> or, the older way:
+>
+>   CONFIG_FB=3Dy
+>   CONFIG_FB_SIMPLE=3Dy
+>   CONFIG_FRAMEBUFFER_CONSOLE=3Dy
+>
+> (FRAMEBUFFER_CONSOLE=3Dy, and DRM_FBDEV_EMULATION in the DRM case, are on=
+ly
+> needed to see the boot messages on the screen, with console=3Dtty1 on the=
+ command
+> line.)
+>
+> If you have remote access to your Pi Zero (either through network+SSH or
+> through serial console), you actually don't even need the simple-framebuf=
+fer:
+> you can just remove vc4-drm, and let the firmware display its rainbow spl=
+ash on
+> the HDMI port.
+> Then you can login to your Pi Zero through SSH for example and launch
+> speaker-test.
+> As long as the HDMI video output is active, it's enough for the sound to =
+be
+> able to go through, even if the image was not drawn by Linux.
+>
+> But again, this full functional test is optional.
+>
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCate+FwAKCRDZQZRRKWBy
-9BeSAQDW0t6Cj3OGdRCTBjrIt9t//SdJmbTrc8WCWvIibwMM1QEA2+bG+30DZylX
-4Kz45a4ynzrDaaR48DTk15Fk7Ql90Ag=
-=F6RW
------END PGP SIGNATURE-----
+Ok, I=E2=80=99ll test the patch first with the current configuration, then
+with simple-framebuffer enabled in a second step.
 
---=-BR4+iphLtmvgPqa1gXEC--
+Regards,
+
+Gaston
+
+> Regards,
+> Martin
+
