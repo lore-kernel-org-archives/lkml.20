@@ -1,99 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792523020;
-	b=T7fuLdcuUaCSi3XR5k+N76F2bv7HWxmOMNZyE+RCgxet+gcRP71U6I8/bytt8qRIOSzZ
-	 WsGlRExo6Kui+F2OQTYmglv61PHz5OVM79aOImbDKbhXxi3nonkz0Y4vkR/nBiprUh3pA
-	 osqWhsm5N/NeZdJ4IUi9mDoIZdOz6b59MeOWW/sarXzWNeS95sigJfyJ3uINGGy/aH6mU
-	 1J9sCA2el8WjjAMN5VD7tLZocsULK37y/XyGY2W/lkT9jwj9c2dNr1vqtQvGhqxGHrI7Y
-	 sspKFfsGVlLqYw5l1P4wnGu0Glxo8RxG3/j5YFMLZvLgusvwJlKS77F2+czmQp9VSEg==
+	t=1792523038;
+	b=IOVehO0oYGLVYDJLfWDkqLI74HgGipd1r2Kn4doj86D/Wfz5amlcnkwCUF/CO8Ykfyer
+	 YJhqSfQR/EcrMSID6FpIAzI+gJ+0vB02BkRBANoeABkFeyQiRAH6GQjSCKCtb0IRNPqS+
+	 iXoKU3V5pe+GXOw1ZOPohYH9/CXYC2O253+Zw3mOT7/YcF31DBr2KCz5iFKurBYKet1GW
+	 q8t0f0gqz+KEqlWCIha2054I07bRwne0uiTl/8/KLE9DLvZUQ7wcRyHM/9P93Ufky6KBs
+	 4PN4r1Duz5F3J0ZoxknYA5u4Db1+8b2xZWVgSBl+6Q1DgiVfca1AiWiWpdSEGgHAOpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792523020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792523038;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Dz9sk4E9ive+ns4UsYhR2kWDOdODtXZD9F+Re5l2VcM=;
-	b=T360auszXqPFWYs0HM2DXV8R1AI80m+Vy2Bs9zVEIvtCjRGI6eZfXt1HGqM1CNCkFUQL
-	 /vO3CElmWjG8WW51GBg6fc8k7tNzvyVcj4ZfVjtekstEGaB3aJQsVaSrOwVP1EMXxFkIM
-	 fBopSxrCj6hEYviivrXliOG98lOZ8C5cP+zaPf1UVqrf+mwk5ZlZDXeQ32uutoYqHpuAL
-	 3rSOLzqC7adUKl74IiKH6JBmEjdDgzSIe/522ejG93FvMjPSYo7cWOvE/jXd7Of8foQUU
-	 mh1lfJ9LlQN2uFGfBmy36xVdYbjzMqPxJC8nA7uyFvbtzJ6Ta4lame86wsgAnVFMujw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=m+YVhDETtUQWm9g1HvFHGXlxhsLtvKkYiiefCwtpS5Q=;
+	b=DevmEpR0VrcqJ0xMBJ/zPfDxXDfm/Px1AzxgjaVMvYF5ksUR6BkQb4ZdIbtqjVSCg6vg
+	 1/19f9CqKWhEir26l4XSZFQ3lIzv+Ib9z38Zm5cDdSKTNFOm3un6l4UFzx1eUIHCbhbcb
+	 PvpC+XRfO3yw9LC+HPkg/cBoMuie4MEfiLKwFYexEvGnVTLy8H71MBG3alkyRylRSPkWS
+	 djieikvcbUJOQnwHjuzbXJS6K8kE0dZI5S5AnUj9OJPWpSk9F4YLZQSWF3F2wU48m61QN
+	 PxlmtsmPrXCj04LgM04xmKC3MmrUcmhCWuSeYfa8rzKQk/Lx5mfkg+RJfJl2sd/GAOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F6LTqspz;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yi1QS84B;
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9973606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:03:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9973606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34335606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:03:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34335606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F6LTqspz
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b0e21048f8so28984937b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:03:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yi1QS84B
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b3dd83e779so2814139a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:03:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792523019; x=1793127819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dz9sk4E9ive+ns4UsYhR2kWDOdODtXZD9F+Re5l2VcM=;
-        b=F6LTqspzQ8t6vWGnBXRpTK7e/E/2yghnP7i9ZTBsB+71Opz2FKC6WGRoz9U/C8v9/m
-         10nRaecamwsb+EujNCubt7xPAwCWSMWvpSEhhcvVh4DLXm/P2m88t6wbMQajS00WY1CG
-         D2ws5Y6VKYj0HCnkmLskBSrrvK5fDL3fKDtiaZeXZPRwbP2DnadOu1MKg5kOtn7tgMR1
-         th4bf9cSv3u06QOOiTI2Oa/m7TcQf1nzeLenz/hzoxB8ansV3wwj3DHzjeB6y1I9D7a1
-         lp/ouzJfCSx/tux+9pGBMRGm6h9eiUT0aJfEISDKwWB66KJA6fmyI3B4WtXqnX76vcEJ
-         37BQ==
+        d=gmail.com; s=20251104; t=1792523035; x=1793127835; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m+YVhDETtUQWm9g1HvFHGXlxhsLtvKkYiiefCwtpS5Q=;
+        b=Yi1QS84BGHvS8TsgRfabeYKIqe70t8cUNCXCVXCmavgsqsUzeP1VJbf7UDqxQRbvHX
+         Wk+y8GqSYwdO0exxPbPb3hBvRhyAnCfeNVAoY6WIdDkjacF2+jMOsZ6O85wi2ebiagy6
+         GioTRewLq6QPvGlqHl9+ygm4T/An5kAObTYsZnhek1hxs8BAcMGDMgbCHwiZmjy/RnB5
+         YD5tUsMix7DS3s753iR1oqHU9WTOG64ucFZIQCdMcHen/Z2mUpf2bV1RvKjopYaP3DpJ
+         5nXAcvUs+HJ1uuKHOcvrmICOwUtEkSp0V78sG7A9zdGKwYF5ZAfgwvHeah5uaX5AX2de
+         t2Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792523019; x=1793127819;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dz9sk4E9ive+ns4UsYhR2kWDOdODtXZD9F+Re5l2VcM=;
-        b=SRBOo9g7/y/6OxQaKW1nf6sXkRSq+h5tPrhC1n92BhRsBD+sOjBWchp6LldWQGb4OT
-         TxbpeNYjEnMZLEQZUp0HP5J6b1hpVY4dbd/e0qj8HvjgtPfEmlH2eqmDqCoOlqrADmmc
-         utCn/Ok0sGRIhBKamJ+zrdSCJDyGntxO+OL3sah/ETRsESG9gQAF5DlaxXVmSwXrwGgj
-         C0RoqbNC7AbjqMBvpP65JQUpMpZ59cn2O/9Z0Li3TzW2+F73nP78JU3eZ/U0X6dPRN62
-         msJ684OH0T8H6SgEG52qlt2abyeAwL9BoOAJXakU7XFSC0xhwZcLAEDaS4rHbMk3dU7s
-         o1kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvU7Z52Ovp9OKDgJjrV9wdQha8LtE9akEMsvmIeAj1LX3FzGpWrHG5C36/CV4ESQki87qmh0EX1QJ+I/c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwXcFrD8D+i4c4iDxFuksWip+NrpsNPVAEYITBvRxo7LOpMfhh
-	5e7COGSqNBrlF+Ph0unjpRwK8+DGD+tTOWaSCZ/lyOO6+yQX3U1wtWQ6i/xBaQ==
-X-Gm-Gg: AYBFou1/8R46fR6yFeY2T3FhC8fO1dsnWtKfvGrZieNS40Th6+xvA3y3bqNDEJ0+8+h
-	TQ4p1F4BQDJN3+y9t+9C04kjg1xntJA5ggh8EKxRSM+K1Brur0mWitTUUX7pubXql8fqAyn+khG
-	SRG+RXi5e0p1wXqhB12p0NHiYg8uBOni6A6GAd5UpYyapzJEtHfX9hGgOM5iK8yBSB9d+03OJjS
-	FsrsIrmTfYvp5HOIZKyNaGlS6TLur5R9Yt2cA+ZJYei0nEwf/jGB1l0AVQmRcvF7TJC57XgnZgx
-	1kpQAuQsBAmUCn1YUntN/VcHR6bhecyCGLhgZ7demnhRPK6APu9JTemOVyqyCQx4k2t5/rSCWTL
-	vfnQgrNqBGuS/fxPe9eazfb+aiebGRhWVWyN0q2CdGpHRHyEUzLUqd1M7C73f1vUPZeyHv0jedt
-	w/s6tPepcn2JvbCuoA25N5Cd53iNfgXpJFgOKNi7JCQjzDZco1KGleGVI0t5otGOdzPF4ic+mSV
-	THtDzb2h8ZzJYYgbzDPkVpij2v+
-X-Received: by 2002:a05:690c:4513:b0:891:c494:1a99 with SMTP id 00721157ae682-8b0f2170891mr45756487b3.24.1792523018791;
-        Tue, 20 Oct 2026 12:03:38 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:9::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b13016fce2sm1798577b3.40.2026.10.20.12.03.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:03:38 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
+        d=1e100.net; s=20260707; t=1792523035; x=1793127835;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m+YVhDETtUQWm9g1HvFHGXlxhsLtvKkYiiefCwtpS5Q=;
+        b=1c3dIzfaeH6gyIdc1xyHXeXW6dzzz6bZYESop/QoAOsZTo8CTR7Fm+kHa7ZBqvrXe+
+         iSqemwE5uLo149J2lq8cmQp1uv8+yvuEGMLWPDr8gHMUCzfSM3lLpI1uDiaYLYCWZ4s1
+         Q20UPy/AcxrtsvlO8lY1xa6z0NBYRQdmkR4lf/+uaUaLWmeVFzuyi5/FbViTBbCmii7K
+         sdw6mXUaJ5q1tguHiknzFqfeyLpt4I21TXycJxBd9wuAd9YHvlo6X+IGAST61K+pZoQ5
+         Hp11IXy9K1K1Vnop/rbZe5o2qmEqtYRM8c9Mn/HqbpkHXhLbdCPQe9SkD26ad0XbSoum
+         NMzA==
+X-Forwarded-Encrypted: i=1; AKwUvByZaK68AaxRzvpzy7+1LzgVho+KaKXG4NahF0CsxYeQhBnu5ZeE33R5eyjaxCXQHUIEG0f5cqmNWZq3+6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfHkP2HNgMEgKyAI6UgAXb448Pt1g0lhjdqKUtB27Z0Lb9I5uY
+	WO8oHRXVDHtoKk4HMxKahIpI+QVMfOJN0MSjMA8xZ2jDyXMUA4JDHr4H
+X-Gm-Gg: AYBFou16K8gZxgoY4HCmcjmzTov4eO3JsLbz+4OU7eX1WEYvGPRUUpbWHtENoMVhYFE
+	Me+WAQndBS/QYAMHdUSo9xhMoaLznDY4k8T3tzNPQdW6uBjvzNp1jT31WGIvrvvbgK3jPbw07fr
+	A/p+WwoLIYXER2gJnT3aHpmpTNgmb9AgJBK0vBsdiQ8Sj1ii8P4SVy3F8VVYScLLvubBnjShX4i
+	J3B4CZyys/Y3ZgsirXJ6bxb2G/n6R34ExekshuWWVzNw5yjDJ+Kz/XVtecbzgIHGrLO2UGJZBjV
+	Kw9q1Af0rT64eus6JvvnQNc+otTB1Wto7nJm8toKbOVL0VAHlYEEWAxAVTwNlbfgMWNRcJjGhH/
+	5sDSvGg4x6Qze0vvYBIVWLU/VGuUOYGjwAg7WN9ngqnzQtoarrtry2+wFeDwHb4CFKgknEEiuUY
+	ndrUXyUpxSDcHo1kgm/cL8UW0nr1CivrA7XhxU8qPB4AQw4mJL9REHidTWslR5cj14kM5Gm7ug/
+	U9ec1nWphG5MAsj21L4V5EdQe9FAPuqBeT1zD8WclHhU1t4y8i3pH9g0vf6PcEYkLi/TL1BHKQZ
+	Hcj2pXvPyw==
+X-Received: by 2002:a05:6402:c287:b0:6b1:bbff:6ce1 with SMTP id 4fb4d7f45d1cf-6b3a81c7156mr5153026a12.45.1792523035337;
+        Tue, 20 Oct 2026 12:03:55 -0700 (PDT)
+Received: from wlan-199066.nbw.tue.nl (wlan-199066.nbw.tue.nl. [131.155.199.66])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b403110a23sm24516a12.17.2026.10.20.12.03.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 12:03:54 -0700 (PDT)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm/memcontrol: publish null pointer before dropping css reference
-Date: Tue, 20 Oct 2026 12:03:36 -0700
-Message-ID: <20261020190336.3754557-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ateuS_d6hRKFFeZW@linux.dev>
-References: 
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Subject: [PATCH] ksmbd: reject FILE_ATTRIBUTE_TEMPORARY on directories
+Date: Tue, 20 Oct 2026 21:03:51 +0200
+Message-ID: <20261020190351.9445-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,92 +100,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 11:13:27 -0700 Shakeel Butt <shakeel.butt@linux.dev> wrote:
+Setting FILE_ATTRIBUTE_TEMPORARY on a directory with SMB2 SET_INFO
+(FileBasicInformation) succeeds: ksmbd keeps the attribute and, with
+"store dos attributes" enabled, also writes it to the DOS attribute
+xattr.
 
-> On Tue, Oct 20, 2026 at 09:56:26AM -0700, Joshua Hahn wrote:
-> > struct memcg_stock_pcp hold references to cgroups that it tracks to make
-> > sure that the memcg never gets freed with unaccounted charges still
-> > living in the stock. The cached stock can be cleared either via
-> > drain_stock() or consume_stock(), which drop the reference if the
-> > stock goes to 0, and then clears the pointer from the stock.
-> > 
-> > If that was the last reference, the memcg is freed after an RCU grace
-> > period, but this can happen while the pointer still points to the
-> > to-be-freed memcg. Then a reader that enters its read-side critical
-> > section after the grace period has started is not waited for, and then
-> > can dereference it after the memcg gets freed.
+MS-FSA (FileBasicInformation) says the request must fail with
+STATUS_INVALID_PARAMETER when FILE_ATTRIBUTE_TEMPORARY is set on a
+directory, and Samba rejects it too. smbtorture's
+smb2.create.dosattr_tmp_dir checks this and fails against ksmbd.
 
-Hi Shakeel,
+Return -EINVAL, which is sent as STATUS_INVALID_PARAMETER, when a
+directory is asked to become TEMPORARY. Do the check before any
+timestamp is changed, so a rejected request leaves the open file and
+the inode unchanged.
 
-Thank you for the very quick review! : -D
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Assisted-by: LLM
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+Tested on ksmbd-for-next 454ae8e5c306 in a QEMU x86_64 VM with
+ksmbd-tools 3.5.7: smb2.create.dosattr_tmp_dir fails before and passes
+after this patch. The 187 smbtorture tests run by the ksmbd CI, plus
+smb2.setinfo and smb2.dosmode, give the same results with and without
+it (smb2.dosmode fails both ways, for an unrelated reason).
 
-> These are per-cpu fields and are accessed within local_lock. How can there be a
-> reader where a cpu is still between css_put and WRITE_ONCE and within
-> local_lock?
+The same failure reproduces on the Ubuntu 26.04 arm64 kernel with
+ksmbd-tools 3.5.6 and smbtorture 4.23.6.
 
-I think there is a case where a different CPU can actually access the
-percpu stock. drain_all_stock walks every online CPU's memcg_stock
-and calls is_memcg_drain_needed, which reads the value with READ_ONCE
-with no local_lock. So I think there can be a concurrent reader that
-doesn't need the local lock. 
+MS-FSA (Creation of a New File) also says that creating a directory
+with FILE_ATTRIBUTE_TEMPORARY must fail with STATUS_INVALID_PARAMETER,
+and ksmbd doesn't check that either. I left it out because I have no
+test for it; I can send a follow-up if you want it.
+
+ fs/smb/server/smb2pdu.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 40af35c0aa29..1ed8e8135c58 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8695,6 +8695,11 @@ static int set_file_basic_info(struct ksmbd_file *fp,
+ 	inode = file_inode(filp);
+ 	idmap = file_mnt_idmap(filp);
  
-> > In practice, this is very rare and I have not been able to reproduce
-> > the issue in my own testing.
-> > 
-> > Switch the order of the reference drop and the publishing so that
-> > we first publish the NULL pointer, then drop the reference.
-> > 
-> > This is based on a report from Sashiko, who found this pre-existing
-> > issue in my page_counter_stock series [1].
-> > 
-> > [1] https://sashiko.dev/#/patchset/20260928192349.3432886-1-joshua.hahnjy%40gmail.com
-> > 
-> > Fixes: e1a366be5cb4 ("mm: memcontrol: switch to rcu protection in drain_all_stock()")
-> > Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> > ---
-> >  mm/memcontrol.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index e7d7db5718f9a..a05d9a8baa1b6 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -2172,8 +2172,8 @@ static bool consume_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
-> >  			stock_pages -= nr_pages;
-> >  			WRITE_ONCE(stock->nr_pages[i], stock_pages);
-> >  			if (!stock_pages) {
-> > -				css_put(&memcg->css);
-> >  				WRITE_ONCE(stock->cached[i], NULL);
-> > +				css_put(&memcg->css);
-> 
-> This css_put can not be the last reference for the memcg from this path as the
-> caller of consume_stock() (above the stack) should be holding a reference to the
-> memcg.
++	/* MS-FSA FileBasicInformation: a directory can't be marked TEMPORARY */
++	if (S_ISDIR(inode->i_mode) &&
++	    (file_info->Attributes & FILE_ATTRIBUTE_TEMPORARY_LE))
++		return -EINVAL;
++
+ 	if (file_info->CreationTime)
+ 		fp->create_time = le64_to_cpu(file_info->CreationTime);
+ 
+-- 
+2.56.0
 
-Ah right, that's true!
-
-> >  			}
-> >  			ret = true;
-> >  		}
-> > @@ -2209,8 +2209,8 @@ static void drain_stock(struct memcg_stock_pcp *stock, int i)
-> >  		WRITE_ONCE(stock->nr_pages[i], 0);
-> >  	}
-> >  
-> > -	css_put(&old->css);
-> >  	WRITE_ONCE(stock->cached[i], NULL);
-> > +	css_put(&old->css);
-> 
-> Here this can be last reference but I don't see any concurrent readers of stock.
-
-So for drain_local_memcg_stock I agree, since FLUSHING_CACHED_CHARGE
-is set, so you can't have it concurrent with drain_all_stock since it
-will skip that stock. But refill_stock also calls drain_stock when
-it evicts the slot but the flag isn't set, so is_memcg_drain_needed
-can read it at the same time.
-
-What do you think I should do? I think reordering makes the intent more
-obvious and maybe it's just me but I did find it a bit misleading at
-first that we were dropping the reference and then publishing. 
-
-Thanks again Shakeel. Have a great day!!
-Joshua
