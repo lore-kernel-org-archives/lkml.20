@@ -1,145 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792481372;
-	b=Cuyyu0isKacnA9TEwiblDC00rCq2CRK4bhzWen2RZ5jfwDVziN2yal+EjU+N5rdBqH4q
-	 jwNt9H9onMKndn7Hu/tibEP6ohu49chMCvTdCQk7SmT/RKP5oVvLAw5VApe1AJE+/nm+F
-	 DCACbPjlckZ5719sC2kzBiDCBdIuWvwYhJDL0mWQgWa7Z8Lhimf0oLvu0NhT/TnAC1n9n
-	 z10DCz1wSjFnsPep6HGNE5ppf/MYRA/Utbo8BumMlyd/U/G39tVjrPjeT+29goKoYxXz3
-	 PjPOoL/XiB2NcS+ufOX0cRSBC+ud5pfZI29yNzZBLwrE0k5rygoTT1jVA+o5Znn2Uqg==
+	t=1792481403;
+	b=f4IFCRNQowmK77TWzZ9Gbfbw1gXkktSmW1OMgYT7vWRwxydowygiRO8g8/7L+nlYACR7
+	 LwqWp43NNc+UlBDzD6ZmM1jyu40UvxgUjc6qZkfe7tOQ0+q1NeyGMeWhQvaIqia+0BvBM
+	 NTrsVZBBLSx/0FAp7QiaFXWi3xFhE1Nzxd9d4OtTSUmR4Pb9ec4gz4O/oKVaQPPDN4eKS
+	 1HiT5WxEoCyRYdw+672MkwLVrBzQGS5L6WI3DdJMqIkDWaSA8lEstgdKa4siwq96knfVt
+	 Fj5mONIpeDeXzpJeqBsay9kz8HxgWdVVzaSUzewUxNo5umcduOOlqRMFkJfHrSs8G1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481372;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=z1YaeM955c5Bg9XHvbbBfUPCacacDup65awF5+IJ5F8=;
-	b=bfivHH4RfFuqizqN2Jdk0WXEzQ1XCtXuOP05m+z0Kwyo7pOM1NRQGvos36Nz5TS6kCPL
-	 oPYvIv1PVGeTqIJNG9iqXR5dZTg1ujfWbY5X+D7bsP9Vx8/mabDfETe2hVp06Zjgi5s8U
-	 1bCrBEU00A9LJHHR6Npj3TLdhhkTyRu/j8H2A5dkbhd0nuwMwigfNdosy1uZem7DKJ3I6
-	 Zg+GGwDemVcVaCMSdyR2G/K0iEstZgbxVUDOefE0LDUaEgLXFUDpbhIrs8s2A0hLJbDh+
-	 zQ1FYhvl5UNJcxYBSWjPBDp6TOOwRXMV/F6gW29jxmkMd9lv16edeR1iPSYaLFm1XXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481403;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=ps+5/GB0NshBez8oJzJPOCqkIqmjQyVJoJgHnSj4//Y=;
+	b=b2L4mTlFCUXY+JdH1h0m9F52WS392p1g46krfyv3VWfsnEHqjwPKZs409k2PEfw967F5
+	 Cxn1vLDIzTaQ5du6smYNImlfcPiCBJpi3kXaJHWK2us4Md2/CBr3k2x+Ox32dlzWbTWQp
+	 ZCsQvUyFwBY6GhvNFhYsseWTf5eD0C4aaDYV/9+gGz2jet5x/FblXWQgBTKeSoBLcUbRN
+	 0jAsR4IcaLcl1UPak6RFhv7ZOxk99TceoKxTj6hhd2zJf2amEoiLX6gF2DLmSvd1+yxmk
+	 /xtwncZsvjC02VxWD03g6fUgcA/+obJWEz521ou7ck5Z3N69p0j8VhAbbLKq7tp+Szg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C7scRXjg;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=P5yOVsGT;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=airkyi.com;
+	spf=pass smtp.mailfrom=airkyi.com;
+	dkim=pass header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=WE1Os1kC;
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F70606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F70606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB97B606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB97B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C7scRXjg;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=P5yOVsGT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792481371;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=z1YaeM955c5Bg9XHvbbBfUPCacacDup65awF5+IJ5F8=;
-	b=C7scRXjgiajTybUWayWkedhZIUgFBVbnoqrIeNbURZsNLndQMRaSNE2WAVIk1jxNGWpfle
-	Q27EZxRPZ44FN/kVIVP2BiuNqEAhRESqL0mwWC+z/ZbJZMvoQUevxzz/6n8kpEYZUWsqV+
-	Nu5bQpJNLyCPP7AVpz5v4Sl+LkMonrM=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-339-S5sZthlNMQaf6ly1Zi-7vg-1; Tue, 20 Oct 2026 07:29:29 +0000
-X-MC-Unique: S5sZthlNMQaf6ly1Zi-7vg-1
-X-Mimecast-MFC-AGG-ID: S5sZthlNMQaf6ly1Zi-7vg_1792481368
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1df6c2937so4450655e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:29:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792481368; x=1793086168; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z1YaeM955c5Bg9XHvbbBfUPCacacDup65awF5+IJ5F8=;
-        b=P5yOVsGTT2wQzFD0x5FpkgAGx7PnYEASUR4QgnIJHwU1ZWEYoEux1jQgVWXM8bg+05
-         28FCMI3P9ihBRqoB1yMnNO8M+yLsCKpoU3YdH1ozO4qT3sQu5e1ba2zExg1vG4XhtPIh
-         u8BaLV/c9ogxLUsupFhA12P8T3ybN+WoU9njaiIwTIMBAB/gaCZWQTmPPAHbkDw6xGqQ
-         0+5y4BnSPckyxyhXy8Rqqja1aafaap/QXu31206q/UEfeWAn97Y6VZ/e2v9QS4lc8OcI
-         VIWWjU+36On6VxUrxBwPHFE0kiv6cF84oh9WXh+oRY5JlLFd6ViIh3DxBhzrh9065NCU
-         H0uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792481368; x=1793086168;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=z1YaeM955c5Bg9XHvbbBfUPCacacDup65awF5+IJ5F8=;
-        b=Sy3Z1x3Xj2gFTuchlDcsdmjgH3srl9D2XAuDfgTqFHKEJiUfLn46WGwo856eiAbT9j
-         zeSTIlhHDP6NW6XUbdqBlTqTLZ7o86Pe2jStoxG8gU+VleG+V0mbMnlApGxN/JApK9iS
-         ADrXRISkDhDgOX8TGCQRuzRTZOxg86NqdBkJ77XNvrj4xvTJ8EgnsPG1/M/2HgzV1FwV
-         jVR0Gl32U0esWyCrFyTtVwu2MbBQqgr+smUljfdNco9N1Vtx3t2jb57Hzq71SffYkm2p
-         k5CtEk1sPcIC2jzCzzS3zxsl7dxc5FukSXicpdfvFqlP6FVEBaGFCv/mvIz9JTDj8W4Z
-         Mwgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwo5Z11xWmmq8cJUlt84I1jdIY/Fh87iHSgN3GsdHONssoQRhYARmAqZI0GNg2RVhjqC0Mxj823liAYe60=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIK+v6Ya7uXolwWND1AOk35sTkn291srKJ4pA1qTNbApC+H0Ouu
-	nkThEOtZHENcWowhO7geCulD0ovVAoqz25/LdRvyxuPOZR36rBVrNUhVJtT9RqpIr2rRD0pFVzy
-	2cWnhmAXh2LThqiwCQi8ZMHcRfhUxenznVhyHZorNqnF2zJb2nBOOS0+Du9Vz81LHPA==
-X-Gm-Gg: AYBFou1yw3eVXwfj99acQ+G495SCRnwbFfMae/aPrTQhJ4i+jleiH3kHCT9MLMG6Cft
-	RsHOccpOk7Cjdc35OmTxIq1dsEvFotxJXNralN/U2r12TDSFZQ6csN/dGsvGfegATiUGBfu8qKJ
-	fZJrBQjpJBv/t062WTG4tqPxOVu4qF2xtx8aYMflGs4oIiQErm2JJfEeUMxGaL+Nz+M8cSorqj5
-	0Z3p7vqsQMd7AwsdT6N55HcxHh2k8krhdI8h1XIxO+xazSCR20u9tRu2ZzYQ8zVKVjRtdGMtNjX
-	zoaCSogQcsU+D/b3SXdlMj1Ejo9b52GzTSw8b8J4k1hIF9CetOXRgsZFnrB34SLOI2yntiYxFo9
-	u7UnULGVPi0PUNJayXKN2It2W4Q==
-X-Received: by 2002:a05:600c:8b8b:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a1f4fa223cmr28534235e9.16.1792481368499;
-        Tue, 20 Oct 2026 00:29:28 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b8b:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a1f4fa223cmr28533915e9.16.1792481368070;
-        Tue, 20 Oct 2026 00:29:28 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.134.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d41c8asm51300695e9.8.2026.10.20.00.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 00:29:27 -0700 (PDT)
-Message-ID: <0d4f11b1999588ddba9d855db43fc492eda32de1.camel@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: John Ogness <john.ogness@linutronix.de>, Tomas Glozar
- <tglozar@redhat.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, Nam Cao
-	 <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>, Tobias Schaffner
-	 <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
-Date: Tue, 20 Oct 2026 09:29:25 +0200
-In-Reply-To: <87pkx5q1w4.fsf@jogness.linutronix.de>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	 <20261001152042.124445-11-gmonaco@redhat.com>
-	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
-	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
-	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-	 <878q3xtptq.fsf@jogness.linutronix.de>
-	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
-	 <87bj8s8ih9.fsf@jogness.linutronix.de>
-	 <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
-	 <87v770uuyr.fsf@jogness.linutronix.de>
-	 <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
-	 <87ik2zryzo.fsf@jogness.linutronix.de>
-	 <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
-	 <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
-	 <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
-	 <CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
-	 <87pkx5q1w4.fsf@jogness.linutronix.de>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=WE1Os1kC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+	s=altu2504; t=1792481350;
+	bh=ps+5/GB0NshBez8oJzJPOCqkIqmjQyVJoJgHnSj4//Y=;
+	h=From:To:Subject:Date:Message-Id;
+	b=WE1Os1kCyShFbPK5b5Sm7DlyzEpw5Gfg+SNl12JlYD7B0FSP62XeHrPEQTWTzR0Mo
+	 tMT01q19JJlyWZ59hTIOXNt8W6wVUWGJo+RLtabspjrfi1VG4O4G2BZV+XsiHoCvun
+	 EoRX3lrk2EW1hy0/PJZTqV8135+h4gs0MPySRzAQ=
+X-QQ-mid: zesmtpsz4t1792481349t498ce6ab
+X-QQ-Originating-IP: 5IQQW5FN/kiyWe2+lWi53DmnbY8e45q3p8I9AC3Xxks=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 20 Oct 2026 15:29:02 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12217570739329010046
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: [PATCH v8 5/7] phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
+Date: Tue, 20 Oct 2026 15:28:14 +0800
+Message-Id: <20261020072816.180-6-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261020072816.180-1-kernel@airkyi.com>
+References: <20261020072816.180-1-kernel@airkyi.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: Mk9vQ32lX3utYpHxZ+mD2ZsT1CtfZpl8EaFK4b1s3NtZqP4nnMSoZEAA
+	hKwqA+1uPAUtSt540v1Y5VUR5ZiddtlH48XIf0k7+VYL0H+efZ4qWkYmcOciQ9etge31757
+	zOa7HqYXaNL/EE5Fvy9d+JKy0AjvRfAhdQ6c03kEmRJLlQIcP+SW6LUOT6wPXRiGnTR3skk
+	LJSEuT5FKHSJWkb+jzjYlMicsuxNM2hExYN+KpM60C3bwG+Su4/bJvpwTEW7n+Ufe9fGM06
+	+yY6TT2QEOlwQpG7/7YoECGwAEx+F1c+wFKFpTiiB+BFN4ghml2OYxK7S4f+t1b8v/EffVt
+	F8moVHqoghkljxZrrZ5hRhVsLWb2VEw67Ci9MI+ot6R020A259qqA+hYEq1dJzu/qJLSfOf
+	xsrsp++KQMpR0I5x4pj8wpAY/B3qen0aUs6GybO3/Q1vAOfm+anJ4Xzl3J7y2JQEgGx4rm5
+	0geSnlQrt+S/ZDU0rkJtZF91Ieb1wXrQqX0zqY/oDn/sXxwxBVxCOu0udfTEf316uJ88GpK
+	A9Lwpu2hrB9b3EGKit8Z7Qc+glcTjaP2poGqmThXipp52wNJu420Un8OMQ6XrORZeJs1GuB
+	y7kvnPzJP2voP8Lq5LJ/eTxHljHjgKkl+pryohsVSN8zBbMpS3coLlSHu0z5Vc2ITKecv+x
+	QxWbEWxIfEWcdlBCIHtvExO1QCWNh4baOeV/MQeA53ZGszlu5mT02nL2t3oHktJykh1BZBn
+	7pnWxR7wLr1dPSNiViy0fZ18iLj3QptyoKNcMUkR+/Vk3xiGHJUT5EpvFFiDBLij1aSoa73
+	bK2eqdCyi41+I7rZtDuESRpF0oR6r76olyp3lcMdtt8v8tg4CGPcmOjf1RNbhh4idXXiMwM
+	ZDKa/3V8gBWCx44LeogEqey6MxyoI0mtmBAoF0r94MX7benRmg0bXQwumsgQWHaDInceWh4
+	qR7ZbdbKgu2fT41cT1K8PVynxjnD3rUZ6V9Xema8ZqbPPbUG/hKfKgciLR5Y7Jr3r/9Fd4C
+	dbXlWKnWU29J4vE+od7Toc18k8lbpCfQkLpPwn7VfOe2Q3GhJk
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,176 +108,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-On Mon, 2026-10-19 at 15:08 +0206, John Ogness wrote:
-> On 2026-10-19, Tomas Glozar <tglozar@redhat.com> wrote:
-> > Do I understand it correctly that the idea is to modify existing
-> > tracefs instances when enabling an RV monitor to filter our RV-related
-> > bpf_trace_printk events?
->=20
-> Not necessarily. But does the ordering matter? If I run:
->=20
-> $ sudo trace-cmd record -e bpf_trace:bpf_trace_printk \
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -f 'bpf_=
-string ~ "rv: violation: *"'
->=20
-> it does not matter if the instance is running before or after starting
-> the monitor.
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-I'm not sure if that was a question, but I don't think it would matter eith=
-er
-way. If RV generates it's own events, these exist even before the monitor r=
-uns
-(just like bpf_printk) so it doesn't really matter when ftrace attaches to =
-them.
+Using the DRM_AUX_BRIDGE helper to create the transparent DRM bridge
+device.
 
->=20
-> > > > I can imagine an RV-specific trace event for that, however, it woul=
-d
-> > > > require a separate kfunc to generate it, and ideally also distinct
-> > > > labeling of a BPF program eligible to call that kfunc. The "rv"
-> > > > userspace tool could then iterate over these labels so the user kno=
-ws
-> > > > which violation events can be expected to occur on the system.
-> > >=20
-> > > That'd work too. It's what I initially envisioned but I'm not sure a =
-kfunc
-> > > producing a tracepoint is something BPF folks would really like (and
-> > > technically
-> > > any other unrelated BPF program could call that, unless there's some
-> > > access
-> > > control mechanism I'm not aware of).
-> > >=20
-> > > Not sure how much it matters in practice against the glob filter, it
-> > > probably
-> > > really depends on the other bpf_printk users (and a mildly better
-> > > usability).
-> >=20
-> > bpf_trace_printk is already a BPF helper producing a tracepoint, this
-> > would be equivalent.
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+---
+(no changes since v1)
+---
+ drivers/phy/rockchip/Kconfig              |  2 ++
+ drivers/phy/rockchip/phy-rockchip-typec.c | 13 +++++++++++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
-By the way, there are other occurrences in the kernel, apparently used only=
- for
-testing in include/trace/events/bpf_test_run.h
-
-> > Of course, that does not mean we want it, but it
-> > is something we already have in at least one instance. I know of at
-> > least one quirk: you can have a BPF program attached to a tracepoint
-> > that will call bpf_trace_printk(), and a tracefs instance tracing both
-> > bpf_trace_printk() and the original tracepoint. That leads to a new
-> > tracepoint triggering while another tracepoint is already in progress.
-> > I don't know how it is currently handled; from what I recall when
-> > testing RTLA's BPF actions, the bpf_trace_printk() event might get
-> > dropped by the tracefs instance, so I had to use a different way to
-> > signal to userspace in BPF actions test.
->=20
-> This is interesting because it is very likely that the RV monitor is
-> attaching to and generating the violation from the same tracepoints that
-> I may be additionally tracing. For example, the sleep RV monitor
-> attaches to sched_waking, which I would also use while investigating my
-> broken real-time system.
-
-Yes, that's actually what standard RV has always been doing, I've never not=
-iced
-dropped tracepoints.
-I thought bpf_printk used some shared buffers or some other things on top o=
-f
-that but it doesn't seem to have anything but a tracepoint string.
-
->=20
-> However, I just ran a test with a simple eBPF program that attaches to a
-> tracepoint and calls bpf_trace_printk(). I started trace-cmd to trace
-> both the attach tracepoint and also bpf_trace_printk using a glob. After
-> starting trace-cmd, I loaded/attached the eBPF program. The running
-> trace-cmd was able to capture both events (with about 15us difference in
-> timestamp).
->=20
-> > As I said, to prevent unrelated BPF programs from calling the new
-> > tracepoint, you'd need to recognize and track RV BPF programs as a
-> > special type of program, similarly to what your original RFC did. I'm
-> > not sure if that's what we want, but I see some advantages. In
-> > addition to better filtering of reactor events, you could separate
-> > reactors from the monitors entirely: you could trigger the tracepoint
-> > unconditionally, and attach reactors as tracepoint triggers to the new
-> > tracepoint.
->=20
-> Thank you for making this suggestion. This is the direction I would
-> prefer we take.
->=20
-> > All of that adds complexity, though, and requires separate discussion,
-> > so it's probably not something relevant for the initial
-> > implementation. I just wanted to mention it so that it doesn't get
-> > lost.
->=20
-> Since relocating RV to userspace requires an enormous amount of effort
-> and coordination (mainlining, packaging, distributions, documentation),
-> I do not think it makes sense to have an "initial implementation" that
-> is already not what we want in the long term.
-
-Fair enough, I feel to be cautious at redefining what reactors are right no=
-w,
-though. Currently they are nothing but a function call to the set-up action=
-.
-It's trivial to verify where the code goes without adding the tracing subsy=
-stem
-as a dependency in the path (typically important in some safety critical ca=
-ses).
-Sure, handlers are called by the same tracing subsystem nonetheless, so it =
-may
-not add much value.
-
-Let's leave reactors aside for a moment. What I am coming to terms with,
-instead, is that the current ringbuffer to userspace design isn't what we w=
-ant.
-In kernel monitors communicate their status through tracepoints, perfectly
-integrating to tracing tools, BPF monitors use a custom buffer.
-
-Generating a tracepoint here is probably the way to go. bpf_printk does gen=
-erate
-one, but as Tomas pointed out, hijacking that for everything (think of moni=
-tor
-events) might be a bit much.
-Nonetheless, we want RV BPF handlers to generate tracepoints, then attachin=
-g
-actions on error tracepoints (whether we call that reactors or not) can be =
-done
-later.
-
-Summarising, we have 2 potential designs.
-
-1. bpf_printk only:
-  bpf_printk("event: monitor: curr_state x event -> next_state")
-  bpf_printk("error: monitor: event not expected in curr_state")
-
-2. new kfunc(s) calling a tracepoint:=20
-  trace_event_da_bpf("monitor", "curr_state", "event", "next_state")
-  trace_error_da_bpf("monitor", "curr_state", "event")
-
-1. is simpler and works mostly out of the box, depending on how powerful gl=
-ob
-filters are, it can reach the same functionality as 2. Might risk to overlo=
-ad
-the shared bpf_printk event and perhaps have a higher filtering overhead.
-2. is closest to the current in-kernel implementation and offers flexibilit=
-y to
-easily filter the type of event (useful for DA, e.g. I want a backtrace onl=
-y
-when going from state A to B). But it requires a series of kfuncs (e.g. err=
-or
-and event for each monitor class).
-
-In both cases a malicious actor could call the kfunc and make us believe th=
-ere
-was a reaction (they cannot mess with the model though). If we own the kfun=
-cs we
-can at least limit the availability (tracing-only and CAP_SYS_BOOT).
-This, unless we register BPF monitors in the kernel like in V1.
-
-I'm going to test each design once I get again to work on this.
-
-Thoughts?
-
-Gabriele
+diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
+index 14698571b607..9173d3b4fef4 100644
+--- a/drivers/phy/rockchip/Kconfig
++++ b/drivers/phy/rockchip/Kconfig
+@@ -119,6 +119,8 @@ config PHY_ROCKCHIP_SNPS_PCIE3
+ config PHY_ROCKCHIP_TYPEC
+ 	tristate "Rockchip TYPEC PHY Driver"
+ 	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
++	depends on DRM || DRM=n
++	select DRM_AUX_BRIDGE if DRM_BRIDGE
+ 	select EXTCON
+ 	select GENERIC_PHY
+ 	select RESET_CONTROLLER
+diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
+index d9701b6106d5..48070b50416e 100644
+--- a/drivers/phy/rockchip/phy-rockchip-typec.c
++++ b/drivers/phy/rockchip/phy-rockchip-typec.c
+@@ -54,6 +54,7 @@
+ 
+ #include <linux/mfd/syscon.h>
+ #include <linux/phy/phy.h>
++#include <drm/bridge/aux-bridge.h>
+ 
+ #define CMN_SSM_BANDGAP			(0x21 << 2)
+ #define CMN_SSM_BIAS			(0x22 << 2)
+@@ -1162,16 +1163,24 @@ static int rockchip_typec_phy_probe(struct platform_device *pdev)
+ 
+ 	for_each_available_child_of_node(np, child_np) {
+ 		struct phy *phy;
++		ret = 0;
+ 
+-		if (of_node_name_eq(child_np, "dp-port"))
++		if (of_node_name_eq(child_np, "dp-port")) {
+ 			phy = devm_phy_create(dev, child_np,
+ 					      &rockchip_dp_phy_ops);
+-		else if (of_node_name_eq(child_np, "usb3-port"))
++			ret = drm_aux_bridge_register_from_node(dev, child_np);
++		} else if (of_node_name_eq(child_np, "usb3-port"))
+ 			phy = devm_phy_create(dev, child_np,
+ 					      &rockchip_usb3_phy_ops);
+ 		else
+ 			continue;
+ 
++		if (ret) {
++			pm_runtime_disable(dev);
++			of_node_put(child_np);
++			return ret;
++		}
++
+ 		if (IS_ERR(phy)) {
+ 			dev_err(dev, "failed to create phy: %pOFn\n",
+ 				child_np);
+-- 
+2.53.0
 
