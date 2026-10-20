@@ -1,61 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460364;
-	b=cEQgPJfFTGU8hECfIWTVY+/ZQpb0eUGnGLnX0xejhacmsvpPqup3zKqKdNGYGgwcLBAY
-	 AS7INcJvBRRIR2D91o4z85L3ENEXlCFGYskIBvEE/f4DIsed0e+BPFfAR8lNss2gvHJLd
-	 pQIEatlztkxHka3wbo7Avc/V+QDyBLrOGUMGY6zk3UMM1JducCL0E9Y5+1a1aEEX3PHzC
-	 XWJVqIq9TeET/n/OIG+Ollss2opqXNp+yar+Z7W8laKzVVvI2MJimjA1IoR5fQC5sxrCR
-	 rKOU3VHkqlb+F3/yKJJRNnTlGatWwAFNMOaOb3NNVMw1uaR0MjTmfXukLjV3VTjqprw==
+	t=1792460388;
+	b=MRI/ZLu2SbIiaDAnG3g4TvbVgYN9dlID7xuPIjERH0hqdhoWBducly1OAwhoea3/X8zt
+	 d7NXIzYt9/AUFWGR7jqE5+pVstFuNVG2vcgvdWgmJAKJoH3cbK/c6pBI5SnbN/342QQyY
+	 T7HlPijqywN/iwuvQhW9iwb7mjmWEaj+IXhxYVV6ekK+xTPiZB+dJgfpXi9BlunoAgdAF
+	 bGd/lj2BNVmBqm99zPb/gy/NF2jAxDgkECteBdmXyen26l4JdKsB/bX/noqNwUWXEGquE
+	 JxcSFGZ9NG9iMnvcToX9YI3b/KrWZ7PrXLQ7JkahKFmPCt6qOW+nGBeIOb7x38Hi4+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460364;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=c8HLZiQwinILcb8NHotneX73qYTCfJXD1L2tSseW6Ug=;
-	b=NCmCuNbtruOKHn76bQJhIHCI/dDJCZUwy0di1Mo3Aw5NL06n1odaAikArA6j39TCN69Q
-	 NhY/HwjBvV9ZR0kwtAM/dSpM3QapIcliB0N7PfWF5Vlqmz8Wj44l0p9wk4rZBTbVmprMC
-	 t18vH0GZ+ek88BEVFzxm50/Alnc/ZPe+NxhaokSqH7DnbLdWM1CtOLyYbmUWQ9+2BDM3H
-	 1CJMZWTFmGt6lNY/MchMCtKom/MY/5MZWiTJSd+oFTm/Qk4xCVFj40DMRLyMU3+8X/R+P
-	 KcololfU6dLmQyVg6AF8E0fmsIxA4phVowZ+bHaWU4sF15e2YGl+63VRCiYgxZrXvCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460388;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=RnAh5BgwbBUv22MFv8wV5yaYN/qwaGj857cNozmhPaE=;
+	b=uv3U1XLAx5m/IkuCVCKLjHyf6OrZL1+nqhGxqmgDAeSDXa1KauluOnwCgUbtrrgA9sFs
+	 MChYulHwm1kx+ddedFtw52DuXc1qrumR533VY5DyoFqoDot4uEmi8VzDy3qraSY/2SiTx
+	 QblrW/+hfllHgzP6CWJR3IUGImwWG6q2eqQJAIgUZTMmnsfr3ySgB2T39yQNCPyu10vKZ
+	 5jOfYBXwyeI2NvHYJzBtVXCs4egwULl+eN+57cnUHqk+ObEORrb+VN5kOCNcSxFKu0GcT
+	 us75bL0OiIyJkHs4D5iXgAG9YuZOmvxtRGPysdLRH11SF69bGjhcB8ltoRi82+C4fow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWxlEMXw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RkcZ5cU4;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9E1DC606A33D;
-	Tue, 20 Oct 2026 01:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EEC60A261A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:39:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50EEC60A261A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWxlEMXw
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EFAFA1F000CB;
-	Tue, 20 Oct 2026 01:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792460364;
-	bh=c8HLZiQwinILcb8NHotneX73qYTCfJXD1L2tSseW6Ug=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QWxlEMXwNH8raa3urVkoyKULJtf9a615bycG98eky7T7XHpylDFueKgPeXYgB7Hoh
-	 whbeUP2TAUJKXxu8FBU689UkSalPDO8uoCrvLZFstTELeOXZP7juif7OXlmDrmbvWS
-	 tIr2oeCNGFuQ5xCKBx+nXafoFHkMiLTluILWHvYLKuGtdDPVgRtvohhYxPuqSh57lj
-	 SrDLEcUH6b1UHtnkorNk2Xdv3mqNKAyYzkIAXph3JaP3Wz1qM43TjKlM/cOMAG9v+T
-	 n+ILlXcq8AtIOeCIh+FA+WMmt1GVeEsbw0RMJ0q27ESOWNNZgYJefO9QwUtzD3/F/Q
-	 d/G0l0kk1w3FQ==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RkcZ5cU4
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5820113eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:39:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460387; x=1793065187; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RnAh5BgwbBUv22MFv8wV5yaYN/qwaGj857cNozmhPaE=;
+        b=RkcZ5cU4XWT+80H9xiHfw/ZuxBl6gyGBS8H5OG1Ui5ovV0ctyZ8z4qUpRFqR9Cw3xk
+         cE1gBX1g/vACLt1CLIrwHL8EmS5VeFqqrm0ueJiNdaRG5pmtJcXR9T0nI7/4wPFmx2Fc
+         P6NuIHhpjNjq4DlS4dHIFp7F86kFVhySspEVGioyhs5SYNt0R0L1G+hf/6crdY5kskpr
+         nh2IfgchMcIyBNiXQy8wSrHaA5HKlohWQIHEC0fRwpOhVMISs9wo+dk/5Oz2XD2EB5Cq
+         WKb0vsQRYsDrrlm5Uw96Kk4QP2RpxUG/EAN5jYsQhxtaIKcG4NpiN9GSXndRffebXt6E
+         7YOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460387; x=1793065187;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RnAh5BgwbBUv22MFv8wV5yaYN/qwaGj857cNozmhPaE=;
+        b=WncNDrx0kwwVpubfVcmsCOWZeOEK4e0jnyd/nrG7IDZmd6JOwN5HBUJ5NnfQHcMgL7
+         MOdm3LRcBBPRWB4g83Utal7cDUAUPVVYiPGUrv8ExI7RDh3EsQl9yQPZIwktZXE7LdJx
+         3L2jgMSKmVphTA9ZAJp4OaenzZrvZkpM2SZ7HzFhftDsvi6s+CfFhm3Lksqsh6oOTB9U
+         nlLdaO0t/U8nNlNBq+AGVjEpbHbwuXGIs40OS7t/cI0174ywKlh7PbCXs2r3WH+cbAIY
+         X2O4Py3d1w1x1oPqelOb9we22E4HYwMv2e9gjCxQjkB0xnD6ChoBY6jQIN3Kpax77cDX
+         +oeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAOaLCLyLQBkS34PwW+TV+T8UUuD9w/GsDz6NGwaUEuoAWgzxYh8wFEBb5A4ETFp3EvA90JDhnqYYBq5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6Y4mVa70Y8zZt9tPgu0XGYyS2rb9FLGQvcAdccHHg25B8ZYx8
+	C31q32oNAADzqILCxDrGPEpu8e1xQCZOAsEBgdncGc8lP7lJlBR5arW7
+X-Gm-Gg: AYBFou2uYDa4VNF72xsYN6zuryJJnrWzfKWJZ4KVSNFnpPfuh7MTFE/a5dJ2ulpp8ux
+	yXssEWBiGUHK7K5ycd/pwrWfGFtWpcUf2VBSLigD7qqK4ICph/0xrOG8wCKvexdJ3tfIEzWQx1p
+	E1N6t9rFt9b0BG3ZmWJ7B+/+9jFv81xBjlVjHtgFYCW6gA1HibVbE8QSUZxxFUk/RkgTVjlqlmD
+	23TMh9dmOl30XyDgSMSmwzdAVU6YUvlfB5yPEVbBoFiTV2ynKZUCc7z6ert3h92s3yvVHwtvsww
+	rq13vVRJq0fMGHXKSPBisMhb9QGxuGYnwE5AETLwmDF5HYIomNP3baSPH21Okkj0ELZ4c05DzUA
+	lePvwS9RjchD1dXNlwpuQquDN7gGcQhUZltAcieC7M1Pd3U9DCJXBJfSJ2JAKG6Lk15A/yHDxo7
+	wAMeLRwbg6DRG77qURyoTS0CoXu6jIgmknikzh01DLCUkbLly5QcVh7Mcfaq4L+tjCoGvM9NYHZ
+	aA4MpdPUl2N
+X-Received: by 2002:a05:7300:7a99:b0:358:f678:46b6 with SMTP id 5a478bee46e88-361a2343165mr14073141eec.22.1792460386817;
+        Mon, 19 Oct 2026 18:39:46 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm45216643eec.20.2026.10.19.18.39.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:39:46 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:39:45 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
 	Eric Biggers <ebiggers@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	stable@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 3/3] KEYS: Verify the key identity in __key_unlink_begin
-Date: Tue, 20 Oct 2026 04:38:57 +0300
-Message-ID: <20261020013903.1244157-4-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261020013903.1244157-1-jarkko@kernel.org>
-References: <20261020013903.1244157-1-jarkko@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
+Subject: Re: [PATCH 3/5] watchdog: gpio: Support watchdogs with a minimum
+ heartbeat interval
+Message-ID: <cde332c2-3628-4bac-9a4e-55d85fe06628@roeck-us.net>
+References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-4-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,61 +112,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016221617.2223004-4-f.fainelli@gmail.com>
 
-When two keys have identical type and description, linking the second key
-replaces the first in a keyring. However, attempting to unlink the first
-key (no longer in the keyring) unlinks the second key.
+On Fri, Oct 16, 2026 at 03:16:15PM -0700, Florian Fainelli wrote:
+> Read the optional hw-min-interval-ms property into min_hw_heartbeat_ms so
+> the watchdog core defers keepalives that would toggle the GPIO too soon.
+> Reject zero intervals and intervals at or above the hardware margin.
+> Devices without the property retain their existing behavior.
+> 
+> Remove the arbitrary 65535 ms upper bound on hw_margin_ms as well. There
+> is no register width to constrain this software interval, and the MTX-1
+> watchdog needs a larger margin with a 1600 ms minimum ping interval.
+> 
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-This happens because __key_unlink_begin() calls assoc_array_delete() with
-&key->index_key, matching only on type and description rather than the
-key's identity.
+Applied.
 
-Example:
-
-  keyctl new_session >/dev/null
-  keyctl newring ring_a @s
-  keyctl newring ring_b @s
-  A=$(keyctl add user A ss %:ring_a)
-  B=$(keyctl add user A qq %:ring_b)
-  keyctl newring R @s
-  keyctl link $A %:R
-  keyctl link $B %:R
-  keyctl unlink $A %:R
-  keyctl show
-
-Verify the key identity before unlinking, and return -ENOENT on mismatch,
-instead of unlinking the key with the wrong identity.
-
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/keyring.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 7143f3079d20..b025331488c5 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -1501,9 +1501,15 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
- 			      struct assoc_array_edit **_edit)
- {
- 	struct assoc_array_edit *edit;
-+	const void *object;
- 
- 	BUG_ON(*_edit != NULL);
- 
-+	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
-+				  &key->index_key);
-+	if (!object || keyring_ptr_to_key(object) != key)
-+		return -ENOENT;
-+
- 	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
- 				  &key->index_key);
- 	if (IS_ERR(edit))
--- 
-2.47.3
-
+Thanks,
+Guenter
