@@ -1,57 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792532119;
-	b=bw4+POeFJRkak8J2WncEnLf7vumF9xRR9HXR0R3lH2CAyk4fXa8ztxVlf4GAUeg7PrC/
-	 +utLPgXBJ7r159ohiiv2LZ/TPn3Xh/a1FqMNk6Vh229J9SivULZwF4Us9unfu9mj/QYYC
-	 TFzNCOYCMll36KiDVPmiINd/QwwdyfY811QZ57ADye0qyXq4DqIUz74wKZCUUBuDCtEPt
-	 rieGZ9r/sOxO/WjHIGZfdzOsDcv8/mhdXTJJgPlcrFEfsH6sdrxB1EjNEgPpvVnhVOmZc
-	 bG6eiKRn/69S5sI2UoipOgyuhSbT+6FIUfeipIwK3Vf5evEL3jcEQMCI0VAx4CpIs4A==
+	t=1792532143;
+	b=GZ/Jyt6ArQM+qVoxdzWhxI66p/UaJF3LiDbRH1O+iH2SqOguscILKXuJDzkFcna9Muzc
+	 gg69epWZpY2n6HMa5bPiTnH0CThYt6YcaOVFsBFa1QmJdh7eNaE+tbhFYnqrq0RvutnwV
+	 IE7LQMCdizNCp/Ro//XdE2tQICSR+Dezlq7k73nE6f1nF4tJeFuStrSmsf7GkUnoy32/m
+	 Aed1WqmLd6SnXIzFTIxjnxP+Zr8r1i7LhyyD+s6CHbpwoJ1sN9E8xzW8MNVBztiJrHgTj
+	 pBiwNord9xc6yYQ5w8NSsT8kQjBItIJHR9GdfNCnDk22kMfbquZEiKBdh740RIXRPSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532119;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532143;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=JnNQriX6Bbstn8TepnqDJgRRLBsCHc7/Dcoc4OhbyCI=;
-	b=rzqrZ2N1Ko6C8AZziUMD8T8zyMdRXqIswAQBtRNlrrKJ12GA1jHk+w17Dmr1lLH+vruz
-	 51DqAI2tak4MLYyQElEIDGSbCjaBysaNXoD+IP7dAyHcrBJfgZz9HXacSpnRBENJu2f/Q
-	 3oSXpCmd2Df7HiCI22arGjIEEy2YF8DtgaPSXZHOxEyCfN28ry8xIXA3PFxgLv6m62qzP
-	 DWrIcf4NMep+Xr0+oE+Kc/2BuV1d60Vm8nc3x8taIAFEbEHdBGOTgQQSXIM6tFFABCWUZ
-	 kFvvHLeanemudY2m6Q4a9xadGgTytZOU4d8/TG977Dd1wpqQNp79SVFKGX3SHqln4Ew==
+	bh=Rd+zet0+rAOB7xi96SurssfEUvqiUoY3MfuDj8KXQNw=;
+	b=ys7YacAUTX5KxRFh+82f0lHS67DOTA63maqvLw/UU1Xc8OhZk9su6FbeXwPHKSwZvKtz
+	 7yjDXXOfufw0ODSZA2wC/Znq1C+MAa8+IwCzTbdTFu0rWSEKRirlc9tEiH08cSHC/Zaqp
+	 VXmAz+LTPGuCQe3rEjN5OxyuBEYIUD/PBIkIHjSKdl1k2ZmtOak02BYHK5LBUjIPQoBi0
+	 uTaTaOvW+sxBREN/+JwZh7U2ftvj9TvS48s4WS6I98E+ALi1N2I7jWR7dc87PK+K2egjw
+	 Z8lWIHaCjNtW8FVHdReSo7ezQI5Gjxc+rkKJowZ76GZUTvgNtpfex+U54C2Js3LqKFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=j4cJPCA9;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gZ9U9U+Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7D2606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7D2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09815606A31B;
+	Tue, 20 Oct 2026 21:35:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=j4cJPCA9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792532116; x=1792791316;
-	bh=JnNQriX6Bbstn8TepnqDJgRRLBsCHc7/Dcoc4OhbyCI=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=j4cJPCA9d2Q0bYz+NFNw/w3qEevfZtiXBUd2zYrgh3LGSW/OkGlUG7ig/y4pMrPwm
-	 BR6aSw8c+ukHeczXLJXgN0BEpoJ16vGOJWKj8WFpKOTvJQwMZe6pk3YTFXr3eCOuvR
-	 2wojWD/YFOldiUZIS9CP+aNVco+oIsmKCAdodnGpmpyiENg4fPWYaOuJ494miBAjSC
-	 kFJUMkqE8cgSRezyWm4YIzzLxN81qNSoff6wtms95HA30v8tgraFYl+fzjCztJv6FV
-	 TTcgU8BevMfZI+r+Kr5xm/lP+fffwOl9acjiginj7tvtCWwnebD9AXAh3e7jh0/xOS
-	 PRXDfLy3U2eDA==
-Date: Tue, 20 Oct 2026 21:35:09 +0000
-To: Jeff Johnson <jjohnson@kernel.org>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, linux-wireless@vger.kernel.org, ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: ath12k: don't count a vdev restart as a started vdev
-Message-ID: <20261020213505.31624-1-birk.skyum@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 0691d706ead9bfd175647fe90f64433c99c5156e
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gZ9U9U+Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8688A1F000C9;
+	Tue, 20 Oct 2026 21:35:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792532142;
+	bh=Rd+zet0+rAOB7xi96SurssfEUvqiUoY3MfuDj8KXQNw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gZ9U9U+Zz2j+MTPm0gsrSeB6cDEfOsz4fp/G1tmBH52wNiAEyftA7YcD4A2oxtb+U
+	 cptG5SDol0UcQckzheiE5y35hx+qZTj8t7tRDYX/QTZQkzkN7PB933qP9KMieo4+xJ
+	 Q8cRhT3uWnG6si/H/clMk8x56NLbXHb4PtUzAMg4=
+Date: Tue, 20 Oct 2026 14:35:42 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: arnd@arndb.de, tglx@kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] compat: Avoid double rounding in times()
+Message-Id: <20261020143542.37b34a0f8f43ed3655647343@linux-foundation.org>
+In-Reply-To: <20261020210157.52057-1-dennylin0707@gmail.com>
+References: <20261020210157.52057-1-dennylin0707@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,64 +55,31 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ath12k_mac_vdev_start_restart() increments ar->num_started_vdevs for a
-restart as well as for a start. A restart is not paired with a stop, so
-each one leaves the count one too high until the driver is restarted.
-ath12k_mac_update_vif_chan() restarts every vdev that is up when its
-channel context changes, for example when the AP changes the bandwidth
-of the link.
+On Tue, 20 Oct 2026 21:01:57 +0000 Hungyu Lin <dennylin0707@gmail.com> wrote:
 
-Since commit 18ae7d0cdd76 ("wifi: ath12k: Avoid CPU busy-wait by
-handling VDEV_STAT and BCN_STAT"), ath12k_wmi_fw_stats_process()
-completes a WMI_REQUEST_VDEV_STAT request only after as many vdev stats
-events as there are started vdevs. With the count too high that never
-happens, so from then on every station statistics request waits the
-full 3 seconds in ath12k_mac_get_fw_stats(), with the wiphy lock held,
-and logs "time out while waiting for fw stats done".
+> do_sys_times() already converts CPU time to USER_HZ ticks. The compat
+> path converts each value back to jiffies before converting it to
+> COMPAT_USER_HZ. This round trip can lose precision even when the two
+> userspace rates match.
+> 
+> With HZ=250 and USER_HZ=COMPAT_USER_HZ=100, one user tick becomes two
+> jiffies and then zero compat ticks. Every odd tick count loses one
+> tick, so any of the four tms fields can underreport CPU time by an
+> additional 10 ms.
+> 
+> Return the value directly when the native and compat units match. Keep
+> the existing conversion for differing rates.
 
-On a Lenovo Yoga Slim 7x connected to an MLO AP, the timeouts start a
-few seconds after the AP narrows its 5 GHz link from 160 to 80 MHz and
-repeat every 3 seconds until the driver is reloaded. While they last,
-channel switches take minutes to complete, transmits fail in bursts and
-group rekeys end in a deauthentication.
+The fix looks correct. The compat times() path unnecessarily converts
+CPU time from USER_HZ ticks to jiffies and back, losing precision.
 
-Count only vdev starts, as ath11k does.
+I had $LLM model the userspace-visible results for tick counts 0 through
+10,000. With HZ=250 and USER_HZ=COMPAT_USER_HZ=100, 5,000 values
+underreport CPU time by 10 ms. The patch eliminates these errors
+without changing the differing-rate case.
 
-With this change the Yoga went through the AP's next switch of that
-link, from channel 128 to channel 36 at 80 MHz, without a single
-timeout, and the switch completed in under two seconds.
-
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SIL=
-ICONZ_UPSTREAM-3
-
-Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
----
- drivers/net/wireless/ath/ath12k/mac.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/a=
-th/ath12k/mac.c
-index 01f8c65..1b46723 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -11472,7 +11472,8 @@ ath12k_mac_vdev_start_restart(struct ath12k_link_vi=
-f *arvif,
- =09=09=09=09=09=09   &arvif->reg_tpc_info);
- =09}
-=20
--=09ar->num_started_vdevs++;
-+=09if (!restart)
-+=09=09ar->num_started_vdevs++;
- =09ath12k_dbg(ab, ATH12K_DBG_MAC,  "vdev %pM started, vdev_id %d\n",
- =09=09   ahvif->vif->addr, arvif->vdev_id);
-=20
-base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
---=20
-2.53.0
-
-
+Thanks.
