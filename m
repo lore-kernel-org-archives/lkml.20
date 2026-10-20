@@ -1,87 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514911;
-	b=Gpn4PuUDPUusLJnq98ld33ZdiT8MF6D0xlutYro9ZRYAw/jF8SMrk1H2Gpjyff8qEsoP
-	 wiaqSGeNopYRqSbloCS/8KJuX6QgTzEoJYLR9CeWDtXqQfQCWCPR9exZCgWs1k367kNiX
-	 hgrbbEQcGAxMY96R2N0o/uDeqjsCiT+MxcNULBw6ektS89Kw1ngoNz5RyiZ6ns4YTILz+
-	 F7Jjmi6oDYC5YnUT4dyxJuQNNd+ZFnoOrXtu4TI6+kmtbflPEdo96JbDpMQ0KjAFonEVk
-	 VeyYNasKO8A0JErvCaGw40EkLmeOH/4IneHKl/ZNTo6zt4s1/ffbCxUvCMI4Ve1ZVEA==
+	t=1792514936;
+	b=xLtFXf5jG+ePqCjWIU4cTflfY0GpdBRwJKmV3WgZFWP2vLJw4ZaBTQsg6k/r3dqWnhnh
+	 NawrUJZGxhkZOhjHj9WeJPvW0f2xFeaGgcVkxAOwvrgZDpuMMxwxrnHC9QgABUiTFxOy1
+	 oDhg2esp6aATrWCNysWHfuaeJzm8Vlsen9wBgscX37ZGJqtZ/VDPx/NchKUwZeeIxqGxv
+	 7AQ7WAsBGH90FziBGAM7O3KX9P4JW7aUQYty5VEWnTgflNWiWforpfPdpXlqhW1nlOOnn
+	 DQJOS7osrhr7BjAjYZ4XAOWtJz1Awj0+TmnIRqLAQKOhKtZg7FCyhBjiTx2ggYJ2frg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514911;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=yOVnpJCUDrHS5XtDy2LVfYzH67VSMOqV48wcMc7eFu8=;
-	b=5cwRtjFJRAiR8TMVDwvVgMRqA8La/FZE0iympExXNYxxoxrbw00x1UaxnKJy0TEvlqLg
-	 2bO4dZ5sLalski6dYBsc4MQSAsTrg/GuHAQ+g3Z5ldP4AsYhMLN3mQzZg/Iz2kMuepBPR
-	 ZMk1rlEPDb1WX9FG63Og74ojvpV7W9iVwx/SgyH2S6jAme3X67iW17FGM9/8IhiV5u85S
-	 BwM0aztlz6BDu6y9RNMQPprnhdxbtdmyolZywE5WO1iEdKTc8KHCQ+vOcQlmh/U/fGbNB
-	 ZJxl7ntCNt3BT0VLz7ILHQPKK10/RSDezueBS77h0JSB2L5tV13a+UsrlTSuvyY9R7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514936;
+	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=dEPBoh5eatFrlNajXHLKC32XKu7ihCvs7f0OiCqPty8=;
+	b=gAXNwn2PhzxwCcBJEaEQxli4AN0Y0PWQa8ivSNo+Le2+a1/TvEYQGEf1yrTkqzthK9GW
+	 /GWyJEX//zPYEtTleLZ7X+47s4q6QpOIYHpKG3/v/wjDvnwFBkMBFmtk57ygtjZdSgGKo
+	 puxweaeFaGMBZDeCzFm4AQXHl5IjGKiJe1QVPNG1dY8r0ml9NuPMjAsYzosFcVsSa3k+Z
+	 sYs+TIb7c0yjjpucOedZhkSAsMP2apOGQPgnPR0+d58tEHsrHJiqW1mYc7MFsO1n9Gnak
+	 wKUAnZvIh5LDb4JCUVYJU09mVHv0yaNikin4MrPGVWIixj6dmlcLe9YuTcZUsml+H+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=ahWzW+c2;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0759360A263D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:48:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0759360A263D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=ahWzW+c2
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-16079d54c17so756157c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:48:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792514910; x=1793119710; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yOVnpJCUDrHS5XtDy2LVfYzH67VSMOqV48wcMc7eFu8=;
-        b=ahWzW+c27JeNO1iCNYeqW6p1i6NeBhTnGPjxMLEh58gUhkYdCm8EloiC4h6/x4pxvx
-         UVhH14hIumP/I2x4c+rsq0iJZjFM4uD7wumOQW7g8u1vhq559+fssuWrU37XqzNNc6eD
-         wJSfiaShhXaAk2gql3ea0B6v38VcMy+7LKruaaTDOX8Qa2RqAh9NGXju2cf273QP4uGG
-         LAvrjkv2QGXoc3UKnmB1MwYmj7DMBshRKSQaoiwLwIybRShXmeg052MJ8ekYa6HCy9pX
-         EjO6vKdSKwCA/ZNi/78n4DCkdG1POdWsNpS5EWsnx3rMP5/3i40RknYXfJJBWB5f5VRF
-         FSGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514910; x=1793119710;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yOVnpJCUDrHS5XtDy2LVfYzH67VSMOqV48wcMc7eFu8=;
-        b=gSMQHCEhoKvXyF2/H5MIBdYruS/MdEpp5CVQxj9xLDrjWOvm49zmkGH8k67i3r4Ciu
-         lqqdQdYqZHN6Qb5ncSHoYDAlzS5h17t3zFGsL4mD+vTGAnd9y4UDJMdhsWg10jJb5nnE
-         Bg7y4dXWxm3oQOMoHV3N5wHdOyXHbdcEUoe26q0qaguSkokCBXkanhGj8EO6ZkQTwLpR
-         ttWGxHka8ADSk+mOHH3tPMJ6N2hxpMCl5Eo7CAg7kOksjNKNwEFRQCBioLzIBjO7WWHo
-         gaeirIZnp6sl0leL3T1csbQrkbW7lxvq9ZVi63o4gyHPESCory2VBMB/zHlxixJn/TME
-         8ocw==
-X-Forwarded-Encrypted: i=1; AKwUvByPn/Dj/heD9WJsxan05TzTH50rGE1v7hKD+VT63vrs5n1nimJBorXeyfxdurXDT8kfCJwafjwJTuVmvrs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgAs4XCTuikC+mDBnGEH5fcbaqp33zrFgn0NxUSsapDW1xL0cm
-	Vphfeg50tDqsRX6gYErz5Xbw9F/IeP+ikasavjTWYoM/dSHt1zlvCWAa8QvV8m/FPtw=
-X-Gm-Gg: AYBFou1Z7DFpOA7j9pSEwlJqhgH7sz9PL+6aFLMdPyZQqPjeaXpV5vh4st+4R4cgtW/
-	3UO5guSfArWeXsaskJpvwVlT30meHUn/3ia5rk7kTJLHd7AJKbMGk3yb9tYMfMCbfP4C332kkJS
-	uNagT7YxcYMk0IBuD+WfO4jOp55ST0xoZj+eYpTYX6tkphuMhLtx33eD0/xaT3cqxE/CvD9F3yz
-	AmtOotL0Sa2MiMN1TxQSE5NNBDkMHq/ISx3t2LY5C+hX0A9/JLJ4upicsU+vwM9yAbwoSLN230L
-	J2k/PH3guqj4iJvnzrfSJoQQpuwlME8jrEl8IppSG8iGbj39/fSmY8SkCVZgV7r9XscolSZz2Qo
-	/qukd6ONCdVTSLWDEhcgTvIDeqs+IN0/yAKT5nBa+Sg02KvkqMpRzLj4dB34OW1JAyUumKvx4Mn
-	iS7AVQPU+clDi2aes6Dt01+RhFzY8Xpk665KAfps5hiVSYyLvZbRxwI8GgpbHbhx/7
-X-Received: by 2002:a05:7022:b051:20b0:147:9ad0:cf10 with SMTP id a92af1059eb24-18514cf32d5mr17126680c88.47.1792514909743;
-        Tue, 20 Oct 2026 09:48:29 -0700 (PDT)
-Received: from [127.0.1.1] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-185aaea8b24sm30916031c88.19.2026.10.20.09.48.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:48:26 -0700 (PDT)
-From: Kevin Jia <kjia@nexthop.ai>
-Date: Tue, 20 Oct 2026 16:48:16 +0000
-Subject: [PATCH v2 3/3] hwmon: (fs1603) Add driver for TDK FS160x and
- FS1006 uPOL converters
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4F6606D54E;
+	Tue, 20 Oct 2026 16:48:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F68C1F0157E;
+	Tue, 20 Oct 2026 16:48:54 +0000 (UTC)
+Subject: Re: [PATCH net-next v7 11/13] net: mana: keep a user-configured RSS
+ table across a queue rebuild
+From: netdev-bot+sashiko@kernel.org
+To: weh@linux.microsoft.com
+Cc: longli@kernel.org, kotaranov@microsoft.com, kuba@kernel.org,
+ davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
+ andrew+netdev@lunn.ch, jgg@ziepe.ca, leon@kernel.org, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, shradhagupta@linux.microsoft.com,
+ horms@kernel.org, ernis@linux.microsoft.com, stephen@networkplumber.org,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, sdf@fomichev.me, daniel@iogearbox.net, hawk@kernel.org,
+ ast@kernel.org, john.fastabend@gmail.com, weh@microsoft.com,
+ edumazet@kernel.org
+Date: Tue, 20 Oct 2026 16:48:23 +0000
+Message-ID: <179251490382.3135.11269934246103660165@kernel.org>
+In-Reply-To: =?utf-8?q?=3Ce3a74aa4b30eb004c9a9f16168b734c563f27a15=2E1791710?=
+ =?utf-8?q?735=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
+References: =?utf-8?q?=3Ce3a74aa4b30eb004c9a9f16168b734c563f27a15=2E17917107?=
+ =?utf-8?q?35=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,768 +59,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-fs1603-v2-3-0986107a5cd2@nexthop.ai>
-References: <20261020-fs1603-v2-0-0986107a5cd2@nexthop.ai>
-In-Reply-To: <20261020-fs1603-v2-0-0986107a5cd2@nexthop.ai>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Kevin Jia <kjia@nexthop.ai>, Abdurrahman Hussain <abdurrahman@nexthop.ai>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792514898; l=24222;
- i=kjia@nexthop.ai; s=20261016; h=from:subject:message-id;
- bh=+GV5Mk4obDbJRaHgiYl9QnrFlLDDl8lRg2PBHyfvefk=;
- b=aXbpE9Asdmj4qlbb79KYL1Y51mMr73z53IFiR5HBJdr4f0um7webpR9NQh6ioCEa4QmHKUA7L
- DN1gbWAjyf4Ac/za8BfRj0NFfF6rNP6VT9JkArtZ/YgxG3XkJiHjvQm
-X-Developer-Key: i=kjia@nexthop.ai; a=ed25519;
- pk=TcHV4RjX7qo9R0iryPJ/gWzq3O9yq1SUw0VO2QXQ3Zs=
 
-The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
-an integrated inductor. They report input voltage, output voltage, output
-current and temperature, plus over-voltage, over-current and
-over-temperature status, over a proprietary I2C register map. They are
-not PMBus devices, and their register numbers collide with PMBus command
-codes: 0x21 is a status byte here where PMBus defines VOUT_COMMAND.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-The parts have no ID register, and the FS1606-0600 and FS1606-2500
-presets change how telemetry is encoded: the -2500 uses the 20mV steps
-of the higher voltage parts, and the -0600 needs a current correction
-derived from the IOUT_GAIN register and the output voltage. The model is
-therefore taken from the device name or compatible. OCSet[2:0], the
-programmable over-current protection level, ships with a different
-default on each family member, so probe warns if it does not match the
-declared part, which usually catches a wrong device name.
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-The over-voltage and over-temperature protection thresholds are
-reported as in1_crit and temp1_crit. The over-voltage threshold is a
-percentage of the VOUT_SET target, so the driver reads VOUT_SET but
-never writes it: VOUT_SET is a two-byte pair, and a partial write leaves
-the part silently ignoring all register writes until its input power is
-cycled. The driver is read-only.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Power good is not exposed. It also deasserts while the output is
-disabled or soft-starting, so it would report a deliberately disabled
-output as a fault.
+- [Medium] In mana_alloc_queues()
+  (drivers/net/ethernet/microsoft/mana/mana_en.c:3961-3963),…
+- [Low] The publish-time loss notification added by this patch can never
+  fire.
+- [Low] Before this patch, mana_alloc_queues() and mana_alloc_qset()
+  called mana_rss_table_init() unconditionally.
+- [Low] The patch deletes the comment `/* Vport identity and port debugfs
+  outlive queue sets.
 
-On boards that raise the rail with a feedback divider, VOUT_SET holds
-the feedback-pin target while the output voltage telemetry reports the
-rail. The driver measures the divider ratio at probe from the output
-voltage and the Fb register and scales the over-voltage threshold by
-it, so in1_crit is in the same domain as in1_input. A part whose Fb
-reads within four steps of the output keeps a ratio of one.
+--
 
-Co-developed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Signed-off-by: Kevin Jia <kjia@nexthop.ai>
----
- Documentation/hwmon/fs1603.rst |  78 ++++++
- Documentation/hwmon/index.rst  |   1 +
- MAINTAINERS                    |   7 +
- drivers/hwmon/Kconfig          |  11 +
- drivers/hwmon/Makefile         |   1 +
- drivers/hwmon/fs1603.c         | 540 +++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 638 insertions(+)
+net: mana: keep a user-configured RSS table across a queue rebuild
 
-diff --git a/Documentation/hwmon/fs1603.rst b/Documentation/hwmon/fs1603.rst
-new file mode 100644
-index 000000000000..ba0038e0d9b5
---- /dev/null
-+++ b/Documentation/hwmon/fs1603.rst
-@@ -0,0 +1,78 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver fs1603
-+====================
-+
-+Supported chips:
-+
-+  * TDK FS1603
-+
-+    Prefix: 'fs1603'
-+
-+    Datasheet: Publicly available at the TDK website
-+
-+  * TDK FS1604
-+
-+    Prefix: 'fs1604'
-+
-+    Datasheet: Publicly available at the TDK website
-+
-+  * TDK FS1606, FS1606-0600, FS1606-2500
-+
-+    Prefixes: 'fs1606', 'fs1606_0600', 'fs1606_2500'
-+
-+    Datasheet: Publicly available at the TDK website
-+
-+  * TDK FS1006-3300, FS1006-5000
-+
-+    Prefixes: 'fs1006_3300', 'fs1006_5000'
-+
-+    Datasheet: Publicly available at the TDK website
-+
-+Author:
-+
-+  * Kevin Jia <kjia@nexthop.ai>
-+
-+Description
-+-----------
-+
-+The TDK FS160x and FS1006 are uPOL DC-DC converters with an integrated
-+inductor. They report input voltage, output voltage, output current and
-+temperature over a proprietary I2C register map. They are not PMBus devices,
-+and their register numbers collide with PMBus command codes, so a PMBus driver
-+must not be bound to them.
-+
-+The model is not auto-detected. It must be declared through the I2C device
-+name or the devicetree compatible. The FS1606-0600 and FS1606-2500 presets
-+scale telemetry differently from the base FS1606, so they must be declared
-+by their own names. At probe time the driver compares the OCSet register,
-+the programmable over-current protection level, with the factory default of
-+the declared family member and logs a warning on a mismatch. That usually
-+means the wrong model was declared, but it is expected on boards that
-+reprogram the over-current protection level.
-+
-+The driver is read-only. On boards that use a feedback divider to reach a
-+higher rail voltage, the output voltage is still reported for the rail, and the
-+over-voltage threshold is scaled to the rail by the divider ratio, measured at
-+probe from the output voltage and the feedback pin. TDK notes that current
-+reporting does not apply in that configuration.
-+
-+Sysfs attributes
-+----------------
-+
-+=================== == ========================================================
-+in0_input           RO Input voltage in millivolts.
-+in0_label           RO "vin"
-+in1_input           RO Output voltage in millivolts.
-+in1_label           RO "vout"
-+in1_crit            RO Output over-voltage protection threshold in millivolts:
-+                       the OV_Threshold percentage of the VOUT_SET target,
-+                       scaled to the rail on boards with a feedback divider.
-+in1_alarm           RO Output over-voltage status.
-+curr1_input         RO Output current in milliamperes.
-+curr1_alarm         RO Over-current status.
-+temp1_input         RO Temperature in millidegrees Celsius.
-+temp1_crit          RO Over-temperature protection threshold in millidegrees
-+                       Celsius.
-+temp1_alarm         RO Over-temperature status.
-+=================== == ========================================================
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 199ca79621e9..7d79a7aadaa6 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -81,6 +81,7 @@ Hardware Monitoring Kernel Drivers
-    f71805f
-    f71882fg
-    fam15h_power
-+   fs1603
-    fsp-3y
-    ftsteutates
-    g760a
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5ad12c57ca5f..24073ee3ede2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26799,6 +26799,13 @@ W:	https://linuxtv.org
- T:	git git://linuxtv.org/media.git
- F:	drivers/media/i2c/tda9840*
- 
-+TDK FS1603 HARDWARE MONITOR DRIVER
-+M:	Kevin Jia <kjia@nexthop.ai>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/hwmon/fs1603.rst
-+F:	drivers/hwmon/fs1603.c
-+
- TEA5761 TUNER DRIVER
- M:	Mauro Carvalho Chehab <mchehab@kernel.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 18c682e1a475..047a3050946b 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -728,6 +728,17 @@ config SENSORS_MC33XS2410
- 	  This driver can also be built as a module. If so, the module
- 	  will be called mc33xs2410_hwmon.
- 
-+config SENSORS_FS1603
-+	tristate "TDK FS1603 and compatible uPOL DC-DC converters"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  If you say yes here you get hardware monitoring support for the
-+	  TDK FS1603, FS1604, FS1606 and FS1006 uPOL DC-DC converters.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called fs1603.
-+
- config SENSORS_FSCHMD
- 	tristate "Fujitsu Siemens Computers sensor chips"
- 	depends on (X86 || COMPILE_TEST) && I2C
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index d4c345ed7261..23a5f262eecf 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -85,6 +85,7 @@ obj-$(CONFIG_SENSORS_F71805F)	+= f71805f.o
- obj-$(CONFIG_SENSORS_F71882FG)	+= f71882fg.o
- obj-$(CONFIG_SENSORS_F75375S)	+= f75375s.o
- obj-$(CONFIG_SENSORS_FAM15H_POWER) += fam15h_power.o
-+obj-$(CONFIG_SENSORS_FS1603)	+= fs1603.o
- obj-$(CONFIG_SENSORS_FSCHMD)	+= fschmd.o
- obj-$(CONFIG_SENSORS_FTSTEUTATES) += ftsteutates.o
- obj-$(CONFIG_SENSORS_G760A)	+= g760a.o
-diff --git a/drivers/hwmon/fs1603.c b/drivers/hwmon/fs1603.c
-new file mode 100644
-index 000000000000..afe75657ce39
---- /dev/null
-+++ b/drivers/hwmon/fs1603.c
-@@ -0,0 +1,540 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+/*
-+ * Copyright (C) 2026 Nexthop Systems Inc.
-+ *
-+ * Driver for the TDK FS160x family of uPOL DC-DC converters with integrated
-+ * inductor. Supported models: FS1603, FS1604, FS1606, FS1006.
-+ *
-+ * The parts expose voltage, current and temperature telemetry over a
-+ * proprietary I2C register map. They are not PMBus devices, and their
-+ * register numbers actively collide with PMBus command codes -- 0x21 is a
-+ * status byte here where PMBus defines VOUT_COMMAND -- so a generic PMBus
-+ * driver must never be bound to them.
-+ *
-+ * Read-only. VOUT_SET (0x12/0x13) is an atomic write-protected pair: writing
-+ * the high byte arms an update that takes effect only once the low byte is
-+ * written. A partial write leaves the part armed, after which it acknowledges
-+ * but silently ignores every register write until its input power is cycled,
-+ * so this driver only reads it, to scale the over-voltage threshold.
-+ *
-+ * On a board that raises the rail with a feedback divider, VOUT still reports
-+ * the rail but VOUT_SET holds the feedback-pin target, so the over-voltage
-+ * threshold is scaled by the divider ratio, measured at probe from VOUT and
-+ * the Fb register (0x22). TDK notes that current reporting does not apply in
-+ * that configuration.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/err.h>
-+#include <linux/hwmon.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+
-+#define FS1603_REG_PVIN			0x0C
-+#define FS1603_REG_VOUT			0x0D
-+#define FS1603_REG_IOUT			0x0E
-+#define FS1603_REG_TEMP			0x0F
-+#define FS1603_REG_VOUT_SET_HI		0x12
-+#define FS1603_REG_VOUT_SET_LO		0x13
-+#define FS1603_REG_OCSET		0x15
-+#define FS1603_REG_OV_THRESHOLD		0x17
-+#define FS1603_REG_OT_THRESHOLD		0x19
-+#define FS1603_REG_IOUT_GAIN		0x1A
-+#define FS1603_REG_STATUS		0x21
-+#define FS1603_REG_FB			0x22
-+
-+#define FS1603_VOUT_SET_HI_MASK		BIT(0)
-+#define FS1603_OV_THRESHOLD_MASK	GENMASK(1, 0)
-+#define FS1603_OT_THRESHOLD_MASK	GENMASK(1, 0)
-+#define FS1603_IOUT_GAIN_MASK		GENMASK(7, 2)
-+
-+/*
-+ * OCSet[2:0] is the user-programmable over-current protection trip level,
-+ * not an ID. Each family member ships with a different default, so a
-+ * mismatch at probe usually means the wrong model was declared.
-+ */
-+#define FS1603_OCSET_LEVEL		GENMASK(2, 0)
-+#define FS1603_OCSET_DEFAULT_FS1603	0
-+#define FS1603_OCSET_DEFAULT_FS1604	1
-+#define FS1603_OCSET_DEFAULT_FS1606	2
-+#define FS1603_OCSET_DEFAULT_FS1006	3
-+
-+/* Bits in FS1603_REG_STATUS. */
-+#define FS1603_STATUS_OVER_VOLTAGE	BIT(6)
-+#define FS1603_STATUS_OVER_CURRENT	BIT(5)
-+#define FS1603_STATUS_OVER_TEMP		BIT(4)
-+
-+/* OV_Threshold[1:0] in percent of programmed VOUT; OT_Threshold[1:0] in degC. */
-+static const unsigned int fs1603_ov_threshold_pct[] = { 105, 110, 115, 120 };
-+static const unsigned int fs1603_ot_threshold_c[] = { 75, 85, 125, 145 };
-+
-+/*
-+ * Voltage telemetry is a linear step and base, both fixed per variant.
-+ * Current is raw/32 A except on the FS1606-0600, which applies a calibration
-+ * correction derived from FS1603_REG_IOUT_GAIN and the output voltage.
-+ */
-+struct fs1603_info {
-+	unsigned int vout_step_mv;
-+	unsigned int vout_base_mv;
-+	u8 ocset_default;
-+	bool iout_gain_corrected;
-+};
-+
-+enum fs1603_model {
-+	fs1603,
-+	fs1604,
-+	fs1606,
-+	fs1606_0600,
-+	fs1606_2500,
-+	fs1006,
-+};
-+
-+/*
-+ * The FS1606 reports at 10mV/300mV except for the -2500 preset, which uses the
-+ * same 20mV/600mV encoding as the higher-voltage family members.
-+ */
-+static const struct fs1603_info fs1603_models[] = {
-+	[fs1603]      = { .vout_step_mv = 20, .vout_base_mv = 600,
-+			  .ocset_default = FS1603_OCSET_DEFAULT_FS1603 },
-+	[fs1604]      = { .vout_step_mv = 20, .vout_base_mv = 600,
-+			  .ocset_default = FS1603_OCSET_DEFAULT_FS1604 },
-+	[fs1606]      = { .vout_step_mv = 10, .vout_base_mv = 300,
-+			  .ocset_default = FS1603_OCSET_DEFAULT_FS1606 },
-+	[fs1606_0600] = { .vout_step_mv = 10, .vout_base_mv = 300,
-+			  .ocset_default = FS1603_OCSET_DEFAULT_FS1606,
-+			  .iout_gain_corrected = true },
-+	[fs1606_2500] = { .vout_step_mv = 20, .vout_base_mv = 600,
-+			  .ocset_default = FS1603_OCSET_DEFAULT_FS1606 },
-+	[fs1006]      = { .vout_step_mv = 20, .vout_base_mv = 600,
-+			  .ocset_default = FS1603_OCSET_DEFAULT_FS1006 },
-+};
-+
-+/*
-+ * Every register is a byte, and every read is live telemetry, so nothing is
-+ * cached. regmap is used for the uniform accessors and the debugfs dump.
-+ */
-+static const struct regmap_config fs1603_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = FS1603_REG_FB,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+struct fs1603_data {
-+	struct regmap *regmap;
-+	const struct fs1603_info *info;
-+	u32 fb_ratio_num;
-+	u32 fb_ratio_den;
-+};
-+
-+static int fs1603_read_vout_mv(struct fs1603_data *data, long *val)
-+{
-+	unsigned int raw;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_VOUT, &raw);
-+	if (err)
-+		return err;
-+
-+	*val = raw * data->info->vout_step_mv + data->info->vout_base_mv;
-+	return 0;
-+}
-+
-+/*
-+ * Output current in mA.
-+ *
-+ * Every variant but the FS1606-0600 reports raw/32 A directly. The -0600
-+ * additionally applies, with G taken from FS1603_REG_IOUT_GAIN bits [7:2]:
-+ *
-+ *   I = raw/32 - (9.05 - 0.24 * G) * Vout - 0.356 * G + 13.1
-+ *
-+ * Scaled to milliamps and millivolts so it stays in integer arithmetic:
-+ *
-+ *   I_mA = raw * 125 / 4
-+ *          - ((9050 - 240 * G) * Vout_mV) / 1000
-+ *          - 356 * G
-+ *          + 13100
-+ */
-+static int fs1603_read_iout_ma(struct fs1603_data *data, long *val)
-+{
-+	unsigned int raw, gain;
-+	long vout_mv;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_IOUT, &raw);
-+	if (err)
-+		return err;
-+
-+	*val = raw * 125 / 4;
-+
-+	if (!data->info->iout_gain_corrected)
-+		return 0;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_IOUT_GAIN, &gain);
-+	if (err)
-+		return err;
-+	gain = FIELD_GET(FS1603_IOUT_GAIN_MASK, gain);
-+
-+	err = fs1603_read_vout_mv(data, &vout_mv);
-+	if (err)
-+		return err;
-+
-+	*val -= ((9050 - 240 * (long)gain) * vout_mv) / 1000;
-+	*val -= 356 * (long)gain;
-+	*val += 13100;
-+
-+	if (*val < 0)
-+		*val = 0;
-+
-+	return 0;
-+}
-+
-+/*
-+ * The 9-bit VOUT_SET code steps at half the telemetry resolution from a base
-+ * of 80 steps.
-+ */
-+static int fs1603_read_vout_set_mv(struct fs1603_data *data, long *val)
-+{
-+	unsigned int hi, lo;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_VOUT_SET_HI, &hi);
-+	if (err)
-+		return err;
-+	err = regmap_read(data->regmap, FS1603_REG_VOUT_SET_LO, &lo);
-+	if (err)
-+		return err;
-+
-+	*val = ((FIELD_GET(FS1603_VOUT_SET_HI_MASK, hi) << 8 | lo) + 80) *
-+	       data->info->vout_step_mv / 2;
-+	return 0;
-+}
-+
-+/* Fb has no documented encoding; it decodes with the VOUT step and base. */
-+static int fs1603_read_fb_mv(struct fs1603_data *data, long *val)
-+{
-+	unsigned int raw;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_FB, &raw);
-+	if (err)
-+		return err;
-+
-+	*val = raw * data->info->vout_step_mv + data->info->vout_base_mv;
-+	return 0;
-+}
-+
-+/*
-+ * A board that raises the rail with a feedback divider leaves VOUT_SET at the
-+ * feedback target, and Fb then reads well below VOUT. The divider is fixed in
-+ * hardware, so measure its ratio once. Without a divider Fb reads the output
-+ * itself, and the ratio stays one so the limit does not follow ADC noise.
-+ */
-+static int fs1603_measure_fb_ratio(struct fs1603_data *data)
-+{
-+	long vout_mv, fb_mv;
-+	int err;
-+
-+	data->fb_ratio_num = 1;
-+	data->fb_ratio_den = 1;
-+
-+	err = fs1603_read_vout_mv(data, &vout_mv);
-+	if (err)
-+		return err;
-+	err = fs1603_read_fb_mv(data, &fb_mv);
-+	if (err)
-+		return err;
-+
-+	if (fb_mv > 0 && vout_mv > fb_mv + 4 * data->info->vout_step_mv) {
-+		data->fb_ratio_num = vout_mv;
-+		data->fb_ratio_den = fb_mv;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * OVP trips at OV_Threshold percent of the VOUT_SET target, measured at the
-+ * feedback pin. Scale it by the feedback divider ratio to report it in the
-+ * same rail domain as in1_input.
-+ */
-+static int fs1603_read_vout_crit_mv(struct fs1603_data *data, long *val)
-+{
-+	unsigned int raw;
-+	long vout_set_mv;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_OV_THRESHOLD, &raw);
-+	if (err)
-+		return err;
-+	err = fs1603_read_vout_set_mv(data, &vout_set_mv);
-+	if (err)
-+		return err;
-+
-+	raw = FIELD_GET(FS1603_OV_THRESHOLD_MASK, raw);
-+	*val = DIV_ROUND_CLOSEST_ULL((u64)fs1603_ov_threshold_pct[raw] *
-+				     vout_set_mv * data->fb_ratio_num,
-+				     100 * data->fb_ratio_den);
-+	return 0;
-+}
-+
-+static int fs1603_read_status_bit(struct fs1603_data *data, u8 mask,
-+				  long *val)
-+{
-+	unsigned int status;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_STATUS, &status);
-+	if (err)
-+		return err;
-+
-+	*val = !!(status & mask);
-+	return 0;
-+}
-+
-+static int fs1603_read_in(struct fs1603_data *data, u32 attr, int channel,
-+			  long *val)
-+{
-+	unsigned int raw;
-+	int err;
-+
-+	switch (attr) {
-+	case hwmon_in_input:
-+		if (channel == 0) {
-+			err = regmap_read(data->regmap, FS1603_REG_PVIN, &raw);
-+			if (err)
-+				return err;
-+			/* PVIN reports in 1/16 V steps. */
-+			*val = raw * 1000 / 16;
-+			return 0;
-+		}
-+		return fs1603_read_vout_mv(data, val);
-+	case hwmon_in_crit:
-+		return fs1603_read_vout_crit_mv(data, val);
-+	case hwmon_in_alarm:
-+		return fs1603_read_status_bit(data, FS1603_STATUS_OVER_VOLTAGE,
-+					      val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int fs1603_read_curr(struct fs1603_data *data, u32 attr, long *val)
-+{
-+	switch (attr) {
-+	case hwmon_curr_input:
-+		return fs1603_read_iout_ma(data, val);
-+	case hwmon_curr_alarm:
-+		return fs1603_read_status_bit(data, FS1603_STATUS_OVER_CURRENT,
-+					      val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int fs1603_read_temp_crit_mc(struct fs1603_data *data, long *val)
-+{
-+	unsigned int raw;
-+	int err;
-+
-+	err = regmap_read(data->regmap, FS1603_REG_OT_THRESHOLD, &raw);
-+	if (err)
-+		return err;
-+
-+	*val = fs1603_ot_threshold_c[FIELD_GET(FS1603_OT_THRESHOLD_MASK, raw)] * 1000;
-+	return 0;
-+}
-+
-+static int fs1603_read_temp(struct fs1603_data *data, u32 attr, long *val)
-+{
-+	unsigned int raw;
-+	int err;
-+
-+	switch (attr) {
-+	case hwmon_temp_input:
-+		err = regmap_read(data->regmap, FS1603_REG_TEMP, &raw);
-+		if (err)
-+			return err;
-+		/* TEMP_REPORT is degC directly: 1 degC per LSB, no offset. */
-+		*val = raw * 1000;
-+		return 0;
-+	case hwmon_temp_crit:
-+		return fs1603_read_temp_crit_mc(data, val);
-+	case hwmon_temp_alarm:
-+		return fs1603_read_status_bit(data, FS1603_STATUS_OVER_TEMP,
-+					      val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int fs1603_read(struct device *dev, enum hwmon_sensor_types type,
-+		       u32 attr, int channel, long *val)
-+{
-+	struct fs1603_data *data = dev_get_drvdata(dev);
-+
-+	switch (type) {
-+	case hwmon_in:
-+		return fs1603_read_in(data, attr, channel, val);
-+	case hwmon_curr:
-+		return fs1603_read_curr(data, attr, val);
-+	case hwmon_temp:
-+		return fs1603_read_temp(data, attr, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int fs1603_read_string(struct device *dev, enum hwmon_sensor_types type,
-+			      u32 attr, int channel, const char **str)
-+{
-+	if (type != hwmon_in || attr != hwmon_in_label)
-+		return -EOPNOTSUPP;
-+
-+	*str = channel == 0 ? "vin" : "vout";
-+	return 0;
-+}
-+
-+static umode_t fs1603_is_visible(const void *data, enum hwmon_sensor_types type,
-+				 u32 attr, int channel)
-+{
-+	switch (type) {
-+	case hwmon_in:
-+		switch (attr) {
-+		case hwmon_in_input:
-+		case hwmon_in_label:
-+			return 0444;
-+		case hwmon_in_crit:
-+		case hwmon_in_alarm:
-+			/* OVP and its alarm describe the regulated output only. */
-+			return channel == 1 ? 0444 : 0;
-+		default:
-+			return 0;
-+		}
-+	case hwmon_curr:
-+	case hwmon_temp:
-+		return 0444;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static const struct hwmon_ops fs1603_ops = {
-+	.is_visible = fs1603_is_visible,
-+	.read = fs1603_read,
-+	.read_string = fs1603_read_string,
-+};
-+
-+static const struct hwmon_channel_info *fs1603_channel_info[] = {
-+	HWMON_CHANNEL_INFO(in, HWMON_I_INPUT | HWMON_I_LABEL,
-+			   HWMON_I_INPUT | HWMON_I_LABEL | HWMON_I_CRIT |
-+			   HWMON_I_ALARM),
-+	HWMON_CHANNEL_INFO(curr, HWMON_C_INPUT | HWMON_C_ALARM),
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_CRIT | HWMON_T_ALARM),
-+	NULL
-+};
-+
-+static const struct hwmon_chip_info fs1603_chip_info = {
-+	.ops = &fs1603_ops,
-+	.info = fs1603_channel_info,
-+};
-+
-+static int fs1603_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	char *name;
-+	struct fs1603_data *data;
-+	struct device *hwmon;
-+	unsigned int ocset;
-+	int err;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_BYTE_DATA))
-+		return dev_err_probe(dev, -ENODEV,
-+				     "SMBus byte data not supported\n");
-+
-+	name = devm_hwmon_sanitize_name(dev, client->name);
-+	if (IS_ERR(name))
-+		return PTR_ERR(name);
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->regmap = devm_regmap_init_i2c(client, &fs1603_regmap_config);
-+	if (IS_ERR(data->regmap))
-+		return dev_err_probe(dev, PTR_ERR(data->regmap),
-+				     "failed to allocate regmap\n");
-+
-+	data->info = i2c_get_match_data(client);
-+	if (!data->info)
-+		return dev_err_probe(dev, -ENODEV, "no match data for %s\n",
-+				     client->name);
-+
-+	err = regmap_read(data->regmap, FS1603_REG_OCSET, &ocset);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to read OCSet\n");
-+
-+	ocset = FIELD_GET(FS1603_OCSET_LEVEL, ocset);
-+	if (ocset != data->info->ocset_default)
-+		dev_warn(dev, "OCSet %u differs from the %s default %u\n",
-+			 ocset, client->name, data->info->ocset_default);
-+
-+	err = fs1603_measure_fb_ratio(data);
-+	if (err)
-+		return dev_err_probe(dev, err,
-+				     "failed to read the feedback ratio\n");
-+
-+	hwmon = devm_hwmon_device_register_with_info(dev, name, data,
-+						     &fs1603_chip_info, NULL);
-+	return PTR_ERR_OR_ZERO(hwmon);
-+}
-+
-+static const struct i2c_device_id fs1603_id[] = {
-+	{ .name = "fs1603",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1603] },
-+	{ .name = "fs1604",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1604] },
-+	{ .name = "fs1606",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1606] },
-+	{ .name = "fs1606_0600",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1606_0600] },
-+	{ .name = "fs1606_2500",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1606_2500] },
-+	{ .name = "fs1006_5000",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1006] },
-+	{ .name = "fs1006_3300",
-+	  .driver_data = (kernel_ulong_t)&fs1603_models[fs1006] },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, fs1603_id);
-+
-+static const struct of_device_id fs1603_of_match[] = {
-+	{ .compatible = "tdk,fs1603", .data = &fs1603_models[fs1603] },
-+	{ .compatible = "tdk,fs1604", .data = &fs1603_models[fs1604] },
-+	{ .compatible = "tdk,fs1606", .data = &fs1603_models[fs1606] },
-+	{ .compatible = "tdk,fs1606-0600",
-+	  .data = &fs1603_models[fs1606_0600] },
-+	{ .compatible = "tdk,fs1606-2500",
-+	  .data = &fs1603_models[fs1606_2500] },
-+	{ .compatible = "tdk,fs1006-5000",
-+	  .data = &fs1603_models[fs1006] },
-+	{ .compatible = "tdk,fs1006-3300",
-+	  .data = &fs1603_models[fs1006] },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, fs1603_of_match);
-+
-+static struct i2c_driver fs1603_driver = {
-+	.driver = {
-+		.name	= "fs1603",
-+		.of_match_table = fs1603_of_match,
-+	},
-+	.probe = fs1603_probe,
-+	.id_table = fs1603_id,
-+};
-+module_i2c_driver(fs1603_driver);
-+
-+MODULE_AUTHOR("Kevin Jia <kjia@nexthop.ai>");
-+MODULE_DESCRIPTION("TDK FS160x uPOL DC-DC converter telemetry driver");
-+MODULE_LICENSE("GPL");
+This commit keeps a user-configured RSS indirection table across queue
+rebuilds when every entry is valid for the new queue count. Otherwise it
+regenerates the driver default table. A lost user table is reported
+through ethtool_rxfh_indir_lost() after a queue set is published, and
+RSS setters now require RTNL.
+
+> Preserve a user RSS table whenever all entries fit the requested queue
+> count. Regenerate driver defaults. On growth, a retained user table does
+> not steer RSS traffic to the added queues until the user updates it.
+
+[Severity: Low]
+This isn't a bug, but before this patch mana_alloc_queues() and
+mana_alloc_qset() both called mana_rss_table_init() unconditionally.
+That dropped a user "ethtool -X" table on every rebuild (down/up,
+reset/resume, MTU, ring, priv-flag and XDP changes), while the core's
+rss_indir_user_size stayed set.
+
+Since this fixes a bug users can see, should the commit message say so
+and carry a Fixes: tag?
+
+The message also doesn't mention that adding ETHTOOL_OP_NEEDS_RTNL_RSS is
+part of the fix. It doesn't mention the dependency on the earlier
+queue-set swap patches either.
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 2aa18cb10d902..7cf7ce9bfa28c 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+
+[ ... ]
+
+> @@ -3936,7 +3958,9 @@ int mana_alloc_queues(struct net_device *ndev)
+>  		goto destroy_rxq;
+>  	}
+>  
+> -	mana_rss_table_init(apc);
+> +	/* Loss notification needs a netdev instance lock we may lack. */
+> +	if (!mana_rss_table_keep(apc, apc->num_queues, &indir_lost))
+> +		mana_rss_table_init(apc);
+
+[Severity: Medium]
+When mana_rss_table_keep() sets indir_lost here, the value is thrown away
+and ethtool_rxfh_indir_lost() is never called. Doesn't that leave
+dev->ethtool->rss_indir_user_size set? If so, netif_is_rxfh_configured()
+keeps returning true for what is now the driver default table.
+
+This looks like the one loss path that can actually be reached. On reset
+or resume, mana_attach()->mana_init_port() queries the vPort again and
+clamps the queue count:
+
+	if (apc->num_queues > apc->max_queues)
+		apc->num_queues = apc->max_queues;
+
+On resume, gc->max_num_queues_vport is also recomputed in
+mana_gd_setup()->mana_gd_query_max_resources() from num_online_cpus()
+and the MSI-X count. If the port was down during the reset, the same loss
+happens later in mana_open()->mana_alloc_queues(), which also drops
+indir_lost.
+
+The kernel-doc for ethtool_rxfh_indir_lost() describes this exact case
+("typically after a HW fault recovery that reduced the maximum queue
+count"). The helper also clears the configured state, not just sends a
+notification:
+
+	dev->ethtool->rss_indir_user_size = 0;
+	ethtool_rss_notify(dev, ETHTOOL_MSG_RSS_NTF, 0);
+
+With the configured flag left set, ethtool_get_max_rxfh_channel() reads
+the regenerated default table, and that table spans every queue.
+ethtool_check_max_channel() would then reject every later channel
+reduction with -EINVAL until the user runs "ethtool -X <dev> default".
+Later rebuilds would also accept the defaults as a user table in
+mana_rss_table_keep(), and no ETHTOOL_MSG_RSS_NTF is ever sent.
+
+The comment is right that the netdev instance lock may not be held here.
+mana_per_port_queue_reset_work_handler() holds only RTNL, and the resume
+loop in mana_probe() drops netdev_lock() just before mana_attach().
+
+Could mana_alloc_queues()/mana_attach() return or record the lost state
+instead? Callers could then call ethtool_rxfh_indir_lost() under RTNL
+plus netdev_lock(), as mlx5e_attach_netdev() does. mana_open() already
+holds both locks and could report the loss directly.
+
+The commit message says this path "replaces invalid tables silently". It
+doesn't mention that the core's configured state is left stale. The
+indir_lost value still appears to be dropped at this call site at the end
+of the series.
+
+>  
+>  	err = mana_config_rss(apc, TRI_STATE_TRUE, true, true);
+>  	if (err) {
+> @@ -4094,9 +4118,10 @@ static void mana_qset_snapshot(const struct mana_port_context *ctx,
+>  	out->priv_flags		= ctx->priv_flags;
+>  	out->mtu		= ctx->configured_mtu;
+>  	out->bpf_prog		= ctx->bpf_prog;
+> +
+> +	out->rxfh_indir_lost	= false;
+>  }
+>  
+> -/* Vport identity and port debugfs outlive queue sets. */
+>  static void mana_qset_install(struct mana_port_context *ctx,
+>  			      const struct mana_qset *qset)
+
+[Severity: Low]
+This isn't a bug, but was this comment meant to be removed? The change
+looks unrelated to keeping the RSS table, and the commit message doesn't
+mention it.
+
+The comment explains why mana_qset_install() leaves port_handle, the MAC
+address and mana_port_debugfs alone. The function still works that way,
+and the comment isn't added back later in the series.
+
+[ ... ]
+
+> @@ -4432,6 +4463,10 @@ int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
+>  	WRITE_ONCE(apc->port_is_up, true);
+>  	mana_start_txqs(apc);
+>  
+> +	/* Report a lost user table only after successful publication. */
+> +	if (newq->rxfh_indir_lost)
+> +		ethtool_rxfh_indir_lost(ndev);
+
+[Severity: Low]
+Can newq->rxfh_indir_lost ever be true here?
+
+mana_change_mtu(), mana_set_ringparam(), mana_set_priv_flags() and
+mana_xdp_set() all rebuild at the current num_queues. At that count the
+live table is already valid: mana_set_rxfh() rejects entries >=
+num_queues, and mana_alloc_queues() regenerates invalid tables.
+
+mana_set_channels() is the only path that changes the count. Both the
+netlink and ioctl set-channels handlers call ethtool_check_max_channel()
+before the driver runs:
+
+	max_rxfh_in_use = ethtool_get_max_rxfh_channel(dev);
+	if (channels.combined_count + channels.rx_count <= max_rxfh_in_use) {
+
+That check rejects any count that would invalidate a user-configured
+table. So it seems mana_rss_table_keep() can never report a loss on the
+swap path. The same is true for mana_split_qset() and mana_grow_qset()
+later in the series.
+
+If that's right, the rxfh_indir_lost field and this call cover a case
+that can't happen. Meanwhile the loss that can happen, in
+mana_alloc_queues(), is never reported. Should the commit message
+sentence "Report table loss only after successful queue-set publication"
+be reworded, or this code dropped?
+
+>  
+>  	return 0;
+>  
+>  rollback:
 
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791710735.git.weh%40linux.microsoft.com
