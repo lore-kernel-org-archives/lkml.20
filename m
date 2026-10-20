@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792520014;
-	b=3JjN/EsRUepgaW9Ea42C4Y4DDbmGSs8KdFgbolb1RrBSLjeLDj17BtNFl1JyCa1hm/gU
-	 EMICIFZCvXRjMiOz4DW57T3oX+/jBQSQMMi9fuNYrgpLfVRul1hqJp4nyvyKfXzOH+OEQ
-	 hOY3YBmhyJRGNe6MyomCxZx3n/3FNReXXDmiGIy29VYO4E8q7+iqBDELd2mgr+z7YSo7t
-	 ne43Zpc6gVNWhgFW5OjOkkeVREhrqAVxWqTnWvc55iA/LVDwoNfG6lw6vCKRJMO1Z3LIS
-	 wBeFZh9FKCAZ/wcIsIy6znJcYKpEew+gLGb2Hu0fAJtIxn5V8Q0wyPpd9SBbKf4fzgA==
+	t=1792520077;
+	b=G1rwwVnxW6qKfZelHPsZzBgkrnLRqbAhBTU8e9nt2XvoQL1dITkAPDrcs3AyibvcmYcj
+	 ADuHDz2+x6PO99fTPg9LwQ6QlS20uvLRTo0e6GAMqojn5xUSVbST+Y9nXED+MLru1ittT
+	 AelDmD+ahsl+t3h949LF5y/hqTs7iCzK2PVNTwHXWAmDMz/mQtn3WBzTTt9EAguqWIplS
+	 4DgoLuYhpPjcqofuULz0b0JSQ1H3MM9kw/rEHOTytpbWdBcyhLG98uda2btPL4MrbcLHh
+	 fQtUzEuIib11X42WtHIjA1X8rljypdHH0I9N4g0Tc+hf1eW9Y6qyZBpyJB4RdKbwsGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520014;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OvgrH+6ZI3PmOmzd8t/UFo/rFzWXLLMI1rZ7t41rPsI=;
-	b=m8lw0pBH0ZkmIgXVPvSmR4sfjsqWNDYl1ZCCIPGP7z6PYAcVRWBv8Yhgau8kh8IMSRKn
-	 dDUwB3qXpJf7RBiqLoo7IsFVNBtyIBuO1ORKT4tamF+kRNKWzWjWBBax8MnpdLA7ROSYZ
-	 /2AWrkdGnWOkLFL/8zpVneWymJMJT6m9hi+IbCpluYl7RqbpnfLCkaSadB3vOjluivhDp
-	 K4TmMG2UytR5CN2bqyGjF9QDgsZywWMbXbXJ6KQcL/uObwcdwZc9B+AX1lpTEp/aW5OAg
-	 QJreCmfDTP22qKaGSgw98etRGnLclMNBeUkToxCv3NQeEcRMNsOh3PNYiWInWJ9BbLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520077;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kucKXYNu3qEsaEvsrobPFi3mwauwRMH/3o8PeMIZ5kQ=;
+	b=xgTxZwB3sGBoeGUKA9i/2PGLWPY1PYtkKiFp5HqjF+792QoiAXD+jDVW0Lm2FEcTqsxy
+	 RaqxdHQghj+te79Pzc9zNdYbrwDZNHhxz8HH4ghs6MqV69dklofMQ3fha0PgwRQWjAlYg
+	 X7xfaj90/5OaRFr3eJTtevVJWhYafKyB5YyLjIwVlBpvARV7MNNnZfVDnGwqFoM5RWfOG
+	 F2uNBud6GJd3uwzefQnJo/R/wIopmyPzhAr/yAlL5B24WRpX3PgZfgszrLIOc2xuie7iC
+	 CVWDbMDynT3QqWXcj9TNNR8JoGpdJnqjDzmHJyYnFx4SUyPWocW3xBr2fFvdIKOXeSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="CMpw07/1";
-	arc=none smtp.remote-ip=91.218.175.211
-Received: from mta0.migadu.com (out-211.mta0.migadu.com [91.218.175.211])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="B9qWj/GX";
+	arc=none smtp.remote-ip=79.135.106.118
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44379606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:13:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44379606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC414606A31D;
+	Tue, 20 Oct 2026 18:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC414606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CMpw07/1
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4vHXAYHH5hEm7cUcKU4ec1l2m6WXSXPscNO/va3EpP8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792520009; v=1; x=1793124809;
- b=CMpw07/1podgMC2L5t4ik81Y/a8gR1uhzmVANrSaEX1AsyCWMdTWhLQeLWShazHYIdXC2iOb
- IAuqdF8jtibg1khDUKIeWlDvsFGXhl/6P+Wlwhguydl0fT9kmV6i3bZnBrHIdlFjdWTJ5W3EBzp
- pIE31al9KVcnufM4iDTHAY6U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3b0c82d051bbe280;
-	Tue, 20 Oct 2026 18:13:29 +0000
-X-Mizu-Trace-ID: 3b0c82d051bbe280
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 20 Oct 2026 11:13:27 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm/memcontrol: publish null pointer before dropping css
- reference
-Message-ID: <ateuS_d6hRKFFeZW@linux.dev>
-References: <20261020165627.1599959-1-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=B9qWj/GX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792520074; x=1792779274;
+	bh=kucKXYNu3qEsaEvsrobPFi3mwauwRMH/3o8PeMIZ5kQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=B9qWj/GXAHyrdsylRuph52A4l/WJbUMQ7OgtIg4yzEgApxigBIil6kmQSLTtIMRrL
+	 mnmHPHMXz0yVi8WZAk9wOW3FwuKa3scu1WXU5e9boK9ul4L/OF3n5Ue37+MnaqRWGa
+	 kD77MZ+IxZ92fYYAeNW6BSYOSX09FKUXfWYo2KF7cAm2vBmwQFcDbnKInqObjxRnvz
+	 ySJcrEnE4iCuWSVnfBYsZCbSbPz6xXnVyhYT7q8e1U6MwnvAGJkcdTabvHrjPamDsA
+	 /Z0gixSh4yHoUyMEBJLgTjfbjnYVz5wggNkxUqW4Vk21TiuVtbWfecN8jjSb/oSAV9
+	 RQDwZYJdQB1Aw==
+Date: Tue, 20 Oct 2026 18:14:26 +0000
+To: George Neacsu <geocausa@gmail.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261020181415.70007-1-lsa.uz@pm.me>
+In-Reply-To: <20261020181025.8625-1-geocausa@gmail.com>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com> <20261020085200.60619-1-lsa.uz@pm.me> <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com> <20261020142641.24808-1-lsa.uz@pm.me> <20261020181025.8625-1-geocausa@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: ef588eea7d2eed883d8211d7ca2eb68740a46cf7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,71 +64,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020165627.1599959-1-joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 09:56:26AM -0700, Joshua Hahn wrote:
-> struct memcg_stock_pcp hold references to cgroups that it tracks to make
-> sure that the memcg never gets freed with unaccounted charges still
-> living in the stock. The cached stock can be cleared either via
-> drain_stock() or consume_stock(), which drop the reference if the
-> stock goes to 0, and then clears the pointer from the stock.
-> 
-> If that was the last reference, the memcg is freed after an RCU grace
-> period, but this can happen while the pointer still points to the
-> to-be-freed memcg. Then a reader that enters its read-side critical
-> section after the grace period has started is not waited for, and then
-> can dereference it after the memcg gets freed.
+Hi George,
 
-These are per-cpu fields and are accessed within local_lock. How can there be a
-reader where a cpu is still between css_put and WRITE_ONCE and within
-local_lock?
+On 20/10/2026 19:10, George Neacsu wrote:
+> Sergey, the write can stay or go as you prefer; the Snapdragon model
+> does not need it dropped.
 
-> 
-> In practice, this is very rare and I have not been able to reproduce
-> the issue in my own testing.
-> 
-> Switch the order of the reference drop and the publishing so that
-> we first publish the NULL pointer, then drop the reference.
-> 
-> This is based on a report from Sashiko, who found this pre-existing
-> issue in my page_counter_stock series [1].
-> 
-> [1] https://sashiko.dev/#/patchset/20260928192349.3432886-1-joshua.hahnjy%40gmail.com
-> 
-> Fixes: e1a366be5cb4 ("mm: memcontrol: switch to rcu protection in drain_all_stock()")
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> ---
->  mm/memcontrol.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index e7d7db5718f9a..a05d9a8baa1b6 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2172,8 +2172,8 @@ static bool consume_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
->  			stock_pages -= nr_pages;
->  			WRITE_ONCE(stock->nr_pages[i], stock_pages);
->  			if (!stock_pages) {
-> -				css_put(&memcg->css);
->  				WRITE_ONCE(stock->cached[i], NULL);
-> +				css_put(&memcg->css);
+Thank you for going back to it, and no need to apologise.
 
-This css_put can not be the last reference for the memcg from this path as the
-caller of consume_stock() (above the stack) should be holding a reference to the
-memcg.
+Then v2 keeps the write, as vd55g1 does: the driver does not expose the
+status lines, and on IPU7 it makes no difference either way.
 
->  			}
->  			ret = true;
->  		}
-> @@ -2209,8 +2209,8 @@ static void drain_stock(struct memcg_stock_pcp *stock, int i)
->  		WRITE_ONCE(stock->nr_pages[i], 0);
->  	}
->  
-> -	css_put(&old->css);
->  	WRITE_ONCE(stock->cached[i], NULL);
-> +	css_put(&old->css);
-
-Here this can be last reference but I don't see any concurrent readers of stock.
+Sergey
 
