@@ -1,70 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503808;
-	b=l3qndU+ppmrK8wZ320InHhBizwNwwXS2zi/ZTJTPXfGOB0Ra7Bkk5LWt2tn5BL6rPP2J
-	 Mtiz1Q511r+46jcHRjZ9VjXEMj440YdxTD3lp4U4ClT/4bgJ8Mt+kh+WEBmnfTDTwIhuO
-	 N3La0j3YyXfiBIepkRZXOav+ePz9Pcu1TNVhkm8Z5B/EJ0cykpFh3BgpHYYVuJD5Zcile
-	 DA4Vsa0IhZH39NFa9FvRIlIWrATg4bmEUUc1lkzJBipOAi7g5twFNSfizdutqteOEjY10
-	 9Zfus5LHrrsJWbX432sVU4j8l1h8JfHDv8KC3uv+etBrOBzCvsrtFj8yPvczdU4FybA==
+	t=1792503815;
+	b=1CwSgizi2V0jZDuzba4ODAkhTGvDjgPIGo9H8+lPBG8Z10cG0++OFUOjJ6vvpbQNcDBD
+	 /vWNh+J+8YwhySNK5jHZMONuab1bCfOoSfKQtS64M0T2bLGe4SYvfAJrJ/kDP/w65DajR
+	 +Zfl1ZhvSr9vBJ38tCK1XAgRkJgMzOp7pDezondlgFTevAAeoCk0FyFRE9paoNQQpeD0F
+	 AFkBVtKW8M/e7f3LtBhZEerPO87l8ohKRdJBceZtq5ze38oLsKE73ZM4Efa/TyvLKZx4X
+	 dXl9mNXzt14XsZxUsAc93RUZThILANirdOnVD+6Gp+8VY10jkv8QPnPChuwRiNMcb+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503808;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=UIKzuJWOWysnx1HROHVzgipix+/niqtNFjs9DsltZTo=;
-	b=D2wji1L0Jl6R2px2bLUMwsEPXJYxmzzHqjy4N7WhYbMeIFLEdkPD21v1YWzZcR9v7Mb7
-	 QuzyQWzDA31rU9avLCt62Vph4d5DL8IUmf36XooJYzvazrQU2p49tHt5Bs61r2bR9tH9k
-	 mVzLo0c7YqyPCfhEu0As+Zb3TWD+MB6FV7Wp1dWuvvijKFobVpZKdDNA63ZNRHbZzRo6e
-	 VxuVTCv/ni1zQjg57kso2rsws/gN1jyzNTDP+aAyCSjxWoNMnWQXLRvDp1S+D5GO/TGQL
-	 kCr4vwiJ+wQRnJASZVxk6oAz4kir0h6B//fwB6fTsvzNLX3xadKtGep8M4hhrMoXlDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503815;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=a7evs3c83W1K0F5zxXLeZ2sMhNgoUa3W9M3ODO/7lLQ=;
+	b=1anrU9fcxohhRcQAszkQgFRFPOC2hfzYm+2lcFDydHFnsZtBqtGxJ0z/BnXr1mZ1bTt5
+	 NJ5ecBN7Odl3GnopODtTnBe2AWo7OUCx2alQNKZ2boobS9B24LglD14pkb0djT2j2pcqT
+	 osm0XZG72mbqL5SWStDr6I9cpEMBU4MIXehmrLmTK+Uze9Wx8y0dLwk8kAlxR05GwBEzv
+	 TN2hiBE1jeQsTBt4TH4wq4klLobnoqad63gyfZUTxoeMQJxsevazGHGChWrl4v3xq1mIi
+	 Fv4I4HIxx0WIixnpgRtaAXmybI7GMJB9RlohrjD0G2rI7Ph1Hk24KHsTl7DaiUuRqsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=j804kpkg;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eiyfybd+;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8087460A4AF8
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8087460A4AF8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F960A260A;
+	Tue, 20 Oct 2026 13:43:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4F960A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=j804kpkg
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=UIKzuJWOWysnx1HROHVzgipix+/niqtNFjs9DsltZTo=;
-	b=j804kpkgj16SKQPq47a/AtU66A0y90hSnSSSzHJfW5oCct0VFS/4JryDLhGE4NMkIvzKJdLTh
-	BaxyrSGTodDCZ/pHcySubdXHL4ow/zfEXLtOiXbWZIWkQGwoYwuV6INCJKqPMRC+I4+RmNHAanb
-	1ScSEPXyHYm01ExOeDBWMXA=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j8DBl4HmgzLlYF;
-	Tue, 20 Oct 2026 21:43:11 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id E8A274056C;
-	Tue, 20 Oct 2026 21:43:15 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 21:43:15 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
-	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
-	<ruanjinjie@huawei.com>, <tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>,
-	<jic23@kernel.org>, <gshan@redhat.com>, <catalin.marinas@arm.com>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v10 RESEND 09/15] arm_mpam: Add a helper to check a PARTID is in a CLOSID
-Date: Tue, 20 Oct 2026 21:42:33 +0800
-Message-ID: <20261020134239.3921377-10-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020134239.3921377-1-ruanjinjie@huawei.com>
-References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eiyfybd+
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 99A02C63455;
+	Tue, 20 Oct 2026 13:44:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EFC6860393;
+	Tue, 20 Oct 2026 13:43:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 76C6210328DD2;
+	Tue, 20 Oct 2026 15:43:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792503807; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=a7evs3c83W1K0F5zxXLeZ2sMhNgoUa3W9M3ODO/7lLQ=;
+	b=eiyfybd+X2pk32UqSIsmjeuQkMNAyn1C43i1jHY9+4kFLJdeoDlggreSvd+5vcMkXl39iW
+	iLLNJex4YdZGn17yHAlSqd5o3I4wOR/IMu1nGk/tq4tOTx3XybVBz1U5ujwFH6MSKRD9sF
+	NqJP8pVV6pMBdGmx2MPd+vskXq/Nj/cuC6dUbtpkliYL1FVHw34t3DaiZZ+yLkgC4W6fGI
+	9+kgdZ64ns+/vKP/GFVmjCrT3WZ9P/cnLIgBLwwacQtxgQg/a0mXyTJx3j45ZejpnP+fUf
+	tYdSpSIOKpNLLMsPfMcSiTM5twNqauwBorU1eLPJpDCZWvYDc+8dfHXvJZPgOg==
+Date: Tue, 20 Oct 2026 15:43:21 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Eric Liu <liuer@nvidia.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Guenter Roeck <linux@roeck-us.net>, Mia Lin <mimi05633@gmail.com>,
+	Medad CChien <ctcchien@nuvoton.com>, linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rtc: nct3018y: report chassis intrusion through hwmon
+Message-ID: <179250379387.320906.7689435596822345237.b4-ty@b4>
+References: <20261001054108.3346426-1-liuer@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,58 +74,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001054108.3346426-1-liuer@nvidia.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-match_closid() open codes the CDP special case that turns the task
-PARTID into the CLOSID it belongs to. Move it into
-resctrl_partid_in_closid(), so the question "does this PARTID belong to
-this control group" is answered in one place.
+On Thu, 01 Oct 2026 14:41:08 +0900, Eric Liu wrote:
+> Add an hwmon intrusion alarm for the chip's chassis intrusion latch.
+> Reading it says whether the chassis has been opened since the latch was
+> last cleared; writing 0 clears it and re-arms.
 
-No functional change.
+Applied, thanks!
 
-Cc: James Morse <james.morse@arm.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Fenghua Yu <fenghuay@nvidia.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- drivers/resctrl/mpam_resctrl.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+[1/1] rtc: nct3018y: report chassis intrusion through hwmon
+      https://git.kernel.org/abelloni/c/c1c260266abf
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 9bb1f1569601..bfff965177fb 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -353,15 +353,21 @@ void resctrl_arch_set_closid_rmid(struct task_struct *tsk, u32 closid, u32 rmid)
- 	mpam_set_task_partid_pmg(tsk, partid_d, partid_i, pmg_d, pmg_i);
- }
- 
-+/* Does the request PARTID belong to this control group? */
-+static bool resctrl_partid_in_closid(u16 partid, u32 closid)
-+{
-+	if (cdp_enabled)
-+		partid >>= 1;
-+
-+	return partid == closid;
-+}
-+
- bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid)
- {
- 	u64 regval = mpam_get_regval(tsk);
--	u32 tsk_closid = FIELD_GET(MPAM0_EL1_PARTID_D, regval);
--
--	if (cdp_enabled)
--		tsk_closid >>= 1;
-+	u32 tsk_partid = FIELD_GET(MPAM0_EL1_PARTID_D, regval);
- 
--	return tsk_closid == closid;
-+	return resctrl_partid_in_closid(tsk_partid, closid);
- }
- 
- /* The task's pmg is not unique, the partid must be considered too */
+Best regards,
+
 -- 
-2.34.1
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
