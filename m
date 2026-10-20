@@ -1,141 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792516184;
-	b=hH3WfZwmTp1hLsKE/ytjwLn3j7/pggF7GHk10wTLV32fU3OqMDFgjFhdX01F4ccU3lQV
-	 449m+fDDEyqoIWX3K7ExrDyuByUIeAikPYTH9rOEe5r3LPcSOdTO7TMaS700rCFF9aNaU
-	 kjvZGxrXHqA+9DjuvMkZvaRB1mO+rTWuuUZH14VHJOorMI+rWc2J9Rcj3ztELO7K7MbZw
-	 +my+PvPg3w16Uvv3FY3HspdANQw7XxDBeCUe5ULbOplrmKR2s65TLYS/XQG+WVHE+e1U7
-	 T2OocudG98K3zsOWpjVHwd2IyGkntUbareDPd9GrJl5OyKFSz2zETs2UgqufkYedknA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=ZvIVYy/sLfK8KaWui9axGwU+Hgb2y4k2+RSwkXf6X5JXAzxATvXtPo8F36uJYKGoxr4z
+	 plhU/RxUFiCLNWATZitqYP0JXaToBQxZeF8UvJTSmMRS63fF7P7N4yZMGXZcwQU1XUnvq
+	 ELtLKuFPywxDDZtXvcu8L6VYjb3Bsz56UA7DMmZhb7kO57PpMkBxd5P3WhJ85/HiP1swV
+	 fPaiFMeLfs3edjqFS30Q1ve5ucWBGOoZxy4XCfgaVUWTMvhe/LNThGAMP5LMr9seD1X9r
+	 pfKDCnZeVXgeO4IWw/OcUzEIBYiCVW6w4XP7Y/BUQaeloyrh8NpBKmmSH12HtwmiQlQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792516184;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ohKpVZsSLKBqP3rLFRPbU8Ml4RClO3TAOr5rDUCda/w=;
-	b=iHjAkOhO+yrSq5xrMmYX9VIqBArS1OES5kwnSOjidNSUy3W3ci4uru9Amogc7rfAYjDG
-	 D/nhojxegMpK0hdxX7XI0Au0ELafj0/228DP21pytoFndpXJjze63dc3yCUlbk7fiz20t
-	 7qfI8rpaTlHQOGZmHkWaSauFHqRoAE5yEKvsla0xDmS82N5W/j9MmGXqIFngLUloFLA3m
-	 AXaJcLvxfNmIRZTObOdlcwmd4Wp9Cjz3FupMzwK8rXOZuDYZSTlgt7ygJG7jx014azXdQ
-	 wO/tQMYrgVsdDSUoS23CcXOBalHPZR8htiCMusWarqUNkzCbaX2MJycbN+6phlEDOZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Q/srjOz3";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BbbaYUS2;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=spkmwlJKILqRb4PGHq7Zl5Tn2L8ar2nsCAiU2jBiAQA=;
+	b=If6Oi0ArHnkUCrq7/uPL/u7N/S84S7s0zMMMTsPwWHxdDh1Mcn6luga0r+h7TzAqlJ0d
+	 RuN/KkJbRdeKBOuoZxKkQ0am7kXJ6GjeSGAWkwsy8jb0tZjc82Tib5dKtwFty5nHNJU+W
+	 41FZv4qJQM8G+lIuss87v6aLWwRzUsvZFgOd8Is1TfWFsSAcExVnZ9XgydRSwwOUwxk4n
+	 a4GVHC/9uoAePtoEQawfOexqOL1Zlodk6LHI+MGLgH3htavIOtN8kVLdldSAgsW/6e1/x
+	 RcyRM6Uj+NvC+zMH8+nJ3+Y8eiJ32M3E+4BHLE37Jgm5j3TcaM0peQtMAxbcfpOb6ag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GgmF2Jax;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FA3606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FA3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE977606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE977606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q/srjOz3;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BbbaYUS2
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KGu1c52070236
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:09:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ohKpVZsSLKBqP3rLFRPbU8Ml4RClO3TAOr5rDUCda/w=; b=Q/srjOz30TRKb0h+
-	4i5NmNJzhXLuqckNdw/mg0I4BdzGglVTPPTqazzLFsx/Egq97m2DlLg9ue++z7ip
-	6WVn7ZjlY/g7VfeucNdjyKyQZBNhpJucWzQD5lIZza3YJBHioVSU/aQsJG5snWE+
-	Im9EeDhgIeH6Tr6y7/Qg5R1Kx+t3F746jDmWcVzfNxurlDL8JrmGFSL4mbP/TR6Z
-	aQTdpZjm32+Rfs1bQ91lVPuoYRNQ+jDPXKIX7UfBMgGyReFum7adrZOaF813VB8E
-	Zsna3eTyugakMRuQrPgQRVqqJkEknK00/GysSDNSK6Mzns/CW3C2UlGAMBjbAmPT
-	68aWnQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n3k1t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:09:43 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso5118887eec.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GgmF2Jax
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-34c522572bfso363795eec.3
         for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:09:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792516183; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CF2vmdXUB/nv5aH3Xu8HOpoojLCFt/qH3rZZ1vqZ6M8WUlZVM1r1gXH+6iy9NUvk17
+         st8uhleRejm/BLLU0D2arjVFN/arSivKbslnh72iMOSkHPE+6Oa6RgJzmpMTM1oIQKQV
+         AF+1VGDk6kTysaWpWNbQgtFE9U6+tKbM9kxp8L6U6RQqFNU80V01LBUKPirxALyymzEh
+         ZA0ps8O1VsBHV3TZ8otWrajtCYD7kpXanO6VLDGci7UJi+Yr2/wIXQumfdJruUrlbRfC
+         qEB8Bao5o+hC3BioO+5nk18CKatODfqHQOGkhCW2JI7VMsYrhLzs07fZ0WvwHXeLkf6V
+         /VFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=spkmwlJKILqRb4PGHq7Zl5Tn2L8ar2nsCAiU2jBiAQA=;
+        fh=0ixByX2AwqWnTK1cAh8yQzwQfRf7phKXHkNfBRpxvNE=;
+        b=mfmc28AFzvSyPMM2utt6pM9lyRA619q6B4SNVpKzQTrr8XDAQeem6lma5j+erzVnwL
+         IeGY7ARJ4uhxmdu4IEdUZ1tkU/2fXXNVLPs+JmwRI2AMuLTNC26tBpxwwYXzz9zMgBgt
+         SCPJlPvavMthdt23hCIYDMvHbcjaVREq23O747CFruiAplD+Vn261LGmTHs4EEU4R+d4
+         pZzm2xtkVovU8I59qC3FvK9I/tEvnAZrqC9CORfDE+PRqUcUgM8mYP+8RBrgh3EAXs0y
+         syIBP947PftYZyWWCwyK0P8kOByvv4dd+INzmKTafp4KVyEcTyc1y6Z3KSD02AULB/QS
+         aO5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792516182; x=1793120982; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ohKpVZsSLKBqP3rLFRPbU8Ml4RClO3TAOr5rDUCda/w=;
-        b=BbbaYUS2cRNi9QeQVnNKHeFbeNS/kGPr/Kq05PzFB/gg5q3R+DgHINNCf0EPaD3YgO
-         oH+bdybQ9SADnVWqVOkpRwK/zfqsdggtP3s8+QGnRWwOtPUy6DG46upEB614o2As1Xt7
-         i81Jf8r20aV1ux+UNJdno2z4DsCIUYxF7j2ZXox+/4rp4gQzuHpq8uJouwAqQd8qS2G4
-         mhK75H3XTxGVXsl90pIAz2DEvVvURweW5agkjT6I7AfHjcyYb6vog2UkkfhU4D7of4ts
-         J3N99YBSb5j4ACMz5jPWVUSxozJqBaijd9t7NWtPX8lgWFJ9dx0JAXmjFxL0+LRRvgb+
-         VRDg==
+        d=gmail.com; s=20251104; t=1792516183; x=1793120983; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=spkmwlJKILqRb4PGHq7Zl5Tn2L8ar2nsCAiU2jBiAQA=;
+        b=GgmF2JaxWihTIKDQ6w9Iw49mFFy5aK7i+arMpdqj1xFBZLC/BS6rk5OF/MK6uP3C5W
+         Jm9AVWMUFJh71vwBZX3czhYiBhPmmlT5Kac9X/v+QcHpJQ8f9DqjtSVviuIYnrEbUEQN
+         HrLBLhDBH6fz6JaVN/0P8fjbNrPFw2VkAC4oSASuN5StwnebufW+K5n02y4z1Brz8C2j
+         Je7MfkrR4VD6tZWibyrGI9bieSv5thwGC5hCQFe3lz7lL1hplpRFHxXl1e6ZlXE0+nts
+         pLDPKbetGl6E42S5j+URmNQBC5/Z5LZ9ilfOpLld+c9Fpb3jJggJWBhJRv1wg7lcyCL5
+         xQJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792516182; x=1793120982;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792516183; x=1793120983;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ohKpVZsSLKBqP3rLFRPbU8Ml4RClO3TAOr5rDUCda/w=;
-        b=nRCRMhLEu5t1BQP9PSeGj9MhTb6iBTJq3d+XKF4ckCvkSGvUkaGmSYWV9rumbe4fLw
-         3Ja65FNuoUAu0PUaARxp8ur02R5lQGP3YH62o88c0PN+0O4kjI+2p/g3wx2qNF5x2vqU
-         u0KFXKXouPyedBPGZDNFQRy5y7OFJfL+5Gq7ks9rB88mvHfhpuE6rDbC8FiDSZ7370Df
-         c3TFOhbfrm0xrSgd2j1UVubOW/VvcG2YxRoWtCOEXhOUyTUGnxBGc3w6hQffbtuH8oTU
-         jIbROIuepVzpYGCqht4zCqZuCX+KV12Wjxl/3ME9QGOpM6Kq/A6qsnDfSLIB8gII97lJ
-         N3QA==
-X-Gm-Message-State: AFq9FYK2Rv59ZOyWxsIgf99Ql9SGdcuet0sxmGo3SRk1bohpsjdUt11P
-	SD6DTh+3IOx6ie/es5pg8anawOCvzY30BB/MCUmix9PMyAbPFy+elvVg5IvveSE1ca2NCp1LFCz
-	1rLM5rnJEnOfg3VgbN22VgtQmew/SnsLHgdIdBRHK/HKhBbfP064EGOKMHKVxhu9e8ZY=
-X-Gm-Gg: AYBFou2w5rUORAISF4unFrF1NrqC51SpxcZ11tF8fNEZvaG75ZoivTpcALM/XJbd4/R
-	2xXw5nPwaFoUXl+XG6V+SEGgdj39ZOGhdgeDoUa+20GYTUnwOQZHnYqCi9pEYTPp8AI6+AKDUIu
-	yJoWkK5rV88DO+npyzQVCuItQTwQ9YZVpIKygt9S0UbfVpZdUcPOTwZjWJ0O3Yif661M3b8lL/B
-	azEzb+CPB+uiv3ccySAQC38W+hpw67VmYsnriD8CnM8Sd4iTASGbEgyP58E1rwWC3XwJZYg/Qm1
-	26yNMRfVI3RTSizMmoQw3pixSVQH/0lN/pVZhj9Gtx4TLvZ+A91aZDEZluiFqFtcWlV34kJ7EDy
-	es5Vhq/BZDI7usg6lH7tVGAX9fGf8zDD0WkIxULJvNw0=
-X-Received: by 2002:a05:7300:10d:b0:351:1e89:66ab with SMTP id 5a478bee46e88-361a0e85fc5mr16354984eec.7.1792516182363;
-        Tue, 20 Oct 2026 10:09:42 -0700 (PDT)
-X-Received: by 2002:a05:7300:10d:b0:351:1e89:66ab with SMTP id 5a478bee46e88-361a0e85fc5mr16354944eec.7.1792516181614;
-        Tue, 20 Oct 2026 10:09:41 -0700 (PDT)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673b1d0ab7sm123492eec.0.2026.10.20.10.09.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 10:09:41 -0700 (PDT)
-Date: Tue, 20 Oct 2026 10:09:37 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Pierre Gondois <pierre.gondois@arm.com>
-Cc: linux-kernel@vger.kernel.org, James Morse <james.morse@arm.com>,
-        Mark
- Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>, Len
- Brown <lenb@kernel.org>,
-        Tony Luck <tony.luck@intel.com>, Borislav Petkov
- <bp@alien8.de>,
-        Hanjun Guo <guohanjun@huawei.com>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Shuai Xue <xueshuai@linux.alibaba.com>,
-        Maciej
- Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-        Pawel Chmielewski
- <pawel.chmielewski@intel.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        "Fabio M.
- De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-        Breno Leitao
- <leitao@debian.org>, Terry Bowman <terry.bowman@amd.com>,
-        Dan Williams
- <djbw@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
-        Morduan Zang
- <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
-        linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
-Subject: Re: [PATCH v2 4/6] EDAC/ghes: Extract error report initialization
-Message-ID: <20261020100937.00000d06@oss.qualcomm.com>
-In-Reply-To: <20261019203915.2019037-5-pierre.gondois@arm.com>
-References: <20261019203915.2019037-1-pierre.gondois@arm.com>
-	<20261019203915.2019037-5-pierre.gondois@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=spkmwlJKILqRb4PGHq7Zl5Tn2L8ar2nsCAiU2jBiAQA=;
+        b=OtiTqJqRSjvef+o0n0JUuzZWIo3qwwmEAZeY63kYiWFKSdS8Kx5qiaary4QfRJtnUG
+         m+ecalnHICML/RmWDVkNtoNzQQQFV69sJu2zHpy68G2UwqcXgzw2N4aP+cHMWUC8o6WS
+         Xi2D5gI3TcgYg5qHhqK0mk4gDDut9Eo5D73ZiHFB5nXxI1KQ4F9GK5WxcgRJ9k/uT1MK
+         EMVz0+SrAzMrMS6TFRISDzz3nVa1CEWK/aCX8RtfNPcxNCpnbikRmnNsgPaRvAQ51xgE
+         oRYlH7JpxBUA4pTT8C0qrIRgK+BD7+DnXMsf8LwYrmyVlcjk9v3isRSLgV83m/rjwLJ/
+         e7VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywWauysvOTwFT4gcs0Kg5okmseTv0i+qNnuSF3li6a41kIehIQ3xkbUfV0WmRMCGF3QoLpsAgny8Rg5ng=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9Ga9lEDaVgAyX8g1lcXqXuC6C+ee8AjlgymO8acoZo7+3kuDS
+	wv5KZ50bhZPD+m0pgFk65xPDd47hsAdRwzcorQXfcZfriQFxLtGYi0MZYfQK7YPV9QizDIIJzB3
+	QEcN613pSQs9jhRS+7ZbqOuLJhbJSuNQ=
+X-Gm-Gg: AYBFou0fXkzF+fQlLfSRd9abXnQeHJav3bzVebe81FvM/HR8Gpk6WEhB9WkmGW43lsU
+	g4H/cX3Mr+MvgZxVPhM2vkJchvHugCVyZDRzS3a1MYEOsRy55ofp0JZxs/iWcxJUaQ1tk8rt5xi
+	4H4osqCI/0VN+jQ0V+k/WsMURlAOShb1yRG9kbL9Mh+y8PlykYsgVcAe7CCcd1020vINtMcKH3F
+	pCumStzJtlNl593ZOxsX7P1FhmNfidOaHpsJ61lSHWEOBOAJUQ8arwFJVfL5AypeKEHQqh3rxzb
+	QHypQh1ObK8JpfB3EDilL4Q9EpTeRdo9yrtuvDd9iM3qBlrcyo2+WYCliVJ8BH/PQXjM52xUieg
+	MvRVbIWLb695xrR0X/lnfkdKxZnfzQfHkmBFHdrJL5Fuj63IO0hhujIHD9beIO8GxE2n7mUfnma
+	HOdKRwGfmdUF+WZnt1DvuQZAmoNi2aRKeXfHmnGkxRQ5GUV+wU7GE=
+X-Received: by 2002:a05:7301:da84:b0:358:7ed4:a049 with SMTP id
+ 5a478bee46e88-3619b212ef3mr24985185eec.0.1792516182799; Tue, 20 Oct 2026
+ 10:09:42 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -145,158 +105,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Ond34nfMkiHyjr4CUWbP6D_DH0mG7hs9
-X-Proofpoint-ORIG-GUID: Ond34nfMkiHyjr4CUWbP6D_DH0mG7hs9
-X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad7a057 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=7CQSdrXTAAAA:8 a=rxnY8KSqnLZGKI4wGMoA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2OCBTYWx0ZWRfX8xV5IG6bl4G6
- I1IVedlXd/uTt4hab0uAw3F/WCS7CY0jVSo27bN2rqzW0I9hysYh6lKG3huVFrwkgIqkuTiV5r2
- 9HIyWpy/n6+JP+A8hTegLtpaEPeEXL+1eRI3DQGliNUReBxVVIfFQ1qIbwXwjwsVKIxFs5CBWTe
- 1LrJvi3rVfmbpkIO5rn4IQ5UzsQa1FhZIrppm2U2c7SPRLzp1Gz7ehQMZsfQwIGfmlD1nkQyykN
- P316eF7PeNcXotEeUaZxO90PY3IwhY+Rm9tggBPq8codVhJva1gNc6i8ufTdkNtRM4zg3y+0A2s
- eSDUEN/Nw7ggmYg6jFG2NmBdmuPJLp811dpiT/cC+ao3KtYHbAtv0RJuDrHzCtP2ZRaF77TIMlp
- f/9Qha6uQ+dSVAN79vo+BQ0jJqnVBX7Fdn3QhNgMDcU7Xsfr/MHD9gApHgtNJZ10VE6VJqwFq6U
- e9MqV3ZUlLAwdJchJjA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2OCBTYWx0ZWRfXx4QqLrlZXRGu
- 2GZO5Uq9G+WUyDzkK+HBMwLHkHWnBSQyEthhg4aYqxh9a6Z97e56D9x2cEU/qUtF6V7LxizEFcP
- t8brwuO/dTkYejrFRrPH7KZ8fgDI3mU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200068
+References: <20261015145714.3327543-1-elver@google.com> <DM8X51YCN6AA.1HV7J3R3PIYY9@garyguo.net>
+ <CANpmjNPALPJQDZFfNAqo8v0eu_0uNvj+rJ5xqeC3ZZSvs9zQwA@mail.gmail.com>
+ <CANiq72mCixHhc5tU6ueiJNEfE7yHXHXekhWDcvhFdfd414Q3yw@mail.gmail.com> <CANpmjNNmnTMqxSJ_R+wYeAkFOxnJcUmwktNuG990GunjxhcvbQ@mail.gmail.com>
+In-Reply-To: <CANpmjNNmnTMqxSJ_R+wYeAkFOxnJcUmwktNuG990GunjxhcvbQ@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 20 Oct 2026 19:09:28 +0200
+X-Gm-Features: AclHuK9D4Eg255wKZ2sPBwolmAnynFBIgoIfmMAgFcQGyxFl5TrsNoPPIa_966w
+Message-ID: <CANiq72ns9P6gxOWmwL5VMAnAA8eASUjVUdSai3_iqXvM72mF=A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] kbuild: rust: enable KCSAN support
+To: Marco Elver <elver@google.com>
+Cc: Gary Guo <gary@garyguo.net>, Alexander Potapenko <glider@google.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Yury Norov <ynorov@nvidia.com>, David Gow <david@davidgow.net>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, Alvin Sun <alvin.sun@linux.dev>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Petr Mladek <pmladek@suse.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 19 Oct 2026 22:38:43 +0200
-Pierre Gondois <pierre.gondois@arm.com> wrote:
+On Tue, Oct 20, 2026 at 12:34=E2=80=AFPM Marco Elver <elver@google.com> wro=
+te:
+>
+> Happy to take it - but in the interest of avoiding conflicts, thought
+> it might be better suited for the Rust (or Kbuild trees).
 
-> Extract a ghes_edac_init_error() function to prepare for
-> Memory Error Section 2 support (and re-usage).
-> 
-> Also use a guard in the caller ghes_edac_report_mem_error()
-> function for code simplification.
-> 
-> Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
-> ---
->  drivers/edac/ghes_edac.c | 66 +++++++++++++++++++++-------------------
->  1 file changed, 35 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/edac/ghes_edac.c b/drivers/edac/ghes_edac.c
-> index d80c88818691..b90150c67f4b 100644
-> --- a/drivers/edac/ghes_edac.c
-> +++ b/drivers/edac/ghes_edac.c
-> @@ -267,37 +267,14 @@ static int print_mem_error_other_detail(const struct cper_sec_mem_err *mem, char
->  	return n;
->  }
->  
-> -static int ghes_edac_report_mem_error(struct notifier_block *nb,
-> -				      unsigned long val, void *data)
-> +/* Caller must hold ghes_lock. */
-> +static struct edac_raw_error_desc *
-> +ghes_edac_init_error(struct ghes_pvt *pvt, unsigned long sev)
+Same -- happy to take it too next cycle, whatever you prefer.
 
-Slightly unusual to have an init function that doesn't directly take the thing
-being initialized. I'd pass it in. The clearly of pvt->msg and pvt->other_detail
-is also a bit of a surprise for a function that claims to be initializing something
-else so I'd do those outside of the helper.
+> Needs some -next time, too.
+>
+> If I don't hear otherwise, I'll pick it up later this week / next week.
 
-Or maybe rename helper to something like
-ghes_edac_fill_error_from_pvt() 
-Not sure that really conveys the modification of pvt data hidden in here though.
+Do you mean for this cycle? Linus may not like that, but up to you of cours=
+e.
 
-Perhaps this refactor was a bad suggestion from me and better to just duplicate
-the code.  What do ACPI maintainers think?
-
-
-
->  {
-> -	struct cper_sec_mem_err *mem_err = (struct cper_sec_mem_err *)data;
-> -	struct cper_mem_err_compact cmem;
-> -	struct edac_raw_error_desc *e;
-> -	struct mem_ctl_info *mci;
-> -	unsigned long sev = val;
-> -	struct ghes_pvt *pvt;
-> -	unsigned long flags;
-> -	char *p;
-> -
-> -	/*
-> -	 * We can do the locking below because GHES defers error processing
-> -	 * from NMI to IRQ context. Whenever that changes, we'd at least
-> -	 * know.
-> -	 */
-> -	if (WARN_ON_ONCE(in_nmi()))
-> -		return NOTIFY_OK;
-> -
-> -	spin_lock_irqsave(&ghes_lock, flags);
-> -
-> -	pvt = ghes_pvt;
-> -	if (!pvt)
-> -		goto unlock;
-> -
-> -	mci = pvt->mci;
-> -	e = &mci->error_desc;
-> +	struct edac_raw_error_desc *e = &pvt->mci->error_desc;
->  
->  	/* Cleans the error report buffer */
-> -	memset(e, 0, sizeof (*e));
-> +	memset(e, 0, sizeof(*e));
->  	e->error_count = 1;
->  	e->grain = 1;
->  	e->msg = pvt->msg;
-> @@ -323,6 +300,36 @@ static int ghes_edac_report_mem_error(struct notifier_block *nb,
->  		e->type = HW_EVENT_ERR_INFO;
->  	}
->  
-> +	return e;
-> +}
-> +
-> +static int ghes_edac_report_mem_error(struct notifier_block *nb,
-> +				      unsigned long val, void *data)
-> +{
-> +	struct cper_sec_mem_err *mem_err = (struct cper_sec_mem_err *)data;
-> +	struct cper_mem_err_compact cmem;
-> +	struct edac_raw_error_desc *e;
-> +	struct mem_ctl_info *mci;
-> +	struct ghes_pvt *pvt;
-> +	char *p;
-> +
-> +	/*
-> +	 * We can do the locking below because GHES defers error processing
-> +	 * from NMI to IRQ context. Whenever that changes, we'd at least
-> +	 * know.
-> +	 */
-> +	if (WARN_ON_ONCE(in_nmi()))
-> +		return NOTIFY_OK;
-> +
-> +	guard(spinlock_irqsave)(&ghes_lock);
-> +
-> +	pvt = ghes_pvt;
-> +	if (!pvt)
-> +		return NOTIFY_OK;
-> +
-> +	mci = pvt->mci;
-> +	e = ghes_edac_init_error(pvt, val);
-> +
->  	edac_dbg(1, "error validation_bits: 0x%08llx\n",
->  		 (long long)mem_err->validation_bits);
->  
-> @@ -375,9 +382,6 @@ static int ghes_edac_report_mem_error(struct notifier_block *nb,
->  
->  	edac_raw_mc_handle_error(e);
->  
-> -unlock:
-> -	spin_unlock_irqrestore(&ghes_lock, flags);
-> -
->  	return NOTIFY_OK;
->  }
->  
-
+Cheers,
+Miguel
