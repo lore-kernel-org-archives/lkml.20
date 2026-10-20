@@ -1,80 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524415;
-	b=0h5fKcgHsQGfz+966kzHrp1iZ9D+5apLiGfUePPt+X4fQ/i4ltZ0IlVrLFiV35o6tsL2
-	 Rc0u7RhLo+roXVJniTLuc4tOcorMkLal8cJGfzJuCsWBjMOeWUhwgkVnvPJKx7Ti91Flu
-	 vWztdvZ9a8NnGfp1sJM8ZpCwdJAQWyOFrQgn4SCKExO69c7YBmiaoNnlrwcsC5MK9xiz5
-	 6ghoyxuCAsqXh9OTsWoXH9+Qkw09M/7cSB1DJJqG41Vgjc/RpqfLWgqMPSqaOEIAjmQnq
-	 s+9rifGrV/JjwOz4qalbcKzW3C7h0CsIaOnoqAI+N9u9pFmPy5cg6u2h60yd1J9U6Ow==
+	t=1792524448;
+	b=HV6WNFBTxoyhXB+JgfwVDl1iPtZ2TYV4Y6VZHTVvbgdaqqZ/e6ckb+jfCaReDTOxjy/b
+	 pjdPCGmgvaXd5zAoYcvBiqgEgsDSe9cnQNeTEzT+zRTXZHQEiqmrEkc/KmTKrbPBkqZKc
+	 RMsuio9KShQ1mbmzCUic22G8lOdO3x4GZPo6ukKjY974sYfmyEkIa4zOKik1wILT6lqxO
+	 lx2vyfQGUmoAF/6ACjvViJubTPD4LKR+Qi7tn5OM8RyjOajwL3aswKGj6Z9TVWBykmMEQ
+	 iS/7KgoL2PF8T8NwRglb/1o+/cRHadIPA2Zv+e80+VIoSiZKtGuV01UzbapU/B+gekw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524415;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
-	bh=+cqAn1cvZfqce28oUYl/gZogIs+MYV7l073QLWo7Q88=;
-	b=4/exxnFoMHXVNQr/plzE/yiPOBQGKRYIDgQ9LenoTt3YpbBO658kmgfCMd2r5Ch/c+TC
-	 EeJBWoXZOWoiexYw5m3fAtUNi8/HczeMxt+9Fcc/E5YH3I8ySUFfOwMNGrljE1T69/jHz
-	 Vud+cUBjKK4nQXpIYKJbUDcz1Z5OwgWvASxQtdE+JEFAdvWPKsL2gTxylDZ6znsmFKiVb
-	 mOQwQ6ig9a6h39z2XcvJFPtFvnjtYO2eJdkWN7njjh8QCv6R/1mKrofLy1K5jfITVq+Pt
-	 XJVFkMQqutrdQvKlaZNmLiF4NI2kIbS/muLhejWzveAbUpxsyKzJsxodN9mjQeOQlaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524448;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Jxi2fFvEa24MYWSBDu89sOuw0Qp/4PEPpzEJpnFw0PE=;
+	b=ysqgD8Ca+mP39OyDImoORBsU5oorgbYiWI8jp2bGtoKJawigYmusG29JbkUNE8icCA+z
+	 pQHpD5M1Rog+gjPv901CQ6fldxYU2CtDzxgo5ZF45X4QW0JHHBe1dSDg2AiAlnmrZ1D00
+	 8nFftk/TfMXQvOH2NyiHM/q2G83jmbmDLVHKn3zyG0GTwZhqrw7e8yMIFbRrrQYUWETuO
+	 Hr2N8lmR1VgEGjEeMsVpGxY2JRl1QXryIReIFaO+qBU+aEE0KiFhYsbVa9EXjrx+lC1iN
+	 QL4HTuqDtf2B5vCmjTchbG5Se+c22rhrag/GGTb6FQ5fFscCSLJnlfaBjAjDdeIrMBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787E9606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:26:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 787E9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso35885265e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:26:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1792524402; x=1793129202; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+cqAn1cvZfqce28oUYl/gZogIs+MYV7l073QLWo7Q88=;
-        b=Jl3W+NiVjzOLdc1yjvnMCh9KK49lWbGu6oFGzqG7xriQpMgUNfgDnSELLjjnSsld+Q
-         2nr2+cxfgJdMkbp1xdfIDSUoNLkZFWsVkf9QmImgUZuCfto2aPOm3W+w6HldIJjHopuS
-         kJHW0wzuahUKrihedWLGnL/YeixpC19vTRpVes7GFZO7yP9/Y1EaUK0NnJuWBkeXgUTu
-         qhyEaCyP+UTryz51Af2O+HRdCKl6ZP2e6HzN00CnWbUJToTzorJGY8BDwh6X8Ewx0Xsd
-         +9fcrNUTZxOxQSjihUYqcWPrYO5+Vwhx8L9WNh4eqevucoJ2I/14iEPBdVP7ywLdTPP0
-         8nrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792524402; x=1793129202;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+cqAn1cvZfqce28oUYl/gZogIs+MYV7l073QLWo7Q88=;
-        b=wJPyFPg+7EHoWHr1QmTHnBbvPenYhz3msxFBSXx4DNCsi/9/OPN3ivh7zTDQ9Iubd1
-         sFIh0nKk61bRXj0smxa9FwzAvkCavd2flOOFstQWAJjmY4hywUIaExLzPc9bK2z8IqOC
-         C0xbaPVD2pCdHn5SsHHAYfjGfi3Cuvr9B73ngtJpfzTLCeK8l8ZBuo8RmVFUdqS8IBuD
-         9vQANEbyE3CsH1ndTp5DaDEThRDpZlhVofz8+onkRNVncwkAi4nInRzwXOjdUeP4xsNe
-         C3ayaiuZThz6TniAdlkYMpYhre96wVexIhxnNF1A9o8nuBYoIakXl9hs5F4L04CGf32s
-         cOHg==
-X-Forwarded-Encrypted: i=1; AKwUvByquEFQrqwriFzOgrdRYSDY8+V8M2lG3IIO29K05mjWhmjsVEI5I+cWa4/c/vd6yNyLkTIgPe171Fhps+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1TdaTaM7YTjAJxfOATq3nzG26JpupAVg/CRZnnk0ojGePuXRu
-	9AgcNNuukx5RuXAgynwJ0eKlGQIY2Bvh8ywENuZhPHjrOjfOIGO5Br7+uQVXxCRGTus=
-X-Gm-Gg: AYBFou0e64omx0c6ZTBMo8vCyZAeb2sMwwjr6DfnsyOJKvufb/DtpC+dKpR/rOLATUE
-	yQRNNN7bKMZHhRd1hTNyXrwI0IIrBEyFnB/13CXwGPLXnQep29gCc/f5TJku6mLSjQrVPv7Jexs
-	6IJgLhl9T3nn/MjPir089LIx19eq7zisLjGVNcIMR9FMjgTdbyCY95qB1uOqKAQZj9quKFkjZoI
-	Y/blwPeANDuzkWH4pjyPZUiy97/BLgck2HP6BVeJVHSl7IpHspqFklh16pozHVhahOKe42qqM/f
-	aYRJPJ8c8Yn5H6ALa/Hdwm+7KOQ6SHmdXIZhaGQxFwwUKyMoTIm9DP1S3BcsPr2GKo5djtxvNt6
-	nUpjHBx5zcV8A+tcANtlEZspFdb3SHqLtCrrq/8VhiPkh1Giet4B1nydxWDx1QolAfAHPbpngxf
-	4HyFRitsChBMe4JIqzHfdwh/JBsxJdpW8VR1OCnSkuZ6aAudpm0pA5/KroiPqKzXe+qi7ZIszgx
-	tdzfE6RbBtqxCeWjP8JYw==
-X-Received: by 2002:a05:600c:c119:b0:4a1:dbdc:b2f1 with SMTP id 5b1f17b1804b1-4a1dbdcb405mr180375035e9.14.1792524401827;
-        Tue, 20 Oct 2026 12:26:41 -0700 (PDT)
-Received: from localhost ([103.239.146.42])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a275026sm846135c88.5.2026.10.20.12.26.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 12:26:40 -0700 (PDT)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FueojkIW;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B0C9B606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0C9B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FueojkIW
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 93D691596;
+	Tue, 20 Oct 2026 12:27:22 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F01F73F7B4;
+	Tue, 20 Oct 2026 12:27:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792524445; bh=cDXIfx6XjE0zhSaK/P3+DuZo6P+vzJag4S/YHbDh6WE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FueojkIW/tSiwfGWb9crQsX5K1mbC+lRJi/M+1eC5fNFkoBCDUU9a9Ff6s0U/l/jF
+	 xzjQVZuw46dkbZYBvaZigT9BGNpsWMVEUB7fEKpWhLhBPe+7INi1Hy9Ri2Z4d3FEZO
+	 qYPx9mPWIxuRMDcDDMG7XPJpi/ZjAAajAewcFvQA=
+Date: Tue, 20 Oct 2026 20:27:21 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <atfAmbL7lYkU98_E@e129823.arm.com>
+References: <atdvnMJuHUJlqX8t@e129823.arm.com>
+ <20261020135006.GO14213@ziepe.ca>
+ <atd2_9Q2wTv_3MXz@e129823.arm.com>
+ <20261020143620.GP14213@ziepe.ca>
+ <atd-I059nHAwcZFE@e129823.arm.com>
+ <20261020145806.GQ14213@ziepe.ca>
+ <ateGVeZmDcOSxaOD@e129823.arm.com>
+ <20261020164755.GR14213@ziepe.ca>
+ <atefXz-0cD9viNHK@e129823.arm.com>
+ <20261020184737.GS14213@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,57 +75,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 00:56:30 +0530
-Message-Id: <DM9WV4TQ3JAM.2KC03GKSF297S@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Douglas Anderson" <dianders@chromium.org>,
- "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>, "Jasper
- Korten" <jja2000@gmail.com>, "Federico Amedeo Izzo" <federico@izzo.pro>,
- "Luca Weiss" <luca@lucaweiss.eu>, "Hans de Goede"
- <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add Samsung Galaxy Book2 Go
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
- <20261012-book2go-v1-3-7188e7ea7a15@fairphone.com>
- <fb634f17-de56-4f43-b139-3d040a35f019@oss.qualcomm.com>
- <DM3MSNLF42BV.1UV490PXB0C07@fairphone.com>
- <720ed230-4284-49c6-9332-e29f23765944@oss.qualcomm.com>
-In-Reply-To: <720ed230-4284-49c6-9332-e29f23765944@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020184737.GS14213@ziepe.ca>
 
-On Tue Oct 20, 2026 at 1:03 PM IST, Konrad Dybcio wrote:
-> On 10/13/26 12:17 PM, Luca Weiss wrote:
->> On Tue Oct 13, 2026 at 12:10 PM CEST, Konrad Dybcio wrote:
->>> On 10/12/26 8:11 PM, Luca Weiss wrote:
->>>> From: Jasper Korten <jja2000@gmail.com>
->
-> [...]
->
->>> Drop the output-low, the consumers already take care of the state
->>=20
->> For both enable and pwm?
->
-> Yeah
+> On Tue, Oct 20, 2026 at 06:05:35PM +0100, Yeoreum Yun wrote:
+> > > 
+> > > > If we implments this with library, are you thinking that file should
+> > > > be located at driver/firmware/arm_firme or other place? though we make it
+> > > > with library, I still think it should be located at
+> > > > driver/firmware/arm_firme or some place in arch/arm64, but as
+> > > > perspective abstraction to mange firme helpers in one place,
+> > > > I think this design seems good.
+> > > 
+> > > Will has indicated a preference for driver/firwmare
+> > 
+> > Okay. with this let me make a driver/firmware/arm_firme as library not
+> > a module format and make this library APIs (base, attestation) to be used
+> > attestation and other. This means device / driver registeration with
+> > smccc and done in driver/attestation/provider but use the APIs from
+> > /driver/firmware/arm_firme.
+> 
+> You should try to structure it with a firme headerfile, and some
+> inline helpers to invoke the smcs and then a very small set of out of
+> line functions that *are used by multiple firme drivers*.
 
-That seems to work totally fine. Will include those changes in v2 then.
+Might some could be, but want to reduce the time of calling of smc call
+for example, to get a shared buffer information, it doesn't need to call
+multiple times but enough to call FIRME_SERVICE_FEATURE with BASE
+service and cache the result in some where.
 
-Regards
-Luca
+That's why I think to provide base service helper, add the arm_firme.c
+in /driver/firmeware while all attestation relevant will be located in
+/driver/attestation/provider/firme.c
 
->
-> Konrad
+> 
+> Don't put attestation in driver/firmware/arm_firme..
 
+Acked.
 
+> 
+> You can look at what I did for DRTM for some inspiration
+> 
+> https://lore.kernel.org/all/11-v2-989a18390eb1+486-arm64_drtm_jgg@nvidia.com/
+> 
+> After some feedback from Jonathon I think it turned out fairly well.
+
+Thanks.
+
+-- 
+Sincerely,
+Yeoreum Yun
