@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496122;
-	b=H39QUREGdAXsXHewBX/YeZzoybzpna4nNBT35kYl7BP+q2nPgAwSdrqHsqnVjjO/C0hN
-	 WGXOEOkEZ4Hby2SerxyH6fKzkeUTNKUcVPOP4l+W8DCsEY9bLp3AqIa7DDkcaSg7rqnYv
-	 d80lBLlFHZwM0yKWdIq7Z9CYGFh4dgVguLJPdJxkCntVol0cMHJJaQ60CjXY4vxy0UIVj
-	 OPY9mFWFnLOf3CirjlZcll/Wm62kaSHM+aRXxB//WXEov7jwjvvKsda5EbcPqczolUJ+m
-	 uXueC4uGZizLS439KdgbPvwuAkbfn1aRLRvQNCPZOw5GCS8InAZsbSHIchQQru3dA4A==
+	t=1792496117;
+	b=fbSxQGvpPD2buTveCyS+xgrLr3+FfGRFyk8AEZ9NGBQD5PurJmc9b2lyxVxwvtNj/eu7
+	 GhCnv6H2/SA5SAQI6iX//7E7RrG8h9lRceVJ8jzoA1zfYY+BoRmO2R3AYAV3Myhcy5WoN
+	 s2RlTP1zx8+rafpS/z115o8tzndYhwozIvQ+9n3C/Bl/zUvnU798IA8IcnhQGQh7wdn40
+	 RsLjIanXQf7kWPfyOGEknJqcEHqy0h8JGWqQRvDD0yBkqbKv5RqvCJK5SPqt26xOQNHrJ
+	 70f51LJKZ1B3Vxdzizogf9PmixuyBi9FxDKrfwu4q5qNy6StZdrdDHVakICttBmSjeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496122;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RJBmlqeNqq7wQsjNbLDrnXpBLrn4LxYdCnqqMvjM4is=;
-	b=sv/c8XB6tH+UODd9UsHEr+BBoa5BPJ0mG1YOU9PTdQiRhmZzLyBpljMObBrAQKjIDWnt
-	 /EBWrA94Vv5eaaBOJfslzbjwxc8aiM3xXO3w5R5kXY0caEUi/Fq9nn9EiPTbEYW9vXW2/
-	 PmjZzNJovpa1F7O9tZgPy5tPaatePPSfixX+EcMBokYDHRewyYmx9GICph9/JnbpLLnUR
-	 Ar2PTzDRImLySSLbb3SwHneEzV0qsxw8LJmDY/+p56mzdHGDPmDJ1T0voqx60OW+I0jr9
-	 sk/wZ9fAwyt4XXGro/EecE0w1Fw0/JU2PK6WPjUMwNLHsX+X5+zX0ThN/gU1JL921IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496117;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=xZA7Tr2LKk5B8OrbMjPyR4PMdE4D5tho/5FlOXNpgxg=;
+	b=tuIss6D3kCpPsEO2oBDkb8ajuH8b+y3/LhEWjkKK+zeiAWalLDeUv2ukwCR2hAsZUpxr
+	 tKcreQgyZIiNWa4RLX2wDAd9mQL18hPs4xMhMRUWra2dfko/R9O84h+5i8vxb+u48UuAy
+	 2Ri1imR0VJHFQ51Qu8InEaaVViuq/ztOaqVj6Gdn5HL3TICTIfkmVSj4xJxf8mG/vqapq
+	 gM16oM5P1xmdC59YWuYBGpm1AvlPsxJ1kUpqeETyGuQyuXawXKjTEMSfW3Z1yHzEga9ju
+	 zcB7di7sOyTNjcCOmF0SINhfMW/N8dgxaj1vVEwXaM7YKD9cremY4k5hbHq18UgbHxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXaRy9TN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b="qMp/GECv";
+	arc=none smtp.remote-ip=212.227.17.11
+Received: from mout.web.de (mout.web.de [212.227.17.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68E6606A327;
-	Tue, 20 Oct 2026 11:35:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30573606A326;
+	Tue, 20 Oct 2026 11:35:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30573606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXaRy9TN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9741F000C4;
-	Tue, 20 Oct 2026 11:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792496121;
-	bh=RJBmlqeNqq7wQsjNbLDrnXpBLrn4LxYdCnqqMvjM4is=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UXaRy9TNyzpNTCByKCeVaN1yz6qLxHh04Wvomjojknwv63Il6Z/G4ZAW0FHLMjHic
-	 yUcGD8qErXet0nTQlnF6znGsoehqVWpWPvAAws2RKxQCy5gZAvlL+YV6MXCjAcLFeM
-	 gO5AeQ4TXI+faBt59mNgQgSlgQsCbYZPNjmkELJ3VXVr2ZYYRms6ngsnP8z1fLEHaY
-	 I7aoTr8xg89IEkgMOiPFuCaxnvgtkze+g//H1kdjfZlOtiQAYV+qogHzTlcZg50cpl
-	 hwXS439EoDV5x6WrWDgt6fbcsbjfGc5R0yYAdzcagGg9oRrOBRuHtCzt11Oi3arwnN
-	 036XGQj17Tw5w==
-Date: Tue, 20 Oct 2026 12:35:14 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, Fuad Tabba <tabba@google.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
-Message-ID: <atc2Y4gHwtGlffns@gremlin>
-References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=qMp/GECv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792496108; x=1793100908; i=markus.elfring@web.de;
+	bh=xZA7Tr2LKk5B8OrbMjPyR4PMdE4D5tho/5FlOXNpgxg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=qMp/GECvP11giPv/so2jT8KeWvi4+4/M4roLRZL8/5NjpjH6DWVCvcu2Udc5jti2
+	 VciVeZZ6la/6p7kwiZ2FHVTCHDvlFRoLRiL1RVMBRuT95fbkHxO2n1z3W6pWacAEv
+	 9OdFT4if8YHylTsjGdNbVGWq8UzbDmw+X8zgiO/7jsNu0leHkDk9MhHUOQgOt8pdA
+	 dib9VTaGAseZGFMvzAULr6FIPfyyThy2yiS42duPuv5XQBt+dV7aeaRY95AKXLRU9
+	 MT2n0F32OU0lmjLKlI8EqLsBZj8UgjRAlMu0oQQ4GecfEQgcTi5fUTEbIXjvE4b68
+	 w0kxFSeOfYmtfCYX1A==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MRk4e-1xBxME1i38-00TFsl; Tue, 20
+ Oct 2026 13:35:08 +0200
+Message-ID: <25bc6c8a-b47a-43bb-b035-5a755ac41531@web.de>
+Date: Tue, 20 Oct 2026 13:35:02 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,325 +62,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+User-Agent: Mozilla Thunderbird
+To: Val Packett <val@packett.cool>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Srinivas Kandagatla <srini@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+References: <20261020082631.1509275-5-val@packett.cool>
+Subject: Re: [PATCH v2 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref
+ with USB-C audio
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261020082631.1509275-5-val@packett.cool>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:pWBpvJymoNGFjPjkSw7/ZzQDmgOtzd3dWRUMH8S16EdEhrWlt60
+ OJmoeaoqaQKDsSnl0jWWpN5NU2Ky9H9Aijt2l9WFSKM3VSG+mhMjbFyXZgGrievC5wGMdO0
+ P0ZX7PVYAZ0v4xTS4AxRVIp0WNI320wE0MnvanTbDgLOaxTht/QeU3x5nWrNBIRrIxIpXT9
+ CdP7lK2DSvknk9gV5QLiA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:0tMmUlccOj4=;xd/AhwK0fqEK2TrfK61eimkjUmY
+ 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
+ Fw/JrUDTs4+5eeyxheV+LUb4m2fvfEnLODcIx6luA5ZlkcyWoxL+GsIvtKbq0Vy+ocbDdF++s
+ NrspJ7CXqLUCopG6TFxlM1CgSxLn7vpJckvpOBQWl16ImXuTNGfMQ0ucYZg7+4q8cS8/cqAgy
+ Y/0HmX8EaRGp63siykMProgF5y2TsvrmUB6nc2/SSkmPCNgcC3Wj7Wwt39LpMiQzH7yM+hzmi
+ +VIR5KiVnPYKcG/W/yRDMmI4W+4FJ4/FnXzH2x1ixidc+N92spzhmwD08j1s3yJM2LznKwPgU
+ SdJmMUh/cDUPViNrzgkyuw6WxQDhATZD/wLAyZD7gWZfGZEkXCMCsbh1u15eXLpIybxF+ERIL
+ yBQWuPbdPXvwMysc2dF0YMZyPPDpDK7L9XdD5b8VnIi0HLFmodSd2etZuxh9QIFYFgyW6Wxgv
+ Hlf/YnvkivFI9PzRGiYN+2Vl6Cl34l1B8Q2JlNC/HCuyNh71nwp+EzI+Gy0AxKDeftetymyDt
+ +40eeOyiKdFiDWC+iCErL92Yjw8MOqV2g1RqV82NhzY302Jp4JveOGxjDLwUzVpoBjqWqxUpy
+ sXR/+N0zF5vuNkR34Ihgl10sWRuaJBQrVmwZ/6LtKtH6JcjjqghDRphJEvfLGUxKgZRkM6Cfq
+ UbeoBRADCNtesjhlAsY73ixAc4us+GyFjoMDT8RuJu1WTYvcU9czwDFRTZqzPyQJpYsqeaABs
+ xKCRWwpc5QxX//agCjTlD3e3ejUm0w1Cb7XF2+2OIo/atBOU+kmGkDVrFJ6EwlKz5HN0zsOA/
+ dVfYDOr/4UynOISXmxZhHrOVpzbxoFB07NzSiqRVE8tsuGYtulB2iSpHyt+lHab1f9l8yNhqz
+ +HUMJUx9jJUeFZnlxqFcUse0zLbZC8CU1WAb5DrJ+X5255BwwsIjNvqCm6OHsflapn7778uvj
+ 8aM1Wg93JQeamIY/M+8gAIBiAN0i9DyJHHwZF4XPenuIDHp0Aa6sE2Vo2mrgejNL5KzNVZbLv
+ aeJS4bQQCtELr738sxCDvw3bJ5yyUpOPup9PQm+Of1+QLloxgByabbWjz6DDZ4U1tS/tCA5Bc
+ ptzybkwZL3W51AGsmwbZ9fQQMqcR3TmgAdXPYEHhR30o9t6q1J+TFUPxq27JnhYHcfgWcDO+9
+ DPYWHecmPHSdzGIQAXom0ZY/5DV1NTAxNAOGLIhTXbYePOnAm3PRkGioYDG1Ax6p+a1G2gbdL
+ hScgv8bthcqtSe9mAKychdZgvttamTI+Nrx1xv9NspPY6lQ0ci1ztJqm0zMwkDaTuMLxNFIIV
+ wDmAq2rkYb+WloOKtoLQE43k6wNSc5QNZgW+Jec73oa+F0+wB4T0ueefT4f+kNPPGNtwkDJK1
+ 8QB0CUpfiYRgpZcvzI06Aftosiy6ucP9l6IkEAzcW3xEnwrMqQD9K9YLT1nXlcRc0mVMikBJX
+ E5b9qL/cRoszFw33aRRzQqA9Iv71GWpXJKxf+E3xGvJcQPi5dV2SS+YGaP9PknhkksfXh1YWR
+ M9oYaxyyTyVrFA6KDNj/jezwT4zAqoKKunqljp4klI3tx3SJvLGSXuuFI2215ywvupvoqQoku
+ WsruRz4BHkTVmuaGigMjZLrwPHswmQ5bxkLfXtjuidvyHm8tKzYmEaNlNX6TaWPKTyEKbq+kp
+ dasrCao/LwPW7GUcNfi9sbE52zpn8MNauU2jZqR3MB7yS4TbPjZ1UDSCDoHXgNYIRVlCq0RMi
+ /ELaBvtiBuoQm/SZCxJLxDUjz4F4KX7+b4b5t9fy3n+gkgdLoXKr4ghAGqkeJ2f1E/oWFDyFt
+ SvaxSt1W25zik8ofMZbPGZkLmRNderjshz/vHpn8yhkTs82+EAWMLb93P5obIJupbEyt/HjmO
+ 5fDldkbZHDnAu6U0fIsaGnuvxoX7CEMrJ6c+ZFj2aNNQkHp3/1pGlRzHj8LWlIhezQ19x3/jH
+ ix07ESDaTJEA5p8poRXSRbIAlikJQW1xkB7bZyn1Swc8xwuDcqTDkw8QSJRMD5tmpdig/bHDq
+ 1d/zOCpo6Mgvwbv2IGJU=
 
-On Tue, Oct 20, 2026 at 07:43:06AM +0100, Fuad Tabba wrote:
-> From: Marc Zyngier <maz@kernel.org>
->
-> KVM uses the VM's ID registers as the source of truth for what the
-> guest has, but userspace can expose S1PIE or S1POE without the features
-> they imply. As per the architecture, both imply TCR2 and ATS1A, and
-> S1POE also implies HPDS. With TCR2 hidden, the world switch skips
-> PIR_EL1, PIRE0_EL1 and POR_EL1 while KVM doesn't trap them, so the guest
-> accesses registers that are neither trapped nor switched. Under VHE,
-> that leaks values between guests. On nVHE and hVHE, pKVM included, the
-> host kernel resumes with the guest's PIR_EL1 and PIRE0_EL1.
->
-> On first run, clear S1PIE and S1POE from the VM's ID registers when the
-> features they imply are missing, before anything derives state from
-> them. The guest and userspace then see neither feature, and the guest's
-> accesses to their registers UNDEF.
->
-> Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
-> Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
+> Some code issues were found during review of a port of typec code from
+> wcd939x to wcd937x, pointed out by sashiko-bot:
+=E2=80=A6
 
-I guess kernels that are missing 19868b67e3e7 and 2ce80f624032 will need
-that stuff ported too?
+Would there be a need to offer corresponding adjustments as separate patch=
+es?
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.3#n81
 
-> Reported-by: Mark Brown <broonie@kernel.org>
-> Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
-> Link: https://lore.kernel.org/r/8633u229lq.wl-maz@kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Thanks for helping this along Fuad, nice to see all of this come together
-:)
-
-So it seems like this is a much nicer solution to the problem overall -
-rather than having e.g. kvm_has_s1pie() -> feat_s1pie(), enforce the
-dependency by applying res0/1 to the id reg in
-kvm_idregs_enforce_dependencies().
-
-And I see that it uses the guaranteed correct ordering from commit 19868b67e3e7
-("KVM: arm64: Finalize guest-wide sysregs prior to per-vCPU sysregs") also.
-
-Nits below but the logic looks sound to me so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-For the GCS series, when Mark respins, I'm guessing it'll be something like:
-
-+static bool feat_gcs(struct kvm *kvm)
-+{
-+	return kvm_has_feat(kvm, FEAT_GCS) && feat_s1pie(kvm);
-+}
-
-...
-
-+static const struct reg_bits_to_feat_map id_aa64pfr1_el1_feat_map[] = {
-+	NEEDS_FEAT(ID_AA64PFR1_EL1_GCS, feat_gcs),
-+};
-
-...
-
-+static const DECLARE_IDREG_FEAT_MAP(id_aa64pfr1_el1_desc, ID_AA64PFR1_EL1,
-+                                    id_aa64pfr1_el1_feat_map, FEAT_AA64EL1);
-
-(or with my suggestion below, DECLARE_FEAT_MAP())
-
-...
-
-static const struct reg_feat_map_desc *idreg_feat_maps[] = {
-	&id_aa64mmfr3_el1_desc,
-+	&id_aa64pfr1_el1_desc,
-};
-
-Right?
-
-> ---
-> Changes in v3:
-> - Sanitise the ID registers instead of changing the trap tables, using
->   Marc's patch (Marc, Sashiko)
-> - Rebased on kvmarm-7.4
-> - Link to v2: https://lore.kernel.org/r/20261018080921.3942517-1-fuad.tabba@linux.dev
->
-> Changes in v2:
-> - Also require FEAT_HPDS for S1POE (Marc)
-> - Link to v1: https://lore.kernel.org/r/20261015153041.3770032-1-fuad.tabba@linux.dev
->
-> Based on kvmarm-7.4 (dd0bc00e3e920; also applies to kvmarm/fixes
-> 2ea3a929fe01e).
->
->  arch/arm64/include/asm/kvm_host.h |  1 +
->  arch/arm64/kvm/config.c           | 78 +++++++++++++++++++++++++++++++
->  arch/arm64/kvm/sys_regs.c         |  2 +
->  3 files changed, 81 insertions(+)
->
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 1c6632216e327..695c389047c91 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -1741,6 +1741,7 @@ static inline bool kvm_arch_has_irq_bypass(void)
->  	return true;
->  }
->
-> +void kvm_idregs_enforce_dependencies(struct kvm *kvm);
->  void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt);
->  struct resx get_reg_fixed_bits(struct kvm *kvm, enum vcpu_sysreg reg);
->  void check_feature_map(void);
-> diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-> index 1053676551aff..d856c0b5c3907 100644
-> --- a/arch/arm64/kvm/config.c
-> +++ b/arch/arm64/kvm/config.c
-> @@ -59,6 +59,7 @@ struct reg_feat_map_desc {
->  	const struct reg_bits_to_feat_map feat_map;
->  	const struct reg_bits_to_feat_map *bit_feat_map;
->  	const unsigned int		  bit_feat_map_sz;
-> +	const unsigned int		  idreg_idx;
-
-This field feels a bit hazardous - 0 is a valid index and now things that
-don't declare it are setting a valid value.
-
-That feels like establishing a bit of a footgun for later.
-
-It'd be nice to have something that, when 0, means not present.
-
-Maybe just store the register directly like:
-
-	const u32			reg;
-
-And...
-
->  };
->
->  #define __NEEDS_FEAT_3(m, f, w, id, fld, lim)		\
-> @@ -130,6 +131,21 @@ struct reg_feat_map_desc {
->  		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
->  	}
->
-> +/*
-> + * Declare the dependency between the features advertised in an id
-> + * register, and the set of other features they depend on. This
-> + * generates a struct reg_feat_map_desc.
-> + */
-> +#define DECLARE_IDREG_FEAT_MAP(n, r, m, f)				\
-> +	struct reg_feat_map_desc n = {					\
-> +		.name			= #r,				\
-> +		.feat_map		= NEEDS_FEAT(~(r##_RES0 |	\
-> +						       r##_RES1), f),	\
-> +		.bit_feat_map		= m,				\
-> +		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
-> +		.idreg_idx		= IDREG_IDX(SYS_##r),		\
-> +	}
-> +
-
-...Here you could avoid the duplication and just update DECLARE_FEAT_MAP()
-to do:
-
-+		.reg			= SYS_##r,		\
-
-And when you need to check for the feature you can use
-is_feature_id_reg(r->reg) [that's static in sys_regs.c and would need to be
-exported].
-
-
->  #define FEAT_SPE		ID_AA64DFR0_EL1, PMSVer, IMP
->  #define FEAT_BRBE		ID_AA64DFR0_EL1, BRBE, IMP
->  #define FEAT_TRC_SR		ID_AA64DFR0_EL1, TraceVer, IMP
-> @@ -205,6 +221,7 @@ struct reg_feat_map_desc {
->  #define FEAT_MEC		ID_AA64MMFR3_EL1, MEC, IMP
->  #define FEAT_HAFT		ID_AA64MMFR1_EL1, HAFDBS, HAFT
->  #define FEAT_HDBSS		ID_AA64MMFR1_EL1, HAFDBS, HDBSS
-> +#define FEAT_HPDS		ID_AA64MMFR1_EL1, HPDS, IMP
->  #define FEAT_HPDS2		ID_AA64MMFR1_EL1, HPDS, HPDS2
->  #define FEAT_BTI		ID_AA64PFR1_EL1, BT, IMP
->  #define FEAT_ExS		ID_AA64MMFR0_EL1, EXS, IMP
-> @@ -280,6 +297,25 @@ static bool feat_anerr(struct kvm *kvm)
->  		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
->  }
->
-> +/*
-> + * S1PIE and S1POE imply TCR2 and ATS1A, and S1POE also implies HPDS, but
-> + * userspace can set them independently.
-> + */
-> +static bool feat_s1pie(struct kvm *kvm)
-> +{
-> +	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
-> +		kvm_has_feat(kvm, FEAT_TCR2) &&
-> +		kvm_has_feat(kvm, FEAT_ATS1A));
-> +}
-> +
-> +static bool feat_s1poe(struct kvm *kvm)
-> +{
-> +	return (kvm_has_feat(kvm, FEAT_S1POE) &&
-> +		kvm_has_feat(kvm, FEAT_TCR2) &&
-> +		kvm_has_feat(kvm, FEAT_ATS1A) &&
-> +		kvm_has_feat(kvm, FEAT_HPDS));
-> +}
-> +
-
-Kinda neat to have a super-readable, clear definition of the dependencies
-here like this :)
-
->  static bool feat_sme_smps(struct kvm *kvm)
->  {
->  	/*
-> @@ -1299,6 +1335,14 @@ static const struct reg_bits_to_feat_map vtcr_el2_feat_map[] = {
->  static const DECLARE_FEAT_MAP(vtcr_el2_desc, VTCR_EL2,
->  			      vtcr_el2_feat_map, FEAT_AA64EL2);
->
-> +static const struct reg_bits_to_feat_map id_aa64mmfr3_el1_feat_map[] = {
-> +	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1PIE, feat_s1pie),
-> +	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1POE, feat_s1poe),
-> +};
-> +
-> +static const DECLARE_IDREG_FEAT_MAP(id_aa64mmfr3_el1_desc, ID_AA64MMFR3_EL1,
-> +				    id_aa64mmfr3_el1_feat_map, FEAT_AA64EL1);
-> +
->  static const struct reg_bits_to_feat_map ich_hfgrtr_feat_map[] = {
->  	NEEDS_FEAT(ICH_HFGRTR_EL2_ICC_APR_EL1 |
->  		   ICH_HFGRTR_EL2_ICC_IDRn_EL1 |
-> @@ -1408,6 +1452,40 @@ void __init check_feature_map(void)
->  	check_reg_desc(&ich_hfgitr_desc);
->  }
->
-> +static const struct reg_feat_map_desc *idreg_feat_maps[] = {
-> +	&id_aa64mmfr3_el1_desc,
-> +};
-> +
-> +static bool idreg_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
-
-To me this reads confusingly - idreg_apply_deps() would be clearer I think.
-
-> +{
-> +	struct resx resx = {};
-> +	u64 val;
-> +
-> +	for (int i = 0; i < r->bit_feat_map_sz; i++) {
-> +		if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
-
-What if it isn't a CALL_FUNC feature?
-
-Could this loop just be replaced with compute_resx_bits()?
-
-> +		    !r->bit_feat_map[i].match(kvm))
-> +			resx.res0 |= reg_feat_map_bits(&r->bit_feat_map[i]);
-
-OK, neat, this e.g. invokes feat_s1pie, feat_s1poe for aa64mmfr3_el1.
-
-
-> +	}
-> +
-> +	val = kvm->arch.id_regs[r->idreg_idx];
-> +	kvm->arch.id_regs[r->idreg_idx] &= ~resx.res0;
-> +	kvm->arch.id_regs[r->idreg_idx] |= resx.res1;
-
-I see from the previous review that res1 is for future proofing, but
-redundant (but harmless) atm.
-
-> +
-> +	return val != kvm->arch.id_regs[r->idreg_idx];
-> +}
-> +
-> +void kvm_idregs_enforce_dependencies(struct kvm *kvm)
-> +{
-> +	bool again;
-> +
-> +	do {
-> +		again = false;
-> +
-> +		for (int i = 0; i < ARRAY_SIZE(idreg_feat_maps); i++)
-> +			again |= idreg_deps(kvm, idreg_feat_maps[i]);
-> +	} while (again);
-
-This is pretty confusing at first glance, so - iterate through all
-idreg_feat_maps, if any changes happened, then loop again.
-
-Could it be e.g.:
-
-static bool idreg_apply_all_deps(struct kvm *kvm)
-{
-	bool changed = false;
-
-	for (int i = 0; i < ARRAY_SIZE(idreg_feat_maps); i++)
-		changed |= idreg_apply_deps(kvm, idreg_feat_maps[i]);
-	return changed;
-}
-
-void kvm_idregs_enforce_dependencies(struct kvm *kvm)
-{
-	/* Propagate chained dependencies. */
-	while (idreg_apply_all_deps(kvm))
-		;
-}
-
-> +}
-> +
->  static bool idreg_feat_match(struct kvm *kvm, const struct reg_bits_to_feat_map *map)
->  {
->  	u64 regval = kvm->arch.id_regs[map->regidx];
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index e9cf6cc340349..f10905347f3a1 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-> @@ -5872,6 +5872,8 @@ static int kvm_vm_finalize_sys_regs(struct kvm *kvm)
->  	if (kvm_id_regs_final(kvm))
->  		return 0;
->
-> +	kvm_idregs_enforce_dependencies(kvm);
-> +
->  	/*
->  	 * This hacks into the ID registers, so only perform it when the
->  	 * first vcpu runs, or the kvm_set_vm_id_reg() helper will scream.
->
-> base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
-> --
-> 2.47.3
->
-
---
-Cheers, Lorenzo
+Regards,
+Markus
