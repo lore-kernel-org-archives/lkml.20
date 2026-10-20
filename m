@@ -1,69 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493547;
-	b=eowAbj4dA9nyuDU9bBtga43euEUDVmEo8Bgso/7nr8BtRvozlYDIzKldIBBU5PtOyGuY
-	 SMkhP3s27SE4UV0P1uCVoFwYSLTGUztCBvzQuI5wqjABXRtvpgvuuS/vo3O2mq/uq9pdV
-	 kJB0/h77Qg++4kq2SY4+0AcolCsfKZRZ6BAPV82uqyBHfITZe7TLpTA11ztHhFEEWehZx
-	 Hf7xYzQ1S26ko3fjskmC1zs8W17gjyzFv/506B0TvMT3hIxBCrraJHvAjNf6g2YncUGY0
-	 DGXpmt5pMVwdN7VWmwcMWQU3QerCojgrOdiN+k5Y9QxYAmkDfuHWLiqsrZPBpYi4FsA==
+	t=1792493543;
+	b=3tr7nLwk5keyux3by0JUQU7/K5/zpmXUnKfgWMdyl6phhofSJzhMah5IwFfo5enNTvvF
+	 nNjxiBL5rwans3v2u1yOGCLyyayB48aHr/T6olTPXtevkSUts8pMiIFYwA485KnvBJOqB
+	 xMITCC/ifcCAJ9ZuAc0Hr0bDegHpdw27/+JoDNuDUK3usfW6jlued4YX/agvJ0r1FMoFw
+	 F9ZqbzeLccXG2NxtitqRWtqR0mPPBzss5tVTGtHMoBoJ1us1zPr/3+Q6kbq0NpPM9ArFQ
+	 o9AS3AKXzi0kUOPOtniCJDWz+oPoKYBQ2Vj/dm5M/jLdTljGrYh1o22xMUBVgu5Prww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493547;
-	h=DMARC-Filter:Received:Content-Transfer-Encoding:Content-Type:
-	 DKIM-Signature:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Originating-IP:
-	 X-ClientProxiedBy:X-Sophos-OBS:X-SASI-Version:X-SASI-RCODE:
-	 X-SASI-SpamProbability:X-SASI-Hits;
-	bh=MPlnQbS3zYwvieySg42VRGYnZTNOWpovzbRPo5skf6g=;
-	b=EXkuubJDyNxEUw1D+6uVvHq30wqtTq/57wYQ1ci/oew0DEn2pzzGvJOlXh+CxNoWDAA1
-	 p6enp5iUHBEecNijXMIjxFEF6XOVe3LA0E/bpdHdDls5+bZaXDnych605z7UyOWT0fiu6
-	 j3ZChh9lhUMmGMaSfyeAxxIv16GEWXRyLWD8YcwzaMbkp/dNrxkxnnY9ma2SBbs37wGhR
-	 2ovJUVvN+ief2mg+ECPY6cAZhsBP4qjmwm87w2bGAeNn+xLJq3/bjNXXM/vNbKnVxipAi
-	 tJpo/jACD+4+YvXPQSrLhjV1RiHn4k3p3Cxgg84RAJblLj7n1FtRr/Qkp9EYQPsULew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493543;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ZHZs513fUIH8Uh9joScZ6/li+ZcM7NQZlH6DFjNrec4=;
+	b=QUnP0/P+ADZJFlZsTnDTeDq9QsOj9ix62bzcknfk4Hpelf4n6VD4T3C2uFSIlbhpQau7
+	 eSP4sHEyu8Ex2eTE/48eJdf8eGFf8O25VnNCv1d3+Aab/XvmjPty6oQRpZv3HKgO2yFyw
+	 AXe/Bf36t6NUT6VfncuCFqDRf2YZF8T1J6HQhVFnDmVnLSVNqnVTjgd5U47aOIkxOxvax
+	 xomTlF6+tMscsAeo/upwiesbeWQOlucW5YUrVkS4fM6uOtzi/Gcch/+ORhkNeS0vPJd+P
+	 PId+eMn7GdvqaZyuhPDhfGS75WvKO2gbqrIpdWnSE3ZqIInVigF2lSDPhjSzUwmy/EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fiveco.ch;
-	spf=pass smtp.mailfrom=fiveco.ch;
-	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=Wz4EUHdX;
-	arc=none smtp.remote-ip=46.14.118.250
-Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FHHMHqTc;
+	arc=none smtp.remote-ip=203.205.221.202
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19AE60A5BC4
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:52:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C19AE60A5BC4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10E2606A32C;
+	Tue, 20 Oct 2026 10:52:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10E2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=Wz4EUHdX
-Received: from [192.168.16.44] (port=17419 helo=remote.fiveco.ch)
-	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1xJ7Rt-000000002B0-3Pl9;
-	Tue, 20 Oct 2026 12:52:05 +0200
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1792493525; h=from:subject:to:date:message-id;
-	bh=DR3y0bZEPNOYkjkt7ODRIeUtKeqxRfd+IOzNXHqkZ4Q=;
-	b=Wz4EUHdXfY2YZ9Aw9n6Zq60fnT5rlfqUs3SNK1Fi2bK3oPjXz0SQLZFudhxA6wcfrbLMUuZefB3
-	pOcLEWWpD1/GKKkns2A0YtxYBQApgbMZWrOcACTpvETcyRS/P9HBf0rF9eSawgflsabMicuOj/1WQ
-	sYG2xrqtiA9+JLbVc2o=
-Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
- FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Tue, 20 Oct 2026 12:52:05 +0200
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-To: <linux-bluetooth@vger.kernel.org>
-CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
-	<linux-kernel@vger.kernel.org>, Valentin Kindschi
-	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
-Subject: [PATCH v8 2/2] Bluetooth: hci_sync: pause advertising for the scan address update
-Date: Tue, 20 Oct 2026 12:51:50 +0200
-Message-ID: <20261020105150.2863631-2-valentin.kindschi@fiveco.ch>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020105150.2863631-1-valentin.kindschi@fiveco.ch>
-References: <20261020105150.2863631-1-valentin.kindschi@fiveco.ch>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FHHMHqTc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792493539; bh=ZHZs513fUIH8Uh9joScZ6/li+ZcM7NQZlH6DFjNrec4=;
+	h=From:To:Cc:Subject:Date;
+	b=FHHMHqTc1K0mCfLO5Q+LueN+bAa65w8XhaI604sqByc9TLD8mmccWUZjj1OUI/Bxq
+	 XakUSdR+FkOPIrNjHVaacRB3oLcIcCCqdaDmLm307yMzvN+dZo6FeIu8XK51sp5ihj
+	 /qpPVjL9VeBu17tXboLOHSFZ7FfjdrW+uJ8Qp1dk=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id D11BFAC6; Tue, 20 Oct 2026 18:52:17 +0800
+X-QQ-mid: xmsmtpt1792493537t9gdwfo3y
+Message-ID: <tencent_EC9DEFBD1157A73B5394A8051F96A8EE5407@qq.com>
+X-QQ-XMAILINFO: OATpkVjS499uhmQXXZDmt6BBCcw6fGYvSk87KgIqABlqe4Wz0JLsntHAGFW5jo
+	 8iq/PcSgyU7AfTo3mN5MKPJ4f6g65c1W0PMkrtjZQ+1wc6l6BhEug1AU+J9BUZLuwVPHu2YU5bO2
+	 doiIo8WVRLPJUXFZmm17aKZQf/nl8IyKZVCOh6iUL2NG53xa6614BKqQ6P0zHgjnAP/HyAzH5KgR
+	 OM5VPxnkuQVEWk93pgIcxnnnS4RCzBS1R/TKvT0wSk+Od6xtFEhpbKzScFxvGlA3kzK8E+Mk9N6T
+	 cissvt1oGVQ2E8QkiIK8ukHqD+Bdl03xvLvk4hX73NL3w4uBuIJy0vG13h6mZhqnHfgi2c4AyobW
+	 OftSa8MiK5Of23Pq/SWIERp7dRrVujFXxLlo6ITmPpkepoVLY4RMhdd2Xk2+QvJBQwBTnPCJl9m0
+	 yB1BrYOJhvQGXWrBQsPTIRge+68O/D3NiZBi+LdlGakpiv0sUHMaZfqL33vMU/XGghMk2om/WYBE
+	 f2xY/SbgBxRp+zl3TCPIzUnucaUAG5tAGhSeeq4ABiVMIsYs4AHgksG2ZdE18mW9sAI+FBNB5IZP
+	 o63YGVUAC6eg0vEAhjnj13wB0BZpoxFy7STnnVlbXJhbPnse/aHTgOr7kWuS7bphS08EufTVDtrZ
+	 czn49GRLjcDdiaPgGfgxbNe79JmtUe6IbU14LX3iuIVhwqdfMkoimfvNLw3JUD8xfS1Cw6SGJCK8
+	 okfWJMSEBozMxiHc03Cctt97zLDYS1nHM16oMII3e2UIMROfPFiwzjak9oFS+9WbNlunlw7yJU5U
+	 eKLGeIrn5cynsukDl6Zkx3JiLwEhhCOb9Uz8HJD2X+qFVs0VEkbeCOEJ07wraHN/48gRK8vqbdZh
+	 aEWF21V7uy2C1+KUH1YCNhoOPX82LB/ze9Y+aFt87mx2RVqf4vpTvaz666TBzWGPWezEGZnolxR5
+	 PI/DzHaeA0qzNozbZCB79N9oT40epcgDR9uC0jxdR25hUjYF06qGXuJ8TUUJZizh4DslAyOc2FsG
+	 7gP6fvDx7SBlW4eW7BwJeBwes2mlgnsO74MpRnT8T/VTs0FD22tFFXgkxqkEdD0j4JjcOHHkmXrH
+	 qgzY44
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] fs/ntfs3: fix log replay index walkers running past the entry chain
+Date: Tue, 20 Oct 2026 18:52:16 +0800
+X-OQ-MSGID: <20261020185216.37136-ntfs3-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,224 +75,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
- FIVECO-MX01.fiveco.local (192.168.16.44)
-X-Sophos-OBS: success
-X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.20.95719
-X-SASI-RCODE: 200
-X-SASI-SpamProbability: 8%
-X-SASI-Hits: BODY_SIZE_8000_8999 0.000000, CTE_8BIT 0.000000,
- DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000,
- HTML_00_10 0.050000, IN_REP_TO 0.000000, MULTIPLE_RCPTS 0.100000,
- NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000,
- OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000,
- SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
- WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
- __BULK_NEGATE 0.000000, __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
- __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
- __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
- __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
- __FRAUD_CONTACT_ADDY 0.000000, __FUR_RDNS_SOPHOS 0.000000,
- __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000, __HAS_MSGID 0.000000,
- __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
- __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
- __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
- __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
- __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
- __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
- __PHISH_SPEAR_SUBJ_PREDICATE 0.000000, __RCVD_CTE 0.000000,
- __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
- __REFERENCES 0.000000, __SANE_MSGID 0.000000, __SHIPPING_ACTION 0.000000,
- __SL_HEAVY 0.000000, __SL_LIGHT 0.000000, __SUBJ_ALPHA_END 0.000000,
- __SUBJ_ALPHA_NEGATE 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
- __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
- __URI_NO_WWW 0.000000, __URI_NS 0.000000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-hci_active_scan_sync() programs a non-resolvable private address with LE
-Set Random Address on every active scan start.
+check_if_root_index() and check_if_alloc_index() walk the directory
+entry chain of an index header until the walk offset reaches
+lrh->attr_off.  They only re-check the buffer boundary at the top of
+each iteration, and they do not stop at the NTFS_IE_LAST entry that
+check_index_header() treats as the end of the validated chain.
 
-BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 says the controller
-shall return Command Disallowed (0x0C) for that command while legacy
-advertising or scanning is enabled. hci_pause_addr_resolution(), called
-just above, only stops advertising when LL privacy is in use, so on a
-controller without it the command is issued while advertising is still
-on:
+The gap between the end of the validated chain and hdr->used is inside
+the buffer but is never validated as directory entries.  A crafted
+$LogFile can place a size field there that jumps the walk straight to
+an attr_off far outside the buffer, and the walker then reports
+success.
 
-  Bluetooth: hci0: Opcode 0x2005 failed: -16
+The callers treat that result as "attr_off names a valid entry":
 
-It does not converge either. hdev->random_addr is only set on a
-successful command complete, so it stays BDADDR_ANY, and the deferral
-added by commit c2994b008492 ("Bluetooth: hci_sync: Fix not setting
-Random Address when required") requires it to be set. Unlike the
-resolvable address a few lines above, which is reused while rpa_valid(),
-the non-resolvable one is regenerated and rewritten on every call, so a
-controller that refuses the write is asked again at the scan restart
-period of about 10 s, for as long as discovery keeps restarting.
-Observed on a BCM43455, which has no LL privacy and no extended
-advertising, 190 rejections in one capture, every one retrying the same
-address:
+  - SetIndexEntryVcnRoot/Allocation write the 8-byte log payload at
+    attr/ib + attr_off,
+  - AddIndexEntry* compute PtrOffset(e1, hdr + used) with e1 beyond
+    that point, which underflows to a huge length,
+  - Update/DeleteIndexEntry* read entry fields at the same offset.
 
-  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
+Mounting such an image read-write therefore performs an out-of-bounds
+write of controlled data at a controlled offset while replaying the
+log.
 
-Pause advertising for the address update, and resume it once the update
-is done and before the scan is started. The pause does not outlive the
-function: it is taken only when nothing else holds it, and every exit
-resumes advertising, which also releases the pause taken by
-hci_pause_addr_resolution(). A failed pause returns before marking
-anything paused, so the error path is a no-op.
+Observed on v6.6.12 with KASAN (kasan_multi_shot=1), mounting the
+crafted image read-write:
 
-The resume in the error path is no longer guarded by ll_privacy_capable().
-That guard matched a pause taken only under LL privacy; the pause added
-here is unconditional, and hci_resume_advertising_sync() returns early
-when nothing was paused.
+  BUG: KASAN: slab-out-of-bounds in log_replay+0x9744/0xe850
+  Write of size 8 at addr ffff88804b097f40 by task mount/8065
+  Call Trace:
+   kasan_report
+   log_replay
+   ntfs_loadlog_and_replay
+   ntfs_fill_super
 
-One caveat this widens, raised on the previous posting. When
-HCI_ADVERTISING is set, hci_pause_advertising_sync() also clears
-HCI_DISCOVERABLE and HCI_LIMITED_DISCOVERABLE and zeroes discov_timeout,
-and hci_resume_advertising_sync() restores only HCI_ADVERTISING, so the
-discoverable state is lost. It reproduces today on an LL privacy
-controller through hci_pause_addr_resolution(); the unconditional pause
-makes it reachable without LL privacy as well. hci_suspend_sync() also
-pauses unconditionally, so a device that suspends loses the same state
-on any controller today. That asymmetry is pre-existing and is left
-alone here rather than folded into a scan path fix.
+  The buggy address belongs to the object at ffff88804b097f00
+   which belongs to the cache kmalloc-64 of size 64
+  The buggy address is located 0 bytes to the right of
+   allocated 64-byte region [ffff88804b097f00, ffff88804b097f40)
 
-Legacy controllers have one random address register, shared by the
-scanner and the advertiser. Restoring the advertiser here can reprogram
-it when the advertiser is non-connectable, so the scan then uses that
-address rather than the one generated for it. Both are non-resolvable
-and neither is linkable to the identity address. With privacy enabled
-both roles already share one resolvable address the same way.
+  Allocated by task 8065:
+   kmemdup
+   log_replay+0x55bf/0xe850
 
-With the patch, on the same hardware:
+The write repeats at consecutive addresses while the same log record
+is replayed; 54 reports were collected in a single mount.  Without
+KASAN there is no message and the mount appears to succeed.
 
-  < LE Set Advertising Enable    Enable: 0x00              Success
-  < LE Set Random Address                                  Success
-  < LE Set Advertising Parameters                          Success
-  < LE Set Advertising Enable    Enable: 0x01              Success
-  < LE Set Scan Parameters                                 Success
-  < LE Set Scan Enable           Enable: 0x01              Success
+Stop the walk at the NTFS_IE_LAST entry so the landing offset can no
+longer be driven past the end of the validated chain.
 
-The address write is accepted, and advertising is restored before the
-scan is started.
+Tested on v6.6.12 and on a v7.3-rc5 based linux-next tree, both with
+KASAN: with the crafted image the unpatched kernel reports
+slab-out-of-bounds (write of size 8) during mount, while the patched
+kernel rejects the record ("failed to replay log file. Can't mount
+rw!") and no KASAN report is produced.  An ordinary NTFS image still
+mounts read-write, accepts writes and is readable after remount.
 
-Over 119369 btmon records and about 12 minutes of the normal workload of
-that device, alternating active and passive scanning with ten outgoing
-connection attempts, every LE Set Random Address succeeded and there were
-no Command Disallowed responses of any opcode, against one per scan
-restart before.
+The image is 63 MiB (197 KiB gzipped).  I can send it if you want to
+reproduce it, or it can be regenerated: the crafted image only rewrites
+the root directory index record and the $LogFile restart area of a stock
+NTFS volume created with mkntfs -s 512 -c 4096.
 
-Patch 1 is required: without it the resume added here returns -EPERM on
-the controllers this fixes and leaves advertising disabled.
-
-Fixes: 3c44a431d62b ("Bluetooth: hci_sync: Resume adv with no RPA when active scan")
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5.5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Signed-off-by: Guikun Yang <yangguikun19@qq.com>
 ---
-Changes in v8:
-- No change; resent as part of the series.
+ fs/ntfs3/fslog.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Changes in v7:
-- Reword the commit message: the resume on the error path also releases the
-  pause taken by hci_pause_addr_resolution(), so it is not conditional on
-  this function having taken a pause.
-
-Changes in v6:
-- Drop the comment from the Cc: stable trailer; it exceeded the line length
-  gitlint enforces. The dependency on patch 1 is stated in the commit message.
-
-Changes in v5:
-- Split into two patches. v4's resume was reached through
-  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
-  controller without extended advertising, so advertising was never
-  re-enabled. Patch 1 fixes that and is a prerequisite for this one.
-- Do not resume on the success path. hci_resume_advertising_sync()
-  reaches hci_update_random_address_sync(), which for a non-connectable
-  advertiser programs a fresh address, and doing that with the scan
-  already enabled is refused the same way. Resume before the scan is
-  started instead.
-- Take the pause only when nothing else holds it and release it on every
-  exit, so it cannot be released by another user of
-  hdev->advertising_paused.
-- v4 claimed the resume commands in the capture were issued with the scan
-  already running and succeeded. That capture came from a build whose
-  resume ran elsewhere; the claim is dropped. The capture above is from
-  this version, on the device, under its normal workload.
-- Fixes: now points at 3c44a431d62b, where the pause became conditional
-  on LL privacy, rather than at the introduction of the scan function.
-
-Changes in v4:
-- Report the HCI_DISCOVERABLE asymmetry raised in review rather than fix
-  it, with a reproducer in the commit message.
-- Keep the explicit return on the success path, so the resume runs there
-  and the function no longer falls through into failed:.
-- Shorten the added comments to one line each.
-
-Changes in v3:
-- Resend, no code change; v2 had no reply. Rechecked that it still applies
-  to bluetooth-next.
-- Added the second capture described above, taken with the two patches from
-  the "endless adv params retry" series applied, since in bluetooth-next,
-  confirming the fix holds with cancelled outgoing connections in the mix.
-
-Changes in v2:
-- Rebased onto bluetooth-next: mainline renamed use_ll_privacy() to
-  ll_privacy_capable(). No functional change.
-
- net/bluetooth/hci_sync.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index d215432db..e9b2d28ff 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6339,6 +6339,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	u8 filter_policy = 0x00;
- 	/* Default is to enable duplicates filter */
- 	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
-+	bool paused;
- 	int err;
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -2956,6 +2956,7 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
  
- 	bt_dev_dbg(hdev, "");
-@@ -6362,6 +6363,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	if (err)
- 		goto failed;
+ 	while (o < ao) {
+ 		u16 esize;
++		bool last;
  
-+	/* LE Set Random Address is disallowed while advertising is enabled. */
-+	paused = !hdev->advertising_paused;
-+	err = hci_pause_advertising_sync(hdev);
-+	if (err)
-+		goto failed;
+ 		if (o >= asize)
+ 			break;
+@@ -2964,8 +2965,13 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
+ 		if (!esize)
+ 			break;
+ 
++		last = de_is_last(e);
 +
- 	/* All active scans will be done with either a resolvable private
- 	 * address (when privacy feature has been enabled) or non-resolvable
- 	 * private address.
-@@ -6371,6 +6378,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	if (err < 0)
- 		own_addr_type = ADDR_LE_DEV_PUBLIC;
- 
-+	if (paused)
-+		hci_resume_advertising_sync(hdev);
+ 		o += esize;
+ 		e = Add2Ptr(e, esize);
 +
- 	if (hci_is_adv_monitoring(hdev) ||
- 	    (hci_test_quirk(hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER) &&
- 	    hdev->discovery.result_filtering)) {
-@@ -6394,9 +6404,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 		return err;
++		if (last)
++			break;
+ 	}
  
- failed:
--	/* Resume advertising if it was paused */
--	if (ll_privacy_capable(hdev))
--		hci_resume_advertising_sync(hdev);
-+	/* No-op when advertising was not paused. */
-+	hci_resume_advertising_sync(hdev);
+ 	return o == ao;
+@@ -2981,6 +2987,7 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
  
- 	/* Resume passive scanning */
- 	hci_update_passive_scan_sync(hdev);
+ 	while (o < attr_off) {
+ 		u16 esize;
++		bool last;
+ 
+ 		if (de_off >= used)
+ 			break;
+@@ -2989,9 +2996,14 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
+ 		if (!esize)
+ 			break;
+ 
++		last = de_is_last(e);
++
+ 		o += esize;
+ 		de_off += esize;
+ 		e = Add2Ptr(e, esize);
++
++		if (last)
++			break;
+ 	}
+ 
+ 	return o == attr_off;
 -- 
-2.34.1
+2.39.5
 
