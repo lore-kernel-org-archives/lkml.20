@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514310;
-	b=UgxmryG7O1Co8JhzWhaRYaZrKyHkN+RiI1iBMIe4Ke8ylXToGW+eGo+DYBx8EMZd6DFU
-	 CufCY19zlnYmIzV9z13TJakLEpF+dBj06Tgwy4khv3YghEolD8J7rEqzkKWRi1pe6FoND
-	 SUsgO2YkQIJ8Mu0BWTdxKiNaoyHanO/v2NbVIqNsFRPgrtR3JVsFQCZsrZibB/j16xFsF
-	 M0hC0hRDb2tQukdZdsbfBQ1OmLP2Ruy5SOKUn2GxSbKJyOBz+CBKCdGxpGFHgEXirDBqb
-	 tdYnooCkJoTqX3IbX+OF4PFCfBRL3NhcfAC3txENSLgnfORbep7Fmv97XT3ciTP6qWA==
+	t=1792514335;
+	b=yf6rPoWroJ64MybolGDKNHRmcSZdbJUS2dF5aKfKkC6bboTvZmCuOeXwqpvwUz6ge3kE
+	 26wX/bkwJXoCWQ6coAslI84OiTIqmrE67u03J5/BXFj9BNJAlB9Q6kh+mMJvVTXn6yG3l
+	 AxzdXbm3kmbTqnmospRMPpKCQDKPgTRN5tvPXO2hud08trdc7TTaUvrEwgathhoUPp0xI
+	 lFVS/Qd5ElVBvLG1sYWhDdQR7xwUV1vBLN8yQVQnjeASGyIM+o6qGFruNiMl3dU6oJy25
+	 R7iFGD24PsVB3uPxFPrEphPP5I9kOJDFaA9WnXFigw4rF2nZRxHty03ldxf6KGK1JbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514310;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q5Xt0UyWQsUyZE4GjIfeTD7EOcY9CWq9fj7d2Ed+wQ4=;
-	b=jxdUwnzV0mGPt+DYwczp3wlHEf3Wc+pI64m1Wj1cEViKdv486UIhGXtWxlxeWOEHQAPB
-	 wfKYaF1KJ31SjYblyYdfAbgkKqU5BSWWdWDEDwP+15JD9o/ANAN+fiLTLk4oBnjkSpapd
-	 97upKbN8zLBnwX9WhakE2z6pyz2VMgNUnjAK2s4zANnNh54nd2tJBE2cRThjLlx2b+03y
-	 TieYCrkYPs/IrboE665K3sLX2KxcnWWkpKqlwD9ETmpE5fImwhMhtAo+nnjqwE2SKlosl
-	 j2Y/BznXgbqGsLTi0FGHrXxStOtYRY5Aj7T5BOHDMaU1Qtd2QVZMkKZiScJ13B9PpRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514335;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=sDjon1YkUVWurgE5DJMJ6q2wA36HR6BPkBAGDJ72h40=;
+	b=wCI6TAxztu6MJUeXzRAYzKirsnUJdqO0svYcE7NX6jb/vDlyLwYvZs7UrnPvr2MoMpp4
+	 fCttiOGGUAbxfwpcooMjNenUYd2j+XcnHu8+ow3VvjBlp0Dbkg0fmDOqViqp0xmtcUYaf
+	 fow7Ow4uGO6Z1sqWnIKOY/qhyMBWaCM9vj0lXY0ohzG9Y9I+WAnCUIEbbQ7PVtOhmAXf7
+	 GGZFPVMTfNRywsZr1+578Mr4gMqLXmJfZHuzf6wsbCFw+g6jF5xudzwG5gvlW5x2xMKYb
+	 dG2aZPNh9zdOWeb+ofmzFx/utYBuSSSDUswB+MTnHMtjCqw2KbeBe65XyrlzAuFM7GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tavip.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=I7Tntm94;
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E30E606D508;
-	Tue, 20 Oct 2026 16:38:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1ACF1F000C4;
-	Tue, 20 Oct 2026 16:38:29 +0000 (UTC)
-Date: Tue, 20 Oct 2026 11:37:58 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Pavel Popov <pavel.e.popov@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Lukas Wunner <lukas@wunner.de>, Jim Chow <jim.chow@broadcom.com>,
-	Radu Rugina <radu.rugina@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
-	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
-Message-ID: <20261020163758.GA2342476@bhelgaas>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1874B606D50C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1874B606D50C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tavip.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=I7Tntm94
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd61bdc8683so1436563a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:38:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792514334; x=1793119134; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sDjon1YkUVWurgE5DJMJ6q2wA36HR6BPkBAGDJ72h40=;
+        b=I7Tntm94j8c0Q8gLG41FPMx2WyEWKyt0E38yxMVI41VjSu+z9qns+7msJUMbUNkFd9
+         xB41viVNbbE+4C4uAPx5QY2yO7GSnumcFJUnD/83oMAWIeR1wK1IggzSnGFvbNe12Ukh
+         cM1v+21hIQYVrtA0cRZCIWRJF4UlqpRn/5I2BjgmYxOEe3B283eGoDohwDHfZR0/2yGq
+         UxmGWAdCuiKsBXicVDk2G8E5YhnoNGNmnyxSdRH2d8R+jzy4RbSPy27x0a4WEuARY382
+         Gwkr1gCAC4dXSa0sP+OPwfxSIAwc7tryCKogk7BiOaElq+TuRFYXDOslNl1IUW/ZvMS4
+         /7+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792514334; x=1793119134;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sDjon1YkUVWurgE5DJMJ6q2wA36HR6BPkBAGDJ72h40=;
+        b=hYxBB97TxfRna7mz5039UXAyGHAiObOd6nzHwgjEoBbYFcYxsANDFZuE0xPGl5jTfD
+         DnwUGB8N4DnY4rkktzuYGXcqdvyhzaUxQghyqaBVKNGMtbzZ0EuRXDpW+g5UbKXGb7EP
+         IUlYjG1MnPPOD0ympadGVgCTcHiDNveg2a6dnYnSkg6i2WL1gaSmQrRKySgLD8JwANbO
+         NolDBJjEIFQC/aeosCbnHzMNL1ZuMlcRFRiL5x9bg5qAoF25ttonDIwMzWnGCAGl5hc1
+         FCFH6reeY7wF44UGkx62J3SM/YcXnJYk1k5wsgpzm3h56j0NM2KJtvGi5RIeji28uqyN
+         RXfw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFClxeWJYv92PH5WWpGWT/u98/GdhpxbjJAUllBxinaCWW+eIK/f7x342wKGAmjmfZ1v5GEF3nOpZ0SSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYOq+er+LC7dA5HGDNiPk4PKUrvtFtgX+kKMzKMxLCDmrClmfA
+	GrcpjMAGViyspS09t9BrgDZawSo4ACNt0RyDHNjEboBIHXVReRCEMq2PiUNZAsKqvrTbU+XIMq5
+	zYQ==
+X-Received: from pfbhb21.prod.google.com ([2002:a05:6a00:8595:b0:89f:4790:689a])
+ (user=tavip job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:ce4a:b0:3e2:1f0b:5987
+ with SMTP id adf61e73a8af0-3e2260d724cmr8507365637.86.1792514334035; Tue, 20
+ Oct 2026 09:38:54 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:38:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,87 +75,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020161447.GN64621@unreal>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020163835.4076594-1-tavip@google.com>
+Subject: [PATCH net v2 0/2] tcp: clamp return value of tcp_wmem_schedule() to non-negative
+From: Octavian Purdila <tavip@google.com>
+To: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Wei Wang <weiwan@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Octavian Purdila <tavip@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 07:14:47PM +0300, Leon Romanovsky wrote:
-> On Tue, Oct 20, 2026 at 08:13:05AM -0700, Pavel Popov wrote:
-> > Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
-> > upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
-> > VMware guests, passthrough devices appear directly on virtual root
-> > buses without host bridge devices. In Hyper-V guests, each passthrough
-> > device appears in a PCI domain of its own without a host bridge
-> > device. Consequently, P2PDMA checks evaluate endpoint Device IDs
-> > against the host bridge whitelist, causing P2PDMA requests to fail
-> > regardless of host support.
-> > 
-> > This affects discrete devices such as GPUs, NICs and NVMe drives.
-> > 
-> > Add an explicit list of the Intel Xeon server generations from
-> > Skylake-SP to Diamond Rapids to cpu_supports_p2pdma(). These are the
-> > CPUs whose host bridges are in pci_p2pdma_whitelist[] without
-> > restrictions. AMD Zen and newer are already covered by
-> > cpu_supports_p2pdma(), so only Intel entries are needed.
-> > 
-> > Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
-> > cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
-> > 
-> > Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
-> > ---
-> > Changes in v3:
-> > - Drop the hypervisor check and move the Xeon list into
-> >   cpu_supports_p2pdma(), next to the AMD check, as suggested by Logan
-> >   Gunthorpe and Leon Romanovsky [1]
-> > - Fold the VMware and Hyper-V patches into one, as the check no longer
-> >   depends on the hypervisor
-> > 
-> > Changes in v2:
-> > - Replace the Skylake-and-newer threshold with an explicit list of Intel
-> >   Xeon server generations, from Skylake-SP to Diamond Rapids (Logan
-> >   Gunthorpe)
-> > - Move the CONFIG_X86 #ifdef out of hypervisor_supports_p2pdma()
-> >   (Logan Gunthorpe)
-> > - Rebased on current mainline
-> > 
-> > [1] https://lore.kernel.org/r/20261016153147.GC219304@unreal
-> > 
-> > v2: https://lore.kernel.org/r/20261016223402.19991-1-pavel.e.popov@intel.com
-> > v1: https://lore.kernel.org/r/20261009154034.82321-1-pavel.e.popov@intel.com
-> > 
-> >  drivers/pci/p2pdma.c | 26 ++++++++++++++++++++++++++
-> >  1 file changed, 26 insertions(+)
-> > 
-> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> > index 9334eb314663..2650d605d87d 100644
-> > --- a/drivers/pci/p2pdma.c
-> > +++ b/drivers/pci/p2pdma.c
-> > @@ -21,6 +21,11 @@
-> >  #include <linux/seq_buf.h>
-> >  #include <linux/xarray.h>
-> >  
-> > +#ifdef CONFIG_X86
-> > +#include <asm/cpu_device_id.h>
-> > +#include <asm/intel-family.h>
-> > +#endif
-> > +
-> >  struct pci_p2pdma {
-> >  	struct gen_pool *pool;
-> >  	bool p2pmem_published;
-> > @@ -519,6 +524,23 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
-> >  	seq_buf_printf(buf, "%s;", pci_name(pdev));
-> >  }
-> >  
-> > +#ifdef CONFIG_X86
-> 
-> Do we really need all these #ifdefs? I'm pretty sure they're not
-> needed for the includes.
+This series fixes a bug discovered in production in tcp_wmem_schedule()
+where a negative sk->sk_forward_alloc under TCP memory pressure causes
+tcp_wmem_schedule() to return a negative copy length when
+sk->sk_wmem_queued already reaches or exceeds sysctl_tcp_wmem[0].
 
-Apparently we do.  I experimentally removed them and cross-compiled
-for arm64:
+sk->sk_forward_alloc can transiently become negative when tcp_collapse()
+re-packs partially read or high payload-to-truesize SKBs in the receive
+queue and charges newly allocated SKBs via sk_mem_charge() before
+freeing the original SKBs. When a subsequent send hits memory pressure
+in sk_wmem_schedule() with sk->sk_wmem_queued >= sysctl_tcp_wmem[0],
+tcp_wmem_schedule() returns min(copy, sk->sk_forward_alloc) < 0.
+Callers such as tcp_sendmsg_locked() then pass that negative copy length
+to skb_copy_to_page_nocache() -> copy_from_iter_full() ->
+check_copy_size(), triggering WARN_ON_ONCE(bytes > INT_MAX) in
+production and returning -EFAULT instead of waiting for memory or
+returning -EAGAIN.
 
-  drivers/pci/p2pdma.c:24:10: fatal error: asm/cpu_device_id.h: No such file or directory
-     24 | #include <asm/cpu_device_id.h>
-	|          ^~~~~~~~~~~~~~~~~~~~~
+Patch 1 clamps the return value of tcp_wmem_schedule() to [0, copy] so
+a negative sk->sk_forward_alloc is treated as 0 available bytes.
+Patch 2 adds a packetdrill selftest that reproduces the negative
+sk->sk_forward_alloc condition via tcp_collapse() under memory pressure
+and verifies that a non-blocking write fails with EAGAIN rather than
+EFAULT.
+
+Changes in v2:
+- Include production warning trace in Patch 1 commit message.
+- Skip the packetdrill test when PAGE_SIZE != 4096 via
+  --define=REQUIRES_PAGESIZE="4096" in ksft_runner.sh.
+- Collect Reviewed-by tags from Kuniyuki Iwashima and Eric Dumazet.
+
+Octavian Purdila (2):
+  tcp: clamp return value of tcp_wmem_schedule() to non-negative
+  selftests: net: packetdrill: add test for negative sk_forward_alloc in
+    tcp_wmem_schedule()
+
+ net/ipv4/tcp.c                                |   2 +-
+ .../testing/selftests/net/packetdrill/config  |   1 +
+ .../selftests/net/packetdrill/ksft_runner.sh  |   6 +
+ .../tcp_wmem_schedule_negative_fwd_alloc.pkt  | 117 ++++++++++++++++++
+ 4 files changed, 125 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_wmem_schedule_negative_fwd_alloc.pkt
+
+-- 
+2.56.0.212.g129ede20d9-goog
 
