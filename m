@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485260;
-	b=5r8xQRXg9k+cpxR3+vmyAC/2IT+lNfXW0wIYmMYEmiAA1ncjcoHcYEU9x79XksWNgtBl
-	 8D2vEl64KY8eeFAM9UaOBPSJ3mhxNo8jjfqHw7vsMH7eXj1tsKpXHw1n6t0eckt8HInAa
-	 PTb99bLtCsqojHLKXyCui7eVjGvC4SlTyAL78YFmDO1UmKlzVV6wdseMpw9aURN1EbpO6
-	 zaeXmjxHWkxIuxtKsYjhmtDQC1ZwBhVWnXUfJ2OuWAtpfQgS5ChFnmtTXxx4d8HkxxWGp
-	 sw4A9Hj/Iv7WAslo4KnqiAblirFDdYWXuHI8dD292kvX9Oa0j6TwIuHdZLtCyYRlaPg==
+	t=1792485266;
+	b=vl3TdeZ5f4KHTZR9xN8MJDkdo46FOkeWbKcyA7vLpmhDMm8imSrO8OdxunyDk+JlA+2/
+	 f+oinAg0msZJnN9Oti499mmvc3xyTJ+87we2U4AIlaQNSut5wdHwrP0A9wXm0/LTfi5gs
+	 jNh11+zsX6xHt8p1Zm9f631gzU0lnIUh5QzPXZfTAdTkjZ6sNQp0G77Z/DS2zKzuoyFy+
+	 h0oM/UkMojthig3GzO4+QLaZM+QM32+hVRXyRC0tNQ/yRXFeKsJwxHO7lA30P3y3994ex
+	 DOp+yZURG/bsd+KwKA8uFpoth63yHhGQvziKaYOW1Udb49A5mmXmHTJ8IwZyEn83AKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485260;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=vBKNWH+6fXgb7uSlyDkZ/sbNDxzLeASFOGVrmanI1ag=;
-	b=ISUVohFkTA09W1dIJKCZDtlq0oB7LoMAizvkQv4Q2LKqd0qS7Lwl52msIlfixzr/wquX
-	 sjtZA4zEOJPt8ovY1MQ0ipLUKL7X3mG9x53V2KOwdsubB1GuQWJnllvR+SBeUWhcgy0XR
-	 SoLWR4iIvfwOVvh04+FrpUbC9GDupxx6De0NsR+hlBBaxbHeDbrczf+L++wMO9Ox6+Klz
-	 lzuBL0khiWIgTzqW464dHvYWIDPwlPmYdCWLnetJjruRJsrkX2/A0ed+/eI86xmNHBMbU
-	 1nR9MveC+1HQNttZ8kdX+aW/hLvgIw/bx+OcENXO85iJLkNs1jUnAewvlj+zMeRUa0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485266;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VMFqxM453yLwBXSbcRLMTntPAgtjcAyPnxyGhanIJOQ=;
+	b=2CRJRhAp5zBoJ4XnUmpIg4iJzXSBJPb09626yLokUu08MSrjAx2x82/q1UjuppI1S3s+
+	 OX6MY5Nj7HUAkwdlQbaeDAaZuvD0ll+9fwwyWuY5FMKgyD5Of8eN4kLEp+fsSPQih1IT2
+	 JLhJCK2nMGwzXiSrr5tsULyYVdmlajxOvmnjfvdo1HI83KHCpNJFghzNVYG/kg2qb6XZe
+	 iqeUVC9ttx2L6UqRDwyqNsgPHVNrGgX6/7Ny2Mxjrevwi5WTV13iB4CXOLXtrfqGUdQlz
+	 YXks26zqnwQ1sn7SP9Uyepi3PVXkLMMhU4GIBaEiAPcS1fOYnVFSkBWToqin/OgdLtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Kk+jgumG;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0uSOzXq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D1F606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D1F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BED606A31B;
+	Tue, 20 Oct 2026 08:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Kk+jgumG
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=vBKNWH+6fXgb7uSlyDkZ/sbNDxzLeASFOGVrmanI1ag=;
-	b=Kk+jgumG+pv7XnaPZDeeAU8MQ3LXTfm6oVnCbW8jazUZnqZ/ORtrC7JgFvxdnO+cDQzOI4t2U
-	7vALOi9vHSSqoltGoZVUZISYSqkFZA0i7RhDVImMBjBBYnv3lpqm+y9AiV7PJ3swzXlcKzvnvXx
-	8keUXFd5fYMskZHOl9KyGJI=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j85L156ycz1K9Xh;
-	Tue, 20 Oct 2026 16:34:01 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0A9C04048B;
-	Tue, 20 Oct 2026 16:34:05 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 16:34:02 +0800
-Message-ID: <d7dc6528-4ec8-46d0-b21e-8a4c38edd4ce@huawei.com>
-Date: Tue, 20 Oct 2026 16:34:02 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0uSOzXq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC79B1F000C4;
+	Tue, 20 Oct 2026 08:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792485265;
+	bh=VMFqxM453yLwBXSbcRLMTntPAgtjcAyPnxyGhanIJOQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F0uSOzXqFAoOHDVJSsaHQ5ir1S8o99DRmrazLP6YHC7SDbkmUtJ5y/168C2X06p/i
+	 nzMbd29t2E07Lsyc2maZDbwOG0d+L3tr74ddYjqTV3GeXof9FITQ9ycQBbGoAmtY/Y
+	 A891IhY0p7egb56CJ5SJSHUWJX9RJkwnOPRxsS7XUxaSN4OhQP8AA83kqtzXBApRik
+	 mI+L9CgLCFcD8h31nrF/m1rgO3QCchzQt6c7DO722cTDpQAp99iFgf6k3DmOjx4mPJ
+	 34+oL1kSeaOAFUz/kMCFZExcR8wvgtWMEa6R6NkGKG6L2Y/RDskzOzg6sA3uwfnA2C
+	 48Qdrfs1AlECQ==
+Date: Tue, 20 Oct 2026 10:34:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Devarsh Thakkar <devarsht@ti.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 02/14] dt-bindings: display: Add Solomon SSD16xx
+ e-paper controller
+Message-ID: <20261020-futuristic-awesome-dinosaur-b61d9b@quoll>
+References: <20261019213726.4145532-1-devarsht@ti.com>
+ <20261019213726.4145532-3-devarsht@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,69 +63,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/14] kexec: Fix CMA segment address translation with
- non-zero text_offset
-To: Mike Rapoport <rppt@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
-	<dakr@kernel.org>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<leitao@debian.org>, <yeoreum.yun@arm.com>, <sourabhjain@linux.ibm.com>,
-	<robh@kernel.org>, <coxu@redhat.com>, <kees@kernel.org>,
-	<tangyouling@kylinos.cn>, <liukexin@kylinos.cn>, <zhangtianyang@loongson.cn>,
-	<guodongtai@kylinos.cn>, <maqianga@uniontech.com>, <chao.gao@intel.com>,
-	<kai.huang@intel.com>, <vishal.l.verma@intel.com>, <seanjc@google.com>,
-	<piliu@redhat.com>, <thuth@redhat.com>, <jbouron@amazon.com>,
-	<me@linux.beauty>, <mclapinski@google.com>, <graf@amazon.com>,
-	<bgwin@google.com>, <hbathini@linux.ibm.com>, <eric.devolder@oracle.com>,
-	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <palmer@rivosinc.com>,
-	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <driver-core@lists.linux.dev>,
-	<kexec@lists.infradead.org>
-References: <20260921090450.807575-1-ruanjinjie@huawei.com>
- <20260921090450.807575-2-ruanjinjie@huawei.com>
- <179248377975.302547.13172455257147735569.b4-review@b4>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <179248377975.302547.13172455257147735569.b4-review@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019213726.4145532-3-devarsht@ti.com>
 
-
-
-在 2026/10/20 16:09, Mike Rapoport 写道:
->> kimage_load_cma_segment() and kimage_map_segment() both translate
->> a CMA segment using page_address(cma), which returns the CMA base
->> address. This ignores segment->mem.
->>
->> On arm64, image_load() adds text_offset to segment->mem before the
->> segment is loaded:
->>
->> 	kernel_segment->mem += text_offset;
->> 	kernel_segment->memsz -= text_offset;
->> 	image->start = kernel_segment->mem;
+On Tue, Oct 20, 2026 at 03:07:14AM +0530, Devarsh Thakkar wrote:
+> Add device tree binding for the Solomon Systech SSD16xx family of e-Paper
+> display controllers (SSD1683 [1], SSD1673 [3], SSD1680 [4], SSD1681 [5]).
 > 
-> That's true, but since commit 751c263bb74f ("arm64: remove TEXT_OFFSET
-> randomization") TEXT_OFFSET is always zero. This is upstream from v5.8,
-> so no LTS kernels has non-zero TEST_OFFSET.
-
-Yes, My concern is what if the kdump kernel is an old one without this
-patch?
-
-Should we just add a WARN_ON_ONCE(text_offset != 0); here?
-
+> The binding covers the 4-wire SPI interface with required GPIO pins for
+> reset (active-low), busy status (active-high), and data/command selection.
+> The spi-max-frequency is capped at 20 MHz per the SSD1683 datasheet [1]
+> which is also the maximum supported frequency amongst the family.
 > 
-> Maybe we should rather start deprecating .text_offset in arm64?
+> An optional rotation property (as defined by panel-common, in degrees
+> counter clockwise) allows static display orientation to be configured from
+> device tree.
 > 
+> The data/command selection GPIO pin is also kept as optional since various
+> SSD16XX controllers such as SSD1683 [1] support 3-wire mode too with
+> data/command selection bit transmitted as first bit before sending the data
+> sequence.
+> 
+> The first supported compatible is for Gooddisplay GDEY042T81 [2] which is
+> 4.2", 400x300 resolution black/white e-paper display using SSD1683
+> controller.
+> 
+> Links:
+> [1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
+> [2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
+> [3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
+> [4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
+> [5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
+> 
+> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+> ---
+> Changes in v3:
 
--- 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
 Best regards,
-Jinjie
+Krzysztof
 
