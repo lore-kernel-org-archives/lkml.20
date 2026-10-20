@@ -1,111 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792511730;
-	b=oA9LMna+euyvnQ+kIDZAruOFTLBEsiRaZm89UaQJ1CRTDPEDiL5Jg9g/rRkJly3kpuxi
-	 yN6XXe8xA5nDvJ4V+ahivMBvYkT4zIYuMaAremwX41xqMvmt2HXBWAN2ex5q4XdFUFQ8n
-	 4Hj8/G3BqyS5tICJPRKORON9svRtparkOx476m8LTEg99tIMfTpKS9MvC9afi1Gn89iiS
-	 vVynUgji11q8tYlYAWxs8o7mj4+6jL13fj9QXuRubhflS8gwYIFqPv9dvstvDxwXrmzbA
-	 jUbg4r9On5vGMCPG+7aMsHPS6xJAXP2vCsSI4Got6/wqc0YsgLkNGFhXLXnGViW/1lA==
+	t=1792511756;
+	b=iLc/IazDyI6X3u6LZ4do1cAA3F8ekWQt8x0MOOl3+Hu58hJS1NLyIOTI7yJX5z8RicPq
+	 OoTEfO7KuPssfs35m72On+3vqxRCpaZ/6HRPsLYXBNbjOje1E2ETh6TIN+4HdH4y/rhJX
+	 u2EgIAjsLF7UnXSmJtcaLgmeiQyxKhGv2m8RrjoxgcZXEsD7TmrNri25pSBA2ZNB2wg1k
+	 QDA8D7rnH3Hukd1YS1VrqDaWIcTaaY88he9cAaiOCjN/xk6Q+CohSBhuy51ghoVuv7Fku
+	 4gM3xVRJ1QAGoFkk/rknS70UggK3+gRGh0D4/VFbwx6EWAOkG2ZpwWLZ45GZQaR0eiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511730;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=YJsbVGHweRHxz+pzHfjXXj1fkrhbsYB8BP0nKBtOGeM=;
-	b=kvqT3rW7BZAmvR27VOzH010IgAtdi9uju02WOSU1MvYy4ToK6LFpJPXbinZSkTyW6gY3
-	 RZCyi+YpnUvHYvbKlLqvhW4i7+G0aiNrnroIAUl3VTaOKt9cQqDIQ6A22+wpB7Ux8oHb5
-	 cWAMf92krCsPr++oBjrY3GenN4l33NVGeO8pyztcTBnXA93pfiarN3WEI5iM/eMJUMTlI
-	 twpzEBau0hQN7cfFJR6Gxx8sKl6HJIDQmiB9G+JWrjMzyFRwxJP+FXVvqg2fKDCmhpI/D
-	 2T3FmZwTHFsScK8YRUMAifMXIaQkYXHCbCj65JRYIFzsIC4uatV0o+JN3jB3kCbFhhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511756;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Sm8fHDamcBdzMl5gH1h8FKaHDH8UrW+Ey8qPWPBjzGw=;
+	b=Jfe5NwBqGmpsrcObH00yRfS3wqpz52vO4T1240pteyMcWoYsaBCw91io4zjbxHREpGSG
+	 +8JBoP0TggF/cjjb9yAVPExiHt5H4jvb8ANOSacBJBbXC/7RmFQnf5aXoCo3GjdOsG3Jm
+	 h31mjVQZyiAu38p9GS34+B93NImWck0iBR3MqA+xj5mny/visUIw5K+Gb4EZ99ImuAaJN
+	 eHvwpw/MalajTv/WVSqgCzL/rbDv76yaXW22HTEukEXReGeUCWmCLdvZPBhb0yIouH1Ze
+	 NFhk48JtC7tIqpjkhbH9hfpACj0gyILPOMku9arUM17x1Ds8r/cqW18oRId87plXS6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=iMGuu2KX;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ObBFphxa;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983BD606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:55:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 983BD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X4lGo9CE;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A1A6606A324;
+	Tue, 20 Oct 2026 15:55:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1A6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=iMGuu2KX;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ObBFphxa
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6BE491400111
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:55:28 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 11:55:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792511721;
-	 x=1792598121; bh=YJsbVGHweRHxz+pzHfjXXj1fkrhbsYB8BP0nKBtOGeM=; b=
-	iMGuu2KXkp8vJ8BU3fGHIOUccTamuAJ/CvHYcAFXGvSikxnmCECeP1U4M2qqP8AA
-	BhzZnORWe6FkjXnrMn00HawA/FA/ekYr5SK0NJ+Ec2MvWzyHG4JBJcI7mcmvl0Fv
-	IatcKEHVft+g2swkIQndgo0Tuvi3qQVWNIBTJCP2NjmKUdZ4Dk6TGv+VGH+YxrUq
-	3wbsdlRZqrjYpcuykxwkDMViYf+3q6yOLPeXuXO3XjREeDvMdUnyZBhACIOmAwgv
-	jq8k/PMJ+pClprtcGGk7xaphAR503Etc4DRTbXEkNkCIRNk/oPoXXRAmTbKuTmaL
-	ksuy3wuvTwcs50V+kTsjcA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792511721; x=
-	1792598121; bh=YJsbVGHweRHxz+pzHfjXXj1fkrhbsYB8BP0nKBtOGeM=; b=O
-	bBFphxawUjFZ33873twU36J9yKD+Y2jlwzH+mhqsNv+KurNlZLoBihlqnEa9P8ME
-	5eA0QAxl4qAolYQAqrfz8GSPw6XLLmTz+TNGooLUkf3Gkva4hXwm8Se2dDI1L2iL
-	ZEJ/k06f5fLxd+kY6CAMjpwtFcBZWid91tYlk2y0p/k3hucWZ0LWoCHJwrGGx0nZ
-	C1j2mPS85bvJdTJNIPfhl+6KroMyZ9UvLbz9r3RhzhL9SQSBn+PxY0fcWNP0DGpw
-	8pLhxTLEyXFHu298kFCvarvOrdOSnOjeNJcKuDOQ7Yk6RslVuXYVX8pegs0bp2Bl
-	WjUgqOtAESqz2PptFRcnA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792511721; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Uz7E1B2zLI/EkOMtXqdUvnxWuQQy13fjbQNPxNMDhIiYBXy
-	gXjinJZmSADo6eNLxLgQN+DIwZtvrw1qGJJCf8jdGxp/exRsEjrhMT9K3nWYzswk
-	7mDkoT9DoE65MhuKaYq50Diumc1PhX+YWtsP3rtg1wEU2FIlPmMgkl79J+IMav6c
-	lHfweQbYuw1rEarmT7Yu90WNrQorxrtjSvx3ICreorQE4xhY9T1bCOFqBo34OEj9
-	HkcNeKaoRSTvvuZKcflr/6uIZnzqGaBuXw9ypWOTQKdzZnCK5T20N4rW0BXqRgil
-	oQlJpz/pyIsmWNm0YeEvI52BOdzD4P5tmyZrXuw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:wZQON0IzJv28dgK0aA9d312wJRPvMMGsTHqBMRM3g9I=:3aXA+zKnVL2UPOJf+qiGu+atcUd1/V7VGJg1tbSeCGI=;
-X-ME-Sender: <xms:5I7XaiAOXHTf4VRn0ownrfmAjsnRG86mnS7pjNvlnozNfn8zWnkt2A>
-    <xme:5I7XanWX8eB3gd2DpKAnJhIzsjHX4-NAz098IyzBbxDx2P69GXnrvjeIXZ0Vtacz9
-    Z7UecXInG7pn3kHF9dNDKvG-b7H5J-Rlsz8-juUVxZckoEsaO64OcU>
-X-ME-Proxy-Cause: dmFkZTFUYE/iftp4JIqAJC5i8VTKXj1D8SOEE/gupcR4/K/WAhj2icEcZ28P5V4T+Y5EuS
-    ojOThRjYp6NSUdJ/FEUrSZOq/m1lT0XsO3mQqHnomgGus5tI58SYjhuzH78AyRliwctknB
-    F479WwRpPhE9PvvYi7C7Tnr2a1981eHnVzMV9EiAidlE/mbUd2rK5/7RxePrCsCFsBqH8v
-    n4s15YMbSd40ZFJs1f77JXs4HEFxamt8i4cY5X+YwhFav6a4eBKMjfW+WT/XXkUgLL67KZ
-    df8eW1WJeF82VW/XeRv+LHALEru7D51/F717jMkXQjWlRkFtFMaKHIzwoKFHcNkflLkODy
-    8eLAAntPk8fDYEfxJzZlLAZe2pZIIoVnvZ6OfQHn1BHt/O3KW65lRtTAJxeVbFnNwnMHXc
-    WcQk1HxYGn5J89KWypDssfZzK8hC1Qhs3Pv7Zv6SKnIxS7RNVCRpMb88gLZrhIZnEg9VeR
-    kLmxxYxpQGzEJBnHVL2nLYb3SiGOW6Kt1b3jntG79/DoGyaQ8sTn/DlTkOy7z0Df6maSNN
-    4Pl46CScjR8C/BOFtj+lu86ZiB7ibwdxAuem/ZoQbT/GZeen/gT8y8ssuTs17bxwuuUimU
-    a0lPvedltfDI0tGOPzySvDO2VBz9yBBbYIRZU0bkOhiNu8xQZ1KTu1FwH9Zw
-X-ME-Proxy: <xmx:5o7XaoJYl0vulsN000OXT5OiyMxn_B9xJ6XS6LZKqAgty_r_dJa8Gg>
-    <xmx:5o7XapH5BbkXCiSvVaH-uLFtaqGS-aOt3uGWk-EttsqhewS11pGe0A>
-    <xmx:5o7XapCOHNTP7NdwtK6wRTzP9Od-iKIR6_g98NYIZWPuCKRv3TVuDQ>
-    <xmx:5o7Xaj3df_LTF0ENrYxL48KBRz487LhBk_lEoTtZzj7048IaFlD3RQ>
-    <xmx:6Y7Xak92dvOsvO6GS37sAA0WQMzUQAbbfE1enNe4RL3GsdhCho0tbZfv>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0802532A008F; Tue, 20 Oct 2026 11:55:16 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X4lGo9CE
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB36916F8;
+	Tue, 20 Oct 2026 08:55:50 -0700 (PDT)
+Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 16E3D3F7B4;
+	Tue, 20 Oct 2026 08:55:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792511754; bh=RA7wOkYKzBDqak619Rsj+v/XerrUB1e1xwduoqIgrN8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=X4lGo9CEziSLBpzJ/wESFC5gv5b77FuUDrR0qNwD8V1L1mSKpYmzGUiAukpnL80d8
+	 P11iPoiXfYQuXADVOOxE6uyuYgs13RlDvy1BObGmrYbA1li5ZIbGLrEXmg2JIdJMIw
+	 rykl0k838v9Jemvp9bv+0a2Q8qDWplu00g6B3roE=
+Message-ID: <3f49b39e-139f-45da-b646-dbb240b31776@arm.com>
+Date: Tue, 20 Oct 2026 16:55:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,117 +53,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ATLhSvAouVZo
-Date: Tue, 20 Oct 2026 17:54:55 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Marc Kleine-Budde" <mkl@pengutronix.de>
-Cc: "Ian Rogers" <irogers@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
- "Andy Lutomirski" <luto@kernel.org>,
- "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
- "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
- "Christophe Leroy" <chleroy@kernel.org>,
- "David Laight" <david.laight.linux@gmail.com>,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>,
- "Namhyung Kim" <namhyung@kernel.org>, "Eric Biggers" <ebiggers@google.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Jason A . Donenfeld" <Jason@zx2c4.com>,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <a34133df-224e-4cea-b574-097ad37a791a@app.fastmail.com>
-In-Reply-To: <20261020-nice-turquoise-dinosaur-3079bc-mkl@pengutronix.de>
-References: <20261019201257.3805356-1-irogers@google.com>
- <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
- <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
- <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
- <20261020-nice-turquoise-dinosaur-3079bc-mkl@pengutronix.de>
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for ARMv5
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
+ CPU MMU
+To: Alex Williamson <alex@shazbot.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-13-ryan.roberts@arm.com>
+ <20261015164421.GD13920@nvidia.com>
+ <95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
+ <20261020140944.GA3008132@nvidia.com>
+ <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
+ <20261020091323.3c51258e@shazbot.org>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261020091323.3c51258e@shazbot.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026, at 16:56, Marc Kleine-Budde wrote:
-> On 20.10.2026 10:24:51, Arnd Bergmann wrote:
->> > FYI: there is the kconfig Symbol HAVE_EFFICIENT_UNALIGNED_ACCESS. Can we
->> > make use of it?
->
-> Just noticed that sashiko's review contained the same remark, but the
-> bot only posts to the linux-perf-users@vger.kernel.org list, where I'm
-> not subscribed:
->
-> https://lore.kernel.org/all/sashiko-outbox-178182@kernel.org/
->
->> That would be better, but I still hope we can just get back to the
->> portable code across all architectures for the in-kernel version.
+On 20/10/2026 16:13, Alex Williamson wrote:
+> On Tue, 20 Oct 2026 16:06:37 +0100
+> Ryan Roberts <ryan.roberts@arm.com> wrote:
+> 
+>> On 20/10/2026 15:09, Jason Gunthorpe wrote:
+>>> On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:  
+>>>>> However.. you still have to affirm which single mm is the mm that the
+>>>>> device is going to be doing DMA against. The process the opens the fd
+>>>>> should not be forced to be the mm that it gets linked to.  
+>>>>
+>>>> What is the mm representing here? Ultimately we want to install the KVM
+>>>> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
+>>>> bound KVM instance (which looks like it still works using the cdev interface?)
+>>>>
+>>>> The guest will then install the stage1 pgtables and (pinned) ASID associated
+>>>> with the relevant (guest) mm_struct.
+>>>>
+>>>> Do we _need_ an mm association in the host?  
+>>>
+>>> Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
+>>> this is using iommufd with a viommu to establish their connection
+>>> between device an KVM. eg Jacob Pan's series. That's a probably a
+>>> better idea to stay aligned with the common path. Though your reasons
+>>> are a little different..  
 >>
->> I have one more request for you: can you check /proc/cpu/alignment
->> on the system that shows the performance regression with and without
->> the patch?
->
-> When booted via NFS-root to the login prompt, we have about 570k System
-> alignment fixups, all in the IP stack: :/
->
-> __udp4_lib_rcv+0x78/0xc6c
-> icmpv6_echo_reply+0x160/0x504
-> ip_send_unicast_reply+0xf0/0x3f8
-> ndisc_send_skb+0x15c/0x40c
-> rawv6_recvmsg+0x114/0x3b4
-> tcp_rcv_established+0x3ec/0xba0
-> tcp_v4_fill_cb+0x70/0xec
-> tcp_validate_incoming+0x540/0x868
+>> Just to check, you're referring to [1]?
+>>
+>> I was under the impression that I could open the VFIO device through the cdev
+>> interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
+>> I need an iommufd at all?
+> 
+> The cdev is not unlocked to actually access the device until it's bound
+> to iommufd.  Thanks,
 
-That is usually a bug in the ethernet driver, which should take care of
-aligning the IP header in the rx skb. Many drivers do this using
-netdev_alloc_skb_ip_align(), but I see that fec has its own buffer
-management, so it may not be that easy to address here but would
-boost performance quite a bit if you do.
+Ahh - got it! Thanks!
 
-> Comparing v7.0.12 with mainline "unaligned.h" and reverting commit
-> a339671db64b ("vdso: Switch get/put_unaligned() from packed struct to
-> memcpy()") brings no difference with respect to alignment problems. But
-> I see the increase in I/O performance (measured with "fio" [1]) on a
-> UBIFS/NAND file system:
->
-> - v7.0.12 NFS root
->   User:           0
->   System:         573956 (tcp_measure_rcv_mss+0xe4/0x1e0)
->   Skipped:        0
->   Half:           4
->   Word:           573940
->   DWord:          0
->   Multi:          34
->   User faults:    0 (ignored)
->
->   WRITE: bw=272KiB/s (278kB/s), 272KiB/s-272KiB/s (278kB/s-278kB/s), 
-> io=32.0MiB (33.6MB), run=120532-120532msec
->
-> - v7.0.12 NFS root, reverted
->   User:           0
->   System:         574214 (tcp_measure_rcv_mss+0xe4/0x1e0)
->   Skipped:        0
->   Half:           4
->   Word:           574183
->   DWord:          0
->   Multi:          27
->   User faults:    0 (ignored)
->
->   WRITE: bw=343KiB/s (352kB/s), 343KiB/s-343KiB/s (352kB/s-352kB/s), 
-> io=32.0MiB (33.6MB), run=95439-95439msec
+> 
+> Alex
 
-Ok, so about the same improvement that you saw on ubifs.
-
-> Booting from UBIFS, so only the lab background IP noise...
->
-> - v7.0.12 UBIFS/NAND root, reverted
->   User:           0
->   System:         164 (rawv6_recvmsg+0x114/0x3b4)
->   Skipped:        0
->   Half:           0
->   Word:           127
->   DWord:          0
->   Multi:          37
->   User faults:    0 (ignored)
-
-At least it seems fairly safe to assume that your original
-finding is correct and my worry about adding more faults is
-unfounded.
-
-       Arnd
