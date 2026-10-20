@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792526122;
-	b=Rqv34n00Ez+W2C5Vo9uk7lloDjEB045D/1l+XKNb7yuGlvfKWauIOdjrnJkq47RCKvJJ
-	 rfBk+uwveUNYMc+PpwZ6x/kKVxB/InrvJ7juprv5Dv+/xlpfhzuS+S3UdxgzGW6fr9OT2
-	 uoLPk4Ba0rzM3WqIFqTBJvag4nMYd9sDMNk13kkKOfi1xOjt/qyQtBztFqMxWQNtUiaTQ
-	 VXmx5is0ExKNYJzLFSSIff5GSzjdgtx8X+9LaG9PxaJQ+kgWFIO1L70bkSb5L40Uwa2VZ
-	 xKFPx2aw3R5ghdoH7MV0LQvP9CTM8CM1GSDGctn/O1THzJ72vqL33qCoACUPQ40/Yyg==
+	t=1792526198;
+	b=ztDIaDKisigih9M2VzwWQcPUQF29DBBtUCy9DIgWRf+z34TpoSybFw8wM+gWw9++/zlK
+	 j0RvdYfHYNT/J87JU8wwS2IJKDLmPPjPOyaTyh3WC400+E4TYz6BUu0aegAcPGKmX7qFU
+	 T+sIEOW6uBiowbd2oOxv+UEF7HVumacYcOgr2LuetftrBZLSeL+5eETsU1QXbEbCNO2CM
+	 PaoSKE+1/oor6DsuE8xSUmo+qgZYMBMK94EdW3XXxwvDwmwqS0Y8em33XoMYGOROVqDHs
+	 vgYBQiND/tJIm3eCMOPiCKoGCwjr9RJmCCEPu9P6VYKbjzyzspiBuR8z+hCmcF9PXLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792526122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=DC5Mr95KOFv3KF2iAi8A1QbvNEAK4XEA7i/Tzk/Q3Vw=;
-	b=sD+b4QSAQvzoOCNBdn5dA5g8lpCOcP67oYDCUbSTn+BBfT1b3YhvKHr3hhxh1impgPWn
-	 IXroshcCQIin2JqRrE9C/FchueLKJfllGHlvcLNMLGFEtwA1oUC76DuhwNfj4DnZvDYx+
-	 leCqyZfY3TwZK7hiHn8eJY9IuYStyUDT3GDf9/8El1hqUKYMshdrqdiFA4o1XI//4mVvG
-	 EbrTsbFSfZPndyK8x2t0XCPC+yykd4AxMJ0S/r9UGuZRkgumPKU/IyNoKl3iQ2DeTuAo9
-	 nYTKkgi37gNrNjOMbHWwrCIQsM0OL4vX8GOfJoTKqHlRoojxWmRqdf22ABiWLdfdMlQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mpQ3RiWaLmkacBrX11wLWQ7ZHjfXoVlldjLf+y4vUcc=;
+	b=pQWuQQnWet1geP9Y3e9D49OZjERivIKCU9xwbTjf4Z6DDw9cjQQdRAEObImMjLgUh3kn
+	 xDqBBacnbS0OtIKGBzh5CctIfFNhSlNOrf8IgC602TrBfNDHddhxmWl77nUHwKnuOS+2q
+	 04bnrtPfvn3nI0mK5P//pmtuoKch8eiwPoQeY2N9mLR6PuuRf5q9ozpkjvF3y5kbWuAEJ
+	 v/NGKQgfRUY7N6rwKoajobdyMfVbe5UfDC9GHillna1TXTA9J/apgFq+JNG6z4NevTmX4
+	 Ii6zkRg8znJgVYfG1pGCkNY58eW3ePglxB+g8QX1WRxQQxytAPyqw11JsG5OmVmZIlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=ho0OZRqL;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZwpWDIKt;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025E9606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:55:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 025E9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ACF606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15ACF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=ho0OZRqL
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5367cc15121so822211cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:55:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZwpWDIKt
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fa22006cso23155e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:56:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792526121; x=1793130921; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DC5Mr95KOFv3KF2iAi8A1QbvNEAK4XEA7i/Tzk/Q3Vw=;
-        b=ho0OZRqL5r4eCjM4AkMA34OzsHIanDDPh2NtnMmtdsc9djpMFgiMxqjzzu5D/XkQlb
-         SWoD0Fqji573KIYf6/nXchzgpptoGfx9N0euiidYldAZ7BLbEPDa9EyMLKgBAeg7E5sP
-         95SmFzyBHSd94wz5Kl1wE9Jia6cZxTAlga++tXhM6ORfOLBya5MnUL8Z3LR50upBe9Ap
-         Cfn56zjTXQtMQy0dTjzklZrSd81aPLxla+oaUvAFOhbAAXJ0KmbnspMgT5JfdLBZkubx
-         3SoaSNF5ZNS4syu5PS4+G1dATjaT9iiR6glwxobUedpVWKVqHyh8DKby2DImkFvdnzLR
-         JvMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792526121; x=1793130921;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792526195; x=1793130995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DC5Mr95KOFv3KF2iAi8A1QbvNEAK4XEA7i/Tzk/Q3Vw=;
-        b=z1zK41E8EFFchzx8tpEyXbIJ9f6Y02sUZp4KcxfayFA8diPkJm8EVeBbpWCH8YmQck
-         5WgFn21KoW7BszR0nlfV8IbOfIZUj/xs9ftbwd8mYZ5Q/Zl9XxcpbuD8JU9ocV/LZCLo
-         jsvHgbOE10z2w1bDwv02TrER9qW7TjeB6ZXY2Or2+IUEYfrMtyQA4RQSMQ1X8fL9ejsx
-         FXIPMxNsJ8A/MfMKOCZxrK4c1ywUE9n62Pb2V0uEPYimpdSWhSurhDyIH0stEyopPfLv
-         sSJPHlP8b90OhaOqLnIcTVqVZRO1rsuMcCP7/aZ7frEQ5LFw3qcJOv/g5rSsPagS64jk
-         PocQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySjjS8vcn8RNHyNXg0kA87tCsC1N9EqLXk3yKTocsRyAVe1p3eZy+vkqbCa4Z49v7aGkcjpCItlxoGZlI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKtb+tjb9cil7uyqRrVoaaPK8+o+4prajbyRFnUuIcBbxGDDLC
-	XJLiQHdh0aZSFQF+gw62WEVpiLVGJlzwROB/1XSNS5oVjRP2jvtq9yQILi9YODwsZB6IBBW6NTl
-	3T6SxeQ==
-X-Gm-Gg: AYBFou3QT8rsrxH1pIgI4cKxYaZIzV6oYU2AAqrYb9pBUSz55ecRLGMdEWgNE/GidZZ
-	x/LCGPKDa+hbforTTMO5EPwxEEZ2IY9rPAd1OKdBIvKWF3kwaIoVtELQCmTaDQ4bzR6QT+UfZUz
-	dPCIn2ht5O/M/tW0FyTWbvMMpaCSPbqRRMlxoKUN1LuvF4N6NthsWgnHE9SE0VtoDU7yl+1LsIq
-	RJl1mmmbcL+tew/JreYokMyMYp0MI7GdHAVADEARoDuaLcUH17FIymE4tGW0HkTvn/71/CcCF91
-	4bkBV70HNl8d21Pu2MbvhA9YDaCvjG4jJbxLLZevqJyoU7W753iid0QggLYOIfPAGPcHme0M7mS
-	cKLNGmATRxW7dnwXCS+JP3E3oFkoGphYtLOa3iRhBGMoDoPfZH1Y8T0yAzBRsPE4GfobZ1wo4ux
-	XzXDty+S5GEUO83Fo7l7f/CWMGmUVx/goyvIUKhP95aJMdawOsPvFBH+6xQP0B1WHxl0+BKCJL
-X-Received: by 2002:ac8:5f13:0:b0:536:7c84:be60 with SMTP id d75a77b69052e-5367c84c62amr86451461cf.65.1792526120653;
-        Tue, 20 Oct 2026 12:55:20 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698ae7fa8sm3806721cf.9.2026.10.20.12.55.19
+        bh=mpQ3RiWaLmkacBrX11wLWQ7ZHjfXoVlldjLf+y4vUcc=;
+        b=ZwpWDIKtt08y2XY2XJbdbDMsdI3O3ojs/U6Qb5zbdYWZiPXpPE9gF89HadmJa1jcrM
+         8VeRguG42uIlGtJ93H16GwgPsu+R1sIK1VAUwBv8/9CfVvs/lP/7je7CL8uigPPekNo9
+         szIUhsIU6mG8dyUKvAl49igo8+SXGa8ov9PBEmlGFLkYGEDoNly3aHI3CLcLGGH8vgXG
+         XkMLBrXGCDWO7ZB5AhlXFvb+yI5r3kcK11X1HLs4podPeQxPDDbQmXqTasZ3nDU+jE2f
+         KVTa9IiMM5wcSh1WUePySQ/cdhLDaZ0t6oFnmhimDtrPE1W0KRivezpX7LFnXKp17sRt
+         b5zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792526195; x=1793130995;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mpQ3RiWaLmkacBrX11wLWQ7ZHjfXoVlldjLf+y4vUcc=;
+        b=neEyBmSClCBcnsMvDh3n5gWq/eztvxwVFf9iwBvVEYYJhnOrzz95VGFS5QmJuVp3gn
+         d03HsNAw0vOzuyNURJ/TQ8ac5zm6ehPwRz5/4ujHvcS00+7kqd0+RV4k22jVhj62SWjd
+         Ny7XbgHV3kf5HTtlWBznJ3Fr79XMmjZr/gtWYxSbZnR+O+3fCBdTx+Jnph++VgC8czQW
+         v/QR7L0UVNwNS4C4p9apPbA+YLyki6dLeaL9JxtZc1ilGOO5PN91d6CEp25N7dPPhs0g
+         FccJC1e1eVU4Uyzvf9pkaeLTzdJ8tqUaDQgnzNVs5evE68SbeYHAz5SW/nlWkMD/8cAl
+         JV5g==
+X-Forwarded-Encrypted: i=1; AKwUvByQQdnFuUGGFPisEWG55N34Pv2FfP1wb2if5apb99e5jD11OVz99rGLpxYXdqTsPAzAKd/xI+QTPhALcEY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrC3MyoMnEzo6SOaWUN1awGjl/c+mY/JhtThL6Z9exdE1rnW+/
+	gRaBJklOBx2W3tR4i126ec/ucIlbjDY1PC64LNSlvvlS/STVEbzvg3Y2
+X-Gm-Gg: AYBFou2UxmNNgNaKbU6N59ENPKymR1P8NH8cvyNM9dYyfNnWhDi5iQwIZUTn4w7Lhk6
+	xb4QVLVHOvFu1NbEVw1nV6/S3V0Amz44hGQvRbAdFPzz7tzX+HYGhyb1En+QgWfKh6qPznT1/CS
+	sHc0zUWWuJxUjPIGKCGMLKhX+exbaXmPcSxb5WTCZp4+s2LZT36kCmQ6zrRcVKcCqbu0OknhMDz
+	eQyXpWC41xUqJE48pHDvhFuF6KTKIqB+aFOEmByYPnrWmi65uhxt3ONWQduoVaoDVYwvgxIVgkj
+	oZ7ufCJhEEFs3KcCvrZPNELqQTlL90ctRVu4DRRugCcY+muvAjH8yH8ek0YdZRfWv2Wx+604CX/
+	EcnYPv0bxmMmCm/QR/UsoNCu/EAneBxBL4Vg/8gagpQnIrja8E4NxgYDUw2oI0WZdehvGuA+WAS
+	FgYOFXCeY5bSI5iVBEvz7M8OLOhfVMsEB1tTFoUm1BykuCfipKxXYuQToVzHxircMMSbn8XDVBo
+	87xzwFEBxI=
+X-Received: by 2002:a05:600c:190e:b0:4a1:90d7:88a8 with SMTP id 5b1f17b1804b1-4a1d76106c0mr259156705e9.25.1792526195325;
+        Tue, 20 Oct 2026 12:56:35 -0700 (PDT)
+Received: from ADRIAN-PC.lan ([171.22.87.31])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d699dasm103092035e9.12.2026.10.20.12.56.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:55:20 -0700 (PDT)
-Date: Tue, 20 Oct 2026 15:55:18 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: hcd-pci: avoid double disable on surprise removal
-Message-ID: <01f4dc0b-8ed8-46ce-9ff3-df811bd4b84f@rowland.harvard.edu>
-References: <20261020-topic-hub_pci-v1-1-bccdaef0344f@oss.qualcomm.com>
- <a25e2100-e01f-49b7-b794-da1027dffedf@rowland.harvard.edu>
+        Tue, 20 Oct 2026 12:56:34 -0700 (PDT)
+From: =?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
+Subject: [PATCH] xfs: add __printf attribute to xfs_buf_alert_ratelimited()
+Date: Tue, 20 Oct 2026 21:56:28 +0200
+Message-Id: <20261020195628.248878-1-adriangarciacasado42@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,21 +96,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a25e2100-e01f-49b7-b794-da1027dffedf@rowland.harvard.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 03:52:28PM -0400, Alan Stern wrote:
-> On Tue, Oct 20, 2026 at 05:05:39PM +0200, Konrad Dybcio wrote:
-> > A PCI HCD can be surprise-removed after suspend_common() disables it
-> > and before resume_common() re-enables it. Avoid a second call to
-> > pci_disable_device() in the remove path when no enable reference
-> > remains.
-> 
-> Does the double disable actually cause any problems?
+xfs_printk_level() and _xfs_alert_tag() in fs/xfs/xfs_message.h are
+annotated with __printf(3, 4), but xfs_buf_alert_ratelimited() in the
+same header is missing the attribute.
 
-Also, is your patch any different from this one from two days ago?
+Because xfs_buf_alert_ratelimited() formats its variadic arguments via
+struct va_format and %pV, the compiler does not suggest the format
+attribute under -Wsuggest-attribute=format, and callers do not get
+compile-time format string checking.
 
-https://lore.kernel.org/linux-usb/20261018164134.134106-1-cole@unwrap.rs/
+Add __printf(3, 4) to xfs_buf_alert_ratelimited() to match the other
+logging helpers in fs/xfs/xfs_message.h.
 
-Alan Stern
+Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
+---
+ fs/xfs/xfs_message.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/xfs/xfs_message.h b/fs/xfs/xfs_message.h
+index 811b885f41..bfae8dddc9 100644
+--- a/fs/xfs/xfs_message.h
++++ b/fs/xfs/xfs_message.h
+@@ -87,6 +87,7 @@ void asswarn(struct xfs_mount *mp, char *expr, char *f, int l);
+ 
+ extern void xfs_hex_dump(const void *p, int length);
+ 
++__printf(3, 4)
+ void xfs_buf_alert_ratelimited(struct xfs_buf *bp, const char *rlmsg,
+ 			       const char *fmt, ...);
+ 
+-- 
+2.39.5
+
