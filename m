@@ -1,102 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496448;
-	b=AE4OMxcjZTzc0o0iP7e3ebk1o54hMcZYJJP7Ypqo5oRewtO6oPzLZBLCmlprHNqYoqBV
-	 JFrPLu6yXGYLwqQFHwjwuUbmK7QUECg+iv0JQtfI7d1mttjxp5ABm+6l0UAwiMnJVaZia
-	 Ac+vjW7NMUX8RTDQyTUCM+uETIxrb6IQxRlxgEjOibmxGPhd+sNZbhpAEnCWN1cSv0Rh9
-	 dYR52FjyHDZ+Kj8aScDP9JGXhax+12IraQecxovc2w7rucSUhQOJYSVC1UuNGsYf4KEzy
-	 CnMVDi4cnOk2zoqHPthBVzq3CWKPTzFSkDbcd7XqIfjEbjskXOhSTRQ0Cuz/mANhQzg==
+	t=1792496467;
+	b=VujIzwq0YdVJMmCjkfAZyIlsqb+eSyTuG5nMQLudeUhVRVKV26Ta3C84lU56sD/zYSQw
+	 Zhrh6Ul447DmOHkEi4yyumNiwHl8D5Fjfx04zJh1DtulVDV11iqg3dBIYXW4+d6VvOjDX
+	 8b8bZtSG2WEkuN0ZGiutqgkUS0AwvBA/CtxccDxH6nDgbMkHIcERYSUQzdCtOQYuivGbK
+	 SKbb3R61NiXTCe0iibtTIVWCa6pU+D0jDD3FThywilTh8+E1EjGK/KcELJuc7QxGtw7AP
+	 N1OmNrEL6FetfGxL8C31XVgeaiwN+GW6sFgQtpgXOXjV6S3WjuyQpH922FvnJESx9dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496448;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Spamd-Result;
-	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
-	b=ahrVV3/TSCcf83Eds7My9A1sD6VDEh1cbITG+dukDR65IJLe7qNDX5SvIsBXnWXstu5e
-	 0puHJl+sYGRqcyd3L9WYmt57+aaaLzEN6ZOQJDjWN5nbiMl1InwGcWzq0n6egwFmUngpn
-	 AN9YGBEFBDi1UW0oZSv9vmU+iAUJgZ0BDkBtZC0dnJypcJBVf3DsVL6OSI5kzFecV+oXh
-	 s4EH4biHg7v/MVIoCdvlpnA4WIE8F9W2mpiXXyL9jICJrEd7SoEWOpIzD3vrZZevfiSaR
-	 zaRQGCi42SZgCs1Cm3b5eitFZ5utzTBwpL5RaIAVThkdauci4j5eyj7PZYoRyeVe/gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496467;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=eZ7l6S6Y5XERFk+DP+CPdXSj9bbGmqqxbTw6qag+4S0=;
+	b=vlAn32HkHIkXu3mG/BcPuk5RJthNpsFcRoRRbuNNIMmXScEOzpBWgsOCdhxmZFPXzJ9W
+	 yUPNLCr9ueqsG0LFZhm4l3fpkodqhRN7OnF4Syz8wHZoJwbZL11V5ZRynK3y3MSeh4UGD
+	 /cMSTQ1FCygNNXIqpRduaX3et58QrYgHsoFc79vCZ8xRamyxs6oZsXrEpLqNsIKmAJ+tk
+	 hSsjK1ApSV4tqHv5/yjeUfQh4hAHdHw8iaQ0P3le6589pHhNVZ+ZZPXTPApj8pI55gmGn
+	 QWnGDiXksi1oeJ97trHz8Tt2xqftUK2G+gn/ZtmUhW17c714+xmQipcDRXSFCSG5IZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKRE898b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46467606A31B;
-	Tue, 20 Oct 2026 11:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46467606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BEE606A31A;
+	Tue, 20 Oct 2026 11:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 666751F79E;
-	Tue, 20 Oct 2026 11:40:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792496445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
-	b=oMZTZiUtqRTMwP2ImRD1ja7hn9PaLPxQjg4GEwt1yhwYDQkzbptvhdnPF7dTYJBP1k1aop
-	8b+oCo9TISXscQrEs5BV0m6NZnm8diYAG3gG7J4Y6G30VBspfOR4QECD+aM9lKVABvGbm/
-	YkOO64+OL7aqsajkJcjTE3r5+pJqj9s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792496445;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
-	b=nEJTvPJ04pvnLGmDZZqAKfTyJNUYY2/k179V5yUUJ05c1UbFLEfqM3vlyvFs1D5+oZ5jvP
-	s75ww03ph1292VBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792496445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
-	b=oMZTZiUtqRTMwP2ImRD1ja7hn9PaLPxQjg4GEwt1yhwYDQkzbptvhdnPF7dTYJBP1k1aop
-	8b+oCo9TISXscQrEs5BV0m6NZnm8diYAG3gG7J4Y6G30VBspfOR4QECD+aM9lKVABvGbm/
-	YkOO64+OL7aqsajkJcjTE3r5+pJqj9s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792496445;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
-	b=nEJTvPJ04pvnLGmDZZqAKfTyJNUYY2/k179V5yUUJ05c1UbFLEfqM3vlyvFs1D5+oZ5jvP
-	s75ww03ph1292VBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E863136C6;
-	Tue, 20 Oct 2026 11:40:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id X/A/KjxT12oSDQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:40:44 +0000
-Message-ID: <d2490a35-df4e-450f-955a-0491529a3772@suse.de>
-Date: Tue, 20 Oct 2026 13:40:44 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKRE898b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7A21F000C4;
+	Tue, 20 Oct 2026 11:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792496466;
+	bh=eZ7l6S6Y5XERFk+DP+CPdXSj9bbGmqqxbTw6qag+4S0=;
+	h=From:To:Cc:Subject:Date;
+	b=gKRE898bArSX8Etly/VakmhY8hCrxf+2CH1sK4V/HXH6YG4nCq16Ar98Rkvd1+k24
+	 Heundw7PkPXrInmF7lrJAw8lsz8Tmc+6ZWhO23NYyWZ6T7WQ9XiEGPu4Iz6Gdftqpc
+	 MV5z0D286Th91AT6lZJwuQh1u9+3lMnE8062qT+hgDA+n+6OH9/rWcxDn12/aA1bSK
+	 2Qov8dZbYwrnW/5AIYCXIbe/R/lGxLDTxw37iropVTF4yZPWD7L/GXdp2filFsprOI
+	 /c6UjYB1TR0HUD0GEMGSOVJmwT1kKJFgSijJ21nRV/nHJfDcMPt8xUSi3rcCzCNjJg
+	 viSm1m0cBTlzQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Thorsten Blum <blum@kernel.org>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Aditya Gupta <adityag@linux.ibm.com>,
+	Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v2] powerpc/kexec: Annotate umem_info members with __counted_by_ptr()
+Date: Tue, 20 Oct 2026 13:40:28 +0200
+Message-ID: <20261020114029.200922-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,148 +70,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: bitblit: Fix glyph clipping when fbcon pans
-To: CatMe0w <CatMe0w@live.cn>, Helge Deller <deller@gmx.de>,
- Simona Vetter <simona@ffwll.ch>,
- Albin Babu Varghese <albinbabuvarghese20@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2467; i=blum@kernel.org; h=from:subject; bh=pzIMtJPYfw+P/r4Q1/Ce4+BOcaaNx/LjPyiQ5HFapz8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnXg3W/bsnb9axt65U0UbVUvc7MFu9vnpvCCxnurV5k2 3ua90VaRykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEzEZC3D/6TzEyM3fd8vncoo aR7vEKa4afq3KeUNb482HWvoViv/ycLIsPpltc4Fju1/V+4+N/Hl3MdZZulc85wLDlYeOBvf57/ yKi8A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -4.29
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.29 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[live.cn,gmx.de,ffwll.ch,gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,live.cn];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.com:url,imap1.dmz-prg2.suse.org:helo]
 
-Hi
+Add __counted_by_ptr() to umem_info::buf and umem_info::ranges to
+improve access bounds checking via CONFIG_UBSAN_BOUNDS and
+CONFIG_FORTIFY_SOURCE.
 
-Am 17.10.26 um 10:53 schrieb CatMe0w:
-> Commit 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix
-> vmalloc-out-of-bounds") made bit_putcs() clip glyphs to var.yres. When
-> fbcon scrolls by panning, it draws text rows up to var.yres_virtual,
-> so after the first pan most new text is not drawn until the next full
-> redraw. This affects fbdev drivers that set FBINFO_HWACCEL_YPAN or
-> FBINFO_HWACCEL_YWRAP, such as vesafb with the ypan option, when
-> CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION=y.
->
-> Clip to GETVYRES() instead, which fbcon_ud.c and fbcon_ccw.c already
-> use as the drawing area height. When fbcon does not pan, GETVYRES()
-> returns var.yres, keeping the existing bound. When fbcon pans, it
-> returns var.yres_virtual, which the framebuffer memory must cover
-> anyway for panning to work.
->
-> Fixes: 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix vmalloc-out-of-bounds")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: CatMe0w <CatMe0w@live.cn>
+In check_realloc_usable_mem(), return early on krealloc() failure and
+use sizeof(*buf) when deriving max_entries from the allocation size.
 
-This patch restores fbcon on my test system with sisfb.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+Changes in v2:
+- Preserve the original pointer/count assignment order (Sourabh Jain)
+- v1: https://lore.kernel.org/r/20260730130248.597249-2-thorsten.blum@linux.dev/
+---
+ arch/powerpc/kexec/file_load_64.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-Closes: 
-https://lore.kernel.org/linux-fbdev/b8b52ffd-ecec-4fba-b432-ba32135c2f99@suse.de/
-
-Best regards
-Thomas
-
-
-> ---
->   drivers/video/fbdev/core/bitblit.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
-> index 39f44258d793..323a9e79a684 100644
-> --- a/drivers/video/fbdev/core/bitblit.c
-> +++ b/drivers/video/fbdev/core/bitblit.c
-> @@ -18,6 +18,7 @@
->   #include <linux/console.h>
->   #include <asm/types.h>
->   #include "fbcon.h"
-> +#include "fbcon_rotate.h"
->   
->   /*
->    * Accelerated handlers.
-> @@ -150,7 +151,9 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
->   		      const unsigned short *s, int count, int yy, int xx,
->   		      int fg, int bg)
->   {
-> +	struct fbcon_par *par = info->fbcon_par;
->   	struct fb_image image;
-> +	u32 vyres = GETVYRES(par->p, info);
->   	u32 width = DIV_ROUND_UP(vc->vc_font.width, 8);
->   	u32 cellsize = width * vc->vc_font.height;
->   	u32 maxcnt = info->pixmap.size/cellsize;
-> @@ -167,10 +170,10 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
->   	image.height = vc->vc_font.height;
->   	image.depth = 1;
->   
-> -	if (image.dy >= info->var.yres)
-> +	if (image.dy >= vyres)
->   		return;
->   
-> -	image.height = min(image.height, info->var.yres - image.dy);
-> +	image.height = min(image.height, vyres - image.dy);
->   
->   	if (attribute) {
->   		buf = kmalloc(cellsize, GFP_ATOMIC);
->
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+index bd80c5fb1b1f..7f45493e7c7a 100644
+--- a/arch/powerpc/kexec/file_load_64.c
++++ b/arch/powerpc/kexec/file_load_64.c
+@@ -34,14 +34,14 @@
+ #include <asm/cputhreads.h>
+ 
+ struct umem_info {
+-	__be64 *buf;		/* data buffer for usable-memory property */
++	__be64 *buf __counted_by_ptr(max_entries); /* data buffer for usable-memory property */
+ 	u32 size;		/* size allocated for the data buffer */
+ 	u32 max_entries;	/* maximum no. of entries */
+ 	u32 idx;		/* index of current entry */
+ 
+ 	/* usable memory ranges to look up */
+ 	unsigned int nr_ranges;
+-	const struct range *ranges;
++	const struct range *ranges __counted_by_ptr(nr_ranges);
+ };
+ 
+ const struct kexec_file_ops * const kexec_file_loaders[] = {
+@@ -83,11 +83,12 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
+ 
+ 	new_size = um_info->size + MEM_RANGE_CHUNK_SZ;
+ 	tbuf = krealloc(um_info->buf, new_size, GFP_KERNEL);
+-	if (tbuf) {
+-		um_info->buf = tbuf;
+-		um_info->size = new_size;
+-		um_info->max_entries = (um_info->size / sizeof(u64));
+-	}
++	if (!tbuf)
++		return NULL;
++
++	um_info->buf = tbuf;
++	um_info->size = new_size;
++	um_info->max_entries = um_info->size / sizeof(*um_info->buf);
+ 
+ 	return tbuf;
+ }
+@@ -288,12 +289,12 @@ static int update_usable_mem_fdt(void *fdt, struct crash_mem *usable_mem)
+ 		return -EINVAL;
+ 	}
+ 
+-	um_info.buf  = NULL;
++	um_info.buf = NULL;
+ 	um_info.size = 0;
+ 	um_info.max_entries = 0;
+-	um_info.idx  = 0;
++	um_info.idx = 0;
+ 	/* Memory ranges to look up */
+-	um_info.ranges = &(usable_mem->ranges[0]);
++	um_info.ranges = usable_mem->ranges;
+ 	um_info.nr_ranges = usable_mem->nr_ranges;
+ 
+ 	dn = of_find_node_by_path("/ibm,dynamic-reconfiguration-memory");
