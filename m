@@ -1,99 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792514742;
-	b=Rd8Jx8NIHh5VSFnSs2yf4oGNWPHfZUhngzQ9kG4uhQ4eAm+pelZvh7VRzhnLpz+tnrrZ
-	 eZ4ckAwY7XegSXTLzNy9Aat8VlSJvfTROw+SICw3QBmgP3QseVmxOiVQRO6g8YI18fb9n
-	 oFEjw6tU1flSGjYKOk5hFcysvM2bFqM4yjsacTeYRcag1mi573Ey8CefxpIB+CvrkXZv9
-	 vpMpuO9Snwp72NE9KUIfQ61Vv//J8X7TH9Y3LxIoH8ZangfjAQ06yA0N8/HJPZs+D/em4
-	 uI9mxbFbiTuSThOQISO4jBWXCRqpSUWyGs01Muy8pI3/uU2V+kaJcrZFj481QYsaekw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514742;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CaC1tbqlhAutnDuJlc4cbz63VLGiulIGGi5uK1XKrF8=;
-	b=WOAxbORJiLyBKhlbApyXWu9J6bqyNgQ+lw4Sb72T2FBrSGWdqCtrwOhHIB0hWx6X0Kkv
-	 f/MKZJWa/f9RdVQrK4tXtg040dtIqk6JmBuBoa285/sJ/NvKr8kr4Rc9xx+YCaawihSyK
-	 BYeDnjAPKsXOmRIVe5zidcELErhjIN8JNAc4kdoy7X6LnXQxuoqWQhi4EOEuDq7JOTfWw
-	 EAw9NOEIYsX0mIMSbHgBSvVIzIu1u910lgwJCU1JDzXxKM75aHOdjT2CtxIiQMLWVbwnu
-	 ywJUe1E8gFwS0EeyLd9fQG5cL1kI6OAbOlHwIonyOieQh/kCVnYiw1IqJbQEtXyiZnA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=s5iDtaWo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.94
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022094.outbound.protection.outlook.com [52.101.66.94])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792514751;
+	b=lRChx9CRMQNCc4XheMebmEY8Z/2RV2KnqSucRe1hJ4B58WyYFoJuyGWHGfd7+Nod5IK9
+	 Bq0wQa+XnRrskKCug3CVdBIkm3XSW4cOmxc9fYEjWRtE+S9P/0dJe5rd4/kGH6ic4JMjQ
+	 QiBs6/eUVd3NYqjPYWbilzYoRNZ3PSZ85jAEkXxGTnEOZIifP4f7lM6AIFe4BCX0tOX6Q
+	 n7E9ZOyqGBXoIXZcQcuTlbGgzy1EEc1W856QNLQ7knrnpyIlWxacxJQw3aIjb5lhTJqx3
+	 PJ5Wpex0/aprq4D+dFpmlDBEVd34//eiX7R7n6GanqPHJKVw5lihjsNEYz5BpvU2ZLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514751;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EDfSQoEXqpiP3epSsZykyucuXMZN9pr0EuGg4SWLZbg=;
+	b=QEskmSVxzQ22Qf/HmKo3RQA8ilsVwkDPThgq46xIIDVBUesB1vfK8uNUvSWMxLuWlVB6
+	 1DnT6dfE4SwP36OmznLizxd2yGMFs1Wul6o+A21aWf9bGXahP6pWKiehNrUQelUvVNzjz
+	 t5HhUOd5WjDrr03a2VhuoqfOqB3bIsnV4SEf5h96XsJeSrMT3TyWEz+6EJFhQSqzFkqTb
+	 pkNHtywu56xsqGCgobrgAza8KvwByuK0yZrAFFFTm12FnKvtIj7B6A8i4L9tvk0y5D0ML
+	 tfyRUzscL/hpDq9JRMEd12i9hjU93eiyvWPvOzv9VGL8fHH7yqdHyoJV+GxptRwX9+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fSYJq5Hw;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B5D606D554;
-	Tue, 20 Oct 2026 16:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B5D606D554
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE2F606D551
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FE2F606D551
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=s5iDtaWo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H82w0IBKM9XVxH42tYwUmRLnwGpaWTxRB1LPvcUtVFDxuZLjWnooyrXflmNAaAByxRJU+ZlhHNu3zSIm/pbZzNtunxIou14/LaT/cic6aqJEi8Bwr+F/wpRAAb8+faeWtTa9Y3K3kl3xJ2GlrkZHSC+pGXYw9B4YgJAjd2InIo475MctvLBsIVdjadCeI0WxQBW79xzesZx/fqeAReI+l560M6k46zr04DHSN0+T8RXaUzdcU0wWGJ0RWdV6YGYFL0tOao4lsBUXAgKuAAw6uPKserH8szs+SFZDQVmW4Cl2r76jdZlf9XpaM7kOxhn1LNzvNiQJk2xhWvjhUMpvjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CaC1tbqlhAutnDuJlc4cbz63VLGiulIGGi5uK1XKrF8=;
- b=xdgOmGnSpVGDzTbZaNp1dV5laUjZPKCmrS6x35JmFiLWVMo45WOtc3H8hBzYkuXtqs7/rTsFedaEMUiPMZsGv2V29Xn15wcKh55TRQyUI9yJCFiH6RlV191b/Wvk4V22mcLWw/cmapdQOLnIYZEmfK/8VJWRUARpbbWhdetQFEqA1Cv3HKNPl5AzKWtV4BTinlf/IAeIQTymIebr0qIq/uLdUwSWMlRYZcIMhtzCA3mK810/bHtehFfXqs4KGLdnZY6ABpFo3214lUPZYABoUptA/RbqGsQMtmt17DuT4uC7y13AEWsfRAemJ7kn48DKRsWSW3Aazzh45AXGiA+yHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CaC1tbqlhAutnDuJlc4cbz63VLGiulIGGi5uK1XKrF8=;
- b=s5iDtaWodrpcZDyRG23CFAJeIn/j6uMLuH/cowoa3V1u5k2CM1CRnlaQjipX/5CXiwbiBXUedsOQbaqlnXhKNAJcb81KJ9SivDW0UcscKu2wMsBH3kRChTn43inyE3Dmfs2vK5LXb1InIH/OZPAHDt4axFwe4ZryR5SYmBR59MCgpmdfpeRLAxQTKeSHKnViQRpPphZP4PhFlqq1+Sy9gPAPejlWf117j16+wHoBj4gj0yZv350XiKtSUtn8Nd0S6B37LW34+Gtum1qGmSLpV4A70z9yslL0SyLuDxyprbC4ER7nYGnvc1Kq5b6EJ+sapFEVYtOpx/kQ0dwxXEyrHA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by AS8PR08MB10027.eurprd08.prod.outlook.com
- (2603:10a6:20b:63b::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 16:45:38 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 16:45:38 +0000
-Message-ID: <f0fd6ac7-0cf6-4456-8f6c-0620c3d9fbf4@virtuozzo.com>
-Date: Tue, 20 Oct 2026 18:45:36 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] mm/shrinker: per-memcg shrinker units in an xarray,
- allocated on demand
-To: Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
-References: <20261019-b4-prep-vstor-144717-per-memcg-shrinker-units-on-demand-xarray-v1-0-64ed1f7957c9@virtuozzo.com>
- <atZeVV-uZMaLL_Id@thinkstation>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <atZeVV-uZMaLL_Id@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P192CA0027.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e1::17) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fSYJq5Hw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792514750; x=1824050750;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=F5zjmLX9S4kWimoe8F7UVj7/kEmV4RFYCGyK5lxjjUE=;
+  b=fSYJq5HwHx6zKSzE2FvliCHGGCTNlAVF1gByph5QWY9phjJEAAr5oSxW
+   IxNPuQAUVw8d8NPZvPQD2ml/eFVi5d7GggRnPiKxO/PsDwMe3KzZxmahX
+   ogG/zyGPG+XvYnxWjy+mN5xSUioIZjisObW1KHWgWH2J3tmBcvAA0Mw/K
+   Mo2Nb8g43Vpgmkgm9QqreL8QMIAVIAyMi6fCwrbf9HzNsjmW1FB6TVIfA
+   dKCOCEKYoAJITsbfBETpv9BrneLjzr0gUBEfABmHbsI9rT5bTFvymyezB
+   +dYnUdp8qILlhQMRCDWyAzMMNslLYuy4g4w9t3u10yqFqa/i8AQNFo4I8
+   g==;
+X-CSE-ConnectionGUID: /RiVIGv7QnKmCa1SWGGxqQ==
+X-CSE-MsgGUID: J7Vr9/oDT6ui6iVrj6baEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1238077"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1238077"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 09:45:50 -0700
+X-CSE-ConnectionGUID: 7daPNeXgS2276IYT2Dkpkg==
+X-CSE-MsgGUID: 3ameFwkaSPeozvEUXge6tA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2801260"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.78]) ([10.125.111.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 09:45:49 -0700
+Message-ID: <d8a05f9e-42ac-4c19-8713-558e1f002bd0@intel.com>
+Date: Tue, 20 Oct 2026 09:45:48 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,180 +73,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|AS8PR08MB10027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 355448b9-60de-4386-44c5-08df2ec991b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|10067099003|5023799004|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	VKCY8Dex3boUIbXLCZRZZOz56qDJURWMlMU5jacr2OppkBV6LkEQzocSWd1NBVQEA3hINH98xb4VvVNRB2T66z1GZgDr0J1O17SI8VxpI3MAf6E3AFGVcE2YzLyIzrqiZjt72AJa8PZ/6/Oi5VEh78KFYVf22/Jq2lKHJXPL1ZPdpevoaYFkPYecM9wPqUsh4A//ZBcwugyythmjfqvu2sCXo3Of3Vrd4qcnBLcvL/VKLPrjIs6QkfHWC+d2KfV42ug5NWkQu5Q3N0edmmZzf5Y8g66vJyyhsGP9g7g+dUuVLzUm8YpuXlfmNFudSANVrAJ+ZFJX22zhIydt5UVPvCehtxh129P9ICBkIFq/lDEUAaKOxRK/XDCkFU3qovttojxtf9HzcaqvlC7ueeNDKcWJkx8/NwBpmcDbVMCNZb9TjJ/VT1/73yNbW06Tw66PHn/4rZRI3rE1S+Mu9H3KnKLt0xPQad9LmGA+b9lkVLtSi7Z6UbsRwPSOGFpZGcsUIdJGRStGqRX50Q1fbsMI6KONuCqLbW8t1Z7OGqrsNTALx4FKmviTJKMUONmmV300nulAMMhOQrbeUklv2Jx2focCSfxqKhSTfVVIuIjDyl+/+yl9FqbrcQZP+N0a/vki
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(5023799004)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OUIzdGpwSGVKMDRVRUxFaVFDcHRTS2tLY04xMmtacjRUbnlJU0dOZHBJS0tT?=
- =?utf-8?B?ODFWUVVMSUh1UXhFdkhrbGhlNlJCVEJqaW5tZE1maGIvQW1jcFQ4bFFhd0lL?=
- =?utf-8?B?M0Fma1FWL2NkV1RQa2lLcTVGbkRHVk9RQjhqbzlOcHd2Mk0zSjBBeWJqTURO?=
- =?utf-8?B?MldET0FKV2llNlRSOHdMUk4xVjNzZSt0QlBIZzF0Rk4zU3lQcjJrUlRwd1VQ?=
- =?utf-8?B?bjQrMEY3amhFcElWdU5FU3ZheFBRT0RyZGh0REdBVS9lYTZKTlN2TThHeHJL?=
- =?utf-8?B?d2x3N1VLYmwrR2dLdytkeTdZRXVCTjNEV3llTGlFWDBIYnZiMVQ3em5KL1dk?=
- =?utf-8?B?Wk5kZDJiQ1dZS0ZvYU03V05kQTJNd1dxMXZuU2FYUm5sYWFNNlVBMUs1M04z?=
- =?utf-8?B?UFQ0a3oxeFhOeXJXdGdidFF0TDVjNkJNbVkzbStra0hwS2VJdHlKVGt4Ym5M?=
- =?utf-8?B?a0FpbC9lcXVDK3JWMlUxQnVmVUx1TjFwa0VpNWl2RWIycm1haTcrZ1JnMHlm?=
- =?utf-8?B?YlIzVENMODZab213bk1tVFo4K3plRTczbjhNLzZ0S0c4bUdOZEhZQU5jdk85?=
- =?utf-8?B?L3E0OWsveC8yd2RGOFFtbi9rbCtYVG5iazhtWXEvN2p1L3RlMHQ4ckt3bWIr?=
- =?utf-8?B?b3BIMGZTeTVaOXVmN0dkTHNzVDMxT1RWL2tRWFc1NFZGRU1mZ044MTVLditk?=
- =?utf-8?B?MUUyZU00K2c4SVl0RDdhd2s2eDNHN2VoS1FJV0QxR1lPbGpYSjN5d2JPajBn?=
- =?utf-8?B?S1RaM3ZIZGFIMkQ2Z0xJQUJBN3RQc0hNWjB0NmFDWkxEVjUrZDFjUWtWNDRz?=
- =?utf-8?B?d3A2YnpWZEptQlFuODdpU0ZEaVBJaXVRb25BNmpOSUw0WEJLaS85R04ralha?=
- =?utf-8?B?TExSQ2dBclU4bjY4MG0xQ3FRRml5eUdiNHVyYWhYSzZBQ2YwcXlTOExDcXEz?=
- =?utf-8?B?MEt4Z2lBcDk1NUVWUlFHaFAycE5hZXZCOTk1Uk5TWloycVA3aEprNTlhR3ZV?=
- =?utf-8?B?S0pQYWR5ZVJyb1Q0L1dWZTIrcHZnWWpDcmVWeEpqZzhFaXZOempNd3ZXM2kw?=
- =?utf-8?B?N0FsNHhBNGNtSytaNlAzdGpNWHlFd2NCVzhHdmE4USs5S3BwR2ZnaU5ndUg5?=
- =?utf-8?B?NzVYMVZyeTJxR2hKbG5zUXBIWEEzUGdZM2ZCdWhrcENUVzJSOTlwWkRpbHdP?=
- =?utf-8?B?SllWTlk1Z1NuNjVrNVhVOGNjT3ZLUm9rUmpRNlhHSjlyS0EreStGUnozeXNQ?=
- =?utf-8?B?RnJJcU9YbzRZcXN3cVpWT2E5UGlkemtkQU80Wnp3ZWplTHl3dUUrMlplRWhP?=
- =?utf-8?B?enJLckN5S1ZaNk1raGxVL0NpNndOREZobFBkc0RoNGVMSXJXT010blhFbjM0?=
- =?utf-8?B?WWd0ZGpCUmUzYmw3ZmtTUGN4aytMRUpoQlJvZVpBZEwzMDZoSnl3akZLQmRh?=
- =?utf-8?B?NG9Rc1lDNVVObGFiNzNXZEcvWjdhNlFoVGFYaXJnSnVDODBROGpzbCtHWkc4?=
- =?utf-8?B?WDFEalo4WGo5bEQ0cDJiQWtCTE0yUUl1Tm1WUjUzWUQ3Z2tKTVBNN2JIbzJK?=
- =?utf-8?B?WEx6TFBNVnNjbStEYldFR3NYNXVWbENWeUYxMlMvSTVjUDNjZ2wxR2FHOFVs?=
- =?utf-8?B?VFBGUzNDRnowb2pud1NGQzcxbWdUK0Z0VFFTTlhsbFNOOUFLMm5uOURNbjNE?=
- =?utf-8?B?Q1MzbFlSYjBNVzlDRmtPTVl4L0t3V2MyTVhxalhmTkJiNjl0eWI1R05Xd0Za?=
- =?utf-8?B?TTdXdzlZUitLREZVbDhQbS80TUFUdmdMN1RTekhHTzNsc0duWGJDQjlidHU1?=
- =?utf-8?B?ck8vSlNtK2Z4M1FjNmY0RmxoRW00TXNWUk01bUxDc1Izd1ZvYUd0UW5EUFh2?=
- =?utf-8?B?Z0lDSFhFNGRiN09WS1I2T1BLeDZpbGkyc083eU85ZUh0TmRzNCswdXZJemxQ?=
- =?utf-8?B?c0creWxrUlYyQVo1d1dFK3VyY2JZeWtza29TbjV1UHZ2TzdiK2x2bEw4c21U?=
- =?utf-8?B?OFRzUERuakNGL1RPOVA1Q3hIK1doRkFQa0J2Y1lQZlBZbzlXRFBMSEMrVEND?=
- =?utf-8?B?NE13bTg5LzZVVDZRMkdKeWd5ckhqTUxTWTEvcUJGK3RaRzU2ZkRvMjlRckdk?=
- =?utf-8?B?WkpWRHhOQlZFT1ZqVWhPQXEwbG84QjJSeCtLKzcvM08wQmZKU3Jxbk1nSnNw?=
- =?utf-8?B?RGt6MHZldkhGT3QzRWt5S2NrcDl3Tk4xYk9yT091amovUUZDL2pROFZSSCtz?=
- =?utf-8?B?bFh1YWJTMVpNOWhWYnpoZ1dWUlRJVktMOUFXTm1ZWnlUb0lFZVZXeDgwLyt0?=
- =?utf-8?B?b3JJUGgwK0VSRnQvNTNPNUpaWG4wU2hFaHpVT1R3dWxQRXJQSHd6UT09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 355448b9-60de-4386-44c5-08df2ec991b1
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:45:37.9622
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b5MZzHb0+ruYPf6XDKZoi6wUGUBIpMCFZgg7brKbA7MdfOlSdE8P4YEZ46O24CU/li6zmaSkD8yHP4H6uUHR/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB10027
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/nmi: Enable panic() when NMI handler runs too long
+To: paulmck@kernel.org, Borislav Petkov <bp@alien8.de>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
+ <8b14bd35-8f7e-4e41-9aae-e085f9a536f6@paulmck-laptop>
+ <20261020045247.GEatbzn7VKvUfDTbR4@fat_crate.local>
+ <5182974b-500a-4076-b9a1-5c67dded8380@paulmck-laptop>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <5182974b-500a-4076-b9a1-5c67dded8380@paulmck-laptop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/19/26 20:32, Harry Yoo wrote:
-> On Mon, Oct 19, 2026 at 07:39:22PM +0200, Konstantin Khorenko wrote:
->> Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
->> per 64 memcg-aware shrinker ids up to shrinker_nr_max, whether or not
->> it ever charges an object to those shrinkers, plus a pointer array
->> sized for shrinker_nr_max. Every superblock registers such a shrinker,
->> and shrinker_nr_max never comes down, so a host that mounts many
->> filesystems and runs many cgroups pays for every superblock in every
->> cgroup, live or dying, and keeps paying for new cgroups after the
->> mounts are gone.
->>
->> This replaces patch 2/2 of v2, "mm/shrinker: allocate the per-memcg
->> shrinker units on demand", with the xarray variant discussed in that
->> thread. It applies on top of "mm/shrinker: allocate shrinker_info_unit
->> from a dedicated kmem_cache", patch 1/2 of v2 sent on its own as v3:
->> https://patch.msgid.link/20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com
->>
->> Patch 1 keeps the units in an xarray per memcg and node instead of the
->> pointer array. A new unit is inserted where it belongs: nothing is
->> reallocated, copied or published under RCU when shrinker_nr_max grows,
->> and the readers find a unit with xa_load() or walk the present ones
->> with xa_for_each(). The units are still allocated up front, so this
->> patch changes no behaviour.
->>
->> Patch 2 allocates a unit only when the cgroup gets a list on that
->> shrinker's list_lru, which is where map bits are set: a cgroup pays for
->> the shrinkers it holds objects of, not for every superblock on the
->> host. The install is an xarray insert with the gfp of the list
->> allocation; there is no array to race with, so no lock of its own.
->> The root memcg keeps its units for the deferred work of global reclaim
->> and is the only memcg a shrinker registration still visits.
->>
->> Measured on a 4-CPU, single-node VM, 20000 tmpfs mounts (shrinker_nr_max
->> 20096) and 2000 memory cgroups, on three kernels:
->>
->>   base                 v7.3-rc7 with the kmem_cache patch: every cgroup
->>                        has every unit, in a pointer array
->>   xarray               base + this series: units on demand, in an xarray
->>   old array on demand  base + patch 2/2 of v2, rebased: units on demand,
->>                        in the pointer array
->>
->>                                                      old array
->>                                       base    xarray  on demand
->>   slab per empty cgroup               185 KB  18 KB   22 KB
->>   shrink_slab_memcg(), empty cgroup   1.6 us  0.2 us  1.6 us
->>   same, cgroup with objects on 100 sb 1.9 us  0.9 us  1.7 us
->>   mkdir/rmdir the cgroups, 4000 more
->>   mounts with them alive              same within noise
+On 10/20/26 09:15, Paul E. McKenney wrote:
+>>> +	toolong_nmi_panic= [X86]
+>>> +			Cause a panic upon return from an NMI handler
+>>> +			that took longer than the specified number
+>>> +			of milliseconds.  The default value of zero
+>>> +			suppresses these panics.
+>> Cause a panic after an NMI?!
+> When the NMI handler runs for more than ten seconds, life is hard anyway.
+> And no, these were not bugs in the several affected NMI handlers themselves.
 > 
-> I think 'old array on demand' is probably good enough, and replacing it
-> with xarray is not justifiable unless you have a realistic scenario that
-> would benefit from it?
+>> Oh boy, is this trying to solve a Meta fleet problem and you're thinking, why
+>> not upstream it too?
+>>
+>> Because I fail to use the usefulness of this...
+> I might be wrong, but I doubt that Meta's fleet is the only place where
+> such bugs appear.  😉
 
-Well, i would not say that i'm happy just to rewrite a lot of code,
-too many completely new code, i agree, but i have to admit that
-measurements say xarray approach looks better.
+Yeah, I once upon a time had a bunch of problems with NMIs taking
+forever to run. In my case, it was some actually wonky firmware, but
+differentiating the broken firmware from NMI handlers just being slow is
+what motivated the existing "took too long to run" message next to which
+you added the nmi_panic().
 
-For the memory we are kinda good in both cases: we drop most of
-redundant memory, the rest numbers are low for both cases.
-What the array keeps is three costs that scale with
-shrinker_nr_max x cgroups x nodes instead of with what a cgroup uses.
+That said, I'd much prefer something more generic than something
+NMI-specific.
 
-Measured on a 48-CPU, 4-node host (the one from the v1 cover letter)
-with 50000 tmpfs mounts (shrinker_nr_max 50112) and 20000 live, empty
-memory cgroups:
+Would the systems that set toolong_nmi_panic=1 also set panic_on_warn=1?
+Are there any other "extra" panics that these systems also find useful?
 
-+--------------------------------------+-----------+-----------+--------+
-|                                      | base      | old array | xarray |
-|                                      |           | on demand |        |
-+--------------------------------------+-----------+-----------+--------+
-| unreclaimable slab per empty cgroup  | 1.6 MB    | 65 KB     | 34 KB  |
-|   of it, the per-cgroup container    | 32 KB     | 32 KB     | 0      |
-+--------------------------------------+-----------+-----------+--------+
-| 640 mounts crossing 10 unit          |           |           |        |
-| boundaries, 20000 cgroups alive      | 1.41 s    | 1.31 s    | 0.10 s |
-|   the same 640 mounts, no cgroups    | 0.08 s    | 0.08 s    | 0.07 s |
-+--------------------------------------+-----------+-----------+--------+
-| echo 2 > drop_caches: shrink_slab()  |           |           |        |
-| for every online cgroup, the walk    |           |           |        |
-| kswapd does on every pass            | 23 s      | 11.3 s    | 1.3 s  |
-|   of it, shrink_slab_memcg() per     |           |           |        |
-|   cgroup and node                    | 22.8 us   | 10.7 us   | 0.5 us |
-+--------------------------------------+-----------+-----------+--------+
+I'm kinda curious if, for instance:
 
-base is v7.3-rc7 with the kmem_cache patch: every cgroup gets every
-unit; both on-demand variants sit on top of it.
+	hung_task_panic=1
+or
+	softlockup_panic=1
 
-The array row by row:
-
-- The container is a pointer array sized for shrinker_nr_max, 6 KB
-  here rounded up to kmalloc-8k, per cgroup and node, for cgroups that
-  hold nothing: 32 KB per cgroup on four nodes, 640 MB for the 20000.
-- A registration that crosses a unit boundary reallocates and copies
-  that array for every cgroup on every node under shrinker_mutex, which
-  every other mount and umount then waits for: about 120 ms per
-  boundary here.
-- shrink_slab_memcg() walks shrinker_nr_max / 64 indexes per cgroup
-  and node on every reclaim pass, whether the cgroup has objects or
-  not. The 11 s of drop_caches here is that walk; kswapd pays it at
-  every priority.
-
-The xarray version pays for the units a cgroup has and nothing per
-shrinker_nr_max, so none of the three rows grows with the number of
-mounts.
-
-Surprising it is also less code at its final version: it removes the
-array reallocation path and the spinlock the on-demand array needs so
-that an install is not lost in a copy, and ends up with fewer lines than
-before the series.
-
---
-Cheers,
-Konstantin.
+would also panic() these systems.
