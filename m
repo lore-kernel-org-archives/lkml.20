@@ -1,69 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521660;
-	b=TZD2upWOqctVq8CBp7gmzdOkgOmx3n8aolddkljsoex1+CNXtA7GNE7vxDvIwLlHO8GJ
-	 yyV3m3DM/aGPijKb+HmU6FKNYwgv721rsw3d/zelC5A+080dEsKmTKDWj/OqHnby1rfut
-	 2M/IxaT6VYEOiYdhsIfjZZ9vnWXLy/9QsuhMDT65a6JuiVYVL81Exo+/U9tK8x09FGwS3
-	 eOHxxbUlPInyTqsuv0UuuUbnK61lvzF6CCsiNwAeXoau4XHx0oYT83Utbj+6N6iYoKTJz
-	 Vaz1yStc5DGnJrXZGkg9MHVJ7kljA3xwb+y0fwOPwxMHh5UYI0hDseJRPDJPcvWjE/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521660;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fZCb5cG4sVLebJJ/gbE7+NG13j0804LxFKEXJHN0iwE=;
-	b=OIpo90zW9sJ45HJ0SkT6PTDMWTkPT/HAzk5I1BcttXRsUEnW55beGNUfcsadS9Q11L1s
-	 KVPrMhs1hmljqxH1s5jH7uvQr1n2Qv7zshAFMrz+lqHAepziXM/KwBwZhZGKH+aaKxWQC
-	 /QpaoWoILmXGeXCsrCs7uQRpYuoRdxfPgvNtOMMy+rO6PJnyAweBJEMVUi9r4dzcYqg72
-	 X3rdn1xsb5tULe393wfksqR5yaxxMjc23/zWuNmrrsOTf9OHI+eFPmRY080aX5WmBX1IV
-	 S2FsHWIEA2DqzAjNIlJQtHWqqWk1I+qQtIVb1KPQbw4zd61kioWo1pLemrrLwlcumRg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="K8vKS5I/";
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="R/87C+US";
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792521723;
+	b=jSl247doAjq9QjFvr7ug9QA/wOaWyd0PboREUcuo3biBlIw5JGoOrKiOlWDwRNfo+uvq
+	 wOO6zHRVE9k2f79wTh28laybjNryaaHXMB7n/aF9NxORKb/0KB2BUF8OaamOlLY0rxTQe
+	 YKLAsbqWoO1uZJuVy4EbVOrMQt9XK0jIxQjdQee67sKlTLiCaGpbfo5aMd3oGLmIWdI/7
+	 LinwuiuXrp+XmEUq31TJEqr/IdWgwupa9SwkEs90c4LgIA6UYLDqXRp/pDMSbZG2tWnKY
+	 DeMEO1veWCxxoBkM/qV9RqAFl4SUyRUvMREsZavV57vz4knZuhVU/px/FJFl6rDsmKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521723;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
+	b=CyhZVdrrf+hV7HgLhg5dC5N1jv0viocEqSWlGEk1Bq8d1lMNTCls+s35F1/IYjI8peIc
+	 MUdgeohZN0rXa/hb1VwfsrtoAT6Y8LbUv9aB/atSJx0TxbLggBmwwQFRVD0gaVYRuHwjG
+	 +5KHVFGWPio5HzaMIF5OPORb9OvRd1+Mumr5d6WmuVjdfgbwFsAiU6onTlph+ln3OwUUC
+	 zSTCJLnfdR4ssTy2OEK4jh/2JxpqGUj3AJd4BDv9jAbvXBAlsFw0kcMxs+u5jDxUGB969
+	 NzrnVTZfKDdoDKyigB8drbaMtxdXUfn6wnR7p28G9ZFy1Tp+AxBLB8j5o+ZSm6xSlgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=a0keEYEI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1368606A31C;
-	Tue, 20 Oct 2026 18:40:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1368606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE33606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE33606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=K8vKS5I/;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=R/87C+US
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792521632; bh=fZCb5cG4sVLebJJ/gbE7+NG
-	13j0804LxFKEXJHN0iwE=; b=K8vKS5I/wyJ6UQ+AzrL9YnEJB/HE1X1qjVtLSfXUuWTNRpb4Ee
-	klnMdYXJLF+6XGvyyail6DqhMmRPJb6WE5fYxxbrJXVpchNSqSlAtczZcbRbZgMI8yQvUjr6S+m
-	/KX0t1Z2h3m9rzNbi8lrTxfJ7d9bv+0lSQ0Zlws96R5NYKi4pgEr2KhMBJbRg3w10M5H1mPTZJf
-	E1aZyDTvxMeQ6KyAIQEX+ei2VFAjof2EMkkdqmSbPh9PG0+kJlX8zifG/muL+l35P6tkN9ukleo
-	mOxf8LqM/MDMjvGBryDNBIAOug+S11vfuOMw+wmx5csPEM6WU5qgo9UizQKIfPz7AKQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792521632; bh=fZCb5cG4sVLebJJ/gbE7+NG
-	13j0804LxFKEXJHN0iwE=; b=R/87C+USly3Jz6Se8ZTkm0Yp+BTtvMjfrFezzbcbJJH+J6MhKz
-	B3Os/6zMpceO55pbMQuWgZ3CShRWjpS8OlBg==;
-Date: Tue, 20 Oct 2026 19:40:31 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
- Andrea Parri <parri.andrea@gmail.com>
-CC: Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Kunwu Chan <kunwu.chan@gmail.com>, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_RFC_-rcu/dev=5D_hazptrtorture=3A_Releas?=
- =?US-ASCII?Q?e_all_deferred_hazard_pointers_before_stopping?=
-In-Reply-To: <c0540cf0-32ba-46e8-8648-23b70936fde7@paulmck-laptop>
-References: <20261019162005.12888-1-parri.andrea@gmail.com> <AFA8DFD1-7D1C-49FD-BE53-95747FE4302C@mainlining.org> <20261019173230.73558-1-parri.andrea@gmail.com> <c0540cf0-32ba-46e8-8648-23b70936fde7@paulmck-laptop>
-Message-ID: <5DFD4EE6-3A99-452B-8448-4BBFCBB9402A@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=a0keEYEI
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36681e85e87so1391656eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:42:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792521721; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l+FT11CxAyEc/lxFH7aH7fYFpxKpeiQ6BAfk1z3WG0Ptogwh4ZpwCZ5gdZYdmzlPrZ
+         FPI7ifbXErr6rRVSMCvOzhlIxwcM7XbNMg94rbUykVpXufCXz91gKW4n9EjTZWLuXQw4
+         z9yWjxW0gknihTLXtenk1VF2XtCWlbPATF1FCLceBuusmfaTwsgJ/QCYbTroettZ5Ujf
+         cBIu6Eipyi2xCm9Q7B4lUr4VOBxxs9rvFb4wjr2pL59iRPXMYOnL+tZNadmD6tmiNxPJ
+         cGXbrgobD3AJWgDT2p/28hksf9WrepG29tgFpJpbjgOPjtiX99k5yDx0OnIxEAOaXfaK
+         M5eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
+        fh=heAa6mazbivTUJXMbsX3E+r42jsTQflHAzqdz2WUZx8=;
+        b=JXW8QpfHfZe07UnVCuxw9+OUlsSo4tn0K/MZ7epfIZ0Hlebjt2JPgrXhYsg2HcCeaR
+         75gJ/ran0oLb5LLp0HAU0cL9dui3p98dObrEA7ZItTolSCmg+jTSUpAgXJeBHUT43bqG
+         O/H5EaFW0gre/tqgQ6HK6JiL1q5JQbW1qQ0a0kkB3StxDFJTGd8homR0+zdxWmiO/yQ7
+         Ln43JLgOIgWQwKAUnaBfubH4InQt/rQXSOsnBUm7qj8TjUQULzUVRZYPiU4cWAI6SJSC
+         tJ4APTExR+J68TEQol3Ybd3mtCEwIihCfNxOe0QfD/M24vV/FVSfYCpwq/LoP5nDpBDs
+         4BLQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1792521721; x=1793126521; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
+        b=a0keEYEI6QILljKgahQcUh8t87WV3diVWiJ/LkIkbZyRJU7mRV58xcyD4zDmNISXsB
+         tt1d9uHxdXn0qxmzAVMD2DQHukrgQw68j1LfWMU58StBTaN0tzklSwE32XcpjbPK5r0h
+         SUD5wrHpehlkhgGkBwLx5SXXnIVCPHx0TQ4kTvORsVjsTRUVIFjuSwcGQl6lsEYVPIub
+         4hSCb0kPVVKHocyCW5NaME0RZvwvkMk0sLnzJ9rD2iibd92EuaEivCjN2wqrsYf0xzFY
+         EiHrnFGTIXzLytqlEftC0tPfRUGTDT8jE3BaLaIwdfQgAfdigE+IzzEOe8K+hWDTgAgK
+         9ggg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792521721; x=1793126521;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
+        b=z5DlIAyCUFoOPEYPmuRXE9GALAyYS8TGZatLbmrvHB9SAe7tYJalq8ztON9BsQd7CS
+         xo/yBKJOdfLQlbd9Catu2WI7I7uJdxT9Wn2gWFgb/HWDA/MceAkBVGzPVQL4fr7f77eY
+         BraUor2Bgnhu9Nydfqw51evHXYjfSMtBoQQ/6gTQQT46fTUDTN+urcabyK6UlUpRVTvE
+         yznOD2B1w3IAeNCUbVejxHm7kpT9AgPs4d5sgqF4R15Q3UN0gOu4hpuLXUI2/mvoTvWm
+         Pkglirydx8/40m8ciBm5/ONnUbUHaCPcLW6kLlgBWry3zjHe+GNmkcNIflxgadIH982r
+         NELg==
+X-Forwarded-Encrypted: i=1; AKwUvByd3VeBe3RA5SEil+Vr4PExGjHZ+up9wZUrfIDa7YOJaMg72GRq0V4sZ7qNfJ9zjBprDwqUVxung+JFJqA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKq0CJvLp5Kwx4UuKj7N/J9jdtkGnGCxGqMAwgvvv2m2pqApVoK
+	AOi8FAXtr8I7V8R6MviaHZDsiUffpSicOSU9o8fbFF0TP1hidwz28m6+5amzAwPuN5RqKX0yl/i
+	p+0Vd2W4xYhOK6ujyqjClEBNLgDyTgwS8SLA834jlVA==
+X-Gm-Gg: AYBFou2NMnhQ+5/NlzWSbjGpBn52dtnkstin63NzMMqFhaBuuPoa5IHcgzkDiKQMnaN
+	Cj1fNiizXHbNAea/PpEuCH1a/Stk5kjFtF8wXWJ0zOuFdVG20TRyyucn1eSJkOhlzFstB2VASIt
+	5/V+bOC/tvUYFAcsqzpTQf69s+zcR/0kekn2pXqF14U1euwenvnqDpcuJpaI1fKMscwXV/cIxY5
+	cfIkGPuhiGk3NOGB1V2L//KLf/KNvu4DcGRCegeDTu8HwF218XmDy9KKjbbvcaQ2JQHetHkadkW
+	bIKXY5Lb3HBwJpekURBEjPSrhcoKvDVKzmzCLUJXkpdde+lf4yQV4Ki3sw==
+X-Received: by 2002:a05:7300:c00e:10b0:35b:d329:9f3e with SMTP id
+ 5a478bee46e88-3674e842a86mr135963eec.28.1792521721089; Tue, 20 Oct 2026
+ 11:42:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,95 +102,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
+In-Reply-To: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
+From: Siddarth Chilukuri <siddarth@nexthop.ai>
+Date: Tue, 20 Oct 2026 11:41:50 -0700
+X-Gm-Features: AclHuK9vLMZF-AAKuV86zplYxOP7GeZc2vlcY3CCw4_yPy_9puJFU1MY3JTp13I
+Message-ID: <CABAykku7MDTF7jTg3OdY=AWCqrBUTS_sNAoVTHUBM6yM=NKjUw@mail.gmail.com>
+Subject: Re: [PATCH] i2c: xiic: don't fail a read whose data is already in the
+ RX FIFO
+To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 20 October 2026 19:36:47 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Mon, Oct 19, 2026 at 07:32:28PM +0200, Andrea Parri wrote:
->> On Mon, Oct 19, 2026 at 05:22:54PM +0100, Bradley Morgan wrote:
->> > On 19 October 2026 17:20:03 BST, Andrea Parri <parri.andrea@gmail.com>
->> > wrote:
->> 
->> [...]
->> 
->> > >Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred
->hazard pointers")
->> > >Assisted-by: LLM
->> >
->> > Why not put this into a series?
->> 
->> The two patches fix unrelated bugs, touch different files, and apply in
->> either order, so I posted them separately.  But both are for -rcu/dev,
->> and the test notes in the hazptr patch rely on this one.  I'll send the
->> next version as a two-patch series with this patch first, unless Paul
->> prefers separate submissions.
->
->I am fine either way.  But whatever you do, please do *not* put them
->into the same patch.  ;-)
->
->> [...]
->> 
->> > >+	/*
->> > >+	 * Run until hazptr_torture_cleanup() stops this kthread, not just
->> > >+	 * until torture_must_stop(): the writer can be waiting in ->sync()
->> > >+	 * for a deferred hazard pointer while it is being stopped.
->> > >+	 */
->> >
->> > Could this be shorter?
->> 
->> Yes.  The comment in hazptr_torture_cleanup() already says why, so this
->> one can just point there:
->> 
->> 	/* Keep going until hazptr_torture_cleanup() stops us, see there. */
->> 
->> [...]
->
->The longer one is better.
->
->> > >+	/* The readers have stopped, so nothing new can be deferred. */
->> > >+	for_each_possible_cpu(cpu)
->> >
->> > Is the comment needed? I don't know if it's nessesary.
->> 
->> I'd keep it.  A reader can defer after the last pass in the loop, and
->> kthread_stop() can then end the loop without another pass, so this
->> pass is needed; the comment says why one pass is enough.
->> 
->> > >+	/*
->> > >+	 * Stop do_pending only after the writer and the readers: the writer
->> > >+	 * may be waiting on hazard pointers that readers deferred.
->> > >+	 */
->> >
->> > May we shorten this? Feel free to bikeshed that one.
->> 
->> Sure:
->> 
->> 	/* The writer may wait on hazard pointers that readers deferred. */
->
->And same here.
->
->I am sure that it is possible to create shorter versions that keep all
->to the information, but I am OK with Andrea's original versions.
->
->Bradley, Andrea is not a native English speaker and I believe that
->you are, so if you want better wording here, please provide it to him.
->Perhaps someday he will return the favor should you ever be required to
->write in Italian (or German or Ladin, for that matter).  ;-)
+On Mon, Oct 5, 2026 at 11:49 AM Siddarth Chilukuri via B4 Relay
+<devnull+siddarth.nexthop.ai@kernel.org> wrote:
+> When the controller is the master receiver, TX_ERROR is set once the
+> core has NACKed the last byte ("transmit complete" in PG090). We have
+> [...]
 
-Well, or he could be my language teacher :)
+Hi Andi, Michal,
 
-Yeah, if those don't need to be accounted for, I'm fine with this :D
+Gentle ping on this one. We've been carrying it on our Xilinx AXI IIC
+based switches and it fixes the spurious read failures described in
+the commit message. Happy to rework it if anything needs changing.
 
-Acked-by: Bradley Morgan <brads@mainlining.org>
-
->
->							Thanx, Paul
->
->> Thanks for the review,
->>   Andrea
-
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Thanks,
+Siddarth
