@@ -1,45 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483853;
-	b=VnhAowdkcDYXL/RRRMVYXOOD1GcRIkbZQpWXJmDKGk9zXYYRE1emasWaZhLe0XnezsDN
-	 /d7ThnIZ77+4OcamaeYSf4/x7LZDQp7szomYq/F2vLrC2+/Mx2U/sYeulV5AVaH/R5l9p
-	 Ar+xn6ylXgV9iUmrJGVK26ojBIfZ/VJe2gfgCXdRefP7yFdZACGfprwUuQkrIP1eFLM2P
-	 EqGtcJNNODbARibuHJ27EBPd6Ao1xs4H3rzQ7+pd9X51Qcg4B1d8T5yOW7csVjXAZ1p+x
-	 rRRcTOMxh0fl2/To8ism57ANPlPQ9fEACDp6MOioWYbU/u/fVjXmdhNfAc0qsImxIVA==
+	t=1792483881;
+	b=qWuwUWBp93ny8Rl/GgFKfyak/avXee+BO6+1wTczJPLVBjpauKekdc0q/FLpIpTUsYbL
+	 7VqChS9tCG1C5tBn50S3h/Q644cJqMuyc0MuQP91rUbp2T/M43wrwIhkvIoynPZJgNguA
+	 CcMxcEv0RNm1Yqvx0omJ677DxhC2hQrjmiqoLJc2qaLVm6HAjypyDcNlpa0M4gRR1ULek
+	 UnYA4Mti4KfdDKfpO0RnxOKab0uieuZxvIS35+Rz4mHWTlzBS2hOspnXUoVteSLB0t9c5
+	 XeXYVi5V7OTyVpm9zbTquLNalN5L9uBWxrfdn2MqzYFVRAwme3QQ1Uo0QJspDyFSHjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483853;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=KZ1lrmFftcZp227HDnBABEgI98zobYONU8pPNNvhy9c=;
-	b=uFIXsVYsxTddNwP3eikkCxIwBd+S1eEf/R47+nrbsapRpKFS2srDdn8+YY2okFA5Z73n
-	 pwIhWy2AEkDoJxUadwlLpsgsN5fQaJAVbwzk09noBKilYhN8MT0BCXE3kAhRDl3L2k23X
-	 CQ547O/IIPwRijJGuN2lN1+ocavxEiR4wbTtxUT0CCNTqRUm9Ysu2ItinsR2X6/KZ2RRR
-	 ScMMR3AmsASxi2cycE/pa/T6cacV3OVFJ6+tv0D24r/xDLfnZIo8A3C6hXRWl2+8QPr+r
-	 mWAhj4JFoByofA+F4IowEK4IhrVG/TKcQXJJKxdjDgdcxIE/lX7tTbRfONO2yL3wHEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483881;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=;
+	b=xu3c4HPVBpUBMSnVdnhb6CU7RYK4CFwp0tCsWbZcGF82lw7qRqst2ovXy+y6gyM/5mM/
+	 dGUI3gFu/0Uox2jectxTRmSPM6Q9p9EGTOiGC1pLAA+P9fCIXZzFgxEi9NCNxTe3gWzZ3
+	 33d0DoOhPO1139JX2And8m4tnVaJj21a0WXNhiaNEW5ofG30rLmVPSRUTjtmukpiEYin9
+	 ckuL9RI32nvGvlbF9uJgwFXyK54qnZLtUz4ZA63aX7tuaswFm5QRMM/XNky5lYK+Hkn0u
+	 D1UOH72F95qY4ND5fTH0wT5oztPO78R5ye7LvJIbCKGoUwauGAt7rux1CDqAUPrBoJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Si5aKroF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RNuZAY2C;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Nempdmhd;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33646606A31C;
-	Tue, 20 Oct 2026 08:10:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43C0606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:11:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B43C0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Si5aKroF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843E51F000C5;
-	Tue, 20 Oct 2026 08:10:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792483852;
-	bh=KZ1lrmFftcZp227HDnBABEgI98zobYONU8pPNNvhy9c=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Si5aKroFBRQWvoPfQiWUtXY5pV8QpgRTZoMyRO15GNPz4DBKDDZ4+iSIyNHYtvZqz
-	 G8lOTVxx6NmBdsjO1UBSP1zEZT4qLneCQe7uGvJPIQWns6h93fPilB2DLZGNa+FI1X
-	 oNs2kA2m181Alm8R8g1+o+T40SoWbc2YMPMz1bo6wE5Vo2J4fzJ+Of7PHBfk2YhNhd
-	 LNw3L2V3Q9kl/VRl12GSWRwMxpeyB7LrxcW/Qgu01ReVPUn0VH6x9EK6nNiGmKVqO+
-	 uomF8qMGugM60D+AO/F2HDVDsDC4mXpuL2c4vvdFyya6eaFTHDwOvRcep1YD0ejLSn
-	 ILyvkm6wO3wvA==
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RNuZAY2C;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Nempdmhd
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K6DdPT1385432
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:11:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=; b=RNuZAY2C6t0dngjN
+	6QYzz+pUG8Zli4ytOvPQvGe/gaMR7MIQgQPz+JLRqjMnzL3FMoIhR7dr4FaBD9eG
+	wQvbdRXfIEZh96c1Pb0j8Y63av3Lj5z2DBOzL0OUOreg1THuzQmWqVn44XxCUCng
+	oL+OnIMwx2g1uxnQtyDtR8oSvxCiZ/4WRJaLvrhIUVJIDJIwV7ERJNvTScVItk2d
+	nMprMny3uloY6BKYu8FEZBI7FUStiZ8S7qBy+XIhqQtapb8MepB+jTyH+p+0SkyJ
+	adczw1VwvDCwfH6+X0RW50Vc3FojxrL789WoeRNmKcfrTw6lgTpWKhx/1a0nqFA0
+	DqTKKg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5phjwx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:11:19 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5360b8cf8f5so4749521cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:11:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792483879; x=1793088679; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=;
+        b=NempdmhduzKFP2EE+uxvztF1mqYRDRQN6RBl2SnhurJCxpCl2IrUfTprkvxpbSKQls
+         g8h7/HaQJ0skxP9RQAl+ZkLzSAiOP8QJV7EfgavX1aBWLAVsej1E7ycAxffN7k+dHywM
+         vilTmVMTy91fUjWvdr0IxVoxJCPuvuo6zPcGz0UmlDmD+AFVVVazAdvwmfJhUhodO6Dh
+         ewKwYv/PWViYPv+EkJjs6JIwG8+g5RkyGfBnx0bRtNng82i2l55NvHbb8npjXue9tHSx
+         dkprlhusITvsLz39D55t1W4TilgRafaEOfZYe9zMpl6SdW5282spwHV7d2k7awvSYt2w
+         zh2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483879; x=1793088679;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=;
+        b=KITgojuQovzpkfjByRtUqcjBePw9/2RJ9gM8PLzeHwbpYzZucTHn4p9nW0cP9BIiea
+         pMctqqXlCJg1fuAw5Twl+yHHDekTmJ7w5KYNBrHJFJE2NR45h0JbFaZhf1b48fTKzhXn
+         eMcsz+4mzfCkpkUQEffLiMzXhjSjMmo6LGe7e++JavYyoRSALDcfD38Sj4It6/Cdlx8I
+         XmNtxdnBeXTlnS7/k3d9rAFl+uPr/6hnxNn27EI/f/UoX8OOEhD7UDQ3YC8sCgCO6d0k
+         0s0Uh8vrOtCC4Kh0QZh3z/W5zxODSqV8KqQMzQ4vM1j6PRwQOAso+XdsM6nU0Sib0TBh
+         4qKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxv9iky0E1JKhrZb87n8DmbFlVYVOSOdZdJuDvN6FK97B6YjInAGxg9SuG8A7WHMQL1zwZ2xB12JTU77vU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKW51T9lwKl387rSaJxd2f227lRBPWgga/vD+avPIwziSKbgRK
+	b2JghDabLbeK6/LQPlMetWKwBDulMU/MWaz/H+eaahgWVDCu+lDi9TVCVSX8WR0THHIvzVLAT9e
+	fn0j3m5EwnqrPdxR9WASueTF+JhNCH6tH7nZ1n4CAoslzlliMsIQliUqYkBlw2i+d/H8=
+X-Gm-Gg: AYBFou2DLhSnzcQ4H8moce92NSgFR3kYt3OdJKt9UM/my0Hw7b3H5+zF2AMHsvD/FJP
+	puKQFcdjbqupTsllH1kmPFANvgsk8V8FcU2EBwpzmaAOOhBSNnnPaNSh+lvsXal+/zpOAj6Us2z
+	H5U8XkYagWABnNewNyhxyz5xxp0OzPeR8dws4f9/yXsqbljPPX3HXN2Cv5/krpQUj6wZNPMzxA5
+	rX2K/a3VMZt+1pjVpJDTzCzSp8jPJd3MoYuxRL5r06osuTxMvg0aKUSMSnhYGEQ0sUaHeYaJqa/
+	hOclCgf8TLyYUD2RBcQAQgGWHsiuXS8sUdv6a0cUekCOMeHI6Uf8euBBA4Hkh5SwDrfMHAvq2hf
+	x1wSHhhJle7W110sS9ANMOA==
+X-Received: by 2002:a05:622a:110c:b0:535:1e4b:53ed with SMTP id d75a77b69052e-536460b5145mr177951891cf.5.1792483879063;
+        Tue, 20 Oct 2026 01:11:19 -0700 (PDT)
+X-Received: by 2002:a05:622a:110c:b0:535:1e4b:53ed with SMTP id d75a77b69052e-536460b5145mr177951731cf.5.1792483878612;
+        Tue, 20 Oct 2026 01:11:18 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0402sm461340166b.61.2026.10.20.01.11.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:11:17 -0700 (PDT)
+Message-ID: <40ca2a9c-55c0-43bb-bfa2-f6f94f35dbac@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:11:15 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,140 +115,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: hamoa-crd: Add thermal control
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260905-hamoa-sys-therm-v2-0-1cb8c958c981@oss.qualcomm.com>
+ <20260905-hamoa-sys-therm-v2-2-1cb8c958c981@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260905-hamoa-sys-therm-v2-2-1cb8c958c981@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 09/14] x86/crash: Fix massive out-of-bounds write on
- 32-bit Highmem
-From: Mike Rapoport <rppt@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
- chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
- ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org, 
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
- gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, 
- leitao@debian.org, yeoreum.yun@arm.com, sourabhjain@linux.ibm.com, 
- robh@kernel.org, coxu@redhat.com, kees@kernel.org, tangyouling@kylinos.cn, 
- liukexin@kylinos.cn, zhangtianyang@loongson.cn, guodongtai@kylinos.cn, 
- maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com, 
- vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com, 
- thuth@redhat.com, jbouron@amazon.com, me@linux.beauty, 
- mclapinski@google.com, graf@amazon.com, bgwin@google.com, 
- hbathini@linux.ibm.com, eric.devolder@oracle.com, 
- takahiro.akashi@linaro.org, james.morse@arm.com, palmer@rivosinc.com, 
- x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, driver-core@lists.linux.dev, 
- kexec@lists.infradead.org
-In-Reply-To: <20260921090450.807575-10-ruanjinjie@huawei.com>
-References: <20260921090450.807575-1-ruanjinjie@huawei.com>
- <20260921090450.807575-10-ruanjinjie@huawei.com>
-Date: Tue, 20 Oct 2026 11:09:39 +0300
-Message-Id: <179248377976.302547.17579416672238014424.b4-review@b4>
-X-Mailer: b4 0.16.1-dev
+X-Authority-Analysis: v=2.4 cv=a7WlZkSF c=1 sm=1 tr=0 ts=6ad72227 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=4__AJpt3kqbA7IiQeHIA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: boSBbxCwsZEUnWOXsl_-p5ReFpm9G30w
+X-Proofpoint-GUID: boSBbxCwsZEUnWOXsl_-p5ReFpm9G30w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX/AM2+u0Gr6fu
+ es4IHXS1YtFENSWcUE6PWExb/JOaojwXVT9yh5VEzmzDe4nlYqjhiWpwRwGrnh6/lCGcWbxTr6y
+ jotfp2kYVJqH2/a+3ltbEo3OBTIVA05Wbwx6wSx8LyT17TLG1ij4bpecbLEz4Rh3JVtv0FezTty
+ q8qRtKi2c6RI+xTtaZ2kvSvENHhBDV+qQDuwNZtPuTvbO95PGfmlv29tkEkNuWKNXzIfPPnkYwO
+ 2sVHvXEX/mgvofFJ0T1oZzCo4X0RTe4JhVathJEFDcvWiXPIU7YKNzqA6z8bQABRD+HzI/nw3RL
+ l+W64LuYlMmzbHr1laeBge6J0JNf4PqAi+ypF4BSWY1sTGSfK/FtRoa7eF6BNUZ8Td/xdR/kLoY
+ eQP+EfspffT4gx2LqU306aCB5ii2gHgXGv4uBt/336PST92O9heTFFVAF4PbyDXVXIjkw4WeAwf
+ fCvu4Y8ZVC+UdOvkh/Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX9n8LesLHXxFP
+ G8+VUUxJ8e7NVvz7pqTEJzpkha4xcsIGJOQzWxXsTtYRkfmtPtYyWvoqodc+BQzu5jFZgmvFdIV
+ JybbHQDbz4lo3y/bSLEJBIbOBi9pt/w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200032
 
-Hi Jinjie,
-
-> On 32-bit x86 systems with HIGHMEM, kmap_local_page() only maps a single
-> 4KB page. However, the elfcorehdr segment can span several pages (up to
-> hundreds of kilobytes).
+On 9/5/26 5:05 AM, Bjorn Andersson wrote:
+> The "limits" hardware performs rapid thermal management of the CPU
+> cores, but during prolonged CPU usage the system's overall temperature
+> need to be further managed by software.
 > 
-> The original code blindly copies 'elfsz' bytes at once via
-> memcpy_flushcache(), overwriting adjacent fixmap entries or critical
-> virtual addresses.
+> The reference design provides seven "system thermistors", connected to
+> the PMK8550 VADC. Particularly interesting is the "keyboard hotspot
+> thermistor", which is wired up to sys_therm1.
 > 
-> Fix this by copying the new elfcorehdr page by page.
-
-This is independed of other fixes and can be sent as a separate x86b fix.
-
-> Cc: Thomas Gleixner <tglx@kernel.org>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Borislav Petkov <bp@alien8.de>
-> Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> Cc: "H. Peter Anvin" <hpa@zytor.com>
-> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> Cc: Vishal Verma <vishal.l.verma@intel.com>
-> Cc: Baoquan He <baoquan.he@linux.dev>
-> Cc: Chao Gao <chao.gao@intel.com>
-> Cc: Sean Christopherson <seanjc@google.com>
-> Cc: Eric DeVolder <eric.devolder@oracle.com>
-> Cc: Hari Bathini <hbathini@linux.ibm.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: stable@vger.kernel.org
-> Fixes: ea53ad9cf73b ("x86/crash: add x86 crash hotplug support")
-> Link: https://sashiko.dev/#/patchset/20260907125404.922123-1-ruanjinjie%40huawei.com
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Use this to throttle the CPUs, in the same way that we're throttling
+> previous generation laptops based on "skin-temp". The trips are chosen
+> from those existing examples, but are comparable with the ACPI thermal
+> policy.
+> 
+> While not used for cooling/throttling, also add the other thermal zones
+> for temperature reporting purposes.
+> 
+> Enable thermal-monitor mode for all 7 channels in the ADC.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 > ---
->  arch/x86/kernel/crash.c | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
->
-> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-> index e681ec9cf1dc8..3c9f4fbbe7ff0 100644
-> --- a/arch/x86/kernel/crash.c
-> +++ b/arch/x86/kernel/crash.c
-> @@ -447,9 +447,10 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
->   */
->  void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->  {
-> -	void *elfbuf = NULL, *old_elfcorehdr;
->  	unsigned long mem, memsz;
->  	unsigned long elfsz = 0;
-> +	void *elfbuf = NULL;
-> +	unsigned long done;
->  
->  	/*
->  	 * As crash_prepare_elf64_headers() has already described all
-> @@ -484,21 +485,20 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->  
->  	/*
->  	 * Copy new elfcorehdr over the old elfcorehdr at destination.
-> -	 */
-> -	old_elfcorehdr = kmap_local_page(pfn_to_page(mem >> PAGE_SHIFT));
-> -	if (!old_elfcorehdr) {
-> -		pr_err("mapping elfcorehdr segment failed\n");
-> -		goto out;
-> -	}
-> -
-> -	/*
-> -	 * Temporarily invalidate the crash image while the
-> -	 * elfcorehdr is updated.
-> +	 * The segment is physically contiguous but can span several pages.
-> +	 * On 32-bit Highmem architectures, kmap_local_page() maps only a
-> +	 * single page at a time, so copy page by page.
->  	 */
->  	xchg(&kexec_crash_image, NULL);
-> -	memcpy_flushcache(old_elfcorehdr, elfbuf, elfsz);
-> +	for (done = 0; done < elfsz; ) {
-> +		size_t chunk = min_t(size_t, PAGE_SIZE, elfsz - done);
-> +		void *dst = kmap_local_page(pfn_to_page((mem + done) >> PAGE_SHIFT));
-> +
-> +		memcpy_flushcache(dst, elfbuf + done, chunk);
-> +		kunmap_local(dst);
-> +		done += chunk;
-> +	}
 
-HIGMEM is only enabled on 32-bit and there elfsz cannot be "massive"
-because it is the size of the headers just built for the CPUs and RAM
-ranges actually present, not the large memsz reserved for hotplug.
-On x86_32 (NR_CPUS <= 64) that is a few KiB at most.
+A good start!
 
-Also, crashkernel is capped at CRASH_ADDR_HIGH_MAX = SZ_512M on X86_32,
-which is below the default lowmem limit. For lowmem pages,
-kmap_local_page() returns the contiguous direct-map address, so the old
-code was already fine.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-So the overflow needs the crash region to be in highmem, either through
-crashkernel=size@offset above lowmem or through a large vmalloc=
-setting, and an elfcorehdr larger than one page.
-
-It is still worth fixing, but please drop "massive" from the subject.
-
-The changelog should also mention the conditions when this could happen.
-
--- 
-Sincerely yours,
-Mike.
-
+Konrad
