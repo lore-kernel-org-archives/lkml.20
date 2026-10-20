@@ -1,78 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.30.211.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493455;
-	b=Wauv8wGqXdHAvDmhN21Mnz5qaurWKykZIGWMp0RRC9M3+d0mQCM6/bDRXQUrBSrxoAj5
-	 bq0j7HjPnakfYEL4kh6glsrv16kNTCpOb0MnLVkA5eKINgWFSeIdDEAnogjOZlsD8ez7O
-	 CLvBT7rk6Ug9UaG5ZnnHxt3o6Pnd7+uP4T423DGcXc9g8e8IVLcJiw8SdABu2sjyRZIkf
-	 r73QK2EjSPfk2Vjb1mIGluYWNKnkc/dMArLkYVRkUAm2HhbYz35/s7yrjrcIv2eX9FYHl
-	 4fLJi3V2tKN+ZQO3gJDq3Bmr+p6ZczYf0ynYhyHBQEYTulti0VV6wQmUsNn6AmNwc8g==
+	t=1792493461;
+	b=Qclg2sgSyeewbpBgFMos9qdfbjMFSi02VJS3ujGMLe1mR6bDck4KI6TJPso23ToDY7wq
+	 9HD7cXYucTa0QIgB1sqVQJOM9/rTxg5/PgcmrCSQtSLgiQGfRb0eIkHOWE+42QXLmi9Ga
+	 ytta1EtYyNbcR6O81i9rrJ2oO7CPcnk8CWJtMRTaXTVT+eLiFCklbOFBct/1Gioq9Dfil
+	 /iv/YMSSfSX3GD4pFgh8dACT1kL6t2egMrMXb7OEA1TJPqM41G8YBZ2lhldxfLpo1ZO5q
+	 fBCYmRaPb3Zbq7wDvyDX+yF+J/oa95PpRzSeQEtymYlrD4NEEmH2ZSqLTpn2E/DTcrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493455;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Scanned-By;
-	bh=JANbW0OsMsiIZhYIihCc20hPsaNmoKXg98JEd0I6bjw=;
-	b=W24rPqak3LUJ87SD0JO7C6Z8scoJ9Di69yruLpCLbkah2WxOJt4POS3o6EwzBg1bXpkZ
-	 U5nO3zYVjxHwYEkV/XX9XM6n1EG749jZwTb7d5/N3a8TMkX1fGfFpbOji6tClVUmc0D44
-	 0n9ekyWaj8Yvkmjg/ndyvhiY/+zIX0RLNg+6YIpaq+Jq9qo5YTSvhrtnwGtNtlyBi7G+K
-	 FNtbMTCl4hwcsOnQPStGHOLSyuCtNkUShNx6vcMgC2D+0XHV2CXdqy6ZS9yJFmfUaIh00
-	 QnFtxegh2nSTSwFNq8hkPlKk9oD8NEdw41lO3H45/UC1s27ezoeb3sMwnhv6QRkGQeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493461;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:X-HalOne-ID:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=aFG2HP/YgJvzmwkELEIVClidnUuFRBnAC4gyPRz2wIk=;
+	b=LAhIPdOV4WBYU50yzx94g5FaYyh+l2A62evym2Lviryk2F5FiU+1jiXxV3uQx/gugCDw
+	 k5sTWswZuPbj3Mnu38JFL/MwBDuvT3v2p0fNOXb+wkeMu4Rn0bDxSOOTW7mOXtXg4iOwJ
+	 sWXsIiCElcndMJ5k+fTOSq+04NZgqRkZkM351b0882YH/F/g+ZkcfpV/U2RNWLs0c5wV+
+	 P+2MBlNg0xUBd9QP41f7wSLQ7G+z7dYTdMWnlHbTtOrxbxyOIZLYILNj3eC3wxpj3gGVQ
+	 OU619PmLjKrlgazVxqDfWg4mGLNRkVTzbpI+A87810XiPQjmKhzQwCKr2fhxVhXkeQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="I/eySZnY";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=none header.from=konsulko.se;
+	spf=none smtp.mailfrom=konsulko.se;
+	dkim=pass header.d=konsulko.se header.i=@konsulko.se header.a=rsa-sha256 header.s=rsa2 header.b=TsZPhoWh;
+	dkim=pass header.d=konsulko.se header.i=@konsulko.se header.a=ed25519-sha256 header.s=ed2 header.b="tp/VAhUi";
+	arc=none smtp.remote-ip=46.30.211.244
+Received: from mailrelay-egress5.pub.mailoutpod3-cph3.one.com (mailrelay-egress5.pub.mailoutpod3-cph3.one.com [46.30.211.244])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC79606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAC79606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C32606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01C32606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=konsulko.se
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=konsulko.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I/eySZnY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792493454;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JANbW0OsMsiIZhYIihCc20hPsaNmoKXg98JEd0I6bjw=;
-	b=I/eySZnYhvSK4q3f9XD0XqVpk1V2XNc4RIsTPxqWkPAc4lxMZ0if7tZsrnbjBE86m+ggkK
-	Eu2TsTVrOftqASVeCDKIKRkbub8fCNnE4Vn/vOIfsogKQQkhJT0O4X46q4okKfd8Xa4xY6
-	Igi63C/m71hRg8sDjq7fnPPdkLN8UC8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-503-d1ZaYW2ONtaZUUzoThD6KQ-1; Tue,
- 20 Oct 2026 10:50:50 +0000
-X-MC-Unique: d1ZaYW2ONtaZUUzoThD6KQ-1
-X-Mimecast-MFC-AGG-ID: d1ZaYW2ONtaZUUzoThD6KQ_1792493449
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 513181800655;
-	Tue, 20 Oct 2026 10:50:49 +0000 (UTC)
-Received: from bfoster (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CEF391956088;
-	Tue, 20 Oct 2026 10:50:47 +0000 (UTC)
-Date: Tue, 20 Oct 2026 06:50:45 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Theodore Ts'o <tytso@mit.edu>, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] mm/truncate: fix the zeroing end of
- pagecache_isize_extended()
-Message-ID: <atdHhW7JU8j5pozl@bfoster>
-References: <20261016222721.791785-1-nickolai@csail.mit.edu>
- <atZw_gtMIIKXgc1q@bfoster>
- <CADGQE7H91ZwPgUzPHoAJmF3WjzRKxeQkQcV8+BLdGn7+kkEduA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=konsulko.se header.i=@konsulko.se header.a=rsa-sha256 header.s=rsa2 header.b=TsZPhoWh;
+	dkim=pass header.d=konsulko.se header.i=@konsulko.se header.a=ed25519-sha256 header.s=ed2 header.b=tp/VAhUi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792493451; x=1793098251;
+	d=konsulko.se; s=rsa2;
+	h=to:references:message-id:content-transfer-encoding:cc:date:in-reply-to:from:
+	 subject:mime-version:content-type:from;
+	bh=aFG2HP/YgJvzmwkELEIVClidnUuFRBnAC4gyPRz2wIk=;
+	b=TsZPhoWhqMXIicwc2lJ4IPC4xnem15qVHzBv+WFP6oa2pWct0sGIG5UMNCXDgdi86QMuAYqXoHXqS
+	 VBRdpN3+20zeIkThWxTrtB52UbDLmRxu/bMcuMmcCcJgliTP2XgFFUG2gGvlmFbD1CB5lW+FC7US0y
+	 +Cmf0ZV1MYrtW/DyTi9gMjbyE8ww9luZG1g9DJhseTm78hAlIru0O2+vEPsWN+wWKrAhhD3BUctyfX
+	 S0ugsMFS+0nTcvvRm30JZVPqx9W1cXKexntz7RM+jQnR8ZlIXdv1TVO6BC2yJL6zGfn6XEMNQR6JJJ
+	 RIIFaeWXGsGgWIJdsw7hjfpMr6BqYaQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792493451; x=1793098251;
+	d=konsulko.se; s=ed2;
+	h=to:references:message-id:content-transfer-encoding:cc:date:in-reply-to:from:
+	 subject:mime-version:content-type:from;
+	bh=aFG2HP/YgJvzmwkELEIVClidnUuFRBnAC4gyPRz2wIk=;
+	b=tp/VAhUi4TNkngibwnUKSs2Y4t6+oPnbu7f0mPRTfQVjREKprNg4wzy5PQQGvKlfTmweZmqM4eFz/
+	 1CwP0erAw==
+X-HalOne-ID: 1bdb834f-cc74-11f1-ba2d-33fc7c51c1c8
+Received: from smtpclient.apple (unknown [2a02:aa1:165e:5a8:ecb0:57ca:e3fe:31b9])
+	by mailrelay3.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
+	id 1bdb834f-cc74-11f1-ba2d-33fc7c51c1c8;
+	Tue, 20 Oct 2026 10:50:50 +0000 (UTC)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,36 +67,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADGQE7H91ZwPgUzPHoAJmF3WjzRKxeQkQcV8+BLdGn7+kkEduA@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.200.121\))
+Subject: Re: [PATCH v1] mempool: fix min_nr exceeding the elements array after
+ concurrent resizes
+From: Vitaly Wool <vitaly.wool@konsulko.se>
+In-Reply-To: <3a034d40-e01d-42cf-9325-8c1e4a6db1b9@kernel.org>
+Date: Tue, 20 Oct 2026 12:50:38 +0200
+Cc: Harry Yoo <harry@kernel.org>,
+ akpm@linux-foundation.org,
+ cl@gentwo.org,
+ hao.li@linux.dev,
+ hch@lst.de,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ nickolai@csail.mit.edu,
+ rientjes@google.com,
+ roman.gushchin@linux.dev,
+ vitaly.vul@partner.samsung.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <2F07BE53-D6E5-4988-B1BD-84AD2A05DDA2@konsulko.se>
+References: <atTh-yyVIPQ-zNWJ@thinkstation>
+ <20261018160315.1465504-1-vitaly.wool@konsulko.se>
+ <atTv1tg9q9n92kZv@thinkstation>
+ <F846CE95-6D2A-4D53-9C09-5C8630E2C8A7@konsulko.se>
+ <3a034d40-e01d-42cf-9325-8c1e4a6db1b9@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+X-Mailer: Apple Mail (2.3826.200.121)
 
-On Mon, Oct 19, 2026 at 03:54:14PM -0400, Nickolai Zeldovich wrote:
-> On Mon, Oct 19, 2026 at 3:35 PM Brian Foster <bfoster@redhat.com> wrote:
-> > > --- a/mm/truncate.c
-> > > +++ b/mm/truncate.c
-> > > @@ -878,8 +878,7 @@ void pagecache_isize_extended(struct inode *inode, loff_t from, loff_t to)
-> > >               unsigned int offset, end;
-> > >
-> > >               offset = from - folio_pos(folio);
-> > > -             end = min_t(unsigned int, to - folio_pos(folio),
-> > > -                         folio_size(folio));
-> > > +             end = min_t(loff_t, to - folio_pos(folio), folio_size(folio));
-> >
-> > Good catch...
-> >
-> > folio_size() returns size_t and folio_zero_segment() expects size_t for
-> > the offset params. Perhaps we should that instead of loff_t?
-> 
-> size_t is (unsigned int) on 32-bit machines, like i386, which has the
-> same issue (reproducer from the patch).
-> 
 
-Ah, Ok. So loff_t makes sense for the min_t(). I do still wonder if it
-makes sense to switch offset and end to size_t while we're here though.
 
-Brian
+> On Oct 20, 2026, at 10:27=E2=80=AFAM, Vlastimil Babka (SUSE) =
+<vbabka@kernel.org> wrote:
+>=20
+> On 10/19/26 08:45, Vitaly Wool wrote:
+>>=20
+>>=20
+>>> On Oct 18, 2026, at 6:15=E2=80=AFPM, Harry Yoo <harry@kernel.org> =
+wrote:
+>>>=20
+>>> On Sun, Oct 18, 2026 at 06:03:15PM +0200, Vitaly Wool wrote:
+>>>>>> How about we take my patch [1] instead since
+>>>>>> it isn't prone to this bug and is a nice optimization to the =
+existing
+>>>>>> mempool_resize() at the same time?
+>>>>>=20
+>>>>> It is not a good idea to squeeze a bug fix and an optimization
+>>>>> into one patch.
+>>>>=20
+>>>> Generally speaking, yes. But that patch had been submitted before =
+the fix
+>>>> popped up, so there was no sqeezing per se.
+>>>=20
+>>> I mean the patch you've submitted does two things (wihch is not =
+good).
+>>>=20
+>>> It should be split into two patches that 1) fixes the bug and 2)
+>>> optimizes it.
+>>=20
+>> I don=E2=80=99t think this is a fair statement. I would say that the =
+patch I=E2=80=99ve
+>> submitted improves mempool_resize() to be rid of unnecessary
+>> reallocations and data copying, and that (improved) implementation is
+>> *not* prone to the race found in the previous version of this =
+function.
+>=20
+> But it makes the code more complex:
+>=20
+> 2 files changed, 28 insertions(+), 16 deletions(-)
+>=20
+> without an in-tree use case.
 
+It does help bulk-zoned, e. g. on a device-mapper table change that =
+grows the
+pool.
+
+~Vitaly=
