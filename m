@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792495678;
-	b=xxyQqOORMMWY6VgvArt2gdxSbYdw4CKW2YqjcfVwteitUWr8esjch2vQMiIIhAYClnw/
-	 LiSGleCMH9nA87FNwoHVV8orKRWmKw4MPHdd7hKy/sS3PQI+3LNKvDGxprQlrdzhK6Qx3
-	 c//vcXlC0VxjPn/C+QqAe8QkqF7RnfvKekawXb50w2hqOW0U1dgxu8yxDGUbyDCzPTDiG
-	 DWbULoEUIGmQdEHER7sCFNaAnShp8mg6l7C4dukaUaLD4j1Oku/4nFaM6FNKGH+knoC+Y
-	 xRjflMR2pkpFG+zD+/MWckkzQWjWlh86oVeF3bUGWbh6DulkN4AlJXL3NwFlBu1mlNA==
+	t=1792495751;
+	b=feocsWVcaq7co6+vWmGbpR/N8riK6+0B3f++g3O3D9NMvLCJP0g573XvckuhDR8/lIRm
+	 hgEDNSTBxe3DoOnXO3Nzua4siyUjKSlyjjl75nNUFfmTNBrk1DqTMm/cjBZY8lncmLa/Y
+	 TkEW+4rLcVPrhmt3AQNX8icdnyQL0hwIkpY4yy2zTFTixxdafd0qId3aih09JC0LnO/JG
+	 c958s2mkL+MsiO6YU2iSWFbAFCbMn5rigiervMYqU8DR4AP5nnmoveLqm3FfR6aSo0Ibk
+	 wKF1/yHlvytPu+EASJvLD53Q+0fFjklDp8koDuXeOFdZvYzur9ATEHA+uzBlPXlzA0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792495678;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
-	 References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Correlation-ID;
-	bh=q/pA8PUtXZwr2X+UH+/LJ8Lrnbo3qJI4B/PwqU97WHM=;
-	b=uWg1bV31ew+zelxKEthdlfqVKDlOJYGLtg9hJQTDEy0NjAc0XeHbR0NQY18f0w6kGmw8
-	 NYBBv/MRNvdD/MBZV223ZFudKaurbdXD9gIjslBDC3DtYu6g4J1+fgSEGTBd9bi19yZrw
-	 KagCmd0y1lO+7iTJG8vNJcrjqKLSOSv75XnTJh0Y/5H4i2wJtP/RqUwYkfwBZcFup2rW9
-	 3mo8eI/Ls5wyR6Y3MfprPIeuEA3qbADAiqs99OrA5nKLsQUI1D0iQ9c02GwC+eL8ghpBE
-	 EIpkoUb1yCb5jLyr93iDTH/0pZySNRZoIqNgFNBBDorjpQtq3fuWdHX8mCaFPcrDHYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792495751;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=lvOImHjk9+PSZt/dZxaP6lDjW+Q8Usn4Xh93yDh43jg=;
+	b=LnWgQPuGNWvs9iZOPUUT+XZ+32CUgDOKNXBb2Px61glDT3NqS5pzZQvj2UPjf2q8Yjp8
+	 2wBaqmuXKr1Ct+2bOntiXDB8VB37mzaYrmPrZFjvXWJm3Bip7+dLr8ImTrflKGx4oef5q
+	 fAQFZoghyQrO8TGPzHs9NrRddvp23YN8IbHYvzI6gLmZgCcveTdBdYvYF5EAYaFPIrCaj
+	 p/GKm3N1uTnmQ61FAKE+0EwUHjC4Gigh/LIn7TRRukxxzrtWBjXRABXAoAHz+gxg7sXOo
+	 3QbiUSqkaXY8BvvHVfwgKbEHuvOZtfaN3hFuDxLHHUwJTAH+ZF/be+cz3tSeIAl0cDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HfBJUsoa;
-	arc=none smtp.remote-ip=95.215.58.19
-Received: from mta1.migadu.com (out-19.mta1.migadu.com [95.215.58.19])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F53606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:27:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06F53606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ldbNPAVz;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01D4D606A31A;
+	Tue, 20 Oct 2026 11:29:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01D4D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HfBJUsoa
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=q/pA8PUtXZwr2X+UH+/LJ8Lrnbo3qJI4B/PwqU97WHM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792495676; v=1; x=1793100476;
- b=HfBJUsoavb74XZSdMMdfULFyI6mZ6WovR1SjfD4eWOH9Pet5/NH1VhAuGn1GrSjTG3YLJF7s
- ckM0PJy5c8UIyRMNLQjkRKwwI2GnVrY1sNFiHQABO/2OVx0IzetrFjnhTr3in/N+aU3ax7FvYmz
- FFWTVgvTu7Mty2WAwtXlrB0U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8f223801e6954fda;
-	Tue, 20 Oct 2026 11:27:56 +0000
-X-Mizu-Trace-ID: 8f223801e6954fda
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 20 Oct 2026 13:27:51 +0200
-From: Denis Benato <denis.benato@linux.dev>
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Evgeny Volferts <eugene.wolferz@gmail.com>,
-	Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D . Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
-	platform-driver-x86@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>
-Message-ID: <4469ae07-92eb-40af-b81a-a43591f38329@linux.dev>
-In-Reply-To: <4304018d-8d92-bec8-d560-897813811a92@linux.intel.com>
-References: <20261015163029.107250-1-eugene.wolferz@gmail.com> <d27c2b12-8968-4eec-b925-d5345ba1821e@linux.dev> <4304018d-8d92-bec8-d560-897813811a92@linux.intel.com>
-Subject: Re: [PATCH] platform/x86: asus-nb-wmi: Ignore spurious 0xe5 events
- on GU605MY
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ldbNPAVz
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04FE21596;
+	Tue, 20 Oct 2026 04:29:06 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 55BE03F7B4;
+	Tue, 20 Oct 2026 04:29:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792495749; bh=lPExewzubDO61zAC5f5szD4RLVzqEIiHTrrWFFbXWiU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ldbNPAVz3IGbNhuOHCkg9AxOAasSipoy6B5lGBDzvn/l+iQ+xrMGjWe9+CJcsFl11
+	 6SP4SsUPLz31dVdUWoNT+EX1DN80XrhHO69Qp0pChRZFwxSOXLiZHUB06wU7fItPn9
+	 6t/Ojv9c6iy2iP/FPyS1UkbN/qZvM71rUcPMepAk=
+Message-ID: <be6cd787-8502-4499-ad62-597c1b9b7702@arm.com>
+Date: Tue, 20 Oct 2026 12:28:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,151 +53,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <4469ae07-92eb-40af-b81a-a43591f38329@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/11] iommu: Let 32-bit ARM drivers opt into a DMA API
+ default domain
+To: Mikko Perttunen <mperttunen@nvidia.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@kernel.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+ <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-20 ott 2026 13:12:11 Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>:
+On 16/10/2026 7:46 am, Mikko Perttunen wrote:
+> iommu_get_default_domain_type() unconditionally forces IDENTITY on
+> 32-bit ARM as ARM_DMA_USE_IOMMU installs its own UNMANAGED domain on top
+> of whatever the group already had. Now that the ARM DMA API state is an
+> ordinary domain cookie, IOMMU drivers can ask for a real
+> IOMMU_DOMAIN_DMA default domain instead. Drop the override so that
+> ->def_domain_type is honoured, and let a driver-requested DMA domain
+> through the !CONFIG_IOMMU_DMA guard when ARM_DMA_USE_IOMMU can back it.
+> 
+> IOMMU_DOMAIN_DMA stays strictly opt-in on 32-bit ARM and is never the
+> fallback to avoid unexpected changes, as drivers today return 0 from
+> ->def_domain_type while expecting the legacy behaviour.
+> 
+> Behaviour is therefore unchanged for every existing 32-bit ARM IOMMU
+> driver:
+> 
+> - exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu, ipmmu-vmsa,
+>    mtk_iommu*, sun50i-iommu and qcom_iommu have no ->def_domain_type,
+>    so iommu_get_def_domain_type() returns the unchanged cur_type of 0,
+>    which is forced to IDENTITY as before.
+> - arm-smmu returns IDENTITY for legacy bindings and 0 otherwise, which
+>    ends up in the same place.
+> - tegra-smmu returns IDENTITY explicitly, and keeps doing so until a
+>    later patch.
+> 
+> Also move the static_assert on the two DMA API implementations being
+> mutually exclusive to drivers/iommu/dma-iommu.h, next to the
+> declarations that depend on it.
+> 
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>   drivers/iommu/dma-iommu.h |  3 +++
+>   drivers/iommu/iommu.c     | 20 +++++---------------
+>   2 files changed, 8 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
+> index 71b23cb698c0..24fa4165450f 100644
+> --- a/drivers/iommu/dma-iommu.h
+> +++ b/drivers/iommu/dma-iommu.h
+> @@ -12,6 +12,9 @@
+>    * IOMMU_DOMAIN_DMA default domains. Only one provider can be compiled in at a
+>    * time.
+>    */
+> +static_assert(!(IS_ENABLED(CONFIG_IOMMU_DMA) &&
+> +		IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)));
+> +
 
-> On Tue, 20 Oct 2026, Denis Benato wrote:
->
->>
->> On 10/15/26 18:30, Evgeny Volferts wrote:
->>> The ASUS ROG Zephyrus G16 GU605MY periodically emits an
->>> unrecognized WMI event (0xe5), approximately every 12 seconds.
->>>
->>> The event is reported as KEY_UNKNOWN through the Asus WMI hotkeys
->>> input device. When the session is locked, it causes both the
->>> internal display and an external monitor connected through a
->>> Thunderbolt dock to wake up repeatedly.
->>>
->>> Add a DMI-specific quirk to suppress this event on the GU605MY
->>> without affecting other ASUS notebook models.
->>>
->>> Ignoring the event was first verified on a 7.2.7-based OGC kernel.
->>> The DMI-specific quirk was subsequently built against 7.2.8-ogc5
->>> and tested on 7.2.9-ogc2 and 7.2.9-ogc4. On both 7.2.9 variants,
->>> the DMI match was confirmed and the unknown 0xe5 event messages
->>> disappeared.
->>
->> Hi Evgeny,
->>
->> Thank you for your work!
->>
->> I am thinking that a quirk with e5 in the name is a bit overly specific.=
-..
->>
->> That code has never been handled and is just the EC repeating some setti=
-ngs.
->>
->> I am thinking that perhaps the best thing to do is just create a case 0x=
-E5 that
->> simply does the ignore with no quirks check and a nice comment outlining
->> why it is done.
->>
->> I don't see asus repurposing that for something else honestly so it shou=
-ld
->> be future-proof enough and will potentially avoid this to other models a=
-s
->> well.
->>
->> On the other end it would be cool to know what that really is telling us=
-...
->>
->> If you don't come up with an answer I would defer to Ilpo whether prefer=
-ring
->> reducing quirks or keeping the symmetry within that key_filter function.
->>
->> I am fine either way.
->
-> Don't we need to touch the code anyway if the code is repurposed, so
-> having this behind a quirk doesn't really win us anything over just
-> ignoring it for any model.
->
+Don't the first couple of patches already make this redundant, since 
+such a build would now fail anyway due to multiple definitions of 
+iommu_setup_dma_ops() etc.?
 
-Yeah, I expressed myself poorly: my reasoning was more like dev-oriented: i=
-f a feature doesn't work at all but a dmesg error appears then it's super e=
-asy to spot it... While if nothing happens that complicates things... And I=
- like when the driver tells me "ehi, fill this TODO" / "complete this part"=
-.
+>   #if defined(CONFIG_ARM_DMA_USE_IOMMU)
+>   
+>   #include <asm/dma-iommu.h>
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index 5fbb76d44a1e..0d812c4b9f08 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -1884,18 +1884,6 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+>   
+>   	lockdep_assert_held(&group->mutex);
+>   
+> -	/*
+> -	 * ARM32 drivers supporting CONFIG_ARM_DMA_USE_IOMMU can declare an
+> -	 * identity_domain and it will automatically become their default
+> -	 * domain. Later on ARM_DMA_USE_IOMMU will install its UNMANAGED domain.
+> -	 * Override the selection to IDENTITY.
+> -	 */
+> -	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
+> -		static_assert(!(IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU) &&
+> -				IS_ENABLED(CONFIG_IOMMU_DMA)));
+> -		driver_type = IOMMU_DOMAIN_IDENTITY;
+> -	}
+> -
+>   	for_each_group_device(group, gdev) {
+>   		driver_type = iommu_get_def_domain_type(group, gdev->dev,
+>   							driver_type);
+> @@ -1913,11 +1901,13 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+>   
+>   	/*
+>   	 * If the common dma ops are not selected in kconfig then we cannot use
+> -	 * IOMMU_DOMAIN_DMA at all. Force IDENTITY if nothing else has been
+> -	 * selected.
+> +	 * IOMMU_DOMAIN_DMA at all, unless this is ARM32 and the driver asked
+> +	 * for it explicitly, where CONFIG_ARM_DMA_USE_IOMMU provides the
+> +	 * implementation. Force IDENTITY if nothing else has been selected.
+>   	 */
+>   	if (!IS_ENABLED(CONFIG_IOMMU_DMA)) {
+> -		if (WARN_ON(driver_type == IOMMU_DOMAIN_DMA))
+> +		if (WARN_ON(driver_type == IOMMU_DOMAIN_DMA &&
+> +			    !IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)))
 
-> --
-> i.
->
->> Best regards,
->> Denis Benato
->>
->>> Signed-off-by: Evgeny Volferts <eugene.wolferz@gmail.com>
->>> ---
->>> drivers/platform/x86/asus-nb-wmi.c | 17 +++++++++++++++++
->>> drivers/platform/x86/asus-wmi.h=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
->>> 2 files changed, 18 insertions(+)
->>>
->>> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/=
-asus-nb-wmi.c
->>> index aeb461b1644d..8d69231d25a0 100644
->>> --- a/drivers/platform/x86/asus-nb-wmi.c
->>> +++ b/drivers/platform/x86/asus-nb-wmi.c
->>> @@ -150,6 +150,10 @@ static struct quirk_entry quirk_asus_zenbook_duo_k=
-bd =3D {
->>> =C2=A0=C2=A0=C2=A0 .key_wlan_event =3D ASUS_WMI_KEY_IGNORE,
->>> };
->>>
->>> +static struct quirk_entry quirk_asus_gu605my =3D {
->>> +=C2=A0=C2=A0 .ignore_e5_wmi_event =3D true,
->>> +};
->>> +
->>> static struct quirk_entry quirk_asus_z13 =3D {
->>> =C2=A0=C2=A0=C2=A0 .key_wlan_event =3D ASUS_WMI_KEY_ARMOURY,
->>> =C2=A0=C2=A0=C2=A0 .tablet_switch_mode =3D asus_wmi_kbd_dock_devid,
->>> @@ -562,6 +566,15 @@ static const struct dmi_system_id asus_quirks[] =
-=3D {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .driver_data =3D &quirk_asus=
-_z13,
->>> =C2=A0=C2=A0=C2=A0 },
->>> +=C2=A0=C2=A0 {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .callback =3D dmi_matched,
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ident =3D "ASUS ROG Zephyrus G16=
- GU605MY",
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .matches =3D {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DMI_MATCH=
-(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DMI_MATCH=
-(DMI_PRODUCT_NAME, "ROG Zephyrus G16 GU605MY_GU605MY"),
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .driver_data =3D &quirk_asus_gu60=
-5my,
->>> +=C2=A0=C2=A0 },
->>> =C2=A0=C2=A0=C2=A0 {},
->>> };
->>>
->>> @@ -690,6 +703,10 @@ static void asus_nb_wmi_key_filter(struct asus_wmi=
-_driver *asus_wmi, int *code,
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (quirks->key_wlan_event)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *cod=
-e =3D quirks->key_wlan_event;
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>> +=C2=A0=C2=A0 case 0xE5:
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (quirks->ignore_e5_wmi_event)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *code =3D=
- ASUS_WMI_KEY_IGNORE;
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>> =C2=A0=C2=A0=C2=A0 }
->>> }
->>>
->>> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asu=
-s-wmi.h
->>> index 5cd4392b964e..e7772397cd10 100644
->>> --- a/drivers/platform/x86/asus-wmi.h
->>> +++ b/drivers/platform/x86/asus-wmi.h
->>> @@ -41,6 +41,7 @@ struct quirk_entry {
->>> =C2=A0=C2=A0=C2=A0 bool wmi_force_als_set;
->>> =C2=A0=C2=A0=C2=A0 bool wmi_ignore_fan;
->>> =C2=A0=C2=A0=C2=A0 bool filter_i8042_e1_extended_codes;
->>> +=C2=A0=C2=A0 bool ignore_e5_wmi_event;
->>> =C2=A0=C2=A0=C2=A0 int key_wlan_event;
->>> =C2=A0=C2=A0=C2=A0 enum asus_wmi_tablet_switch_mode tablet_switch_mode;
->>> =C2=A0=C2=A0=C2=A0 int wapf;
->>
+This ends up looking a bit odd, and not clear that it's still more or 
+less the same special-case workaround seemingly being removed in the 
+hunk above.
+
+At this point I'd rather push any remaining identity special cases into 
+the relevant drivers, however I'm somewhat more confident that there may 
+not actually need to be any:
+
+- exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu: AFAICS these all 
+only ever have a single client device, so the per-group implicit domain 
+should be equivalent to the per-device explicit one, so they should not 
+be impacted by switching (provided the "throw away the ARM domain" idiom 
+in some of their client drivers becomes non-destructive as mentioned)
+
+- mtk_iommu, sun50i-iommu, qcom_iommu, arm_smmu: While Kconfig might 
+allow building them, I'm not sure we really support the first 3 on 
+32-bit at all, but again since these all have no special CONFIG_ARM 
+group handling anyway then either they must work out as above or they're 
+already broken, and thus at most the change might un-break them.
+
+- mtk_iommu_v1 and ipmmu-vmsa probably wouldn't care given that they end 
+up attaching to their own shared domain anyway - they just can't wait to 
+be able to use a proper singleton group to rip all that out :D
+
+The main reason for forcing identity was to meet the expectations of the 
+existing ARM DMA ops setup, but if we're now touching the ARM code to 
+properly tie that in to the IOMMU flow, then I think we can just do the 
+right thing.
+
+Thanks,
+Robin.
+
+>   			return -1;
+>   		if (!driver_type)
+>   			driver_type = IOMMU_DOMAIN_IDENTITY;
+> 
 
