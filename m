@@ -1,98 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792479772;
-	b=P35PlMYqpo0oNXBVjRHjXfQxfkHEKcZ1sgYtEGQ/qNPXfcq4ytDerWiXAb1PH3c9vFEM
-	 qmoNjCeYxizCH0HLvctKWGSWVlYCzHW4qUw6vzZPXG1QmuKtWEUuGD/FgYlcsooc/WKMJ
-	 Nx2QdidVa3p1QQMHV5EphILfUH2ma6SBiqYjAvzSgurbcC+SiSu38JdSF1U0rmEX4YNNK
-	 cc5kqtkpg1Zkjdm6QwNXqMvnGvlm8JpliZP2derJg0FzrTHp22jjR0hlS9F2cCP/bx1m3
-	 TWBcQFk4Vm9RSiG8uY4mVUdZdw98je+PzAwZ0mP2BMH7qk2as+RQlGgJXVunnpjZjzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479772;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LHdsKaxhMRTxnwkBqR/ncYUDwHokD5UmE7U5KEPUd2k=;
-	b=f29t0PjcGM4a8cHdXSmU9j2jWlP9Rdf423F4NpVVL6NX5n2A/0GB7DxT9pbtWqeK69n3
-	 s6WzabZHQKyzvdI0kCxm9OAeFhF7dccHg4X3K3k8uQ7NYX54e6uOlZsTolNWQPDDgcWbz
-	 0eSSOrHaldDmDkNrYNH8oj/u5cmicHcytTrKQOmYvRUCc67XDVowkqVjIRbGiZFattYJJ
-	 xSOuTKTqA/7P8LQGm+NZgl3HYqwKbbWAdgIPLq3RT1iGftVpvirOeL9MqrNKrUG/caUFK
-	 Qx9MiIEOUAFOlzuLXtjG0tu9IyqJh8j970G/JNwPzPGFpjFiLXGpKJaKbxtHMd01llA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RCGdAsAh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.70
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010070.outbound.protection.outlook.com [52.101.46.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792479787;
+	b=aV/L4Ofmj3r/QTS7iTRhabOS7HVRMcxqc1jKmDimy6tC8uP1UX0GaBxQdLXXsMn+9Ehl
+	 0e56rrvePACwCqngXmtZeA1ZHLG5KU4WgZMioJRBtPHrXSBMXpEk9I1fFtUQiqBohph5f
+	 cAfj0JOMxqEBp6UbAo6w+gOBCefuFyjmGUUKTsje3drK7vvodNowG9W8uMTOMDd3nUQRV
+	 TfwSIoV5MC4rMyrzknY4ZParazglAkiaUr/sVDiCxUbzad+6ux6WJYhNoqIVGcMFom7+L
+	 /j/C54B0xKLhY6bALkzhU0dKrHDuSYCFZRVFu2TwP/cOre8EjwsIVqoumEksK/vhjUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479787;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:X-Hop-Count:
+	 X-CMS-RootMailID:References;
+	bh=28rmWq+A8KDxEjlcVsxlUltityBAAcI5g3XbyuFKJbo=;
+	b=I5Z5l3xThs1DtO6QqJtLTrpmxHNsrAg6OYPcW9x0n8nQeou+sFkUZ72EWAwper+MTqn8
+	 peeKDwXMHJQWWMc/KRFyEKb3MW0lOw9NFJaLb4wrYTvYVmrwtjL5iVHRsfcWv99Y7xN78
+	 F4wfWqZXzrpn84kLVYzSQkjiF8g1NRITBQf1PqnaxlbgLVToifF68haI+KQDp7xacutif
+	 b1FsRzsRFUThHakgYkMfa7mD/DMg3/XkbCOa8fSFj1CgVPbEmoztO+zNKiGJEZNwW+p/O
+	 JrHGn0cqmGbBxeyhvgTHJsDsuFvVuNj1rkfBDCLUt7D86BkHOoTvR2NXGQlhxHGWZ1Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=jhoXfDbf;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9202D606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:02:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9202D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31700606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:03:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31700606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RCGdAsAh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b0AurYY9kz6ZqU38ou7aKuFs5gCUXSyAcINvHEkD2TJLxq1eDTleeWqw+JtumHGI+cvkjUX43qLsdoc5fqo79id9IO0Ih/DNTl7Ta+RwuRj9+rXasFCkKcHdG/5JtUUzbrbQE3knTGbnPFr6GRZBlLFfUZmWJbDLxuvqfFEP18kVeM4y0LYhyvjsczHc13Ci220iHMitM4VV+q67DL+XhsWbOH36IHP0kvLvtOB3Z62W/FhqysSxMMWV6eNPEddEwYnetIYcKJWyZmXb7tOzmiDabwJ+T+sqeXigihrJs6Dd91s1gijNh7p/4DYy0xbtresvFOwe5Bj37kxvOABjOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LHdsKaxhMRTxnwkBqR/ncYUDwHokD5UmE7U5KEPUd2k=;
- b=T8SQLSE5O41qJBJvyS5fIkvCGhObUFDet127tFjuTppGEEmqGu+c7eugmIPdfuAdhj+rG8TgETREbo9/wxIAM+kbwoY3/SoBJr6owbkzSoVXesmo9JCRdqxIHbzRqJFR9Vv4Dh6Hsi3DoW/vc2fjubxu0A4rOjVAD6SExXzzCo0AGzK92tmVbRygsZ3EhggZpu2L92fu9QkU3/X6PMWzqd9DvfzY9+bPyeewSK+w0XEL7ZxxQ16m3szZKc9nfRpg1ICFGCsF7wSLM/ouT2736XQ2niA/OjIcVodlbCAWIZvZgvvn272qB8UQ+ByGkBRc554e0GElaH2qSBjH3dZeWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LHdsKaxhMRTxnwkBqR/ncYUDwHokD5UmE7U5KEPUd2k=;
- b=RCGdAsAhgZuPyytzqyLbc/UxPrssdvVYlJacjGakI3c96d7SdTM3KXPKZ6/pRq/Kc1g5H/UHvAAdLfYKWfnfPF6srfHwaTAHXgW7kuY5w0FM6XMGYN+VZCzjCpcgkuiQ13qXhg9aGe4Fbw51WDAPp3SpjhkGEMpcFCIdwJqncF8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CHXPR12MB999219.namprd12.prod.outlook.com (2603:10b6:610:2fd::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 07:02:49 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 07:02:49 +0000
-Message-ID: <367a13c8-1c18-4a79-a82f-12bb8430fa99@amd.com>
-Date: Tue, 20 Oct 2026 09:02:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: remove unused cgs register accessor
- typedefs
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
- paulmck@kernel.org, rostedt@goodmis.org, ast@kernel.org,
- peterz@infradead.org, gregkh@linuxfoundation.org, abo@medichon.fr,
- skhan@linuxfoundation.org
-References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
- <20261017130047.42080-1-emmaonana18@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261017130047.42080-1-emmaonana18@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0154.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=jhoXfDbf
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261020070304epoutp0427c2b36801fdfbd22844cf8c4f2cd3b4~gKt3qP-sR0852108521epoutp04e
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:03:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261020070304epoutp0427c2b36801fdfbd22844cf8c4f2cd3b4~gKt3qP-sR0852108521epoutp04e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792479784;
+	bh=28rmWq+A8KDxEjlcVsxlUltityBAAcI5g3XbyuFKJbo=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=jhoXfDbfy8STiScodmtIhNkuBSK/QcVXULchdHukF5lJlWL3nzSxVt3SWWncgjSiF
+	 d0QGOqDkq7j3gQOAKhXaAyXGQjJTrcZKePGx3fswDuiGP4bYVc/1TBNieJmvyEE0OV
+	 4o6Lq5B0fVbZwYHU+gjPdcpfkoaLt0Q+6I6aAecI=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261020070303epcas5p27123530cc4da627e5044b30efcac5a79~gKt2_XMjj0879108791epcas5p2W;
+	Tue, 20 Oct 2026 07:03:03 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4j83K33kV3z6B9mP; Tue, 20 Oct
+	2026 07:03:03 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261020065546epcas5p35f2faba15dd3ba959a66cc9b7df8daa8~gKngVVX-71831318313epcas5p34;
+	Tue, 20 Oct 2026 06:55:46 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261020065544epsmtip19fabf3667d15874128bdff78d99d0f4f~gKndu40kx1278912789epsmtip1r;
+	Tue, 20 Oct 2026 06:55:44 +0000 (GMT)
+From: Raghav Sharma <raghav.s@samsung.com>
+To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+	conor+dt@kernel.org, raghav.s@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
+	pokala.reddy@samsung.com, cpgs@samsung.com, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 02/14] dt-bindings: clock: exynos8855: add top & peric
+ clock definitions
+Date: Tue, 20 Oct 2026 12:43:43 +0530
+Message-Id: <973576304.21792479783510.JavaMail.epsvc@epcpadp2new>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,175 +84,380 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CHXPR12MB999219:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5b25a79-51b0-4252-fe82-08df2e7826c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|261009223027099003|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Z1mbxc8/zwjCTcZp6hLA2mZvJNvsxIBQQ6WK0h21yUqTzgMJouvmZ/MYwJ/u+/7KxY7JLZY8/tzMYo660VR1WHMZUXgWveE1QUGKB3I1f1XwYBGqSQmMG3C27SslXXoBvJG6BU+PrSfHxHmseoSC7ZGO5MbagI4S6/dQDN7wFZeWKF3tk0QKjRWLFbCOupttkM8dyV5w85I8hrzcV0LR4wkQF6EZkaNwSFX553UY3RLfr6nswQXgJIFa+E/yWqUYPD+FDVT3+6HcygkFqyg1aYxuXCDM/5n1Uyv0AoaZljUlR9dvyNsuQXCTYRCk7womRhkdCFa5txg7wFZUR2HtXCE8MqUwXsl3etFSNJBoMHkrRI4ECvdcg+Fnqfp1S7sU2gAEo1ZJ4vuQqvQ72zFpXdd5mJLPKOcDY8PFMlqadONDBNRaqIMBmEgIZ7cP9GwKuyo1xYChD1dH5qPsrxvrndtW4X4UvEiSzl0ZoZd4cy32uXXiV0chAKEzOvqTuRk/dDXwlugTUjBBFKDug6EJ36n4hROEzUPd6d6JSBl10D2y0sGmZb/xdmBdYUpTAbkrNw8lDG9nVkRW37WYidQV6y+8v6Vs8Aj0kAQn4ifYiWJf8zOCDSz8nQKFPLI9xBk9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NENiaGphTnFwYnFSYjd0RGcxa25MQTd1QWRLSDVXTkFCSE9aUDF1WlNnRFU5?=
- =?utf-8?B?N015alFSNzhSVWp3WXRZTCswZ3lyaUt1aEtPTVlPZ05VWXZnUk5LTzltMEt4?=
- =?utf-8?B?emwyVUxLbGJTaVFTYWpCN0FqUDRLVXBVa0ZQMUFpMEZrc0tYTlZraTMrMTll?=
- =?utf-8?B?STUvdkdWNksxTlpoczNzR3daeHN3R1J2c2RzdjlicHRBU0t5cit3UU43VUli?=
- =?utf-8?B?TVpyS3JYZHBwQXlQNC9rOGxHYUhDTDlDRWNEUHFCYXVVMHFHK3BFUHM0WXhn?=
- =?utf-8?B?b0NFNzdkVHZsN3V1ODhGTnZXR3dOVktlaDJIQnRFUExEZUd6OVZZUks4S1Bh?=
- =?utf-8?B?RjNXTVJDdDYzdE9lQlFZRmhoRU1QVFI5SnZxeDhkT2JKQ3hTWFNkWU5tV3Zo?=
- =?utf-8?B?eEtNZE1qTzlOWWlWcnpZMkduOFF0RnJrTDc3WHB2SkcrUUdTRU1rZWVnVHRZ?=
- =?utf-8?B?eGpZdXh6TzBIUFA5c1lZY0QvSDhnRVNPTlpmeUpuMFh1QkcwbmFkVmg4akF4?=
- =?utf-8?B?MTcwSlREMnFoYXIyN2tieUE4bDZ6aTZnK2MxbGRYbEY0bUFrZE4zTGt5WlNq?=
- =?utf-8?B?T0VjQUVHb1o2VGN1ZCtLZ0ZpRC8rdHhTU1E2WnFuNlFaQkhncWJWUmxVMEwr?=
- =?utf-8?B?U05HazhtbnJWVi9QSW9NdGtoNG5RRi9NbzI4NmJjdCtNdjl2VVdqc3lBbFlk?=
- =?utf-8?B?di9tOVpWakZ3cHlMbng0Z2gzNWFxN1l5NDRCVVJ4aHhMUTQ3d1dRVjJQRCtS?=
- =?utf-8?B?bktXS1Jyc2EycWxOQm83RjBVOEtnZS9QQnFlYWF3Z09NMUFZTTRMTHgvU0tq?=
- =?utf-8?B?aHFKQUxNNE5pWnNaZVgyejltMmpFd1lDbTl1N0poUkZiSk0xdXhoUXR5NU8r?=
- =?utf-8?B?endLWnJkb2Q5d3p5SUtuTVNyeXpQNHF5VW5GS2tFcCt1VE1pbElGVXdJRnZ6?=
- =?utf-8?B?c3JDckZhNXpMdy9RYWcra1N4VVBOZVBUZDZSV24wV0VpU0ZlS2N3OEhuSXdx?=
- =?utf-8?B?Z29GT3NGNDl6QkhZaEpoUll1eGs3amFJdEdwT0VyZHlibUNxbCtZc3lCWklt?=
- =?utf-8?B?dXJ1eFIyNGhka0l3VEdmbEVJZ1kxcUJIUVlNRkQ4NVIxRWFNQ0JtQzlVQXRY?=
- =?utf-8?B?QVRIczVYWnF0Sm9YQWNHTE5hZFhITU5VYVJlQVRqNzIwZW13RENiL3NyWnps?=
- =?utf-8?B?Tm91ejJ1UXBOUHpEMkFEUXRiY1NRTkNJNFdBRUtPaDl5QnRvTG9nQnU5RElJ?=
- =?utf-8?B?S3k0Q000Q1NPT3RLTzFMcURJSDlhNnFqOXcySEtsUFg3QTFNSHpxK2F1ODVV?=
- =?utf-8?B?ZTJPbit6S05xWUU4QTlZV20rQUpFV0UwU204bkFVT2dHa3BnQmxBckxMT0Q5?=
- =?utf-8?B?ajBDZ2ZLejBEOGF0d2JKSHFRY2E1MnhhYWM3ZUxIdjRkcTdiVEVjSUhrLzlZ?=
- =?utf-8?B?QzFVRmN5Y3A3dkllSnVyZzJDZUF1Y2lZZHFjbEhSNlRUeDR5Qis4OVRzdVUz?=
- =?utf-8?B?aGxHYkRrc1BIMTlrZHVkSGlGZTlOSys0ekJyS3lwM29GOStzeU9kRDk5QmFC?=
- =?utf-8?B?T3REdHY1dEtrUUtuUnovMTJhZTUvWExJeU5hMUNhajUzZGhJaU5MSHRvTXlx?=
- =?utf-8?B?USsrdHVlM3pyN2xjVzMvUjkzQUxJNEg0WlVrK1RkVzQ1U1NNcEN0ZjA5OWtt?=
- =?utf-8?B?OG9kaDJhajRMQTJTK0xmWjNiNnYzdnE2Tm5JczNZT0xjZHlkV2NxSFNmVEJm?=
- =?utf-8?B?Um45T0ZlQ3oydHRYb2hPTVF3R0xaV2Q4UmlYUXF0bFhJem1zSW8xMnQ2eHlx?=
- =?utf-8?B?WUdSMHpucVh1TWl2SUpwbjV1L3JqditXek4vTmhwSlVMTTA0cFBVeDRQcEtm?=
- =?utf-8?B?S0pyZFBvb2ljSE9rY0VFODZoN3JZdGNjS21JeFE4ZTM3eVoyZ2VjeUhId081?=
- =?utf-8?B?cXhPL1gvRTFMa1BLSVZNMGJUWFpzSzVOYWpKMDZKKytSY3IxaTVqdlNTZnFV?=
- =?utf-8?B?OTloa01rRVpSdGxFZ3J0VVVFRGVGZEZCWndNYTdnUDlvN0lJMm1DM29TY1o4?=
- =?utf-8?B?RnErb3I4YklyemtEek9NTmptWnFEb0oyM0NLV3VNclRSRHpsMXZvdkh0YndI?=
- =?utf-8?B?Q0pUVnc0MjVPd1ZLSWQ2WElrT24yeTU0RWZJZDd6UzlFMEFHT3B4aGFzeDN4?=
- =?utf-8?B?Rm82UklPZkJHWjlVeGRnWDVidlUzMTV6Qm82cjRqVDA2NkFIUWpHL1pvTktV?=
- =?utf-8?B?RlpmOHM5QmJMNTJNMG52bXlXa2FDd2k5dU44VEdaU3VUd2l4dC9hWmlJMlQz?=
- =?utf-8?Q?UIDPDUzAU8NUyEc++R?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5b25a79-51b0-4252-fe82-08df2e7826c0
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 07:02:49.2234
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9jT/NghJk113h5uh/NSOnFORyt6t9rbBUE67FBo4MS+DCYUR68kkPc9SXAAyc690
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR12MB999219
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261020065546epcas5p35f2faba15dd3ba959a66cc9b7df8daa8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20261020065546epcas5p35f2faba15dd3ba959a66cc9b7df8daa8
+References: <CGME20261020065546epcas5p35f2faba15dd3ba959a66cc9b7df8daa8@epcas5p3.samsung.com>
 
-On 10/17/26 15:00, Omokefe Emmanuel Onanaroghene wrote:
-> kernel-doc reports prototype mismatches for the cgs register accessor
-> typedefs, e.g.:
-> 
->   drivers/gpu/drm/amd/include/cgs_common.h:89: expecting prototype
->   for cgs_read_register(). Prototype was for uint32_t() instead
-> 
-> Each of the four typedefs is used exactly once, as
-> the type of a struct cgs_ops member, so they are merely an
-> unnecessary layer of indirection. Drop the typedefs along with their
-> kernel-doc comments and write the function pointer types directly in
-> struct cgs_ops.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Link: https://lore.kernel.org/all/981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com/
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Add device tree clock binding definitions for CMU_TOP & CMU_PERIC
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+---
+ .../clock/samsung,exynos8855-clock.yaml       | 133 +++++++++++
+ .../dt-bindings/clock/samsung,exynos8855.h    | 206 ++++++++++++++++++
+ 2 files changed, 339 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+ create mode 100644 include/dt-bindings/clock/samsung,exynos8855.h
 
-> ---
->  drivers/gpu/drm/amd/include/cgs_common.h | 60 +++++++-----------------
->  1 file changed, 18 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
-> index f40b6a03fe63..1750401c7d08 100644
-> --- a/drivers/gpu/drm/amd/include/cgs_common.h
-> +++ b/drivers/gpu/drm/amd/include/cgs_common.h
-> @@ -80,43 +80,6 @@ struct cgs_firmware_info {
-> 
->  typedef unsigned long cgs_handle_t;
-> 
-> -/**
-> - * cgs_read_register() - Read an MMIO register
-> - * @cgs_device:        opaque device handle
-> - * @offset:    register offset
-> - *
-> - * Return:  register value
-> - */
-> -typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
-> -
-> -/**
-> - * cgs_write_register() - Write an MMIO register
-> - * @cgs_device:        opaque device handle
-> - * @offset:    register offset
-> - * @value:     register value
-> - */
-> -typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned offset,
-> -                                    uint32_t value);
-> -
-> -/**
-> - * cgs_read_ind_register() - Read an indirect register
-> - * @cgs_device:        opaque device handle
-> - * @offset:    register offset
-> - *
-> - * Return:  register value
-> - */
-> -typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-> -                                           unsigned index);
-> -
-> -/**
-> - * cgs_write_ind_register() - Write an indirect register
-> - * @cgs_device:        opaque device handle
-> - * @offset:    register offset
-> - * @value:     register value
-> - */
-> -typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-> -                                        unsigned index, uint32_t value);
-> -
->  #define CGS_REG_FIELD_SHIFT(reg, field) reg##__##field##__SHIFT
->  #define CGS_REG_FIELD_MASK(reg, field) reg##__##field##_MASK
-> 
-> @@ -137,14 +100,27 @@ typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
->                                      enum cgs_ucode_id type,
->                                      struct cgs_firmware_info *info);
-> 
-> +/**
-> + * struct cgs_ops - Common Graphics Services operations
-> + * @read_register: read register value
-> + * @write_register: write register value
-> + * @read_ind_register: read indirect register value
-> + * @write_ind_register: write indirect register value
-> + * @get_firmware_info: get firmware information
-> + */
->  struct cgs_ops {
->         /* MMIO access */
-> -       cgs_read_register_t read_register;
-> -       cgs_write_register_t write_register;
-> -       cgs_read_ind_register_t read_ind_register;
-> -       cgs_write_ind_register_t write_ind_register;
-> +       uint32_t (*read_register)(struct cgs_device *cgs_device, unsigned int offset);
-> +       void (*write_register)(struct cgs_device *cgs_device, unsigned int offset,
-> +                              uint32_t value);
-> +       uint32_t (*read_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-> +                                     unsigned int index);
-> +       void (*write_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-> +                                  unsigned int index, uint32_t value);
->         /* Firmware Info */
-> -       cgs_get_firmware_info get_firmware_info;
-> +       int (*get_firmware_info)(struct cgs_device *cgs_device,
-> +                                enum cgs_ucode_id type,
-> +                                struct cgs_firmware_info *info);
->  };
-> 
->  struct cgs_os_ops; /* To be define in OS-specific CGS header */
-> --
-> 2.43.0
-> 
+diff --git a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+new file mode 100644
+index 000000000000..486b7347ad44
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
+@@ -0,0 +1,133 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/samsung,exynos8855-clock.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung Exynos 8855 SoC clock controller
++
++maintainers:
++  - Raghav Sharma <raghav.s@samsung.com>
++
++description: |
++  Exynos 8855 clock controller is comprised of several CMU units, generating
++  clocks for different domains. Those CMU units are modeled as separate device
++  tree nodes, and might depend on each other. Root clocks in that clock tree are
++  two external clocks:: OSCCLK/XTCXO (76.8 MHz) and RTCCLK/XrtcXTI (32768 Hz).
++  The external OSCCLK must be defined as fixed-rate clock in dts.
++
++  CMU_TOP is a top-level CMU, where all base clocks are prepared using PLLs and
++  dividers; all other clocks of function blocks (other CMUs) are usually
++  derived from CMU_TOP.
++
++  Each clock is assigned an identifier and client nodes can use this identifier
++  to specify the clock which they consume. All clocks available for usage
++  in clock consumer nodes are defined as preprocessor macros in
++  'include/dt-bindings/clock/samsung,exynos8855.h' header.
++
++properties:
++  compatible:
++    enum:
++      - samsung,exynos8855-cmu-peric
++      - samsung,exynos8855-cmu-top
++
++  clocks:
++    minItems: 1
++    maxItems: 4
++
++  clock-names:
++    minItems: 1
++    maxItems: 4
++
++  "#clock-cells":
++    const: 1
++
++  reg:
++    maxItems: 1
++
++  samsung,sysreg:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to system registers interface.
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: samsung,exynos8855-cmu-peric
++
++    then:
++      properties:
++        clocks:
++          items:
++            - description: External reference clock (76.8 MHz)
++            - description: CMU_PERIC NOC clock (from CMU_TOP)
++            - description: CMU_PERIC MMC_CARD clock (from CMU_TOP)
++            - description: CMU_PERIC IP clock (from CMU_TOP)
++
++        clock-names:
++          items:
++            - const: oscclk
++            - const: bus
++            - const: mmc_card
++            - const: ip
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: samsung,exynos8855-cmu-top
++
++    then:
++      properties:
++        clocks:
++          items:
++            - description: External reference clock (76.8 MHz)
++
++        clock-names:
++          items:
++            - const: oscclk
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: samsung,exynos8855-cmu-top
++    then:
++      properties:
++        samsung,sysreg: false
++    else:
++      required:
++        - samsung,sysreg
++
++required:
++  - compatible
++  - "#clock-cells"
++  - clocks
++  - clock-names
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/samsung,exynos8855.h>
++
++    cmu_peric0: clock-controller@15400000 {
++        compatible = "samsung,exynos8855-cmu-peric";
++        reg = <0x15400000 0x8000>;
++        #clock-cells = <1>;
++
++        clocks = <&xtcxo>,
++                 <&cmu_top CLKCMU_DOUT_PERIC_NOC>,
++                 <&cmu_top CLKCMU_DOUT_PERIC_MMC_CARD>,
++                 <&cmu_top CLKCMU_DOUT_PERIC_IP>;
++        clock-names = "oscclk",
++                      "bus",
++                      "mmc_card",
++                      "ip";
++        samsung,sysreg = <&sysreg_peric>;
++    };
++
++...
+diff --git a/include/dt-bindings/clock/samsung,exynos8855.h b/include/dt-bindings/clock/samsung,exynos8855.h
+new file mode 100644
+index 000000000000..cd445bb45070
+--- /dev/null
++++ b/include/dt-bindings/clock/samsung,exynos8855.h
+@@ -0,0 +1,206 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2026 Samsung Electronics Co., Ltd.
++ * Author: Raghav Sharma <raghav.s@samsung.com>
++ *
++ * Device Tree binding constants for Exynos 8855 clock controller.
++ */
++
++#ifndef _DT_BINDINGS_CLOCK_EXYNOS8855_H
++#define _DT_BINDINGS_CLOCK_EXYNOS8855_H
++
++/* CMU_TOP  */
++#define FOUT_SHARED0_PLL		   1
++#define FOUT_SHARED1_PLL		   2
++#define FOUT_SHARED2_PLL		   3
++#define FOUT_SHARED3_PLL		   4
++#define FOUT_SHARED4_PLL		   5
++#define FOUT_MMC_PLL			   6
++#define MOUT_SHARED0_PLL		   7
++#define MOUT_SHARED1_PLL		   8
++#define MOUT_SHARED2_PLL		   9
++#define MOUT_SHARED3_PLL		   10
++#define MOUT_SHARED4_PLL		   11
++#define MOUT_MMC_PLL			   12
++#define CLKCMU_MOUT_PERIC_NOC              13
++#define CLKCMU_MOUT_PERIC_MMC_CARD         14
++#define CLKCMU_MOUT_PERIC_IP               15
++#define CLKCMU_DOUT_PERIC_NOC              16
++#define CLKCMU_DOUT_PERIC_MMC_CARD         17
++#define CLKCMU_DOUT_PERIC_IP               18
++#define DOUT_SHARED0_DIV1		   19
++#define DOUT_SHARED0_DIV2		   20
++#define DOUT_SHARED0_DIV3		   21
++#define DOUT_SHARED0_DIV4		   22
++#define DOUT_SHARED1_DIV1		   23
++#define DOUT_SHARED1_DIV2		   24
++#define DOUT_SHARED1_DIV3		   25
++#define DOUT_SHARED1_DIV4		   26
++#define DOUT_SHARED2_DIV1		   27
++#define DOUT_SHARED2_DIV2		   28
++#define DOUT_SHARED2_DIV3		   29
++#define DOUT_SHARED2_DIV4		   30
++#define DOUT_SHARED3_DIV1		   31
++#define DOUT_SHARED3_DIV2		   32
++#define DOUT_SHARED3_DIV3		   33
++#define DOUT_SHARED3_DIV4		   34
++#define DOUT_SHARED4_DIV1		   35
++#define DOUT_SHARED4_DIV2		   36
++#define DOUT_SHARED4_DIV3		   37
++#define DOUT_SHARED4_DIV4		   38
++#define FOUT_MMC_PLL_DIV1                  39
++#define FOUT_MMC_PLL_DIV2                  40
++#define CLKCMU_MOUT_PERIS_GIC              41
++#define CLKCMU_MOUT_PERIS_NOC              42
++#define CLKCMU_DOUT_PERIS_GIC              43
++#define CLKCMU_DOUT_PERIS_NOC              44
++#define FOUT_MMC_PLL_CLKOUT_DIV2           45
++#define CLKCMU_MOUT_HSI_NOC                46
++#define CLKCMU_MOUT_HSI_UFS_EMBD           47
++#define CLKCMU_DOUT_HSI_NOC                48
++#define CLKCMU_DOUT_HSI_UFS_EMBD           49
++#define CLKCMU_MOUT_USB_NOC                50
++#define CLKCMU_MOUT_USB_USB20DRD           51
++#define CLKCMU_DOUT_USB_NOC                52
++#define CLKCMU_DOUT_USB_USB20DRD           53
++#define FOUT_MIF_SWITCH_PLL		   54
++#define MOUT_MIF_SWITCH_PLL		   55
++#define FOUT_MMC_PLL_DIV3                  56
++#define FOUT_MMC_PLL_DIV4                  57
++#define FOUT_MIF_SWITCH_PLL_DIV1           58
++#define FOUT_MIF_SWITCH_PLL_DIV2           59
++#define FOUT_MIF_SWITCH_PLL_DIV3           60
++#define FOUT_MIF_SWITCH_PLL_DIV4           61
++#define CLKCMU_MOUT_AUD_CPU                62
++#define CLKCMU_MOUT_AUD_NOC                63
++#define CLKCMU_MOUT_CPUCL0_SWITCH          64
++#define CLKCMU_MOUT_CPUCL0_NOCP            65
++#define CLKCMU_MOUT_DSU_SWITCH             66
++#define CLKCMU_MOUT_CPUCL1_SWITCH          67
++#define CLKCMU_MOUT_CIS_CLK0               68
++#define CLKCMU_MOUT_CIS_CLK1               69
++#define CLKCMU_MOUT_CIS_CLK2               70
++#define CLKCMU_MOUT_CIS_CLK3               71
++#define CLKCMU_MOUT_CIS_CLK4               72
++#define CLKCMU_MOUT_CMU_BOOST_TOP          73
++#define CLKCMU_MOUT_CMU_BOOST              74
++#define CLKCMU_MOUT_CMU_BOOST_CPU          75
++#define CLKCMU_MOUT_CMU_BOOST_MIF0         76
++#define CLKCMU_MOUT_CSIS_NOC               77
++#define CLKCMU_MOUT_CSTAT_NOC              78
++#define CLKCMU_MOUT_CSTAT_BYRP             79
++#define CLKCMU_MOUT_DPU_NOC                80
++#define CLKCMU_MOUT_G3DCORE_SWITCH         81
++#define CLKCMU_MOUT_M2M_NOC                82
++#define CLKCMU_MOUT_M2M_JPEG               83
++#define CLKCMU_MOUT_M2M_GDC                84
++#define CLKCMU_MOUT_MIF1_NOCP              85
++#define CLKCMU_MOUT_MFC_NOC                86
++#define CLKCMU_MOUT_MIF0_NOCP              87
++#define CLKCMU_MOUT_NOCL0_NOC              88
++#define CLKCMU_MOUT_NOCL1A_NOC             89
++#define CLKCMU_MOUT_RGBP_NOC               90
++#define CLKCMU_MOUT_YUVP_NOC               91
++#define CLKCMU_MOUT_ALIVE_NOC              92
++#define CLKCMU_MOUT_CSIS_DCPHY             93
++#define CLKCMU_MOUT_CSIS_OIS               94
++#define CLKCMU_MOUT_ICPU_NOCD_0            95
++#define CLKCMU_MOUT_ICPU_NOCD_1            96
++#define CLKCMU_MOUT_GNPU0_NOC              97
++#define CLKCMU_MOUT_GNPU0_XMAA             98
++#define CLKCMU_MOUT_SDMA_NOC               99
++#define CLKCMU_MOUT_DNC_HTU               100
++#define CLKCMU_MOUT_DNC_NOC               101
++#define CLKCMU_MOUT_PSP_NOC               102
++#define CLKCMU_MOUT_G3D_NOCP              103
++#define CLKCMU_MOUT_USI_NOC               104
++#define CLKCMU_MOUT_USI_IP                105
++#define CLKCMU_MOUT_CPUCL0_DBG_NOC        106
++#define CLKCMU_MOUT_BOOST_RCO             107
++#define CLKCMU_MOUT_MIF0_SWITCH           108
++#define CLKCMU_MOUT_MIF1_SWITCH           109
++#define CLKCMU_MOUT_NOCL1B_NOC            110
++#define CLKCMU_MOUT_CPUCL2_SWITCH         111
++#define CLKCMU_MOUT_CMU_BOOST_MIF1        112
++#define CLKCMU_MOUT_CSTAT_MCSC            113
++#define CLKCMU_MOUT_G3D_HTU               114
++#define CLKCMU_DOUT_AUD_CPU               115
++#define CLKCMU_DOUT_AUD_NOC               116
++#define CLKCMU_DOUT_CPUCL0_SWITCH         117
++#define CLKCMU_DOUT_CPUCL0_NOCP           118
++#define CLKCMU_DOUT_DSU_SWITCH            119
++#define CLKCMU_DOUT_CPUCL1_SWITCH         120
++#define CLKCMU_DOUT_CIS_CLK0              121
++#define CLKCMU_DOUT_CIS_CLK1              122
++#define CLKCMU_DOUT_CIS_CLK2              123
++#define CLKCMU_DOUT_CIS_CLK3              124
++#define CLKCMU_DOUT_CIS_CLK4              125
++#define CLKCMU_DOUT_CMU_BOOST_TOP         126
++#define CLKCMU_DOUT_CMU_BOOST             127
++#define CLKCMU_DOUT_CMU_BOOST_CPU         128
++#define CLKCMU_DOUT_CMU_BOOST_MIF0        129
++#define CLKCMU_DOUT_CSIS_NOC              130
++#define CLKCMU_DOUT_CSTAT_NOC             131
++#define CLKCMU_DOUT_CSTAT_BYRP            132
++#define CLKCMU_DOUT_DPU_NOC               133
++#define CLKCMU_DOUT_G3DCORE_SWITCH        134
++#define CLKCMU_DOUT_M2M_NOC               135
++#define CLKCMU_DOUT_M2M_JPEG              136
++#define CLKCMU_DOUT_M2M_GDC               137
++#define CLKCMU_DOUT_MIF1_NOCP             138
++#define CLKCMU_DOUT_MFC_NOC               139
++#define CLKCMU_DOUT_MIF0_NOCP             140
++#define CLKCMU_DOUT_NOCL0_NOC             141
++#define CLKCMU_DOUT_NOCL1A_NOC            142
++#define CLKCMU_DOUT_RGBP_NOC              143
++#define CLKCMU_DOUT_YUVP_NOC              144
++#define CLKCMU_DOUT_ALIVE_NOC             145
++#define CLKCMU_DOUT_CSIS_DCPHY            146
++#define CLKCMU_DOUT_CSIS_OIS              147
++#define CLKCMU_DOUT_ICPU_NOCD_0           148
++#define CLKCMU_DOUT_ICPU_NOCD_1           149
++#define CLKCMU_DOUT_GNPU0_NOC             150
++#define CLKCMU_DOUT_GNPU0_XMAA            151
++#define CLKCMU_DOUT_SDMA_NOC              152
++#define CLKCMU_DOUT_DNC_HTU               153
++#define CLKCMU_DOUT_DNC_NOC               154
++#define CLKCMU_DOUT_PSP_NOC               155
++#define CLKCMU_DOUT_G3D_NOCP              156
++#define CLKCMU_DOUT_USI_NOC               157
++#define CLKCMU_DOUT_USI_IP                158
++#define CLKCMU_DOUT_CPUCL0_DBG_NOC        159
++#define CLKCMU_DOUT_NOCL1B_NOC            160
++#define CLKCMU_DOUT_CPUCL2_SWITCH         161
++#define CLKCMU_DOUT_CMU_BOOST_MIF1        162
++#define CLKCMU_DOUT_CSTAT_MCSC            163
++#define CLKCMU_DOUT_G3D_HTU               164
++
++/* CMU_PERIC */
++#define CLK_MOUT_PERIC_IP_USER             1
++#define CLK_MOUT_PERIC_MMC_CARD_USER       2
++#define CLK_MOUT_PERIC_NOC_USER            3
++#define CLK_MOUT_PERIC_I2C                 4
++#define CLK_MOUT_PERIC_UART_DBG            5
++#define CLK_MOUT_PERIC_USI00               6
++#define CLK_MOUT_PERIC_USI01               7
++#define CLK_MOUT_PERIC_USI02               8
++#define CLK_MOUT_PERIC_USI03               9
++#define CLK_MOUT_PERIC_USI04               10
++#define CLK_MOUT_PERIC_USI09_USI_OIS       11
++#define CLK_MOUT_PERIC_USI10_USI_OIS       12
++#define CLK_DOUT_PERIC_NOCP                13
++#define CLK_DOUT_PERIC_UART_DBG            14
++#define CLK_DOUT_PERIC_USI00_USI           15
++#define CLK_DOUT_PERIC_USI01_USI           16
++#define CLK_DOUT_PERIC_USI02_USI           17
++#define CLK_DOUT_PERIC_USI03_USI           18
++#define CLK_DOUT_PERIC_USI04_USI           19
++#define CLK_DOUT_PERIC_USI09_USI_OIS       20
++#define CLK_DOUT_PERIC_USI10_USI_OIS       21
++#define CLK_DOUT_PERIC_USI_I2C             22
++#define CLK_GOUT_CMU_PERIC                 23
++#define CLK_GOUT_SYSREG_PERIC              24
++#define CLK_GOUT_UART_DBG_PERIC            25
++#define CLK_GOUT_USI_PERIC                 26
++
++#endif /* _DT_BINDINGS_CLOCK_EXYNOS8855_H */
+-- 
+2.34.1
+
 
