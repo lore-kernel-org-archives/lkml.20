@@ -1,56 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525114;
-	b=CkPCySlKUddLxcE8CYq9Z7owuYcPJF/i/8xpVIl8TbY+XSrTOIHNpc2mqih2LGOOkl1r
-	 OFNUSS/vk5HqY9GEBWOzSnJ2uZ4G0QbkJ6ot/BT4kwDxCGCTfUCcfceL8bdWy8DEHNzgk
-	 DH4SBkyNBPJF6IVwEGVZTCjETq4bQYnzs/tKh8tQoRMQ/OPty2pd7TKhFAgahIiD4JLJi
-	 oSOAwyYsorsg5kw8MEMmyT2rO65CZ+fT9qaA7zRvojC9SsVYk6qdg4YpsHZopuh79t8r4
-	 0+loOtuq+SOLBgybgn30YWGUEzoyWhWni1JOm+0Eo5r2YUIES2T69j0g+1HVn2pRs7A==
+	t=1792525144;
+	b=gBnSdST4TIZQFGJ7k8z6/gIGxeUFfQBxRfPWtLmUElohay0F6BZlSkUVYuXrtSKTQbpx
+	 n3Xh9oqWvsORwHbTVDRRijpbMQbuCo2pSlynzZsvl1ackxnIlY9DMvGVndGfx4DkEEo+o
+	 iQ/z4jBUvIuEkBtljvbawMXJmPMq28m51t9q69IKXmuB7Ge/kfdAtOv8qdPaL1X+7zAKC
+	 1E/4gOKO3OCcbCvuRfC8XKDavLtDmFv8avi8v/KgV+0ZSTm1lhSbH7oZrFrSCtCiEhNFJ
+	 5yHc6EIRuA6KD7eZrxi8b2cANetgLHuwBupERuO5Ppw9+GzfJftbBB4kaj8y4N6Bk1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525114;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=y3oc0N552fH43ATGj4dRhIJ5VZELJgPpuDPjWuSNw44=;
-	b=RKTp5OH1SGXxV8Hs7FsgJfMBYVTXnd68D6n6AKAaNxplsKHOICixNkowi3UcGuMe8eoj
-	 Ok+/I3+I0VabQ1TBOg/yp29VO7EBSZplNrrWN1FbzLmXP5hPi5Z/Z9oBKaCAci9DyJ+TC
-	 gaGELKtgOG4HzVQ1x6SkaIpdVwTwjv1fyNuoE2wuSvfxNN+qT7jWz0ILCNKMLlebyRdQY
-	 NKR2jD4Vp8CBUqbwA90/MqPPZg6jHNoM5OmwOLdsccpxVo4z4finDcOJPUFjVL3P/1+hR
-	 XtJj1FgAF9LOlktDevbb0mWepPf/nDaPEnT201W0odTPF+joADDQY0RtOld4EOYIO3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525144;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JkjH/Sgg5VxVUFVBkqKACHe5NY0hXmzsOqepQjU71sU=;
+	b=yVbypzYGTd7QFTogcpRC9qyVa6t9KxyIADglYbyqb+sRZDzv16pPqGVPdS0o3gjEb+5n
+	 erzWLNgGMuY7QaCJRWivuzXMbFyqwxCKMcdTWtuc/A2ENeroLcUyep2GKBAAqFhFvLATB
+	 Z7VNWlYXlrlznoVKv1zyvxo9MqRrdTOmgUnVk+XXtSM5zoQbHsl0fGAMR/I9obtnPOCjl
+	 U504V8IJ96VTnIQvmS0Y8Wpgc85QfMy/XPh8BerOM39wMPohwZgLmr0aLhxc4ltd9r4Xe
+	 ONrLlXzmvsU60+io6jbvxgKnlfvOx0lW+D1oUDL+KxWgdLsIljfQzN9Za2ji1WoutRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=F5BWplZD;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ukt7ZNcO;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="YwG4gyY/";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEDC606A319;
-	Tue, 20 Oct 2026 19:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEEDC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D1C606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:39:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8D1C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=F5BWplZD
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id AC0BF534098B;
-	Tue, 20 Oct 2026 21:38:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792525105;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ukt7ZNcO;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YwG4gyY/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792525143;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=y3oc0N552fH43ATGj4dRhIJ5VZELJgPpuDPjWuSNw44=;
-	b=F5BWplZDBBPiCPe7Psv3d2lqQ5sQI5mWrNkQu0L6Ai7r1JTfQO1GOKjQIh4Y8Kphi8m05i
-	rplpux6Oe5GDfARJ9xhdS2JkX6PCjhgA1mu5c9hZzqXto9c/exQEgLFXjykT7sEm9pHGSw
-	wsH7Ofazd0uYsaCAv9wJdVucED9icqc=
-Message-ID: <b5a06692-59f9-4b51-bbbf-71af39ad1f14@ixit.cz>
-Date: Tue, 20 Oct 2026 21:38:25 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=JkjH/Sgg5VxVUFVBkqKACHe5NY0hXmzsOqepQjU71sU=;
+	b=Ukt7ZNcOMNNjEZUH1JFRD4glAREXo4b/q6SnBjPJNSbhPw8HKYJdUj33MR/Oa5v6hvouWs
+	LBdU4nwlQeCjKTYyqW7nNA2794lZqbwfCKBYJPOqrg8mcTsd5r29UDcLC4ZcHOa9qTNGaU
+	vZHOcwDkZ8yuZ34Q1kElgvKOT9Gyqqk=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-81-tvP3ZBZSNUqvXGSxOz5apA-1; Tue, 20 Oct 2026 15:38:59 -0400
+X-MC-Unique: tvP3ZBZSNUqvXGSxOz5apA-1
+X-Mimecast-MFC-AGG-ID: tvP3ZBZSNUqvXGSxOz5apA_1792525139
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af5a07314so2345935f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792525138; x=1793129938; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JkjH/Sgg5VxVUFVBkqKACHe5NY0hXmzsOqepQjU71sU=;
+        b=YwG4gyY/ENGGcCpJomkCZlMTnbLuumIdx/YPQEbXTc6mcrNQIGVoYqhUPsb2ciyYi6
+         dWF2+TOjfKrDOnMQrSld4XieEBCV9y4sGWE23WnyZN4rWdVJcCjUtqQ8Gv+v/4U9upww
+         B/9ahfxfMjpN4QW9vybfDsi28gOPkbNLD51RFgskjTuzajsO2WE+NgyOzXE6BzOd/lPY
+         zYKWRcOP0DqtbiXEmzt+b8fLjKgJRU4x60osFysMs1sw9xQOylAvV4LprEyFWA+AKIii
+         nO18HsQ++KofGc7S4bJwE/86uHMrshLR0LEZlKwFrKDyALFud/RsaWebstj4sPSvP+6N
+         MTgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792525138; x=1793129938;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JkjH/Sgg5VxVUFVBkqKACHe5NY0hXmzsOqepQjU71sU=;
+        b=ULSDQ/LINe5c3nLL9kwtkyNNEBtYTknrIjdhp498BqpoZW61dFyCZcqKW4LoYpo/xP
+         44XR6vJb0lAOxiljFxJNWLkqORs6U9Q6PZ0zZ1CmeSV2t7dDrS+VR89RAdsEdjzrtMIE
+         3QdyiQX2uoXog2F3RYLol7BF1MHu1JTzfNUIegEYd/m6o4I004Tl4DvAZY+Lbi7SUS22
+         bC29LS/6k/RnXMzQgZZXACgPhC/OODZmJWqV4Z/TyOOX1tIUrH/VF50Qxe9w+0fx8O33
+         Bd/vDh+o39h7OS7FNbWrapCyhqPJNvafhpPhmWqqKB/N6ZiYtjLC28gObFPnxXYQ9wj7
+         ImjA==
+X-Gm-Message-State: AFq9FYLDl0xxNJi9Gu1Xsa316iGIjRJajVsCaZhlNfr+5zEpgmhu94EL
+	IGuyv86vI9822BlJEAtmbUToyM7P91QlSbgx6uqCdnAOfiYYIGK3Oy3X0HDZnBliYsC9uBJklgR
+	R4SylQ1V14ye7nALIOPn7PaNKPG5NVa+YnGIl6ugQWlG656sVul70xiwJSHJH8b6EjA==
+X-Gm-Gg: AYBFou2De67LWphRCkRkjY/U9ZDvI3HnYgKSiaVIgyYmJia/eShW/+QZ3b/qgftlPG7
+	R+gmfigsMdDIApnNAW1PqM3O81h4Bm2WoTu0i1djf3JMb1ickBgeod8dtvc+xXCSeNTlUP1YQa9
+	iQ0zNDGpsG+Iny3BAwE/s726vudCChUH/MsRLrRhxEc7NvPdg+1klxQnt0hjwFUWN4GxO5MBE70
+	Kf0DhFS0A3RrPT/M96T/EkUAsQqqikyJzYHRxYnrgBXFGhhCqC13M3rAMpHcbU0hE5lVlCspdhn
+	B24srIDfANYVF96vqzMBIT1m38T5H/d1MYBItyWIhV1go1a53sx8O048pYQVZWA/dBy6lA==
+X-Received: by 2002:a05:6000:1b8f:b0:487:72f:fb41 with SMTP id ffacd0b85a97d-48e07fa0e82mr18492836f8f.39.1792525138267;
+        Tue, 20 Oct 2026 12:38:58 -0700 (PDT)
+X-Received: by 2002:a05:6000:1b8f:b0:487:72f:fb41 with SMTP id ffacd0b85a97d-48e07fa0e82mr18492786f8f.39.1792525137659;
+        Tue, 20 Oct 2026 12:38:57 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cbfsm425597f8f.23.2026.10.20.12.38.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 12:38:56 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:38:53 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Chris Arges <carges@cloudflare.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net v3 1/8] net: account for ingress-resolved virtio net
+ hdr state
+Message-ID: <20261020153650-mutt-send-email-mst@kernel.org>
+References: <cover.1792411304.git.mst@redhat.com>
+ <b1dce3e055b973bd87bdbdc9e9729971fa383326.1792411304.git.mst@redhat.com>
+ <willemdebruijn.kernel.26f697d5a674b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,153 +126,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next] wifi: ath10k: fix status of bundled mgmt tx
- completions
-To: shunsuke@nagashi.ma, Jeff Johnson <jjohnson@kernel.org>
-Cc: Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org,
- ath10k@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260927-ath10k-bundle-status-v1-1-a1eea048ada9@nagashi.ma>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260927-ath10k-bundle-status-v1-1-a1eea048ada9@nagashi.ma>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <willemdebruijn.kernel.26f697d5a674b@gmail.com>
 
-On 27/09/2026 14:10, Shunsuke Nagashima via B4 Relay wrote:
-> From: Shunsuke Nagashima <shunsuke@nagashi.ma>
+On Tue, Oct 20, 2026 at 03:27:46PM -0400, Willem de Bruijn wrote:
+> Michael S. Tsirkin wrote:
+> > The following patch will add ingress resolution of uncommon virtio net
+> > hdr checksum metadata (software checksum completion at ingress) which
+> > adds performance overhead to the packet processing.
+> > 
+> > We should make it visible, so a hypothetical workload relying on
+> > uncommon metadata can be distinguished from none at all. This way issues
+> > in the parsing will be reported and not quietly pay the host-CPU
+> > checksum overhead instead of offload.
+> > 
+> > Flip every call to virtio_net_hdr_to_skb to test for negative errno
+> > only, and have tun count these events per device as rx_csum_sw, exposed
+> > via ethtool -S.
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > ---
+> >  drivers/net/tap.c        |  4 ++--
+> >  drivers/net/tun.c        | 41 ++++++++++++++++++++++++++++++++++++++--
+> >  drivers/net/virtio_net.c |  2 +-
+> >  net/packet/af_packet.c   |  4 ++--
+> >  4 files changed, 44 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+> > index ff67d99deb39..73e883394446 100644
+> > --- a/drivers/net/tap.c
+> > +++ b/drivers/net/tap.c
+> > @@ -649,7 +649,7 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
+> >  
+> >  	if (vnet_hdr_len) {
+> >  		err = tun_vnet_hdr_to_skb(q->flags, skb, &vnet_hdr);
+> > -		if (err) {
+> > +		if (err < 0) {
+> >  			rcu_read_unlock();
+> >  			drop_reason = SKB_DROP_REASON_DEV_HDR;
+> >  			goto err_kfree;
+> > @@ -1084,7 +1084,7 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+> >  
+> >  	if (vnet_hdr_len) {
+> >  		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
+> > -		if (err) {
+> > +		if (err < 0) {
+> >  			rcu_read_unlock();
+> >  			goto err_kfree;
+> >  		}
 > 
-> ath10k_wmi_event_mgmt_tx_bundle_compl() takes the completion status of
-> each report from desc_ids[i] instead of status[i]. Any non-zero status
-> is handled as "not acked", so a bundled report is marked as acked if
-> and only if its descriptor id is 0, whatever status the firmware
-> returned.
+> similar to tun, should tap count this event?
 > 
-> The bundle handler read status[i] when it was added in
-> commit cc123fac978f ("ath10k: Handle bundled tx completion for
-> management frames"). The commit named in the Fixes tag replaced it
-> with desc_ids[i].
+> > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> > index 242899f7fd07..19cb443c89b0 100644
+> > --- a/drivers/net/tun.c
+> > +++ b/drivers/net/tun.c
+> > @@ -210,6 +210,7 @@ struct tun_struct {
+> >  	u32 flow_count;
+> >  	u32 rx_batched;
+> >  	atomic_long_t rx_frame_errors;
+> > +	atomic64_t rx_csum_sw;
 > 
-> Seen on WCN3990 in station mode with a WPA3-SAE AP. This firmware
-> advertises mgmt-tx-by-reference and completes some management frames
-> in bundles. A debug build printed status[] for each bundled report and
-> could switch between the old and the fixed line. A sniffer watched the
-> AP channel. The firmware status[] matched the capture in all 39
-> bundled reports (15 with the old line, 24 with the fixed one): the 30
-> frames with status[] 1 were never seen on that channel, and the 9
-> frames with status[] 0 were acked.
-> 
-> With the old line, 6 of the 15 reports gave mac80211 the wrong ack
-> result:
-> 
->   - 4 frames that were never seen on the air were reported as acked.
->     Each report arrived after mac80211 had already timed out the
->     authentication, so they had no visible effect in these runs.
->   - 2 SAE commit frames that were acked on the air were reported as not
->     acked. They were the second and third of three tries. mac80211 gave
->     up on the authentication 239 us after the last report, although the
->     AP's SAE replies came about 5 to 8 ms later, so that connection
->     attempt failed.
-> 
-> Take the status from status[i].
-> 
-> Tested-on: WCN3990 hw1.0 SNOC WLAN.HL.2.0.c10-00459-QCAHLSWMTPLZ-1
-> 
-> Fixes: 4b816f170b1f ("ath10k: add support for ack rssi value of management tx packets")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM sparse
-> Signed-off-by: Shunsuke Nagashima <shunsuke@nagashi.ma>
-> ---
-> Tested on a comma four (WCN3990) with a v7.2-based kernel
-> (7.2.0-vamos-7626c37). It also carries three out-of-tree ath10k
-> patches (MAC address, in-order rx A-MSDU, SET_KEY wait); none of
-> them touch wmi.c or wmi-tlv.c.
-> 
-> - Debug build that prints status[] per bundled report and can switch
->    between the old and the fixed line, with a sniffer on the AP
->    channel: 6 connect/reconnect runs (5 WPA3-SAE, 1 WPA2-PSK),
->    39 bundled reports.
-> - Build with only this patch: 6 connect/reconnect runs (5 WPA3-SAE,
->    1 WPA2-PSK), no debug output. No warnings, no firmware crashes.
->    One first connect failed and one reconnect was slow, for a
->    different reason that was also seen with the old line: the AP did
->    not ack, and the firmware held back some Auth frames.
-> 
-> Not tested: status 2 or 3 inside a bundle (only 0 and 1 were seen),
-> AP mode, other chips and firmware versions.
-> 
-> I worked on this with Claude (claude-opus-5-5) and Codex
-> (gpt-6-astra). They helped go through the logs and sniffer captures,
-> write the debug build, and write the English of this changelog. I ran
-> the tests on the device and reviewed the change myself.
-> ---
->   drivers/net/wireless/ath/ath10k/wmi.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> is a normal (and cheaper on 32b platforms) atomic_t or atomic_long_t sufficient?
 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+well it can overflow easily. i don't know that we care that a slow
+path will be even a bit slower on these ancient platforms. correct
+reporting seems more important.
 
+> >  	struct bpf_prog __rcu *xdp_prog;
+> >  	struct tun_prog __rcu *steering_prog;
+> >  	struct tun_prog __rcu *filter_prog;
+> > @@ -1935,11 +1936,16 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
+> >  		break;
+> >  	}
+> >  
+> > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr)) {
+> > +	err = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr);
+> > +	if (err < 0) {
+> >  		atomic_long_inc(&tun->rx_frame_errors);
+> >  		err = -EINVAL;
+> >  		goto free_skb;
+> >  	}
+> > +	if (err > 0) {
 > 
-> diff --git a/drivers/net/wireless/ath/ath10k/wmi.c b/drivers/net/wireless/ath/ath10k/wmi.c
-> index e57588c19..67be6e817 100644
-> --- a/drivers/net/wireless/ath/ath10k/wmi.c
-> +++ b/drivers/net/wireless/ath/ath10k/wmi.c
-> @@ -2512,7 +2512,7 @@ int ath10k_wmi_event_mgmt_tx_bundle_compl(struct ath10k *ar, struct sk_buff *skb
->   	for (i = 0; i < num_reports; i++) {
->   		memset(&param, 0, sizeof(struct mgmt_tx_compl_params));
->   		param.desc_id = __le32_to_cpu(arg.desc_ids[i]);
-> -		param.status = __le32_to_cpu(arg.desc_ids[i]);
-> +		param.status = __le32_to_cpu(arg.status[i]);
->   
->   		if (test_bit(WMI_SERVICE_TX_DATA_ACK_RSSI, ar->wmi.svc_map))
->   			param.ack_rssi = __le32_to_cpu(arg.ack_rssi[i]);
+> } else if (err > 0) {
 > 
-> ---
-> base-commit: 753baa59527f8e606c49eac25692b8b08918a3a9
-> change-id: 20260927-ath10k-bundle-status-24113117b683
+> > +		atomic64_inc(&tun->rx_csum_sw);
+> > +		err = 0;
+> > +	}
+> >  
+> >  	if ((tun->flags & TUN_TYPE_MASK) == IFF_TAP)
+> >  		skb->protocol = eth_type_trans(skb, tun->dev);
+> > @@ -2605,12 +2611,15 @@ static int tun_xdp_one(struct tun_struct *tun,
+> >  	tnl_hdr = (struct virtio_net_hdr_v1_hash_tunnel *)gso;
+> >  	skb->dev = tun->dev;
+> >  	skb_set_network_header(skb, ETH_HLEN);
+> > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr)) {
+> > +	ret = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr);
+> > +	if (ret < 0) {
+> >  		atomic_long_inc(&tun->rx_frame_errors);
+> >  		kfree_skb(skb);
+> >  		ret = -EINVAL;
+> >  		goto out;
+> >  	}
+> > +	if (ret > 0)
 > 
-> Best regards,
-> --
-> Shunsuke Nagashima <shunsuke@nagashi.ma>
+> same
+> 
+> > +		atomic64_inc(&tun->rx_csum_sw);
+> 
+> maybe reset ret = 0 in all these branches
+> 
+> >  
+> >  	skb->protocol = eth_type_trans(skb, tun->dev);
+> >  	skb_reset_network_header(skb);
+> > @@ -3739,7 +3748,35 @@ static void tun_get_channels(struct net_device *dev,
+> >  	channels->max_combined = tun->flags & IFF_MULTI_QUEUE ? MAX_TAP_QUEUES : 1;
+> >  }
+> >  
+> > +#define TUN_STATS_LEN	1
+> > +static const char tun_ethtool_strings[TUN_STATS_LEN][ETH_GSTRING_LEN] = {
+> > +	"rx_csum_sw",
+> > +};
+> > +
+> > +static int tun_get_sset_count(struct net_device *dev, int sset)
+> > +{
+> > +	return sset == ETH_SS_STATS ? TUN_STATS_LEN : -EOPNOTSUPP;
+> > +}
+> > +
+> > +static void tun_get_strings(struct net_device *dev, u32 stringset, u8 *data)
+> > +{
+> > +	if (stringset == ETH_SS_STATS)
+> > +		memcpy(data, tun_ethtool_strings,
+> > +		       sizeof(tun_ethtool_strings));
+> > +}
+> > +
+> > +static void tun_get_ethtool_stats(struct net_device *dev,
+> > +				  struct ethtool_stats *stats, u64 *data)
+> > +{
+> > +	struct tun_struct *tun = netdev_priv(dev);
+> > +
+> > +	data[0] = atomic64_read(&tun->rx_csum_sw);
+> > +}
+> > +
+> >  static const struct ethtool_ops tun_ethtool_ops = {
+> > +	.get_sset_count		= tun_get_sset_count,
+> > +	.get_strings		= tun_get_strings,
+> > +	.get_ethtool_stats	= tun_get_ethtool_stats,
+> >  	.supported_coalesce_params = ETHTOOL_COALESCE_RX_MAX_FRAMES,
+> >  	.get_drvinfo	= tun_get_drvinfo,
+> >  	.get_msglevel	= tun_get_msglevel,
+> > diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> > index daab43ac92ce..2e6fd81df9c4 100644
+> > --- a/drivers/net/virtio_net.c
+> > +++ b/drivers/net/virtio_net.c
+> > @@ -2519,7 +2519,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+> >  	skb_set_network_header(skb, ETH_HLEN);
+> >  	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
+> >  				      vi->rx_tnl_csum,
+> > -				      virtio_is_little_endian(vi->vdev))) {
+> > +				      virtio_is_little_endian(vi->vdev)) < 0) {
+> >  		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
+> >  				     dev->name, hdr->hdr.gso_type,
+> >  				     hdr->hdr.gso_size, hdr->hdr.flags,
+> 
+> should virtio_net count these too? Or do we assume that devices are
+> more trustworthy, so unlikely to cause this issue?
+
+With memory encryption, from an untrusted host?
+i can add that.
+
+> > diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> > index 52ae3d875e97..e6aec9ecfa99 100644
+> > --- a/net/packet/af_packet.c
+> > +++ b/net/packet/af_packet.c
+> > @@ -2913,7 +2913,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+> >  		}
+> >  
+> >  		if (has_vnet_hdr) {
+> > -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
+> > +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le()) < 0) {
+> >  				tp_len = -EINVAL;
+> >  				goto tpacket_error;
+> >  			}
+> > @@ -3136,7 +3136,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+> >  
+> >  	if (vnet_hdr_sz) {
+> >  		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
+> > -		if (err)
+> > +		if (err < 0)
+> >  			goto out_free;
+> >  		len += vnet_hdr_sz;
+> >  	}
+> > -- 
+> > MST
+> > 
+> 
+
