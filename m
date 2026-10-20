@@ -1,113 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497263;
-	b=IL7/CmgV3gw2n6wR4KF++iPUEXlldFI1y2SwYJFRmIBFIXE17Zhw5giiPj0HGREtYEzX
-	 3AWddahagALvoVehGVJ44H6+CJsh5SkSwD3hwelS2158/A0dIwtjohXae7zFgKRCk1pQH
-	 SkRJig2HTXkv/96eBnl4DBRUcfSVyww4hxWwEk+LRxbtiSqAUILGowYmwTcy8tF7HN1MJ
-	 guMJ7MNnyekUEThS/bLSo3NSIOPBCKe6rAynM7IbVDo/FkeTJgWLNLnW1xa2VQVoFevrC
-	 FGBxIjwO3O3cXVg23/ZaItCi5ibrTkXRFw9M57BXkO6QJnkl+EYuHsVi+yk2v9CyaVw==
+	t=1792497401;
+	b=FnfZDKNHV4gEVU4d94bcuOnN0voEFX7CWLl5OxL5UW69jx4BfRLBjypw4zF8YMp7mFA2
+	 C/yG8vGn5Kq6xv4bTIgmI55GYiyNVrnln73z/TOm/sWb+TErSY90EvzDI4t3+uXrDDCWz
+	 jcScANTbDmvZKVuAnWDttSItiVCSBGtOpamY/PQyl1z4bzmW3eytEaUHU3L1Fw4ImV1nC
+	 mG/MK2DNyOG+G/ahAWe/DUnKTClVZoWjI46ppaag5HTJamb0u5R2+ScXODUssYtCZ6cdF
+	 gEM34vKTxecvoGlIcYhcYADNk5ARLzw0mfbLnw16Dc1PJTSI6MvrI6o3K+QND4/NorQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497401;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Rspamd-Action:X-Spam-Level:X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
-	bh=QaZoIjVJRLkL7XwEh+EAo4RNnx880rLizx+x3ryA0UU=;
-	b=cx96Sa1gDo6wP+usEsaNtQyqNKcU/qIF9JHB2VxALupP0Ck2znQCaY74fcGZ6eCz/TJ4
-	 qh4XudPa+NI4oG3TAK4hCehYdYGZukj7phXRr7qqV2M4FQnRoCt4pu1FE5dlfOv6M99LO
-	 /bPxsBXfjWL1iEnAI+h7TlR7ybPkdYrE+n1WjgnJoLWtLIEuekw9RuI+C7WHXrk372sis
-	 46IKNeiQlhhNeDAsWrBQ0T5LBNeYG0IpLtbYdWhpMM3lmP39LGg3yboDtxSV2qbAILE3p
-	 xiDYqeojnRwuaD2+hZRYFkpbUkIAJaisoD1gGB0a874xe7A2EhUnaSK0NAJhBw0S+oQ==
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
+	bh=EsmFq0e6EdaH64zyTGvQ/vgzgA1uv9tFuipPZbK6C3Q=;
+	b=z9Aswr+DM+2L3DngKR/aUhK/rbB93exy9JinJ3S4l90ouKS3j3eB97PsSwSOKXcwkvxe
+	 6Si/Ig/Qyrou1AKOxgbg8MXxFHKQfNSzxg1t+MD2s7O8bis9F4CEL1OiKD60LwBtoeBS5
+	 R+XWuWOZpuLmpbhvQd/7l/1sJ0JNWfX+jZREEOWfkCema0xupsUqrpmILNa/m3A1wdAAr
+	 R/LsY3LOiAOJlD3JNZW9kqUFzAkR1+ZNWfSr1RSRT+ZLacU1DSzZhhJcMN/dQkooThL85
+	 mIek1ctv1JeNkRcr27ePNKH9jkXkqztHYrkUeXSXAuPwO4K0Oe1nQHRlx37HCwQGeJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.de;
 	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ytXNDCNK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cU8UeJWX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ytXNDCNK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cU8UeJWX;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="1ByJ/UlL";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YRpDbDoe;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="1ByJ/UlL";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YRpDbDoe;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA236606A319;
-	Tue, 20 Oct 2026 11:54:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA236606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F290F606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F290F606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ytXNDCNK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cU8UeJWX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ytXNDCNK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cU8UeJWX
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1ByJ/UlL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YRpDbDoe;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1ByJ/UlL;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YRpDbDoe
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F408D1F7B6;
-	Tue, 20 Oct 2026 11:54:20 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0DC4921C9A;
+	Tue, 20 Oct 2026 11:56:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792497261; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1792497399; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QaZoIjVJRLkL7XwEh+EAo4RNnx880rLizx+x3ryA0UU=;
-	b=ytXNDCNKe1IFl9tgbkQpEa3ni0rdofBk/7qnVvN1s0igomqBTdNTXuXV5OP6muVBYbQleF
-	ioskDYl5CvAqewRxhDCBTOYg0xiqNU79dgpkE5F3C+S6G/svrg5EHSb5BONSuH/GAnFPO8
-	k4OeNKRhLt+9eMDIDf7Nx2zQ3bepMJs=
+	bh=EsmFq0e6EdaH64zyTGvQ/vgzgA1uv9tFuipPZbK6C3Q=;
+	b=1ByJ/UlLOLzrXUHAZx3nw2QiEt2qsg1FzIk+uAyDO+a2VggR2DwXFZnASDIWX+fyBmiCes
+	O/m3mhm2Qv5IFAzYHzFbkz8PDx2weceZVlWEIcE+7S/m0yIDOhS5KyItpfoG9AVWg1y+5Y
+	X0ZWv9ZLOqkgqIxdBsFzvLoWKmYMmZk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792497261;
+	s=susede2_ed25519; t=1792497399;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QaZoIjVJRLkL7XwEh+EAo4RNnx880rLizx+x3ryA0UU=;
-	b=cU8UeJWX4C+VVqDcrWptVEOmjHLcAu7Z5TmPyDnWdpUWPeJhr4k8jRYL3zjHs04SYPm+1J
-	p1QeFfy7PALLsoAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ytXNDCNK;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cU8UeJWX
+	bh=EsmFq0e6EdaH64zyTGvQ/vgzgA1uv9tFuipPZbK6C3Q=;
+	b=YRpDbDoePAVKpEfQxux8U+jalru9NIQcLBLpCvz7tXVRzUNLhNx0HCZr8GtuFEdYoSor64
+	SDGLEyYcQOlQMRBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="1ByJ/UlL";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=YRpDbDoe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792497261; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1792497399; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QaZoIjVJRLkL7XwEh+EAo4RNnx880rLizx+x3ryA0UU=;
-	b=ytXNDCNKe1IFl9tgbkQpEa3ni0rdofBk/7qnVvN1s0igomqBTdNTXuXV5OP6muVBYbQleF
-	ioskDYl5CvAqewRxhDCBTOYg0xiqNU79dgpkE5F3C+S6G/svrg5EHSb5BONSuH/GAnFPO8
-	k4OeNKRhLt+9eMDIDf7Nx2zQ3bepMJs=
+	bh=EsmFq0e6EdaH64zyTGvQ/vgzgA1uv9tFuipPZbK6C3Q=;
+	b=1ByJ/UlLOLzrXUHAZx3nw2QiEt2qsg1FzIk+uAyDO+a2VggR2DwXFZnASDIWX+fyBmiCes
+	O/m3mhm2Qv5IFAzYHzFbkz8PDx2weceZVlWEIcE+7S/m0yIDOhS5KyItpfoG9AVWg1y+5Y
+	X0ZWv9ZLOqkgqIxdBsFzvLoWKmYMmZk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792497261;
+	s=susede2_ed25519; t=1792497399;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QaZoIjVJRLkL7XwEh+EAo4RNnx880rLizx+x3ryA0UU=;
-	b=cU8UeJWX4C+VVqDcrWptVEOmjHLcAu7Z5TmPyDnWdpUWPeJhr4k8jRYL3zjHs04SYPm+1J
-	p1QeFfy7PALLsoAQ==
+	bh=EsmFq0e6EdaH64zyTGvQ/vgzgA1uv9tFuipPZbK6C3Q=;
+	b=YRpDbDoePAVKpEfQxux8U+jalru9NIQcLBLpCvz7tXVRzUNLhNx0HCZr8GtuFEdYoSor64
+	SDGLEyYcQOlQMRBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC2F4136C6;
-	Tue, 20 Oct 2026 11:54:20 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C68D1136C6;
+	Tue, 20 Oct 2026 11:56:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id poq3IGxW12rFGgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 11:54:20 +0000
-Date: Tue, 20 Oct 2026 13:54:20 +0200
-Message-ID: <87o6coh9jn.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ajanesh Lal <ajaneshlal3@gmail.com>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Add mute and mic-mute LEDs for HP ENVY 16 (103c:8be5)
-In-Reply-To: <baf51d2a-e2f8-4c01-ab2b-3fd8834c94ca@gmail.com>
-References: <baf51d2a-e2f8-4c01-ab2b-3fd8834c94ca@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	id jzFfKPZW12pJHQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 11:56:38 +0000
+Date: Tue, 20 Oct 2026 13:56:38 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 14/18] nvme-fc: Use CCR to recover controller that
+ hits an error
+Message-ID: <32d5f56f-285e-43d8-b5a7-490492270e51@flourine.local>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-15-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,135 +114,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920182936.2317916-15-mkhalfella@purestorage.com>
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: F408D1F7B6
+X-Rspamd-Queue-Id: 0DC4921C9A
 X-Rspamd-Action: no action
 X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
+X-Spamd-Result: default: False [-4.51 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
 	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
 X-Spam-Flag: NO
-X-Spam-Score: -3.51
+X-Spam-Score: -4.51
 
-On Tue, 20 Oct 2026 12:32:17 +0200,
-Ajanesh Lal wrote:
-> 
-> The HP ENVY Laptop 16-h1xxx (PCI SSID 103c:8be5) uses an ALC245 codec
-> with CS35L41 I2C speaker amplifiers. No LED fixup is applied for this
-> subsystem ID, so the speaker mute LED and the microphone mute LED are
-> never driven and do not follow their keys.
-> 
-> Add a fixup that calls the existing ALC245 mute LED COEF helper and the
-> GPIO mic-mute LED helper directly, then chains to the CS35L41 I2C
-> amplifier setup so the speakers keep working. Use it for 103c:8be5.
-> 
-> Tested on an HP ENVY Laptop 16-h1xxx running kernel 7.2.11: the
-> hda::mute and hda::micmute LEDs appear and follow their keys, and the
-> speaker amplifiers still bind (CS35L41 Bound in dmesg). The mic LED
-> GPIO pin and polarity are not verified on other hardware.
-> 
-> Assisted-by: Claude:claude-haiku-5-5
-> Signed-off-by: DragonicRage13 <ajaneshlal3@gmail.com>
-
-The patch can't be applied, likely because your mailer broke the
-spaces and tabs.  Could you fix your mailer setup and resubmit?
-At best, use git send-email.
-
-
-thanks,
-
-Takashi
-
-> ---
->  sound/hda/codecs/realtek/alc269.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c
-> b/sound/hda/codecs/realtek/alc269.c
-> index e98cc42e1..850a15801 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -1572,6 +1572,14 @@ static void
-> alc245_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
->      }
->  }
-> 
-> +/* mute LED via COEF bit and mic-mute LED via GPIO, called directly */
-> +static void alc245_fixup_cs35l41_mute_micmute(struct hda_codec *codec,
-> +                          const struct hda_fixup *fix, int action)
+On Sun, Sep 20, 2026 at 11:28:12AM -0700, Mohamed Khalfella wrote:
+> +static void nvme_fc_fencing_work(struct work_struct *work)
 > +{
-> +    alc245_fixup_hp_mute_led_coefbit(codec, fix, action);
-> +    alc245_fixup_hp_gpio_led(codec, fix, action);
-> +}
+> +	struct nvme_fc_ctrl *fc_ctrl =
+> +			container_of(work, struct nvme_fc_ctrl, fencing_work);
+> +	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
+> +	unsigned long rem;
 > +
->  static void alc245_fixup_hp_mute_led_v1_coefbit(struct hda_codec *codec,
->                        const struct hda_fixup *fix,
->                        int action)
-> @@ -4230,6 +4238,7 @@ enum {
->      ALC245_FIXUP_BASS_HP_DAC,
->      ALC245_FIXUP_ACER_MICMUTE_LED,
->      ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
-> +    ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED,
->      ALC236_FIXUP_HP_DMIC,
->      ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
->      ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
-> @@ -6859,6 +6868,12 @@ static const struct hda_fixup alc269_fixups[] = {
->          .chained = true,
->          .chain_id = ALC287_FIXUP_CS35L41_I2C_2,
->      },
-> +    [ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED] = {
-> +        .type = HDA_FIXUP_FUNC,
-> +        .v.func = alc245_fixup_cs35l41_mute_micmute,
-> +        .chained = true,
-> +        .chain_id = ALC287_FIXUP_CS35L41_I2C_2,
-> +    },
->      [ALC236_FIXUP_HP_DMIC] = {
->          .type = HDA_FIXUP_PINS,
->          .v.pins = (const struct hda_pintbl[]) {
-> @@ -7361,7 +7376,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->      SND_PCI_QUIRK(0x103c, 0x8be1, "HP Envy 15",
-> ALC287_FIXUP_CS35L41_I2C_2),
->      SND_PCI_QUIRK(0x103c, 0x8be2, "HP Envy 15",
-> ALC287_FIXUP_CS35L41_I2C_2),
->      SND_PCI_QUIRK(0x103c, 0x8be3, "HP Envy 15",
-> ALC287_FIXUP_CS35L41_I2C_2),
-> -    SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16",
-> ALC287_FIXUP_CS35L41_I2C_2),
-> +    SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16",
-> ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED),
->      SND_PCI_QUIRK(0x103c, 0x8be6, "HP Envy 16",
-> ALC287_FIXUP_CS35L41_I2C_2),
->      SND_PCI_QUIRK(0x103c, 0x8be7, "HP Envy 17",
-> ALC287_FIXUP_CS35L41_I2C_2),
->      SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17",
-> ALC287_FIXUP_CS35L41_I2C_2),
-> -- 
-> 2.56.0
-> 
-> 
+> +	/*
+> +	 * Tear the association down now so the LLDD can finish unregistering
+> +	 * the remoteport/localport while the fencing this controller.
+> +	 */
+
+
+Maybe:
+
+          /*
+           * Tear down the association before fencing starts. Fencing can take
+           * a long time and the LLDD can't finish unregistering the
+           * remoteport/localport until all associations on it are gone.
+           * Inflight requests are held and only completed once fencing has
+           * finished.
+           */
+?
