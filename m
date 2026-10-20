@@ -1,104 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792519830;
-	b=GFlPhaaIecEE/UujCq2Enf0E2xBSiYK/Mi11e7dZWY4h2GAzpGeTYzf+eZ7uXJ4rOcR6
-	 ly599WDSmAwgxua9hj7JNqR3fq658FdRmHg6Hs3HSydIG2XivzZIUL0wDudPia+VnhqYg
-	 xvdrvz5qNvXWsckURapMF6EA+H8tmpIMuGxM4hCbJ0r6j2S4gAfjpGRNRq+A7e2rQpi26
-	 JesfUwUDAizPMCesGyV4Po0mkcDJ8Nt8VKCxm4HwnZ5+3gKtVF67+DEOJjYQVXWFu8QQf
-	 NaxO4U5snXSHdoQIRGpkThkQ7AV6pCSnbe0O2WM73XFIrmFqeDHVQB2LXNpOJSoZFdw==
+	t=1792519870;
+	b=JfEewgmBimigc9qCpRJE0kjraONjn4rKSmYsaMVIKMnw2G7lRNTvMEwK/tyMXh9vZsqd
+	 sW8W9+gyNYmVnO2vwUVAVZLn0V5vWXKzLUL5SuK7yVU988yjuSyWSw9FtJ8JeYV0VDJG6
+	 hBvUb2HB3FiSFONgJbASsLOfkIbBuxVFhOrqa2dHZkJB0JBNpARdnK4ci/po1G/y//dr7
+	 Pf0SDzuuiaKJW9Po5AOK+wrKTkegf6FbMwLWOhJ3xjlgyBMdx4Lx65sj7+5osu9BCxTDQ
+	 CwrQvi29XEgTJke08OFde2a6fr+2lfiUKaaj2PnPab1rc73zyC7EdswA2k0uNpIiUFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519870;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/6BgZB1uMeWS0XRauHuUVvKezouU1iP9WGA2DOuIHe8=;
-	b=F6rH7cYiu6Ep+ftAOJarcaeETYs3nvTkqLdZo3/zELsZgproMUyGTU91+/2fEf0vTiWE
-	 WlYoL0cwlXRwlj06PteIgRo8W9t8rCaElceoUPMfwIweeuyTKeF4OUuJiLIXcLTajCIR+
-	 9XvMyazRiqII/zXHUCcjB8wjZ/LGJIWbkbNIAE9snlyWZ04Gt4HJG5uOB68hyrzMMXF9W
-	 EJVn/NDel4Rya3h7J4SJzjFoXPvQeNkfDLNlohCUuyXDW6giY6aqXyMnyuPtiB6BNeKeU
-	 tlaIEBG1i6/qzOQQL/WoU4mMy6ibLXAoPjw4/4171omc+WDjGM5cGn7yAKgitWJOvDg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ym49b0iug7aszg9sKvRy0g7m6DL1gnPAibODuAY4lA4=;
+	b=wf25awD6x+y6Wm8j2OvKkuAroGwL3k31nKascfAS8Tgxu8K/GmrU7Gw3dDiOIAva7DAW
+	 vjbdU5qEr5ruHnZFkffyj5aTV0+DW0MbTz9CXPGZIN63VfE07CWaV6FYpy5/at36+3L9a
+	 Yk9RuMhsSl3g+0JuzcU+4WLLXCaWGAOEbCvcfkL3Sn4ZTQtdKQrAYHmZ/oHr+CBdE6/Xz
+	 KTFQknLx3VaeyKoHLZUAKi0reIcP8u1+BZhswl3q/lFqRjT2K4Aw9sTHGX1XLMTvF6Mqv
+	 PDBcXb5iayzMJYufM5emBtnRsmbbufhwEoHjEBxQwszsSd81wZh3HgBp/yMncVkYVwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ye6rukP0;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--digonzal.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E1ZJdFMm;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA80606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:10:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA80606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5932C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5932C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--digonzal.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ye6rukP0
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso24531435e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:10:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E1ZJdFMm
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so6089968eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792519828; x=1793124628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/6BgZB1uMeWS0XRauHuUVvKezouU1iP9WGA2DOuIHe8=;
-        b=Ye6rukP0icPBg5yA4loFUF/P25NgO1lCkbvI4IebI73fp1j+gNyAtUKvTozJG/W+Si
-         vdSIQqvUMmPA/RQE/fe/+6Te+2pxSe1GCWLfrqIwpd4in0TRCRLwSuKgwVvzCqljxurg
-         8JC+s+eqg1SBtTMPRlihaK3PILRNkd1zZYvfIcu5dOfVH+8EDM0fJ5dN6qu2/QSltfSP
-         Zmnqg7KDp6Vr7EixGMdPRCzDZBMh9eOnLf8pZK/ZhWePzEbZBFKQpC/YiQcMcmcbqQt7
-         26IEDWusl3rbJVu/+JOR6Y3rKwm4um4PuOlBZPhDEEK1aWuzLcYRtnpWyTpXnfDiRQiu
-         lVkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792519828; x=1793124628;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1792519868; x=1793124668; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/6BgZB1uMeWS0XRauHuUVvKezouU1iP9WGA2DOuIHe8=;
-        b=N1o9C1B+mCry5uWKo5qn3Tqd79+MaUc8A1rA8T8957UaZcOnrdY/bitKIOuVDnjQcL
-         sAFOUoS+EVFj+2lwdbq/VMT3NbIbuxrQo3e//cObxUsZTKEPXbDG4P1HxBTs6/OgiCaU
-         2rOsEyv4MSAoYRswOSAvLBOhOfAWgzkDCaVzfcqNqLD6fjFaYReSxLC364e2BbCSKZ3W
-         vKwfN1KgPfjXTIbfCo2ePPETqu5YSECXB5kFz9HukgJSXjYGim9wm3DAXx3pDiDCYED2
-         urM7I8YQwdwigpF6a7ArkYy1YSHFeea6qrKu1Uzt8+Rsl9/LOmdBxKHYoIqF4B57vMAt
-         Pg7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxOkCN+rMJAV3PAuLAdV/ZdaV/wg1fqQQa8GcllZsbBAj+gATRSQ8Ogd1ZWebyPyWwHXg2YYLHngUSy14o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVDmyoOybD3HGzusagL5j8+ESl8U9H70SXBvLC9pm11F3FuumB
-	99ioHcj72UYQNVlxuxchrGPlEHiSGD0ErRJ+IZgW8F5CbjFOhD+drmti
-X-Gm-Gg: AYBFou0etCoLpWs2zq+ebupgy0DX6FGqwQMW+bgSynknEnXHFU5oY0i7s25F3u5Ab6c
-	6kYw4yOz67Ee2NCF6hghEMr+4btfhzIGlIUqqHYW2/aRihNBeIjtT7cnaqsGm9Z9fBCLscALjZX
-	8OT6xDfiHnFEzepfPRiAkcseTgbR1wG9NcOAsccyjSLcSaB4DZrQwPT1BZkhJ8Ssxa3P+eFwEEV
-	fMlswDTo11kxXA2ejqSf2QoG8dL93HmORKZ9+aIwRo86yGnFuYBEd8lDAjwGI+bRmD80bVUOu6Z
-	qsBF+BHOPkXof8rYAKWlP0N+YdDoBq9PJBAyNIgjcHnTccSDUYdY3hk8Qgj6EI/VAOAkDuRQ1pX
-	/JYvO4dGYCZVnoJZr4KJQWRhz6v3n0ocpA1oNhKUTq9q364CDi3IDJl9AW+VwZP43uTaeH5WcJZ
-	dWYOYx2dJbehgDeo5B5poiFG/Gfs9oigVJGrLrposHzNWBHToGBeuald/X9M91pWcjbtXswlrxO
-	BWuVeuVkhSgkg0A6ZJ5BYh4Wylpl8zTwjgBC8f/gXMq00rwLOVbamsI0xPV9lmTNySi2uZ2
-X-Received: by 2002:a05:600c:3b09:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4a1f7f47d43mr54411835e9.17.1792519827775;
-        Tue, 20 Oct 2026 11:10:27 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581f0d4sm50665f8f.13.2026.10.20.11.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:10:27 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	Hao Yao <hao.yao@intel.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Date: Tue, 20 Oct 2026 19:10:25 +0100
-Message-ID: <20261020181025.8625-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020142641.24808-1-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com> <20261020085200.60619-1-lsa.uz@pm.me> <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com> <20261020142641.24808-1-lsa.uz@pm.me>
+        bh=ym49b0iug7aszg9sKvRy0g7m6DL1gnPAibODuAY4lA4=;
+        b=E1ZJdFMm05GbyBcvkXPVnMYUlAfeEc6J+KuQadUJexQm6DSNcYFHVV9espJqBenVkG
+         PLfqj2B8TnuK3/0GLL+bTVmDTHno3vRYvl8X0yfPtDOtLTXKGU9rwkuZEVyW+q0Bx5HU
+         upons782AikQc/u81NgKpmtda+AG0t5GmMf0onXPJr0hhd7iSlQ5AdDK054B2imMmdNE
+         M7xE7Qrb0ZfL99822jJRCrW3lOSsE35FCpTYJ3P73qhhYBIEC7w/JoPAY6fqvosH42GI
+         H3NYjLOfy347Xn3O/VmynMzHoNwzh9LC52jQAMktfK/RKpDmBRMDCQXHfFAkaEn0dzVG
+         C5eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792519868; x=1793124668;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ym49b0iug7aszg9sKvRy0g7m6DL1gnPAibODuAY4lA4=;
+        b=ceYIM0WSkk/epKlkv1667YjOpq073tvj/KfXunTaoe4WiRHfRsFF4+QMYoN5DfJX1E
+         XFuQMae3xqc2x0jKUbF/eITXNLLwvRvChAL8azmSMpsY/ni5y3KziMKYgh5xEpUOzxOK
+         L/hX5vwE3wkm2QPLl9AJwMoulvGrL+f9i8waotRghbiLsEporZPmyB7JVh8w1cdBthaG
+         3FOqyGIdaPsJqf0jMd/NysNrxw3ctKDJ5YAkfinGiBe1vRaU1ULA9fWOpoKdbylmMFUh
+         4vVAX7npbvBa1489/yzl2gm1pYyADuRbyTfWDCbyUJ+XYbdl4gWqWpu9bqRCzLw+YvQw
+         hz+w==
+X-Forwarded-Encrypted: i=1; AKwUvByPRWfddxD+h8pzotgng90feyrAK1IvxMJXfa9wBa5yr11Ast2ZNPUowNukm/n+I/vRNL5PMoGQ50+3Kac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh1o1sOf8ckfYy5+SS2wM/hOp9OIpMsaDe8vNDbSD8W9tpmcnm
+	E9sMuswShCeLlLBA2+iJ1rc/N2I13dF1rFcQGOA1RYtGRC6rntw0il6El+oCMPJDfrP59BoTK3J
+	z1scFLd5Lz/wBFA==
+X-Received: from dycmb19-n1.prod.google.com ([2002:a05:693c:20d3:10b0:351:731f:c917])
+ (user=digonzal job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:bf9c:b0:34d:755b:d60b with SMTP id 5a478bee46e88-3674de4e3c1mr32887eec.34.1792519867908;
+ Tue, 20 Oct 2026 11:11:07 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:10:52 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,47 +75,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261020181053.2646782-1-digonzal@google.com>
+Subject: [PATCH] PCI/ATS: Disable ATS when ACS TB is set upstream
+From: Danny Gonzalez <digonzal@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: David Decotigny <decot@google.com>, Sheena Mohan <sheenamo@google.com>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Danny Gonzalez <digonzal@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Benjamin, Sergey,
+Enabling ATS allows an endpoint to cache translations and initiate DMA
+requests with Translated addresses, which an upstream bridge with ACS
+Translation Blocking (PCI_ACS_TB) set will block as ACS Violations.
+Because pci_enable_acs() preserves existing PCI_ACS_CTRL bits (e.g., from
+firmware, a kexec kernel, or "pci=config_acs=") without relaxing them,
+PCI_ACS_TB may remain set on upstream bridges.
 
-On 20/10/2026 15:26, Sergey Lebedev wrote:
-> So I agree the register itself
-> should not matter there; something else in v1 probably does, and George
-> can narrow it down on CAMSS better than I can.
+Update pci_ats_supported() to walk upstream bridges and return false if
+any bridge has PCI_ACS_TB set, leaving the endpoint to use Untranslated
+addresses.
 
-You were both right, and I have to correct my earlier report.
+Tested by booting a machine with an endpoint advertising the ATS Capability
+behind a Root Port with PCI_ACS_TB set; verified ATS is disabled and the
+system boots cleanly.
 
-I looked at the receiver side with a CSID change that only reads
-registers at stream start. RDI0 is set up for data type 0x2b (RAW10),
-VC 0, with no ECC or CRC errors, so CAMSS filters on the data type and
-the ISL lines (DT 0x12) should not reach the buffer.
+Signed-off-by: Danny Gonzalez <digonzal@google.com>
+---
+ drivers/pci/ats.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-With that in place I reran the exact v1 module that stalled this morning:
-same build, 403.2 MHz in the DT, and the ISL_ENABLE=0 write still in. It
-streamed 5/5 frames, 120/120 at about 60.2 fps, and 10/10 on an
-immediate restart. Builds that wrote 0 and builds that left the default
-behaved the same, and read back 0x00 and 0x01 respectively.
+diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+index 9cb23780093d..094f4f825acf 100644
+--- a/drivers/pci/ats.c
++++ b/drivers/pci/ats.c
+@@ -31,6 +31,24 @@ void pci_ats_init(struct pci_dev *dev)
+ 	dev->ats_cap = pos;
+ }
+ 
++static struct pci_dev *pci_acs_tb_path_blocked(struct pci_dev *dev)
++{
++	struct pci_dev *bridge;
++
++	for (bridge = pci_upstream_bridge(dev); bridge;
++	     bridge = pci_upstream_bridge(bridge)) {
++		u16 ctrl;
++
++		if (!bridge->acs_cap)
++			continue;
++		pci_read_config_word(bridge, bridge->acs_cap + PCI_ACS_CTRL,
++				     &ctrl);
++		if (ctrl & PCI_ACS_TB)
++			return bridge;
++	}
++	return NULL;
++}
++
+ /**
+  * pci_ats_supported - check if the device can use ATS
+  * @dev: the PCI device
+@@ -40,12 +58,22 @@ void pci_ats_init(struct pci_dev *dev)
+  */
+ bool pci_ats_supported(struct pci_dev *dev)
+ {
++	struct pci_dev *bridge;
++
+ 	if (!dev->ats_cap || dev->untrusted)
+ 		return false;
+ 
+ 	if (dev->is_virtfn)
+ 		return pci_ats_supported(pci_physfn(dev));
+ 
++	/* Do not allow ATS if any upstream bridge blocks translation */
++	bridge = pci_acs_tb_path_blocked(dev);
++	if (bridge) {
++		pci_warn_once(dev, "ATS disabled: upstream bridge %s has ACS Translation Blocking enabled\n",
++			      pci_name(bridge));
++		return false;
++	}
++
+ 	return true;
+ }
+ EXPORT_SYMBOL_GPL(pci_ats_supported);
+-- 
+2.56.0.218.g1ec904b173-goog
 
-To rule out the diagnostic reads changing the timing, I then booted
-again with the unmodified CAMSS module and the same exact v1 module:
-three rounds of 5, 120 and 10 frames, all complete, at about 60.2 fps,
-with no CAMSS errors.
-
-So clearing 0x0329 does not cause the stall on this machine. My earlier
-A/B was a correlation, not the cause; something else in those runs made
-the difference, and I have not pinned it down yet.
-
-I tried to count the DT 0x12 packets directly with the CSID's
-long-packet capture, but enabling that capture changed the behaviour
-itself (one frame only), so it could not serve as a passive observer.
-
-Sergey, the write can stay or go as you prefer; the Snapdragon model
-does not need it dropped. The 403.2 MHz link frequency still stands.
-I will test v2 on the X1E80100 and send a Tested-by if it passes.
-
-Sorry for the noise.
-
-Thanks,
-George
