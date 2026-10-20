@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.75
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792529768;
-	b=SOoK+YeZWgTMTPlj+//fo0q+OfOVyh9fmiGqEol5snrvmUCDbkSFwKunh2x9NFBl/wPn
-	 IgX3El68CxjMT8Iok8YdW0Okh6YWSBfFnS1F23Xinb/J1S/lBnAt8OPJIhkAzciIz+k4u
-	 27i2OxyUyEd8CcxK0SSScnst9210HF7xH0SOGGgsOUpFZFKdx7k8l3Cp7OJeiKRkq/bCN
-	 taS7mqTiPFb1kruGyWys2vqADO62Z+LG4YxcQ8o6JvNPCU7wF0XOE3Xu8QWGnufBKxtyt
-	 YAJi5fBvorVpZ6TKwjP6AaiwRLdDtb2Gt9pgXbAhjNkZUZRuTx4EDKfS5x55VVG7dXA==
+	t=1792529805;
+	b=LotI7TsIoqaxlg6OUlMxhMCqo0fLjrOBPiGErcBXZNU52mZ5kKpKmKIsZzkGEqdT495o
+	 DfJRYcPNqR4MyTVhbiMGYXX2q9elRW/XntNKyCxzj+qgq80M3LKC38vRI6kFRAsEsjkeM
+	 C14m4RRMLGsOrqqb7801vEhGsbV57JxixHg9pc61ZnAUnlZuPqQ3O6+svbaEAFmR/R3us
+	 wVgUxi/dr8FrXHoNEyxHYNZYiIpXAChe/XtEHWHq8gJytQXtPxWKIT+TVobtmESE4FmHS
+	 wabzEuL0B+8iB4EDimQIqH3tRljZ//1MD8OJebw4WE7lhFFFWbTJHAq9y0Wqs+cannQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792529768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=sl+ao6jj/EJqVd8mitMcxYql8KlVrUDpfsHnTJtiC1U=;
-	b=OzlL3sN4NOVpucdc3Zn9MX02Iou3+kpw/7d5DyfRk+l4Jsio8AcpNbTC6bpYvcTvA4a9
-	 VYzvSHk/xy46KACVvgjnGXZ42GYLPpJBS/lM7/YHxJjx+oPJ1/Z+i8ciys7Nu9kqG+ZaA
-	 ikgdmoAO4ZKlSXZ8zU8Wcy9vlZpvuohdvk7qAyKmov+yu4yOD0eB9GJbru5A+XSu7jNk+
-	 lpWZs11tT9TeUUJwQQkSi9jYXpT2qFdWNC8jXQv299owsauDKTP2HkFnQiiCsF8E/8eM/
-	 tmV67FOvBF82583iefr3o3bGVgwIyZGFx3XGZDZ6jkitco3s5+1pFvN/6/Ss4f6pDRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792529805;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=AMUfAPzgGAp7Fu3sI4UGBnmzd20C4otVTH9XKEtgVwM=;
+	b=TELtggduMdQeHC6mDValPmERV0lgs3tnKe0tuFoKEhdodi2rt4/z+crowep8HwQ3ogKU
+	 AhB17KnxsOrP1h2PEsu1SOE3aR1W2a83lNT3MkxAuZiKZozcw4x7OEqbBZrJ0ebpVVOAQ
+	 A9YGcCpCzu3D1RsHxhnCe7+nEw6WtxvKvPhaUVLQyx1N689AdXOARthjkyUfyI+A25t/b
+	 vV+qVDsz1j4ose/I1/f4vWH+P3zDjEj0ftMF+6gj50KKo/H/4ynSTHkT8eGAQNqx1M36Y
+	 0910vZyQ0jMSPuTLwMGy5rx3DijbAaVFAdr+dlQ2SGWQ1GNiG5ZoBHBIq+5ho1dQFcQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nuro.ai;
-	spf=pass smtp.mailfrom=nuro.ai;
-	dkim=pass header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=QBRGJsiF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.75
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020075.outbound.protection.outlook.com [52.101.196.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B165B606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B165B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=QBRGJsiF
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36681e85e87so1658489eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:56:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792529766; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GKIpP4WJxo23PWd9DDI02kFTfFTD9KO7Ry0B4aZpyIlRext2g6C+585zd0ZbQ/V9jX
-         IEdmIdL1X4TMdh+GPJnSRZuwlxYFlldorpksGr2j/05941h3MLlC/+EBjAtPUwkPB7MI
-         AlWoIT0MOWaKX7K+IXpDvBycXj2meD8246t1HI+BRoeLA7lQkF3Mc8HmxQ/x7A5gs4IX
-         xLoLB22v64vgQHcNZRq5YWQ8930d0Bor+/Gbc5G0BX7bzNffjuZyYvAsHadizrE5A9f8
-         skQPGxQgZ/dCHPnPYikVyPDvskhIswxwzF+08OtakgBzeD+dH8m6TwTP7s/4gbv3U8Cd
-         evvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sl+ao6jj/EJqVd8mitMcxYql8KlVrUDpfsHnTJtiC1U=;
-        fh=vbmbS88UVbYFRtrsBcqNy5UygxtMO4enEHMQN1rmpSo=;
-        b=b1RSJ2jRQBH6oc65u8AHpNrIBt0PXnSbfrPUg/EQT6l3gViaqpC33T5hll7cjy2YYw
-         6bBn80Kb7pUpUICQWljNB/v1VbE9CCLEMYSlyisQ701Mtf8yhAX60NtrTQfuVSfgcQNe
-         30ktEvV7S7c2s9vt9aj+pVdmFkeVsJ8Wl4RtWpVWteM0BtxRwehTQ64WSnJUUmjA8tqW
-         sfLEhwas2FcLM4VysmUVI2+7zWDTu68xIEmbwEcVxnD2KRNo9lE4NRa8XPgzVD3vUAn4
-         jTE9vhdxvUp5Go+Nv4PYGIWp74EG0p2PkqdJI1lbd7UswVPN21/uZfMsjJKC0GSf3oqC
-         h8wQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nuro.ai; s=google; t=1792529766; x=1793134566; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sl+ao6jj/EJqVd8mitMcxYql8KlVrUDpfsHnTJtiC1U=;
-        b=QBRGJsiFVCrhjLHQvzC8rKPKju2tMSUEZizd5uil8TnWzE5VZgOBqrQt1ryDvFovu+
-         mRLoS0MODyFyVb1MCqwomuFE/+I146dY0fGUEP3Qh9HjZMMZLN4Y5WoUdoW+7F0znGRq
-         +R+hmZxocYsWRXq7Ai5lg6Kb/FEo1MYKz4C//WSLH+ueMcJzpVCeH6PHuWrzWxkPBRP5
-         SxXMfXPaZOMPD+YTfZM8jyxMJPtNdF5T9eH+IbjBZMr7NDog22z9XBDWQSNcCpaFslMd
-         0VQAVBS82DXGsbrjq72mkgfNk7Jmk54xrksIEPzKb8PpJSAvUcO1OSIkCpPlGleWA3o+
-         p6rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792529766; x=1793134566;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sl+ao6jj/EJqVd8mitMcxYql8KlVrUDpfsHnTJtiC1U=;
-        b=wg02AtURtQgG/mkPNpJRjLK4OBvOCwGHuH+J9xze2r/2ehWqe9tFgKxqWqPTH89cyb
-         zb9E4rFlOpW+PZgfTwmJ6f/8mfjbHSnyUstlzBGjCkI+zT+Y2EPGPHhqKqS+ZNlgIr9Q
-         wCO9sEhSW3S5hLFn7Ym7eCc+IH1BhMoi/1QKxDae45LEgKwdSQFjCCIkNxtXb/TtFUjv
-         v//1XwUYTJiUrps9GbSf04XyMiO4MVqIiG9lTufeeV1QK9jRyLHLYguuFevxxTQ8Qi2S
-         g33FFKvr9rkgC/3fUplSsR0TgG1l05zUi2gTDRpKwFL5TglJNjnUvgZaFixZmLmuXcq6
-         JTcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxJnBPDKtDeClas81wz3CRyzsEohESx+ZcVPTJfgIBHIruZuw2J9tNQNcN4aBGpOySrUOKwFDhTINRooI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfMWwb+5rw2i3S3W4MCXqCSRGMFori9vOl6jfRP62sM8MEXgXG
-	MsNjNSkYGwuYxOzqfuegFGQJiwCDwYwRF+uOfDTPxk8cfyr+z++HdPkkNtmePS+WjbEaZG5UkwT
-	u31tGEnbdIkkpfJzBNSv38wqHgMZkOxT3S6iq5VStiQ==
-X-Gm-Gg: AYBFou3Qn5okpXTELmpI22wckKoJl5wj3o2B7avSTwNUFFBkxCaafGedNNADsof+8nj
-	TBNW3C1qoTmgsk14ZYUIROUI57d7CWx8qLkqp6GQiUTcmgcu8eP0N/Wuzbtu6WLJAYCe1EKBFpM
-	hif5R3ib9DSblhSwU23uqzqih2Zvd0HkKscA6p8LTHzHDaXNmzZUo+M7xPmSTBl2+/evmOVvXI4
-	7qvomnriDHDiXZb1VaHGzDwYYzyXxSkq3GCJA3Xlyu5QU8H3yr4lDOhpfmbLY49MGcscBMKKQ+s
-	HeFn55IaUuQLgXbz3Fqbe1Th3e6+fUcJKz3l7kMAkhY3foShlRIOlzLh1+oP6Ul6DTrqEb4k/2S
-	IUpmtAAWlMuuCwg7RF+zj45DfPdAIZ4Y1ze8K
-X-Received: by 2002:a05:693c:60cf:b0:353:8205:8558 with SMTP id
- 5a478bee46e88-3674b82ad86mr744900eec.5.1792529765608; Tue, 20 Oct 2026
- 13:56:05 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F397606A31A;
+	Tue, 20 Oct 2026 20:56:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F397606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RS1fMzolahZz3bGdQKK5b8ixAoEGYV0kCZBoOskxF9lxMZNb15VMHzd/Z/VP2JpTLmwkWI3p2/g2X2ONtAO0zZEeqW+dUZc/GVtnAaWS6LJDGUwv9vqbsCucs+8kJy0bOcnMav9xT9yWeHJ9L76fMLscx/zjnA59CxC+Z9k3n9cH8zYBeWrhWzE+fLwA8qq8dgACy4bbw8VHxyW5zuXk+Bcly90mz/JGdIMniT49JNsglFcdWFBb4eYuUZzTa8c6zwadepksLC56cyk60iVHnn8aXpxZ1b+ucah4Zi2EQPKYUo7R4G/Zu8xJPJicRf57TZYL1LDo+Jk7hv04JstFwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=AMUfAPzgGAp7Fu3sI4UGBnmzd20C4otVTH9XKEtgVwM=;
+ b=s/G8eTYbRxi5Blr/syA9otNhLADPAHgpDkm2kHbn6bJmm/C41kOttoI+jOauV3SV64KrhN4Cz1O6x8bT/ZsQvKmXLP//YD1kCmTF75WWql1OCMDB/6ErqCpNxjuDE/BumqR/zMVI2Jyan9KuQAyR3VrDA1qeoQ159O36rWt49VOBu56aTSxcgWPzgwzFxLyP2dgxsj6wj9tHgaj7QmmZNgp5A+ucp5xk1qwtMEnrPCTbm5pBrP/rui1XK79Wmvj9LHkHD06YDkJ89dKFIjGlpVSS/fmA59Dt/LI3E4kAm318aJizK2OsTQjMZtGvPoKb9kHnCQVtqtsZaYwPAp56IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LOYP123MB3279.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:e6::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 20:56:41 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 20:56:41 +0000
+Date: Tue, 20 Oct 2026 16:56:37 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
+	frederic@kernel.org, tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <u5pjpjnywmbvjyzmlc65ezf4gwsfvmlobevzd5j7ynwflwac43@qrtyxz2ihsdd>
+References: <20261016052203.489760-1-atomlin@atomlin.com>
+ <694b548c-5f34-48f2-8ccc-5aa020c76939@kernel.dk>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <694b548c-5f34-48f2-8ccc-5aa020c76939@kernel.dk>
+X-ClientProxiedBy: BN9PR03CA0037.namprd03.prod.outlook.com
+ (2603:10b6:408:fb::12) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,65 +89,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019174258.1375583-1-jkain@nuro.ai> <CAL4WiipkRkOnc_QJ51g6_9uB=pTeCSp6U8L-YVD2ytuZn4g5Qg@mail.gmail.com>
-In-Reply-To: <CAL4WiipkRkOnc_QJ51g6_9uB=pTeCSp6U8L-YVD2ytuZn4g5Qg@mail.gmail.com>
-From: Joseph Kain <jkain@nuro.ai>
-Date: Tue, 20 Oct 2026 13:55:47 -0700
-X-Gm-Features: AclHuK-crS7z_XIcQyguixXXCUEme6bZ9BWpgUYG6WSh9lO_ed8dYy8vP4sPrPk
-Message-ID: <CA+Y90Pg5UaL9WkaGghc3PZadrsN+ud-vY89aE3xuZ3UjUxz9Ww@mail.gmail.com>
-Subject: Re: [PATCH net v6] net: schedule a purge when the defer queue rejects
- a free
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, 
-	kerneljasonxing@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org, 
-	rostedt@goodmis.org, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOYP123MB3279:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb590873-5165-4749-8756-08df2eeca441
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|56012099006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	lCh+1/y93xoUcUw5leKON74nbhgg7DhSbkNGpVpJChLrebQAGKQRJYHe3/++mqvyFz12YR38uvlCcfbd2SaCKcuHDVxMF0h9Aw5qXz6C/HtabNV3GdkLtVZIflhcDDGUZm6nwe5l5X22d5RK9h49Vqz/UKk6shHHdSdmELKYAreYHTTF8o23UxH7VX87XtPwkUPie+IPoQ2QIRZyM1rWx/iKWNhsndAlbtspVVtozaoRdJ6vAMjBHDzWMEgT4SKIG36i7PlKLDDbZPQW0mJvMiz9pzO1IQpX7Mcei1MZTcFcGAMP5PZGNyFnL8IWz8DFU/bxjdJEHiNKFa5vt94Fg3UfHqZUl9hawDudfSLoQLefcmsytM7IJjr+WgBhrN9F/IqsQ+h88VB/qZN403Ufuwb4P0aKqQ0FZX3zf93NevaQeeou9m6XebCoP/OrWik0GnJLLhWFWg0jFkgKEmjmqaAlLwlWpf+4/QaLXtyRbIT0goNxMKLV9OOVq2czcc13wqSClLQF4sqC5BBHdp0xZdUWN14nCYub2cRHCWHXeUpoahipFZrtcd5n3YC82nQo8iJnTqkIYb/5Ily8iy1AQhh/GGVGHRtn9dw1zF+kqSAuQTtAuxsUxMYs055Cdu5ezdoJVYgFKK13pY8ZBPmUPF2X9it2lyc1wtAWwKHP+ME=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WkJaeWV2RjhIbjYwRU11V3lpS1ZnWFR3RU5vYkxRdGxiNms1c2pJS05vLytQ?=
+ =?utf-8?B?dlM2djE5Umg1akV2UTdFZDZsR2JHcjU3cERvNkw0blg0UDZCVk1ndEVVWVRr?=
+ =?utf-8?B?ZHAwOXVIQTJPT0NwRFBhK0xmL0Ewd3d2b3dqNWFvQkRTTWp3TFVoQVI3Q3k2?=
+ =?utf-8?B?TEZFWDVkeHgvRWtoVU93K2ZRaDlTdXJod3pTM0ZtTDR2ZE9CWG4xSUNWWGRC?=
+ =?utf-8?B?a2tZc1l2bTNlRWZHRWUrQlgzQ1RsNHpvYldWQTkrMnhlL3AyZEVSc2xtc05B?=
+ =?utf-8?B?YlpMNHR1VHpwZStHMnhGZkNxekh5Qk9wSmRvd1lkY3FDQ1RzbFdnNm0yQ1VD?=
+ =?utf-8?B?RUFIMGZtaU5ueWlkWVVKeElJL1RiYUZTSjltU3BJVmdTbGU1VXp1RW5kaGQ3?=
+ =?utf-8?B?amhPcTROSkZrSzRPaEtlVjdZTlpFS09hYTYydFNOQndnQVlPOVkyQW5DMGVT?=
+ =?utf-8?B?SzU3TTFkK1lIMnVObFFEMlcvQkhZdUJQRnVGK0N3VzVydWpxc2RIbHhKSDd3?=
+ =?utf-8?B?aFFEM3EvS2NMM0NlNWhOeGpRSXlCZXllVFRiWm1Fem1sb0tab2o1ZDIvSVNY?=
+ =?utf-8?B?cFdXc2I1NjNXM3ZMZHFJRTgvSEliOEpPYkZCQ1NSZDRNM0Zsck91UEg2OFpt?=
+ =?utf-8?B?UXJYV1NCaFlLVmhtRTFXZWxsdlU0RHJxNmFXU2ZUZnZ0TmUxS1h5bTdHTTY5?=
+ =?utf-8?B?MEtzM2lUR2pQaUlQbk9SS1BuLzJ4NzFmUGVlYWd4eWdMUXY4aFJTanN1cUwx?=
+ =?utf-8?B?bGNZbFN5L1pRR2VENVJYRGFhQkcwSU9hNElzRU8wYm54S3pYOUp3N20rK0lQ?=
+ =?utf-8?B?VWl2eWpndDhYTkk4KzVvb2VKWVEwd0ZWWm9QeWVjNjhEeXFZY3N4aUM5RjVu?=
+ =?utf-8?B?dWI3NWdyUkgveDVHSHNvZlhhWG1VVUIrM0x2dDVkRDRCUFdCMEU3K1NVNE9z?=
+ =?utf-8?B?SzNMVjc3UW1mL3FVS1NqczJBdkx3bWtOMUtqczlaakNwd2Q4NWJieitwWnZI?=
+ =?utf-8?B?T2liZHVpVFFTWFB0WkJYSlBYeWMwZmthV3pDNHBTQzMzYzgyc1FxcVpHbFRz?=
+ =?utf-8?B?SC8yRDdMT0lMK292aXhZRDhnclE4L2ZiYU1yb2E0QmpvcXQvaFdwcnpLWVFt?=
+ =?utf-8?B?bW9pUmtCY1JhUEdzQmtVZ3dybU5YKzhGZUJDb2g4ZWZabzM2SHg1VHlESUZx?=
+ =?utf-8?B?YlE0TERvOEVHRGhpR3RHTGhuY3lvNE9vb0VaQklaSVFDcEZXQ1RCczdMbkIx?=
+ =?utf-8?B?TlV4eWdwZHVza0MrVUxlb1pRNUVBNDY1c01WRHhwMytmbmlobzB0c2llNzFU?=
+ =?utf-8?B?bmJ2dWdsUjVnU1hLT1hZd3pXM3pyblBxTE5OdEdSc2drb25JazRrajlxKzZj?=
+ =?utf-8?B?cVpzRDNmbDB6aVY4WFNwRFhIUmRyTWJKS25PaU1ER214bmllNk9IZ1lWY1Q1?=
+ =?utf-8?B?Mnk4S3dCWGRCTmRyY2RJazlodlZJNDF0RHZJT1QxOXp2TW9LWWYwRTNyQitq?=
+ =?utf-8?B?NkFIZDgwOGppeDlnOWJBVlhDcjdhN3M5bVphMGNUbHIrbUhBTk1tNHhZQi9M?=
+ =?utf-8?B?anQ3TTRyYllldittcWdFekZtY3ZPMVI5NGVrUkhUend3OFlBd2JaeXJXd3VF?=
+ =?utf-8?B?NHVUQXVBL1hESFlsc3E0TDdHWm1mUEVHTXQ5NWFIMzVhTGZmdjJ1M3FFVkNX?=
+ =?utf-8?B?blV3clZWOUlwcjhZNUlyUGNUVjZHSStZc21zWkMveloxVThGbjZYNTlwS0tr?=
+ =?utf-8?B?L2c0NE9RNG1xNmE4Z1NNa0RyWEduMlRyN3dyUEVBbTM2bWdHaWFqUG5nM2dU?=
+ =?utf-8?B?d2tYMHJWUGIrZ1BPbHB4a1BBVWpibXl4aWR1WFRnbUN4MGpGS2t4OGdzdHIx?=
+ =?utf-8?B?T29DT3dhR3NFVXptTmdyeWFKVVFZUTQwcnp1TXh0TE5yd0ZFQk1zOWwwQjAr?=
+ =?utf-8?B?M3ZsSzMwdHJCVkFxK0hLZHBmVVA1NUFlMmswNnRBVWhYc2x0MVM2OW5JNUlQ?=
+ =?utf-8?B?LzdjWm90TmhRL2t0ZWFTTXFsQTBHMFE4UGJJSEJVQld5cmcwdm0ybGJvSWIv?=
+ =?utf-8?B?VGFlQ0lsUktWWGozMTlmRWFUSytHRFFOMGNVRnBTcHNTOEhld0tDMlJ2T2Jm?=
+ =?utf-8?B?bWdxdS9UNDN0MURTcm1pT25Hb1EzalNuMjh5anpNdXUzVEFLTWs2ZkVVWG9s?=
+ =?utf-8?B?aWFGUFBWOWF2VlozcmlXcmpoaHExSlBGRUIzV1dmaEk5Z0hDWm8xaWx6VDVO?=
+ =?utf-8?B?djlFSm52dDBLYUQvbmwxTDUwWmp2djg0Yk5LWkJVZk1YSVo1bW9JTlBqU1Zk?=
+ =?utf-8?B?blU1ckRVTjR0SnhsVk5aSlhzUUYxWkNHU0xiSWkvWXJTYXIyeGhsZz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb590873-5165-4749-8756-08df2eeca441
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 20:56:41.4384
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W2qjSPC7pRysqPDVTvJyUyh3aTmnQMU0l83haFQ2obC+tMD70w6u9sQpOjUjWysa0A67ScFoYOIKmmljAF69dA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB3279
 
-On Mon, Oct 19, 2026 at 10:58=E2=80=AFAM Eric Dumazet <edumazet@kernel.org>=
- wrote:
->
-> Say not to very verbose changelog, that nobody will read.
->
-> Since commit 844c9db7f7f5 ("net: use llist for sd->defer_list"),
-> skb_attempt_defer_free() increments sdn->defer_count before testing
-> it against skb_defer_max, and keeps the increment when it rejects.
-> __skb_defer_free_flush() returns early on an empty list without
-> clearing the counter.
->
+On Tue, Oct 20, 2026 at 09:23:10AM -0600, Jens Axboe wrote:
+> On 10/15/26 11:22 PM, Aaron Tomlin wrote:
+> > diff --git a/block/blk-mq.c b/block/blk-mq.c
+> > index 025a799f35b9..1a113679f15b 100644
+> > --- a/block/blk-mq.c
+> > +++ b/block/blk-mq.c
+> > @@ -2241,6 +2241,21 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+> >          return hctx->next_cpu >= nr_cpu_ids;
+> >  }
+> >  
+> > +static inline int blk_mq_hctx_unbound_cpu(void)
+> > +{
+> > +	if (cpu_is_isolated(raw_smp_processor_id())) {
+> > +		int cpu;
+> > +
+> > +		guard(rcu)();
+> > +
+> > +		cpu = cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_DOMAIN),
+> > +						 cpu_online_mask);
+> > +		if (cpu < nr_cpu_ids)
+> > +			return cpu;
+> > +	}
+> > +	return WORK_CPU_UNBOUND;
+> > +}
+> 
+> Not opposed to this, but let's please think about making the
+> common case the fast path. CPU isolation is not the common
+> path. That might mean annotating the hctx itself.
+> 
 
-Review bots found that:
+Hi Jens,
 
-1. skb_defer_max=3D0 still latches.
+Agreed on keeping the fast path penalty-free.
 
-proc_do_skb_defer_max() publishes the new value before it calls
-static_branch_enable(), so a producer can read skb_defer_max=3D0,
-increment, and reject with an empty list, which skips the kick.
-__skb_defer_free_flush() then returns early without clearing. Restoring
-any limit at or below the count that accumulated leaves every later
-producer rejecting on an empty list. On 6.18 through 7.0, which the
-Fixes: tag targets, there is no skb_defer_disable_key at all, so there it
-is deterministic rather than a race.
+For multi-queue devices, blk_mq_hctx_empty_cpumask(hctx) already serves as
+that annotation (via hctx->next_cpu >= nr_cpu_ids) since isolated CPUs are
+stripped during mapping, so normal multi-queue devices never hit that path.
 
-2. The kick does not coalesce the way I said it did.
+The main concern is single-queue devices (nr_hw_queues == 1), where the
+hctx is shared between housekeeping and isolated cores. To avoid calling
+cpu_is_isolated() on every deferred dispatch in the common case, we can
+split the check and gate it behind a static key:
+static_branch_unlikely(&housekeeping_overridden)
 
-trigger_rx_softirq() clears sd->defer_ipi_scheduled as soon as the IPI
-runs, before the list is drained, so if the owner has BHs disabled the
-next rejection sends another IPI. With use_backlog_threads(),
-kick_defer_list_purge() also takes sd->input_pkt_queue.lock before it
-tests NAPI_STATE_SCHED, and on PREEMPT_RT that is a remote
-spin_lock_irqsave() per rejected free. This series started from
-sd->defer_lock contention on this same path, so I would rather not ship
-that.
+I will prepare a v4.
 
-
-For v7 I plan to restore the empty-list clear in the flush which covers 1
-(but was dropped in v3).  I=E2=80=99ll keep a kick for the case where the
-owner never raises NET_RX on its own, but bound it.
-
-The bound is what I am unsure of. Kicking only on the first rejection
-after the limit is crossed costs one IPI per overflow, but nothing
-retries if that one does not land. Would you prefer that, or something
-that keeps retrying?
+Kind regards,
+-- 
+Aaron Tomlin
