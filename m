@@ -1,116 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792518498;
-	b=NCd60QRzcRdCr6A/81A/wybv1BqPRxX4F31J3gLcSQnn/7D1wi++9ni9mLSyrkE+Hb4v
-	 xN5iTq7Mbw349OSsxWaB+JErJQEnTFzEXC2E4RJ4nf0pSQgjHbwo7zvYQqzKyisOD9cA+
-	 7dhWAVwToouxkdWPMW8PMyXjINvAzVqu909R5LLPOVlOG3JzPKLYfV0YrshPTVICyMswb
-	 kUceGlXPkACWA0HIxR6gZ8vIN1a4VsEtcVNX4V6kGl10JW2KLVHbgYnE25uhcRI3clRKH
-	 Z21Z/r7oDSSrPGYrZoVTtVb0gveSX4QrgHevfwUIfwYnNiNikxQfb41oi2sY4Vy1xvQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518498;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6CvttVz8VRs9CZmhiCYdtXtLzwcUvYhCOd23LrfgyLE=;
-	b=BDMeQe1ImAt6fPUYOaDw1outNi7zBloJa3QX76qlPtTGPJN6pHlu+TWx313bDjVAp5xL
-	 cy8lwnE8ygsAD70Vvq2GkxL0Lbreszy3FpA4WsSkThowweDXWOkGvBXbLggimABOuo/r/
-	 d89cO3R2o38t9AlVDhcMG/N1eeghS9l+HLMt1NRZZ654NqquTx4ZLVxxCmUyCBKALB62q
-	 SpqhEF8Neau6PApluD0VkBEepBtHJDYTWxi3UmfZ6qwRjd3Wh/pJW3O+3l11hgWBw2hwg
-	 HWDIVVfLrk/pWu7QCqE0G7KL9yAB7Mwsb1HsZQyd/Aca8/Z6VuvpkjUJMyIGaFIMTqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="W2/MfORf";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.22
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013022.outbound.protection.outlook.com [40.93.196.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792518592;
+	b=GjH662IBb0iNiNfz9E0/avc+0HkxlyN43xw+obUSMmg+lNlek7JkOe23zu0BFJA3OJET
+	 mnSxt9VVHQzoWCrgJhPqbJvrFBTSSKjLqoggTE0Bdgp7AARwXL9qGMyYNhygXiGFlILSi
+	 swj/NelZlbZiPWbHmKkcAEbfhlU5A0BVIjpxXpdvwIpAoim1mji3rSN7IxgYWFblUHF3R
+	 66ZAGeFN2LlaF8VTc22WscBoAstLksQSd3ghsmt5S4ozIWfAaZ0eJNIKckE/wD6r+DhOy
+	 aukz3X2p1I2QxfYNC+mwds52RxoYLE4Jixp2/zCpSVL8PyxgY+dhmiZtFcCziR/Z8og==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518592;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=w1P7W6t1qdfJDNHo1qf6jaohnKGyf68cf4CqpIgt5Qw=;
+	b=ap4yrlNlqvFnLiqVp1IcpARRNPFLNtneVT+utMSczmKmFyVFcn/aZtH9HzlQAbBsv8If
+	 O/z0OuaZeYeA/B9VSGkXeJIB1SRb6OVDW6WxceQJvi1LaqF4cmKC2p4IXrQfFx2ee3P4Y
+	 iNgn0AuH1ihyabr5v89Z596QQV41WDCdyWGG+7NJEAkVE58/dJXpk1aluZw4dPFojyrvK
+	 xf2raEXWZbD/QEYdJs+xx0FBiZJniKb8PosOEE1ufAjraB6T3lYCF8Z4nxIBZeTJCvkLS
+	 GVPmTTRc3oFOsc3hP+mkxYyGpoRbkIAQ4raD5ovXz03bsjYm6kcTC1uqSvvK+xwU0Hw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R0xYxuNr;
+	arc=none smtp.remote-ip=91.218.175.180
+Received: from mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76D8606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D76D8606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81351606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81351606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=W2/MfORf
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lV5wx0isVtX6hk04OnmEbaSYAd1oeiIDNyF+Z86XBHO6UAFa2brkKIqeA94AzrD0js1mFBk+jwToAAuOos74F+E84yQO1u6wLdaILj3BfiKHpNQ6XVlT+GdUSXo0n7An7rAEedDOTpop7Qw8VbKolbstjg6nV8dDIDLok/wXLabZBP95PmRnnpwIc2BlGmnXzr8nNOIezFdB8v8e/iK82ah/lSwBcRM3EORjQO+ilNVtDNmNl6KKTXd6mt2Qb41g1QIRUHF8VdjohEK7bojvcjHIG9Wxfn79N5lkeqQtYy6XaPLJyEprq9CMWJuJRSHzHyHXd9VSR7Z0Wh7934lU3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6CvttVz8VRs9CZmhiCYdtXtLzwcUvYhCOd23LrfgyLE=;
- b=Wz2AU9YYZ2lv45UpUyxvAlnQRNDTR/yGumnZjMSZpuLNTndJLmaTML/M8gw7nZ9/b1ENplcN0FC/nEaNi57JCPJlFnZn0P2BHkf/cqjx/xA8tKON2aMGlRbko4OVmBdmKoGeQjih7sjfOmO+52cVB/1SEV6NU92XrvAaqnboVbdLQZGyVbe2xejoZ2zyeCGQq0VdbE3oC0shtu4TnyACWnkE7X84g03UalMk0J1sosTgREX5yjAwR7R7/+T9jSAsLBrzEwoW7RyE43zopjBbv9QGC6MIdM47Sm5o9LVnILR4+S30hK+pHOslsEjafoyLCD5RP634jesKtWsJ0IQE2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6CvttVz8VRs9CZmhiCYdtXtLzwcUvYhCOd23LrfgyLE=;
- b=W2/MfORfHpXn4fiilmLuyJPpbnoDR67hen7kIBU83ftRKsB+zRn/6wQbe7v6fgUiPdEMewXg/BHilzMBuVDkKVJYCSVvpn94lSR7sKvzrCsmG/V3nDMPafwqiVR2t0QQF9oOaOxr81Il8MmgTRw79Ebl9ajZgg9o2ZDhTS67832bCPYV8YHWhm/frDOkY4LcTSOxC7NVPPljKqkxF855S+nAffPHCPzw3eTm6ZKm2NSQbHQ8mQVbKowaUANn/U3cj/q7yjgRoWF+NnSt5ViitOQ6tgx3Z23fkzcAWNrZIfcqYLq5VryJtUxG4gtPIQcOyngqIloLBSCFhpEVP9ArzQ==
-Received: from CH0PR03CA0207.namprd03.prod.outlook.com (2603:10b6:610:e4::32)
- by IA4PR12MB743615.namprd12.prod.outlook.com (2603:10b6:207:150::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 17:48:13 +0000
-Received: from MN1PEPF000793FE.namprd05.prod.outlook.com
- (2603:10b6:610:e4:cafe::70) by CH0PR03CA0207.outlook.office365.com
- (2603:10b6:610:e4::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
- 20 Oct 2026 17:48:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- MN1PEPF000793FE.mail.protection.outlook.com (10.167.249.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 17:48:13 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
- 2026 10:47:51 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 10:47:50 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 20 Oct 2026 10:47:49 -0700
-Date: Tue, 20 Oct 2026 10:47:48 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
-	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>,
-	Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 06/11] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <atepRLlIFT/0xPTC@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
- <atdSrRwrphdI9ZQA@google.com>
- <atemgT/67JPpdk57@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R0xYxuNr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3LMAVC4kh8KJAzmmLwn78lrIFODve62DQ6QU66x6YqM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792518589; v=1; x=1793123389;
+ b=R0xYxuNrAi9SNdIgVz4EPafS9f10y7KmbH9Dw7SUoL1BR4z6oyY22knwmX+LeTukIdyv2LKD
+ +ZkILiwTtUc8K2Ii/5o31HYkazNDs9xHuuJyLMqSvHh1xyWtAr+Ny2EAMD4ONuTTPQC4q6YrbS5
+ /95QT8gTnMaOWndMxoX+qdmc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dc2b3922390274f1;
+	Tue, 20 Oct 2026 17:49:49 +0000
+X-Mizu-Trace-ID: dc2b3922390274f1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5dc51ff0-8423-4acc-a392-7d370db2d27f@linux.dev>
+Date: Tue, 20 Oct 2026 19:49:48 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,70 +58,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <atemgT/67JPpdk57@nvidia.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FE:EE_|IA4PR12MB743615:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60de04d1-0f42-4a06-b13a-08df2ed2504c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|23010399003|36860700016|6133799003|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	x3jqe6uG7h9XjgJGjcEKjcarAoclusZriLBC1NVoPGCnzpytybc1CrvT2fzbtueijRPVw2NoVHkoDbmC4fW8i507AQRysPpgrMH7g/V4bWRNiM22rzPKP1wH/rPgHecvhyp/yHUPglKx8LSoZPCWX9BmDapIoguDE4GeERReMs8YY4+w1CLaNx4+h6sKQ6bGoYCZo7bqVGdOQ570NwdASoTAa0ZLdJf/WK4HHsDrZjhdGZVtK76Ei/FYCgyy8jiC9+O+sY9aBhX567c5v/WCFiMSiUsyFRYnaPIDY+KdeaK1PcZ/EOckq2T4nG+uErQXgDUa73MiEqwy5LCI8KpHb9Pr/Pbs0T6YE2QFt7MqvOBXrGm0ZK1e1iOi4ho+J8rJ/aTKghsIZw4Z+GbbusmK3oHd/M1hMJ2cAVVJXNvJeURUBJuheW60CY1STAC6AAy549nukGaRJg27l8bv3suNpe0u+37DumpBY/pGRl1s5xQ9/wYMVAQtXg+ARKA0pVNjw/9MtG7Ehxdbve8rFotgV6NdhtL5jTKegWVi0PZd69gewzBTBxGvy2aFPDmM3zP1GXR1ISx4gGSTYoONexlFLFnQesNkAZOPyplkz9qtOa7UgXG/B/WhoP78KT/jdvXqpK0Xdq++xim3A2CuF7PJquhQCEoq54QJIkVb26nkoGHbI2g55NGCZZgENp7A/VLbbv1nF5Io+Su0rtemAHndVA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(23010399003)(36860700016)(6133799003)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2JhfhLA5QsoWMhwqB/tOjWv2pASVUe4Lxr3JNmszTwoOL1DpxFclyWocIKCupX7LYz2lycYpuxEuZ+hwpMOewl5HD51k8loedCtaQ+PRD50bhX1NsQ2yruiqPWwGHQgjL7ChWOpxoobTSH2A7pGxVlrVijiwfK2yVYHJ2fLSpqxlhfSe/YH1DHp5Envd2nhWBwncpzrHZHnKoHvRpSDE7B3Ejh4Dvaj4aoAWnmskVCo7QMU2ooZC0MK0y/rKY3tbpb3hr9U3La6vJKlVvEL9MT8CYiHdRrfTZDtrmvEDw8B+iUR7Bi74cwOMDAUCDHHcSC7yiszbRuUc/dPB5sF/8KpQRDm/+RmVxPPg+t9kLNePtw2Ij3xxQLYNBjpElbFBjLVy9o+C6/ig87awTMfoS30Zsi7u6VdOzo8hYNxyRccJdeYn2Z93wRcffZJJyIsB
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 17:48:13.3203
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60de04d1-0f42-4a06-b13a-08df2ed2504c
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB743615
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard
+ handshake after probe
+To: =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>,
+ Paolo Pisati <p.pisati@gmail.com>
+References: <5e44ab55-09e3-4043-a369-05b792b5e0d3@linux.dev>
+ <20261020074226.30277-1-rebecca.mara@posteo.de>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261020074226.30277-1-rebecca.mara@posteo.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 10:36:04AM -0700, Nicolin Chen wrote:
-> On Tue, Oct 20, 2026 at 11:38:21AM +0000, Mostafa Saleh wrote:
-> > On Mon, Oct 05, 2026 at 12:30:49PM -0700, Nicolin Chen wrote:
-> > > +	/*
-> > > +	 * According to spec (6.3.24), HW aligns the base down to the table size
-> > > +	 * and ignores the low bits, so an unaligned base would make this kernel
-> > > +	 * read a different table.
-> > > +	 */
-> > > +	if (!IS_ALIGNED(base, size)) {
-> > > +		dev_err(smmu->dev, "unaligned stream table base %pa\n", &base);
-> > 
-> > I understand these are best effort, but what happens if the address
-> > corrupted and happens to be aligned?
-> 
-> This is a basic sanity so HW wouldn't immediately fail. A corrupted
-> address would be trickier to test out; also we don't have a perfect
-> way to do that. Earlier versions had some address range check. I've
-> dropped it, following Jason's comments.
-> 
-> This is also in the kdocs of the whole smmu kdump functions:
-> 
->  *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
->  *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
->  *    the real hardware. Callers of these functions are responsible for gating
->  *    ARM_SMMU_FEAT_COHERENCY once during the probe.
->  */
 
-Oops. I copied a wrong paragraph. Should be:
+On 10/20/26 09:42, Rebecca Mara Müller wrote:
+> On Mon, Oct 19, 2026 at 10:38:11PM +0200, Denis Benato wrote:
+>> Does this laptop have other lights? I wonder what that is changing...
+> Three, none of them obviously software controlled:
+>
+> - the LED in the power button: white while running, orange while off
+>   and charging;
+> - an LED on the left side of the keyboard, white while the machine is
+>   running, off otherwise;
+> - a small LED in the F11 (Bluetooth) key that lights up white for a few
+>   seconds when the keyboard is lifted off.
+>
+> I saw no LED change during the tests below. The firmware's own LED
+> table agrees: GALE() checks a LEDS variable that is hard-coded to 0.
+>
+> I also tried the IDs directly through asus-nb-wmi debugfs:
+>
+> - 0x00050021: DSTS returns 0xFFFFFFFE, but DEVS still calls SLKB and
+>   writes the EC. Writing 0x83, 0x00, 0x81 and 0x82 made no visible
+>   difference anywhere on the machine.
+> - 0x00050031/0x00050032 (ScreenPad): DSTS reports them as present, so
+>   asus-wmi registers an asus_screenpad backlight. Writing bl_power and
+>   brightness changes nothing on either panel. Harmless, but the
+>   device should not be there on this model.
+>
+> That fits your point about code reuse. Two more fingerprints: 0x00060024
+> returns a package containing 0x9D2F8086, the PCI ID of the Skylake-era
+> Sunrise Point-LP xHCI controller, and 0x00050035 has unreachable code
+> after a Return that writes the same EC registers as the ScreenPad IDs.
+>
+>> Doesn't look like something to be investigated further, perhaps try to see
+>> if there is some unknown devid in wmi that does something cool.
+> I read through the 45 IDs that WMNB answers but asus-wmi.h does not
+> know. About half return constants. The one I find cool is 0x0006006C:
+> it is set-only (no DSTS, so Linux treats it as absent) and takes
+> 0..3, which it stores as 0/7/9/8 in the DTT variable ODV3 before
+> notifying IETM. The DTT data vault (INT3400 data_vault, apct/apat)
+> names what that means:
+>
+>   ODV3  targets (PL2/PL1 in W)
+>   0     Whisper 35/30, Standard 55/42, Performance 64/55
+>   7     Stand_Whisper, Stand_Standard, Stand_Performance (same)
+>   8     Book2_Whisper 23/20, Book2_Standard 33/30
+>   9     Book1_Whisper 23/20, Book1_Standard 33/30
+>
+> So it is a posture input. In the Book postures the firmware also
+> refuses the performance profile in 0x00110019. thermald --adaptive
+> applies these tables on Linux (intel-rapl-mmio currently reads 42/55 W,
+> i.e. "Standard"), but nothing on Linux ever reports a posture, so the
+> machine always runs the laptop table. I did not write the ID myself.
+>
+> Related: 0x0011001F writes ODV5, and ODV5 = 255 selects a "Check"
+> target capped at 20 W, which looks like a factory or service mode.
+>
+> Two IDs I looked at and left alone: 0x00120061 reads EC 0x2C and would
+> return 0x00010002 if it is set. I tried five chargers, down to a
+> USB-A 5 V source where the battery was discharging at about 9 W, and it
+> always returned 0x00010001. 0x00060059 is a generic pass-through for
+> EC read/write commands 0xE0..0xEF.
+>
+> To report a posture you need the sensors, and those were dead too: the
+> ISH rejects the generic intel/ish/ish_ptl.bin ("ISH loader: cmd 2
+> failed 10"). ASUS's own SensorHub driver package (5.8.62.0) contains a
+> signed image, AsusSign_ishS_SI_CommonPTL_5.8.1.7779_V0018.bin. Placed
+> locally as intel/ish/ish_ptl_59b8d9f2_c68ec386.bin (vendor + product
+> name CRCs) it loads, and accel_3d, als and hinge show up. s2idle
+> hardware residency stays where it was: 27.6 s and 27.9 s out of 30 s
+> with the ISH running, against 28.4 s without.
+>
+> HP, Dell and Lenovo ship their ISH images in linux-firmware, ASUS has
+> none. Do you happen to know someone at ASUS who could submit theirs?
+> That would give every Zenbook Duo working rotation, ambient light and
+> the hinge angle, and with the hinge angle a small service could feed
+> 0x0006006C as Windows does.
 
- *  - Values read from the crashed kernel's registers get structural validation
- *    only (format, size, span, alignment, and ID range); the physical addresses
- *    are not vetted, as the kdump kernel has no record of which pages held the
- *    tables.
 
-Thanks
-Nicolin
+I certainly do. Next thing I'm gonna do is write to them. Note however
+that unless they give me permission I won't be able to tell you the
+outcome of my conversation. Hopefully one good day a certain file
+appears in linux-firmware :)
+
+>> in the OGC discord (ex asus-linux discord, you find it on our website) people
+>> are planning a GUI redesign, perhaps if you have spare time you can add an option
+>> to asusd to shutdown leds when entering sleep to have a GUI on a widely used tool
+> Thank you for the pointer. I am not on Discord, and GUIs are not where
+> I am useful. If the sleep option lands on the asusd side (daemon or
+> CLI), I would be glad to test it on this machine.
+
+Well asusctl has a daemon and a CLI too. I don't think it's much useful on zenbooks
+due to missing TDP but it is a quick way to change supported firmware attributes
+and bind epp policies to power profiles in case you are interested.
+
+If for some reason the kernel can't feed sensor data to wmi properties asusd is
+the right place for doing that (albeit I don't like when userspace does things that
+the kernel should be doing on its own).
+
+> Thanks,
+> Rebecca
