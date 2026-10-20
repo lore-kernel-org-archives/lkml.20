@@ -1,84 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490516;
-	b=VUMslsOhsmb4a7xRpK7SARZ5ORHtAnKOgwDV9YM98q3YUxMCVLiP+Wsyx1RJGJzudZBZ
-	 J1i1ZJ4hpGTKWmQ82kba3TB37M5pBd6PVQS2LpU3KZ3smLZD8QoulHL86i46cmibp88VY
-	 530ivRg2cVBOXH9oI3fR0MwSz83gyjd1B7qfWuSELQ6DsDZfDPD/Y+TW0FVxNK+9RZ8ac
-	 REAIMJuttkc6AzWrFlqjrzpy0DEzsv6IL6i8Lby0xlDJCVWsEg+h5Fh9CPsfvCkJlyHeW
-	 YtmdwdXnD0b8f0DXcsaftv4euGdjk9vakb0372XyNQEnYJ0FpHpDTsP3i0jE0vQvELg==
+	t=1792490527;
+	b=iOLiEKMvl7K9Me7xUF4Kb2Y86igTZbY92uKtdN8Rk8dIyZWxVEVPlpVCZnTxXqAyytRz
+	 Y0X/X2ihSUhVUgeUhZcW8hYlKDMMCgjREkI2jP3eP4ddl02MIY/5mqVEQ/mWGLSX6Dd/4
+	 yXoSKAqu4sKnBoKt2hziG39a5dA96YfKPBLdJDaKwUCh9NSsROfCqWp3GqwqCjTPgORl7
+	 I/ZVfVQDmS9AWy8tdemSuhQVZbzG1eCUC1Bds8mAcmetlQT+ABnXwIfne22VNX9mTpQph
+	 ueCg1pcy/GyQ2mkJfMZUjENk8tIZpwnudPSJSsb1ebPF+8J7Fen4t8E/rHOq1pI8Amw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490516;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6q8wiBkHoiL/KGYdZsxjGwRTuXA7qaumt7yvL4z0Drc=;
-	b=Wr8GU4hy/sWaAWDCei1IKHufjFDdJ3JhppRlbpk6ju6bmtAYR4pNvH7vem1+Ap4ozU7G
-	 vLmqjViCjV9tU7j8QyVEwOaVPYC45kAhYBVoMmeV0VZszmGBPX6WYYZNaGwFTZF+30lou
-	 N/3qN19+2bTVlCx2SWI4jM4c5kLuw0druZU8/3VfGl62gloOIk0OMEw/Q/WeEfuA0uEPK
-	 xJT15Dy/tQvC0LAGJgy2nC/wFSWuaBMCdfeWgdJJ3MwKarJDimMFPUK12QggYvJDuSRtl
-	 yX9cGolHkE3zycub4BRDZCRdMR5Is4hBG7muUWw9T3EdjrahG6q4g6yxncrfpKChqlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490527;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=34jo2lTPBFEDXI1aSdUvkUPUth9L8yOyLhTCG7rWYZM=;
+	b=aLj3yp1PXwNnfnXZGPcFQ9oG75k/1fXm4TvCa0h389Dav0iE50T+mgQWhWUgPaKVC7aP
+	 5yu4+C/SRXV7M8diRVA6ntsBjF5KmuAzKd95JaIxSraE7gV4XFJdviKnACd5Se6QlYo3/
+	 RjyllSaiuJDY55q3/32mP/riqRbKUjBZMJGFUbTVFE62lIgT0D2Nk2dIgvic4seiteFGy
+	 8EZsaMK3PlDUhMN3I0Qi0/sTopffvaKCAp+D2iN0ysFHuQepLfUJS30aiyKltPi6PcAvV
+	 tNz7oeSzsjLl5NTQqPScg4as8h5cXhrLjZvGkz6rCiShdfD3I7vE1nGdUc0Nw36DN4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c03e0rOO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDAqly89;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E8D606A327;
-	Tue, 20 Oct 2026 10:01:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB29F606A31D;
+	Tue, 20 Oct 2026 10:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c03e0rOO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68F3B1F000C8;
-	Tue, 20 Oct 2026 10:01:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDAqly89
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78FD1F000C4;
+	Tue, 20 Oct 2026 10:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792490515;
-	bh=6q8wiBkHoiL/KGYdZsxjGwRTuXA7qaumt7yvL4z0Drc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c03e0rOONVKauuCZcof5oyBlChrq0q5SZ8Oppn1MU/MTb6Ti6tOaODLOGLscNVWCv
-	 TZz5ZTMLiff8MSa50ikjR+OvnJ7RiXIcO0QMVxaAKwqQVZzPyJ+qY7nCJQX8izE8aC
-	 gooND2yxrdV1ZovcyrH6ilskuJP0w+yDeaKI1JAlJ2mcvOmkasOqzP0tkxkz3l9ujB
-	 RZOkq0DnDWJpniJD9Ajnl7x1YWQ+Y4q8wFcJ66b3zN3HXbjWURqF7pc9R3KoLW+Lfv
-	 ejqveuO4n58X5coYMsjzBlNE8G7OIQBUdn9+BARpIC1zk56A/hR/1SGxxJDONadQAA
-	 uAYj1pgTKR3og==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	linux-trace-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [RFC PATCH v2 3/3] dma-fence: Support unload for ops->get_XXX_name()
-Date: Tue, 20 Oct 2026 12:00:34 +0200
-Message-ID: <20261020100034.759183-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020100034.759183-2-phasta@kernel.org>
-References: <20261020100034.759183-2-phasta@kernel.org>
+	s=k20260515; t=1792490526;
+	bh=34jo2lTPBFEDXI1aSdUvkUPUth9L8yOyLhTCG7rWYZM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GDAqly89F/GH8yY5EhL1wwCAlHSQ1x3pwskc+bkhbIsZ8HRGCxNNpO9+Hxc3k2IzQ
+	 YcOA5kV75DK7i08tKqUtrnU2C7yvmBBxI72+1b6zLYGfkFbxISwpQOtDQfIKK2+gDC
+	 0iSWEYVdJ4tfVAqXHm1g8Wu7rA6WJKqSuFK+ikFVpHiuMEfQnK9/tr8oIpL2t3M2gC
+	 Q9lincGUMOWlQBms4PTWH4SUg2PX8+Ow8Tsj3kdfDQCaS3efG70dPs+64nNk/5+QsA
+	 NIMa9ANXzjLvRd9GkzFa2y5pIWyR4lllJ18vpYeltIGgelooasDh8vi4zR2zRMZcrF
+	 ekgAf1uuGVzmQ==
+Message-ID: <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
+Date: Tue, 20 Oct 2026 12:02:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,416 +51,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/page_alloc: skip shuffling and reporting for no-lock
+ frees
+Content-Language: en-US
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Alexander Duyck <alexanderduyck@fb.com>, David Hildenbrand
+ <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261005063515.6312-1-kmehltretter@gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261005063515.6312-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-dma_fence's backend_ops get_driver_name() and get_timeline_name() have
-an unnecessary and complicated RCU requirement.
+On 10/5/26 08:35, Karl Mehltretter wrote:
+> free_pages_nolock() may run in NMI context or while a raw spinlock is
+> held. When its zone trylock succeeds, __free_one_page() still reaches
+> optional work written for ordinary frees.
+> 
+> shuffle_pick_tail() can refill its random-bit cache through
+> get_random_u64(), which takes a per-CPU local lock.
+> page_reporting_notify_free() can queue delayed work. Both operations can
+> enter locking outside the trylock-or-defer mechanism used by no-lock
+> frees.
 
-Usage in sync_file, however, already shows how it can be done
-significantly simpler: Copy the name strings to the user.
+For page_reporting_notify_free() are any raw spinlocks bad or is it the
+scheduler locks?
 
-All that needs to be ensured for that is that the signaled-state is
-checked and that it cannot change while the callback runs, i.e., the
-lock must be held.
+> An instrumented PREEMPT_RT lockdep run forced a random-bit cache refill
+> while calling free_pages_nolock() under a raw spinlock. The unpatched
+> allocator reported:
+> 
+>     BUG: Invalid wait context
+> 
+> The attempted lock was batched_entropy_u64.lock in get_random_u64().
+> Lockdep showed the raw test lock and zone->lock both held.
 
-Adjust the two callbacks so that they deep-copy name parameters under
-lock-protection.
+In slab we solved this by using prandom - commit a1e244a9f177 ("mm/slab: use
+prandom if !allow_spin")
+Could be better?
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c                 | 73 ++++++++++-----------
- drivers/dma-buf/sync_file.c                 | 29 ++++----
- drivers/gpu/drm/i915/gt/intel_gt_requests.c | 16 ++---
- drivers/gpu/drm/i915/i915_request.c         |  9 ++-
- drivers/gpu/drm/i915/i915_sw_fence.c        | 15 ++---
- include/linux/dma-fence.h                   | 22 ++-----
- include/trace/events/dma_fence.h            | 12 ++--
- 7 files changed, 77 insertions(+), 99 deletions(-)
+> Skip allocator shuffling and page-reporting notification for FPI_NOLOCK.
+> The freed page remains on the buddy list and can be collected by a later
+> reporting pass.
+> 
+> Trees from v6.15 through v7.2 call this flag FPI_TRYLOCK. Use
+> FPI_TRYLOCK in place of FPI_NOLOCK when backporting this change.
+> 
+> Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+> Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for <= 7.2
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> This was found while auditing the no-lock paths discussed at:
+> https://lore.kernel.org/r/20260919171443.90512-1-kmehltretter@gmail.com
+> 
+> Tested on base e767a4ea70a3 in four-vCPU x86-64 QEMU TCG with
+> PREEMPT_RT, PROVE_LOCKING, PROVE_RAW_LOCK_NESTING,
+> SHUFFLE_PAGE_ALLOCATOR, PAGE_REPORTING and page_alloc.shuffle=1.
+> 
+> A temporary initcall registered page reporting and freed 65 maximum-order
+> allocations with free_pages_nolock() under a raw spinlock. This exhausts
+> shuffle_pick_tail()'s cache and forces a refill.
+> 
+>                                              unpatched  patched
+>   free_pages_nolock() calls                          65       65
+>   __free_one_page() calls                           130      130
+>   shuffle_pick_tail() calls                          65        0
+>   page_reporting_notify_free() calls                130        0
+>   reporting work pending                              1        0
+>   invalid-wait-context reports                        1        0
+> 
+> Maximum-order splitting accounts for the 130 __free_one_page() calls.
+> Both guests powered off. The patched guest emitted no diagnostics. This
+> forced test does not measure normal frequency.
+> 
+> A second A/B used no test-only MM caller. A BPF arena program attached to
+> mm_page_free_batched requested 2,048 pages from a memcg-limited map. Partial
+> failures rolled allocated pages back through free_pages_nolock() while the
+> tracepoint held the per-CPU page-list lock. A virtio-balloon device provided
+> page reporting.
+> 
+>                                       unpatched  patched
+>   arena allocation attempts                  70       70
+>   arena allocation failures                  70       70
+>   shuffle calls from rollback                 9        0
+>   get_random_u64() calls from shuffle         1        0
+>   reporting notifications                    12        0
+>   delayed-work queues                         5        0
+> 
+> Both guests powered off without a diagnostic. This confirms that an in-tree
+> caller reaches the optional operations. It did not reproduce a deadlock or
+> lockdep warning.
+> 
+> The upstream form applies to v7.3-rc1, mainline and next-20261002. The
+> FPI_TRYLOCK backport applies to v6.15 through v7.2. mm/page_alloc.o builds
+> on v6.18 and v7.2.7. Stable backports were not runtime tested.
+> 
+>  mm/page_alloc.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..3e21dc90b858 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -89,7 +89,10 @@ typedef int __bitwise fpi_t;
+>   */
+>  #define FPI_TO_TAIL		((__force fpi_t)BIT(1))
+>  
+> -/* Free the page without taking locks. Rely on trylock only. */
+> +/*
+> + * Request the no-lock free path. Use trylocks and skip optional operations
+> + * which can take other locks or queue work.
+> + */
+>  #define FPI_NOLOCK		((__force fpi_t)BIT(2))
+>  
+>  /* free_pages_prepare() has already been called for page(s) being freed. */
+> @@ -1013,7 +1016,7 @@ static inline void __free_one_page(struct page *page,
+>  
+>  	if (fpi_flags & FPI_TO_TAIL)
+>  		to_tail = true;
+> -	else if (is_shuffle_order(order))
+> +	else if (!(fpi_flags & FPI_NOLOCK) && is_shuffle_order(order))
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index e4350bce9cf9..d473d4ea601a 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -555,23 +555,22 @@ void dma_fence_release(struct kref *kref)
- 	struct dma_fence *fence =
- 		container_of(kref, struct dma_fence, refcount);
- 	const struct dma_fence_ops *ops = fence->ops;
-+	const unsigned short len = 64;
-+	char timeline[len];
-+	char driver[len];
- 
--	rcu_read_lock();
- 	trace_dma_fence_destroy(fence);
- 
- 	if (!list_empty(&fence->cb_list) &&
- 	    !dma_fence_test_signaled_flag(fence)) {
--		const char __rcu *timeline;
--		const char __rcu *driver;
- 		unsigned long flags;
- 
--		driver = dma_fence_driver_name(fence);
--		timeline = dma_fence_timeline_name(fence);
-+		dma_fence_driver_name(fence, driver, len);
-+		dma_fence_timeline_name(fence, timeline, len);
- 
- 		WARN(1,
- 		     "Fence %s:%s:%llx:%llx released with pending signals!\n",
--		     rcu_dereference(driver), rcu_dereference(timeline),
--		     fence->context, fence->seqno);
-+		     driver, timeline, fence->context, fence->seqno);
- 
- 		/*
- 		 * Failed to signal before release, likely a refcounting issue.
-@@ -590,7 +589,6 @@ void dma_fence_release(struct kref *kref)
- 		ops->release(fence);
- 	else
- 		dma_fence_free(fence);
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL(dma_fence_release);
- 
-@@ -1017,23 +1015,20 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
-  */
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
- {
--	const char __rcu *timeline = (const char __rcu *)"";
--	const char __rcu *driver = (const char __rcu *)"";
--	const char *signaled = "";
--
--	rcu_read_lock();
-+	const unsigned short len = 64;
-+	char timeline[len];
-+	char driver[len];
-+	char *signaled;
- 
- 	if (!dma_fence_is_signaled(fence)) {
--		timeline = dma_fence_timeline_name(fence);
--		driver = dma_fence_driver_name(fence);
-+		dma_fence_timeline_name(fence, timeline, len);
-+		dma_fence_driver_name(fence, driver, len);
- 		signaled = "un";
- 	}
- 
- 	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
- 		   fence->context, fence->seqno, timeline, driver,
- 		   signaled);
--
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL(dma_fence_describe);
- 
-@@ -1129,20 +1124,22 @@ EXPORT_SYMBOL(dma_fence_init64);
-  * memory potentially accessed by the &dma_fence.ops functions, is forbidden
-  * after the fence has been signalled. Drivers are allowed to free that data,
-  * and some do.
-- *
-- * To allow safe access drivers are mandated to guarantee a RCU grace period
-- * between signalling the fence and freeing said data.
-- *
-- * As such access to the driver name is only valid inside a RCU locked section.
-- * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
-- * by the &rcu_read_lock and &rcu_read_unlock pair.
-  */
--const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
-+void dma_fence_driver_name(struct dma_fence *fence, char *s, unsigned short len)
- {
-+	unsigned long flags;
-+	const char *tmp;
-+
-+	dma_fence_lock_irqsave(fence, flags);
-+
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)fence->ops->get_driver_name(fence);
-+		tmp = fence->ops->get_driver_name(fence);
- 	else
--		return (const char __rcu *)"detached-driver";
-+		tmp = "detached-driver";
-+
-+	strscpy(s, tmp, len);
-+
-+	dma_fence_unlock_irqrestore(fence, flags);
- }
- EXPORT_SYMBOL(dma_fence_driver_name);
- 
-@@ -1158,19 +1155,21 @@ EXPORT_SYMBOL(dma_fence_driver_name);
-  * memory potentially accessed by the &dma_fence.ops functions, is forbidden
-  * after the fence has been signalled. Drivers are allowed to free that data,
-  * and some do.
-- *
-- * To allow safe access drivers are mandated to guarantee a RCU grace period
-- * between signalling the fence and freeing said data.
-- *
-- * As such access to the driver name is only valid inside a RCU locked section.
-- * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
-- * by the &rcu_read_lock and &rcu_read_unlock pair.
-  */
--const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
-+void dma_fence_timeline_name(struct dma_fence *fence, char *s, unsigned short len)
- {
-+	unsigned long flags;
-+	const char *tmp;
-+
-+	dma_fence_lock_irqsave(fence, flags);
-+
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)fence->ops->get_timeline_name(fence);
-+		tmp = fence->ops->get_timeline_name(fence);
- 	else
--		return (const char __rcu *)"signaled-timeline";
-+		tmp = "signaled-timeline";
-+
-+	strscpy(s, tmp, len);
-+
-+	dma_fence_unlock_irqrestore(fence, flags);
- }
- EXPORT_SYMBOL(dma_fence_timeline_name);
-diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
-index 2166bbdf7e4a..0f08713b3b5e 100644
---- a/drivers/dma-buf/sync_file.c
-+++ b/drivers/dma-buf/sync_file.c
-@@ -18,6 +18,8 @@
- #include <linux/sync_file.h>
- #include <uapi/linux/sync_file.h>
- 
-+#define FENCE_NAME_LEN 64
-+
- static const struct file_operations sync_file_fops;
- 
- static struct sync_file *sync_file_alloc(void)
-@@ -131,22 +133,21 @@ EXPORT_SYMBOL(sync_file_get_fence);
-  */
- char *sync_file_get_name(struct sync_file *sync_file, char *buf, int len)
- {
-+	char timeline[FENCE_NAME_LEN];
-+	char driver[FENCE_NAME_LEN];
-+
- 	if (sync_file->user_name[0]) {
- 		strscpy(buf, sync_file->user_name, len);
- 	} else {
- 		struct dma_fence *fence = sync_file->fence;
--		const char __rcu *timeline;
--		const char __rcu *driver;
- 
--		rcu_read_lock();
--		driver = dma_fence_driver_name(fence);
--		timeline = dma_fence_timeline_name(fence);
-+		dma_fence_driver_name(fence, driver, FENCE_NAME_LEN);
-+		dma_fence_timeline_name(fence, timeline, FENCE_NAME_LEN);
- 		snprintf(buf, len, "%s-%s%llu-%lld",
--			 rcu_dereference(driver),
--			 rcu_dereference(timeline),
-+			 driver,
-+			 timeline,
- 			 fence->context,
- 			 fence->seqno);
--		rcu_read_unlock();
- 	}
- 
- 	return buf;
-@@ -268,19 +269,11 @@ static long sync_file_ioctl_merge(struct sync_file *sync_file,
- static int sync_fill_fence_info(struct dma_fence *fence,
- 				 struct sync_fence_info *info)
- {
--	const char __rcu *timeline;
--	const char __rcu *driver;
-+	dma_fence_timeline_name(fence, info->obj_name, sizeof(info->obj_name));
-+	dma_fence_driver_name(fence, info->driver_name, sizeof(info->driver_name));
- 
- 	rcu_read_lock();
- 
--	driver = dma_fence_driver_name(fence);
--	timeline = dma_fence_timeline_name(fence);
--
--	strscpy(info->obj_name, rcu_dereference(timeline),
--		sizeof(info->obj_name));
--	strscpy(info->driver_name, rcu_dereference(driver),
--		sizeof(info->driver_name));
--
- 	info->status = dma_fence_get_status(fence);
- 	info->timestamp_ns =
- 		dma_fence_is_signaled(fence) ?
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index 93298820bee2..a37069ca6d2a 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -240,8 +240,12 @@ void intel_gt_watchdog_work(struct work_struct *work)
- {
- 	struct intel_gt *gt =
- 		container_of(work, typeof(*gt), watchdog.work);
-+	const unsigned short len = 64;
- 	struct i915_request *rq, *rn;
- 	struct llist_node *first;
-+	char timeline[len];
-+	char driver[len];
-+
- 
- 	first = llist_del_all(&gt->watchdog.list);
- 	if (!first)
-@@ -250,17 +254,13 @@ void intel_gt_watchdog_work(struct work_struct *work)
- 	llist_for_each_entry_safe(rq, rn, first, watchdog.link) {
- 		if (!i915_request_completed(rq)) {
- 			struct dma_fence *f = &rq->fence;
--			const char __rcu *timeline;
--			const char __rcu *driver;
- 
--			rcu_read_lock();
--			driver = dma_fence_driver_name(f);
--			timeline = dma_fence_timeline_name(f);
-+			dma_fence_driver_name(f, driver, len);
-+			dma_fence_timeline_name(f, timeline, len);
- 			pr_notice("Fence expiration time out i915-%s:%s:%llx!\n",
--				  rcu_dereference(driver),
--				  rcu_dereference(timeline),
-+				  driver,
-+				  timeline,
- 				  f->seqno);
--			rcu_read_unlock();
- 			i915_request_cancel(rq, -EINTR);
- 		}
- 		i915_request_put(rq);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df0..c81902d8a89a 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2185,7 +2185,8 @@ void i915_request_show(struct drm_printer *m,
- 		       const char *prefix,
- 		       int indent)
- {
--	const char __rcu *timeline;
-+	const unsigned short len = 64;
-+	char timeline[len];
- 	char buf[80] = "";
- 	int x = 0;
- 
-@@ -2221,8 +2222,7 @@ void i915_request_show(struct drm_printer *m,
- 
- 	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
- 
--	rcu_read_lock();
--	timeline = dma_fence_timeline_name((struct dma_fence *)&rq->fence);
-+	dma_fence_timeline_name((struct dma_fence *)&rq->fence, timeline, len);
- 	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
- 		   prefix, indent, "                ",
- 		   queue_status(rq),
-@@ -2231,8 +2231,7 @@ void i915_request_show(struct drm_printer *m,
- 		   fence_status(rq),
- 		   buf,
- 		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
--		   rcu_dereference(timeline));
--	rcu_read_unlock();
-+		   timeline);
- }
- 
- static bool engine_match_ring(struct intel_engine_cs *engine, struct i915_request *rq)
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index f24f616e23ee..08b5f96ae2a5 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -429,23 +429,22 @@ static void timer_i915_sw_fence_wake(struct timer_list *t)
- {
- 	struct i915_sw_dma_fence_cb_timer *cb = timer_container_of(cb, t,
- 								   timer);
-+	const unsigned short len = 64;
- 	struct i915_sw_fence *fence;
--	const char __rcu *timeline;
--	const char __rcu *driver;
-+	char timeline[len];
-+	char driver[len];
- 
- 	fence = xchg(&cb->base.fence, NULL);
- 	if (!fence)
- 		return;
- 
--	rcu_read_lock();
--	driver = dma_fence_driver_name(cb->dma);
--	timeline = dma_fence_timeline_name(cb->dma);
-+	dma_fence_driver_name(cb->dma, driver, len);
-+	dma_fence_timeline_name(cb->dma, timeline, len);
- 	pr_notice("Asynchronous wait on fence %s:%s:%llx timed out (hint:%ps)\n",
--		  rcu_dereference(driver),
--		  rcu_dereference(timeline),
-+		  driver,
-+		  timeline,
- 		  cb->dma->seqno,
- 		  i915_sw_fence_debug_hint(fence));
--	rcu_read_unlock();
- 
- 	i915_sw_fence_set_error_once(fence, -ETIMEDOUT);
- 	i915_sw_fence_complete(fence);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 2223d75c5a49..08ecbc101f4c 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -459,25 +459,11 @@ void dma_fence_enable_signaling(struct dma_fence *fence);
- /**
-  * DOC: Safe external access to driver provided object members
-  *
-- * All data not stored directly in the dma-fence object, such as the
-- * &dma_fence.lock and memory potentially accessed by functions in the
-- * &dma_fence.ops table, MUST NOT be accessed after the fence has been signalled
-- * because after that point drivers are allowed to free it.
-- *
-- * All code accessing that data via the dma-fence API (or directly, which is
-- * discouraged), MUST make sure to contain the complete access within a
-- * &rcu_read_lock and &rcu_read_unlock pair.
-- *
-- * Some dma-fence API handles this automatically, while other, as for example
-- * &dma_fence_driver_name and &dma_fence_timeline_name, leave that
-- * responsibility to the caller.
-- *
-- * To enable this scheme to work drivers MUST ensure a RCU grace period elapses
-- * between signalling the fence and freeing the said data.
-- *
-+ * Provides naming information strings about the fence if it is not yet signaled.
-+ * Otherwise, provides default strings.
-  */
--const char __rcu *dma_fence_driver_name(struct dma_fence *fence);
--const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
-+void dma_fence_driver_name(struct dma_fence *fence, char *s, unsigned short len);
-+void dma_fence_timeline_name(struct dma_fence *fence, char *s, unsigned short len);
- 
- /*
-  * dma_fence_test_signaled_flag - Only check whether a fence is signaled yet.
-diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
-index 5b10a9e06fb4..f3b929b98cf4 100644
---- a/include/trace/events/dma_fence.h
-+++ b/include/trace/events/dma_fence.h
-@@ -9,6 +9,8 @@
- 
- struct dma_fence;
- 
-+#define FENCE_NAME_LEN 64
-+
- DECLARE_EVENT_CLASS(dma_fence,
- 
- 	TP_PROTO(struct dma_fence *fence),
-@@ -16,21 +18,21 @@ DECLARE_EVENT_CLASS(dma_fence,
- 	TP_ARGS(fence),
- 
- 	TP_STRUCT__entry(
--		__string(driver, dma_fence_driver_name(fence))
--		__string(timeline, dma_fence_timeline_name(fence))
-+		__array(char, driver, FENCE_NAME_LEN)
-+		__array(char, timeline, FENCE_NAME_LEN)
- 		__field(unsigned int, context)
- 		__field(unsigned int, seqno)
- 	),
- 
- 	TP_fast_assign(
--		__assign_str(driver);
--		__assign_str(timeline);
-+		dma_fence_driver_name(fence, __entry->driver, FENCE_NAME_LEN);
-+		dma_fence_timeline_name(fence, __entry->timeline, FENCE_NAME_LEN);
- 		__entry->context = fence->context;
- 		__entry->seqno = fence->seqno;
- 	),
- 
- 	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
--		  __get_str(driver), __get_str(timeline), __entry->context,
-+		  __entry->driver, __entry->timeline, __entry->context,
- 		  __entry->seqno)
- );
- 
--- 
-2.56.0
+is_shuffle_order() should be checked first as it has
+CONFIG_SHUFFLE_PAGE_ALLOCATOR=n compole-time false variant, and static key.
+
+>  		to_tail = shuffle_pick_tail();
+>  	else
+>  		to_tail = buddy_merge_likely(pfn, buddy_pfn, page, order);
+> @@ -1021,7 +1024,7 @@ static inline void __free_one_page(struct page *page,
+>  	__add_to_free_list(page, zone, order, migratetype, to_tail);
+>  
+>  	/* Notify page reporting subsystem of freed page */
+> -	if (!(fpi_flags & FPI_SKIP_REPORT_NOTIFY))
+> +	if (!(fpi_flags & (FPI_SKIP_REPORT_NOTIFY | FPI_NOLOCK)))
+
+Maybe add a comment why we check FPI_NOLOCK too?
+
+>  		page_reporting_notify_free(order);
+>  }
+>  
 
