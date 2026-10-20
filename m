@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792455599;
-	b=oZWq0jpGKCTOUM1P95dcwrMmj3977M8HEd5tYbnW+hAxFtqX5H+8qdm/Bg2WLttwNq/5
-	 ytMGPiPZJ064J+RKe5CtZZ1xs98B1MijrZgNY10Ekk8TalvkKA3jHWjt3JC6XsBzMuwqc
-	 qpcdgCKw5eI+CHc7LbbSyhiX1GP9/XBCLj6TDWaNurzo4NnQqBKMG895q9vDuje23zTmX
-	 Ilc9LdPHNrbJ/rt9roHVLPByRn9TZmj+iGgek6pljoAEgqpzYpdmG0J2IHzCvBRCA74XM
-	 2Ux+Y16KVvnBgVbtqLPCWJeQmP/+GIiu5JCl6CPS7XFHd2KXboiKXkSNJGYHLnb5FXg==
+	t=1792455629;
+	b=ThubfLGM0Cwhu112mvKMu9uBlIfmgKhOmz93N6V6Zma/Jd6AsUmJ1yo4AiWC4z0XvKa7
+	 tqsB2E3pjJ7jlPd/manWm49ITYfQwKnBGAIYen4LiuraTvPi5bzgzRGm8hNzBbUjC1wi5
+	 LCl6WsoiqE35ARFVk6qrP5FkJZPt5huwqBr0eBR1M2MzVwuxwvKc/v8sRZRlSwN0X9uSG
+	 Ua++yTWVMnVQIhHyjSE7uQO7GOAfUdyPO9VAcSPpBJ4kmiktd+JbCQHIIaLKHq10gsFn/
+	 HL24qP7sPStCmngwbD0itj9VQpL9sG40Hm4I7QFED0u6G6FBxK1B3e4SX86SgU6kY1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455599;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iiF2O/bop5EiTIhynx8VYby9gA8x0KILaVvvx9Isbbw=;
-	b=krRuzUirst4eG/zcN5Ozw+/yfQcY352JT0JJ0mZsqq6habAIUY+osvSXnH5jaHytqofc
-	 YGxaDQcmFOgiwhPG8YMuyQRoRj7CwG5ARhteUGkUn42xxBpk/LWhYBmekLdgbwyZ/9Lfh
-	 LVcnOzFEf/cPg89ecMppUi0j1wm084xZ86ZrJ2dhHqni6XVd77RCutaoziEPr9q1j50fC
-	 jIBUjklDWXk/f8jkpgNd69PD/fIaWk69tzkObl0y2jhCBAy3FplKQEgjpqed5jiCmSWKq
-	 HBynHGkfOsgOjJldvvmjuOxdsaErhxIPJe8U6//jVzW7SzfNQ9iLCX5YFTtUxAju8IA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455629;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PhtM3DINTPwMgq788UyncE7FKN56YRahvoDja7jwel0=;
+	b=f6LdGc2ukRRvF1OYhf02qf4poybOLPVI5oD8aKAeNJ1HxXasVGxh/iKhIS1mbIhrgZvB
+	 s/ei0HEo5b/4Jeump7IOvB/X04EqMsEu0SDc4TiAgkAjPzeAH1snSgVtkWP5xLJfjKVfN
+	 OYmuzJR+mt4LemLzWLJeGEDctChVohUv02Sw1Z4YtLEkchVZqnaBLEwCwAzgJ793QdeBA
+	 xY8Ciz9uZikA3COp73hfWVeJo035flv7qV1WWH/Yqb+BlJKb3StmvdY0p1R0M1fK7KPYo
+	 lKfLu4YN4Nx44nHcvyYVt9UgG6/EyZzonIMTqsKpTIvA4mDbEwxvfTkPe1anP85hOWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw6He+YX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gt.tech.gov.sg;
+	spf=pass smtp.mailfrom=gt.tech.gov.sg;
+	dkim=pass header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.a=rsa-sha256 header.s=google header.b=TE84NacE;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BEA0606A319;
-	Tue, 20 Oct 2026 00:19:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424E4606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:20:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 424E4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw6He+YX
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D84921F000C4;
-	Tue, 20 Oct 2026 00:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792455599;
-	bh=iiF2O/bop5EiTIhynx8VYby9gA8x0KILaVvvx9Isbbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uw6He+YXpmoBmuUyr/Q2wsQOB6KqlFv013VZSg0/9G7xLtJ2g3nUKeUzj/A1igCGB
-	 acHIUwwDPAvuY8LI7/4aODpJJ+Bbkul41MPoeQSbiZD5MpKTd7NwYU3dv/ai0/Lk0U
-	 H8YU+w1LkPFmts4oxw468I9uC9PNJTIDE8V3DmlkxydArZ/Pz53rsBZmqSm1DGOcng
-	 SlRN6cYu1MYx1b81xmGHTLYpib3XHyzru44u+6o1oRxG/LOBDobl0oO06yKk9xTr0S
-	 7lwW+Cu+AUweYbgT5mevhU9FWew/h65YZtKFqr3BlOqIfiQsJ/RAb1UtT1xOPTsgNk
-	 3N3dtwoE3ODlA==
-Date: Tue, 20 Oct 2026 03:19:55 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v2 2/6] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
- in key_alloc()
-Message-ID: <atazq_p9kYi38xWa@kernel.org>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-3-jarkko@kernel.org>
- <20261019191759.GB65095@quark>
- <ataBwhb8d2M1q2ux@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.a=rsa-sha256 header.s=google header.b=TE84NacE
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso13875705ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:20:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1792455628; x=1793060428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PhtM3DINTPwMgq788UyncE7FKN56YRahvoDja7jwel0=;
+        b=TE84NacEl3T3mzY4W5rPDIpq+6Lfc1rNcOh90s8Y5vYh6NNcH93ogskkvSMh77tyF8
+         4LgFPp6S8w3qhRfFgUZO6pLVeeEpPlMLrzo2n/BkMLZovv8DeaxJ8aK4m3wedYOi82BH
+         ucyhxq8lB3pkJ7nIltsjr9LJGTBFRRQWYWF8I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792455628; x=1793060428;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PhtM3DINTPwMgq788UyncE7FKN56YRahvoDja7jwel0=;
+        b=R/e8eyoD3KukmQMl3oN+0qaCJxQUy1nmDoO0lFZpMy3IhvfFwj4atSEt9hqjT2RNnP
+         weyd3vlz6ZdB0Z8pNC7ashytup7IDYpfGiyNGz4sIRC1iciXsX0YL7Swm7Qmhl4FtwJL
+         IySLwciKAAUBpNL+nxvv+4Ww96ITHK/JfDWuW0Otl1sbyHrY3cK9Y6J6vfasPLJFCSls
+         DRvaW/BA603b6nWxEX7GfD1pdtMea6xn6KN6C0e7X2YWEmJFBdBtvQASmedP1AmuRIE9
+         I8p2iWHW7I6IQhMZL4YAzb8sn1GqHu79zdjEGw81uqtNv+xvu1tbNpLvRGfVR2EXgszV
+         2v8w==
+X-Forwarded-Encrypted: i=1; AKwUvBxyQQRu3Z3wEoNZWgQVElZz2p6KoqA4ttz05g5nQW8jxearPKeMeuwk8RfP7mjgOc2pE6cY2VsgefWVlFI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxKsEOOhlJRA/zebb7K0EBgOQWeQskLqRqGQ5unXgpkFL5E7ND
+	Ek+BCRO/8+q4ptJYxWXx8dj8CumfeD1dct4rqotReFT25dBTpBCtv5RVHl2Tzj9GJTM=
+X-Gm-Gg: AYBFou33UYqWgicrlh1mwdh/gleGb8Aph7JT4CUrJNy6bYOLtfXJ9UHxca2EkpwW9It
+	YdSobhVvKWPpNICdWIkBGVPjdxhsRViFAGkVo6FjDn2JIma8gQCpFkV+Vkr8F2EEW2y7ci1fgu5
+	Vqs7l3+KgVFXwYZmlRkiHeAtOWoKNtFj5hxJXj66IBI3V1mEIiZTZwGlXVEiqVV11jUHfBxBYgL
+	1aEL+kbZ4nwAoExs6m9z2fo7m5ER76McRahD81l/gsd44KCwl5n3E+NYm8fECRzjb1PhwOwEQ3g
+	O1yTpXSoHNLU87+s4eubJQ80NKUeRe+a4fBLC7O+xq79bM8WBLy20NeuAZdMStDetMwEa3LYPO8
+	jBvzMOQqA9H7Rg63APKnr5rVMHNVWbdcgzNcDPMugLNCTgS107KvGYplug2uLkpjS5eCTJ1XDdk
+	8yqOaqATRRLBXvNaKoSKsPEWX4HMgoR37faU4YoyL5fgv6ekmIhlTWBALsyqOqI0SXYbOnKF39n
+	OFyVyKP311lUOssRXt0mXz6jEQrXMmvquFDIILyXvKCpxz90E0K03Xl6DU0qB1oraRSbrbcT3Wb
+	1TwnqDgGfmBwG3gEER6JdN7yuZMzb1uUsG/L
+X-Received: by 2002:a17:90a:d44d:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3acef19cb63mr7592251a91.25.1792455628530;
+        Mon, 19 Oct 2026 17:20:28 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d6df89fsm1694273a91.11.2026.10.19.17.19.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 17:19:20 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4 1/2] net: usb: lan78xx: do not update statistics after a failed read
+Date: Tue, 20 Oct 2026 08:16:20 +0800
+Message-ID: <20261020001621.2920-2-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020001621.2920-1-law.wei.jie@gt.tech.gov.sg>
+References: <20261020001621.2920-1-law.wei.jie@gt.tech.gov.sg>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,28 +104,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ataBwhb8d2M1q2ux@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:46:58PM +0300, Jarkko Sakkinen wrote:
-> On Mon, Oct 19, 2026 at 12:17:59PM -0700, Eric Biggers wrote:
-> > On Mon, Oct 19, 2026 at 09:17:22PM +0300, Jarkko Sakkinen wrote:
-> > > @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
-> > > struct keyring_index_key.
-> > > 
-> > > Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in
-> > > order to account for the NUL terminator and prevent integer overflow.
-> > 
-> > This should say something like: "in order to match the userspace limit
-> > and avoid u16 truncation".
-> > 
-> > There are also similar truncations of desc_len to u16 in
-> > key_create_or_update() and keyring_search().
-> 
-> Ack.
+lan78xx_update_stats() reads the hardware counters into an on-stack
+struct lan78xx_statstage. If lan78xx_read_stats() fails, only the
+rollover check is skipped: the counters are still recomputed from the
+uninitialized stack buffer and stored in dev->stats.curr_stat, which is
+then reported to user space by ethtool -S.
 
-Please correct if I'm wrong but I think these don't need anything 
-special given that both are capped by strndup().
+Keep the previous values when the read fails.
 
-Br, Jarkko
+Found by code review with LLM assistance. Tested together with the next
+patch, which makes short reads fail: with an emulated device, ethtool -S
+then keeps reporting the previous counters.
+
+Fixes: 20ff55655a93 ("lan78xx: handle statistics counter rollover")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+---
+ drivers/net/usb/lan78xx.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index 5655941f1478..cb8204371f5c 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -789,11 +789,13 @@ static void lan78xx_update_stats(struct lan78xx_net *dev)
+ 
+ 	mutex_lock(&dev->stats.access_lock);
+ 
+-	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0)
++	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0) {
+ 		lan78xx_check_stat_rollover(dev, &lan78xx_stats);
+ 
+-	for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
+-		data[i] = (u64)p[i] + ((u64)count[i] * ((u64)max[i] + 1));
++		for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
++			data[i] = (u64)p[i] +
++				  ((u64)count[i] * ((u64)max[i] + 1));
++	}
+ 
+ 	mutex_unlock(&dev->stats.access_lock);
+ 
+-- 
+2.43.0
+
