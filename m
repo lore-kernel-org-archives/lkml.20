@@ -1,81 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483839;
-	b=cvhFFKVEXQ/gaIHZBdOnmVOLiAgfFRxvrXENPRuX5ZBcjnBE3Q+HnzAAyNyypiUmmItw
-	 fyUGU00kZ8rw2KRxygOqwZ9isylFE4rUKXRhGB9YO0Mh8EN4zHiQtcqPEr2uFJCgaXzKZ
-	 C4PfJIym1RxAiL97aoLB3Qa6reXymHK0QM2ojpJXJwmzTVHcRlsXwC0QV5nJFuqgTBU+Z
-	 7So7tEY1bf36syaQG+YutiZReyqUqz6YhahbcaAPjyG5QTFTTY6pu7e3Nqhjq1atgHgy4
-	 e2N2ugkKkhPx7Ro70C/N+lbXuk5Pgdy7k56vwgIk6j0zVdXdXW7sfWYv5H+lx17+nIA==
+	t=1792483853;
+	b=VnhAowdkcDYXL/RRRMVYXOOD1GcRIkbZQpWXJmDKGk9zXYYRE1emasWaZhLe0XnezsDN
+	 /d7ThnIZ77+4OcamaeYSf4/x7LZDQp7szomYq/F2vLrC2+/Mx2U/sYeulV5AVaH/R5l9p
+	 Ar+xn6ylXgV9iUmrJGVK26ojBIfZ/VJe2gfgCXdRefP7yFdZACGfprwUuQkrIP1eFLM2P
+	 EqGtcJNNODbARibuHJ27EBPd6Ao1xs4H3rzQ7+pd9X51Qcg4B1d8T5yOW7csVjXAZ1p+x
+	 rRRcTOMxh0fl2/To8ism57ANPlPQ9fEACDp6MOioWYbU/u/fVjXmdhNfAc0qsImxIVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483839;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=+HbM2fnAiuFc369BfM90FYmeo4ajL0do8Ug+Pa2Ga0c=;
-	b=VBlFkZUOU5KjIWJ1AUiLS4Mgs5RtgW1khDAHyvi6QTW/CkF73dCGWw/eWe0cNkW+/TCC
-	 /Jo5JynmNiSISxSQhRjAWUqFdDMvQ+Rcnpf85MA2HJPsey6UIsAPJvNKUnDrLekKwWLhI
-	 m87SC2fGsUgD6gtGG7/NsfEifHM+1TMgqBO0TESvuSE4pGcsUf+2mFoln8Whr5VF+yIwo
-	 5Tm+8kwBAg4s2JRNUgPT2/WD0GNwU/0Mtf6en66Lyw8zAcRKL/Fp7YuZtGLP2t5Pv+ocH
-	 RzlMgNcCahUjNzX2lHGsqePpQUPUz3+NsA42ru6hFEFD86hwRotkFYgvQmHZep73cwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483853;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=KZ1lrmFftcZp227HDnBABEgI98zobYONU8pPNNvhy9c=;
+	b=uFIXsVYsxTddNwP3eikkCxIwBd+S1eEf/R47+nrbsapRpKFS2srDdn8+YY2okFA5Z73n
+	 pwIhWy2AEkDoJxUadwlLpsgsN5fQaJAVbwzk09noBKilYhN8MT0BCXE3kAhRDl3L2k23X
+	 CQ547O/IIPwRijJGuN2lN1+ocavxEiR4wbTtxUT0CCNTqRUm9Ysu2ItinsR2X6/KZ2RRR
+	 ScMMR3AmsASxi2cycE/pa/T6cacV3OVFJ6+tv0D24r/xDLfnZIo8A3C6hXRWl2+8QPr+r
+	 mWAhj4JFoByofA+F4IowEK4IhrVG/TKcQXJJKxdjDgdcxIE/lX7tTbRfONO2yL3wHEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ux3Twm3l;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Si5aKroF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8919F606A31B;
-	Tue, 20 Oct 2026 08:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8919F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33646606A31C;
+	Tue, 20 Oct 2026 08:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ux3Twm3l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792483839; x=1824019839;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=25f8hy5Y2bKimiVXz8+NoWweTrntm2IbNIZ2eSjEsrA=;
-  b=Ux3Twm3lWqKkq9revxlKs9uXUgjTF4o4K8iYNi2gJZBnyyr6zbXRPXYN
-   /TSP2n4B7mJCZ4JcE7XavYfKhhf30JDN2MHIrQ7OtcShEJt72OZJ5y9/1
-   vo+Iy03WJNtXIkMpinecWjV/eKF9CAmld/+K0hoznlWpHSC4gt4Sv8K2I
-   9LUIStgxNhoB+dBqWb/rq1JV4b3xSx/bmlr+sUx+MQ0UMYfE6k+4mDzmq
-   1Fnb9DdKO8l9Jd74MvzchotMcEw7nWwjkpcXZdf8Eo53Zd+qKIwnF2OS4
-   EOCeLp26p8VS3E/RQ+lXiVtPigy1NvJvje0BnHMmzrwuwjfcPGu+8ZBYK
-   A==;
-X-CSE-ConnectionGUID: 44Jm8SJ+S2yxYPQmnQHshQ==
-X-CSE-MsgGUID: qPCzpZ8DQuenhk3sUqESVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1187391"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1187391"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:10:38 -0700
-X-CSE-ConnectionGUID: K9icsDRHSsS/miovNg3cTQ==
-X-CSE-MsgGUID: Qrstw2AtSp+MKb3a3XZzuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3115888"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:10:35 -0700
-Date: Tue, 20 Oct 2026 11:10:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: vidhu.linux@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-Message-ID: <atch-NQ78VUdfgxW@ashevche-desk.local>
-References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
- <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Si5aKroF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843E51F000C5;
+	Tue, 20 Oct 2026 08:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792483852;
+	bh=KZ1lrmFftcZp227HDnBABEgI98zobYONU8pPNNvhy9c=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Si5aKroFBRQWvoPfQiWUtXY5pV8QpgRTZoMyRO15GNPz4DBKDDZ4+iSIyNHYtvZqz
+	 G8lOTVxx6NmBdsjO1UBSP1zEZT4qLneCQe7uGvJPIQWns6h93fPilB2DLZGNa+FI1X
+	 oNs2kA2m181Alm8R8g1+o+T40SoWbc2YMPMz1bo6wE5Vo2J4fzJ+Of7PHBfk2YhNhd
+	 LNw3L2V3Q9kl/VRl12GSWRwMxpeyB7LrxcW/Qgu01ReVPUn0VH6x9EK6nNiGmKVqO+
+	 uomF8qMGugM60D+AO/F2HDVDsDC4mXpuL2c4vvdFyya6eaFTHDwOvRcep1YD0ejLSn
+	 ILyvkm6wO3wvA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,166 +49,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 09/14] x86/crash: Fix massive out-of-bounds write on
+ 32-bit Highmem
+From: Mike Rapoport <rppt@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+ chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
+ mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
+ ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org, 
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+ gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
+ akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
+ pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, 
+ leitao@debian.org, yeoreum.yun@arm.com, sourabhjain@linux.ibm.com, 
+ robh@kernel.org, coxu@redhat.com, kees@kernel.org, tangyouling@kylinos.cn, 
+ liukexin@kylinos.cn, zhangtianyang@loongson.cn, guodongtai@kylinos.cn, 
+ maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com, 
+ vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com, 
+ thuth@redhat.com, jbouron@amazon.com, me@linux.beauty, 
+ mclapinski@google.com, graf@amazon.com, bgwin@google.com, 
+ hbathini@linux.ibm.com, eric.devolder@oracle.com, 
+ takahiro.akashi@linaro.org, james.morse@arm.com, palmer@rivosinc.com, 
+ x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, driver-core@lists.linux.dev, 
+ kexec@lists.infradead.org
+In-Reply-To: <20260921090450.807575-10-ruanjinjie@huawei.com>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-10-ruanjinjie@huawei.com>
+Date: Tue, 20 Oct 2026 11:09:39 +0300
+Message-Id: <179248377976.302547.17579416672238014424.b4-review@b4>
+X-Mailer: b4 0.16.1-dev
 
-On Tue, Oct 20, 2026 at 12:03:43AM +0530, Vidhu Sarwal via B4 Relay wrote:
+Hi Jinjie,
+
+> On 32-bit x86 systems with HIGHMEM, kmap_local_page() only maps a single
+> 4KB page. However, the elfcorehdr segment can span several pages (up to
+> hundreds of kilobytes).
 > 
-> Add a driver for the Benewake TF-Luna, a single-point time-of-flight
-> LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
+> The original code blindly copies 'elfsz' bytes at once via
+> memcpy_flushcache(), overwriting adjacent fixmap entries or critical
+> virtual addresses.
 > 
-> The sensor is run in trigger mode. Each read starts one measurement and
-> waits for the timestamp register to change before reading the result.
-> In continuous mode a read can catch the sensor in the middle of updating
-> its result registers unless it is synchronised to the data ready output,
-> which this driver does not use yet.
-> 
-> When the signal strength is too low the sensor reports a dummy distance
-> of 0, so such readings, as well as overexposed ones, return -ENODATA
-> instead of a distance.
+> Fix this by copying the new elfcorehdr page by page.
 
-On top of my previous reply.
+This is independed of other fixes and can be sent as a separate x86b fix.
 
-...
-
-> +static int tf_luna_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct tf_luna_data *data;
-> +	struct iio_dev *indio_dev;
-> +	unsigned int mode;
-> +	u8 signature[4];
-> +	u8 version[3];
-> +	int ret;
-
-It also makes sense to have local variable here
-
-	struct regmap *map;
-
-
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +
-> +	ret = devm_mutex_init(dev, &data->lock);
-> +	if (ret)
-> +		return ret;
-
-> +	data->regmap = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "Failed to initialize regmap\n");
-
-	map = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
-	if (IS_ERR(map))
-		return dev_err_probe(dev, PTR_ERR(map), "Failed to initialize regmap\n");
-	data->regmap = map;
-
-> +	ret = devm_regulator_get_enable(dev, "vcc");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
-> +
-> +	/* Boot time is not documented, about 350 ms was measured */
-> +	fsleep(500 * USEC_PER_MSEC);
-> +
-> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_SIGNATURE, signature,
-> +			       sizeof(signature));
-
-Make it split logically and taking into account the above either
-
-	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE,
-			       signature, sizeof(signature));
-
-OR
-
-	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, signature, sizeof(signature));
-
-(perhaps you can shorten the 'signature' to 'sign' to fit).
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read signature\n");
-> +
-> +	if (memcmp(signature, "LUNA", sizeof(signature)))
-
-Hmm... No. Please, make signature to be __?e32 and use a definition for this
-FourCC [1] in the hexadecimal with the comment, and compare as regular integers...
-
-> +		dev_info(dev, "Unknown signature %*ph, continuing\n",
-> +			 (int)sizeof(signature), signature);
-
-...and here use %*p4c?.
-
-#define	TF_LUNA_SIGN	0x... /* "LUNA" in ASCII */
-
-	__?e32 signature;
-	u32 fourcc;
-	...
-	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, signature, sizeof(signature));
-	...
-	fourcc = ?e32_to_cpu(signature);
-	if (fourcc != TF_LUNA_SIGN)
-		dev_info(dev, "Unknown signature %p4c?, continuing\n", &fourcc);
-
-where '?' represents either 'b' or 'l' depending on what you have and what you
-want to see printed.
-
-> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_VERSION, version,
-> +			       sizeof(version));
-
-	ret = regmap_bulk_read(map, TF_LUNA_REG_VERSION, version, sizeof(version));
-
-(or 'version' --> 'ver', for example).
-
-> +	if (ret)
-> +		return ret;
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> Cc: Vishal Verma <vishal.l.verma@intel.com>
+> Cc: Baoquan He <baoquan.he@linux.dev>
+> Cc: Chao Gao <chao.gao@intel.com>
+> Cc: Sean Christopherson <seanjc@google.com>
+> Cc: Eric DeVolder <eric.devolder@oracle.com>
+> Cc: Hari Bathini <hbathini@linux.ibm.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Cc: stable@vger.kernel.org
+> Fixes: ea53ad9cf73b ("x86/crash: add x86 crash hotplug support")
+> Link: https://sashiko.dev/#/patchset/20260907125404.922123-1-ruanjinjie%40huawei.com
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/x86/kernel/crash.c | 26 +++++++++++++-------------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
 >
-> +	dev_dbg(dev, "Firmware version %u.%u.%u\n",
-> +		version[2], version[1], version[0]);
-
-Yeah, I need to post my series to also make this to be a pointer extension.
-
-> +	/*
-> +	 * In continuous mode a read can catch the sensor updating its result
-> +	 * registers unless it is synchronised to the data ready output. Use
-> +	 * trigger mode and start each measurement on demand instead.
-> +	 */
-> +	ret = regmap_write(data->regmap, TF_LUNA_REG_MODE, TF_LUNA_MODE_TRIGGER);
-> +	if (ret)
-> +		return ret;
+> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> index e681ec9cf1dc8..3c9f4fbbe7ff0 100644
+> --- a/arch/x86/kernel/crash.c
+> +++ b/arch/x86/kernel/crash.c
+> @@ -447,9 +447,10 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+>   */
+>  void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  {
+> -	void *elfbuf = NULL, *old_elfcorehdr;
+>  	unsigned long mem, memsz;
+>  	unsigned long elfsz = 0;
+> +	void *elfbuf = NULL;
+> +	unsigned long done;
+>  
+>  	/*
+>  	 * As crash_prepare_elf64_headers() has already described all
+> @@ -484,21 +485,20 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  
+>  	/*
+>  	 * Copy new elfcorehdr over the old elfcorehdr at destination.
+> -	 */
+> -	old_elfcorehdr = kmap_local_page(pfn_to_page(mem >> PAGE_SHIFT));
+> -	if (!old_elfcorehdr) {
+> -		pr_err("mapping elfcorehdr segment failed\n");
+> -		goto out;
+> -	}
+> -
+> -	/*
+> -	 * Temporarily invalidate the crash image while the
+> -	 * elfcorehdr is updated.
+> +	 * The segment is physically contiguous but can span several pages.
+> +	 * On 32-bit Highmem architectures, kmap_local_page() maps only a
+> +	 * single page at a time, so copy page by page.
+>  	 */
+>  	xchg(&kexec_crash_image, NULL);
+> -	memcpy_flushcache(old_elfcorehdr, elfbuf, elfsz);
+> +	for (done = 0; done < elfsz; ) {
+> +		size_t chunk = min_t(size_t, PAGE_SIZE, elfsz - done);
+> +		void *dst = kmap_local_page(pfn_to_page((mem + done) >> PAGE_SHIFT));
 > +
-> +	/*
-> +	 * The sensor silently drops writes it is not ready for, so check that
-> +	 * the mode was set. A write takes up to 100 ms to read back.
-> +	 */
-> +	fsleep(100 * USEC_PER_MSEC);
+> +		memcpy_flushcache(dst, elfbuf + done, chunk);
+> +		kunmap_local(dst);
+> +		done += chunk;
+> +	}
 
-msleep() as it's known to be big enough.
+HIGMEM is only enabled on 32-bit and there elfsz cannot be "massive"
+because it is the size of the headers just built for the CPUs and RAM
+ranges actually present, not the large memsz reserved for hotplug.
+On x86_32 (NR_CPUS <= 64) that is a few KiB at most.
 
-> +	ret = regmap_read(data->regmap, TF_LUNA_REG_MODE, &mode);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (mode != TF_LUNA_MODE_TRIGGER)
-> +		return dev_err_probe(dev, -EIO, "Failed to set trigger mode\n");
-> +
-> +	indio_dev->name = "tf-luna";
-> +	indio_dev->info = &tf_luna_info;
-> +	indio_dev->channels = tf_luna_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(tf_luna_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
+Also, crashkernel is capped at CRASH_ADDR_HIGH_MAX = SZ_512M on X86_32,
+which is below the default lowmem limit. For lowmem pages,
+kmap_local_page() returns the contiguous direct-map address, so the old
+code was already fine.
 
-[1]: https://en.wikipedia.org/wiki/FourCC
+So the overflow needs the crash region to be in highmem, either through
+crashkernel=size@offset above lowmem or through a large vmalloc=
+setting, and an elfcorehdr larger than one page.
+
+It is still worth fixing, but please drop "massive" from the subject.
+
+The changelog should also mention the conditions when this could happen.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Sincerely yours,
+Mike.
 
