@@ -1,60 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483954;
-	b=zBX2ZqNRT6+f3nruiv/VoqFpQ9DbVbGi+lJxVmmVEUmfuq3Oc1t/Sd+A6aRrvhaltP9w
-	 GAYJOCp9AF3bPBdSmIKgPMdZIy2F6pgi8inVD4FExEG3zJgkBJJusXtmKXNhciuv8lfp9
-	 r7gIto3Hr+40bOz1thC6kAL7oV1wg/ovkqXv3qxYWLyldFEngazRXktY8JJe5RH4u/lUL
-	 /4NC/ZfOM/eIYA84M2p4vU9VkWftk8EU3mBAgzRQNTRbV9gtjf+RvXbXFJkEiO4FBi8UL
-	 RNzjnLUyGAJBLMnKBXnWddRXIQQwTc24tAM2F/EDYCS8fbxWvn6J/g+64ndFIF0/Xhw==
+	t=1792484001;
+	b=v3vcyqVZ9Cvtr/rO5CHzDZDpyXOftLFu20p506XFqka9IctIhDOwQ28wo2UMsFmBAwDO
+	 1u2RGkdvhapmmLxKK/z1XgNdgb5vQvpzu0cytWZKy733diSaB+VUT2A0h7ycWQjU4bGhE
+	 52O/fgKXkadNKcbSO46ggMfhgtu+jp5pdl7VVihJ29gFgJJ/qRlLkIR5UPqMJnzD+Dnd5
+	 vmuRziTDHIn5OUljeKHTmNTKs7NtnJi3xIVuoHX5YLNmt8GqdkyzbPGlfTSuAlPHFgA2E
+	 ZUQ97ovpsoEUNvXsUT6bLdX67S8UoOGWuzghyEfetKFvLQ4IqGKGgemxE10aVFvuDPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483954;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=B3uMwlL2e0WwbW2iwPu4EXtN34mpgk+5/6RVJb8Z1iM=;
-	b=mYIGPLGXT47pGoSa6H8ncbaXS3RoUpGNNa7zjwMX8jXuCVu/fD19jSBP6Su/drF8FFgE
-	 24ByQ0tRrmZLlU3FmMCg9lKWnTs37jpFn09WjIQ6JJfiJ6d3Nx7vzuLFOEvjNC5K/5aVa
-	 JcpPe2YajbMxeRmls6wAZ6wPPLFxbm3b9cpjQvfpFVjb4LiyLprdyQoMAZf+sAKcHqYow
-	 woJUwRx2ozXhqoto9iwf6ik7mUf/EKhknPS9gwRFYB+ECqeHzd9V7UBZUdaHom0bz02LQ
-	 4szeG20XBHeQi9JXO5mLJUN3xAfwBAfOowRUR+mgb+pXQd9B/K4cSIYV32TpCjNvVZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sifT94IuJdm+evFSGgUtUBWt/nlaaaYHDsDEfF5nTj0=;
+	b=oF15MUzFtxKeOXLbyJV4wxgmwzxg/lspvoS0vUQBCkgBAxVSGeRDpm7XLCH0I1uboRSF
+	 5bXXbv7QojnV/K+QQ+DPqEKKzX6kRN8nQXVvqdrDngn2z2UFxCgcoudAKUTe2wgZLIZVd
+	 1lSxjZZe6flwDSxi71/z0SlXKxCb3qAmtrfg3MNCTduE1qRODqrOpBFL8hoIkPpKDVSZ5
+	 PcGqAVTnqGNrl1i2BBNzA98DCq8LBb3ftI5xqsEcD9e0ItYTwKo4CB80PagXrihwVxwwo
+	 JUroO0W1lqmfcz0EtXNZBujIfRWN0juexlNaNhbOSLA+6fITL1JH2lDEbNLFshnlOdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TdE8rrpb;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="hep+mB5/";
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7507606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7507606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B25606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B25606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TdE8rrpb
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 558061A12A1
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:12:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B36E60393;
-	Tue, 20 Oct 2026 08:12:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D6FC10328D80;
-	Tue, 20 Oct 2026 10:12:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792483951; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=B3uMwlL2e0WwbW2iwPu4EXtN34mpgk+5/6RVJb8Z1iM=;
-	b=TdE8rrpbke2FBHPaslAw6LNrUoOpOAViXV9YzO25cJAB9uFQ2dbVIm09AIhTh0mehyedJ5
-	DTS2i0PX6C9tPdF6pp9JCC7rfrR2snnIqXX0QM5A4q6rNuFZYlhi7oJvB5FW20j5mNeUvd
-	Erd7H7yH1e6LLPrger7ErkARig8j1Mh3RlGxGAHjw0RqciDHXdh3w8T5/1hAhSsYqxOs5q
-	3YhUHxzdiBKXKfXjRyn40c7qy6lDfDdaEaZfuA8zgcZFsFR0N8o1XCzLQZOrG6J/otZjHQ
-	/dU+vk8/B8nUC6dTd9baT5QH7UfrSGcx+8Qkq4BnNLgygInMocIfEi4P+l2fUg==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 20 Oct 2026 10:11:54 +0200
-Subject: [PATCH v5 1/5] watchdog: w83627hf_wdt: Replace magic numbers with
- descriptive macros
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hep+mB5/
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so22479665e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792483999; x=1793088799; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sifT94IuJdm+evFSGgUtUBWt/nlaaaYHDsDEfF5nTj0=;
+        b=hep+mB5/rzIkpFTWECjY//gRKF5/dPu43U4EeiM7sptRr+nzRHVuGra7s+DAmavJvO
+         43XfOCWTBTAMVRmX1gunxl0uMCN2VFq0EMqyimdkr1AQacZhgKLWoNsHBx4o9ex/Bih1
+         hw7PbRz0e76GmeIFMyk70RWN4+tGEgHvEzdbxbnPisPwbDho/Hja22ces/QWrrDlPvaK
+         pkWTvquTI3EFsYebuaGPBXtka9PtOIMqjJlMuSGwwezSgfrbnp3Y9J9H1sVbj/biwJw/
+         y3ZcRM25GpoLwmAkPgH/E0Qh9u8n10GY0hWvQGrXzY5ND7XABJh8+ARDnlL7Gkn4vs71
+         /ONQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483999; x=1793088799;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sifT94IuJdm+evFSGgUtUBWt/nlaaaYHDsDEfF5nTj0=;
+        b=y0rbh42Fri6DnRkt3X5vaPQqzFYts3jlIqn8doI4viqCKyghxBbYJhyIN4wJGwwU6E
+         GIBLMxki7DxuuSg/Vs5EVab8o+C8+Sgj4kj4fj94OboyszIH1j4ThpfGe+QxBlchOZ4g
+         kMzp8JGE/UzOCRH7vByjnpTFH6eiFzJBmvcrVPuTrFXyrUjKHylu8tscoHjrnUkAUEvs
+         cPjr/DPjhZF7VqXVyiyUhX92u/03EXq8SCOkZ80bBenRy/n5aVcQ+oVl3WT7lNoy+6b0
+         i++nSNHpMgIzs7bQe2xokXtJpElIxRsKxmVSddpPTAHDQ3KVCLaOb9pkTFn4xzM9cQd5
+         scZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIXBkD+gF6dfG22oeGvOp8mq2CWy9ofKaG7cqseZhwNJHnTIXUg/iu6mCbES3G6TXldrMojVs5uRxd/w0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIpg91qrvC9cHipDnQwyoOr4HRBfvGv51ru9IS+v/iGZszb5zc
+	oXGIilzr1COlZYmhyOypxn90R8XcTNtksL5BZ3LbRpsgCwpbqC9QKm3r
+X-Gm-Gg: AYBFou09ERcbima/yAYdOlDjznasvXe/x/dIHRJANhkZxVJEAQ7OrxQ1moJ323rup2a
+	+35vvkphslp25ZpeggtrogjCF+BNf1XpQq9bSeWcax0ltJeMApWE2fMzqbBFBu5JnC78Ec6RhDB
+	+bU5qANFdb4Beog7GpRvj1nV/aI4PCatZ2HiQSIaiVb/duTegH4ATxHrvZBSBRxbvD9iPxk4GNM
+	ZmNgOsZmoKyhxs8P0MMm6HEN959/lb/ZbuAYvSUvwGLfI9tl0XGoM4D/WfLb5oZmqRLmOntEiph
+	QUG7FyUwnpvFQ3rDRxdvpxC0CRwRHWcO88szBcUNdq+ZJglxQqb6lfHDJ8nc25prqL2g726eu3w
+	OC/E3xoClKJ8GjI3jBg/A57nbJWgzX+6a4BK02MjnsWdHO0tCrttJUrpETRfKcUAhXaEI2hjJOD
+	34tJYhtnvqRSQHtkkGCiL/ZEFg859ysGTEkJgOpoj4sueLaGJABA1f64/AP6UUmmeO7Dw2K4CO/
+	JPywXAAppJKBXsQJQcH/5YYIe6ZIaffOJvG9wcTMaIHV2NyWZppz5+wUPDq6I2w0a98e/zI
+X-Received: by 2002:a05:600c:1f83:b0:4a0:27eb:49b with SMTP id 5b1f17b1804b1-4a1d761b900mr213796785e9.30.1792483998516;
+        Tue, 20 Oct 2026 01:13:18 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f117:a001:5c30:2c3c:9609:3456? ([2001:9e8:f117:a001:5c30:2c3c:9609:3456])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc809csm55072355e9.8.2026.10.20.01.13.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:13:18 -0700 (PDT)
+Message-ID: <2f64d2b7-f23d-4c99-ae1d-7404079dcde5@gmail.com>
+Date: Tue, 20 Oct 2026 10:13:17 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,157 +90,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: pse-pd: realtek,pse: add
+ gen1 I2C transport
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Sander Vanheule <sander@svanheule.net>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018161248.376205-1-sander@svanheule.net>
+ <20261018161248.376205-2-sander@svanheule.net>
+ <20261020-noisy-amorphous-jackal-1df08a@quoll>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20261020-noisy-amorphous-jackal-1df08a@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-w83627hf_wdt-improvements-v5-1-90b226684fc7@bootlin.com>
-References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
-In-Reply-To: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483947; l=4210;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=qXG1MXzCoF7pMSNABWaRFVOFzBpOTIDybA96c/TBmq0=;
- b=Qz7sLZo5luW4dCh12Lo4D4MDLAo0TgJWjfos4ZoCMzsuh2STgZjkMIKymp7TiSF30lz39SMs0
- WiSsfkBrI7FCHmuXy3IMKxzmqhQbNUKyeC1AfTMLirTRoPlbCCxE7zz
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
 
-Raw hex values for Super I/O register addresses are difficult to
-understand without constantly consulting the datasheet. Use named macros
-instead.
-Also, replace macros value that contains bit position with the BIT()
-macro.
-Remove comments that doesn't help understanding the code.
+Hi,
 
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
- drivers/watchdog/w83627hf_wdt.c | 41 +++++++++++++++++++++++++----------------
- 1 file changed, 25 insertions(+), 16 deletions(-)
+On 20.10.26 09:27, Krzysztof Kozlowski wrote:
+> On Sun, Oct 18, 2026 at 06:12:47PM +0200, Sander Vanheule wrote:
+>> Like the gen2 protocol, the gen1 protocol can also be used over both a
+>> raw I2C transport and an SMBUs transport. Add a compatible for the
+>> former and the compatible for the Ubiquiti Unifi Switch Lite 16 PoE
+>> device that uses it.
+>>
+>> Signed-off-by: Sander Vanheule <sander@svanheule.net>
+>> ---
+>>  .../bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml          | 7 +++++++
+>>  1 file changed, 7 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+>> index 3bb32349c28c..526f8525bb4d 100644
+>> --- a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+>> +++ b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+>> @@ -54,6 +54,12 @@ properties:
+>>                - zyxel,gs1920-24hp-v2-pse
+>>            - const: realtek,pse-mcu-gen1-smbus
+>>  
+>> +      # I2C, raw framing
+>> +      - items:
+>> +          - enum:
+>> +              - ubnt,usw-lite-16-poe-pse
+>> +          - const: realtek,pse-mcu-gen1-i2c
+>> +
+>>        # UART
+>>        - items:
+>>            - enum:
+>> @@ -100,6 +106,7 @@ allOf:
+>>            contains:
+>>              enum:
+>>                - realtek,pse-mcu-gen1-smbus
+>> +              - realtek,pse-mcu-gen1-i2c
+> That's the same device as smbus, no? Same device, same compatible.
 
-diff --git a/drivers/watchdog/w83627hf_wdt.c b/drivers/watchdog/w83627hf_wdt.c
-index db77599e43a0..fa1808a4c6c8 100644
---- a/drivers/watchdog/w83627hf_wdt.c
-+++ b/drivers/watchdog/w83627hf_wdt.c
-@@ -27,6 +27,7 @@
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/types.h>
-@@ -71,6 +72,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
-  *	Kernel methods.
-  */
- 
-+#define SIO_REG_LDSEL		0x07	/* Logical device select */
-+#define SIO_REG_DEVID		0x20	/* Device ID (1 or 2 bytes) */
-+#define SIO_REG_ENABLE		0x30	/* Logical device enable */
-+#define SIO_CONF_PORT0		0x2E
-+#define SIO_CONF_PORT1		0x4E
-+
- #define WDT_EFER (wdt_io+0)   /* Extended Function Enable Registers */
- #define WDT_EFIR (wdt_io+0)   /* Extended Function Index Register
- 							(same as EFER) */
-@@ -115,9 +122,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
- #define W836X7HF_WDT_CSR	0xf7
- #define NCT6102D_WDT_CSR	0xf2
- 
--#define WDT_CSR_STATUS		0x10
--#define WDT_CSR_KBD		0x40
--#define WDT_CSR_MOUSE		0x80
-+#define WDT_CSR_STATUS		BIT(4)
-+#define WDT_CSR_KBD_INT_RESET	BIT(6)
-+#define WDT_CSR_MOUSE_INT_RESET	BIT(7)
-+
-+#define WDT_CTRL_RISING_EDGE_KBD_RESET	BIT(2)
-+#define WDT_CTRL_MINUTE_MODE		BIT(3)
- 
- static void superio_outb(int reg, int val)
- {
-@@ -144,7 +154,7 @@ static int superio_enter(void)
- 
- static void superio_select(int ld)
- {
--	superio_outb(0x07, ld);
-+	superio_outb(SIO_REG_LDSEL, ld);
- }
- 
- static void superio_exit(void)
-@@ -165,9 +175,9 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 	superio_select(W83627HF_LD_WDT);
- 
- 	/* set CR30 bit 0 to activate GPIO2 */
--	t = superio_inb(0x30);
-+	t = superio_inb(SIO_REG_ENABLE);
- 	if (!(t & 0x01))
--		superio_outb(0x30, t | 0x01);
-+		superio_outb(SIO_REG_ENABLE, t | 0x01);
- 
- 	switch (chip) {
- 	case w83627hf:
-@@ -248,16 +258,15 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 		}
- 	}
- 
--	/* set second mode & disable keyboard turning off watchdog */
--	t = superio_inb(cr_wdt_control) & ~0x0C;
-+	t = superio_inb(cr_wdt_control) &
-+	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
- 	superio_outb(cr_wdt_control, t);
- 
- 	t = superio_inb(cr_wdt_csr);
- 	if (t & WDT_CSR_STATUS)
- 		wdog->bootstatus |= WDIOF_CARDRESET;
- 
--	/* reset status, disable keyboard & mouse turning off watchdog */
--	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD | WDT_CSR_MOUSE);
-+	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD_INT_RESET | WDT_CSR_MOUSE_INT_RESET);
- 	superio_outb(cr_wdt_csr, t);
- 
- 	superio_exit();
-@@ -355,7 +364,7 @@ static int wdt_find(int addr)
- 	if (ret)
- 		return ret;
- 	superio_select(W83627HF_LD_WDT);
--	val = superio_inb(0x20);
-+	val = superio_inb(SIO_REG_DEVID);
- 	switch (val) {
- 	case W83627HF_ID:
- 		ret = w83627hf;
-@@ -431,7 +440,7 @@ static int wdt_find(int addr)
- 		cr_wdt_csr = NCT6102D_WDT_CSR;
- 		break;
- 	case NCT6116_ID:
--		val = superio_inb(0x21);
-+		val = superio_inb(SIO_REG_DEVID + 1);
- 		if (val == NCT6126_VER_A_LOW_ID || val == NCT6126_VER_B_LOW_ID)
- 			ret = nct6126;
- 		else
-@@ -513,11 +522,11 @@ static int __init wdt_init(void)
- 	/* Apply system-specific quirks */
- 	dmi_check_system(wdt_dmi_table);
- 
--	wdt_io = 0x2e;
--	chip = wdt_find(0x2e);
-+	wdt_io = SIO_CONF_PORT0;
-+	chip = wdt_find(SIO_CONF_PORT0);
- 	if (chip < 0) {
--		wdt_io = 0x4e;
--		chip = wdt_find(0x4e);
-+		wdt_io = SIO_CONF_PORT1;
-+		chip = wdt_find(SIO_CONF_PORT1);
- 		if (chip < 0)
- 			return chip;
- 	}
+Physically it's the same device/MCU but the baked-in firmware and configuration
+differs. Same for the UART vs. SMBus.
 
--- 
-2.56.0
+> You can have property deciding about protocol, if this cannot be deduced
+> from the clients.
 
+This was the approach in the early versions of the driver when I sent it
+to the list. Rob favored the current way [1] and I think Conor was ok
+with it later on.
+
+[1] https://lore.kernel.org/netdev/20260615212959.GA1679454-robh@kernel.org/
+
+> Best regards,
+> Krzysztof
+
+Best,
+Jonas
