@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792499024;
-	b=XB2NYs64WYLgTqWvMK7LpCUDQVHnmsMbIuy4s/MRKEwA1g8OIsyNkgtdcH4d1fgRHO/R
-	 M05axzaTZurI3sNLp8FlfbY0T5A74FRezlm5Ai1FfAV0csl09rz+GR/FNIFTJ8g4xE6s7
-	 vh4BUvpKkrPal0iFWPZ+Ii0+yQaadHYhXxPYRgg2NC4gxqQZakUWXj0e9oLLegTqao3DB
-	 hrm91tppAEcdN/16rXum+NmbrprSt2tcc8LGipT4MsHMtVKYZRKEB1XsjDkOvXAotBRmL
-	 goDe7AQFS5z23As2R2LOFKULJpIO+GYgtJo+Z6hapJ7IMWzvanmq+JQ8dATBk0jZKXw==
+	t=1792499045;
+	b=0TAzVYvp5ONs/js6UoQvTXvybFqBRfh7nyhbfru/hQm/mimsOpdjhLQN4oJ/WXUMeB3i
+	 1DNUuIuGE7vdnW72P2iggIxzXyMjTKXR4fXwHKEfYDZZzFERvq2vPp+clgFHZ6oyqamIt
+	 3TwAOUGiFajkpsSpCzCnPXPcxKxdT22Fz1Rjhpo+qed6ak5xE6z6MYu5YVcPehWBFnLi3
+	 Owi0Q12XCwPkWYVL8pvR8oQPsd22HiJDwUPsQ+9m+HCPgHboQC7TALhosbGKSs0NXBZ1u
+	 6o/CZcnIJUfz3mjIYOh19ZwBt3O3YAXwdYF+G3l6AeywyVq3ZWl5KUlOZnIQB4YN/bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499045;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dmh4SEio2e2zB4dSZuzKozFuJ75qBwgCNF0O8LkaaMw=;
-	b=UwxRdnCpyUx7JUPwcMMtqdteva8PT8gRQ7V2Ol1C0oluQtG3rPqEP6IGlPsWBNkapZBn
-	 HmZbHr6mD7Cz8L4luWZ5CnaSl47fG19igVJkta2OSbqtQQg13hm3h/m+MnHSOQ/aaAQg4
-	 OIFkZ3lYnII3dxYjZ6WjlncrNoHDemyJXYnhESPhtwUI5MeB5uwjtK1d7evp16xCjXnVO
-	 3+bazv+OUo3/BQLNPXvm9Dohu6Y/50UQG1T5kiDgZ8N1szCRxzhlpM2k3ngq4HGoozrYZ
-	 7JJ7Yh+fNk7jpJP1XiFPmlNEHa7qZ0PC2iZgbe3xst41Vek6AREaMxf8UR++pywARPw==
+	bh=UUPw/s33/7GOIQXj56pVmCo2a1JAObu2BXLVvpm4deY=;
+	b=eXQgFaD6JQeaNCjYVu35IiFDM7doCoPn/86LDhCWP7P6hf7tg2rYPB4oQit0jXUTKEG0
+	 8w68O2AOUGNKD1WbbbvJcO6rnGwAkQ++fk+QF3hkdDROa3LB2qa8FwjwfzlO+7FpnG/uh
+	 KGuiDEfui5sFD55OjdKOhVd3VzrAWIEvSvUuvJwEPd0Sg00y8gNyC4sw2JGubO524P274
+	 dnrsOPtap9e2jBn4tHMLG4G2KGoVx6fTHqx12nGgpt1CjqVB3+YdMMWk3yIzXmUiCXdLc
+	 rkePZ/ZwW2JnYb30asG//uiAx2tQeqloQb0oknfYHndwr84YbM6PHWy5IIrqwlIC5KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6x4fg+h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YCAzED+Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9F058606A31B;
-	Tue, 20 Oct 2026 12:23:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C7E606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:24:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6x4fg+h
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BD66E1F000C4;
-	Tue, 20 Oct 2026 12:23:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YCAzED+Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3A8D1F000C4;
+	Tue, 20 Oct 2026 12:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792499024;
-	bh=dmh4SEio2e2zB4dSZuzKozFuJ75qBwgCNF0O8LkaaMw=;
+	s=k20260515; t=1792499044;
+	bh=UUPw/s33/7GOIQXj56pVmCo2a1JAObu2BXLVvpm4deY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e6x4fg+hVKPlf2jX7H+IVrTI1GS4Ja6Rd9ow0P5twU2QcW1CNYNYCVBoKdfxFIdrd
-	 w/6zvMfMwiOMYw2ZbPhUnC3z4K3jRDyBhmIj14tR44Zq/xgwRWB3fRnP4y5rfTMqlm
-	 us9Z7Ut3bLGJKFoDShskHkl0bjK8h3csi06fLw3rEPLURe3bhHRQujnPxKUeHYBHS9
-	 v7zmGEGquB3DScWBMKnukDEwhqZrZffR7jwtYOHBF1H8gD+1fIDGtXDyCd1dd8qiyZ
-	 G0uonBMpKP8dWQ+IM7tSSFleDDTqwLo0CWUXbpiRGHhbJfS0iRVJbdgJI0gqnX918B
-	 iBOo4tGYU1o1g==
-Date: Tue, 20 Oct 2026 14:23:41 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: rodrigo.alencar@analog.com
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH 07/10] iio: frequency: ad9910: support drctl control
-Message-ID: <atdcOsaDbtaQJd-9@monoceros>
-References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
- <20261015-ad9910-backend-support-v1-7-3c21648c8e26@analog.com>
+	b=YCAzED+YqRPe1/kSa35GjlylVG3/cwoP1T7uaDE39aVVXhql4QawqFiVCEijLg/H8
+	 lK2s96/1Ybe/VGvrtZPF0tTfULELTjfs+4xNWh/s63oD1w02ofDubBWj58lE3OiU51
+	 WyEug0sbodsSc0EGlKc62224Mo33Wk1TyERdERT52Q2KCDLZWFPeLhqogiIyr7BTND
+	 IGRkJIYUmzftfKl+zjGGy9CTTxrNnz/sjXmId0GvxUT94mPb+mbuIUU3QFR228icLd
+	 cwmajM0AF44Vt7nprvTNUq0AF/SSoUKUmDSQBSsJK/OpM5sXQxw3nDAnnRinvpNcW1
+	 BvkAesbHFVg7Q==
+Date: Tue, 20 Oct 2026 13:24:00 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Chen Pei <cp0613@linux.alibaba.com>, pjw@kernel.org, palmer@dabbelt.com,
+	Sudeep Holla <sudeep.holla@kernel.org>, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, conor.dooley@microchip.com, atishp@rivosinc.com,
+	guoren@kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: Populate boot CPU topology on UP kernels
+Message-ID: <20261020-frisky-jovial-echidna-2d003c@sudeepholla>
+References: <20261012131034.1026-1-cp0613@linux.alibaba.com>
+ <20261020-unsent-commuting-91739a882031@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,106 +60,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qqr4vuuxuxl2n7wx"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-ad9910-backend-support-v1-7-3c21648c8e26@analog.com>
+In-Reply-To: <20261020-unsent-commuting-91739a882031@spud>
 
+On Tue, Oct 20, 2026 at 11:23:34AM +0100, Conor Dooley wrote:
+> On Mon, Oct 12, 2026 at 09:10:33PM +0800, Chen Pei wrote:
+> > RISC-V selects GENERIC_ARCH_TOPOLOGY unconditionally, so the topology
+> > cpumask accessors resolve into cpu_topology[]. The RISC-V calls to
+> > init_cpu_topology() and store_cpu_topology() are in smpboot.c, which is
+> > only built with CONFIG_SMP. On UP kernels, cpu_topology[] remains
+> > zero-initialized and its sibling masks are empty.
+> 
+> I'm curious about arm64 since they've got the same as us as far as I
+> know. Is the same issue there or are they solving it in a different way?
+> 
 
---qqr4vuuxuxl2n7wx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 07/10] iio: frequency: ad9910: support drctl control
-MIME-Version: 1.0
+Commit 4b3dc9679cf7 ("arm64: force CONFIG_SMP=y and remove redundant #ifdefs")
+removed UP support and made SMP default enabled.
 
-On Thu, Oct 15, 2026 at 01:49:47PM -0300, Rodrigo Alencar via B4 Relay wrote:
-> +static int ad9910_drctl_sync(struct ad9910_state *st)
-> +{
-> +	struct pwm_state state;
-> +	bool ndh, ndl;
-> +	int ret;
-> +
-> +	if (!st->drctl_pwm)
-> +		return 0;
-> +
-> +	ndh = FIELD_GET(AD9910_CFR2_DRG_NO_DWELL_HIGH_MSK,
-> +			st->reg[AD9910_REG_CFR2].val32);
-> +	ndl = FIELD_GET(AD9910_CFR2_DRG_NO_DWELL_LOW_MSK,
-> +			st->reg[AD9910_REG_CFR2].val32);
-> +
-> +	pwm_init_state(st->drctl_pwm, &state);
-> +
-> +	if (!ndh && ndl) {
-> +		state.duty_cycle = st->ramp_down_time_ns / 2;
-> +		state.period = st->ramp_down_time_ns;
-> +		state.polarity = PWM_POLARITY_INVERSED;
-> +	} else if (ndh && !ndl) {
-> +		state.duty_cycle = st->ramp_up_time_ns / 2;
-> +		state.period = st->ramp_up_time_ns;
-> +		state.polarity = PWM_POLARITY_NORMAL;
-> +	} else if (!ndh && !ndl) {
-> +		state.duty_cycle = st->ramp_up_time_ns;
-> +		state.period = st->ramp_up_time_ns + st->ramp_down_time_ns;
-> +		state.polarity = PWM_POLARITY_NORMAL;
-> +	} else {
-> +		state.duty_cycle = 0;
-> +		state.period = st->ramp_up_time_ns + st->ramp_down_time_ns;
-> +		state.polarity = PWM_POLARITY_NORMAL;
-> +	}
-> +
-> +	if (!state.period) {
-> +		pwm_disable(st->drctl_pwm);
-> +		return 0;
-> +	}
-> +
-> +	state.enabled = true;
-> +	ret = pwm_apply_might_sleep(st->drctl_pwm, &state);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = pwm_get_state_hw(st->drctl_pwm, &state);
-> +	if (ret)
-> +		return ret;
-
-Does enabling the PWM have any side effects? Are you doing that only to
-be able to call pwm_get_state_hw() and thus find out what the resulting
-output looks like? In that case, pwm_round_waveform_might_sleep() might
-be your friend.
-
-> +
-> +	if (!ndh && ndl) {
-> +		st->ramp_down_time_ns = state.period;
-> +	} else if (ndh && !ndl) {
-> +		st->ramp_up_time_ns = state.period;
-> +	} else if (!ndh && !ndl) {
-> +		st->ramp_up_time_ns = state.duty_cycle;
-> +		st->ramp_down_time_ns = state.period - st->ramp_up_time_ns;
-> +	}
-
-So the configuration depends on the previous state of the
-AD9910_REG_CFR2 register? That's a recipe for surprises?!
-
-> +
-> +	return 0;
-> +}
-> +
-
-Best regards
-Uwe
-
---qqr4vuuxuxl2n7wx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrXXUsACgkQj4D7WH0S
-/k6OXAf/d+0pGyggG4T72U405o4MpvtL+k9Xo8s1ca6BnOzf6oX3P+2ME8TPhrb+
-tAbw9W7x2qZdaa9AfsihMrbotE1l8vdodoHQnT6SRG+xHJrBUD5rP+hKbq8Ty5Wj
-FoP3PuI+QYjoxUJu++Vni4rEVdR0MrpAntztgjxHGiORpDpzCeRq5/fsjeyjCjzc
-0qmjXAoTuaHprZJgINMMlAh8DaWEp1fIWncKJcv/unU58YYTJpduMC/ULDF3Gcy9
-nFc5vQe7UoKaoPHqcHofv/MbjJ2r21fHnZWLih6piUi7ATYfj88G/Q08R+ANcuer
-7xDjDYfwt2MDswuPJ8SVpUCA9TbOyw==
-=KbhQ
------END PGP SIGNATURE-----
-
---qqr4vuuxuxl2n7wx--
+-- 
+Regards,
+Sudeep
