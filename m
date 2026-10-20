@@ -1,112 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792512105;
-	b=ImczN8CWa9MjlcvqtawP5/pUl8wIv2ATNu9YwPupxb9KvT8fsTC1ml9+LqGKGQUtNw37
-	 sWw62SdHKkanXoxmIcqC55DmAyGoCpfoRlhkRp2CrB7+OV0mDbESDIcZPenhjCQh9x0n+
-	 ZspTnO8yFUzHsU36jaAbqSsPr55voyIaG4MR5GdcwS/7x49fKCFZS4QCqmIlIv++reGC+
-	 9j9L4clYAPPgKAYwwyeEszGb2gTjDoZGnhA28rg+Aj6b6YfavTFjlDR8EfjAhyvAtjWUI
-	 3JAW2RsxLgwZfNmY/ejIAOJC6P+O+PX0RYoOCyewnV3AkMAfiSdCYd3vg8opcVMDWWw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512105;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
-	b=nNMDa4c24t8Qvndj86x03ZXU0E/aMcgf1Jzi/TWWkGVJrUfmVh06FM8ExqwVIXlfx/LK
-	 D6qWRkei7LwuUn8W61SwLadqo1wAu+KuCOw7krl/dWxHGnRalFN2IHZEX3hxF5NIChb+u
-	 2HpmckR/sK2X+UthMa9hVSRNaf3cMa2UXRMWN+wFPyAGzk1j+lu6ykVOwyHkJUEa4TXew
-	 RP+gAbHRI2MZpQ39UoyIS/iS5u1Ao7DVUTBlAiKGeMBqKeVCSj8GuHP9GH3FaCTNtgIkk
-	 /5kcQfADhGp7RgSey/mWwmY7pbabS2Rh/Bal1ubBu/LKVmLRN8s7QPCfbt3/rKZL9vA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="ByiGL/R3";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792512148;
+	b=qHD9eyvBGyfHUKygSgEJXjTp8GNTRH3IE8r+VNNwm7WZ6g7QwdJPKIvnTYOcfNF/PLB3
+	 R3AkVrGCjNNui9SiCs33qC0r2roVofYB6zHREfkFad/Hx7v039PR7biz7Z4ZbagLzdyp0
+	 v1Q0rKLy7kGU2iZN2AyDVpl9Qw5hAINVvKlazF+pJuXqsAcX0BBaYSi+mJ4ovX2cqKbco
+	 59rrv+GGgvJRzUln6irsD7j0aeYjvVftZmSceHU7OPx/0UmgUY5WoLOq7mpaqeZ8Di4bI
+	 YDmiBdlk5gx7V5ZD8HS0GhmobK/7EKL05lMeE3FzkcR0wUkbcvHvtAPWNia4BXsa7CA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512148;
+	h=Received:Received:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=T6Xn0GgbQ2LS6M/ihkwGknyXfBAZO+tMr2iX2I+xIjg=;
+	b=rR+kWfDiDPF8ZjTQtAHwBqWcksTYkn0cWwavys/vD/Tu+0BmQH4jMO9Ib54C7qPSGFWZ
+	 76cS2Pi7snKP37/Z+9dtJbSzwwpEOiNTwvSNwozPw0kqbyBJflNTyGPLvLEwN9JOHuZW/
+	 thGNCxoypVNbm6JTKyqiNeMtb/TGNT7jb2cU6VSgZ4gteGgwtSVdY2mtdBwZJgtbGelLR
+	 Feu1Au7yMajOxx1WnY3shWwQUnziflRZu8nHvcbihsk5mhOvTYSpfs/LHgktJjWlBslvu
+	 +Kg4br1iPSX7AjWIMIbpJKBWzRb9qq+VDn8V6zoTwcvq6na4ihrOxqdva/OjyiwNxeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F540606A31A;
-	Tue, 20 Oct 2026 16:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F540606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ByiGL/R3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oU8amHryrJ6QlFh4H+2k7Gg9/nacT+gh6mrXCUwPtj7s2NQzcfANxLU/neHmrqwVoni2HVy0vVQjjJLjvlV6siq6BJik7fMksb2yBUk+m35xcuHRFBnEpnaQiYBvJFZAOS8NKGAi9ZYd8IXQZBzMtzutI5w9vz1p7ot6ClRdL2tdRtfLuuvEfCi9b8vtE6pgm9119MUGLjx10+VNGQryrcJ28y0vNCqqwbQV9VqpdYE/TJjd+tRnhOwTnkRNN4JuPbCuuVoq1/wCU1nsSQVywabWQNNRLBYf6EhNmpe8jI5PCIZZ95tlE849yLvDvkVAL61d4tciQVrmR7Fz6FTc/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
- b=OEJuaHbItgRBS+k0GuaKDThWrTEJ1jUe7LpnT7RGk1yCy5tOcTUhYAHe/m8Hx6R0Ju7oCG+/JE3RCxjq9TcovCh8wt/tWrexWtjrfFw1bIvqoC0phZjuaW6Gt6ffwssxKFcrEr+/rPvoMwe4iIskDE4H1wsue+8BtRGZxBqXKjHVaVOSa8KoKlmc8/o+6/srrgwsDP4LSbsr1Z4Gp+6SQKq74BkAwXl1jM1P7cszIXdUMcrttZ4hhN3SCBBN2kcRbevQsI0EmIZJD5nbGWETICDYvurMijI29eiKUFrUJwBWpwl0HZ6llm46hiNLPyTfweu7XG2/goII8F45EjFQqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
- b=ByiGL/R3hAyAt/Ps1YgEnUTJPOZRwvAAzfdWNyhFvP0PpzKmFPF3tU//CciMe2DnvVSfHXIA4In6nGjOY3rGlbAJ0N2mn0NTt5fFo0oo6gYRjbaK2IP3R2w1GNHgGvP9zk9H3OZWMm9NWkezNK5PipJT+m2zeso94f2TJp5IkLiBGzzcMfabJeAyplRFFhI8RCg5JA4WCBntDu2cCvevFr35kCf9qSpLaP/QnONkcInrKA6MBIE4/MSfyoNr6ppaau2+zSZ9ieo6n2+Thm0QivBZ+ivxOegVObTZv+Iwr4YBOfsGpX1YC68Iv7toBSBmbrj+vMEoNfSPa2VRBFN6+w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM8PR04MB7731.eurprd04.prod.outlook.com (2603:10a6:20b:249::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 16:01:42 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 16:01:42 +0000
-Date: Tue, 20 Oct 2026 11:01:30 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <ateQWqoTtXSBSBvm@SMW015318>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
- <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
-X-ClientProxiedBy: SA0PR11CA0124.namprd11.prod.outlook.com
- (2603:10b6:806:131::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326BB606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:02:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129ED1F000C4
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:02:28 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3db57938so2922480e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:02:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxAvZF1Nznk/Zg7PIK/uc4U2gllG1yu1iCRPvMv0+YzhmTWJEYkX5IYumtXQsNyX2qncC3VA6+SkzWj2IE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1Xz9JTk9Wt5AN5Q2G8BZr4N/PslT7MfjJmwLn7xK5+VRRfoEn
+	6BFcbWmNRBVmw0r+WTSdYHv1bWt84EBR55y/yyxwPktbnOxrOVKtFcuvSnI6p1afN423S3SCxIB
+	GNaEhc21hJ/mXHRWkAokwqWO+u7QfAhI=
+X-Received: by 2002:a05:6512:3d8c:b0:5bc:d9d6:6a98 with SMTP id
+ 2adb3069b0e04-5be50a471cbmr3402594e87.10.1792512142493; Tue, 20 Oct 2026
+ 09:02:22 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,108 +46,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 480b77e6-972a-4aac-f975-08df2ec36e82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|19092799006|366016|56012099006|4143699003|11063799006|10067099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	4sLI7FRJ+DBwq3BW4QA19l/UCAptdFTVQhO75x1jwXdvaB0/FXE+Er/aPwaeYE9S4yBl6e7OsqOS4XfSEuaqXwVYT6Tx8gfibeFWxPHiKQdTy3DSwJGlhCk3XUuc5EefolI9soVolhdo7Q4M/csIJ+buQfcVlxRbQtepQ2Acn0M/pSx4fmteizIMoszrI+p0KBtviO5PUX3G4Zt/SjzLuFdj935Gh92xxyGhe8AuRq1E6QUaXZaMvElGqlrql9MXGej/yc7EbHKc909ckqhtlF/m9ggY8mGbVKUHyWxiy/ZQmE7eRpMCgpagrl34YLBMqmW2+k7+vz/vqSEaf+AaqTly8luU51z+SKriizVXmP+M5yPR+mCHtFI4kG1F4maT8y6AOE6k6YKufQD2+4kis0XURAXEGe8eLsEM4OBn3LHXK5m4Dv2OB6NVQoN/i4449UH2Y0h3hqP5zIq09ek32fxdABYCazt2jnKJd9+YKEfraRKebSNSz/wtC521TieiJkf+eX0o8ZncU4KtA/VzKj+m28Zwt2IUP5n1J3J4PB9xZnC9C6P8ebpg/I1lAFbKrhB0ROYk9RR2eGTZv4KgHotVxbDfBEtbIWdA50z6dtLZFcP866PL3OOCE/t7+LwY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(19092799006)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sttDgcBfncwz0+uOi7/qcvzCMaWqNj5A7duqhWGsgRtSUaJi1p29MarYw9lW?=
- =?us-ascii?Q?MJLJKPUALmTOzYqFVC2Y1+rQqegUYTWJ04ZhxkwSdIo7AHfwGXBzu5w9fLY4?=
- =?us-ascii?Q?PldV0lH/kVid2bCEvwv2A0ChaRhSrkV11qmYJmhI/DCS8GPUZvfNAesRBUTR?=
- =?us-ascii?Q?53lV0jle7AqB2prVVzBjRiwnyBu0fuczFL1pK4R9fhAOILbady/AVRxnMz2K?=
- =?us-ascii?Q?RfpeFCm8GXxM2v7dzSzFwsYvDkaXxO+A/dpe9S5BnHnEVb9VFLytdl/KlkfX?=
- =?us-ascii?Q?wSt25awQakZ4IW1WL9njaZDxYOUdciuFGpkdxsFYcKtZzknEHnqHM6UDZE6V?=
- =?us-ascii?Q?Ho4E46mPOejBLzntnA0AjfqBMUGuBET3VhN13xjk6bEnfhRUbPxpn3rec2lA?=
- =?us-ascii?Q?iJuaLqJB9uwGxH4ns6d5qOylLJGiMX6Bw+FW5+FMOS6UEcw0IBJui6W5KwWC?=
- =?us-ascii?Q?eqfmzmk5uPqIH0fcvBk8w/emujDKtUvtFUMBefWe54ymjF5ApXFgPvPNwNpB?=
- =?us-ascii?Q?/dQCiFW6T3ER0/8sLbTdMJJulRVavV2ITnvj+r+3pT1wuOjB5jdDZF8Qs1+c?=
- =?us-ascii?Q?72Wgr8fkWdKGTJ/nklv0bd4YYbnupwVmKDoTwwc6GZKKRUEdtSskpL5gzQv7?=
- =?us-ascii?Q?O7Xg2bVAZN1pBr9Vf22E2j+KQtUFTkswQ/7sye07uQxcp5jpV2u9Rxz+jA/b?=
- =?us-ascii?Q?MmWhm8CPcVOqerIpUKRuuWebTbSNSleSAF2or56R3Bdfzwigg7vHA/TY1+FC?=
- =?us-ascii?Q?Q440rd+SvyT8pgUQb+hoqmu9R6Bk8se8G4dXOocj19czT8WkekKqaChhOMrh?=
- =?us-ascii?Q?cC7DI6K3Thj+rSNRGybS1L+yKtPDyeKwtW+DxLcOYboPIUGg26eh6DtuV4qX?=
- =?us-ascii?Q?FIAmvStHqoaS82/4IWGnfs0s0wuGUKMlzdYY0YsIQgwOyinq5S7ei1vlQQPS?=
- =?us-ascii?Q?yCJh05vx05E23E1pgPe3T/vvQENX5lip2QpsZABhd5ipYsvvceiIThpGtoG8?=
- =?us-ascii?Q?7jOryIi2Kg+W2iVUy0WZsCnP0ZzYIATtB34dySxVYL86zekcOg+IPbzIPKQs?=
- =?us-ascii?Q?cN2gQcmaj81Je/EjmWnQJ2k728wFQ9/sDYYPirfrbmy+CEPzOkNH6CZsVtxI?=
- =?us-ascii?Q?rzDcNdCJXXJWhvwPNX2v55d3+ZPgC2hRm9gW0P7AOC5ppg77nB7J1z7Kutxc?=
- =?us-ascii?Q?BFP4x80URMW16CXYt5e5AuKOUASqv+ZLPL0GLxbx7MAOnKvECzSjKB9voV+1?=
- =?us-ascii?Q?WUy1Fh+9I0uTPs7efMbZs/9ZIwH/zAQOOVTQfJuVZNzOmE5sqjQ1F5kzu5Y+?=
- =?us-ascii?Q?nBFz3jc5sVW2XgvX71Pl0hFn8m7l6mebPtpFk6dLqEdXIyw+qpocjBTB+qSH?=
- =?us-ascii?Q?lZkb4dcNA4R96s1efUgqzTz90m7Gqzq1s2vX+E78c2dXiYKedHdFWCd5mDiD?=
- =?us-ascii?Q?Ah5y2hSv++ryNmcdW+4LUB8AkwSw2B+76Rc1TrlrXdyfKqOBcg3EYokoqe0a?=
- =?us-ascii?Q?e/2c3sIXQf95443UOcHhNX7zf5d7WOKyXnp4YgDYx9VmRJ0mgUo5OqFoZkAQ?=
- =?us-ascii?Q?AGZP5pksKj+OYmXLALS78e+l9SbElsZ20tZS1rdyevdWDIaPNXSnMbmArAKL?=
- =?us-ascii?Q?fXjCCeOiBt9p6PApPb0q75DprmkC2/nb5IFooT0RaSRziGwsw5cDu6L5n24H?=
- =?us-ascii?Q?OPbsoyOi37HMsBZr1VG5kbPrhVKPKuS1vqYuPAYNdXjKQFK+zioa/vy2IL3v?=
- =?us-ascii?Q?x2IKLJ3Me8ae3hPH13+3sVntJZ1WLGzaImZKsc4mGqmGbxyoUri9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 480b77e6-972a-4aac-f975-08df2ec36e82
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:01:41.9693
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RfRq3pwOd5jTlz2BNa2at7f8Zg7stGSheTp3fj0ZcNr+JBdo7mNnB97J3yLKEGr6rNWJII1Bqx4EmYyyvGgnHc+AzRLGMcYiZKBoheArzLeqAdbU4vyC3eqePM+/8rTS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7731
+References: <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
+ <arZDwutoadki7tiZ@ashevche-desk.local> <arZNL9BnTGK0Klwc@red-moon>
+ <arZS4vwxps01dGb7@ashevche-desk.local> <arqSqcoWAkhy-8do@red-moon>
+ <d1720b63-65bf-4019-bc19-1852555f7993@arm.com> <asieTvinZ7c2QpQm@red-moon>
+ <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
+ <atXyIadz1TEKSodg@red-moon> <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
+ <ateI-JcExDyfXKrs@red-moon>
+In-Reply-To: <ateI-JcExDyfXKrs@red-moon>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 20 Oct 2026 18:00:04 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h+S3z3YqpJYCwcZXpPNEawedSof1z4+ydWn=tZbL8L6g@mail.gmail.com>
+X-Gm-Features: AclHuK8HDf2yPjcd4rawrCfnLbX27pb5S5MNqmvyCllH3hG9fIPbIUdmHBI-lNo
+Message-ID: <CAJZ5v0h+S3z3YqpJYCwcZXpPNEawedSof1z4+ydWn=tZbL8L6g@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
-> On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > >
-> > > Add a device tree overlay for the VGA output available on the Apalis
-> > > Evaluation Board, which is driven from a parallel RGB interface passing
-> > > through a non-programmable video DAC to a VGA connector, without VESA
-> > > DDC I2C signals.
-> > >
-> > > The non-programmable video DAC consists of a simple resistor ladder that
-> > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > > an active-low data-enable signal.
-> > >
-> > > The overlay is also combined with the various Apalis Evaluation Board
-> > > device trees to provide ready-to-use DTBs.
-> > >
-> > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > ---
-> > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> >
-> > what's difference with
-> >
-> > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> >
-> > Is it possible share one dtso also?
-> >
-> > Frank
+On Tue, Oct 20, 2026 at 5:30=E2=80=AFPM Lorenzo Pieralisi <lpieralisi@kerne=
+l.org> wrote:
 >
-> Hi Frank,
+> On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote=
+:
+> > On Mon, Oct 19, 2026 at 12:34=E2=80=AFPM Lorenzo Pieralisi
+> > <lpieralisi@kernel.org> wrote:
 >
-> The Apalis iMX6 one needs to set up the connection between the IPU the
-> LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-> Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-> the bridge on the Colibri iMX6 doesn't have any control signals, while
-> this one on the Apalis iMX6 has an active-low data-enable signal
-
-This make sense to use difference dtso to cover it. Is it use name
-imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
-which can reuse for other similar hardware? Or we can rename it when reuse
-happen.
-
-Frank
-
-> specified on the input endpoint. Because of all of these, the overlay
-> needs to be different between these modules.
+> [...]
 >
-> Best regards,
-> Leonardo
+> > Basically, yes, the idea is to defer the creation of the platform
+> > device until the dependency is met.
+> >
+> > > till the dependencies are cleared but then, without a _CRS, where wil=
+l
+> > > the consumer driver find the platform device resources ?
+> >
+> > Well, good question.
+> >
+> > > There are multiple facets in this issue and possibly some of them hav=
+e
+> > > been already solved but I need to pull them together.
+> > >
+> > > > Note that the dependencies can be added to acpi_dep_list after
+> > > > creating a struct acpi_device with acpi_add_single_object() and
+> > > > acpi_scan_add_dep() is not really suitable for that, but it should =
+be
+> > > > doable if the dependencies can be found.
+> > > >
+> > > > > I need to have a deeper look into this next week but I wanted to =
+ask first
+> > > > > whether there was something I missed - most likely.
+> > > >
+> > > > Well, it is not really straightforward.
+> > >
+> > > Yes it is getting messy. This RFC, with all its flaws, does not trans=
+parently
+> > > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
+> > > dependencies - though it does so by adding more stuff into ACPI stati=
+c fwnode
+> > > that to be honest I'd rather see gone.
+> >
+> > I think what you need is a notification mechanism that will trigger
+> > when a specific device (enumerated via the ACPI Namespace) becomes
+> > operational.  It doesn't look like any of the existing ones (platform
+> > device probe deferral or ACPI device dependencies tracking) is really
+> > suitable for your use case.
+>
+> Yes. It might just be a notification from ACPI core to say "the driver fo=
+r
+> this ACPI device probed, go create platform devices that depends on it".
+
+The ACPI core doesn't know about driver probing, so this notification
+would need to come from the driver of that specific device.
+
+In the regular _DEP dependencies case, the drivers that provide
+dependencies generally need to call acpi_dev_clear_dependencies()
+which triggers a dependency list walk.
+
+I guess driver_bound() could do something like that in principle (it
+does a similar thing already for deferred probing), but I'm not sure
+how generic it needs to be for this particular use case.
