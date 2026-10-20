@@ -1,57 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792481131;
-	b=ndU7AcTQY6a8z0LtWl4SETWAAyIIiIZyRhgSubNbMGTNrO2fkC4K+lyc/GyXK5Dfuuok
-	 mvJqmZkCl//HO8Ws+ZFWjpEumHAnrObKOOfgH4ieIxidgXC8GrZ2qRf/2gB/mlB+n9OFL
-	 buCXlcgTERpUZl77muVd4XbrG/TkLV/jDDNU5zHSyimOMMbzy12Xax/hVXCFJlqR3uhB/
-	 8J2M+eC/D6avbpjECAIxstfaoB5Tp1xJeiHOzHiv6GwdKxk3sFnlyfbNdVhxPYsg9o1Pu
-	 ewiIU+neZ4DGbZ4Wajj/awmh4lIiNoTGXRGD8Mk8i+rzZMZMfq6CH9bd7b9Vjumf4DQ==
+	t=1792481250;
+	b=hgdmri02vtzUh7ZQaVQW2RG0fQYJhjm7fNyOPc+TSaQlSMlv7GFBPE02OCbb8Fk7NrJm
+	 9J1dbU6gh7GjmsehVpqjdFC1YYjFIYcN61WBB52imzLaXZB7F8Mr1lSiBAqwCXDXOx85p
+	 jC972zwUeYzeY9o67WWq/yEtLxtkE/MNmEEZ/XpJbJYpncZ9I49yJKZqu1vTwxal/EnIr
+	 IxGDGyvvksDmN7/ScWUYtgGdEla4d0nn2xLYqLltG493SwLs1l91mqtn0D8VbO86A/p+t
+	 eijodUGiHELZTciqvy81AxVuauR2f/u5nUVtwIBU4ltf3cUzebLk9BJfA5WvyXpnNbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481131;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8xB8FYz4oxX2w21g5nKV4kypEOwJSPCjPKMx0/jwa8g=;
-	b=AMKANJeNM+tqYP0w3IvRIHx1wWPeOFutxX5QKqyi1zzz+cnxz6ayLZLGZEvP3Co9Ujxy
-	 uf+H84FyTEEqc7ll/X5S93cMISBDbvVhYX3wbKmoe0E5IM0/B/ekEvFnsHIb0+zzbtilY
-	 r1g+GJ2I5GhlbA3CUdv8XaepwSEq2UvhLvPG7AJ2nDF0idF+Yh/MiHWXP5Dt1tPJKJNba
-	 gcBcaSJeJ0RF85yl0bA5+wB+/fstFuO42pzsFxS9VdxLH3uhGYOOzW4iU8MReEBzO6RtB
-	 rfL4924SlghuJ54zr2F1lsK0Le5m3KLqqosRPMPWxDSRCDPFhwpluwwFAdT/tQogUiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481250;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0zrJsy6+pFWfHViBKa8dcpiN0fO/uxJvY/CktxDW/j0=;
+	b=ngOpPij+L9FRirUWReVmGpclwxtTzv6KV3v1LLJ+NpRRUw01IC5xgpLWTw7DT9fLT7Rn
+	 SbzCT0QF3vEh/soO7hKGTw1ioXNDT8C8y+UAs1JxiO9E7eQ0HiMbqBYXJi8RtqjncbY+c
+	 efFF1A4DCYgBnf2Ht3oEVnmaMQAkNM+2rzgHyosoNkAqfY/ABNseBq8Np9auoQl5P3nSI
+	 GIjdVClrizoINIk7nKA0pijQVOuDHeIBEt2NTRPbk5Qu37vSN2l/WvEG4lyfmi788QKQQ
+	 ph3zx1ClhRC/7aW95sTHgvTu1uTlykiC8rPnz8QhJNOPdvS+OHMQcEBmEypoE4hSpPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oanCaXqW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CAdKwYDi;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4FE606A319;
-	Tue, 20 Oct 2026 07:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A54606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:27:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07A54606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oanCaXqW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9151F000C4;
-	Tue, 20 Oct 2026 07:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792481130;
-	bh=8xB8FYz4oxX2w21g5nKV4kypEOwJSPCjPKMx0/jwa8g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oanCaXqWqYLCzZkaQbIbhwCzF/OfbG8cZljO+8ElHv4AJidiUR5OLG9Mgw0cMn1Es
-	 nHbL0bKTulNnHIn3YJGXbzhw0knur2ojwkMO6h72votLsJDQlHMnYaoBfNRPBUny0Z
-	 rBv2fdhb8SLSSHmhvlmP2ChAF5zMYFkwENn97uyZAZQOAIKXgJjkTNqliK4MAFpP5a
-	 rP0Cfmn9RfA8eBI4KoUcBTOnV87CuB8QeNwXrbBmvRgVhRyHgEycLu/XoQbmi/+mzH
-	 HhxBLZzpelVoPBegoWypcPhyRapqRRVw6vaCyDn6ZFRrvndnxIL2PuU4eSMCBQhHxz
-	 p5jhrDCDmIbbw==
-Date: Tue, 20 Oct 2026 09:25:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, lee@kernel.org, afaerber@suse.com, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, cy.huang@realtek.com, 
-	stanley_chang@realtek.com
-Subject: Re: [PATCH v5 1/8] dt-bindings: interrupt-controller: Add support
- for Realtek DHC SoCs
-Message-ID: <20261020-electronic-robin-of-infinity-f620ea@quoll>
-References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
- <20261018160653.3940371-2-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CAdKwYDi
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-3663e04e9a8so415785eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:27:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792481249; x=1793086049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0zrJsy6+pFWfHViBKa8dcpiN0fO/uxJvY/CktxDW/j0=;
+        b=CAdKwYDieH/mM+qs+HVjyvwmt4OrcxXllqKFOPPXkDeVV4qNhYTyqJMJcrQwaev7If
+         BetT3yLcc5xRJCWCUInP5oLzcBjzH8t5mFlSvZbJipgfZfevw1yK9xuYiHZ8YtlGccz3
+         VBJwK4la/A4r5uVjf+8/PO/LBlgWmKFMUn0j1kY7WHtiXbrG0gzyW4yH+8JFrfaN4pep
+         fI/GRuIW9ieXiPv/elFHUYZucl3lun3Bp+5Tlb1SpF9KXmjHSNqhZteX5MvuGrTF1igI
+         B1s27oEw6ht+c5uE3iBQoiur1u6G999iY7nN4Bnk2/6z08lgKZ6iVJ2G9+4dxJrQLTAL
+         bsvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792481249; x=1793086049;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0zrJsy6+pFWfHViBKa8dcpiN0fO/uxJvY/CktxDW/j0=;
+        b=c2r9BOdNGRXyFqiImL0dCGg8QopnuD673BU+vyQ7z3ncYSyoSP05bQ+D1AnmfiAvB6
+         deWHAj1y4BNULRwiQlgLZcxqCXnVYerSEZJcA4WjrN1FfUybmpVdVjmkbvjy0G8DY1Y7
+         PcmFXlOXK/3Aj56yY7o9ABnwsaCM4HWWEMfPpg1XRWEFESPiVa99pLc8cSOictqfnrYH
+         oYzHg8ql5IPOO3SeepNpe2PVlwPeaUGMO63lVUs5wKVROfF/jd1HCaO0RVVwsSPYHIb6
+         xkLheX2nX0tXL1VYAAHC+Jl+MIVQunC7PCRcJQbJDPjoml7ku95e3eh6WKAOwuE4GAkR
+         9x0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ1DC7cYWYJFkKCV/0iu2q4dJ9Al0k6kX/1ZUlIBgHGsmHEhXaMzHTIBINrO898s2LinGt/3gbKyBg9Vk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6Q6U8EeFXgVPaETWkG2rXYwOSKepcuTAKSXSj6exqI+WrC850
+	tzKwtJz0Yh303HOZDRcPeGvw8uNZX4d36FwgDxfOdjTW4y7FXt4MEfgO
+X-Gm-Gg: AYBFou2Q56Buo5KXlQ7MrscOUGKY7qS8Utt10/wn7qj07WE+4RkZS/N9AkqCmuRG9wb
+	hg73Cf+DSBnmDJL7GcgQ0EA2dx1KRynSd56lBTNFDekGxvX7nXVi5tf9Lt51m3C5h5nS5nJRtBb
+	qSp/oZlVrexWh3nP0Zhs3OwexsylGrZzPlI1VId89EhOCHMsJ2McNnguYkTuDEtfXt147s2USnC
+	/OyPxyEmYzu72HpopcFel8H9T88MbRaYJ337Mfk3a0xg1WFZx3tDSW3Y73TO2diUDZX0g3ksKZF
+	55f8araOnGW5fFe647H0eQBm32iKrHYujlDRyTNuEbmI+JkM9C2bVS9Wqx44gT+YagMMfsX1buQ
+	gFKplVVgsMp/EyqwlPS58W/mW+jcZjrFXWsy2XV4MzcTW6xm4XYDI+I7UwcF5GkJaYR2pbPMz4k
+	mWUGDCptTsGIynixzdsnrHSVeQB06KZQ3JWH9l83/l1znTe11+G43I6oHDLr8fILe79tlfJi/2+
+	oR/375FGCOYTMcDH6XVnS+bhbzEwslz8iN3
+X-Received: by 2002:a05:693c:8244:b0:366:8efb:bab9 with SMTP id 5a478bee46e88-3668efbc174mr439554eec.11.1792481249125;
+        Tue, 20 Oct 2026 00:27:29 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819bc569sm37090220eec.11.2026.10.20.00.27.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 00:27:28 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Miroslav Benes <mbenes@suse.cz>,
+	Petr Mladek <pmladek@suse.com>,
+	Joe Lawrence <joe.lawrence@redhat.com>,
+	Song Liu <song@kernel.org>,
+	live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] klp-build: Use kzalloc_objs() for object and function arrays
+Date: Tue, 20 Oct 2026 07:27:12 +0000
+Message-ID: <20261020072712.12633-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,166 +98,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261018160653.3940371-2-eleanor.lin@realtek.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 12:06:46AM +0800, Yu-Chun Lin wrote:
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - realtek,rtd1319-intc-iso
-> +      - realtek,rtd1319-intc-misc
-> +      - realtek,rtd1319d-intc-iso
-> +      - realtek,rtd1319d-intc-misc
-> +      - realtek,rtd1619b-intc-iso
-> +      - realtek,rtd1619b-intc-misc
-> +      - realtek,rtd1625-intc-iso
-> +      - realtek,rtd1625-intc-isom
-> +      - realtek,rtd1625-intc-misc
-> +
-> +  interrupt-controller: true
-> +
-> +  '#address-cells':
-> +    const: 0
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 4
-> +    description:
-> +      Contains the GIC SPI interrupts mapped to the external interrupt lines.
-> +
-> +  "#interrupt-cells":
+Allocate the object and function arrays with kzalloc_objs() so their
+element sizes are derived from the destination types and multiplication
+overflow is handled by the allocation helper.
 
-Do not mix style of qotes.
+Keep the extra zeroed entry used to terminate each array. The default
+allocation flags remain GFP_KERNEL.
 
-> +    description:
-> +      Specifies the number of cells in an interrupt specifier.
-> +      For realtek,rtd1625-intc-misc, the first cell specifies the interrupt
-> +      bank and the second cell specifies the interrupt ID within that bank.
-> +      Other variants use one cell to specify the interrupt ID.
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ scripts/livepatch/init.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Missing constraints, e.g. enum.
+diff --git a/scripts/livepatch/init.c b/scripts/livepatch/init.c
+index f14d8c8fb35f..908676d6d07d 100644
+--- a/scripts/livepatch/init.c
++++ b/scripts/livepatch/init.c
+@@ -34,7 +34,7 @@ static int __init livepatch_mod_init(void)
+ 		goto err;
+ 	}
+ 
+-	objs = kzalloc(sizeof(struct klp_object) * (nr_objs + 1),  GFP_KERNEL);
++	objs = kzalloc_objs(*objs, nr_objs + 1);
+ 	if (!objs) {
+ 		ret = -ENOMEM;
+ 		goto err_free_patch;
+@@ -47,7 +47,7 @@ static int __init livepatch_mod_init(void)
+ 		struct klp_func *funcs = objs[i].funcs;
+ 		struct klp_object *obj = objs + i;
+ 
+-		funcs = kzalloc(sizeof(struct klp_func) * (nr_funcs + 1), GFP_KERNEL);
++		funcs = kzalloc_objs(*funcs, nr_funcs + 1);
+ 		if (!funcs) {
+ 			ret = -ENOMEM;
+ 			for (int j = 0; j < i; j++)
 
-> +
-> +required:
-> +  - compatible
-> +  - interrupt-controller
-> +  - '#interrupt-cells'
-> +  - '#address-cells'
-> +  - interrupts
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319-intc-iso
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: RTC interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319d-intc-iso
-> +            - realtek,rtd1619b-intc-iso
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Watchdog interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319-intc-misc
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Watchdog interrupt
-> +            - description: Uart1 interrupt
-> +            - description: Uart2 interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319d-intc-misc
-> +            - realtek,rtd1619b-intc-misc
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Uart1 interrupt
-> +            - description: Uart2 interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-iso
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Uart9 interrupt
-> +            - description: RTC interrupt
-
-RTC should be second
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-isom
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-misc
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Uart3 interrupts
-
-UART1
-
-> +            - description: Uart1 interrupt
-
-UART2
-
-> +            - description: Uart2 interrupt
-
-UART3
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-misc
-> +    then:
-> +      properties:
-> +        "#interrupt-cells":
-> +          const: 2
-> +    else:
-> +      properties:
-> +        "#interrupt-cells":
-> +          const: 1
-
-Best regards,
-Krzysztof
-
+base-commit: f663062d717eac2c01f77eaf321fa630528e672d
