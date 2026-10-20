@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.237
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502315;
-	b=bCwObh7qJKxdX2VZfh4Qdw4tYrPsu1IsFYvIzCI4b2VnOtRvJgIX89C9tfDZzTYCGo8G
-	 Pd7TO8z4/YvwpZzJF6GC39bpzux2EXDGaWS/AeMeBoYIvLxWn9///qfznyk8Y0P+N2/x3
-	 JETWJgKHsrma7qVpSlnxzYXO9QLamIIe9HBbwhtxhtfqyDqUGzBg8XTxeDTOZkjqkUR3s
-	 v+bFlNlHmjN8zLvBeiKcki4JuGnaXwcmNoME5inLbpRGG54MQeOXtgFUzhalJztd2FAcv
-	 YCw8NgR7HYsATzZ87laGYMX3Ik8pqN0Szo6Je+F1CRbbZu20dcuHqI9pxQTKe0wCXuw==
+	t=1792502326;
+	b=Da/NXgHz2f6n3W5p4r9kHXA9TenezirKko99giNIdLs+nbDtOJaQBdKONtZzQBtLHUjB
+	 vzDE4Y1U14foPWkWzny6ZGe13+1aqXOmBVInG0/U6xGSNAVdsbnlZsoga6j/kJJc+knIR
+	 x/y8W7z1ixIWcdCX8WZIm0ZaLMyJL8K/93RXgOSJPZwElUtExHOYBqobtY5h2rXkl69pL
+	 e50o2l+gwAAcwcs8kwHynQoeEcxaTwsU+3Jt4N4jSxpuWUVC/RfUBXe/IlaU+ldbZAVgJ
+	 3LkWv8XQOf7DLDd4vIXODT3HOv6RpupGNX3vasM9Yfu9moKO3EXTNeCXaReMLkg4shw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502315;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=zhQTHhRDxrb17zR175fyiocPa+1wRm/9Uxlolic7thk=;
-	b=DtMUh5L63zAKftAqxbbnFLSTnOfyu0Zij0yKBa1gIa4ocIiIiqV4IeNBlsR/6fusTLMW
-	 sfi1JY/Kvm+YH2EDEJtDgmbeJC9UDKziYmWK4c4kvrynaim3HoEu/Y4svLZBbRCnWpUFp
-	 baKDGV1GoJr9D/Ew14mxEWD5bi0I44ybwvgCkI0TlAaqfyWdSZ+csxUHGGrYYRKUf/HZT
-	 i/qTEoetT2KBmJpFJi6KqPaIYuqHwMRBXDUvPhvhvd27kdcxFDwsnjiIaFTLwGqowZw7h
-	 DDvgksIesVyMK/FCQnCNZQxO+vNuyUqs57ChpDvm9TZv2OtrKGYqZGiV5kBW62FFpow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502326;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nT5qVJtMsZOOQN5bDd9xQKpWcAmBmpPjDikwtQK4oYA=;
+	b=2BLN0boUk6oibw2bUoYoy3rBEVLLnLRIb2DbKNRePyrq0NvuTAN0cL8F7EnVr1evVhAN
+	 bQKeACWuKxm87M7X9YmU+BmRxOomWAmxe89HcqbLAexoYgKsnAeWfQK4vJjN6mJqDvU78
+	 uGTbOzlHIBYm7qG/+9gcyunkL1X6JTtLyconTCdiWrEFhANkl2l3IDTgm+/KIHJ9vRBJZ
+	 sFhtlG1dhnnHkqXX1EwTDpFNV/Iwv77ULZqq5ELTmuCeMNZzHxfNIeoQ4r3TjhdCBRvQZ
+	 lQnccRfkaEk+eCExVTvDB1C6BX8hqrgEb/ihrDiR8Rp+AWOIMLDLF1f9PCTs3XsWJnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HBbS2wsS;
-	arc=none smtp.remote-ip=95.215.58.237
-Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXzD36CU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80986606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80986606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8EA2606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HBbS2wsS
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3yy/71fTKQCgcgYM/XB0wovh4NMYwl9+gtTV2Y2B9rQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792502312; v=1; x=1793107112;
- b=HBbS2wsS9fHLsWUpvBznfbcwV33HnhT9lV/rESE1ThDnpyuoEUVw6eYCAMF2U4atRzjEmKU7
- ekR6SNgspeMaWQgrTQi85ZzdV/ktr+y470wRM1cs/LOrrZvSBK0S0c7Kk/Bfy7sNWfyvUW9IC5m
- L0CPqLR3wPgV6F2GYmP0F/+s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6e98f1ea0d4109de;
-	Tue, 20 Oct 2026 13:18:32 +0000
-X-Mizu-Trace-ID: 6e98f1ea0d4109de
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be3b2f17c1so6865e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCcFjRpJ7n5TuPawer/xJgAd1FDZ06fhgW1q3dsPAJId7xKFri45wkWodf8ukaafDX41I4+IGQE7epU8A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNpiziZcdMb5HLq2Rq2MNLus+i/uIEv2Hpa9ssUw3p79HGG/ll
-	572OHl61BsBLzSdnZ74vYx5ayYoChsdvq1I+XMvBLte3Go67w5Mm4f7ae9PeKUOnxakYwcoj+Yo
-	jRR83z8+Dx36TLQACZo260ZT4W9hvGlWczUoaKPhc
-X-Received: by 2002:a05:6512:10ca:b0:5b7:6707:e44c with SMTP id
- 2adb3069b0e04-5be66f2d62fmr148849e87.12.1792502311357; Tue, 20 Oct 2026
- 06:18:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXzD36CU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EF71F000C9
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:18:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792502325;
+	bh=nT5qVJtMsZOOQN5bDd9xQKpWcAmBmpPjDikwtQK4oYA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MXzD36CUho2eKSkBxRNu6P8CLs3bu7ImIjnUVFcPPTSnHTwb2gO3IhGWuNdOAkdbm
+	 2S29sSWAaRcj29ziXE7wk//nIjJzXZd6DLfxdQJk2TRRY4U2TNsuOXfNeycG10RHlK
+	 iZLiyy9TPE4l6RoPJtQoHoi7eJGfWfONBM/3QdgeQzCxrXPkBz2cCcfZRbhKRKDGuv
+	 +xJHwtaj1gepUKm2Nr7/a+2A74IcFiYuoyX4xYaSRzplCQWoqMqmR3urW/KgK5nRdk
+	 hOsyxnzgV8vvmk56GnAt+XtI+zSIfXvuga5wqsHPzScTbaXXtV6JvjbSE+hGhl/9Cw
+	 nyU4eNlHto96w==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bce4e278baso907823e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:45 -0700 (PDT)
+X-Gm-Message-State: AFq9FYJKWyEgaVUsmOojjhIpEaRc1Ag4Kb5JXgZZjEec3KoOdwG5bAum
+	rer1EZwi0VwVO+h9KMH174UEbYIm08zfZU2dL+47WZj2up+TNPkM/u+lEUpvMoXmqpqAA7JmpGq
+	plo6xBrRVbWl7PRMJg9PWqyJ5sMLwCEA=
+X-Received: by 2002:a05:6512:b8f:b0:5be:44be:569f with SMTP id
+ 2adb3069b0e04-5be66a23859mr739003e87.2.1792502323872; Tue, 20 Oct 2026
+ 06:18:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,80 +58,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019132103.3836646-1-fuad.tabba@linux.dev>
- <20261019132103.3836646-4-fuad.tabba@linux.dev> <atdXdtXXTH-6DWVt@gremlin>
-In-Reply-To: <atdXdtXXTH-6DWVt@gremlin>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 20 Oct 2026 14:17:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTzH_GA=Vigd_nDXKDFAPCJStcANFFLeLXvsh3UqpjOpCQ@mail.gmail.com>
-X-Gm-Features: AclHuK-euDF0wuuv5pnt6Njq_PrWwxGpuc1BgLKpLexvwAe-pbj6xoTqUlxrbHk
-Message-ID: <CA+EHjTzH_GA=Vigd_nDXKDFAPCJStcANFFLeLXvsh3UqpjOpCQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] KVM: arm64: Sanitise MTE tags when a permission fault
- installs a mapping
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Steven Price <steven.price@arm.com>, Yang Shi <yang@os.amperecomputing.com>, 
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org
+References: <20261020121159.2154649-1-sadrul@google.com>
+In-Reply-To: <20261020121159.2154649-1-sadrul@google.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 20 Oct 2026 15:16:26 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hfGZWp9kWF1Fi4pYqwkukPrbw=MOiQ1yxd31mXg5zR6Q@mail.gmail.com>
+X-Gm-Features: AclHuK-M3XHHa8FV_F0N1LJ5FfL6gSK9Mdl9J8PTsQYLf0xcHyilyfaYZUWI-tU
+Message-ID: <CAJZ5v0hfGZWp9kWF1Fi4pYqwkukPrbw=MOiQ1yxd31mXg5zR6Q@mail.gmail.com>
+Subject: Re: [RESEND 1/2] fs/epoll: mark epoll_wait tasks TASK_FREEZABLE
+To: Sadrul Chowdhury <sadrul@google.com>
+Cc: linux-kernel@vger.kernel.org, 
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	Pavel Machek <pavel@kernel.org>, linux-pm@vger.kernel.org, 
+	John Stultz <jstultz@google.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Lorenzo,
+On Tue, Oct 20, 2026 at 2:12=E2=80=AFPM Sadrul Chowdhury <sadrul@google.com=
+> wrote:
+>
+> During system suspend (freeze_processes) and resume (thaw_processes),
+> threads blocked in epoll_wait() sleep in TASK_INTERRUPTIBLE. When
+> try_to_freeze_tasks() executes, it must wake up every sleeping thread
+> with a synthetic signal so the thread can schedule, run try_to_freeze(),
+> enter TASK_FROZEN, and sleep again. Upon resume, the freezer wakes them
+> all up simultaneously, only for each thread to re-enter ep_poll(),
+> observe no ready I/O events, and call schedule() to go back to sleep.
+>
+> On systems with numerous event-driven daemons (where hundreds of
+> threads idle in event loops), this causes a large wakeup stampede and
+> thousands of redundant context switches per suspend/resume cycle.
+>
+> An earlier attempt to make epoll_wait() freezable in commit 1c441e921201
+> ("epoll: use freezable blocking call") was reverted in commit
+> c511851de162 ("Revert "epoll: use freezable blocking call"") due to
+> reports of userspace corruption (Bugzilla #61781). Under the legacy
+> freezer design, freezable tasks could wake up prematurely while
+> hardware and peripheral drivers were still suspended.
+>
+> With the 2022 core freezer rewrite (commit f5d39b020809 ("freezer,sched:
+> Rewrite core freezer logic")), the legacy fake-signal mechanism was
+> replaced with the TASK_FROZEN state. Tasks sleeping in TASK_FREEZABLE
+> are safely frozen in-place without waking them up, and the scheduler
+> guarantees they cannot be woken until thaw_processes() explicitly clears
+> the frozen state.
+>
+> Mark sleeping tasks in ep_poll() as TASK_FREEZABLE. Benchmarks on an
+> ARM64 test device demonstrate that combining this with freezable
+> select/poll reduces thaw latency by 63% (from 20.64 ms down to 7.55 ms
+> mean at fixed CPU frequency) and reduces context switches during
+> freeze/thaw by 87%.
+>
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Sadrul Chowdhury <sadrul@google.com>
 
-On Tue, 20 Oct 2026 13:14:01 +0100, Lorenzo Stoakes (ARM)
-<ljs@kernel.org> wrote:
-[...]
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-[...]
-> > @@ -2060,7 +2060,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
-> >                  }
-> >          }
-> >
-> > -        if (!perm_fault_granule && !s2vi->map_non_cacheable && kvm_has_mte(kvm))
-> > +        if (mapping_size != perm_fault_granule && !s2vi->map_non_cacheable && kvm_has_mte(kvm))
->
-> So 'translation fault or permission fault if this will install a mapping' rather
-> than 'translation fault' alone right?
+For both patches in the series:
 
-Right.
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-> Just after this code you have:
+> ---
+>  fs/eventpoll.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
->         if (mapping_size == perm_fault_granule) {
->                 ...
->         } else {
->                 ...
->         }
+> diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+> index 6cbef8b4c2e0..35992f6457bf 100644
+> --- a/fs/eventpoll.c
+> +++ b/fs/eventpoll.c
+> @@ -39,6 +39,7 @@
+>  #include <linux/rculist.h>
+>  #include <linux/capability.h>
+>  #include <net/busy_poll.h>
+> +#include <linux/freezer.h>
 >
-> So you could put
+>  #include <trace/hooks/fs.h>
 >
->                 if (!s2vi->map_non_cacheable && kvm_has_mte(kvm))
->                         sanitise_mte_tags(kvm, pfn, mapping_size);
+> @@ -1987,7 +1988,7 @@ static int ep_poll(struct eventpoll *ep, struct epo=
+ll_event __user *events,
+>                  * the same lock on wakeup ep_poll_callback() side, so it
+>                  * is safe to avoid an explicit barrier.
+>                  */
+> -               __set_current_state(TASK_INTERRUPTIBLE);
+> +               __set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
 >
-> In the else branch? Seems neater and clearer.
-
-Agree, I'll move it there in v2.
-
-> Also I wonder if the !s2vi->map_non_cacheable && kvm_has_mte(kvm) check could be
-> abstracted?
+>                 /*
+>                  * Do the final check under the lock. ep_start/done_scan(=
+)
+> --
+> 2.56.0.212.g129ede20d9-goog
 >
-> E.g.:
 >
-> static bool is_mte_fault(const struct kvm *kvm,
->                          const struct kvm_s2_fault_vma_info *s2vi)
-> {
->         return !s2vi->map_non_cacheable && kvm_has_mte(kvm);
-> }
->
-> Then could be:
->
->         if (is_mte_fault(kvm, s2vi))
->                 sanitise_mte_tags(kvm, pfn, mapping_size);
-
-I'd rather leave that out: the fix doesn't change that part of the
-condition, and it only appears twice.
-
-Thanks,
-/fuad
