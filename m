@@ -1,105 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487075;
-	b=s6Oqv7xlS0OmN3AHG9CveWKVJJ48XNoAe/QUxEQumzKtNAlA+/mmHzHLvCnBP8Xxv+2L
-	 gAktjbNU88BUA3/0bTZU1mqu6PAQEUvRpULCD9Z3XoILM+qvwHND63vpv/UYoMnKsodxA
-	 fkAB+lgX/jCOGxCLNCBisB3Hs/gHG+g8Gfes+wur5YBMgGshWlEbYno95N8DDIRFO4ymh
-	 1H99a3IBHO1nO0GcDqMQ2LzPmclL036OP4WTiQP0kKvYcUFhmuBYGKdGxblTwHhtOCQIV
-	 bZMz+zEsF94pJlSwhy6CpQm2QYtHCNUEkbh7OLyRgsbN6ZgcmxezZ7fnKs8DwSzOVoA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487075;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792487099;
+	b=1FNSkswaQfJFKXq6dxGNkJdyZUxIK3w04r1aUCvCfSqZTULjqi4bYZKrgEs3P+loMZxk
+	 wno0aqFn+i0SihV+1fr+5Pb+ABQg3zglBD4TSmFLqYFAz/NRAxD78KFyo5Aex5VsPrpYx
+	 Mx6IDrey+6OnFTy2ljWSeAEqyZxKJN8Uq/96IQpQ1/xPOUKxalQcUiIc/wgyeioKKyCzl
+	 l+JthkmDiCgG0E3bkn7/TwVNBjbacAkAhr5n5sp5einjoXY+EaTSLht2cGZZO4iQHwroI
+	 cEFzx5W838VFyn9r2/Jya/FZUU8bcra3Vf0kKl98kDF9QeVYTHWip4QQa9s8BHWRMkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487099;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=XmlvlKzyuz+nX32TqdKKok7edyq/OZqgIr3dadDT77Q=;
-	b=f9v1BBy8GSBv0acmqvf5Xze+BVZQuRx1GOTMVS+uuGZ2Gcst1QoiEwv1g87vFF+YWeON
-	 1ZQjQU29TgSHzNtZFa9oGv6V2VOGDyyjBX7jREgABvT+LdjpYPat/VGsA+Od2EFOeNmCe
-	 Fdzr2UWNe+heZqv0xf07/QOZggmxKU9rNZ/UDFQyleL7FVSjdd2rnp3U1NE+nBN1QaSMW
-	 TN4QzIjwH5AUWIf5nec6nHk58GZEE8q4h/Fhhyx+daZKRpxYEO+BUDq41C1kZEpaURFOm
-	 BDXlzBdK5w+Wavd5sHRGQZH0K5H4YyYBMbezvi8JBen5D+VNm1zavzy8BLoJLkjqLFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Z6erjAjM;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1EQskYS0D7RQlbdc42q06B8aUfDjbkE64g4Pl0A7js8=;
+	b=KIwUmNMLfrnct/6NcWMuP1aUMfel03XZROTGQ4MvrbUJ3JYqchoqj0gIPz1XeYkXMA6M
+	 7jb8Y+C79OMO47mJXNBFY/XloeJUHOpB2UtLudUHhXwn35b03cSDdbH5lg/U+ztKrYAbE
+	 E58Fdsmj1jbVFUrPlv3xvrmAAZN0O42VITgJEf7sBojYrQEsxwQvjUpd5CX3b80xL33tC
+	 s75T+sL/9tUL9vreuEvESq5Lh6M7S486W1hu6rPxkGU3s73cjQDU/Y10pA0eW496CC3Ci
+	 Fxr7CFJvUGHGhpNKChsJcetV8oRpI0ugvL4SpJABd2f0lQGRHEi51qblKoT9y57yxAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KS1AFbh+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF40606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CF40606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAA9606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BAA9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Z6erjAjM
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2287488f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:04:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KS1AFbh+
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4091838a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:04:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792487097; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sf5qlLVlqzNoFPLKyQruduO1LJX0w0YqEXVQzT2KfTAGWKL2rvYka/7zCk6gxJ1gZG
+         6pT2vJYGlIc5OKJRZWH3qOQHECK6n/R04gXvdLPntVNflpQfkfm+7E5DKsUe6yI5R0wi
+         z5jCr5dmEbPfv5Zi0T+x3jDt3pTk+sHHtXdE12GRo+oKtpsWCJYhGPcBa9v0bnK7WEnT
+         qPAWU5hsHaBA4nhUcKynqsYupNsam0GPnfWS5rjjEvbW5vvBvdZTJ1L7JVeVpv7H0zNJ
+         q1nd+b7ir9TcHWG/Sj+4pbWqx+UuSBGZf9vJJ8d8zBEP7Gdt+fK0SnUlDLvTQH6wbs50
+         xGBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1EQskYS0D7RQlbdc42q06B8aUfDjbkE64g4Pl0A7js8=;
+        fh=LFDxPQD0a912kwqKwNHljswo+jQsEPz2HlzxecNzpbY=;
+        b=GRz0cX+CvAFZi35HHShYZPfmTfKkVaEe8UtAxMQinM0ZnJm1mQRRvOozt0Jtk1iQYH
+         DZUlkMQisbkxOXBxLXARPt2vji8fn3h9mPvtjHGcru7Xl9BYxNvFEmzCGJ6mday2LA6M
+         3yk9fF81tn59ef2YVhmg3Fp/57tSDbyg6uTfJlghiknKoAAc67PZDe4KaaGoP0Mx8bma
+         KhzSiQDoUdCSLcv2IvMKqWjPhu6Xs/8uBe+wz0grjKzZdiI2XQBZD4LlWdYjF3wQ/cKf
+         rCsLP3geL9tIC4ViWZrfMcczY1ql/120P92gQm7GmCCBvmvdFcGWk19F2rOH9D9jVKCb
+         k/9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792487071; x=1793091871; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1792487097; x=1793091897; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XmlvlKzyuz+nX32TqdKKok7edyq/OZqgIr3dadDT77Q=;
-        b=Z6erjAjM7sr5bu7Soxe/kLzTAztHvepqvKoRW4VcEAJVwNHubceJIoI+1FyNVRElAv
-         19SkyoTvhriHvJ2QOGqbotwRjRMmnLtJS9mCY7CT9S4tLGuhO5HghvVXIpIt9LcE1F5j
-         fNXJKmytHcr/3rYluDQA8Z+ySsS/cQTZ1iv9tP8SnbgapM7lM69ulxwbfZsJ/mgyNp/7
-         DibwqF0Pwv753NIah+oQzd/W68ghJkEO9nc07LNOVudWz2L3ubjgYjnA6NUJ6O4O6him
-         9MSdVT5l6+bmI4+HF13aZiP+tSmGVazeADwDxzadI+QYTZ7G+jrwxqMAMy3mk7SHVT0t
-         58OQ==
+        bh=1EQskYS0D7RQlbdc42q06B8aUfDjbkE64g4Pl0A7js8=;
+        b=KS1AFbh+RUlnRyYczf9BUEUIZP2JMbRVV77kkceNuVzuBNDF7PZsCn0FqeVeq4C7G0
+         UMjgLX0PzOuiah80ZL7AQFlVaEBqlUZGCQ3MNGOE0g4kmL8Kppj6zmf/W41FCBqZxzbN
+         uPl8HfSZvhjSXeBajx81DGSmebBgDPSsYAmG3kqa2f7QQLqHcdR8psbIjSUdojuo567y
+         1gwpytO0Jo/sjRQ2yyKVRMdcLxuYyMWuttYovpbSGiVGMxjIp1E9a49P6fGRgYs7Q9iR
+         Bpzgl/rJXkitTaOBMHqBso7HYX0Wnyr++rNZkupjnbsoKZ0VwsEwLJOPV4J54utgkXix
+         IicA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792487071; x=1793091871;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792487097; x=1793091897;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XmlvlKzyuz+nX32TqdKKok7edyq/OZqgIr3dadDT77Q=;
-        b=Man6pn/YDnswRshv63oU3YU785O3Ptmw1o9ecSqqwBLYh6yfWkvjHK8Voy1fWf+n/w
-         DPgTENHZ3nfoPsfGtnoryMGkmCkSuVt8YLhPedOMGyEo3t8LOH38gQtE5RzPX8bzHX2J
-         9whQ6bfQGA+iHA1G0szkF3dT/WVtEZq3YxWhspYpEWK1/pPxAwAPKIxAZbJhzc7qbiLi
-         NzaRXcsGrLFDVrAmTxZLSbjJBGBisoaquAMFYnSZOwknUHVUWQ5lTJYjxS5q34ibB5P6
-         HlopmL802zQ2H674nw+QJ8DyOTgz+d4ITHEcisCFeidgmUkXhg34vPXz4MSJ8xHgp2Pf
-         HQYw==
-X-Forwarded-Encrypted: i=1; AKwUvByKms7yUWUTwkMnpGqXqDJFmjwpZYTLR+bcvyEwdHlXGQN1YycrNt1uoiNeRi0rczC8f7WnlV3u+Sg9sFs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIInCbiyME2fH7mLwU32y2UFbjH8c001VelN5CjK0BizmSRabVY
-	35AW4NnUnEZtzj50KkXlYhifnkXTE10IdsFWNFBRUCKVWp5Qd85Lg2TTPIW7E9kU/EY=
-X-Gm-Gg: AYBFou0nCwBODhQa7dkIYbvrVdwztezG7b8TTPGUGwxvN9xi3MGxMi+nXtETB6KUkdW
-	vnZhXtP4FPanqQXVaRyrwDNASF9oIO3Wt4ey76MbJTDsKpW34NLcYFuwWKygzvKcs74Kox9Q/Ek
-	hWTlgw+lEZ2p0yqnD9xGdHxztXGrBqz1dYfP8kz5VtmEbmS4j1773ttDKw5uszOP6r1jH0NqxJu
-	IItvaV1DAju/LSH+bNeXev89pv3KeO8aEGPEKjDyyB2fEvY/HqBnCbnr8IMbIS6174zNYgdz/rW
-	mmysQGNNYZGQD29wgTaA6Nyqz9III3LBvQGP2vWjP6DMs65waRlx3SNYCFSAAOYDsFbc2jifKyl
-	bZOGwMj+cayoo12BCaz6SBP1pVCLpnMyLsQ+arL1CTK6Tz7YUyPPN1Hv4E071mx61ibv3+UePjL
-	b3dsz4vjU+kY5BK96Z7JpRqf/0gOGzGTGMtpOwJ0TrUwVjDA3Ua0LWLhi9bRQIHCEwggF8C7r/4
-	FC9hqf02+hW4beyVAjquNt6yvMZHQpp94dX/V3AXQtterU8y7o7+TnLVOQJ6XiInuMLgYK1Z1K6
-	vZND37XBcUetxF0S8Np1gpD+j95IfSylZLODxKnpLeSydI3l2oSrC/Ro31g=
-X-Received: by 2002:a05:6000:298e:10b0:48c:49bd:62df with SMTP id ffacd0b85a97d-48e07988ae1mr14257954f8f.1.1792487070519;
-        Tue, 20 Oct 2026 02:04:30 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82ff70sm4689162f8f.52.2026.10.20.02.04.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 02:04:29 -0700 (PDT)
-Date: Tue, 20 Oct 2026 10:04:27 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Alex Elder <elder@riscstar.com>, Krzysztof Kozlowski <krzk@kernel.org>,
-	tglx@kernel.org, radu@rendec.net, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	danielt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
- toshiba,tc9564-msigen.yaml
-Message-ID: <atcum0O14QFfwtwB@aspen.lan>
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-2-elder@riscstar.com>
- <20261013-coexist-sixtyfold-cc6614086d3a@spud>
- <20261014-eminent-normal-lynx-3ebba3@quoll>
- <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
- <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
- <20261014-getting-bronze-d8ab7598d9ee@spud>
- <af5ce6ac-244c-4fc4-bbc1-8875eec8508a@riscstar.com>
- <20261019-darkroom-endowment-43ef047fc24e@spud>
+        bh=1EQskYS0D7RQlbdc42q06B8aUfDjbkE64g4Pl0A7js8=;
+        b=Zxd1ZXlWhQwxuVZwSxYqM8MVXCVfcC6yvg+e+dq4woPQz0Op4yR9oUiKQdDyp9+l2g
+         8iLLZpcavtfp5TbiYk3cjqFcB4s737ovuED39xGFj44XkZ9EDp68krZlYo8gltWksQ9T
+         PvKrIu2EtXGziwUmfvgeD1qet25Ok8+tJqqKtgZdDLmu+cKVmUQ7Ohgchb8IBxNPCkbP
+         1fYA5OPLgmKVFCZYkEfZ6t0mGbtrFfoCpR/DC4+fFtMjDL1oTOK5rJqmTpT346/rPRKy
+         nxRARudhlN3fTtXN06ZQMBK1OWOa2xjARuRlhlM23yQ0JL0B8fW8S9hhJOmCHMEKNpNn
+         E8wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/kpzhX8ds7xWdrNMVS9oW3/EHsWnXWsTzJWWbqBzUeVjX5jjQWrvC24Hu5Miii7KTU1mRUcbUIGZ5+Ts=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHSZh1aG4p7zdjR0FWHH/MIVowlhj8GPgEdaEG/IjaVeWIMLCt
+	LRPd0n9VK5DBjkwvGobvGTNw7GOiM0OiNqEVnTBc+E02jBbmELi+Gnat0oBYDN25BuoE8tSDA2J
+	pg30D4tJmp2jawj22xZ2+Lco0SjyITvSwNJ1eaXhq
+X-Gm-Gg: AYBFou0aUqbwOXlW7aI0CvbkzMLJEv+e/2VUw2E7bLqD+1Ikm5A1Ff3FZa0IlLIzWLU
+	E8+oDuqtUEENmfeDFPNibKq8eGAnIgYIlf5gxQl3iKSz+sXDgZRzLYwPw1ahtjDXgMJABlOEL+G
+	ID5UMdzbetEMR9KTE3Xz1vIawsofMMeKN7ZDdVVUarsWCnuR3eyNiG50exF6DcOMNxdO+dAExTg
+	MCu+UXRUDNDoS1vO4yWQDDzXlZ9d7RF9krtMrTHwBkPB9KuI7eIJUXd9nuDdXtTtzax26O2jiRq
+	/gbb8/Y17zj8ClTpZn+2qnKA94v03ibUzy4dMcMSK+CEovneeHW/vSX7LukR21dvTpk4SpHpAyE
+	fGTBChLozuYGXZsWH1z4m8zGBizTjo01DO8qletTwVXtvI7l0C0NfaUwFw520ZfqYuBewgC28DT
+	Ld/ZUl43AmhvIi
+X-Received: by 2002:a05:6402:27d3:b0:6aa:ff76:3076 with SMTP id
+ 4fb4d7f45d1cf-6b3a8191bddmr6786581a12.32.1792487096676; Tue, 20 Oct 2026
+ 02:04:56 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,71 +105,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-darkroom-endowment-43ef047fc24e@spud>
+References: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com> <20261020115534.1134f2b3@inno-dell>
+In-Reply-To: <20261020115534.1134f2b3@inno-dell>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Tue, 20 Oct 2026 11:04:43 +0200
+X-Gm-Features: AclHuK8s5pDVPA952Sda847MnmKxiPykXZ_GhxHRu1vfO-Km8lE5fIjR6TFHhMM
+Message-ID: <CAH5fLgj6oCjVheVLYu+X=ptFA-+x4cznX1+bgWT3ayndiA6eiw@mail.gmail.com>
+Subject: Re: [PATCH] rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
+To: Zhi Wang <zhiw@nvidia.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Dave Jiang <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Saeed Mahameed <saeedm@nvidia.com>, 
+	Jonathan Cameron <jic23@kernel.org>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sami Tolvanen <samitolvanen@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 08:49:40PM +0100, Conor Dooley wrote:
-> On Wed, Oct 14, 2026 at 11:57:08AM -0500, Alex Elder wrote:
-> > On 10/14/26 11:41 AM, Conor Dooley wrote:
-> > > On Wed, Oct 14, 2026 at 09:55:03AM -0500, Alex Elder wrote:
-> > > > On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
-> > > > > > I still do not understand why do we need to describe the inner wirings
-> > > > > > of the tc9564 device. So far I found no posting of DTS showing proper
-> > > > > > usage of it on the host. Without proper usage, what is the point exactly
-> > > > > > to describe the inner specifics of tc9564?
-> > > > > And as shown here:
-> > > > > https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
-> > > > >
-> > > > > there is no single user of any of this (this=reset, clock, irqchip
-> > > > > probably and more) in upstreamed patches.
-> > > > >
-> > > > > I am getting tired to keep discussing it, so next time instead of words,
-> > > > > please post CODE which is the argument - who uses any of these devices
-> > > > > you keep adding.
-> > > >
-> > > > I'll take a break from my in-order responses to messages, and will
-> > > > respond to this first.
-> > >
-> > > Not really replying to any of this, but figured it was worth
-> > > mentioning that I am reviewing with the assumption that it's similar
-> > > to the microchip lan9xxx devices that can either be a standalone SoC
-> > > or connected as PCI endpoint.
-> >
-> > Yes, that was one of two things that this was modeled upon.
-> >
-> > The other is the Raspberry Pi RP1, which is probably a more
-> > similar example.
-> >
-> > > You keep calling it an SoC, which I took to mean that this had
-> > > linux-capable CPU cores on it. Is that not actually the case?
-> >
-> > Well it is an SoC, in that it has numerous interacting
-> > components that are aggregated into a single chip.
+On Tue, Oct 20, 2026 at 10:56=E2=80=AFAM Zhi Wang <zhiw@nvidia.com> wrote:
 >
-> If that's it, I wouldn't really call this an SoC, you're just going to
-> confuse people (like me!) into thinking that this device can work
-> standalone...
+> On Tue, 20 Oct 2026 08:28:37 +0000
+> Alice Ryhl <aliceryhl@google.com> wrote:
 >
-> > It does, in fact, have an embedded CPU that uses SRAM, but
-> > it's just an Arm Cortex M3 and is not Linux capable.
+> > Currently, VTable::fw_rpc_callback() takes scope as a u32, whereas C
+> > calls fwctl_ops::fw_rpc with enum fwctl_rpc_scope. With kCFI enabled,
+> > enum types are encoded distinctly from integers, causing every fw_rpc
+> > indirect call into a Rust fwctl driver to trip a CFI failure. Thus,
+> > generate fwctl_rpc_scope as a newtype with a cfi_encoding attribute
+> > and use it in fw_rpc_callback().
+> >
 >
-> ...but maybe it can, depending on whether the devices being discussed
-> appear in the address space of the M3 or if the M3 is just some sort of
-> monitor CPU running firmware and bringing the device out of reset.
+> Thanks for the fix. Looks good to me.
+>
+> Reviewed-by: Zhi Wang <zhiw@nvidia.com>
+>
+> BTW: I saw this =E2=80=9Clru_status=E2=80=9D needs the same treatment, gu=
+ess bindgen
+> will someday automatically handle this?
 
-FWIW I'm believe you *could* build a standalone system using the
-Cortex-M3. It has direct access to all the peripherals that we are
-describing using devicetree. However the C-M3 has very little RAM
-so the list of plausible fully-standalone systems is very short!
+I believe lru_status is already handled.
 
-More likely would be a system design that gives the microcontroller
-ownership of just a few of the peripherals and is partially
-independent of the host. If that firmware was running a DT-centric OS
-such as Zephyr there might be binding reuse in that case.
-
-I should be clear that this is entirely speculative at this point. We
-don't have such a firmware (we currently don't use any firmware at all).
-
-
-Daniel.
+Alice
