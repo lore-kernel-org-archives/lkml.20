@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792483571;
-	b=MjqoWYexbUNT+fY9RxFwbRpzgmY8KGo7T1NpKiumBUBdZWsNngfX9IajLcpcaxdRUZyO
-	 ybv9YCPvm1lTkwRBrMEhBxLCdMpfR6VIdpJGhpB4vRQMcp5yMzLZ5Gs4I1UvpRsUUazgx
-	 f1/zSpi/OGGpp2edsEzhSj56iak7l5ogYthyltKghAcODWtIN2NiIw06kW6jK0R0bAktY
-	 rxx9WLzu6nklB8v7FIsKzbNVaGgn+1Fr8o1YiaVZRRuknMmKcLYjGn4a8+8PS9MIbI3hO
-	 PYRFv8yveF5a03/T6cRsadBcqymGz7jYnFxjF9qf3118WU34pTAQ1mpe6qa+RTwkbfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483571;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5RK08GdJlX/NwtTawh/hEBv7/pT9rqxShNfrhayRMuA=;
-	b=VdostDZfOIX1u0Moi703fCSJQd0BAbMD3HnficiumWrK4RBaNUGfqdEOykAtD5cNOm1Q
-	 VuCzPXGgdtU3Q0mgSQHMIyqSDchTMLzTZkCMJN6PVnE0Dtdm5BrShbaNffKNzC5aa1BpP
-	 JpWQYKcTbHf2aSEmhvEDoMNscQiZaOAWJN4qkYCk4Th2OtEMn608piK38rVtv4STio9th
-	 gnN35mzl7dZuj5cty7qiS82Dv1LKVrCAuZOhw3I/2hurFIsX4qmNqTH/xmQcT1JO0RARB
-	 BPqoPQNzn7577SEY/UinYizpmhf/Mio92uSGE2fQnm3TIFi/cScpCvwbILu6T5AADig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J88Ee04D;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B84606A31E;
-	Tue, 20 Oct 2026 08:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J88Ee04D
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792483570;
-	b=a7HjR1saN584lWZ73GXpeg61dk9HiLm5CW51xBzBM1HWCcY29X7qf9+KVHPsdXDQg71I
-	 mYOhrRg/bf4D16fcwa6kw3t+42lSMIDKfRcC7m29VCJMhn6T23J20Vy6Mfeiai4cqkivK
-	 JMl/JDhNPyk5PVKhN7W95WggrUATbgcQ77jmwdg3QMaskteXmyA97l9vhz3OAwkuYCe5G
-	 Y4yhg0qplIZUQQkWt5tIK4OU4YR1S4eT9Myzx7HrX4ZtPngzsEYUtn49R9aM3HHqpf7jb
-	 +Irfa4LeW5tCAJ0CY2e7XaIPiOiLyXZpHNhuo2B+D8KyHe/snfHx8/0cnsweNpXI6Cg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792483570;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5RK08GdJlX/NwtTawh/hEBv7/pT9rqxShNfrhayRMuA=;
-	b=c1EKM97MzBuql+OGxxLtLp9ddwI2shKu8cUqqFtGFejR9ka5r2v+N2P5wbN+dbbZjHOy
-	 B+XOm7YwztiFBSak8JoD9jbO9T7LpZLW0srh1oEqOkcMZWToHuQR2iZZPwoKCYHX+SzRz
-	 XaP/cDIVh+jMoufx3vpaQgbpfuNSCQDmzV7kIRb+qi/qm27IuFjAqH9mrnVhlF7NRIykF
-	 q14LoRJbF6AsZk9oowCwM4Tpotb3js81xcQhUP9Qa9xbOyiTh39Yclg2P6Qh8q7IlvQK/
-	 4qZZqnWJ4KSSk/ZrOsb8QCYO3pVnuRg+wz/+uneU+KrMFjN5zrfKM8kHTtrpisprPkg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792483580;
+	b=g3Z9JuYTA39vfaC7g52kzQxkLTIAsYnF9oDNJFRWJAdG+VzjdmsiKiCVkcaprgZDXu+g
+	 GgzNZEECP7S/IQb3MEob3K+K0Y4kuLMGILV6UBshXqMs4RsVqCEssHNA1IHmlpBMFqFGc
+	 kbDtZqFySM7E5mwHcLAa3D8t5TQvsJvFminzQ2X5CwvbCxnLQte32vzIFBSgvMBpR1um9
+	 Ucl5L8DJHrh6lI6Vnc1a362TYfh5s46fvTK+kSRzyj41bfU0XBHaNs+9Qindd3M+dEFqM
+	 HNDPMM/kMLH3jTuhiDPd2RV6AA949LjlEq8GPmBDohFUWPX60F4rK94tC0bUFlP/R+A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483580;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=;
+	b=PIjp06w/8X5kunDpA0hIkDsIUJghdug76Z9P7CtGtQ7wukC9hBRtgd6ybyzOxPvXDugH
+	 r9Ht78qQIJ/yB5vK3zZksPJdFqF8Rm0OEjKkH/sfYZ5PHXpZ5pKl93XNQUhEMagxD+4BL
+	 Wvv+Xsy+iNJKzFRDNDcn7gTjjfZHuq8vMjt0wmCbvkK8CKPEBuvJYscxKLYOrXdbWA6wk
+	 otxQ56iCsmrPEcgydR6zfRP9gkbhU6pSZi6s+G0wWOom5Eb6VYkXrx3hMmxXb+93QbpGq
+	 bKOeEuDcfvt9V3xnZ7EFkGQ9ebHF6zJVpA38lh+h3vck06TiMV+PyEesTzBe+FdM0rw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KpNb66Oq;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VnQIK1jR;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E12FF1F000C5;
-	Tue, 20 Oct 2026 08:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792483570;
-	bh=5RK08GdJlX/NwtTawh/hEBv7/pT9rqxShNfrhayRMuA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=J88Ee04DOBvNfGzZBO6M1XjAMdKtYccGks9TSBXDbWCK6Jxip+atjJK3phYobMpCi
-	 nq084iTknI1XD1R/aQjvCdvGZErR0KDw0PQBwvi+uM8CnlU6bg/F9RbGislmbYN9+S
-	 f3+Ij5HWy4p0rigqV5r+dPxtO0azcmPlcpUKs/IwCpLOmEVH/hPMxgHYqCQt/aT4FZ
-	 NVW0BXD6vgxncZqG4IZtHkm6H0eMvQo9g+5fcPVWmu10hPCI03t6gsy9YUVm7wKAMg
-	 7k7Cpp/4964/YEAMBaG+hdMTRxELvVABW4eY0ueecWL/J6I4rP1TwhushOTO5twVf6
-	 qluNCpQlJpNfg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5520C430B2;
-	Tue, 20 Oct 2026 08:06:08 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Tue, 20 Oct 2026 10:05:49 +0200
-Subject: [PATCH 3/5] ceph: write back only the dirty bytes of a lazy I/O
- write
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EEE606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:06:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75EEE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KpNb66Oq;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VnQIK1jR
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0twmD187187
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:06:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=; b=KpNb66Oq1aRXfUnE
+	ROS4fb8H53uodsq4JHXsH/eQt9SR08bcFIM0qWPot3jle7phvh+stibRceQOEYUB
+	jumdSuExfPIM+TgERy/96l1u3ZkTccnSFB0ND9tMbFIeNZhi9pnY5Dz+M6cD9vt8
+	wgjUxwG9C826lZVkASOGAKQ8TxsjjUCKBUTS8WYx6P6UjH+yau6WGT7sR0MewrCQ
+	rsAeOYCmP46aFZJR8kfO4XK2KKi+9XvYYTq6y9vJF592TuqDSUx+AJe94fqR2CSs
+	PYuqDWna9t8k96/ExrWxtMIOIvR12yEIXh9uknEiD3JMVHDkc+gTW60DfvDMpB+g
+	1yL6mQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5nshk0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:06:19 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c008df17fso2470276d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:06:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792483579; x=1793088379; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=;
+        b=VnQIK1jRNi9zQdcfmcJJPM+DplJ0ODNgq2bOOomwHO7wjRDy0Fv4eeX6cM5lIwrkFD
+         VD08HIkcZGHHZUjk7ADApUHOHTMro/ppSjNsht8+Qj2P0IIbwwk0gcdDst+FtJZMJ4xQ
+         gZOdwl6xRh05od7dO0umTY9LL5lDGlI7aU7bsKBSkPb0zhq/iYshXoKSyEpDuFzLVeTT
+         oizK9ygTxvXlh/VDJUllMMI5+KYO5bv8u95q8RazfsDL+knclSy2RMpfeTsWqbR7cBdy
+         wTWblOnBa90bWmQqeOpW2binh5CoBV91/9MHBZaRohLjKB9MwhAeXXhylwSlnrbEBi+C
+         vWNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483579; x=1793088379;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3quIKETBo1ZjqvDKbvyOiH6uXLrpcCaWze7IG3F1fJ0=;
+        b=Kal/CZo28nZ4M9Ty1rAB9Xn9PFuqJUUQV2KF2hk6+t4V+1XTXLLeIs4KjY4s8FpcMi
+         9wxl0MFde6A4jxaMi6FWscW2FHOYZpQdVGp3+L+0zL6wc7S0hrAO5qz+c08dP1GsymZ2
+         vB7AuwmEx6YQX7wxaZkjBxIF7bypZ0Ym/REaiLhs+kAooY3yFW5euD7HwGLMvAgJ9mHy
+         bAwZudhlU8x+Ez9b0tBf2AYeprfXQZNr8iLhloUBVNYd7ZS0Vp/ksFQ6jL9qoGS8jkhp
+         sdPFzIqxpTmFqrSMH/u/pysBWLOTOK9e0qVEUKMkabb/xLXxTXNUBmu98NvjIVLv4gcL
+         ZIvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxf3vgLdZm8kBvzcIamm3zhRpSuSC7lffGpOMrmG2XJw5vjmv8LmsDSNNge0/Qnp9KVyhk8UTuiLgvt36I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaDKqyNtepGsiPILLUP2WR7CtK9/2KZpSRSqsahidmnAAKVe4m
+	2GyZwvQ/dps4rGSh6m05Hv7H64+J5RuKugfBJkPKo/FRRHnNpQ6D/9ry5lrtPTdbHLXEif0Makj
+	nM7wMAX7RRGXqgILKRXGCjHXX103sA9MyX1fGbhyEV5Clc7N9vIVtl1202lwaYTo6Jm0=
+X-Gm-Gg: AYBFou2hP5xKeUaUZ7HYc380Qc6pPv+k0R8hCAzMYkrIfdP2hA46UCOcD4MvlUjV28s
+	M7t3lGMdprLd7ZigT1q4qKBMqYHaLUTaFBixja8yOnJ7HJ8NBoj+jGgviH5sZLOJDROCH1vWyPu
+	h2tZpB6Cg7dW1QhL1bSx2LsAKPwtw/Obr9FcMYrQ2Vaj4WRWxQOqXxq7knWaVeVTdYbFv+qaaCm
+	6+5QxjLaaFsUuvvg61eBbiap0zozru0aqQdf0e3i3uvRSWoCT4F3zK60JdxNErBQGnCqpEUOJ/H
+	ZljuDSiO90dkXXA29jJHd4bVxxGo+Snh9Q/099rVQ5gqo23bt0PpDb1oYSwabgHX0ll3FOPNCvK
+	PYnAOSeroqmHCWnGJynWGGw==
+X-Received: by 2002:ac8:540c:0:b0:534:f411:a5ab with SMTP id d75a77b69052e-53645ff6457mr127073601cf.4.1792483578901;
+        Tue, 20 Oct 2026 01:06:18 -0700 (PDT)
+X-Received: by 2002:ac8:540c:0:b0:534:f411:a5ab with SMTP id d75a77b69052e-53645ff6457mr127073391cf.4.1792483578436;
+        Tue, 20 Oct 2026 01:06:18 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c466de84b94sm20989766b.65.2026.10.20.01.06.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:06:17 -0700 (PDT)
+Message-ID: <d4957cd5-c546-46c2-81e0-b2afc14a4ea6@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:06:15 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,676 +115,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-b4-wip-ceph-lazyio-fix-v1-3-f4cc62459d37@clyso.com>
-References: <20261020-b4-wip-ceph-lazyio-fix-v1-0-f4cc62459d37@clyso.com>
-In-Reply-To: <20261020-b4-wip-ceph-lazyio-fix-v1-0-f4cc62459d37@clyso.com>
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483564; l=22963;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=ux7lXenDzkerSFaXI70mOp7RXtvTIQg5uQu7i92IcIM=;
- b=3YaJTygY/NdJjxMcP/llpAHP/7NI2tvNWc5wE+BojdPb9pTJLcfBgBVjtQb8+8UIJEQfDuXOJ
- O3PMbO9HNBXAJcP/+91jp+a97FKKnC0WHGtRCoTwi+YewC2PQn2/0k2
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: Preserve shutdown error in
+ qcom_pas_stop()
+To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260922-b4-q6v5_pas_stop_preserve_shutdown_error-v1-1-2adced730893@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922-b4-q6v5_pas_stop_preserve_shutdown_error-v1-1-2adced730893@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: eo_p7f0yNGDFW4pBBnbniXwSgQuJlAJT
+X-Authority-Analysis: v=2.4 cv=DZOCOftW c=1 sm=1 tr=0 ts=6ad720fb cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=v8fyVrpRRJkhpEgro6wA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-ORIG-GUID: eo_p7f0yNGDFW4pBBnbniXwSgQuJlAJT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfXywVmqS6jZp7z
+ 9PmNFYBgp0E0YlxGh6s3zjUM8jPCcuWlvp5ZSbOMz8sHgES6TKXnCqJu/6gGrzSskZ8Rz45eayv
+ 4b0jrpNyzNPRiJ/yiB5MlVNwQ93cxZmgjEbSaOWFs7IFOEvm6PdL44ywI5JSBb+Jlg9RBZqKzbB
+ x9H7GQDeNh+bi2yK6A8cOs8qtXlO9JnEoPfE/LLu6mFrwfDCD2w9xSNdbVnqTwPX4drjfuCp+d2
+ M5J6tkjgounMN3DbkyWjs+pik5wHpjTJA3YFjsks5pvWX5f68zd01V6N1+7tIP5KTx4EshWEMAP
+ ZOD+0WQU2xNsoDSBmTKWQaFBW93+/0qR0h/KgVB579bd3QQrkJ08uw47slgHcSmhNUrU9JxY6rd
+ R0g6eqMbCIX5R/n84YmS0yjIq6ri1KjPWLH7p9ZnSW+FCW9WHw/8XAOgqdaVyWQaKtmgIid1nZR
+ 7xGCDS1PA+Jq/49dfIw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX7GUlMebdiIux
+ HpT9p+oXHYPL9EZi3knPpUqsCOLYExf2Ul0cnzWplF0ONtl/2MEOy0eUx66qB/ob3qpPSRu/hOo
+ ynpdNUzN3TIj70Y/YvNs49N+t0zJEcU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200032
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On 9/21/26 9:33 PM, Anup Vishwakarma wrote:
+> qcom_pas_stop() unconditionally overwrites ret with the return value of
+> qcom_smem_bust_hwspin_lock_by_host(), discarding any earlier shutdown
+> error from qcom_pas_shutdown(). If the primary shutdown fails but the
+> hwspin_lock bust succeeds, the function returns 0, silently masking the
+> failure from the remoteproc core.
+> 
+> Use a separate local variable for the hwspin_lock result and only update
+> ret if it is currently 0, consistent with how the DTB shutdown error is
+> already handled in the same function.
+> 
+> Fixes: 568b13b65078 ("remoteproc: qcom_q6v5_pas: Add hwspinlock bust on stop")
+> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+> ---
 
-With the lazyio mount option several clients buffer writes to one
-shared file.  A write that covers only part of a page dirties the whole
-page, so writeback sends the bytes around it too: whatever the page held
-from its read-before-write, or zeros beyond the local EOF.  Those stale
-bytes overwrite the records other clients wrote next to it, and io500
-ior-hard (47008-byte records interleaved across nodes) fails its read
-verification.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Keep the dirty byte range of a page that a lazy I/O write dirtied only
-part of: ceph_write_end() hangs a small struct holding the snap context
-and the range off folio->private, tagged with bit 1 (bit 0 is netfs's
-NETFS_FOLIO_INFO), and widens the range on later writes to the dirty
-folio, which it no longer marks dirty again.  Writeback then starts an
-extent where a range starts (with the in-page offset as the data
-alignment) and ends it where a range ends.  A write without lazy I/O
-starts no range: this client holds the buffer cap, the rest of the page
-is current, and the page goes out whole as before, which avoids the
-unaligned OSD writes that cost buffered sub-page overwrites 5-9% IOPS.
-
-The corner cases:
- - a write covering the whole page, a failed allocation, an encrypted
-   inode, or an mmap/GUP dirtying of a dirty page leaves (or makes) the
-   page dirty as a whole;
- - a write that copied nothing does not dirty the page;
- - a lazy I/O write apart from the range first writes the page back, so
-   that the range never spans bytes this client did not write;
- - a truncate that cuts into the range clips it, and a range that EOF
-   (read when the page is checked, not when the pass began) has moved
-   below is written as a whole page up to EOF;
- - a page that would need an extent beyond the request's ops is left
-   dirty before it is cleaned, since redirtying it would lose the range.
-
-The struct is freed with kfree_rcu(), so that the writeback waiters,
-which look at the snap context of pages under writeback without locking
-them, and the unlocked redirtying can peek under RCU.
-
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
----
- fs/ceph/addr.c | 360 +++++++++++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 325 insertions(+), 35 deletions(-)
-
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index dd2bd8ed2424..5d23a29330b8 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -68,10 +68,135 @@
- static int ceph_netfs_check_write_begin(struct file *file, loff_t pos, unsigned int len,
- 					struct folio **foliop, void **_fsdata);
- 
-+/*
-+ * With lazy I/O several clients buffer writes to one file, and the bytes
-+ * of a page around what this client wrote may be stale here: another
-+ * client's data, or zeros beyond what this client knows as EOF.  A page
-+ * that a lazy I/O write dirtied only part of therefore carries the dirty
-+ * byte range with its snap context, so that writeback sends only those
-+ * bytes: folio->private then points to a struct ceph_dirty_range, tagged
-+ * with CEPH_FOLIO_DIRTY_RANGE.  (Bit 0 is netfs's NETFS_FOLIO_INFO.)  A
-+ * folio without one is dirty as a whole.
-+ *
-+ * The range is set up, changed and read with the folio locked, except
-+ * that a folio may be dirtied again without the lock (GUP), and the
-+ * writeback waiters peek at the snap context of folios under writeback:
-+ * those only set ->whole or read ->snapc, under RCU.
-+ */
-+#define CEPH_FOLIO_DIRTY_RANGE	0x2UL
-+
-+struct ceph_dirty_range {
-+	struct ceph_snap_context *snapc;
-+	unsigned int start, end;	/* dirty bytes within the folio */
-+	bool whole;			/* dirtied as a whole after all */
-+	struct rcu_head rcu;
-+};
-+
-+static inline struct ceph_dirty_range *__ceph_dirty_range(const void *priv)
-+{
-+	if (!((unsigned long)priv & CEPH_FOLIO_DIRTY_RANGE))
-+		return NULL;
-+	return (void *)((unsigned long)priv & ~CEPH_FOLIO_DIRTY_RANGE);
-+}
-+
-+/* With the folio locked, or under rcu_read_lock() */
- static inline
- struct ceph_snap_context *ceph_folio_snap_context(const struct folio *folio)
- {
--	return folio->private;
-+	void *priv = READ_ONCE(folio->private);
-+	struct ceph_dirty_range *dr = __ceph_dirty_range(priv);
-+
-+	return dr ? dr->snapc : priv;
-+}
-+
-+/* Detach the snap context of a folio, and drop its dirty range. */
-+static struct ceph_snap_context *ceph_folio_detach_snapc(struct folio *folio)
-+{
-+	void *priv = folio_detach_private(folio);
-+	struct ceph_dirty_range *dr = __ceph_dirty_range(priv);
-+	struct ceph_snap_context *snapc;
-+
-+	if (!dr)
-+		return priv;
-+	snapc = dr->snapc;
-+	kfree_rcu(dr, rcu);
-+	return snapc;
-+}
-+
-+/* The bytes of a dirty folio that writeback sends: [*start, *end) */
-+static void ceph_folio_dirty_range(const struct folio *folio,
-+				   size_t *start, size_t *end)
-+{
-+	struct ceph_dirty_range *dr = __ceph_dirty_range(folio->private);
-+
-+	if (dr && !READ_ONCE(dr->whole)) {
-+		*start = dr->start;
-+		*end = dr->end;
-+	} else {
-+		*start = 0;
-+		*end = folio_size(folio);
-+	}
-+}
-+
-+/* Any byte of the folio may be dirty now (mmap or GUP writes). */
-+static void ceph_folio_dirty_whole(struct folio *folio)
-+{
-+	struct ceph_dirty_range *dr;
-+
-+	rcu_read_lock();
-+	dr = __ceph_dirty_range(READ_ONCE(folio->private));
-+	if (dr)
-+		WRITE_ONCE(dr->whole, true);
-+	rcu_read_unlock();
-+}
-+
-+/*
-+ * Note a write of @copied bytes at @pos into @folio, which it has just
-+ * dirtied; @was_dirty: the folio already was dirty before; @lazy: the
-+ * write came through a lazy I/O open.
-+ *
-+ * Only a lazy I/O write starts a range: without lazy I/O this client
-+ * holds the buffer cap, the rest of the page is current, and it may go
-+ * out whole, as it always did.  A later write of any kind widens an
-+ * existing range.  Nothing to save if the write covers the whole folio:
-+ * not even up to the local EOF, which may be stale while other clients
-+ * write beyond it.
-+ */
-+static void ceph_folio_note_write(struct inode *inode, struct folio *folio,
-+				  bool was_dirty, loff_t pos,
-+				  unsigned int copied, bool lazy)
-+{
-+	struct ceph_dirty_range *dr = __ceph_dirty_range(folio->private);
-+	unsigned int start = offset_in_folio(folio, pos);
-+	unsigned int end = start + copied;
-+
-+	if (!copied || IS_ENCRYPTED(inode))
-+		return;
-+	if (was_dirty) {
-+		/* a whole dirty folio stays whole */
-+		if (dr) {
-+			dr->start = min(dr->start, start);
-+			dr->end = max(dr->end, end);
-+		}
-+		return;
-+	}
-+	if (!lazy)
-+		return;
-+
-+	/* a folio that was clean has just got its plain snap context */
-+	if (WARN_ON_ONCE(dr || !folio->private))
-+		return;
-+	if (!start && end >= folio_size(folio))
-+		return;
-+	dr = kmalloc_obj(*dr, GFP_NOFS);
-+	if (!dr)
-+		return;		/* then it all goes out */
-+	dr->snapc = folio_get_private(folio);
-+	dr->start = start;
-+	dr->end = end;
-+	dr->whole = false;
-+	folio_change_private(folio,
-+			     (void *)((unsigned long)dr | CEPH_FOLIO_DIRTY_RANGE));
- }
- 
- /*
-@@ -95,6 +220,12 @@ static bool ceph_dirty_folio(struct address_space *mapping, struct folio *folio)
- 		boutc(cl, "%llx.%llx %p idx %lu -- already dirty\n",
- 		      ceph_vinop(inode), folio, folio->index);
- 		VM_BUG_ON_FOLIO(!folio_test_private(folio), folio);
-+		/*
-+		 * Someone other than ceph_write_end() (which doesn't call
-+		 * this on a dirty folio) dirtied it again, e.g. through a
-+		 * GUP pin: that may be any byte of it.
-+		 */
-+		ceph_folio_dirty_whole(folio);
- 		ceph_blog_exit(&__ji);
- 		return false;
- 	}
-@@ -158,8 +289,21 @@ static void ceph_invalidate_folio(struct folio *folio, size_t offset,
- 
- 
- 	if (offset != 0 || length != folio_size(folio)) {
-+		struct ceph_dirty_range *dr = __ceph_dirty_range(folio->private);
-+
- 		boutc(cl, "%llx.%llx idx %lu partial dirty page %zu~%zu\n",
- 		      ceph_vinop(inode), folio->index, offset, length);
-+		/*
-+		 * A truncate (or a hole punched up to the end of the folio)
-+		 * drops the tail: keep the dirty range inside what is left,
-+		 * or, if nothing of it is, the whole folio (up to EOF) goes
-+		 * out.
-+		 */
-+		if (dr && offset + length == folio_size(folio)) {
-+			dr->end = min_t(unsigned int, dr->end, offset);
-+			if (dr->start >= dr->end)
-+				ceph_folio_dirty_whole(folio);
-+		}
- 		ceph_blog_exit(&__ji);
- 		return;
- 	}
-@@ -169,7 +313,7 @@ static void ceph_invalidate_folio(struct folio *folio, size_t offset,
- 		boutc(cl, "%llx.%llx idx %lu full dirty page\n",
- 		      ceph_vinop(inode), folio->index);
- 
--		snapc = folio_detach_private(folio);
-+		snapc = ceph_folio_detach_snapc(folio);
- 		ceph_put_wrbuffer_cap_refs(ci, 1, snapc);
- 		ceph_put_snap_context(snapc);
- 	}
-@@ -807,6 +951,7 @@ static int write_folio_nounlock(struct folio *folio,
- 	loff_t page_off = folio_pos(folio);
- 	int err;
- 	loff_t len = folio_size(folio);
-+	size_t start, end;
- 	loff_t wlen;
- 	struct ceph_writeback_ctl ceph_wbc;
- 	struct ceph_osd_client *osdc = &fsc->client->osdc;
-@@ -847,6 +992,15 @@ static int write_folio_nounlock(struct folio *folio,
- 		return 0;
- 	}
- 
-+	/* only the dirty range of the folio goes out */
-+	ceph_folio_dirty_range(folio, &start, &end);
-+	if (page_off + start < ceph_wbc.i_size) {
-+		page_off += start;
-+		len = end - start;
-+	} else {
-+		start = 0;
-+	}
-+
- 	if (ceph_wbc.i_size < page_off + len)
- 		len = ceph_wbc.i_size - page_off;
- 
-@@ -899,9 +1053,10 @@ static int write_folio_nounlock(struct folio *folio,
- 	}
- 
- 	/* it may be a short write due to an object boundary */
--	WARN_ON_ONCE(len > folio_size(folio));
-+	WARN_ON_ONCE(start + len > folio_size(folio));
- 	page = bounce_page ? bounce_page : &folio->page;
--	osd_req_op_extent_osd_data_pages(req, 0, &page, wlen, 0, false, false);
-+	osd_req_op_extent_osd_data_pages(req, 0, &page, wlen, start, false,
-+					 false);
- 	boutc(cl, "%llx.%llx %llu~%llu (%llu bytes, %sencrypted)\n",
- 	      ceph_vinop(inode), page_off, len, wlen,
- 	      IS_ENCRYPTED(inode) ? "" : "not ");
-@@ -947,7 +1102,7 @@ static int write_folio_nounlock(struct folio *folio,
- 		      ceph_vinop(inode), folio);
- 		err = 0;  /* vfs expects us to return 0 */
- 	}
--	oldest = folio_detach_private(folio);
-+	oldest = ceph_folio_detach_snapc(folio);
- 	WARN_ON_ONCE(oldest != snapc);
- 	folio_end_writeback(folio);
- 	ceph_put_wrbuffer_cap_refs(ci, 1, snapc);
-@@ -1036,7 +1191,7 @@ static void writepages_finish(struct ceph_osd_request *req)
- 					fsc->mount_options->congestion_kb))
- 				fsc->write_congested = false;
- 
--			ceph_put_snap_context(folio_detach_private(folio));
-+			ceph_put_snap_context(ceph_folio_detach_snapc(folio));
- 			folio_end_writeback(folio);
- 
- 			if (atomic64_dec_return(&mdsc->dirty_folios) <= 0) {
-@@ -1278,6 +1433,25 @@ int ceph_check_folio_before_write(struct address_space *mapping,
- 		return -ENODATA;
- 	}
- 
-+	/*
-+	 * A dirty range that a truncate moved EOF below (before the page
-+	 * cache got truncated): write the folio up to EOF instead, as a
-+	 * folio without a range would be.  The head's EOF is read now, not
-+	 * when this pass began: writes that extended the file since then
-+	 * (into this folio too, which is locked now) must not look like a
-+	 * truncate, or the clean bytes in front of the range, which may be
-+	 * zeros or stale data of another lazy I/O writer, go out.
-+	 */
-+	{
-+		loff_t isize = ceph_wbc->size_stable ? ceph_wbc->i_size :
-+						       i_size_read(inode);
-+		size_t start, end;
-+
-+		ceph_folio_dirty_range(folio, &start, &end);
-+		if (folio_pos(folio) + start >= isize)
-+			ceph_folio_dirty_whole(folio);
-+	}
-+
- 	if (ceph_wbc->strip_unit_end &&
- 	    (folio->index > ceph_wbc->strip_unit_end)) {
- 		boutc(cl, "end of strip unit %p\n", folio);
-@@ -1326,11 +1500,25 @@ void ceph_allocate_page_array(struct address_space *mapping,
- 	ceph_wbc->len = 0;
- }
- 
-+/* The file range writeback sends of a dirty folio: [*start, *end) */
-+static void ceph_folio_write_range(const struct folio *folio,
-+				   u64 *start, u64 *end)
-+{
-+	size_t s, e;
-+
-+	ceph_folio_dirty_range(folio, &s, &e);
-+	*start = folio_pos(folio) + s;
-+	*end = folio_pos(folio) + e;
-+}
-+
- static inline
- bool is_folio_index_contiguous(const struct ceph_writeback_ctl *ceph_wbc,
- 			      const struct folio *folio)
- {
--	return folio->index == (ceph_wbc->offset + ceph_wbc->len) >> PAGE_SHIFT;
-+	u64 start, end;
-+
-+	ceph_folio_write_range(folio, &start, &end);
-+	return start == ceph_wbc->offset + ceph_wbc->len;
- }
- 
- static inline
-@@ -1395,6 +1583,7 @@ void ceph_process_folio_batch(struct address_space *mapping,
- 	struct ceph_fs_client *fsc = ceph_inode_to_fs_client(inode);
- 	struct ceph_client *cl = fsc->client;
- 	struct folio *folio = NULL;
-+	u64 start, end;
- 	unsigned i;
- 	int rc;
- 
-@@ -1435,6 +1624,18 @@ void ceph_process_folio_batch(struct address_space *mapping,
- 			break;
- 		}
- 
-+		/*
-+		 * Nor may it need an extent beyond the request's ops: check
-+		 * that before the folio is cleaned, as redirtying it would
-+		 * lose its dirty range.
-+		 */
-+		if (ceph_wbc->locked_pages &&
-+		    !is_folio_index_contiguous(ceph_wbc, folio) &&
-+		    is_num_ops_too_big(ceph_wbc)) {
-+			folio_unlock(folio);
-+			break;
-+		}
-+
- 		if (!folio_clear_dirty_for_io(folio)) {
- 			boutc(cl, "%p !folio_clear_dirty_for_io\n", folio);
- 			folio_unlock(folio);
-@@ -1451,15 +1652,12 @@ void ceph_process_folio_batch(struct address_space *mapping,
- 		 */
- 		if (ceph_wbc->locked_pages == 0) {
- 			ceph_allocate_page_array(mapping, ceph_wbc, folio);
-+			/* the first op starts where the folio's range does */
-+			ceph_folio_write_range(folio, &ceph_wbc->offset, &end);
- 		} else if (!is_folio_index_contiguous(ceph_wbc, folio)) {
--			if (is_num_ops_too_big(ceph_wbc)) {
--				folio_redirty_for_writepage(wbc, folio);
--				folio_unlock(folio);
--				break;
--			}
--
- 			ceph_wbc->num_ops++;
--			ceph_wbc->offset = (u64)folio_pos(folio);
-+			ceph_folio_write_range(folio, &ceph_wbc->offset,
-+					       &end);
- 			ceph_wbc->len = 0;
- 		}
- 
-@@ -1483,7 +1681,8 @@ void ceph_process_folio_batch(struct address_space *mapping,
- 			fsc->write_congested = true;
- 
- 		ceph_wbc->fbatch.folios[i] = NULL;
--		ceph_wbc->len += folio_size(folio);
-+		ceph_folio_write_range(folio, &start, &end);
-+		ceph_wbc->len += end - start;
- 	}
- 
- 	ceph_wbc->processed_in_fbatch = i;
-@@ -1511,7 +1710,7 @@ void ceph_shift_unused_folios_left(struct folio_batch *fbatch)
- 
- static void ceph_undo_wrbuffer_claim(struct inode *inode, struct folio *folio)
- {
--	struct ceph_snap_context *snapc = folio_detach_private(folio);
-+	struct ceph_snap_context *snapc = ceph_folio_detach_snapc(folio);
- 
- 	if (!snapc)
- 		return;
-@@ -1532,12 +1731,13 @@ int ceph_submit_write(struct address_space *mapping,
- 	struct ceph_osd_request *req = NULL;
- 	struct folio *folio = NULL;
- 	bool caching = ceph_is_cache_enabled(inode);
--	u64 offset;
-+	u64 offset, start, end, last_len = 0;
- 	u64 len;
--	unsigned i;
-+	unsigned int i, align;
- 
- new_request:
--	offset = ceph_fscrypt_folio_offset(page_folio(ceph_wbc->pages[0]));
-+	folio = ceph_fscrypt_pagecache_folio(page_folio(ceph_wbc->pages[0]));
-+	ceph_folio_write_range(folio, &offset, &end);
- 	len = ceph_wbc->wsize;
- 
- 	req = ceph_osdc_new_request(&fsc->client->osdc,
-@@ -1561,8 +1761,10 @@ int ceph_submit_write(struct address_space *mapping,
- 		BUG_ON(IS_ERR(req));
- 	}
- 
--	folio = page_folio(ceph_wbc->pages[ceph_wbc->locked_pages - 1]);
--	BUG_ON(len < ceph_fscrypt_folio_offset(folio) + folio_size(folio) - offset);
-+	folio = ceph_fscrypt_pagecache_folio(
-+			page_folio(ceph_wbc->pages[ceph_wbc->locked_pages - 1]));
-+	ceph_folio_write_range(folio, &start, &end);
-+	BUG_ON(len < end - offset);
- 
- 	if (!ceph_inc_osd_stopping_blocker(fsc->mdsc)) {
- 		for (i = 0; i < ceph_wbc->locked_pages; i++) {
-@@ -1602,11 +1804,12 @@ int ceph_submit_write(struct address_space *mapping,
- 	len = 0;
- 	ceph_wbc->data_pages = ceph_wbc->pages;
- 	ceph_wbc->op_idx = 0;
-+	align = offset_in_page(offset);
- 	for (i = 0; i < ceph_wbc->locked_pages; i++) {
- 		u64 cur_offset;
- 
- 		folio = ceph_fscrypt_pagecache_folio(page_folio(ceph_wbc->pages[i]));
--		cur_offset = folio_pos(folio);
-+		ceph_folio_write_range(folio, &cur_offset, &end);
- 
- 		/*
- 		 * Discontinuity in page range? Ceph can handle that by just passing
-@@ -1628,13 +1831,14 @@ int ceph_submit_write(struct address_space *mapping,
- 
- 			osd_req_op_extent_osd_data_pages(req, ceph_wbc->op_idx,
- 							 ceph_wbc->data_pages,
--							 len, 0,
-+							 len, align,
- 							 ceph_wbc->from_pool,
- 							 false);
- 			osd_req_op_extent_update(req, ceph_wbc->op_idx, len);
- 
- 			len = 0;
- 			offset = cur_offset;
-+			align = offset_in_page(offset);
- 			ceph_wbc->data_pages = ceph_wbc->pages + i;
- 			ceph_wbc->op_idx++;
- 		}
-@@ -1644,7 +1848,8 @@ int ceph_submit_write(struct address_space *mapping,
- 		if (caching)
- 			ceph_folio_start_fscache(folio);
- 
--		len += folio_size(folio);
-+		last_len = end - cur_offset;
-+		len += last_len;
- 	}
- 
- 	ceph_fscache_write_to_cache(inode, offset, len, caching);
-@@ -1655,10 +1860,11 @@ int ceph_submit_write(struct address_space *mapping,
- 		/* writepages_finish() clears writeback pages
- 		 * according to the data length, so make sure
- 		 * data length covers all locked pages */
--		u64 min_len = len + 1 - folio_size(folio);
--		len = get_writepages_data_length(inode,
-+		u64 min_len = len + 1 - last_len;
-+
-+		len = min(len, get_writepages_data_length(inode,
- 						 page_folio(ceph_wbc->pages[i - 1]),
--						 offset);
-+						 offset));
- 		len = max(len, min_len);
- 	}
- 
-@@ -1676,7 +1882,7 @@ int ceph_submit_write(struct address_space *mapping,
- 
- 	osd_req_op_extent_osd_data_pages(req, ceph_wbc->op_idx,
- 					 ceph_wbc->data_pages, len,
--					 0, ceph_wbc->from_pool, false);
-+					 align, ceph_wbc->from_pool, false);
- 	osd_req_op_extent_update(req, ceph_wbc->op_idx, len);
- 
- 	BUG_ON(ceph_wbc->op_idx + 1 != req->r_num_ops);
-@@ -1731,8 +1937,14 @@ void ceph_wait_until_current_writes_complete(struct address_space *mapping,
- 						     PAGECACHE_TAG_WRITEBACK,
- 						     &ceph_wbc->fbatch))) {
- 			for (i = 0; i < nr; i++) {
-+				struct ceph_snap_context *snapc;
-+
- 				folio = ceph_wbc->fbatch.folios[i];
--				if (ceph_folio_snap_context(folio) != ceph_wbc->snapc)
-+				/* not locked: the range may go away meanwhile */
-+				rcu_read_lock();
-+				snapc = ceph_folio_snap_context(folio);
-+				rcu_read_unlock();
-+				if (snapc != ceph_wbc->snapc)
- 					continue;
- 				folio_wait_writeback(folio);
- 			}
-@@ -1992,6 +2204,29 @@ static int ceph_netfs_check_write_begin(struct file *file, loff_t pos, unsigned
- 	return 0;
- }
- 
-+static bool ceph_file_is_lazy(const struct file *file)
-+{
-+	return ((struct ceph_file_info *)file->private_data)->fmode &
-+	       CEPH_FILE_MODE_LAZY;
-+}
-+
-+/*
-+ * Would a write of [@pos, @pos + @len) into @folio leave clean bytes
-+ * between it and the folio's dirty range?  The range would then grow over
-+ * them, and writeback would send them too: with lazy I/O they may be stale
-+ * here, another client's data that this one never wrote.
-+ */
-+static bool ceph_folio_write_leaves_gap(const struct folio *folio,
-+					loff_t pos, size_t len)
-+{
-+	struct ceph_dirty_range *dr = __ceph_dirty_range(folio->private);
-+	size_t start = offset_in_folio(folio, pos);
-+
-+	if (!folio_test_dirty(folio) || !dr || dr->whole)
-+		return false;
-+	return start + len < dr->start || start > dr->end;
-+}
-+
- /*
-  * We are only allowed to write into/dirty the page if the page is
-  * clean, or already dirty within the same snap context.
-@@ -2005,15 +2240,41 @@ static int ceph_write_begin(const struct kiocb *iocb,
- 	struct inode *inode = file_inode(file);
- 	struct ceph_fs_client *fsc = ceph_inode_to_fs_client(inode);
- 	struct ceph_inode_info *ci = ceph_inode(inode);
-+	bool lazy = ceph_file_is_lazy(file);
- 	int r;
- 	struct ceph_journal_info __ji;
- 
- 	ceph_blog_enter(fsc, &__ji);
- 
--	r = netfs_write_begin(&ci->netfs, file, inode->i_mapping, pos, len, foliop, NULL);
--	if (r < 0) {
--		ceph_blog_exit(&__ji);
--		return r;
-+	for (;;) {
-+		struct folio *folio;
-+		loff_t fpos, fend;
-+
-+		r = netfs_write_begin(&ci->netfs, file, inode->i_mapping, pos,
-+				      len, foliop, NULL);
-+		if (r < 0) {
-+			ceph_blog_exit(&__ji);
-+			return r;
-+		}
-+		folio = *foliop;
-+		if (!lazy || !ceph_folio_write_leaves_gap(folio, pos, len))
-+			break;
-+
-+		/*
-+		 * A lazy I/O write apart from the folio's dirty range:
-+		 * write the folio back first, so that its range never
-+		 * spans bytes this client did not write.
-+		 */
-+		fpos = folio_pos(folio);
-+		fend = fpos + folio_size(folio) - 1;
-+		folio_unlock(folio);
-+		folio_put(folio);
-+		*foliop = NULL;
-+		r = filemap_write_and_wait_range(mapping, fpos, fend);
-+		if (r < 0) {
-+			ceph_blog_exit(&__ji);
-+			return r;
-+		}
- 	}
- 
- 	folio_wait_private_2(*foliop); /* [DEPRECATED] */
-@@ -2035,7 +2296,7 @@ static int ceph_write_end(const struct kiocb *iocb,
- 	struct inode *inode = file_inode(file);
- 	struct ceph_fs_client *fsc = ceph_inode_to_fs_client(inode);
- 	struct ceph_client *cl = ceph_inode_to_client(inode);
--	bool check_cap = false;
-+	bool check_cap = false, was_dirty, lazy = ceph_file_is_lazy(file);
- 	struct ceph_journal_info __ji;
- 
- 	ceph_blog_enter_gfp(fsc, &__ji, GFP_ATOMIC);
-@@ -2052,11 +2313,39 @@ static int ceph_write_end(const struct kiocb *iocb,
- 		folio_mark_uptodate(folio);
- 	}
- 
-+	/*
-+	 * Nothing copied (the user buffer faulted; the write is retried):
-+	 * dirtying the folio now would give it no dirty range, and it
-+	 * would go out as a whole.
-+	 */
-+	if (!copied)
-+		goto out;
-+
-+	/*
-+	 * A short copy of a lazy I/O write that ceph_write_begin() found
-+	 * next to the dirty range may still stop short of it: say nothing
-+	 * was copied, and the write is retried (and checked) again.
-+	 */
-+	if (lazy && ceph_folio_write_leaves_gap(folio, pos, copied)) {
-+		copied = 0;
-+		goto out;
-+	}
-+
- 	/* did file size increase? */
- 	if (pos+copied > i_size_read(inode))
- 		check_cap = ceph_inode_set_size(inode, pos+copied);
- 
--	folio_mark_dirty(folio);
-+	/*
-+	 * A dirty folio only gets its dirty range widened, and only a lazy
-+	 * I/O write starts one: a clean folio dirtied without lazy I/O
-+	 * goes out whole, with nothing to note.
-+	 */
-+	was_dirty = folio_test_dirty(folio);
-+	if (!was_dirty)
-+		folio_mark_dirty(folio);
-+	if (was_dirty || lazy)
-+		ceph_folio_note_write(inode, folio, was_dirty, pos, copied,
-+				      lazy);
- 
- out:
- 	folio_unlock(folio);
-@@ -2395,6 +2684,7 @@ static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
- 		if (!snapc) {
- 			/* success.  we'll keep the folio locked. */
- 			folio_mark_dirty(folio);
-+			ceph_folio_dirty_whole(folio);
- 			ret = VM_FAULT_LOCKED;
- 			break;
- 		}
-
--- 
-2.53.0
-
-
+Konrad
