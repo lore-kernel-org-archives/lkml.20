@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497506;
-	b=yGHMPDC29TjM/7ifW3a5M1hOTGa7Ntpe4KgoV+JJApfr3eRZ/Hk/9MPtVzSDfjOggFFk
-	 IHRNQYPBCqNvJzC3OohCmC8TcHOly6EBMORTIbjj+91d/hK089PcEIzi/5pT74pQMDd4y
-	 QI/SkJACpoJiec2DSIPbe8bcG5AsDUq7yLfo94Vj6QuQmvY/+VZHuZ6aIXTxkXB4bS2+T
-	 QKz5raaLxG0YHUvb4f0yVTXqcDu3pvBXyl5X98OdOR+CyMCNRPT8G7OMzQKY1HNbEhRzL
-	 xAS4AZ2cjzhFKaQVDHJuq/lFMVoZjmzP3FXno/XlFmbpynQyLlDk8+Amn/9HEc1Yd3w==
+	t=1792497497;
+	b=XwgeR2DSr7j5MupNM+cazkMMr3pzP2QG9jrLsR+5k5ctljejusF5vScBQBnUtH2Ei7PB
+	 cqGfeR4cGT7t32bdAOnVCtsc1sT2n4ZfB44lJkBMqXuL+xd+9vgTFYo9jyLFL6ELgeLbB
+	 PyhoXmPhJvVhJB5TUerR4EPtVh2pAjZXC4ueYFbnZL3RKP/18b0BioVCxQbU9bXqtxAaX
+	 HAgL7y47G1V595Xz2gINkfbK9d13HalDjmthTGn/Z51Mbx2R3PhAFz0CFdbQwLTRSYxM5
+	 BUluFuYJ1wY0hJbagM0WremG761qSNyp7qEOcvWFMSoQDKhAO1eIzL5f0qO4ecX26mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497497;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=3cSxXqVZINLaJAxubbW3o8shpEbL0tUTG34iYCI9EGw=;
-	b=EpY9KBYIscK2QBS+Ef2I8OII84CfVsjFhwvikdhZ0WJKA2Ed/HSGsrHOFgJv/I6jOZIO
-	 XMoorDTw4kWXFWvY5Ljvp/JIRKUIRfDRwNtMETUljGXAuIU/BDjzAvPdIpjOsvnnNEQfF
-	 Af7+b4q5FlF0PvI1wND767Lm3ZU5hV+D3LMw1NI4A9U1WT3v6dXLoExxtWY41NDxLyX8K
-	 t4vLZMk2EhAaQpcV3N9fIyPpcJTm8LSAcdJnAXerPUU7hGRPPMnIQ4oiG72/P5Oc41bd4
-	 32UR86LeBcaoSJepO3+zKPcBIEn8Nq0e8dNZeE6ab5GqXYGyH9+/VCadf2gBfFkm3IQ==
+	bh=6d6z90kujskdu9Nq7+vIIcl4GoA3T1K6qt7oPYIti/k=;
+	b=L4ZNwZvP4w9+vMrwnUBGfSiocqI2ScVoRBEfd/PDV80boA1rRwqsKRvpXEPsyS3haOPD
+	 H0rYtQuAIwUJEdeMIzFrkNHt2GKze9v5gR7SJdKEy8fgY3SVCVofyOG1re3sEqA2MoFkl
+	 SNYfmVTUjzHjNAtL2ducqbDu9yz+RVLyRSWkr3exi0sDkD/m3ur8wt0+5bbche2lnkub9
+	 z0OlTuUXZklxlOVuk7WsrKk/lShAZOjwQ72fUwq4S2Ggg2vKKCsGASW3iTvw8MbaTQcvc
+	 RoY+m4cu8PyDCxSBTCQvi/JYaUO7nJli2iRG8IKE6CCkQRd3NZRVBsZp5KofV+a0c7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPCsoNHu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGxDBQkU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBC360A3802;
-	Tue, 20 Oct 2026 11:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FEE606A320;
+	Tue, 20 Oct 2026 11:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPCsoNHu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E243A1F000CE;
-	Tue, 20 Oct 2026 11:58:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGxDBQkU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604281F000C5;
+	Tue, 20 Oct 2026 11:58:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792497506;
-	bh=3cSxXqVZINLaJAxubbW3o8shpEbL0tUTG34iYCI9EGw=;
+	s=k20260515; t=1792497496;
+	bh=6d6z90kujskdu9Nq7+vIIcl4GoA3T1K6qt7oPYIti/k=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mPCsoNHu8NkqOtKwnTL59BoMcQ5VHuIimMsCxFr+2x8NLW6DT0PKYBInJw/kCCBIZ
-	 98tOwk6/2FuDpBdbxok4rgu5JRvjh3To/UB1124Z69O1SbHSZ5pI8VHYhAa2I5fIVI
-	 cJTOFBqwzPmqXfXtsQbsDYNb2xBGTci7xrZuP+fulKZpdHW6Sw6L7KbYaDBybbfWIZ
-	 6HFKVLa2sYKAWwfwjINzRyTuNfkVMI4muZJoMekMMdrmgKG2aSS84ZytaEvbqUARB/
-	 usl94ajGSPaGzmkEgbf7prrhOaspifxvXDEs3DxcalPRK1NObZuo0vm46Eg7nv9utB
-	 zfSWb8qLEm7Mw==
-Subject: Re: [PATCH net-next v3 8/8] net: xilinx: tsn: deliver endpoint RX
- frames to DSA user ports
+	b=YGxDBQkUvKZwAULI5HrvGzRai3ZG0YuPxSnj3ToS4Iljs9LvcvnVujkIrgaPFQtan
+	 X8jOWeh6JCLFnBA/+yMju1EOm7wTiaTXieaG4qCYeRqY5OhR90P4A7s8khvC7pm31A
+	 l6xopzVc24mRghYbnplN9+INGcw6DAf5ngXF8FVFnnOLiAxFoRxUYm+R9rw3WKmANc
+	 /sJbQcThKK+hoU2Ecu5lcGNmvEscuokfWd5H/gFnOS4tBwnlH1Fjx/TccBWBaOGUO9
+	 s8laMiB7oLBNEHYedv/NA9WYocJzKUWrfXmksBLgRmNiufvVHYLPN7JzPvVcKYjFEq
+	 v7F9vxThlZweg==
+Subject: Re: [PATCH net-next v3 3/8] net: xilinx: tsn: add endpoint MAC driver
+ skeleton
 From: netdev-bot+sashiko@kernel.org
 To: srinivas.neeli@amd.com
 Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -51,10 +51,10 @@ Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
-Date: Tue, 20 Oct 2026 11:58:24 +0000
-Message-ID: <179249750444.3135.1692275587478159303@kernel.org>
-In-Reply-To: <20261016-patches_v2_external-v3-8-e33d3960ca1e@amd.com>
-References: <20261016-patches_v2_external-v3-8-e33d3960ca1e@amd.com>
+Date: Tue, 20 Oct 2026 11:58:14 +0000
+Message-ID: <179249749490.3135.16050500473575890674@kernel.org>
+In-Reply-To: <20261016-patches_v2_external-v3-3-e33d3960ca1e@amd.com>
+References: <20261016-patches_v2_external-v3-3-e33d3960ca1e@amd.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -74,81 +74,79 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The new RX demux in ep_dma_rx_cb()
-  (drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c) relies on a DSA…
+- [Low] xlnx_tsn_ep_probe() in
+  drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c (line 80) open-codes…
 
 --
 
-net: xilinx: tsn: deliver endpoint RX frames to DSA user ports
+net: xilinx: tsn: add endpoint MAC driver skeleton
 
-At probe time this commit allocates one METADATA_HW_PORT_MUX metadata dst
-for each of the two MAC ports. In ep_dma_rx_cb() it then attaches the
-matching dst to each RX frame based on its TUSER port_id, gated on
-netdev_uses_dsa(), so DSA can deliver the frame to its swpN user port.
+This adds a platform driver for the "xlnx,tsn-ep-mac" endpoint MAC. The
+endpoint MAC provides the conduit netdev for the TSN DSA switch. The driver
+registers an eth%d netdev, sets its MAC address from DT or a random one,
+and provides minimal netdev/ethtool ops where xmit just drops frames.
 
 > diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> index bd8cd504cefb4..5103a3b4b018a 100644
-> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> new file mode 100644
+> index 0000000000000..609d444c68356
+> --- /dev/null
 > +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
 
 [ ... ]
 
-> @@ -302,6 +311,10 @@ static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
->  	}
->  
->  	skb_put(skb, rx_len);
-> +	if (netdev_uses_dsa(ndev)) {
-> +		dst_hold(&ep->port_md[port_id]->dst);
-> +		skb_dst_set(skb, &ep->port_md[port_id]->dst);
-> +	}
+> +static int xlnx_tsn_ep_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct net_device *ndev;
+> +	struct xlnx_tsn_ep *ep;
+> +	u8 mac_addr[ETH_ALEN];
+> +	int ret;
+> +
+> +	ndev = alloc_netdev(sizeof(*ep), "eth%d", NET_NAME_UNKNOWN, ether_setup);
 
 [Severity: Low]
-Can this branch be reached at all with the tree as submitted?
+Should this be NET_NAME_ENUM rather than NET_NAME_UNKNOWN?
 
-As far as I can tell, nothing under drivers/net/dsa/ binds
-"xlnx,tsn-switch", and net/dsa/ has no TSN tagger. The only references
-are the binding in xlnx,tsn-endpoint-ethernet-mac.yaml and this Kconfig
-help text:
+With the "eth%d" template the kernel chooses the number. The standard
+helper for that case uses NET_NAME_ENUM:
 
-    The three-port switch is supported by the companion DSA driver.
-
-Without that driver, nothing sets dsa_ptr on this netdev, so
-netdev_uses_dsa() is always false here. That leaves three pieces of dead
-code for now: this branch, the port_md[] allocation in
-xlnx_tsn_ep_probe(), and ep_free_port_md(). It also means RX delivery to
-swp1/swp2 can't be tested from this tree.
-
-Will the companion DSA driver be posted along with this series?
-
-The commit message also says:
-
-    guarded by netdev_uses_dsa() so it runs only while a switch is bound
-    as the conduit.
-
-netdev_uses_dsa() checks a bit more than that:
-
-include/net/dsa.h:netdev_uses_dsa() {
-    ...
-	return dev->dsa_ptr && dev->dsa_ptr->rcv;
-    ...
+net/ethernet/eth.c:alloc_etherdev_mqs() {
+	return alloc_netdev_mqs(sizeof_priv, "eth%d", NET_NAME_ENUM,
+				ether_setup, txqs, rxqs);
 }
 
-dsa_port_set_tag_protocol() copies cpu_dp->rcv directly from the
-tagger's ops.
+The DSA user port fallback in dsa_user_create() in net/dsa/user.c also
+pairs "eth%d" with NET_NAME_ENUM. The v2 changelog gave that as its reason.
 
-Every frame accepted here carries a METADATA_HW_PORT_MUX dst, so
-dsa_switch_rcv() always takes the md_dst branch and never calls
-cpu_dp->rcv. The tagger still has to provide a non-NULL .rcv, though,
-or this code never runs.
+With NET_NAME_UNKNOWN, reading /sys/class/net/ethX/name_assign_type for
+this device returns -EINVAL:
 
-With a tagger that has no .rcv, such as none_ops in net/dsa/tag_none.c,
-every frame would quietly stay on the conduit eth%d. tag_none.c warns
-against using it for new switches, so this mainly applies to whatever
-tagger the companion driver adds.
+net/core/net-sysfs.c:name_assign_type_show() {
+	...
+	if (READ_ONCE(ndev->name_assign_type) != NET_NAME_UNKNOWN)
+		ret = netdev_show(dev, attr, buf, format_name_assign_type);
+	...
+}
 
-Could the commit message, or a comment here, say that the tagger must
-provide an .rcv callback, even though it won't be called for these
-frames?
+Netdevs from alloc_etherdev() and the DSA user netdevs stacked on top of
+this conduit report 1 there.
+
+The v3 changelog says:
+
+  "Register the netdev with the standard eth%d name (NET_NAME_UNKNOWN)"
+
+That doesn't match what the standard helper does. Would alloc_etherdev()
+work here instead? It would also drop the open-coded ether_setup.
+
+Later in the series, "net: xilinx: tsn: parse endpoint DMA channel
+configuration" changes this call to alloc_netdev_mqs(sizeof(*ep), "eth%d",
+NET_NAME_UNKNOWN, ether_setup, ...) and still uses NET_NAME_UNKNOWN.
+alloc_etherdev_mqs() would cover that multi-queue version.
+
+> +	if (!ndev)
+> +		return -ENOMEM;
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-patches_v2_external-v3-0-e33d3960ca1e%40amd.com
