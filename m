@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489305;
-	b=AZLaOj25VJQpENbqI+Jzwy0YIe2gehBPtucM1WXIlh5yU1SLjpQ94Lvj853uBPjPxnIn
-	 1o/9ZnlgUTJNwhYDKZQf9/i5pXCLCleYrjISsZKPJXQ99+6M86GZ8iTuTVWyLhYWeIlWN
-	 EoOnzSXs7FEE8XyoPAu4GGnN1Pgn5esSGFW0W06DRwT803JDkSON/OKIhFlF5pLYhkS5q
-	 aviddO5cXq1lbOlKD5NEaI/k/qR8rXxEUCihpIalG8ARV5ZdElWjQ7foaKAzljul9H/Z3
-	 yVzXIhjb3k7Serwq2zvGzMIEO/TW2K6WDZaqsLS1zkjeHbPefoBUxG3/j6y+qnL5Exw==
+	t=1792489313;
+	b=dX9L9VG9tbAB+DCLHVzIt9RXfckX5GsnjXsyEwsI2ERU8DH9pkFN70xLOwxhgKIyPMIr
+	 ZRFU/2aKjboRDLPLKUaQJa6J+lwIR+d8A5y8RMrF4q8SCqhezi0qXeX3EVG8nRn63hl+2
+	 LMo4U4RA7aNkyUmCxUHru3MfZ1WalnsVBx4yKLfZkqi5n+HmEKRU2ydJPHeN1xKQCxbTJ
+	 WNqUgwVlwza09uHHCYa95eJ71HoLjBix4pjNeTezgEgCaOR8T56MdgXnClYo1LY52gak6
+	 Y3wCTecRdPdUg2hIxKpe0a/IIktXYHi1PVmm0aZfcXaF2egBLEiBiF0+R8y7qttZzzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489313;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9s0bIlJ2piSguoXe1yWtoTyK6ceFUCEG2mwvMKkau2U=;
-	b=u4IkR56zyUGOryB5mHF9KFZaIgVuLrufd8Tawi3xgD7ZQL7LaCERD/Yi+91tFI5pDFGI
-	 S8zp1Z85dSgJiIy0TTCTW9pALYRyAdaahLqOsofk3beeMCYpL4iEJSVdjd1yq5ILAnTO7
-	 4/luo4Qj9Rgd7H0v2HhAWWfD2b0pkUCyjOBB5izPFq0JVhlZI0aIa15V7Y0bLksi8iEjn
-	 ROuwSi5HFpN573qnEF86xcE/MV6nSBDAVo9mBfvyhHXA8elCaJIbZGmeszTxasKmlklBd
-	 1TYkRbZY+xxxjrHQpeJwWxuev5aUbf3nSPZki5QJEQP5fkbrOiuJyGQN+Iyb4KWWc4g==
+	bh=QCb47E7x0Bd30ckXIsM6yBXLo6H/r24mXo17wO/0cfM=;
+	b=ELvOCPn2n7o81tLH1duuxZjd+mOIgi7x7/zp1FJYLhv/FJ3Ef/zohsQa9QKmAOpB0+yM
+	 UJBXhaPtINrlpRcOEyhLwfhCLXStw0yaS1dpKU8UGhZof119CwSqDUi7AKf9VMAp/6Jmh
+	 7+8lFCI5z0xwpBXIAP7VknuMB09mT5f3dhkZHbRD4crgkkzBbGDmMo61e5oHdGS84SWl6
+	 Oyxq3Z0mMVIro3f2+k8f+BgFiqljjV1vKm+k3A69GdeCNu7nbxWnc/AVQgtLJ6Z//DFmr
+	 iIWo/rFZUSNpYRJWJVO+FYDUSZhNphCY6c6zeBBZJQX9NIDRrIElv+VaH6zDalKii7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="D7eP27/t";
-	arc=none smtp.remote-ip=115.124.30.110
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=At33E+pK;
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C315C606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C315C606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6365360A2608
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6365360A2608
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=D7eP27/t
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=At33E+pK
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1792489302; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=9s0bIlJ2piSguoXe1yWtoTyK6ceFUCEG2mwvMKkau2U=;
-	b=D7eP27/tp6z+BM6ed46hS9H/V7cxPryjgnAbHKQgFygpfhaDIZuBewbMw/eCdeV0p9tnbl4QwcuD3pqUFn7dRUDQd6ryTQZHGK+RaaztYHcIYMtYdxBsFx/9ik/LBe4h0ulAHBBonD283f6eTaIgtdWjnBrfd1ORyxql/JvpPnU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XDCspcv_1792489296;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDCspcv_1792489296 cluster:ay36)
+	t=1792489309; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=QCb47E7x0Bd30ckXIsM6yBXLo6H/r24mXo17wO/0cfM=;
+	b=At33E+pKrEf6UNBGTjUv8VesPCm9OuaEK+abgWAG7gJgw+MAnOEMaf/FaKgoCTEIYJnnc0Ha2hwA1zoUoU15ySEztzuTbfYMGHDXOxHQUCYly/+fHL6rz8piFI+1J6hdUfR/xaGC1o48z4DiCl0fLU6Eliy4maudLDPnewQ82l8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XDCspfO_1792489304;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDCspfO_1792489304 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 17:41:39 +0800
+          Tue, 20 Oct 2026 17:41:46 +0800
 From: fangyu.yu@linux.alibaba.com
 To: tomasz.jeznach@linux.dev,
 	joro@8bytes.org,
@@ -71,9 +71,9 @@ Cc: fangyu.yu@linux.alibaba.com,
 	linux-kernel@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	kvm-riscv@lists.infradead.org
-Subject: [RFC PATCH v5 07/10] iommu/riscv: Add domain_alloc_paging_flags for second-stage domain
-Date: Tue, 20 Oct 2026 17:41:03 +0800
-Message-Id: <20261020094106.92722-8-fangyu.yu@linux.alibaba.com>
+Subject: [RFC PATCH v5 09/10] iommu/riscv: Add dirty tracking support for second-stage domains
+Date: Tue, 20 Oct 2026 17:41:05 +0800
+Message-Id: <20261020094106.92722-10-fangyu.yu@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261020094106.92722-1-fangyu.yu@linux.alibaba.com>
 References: <20261020094106.92722-1-fangyu.yu@linux.alibaba.com>
@@ -90,160 +90,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-Replace .domain_alloc_paging with .domain_alloc_paging_flags so callers
-can pass allocation flags to select the appropriate page-table type.
+Add hardware dirty tracking support for second-stage (iohgatp) domains
+used in KVM VFIO device pass-through.
 
-When IOMMU_HWPT_ALLOC_NEST_PARENT or IOMMU_HWPT_ALLOC_DIRTY_TRACKING is
-set in @flags, allocate a second-stage (iohgatp) domain.
+The RISC-V IOMMU can automatically set the dirty bit in PTEs on write
+access when DC.tc.GADE is set and the hardware has AMO_HWAD capability.
+Wire this up to the iommufd dirty tracking interface:
 
-When @flags is 0 the behaviour is identical to the previous
-domain_alloc_paging: first-stage (iosatp) domain.
+  - riscv_iommu_set_dirty_tracking(): Always enabled dirty tracking for
+    second-stage domain.
+
+  - riscv_iommu_dirty_ops: Exposes set_dirty_tracking and the generic
+    page-table read_and_clear_dirty via IOMMU_PT_DIRTY_OPS(riscv_64).
+
+  - domain_alloc_paging_flags: Assigns dirty_ops to second-stage domains
+    when AMO_HWAD is advertised in hardware capabilities.
+
+  - riscv_iommu_capable: Reports IOMMU_CAP_DIRTY_TRACKING when
+    AMO_HWAD is present.
 
 Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 ---
- drivers/iommu/riscv/iommu.c | 94 +++++++++++++++++++++++++++----------
- 1 file changed, 69 insertions(+), 25 deletions(-)
+ drivers/iommu/riscv/iommu.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
 diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index c31fb4c52205..debce1b4201c 100644
+index 9310b818c038..e3791e912af3 100644
 --- a/drivers/iommu/riscv/iommu.c
 +++ b/drivers/iommu/riscv/iommu.c
-@@ -1380,25 +1380,21 @@ static const struct iommu_domain_ops riscv_iommu_paging_domain_ops = {
- 	.flush_iotlb_all = riscv_iommu_iotlb_flush_all,
- };
- 
--static struct iommu_domain *riscv_iommu_alloc_paging_domain(struct device *dev)
-+static struct iommu_domain *
-+riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
-+				      const struct iommu_user_data *user_data)
- {
- 	struct pt_iommu_riscv_64_cfg cfg = {};
- 	struct riscv_iommu_domain *domain;
- 	struct riscv_iommu_device *iommu;
- 	int ret;
-+	const u32 supported_flags = IOMMU_HWPT_ALLOC_DIRTY_TRACKING |
-+				    IOMMU_HWPT_ALLOC_NEST_PARENT;
- 
--	iommu = dev_to_iommu(dev);
--	if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV57) {
--		cfg.common.hw_max_vasz_lg2 = 57;
--	} else if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV48) {
--		cfg.common.hw_max_vasz_lg2 = 48;
--	} else if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV39) {
--		cfg.common.hw_max_vasz_lg2 = 39;
--	} else {
--		dev_err(dev, "cannot find supported page table mode\n");
--		return ERR_PTR(-ENODEV);
--	}
--	cfg.common.hw_max_oasz_lg2 = 56;
-+	if (flags & ~supported_flags)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (user_data)
-+		return ERR_PTR(-EOPNOTSUPP);
- 
- 	domain = kzalloc_obj(*domain);
- 	if (!domain)
-@@ -1406,12 +1402,13 @@ static struct iommu_domain *riscv_iommu_alloc_paging_domain(struct device *dev)
- 
- 	INIT_LIST_HEAD_RCU(&domain->bonds);
- 	spin_lock_init(&domain->lock);
-+	iommu = dev_to_iommu(dev);
-+	cfg.common.hw_max_oasz_lg2 = 56;
- 	/*
- 	 * 6.4 IOMMU capabilities [..] IOMMU implementations must support the
- 	 * Svnapot standard extension for NAPOT Translation Contiguity.
- 	 */
--	cfg.common.features = BIT(PT_FEAT_SIGN_EXTEND) |
--			      BIT(PT_FEAT_FLUSH_RANGE) |
-+	cfg.common.features = BIT(PT_FEAT_FLUSH_RANGE) |
- 			      BIT(PT_FEAT_RISCV_SVNAPOT_64K) |
- 			      BIT(PT_FEAT_DETAILED_GATHER);
- 	if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SVPBMT)
-@@ -1419,19 +1416,66 @@ static struct iommu_domain *riscv_iommu_alloc_paging_domain(struct device *dev)
- 	domain->riscvpt.iommu.nid = dev_to_node(iommu->dev);
- 	domain->domain.ops = &riscv_iommu_paging_domain_ops;
- 
--	domain->pscid = ida_alloc_range(&riscv_iommu_pscids, 1,
--					RISCV_IOMMU_MAX_PSCID, GFP_KERNEL);
--	if (domain->pscid < 0) {
--		riscv_iommu_free_paging_domain(&domain->domain);
--		return ERR_PTR(-ENOMEM);
-+	switch (flags) {
-+	case 0:
-+		cfg.common.features |= BIT(PT_FEAT_SIGN_EXTEND);
-+		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV57) {
-+			cfg.common.hw_max_vasz_lg2 = 57;
-+		} else if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV48) {
-+			cfg.common.hw_max_vasz_lg2 = 48;
-+		} else if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV39) {
-+			cfg.common.hw_max_vasz_lg2 = 39;
-+		} else {
-+			ret = -ENODEV;
-+			goto err_free;
-+		}
-+		domain->pscid = ida_alloc_range(&riscv_iommu_pscids, 1,
-+						RISCV_IOMMU_MAX_PSCID, GFP_KERNEL);
-+		if (domain->pscid < 0) {
-+			ret = -ENOMEM;
-+			goto err_free;
-+		}
-+		break;
-+	case IOMMU_HWPT_ALLOC_NEST_PARENT:
-+	case IOMMU_HWPT_ALLOC_DIRTY_TRACKING:
-+	case IOMMU_HWPT_ALLOC_DIRTY_TRACKING | IOMMU_HWPT_ALLOC_NEST_PARENT:
-+		/*
-+		 * Second-stage (iohgatp) page table for KVM VFIO device
-+		 * pass-through and dirty tracking. The GPA space is 2 bits
-+		 * wider than the corresponding first-stage VA space (x4 root
-+		 * page table), so hw_max_vasz_lg2 values are 41/50/59.
-+		 */
-+		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV57X4) {
-+			cfg.common.hw_max_vasz_lg2 = 59;
-+		} else if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV48X4) {
-+			cfg.common.hw_max_vasz_lg2 = 50;
-+		} else if (iommu->caps & RISCV_IOMMU_CAPABILITIES_SV39X4) {
-+			cfg.common.hw_max_vasz_lg2 = 41;
-+		} else {
-+			ret = -ENODEV;
-+			goto err_free;
-+		}
-+		domain->gscid = ida_alloc_range(&riscv_iommu_gscids, 1,
-+						RISCV_IOMMU_MAX_GSCID, GFP_KERNEL);
-+		if (domain->gscid < 0) {
-+			ret = -ENOMEM;
-+			goto err_free;
-+		}
-+		cfg.common.features |= BIT(PT_FEAT_RISCV_S2);
-+		break;
-+	default:
-+		ret = -EOPNOTSUPP;
-+		goto err_free;
- 	}
- 
- 	ret = pt_iommu_riscv_64_init(&domain->riscvpt, &cfg, GFP_KERNEL);
--	if (ret) {
--		riscv_iommu_free_paging_domain(&domain->domain);
--		return ERR_PTR(ret);
--	}
-+	if (ret)
-+		goto err_free;
- 	return &domain->domain;
-+
-+err_free:
-+	riscv_iommu_free_paging_domain(&domain->domain);
-+	return ERR_PTR(ret);
+@@ -1376,6 +1376,21 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+ 	return 0;
  }
  
- static int riscv_iommu_attach_blocking_domain(struct iommu_domain *iommu_domain,
-@@ -1566,7 +1610,7 @@ static const struct iommu_ops riscv_iommu_ops = {
- 	.identity_domain = &riscv_iommu_identity_domain,
- 	.blocked_domain = &riscv_iommu_blocking_domain,
- 	.release_domain = &riscv_iommu_blocking_domain,
--	.domain_alloc_paging = riscv_iommu_alloc_paging_domain,
-+	.domain_alloc_paging_flags = riscv_iommu_domain_alloc_paging_flags,
- 	.device_group = riscv_iommu_device_group,
- 	.probe_device = riscv_iommu_probe_device,
- 	.release_device	= riscv_iommu_release_device,
++static int riscv_iommu_set_dirty_tracking(struct iommu_domain *iommu_domain,
++					  bool enable)
++{
++	/*
++	 * Always enabled and the dirty bitmap is cleared prior to
++	 * set_dirty_tracking().
++	 */
++	return 0;
++}
++
++static const struct iommu_dirty_ops riscv_iommu_dirty_ops = {
++	IOMMU_PT_DIRTY_OPS(riscv_64),
++	.set_dirty_tracking = riscv_iommu_set_dirty_tracking,
++};
++
+ static const struct iommu_domain_ops riscv_iommu_paging_domain_ops = {
+ 	IOMMU_PT_DOMAIN_OPS(riscv_64),
+ 	.attach_dev = riscv_iommu_attach_paging_domain,
+@@ -1466,6 +1481,8 @@ riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
+ 			goto err_free;
+ 		}
+ 		cfg.common.features |= BIT(PT_FEAT_RISCV_S2);
++		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD)
++			domain->domain.dirty_ops = &riscv_iommu_dirty_ops;
+ 		break;
+ 	default:
+ 		ret = -EOPNOTSUPP;
+@@ -1541,9 +1558,13 @@ static struct iommu_group *riscv_iommu_device_group(struct device *dev)
+ 
+ static bool riscv_iommu_capable(struct device *dev, enum iommu_cap cap)
+ {
++	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
++
+ 	switch (cap) {
+ 	case IOMMU_CAP_CACHE_COHERENCY:
+ 		return true;
++	case IOMMU_CAP_DIRTY_TRACKING:
++		return !!(iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD);
+ 	default:
+ 		return false;
+ 	}
 -- 
 2.50.1
 
