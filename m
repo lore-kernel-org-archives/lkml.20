@@ -1,72 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479485;
-	b=HQut2MNLL2t9BhlJR4TknlGH9VtEA4PLQXrl4Q48ubHbbZcdZeaoJZ0qH/zme+aiSMxM
-	 OSsMOk2UC5fQlJKwfxFxOYILF4ZKGPJMgKaUnsyvliJH0bBoVyfyUSNP19hmjYoa0vFzE
-	 VDxowC2ZPE2x2KJAl2uQF6MtlCtUc4uyfxlS5IUSuU8dm519Uz0bYCdkdSzT2T0A8Z0dy
-	 u3BmNV7ZsScnAn73r2K5UasmEiLRu7yg+hfM7c1mZyfFH1sBVyMLr6L0IfTD85iRzML7o
-	 8PFp65Hm7V9Cf/PPymauIdaFiIfRhwcEvjIBlvYdM22eE5y6e7lllIavwkxsxEkviWg==
+	t=1792479495;
+	b=cjad1smX07aVg9ndcBRtB5hdmdfOHvQ7gSpgOI2LhKF839hyZbZ3UUHnvTEKWwT9psBC
+	 jOBe6+6qKrTDtIiqwG9/O2ctJLbttIxH/s0B/jf9KwA5JTIuUydWEpJH5W/p8X/kogSLl
+	 gBenTS6ubLIC1G5ML+MJNWUCqEvPnh2CT58g8Oo6zfLMljxNefBTEhXGdyhQIiKAJf/OK
+	 49CtUhYaGyYKQiw/aBXou8QAtfDBiUYRYEKk+pCTqbY4BH2CYg1BC9Q+kgHvQnb/xA+5c
+	 mWpHZ+I6BJ+RsyiR+Rw+LslXLDGXm6obWU8JmsvaIKfLK6xM8YY4+7iY2ZKd3mU/M/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479495;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=EOT3lPkZxc2aVvumXo5eC/VeIlkMW6noypS8upmLb3c=;
-	b=KJGzMFeCBy8zIjRyTjtWCw5bCDtSti/gxh8Krs63Dld0eJ9uY9oWYYswiYckDUySbzOj
-	 JN6jgn33fIYc543W3GQrUGHLcuO9pa+Gu5pCMX0gHc+v8VrvScvItwYVjE0mERqis6Vn0
-	 FW0aJFjFe3fUhskyyeUcVvNpErC6SUpOTffgev3OQx/MhfQ0ec+UaSyeiyQNM159Ej0UZ
-	 Lbj/0JO5lOcMkL/4PAOic7dqDy/fLGKu+YAeDvEexLxo4rCNoS5UIfmfGaD0L2CNOSAxV
-	 hmIfqMHyRq1hZ+C9jF4L9FOPqKLePq+ruMB47pPCdzVP6S9k8PD+iZsmJTrlq9hGmFg==
+	bh=3HQS1xnKh2LG5cRmwXfGtctlu2fUP4FZq4o4BZfgch8=;
+	b=OV5PkttiIy+PTfdXMEi0rhLJel8im+B/Es2qThMAtRl7fxcYcbdavh3iapLbOm0q7zVh
+	 /PJDYjpMjwOLMGrYVjgyomj7yCaZ4ZG6UA5Gq5PzeLUjnpPMs9qQDLieNWPLRiDlmYMmG
+	 l+t5ZNtDqEcAoMG/VhD96qOjt6rGcdBptq1x+69Uh5IUwWcxLBwNFlgWxAbwe+rgGveBp
+	 RI+X63NpNW9ktWJYGOBe5coU9rMOanlHy48Okw0uCV/w3Is50ftr8iLJdS091YLwtp2nV
+	 uR9/AoBeQq6Mw14eeBf+CbvKXHKttg31YY9ivRBagRPwCqSaWmqUWhX0v1dxVAH4L5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Wx5i6pYM;
-	arc=none smtp.remote-ip=203.205.221.239
-Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=enX5oOZ9;
+	arc=none smtp.remote-ip=203.205.221.155
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A89460A2614
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A89460A2614
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FE260A2614
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65FE260A2614
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Wx5i6pYM
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=enX5oOZ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792479481; bh=EOT3lPkZxc2aVvumXo5eC/VeIlkMW6noypS8upmLb3c=;
+	t=1792479492; bh=3HQS1xnKh2LG5cRmwXfGtctlu2fUP4FZq4o4BZfgch8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wx5i6pYMZbmrBT7VbF7+RKaKM7jZtGoAw/83idM51C3IUe0Vz0yWzXzNXXWJKQz/q
-	 JZxD2SZ7Odut6MP20VA48eANpRRRFZwGNcx7dA24hdCwu7JE1zYaiDDdQdsWrnDAma
-	 mImIEgevpdcP9QoUKwdEH5e7XYBHA6tL13wNzAXg=
+	b=enX5oOZ95CCWfNkIzafFVEGiaF2h2WVz25o17Pr2wv18xiFtaLS/Lv3Stew3HOwd8
+	 ylFpd9DXSRjidZwI01jLs4qOictfg3Zrwn5+4AimGI2E6NYCyg9KLaAXGP1FCaZAjg
+	 RmtUp/pSFV5K7cIR40xebFWVWjiDAXEOk4xdGPRg=
 Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id E7A2B2A2; Tue, 20 Oct 2026 14:57:58 +0800
-X-QQ-mid: xmsmtpt1792479478tasf1ayhh
-Message-ID: <tencent_62F01880658E965562B3C08107D0AAE88906@qq.com>
-X-QQ-XMAILINFO: MFWpArBVhhGTRTvDQA99fJItVabeLl8BW6atXQ6+930H8ZRZYupHpvyGZuSlhc
-	 PZOH1SA9XPdUwLiBaO2dOz+R53aUjrPy+9S4F3FhjniovAylTCKBDYJJgrC8NwA+9xnSsl5DmAI2
-	 Lvo5cKs1/3ESbLRc/sdjljDwqVOfYJvqMemW1vKeQUKErsum3QnwdPoDm7uFUGiqlJE+SzgqOQUv
-	 8v61DC7tkJgKfmNxVZXWrx4tethZiVrDq6bo4Hq1hEFeGABiBykJ3veeKG4yNEGhjYVyLkfF5Q+6
-	 oOF8QDT3OP99N8olcyURuMx8QyVedolX7jHpr54OiFmpXM18tGwSGWplGnJ37zQQpypgBCyelgA6
-	 q0VudH9YU75anuv8I1+ye1PaanW1Akt1YisPsNYMnVCygOQxC2SQYYqbqt4IxXA8qmDzv4TgsJwO
-	 ln3gQYF1IRvO+ypuPBN2a/NKHHfzxWvw2dVxivsh91qwBwPNxLVPktLy/7mf79OK8MzvpxmlN1hS
-	 1011zfHOvljZfAFyS1K54xwp6h83yapAVBPII/BZbJBeQHoSeo6vPrJfeGP546Lkpez5sPxZ7RZz
-	 WZpW54PmD+9SWS0ELqsFYRALvzNnumSIzIhspqaGdFBGsfU4WCuztpy1b/sixTzQgT+Likcm294v
-	 C7hP1qW/LWBBlhZXKQn7Osh6Er3XC5MTyxb8Ptj2A1Hxq5ogukxKos7vI9/l6PYXm0se7AGZ0Gum
-	 M3V91NLlIHNK3DTP1kMXSPswJYjMXe0ukw93ajHzFTJAWAYChlxO8bK5QV220+OxMivREwxTHyom
-	 54uLNHW132okN5a0b/CZ4oVyZECfqNmZtz4MROeaMgihfC/VfIOg+OPRE5jOnC9oWmmAavjHbIwT
-	 hQ48K0cJRTzp6VwfGbrPcnL7IXsFLoYHC1GXokBUDLkPWzQQWD4tLlxM3KuWti2ZGp9PTjyfgsyD
-	 dVoFMJsLdoef4BAvKD4SFfa6+MwNiKyWCy2pRr7Y1vBvNNp+aHREjiT6XuL3bzf8ylSHg3O0f67W
-	 j8GKlPmp9GWnRYE6TAqN96SjDqjMD2sIhx2V8eFcQYgdNJxTGGG43qkjTP7kQXsBC02JRlOw==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id E88A1022; Tue, 20 Oct 2026 14:58:08 +0800
+X-QQ-mid: xmsmtpt1792479488tj0eu1lbz
+Message-ID: <tencent_39A2408D47D26AF689C6989CE5945678A206@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLhJG/f3PCAILr/823hQSxZ6lA5p14inCLje9NrFsWCJYFmUganZ
+	 3JrBsRvbT9dp0DhOMjd8DfdRHq1Biyq4ODbpkaoRQ7LILOqxUGwSb4WVslskVBS4ABjn2JL24zSL
+	 QQjG+EU9V1x16K3G/70Qx0/qrmSZm6R8ZNVbT1Y8SY8qFBLRaGkNl5y43hAKgHrj41AxedmnXjKf
+	 P+lk4r3AXfIW2Tm3SjucBx7Fq9o5IsGg83H0JQkxdGIlsrnH7qfA8cJRcZCj0gIoChjfUDR9bBXV
+	 5U1wiVVoWm0X8Wb7JXRlgT2JqszX8mu7Ax3Swhz+WKfeYs+pRdaiKwOsCQ6LF40Ot3NbX47p71Ax
+	 FE484XtEncn9U5WjfDrP6I50jp/ykDMd/Zp4LpZv2/HLDM4+6h0TA/x/fiapB7wphz8xlPS45qtP
+	 otIvSW6iLvxvH6mkZtgF2XE1Z4AJodryfdxdg5TfrNgUWDJqjjDyF8Z2kbkk8E+xBMp3TaxxeUDh
+	 bWhYxKpEVvvLIEQ24qYQzZiN34DnlQl2B7JMDt3MVL3WZJhw24ZlfdnoyXHBMjmdRIJ86gWK/QgY
+	 uXAj3gtq7PG/I4rmAY2RBb5hcOgoiG6R/zdsz2uNdT1TYdPWqjTPmyW/fB/pvmIZwGGFFn7Nw3Yx
+	 h2xm03wzx6sGZlZGCgUiKzYqKwKSFJEbJonIge3WnlxkOa3y3ww1nxJmZvji2LFbvVgPDohCOfcu
+	 6bpbdxTGSIwiGOG4gpyZDVY8B/kqknmIiCJStDvdOq/Z2TElyUmm6u8r14C1XV7xli3qa4GyJ/48
+	 nl0LBnC7UcHRNU2/SoliKfvj0zVFGa0tVeSOfXTUwzuy0KR0Z8c2v9At12gOOjt3yxQMB0GXy8L0
+	 UMBr0lHVBit4I9FJiuK1OndSXlXn4NezTPthbODhU7pyViJF+XNw9doGHWTGzlwkR6vZl9wtwyFi
+	 qmSHxQ8T260HC3MjkfGsFymAIfgJigtkc5R1QOmlPlzLs1MGoxq1DdBQt/s5LFlec14kB4BuJ1vJ
+	 csbqRK4EmhcnmZZD33ESCAvCMSgn6RNop/GELOFLIR7QSQDiP6XrzzqH9x+DA709uge/S/VF3j6L
+	 WRv40mRFaEKOTjNxfV/QMvAYvU5g==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 From: Yemingxuan <level_zero@qq.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J . Wysocki" <rafael@kernel.org>
 Cc: linux-kernel@vger.kernel.org
 Subject: [PATCH v5] drivers/base: return bus_add_driver() errors
-Date: Tue, 20 Oct 2026 14:57:57 +0800
-X-OQ-MSGID: <20261020065757.813-1-level_zero@qq.com>
+Date: Tue, 20 Oct 2026 14:58:08 +0800
+X-OQ-MSGID: <20261020065808.870-1-level_zero@qq.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
 References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
@@ -124,21 +125,11 @@ device side and leaving the failure reported.
 
 Signed-off-by: Yemingxuan <level_zero@qq.com>
 ---
-
-Changes in v5:
- - Keep the three error messages.  The return value of an
-   initcall is not printed, so removing them made the failure
-   silent.  This also drops the incorrect claim that the
-   caller already logs registration failures.
- - Use the author's real name in From: and Signed-off-by:.
-
-Changes in v5:
-- Add this changelog, as requested by the patch bot.
-- Keep the three existing error messages instead of dropping them, so
-  that a failure is still reported: the return value of an initcall is
-  not printed by the initcall machinery.
-- Use the real name in From: and Signed-off-by:.
----
+  v5:
+  - Use the real name in From: and Signed-off-by:.
+  - Keep the error messages; an initcall return value is not
+    printed, so dropping them would hide the failure.
+  - Regenerate with git format-patch.
  drivers/base/bus.c | 7 +++++--
  1 file changed, 5 insertions(+), 2 deletions(-)
 
