@@ -1,81 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516388;
-	b=kJKZHdzfQRgoZ+rX1f/k1FineGbiO3HJwrBZn2csvamJ/8NGPfD0PmWNraaZl32cwI+a
-	 A3omeK8AQ6xVwSEjCzwnt2sIUR4r7lxyWhgCTu8wydT4bUNrFfuToiFo4PDV8rMOrEA2n
-	 x17SXcjJNRgGV28PHPq1aqk3A7tqleSx89rmf57mlv05HaSddSBUSMlS8nn+dEGVANnmG
-	 Ml8lWsUT/mtFArrBRm/QsY9A6xMqt9GfG4GhcZ1XI7pMdlc6a+qAP2402IBlQCeL1/9L5
-	 Sm5nrdnhVG9CGz+/AdJHhXLAtIVHyoHSssaige6uqlv1oCdNrOD3m+z1SVFKMVSr/sg==
+	t=1792516416;
+	b=AQ7Toam1qpb2jxgxaSFZTdqwshBkBY3NMIFhq+AyxF9dYp/pFpVe7S2YfkhnOgb/wWgK
+	 EQa8R6FDXzUGptqrGMz7f7PQWV2xTkOYJ62J+lDV2jA/narGc7BZdYwqyJu0qhKjeXMLL
+	 udNxxUL4wLMrIHsnPwm2a6GlxuAtlItmAIOfeqtjbJHf3u0dTu0ugXmfkoXCH/Cw8kFVd
+	 2Zh8NgMYmdYvTXJYMPg72VVsSnyyqjNHPBUSZOLcD3jW6e9DEcmHPMItK9/n4LPcaUcp1
+	 Co9BqxHs73ZR9D6lFGSgEHHIxVvFQfp+Y55bLIf2mEZ1nMzK+Yzuxa+fN4If4NIng5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=o8UylnWS6dT7eSF9GT83tjHNVxw0e3TWpC3Agv4wuNY=;
-	b=vHNMCUP/oQpfR6Iv0spXDWZ5WecdSe32JEiEFakWQTrkCsWYhEqIkFnjf574U11Cyvmn
-	 0w0+tl+EqhhZlBCepxu8GukPqdpj/NPplFRnqMHgeUMjFru88vqQrvJg2R7Xl2ZJ0o6VG
-	 XGne/uvgfcJw1cQ4pTtkY8RBRyAjmu16/9LATquSzVRGHcK/pJ1VUSCUalMzLspNpfv17
-	 JyN/j7wPDiQWYrl4a5fUkWT5Z9TkSeF7lVGEOTL7Ujwv8UA2x6e329aBy0eukBbTok5hn
-	 0k452qCPMmlvyiuIkS3VaNTbDThbL2LQ/aDu1zCrYt56sGzd/r9gsCAAiZL0dafe0Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516416;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=tPVdO1o+Ij7sz/RsEElNJyknFuLxfrVY4fHViUXvVJE=;
+	b=y9aXfHyvkXEm7D0g8FjAmpSk3aCu5GvM/7SWhHMTFXPOz+D/lS3d2g4ywIJyx2Ey1T9M
+	 1pf5xKxFurqTbLZA9s5QyrpZr8pga8y4iaGRXz4ZG1Rd8DnrLmhvkL13fuidrR5xyfPJ1
+	 RwxM2pa10lDrT+0Nlp3/MU2gdlrGBWOqtykokdQC2ph4ejWBOB4tCj10TqKjRjYqjXnXg
+	 5uBrOuw/e1hufDQRbb3B3qsoIpvo4CothKz/vo156kPbSbrVaFogrZmoi1M6imCHl+9r9
+	 5bwWLkmKVji2KD/0RPYvFhS5Ruq5vqxBolbXJAfHLf7PSbf8DDOX+xmzUlfxD4U55pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szelinsky.de;
-	spf=pass smtp.mailfrom=szelinsky.de;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b="Laoe/Ly4";
-	arc=none smtp.remote-ip=85.214.127.56
-Received: from szelinsky.de (szelinsky.de [85.214.127.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DA960A2621;
-	Tue, 20 Oct 2026 17:13:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89DA960A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=Laoe/Ly4
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE2EB606A320;
+	Tue, 20 Oct 2026 17:13:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2EB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 9507892009C; Tue, 20 Oct 2026 19:13:32 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 2730BE833C1;
-	Tue, 20 Oct 2026 19:13:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1792516386;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o8UylnWS6dT7eSF9GT83tjHNVxw0e3TWpC3Agv4wuNY=;
-	b=Laoe/Ly4oIBieyZhx55nGm6/1Cnw/DSCy70r16syAH+dGJdmubOJ20d5jMPXYxHOqnWju7
-	MTRYYyxSAVPx4U4Ukp4PDs+FCOz50OrDv7jx9RxuW8IKh3vuQpZ8xs08WBHDCGwq0y8H5K
-	3v0pr+hoD1tTPV7HHuVF9AhXsNn3dD9jcfo1ot15g8JToliMg2tyONUlBsyknvXNmgrrmy
-	5jLtMXUSyQsyVy8cPaKGo2/UBaPWPXA9u6thPYhwN3rzvQ9oMhr2AWiGyE/e1e9AnqQs1h
-	K6k63Fluux2WKt5YXj4IOu+En7RCiM0egGXWWzuq6f82p+vndm6PVOPLvivP6g==
-X-Virus-Scanned: Debian amavis at szelinsky.de
-Received: from szelinsky.de ([127.0.0.1])
- by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id C7kO12ChtbQ9; Tue, 20 Oct 2026 19:13:06 +0200 (CEST)
-Received: from p14sgen5.. (unknown [91.25.97.186])
-	by szelinsky.de (Postfix) with ESMTPSA;
-	Tue, 20 Oct 2026 19:13:05 +0200 (CEST)
-From: Carlo Szelinsky <github@szelinsky.de>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>,
-	Ross Cawston <ross@r-sc.ca>,
-	netdev-bot+sashiko@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Carlo Szelinsky <github@szelinsky.de>
-Subject: [PATCH net v2 08/14] net: pse-pd: stop async event sources before freeing PI data in unregister
-Date: Tue, 20 Oct 2026 19:12:43 +0200
-Message-ID: <20261020171249.853085-9-github@szelinsky.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020171249.853085-1-github@szelinsky.de>
-References: <20261020171249.853085-1-github@szelinsky.de>
+	by angie.orcam.me.uk (Postfix) with ESMTP id 8FD1B92009B;
+	Tue, 20 Oct 2026 18:13:32 +0100 (BST)
+Date: Tue, 20 Oct 2026 18:13:32 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Florian Fainelli <f.fainelli@gmail.com>
+cc: linux-mips@vger.kernel.org, ilpo.jarvinen@linux.intel.com, 
+    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O
+ window
+In-Reply-To: <20261015203107.545047-1-f.fainelli@gmail.com>
+Message-ID: <alpine.DEB.2.21.2610201758400.22065@angie.orcam.me.uk>
+References: <20261015203107.545047-1-f.fainelli@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,49 +53,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-pse_controller_unregister() flushes the power domains and frees the PI
-array before it disables the IRQ, while pse_isr() uses both. No in-tree
-driver hits this: tps23881, the only user of devm_pse_irq_helper(),
-requests its IRQ after it registers the controller, so devres frees
-the IRQ before unregister runs. A driver that keeps its IRQ across
-unregister would read freed memory.
+On Thu, 15 Oct 2026, Florian Fainelli wrote:
 
-Disable the IRQ and drain the notification worker first, and only then
-flush the power domains and release the PI array. The next patches in
-this series build on this order.
+> The Cobalt PCI I/O window starts at 0x1000, excluding the VIA IDE
+> controller's fixed compatibility-mode ports at 0x170, 0x1f0, 0x376 and
+> 0x3f6. These resources cannot be claimed under the host bridge window.
+> 
+> Since pcibios_enable_device() was converted to pci_enable_resources(),
+> the unclaimed IDE resources cause device enable to fail with -EINVAL:
+> 
+>   pata_via 0000:00:09.1: BAR 0 [io  0x01f0-0x01f7]: not claimed; can't enable device
+>   pata_via 0000:00:09.1: probe with driver pata_via failed with error -22
+> 
+> Lower the PCI I/O window start to 0x100 so the fixed IDE resources can
+> be claimed. Keep the reserved ISA resources below 0x100 outside the PCI
+> window.
 
-Found by code inspection. Not reproduced.
+ Why not go with 0 (unless that's not what the system controller supports 
+as the bottom of the PCI I/O space), and just set PCIBIOS_MIN_IO correctly 
+as several platforms do instead?  Is there a southbridge in your system?
 
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
----
- drivers/net/pse-pd/pse_core.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-index 13d6bd29525f..21280479312e 100644
---- a/drivers/net/pse-pd/pse_core.c
-+++ b/drivers/net/pse-pd/pse_core.c
-@@ -1137,11 +1137,15 @@ EXPORT_SYMBOL_GPL(pse_controller_register);
-  */
- void pse_controller_unregister(struct pse_controller_dev *pcdev)
- {
--	pse_flush_pw_ds(pcdev);
--	pse_release_pis(pcdev);
-+	/* Stop the IRQ and the notification worker first: pse_isr() uses
-+	 * pcdev->pi and the power domains that pse_flush_pw_ds() drops,
-+	 * and the worker reads the kfifo that is freed below.
-+	 */
- 	if (pcdev->irq)
- 		disable_irq(pcdev->irq);
- 	cancel_work_sync(&pcdev->ntf_work);
-+	pse_flush_pw_ds(pcdev);
-+	pse_release_pis(pcdev);
- 	kfifo_free(&pcdev->ntf_fifo);
- 	mutex_lock(&pse_list_mutex);
- 	list_del(&pcdev->list);
--- 
-2.43.0
-
+  Maciej
