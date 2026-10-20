@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504166;
-	b=cFt71xXx2065VS0S1L3+qLuPD6K0d1PpREriFo6tMONdM0cbYxmCTs1dzysdHyeINKXh
-	 1GMGxJJ/5QDQCG2IZQ1t8DfVsfrxtPBQ+iDuydbSLghODLeUkYaLcxL3T0Y37SVe6a9b/
-	 A1qAs7H6C+CKNnXpgg4QIyS/7dIasBSTZZo5mqwoHpmyAZeiag4JvOdGbs0WTVz3vtl6z
-	 rzb8CkeorM2dSLvH94i1FZ6mhz8K2Cxgg8+02wFOHwI355uBw3jMfz83wRVyQ6fJHIx4h
-	 xwNdzFgnBgYeCzQavZQTBWhKubouxN+HPkW76XYikLJ5zJKcjErZ+lUTiWdF4zelKeQ==
+	t=1792504168;
+	b=arKKkiBAGuj5MIW6F3NvGqhWZe1z1PahLe/88IAMlNDx1FTVxWNb6ePk9tYKKeOAqYeA
+	 cqHgGKPVj1IN4pjPI8zxEYIB3N/o9XdcI5C98VtGm6/MlVVkZyMqYj5Lc4iPFMqovctBw
+	 L4jIUCRPwrY29tm3qffmGNyEVFT6TDbyy0x55lTyESoqJmeXnF6JbhX40VbStIpr/+Yv2
+	 0ye91N85yX/aL8/JLy50xFE1/3zu7jhMeAY315sl0m75VAj+4GqKdWvuKY6KfNBBIex6r
+	 WqUJB6bCqTK6KXCeD10l19lOLhQoFQTU7q27fkMv9xxgDlAjQ0HD7GE7oVxqeIxSGmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504168;
 	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=WancafQhACUxOycmAAieawsiaQrybOyyNWIuo+D6eqQ=;
-	b=zwy6dCDejcQD8LM8fOY5gEQ8pjYWS4xw8OK3d0t09tA8UiV0cqv0CusEEs5MqoU4Uirr
-	 DFvHc2gRbcay2nRdqo0dgfsx7FSYbhBDlsk7AjA2p2BjQ7V4NYCZ030mtPPUZz5VjjcnS
-	 K0hgjJSP/sw/6LiZlI5j6wLi3cz4uvlswgi0c0+aZaYRZklHV4XSwYHA1NZbxgtuR9zeN
-	 KxJidLHv5A5QYGMWiFxhrvAuiEHBgJWtw9EoBc0ribDgQB+aHbReJB8ggx3FvRNIR2NEw
-	 DrKDx9XtWetqgWJkGLbKg4xb3j0Qs0Lns2oC7J9EMfeNuUfm5DkhDGxd5h/irTUTcpw==
+	bh=rEuqmVe0UdrPOEYTsBTVYnI8Ull2mdKoKm8v1xeXXKs=;
+	b=0XLn2fbyADEPTBcfrSVsYNRFABtqZUeLh+O8blUnBf4ZdsnO+yohpbr8IKjJcv8j8LB/
+	 ihP3xi5FnDkL5qP8NfU7ITSsJSUVGxAiMN5gUtJ1YIIUrHut2F79+3Ex7pNwOycl3I1Vs
+	 XIQ5RnEGHRF5FxuBGWM4t0YAMRVcLCvY4VRSEQ9VEQRTUucjntf9BXOeIgz+L2hiesY3l
+	 GCWF8KtfLh5zGCqIm5KUlLduTGFWZNVhK4S1nPPVTLmjlioGe6r8bgaD8LvoYKEdOhvaQ
+	 Vx+PClR2emU5K1td84aY8cqJzG1KQAMydtJH8vauDx2O34XhEl5wi9J2rC2K8rxk4hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
+	spf=none smtp.mailfrom=huaweicloud.com;
 	arc=none smtp.remote-ip=45.249.212.51
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55F7606F465;
-	Tue, 20 Oct 2026 13:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A55F7606F465
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EEF60A2609;
+	Tue, 20 Oct 2026 13:49:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02EEF60A2609
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKn379DzYQtvV;
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKn5jy8zYQtwj;
 	Tue, 20 Oct 2026 21:49:17 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 6D2234056F;
+	by mail.maildlp.com (Postfix) with ESMTP id C5B14409D5;
 	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
 Received: from localhost.huawei.com (unknown [10.67.174.243])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S11;
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S18;
 	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
 From: Xu Kuohai <xukuohai@huaweicloud.com>
 To: bpf@vger.kernel.org,
@@ -50,9 +50,9 @@ Cc: Alexei Starovoitov <ast@kernel.org>,
 	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
 	Emil Tsalapatis <emil@etsalapatis.com>,
 	Yonghong Song <yonghong.song@linux.dev>
-Subject: [PATCH bpf-next 09/16] bpf: Teach verifier about arena percpu instructions
-Date: Tue, 20 Oct 2026 13:22:54 +0000
-Message-ID: <38a798d59fc40d94c555c785a900e57c22cec2bc.1792503001.git.xukuohai@huawei.com>
+Subject: [PATCH bpf-next 16/16] selftests/bpf: Add test for arena percpu bounds
+Date: Tue, 20 Oct 2026 13:23:01 +0000
+Message-ID: <ad35a4e7b9ff044a63d7903ae6509c68ea05d6d5.1792503001.git.xukuohai@huawei.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1792503001.git.xukuohai@huawei.com>
 References: <cover.1792503001.git.xukuohai@huawei.com>
@@ -66,272 +66,175 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S11
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jryxur45AryUJryxury5twb_yoWfXry3pF
-	s7Gr95Cr48ZF4xuwsxJa17AFW5Ww4rG3y7C3yxC34FyF12qws8Xa1Ig3W5A34YkrWkuw1x
-	Kr1q9rW2g34UAFJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S18
+X-Coremail-Antispam: 1UD129KBjvJXoW3Xw4ktryftr43Ary8tw15twb_yoW7XF4rp3
+	Z7tryqkr4UXFZI9ws8K3WUur45uFs8XrW8KwsxW34rArnIqr13XrW0kayayF17WrZ5Xw4S
+	9343AFn7XFy2qFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
 	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
 	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
 	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x02
-	67AKxVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64
-	xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j
-	6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtV
-	W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1KFAJUU
-	UUU==
+	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E
+	14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7
+	xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Y
+	z7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64
+	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1aLvJUUUUU==
 X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 
 From: Xu Kuohai <xukuohai@huawei.com>
 
-Teach the verifier about the arena percpu pseudo instruction. The
-percpu chunks of all cpus have the same size and layout, so the
-verifier only checks the address in the pseudo instruction against
-cpu 0's chunk. If the offset or the access size goes past cpu 0's
-chunk, the prog is rejected.
+Add a raw insn test. It loads a hand built arena percpu pseudo
+instruction against an arena map with a one page chunk to test in
+range accesses and out of range failures.
 
 Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
 ---
- include/linux/bpf.h    |  3 ++
- include/linux/filter.h |  1 +
- kernel/bpf/arena.c     | 23 ++++++++++++++
- kernel/bpf/core.c      | 22 +++++++++++++-
- kernel/bpf/verifier.c  | 69 +++++++++++++++++++++++++++++++++++++++---
- 5 files changed, 113 insertions(+), 5 deletions(-)
+ .../selftests/bpf/prog_tests/arena_percpu.c   | 117 ++++++++++++++++++
+ 1 file changed, 117 insertions(+)
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 7750df973494..5ffefcd5f15e 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -674,6 +674,9 @@ void bpf_rb_root_free(const struct btf_field *field, void *rb_root,
- u64 bpf_arena_get_kern_vm_start(struct bpf_arena *arena);
- u64 bpf_arena_get_user_vm_start(struct bpf_arena *arena);
- u64 bpf_arena_map_kern_vm_start(struct bpf_map *map);
-+u32 bpf_arena_percpu_chunk_off(const struct bpf_map *map);
-+u32 bpf_arena_percpu_chunk_sz(const struct bpf_map *map);
-+bool bpf_arena_percpu_off_in_range(const struct bpf_map *map, u32 off);
- struct bpf_map *bpf_prog_arena(struct bpf_prog *prog);
- int bpf_obj_name_cpy(char *dst, const char *src, unsigned int size);
+diff --git a/tools/testing/selftests/bpf/prog_tests/arena_percpu.c b/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
+index b450be5f2b36..1f9a22cc9730 100644
+--- a/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
++++ b/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
+@@ -8,6 +8,7 @@
+ #include "arena_percpu_only.skel.h"
+ #include "arena_percpu_mixed.skel.h"
  
-diff --git a/include/linux/filter.h b/include/linux/filter.h
-index 6f4c9bd024a0..d4d80e14d594 100644
---- a/include/linux/filter.h
-+++ b/include/linux/filter.h
-@@ -1254,6 +1254,7 @@ bool bpf_jit_needs_zext(void);
- bool bpf_jit_inlines_helper_call(s32 imm);
- bool bpf_jit_supports_subprog_tailcalls(void);
- bool bpf_jit_supports_percpu_insn(void);
-+bool bpf_jit_supports_arena_percpu_insn(void);
- bool bpf_jit_supports_kfunc_call(void);
- bool bpf_jit_supports_callx(void);
- bool bpf_jit_supports_kfunc_ret_reg_pair(void);
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 05cd6397adae..310573a2661b 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -102,6 +102,29 @@ u64 bpf_arena_map_kern_vm_start(struct bpf_map *map)
- 	return bpf_arena_get_kern_vm_start(container_of(map, struct bpf_arena, map));
++static char log_buf[16384];
+ static cpu_set_t affinity_save;
+ 
+ static int pin_to(int cpu)
+@@ -231,6 +232,120 @@ static void test_arena_percpu_mixed(void)
+ 	restore_affinity();
  }
  
-+u32 bpf_arena_percpu_chunk_off(const struct bpf_map *map)
++/* check out of range pseudo instructions and accesses */
++static void test_arena_percpu_percpu_bounds(void)
 +{
-+	struct bpf_arena *arena = container_of(map, struct bpf_arena, map);
++	struct bpf_insn insns[] = {
++		BPF_LD_IMM64_RAW(BPF_REG_1, BPF_PSEUDO_ARENA_PERCPU, 0),
++		BPF_LDX_MEM(BPF_DW, BPF_REG_2, BPF_REG_1, 0),
++		BPF_MOV64_IMM(BPF_REG_0, 0),
++		BPF_EXIT_INSN(),
++	};
++	LIBBPF_OPTS(bpf_map_create_opts, map_opts);
++	LIBBPF_OPTS(bpf_prog_load_opts, prog_opts);
++	bool *possible = NULL;
++	__u32 page_sz = getpagesize();
++	__u32 bad_offs[2];
++	char expected[128];
++	void *arena = MAP_FAILED;
++	int possible_cpus, nr_pages, map_fd, prog_fd, i;
 +
-+	return arena->percpu_chunk_off;
++	if (parse_possible_cpus(&possible, &possible_cpus))
++		return;
++
++	/* a one-page per-cpu chunk at page 1 of the arena */
++	map_opts.map_flags = BPF_F_MMAPABLE;
++	map_opts.arena_percpu_chunk_off = page_sz;
++	map_opts.arena_percpu_chunk_sz = page_sz;
++
++	prog_opts.log_buf = log_buf;
++	prog_opts.log_size = sizeof(log_buf);
++	prog_opts.log_level = 1;
++
++	/* one page per possible cpu plus one for the chunk offset */
++	nr_pages = possible_cpus + 1;
++
++	map_fd = bpf_map_create(BPF_MAP_TYPE_ARENA, "arena_percpu_ref",
++				0, 0, nr_pages, &map_opts);
++	if (!ASSERT_GE(map_fd, 0, "map_create"))
++		goto out;
++
++	arena = mmap(NULL, nr_pages * page_sz, PROT_READ | PROT_WRITE,
++		     MAP_SHARED, map_fd, 0);
++	if (!ASSERT_NEQ(arena, MAP_FAILED, "arena_mmap"))
++		goto out;
++
++	insns[0].imm = map_fd;
++
++	/* a reference at the start of the chunk loads */
++	insns[1].imm = page_sz;
++	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
++				"arena_percpu_ref", "GPL", insns,
++				ARRAY_SIZE(insns), &prog_opts);
++	if (!ASSERT_GE(prog_fd, 0, "in_range_load"))
++		goto out;
++	close(prog_fd);
++
++	/* the first u64 below the chunk and one past its end are rejected */
++	bad_offs[0] = page_sz - 8;
++	bad_offs[1] = page_sz + page_sz;
++
++	for (i = 0; i < ARRAY_SIZE(bad_offs); i++) {
++		insns[1].imm = bad_offs[i];
++		prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
++					"arena_percpu_ref", "GPL", insns,
++					ARRAY_SIZE(insns), &prog_opts);
++		if (!ASSERT_LT(prog_fd, 0, "out_of_range_load"))
++			close(prog_fd);
++		snprintf(expected, sizeof(expected),
++			 "per-cpu arena reference at offset %u "
++			 "outside cpu 0's chunk", bad_offs[i]);
++		ASSERT_HAS_SUBSTR(log_buf, expected, "out_of_range_log");
++	}
++
++	/* the last u64 of the chunk is in range and loads */
++	insns[1].imm = page_sz + page_sz - 8;
++	insns[2].off = 0;
++	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
++				"arena_percpu_ref", "GPL", insns,
++				ARRAY_SIZE(insns), &prog_opts);
++	if (!ASSERT_GE(prog_fd, 0, "last_u64_load"))
++		goto out;
++	close(prog_fd);
++
++	/* one u64 past the chunk end is rejected */
++	insns[2].off = 8;
++	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
++				"arena_percpu_ref", "GPL", insns,
++				ARRAY_SIZE(insns), &prog_opts);
++	if (!ASSERT_LT(prog_fd, 0, "out_of_range_access"))
++		close(prog_fd);
++	snprintf(expected, sizeof(expected),
++		 "per-cpu arena access at offset %d size 8 "
++		 "outside cpu 0's chunk", (int)page_sz);
++	ASSERT_HAS_SUBSTR(log_buf, expected, "out_of_range_access_log");
++
++	/* an access below the chunk start is rejected */
++	insns[1].imm = page_sz;
++	insns[2].off = -8;
++	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
++				"arena_percpu_ref", "GPL", insns,
++				ARRAY_SIZE(insns), &prog_opts);
++	if (!ASSERT_LT(prog_fd, 0, "below_chunk_access"))
++		close(prog_fd);
++	snprintf(expected, sizeof(expected),
++		 "per-cpu arena access at offset -8 size 8 "
++		 "outside cpu 0's chunk");
++	ASSERT_HAS_SUBSTR(log_buf, expected, "below_chunk_access_log");
++
++out:
++	if (arena != MAP_FAILED)
++		munmap(arena, nr_pages * page_sz);
++	if (map_fd >= 0)
++		close(map_fd);
++	free(possible);
 +}
 +
-+u32 bpf_arena_percpu_chunk_sz(const struct bpf_map *map)
-+{
-+	struct bpf_arena *arena = container_of(map, struct bpf_arena, map);
-+
-+	return arena->percpu_chunk_sz;
-+}
-+
-+bool bpf_arena_percpu_off_in_range(const struct bpf_map *map, u32 off)
-+{
-+	struct bpf_arena *arena = container_of(map, struct bpf_arena, map);
-+	u32 chunk_off = arena->percpu_chunk_off;
-+	u32 chunk_sz = arena->percpu_chunk_sz;
-+
-+	return off >= chunk_off && off - chunk_off < chunk_sz;
-+}
-+
- /**
-  * bpf_prog_arena - return the bpf_map of the arena referenced by @prog
-  * @prog: a loaded BPF program
-diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
-index fc22d66d194a..29291101416a 100644
---- a/kernel/bpf/core.c
-+++ b/kernel/bpf/core.c
-@@ -319,7 +319,8 @@ int bpf_prog_calc_tag(struct bpf_prog *fp)
- 		if (!was_ld_map &&
- 		    dst[i].code == (BPF_LD | BPF_IMM | BPF_DW) &&
- 		    (dst[i].src_reg == BPF_PSEUDO_MAP_FD ||
--		     dst[i].src_reg == BPF_PSEUDO_MAP_VALUE)) {
-+		     dst[i].src_reg == BPF_PSEUDO_MAP_VALUE ||
-+		     dst[i].src_reg == BPF_PSEUDO_ARENA_PERCPU)) {
- 			was_ld_map = true;
- 			dst[i].imm = 0;
- 		} else if (was_ld_map &&
-@@ -1600,6 +1601,20 @@ struct bpf_prog *bpf_jit_blind_constants(struct bpf_verifier_env *env, struct bp
- 			continue;
- 		}
- 
-+		if (insn->code == (BPF_LD | BPF_IMM | BPF_DW) &&
-+		    insn->src_reg == BPF_PSEUDO_ARENA_PERCPU) {
-+			/*
-+			 * The imm of an arena percpu pseudo insn is the
-+			 * loader resolved address of the value in cpu 0's
-+			 * chunk, and the JIT translates the pseudo insn to
-+			 * step it into the running cpu's chunk. No need to
-+			 * blind it.
-+			 */
-+			insn++;
-+			i++;
-+			continue;
-+		}
-+
- 		/* We temporarily need to hold the original ld64 insn
- 		 * so that we can still access the first part in the
- 		 * second blinding run.
-@@ -3383,6 +3398,11 @@ bool __weak bpf_jit_supports_percpu_insn(void)
- 	return false;
- }
- 
-+bool __weak bpf_jit_supports_arena_percpu_insn(void)
-+{
-+	return false;
-+}
-+
- bool __weak bpf_jit_supports_kfunc_call(void)
+ void test_arena_percpu(void)
  {
- 	return false;
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 01434e1d23b5..0c0d3662ec76 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -4724,6 +4724,10 @@ static int __check_mem_access(struct bpf_verifier_env *env, struct bpf_reg_state
- 		verbose(env, "invalid access to context, ctx_size=%d off=%d size=%d\n",
- 			mem_size, off, size);
- 		break;
-+	case PTR_TO_ARENA:
-+		verbose(env, "per-cpu arena access at offset %d size %d outside cpu 0's chunk\n",
-+			off, size);
-+		break;
- 	case PTR_TO_MEM:
- 	default:
- 		verbose(env, "invalid access to memory, mem_size=%u off=%d size=%d\n",
-@@ -7415,6 +7419,17 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
- 		if (!err && value_regno >= 0 && (rdonly_mem || t == BPF_READ))
- 			mark_reg_unknown(env, regs, value_regno);
- 	} else if (reg->type == PTR_TO_ARENA) {
-+		/*
-+		 * A per-cpu reference is bounded to cpu 0's chunk through
-+		 * mem_size. A plain arena pointer has no bound and only
-+		 * faults at runtime.
-+		 */
-+		if (reg->mem_size) {
-+			err = check_mem_region_access(env, reg, argno, off, size,
-+						      reg->mem_size, false);
-+			if (err)
-+				return err;
-+		}
- 		if (t == BPF_READ && value_regno >= 0)
- 			mark_reg_unknown(env, regs, value_regno);
- 	} else {
-@@ -17456,7 +17471,12 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
- 			aux->zext_dst = true;
- 		}
- 
--		/* Any arithmetic operations are allowed on arena pointers */
-+		/*
-+		 * Any arithmetic operations are allowed on arena pointers.
-+		 * Arithmetic on a per-cpu reference drops its chunk bound.
-+		 * The register rolls back to a plain arena pointer.
-+		 */
-+		dst_reg->mem_size = 0;
- 		return 0;
- 	}
- 
-@@ -19080,10 +19100,27 @@ static int check_ld_imm(struct bpf_verifier_env *env, struct bpf_insn *insn)
- 	map = env->used_maps[aux->map_index];
- 
- 	if (insn->src_reg == BPF_PSEUDO_MAP_VALUE ||
--	    insn->src_reg == BPF_PSEUDO_MAP_IDX_VALUE) {
-+	    insn->src_reg == BPF_PSEUDO_MAP_IDX_VALUE ||
-+	    insn->src_reg == BPF_PSEUDO_ARENA_PERCPU) {
- 		if (map->map_type == BPF_MAP_TYPE_ARENA) {
--			__mark_reg_unknown(env, dst_reg);
--			dst_reg->map_ptr = map;
-+			if (insn->src_reg == BPF_PSEUDO_ARENA_PERCPU) {
-+				u64 pos = aux->map_off - bpf_arena_percpu_chunk_off(map);
-+
-+				/*
-+				 * The register value tracks the position of
-+				 * the reference inside cpu 0's chunk and
-+				 * mem_size bounds accesses to the chunk.
-+				 * map_ptr and mem_size share a union and
-+				 * map_ptr is never read for PTR_TO_ARENA,
-+				 * so only mem_size is set.
-+				 */
-+				__mark_reg_known(dst_reg, pos);
-+				dst_reg->type = PTR_TO_ARENA;
-+				dst_reg->mem_size = bpf_arena_percpu_chunk_sz(map);
-+			} else {
-+				__mark_reg_unknown(env, dst_reg);
-+				dst_reg->map_ptr = map;
-+			}
- 			bpf_diag_mod_end(env);
- 			return 0;
- 		}
-@@ -21372,6 +21409,7 @@ static int check_and_resolve_insns(struct bpf_verifier_env *env)
- 			switch (insn[0].src_reg) {
- 			case BPF_PSEUDO_MAP_VALUE:
- 			case BPF_PSEUDO_MAP_IDX_VALUE:
-+			case BPF_PSEUDO_ARENA_PERCPU:
- 				break;
- 			case BPF_PSEUDO_MAP_FD:
- 			case BPF_PSEUDO_MAP_IDX:
-@@ -21410,6 +21448,26 @@ static int check_and_resolve_insns(struct bpf_verifier_env *env)
- 			} else {
- 				u32 off = insn[1].imm;
- 
-+				if (insn[0].src_reg == BPF_PSEUDO_ARENA_PERCPU) {
-+					if (map->map_type != BPF_MAP_TYPE_ARENA) {
-+						verbose(env, "per-cpu value pseudo insn only allowed on arena maps\n");
-+						return -EINVAL;
-+					}
-+					if (!bpf_arena_percpu_chunk_sz(map)) {
-+						verbose(env, "arena map has no per-cpu chunks\n");
-+						return -EINVAL;
-+					}
-+					if (!bpf_arena_percpu_off_in_range(map, off)) {
-+						verbose(env, "per-cpu arena reference at offset %u outside cpu 0's chunk\n",
-+							off);
-+						return -ERANGE;
-+					}
-+					if (!bpf_jit_supports_arena_percpu_insn()) {
-+						verbose(env, "JIT doesn't support arena percpu insn\n");
-+						return -EOPNOTSUPP;
-+					}
-+				}
-+
- 				if (!map->ops->map_direct_value_addr) {
- 					verbose(env, "no direct value access support for this map type\n");
- 					return -EINVAL;
-@@ -21579,6 +21637,9 @@ static void convert_pseudo_ld_imm64(struct bpf_verifier_env *env)
- 			continue;
- 		if (insn->src_reg == BPF_PSEUDO_FUNC)
- 			continue;
-+		/* The JIT reads this pseudo to emit the per-cpu step */
-+		if (insn->src_reg == BPF_PSEUDO_ARENA_PERCPU)
-+			continue;
- 		insn->src_reg = 0;
- 	}
+ 	if (!feat_supported(NULL, FEAT_ARENA_PERCPU_DATA)) {
+@@ -241,4 +356,6 @@ void test_arena_percpu(void)
+ 		test_arena_percpu_only();
+ 	if (test__start_subtest("percpu_mixed"))
+ 		test_arena_percpu_mixed();
++	if (test__start_subtest("percpu_bounds"))
++		test_arena_percpu_percpu_bounds();
  }
 -- 
 2.47.3
