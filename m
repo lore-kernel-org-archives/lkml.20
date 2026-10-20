@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792461912;
-	b=wLUK0luOfOUTXnbCJgdwFKslEyqMLTbMCT5t3p9Yw65PCg2qmDG/C9k9jvQaO7bojC2B
-	 9SXp4/jhKG1THBOVn6271TgT9WwmJZRmtB/jU1gz2gYkGbmRDw3E0J5woPcw0IhVd9IsW
-	 Zmo7jtzWRC7D2jzNafp+I03mo5tNrd+5JEhd6Qmk7dtOSyYPqQ15EaPtHDmBJdgrhPGTp
-	 7akeaYFGYDgn/Wvc9Y0snmPeJxqF96p5L6Zk6ma6EvOrBBUb3Sydc1M++pyzZrWjBpT3N
-	 AySxRia/4So2hnATpO2bomMOp9TM2fRcLzksgBamD+9Mh30e1GOG1oosFiObbTUdMig==
+	b=HR+HzQruGTUa3oMxtPP4gAEq7fXmXKXUkTPuqy2NKhRu/FNPqUfgJSzfBo0X7rjRokn3
+	 BhzQ+iWDSnduSjVERjZ2JZO0g6bRJtpOWkzB0esq0tcwQf/f0JxQ6rNtJbScOLKANgX5r
+	 3XM4dwG6Evj70/P5cu+s1uCM+0U7rMxl2OF1X0vltlVNoF1jNlCsyZhXg06uI5QD9TdHm
+	 flMDt5lzdnds6cUHniB+2viWdqlMGMd5a+AXs0EYz9AgseqI/KoQ7fmGyEPHC48EZiZND
+	 S66U5yVbi/DD0jJUl9B0mLIsvv8WdApE/3AF5Mz370n/K1Wo8BwKIyfJsph+ZqyJziA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792461912;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GRS5pgCL5y7zW5bY4sxN+JZSN1eN1o0+kQBbkgTn6Rk=;
-	b=TaHjzFd36NTlXF4RB2Vfnji7LU2EJSwRbI8yHciUprKLU+DTm2h6d/nRiziZ3lp7Fwhx
-	 WCO8FDcNxiZj8j0GESUR9JAhzoTfg1q418AqL5GPa52Bk3/FJnh10v4UL437xhjPhmg98
-	 WWAog7SS0fPezQ5r6OGh3gTGBxXb8Xpsumvvy9JYy/iZ6+uPzoZw5Ic2nZTmVxHN2Mz10
-	 hO88xojDJe6WxnMDxwgUuQ01OrQCWW+MiGvHxo1GltHpjcdTX5LMAjz7bT8xgGVIDTpC0
-	 m2LJckUoA0Ygb8n8VmsEsSaAwWNjIxn7HH0HTXodfE66nyw1b1DdPC27G0T7mQLsoRg==
+	bh=56TFoPsC+vIT97tVs05l7Gvn4lxIguQ6q9+6FgEk53M=;
+	b=SYUq9trEySbUGwpYFIsV5j7BU9SkeVxkj8lkd8N19lwPYx0vgX8TzjkivrSu6r9Gn7bR
+	 dfK43zcZPRQk5wDA/CuS7z6GgHI6vF/X1JKevwaRwhWLTkDLZf3pK8IFkx8KPqNSh3mRL
+	 6ecR6c7BXUPJ9a+iBs5s+PnIO/D7pBMMuwhJ/J+msudPxXzcH6SoykyDqktOl2ya/1b+b
+	 jxInIwfaQWS8jaC3CwKWuQZ8dcVAjIYyeGSQhs+VORyjiNviQMFi+vhLmO6vk3i+nkWDW
+	 DI7KKbQ/97wImaMPuD4CR0O2IfXcF1lA6MvMRArk2xdnEjaJejzYN7C1ClsZymrWHHg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OksRBn9D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6WQXDeO;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB491606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA381606A31B;
 	Tue, 20 Oct 2026 02:05:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OksRBn9D
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6WQXDeO
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792461911;
-	b=qkdvq6YpjtiofSLYkYxUG21vjIwQmjIVId8rbfdBCJjE6tGfK7e6/CoI+o5cnyQ0Vg9H
-	 ireuQa6eQAt9JhMtQK0RpQArSSBG6o4347BQwrlKB019gX/vdIEQxIk04zhIUvUW3YRY/
-	 Xr6NmBwLM+nElWEzqZ0vnfGz2m0a3Zk5iP6r0f9+JWuiu2Bp4IROm6bwN7bh/xJ1A5JNU
-	 hol8FUIpiidOKmSNCo/j+4Zc8caQK1+5Yo49U03vjE8uMrxjJqWhRhlTPuLRE3NdmK5Hy
-	 AWVmGeT2i2T2TxPKIwL7M+Kata0bN0y3H55MPxl9Qag1QDMEs3OL1j2HvPGE92dRr+Q==
+	b=APRatOqawGn+f52FwZ368LIBYgPOkiXnBKPJyOlmnn+H/SP4SL3ADwL+EIp9TJP0uZvc
+	 8/h7E3VQJOVzIjHWvxvuv8DpW7olbCF0bcZ+CGjNfs8I/gHfGUAO68tMwXlfZidVKsMMx
+	 7ZI1nyCEFKJ9Z/nzOgnjePcKBtF9OV6t0SoRntIx2crDagyPFApTdjGCg04AZl2NAGUmy
+	 XVhgZerN05gjv4IdspzRE/YwWMZU4q8qshqLzft/reioEEz8/FYwxsjIrjv9KJ8djdeuN
+	 oinZn0rub3vbHHn4FPzM4ubtJ10u+nLaHLWmeZbTQfit0yB4cX9l0c2ngNqd+Oa6jKg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792461911;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GRS5pgCL5y7zW5bY4sxN+JZSN1eN1o0+kQBbkgTn6Rk=;
-	b=deFUpoJsMXcmlT0fDpn6Sz452NblcPRjIQlW3+CuhXXnsk+LIt0HjcU7btYVyuL5rvNW
-	 TIploQ06n5/UYOVNI3uY3s9wqbsPnx9aTMGyCVDvT06FMm5QeYnkmXBvIfYm9HWIy/pKD
-	 99pojUjU3omtRwfpyjk3ctatEWftXcR0En5Z23jkVfEok6nfkx2a5FytrUXwpzcodozwo
-	 iw7wcbombWGFg/PX7LgbuHx3xnOTOLcXVqzf6qPZwBhzsDXqBNoHMBEw6lWwDmeEYHktz
-	 2UJPXOaAFJSXiynFFNetGDB8PdU7ymkcqBWK92In32LBt4JoRY49wbpJA+/OAHupdoA==
+	bh=56TFoPsC+vIT97tVs05l7Gvn4lxIguQ6q9+6FgEk53M=;
+	b=DuTAt6bqXHVMOwDmBM1/srfpwzKCoonfq8Wl+tYJSES4q82hHhdQBZkYtmPmQSVDvYlR
+	 s7TbgNRVS6QBdpi73aLohDWlesuEFwYAXYEQ1aR2QaqzzHJM7v6xrQT2rkGCP/XT7ZwW0
+	 DerssFDZtWMNBBiQbZHNA0aAQ8nupUb8wng4MPN+AKv5T65ZdD/Uje7zF9nhFaWd/9Ct8
+	 U1Q2hYAyQ+ffBVDXjawA81SwA19N2EdL7HMzjESFewzgwpylIeAPc2CLQujIdF1FJ5nFi
+	 K1zdVnifY9ouMxqMYDEyvgBgX76nUtfeG4+mxjK/7q2aixX+zwjwmG0ZYeUvPK+Z0yQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B28AA1F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id BBE351F000C7;
 	Tue, 20 Oct 2026 02:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792461911;
-	bh=GRS5pgCL5y7zW5bY4sxN+JZSN1eN1o0+kQBbkgTn6Rk=;
+	bh=56TFoPsC+vIT97tVs05l7Gvn4lxIguQ6q9+6FgEk53M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OksRBn9DgYRHHqPodu0KVftQXOpssOz/VYKy26j61ttn+NraA4ZP7h5KGETfcL2Pa
-	 xBDR0hdobKGZXr9npqKOQpMAfrzWtqLTbWlAVQSuuP1VVMJfpXk1sY/A6LxxChUb1Y
-	 MbkWmGG+jJk+WsNiggVt6994zcWD6/SP7ZT9fypFWO06bHyS7k9IXwW5mB0uZmCujz
-	 y9BLPBV7TbFO+W1nwanqGARyBmGHkPbFs8bC3U71la67Cii0OlPq75rRxWVbF3PA5/
-	 CGe/cP9Y2MgyGLSRPxnXNzNVaCuGAQw3fcIs/sZT8bxBTYd8Pl6MYtVl6kvQhouTrT
-	 hEBJs96IuWtAg==
+	b=h6WQXDeOPGYQRoaamXNtl8jnaKXLJqt4pz25tByHcIj8lbn0F/g70Lll+vY/1iLyF
+	 pcLJrtveudknpvpJ/fNijEPZn006R3J2NS2ZFwwGbv29wo3QE0ViWag7heX6NSNZEs
+	 +T01szafsrQeZ4kkVYAxyJOaVa1YTEPkvhKU9zKr45spLmfwj7AK6DT9RYw0RY75V4
+	 dqTYDu2rv+SjXEd+/oMtoY3lYIdMcM2nPBZy1GFe7t8TDB5O63OUGe9NwDkVyD2i+v
+	 IeFxN85OVqi37MIsrBTyzCRDUoRHp1aKKEubbpxFLtxxJOKOPDS18y7jWFtZI42Uu0
+	 5Wj5s+BqtJVHg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 29A82406E1;
+	by lkml.kernel.org (Postfix) with ESMTP id 36001406EA;
 	Tue, 20 Oct 2026 02:05:10 +0000 (UTC)
 From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Mon, 19 Oct 2026 23:05:08 -0300
-Subject: [PATCH v2 1/3] drm/msm/a5xx: Reset the GPU when resuming it
+Date: Mon, 19 Oct 2026 23:05:10 -0300
+Subject: [PATCH v2 3/3] drm/msm/a5xx: Use the downstream GPU idle timeout
+ on A508, A509 and A512
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261019-a5xx-gpu-pm-v2-1-457aafbb28da@gmail.com>
+Message-Id: <20261019-a5xx-gpu-pm-v2-3-457aafbb28da@gmail.com>
 References: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
 In-Reply-To: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
@@ -99,11 +100,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Paul Sajna <sajattack@postmarketos.org>, 
  Fabricio Akio <fabricioakio@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792461909; l=4545;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792461909; l=3585;
  i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=idG9UEOCHDY9HHinuKj/MRVsQ1JSiZd+zxX4FQSwrt4=;
- b=lMwkiCpQtm+UPs3qByl0tnTg6eemFpXL8Tgk6y4MrPXyboTSxaIBWoZP+tRdRvKGE9m5B2yX/
- 1c+k49zDDlJDBYhwJqT/3FuuJ5M+zRAsXxXABNMey7eLvYih9CwsFkZ
+ bh=cXuE1dXmmOJbBZYxHq4v0R2d0f35xmFnvdicm6SOghk=;
+ b=OHX4vOwcKNj78Lk57JwRYXlkrGIlgp78CZmbPydjAaugZaoJkM9LUE5LSGCk4X2KDYnV5Vq8I
+ /AdT8DHFLDUAftLWxF8pm611fjSEGmTQgxBijbrVQl03bu47Cyjg4Vi
 X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
  pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
 X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
@@ -114,110 +115,80 @@ Content-Transfer-Encoding: 7bit
 
 From: Fabricio Akio <fabricioakio@gmail.com>
 
-On SDM630, SDM660 and MSM8998 the GPU's GX power domain belongs to its
-SMMU, not to the GPU, so GX switches off only once the SMMU suspends as
-well. A GPU resumed with GX still on keeps its state, and the CP keeps
-its ringbuffer read pointer. a5xx_hw_init() then rewinds the ringbuffer
-and writes CP_ME_INIT at its start, while the CP goes on from its old
-position, executes stale ringbuffer contents and hangs:
+The A508, A509 and A512 took the 250 ms runtime-PM autosuspend delay
+of the A530, raised there because quickly cycling that GPU's power
+hung the system. Qualcomm's downstream driver powers these GPUs down
+after 80 ms idle, qcom,idle-timeout, on SDM630, SDM636 and SDM660
+alike.
 
-  timeout waiting to drain ringbuffer 0 rptr/wptr = 23/C
-
-Soft reset the GPU in a5xx_pm_resume() once it is powered, so that
-every resume starts from the reset state. The downstream driver resets
-only when it finds the GPU's power left on; resetting a GPU that was
-powered off changes nothing, and on A508 the reset takes about 2 us of
-a resume of about 1.5 ms, so do it every time.
-
-The reset also clears the busy counter, which msm_gpu_pm_resume() has
-just sampled as devfreq's baseline. Take the baseline again after the
-reset, or the next devfreq poll subtracts the old count from the new
-one, wraps, and sets the GPU to its top frequency.
+Use 80 ms for these three, so the GPU powers down, and releases its
+CPU latency request, sooner after its last work.
 
 Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
-Changes in v2:
-- Take devfreq's busy-cycle baseline again after the reset, which
-  clears the busy counter (Sashiko)
+The value is downstream's idle timeout for these SoCs:
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm630-gpu.dtsi#L71
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm660-gpu.dtsi#L73
+SDM636 includes sdm660.dtsi:
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm636.dtsi#L13
+Downstream reads it at probe, restarts the idle timer when the last
+work completes, and slumbers the GPU when it fires, dropping its CPU
+latency request:
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno.c#L901
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2981
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2467
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2753
 
-Tested on A508 only; the reset runs on every A5xx.
-
-A stall with the same signature, the CP's read pointer past the write
-pointer just after CP_ME_INIT, was reported on an A509:
-https://lore.kernel.org/linux-arm-msm/20260308-adreno-ringbuffer-drain-timeout-recovery-v1-1-985a33faf108@postmarketos.org/
-This may be the root cause of the A509 stall Paul Sajna reported there.
+Tested on an A508 with the previous patch: 1381 GPU power cycles at
+gaps from 50 ms to 3 s without a fault. The A509 and A512 values are
+downstream's for SDM636 and SDM660; tested on an A508 only.
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 15 +++++++++++++++
- drivers/gpu/drm/msm/msm_gpu.h         |  1 +
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 17 +++++++++++++++++
- 3 files changed, 33 insertions(+)
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 16c7335c4b1f..0aff8252a00f 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1367,6 +1367,21 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * The GX power domain is not necessarily switched off while we are
-+	 * suspended: on SDM630, SDM660 and MSM8998 it follows the GPU's SMMU
-+	 * rather than the GPU. If it stayed on, the CP still holds its old
-+	 * ringbuffer read pointer and would execute stale ringbuffer contents
-+	 * once hw_init restarts it. Soft reset the GPU so that it always
-+	 * resumes from its reset state.
-+	 */
-+	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 1);
-+	gpu_read(gpu, REG_A5XX_RBBM_SW_RESET_CMD);
-+	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 0);
-+
-+	/* The reset cleared the busy counter devfreq has just sampled */
-+	msm_devfreq_resample_busy(gpu);
-+
- 	/* Adreno 505, 506, 508, 509, 510, 512 needs manual RBBM sus/res control */
- 	if (!(adreno_is_a530(adreno_gpu) || adreno_is_a540(adreno_gpu))) {
- 		/* Halt the sp_input_clk at HM level */
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index d27d54bdb7a7..0e0768c15bcc 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -735,6 +735,7 @@ static inline struct msm_context *msm_context_get(
- void msm_devfreq_init(struct msm_gpu *gpu);
- void msm_devfreq_cleanup(struct msm_gpu *gpu);
- void msm_devfreq_resume(struct msm_gpu *gpu);
-+void msm_devfreq_resample_busy(struct msm_gpu *gpu);
- void msm_devfreq_suspend(struct msm_gpu *gpu);
- void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor);
- void msm_devfreq_active(struct msm_gpu *gpu);
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 2e1d5c343272..2e963bff3f61 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -242,6 +242,23 @@ void msm_devfreq_resume(struct msm_gpu *gpu)
- 	devfreq_resume_device(df->devfreq);
- }
- 
-+/*
-+ * Take a new busy cycles baseline, for a GPU that resets its busy counter
-+ * after msm_devfreq_resume() has sampled it.
-+ */
-+void msm_devfreq_resample_busy(struct msm_gpu *gpu)
-+{
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+	unsigned long sample_rate;
-+
-+	if (!has_devfreq(gpu))
-+		return;
-+
-+	mutex_lock(&df->lock);
-+	df->busy_cycles = gpu->funcs->gpu_busy(gpu, &sample_rate);
-+	mutex_unlock(&df->lock);
-+}
-+
- void msm_devfreq_suspend(struct msm_gpu *gpu)
- {
- 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+index 7b261f045eae..254bae06af39 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+@@ -50,11 +50,7 @@ static const struct adreno_info a5xx_gpus[] = {
+ 			[ADRENO_FW_PFP] = "a530_pfp.fw",
+ 		},
+ 		.gmem = (SZ_128K + SZ_8K),
+-		/*
+-		 * Increase inactive period to 250 to avoid bouncing
+-		 * the GDSC which appears to make it grumpy
+-		 */
+-		.inactive_period = 250,
++		.inactive_period = 80,
+ 		.cpu_latency_us = 424,
+ 		.quirks = ADRENO_QUIRK_LMLOADKILL_DISABLE,
+ 		.funcs = &a5xx_gpu_funcs,
+@@ -68,11 +64,7 @@ static const struct adreno_info a5xx_gpus[] = {
+ 			[ADRENO_FW_PFP] = "a530_pfp.fw",
+ 		},
+ 		.gmem = (SZ_256K + SZ_16K),
+-		/*
+-		 * Increase inactive period to 250 to avoid bouncing
+-		 * the GDSC which appears to make it grumpy
+-		 */
+-		.inactive_period = 250,
++		.inactive_period = 80,
+ 		.cpu_latency_us = 518,
+ 		.quirks = ADRENO_QUIRK_LMLOADKILL_DISABLE,
+ 		.funcs = &a5xx_gpu_funcs,
+@@ -102,11 +94,7 @@ static const struct adreno_info a5xx_gpus[] = {
+ 			[ADRENO_FW_PFP] = "a530_pfp.fw",
+ 		},
+ 		.gmem = (SZ_256K + SZ_16K),
+-		/*
+-		 * Increase inactive period to 250 to avoid bouncing
+-		 * the GDSC which appears to make it grumpy
+-		 */
+-		.inactive_period = 250,
++		.inactive_period = 80,
+ 		.cpu_latency_us = 518,
+ 		.quirks = ADRENO_QUIRK_LMLOADKILL_DISABLE,
+ 		.funcs = &a5xx_gpu_funcs,
 
 -- 
 2.56.0
