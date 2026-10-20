@@ -1,91 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792518462;
-	b=tO2WMAG/I1vUfV+1iRXnWvLhjet5CuMEuGuZGKsPqlYqX+d/9FfI+QCRwYJCEfOYjToY
-	 0F/Z+Hx0q+ZWB/V9mLtEIC6YElicd6JCPJNxy8uYeOe5n8fQ3XkYnJNS2YL1G0NdLbbYm
-	 tA8AshcTTW/odg88OHFwiSmcGDiAGOv0ymQQjdQXxJSh9eTjNvkqyqTs3L8IQ0YKyB3PH
-	 IquBOc11thZJE/orUEqrFJ0YnmgV6yM6faw9l2tB0o3egEfDIqzvP8ajj7Pi8Mstq4Tpm
-	 J9dQiBzdzAFV6/9K+j4gPMfxHwrNO0Cg4LFbWDOGbUFRtDeUQK5yhfP40r9HhPUMr0A==
+	t=1792518457;
+	b=zjWm7fuQeyRzhzxwvPXwyPyK7sZYGDnWa+i3XbhMJOuvHgYv6/Y17D2fYEdyH+FqxAMe
+	 kRytRTh+3eLJKIwQsgKiadn2sGurjd7FEGBlyfC1DNZGqkdWl5+/vz5DjnIt0f/ELk8GP
+	 6TIKAq1tAxRi3UqU9sKN5P7UrjmMY7EmVkE4GRF9SRx0KnDqt2EM+MVM8PuKOb5B2c2xM
+	 luwnoIL3dJ3BBaoDX1Dl9FMqrZMKhHU2vY1FzciY+w1P2SQZFKir2hbKtWnCGyahXn3Ux
+	 PtUEnRAkI+rKCvJ6YtBBaYCLXVTN9QYv+1S9iGh/0b/j/qsVngF8cR3zZ7RkCtPCn8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518462;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=WgFMIOh93QhT86nsv4SkYxtkJuNYyAnLVgqCXTRDBJQ=;
-	b=lIYutPCpGNOBdzutTZBVqSlJznFFWrEkj1C04HomVXaqh/2qL0mZYIHR/24DpPHqLIbH
-	 6QGSZOp+PrgxclWnNBPFEWVVDoFITyCRwAB9Mksf9LWvKKfPOrbJTT5HR0++CpGvbLqKV
-	 mtZS42G3wLVLbB+eH3j9HKMWM/CmTLzI7T1EFbrk83JaS6EueA5m4PmKlyVisV3KNyg3F
-	 YOf1nhfdUtSeQ5+sChLDoPAdkbjQHMkBeCxfMVhkBysoGRlQlty5mTrZrcBDoFesPtlsQ
-	 87htK0/xZWIPQPZJoFjvH74yYyK6wdq3/A7H/3ZMahjxMgv9BNIxhjVuGNGW33ZjnyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518457;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HAHTPseBysoQyjFWdWhxEUoIlAFSx4P0uFPxuTZC58E=;
+	b=smb4Jc+a5a1XM2LYKVQf6zWxcFgrMlenHB9wkPpYAESb50liPqL6LRws3ZYYSQOTWKlU
+	 c2zFYqTQx2zJZsoGmy1eLU2Wvayix28rKuDpwQkfaybD3Tvdr4ZycAHLeJVdSw1NibCkF
+	 cZbnEt9Kcu813TMJtHhvuLE3+I/7SYvDPIZpHvj3a6zmkrcSM1rMuyXNSG8pCn/4RXT/R
+	 jgwHuA1/5BJ7NT+4xsQxLn4wL+5Sqjrv/DkkkugT8HceCaN4/WDq4lu1ngy1gd9CPLt/Q
+	 IqM3iYEKjutzoNBnnVE3G24intJoc9rQQKJlCJPisOqgHuVwO7y//obe6sL/e/MbbWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RovPKQ+v;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5klA8w8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E41606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E41606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14390606A319;
+	Tue, 20 Oct 2026 17:47:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RovPKQ+v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792518460;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WgFMIOh93QhT86nsv4SkYxtkJuNYyAnLVgqCXTRDBJQ=;
-	b=RovPKQ+vMrkG4pA7tZKr93qXP0ffF7VE5VUb3cmLh/GoCs5yga9IquYz/Hj9Zln+xhEf85
-	UPxx+Y+q1krjjKRvJThkOZZtsnvf3xCE2KNKfScxaxvKoEcNUmGxt2vsK/agFGZLU0idUK
-	NkmyUN0adMn3wGlzlLV+lPv9zF0kAFs=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-522-ottbI5POOUSdDjVlOIXqxw-1; Tue,
- 20 Oct 2026 17:47:36 +0000
-X-MC-Unique: ottbI5POOUSdDjVlOIXqxw-1
-X-Mimecast-MFC-AGG-ID: ottbI5POOUSdDjVlOIXqxw_1792518453
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 89C1F18005B3;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5klA8w8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C7C1F000C9;
 	Tue, 20 Oct 2026 17:47:31 +0000 (UTC)
-Received: from rotkaeppchen (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1F5FF30001A2;
-	Tue, 20 Oct 2026 17:47:22 +0000 (UTC)
-Date: Tue, 20 Oct 2026 19:47:19 +0200
-From: Philipp Rudo <prudo@redhat.com>
-To: "Ard Biesheuvel" <ardb@kernel.org>
-Cc: "Jason Gunthorpe" <jgg@nvidia.com>, Pingfan Liu <atlarge80@qq.com>,
- "Mark Rutland" <mark.rutland@arm.com>, "Alexei Starovoitov"
- <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "John
- Fastabend" <john.fastabend@gmail.com>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jeremy Linton" <jeremy.linton@arm.com>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon"
- <will@kernel.org>, "Simon Horman" <horms@kernel.org>, "Gerd Hoffmann"
- <kraxel@redhat.com>, "Vitaly Kuznetsov" <vkuznets@redhat.com>, "Viktor
- Malik" <vmalik@redhat.com>, "Jan Hendrik Farr" <kernel@jfarr.cc>, Baoquan
- He <baoquan.he@linux.dev>, "Andrew Morton" <akpm@linux-foundation.org>,
- kexec@lists.infradead.org, bpf@vger.kernel.org,
- systemd-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Young <ruirui.yang@linux.dev>
-Subject: Re: [PATCHv7 00/13] kexec: Use BPF lskel to enable kexec to load PE
- format boot image
-Message-ID: <20261020194719.4fbd4e4a@rotkaeppchen>
-In-Reply-To: <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
-References: <20260322014402.8815-1-piliu@redhat.com>
- <20261011201325.GA918242@nvidia.com>
- <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
-Organization: Red Hat inc.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792518456;
+	bh=HAHTPseBysoQyjFWdWhxEUoIlAFSx4P0uFPxuTZC58E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T5klA8w8ldhaGXex5p2C1vk2XmCWEI5ePLrDsiyhXLVFchdZEn+v5/j//jHND7keT
+	 Meqe1HYRaPtXccMkRp824RMlBY/ggOISFpPO91xfQXQlxRa2BEF/hHxRG/jK8L1CgQ
+	 9muVPdNXFcV74oJ2Dgz4HaRViQo1tQbIdaPr+01vyY4wLmybDhkP+Vl1I+bioV+Ygq
+	 uCkDYDCq983KX1BvcP2HAwIVds8N7k+Rqtsxjca0Ovu269GytYQIsu/QGvdh3m3Bcg
+	 UwXzztQF8VoJ3nyz6bU2aIRxqOIpInSrUm2TtfG3URLEtNoUiddkCE0GL6sKdGKVFJ
+	 c6nOo9rgiy+pg==
+Date: Tue, 20 Oct 2026 18:47:29 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 04/20] dt-bindings: i3c: dw: support up to two reset lines
+Message-ID: <20261020-endocrine-crown-c6d3c83cf436@spud>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+ <20260929061417.20733-5-jszhang@kernel.org>
+ <80b084d130b7dc7406ae23e54a77706a4f42b606.camel@pengutronix.de>
+ <ata--JFFUzSoMock@xhacker>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,120 +76,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PF0S8SXN4APeQtUF"
+Content-Disposition: inline
+In-Reply-To: <ata--JFFUzSoMock@xhacker>
 
-Hi Jason,
-Hi Ard,
+--PF0S8SXN4APeQtUF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-let me add my 2 ct as well.
+On Tue, Oct 20, 2026 at 09:08:08AM +0800, Jisheng Zhang wrote:
+> On Mon, Oct 19, 2026 at 02:55:14PM +0200, Philipp Zabel wrote:
+> > On Di, 2026-09-29 at 14:14 +0800, Jisheng Zhang wrote:
+> > > The Synopsys DesignWare I3C master controller can have multiple reset
+> > > lines, such as core reset, apb reset, and dma reset.
+> > >=20
+> > > Update the DT binding documentation to increase maxItems for the rese=
+ts
+> > > property to 2.
+> >=20
+> > The last sentence just listed three reset lines. Why increase to 2?
+>=20
+> Per the doc, the last one is dma reset, currently dw I3C driver doesn't s=
+upport dma.
+> And increasing it to 3 is still dt compatible. Maybe I misunderstood
+> something. what's more, I don't have platforms with all 3 resets to test =
+and verify.
+>=20
+> If dt maintainers prefer 3 in one step, I will sent out a follow-up patch.
 
-On Tue, 13 Oct 2026 21:19:28 +0200
-"Ard Biesheuvel" <ardb@kernel.org> wrote:
+I think you can increase it to 3 globally, then restrict to 1 for the
+altera device and 2 for your new one.
 
-> Hi Jason,
-> 
-> Thanks for chiming in.
-> 
-> On Sun, 11 Oct 2026, at 22:13, Jason Gunthorpe wrote:
-> > On Sun, Mar 22, 2026 at 09:43:49AM +0800, Pingfan Liu wrote:  
-> >> *** The history ***
-> >> 
-> >> Nowadays, UEFI PE bootable images are becoming increasingly popular
-> >> among distributions. Currently, we have several kinds of image format
-> >> parsers in user space (kexec-tools). However, this approach breaks the
-> >> integrity protection of the images. To address this integrity protection
-> >> concern, several approaches have been proposed to resolve this issue,
-> >> but none of them have been accepted upstream yet.
-> >> 
-> >> The summary of those approaches:
-> >>   -1. UEFI service emulator for UEFI stub
-> >>   -2. PE format parser in kernel
-> >>   -3. Signing the arm64/boot/Image  
-> >
-> > I recently had an interesting discussion with Ard around DRTM for
-> > kexec and we sort of independently concluded that #1 would be the best
-> > (only?) option there.
-> >
-> > All the implementations of DRTM today live in the EFI stub and
-> > intercept the boot process as it goes along. After ExitBootServices
-> > the DRTM implementation will launch the kernel in a different way.
-> > Even worse today's x86 version strongly requires EFI boot services to
-> > connect the Linux stub with a trampoline helper provided earlier in
-> > the boot chain.
-> >
-> > A kexec flow that only works on decompressed vmlinux, with no option
-> > to run any EFI code, is going to be difficult to support. There is
-> > enough information and choices involved in DRTM that it is undesirable
-> > for the predecessor kernel to try and DRTM launch it on behalf of the
-> > successor, let alone trying to get the insane x86 trampolines into a
-> > kexec successor kernel.
-> >
-> > Given those constraints entering the successor kernel through the
-> > normal EFI entry point is highly desirable. This would allow x86 to
-> > continue to provide the DRTM trampolines through an EFI mechanism and
-> > means the Linux EFI stub always handles the launch with identical code
-> > in all scenarios.
-> >  
-> 
-> With some help from my friend Claude, I've prepared a prototype that
-> reuses my efiloader Rust crate to boot EFI stub images (bare Image,
-> zboot, UKI) in the kernel: the EFI boot phase is invoked at kexec
-> load time, and runs under the preceding kernel up until the point
-> where ExitBootServices() is called. Then, the actual kexec call
-> will return from ExitBootServices() after shutting down the first
-> kernel.
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=efiloader-kexec
+--PF0S8SXN4APeQtUF
+Content-Type: application/pgp-signature; name=signature.asc
 
-I only took a brief look and cannot claim to fully understand your
-solution, yet. Nevertheless I'm pretty impressed. I also agree that
-this approach is by far the best, if we can get it to work.
+-----BEGIN PGP SIGNATURE-----
 
-The reason why I and Pingfan abandoned this approach and went for eBPF
-instead was due to security concerns. Our premise is/was that the EFI
-stub must not be able to harm the running kernel. Be it intentional or
-not. That's a guarantee eBPF with its verifier can give but a simple
-file signature can't.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatepLgAKCRB4tDGHoIJi
+0nTbAP41tIofP+UpvSN0IwKJvT76VMbRwSrA7SIYBjKeyCaPgwEA7iCZGXK59MXH
+F8eKb5c+ngwawXhmX7aqW4NflYqjyAY=
+=Yxu4
+-----END PGP SIGNATURE-----
 
-I believe the way Ard ties execution of the EFI stub to module
-signature verification solves the "intentionally malicious" case. In
-the end it doesn't make sense to try to prevent a malicious EFI stub to
-be executed when an attacker could also load a malicious kernel module.
-
-But that still leaves the "unintentional malicious" case. Meaning,
-that someone tries to be "smart" and does weird stuff in the EFI stub
-he knows it won't do any harm during cold boot, but that will cause
-problems to the kernel running the efiloader. IIUC Ard's implementation
-cannot catch such problems. But I expect it will be a total pain to
-debug them. Especially when it is caused by some out-of-tree stub.
-
-To be honest, I'm not sure how this could be solved. I'm not even sure
-if it's worth trying. Nevertheless I believe it's worth having some sort
-of tainted flag. At least that would give developers a hint that some
-untrusted code was run without them spending ours of debugging.
-
-Two more comments with my distro head on.
-
-First, kdump is extremely important to us. So the final solution needs
-to be able to load a crash kernel as well.
-
-Second, implementing the efiloader in Rust is not ideal. This prevents
-us to support the feature in older streams that don't support
-Rust4Linux.
-
-Anyway, thanks for bringing up the topic again. I'm looking forward to
-see the next version.
-
-Thanks
-Philipp
-
-> 
-> There are some limitations (4k pages only, CONTIG_ALLOC support
-> required) but it seems to work as expected.
-> 
-> I haven't looked at measured boot or DRTM specifics.
-> 
-> 
-
+--PF0S8SXN4APeQtUF--
