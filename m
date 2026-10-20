@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792512944;
-	b=G9ZGyA2PMVAmynvGr2VFTi/koqQDKOmijzTFkA4SeMCuG8Umo3Cnl4glpjxclQhGpCRC
-	 E1mizMBYDkNgrAYwR+2PLamARUA9lGbBO+738NWjDMv/W5b1wEaJIrF88ySjXeuHItbMg
-	 olEcDTSNGftS6an/dr+hWPxk1qJbavhhnTD2GDDCkE/Cgp8VN+hwFRk8WVsxjli69pV9V
-	 h3KEh+9dgsHMsMrHgJ5MWUmEgkeTt5786UAfnlNE1iQgt91SprEHtR4oEIGaAqgiDK/z3
-	 p5aMDA6PSxB/LR75rimTrbHrTOou5IocP2KWq3XzkBEqYwa/MZqo2Bxf4VY8QMh4dZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512944;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792512958;
+	b=cxWhoE9qgGudh1oujPFl1rK7I/nniaS/G55AcPySX4T8nXrhLLgQ7DalfrYLwuIq6B/1
+	 3eFSpZYS25V5Rayq43nud+B9aIQBQVx+jvivz2/qOWqFahhDklBN4ZvqShZt9bQy9a4H1
+	 1ee03APa9iTA/UFqK6h9dza4XmiyzZ/Ia66HvkUhXz+gOMULw+wmkLUj4xn202Q2L2aGa
+	 p/i6V8snA1b9f91JJuXEjd7/wjUHPIr9FK576gYIXhDJJCHCDTbzrgH5TX32B/fpaE8xU
+	 3WMzlgNjnXIZUdlVjYD7mBqvf9qS5SmqQJ8EE2JCtV8pttBWFD2pW3sLWmsnQYSNa0A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512958;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=WQHzKVqYaZwJZUC5Pb2xzxfXVpRRuYjJWgJcr6l3L5Y=;
-	b=vsc3a7g71Cr23Pywhs/YAd+HKcniD+trfUFEpYRtGpxGFKtYY857hvWdUicF85J4l1IA
-	 FkxLTMiy9R1kXmFqKivBzMlZc7Kdd/ZWou5yryoSrIcdVFiq2jNhF6nNHF+T5n3btvEC3
-	 0Y8pjvlFZR2jvHPQ0JRmBaxMDiBPeZ9z/Pu+mIFrem/PpagpDP7Gigirzwe5jczV9G5Tf
-	 u48rzTfkZKkzX7qF0dBLyQSz+qoNlu1QIXcPvK0RFVRNt6d3geBjjdzOsEmN7KxLyEZGD
-	 gjUucB4fNYpP9wrbjjGvfj9zRWeVcSi0J0WwtB0FoxlDo9gojPVHkute82FM8zajbWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UhDQRNkc9FLSlLZbPo9WwVAAHQKsjx+zb2EBe+RwcLY=;
+	b=NRJBb9h7dMJTgP2znfiCJKc8zfQ0RgIJdg1I8NQmJezBPQFSxZUztz3wYYktLjCXu55I
+	 3s5O5SLWSySeBBQGAHG6AXPw41PtPxGzr2t8imVGE/XP29fF4QZ+RJBaeOIjq95cYTMID
+	 lF8W5df5ny0JuVZ/QOUliID7hYs/lCSGr9kZZUf2SSLVcpuNgugR+ZX+F/bKSGvCaSvwE
+	 f39lrJ18DqwsyKSAfPkZzvzc7+gL3L/pG9KkoDlvZDtuhFy+KLhs3IeYxyXCg4Bl/S0FE
+	 1F5eVlXpnz+akqOJMcJ+n9w6Y8wE3++4TG55JtpU6T/kF2ehnB0jcus4a+oGTBdYB0g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aPwbeMPz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WalPdExM;
+	arc=none smtp.remote-ip=209.85.221.174
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DE3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86DE3606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA2D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA2D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aPwbeMPz
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba328513b9so3056769e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:15:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792512943; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oleygz+iK9DzaiZug7T5eSSP4ztLiu29i+PGUO5d4FW5oGluOgXjmiVZ0JmOHaUhmF
-         /+5kQisO5QYogt0xYMXuhVRFGWhETpfh4kPzn4krvxnduPg9TXkgigrl87XlEV9UG1LK
-         ZWWRW2ku8nZkSpJWplij5xa27zEXVxTSj5HzrWpYNNJkoxBP+NXrDlu3dDZRsHhbnqpx
-         vmPrb97oFc+hoPmVfWFwONeEBK8rcoPkHDSpvGGv3u/xn69LY+Q6LEJehJWirdFFOfUz
-         28U/ewRXwFP/+zVQzCtxp+BIT19LvQgxFyVxea0KlyUzgkE9oo6MtPfU6VjNZ8LspYdR
-         d2xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=WQHzKVqYaZwJZUC5Pb2xzxfXVpRRuYjJWgJcr6l3L5Y=;
-        fh=pIKS3KUqDVuYx5ZbjYLL6XyZz1heL299/QPWhsG3280=;
-        b=sv2wPAUupyiukw7DHw6JuCDBmI9KR0ohrblRZFhmcb0vaE/eqP5m+BcrbKcCOBSj+d
-         vUjDMRfjkptSFFaKGoilNgU4GpIrntnf5ioBgW8quY6JXnzvy+h0eOrm0dSeGV4J39ct
-         g65yeLfj2M7rrqXgdStnaolOfwy2JDpxq3GbHP8e+1peux+UJVS+hM7i2S9+SSUcNlAt
-         ++MlCEA+KQe6MF5Jk+rm67G5qLBJiS8wE6KRY5+KskBFqGdEzadgERILB996pBUoIhNb
-         vdkwphzUrz/OxA31oFAew97Ipio8OvN8dnWSXMQwFSRi9XnzbGRLzC/HyfKwvMdtxanZ
-         u2IA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WalPdExM
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1014833e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:15:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792512943; x=1793117743; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WQHzKVqYaZwJZUC5Pb2xzxfXVpRRuYjJWgJcr6l3L5Y=;
-        b=aPwbeMPzAdLLeNAORWON295qh9yETXyJc5a/Id43rICPN6Spi03PNjK9LcYxQJBDdB
-         IrZrzj8BxqqZrDjlCJpTkSD5UTyM/53aZvsftbz7fUYKor2pNOyBIFKdFhCXP8wMnUbV
-         QvsxtYuhE/JIVqy9XioMAOfY6L9gjyOxqXj8ALZXcU5bg+T3YUubiCqjlTiLVZpGxaY0
-         ZzlHMlQVRJ9EbI7JOgh720G1k1xuodMFKrj5hMYsfbU4zt7L6wc8wLrIeCgFGNMzPsHg
-         EqG+OmqbSuDt2Vj/ZNLsMsS0F3yTzXI/LoT/r11AcyBrGUuF5h0S6OP0W0aUeYkDUEIn
-         QYKw==
+        d=gmail.com; s=20251104; t=1792512957; x=1793117757; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UhDQRNkc9FLSlLZbPo9WwVAAHQKsjx+zb2EBe+RwcLY=;
+        b=WalPdExM7lHlWsTDznBX0Fyl06synozvZt4SX10rtsmo96i+4x8Zp8kY38DMvDvoAG
+         MWRjRFWn53CppNgFs0ngLw/6OtF3BoAXiUFzYSZPYJOeocKSt0J7fT0g7iAEsz3JpsT+
+         2r4FZWHtl8viYqxcPox4gn8zszaNPUXtg0cae1c/0YoLHGZ4oqBiLqTfpX6o6379QUC2
+         WP+L4eOyj1WuN60IeQSfZEI6hp8231lcqW2QoGSAH8b6A8xrR9MXledPJRkNSasLjick
+         Lv7ltYgNOVEkIbRbhiijTH+RklXVrFsjuv2a1Mb0ImqW2oeKCM3+N7Mmzj4RsUbKdjdT
+         LZiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792512943; x=1793117743;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WQHzKVqYaZwJZUC5Pb2xzxfXVpRRuYjJWgJcr6l3L5Y=;
-        b=MYjofVFO8XRfa7FBstC587OcfnR7UigwnaZ90BHCq3SYvJb0x+QCL7JsCi1vnU+qcp
-         /lgdYtskAEto3yE6lT7zKAqrjAZBvtOrmSDgzNaLYhUqyUlq5WM1+bsNN19iIkZE+dug
-         Hm0/O2zAtXx1OQD2R78Bb4V+pWVBj2xQDbiDtRx73i3JS/EJQvlu879rg8EiLFx+zzOS
-         430gQapqGoOUPM+UvXivVYYWDjzQxkl6pT7vONHgALsN7wULH5fcvSjUgco/QYOo/qd/
-         YbCa8wacYxlzV15ZskZzQoqg2pkw4fygXAAnPZ9ECMzsDdz6Vne++/9mYlziB5pfJqiJ
-         cqWw==
-X-Forwarded-Encrypted: i=1; AKwUvBynFALr8tCNR3YWX8quf6EHOt1ex9+r56djCDbznhn2TnVqlU4WEsQo6zWBECRMTEc7LLbf47CxSnyMbCk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHO7+5ixRiEiAH5rJhshqlld5GjInE/I/JWDyBG2NFYqXVhUav
-	pjWPiWKWR5FM1/7bZ8vo4wtHiQs2Tf52UHQdsOj5mzjuOaADPWL+b/EyF4ZV72bxZ+1PFG0tHze
-	b2FaPWZD13PrjvYbdeAxdeCv8U9rFAyA=
-X-Gm-Gg: AYBFou2iO6P4vqthn7RTC2RuxoT8FniTLD4XGU1x7i213VNKMHXP5wO1+MXBNnSqGll
-	LMt+zupN2o8dSddRMM9vHBwRpHrjN5DvXJsJS62gA85Zwl/sl/iDcwTdrUTGSx7bIhD8h9Er1Pn
-	LXXerjitHMpUzh6FUrXBZ3bOnWMpI9rIcMnkA6vgU8ske9Lq0CVuJSb8r6keQN6ovu5xm5YPkwB
-	Is9Aq+BYWcypR3oET5E8nA2Xnb1ArB0w+vQJtqAcvPsAAdq0HzLhXfG3iFTSdgEIvvLiFMg0DHO
-	NwEazNrSvhGnmFHTgxIPMei3SA3d3g+xd06GUOH9kmxzo0VDl145HaB05NYHMxICGPQ97AWC4/A
-	pOXsfZctEe2Y=
-X-Received: by 2002:a05:6512:1289:b0:5bc:b375:9dbe with SMTP id
- 2adb3069b0e04-5be50a6b0d2mr3742796e87.45.1792512942267; Tue, 20 Oct 2026
- 09:15:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792512957; x=1793117757;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UhDQRNkc9FLSlLZbPo9WwVAAHQKsjx+zb2EBe+RwcLY=;
+        b=fCKW/UW6khi6zgAJg0OdSEWmnMdEXzK0piOqUgvP9mhOO8CPe34UC63eRGr79SropP
+         UVfi+V6LcHb+7UDspYq6KwRKvPGqe3erQRzuEZfhm8dM3cIhkckTQHNRwPlpyq1WC78A
+         BToC750zq8t7pr5cgpngT/a8qKuLMtHNq++hTM4X8uyuGlxHR0Qvw/uMIt1XR4t6EIfN
+         r2zl1weIokjq+d79bXOljj82qdZ4SWe5Lt2ah40kHcPY+HNfn0SkNL0KcBtif5UvDOBD
+         bCtZdX2PP3DDBGtEKplv6n6ECU8pzY/AcWnVW4ADlqqWJM3CkB6b9AhpHNQCC9ZOVdYQ
+         UP3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxUPk6UrfBWG6Bsq6GEOgkxumWbEmAf93p2FH6BfhEU4NOWNF+JHAEYNWjDKApwISaxsBD/oNSAj3BKOvc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHXUdGTiOL5nMlUkhppALa5bLFZO+FXcyh93hR6eAzLxzZ1oX7
+	a3p3ricTR3D1nHKIFkc8Qova18HeH6uHvzDfopf8ikB6MbNytL1ltXSS
+X-Gm-Gg: AYBFou3g8Mn9WWyo0CciqeMzzhKuq9PC35EUg1QPq+UFKSV0uAHGGGWHy/9QZketIDH
+	t+0pKn9Mm4yoYsc74NJY6Rb636hAL/J7x/PNDYzPO+aCskXeo2PXwqBVskHDi8BOsiRiRFUi1MS
+	VEsPxvwUl315t0g20mBy5tx5pc0uKEhbc9tu1mVobCxRIRpP326O3GNRe8AnpOqjS+wof8NCPg3
+	y3WSktUmSZsMPswKVqrMuBTlSUalwETeVUdhXxzVhudT3RcBYZUx/n8hcy7CTjp69HohrDvPPp0
+	Litj4y5oUjpTuF1HhXFVD0JhsPf1YYnvtH+sgOcBfWbYUBlIRKEbh0A/5fnNhLP7xCrZyQpOmcx
+	1XnEOszQ1ds3427wtDKRnXUZJozIjKcpPUpLu7CZ0r+m2oySDGRAsLBzriEdL3VKYQFzMVK/oOT
+	TnUV2Cinl3XxF37x+pdtIBO9lJVKMkHNFgfddL6lXA0VwBVhGBNWpmM6P8qGrLzFKmxP/s4iRYb
+	7S/5OV9j5hD4sLuQXilRgnn72gXl5tZTSMW9ARfWV4mEA==
+X-Received: by 2002:a05:6122:4f97:b0:5ea:e197:93d9 with SMTP id 71dfb90a1353d-5eae19796f9mr498417e0c.19.1792512956788;
+        Tue, 20 Oct 2026 09:15:56 -0700 (PDT)
+Received: from localhost.localdomain ([190.177.181.23])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b518bc8sm12918381e0c.11.2026.10.20.09.15.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:15:56 -0700 (PDT)
+From: Cristian Papa <pcristian292@gmail.com>
+To: nbd@nbd.name
+Cc: lorenzo@kernel.org,
+	ryder.lee@mediatek.com,
+	shayne.chen@mediatek.com,
+	sean.wang@mediatek.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] wifi: mt76: mt7603: discard power-save loopbacks after wakeup
+Date: Tue, 20 Oct 2026 13:15:45 -0300
+Message-ID: <20261020161545.9330-1-pcristian292@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <6e7358fe-4070-4a88-b8da-77e2f9e9bdf8@nbd.name>
+References: <6e7358fe-4070-4a88-b8da-77e2f9e9bdf8@nbd.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,56 +100,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
- <20261011-sdm630-idle-states-v1-1-3181d488dc0f@gmail.com> <2e5bfe2f-f639-4c55-bb4e-e8893e9f098d@oss.qualcomm.com>
-In-Reply-To: <2e5bfe2f-f639-4c55-bb4e-e8893e9f098d@oss.qualcomm.com>
-From: Fabricio Akio <fabricioakio@gmail.com>
-Date: Tue, 20 Oct 2026 13:15:02 -0300
-X-Gm-Features: AclHuK_1LQ0hgYaSfB-TfSrT7gWRZXqvLPPkmi6DcPVVcEYrpgEnBAEw1acmmg8
-Message-ID: <CANxzQdH3eC97bb+eef=wizrxoB4XfvROzg8iHFxCrN_a+TZiSg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: sdm630: Drop the cluster idle states
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Alexey Minnekhanov <alexeymin@postmarketos.org>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Martin Botka <martin.botka@somainline.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 3:51 PM, Konrad Dybcio wrote:
-> I threw an LLM at the downstream tree and it decoded the states to:
->
-> C2D, no cluster state    2        0x00000002
-> C3, no cluster state    3        0x40000003
-> pwr/perf L2 D2D + C2D    L2 2        0x01000022
-> pwr/perf L2 D2D + C3    L2 2        0x41000023
-> pwr/perf L2 D2E + C3    L2 3        0x41000033
-> pwr/perf L2 D4 + C3    L2 4        0x41000043
-> System PC + L2 D4 + C3    sys3, L2 4    0x42000343
->
-> sorry for getting it wrong years ago!
+On 20.10.26 11:48, Felix Fietkau wrote:
+> On 14.10.26 08:22, Cristian Papa wrote:
+>> Discard late frames rather than retransmitting their old sequence and
+>> packet numbers after newer traffic or a wakeup BAR. This loses the late
+>> frame; it does not recover delivery. Use the station's sleep state, not
+>> the temporary hardware PS bypass used during U-APSD service periods.
+> Why did you decide to drop them instead of pushing them to immediate tx?
 
-Thanks! I had decoded the same values, but I didn't just put them in
-place of the old ones. This firmware supports OS-initiated mode and
-refuses platform-coordinated mode ("psci: [Firmware Bug]: failed to
-set PC mode: -3", PSCI DENIED). In OS-initiated mode a cluster state
-may only be requested by the last running CPU of the cluster, which a
-flat cpu-idle-states list cannot express. I tried it: with 0x41000043
-in the flat list the firmware returns DENIED to nearly every request,
-accepting only the few that come from a cluster's last running CPU,
-and the idle CPUs spin on it again, at about twice the battery current.
-Linux runs OSI only with the CPUs described as PSCI power domains,
-with 0x41000043 as each cluster's domain-idle-state and 0x42000343 for
-system power collapse above them. I'm working on that, but I'm not
-sure yet when it will be ready, so this is not a placeholder for a
-replacement coming right behind it.
+Hi Felix, thanks for looking at it.
 
-Dropping the states is not the complete fix, but it helps now, because
-as they are they do harm: cpuidle records no successful entry into any
-of them, and since the deepest of them is what an idle CPU picks, each
-failed request is retried instead of sleeping. On the Moto X4
-that is about 133,000 failed entries per second with the screen off,
-and the battery current goes from 277 mA to about 115 mA without them.
+Because the looped-back frame keeps the TXD it was first queued with.
+mt7603_mac_write_txwi() puts the 802.11 sequence number in the TXD with
+SN_VALID, and with a hardware key it also takes the PN from key->tx_pn at
+that point. mt7603_rx_loopback_skb() only rewrites Q_IDX, so a late frame
+pushed to immediate TX would go out with its original SN and PN.
 
-Is dropping them first OK with you?
+On wakeup, mt7603_sta_ps() sends the psq ahead of the newer traffic, so
+the order holds there. A loopback that arrives after that drain is older
+than frames that may already have gone out with newer SN/PN. With CCMP the
+peer's replay check would drop it, in an aggregation session it can fall
+behind the window after the newer frames or the BAR, and on an open link
+it would arrive out of order. So I expected immediate TX to mostly spend
+airtime on a frame the peer discards.
+
+I haven't measured how late these loopbacks arrive, though. One that
+arrives before the newer frames go out would still be delivered in order.
+If you'd rather push them to immediate TX, I can send a v2 that does that.
+
+Cristian
