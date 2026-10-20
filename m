@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456499;
-	b=4hZeloytAPfJiCPNGRqWXXDdI1wcJ1xNIngOCae2AtrqNk14DYQrZQrUf48VJyinTw0s
-	 xINMEQZTwD8j1lsKhlHdsXldZtpYnQG2C6F8ZgkTgj/BKPARPauThxBiuj0lUZkZvCnF3
-	 3x2VtQr37HQ4b6jC3dJGN/ASmaPw+/Jt8qcDlsmp4Mre75n20UQRjtYflgQuEO6/hLSjL
-	 a62ECEv2m0nUhLJCKfkUO1GAn4WoDIvWIsCQ0kTGlBcEDw9V4oUn9auIKeSniMAxrEgbF
-	 HdfvHVp9SO7NY+djlX0LyWyYoFl0ZqcKFvMGmvQXB8ioVT2V8JTmwNHbNnVDvG6q8xA==
+	t=1792456503;
+	b=3Cfd8S4J08FEo8zB37ghqFXbbN1R6upYSmBnw2orZTLNi6UNqf3tdjInXMMRPVt109o5
+	 m4JfxfTWjLGDAXxFMYBMDA4SHgZqVnj9Y/AEA0Nm7pSDHPkAcAAZw5IGTQ2foTgxgFgnO
+	 lzBYMVC9CyMUqOhSughoTsSXFfeC/nYwExpxteikQ2X3MiB8dwTSL3MTbVjA+93oxMMK/
+	 /Dqr238Aq2QVfgmL6dUzmJIw1vWzjXNU6QnpKLQP9Hn+mUnoYxooYP6L9pJ7A8TUKIQ1Q
+	 S0WODd/yjfh8rjgchwgDXR++7r41AAgM9cWbqwl7t8DfQHvKvTEbTht5lTBs75dyUxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456503;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=c89tPWE7TD+mBXUxyRxjAoNGWIRJD4P5B4nfsnBwK/Q=;
-	b=RRvKCoh+1tVYf1CXjLk5tupeJq1++7DekBbOZfjfF8zkh28i9KjG7FEQYQ6ooXH/YmvX
-	 gFao+z7Myey0JRIZoxHZb94XMcuFDPMK8GOJgUgM+LgjbyuRMFV7Zh92sXuB//zCvW1bK
-	 2aSS6WvXE5xj+GbEQZAx9xRuagzPbL8uGQ1urJeGdVM6+wFY1GZpdNYZK1PjyNgiaAuqF
-	 O4BDltSQvEE0Y8KxpaHhCHb03EUPHSshpLHbl/lv40+BKs0NNz4FpThUxzZu+hQeJwdSE
-	 A8zDFlRmKnKY8AZ1EyFoFMiyjrYjIR70Uonecmp8AE98BWeg9sKdlybDhBo1MLDE+EQ==
+	bh=OBz0ZWTSJo6VaFHPQJeL7weuIDpkBIRGsLQFEK0yJPs=;
+	b=UKZzaLvubFW+wzFVqjO/6x4zca4kHALAn5vXjs06zJNFMEXjpAb4BLKyqZe4nfD1MoSA
+	 u9ggU6payL/p4QI9MHib9KCO9vhUxdBK8XSLNWpzBnMANNh44XvUHHf55CHItl0ObfFpc
+	 VsN3HOuDosaEvnWoTXbLzR/RGq/q6s4IKjOXZdig/2rcA8k3iEibhxrcTlf92KMba0Ocq
+	 M+MDSfjsJgC8fT9/DD5R0OY7OVqSXVH0Fu+ytJxkL+9Txsrvvq0jmoP7AC2TSpOCBqvbY
+	 rh/DNuStVaiLlV49zbHEhaMsaaCucJszbqrev0JYfWsc1TRO3Y7DqoSWda7EKPVUx4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lp6v3VfC;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=V6e5n5Zk;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A68606A31A;
-	Tue, 20 Oct 2026 00:34:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A68606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E854606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E854606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lp6v3VfC
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=V6e5n5Zk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=c8
-	9tPWE7TD+mBXUxyRxjAoNGWIRJD4P5B4nfsnBwK/Q=; b=lp6v3VfCRb4B/kDT6P
-	TKCarpN2GYHEIxzkAGRWv0ZQ0VCYnWPU1Ik7FNTvGwo/x911KXCxSuDOz+6G9rUZ
-	nVedwV0tw7SKS/X32CVAFlwNbvO/mE6acJIFq82T41XUlzKOBkIKqv7M3q1QpcNk
-	+d2myfGzU3INwtzLdZ8Ch0r+U=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=OB
+	z0ZWTSJo6VaFHPQJeL7weuIDpkBIRGsLQFEK0yJPs=; b=V6e5n5Zkei/cx90LVf
+	sR4bFWeAr0uywpDF48XmJHX5VUscxSqd86tTNSX0aQK5AVjjTnVy2vxGgcih+7/N
+	lcywyLiIZyKpKOHa0GJ7HsoheotF9LkdJgBI6XRbE0hjrgMUSf6G1S4GmmE15xw9
+	zERT/9DLyAMZ0ZkGGA9w1GC8g=
 Received: from shaos.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v2Agt9ZqidJABA--.43909S2;
-	Tue, 20 Oct 2026 08:34:40 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDn92YVt9ZqVYMqBA--.11309S2;
+	Tue, 20 Oct 2026 08:34:30 +0800 (CST)
 From: shaos <shawnq1@163.com>
-To: jhs@mojatatu.com
-Cc: Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org,
+To: miklos@szeredi.hu
+Cc: fuse-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] net: sched: cls_flow perturb period wraps when scaled
-Date: Tue, 20 Oct 2026 00:34:40 +0000
-Message-Id: <20261020003440.1009437-1-shawnq1@163.com>
+Subject: [BUG] fuse: copy_file_range exposes stale EOF data when extending a file
+Date: Tue, 20 Oct 2026 00:34:29 +0000
+Message-Id: <20261020003429.1009226-1-shawnq1@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,16 +60,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v2Agt9ZqidJABA--.43909S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CrWkWrWxAryDtFWxtr47Arb_yoW8tF17pF
-	Z0ywnrtwnYg3W5JwsYyF48Xa1rua9ayr4UGF1kGw1kAw1akrn2yFyIv34jga47Grn2krWr
-	JFZ0gw18XaykuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0ksDUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8gBGVGrWtyA-LAAA3Y
+X-CM-TRANSID:_____wDn92YVt9ZqVYMqBA--.11309S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7trW7XF47JF43tr1kAryrWFg_yoW8tF1Upr
+	WqqFWftr1vqr47tF93CFW8Xr10gws7Aa13JFyqq3yxuws8Jw17tFWak3yj9a48JFn3WryI
+	vw4jga4xXws8XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Upv3nUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8RZDUWrWtxY7wQAA3S
 
 Hello,
 
-cls_flow multiplies the user-provided TCA_FLOW_PERTURB seconds by HZ in 32-bit arithmetic without a range check, both when creating and changing a filter.  Large values wrap to a very short perturb timer or to zero, changing the filter's timing behavior.
+On a cached non-writeback FUSE mount, __fuse_copy_file_range() truncates cache pages covered by the copy, then publishes the larger file size.  If the destination had a partial old EOF page and the copy starts beyond that page, bytes dirtied past the old EOF remain in cache and become readable after extension.
 
 HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
 git tree:       upstream Linux checkout, local branch master
@@ -78,25 +77,25 @@ source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
 compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
 
 console output:
-https://gist.githubusercontent.com/shaos26/e00f090da98036578d357a8ca70b6e3d/raw/fa14843487b13fb553ca73b2b16ed3db507c1439/console-output.txt
+https://gist.githubusercontent.com/shaos26/b7d8226d784c14ce316263de1779bd94/raw/59a9f0c87769dae27cff05ace7e808daa10ad2f5/console-output.txt
 kernel config:
-https://gist.githubusercontent.com/shaos26/e00f090da98036578d357a8ca70b6e3d/raw/6e1af5fc2bf4af2bafb39e23f087c47e62ea3ff4/kernel-config.txt
+https://gist.githubusercontent.com/shaos26/b7d8226d784c14ce316263de1779bd94/raw/441739e20934d6b36aabbbbfe5153d11b70dfd34/kernel-config.txt
 reproducer:
-https://gist.githubusercontent.com/shaos26/e00f090da98036578d357a8ca70b6e3d/raw/2cac1c5dd9e3ba3a9bdd55e803f3cd72088b9bbf/poc.c
+https://gist.githubusercontent.com/shaos26/b7d8226d784c14ce316263de1779bd94/raw/6ffd0112d0654714a15618f2877d9ddd1a9723f1/poc.c
 
-Build and run the PoC on the target kernel.  It creates a private user and network namespace; the first command exercises a value that wraps to zero at HZ=100, the second exercises a nonzero wrap, and the third asks SFQ to reject the same oversized period:
+Build the standalone PoC and run it on a host or guest where FUSE mounts are allowed:
 
-    gcc -static -O2 -Wall -Wextra -o cls_flow_poc poc.c
-    ./cls_flow_poc --hz 100 --userns 42949673 1
-    ./cls_flow_poc --hz 100 --userns 42949674 2
-    ./cls_flow_poc --hz 100 --userns --sfq 42949673 3
+    cc -static -O2 -Wall -pthread -o fuse_eof_copy poc.c
+    ./fuse_eof_copy --mode=copy
 
-With HZ=100, setting 42949673 seconds dumped as 0 and 42949674 dumped as 1; 1073741824 disabled the timer.  The boundary value 42949672 remained unchanged.  Three fresh boots reproduced the matrix, and the SFQ implementation rejected the same overflowing range.
+The program creates its own cached non-writeback FUSE server and client mount, dirties the old EOF page tail, performs copy_file_range() to extend the destination, then reads the newly in-range bytes and checks server writeback.  The retained QEMU run used the same PoC in the copy-mode initramfs.
+
+Three fresh QEMU boots read back 3072 bytes of 0xee from the newly in-range old EOF tail and recorded a server-side stale write.  A same-path no-pollution control and a write-based extension control returned zeroed bytes.
 
 Impact and prerequisites:
-This is a network-classifier timing and resource-control defect.  It requires CAP_NET_ADMIN in the target netns or an unprivileged user namespace.  The evidence shows unexpectedly frequent or disabled perturbation, not memory corruption or privilege escalation.
+This is a data-integrity and stale page-cache exposure bug for cached non-writeback FUSE files.  The demonstrated read is within the same process's file; no cross-process leak, memory corruption, or privilege escalation is claimed.
 
-Validation: Three fresh boots reproduced the wraparound matrix, including the uid 1000 user-namespace run.  SFQ rejected the same overflowing range.
+Validation: Three fresh positive boots exposed the stale tail.  The same-path no-pollution and write-extension controls returned zeroed bytes.
 
 Thanks,
 
