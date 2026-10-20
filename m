@@ -1,62 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792469180;
-	b=sHJI08ZR0BPoeMMt6NmEXZUa5sJjDZmEIvcn0I+c7cPHN+J0TVTIjNLFraZS1u2YmKLV
-	 Pq+BQOeG0zSsh17xE8oZhTqduREe2Dn/ZB0ma8GLmr89nKz5rW1JdqL5Vu283GrLEGHZ0
-	 Cesk96EBbqQ9eqJAZc98qERUotnlF/7Vt7ERyi8Xsgifixn4YenkTqYLsysIK+ek2f329
-	 JIkCdF4ub1WfqHlRc376TYrdkK5dyVpzmsjcoR43TCr9Jzxse8rQ7WD/kzKYjq6fdO6kj
-	 nGiY+e3vqu7tBDnXqJMBe8H7yULsAYlcvRfDQ/bTnIdTpH5Op+WQYoFZspiKZoAwzzg==
+	t=1792469528;
+	b=DLNw1ahcuUyompdbRF9jBz1cvW8nQlAdm/aDDu6hLxOPTE8AorgsGI/CA4yki5KZ+1a3
+	 dPKZfv3tHyPZb6Ly9fUTyXijSGeq+m89PbIaC9JktUo/W/VgOZ0ao9FGI8Duy1y4aqw0B
+	 KdITTA1qF5Z/ebZrIq7z5jaI46uVFPxHt8WQwNiCuJSkx8vtFK8fqGdZdJoIMt5AAFkDt
+	 7ys1VmUGuA97KktnUoUwJMwOz45djMcxQse9dC0MhTEx/gpBn5AeKD2zv6HARu562HjUv
+	 SkACwvjdYAIp8ve328Vi3ytPx2iP8KKFt284BrzjA6JffECHwCcHiIPCJh7TEziv+6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792469180;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=SlOD94vw3nOguvDcfYjJPVgYa5a7mmw0vwci1C2QK9o=;
-	b=QRme+W34P79LYnOoJhrXdSm8NIl9+2MQGqRHHmMjXrcZUwqLdmCOQk9RQ/40IfAZsHwH
-	 hd5wAD8CQZgHf8Y2LHEB7wMfoTwXB0+7br4vOX3RqvIERlYk0wTQ0LByLLRkYEVXNLsYI
-	 281+YG8AZ11MNT29fzCwlOMkAGkdePsHGxQz+apCK15WGsrUzNOm3Q7IoijkWA00TODPH
-	 HE42KFzWvJe6GYeI/H3kjs5o90JJbabGcOIzZi69ed8JEGFEFbScvbtE7gMRymV55KnvA
-	 kt7yfm0HfHGBKLxPS8wYRXPWiFiolUWiXyoLoc0TzpyJ3Z3Ls3VO7NgAbmm/1pxJhyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792469528;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=uAQVeBdqF8iBjUZznDFAjUGvJNEGAa606+53oDaEyLw=;
+	b=4fziOgOC9CDrxfwEc/Ao/yfw0dEdkTdWxdHxaZg8kXbF9kjlK1x4zW7TW9Q02bX8K7Pw
+	 aj7HpP7vwybXbX6GIAeHI+inGmAAm7075fmPt8Z+lrseSP+5lNWHI+Q0N37hWt6kThrgO
+	 IJICaXhCICznb4aI7WT+WkWed7hfF78itz8R36x0bOHYSYbtZrZkFajf8T11XlGMuqffa
+	 iC3HVNRqpwNrlLpCe3385edm8XgGe0RV9sXxcSKbu8NzYGDYELjkoXO+h6P5h8KkbeXrB
+	 VFt3zZExtM+HdPYeTu3Ox47FuRwW02tmnChqZycg2bh/4xXod021vjX96WqgHjtHP8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=CAN530zE;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bREnexKh;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D97606A31E;
-	Tue, 20 Oct 2026 04:06:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09D97606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EFE606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:12:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23EFE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=CAN530zE
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:To:From:Message-ID:Sender:Cc:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=SlOD94vw3nOguvDcfYjJPVgYa5a7mmw0vwci1C2QK9o=; b=CAN530zE09lhCPEh0rcTUl+pxN
-	GvyJwxeYjEmFNgBSkj1QrB1ztFkRGpTwDdyw4781owZq+Zc9qFLVxIFd9PRNMa98GJP076sNaIeg/
-	aRUDgQcNX4Xsuv2r3tuD/X1RyvceFLd2eW42gBacslkapRkPuijp7S+h/E9op4UqtmAN6TXD7R+t6
-	NZbPmFhdThSvOqxqqn2OLd3/k4a2B0chbyQIsIb1nwqqGYec21tZwHPpIF+dij8mxGOv01CBVJ67O
-	oG4+guZYN3nPQnD91RNixOL6trNg4fVKLpWfc6fWfyiiY8H8UCr1M0At3FSvJn7DD4/HTZcnjsxz5
-	kiRM6sfQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xJ171-000000042Et-3NqD;
-	Tue, 20 Oct 2026 01:06:07 -0300
-Message-ID: <8bb0534e33a5f5d152d2b1768d1fd7c6@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: syzbot <syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com>,
- bharathsm@microsoft.com, linkinjeon@kernel.org,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org,
- ronniesahlberg@gmail.com, samba-technical@lists.samba.org,
- sprasad@microsoft.com, syzkaller-bugs@googlegroups.com, tom@talpey.com
-Subject: Re: [syzbot] [cifs?] KASAN: slab-use-after-free Read in
- cifs_crypto_secmech_release
-In-Reply-To: <6ad6be63.a20cb897.960b0.0079.GAE@google.com>
-References: <6ad6be63.a20cb897.960b0.0079.GAE@google.com>
-Date: Tue, 20 Oct 2026 01:06:07 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bREnexKh
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a06bc723b1so1992974b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:12:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792469527; x=1793074327; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uAQVeBdqF8iBjUZznDFAjUGvJNEGAa606+53oDaEyLw=;
+        b=bREnexKhXahp6Bc9honRucDCkEreBwjOPgqmKVZi1KCtuI8Gi6q1oSNXOTDgPw0cp6
+         fXmDAVsHL5jwDGgSRHn5ZAEAkzYoPmRFdw/ut6rUhCb9zgKHLTbN4PdY4IBClV/rvIhZ
+         5oDaJr055lhCGmZnScl2BHVfWPcY9PtiKAvDA7WiFmAVgGMI/ID+lEUv/hyplMT2jz7Z
+         p51zsTmvLAgXQGfVLGtENWquS6NPwrLqY3n5OOb0hWGX5HDnxJEfhpGPy2PZESQu1Q7C
+         hd9k0FXu7q3vcN4/DUUXA2/ekGm4LWjYRkXqaHx4zoh4iusbjor2W9B3eBU12mdugD4t
+         U0EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792469527; x=1793074327;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uAQVeBdqF8iBjUZznDFAjUGvJNEGAa606+53oDaEyLw=;
+        b=ylcR73PT8axY5bfcO0sblxW/DJoSMP98FCwe7jZfPkmsnzQCgT9gYmxCvZcOOFoR11
+         kPbSFXxVmZOH9FxAkxBLrrfMwpXY7Ux5VQOvZHSpwV9XeUAWezs9AshXnw3ZYCrl2psd
+         8g3ujTJbz68kg0g/tK7hFgSz2AMj4bMiImTSip3RKlEfOOHgJHzd5QZZ5h1xWBXqF3Hn
+         T0DmHxTg1wEl+TlLB19UU5UVTc6r7T6JrM7eU7OflEMVNMtRKy0QpzL3y9IfWDvsVEW0
+         79orx8n1xoC7CMPnBc8lArtfs8MAiEqqvpoJu4GiByUZXlFCIBq8w/8oCx5IoBj/7+Gw
+         /jfA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVx3ijEVrcNgAJ9metAhj/HHjsqup9jgRmwR3y0cC54LxxcI3wDRS5r1V/oRrxeHHxcJdwy3e9/wfAmKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl/2LvZ64EUlnY+d+KIcJmWRCgyJSL7tax+EDuIM97YXFmK/4h
+	Iiis8pP++bWbv/WUXYxlHCGB+8VOibUKsIXa93yiLy4KWLndwxrSwdkuBY0tWyUfbdieaK+UyEy
+	05DABYQ==
+X-Received: from pfbcj24.prod.google.com ([2002:a05:6a00:2998:b0:889:4fa3:fafc])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1f12:b0:89f:9da8:1b66
+ with SMTP id d2e1a72fcca58-8a04cc2adfbmr7226294b3a.33.1792469527213; Mon, 19
+ Oct 2026 21:12:07 -0700 (PDT)
+Date: Tue, 20 Oct 2026 04:12:06 +0000
+In-Reply-To: <20261019174152.2932829-1-cjubran@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +79,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+References: <20261019174152.2932829-1-cjubran@nvidia.com>
+Message-ID: <atbp-Zxbm_Os6-mT@google.com>
+Subject: Re: [PATCH v3 net] net: skbuff: don't copy alloc_cpu in skb header copies
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Carolina Jubran <cjubran@nvidia.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jason Xing <kerneljasonxing@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Dragos Tatulea <dtatulea@nvidia.com>, "=?utf-8?B?QmrDtnJuIFTDtnBlbA==?=" <bjorn@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-#syz test: git://git.manguebit.org/linux.git cifs-fixes
+On Mon, 19 Oct 2026 20:41:52 +0300, Carolina Jubran wrote:
+> Commit 68822bdf76f1 ("net: generalize skb freeing deferral to
+> per-cpu lists") added alloc_cpu to struct sk_buff and placed it in the
+> headers group copied by __copy_skb_header().
+>=20
+> This is wrong for newly allocated skbs. For example, skb_segment()
+> allocates a new skb and records the current CPU in alloc_cpu, but
+> __copy_skb_header() overwrites it with the value from the original skb.
+>=20
+> If the original skb was allocated on another CPU, the segment may later
+> be treated as remotely allocated and unnecessarily deferred there when
+> it is freed.
+>=20
+> Move alloc_cpu out of the headers group so it is preserved across
+> header copies. Copy it explicitly in skb_clone(), which allocates
+> the skb object directly instead of going through __alloc_skb().
+>=20
+> This was discovered while investigating a throughput regression with
+> software IPsec. The load used 512 IPsec tunnels carrying traffic over
+> VXLAN, with 512 parallel iperf3 flows and an MTU of 4500.
+>=20
+> Before the fix:
+>=20
+>   16.09%  queued_spin_lock_slowpath
+>              |
+>              --15.90%--_raw_spin_lock_irqsave
+>                        |
+>                        --9.37%--__slab_free
+>                                  kfree
+>                                  skb_release_data
+>                                  napi_consume_skb
+>                                  mlx5e_poll_tx_cq
+>=20
+> After the fix:
+>=20
+>    6.84%  queued_spin_lock_slowpath
+>              |
+>              --6.57%--_raw_spin_lock_irqsave
+>                       |
+>                       --5.00%--__slab_free
+>                                 kfree
+>                                 skb_release_data
+>                                 napi_consume_skb
+>                                 mlx5e_poll_tx_cq
+>=20
+> Fixes: 68822bdf76f1 ("net: generalize skb freeing deferral to per-cpu lis=
+ts")
+> Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
+> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+> Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+> Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
