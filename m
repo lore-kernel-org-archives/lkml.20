@@ -1,97 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792537027;
-	b=3Ac2oQi5kqofH+PcZSvpKiaXyic5Ssb5qjlAz8ZU1QyxC1aEWQdpOLNaCbm3e2R/jG2d
-	 klmqVq9Dyu7pL+Oifnp0L9scmHhKXuTbxdFT+jVAK7MPDEdACpZfBXPDtNDY+618p6wb1
-	 njzu3Jntk6aJF8c4xR3Uf0IAyJoYEzT4LIHcP+6mp3rmZYAn5UVog8xWxM26ynz2cv9ta
-	 R0Rnx6uO/EjN92+exewEo1GnG2HwHNVN7ikpqeb6b2USYyKe27uGe9tX9m56fJjebE1f3
-	 EaQ00I/LYN/ytaTu1jry5b094+k0bH55u5V6IQGDMhNp8brp0Sj9jH9Sn3jtmoGpGyA==
+	t=1792537078;
+	b=Wb9AQkLQSGp/hoDGDiUeGX14c9s+JL3R1sCPrwwQU2yZAOh1igA7sRw55LI58ZLdqMLv
+	 70gJWrZyYNp78N+vkFXcdltpUAx65jzBFId7U4Tj6v8k52O09Mn9B2dzXgTeVVnvyu1z5
+	 cw7xwTIKnRFIHZ/FtP9rtlWJ7QLj5Kvq27w0zV+oHYq7IXrNxi1dO+HgrNVek5CIhp/eF
+	 TRk4vO6Ie4jtlVmcORWn5bjM8B5V5IEoHXU1c/Nk4FXSwZTKvUegy2KMkG7X5exWN+uAu
+	 f5b8+1TjnRFKGqRouqv/cai159X7/K1klcIDSa4r7IbVvV7AxDYjQ7+kW2XFCI/3q0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792537027;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bVH1fJHf5vkXaa9LWZIGqzT2wgp2XysB6VORD+LQhvw=;
-	b=MdghhXiBnQXU1A5rSwtWWkLuuRnt7zwWLPQf4Kx6U6HSEInXw/eXXwTJ+XGBk10Lpq2B
-	 i6kqaEfybGBnwKFl8+npCgWOLtiTBX7ekj5flmbw1MaseFoqDHBmv5c74iemmfQ3GakAh
-	 JaRMYRCMeA/X+D2zkRnWB4mG4t5nHcqgRELAoFL59KrEVl/faJgf9BiEDYrkn3yM1E50M
-	 HGil64Pg43dG3nVAYuc1BfyH+Qp20110g6LVegiT0YnMuU/yPAi0ZRFLb0o+4pgJez9IF
-	 1IqZLcvPUYAaoAk9pWnGhKe0UOJ9TaZOnt+t8YqtmP8nc0MlLkXy4omdsfnK+jXMsNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792537078;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=LUNshFZqZaFXxW/P7Xs7mH7j1VD6LUQBsJ4amtdaKOc=;
+	b=2/nAgEM8kYtmOLYtTqSG5r5CR/1SimVgJM4962B1zF58rvsi7f7cpmVSv42e3gJmNvHa
+	 yULJO9rZd4EzjlVOeuLJRnW/UXYecZB26Rf/msUu6dH29NcU4rgZh9EdSxO/thu4hviv9
+	 bbrVvoy5bt/fGNwlL0z0RmzXPnfo35UnEjUD/gwHYJfth7VdeowE/jji6lMfZO70V1dXh
+	 BdOBdR3cj5wIYqrwz86Q11g5bBti4jQIL+4PBEzh5o8uE0/Vma/PmDHnalEf9R3fZM7gm
+	 ABcktRO/y8szeZkLgbEttGuxI8un43GQUCurI2vMaJM4cquMdj1gdjBa7xd8MCT64hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DdozBHqU;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMYKqaK6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB20606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:57:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB20606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77E3606A319;
+	Tue, 20 Oct 2026 22:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DdozBHqU
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso109250f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:57:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792537025; x=1793141825; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bVH1fJHf5vkXaa9LWZIGqzT2wgp2XysB6VORD+LQhvw=;
-        b=DdozBHqUDBzjiHMLGZcAE0TBmdgteIvD+UXOVDOyF1dw4jIK/arG4W0oHYIMrMoJqA
-         Gj4Utzf9gPeDDLGJAg3KQ0LWQMYSGGwLbYpxHB2k+Y7XWEI34dToIDek4EGPC4Vts2jV
-         MPz+UPjpN/jMsa0RZXRSf5+7urqLXi4RSmKaTRJqH0ZzRfIakCdmeSfObivYbm9JjuSc
-         yue4IBxEKidcnuMtUoTNa07vUHjQg78ALTk6P9+u3ZJ+z0zaeEK8UQ/K/7/5GpOcNbFi
-         HGzCzZqejRAcSdiWmu61KG7ect6sezy6/7BGcRWWD88tlg6oSiAquiv+NMBB2q5sen42
-         iD2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792537025; x=1793141825;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bVH1fJHf5vkXaa9LWZIGqzT2wgp2XysB6VORD+LQhvw=;
-        b=0BwGwo8cnThBaqUdGZ6b1IHN34QbjOULK8Hhd8/Q1r1HTzt/kj//SmM7nden8GQkRq
-         0uK4IwuWk0LlTACeM2nSeixazsdFj2oEUDEf1frEOaa0cJOYVIDrY8FrFby6qSunrSnk
-         JGuQiZ+QKmYZr+uviVxDheNp83cxJEbyU0GA/ByF9RkKNsUGZBH1Pesi6P7H7okEx4f9
-         v19GmRtSdS2XJNZ5dLS9DueSM4O/Wx0lDFgEPItPo/Lv6DOnyxGfMFO+y4hDg/u3hQjo
-         M29QMXz1FGtokcDtbq+3lrAtddfCUe9VIbc2UETiHOeo/wpsEyN+QK1t0QVWTskjSa1/
-         e08A==
-X-Forwarded-Encrypted: i=1; AKwUvBzJFXBCGHJl9m1dRWk69sRWVEtDLD/hAPa+fPOghMyhUZjL2Z1UvTp+jT2RqKrlBeTrbFX4UvJjukp/kSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCYYYJsPVO1cJ/oSen9u/jq2FYn/Gceyf0dZ4fmerQ8T3Rxk4Z
-	p4X1nq4n6gzEaYiefa8PeQ2LKWdmoBILmpjA0Xrd56QF/vNqsN+Ou0QW
-X-Gm-Gg: AYBFou1rNgmuYqt0q0fdB5CwfI9LQRLlumXEnWFrFZ51FawudobvrMF4R1XhCKT4rGi
-	kCvcJkMyda86/R9bYI0XV+BF74CFrRAMhmyt51fWqDNEPP85z0ooTe+i3J5KUhwGxiuxiDk84zo
-	xFBO/lbAIlVaIX8KynpRwuBa5B5Fge0I9zGFXzkFvijt1SdlyPgj4ACQKKqdAMlq6MQUG2bTlaM
-	Aztmx3C2zOZ/xnRqcZeOI+gPCyjuibbRr8YJSjEgM1a5dICkL7vSaT6FvnDTpexpf/bjJCty2+s
-	poh5HG5jjvORR6uQzKuI8osNCsd1Y5nyjrILT6Es3kZEseFJgKoH85l7a4ClZ42KYFwjwGoLEw7
-	R4QkwUeqG371CJeQvsdR5TmCZh7e5Ca+E9/izxBxo49kFNluEHw4GoHZn4y6tMWHCwVYYx6jEML
-	Z4USuGThE/XvjWWfD9zRA1W2NlQzUFQ/7yx/0Sm5TosriJEToJ2+FNJv+0fmU1NDHXvxGkAszwV
-	eHAgUBeHA==
-X-Received: by 2002:a05:6000:992:b0:48c:4a62:9af7 with SMTP id ffacd0b85a97d-48e264c01e8mr221660f8f.28.1792537024962;
-        Tue, 20 Oct 2026 15:57:04 -0700 (PDT)
-Received: from foxbook (bfd231.neoplus.adsl.tpnet.pl. [83.28.41.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2583ffa8sm1292244f8f.51.2026.10.20.15.57.03
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 20 Oct 2026 15:57:04 -0700 (PDT)
-Date: Wed, 21 Oct 2026 00:56:54 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
- <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>
-Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
- on xHCI
-Message-ID: <20261021005654.23517441.michal.pecio@gmail.com>
-In-Reply-To: <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
-	<20261020184244.69b78d5e.michal.pecio@gmail.com>
-	<a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMYKqaK6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC8D1F000C9;
+	Tue, 20 Oct 2026 22:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792537077;
+	bh=LUNshFZqZaFXxW/P7Xs7mH7j1VD6LUQBsJ4amtdaKOc=;
+	h=Date:From:To:Cc:Subject;
+	b=lMYKqaK6AwmXSVYEXzBVi36tj/ewM5C/ubAsQ2ptbZbh6bSlFp4R9xVw76zn5Y2iX
+	 Y+ZMatOe7NCAkXSWfMg37xyRqny8rXAMvXBs5mDqtClA6IouQWa/Pq7iACKoq2nFqf
+	 Ttvn/43IruIP+c8agDhI6BNNCMv4f43pbFLKjfMr4KHDT/yKBVey9/jBZK/XSpInH6
+	 kT3DSP6BkOvhOe2GHgxomiax3uDXZzuKb6TQmZd6B5xD9HWq5sceYD76lyY62YC3zZ
+	 McRNo92sPqtMuqMj31C7/KPEdh4WzkKgvV040SQTJou8ZmouzS0uu4akUOnmcqTaMk
+	 +7NeajAtOstlQ==
+Date: Wed, 21 Oct 2026 00:57:54 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: lkml <linux-kernel@vger.kernel.org>, 
+	linux-i2c <linux-i2c@vger.kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Subject: [GIT PULL] i2c for v7.4, part 1
+Message-ID: <atfu5GAnLLhoGn9N@zenone.zhora.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,101 +55,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Tue, 20 Oct 2026 20:33:17 +0200, Nicolai Buchwitz wrote:
-> On 20.10.2026 18:42, Michal Pecio wrote:
-> > But SDM4065A is apparently pretty modern (2025) gear marketed for
-> > "automatic production lines", so it's odd that it has such issues.
-> > Has anyone looked if the same out-of-spec descriptor shows up on
-> > Windows or (don't laught at my optimism) consulted vendor support?  
-> 
-> Not yet, but I'll check on Windows. The vendor(s) don't really seem to
-> care about the bug (surprise!). It is known for quite a while and even
-> not fixed with the latest 2026 firmware for the siglent. This makes me
-> assume that either most of the professional users a) use Windows or b)
-> use the lan interface (which we do for most of the stations).
+Hi Linus,
 
-It's worth trying, because sporadically we see devices which enumerate
-differently on Windows and on Linux for some stupid reason. Although I
-have a feeling that this won't be one of those times.
+here is the first part of the I2C pull request for v7.4.
 
-> > Maybe Windows xHCI driver tries to enable out-of-spec maxpacket?
-> > We could do that too, though IIRC not all controllers are happy,
-> > so a SW workaround may be unavoidable.  
-> 
-> Did some quick tests and it looks good so far. If the usb maintainers
-> can agree on making it less restrictive (/ compliant) it would save
-> lots of efforts and the quirk would be down to the ZLP patch. In my
-> tests all three devices worked with
-> 
-> diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-> index 8a8636279e844..c4306482874eb 100644
-> --- a/drivers/usb/host/xhci-mem.c
-> +++ b/drivers/usb/host/xhci-mem.c
-> @@ -1505,7 +1505,9 @@ int xhci_endpoint_init(struct xhci_hcd *xhci,
->                  err_count = 3;
->          /* HS bulk max packet should be 512, FS bulk supports 8, 16, 32 or 64 */
->          if (usb_endpoint_xfer_bulk(&ep->desc)) {
-> -               if (udev->speed == USB_SPEED_HIGH)
-> +               if (udev->speed == USB_SPEED_HIGH && max_packet != 512)
-> +                       xhci_warn(xhci, "EXPERIMENT: keeping HS bulk maxp %u\n", max_packet);
-> +               else if (udev->speed == USB_SPEED_HIGH)
->                          max_packet = 512;
->                  if (udev->speed == USB_SPEED_FULL) {
->                          max_packet = rounddown_pow_of_two(max_packet);
-> 
-> So this looks like the better fix. How would we want it gated, a USB
-> core quirk flag per device, or per controller?
+The main changes are the new Novatek NT72676 driver, the qcom-cci
+clock and timing updates and a collection of smaller driver, core
+and DT binding improvements.
 
-[Cc Mathias]
+Between family commitments and conferences, a few patches didn't
+make it into this round. If the merge window gets an extra third
+week, I'll use it to catch up with some of them.
 
-Good question. Do you need this fixed in stable?
+A second part will definitely follow, probably on Sunday.  I
+already have some patches queued up, a few waiting for
+dependencies to be fixed and others simple enough to be safely
+included.
 
-Depending on regression risk maybe we could get away with no quirk
-flag at all. That's what ehci and dwc2 seem to do, which means that
-hopefully no device specifies illegal packet size while using 512.
+Meanwhile, I wish you great holidays, both under and above the
+water.
 
-Other possible risk is some device doesn't truly care (no transfer
-is ever large enough to matter) and works with 512, but setting its
-requested packet size (needlessly) breaks some xHCI controller.
+Andi
 
-Such devices seem not very likely to exist, though more likely than
-the former kind, so I will try to test whether such xHCI breakage is
-possible. Preliminary results are encouraging: although several of
-my HCs reject packet size of 1024 or corrupt data, 64 is accepted by
-all but one. I haven't checked for corruption yet.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-I will also see if I can figure out what Windows does in such case,
-because doing the same thing as Windows may be the safest bet.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-> >> The Rigols still have one issue I can't work around. They split
-> >> replies over 500 bytes into several transfers, and a follow-on
-> >> transfer that ends exactly on a packet boundary never arrives. Raw
-> >> libusb shows the same, so I guess it's another firmware bug. Should
-> >> be fine for most use cases though.  
-> > 
-> > What exactly is the sequence of URBs you see vs would want to see?  
-> 
-> The Rigols split anything over 500 bytes into two transfers:
-> 
->    REQUEST_DEV_DEP_MSG_IN #1
->    IN: 8 x 64 bytes (12 byte header + 500 data), then a ZLP
->    REQUEST_DEV_DEP_MSG_IN #2
->    IN: header + the rest
-> 
-> That works fine, unless the second transfer happens to end exactly on
-> a 64 byte boundary (e.g. 640 bytes). Then the device just never
-> answers request #2 and the first IN times out. I also tried leaving
-> the ZLP from #1 pending until after request #2. That fixes the
-> boundary case, but then the device randomly ignores request #2
-> instead (roughly 1 in 5). Raw libusb behaves the same, also with
-> maxpacket 64 in xHCI, so I'm pretty sure it's just another firmware
-> bug. What I'd want to see is simply the second transfer arriving :)
+are available in the Git repository at:
 
-Doesn't look like any obvious xHCI problem to me. Did it also happen
-with those USB2 controllers that you used previously?
+  git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git tags/i2c-7.4-part1
 
-Regards,
-Michal
+for you to fetch changes up to 0f6be986ad0eb6fe7338d963a14eaf0dee87677d:
+
+  i2c: imx-lpi2c: remove dmaengine_desc_free() (2026-10-13 15:55:40 +0200)
+
+----------------------------------------------------------------
+i2c for v7.4, part 1
+
+A mix of new hardware support, driver improvements and smaller
+core, DT binding and documentation cleanups.
+
+Core and helpers:
+
+- acpi: run ASUS and Dell touchpads at 100 kHz to avoid lag
+- core: return bool from check_functionality() and update users
+- smbus: limit block reads to the caller's buffer size
+- acpi: mark I2C transfer buffers as DMA-safe
+
+Drivers:
+
+- qcom-geni: several firmware node and runtime PM improvements
+- qcom-cci: several patches rework clock selection and timings
+- qcom-cci: enable SCL clock stretching
+- imx-lpi2c: fix DMA mapping device selection and cleanup
+- designware: tune RX FIFO thresholds to reduce interrupts
+- i801: respect SPD write protection when probing DDR5 modules
+- bcm2835: fully initialize clock configuration data
+
+Generic cleanups:
+
+- mux: simplify channel lookup and firmware node handling
+- core, busses: tidy up ACPI device ID tables
+- docs: clarify adapter lookup and fix a client driver example
+- xlnx: update maintainer for Xilinx IIC bindings
+- ljca: remove redundant adapter deletion
+
+New support and DT bindings:
+
+- add DW compatibles for Synaptics SL2610 and UltraRISC DP1000
+- allow six DMA channels for R-Car Gen5
+- add Allwinner A733 compatible to mv64xxx bindings
+- add support for Novatek NT72676 (new driver)
+
+----------------------------------------------------------------
+Ahmad Byagowi (2):
+      i2c: mux: Factor out channel node lookup
+      i2c: mux: Propagate firmware nodes to channel adapters
+
+Alex Tran (1):
+      i2c: busses: Use pm_runtime_resume_and_get()
+
+Ben Huang (3):
+      dt-bindings: i2c: Add Novatek NT72676 I2C controller
+      i2c: nt72676: Add Novatek NT72676 I2C controller driver
+      MAINTAINERS: Add entry for Novatek NT72676 I2C controller driver
+
+Dmitry Torokhov (1):
+      i2c: smbus: make i2c_smbus_read_block_data() safer
+
+Felix Gu (1):
+      i2c: ljca: drop redundant explicit adapter deletion
+
+Frank Li (1):
+      i2c: imx-lpi2c: remove dmaengine_desc_free()
+
+Geert Uytterhoeven (1):
+      i2c: bcm2835: Make sure clk_init_data is fully initialized
+
+Hans de Goede (2):
+      i2c: qcom-geni: Use device_set_node() helper
+      i2c: acpi: Use I2C_M_DMA_SAFE in acpi_gsb_i2c_[read|write]_bytes()
+
+Harinn (1):
+      i2c: acpi: Force ASUE140D touchpads to 100 kHz
+
+Hitesh Patel (1):
+      i2c: qcom-cci: always enable SCL clock stretching
+
+Jerome Brunet (1):
+      dt-bindings: i2c: mv64xxx: Add Allwinner A733 compatible string
+
+Jia Wang (1):
+      dt-bindings: i2c: dw: Add compatible for UltraRISC DP1000 SoC
+
+Jisheng Zhang (1):
+      dt-bindings: i2c: dw: Add Synaptics sl2610 i2c
+
+Johan Hovold (1):
+      i2c: core: document preference for i2c_get_adapter_by_fwnode()
+
+Krzysztof Kozlowski (1):
+      dt-bindings: i2c: xlnx,xps-iic-2.00.a: Drop bouncing mocean-labs.com
+
+Loic Poulain (5):
+      i2c: qcom-cci: Switch msm8953 to the CCI v2 timing/rate config
+      i2c: qcom-cci: Support per-mode CCI clock rates
+      i2c: qcom-cci: Add 19.2 MHz timings for the v2 CCI
+      i2c: qcom-cci: Share the timing table across CCI revisions
+      i2c: qcom-cci: Enforce the required CCI clock rate
+
+Manuel Ebner (1):
+      docs: i2c: writing-clients: Add missing end of command
+
+Mukesh Kumar Savaliya (2):
+      i2c: qcom-geni: Use modern PM operation macros
+      i2c: qcom-geni: Simplify PM resume error handling
+
+Navon John Lukose (1):
+      i2c: designware: size the RX FIFO threshold to the queued transfer
+
+Oleg Keri (1):
+      i2c: qcom-cci: skip core clock rates the clock cannot provide
+
+Pawel Zalewski (2):
+      i2c: i2c-core-acpi: use named initializers for acpi_device_id
+      i2c: busses: use named initializers for acpi_device_id
+
+Peng Fan (1):
+      i2c: imx-lpi2c: use dmaengine_get_dma_device() for DMA mapping
+
+Thorsten Blum (2):
+      media: i2c: isl7998x: Inline i2c_check_functionality() check
+      i2c: Change return type to bool for i2c_check_functionality()
+
+Wolfram Sang (1):
+      dt-bindings: i2c: renesas,rcar-i2c: allow 6 DMA channels
+
+Yo-Jung (1):
+      i2c: i801: Gate SPD instantiation on SPD Write Disable bit
+
+YuXin Xiao (1):
+      i2c: acpi: Add DELL0A86 to i2c_acpi_force_100khz_device_ids
+
+ .../bindings/i2c/marvell,mv64xxx-i2c.yaml          |   1 +
+ .../bindings/i2c/novatek,nt72676-i2c.yaml          |  76 +++
+ .../devicetree/bindings/i2c/renesas,rcar-i2c.yaml  |   4 +-
+ .../bindings/i2c/snps,designware-i2c.yaml          |  16 +
+ .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml          |   2 +-
+ Documentation/i2c/writing-clients.rst              |   2 +-
+ MAINTAINERS                                        |   7 +
+ drivers/i2c/busses/Kconfig                         |  12 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-amd-asf-plat.c              |   2 +-
+ drivers/i2c/busses/i2c-amd-mp2-plat.c              |   2 +-
+ drivers/i2c/busses/i2c-bcm2835.c                   |   2 +-
+ drivers/i2c/busses/i2c-cros-ec-tunnel.c            |   2 +-
+ drivers/i2c/busses/i2c-designware-master.c         |  15 +-
+ drivers/i2c/busses/i2c-designware-platdrv.c        |  42 +-
+ drivers/i2c/busses/i2c-gpio.c                      |   2 +-
+ drivers/i2c/busses/i2c-hisi.c                      |   2 +-
+ drivers/i2c/busses/i2c-i801.c                      |  10 +-
+ drivers/i2c/busses/i2c-imx-lpi2c.c                 |  20 +-
+ drivers/i2c/busses/i2c-imx.c                       |   2 +-
+ drivers/i2c/busses/i2c-ljca.c                      |   9 -
+ drivers/i2c/busses/i2c-ls2x.c                      |   2 +-
+ drivers/i2c/busses/i2c-mlxbf.c                     |   8 +-
+ drivers/i2c/busses/i2c-nt72676.c                   | 725 +++++++++++++++++++++
+ drivers/i2c/busses/i2c-qcom-cci.c                  | 334 ++++++----
+ drivers/i2c/busses/i2c-qcom-geni.c                 |  33 +-
+ drivers/i2c/busses/i2c-qup.c                       |   2 +-
+ drivers/i2c/busses/i2c-scmi.c                      |   8 +-
+ drivers/i2c/busses/i2c-synquacer.c                 |   4 +-
+ drivers/i2c/busses/i2c-tegra.c                     |   8 +-
+ drivers/i2c/busses/i2c-usbio.c                     |  12 +-
+ drivers/i2c/busses/i2c-viai2c-zhaoxin.c            |   2 +-
+ drivers/i2c/busses/i2c-xgene-slimpro.c             |   6 +-
+ drivers/i2c/busses/i2c-xlp9xx.c                    |   6 +-
+ drivers/i2c/i2c-core-acpi.c                        |  20 +-
+ drivers/i2c/i2c-core-base.c                        |   3 +
+ drivers/i2c/i2c-core-smbus.c                       |  24 +-
+ drivers/i2c/i2c-mux.c                              |  98 +--
+ drivers/media/i2c/isl7998x.c                       |   3 +-
+ include/linux/i2c.h                                |  23 +-
+ 40 files changed, 1241 insertions(+), 311 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
+ create mode 100644 drivers/i2c/busses/i2c-nt72676.c
