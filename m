@@ -1,99 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792528560;
-	b=CURHo9PUZOujv5VaFYPy3egVytALCZeGWS6a1YWNOheVYOmXgyE/KNPsL245QYhsu/ij
-	 3C0OXCEZlKFP2N1AAVMk24wu0RP4SqabD6LQpcl6ZoohDGPjJ2J5DPvmG6UvV4XyPOCTQ
-	 P50YODfAsaRmfQ7ZR3KNYLXnpOAAp6sz0rRDIjK8GxRIRIHBmHQ8Mpv3aQYyVBp8R+TGd
-	 PiO/9tPokZiRZkp2P6JT1mcLfTcOXXz9r6WYHSchb0tWvT7bzVH1n5QVtuS497csnDqVC
-	 eHjo0XH5IfgE1jS5Am0hLFGgcnaVPFU6D0X0EovHTxf4qBFDkwsRp5ViGL0Sdo3/X/g==
+	t=1792528634;
+	b=ZuxNHLj9m1QCY5lqQy7A+0G1UZ209I5NGVjRqoQk0S9ebyT5X2xPBAtiHOVNOF/sJPhi
+	 Wk/K2EDrHi6Wfav65jc+/+JIOQQIKnPjlD7D803NmFtJIRvCqm2OUQg3jz5CGr/mjOtkI
+	 MCZZATYfI/aS0h4z7PH5+NbRvi1Jxb1LHG+z5gE+rv9OFvKjxL+NIGDnwsF7/YM/S+3Xd
+	 7GNUTXOwDSwa/gPqb2ULTG2NxQl9ESjyLUzoHVoi2ARhxkjnuT6Fduruo73JG3on3SBoh
+	 FDo09aKq4cupzjQUHhmT3v+JSvBAX6aXLiOBEG0XiEHzat3hnBbIiUa73F/2jkIapuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792528560;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=njlJ33l5OqoDckYqSYGuylmOTQxiBjEh77NJyjCPwxM=;
-	b=L5ssjYIYTL/+84VlScvERs14/9y7kdzab2ZNmeB1rqG9bf71Q3MWd6BQewc9e95ZqQNz
-	 hprsDHeheIWlmm8sKQMG0Cg3wuJvsW2vcBC4VGQDTaYVMDRQtaD4MrUtAMGkYFyV2lr5K
-	 E15F6qYzoRqE9EteBBh350D3lpRReK9tKiTXqyr6oY9J3BF6s4vacjglPei6Mae2zUYYK
-	 8DALeS99mdLIA7s1GOWmJw11oSpHc9AcyApZaMjsGiLhXap0ZLctJVE6IXqPboZCoeHcB
-	 z5uX9dL11eiwdLVq3LHnNGa8iER5OFehPM33WITF54ADhxANOPtrDPVYg3OgDLJd5hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792528634;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+ngFPIv1lHkBdK5moaQ+BiuEEGR7VyeOEnL3dMr9mwY=;
+	b=KkYEnlPmHj6U3P7suWJigp/5P/TRjeiJO2iniIYKRYmMQOdlhPSIiLXYNQTXIQMJ9rqM
+	 LTt0Qn5m0/mSJcOyi295MBXFo7qza6sUIth4N1Vgl7PY9ELxSjRN6D823wv9GAL9MHBRJ
+	 +VCEpfkpCkFVQ+ku1aq47xkPzXJ8A+LKCVfxaWS9AaTJbR9DRLec/DXRvF3PcFy0VHpol
+	 kKYj9uaEJNyC/LMBsksuGf9ZSnj/WtY1mT25mNlGJVnV4sezpi2ZjFPTztamTlAsqWDSl
+	 Jo44Ifsd1+H5ExD7TRbfNlhsY051WPjaDvEu/YtwwQ8UkpXwa2akbXUG9HE4dd+EAeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=StuxCrmy;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LntxX1jQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CC6606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:35:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22CC6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2747C606A31A;
+	Tue, 20 Oct 2026 20:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=StuxCrmy
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4649b35bso5535f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:35:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792528558; x=1793133358; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=njlJ33l5OqoDckYqSYGuylmOTQxiBjEh77NJyjCPwxM=;
-        b=StuxCrmyILzFrEACw0ZRhYnkF6RJryUVmNsu9DeO5A58HPNS1DMQ3gp5FuCExjU3zm
-         cBNrOt0VT0QRNzvzGqBIiFVMpHrN8+C7Sq9ZimYrLXlruuAKA/KeLFflhi+AcKpiF/Dy
-         cZUnmdlctUR+0mLvkbSs5PxxYpx3AzmqmvImRaontZ1qI+1jkoXXar5dqDZoH8NRpXFj
-         qAZJT7paCzlc0GVtfBolg3Qrcyymi0M9EQzZVv/9WxF3mJa5E8xJHO1jf7AX354Js2Wb
-         o7hqb/LNCeqhVYumUwc2+C160Ar94zOGikM9+QE4xDCSeVGDgBVjsQKI7HIgDCH3onMJ
-         HXrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792528558; x=1793133358;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=njlJ33l5OqoDckYqSYGuylmOTQxiBjEh77NJyjCPwxM=;
-        b=dM65CgNTwwe9VBHsMbYjRcgwNmePlpCQU4ddWO/n7GpKq48uQhzo2veaNwPfRhp2N3
-         sMd7DRkoBR7wBLBwLSwUswbLo2lG40lWl/gbhAwocmpzk2t+ePRsdVEYWNH6hR+BAviB
-         3Qq4ojbl4lcQQ0CboDgBwMsclSlBie7FWD7W0Y71XSLMtQ4RMrdmoLpNcyZPj1CctjSt
-         5e7oxNdLnwNCQX5XtF/9JJD5rKnxDNbAeWmc+m3K6vVnA3ZJ/v5bFTKRtFrlgID55XBW
-         a2T8CmU02jeasM/ehEy2Cl9Rc73HXViY/DdHfkCP7f5tk9mTJIeoPzxW3NaVnbJqU6Ee
-         RFjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxsBFidQFp2F4vkH28Sp6cPQAekZ7UScwL5N0s2V0dnPc/ldUCrincH/C1DP5bHNNKV/b93k3Tv4R77/1Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCi+AVXNg+oZsS83f482xQtNVzintuQYVwvUMXfdiUF/sL+VMz
-	UypLPVL3WeGPHPZHEsWZWPbxW1DYMTe/JKMRIw7LeyqJFknNofu1aBXMEvBSJiEwIgE=
-X-Gm-Gg: AYBFou3PIEIevkCKtOCLubS8TOD8ZrC4FZjK2tG+imF4hO09npJNTn/h/R4pq5k6ZQE
-	3Yrvdm0ygmc/NCNWcLCzp5m1R0/giRZU8/QzUsgrkiG27uRXg1xJovCSVFU0vRQcl3xv/ElyS6g
-	aso3Q47qY7/sJGNjjDT6mX9cpjwF2MdGF0tluUrY/77pLBY3XxxLQ8BAw4nYmPkr5YqqdJ2FQjS
-	xgGPlgV3t0mRAQD1WBAxhuBh1reMaeHCZDfvDNWHA45EveFXTEeMJAoA5adKCL4n2vTRZL3ySjI
-	XDCNhBrVy7MLGEV8WULrfMTwKqEWfEr3jPgVybA/PYKfB5jv3L0WKw7981rFACx78v8jO0Dcmu5
-	t6xgE9uKioCr4/hmaJopdkrZdcybT7uxHD7o3ibiXFZlAUDS3qmnzNM3XqobeCUlsZIOU8c/wWu
-	zFZcowDDEt2Ntjq19elDP+odsnX0SdPYDzXgAFITov9KDNiW2ynuHHy+Vv8WBhq/bBhD88wymi8
-	O76OKoXcYKuM6HgNt9i6kPeTxcQ9EJ6qhUt1rV2JjY+LBa8nEUK42Dy8imfPnKjDoxicw==
-X-Received: by 2002:a05:6000:4805:b0:48e:10a7:40f with SMTP id ffacd0b85a97d-48e10a70508mr19393904f8f.17.1792528558447;
-        Tue, 20 Oct 2026 13:35:58 -0700 (PDT)
-Received: from localhost (109-81-30-107.rct.o2.cz. [109.81.30.107])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c6dsm788025f8f.24.2026.10.20.13.35.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:35:57 -0700 (PDT)
-Date: Tue, 20 Oct 2026 22:35:56 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, david@kernel.org,
-	ljs@kernel.org, dave@stgolabs.net, roman.gushchin@linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
- reclaim
-Message-ID: <atfQrKh8AiKnvTRG@tiehlicka>
-References: <20261019185002.3428594-1-gourry@gourry.net>
- <atcc-91WerBlJ_Q5@tiehlicka>
- <179252633386.238494.13826191476140121288.b4-reply@b4>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LntxX1jQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A541F000C9;
+	Tue, 20 Oct 2026 20:37:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792528633;
+	bh=+ngFPIv1lHkBdK5moaQ+BiuEEGR7VyeOEnL3dMr9mwY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LntxX1jQI0CNc5YpeMgrEssI3ysIYCejB4z6EKT4BCudK1wbJI5aftY2slAYz28p+
+	 cLDb9+Nk23JXjTAPcYshBPmkVRgVRVJsDv4Bz9g7Y29Hsj9kQxmNkx3oBTvYTqLD0K
+	 U0xi0zNlBtWAaZbgrxwNjVP7zhQuMTt/mb26rwC/BR6J9A7jY5mW13bn9LqCmOcfCd
+	 fM9UzlEAiusUw22P28iz/mP6VxKOPpnzmzZQXbB/ySrYdwWFBmSrHZuEZ1w05Q9lMv
+	 hcWJdXs9Ezv0PC19jSW6QGPdRYaPQYAnTl4eQY89WHLuoreekkJB1V+6SnjFSbvbZv
+	 KZHEHQtmqRodA==
+Date: Tue, 20 Oct 2026 13:37:12 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <andrew+netdev@lunn.ch>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <pabeni@redhat.com>,
+ <sdf@fomichev.me>, <sgoutham@marvell.com>
+Subject: Re: [PATCH v20 net-next 0/2] octeontx2: mqprio bandwidth offload
+ for NIX TX schedulers
+Message-ID: <20261020133712.7078b6cb@kernel.org>
+In-Reply-To: <20261014023431.1775238-1-rkannoth@marvell.com>
+References: <20261014023431.1775238-1-rkannoth@marvell.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,46 +62,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179252633386.238494.13826191476140121288.b4-reply@b4>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue 20-10-26 15:58:53, Gregory Price (Meta) wrote:
-> On 2026-10-20 09:49 +0200, Michal Hocko wrote:
-> > 
-> > Would it make more sense to 
-> > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > index f11491ee9ed5..e07db9514e59 100644
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -7963,7 +7963,7 @@ int user_proactive_reclaim(char *buf,
-> >  	int swappiness = -1;
-> >  	char *old_buf, *start;
-> >  	substring_t args[MAX_OPT_ARGS];
-> > -	gfp_t gfp_mask = GFP_KERNEL;
-> > +	gfp_t gfp_mask = GFP_HIGHUSER_MOVABLE;
-> >  
-> >  	if (!buf || (!memcg && !pgdat) || (memcg && pgdat))
-> >  		return -EINVAL;
-> > 
-> > That would take care of try_to_free_mem_cgroup_pages too.
-> 
-> funny enough, try_to_free_mem_cgroup_pages does what my patch does:
-> 
-> struct scan_control sc = {
-> 	.reclaim_idx = MAX_NR_ZONES - 1,
-> 
-> 
-> now, whether the gfp_mask should be GFP_KERNEL, that's a different
-> question i think.
-> 
-> (tl;dr i think my patch is still correct)
+On Wed, 14 Oct 2026 08:04:29 +0530 Ratheesh Kannoth wrote:
+> This series adds hardware offload for channel-mode mqprio with
+> TC_MQPRIO_SHAPER_BW_RATE on Marvell octeontx2/cn10k PF and VF RVU
+> netdevices. Each non-QoS transmit queue is shaped by programming MDQ CIR/PIR
+> on the NIX TX scheduler. When bandwidth offload is active, the driver
+> allocates one SMQ per queue, parents every MDQ under TL4[0], and maps each
+> traffic class min/max rate to the queue(s) in that class.
 
-Ohh, right, I forgot that memcg reclaim always reclaims all zones.
-Tweaking the mask seems more consistent but not something I will insist
-on. Up to you which way to go. In any case
-
-Acked-by: Michal Hocko <mhocko@suse.com>
+The merge window has started, we have limited time.
+Too many AI complaints here to consider the series this late.
 -- 
-Michal Hocko
-SUSE Labs
+pw-bot: defer
