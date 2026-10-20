@@ -1,65 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524512;
-	b=OtmnMXXpNTyvNlOD06idvOllDT/SiPWC1v6d3pKhpVEbZNEbXSwnhfKeu8IXab6MCrzD
-	 5CJbLgpnEMOvwXmx+55xLb5ErkRZKeDemVz4k1v3Syxqmn6Dzwwkm4eZoPAgJP5jogYvn
-	 LLpKDz98xcIh1A09PyMcgB7/V3jAxWEdwVNgVyAUMmk4lNn5P4BzalziWzVKezLwWGiyQ
-	 zT7bMURUs1V+TSF3UKg+s45YuUXoi6HKN/jjT7D4cvgVyHsCqR59dQdTRBbbT/ptQy2Ft
-	 u9ElQJptGlTSfDb/lhWmiqc9p8avH0wEdHMicGTb99/gWwWZSBIy7DILvIWtt6ZcJOA==
+	t=1792524520;
+	b=bszFEaVKButB9xJaS+jBPeH+svOxUUUcCnBuEs27ccQtxh6hCd+89RC2DO931zqnl7Ui
+	 fWuQzeQDnipTgapIRvtUwKDP0I7IekB+TmrwBIXV8XpZNdqALVFTTJMPxd3O3ZsqCU0x3
+	 kozhYPbR4d9XV1iuEsyqSBgp6Bew7RaO7p+d0XP7AtLGXrgwGmPBBSNlO7/TwXqTgW42U
+	 3e2BWst9z/I7bfXxj0+xQqaM80hvhO8pIF/Es06Pyvxx5j57cPiStnIyFBYc9qUuGPNEO
+	 QKMaK6he541Kaq8Dr/hwjHIL6m3AUFE/JdUSabwcqKAjrhGBMYm0JWYY13KCtvxZOAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524512;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=glN78Ha6iYAaTjSlQ7NRgUJI7MtKCh5ZiX7TaERIYRI=;
-	b=3FNbwLt/0u4VWlqAzJQKo4U8PTlAWklVY0dnwjPjyT50xTmPNajV1HmOi+lHQ7rL8s7n
-	 Q18qt7lND8xSqstpHgcImvAEoeg/Cr/VG8z1DnoXrBVH9XBXuKY3GmBLDeAYw6H6GutKV
-	 xDb7V9xogP8gSzBG4KpJPXPe6C4Su40FNdaM4FqyKTGfTd2d0V32n7rF/ba2xwbhCkD7N
-	 iwHAdkzjpGai8+VRePVfrpTm4zT7FbqEGPhg4ICUzLVM3J3WnXFO6r4svzc84tJtWUA+m
-	 Ar/5QSJtaMK09fBnm7mPGTyh71sjWgJb6P/bYTIKUE+29hnV9YXZeZLQ6CqMgu9ukjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524520;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=iY75Fpj04XpxD+L88wqMBr2JLhAW0tS8ePkrR2Sfl/I=;
+	b=XW7b1dA2GbMt9MiolzHQdhGTcN451rZl/78CzoF44xl9wBUKK/zfalASE7Q9qqd2hhKt
+	 eKjmeyEAm+Zn4QJecTFmPVJnd9CIrnyqXuLIPE2bFw2LcfQeD02eeux8a+uQ7SlBWMLBd
+	 mVkHWIsBQi69ws045VSf3biu2WOlnh4q2Jy8PiLQ6UHpZ2qSFId3v/wEmmTO+EIgjWVTJ
+	 FWAWHiLLzRRz9UEWjMxPV1thgGl/pDeFPbKNGxeZaqAHhHLrcIhHERMjmZykpE/33Y92s
+	 /f5BbEzJ8zRT9YsFJ0DCadeNhUwGtJOzSfzsgwo01AZti/FzCjDYs9sezU69YDYqtEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjwUbFlG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.com;
+	spf=pass smtp.mailfrom=fastmail.com;
+	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=nuaQcFoi;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=S0qvxlYo;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EB4606A319;
-	Tue, 20 Oct 2026 19:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C08F606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:28:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C08F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjwUbFlG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AAB1F000C9;
-	Tue, 20 Oct 2026 19:28:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792524511;
-	bh=glN78Ha6iYAaTjSlQ7NRgUJI7MtKCh5ZiX7TaERIYRI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PjwUbFlG6w1Q03uPZWbI8v+utMR7Yli9F7whhmM4fI6a2zideqpDg/eGl6hRu8/hh
-	 YF30sYMULcuiXPUccsBtKcanqmVT5iC+vG4uNx8opy/wqB10cn/Kt52pZoohJRrUVn
-	 qI/mk0siz/w/IILrQqePAdpN1A7Gv6QJIaTRwZyHyIqtsMjYtp4Xl0ToOalD/vzimw
-	 xOGwEFJvyAa5UZw1JSl7wVtHd9Qq3ElEiuD5gW9SPPBipNroPo1Cz/LkqcF57nSO/+
-	 DTg5YHRw8vi8eswAYjp9IiYq4mgFFg5N4mOXx2dpBq4/hjIQnO99EyqnnuGMj+lt8I
-	 gln9uT27gbrRg==
-Date: Tue, 20 Oct 2026 12:28:30 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: netdev-bot+sinfo@kernel.org
-Cc: hexlabsecurity@proton.me, "D. Wythe" <alibuda@linux.alibaba.com>, Paolo
- Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>, Dust Li
- <dust.li@linux.alibaba.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>,
- Sidraya Jayagond <sidraya@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, netdev@vger.kernel.org, Simon Horman
- <horms@kernel.org>, linux-kernel@vger.kernel.org, Wenjia Zhang
- <wenjia@linux.ibm.com>, Tony Lu <tonylu@linux.alibaba.com>,
- linux-s390@vger.kernel.org, Guangguan Wang
- <guangguan.wang@linux.alibaba.com>, Ursula Braun <ubraun@linux.ibm.com>,
- linux-rdma@vger.kernel.org, Stefan Raspl <raspl@linux.ibm.com>, Hidayath
- Khan <hidayath@linux.ibm.com>, Wen Gu <guwen@linux.alibaba.com>
-Subject: Re: [PATCH net v7 0/4] net/smc: bound wire-controlled CDC cursors
- against the local buffers
-Message-ID: <20261020122830.5ddd0997@kernel.org>
-In-Reply-To: <179192256949.160550.18282620239378164781@kernel.org>
-References: <20261013-b4-disp-f345196c-v7-0-ef3dddfbfa68@proton.me>
-	<179192256949.160550.18282620239378164781@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=nuaQcFoi;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=S0qvxlYo
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+	by mailfout.stl.internal (Postfix) with ESMTP id 812C61D000D6
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:28:39 -0400 (EDT)
+Received: from ams-imap-15 ([10.64.2.35])
+  by ams-compute-01.internal (MEProxy); Tue, 20 Oct 2026 15:28:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1792524515;
+	 x=1792610915; bh=iY75Fpj04XpxD+L88wqMBr2JLhAW0tS8ePkrR2Sfl/I=; b=
+	nuaQcFoidOVQZShHIHg96qxdvaqVUgm1HYRbMYO6WGRp9PRAKb4VjnyC9mqyyiO+
+	MFhFihSM08v5WTJzkjPO5bbyV1PScnMxVImhv2z+OwLy4En6p61Yu0vt6G1Fo0si
+	lZmUP61bXQ8sSUkzWO8AuxRFRhjzEFiwMKri22IOBicDyaS2Ogwn8bQrCr7q94J6
+	O1aERf05TAlOQ6/hDjMXtpi0liT0HrOKkjQEdVK9WQL00b8tBiIj5WnCTwTNNTBj
+	mBAH3tjpvfbKKp4vSvGptuDvDqqtORcvsbfTY2Nhaioj4qH/ab/jDakk1MNy1O/x
+	LZKN35Uw+fGU6XCjRebXuQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792524515; x=
+	1792610915; bh=iY75Fpj04XpxD+L88wqMBr2JLhAW0tS8ePkrR2Sfl/I=; b=S
+	0qvxlYoSAkuaPPuINrv/n/+QjAsILGuLtI05vRtSopsF+2Q8x0/6pv0FOq0FwNqP
+	vERrvwZkT/t4uzicHUgdIgtCicBt0DNBwtxMBI3gacmPOsxVtixGSD4Vv/1apdE2
+	hGTGKQXSrgkueTtUQ651O18aCFEJ4TwpjLqWJNTQmp19ftjYUeObTyJgXVeXQI7r
+	yX03GxJHZaLryTJSgUZYP2caqWY8b9KaXYavPtxILPzhNHYJDOymC6OjZqYREPiJ
+	T8M0wgr5uhR0ckWFQ2HW4UjVrqDkpXqmK1K12zDXr640aWZBvbo/Z/YOvu8Bo57p
+	k7S10d13OhmXGiQ6K48Tw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792524515; d=fastmail.com;
+	mf=PGtyaXN0b2ZmZXJoYXVnc2Jha2tAZmFzdG1haWwuY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:hwYuuJHeVCBMEWbVMmB8XHJm2jiQvQN7bZIjt2AXym0QUG8
+	l6zA1h1rq64+LtyqT/+SW5bCUKcYKLTGbERQzGE4q0W9tQw+OH1iXlhpt98snLMi
+	/XijCCOgmvVUDFdEAk3J5EBaznGBbQBlde2lGR7NQrpQeYhB4xj4PZ50sHpWmDJp
+	Kj9Dd4RbBHYbzF7vyV7Ik8Om0UvEnz0+bBDh3dIlaxA63WFA+Mezpafz9Jg6U9hy
+	vBin9S2Yh2MpnJeElfps62L1NsV4il+SoaSrzIbIydn/5zx1NtPmn70+dD13eA4i
+	I49eHMgaLauUTitEIixHQlRM5h1CYCl6xGqI6rw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:gE+bdlEld2MCCQIqCTrm7utyA5McCHAv7kUm1FClNhg=:W32d5v4UnVt9iph5Llb6+/jFoi2fsrwEyy3cijiZS64=;
+X-ME-Sender: <xms:4MDXai0dz-xswmnQwFH1D64RD95YDp5siT49sA1HGrr6ZxMIHgIVYZQ>
+    <xme:4MDXav6tcK9zz4Nmz95HdruELofQC4iURdLcdE-LucPxyalZ8ubVZ_V7vfsYZShnn
+    j-AhH6HLYKo9nrK8gdRudmmI0qVyqX0oLnf_y9fZnmKFRLOPEqbQoM>
+X-ME-Proxy-Cause: dmFkZTG3OTN/zVxjEl/cVSdq7N8k4LTjS3Vt3Jk52vquvQ/yoDLgpqTRdfv9GdrZwK4CVL
+    AqGa4CtkeDVE9RxYNGuBrZZRarDU/26QWCHwA8DV32rVjhpHdPK+Ept21dEFR6LDB/EGmK
+    4eiTG/6hhmOxDtpZ7xmF5ZzbRzoaHH8ZHM4BnVjFq3ncsEEgagekDaotPYZuHtLC6bGAKW
+    hbNBL+0WsEo41IZUBBf3ydo4BMxV9j2NoXlxMGEBPDNkU9Trb52eLGz9e8pTSrd+biHohs
+    Xzt5/MqL7AoS5TjHPOxMj+puYpKsCI+DdfyG4xNVB8vYrWFBcup7VZ++/AxVinr7iT4Ac7
+    TpYLY2EmWqYLL/cDxTq8Dul000RlRaUNJGInChEo0NtOGuRlCy7wYLF+kLAb4cQ+poqTnZ
+    nYMU0Jx5WDlw9g8MOfkO0cNJzXZn+QBA4FSJfRQwfPipcI98u92BmUOTL0fuzKuqOzLw48
+    +/hxq/M3VZuldvyiW/9IdWNdXZB1GDhUY0ta6wFRrt9HwNZKSri9XrT2mFvuaXRIpO2XYP
+    viaP6yHK2HpExbiJiLihRuMCSTjTQAUXC/8NIPal10K/AoAhGW7WGm4AUw3L3mg/NaN6BD
+    fxfrlTdGixqydXv601DcKaWRKBUdUQGBHFK+PYHLkpkY1WSUJZNFpdnBnULQ
+X-ME-Proxy: <xmx:4cDXavXQMpR3UEsn8FngWghzf6h4kaRIRCO0IAp1cvWXY6g0xYpY9g>
+    <xmx:4cDXaig1a2giqJ85wSKfg-RuJZV5R2dIVuAn75Ov7PbpiS4gfydcpg>
+    <xmx:4cDXaqYIUIZYL2a_SfSDW_gsrDo3dcF0_1SxfIpYZaV04xOce3wIBw>
+    <xmx:4cDXavrWrgPlSAaCbBhX47IADmHdb7LsBdiyg1eOHBMfwM-s9o6J_g>
+    <xmx:48DXalYr5_0qws33_CEdP5v152-RTJ76dT-ASevCXaZXRqt_-5Gou_ny>
+Feedback-ID: i8b11424c:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 2237322C00A0; Tue, 20 Oct 2026 15:28:32 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,15 +115,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 20 Oct 2026 21:28:10 +0200
+From: "Kristoffer Haugsbakk" <kristofferhaugsbakk@fastmail.com>
+To: "Steven Rostedt" <rostedt@goodmis.org>,
+ "Junio C Hamano" <gitster@pobox.com>
+Cc: git@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ "Jonas Rebmann" <kernel@schlaraffenlan.de>,
+ =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+Message-Id: <83c59078-f6f1-456a-a99b-688eaf56bab0@app.fastmail.com>
+In-Reply-To: <20261020152354.165ad128@gandalf.local.home>
+References: <20261020141011.0015d172@gandalf.local.home>
+ <xmqq8q3sw75e.fsf@gitster.g> <20261020152354.165ad128@gandalf.local.home>
+Subject: Re: FYI, git output messages are being used by other tooling
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On Tue, 13 Oct 2026 20:16:09 +0000 netdev-bot+sinfo@kernel.org wrote:
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+On Tue, Oct 20, 2026, at 21:23, Steven Rostedt wrote:
+> On Tue, 20 Oct 2026 11:37:01 -0700
+> Junio C Hamano <gitster@pobox.com> wrote:
+>
+>> Steven Rostedt <rostedt@goodmis.org> writes:
+>> 
+>> > Hi,
+>> >
+>> > I just want to let you folks know that ktest.pl (tools/testing/ktest/ in
+>> > the Linux kernel repository) parses the output of git to display the first
+>> > bad commit found in an automated git bisect.
+>> >
+>> > The output was recently updated via: 0c0f93e7fa64 ("bisect: print bisect
+>> > terms in single quotes") which made ktest.pl fail to find the bad commit.
+>> >
+>> > The change is being addressed:
+>> >
+>> >   https://lore.kernel.org/all/20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net/
+>> >
+>> > But I figured it would be good for you to know about this dependency.  
+>> 
+>> Shouldn't the script instead seeing "git show bisect/bad" instead?
+>
+> Hmm, it also is used to see if the bisect finished or not. It looks at the
+> output of the last git bisect action and has:
+>
+>     if ($output =~ m/^(Bisecting: .*\(roughly \d+ 
+> steps?\))\s+\[([[:xdigit:]]+)\]/) {
+> 	doprint "$1 [$2]\n";
+>     } elsif ($output =~ m/^([[:xdigit:]]+) is the first bad commit/) {
+> 	$bisect_bad_commit = $1;
+> 	doprint "Found bad commit... $1\n";
+> 	return 0;
+>     } else {
+> 	# we already logged it, just print it now.
+> 	print $output;
+>     }
+>     return 1;
+>
+> Where returning 0 means the bad commit has been found.
+> Otherwise it keeps looping.
 
-Please reply to outstanding AI feedback, when you repost please make
-sure this is answered in the cover letter
--- 
-pw-bot: cr
+Is this different from git bisect run?
+
+>
+> Is there a git command to know if the bad bisect has been found or not?
+>
+> -- Steve
+
+Sent from mobile
