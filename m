@@ -1,64 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.104.109.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486603;
-	b=TBs5g9e7HG7p0D1baY1vm4s/62UmmO7/itaKAB664C4cvgNxwLFh1qvpGfH0PnPW9YxR
-	 75ETFhhoN5puZxT6x/ujgW6+t0YTAwN+4N/GlyyXUqMJyXe/q6QB6Fp/VtOyLyLMuCD3a
-	 X6G3iet84ta4n1/CLKR9cLgB7rPmJoSgLBofejJbEQoC197pRJoB1MzzLzr3fR+QXfZxT
-	 ROJxXZEMnbHHAaGBqOei5C4WG3xeZUcTAHSvboxXMNms5YdD4JBqDvYCi1saFrTP2ymou
-	 NL4EUUUYMCSut/wLNRcYfammanSSruRJbQF3seFLxtdi7TxlvSXH+KeebNl/8URI33A==
+	t=1792486609;
+	b=3GBH5iy/zOaebkpPfhCwLlupxcZE6TX8yuTf34yk4mowsTcA7oHPrth5UtYoRwYgkxgW
+	 /pMvpj5dDOnVUqbC4Q3Bs/VyqyxxGfP8CdhLk++LW5zjzTqUv2ICMNSHBIrfN8FhDtlrM
+	 d0ohe7h5IMMNBUjucsc+cKEkt+9MZDKtUx/uKKbLZr/QfHHhliyb1eqCfcuAoMnpvBaCb
+	 vuRoL2jVIRvdvfNa6/tbMQAdoBgoVmPbosv0LQN7BGgjHX59bDMtHka2Tkh8BO7kW5b64
+	 mpi9yQ/mNHlmrA+l5arpLl9zjmmnsMcBrg6Z9xmFkmzh+G/rfUcIkW1ghFeohHWVjpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486603;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6lRRpof9/ex1G3TdchHFpSqu8iuP8pTd5flOxKqoxAg=;
-	b=bKe+1PwDPH5blqRqVr3zrE4VF9FMTQU1vUmh+jui1UST3XneM8TUyjZcForqaDYUfWyk
-	 yU6IbLLUujR51+Brt3ym4I80vivzYUg+BY5JWL6SbQZTonb8oY3q4Fsc0fDxPQfIyvqfr
-	 GSsKNNEnUYyFK4Kga6CTu4SfPA6MqtKWk/RDHII7bepZ5RV2kgKN8dA5ZKQglj4tTu9qg
-	 lLroCQDwyvbGACfaDunNOL9g90SknHXnPR5f5qyz4eIorwaa6IufgYLyAdtz56sYSEdcV
-	 +2meMzAU+q4wo6cM+tj3ZB6hpUQl7WCfhbfYOymQ00gw+FnyBO205taxHUFAFMTOj0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486609;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=u/ZKkzTjwfr3n/ITzObs2PSQp6GJy+fC0uLKRCdBMyk=;
+	b=bpmuX2Kkvce1Mi/VB8NxuFVe3Q0Xv/OsbUgPv3Sbe5iZ8BnnLxp8NFeDlt17pnt0ZiCo
+	 GnpVaCwOUJLNaBSmWYy04OeIN/LLwmCmqsC113TQtZTI3LyIS7sAjuDq+U+vB++6NSPRp
+	 yxB524YPEaMVgX2cQjljSWpqaGXGAHkymG3aOCwJl7HNtgzsO48BU3okygg34TgDQ82ik
+	 k5GqodHZ313z3HToYtmECthAw/KQUVTYiF5RWiTrHxyC+NAkjBcWfjkWy9evZ2yptq99i
+	 19ghTBCiLbZ27YUYg0B9Faikjbn4SQmEz9x6S8jfjHJdfNyPL+Q7fRIQlUJpt8aLDdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens-energy.com;
-	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
-	arc=none smtp.remote-ip=185.136.65.133
-Received: from mta-65-133.flowmailer.net (mta-65-133.flowmailer.net [185.136.65.133])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=toradex.com;
+	spf=pass smtp.mailfrom=toradex.com;
+	dkim=pass header.d=toradex.com header.i=@toradex.com header.a=rsa-sha256 header.s=toradex-com header.b=IBH0kftp;
+	arc=none smtp.remote-ip=194.104.109.113
+Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.109.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA190606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA190606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
-Received: by mta-65-133.flowmailer.net with ESMTPSA id 20261020085632be56b7ff5f0019fd8c
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 20 Oct 2026 10:56:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
- d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=6lRRpof9/ex1G3TdchHFpSqu8iuP8pTd5flOxKqoxAg=;
- b=bbWfePclAqRG+3XxDAVxj1DoxlYkv8xUCoUBXypY3MVXP4vSXtm/RZ7ZxAxzwfQsi5pel7
- Coxp5z/wB3yo2Vuyl7bNV7b5RZ5j0uu3KH3P4NZh4g/Jo4wLsymnUs7p+hpxe0SqJ8idRsSq
- y8WTw+Xl2gO4aEBrBcqc/1ooqGbE8=;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
- d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=6lRRpof9/ex1G3TdchHFpSqu8iuP8pTd5flOxKqoxAg=;
- b=PqPU43kR9MVZo33S5PAO9TbQkKghHC2pitMuioTVvSnta7hngIi3GI+Ubp+47ONxxGjdeE
- 4IibI8mQsMi6emR9a8BnllvIF8AGtZJNn++ASFudyUbrgTQ1Iwu50Uo47kMEnaPFjXyqqweV
- BB9hpCddf9+wnQmYFJNDh0ckO+yhPqZUdG4vzeb4aC1YES76ow1idfmn3OURGn/X/JIQ+HvU
- g/nrhDOkdbSZon3yuwIVfcVhK1tF1JyTxpNuM+4004JNsPcKoQdLWaqMaYCAqHNlyMJMvOfI
- BfzSKvdEX1tkdsxZ1TOOMZO3ygNsjtGeZPOPbrbFO7qJtrOrvR+YZrVA==;
-Date: Tue, 20 Oct 2026 10:56:30 +0200
-From: Simon Schuster <schuster.simon@siemens-energy.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] nios2: remove libgcc for lshrdi3, ashldi3, ashrdi3,
- muldi3, and ucmpdi2
-Message-ID: <20261020085630.w7je2ev3f6ectshy@dev-vm-schuster>
-References: <20261019165015.2656521-1-dinguyen@kernel.org>
- <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F057606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:56:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F057606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=toradex.com header.i=@toradex.com header.a=rsa-sha256 header.s=toradex-com header.b=IBH0kftp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
+	t=1792486601;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u/ZKkzTjwfr3n/ITzObs2PSQp6GJy+fC0uLKRCdBMyk=;
+	b=IBH0kftpsxOjAGI1vHPzXhVW27oFg/BzPL5bwz3IwvkpOvE7ReTliudcFRZ5vhmnE5rq28
+	/BFmp/WURroLYO9V0stoSwf2F68ACWIjKL0/yjZFoC8SP/qfCL5JyjYx6GVXNHjIMslu3K
+	Tqylu3EXbopD9bXAz9apNzuE/GJNE9A=
+Received: from ZR1P278CU001.outbound.protection.outlook.com
+ (mail-switzerlandnorthazon11022141.outbound.protection.outlook.com
+ [40.107.168.141]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-35-l11lLxbRMfG1mUtqDRJ7hA-1; Tue, 20 Oct 2026 08:56:39 +0000
+X-MC-Unique: l11lLxbRMfG1mUtqDRJ7hA-1
+X-Mimecast-MFC-AGG-ID: l11lLxbRMfG1mUtqDRJ7hA_1792486598
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ ZR4P278MB010980.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:bc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 08:56:36 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2%3]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 08:56:36 +0000
+Date: Tue, 20 Oct 2026 10:56:34 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Antoine Gouby <antoine.gouby@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Antoine Gouby <antoine.gouby@toradex.com>
+Subject: Re: [PATCH 2/5] ARM: dts: imx6dl-colibri: Add Toradex Capacitive
+ Touch Display 7" Parallel
+Message-ID: <atcswu1h7We8bIEw@francesco-nb>
+References: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
+ <20261019-colibri-imx6-overlays-v1-2-e4d028727382@toradex.com>
+ <atZutHmYt1aNWTpP@SMW015318>
+In-Reply-To: <atZutHmYt1aNWTpP@SMW015318>
+X-ClientProxiedBy: ZR0P278CA0030.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1c::17) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:2e::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,100 +105,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|ZR4P278MB010980:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6412736e-4109-4657-2014-08df2e880c13
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|18002099003|22082099003|13003099007|4143699003|10067099003|261009223027099003|56012099006
+X-Microsoft-Antispam-Message-Info: R4XvKjHI4McU0FtbqOTC7azxsGgsef5awbJkPtjzdk6hBvjaPfWHdtNWhPL2ezC1m0O72bEXTrHI/NXDsTy5WaTA34HOH71YSUmWraZ7yM05cfrKTnXe4Rke/yfbvp8ga3KcgL1pGoP2NSFrZnpU7t5Hp8i8XsAIqlAitWtNUTfaewb+hLEPG9Ym1zsUNG8jcAo+XlaTpgGeGkcQmIVe1Lh7rTBgyJM/dsk85zGCZD7NpRzJjdL7mgqZYMPYmmroUPZMUG9Lg9JXTt3xjOevFC9w5Q8SvsZaTZLhcJMNGY5hmJJtwi1ZjMddsteSCNfkB62BzVzhYj5rZdpziESq3/jiI36JkJeHAz40Dy0xfscCem/HhqDCNnupcj6pytHWp4S56kjydunyrcj5Ny2bH6D7Fy5L3yS15gMX81QDEhPF5fED1YxSlnY/2j4L8rMdP5iNlWb1Lt1Z+mxV2LJA8bGpdnSHeRimWHFVbVFzvoCl3ZXmva4z1Z6vhPkRdwX7VakefX0X624hQDRAet1QiQYRE1FLj60OM4wQxjrb69zgVe7Ozd3OK9P2VXXY25Avcf0rDQgazVZRLLYPQH3YNQGsFH7tglCQuvkAWGEC8AXgsDteDixyQwUiWu5WUeH1
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(13003099007)(4143699003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?R3zOYKUov0WFQ4qHlX9n87k+pF2iR9sakGbKYjcckXnJ8hm6Wg6CjkEBwoNN?=
+ =?us-ascii?Q?S2Tgnn9ftBF/0Gm9cSsoHNavFH9zfKYjlRqz+DMkfL2t7kHi7uvhCzGu/i5K?=
+ =?us-ascii?Q?cK7else5ESs3oDMWtNsGvS2HfhC13uR/FEd/DWbTOZsQ6qi4rMXV/sihB1ih?=
+ =?us-ascii?Q?mOFuCAtmrtLOQV/CRn/LsXZeEwILtdri/V8yi9UgTYYi0Yglqf1WEjO0SfE7?=
+ =?us-ascii?Q?hFoBoS7pKfkTGWzqSfo4ZHGmD1OJcAw2yk3nhKNj9/rVTN/9TR4RWUYoORD3?=
+ =?us-ascii?Q?PXWsRa0x88fCPd2wNaXMyYM9LoDeW1W1eL47PmAQ3PeFenFTXTibszlEskIK?=
+ =?us-ascii?Q?9R2tg4f8PGgnLOxBEvFbcII9TzqGBEVGH3KlDRnF8eSI1wBi/R8Kxu/WUjFJ?=
+ =?us-ascii?Q?S1WRcMa+gFqQClY9OgCtRuvBj6tCU7l5Nv2aRjlS47vZO2Fhr966zxkxt6ul?=
+ =?us-ascii?Q?qmlZ9b0B9GhQ4a+HJMAfBLWScw4hOuKT/uRjwMLrSxxZMzvKgr8nHBb4e0/I?=
+ =?us-ascii?Q?Jbmzm2HdJrOQnd/PnlUM934cWm2jKYEDMPc49UsObVdXNC9qk0tZGhpE3Mi/?=
+ =?us-ascii?Q?6XphWnIaa6aRp4uScLSLSmGubVwMJzaNqmqp40mWbgZGmu5j6GIo+x3jPWyk?=
+ =?us-ascii?Q?kv49H4Kp0ZuP/xbzITCyqBhfgYMXFWet14DhPfnHGSoTAL9YjtcLTWQilV+0?=
+ =?us-ascii?Q?YaFUubKMSSxW3qr+LJZPYHVOxx+ByqeyuCm7Zi+IBstba54tcqfgxVWqIqQa?=
+ =?us-ascii?Q?bgeO5JUpf3rlaXkTrCFB0B3Xn+6jvXg7IWMKW+2Ep5lUVUTU1Cxox82zfMjD?=
+ =?us-ascii?Q?3pu6HfwEK6DuBS4ZuOh6Wdjk3w3P1R/TOWKJPEC4VWP3/tkbUXudqnF2pZvJ?=
+ =?us-ascii?Q?RVW7PLS56v7xACKg50LR0fbXhePkuRBquuqqxvELngaUrNAiPL/YtTuiMTFp?=
+ =?us-ascii?Q?fz00/c4YW7wo31cNPCNQRsZIhvSgZwCjb93liL8NVLw8PR/XzR9Ih9whjlQJ?=
+ =?us-ascii?Q?NJjs/N4XU3UzaAgTpk0QMR4wwJiMGMLYvxMdzVHMjZBavhgKKhHmB3VynYse?=
+ =?us-ascii?Q?ySYNyUrVHx7d+LQtrFt+5BSSrSYIH+ujXiUW13I10Lw3VGQGN4e6wLOU5QT8?=
+ =?us-ascii?Q?QNmGsNoq9WfD1oSg60dBXWRMkSrVLbym75/ibspdWukaM/HGXvRw8lSr//of?=
+ =?us-ascii?Q?End2o9SXGUejNhezoZsjQk06+ZsrixUGZq9sqtdxi/GA4Pa9ouMzE2JubH+7?=
+ =?us-ascii?Q?bGx/ckQkIPtMypZAhef8iZGe7CuWzsRUEQv6mWKxMvxSSSKTKbQNdOpenClK?=
+ =?us-ascii?Q?fHmXloqDJhbxBBmDV8/ZvzmKTvcovY0pKZ5s7YuB2sww32qSYJEaeOT2xEJG?=
+ =?us-ascii?Q?nEb8A0T+HmONOZ2iCoi/opjp1Tm1wPz98wmwqlnTZ9G1zMlKMmgrZL0mZ/kT?=
+ =?us-ascii?Q?CscwSGrMJ62aXbc5xCsxcINfE0xPcKpPl81eIdcIdjdkaRcRa/liGuk/ZkLP?=
+ =?us-ascii?Q?c5TGLRkaD5xLRj0P9opVtGUOoLSyjJVxDTVRj5pmNUrRCiF8H/EuMiML0TFG?=
+ =?us-ascii?Q?m+a2nzGdp1FKcLSiwft8yOUFHJE5QDkTi/HjkuKyIA7S5LNOaLGukVT2cQpH?=
+ =?us-ascii?Q?X8bfo5QFZFZVfjuBzuw7LimZai8npYnaYKPMJczVxyLuVPPpT3IAiqWKDR+3?=
+ =?us-ascii?Q?DPFVPvlE79rQ9MGxJLD/cE8x4ZH9R8CkLRt3B6iUUX3RivMI8Rj2BEXLg6sh?=
+ =?us-ascii?Q?XQtTOp/OzkNuTU0RGvrf63XJbKtyZfg=3D?=
+X-Exchange-RoutingPolicyChecked: ABjYSMLcC2xAx8G3RnyEYK0AwQSkw6cvs/X9HsXVeKeGzXZIElYVvxQGZXTVwN7ndbCBJUDYbcbmli45cr2Cxvuaw9tA4zV/bPlse3JNtqMI02gN7NOBfF7R6QGT0fIxSZ2JAWGmAV48eZ2g/gStIaFk6H1Ed1ChzE0TXx+V2Cm/QnfoMyjJ8itwLEugNwridQd/4Mic77d/DeXfvnpy6smXOuA2Rp8Hfp1gz8S2LwFfr9o/T6HsOpK+BH2im9tM84ENH+OTzYnHh8VfqVHJedkWAukihYzHI+8KzQilqslHMmnfK6SYzadE81kHLzIXamx/bW2ockhmMIVk1Wm7+A==
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6412736e-4109-4657-2014-08df2e880c13
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:56:36.4497
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NpVYyFGouNLPYSdtvMsnQ869Cw+9EZKh7N0xdKgLQHAtm4Wu1jpKTnJPy9XxmYiHAL6fykWotaPZR99/0SEhNfJnCnp9FgssmCQIUQZkh6c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR4P278MB010980
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: vd6jrU1gLi-OzeH1h5TPGcNU1FM58-ElVOEKT1zHpPA_1792486598
+X-Mimecast-Originator: toradex.com
+Content-Type: text/plain; charset=WINDOWS-1252
 Content-Disposition: inline
-In-Reply-To: <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hello Frank,
 
-thank you all for the patches and suggestions!
+On Mon, Oct 19, 2026 at 02:25:40PM -0500, Frank Li wrote:
+> On Mon, Oct 19, 2026 at 01:18:31PM +0200, Antoine Gouby wrote:
+> > [You don't often get email from antoine.gouby@gmail.com. Learn why this=
+ is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > From: Antoine Gouby <antoine.gouby@toradex.com>
+> >
+> > Add a device tree overlay for the Capacitive Touch Display 7" Parallel
+> > on the Colibri iMX6 parallel RGB LCD interface.
+> >
+> > The panel is a LogicTechno LT161010-2NHC 7" WVGA TFT Transmissive LCD
+> > and the touch input is provided by an Atmel MaxTouch capacitive touch
+> > controller.
+> >
+> > The touch controller is connected to the Toradex 10-way Capacitive Touc=
+h
+> > Interface connector available on Iris v2 and Aster carrier boards.
+> >
+> > The touch interrupt and reset signals on SODIMM 107 and SODIMM 106 shar=
+e
+> > their pads with the WEIM nEXT_CS1 and nEXT_CS2 chip selects, disable
+> > WEIM to avoid the pin conflict.
+> >
+> > The overlay is also combined with the Colibri iMX6 V1.2 Iris v2 and
+> > Aster carrier board device trees to provide ready-to-use DTBs.
+> >
+> > Link: https://developer.toradex.com/hardware/accessories/displays/capac=
+itive-touch-display-7inch-parallel/
+> > Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
+> > ---
+> >  arch/arm/boot/dts/nxp/imx/Makefile                 | 11 +++++++
+> >  ...6dl-colibri-panel-cap-touch-7inch-parallel.dtso | 38 ++++++++++++++=
+++++++++
+>=20
+> File name include key componets, lt161010
+>=20
+> such as
+>=20
+> imx6dl-colibri-7inch-lt161010.dtso, like others
+>=20
+> =09imx93-tqma9352-mba93xxla-lvds-tm070jvhg33.dtso
+>=20
+> In case you will add more 7" panel in future, panel is quite easily EOL.
 
-On Mon, Oct 19, 2026 at 11:20:56PM +0200, Arnd Bergmann wrote:
-> diff --git a/arch/nios2/Makefile b/arch/nios2/Makefile
-> index f1ff4ce0f1a2..173588c31abf 100644
-> --- a/arch/nios2/Makefile
-> +++ b/arch/nios2/Makefile
-> @@ -19,8 +19,6 @@ UTS_SYSNAME = Linux
->  
->  export MMU
->  
-> -LIBGCC         := $(shell $(CC) $(KBUILD_CFLAGS) $(KCFLAGS) -print-libgcc-file-name)
-> -
->  KBUILD_AFLAGS += -march=r$(CONFIG_NIOS2_ARCH_REVISION)
->  
->  KBUILD_CFLAGS += -pipe -D__linux__ -D__ELF__
-> @@ -37,7 +35,7 @@ KBUILD_CFLAGS += -DUTS_SYSNAME=\"$(UTS_SYSNAME)\"
->  KBUILD_CFLAGS += -fno-builtin
->  KBUILD_CFLAGS += -G 0
->  
-> -libs-y		+= arch/nios2/lib/ $(LIBGCC)
-> +libs-y		+= arch/nios2/lib/
->  
->  INSTALL_PATH ?= /tftpboot
->  nios2-boot := arch/$(ARCH)/boot
-> 
-> 
-> I expect you'll have to copy a few functions from the last gcc release
-> into arch/nios2/lib/ to make this work, at least (a GPLv2 compatible
-> version of) libgcc/config/nios2/lib2-divmod.c but maybe more.
+Let's try to settle this topic.
 
-So I did test this with allyesconfig plus minimal hardware support
-configured in nios2:
+What you are proposing is not ok, I have already provided a complete
+and detailed explanation on this topic here, please have a look again:
 
-CONFIG_NIOS2_ARCH_REVISION=1
-# CONFIG_NIOS2_HW_MUL_SUPPORT is not set
-# CONFIG_NIOS2_HW_MULX_SUPPORT is not set
-# CONFIG_NIOS2_HW_DIV_SUPPORT is not set
-# CONFIG_NIOS2_FPU_SUPPORT is not set
-# CONFIG_NIOS2_CI_SWAB_SUPPORT is not set
-CONFIG_NIOS2_CI_SWAB_NO=0
+ - https://lore.kernel.org/all/20261005075319.GA7692@francesco-nb/
+ - https://lore.kernel.org/all/20261005075319.GA7692@francesco-nb/
 
-I used gcc-14.4.0 as the reference; this is what I required to get
-allyesconfig to link (apart from some requied -Wno-...'s, but thats
-another story), and along with the typedefs from lib2-nios2.h:
+In addition to that, I'd like to say that this is exactly the same as
+the raspberry pi display, see
 
-diff --git i/arch/nios2/lib/Makefile w/arch/nios2/lib/Makefile
-index 9d5bf1df520c1..28d6a78533ba1 100644
---- i/arch/nios2/lib/Makefile
-+++ w/arch/nios2/lib/Makefile
-@@ -7,3 +7,6 @@ lib-y += delay.o
- lib-y += memcpy.o
- lib-y += memmove.o
- lib-y += memset.o
-+lib-y += lib2-divmod.o
-+lib-y += lib2-mul.o
-+lib-y += lib2-divtable.o
+ arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso
+ arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2-5in.dtso
+ arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2-7in.dtso
+ arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2.dtsi
 
-This seems to be the minimal set of runtime dependencies.
 
-In particular, modpost wants (across various modules):
-- symbol '__divsi3'
-- symbol '__modsi3'
-- symbol '__mulsi3'
-- symbol '__udivsi3'
-- symbol '__umodsi3'
+If you are concerned about this name being too generic and the risk of
+name conflict or potential confusion my proposal is to add a `tdx`
+prefix to the name.
 
-Interesting enough, divtable is not explicitly exported but implicitly
-linked via libgcc all the time. It seems to be required e.g. by lz4_compress:
+The proposed name would be
+`imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel.dtso`.=20
 
-> lz4_compress.c:(.text+0xaec): undefined reference to `__divsi3_table'
+With such prefix we would have a clear Toradex "namespace" that would
+prevent any kind of conflict and confusion.
 
-This makes me wonder a bit about the how and why of eliminating libgcc:
-I fully understand that we are playing catchup with gcc/libgcc here;
-when gcc decides to emit calls to a new lib, we have to export that as
-modules might use it; but where is the difference between pulling it
-from libgcc or from the kernel runtime? Longterm stability against
-'disappearing' symbols?
+Can we find a way forward on this, that allow both to have a correct
+name and solve also your concerns?=20
 
-So, for NIOS2, the situation is quite simple, as gcc is not exactly a
-moving target any more, but what is the situation with other
-architectures?
+Francesco
 
-On a more practical note, while technically feasible, I'm not sure
-whether we can actually vendor/copy directly from libgcc; I think all
-code there is GPLv3 with Runtime Exception. (I'm not a lawyer yadayada),
-but I guess direct reuse in that way is problematic, given that the
-kernel is GPLv2 only? So I guess we would need to do a reimplementation?
-
-Best regards
-Simon
