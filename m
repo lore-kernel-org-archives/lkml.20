@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505247;
-	b=bhR5p28Du6sKIWsR4RhS2NXvBK6kWxR8olMNncP7r0jVOT2zWnhJ/QmxvSxAj4MKh5fe
-	 CFKRtd5mvxhP3Hl86QuYqSWJR1CcZThro3q7Dc26YEOxgAJBkAZq3XKpQc3iZPIAlZ/2s
-	 XAMGblNdmIceS5VElrI76xkZ8mal8a3L4YX7pjkMTfHE/OqJhe5NH+EggRw2Okoyy8sxY
-	 yILCFuyZKlYfW+dIR3TF+6yuxB9ZzFqKPMZhQUUNct0UkYI1xPaOSeQvSnEs+MSkcwrfE
-	 R2GBVBdpZKzO496fvByPHzHpPbhsMyik4Hj6Re3IZ8AfkROEDriW5kEM//+3Js3w4ww==
+	t=1792505246;
+	b=TGxNvRbPCoL7QXcLSLpu6sZnoAsKl5Hk2mjDztyo4Jqw0Jn1yDYRJiMwTte7bG9kEwAk
+	 lCYSnTr5/0AZV4lXTKSfQWObT54f6WiQo1zTID0S3vUpmVUSUeqqVxIbBYJWP0ZSgDwk2
+	 YLExRCIjkA21UtF0KLxJAoE9tsrbWU7rgujz4Z8jEzdfPrzgHM8kLnRymb/iiUBL9tbzx
+	 JirJXK/H53DNlen4+TfJXYD6OeIULZXtVPAdxBRbyZDqTk7+YS0Wx0ZJFtc6wnmfKf8vT
+	 EV8r//Rcny8Aq2srnWx4EoLeQArQuE+VeluQtFu1PS56aRcsHc0CNqrubJx+cFD90wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505246;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0MP30nw0IIRx244dAjoQ+sXac7dSmGXhgCJfSLXreiw=;
-	b=3AlgOQ9eJE43cxtid7Gk2z9xgSFrpSpUuqyUtG96OaaHf+LHphwm5WxnPo097gTFxL/V
-	 rIvm+K1qzhA12oIki4EFftKh1VL5pO1rT9lMlaIGbrAXj2fn5P84rMmMRuBQc++FJlhCl
-	 9O8oSdR7iFcLOPCDeakqgh1qI5ZSKpp4eqccTAKrE+wDwTXKLeeknrM4BJqZnBz7+He8N
-	 I+X6jhz7PE3UmBdvPZ8w0EMEMxWlmBkaFAw9A8k1chE83FyG0vZ02f+nbliXTIIwD9ya1
-	 iGkqxfaUfhOCjEW12p0wkJaBaPs+YHAbgzVeY5xA+EBd3Yq5dY5BZpniQJ2k3N2gylw==
+	bh=hUv7uf8ufBNBf/i6W9qgwPGx5KWz5jW4iKKV5HAxgy0=;
+	b=XWnxfoTQ4VF0RTu85wEeUik/65t9chkV5npbzzTeR4cxINa70CM0xd+A8D/2+a3pLaW7
+	 LdEyiB5L14NM6xHaXb4Yc1MjKa3G5Fa3xEb+gFyMZh+UkpMPLAjuG/WaCLScBqaRLepaN
+	 fUaG0NaGPIBpNHbc+/FXQVa/RpAY884eZlcfUwJ12kuQhZTptE/8gOl4msDMog9miOQAA
+	 IBTRJs7h14wNy355pa9SJ6aDhHh/JoIamrQAhJ0JOlwBDMRS8tsY8Co82IRwopDHSOWaa
+	 gLupuBC7xPfqp2IjMNlCQLSilAUyL94wqSX6gW/3aC0LAHOtbeIlHz69QNr7jpDUfig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PiJ9AoaR;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RKgmoIyf;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AC160A263D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2AC160A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A744260A2626
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:07:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A744260A2626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PiJ9AoaR
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso22940395e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RKgmoIyf
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso5453665e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:07:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792505245; x=1793110045; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1792505244; x=1793110044; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0MP30nw0IIRx244dAjoQ+sXac7dSmGXhgCJfSLXreiw=;
-        b=PiJ9AoaR0HMKHeEwK7TitYoY6Y56ApwuluhWcQFtkEo5nw6XDL21eZZN0/FDaSB6E+
-         12p+bA6tosrGoWErSa3cj61/lAhieh0fPU4o4SgBo/84qERPd8kaAPxL5knJ2fmZF3vQ
-         3rC58BdOSWB2KptW7YBKVVeEheZUH0FgVPL3Rg2Uq+etDWfwXl1bqXq9VmiheLezVAUQ
-         7VlohMz818x8uAWgJtuD4q8kgfP4ejcFmEpP+fDznL+JVlLUvdp9Zo3MCzjLltfie1ei
-         gYbUs1MWe27/bpOHuzTnw7yVPdJ9O28r3LS3CToTnwBmi+ahokdJo9Pu+F922jXfX1Oi
-         6yhA==
+        bh=hUv7uf8ufBNBf/i6W9qgwPGx5KWz5jW4iKKV5HAxgy0=;
+        b=RKgmoIyfmeN+1A/ODaqCWjVB7LBKWoUaJ3vU6tbeGRWCdveT9YGfE/A7Ax/gYE196J
+         TqjLniQbMy/lWZfRjzdG2a0xn9D1YURb2EIhEbiAhBd+A+l7TUziWm+x7Alixsygt2yM
+         CEeHFYI3rflQ9zY90CkeA28esvIjhjHwJpX9040H43k3iXcKizmQ5M+Rp11Og+jKQ9F2
+         lFK0AgQ6lQStulC0Uq7TEzak73HxGAkJBw7b1mKZ/LFKiBHUaQsXy/UwUsWn6wyinQ53
+         Df+z26BEgxLc8bPXztW93id/wVzZT6RbptXmxsnr/1p0rLjXnVYiKcS9R4jJV2JNfIqy
+         n77A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505245; x=1793110045;
+        d=1e100.net; s=20260707; t=1792505244; x=1793110044;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0MP30nw0IIRx244dAjoQ+sXac7dSmGXhgCJfSLXreiw=;
-        b=ujLL5n5bqq1o/EtqTPc891jCvVQjJ6irUCFYzScJ26pBzrfYAi76+Ufr0Co1rE1m3p
-         AtMJl6m4nrnETsT69Hj/V2Z7Tm+M45vuOV1tyQ+P0kjA3P/K9db2Aqxu8R0KkUHjn24h
-         rYrRjFCRLEAXFRHv3+zF8bAsoXM09sIsH7JgPUT833oUC7kVGTDYflrW7UntMF3dGepT
-         ZQsAGbrSy6RumWCLwCb2qvpj9zw6sEPvEVA5dQFldaBmfrnW2gB4NXiH6qJDdGHB9aRp
-         YzOL0nRrOO9D8jonJzueT43oMkUrWiIMfOPFkKFQkEqT9L+faU0ITP7WDh8lXFIG0yUT
-         ppOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTbQcC4XgMF6nrwNl2d7Svpk5tSpmtRdg04V/hHZtwSqLvh6aecBjowP9/GSIX30/qnfGG90jxLpYIVn0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdKTAYiCCXPN+Dipd/FFWsb6UWvWiPLF98ts8NTR2rcbmEUB1y
-	2g/6USdrOdG7t8ZyR+/A+4VYTH8Qdx8mftUU3d+r753G8VQ3lmccdOTGa5Hm7H+H43c=
-X-Gm-Gg: AYBFou2c4uEx8NHstWGPjfjaIxdjYRqkHaitoJvWavzEyl8UdmaQk01JleYiP3tKQv3
-	jSGTgrxZ6b4dMdYS/kNjf/7ZltzR0f4xiM+n3gFn9uqn3sIN1T8wIr/M9+kJGU6qovP6fapygmx
-	bqSteDupkAg8b69Np1FrHX1JhaWdU00xQSe5ieBdVFVBctq1VWF36eu2Mz+mCTfCko95Oqg+3oy
-	x9cTTITFsVi3VA7Hg6DgusvgtmQe/4p8r2fl0qvQ3lfuSy1uqR+yCUNNihY86QbrL4jDFHTgGK7
-	a+kq9u+L2F1etLyl70yMFLr4NDXhggzNdpJdQqAQDJc0UeXSXIqKdTQk2Cni7Dz66PihfkXwmyu
-	Yfh+DThZ7ykKrNza2HdIwBhEbmCWZL3uc8OezusOd1kvwkKwDV9Rdo10489w5lHJe0HRTlKFpGq
-	jZwBICwSsek6yK1pNFo5Hw5ERsLG3W6PwKHy+bbHxxlEgwEEks+f5WlYIz3R1fD/HtMA0ImiBdx
-	mWp9Q==
-X-Received: by 2002:a05:600c:c16f:b0:4a1:b29e:f72d with SMTP id 5b1f17b1804b1-4a1d7466674mr249825155e9.0.1792505244986;
+        bh=hUv7uf8ufBNBf/i6W9qgwPGx5KWz5jW4iKKV5HAxgy0=;
+        b=T8GT060864qHKnoKlH3OX43VUE7RUvQqVE9nigwGhrbgVLKRdsBlTkta5R3dpHJ27N
+         kTzLjzn6GElATUn4CzCiyvHBJIAIn46Gfy3Vfqkfd/BZ/ISeDEtGoR461MTxJnw3PHGZ
+         tbiXsvCAV0UltyvEHo1GHDRw9jEVzGqzePN8CHUTlldL+Fs0k/suI0fBzrGvML4/rT0R
+         6njRbMsGO8+XRg2t5aUTj9E5gyyNQGQnnDZnL30MX8fKhKTKPf+8kKZlhRFNpW68E8XC
+         idL7qAXaIlQVvW1CngA/zHJMee/rMaG3LNhGUBGIwl9Kzrkw0KnClDxYTYObRAvgd/j7
+         j7Rg==
+X-Forwarded-Encrypted: i=1; AKwUvByUT/DE3mpuiausTijbycyK4e84k46axh+hsRW5nf5iJL0aNmUXOLobc8gscqhHCOFD0s7QXjAgnMsIrtI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7R4jPORNvjdKaQw/Wv7l09hKBpDN372xIp/c8wtsGWMhhZPms
+	JujDDIFQAIGL7dflDMKnM2nTnsXlSDemjpkSY692wCGd6UJOO+AnW8YNq1UKC4QW0O8=
+X-Gm-Gg: AYBFou0GWXcuRMn490ndRl4DORqQ4kndAMPYjLlk1VRPB7KT/QDzAWr21iDPbjrNh0F
+	GmUEYudgDboybKKsrRuvRrlry6nKxOnjuqv5y3D9YwakOsiNAK9ipwzN4bckV6ofqZMJnIcquMO
+	KwMa5MfKQWllCirqgXbx4P01uIdYCF+M+vsgd8ddfmmpBfJTZfFbqZuP2pMIB3Y4MSJG64Cge/5
+	OR7ytB1tyrzUj3ylVNBpQh7BflptzGGjgZ18qme99wm6tiIoXWs9X9wjFALjbyF/lmLlzFS2uVQ
+	hmO+qvF8ubbX0917CWC5ck8wOnfLyTX+DFQMTqqpwhTrY7mYhvDYu95+ruCvrQryHM9taSqqxEw
+	oLGES0ukvA9ZXYbi+PlIYaIgrJT8n+vOtcIk36RKS66d9FzmcLKDJsP+J9PwDAnGQYUPmlfdvOT
+	+tp7HQpMpivyQAHZ1X6jXgq4QMn5E2nmQcMpV2FUgCRDzh/ntMdL/eT9mIopWMYfzWvjO/295qu
+	dV6GPgcqs5GHBb+
+X-Received: by 2002:a05:600c:1c19:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a1f4d81b75mr58480915e9.8.1792505244014;
         Tue, 20 Oct 2026 07:07:24 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm75602805e9.14.2026.10.20.07.07.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm75602805e9.14.2026.10.20.07.07.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:07:24 -0700 (PDT)
+        Tue, 20 Oct 2026 07:07:23 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Luis Chamberlain <mcgrof@kernel.org>,
 	Petr Pavlu <petr.pavlu@suse.com>,
@@ -86,9 +86,9 @@ To: Luis Chamberlain <mcgrof@kernel.org>,
 Cc: Aaron Tomlin <atomlin@atomlin.com>,
 	linux-modules@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] module: Move mod_unload_taint to tracking.c
-Date: Tue, 20 Oct 2026 16:05:21 +0200
-Message-ID: <20261020-taint-unload-v1-3-d1c764889afc@suse.com>
+Subject: [PATCH 2/3] module: Fix data race on mod_unload_taint::count
+Date: Tue, 20 Oct 2026 16:05:20 +0200
+Message-ID: <20261020-taint-unload-v1-2-d1c764889afc@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
 References: <20261020-taint-unload-v1-0-d1c764889afc@suse.com>
@@ -104,55 +104,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Move the definition of mod_unload_taint from internal.h to tracking.c, as
-it doesn't need to be exposed to other module code, and remove the
-redundant declaration of mod_debugfs_root from tracking.c, as it is already
-declared in internal.h.
+Updates to mod_unload_taint::count are serialized by module_mutex. However,
+readers may access this value concurrently with these updates. Since the
+counter is a u64, this can result in torn reads on 32-bit architectures.
 
-This is a non-functional change.
+Fix the issue by changing mod_unload_taint::count to 'unsigned int' and
+using WRITE_ONCE()/READ_ONCE() to access it.
 
+Fixes: 99bd9956551b ("module: Introduce module unload taint tracking")
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- kernel/module/internal.h | 13 -------------
- kernel/module/tracking.c | 14 +++++++++++++-
- 2 files changed, 13 insertions(+), 14 deletions(-)
+ kernel/module/internal.h |  8 +++++++-
+ kernel/module/tracking.c | 12 ++++++++----
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/kernel/module/internal.h b/kernel/module/internal.h
-index 70ef20b97c84..3aca22253296 100644
+index 061161cc79d9..70ef20b97c84 100644
 --- a/kernel/module/internal.h
 +++ b/kernel/module/internal.h
-@@ -253,19 +253,6 @@ static inline void kmod_dup_request_announce(char *module_name, int ret)
- #endif
- 
- #ifdef CONFIG_MODULE_UNLOAD_TAINT_TRACKING
--struct mod_unload_taint {
--	struct list_head list;
--	char name[MODULE_NAME_LEN];
--	unsigned long taints;
--
--	/*
--	 * Number of times a module with this name and taint combination has
--	 * been unloaded. Updates are serialized by module_mutex and use
--	 * WRITE_ONCE(). Readers that may run concurrently use READ_ONCE().
--	 */
--	unsigned int count;
--};
--
- int try_add_tainted_module(struct module *mod);
- void print_unloaded_tainted_modules(void);
- #else /* !CONFIG_MODULE_UNLOAD_TAINT_TRACKING */
-diff --git a/kernel/module/tracking.c b/kernel/module/tracking.c
-index 873fceb30526..46840dc22dcb 100644
---- a/kernel/module/tracking.c
-+++ b/kernel/module/tracking.c
-@@ -14,8 +14,20 @@
- #include <linux/rculist.h>
- #include "internal.h"
- 
-+struct mod_unload_taint {
-+	struct list_head list;
-+	char name[MODULE_NAME_LEN];
-+	unsigned long taints;
+@@ -257,7 +257,13 @@ struct mod_unload_taint {
+ 	struct list_head list;
+ 	char name[MODULE_NAME_LEN];
+ 	unsigned long taints;
+-	u64 count;
 +
 +	/*
 +	 * Number of times a module with this name and taint combination has
@@ -160,13 +134,46 @@ index 873fceb30526..46840dc22dcb 100644
 +	 * WRITE_ONCE(). Readers that may run concurrently use READ_ONCE().
 +	 */
 +	unsigned int count;
-+};
-+
- static LIST_HEAD(unloaded_tainted_modules);
--extern struct dentry *mod_debugfs_root;
+ };
  
- int try_add_tainted_module(struct module *mod)
- {
+ int try_add_tainted_module(struct module *mod);
+diff --git a/kernel/module/tracking.c b/kernel/module/tracking.c
+index 5bcd1c2701f0..873fceb30526 100644
+--- a/kernel/module/tracking.c
++++ b/kernel/module/tracking.c
+@@ -28,7 +28,10 @@ int try_add_tainted_module(struct module *mod)
+ 				lockdep_is_held(&module_mutex)) {
+ 		if (!strcmp(mod_taint->name, mod->name) &&
+ 		    mod_taint->taints == mod->taints) {
+-			mod_taint->count++;
++			unsigned int count = mod_taint->count;
++
++			if (count != UINT_MAX)
++				WRITE_ONCE(mod_taint->count, count + 1);
+ 			goto out;
+ 		}
+ 	}
+@@ -57,8 +60,8 @@ void print_unloaded_tainted_modules(void)
+ 
+ 			l = module_flags_taint(mod_taint->taints, buf);
+ 			buf[l++] = '\0';
+-			pr_cont(" %s(%s):%llu", mod_taint->name, buf,
+-				mod_taint->count);
++			pr_cont(" %s(%s):%u", mod_taint->name, buf,
++				READ_ONCE(mod_taint->count));
+ 		}
+ 	}
+ }
+@@ -92,7 +95,8 @@ static int unloaded_tainted_modules_seq_show(struct seq_file *m, void *p)
+ 	l = module_flags_taint(mod_taint->taints, buf);
+ 	buf[l++] = '\0';
+ 
+-	seq_printf(m, "%s (%s) %llu", mod_taint->name, buf, mod_taint->count);
++	seq_printf(m, "%s (%s) %u", mod_taint->name, buf,
++		   READ_ONCE(mod_taint->count));
+ 	seq_puts(m, "\n");
+ 
+ 	return 0;
 
 -- 
 2.55.0
