@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792483800;
-	b=i4wPrqXjiXHpmoSpksdXMtuZcBXkvEUGjDwIrlcQH2HlZ40WOkm5PLH7RC8wxLGNb0jj
-	 PeCA1klsRZTRYDqRwE7vBc37zYq8Q0vabfUYCGssloss/U6UQbeX1dkSsr7EoplQDytlT
-	 IQj7mSI0grI80oNd2ncyJthuofunSFvuOxY9ZHSX1Zrj830Py2XthAHlWbajIrmdu9X24
-	 OB0uuICatCRJRjLgVuL6d2wgrytnoLKhFxDSz+7icPzsrA6T/PvhR8/D8zdY+q2+WawJX
-	 Zk6gojqaKkNfCUW2oyue36pJFcyhXhoTiZ1NI2i8OjZsRjOvOo/Z1veq2u0IZqDtfAQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483800;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=V6mptVN35vJ98NYii+6LNnGBoOW3foxwKoXliiFVg4k=;
-	b=EtJvTjc7CffkPfuw3TetwfMkB+9aq5K7TguClhxVnsGK55KK2pGQSzYltfrhQxG1e70Y
-	 q5iJPAdX2sKtrs74hbdh67f+XjdRbCOCE5HhtlN9w2Db06otKin4CrR9MpocXF4UVgbrd
-	 vTUCXSHp2BvVerXGgqvGkXJDiyKX91xxPWupp5ehvEU/0ri6xbDxy8xPcfRhi1fjzghAC
-	 4wP/oX/AnbuKs65NdHHSXn7fIeffJtiJA6B6o6jP3fug3g0gfKiZb973jeTPe/2LeyHtZ
-	 zwEnZJ7FyFXXZNNMs3QRxR3a59Na/Q7iCdRqqrfz/FKY2tn2qj0eIoZQfYH1ailoeYQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=evb63eaP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792483798;
+	b=PpL2lw20PXmJHMRYCDa5qIQrm068mg2JuiSUvKYMr4GJtc7hwzO9JO6MaFgabtTO/uPX
+	 fJ+VSEsePbWwzYPRcHHtC2aNb0GI+3ue4rjxs23Ps8dN+F0FpgrW7YKAMmfZFS+zCb24o
+	 MuXMcAD8+uGffGF1Q2mIVqorxMMRFD+CKMYh4WttFHRp0k+blvH3ySjNmzABi3R5us+V6
+	 kwe2wTsHAEQCjFEOSM72DJNIERX4QL7N9gdAzrYRlSQNdpajPK+XEc5BufrSb1RLgVv62
+	 Pyw7go9/XzJycIO2U9AzvdKCpoG78W2bTBbCGmppGqTxhdkChQSW452v/eb3Ss5EtdA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483798;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WytZL8CPn2x2UqBbuwhWlaP5HNZx/Obwas4Uf3JOylY=;
+	b=kEQCLBcSqpDVurYGMDvX4DBvbsMzf1ivdhbbBilEM0zKsjMWO4zs2T9WfdPuBlH49WGs
+	 UjZiSjNcuervrglPYkp8mwPkn0OITiVM/3NU5jDkBJJWwwmBOcHjrzcPZCaW9zRePmLMq
+	 B3PFcPmTPTUZ1dw3BmeEdJyAoQxE1G2HUEc/OWNv8PFqjtnJX/NgfcE6AIR4CWn4rA4U9
+	 kJSWrvjeLAWO1Am27PcDbyYuOvxVqOHbnxAA/mOcHDgBjBZt7oCtGANux7fhrbg1CXaCA
+	 q4mvVdaaDC1eSPsB0nNwMs3Q3uit4YTpvDkbYa4D75G1fZOXbDVj2VSC+7ycthvS68g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zqy8yAS0;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DTjoNG8Z;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA66606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:10:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA66606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB1A606A328
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB1A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=evb63eaP
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab4891fc73so10000361fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:10:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792483799; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nVhtMuyUcNOp3v67qAy+BUaICe5bJA3v+zICY9lvLyNQHDBIhwt3BhDP/hlu+t5URr
-         calQKUQbBaAqS3Wj/jUobpVRf1YWT1YSV0p0drcgN9H5fxV7Te0cwJbWeFnyMOhNp2m2
-         /qo0PcyVTUiBBgOSrvIiDeolCW0XaSQv9uFlqIn2M/q8zUOl+hSd5cx/rQsZrotrgehp
-         /f6qLD6zeLPqLnBYpXBN4Kvlt74Ll12ef+IhQJsJ/QZT4+qhSk+iIilBBh882VpNQy6M
-         TqnRa6InZPu0MUVHreG4u+g5SAm3PvpF5rC0Kkbq7M1adLZq7krsor2tsfHbocGRcdTn
-         jbQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=V6mptVN35vJ98NYii+6LNnGBoOW3foxwKoXliiFVg4k=;
-        fh=IpACcypqZSn+nCJ3I1+K/6yA/6Yu6YpvxIGZNnT049I=;
-        b=EO9SiRG+vbRv2XJxnJZnRZ67amR2oAZZXzs4J5Pis9BqDTumGKBqbUrmeefY+c2skY
-         czR1t8PZO47+vHyyCkqUA2iIsMVTdWOYMfL+lw1QnpwoCR8Z91SqMl4ynaReq+R0Lspk
-         X4gofgwWxgidcwSBvH7bEulGnFHfj4GeWjVu+sBWAj3KjMstFXs8s0cD6sbLO6815BTV
-         YB7WdPCvvmKxbtkWu1wLbHPYytfw/Np5snJE7w2Tn83SkFqvDl7QcAOzbi/++Omwnj7O
-         Rx6/sbtOzKQtgeHkvbPjOrwZoZ2hFDKgBJscL0zT4KmjtXohcHm2Zqzu03ccqOJDH02U
-         8J8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zqy8yAS0;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DTjoNG8Z
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tPwv4178143
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:09:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WytZL8CPn2x2UqBbuwhWlaP5HNZx/Obwas4Uf3JOylY=; b=Zqy8yAS0HNfPZCxk
+	5Fd34JhwwivmBU37ziGeF/JjsPsdKLEfmviRKkzXEEHInkcH0Vxy9MrmD8+AOdF9
+	SkyYOO2+OvLs/YqTZjOFIg4y/iKnNTwNZp8xAsCZjj8+pPrfxhOTVWjwP2l5RkWQ
+	h90v2uA5p7foKwKsihwSWWRRpDtOGoNJ7puC7vhmabpFKd2oa47viFsLBl515v/X
+	kmrR+fr/9lKrURe8HuZt517CzTaxXTqcswB+0SOH+zSmdXBYfY5RpcZjrGlFg/Rx
+	2f/ud8VEW4TLDJ4oXNMFM9ApnhSyobvYFScjBY5XBiHgy+fDPlceIJ6qLYHjMhsV
+	obMtJg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n1hd2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:09:57 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-533962f6bc9so5924191cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:09:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792483799; x=1793088599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V6mptVN35vJ98NYii+6LNnGBoOW3foxwKoXliiFVg4k=;
-        b=evb63eaPhGaFJtlu5jJTkNUzsfxqGmB2jkiQ/CFO6TvwWdV7gZJY/vCF7TWT8KOCep
-         WeZdRm8D6AzKEHgKeADaU1S+HiMaTsKpdA/12gGrFQE9JADR5LhbGP++kBhETxLIBdyF
-         nu48x67TCzaK8LSpOqvGaRQGR+TVvFMjOrRgG6FZ5OuNUeKAR6+Gscelf5u1SgjY4Chk
-         4KgqATQT8iJ9IE5wKQCh3p6zPYIFMRUrI08Cq9wGjepEXE08odUs+YSFA20ChM8KItMn
-         hfn9rvGYdrrsQvz1TuDnWPbUS5iku6m41dp1VuVcZqvAArvWSal6tHeKOGodcWJMfGWR
-         B2vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483799; x=1793088599;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792483797; x=1793088597; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=V6mptVN35vJ98NYii+6LNnGBoOW3foxwKoXliiFVg4k=;
-        b=BCEgq5dDMl+LMHV6051d/hY8KhiHT3bjj137bLhx3uivfc7/KG5bUxEO/IDkuQ5Ii8
-         lPDCyT8g8lv2D+5RqzcfZV6XqHyMgiTxTAa440ViJdKBIir1nW52I/oKoCSo6mjvuAmf
-         AAIe1WFYLON3nN5p+BP8XjFBNEvWBIjfLkl4Eg0g1zXZiX9RVSAfHJz21jEmypwRXyGC
-         xenx3xXyjQkRZI95I3kc88pExTmGGyVgmdObiiNL5NC0ihXeMysMfmXd9TcPIQZ8xlky
-         VwC8ZoiCq7L+WQL1vBDz7xTdzpD79ohxmUm87dw3nDHYQ/noyejiH/4nE0PM35iCbx9d
-         ZetQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYgT6/deP7H2pvzrFj7JzCO2RF/zmJeKT9j9khVzTynZ/BbcqjO8Gbv4mgh2NcVElVqvhLQpIDZNZ2WRY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0TVXKtIba/+bfLE4tZpaJzPR7C5bVio4MWIDEdBMgromXrwOg
-	wXKXNIkH29drmkr4vDK3Z+JkuadWhhPTs3QSiPPmlLYBBD1P7sUeHtTwYCzE8TPaw/Sk9HpBKCY
-	0Kqe6n87aFNNpno0F6z3U0CR8ZTDZIkw=
-X-Gm-Gg: AYBFou1Z6sYR8Ao1WAcHWeWkGpXJsl2csWaWh78zf5G4DWuHGDz/SZBhTJ/9wbW5M/+
-	XITCLOT+aERlWhx8EGmgE/VDnXq2HUuTUS3VUflJGHgwF52wGBmvEDj4OxBJZGXoxIbHhjcWQz3
-	JGq5nsocNU2zgTljO1ToJsaIlV7T0h82e+XaLxBYH30PHOc+VRgzJwotqoK+hWC7ySTBf9kG9YP
-	/kEFBNEPNDjhh+FXWy4ce+1fVX/7CfTyJ0LRfEsgO3afDz+ThNnui+l5c3GR6NslW10HtjNFf1/
-	fhBZMZXrI66z0WHel6JZQi9lSf3hxSmo2iO2TL12aYiacxCuh9WIifHxWCaK3zRw7Mnpkr//F3+
-	Pm5+trYCGrb3Fu0pWA73Rkz3j5hdbX8q4MRJv/taWjd4=
-X-Received: by 2002:a05:651c:43c3:10b0:3a9:decc:71d8 with SMTP id
- 38308e7fff4ca-3ab292e7330mr15305261fa.20.1792483798450; Tue, 20 Oct 2026
- 01:09:58 -0700 (PDT)
+        bh=WytZL8CPn2x2UqBbuwhWlaP5HNZx/Obwas4Uf3JOylY=;
+        b=DTjoNG8ZnL3qBl6AhvJQ3gxJGXyctCEyGqhjLFvRc6VvUQmu4Pa1SCh8z6cBuEhlI8
+         V2tIfvEoAebLd8AMaNYGZ4+UNoecZqIU60yhA/hd+8GwWT3veGlg/+vHBJ54XOJLFJOv
+         6wiiXpuIj413pCJFnY4gPuh34IDmpNnVTdBWx6270EeosRWUoMH6aG2YRf+s9MiPzZZX
+         ib1abPYi9abQgQOZfQxlFFcfwAcJJrKmcwZeFJ0HCDOCbOkc5w6xIHFbG5J+OjhQaXls
+         7hh2zYPCcAI2uGdLmtfTzFdGvANh/YpOCdTfj2/EXTTo/gq73OepCKHEJ2lJWyO4AD8p
+         UZQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483797; x=1793088597;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WytZL8CPn2x2UqBbuwhWlaP5HNZx/Obwas4Uf3JOylY=;
+        b=DZqopanyLunqb3YBap8vhKqx8HeqpVxjS+nXif5yvr/4E5PtVWRWVRfrweKzx8NJC+
+         ji0yvnj1nRAB+5gX67uoaCqq7U77kyWX8qGXfJXOU4IQ2FqWXwEPjb/J9UO2yPYSMW2G
+         Yi5dP05KqdnuYtxX6J+VxmfPYwuBr2AQ0SLhzzAM/o6N1RzmO12Q5rGDNB+igusUtMpm
+         V/zSZfPBId99wq0obyzRl1yQbOLszulwPg2JrXO1CRM6SA4E1NAnBUhdkPY5+V1U9b5b
+         X/leQVfdBoO70Vy67/P5qtSmTjKhRGNxVGN+alQr16d2w0DhOnAckdbmBgAH9m/v5l0P
+         NEMg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcPOLO85YFU2yMSlS0wfTJm3z2XRpTnbfv5c8X0uSLUATha8uzIxz1PC8E8MZeikuHW+USpGfNXrOxfTI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPHyXdJK3pKU1isg+gW2Zrux8Y1AEKPnMV273WHms1R2JiAd1r
+	klIyR/lKT3DaGqeMQFbjZPp1uFGaZSeh4mjRgj2kFg7lI6Tq+g/n+IYabG7mzlH0zt+ZortjOnj
+	QtizpNzM/CO6czGISbloiWLt/ViYpRpTwYtWkQEL6iDEkPPGMOQcIHVhMLvCxxYaUiEo=
+X-Gm-Gg: AYBFou2kXROYrOkhho+fbjnvl9eCtJkSY45hka6XtcDb3HJ7EL780LknR4adM2167+j
+	acJCogCKcj4uWF4YT/cPqwjh1FZU+bSO3bCx75lCfK4nWsqSCEEZ2brvMirWCuUBMkfp1cfjUFU
+	7eBssE/XGVSCu99dicd6wp78rrLpSGK0awV9+UiQ34E50HKSAfQBTZ1RTcRVi3UUDx45LeGa5j7
+	qvLcsvbV3YlLbdtHmKA+v/f5Kp4QpST7ZFtXuJpIhgpSMF0slLaQRJtG0nYiPxmxaii70iijJJv
+	WunTtfDv3QEfmjoDkSd1ptBkcm+nAJPyni/cUlsnq4pk8OHwkrezsP0JCTRiA9uSTO9pRupeHGI
+	tMhHwse0X62oXByZO0RR5tw==
+X-Received: by 2002:ac8:5a89:0:b0:536:34ac:1a1b with SMTP id d75a77b69052e-53645d3c8f7mr186999761cf.2.1792483796683;
+        Tue, 20 Oct 2026 01:09:56 -0700 (PDT)
+X-Received: by 2002:ac8:5a89:0:b0:536:34ac:1a1b with SMTP id d75a77b69052e-53645d3c8f7mr186999031cf.2.1792483795094;
+        Tue, 20 Oct 2026 01:09:55 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0f2asm461081766b.62.2026.10.20.01.09.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:09:54 -0700 (PDT)
+Message-ID: <0504f1db-991e-412f-9f7f-2840beca2ea6@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:09:52 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,256 +115,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-tegra-drm-yvu420-v2-0-512889103ab4@gmail.com>
- <HmrilxC8QwiAQGw2IQ1Ztw@nvidia.com> <CALHNRZ9pTTLTpsKCi7oETcjpxNbZmQxfnC+pvEx4Wezv1_zchw@mail.gmail.com>
- <YwDFPLEmR6OpEy_iH5qhQg@nvidia.com>
-In-Reply-To: <YwDFPLEmR6OpEy_iH5qhQg@nvidia.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 20 Oct 2026 03:09:46 -0500
-X-Gm-Features: AclHuK9G5flqUwHbZoc27IHAExPyam9IuxmD1uS85V1i11rVUagnEOUPWT-m7-o
-Message-ID: <CALHNRZ_Kiqc0VJN+4gDDM0Z+Ns0VO3jCoLUk1xNn1OGjeS2+LQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/tegra: Support swapping chroma planes
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: msm8937-xiaomi-land: group status
+ leds
+To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260921-xiaomi-aw2013-v1-0-a0c3084076de@mainlining.org>
+ <20260921-xiaomi-aw2013-v1-3-a0c3084076de@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260921-xiaomi-aw2013-v1-3-a0c3084076de@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: DfzQEg2vJAmS-fhKF7OaIZd5JA99guF9
+X-Proofpoint-ORIG-GUID: DfzQEg2vJAmS-fhKF7OaIZd5JA99guF9
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad721d5 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=OuZLqq7tAAAA:8 a=enxl3d4HI8DR7CG5SUMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=YF3nxe-81eYA:10 a=kacYvNCVWA4VmyqE58fU:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX+Xv00EKJbZXt
+ xCns8VEYaI6LnazHalDISH/FRNgViq5kzUu2rHgWv//hGfpp7km4VGXyd0IwBQRwc1lj933Z/w7
+ ho2wks8Hk/3C8fNM1sEtuaQLhdZXTD6ca1sr3l7EIjgQwrgfnZOFm/RAG0wuHMUWOCrdvpzqqdw
+ UXX24QegUFGeNiNkJArmWWl48BtBdbhASQo1nZe0yuWFRlMThjlEGHd3bS1/kV/l4IHQ2XYXys5
+ ag09TxriCxeO79g8Rf9WDDR0AiVPRlY020KElpyxhq+aEuQHg/1NLub6KlLstFLcJhHlCnkaNtb
+ 2NGv2cclLVQo8zyqvlXTYFAQYBBm+9PY0/t32AddeURgdw+Ti14HH/gV6bUuTSzh87rTr/yuAUW
+ vMGmMcR8YcVcfUZHZXqoqHWpGvHdyerLsRlG7uYhH4G1m2TIPKULjL5X1DmZTk+pd+nbJMMiZCz
+ 3fUq11laD9v60Co7I3A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfXyoJb72JiZ8Up
+ id3LssnNoTBSToFuaTnPN2GsUb637mB3w+ZW5H8G/GeC3hVSZ7YtKtOoxSwU92ZNwVp35DsrVsp
+ auhtuhWyznbxLHErWFdBhbz/4vwF1ss=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200032
 
-On Tue, Oct 20, 2026 at 1:33=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia.=
-com> wrote:
->
-> On Tuesday, October 20, 2026 2:59=E2=80=AFPM Aaron Kling wrote:
-> > On Tue, Oct 20, 2026 at 12:08=E2=80=AFAM Mikko Perttunen <mperttunen@nv=
-idia.com> wrote:
-> > >
-> > > On Monday, October 19, 2026 7:03=E2=80=AFAM Aaron Kling via B4 Relay =
-wrote:
-> > > > From: Aaron Kling <webgeek1234@gmail.com>
-> > > >
-> > > > The Tegra display controller supports some yuv types, but not their
-> > > > chroma swapped variants. For example, yuv420 is supported but yvu42=
-0 is
-> > > > not. This can be efficiently worked around by just passing the hard=
-ware
-> > > > said chroma planes backwards. Add a flag to the plane state struct =
-and
-> > > > handling to both tegradc and nvdisplay paths.
-> > > >
-> > > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/tegra/dc.c    |  6 +++++-
-> > > >  drivers/gpu/drm/tegra/hub.c   | 14 +++++++++-----
-> > > >  drivers/gpu/drm/tegra/plane.c |  5 ++++-
-> > > >  drivers/gpu/drm/tegra/plane.h |  3 ++-
-> > > >  4 files changed, 20 insertions(+), 8 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.=
-c
-> > > > index b0bfa946e6979..39c2e920d76a6 100644
-> > > > --- a/drivers/gpu/drm/tegra/dc.c
-> > > > +++ b/drivers/gpu/drm/tegra/dc.c
-> > > > @@ -740,7 +740,8 @@ static int tegra_plane_atomic_check(struct drm_=
-plane *plane,
-> > > >
-> > > >       err =3D tegra_plane_format(new_plane_state->fb->format->forma=
-t,
-> > > >                                &plane_state->format,
-> > > > -                              &plane_state->swap);
-> > > > +                              &plane_state->swap,
-> > > > +                              &plane_state->swap_uv);
-> > > >       if (err < 0)
-> > > >               return err;
-> > > >
-> > > > @@ -872,6 +873,9 @@ static void tegra_plane_atomic_update(struct dr=
-m_plane *plane,
-> > > >                       window.stride[i] =3D fb->pitches[i];
-> > > >       }
-> > > >
-> > > > +     if (tegra_plane_state->swap_uv)
-> > > > +             swap(window.base[1], window.base[2]);
-> > > > +
-> > > >       tegra_dc_setup_window(p, &window);
-> > > >  }
-> > > >
-> > > > diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hu=
-b.c
-> > > > index 448f49f3a7d7e..6427155ac4fdf 100644
-> > > > --- a/drivers/gpu/drm/tegra/hub.c
-> > > > +++ b/drivers/gpu/drm/tegra/hub.c
-> > > > @@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(stru=
-ct drm_plane *plane,
-> > > >
-> > > >       err =3D tegra_plane_format(new_plane_state->fb->format->forma=
-t,
-> > > >                                &plane_state->format,
-> > > > -                              &plane_state->swap);
-> > > > +                              &plane_state->swap,
-> > > > +                              &plane_state->swap_uv);
-> > > >       if (err < 0)
-> > > >               return err;
-> > > >
-> > > > @@ -664,24 +665,27 @@ static void tegra_shared_plane_atomic_update(=
-struct drm_plane *plane,
-> > > >       tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE);
-> > > >
-> > > >       if (yuv && planes > 1) {
-> > > > -             base =3D tegra_plane_state->iova[1] + fb->offsets[1];
-> > > > +             uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> > > > +             uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
-> > > > +
-> > > > +             base =3D tegra_plane_state->iova[u] + fb->offsets[u];
-> > > >               base |=3D addr_flag;
-> > > >
-> > > >               tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_=
-START_ADDR_HI_U);
-> > > >               tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_=
-START_ADDR_U);
-> > > >
-> > > >               if (planes > 2) {
-> > > > -                     base =3D tegra_plane_state->iova[2] + fb->off=
-sets[2];
-> > > > +                     base =3D tegra_plane_state->iova[v] + fb->off=
-sets[v];
-> > > >                       base |=3D addr_flag;
-> > > >
-> > > >                       tegra_plane_writel(p, upper_32_bits(base), DC=
-_WINBUF_START_ADDR_HI_V);
-> > > >                       tegra_plane_writel(p, lower_32_bits(base), DC=
-_WINBUF_START_ADDR_V);
-> > > >               }
-> > > >
-> > > > -             value =3D PITCH_U(fb->pitches[1]);
-> > > > +             value =3D PITCH_U(fb->pitches[u]);
-> > > >
-> > > >               if (planes > 2)
-> > > > -                     value |=3D PITCH_V(fb->pitches[2]);
-> > > > +                     value |=3D PITCH_V(fb->pitches[v]);
-> > > >
-> > > >               tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE_UV=
-);
-> > > >       } else {
-> > >
-> > > I noticed DC_WIN_PRECOMP_WGRP_PARAMS has a SWAP_UV bit. This is alrea=
-dy
-> > > defined in dc.h. So we can use that for the hub.c implementation inst=
-ead
-> > > of manually swapping.
-> >
-> > Oh. I figured there had to be something like that in one of the
-> > generations, but my grep-fu failed me. Even more embarrassing that I
-> > ended up using the exact same name. I will update and verify this and
-> > send a new revision.
-> >
-> > > Otherwise everything looks good to me. We could also enable the swap_=
-uv
-> > > logic for other UV formats.
-> >
-> > Eh, other than asking for the entire patch to be rewritten over the
-> > last two revisions, it looks good. :P And alright, I'll plumb yvu422
-> > and yvu444 in the new revision as well. However, I don't have test
-> > cases for those.
->
-> These are minor revisions, pretty much cosmetic! :)
->
-> If you have access to the libdrm modetest command, you can use it to
-> test -- e.g.
->
-> sudo modetest -M tegra -s 78:1920x1080 \
->       -P 44@43:896x504+40+288@YU12 \
->       -P 48@43:896x504+984+288@YV12
->
-> (the ID numbers may differ) to set up a 1920x1080 mode with two overlay
-> planes one with each plane ordering.
+On 9/21/26 7:43 PM, Barnabás Czémán wrote:
+> Use leds-group-multicolor for handling the RGB notification leds
+> together.
+> 
+> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> ---
 
-I'm still mostly focused on android. If there's something where I'm
-concerned there's a difference between android and a Linux rootfs or
-such, I'll test against a simple cli rootfs. But I don't have a full
-graphical Linux setup for testing. At one point I did try to compile
-modetest for aosp, but I don't think I made it work.
+You can update the driver and bindings to make the LED controller
+itself accept a multi-led child
 
-Aaron
-
-> BTW, I believe the hardware swap bit also supports packed and semiplanar
-> formats -- you can add those too if you'd like or leave them out and we
-> can add them later if needed.
->
-> Mikko
->
-> >
-> > Aaron
-> >
-> > > Cheers
-> > > Mikko
-> > >
-> > > > diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/=
-plane.c
-> > > > index 2148b0c59815c..757bc552809fe 100644
-> > > > --- a/drivers/gpu/drm/tegra/plane.c
-> > > > +++ b/drivers/gpu/drm/tegra/plane.c
-> > > > @@ -59,6 +59,7 @@ tegra_plane_atomic_duplicate_state(struct drm_pla=
-ne *plane)
-> > > >       copy->tiling =3D state->tiling;
-> > > >       copy->format =3D state->format;
-> > > >       copy->swap =3D state->swap;
-> > > > +     copy->swap_uv =3D state->swap_uv;
-> > > >       copy->reflect_x =3D state->reflect_x;
-> > > >       copy->reflect_y =3D state->reflect_y;
-> > > >       copy->opaque =3D state->opaque;
-> > > > @@ -319,11 +320,13 @@ int tegra_plane_state_add(struct tegra_plane =
-*plane,
-> > > >       return 0;
-> > > >  }
-> > > >
-> > > > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
-> > > > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *s=
-wap_uv)
-> > > >  {
-> > > >       /* assume no swapping of fetched data */
-> > > >       if (swap)
-> > > >               *swap =3D BYTE_SWAP_NOSWAP;
-> > > > +     if (swap_uv)
-> > > > +             *swap_uv =3D false;
-> > > >
-> > > >       switch (fourcc) {
-> > > >       case DRM_FORMAT_ARGB4444:
-> > > > diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/=
-plane.h
-> > > > index e33a581e6490e..dba5f1b254e98 100644
-> > > > --- a/drivers/gpu/drm/tegra/plane.h
-> > > > +++ b/drivers/gpu/drm/tegra/plane.h
-> > > > @@ -49,6 +49,7 @@ struct tegra_plane_state {
-> > > >       struct tegra_bo_tiling tiling;
-> > > >       u32 format;
-> > > >       u32 swap;
-> > > > +     bool swap_uv;
-> > > >
-> > > >       bool reflect_x;
-> > > >       bool reflect_y;
-> > > > @@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *pla=
-ne,
-> > > >  int tegra_plane_state_add(struct tegra_plane *plane,
-> > > >                         struct drm_plane_state *state);
-> > > >
-> > > > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
-> > > > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *s=
-wap_uv);
-> > > >  bool tegra_plane_format_is_indexed(unsigned int format);
-> > > >  bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *=
-planes, unsigned int *bpc);
-> > > >  int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
-> > > >
-> > > > --
-> > > > 2.54.0
-> > > >
-> > > >
-> > > >
-> > >
-> > >
-> > >
-> > >
->
->
->
->
+Konrad
