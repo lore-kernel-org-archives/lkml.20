@@ -1,78 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505485;
-	b=UT0weFMfrahQF2ssnvDEWKR2ht4vTXmd6Rw6Xcn6PnF9bNKJH6+Ce5BBFhPq4pZt1v0Y
-	 XQwbFZVoApvJdOMFsFJIsxFcoD839Qab8D8XT6CX6qG5nO5dsLtE5jk7DlDFc4DejfdH8
-	 /z7dqc1gkSZlVjQe7xw2DDlBWPagqRIsmWFxnfFQ75uFxETlYPdV54XdSFYmvsbXhaQeF
-	 gA2TQdI0eVIPjGkSLt7dJfdpCN8VX/sI3/H//uSo2YWGViK7hrgVXeIiHvuxcPM0RQtcF
-	 WS3kWmh5hsbsdZOnjaKcjJVmgSBMEB9+6hl0H03r8EHCIPlQIvNyg426wXowhnle9oQ==
+	t=1792505506;
+	b=P7FRhq797O+7+GgZBsvvZJxABDc9NUBNzIthmiO7jbS8MX7LmdOy6g868e7MDdua+Xro
+	 4zw73RMI3ILFf6OxYsXrhzkgohWyRI/VP6B+t/8faBe45ve4Pnq++tZUcXiHjLFYSgAJs
+	 2kC6Ad4VAUffHNSpyE60We7mHXtTuBRHJfAU2yvQBcpLh0rfx+n6gud3tLl9i3sKEfutq
+	 4Br0KeyB7Mf5jKy4v7k3ovY5Hmps4Iyho6CvV0KzewFaQmx6Cz5lAcmGBcJ7zIRX16qMY
+	 QYNtJTpMcwSt5rOLffKwwfWiJEN42vQ9GvWi9F1l43QdnyNbO2tlGnWozRay/iuc7Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505485;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FiazhCdc+ugkiOpUi3c3bf9Zh1istRd9/K58OlPKmDw=;
-	b=svN/d10XYkbZjUEe5dYOKRZRzjtN6wx9rUq3zvGc+6LUggzF+ujaQ0bx9RVZQZYDOJxU
-	 v9pybFL5PUQEIOa3Ct2Y6Pq4r1eEQeip5lnXPvHdsy0BK5bJx3dRuE0z95caIYEW75m8N
-	 qX5M9Xlr6RDzwQMlD6z7Ja79HBWXSz0Hqzb7YEWF7jXHTXpwjKP/kqOmRLRW8WDrukkwV
-	 PNSfqOgXBUGQoFfydG7oSfch542X0KJSrs7WrfwzQVWeCRa7aYeFM/xtkhHTaqwa2CcBA
-	 tBsEdu0U2EuP8F3ocxopzgeCJGdkFYij5fPRB8XXHEr6OOtTgG/M1KERGToG27rG19g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505506;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
+	b=ht+uztMzXoO/C8UeBjpvsoroicp2DV4B9DhzEY2MH17KzizmhwxbyX4jnQEtvZQaF1Pp
+	 RQIobcKBKKDDbtt8W94LQ643F+r8K+usy1T1I96BmvZFxtj2Yp2+ThcxuiSLF73bhZb0t
+	 PBsl/xH3B2XSkCeFHof3z9YKJyC4RxDwwfK+E6WygLEccqPacx5+563E2qYl6PyekQiOB
+	 DcHeuOc+nh6rBoKW1x0I+DAgEavAP5a2qvgEEscEVOYsT4dDQLB9RF+nMHiHq7QyN7m8H
+	 17EGMSciMtecuTmYbzuqG/hXgCBpNfU1BWGG92G8YUybENAUNZUudR/69stLE46qhnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="h+Zac3P/";
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=CQqZm4Qq;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72037606A339;
-	Tue, 20 Oct 2026 14:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72037606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B8760A4AFE
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:11:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B8760A4AFE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h+Zac3P/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792505484; x=1824041484;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=YET2C83OEpsJ10nT6vmkLI7B3GfmaIlyc/AdjEFAY4M=;
-  b=h+Zac3P/apqWVeCexq701xaMwRufbHxMYT+zQ4ZYCf4r6un/c/Xr8ySU
-   Senib157rrpYG/gIphqutdPjTAINm7TW+7IMzzMt9OcYV9eMfcCg3i8ak
-   l934xPK9UHpNTBQIIhPEAtdZ7snCRVSsuWA/z1yrGE21ZiDG8BnSqyeoD
-   Wx7zksHbfD+M07PvW1ZcxrRpUcgd4n/f6Mljc11MiMZRP1S4ovsgFQxk0
-   zNFMnOhRNz1oa3dyeW5QbG+6BVKwNMmO1cAuCNQWS2xphfBFXrLB6fmBs
-   x0j+/VfyoYytUZjPPCn18a9KeDuLPMn68ZJ9c9u7+NajseXDc6Qhtr2Hp
-   A==;
-X-CSE-ConnectionGUID: m4gofIqOSQ2JVuVb/md8gg==
-X-CSE-MsgGUID: hzlDaE2vRneKlblTW62pjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1222215"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1222215"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:11:24 -0700
-X-CSE-ConnectionGUID: SIf4R7ZmRI+5EjsZcE05hQ==
-X-CSE-MsgGUID: H0a18YeYRNiNlmG4e/Wj/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2887920"
-Received: from igk-lkp-server01.igk.intel.com ([10.211.93.152])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:11:18 -0700
-From: Pawel Chmielewski <pawel.chmielewski@intel.com>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>
-Subject: [PATCH v1 05/30] ACPICA: CEDT: RDPAS: Add missing reserved field in RDPAS structure
-Date: Tue, 20 Oct 2026 16:10:26 +0200
-Message-Id: <20261020141051.2194123-6-pawel.chmielewski@intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261020141051.2194123-1-pawel.chmielewski@intel.com>
-References: <20261020141051.2194123-1-pawel.chmielewski@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=CQqZm4Qq
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91beb36fcc6so22788476d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:11:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792505504; x=1793110304; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
+        b=CQqZm4QqzQBrGwRTNeTgjajTHWY5MaTuXaVA+ATI86hSLgiW1FB774vgWc3O4miO5t
+         fu41DHQSSTmYMD85XbQQElBqDVXE7y1HvgWF2Jnyn9+tI8gPRSkb5b5emYx+EvwCQEkg
+         EIUtsg7/v32JJRMZaanidELXfEvOYzZLx3LdxawrZ31IoABDmkiXrX14xkm2e4ZVZzN2
+         10ce2wsbzecI0sAzpvZnMoBjlaIAUTWDQvssIUFvmK1nZgrPFZmue7SkHG2a0RSAdD6P
+         bkHTA74GoHxzI2exBgb7i6elGN8KPdFaJ3ZAq1enl1BGDRTl21oSlZ6rGxb/3xY081Rw
+         17UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792505504; x=1793110304;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
+        b=BxOkzei0wBU1TEXQaKUSt/eY9nUVHxLy9l4ggxadccFgZpSCG9QHPkj62lwMFefAYW
+         4zE6pn+XFaLMUq2/IGYTjg+Ou3PqZQjWPRVrEEs+JzJFbcNAViE5c4PHO9XnoPMnZOVj
+         666i4to2ST65SpyRg5NM/Ng8ysq3f3CF+gXu6YsArldYaZb+4Kw0088yJU7h4tSJrU+P
+         hwNnzg2+JYitYqAiGho8uDJwFntwEMinXogJMaz7gs+yRaJp3uB3u9QHse6eD2U/CxaQ
+         sdUE1t7tr48BA4IwkIwjoX14anfmyBaPoUQveSow6pFCy+aUwZ4ldgG13MPyCluseZ4i
+         FSNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxa07MTucEETL+Ur+TIl0K+FpknAlwCcqvYBpai3rnej6BxcJMTYcg4l9IcZ1A+l+YVZIgdTeGrhTyKgCk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0qtOBWuAVo60S7rBtjIawYpBhb/WTieG8W1RSgvYl+ZI6NYWj
+	V8EDo3k94dOGQNbbC8OC6uFa85zJi+DgDPZ2xx8w2gJF4sGcQpKpv0EF9wfSCqCaIw==
+X-Gm-Gg: AYBFou14u415W71tw6fnSwmqtKGqYbG6wdvbzC3kEhKKcBxyt/6Pk4V/Gl/PhjlIt0b
+	5pa9mzkGc1pheCAVt/BMJYR3nP+3wiyW3ZskoCUueoEBPi/U7k0HrUCGiM961cgY34RWTW+4Yul
+	u9A2485u489aGth1WpdZAHZk9f5mdZ7VHUr3dlgwajapo4RQl0RcP9XugMXOLbFGEtDBVFrVRbm
+	V1ZlF6WVtoSpqjJkqOZmfoDSkE16faT2neZLRUxqcbEjXWX8j2NNqpiwiMrSBZ2ir9UwKACXZfH
+	h3umeJZKydfJpv5RrlF1lY5ftjMyouuPS6RMypLurH9DGt+gXLQxMSZBwFXO+3G3CG8AWaTYdjH
+	o0S9hHNjrKIdKAHW4esV4P6GqhkKqgTgJACNF2cG2g7LakIetXHF3qFJ2zOV4P5u6hViC7Cg9T0
+	tmxJ3hU8NaGOQIXMxScmJhV/7ErecuWPCjysDMgdyNgxqtYpLEPzygFzbRP962BAJokdlZvkE=
+X-Received: by 2002:a05:620a:4042:b0:93e:920c:c012 with SMTP id af79cd13be357-93f29b7f9e9mr1754715285a.10.1792505503808;
+        Tue, 20 Oct 2026 07:11:43 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b05e2f3sm228265585a.8.2026.10.20.07.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:11:43 -0700 (PDT)
+Date: Tue, 20 Oct 2026 10:11:40 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: gadget: f_mass_storage: take filesem in nofua
+ store to fix backing-file UAF
+Message-ID: <3f13c0d1-0e3a-4a62-a149-4c719ee3cab5@rowland.harvard.edu>
+References: <20261018130519.65850-1-yuz08559@gmail.com>
+ <20261020023050.87701-1-yuz08559@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,31 +97,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020023050.87701-1-yuz08559@gmail.com>
 
-From: Dave Jiang <dave.jiang@intel.com>
+On Tue, Oct 20, 2026 at 12:30:50PM +1000, Yu Zhang wrote:
+> fsg_store_nofua() syncs the LUN's backing file when switching from async
+> to sync mode:
+> 
+> 	if (!nofua && curlun->nofua)
+> 		fsg_lun_fsync_sub(curlun);
+> 
+> fsg_lun_fsync_sub() dereferences curlun->filp (vfs_fsync(filp)). Unlike
+> every other store that touches the backing file -- fsg_store_ro() and
+> fsg_store_cdrom() (down_read), fsg_store_file() (down_write) --
+> fsg_store_nofua() holds no filesem while doing so.
+> 
+> A concurrent close of the backing file runs under down_write(filesem) and
+> does fput(curlun->filp) in fsg_lun_close() (fsg_store_file() with an empty
+> path, the SCSI START_STOP eject in do_start_stop(), or forced_eject), so
+> it can free the file while fsg_store_nofua() is dereferencing it:
+> 
+> 	BUG: KASAN: slab-use-after-free in vfs_fsync+0x20/0xe0
+> 	 vfs_fsync+0x20/0xe0
+> 	 fsg_lun_fsync_sub+0xa0/0xd0
+> 	 fsg_store_nofua+0x138/0x160
+> 	 configfs_write_iter+0x1a7/0x250
+> 	 vfs_write+0x5df/0x940
+> 	Allocated by task 3459:
+> 	 fsg_store_file+0x150/0x1f0
+> 	 configfs_write_iter+0x1a7/0x250
+> 	Freed by task 3459:
+> 	 __fput+0x456/0x6c0
+> 	 __fput_deferred+0x10d/0x330
+> 	 fsg_store_file+0x9e/0x1f0
+> 	 configfs_write_iter+0x1a7/0x250
+> 
+> Hold filesem for read around the fsync in fsg_store_nofua() so the backing
+> file cannot be closed underneath it. The lock is only needed when the
+> fsync actually runs, so it is taken only in that branch.
+> 
+> Reproduced on a mass_storage gadget over dummy_hcd by writing lun.N/nofua
+> (1 then 0) from one task while another task rewrites and clears lun.N/file.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+> ---
+> v2:
+>  - Use guard(rwsem_read) instead of a bare down_read()/up_read() pair
+>    (Greg KH).
+>  - Take filesem only inside the branch that actually calls
+>    fsg_lun_fsync_sub(), not around the whole function / the
+>    curlun->nofua assignment, since the lock is only needed for the sync
+>    (Alan Stern).
+> 
+> v1: https://lore.kernel.org/all/20261018130519.65850-1-yuz08559@gmail.com/
+> 
+>  drivers/usb/gadget/function/f_mass_storage.c | 8 ++++++--
+>  drivers/usb/gadget/function/storage_common.c | 7 +++++--
+>  drivers/usb/gadget/function/storage_common.h | 3 ++-
+>  3 files changed, 13 insertions(+), 5 deletions(-)
 
-Add the missing 3 reserved bytes at the end of the RDPAS structure.
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Link: https://github.com/acpica/acpica/commit/88d82d3ae53e
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-Signed-off-by: Pawel Chmielewski <pawel.chmielewski@intel.com>
----
- include/acpi/actbl1.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/acpi/actbl1.h b/include/acpi/actbl1.h
-index 73ebc089e96d..5b4207af046a 100644
---- a/include/acpi/actbl1.h
-+++ b/include/acpi/actbl1.h
-@@ -590,6 +590,7 @@ struct acpi_cedt_rdpas {
- 	u16 bdf;
- 	u8 protocol;
- 	u64 address;
-+	u8 reserved[3];
- };
- 
- /* Masks for bdf field above */
--- 
-2.50.1
-
+> 
+> diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
+> index b7b06cb..6712566 100644
+> --- a/drivers/usb/gadget/function/f_mass_storage.c
+> +++ b/drivers/usb/gadget/function/f_mass_storage.c
+> @@ -2663,8 +2663,9 @@ static ssize_t nofua_store(struct device *dev, struct device_attribute *attr,
+>  			   const char *buf, size_t count)
+>  {
+>  	struct fsg_lun		*curlun = fsg_lun_from_dev(dev);
+> +	struct rw_semaphore	*filesem = dev_get_drvdata(dev);
+>  
+> -	return fsg_store_nofua(curlun, buf, count);
+> +	return fsg_store_nofua(curlun, filesem, buf, count);
+>  }
+>  
+>  static ssize_t file_store(struct device *dev, struct device_attribute *attr,
+> @@ -3239,7 +3240,10 @@ static ssize_t fsg_lun_opts_nofua_show(struct config_item *item, char *page)
+>  static ssize_t fsg_lun_opts_nofua_store(struct config_item *item,
+>  				       const char *page, size_t len)
+>  {
+> -	return fsg_store_nofua(to_fsg_lun_opts(item)->lun, page, len);
+> +	struct fsg_lun_opts *opts = to_fsg_lun_opts(item);
+> +	struct fsg_opts *fsg_opts = to_fsg_opts(opts->group.cg_item.ci_parent);
+> +
+> +	return fsg_store_nofua(opts->lun, &fsg_opts->common->filesem, page, len);
+>  }
+>  
+>  CONFIGFS_ATTR(fsg_lun_opts_, nofua);
+> diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
+> index 75831f2..51a70f2 100644
+> --- a/drivers/usb/gadget/function/storage_common.c
+> +++ b/drivers/usb/gadget/function/storage_common.c
+> @@ -415,7 +415,8 @@ ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+>  }
+>  EXPORT_SYMBOL_GPL(fsg_store_ro);
+>  
+> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
+> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+> +			const char *buf, size_t count)
+>  {
+>  	bool		nofua;
+>  	int		ret;
+> @@ -425,8 +426,10 @@ ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
+>  		return ret;
+>  
+>  	/* Sync data when switching from async mode to sync */
+> -	if (!nofua && curlun->nofua)
+> +	if (!nofua && curlun->nofua) {
+> +		guard(rwsem_read)(filesem);
+>  		fsg_lun_fsync_sub(curlun);
+> +	}
+>  
+>  	curlun->nofua = nofua;
+>  
+> diff --git a/drivers/usb/gadget/function/storage_common.h b/drivers/usb/gadget/function/storage_common.h
+> index 11ac785..347a86b 100644
+> --- a/drivers/usb/gadget/function/storage_common.h
+> +++ b/drivers/usb/gadget/function/storage_common.h
+> @@ -210,7 +210,8 @@ ssize_t fsg_show_cdrom(struct fsg_lun *curlun, char *buf);
+>  ssize_t fsg_show_removable(struct fsg_lun *curlun, char *buf);
+>  ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+>  		     const char *buf, size_t count);
+> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count);
+> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+> +			const char *buf, size_t count);
+>  ssize_t fsg_store_file(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+>  		       const char *buf, size_t count);
+>  ssize_t fsg_store_cdrom(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+> -- 
+> 2.43.0
+> 
