@@ -1,61 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456212;
-	b=4qSHYwUWNcckd3cnG4YCsG53KifvsjU4AEkqvI4tg1O26nSm1wr8w2SntssYX3cERTJq
-	 UFLmxTBc17LHBVLs+DuVE4EN088Ecqqfui7/czHz6tXZi1+A/YH6jjElCd/SJK1J5yavJ
-	 vzvZzmRKOl5vEIbA52xFpzcGObm/R20FQTzKagm4fHm+S/sGVYMfi2hmQbCWXBhW4uGyv
-	 fPluG0ESbxlvufOHrKRRp+bUCO5Wz99gyEwzaBrcOmva8c3UwREvHaapvSKC6evtPRNDf
-	 CuT938VDlX+tS97PGTYCzuD65eSXjdJSpGLv7ryCFJJa8LpfJcVkBUiywz6p/SSveow==
+	t=1792456301;
+	b=N3JbIUf0lgeiCnO2JdyYA3KXT26RzQnzhOeCgoq4eV9mkC+lOyZYiOUsk+VA4qhCINQG
+	 r/Gacp9ss5SzcL65RtoqTyEDVcSozdjciCaFlf6NRY77aKOwMQnSC5oLbUAV0Q4lpLG7v
+	 zPC4xDxgzlKFHbOq0iK9+MM2OIvquySqgeW9yqSOGw8heVtNsHNslfl+8uCNTibnGLuC8
+	 U1z+M80HjkYre/z8YfLKhOKVaGjny3XiKEuvz6GUTOYWL5H76Rny2t6s+0Mh46Vpx5H33
+	 6zGiNbteOJm9hFpC8T+cFpPrbuo2N4FHdNmSscoguhFNbd8aD5BNMAUPwy4Sa+Nv24Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456212;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	b=k1hBglOV25iU0A9+/duOkWayb6c59Vgm5HHAa0OP7DWs1AwxvTiTRjQF/U1ZWbghbaoI
-	 XEMEacZSRLaFsuagxJiWKtri/A77G0wG19xmGsuguv77ccgPBDSL2Qo60I/NnZdN7++z3
-	 YY4V4IY9ed0ufRFan/gdeIbihfw4D0y/f6w99IzyK+aeJIkklPBEHeWaFbanqZ1pLZoVQ
-	 NWMHj8ncLkObJVzFvd+HqHFamZxPFESd5AvOEDpMD1b/vy4v0Y/VXWX9QfwPf0UOOv/UC
-	 UEn2HHOheqcpyKGXxvQYgO6LPdRLR17hjUMu9o/LujJarIIchXIu6Q5baadrgJMAYBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456301;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References;
+	bh=751Y6zhqVlujoAmZVVL9yyvNp28mfGpF7nvRUspAqIc=;
+	b=pCjoQzB5TioIGaMu3SapKm4AwodJKeWwHigLHb/pjzUZqi94UR5FvFZatshxqgzcm2CT
+	 LvUhelH4lJ45rC71b4AtpmbegGucUssUciqysnbTCz9jgrfCofXcno6CNyH4juguwms9w
+	 jjikm86Rr66SA1jihy1gpYrIYBI6hjd59C3Jy8jSM+QJYbRHk2uX9uKODYQfjSA0RtpH0
+	 9nffeyADgVU0+mv/qDATsiErHBXxjYjOK4nZoQAE+y8g6ceqZZN6bcyZOITaHiE/oHnPw
+	 AWq2sKA/wMOYxP/1GYpNCvuQwhxKd/pXg54zPgEjouNctE1OfdwS+Txoadj1PrQMRpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NPlFtxU3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GXixBEC/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875FB606A31D;
-	Tue, 20 Oct 2026 00:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BE3606A31A;
+	Tue, 20 Oct 2026 00:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NPlFtxU3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0151F000C4;
-	Tue, 20 Oct 2026 00:30:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXixBEC/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00691F000C5;
+	Tue, 20 Oct 2026 00:31:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792456211;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NPlFtxU39KdcImvC4QnL8KWmpgIUxiP/vl8Z5o15vV575NbjBnWlwfLVy9V2ehoSg
-	 3Zxyi/KL8X/TQ2mntPVHLXSfCtlBJ8uyPRWhrdsrKJOPMfWNqMSKhkjL4MHNGw5cyJ
-	 7wdUZKHgS51mx2dSvVdlSQkVw69F+2CgKEsvJzC7gQ683jkqt7X6q1bjy12oOCgszi
-	 dJ4hOXNgYJGrCT0zzbPFh0qLFPgKWY7uDYLDiIsb0fR7uLLcrCyL3f6/6hXPMuEyrQ
-	 8R/39SLvoe5rPYF1bIX5saD+DI5QthiwOaGeuPa+xxwHaTVXUNPGWvJjIr+ZWrQyQ6
-	 bskxKjsgRgB2A==
-From: netdev-bot+sinfo@kernel.org
-To: Omar Ramadan <omar@blockcast.net>
-Cc: Taehee Yoo <ap420073@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH net v4 0/5] amt: relay tunnel lifetime, validation and
- request-path hardening
-Date: Tue, 20 Oct 2026 00:30:10 +0000
-Message-ID: <179245621074.3290.4127113725002865428@kernel.org>
-In-Reply-To: <20261020002557.3984927-1-omar@blockcast.net>
-References: <20261020002557.3984927-1-omar@blockcast.net>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1792456301;
+	bh=751Y6zhqVlujoAmZVVL9yyvNp28mfGpF7nvRUspAqIc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GXixBEC/r4jnwXB5/hHlBLU0pcxTo68MTZcS4HB1Blx3bHmcf0Q0eILL8DDNaEEkj
+	 rZZA8QMw9liBZ8jQhI1oT71WrqVqCq9LbrxdfQwaZsyRQHBAidJjkSCvcrKlAoQbFi
+	 uOKXSrhSE4hayvnQtDo66vKKmIwgad7z8XMBRDim8Ztt69xGMlCVjWQejLV1uRA4sy
+	 hltA0Oygv91LZuVni42dx2A7g+7ObIXHlC0TX0LqI+7Y7JszQ4mQsbIGUDIapiso2N
+	 wWbSlGUYjT6t4oZhonR0cn1f59wjbxhywq3srKoMECnkaqOjyJczZGZNbDN66NFWcx
+	 IJ0gE/mNoPy8Q==
+Date: Mon, 19 Oct 2026 14:31:40 -1000
+Message-ID: <657547efeaea54276c50a0c106399366@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Kuba Piecuch <jpiecuch@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, David Vernet <void@manifault.com>,
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH sched_ext/for-7.4 0/5] sched_ext: Make ops.cpu_acquire/release() reliable
+In-Reply-To: <20261019144807.1207781-1-jpiecuch@google.com>
+References: <cover.1792248922.git.jpiecuch@google.com> <20261019144807.1207781-1-jpiecuch@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,22 +57,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi!
+Hello, Kuba.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On Mon, Oct 19, 2026 at 02:48:05PM +0000, Kuba Piecuch wrote:
+> Tejun, Peter, would a hook like this be acceptable? The core.c
+> footprint is one line, it's a static branch when SCX isn't enabled, and
+> the out-of-line call only happens when the pick goes to a class above
+> SCX. If you're OK with it, I'd send the IMMED fix first, separately
+> (Fixes: 98d709cba319 ("sched_ext: Implement SCX_ENQ_IMMED")), and
+> rebase v2 of this series on top of it.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+I don't really see a lot of utility in ops.cpu_acquire/release(). As it
+currently stands, it doesn't add anything that can't be covered by IMMED,
+and given how asynchronous the events are, I'm not sure an edge-triggered
+view of CPU availability is particularly useful. IMMED works because it's
+something the kernel can check and enforce. If there are holes in it,
+let's plug them, but I don't think the holes justify keeping or updating
+ops.cpu_acquire/release().
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Can you please send the IMMED fixes separately?
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Thanks.
+
+--
+tejun
