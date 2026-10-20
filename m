@@ -1,88 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510618;
-	b=z4qT5ra4rEOfyBe3RU3ftMsKkgDEXX0KUrihULjagEQd2MqII75usRvoZRA4duSLvRWL
-	 +bzOrxI16//7vB9tA4tqa8h4+i8NXjOrgg4ssH6/K3Dmn9q55GPtrAaTM8yQ5GaDotdaT
-	 q2rWhSTE2mFjHuoRydlLOCgjUynzqaKKULNYSr2/8o7wwkRKvfJ7ngJo0TDEidDEfNH5t
-	 rziZQqWNS5XRhxeQIImWovtP1Iy634NE0Mqxug8BdV7BgLIARSfkkBOaC1Rxve7vcgIVf
-	 eYAHhIg1CHtBqU34spT6vm4DuyfwB9ax/63jZYxROfYoWNH15vIasg1Ccp+nLGemOPw==
+	t=1792510648;
+	b=L9GhB+6vd+FOqCTKEmNquQT9Bc5Q36Mvq5ewkjH+W6euu6P0bwKfCcBt8OAG82mC5LMT
+	 Bn0yUldAn9o1VvUW7IciD2UKf7+Bb2i/pEFeaKZIvTETXjvtWJYUdXBxpNrnEvfs0k3Xc
+	 pXok4t560ByRO7xqRuhZSMq28qHOUTaufSR/Ob1VaRoIW7uED6dNEodPCOkm8lURQBIYZ
+	 SRnA+FH7dghLL9DvCpaeEjm9NQpTGng7N07K4npZYEpD9skikZUSghrTE6eeO8VRqRnUw
+	 ZquUqFlFphzwkN+dpA+OfgiHRWegW96c38BN0yzmIUi9uNwSmvyiBuuDeRSVYp9EY2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510618;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510648;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=QsiPImWCvspsQxeNXp3kuF7NO55DXC+1f0q/BU544lY=;
-	b=EnecwFoEVDZYaN1lq0g+wrHjPX37Z+NC1CuuvauPhqzit6doa//rYZy1tbJd8IInRJ7g
-	 EqM3wmtK9knvnJdK6CU1nHFK7CcnDnPJrHnLzhG7amkbxcxgkO7fEzI53ZbGpjiap5Nhn
-	 cgdeD3okh9nE4BBp4I+wNfNAo9rNTPS4tqyZ67DtC0vGQKgckTuKsdZsYgASg4ElnfoOU
-	 3xUoetxwzviIiba6wfTaqc0fubmvs3Sf+q0nOg+0gomYUYRmiqcUcHubZ0E4jie8NunYf
-	 k8FqLw1LLq9OGIbDa88nQXPrxTD9yfIp4hDuticJoZcH6cLYz0f+bq8kRpOjzZlLukQ==
+	bh=ldWxVHDgUgQ18jFdtDAJ8jJd2yZcZSUNdb3f55SGTX0=;
+	b=T3H986rNhL4hNTee2wYPIAgfkva+4IvX8vYjO+gsTw7umHY46eViPLnZrtePTVbzCGMD
+	 7YK4RNubijaJoiPOokTIj47uuNhXSdHXGx95bqgeLXQ1syA+PEzwfay8LcYNnLysQv7mT
+	 FeHf0n2ZGfCBinvVU++jacA+crGgWIwWnS9DZOaxs+WIuH0+iqSgLgFQxozU8WZ1G0Kie
+	 YOvxScLZZzCbQQ7Jb65HDhVAGdDv6R7TLDJLcWsdpks7YKJAIAs8OjLbpo29dGmXYo/sH
+	 Teakx1km+IIuZYWhnE9EvJC3eHmsVVOsyeSK74FI3lENKujgW7wHwtEpTTbR5JgOwrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QxwPQKAT;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Q/M4ohUy";
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C539606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C539606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3B2606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B3B2606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QxwPQKAT
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d01548ac96so1507415ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:36:57 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Q/M4ohUy
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so4042690eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:37:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792510617; x=1793115417; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1792510646; x=1793115446; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QsiPImWCvspsQxeNXp3kuF7NO55DXC+1f0q/BU544lY=;
-        b=QxwPQKATMMhq1wcaCoghwBql8AJi3xjPSAVIYzLLmzrdmYVKsQ2onos0epejV9xXNm
-         db3Pp9xm6ceGTfW90WhW3oOfIt5noanhnvThBIrnznlX35Fg+JCEBF4zo69y8IWFrEct
-         i7mpzY+riOHUuW+S0V/Tps/rbJYjulQwAGxtsJnjcLNc7mbOx8lI+j4x6wJsvV1Zi687
-         4ecu2uV2EKVt5USTxElS6gxk/SRAlso+goKjgL/5Cq5ZUXArC4WYSr8eEenxx8wXKKGX
-         0SRJ0AHvCUw1ULKJk7uFFEQiHyFkXlJiuwUJoG4QDBPtkGPo5jaHU0SZeSHxaa7NqVnM
-         DCfw==
+        bh=ldWxVHDgUgQ18jFdtDAJ8jJd2yZcZSUNdb3f55SGTX0=;
+        b=Q/M4ohUyAJ7ROEDRnEfif5lqm8SVj4WkJkIxKL1p4bokHsZuMxcjvvMPhVRNkEPoiR
+         j5yWwuiinUbY4oNVulXzeJxLzeXkFBbS4H4E5rlSdZ/O/Z6nTiJi5PNyn3Vb6ayxyQLe
+         DZha0CltkU3t+XeU2wkG4TuszL7LlwU10IXic=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792510617; x=1793115417;
+        d=1e100.net; s=20260707; t=1792510646; x=1793115446;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QsiPImWCvspsQxeNXp3kuF7NO55DXC+1f0q/BU544lY=;
-        b=nRtTex5WXmGIQlkqlO+bkR48+dfoRKTvHfUIE6tMt7646+bby6QvnS8Ic/HTDWAwg1
-         KZazylyQL1hWskhx4zBhu8KjShz5FOvf6SuyDZK+QAwaylW7c7+YerZmsAniWNgomKu+
-         lewZKO7wqi3D4zOXoh2nF41PqSWhFX8KCNLLNrA3gfhoFVoGhuVB9Uaq9/LA53mtlyOW
-         v5nOmy2vEZSooxELoM1zbQOqW3gen+UnC7FT5kOtgAlItb2HAOVwEtLFYeOINT4OkJ0z
-         gb/ZoL9kW6T/UFIdpXcUTqB+qaIjXWQg1i1H6dxu4yiXQsQ8atheLTwz53G6sIgRnFL3
-         zlRA==
-X-Forwarded-Encrypted: i=1; AKwUvByaMfB/Jhahy7EVBJyKyqNFII46GNes9qrisPt9NNxdc0apvawkIkZLLpAO/YBt22GS+WJ3hq5nIrSAoOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpQvGFQaK4ZEhjsNsuu9wPU6iTEquXeIWOCc2+XG3tCIjQiFyf
-	B5YBjOlul0eIjlOZFGwyqXkQR0N+JCI5bNmyfughmv/D1Goy5d2Q5lyh
-X-Gm-Gg: AYBFou1EvzrJcIRCLrS0j5zzaCvkUedgFq64kWizvU+L5jtZBgUDn+NsqK6RZmb7u9B
-	SQqE3nAhEL78kE0mod1G5ZQJI4s2TcrjWVQiBtbeuoQco2bsaaC02QfQKSTF9pwPMfYG4SryVC9
-	hJ8WTyUCY4Kq/zWNYzHhnfBORRYzP8EqUIDmgf7hF9rVk7+NC7pQJMMgllMtBZ/HglAl2a4SPep
-	eUyyPQCm+748nYCoU8wEjQnjmnsvTd9n/qLI55ULtBxSrp29kvXBPWFOyHW24SzznE2/vS+NxhA
-	aA5gVZ8ftMImZsbWqOghbLiJX/cpSz7aIzRfQT7bl5H85n0LdYBYr/RTLEGXXf0XFUuDPxUTVK6
-	GUbBwjI9EuSftTpCXU0mxqa5RaG/knS3vfvSeyryPZcdG4yT3P43BmMUZj09IieF1cArG5pEVGx
-	doVTQ/7A4blX5/Fmr+WnhPPbtSOMBPv6y/0jeApoymZvieNhIW0Yqf4NDw2loQDRF/1x+xVIG1D
-	bgps3q+NWyaHGmy4kQ8gngp6g==
-X-Received: by 2002:a17:902:fdad:b0:2e9:4f73:83d4 with SMTP id d9443c01a7336-2e9a6d2404amr167599885ad.4.1792510616796;
-        Tue, 20 Oct 2026 08:36:56 -0700 (PDT)
-Received: from [192.168.31.234] ([183.193.19.60])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b486970sm736655ad.62.2026.10.20.08.36.50
+        bh=ldWxVHDgUgQ18jFdtDAJ8jJd2yZcZSUNdb3f55SGTX0=;
+        b=y1wxYgPUNQNGuAOx8Dm7ixxieAPrLGqQ0OLKVwSr2JEGGnWY16wgH/gANNzvfgCZJi
+         l1qs2wW0xDJZCCFeHeiGB6U5AlR2t7QbGHlWrU2+Q6dSjmuZJTPnJiB7BPhmEatZmM1a
+         mrOlChaqaExBCH6CUT9d170mvSjyoKV1U18ZP0/+YEpG/S8pGZIy1F/LakJWS2G/wKtI
+         2jTrFpcEhouQlggg3YcGPc9mPbW58zIuqUwm2cC0txS5RP13rhJaPuxkz7WMzWZMMJjN
+         BQ6pRJ/jNS6jkdzt4VXP8Q2QniDAcZqx4k1bAZShkT1kyTQFl9yahcLVtp+c0q2DJLzr
+         9deg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNV42hAwd04MDx45bC1q0rtTSCnhEkywXDJjR97nuA+LHdF1AHT7zjyvCIqwhqCUI4/vV7+yfQWfZB4M4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaC6cQ2Z3hdDLYXQ0Bm35T6U09mXWzMo+NrD8gsDpLV2Z3SIpa
+	yDcaH6P4Dtsrlyc4OYTzMQrw79ctXfziewaM+g/pRfjHx3ZR04xcrWitNbcUIV4gNg==
+X-Gm-Gg: AYBFou2RA+p7TidvgY5glzQnQ06+/saSH63a0i7Y4ezA+VeTHVPu+F6dwEDiM3w6cyZ
+	BSi1mSYdaE+ZKxcevptBTIfjVbFYL0NVBQe645RfFXlWF19llg44bCPUTPn8AedFu6QWrY6kq7y
+	ZCulAPEvDlkG/aNdN4vTkrKxnCX50tgBpzFJ8gsVYGpaSf+Q3ssZ74qcQy1/pf4ECiLsGTE8ct9
+	UQmJypdQEVqM/gnqw8Rs6vBSXQP5KbKR2kVjLwsdMoChK0x/lCTpiLYaTnUI0zNNXAo9tTGsEBL
+	5DHynDL+bE3fTdTaqyS/RbumeqQP5pMPx8SCZAKoo8yfArOtWxSQr+76muY7iDsTRHE2k05MO4D
+	BIiUoyjbMjp+Kv2WpLNqgUh+Lhuavh6Gak7Q1Y6ulUy7iC9tfCfSTn0pMjw1rNTQ97apchYD0Hu
+	AOOE1XIoUJapOrBPtYJnI758gKFNsl60mJT3saK1k1PFA5U/GsrMDGHS3/iDKtnoMeMNjYYIQjY
+	1YX05HkSbQ3L7bF5n/e59eZtBq/C25DnSfjs/3pNyR8KkEk+xP+HrQXxhg=
+X-Received: by 2002:a05:7300:d409:b0:351:1e2e:da4d with SMTP id 5a478bee46e88-361a1f5019bmr16718087eec.23.1792510646054;
+        Tue, 20 Oct 2026 08:37:26 -0700 (PDT)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:1eb1:e432:2cc7:349c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm51324714eec.3.2026.10.20.08.37.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:36:56 -0700 (PDT)
-From: Anfernee Cao <anferneemelokc5@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>, Chen-Yu Tsai <wens@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Subject: [PATCH] mmc: sunxi: fix clock and runtime PM leaks on probe failure
-Date: Tue, 20 Oct 2026 23:36:47 +0800
-Message-ID: <179251060762.3832.10358805890614600473@gmail.com>
+        Tue, 20 Oct 2026 08:37:25 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kbuild@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Simon Glass <sjg@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-arm-msm@vger.kernel.org,
+	Nicolas Schier <nsc@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Devicetree@vger.kernel.org,
+	Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Jones <andrew.jones@linux.dev>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	David Sterba <dsterba@suse.com>,
+	Gary Guo <gary@garyguo.net>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Luis Augenstein <luis.augenstein@tngtech.com>,
+	Marco Elver <elver@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nick Terrell <terrelln@fb.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Rong Xu <xur@google.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	cros-qcom-dts-watchers@chromium.org,
+	devicetree@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
+Date: Tue, 20 Oct 2026 08:35:18 -0700
+Message-ID: <20261020153652.2907186-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,100 +131,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-sunxi_mmc_resource_request() enables the bus, card, output and sample
-clocks before returning. Several failure paths later in
-sunxi_mmc_probe() leave them running:
 
- - If devm_request_threaded_irq() fails, the clocks enabled by
-   sunxi_mmc_enable() are never disabled.
- - If dma_alloc_coherent(), mmc_of_parse() or sunxi_mmc_init_host()
-   fails, probe only frees the DMA buffer and the mmc_host.
- - If mmc_add_host() fails, runtime PM has already been enabled, but
-   pm_runtime_disable() is never called.
+The end goal of this series is to move forward on producing a
+"universal" Pixel 10 boot image that can boot on a variety of Pixel
+10 devices (frankel, blazer, and mustang and eventually multiple
+revisions of each). At the moment, this is impossible since the Pixel
+10 bootloader:
+* Picks the base devicetree based on SoC ID information.
+* Picks an overlay devicetree based on Board ID information.
+* Needs metadata associated with each overlay to match it up.
 
-Besides leaking the clocks, this leaves the clock enable counts
-unbalanced, so a reprobe (for example after -EPROBE_DEFER) calls
-clk_prepare_enable() on the same clocks again.
+Since we don't have per-board overlays and don't have per-board
+metadata, that means that today you need to pick exactly one revision
+of one board and build a boot image just for that.
 
-Disable the IRQ and the clocks in the probe error path, and disable
-runtime PM on the mmc_add_host() failure path. Also handle a failure of
-devm_request_threaded_irq() in sunxi_mmc_resource_request().
+How does this series help us?
+1. It uses a checked-in .its script to associate metadata with each
+   board's devicetree. Other tools can parse this metadata in order to
+   craft a package that the Pixel bootloader can understand.
+2. It integrates a call to the new `fdtfactor` tool [1], which results
+   in a "base dtb + board dtbo" that looks like what the bootloader
+   needs, at least as long as all the boards have the same SoC.
 
-Tested with QEMU's orangepi-pc machine: with forced sunxi_mmc_init_host()
-and mmc_add_host() failures the MMC clocks stay disabled in clk_summary,
-and a normal probe with an emulated SD card still works.
+What happens if everyone hates this series and it gets dropped on the
+floor? Honestly, everything here could just go out of tree and it
+would be "fine". IMO it's nice to have the Board ID / SoC ID
+information for each devicetree stored in the same repository as the
+devicetrees themselves are, but if this has to live somewhere else
+then so be it.
 
-This issue was found by manual code inspection.
+NOTE: from reading the above, you might wonder why the sc7180-trogdor
+.its script is part of this series. The answer: it's a board I was
+previously deeply involved in and it is a convenient way for me to
+prove out that the Chromebook use case works well. I did hack up some
+changes to the ChromeOS build system to use the provided FIT image and
+it worked great, but since I'm not on the ChromeOS team these days
+it's not something I personally plan to follow-up with. It sounds
+plausible that Chen-Yu may follow-up with it or post a similar change
+for some Mediatek Chromebooks.
 
-Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
-Fixes: 9a8e1e8cc2c0 ("mmc: sunxi: Add runtime_pm support")
-Cc: stable@vger.kernel.org # v4.18+
-Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
----
- drivers/mmc/host/sunxi-mmc.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+[1] http://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
 
-diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
-index fe4c0f6d73f3..437fdadb5950 100644
---- a/drivers/mmc/host/sunxi-mmc.c
-+++ b/drivers/mmc/host/sunxi-mmc.c
-@@ -1354,8 +1354,13 @@ static int sunxi_mmc_resource_request(struct sunxi_mmc_host *host,
- 		goto error_disable_mmc;
- 	}
- 
--	return devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
--			sunxi_mmc_handle_manual_stop, 0, "sunxi-mmc", host);
-+	ret = devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc_irq,
-+					sunxi_mmc_handle_manual_stop, 0,
-+					"sunxi-mmc", host);
-+	if (ret)
-+		goto error_disable_mmc;
-+
-+	return 0;
- 
- error_disable_mmc:
- 	sunxi_mmc_disable(host);
-@@ -1385,9 +1390,11 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
- 	host->sg_cpu = dma_alloc_coherent(&pdev->dev, PAGE_SIZE,
- 					  &host->sg_dma, GFP_KERNEL);
--	if (!host->sg_cpu)
--		return dev_err_probe(&pdev->dev, -ENOMEM,
--				     "Failed to allocate DMA descriptor mem\n");
-+	if (!host->sg_cpu) {
-+		ret = dev_err_probe(&pdev->dev, -ENOMEM,
-+				    "Failed to allocate DMA descriptor mem\n");
-+		goto error_disable_mmc;
-+	}
- 
- 	if (host->cfg->ccu_has_timings_switch) {
- 		/*
-@@ -1467,7 +1474,7 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
- 	ret = mmc_add_host(mmc);
- 	if (ret)
--		goto error_free_dma;
-+		goto error_disable_rpm;
- 
- 	dev_info(&pdev->dev, "initialized, max. request size: %u KB%s\n",
- 		 mmc->max_req_size >> 10,
-@@ -1475,8 +1482,13 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+error_disable_rpm:
-+	pm_runtime_disable(&pdev->dev);
- error_free_dma:
- 	dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_dma);
-+error_disable_mmc:
-+	disable_irq(host->irq);
-+	sunxi_mmc_disable(host);
- 	return ret;
- }
- 
+
+Douglas Anderson (7):
+  scripts/dtc: Add fdtget.c and fdtput.c to sync script
+  scripts/dtc: Update to upstream version v1.8.1-22-gf3451d12532b
+  scripts/dtc: Build fdtget and fdtput host tools
+  arm64: boot: Support building image.fit from a specified FIT_ITS
+    script
+  kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
+  arm64: dts: google: lga: Add lga.its FIT image script
+  arm64: dts: qcom: sc7180: Add sc7180-trogdor.its FIT image script
+
+ Makefile                                    |   2 +-
+ arch/arm64/Makefile                         |   3 +
+ arch/arm64/boot/Makefile                    |   9 +-
+ arch/arm64/boot/dts/google/lga.its          |  68 ++
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.its | 728 ++++++++++++++++++++
+ scripts/Makefile.dtbs                       |  51 +-
+ scripts/Makefile.lib                        |  67 +-
+ scripts/dtc/.gitignore                      |   2 +
+ scripts/dtc/Makefile                        |   6 +-
+ scripts/dtc/checks.c                        |   2 +-
+ scripts/dtc/fdtget.c                        | 207 +++---
+ scripts/dtc/fdtput.c                        | 280 ++++++--
+ scripts/dtc/libfdt/fdt_ro.c                 |   2 +
+ scripts/dtc/libfdt/fdt_rw.c                 |  41 +-
+ scripts/dtc/libfdt/fdt_sw.c                 |   3 +-
+ scripts/dtc/libfdt/libfdt.h                 |  70 +-
+ scripts/dtc/livetree.c                      |   2 +-
+ scripts/dtc/update-dtc-source.sh            |   4 +-
+ scripts/dtc/version_gen.h                   |   2 +-
+ 19 files changed, 1322 insertions(+), 227 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/google/lga.its
+ create mode 100644 arch/arm64/boot/dts/qcom/sc7180-trogdor.its
+
 -- 
-2.54.0.windows.1
+2.56.0.212.g129ede20d9-goog
 
