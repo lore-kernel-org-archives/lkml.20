@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489996;
-	b=b+9Yi4vVjq5CQ+JAc5UpETSaUVk/WtkVb3qPUaQrsW8QCC2CBCEjkKq4YXdqzzKss1PU
-	 DJaKPuXoRet4qT6qpSoL3sF0uk5rwCkfNNS8WrMDQAA/BS9TNspT0yv0HIbMr57YOGSpx
-	 DVllk1mihT8qTcyKIbD8QnsGCgig6Eg8pzhq8YzD1xGbweQ09U1ECJH+Rm3NNwutGd3my
-	 7+mJiQaqTSQdyw35Wn+DWAoU/SHlp2QIuuZNk5Kiu567b1nEQYDhPgP+de0OSDRIfq54+
-	 nj2x/qzMcBl41cC4JV+z0Jn9h0Hf3KyGlPxKkuy64C9doZLRQZ5ABCMxi9RWHKfrPoQ==
+	t=1792490056;
+	b=CMOIFkK2pKxeFzrXkW38qVUFEGF+kr9jPAP4f1bJ0rnyq6jvH+3jeaUX/c3h/0xj2LXv
+	 QQ+iIgNP0hhk/vBceDBzVqKh/AZAOYDrWrZE5tuE4Ya+hlqR4moE/Z35P40w5Vy/k74Xe
+	 H3D2wgPfzLE8kOErXF54ElAFMX69GKQvtbTlxq1UyWLQ5gaecoCpc7dh9jAXktWidN5RD
+	 F4yFWYXWa9rBUCOySrEyKjRINPgfDrNjCwF+qjnXalqyU382iTVcCTHO5jOncrfh5WkzW
+	 DPanj38Xu5VEhsSw+Ee7Rf3DZtC9hqv6d5lni+WrnY5naRHv9htpuz5bWuHVDZqluUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489996;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=lFQxO8k+vj500HfjNLXzltOIsVCC27jFZ9/nZ8FupzE=;
-	b=xuSfZ6tHr2vv+9any+on73ChNXyNm0rTYhvW3TLNltsoyLY1T9RkZ22it8KEAtUXQSyQ
-	 3sCmrC5RrfnoLhrflUywuvoNv8dBc3XEgiKtzGPAL9NkMrJuv0XSU6qn9brMjh9QuQ+L1
-	 laQwhUZwgSSET8lS+jJx4p8gi823nVjfgwAvLZk8OvQiBHArxBZ17xyodItig3xoxuLwe
-	 R0ZYQIh965MBUZZfbUsxonsfag7VEDeGbBDpBqMAhmlrsno4tfjtoYIvyCu7wZWo2Cefn
-	 HI2mQv9KrutgRnwPuWMALCE/VLbsTIB66DD3gHlNIw/hAMUi7jVku23zNRzsautO1yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490056;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=artqVHYwLfA3rNS6curj70sxHdKIUF4ARsisg35C+BY=;
+	b=j6zhNmvPvtDY2f1bctQhYQl5wfGxN5KFqEPu0rJRV3zRIqcQzjWnkWx3gA1w3GYvYmoo
+	 esCcfMWnmEcG6GvY1hh4IbV8gtISO2S8f9SSud843XE7MkqiYSIRC75JQP5dOzYQjWUN7
+	 wkMzNTv9u3/XJyNxcSn8au9ujixbHjTXQAVJbvmMnZN9HXpgszqF6WxSfi2E/PSrmDaKX
+	 yo+OqJGCKMGR2IkbEnndCvUmmhOcVHKvUPEkgsj5FS46viUkwa8ekIUV8J1pi5WH8caMD
+	 0MTgtHCqMB3KepHqBBUfp/LMIgVLNCVDS2H5mjhyezdkmSw/1OUtiNkYu4ebKrdzhyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuxedocomputers.com;
-	spf=pass smtp.mailfrom=tuxedocomputers.com;
-	dkim=pass header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=T0SbFbqE;
-	arc=none smtp.remote-ip=157.90.84.7
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AovypkY5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58626606A319;
-	Tue, 20 Oct 2026 09:53:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58626606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE88606A31B;
+	Tue, 20 Oct 2026 09:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=T0SbFbqE
-Received: from [127.0.1.1] (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id B82242FC0069;
-	Tue, 20 Oct 2026 11:53:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1792489987;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lFQxO8k+vj500HfjNLXzltOIsVCC27jFZ9/nZ8FupzE=;
-	b=T0SbFbqE9gyNM8z2cnh85vmxivkJrPusKGS2ZsNF6j72gv1UbEi9eNM53e/85OJ3zelQwt
-	PCjXgYpwxz/5UoXGAEgfQMrEQOzOjAq3ZHUJKl+ol1pqRGjzOKBhb62mImOGe9GvrjLk9e
-	s6woTfAgUOYoXPxkc2nsBFoYL1TCVfw=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-Date: Tue, 20 Oct 2026 11:51:49 +0200
-Subject: [PATCH v7 3/3] HID: lamparray: blank lamps across suspend and
- restore on resume
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AovypkY5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473E11F000C4;
+	Tue, 20 Oct 2026 09:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792490056;
+	bh=artqVHYwLfA3rNS6curj70sxHdKIUF4ARsisg35C+BY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AovypkY5UjrZtDb/MxxKugfxW2dDJq1XPk457GKOUEmDlJ4Bz2/PCJstKdumxm6KR
+	 tUNEtwmm0ynOXctcavOecCYpvlZgRwHf6gMZMVCYZ/UM6vjoz2XiRTZl6IzvCZ/bHh
+	 lF7UZr6TYg89GPljalCp+7BQlhTBbz/O2zUplUeWLnPrsOLtpe7OsWwk8nwblG5tzU
+	 o+jo5znQWx8QjWTaQGz180xSvZvbzXiRJQJ9CAuMJlGRNFLEZWk3y0bblMKLnl+w/S
+	 WbVUowhUp7YzF5RSLwf+dyb01/KNUgQu8ngPMziat9XOZ2+a3IQ8mxT86JN6XhZiOs
+	 4GYtVRcJun9QA==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xJ6Xt-00000008kSy-2jqn;
+	Tue, 20 Oct 2026 11:54:13 +0200
+Date: Tue, 20 Oct 2026 11:54:13 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] USB: serial: garmin_gps: validate packet data length
+ in nat_receive()
+Message-ID: <atc6RV5iox6w-s-I@hovoldconsulting.com>
+References: <20260919112819.3885778-1-benquike@gmail.com>
+ <2026092059-hacking-coveting-c629@gregkh>
+ <20260930075247.471109-1-benquike@gmail.com>
+ <ar9-ULmQkzUJ7-uh@hovoldconsulting.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,213 +65,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-hid-lamparray-v7-3-47418b667b47@tuxedocomputers.com>
-References: <20261020-hid-lamparray-v7-0-47418b667b47@tuxedocomputers.com>
-In-Reply-To: <20261020-hid-lamparray-v7-0-47418b667b47@tuxedocomputers.com>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: Cristian Mazzotta <cmmazzo@icloud.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, Armin Wolf <W_Armin@gmx.de>, 
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-leds@vger.kernel.org, Aaron Erhardt <aer@tuxedocomputers.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar9-ULmQkzUJ7-uh@hovoldconsulting.com>
 
-From: Cristian Mazzotta <cmmazzo@icloud.com>
+On Fri, Oct 02, 2026 at 11:50:08AM +0200, Johan Hovold wrote:
+> On Wed, Sep 30, 2026 at 07:52:47AM +0000, Hui Peng wrote:
+> > In nat_receive() (called from garmin_write() when userspace writes to
+> > /dev/ttyUSBn in MODE_NATIVE mode), while garmin_data_p->insize is less
+> > than GARMIN_PKTHDR_LENGTH (12), the loop copies up to 12 bytes into
+> > garmin_data_p->inbuffer. Once garmin_data_p->insize reaches
+> > GARMIN_PKTHDR_LENGTH, nat_receive() computes the total packet size as:
+> > 
+> >   len = GARMIN_PKTHDR_LENGTH + getDataLength(garmin_data_p->inbuffer);
+> > 
+> > Because getDataLength() returns a signed int from __le32_to_cpup(), a
+> > 12-byte header with a negative 32-bit length field (such as 0xfffffff5,
+> > i.e., -11) causes len to underflow to a small positive value (12 + (-11)
+> > = 1) without any bounds check at that point. Then garmin_data_p->insize
+> > >= len (12 >= 1) evaluates to true and nat_receive() calls
+> > garmin_write_bulk(port, inbuffer, 1, 0), which allocates a 1-byte slab
+> > buffer via kmemdup() and immediately reads 4 bytes from it in
+> > getLayerId(buffer) (and again in garmin_write_bulk_callback() when the
+> > URB completes):
+> 
+> > Validate the unsigned 32-bit data length (dlen >= GPS_IN_BUFSIZ -
+> > GARMIN_PKTHDR_LENGTH, matching the existing len >= GPS_IN_BUFSIZ bound)
+> > in nat_receive() as soon as the 12-byte header is present, resetting
+> > insize and returning -EINVPKT on invalid lengths so garmin_write_bulk()
+> > is only ever called with a full valid packet header (12 <= len <
+> > GPS_IN_BUFSIZ).
+> 
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Hui Peng <benquike@gmail.com>
 
-The helper installs no PM callbacks, so lamps keep their last state
-across suspend. Firmware is not required to turn them off in low power
-states, and on devices where it does not, they stay lit for the whole
-suspend.
+> >  drivers/usb/serial/garmin_gps.c | 10 ++++++++--
+> >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/usb/serial/garmin_gps.c b/drivers/usb/serial/garmin_gps.c
+> > index 8020149f5658..a3f599043a4d 100644
+> > --- a/drivers/usb/serial/garmin_gps.c
+> > +++ b/drivers/usb/serial/garmin_gps.c
+> > @@ -769,8 +769,14 @@ static int nat_receive(struct garmin_data *garmin_data_p,
+> >  
+> >  		/* do we have a complete packet ? */
+> >  		if (garmin_data_p->insize >= GARMIN_PKTHDR_LENGTH) {
+> > -			len = GARMIN_PKTHDR_LENGTH+
+> > -			   getDataLength(garmin_data_p->inbuffer);
+> > +			u32 dlen = getDataLength(garmin_data_p->inbuffer);
+> > +
+> > +			if (dlen >= GPS_IN_BUFSIZ - GARMIN_PKTHDR_LENGTH) {
+> > +				garmin_data_p->insize = 0;
+> > +				result = -EINVPKT;
+> > +				break;
+> > +			}
+> > +			len = GARMIN_PKTHDR_LENGTH + dlen;
+> 
+> Shouldn't you fix the sanity check at the top of the loop instead so
+> that we never reach this conditional in case of a malformed header?
 
-On an Acer Predator PT14-52T, system power draw during s2idle is 12.35W
-with the lamps lit and 3.14W with them blanked, measured at the charger.
+I took another look at this and this check needs to go here where you
+have it. The check at the start of loop now essentially become redundant
+however. I'll keep it as a safe guard (e.g. to not rely on the driver
+clearing the buffer when switching mode) but add a comment about it
+being redundant, while also moving the comment and dev_dbg().
 
-Add lamparray_suspend(), which writes zeroes to the color channels
-while leaving the cached RGB and brightness untouched, and
-lamparray_resume(), which restores that cache. Both return early when
-use_leds_uapi is 0 so a userspace driver keeps full control. hid-generic
-gains suspend and resume callbacks to drive them, and calls
-lamparray_resume() from reset_resume as well.
+> >  			if (garmin_data_p->insize >= len) {
+> >  				garmin_write_bulk(garmin_data_p->port,
+> >  						   garmin_data_p->inbuffer,
 
-Some devices return to firmware control across a hibernate transition
-while still reporting AutonomousMode = 0, and ignore host lamp updates
-until the value genuinely transitions. Force a 1 -> 0 on resume
-before restoring state.
+I'll queue this one up with my amendments when the merge window closes
+this time.
 
-Co-developed-by: Aaron Erhardt <aer@tuxedocomputers.com>
-Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
-Signed-off-by: Cristian Mazzotta <cmmazzo@icloud.com>
----
- drivers/hid/hid-generic.c     | 29 ++++++++++++++++++++++-
- drivers/hid/hid-lamparray.c   | 54 +++++++++++++++++++++++++++++++++++++++++++
- include/linux/hid-lamparray.h | 29 +++++++++++++++++++++++
- 3 files changed, 111 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-generic.c b/drivers/hid/hid-generic.c
-index fde772c5014bb..f78c62f796fbb 100644
---- a/drivers/hid/hid-generic.c
-+++ b/drivers/hid/hid-generic.c
-@@ -102,9 +102,34 @@ static int hid_generic_probe(struct hid_device *hdev,
+But in the future, don't spam the lists with dozens of LLM generated
+patches while ignoring review feedback for weeks, or your patches will
+just be treated as LLM generated reports.
  
- static int hid_generic_reset_resume(struct hid_device *hdev)
- {
-+	struct lamparray *la = hid_get_drvdata(hdev);
-+
- 	if (hdev->claimed & HID_CLAIMED_INPUT)
- 		hidinput_reset_resume(hdev);
- 
-+	if (IS_ENABLED(CONFIG_HID_LAMPARRAY) && la)
-+		lamparray_resume(la);
-+
-+	return 0;
-+}
-+
-+static int hid_generic_suspend(struct hid_device *hdev, pm_message_t message)
-+{
-+	struct lamparray *la = hid_get_drvdata(hdev);
-+
-+	if (IS_ENABLED(CONFIG_HID_LAMPARRAY) && la)
-+		lamparray_suspend(la);
-+
-+	return 0;
-+}
-+
-+static int hid_generic_resume(struct hid_device *hdev)
-+{
-+	struct lamparray *la = hid_get_drvdata(hdev);
-+
-+	if (IS_ENABLED(CONFIG_HID_LAMPARRAY) && la)
-+		lamparray_resume(la);
-+
- 	return 0;
- }
- 
-@@ -129,8 +154,10 @@ static struct hid_driver hid_generic = {
- 	.id_table = hid_table,
- 	.match = hid_generic_match,
- 	.probe = hid_generic_probe,
--	.reset_resume = hid_generic_reset_resume,
- 	.remove = hid_generic_remove,
-+	.reset_resume = pm_ptr(hid_generic_reset_resume),
-+	.suspend = pm_ptr(hid_generic_suspend),
-+	.resume = pm_ptr(hid_generic_resume),
- };
- module_hid_driver(hid_generic);
- 
-diff --git a/drivers/hid/hid-lamparray.c b/drivers/hid/hid-lamparray.c
-index fb3082f6d19a0..5c97cafbd25d2 100644
---- a/drivers/hid/hid-lamparray.c
-+++ b/drivers/hid/hid-lamparray.c
-@@ -852,6 +852,60 @@ void lamparray_unregister(struct lamparray *la)
- }
- EXPORT_SYMBOL_GPL(lamparray_unregister);
- 
-+/*
-+ * Blank all lamps on suspend rather than handing control back to the firmware,
-+ * which may not turn them off in low power states. On an Acer Predator PT14-52T,
-+ * system power draw during s2idle was ~12.35W with lamps lit, and ~3.14W with
-+ * them blanked; the lighting accounted for ~75% of the power draw during suspend.
-+ * Since writing zeroes is well defined on all lamparray devices, always do it.
-+ * This is ignored if use_leds_uapi is 0; let userspace keep full control.
-+ */
-+void lamparray_suspend(struct lamparray *la)
-+{
-+	struct lamparray_device *ldev;
-+
-+	if (!la)
-+		return;
-+
-+	ldev = &la->ldev;
-+
-+	if (!ldev->use_leds_uapi)
-+		return;
-+
-+	mutex_lock(&ldev->dev_lock);
-+	lamparray_hw_set_state(ldev, 0, 0, 0, 0);
-+	mutex_unlock(&ldev->dev_lock);
-+
-+	hid_hw_wait(ldev->hdev);
-+}
-+EXPORT_SYMBOL_GPL(lamparray_suspend);
-+
-+void lamparray_resume(struct lamparray *la)
-+{
-+	struct lamparray_device *ldev;
-+
-+	if (!la)
-+		return;
-+
-+	ldev = &la->ldev;
-+
-+	if (!ldev->use_leds_uapi)
-+		return;
-+
-+	/*
-+	 * After a S4 transition, some devices report
-+	 * AutonomousMode = 0 while still ignoring host lamp updates.
-+	 * Writing 0 again does nothing; forcing a 1 -> 0
-+	 * will guarantee the device will update.
-+	 */
-+	lamparray_hw_set_autonomous(ldev, true);
-+	hid_hw_wait(ldev->hdev);
-+	lamparray_hw_set_autonomous(ldev, false);
-+
-+	lamparray_restore_state(ldev);
-+}
-+EXPORT_SYMBOL_GPL(lamparray_resume);
-+
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Tim Guttzeit <tgu@tuxedocomputers.com>");
- MODULE_AUTHOR("Aaron Erhardt <aer@tuxedocomputers.com>");
-diff --git a/include/linux/hid-lamparray.h b/include/linux/hid-lamparray.h
-index 6124878859392..dc9df938e5b7e 100644
---- a/include/linux/hid-lamparray.h
-+++ b/include/linux/hid-lamparray.h
-@@ -66,6 +66,27 @@ struct lamparray *lamparray_register(struct hid_device *hdev,
-  */
- void lamparray_unregister(struct lamparray *la);
- 
-+/**
-+ * lamparray_suspend() - blank all lamps ahead of sleep transition
-+ * @la: LampArray handle returned by lamparray_register()
-+ *
-+ * Writes zeroes to the rgb and brightness values, unless the use_leds_uapi
-+ * sysfs attribute is 0, in which case, it will return early before writing
-+ * anything. The cached state is left untouched so lamparray_resume() can
-+ * restore it.
-+ */
-+void lamparray_suspend(struct lamparray *la);
-+
-+/**
-+ * lamparray_resume() - restore host control and LampArray state
-+ * @la: LampArray handle returned by lamparray_register()
-+ *
-+ * Disables autonomous mode (in case device returns to firmware control after suspend)
-+ * and restores the cached state of the device. If the use_leds_uapi attribute is 0,
-+ * it will return early and prevent any unwanted writing.
-+ */
-+void lamparray_resume(struct lamparray *la);
-+
- #else /* !CONFIG_HID_LAMPARRAY */
- 
- static inline bool lamparray_is_supported_device(struct hid_device *hdev)
-@@ -84,6 +105,14 @@ static inline void lamparray_unregister(struct lamparray *la)
- {
- }
- 
-+static inline void lamparray_suspend(struct lamparray *la)
-+{
-+}
-+
-+static inline void lamparray_resume(struct lamparray *la)
-+{
-+}
-+
- #endif /* CONFIG_HID_LAMPARRAY */
- 
- #endif /* _HID_LAMPARRAY_H */
-
--- 
-2.43.0
-
+Johan
