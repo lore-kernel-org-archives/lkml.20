@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509876;
-	b=jKSGK5nV/zXkO1CafQ1N8czfUtioqoP4mOFBFXFzyEU9TQQLOwvgrLrJz13NF52GnREe
-	 YrsCU8JHTQfuIMGCGuhphAr7dbqDNIVqIfmX5eUKwiMXLmz38wM6RD7hDhqxhKL6OW8zV
-	 Z2tIcI5EFt/Mj/rEIctzxtbx+f14MhyHY4W1Mmt2fbcx62ZOtZ8E+JtKXytOiu7QstkIg
-	 u2m00IzPvlMqYfQ3zeYdC5c+x7JPtbxW1b/Ug1hCbuCG6EGMAykxHhSFHgQaf9h2YMiPj
-	 TLqPMI2QGgm9YGlUED25BOQ2Nz7ttL+UtZ5YT2m4dxur5s+zT5ROjeHe0WGiVzD7mqw==
+	t=1792509882;
+	b=dYUhxqOkW6cpk5j8ONppNSLzUeoaziW2FduA2t1YXO8/7QxebG3KaiJDvNN4HIP0SZDu
+	 350ivNGYr33Rs7IrpbjL3+Ez1w2iGiB6Mr/7W3jOuX9m+tKXjqjBQoTlrRbhFLHZ6jUeg
+	 9igf3LJ4v0C//uKmACB5bhZK15F9d3zanHOpy118gN86dqO6uEv2Z86lSSsOK/jU2oiP6
+	 osr63W77vCOhxKj0w5o8n8oOe5AOltnJHYDBMdrhpGN7CtdKbpj88gei1/UXroakuZL+d
+	 z5Nr9ccWYE89pBp3nAhQSEgRKW8wDQ7G6euGd4MvliGFn2nSf6NIW8aq/b38Pg+K3Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509882;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Yo7lFEBSYN02LBZv7O1t6La9fyqMBtHX6dJoSLmRutM=;
-	b=W8CUmCg5jA2y4MILVHLa6EoIW5sMXHJr4Txm5kFBsi6eB5/hU/wZJzBn/sQsuZctT6u5
-	 f2j+INg3Pmoq6+UwgimiXWYmvppBBpBrUwVxOoGDJkEqsZVWiW41j1tvwWfJo8EyFD99C
-	 pDX5eEz0Hjz6iA/CeHVu6SnmPE8TVl/Bn8RldRQlbP+ErgVelm4OcVTBpaQ0AwNY4TxRQ
-	 7OeEI2sAGHML/Dk6glxqWlDPvlNUwuFzdpd2Bg9S2E5QHgAtqbk8MoOVWuDGVsahr39k2
-	 GayjW1jWw/+hVlZ5nnQZVzoKm88PEhUK+KexWdVJTtWA9Q3re9wDRJB5xcX0G1LDDSw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=G5tN8cFWYKKQdXdrFLYLB4O03z7PGyAtAV81+AhWuws=;
+	b=taHNFgN2RB6lWFGexZCUqoy/t+7zVOpGaepZZsHw/uEnRJb+qkGtEnk6X08YaVD4gQXJ
+	 /Q0Wzz+esy+8spHRhVaP+FzTKSTU8MGnpL/xLOl2i8Cw2YjM/T/83UYzPL8nhPxnF+SF/
+	 zOii067vOC12DCNy45D4M2bHep2VsHpwHu/T+HcvI2Zx1W+/hDHFrUUNTvW4/8TqrFTfP
+	 q/sh1HeabBTutxJ3xH9AtVC4k1SO3U8lcPHCYSyDXUAWVKht48oPFLDzxEKqnM5eCnBKj
+	 lUr3hDB/vHcqmk0PVZvRrzg+/QbkOqI/doF7QC4lvyffRxhl4nH6KOVCcNgfr9RMCvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VMGpowgT;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cX+NB3CG;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05999606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:24:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05999606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D0E606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:24:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97D0E606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VMGpowgT
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso504153866b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:24:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cX+NB3CG
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso464815266b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:24:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792509874; x=1793114674; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yo7lFEBSYN02LBZv7O1t6La9fyqMBtHX6dJoSLmRutM=;
-        b=VMGpowgTivqWykR+z+tts82RoCt0Akfn8flpv2XxtrBtP26GbPmJCZWmVTx8WbEFi+
-         fioWB3I4YB+s3XApsYejzO4LJkwOyzOrLnaVLkTP3YPFHtaWEXo78twbytbLdwNsEM7D
-         /x6r8bREvJmScJvoImna/VWFOA/LuVKhmJ7IfdeCw1ijNu6UaEYdC7yk+9nL/mL5Rz+5
-         b26BR/j/icX2nurs1k/9nNU+7K89piSbe4xm3GOzBEzELxZJy0d8vadZTryCrnp78d7E
-         N+hF4dGzbdlGX5K16Gy4iwcHnrlSUr8VO3QsSA8flZ0VR8s6OWH6iHj+xY4D85x8z5vz
-         lFpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792509874; x=1793114674;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792509880; x=1793114680; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yo7lFEBSYN02LBZv7O1t6La9fyqMBtHX6dJoSLmRutM=;
-        b=dijmDQ19ipTs8eJlOchjogIeJjqMFG5Zx1jAPN7M95LekPxZip9mJyQ+eP2kM7aYfD
-         V0yzJEsywrB9Tqjg2q3p3bpLwXJ6xZzBsYLYpMxaV4q9Yl+3eC1EBFVFRQUSFh0sny4I
-         oKxXrG4uB7NHBYtlctb0UPo7K9zpKPgUhXoyoVC7cpAYyr9pAsZZ8stbLH4B/I/qieuZ
-         5YUhxyiOj8qHHEF+ZiKpjuTzwx2ThOI1OrmkLlOI/gpfgmE/TMB4+5+GCmjDnstDgLTl
-         dybdTNFPLFVfMraGq7Zl7IC/ra9VgDjasORpDvaTs94t5Qg44YK2746FoquLofIwYEtw
-         A7eQ==
-X-Forwarded-Encrypted: i=1; AKwUvByO67/CS0HomVIgu+2b7LbpWaRDLpmRy6q994jbChvL/nAn9x5rYZEsdBXdguaWUjQ/kCeH6TRE7+YUD7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5Y8iQacuzM48cuoDyqBiZQNadWBv5ImWADjClJReOBJEKgGnk
-	7xb1l2zPeHX06a8vY19EgHthW25htDfw3Zw+QQAk/J7oDou+MDR0KR7q
-X-Gm-Gg: AYBFou27SDBc4lgzJUhiweeycAeMKqPW7GKPhIXtlnQIwPhbx1uDiXytSV84BAw74X/
-	/tORBNy8z+OgZTBCHsMH/HyF9RWAW2Ca488s3sjyDK8CRFdb+TZzlXxuVHFs925FhxZ+m0DargO
-	jdS+p2vuTuGGgWKVzCKNK1ysrFKwPyF98FiUetp0t4drAel6qlBPqCA968Th4z2F+q0sXUZNHkj
-	qWlqXfv54bTOLmjAUiiNJOpG+XBpyQG+MIKRvItZcmhHlB34XK6eZCJK5Ue52MlJAutzmA9VNay
-	KLDL/DqcdG2thePFMFw/iwSgLQSR/jx+jmf6lNbUB+PbElzkAweqDpj5JCpfPpJuI1PZ/+iVaMC
-	xBmbZmF60zdqqz7XWVqSSy9bkubdrGcy6y57aobg7ZG6+lZ73REDsUUHx3nKk4UXufZ6U93WyM8
-	QIq/Pqf+4l/wzebmvL0HP3jh7X8NviYhu2eX5krcEERueriVpZB05Z7p6HgO+Gnu9QmGTelCkN7
-	Luh7nEFHbSxAqRI9fDD3T3kmG3mKan0Ml4bxlq/N2IcJqO034WJ11fa4ChjDmLPx1sH6dqHZvFB
-	1Qi5J2Ez0952qey+lszKTTc3Mx4xoWI3
-X-Received: by 2002:a17:907:d385:b0:c40:b59:1b with SMTP id a640c23a62f3a-c419fefec7bmr807389166b.44.1792509874132;
-        Tue, 20 Oct 2026 08:24:34 -0700 (PDT)
+        bh=G5tN8cFWYKKQdXdrFLYLB4O03z7PGyAtAV81+AhWuws=;
+        b=cX+NB3CG/dJQtaBpiupEdRyIh1uUSNZHmLzJ6mAkshlYKC0Bm6RPkBC71+QgjExV14
+         HMtI5uR7Mg7mKwwkeKRtU2aQ2vCRnhhVdc0n8/2+Nf8RFFVWuBxlg4xFCzhKfla1qkXc
+         q3lahx2LzV/gj4ynwbnOICeqD0kMLbtkdoXJhs8jeJubXNSEUVKpC3oJGHKKImOkCu5V
+         IkdFjg2hVUDbRUlXPBVsV19P+/RXSfAQw4p3jTSZ5bbXT+u21emOa58ZnUdB7Xta4OQy
+         4oPajs7sxNh7kJ2k55IQKWGV9ZJOEorie8EuH9wPX3AmW3p3oBuhY58qW7tIFP2wI9md
+         YFgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792509880; x=1793114680;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G5tN8cFWYKKQdXdrFLYLB4O03z7PGyAtAV81+AhWuws=;
+        b=SX0soO0+E1E8akPPFUcW/R9y8CLhF5Y2JDzX693r9iy+nVHjVvYjaksDhGyVVaInzF
+         +VCAEOrv/Na3eFxjsF4ikaMZAuRouZBkdYOECb1q+FWlYav7C/rzCnehQyzSA4nl6W7t
+         DfKtl1iqrryEaICM69Vlxqgzl66zteT4M0oZShpaaGxgwmwu+RBoRqEN5FNJ/fMklz6h
+         h+7I2rYmj7tAVrWpgSsSOQxYITpaf3gn0NPPG+EXE6FQFPRHMzbrwqfnim462lZis0Yu
+         zCADxkINZSmNeqbjplgpoIMRhvGIkjQmtbzP5+fxA4mpZVwYPkkGnYHMqNoQwFzFF/9t
+         Qa3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwClmWWWztjiDMi5bfXidLS+recT9gzeewohYpqzbxZz+x4vHa2No5BXTQmK9t7BirrW562mza3e0RD6cM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6bZfu2nXkk7hAenFjZ7ATEV9zYNacxg7eQ+D8jsU1sAspguGU
+	FBkb1vNi0MGv64C4U82m/06d2S+s/f9+4YWYY6dNi5DZBhbcZaaL6xEs
+X-Gm-Gg: AYBFou2ct2B3hluqkuP3FC4L66z5VYYLFxUJa95Og4lnMHLFvk3mV5ET1l3UeuXCdrW
+	x5hXOs1gW6qF3DrLym463UK3URxID/ewERtj+fBufUB5uGJO1dY7krjqd4PzXBbte5oV1yLROxj
+	WRmAJiY8PsiAZKIfi9nynbFGaivL6qXk4t+NHOLvY7nsmuf59R1263ZSywnx1yQnrItYZJEwMNJ
+	Q9Dl9SjmbkGv/4eWN1ADtLPp7DLr9/v4WOhi4ZbSNEHp4Uop9u7jEKlXWILPe38nPbXPt9icXnJ
+	2vsD4T3nFRSthUhL9s6acMgM714dj4s+HBywDhykToSflQnUnr7Se3mzrQe+MruP3SRQ2mdYQcs
+	0YiALCvT/bTtaqNerFjnwJmEffkOz5+9Hm4yK8IQIzQLS3+mCJnBeEVQy88+O/JB20AbRbEG+rp
+	SjGwtDO7tEFOi+Gdu6ZkkPyNq2tqCr+EKYQXnyKoh9dFA7oDAllhToEp6zMTxsGbwMiGf4QVI4W
+	xTMzwdAj37iQErccTiRZ8Mq2FoROo4CY6KvxBR0PqeUML4zod6AuSX+i3UKzd4VBJqbMY5dPlCv
+	AvolXLyKT/Fq1MV2nS+HYPyljTBPDF8c
+X-Received: by 2002:a17:907:9693:b0:c2b:898e:24fd with SMTP id a640c23a62f3a-c419f90824amr855300766b.33.1792509879566;
+        Tue, 20 Oct 2026 08:24:39 -0700 (PDT)
 Received: from Martyna-s-A34.localdomain (ip-80-113-116-3.ip.prioritytelecom.net. [80.113.116.3])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcfc5sm488110466b.59.2026.10.20.08.24.33
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcfc5sm488110466b.59.2026.10.20.08.24.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 20 Oct 2026 08:24:33 -0700 (PDT)
+        Tue, 20 Oct 2026 08:24:39 -0700 (PDT)
 From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
 Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
@@ -84,11 +85,14 @@ Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Mehmet Fide <mehmet.fide@gmail.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Subject: [PATCH 0/2] wifi: ath9k: fix WMI command response handling
-Date: Tue, 20 Oct 2026 17:24:10 +0200
-Message-ID: <20261020152412.95560-1-mike.michalo@gmail.com>
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] wifi: ath9k: drop WMI command responses when no command is pending
+Date: Tue, 20 Oct 2026 17:24:12 +0200
+Message-ID: <20261020152412.95560-3-mike.michalo@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020152412.95560-1-mike.michalo@gmail.com>
+References: <20261020152412.95560-1-mike.michalo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,42 +104,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both patches fix the ath9k_htc WMI command response path.
+ath9k_wmi_ctrl_rx() accepts a command response whose sequence number
+matches wmi->last_seq_id and copies it to wmi->cmd_rsp_buf, which
+usually points into the stack frame of the ath9k_wmi_cmd() caller.
+Only the timeout path clears last_seq_id, since
+commit 8a2f35b98306 ("wifi: ath9k: Fix potential stack-out-of-bounds
+write in ath9k_wmi_rsp_callback()"). After a normal completion or a
+failed send the receive path stays armed, so a duplicate response from
+a buggy or malicious device is written into a stack frame that is gone,
+and its extra complete() makes the next command return before its own
+response arrives. Sequence number 0, which means "nothing pending", is
+also used for a command once tx_seq_id wraps.
 
-Patch 1 stops ath9k_wmi_rsp_callback() from copying bytes the device
-did not send. It replaces the -EMSGSIZE approach that was reverted in
-commit 90201351a862: short and empty responses still complete, and the
-rest of the caller's buffer is zeroed.
+Keep the receive path armed only while a command is pending: disarm it
+once a response has been handled, on timeout and when sending fails,
+drop responses while nothing is pending, never use sequence number 0,
+and reinitialise the completion before each command is issued.
 
-Patch 2 stops responses from being accepted while no command is pending
-(after completion, after a failed send, or with sequence number 0),
-which could make a duplicate response write into the stack frame of a
-caller that has already returned.
+Fixes: fb9987d0f748 ("ath9k_htc: Support for AR9271 chipset.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+ drivers/net/wireless/ath/ath9k/wmi.c | 33 +++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
 
-Testing: temporary KUnit tests (not included) drive the real
-ath9k_wmi_ctrl_rx() and ath9k_wmi_cmd() against a fake HTC device in
-x86_64 QEMU under KASAN, KMSAN, UBSAN and lockdep: short and empty
-responses for all payload/buffer length combinations, duplicate and
-late responses, failed sends, sequence number wrap, and a concurrent
-stress test. Without the patches stale bytes reach the caller and KASAN
-reports slab-use-after-free writes in ath9k_wmi_ctrl_rx(); with them the
-tests pass with no reports. Builds cleanly with W=1 (GCC and Clang) and
-sparse.
-
-I don't have access to an ath9k_htc device, so this was not tested on
-hardware. Mehmet, if you could give it a try on your AR9271 that would
-be much appreciated.
-
-The series applies on top of v7.3, which contains the revert; ath.git
-does not have the revert yet.
-
-Michail Andreas Michalopoulos (2):
-  wifi: ath9k: don't read past short WMI command responses
-  wifi: ath9k: drop WMI command responses when no command is pending
-
- drivers/net/wireless/ath/ath9k/wmi.c | 47 +++++++++++++++++++++++-----
- 1 file changed, 40 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
+index 76c8dfcc53..5fd20923ad 100644
+--- a/drivers/net/wireless/ath/ath9k/wmi.c
++++ b/drivers/net/wireless/ath/ath9k/wmi.c
+@@ -202,6 +202,16 @@ void ath9k_fatal_work(struct work_struct *work)
+ 	ath9k_htc_reset(priv);
+ }
+ 
++/* No command is pending: drop all responses until the next one is issued. */
++static void ath9k_wmi_cmd_disarm(struct wmi *wmi)
++{
++	lockdep_assert_held(&wmi->wmi_lock);
++
++	wmi->last_seq_id = 0;
++	wmi->cmd_rsp_buf = NULL;
++	wmi->cmd_rsp_len = 0;
++}
++
+ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
+ {
+ 	u32 len;
+@@ -219,6 +229,9 @@ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
+ 		memset(wmi->cmd_rsp_buf + len, 0, wmi->cmd_rsp_len - len);
+ 	}
+ 
++	/* The command is done; drop any further (duplicate) response. */
++	ath9k_wmi_cmd_disarm(wmi);
++
+ 	complete(&wmi->cmd_wait);
+ }
+ 
+@@ -248,9 +261,10 @@ static void ath9k_wmi_ctrl_rx(void *priv, struct sk_buff *skb,
+ 		return;
+ 	}
+ 
+-	/* Check if there has been a timeout. */
++	/* Only accept the response to the pending command, if any. */
+ 	spin_lock_irqsave(&wmi->wmi_lock, flags);
+-	if (be16_to_cpu(hdr->seq_no) != wmi->last_seq_id) {
++	if (!wmi->last_seq_id ||
++	    be16_to_cpu(hdr->seq_no) != wmi->last_seq_id) {
+ 		spin_unlock_irqrestore(&wmi->wmi_lock, flags);
+ 		goto free_skb;
+ 	}
+@@ -303,7 +317,10 @@ static int ath9k_wmi_cmd_issue(struct wmi *wmi,
+ 
+ 	hdr = skb_push(skb, sizeof(struct wmi_cmd_hdr));
+ 	hdr->command_id = cpu_to_be16(cmd);
+-	hdr->seq_no = cpu_to_be16(++wmi->tx_seq_id);
++	/* Sequence number 0 means "no command pending", so never send it. */
++	if (++wmi->tx_seq_id == 0)
++		wmi->tx_seq_id = 1;
++	hdr->seq_no = cpu_to_be16(wmi->tx_seq_id);
+ 
+ 	spin_lock_irqsave(&wmi->wmi_lock, flags);
+ 
+@@ -311,6 +328,8 @@ static int ath9k_wmi_cmd_issue(struct wmi *wmi,
+ 	wmi->cmd_rsp_buf = rsp_buf;
+ 	wmi->cmd_rsp_len = rsp_len;
+ 
++	/* Drop any completion left over from an earlier response. */
++	reinit_completion(&wmi->cmd_wait);
+ 	wmi->last_seq_id = wmi->tx_seq_id;
+ 	spin_unlock_irqrestore(&wmi->wmi_lock, flags);
+ 
+@@ -352,15 +371,19 @@ int ath9k_wmi_cmd(struct wmi *wmi, enum wmi_cmd_id cmd_id,
+ 	}
+ 
+ 	ret = ath9k_wmi_cmd_issue(wmi, skb, cmd_id, cmd_len, rsp_buf, rsp_len);
+-	if (ret)
++	if (ret) {
++		spin_lock_irqsave(&wmi->wmi_lock, flags);
++		ath9k_wmi_cmd_disarm(wmi);
++		spin_unlock_irqrestore(&wmi->wmi_lock, flags);
+ 		goto out;
++	}
+ 
+ 	time_left = wait_for_completion_timeout(&wmi->cmd_wait, timeout);
+ 	if (!time_left) {
+ 		ath_dbg(common, WMI, "Timeout waiting for WMI command: %s\n",
+ 			wmi_cmd_to_name(cmd_id));
+ 		spin_lock_irqsave(&wmi->wmi_lock, flags);
+-		wmi->last_seq_id = 0;
++		ath9k_wmi_cmd_disarm(wmi);
+ 		spin_unlock_irqrestore(&wmi->wmi_lock, flags);
+ 		mutex_unlock(&wmi->op_mutex);
+ 		return -ETIMEDOUT;
 -- 
 2.43.0
 
