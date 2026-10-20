@@ -1,94 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516056;
-	b=gE5AkoT0QaiM/enHnkYYA5QW0jYbfcMY557c2We/qyG7ruf7lJwArUetI4BNRPyupUMN
-	 aHBfli9+Mc9V+HhX+qCYdDd+Y3VpLLtno/lWtVC4o7107P7mUYgJ7oInMrxHtzN21iDnN
-	 lTRXWxv0B7zbBQvQ9ti3i7jbWk8i8SWTbtYxicTspaMAVL7ASo+lvg+InJ9QCBV1MBEHF
-	 GGNNBxMlmSOeanQPAzjQFNhs6k+SBcMKJm/EXUYMupnwPlHKYA7/SbzTN32ar2hkPKbFN
-	 Hq4ybRJ+RfMY33tyFpDo6P9ix8m3Awop+aSqO40SYonA6zB5J1oPJPT8gFywpQtm1Uw==
+	t=1792516126;
+	b=O1uFM39f0vX7gTI1u2mcyxngGaneAQiaghswEyCHArUhoRmTRFd0Zul69tEHmaNP9B0f
+	 71tsSTxQCQlSOHuBERS30ZiSD0VKbEJ6eCaGPXNSbepgEIEtG2dBa/vnKlL8E35pFwiy7
+	 KtYd0h7635g/2nSdtWdmfSPmmqVmL9AMWUcM44S4QNvCBRfS8v3B/LT3CnlprywRx8Gvv
+	 XzB8TNtIfrGHRDrzsPfUufJls3OLwkci68t8ySZUCqSSNrstPDf8kbe9tZV02ZbvlyrH/
+	 ZWRmr4Dg3jVrZSibujyQ4xWRSVuNcg0RoNnpJdmn3ge8aDN+vmcMDvY+i1xljcYcxUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516056;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0NChw0q7iQyjFAII3unH4t5su0zEDRJMz0fmmAi/9lo=;
-	b=OTk6A3VLWTxbEJ0HU9xAPVoveduhnFcmQGz9qNxCMT7S1xez4i9lQwqDm0k4VvkMXjnV
-	 X0vBiIAacyaEMo/eJbRF9ejngoZzPVc68UPYmc90qToO3v1oYgeE3ZIHsdsjRbOoAfYCi
-	 Lpf1jxa54R1WpruEfwcWq9kNpUj3tJtAGYNdvIowEEwu2ialWUOtXjysDMcsDgV0EJ+Fr
-	 uM/zYIzXI8dKcvuhtbM9x3nSxjlGywR6Np2TXqjN4XpembGGvB3g7IqdH9jNRdlSWsBhH
-	 +bAx0racAaT1eL6Mec0+MLfcVQ7jvnjtJrK90UdPUBHLsEmq6H/eJs1TtysA9XgasXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516126;
+	h=Received:Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date;
+	bh=WmttQryXnibWlRJiZPUojQhvGDcV+ijgulX9csVBoUI=;
+	b=PlKXfsQ8wzTB3riK9oIlZ8EcS7V89K/tQE8Eup8/NkPg26zRHvRyLzXKKEY+kZ+7rZkc
+	 XEIr8M7YSBX/8u6rcAwqRMQ2i6ITjyZyd4A+EsvVa2KtKS1axtyydwvIc+pwpVJb97+e/
+	 4tRpCJCQXknnydeuKOr4QNO/8Peow9SjoDQ1i3m/XFwmsWrRiDKyH9/4fkeA1ols4BdYN
+	 phZMJkLBcFw0DgJr/w+nGHjgqQKqTH6iV86EVnOlXWA1eJjEdRuCgWDdKf6Qlfbw16E1/
+	 CZOUpINss/GeASlUnBkfqss8DjVjPs46FD/3jK/uYAM+PJBxkLJasnfdJls1ci1PXQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NiM8ezg3;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA499606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:07:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA499606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NiM8ezg3
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35943f55c06so1352169eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:07:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792516055; x=1793120855; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0NChw0q7iQyjFAII3unH4t5su0zEDRJMz0fmmAi/9lo=;
-        b=NiM8ezg3/gAh640fVbXkioAOXlq5h+cvDQK76QDJ/mCqVVCoQ3ifezFIKjXT2ToXW0
-         BCWQUnlbl873lYGS9OKrsrI3K3C9ZN1/0UuaLpl2TPBcGyP6fRtqAAJcApTniq0/ZtvX
-         rE/etJIyrzT5qYjd+1uu2ezFZnfZQplXIubw29B8TNOXyViElhGgqWW+0snm9rtlLfAq
-         g8mHMdcHGJ58ovEvNyk1bFbw3r0MC0luw5RUVCYOcNJ/3FqgqIajI1/i9JHWkU8IOylO
-         E0dSASzURbz0chZnN5BMP5LtuL5CD3FEVuYtYczVB/t//gUhD/hjowt/CwqqrBKIUEAR
-         j0xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792516055; x=1793120855;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0NChw0q7iQyjFAII3unH4t5su0zEDRJMz0fmmAi/9lo=;
-        b=d9EeZo6zK0HoJhWKJ1uXPleoMdQ/Y+ICZH3J0dkbdh1WJvJLdr3M3K2GkhlFUzVni4
-         RX3Qf03aY09DqpPPrvbQTekCQX2y0Uisl9V1uHjkLNQh8xfafH13JFiH52YegREVHUqh
-         yoZ21QRuQBEkkZEmUpepXAi+OOezMaVBmAbjXPJZfuI7MhopsQfKxJ9FgGT4ydZ8U63k
-         IBlNnLF99vo6/Rpoy9zi7U2X7hdpqg3F6Zkd+2fDK1SQU5gWoTxv7NHcsDktanpRtaoQ
-         DZgFYsGYvC1wnbUE3Trt+BbRuqbJWIFDscQX15mqubdU5vmdNKgrT0SsPwNWUcB/OdUa
-         K1ow==
-X-Gm-Message-State: AFq9FYJO/OAW27l6HFZKE3Ijk4NSQIkcqEhE8hYMvmt6WCryU1UQRkaw
-	n+SkbKsBULBDolco+Q7b1zi1NSWPjy5IAN3aDmxw5PoORm5fcuG4+zbu7lpx0Jbt
-X-Gm-Gg: AYBFou2iR5pLar7BRpV7c2B14SZNAAno+yqJGzued2QV7IkcrL/IIOD2vW4q2YkCU/b
-	V0aKLZcwxB6q6wr+SLEllrC+6UnRXEnef2vDannLR+NhULlwd3EGD+NC/i/WKVy9ibGfuclik27
-	yVWQ05vAnQNgc4b9ti346LG8XR2JXRUNqd1b25WAxN9KF0LVbgScwDdM2gfQ0qlBhImyxQqTv4U
-	itKNUck7z8dgD7KeA5oRVYdz2vg+LAPly1lTeZXjeV643wCj4O/ZK8fBgKdL1hx/DtJpR6z8H/P
-	4zWq0SrDRPWY9Mv64OOPcPogkMYyJs2GCQIUZXStd/lZGtLEnHksbgtwMyFR+ZyHrM9A1Hmt/Qo
-	ANClAKoFAiMFve0E7zFFMEP8hCGoDiYCIdZp59JR724we2PAVKMqkkxOjHfoSnFDN4oYdsq2fW4
-	Duykh6SDiVqCOA6HlOLaenc3Nz5Ed8nLHcFnMWBJJExmZ7Cvy9EU4aNGxniEbiCVPaeXE1P5rrU
-	M5pp2KPsjjqRRWGYUP2J7xB/ERQXhXAlmMNhro61ugDh/eSTVBrFtYtIFwIffqL18O/yg==
-X-Received: by 2002:a05:7300:e7a4:b0:353:5d7a:cabe with SMTP id 5a478bee46e88-365fad8dd2dmr5231285eec.13.1792516054528;
-        Tue, 20 Oct 2026 10:07:34 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (158.95.44.31.netskope-rdns.com. [158.95.44.31])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm43436541eec.16.2026.10.20.10.07.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 10:07:33 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Tue, 20 Oct 2026 14:07:25 -0300
-To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH RFC v3 4/5] iio: core: use kstrtodec64() to parse
- fixed-point values
-Message-ID: <5ixgnxi5hckja73lcujqo6c2bthknpeunwfaynpagyqnzsmqo4@fy3tvpswyza4>
-References: <20261020-e-notation-v3-0-fd385c0fbf65@analog.com>
- <20261020-e-notation-v3-4-fd385c0fbf65@analog.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE45606A31B;
+	Tue, 20 Oct 2026 17:08:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06841F000C9;
+	Tue, 20 Oct 2026 17:08:45 +0000 (UTC)
+Content-Type: multipart/mixed; boundary="===============2184321447331015808=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,57 +36,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-e-notation-v3-4-fd385c0fbf65@analog.com>
+Message-Id: <443e1351eed4f46cf6c202e5f1130b189e9c5eb09cfcffd24d752c6ec73d450c@mail.kernel.org>
+In-Reply-To: <20261020161907.2115379-4-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-4-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v3 03/12] bpf: Prepare linked scalars for relations narrower than 64 bits
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 20 Oct 2026 17:08:45 +0000 (UTC)
 
-On 20/10/26 09:27, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Replace the open-coded __iio_str_to_fixpoint() parser with kstrtodec64(),
-> so sysfs writes of fixed-point values also accept E notation.
-> 
-> The fractional part only keeps the sign when the integer part is zero,
-> as before. The dB suffix for scale attributes is now handled by a separate
-> __iio_str_to_fixpoint_units() helper. It strips an optional trailing
-> newline and the "dB" or " dB" suffix before parsing.
-> 
-> When there is no fractional part (fract_mult == 0, or dec_scale == 0 for
-> 64-bit values), try base-autodetecting kstrtoll() first so hexadecimal
-> and octal input keeps its meaning ("010" is still 8). Fall back to
-> kstrtodec64() on -EINVAL to accept E notation.
-> 
-> As a side effect, inputs that used to be rejected for integer-only
-> attributes are now accepted. An invalid octal number such as "08" is
-> parsed as decimal 8, and a fractional value such as "1.5" is rounded
-> to 2.
+--===============2184321447331015808==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-...
+> bpf: Prepare linked scalars for relations narrower than 64 bits
 
->  int iio_str_to_fixpoint(const char *str, int fract_mult,
->  			int *integer, int *fract)
->  {
-> -	return __iio_str_to_fixpoint(str, fract_mult, integer, fract, false);
-> +	s64 dec64;
-> +	int ret;
-> +
-> +	if (fract_mult) {
-> +		/* scale = ffs(fract_mult) = ffs(10^n) = ffs(2^n * 5^n) = n + 1 */
-> +		ret = kstrtodec64(str, ffs(fract_mult), &dec64);
+TL;DR: Commit message only: regs_exact() now also rejects states whose linked
+scalars share a base id in old but not in cur, a stricter infinite-loop check
+the changelog doesn't mention.
 
-As sashiko pointed out, this is breaking some test cases under
-drivers/iio/test/iio-test-rescale.c because of the rounding case change.
-That is in fact an issue within the test itself, witch limits the parsing
-on 9 fractional digits only, requiring a relative ppm of a scaled value
-to be zero. I will have that test fixed in a precursor patch.
+> bpf: Prepare linked scalars for relations narrower than 64 bits
+>
+> Two scalars sharing an ->id are always related by full 64-bit equality
+> today: reg == base + delta over all 64 bits (this is true for
+> BPF_ADD_CONST32 as well, which implies upper bits to be all zero).
+> Sign-extension needs a genuinely low32 equal only relationship kind
+> with bit 31 supplying upper 32-bits.
+>
+> Today the following 2 relationships exist
+>
+>   #define BPF_ADD_CONST64 (1U << 31)
+>   #define BPF_ADD_CONST32 (1U << 30)
+>
+> Model them differently as
+>
+>   enum bpf_reg_link_kind { BPF_REG_LINK_NONE, BPF_REG_LINK_FULL,
+>                            BPF_REG_LINK_ZEXT, BPF_REG_LINK_SEXT };
+>
+> So BPF_ADD_CONST64 becomes BPF_REG_LINK_FULL and BPF_ADD_CONST32 becomes
+> BPF_REG_LINK_ZEXT with the exact same semantics as today. But this paves
+> the way for a future BPF_REG_LINK_SEXT in the same framework.
+>
+> The implementation needs to change as well. Today the above 2 bits are
+> shoe-horned into ->id, needing masking and OR'ing to get ->id and kind
+> bits: with more types and bits needed, move them out into an enum
+> bitfield of its own. To avoid growing the storage (and stay within the
+> 1K allocator bucket), borrow 2 bits out of ->map_uid, 31 -> 29, which is
+> still far more ids than a program can generate.
+>
+> ->id becomes a plain identifier, so check_scalar_ids() loses its "compare
+> the compound id, then the base id" dance in favour of one check_ids().
+>
+> With the kind out of ->id it also leaves the idmap key, so regs_exact()
+> and regsafe()'s explore_alu_limits arm have to compare it explicitly.
+>
+> One case changes behaviour -- old {r2.id=A+delta32} against
+> cur {r2.id=B+delta64} was accepted and is now rejected, correctly, since
+> alu32 and alu64 deltas diverge in sync_linked_regs().
+>
+> Clearing a link is no longer just ->id = 0: any stale ->link_kind needs
+> to be cleared out as well. And given this needs to be done in the newly
+> added kernel/bpf/scev.c, it is moved into bpf_verifier.h as
+> bpf_clear_scalar_id().
+>
+> The helper also zeroes ->delta, which the open-coded clear left behind.
+> Unlike ->id that field is inside the memcmp() prefix state comparison
+> uses, so a leftover value could keep two otherwise-identical states
+> apart; clearing it can only help pruning.
+>
+> Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 
-> +		if (ret)
-> +			return ret;
-> +
+The changelog lists only the delta32/delta64 mismatch as a case that changes
+behaviour.  Is that the only one?
 
-...
+regs_exact() also changes.  It used to run check_ids() on the compound id,
+so old {r2.id=A, r3.id=A|BPF_ADD_CONST64} against cur {r2.id=B,
+r3.id=C|BPF_ADD_CONST64} built two independent idmap entries (A->B and
+A|flag->C|flag) and was accepted as exact.
 
--- 
-Kind regards,
+With the kind moved out of ->id, the same pair now maps A->B and then A->C,
+and check_ids() rejects it:
 
-Rodrigo Alencar
+    return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) == 0 &&
+           rold->link_kind == rcur->link_kind &&
+           check_ids(rold->id, rcur->id, idmap) && ...
+
+regs_exact() is reached through regsafe(..., EXACT) from the infinite loop
+check in bpf_is_state_visited():
+
+    states_equal(env, &sl->state, cur, EXACT)
+
+so this is a stricter comparison than before.
+
+Could the changelog also say that regs_exact() now enforces base-id
+consistency for linked scalars, which the old compound-id idmap key did not?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
+--===============2184321447331015808==--
