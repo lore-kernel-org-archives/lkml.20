@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792522442;
-	b=kjFK8ieeIQkL53XOa68NtdiR7jNZK3x0CsqxD+3uccykbTCVrbj2TrJotvqBlWP11/do
-	 GDFpuy9fbZikUpSHCXkZCOlV9M4OKJUWiXWLMyBICLp5CWLLrLQF/Uc5oQHN/hloCaLfQ
-	 0ESVTIDEYL+I2uPhYZ3Y5siQf0YrntK9ng0yAm6prJ+54CQo56HlyrF+XmtsXRrqa6VT5
-	 A5yojfhb5EHNxqpPbnYD/pWBMtKIhlhpqD8/VRLcMh/P/StaafRKP8chx87drJ5fIUDW4
-	 Of4YOP9RxfnncLZqYQNJcVjX3LyaCNnEopgu/r4kuHZT7xVZpKuTmGLLJ52RPkm3ReA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792522442;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792522456;
+	b=2IdU1mOV/SpPby3Q3dhAqHNhrZE3WVCzEh/ABcoLVXD3WDo/8/ZTfs2ATnvqSuHfUCFD
+	 tPC3ybTwET8Zqx8QgMn4eetdkPG/eaEZdIkLhWzgzabxD2MINpUyYMGPVwil2L4EVb2mQ
+	 zjd5pTpFhTmcTXCbE9NMLnZI5wqMTrfsd8onv5K0P+uML1GIReaeoC+CCfs4EmJrZfNZK
+	 ol8Nfs+zNCUD8G/jxQAEXwNazM8gKtiJtqVRSk68ECy8vI8uuh3Zq45YoCMtjDbst8Ero
+	 TngbbaORddl7tWceW8rKZARgTZaaOGvzPRfmkNVEuT4eIvzu5rnzWpj0uAOBbVhwzag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522456;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=JFx0fVMOKwTm/FUUv5gLEMYZwxcfyaAQbWnu0iJxtNE=;
-	b=ZE06HDWhS9LIB1V/GkxGgXFvNTh8efyVapBV466RVvWL8vkt97kKC6s03jtLfzFLHDs7
-	 LIP3fIZkcNdL+W4I41kiZ0bINuWkVKhv752EZxKgkFPbpAQdBgdPMWZl7eO5464/eWmFO
-	 fepgYGQIbyV80piEkIGnPgkNPxV5tcY0jpgHpM/9XWX6XbVkVHHfaIbj9DXvgjd1PQ7oh
-	 MIgIyG9q5pN949dNsMskXpCPvG6C4MB35HlIeOY9pBN2pxWEK42yo0cBvJTffgtSb8XX1
-	 Gqb4IpfSWj7oMFxerMOnZ1bDYFk3PC+6ySdU8oEAhnyzUiwJ0r2FM6y4ZYSm8uZEUWQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=weLRjVV4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=pgQtG3vnk+bWjLiiQyxn/AA9Q7BaiyxLmpP3Dp0sSVk=;
+	b=FBa5O9ostS9VmVxUAUGxMl3/zYx1xkGPGVAyChmh0Pfvz48bGISIHuhME+VZq+ZzxsNo
+	 7dVNIg6EVB2vOcY/WDi+D53Fg9Q4aB3uiVPw9tKMdsUFQAeTVfNO44dxDQapMjtURJycM
+	 /uQYq73dPZrBe2vcZnEkQHv0B93rfjMw5L7E5AMwynqvWaDQ/wmfwHjcrfq8QkPy0QjKs
+	 ONLP+YGnEfLyMl7wGu6LVJWtmPfdW+ycfJquDq1ShD8OsKNyLnjxoQH8eJcFZEZJZeGmr
+	 /iQY22xnFULAJcd/GCuo2CihKmebNz2Phd0NcDCtkRVzztuhkSnc2aGNtP3QPaLvz5Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GkUodeA9;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CC4606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14CC4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0048606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0048606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=weLRjVV4
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1f403aca0so8682595e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:54:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792522440; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KIO9cFaspkIl2S+WxJOa8GEcnEqqFgAZ3dB3jIF0E9l/GLv/PTIAyS5hEl1DrisoJX
-         qjGi0CnAKIE6MK+iHvib0NA8EbTi9nJGqvC6+3GkPPp1vOlsm/ScV2D34POHhgz5K0Dk
-         mjVW5Car9AS6aAr63RAA1dbILXSPEe0YCNh8l+7aylMYx0RSLvnJl8RP2QSafm5ZI3HB
-         6jwh4LbPazPgpSAPTXPJQSCeL+DZPJcGFKjWMeHqLuSn4pq0VW0QN5EccOWG814YCOWc
-         MBOX7AVYv+yUlwwJ6NdRYruTG6K4rUzhDNxcNJo6W8cbA7u+357n3ikzy4Sj2UkBMU/s
-         t4Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=JFx0fVMOKwTm/FUUv5gLEMYZwxcfyaAQbWnu0iJxtNE=;
-        fh=e5YHUmpEMd03N/+LKLgNRpCXj5k2zgZ/OgsLbp5vvK4=;
-        b=RsRHSW+W+CgEKOtxcCZZJJ1tABMPeT/cgluIULyybh9D8tpkGWhV7+CCfeo8BI05O2
-         FB1pKig8NoZBmJaMIvJQb5UF9ef8EEMHSi4Rn1R5vfj3rFtYXVKccw4QgnMNpAYAoHRj
-         BJeMA5zMR3ThUZrkaEjWYnNkmTYLNYmPI8J7ovj4ENt3kW50dVT1lLzCFRNx8XaLHpxB
-         v/Myxsu5ssyvrxM4Yu24hRxxfD8L01RMgAeWVGb5u9Acoc9Cn2J7t7SDlqWK9HgUL5SM
-         LvuTngHsNieXqShSXUzHWiRSJOKmaEqhE2Vj4beA0IV8y37OK6rheJ2tug2kL8uocR6n
-         6BIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GkUodeA9
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfbf48b92so370545f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:54:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792522440; x=1793127240; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JFx0fVMOKwTm/FUUv5gLEMYZwxcfyaAQbWnu0iJxtNE=;
-        b=weLRjVV4kN6JILEuhn91fV3uUprwNy+LuIDypdQ22ik+Gr7PBvNjtl5Mt94OvsyqxR
-         9Ha3+gSaO3N8npJr4q+Uw7xXqwvUjQ0+bw2z64muCw2fA29U+O5PlCFUEufj+EISdZ0V
-         AQ84u4Y53+7H2mlmsLVAPEx8Ud3yAqPVB7U39Bf4TDqOSbvs6uX8wr0M5QAuFkH6epZ5
-         tkK0jBj8HnDZa72wR3i+ps5C3Eave41FjHsC7QKzyjoCEbCyeQNGdpnH0/mkHPXvhlkN
-         JhYlzTNf0uR/4KXEP6cjM7kQPhj8j2DDcnDA/emkzr3mM5weARZ7am76dQYEC4maMQfX
-         MeTw==
+        d=gmail.com; s=20251104; t=1792522454; x=1793127254; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pgQtG3vnk+bWjLiiQyxn/AA9Q7BaiyxLmpP3Dp0sSVk=;
+        b=GkUodeA9n4Im8HwoXs1SuuEb0pDdQyTB0NnmRg+K3F9ZT8PIX9Cgq2bXbuw7BC1Oqe
+         SfrSe0kQ6uxBHt3Iw/NwZRa6h/So6OvOGFhMuvw/4n5/m0uW1HYrLkvCw4ixcOE/MAnp
+         H3NpFXFuVp2GYtz6mUFESNrVsnhU54DKGsaelkWq3ZQyxN+klSgm1CrWCWk+iV4Kmw3t
+         LTiJjfnzWPcD5Q1QTq1UZQu234vYsh5qJC01KwTad+2cAIKmCppD7421GBXFBiPRGgd2
+         mTX9xwa6/kpvlXyU9+K1W29hMePUdHRQp6yAsD851nINEip9DBlAtTfCHHfPE7Yreg9n
+         dzqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792522440; x=1793127240;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JFx0fVMOKwTm/FUUv5gLEMYZwxcfyaAQbWnu0iJxtNE=;
-        b=lV51rizStOf+uiVREDS2d9heoQTxOPUkrhXXzPiJMED6t7vdzDFa2EzD52ePxIFZKA
-         XS+LfNYVvQ8ua39MI7GtKacDgm26Jx6cMzDUROBEhTiCl24t+RziLUISJJXZUhG710GQ
-         1GZdmNbQkQpTNm0f0gtEdponOtyM2rgRZMIrsQcZNCsWT79FAz28+A1amcqosOB/eSzN
-         V57C3tAUQbTDgPSf3yyyQzhCmqwC+38MAKYYmeDd13cDYJGJLHVA/3lFtrreasy8D2fs
-         qoV+bRloA/rOlXSaVlVPbPm05jnldgPMNizEu3JMAw6hzwyFI9Xn2SNqVsjIFvI+k1Fm
-         UM2w==
-X-Gm-Message-State: AFq9FYJFFFeDzzWQP7HxYueOZHXxgyoXsYpwiJUma7JD6ChNPs6CbSti
-	pq3qODSw66mZJSikGignNqns8xnBC06bfkQKwcOTIyZNYv27G2Ri5eL6kVBu7Hi139sB6os8piN
-	4PtClL5b716bttyN2VnPCtQFGLECIComtSoncxJc=
-X-Gm-Gg: AYBFou3euHwMbfGQsPwL1s1F3SkJQTafjVpR1v/uWJdnDpbWaoTC/o5D6CpTLBmfRlz
-	mlKImk6s86BXSCJAY70kJnY8YTVBp09EkjCmffDfn58/hvhN+InkpiDpeHPlymXbJc9iPwq87Hu
-	soGmgyWZRLos7F4AIrZsii0k5WmDLO2htdD1E5uVOLa3xYo1XIwZOQkA0bXOPQWZL8SawjuZhzq
-	fcaeX/Cq0Nf+lq+y6jHXS7OYSy6Wz1XkBjQodbJYAiiHKRf3XbHE7gi3ikP9NLgiZUfoZ3jE55K
-	psoQA0Jq/NCn+ABaPf3/kVLlb7SV+dEcBjXjInpb5HRp6h5lCS95piAqRRPkuXyUdmicX/j3H7h
-	usMXsKPB+wX1J248EXcd6FBGNEzf++XGCjDeOea+spD2wn8Db93h8UJ1+MogzlJr+z4Iuv+H2hm
-	Od5x/RPYLTpIDDh2GCe6O6wtXA+4oQ/GcL2LpJCB+Sn4XcFglc0kH/rsiZoIHvIHTuRYQ3
-X-Received: by 2002:a05:600c:548c:b0:49f:dc71:e609 with SMTP id
- 5b1f17b1804b1-4a1d7610f2dmr257707775e9.20.1792522439722; Tue, 20 Oct 2026
- 11:53:59 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792522454; x=1793127254;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pgQtG3vnk+bWjLiiQyxn/AA9Q7BaiyxLmpP3Dp0sSVk=;
+        b=koHug22YCxrC4ukfyJqyC+wf7GYJ5Zyl5kj414/MllzKMAPv7KfHaqDgVHTfQne9Vs
+         oOrMSjVUkpJ4Z1lj3dcGnLyut6rJ2uikSXFsTwkIVBD08nU7P22r19N4T3Uhv3aH0+RG
+         /i5A3ncrTnfT9NIUhm/sOlAN5CGXQOj1gNOV1gntz2b5LETn7V0nQG10sZBaKiGTXK5I
+         I+bmu4LA63IBGHNZVL3iY0lFRdaTGFpgQFikgArJUPovzAxvlPGcwDx5gvE8oP9JUflH
+         nnz5t27ztYU3oaBqZEJ7u4z9S2IHPlc39/0f6O31z6pvWUwrYg/Q11ivq44cgisck2En
+         sTgA==
+X-Gm-Message-State: AFq9FYLvSFcK1/RAGygzhGT+ksBtFq002/BGb3ZJrl88Ef+WYn7PGIz1
+	h6zH3AEtE/BjMX6SaY2bKNizu3vl5L4nTuE5QnZbZ1LzbxchxmIX3Pxs
+X-Gm-Gg: AYBFou1UVXmQHG8K6yR5S0bxxz2SXVnQw0NJjCy1ZtDpDTrabltgtY6qol9IqI5pQkw
+	xtaZej3BMmlKf4tq895yCHSiPLRNNdKMKJOmRE74fsCJsm2mJ3suWlZSb1qaQ1+eLzgkBKM4pOB
+	1qWVgXRpADLESeItmVhrQij068PFx5GeKsnm9GGDfoPwOYkJYP7OzFU0G/mo0erfi6YJ+xWCDtw
+	3Ax+R33be6Ul5+J4C8QuBtx07pOFDzHhzIflKwGYnvirsjESRomyF7PziC6Kek59HL65UUyUBLY
+	Z13afuqk4TqZ6vG0mYaYDOo8Er3hadHKFpvgMnxElVJTBBxAQqtIh02BHPyLgkEh8EPnWjoUjaM
+	6ma7l5POD2WziEX78MAMJlVc2ek9OIPz/+z2/TAmg5+rNSv61Hg6NSawFvz5a2hgEp1jfMz1n8F
+	WaZR+e6H48IfOSLGhv6kfTqMhsRprDkCgnEjAPOvd5MF1YRCwiflJEd1yYAQICx0AdkkpChmRGc
+	mS7Pj2ecHyxu7LnYIqFSQ==
+X-Received: by 2002:a05:600c:3512:b0:4a1:b027:99ef with SMTP id 5b1f17b1804b1-4a1d7601f29mr237231285e9.2.1792522453895;
+        Tue, 20 Oct 2026 11:54:13 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb845dc2sm15895005e9.8.2026.10.20.11.54.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:54:13 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Ricardo Neri <ricardo.neri-calderon@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+	Kayra Cizmeci <kayracizmeci@gmail.com>
+Subject: [PATCH v2] sched/cache: Ignore non-fair current in alb_break_llc()
+Date: Tue, 20 Oct 2026 21:54:01 +0300
+Message-ID: <20261020185402.57017-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,65 +103,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: John Stultz <jstultz@google.com>
-Date: Tue, 20 Oct 2026 11:53:47 -0700
-X-Gm-Features: AclHuK8j8c2w4zXgBD6CRYrRTZT8bUhTFpock37-aEG16sPDISOF0mlFPX2G-84
-Message-ID: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
-Subject: Uclamp races due to non-atomic static_branch_likely updates
-To: Peter Zijlstra <peterz@infradead.org>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Qais Yousef <qyousef@google.com>, 
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hongyan Xia <hongyan.xia2@arm.com>, 
-	Ingo Molnar <mingo@kernel.org>, Wei Wang <wvw@google.com>, 
-	Patrick Bellasi <patrick.bellasi@arm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hey all,
-  So Wei Wang raised an interesting issue recently: He was seeing a
-race where when uclamp is enabled (from calling
-sched_uclamp_enable()), the static_branch_enable() call will go
-through updating the static_branch_likely(&sched_uclamp_used) sites
-where the inlined uclamp_is_used() is checked.
+Commit d6b9afab44e23 ("sched/cache: Fix
+checking active load balance by only considering the CFS task")
+stopped using task_util() for non-fair cur.
 
-The problem being, while the jump label sites are being modified on
-one cpu, another cpu might be executing some of these functions and
-get inconsistent results.
+__active_load_balance_cpu_stop() calls detach_one_task(), that only looks
+to cfs_tasks list. So if the rq->curr is not fair, doing a decision
+according to it is wrong, since we only migrate tasks that is fair.
 
-Specifically in the case where uclamp_rq_inc() on a task is called
-followed by uclamp_rq_dec(), its possible that a
-static_branch_enable() call modifies the inlined uclamp_is_used()
-check in uclamp_rq_inc() first, then on another cpu, uclamp_rq_inc()
-is called, sees uclamp_is_used() is true, and increments the buckets.
-Then uclamp_rq_dec() is called, but since we're still racing against
-the jump table updates, the inlined uclamp_is_used() in that function
-returns false and it doesn't do the decrements, leaving things
-imbalanced.
+Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
+cache-aware balancing") passes cur to task_misfits_asym_cpu()
+without checking if the cur is in fair class or not. Fix this.
 
-Most of the usage I've seen around static_branch/keys treat them as a
-magic-compiler global boolean, so to me it seemed this sublte
-non-atomic updates could be more widely problematic then just the
-uclamp case.
+Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-aware balancing")
+Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+---
+Changes v1->v2:
+* Add suggested comment (Tim Chen :>)
+* Change the changelog so that it says the issue is passing a
+  non-fair cur to task_misfits_asym_cpu()
 
-That said, I'm a bit confused, as looking at the jump_label_update()
-usage, we already have a key->enabled guard value which can tell us if
-the update is in progress. However, despite the logic table in
-include/linux/jump_label.h suggesting enabled is used, I don't see it
-in the static_branch_[un]likely() -> arch_static_branch[_jump]() logic
-(though I recognize the whole point of the static branch logic is to
-avoid the conditional, so adding a guard check would undo the benefit
-here).
+This versions not compile-tested. Tho only change is this comment,
+so it should be fine. Right? ;-).
 
-Maybe should the jump_label_update() logic be using something like
-stop_machine? Or should there still be a conditional on key->enabled
-in the unlikely case to make the behavior consistent? Or is there just
-something about the uclamp usage that is off?
+ kernel/sched/fair.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Anyway, Wei has proposed dropping the if (!uclamp_is_used()) check in
-uclamp_rq_dec() to ensure we always handle the decrement side to
-resolve this, but I wanted to see if there were other thoughts on how
-we could still preserve the static branch optimization there.
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0feec172fd37..9d7fd6cec376 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -11016,7 +11016,14 @@ alb_break_llc(struct lb_env *env)
+ 			return true;
+ 
+ 		cur = rcu_dereference_all(env->src_rq->curr);
+-		if (cur && cur->sched_class == &fair_sched_class)
++		/*
++		 * Active balance only detaches CFS tasks, so a non-fair
++		 * curr is never migrated. Ignore it and avoid using its
++		 * stale util in the misfit and LLC checks.
++		 */
++		if (cur && cur->sched_class != &fair_sched_class)
++			cur = NULL;
++		if (cur)
+ 			util = task_util(cur);
+ 
+ 		if (task_misfits_asym_cpu(env, cur) ||
+-- 
+2.53.0
 
-Thoughts?
-
-thanks
--john
