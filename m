@@ -1,102 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510730;
-	b=PFiLJBdOOBQrfaRweaZzMsPyNjVJuE+bcEFYRE+FEE4x4mQRLTt+yLP1jSi5RFy0Ij5Y
-	 kgoDjkqH8/lv/bgGzZGJ9jZx5fqihx4B1irTQAFX5hxm2PIs7+WdJVAMbzYUqq0hSkgJK
-	 XfKLGvEsYzFXSMDaDhRkC35iy+cclmiwCI4BqZsGin6PV1eCpu8NLVQcb4Y/m7h402qao
-	 aBvHwgq/Q05CP5c9qjmAfTqYHrcTczVHv3UopRFRz+yH9wwX0VuFETKE2J9GBRU07F9Sw
-	 fE02j7LZ9ZrMVIfBY1/ycuevFyw1mvMPnQ+xee5tdCEb4jSX072A9KJNADXAYidsemQ==
+	t=1792510761;
+	b=YQ+cMZWXQCRSxLwlCTjwWHk7lxHDI1IGNBh3eYDWVmWNhpoNQ9EBGgCRb4VfbSXL4hEd
+	 ocF3SKl78WZtk0UIkneL9wZpD1XAOi7yxBRDbOC/DDEY/LMuQFdUWeOBkoeCBLFb/68qQ
+	 cuMJxyKaF/OxQZeortVQFZQ8k57myeiXSaNty3iBYRrkxtXuZ1SI78N94uSu2zZpm8GLe
+	 lwvER/vBditT0lGx5JboPVhUyQDFuoQl5E3SUR97OQ/YN8cFH78OoZdb+Ari25eaRb0d1
+	 Nda0XNnR8xaa7PnYvfjIBKwyqeqAhdK2QkWwS0dogf1FMYksUTBhejVvUQxoRNLOrzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510730;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=djXZskGgNuwcvXxJ7QSBd5G1fQCIwJ3UJCCUrLYgW60=;
-	b=mCxl1LjbKRoiy7KPQvPeyWSMtnwK2g3j04UM/F0Y2lGiVoXeeLyFxUxIAfbvl8kYVSZG
-	 YIaABRlBGTNDcjz8AXn+P6I/fhTxtUgBQe9FU5RPxyWIvPV0AXzh7rxqKGuHEy0yNi/HS
-	 1J1r6fiAnazVx/bVvY3+ogQOo7nU2QvyWtsXQWbgJQQwXrQjNI6w9SUP8/pHFtp/ZHS/L
-	 4MEuOuOoiTFSMy4UIrw0wXmBTlCuxQB4O79293RcdD6QQFUNHG8q0rMwPEisVaIb9NIvR
-	 Cvf9Hbu1XknZsQ2pSu+wXZ6DG/swWNSw3amddk8EE2rZsAnPaDwO45RpIWgsAabys7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510761;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=IEpug45/RgWjFt69iJGqq4fHXGRjLFvT4L4JSGopD8w=;
+	b=I+FllQzYL/2xhNuZtfw7ijE/fzynBVCh1D0PSzX2xK5x5Mxb65xPj2fYBEkC0iCmGggr
+	 j1fYOWpcRpyLcPvYdnAJExyE+TBYSIhzpU9ba/fJmHZaHo3F/n0eKHt1Eual1H00sqWtL
+	 4ZiaHKIfCWgIENuDBdXbTOrWC2ZOpdc4XZnOeWqkc9EITIkYnYzENFTOF6qC/M5YEbpk/
+	 AaynZrUoo0VVJ5+8gP0ukvr5J//53lTanGW0uHMHXpytugguADqvVmA+03LEOj4e7eDIc
+	 6iGg8vxjYR3sWkr1RyjP04wgKDptYVAG2dW8iUA0sKBZh5Uz5aVb9guc6CvKX6fRJ8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hB406WtZ;
-	arc=none smtp.remote-ip=209.85.214.226
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD265606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:38:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD265606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hB406WtZ
-Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2ea138a3497so8999695ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792510729; x=1793115529;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=djXZskGgNuwcvXxJ7QSBd5G1fQCIwJ3UJCCUrLYgW60=;
-        b=TsxdDdTXqTxG41x+Fp/X//6jRz967TqVLEk3+chZTodeK4Nj2Sj/cR5S+E8fNLWij/
-         Nu9CNHRyi5e+eA39b/DjrVIt5/tTH5UI4NcFvxAmqeKb64HZuhgM+qaY8/baYyazzCqc
-         +X7E/yr53YqAfcQXWHzY+K3JX2GBuxwx/dj0jdjBWKsuSVhZyNSY3OHJdjreQZPRftjW
-         adfQTgePmoCXi32nsCgZtOfwvx6yYCFFND5qmEtyn5/LEgWQpQo9Q9pTVoCDSAfsJ3fk
-         hJ3JpTOdvaadmS9mFH4WlzwRi5asCxZLrRGt9+O7fk4H7XAGqn4SP51aniJh4zoQrHY2
-         syOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxekQd9Ey7kC84kYFw8rmhPEibaNsXF7jJtnToRPSycS+drSRLePliHJwEIYgU6GEOV+1oqQdTz15lONsw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdxCtC2p/DAd0IEiyINDiHjjyML0wjJINeUGdRr1RYNGtHH5VE
-	N6ivlHdFotDwCM9sxlmZm3oT4/m082kErTGJdYLNTcnscJEDWIDrbkQ8zjJcVCHFsLemXNXDc8i
-	gBaoFWYU96c3ye21026daJpMW0qp2DFxYt/VFHiQK8DW4dY3hjLpU9tUxdhnICfWQ67H9cvfGhV
-	JjChOMmzpjGEgL+yhmTHzBjn9/Dy9La+LMGJUk7ie+ppVHHKWwRrmzMqj571uXLWyjAU6QWkZM7
-	RvL25UDMlmcNJIMau6Gg23Z
-X-Gm-Gg: AYBFou2CtlNRXxSbAz+Wz3Moe6+WhoVP+SyDuCnr6GGfvzM+ygMDAaSCKK25FH88NYX
-	bsJMnkiLAGZxFzDgiMuxXSGUnaEgl6vpX2KuB4LA6/muM/c9igf8t/I/e1v+KZaAoFdyMMavJ8Y
-	1hGmGua2WvGTKtVOMQirJREsuBZRnrQB+/Hs8mcRZdjPPBHEdpnKshXnxSDl2IjXCUy8JgHsHhm
-	sL4Vu38ncNDsApP0I49qc55NvuV9ENHuf+HQBMjs7+z+7kQRu/FRMQyiYELAFndTT1wyjIw39wA
-	ddS8lbgEA61kTBJPJZ81GxXRuru1Uy1ltBPyKUAaQXdJSUPbzwlWs7Kv4brgTdlnXX9uEFXYbN3
-	oXBP/84yiXs8io2ugegdoaJVH7UsXO3zSl6rYNmOSb5EhWpUVagLp8i4dXRRPanqV3D0T1nAdXi
-	dOPOWccxeqE2z9ndQKQYOT6XRCfCQgBIcLuRq2bkFLYGY=
-X-Received: by 2002:a17:903:2342:b0:2e9:2a1a:8b69 with SMTP id d9443c01a7336-2e9a6d37436mr92510555ad.55.1792510728905;
-        Tue, 20 Oct 2026 08:38:48 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2ea3b48689csm12075ad.46.2026.10.20.08.38.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 20 Oct 2026 08:38:48 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5338ff2cf14so65317381cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792510727; x=1793115527; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=djXZskGgNuwcvXxJ7QSBd5G1fQCIwJ3UJCCUrLYgW60=;
-        b=hB406WtZjY2t+GkizQ0ZRcE6vtxvs74q4nOMlULDaCo/8GxfqGGJIr4WRBt4tNG5HH
-         L+ozJsZR/PMugdu/nqmc1eWWsRctvTyFq5CZCeHR/2ECiETp8fbJrF8xNBYA9smi6oLO
-         Vxp6puHSVTtmQFvJsNQN5XQs5ORVbBhI87oOg=
-X-Forwarded-Encrypted: i=1; AKwUvBx3W6VgHGpVFs2pTkVx4/uB5IRjyJV/F9bFQcRR3pSTTLzwT06IirvEN/T6u/GWutfzeI1bXxe1EJRqehU=@vger.kernel.org
-X-Received: by 2002:ac8:5e06:0:b0:536:4cce:67df with SMTP id d75a77b69052e-5364cce6af7mr160757571cf.54.1792510727479;
-        Tue, 20 Oct 2026 08:38:47 -0700 (PDT)
-X-Received: by 2002:ac8:5e06:0:b0:536:4cce:67df with SMTP id d75a77b69052e-5364cce6af7mr160756821cf.54.1792510726868;
-        Tue, 20 Oct 2026 08:38:46 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5367b3d1ccbsm36400461cf.0.2026.10.20.08.38.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 08:38:46 -0700 (PDT)
-Message-ID: <f918c40f-f073-4ba1-ac4b-7765c42a5cb2@broadcom.com>
-Date: Tue, 20 Oct 2026 08:38:41 -0700
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.147
+Received: from esa2.hc555-34.eu.iphmx.com (esa2.hc555-34.eu.iphmx.com [23.90.104.147])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6570B606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:39:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6570B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1792510759; x=1824046759;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=ZKlMgO+Am7f1W6tqLYmCFZtZZ52fpO6WIVEULY/+2O0=;
+  b=hTvYw6kPKPGzZr+1xuvCfnPtas7bGIqUFBb8VkImcog9DV5xsk5sSYNu
+   jo50ZHODH6IsCbb601B3hQpXgEQ0IsM96yp4UctUjpEnsRaYt+ngZHd1L
+   SAg7t8ZQBM8Cii8CX59Hs5fL999lKgzvubZqDW3neOp3brN8BzZtVRSxf
+   C7QulYbUZMvk88lIVq/P14DlvNFSKtef+f4AVjVfR2mBz5DwiBLFw12f/
+   /Zk7mRq323ga6dflQ7aygDw30DVnslPnliaDhlEkliWEZY5hA1okliXBC
+   +9wwShVZNf+H0yUGSWpECOBkR8g34PhkxBdPNgVUEVIZ62TdFZWAFfM/7
+   g==;
+X-CSE-ConnectionGUID: HtOr2+v/StKuF4ZqYoHW1w==
+X-CSE-MsgGUID: nUJVkKTjSDaNuQUgIjV16w==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
+  by esa2.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 18:39:12 +0300
+X-CSE-ConnectionGUID: mjGPr9p4QrO3rL/VA25XsA==
+X-CSE-MsgGUID: W6NDLE3XSNefvPhNS9vl+w==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
+  by ces04_data.me-crop.lan with SMTP; 20 Oct 2026 18:46:47 +0300
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Tue, 20 Oct 2026 18:39:10 +0300
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Subject: [PATCH v5 0/2] irqchip/riscv-aplic: fix probing of multiple APLIC
+ instances
+Date: Tue, 20 Oct 2026 18:38:47 +0300
+Message-Id: <20261020-aplic-async-probe-v5-0-c4861c2aafca@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,70 +67,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: clock: bcm2835: add the BCM2711 GISB
- clock
-To: Nicolai Buchwitz <nb@tipi-net.de>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Stefan Wahren <wahrenst@gmx.net>, Phil Elwell <phil@raspberrypi.com>,
- netdev@vger.kernel.org, James Clark <jjc@jclark.com>
-References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de>
- <20261020-devel-bcm2711-gisb-clk-v1-1-a1728724d0f8@tipi-net.de>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261020-devel-bcm2711-gisb-clk-v1-1-a1728724d0f8@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-B4-Tracking: v=1; b=H4sIAAeL12oC/4XNQQ6CMBCF4auQrq1ph7YUV97DuIBhkCZISWuIx
+ HB3KytjiCz/l8w3LxYpOIrslL1YoMlF54cU+pAx7KrhRtw1qRkIMFJI4NXYO+RVnAfkY/A1cSs
+ NKBK5NqJg6W4M1Lrnal6uqTsXHz7M64tJftZ/2iS55AoBVatrUUpzvvva9TTTEf2dfcAJdhFIi
+ DW2KYxVWDZbSL6L5AnR2GpoEKwpxQaivhAQW4hKiLE15poEIckfZFmWNxSqcgCEAQAA
+X-Change-ID: 20261012-aplic-async-probe-81624e035607
+To: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Jessica Liu <liu.xuemei1@zte.com.cn>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+X-Mailer: b4 0.16.0
 
-On 10/20/26 07:58, Nicolai Buchwitz wrote:
-> BCM2711 has a clock generator for the GISB bus that the firmware sets
-> up at 200 MHz. The GENET MDIO controller runs its MDC off it, so add an
-> id for it.
-> 
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+The APLIC driver does not set probe_type, so it follows
+PROBE_DEFAULT_STRATEGY and gets probed asynchronously when the command
+line asks for it (driver_async_probe=). The probe path of an APLIC
+instance modifies state shared by all instances without any locking,
+for example the registration of the syscore operations. On a system with
+several APLIC instances this triggers a "list_add double add" report from
+CHECK_DATA_CORRUPTION, because two instances both call register_syscore()
+for the same node.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Looking at the problem showed a second, unrelated issue: the flag guarding
+the syscore registration is marked __ro_after_init, but with MSI the probe
+can be deferred until the IMSIC is available, and then writes the flag
+after init memory was made read-only.
+
+Patch 1 fixes the latter and is independent of asynchronous probing.
+
+Patch 2 marks the driver PROBE_FORCE_SYNCHRONOUS. The shared state also
+includes the global aplics list, aplic_direct_parent_irq (together with
+the CPU hotplug state registered for it) and the per-CPU IDC structures,
+so making probes mutually exclusive is simpler and less error-prone than
+adding a lock for each of them. An interrupt controller is needed early
+and gains nothing from probing in parallel.
+
+Reproduced by booting with "driver_async_probe=riscv-aplic" on the
+not yet upstreamed "Mobileye eyeq7h" platform with 3 APLIC instances.
+
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+Changes in v5:
+- split the __ro_after_init fix out into its own patch
+- drop atomic_t/atomic_cmpxchg() for the registration flag
+- mark the driver PROBE_FORCE_SYNCHRONOUS instead of protecting each piece
+  of shared state separately
+- Link to v4: https://patch.msgid.link/20261020-aplic-async-probe-v4-1-68bc35e0ece1@mobileye.com
+
+Changes in v4:
+- rework commit message
+- rebase onto v7.3
+- Link to v3: https://lore.kernel.org/r/20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com
+
+Changes in v3:
+- drop __ro_after_init attribute due to write to read-only page concern
+- Link to v2: https://lore.kernel.org/r/20261012-aplic-async-probe-v2-1-868d7684c9d6@mobileye.com
+
+Changes in v2:
+- fixed potential access to read-only page
+- Link to v1: https://lore.kernel.org/r/20261012-aplic-async-probe-v1-1-4c2c4f5b0916@mobileye.com
+
+To: Anup Patel <anup@brainfault.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+To: Jessica Liu <liu.xuemei1@zte.com.cn>
+Cc: linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Vladimir Kondratiev (2):
+      irqchip/riscv-aplic: do not mark the syscore registered flag ro_after_init
+      irqchip/riscv-aplic: force synchronous probing
+
+ drivers/irqchip/irq-riscv-aplic-main.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261012-aplic-async-probe-81624e035607
+
+Best regards,
+--  
+Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+
