@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792498812;
-	b=ClsexVvfgcTQq7fgG7RonoC58HIgHxsvRC5nMNjLMKesOYxeboYodxMhsvz1TVATBU3o
-	 WplvTk/G7zSL0blv5W6FZIVTyTx5Xt2f/aT/8HzBKLMdfX7lje5PMu5+TYOm5JgLrgN/K
-	 aiLtCfebQ9fZfXaNfEZhYXwtDRBhgj66xktBDaVpnGJOOXaqnpeZAbEqUGtPSS2uFkc03
-	 OBiRZq4pArbvQ0SyIRd18gnIjeb2ISdO454XGRGDcD84DKAbWPgt4cS+Np99BQ5S8d/YJ
-	 p4b2zbebVLQg2RtYUgRPdV6RRmVTnhrsHwi1IN4k3H16zgJwTSBdujHVMcjTxVGu6ag==
+	b=RUU++2YlWeAOjF0K+nSRdsodZ13+ugvP9T9SrfUBncX4eZ0L/DA4Rlwo271mAgxNKDKM
+	 UZ7c0ckvkfVhHxUTC7Cb11mWQZpKJxTcvh5lfyBSxVxKS5GG0BynJ2//CT1YO9u0Olu8g
+	 CP9vieqriBn0vnMsPAZ1crAv8HkgW2GBjFiICjHE7caYaQ06D7zM00SysE3iRKr0fluwa
+	 5aBdL5dMJiciHsPvrjy5OZjBLUYCpnTUUfjllm54YAqpM/hx7m7dmVhgG3fsxf9Gh7W5b
+	 Q5HCwHAL4DobbThU2ZMM+aBo1fBGPEU5zDU/GdWcD1tUm78VU4kGsvE0135AlxdLnPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792498812;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=ySnz3QHaslrc3VCiLcfpz/lmJKxRkFVUF4QHzOOrXOQ=;
-	b=o4eEBPHxmLVhsyI/U3xl1jTkOgk8JEYo6IR12cN3SlQr/XaM5UhYJUsSxV3+4HPmVUgi
-	 XELKb17FXqllO98ZWvFG86pa+whczry+uqvOkWEBNJePDyz80dlPJcDQm2neLOaHkomIY
-	 xlMSWxWHELk44ugB576QqfmLxVQiyLcwl+rE9IC1gfBWCzukfhbBSQ1EyOpHi0UY2nUeo
-	 IgJ1MweumsQX09EhUqiRm+yBnCRJnHA97S8TLDlm5wFAqYELXGvMF25Xln/ZHJhT60A6a
-	 CUAaX7vdCQ1k1bhWh+VIcSxbJrkyI4P3mDkMOmA0kE4YF4X7umu1GfdmU74kjPT8o3A==
+	bh=sSPsOhCdlkkU7oqaveAthEmqWklYxqGvWCj+wkCOtJg=;
+	b=LLdWPNPTYMJyfz8cNOrYN77ka6xi3+tYc3vZESTDvTWoOfsRShkrF6tfdmYyn8AkmvCQ
+	 3YfzB99N+tzx0lIO7HTzTgyOopxCU47JozGTfMVzwhz6XaZrJUSlwHlOCJmhpOp5T0w7N
+	 dCUSVgpMQWCbFnOAywF0WYHVOjyxnDlXeadFOsMo+nk9YPpnAcJnT70Ng2Jfk9bk2hsk+
+	 YaBIxkQ454TN1sWpUMNpvAdnhNZvuLpFAROtfFv6VWN+Mb3/dRIZ3Lq7JOssne3VFrHaW
+	 04v7eXgqD5UfCFRFaUbTnvplzCwuBBNqBvuUQ2G2QlB09fUPesy//HuGajFAOpbKJwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2K9OlyT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cg/nvNRh";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8439960A2601;
-	Tue, 20 Oct 2026 12:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEA960A2605
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2K9OlyT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA771F000C4;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cg/nvNRh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8B61F000CE;
 	Tue, 20 Oct 2026 12:20:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792498812;
-	bh=ySnz3QHaslrc3VCiLcfpz/lmJKxRkFVUF4QHzOOrXOQ=;
+	bh=sSPsOhCdlkkU7oqaveAthEmqWklYxqGvWCj+wkCOtJg=;
 	h=Date:From:To:Cc:Subject:References;
-	b=o2K9OlyTjZvA56Y20vxs1s9UKLOSPiW/9rfHgGB1EaJQOKpItU2AsFYnYK1giXZgc
-	 kKmCUXGXk6uOPQlUp4xFW9Hjx9QZR6EavrQLcbggAl5sDkxQJqNFaQrpDGIWVewCzk
-	 JBbAe9HJQrwqQSLLYgbVgy3vVntIv7yHVlbeMm06yKicIcVBXRkNuusGUyXC6mgyMl
-	 RJngI5XY9yPguruylZCLrJBbLtuEwQj6DAoT8ZwVgGwxlLfvisUTAaN8gDTe4jSI6R
-	 Qe68KUS67lKo/2UzvhKsf4QDa+q0kM1LJX9sS40XfqQGXaL45ZVWZ3nR/PUgapSNI5
-	 eLWYM8TD7uacQ==
+	b=cg/nvNRhycPBhA1lj6WVAOpaS2VARwJjxjvbe6GSigHB/o92kxaVJMVjvNtPF/u4P
+	 nrR1RR6vCPJbduNPoeWWqNH6Wj1N+zfqVTbzFZVLhv5kA+NtD2o8xK+yi4iLYE+ddO
+	 QzaWN3/kJQxosAkrTJp/+Igga0XpIjYLwe6kTaYXLoi9dszCtG3DiC73JjXI3x8rcn
+	 1VfWeqjLfu4TwGUxCJgVj9yg2s2rGAcJh5sPnwvoweQk6abIGkC+Rgx8v95CAtlS4y
+	 30hYmAk2GWM3tMX2fiYUvdJeBMZB3K69TlsfGWWyMPFKkDQFTiXrDcAKRIujFqsAz6
+	 835Y002yEWtDQ==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xJ8p9-00000001y3x-2kxs;
+	id 1xJ8p9-00000001y4V-3e0Q;
 	Tue, 20 Oct 2026 08:20:11 -0400
-Message-ID: <20261020122011.462212650@kernel.org>
+Message-ID: <20261020122011.676328446@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 20 Oct 2026 08:20:01 -0400
+Date: Tue, 20 Oct 2026 08:20:02 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Lee Jones <lee@kernel.org>
-Subject: [for-next][PATCH 5/6] tracing/histograms: Verify event_call identity when updating
- synth_event refcount
+ =?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
+Subject: [for-next][PATCH 6/6] tracing/osnoise: Add __printf attribute to osnoise_print()
 References: <20261020121956.600452831@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,117 +66,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Lee Jones <lee@kernel.org>
+Building kernel/trace/trace_osnoise.o with W=1 triggers the following
+compiler warning:
 
-In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-registration and unregistration paths look up find_synth_event() using
-trace_event_name(file->event_call) and adjust se->ref if a match is
-found.
+  kernel/trace/trace_osnoise.c:96:17: warning: function 'osnoise_print'
+  might be a candidate for 'gnu_printf' format attribute
+  [-Wsuggest-attribute=format]
 
-Because find_synth_event() only compares the event basename, registering
-or removing a histogram on a non-synthetic trace event whose basename
-matches a synthetic event erroneously modifies the synthetic event's
-reference count.  If a histogram is registered on the non-synthetic
-event before the synthetic event is created and removed afterwards,
-se->ref is decremented without a matching increment, allowing the
-synthetic event to be freed while an active histogram action still holds
-a pointer to it.
+osnoise_print() forwards its format string and va_list arguments to
+trace_array_vprintk(), which is annotated with __printf(3, 0).
 
-Introduce find_synth_event_call() to verify that &se->call matches
-file->event_call before adjusting se->ref.
+Add the __printf(1, 2) attribute to osnoise_print() to silence the W=1
+warning and enable compile-time format string checking for its callers.
 
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261019120730.2342739-1-lee@kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Link: https://patch.msgid.link/20261019205344.190022-1-adriangarciacasado42@gmail.com
+Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c  | 11 +++--------
- kernel/trace/trace_events_synth.c | 10 ++++++++++
- kernel/trace/trace_synth.h        |  1 +
- 3 files changed, 14 insertions(+), 8 deletions(-)
+ kernel/trace/trace_osnoise.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 42b89171134d..f39fa8942673 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6812,7 +6812,6 @@ static void hist_unreg_all(struct trace_event_file *file)
- 	struct event_trigger_data *test, *n;
- 	struct hist_trigger_data *hist_data;
- 	struct synth_event *se;
--	const char *se_name;
+diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+index 0e1265acd1cc..995da9e0b548 100644
+--- a/kernel/trace/trace_osnoise.c
++++ b/kernel/trace/trace_osnoise.c
+@@ -83,6 +83,7 @@ struct osnoise_instance {
  
- 	lockdep_assert_held(&event_mutex);
+ static struct list_head osnoise_instances;
  
-@@ -6825,8 +6824,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 			list_del_rcu(&test->list);
- 			trace_event_trigger_enable_disable(file, 0);
- 
--			se_name = trace_event_name(file->event_call);
--			se = find_synth_event(se_name);
-+			se = find_synth_event_call(file->event_call);
- 			if (se)
- 				se->ref--;
- 
-@@ -6850,7 +6848,6 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	struct hist_trigger_data *hist_data;
- 	char *param, *filter, *p, *start;
- 	struct synth_event *se;
--	const char *se_name;
- 	bool remove;
- 	int ret = 0;
- 
-@@ -6944,8 +6941,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 		}
- 
- 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
--		se_name = trace_event_name(file->event_call);
--		se = find_synth_event(se_name);
-+		se = find_synth_event_call(file->event_call);
- 		if (se)
- 			se->ref--;
- 		ret = 0;
-@@ -6980,8 +6976,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	if (ret)
- 		goto out_unreg;
- 
--	se_name = trace_event_name(file->event_call);
--	se = find_synth_event(se_name);
-+	se = find_synth_event_call(file->event_call);
- 	if (se)
- 		se->ref++;
-  out:
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index dc15658a887c..e2870212e58d 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -914,6 +914,16 @@ struct synth_event *find_synth_event(const char *name)
- 	return NULL;
- }
- 
-+struct synth_event *find_synth_event_call(struct trace_event_call *call)
-+{
-+	struct synth_event *se;
-+	const char *name;
-+
-+	name = trace_event_name(call);
-+	se = find_synth_event(name);
-+	return se && &se->call == call ? se : NULL;
-+}
-+
- static struct trace_event_fields synth_event_fields_array[] = {
- 	{ .type = TRACE_FUNCTION_TYPE,
- 	  .define_fields = synth_event_define_fields },
-diff --git a/kernel/trace/trace_synth.h b/kernel/trace/trace_synth.h
-index 43f6fb6078db..d4ebf01b7049 100644
---- a/kernel/trace/trace_synth.h
-+++ b/kernel/trace/trace_synth.h
-@@ -37,5 +37,6 @@ struct synth_event {
- };
- 
- extern struct synth_event *find_synth_event(const char *name);
-+extern struct synth_event *find_synth_event_call(struct trace_event_call *call);
- 
- #endif /* __TRACE_SYNTH_H */
++__printf(1, 2)
+ static void osnoise_print(const char *fmt, ...)
+ {
+ 	struct osnoise_instance *inst;
 -- 
 2.53.0
