@@ -1,81 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504746;
-	b=30JAqwtAvbC2lw8ch1PN9FOVFwOnRrsV73km5QZxAEHRuCYW86X3iFoJL/KBjZLY+/I0
-	 gIzx8HcwRFcfR0sZe03iUpdtgqewQbK9DaGsEVr7L11yZeqlrfAy3az2nx9lNIBihFv+Y
-	 EcSGKVIxEHyFz6OdyRGR1xG6xwWxgXbR5oqxlVz/Ac/fPbMEevEnqMgjdlpJ3/XI5oFPt
-	 U7SmSshUQTf8yYG7Dr14HcfnUEovxDC3pLCYkwaV4C/GkhPOm/M+nrdymU9NaavC/PJj3
-	 z+gXqZw9/dkXvmht4CcCHN/CWLS+m7w4lua27zXiyIV94BoY2kYfq5JiAeNJZFM2gVg==
+	t=1792504747;
+	b=ubNKFj/79i2Qpk5ZSdkc2waHeoeUCKd7XoyL7ZN0T18T7Y2eyQiXBwQv3LpaG+ihsHzk
+	 wo8xMV49OpkJf2Dmu2L8ZFA0NFW9wc2fxlemaTrvrYG5EwYrbEZab8mOCScxOxII9DJ+s
+	 Oik/+dExYGVEvCrFOuXsBRfxr0n6FfZeu8klQCJLZiUA3N5M34tQRF9OJyF4fL78h2lyf
+	 M1S77tAdjKCVWcogzY80FZRE8FjiZu39/ODClOV1NPtxxjLOvNDM+4N0FDr5Y6rHndLLJ
+	 YdVUZednD9IA/GBn2qgOKJhAqPrgZ+M3QwPmEUWRRpCEeeTSvr9EmDnauyRrYeiXxgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504746;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=mqd/bQR1q3ufJ1VUmS/hoCYa+/lLgiY4VdTm7nb2aUA=;
-	b=k1Kom23/2D+8Ain3z/KnSAZaUcfGXUKvwl6tU0BxPknzgX8H9EVrGMTfB9PGa7+TqIC/
-	 5qrhGYrJpVyuGZIRLf8MIJUYP3L2Io7koCYPCBDE1AVtcwOvMJAdQjGvXvAXIV9/OHYyq
-	 NTWIYedlpHWrzR05GHggeszbixVpW7U2UqQdiJqkm8FES1ULZxS5WlvmV+fLit6RvlfOV
-	 fS0nkvXVgKhp9bMLMj5NnyFyS+KKetUvzxJb7YRmfOP1QqM/yAGM6XEHxgjd/bjJJ/Hhc
-	 b5qV2z/Bz5/k4vLszamaAHmFGmVhXUROelX19IksL58EQahfqB+5ZPFHbfmQ2g15R3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504747;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=DY7esWGsJJoottHT4nIMIL8Ex/o7i900iuaYVCDlzhI=;
+	b=2f2OdXakY4ei+Sa6Nc4fdeRJJOYqUKI3tMZPoLBUMDP/W8nwKpdAa2M7tj2ka2v5js4/
+	 S/wP8QSZdhX2mAU+tKitGNO/mc+wKwMIo5JXplR4+EbVSHrHFhB3zFfh3+LJXERiCYw4w
+	 q+Ye1dodfD0R3qP2BQTt/KD94ZnitWRmykwG8RL/A33zemLthq+24uiMncjIyT/rCV4HI
+	 ijKbgoAjNo29PWEYdMx6Nw/32CEKFzO5aUy4XSa/W23WE1nvrsyfg3OfLiQa8ceDKHxMs
+	 XilBweZfFC2//79nHzSv9MHKgjSInAo5Ea6t0dZbEZYuWXBh6mXbJNBqqxXMydsK15A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VbKuJqoR;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gpIwOsiV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Q6/guFpZ";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE890606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE890606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7AA606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:59:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7AA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VbKuJqoR
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 481344E41289;
-	Tue, 20 Oct 2026 13:59:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1A1FE60393;
-	Tue, 20 Oct 2026 13:59:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DFC7710328C52;
-	Tue, 20 Oct 2026 15:58:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792504737; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=mqd/bQR1q3ufJ1VUmS/hoCYa+/lLgiY4VdTm7nb2aUA=;
-	b=VbKuJqoRJ3pULJxeFEOS68iDJzlgi4lEfLYK4c/4ylEEsBifG64bZoFd+m2bqnyYyOL3wG
-	G9QA6/5QwO/Ttp4oMhWMe4UtkgNrD69t6dy1gd69yehSwsMGC16VaZKhNewq6msQmqwir6
-	THtEkEeEsrFrxjU2Ndt6kwVW3q1HAGO2Z66siuw948x3ghQNfP2oWL0OY3X4mzf04ZWsxT
-	E6GjvQYGCzsWOPIiDUXIdfkrx+nJRmxleeZv4DPSG5E3+XQSK+b5rkaqyHbC05xQTqSJ+I
-	dB+Hht8ExDz0tMStpJSMMuB0pA/vTy/is+GldyCkZKWPuWLQExkD7xPvVTC6Yw==
-Date: Tue, 20 Oct 2026 15:58:41 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
- <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Leonardo Costa <leonardo.costa@toradex.com>, Frieder Schrempf
- <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <u.kleine-koenig@baylibre.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/8] of: base: Fix stack overflow in
- of_parse_phandle_with_args_map()
-Message-ID: <20261020155841.59037c99@bootlin.com>
-In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-1-fd6f1c17e16d@toradex.com>
-References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
-	<20261020-fw-devlink-nexus-ready-v3-1-fd6f1c17e16d@toradex.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gpIwOsiV;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q6/guFpZ
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KD9quE2845549
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:59:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DY7esWGsJJoottHT4nIMIL8Ex/o7i900iuaYVCDlzhI=; b=gpIwOsiVuQkaB0Mu
+	bfmPS4Pk6svYoT7gmHD5CDnVqhURDasrAq2OZtnaWrFu19VosjQJT6syIKCdtOID
+	UXSsMMUyQKtNo8JbQX1os39o1RQXoGru5sIKVw8ia4yRFb0a7ib2QOHaCV5awtT2
+	xHgfBeq4QV0usI43rBKk5KhLTb7MO6Eax3zufuLgUqqaCSmKQ6zkHxfdx/qF4KGB
+	fPfrWLqQxAi0fTtUlnK1MvezYxRdQxxZFSrfw+j2mlVJ6mkXm8FaifTKlsSpbSTC
+	hlFjOhDySC38MRfMg5dkLZ2TDsRmZH5BofYAtDl751E6V7pOqCk40AC1/gKedSwT
+	YSx2zQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5nar1c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:59:06 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92eebb130dcso73604885a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792504746; x=1793109546; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DY7esWGsJJoottHT4nIMIL8Ex/o7i900iuaYVCDlzhI=;
+        b=Q6/guFpZNNHUZK0o5d8qYvwoZ+RLsTIjZHEWae1lPAfzlTQEanNoSwX8mE52z6onlG
+         76tBaznYTDvWv8fPsbt+ZO4kqrOVvgGptv9AA7ScL0VognJ+SgJ+yDkOov9Wx9CXzads
+         89CwgR5lEDB7k9BM/6dOf88s8uoXhSH1WUXkLtCs3PiNgnH4yqNFpEuCbmQWCghP1JBL
+         /EJTYvXcadr95MIOdBkffXvHVugiVECCHJVtvibNaDd4pIUIz+t7cOVsuitlasGF0sZn
+         f5K8f28mkNcBzHj3FUBEjQ2hMgpiO/UrwruHAmuaYGev+B0JMKoP3cssAJB7VOPXf9kS
+         xoXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792504746; x=1793109546;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DY7esWGsJJoottHT4nIMIL8Ex/o7i900iuaYVCDlzhI=;
+        b=ZpCMf8ElIx4HSAmt659nV1tNy5emsczNtDJ341j9wgnfEAqRwkkzRZuYr4aOPxZXGZ
+         o1BCqd1GZ7GBI86vx1JfZvXk/96xBcc8qCbOjE91ipdE/WyQhZ6Cyc6PSa9OHKmz6ljt
+         VOexm8kmibBkmZdc8NnEHpN3AF4PxH7VIxnXX7oeCze/l0Sua+BGNk0AWiaWqprl+e9T
+         uvohVykq2CYJa1Nl/C7EOHG8V9SzEOME10CSvMp5FDtp6KEhzJ/5Vl4msNTPFSW6y0Kl
+         0yrxXqpHojrSNbvsiM33fE1zAAch/kk+CH94iJ65UpI5M+dke7Fgr1DaXi659qbtXOe/
+         ZVJg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9tvJaGSgjHk6bd08tEguJz7ANJfF+kGovivQl3j65xW/QXhRPEChMCj1sC7hAik9Ba2iAoxT14rYAXGQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjGA6WBD4Ba58MnegU3AzGnSkD1GSycz0MCzoE4C2LByizrKBl
+	SY8/aRvLlohZW/mhIB8TtdRevcUr+o5kjcs4G3wICbzdDAJB4mmA2xRz138aAmjPARXZuo4bDup
+	23YuXlD5W1sPF+CwlUsf9hVsfRk23vwwvcTIGGTBH7D06PwVm+tUpKn14RZOiF9pb0Js=
+X-Gm-Gg: AYBFou2GKz8f/a50fZdOFL7/tTFQTTE9WkjxoL4Z4YYReAiT5YLmNjeHT+1zIAn5yng
+	dN47id+2+4oB3NsA62ObYZGPrK8+iJTxD9frs52aUis3JayDQrdWT9yh2OVz4pKo0NooC8GfyjI
+	+5gJ+vfyUMotzcCASEDlyx4/llIzfBn/5xNcbKcQvrEBdwhvn6kbUj8eULJ5i+XCj4zrrg9FesQ
+	irGVrCsl3xIT+mWw2zNQWcT2RIxu4M50+Nu7C5XXBINM6hZ+1GnIhEqathkCzvPX+FfaSB8FReq
+	7Memf/g0US1PinWFJy07BTs/cwE4KuylwrTEfY5UuEiJaGnIJ+o+Thh241q/XQuL8HXgx7sRdGy
+	glLfb5qa6mYYJOIkEn4+6oA==
+X-Received: by 2002:a05:620a:3711:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93f29c95919mr2095415585a.3.1792504745544;
+        Tue, 20 Oct 2026 06:59:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:3711:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93f29c95919mr2095406585a.3.1792504744685;
+        Tue, 20 Oct 2026 06:59:04 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1ea92asm5010407a12.36.2026.10.20.06.59.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 06:59:03 -0700 (PDT)
+Message-ID: <1f9c34ee-7d30-4ce2-9e88-93612eb897fb@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 15:59:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,74 +115,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] arm64: dts: qcom: shikra: Add CPU idle states
+To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+ <20261015-b4-shikra_lpm_addition-v2-1-ac7f1a0d5638@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-1-ac7f1a0d5638@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 0GrTB72O2Ho7gJK5ecM0ktxIM3Vsbevo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NSBTYWx0ZWRfX9uSZ2lmXSz1C
+ +5tGsD3a+bo0Mo9TJRj2C+pYqSnT74UP21j6l0iBnI5JXffHZRl+1sQZpJ4XtLjvXM8aphnkxrg
+ RTzWdDP5tNYXhfYBCZsifGw9X13N1uA7QaF0/rXow5rlRKBzEfQKQE0aJawcgD7DMY3tzBG/2G+
+ UmsjoG/YNkXT0OFQRic+My7XxD0lpwDiH5ntKYQH8eO9RrFI31obfRhTX90ydS3GIIsokc52LLp
+ ilOud3akCsF4LB5fJzI2edJxk9yF4VYVcZquz1Vq/T85gpxOgACx7ySZc2Czprn0Ys7k4eOaBDo
+ msIu1FsomrgbSuO8h8/EFAPYuqnQuAtHEAiWb+ZAhjFoMrtOIrp9BcuUAbKzqA5jbDszS0XSZ/W
+ UOOu73XPVNm9ONOrq+55lsyWy+7+KnIxUViFEyyvrJqMuHPS9SHN+SHGIltJ91vm8tUH1FZ3YW8
+ EqTAcxgHglm/TuwO3XQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NSBTYWx0ZWRfX1sFDXjok+lwK
+ WP2G/QxbS7m7yf2eAKREsRS2FUSVEyXP1gzfImUDpbUyZLszdLMO0HUP7b5QARHjpEsO3KRWBg/
+ Edgvq3lVYmYfpsZBQB4w2G9Gtbo7Kt4=
+X-Authority-Analysis: v=2.4 cv=VI9IDNPX c=1 sm=1 tr=0 ts=6ad773aa cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=QZ93mQGBb8gi70IaLVcA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 0GrTB72O2Ho7gJK5ecM0ktxIM3Vsbevo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200055
 
-Hi Ernest,
-
-On Tue, 20 Oct 2026 15:00:12 +0200
-Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
-
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On 10/15/26 11:55 AM, Sneh Mankad wrote:
+> Add idle states for the  CPUs as well as the whole cluster. This enables
+> deeper-than-WFI cpuidle.
 > 
-> of_parse_phandle_with_args_map() reads the #<stem>-cells property of the
-> provider referenced by the consumer into list_size. It then copies that
-> many cells of the consumer's specifier from out_args->args[] into the
-> on-stack initial_match_array[]. Both arrays hold MAX_PHANDLE_ARGS cells,
-> but list_size is never checked against that limit. A malformed
-> Devicetree with a larger cell count therefore makes the copy read past
-> out_args->args[] and write past initial_match_array[].
-> 
-> The cell count of each provider selected by a <stem>-map entry is
-> already rejected when it exceeds MAX_PHANDLE_ARGS. Apply the same limit
-> to the provider referenced by the consumer.
-> 
-> A plain reference to such a provider, without a map, now also fails.
-> Previously it succeeded with the specifier truncated to MAX_PHANDLE_ARGS
-> cells by __of_parse_phandle_with_args().
-> 
-> Fixes: bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a nexus node")
-> Suggested-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-> Link: https://lore.kernel.org/all/aq1CSswlo57jZpMH@monoceros/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 > ---
-> v3: New patch (Uwe)
-> ---
->  drivers/of/base.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index f63a9486b130..5abadab22392 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-> @@ -1587,6 +1587,11 @@ int of_parse_phandle_with_args_map(const struct device_node *np,
->  	if (ret < 0)
->  		goto put;
->  
-> +	if (list_size > MAX_PHANDLE_ARGS) {
-> +		ret = -EINVAL;
-> +		goto put;
-> +	}
-> +
 
-I would be stricter here and avoid the usage of MAX_PHANDLE_ARGS.
+[...]
 
-First I would check the arrays size to be sure that they are consistent and
-then check list_size against the array size.
+> +		cpu_pd0: power-domain-cpu0 {
+> +			#power-domain-cells = <0>;
+> +			power-domains = <&cluster_pd>;
+> +			domain-idle-states = <&little_cpu_sleep_0 &little_cpu_sleep_1>;
 
---- 8< ---
-	BUILD_BUG_ON(ARRAY_SIZE(initial_match_array) != ARRAY_SIZE(out_args->args))
-	if (list_size > ARRAY_SIZE(initial_match_array)) {
-		ret = -EINVAL;
-		goto put;
-	}
---- 8< ---
+nit: ideally <&foo>, <&bar> instead of <&foo &bar>
 
-IMHO, this is more robust against modification of the 'args' field
-definition in struct of_phandle_args or modification of the MAX_PHANDLE_ARGS
-value which could lead to some inconsistencies.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Best regards,
-Hervé
+Konrad
