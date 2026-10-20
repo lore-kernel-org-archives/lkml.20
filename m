@@ -1,81 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479788;
-	b=3TdvAnYLbaODe/H2iVH/kjh7m+ZZtDtDcyNHERXogaYPCFPzEPLuklWiMFSwRdd/HvO4
-	 DnxXT7ZwjwQlD/xJXC5Ti7Dp3FRkRaMAKYcNCELSdmJP1LOwLsno3tZWwA+i0Olmu/Qyw
-	 YddEvUZg4f+jHjpGdhcOPq59CyR8htQOBV/2k2/Ptjqtgf0FXU5mMG6uxyi3gcKPLWfs5
-	 37KBxZIPqBoOb74LcDWcmsLSkz5yEuy8lwL3Pq1KSc7lu6cTO+QR4LYCrDulXbeAybs+Y
-	 vU6oGgB9C/Le6U5/Z8B9ntMpQqlDun/ZOk9aCmCv1MBWSdmLPRa5Lv0c+pbw6Ob6DIg==
+	t=1792479856;
+	b=PQMi99YHaDG6gMdg/1EFskMTZqPVDOesF+UXpY9dyUC5V/g0HF2Pud8VqIK3NPY2vLlS
+	 1bSEN3c4lHa6e+EUKLaEc0PrjMpEq0LlQPQBk+DvRJEbwpSvBwWgu+aJsFX8NTo6RdbPS
+	 1GwiEW5tfmKYd6TLvs11dmEhAYlOlV8fiICx/iW+J0aBcnvV7oPwtS73+ZY4EXAe5b+YB
+	 AubVRT7xIx6HpveiVUaH8Fukt9tcBhwvhxZ0GvRqsQGAMH/kueb6DNumTpW2iCRMzRrFx
+	 sKt2qRDlQ/Ajya5oMsrcQYU8K1QGRWAEj2TG+8ieID2nWmRYxe6GEObSLXt0zPFN/rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479788;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 X-Hop-Count:X-CMS-RootMailID:References;
-	bh=erFYt3v+QSuQ7rGTo+dYGddg5732pLpZexzaOVFDdxw=;
-	b=oxCIXfTbF67XwraFkPTxbewsf5RMEUSDqF8xw91iiyo58m6NIljeqbOPHBtP/6qORQW4
-	 R17C9MO6Dd2xfB29bWPNOUdMm8vPLlYL+jRJF9opDjaREq6H2/rouE72/7WwJ2itldZHP
-	 Dk8z825uVYfXBRwYWSHoW7htMwBxbvtQEwn3UTu8nXlRbHtaJJqZjNOzuNyMJfR7IF1QO
-	 lS37hk6iClksCnJGT/k/FXFPMObGsn+vMQjfs4oskZAIdt4JV/pPkvkZQ/2clWkz+0z6Q
-	 qAkS03jBE9KSHrtvynE5hqkHx7YrbgyUwfnXPcLqK6M5qBjOCXnNv2hPIKLI43MTZdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479856;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=UGHO0Oh1Rp8gcSmbv++9QDYR9aE1sJ5oXRRAH09V9KY=;
+	b=qFpwp5xJ6MOavRIdzybSqa3ed2Tb+KfnepywpO6mfXjzs6aECgrcSQIJknx1hKTw300n
+	 Z6M+ql0OjskIrOUpB7Gx2GbbzKxyFbR9mtHJZLSKKQUCQ/R6b48D2880KKqG499osmdLA
+	 4Os5RbKcYsYWzzPce2klsZrppgKbqBg2KbCM8kF0u+VUD3wU2V9l+2SgMVd2foNVTvGXu
+	 HiJyd9dD9HcJA8r5JyyAW19l/UHgySMGoxgl0TdAlPZW5/WAxOZ6nHpHowl+0wS5io7gf
+	 ykBqqOVddYPjd6ETiNbH41tJPbKSisdvDwRm4d4HlmqhNKUv3i6F5BYiYlSd8gwKL6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=X1pTw+eb;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DM0OvQP4;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF2F606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FF2F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890DD606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 890DD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=X1pTw+eb
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261020070305epoutp0277c925a0017db7615aabc7382abad7b5~gKt4fKYPj0401704017epoutp02D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:03:05 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261020070305epoutp0277c925a0017db7615aabc7382abad7b5~gKt4fKYPj0401704017epoutp02D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792479785;
-	bh=erFYt3v+QSuQ7rGTo+dYGddg5732pLpZexzaOVFDdxw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=X1pTw+ebli3wfAMggxgQhkTbt7mMqM6u+hjsNqcDZbjXrRExdMdlY0+t4tCl9Ks91
-	 5TrKpQ/9VlXJIqaX3i66Sx3TIx18OgG90q3BipypiSX+UIUVPC9yrZ/PbqUaiFdeEX
-	 JimK48ai6X8E2K6/NV2wRU1s/JjFsQ2FUTdTogRk=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261020070304epcas5p18dab9bc6b0923e448f472bcfeeeabe97~gKt3mJnoI0096800968epcas5p1K;
-	Tue, 20 Oct 2026 07:03:04 +0000 (GMT)
-Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j83K41Lhzz6B9mP; Tue, 20 Oct
-	2026 07:03:04 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261020065553epcas5p35b4a16d8c277025a08378a5b915c2173~gKnl-k2Lr1777617776epcas5p3G;
-	Tue, 20 Oct 2026 06:55:53 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020065550epsmtip14bbe41349807f059ef71ef62b6db97ac~gKnjZgNmG1278912789epsmtip1x;
-	Tue, 20 Oct 2026 06:55:50 +0000 (GMT)
-From: Raghav Sharma <raghav.s@samsung.com>
-To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-	conor+dt@kernel.org, raghav.s@samsung.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
-	pokala.reddy@samsung.com, cpgs@samsung.com, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 04/14] dt-bindings: clock: exynos8855: add hsi clock
- definitions
-Date: Tue, 20 Oct 2026 12:43:45 +0530
-Message-Id: <937773018.41792479784183.JavaMail.epsvc@epcpadp2new>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020071346.1918640-1-raghav.s@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DM0OvQP4
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j83LN4hd5zMlhM;
+	Tue, 20 Oct 2026 09:04:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792479852; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UGHO0Oh1Rp8gcSmbv++9QDYR9aE1sJ5oXRRAH09V9KY=;
+	b=DM0OvQP4GTfXcW1vfu50tNwsjH/l1xcwlD3CfsZQOsNsJKkPkZAOSGoeV2kzFaAYWGdHG5
+	93WI2Zs8/ydIcT/UipgRcbr/OEYAetQ5fE9PwZcdJb7YpU9hw/6aIiBR7gHXYHWlmsCrb8
+	Yv3DS1/985/m7ROGuIfNFWBJgYMzpZmyOFoLqPsGvP2E/RVhbjzLGeb8LP76a4rRR/M/Oo
+	JRPRp+1StcU6DbQxqrye8mpVx2newQypfnfvtatDyBJhO3as1cFUX+gc86drDlIFR6J29b
+	TNKDtEYSM1TuOsiQPD6sbB4zMX2nnVJe5pCb8Schp+5VGjacMh8GX6ZAN/MXSA==
+Message-ID: <73fc12734386c9bebc9cf6d3cea4c5f8e125255e.camel@mailbox.org>
+Subject: Re: [PATCH] drm: Don't BUG when a CRTC fence signals during a name
+ lookup
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, redducc	
+ <sushmit718@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 20 Oct 2026 09:04:09 +0200
+In-Reply-To: <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
+References: <20261019161731.2341-1-sushmit718@gmail.com>
+	 <30a31088a0386d5f5d53e74632ea9a63566dccde.camel@mailbox.org>
+	 <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,84 +81,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020065553epcas5p35b4a16d8c277025a08378a5b915c2173
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20261020065553epcas5p35b4a16d8c277025a08378a5b915c2173
-References: <20261020071346.1918640-1-raghav.s@samsung.com>
-	<CGME20261020065553epcas5p35b4a16d8c277025a08378a5b915c2173@epcas5p3.samsung.com>
+X-MBO-RS-ID: f3da3a41ddf652a8c5c
+X-MBO-RS-META: eqppfy79ui5huuypzdaxqw3p84bssusw
 
-Add device tree clock binding definitions for CMU_HSI
+On Tue, 2026-10-20 at 07:57 +0100, Tvrtko Ursulin wrote:
+> Hm this looked familiar so I looked around. There was an earlier fix for=
+=20
+> the same from Andre with msg-id=20
+> 20260721-linux-drm_crtc_fix2-v3-2-afa8c71506e6@linaro.org=C2=A0which seem=
+s to=20
+> have fallen through the cracks.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
----
- .../clock/samsung,exynos8855-clock.yaml       | 21 +++++++++++++++++++
- .../dt-bindings/clock/samsung,exynos8855.h    |  8 +++++++
- 2 files changed, 29 insertions(+)
+Oh, right. Good catch.
 
-diff --git a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-index 53fc8040e173..21928235d131 100644
---- a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-+++ b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-@@ -28,6 +28,7 @@ description: |
- properties:
-   compatible:
-     enum:
-+      - samsung,exynos8855-cmu-hsi
-       - samsung,exynos8855-cmu-peric
-       - samsung,exynos8855-cmu-peris
-       - samsung,exynos8855-cmu-top
-@@ -52,6 +53,26 @@ properties:
-       Phandle to system registers interface.
- 
- allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: samsung,exynos8855-cmu-hsi
-+
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: External reference clock (76.8 MHz)
-+            - description: CMU_HSI NOC clock (from CMU_TOP)
-+            - description: CMU_HSI UFS_EMBD clock (from CMU_TOP)
-+
-+        clock-names:
-+          items:
-+            - const: oscclk
-+            - const: bus
-+            - const: ufs_embd
-+
-   - if:
-       properties:
-         compatible:
-diff --git a/include/dt-bindings/clock/samsung,exynos8855.h b/include/dt-bindings/clock/samsung,exynos8855.h
-index 5d8b38a744b5..67cd97d8fab8 100644
---- a/include/dt-bindings/clock/samsung,exynos8855.h
-+++ b/include/dt-bindings/clock/samsung,exynos8855.h
-@@ -214,4 +214,12 @@
- #define CLK_GOUT_WDT0_PERIS                8
- #define CLK_GOUT_WDT1_PERIS                9
- 
-+/* CMU_HSI */
-+#define CLK_MOUT_HSI_NOC_USER              1
-+#define CLK_MOUT_HSI_UFS_EMBD_USER         2
-+#define CLK_GOUT_CMU_HSI                   3
-+#define CLK_GOUT_SYSREG_HSI                4
-+#define CLK_GOUT_UFS_EMBD_ACLK_HSI         5
-+#define CLK_GOUT_UFS_EMBD_UNIPRO_HSI       6
-+
- #endif /* _DT_BINDINGS_CLOCK_EXYNOS8855_H */
--- 
-2.34.1
+patch =E2=84=961 still misses an R-b.
 
+Seems CRTC is one of the collectively maintained components. So one of
+us has to push it.
 
+I can do today, it synergies well with my new fence RFC.
+
+Regards
+P.
