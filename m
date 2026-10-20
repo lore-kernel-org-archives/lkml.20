@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487305;
-	b=IsDNBSGjzokQfAN40OVb+AFlIZSkZQ3+XIpGRF/hBBhinrUvRocqtLtWMKjNAIRjmVzl
-	 JUrHnPuOhjNH9YePIsVZNcsdhzxslt8Su72j3i7TO2hi0u7cXvSncRNDZFZDNh/ltjMWJ
-	 wVsrGEAbrNZ8PDH+uug+6RbL4Pe5br63pxJSaS9m7MyxLqttpdZsKBfABHwcsn6GtSmK2
-	 XEn6gzfEEYMpuQCzLfH+EtH1Cw78tO/K0HasVQg9WluMTyzO3339L2cUI3/bvDkg1goAu
-	 4cJ48tbgb9++PMoJKzm/RUKi8li87VZTKF3VsgvO3jsQpsPPVTSr5By0FNVHTPexPGA==
+	t=1792487349;
+	b=RBDa8EvKenHlU2gDgETCMKH8YO96Fx7XCRAHYSz7vctWYft4EPZ18ME0PAjY5/k6X8pu
+	 m10/6XqiOXqMrYv0ba7UNC3l8Wav0Y2rvAacmRzDtEdkFz2RmySRowPQThDYpS+8c6yue
+	 DriqR0L5kDwrHFV7vBFWHgGjsS9NeZ0HMvR2LRBTbPXYvnQpmiWh7toxbhN1ryo3Y3LHp
+	 8KuJPaPy/gTOBznDBR6MP5xadHHdoTE/eqyXfLyw4eOAJPjNu94tiznTm9Wq/CRsTIVtD
+	 RbBjDP6nXWI8ksa43pAjLnJQDPxWZnT7pu6ewuDYunSFp3cIEi3FGGsRAI3iY82yCyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487305;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ue66AYZqnnN5Po4mP1VXfKgtTf/rt3AX0hFV+/ABXdY=;
-	b=F7Gec6GX926H6vufp4HKocGKD07U/YEj1nK2VCZKGwTL3o7fuqFPEpQqwbEbI8o8TIRL
-	 Qb1Mq02KQYZZvJkXiv82nPeZCU5r/AkJ9piMRoDg5Su2MB71w81ni/nG8Rx5FBHXBemOC
-	 QNk8N9ee3/WHJg5flxliCcdX7pHREH2iXavG293SSKQMywoWOXkmpeSNJ8swRoytdpukS
-	 rrKj/3m3VZo4oeRYirTyHm7izic0DRxZrgjJaydaGMAIsdcV5XpqjnA7+NqkfZjCSrAjf
-	 hS9Di2kS0beczoSr2CZcAmOM/pM6pKD//2967GY9E99wiDibz1B73hjxnp78kCsP6YQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487349;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=hDi/RCUNS7mRKFhCXheAPCIsHg3hFMeRfEsj8Ev4PJo=;
+	b=44/4Xk09J3uxJdh2yTIJziADAep9yleFiv7EqCOLr+kj2mTpzCjgQ58pEogAJi3xtKDQ
+	 cPVW+9r1YkJAnH1avsE36/pbGQ8QPz3v+MKoqdVBgCbpdzEQuakl8QllPqx8scqk7lp/i
+	 CeCkeuhRg6R57zNVxAO0j0oKgyBu9V+es+wgn1gVUHuLinDsi4GbogTkwL4XrzF5y2Wx2
+	 nLlos1mgy6+UxeZ8WjrwlEn86pBcnSGxFFVNPaGZzJGSKGf4OrMYMC8UdsIGbfvMLrld4
+	 nZfs4ZOQKl10fGDHAqKG9G1LwUU/qxsMDoroILJQrUZtUijGdKyXzLBJuDpv9lYLyFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="m/vwQVGS";
-	arc=none smtp.remote-ip=109.224.244.18
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=pR3fMv0k;
+	arc=none smtp.remote-ip=212.27.42.6
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5A3606A31E;
-	Tue, 20 Oct 2026 09:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB5A3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F88606A31A;
+	Tue, 20 Oct 2026 09:09:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8F88606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=m/vwQVGS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792487303; x=1792746503;
-	bh=Ue66AYZqnnN5Po4mP1VXfKgtTf/rt3AX0hFV+/ABXdY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=m/vwQVGSTqkK20WARLHrqOK0a+OdFV2iRSncT3FNlMK7jTNC9uzfdsQIiEat4HsP/
-	 DS3OvBGIoo/bt05r8aljXvjeGrnXPPPqSw4U71NaaBPRqvcV1ywXv5grCNKNLVGxpk
-	 yGc1KyK72gAyIITFptYtzO5lZA3CrKb7ysCrd+Edo+pbViZdXFLuTDolLi5pnUJ9FO
-	 qGXySObSNCqOxBYrODWwmT7eMxr8mkQJAcisA2C0sKAe6bohnzFLY5Y4Dh7vOGgJVr
-	 ldZbjnq8DJALh2UO49GYZltltjD0nJ8lkpsktqbaoo20IRaQ317SSIIC+3PyJi6FWs
-	 aWjXyB7bPwdFw==
-Date: Tue, 20 Oct 2026 09:08:17 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: media: i2c: Add ST VD55G0 camera sensor
-Message-ID: <20261020090810.78033-1-lsa.uz@pm.me>
-In-Reply-To: <20261020-cute-peccary-of-attack-2376af@quoll>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-2-lsa.uz@pm.me> <20261020-cute-peccary-of-attack-2376af@quoll>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 35e71ddeebff9e99cd821125714fbc2d7e2cf39f
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=pR3fMv0k
+Received: from [127.0.1.1] (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 80ABF780395;
+	Tue, 20 Oct 2026 11:08:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792487341;
+	bh=1BMQ1wu5KC7UAXbtC0A8UCup5u/Ob3yCg0t2vrAJOOQ=;
+	h=From:Subject:Date:To:Cc:From;
+	b=pR3fMv0kqrBe+UPtonjYmxrm/FDgkS4zs67+KaaKHgg+UOPq4vR1vAfjT7BAIeQ9D
+	 rFc5qJK9TofH5z/awDiFCvjZ0wmylNVCNI8XJ3H4396djVzF7uw2Jrvs8+mo2r06IL
+	 b4baqTFvR0nCDFGLKOAMD/w5peVC5LnZmHVCXpoveRkmktwI8kqficf6UBJHRlIHaJ
+	 4kzhrbxNEyZwN4VYPPwLKT9FhRT+gYrsr8yyuzsLZKhLuM+7pP5dhJIIXr2iRaiqqY
+	 QzZF792dglNzjfTAdMAvgW/ayl9NCOegog+b+zWCxxIBFlmfIbxCqOFqBDLZeIveFQ
+	 0H8yZkeHFqQog==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Subject: [PATCH v3 00/10] can: peak_usb: fixes, cleanup and input
+ validation hardening
+Date: Tue, 20 Oct 2026 11:08:05 +0200
+Message-Id: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,29 +61,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WN3wqCMBxGXyV23WKb0lxXvUeE7M9vuSyVzUQR3
+ 73NCILw8oPznTOjAN5BQKfdjDwMLri2iSPb75CuZHMD7EzciBF2pIRwrGVjTakr0HWZiAYepTM
+ jlrnhkkoKwA2K786DdeNqvlw/O7zUHXSfdImoXOhbP63pgSbuWyk2KwPFBBOZKVUwmwMR5w5kj
+ cMUengerEcpNbBfmdiWsSizXHHOBBNc0D/ZsixvKYiMMiIBAAA=
+X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Hi Krzysztof,
+This series contains bug fixes, cleanups and input validation
+improvements for the PEAK-System USB CAN drivers.
 
-On 20/10/2026 10:27, Krzysztof Kozlowski wrote:
->> The properties follow st,vd55g1.yaml nearly line for line. If a
->> compatible in that file is preferred, with an if/then for the
->> link-frequency minimum, I can fold it in there.
->
-> https://lore.kernel.org/all/20260902204549.657228-3-pm@petermarshall.ca/
+Patch 1 fixes CAN error frame generation, where CAN_ERR_CNT overwrote
+previously set CAN error flags.
 
-Thank you. I read it as: no new file, the compatible goes into
-st,vd55g1.yaml. So in v2, 1/4 becomes one patch to st,vd55g1.yaml that:
+Patches 2, 3 and 5 are cleanups: make a public header self-contained,
+sort the CAN_CTRLMODE_* flags in ctrlmode_supported, and replace
+open-coded bitmask operations with bitops. Patch 5 also makes the
+state flag updates atomic, which patch 6 relies on.
 
-- adds st,vd55g0 to the compatible enum;
-- moves allOf below required, together with an if/then that sets the
-  375 MHz link-frequency minimum for st,vd55g0, as in Peter's patches
-  squashed per your review of his v2;
-- says in the description that the VD55G0 array is 644x604 and that
-  its I2C address comes from its NVM rather than being fixed at 0x10.
+Patch 4 adds bounds checks to the PCAN-USB RX parser, so that
+truncated or malformed records are rejected instead of being read
+beyond the received data.
 
-If you meant something else, please say so.
+Patch 6 validates the channel numbers received from PCAN-USB FD
+devices, rejects records for channels that are not set up, and stops
+RX on all channels before they are released, on disconnect as well as
+on probe failure.
 
-Sergey
+Patch 7 fixes the RX parsing of self-received RTR frames with SRR set,
+which left the RX cursor one byte behind.
+
+Patches 8 to 10 fix related issues found while reviewing the above:
+the same channel slot check in the PCAN-USB Pro driver, the order of
+the netdev unregistration in the probe error path, and the dump of
+stale RX buffer bytes on decode errors.
+
+---
+Changes in v3:
+- Fix out-of-bounds read of the error counters in PCAN-USB bus events.
+- Harden channel handling in PCAN-USB FD: publish/read channel slots
+  with smp_store_release()/READ_ONCE(), clear them on teardown, stop RX
+  on all channels on disconnect and on the siblings on probe failure,
+  and reject ndo_open() once disconnected.
+- Fix RX cursor desync for self-received RTR frames with SRR.
+- Replace open-coded bitmask operations with bitops.
+- Add channel slot checks to PCAN-USB Pro.
+- Unregister the netdev before dev_free() on probe failure.
+- Only dump received bytes, rate limited, on decode error.
+- Link to v2: https://patch.msgid.link/20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr
+
+Changes in v2:
+- Kill all pending RX URBs before unregistering sibling netdevs.
+- Reject records targeting unavailable channels during device
+  initialization in rare corner cases involving malformed device
+  input.
+- Link to v1: https://patch.msgid.link/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr
+
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+To: Wolfgang Grandegger <wg@grandegger.com>
+Cc: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Marc Kleine-Budde (1):
+      can: peak_usb: add missing includes
+
+Stefan Günther (1):
+      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+
+Stéphane Grosjean (8):
+      can: peak_usb: sort ctrlmode_supported flags
+      can: peak_usb: harden PCAN-USB message validation
+      can: peak_usb: replace open-coded bitmask operations with bitops
+      can: peak_usb: harden channel handling in PCAN-USB FD
+      can: peak_usb: fix RX cursor desync for self-received RTR frames with SRR
+      can: peak_usb: reject records for unset channels in PCAN-USB Pro
+      can: peak_usb: unregister the netdev before dev_free() on probe failure
+      can: peak_usb: only dump received bytes on decode error
+
+ drivers/net/can/usb/peak_usb/pcan_usb.c      | 44 ++++++++-----
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c | 47 +++++++++++---
+ drivers/net/can/usb/peak_usb/pcan_usb_core.h | 15 ++++-
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 96 ++++++++++++++++++++--------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c  | 29 +++++++--
+ 5 files changed, 170 insertions(+), 61 deletions(-)
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+
+Best regards,
+-- 
+Stéphane Grosjean <s.grosjean@peak-system.fr>
 
