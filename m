@@ -1,71 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493112;
-	b=zVFKvJFKxGdWh3LQFJ6s4WOGUs8BiLw7vBqmoqVx6Gf11cHFbpvRqxOhIpS4bHti2OsO
-	 KO6zsxqCV+V4eS3tTGGfgHwIZysRDgdzKInU8QqhdgLw7G3ZafmX8ydV+j6PM1c2TDEjw
-	 2mp7Mzj9Wmp3VliC079AbNpoJ3ZMoZQDQ3piE7SLs14ei6nEPfXvJiBdTe4kbF10QF2jK
-	 Thbbqlv2sW/YEYpjfXAylBN8cNyTE8HS4led9VRBpZLIgL6EcH/rc6dOIhDMDGc8srXK6
-	 XnljYq6u6Xxs6b1ckwf1h6RTKTvqYjFEyFPLc8U3dQnFttABnfjTYkS+B7RRELVe3kQ==
+	t=1792493147;
+	b=jbpiqKWXBlEj+OqfoZHMaoupa+bedHi/hD7ctutphp9Xj9YWhLA+vvVhcgFDtZvxj4Cw
+	 b26js5lHg2zlyrI4sVT3houQEVbFbHEA7z14h72bIXNBKsADYadXNV5/PKfC2B1gdJmoV
+	 O8rcQObk7Oy4RdYDoQ7X6+vYcPMMwVWwf+1cuj+hSHzQ9SseiVnx412jd/PF5P/IvqXC2
+	 9+eDFY2o2VWK+6DC9EsBVq6zuyAQOd7xe9U1uA36l6JGvShW8sh1ycGySvResBLNBLiho
+	 j+k21WmNig2n7aBVzi/NyD9IttatMm5NCgULxSmPqUf8sRsBQKqKn/fzHWl2JPC71LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493112;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=RHqAnEsmUds54uVWYkaWi/dnw4P1IO7UVcmvf2duzJA=;
-	b=P/7Et7D7tJojT1kerjPbr9G1tEUJvjvqbOl3wu+Gcizjm6l9bwDARTNt2yy32H4yhxSM
-	 i8uNlBBJpN/FJ927AEm85EFLvuh2aL7MOqr77VGlLfHtHvyBeOX7muG4kbB2BsEMRAk9Y
-	 xn3ccfyOGo2Lf+WocWgEe8QuNakw/q9HMxw6nHHTHDBwS05bIwvAhxVM2shKo44uOoEJU
-	 +6Jlll5wvFPnnHcOUAiwCKBX2dQEK14U3GXeAkl4QiNH3wCZL800BMwo/U+gqoAE6Q1Qf
-	 WBKuZYwRrBGyMbbXUFdIYUImLLNUEKlcjt4rRHxfGL0pB5dw+6z07WuGCM9AffntJog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493147;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BM99QRLeOHsRkVNOs28if0Z8eVDpr2BN3/xKSM9/ZOE=;
+	b=LFkl5gwgyOROkdO2EQ0E3elFi0bJ8XWUFgDGHdbWJVI54kKIPS7idgffUwmd0mAygfw7
+	 z6qu7Ev/2xK7rN1xOdB/ikGZObYNEoTgcA4JyzLwUkGcYi6pn42A3pehMA39JwhzXdpAN
+	 +PdTMOYC6JAsfsg6rZ53K/lVfuUz+3I+JpZO35iB1eda6B3iixmFoPzoSjO3VI2IcbvoT
+	 XGZnwjg4T9iJUtwPganLlN6Rlc0IeSlC+bE4F3P1sn6zc2zO8eYGIPHqx7kuSbH6FiZxu
+	 xyf04EBAltXPjAIMeuIJrHw+FofOstgjjNSj6uiHnkSYl0q/tsPMxZYqtn+6SVDamrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9xkYELV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOq9qeuJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695DB606A324;
-	Tue, 20 Oct 2026 10:45:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560AE606A319;
+	Tue, 20 Oct 2026 10:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9xkYELV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CD61F000C5;
-	Tue, 20 Oct 2026 10:45:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOq9qeuJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15CF31F000C8;
+	Tue, 20 Oct 2026 10:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792493112;
-	bh=RHqAnEsmUds54uVWYkaWi/dnw4P1IO7UVcmvf2duzJA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=d9xkYELVfkwtloQ2XWhOugVZzEBAy3sPnjRrw6J3ZlhkbUSzlnNo5arFc+sNb0YE1
-	 BT1m0S8zjBDXnXjf3peXYCmKUkfEA95IrgXjQ2iW4pJT4MGQPm27EFCUC4BbDjhvJJ
-	 D7P0gD4Az1NTSELbvq7e/BuvO5gfbeVRlDLi8WpjIOLnnZZpHfX+HGvvcYJvzYBmr0
-	 QDC8Eb0nyfzm9NS8jLBMn5XXEm2fN1V/j52JHx21HcvJjyb98A1+EBTZXyhOtBUhXx
-	 oTlZtPqce+B4HK2Il73Nz4RfCJVCbGKjZ0ekuLxwosa0+dq0Ds+EqML4dnpEUpo7oN
-	 Xncl3TG1O9m4A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xJ7LC-000000055Yd-0GzI;
-	Tue, 20 Oct 2026 10:45:10 +0000
-Date: Tue, 20 Oct 2026 11:45:09 +0100
-Message-ID: <86v76wzm4q.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	KVM <kvm@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: linux-next: manual merge of the kvm-arm tree with the kvm tree
-In-Reply-To: <CABgObfboCa74iJg7SgGqP1emsETwd-oSZG57p9XARYv89tdScQ@mail.gmail.com>
-References: <atZJV1B79VsZoy8u@sirena.co.uk>
-	<CABgObfYRYCrOj-rHDaDd3LSFMSd0ug-YoB2pD7jDA8ZgMR0sCA@mail.gmail.com>
-	<86wlrczvyl.wl-maz@kernel.org>
-	<CABgObfboCa74iJg7SgGqP1emsETwd-oSZG57p9XARYv89tdScQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1792493147;
+	bh=BM99QRLeOHsRkVNOs28if0Z8eVDpr2BN3/xKSM9/ZOE=;
+	h=From:To:Cc:Subject:Date;
+	b=aOq9qeuJr/QvDyyZeCpne5EnF3TUMwjrs0eQdiujQTtIXqydXs3kFEJRkR4pQWuu/
+	 ZF+ONhY9eLDmUTD1Lq9vaJgiFnF1L3w+2eaFXYuzI8ECzEBFxXMTia3GcTnxO+YOPc
+	 YiGabiDonSpXnPc7w2fifUn2hQpD7SozuypziXdzVVpFeBRiaMVs3BQCdMyK+FFmck
+	 sJoGrIC14HaDx8eekT1ynz0/zgkrpbh7oEXc8zGEa94s6xwclNy+s28LTlTg7munu2
+	 21aawwupnw2LXmO3RGd4upmdEgV2YmFBfOX0ickP6O3mgWVtfsOA5AW3QC66XwK9T6
+	 0m42VOdboftng==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: SOF: amd: add ACPI dependency
+Date: Tue, 20 Oct 2026 10:46:33 +0200
+Message-ID: <20261020084656.2725461-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,34 +66,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: pbonzini@redhat.com, broonie@kernel.org, oupton@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, suzuki.poulose@arm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 10:12:28 +0100,
-Paolo Bonzini <pbonzini@redhat.com> wrote:
->=20
-> On Tue, Oct 20, 2026 at 9:13=E2=80=AFAM Marc Zyngier <maz@kernel.org> wro=
-te:
-> > > Hi Marc/Oliver, is this something that will be fixed on your side by =
-rebasing?
-> >
-> > Yes. As soon as you have a stable tag on your side, I'll remerge the
-> > fix branches on that, and all will be forgiven.
->=20
-> I have pushed both the next branch and tags/for-linus to kvm.git, so
-> you can go ahead.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Just pushed out the resulting branch to kvmarm/fixes.
+The newly added acp_asp_mailbox.c file makes no sense without ACPI
+and fails to build in that configuration:
 
-Thanks,
+sound/soc/sof/amd/acp_asp_mailbox.c: In function 'acp7x_asp_send_cmd':
+sound/soc/sof/amd/acp_asp_mailbox.c:59:22: error: invalid use of undefined type 'struct acpi_device'
+   59 |         handle = adev->handle;
+      |                      ^~
 
-	M.
+Address this by adding the required Kconfig dependency at the
+top level here.
 
+Fixes: cec3598305a6 ("ASoC: SOF: amd: add ASP carveout firmware loading for ACP7.B/7.F")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/sof/amd/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
---=20
-Without deviation from the norm, progress is not possible.
+diff --git a/sound/soc/sof/amd/Kconfig b/sound/soc/sof/amd/Kconfig
+index d64f682cfbea..baa0fbf07ab2 100644
+--- a/sound/soc/sof/amd/Kconfig
++++ b/sound/soc/sof/amd/Kconfig
+@@ -7,6 +7,7 @@
+ config SND_SOC_SOF_AMD_TOPLEVEL
+ 	tristate "SOF support for AMD audio DSPs"
+ 	depends on SOUNDWIRE_AMD || !SOUNDWIRE_AMD
++	depends on ACPI
+ 	depends on X86 || COMPILE_TEST
+ 	help
+ 	  This adds support for Sound Open Firmware for AMD platforms.
+-- 
+2.53.0
+
