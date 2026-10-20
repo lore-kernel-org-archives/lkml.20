@@ -1,50 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792463882;
-	b=PtrSRnkFlfF0xypBoYlGqOZn4Iwrz+yiovitm4tTkONiagotufPll2ZpsedYWr/8ree1
-	 QltrBgDC1JJ7qsXdeqSdH0P8vIc2iHEb+bVxef3Pi6FXS49CaeOixLudVn5+2JwVRDJG5
-	 LAqhLNkCcO0a3N5i02VDesM8X4mhJniMsVyuEHkfWrUZuJ4n+U9bid1/Yr9pjbeyUYAVi
-	 tWJnFwp/xFH9zjFwe4HAQXunzdrg1FlctyJE9wdp1yQ3UQ67TsCxZk/77kr/7T4+Airxy
-	 QR3zLAo6DCJGmec62Wo1Nc6aSCifgPnMkSAZjQJuVJV7Bl0DIaEVYwGFhCazgvL1hqA==
+	t=1792463988;
+	b=xvsgo+gZhiFdUbic+yx1GL/mT92gaMd0GA7ilUjbz5loKytoU21IjzFXaANsoiaiPwLr
+	 r2qSQ8RgJAqCgo1GF/DMuu8JzBWWhrwXiqrJggnwZWJWZRYZEh0MhS2bUv51Wa45Yicvd
+	 45pxNNpRag+wHvWewmjLV+uuepLH3vbAPLTgx+I6/5UgLngwz++ciK5Njhe1NEKS4NUUD
+	 6YAtlPdJC6AcKtQlvu+rvcBtHE+wOaAV/bjjLtVDthhLAqgsqdMl4CPCGSl3ToIatT5pe
+	 ZT/BDvw5AGnGFjn4sQ+f12FNtWLUKIKbiOE7ZLAD9DvioEUm2Qp5b44f2Me6nCV7j4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463882;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=VK9g7vRPPBC9tHhJzOVeroCsAXFqKlIYl/3Cax3+FZg=;
-	b=XleSAWPRBfSoj4pMlphR+RCS8CQCHvcneFi9dTocHFDXzruqOs6Es0K2UJ1cC5ohuVny
-	 Cd380t3rzads7zww3y6azkSo1tEVZGwyO18dzRlscwo4k6EPEZkslqlP+qicM+3GL0EBx
-	 Y4SOCAGQbuyycWTWqUhDRcmTfJmqt4bu/n0n6iT6iQyf2c/6ryTOG+FUtQuFzdeEbd4W9
-	 WVTvA0OwoQCQ4lk+suEkPpKAkcIC3erIRD7FLMG4nvDDDv+OHS1vMiUiRG/hoCjf8pdnf
-	 +UAM2DZmBH5I6q46dELgQa4AlML24NPdCbWQ5nvu3c9o1MkjGKfJRpNYm/WdekphkRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463988;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jKyfrtAnBnwO542LTPL2+YmVFhv9HS5+X9M5mbYFXh0=;
+	b=zsjdxr0ZFfkDfP4O6frbp3+fZkLPWdkibSMxpaFmKd/+oncYnxI/1dy+liEExwZYdaGs
+	 IrnuaAZQGsTeFqTASdX1bYvtjydai+sqPmV7r3MGSyp9OpPMqfaxZ1onpzWrchvIpleMr
+	 ItCG9XKETeifYUTOmHOxiObIpFjMTeBwImHSaNnDsetIVA4r7e0pzqx18AU0AanI9+NF9
+	 D7LgnZVnQvWRABCTX8X0IxW81fUEec0b0CFeZCqR6YPHYhSOlYm/ptMIHZvsJFwGVoSok
+	 zuG+xKHotuw0WoQjovlv/ZAexfDiRE1TXfi2tBwrmYTX5JTQndJvfjzZCSnrRR/gu2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ultrarisc.com;
-	spf=pass smtp.mailfrom=ultrarisc.com;
-	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=UD0Q+gcb;
-	arc=none smtp.remote-ip=218.76.62.146
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34CBF606A319;
-	Tue, 20 Oct 2026 02:37:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34CBF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l6k6wTjF;
+	arc=none smtp.remote-ip=91.218.175.57
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70874606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:39:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70874606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=UD0Q+gcb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
-	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	To:Cc; bh=VK9g7vRPPBC9tHhJzOVeroCsAXFqKlIYl/3Cax3+FZg=; b=UD0Q+g
-	cb6t2tDWGjfStIfbW1RXHyDGGM1NzcRsEb5dl6NXhd3CGiR20/fQMfYecwFwqKtT
-	kKLEYiRSxlCZi7B1n3+55VweiP2yjpmaFhEE0Sip49Ma6uDwXbVtbWk7Q57r0Tz/
-	xdbWUP07KAueeWo8pOSzD3ndzBA3GItI1GOP4=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDHQAf709ZqunoCAA--.1134S2;
-	Tue, 20 Oct 2026 10:37:49 +0800 (CST)
-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Date: Tue, 20 Oct 2026 10:37:35 +0800
-Subject: [PATCH v2] PCI: dwc: Skip MEM outbound iATU setup for identity
- mappings
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l6k6wTjF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=00+vt9qrllM8ZzXqix0pP9Xez7rpoPwxxNCrb4lFYHE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792463985; v=1; x=1793068785;
+ b=l6k6wTjFhgWVj5NF7XU8bFp9FuEwCAtrbVnCT3tmMebERaTA44w4l+bpnScfqxKBzBEhDwZZ
+ MXIlpZXW2C2dWJp9tmZkmBUZdb5LbEGguI8gadfkvazqAFR0y49+RZ/se3OOPdibKGpZokBtcv9
+ oZ+y1Cl9dIrsosChpIMuvekw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0520e0ef0e1754e3;
+	Tue, 20 Oct 2026 02:39:45 +0000
+X-Mizu-Trace-ID: 0520e0ef0e1754e3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d4a35334-56e2-4590-8b4c-1c030c36e5bb@linux.dev>
+Date: Tue, 20 Oct 2026 10:39:37 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,152 +58,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
-X-B4-Tracking: v=1; b=H4sIAO7T1moC/02NwQ6CMBBEf4Xs2TVtDdh68j8MB1oWWaNAWkAN4
- d9tMSYe32TmzQKBPFOAU7aAp5kD910EtcvAtVV3JeQ6MiihCilkjvUTB8fY8Audplw2+mBJKIi
- DwVOMN9ml/HKY7I3cmAyp0XIYe//e3maZej+x+RfPEgUae9SFaIw01pyn++grz8HtXf+Acl3XD
- 4Vb+S66AAAA
-X-Change-ID: 20261015-dw-pci-fix-c8e51f83be02
-To: Jingoo Han <jingoohan1@gmail.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Niklas Cassel <cassel@kernel.org>, 
- Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
- Jia Wang <wangjia@ultrarisc.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xincheng Ji <jixincheng@ultrarisc.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792463868; l=4234;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=Q9+BbDS9yoQuyZhe7cObUA+8q6N/qC+6CswqkBQwSRw=;
- b=NiwEdG9VnycmQ0G7JUSJURSWYgrpsPOVgeEf4VWKfdtTytEsMJ7nZVuI25yzhErBX/mRNixnF
- H2xoHUWik1oCAiNEZYVh0+K25pRzQychPNyxiNHT+uM8D/H0TaStaCX
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-CM-TRANSID:AQAAfwDHQAf709ZqunoCAA--.1134S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr1rAFWfKFy7WFWrtrWkWFg_yoWrCrWUpa
-	9xKFWxAFW8JF4YvFsFy3WkZa4Yy3ZrAFWDKFsI9a4xuF13ua4jqryrKFyftasxGr4rZr15
-	Kw4Yq3s7Ga1rJa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAIcxvE14x267AKxVWUJVWUGwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-s
-	yl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
-	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7V
-	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
-	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUbgAzUUUUU
-X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAFDmrVviwAAQASs0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
+ up on
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Kairui Song <ryncsn@gmail.com>, linux-mm@kvack.org,
+ Jiayuan Chen <jiayuan.chen@shopee.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ linux-kernel@vger.kernel.org
+References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
+ <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
+ <62d17959-d695-4fec-a87b-8eadaaf995a8@linux.dev>
+ <CAMgjq7CJ+bwKgwUmCzO9Hr7TrL68bDjgAsLx-4AGuXo6zowh9g@mail.gmail.com>
+ <CAKEwX=O4sPx5MtGL4-JwLzD4TWm7fNycFMiuOqLk4ADFUUipNg@mail.gmail.com>
+ <4f361479-1dbc-4f09-aa26-e1ad6c06cbee@linux.dev>
+ <CAKEwX=N4jj3PGXFx6wwh=PG4Vt6hRJ=-kqX24B55zoXyhAa1WQ@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CAKEwX=N4jj3PGXFx6wwh=PG4Vt6hRJ=-kqX24B55zoXyhAa1WQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-No outbound iATU translation is required when the parent-bus address
-matches the PCI address. This is a DesignWare controller property, not
-an UltraRISC-specific behavior.
 
-Compare the addresses directly and skip MEM outbound iATU setup when
-they match. Remove bypass_ob_mem_iatu and the UltraRISC-specific setting.
-CFG and I/O accesses, as well as non-identity-mapped MEM ranges, still
-use outbound iATU windows.
+On 10/20/26 2:08 AM, Nhat Pham wrote:
+> On Mon, Oct 19, 2026 at 7:37 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+[...]
+>>>> Right.. But I think it will be much better to avoid such folios from
+>>>> hunging in the swap cache in the first place instead of having a
+>>>> worker to reclaim them. I'm not strongly against adding a reclaimer if
+>>>> other approaches are too difficult at this point though.
+>>> Also, IIRC, dropbehind can only be handled in task context, right?
+>>> We'd need to make readahead bios to complete in task context
+>>> (BIO_COMPLETE_IN_TASK). I wonder if this has any perf implications.
+>>>
+>>> Another idea: how about, in swap_read_folio(), where we are guaranteed
+>>> to have the folio's lock, we check if folio is mapped. If it's not,
+>>> invoke folio_free_swap(), unlock, put, then drop that folio from the
+>>> submit batch?
+>> At that point the swap count is still 1; the zap comes while the read
+>> is in flight. Checking after the read works for the synchronous zswap
+>> path, which I tried first, but the bdev read is unlocked in
+>> swap_bio_read_end_io(), in interrupt context, where the slot cannot be
+>> freed.
+> Zap drops swap count first, then try to free swap cache. You're saying
+> the read check the swap count before zap dropping it, but still holds
+> the lock by the time zap try to free swap cache? :(
 
-Fixes: 17b478b29cf1 ("PCI: dwc: Allow drivers to skip MEM outbound iATU setup")
-Fixes: 8da2b970ed4c ("PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000")
-Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
----
-This series follows up on the recently applied MEM outbound iATU support.
 
-The DesignWare outbound no-match path does not translate addresses. Skip
-MEM outbound iATU programming whenever atu.parent_bus_addr matches
-atu.pci_addr, rather than relying on a driver-specific flag. CFG and I/O
-accesses, as well as non-identity-mapped MEM ranges, continue to use
-outbound iATU windows.
 
-The UltraRISC DP1000 driver has removed the now-unneeded 
-bypass_ob_mem_iatu, and the general DesignWare PCIe host 
-code has also dropped bypass_ob_mem_iatu, directly comparing 
-the parent bus and PCI addresses before setting up the MEM 
-outbound iATU window
----
-Changes in v2:
-- Merge patch1 and patch2, because they depend on each other
-- Link to v1: https://patch.msgid.link/20261019-dw-pci-fix-v1-0-9b7860f919b9@ultrarisc.com
----
- drivers/pci/controller/dwc/pcie-designware-host.c | 17 +++++------------
- drivers/pci/controller/dwc/pcie-designware.h      |  1 -
- drivers/pci/controller/dwc/pcie-ultrarisc.c       |  6 ------
- 3 files changed, 5 insertions(+), 19 deletions(-)
+Yes, exactly that. With the check in swap_read_folio():
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-index cf5ca281e91b..c593a1f1c2e0 100644
---- a/drivers/pci/controller/dwc/pcie-designware-host.c
-+++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-@@ -918,19 +918,12 @@ static int dw_pcie_iatu_setup(struct dw_pcie_rp *pp)
- 		atu.parent_bus_addr = entry->res->start - pci->parent_bus_offset;
- 		atu.pci_addr = entry->res->start - entry->offset;
- 
--		if (pp->bypass_ob_mem_iatu) {
--			/*
--			 * The no-match pass-through path preserves the correct
--			 * PCI address only for identity-mapped MEM ranges.
--			 */
--			if (atu.parent_bus_addr != atu.pci_addr) {
--				dev_err(pci->dev,
--					"Cannot bypass outbound iATU for non-identity MEM range %pr\n",
--					entry->res);
--				return -EINVAL;
--			}
-+		/*
-+		 * No ATU translation is required when the parent-bus address matches
-+		 * the PCI address. This is a property of the DesignWare controller.
-+		 */
-+		if (atu.parent_bus_addr == atu.pci_addr)
- 			continue;
--		}
- 
- 		/* Adjust iATU size if MSG TLP region was allocated before */
- 		if (pp->msg_res && pp->msg_res->parent == entry->res)
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-index 799c05213ae3..128729fee607 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -471,7 +471,6 @@ struct dw_pcie_rp {
- 	struct pci_config_window *cfg;
- 	bool			ecam_enabled;
- 	bool			native_ecam;
--	bool			bypass_ob_mem_iatu;
- 	bool                    skip_l23_ready;
- 	bool			skip_pwrctrl_off;
- 	/* Set if the RC loses power during suspend */
-diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-index 523f454c6c52..a0d328c0c09b 100644
---- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
-+++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-@@ -154,12 +154,6 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
- 
- 	pp = &pci->pp;
- 
--	/*
--	 * DP1000 routes MEM transactions without outbound iATU windows, which
--	 * avoids the 16-window/4GB-per-window aperture limit.
--	 */
--	pp->bypass_ob_mem_iatu = true;
--
- 	platform_set_drvdata(pdev, ultra);
- 
- 	ret = ultrarisc_pcie_init_clks(ultra);
+thread A (readahead)                   thread B
+swap_cache_alloc_folio(B's entry)
+   folio locked, added to cache
+   swap count 1 (B's PTE)
+swap_read_folio()
+   folio_free_swap()
+     count is 1, nothing to do
+   zswap_load() / submit_bio()
+   .                                    MADV_DONTNEED
+   .                                      swap count 1 -> 0
+   .                                      __try_to_reclaim_swap()
+   .                                        folio_trylock() fails
+   .                                        gives up
+   read completes
+folio_unlock()
+folio_put()
+-> count 0, folio in swap cache, unmapped
 
----
-base-commit: 0a2602de077462d3111eb9fd3da5b12a57fc6c93
-change-id: 20261015-dw-pci-fix-c8e51f83be02
+The check runs before the zap, so it sees count 1. The zap comes
+while A holds the lock for the read.
 
-Best regards,
---  
-Xincheng Ji <jixincheng@ultrarisc.com>
+Checking after the read instead is what I tried first. It works for
+the synchronous path and not for the bdev one:
 
+zswap (sync)                           bdev (async)
+swap_read_folio()                      swap_read_folio()
+   zswap_load()                           submit_bio()
+   .        <- zap, count 1 -> 0          return     <- zap, count 1 -> 0
+   read done, lock still held           ...
+   count is 0: free the slot, fine      swap_bio_read_end_io() (irq)
+folio_unlock()                           folio_unlock()
+                                          no ci->lock here, slot stays
+
+The write side is the same picture with swap_writeout() and
+end_swap_bio_write().
+
+
+> I was kinda hoping this kind of interleaving would be rare :(
+
+
+It is rare per event, but it adds up. On production it takes days to
+leave a few GiB behind. The DONTNEED there comes from jemalloc, which
+issues it on every free the application does, so it never stops. Our
+reproducer is the extreme case, built only to verify the problem: it
+leaves 480 GB in about an hour. I'll put the numbers in the commit
+message.
+
+
+> And yeah, I think if we want to free the slot after read, readahead
+> swap IOs have to be submitted with BIO_COMPLETE_IN_TASK. zswap
+> writeback's dropbehind relied on that...
+
+
+Right, and that would still leave the writeback side. The worker covers 
+both in one place.
+
+
+>
+>>
+>>> That takes care of the readahead race. Seems safe to me
+>>> (I assume if a folio is not mapped and swap count == 0, then it's a
+>>> pure readahead artifact, but maybe I'm missing a case).
+>>>
+>>> The write direction already tries folio_free_swap() before submitting
+>>> the writeback, FWIW.
+>> Same shape: the zap arrives after that check, while the folio is under
+>> writeback. On our box with a swap partition that is where most of the
+>> leftover came from.
+>>
+>> Every check on the holder's side runs while the count is still 1. Only
+>> the zap sees it go to 0, and it cannot wait. That is why the patch has
+>> the zap hand it over instead (very nasty i know it :( ).
+> Yeah I got no smarter ideas :( sweep_work it is...
