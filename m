@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479726;
-	b=BYmr+5wlvqXRc+g+VUgqq+HeJY1Pd1EdIkcqEBmYbgRgUGWGieIo6DrLlliIUddJVFf+
-	 zbj+aRijTrxDaetvq+Kh/+206a7/OTiEUBJtbYOFdSdSmgGFuJ+WfMhIuHUDZkJa1XjwE
-	 TfKvjthfN39RBpnk1NXP0BZBL0EJIy6yVCvarBEXHfIYYVpl9prgw0oWcjdnvP7XQqx/Y
-	 mB13fBL4XciRcpG+8+9UhWqTvJ38lDhYBbgD/zfb8hjU6b5CxcJEr/5F1nqaIP0KhLVLr
-	 ZU3p/3pud15WsyAhkoc8wO7FuOh8caSHaNpIBLN1UlT4xxPjKWu721jNFnWCetMoYlg==
+	t=1792479739;
+	b=Ue8DJz+WoRv46lkRWTng3NF3M8K5PW1IqveiGjavxBuBXWhdbyHqygF23O/n8uivxTEG
+	 TWPJvAbx/949S0kqRYj4e8o/sDKi7t4yhXiR3Zlnx9nuiDQBfU8+9lWmHvQPZO4nSIh6a
+	 wVyiauBf2or/sVge3fKua1AiJJLsPl6/EsorK+jF499ta2DiEYU2P9TahaoIUqjLicVIs
+	 heta0Ux+A1RJaS0TUCM1r6zxEmepCVeMYGr5ZtUlpZjlJaP8YUmP4IU7BB73g/uSfbP5W
+	 vHPlue6w0ruukMPA0flJ1y2rbPUSgxxg3uLvKoFl+zNAGSQTd3Bx4E6CEM+IHGMVSWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479726;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479739;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lL4KInTkrWK1huKqgiRN9Mfn5t/LESdYOix/l060acI=;
-	b=K+52y/AqIzfr/htCwjKGTtAkeasvECO6D5PqRGX7kHQAevstj7eaxtTIE2FqPB0ckwCG
-	 In9WEs0yrHFYfEeY7hCQqljEVSj+Nh6L3BuEF2lNCU8pAw9obZcK2NwvPe8aQLhUw0dXM
-	 ssAYmdwYhtkln73BvHQxzIGe8lggkoW6YYbMe3efirXYwXy/hx+1WGW5ruvZI+bIensXH
-	 yrJLcaEHlzs/m5ZucyDqLBrM5Cveb5kqNKTjWPtCPOGNvJoeLd0y/Kadj8DtzE5iproEb
-	 c0VKZARp23ew567226LjFuji+4ovo3oDwChgiKhCfFvPcJ2qBltAzymfCxNu8HDU8EQ==
+	bh=EwYG0Qqs4R24C4Z13i5actK0Jsbdi4OllWPNuy9tp3Q=;
+	b=yp0vxXmV+iDElWrkCF6+OYCiGH35rMPVYzLABesQubtfOZ9bx3b/AIrzsK8g/kwt8Xm2
+	 wpsJ1m9m9rYHf0XyjhN9EnuWEw1ypDkLbn+5fEjDUXv/KPg0vSChaorF2GXXPpkUPAUr0
+	 eBln3P8ZnM/jhtHe3Va/JXL/QhiM0xXC9IRxNzrB7FHBvtPYb0rnrLjTsxsjiHEEDSSAY
+	 82Rmc2O6G+PC/8PRuUtvmcwHUNEGfoEBswAneVRs0JGUWcf2UPjLogMe/B+3181fwDdNE
+	 HCtSwRO17QPjGeqGCEf0mIvO5yBGIH2/f2RajJEPij0Jw3LISMTa/Sa7rjYWE8ZOwSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="QGteB/De";
-	arc=none smtp.remote-ip=203.205.221.173
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com [203.205.221.173])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FrI+gruz;
+	arc=none smtp.remote-ip=203.205.221.149
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67087606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67087606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939D8606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:02:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 939D8606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=QGteB/De
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FrI+gruz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792479723; bh=lL4KInTkrWK1huKqgiRN9Mfn5t/LESdYOix/l060acI=;
+	t=1792479736; bh=EwYG0Qqs4R24C4Z13i5actK0Jsbdi4OllWPNuy9tp3Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QGteB/DeST/6lcrxJrElMtl/nuuZXhhoLG28jrqR4ppQfLDTpBcMte7pmnw2J6NVI
-	 ljA2KWnSLh2POTB3YeW3VYSI3v318sWdDyyX3rmi5iDCdUaRgtw/DL8+mA+dEyTo8C
-	 9U4cXfSXKmwU1tOV8Epk4bvItNHkMTZ8AzUcDACE=
+	b=FrI+gruz9EHxugPSDF9vgqtObQTHlJ2N7cNX8pHEoF9/p/ytVaLMpbK2QAE10oLUB
+	 4nfjlhiIyDnzGBCpR8uEyQ0/CL+3VPMMhe/idrVtb9paovUsGlcGDud7Vm8xn4GZD8
+	 QEQMmQqGShnxapJhT8bgBofF4wxpIs8PLypaKeZI=
 Received: from localhost.localdomain ([223.104.162.184])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 7993464; Tue, 20 Oct 2026 15:01:57 +0800
-X-QQ-mid: xmsmtpt1792479717t63efucn8
-Message-ID: <tencent_C61A6A0D268A0BE07870ACFA9CF08F09580A@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3Ju7W3ALgM3F5n7/mIK5uYINr/Gi2GwdnWSfxnvrdmI4gHN0oWyzA
-	 oiy+XPpIfcx8L5woQgHws5c2Jh01x5OVrVwle/g8MUFlZ8LV24euZFwcJKhMCcoa+SWXoMB0xl8K
-	 Xe4LvUtCb7EcQSHH4Jpdob+f89zh43YImjKl8HqpFH7Q7t8/be+E33tM+SEq/aAZuXoX4oxbenXa
-	 hNBMktOkctANn8P5VvtBTXQcytPN5KdsxWlAbxGJcOd6+t6JWHIk7fqeNS0loPZrD4uKrg/e5B/F
-	 Gw9jpP63UWR6DnnrnWiBqdIxPeyo42Xuyp28DFTjGlhcfSMla/EDM6vMu55LIoGK3+TxKoJufoux
-	 zdzU951agzPeMsfaAOqQ+1IZBycG5/FW9JYKJguDKwaJ6XPgJbNSSPIkQqM026Ej2WbMCK1oRsj2
-	 IQDvapZqt3881x1FAmWaNF3yopDv4thmxcnTsILpH3NygSvD35X7eOaMYRqttLvYzFkmtiyg40Eo
-	 1i6Sb/PFQzKOSHSX+/dMyxNg/ZMZ7bHSbXOURqWqWlocShmPvOGonA6xgBguY5jzJErjuNzXpCIy
-	 nHv+RiT6kZ8ayzfQtuEBVVdvZiZxBG+gASzXSo2kEKiu0Zh76yPl1yeHcDHj40D3LwO41JAWejiA
-	 e4Bs+c60q/1zEv/vA1JuRrJfGJLb0VVx1X4rsgRqQovk+xL43bTksw6IRnlRujZzVwj5XjkqtvCB
-	 HtoxcZB3wRkbPf/w1JGWdBZPOZmP1xQzSrN2jx9txrRzDRQVQh1TGTCaT52092DIYmCEdFntLsvS
-	 CDbH0Wu+mFyQp6yuljaxVM3RJyG8n8VJT+hD3f2nUyJLb00YOjNV812LMU0rNwwVd+IQA4CeWzg6
-	 ATMVqNv4AnH+J5cEACk1AtQC4TAi65AM6uoSb5ZX1j+H4TcinhTK2Ns0k41D2j6RXvrM8f0SYn++
-	 HbGd4qloicP3ePbfQKixixY+EgYPyiQIY8aPkRB6FKrbRzxTPm2/fo3Nh5Fsh4+BB07tMKigXFJs
-	 8CSxbkTLTzrPrAOv93/YY4yPFufUpx7l3mvITqCKVOW3qYXjK9Lj5kKk5LloVysUbygBFsP0NUZt
-	 QCwGbhMcr2zlDGgTWKF9zA8k0cFjAw9T93pALh2kMlLA//Bw8=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 8B12444; Tue, 20 Oct 2026 15:02:11 +0800
+X-QQ-mid: xmsmtpt1792479731t54lo12wf
+Message-ID: <tencent_1C87F16AC189C958ACA5B9D657E28E009F06@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJvwT4u18evKtNZtvAYtJhhqaA3lFOMm8abI3AsRN3t6oLeCMRWp
+	 vAHTfTAcpiMcjf4Yy+cZNQOWA5i8vQxqsiiGPI2dJH5HnuShuIMA9700czKHGo9d3REyZjO/HrFT
+	 xafcXe9YRyWQ3g4c8NGxL9GEfkJePQalMn3QSvobUKG8uwKndLQ9MPpgl5kpZG/JhzCTEDlpstSW
+	 AK/KwKkZGnMebF3dXiNRkpPKQCZWI7Tv/BUSqaC5PnKoRoS/zfrtd5liPXenZIhsJ6fkw+R9Qcob
+	 f3wsnpXuWClZyBINQhWuUuCw/dTN0a6/CuAVCK4MERCyfkaz+To3GAHrNSjXP0RXZWBQZ4qcF67J
+	 ZhlEta9jD6QJMRBMfD/XYfhBOOAFwBmTwboIJho1Hn9JhVmjaLSt3Ptpgg3fB0AxN+donJ/iV6/K
+	 ehtbiu4CgNhfZHMqeGT53y9v7ZIzB93MZaRTSy17COTC1uto82NLc+/LMlZHM0MboTiirXvQehhR
+	 wm4s7yNLcodYq4QqJMojfDi3xoIN+fu+ojx8ImD4z49SJYTNmLX/TRI+2dqTwttTxrp7ZlEAHJiC
+	 8ejQBe/5hTL24I4Rmfgko97rmZgui5ZeVGEgIBOm7N6cvZdacybPvW0joM49zEGzbSswclaG5mvU
+	 Opmrf5OjVOcShwyZSscist427lP9FhD8Fv+Kr3bihI8l/E3VqrphHDkkktctYre+A2nxEBEzt7uZ
+	 ZXC/YRBvMtU+pg0qebR/YqJ0QcrDtW5ib7UOJTQLjKV5xkWF23UAhOhkrv6/50l8HTe8HL42Dxfg
+	 T/OTbg5KfV5d/S+j1020S3/uvstvEKZtd35Ab/YLvKPPkKUWmEH/j7NU/XJKi25OEqEg37qREooX
+	 hEBAMSxZn6peeep/YvhB7krhbKZnqkntZoTw0U2wgrBu/vxEUf9Yd+FHl30QvRR76m3m7FuzZJ5m
+	 CCxLLPQBJOMa9eDKgTbVri6O48p++HzSGNQAlGzL32/sZ8LOyNecUnvEIQ8gcvBwlIT/4sX44Bzw
+	 v2fR1dD54GC8reHy5h+6fXzaFE2wi9ZvhuzIvHeyFrJGwhTKAjTDTvsB3sRQ8u2bUZg21TCyNXA9
+	 YRvO6A
+X-QQ-XMRINFO: NIY0FsY06mWik60O6xSizP/2tkZG+oPoPQ==
 From: Yemingxuan <level_zero@qq.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J . Wysocki" <rafael@kernel.org>
 Cc: linux-kernel@vger.kernel.org
 Subject: [PATCH v5] drivers/base: return bus_add_driver() errors
-Date: Tue, 20 Oct 2026 15:01:56 +0800
-X-OQ-MSGID: <20261020070156.6058-1-level_zero@qq.com>
+Date: Tue, 20 Oct 2026 15:02:10 +0800
+X-OQ-MSGID: <20261020070210.6348-1-level_zero@qq.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
-References: <tencent_454B62AD90C40381288FCAD5C893EC310507@qq.com>
+In-Reply-To: <2026102057-udder-arrange-c2fc@gregkh>
+References: <2026102057-udder-arrange-c2fc@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,16 +124,12 @@ a user-visible bug but keeping the driver model consistent with the
 device side and leaving the failure reported.
 
 Signed-off-by: Yemingxuan <level_zero@qq.com>
-Assisted-by: LLM
 ---
 
 Changes in v5:
- - Keep the three error messages.  The return value of an
-   initcall is not printed by the initcall machinery, so
-   dropping them turned a reported failure into a silent
-   one.
- - Use the real name in From: and Signed-off-by:.
- - Add this changelog, as requested by the patch bot.
+- Add this changelog, which the patch-bot asked for when reviewing v4.
+- No code changes from v4.
+
  drivers/base/bus.c | 7 +++++--
  1 file changed, 5 insertions(+), 2 deletions(-)
 
