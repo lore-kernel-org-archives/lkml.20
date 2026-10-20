@@ -1,82 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792512525;
-	b=rApSFyPwX/UjNafoAHP+G6UOJGWDCjXMwLOxGpJCylesB1+j7ym/zoF3KauH2BA+qGXU
-	 phV3r8viVL9gTJiV109H2E6as8P3fIUurbW1rIiGC7gtXNTUuxpFhWxibre06f/BaWTi9
-	 8V4w8phHHjo30urjlJx1SM6LWPVjILDwd/iesYj2dQcPn2o+adc756oyyPbuA/dN9h60t
-	 Q+6c4C9GKj7K6jaGeG2u1yngepsbyq33sT1Q7MB16/SlSeIfbWvRToz7cZvmP580e1utX
-	 PBkg8B6EzoWaFMn4FXccen0P/OnpI1Cxz8YORVssOTcXwtC7E3uyhwomusS3aqmiIow==
+	t=1792512524;
+	b=M9s3DBmCkfu4U5pYeyQ/82TTqlURuZ9z+YxnAnwSAdj7J5R5vOQv5M3mfvR5IHew8do9
+	 rRAjpVbcq6ij4KxK5ayncLZNu3tUN1oMTb/ML1A/uPWmQ9Ui0qHVUiA8Zbswp2dszTezP
+	 DysdiBNhtgehkdvCxyPk/7akz8LbUC92gNkhLliBENyC5OZh4wDks8sHaSs1qEIwUxU3Q
+	 hCWgmAlqZpCnGkXaG8ZnDHcrBW5zESNhBGoXeTvoww4totKZ/g/I6SY9yh049ufQuGy3e
+	 lxG9f0VqxxovcEVfXAucPu+ZcPXUIHfC4RtrZobgtrFGASvibiqcHu46najoKz9JUpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512525;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=JZGvSJ/T2lFQAZNU+lUoUCnDcDPrtpGrw0LMffwgz3o=;
-	b=MI3bY/HynyaASkC9lWmrzazO433SASpJd357JwWlGRyeo+uouq5l1BTAaVMKvS85dj2p
-	 a+VsZ5ibWufcB4N640tCcl3326/8wK4GVylLWC4BBSGCTA20iJbL+Ss2e5KywR8H8OwdC
-	 EQ4Qv/VGUQUo7PPrysj4BzN0bkKdu/eLDmCReNBWiox83njiGZKtQZhq+kenovg3PNupn
-	 p6VFZY82LhKMc4V81UElpE20XiHzMyQ8Oo1P1MCEeqIlseBxZt9q9Kf09VKBy9VVJnz5b
-	 Ce+3y9YoBSUiLZ5z7OUVG1Fq1V6C+PHH7BGK3G/b20vSTlhrXVGBw+JAGMPaCNhnDSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512524;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-SA-Exim-Connect-IP:
+	 X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:X-Spam-Checker-Version:
+	 X-Spam-Level:X-Spam-Status:Subject:X-SA-Exim-Version:
+	 X-SA-Exim-Scanned;
+	bh=vSmY4qK6N+zSMZ80Cf1TxZDK1xNA32Q6d6vGxmq/3Bo=;
+	b=3pXZhzs9gJFCR+ZvBRrrfbSAS0LgZ4otvWB8NEXMuQyzHXj9JOJTcRxPiJsdvdzFoif3
+	 esHJitocV5/gAJBGz3ZMTEd5rRJyEgBMfdujzmC3Ne5ciyB1lRmVIeN18kBMSRPBZaggN
+	 YsVX+wv2OYPAb29DX3rxqPgqWjzrV43iSvQTUnSGpFWKxT+uGNkCW+oSp6h7F1UdLYkcI
+	 +gAC1UpupOCkp2J+xyK/B1SoRCjA0aK1KQ6Zjox+TVQBrNGcZhV9h1FhMGLzbM27nzeEv
+	 s7FDCn81CTH03jL9Scnw/AqZ34VfDIrJ51PzPX66wXsmO8vZIBSvW9MDLqUYMHHkV8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VwWYW3JI;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=deltatee.com;
+	spf=pass smtp.mailfrom=deltatee.com;
+	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=tkEQj0Yq;
+	arc=none smtp.remote-ip=204.191.154.188
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF4E606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:08:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EF4E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EEC606A31B;
+	Tue, 20 Oct 2026 16:08:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3EEC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VwWYW3JI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792512523;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JZGvSJ/T2lFQAZNU+lUoUCnDcDPrtpGrw0LMffwgz3o=;
-	b=VwWYW3JIFF2TGB4sO0AN5b4BADapfxMRyLBp9qOz3aeo3Yd5A3GnYwCATs89PCYcwa+pmJ
-	/R9yMf9GcG5at1FIe9CvM2TmPcxnQtBEsMjlqg7up+qzY1JuI/Tjn0kjeT+2RPD5I5IYHK
-	hnIaDkQUh7Bupp4cuIG1B3yWRUR52nU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-686-PrNzLbbOMWmkiqW3IDyx1g-1; Tue,
- 20 Oct 2026 16:08:40 +0000
-X-MC-Unique: PrNzLbbOMWmkiqW3IDyx1g-1
-X-Mimecast-MFC-AGG-ID: PrNzLbbOMWmkiqW3IDyx1g_1792512517
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB3F7195E915;
-	Tue, 20 Oct 2026 16:08:36 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF6651800495;
-	Tue, 20 Oct 2026 16:08:32 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: julius@bairaktaris.de
-Cc: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	baochen.qiang@oss.qualcomm.com,
-	hujy652@gmail.com,
-	jeff.johnson@oss.qualcomm.com,
-	jjohnson@kernel.org,
-	jtornosm@redhat.com,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	tamizh.raja@oss.qualcomm.com
-Subject: Re: [PATCH v7 0/4] ath11k/ath12k: implement TX flow control
-Date: Tue, 20 Oct 2026 18:08:30 +0200
-Message-ID: <20261020160831.2133912-1-jtornosm@redhat.com>
-In-Reply-To: <20261018131930.1116724-1-julius@bairaktaris.de>
-References: <20261018131930.1116724-1-julius@bairaktaris.de>
+	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=tkEQj0Yq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=vSmY4qK6N+zSMZ80Cf1TxZDK1xNA32Q6d6vGxmq/3Bo=; b=tkEQj0YqLNCzeuJ7e90by1/ejx
+	MPy9nsYQzQmcjFTIV+C6f6aBgtHgMgvIMS4GfHLd+Eaduuw7TOQHjvRkWgLKoiM1f/phLJ/NaZY00
+	XBKTCN7RcaBJp5ipa2Y7+GllvU5Teeq64N6B2zi+dOUoTJbM85SmKeozviqHjm8b1JDDxPcN16edE
+	TWF9A9oOzxjCNcgt7zJ9yXWR60PrhWLRK01ckX3i3OWlXmMqUrGmSkIgh10E7LTfMF+sgSe+c5J1h
+	qQ0XwXn6u7BX9Pveu/AQvM/Vhfx5zwZN5dOzDGVf69wMk8qlRcGSRvP0wnLbRU4XC/asPqnMO5Pyb
+	h9xs0RkQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xJCOE-00000000yyj-0mXr;
+	Tue, 20 Oct 2026 10:08:38 -0600
+Message-ID: <e915bdd0-edd4-447d-8b87-6aadad6004bd@deltatee.com>
+Date: Tue, 20 Oct 2026 10:08:30 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,38 +62,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Pavel Popov <pavel.e.popov@intel.com>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Lukas Wunner <lukas@wunner.de>,
+ Jim Chow <jim.chow@broadcom.com>, Radu Rugina <radu.rugina@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, Wei Liu
+ <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+ Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+ bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev,
+ linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261020151305.65218-1-pavel.e.popov@intel.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20261020151305.65218-1-pavel.e.popov@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: pavel.e.popov@intel.com, bhelgaas@google.com, leon@kernel.org, lukas@wunner.de, jim.chow@broadcom.com, radu.rugina@broadcom.com, alexey.makhalov@broadcom.com, wei.liu@kernel.org, mhklinux@outlook.com, nathan.d.ciobanu@linux.intel.com, bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v3] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Hi Julius,
 
-Thanks for the review and the Tested-by.
 
-> One thing on patch 3, from reading the code:
->
->> +             if (num_free == 0) {
->> +                     spin_unlock_bh(&tx_ring->wake_tx_lock);
->> +                     break;
->> +             }
->
-> When this breaks, the frames stay in the txq and nothing restarts it
-> until mac80211 queues the next frame for that txq. A sender waiting for
-> ACKs then stalls until its retransmit timeout. With AQL I measured this
-> in v4: one download in three stalled, max RTT 347 ms. A restart from
-> ath11k_dp_tx_completion_handler() fixes it.
+On 2026-10-20 09:13, Pavel Popov wrote:
+> Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
+> upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
+> VMware guests, passthrough devices appear directly on virtual root
+> buses without host bridge devices. In Hyper-V guests, each passthrough
+> device appears in a PCI domain of its own without a host bridge
+> device. Consequently, P2PDMA checks evaluate endpoint Device IDs
+> against the host bridge whitelist, causing P2PDMA requests to fail
+> regardless of host support.
+> 
+> This affects discrete devices such as GPUs, NICs and NVMe drives.
+> 
+> Add an explicit list of the Intel Xeon server generations from
+> Skylake-SP to Diamond Rapids to cpu_supports_p2pdma(). These are the
+> CPUs whose host bridges are in pci_p2pdma_whitelist[] without
+> restrictions. AMD Zen and newer are already covered by
+> cpu_supports_p2pdma(), so only Intel entries are needed.
+> 
+> Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
+> cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
+> 
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 
-Good point. The break when the ring is full is intentional, it keeps
-the frames safe in the txq instead of the current -ENOMEM drop. Your
-TX completion restart (patch 6) would make the recovery from that
-stall faster, which is a nice improvement on top. Another reason for
-both series to land.
+I can get behind this:
 
-Since we agree, I am going to split ath11k and ath12k into separate
-series to try to unblock both.
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-Thanks
+Thanks,
 
-Best regards
-José Ignacio
-
+Logan
