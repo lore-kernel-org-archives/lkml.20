@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792508804;
-	b=Po9b7p4tAVIPSqPikj1jKUELsScyjIU+fKF/WB+nEXhkOLHmkwpxX91Rmh6Dq0Fc/ElI
-	 omKzSs+DKATO82oeFpeJGdpmooEcsup+g2JlFXsU4jju7KzhTN7vq1aPgz9W/yIwjokVd
-	 ZISgVi5vULKGb6Km5bEFVNKaWu6IdaP3z+cbA++k0/4qujjpkdFrtypsx7oYXSoZV6G+2
-	 x9xOTZxhAF4ifYtSpE5e6Vv8AhqWeNJcz6ipYw/vC1kY0hc8pqoG4WTv30A6dMFdz1b1a
-	 klTuw1imAdcCwk4kXstImsNquHuLloboGSxAso/nf4NAofDumpz4VKAolGqWMI7k60w==
+	t=1792508803;
+	b=w2U/wkeEKHAgNWEEY3Cu5sHDKR5ayZKqZ0uXYYyoq2z2LPuxm1mpdPpQQLkNmRY5tVmJ
+	 rLkfAhc5F0vB5qx3r+87dnINhJHtIv5GrKK4BsoC5zQnxgrahs/WHiDuhXGTP8sX1gx/8
+	 IBdWYqCfPQ/qFZVFNJQwz5zAYBm7rG7Rp8A2q4GBLeEW6L1CDH8hLcK0vlVpoqdQ+Up6W
+	 trAetQjxtwfFFzhEidp53iu6IzjCD/qyMVkTkNEOUEU1/+kogm/VSWvnBc5Rf76q9Zh5q
+	 cMRBpPKPzVFbmcOKmgQFr/gYDwfqUvOsJGlqNvDCdmLxg72AOLUg9wz0bjI8uuRIBBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508804;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WXgcLtnH3/QRdebM6qjvxXL49LbuzPHYRKIwgxv2DlU=;
-	b=pjoOET8XQk9Pnd5MbvNnYWQGyjizg5Fykmw68GLj521GNbPHiKVXc5T/m3MUxaCZco0p
-	 Ihq5iW6IW2Nb8gLj8WqeMruE+hQKml6v00KlULNn0a1uB+GXsNPczOQxPb36eY9sxSPM/
-	 AYDw/RbczSLgpNU6c2cQHjAYPJ/6+CUHqYww7qi4QY80Slc4OZ7XRXfNaUr3bmZajrUzU
-	 u6rwVwH4LprKgixwL3TBE+sizNt228HdBlxIk+Mx9HhnIo9QXu4m8J1DRrITLwD0xV+aA
-	 qP25IvSeeJ0y+jnpgJfizy/MKpcj7Sn5JtPTy39e6RGnouPw7DNzU5QRUGdkjo+LVHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508803;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=0c2WAJ+A3fmtE5JIgmM33C+5uxJtcuzd3UjlEAxXX4c=;
+	b=hdk1QNMouph/DLkzJxnEWoEawFLLrIzm5DfyJ8CM2NOfVMrsPgFbhxFA+wwlXAg6Fw0t
+	 7W4o4yPGFxy76+pstS9XNIw9IpYkcHLpW8+svEUtRbyEhYNLmPPjVrPR8i2V4qRdwZ1vm
+	 pna5V18w4y57uod11xNGlBD4UgdFQp7F/Itf1hhOB9lwlO1HlI/c9ZYq/sRDLvPLB9TVO
+	 /l1dAUqeC4EsBnOJ4kKnoq+uL5aa5adIAbikoHZNNqnYwR0Mct60mvqQAKjvAE3m6z1fs
+	 O2wSOAqNnw5qVv8I5/4JRHtTtlJfv6wa7PKG+P7df9RckJxBp2iy/YF80PfXU8ufmWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=GYx71Hnm;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=B7rHR9ik;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F5B606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:06:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F5B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qbsEPwkD;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B907C606A31A;
+	Tue, 20 Oct 2026 15:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B907C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=GYx71Hnm;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=B7rHR9ik
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792508786; bh=WXgcLtnH3/QRdebM6qjvxXL
-	49LbuzPHYRKIwgxv2DlU=; b=GYx71HnmRD7Pg7uRioGytqBeBIcf1ruNCfZHBy7bdizGsCbyvn
-	Al+80ugt+Mum0ZVdiavTB/Yo/hryxMB5RSdYmJt826xMtG0K6996dmQpp3g+JQ/z9RDzKtUyWSr
-	nS6kfyy0iGQ+ZJ/Lq6UhQYkMHekOFa1LgpaAFVZ9MuI0WtEdY2NRIL69G6yJ4aDteFv63DggzW6
-	/q4EUQwZOKBiId6aPia35wszHXzRJtPCufbNyy1p9vxuHSFIYJFAFsbqE4sGkGA3dY/r+2vai3h
-	4U5TC1VCbFMkU189nA9ngb7zEv9o58zl1IDRkNA4mja0tdbbRjjQcGkTZ1rbA5jqDnQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792508786; bh=WXgcLtnH3/QRdebM6qjvxXL
-	49LbuzPHYRKIwgxv2DlU=; b=B7rHR9ikhwlNQm5vYZzXn726Rj+YlAbylbHDsJ3tLhN+XWEKxi
-	JES/PHom12UVThjlwi3vq2wh/Is4TrvG1bBQ==;
-Date: Tue, 20 Oct 2026 16:06:27 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: eadavis@sina.com
-CC: kernelfans@gmail.com, linux-kernel@vger.kernel.org,
- syzbot+1f0fbc2561b3e5d51b91@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com, akpm@linux-foundation.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_kernel/reboot=3A_Avoid_po?=
- =?US-ASCII?Q?tential_deadlocks_during_suspension?=
-In-Reply-To: <20261020010559.23031-1-eadavis@sina.com>
-Message-ID: <082E174D-618D-4DAF-9CA6-FD953D9194B9@mainlining.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qbsEPwkD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BACB516F8;
+	Tue, 20 Oct 2026 08:06:38 -0700 (PDT)
+Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 023503F7B4;
+	Tue, 20 Oct 2026 08:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792508801; bh=B2p95+bauGKjmtB2lfd2lV6Dt4OS4tWv6hQlDp4Cj+Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qbsEPwkDD7Lc4yU5KuGZCTmflk83ca1uakWmyzyB5V+G5xona4bnVrrf8HUO7SfBD
+	 hWcREG5/ibmRlF3zEEC0SajKDIYlVtmTByzKmcih5lFG3FO5cxnsZcCqcNRrejVtTV
+	 ofgzQDwH+CmP1BeWW8uCRXFv9mqJ7hmrpsqrKaQ8=
+Message-ID: <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
+Date: Tue, 20 Oct 2026 16:06:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,88 +53,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
+ CPU MMU
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-13-ryan.roberts@arm.com>
+ <20261015164421.GD13920@nvidia.com>
+ <95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
+ <20261020140944.GA3008132@nvidia.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261020140944.GA3008132@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 20 October 2026 02:05:59 BST, Edward Adam Davis <eadavis@sina.com>
-wrote:
->Invoking reboot with LINUX_REBOOT_CMD_SW_SUSPEND causes kernel/reboot.c
->to acquire system_transition_mutex and invoke hibernate(). hibernate()
->calls lock_system_sleep(), which sets PF_NOFREEZE on current and attempts
->to acquire system_transition_mutex again, potentially hitting:
->
->WARNING: possible recursive locking detected
->--------------------------------------------
->syz.3.5755/5950 is trying to acquire lock:
->ffffffff8fc04760 (system_transition_mutex){+.+.}-{4:4}, at:
->lock_system_sleep+0x49/0x70 kernel/power/main.c:71
->
->but task is already holding lock:
->ffffffff8fc04760 (system_transition_mutex){+.+.}-{4:4}, at:
->__do_sys_reboot kernel/reboot.c:774 [inline]
->ffffffff8fc04760 (system_transition_mutex){+.+.}-{4:4}, at:
->__se_sys_reboot+0x223/0x460 kernel/reboot.c:738
->
->other info that might help us debug this:
-> Possible unsafe locking scenario:
->
->       CPU0
->       ----
->  lock(system_transition_mutex);
->  lock(system_transition_mutex);
->
-> *** DEADLOCK ***
->
-> May be due to missing lock nesting notation
->
->locks held by syz.3.5755/5950: 1, last CPU#0:
-> #0: ffffffff8fc04760 (system_transition_mutex){+.+.}-{4:4}, at:
-> __do_sys_reboot kernel/reboot.c:774 [inline]
-> #0: ffffffff8fc04760 (system_transition_mutex){+.+.}-{4:4}, at:
-> __se_sys_reboot+0x223/0x460 kernel/reboot.c:738
->
->Call Trace:
-> lock_system_sleep+0x49/0x70 kernel/power/main.c:71
-> hibernate+0x162/0x680 kernel/power/hibernate.c:784
-> __do_sys_reboot kernel/reboot.c:816 [inline]
->
->Move the suspension operation outside the scope protected by lock
->system_transition_mutex.
->
->Fixes: 55f2503c3b69 ("PM / reboot: Eliminate race between reboot and suspend")
->Reported-by: syzbot+1f0fbc2561b3e5d51b91@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=1f0fbc2561b3e5d51b91
-
-CC akpm:
-
->Signed-off-by: Edward Adam Davis <eadavis@sina.com>
->---
-> kernel/reboot.c | 4 ++--
-> 1 file changed, 2 insertions(+), 2 deletions(-)
->
->diff --git a/kernel/reboot.c b/kernel/reboot.c
->index 5b9691f45f5f..bc2716677a6c 100644
->--- a/kernel/reboot.c
->+++ b/kernel/reboot.c
->@@ -813,8 +813,8 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+On 20/10/2026 15:09, Jason Gunthorpe wrote:
+> On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:
+>>> However.. you still have to affirm which single mm is the mm that the
+>>> device is going to be doing DMA against. The process the opens the fd
+>>> should not be forced to be the mm that it gets linked to.
+>>
+>> What is the mm representing here? Ultimately we want to install the KVM
+>> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
+>> bound KVM instance (which looks like it still works using the cdev interface?)
+>>
+>> The guest will then install the stage1 pgtables and (pinned) ASID associated
+>> with the relevant (guest) mm_struct.
+>>
+>> Do we _need_ an mm association in the host?
 > 
-> #ifdef CONFIG_HIBERNATION
-> 	case LINUX_REBOOT_CMD_SW_SUSPEND:
->-		ret = hibernate();
->-		break;
->+		mutex_unlock(&system_transition_mutex);
->+		return hibernate();
+> Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
+> this is using iommufd with a viommu to establish their connection
+> between device an KVM. eg Jacob Pan's series. That's a probably a
+> better idea to stay aligned with the common path. Though your reasons
+> are a little different..
 
-Well, this fixes the issue in hand, 
+Just to check, you're referring to [1]?
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+I was under the impression that I could open the VFIO device through the cdev
+interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
+I need an iommufd at all?
 
+[1]
+https://lore.kernel.org/all/20260925190742.1575380-1-jacob.pan@linux.microsoft.com/#t
 
-> #endif
+Thanks,
+Ryan
+
 > 
-> 	default:
->
+> If you manage to get pinned VMID out of KVM then we can implement SMMU
+> BTM as well!
+> 
+> Jason
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
