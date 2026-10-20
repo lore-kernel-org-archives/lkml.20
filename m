@@ -1,168 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792534504;
-	b=dLDfBubfxlvsHpruxX54w3SRQ3F4XGRPwwe51t39wDTjJQHlOUbO+08Kzd3WUP/Bc0jm
-	 J3lWQduWM+pMLFSIPT1KjRRB/tqtKc9vXcOVraFODeI2apv+73UuFSKsnGCICQD+40ml9
-	 m3c8d027/9/+j2ZECGoa7E6FpwCj5nAZkabmmRhHTp4rdqsMkBZxP7N0DXqy7+b5ISV7y
-	 lIlwtMM9zOXohQ1FWQXTSuZpu/3HYV9sqY1S6vyw/c9w8i+u8XIV8S5lteybMt14hzjHS
-	 HvTVmhWDavoSyHtFeIp+Yk5TwiI/WhKtBXYjiR4cFOag7OtWgFw7ke8cb5AYCRgJFdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792534504;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JHFhg/NXQ6zQZdJm0cHEKOKveKTUzG7LliK3G8B3AEg=;
-	b=GhZ+dNR3z9A5EyPsZ3Q9UKzlUNoaAD+IUm19YSeiJikvjGzVi/N0E0evHTprWIfZ0V+v
-	 wiM23b0EnfeErerx1H7+KnYsrXjk/y99ZadT6651O40yNoa/FrcrT+eF2QRSeI+ebf9XV
-	 PO4nmnRqDbWtSL1qLPaCEf1g5OS76qlSfliIW/ynvJUObNmrgpmtkTGSy8DScYJ1j3xmC
-	 sgJ3BUcBFgzmbt+UPxR6XepC0yq4bGuGnx/4QZXBoHw3tgkYubdFFMlqCEZqpCGdDTwHA
-	 3hbGuvUC4U+/1zm0zKq3R/c0C6+vWDpCZmo9odktYx20SUDuY2s7om2WMOwW0uUQPmw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BFaHGKgU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.57
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011057.outbound.protection.outlook.com [52.101.57.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792534555;
+	b=OwC+owktcq/fN97WlXpCPO42wBE/f2mCZuC2kCeyqKMa4VDsTHqgz0ZnHIIP61ph3Ets
+	 bg7uvhtaq8rSwMh6uc1piHNfKNkfmXX93H8EUe7Mj1jTFKC5cVz8l4HJ5w1Dh+BgAX1Fy
+	 JvsPfigLLO0GESlzwPq96T1iUbU1yxt0cVvL8KilnQc0M3eTsuQaS8gidxW3lsoKDZClU
+	 x32w+/jmmoQUePDz6Y8R4i+AdRDtjtRrjMhfozGEkQAXFq7cmEKCJCiuCU9ovIUzxpuTZ
+	 MmivahJphJcaPZqh9GYw1zKus6mM0YNTxZ0Sa1FsIlZ2HeF6ZDs4Kg3k3y1fRvOrIPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792534555;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BOERBX4irxAK4WKXyDkoVTPC39eehwLpXtOXPRCNgv0=;
+	b=FGi3uwnEDJn8CNQTibs6KLjbMeGQuCnETgCjCNLJG2CIAjckU2lhB9c0mHqmhh3fRvzh
+	 9/8O/xDdnLmDGq1epcqUgoKF8mcre8f76eCwGWu3Dd+7sFyXrg7ucRkzWWZtsZFDPEILj
+	 +S12tIIGynGsoUnMRCXmqARKmLMVpesOcXBTnedRClCs9oo0r3l92SnpYtR8g/Alo1yqu
+	 onmm8uB7z+qOqeSFLiSVQ/lx/qCY8AjSKTd/AIgMV0hWctvkjqPMFUXu1Cy0hTe2u/AlL
+	 pxgcuXQSiuF3tP4apIR3IpQtho155H6L3dVgEcdrVnr9i3UP5TX+4YteO0W9YmKdOJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gDUQ49gJ;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B46606A319;
-	Tue, 20 Oct 2026 22:15:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61B46606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2F6606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:15:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB2F6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BFaHGKgU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B89NkAwhlACIFPOsiD29NIcOz08zw22RssjaqrW8RCdKJpllmcTWmr7pN057ZXccZ0uRjtUCHoRqbYR0xjHGOCMQwXoGtZMr8mAy9ca4RZzO+1xGKJgyFjP0xnvtK3GdjjMmB/quv+9QTqgFtMpllVSB9RzK25o9wcAJIavRNKgR2tylHyOgzOmReXyQnudSHl6rQ4NnsKnKKl4fknUVpIWWwGkhZHpx8wUbaU/TtrvZrNYuIfAmp8dmocuDl75zjlmu/PWHb8gQAzpg7qpOzy/MiLuk7FmnK23OvdVDksLGcGYoZxVxkX0yeR65XhENUZmUa4bBvm2PLjDOwBrcFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JHFhg/NXQ6zQZdJm0cHEKOKveKTUzG7LliK3G8B3AEg=;
- b=oesuFHGdvT3uHcYLkiEUy2rgq/XvzdBs+zhTx7sYiOs4QcQSr39/0KNKvkbg97dX1D8WcwbHI4ran9IKY0Saj6E+Oo0tZWMj1TzNNUUMXMe7/1pD5l5rN933yjZlJscp9nfnyUNa+TzKqefO9Mud3tJWc8TEcj3c43eaK2fqIjO4GBPw4l5CM9xUW/edTZGoI/WWpFRImTledQjsRUeDkQ2Tf2yjIDPJI+S5CbPwwGTRqztku/eO+O/cD6H3NpqhYx0UJHBqQraYqhqHldeKtBa3auOIlgcEd2C/MVLrkCaxqTCsv4G86YLo4KSqKpdTpeHTaf4WtRRJ/dBOtxYBPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JHFhg/NXQ6zQZdJm0cHEKOKveKTUzG7LliK3G8B3AEg=;
- b=BFaHGKgUPp6i6VI6dCu3IDIa8nVRfc14tdEE8U2MjoQ4hDjq/EG7i58Xhd+eB47jxnFagZNFOxO3RMt7PGzifBWrUD8DjK/g+DmPUa/VuDfSIHFagxgRUfadiJjdAaqXwTSHV0CgQMEh1zqgv4plho+uqW11GqvH8kkmNEnAdeE01AsYhM3adkoHWT2DmrTFNWw9b8tITfH35v6FGkv4xzxfXYIK3P1FQ9F/OapzNL40zDXJlOJwMLTzBmR0p7ICYkYund+Udom56lv5GVmKGeUqq80nve1W1KGGCBIN8PMY9bzArvWg59s5rcPkJbt2squYp8l4MznIK7495z6clQ==
-Received: from SA1PR12MB6773.namprd12.prod.outlook.com (2603:10b6:806:258::16)
- by DS0PR12MB9725.namprd12.prod.outlook.com (2603:10b6:8:226::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Tue, 20 Oct
- 2026 22:14:57 +0000
-Received: from SA1PR12MB6773.namprd12.prod.outlook.com
- ([fe80::ba62:69e8:261f:1cdf]) by SA1PR12MB6773.namprd12.prod.outlook.com
- ([fe80::ba62:69e8:261f:1cdf%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 22:14:57 +0000
-From: Besar Wicaksono <bwicaksono@nvidia.com>
-To: Ian Rogers <irogers@google.com>, Arnaldo Carvalho de Melo
-	<acme@kernel.org>
-CC: James Clark <james.clark@linaro.org>, "namhyung@kernel.org"
-	<namhyung@kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-perf-users@vger.kernel.org"
-	<linux-perf-users@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Vikram Sethi <vsethi@nvidia.com>, Rich Wiley
-	<rwiley@nvidia.com>, Sean Kelley <skelley@nvidia.com>, Matt Ochs
-	<mochs@nvidia.com>, Raj Joshi <rajjoshi@nvidia.com>, Thierry Reding
-	<treding@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
-	"john.garry@linux.dev" <john.garry@linux.dev>, "will@kernel.org"
-	<will@kernel.org>, "mike.leach@arm.com" <mike.leach@arm.com>,
-	"leo.yan@linux.dev" <leo.yan@linux.dev>, "mark.rutland@arm.com"
-	<mark.rutland@arm.com>, "alexander.shishkin@linux.intel.com"
-	<alexander.shishkin@linux.intel.com>, "jolsa@kernel.org" <jolsa@kernel.org>,
-	"adrian.hunter@intel.com" <adrian.hunter@intel.com>, "ctshao@google.com"
-	<ctshao@google.com>
-Subject: RE: [PATCH 0/6] perf jevents: Add NVIDIA Tegra410 uncore PMU events
- and metrics
-Thread-Topic: [PATCH 0/6] perf jevents: Add NVIDIA Tegra410 uncore PMU events
- and metrics
-Thread-Index: AQHdX+j820IqVkloIESFMfXWuRCVnbcFHTsAgAGxwICAABWKAIAAGO8g
-Date: Tue, 20 Oct 2026 22:14:57 +0000
-Message-ID:
- <SA1PR12MB6773C6D7355C7229EF1341F0A0672@SA1PR12MB6773.namprd12.prod.outlook.com>
-References: <20261019164241.403644-1-bwicaksono@nvidia.com>
- <21f58af0-fa3f-41c5-ab03-216c60fbe2f1@linaro.org> <ate93zQFkfAecIv2@x2>
- <CAP-5=fXUMVJwtAp+8dA8V=hBD9q4x6J4YiUufwXAOXcAJoAKTg@mail.gmail.com>
-In-Reply-To:
- <CAP-5=fXUMVJwtAp+8dA8V=hBD9q4x6J4YiUufwXAOXcAJoAKTg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB6773:EE_|DS0PR12MB9725:EE_
-x-ms-office365-filtering-correlation-id: 7e8d351f-f081-4f44-cd35-08df2ef79333
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|7416014|6133799003|22082099003|18002099003|10067099003|38070700021|11063799006|261009223027099003|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- IGnceCjVh2nPr6SinfETqmNuUDKYCtwWFg76DKiQco+bpNQ8CCrzcYCZ2RJ3GAhtAoxNp5mhBrDmG/vTSr48AodG9Es7aLxO3vO0dvEjC+3GUa9rNFHvZIDSTMRRyAd4lvvov6fxyoV0nghXe7PwO+ZhFZtenLzSD+wgbrgQSCj4ZGjsdS8gqqpccViZel8de0JpNnoeu4mymRn2Yss0XSZX978R/14dQIYQAP5Gu6s7pTbvmtYiXuZkzigEYdQk013y/wtsbYL7JqKqJYyzo4p6WlmAwBISDIPS8zmjXC/bUaYYWn7ZjwLDL2sLacjVFY6H+X4vWgqhwN98jleE0Oz1VLTkMQ9rLALO636678PcsIRX2v8qGkRZNr7Wryuky54EHm5kSgWH7jPJiOUoLOxi4achVuLR2p3mzVW4h60xtDhNgU0PjehhUd1O7aoo83MAlixpj4e9jrcag65UQBz7u17vApgWD3I6DzeyRxBf0mODfdiGsPZkjsUjst2iWb5JP+SDEkM8AboH0aEH51Vvwi3+TAVvAZI23t/9o9jno4HAkZOLC3kT4HKtAxklwAA11FUpMBBwgo7Sz8XRVKgnwYq/iBLvaqK/xWebdjnKB9cmqaWOpQ9YEPB55A/kucPXdvvQjea8aC6lVkz4fOgyo6l7oFx8ZliGvQoaZCBdcTASvb2zxLz/qkLLsuBW39xu0FfDWrFqjhJuPb68+Wf1Tm5nnIq2L0H+V73fXNE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB6773.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(7416014)(6133799003)(22082099003)(18002099003)(10067099003)(38070700021)(11063799006)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VjVoY2hSQ2hRZk9UdHZXeE5XYzZINUpzbVBwSzRlSkpxMzYwZDZTeDB4Q3Uv?=
- =?utf-8?B?eGZoS2MxYmZ4MUJpVURmVnFYeXY5SGxneGE2dGJLcUR4MkN5NFh5Vjk0emFm?=
- =?utf-8?B?ZGxtT1ZWYkZENzc1eHNoSHFaaGlUMDV1TGNYR0ZTenUwWjFDUGNkaHhMNkNP?=
- =?utf-8?B?U0JHbzFzQWpoeFZKeUU2TzF6K1cwd2N3MEhuVllTdTJ5dG1nY2tobU1lMjZp?=
- =?utf-8?B?azZGRGRYSmc1NjM5MWxNZjRWR0d6c1V4cVhTL3lRREQ0bmRtQXFRckJ0OFFa?=
- =?utf-8?B?ZzNKa1VNcnR6dVpkQWJJVEszWmxJK3VReWdnVmJqaUlvZ1BQU0xRUzgxS3lD?=
- =?utf-8?B?RXBLanhGUVZmeU1xVTNaYkdTcEJzODlqUzkvUEExZGhJTU5FNVcvcEduTGlk?=
- =?utf-8?B?YzR2U0Y1RjF3QmlzSllrVWh6UUNkSVZHR1NZeDZ1ekNkZ2ErRmN2aU1paSsz?=
- =?utf-8?B?QVYvL0FRUTlWZ2c2TFQ0QXVUTkthZFdWNjBmb2tacy9vdUpsSzRKZkFWeG1r?=
- =?utf-8?B?OTc2ZzU1d3pyMUtYaXZESTNqWmVnNk9OcnBwVTU3QlZiTFhvTGNmRHM0T3Bp?=
- =?utf-8?B?QzN0ZUNZOWhzWDJ2dlVrTCtkM0hCN3lHbks0cnZQbFNYd0sydlYzamlXZDdE?=
- =?utf-8?B?M2hLR0hxSExCeHJ6Sm5MMVFESzZTeDZzelFOZm8vRkxJL3pvMFBic0pEbDhQ?=
- =?utf-8?B?UUo3ZUJYZ09kaWJWVWNmY3JyQVJ0bVA3ZEUwcFZ1R3MvMVUzL0Iwc1hHOTB2?=
- =?utf-8?B?bnNtbW4zclFhQ2NsUk1vek1MR1hoN2NwSWt6OXlsTkgxb3lqTGowTTg3cWJn?=
- =?utf-8?B?K2VSM2o2dW9qSUlScUN0UUwxUkZOL3JnVm1uRWw2MnJMNXB5a3h5VHE3NUpv?=
- =?utf-8?B?ZzdZQ3cxVXV4OUNXaU1HNjlUWE1KT1cxekd4MGg3MUpGbjFGWU83ZUc5TWpI?=
- =?utf-8?B?OHZhVk45Wk5Xd201LzVwVExGdVFRZnBZaDVJSjhNNmJBTGlOV2ovQ1BUeWRD?=
- =?utf-8?B?MmtZbnNGNTgwdjlrOUNWZ1ZSWThtQ1Z5WHk4YkJMa0lyN1RJOG1Ha3BZdDlH?=
- =?utf-8?B?NUxFMml4NmR2Mlg3ZGJGR201bGdWZW51eHNDWFd3UHg2YkNERE1nRVVCcStF?=
- =?utf-8?B?ek5mMU1zVGMwTk80blVzUGZCdG4xb09Rcyt6NDlwVkh5M0g1YVBFdk9FNFZM?=
- =?utf-8?B?anVhdUNCTDBySWVUUFFudDJKTEhnM0ZkeTNkLzRBYmRWRU9VOXFMU0JuMUUx?=
- =?utf-8?B?dmhiMytDR2phQ3NhN0lWVkZSYS9nS0poeGp3cytCUXBvSGdtQmlSeGhKRitt?=
- =?utf-8?B?L2c3SzJDM0t0cFlDbG1MU3R3OVlzM3QyRXViS25Xak0vbzhjbHMzU290MnRz?=
- =?utf-8?B?TkFBb1BZWUk1VVpSQndFMHhXZkJSNStsMEp6bVdwSldYcGpWYXdwWWJKUjRo?=
- =?utf-8?B?Z29INDRFNWlkUmFiRlZoaWJsdkpwMUcwY3V2cWNKMWhZdjNtbXljM1NtRUc4?=
- =?utf-8?B?OFhCeHlqV0xjVzNZdFA5QmlxQUgvTU5FaS9VcFJITitPaGFxcUd3NHo2alMx?=
- =?utf-8?B?M3dMcVFnTUYrcUdJUStTOUpjMWkzekUycXdzamgwOVl4RGVWdVRESzJjQlZK?=
- =?utf-8?B?VkxpVmhqQitPMWFIS25ZSkRGelNKVFhxWjc0Sy9wSjY3YXhKbm9ISHVHZ2h0?=
- =?utf-8?B?SDN5T0pDNGhRQWpPTGhIeVNBVEVwS01hc0dFK2hLaUlnUTRaUHZXbFpURG0w?=
- =?utf-8?B?czZma3NCMlBvcWFQaUZmYWJ0N2dUaFlPcktwNTFrNi9URjNudmREVWJ5enRK?=
- =?utf-8?B?UEZDSG5OL3FmMHIvMEtVLzEySUdNTzRieGZ1ZGQzL29PSFZKd3NGeTVpSSsy?=
- =?utf-8?B?d0ZXZEpaK25pV1BaTDdYTmRoajVjY2lRanN1M3Nib3IzSFJjVzRobmw3Zjdi?=
- =?utf-8?B?M2g3a3d0dU40Qlh3bFdTTWZ3NExNYktjYW5Iaml2UGNiSTRVL2MxUjA1NEl4?=
- =?utf-8?B?MEhtTnNFNWNpN1pFNWlZVFlzVWVQVHFpc3EzV3pJVnZEODVIUXpKbXlNUXgx?=
- =?utf-8?B?UTNDM3NraVozZlp3M0QvbHlmT3I1OGxVdVl3dzh3Z0lPeWg0SnZSbTQ2azFq?=
- =?utf-8?B?NXBYcHNUSXFWWEo3Qk5LZy9uczE5cXo4R1V4ZEZOZE4yLzhnbXMvWWY3RUxS?=
- =?utf-8?B?dHNuY21Ja2NOLzNKN2oyWjc0YURLOTF3YWgxTjFaZFM0MnQ2OURydWlURnlQ?=
- =?utf-8?B?RWdNQWMwUURFd2thRlFzdXBQQlZOUTZISlVJL0tNVVhjUjJEMEM0c3JQZVE1?=
- =?utf-8?Q?zmQMY7oTNdNlqEZUZd?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gDUQ49gJ
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2dd76b1361dso737175ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:15:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792534554; x=1793139354; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BOERBX4irxAK4WKXyDkoVTPC39eehwLpXtOXPRCNgv0=;
+        b=gDUQ49gJcOcdn2BoDnxJv0Q4HiSZ2FG9wxgwoSwpwTJyFyZReMKPLgR1gluh+O3L8u
+         QuUXz1qTP+x3HK698yGzw2MnRFFhXYkGunXa8ZBKUpPLnmtIkZYieQVxihtjgt+GaGX9
+         Us/i/hXHRWJswCsG+zQe9V1HfHNTERNP2yQ8QvucIijkZZZr2ojmKmj7FaCqJESqzgCO
+         ZtFkVB8efmLIVoJ1CInYDbf5nNctGcmHGI3C+vlb4kp1pa+6ujzOld4VEsebhI8mcR+P
+         t7prJnVpHX2wwFxyy5pQyvF50zVV9b/s5MiV/rCca5MwcpDmzvjvxAAEXOhlSkZq6mCC
+         7QqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792534554; x=1793139354;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BOERBX4irxAK4WKXyDkoVTPC39eehwLpXtOXPRCNgv0=;
+        b=XAT0eb//eEeb3wb7s0e6kh2/vb+qFKVlSSsjQFTMFdJG+oKRidhPSW09tGOWSKwNGT
+         h+dR2rHTS1n4EVxeCRlaNVV3h/MmrhIoT6xqQ1n4Ct+pcJErKDntS3qz+CE2LEdvl6Zb
+         UoL2nhtmmJLz+ignyDyJKq400VWAhSq5tnKTamj17TKWdglICKns8coU281as5kuGmHH
+         96q7DM1a/VVU8Dz254a9W5c/CUnD5rAU8e3ndOnJgeDOaHSLhFNG1Y/gaY+/JKtxO/8h
+         EiBguWEUiBrgAVnw2uUPOwHIXsKCio4QpKzjeX60ybW8gYqbhN3B7xbBonv0qesd97eM
+         ZtNA==
+X-Forwarded-Encrypted: i=1; AKwUvBwn0vNaQzB145Ndf6qeq+PCg0jD6ZRj8TZkWGQ4XNn/9bbDgxZgNQgdcM9SfeSmvQtq/z+fs1TKeRPmAQc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjcsM9tgFIF3FkJkr45XyuzQe48gFkgfm0yf9tJ1HZGvtRT010
+	BDFuwg1ipBJ3TBU7SKOEgJHtW+KzhyqwN58XsbrGG7gshNmfhAi2esgo
+X-Gm-Gg: AYBFou1hiFCIrdy2mL1+wKfSju1jAWLd4oXfLoxK7QkXG6BO9mlZSiQpKW1sE41paGg
+	EcagBR6gGmOdXAyt1L/q6ymBGRjCEwZ5IELVb1/tzRQz1YHdvJ8Le7cYG/ladom614ccUUXXatO
+	+gxzIK/PWrG+j4WcBThDtqVBeGe2TMatshAk+Yr54uStY/3YJs+ZgnlnCVEI/YtadfRZYBeyYmp
+	VutG9L7NcAZVjZ6jOSBiCMuPj+EZce77oyV5AI6hRStUZVlIm3aHvb/wOg8hrG36dAXO9739YBi
+	WHMWGt9dAyVh3XRywMFg8tiFcJyETzyj1VbPStLjekyXuVHVTpmeh+cY6YuWgCFmicTTopnWC6z
+	jtbkZH094MCCSK4t0luzfbsa230RRhStNnmBy0GdPg0FLGBuQbrYreEHpV/N1VNiK9GIUi6PKDa
+	eG1Z3AAz5KNsRJIXgv4eQDb3tIy0dOEM6HlQhfXPRFR5HSH5pglBstaT7nwF/BkXXmOW/4kdWYW
+	CX3W9zICk2yTw==
+X-Received: by 2002:a17:903:2309:b0:2e6:943:39de with SMTP id d9443c01a7336-2ea43e259cemr964625ad.30.1792534553877;
+        Tue, 20 Oct 2026 15:15:53 -0700 (PDT)
+Received: from Alienware-m16.lan ([45.153.102.184])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b410659sm3556285ad.22.2026.10.20.15.15.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 15:15:52 -0700 (PDT)
+From: Andrew Luebke <andrew.luebke@gmail.com>
+To: Hannes Reinecke <hare@suse.com>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Luebke <andrew.luebke@gmail.com>
+Subject: [PATCH] scsi: aic79xx: Fix NULL pointer dereference in device reset
+Date: Tue, 20 Oct 2026 15:15:30 -0700
+Message-ID: <20261020221530.2606178-1-andrew.luebke@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -172,69 +96,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6773.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e8d351f-f081-4f44-cd35-08df2ef79333
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 22:14:57.0857
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pUxz6bFnQ7x3sChSHSFjQHvGGV1LOOGnyPFrqS5ME5qoqD+WoIubEr7bXpyS2Ks+tgoOBbAxf44e06d+eZQEUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9725
+Content-Transfer-Encoding: 8bit
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSWFuIFJvZ2VycyA8aXJv
-Z2Vyc0Bnb29nbGUuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBPY3RvYmVyIDIwLCAyMDI2IDg6MzMg
-UE0NCj4gVG86IEFybmFsZG8gQ2FydmFsaG8gZGUgTWVsbyA8YWNtZUBrZXJuZWwub3JnPg0KPiBD
-YzogSmFtZXMgQ2xhcmsgPGphbWVzLmNsYXJrQGxpbmFyby5vcmc+OyBCZXNhciBXaWNha3Nvbm8N
-Cj4gPGJ3aWNha3Nvbm9AbnZpZGlhLmNvbT47IG5hbWh5dW5nQGtlcm5lbC5vcmc7IGxpbnV4LQ0K
-PiB0ZWdyYUB2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFk
-Lm9yZzsgbGludXgtcGVyZi0NCj4gdXNlcnNAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxA
-dmdlci5rZXJuZWwub3JnOyBWaWtyYW0gU2V0aGkNCj4gPHZzZXRoaUBudmlkaWEuY29tPjsgUmlj
-aCBXaWxleSA8cndpbGV5QG52aWRpYS5jb20+OyBTZWFuIEtlbGxleQ0KPiA8c2tlbGxleUBudmlk
-aWEuY29tPjsgTWF0dCBPY2hzIDxtb2Noc0BudmlkaWEuY29tPjsgUmFqIEpvc2hpDQo+IDxyYWpq
-b3NoaUBudmlkaWEuY29tPjsgVGhpZXJyeSBSZWRpbmcgPHRyZWRpbmdAbnZpZGlhLmNvbT47IEpv
-biBIdW50ZXINCj4gPGpvbmF0aGFuaEBudmlkaWEuY29tPjsgam9obi5nYXJyeUBsaW51eC5kZXY7
-IHdpbGxAa2VybmVsLm9yZzsNCj4gbWlrZS5sZWFjaEBhcm0uY29tOyBsZW8ueWFuQGxpbnV4LmRl
-djsgbWFyay5ydXRsYW5kQGFybS5jb207DQo+IGFsZXhhbmRlci5zaGlzaGtpbkBsaW51eC5pbnRl
-bC5jb207IGpvbHNhQGtlcm5lbC5vcmc7DQo+IGFkcmlhbi5odW50ZXJAaW50ZWwuY29tOyBjdHNo
-YW9AZ29vZ2xlLmNvbQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDAvNl0gcGVyZiBqZXZlbnRzOiBB
-ZGQgTlZJRElBIFRlZ3JhNDEwIHVuY29yZSBQTVUNCj4gZXZlbnRzIGFuZCBtZXRyaWNzDQo+IA0K
-PiBFeHRlcm5hbCBlbWFpbDogVXNlIGNhdXRpb24gb3BlbmluZyBsaW5rcyBvciBhdHRhY2htZW50
-cw0KPiANCj4gDQo+IE9uIFR1ZSwgT2N0IDIwLCAyMDI2IGF0IDEyOjE14oCvUE0gQXJuYWxkbyBD
-YXJ2YWxobyBkZSBNZWxvDQo+IDxhY21lQGtlcm5lbC5vcmc+IHdyb3RlOg0KPiA+DQo+ID4gT24g
-TW9uLCBPY3QgMTksIDIwMjYgYXQgMDY6MjM6MTZQTSArMDEwMCwgSmFtZXMgQ2xhcmsgd3JvdGU6
-DQo+ID4gPiBPbiAxOS8xMC8yMDI2IDE3OjQyLCBCZXNhciBXaWNha3Nvbm8gd3JvdGU6DQo+ID4g
-PiA+IEFkZCBldmVudCBhbGlhc2VzIGFuZCBkZXJpdmVkIG1ldHJpY3MgZm9yIHRoZSBOVklESUEg
-VGVncmE0MTAgdW5jb3JlDQo+ID4gPiA+IFBNVXMuDQo+ID4NCj4gPiA+IFJldmlld2VkLWJ5OiBK
-YW1lcyBDbGFyayA8amFtZXMuY2xhcmtAbGluYXJvLm9yZz4NCj4gPg0KPiA+IFRoYW5rcywgYXBw
-bGllZCB0byBwZXJmLXRvb2xzLW5leHQsIGZvciB2Ny40Lg0KPiANCj4gSGkgQXJuYWxkbywNCj4g
-DQo+IGNhbiB3ZSBub3QgdGFrZSB0aGVzZSBpbiB2Ny40IGFzIHRoZXJlIGlzIHVuYWRkcmVzc2Vk
-IGZlZWRiYWNrOg0KPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1wZXJmLXVzZXJzL0NB
-UC0NCj4gNT1mV3VjdmRZZWZET0wzVm49Tz1ZVVBFWEUrdG5nRERmUEx2LQ0KPiBUNWkzV2tDSlZB
-QG1haWwuZ21haWwuY29tLw0KPiANCj4gVGhlIHNwZWNpZmljIHByb2JsZW0gaXMgdGhhdCB0aGUg
-TlZpZGlhIFBNVXMgaGF2ZSBhZG9wdGVkIGEgY29udmVudGlvbg0KPiBub3Qgc3VwcG9ydGVkIGJ5
-IHRoZSBwZXJmIHRvb2wgb2YgJ3BtdV9uYW1lXzxzb2NrZXQ+X3JjXzxudW0+Jy4gcmMNCj4gc3Rh
-bmRzIGZvciByb290IGNvbXBsZXguIFdoYXQgZW5kcyB1cCBoYXBwZW5pbmcgaXMgdGhhdCBhZ2dy
-ZWdhdGlvbiBpcw0KPiBicm9rZW4gYXMgdGhlIGpzb24gaXMgY2xhaW1pbmcgdGhhdCBwbXVfbmFt
-ZSBpcyB0aGUgUE1VJ3MgbmFtZSB3aGlsZQ0KPiB0aGUgc3VmZml4IHBlcmZfcG11cyBjb2RlIHRo
-aW5rcyBwbXVfbmFtZV88c29ja2V0Pl9yYyBpcyB0aGUgcG11IG5hbWUuDQo+IFRoZXkndmUgd3Jh
-bmdsZWQgc3VwcG9ydCB2aWEgdGhlIGpzb24gYnkgY2xhaW1pbmcgdGhlc2UgYXJlIHN5cw0KPiBl
-dmVudHMuDQo+IA0KPiBXZSBjYW4gZWl0aGVyOg0KPiAxKSBzdXBwb3J0IGEgbmV3IHN1ZmZpeCBj
-b252ZW50aW9uIG9mIDxudW0+X3JjXzxudW0+DQo+IDIpIHB1c2ggYmFjayBhbmQgYXNrIHRoZSBk
-cml2ZXIgd3JpdGVycyB0byBuYW1lIHRoZWlyIFBNVSBjb3JyZWN0bHkgYXMNCj4gZGVmaW5lZCBp
-biB0aGUgQUJJOg0KPiBodHRwczovL3dlYi5naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tl
-cm5lbC9naXQvdG9ydmFsZHMvbGludXguZ2l0L3RyZWUNCj4gL0RvY3VtZW50YXRpb24vQUJJL3Rl
-c3Rpbmcvc3lzZnMtYnVzLWV2ZW50X3NvdXJjZS1kZXZpY2VzDQo+IA0KPiBJZiB3ZSBkbyAoMSkg
-dGhlbiBpdCB3b3VsZCBiZSBuaWNlIGlmIHRoZSBzdXBwb3J0IGZvciB0aGF0IGNvdWxkIGJlDQo+
-IGNvbnRhaW5lZCBpbiB0aGlzIHBhdGNoIHNlcmllcy4gSW4gYW55IGNhc2UgdGhlc2UgZXZlbnRz
-IGRvbid0IGJlbG9uZw0KPiBpbiBzeXMuDQoNCkhpIElhbiwNCg0KQ291bGQgeW91IGVsYWJvcmF0
-ZSBtb3JlIG9uIHdoeSB0aGVzZSB1bmNvcmUgZXZlbnRzIGRvbid0IGJlbG9uZyBpbiBzeXMNCmRp
-cmVjdG9yeT8gSXMgaXQgYmVjYXVzZSBUNDEwIGFscmVhZHkgaGFzIGFuIGVudHJ5IGluIG1hcGZp
-bGUuY3N2Pw0KDQpJIHB1dCB0aGVtIGluIHN5cyBzbyBwZXJmIG1hdGNoZXMgdGhlbSB0byB0aGUg
-UE1VIGJ5IGl0cyBpZGVudGlmaWVyICgiQ29tcGF0IikNCnJhdGhlciB0aGFuIGJ5IHRoZSBDUFUs
-IHNpbWlsYXIgdG8gaGlzaWxpY29uL2hpcDA5L3N5cyBhbmQgdGhlYWQveWl0aWFuNzEwL3N5cy4N
-Cg0KRm9yIHRoZSBhZ2dyZWdhdGlvbiBjb25jZXJuLCBJIHJlcGxpZWQgb24gUEFUQ0ggNC82IGFu
-ZCB3aWxsIGxvb2sgaW50bw0KaXQgZnVydGhlci4NCg0KVGhhbmtzLA0KQmVzYXINCg0KPiANCj4g
-VGhhbmtzLA0KPiBJYW4NCj4gDQo+ID4gLSBBcm5hbGRvDQo=
+Commit c67e63800446 ("scsi: aic79xx: Do not reference SCSI command when
+resetting device") makes ahd_linux_dev_reset() build its TARGET RESET
+SCB with io_ctx set to NULL, but the function still calls
+ahd_set_residual(reset_scb, 0) a few lines later, which is
+scsi_set_resid() on the NULL command. Every call of the device reset
+handler therefore oopses and kills the SCSI error handler thread; all
+further I/O on that host hangs until the machine is power cycled.
+
+Hit on an Intel SE7501WV2S board (on-board AIC-7902, i686, v7.2.9) when
+a failing Ultra320 disk made the error handler escalate to a device
+reset. Both disks on that channel then stayed in D state:
+
+  sd 1:0:0:0: [sda] tag#287 Attempting to queue a TARGET RESET message:
+  BUG: kernel NULL pointer dereference, address: 0000009c
+  #PF: supervisor write access in kernel mode
+  EIP: ahd_linux_dev_reset.cold+0xee/0x26e
+  Call Trace:
+   scsi_eh_ready_devs+0x538/0x8d0
+   scsi_error_handler+0x3a2/0x3b0
+   kthread+0xd2/0x120
+  note: scsi_eh_1[78] exited with irqs disabled
+
+(0x9c is resid_len in struct scsi_cmnd on i386.)
+
+Removing that call alone is not enough. When the target accepts the
+reset, ahd_handle_nonpkt_busfree() (or, in packetized mode, the task
+management completion) calls ahd_handle_devreset(), and its
+ahd_abort_scbs() walks the target's pending SCBs - the reset SCB
+included - reading and setting their transaction status and freezing
+them through the wrappers in aic79xx_osm.h, which dereference io_ctx.
+The same walk runs if the reset times out and the error handler
+escalates to a bus reset.
+
+Commit c7f4c5dec651 ("scsi: aic79xx: Fix up NULL command in ahd_done()")
+taught ahd_done() about the NULL command, but not these wrappers.
+
+Drop the residual write, and let every wrapper that dereferences io_ctx
+accept an SCB without a command: the transaction status reads as
+CAM_REQ_INPROG, the SCSI status as SAM_STAT_GOOD, the transfer
+direction as DMA_NONE and the residual as 0, while setting a status or
+the residual and freezing the SCB do nothing. The reset SCB then
+completes through ahd_done() as that commit intended. The SCSI status,
+residual and transfer direction wrappers get the same check so that no
+wrapper can be handed the reset SCB and crash; the only path from the
+reset SCB to them that is apparent is ahd_handle_scsi_status(), should
+a packetized LUN RESET end in a status error.
+
+Tested on the SE7501WV2S with the same change applied to v7.2.11
+(i686): a device reset sent with SG_SCSI_RESET_DEVICE to a healthy
+Seagate ST373453LW logs "Bus Device Reset Message Sent" and "Device
+reset returning 0x2002" (SUCCESS), scsi_eh_1 survives and the disk
+keeps working. That run goes through ahd_handle_devreset() and
+ahd_abort_scbs(), so it exercises the transaction status and freeze
+wrappers on the reset SCB. Not tested: the packetized (IU) LUN RESET
+path and the bus reset escalation. The oops was not reproduced on
+purpose on an unpatched kernel; the crash above came from the failing
+disk.
+
+Fixes: c67e63800446 ("scsi: aic79xx: Do not reference SCSI command when resetting device")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Andrew Luebke <andrew.luebke@gmail.com>
+---
+
+Notes:
+    This analysis, the patch and this changelog were prepared with an LLM coding
+    assistant (Claude Opus 5.5, Anthropic) at my direction; I reviewed them and
+    ran the hardware test described above. Build-tested with W=1 for x86_64 and
+    i386 on mkp/scsi.git for-next (db8b4d2bf2d3): no new warnings. sparse and
+    smatch were not run.
+
+ drivers/scsi/aic7xxx/aic79xx_osm.c |  1 -
+ drivers/scsi/aic7xxx/aic79xx_osm.h | 19 ++++++++++++++++---
+ 2 files changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/aic7xxx/aic79xx_osm.c b/drivers/scsi/aic7xxx/aic79xx_osm.c
+index feb1707fe..4c603ad63 100644
+--- a/drivers/scsi/aic7xxx/aic79xx_osm.c
++++ b/drivers/scsi/aic7xxx/aic79xx_osm.c
+@@ -819,7 +819,6 @@ ahd_linux_dev_reset(struct scsi_cmnd *cmd)
+ 	reset_scb->io_ctx = NULL;
+ 	reset_scb->platform_data->dev = dev;
+ 	reset_scb->sg_count = 0;
+-	ahd_set_residual(reset_scb, 0);
+ 	ahd_set_sense_residual(reset_scb, 0);
+ 	reset_scb->platform_data->xfer_len = 0;
+ 	reset_scb->hscb->control = 0;
+diff --git a/drivers/scsi/aic7xxx/aic79xx_osm.h b/drivers/scsi/aic7xxx/aic79xx_osm.h
+index c6eb2b97e..b47aa6c98 100644
+--- a/drivers/scsi/aic7xxx/aic79xx_osm.h
++++ b/drivers/scsi/aic7xxx/aic79xx_osm.h
+@@ -508,7 +508,8 @@ void ahd_cmd_set_transaction_status(struct scsi_cmnd *cmd, uint32_t status)
+ static inline
+ void ahd_set_transaction_status(struct scb *scb, uint32_t status)
+ {
+-	ahd_cmd_set_transaction_status(scb->io_ctx,status);
++	if (scb->io_ctx)
++		ahd_cmd_set_transaction_status(scb->io_ctx, status);
+ }
+ 
+ static inline
+@@ -521,7 +522,8 @@ void ahd_cmd_set_scsi_status(struct scsi_cmnd *cmd, uint32_t status)
+ static inline
+ void ahd_set_scsi_status(struct scb *scb, uint32_t status)
+ {
+-	ahd_cmd_set_scsi_status(scb->io_ctx, status);
++	if (scb->io_ctx)
++		ahd_cmd_set_scsi_status(scb->io_ctx, status);
+ }
+ 
+ static inline
+@@ -533,6 +535,8 @@ uint32_t ahd_cmd_get_transaction_status(struct scsi_cmnd *cmd)
+ static inline
+ uint32_t ahd_get_transaction_status(struct scb *scb)
+ {
++	if (!scb->io_ctx)
++		return CAM_REQ_INPROG;
+ 	return (ahd_cmd_get_transaction_status(scb->io_ctx));
+ }
+ 
+@@ -545,6 +549,8 @@ uint32_t ahd_cmd_get_scsi_status(struct scsi_cmnd *cmd)
+ static inline
+ uint32_t ahd_get_scsi_status(struct scb *scb)
+ {
++	if (!scb->io_ctx)
++		return SAM_STAT_GOOD;
+ 	return (ahd_cmd_get_scsi_status(scb->io_ctx));
+ }
+ 
+@@ -566,13 +572,16 @@ u_long ahd_get_transfer_length(struct scb *scb)
+ static inline
+ int ahd_get_transfer_dir(struct scb *scb)
+ {
++	if (!scb->io_ctx)
++		return DMA_NONE;
+ 	return (scb->io_ctx->sc_data_direction);
+ }
+ 
+ static inline
+ void ahd_set_residual(struct scb *scb, u_long resid)
+ {
+-	scsi_set_resid(scb->io_ctx, resid);
++	if (scb->io_ctx)
++		scsi_set_resid(scb->io_ctx, resid);
+ }
+ 
+ static inline
+@@ -584,6 +593,8 @@ void ahd_set_sense_residual(struct scb *scb, u_long resid)
+ static inline
+ u_long ahd_get_residual(struct scb *scb)
+ {
++	if (!scb->io_ctx)
++		return 0;
+ 	return scsi_get_resid(scb->io_ctx);
+ }
+ 
+@@ -631,6 +642,8 @@ void	ahd_platform_freeze_devq(struct ahd_softc *ahd, struct scb *scb);
+ static inline void
+ ahd_freeze_scb(struct scb *scb)
+ {
++	if (!scb->io_ctx)
++		return;
+ 	if ((scb->io_ctx->result & (CAM_DEV_QFRZN << 16)) == 0) {
+ 		scb->io_ctx->result |= CAM_DEV_QFRZN << 16;
+ 		scb->platform_data->dev->qfrozen++;
+
+base-commit: db8b4d2bf2d3e02b4ff78bbf69d00e11795840de
+-- 
+2.47.3
