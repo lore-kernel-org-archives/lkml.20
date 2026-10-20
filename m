@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494060;
-	b=ku4qj4G3JYMk/dw+K/G1ruF5Tqvg8TIjA3oMr+t8gYsBJFuhqcbqIc6ywqJm1IroLjFN
-	 vtK034Zb5wZDovgtcIAbsOE23lgsRktN+9etLVpxA6kUY+w63zrq9fVVxcchXuPl+dh3V
-	 RhUwzvONJgZ6/j7wxKxct0jdLzvvBhToc66FE6qAmPN78IrGK3dOlG3ymA/Lccx/opdcc
-	 hofpZsYpiVYMM5gKhHeWFXsv+a+k9MENczAqMgiRQJaIk0WwwRxG42MvJjcO28apMCR/+
-	 Vgauam2V9M6NKTwKRb3GqRFDXwoA+KTiLv735AYas13OjGGMEP2ibcAtn7CcD9db08A==
+	t=1792494086;
+	b=zVc0WoWGLoEqUs4FK6cysGG9vQrL3MQ5dvznsGjyQ08O3oZ3yV6dTQHTADtIq5S6OrjU
+	 pOOIVoMSequWw1dCDoHvMPyA51SeFol//V5xEIiF7ikAHZn8y/jkgm05sCWmagOpEPlQ8
+	 6kIHABadiAfQx3Bph5/niYwP/tUmTfiEMwck6WZkUBtW2lYk5sVqnYAru5JIe358xYcOm
+	 B3nv3Rv4ZBub1NlZy71zMc9X0xMC5JC084eFytHj5xbO9frYs/S9fs7caaqFnmbv3eGMv
+	 S6OcfMaqXHRk3vo4VOiKnFNHr2VdII2sxfBqUagmHKab0VA6Q/rdXT0qvcX3fXzyRRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494060;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=SrKJjXfdM0MbsoostKwsM8/MNs73BD60MtEKBomI2y8=;
-	b=hDMkv5MtJ5VkOn5QWFM0Ag8Jc6YZJIMzi2E1RaUhyFqf3JJ6tcLL5tFVN/2se63aBhhr
-	 8s+nHSzFrW+jki2/w03tPWTJDhxtQsiDC91tk9XvB76uvA0aGErhmPJ5/HBpHFvalXErk
-	 t2RsjZJoojRx2eQ6yWi6VPWetUhK2BfJAAhO5HIg6fmIVZvDvryx8SKY1ZlOM4tmEHJJL
-	 74nzXcNqNE4+Bejwb+KJoK3bgmOgmkoDr5F+tk8L4FRp6o4ycDgcrNaWfKd/aAEX9PNmG
-	 lGxaZ81AXdbgH7kO0ITiim9g9sONyh8BIGabZHDYIoMK9qdj08Q1fcOAnViS/7lVQUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494086;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=bIGv/nhTaqbLWpQj+w2fP5/8t32IudmW4UzVTxZzMFc=;
+	b=A1kZwL7dz+/MQY402RdXLiWOBp8GJFR0QqjIpe3bPNGgfnWtNoAjsdDmcVqf9aPBE0n4
+	 o3KvQMKH09eM8cIOH2uJKuggpGbMEFK8o/GxXQJaR08Hpi6jDTNh7ogfEnRXHQbfISG99
+	 J+pjDNKn5Nv63x94HO5HBRU2FyxPIaDsviHeOFTMW+9sTeIW3qOWP5hNDfTsOBv9iYs9M
+	 37gnKe/HPF3xnRFjm0d58AoHiDp0NW7cAsj2jsBWOj/C/Jc8q9PF2qDZeJGfdG5T0ggep
+	 i4m1rd3QPCflxB0VlARFlyFomHvz+wwRj4mw/WvkKT8M590MXlXUX2Yn7jVhWD0iHKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="AF//5wRN";
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CxIBiwd9;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A48D606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A48D606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAE9606A31A;
+	Tue, 20 Oct 2026 11:01:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DAE9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AF//5wRN
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c40447e25e6so355047366b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:01:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792494058; x=1793098858; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=SrKJjXfdM0MbsoostKwsM8/MNs73BD60MtEKBomI2y8=;
-        b=AF//5wRNdZMUPE9IcTp4QJXMtRtzpBJNa068PsS5inNZzg/KRFCrKWCoKHFu1wu57L
-         BbUFWgPmXUXEz3a5hY2Ok625q0m4coZ6XHjKu38kAh14NS3RlOZYsghzxk4ZvbE3r8Rl
-         b6OEMncZXahkz91KyGHXBhR0agMCg6NEwDqSqsThhWd+5EB7e0BsmRErAQsEgxXWTf9I
-         dCC07j1mIt4Gmu+CeuXRmnLwl8SZcq2iOF4Du6ecMhLLNhqyrIiIqkNItKNldwRmU31e
-         evVYHYngVj7AEjWIvTD38ZNDUYgtkzCyK3wnPdztIlF2woU3PPwhEJYtScQf/LtE4shm
-         eg+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792494058; x=1793098858;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SrKJjXfdM0MbsoostKwsM8/MNs73BD60MtEKBomI2y8=;
-        b=dy77x7aVXdPW7UMsgSFPQlwvPjlQPX/hqvSHgTBjyfls3uDn2iaKYR1bDizkNDPH8E
-         HHLq+HANJuS/xCjRCEyqTcfa2v1pcIBLGGp4VyUIQGwIMerJ5HO8G5/IOXTUyOtLiIwt
-         ZdjtwJbIl3ij96ZlCVApAv9Cfu6AMyB1CTgfIyUA/D+addrqVdzotBJn0IIpuAJyM4Da
-         pQO6wCGMt2spHsEF0E5npkhh1MvD1HiVGZU/jaawhFelPGp9at4T/Ng5dSWa0yX0EKTQ
-         e+k8Pz1t9DmvLyibKUDzWKy18+Lc47DwktlVQJME78Bgezk6VHNDsQcIQCLEiTRMOJi+
-         qvEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlAvYzpQ9eJAC/pbZZmE+CGhgl8Mcl9ip6XjRw8FNGDjklqPhGmMoa2lxxat+jMWzsIGAs4qG+Wo6Mjuo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJI5R2Pj0YGRNyPTc4GRgAbpjEdPZlMqy52JHUfkVEgufRqN+R6
-	4A6EM9kQ07tFCDtPIlFYwi7FBqMyMBHGII9HweQ7Ni6m8M/6B7z69KFZ8ZCFKoGHZjltN/T7NNT
-	iKkNsKLP9
-X-Gm-Gg: AYBFou228jf7PbUei/CCT4kkbzEMpjFgrCNd36M7tsIu2fZqa9GrYX3ifm4gjAdzjdi
-	Ebze26WxLS87HA0f2qHFj0X7PLTkkCvBXVYfEfqMOm+pVyymURivAussP+VNV9P4+2L4ZSfB16n
-	4TKNwjQfCVJ6Nsq459fRigyCy78JOE/DiK4bCmE8OJHfWp20XWCSqyiAHxdNx8s2/rl6mws0Zj+
-	jNIGFDPKjFXqOvpvEbeHldI8B+YcHK2AmGxiBysAUyC1CaCoG/BlBnFx3xZx8RrCI5r1FZVzBpA
-	HpQt5ybxzL55QsI/r7e0d8/YfyGJi42XHbjeU1WwM3VY7tjNFAwmZFwx1/Stvqt1ciL2HcMn+tM
-	4FxOWrKu1JUaExWVH9xrDFPROf37V6Rk6HK/7Qhbgq8/aEtyqnWutNpnPxY06JCwpHqru/VEyRy
-	iC4XQ8CTxwTHLUSFPojwWQwOhcDkW4XajDyoD6o7KaHjCeTUWw/s+oNcMJNgssqwoElceQKGLFj
-	zuGHncVORlG7dBm0wrBeGdmhtGkml3jgwirvAdDlUkw2PVaVA==
-X-Received: by 2002:a17:906:f5aa:b0:c41:6149:cb43 with SMTP id a640c23a62f3a-c419e53f5d3mr810874066b.18.1792494057892;
-        Tue, 20 Oct 2026 04:00:57 -0700 (PDT)
-Received: from elver.google.com (11.26.205.35.bc.googleusercontent.com. [35.205.26.11])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40913c6145sm461656966b.41.2026.10.20.04.00.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 04:00:56 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:00:52 +0000
-From: Marco Elver <elver@google.com>
-To: Caleb Kan <calebkan1106@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Alexander Potapenko <glider@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>,
-	kernel-team@cloudflare.com
-Subject: Re: [PATCH RFC v2 02/11] stackdepot: add caller-owned stack trace
- fetching
-Message-ID: <atdJ5AbOVXS9W7Gg@elver.google.com>
-References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
- <20260908-stackdepot-trie-v2-2-1996d5cef732@cloudflare.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CxIBiwd9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792494086; x=1824030086;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WJqxCu589AI+TD59k3g3v3r9ySXn6/OYJL/OB2v4Z4k=;
+  b=CxIBiwd9PEWi7tbxCv7DT8O3vtv8fggA9XRBqSdggY0zjqutVvW9HV2p
+   KyaX8AhZGPQ7Ux+QsAPJvyitUm0rnfzxtyiKy7biq7t0Aj4rQbdjpEu0s
+   +X9Y+NZFWnLl5i3d2GPR+/8uFFxq1sa+ZQRZdGM4yjSictvolFBrDEhyO
+   LcdAna8FjD9nU/lRJuVgY1h1akNokMFO4VN/yVBMYkIJBw1bg/gNCKPn7
+   YNmPwcHWm0dhSdkNeIqs2gp97RBmi7reOqwZvctqL03/HZDLOIiNAHv/9
+   CibaRMjGc5RsZvRKNPCrOUpjJlYq2zXHH8366M1IeOWFTlIQXHU/5wUkc
+   w==;
+X-CSE-ConnectionGUID: vERJ9F2VTqCeLbJQoUgRzg==
+X-CSE-MsgGUID: 6X2AVpjcQLqGd5QXtAxnpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1204638"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1204638"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:01:22 -0700
+X-CSE-ConnectionGUID: iWEd7grjRNaa5vRx+MzUuw==
+X-CSE-MsgGUID: F8Mq7umbRKuFikuw0iesCw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2741692"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa002.jf.intel.com with ESMTP; 20 Oct 2026 04:01:19 -0700
+Date: Tue, 20 Oct 2026 18:56:26 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com,
+	x86@kernel.org, kas@kernel.org, adrian.hunter@intel.com,
+	yan.y.zhao@intel.com, binbin.wu@intel.com, xiaoyao.li@intel.com,
+	chao.gao@intel.com, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, nik.borisov@suse.com,
+	tony.lindgren@linux.intel.com
+Subject: Re: [PATCH v2 1/2] x86/virt/tdx: Drop tdx_clflush_*()
+Message-ID: <atdI2mPV8HfcSr0I@yilunxu-OptiPlex-7050>
+References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
+ <20261015191710.3632302-2-rick.p.edgecombe@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,134 +85,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908-stackdepot-trie-v2-2-1996d5cef732@cloudflare.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
+In-Reply-To: <20261015191710.3632302-2-rick.p.edgecombe@intel.com>
 
-On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
-> From: Caleb Kan <ckan@cloudflare.com>
+On Thu, Oct 15, 2026 at 12:17:09PM -0700, Rick Edgecombe wrote:
+> The TDX module exposes a bit (CLFLUSH_BEFORE_ALLOC) to say whether it
+> requires certain types of memory to be flushed from the cache before being
+> handed to the TDX module.
 > 
-> stack_depot_fetch() returns a pointer to contiguous storage owned by stack
-> depot. That cannot work for a backend whose frames are not contiguous, so
-> callers need an interface that copies the trace before they can support
-> both backends.
+> During the initial TDX upstreaming, it was decided it would be simplest
+> to just always flush rather than checking for the bit and having
+> conditional logic. So based on the TDX docs:
+>   When allocating a memory page to be used as TD private memory or TD
+>   control structure page, the host VMM is required to ensure that none of
+>   the cache lines associated with the page is in a MODIFIED state.
 > 
-> Add stack_depot_fetch_into() to copy a complete trace into caller-owned
-> storage. Leave the destination unchanged when it is too small, keep a zero
-> handle as a no-op, and document that callers must keep the handle valid
-> while copying it. Warn if a caller passes a NULL buffer or zero capacity
-> for a valid handle instead of treating the stack as missing.
+> ...currently the kernel flushes before handing over private memory and TD
+> control structure pages.
 > 
-> Unpoison the copied entries before returning them because
-> lib/stackdepot.c is not instrumented by KMSAN. Add built-in KUnit tests for
-> exact and oversized destinations, zero handles, and undersized buffers.
-> Later patches add tests for stack depot internals.
+> The CLFLUSH_BEFORE_ALLOC bit has never been set by any TDX module, so this
+> flushing has yet to be needed in practice. Going forward, the TDX docs will
+> be updated to clarify that actually CLFLUSH_BEFORE_ALLOC will *never* be
+> set in any future TDX module either.
 > 
-> Signed-off-by: Caleb Kan <ckan@cloudflare.com>
-> ---
->  include/linux/stackdepot.h   | 36 ++++++++++++++++++
->  lib/Kconfig.debug            | 16 ++++++++
->  lib/stackdepot.c             | 28 ++++++++++++++
->  lib/tests/Makefile           |  1 +
->  lib/tests/stackdepot_kunit.c | 89 ++++++++++++++++++++++++++++++++++++++++++++
->  5 files changed, 170 insertions(+)
+> So make code even simpler by just deleting all the CLFLUSH_BEFORE_ALLOC
+> handling.
 > 
-> diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
-> index 2cc21ffcdaf9..734529767c8a 100644
-> --- a/include/linux/stackdepot.h
-> +++ b/include/linux/stackdepot.h
-> @@ -199,6 +199,42 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
->  unsigned int stack_depot_fetch(depot_stack_handle_t handle,
->  			       unsigned long **entries);
->  
-> +/**
-> + * stack_depot_fetch_into - Fetch a stack trace into caller-owned storage
-> + *
-> + * @handle:	Stack depot handle
-> + * @entries:	Caller-owned buffer to copy the stack trace into
-> + * @max_entries:	Number of frames that fit in @entries
-> + *
-> + * Copies the stored frames into caller-owned @entries. If fewer frames are
-> + * stored than @max_entries, only the stored frames are written and their count
-> + * is returned. If more frames are stored than @max_entries, the copy is skipped
-> + * entirely and 0 is returned.
-> + *
-> + * Passing a NULL @entries buffer or zero @max_entries for a valid @handle is
-> + * invalid. Callers must provide storage for @max_entries frames.
-> + *
-> + * Callers should size @entries to match the save-side stack depth cap (for
-> + * example, %CONFIG_STACKDEPOT_MAX_FRAMES or the local stack_trace_save() limit)
-> + * when losing diagnostics on an undersized buffer would be surprising.
-> + *
-> + * A non-zero invalid @handle, including a post-put handle, may WARN. Its return
-> + * value and copied contents are undefined because the record may have been
-> + * reused for another stack.
-> + *
-> + * Callers must ensure @handle remains valid for the duration of this call.
-> + * Persistent handles saved without %STACK_DEPOT_FLAG_GET require no extra
-> + * reference; handles saved with %STACK_DEPOT_FLAG_GET require a held reference.
-> + * Callers must not call stack_depot_put() on persistent handles.
-> + * Racing this helper with stack_depot_put() on the same handle is invalid.
-> + *
-> + * Return: Number of frames copied, 0 if @handle is 0, stack depot is disabled,
-> + * or @max_entries is less than the number of stored frames.
-> + */
-> +unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
-> +				    unsigned long *entries,
-> +				    unsigned int max_entries);
-> +
->  /**
->   * stack_depot_print - Print a stack trace from stack depot
->   *
-> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> index 134b15a44625..fcd74edfd93a 100644
-> --- a/lib/Kconfig.debug
-> +++ b/lib/Kconfig.debug
-> @@ -2785,6 +2785,22 @@ config RESOURCE_KUNIT_TEST
->  
->  	  If unsure, say N.
->  
-> +config STACKDEPOT_KUNIT_TEST
-> +	bool "KUnit test for stack depot" if !KUNIT_ALL_TESTS
-> +	depends on KUNIT=y && STACKDEPOT
-> +	depends on STACKDEPOT_MAX_FRAMES >= 3
-> +	default KUNIT_ALL_TESTS
-> +	help
-> +	  Enable this option to test stack depot API behavior at boot.
-> +	  This test is built in, so KUNIT must also be built in.
-> +
-> +	  KUnit tests run during boot and output the results to the debug log
-> +	  in TAP format (https://testanything.org/). Only useful for kernel
-> +	  developers running the KUnit test harness, and not intended for
-> +	  inclusion into a production build.
-> +
-> +	  If unsure, say N.
-> +
->  config SYSCTL_KUNIT_TEST
->  	tristate "KUnit test for sysctl" if !KUNIT_ALL_TESTS
->  	depends on KUNIT
-> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-> index 90c52f2e0d3f..4da7279d9f83 100644
-> --- a/lib/stackdepot.c
-> +++ b/lib/stackdepot.c
-> @@ -785,6 +785,34 @@ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
->  }
->  EXPORT_SYMBOL_GPL(stack_depot_fetch);
->  
-> +unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
-> +				    unsigned long *entries,
-> +				    unsigned int max_entries)
-> +{
-> +	struct stack_record *stack;
-> +	unsigned int nr_entries;
-> +
-> +	if (!handle)
-> +		return 0;
-> +	if (stack_depot_disabled)
-> +		return 0;
-> +	WARN_ON_ONCE(!entries || !max_entries);
+> AI was used to review the change.
+> 
+> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-If this triggers (e.g. entries == NULL with non-zero max_entries), it
-falls through to memcpy(NULL, ...):
-
-    if (WARN_ON_ONCE(!entries || !max_entries))
-        return 0;
+Reviewed-by: Xu Yilun <yilun.xu@linux.intel.com>
