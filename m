@@ -1,74 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500670;
-	b=hcFgggiKFUQz4B54IqYXET6Um+eDjVikeBuej6MzE7a+hom6BGxavOzzu665XR1pACoI
-	 Rt6K8iETNN10S16/1glhmL7P+Q4A6VvjCx7z6kBQ8lfUJmvlx6WS1cS2eP5u+YVabD+td
-	 4HVS4iNv6eW1Ua5QVTXp5Klt2gmXc10O5ihXvFeIcy6QwqqQ/SYjOV9wE6vK3wBme/Rj1
-	 j6phY7dtRdhAS2IV7eddxb4Wi6L9Nq/vSEDgBTNb7PbyMvGMjqrW1f5bahRbgPyh8fefX
-	 8foKI2OEctbdZroybpNdG+ab0ppbK4pC0pEbFUxXaPlzS8/rCGpwPH7SS0DstXQe2Bw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500670;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Scanned-By;
-	bh=YxottX/ImyknSsFNy+uHufp0WQNNy3hoX9V92370Wdg=;
-	b=jrssyuItYfX5zx7zFJRa9UpABPBqi7WM32EncH06btdrXtHF3Tt5NnRL/l81EchDka6f
-	 IaCV8o1uNidJTLQ2TMuvLEwguRERXj53X1TFUiBcJ+w1h7VsvoiIJdbyoCBDN6m5jAd5S
-	 e0SkR3o0jaCpjjRfX4kmF3KNX8mK3s9W+udhaskmidWUmB2YoGgkqQUpUcVX9TKIP5R0I
-	 St+yirOyefQx9+7fB1/7/Y3wf6Nrb7u89q36bpM14G58w6qSIjrfyVO6ZSEMIAUabzHWw
-	 I37HFedro+2q/8lLdhIC/+e/roUetkpEnt9/+owuo+xut0g6/PDF+sOG54GQ5DKWXFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PZH1BT0f;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792500667;
+	b=wKvf2xrSR+b4ZGPNDu/2XwvnvRK7Lj++iL6ygGyraxCzvXiPKv0bdq8IaglJ5G/N5bjz
+	 4vYGBSyFYugPWqaIxJyE8BFCCwtgvSQLuqGowObThaWLwaDy5svyvKCY2HEq6K/SsV827
+	 D9GPQvTWzy8IgdC3GtTjCpJeufAbFeL00ozE/Vp7NbgdN17WJRiwRomZym69ThSqlsDBt
+	 9pL0xDYhcrhs+eDzGns0td/YKvQBvZjy+xscCpN6Lfi5NkzPpo8ldACLH5OpQBX328veq
+	 osw6ghqTLx4+CHctUzoTKDeqbbpbgTwZqGg6uWwh8bcuaes7l+DcsWvzNYiM/cRgrvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500667;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=eJspOywmDZU5gaFFE99FEqN+qI+6DucLAWXc2IOUlV8=;
+	b=I+E2o8s+GCyvHa5L/or4CTbzNerim6nlu3OQLM1FmmS4JWyKSidVLiwfVxvQpm6r0B+i
+	 6WGMHyhzL7yblaXWJgjgz9/13NiksyHX0pzWpGNc94xVDwPpAAenJt2Ngabn43RhOzd6S
+	 vngP9pchMtCuZqU5KGSV6tHMiZnKkf2OsUGuT/KGI2OJ9qxAOU4Yqac1cywy6/akCs8i5
+	 l9Np76JQibz+vOSLFeTCF0T8gMu/nXYZtuJ1erXWEhGNLpqsYNYXiTI0/4G5AbFgZzsQf
+	 oFZlFz/7pfua43N9/RBiHm76S0UGSN+8BwYWYZX/j7BYxnCtkyfp/B9wDwBqnkwS3nQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Jk85CJzW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B957A606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B957A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53DD606A319;
+	Tue, 20 Oct 2026 12:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E53DD606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PZH1BT0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792500668;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=YxottX/ImyknSsFNy+uHufp0WQNNy3hoX9V92370Wdg=;
-	b=PZH1BT0fTtk2T5NPZlxrwxMWNW/13cAOP6A9Us5jT+I6IVA2FkGvtZZu5P1UTzPwUp273Q
-	5zOujvS/z5ckzt9zDeZ2HAmElYz9vGMMTnntw3b4VvvykUjSWwb/iexf2mcQzTiNw8UOyD
-	PeadSRo+o1+/hBFlgiw6soxvezuugFA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-696-wnZYHm72PJuDxZ9TrXFQ5w-1; Tue,
- 20 Oct 2026 12:51:05 +0000
-X-MC-Unique: wnZYHm72PJuDxZ9TrXFQ5w-1
-X-Mimecast-MFC-AGG-ID: wnZYHm72PJuDxZ9TrXFQ5w_1792500664
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0EEA61955EAB;
-	Tue, 20 Oct 2026 12:51:04 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D48CA1803A51;
-	Tue, 20 Oct 2026 12:51:02 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: linux-scsi@vger.kernel.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	=?UTF-8?q?Kai=20M=C3=A4kisara?= <Kai.Makisara@kolumbus.fi>,
-	John Meneghini <jmeneghi@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] MAINTAINERS: add Laurence Oberman and John Meneghini as SCSI tape driver maintainers
-Date: Tue, 20 Oct 2026 08:50:59 -0400
-Message-ID: <20261020125059.1797559-1-loberman@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Jk85CJzW
+ARC-Seal: i=1; a=rsa-sha256; t=1792500658; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=A7NB2iQVQe25QLZRxYuqK4Z3HrEOaMBhiJ4tZiH5nUh+apdVZ9JaZ4u7B4LrzAmSEeV7K66g3mqNvKIpg4d5BS10UZkR41ppjj3OtTV+IBgaiVDLtOHVE14Pwd6vrzmnzTfgU0z7Sp/E4qc+hHWdhyVQUDpylDt8S9NQ1YHcojo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792500658; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eJspOywmDZU5gaFFE99FEqN+qI+6DucLAWXc2IOUlV8=; 
+	b=WSIpHQpM4MzQQDSGEHxxRiBEIICWqya5ypGW1jYaYhffQ4FOmDeB2weob2Pq5pdhdRSNwGC1+41eXWwaIp/ccYZjfyWC8Xkxsh1S6Wy5q9hP0QzWMyYLyi/jn9OTkkDgk69sb1MgNZhhHfmOqtIi5M6PTJqCRRywfFwlAEOg2ho=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792500658;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=eJspOywmDZU5gaFFE99FEqN+qI+6DucLAWXc2IOUlV8=;
+	b=Jk85CJzW49Hga94txNBJswWv//PDKgrjZGJZQ14EcqVPbpoaJ2aWap6sVkxT5Get
+	a5d9BmCgb6WqsOhCrTf2r+LJpYreYcSX605cj0tksOPQAPN0TSefUk9U0gzWydoxfMb
+	3IVXvGlqdPhtRYUY2X6XqbopQ4ZPf3p6XQ9zGKSQ=
+Received: by smtp.zohomail.com with SMTPS id 179250065579496.0408189778044;
+	Tue, 20 Oct 2026 05:50:55 -0700 (PDT)
+Message-ID: <eb20c279-d582-48cd-b461-59979b529c42@zohomail.com>
+Date: Tue, 20 Oct 2026 20:50:50 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,43 +65,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] cxl/mbox: Return success for
+ CXL_MBOX_CMD_RC_BACKGROUND
+To: Richard Cheng <icheng@nvidia.com>
+Cc: dave@stgolabs.net, jic23@kernel.org, dave.jiang@intel.com,
+ alison.schofield@intel.com, vishal.l.verma@intel.com, djbw@kernel.org,
+ iweiny@kernel.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261020090352.939795-1-ming.li@zohomail.com>
+ <atc3PJRk3M_RBmMG@MWDK4CY14F>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <atc3PJRk3M_RBmMG@MWDK4CY14F>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Feedback-ID: zu080112272c91931678d05cc42444b18d0000589a94c8ae7a9166dc285a88179926243f8b57b18cfc55f31f:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-The SCSI tape driver (st) is currently marked as orphaned. Add
-Laurence Oberman and John Meneghini as co-maintainers and change the
-status to Maintained.
+On 10/20/2026 5:42 PM, Richard Cheng wrote:
+> On Tue, Oct 20, 2026 at 05:03:52PM +0800, Li Ming wrote:
+>> In CXL subsystem, each mbox command hw return code is mapped to a
+>> corresponding errno value. Currently, CXL_MBOX_CMD_RC_BACKGROUND is
+>> mapped to -ENXIO.
+>>
+>> However, a BACKGROUND hw return code indicates that the command has been
+>> accepted by the device and continues execution asynchronously. It does
+>> not indicate a command failure.
+>>
+> Hi Li,
+Hi Richard,
+>
+> Can we have the spec section written here ?
+Sure.
+> Btw I wonder how you trigger the error ?
 
-Also add a link to the tape_tests repository, which contains the test
-suite used to validate the st driver.
+We cannot trigger this error, currently, driver does not check/use BACKGROUND's error. it is found by review, please see [1]. 
 
-Kai Mäkisara, the previous maintainer, has agreed to this change.
+[1]: https://lore.kernel.org/linux-cxl/cover.1791949910.git.alison.schofield@intel.com/T/#mc7764b9f3f470adf62292000299e8288d2241c3d
 
-Cc: Kai Mäkisara <Kai.Makisara@kolumbus.fi>
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
-Signed-off-by: John Meneghini <jmeneghi@redhat.com>
----
- MAINTAINERS | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Ming
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4ad924aeaf16..10bde5d86026 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24576,8 +24576,11 @@ F:	include/uapi/scsi/
- F:	include/ufs/
- 
- SCSI TAPE DRIVER
-+M:	Laurence Oberman <loberman@redhat.com>
-+M:	John Meneghini <jmeneghi@redhat.com>
- L:	linux-scsi@vger.kernel.org
--S:	Orphan
-+S:	Maintained
-+W:	https://github.com/johnmeneghini/tape_tests
- F:	Documentation/scsi/st.rst
- F:	drivers/scsi/st.*
- F:	drivers/scsi/st_*.h
--- 
-2.56.0
+>
+> Best regards,
+> Richard Cheng.
+>  
+>> Return 0 instead of -ENXIO for CXL_MBOX_CMD_RC_BACKGROUND so that
+>> callers do not treat a successfully started background operation as an
+>> error.
+>>
+>> Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
+>> Signed-off-by: Li Ming <ming.li@zohomail.com>
+>> ---
+>>  drivers/cxl/cxlmem.h | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+>> index c401e3a1af06..cc71d7a84cdc 100644
+>> --- a/drivers/cxl/cxlmem.h
+>> +++ b/drivers/cxl/cxlmem.h
+>> @@ -160,7 +160,7 @@ static inline struct cxl_ep *cxl_ep_load(struct cxl_port *port,
+>>   */
+>>  #define CMD_CMD_RC_TABLE							\
+>>  	C(SUCCESS, 0, NULL),							\
+>> -	C(BACKGROUND, -ENXIO, "background cmd started successfully"),           \
+>> +	C(BACKGROUND, 0, "background cmd started successfully"),		\
+>>  	C(INPUT, -ENXIO, "cmd input was invalid"),				\
+>>  	C(UNSUPPORTED, -ENXIO, "cmd is not supported"),				\
+>>  	C(INTERNAL, -ENXIO, "internal device error"),				\
+>> -- 
+>> 2.43.0
+>>
 
