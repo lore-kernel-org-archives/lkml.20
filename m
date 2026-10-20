@@ -1,111 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792532194;
-	b=iGzr3JNREhSia2FWZuWpHjxoWb8zUN2vZ3yf3d0+MyEEo42vB1hqWmNTlG/tlpsYzrQx
-	 avkqcaWgJgc2COVwBpLLtMSwLwXJEDRpF79D72LSBY4xbKICLfnjMMS/mXqFOd2wR3H6b
-	 ZaDkoXSYKbQxEZ5mWaVMLNvznrxwhlmFOw8s5u0FMwUrrejazVxjpo7wkUcMF7dc2UqaK
-	 /s2zAdINyvPs1mTCVCR2s1op9CxPh/rJCgVsQ1IrW/Uddk+Q3UTdnC2rt1lK0gumS8bQa
-	 MrZcHkcGmx+D7CZ8NnXp0+gJz1WhlGSTDts00qhLxEEfGCzm1iTrwRayUzZHn1GAS6w==
+	t=1792532220;
+	b=gZnDJqhUt16jvIyBgUrG9+8dtod+IFlmBmkYLXwyF+p/EiScZW3HVhZTl51wOZ/+0j2Z
+	 BQnQLFfS1mTnS4gAuOaa/Ce/sVX8SLidCmoOl277pyjwbMRqIIhVJlLTdWgDChLgtvqEw
+	 q4WSVP2O+4q10PyKlVatyCmmWYB4i/xA7Sz0fePv3SDjqGafmSSkjRcnR95QJlZymZHBd
+	 GAh9lVJTLmFT7+YB4NEEDcW/fORfdBEOsTML4Y4Dwpoz3bsPf8Yk/5snbMHKrr+ThnOvl
+	 pj5lAb8jjnqUmHvmwyy2ynBKsvDRVWMEkijiO4Ibu2CHW4A3/N79UocF4hWyZDWlzRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532194;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=0GbSbxcF7mqk/j5zgXa6M00AnGq+z6SkEGan9KfTiYE=;
-	b=H0McTDS25gIff2CgGbxe1Cricp6hetnlGcV4maF2VPI0TTDC0WGyjR7LkBEbYunsyU54
-	 jRRHyv3Fzq9jhFLnhrle0C25RHCcfbR2pdiSC1dgWiQ9dIqLhlO/XSjCEIgMkKyEq9BLV
-	 bBbnPb3+/dENawagF0OHEcyEa2AMzsIqc0h8wSoOUmru1svSo8Xu1hbCdapnRGsv5H1Hx
-	 2i1OzHS9ZrKZ3k8CsWNZffyrGpBTEODlrKtDYebNrusMron3dV4lqWQDKJJ7UdS59YPxY
-	 zUQ+suQoh0IuYxUsI7eTPxqaHHosO8CXzmAEFG3Tq+2wdpH8Ud2lJQYU+HvyV6pWLgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532220;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DniO7GTUvw7bqTyFUYAZgt74jqpmOaAIKPkBtG5q2Gk=;
+	b=KXuVmH7vf6SeonReslLLvNHG7t1ACs5bbzkWZAiR9WUr2t4RXME3TpZo3KFzYmt3dieN
+	 HN+tTULB81qp3EIU7WVBy5rMbvRvkLzQWB71eddazBsX+IC6bBfrK3k7oZ5LNUGmDmb9M
+	 FXA2axKDZukYb5iCUmZs1I9AAUhgrt15DYiBSImQLsCV71ZU3pfCheeNFdMwrvxwjjyQW
+	 r/7FGQGX5YKLzJlEaoS3hrD1n6oIOFACAx5KgNTidBrJeHVQwbjbBFMOJBFdxuQd5T6Kj
+	 7g+koEybe4snDvS866KMJTQMBp1CW0hwTTGZiUNpkniRHRLTeDcvLi5s3IjqSyBlpag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=AdVZBQoz;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="e79WIh/L";
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=IKuIkBXf;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3510606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:36:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3510606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F295606A31A;
+	Tue, 20 Oct 2026 21:36:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F295606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=AdVZBQoz;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=e79WIh/L
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 98579EC0506
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:36:32 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 17:36:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792532190;
-	 x=1792618590; bh=0GbSbxcF7mqk/j5zgXa6M00AnGq+z6SkEGan9KfTiYE=; b=
-	AdVZBQoz9zsHKbgJiLmILkcBFD/venW3C5T3k9bUEIndHesl4KHxluW+DbDXh8KZ
-	+gtbsJkrmK7JIr7+urE1mmb4I8QVCwwcQKQ++OKLrii8oYE16w2kCcmpi3Pr9MPp
-	b9ev6u5EvAMlrDHoBYZwG4skgEFT2bGUax2J+XTozD/RyAwVsdW8ooLMO3Ulg0wJ
-	r43BIJzMWXW6EmSggnntRlYqVhoLUCRKeIWb4yxFGhMDaTdkjkH95kSm7ZWeN0gA
-	sBkBGgBQqsLlJU448Hoo9DCyVcN7oSn1JrxPOVSfIVrbOX34eY0oUVMaZilgAV47
-	1XEK2cdid+y32yRfJzRL/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792532190; x=
-	1792618590; bh=0GbSbxcF7mqk/j5zgXa6M00AnGq+z6SkEGan9KfTiYE=; b=e
-	79WIh/L9qGP+EpT3hI2k5R+OQW6pDK44kNwimyu7VucRFyQZQvfNvooMHUgIiyRT
-	C6juuHaqwq7wmb/yP3ImvX42UJTPu6wNovRmDiVSxkBHzpbvzoBJoIDiltpNqEia
-	ozYlGHiumWEBiYnHpXxAM7yW1Q7nb9IkKnYH90XHQBNWCpc5WofDSksJoTdSx7vb
-	lqjPfPa0YHdEFMV4ovz/pE9fboyxQgScbdOxzp+Nksh+pbA4cIZ9Ysn0z3upghsW
-	gKw58EuxTw7DEMrqbB/9wBcx5aBUinteCSfDKoWJ85I/B2YNuK75pvAIjOBdyFrn
-	9GcuTWdSSU7wPDRZwbJVA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792532190; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:H+gjLsaWkKRcPTZN60WW5xws6WMGelyjSR+cvaToFYbjZyC
-	6Bk3Ff8sh6LjD959J3o0NxgkuyMdkwxpEm5WAqaUXnmLJy7g/rIJDgGVBr8kNYpH
-	cxnTKI6rWvNZaNUvuYJ3bbBlWcqty05sD9R0WeqeRPq5znskZMUWnD2+EHtZpxJ7
-	xipM7MgO0qfyBdvY/eEVEqRYlhYWciQaV1ESmlMnpt3dQD08j8TQkxxix2UKIWFC
-	SMn5m70ehJPQ4h7LZ9UdR6l+l7XpyN925PrdrdDsjz8BIQGiOxQKb1+iLWOehhM7
-	w6A7lL86dyycsb5KFjzx2VUljLB6Zs2jbvLwDgw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:1Ens3Vb2WEJuo5l6XGUwlSnDxgUirZOBZ7zFmckBBZI=:ef+akXHVMDf7SQcMykZ96WWptyVk1nyIOnthQ8jSqBc=;
-X-ME-Sender: <xms:3N7XakNwf5lqCwskTIUcQ18HtZ11ZM5tI9STjrfJxWivbzRKyW7lJg>
-    <xme:3N7XalzScU0ue0jbSQADmRNomaEwZ6YuaUqdxv2m_Y_gtnERB4_uF_PPAzumf9UIP
-    9nMCfVCYD34lsQMAUfHgGCsqt4Sg5XLhwPegGmVmuwtYPSjjfCc8Xq->
-X-ME-Proxy-Cause: dmFkZTGoMHb3d+Xh30/9DmivZ32y8pPIF08b/I3akBfROr1ndoXeA52Jr8CBxi2Yquzr+w
-    c7QHtCaM6levoerK3vFkPRn7o1gkD1kDuIoK1wlQn0NxHtp67JeqdgnUbLLQptExQeDTiI
-    7rTsRz5cdM4L1PzbaHKihqGeJs+2/CQMTG/oG6dvKe0zZEZQU5yGUgt8kPU1i9Ac1JRUFU
-    zvCX8J5DuGNUFr36PJ0RHQrknGRECgTS3kz3WriSI364YVZnu/vjq26+/5/QNmki+qf/rD
-    AxNrPuQKk1sPSvFmKmm6ExNJA6RK3767WlL5868MHwHOsBoV59KleOhz2I4AUIi3Iv99f1
-    TBrBFnW0mXI0PeR0ivxLHNNsMTp2kBIfGVZIQ8AVekDJ9Gh1oicFPANCd/T4Xr6B9plMNi
-    57GFTZQ4eBa/Nem119yvrbMe45i31fikkTXrtzqmJCgW3Q58DbwN1Y1EvvTs9pPYro0XcX
-    M45QUtXXmQus2VHAMcZspY/OBEp/8GRLm2RnpQT0qIv7Tndkaz8+a2k644EIR72F7YwUFm
-    GVG8AoN9BkL6TzY2p4P6Ov3Hy6zs8RHmKmBn1+mHUvKd67qZLa+M/b3Wp9RKAhsXWtZQj2
-    Uwzedz368yXMYZqZnJ7pIuP5iMGH1URXl3tmKp5vrehS4OlT9N9VU+3Yd8Ag
-X-ME-Proxy: <xmx:3d7XamZomFx1c83XVsdb24PLwPBgrhpFQ9mbVQPNkpJl1OSeBqymaw>
-    <xmx:3d7XaiVxtBCSE2mnTenBfm3JUqZ-T6JromnBM2OMd0wQ4dmavrMNwg>
-    <xmx:3d7Xasiy0PQcp12kYDykkqjiMaaoJp7_SNZ5Fpt9xyt-RuY3ezcTIw>
-    <xmx:3d7XaosQTfUKZpZAKI64gBM9tKH5YH7a4lvlLdQ06Blu5sPKAh8vQQ>
-    <xmx:3t7XamHEG5Jt2PSZa939BtR7aq-MEiEdJD9an6lBfQxovOP2Fs4VHvqu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 254B232A008F; Tue, 20 Oct 2026 17:36:28 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=IKuIkBXf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1792532217;
+	bh=PyZDwwkl589eMcugJzYk5y9RrjeAtVDA2rA8OJ4cCWM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IKuIkBXfYbTxMiG93vM1wcRM3MaxqlK22grQXBNdYTbTlJMjoj9HuH2Gw4EIilORU
+	 BAPCqnsTj5dJg3ozea2Z0O5yuIgrdkkj4f4clQDyhDUJKTxEeiI5K8ELoOGorn+l8k
+	 WTwxjqyekY0t4jB0Jyl2rLTb3az1y84bQlgmcyuY=
+Date: Tue, 20 Oct 2026 23:36:56 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Zhi Wang <zhiw@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, 
+	Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Lyude Paul <lyude@redhat.com>, Yury Norov <yury.norov@gmail.com>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Brendan Higgins <brendan.higgins@linux.dev>, 
+	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, driver-core@lists.linux.dev
+Subject: Re: [PATCH RFC 00/11] rust: add support for dynamic debug
+Message-ID: <ffe50a28-72d7-4b88-b7db-b7a590aacbc4@t-8ch.de>
+References: <20261011-rust-dyndbg-v1-0-832e4039b71f@weissschuh.net>
+ <DM9OY2QIU84D.2T3QX6SJJI6VH@nvidia.com>
+ <310ae622-20e8-42ac-b501-4315c4cd4d14@t-8ch.de>
+ <20261020212542.2e3331c4@inno-dell>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,57 +75,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AWltsBeAjQxZ
-Date: Tue, 20 Oct 2026 23:36:06 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Hungyu Lin" <dennylin0707@gmail.com>
-Cc: "Andrew Morton" <akpm@linux-foundation.org>,
- "Thomas Gleixner" <tglx@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Message-Id: <735f670b-b93d-402b-8eb0-43826a05bfe9@app.fastmail.com>
-In-Reply-To: <20261020210157.52057-1-dennylin0707@gmail.com>
-References: <20261020210157.52057-1-dennylin0707@gmail.com>
-Subject: Re: [PATCH] compat: Avoid double rounding in times()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020212542.2e3331c4@inno-dell>
 
-On Tue, Oct 20, 2026, at 23:01, Hungyu Lin wrote:
-> do_sys_times() already converts CPU time to USER_HZ ticks. The compat
-> path converts each value back to jiffies before converting it to
-> COMPAT_USER_HZ. This round trip can lose precision even when the two
-> userspace rates match.
->
-> With HZ=250 and USER_HZ=COMPAT_USER_HZ=100, one user tick becomes two
-> jiffies and then zero compat ticks. Every odd tick count loses one
-> tick, so any of the four tms fields can underreport CPU time by an
-> additional 10 ms.
->
-> Return the value directly when the native and compat units match. Keep
-> the existing conversion for differing rates.
+On 2026-10-20 21:25:42+0300, Zhi Wang wrote:
+> On Tue, 20 Oct 2026 19:30:33 +0200
+> Thomas Weißschuh <linux@weissschuh.net> wrote:
+> 
+> > +To: Zhi Wang
+> > 
+> 
+> Thanks Alex for bridge the threads together!
+> 
+> Hey Thomas,
+> 
+> Thanks for the comparison! As a user of this feature, I'm happy to
+> combine the two series and see this making progress.
+> 
+> The Bounded types, bitfield tests, and module_path!() fallback look
+> like useful additions. One clarification: with CONFIG_JUMP_LABEL, our
+> disabled path already has no FFI call. static_branch_unlikely!() is
+> sufficient for our initially disabled callsites, including enabling
+> them at runtime.
 
-Good catch!
+Ack. Although adding jump label support as a later step would make the
+patches smaller and easier to review.
 
-> Fixes: f06febc96ba8 ("timers: fix itimer/many thread hang")
+> For the combined series, I'd like to retain these behaviors:
+> 
+> - Debug logging is independent of debug_assertions, starts disabled,
+>   and is controlled through dynamic debug. IMHO, fewer distro kernels
+>   are compiled with CONFIG_RUST_DEBUG_ASSERTIONS=y nowadays. (At least,
+>   Arch and Fedora are compiled with N)
 
-That one apparently just moved the code into a separate function, but
-the bug was already there before 2.6.12:
+Ack. It would still be useful to also support default-enabled callsites,
+like the C version does. What about '--cfg DEBUG'?
 
-+               tmp.tms_utime = compat_jiffies_to_clock_t(cputime_to_jiffies(utime));
-+               tmp.tms_stime = compat_jiffies_to_clock_t(cputime_to_jiffies(stime));
-+               tmp.tms_cutime = compat_jiffies_to_clock_t(cputime_to_jiffies(cutime));
-+               tmp.tms_cstime = compat_jiffies_to_clock_t(cputime_to_jiffies(cstime));
+> - Disabled pr_debug!()/dev_dbg!() calls do not evaluate their
+>   arguments. IMHO, it seems the current dev_dbg!() in your patch
+>   evaluates the params before checking the switch on/off. (pr_debug()!
+>   looks fine though)
 
+As far as I understand, fmt!() itself does not yet evaluate the
+expressions passed as arguments. It only typechecks and
+creates the precompiled Arguments<'_> structure. The parameters' Display
+traits are only executed when the Arguments<'_> is written somewhere.
+IMO the typechecking should be done even if the code is going to be
+compiled out. Similar to no_printk() on the C side.
 
->  #ifdef CONFIG_COMPAT
->  static compat_clock_t clock_t_to_compat_clock_t(clock_t x)
->  {
-> +	if (USER_HZ == COMPAT_USER_HZ)
-> +		return x;
-> +
->  	return compat_jiffies_to_clock_t(clock_t_to_jiffies(x));
+> - The dynamic-debug prefix flags remain supported. (I use the C version
+>   of dynamic debug to support e.g. +m, +l and _t)
 
-I don't think there are any architectures left that define USER_HZ
-and COMPAT_USER_HZ differently. This was true on ia64 with x86 compat,
-but that was dropped in v2.6.33 back in 2010.
+Absolutely, this is a bug in my v1. It is fixed in v2.
 
-   Arnd
+> Could you share your pending encapsulation/Opaque and static-branch
+> wip patches? We can then work out how they fit together, incorporate
+> Alice's review feedback, and preserve attribution for Andrew's work.
+
+Here:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/thomas.weissschuh/linux.git/log/?h=b4/rust-dyndbg
+
+> Thanks,
+> Zhi.
+> 
+> > Hi Alexandre,
+> > 
+> > On 2026-10-20 22:14:12+0900, Alexandre Courbot wrote:
+> > > On Sun Oct 11, 2026 at 9:52 PM JST, Thomas Weißschuh wrote:  
+> > > > Add the Rust infrastructure to integrate with the dynamic debug
+> > > > infrastructure.
+> > > >
+> > > > Static keys are not used for now, as the full bindings are missing
+> > > > for those. A follow-up series will add that.
+> > > > Also custom classes are not supported yet, but could be added on
+> > > > top.
+> > > >
+> > > > Patches 1-4: Generic Rust preparation patches.
+> > > > Patches 5-7: C dynamic debug preparation patches.
+> > > > Patches 8: Rust Dynamic debug infrastructure.
+> > > > Patches 9-11: Rust Dynamic debug enablement.  
+> > > 
+> > > Were you aware of this series [1]?  
+> > 
+> > I was was told about the original work from Andrew back at Kangrejos.
+> > However I was unable to find it on LKML and it was not clear how far
+> > along that series has come along. The posting of Zhi's v3 only
+> > happened after I started on my variant, and I did not see it until
+> > you mentioned it. So my development is completely independent from
+> > Andrew's and Zhi's.
+> > 
+> > > There seems to be quite a bit of overlap.  
+> > 
+> > Indeed. I see pros for both serieses:
+> > 
+> > Mine:
+> > * No FFI in the fastpath.
+> > * No need for RUST_MODNAME.
+> > * Use of Bounded.
+> > * Tests for the flag encoding.
+> > * modname!() as function name.
+> >   (As discussed with Benno and Gary and LPC)
+> > * Better encapsulation of 'struct Descriptor' (partially not yet
+> > posted)
+> > * Use of Opaque<> to wrap bindings::_ddebug (not yet posted).
+> > * Use of !cv() (not yet posted).
+> > 
+> > Andrew/Zhi:
+> > * Better docs.
+> > * Static branch support.
+> >   * static_branch_likely!() support is missing however.
+> >   * I also have follow-up patches to enable static_branch_likely!().
+> > * host doctest support.
+> > 
+> > I am perfectly fine with merging both serieses.
+> > 
+> > 
+> > Thomas
+> > 
+> > > [1]
+> > > https://lore.kernel.org/all/20261001145940.1077801-1-zhiw@nvidia.com/
+> > >  
+> 
