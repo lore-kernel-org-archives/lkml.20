@@ -1,68 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505147;
-	b=WqQoBkGVyPWGh0ukuUibS1nXyPgcjwBn6BaFZQehkk51CeZCAqKXv18yBOC/GK8lROxh
-	 D6VyagY69AYf8rEVegzZvliOruLlwRcqDyqZxzLtlUAbqaoKg5alSnXuWCx+muyGfTG23
-	 9Kfy6Z+sUEd7GsK9GGg7GQFVCQXRTe5V5zpLIoNNpNOC+LlhSsxzMyL8jwepjBIFTj5/E
-	 TFDThaXixSYCzALvg6bTCtT/yUK7DCg6JWuDjY+yFZJnAvEUlZ+7aHW82y/Wvr0IfbfVA
-	 AslFWescEzKtkj/6mcFWK4qlFHK0yydIzjuVbZlDwBaUHk+qRaUuMq1B0f7Cv/Gun5w==
+	t=1792505156;
+	b=yplX/xrdZ2C+S4eOapb3Cvw4K7BpXAFCN4TPbQhdHPSTH7PQ+GXG9oFJo5t7daZ8en4A
+	 K1lETkdW+9GUI47hIi8G7GJ3MgJpDWkp4hxlobSbLT3PBqS8rU4Meqf6y4sQJO8XrLRxd
+	 5YT/QUu08HfxargLRGFjulJGdVCXCUoC8DCbxUcKbi7OSYBSCTDecXGPIdliC3P3WZR8n
+	 DL9H1MIkky/1kaUkaHG3I2ifmiKVnvLmzhEraDUooAc/5KZkC3FvgTfO6gtZyzt7+3uHC
+	 rtmBtZmRm/VzpfeFZ4cnvDw58h61RLtM/2V65TCghT8J5pThwM+KiUNuTzWMeqCmYqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505147;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Scanned-By;
-	bh=EzcGp7Kbzt9VVE/SSNZUi1NWltKbEoOVGaAFY0/5BdM=;
-	b=dA/nVSg357BgV46kd2y1ARg0m86s0Z2DCIv7XKtn505Hk5SEebuamctYzqvanE/3hFAQ
-	 YiOaC+3o1ixY1Jn0B+QrSVXOlKzQjZcZwuslWzAUiNhx5NRSn+aXvDU9MH5Dtp5cnOVQK
-	 QnkM1zMoP9AxhaRNB7x+AsQfmFXWfisjj0W/7eiB49aEwFNHwSvgb113/GNnwY7jxVhL+
-	 q7/L2d4xJemLxMMjsq4Wz6L7dZM3tu7VO5IXSbA4U27SJPBieXTebzSluCip4O9eMxT9p
-	 9scGeRlsQzE4TDF2xG7njqIZWsSzN+Q8bmF1vOPxzi9X0LaluetNmnFjTTV2F8GMkwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505156;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=rpjlQZMNdbdSf6T1XIM98azVI2gPgzqRqo39bRX6+j4=;
+	b=09ow3cjMBx/OvBjvq6s+7Fcsx0SHDXcbYMFm2H0TxqBJ9HsgR7Kf/Ta6KLL0Gm9fNKUP
+	 0PyKsU50lolOTMTe1ZxAEFtbPO/mptLpQSlnLp49SUKk4c8ME2v2horE9ON6rxcCzMLf1
+	 Pxte1tFc8AAJiuIi/lksSOHT2oVBikz/6CN80TvLHbmwl7RZNzE5CZOPNaGHKUk9mTqj/
+	 mc0lOkWryrZyXu8DMxtXTSO+8oStzUaIaJ6GQZRhFH2pXzr4ZGIgSl5NT9zskQe/6ro37
+	 cvVz++LBSXwNNkV6RWbiu8sfy4n9LLwwdPfUj1eev6GFRPsLbXebPZdsj5dlC3hkKAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GK15EWSd;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="BB/Cgox/";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFB0606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:05:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFB0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638C0606A334;
+	Tue, 20 Oct 2026 14:05:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 638C0606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GK15EWSd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792505146;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EzcGp7Kbzt9VVE/SSNZUi1NWltKbEoOVGaAFY0/5BdM=;
-	b=GK15EWSdEurigM6aMH21eg4l0PxLKrRtSHH9EzNLKz8o3H9WW1EBykBEWNZwNdN5DauVVE
-	Nkt8kXTUU2akfuP0OLowIH3uIGeOggZT7B0OBYdhcJdoQh+eecy2B7xxNg36ja/FqwXi2U
-	5B8C4FRQo+QzYc7aPdGfHcDnc8CX+54=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-295-2nBZkvSWOgSZDfRCLEJOog-1; Tue,
- 20 Oct 2026 14:05:42 +0000
-X-MC-Unique: 2nBZkvSWOgSZDfRCLEJOog-1
-X-Mimecast-MFC-AGG-ID: 2nBZkvSWOgSZDfRCLEJOog_1792505141
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 46B5C180AB0A;
-	Tue, 20 Oct 2026 14:05:41 +0000 (UTC)
-Received: from [100.91.223.109] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 056D530000E3;
-	Tue, 20 Oct 2026 14:05:39 +0000 (UTC)
-Message-ID: <0c57f850-9891-4476-ab79-ff9baedde743@redhat.com>
-Date: Tue, 20 Oct 2026 10:05:39 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BB/Cgox/
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CD31A1A1291;
+	Tue, 20 Oct 2026 14:05:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 83B3660393;
+	Tue, 20 Oct 2026 14:05:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6A6210328934;
+	Tue, 20 Oct 2026 16:05:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792505151; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rpjlQZMNdbdSf6T1XIM98azVI2gPgzqRqo39bRX6+j4=;
+	b=BB/Cgox/eirjT8+0vmw+jFEYhRemG8+xv5/pINyLVTJpXLFlO9eLOx6q9vwsaLgmKo0bxg
+	Rg6nqyqcLFWYM7ecfE9SBAxAzUynfCcnd8b4k8ysxmxAlMp4vBdspyYIziaAYfh+XCdMbn
+	IZdCrEFfdIV23FSUYgW4FdHNJic87B0j22lfztOUic3+dIGRCZdMP5zT/FEsZMuxSGFZgR
+	N/zSMQGGCUgMX647AZqDwnou7rfO53AmhcNt0xJiq/8DKxkLUzkeryMhNzHZ6NdvF9aU0x
+	UlxSLELQqcSca8VMF51emi9XZKunsPeR/gX1iSgei8WhBTKgNwqSm7tJwEPz5g==
+Date: Tue, 20 Oct 2026 16:05:38 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
+ <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Leonardo Costa <leonardo.costa@toradex.com>, Frieder Schrempf
+ <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
+ <ernest.vanhoecke@toradex.com>, Bartosz Golaszewski
+ <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 4/8] of: unittest: Test fw_devlink with GPIO nexus
+ maps
+Message-ID: <20261020160538.15ee07bc@bootlin.com>
+In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-4-fd6f1c17e16d@toradex.com>
+References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
+	<20261020-fw-devlink-nexus-ready-v3-4-fd6f1c17e16d@toradex.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,64 +85,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: add Laurence Oberman and John Meneghini as
- SCSI tape driver maintainers
-To: Laurence Oberman <loberman@redhat.com>, linux-scsi@vger.kernel.org,
- "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- =?UTF-8?Q?Kai_M=C3=A4kisara?= <Kai.Makisara@kolumbus.fi>,
- linux-kernel@vger.kernel.org
-References: <20261020125059.1797559-1-loberman@redhat.com>
-Content-Language: en-US
-From: John Meneghini <jmeneghi@redhat.com>
-Organization: RHEL Core Storge Team
-In-Reply-To: <20261020125059.1797559-1-loberman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Last-TLS-Session-Version: TLSv1.3
 
-I agree with this change.
+Hi Ernest,
 
-Signed-off-by: John Meneghini <jmeneghi@redhat.com>
+On Tue, 20 Oct 2026 15:00:15 +0200
+Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
 
-John A. Meneghini
-Senior Principal Platform Storage Engineer
-RHEL SST - Platform Storage Group
-jmeneghi@redhat.com
-
-On 10/20/26 08:50, Laurence Oberman wrote:
-> The SCSI tape driver (st) is currently marked as orphaned. Add
-> Laurence Oberman and John Meneghini as co-maintainers and change the
-> status to Maintained.
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 > 
-> Also add a link to the tape_tests repository, which contains the test
-> suite used to validate the st driver.
+> Add OF unit tests that call the fw_devlink add_links operation for GPIOs
+> routed through nexus maps. Verify that each mapped consumer has exactly
+> one link to the final GPIO provider rather than to the nexus.
 > 
-> Kai Mäkisara, the previous maintainer, has agreed to this change.
+> Also cover direct references and all GPIO property spellings recognized
+> by fw_devlink, including the deprecated singular and unprefixed forms.
 > 
-> Cc: Kai Mäkisara <Kai.Makisara@kolumbus.fi>
-> Signed-off-by: Laurence Oberman <loberman@redhat.com>
-> Signed-off-by: John Meneghini <jmeneghi@redhat.com>
+> The gpio-map routes its entries to different providers so that selecting
+> the wrong entry is caught as well.
+> 
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 > ---
->   MAINTAINERS | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
+> v3: Route gpio-map entries to two providers, use a middle entry (Herve)
+> v2: https://lore.kernel.org/r/20260910-fw-devlink-nexus-ready-v2-3-17ac82dbe226@toradex.com
+> ---
+>  drivers/of/unittest-data/tests-phandle.dtsi | 39 +++++++++++++++
+>  drivers/of/unittest.c                       | 75 +++++++++++++++++++++++++++++
+>  2 files changed, 114 insertions(+)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 4ad924aeaf16..10bde5d86026 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24576,8 +24576,11 @@ F:	include/uapi/scsi/
->   F:	include/ufs/
->   
->   SCSI TAPE DRIVER
-> +M:	Laurence Oberman <loberman@redhat.com>
-> +M:	John Meneghini <jmeneghi@redhat.com>
->   L:	linux-scsi@vger.kernel.org
-> -S:	Orphan
-> +S:	Maintained
-> +W:	https://github.com/johnmeneghini/tape_tests
->   F:	Documentation/scsi/st.rst
->   F:	drivers/scsi/st.*
->   F:	drivers/scsi/st_*.h
 
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+
+Best regards,
+Hervé
