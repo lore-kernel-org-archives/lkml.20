@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485947;
-	b=l3OpwMFZWfC0LPuAFrGK+MFfEnBeT3wJDxfhDDmbTWhY202eR/q1Z8MkYaKCjFYEugJd
-	 wrhHmYndVjFhFn8YcscaBuwipbGLSaSaWCnZ4uDsn+NrvMzccj7j1o/sHMN5PFi3C2IpD
-	 pSKNDiHy3Lha1ghKzt2WKVtGwlRMfB3G37t9vo/P6x701TidpxyO7tnRVoVWkqfUd1ySh
-	 9AimA2O5pAHd2MQFE52fLhLKh2SMlxrCuT8xPh1CPaDvVjnRSX53PyGgbygUaf1bc9Vch
-	 IEqnHr5fPMevJtOMx4jj4amcWzvzH7vpmNdsTTjSvSsFY/A7FDfcowH8X0rT8ZiDYxA==
+	t=1792485950;
+	b=r+bzLE5xNT1xK+ymla8dGBf/88xMUwX8oZjWb3v8GSxo4jOSybUFGIYAXICDpPkkZhvs
+	 kObGA3NzeLhY5QiNwARPaAhAQHh9P8DrUyXanlQJU5tmP/F+5CvQzEjyYXg8OtHPSFftT
+	 yFy/GoKvudyHnUKXBvTbvan8EI2KENKWJ3rTFXy+FaWwFM8NDo7yOlBpYcSmF6EzwjWoN
+	 LVe2yo6A5mxaqbymI3JWuevUKZ1TD2MBJFpkxu2hPZ/5K/hUEcgAJJbuuzPpcOEPfS95/
+	 eyfj6VLcfWeS3Idg5690eHDGNG8NuTHZ/LH6J+ZMgl7ULQR9OZRc444tys2zd/01E0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485950;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-Originating-IP:X-CM-SenderInfo;
-	bh=R1TKDnz0dRBjHnsdRjR2nfAQ6jHAq2ebQ9Nly2yHRPU=;
-	b=zlF6suRf7Mk+Wspy7z/J/ukAFZKPLcXlhq1fwKmgPuygrFSV4s8+Evs7MapNxFX7eOW9
-	 G5xnIHkJPl72tGdT+pJnHa7Hp/JJDKcriqgN7Oly+T+wLnDOAYjTCKPDkebdCFT2gJGMK
-	 CDYJ4UQ0dEAs3L1GrWwR5Esx4y3A2yMicmje82tF6Ui9zCmiOeICKm497DBU+fKQ6DuPE
-	 vn/QDV1nQJ6gYIbMfgQ4PcLtWAzFf4v3BzJPI71700yNXdFHWV70LjU+WyBq2vh8gy+ra
-	 cBADizAkmIeKgcj/oG7seBtltEGG4yCA4s6UJPG8QfB2bzenRZhvzEQ8fjaVs01TbUg==
+	bh=oxkfujyVc2eQy1/MpqOq6I/E5Mjp0uEQpe4Bwk+hZek=;
+	b=DYFOEwjKVlayQKCq4mk1cZcOl4NiBN1tgDQjHRB7afnMNK9SzrIRONklIXA/dx7E6sD1
+	 2FJCMJ1I1t8ZbelHEhucHk0CzgilGYc47El4hBmS4HPQ9rYnC7snxmtGKy94+Ypd9iS7i
+	 SjbHZOdOqgRG1WEUro/62qmOF9JMr8v8WtDM88jaMOiS6PZRq6rRxs3FtO1e2SIlVBoOx
+	 GMlduRKHAsSoosGSVm9lp0Q3lLYu4nj0CfXqyAmmQs+0Itg3dXh1rXlDhxYSNbPv+aKY4
+	 nSZzraF7k1OcI/p/OyVycVslPrPdhjJaLUZoX3Vp009CC6eaAZ9cmIYSeo7HqDlGZlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pT+lwCgw;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=enChBHj4;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E74960A2610
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:45:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E74960A2610
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D3F60A2633
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D3F60A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pT+lwCgw
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=enChBHj4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=R1
-	TKDnz0dRBjHnsdRjR2nfAQ6jHAq2ebQ9Nly2yHRPU=; b=pT+lwCgwfeAcKUxj8j
-	gcyudm1m0LFvuuU0bV5FR0EksKboNdzrA1AGGE5lfRSJvCpal16Aj7dMQ+tzjcht
-	0Ccc4Lgt7UM/NKOMZW3ZgneSol+/v3n/E/J6kOI/RgjLal0HMi+wbXmreWQITto4
-	r2Zlo+ZVWECC/IsJNbZ9BpPwc=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ox
+	kfujyVc2eQy1/MpqOq6I/E5Mjp0uEQpe4Bwk+hZek=; b=enChBHj4q0rxqCq+Ep
+	xtbaFql+Fy1sn7Zpb5Yo3PNatwyEX0Xyd/IXBMxarNUzmKJYOhoxJ8OFa6sr2eWK
+	SEHyB+CMP15C9XCOUmSNGGAqj8xg7E6kUR8QvbrGvJqhndr92ZT0LSIaAd9wm+rc
+	hZFilvPns2rlJ2t0jg9pAw0Nk=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n0ksKtdq7UkHBg--.56105S2;
-	Tue, 20 Oct 2026 16:45:33 +0800 (CST)
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n0ksKtdq7UkHBg--.56105S6;
+	Tue, 20 Oct 2026 16:45:36 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -51,9 +51,9 @@ Cc: ntfs@lists.linux.dev,
 	wangxuewen@kylinos.cn,
 	wudandan@kylinos.cn,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 08/31] ntfs: report runlist and cluster allocation metadata errors
-Date: Tue, 20 Oct 2026 16:43:58 +0800
-Message-ID: <20261020084421.2196486-9-liubaolin12138@163.com>
+Subject: [PATCH v4 12/31] ntfs: report attribute lookup and validation errors
+Date: Tue, 20 Oct 2026 16:44:02 +0800
+Message-ID: <20261020084421.2196486-13-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
 References: <20261020084421.2196486-1-liubaolin12138@163.com>
@@ -67,456 +67,301 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n0ksKtdq7UkHBg--.56105S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3ZFy8Zr1DWr18ArWfAF1UJrb_yoW8Xw4rXo
-	ZI9r1Fkw4vgryYk34Ykw1aqa4Dua1DC398JF4rCr1qkF92qw4DK34xJw13Way3uayFgrn0
-	vr1DJws5AF1vyry5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUc-eoUUUUU
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4m8GrXKi5Y4wAA3z
+X-CM-TRANSID:_____wD3n0ksKtdq7UkHBg--.56105S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW3ZF18GryrZFyDGr13Zry7Jrb_yoWkJw1kpF
+	9xG3srKw43Jr12g392y347Zw1SvFyxWr18XryxJw1Ivan8tw17tFW8tFy09FyfKry8Gw1r
+	Xr4Ut3y7Zw47ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jwmiiUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hEn8WrXKjF9TAAA36
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-Runlist mapping and cluster cleanup can detect invalid mappings or
-failed recovery without reporting them. Report malformed mapping pairs,
-missing extents within allocated_size, and failed bitmap or allocation
-recovery. Preserve valid sparse holes and EOF.
+Attribute lookup and reading can detect malformed records and lists,
+invalid stored flags or sizes, and short metadata reads without reporting
+them. Report corruption against the base file and use EFSCORRUPTED.
 
-Use EFSCORRUPTED for corruption and propagate it through mapping callers
-and an LCN_EFSCORRUPTED sentinel. Keep allocation and underlying I/O
-errors distinct, including when freeing clusters.
+Report missing required attributes and missing AttrDef definitions while
+preserving underlying errors, ordinary lookup misses and size-limit
+results.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
- fs/ntfs/aops.c     |   2 +-
- fs/ntfs/attrib.c   | 121 +++++++++++++++++++++++++++++++++++----------
- fs/ntfs/bitmap.c   |   2 +-
- fs/ntfs/lcnalloc.c |  17 +++++--
- fs/ntfs/runlist.c  |  16 +++---
- fs/ntfs/runlist.h  |   1 +
- 6 files changed, 119 insertions(+), 40 deletions(-)
+ fs/ntfs/attrib.c | 86 +++++++++++++++++++++++++++++++++---------------
+ fs/ntfs/attrib.h |  4 +--
+ 2 files changed, 62 insertions(+), 28 deletions(-)
 
-diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-index ad781674fef1..7884737657d5 100644
---- a/fs/ntfs/aops.c
-+++ b/fs/ntfs/aops.c
-@@ -175,7 +175,7 @@ static sector_t ntfs_bmap(struct address_space *mapping, sector_t block)
- 		/*
- 		 * Step down to an integer to avoid gcc doing a long long
- 		 * comparision in the switch when we know @lcn is between
--		 * LCN_HOLE and LCN_EIO (i.e. -1 to -5).
-+		 * LCN_HOLE and LCN_EFSCORRUPTED (i.e. -2 to -8).
- 		 *
- 		 * Otherwise older gcc (at least on some architectures) will
- 		 * try to use __cmpdi2() which is of course not available in
 diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 28099ed6ad99..c59643fb766a 100644
+index 07fb1c77c7af..9eafa87dce7b 100644
 --- a/fs/ntfs/attrib.c
 +++ b/fs/ntfs/attrib.c
-@@ -112,7 +112,7 @@ int ntfs_map_runlist_nolock(struct ntfs_inode *ni, s64 vcn, struct ntfs_attr_sea
- 		     base_ni == NTFS_I(ni->vol->mft_ino))) {
- 		ntfs_error(ni->vol->sb,
- 			   "$MFT needs its own extent records to describe itself; cannot mount.");
+@@ -894,7 +894,7 @@ static bool ntfs_attr_value_is_valid(struct ntfs_volume *vol,
+  * @ctx->attr will point to the attribute before which the attribute being
+  * searched for would need to be inserted if such an action were to be desired.
+  *
+- * On actual error, ntfs_attr_find() returns -EIO.  In this case @ctx->attr is
++ * On actual error, ntfs_attr_find() returns -EFSCORRUPTED.  In this case @ctx->attr is
+  * undefined and in particular do not rely on it not changing.
+  *
+  * If @ctx->is_first is 'true', the search begins with @ctx->attr itself.  If it
+@@ -932,6 +932,7 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
+ 		const u8 *val, const u32 val_len, struct ntfs_attr_search_ctx *ctx)
+ {
+ 	struct attr_record *a;
++	struct ntfs_inode *base_ni;
+ 	struct ntfs_volume *vol = ctx->ntfs_ino->vol;
+ 	__le16 *upcase = vol->upcase;
+ 	u32 upcase_len = vol->upcase_len;
+@@ -1058,8 +1059,9 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
+ 	}
+ 	ntfs_error(vol->sb, "mft %#llx, type %#x is corrupt. Run chkdsk.",
+ 		   (long long)ctx->ntfs_ino->mft_no, le32_to_cpu(type));
+-	NVolSetErrors(vol);
+-	return -EIO;
++	base_ni = ntfs_inode_base(ctx->ntfs_ino);
++	ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
++	return -EFSCORRUPTED;
+ }
+ 
+ void ntfs_attr_name_free(unsigned char **name)
+@@ -1157,31 +1159,42 @@ bool ntfs_attr_list_is_valid(const u8 *al_start, s64 size)
+ int load_attribute_list(struct ntfs_inode *base_ni, u8 *al_start, const s64 size)
+ {
+ 	struct inode *attr_vi = NULL;
++	s64 read;
+ 
+ 	if (!al_start || size <= 0)
+ 		return -EINVAL;
+ 
+ 	attr_vi = ntfs_attr_iget(VFS_I(base_ni), AT_ATTRIBUTE_LIST, AT_UNNAMED, 0);
+ 	if (IS_ERR(attr_vi)) {
++		if (PTR_ERR(attr_vi) == -ENOENT) {
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
++			attr_vi = ERR_PTR(-EFSCORRUPTED);
++		}
+ 		ntfs_error(base_ni->vol->sb,
+ 			   "Failed to open an inode for Attribute list, mft = %llu",
+ 			   base_ni->mft_no);
+ 		return PTR_ERR(attr_vi);
+ 	}
+ 
+-	if (ntfs_inode_attr_pread(attr_vi, 0, size, al_start) != size) {
++	read = ntfs_inode_attr_pread(attr_vi, 0, size, al_start);
++	if (read != size) {
++		if (read >= 0)
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
+ 		iput(attr_vi);
+ 		ntfs_error(base_ni->vol->sb,
+ 			   "Failed to read attribute list, mft = %llu",
+ 			   base_ni->mft_no);
+-		return -EIO;
++		return read < 0 ? read : -EFSCORRUPTED;
+ 	}
+ 	iput(attr_vi);
+ 
+ 	if (!ntfs_attr_list_is_valid(al_start, size)) {
++		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
+ 		ntfs_error(base_ni->vol->sb, "Corrupt attribute list, mft = %llu",
+ 			   base_ni->mft_no);
 -		return -EIO;
 +		return -EFSCORRUPTED;
  	}
- 	if (!ctx) {
- 		ctx_is_temporary = ctx_needs_reset = true;
-@@ -131,7 +131,9 @@ int ntfs_map_runlist_nolock(struct ntfs_inode *ni, s64 vcn, struct ntfs_attr_sea
- 		WARN_ON(IS_ERR(ctx->mrec));
- 		a = ctx->attr;
- 		if (!a->non_resident) {
--			err = -EIO;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+			err = -EFSCORRUPTED;
- 			goto err_out;
- 		}
- 		end_vcn = le64_to_cpu(a->data.non_resident.highest_vcn);
-@@ -183,12 +185,17 @@ int ntfs_map_runlist_nolock(struct ntfs_inode *ni, s64 vcn, struct ntfs_attr_sea
- 		err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 				CASE_SENSITIVE, vcn, NULL, 0, ctx);
- 		if (unlikely(err)) {
--			if (err == -ENOENT)
--				err = -EIO;
-+			if (err == -ENOENT) {
-+				err = -EFSCORRUPTED;
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
-+			}
- 			goto err_out;
- 		}
- 		if (unlikely(!ctx->attr->non_resident)) {
--			err = -EIO;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+			err = -EFSCORRUPTED;
- 			goto err_out;
- 		}
- 	}
-@@ -201,13 +208,25 @@ int ntfs_map_runlist_nolock(struct ntfs_inode *ni, s64 vcn, struct ntfs_attr_sea
- 	 */
- 	end_vcn = le64_to_cpu(a->data.non_resident.highest_vcn) + 1;
- 	if (unlikely(vcn && vcn >= end_vcn)) {
-+		/* Report missing extents inside the allocation to direct callers. */
- 		err = -ENOENT;
-+		read_lock_irqsave(&ni->size_lock, flags);
-+		if (vcn >= 0 && vcn < ntfs_bytes_to_cluster(ni->vol,
-+							    ni->allocated_size))
-+			err = -EFSCORRUPTED;
-+		read_unlock_irqrestore(&ni->size_lock, flags);
-+		if (err == -EFSCORRUPTED)
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
- 		goto err_out;
- 	}
- 	rl = ntfs_mapping_pairs_decompress(ni->vol, a, &ni->runlist, &new_rl_count);
--	if (IS_ERR(rl))
-+	if (IS_ERR(rl)) {
- 		err = PTR_ERR(rl);
--	else {
-+		if (err != -ENOMEM)
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+	} else {
- 		ni->runlist.rl = rl;
- 		ni->runlist.count = new_rl_count;
- 	}
-@@ -335,7 +354,7 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
- 	if (!rl) {
- 		err = ntfs_attr_map_whole_runlist(ni);
- 		if (err)
--			return ERR_PTR(-ENOENT);
-+			return ERR_PTR(err);
- 		rl = ni->runlist.rl;
- 	}
- 
-@@ -357,12 +376,11 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
- 	/*
- 	 * Neither the runlist nor the retry mapped @vcn, e.g. because the
- 	 * extent mft record holding it is corrupt or because the mapping
--	 * pairs end too soon.  ntfs_map_runlist_nolock() reports the latter
--	 * as -ENOENT, as @vcn lies past the extent it found.  Below the
--	 * allocated size, callers would treat LCN_RL_NOT_MAPPED or LCN_ENOENT
--	 * as a hole, so fail instead.  At or beyond it nothing is mapped: the
--	 * runlist ends there with LCN_ENOENT, or with LCN_RL_NOT_MAPPED if
--	 * only a later extent has been mapped, so return that end as it is.
-+	 * pairs end too soon.  Below the allocated size, callers would treat
-+	 * LCN_RL_NOT_MAPPED or LCN_ENOENT as a hole, so fail instead.  At or
-+	 * beyond it nothing is mapped: the runlist ends there with LCN_ENOENT,
-+	 * or with LCN_RL_NOT_MAPPED if only a later extent has been mapped,
-+	 * so return that end as it is.
- 	 */
- 	if (*lcn <= LCN_RL_NOT_MAPPED) {
- 		unsigned long flags;
-@@ -371,8 +389,12 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
- 		read_lock_irqsave(&ni->size_lock, flags);
- 		allocated_size = ni->allocated_size;
- 		read_unlock_irqrestore(&ni->size_lock, flags);
--		if ((s64)ntfs_cluster_to_bytes(ni->vol, vcn) < allocated_size)
--			return ERR_PTR(err == -ENOMEM ? -ENOMEM : -EIO);
-+		if ((s64)ntfs_cluster_to_bytes(ni->vol, vcn) < allocated_size) {
-+			if (!err || err == -ENOENT)
-+				ntfs_report_file_metadata_error(VFS_I(ni),
-+								-EFSCORRUPTED);
-+			return ERR_PTR(!err || err == -ENOENT ? -EFSCORRUPTED : err);
-+		}
- 	}
- 
- 	return rl;
-@@ -401,7 +423,8 @@ struct runlist_element *ntfs_attr_vcn_to_rl(struct ntfs_inode *ni, s64 vcn, s64
-  *  LCN_HOLE	Hole / not allocated on disk.
-  *  LCN_ENOENT	There is no such vcn in the runlist, i.e. @vcn is out of bounds.
-  *  LCN_ENOMEM	Not enough memory to map runlist.
-- *  LCN_EIO	Critical error (runlist/file is corrupt, i/o error, etc).
-+ *  LCN_EIO	I/O or other mapping failure.
-+ *  LCN_EFSCORRUPTED	Corrupt runlist or file metadata.
+ 	return 0;
+ }
+@@ -1233,7 +1246,7 @@ int load_attribute_list(struct ntfs_inode *base_ni, u8 *al_start, const s64 size
+  * attribute list entry for the inserted attribute should be inserted in the
+  * attribute list attribute at @ctx->al_entry.
   *
-  * Locking: - The runlist must be locked on entry and is left locked on return.
-  *	    - If @write_locked is 'false', i.e. the runlist is locked for reading,
-@@ -434,8 +457,11 @@ s64 ntfs_attr_vcn_to_lcn_nolock(struct ntfs_inode *ni, const s64 vcn,
- 		return lcn;
- 	}
- 	if (lcn != LCN_RL_NOT_MAPPED) {
--		if (lcn != LCN_ENOENT)
--			lcn = LCN_EIO;
-+		if (lcn != LCN_ENOENT) {
-+			ntfs_report_file_metadata_error(VFS_I(ni),
-+							-EFSCORRUPTED);
-+			lcn = LCN_EFSCORRUPTED;
-+		}
- 	} else if (!is_retry) {
- 		int err;
+- * On actual error, ntfs_external_attr_find() returns -EIO.  In this case
++ * On actual error, ntfs_external_attr_find() returns -EFSCORRUPTED.  In this case
+  * @ctx->attr is undefined and in particular do not rely on it not changing.
+  */
+ static int ntfs_external_attr_find(const __le32 type,
+@@ -1355,7 +1368,9 @@ static int ntfs_external_attr_find(const __le32 type,
  
-@@ -462,8 +488,23 @@ s64 ntfs_attr_vcn_to_lcn_nolock(struct ntfs_inode *ni, const s64 vcn,
- 			lcn = LCN_ENOENT;
- 		else if (err == -ENOMEM)
- 			lcn = LCN_ENOMEM;
-+		else if (err == -EFSCORRUPTED)
-+			lcn = LCN_EFSCORRUPTED;
- 		else
- 			lcn = LCN_EIO;
-+	} else {
-+		lcn = LCN_EFSCORRUPTED;
-+		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
-+	}
-+	if (lcn == LCN_ENOENT) {
-+		read_lock_irqsave(&ni->size_lock, flags);
-+		if (vcn >= 0 && vcn < ntfs_bytes_to_cluster(ni->vol,
-+							    ni->allocated_size))
-+			lcn = LCN_EFSCORRUPTED;
-+		read_unlock_irqrestore(&ni->size_lock, flags);
-+		if (lcn == LCN_EFSCORRUPTED)
-+			ntfs_report_file_metadata_error(VFS_I(ni),
+ 			/* Not found?!? Absurd! */
+ 			ntfs_error(ctx->ntfs_ino->vol->sb, "Attribute list wasn't found");
+-			return -EIO;
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
 +							-EFSCORRUPTED);
++			return -EFSCORRUPTED;
+ 		}
  	}
- 	if (lcn != LCN_ENOENT)
- 		ntfs_error(ni->vol->sb, "Failed with error code %lli.",
-@@ -585,8 +626,11 @@ struct runlist_element *ntfs_attr_find_vcn_nolock(struct ntfs_inode *ni, const s
- 			err = PTR_ERR(rl);
- 		else if (rl->lcn >= LCN_HOLE)
- 			return rl;
--		else if (rl->lcn <= LCN_ENOENT)
--			err = -EIO;
-+		else if (rl->lcn <= LCN_ENOENT) {
-+			ntfs_report_file_metadata_error(VFS_I(ni),
-+							-EFSCORRUPTED);
-+			err = -EFSCORRUPTED;
-+		}
- 	}
- 	if (!err && !is_retry) {
+ 	for (;; al_entry = next_al_entry) {
+@@ -1454,7 +1469,8 @@ static int ntfs_external_attr_find(const __le32 type,
+ 				ntfs_error(vol->sb,
+ 					"Found stale mft reference in attribute list of base inode 0x%llx.%s",
+ 					base_ni->mft_no, es);
+-				err = -EIO;
++
++				err = -EFSCORRUPTED;
+ 				break;
+ 			}
+ 		} else { /* Mft references do not match. */
+@@ -1479,7 +1495,7 @@ static int ntfs_external_attr_find(const __le32 type,
+ 							base_ni->mft_no, es);
+ 					err = PTR_ERR(ctx->mrec);
+ 					if (err == -ENOENT)
+-						err = -EIO;
++						err = -EFSCORRUPTED;
+ 					/* Cause @ctx to be sanitized below. */
+ 					ni = NULL;
+ 					break;
+@@ -1533,7 +1549,7 @@ static int ntfs_external_attr_find(const __le32 type,
  		/*
-@@ -608,8 +652,20 @@ struct runlist_element *ntfs_attr_find_vcn_nolock(struct ntfs_inode *ni, const s
- 		}
- 		if (err == -EINVAL)
- 			err = -EIO;
--	} else if (!err)
+ 		 * If the type and/or the name are mismatched between the
+ 		 * attribute list entry and the attribute record, there is
+-		 * corruption so we break and return error EIO.
++		 * corruption so we break and return error EFSCORRUPTED.
+ 		 */
+ 		if (al_entry->type != a->type)
+ 			break;
+@@ -1592,11 +1608,17 @@ static int ntfs_external_attr_find(const __le32 type,
+ 			"Base inode 0x%llx contains corrupt attribute, mft %#llx, type %#x. %s",
+ 			(long long)base_ni->mft_no, (long long)mft_no, type,
+ 			"Unmount and run chkdsk.");
 -		err = -EIO;
-+	} else if (!err) {
-+		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
++
 +		err = -EFSCORRUPTED;
+ 	}
+ 
+-	if (err != -ENOMEM)
+-		NVolSetErrors(vol);
++	if (err != -ENOMEM) {
++		if (err != -EINTR && err != -ERESTARTSYS)
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							err);
++		else
++			NVolSetErrors(vol);
 +	}
-+	if (err == -ENOENT) {
-+		read_lock_irqsave(&ni->size_lock, flags);
-+		if (vcn >= 0 && vcn < ntfs_bytes_to_cluster(ni->vol,
-+							    ni->allocated_size))
+ 	return err;
+ not_found:
+ 	/*
+@@ -1824,8 +1846,8 @@ void ntfs_attr_put_search_ctx(struct ntfs_attr_search_ctx *ctx)
+  *
+  * Return the attribute type definition record if found and NULL if not found.
+  */
+-static struct attr_def *ntfs_attr_find_in_attrdef(const struct ntfs_volume *vol,
+-		const __le32 type)
++static struct attr_def *ntfs_attr_find_in_attrdef(struct ntfs_volume *vol,
++						  const __le32 type)
+ {
+ 	struct attr_def *ad;
+ 
+@@ -1841,7 +1863,8 @@ static struct attr_def *ntfs_attr_find_in_attrdef(const struct ntfs_volume *vol,
+ 		/* We have gone too far already.  No point in continuing. */
+ 		break;
+ 	}
+-	/* Attribute not found. */
++	/* The requested attribute type must have a definition on this volume. */
++	ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 	ntfs_debug("Attribute type 0x%x not found in $AttrDef.",
+ 			le32_to_cpu(type));
+ 	return NULL;
+@@ -1856,8 +1879,8 @@ static struct attr_def *ntfs_attr_find_in_attrdef(const struct ntfs_volume *vol,
+  * Check whether the @size in bytes is valid for an attribute of @type on the
+  * ntfs volume @vol.  This information is obtained from $AttrDef system file.
+  */
+-int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type,
+-		const s64 size)
++int ntfs_attr_size_bounds_check(struct ntfs_volume *vol, const __le32 type,
++				const s64 size)
+ {
+ 	struct attr_def *ad;
+ 
+@@ -1873,7 +1896,7 @@ int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type
+ 	/* Get the $AttrDef entry for the attribute @type. */
+ 	ad = ntfs_attr_find_in_attrdef(vol, type);
+ 	if (unlikely(!ad))
+-		return -ENOENT;
++		return -EFSCORRUPTED;
+ 	/* Do the bounds check. */
+ 	if (((le64_to_cpu(ad->min_size) > 0) &&
+ 			size < le64_to_cpu(ad->min_size)) ||
+@@ -1891,15 +1914,15 @@ int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type
+  * Check whether the attribute of @type on the ntfs volume @vol is allowed to
+  * be non-resident.  This information is obtained from $AttrDef system file.
+  */
+-static int ntfs_attr_can_be_non_resident(const struct ntfs_volume *vol,
+-		const __le32 type)
++static int ntfs_attr_can_be_non_resident(struct ntfs_volume *vol,
++					 const __le32 type)
+ {
+ 	struct attr_def *ad;
+ 
+ 	/* Find the attribute definition record in $AttrDef. */
+ 	ad = ntfs_attr_find_in_attrdef(vol, type);
+ 	if (unlikely(!ad))
+-		return -ENOENT;
++		return -EFSCORRUPTED;
+ 	/* Check the flags and return the result. */
+ 	if (ad->flags & ATTR_DEF_RESIDENT)
+ 		return -EPERM;
+@@ -3281,10 +3304,11 @@ int ntfs_attr_open(struct ntfs_inode *ni, const __le32 type,
+ 	    ((!(a->flags & ATTR_IS_COMPRESSED) != !NInoCompressed(ni)) ||
+ 	     (!(a->flags & ATTR_IS_SPARSE)     != !NInoSparse(ni)) ||
+ 	     (!(a->flags & ATTR_IS_ENCRYPTED)  != !NInoEncrypted(ni)))) {
+-		err = -EIO;
++		err = -EFSCORRUPTED;
+ 		pr_err("Inode %lld has corrupt attribute flags (0x%x <> 0x%x)\n",
+ 				(unsigned long long)ni->mft_no,
+ 				a->flags, ni->flags);
++		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
+ 		goto put_err_out;
+ 	}
+ 
+@@ -3300,7 +3324,9 @@ int ntfs_attr_open(struct ntfs_inode *ni, const __le32 type,
+ 		}
+ 
+ 		if ((a->flags & ATTR_IS_COMPRESSED) && !a->data.non_resident.compression_unit) {
+-			err = -EIO;
 +			err = -EFSCORRUPTED;
-+		read_unlock_irqrestore(&ni->size_lock, flags);
-+		if (err == -EFSCORRUPTED)
 +			ntfs_report_file_metadata_error(VFS_I(ni),
 +							-EFSCORRUPTED);
+ 			pr_err("Compressed inode %lld attr 0x%x has no compression unit\n",
+ 					(unsigned long long)ni->mft_no, type);
+ 			goto put_err_out;
+@@ -5653,6 +5679,11 @@ void *ntfs_attr_readall(struct ntfs_inode *ni, const __le32 type,
+ 	}
+ 	bmp_ni = NTFS_I(bmp_vi);
+ 
++	if (bmp_ni->data_size < 0) {
++		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
++		ret = ERR_PTR(-EFSCORRUPTED);
++		goto out;
 +	}
- 	if (err != -ENOENT)
- 		ntfs_error(ni->vol->sb, "Failed with error code %i.", err);
- 	return ERR_PTR(err);
-@@ -3365,6 +3421,9 @@ int ntfs_attr_map_whole_runlist(struct ntfs_inode *ni)
- 							   &new_rl_count);
- 			if (IS_ERR(rl)) {
- 				err = PTR_ERR(rl);
-+				if (err != -ENOMEM)
-+					ntfs_report_file_metadata_error(VFS_I(base_ni),
-+									-EFSCORRUPTED);
- 				goto err_out;
- 			}
- 			ni->runlist.rl = rl;
-@@ -3374,7 +3433,9 @@ int ntfs_attr_map_whole_runlist(struct ntfs_inode *ni)
- 		/* Are we in the first extent? */
- 		if (!next_vcn) {
- 			if (a->data.non_resident.lowest_vcn) {
--				err = -EIO;
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
-+				err = -EFSCORRUPTED;
- 				ntfs_error(sb,
- 					"First extent of inode %llu attribute has non-zero lowest_vcn",
- 					(unsigned long long)ni->mft_no);
-@@ -3397,18 +3458,26 @@ int ntfs_attr_map_whole_runlist(struct ntfs_inode *ni)
- 
- 		/* Avoid endless loops due to corruption. */
- 		if (next_vcn < le64_to_cpu(a->data.non_resident.lowest_vcn)) {
--			err = -EIO;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+			err = -EFSCORRUPTED;
- 			ntfs_error(sb, "Inode %llu has corrupt attribute list",
- 					(unsigned long long)ni->mft_no);
- 			goto err_out;
- 		}
+ 	if (bmp_ni->data_size > NTFS_ATTR_READALL_MAX_SIZE &&
+ 		(bmp_ni->type != AT_BITMAP ||
+ 		bmp_ni->data_size > ((ni->vol->nr_clusters + 7) >> 3))) {
+@@ -5670,8 +5701,11 @@ void *ntfs_attr_readall(struct ntfs_inode *ni, const __le32 type,
+ 	size = ntfs_inode_attr_pread(VFS_I(bmp_ni), 0, bmp_ni->data_size,
+ 			(u8 *)data);
+ 	if (size != bmp_ni->data_size) {
++		if (size >= 0 || size == -EIO)
++			ntfs_report_file_metadata_error(VFS_I(ni),
++							size < 0 ? (int)size : -EFSCORRUPTED);
+ 		ntfs_error(sb, "ntfs_attr_pread failed");
+-		ret = size < 0 ? ERR_PTR((int)size) : ERR_PTR(-EIO);
++		ret = size < 0 ? ERR_PTR((int)size) : ERR_PTR(-EFSCORRUPTED);
+ 		kvfree(data);
+ 		goto out;
  	}
- 	if (!a) {
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+		}
- 		ntfs_error(sb, "Couldn't find attribute for runlist mapping");
- 		goto err_out;
- 	}
- 	if (not_mapped && highest_vcn && highest_vcn != last_vcn - 1) {
--		err = -EIO;
-+		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
-+		err = -EFSCORRUPTED;
- 		ntfs_error(sb,
- 			"Failed to load full runlist: inode: %llu highest_vcn: 0x%llx last_vcn: 0x%llx",
- 			(unsigned long long)ni->mft_no,
-diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
-index af86fb1c199b..fabf03cf6cef 100644
---- a/fs/ntfs/bitmap.c
-+++ b/fs/ntfs/bitmap.c
-@@ -340,7 +340,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
- 		ntfs_error(vi->i_sb,
- 			"Failed to map subsequent page (error %i) and rollback failed (error %i). Aborting and leaving inconsistent metadata. Unmount and run chkdsk.",
- 			err, pos);
--		NVolSetErrors(NTFS_SB(vi->i_sb));
-+		ntfs_report_file_metadata_error(vi, pos);
- 	}
- 	return err;
- }
-diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-index 3ebcac4c2864..d368207d1773 100644
---- a/fs/ntfs/lcnalloc.c
-+++ b/fs/ntfs/lcnalloc.c
-@@ -792,7 +792,7 @@ switch_to_data1_zone:		search_zone = 2;
- 			ntfs_error(vol->sb,
- 				"Failed to rollback (error %i). Leaving inconsistent metadata! Unmount and run chkdsk.",
- 				err2);
--			NVolSetErrors(vol);
-+			ntfs_report_metadata_error(vol, err2);
- 		}
- 		/* Free the runlist. */
- 		kvfree(rl);
-@@ -921,9 +921,11 @@ s64 __ntfs_cluster_free(struct ntfs_inode *ni, const s64 start_vcn, s64 count,
- 		goto err_out;
- 	}
- 	if (unlikely(rl->lcn < LCN_HOLE)) {
-+		ntfs_report_file_metadata_error(VFS_I(ntfs_inode_base(ni)),
-+						-EFSCORRUPTED);
- 		if (!is_rollback)
- 			ntfs_error(vol->sb, "First runlist element has invalid lcn, aborting.");
--		err = -EIO;
-+		err = -EFSCORRUPTED;
- 		goto err_out;
- 	}
- 	/* Find the starting cluster inside the run that needs freeing. */
-@@ -968,17 +970,24 @@ s64 __ntfs_cluster_free(struct ntfs_inode *ni, const s64 start_vcn, s64 count,
- 			rl = ntfs_attr_find_vcn_nolock(ni, vcn, ctx);
- 			if (IS_ERR(rl)) {
- 				err = PTR_ERR(rl);
-+				if (err == -ENOENT) {
-+					err = -EFSCORRUPTED;
-+					ntfs_report_file_metadata_error(VFS_I(ni),
-+									-EFSCORRUPTED);
-+				}
- 				if (!is_rollback)
- 					ntfs_error(vol->sb,
- 						"Failed to map runlist fragment or failed to find subsequent runlist element.");
- 				goto err_out;
- 			}
- 			if (unlikely(rl->lcn < LCN_HOLE)) {
-+				ntfs_report_file_metadata_error(VFS_I(ntfs_inode_base(ni)),
-+								-EFSCORRUPTED);
- 				if (!is_rollback)
- 					ntfs_error(vol->sb,
- 						"Runlist element has invalid lcn (0x%llx).",
- 						rl->lcn);
--				err = -EIO;
-+				err = -EFSCORRUPTED;
- 				goto err_out;
- 			}
- 		}
-@@ -1073,7 +1082,7 @@ s64 __ntfs_cluster_free(struct ntfs_inode *ni, const s64 start_vcn, s64 count,
- 		ntfs_error(vol->sb,
- 			"Failed to rollback (error %i).  Leaving inconsistent metadata!  Unmount and run chkdsk.",
- 			(int)delta);
--		NVolSetErrors(vol);
-+		ntfs_report_metadata_error(vol, delta);
- 	} else {
- 		ntfs_dec_free_clusters(vol, delta);
- 	}
-diff --git a/fs/ntfs/runlist.c b/fs/ntfs/runlist.c
-index 76ba6ab72b8a..606a30ab9fa7 100644
---- a/fs/ntfs/runlist.c
-+++ b/fs/ntfs/runlist.c
-@@ -817,7 +817,7 @@ struct runlist_element *ntfs_mapping_pairs_decompress(const struct ntfs_volume *
- 	/* Validate lowest_vcn from on-disk metadata to ensure it is sane. */
- 	if (overflows_type(lowest_vcn, vcn)) {
- 		ntfs_error(vol->sb, "Invalid lowest_vcn in mapping pairs.");
--		return ERR_PTR(-EIO);
-+		return ERR_PTR(-EFSCORRUPTED);
- 	}
- 	/* Start at vcn = lowest_vcn and lcn 0. */
- 	vcn = lowest_vcn;
-@@ -828,7 +828,7 @@ struct runlist_element *ntfs_mapping_pairs_decompress(const struct ntfs_volume *
- 	attr_end = (u8 *)attr + le32_to_cpu(attr->length);
- 	if (unlikely(buf < (u8 *)attr || buf >= attr_end)) {
- 		ntfs_error(vol->sb, "Corrupt attribute.");
--		return ERR_PTR(-EIO);
-+		return ERR_PTR(-EFSCORRUPTED);
- 	}
- 
- 	/*
-@@ -843,7 +843,7 @@ struct runlist_element *ntfs_mapping_pairs_decompress(const struct ntfs_volume *
- 	     le64_to_cpu(attr->data.non_resident.data_size) ||
- 	     le64_to_cpu(attr->data.non_resident.initialized_size))) {
- 		ntfs_error(vol->sb, "Invalid empty mapping pairs array.");
--		return ERR_PTR(-EIO);
-+		return ERR_PTR(-EFSCORRUPTED);
- 	}
- 	if (!vcn && !*buf && old_runlist && old_runlist->rl) {
- 		*new_rl_count = old_runlist->count;
-@@ -1079,12 +1079,12 @@ struct runlist_element *ntfs_mapping_pairs_decompress(const struct ntfs_volume *
- 		return new_rl;
- 	kvfree(rl);
- 	ntfs_error(vol->sb, "Failed to merge runlists.");
--	return new_rl;
-+	return PTR_ERR(new_rl) == -ENOMEM ? new_rl : ERR_PTR(-EFSCORRUPTED);
- io_error:
- 	ntfs_error(vol->sb, "Corrupt attribute.");
- err_out:
- 	kvfree(rl);
--	return ERR_PTR(-EIO);
-+	return ERR_PTR(-EFSCORRUPTED);
- }
- 
- /*
-@@ -1337,7 +1337,7 @@ int ntfs_get_size_for_mapping_pairs(const struct ntfs_volume *vol,
- 	if (rl->lcn == LCN_RL_NOT_MAPPED)
- 		rls = -EINVAL;
- 	else
--		rls = -EIO;
-+		rls = -EFSCORRUPTED;
- 	return rls;
- }
- 
-@@ -1426,7 +1426,7 @@ static inline int ntfs_write_significant_bytes(s8 *dst, const s8 *dst_max,
-  * defined:
-  *	-EINVAL	- Run list contains unmapped elements.  Make sure to only pass
-  *		  fully mapped runlists to this function.
-- *	-EIO	- The runlist is corrupt.
-+ *	-EFSCORRUPTED - The runlist is corrupt.
-  *	-ENOSPC	- The destination buffer is too small.
-  *
-  * Locking: @rl must be locked on entry (either for reading or writing), it
-@@ -1585,7 +1585,7 @@ int ntfs_mapping_pairs_build(const struct ntfs_volume *vol, s8 *dst,
- 	if (rl->lcn == LCN_RL_NOT_MAPPED)
- 		err = -EINVAL;
- 	else
--		err = -EIO;
-+		err = -EFSCORRUPTED;
- 	return err;
- }
- 
-diff --git a/fs/ntfs/runlist.h b/fs/ntfs/runlist.h
-index 0d4c32b1a338..85073f9fb6ec 100644
---- a/fs/ntfs/runlist.h
-+++ b/fs/ntfs/runlist.h
-@@ -63,6 +63,7 @@ enum {
- 	LCN_ENOMEM		= -5,
- 	LCN_EIO			= -6,
- 	LCN_EINVAL		= -7,
-+	LCN_EFSCORRUPTED	= -8,
- };
- 
- struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
+index 9d6bf0320219..5a133ba741a6 100644
+--- a/fs/ntfs/attrib.h
++++ b/fs/ntfs/attrib.h
+@@ -89,8 +89,8 @@ void ntfs_attr_reinit_search_ctx(struct ntfs_attr_search_ctx *ctx);
+ struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+ 		struct mft_record *mrec);
+ void ntfs_attr_put_search_ctx(struct ntfs_attr_search_ctx *ctx);
+-int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol,
+-		const __le32 type, const s64 size);
++int ntfs_attr_size_bounds_check(struct ntfs_volume *vol,
++				const __le32 type, const s64 size);
+ int ntfs_attr_can_be_resident(const struct ntfs_volume *vol,
+ 		const __le32 type);
+ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
 -- 
 2.51.0
 
