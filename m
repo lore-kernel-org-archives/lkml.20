@@ -1,138 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792458675;
-	b=Ghl+UtbXoHw20scxdMxqR8lN3f4/bhoJiDe/ItHHYmwogGcgPvCVJvnPazLqAzy7Nej6
-	 0CTUHp8WyceuFI2Yy5I52rFCqvmkpyQlEtB0yjqzHX2iMU/aJVHTibZioSAhCVnW9AG+m
-	 TDJlvasBK/LkxxxWObRQMzrL9apjkeyzctau5oFoR36CkIAvS9OcDXrnobulZUshdwtJI
-	 JZd+vgx3s8Mna4DWG4xJsIlqLHdq7qU1MC3UyzmF3T11SBz4RJVnX/LXmKreLDRMXABnC
-	 0nAF6C0Ro1wgwavvalICtwzKpjh0ajjmr8e3pw9RwvnlDCXgKwnwRRkdeOQIaSbGgQQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792458675;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=FxVJGyZVD4TOspb23UE+zCyCTGO29XhAyetbWeKszVk=;
-	b=MraG0gfccmZtVGrBUMS3JvreBuanqtRFBn/0/UqSNnsVn8euWMAD+ZQrxg8wh/8+GD4l
-	 B0cUd0bP6ZKz31/Dj3I5zRx3TjapZWpE4JubZsf08QhGH9Ht1UYn84LD2JBb0/DgDHmqO
-	 KPNAwt9JT2Fx0mGxl0LR1iM0SKsLpqThe7RRZ/uak4F3tUKMw0N4fuaVTsr1c4gms8fOI
-	 AnuBEcl7v07ErkBtEac6pgso6OdCs8WpRbN7FfUt9MXQC911fYnuQZ/r1pFhn1QpysDuk
-	 PbIqXh91Sf04o25XmSw3AtaQGY35sC/4KmSTy17A+iKvQEM1agiPmlWnM3uYKVXq4qg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YAnsYHfy;
-	arc=fail smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792458727;
+	b=mzRikB84pEyyzxjtTMoDV68l/8lLUNIYviMPc8W3A6lmZmc5PAFmFLhdKX6tAwcsKps0
+	 CRiaihVfLEpN18wHFtfza+1pO2TuI/dWnrGSqc/KKT8e4U6ZAw+aYDekCkr8Sqnyj5+Fn
+	 4sNDdi0NvAP854F/5MFT/z5UcigHR3NKdBYXW3PVD7hw3oy6XXysqxBIA9lzuU6VHiDRV
+	 4JoCnFKMHISHOJiGfhfyUkePyA3F36OEaWlNUWK71hJKEDoBg6NE14L4bMkbZ1Cwphh9/
+	 5q9FzC+XrUDPeScwk0AMj1K+8DRkllMPnM3F5/DekYgfSXNmyBkPJiHLRZf7EdUxFRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792458727;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:
+	 Content-Transfer-Encoding;
+	bh=O0M/YbM5lygtAmfbOg3WcN5OXpI23UNp1u8jJj8E36Q=;
+	b=fAc0eXIcPLp5+zZz5aQunCBdO2ekzuSfjFhe8jTJ7D/nDe7Wv5YNPYluf/uRkigvrFTw
+	 1gcUHuZDqvvoOnyRrU63ilLvhnqg6BH5KDW8W9pbEpgens6u4HCpJcy5SBicRZJ01YbTd
+	 bNtGUQcBlQ6nCFo1SiIWBHVaMt+r8OnzN1uw6FptnmNOmheoF2TKMvHXJZ4MeQGTvhwGp
+	 4KVcJ3wiD8FZX0JF7JhAe+t17wIkhs8q6a9NRgXlgekfflGGvW4CUhhpMYfeWGRf/tsVP
+	 LXLdbxfSpDXXtqlfXB5rdpj6hukXecPupdxJQf6MVlbQYVfQEzVR+Cqwpa4CZUMJpFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Cc4lcU6V;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D72606A31A;
-	Tue, 20 Oct 2026 01:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29D72606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F349606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F349606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YAnsYHfy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792458673; x=1823994673;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=egGm3BiBFelzVfRJOhA60kEcRa2S9uvUM5V4+B9Sc2A=;
-  b=YAnsYHfyNFSRd8Ch2QTv86l3m40YkhbtysxtMU4iW7hiTxceNkLg9z7/
-   S/Ib4NaNeBejegSjKMtq/a16kbQY63QS4We7rxlqXXwhSXoXXlNDLEN77
-   tgKXDGsjw98BjEtTKQqQcWatuVmKJ3pbka1Vg/6/TO9wPRygORCdW1U+1
-   2wCoWu77HUwnSVmy04oVZw421faL9bkC9RMlJ9r+H2S7AiGSebjIlvfnn
-   XV3R6Y+gQXSK5dCYsnOxyVxUd0A5PqqbG0BzPwTNuLariSK5et16mUKZ9
-   WiohlzzjFmxEN09jG2NhFbjdQyWEyKxkyaMOnfcqZ0ojf+YdTrNm0QxJ4
-   g==;
-X-CSE-ConnectionGUID: rVAiTNE/TxiEJRXNEX05mQ==
-X-CSE-MsgGUID: udrOLNeuSo6IBYYBWrxD9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1138839"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1138839"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 18:11:12 -0700
-X-CSE-ConnectionGUID: NudScc1yTfSSL/oMQobKOg==
-X-CSE-MsgGUID: RVMFA7JJQ4eH5CIGFwtMMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2671654"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 18:11:12 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 18:11:10 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 18:11:10 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.71) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 18:11:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zInT9SkRg4z8nh3PmS22W9bkHDibgax74AKYvTdeYu2mX21s+/YblIIKcyRp+JXdgnAD5YP4Fiv25U8kGy2yZ3kUSeUxIf4kadDxcJyEeHBx584X2TfEgLvE/LTePB3RjeysMWkPYNFInzX48fRT2Q/O7Whf0VsgzkRGkNxGNaxNM2sU0WLy64Xnb4s+Sbs+ZBh+ruPt2IrNiYvgKFISxFp77VUyxkW6EJGA5ItBT2qDJKJb0/d5QV1nUqtgCctxny+R5vThPj4MtEyAMf+zkxCFqJNsvrCHoo+coVMBkY1KHPrfnpKBsfZfKwcqxxHtTQxlbmaNgiJbdPe787GXTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FxVJGyZVD4TOspb23UE+zCyCTGO29XhAyetbWeKszVk=;
- b=HrdUKMT/IFxBhWPXmfYM4wOQOPEUQJlbvTYB02bedmtKXo3XNeDQUfYebSF16qwtTDG2TpPzRmKj/V8+V7dgOMUijVNJLopNjRpzsqUPgYRB4nc2qJKaHJ7b59Yg/BdfsDUVf0ffNHkdyIS0+bPkyJEi2G0ftEZcyEbQ/nr8O3RxmfZmxISgze8fHOlmcO6ZjtDa42OTD7G4uaM2FKEpCuQoBWOjEaXJcVU1Eicmf3XrDImRVW0ac77eVdwzu+v5pGs7NJ5M+BKQuSATGEYwDcuv0JqmBKhLafE6MgWb1bRfP7+gdNmtVyvTxcU6LZNvaBnu6PXlbzoatCYwkpzXoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by DS0PR11MB6398.namprd11.prod.outlook.com (2603:10b6:8:c9::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.14; Tue, 20 Oct 2026 01:11:07 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 01:11:07 +0000
-Date: Mon, 19 Oct 2026 18:11:01 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-CC: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, "Andrew
- Morton" <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>,
-	Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>, Li Ming
-	<ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>, Naoya Horiguchi
-	<nao.horiguchi@gmail.com>, Suren Baghdasaryan <surenb@google.com>, "Michal
- Hocko" <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	<linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, David Hildenbrand <david@kernel.org>, Oscar Salvador
-	<osalvador@suse.de>, Kiryl Shutsemau <kas@kernel.org>, Harry Yoo
-	<harry@kernel.org>
-Subject: Re: [RFC PATCH 0/5] cxl, mm: Keep device-reported poison out of the
- page allocator
-Message-ID: <ata_pfACXdlQuM_e@aschofie-mobl2.lan>
-References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
-X-ClientProxiedBy: MW4PR04CA0275.namprd04.prod.outlook.com
- (2603:10b6:303:89::10) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=fail reason="signature verification failed" (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Cc4lcU6V
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3EB4740E029C;
+	Tue, 20 Oct 2026 01:12:04 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id uVtPxzSqsT91; Tue, 20 Oct 2026 01:12:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792458720; bh=eRjXcbG85F4jlGtFHHIATpzSSdXZ+qHaLx8RJ9H1BXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Cc4lcU6VJZsELX8vdP+xwA0SXmEbtTFFe7QikS3M3hCQko7QH5vUUUD2EgtACoGMI
+	 5Z1EaksLIIevKTLJtvne9yirPnOo2naXCOtkVwJZwa79ZAdqsmik2fZXdsLkpP+xMO
+	 0EbQiY8jx8gAk0XAEXzIeGTugT5QeV3HqkbZ9723+1XNU/q5oARRBb/H+RDTPxvIA7
+	 Zp1xxAGN52Ko2OIK9bMHMckQqVN108997wSFNJJwcJp55TE9qc7+yFC8awSWmN7hhU
+	 GI3BMs0H/VwGwHAEJe5US9pc//YiUsW4r3IUyMwF4idSLDhSAWLZptcGCjlPipNLPs
+	 WdGmReMXIM/zo6o5FQRER9fN7tKqhfDJrVkDqGLquGVvSEOtLj2bAVz63Pnp0+aSb1
+	 sBPwZGK42yGYRu3Ru9fkPMNS9EuzZdsoFlKAqSHa0YhLkOTXJxuT1EuJf5KL6VSdAl
+	 Wv1KA8XOt+Z7/A+Gmv/xTr4HyFRgHV1KdUqTH7FcNboye1KaJVLj7lu+pEH+iwsAYu
+	 SANm0NKxmyFhRCyRpu0iehznYBwzPtAAQy4qt9/tr96TWytkU7mGXDD3cjjpEswNc9
+	 43C2I1QChcUN0Myp5zwu36yGAN0Vk7rbzgr4Y8Efj3del26PYpaduCIkEj8eOLBLGe
+	 YkTR5r9RZXhKXN/ScxFiyVxw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5977440E029B;
+	Tue, 20 Oct 2026 01:11:43 +0000 (UTC)
+Date: Mon, 19 Oct 2026 18:11:40 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Florian Westphal <fw@strlen.de>, Julian Anastasov <ja@ssi.bg>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] x86/csum: Relax the len and proto constraints in 32-bit
+ csum_ipv6_magic()
+Message-ID: <20261020011140.GCata_zHOTeTXLdlr2@fat_crate.local>
+References: <20261020003238.2823758-1-sashal@kernel.org>
+ <CAKxU2N9paXhCuNknUzKx5dYxhXitLZ=OVVY7Sym1HV8Mow6cSQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -142,86 +91,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|DS0PR11MB6398:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81d9f524-2080-46d6-986e-08df2e4704e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|22082099003|18002099003|260925021911599003|261009223027099003|11063799006|260925022911599003|56012099006|260925021311599003;
-X-Microsoft-Antispam-Message-Info: m2nQRa0HXo6gUu57Q2WZ828yi1r4p9P0yNGSlQTZ0LONum4OhJ7IGTHvHeujtPiav0LdWpyCZnbBIaim/5lHPu7i3/giTR7bj/fjTKCRDOMfRZ1xAtZYO/hd0T0w4dKvY88Tg6F3qlF6sGB1Jqnhk12eNEDtsCbLcieGs5qLbbFnj9WJqjW0Xz1Ft34PVjc/j/oUSjwuBKzaeNEudQWvOkNTjUtBd2C61u+iNSk4IRcqYSBOLdqzMwVbTzcIvBRMMSLz004N6lgEiQc5STSwy1wSREDLQdKNsJYmnI+CBlIzpF7FUxJfm13BAhhf9jlPX7mT+ChMkJqAtUz12H3jQ8BHvojYA+6m7Sa0b95TOKwX5aQumB+8sYKPvyti3PE4T9j1OX+GNUnoZN526n+bI4AOLQK1BO5fMu1kHXXtoI0PdNHjW9ocgRGYNeJ5o9S16v2Fj6yWajFykV1Nu1IAf3q7UfB8pwlM+owaBIsxy9dHPXUp4B0z7aVGY8z6LU25FZLTuCWj9kQPY6db94Q/2PJblFz7sKTjc3oqdO/CdKMZed0cn8GjTQ6PTt+H12rKcdRG+n4MgiuEBXnO81d2iQZXvmta26P1G4tBQfoqd0nGZF835j78VJamo8R9EZbZuBcjeyquP4d4R3v/CUL6LZ6ZtP1wdNO6ab2TQxXHyCs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(22082099003)(18002099003)(260925021911599003)(261009223027099003)(11063799006)(260925022911599003)(56012099006)(260925021311599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?m77FtsD5niDtZxzY9zjsEgKnCuMfsDxHWncukPOCU1Yt6w3naHXp+jSfevWj?=
- =?us-ascii?Q?pOnLEI7iXCjXuWp4H+ym4LJSUpmeuWl8gCiXDqHvCPkAbHCvr69aWaWmWs3W?=
- =?us-ascii?Q?A3i5gL0/w9EiIutWcesahEfCkRymTUxFiY8XDVD8uyg/IAu6S9mB0zOtzjT8?=
- =?us-ascii?Q?r1kHm/OS3b3E7Xt3mztbHntyQnRKgZfFi05Fg98Daq3yIpzWPKoG3NzEGNbt?=
- =?us-ascii?Q?gQUbpNVPJcY0+tqWLEHs30IQ+DJBn8ieq/UYkVgzYyKS6i8Wsc/BHenZbXz7?=
- =?us-ascii?Q?xZROvnR8n0Iy3zgmIWaes7Sf2voIbC2O9dxpvFuteRa6xW5AU7kw0H/Gw/qx?=
- =?us-ascii?Q?pkNlk0P+45njeRWidnplZNwst3gcjgAfqAeXOJU+cx8CVskBffRSyej90Aro?=
- =?us-ascii?Q?4N5R9KBOr9u/sT7+7w9BLaIB3BI9BkBl8xgnZDUYOObQBtATUPsT84tUDGFe?=
- =?us-ascii?Q?m3F9n8TCJQjb5G+miPP75sMaOTe9aemtNU8mcUVgAy4Ki1MRZiY3dDthrGBy?=
- =?us-ascii?Q?fcniGsUaG+7uLmhngBRT0+DfctzOiS5uQqCWCk7eTYTwq5JcvpWQyqeigv2+?=
- =?us-ascii?Q?jeXOs5bva+LxbW9eKVxQ7clr4pxnzXJcWz1BFM/4mzalQUSVPgeBnmLd9oHb?=
- =?us-ascii?Q?L5LpmD6q2VY8pO2vKI/yYS1v61Xytx31NS0T9GPXTYylIbC+VZAwKkLaBwnp?=
- =?us-ascii?Q?cRV+RK5KzrwqBVzUw6K0m5+L/+WPHbmgvtpPmlRTeC28uPdsx097zJwGo8gD?=
- =?us-ascii?Q?Uin7BTZi/DFVU0kirHPu6VigJWfYPC7fQOG5VCDxHXm0eEZhRfuZ8saJEzs9?=
- =?us-ascii?Q?sb3+4wZ6sZaW6Gy9jFZIu6ukNBCHc6OiU2oybGNw3EJ5LPfutfUef6bhVTnE?=
- =?us-ascii?Q?ucfkocTBXiX2+g1NjNFYXMbTBxfr6birUFcx1keI+5Ga9ZwEEmz+zIK68ChD?=
- =?us-ascii?Q?H+dvO2ju8HgL8pHE5kMX8N9mJxWMvNGO/cr87z/l9AH+ccFtNx5DCvNyluqb?=
- =?us-ascii?Q?dna9814beDf/4sprZOL+42vAX6xDe8cEUH3181MCxY2aFCAuYbyikwEZNAzY?=
- =?us-ascii?Q?eacyyB0oqU3Q1b5U2ovSORf2HHH9a4iz13hel80P0nBh2ACNhtlI+azIjQk8?=
- =?us-ascii?Q?smGRu6H7nGh0mwe50d14c0xpKscj4Csk3vZN7sUFnjdaVBumA4Uw0ZhC6G6Y?=
- =?us-ascii?Q?XXzHdb5JwEETP20du4CJPfnjNNu+aoPUP+bY7dYwO4ZfKo42V7bYUzRJv6fk?=
- =?us-ascii?Q?MYZwNUy45n+Goo9Q3oaGcyvaTsDNNoUL6ZkrrY/FnRU2IKpeqH//PM1pyncK?=
- =?us-ascii?Q?s3VE/fZmCWPIoDk2Lh46qyu4e858zU0Fm9YHwL3gN0KvUYh4p+KpK/Fw3Txs?=
- =?us-ascii?Q?ViEFqTGNcEGGhksyjLzYXjUYjozUD6IVqBuRFfg/KjAkxOehyotNZwcyGhoh?=
- =?us-ascii?Q?2ESBjEv2jjyHDRdpLnzguf3X8XI/bBXDYZu0CklH6RLo/y2pQzILFA0jlAwf?=
- =?us-ascii?Q?GXaAX+RsNvvWNTcJ8ynRchStk9GXDaK//4+0agS0g9EW/vKZi9nqMDzf7KgL?=
- =?us-ascii?Q?dwQwqZERdQykgU0PG+uXabHgCNLPW9zE6E3Py2EIZtZMQiGJVEzKnqnV4yLT?=
- =?us-ascii?Q?01LPyAuv6yi+4Rh4v0lsmjzPKAyLjKZkNZWn89RVwiM9vQ9pSHgER5B9uRnq?=
- =?us-ascii?Q?RPL2JON1Bj6HK9rVfGJL99oRpxAbPzaFaKTY2sSwlj6DRZOWPN11dL6iOya8?=
- =?us-ascii?Q?Rh7wAGvyHCTHDqhflNYgoy+tawsGDws=3D?=
-X-Exchange-RoutingPolicyChecked: COmATCrjpbGDT8tQ2sCGN9nFb7cnb8DQyNYyMRdycO3irFHTGykYs3rghfUkgqfI7v5OeEXI4LuWOVnOoqEs0bvRoqbIsYzoQCptkglOjG99fky6u96lnuBQQW1buoYrzT+BycyrhNwmcJE9BXGVx0Uyw8x3eik/1ka3nl3RNqk4cnBEweBQTCbVCs46EgAJ62IuGYoZso6/mPveEPPY29yDx9ML9Qg0o4tATup9AHDBEmx13kUZRNCYcGO0jYiA7VyiPM9nUQEtMkIyP9kBcRE+jMaodqYZq+sg7OVDaEYeC4qI0qfFZ8diRFYtrz8L9DJjUL+nmoQMsS/KL/3aig==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81d9f524-2080-46d6-986e-08df2e4704e6
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 01:11:07.1815
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X8JXWUfic9N+YgJofivgkS4eCR2My0abuRSiThPNj+Usmf3ScrW6mSlvc4eMjvkqiCFyDToOI9iIb9XzJpdALuSCcsoYNjjr1UxROxpriOg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6398
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAKxU2N9paXhCuNknUzKx5dYxhXitLZ=OVVY7Sym1HV8Mow6cSQ@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 09:50:08PM +0530, Shaikh Kamaluddin wrote:
+On Mon, Oct 19, 2026 at 05:56:44PM -0700, Rosen Penev wrote:
+> On Mon, Oct 19, 2026 at 5:32=E2=80=AFPM Sasha Levin <sashal@kernel.org>=
+ wrote:
+> >
+> > Building an i386 allmodconfig kernel with clang fails since allmodcon=
+fig
+> > started building netfilter with GCOV profiling:
+> >
+> >   In file included from net/netfilter/nf_synproxy_core.c:7:
+> >   In file included from ./include/linux/skbuff.h:26:
+> >   In file included from ./include/net/checksum.h:21:
+> >   In file included from ./arch/x86/include/asm/checksum.h:9:
+> >   ./arch/x86/include/asm/checksum_32.h:149:6: error: inline assembly =
+requires more registers than available
+> >
+> > The csum_ipv6_magic() asm needs five registers at once: the early-clo=
+bber
+> > sum plus register-only inputs for saddr, daddr, htonl(len) and
+> > htonl(proto). With frame pointers enabled, six general purpose regist=
+ers
+> > are left to choose from.
+> >
+> > In synproxy_send_tcp_ipv6(), the GCOV instrumentation lets clang's
+> > machine scheduler move the copies of two incoming register arguments,
+> > EDX and ECX, below the asm. Both registers then stay live across the
+> > asm, which leaves four registers for its five operands. This is LLVM
+> > issue #206307. The error goes away without either GCOV or frame
+> > pointers, and it reproduces with clang 19, 21 and 22.
+> >
+> > Neither len nor proto has to be in a register: adcl also takes a 32-b=
+it
+> > memory or immediate source operand. Use "g" for both, so the asm need=
+s
+> > at most three registers whatever the caller looks like.
+> >
+> > ASM_INPUT_G, which normally replaces "g" to avoid clang's poor handli=
+ng
+> > of it, is not enough here. It expands to "ir" for clang, so callers t=
+hat
+> > pass a variable protocol, like nf_ip6_checksum(), would still need fi=
+ve
+> > registers. With "g", clang passes a non-constant len or proto through
+> > the stack and still turns constants into immediates.
+> >
+> > Fixes: 403cec8ab6d0 ("netfilter: add option for GCOV profiling")
+> > Reported-by: kernelci.org bot <bot@kernelci.org>
+> > Closes: https://dashboard.kernelci.org/build/maestro:6ad55fe255fda507=
+603d2651
+> > Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+> > Closes: https://lore.kernel.org/a28df759-d0e9-41c0-97c7-5f89a18d54e2@=
+oss.qualcomm.com
+> > Assisted-by: LLM
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > Link: https://github.com/llvm/llvm-project/issues/206307
+> > ---
+> > KernelCI's kbuild-clang-21-i386-allmodconfig job has failed on mainli=
+ne
+> > with this error since the 7.2 merge window, v7.3 included.
 
-snip
+This'll tell you how much people including us care about 32-bit...
 
-> 
-> Applies on next-20260908 plus [1] v5. The num_poisoned_pages_inc()
-> change agreed for v6 [2] does not touch these patches. Patches 1, 2 and
-> 5 touch only drivers/cxl; patches 3 and 4 touch mm.
+> > Tested on i386 with KernelCI's allmodconfig-based .config: with clang
+> > 19.1.7, 21.1.8 and 22.1.8, nf_synproxy_core.o fails before this chang=
+e
+> > and builds after it, and net/{netfilter,ipv4,ipv6,bridge}/ and
+> > arch/x86/lib/ build without errors or warnings. The same directories
+> > also build cleanly with GCC 16.2 (i386 allmodconfig). A 32-bit usersp=
+ace
+> > harness comparing the asm against a C reference over 2M random and
+> > carry-edge inputs shows no mismatches with either compiler. No full
+> > allmodconfig build or boot test.
+> >
+> >  arch/x86/include/asm/checksum_32.h | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/arch/x86/include/asm/checksum_32.h b/arch/x86/include/as=
+m/checksum_32.h
+> > index 17da953879976..f74873a5e3510 100644
+> > --- a/arch/x86/include/asm/checksum_32.h
+> > +++ b/arch/x86/include/asm/checksum_32.h
+> > @@ -159,7 +159,7 @@ static inline __sum16 csum_ipv6_magic(const struc=
+t in6_addr *saddr,
+> >             "adcl $0, %0        ;\n"
+> >             : "=3D&r" (sum)
+> >             : "r" (saddr), "r" (daddr),
+> > -             "r" (htonl(len)), "r" (htonl(proto)), "0" (sum)
+> > +             "g" (htonl(len)), "g" (htonl(proto)), "0" (sum)
+> >             : "memory");
+> Same as https://lore.kernel.org/all/20260904000833.2058186-1-rosenp@gma=
+il.com/
 
-Hi Shaikh,
+Except that Sasha's commit message explains it perfectly clear how this
+happens while for yours I would've asked how you're reproducing this.
 
-Can you share a public branch with all this code in one place?
+OTOH, I'm not sure I care about Sasha's AI's blurb about what params shou=
+ld've
+been in what registers and so on... :)
 
--- Alison
+If only you guys would agree on how to merge the two, assign authorship a=
+nd
+drop the unnecessary blurb...
 
-snip
-> 
-> 
-> base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
-> prerequisite-patch-id: fe9d44deb8ccc48c0311bc4131bdf733eb353b34
-> prerequisite-patch-id: 4cabe6adb37cd8c218bd43c97970bc65f313b671
-> prerequisite-patch-id: 52ad24bceedb9c03df167f10573166a1d97ba97d
-> prerequisite-patch-id: 44bfbc8aa3c4b19593f7b0d466fbc0cb99b99f76
-> prerequisite-patch-id: 2d344a5322ff07c7895a59d2425540a30e4e0630
-> prerequisite-patch-id: e776f306dcbdda3f6972187ad1e43a62c2754890
-> prerequisite-patch-id: 3ef887599e31ef973d6d9ca15d0462d55f5f0409
-> prerequisite-patch-id: a23fe88ab4529b6a6669a991e15cf1631311391c
-> prerequisite-patch-id: 111c69880ed0e148cdda285896c006e8d1fc98a8
-> -- 
-> 2.43.0
-> 
+Thx.
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
