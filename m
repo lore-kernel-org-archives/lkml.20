@@ -1,91 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792529238;
-	b=o3SXv+bLQJedXWBSaEm/qHSaPAS5BWJopNWsISqIh9Z0vQlpA2z0EhTm1EyEUSUghMMR
-	 sFzqxixp8E25wYjPUQeEpjtPd8lUxGpTYTJCsI0Pi0dpoDSBvebTZkNnOD4/9MkCL3v2o
-	 TeYU88jyJQUCnSP5GDIIy9RBV+M6vPS+fteYcwu7Ba/3cIoAXOUP5NVMKSQLVcUP6RuFH
-	 MValu+i8Wxpt72zstfpE4N4RJ5JX4C0gQXQFVJ2QVuxnJomalXBIQ6kt0RVr4pMCIbWdM
-	 epqylnrbCsjslItxPmGT1gK97uhvzzDwJYIOgp8NREfw9lG9UGBIkXOsgfBNY/2h3+Q==
+	t=1792529262;
+	b=tc9DQ0vIhLmih8hAZ3sAzUlQ56xiVrFYNFhkeXC6t1MLawBy1+IqLzgfIJ+QUTMRSFsh
+	 EgDqcQX9YjOJgxIQdpZy0Pxln9rYOGqrxJi0crGFgVSSBVxvC7Y4l9TzQlaX/192PWKTt
+	 dYoZFYgXmJ8yxH2H0IrCLq3LXAAd7EBbvkv2BGMKOq8B+B+5j4M4eVx7Kyw/br0Gad9Ou
+	 UZfRmj/tYS6OlIlXFw0kk1tHZ0PPbfJFLnEZQBUqqCpyORUTVaBvDUGjks2Lzzfr6vbqE
+	 ZAXkoAA33xeVzyvrT4qpbOYIQMpxCNCsscguOyuGim5ZpPnGdmfAD9Nz9NGwuQ89EWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792529238;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wLXAznyXf5bvUPPsBhe29Ol3AZfJStrp85inSZMO8Ek=;
-	b=qNZ/8ifQeU2KlQURDU/65zxVfO7mWYZ/ASbB05BLogw5y8pJaXeTSbWksKUsJAJsO39l
-	 /UR3tzdDGTBINi8DjwkLJ+0sOe3qH1EgyvK9fe+hM5N/BfE2rdiz8/7BD8AyQU4kPvfSj
-	 g2ViQHMZCSuj4cBXROe+/X/D/Sb/YCo5yoDJHPylenjsXMoNo3ebxrVE9sOV7GTU/xxHr
-	 OGQeEshSanWCSgOHFYo72aQgwq4BOHH+wyRhwFgKo0JnQbdxvvI9aQyJQPSJyjtodV+bX
-	 WNIjgnguHo7YwG3QKJvD12RCyx+oXIb0dTiaNuB08RSkz15SCnU1ojhsDltLILyRBkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792529262;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=94yToyo0mcTm8BGuVoERGHQo0UgcFuSToj2y29Zt1HU=;
+	b=TxLhmeZO/e4yPmyw7Eb1LAIcx0vjk7cn/1h/Qyb2l/zmtIE4tzCbXCTtMUqI4YFPKkie
+	 gggGiSW/7QpAxRwtTOOTF+dV7MBwJguYwHVW122dUtIpXutbHm1GIIxneP/9Smp5nV3kk
+	 GMCpVcycvqvGTMxBqjnx4AN7gsxx/CH2HhV4eNfKpe6zibmRneeoRRXbo4PEAd7bPbxLo
+	 0y6rJU481R0gLRjhEuVvLXdug6GKB12Z8o0m/29aCouhIkVyvKna5mC1800he6JRcxdSr
+	 vWbP9Vwbf3+NsaOzWlUr3e92o+awtqpPafJjKsJABYz2cpMy9sTskIiZL/r2WozCKJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aBcRi42V;
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="N2wtZu/T";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RL7l2b7s;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FD7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FD7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E53B606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E53B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aBcRi42V
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5363316fa0cso1125901cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:47:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N2wtZu/T;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RL7l2b7s
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KGtmwD2278806
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	94yToyo0mcTm8BGuVoERGHQo0UgcFuSToj2y29Zt1HU=; b=N2wtZu/Ti1khupw8
+	0AJI52C3hmauPvt7qec/n/1uMqUSp/eK2IUYDOtx/p7GThbUsfN2kwGe0h+T2PlU
+	xJGx9gbBZUnhbm+4cbQ2HTbg7Qdher3/0SwEN8131ZieBa7EFtH1PiG4oM1TIBQO
+	JFVc9pOtecXWv9XPMJ0PfkG7ufFB3Ye94+F+khl2P79YmRz5q8AOtQH1Mme+P3vS
+	eztoj60h6h7fK2vjj+5KQS652WBpAsVT6yccmORBg2F5IlchFRnCZVzTBIObx8vR
+	g6rKdkZM8rR3BLpQA0zWICRErErTsR9cZj9coaYfDqopUHQYBZiZyQJow+K4zTgo
+	zL8+JQ==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2a3s5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:41 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-151ba226e1bso53069c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:47:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792529236; x=1793134036; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wLXAznyXf5bvUPPsBhe29Ol3AZfJStrp85inSZMO8Ek=;
-        b=aBcRi42VccLC0FSQyV5iMgpQx+gf/aBVQY6MI2uhL0MM9YvylkDWb81C/ycc0SYiEX
-         W5XjMaUco8LxmpzBTWZTMIp4K/JArrmtUaTo/EuiPU9U3cYD8nNXb2vREoDBpBYr6AkV
-         QKnD/oZnivcZQq4AtYMZe3ILPfCR92zHoSD8hCeXioGqZywYywuvdYTt+LdzZb7tRunW
-         slAV1xiKLIszreW9khlJzc5bmzETgKR83/NO+KQTYGnkWDSzev/9EMAl9Hy2WWbTKz2U
-         JJ+mSgdBhnvpL8906B3oWXFb09MXiTCZHuH4Vj7fWLXiWfYlqFa5hdyT3FoK5865aNly
-         A2Bg==
+        d=oss.qualcomm.com; s=google; t=1792529261; x=1793134061; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=94yToyo0mcTm8BGuVoERGHQo0UgcFuSToj2y29Zt1HU=;
+        b=RL7l2b7saX57bo2Vv/+yI4hXI/xTdi01GmC5iUBi7MC2j+3SuHW7GYUc1KmiInFq27
+         gmUGMTiy3d7hZmUHzBEoleF8YFO3NEkOttokciexo6ka+4I8FYD1ioe0DQrocacO6CVN
+         2/zHu8MXxFY3ILzInQ0uDtz6aZ86QHpeZYZRJN0bpCihJjedk/uGxYaSH8cGMagbpgqK
+         tp8h4mdXGrg7DG64DRisZdMHOERfT7pzh3oi9/9v/1jUVhNWMG5Ym/aRHLggus+WN2A0
+         58Ql3BoRXGmXek0SWeGThhyGUAYNL7i5FoON2s2pKAoJI5uDs6hkxUXWGQDYxme01/69
+         1Q6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792529236; x=1793134036;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792529261; x=1793134061;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wLXAznyXf5bvUPPsBhe29Ol3AZfJStrp85inSZMO8Ek=;
-        b=jkAcDmQer1ui5evnpjVbP7MuPoeahyo9C1l9dL0EwlnvZ0lt+zCQ0P+EAV4/NRiK7J
-         7itYxQXlHo6JOk9JgJfaUBJy7c34OW6IM2hlNRXH4vFfWsvX06T/ZkRuKGnh3nA6qtGP
-         GrG68y8DVdnAoPZTTK/ivBwgIdSni5wcq5i3WCpuH9O9DXqO43XWq/0GoWQ/ZCYUIPP0
-         ZDjNjJMBuAON3OE9aObkPie4bjiNOppdJLGNYpE9Pyl1CPR5YbCP7sf9EKJyygQWt8fi
-         mAE3fBTk2qLd/jWXrpu09IQ3U8qMH70ljS7BpeAPKIhMoG0Tt2lJ6Xm6bZvMjdm2plv4
-         iH+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ438uTmC7sbVzafY0eDpnVBgwcnQye9qQedD/An1uZclUhyIX6ZE9NsZJn/4JrQXwh/CkiPpD/Q4Lttc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJ+8RPdUz+hRSGzkenYsEa6JeSy0ffkY4yywuqHr5ig4ltpAXg
-	sbdYG92hovZnmbZ/4UAgjQRpiTQfTRGfN6grIkEHjOGc0mB1BDjm26or
-X-Gm-Gg: AYBFou1PGEngXADXAucArv6O0MrU/p7d594TdQfi5CMBceHbsO4zC0A7Wd/ZHcoZxV+
-	XzunjY/jr4bbsPOh2q3mcF36rdzH5RxyB8BVaIzQJrTqg8UYX9TrSHK9iVOUo9Bl/xwkEp/9gKa
-	Q4ABRmapzvawEY+gSnK4Nf1Ie141CS0bWupfsGiMUAybfeCdQDubnrEjRZSiZaLSUeuhwmN2ZRS
-	OxxVQ9r4q5O7pXbW62WoNZS60Utjjur2HiT0rbJx5VREo599T2zTUxzkIHQYQk5nAhvZQ7U1p87
-	EZcL4n9mMkK5JikcsS8tB3/HHsbj0IqloI0bjLK2iIP1od0vwcOCb5raKRo7RiaqEmOlKinFvU/
-	+4ihQYfe6KrP89gsSdcQ3NxUYGEanxfDhvRXba6Rj2cTW4gEYUvi+rvOp2/BoUxj3sawecQlSYr
-	8IcYhTY1phKnnGBeKLAH15T/N8i6xCYCgfgWZqucbyikH7GXiyi+nF9h1TuboQw6sGJCym834W1
-	cmw
-X-Received: by 2002:a05:620a:3703:b0:93f:1dbf:6cfc with SMTP id af79cd13be357-93f57fb8621mr81012385a.36.1792529236372;
-        Tue, 20 Oct 2026 13:47:16 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56c6f16dsm79336785a.4.2026.10.20.13.47.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:47:15 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH rtw-next v7 0/3] wifi: rtw88: channel switch in AP mode
-Date: Tue, 20 Oct 2026 22:47:09 +0200
-Message-ID: <20261020204712.3252023-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=94yToyo0mcTm8BGuVoERGHQo0UgcFuSToj2y29Zt1HU=;
+        b=NuMCo7QXYqAtqQPJgxctqNnPZT/BwGvsMymkGNgUy0l7B89P0R0mXl+cq8mybCW0/x
+         77CszXirSlsKESe7hpaiXBLTP14W8X+B8JyXOp6Xji1n/X44pp0+SpJ/xvCW33nUIVJA
+         eH7/98s9TK2//qOcsYno4vmgv+e4gOCCW4RINSKkFqQJoaLHYFqAFjihGIPhXdNXv7FU
+         8sn5fuMe+EQHwPiezekPf0m9cEkbazU5E+cGZCoHc9Z+JC5oLW/T6MjWd/usSbaML3xu
+         wlFpW3nFcKMhgg5jeumv5dH3Tgnao1Y7Iou743Zt0mCalInHBLIfsLM8apkcvbOR2mXD
+         cUaw==
+X-Forwarded-Encrypted: i=1; AKwUvBypidOso9NPY6GGIfxtIiwm/kmf1iqd6BUxQVpCDQUXbNxQJNE0wLdPWPlrk8Gi+6psxNHipxz1kicsweA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKT0f4e5oKn/DLzm8Ba7WoPs5RtKIYFXN4CzzRaAoiKXRzXLYeW
+	Ai462vWCQ4nkCb2XYEt0/+16Ozy6zFvC+IEMrIezdA8J3hkueZ5jIZ2QKrvT0Z9am1qPBBeoJhl
+	laAJKBJY3j9jKUl3XZdARYITN97HjOOEqFq4SfN+AnhsSacaT033fAvSQOt0GhnkAa+Y=
+X-Gm-Gg: AYBFou3E1NjBgoPJOi+QEDXS89wxrVrdfui+F+4LPTfs2jShfZGqrua5ZrMF/sXJd4H
+	gjgtOx9IHkGwAqeTEBLKoxIj9KIFmFkNAObTowx6w56jWugnny0wPzPpjpALr+ID3TjFksProjC
+	ZDipZUtrE2PIvIOVi3h5cBcbk4f/5N+CiVfaFvKjQ7CFUxHqaaY0SeTMBNgccZX5IGSKvImsk5Q
+	peW06l2mSLg37oT/zOpbmdRSEZV/a40wVTACWXsRhPOw7CADKs5I3d9Rg/uAD6MJFKtdmI10tax
+	dIFss6QnmZu2ypVeVceVS368upc/pPpwnKptf47CofoTERzBTFdj2bANgEiFNaCn2Um3HAb7cT0
+	a9GrneWTsMGH1/KFsLrbWNaAzBgqXr5BEJs25WY91JoRLRSeqBkX9S7Ut2g==
+X-Received: by 2002:a05:7022:302:b0:157:cbf6:89c4 with SMTP id a92af1059eb24-18514350f17mr24991483c88.26.1792529260983;
+        Tue, 20 Oct 2026 13:47:40 -0700 (PDT)
+X-Received: by 2002:a05:7022:302:b0:157:cbf6:89c4 with SMTP id a92af1059eb24-18514350f17mr24991437c88.26.1792529260407;
+        Tue, 20 Oct 2026 13:47:40 -0700 (PDT)
+Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e4f2eacsm880701c88.23.2026.10.20.13.47.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 13:47:40 -0700 (PDT)
+Message-ID: <624e580e-3d14-4b3e-bd63-9137a63abfa0@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 13:47:39 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,132 +115,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+To: Bryan O'Donoghue <bod@kernel.org>, vkoul@kernel.org, kishon@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        neil.armstrong@linaro.org, mani@kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <qLjQvei0fouaxpwPTn80Nhf-aITowIXFteQ3i4M6uq3PVYim2WLaeukVq1MgNcwOeagmzK7HP1tzQbTTlhNXOA==@protonmail.internalid>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+ <bf402074-d666-4988-8426-d8faa9625551@kernel.org>
+Content-Language: en-US
+From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <bf402074-d666-4988-8426-d8faa9625551@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: FNyAfZO2rJE2erEgootR6lbUc50s8eER
+X-Proofpoint-ORIG-GUID: FNyAfZO2rJE2erEgootR6lbUc50s8eER
+X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad7d36d cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=z39C_I-LsHAogVuORkQA:9 a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX/uvWK6SX6I98
+ AnIgqtLvZaAMaZGs39OIICQL3INa/FdO/Yhw29hYSnHechVoxUNVhXAwqbNoF0LbLrFYx6ooBBz
+ ybVI3RB6X3tBHuT3OBuYEXGHJTtMYbA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfXyosf/ki6sjc8
+ l3K1fXdUtY445ynXgiKbbQqYsKQBpdYaOHGpc/J+cI0uRlmr0WGp1m5IXbVuLDvvzLB/rNjt3OP
+ OUqWmGS6gWRN78kr1bSm1kv1pdJ3vugP4f3tuE6drsM/VX6L/HUHNKHcZ6VitArEBXOOH8PlLa6
+ eAcXIgmP2ybOaDbxVeDdIi3ji0QMPqLTBmJ31Gmg3ebe9dzKcPN3vu6z4muB/qNYzsn0oboi7nv
+ y/akYKt3YOV4oxjYz0TwfSp4GWQTX9Zu+RozXnja4zBY3bSQ25UT87NCxSMvIYXt4iloadzBqfM
+ 7PJ9418xKiS4Kd1KCphaSwrvH2SMi7w7I5vJn8OuiiUtKg4tBygrsCN22VXF49Am5HsqSqzCweh
+ bxP9huDsPukLg3/u73FzfRKLDaLkuuc5L21TzoEfCMVt7cFyUPDIeGqH2iTyeKRtTcowR+P0DTA
+ qIkk6CwZkHxP9By2UXg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200082
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Hi Bryan,
 
-An rtw88 AP cannot change its channel: the driver does not announce
-channel switch support, so hostapd's CHAN_SWITCH is refused and the
-only way is to tear the AP down. The series fixes the beacon download
-the reserved page build makes twice, implements channel_switch_beacon
-on top of the firmware's beacon page, and times the countdown
-downloads from the TBTT so that every count goes out on the air.
+I agree with you. We don't really need a separate file for this. I
+was just following with the series pattern that you posted.
+Can I tweak the name of the yaml file, which would be more generic and
+can be used as a single point of reference?
 
-Tested on an RTL8821CU, an RTL8822CU and an RTL8822BU (USB) with
-hostapd 2.10 as AP: switches with counts 1 to 100, scans during a
-countdown, hostapd stopped and started, the USB driver unbound and
-bound and a firmware crash during a countdown, IBSS switches, a
-station interface on the 8822CU associating while its AP counted
-down, and Windows and Linux stations following the switches without a
-re-association. The 8821CU and 8822CU set was run on a PROVE_LOCKING
-kernel without a lockdep report.
+Best Regards,
+Anusha
 
-Patch 3 was tested on the RTL8821CU with a build that delays every
-second countdown download: with a 60 ms delay every count still goes
-out (sniffed from a third machine), with 95 ms the delayed count
-stays out and the next download follows at once; the AP finishes at
-the same time in both cases, and a Windows station followed the
-switches with counts 10 and 50 without a re-association. With the
-start forced to either side of a TBTT, and with iperf3 traffic, the
-counts matched the beacon timing in every run on the RTL8821CU and on
-the RTL8822BU, the first on a PREEMPT_RT kernel, the second on a
-preemptible one without RT, both with HZ=250. The patch 2 fix was
-checked with a build that queues a TIM update right after every
-countdown finish: the WARN came before the fix and not after it.
-Patch 1 is unchanged since v6.
-
-v7:
-- new patch 3: the countdown downloads are timed from the TSF, 10 ms
-  after each TBTT, so a download that runs late by less than a beacon
-  interval still reaches the firmware before the next beacon; one
-  later than that is followed by its successor at once. Ping-Ke's
-  question on v6: with the absolute due time a late download and its
-  successor could land in one beacon period and leave a count out of
-  the air
-- patch 3 takes a TBTT within the margin before the start as the one
-  that sent the countdown template: a TBTT between the template
-  download and the first TSF read made the stations see one count
-  twice
-- patch 2 keeps csa_vif until the beacon after the switch: a TIM
-  update before it fetched one beacon past count 1 and hit the WARN
-  in ieee80211_beacon_update_cntdwn()
-- rebased on rtw-next
-
-v6:
-- the wiphy work patch of v5 is gone: the countdown work is an
-  ieee80211 delayed work and csa_vif is driver state, both under the
-  driver mutex, so rtw88 takes no wiphy lock anywhere (Ping-Ke)
-- rtw_core_stop() cancels the countdown work and clears csa_vif, which
-  covers the IPS path and the firmware recovery; the wiphy_lock() in
-  the recovery work is gone (Ping-Ke)
-- the BSS_CHANGED_BEACON path says why it starts the countdown, the
-  replay after a hardware restart, and stops it when the beacon comes
-  back without a switch announced (Ping-Ke)
-- the downloads are paced from the first one with an absolute due
-  time. Queued after each download, they drifted by about 10 ms per
-  beacon interval on the ordered mac80211 workqueue; on a count of 50
-  the AP switched half a second after its station had, and the
-  station re-associated
-
-v5:
-- 2/3 is new: update_beacon_work becomes a wiphy work, so that it can
-  look at the channel switch state under the wiphy lock; it checks
-  RTW_FLAG_RUNNING instead of being cancelled in rtw_core_stop(), which
-  runs without the wiphy lock on the IPS path (Ping-Ke); reverted in v6
-- 3/3: rtw_fw_csa_active/start/stop() assert the wiphy lock (Ping-Ke);
-  reverted in v6, they assert the driver mutex
-- 3/3: hw_scan() takes the mutex with guard() (Ping-Ke)
-- 3/3: a comment on the association download names the STA+AP
-  combination it skips the download for (Ping-Ke)
-- the whole set ran on a PROVE_LOCKING kernel without a lockdep report:
-  switches with counts 1 to 100, hostapd stopped and restarted during
-  a countdown, scans during a countdown, a firmware crash during a
-  countdown, three stop/idle/start cycles, IBSS, 50 switches with a
-  station attached, and on the RTL8822CU a station interface
-  associating while the AP interface counted down
-
-v4:
-- 1/2: Reviewed-by from Luka
-- 2/2: the countdown work is back in the device, initialised once,
-  with csa_vif naming the interface; no interface iteration and no
-  lookup through the reserved page any more (Ping-Ke)
-- 2/2: the countdown is cancelled before a firmware recovery restarts
-  the hardware, instead of guarding the work with flags (Ping-Ke)
-- 2/2: the page download on association skips a running countdown,
-  like the TIM update and the PG backup (Luka)
-- 2/2: the scan refusal comes before the scan offload test, so that
-  firmware without scan offload does not fall back to a software scan
-  during a countdown (Luka)
-
-v3:
-- 1/2: the beacon out-pointer is initialised in the caller (Luka)
-- 2/2: the countdown work lives in the interface, remove_interface
-  cancels it unconditionally, the queue wrapper and the comments are
-  gone (Ping-Ke)
-- 2/2: the TIM update and the PG backup on set_key skip the page
-  download while a switch is announced; every beacon fetch advances
-  the countdown (Luka)
-- 2/2: the commit message names the refused hardware scan (Ping-Ke)
-
-v2:
-- 2/2: a hardware scan is refused while a switch is announced
-- the rtw89 mention is gone from the cover
-
-Mehmet Fide (3):
-  wifi: rtw88: download the beacon the reserved page was built with
-  wifi: rtw88: support channel switch in AP mode
-  wifi: rtw88: time the countdown downloads from the TBTT
-
- drivers/net/wireless/realtek/rtw88/fw.c       | 146 ++++++++++++++++--
- drivers/net/wireless/realtek/rtw88/fw.h       |   4 +
- drivers/net/wireless/realtek/rtw88/mac80211.c |  39 ++++-
- drivers/net/wireless/realtek/rtw88/main.c     |   6 +-
- drivers/net/wireless/realtek/rtw88/main.h     |   3 +
- drivers/net/wireless/realtek/rtw88/reg.h      |   1 +
- 6 files changed, 178 insertions(+), 21 deletions(-)
-
-
-base-commit: 9b0be45d4d52fd223994e151f169743a97abd290
--- 
-2.55.0
+On 10/19/2026 1:29 AM, Bryan O'Donoghue wrote:
+> On 17/10/2026 00:54, Anusha Arun Nandi wrote:
+>> Add a device-tree binding for the Qualcomm SA8775P MIPI CSI2
+>> PHY, modelled as a standalone generic-PHY provider like the existing
+>> qcom,x1e80100-csi2-phy, so CAMSS can consume the CSIPHY through the
+>> common PHY framework instead of driving it in-line.
+> 
+> Do you really need a whole new separate file for this though ?
+> 
+> ---
+> bod
 
