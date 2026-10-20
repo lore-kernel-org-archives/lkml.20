@@ -1,50 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792511154;
-	b=MvcXsgl2BzCcyMel25FeZQtEjsXEyim8cQyI4fc4rkh5BApqHhoLZpjlHwV9Y63NSEua
-	 YytH0mFYYCqPJp7RYFrqWXT0/c/WyN6vAgWlACdz7wsGHgFbpaIvci8mz2SwJSkaT2UxH
-	 LKXd9YlZATVKs943ZA318AGLEu1NqfJeVTo98W66x2vcLwGRh3+WrzAiQDhD7rMQrtB+2
-	 G5fzGZv9lAkUEBcXuLCQIaaJQZDIefQohzaEQuJabnI7QtuwS5gGGHONtBiKYepHhlQdO
-	 ASdgvr/KO9jnIN0q6KOz8eA8xZ93tzz0ZNxI36eW87BJlPBbGrYFwVi3u81PGh/aonw==
+	t=1792511234;
+	b=hm6nDcpdHvoO3VhIuS8O4cX+qlcZC81vIwlmFccO7Y1Vwgi9wv9Yg09XXHN1FcpyWhjl
+	 EEQ5KDDdPOAXfYJhUCgOWkYolqKxR/ieu/4vCXKQjQVWg8m2gRw+LRzpgI5VLhPMgtjTg
+	 Hug4gNEPM1v7Zf7S942w0qFXJLstA4eLIS05Vi8mJ3Wxf72NPT9TSAeD2lUzZ8q2mdEL9
+	 f1b6z89Ihy+3nWvykqtBfPrMHxaDS+5OfmN6bbdmwJbGSfJxvLHp4jgNXVBUHHGPtbUfa
+	 kaK5MzIaY7naTSa3D5SNxdp3r5zRnN9XOTrieKYjYrUGwHS4l8j73ehzgtfZetLUSbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511154;
-	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=2cAZVCLAQpN5a+aDVXVz9w99JGOZYk0P7w6fotRmbJI=;
-	b=MSW4O/r/x3g4HhS9QqY/baxOxtopgDQpO6e4AlPB7aJSNE48Rv7hep+5sY/qYoZB0+mA
-	 8FBm/wJwrAqUKfGk34Q+O5ypSVIfa0V2fc+0DblufXCpQU/E9HSlJRj9FkEu+FzJ5DUo/
-	 Tw1DHZr12T4iJqmN2igiPC2DhpEBW7vWi0dpW9msgcEHoE8tiDxJG7cfkK7T8Yl+vTlVH
-	 +wdl5mBMP2M28V7mBTJJO8uXvjt/74/2Ozl9gPKentvfVIyCHPH60Zn0FY0cqziG8veyc
-	 b9+7nfOlLsY4EkQsamgbMvM2KFGVF78lkZftJBp2I+qPefkPEjJJHT+NL7yxfeEgXjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511234;
+	h=DMARC-Filter:Received:Received:MIME-Version:Date:From:To:Cc:Subject:
+	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=tsupAq6qhLg8WJSXIbsSaCVk68CgY4BZHyXeD2ZMBNc=;
+	b=E76OoZy9JXJLt7K+nGXsbxmhyStVBkBxPYBDfkXUdv/eSwDgSAtzBMYoqrMPc/Fd8B+Z
+	 TJvPDUj4kjzyLfN6j1zLhrE/FPivHNd9OlNftenq1yxOjIr4O7xWzbsITWX8RaBFjry4n
+	 OpwFEm6Q5/WsbK9C2jzjWXGncJ589EUXDOevscrD/+FAHwMH7bAicw3DIYtjnYEJeApGL
+	 FuLgKTuWiVPN6UR1m7f1qu7PppdoKABWZ31JLuA5QecDIg6UYf0KA/euLjbAidvScm3wh
+	 Ecc5VOUpS/sUDwJWI1pBYYSp/fnP7uvYsKUkXZt6BsNeYJopAgH5IiUWZkIrjlGO1kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABED606A31C;
-	Tue, 20 Oct 2026 15:45:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF6A1F000C5;
-	Tue, 20 Oct 2026 15:45:53 +0000 (UTC)
-Subject: Re: [PATCH net-next v2 2/3] dt-bindings: net: qcom,ipq9574-ppe: Add
- IPQ5332 support
-From: netdev-bot+sashiko@kernel.org
-To: mail@tk154.de
-Cc: netdev@vger.kernel.org, jie.luo@oss.qualcomm.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
- quic_pavir@quicinc.com, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org
-Date: Tue, 20 Oct 2026 15:45:22 +0000
-Message-ID: <179251112267.3135.4070073484020309929@kernel.org>
-In-Reply-To: <20261016152449.934312-3-mail@tk154.de>
-References: <20261016152449.934312-3-mail@tk154.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F67606A31E;
+	Tue, 20 Oct 2026 15:47:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F67606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 095DEA7953;
+	Tue, 20 Oct 2026 15:47:04 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf19.hostedemail.com (Postfix) with ESMTPA id 2CFFA20029;
+	Tue, 20 Oct 2026 15:47:02 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,106 +46,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Date: Tue, 20 Oct 2026 08:47:01 -0700
+From: Joe Perches <joe@perches.com>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, users@kernel.org, Federico Vaga
+ <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, Carlos Bilbao
+ <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, Alex Shi
+ <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu
+ <dzm91@hust.edu.cn>, Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan
+ <wy@wyuan.org>, workflows@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] get_maintainer: only use THE REST as a fallback
+In-Reply-To: <20261020-get-maintainer-the-rest-fallback-v2-1-162aea473488@linuxfoundation.org>
+References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+ <20261020-get-maintainer-the-rest-fallback-v2-1-162aea473488@linuxfoundation.org>
+Message-ID: <88c5be32a371b5d73561a82a63426485@perches.com>
+X-Sender: joe@perches.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: 2CFFA20029
+X-Stat-Signature: bz4xqp5u8abfxisp871g1znyofcfmi9u
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/6wHbnWvehosGk4WnohLoBoJEcwQg6gF4=
+X-HE-Tag: 1792511222-306555
+X-HE-Meta: U2FsdGVkX18z46lUSyMC9X2wSkcGybrf+XXoMvrjgb8sHEHpoPWzP/WnY/jZaiHP4MUYj6ujh8Or8HbklEffRvcOlfVQtxkwnS4kb0KdRvwuGzPwu3eTdEIR+19rjgWPoouLOqoXEVZMUb5CCLA0qXbUGLkI0n7HpmaViAmXAN9somwZvyE2lu55aoXkN7+QPalCNcdLaDGXw5JRkaz++QvFzWReXxIp6IEjL+SB2JYMK8ee2ZWwdcjV6B1xJEfItNuGHpP9Fk4kZcnJq9gxKS3BC6yv2lhsuMNuD1rXkYD8RYuFwv/bIiga85tbzaHbsFuoJLsFXnYtCzLHfk9ul9NsNPfiLF8DwDetcrBuLoA=
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 2026-10-20 08:35, Konstantin Ryabitsev wrote:
+> THE REST matches every file in the tree via "F: *" and "F: */", so
+> get_maintainer.pl currently adds linux-kernel@vger.kernel.org to every
+> patch, regardless of whether the touched files already belong to a
+> subsystem with its own mailing list.
+> 
+> Only add THE REST for a file when no other matching section provides a
+> mailing list that get_maintainer.pl would actually output. Lists marked
+> "subscribers-only" are omitted unless --s is given, and lists marked
+> "moderated" are omitted with --no-moderated, so such lists don't count
+> as a destination in those cases. Files that match no section, or only
+> sections without such a list, still fall back to THE REST, so every
+> patch keeps reaching at least one known-public mailing list.
+> 
+> Signed-off-by: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+> ---
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+I don't disagree that this is useful but v2: no changelog
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The IPQ5332 port conditional in
-  Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml (allOf[1]…
-
---
-
-dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5332 support
-
-This adds the qcom,ipq5332-ppe compatible to the IPQ9574 PPE binding. It
-also adds per-SoC conditional blocks that constrain clocks, interconnects,
-EDMA resets, interrupts and ring names. IPQ5332 port nodes are meant to be
-limited to port IDs 1 and 2.
-
-> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-> index 6d0b21a10732a..1e95f3a1d0b12 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-
-[ ... ]
-
-> @@ -229,6 +246,65 @@ required:
->  
->  allOf:
->    - $ref: ethernet-switch.yaml
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,ipq5332-ppe
-> +    then:
-
-[ ... ]
-
-> +      patternProperties:
-> +        "^(ethernet-)?ports$":
-> +          patternProperties:
-> +            "^(ethernet-)?port@[0-9a-f]+$":
-> +              properties:
-> +                reg:
-> +                  maximum: 2
-
-[Severity: Medium]
-The commit message says:
-
-  IPQ5332 takes four interconnects and only port IDs 1 and 2 ...
-  Apply the port-count limit to both container and port naming forms.
-
-Does this block reject port ID 0? It only sets maximum: 2. The only lower
-bound in the file is in the base ethernet-ports schema:
-
-  ethernet-ports:
-    patternProperties:
-      "^ethernet-port@[1-6]+$":
-        ...
-        properties:
-          reg:
-            minimum: 1
-            maximum: 6
-
-That pattern does not match ethernet-port@0. It also does not apply to a
-container named ports. Nodes like these are matched only by the generic
-'^(ethernet-)?port@[0-9a-f]+$' pattern in ethernet-switch.yaml, which is
-just type: object.
-
-With compatible = "qcom,ipq5332-ppe", would both of these pass
-dt_binding_check?
-
-  ethernet-ports {
-      ethernet-port@0 {
-          reg = <0>;
-      };
-  };
-
-  ports {
-      port@0 {
-          reg = <0>;
-      };
-  };
-
-If so, the accepted set is {0, 1, 2}, not {1, 2}. Port 0 is the CPU port
-according to the updated description.
-
-These nodes also skip the per-MAC clocks, clock-names, resets and
-reset-names. Those are only required under "^ethernet-port@[1-6]+$". The
-ports/port@ spelling already skipped them on IPQ9574, but this block now
-applies per-SoC port constraints to that form as well.
-
-Would adding minimum: 1 next to maximum: 2 here fix this? A shared lower
-bound in the base schema that covers both naming forms would also work.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016152449.934312-1-mail%40tk154.de
+Perhaps there's a simpler and more generic mechanism.  I'll play with it 
+for a couple days.
