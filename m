@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488754;
-	b=psfy2Px7ZhhD9qDt98WOaRcnEi2gcJPvFAHBliLNdiemWn4dNUt0RGDm4lU28a9ci6S3
-	 GKmWqYW6QN8riCnOQo2lK2E/kQxpnR/vMJ41u3WSRtJGWkhRHkpO1buAogAY4fTU47bdW
-	 badUNrkcOr1StOX4Y4wgemi1hUiQNv99lCtzx6HmPvEQlPbg3y+xPlHHE9F97bjw+sDM0
-	 vg/Tfs3IbUdae6uqkc4CxeCOEhV0lkn+adBOj6drfL52vs+wk/BlSTlI7RjLHQUjkjggT
-	 1gYzlazZOE1seYmtl/wbtaAA4MYGsfW9mRCUrC3+4ZFJBTL6SJWBRpmANZL2wpwuxbg==
+	t=1792488756;
+	b=MCXoQWJLKHF1AKfxbdUvrKIOAflNfwgY+/Ossb28cUcNwyRT+6sJ7lxCwECposCmZHml
+	 AdBDEcsvYTvIELjDu9v8fkCXCY5vbjLw7zPCXcZdOHerKdKtWz8oFUR90Z0cwQgquZDb9
+	 9OTwPyd0XG6LdIP8N4Wa/FiSyCFrSfA7m5TjUVvznZIJSbDRWqqTm4VRet13SAp9UXxP9
+	 k2EV/yRGqQVa+M4hp5qU/hDkMQmBW+aKO6GBnX28Yq53gIaxQqfDtglEfKGdAX5fUXfC7
+	 VZR0UMURYWwmygkoOHfHKOt8PryeX+jR2u7UWLCJls0Ynwn8t0XMiws8BDXgk//oNLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488754;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=IEGOFRYKNjT2cDILI2yM/s/jbC6C4nGaeAuqDwjS1do=;
-	b=kQDaEjjZHmcTUQrVTuEdFeuuJgqKEjx+BJC2nJ9Pc2OFKMik8K7iq4/SXf3Qhe6zNSwX
-	 4NHWjCAy4TZZcEle/Dw+RvljqYi/6w0HqrVeKAWTIBwL/oaLeolGZvC8ukROA/LHyRjT4
-	 lztMwNtokc3Y4HWIuxp318wGQK09Jasb624HTbyYK0kXlLgyvBmi0vyb8jgeq69/iOTtB
-	 hfbDu5q5zHAeffml6/P961aehkNvi+bwB/2CQgz8SVHqS/R+ISupIgobv46MYpt4OlAke
-	 oB92W2OCi8ytLhhwOxw/jEKNb7QlRMLI0REuwRAEF5z5JrGY/usdUEvuVsAgpnpzOog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488756;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=rIQLoOEKBXNrLzbv2XZ/zQysYmgcdHfBZRDwUOasa5E=;
+	b=Xt/+NpoLyyk1quxkld9lxyEO2GjbmMuNu5KYeXzQYnV8NSCdS2c7WD1nAqO3LV2pejLa
+	 AdWglSfezkLP0qCHj5nF4EqCPG5H4q52mQXCeEMb1S+iuh3Wx5SOhmHUqHkwrfgVI/uNh
+	 sjT16+ol34L2AYv2YY0Bj+2tq7ihIWe7vGYcw17Eke379fYtP+1PTI+Ko9+Ave3HJ4Okv
+	 34bO/SIA41+sEaw6uwOWA+VGO1eJdiiinL3h6w9b1QaJmOj4mY34FASA4lFDSWAR6b1lZ
+	 cchhkVGqWuw+kRJWayEBsgBks2WD9sTRofppRrCi67Y1BlRyVlesPZBvB8Rrt34qU6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=noBcdUAG;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064D7606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 064D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so5035193b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:32:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792488753; x=1793093553;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IEGOFRYKNjT2cDILI2yM/s/jbC6C4nGaeAuqDwjS1do=;
-        b=boNDLedt5aTxh8NTIq4nir6/4E6zIUHHW7GlirYeV9NaEvUnNQ0JAZP5SWRmkB0awO
-         hSrVw0OadVaTaMkIIAoEqODgqzghGiR9OMoanC3WZf0dlCDmbtWKOspKV2k1CeTaoF6m
-         +stI9eBQwa0pCtbjislGHF+elbNgtf5dtbuHR5VEsFxnMLxHq4ZJdkAra85RL55hgTBV
-         AQ0avf1UkhoBQVfpYO/EkDw25mbq8jptG25IBDHAE87eh4D4aSC4cRpkKICaoG4FWvvj
-         I6hA4Z6WluRGBiD5TRJTgOWOnrr2hBD7dfByR2dw5jdwO6EMvcSBVioU5tZwXDxumVQi
-         1g1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwJzVDluGJ5zOJO6dW3exDZTeewggAeAS8w8fNBK8QrasRT/+mM/fQpACB4V8WMjkENQoIfZCYEwY8JRFc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKH39sg+hreUzIhD3pSrRbCSuDGbhSxGj2ZQUaStQHIkJ/za36H
-	QcALexw7WlvDrnL4//Lgp1y5ru/BwsAEyMrxlc0M7hrI7vx+Gb6aQ/Ljg1zqkbOLQ/YuxzFlXyq
-	pcb0EmREBIQooWakmFu8uwvz9NSdejClBps/PgRq+C2P2goGp6mXsoKfROk4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5316A606A321;
+	Tue, 20 Oct 2026 09:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5316A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=noBcdUAG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792488755; x=1824024755;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GvnUxFc6AVOlVYC4bxqQi9nf+KtfB9StUXlyMrnCr0A=;
+  b=noBcdUAGmZcnS/jwKiDNolWIRz08vtLN2QRw5zB846UrG0jANOozTApa
+   EfZeBLg25IbVmv6watu1XiacJFfGeljt6rVaj3ZJgqLa0iGCLosv+JvdW
+   JZEBU6ZPD2jsTq+/cb1bUPl7N2wBFX1xFcKbaj5MK7EiCSoc1h/rqiEPT
+   TwpHHBet6wtfokK4DYNJIi0xY4F3Bwo9CJ8JhXe0Qs/R2N8dEkaKJvozw
+   FHd5L76e47dGArUnHlMkXN78UR9MjcjnyPix8xsZEf3+g89Vnz+dmgH0c
+   eYvxUxMzahO7yUm7/ChI4SmZ2aYMKJdNzwtXuCtfAdeZC7/Q2HvQ4s0ql
+   Q==;
+X-CSE-ConnectionGUID: SXU99PIhR6at5afZyrXylg==
+X-CSE-MsgGUID: HWGKybmlRWCU1XoQ1whw6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1081640"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1081640"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:32:35 -0700
+X-CSE-ConnectionGUID: nZDl0sPmQESacK2cSQ3VCw==
+X-CSE-MsgGUID: 96mjSo4SSl6n+yhfY06P+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3143100"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:32:32 -0700
+Date: Tue, 20 Oct 2026 12:32:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <atc1LVsZzfVF4NI9@ashevche-desk.local>
+References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
+ <20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
+ <20261020101312.47d2eaf0@pumpkin>
+ <729d7100-56b5-4826-be86-358e96be2882@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,187 +89,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6b8a:b0:4d6:90f4:48ab with SMTP id
- 5614622812f47-53ccfba424emr7865166b6e.45.1792488753042; Tue, 20 Oct 2026
- 02:32:33 -0700 (PDT)
-Date: Tue, 20 Oct 2026 02:32:33 -0700
-In-Reply-To: <6a6944b4.d9e86bb5.297b12.003c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad73531.5c73e770.1a06c9.0104.GAE@google.com>
-Subject: Re: [syzbot] [usb?] [fs?] possible deadlock in uvc_func_allow_link
-From: syzbot <syzbot+8c0a48f6c8357c9da819@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <729d7100-56b5-4826-be86-358e96be2882@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-syzbot has found a reproducer for the following issue on:
+On Tue, Oct 20, 2026 at 11:18:31AM +0200, Neil Armstrong wrote:
+> On 10/20/26 11:13, David Laight wrote:
+> > On Tue, 13 Oct 2026 16:07:13 +0200
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-HEAD commit:    f47d223627f8 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1475c831580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=897740d587b37862
-dashboard link: https://syzkaller.appspot.com/bug?extid=8c0a48f6c8357c9da819
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1275c831580000
+...
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8c0a48f6c8357c9da819@syzkaller.appspotmail.com
+> > I was thinking:
+> > 	struct { u64 pad:8; val:56 } buf;
+> > then using bswap64(buf.val) >> 8 on LE.
+> > But why not just:
+> > 	u64 buf;
+> > and be64toh(buf) & (BITULL(56) - 1)
+> 
+> Right, I mean all this could work but I would like to keep using something
+> simpler and get_unaligned_be56 matches all this.
+> I don't think the need for performance is enough to use complex ways to get
+> the value.
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor238/6025 is trying to acquire lock:
-ffffffff914019a8 (gadget_subsys.su_mutex){+.+.}-{4:4}, at: uvc_func_allow_link+0x76/0x3f0 drivers/usb/gadget/function/uvc_configfs.c:3651
+Also we need to be consistent with the existing implementations. If any of
+those tricks will be needed, we better to apply to other cases (like e24/e48,
+et cetera).
 
-but task is already holding lock:
-ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
-ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: configfs_symlink+0x452/0x1340 fs/configfs/symlink.c:201
-
-which lock already depends on the new lock.
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-the existing dependency chain (in reverse order) is:
-
--> #3 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       inode_lock include/linux/fs.h:1024 [inline]
-       configfs_depend_item_unlocked+0xf3/0x6a0 fs/configfs/dir.c:1268
-       usbg_make_tpg+0x251/0x610 drivers/usb/gadget/function/f_tcm.c:1692
-       target_fabric_make_tpg+0xab/0x8c0 drivers/target/target_core_fabric_configfs.c:947
-       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
-       vfs_mkdir+0x364/0x850 fs/namei.c:5420
-       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5453
-       __do_sys_mkdir fs/namei.c:5480 [inline]
-       __se_sys_mkdir fs/namei.c:5477 [inline]
-       __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5477
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #2 (tpg_instances_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
-       tcm_alloc_inst+0x5f/0x1e0 drivers/usb/gadget/function/f_tcm.c:2687
-       try_get_usb_function_instance+0x136/0x1f0 drivers/usb/gadget/functions.c:28
-       usb_get_function_instance+0x16/0x70 drivers/usb/gadget/functions.c:44
-       function_make+0x18c/0x3f0 drivers/usb/gadget/configfs.c:626
-       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
-       vfs_mkdir+0x364/0x850 fs/namei.c:5420
-       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5453
-       __do_sys_mkdir fs/namei.c:5480 [inline]
-       __se_sys_mkdir fs/namei.c:5477 [inline]
-       __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5477
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (func_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
-       try_get_usb_function_instance+0x26/0x1f0 drivers/usb/gadget/functions.c:18
-       usb_get_function_instance+0x16/0x70 drivers/usb/gadget/functions.c:44
-       function_make+0x18c/0x3f0 drivers/usb/gadget/configfs.c:626
-       configfs_mkdir+0x525/0xd40 fs/configfs/dir.c:1369
-       vfs_mkdir+0x364/0x850 fs/namei.c:5420
-       filename_mkdirat+0x48b/0x5e0 fs/namei.c:5453
-       __do_sys_mkdir fs/namei.c:5480 [inline]
-       __se_sys_mkdir fs/namei.c:5477 [inline]
-       __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5477
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (gadget_subsys.su_mutex){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
-       uvc_func_allow_link+0x76/0x3f0 drivers/usb/gadget/function/uvc_configfs.c:3651
-       configfs_symlink+0x695/0x1340 fs/configfs/symlink.c:211
-       vfs_symlink fs/namei.c:5804 [inline]
-       vfs_symlink+0x178/0x4d0 fs/namei.c:5783
-       filename_symlinkat+0x2a6/0x560 fs/namei.c:5829
-       __do_sys_symlink fs/namei.c:5856 [inline]
-       __se_sys_symlink fs/namei.c:5852 [inline]
-       __x64_sys_symlink+0x79/0xb0 fs/namei.c:5852
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  gadget_subsys.su_mutex --> tpg_instances_lock --> &sb->s_type->i_mutex_key#25
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&sb->s_type->i_mutex_key#25);
-                               lock(tpg_instances_lock);
-                               lock(&sb->s_type->i_mutex_key#25);
-  lock(gadget_subsys.su_mutex);
-
- *** DEADLOCK ***
-
-locks held by syz-executor238/6025: 2, last CPU#3:
- #0: ffff888025b44460 (sb_writers#13){.+.+}-{0:0}, at: filename_create+0x10d/0x400 fs/namei.c:5095
- #1: ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
- #1: ffff88802eca5b80 (&sb->s_type->i_mutex_key#25){+.+.}-{4:4}, at: configfs_symlink+0x452/0x1340 fs/configfs/symlink.c:201
-
-stack backtrace:
-CPU: 3 UID: 0 PID: 6025 Comm: syz-executor238 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1c20 kernel/locking/mutex.c:821
- uvc_func_allow_link+0x76/0x3f0 drivers/usb/gadget/function/uvc_configfs.c:3651
- configfs_symlink+0x695/0x1340 fs/configfs/symlink.c:211
- vfs_symlink fs/namei.c:5804 [inline]
- vfs_symlink+0x178/0x4d0 fs/namei.c:5783
- filename_symlinkat+0x2a6/0x560 fs/namei.c:5829
- __do_sys_symlink fs/namei.c:5856 [inline]
- __se_sys_symlink fs/namei.c:5852 [inline]
- __x64_sys_symlink+0x79/0xb0 fs/namei.c:5852
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f17e04c5357
-Code: 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 b8 58 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffdfd785e48 EFLAGS: 00000206 ORIG_RAX: 0000000000000058
-RAX: ffffffffffffffda RBX: 00007f17e051e1e8 RCX: 00007f17e04c5357
-RDX: 0000000000000000 RSI: 00007f17e051e170 RDI: 00007f17e051e1e8
-RBP: 00007f17e051e300 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 00007f17e051e250
-R13: 00007f17e051e298 R14: 00007f17e051e2d8 R15: 00007f17e051e1b0
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
