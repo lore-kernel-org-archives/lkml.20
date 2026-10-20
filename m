@@ -1,63 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493147;
-	b=jbpiqKWXBlEj+OqfoZHMaoupa+bedHi/hD7ctutphp9Xj9YWhLA+vvVhcgFDtZvxj4Cw
-	 b26js5lHg2zlyrI4sVT3houQEVbFbHEA7z14h72bIXNBKsADYadXNV5/PKfC2B1gdJmoV
-	 O8rcQObk7Oy4RdYDoQ7X6+vYcPMMwVWwf+1cuj+hSHzQ9SseiVnx412jd/PF5P/IvqXC2
-	 9+eDFY2o2VWK+6DC9EsBVq6zuyAQOd7xe9U1uA36l6JGvShW8sh1ycGySvResBLNBLiho
-	 j+k21WmNig2n7aBVzi/NyD9IttatMm5NCgULxSmPqUf8sRsBQKqKn/fzHWl2JPC71LQ==
+	t=1792493137;
+	b=skL6JTAOuCLGSOTLh6Asarv4o9RvDa57diSA/KdQ+FQOO8sBVzqMeq6vJ/uYm5OCMbJo
+	 /YsgaQVFK8JuYzss5mJM06eFT/38OzcRLWtH5TefQaWl8XSxK3DZBT01xPga6JBe9nEOG
+	 S50BiBnSvNdoY9JqGn49UoUvAi4OFhyChY6vbZnXE45gIgXoodZ/j6WiJs6d2d5isHWeU
+	 J8qR96suHN+GU+/Yvnw6hldWNKYwAU3DhP1DXASLXv0IEPf+p7fsfQ/AWeFHwSUVlMBb7
+	 IIgJMZIZlfWIeAR2UPUI1ze73z27r0HYyyt2PF1xSqm1lzxXYaK+yP2GyrOTZNjGioA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493147;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BM99QRLeOHsRkVNOs28if0Z8eVDpr2BN3/xKSM9/ZOE=;
-	b=LFkl5gwgyOROkdO2EQ0E3elFi0bJ8XWUFgDGHdbWJVI54kKIPS7idgffUwmd0mAygfw7
-	 z6qu7Ev/2xK7rN1xOdB/ikGZObYNEoTgcA4JyzLwUkGcYi6pn42A3pehMA39JwhzXdpAN
-	 +PdTMOYC6JAsfsg6rZ53K/lVfuUz+3I+JpZO35iB1eda6B3iixmFoPzoSjO3VI2IcbvoT
-	 XGZnwjg4T9iJUtwPganLlN6Rlc0IeSlC+bE4F3P1sn6zc2zO8eYGIPHqx7kuSbH6FiZxu
-	 xyf04EBAltXPjAIMeuIJrHw+FofOstgjjNSj6uiHnkSYl0q/tsPMxZYqtn+6SVDamrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493137;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=TwezzM5TT3fSgFm5bORhn91SINIPUHV3PtxP9oYiBqk=;
+	b=35ypO7ZVLHKFw1hKvS9jz2/N9mCi3V/iYo0/yzi1YJkJADsIshcPa0JgZWbsSR6fHfiS
+	 HFa3zjfuM/JXM1ruOa0h7C6aGJ1GwSn/dn8CsHHhRrFS33X7vd+Lv0A0apzaUObmk4L5Z
+	 UzaMleIdgoGU/8KuVc/QoL+a/hQ0+3RF1PBzyocYZuMSjgT65vrMULZIqbVWNfHvQNp2k
+	 EIR53VvUeVUu191/42lR83dwm4odhjf5+sNFBK1p0jvE10R+2TNs0K5+RqO09fA9qjIP+
+	 jTAq9Pss99tCPTj64nl3ZOu22jpXmuv3mYAWfn6U+XuW8rB1N0/4gYdLXnXTFMQOVOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOq9qeuJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=XAzDGSpA;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560AE606A319;
-	Tue, 20 Oct 2026 10:45:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE85C606A31C;
+	Tue, 20 Oct 2026 10:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE85C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOq9qeuJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15CF31F000C8;
-	Tue, 20 Oct 2026 10:45:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792493147;
-	bh=BM99QRLeOHsRkVNOs28if0Z8eVDpr2BN3/xKSM9/ZOE=;
-	h=From:To:Cc:Subject:Date;
-	b=aOq9qeuJr/QvDyyZeCpne5EnF3TUMwjrs0eQdiujQTtIXqydXs3kFEJRkR4pQWuu/
-	 ZF+ONhY9eLDmUTD1Lq9vaJgiFnF1L3w+2eaFXYuzI8ECzEBFxXMTia3GcTnxO+YOPc
-	 YiGabiDonSpXnPc7w2fifUn2hQpD7SozuypziXdzVVpFeBRiaMVs3BQCdMyK+FFmck
-	 sJoGrIC14HaDx8eekT1ynz0/zgkrpbh7oEXc8zGEa94s6xwclNy+s28LTlTg7munu2
-	 21aawwupnw2LXmO3RGd4upmdEgV2YmFBfOX0ickP6O3mgWVtfsOA5AW3QC66XwK9T6
-	 0m42VOdboftng==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	sound-open-firmware@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: SOF: amd: add ACPI dependency
-Date: Tue, 20 Oct 2026 10:46:33 +0200
-Message-ID: <20261020084656.2725461-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=XAzDGSpA
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F057B108C11;
+	Tue, 20 Oct 2026 12:45:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792493130;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=TwezzM5TT3fSgFm5bORhn91SINIPUHV3PtxP9oYiBqk=;
+	b=XAzDGSpAhZqRCnfW3BNku+gQNeMAW9floxG++yIrxAI0a2tBTq96qUOr9YSvbMLvO0BzVS
+	Zv7zVE41OJ6RMrVcV1SGD2TNZec0IndIZfM2JodE4xjlDq3BDPP1//udkO216FuxaX+cpL
+	xFeeukPCaHXJh2a4SlFvygEFvpX/zB92upzny5tg6tPBI6S+fn3K6gJzK+GtVsv03ygYyc
+	zKTgJDrapZIAfMeAx1jNOo6E5V1rnpkInaq8EMVVPg0AY2hy6I7A5NciC4hO497ZZq4JhK
+	OZfF9B9agxLaqBi8qjrWGAVniuOZo/+zzbkGEli0L7KE3IkJEQ94CSKa3UMNug==
+Date: Tue, 20 Oct 2026 12:45:28 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.6 0000/1651] 6.6.160-rc2 review
+Message-ID: <atdGSKrBOKxk2sWN@duo.ucw.cz>
+References: <20261020075535.084584701@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,39 +67,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="lNgc0qjUKjjepICP"
+Content-Disposition: inline
+In-Reply-To: <20261020075535.084584701@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Arnd Bergmann <arnd@arndb.de>
 
-The newly added acp_asp_mailbox.c file makes no sense without ACPI
-and fails to build in that configuration:
+--lNgc0qjUKjjepICP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-sound/soc/sof/amd/acp_asp_mailbox.c: In function 'acp7x_asp_send_cmd':
-sound/soc/sof/amd/acp_asp_mailbox.c:59:22: error: invalid use of undefined type 'struct acpi_device'
-   59 |         handle = adev->handle;
-      |                      ^~
+Hi!
 
-Address this by adding the required Kconfig dependency at the
-top level here.
+> This is the start of the stable review cycle for the 6.6.160 release.
+> There are 1651 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Fixes: cec3598305a6 ("ASoC: SOF: amd: add ASP carveout firmware loading for ACP7.B/7.F")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/soc/sof/amd/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+CIP testing did not find any problems here:
 
-diff --git a/sound/soc/sof/amd/Kconfig b/sound/soc/sof/amd/Kconfig
-index d64f682cfbea..baa0fbf07ab2 100644
---- a/sound/soc/sof/amd/Kconfig
-+++ b/sound/soc/sof/amd/Kconfig
-@@ -7,6 +7,7 @@
- config SND_SOC_SOF_AMD_TOPLEVEL
- 	tristate "SOF support for AMD audio DSPs"
- 	depends on SOUNDWIRE_AMD || !SOUNDWIRE_AMD
-+	depends on ACPI
- 	depends on X86 || COMPILE_TEST
- 	help
- 	  This adds support for Sound Open Firmware for AMD platforms.
--- 
-2.53.0
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.6.y
 
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--lNgc0qjUKjjepICP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCatdGSAAKCRAw5/Bqldv6
+8gLSAJ9DTY/0SoylUpWrPbPoyvDT68pi6ACgtMgtbfVUdfO7nISVfFgVAesFEVY=
+=jQDj
+-----END PGP SIGNATURE-----
+
+--lNgc0qjUKjjepICP--
