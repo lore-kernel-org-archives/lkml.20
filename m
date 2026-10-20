@@ -1,110 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489032;
-	b=w97OEsLP6wsmCaIxM7pIBK2mYpacDIOfmPjJlinoYTqbXTkSB2b9Aa4d+o+IF3fgGIDL
-	 7mx78qq1X+6EjCBWFUrYBicBPwOnLEZbBsmcUXm76WvbRdG1yqB9ckB6MOV+TVCqM5paz
-	 hkJz/2QZf6qb0j4U0UMptVoxcolRj78fFj8M6jVC3VlsRBKzLA20WwvxTstUQkBT396vF
-	 dbuaDRqGLmGOQItzhW9vgePUAy9qTfsm7v7JmaxV4FJvioISGVcu1PAz8nWR5eCHiiidp
-	 nr8k/KNfunfPPHInSH66bBAGyzuUpDciHNxkV1GDi99zwOl/YnQ6IQ+9IdeC0oUBxFg==
+	t=1792489025;
+	b=FpNB1Ig0KYCk0HT6qJ5oRn9//P0TA/uOaHaHTzkhsjItPZW9Q0q+/kaWuO+EWgwSGCJS
+	 4+yB1eRVqPBD2iU3qKZa1Uw24envRHNLu5/f3Q21y5GjELYfA9KgljKsSpSI4P9a2BBu9
+	 gEMGMh4SsBgVh8/xBAmhzcIZB9Aguhay1Y5HwwnqeZYuSKKHKz+LKLMyEEBWPvEHzMnbS
+	 azkwlOXRKsKQR612siSvjnXZorj5RbLO9uWefYO3P83Zn2i5k7w7J6RhUaVdYYB0oKIT/
+	 k5e6DhuyD28gto0+QYS+KKRR/ZYiJ/ZAAs9cxULfFu4XdmCWE7DOcpe3uXHVP+jXgxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489032;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=26eHFzDuq75BKMwszFnGzYlGwf+oiqj/3YNi48CTJwY=;
-	b=c8iMuRbq18bdUrcJ/I1/hTMWT7HPTZ5ySRfoxrPuSBAeEQ8spSrLugx5wNXO1l+mr8pY
-	 PbYOwUvBj/d6fzEDQA6AWJStgl7PpTtMo1ez6GXkti4cHTyf88klHo4GWLjUsgkfy1dUw
-	 QpmWztXtSOvAgwC5ig+GTpaMJyC4k5PgW11ZSW0cDpFD+HOylGbqxGLfSiTZVoHG3QnK1
-	 iUUzZXgoYh7Cnwn8rotiWDsx9ZVGJqVDH6XkIIHruWg82j1jwkKE3aISalz5qgnF1W4Fr
-	 KdnFcYGh89T5VWaGxtdKH4A+KLYTbDuJq5zPcrtiNcbUsAuioWY98/Hck6mZmnw/8yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489025;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Infomaniak-Routing;
+	bh=pKWxhEQSNvo/BWqNTUN+8vLhgAbAXI23tyxrRKdGIUw=;
+	b=p1tU37BCUF2y3C3zyD0aLQKXzJZShHRopVwpvST1w9Af/fv0569VXUXLcrpnX++WcvLY
+	 VHxugng82ve/jfChUlH1gI9lSPOxhOHXDVhnsxZdzmOgIRg8FgE7dBY8YPaoXSfQCrEqG
+	 L0q1w7ENBFX5TKFnd8CqTivMG6zgjPRMJSTSqxRtd3UQoEbt6aJwaSy4Kbw7TSm4xGyq8
+	 0ZzzGPvJY2qC3VpQWbnx2mniML0l1VKvTNEjKDDZaokQb5KcIzjGhKKYZiD/yh5J0afJ3
+	 hjUIEpVf3owAToEWQ3Cmh2qbe0qMKBhLep2aY+14/Tj9jM506/y1t85ET95QifsIABw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sartura.hr;
-	spf=pass smtp.mailfrom=sartura.hr;
-	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=LfG97JUD;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b="Trx2GwB/";
+	arc=none smtp.remote-ip=45.157.188.9
+Received: from smtp-bc09.mail.infomaniak.ch (smtp-bc09.mail.infomaniak.ch [45.157.188.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC61E60A262D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC61E60A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F0F606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30F0F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=LfG97JUD
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c434376dbebso89789066b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1792489030; x=1793093830; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=26eHFzDuq75BKMwszFnGzYlGwf+oiqj/3YNi48CTJwY=;
-        b=LfG97JUDdY0f5xn16pZkZ0zfGlB14my7j7PRX3fpaoFMYMUGLVmkTTabUGQe6+uuJF
-         a7Jj061lJm7UkckA/KSvUewsSv8G1jdgD9Z0uw1Af6dWE09ixRIQPJOMM/t9y1ddsLOP
-         9sBEOOdmaNyqZeqiSF9DaSic3o1LcLADe9HDrlMju/Q/3xHz7LGKq9HUXNAQ1aAfVFTh
-         W+NPcsCLXzoLaQN3OcJ7YwKPCeJ8vqzOEU+vX7/6RlnRbukjcTTqrpy5vY6lMwH1wccf
-         RAHEsze2gwkUhKv6dJHMkkBknioOC9EogPdW8y31iUaMFim3Gdvrq17TZKeSD8JQvT4K
-         MB/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792489030; x=1793093830;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=26eHFzDuq75BKMwszFnGzYlGwf+oiqj/3YNi48CTJwY=;
-        b=sb2DBhx3iPQkp3G/3r089VSllukKH0vemh0ovyBaRYjUKVhA4g1YvBvyAtrw2JM6qn
-         q0Y8C7nVMXs29yws/zg4X7u0WcuU5FTa9ZunDUfuNKMnKLfrmBEeP+ZWOCwTMeQjZMuB
-         C98oCbBj7IYCVosrdg6QQnaWQRKlRCGhXCZNrQ9XTb/6h2kfzBDd4psEEOOV3r6BOUK/
-         Rsu3hy4Xg5IuzGoylGJ5tKX9mUmcFgJO5+yON6y1sFIbeawXwp3k/hgypi7+At8w2j0T
-         v9+En4JYhkyZ6v/xw6TQ2aUcrsBMf6UkdIRNq2FoUe0lpQ/u2l3gjM8rLfHH8EVZ2PXt
-         WJ4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzEX50TpDhIHx8SuKbCuJ6MWEpPtuJLiUIU++KrJkHrzZ8EtxhA0nuDa0ii+xRkyXEON0sBzS3RsunaupE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhdAYFzVj0N4Jvw+zp1V3sdRaC/R9LZv6NrPoJ9suADp95qr2B
-	XKyWHU2Z/adl90szL10naJ2H37dTfhE4jS4KHDKR9FOdWN58IFdop5jigU/itn2ekzk=
-X-Gm-Gg: AYBFou2r3dp78NoHPdCbfjxAeXRZoNBHxCYCRgYnHuSGOVLh1pFMJqrf5dW+hHs2Nuc
-	OGDBc1K7ZUlwdp33Jms/KVPX11QUs+AR9IhDNPYdxvUBKGU+Z4/hSWi1y8WZnd5mNkYZR4E2ZXd
-	0XBFk64TzBgkVZ3IJDHJWLaWDUbycITG7dH8pyaLzjYTJ+3UuPzcOGBAqC+/fi5casMAQ28DShq
-	wmT5cF/xpJBpgoMMRFgPbWe/uw94bRDktlUWtLze7i00Mh2zqaeWR/DRLVf9C/w500tih6YBFqD
-	syt4wVSNKM4pqjV8AndvO7xSgWujfSLRRrAMpxWjyE8OxZGM8n+A76wZIVgC0nROd48oNJ3TF97
-	QJy44Wzc5LB87MBnbKu5jhE4G2/5Zf8aJSknQPdVG37qCBdI9badszet00C9srnM9yYEK/1/jP7
-	MxEpIK+72ROpHPO0BvGlft7mM+n2tPKHhXdLB+bCCu3gc6xcpHsHepd2KXnNcIQmzthg2tZwpsZ
-	PDaA4/udzh0rp1TOpILWiA0BUo3GLh9zeqRYnkIl//IJwVdgx+LTAuc8w4ZlqHRfzVGh49RZ/nI
-	WBSGVgMYkggWBwoyvWQqo4ZHeF6UgzTKgu7E5iquKDaEDQTH54RAs0bT
-X-Received: by 2002:a17:907:c081:b0:c43:bf29:1509 with SMTP id a640c23a62f3a-c4603c04e5fmr108178866b.12.1792489030235;
-        Tue, 20 Oct 2026 02:37:10 -0700 (PDT)
-Received: from threadripper-fedora-workstation (cpe-109-60-82-88.zg3.cable.xnet.hr. [109.60.82.88])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ceffesm462730966b.47.2026.10.20.02.37.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 02:37:09 -0700 (PDT)
-From: Robert Marko <robert.marko@sartura.hr>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	lxu@maxlinear.com,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	michael@walle.cc,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: lrosu@maxlinear.com,
-	luka.perkov@sartura.hr,
-	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH net-next v3 4/5] dt-bindings: net: maxlinear: add MxL86211C lane mapping support
-Date: Tue, 20 Oct 2026 11:35:37 +0200
-Message-ID: <20261020093655.344585-4-robert.marko@sartura.hr>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020093655.344585-1-robert.marko@sartura.hr>
-References: <20261020093655.344585-1-robert.marko@sartura.hr>
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=Trx2GwB/
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j86kk1Ylxz29ZS;
+	Tue, 20 Oct 2026 11:37:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1792489021;
+	bh=pKWxhEQSNvo/BWqNTUN+8vLhgAbAXI23tyxrRKdGIUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Trx2GwB/tjncatznurxpfHn7+RlCBrnTpeGnp7JWMqXSkUa97AHE6DRefRfbGSpHT
+	 hLPcgXxJKoh7wmgmP47MHupee04AUbIx9lKPg9cjut5YyT5uf4mAERRyV9P3ZjGgHu
+	 fo634gQKlAv0oEpuwhulmv3sr+HjgyzeMnNG1TJ0=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j86kh5Zppz2Zs;
+	Tue, 20 Oct 2026 11:37:00 +0200 (CEST)
+Date: Tue, 20 Oct 2026 11:36:59 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Paul Moore <paul@paul-moore.com>, 
+	"Serge E . Hallyn" <serge@hallyn.com>, Daniel Durning <danieldurning.work@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Justin Suess <utilityemal77@gmail.com>, 
+	Lennart Poettering <lennart@poettering.net>, Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>, 
+	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, Shervin Oloumi <enlightened@google.com>, 
+	Tingmao Wang <m@maowtm.org>, kernel-team@cloudflare.com, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v6 6/8] selftests/landlock: Add capability restriction
+ tests
+Message-ID: <20261020.eiT3bah4uy4a@digikod.net>
+References: <20261014082718.1435842-1-mic@digikod.net>
+ <20261014082718.1435842-7-mic@digikod.net>
+ <20261017.63923e5027e9@gnoack.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,81 +72,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261017.63923e5027e9@gnoack.org>
+X-Infomaniak-Routing: alpha
 
-Describe the optional board-level mapping from physical TPI lanes to the
-MxL86211C analog front ends (ASPs). This allows DTS to describe wiring
-that differs from the hardware reset mapping.
+On Sat, Oct 17, 2026 at 12:20:12PM +0200, Günther Noack wrote:
+> On Wed, Oct 14, 2026 at 10:27:12AM +0200, Mickaël Salaün wrote:
+> > Add tests to exercise LANDLOCK_PERMISSION_CAPABILITY_USE enforcement.  A
+> > sandboxed process is denied a handled capability when no rule grants it,
+> > and an explicit rule restores it.  Unknown capability values above
+> > CAP_LAST_CAP are accepted at rule-add time yet have no runtime effect,
+> > because deny-by-default still applies once the domain is enforced.
+> > Stacking tests cover the per-layer allow/deny combinations, including a
+> > layer that does not handle the permission, and invalid rule attributes
+> > return the expected errors.
+> > 
+> > Three tests exercise non-standard capability contexts: enforcing a
+> > domain via CAP_SYS_ADMIN authorization without no_new_privs, restricting
+> > capabilities gained through the kernel's user namespace ownership bypass
+> > (cap_capable_helper), and checking CAP_SYS_ADMIN against a descendant
+> > user namespace, with an unsandboxed positive control, to confirm the
+> > decision is independent of the target.
+> > 
+> > Audit tests verify denied and allowed capabilities, per-member quiet
+> > interactions, and CAP_OPT_NOAUDIT suppression.  Trace tests cover
+> > accepted, rejected, and no-op rule adds, and normal, quiet, and
+> > CAP_OPT_NOAUDIT denials.
+> > 
+> > Test coverage for security/landlock is 91.8% of 2864 lines according to
+> > LLVM 22.
+> > 
+> > Cc: Christian Brauner <brauner@kernel.org>
+> > Cc: Günther Noack <gnoack@google.com>
+> > Cc: Paul Moore <paul@paul-moore.com>
+> > Cc: Serge E. Hallyn <serge@hallyn.com>
+> > Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> > ---
 
-Select nodes using the new property so invalid uses are checked even
-without the MxL86211C compatible.
+> Same comments as in the preceding commit as well;
+> specifically,
+> * some helper functions could call ASSERT directly
+> * EXPECT instead of ASSERT in various places
 
-Signed-off-by: Robert Marko <robert.marko@sartura.hr>
----
-Changes in v3:
-- Select nodes using the lane-map property so misuse is validated.
-- Restrict the property through the negated compatible condition.
-
-Changes in v2:
-- Define the lane-map property at the top level for type checking.
-- Describe ASPs as analog front ends.
-
- .../bindings/net/maxlinear,gpy2xx.yaml        | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-index 53f430e121510..7b6140baf1757 100644
---- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-+++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-@@ -20,6 +20,8 @@ select:
-         - compatible
-     - required:
-         - maxlinear,use-broken-interrupts
-+    - required:
-+        - maxlinear,lane-asp-map
- 
- allOf:
-   - $ref: ethernet-phy.yaml#
-@@ -34,6 +36,7 @@ allOf:
-     then:
-       properties:
-         vddp-supply: false
-+        maxlinear,lane-asp-map: false
- 
- properties:
-   vddp-supply:
-@@ -41,6 +44,21 @@ properties:
-       Optional regulator supplying the VDDP pin. Its voltage configures the
-       MDIO, MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
- 
-+  maxlinear,lane-asp-map:
-+    description: |
-+      Mapping of physical TPI lanes A through D to analog front ends (ASPs)
-+      A through D. The array index identifies the physical TPI lane, while
-+      its value identifies the analog front end, encoded as 0 through 3.
-+      Each analog front end must be mapped exactly once. Omit the property to
-+      retain the hardware reset mapping.
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 4
-+    maxItems: 4
-+    uniqueItems: true
-+    items:
-+      minimum: 0
-+      maximum: 3
-+
-   maxlinear,use-broken-interrupts:
-     description: |
-       Interrupts are broken on some GPY2xx PHYs in that they keep the
-@@ -90,6 +108,9 @@ examples:
-             reg = <0>;
-             vddp-supply = <&vddp>;
- 
-+            /* Swap physical TPI lanes C and D. */
-+            maxlinear,lane-asp-map = <0 1 3 2>;
-+
-         };
-     };
- 
--- 
-2.56.0
-
+Agreed
