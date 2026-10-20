@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498330;
-	b=J27bhfQVVLQ1LMcnbInsVqQmAyaFgK1bcxpJBUrLbqH+aROOeoEiMr+msWcsjaA3wPiW
-	 avC2O5Ny5mCq/iCCFgAnUp8h84q/9uQYJ60G0pa7gXLTAZI4Emnye9bSD/O0Yn2cOQTTH
-	 qJuagQDvpZfa0FASqiRakgr0lBDVnqNo8kzWIIBvOPgWzsZBIAyOEug3hx/FavjIcPykv
-	 HvMahhpw8FH8RrjqlDpZSilAiRXi722LYardudrFpQNxhBtVlAOjUyAQCK5uQSaYt7ZC0
-	 LRe3QIkHo8lgYn07uy2+X2BeGM/cq/iSD5in3TGEEw5RQRiEQ1l/p71KQODG8C/m9fQ==
+	t=1792498344;
+	b=SHckaO+zeoCtYkhWS7NEI+yusrIhZVI3h/dY37NqvObQ+5lAkox10KHo6p7909y31I/Q
+	 0hjbX8naYaUwd5R5RRMw9qeHUki/fRV2v6D2DZmqCFqTxZLzvQ7uHtOoLwLe3U5nTnIaQ
+	 rVh6K1eHx2Ys7kHheKalvdX+aDy1yuTPmqd38zpMo/1QMZ9Tdgp6ZpmeiRay6pzgN6KnM
+	 1nzE8DA4PZdvz2lixaZ+Fw9iizXHI9eeQO1a3lSr4HNo/DF6vxFiBWLDzpBEBv5MexuIV
+	 ThfqJLqVSggnStniVyoKy2YD7tM1yuFzJR7shIKblvEO4fyDyL5rmTbhSR/HPf7tORQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498330;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=tW+jOFa0bAPRo5ob6iKpdpiylE+QgPpSwSf2SsyL4p0=;
-	b=LhvNfGozC2eqm7PWVaMVu39bm9RRwPFF9W7sWaDpuCt/ydYQcNFtNUhmXsKhlzgbAQRN
-	 t57pg1Ah/KmvLbhPk3wpwiLSoslP8dFycDEaVqIv+ZTpkhjB/bvFm0WCwG7JCd4BRKReb
-	 CwAn2nLLG2swWPUBevrECljcdrbuAGVMs0PI4IyKOozor3ykYrqJbf/fzEtZjUFNV2xU0
-	 SQWhXywOzUtwz8II7NFnDsxAiZIlm5wl3XOGZzG+MSgNJtRArmfOb+jLva4Cr95GX5hLl
-	 1JxSDVH4f3674BthAelfvFBAes6d1rNMb2NNVYf6iFJ7IGm5vDmIfuzz2gJ5S/n2XrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498344;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=6XUtngxDYkw/Y7D3ufCXmiJQV0M0BWIAb8OzCueSqgM=;
+	b=I0huCpTyuGo+Advv4G8V/UDsayU6HaWH10m9cniOqHHZZSU2WThKEVSZRI8vUtiOnphN
+	 YZVtIM98VUm1GzzOOBV7o4d4TTH3necAw9T+IRLRdN2V10iw734RkVAEFzLEPuWZdk4Ig
+	 gzIiZbu/Jd47u7PKlNmA1+77/XZNljxcAIWDCL7hNeiauLuSJGFZVf+b8JU0lwbUoUjrC
+	 NqLVE0KwuaS0qb1D/c1m8/5xxYWHeFs+Tr091L4JGa7hOPcnFFpJBz0N6fqPX/S7JEFtH
+	 ZpjSVHFGjfnVJf+9oWkKqB4uF2OF+BISN6rqZX0BdR7B+pC0r4cQL7ifULdeowwEzWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=embeddedor.com;
-	spf=pass smtp.mailfrom=embeddedor.com;
-	dkim=pass header.d=embeddedor.com header.i=@embeddedor.com header.a=rsa-sha256 header.s=default header.b=AbVyf0EC;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sadrul.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mjaxFbC2;
+	arc=none smtp.remote-ip=209.85.222.199
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F73606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:12:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F73606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7629E606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:12:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7629E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sadrul.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=embeddedor.com header.i=@embeddedor.com header.a=rsa-sha256 header.s=default header.b=AbVyf0EC
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id J8VhxeG1VLvgbJ8hHxvjUo; Tue, 20 Oct 2026 12:12:03 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id J8hGxhUfDAJ7UJ8hHxPALr; Tue, 20 Oct 2026 12:12:03 +0000
-X-Authority-Analysis: v=2.4 cv=UphjN/wB c=1 sm=1 tr=0 ts=6ad75a93
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7T7KSl7uo7wA:10 a=9AdMxfjQAAAA:20
- a=FmNn6hfUth-HS78a2iwA:9 a=QEXdDO2ut3YA:10 a=2aFnImwKRvkU0tJ3nQRT:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=tW+jOFa0bAPRo5ob6iKpdpiylE+QgPpSwSf2SsyL4p0=; b=AbVyf0ECm4W7
-	tIKrNrtOl/QoYsbOfllsmecnIpcjx7XMr0JAxyB0D+8FDXSGxp9sUKHssuTqvu7XcoD4dB/n4VehD
-	/UUqQg+lcKsgGHanroZ2XiCNePZ8hhEwdk8luTpo1DS6wxPLrg4LXCRsnSb5WCP5/TFD8vQjXwC11
-	XWXs99OZmjcQwjkbqNOoDrylTUpO3h51NGLxYvVEiorCHen2gqpxsclFYkEz1d/dLC80Cj849335X
-	90/z1TZIUUo5BneulKzuw3La3huIen69cHvLQ+5Xwra8BE0RvlEV1scU8zv3JcG5bxGiNKNzbHYIn
-	3Ly49No4/31RKSSWVNooQA==;
-Received: from [1.234.115.197] (port=33036)
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1xJ8hE-00000000wsV-45S0;
-	Tue, 20 Oct 2026 07:12:01 -0500
-Message-ID: <6cf42177-5c35-49b8-9e4b-36a4d28aa26e@embeddedor.com>
-Date: Tue, 20 Oct 2026 21:11:47 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mjaxFbC2
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-934963b2bc0so647350285a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:12:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792498342; x=1793103142; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6XUtngxDYkw/Y7D3ufCXmiJQV0M0BWIAb8OzCueSqgM=;
+        b=mjaxFbC2aFXaJQU3N2ZkgNo6hbsXk4tvgk/9++2CdzHgbFIWJdNnUzpPbKu//HVMEb
+         85aRBJa1wJ4mNX2qondJxFxk3sI3lglpoQaJQv46lO6gGSuPZOaPWn+bXbpC/H/89F+n
+         4pt7tB5QG6W36RYUN+KF+nii7eUeGaGahyFkQRz6Yy6JQLH4FO6PE3gCh9YH8HX3z7PZ
+         pFE1crgepOTFWMgXgmE5TV1oXvw4WGcZZBovxpHhPbVhPhS4UNZzEX2rF/VZsOFcVqhd
+         ydvsjMkIC4xp/Z0xtZpOyYWS9cfsLEeQBZg+ZmXpqfUBytsoQqF6kSdluw7AQMwYkCCO
+         RGvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792498342; x=1793103142;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6XUtngxDYkw/Y7D3ufCXmiJQV0M0BWIAb8OzCueSqgM=;
+        b=laPMkt/369R6hsAWzTXvmlBaWyNqHMKvuFnMEXmuqco5OMA/x3si3tkSVJzq3suRho
+         jDvXJvdK/jDS5W74to+tSPemT3+xfL5hguwBjve0Jxio1EVHYrqvrG4LgiH1yUVkyaiL
+         /nAwA2mt7lvqFWpvEkK3M1TZzKZ3uav66jrHlDXZMZlOkf4K0I3PYCQin2zhq4k9Lxc7
+         lclS3e32PfoebaW2hv7hXIRuzUONOZcfOuF8O9s7auWb1Gx4Qz9uYCnbvooIYWpCwdJM
+         S30objUG3/HJ1msMs3TuX031fnTo2eqJNjje6a45PLQgq6AwZ2is4qa5Z/K6E4l5KVYv
+         E7Ng==
+X-Gm-Message-State: AFq9FYKy89BL5LThSLWTHrIrbG0C4eLSSdjIae8NG/YMtTv4SirsRn8g
+	u0qsMRKHCFHc+2uMgwow04xNuVF1JrZ5LAT89Z3cwv9g221zegETtosAEDH0b8QVLytupER1w5k
+	3ZLcK9YwE0UFByUFhhcx3kSi6THNfLvZzQew5/GPHhY/oBmuFaxG7qYC1i57DMn/UiKL0iV75Eg
+	Srr5BpvAGuMyiXFgQ7tHhGGkRGl4kqK3wdjR4kOR3RpycU
+X-Received: from qvbkh14.prod.google.com ([2002:a05:6214:514e:b0:91b:e0f0:871a])
+ (user=sadrul job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:2913:b0:93c:c7c6:90b5
+ with SMTP id af79cd13be357-93f29b9af28mr1655598185a.9.1792498341848; Tue, 20
+ Oct 2026 05:12:21 -0700 (PDT)
+Date: Tue, 20 Oct 2026 12:11:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,137 +75,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/kexec: Annotate umem_info members with
- __counted_by_ptr
-To: Thorsten Blum <blum@kernel.org>, Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Aditya Gupta <adityag@linux.ibm.com>, Hari Bathini <hbathini@linux.ibm.com>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20260730130248.597249-2-thorsten.blum@linux.dev>
- <7d99725f-9c90-48ca-bee1-30e2e6c06617@linux.ibm.com>
- <asDClaRrHuKB44X-@kernel.org>
- <dbb4580d-7e20-4c38-9716-f39cf81a4942@linux.ibm.com>
- <asNfSSp-AckyeO7P@kernel.org>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <asNfSSp-AckyeO7P@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 1.234.115.197
-X-Source-L: No
-X-Exim-ID: 1xJ8hE-00000000wsV-45S0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([1.234.115.197]) [1.234.115.197]:33036
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 2
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfILCrJ5BPRd1qRZQtOsgY/tgtLXW8v4+UI1y4IfT3MwYRr2U6irLr60FwcpE3Cr8aGgCopit1xpOINzPw/OpuQFZIFFRcESSchYTmoz9Ld7QiA/l0vtZ
- 28uE05irRTFlLuEjnAc2CM9QzbHL8bZYuWlDIqyryJ3SOtDtmPeOPfbyXPUeNKBZWHRTGYdqQKHdHf4QdAUPVHVdJAP9rAFMctXvLPXjYxWX0eknjF3tLAHm
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020121159.2154649-1-sadrul@google.com>
+Subject: [RESEND 1/2] fs/epoll: mark epoll_wait tasks TASK_FREEZABLE
+From: Sadrul Chowdhury <sadrul@google.com>
+To: linux-kernel@vger.kernel.org, 
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org, Pavel Machek <pavel@kernel.org>, 
+	linux-pm@vger.kernel.org, John Stultz <jstultz@google.com>, 
+	Sadrul Chowdhury <sadrul@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+During system suspend (freeze_processes) and resume (thaw_processes),
+threads blocked in epoll_wait() sleep in TASK_INTERRUPTIBLE. When
+try_to_freeze_tasks() executes, it must wake up every sleeping thread
+with a synthetic signal so the thread can schedule, run try_to_freeze(),
+enter TASK_FROZEN, and sleep again. Upon resume, the freezer wakes them
+all up simultaneously, only for each thread to re-enter ep_poll(),
+observe no ready I/O events, and call schedule() to go back to sleep.
 
+On systems with numerous event-driven daemons (where hundreds of
+threads idle in event loops), this causes a large wakeup stampede and
+thousands of redundant context switches per suspend/resume cycle.
 
-On 10/5/26 17:26, Thorsten Blum wrote:
-> On Mon, Oct 05, 2026 at 01:42:01PM +0530, Sourabh Jain wrote:
->> On 03/10/26 14:23, Thorsten Blum wrote:
->>> On Fri, Sep 25, 2026 at 11:49:04AM +0530, Sourabh Jain wrote:
->>>> On 30/07/26 18:32, Thorsten Blum wrote:
->>>>> Add __counted_by_ptr() to umem_info::buf and umem_info::ranges to
->>>>> improve access bounds checking via CONFIG_UBSAN_BOUNDS and
->>>>> CONFIG_FORTIFY_SOURCE.
->>>>>
->>>>> Set the count fields before assigning the corresponding pointers, return
->>>>> early on krealloc() failure, and use sizeof(*buf) when deriving
->>>>> max_entries from the allocation size.
->>>>>
->>>>> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
->>>>> ---
->>>>>     arch/powerpc/kexec/file_load_64.c | 22 ++++++++++++----------
->>>>>     1 file changed, 12 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
->>>>> index 8c72e12ea44e..6424b668f0e9 100644
->>>>> --- a/arch/powerpc/kexec/file_load_64.c
->>>>> +++ b/arch/powerpc/kexec/file_load_64.c
->>>>> @@ -34,14 +34,15 @@
->>>>>     #include <asm/cputhreads.h>
->>>>>     struct umem_info {
->>>>> -	__be64 *buf;		/* data buffer for usable-memory property */
->>>>> +	/* data buffer for usable-memory property */
->>>>> +	__be64 *buf __counted_by_ptr(max_entries);
->>>>>     	u32 size;		/* size allocated for the data buffer */
->>>>>     	u32 max_entries;	/* maximum no. of entries */
->>>>>     	u32 idx;		/* index of current entry */
->>>>>     	/* usable memory ranges to look up */
->>>>>     	unsigned int nr_ranges;
->>>>> -	const struct range *ranges;
->>>>> +	const struct range *ranges __counted_by_ptr(nr_ranges);
->>>>>     };
->>>> [...]
->>>>>     const struct kexec_file_ops * const kexec_file_loaders[] = {
->>>>> @@ -83,11 +84,12 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
->>>>>     	new_size = um_info->size + MEM_RANGE_CHUNK_SZ;
->>>>>     	tbuf = krealloc(um_info->buf, new_size, GFP_KERNEL);
->>>>> -	if (tbuf) {
->>>>> -		um_info->buf = tbuf;
->>>>> -		um_info->size = new_size;
->>>>> -		um_info->max_entries = (um_info->size / sizeof(u64));
->>>>> -	}
->>>>> +	if (!tbuf)
->>>>> +		return NULL;
->>>>> +
->>>>> +	um_info->size = new_size;
->>>>> +	um_info->max_entries = um_info->size / sizeof(*um_info->buf);
->>>>> +	um_info->buf = tbuf;
->>>>
->>>> Could you please explain why size and max_entries are updated before the
->>>> buffer itself?
->>> __counted_by_ptr() requires the counter ->max_entries to be set before
->>> the ->buf pointer is assigned; otherwise you have an inconsistent state
->>> where the counter doesn't match the pointer.
->>
->> But isn't updating the counter holding the buffer size before the actual
->> buffer
->> can cause problems?
->>
->> Can you share the document link of __counted_by_ptr() which says that size
->> counter to be
->> updated before the buffer pointer.
->>
->> Here is an example in fs/coredump.c file where size counter is updated after
->> the buffer
->> with __counter_by_ptr():
->>
->> https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L98
->> https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L115
-> 
-> Maybe the order only matters for flexible arrays and __counted_by(), but
-> not for __counted_by_ptr(). I reordered it mostly out of habit from
-> __counted_by() annotations and assumed the same rules apply for
-> __counted_by_ptr(). Happy to restore the old order if it's not required.
-> 
-> Kees or Gustavo, what's your take on this?
+An earlier attempt to make epoll_wait() freezable in commit 1c441e921201
+("epoll: use freezable blocking call") was reverted in commit
+c511851de162 ("Revert "epoll: use freezable blocking call"") due to
+reports of userspace corruption (Bugzilla #61781). Under the legacy
+freezer design, freezable tasks could wake up prematurely while
+hardware and peripheral drivers were still suspended.
 
-The order matters when dereferencing the pointer. In this case, it's just
-an assignment.
+With the 2022 core freezer rewrite (commit f5d39b020809 ("freezer,sched:
+Rewrite core freezer logic")), the legacy fake-signal mechanism was
+replaced with the TASK_FROZEN state. Tasks sleeping in TASK_FREEZABLE
+are safely frozen in-place without waking them up, and the scheduler
+guarantees they cannot be woken until thaw_processes() explicitly clears
+the frozen state.
 
-Thanks
--Gustavo
+Mark sleeping tasks in ep_poll() as TASK_FREEZABLE. Benchmarks on an
+ARM64 test device demonstrate that combining this with freezable
+select/poll reduces thaw latency by 63% (from 20.64 ms down to 7.55 ms
+mean at fixed CPU frequency) and reduces context switches during
+freeze/thaw by 87%.
 
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Sadrul Chowdhury <sadrul@google.com>
+---
+ fs/eventpoll.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 6cbef8b4c2e0..35992f6457bf 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -39,6 +39,7 @@
+ #include <linux/rculist.h>
+ #include <linux/capability.h>
+ #include <net/busy_poll.h>
++#include <linux/freezer.h>
+ 
+ #include <trace/hooks/fs.h>
+ 
+@@ -1987,7 +1988,7 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
+ 		 * the same lock on wakeup ep_poll_callback() side, so it
+ 		 * is safe to avoid an explicit barrier.
+ 		 */
+-		__set_current_state(TASK_INTERRUPTIBLE);
++		__set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
+ 
+ 		/*
+ 		 * Do the final check under the lock. ep_start/done_scan()
+-- 
+2.56.0.212.g129ede20d9-goog
 
