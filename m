@@ -1,88 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.128.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792508017;
-	b=ztgnkmQin9gf6OhAeXios3+F2L6U9yHqoDx2IOwVr83fqqhFgUZ+/mzAdAeGC+66JfOi
-	 SVwMd7C13o+ygp+6ovxBCXeYho9GAhiMw0237XRgQkLuv90m0COTOfn0oMxbbPuk2yJDg
-	 eomqy1zRkIiZ1wjSLSPjxSTQ+buTOgWqixVyX/NKzcSYDNWpOMV0Paa2OcsNNGn9z3Whr
-	 oBh9cf1BxsQ5Xp9hETfazdxu/UyqA7KZhTLvT1IGj9hIdOf9VTB6mSa7NoMVGu2K5J2DJ
-	 mAM5LSwAb7T+8FdBuduwOh1QoHLbdTMhgPSLc9fFOeqHbe12KJmL36MaP6Yp+6kFv9Q==
+	t=1792508040;
+	b=sCQMuMCfpzrXPA10gc8Ef5evfTIYkXPRLKbjcH1rLXT4cK10dX1IWc5IzcgmKAEMrLYO
+	 ayPWUHJQCgBZZbk7gy8j7JFsyjm3G0XVS+X6R4Z5D2eBtidY0JvOSroIxJs+R4j6JT1tF
+	 uW29GrOXdLaYd8P5WXtq1MkNXtwbWKFAf8HmxYhd++dAHib2E2yoUPj0kA4N3sK8r9kz6
+	 W1if6dCsbzoD38U1iyq6dRgjwZ7Gk8qkXRXQm33dHHK0dP9kHfF92OoYp4qL50fjdokyw
+	 Gm/h4fUeDCj9g2bftzJn1DCZsGCmIPVTpoZyLcvlfXydd7WvbUYDnAaZP++sy1fGlkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508017;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
-	bh=tTpV3ZIkgJtv86shuF+ZrfY4iEvhyoMN0YOMU7pRAGI=;
-	b=rOIj7LBumBhN314KtcgU7iAE+bgLNL8ltrGycNd3DxaG57DReLPVTeg0I+AUCmkS5SLP
-	 OO1S+K3ifwf6IsrqXGJ5iZrwwpH1s3TbS7vznO2w11ZTlVOLbI3/vlNhTpzhQj5nuzWiH
-	 bpj0LQfx6MLnopPIKWcD6yWWlTYxNob/qg3PYBw2afnQXC/h/raPALLv4y3FWdxm1cqmK
-	 Sf3iSKUoVo5JpAwu/I0RYRIMuwKy5Jbp/2RbWheO7UaE6m2LYWbRlugeCbUGeVwuMSYqK
-	 q/sONUa406h+20lzfgDSykXvfAoV5c0n8mE3WxM2lQie1JHQTUHAEleMuCb4Zb5Y7wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508040;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6eEx0sG1RnJ7BXSu4j6o+gX5Sfc9sLmpCWgg8b1O618=;
+	b=RAtrj9VQXp0/7Q+qW4tlrimDKbOebFmwFf5V6kv4aypuevqJMl9LQkuovbF4rETKzQfU
+	 Yqc55k3go7LtIsYIoepDnAShQEAK5sfxnAD1JlaMlUPD5BT32IyA+7hUK37aDT+DpcKoo
+	 NrTyu56IjmIOG92/Xqp7PglwfEdZREjWK4UJPBRS1bV6bggjjkWsDH2nmXLw6XubirNRn
+	 5rFVKpqoAG8w2WMpDjJI4djhFQIPZsyRNHqc4GwckhCfAPNRJt0q4DGF1rZWusupCi/+V
+	 68YHMaNl5yynZQESU/HCu/Bm6LvZnJlHynDdj0quVxpSCrtQHvmR7inkYKbueTVpFsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=NQKFR+VW;
-	arc=none smtp.remote-ip=74.6.128.32
-Received: from sonic304-9.consmr.mail.bf2.yahoo.com (sonic304-9.consmr.mail.bf2.yahoo.com [74.6.128.32])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Nhij1uXx;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2268606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:53:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2268606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4FA606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:54:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C4FA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=NQKFR+VW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792508015; bh=tTpV3ZIkgJtv86shuF+ZrfY4iEvhyoMN0YOMU7pRAGI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=NQKFR+VWIwSPtn9Z5Ugdhb6ky2Dl4V7AqDepHpWM3hud3kWK1GNvPhAr5qNdkOwPwZMnTTW53neIjU3ieRyOl+FBfnmVY9d8IlA/jbq45KqYM+XH5gPGB83zXFm9YExdVOd/45HiwYuq/Mm8kdX9ykMvSOi87U23i+S1QMH09f1Li/r/7fW5GjnT0Dx8Nh9Hrl0W4gLpgmoJRM9nEcTi3UDEKT7QWxKNZhJMW3zbX/5WJx99XP5lGCn2rgeMR8067Quz2mazx7piuOoesX4PfsX0nctIfDycF38tfS+mdrbXpkvMbW1xknq96zayzm4i0XJvBzlbGAfhKN1vRKmfMw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792508015; bh=vI0rBTf8cJ2hsmTA6PqswkFo3F8kflvaSNzOCyG7+4d=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=DwcSqh2+ZA1APqIaPu+r51rjPtO3RqzJkJUuXjAb6IBJ4LzUyHowwPEVeGeKvdtRhcOlV0FxzSKFLI49SXLJZMRZYAeRKhFlgz3llfi1aUDq03VNEIItUAQWKZQaRBNxwZAtRuOa3APpqshxCDW13E2xnVCKUkgKacvN2M3qbesStqo0FEGhMTSRJdC2JsiIcA/gAKDntnLL49Ky7c8lEDICXeXyT7tmfDyDxuQcCFWWaE0olw4IcpVcbQIdvL+xJEemr3JDhc+nAk2RxtR3gyvhfCAVrkPqtb+/uoR9EKbO0QtGsjoWIuItkqu0ga0Sn82RZpUN5Wx76Kw1khSx7Q==
-X-YMail-OSG: TQSkQ88VM1n7rzeQw8D.UvLGJavorU_Du.ByD4XMtatAVdR874wHDUmgBQh7jZ0
- phhFOsZ0dMrhaDDT3s0fYGfiM2.5phSNgaKNrtuWT97LfHbdIzhR6bdejQIYcNTGFsmliJarxstP
- UUVQGkEz7xsa3XMP1pdLxPaFsxZJiYjWAqvoDdV13Rb7Sr.0tI94yZxULONP_xx95UuwC9RTQ9Ek
- oaYN30FcPf81CH3hjtjFpNvoht4nyTjDMbTD9oj9hEo105KiubXYTzvhlGKQKsFzpIEapCB1o1eM
- OVhytW9EsS2tLeow.pIRM7AbTbZzQPjgtIWwn72uamlN3LP2vRvdKFF0dqd7hBFzSCpX2YVdZ5Az
- 480HQGphE54DthQ9Kz5IBpS904BlrsW6VFrkdJXDfJ7Y__Z.0_2ITm6ZVC2vv1isGFEwAKNiKOFf
- dWHT0JORZQL9W.RtrLFoiD7KjMLff3Xxcu0Cbntq9hEUcytA31bdUDly3qVjAsRkPhX9OX1Le9L3
- qscx2g1PPvhKv2d9THaAKQWQ4OJ0lFyaJLmEPUBL8wtHmp_CNOGCkUP2dmX4MEsIMGIPTw2ZNXnG
- 2Wa_cvfOl_nm2HBkKvTJcahuB0tYf.35y1LBBEjleU_kbSbfF448xIlqyfUkKKayvGdSSF7FJase
- kIEsY4lO.zkF4Zj1TmnHcXk.oRvdq.vNzrQRen19d8JN5fWvtq9ai_2ID0jo6mz1iPNnr2aCFyUG
- FoUfAod7.bLQ.BOi_cf9NQPWFrls6VCu1l4_9Wsja_zZ_ssOxTxhIllgwm3ZapPVlEYogikEbRjh
- _b2xSPZJy9SZjVM_u56bNI01CM590eo740cWOj_z9F2HBr2iP0wUIa7UfNBmtdpXS4gsaB8mtnf7
- FIy2lWAvZUCg3JNo7xSOaeYUQun7XGOt2Avl97UnazEa7hG1DytrypMtJNXiIJkWVZJNPl6DDdKC
- v686uoiJfA2YXeJ6BLz.9wJMt6h60d0hIjsP2Jn85IeMOVSZZGL26G8DzPhgiDuHXiY_GM0HwTbC
- Ku7vtdvm5a05_7JkekZkKI6BE2uNgGCV7kV88nZGD35W.o.PBi6bj4VXtugeNFnEvm8hbkk_s8Q8
- nZhiO7ArbAWt_8xBxEmFhHFpMlxLlqnWfabNi78huJWLIKHK2q_XXiM4Aw5xIudq99wU9cHcdvx.
- rv0tpWVLGClLeBhh0EmK5Rm1ZVkQiMVdnnQWQ8VFVmo.miMHeqRSVxOyzHe9AeUYx9oaq2MIjtn0
- fj0klh2UIUI5wfnkhNjzHEPRfnqsy9P.zz366Jq8txQq6M7grZ4vjhKGnpdn2klNdPJBXkkEoPMP
- rB3WS40lRLvJ9wVtRTNzAJu3tYPK92gfrVLwmV_S68lXQROUptUrB1.12J0O5VXLt46Nvju2Ow9A
- 4f2UKvhmiYkLn9gDWEsDnaWaCy5WTK6o8IMcg8C4cPdtNQPsBo2WccwySqLlEXSkp10RhxfE43Wq
- Zcnsn5.GPC9i7GKdmvHMffxW2KeUwC77LLRIITh4NieRjxEuUzOlLqavHsjEW4HalblLeKNhBUCL
- X38tAZvt1T6HoRNI4QZ2bm.pz7MpIQOOZ1rhPRvZrvz.so6xOi5BRo0OUxiBuq4t0RPFun3bqdag
- NpEjfibtCGOYvwgAzxV4xnovuaNprLzL0wKRy0wZ9u6G2cuFMa2Fb7CCipRUil0J1wFN4.229MZY
- jm5EjuNcdtMKFdTTtVd1naXqwvTrXA0DPsQlNGgsWOzol8PvViVMz7GTcWZx2j_lOyJCZVp8rpBs
- 1EDhziDR258KQYjfG1_FxeTx0GVoORtBvs_7R4xoE5hyTciHyam645BWEbMJ7uuMEb5RhWlypbkD
- w1QlrdzQrjoCsIh9rwyqq0S5xBsVVG5kiWuh0L6z5yD0IuCHpBNAs2wdN7BxNTXmFMbbeG266XRy
- IaAQI8YAoijnvF8Zy7v_XgO7dRsa7bbMIWN3frgoi3rd9Jcgg3zXz0c7VYfBMPEkMT2KwzxOYCT6
- 2twcOa1rWX7pgeL3gmtv5j1_nM9Bhu76uS.PbGV8qqn5VS95e.YJStIqqc8yV.N2FRPd8rk5CBxa
- JomFIgn_Q0ML_fhNJUwDqlQqoUCSxcacFcMmY89GiGDc1X0Q0FwXHeCtOYM0Zbx5sdjSwhX.XguL
- 7dvBtjwa_gSf1xqyNijBnPYkuFrmP.4vB9pm.kRlQIC9rP5GihG5AI43Sra6cdEDC9o4dnHW.meC
- Iodw26L._ZWmco1yfhi5kmLJ6zYTmIbTVYLSD7iTRpJA-
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: ebd0a12a-f1e6-420a-94e5-4b5bc2139d0c
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic304.consmr.mail.bf2.yahoo.com with HTTP; Tue, 20 Oct 2026 14:53:35 +0000
-Received: by hermes--production-bf1-6d6877594b-mcfwx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 2a5d645ec72f5aa086fa0f54b124814e;
-          Tue, 20 Oct 2026 14:53:30 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Nhij1uXx
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e8ad5b31c7so18932935ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:54:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792508039; x=1793112839; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6eEx0sG1RnJ7BXSu4j6o+gX5Sfc9sLmpCWgg8b1O618=;
+        b=Nhij1uXxIGsKuaEApqTeFhtDYwOPGOpLuDYQIQNmxzJXEiqTD7XpnuTKF8yICcamr6
+         Wz+5PUkQSNGcsFwo1smPcCrVinR9bmHITs59c3vlXrUVC+rlppxm/gsWIYtk9jWoWFnn
+         Jv45eycXc2svMhH5WdeiCyG2RHjgZZmJGMhv94pkVq1LU2T8j47xMAzrgdaQDuKxbSqY
+         Jn75BxZUapP3n0YQ6EeeYeQPyS49LX/HZdnakj0eSId0FAMdNhPmpu758AHwXnk299XI
+         ddQHM/f8Rqk+/DcF3FpCOWU1J+1ysZBrboLPX7Hh3Pkv9SWwEAFfQi674CLSkBD8+xxJ
+         uEEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792508039; x=1793112839;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6eEx0sG1RnJ7BXSu4j6o+gX5Sfc9sLmpCWgg8b1O618=;
+        b=S+dKMIw+B/O05Qa8SunrKZxPpSqZK39P2LVVybIIVe99+QKCPVPzPye65ICJQKAOOP
+         iyhF49cU2OrIztxMWEkfO+OxFCeUKZtSkKFOQ/pkVAtr4Sh9O7Szw/nO+essfUU8xzTK
+         PZ3k2reeXiRPY8Tl/IATtXURpYWwm47yIlmEMSmVeiO/8yfqWVkKAPBoBAtMOrTw6qah
+         SPRgNgMTqZlKK1rSjUqRIcj7zqW2aBZr9htUw2pdYyJ+106mtvRbzeoaA0Ygd810UVQu
+         XvADaKxyQc+MaBg1pwDqovMwucoixjqK6h6xwgQg65ndvheW8XF0+BHMX51Re8cOFhgL
+         CePA==
+X-Forwarded-Encrypted: i=1; AKwUvBx2DYt35Fv1EeKWBAoCksIv0p/0Co7ECA1mWqqHltCH77wMWPiFyj24UWfMHVTm9NuoybJgj31rfMwdPvs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV1GllOc753w+IBYlTlvGUSvAFZoADQyLBBqsfT91Z36BBBpit
+	Aj/hOQt2KyDFMTyIahJyMJ8F7C0eo3GiWWE8ua+kQr3K+T6JBhNuCJNM
+X-Gm-Gg: AYBFou1g8/T1HHdf5sU7vx6sL0C4pz8z8vg6GnFNcYVqPVsryXT0oEYRHH5KBh00g09
+	j0LkE7/FWE7WvFD/muPw6YGbCrxLr+Zc6mzxfHRBbll5CEeq1gF5JsXM8BujSyXM8FnYz7NiAvj
+	xwgfUoFiAjVFdhwUZR1EJF5/ytPujvvEpbdezMo2Wcvq/00HOJUsNAyumhHWWM9gpXEmkVQUE+E
+	Z8ZKmrLd9p8hA+FGnPhuhyCcjLppbe0gsgZh00YjKXdG1eW7V2tmAsTAdgw7tswDifjVtf+qTyd
+	OeWuqQd9wDD/Vqeg3tzocxLj+uT/CDI6O4dzpN3kLYWH3zp7IOxVNW3dsVS87kCxeDXWtG4MDkI
+	qWH9+Se3mItbfoQje6WoBZUir4y/TjsH+JNiOqo9RYyoyXnHv8RzHzcakrUzjNAUE2xTzgfNUl5
+	wUpzy+9t5DDqOlq9WXE70eXb/mrOVxxvUEmIT+bya5Mg6fcpfm35jB/+2qZ8Xykbr1kiw=
+X-Received: by 2002:a17:903:2304:b0:2e2:dfb8:818a with SMTP id d9443c01a7336-2e9a7059eedmr96198495ad.62.1792508039470;
+        Tue, 20 Oct 2026 07:53:59 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b307c43sm343975ad.1.2026.10.20.07.53.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:53:58 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Hillf Danton <hdanton@sina.com>,
-	Jeremy Dean Clifton <deaner92@yahoo.com>,
-	syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
-Subject: [PATCH] Bluetooth: hci_core: Fix queuing disc_work while workqueue is drained
-Date: Tue, 20 Oct 2026 14:53:20 +0000
-Message-ID: <20261020145320.115333-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ocfs2/cluster: freeze heartbeat configuration during device setup
+Date: Tue, 20 Oct 2026 22:53:50 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0077-v7-34980443ec254b2a1ffc@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,103 +100,257 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-References: <20261020145320.115333-1-deaner92.ref@yahoo.com>
 
-hci_conn_drop() queues conn->disc_work on hdev->workqueue unconditionally
-when the last reference to a connection is dropped. It can run from the
-socket connect path while hci_dev_close_sync() is draining
-hdev->workqueue (e.g. HCIDEVDOWN racing with an SCO connect). Since that
-queue_delayed_work() is not chained from a work item already running on
-the queue, __queue_work() sees the queue marked __WQ_DRAINING, warns and
-drops the work:
+A heartbeat region's geometry must remain stable from device setup until
+its thread stops and its buffers are unmapped. The configuration stores
+check hr_bdev_file before changing blocks, block_bytes or start_block,
+but separate configfs opens can run these callbacks concurrently with
+device setup. The buffer mutex is per open and frag_sem is held for read.
 
-  workqueue: cannot queue hci_conn_timeout on wq hci4
-  WARNING: kernel/workqueue.c:2352 at __queue_work+0xdb7/0x1370
-  Call Trace:
-   __queue_delayed_work kernel/workqueue.c:2617
-   queue_delayed_work_on kernel/workqueue.c:2669
-   hci_conn_drop include/net/bluetooth/hci_core.h:1729 [inline]
-   hci_connect_sco net/bluetooth/hci_conn.c:1881
-   sco_connect net/bluetooth/sco.c:375 [inline]
-   sco_sock_connect net/bluetooth/sco.c:764
-   __sys_connect_file net/socket.c:2166
-   __sys_connect net/socket.c:2183
-   __x64_sys_connect net/socket.c:2186
+A delayed blocks store can enlarge hr_blocks after the slot array has
+been allocated. A block_bytes store can change the block size and shift
+after hr_tmp_block and the slot pages have been sized, so the heartbeat
+thread copies or clears beyond its buffers. A start_block store can
+change the I/O location after it has been validated, including to zero.
 
-hci_dev_close_sync() already sets HCI_CMD_DRAIN_WORKQUEUE and calls
-synchronize_rcu() before draining, and keeps the flag set until the
-device is fully closed. Skip queuing disc_work while the flag is set,
-checking it under rcu_read_lock().
+Device setup also writes hr_node_num before acquiring the device guard.
+A second dev writer can overwrite a starting region's node number and
+return -EINVAL if the local node has been disabled. The heartbeat thread
+then uses a different node number when releasing its node dependency.
 
-hci_conn_hash_flush(), called from hci_dev_close_sync(),
-deletes the remaining connections.
+Serialize all three configuration updates with device publication under
+o2hb_live_lock. Validate the required geometry in that same critical
+section, so a start_block update to zero during device open is rejected.
+Keep the node number local until the writer wins the publication check,
+then publish it with the device file. A rejected writer leaves the
+region's node number unchanged.
 
-Fixes: 525daaea459f ("Bluetooth: hci_sync: Set HCI_CMD_DRAIN_WORKQUEUE during device close")
-Reported-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5897b3c764f5989ea942
-Tested-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
-Suggested-by: Hillf Danton <hdanton@sina.com>
+Keep device open and failed-start cleanup outside the spinlock. Clear
+the device under the same lock only after the thread has stopped and
+the buffers have been unmapped, allowing configuration writes to resume.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-out-of-bounds in o2hb_thread+0xc62/0xe90
+    Read of size 1 at addr ffff888107829ac0 by task o2hb-pmbd-regio/497
+
+    CPU: 3 UID: 0 PID: 497 Comm: o2hb-pmbd-regio Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? o2hb_thread+0xc62/0xe90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? o2hb_thread+0xc62/0xe90
+     kasan_report+0xe0/0x110
+     ? o2hb_thread+0xc62/0xe90
+     o2hb_thread+0xc62/0xe90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_o2hb_thread+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __lock_acquire+0x5a3/0x2140
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_o2hb_thread+0x10/0x10
+     ? kthread+0x351/0x460
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+    Allocated by task 496:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     o2hb_region_dev_store+0x7c4/0x1c70
+     configfs_write_iter+0x2f9/0x4f0
+     vfs_write+0x639/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff888107829a80
+     which belongs to the cache kmalloc-64 of size 64
+    The buggy address is located 8 bytes to the right of
+     allocated 56-byte region [ffff888107829a80, ffff888107829ab8)
+
+(Page and memory-state dump omitted.)
+
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Assisted-by: LLM
-Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
 ---
+Changes in v2:
+- Serialize block_bytes and start_block updates with device publication
+  under o2hb_live_lock, and update block_bytes/block_bits together.
+- Validate the required geometry in the publication critical section,
+  including a start_block change to zero during device open.
+- Keep node_num local until the writer wins the device guard, so rejected
+  dev writes cannot change the active region; retain the blocks protection
+  and failed-start cleanup ordering from v1.
 
-Notes:
-    Testing:
-    
-    syzbot ran its reproducer for this bug on upstream 90201351a862:
-      - without this patch, the warning reproduces:
-        https://syzkaller.appspot.com/x/report.txt?x=17940305580000
-      - with this patch, the reproducer does not trigger any issue:
-        https://syzkaller.appspot.com/x/bisect.txt?x=1714618e580000
-    
-    The evidence is the pair of runs on
-    90201351a862, where the same kernel crashed without this patch and
-    did not crash with it. syzbot's own retest on
-    58161ead29e5 (Oct 17) still reproduces the warning without this
-    patch.
-    
-    This patch is based on bluetooth-next (185c11232d5f). I built
-    net/bluetooth and hci_vhci for arm64 with CONFIG_PROVE_LOCKING=y
-    with no new warnings, and the same change also builds on x86-64
-    against v7.3. I could not run the reproducer locally; all runtime
-    testing above is syzbot's.
-    
-    Hillf Danton tested an equivalent hci_conn_drop() check in February,
-    together with a hci_dev_close_sync() change that is now upstream via
-    525daaea459f:
-    https://lore.kernel.org/all/694c9ee9.050a0220.35954c.0030.GAE@google.com/T/
-    
-    Tool use: An LLM helped me analyse the syzbot
-    report, compare hci_conn_drop() with the existing
-    HCI_CMD_DRAIN_WORKQUEUE checks, draft the changelog and prepare the
-    syzbot test requests.
-    
-    I made the code change myself and checked the
-    locking: the RCU read section pairs with synchronize_rcu() in
-    hci_dev_close_sync(), and hci_conn_hash_flush() later deletes the
-    remaining connections, so not queuing disc_work loses nothing.
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0077-v6-eb25e73523a3cb94fae0@gmail.com
 
- include/net/bluetooth/hci_core.h | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c | 65 +++++++++++++++++++++++-------------
+ 1 file changed, 41 insertions(+), 24 deletions(-)
 
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 8f32c860d492..c8cc25d35195 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -1775,8 +1775,11 @@ static inline void hci_conn_drop(struct hci_conn *conn)
- 		}
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index b45adc39aacc..63a538b66feb 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -1681,16 +1681,19 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
  
- 		cancel_delayed_work(&conn->disc_work);
--		queue_delayed_work(conn->hdev->workqueue,
--				   &conn->disc_work, timeo);
-+		rcu_read_lock();
-+		if (!hci_dev_test_flag(conn->hdev, HCI_CMD_DRAIN_WORKQUEUE))
-+			queue_delayed_work(conn->hdev->workqueue,
-+					   &conn->disc_work, timeo);
-+		rcu_read_unlock();
- 	}
+-	if (reg->hr_bdev_file)
+-		return -EINVAL;
+-
+ 	status = o2hb_read_block_input(reg, page, &block_bytes,
+ 				       &block_bits);
+ 	if (status)
+ 		return status;
+ 
++	spin_lock(&o2hb_live_lock);
++	if (reg->hr_bdev_file) {
++		spin_unlock(&o2hb_live_lock);
++		return -EINVAL;
++	}
+ 	reg->hr_block_bytes = (unsigned int)block_bytes;
+ 	reg->hr_block_bits = block_bits;
++	spin_unlock(&o2hb_live_lock);
+ 
+ 	return count;
  }
+@@ -1710,14 +1713,17 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	ssize_t ret;
  
--- 
-2.43.0
-
+-	if (reg->hr_bdev_file)
+-		return -EINVAL;
+-
+ 	ret = kstrtoull(p, 0, &tmp);
+ 	if (ret)
+ 		return -EINVAL;
+ 
++	spin_lock(&o2hb_live_lock);
++	if (reg->hr_bdev_file) {
++		spin_unlock(&o2hb_live_lock);
++		return -EINVAL;
++	}
+ 	reg->hr_start_block = tmp;
++	spin_unlock(&o2hb_live_lock);
+ 
+ 	return count;
+ }
+@@ -1736,9 +1742,6 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	int ret;
+ 
+-	if (reg->hr_bdev_file)
+-		return -EINVAL;
+-
+ 	ret = kstrtoul(p, 0, &tmp);
+ 	if (ret)
+ 		return ret;
+@@ -1746,7 +1749,13 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	if (tmp > O2NM_MAX_NODES || tmp == 0)
+ 		return -ERANGE;
+ 
++	spin_lock(&o2hb_live_lock);
++	if (reg->hr_bdev_file) {
++		spin_unlock(&o2hb_live_lock);
++		return -EINVAL;
++	}
+ 	reg->hr_blocks = (unsigned int)tmp;
++	spin_unlock(&o2hb_live_lock);
+ 
+ 	return count;
+ }
+@@ -1878,19 +1887,18 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ {
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
++	struct file *bdev_file;
+ 	long fd;
+ 	int sectsize;
+ 	char *p = (char *)page;
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+-
+-	if (reg->hr_bdev_file)
+-		return -EINVAL;
++	u8 node_num;
+ 
+ 	/* We can't heartbeat without having had our node number
+ 	 * configured yet. */
+-	reg->hr_node_num = o2nm_this_node();
+-	if (reg->hr_node_num == O2NM_MAX_NODES)
++	node_num = o2nm_this_node();
++	if (node_num == O2NM_MAX_NODES)
+ 		return -EINVAL;
+ 
+ 	ret = kstrtol(p, 0, &fd);
+@@ -1904,20 +1912,27 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	if (fd_empty(f))
+ 		return -EINVAL;
+ 
+-	if (reg->hr_blocks == 0 || reg->hr_start_block == 0 ||
+-	    reg->hr_block_bytes == 0)
+-		return -EINVAL;
+-
+ 	if (!S_ISBLK(fd_file(f)->f_mapping->host->i_mode))
+ 		return -EINVAL;
+ 
+-	reg->hr_bdev_file = bdev_file_open_by_dev(fd_file(f)->f_mapping->host->i_rdev,
+-			BLK_OPEN_WRITE | BLK_OPEN_READ, NULL, NULL);
+-	if (IS_ERR(reg->hr_bdev_file)) {
+-		ret = PTR_ERR(reg->hr_bdev_file);
+-		reg->hr_bdev_file = NULL;
+-		return ret;
++	bdev_file =
++		bdev_file_open_by_dev(fd_file(f)->f_mapping->host->i_rdev,
++				      BLK_OPEN_WRITE | BLK_OPEN_READ,
++				      NULL, NULL);
++	if (IS_ERR(bdev_file))
++		return PTR_ERR(bdev_file);
++
++	/* Freeze the geometry and node number before starting setup. */
++	spin_lock(&o2hb_live_lock);
++	if (reg->hr_bdev_file || reg->hr_blocks == 0 ||
++	    reg->hr_start_block == 0 || reg->hr_block_bytes == 0) {
++		spin_unlock(&o2hb_live_lock);
++		fput(bdev_file);
++		return -EINVAL;
+ 	}
++	reg->hr_node_num = node_num;
++	reg->hr_bdev_file = bdev_file;
++	spin_unlock(&o2hb_live_lock);
+ 
+ 	sectsize = bdev_logical_block_size(reg_bdev(reg));
+ 	if (sectsize != reg->hr_block_bytes) {
+@@ -2036,7 +2051,9 @@ out:
+ 		o2hb_unmap_slot_data(reg);
+ 
+ 		fput(reg->hr_bdev_file);
++		spin_lock(&o2hb_live_lock);
+ 		reg->hr_bdev_file = NULL;
++		spin_unlock(&o2hb_live_lock);
+ 	}
+ 	return ret;
+ }
