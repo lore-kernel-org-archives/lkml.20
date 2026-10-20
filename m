@@ -1,98 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792476565;
-	b=jLSu/IhYtkc4rz5PcadMbwAFIRGnZby6Zym3EyihESE/pb8fyX++4KyxuTO0A8PUwVfI
-	 /52MC+ZtUZaKK8oHT1xwR+tlrnIuRB3vQ9GnbV8kUZHakWVRU+YL0r/qXWlvHFRxDz4MC
-	 sWdkbKZU+Yagzx2e/KoY+Z9tzgdKmME2equlUedHgAGQR+XpRavxsF+6WLVuonMsvCbKi
-	 GXjb0+VhidpgflrQ1JKoyTO4Pscb3v0LstM8qA51STyT9tBF8+UfsqEoJd6cJp78bTwgW
-	 +SCMspD8YYjUQabdJPuT99UDPw1LAiWCwX+APAHu2QwT6dyARq78OFFh5Dyr282Ha3w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792476565;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=jlBMqWrnKdF3kDItdCwsVZrOeSHrOAQ67ICKgOgsRc8=;
-	b=rZOGBb+uO1KvnFl8oMBUAgLYFFFLhyHP3ohSDotx0kgZv3jYUA1wW4e+6YIpjpw+yIDm
-	 cPlXsDVzMhT9AmXL1vd2OvElRQslF4XlD7COCZNdoviQ9xwWWzcqmr3n0J+gN7ZIXznAl
-	 GD+pYV+A/yKkodVlZvklvyAOFOOJEHOfdZ6y27k9iCq9vjFfdgetx6iE/xHD8fjvVM9Uo
-	 9GMcKQx3ZHEkUzsYZX6nKHtCq2Afw8n8GAq5CPTvp3wncHWzrHfMgfdVx1iA6FonnWwga
-	 f0giv3ruPxJu/6cKL8a/xKcXUBNhUMSVu+ZgnhnKGivkncuG4SqK482pqqay7+eXZXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="UE/4oJGk";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=47.251.158.125
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792476631;
+	b=NGBgeYoVn7GBVIeN1J3HD2nKnYcPDa4zofuVKt/kPPBqmmUwuYa+wCIB6mF1nXax293W
+	 mM7ZISdpKwqT0TmtTS8Daq3uIkQPPwXQrzVnB+Us45DcohCgQ0HIM64zM+DipivK0uqre
+	 8nFcBljd+ed3Rbt1oLTGkARKxzV/Z7PHa/PFeLHfAHuH6xYfub02A5uSh4gC6WIKasrsU
+	 +/m0jBGa4Cee89ZoZwFc8gxXtUvLkvHn8Nlu/21ccxBDJHSfe8qhj4A4IQ92ujRKq4qwW
+	 DHUF4JGb+JxKsggrB5r+if7Fuz4VeS0mC8BBuGtQOQr3WduqWVzpwyk57EnVWI6gOOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476631;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=dfwCW3XzFrA/MwgKr2yXEIAy57FlBEW9MYzAJ88RhlA=;
+	b=UTMpGwqiNBdsGlikzZslF1HaOwhi0xD6wSBmJF6ErZPmLXx3Ft7q6F9ggZQEK+Q0WUHd
+	 6aBCfJ+mPyIYvpvC2JFS0okq/CGnuyDD6CzZ6A5Cmu3VKyGZJhwXL7fa7OkXdYenXLpFB
+	 sWRgsegydYMpWB0iIzEZmO6iCgkZZow4lcRl2QYRlZJNoflZQRIAO/ENRpC45AljXNgba
+	 Jx/PyWicJqJirJgTDXMT3Cex9S8L9pYZmRQaKxJYUrtMfYqwUYhNLu3PgX3cD9hoCqf+Z
+	 uTFAsIg5twoEzIB5ixTrEzTKxUsnAU3O2WS5VyYuSRahWunvXyg/ih6ltvptQe4kYyw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Cx5fgsys;
+	arc=none smtp.remote-ip=47.251.158.125
+Received: from mail-m158125.netease.com (mail-m158125.netease.com [47.251.158.125])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2F4606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C2F4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301C9606A31B;
+	Tue, 20 Oct 2026 06:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 301C9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UE/4oJGk
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8246b13cbso21664545ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:09:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792476564; cv=none;
-        d=google.com; s=arc-20260327;
-        b=muJFh3ZGaGez38WywNK5JPJh9jWBd2iTK5Uk0cI9BHOMDmbBCjgCCgw00cQfqPm6wh
-         p0bEiIrKgBeYCNPKFTXwWMwRqE8E7G5+skBh68/kPeYQTLedTWm8nV9aLR46HV9hhFGJ
-         VlA1bIRiE8hQGQ/yK6WjeokdHgEz/kHggskHVRYIE+r6NzCU7QBoh1Fgu8qY2w3l11UF
-         avf37+as7KFzAgHKvMJKii/Hsvyr9pfheSSU8z/SCRA6yAnreRbVAjsyXODUMQ8ZJFUI
-         qIyZZiKCctbqcMruA+e+QRUdRsj3U/kld3/NXWjWQNMv664JpnsoXDrbCayPshYqtxT+
-         0hNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jlBMqWrnKdF3kDItdCwsVZrOeSHrOAQ67ICKgOgsRc8=;
-        fh=Sqx/8cQ03ABJzyl2kZET7gETg7phNhxXraufw3kiamE=;
-        b=WHaDmKsujj/ZXAcq2tZdt/VviYP1ftGTIExoxLsRktt5DyM4k0nw3vBActSf5UkrZw
-         VRYdMYWLiHTKTS/dx7JmEdl3ew6j7rOYObHQwdhoO9IqVboMG7DR0jjCxRywCUiifAYG
-         NJpRl857uO01Vp4HoYULFx1RiPU8aI30FN9BRHLshNLl8QDB0Ry6DxEFV0kDDiCbfDjw
-         L31HxZjdbP2EyFh2mtFxpS2KqBZWaaMemRqA3XOFl0N7fYxZcvrEzv5MzJWh5NGEtku2
-         fnfRPYjlGLzgc81SJ7kvpNx+CEuSZg+O15ziQ9iVBhbUTaM70l52TBNRSJAn5LhRiHsw
-         Arfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792476564; x=1793081364; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jlBMqWrnKdF3kDItdCwsVZrOeSHrOAQ67ICKgOgsRc8=;
-        b=UE/4oJGkhT1gT9Xw5NZpc7ld70sOY7OfPe4yNnKKhXjU34WbDz9h1eP9n+Sm2R+iks
-         7s37xfSjkwQC6qHvOzPiD1FDYxCKLlEZ0M+zKMtPV95fkLkDzcd/LVVNOhzT+DuHtcuj
-         rAaZTBwd+D1d/rADkXXWJ5U5dMgwsrHqGaOF0ZIcZt10myc6vIZvL+XSJBVdqaI4JHbP
-         j2C1OcRnQFfuLzpRTty3xHkD9pOvBxZbFW4ZXZBIENWxzhKus28iH7fwir3hW22UxRDw
-         g6aLij6mN73RQOAKCNRYq0yIUzbd6ddDvZqV9us/cXJ1QnIC22AFA74JBI/yLgOInXCO
-         MBIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792476564; x=1793081364;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jlBMqWrnKdF3kDItdCwsVZrOeSHrOAQ67ICKgOgsRc8=;
-        b=iaNg18TSk7zOckuH1bRr4vs+kH7DsPFyt8n9hw4SycUxskc3TDUgXLuSIDjgyEuENc
-         QSL6MzDgWYP5TMgPaHvzZ5gu1pFsmKyJc8PfZWRENwiEDQMk7ltayzHtXiPZ8IVMcxVK
-         JXiF4wP5UvHxFFXDyJ3kceDn3Aj3YF/9IJX4LkKHTlyMVCdJN2ERxtuRqP36h36yhccE
-         k6N3xmbxQWeUYFAjBKHRM3eJEnKLU9xzCAwu2Tb0Rpl7mpxxjGTU99x+7OZxEmPAjI5d
-         9Toeyv/PGwyR3vsfiy+cyFnZUPE1AJDaIb1mpW+mJbDdgnACzyxblRpDL0lJJIy2YzTk
-         dHfA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJU7rHMD3n3nRaRoD5pSfFHorlfujt2aSxAMqfmKw3gQtx8/yEIP2Lm/2wXsaIxZxdMP20ZAWaIyUkt7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTktEnm8ExunAZQEo/LOTSth/vTRFmXnUc1EW+hMia3CyPpg2w
-	I+FjmEBAAmQHRXlqamC8IMIfZFQCDUaSRbm5fryXLA4OKClGYyjw7kdbrtboQXMEkQnlPYGFg9S
-	vQKXhta3sGlzDu+d8V51NfiiJqx4ZPbs=
-X-Gm-Gg: AYBFou1TCw2QCGQmXhr0zBjxvqxjF0XBJeXewfLSRqap15OgwODyuIJWQ8NrIhSYcMu
-	9/IuZ/jGxKBL+v0vaXhXUkuDApiNOhRwHhOwYMR513/Q26RPNd+FnmgdEghk/obqHCLpHaIOwDj
-	5w5lnjIsh4TPFLW+eU8hEHlFtohUjHA6DjPl1LthxpKlmPI3OmB2CbQWWpa0cnHzy8n6i0iyCaA
-	qAhewkMXAiJmtcLL/gC2WZ3YL6rWLoCILZUHXoQ8qk6RBUaDqiUx6/PI7S8DfLVQ2D8TZIzpv76
-	5szH6ZPyKSiES42irMu68gVwjhmw6C9xF5mgWhaco8xv8cFqmzKWT2f9
-X-Received: by 2002:a17:903:2f88:b0:2e8:1d5c:f6f2 with SMTP id
- d9443c01a7336-2e9a69f8f83mr83802375ad.24.1792476564489; Mon, 19 Oct 2026
- 23:09:24 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Cx5fgsys
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51aa6b3ae;
+	Tue, 20 Oct 2026 14:10:16 +0800 (GMT+08:00)
+Message-ID: <aa480e97-e8c1-4954-8ed8-9de195030315@rock-chips.com>
+Date: Tue, 20 Oct 2026 14:10:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,158 +48,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com> <ataHK9s/MpNgXWhT@boxer>
-In-Reply-To: <ataHK9s/MpNgXWhT@boxer>
-From: Magnus Karlsson <magnus.karlsson@gmail.com>
-Date: Tue, 20 Oct 2026 09:09:11 +0300
-X-Gm-Features: AclHuK-XbUcddl9KosRGKNZXHh6f-ueh77OfYnuvOwoLmpUVjr9gfpKt9gc-2dI
-Message-ID: <CAJ8uoz38cE-1diOnih=HYW+ACqq9YQhaM7tz8KCHjTxgZVc+rQ@mail.gmail.com>
-Subject: Re: [PATCH bpf] xsk: Do not free ZC Rx buffer when the Rx ring is full
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: marcin.knap@vecima.com, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, jtollet@cisco.com, 
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: dwc: Skip MEM outbound iATU setup for identity
+ mappings
+To: Xincheng Ji <jixincheng@ultrarisc.com>, Jingoo Han
+ <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Niklas Cassel <cassel@kernel.org>,
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+ Jia Wang <wangjia@ultrarisc.com>
+References: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261020-dw-pci-fix-v2-1-32b6d62e0edf@ultrarisc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa157ee96d503a4kunma914cf2f9369dd
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQxodTFYZTU8aGEJMGk
+	JJSkJWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Cx5fgsys7xQjmIH6eBkVTO4LlmbYsYmlv5MusFWdD75Ha69b3dRyNyPEXz9NFpgmhMf6hmDEK2/AhuStu3TKsZa/zidtJxv31m9Y6F3p8+gdAMwBzdaeFcNSJ/xRAToTI1tSgOY1EIXzOHs3vl9YMH2aVoW8X05LCxGNM1lme7g=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=dfwCW3XzFrA/MwgKr2yXEIAy57FlBEW9MYzAJ88RhlA=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, 20 Oct 2026 at 00:14, Maciej Fijalkowski
-<maciej.fijalkowski@intel.com> wrote:
->
-> On Mon, Oct 19, 2026 at 10:22:02AM +0200, Marcin Knap via B4 Relay wrote:
-> > From: Marcin Knap <marcin.knap@vecima.com>
-> >
-> > When an XDP program redirects a zero-copy buffer to an XSK and the
-> > socket's Rx ring is full, xsk_rcv_zc() frees the buffer and returns
-> > -ENOBUFS to xdp_do_redirect().
-> >
-> > A failed xdp_do_redirect() leaves the buffer owned by the caller, and
-> > drivers rely on that: mlx5e treats the failure as XDP_DROP and releases
->
-> Sashiko report shows that drivers are rather inconsistent here
+在 2026/10/20 星期二 10:37, Xincheng Ji 写道:
+> No outbound iATU translation is required when the parent-bus address
+> matches the PCI address. This is a DesignWare controller property, not
+> an UltraRISC-specific behavior.
+> 
+> Compare the addresses directly and skip MEM outbound iATU setup when
+> they match. Remove bypass_ob_mem_iatu and the UltraRISC-specific setting.
+> CFG and I/O accesses, as well as non-identity-mapped MEM ranges, still
+> use outbound iATU windows.
+> 
 
-A note to ourselves, we should write a section in the documentation
-for AF_XDP that defines the expected driver behavior. There are very
-likely more inconsistencies out there since this was never explicitly
-specified anywhere.
+Just make sure there is no regression on my Rockchip platforms, so
 
-> > the buffer when the Rx WQE is refilled, and i40e and ice free it on
-> > XDP_CONSUMED. The buffer is therefore freed twice. It gets reused for
-> > another Rx descriptor, the second free puts an in-use buffer back on
-> > the pool free list, and the same UMEM frame is later handed to user
-> > space twice.
->
-> Did you verify this or is this rather a speculation? xp_free() protects
-> against double-free cases.
->
-> > On mlx5 with striding RQ this also ended in a NULL pointer
-> > dereference in mlx5e_post_rx_wqes().
->
-> Please more info on this then.
->
-> >
-> > Leave the buffer with the caller on both the single-buffer and the
-> > multi-buffer -ENOBUFS paths, as xsk_rcv() and xsk_rcv_check() already
-> > do. i40e and ice relied on the core freeing the buffer on their
-> > need_wakeup -ENOBUFS (XDP_EXIT) path, so make them free it there.
-> >
-> > Seen on Mellanox ConnectX-6 DX MT2892 (FW 22.47.1026) with AF_XDP
-> > zero-copy on 7.3.0-rc6 when the user-space consumer could not keep up
-> > with the Rx ring. With this change no duplicate frames were seen with
-> > striding RQ on or off.
->
-> Have you thought about massaging mlx driver instead of intel + core?
-> Even when that would be correct approach ixgbe would miss being addressed.
->
-> >
-> > Fixes: 269009893146 ("xsk: recycle buffer in case Rx queue was full")
-> > Signed-off-by: Marcin Knap <marcin.knap@vecima.com>
-> > ---
-> > Tested on mlx5 (ConnectX-6 DX) in zero-copy single-buffer mode.
-> > The i40e and ice changes and the multi-buffer path are build-tested
-> > only, as I don't have that hardware available.
-> > ---
-> >  drivers/net/ethernet/intel/i40e/i40e_xsk.c |  1 +
-> >  drivers/net/ethernet/intel/ice/ice_xsk.c   |  1 +
-> >  net/xdp/xsk.c                              | 15 +++------------
-> >  3 files changed, 5 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > index 9f47388eaba5..d32c7255f0b3 100644
-> > --- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > +++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > @@ -358,6 +358,7 @@ static void i40e_handle_xdp_result_zc(struct i40e_ring *rx_ring,
-> >               return;
-> >
-> >       if (xdp_res == I40E_XDP_EXIT) {
-> > +             xsk_buff_free(xdp_buff);
-> >               *failure = true;
-> >               return;
-> >       }
-> > diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > index 0643017541c3..7c1dd4c87a71 100644
-> > --- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > +++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > @@ -636,6 +636,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
-> >               if (likely(xdp_res & (ICE_XDP_TX | ICE_XDP_REDIR))) {
-> >                       xdp_xmit |= xdp_res;
-> >               } else if (xdp_res == ICE_XDP_EXIT) {
-> > +                     xsk_buff_free(first);
-> >                       failure = true;
-> >                       first = NULL;
-> >                       break;
-> > diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-> > index 33475b180ea6..0edc160c660f 100644
-> > --- a/net/xdp/xsk.c
-> > +++ b/net/xdp/xsk.c
-> > @@ -224,21 +224,15 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
-> >       struct list_head *xskb_list;
-> >       u32 contd = 0;
-> >       u32 num_desc;
-> > -     int err;
-> >
-> > -     if (likely(!frags)) {
-> > -             err = __xsk_rcv_zc(xs, xskb, len, contd);
-> > -             if (err)
-> > -                     goto err;
-> > -             return 0;
-> > -     }
-> > +     if (likely(!frags))
-> > +             return __xsk_rcv_zc(xs, xskb, len, contd);
-> >
-> >       contd = XDP_PKT_CONTD;
-> >       num_desc = xdp_get_shared_info_from_buff(xdp)->nr_frags + 1;
-> >       if (xskq_prod_nb_free(xs->rx, num_desc) < num_desc) {
-> >               xs->rx_queue_full++;
-> > -             err = -ENOBUFS;
-> > -             goto err;
-> > +             return -ENOBUFS;
-> >       }
-> >
-> >       __xsk_rcv_zc_safe(xs, xskb, len, contd);
-> > @@ -252,9 +246,6 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
-> >       }
-> >
-> >       return 0;
-> > -err:
-> > -     xsk_buff_free(xdp);
-> > -     return err;
-> >  }
-> >
-> >  static void *xsk_copy_xdp_start(struct xdp_buff *from)
-> >
-> > ---
-> > base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
-> > change-id: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
-> >
-> > Best regards,
-> > --
-> > Marcin Knap <marcin.knap@vecima.com>
-> >
-> >
->
+Tested-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> Fixes: 17b478b29cf1 ("PCI: dwc: Allow drivers to skip MEM outbound iATU setup")
+> Fixes: 8da2b970ed4c ("PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000")
+> Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
+> ---
+> This series follows up on the recently applied MEM outbound iATU support.
+> 
+> The DesignWare outbound no-match path does not translate addresses. Skip
+> MEM outbound iATU programming whenever atu.parent_bus_addr matches
+> atu.pci_addr, rather than relying on a driver-specific flag. CFG and I/O
+> accesses, as well as non-identity-mapped MEM ranges, continue to use
+> outbound iATU windows.
+> 
+> The UltraRISC DP1000 driver has removed the now-unneeded
+> bypass_ob_mem_iatu, and the general DesignWare PCIe host
+> code has also dropped bypass_ob_mem_iatu, directly comparing
+> the parent bus and PCI addresses before setting up the MEM
+> outbound iATU window
+> ---
+> Changes in v2:
+> - Merge patch1 and patch2, because they depend on each other
+> - Link to v1: https://patch.msgid.link/20261019-dw-pci-fix-v1-0-9b7860f919b9@ultrarisc.com
+> ---
+>   drivers/pci/controller/dwc/pcie-designware-host.c | 17 +++++------------
+>   drivers/pci/controller/dwc/pcie-designware.h      |  1 -
+>   drivers/pci/controller/dwc/pcie-ultrarisc.c       |  6 ------
+>   3 files changed, 5 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+> index cf5ca281e91b..c593a1f1c2e0 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+> @@ -918,19 +918,12 @@ static int dw_pcie_iatu_setup(struct dw_pcie_rp *pp)
+>   		atu.parent_bus_addr = entry->res->start - pci->parent_bus_offset;
+>   		atu.pci_addr = entry->res->start - entry->offset;
+>   
+> -		if (pp->bypass_ob_mem_iatu) {
+> -			/*
+> -			 * The no-match pass-through path preserves the correct
+> -			 * PCI address only for identity-mapped MEM ranges.
+> -			 */
+> -			if (atu.parent_bus_addr != atu.pci_addr) {
+> -				dev_err(pci->dev,
+> -					"Cannot bypass outbound iATU for non-identity MEM range %pr\n",
+> -					entry->res);
+> -				return -EINVAL;
+> -			}
+> +		/*
+> +		 * No ATU translation is required when the parent-bus address matches
+> +		 * the PCI address. This is a property of the DesignWare controller.
+> +		 */
+> +		if (atu.parent_bus_addr == atu.pci_addr)
+>   			continue;
+> -		}
+>   
+>   		/* Adjust iATU size if MSG TLP region was allocated before */
+>   		if (pp->msg_res && pp->msg_res->parent == entry->res)
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+> index 799c05213ae3..128729fee607 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.h
+> +++ b/drivers/pci/controller/dwc/pcie-designware.h
+> @@ -471,7 +471,6 @@ struct dw_pcie_rp {
+>   	struct pci_config_window *cfg;
+>   	bool			ecam_enabled;
+>   	bool			native_ecam;
+> -	bool			bypass_ob_mem_iatu;
+>   	bool                    skip_l23_ready;
+>   	bool			skip_pwrctrl_off;
+>   	/* Set if the RC loses power during suspend */
+> diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> index 523f454c6c52..a0d328c0c09b 100644
+> --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> @@ -154,12 +154,6 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
+>   
+>   	pp = &pci->pp;
+>   
+> -	/*
+> -	 * DP1000 routes MEM transactions without outbound iATU windows, which
+> -	 * avoids the 16-window/4GB-per-window aperture limit.
+> -	 */
+> -	pp->bypass_ob_mem_iatu = true;
+> -
+>   	platform_set_drvdata(pdev, ultra);
+>   
+>   	ret = ultrarisc_pcie_init_clks(ultra);
+> 
+> ---
+> base-commit: 0a2602de077462d3111eb9fd3da5b12a57fc6c93
+> change-id: 20261015-dw-pci-fix-c8e51f83be02
+> 
+> Best regards,
+> --
+> Xincheng Ji <jixincheng@ultrarisc.com>
+> 
+> 
+> 
+
