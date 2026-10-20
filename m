@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792499230;
-	b=U1smcHR0COXcBsiU+Cet4eQxTkfQASmb6qm6TuaSAl9Yefsgo+12gSVhJt+3IPkm9xs9
-	 rIIDjPu5jrG4NrnP02Fi10PDqOsYC7vimV4lt4DOmgM5UqX5MVxM8Tn23ZaJybqWRpguX
-	 zm/AI9roSoEBY5aRfr07QO3NaOqhECIFP/yWL2mWWQasB4g2NjqhhtsxkVGXPCvCynW1T
-	 FzKriSe0KyTDBRN7Gu2grUVISK+UJzoft+BR32iiZsEA0Y5KusqxqE9DNORaxWFj0fKaH
-	 BxQIl+uprhKdP0Nvhd7ATXYd9yrZCULauhu9Jih0WipYHLvcf7Upg3k/CqGIFLEDAZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499230;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xeRuc9PGlFl9jCwwmI0htM8aujiMFpe9+7jrRSoGJNQ=;
-	b=oTwCS2jRp4+JPCWVCku/yF87rukurLg+iABQ5mySYPHK0EIacKHLr1MqdmdEYD19fFK2
-	 hkTOel1FI8gND84pm3KY3wKPFpUcwNseWJIAJqS55FBp9G9QGd1N+Y2YOFXJ/8VhCIyxN
-	 7NVXKmsus6gd8cgBKmjCs2fvDpJdXr8B29zH6jOMjEovNpIQ8AqxiM6nidV2wElhHsEDd
-	 aHtaSdvf85ktvQjdRrWBqkrVzYmjKcJ2+ZLbqoaqG0dbzZDgVTYUhJBnzVAUYsmv348Na
-	 mqYvJ449XzIFWaj4o3e/Y1nVF5/NBHFXyhA1B70A/KdJwqUhx7Rv61QEYs9VY6gGmew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bk2EllWu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427D606A328;
-	Tue, 20 Oct 2026 12:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bk2EllWu
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792499229;
-	b=ZJQkKmSkWzn4yuMHPjwOPdbDRK9Big6l73AwHInPhtzwR0KgMPjUTy85uuUkXzZHiXG5
-	 aMA11vDw2RD2PrqA1p4IveOo66aFvUL3yh+PfFvxPp4imwtc2oHxytvpk9EMXBR7YoiB1
-	 WIaFxKO8Xi/k80XFqLRpRJzJyX2r4jQ+1Nee1ZLxpYnHsXq0h8Ju8q53hnvP24peTcR4q
-	 mDZyVwU0xrQuwGr/K8N9HGyUzXB3qaBN/pKS3ss7Lvt8NB4On76QdKIA3jAy42L06vJ8k
-	 mPLe9WmqGeG0PYlTAoUk/WtbuIoxZuZDa2AzeLmFFDjazOKM2lvRO/6LgfJn3rldw6Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792499229;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xeRuc9PGlFl9jCwwmI0htM8aujiMFpe9+7jrRSoGJNQ=;
-	b=jSDBNLXH5iy0thzLtL8Zj1fEH1OHnvWqgWTcyMyuWZD506Fxpp0R11GIUxvxNWoVdsWC
-	 +RdsQlJOEyLSsBEDP3hEpft7eVr54vwuj29SUAtB3ZXoKlgU6i2TurZUK2XBR4he+0fwt
-	 tyr3KUKpoHL71pOZS+g9KWY+P1NL/DZ7bywi8VmcY9IJ6daabOnyYtpgdvzShWyZDIrWu
-	 OHf+d0lSdQYZL5fhJB/OSwMKHiK3UDo91I2C45nLmfterZgY5j1F4Y5k9GD4C3kpMsWqg
-	 okiNuy0xHXWLUZ4SejQnHqfjyHPv7C7fBFTmDh5lZj7Brh6FRDhesK3hnUFWMIJ4mWA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792499253;
+	b=DQZW7+z6SDYoal2YdoEHfptXyjpzZ7tAJ7/dnhFh2gD5ckQX9OIea66V03IkCY6zO4Qy
+	 ghvBTfdYYYhl5BqPceYG5bkgeqwi51wv9ZGVMx7JWpBQJHP7h4MV+cyxoUenBKumR4mFN
+	 GYCvva9gfe+8BJhhpAnBtbWhDbyVfKB28E+h6CNgIdnqoaFqUGe1hNTpAe+niV/daRLUz
+	 TtX0foN6Mt9N/a6d0gRRjVH2M8IdYwM4VgeeTOWBspAfHSsgnEWYdHf4X1s/46tIWioTh
+	 K5XynIkuTTWbrgOX/YFoMP+F+x7QdhkZ798+AmgYxfGK62MDOPcEfNQ9AXfJOosabtg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499253;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=datZWh14WO+4vzm/A7OIElTb2FmU2wSjN+th3EqRvGM=;
+	b=BqEDp0Nzz9tMwJMVNMgATRUFLmloWk8D9TU9RXdcRhh3cxnQWJfaHRFOdfW6TzbSHhGW
+	 W40JaH0Xt0d+cfaUZd9/9QFp7ygcla0oxenu+p9dzDFFD8V13JXgsytkZa6V4EOsj2cg6
+	 4p83i1hMQa9WytJrnXSb8a4ovAVPkI/RaP7bCA387ty/odon7W8E3whBXXaIcVtNt2F/k
+	 YJtN7qUx47V8B25+Gklq4bFTjsVJCPPU8qvVeJIFkKYjVxjOdmu1vVqdxQatsdOpkBdj2
+	 7BE1VJR389Os0vmK5Vw/cjeNauV7Nm3F3T+O7XnJrRSw0SVdrcFlE9/oORHpwJDxw7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D8LIp5jX;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C99A21F000CC;
-	Tue, 20 Oct 2026 12:27:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792499229;
-	bh=xeRuc9PGlFl9jCwwmI0htM8aujiMFpe9+7jrRSoGJNQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Bk2EllWuq4HAAbKYZgR882l098G9ZDHX01iH3QH9E0JXuzLtY7fgA2D4oh+4xm58R
-	 wQnN/Exk928Lri/qtm97VSKE8H8dYU1QAgAO+5uOgyoxgIpzNf3XUHZ3ZvUJnN/fja
-	 qKgf9XROLIHBtRPiZIBGx/0yVBAo9nmgKmPskdm7hjQSLHYDFFGK46ea2YMvCbdpwK
-	 +VpDR0IDfU5cnZjJFhH9Cvicf1gNw2IVtVJZugt/BcDzhTLac+iBbujLcDNFV4k1np
-	 pi1edC5q3HbOINgiEqVonlSVmTwdAS4GdUB00MsJoi+ID6OF7fiYfrFA1+m+TmNXmQ
-	 MIjlqdZ8CAaZw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3DABD4312C;
-	Tue, 20 Oct 2026 12:27:08 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Tue, 20 Oct 2026 09:27:00 -0300
-Subject: [PATCH RFC v3 2/5] lib: kstrtox: round to nearest, ties to even in
- kstrto[u]dec64()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102FD606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:27:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 102FD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D8LIp5jX
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4956869750eso25177895e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:27:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792499251; x=1793104051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=datZWh14WO+4vzm/A7OIElTb2FmU2wSjN+th3EqRvGM=;
+        b=D8LIp5jXKn3Kxmp2zc+NNJP9naLAUQRgmWigq4I8Tm9iK6aeAFrsk79CI1kL8BWI+x
+         bLytbuKF3L5rfZaKaQ06oLGsc6uRjTvjYsnA+dTMkH3840qasLMxwSWRRDYhNqUvV3+E
+         G/TSO8zrSG4PUsvr+7o2LLdK5SLaIWKXISzP0Gu7HZC+gHm8SIj2fSHnyQFgZ/mTavx1
+         ELGoKOMp3VTFpwrlNlAdQgiS9W82FzS+JulnHgMP5Xz8itZn66iZp62nzbls/iustRqV
+         gZBNu7s+jkRYjxDvYt5HeIksHgCqpMs14gvYt1H3hEQXPbIEW0yAs+8ZWV4iTm7RSjUM
+         NX8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792499251; x=1793104051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=datZWh14WO+4vzm/A7OIElTb2FmU2wSjN+th3EqRvGM=;
+        b=KkuNcHBUc7zlGAsOgoaCwDnCBZn96HB9No1RnoCxe7EnWZT8EwKp6Vxab+uHLoJfPP
+         Yh+ghe2onYM5oCxweReCFY5QPH8gDse+yYBv2mEmB1tOkRRdY8Il5rYCLV1cu2SljZgQ
+         3zL4TFS7nBus2p2zGopLYzWXk1sRsoBLpIKaF/tajWGWYpU0hV0XbI7Hp8DYmPaniwzE
+         dRfxqauTpvqZdZ/fZ8M6WQbz3PhV+8CJWdeAos7+5xiSu4pm54blC8p3Hn3iMqeU//pE
+         6NOS8R8nvawfRFfKouTBa1V/TeqdJrM+/I+3jK/wqwpkRvv9qQQJBXRY1xWLEXlRrG3j
+         QvKw==
+X-Forwarded-Encrypted: i=1; AKwUvBwif51w6lMis9E7xS2k3lSezBD4Zgw2uq1zaDgoZQY3qW1s9c9fZkKNvgF7vmCvEhAWAVDbi0y6L6lIsnM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8mX/xLR/QUPR08zhXuoep8gIbme229SsmWyw2f1TJoizEtdnR
+	5tW8fqtNrpcRWhcBW4oO90v5iqmHlE799cngtJhLtmGMk8Sj2JcNZNV9
+X-Gm-Gg: AYBFou1jd/FxmXtUTj9zoaGshQ00bl9a6OzBVaR7dhTi8smEqspXk2SdgsiaPtRxca2
+	j9rIHltSk8swph00wNmNXPkCvtW2URwh2lKhjW9j4r0aroSgBZw60bMxQekWGK4hM7pQ9d6NSAl
+	NlAkvJW69iPKBpQ76GIniqeRe4WwjiEqId4QqHWDQ46jNmndWag54S5w0Mo5D++7KAQJkeErezC
+	AxbDYh3kOFXpJhdaBGeoiKieSBN74Yco8Ew/mZuRnl0xM7in/iCMdQeKvBWgdrPg0mnGw2p4XhG
+	Y9VeQBq2LkLpPlf7Pwm/g7bAq4tFYheB/qL9fLrxSAekgWdQNVOVehHhANWzzQtaf+RIKQU8rQx
+	FIQfYNQnWgpYnkW527Nfq6AwO62dJc3BhnIh3OSeUjO9b8YTBpfxdf5gV4Gy1F2638mUqV3pr17
+	uwBZ6XVDkltpzNh2SsF84UUujW7YQp96P8yirx+9CT2o2gtfZmpfsgP6t3YGTwZd7wfw==
+X-Received: by 2002:a05:600c:1d0a:b0:4a1:f377:5c6e with SMTP id 5b1f17b1804b1-4a1f4172b01mr47842795e9.7.1792499251128;
+        Tue, 20 Oct 2026 05:27:31 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d817f8dsm5617092f8f.23.2026.10.20.05.27.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 05:27:30 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] Input: goodix - sync the irq controller while starting firmware
+Date: Tue, 20 Oct 2026 14:26:48 +0200
+Message-ID: <20261020122712.526797-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,254 +98,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-e-notation-v3-2-fd385c0fbf65@analog.com>
-References: <20261020-e-notation-v3-0-fd385c0fbf65@analog.com>
-In-Reply-To: <20261020-e-notation-v3-0-fd385c0fbf65@analog.com>
-To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792499229; l=8035;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=Nb9C+nHXyBhfZJodNVoTOZ7IVJY3Rzs7I3jIHamgEhQ=;
- b=Chx9Qj+3oD14xMaLKgNczV4tdsGnrk/ozHDG8Ykqa//a0I/2V/1TW8Zc+UG44ODzjaMXSr8ac
- U7e1W4wEz5YBRAUy7mu1B+/unZ+F5aanE24rvYA/3c756x707HsB9wN
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On the Lenovo Tab E7 TB-7104F which has a Goodix GT-912F touch screen,
+the touch screen fails to come online after loading firmware, producing
+the error "Error reading 1 bytes from 0x8041: -6".
 
-kstrtoudec64() and kstrtodec64() drop the digits beyond the requested
-scale, which truncates the result toward zero. The error is up to one
-unit in the last place and is always in the same direction.
+Comparing the upstream code with the Android stock sources a call to
+goodix_int_sync is required between the upload of the firmware and the
+watchdog restart. With this change the touchscreen is correctly detected
+and working.
 
-This is easy to hit with values produced by userspace floating point
-formatting. Printing 0.3 with "%.17g" gives "0.29999999999999999",
-which is parsed as 299999 with a scale of 6 instead of 300000. With E
-notation a negative exponent can also drop integer digits, so "19e-1"
-with a scale of 0 gives 1 instead of 2.
-
-Round the result to nearest instead, with ties to even. This is the
-IEEE 754 default rounding mode, as used by strtod() and printf(), and it
-does not bias results in either direction. The first discarded digit is
-known from where parsing stopped, so no extra pass over the string is
-needed: the remaining digits are only checked when the first discarded
-digit is a 5. Since round-half-even is symmetric, kstrtodec64() keeps
-rounding the magnitude and negates it.
-
-Inputs that fit within the scale are parsed exactly as before. An input
-that rounds up past the type limit, such as "18446744073.7095516155"
-with a scale of 9, now returns -ERANGE.
-
-Update the existing truncation test cases and add cases for ties and
-for rounding at the type limits.
-
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 ---
- lib/kstrtox.c      | 40 ++++++++++++++++++++++++++++++++++------
- lib/test-kstrtox.c | 48 +++++++++++++++++++++++++++++++++++-------------
- 2 files changed, 69 insertions(+), 19 deletions(-)
+Relevant bit of the stock source driver at [1].
 
-diff --git a/lib/kstrtox.c b/lib/kstrtox.c
-index 730b0c002d44..be193b95b8c7 100644
---- a/lib/kstrtox.c
-+++ b/lib/kstrtox.c
-@@ -405,9 +405,22 @@ static int _skip_digits(const char **s)
- 	return *s - start;
- }
+Credits for noticing the issue and finding its cause go to matemiller992
+on the postmarketOS forums, I cannot provide tags as he wants to stay
+anonymous.
+
+[1] https://github.com/lscorcia/linux-lenovo-tb7104f/blob/2dad69c9f28611ac6d3db2f1ee11b480a60d83ee/kernel-4.4/drivers/input/touchscreen/mediatek/gt912_p98996/gt9xx_driver.c#L1529
+
+ drivers/input/touchscreen/goodix_fwupload.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/input/touchscreen/goodix_fwupload.c b/drivers/input/touchscreen/goodix_fwupload.c
+index 5ae9a109ba0d..01e7705ef515 100644
+--- a/drivers/input/touchscreen/goodix_fwupload.c
++++ b/drivers/input/touchscreen/goodix_fwupload.c
+@@ -155,6 +155,7 @@ static int goodix_enter_upload_mode(struct i2c_client *client)
  
-+static bool _round_half_even(const char *p, const char *end, u64 res)
-+{
-+	if (p == end || *p < '5')
-+		return false;
-+	if (*p++ > '5')
-+		return true;
-+	/* tie: any nonzero digit after it breaks it, skipping the decimal point */
-+	for (; p < end; p++)
-+		if (*p != '0' && *p != '.')
-+			return true;
-+	return res & 1;
-+}
-+
- static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+ static int goodix_start_firmware(struct i2c_client *client)
  {
--	const char *s_int, *s_frac;
-+	const char *s_int, *s_frac, *s_end, *s_round;
- 	int len_int, len_frac;
- 	unsigned int rv;
- 	u64 _res = 0;
-@@ -422,6 +435,7 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
++	struct goodix_ts_data *ts = i2c_get_clientdata(client);
+ 	int error;
+ 	u8 val;
  
- 	s_frac = s;
- 	len_frac = _skip_digits(&s);
-+	s_end = s;
+@@ -168,6 +169,10 @@ static int goodix_start_firmware(struct i2c_client *client)
+ 	if (error)
+ 		return error;
  
- 	if (!len_int && !len_frac)
- 		return -EINVAL;
-@@ -442,8 +456,16 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
- 		return -ERANGE;
- 
- 	if (exp < 0) {
--		len_int = max(len_int + exp, 0);
-+		len_int += exp;
- 		exp = 0;
-+		if (len_int < 0) {
-+			s_round = s_end;
-+			len_int = 0;
-+		} else {
-+			s_round = s_int + len_int;
-+		}
-+	} else {
-+		s_round = s_frac;
- 	}
- 
- 	rv = _parse_integer(s_int, 10, &_res, len_int);
-@@ -454,6 +476,10 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
- 	if (rv & KSTRTOX_OVERFLOW)
- 		return -ERANGE;
- 
-+	if (_round_half_even(s_round + rv, s_end, _res) &&
-+	    check_add_overflow(_res, 1, &_res))
-+		return -ERANGE;
++	error = goodix_int_sync(ts);
++	if (error)
++		return error;
 +
- 	exp -= rv;
- 	if (_res && (exp > 19 /* log10(2^64) = 19.26 */ ||
- 		     check_mul_overflow(_res, int_pow(10, exp), &_res)))
-@@ -473,7 +499,8 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-  *
-  * For example, a scale of 3 with input "123.45" results in 123450. Note that
-  * trailing zeros in the fractional part input to match the scale are not
-- * required. Also, digits beyond the specified scale are ignored.
-+ * required. Also, digits beyond the specified scale are rounded to nearest,
-+ * ties to even.
-  *
-  * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
-  */
-@@ -494,9 +521,10 @@ EXPORT_SYMBOL(kstrtoudec64);
-  * @scale: The number of digits to the right of the decimal point.
-  * @res: Where to write the result of the conversion on success.
-  *
-- * For example, a scale of 4 with input "-3.141592" results in -31415. Note
-- * that digits beyond the specified scale are ignored. Also, trailing zeros in
-- * the fractional part input to match the scale are not required.
-+ * For example, a scale of 4 with input "-3.141592" results in -31416. Note
-+ * that digits beyond the specified scale are rounded to nearest, ties to
-+ * even. Also, trailing zeros in the fractional part input to match the scale
-+ * are not required.
-  *
-  * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
-  */
-diff --git a/lib/test-kstrtox.c b/lib/test-kstrtox.c
-index 9255234752db..1f176b232085 100644
---- a/lib/test-kstrtox.c
-+++ b/lib/test-kstrtox.c
-@@ -737,12 +737,23 @@ static void __init test_kstrtoudec64_ok(void)
- 		{"0.01",		3,	10},
- 		{"0.1",			9,	100000000ULL},
- 		{"0.01",		9,	10000000},
--		/* truncation: more fractional digits than scale */
--		{"1.23456",		3,	1234},
--		{"3.1415926535",	6,	3141592},
--		{"0.999999999",		3,	999},
--		{"1.99",		1,	19},
-+		/* rounding: more fractional digits than scale */
-+		{"1.23456",		3,	1235},
-+		{"3.1415926535",	6,	3141593},
-+		{"0.999999999",		3,	1000},
-+		{"1.99",		1,	20},
- 		{"1.234",		0,	1},
-+		/* rounding: ties to even */
-+		{"0.5",			0,	0},
-+		{"1.5",			0,	2},
-+		{"2.5",			0,	2},
-+		{"2.500000",		0,	2},
-+		{"2.51",		0,	3},
-+		{"2.5000001",		0,	3},
-+		{"0.05",		1,	0},
-+		{"0.15",		1,	2},
-+		{"0.25",		1,	2},
-+		{"99.5",		0,	100},
- 		/* trailing newline */
- 		{"1.5\n",		1,	15},
- 		{"42\n",		3,	42000},
-@@ -760,15 +771,16 @@ static void __init test_kstrtoudec64_ok(void)
- 		{"18446744073.709551615",	9,	ULLONG_MAX},
- 		{"18446744073709.551615",	6,	ULLONG_MAX},
- 		{"0.18446744073709551615",	20,	ULLONG_MAX},
-+		{"18446744073.7095516154",	9,	ULLONG_MAX},
- 		/* scale > 19: representable when integer part is small */
- 		{"0.00000000000000000001",	20,	1},
- 		{"0.1",				20,	10000000000000000000ULL},
- 		{"0.00000000000000000000001",	23,	1},
--		/* truncation with scale > 19 */
-+		/* rounding with scale > 19 */
- 		{"0.0000000000000000000012345",	23,	123},
--		/* truncation with many excess digits */
-+		/* rounding with many excess digits */
- 		{"0.00000000000000000000000000000000423",	34,	42},
--		{"1.99999999999999999999999999999999999",	3,	1999},
-+		{"1.99999999999999999999999999999999999",	3,	2000},
- 	};
- 	TEST_OK(kstrtoudec64, u64, "%llu", test_udec64_ok);
- }
-@@ -795,6 +807,7 @@ static void __init test_kstrtoudec64_fail(void)
- 		{"1.5 ",	1},
- 		/* overflow */
- 		{"18446744073710.551615",	6},
-+		{"18446744073.7095516155",	9},
- 		{"99999999999999999999",	1},
- 		/* overflow with scale > 19 */
- 		{"1.0",				21},
-@@ -833,11 +846,16 @@ static void __init test_kstrtodec64_ok(void)
- 		{"-1.2",		3,	-1200},
- 		{"0.01",		3,	10},
- 		{"-0.01",		3,	-10},
--		/* truncation */
--		{"1.23456",		3,	1234},
--		{"-1.23456",		3,	-1234},
--		{"0.999999999",		3,	999},
--		{"-0.999999999",	3,	-999},
-+		/* rounding */
-+		{"1.23456",		3,	1235},
-+		{"-1.23456",		3,	-1235},
-+		{"0.999999999",		3,	1000},
-+		{"-0.999999999",	3,	-1000},
-+		/* rounding: ties to even */
-+		{"2.5",			0,	2},
-+		{"-2.5",		0,	-2},
-+		{"-3.5",		0,	-4},
-+		{"-3.141592",		4,	-31416},
- 		/* trailing newline */
- 		{"1.5\n",		1,	15},
- 		{"-1.5\n",		1,	-15},
-@@ -846,6 +864,8 @@ static void __init test_kstrtodec64_ok(void)
- 		/* limits */
- 		{"9223372036.854775807",	9,	LLONG_MAX},
- 		{"-9223372036.854775808",	9,	LLONG_MIN},
-+		{"9223372036.8547758074",	9,	LLONG_MAX},
-+		{"-9223372036.8547758085",	9,	LLONG_MIN},
- 		/* scale > 19 */
- 		{"0.0",				20,	0},
- 		{"-0.0",			20,	0},
-@@ -875,6 +895,8 @@ static void __init test_kstrtodec64_fail(void)
- 		/* signed overflow */
- 		{"9223372036.854775808",	9},
- 		{"-9223372036.854775809",	9},
-+		{"9223372036.8547758075",	9},
-+		{"-9223372036.8547758085001",	9},
- 		{"99999999999999999999",	1},
- 		/* signed overflow with scale > 19 */
- 		{"0.1",				20},
-
+ 	error = goodix_i2c_read(client, GOODIX_REG_SW_WDT, &val, 1);
+ 	if (error)
+ 		return error;
 -- 
 2.43.0
-
 
