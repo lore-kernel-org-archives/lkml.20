@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792494691;
-	b=hwA4Fyn0KqtAgBPd+mtGLGnlfTuMRbUfJtFV38FLB+x0PDpq6ck6ddr6H3j9+76drLo0
-	 hQbxKsmUpwlCUrOTZoqosL3t9w1dwKufjDJWhId+441zH8Dz7tL4/FCSGbSOC7JMwlt8Y
-	 MoVpsDJLpikLpO4VZbXItnQLO5wgCRvL4KxejMvSSWNiHEYC4QOB5x8O96sIwucKeUJ/c
-	 PGNFeT4p2ku+76e9CXeE4PSxCwMbzlZLNQBMx3BIdJf0zb4KMQLKIaJElXMCDNnRkWiYM
-	 hShniBzH7ZyQv+PuPUW8Z8LR9hLdrc6TT1R3u58BWr0YHXJUKM2Rpcxj6mM4VNN/vwQ==
+	b=XV3n2OA03wLvl5xvwDnYk5sSTOu851NhUPYe6AgiMw82VWsAx0YQW2+Kuwqk7bKQIKui
+	 Q6EO0THbjALwEGc46g/gh5AbhfraSZxLYQyF5IfBRjuI+7XrztnwfeQ38LXXgFQD2Hciv
+	 7Agy0And9GJAB6EqHjhXjHTec1hIqEiTekm4qa7lqIA/mLCRTxFjZ/s88lnAa6VTwXFgK
+	 AUNnghoPG2UFNNbIgdGxwtFLadL3G1uOiyNL50Howr3kvkJG8OTXhFketiL2pcfxJ9lFn
+	 3qDKt7FOsxLLrTe8wXjQOOLFOJ+lxC92MpyDzI1sxgcOVdLR+QhggZK3C17RlxD9/+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792494691;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=93ihSlTIRbVc7UHR9nB1B+w09clhe+ph6W6KYU0FYHs=;
-	b=eW5IBTR/DHXd+YryPInGg4Q5ErsvjHVBMqKuAiouiIyRSb79D16WqEXwIwi4DPMW5Ck5
-	 NDTPYQXtoNduwtq5xC97fk8lfawZL9h+xIVYmeKKltoJKje79g3nXQ0+EE/FKvUe55yUq
-	 kpJ4yAEiCzRh9qAFETdLG2rp98D0cS08l8LckfVX0x/EBxxte+pCjonLiBQR3VEDFQjaj
-	 c9oeNt26lFnt98bNZjySkEmbNIK6tF118Rz+GoJwcIi0gHY68JjRMJs2YfeZ3qUaf7psz
-	 r7JUEJZMk8leZ6C0xM9KxHaEaQWqKfOL6eOHWR+hxA9822gVFBZVrnt42s0AEFeuYng==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=ggEXMwLsYCLMlRFbTt+v08PermoODsbkyiROOo7B4QE=;
+	b=S0lJr5TH48wllZn5aOCKKdQDGNAF3bmmapsp3IbaC04x7IGHxD+mXrVhniRs8YSV7ajq
+	 73bITcon6QToZSyq1nxahyRzkX6rN1cMdhaIisgUiHLivyfFsuOzMcTtX+wCEZVBZqCCG
+	 v0ho3oktam+s04jTor5GkhtZXoFR1SUX+1MSo1AnDKEU/aHFn2q3Tme6fTY4mTwH4ooxA
+	 u2RuBe7mD7fbwReuMDQFopo/tLOgA3XKxWYOu38vZP/tMseGHYCVs8THlCQszBhvqcaMi
+	 to5fzIq47GhHkSKWgiOgEzDk0G42ky6cwbkwqnyNfNfWQG1TLk/iFuqWigqYdh7w9AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=motor-comm.com;
-	spf=pass smtp.mailfrom=motor-comm.com;
-	arc=none smtp.remote-ip=115.124.28.149
-Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com [115.124.28.149])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BJG9lMEF;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2C8606A321;
-	Tue, 20 Oct 2026 11:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F2C8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436308|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0208765-0.00028719-0.978836;FP=13139179587884555792|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033037034254;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jlqQH5p_1792494683;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jlqQH5p_1792494683 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 19:11:24 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v16 4/5] net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-Date: Tue, 20 Oct 2026 19:11:14 +0800
-Message-Id: <20261020111115.3072180-5-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261020111115.3072180-1-kyle.switch@motor-comm.com>
-References: <20261020111115.3072180-1-kyle.switch@motor-comm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9F2606A328
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B9F2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BJG9lMEF
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1ddc7c9beso14683305e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:11:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792494689; x=1793099489; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ggEXMwLsYCLMlRFbTt+v08PermoODsbkyiROOo7B4QE=;
+        b=BJG9lMEFG9kOK41/rJ3Zyr6sac4rVn95aUaKMUeUk1ZmnGuTbvCW+WEqwwj9LkooN/
+         uOXEbBFZmjJICPruSPFzP4U/VdsuOJPVp92yZzL67tZXivYVyMqWKwB2+s40Q47kVTrU
+         A4AEtTI8lt4cxhr+p/4CbN1DgUl9X3VJwDYF2zlbAsnLzuX6XTf/RG6X8q8+QAPBA8ek
+         qSDQqU1VPW5TYYCeWrpESxvxzbjX5jNzGkIXaQvRyQ1ioDi/CTPNzRJZvxszEkd8Aoz+
+         +GhcpR8s57a1d8bUYcvwW+1zlpDXYfvcNKopMqMiJaFKvBAvMuzJEw/IaTAOlRtVqthT
+         iVcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792494689; x=1793099489;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ggEXMwLsYCLMlRFbTt+v08PermoODsbkyiROOo7B4QE=;
+        b=YAn+4ITCAcZQqcrMdFhuY9ewmTSwO+wl1/+RiabJemvc603v30syzC6hjbBIkZpOZ5
+         z4XSaoTzL3Z0uYshPn9HqI6JK5AuYR/v/lYZANsxBHjy9qJ1fTAEugyBoRmLZtMCBxno
+         PaUOcGpTOay5lmjk2AKhgbIH0a7YZofLdIaXeG3sg3lm9/ybjtR4rZ0C8wnTA9PnQodm
+         ye1l00j0yrzL7Xv0+8ogq+R9sulvH6fhJhZ1flsTj4aMwStKA1xgiZx8XE10DZLedh5J
+         mo89bYbo5rZeUaN4XDyWMyYj8PSMs9PMQvhCK+CCSz9TpAtpjG36wm6/VX4eD3UrYogz
+         w7zA==
+X-Forwarded-Encrypted: i=1; AKwUvBytwQmqtOo+aHnBQgKKsXfOeMoRIAfDrjArkuDW6MhfmHQxgmCEVv4CGQC/T/khHQjYpRJZ3bMwfU40eiI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkbvakCiOvxK/voM3Ja7yT0+e7HTKBGqq2/EQFToB2kHecHljY
+	tq9/8OW+kYUWPaAj1bk8wqXim1xEUzfoZCiGgAF3E3Igg01TkpDR0PZbbax1MMOjX9WPS3IxcfA
+	Gf459qZjv
+X-Gm-Gg: AYBFou3zDQHkpdaKRpq6N/g5NOI/ZmucEpVoWPdk7MXXIWtFus9m/gOXXGB29wvq+WV
+	uXJnD8h3PpQNS6swiAexNsun6wSXlZhrKeA60sOMW1N0QxGDf8q/Q53UmFcW630Na2nEVg7HzQw
+	dR+A0ZPOWL209EB1wj9gqwwFIUDzcJiXG6xEolgfcBp4SGKDV/ACZkwHMcCjF28Ofi26ruD8HoL
+	0MvJOjcX/SZKFb/s9PE7cLF8jo01U/fWQzQQSz1lqmtPJcmmgS7FgqfzDaQCxlwGmLFAcGK+Hnt
+	qSDa5lAsoQ7oJ3rLvoy5HcrM0xOBPanL0L9NKkgTTXwx4qNnkIltFVYc1puvdJ5zdomb3eWBwtC
+	6RL22aLCq3gWhm8JuBli4TiSec5Qb+kNmf4zjn1FIudoIL9C0AU9mx6KQBarz2PqjEetKq3y638
+	e7VVLqv87t4iBSmQsv50ZsqhvGcptHSNT1U3/n+5qd5bt1ElSvEPvNYWdg3r6vOEqc3VGcqmyUJ
+	3cYrt9a0wcDcD7KxK/a0OV9jiZMzGU4PWi+RVs=
+X-Received: by 2002:a05:600c:a112:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a1d75aa9e8mr173055685e9.1.1792494688776;
+        Tue, 20 Oct 2026 04:11:28 -0700 (PDT)
+Received: from elver.google.com (11.26.205.35.bc.googleusercontent.com. [35.205.26.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm5313367f8f.31.2026.10.20.04.11.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 04:11:27 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:11:24 +0000
+From: Marco Elver <elver@google.com>
+To: Caleb Kan <calebkan1106@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>,
+	kernel-team@cloudflare.com
+Subject: Re: [PATCH RFC v2 03/11] mm/page_owner: preserve accounting with
+ countable stack depot records
+Message-ID: <atdMXELJWveehYmX@elver.google.com>
+References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
+ <20260908-stackdepot-trie-v2-3-1996d5cef732@cloudflare.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,221 +104,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-stackdepot-trie-v2-3-1996d5cef732@cloudflare.com>
+User-Agent: Mutt/2.3.2 (2026-04-26)
 
-Add DSA tag support for Motorcomm YT922x switches.  YT922x uses the
-same ETH_P_YT921X EtherType and the same 8-byte tag length as YT921x,
-but the tag layout differs, so a separate tag driver is needed instead
-of extending tag_yt921x.c.
+On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
+> From: Caleb Kan <ckan@cloudflare.com>
+> 
+> page_owner keeps stable struct stack_record pointers in its stack list.
+> It uses each record's count with a one-count bias to track live base pages
+> and reads the stored entries directly. A later patch adds a trie backend,
+> which provides neither a flat record layout nor an independent count field.
+> 
+> Add STACK_DEPOT_FLAG_COUNTABLE to keep these records on the hash backend
+> and deduplicate them separately from all non-countable records. Store the
+> discriminator in a new u16 flags field and narrow size to u16. This keeps
+> the record header size unchanged while covering the configured maximum of
+> 256 frames. Do not otherwise split hash-table deduplication: ordinary and
+> GET saves can continue to share records. Make COUNTABLE mutually exclusive
+> with GET because the two flags assign incompatible meanings to the record
+> count. Reject countable records in stack_depot_put() and require COUNTABLE
+> in __stack_depot_get_stack_record().
+> 
+> Mark both page_owner save sites countable so its existing accounting and
+> reporting continue to use stable hash records. Extend the KUnit coverage to
+> verify direct-record access and isolation between countable and
+> non-countable records.
+> 
+> Signed-off-by: Caleb Kan <ckan@cloudflare.com>
+> ---
+>  include/linux/stackdepot.h   | 28 +++++++++++++++-------
+>  lib/Kconfig.debug            |  3 ++-
+>  lib/stackdepot.c             | 20 +++++++++++++++-
+>  lib/tests/stackdepot_kunit.c | 55 ++++++++++++++++++++++++++++++++++++++++++++
+>  mm/page_owner.c              |  6 +++--
+>  5 files changed, 100 insertions(+), 12 deletions(-)
+> 
+> diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+> index 734529767c8a..7ff67c70d727 100644
+> --- a/include/linux/stackdepot.h
+> +++ b/include/linux/stackdepot.h
+> @@ -53,7 +53,8 @@ union handle_parts {
+>  struct stack_record {
+>  	struct list_head hash_list;	/* Links in the hash table */
+>  	u32 hash;			/* Hash in hash table */
+> -	u32 size;			/* Number of stored frames */
+> +	u16 size;			/* Number of stored frames */
+> +	u16 flags;
+>  	union handle_parts handle;	/* Constant after initialization */
+>  	refcount_t count;
+>  	union {
+> @@ -84,8 +85,9 @@ typedef u32 depot_flags_t;
+>   */
+>  #define STACK_DEPOT_FLAG_CAN_ALLOC	((depot_flags_t)0x0001)
+>  #define STACK_DEPOT_FLAG_GET		((depot_flags_t)0x0002)
+> +#define STACK_DEPOT_FLAG_COUNTABLE	((depot_flags_t)0x0004)
+>  
+> -#define STACK_DEPOT_FLAGS_NUM	2
+> +#define STACK_DEPOT_FLAGS_NUM	3
+>  #define STACK_DEPOT_FLAGS_MASK	((depot_flags_t)((1 << STACK_DEPOT_FLAGS_NUM) - 1))
+>  
+>  /*
+> @@ -144,6 +146,11 @@ static inline int stack_depot_early_init(void)	{ return 0; }
+>   * Users of this flag must also call stack_depot_put() when keeping the stack
+>   * trace is no longer required to avoid overflowing the refcount.
+>   *
+> + * If STACK_DEPOT_FLAG_COUNTABLE is set in @depot_flags, stack depot stores the
+> + * stack in hash-backed storage for callers that need direct stack_record count
+> + * access. This flag does not imply %STACK_DEPOT_FLAG_CAN_ALLOC and is mutually
+> + * exclusive with %STACK_DEPOT_FLAG_GET.
+> + *
+>   * If the provided stack trace comes from the interrupt context, only the part
+>   * up to the interrupt entry is saved.
+>   *
+> @@ -178,11 +185,12 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
+>  				      unsigned int nr_entries, gfp_t alloc_flags);
+>  
+>  /**
+> - * __stack_depot_get_stack_record - Get a pointer to a stack_record struct
+> + * __stack_depot_get_stack_record - Get a hash-backed stack record
+>   *
+>   * @handle: Stack depot handle
+>   *
+> - * This function is only for internal purposes.
+> + * This function is only for internal purposes. @handle must have been saved
+> + * with %STACK_DEPOT_FLAG_COUNTABLE.
+>   *
+>   * Return: Returns a pointer to a stack_record struct
+>   */
+> @@ -260,10 +268,14 @@ int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
+>   *
+>   * @handle:	Stack depot handle returned from stack_depot_save()
+>   *
+> - * The stack trace is evicted from stack depot once all references to it have
+> - * been dropped (once the number of stack_depot_evict() calls matches the
+> - * number of stack_depot_save_flags() calls with STACK_DEPOT_FLAG_GET set for
+> - * this stack trace).
+> + * Drop a reference acquired by stack_depot_save_flags() with
+> + * %STACK_DEPOT_FLAG_GET. Calling this for a handle saved without
+> + * %STACK_DEPOT_FLAG_GET is invalid; persistent handles are owned by stack depot
+> + * for the lifetime of the system.
+> + *
+> + * The stack trace is evicted once the number of stack_depot_put() calls matches
+> + * the number of successful stack_depot_save_flags() calls with
+> + * %STACK_DEPOT_FLAG_GET for this stack trace.
+>   */
+>  void stack_depot_put(depot_stack_handle_t handle);
+>  
+> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+> index fcd74edfd93a..3a78c67b6b36 100644
+> --- a/lib/Kconfig.debug
+> +++ b/lib/Kconfig.debug
+> @@ -2792,7 +2792,8 @@ config STACKDEPOT_KUNIT_TEST
+>  	default KUNIT_ALL_TESTS
+>  	help
+>  	  Enable this option to test stack depot API behavior at boot.
+> -	  This test is built in, so KUNIT must also be built in.
+> +	  This test is built in because it exercises internal, non-exported
+> +	  stack depot helpers, so KUNIT must also be built in.
+>  
+>  	  KUnit tests run during boot and output the results to the debug log
+>  	  in TAP format (https://testanything.org/). Only useful for kernel
+> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+> index 4da7279d9f83..66c5e8594566 100644
+> --- a/lib/stackdepot.c
+> +++ b/lib/stackdepot.c
+> @@ -94,6 +94,7 @@ static const char *const counter_names[] = {
+>  	[DEPOT_COUNTER_PERSIST_BYTES]	= "persistent_bytes",
+>  };
+>  static_assert(ARRAY_SIZE(counter_names) == DEPOT_COUNTER_COUNT);
+> +static_assert(CONFIG_STACKDEPOT_MAX_FRAMES <= U16_MAX);
+>  
+>  static int __init disable_stack_depot(char *str)
+>  {
+> @@ -467,6 +468,7 @@ depot_alloc_stack(unsigned long *entries, unsigned int nr_entries, u32 hash, dep
+>  	/* Save the stack trace. */
+>  	stack->hash = hash;
+>  	stack->size = nr_entries;
+> +	stack->flags = flags & STACK_DEPOT_FLAG_COUNTABLE;
+>  	/* stack->handle is already filled in by depot_pop_free_pool(). */
+>  	memcpy(stack->entries, entries, flex_array_size(stack, entries, nr_entries));
+>  
+> @@ -609,6 +611,9 @@ static inline struct stack_record *find_stack(struct list_head *bucket,
+>  	list_for_each_entry_rcu(stack, bucket, hash_list) {
+>  		if (stack->hash != hash || stack->size != size)
+>  			continue;
+> +		/* Page owner countable records have a distinct count lifetime. */
+> +		if ((stack->flags ^ flags) & STACK_DEPOT_FLAG_COUNTABLE)
+> +			continue;
 
-The new driver documents both the to-CPU and from-CPU tag layouts.
+This splits hash deduplication unconditionally even when
+stackdepot.trie_enabled=0 (the default), and even for page_owner's
+free_handle traces (__reset_page_owner()), which never touch
+stack_record->count. Prior to this patch, persistent hash records had
+refcount_set(&stack->count, REFCOUNT_SATURATED) and page_owner safely
+overwrote it with its 1-biased page count while still sharing records
+with non-GET callers.
 
-Update the co-maintainer for the Motorcomm DSA driver.
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- MAINTAINERS          |   2 +
- include/net/dsa.h    |   2 +
- net/dsa/Kconfig      |   6 +++
- net/dsa/Makefile     |   1 +
- net/dsa/tag_yt922x.c | 122 +++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 133 insertions(+)
- create mode 100644 net/dsa/tag_yt922x.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 23e9194483d9..f10a2e4edae7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18431,11 +18431,13 @@ F:	drivers/net/phy/motorcomm.c
- 
- MOTORCOMM YT921X ETHERNET SWITCH DRIVER
- M:	David Yang <mmyangfl@gmail.com>
-+M:	Kyle Switch <kyle.switch@motor-comm.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml
- F:	drivers/net/dsa/motorcomm/
- F:	net/dsa/tag_yt921x.c
-+F:	net/dsa/tag_yt922x.c
- 
- MOXA SMARTIO/INDUSTIO/INTELLIO SERIAL CARD
- M:	Jiri Slaby <jirislaby@kernel.org>
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 5d12191b6f6f..5a173fe2bb87 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -62,6 +62,7 @@ struct tc_action;
- #define DSA_TAG_PROTO_KSZ8463_VALUE		34
- #define DSA_TAG_PROTO_MT7628_VALUE		35
- #define DSA_TAG_PROTO_KS8995_VALUE		36
-+#define DSA_TAG_PROTO_YT922X_VALUE		37
- 
- enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
-@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
- 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
- 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
-+	DSA_TAG_PROTO_YT922X		= DSA_TAG_PROTO_YT922X_VALUE,
- };
- 
- struct dsa_switch;
-diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-index 4f44bf3ede23..06d8d6526054 100644
---- a/net/dsa/Kconfig
-+++ b/net/dsa/Kconfig
-@@ -233,4 +233,10 @@ config NET_DSA_TAG_YT921X
- 	  Say Y or M if you want to enable support for tagging frames for
- 	  Motorcomm YT921x switches.
- 
-+config NET_DSA_TAG_YT922X
-+	tristate "Tag driver for Motorcomm YT922x switches"
-+	help
-+	  Say Y or M if you want to enable support for tagging frames for
-+	  Motorcomm YT922x switches.
-+
- endif
-diff --git a/net/dsa/Makefile b/net/dsa/Makefile
-index 1f9cc30e9988..0ef6dfce3b92 100644
---- a/net/dsa/Makefile
-+++ b/net/dsa/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_NET_DSA_TAG_TRAILER) += tag_trailer.o
- obj-$(CONFIG_NET_DSA_TAG_VSC73XX_8021Q) += tag_vsc73xx_8021q.o
- obj-$(CONFIG_NET_DSA_TAG_XRS700X) += tag_xrs700x.o
- obj-$(CONFIG_NET_DSA_TAG_YT921X) += tag_yt921x.o
-+obj-$(CONFIG_NET_DSA_TAG_YT922X) += tag_yt922x.o
- 
- # for tracing framework to find trace.h
- CFLAGS_trace.o := -I$(src)
-diff --git a/net/dsa/tag_yt922x.c b/net/dsa/tag_yt922x.c
-new file mode 100644
-index 000000000000..b6146a9af98b
---- /dev/null
-+++ b/net/dsa/tag_yt922x.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Motorcomm YT922x Switch Extended CPU Port Tagging
-+ *
-+ * Copyright (c) 2026 Kyle switch <kyle.switch@motor-comm.com>
-+ *
-+ */
-+
-+#include <linux/etherdevice.h>
-+
-+#include "tag.h"
-+
-+#define YT922X_TAG_LEN 8
-+
-+/*
-+ * To define the from cpu tag format 8 bytes.
-+ *
-+ * To-CPU (RX) tag format, 8 bytes:
-+ *
-+ *   tag[0]: TPID (default: 0x9988)
-+ *   tag[1]: VID lookup
-+ *   tag[2]: bit 5:2  - RX source port
-+ *
-+ * From-CPU (TX) tag format, 8 bytes:
-+ *
-+ *   tag[0]: TPID (default: 0x9988)
-+ *   tag[1]: bit 8:0 - Dst port mask
-+ *   tag[2]: bit 15  - Dst port 0
-+ *
-+ */
-+#define YT922X_TAG_NAME		"yt922x"
-+#define YT922X_TAG_PORTMASK_0	BIT(15)
-+#define YT922X_TAG_PORTMASK_M	GENMASK(8, 0)
-+#define  YT922X_TAG_PORTS(x)		FIELD_PREP(YT922X_TAG_PORTMASK_M, (x))
-+#define YT922X_TAG_FORCE_DST	BIT(9)
-+#define YT922X_TAG_PRIO_M	GENMASK(12, 10)
-+#define YT922X_TAG_PRIO_EN	BIT(13)
-+#define  YT922X_TAG_PRIO(x)	(FIELD_PREP(YT922X_TAG_PRIO_M, (x)) | YT922X_TAG_PRIO_EN)
-+#define YT922X_TAG_RX_PORT_M	GENMASK(5, 2)
-+
-+static struct sk_buff *
-+yt922x_tag_xmit(struct sk_buff *skb, struct net_device *netdev)
-+{
-+	unsigned long ports;
-+	__be16 *tag;
-+	u16 ctrl;
-+
-+	skb_push(skb, YT922X_TAG_LEN);
-+	dsa_alloc_etype_header(skb, YT922X_TAG_LEN);
-+	tag = dsa_etype_header_pos_tx(skb);
-+
-+	tag[0] = htons(ETH_P_YT921X);
-+	ports = dsa_xmit_port_mask(skb, netdev);
-+	/*To fill in the case where the port index is not 0 */
-+	ctrl = YT922X_TAG_PRIO(skb->priority) | YT922X_TAG_FORCE_DST |
-+	       YT922X_TAG_PORTS(ports >> 1);
-+	tag[1] = htons(ctrl);
-+	if (ports & BIT(0)) {
-+		/* To fill in the case where the port index is 0 */
-+		ctrl = YT922X_TAG_PORTMASK_0;
-+		tag[2] = htons(ctrl);
-+	} else {
-+		tag[2] = 0;
-+	}
-+	tag[3] = 0;
-+
-+	return skb;
-+}
-+
-+static struct sk_buff *
-+yt922x_tag_rcv(struct sk_buff *skb, struct net_device *netdev)
-+{
-+	unsigned int port;
-+	__be16 *tag;
-+	u16 rx;
-+
-+	if (unlikely(!pskb_may_pull(skb, YT922X_TAG_LEN))) {
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	tag = dsa_etype_header_pos_rx(skb);
-+
-+	if (unlikely(tag[0] != htons(ETH_P_YT921X))) {
-+		dev_warn_ratelimited(&netdev->dev,
-+				     "Unexpected EtherType 0x%04x\n",
-+				     ntohs(tag[0]));
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Locate which port this is coming from */
-+	rx = ntohs(tag[2]);
-+	port = FIELD_GET(YT922X_TAG_RX_PORT_M, rx);
-+	skb->dev = dsa_conduit_find_user(netdev, 0, port);
-+	if (unlikely(!skb->dev)) {
-+		dev_warn_ratelimited(&netdev->dev,
-+				     "Couldn't decode source port %u\n", port);
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Remove tag and update checksum */
-+	skb_pull_rcsum(skb, YT922X_TAG_LEN);
-+	dsa_strip_etype_header(skb, YT922X_TAG_LEN);
-+
-+	return skb;
-+}
-+
-+static const struct dsa_device_ops yt922x_netdev_ops = {
-+	.name = YT922X_TAG_NAME,
-+	.proto = DSA_TAG_PROTO_YT922X,
-+	.xmit = yt922x_tag_xmit,
-+	.rcv = yt922x_tag_rcv,
-+	.needed_headroom = YT922X_TAG_LEN,
-+};
-+
-+MODULE_DESCRIPTION("DSA tag driver for Motorcomm YT922x switches");
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_YT922X, YT922X_TAG_NAME);
-+
-+module_dsa_tag_driver(yt922x_netdev_ops);
--- 
-2.25.1
-
+The interface looks error-prone to me.
