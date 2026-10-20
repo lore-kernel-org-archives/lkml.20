@@ -1,99 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792506390;
-	b=lQY/4vKL4fBXSO8mwzs0oczfroUTILzFoHIVc7ae5Aot5gCh3MLDMm/CXrmSdqtDKc2L
-	 /QS+iHJRlJ2efeIVjNsE65V8g4BpJQ23zZrrVRSlaUKDxt10aJUvkZ9Lfa+059kiFFtRt
-	 K6gjRJWN84gFLJ/uBbO4goyv77fxNBrOOcHaQF/mTce/o5tRtUQYMIxoTMVciJZZ0dZHy
-	 qNq7uppfoGaNbx7a5XuKzmX5kdMd9F+39NtwrdOv5jIgywFcYljfTF1t49+b3qNpXP2I6
-	 bWZ7TL0eAUISjSM0SkQ7F7MJA1/sNUI/QWpYPJ/LNpqMELToxbYxvoI5HHaNWYvcHZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506390;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jzHxeokEJaVo1IDFXsDAbwiREVTzVQvjrk64uj9lGnE=;
-	b=hCGo8TiRxXT78s8hFfYsOvqSZ04ci48rVv3LOLpKeE+8VK0OYV4cPU4yy//4ajDPYhkO
-	 AsOm8IqdNHMJ49VI0FAdM8qINaraBX+jyNLmt/je4OMGpp0X0y72rD3N6JExriMliTI5f
-	 jVtzOhZQTqz+IeVW7l4cW5veGJod3dbcEyC/nxaoPUQk+NHYYCEBFZVny8IVcthsq0Vu6
-	 RyvfDG2FBDbSgv8kKLNtgVL9EtkYdQ2DCJ3Z92NwgJiVcF8w5I85Lnxda0HlNLUgRsSD2
-	 1NYDJqC29TPx+KqZGF92OllygU06QEFJSKVV3Hhpv60KHNq3lppg68+JXm8cq5EJIog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JDKd6S0Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.44
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012044.outbound.protection.outlook.com [52.101.48.44])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792506405;
+	b=1728G04ModVUGqVpKqVW3Fq9n/G+kUHMI1T4aHGisQCeyc6ukedwZfoh4/KWYexdhd0I
+	 aquPdCaBd9OElcDEn7o2p25JfL2NgBKVF/Wx6vN0Xcg9bKYb8C1mCrWVZY+7EtVa8c5Nv
+	 Ce4NAwDHZbJuAkO3NcEF1hIP2JUpqNy6WpReOzeeCmQ6l6dKBHPEi62H4cDXsdLf5T2ah
+	 ZdnYxp+qMSp+mumwbvuvaHsM4prTz8WteDDNuWaD74GROPjm42ECDJkmVDHMnoTjbsLon
+	 MSA6i4Ah3NMbBYZURTlUbFAb0Qnc4UicWXuylwEbBYhXjPwG/wx2E2Z5NKWftmtIgZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506405;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9VZNqnxOEQTj++mPRtHjJD1jjjPwkguBzx/LIqemhIs=;
+	b=Da/vIynZZnZTg0giDHPbF6XMPJ35YrxBUZfkNku6XuTc5YgxZzdeXdBust0MSRFlzLDR
+	 /r53w+koR+UkyKvBWFTs8C2sX/3DSU/rZvh7YRDtyHxKqCvTNpzBYQ9u+Z8Uh/7GcuZtU
+	 nB09MmvILAz7q9ryNAhaFQ7Sgurlpb0qQ6wWqGIFUXPdKE3pHXCDEBM93KTXzd2KJmwyB
+	 hh/2Q1fjkermf6+CNgfAhxxdYvc/6mxunQc+cDXgot4V08M5+rypwBZ/s5/4QaSvPI0lU
+	 EY5YGJZKKYaxaBsLfUVo8C/oCMMffP+MXsHNr059XhqtOamRRlIjlqVcEAjbe5six1Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=OM13LXHE;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6078606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6078606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE165606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE165606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JDKd6S0Z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DbKEfJglbLe51r6iJma0v8S82lJFh6revG6K7jCGrsjRqBl7Ga7Mr5g1K+qJlGLFZHeRFL0+Rd8Yyg/cFQekowdAkddebDfBZYaDJ2rsv35B7i2WqytfLoCEmnrlJu4qup9iF86CPD6nRNxkD9Wm+IvFb5N+RcjXgMsd0GkN/KNaJ7BN3uo3qS07/3TrFKg+LRwYSXIclNY7ginwsWViruZoPtPmQrt9lq/HH6zdm0eU8abjKHt2YrCiAOkDdSnn+pc7rziwt+Vj/tEW9bLpncPw347lGOuiYgMnxf0v/rQglNKFdzborjitMUmguHxFCq0+lmjA40j4CY2wCTwidQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jzHxeokEJaVo1IDFXsDAbwiREVTzVQvjrk64uj9lGnE=;
- b=YoepurER8vekODd7pDTIg2oBvNTp01AH3Rx3lPpEEPQcSstemWRZp/Vn1WqlVmv+Z31A0NawZs/p6RmOlsj/P7GRzhnBHBtcGCIW3/cOyjTrDuXlnRUz9+gHz/C0FNfNA+6VvRA6fB/EGrz5fz2E41INNsYuVn5V67FXgwNanZrnDzWtaUjg0VpHch0pgmivzFkA4cXfJDf3x8RL6nS8XjTAe9w+8DhnOTgrzSFEdLgn8NnbCOzoQGspiW6bbm9ZcbxLGc0rMp5p0Xmc17IhO4z2+qwAxVLx++RpS6y1mfOKBPeD1Xy4yNMcnUOPrQi7sTWviY625jcWgkuC5kzEGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jzHxeokEJaVo1IDFXsDAbwiREVTzVQvjrk64uj9lGnE=;
- b=JDKd6S0ZYN1GSPAAbChBT2On5P+bxH7vphCZJcCDaOOvJTEtW8DV/SPC2vENfQRJo3rLxquowNDVKeN3z2hmkYyX/0fjX7kiz5D03qoVfnR1qQUVZXKqOHopW9FLHNSb26b7cfhJvqPowyP+e19z/62vWXj9+4aF7fPed1UWRAja5HCrD0bBr4dG3ieCTaDnLu/KIeFdPm7on8ttbtsxyOGkW/NqIAEToNmkk/z6AzLXrm1A2eM4kcMH+O2UHGTj7RreLq6lOqH88+p8kUt/9icKixeuaoBwoTthihTDHKd8w3z6rAOSBwWz6K2SrmgLfzelnl0yl/aAJOBVSGMZeA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by IA1PR12MB9500.namprd12.prod.outlook.com
- (2603:10b6:208:596::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 20 Oct
- 2026 14:26:26 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 14:26:23 +0000
-Date: Tue, 20 Oct 2026 11:26:22 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
-	praan@google.com, kevin.tian@intel.com, smostafa@google.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
-	Cristian Prundeanu <cpru@amazon.com>,
-	Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 03/11] iommu/arm-smmu-v3: Swap EVTQ_MSI_INDEX and
- GERROR_MSI_INDEX
-Message-ID: <20261020142622.GD3008132@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <630e70ba13639e5bd86fca0b574dd47dddb7fb92.1791226953.git.nicolinc@nvidia.com>
- <179190297652.2261874.5664965715184131627.b4-review@b4>
- <as5tVAzw2TAX5bEq@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5tVAzw2TAX5bEq@nvidia.com>
-X-ClientProxiedBy: YT4PR01CA0424.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10b::24) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=OM13LXHE
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792506395; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=9VZNqnxOEQTj++mPRtHjJD1jjjPwkguBzx/LIqemhIs=;
+	b=OM13LXHEmZi+hQxjbiqoXCPE8c9twId8TWdoFFS2dXJ4SGz7lDmTkFy4GxQAOlFURsRrX29O1/Ff9va0XVIFEQsCIIBlI6VL2fnN7dvUpG8cKRLvVRvLwIjhdvlyEhymMz6yA7+QjEkSvwedWjBw5QN04vNckSIvizGLNjYMQ98=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R331e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XDDahPA_1792506390;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XDDahPA_1792506390 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 22:26:34 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: sudeep.holla@kernel.org
+Cc: alex@ghiti.fr,
+	aou@eecs.berkeley.edu,
+	atishp@rivosinc.com,
+	conor.dooley@microchip.com,
+	conor@kernel.org,
+	guoren@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org
+Subject: Re: [PATCH] riscv: Populate boot CPU topology on UP kernels
+Date: Tue, 20 Oct 2026 22:26:26 +0800
+Message-ID: <20261020142630.1680-1-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020-frisky-jovial-echidna-2d003c@sudeepholla>
+References: <20261012131034.1026-1-cp0613@linux.alibaba.com> <20261020-unsent-commuting-91739a882031@spud> <20261020-frisky-jovial-echidna-2d003c@sudeepholla>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,92 +69,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB9500:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96a394d5-179e-42ed-2e58-08df2eb61e23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|4143699003|56012099006|11063799006|10067099003|18002099003|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	VXsP+1yK+U5v+uBDqo8LC/6L7Y0plt8zDYFvlF67XOV5DMNmjlnFrO69O1e2h1aKX3EezDCLDFoyEVkMVhdzWf8QaaHkqiME5qk4mKWn6mgEO0UJffqO5NKN5MZS1wZ9wWKjVvd038yZBeTJNinr5N9xDsvJDG9NcKOXWOhFZHCJ95CrbtTy7UH0qwca0OMjasbLhmYA7l2qhc0jIK3cYG8Er0bAp0V68a+PRnDBRYOMMZa7l0x5ydF4V+6Jff8isvKAWQIV+NWJ0GDhwPI4Bbun+421LSKGeBleiwFUxJs2zS4eONhD28PmBHekWgewfIuiypUtzcU3K/ZO+XcLqGv76qWzJunwk25IJ66sKRHCq8A5Fq/ylWLqx6vdpuB0qwleEco45FXYHBrlcW808mLbvgyNMzHa1SDYQTe6Ni00BJB53+IBBNGVyoe9UbtHX8EpP+qkdv27LZt81obmtJrYAnyCOLfnRgvUmhn7kUu2uL2lDRLe6gmD6qby05y6Voy1Ex1gdp06Fs56WNKk2evFa6J6bGNZZ3LGk0JmxaRfAdwvg5eQFR41vtg75pIn4YM2xSg2wuMnAc46BB7m3djSRMO0IrQZ1c8ml0qD/U8Gk02O3wTt+wF28cJFIN4Jxo+CalB0zC+je3eZ4CwhCuk6hBN8w6LzBFc56U9Kg9k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?n6QF6li6izjzg6iRLFBxNgAv0xfUks8mBUNTvQ++CzJD8hg0EWx7wI7BVlMN?=
- =?us-ascii?Q?be7uOWu7aVBuxc4VWIe7A+Vpu/8GhG32bdX61j8F1P4pZ/4I7n2f4eMbFo/P?=
- =?us-ascii?Q?IiA1ygsciXjKpHWlGQUcqXlVdiN9jIaGFp6n1ikaV33xuV3lURi7IXO4IVUF?=
- =?us-ascii?Q?zV07Rps0K2hi/ezCJfcQfWl/Vg1ZSbrRlcAtnODrgGRQcdmgHo6dMg6vgFDn?=
- =?us-ascii?Q?8db/uUVh7kd6F4QEOxuDwJ0IuCpBCEJq43fhOw6XLJWUQqEuIKJfPZDRsCae?=
- =?us-ascii?Q?g5Y6kOLzyQtWqZcE7H5r3c36F6G3txMGcTGMqBo5+gGUQxw3wFLL2fG9juN2?=
- =?us-ascii?Q?5sy+4XPVDgVtlDpn6vkGWuIyxA/Z9rrTfALuIbtGaJ1ilhaBsmvXpEjIWcgv?=
- =?us-ascii?Q?KI3dWJhwXVzm8mDvOI7ZAMFwnAQWj3w1KN3hUrVsoL0y32MtDnvfheUfqATW?=
- =?us-ascii?Q?bxzu7tprUPVbv4wWu5+DmIkID+ovD3sikbWuy0kJJ/klbHzwqhAgYyequhSr?=
- =?us-ascii?Q?dnOP2cFPzvDMEiqxo3UTLMBBGPuHNyHDO2M4RiZjYjnXGUgk7+oM2DHgoosj?=
- =?us-ascii?Q?bXzQ7V5zyETDEdAu0fHqA504yMJ20LayZ4CmzdPTuTu/2Z1XvBf2rMliYtvX?=
- =?us-ascii?Q?uRwgq929sZX+8X5Hidk4ICagtsayIRl/EFg/+YcoomeQg1Sqaw/vh4Rq8q/W?=
- =?us-ascii?Q?zpyq2oe/lsZDOAKVfhdE7awtCT102QJ+n/XHzNpUfV/898Sqr3akXC7UGn1y?=
- =?us-ascii?Q?fAk2gLUQ9XmHgB2m/tQGxM3S50J8MrHeDvP65XrbIVm/diYX70SDtPucTC0A?=
- =?us-ascii?Q?jqEpEUFiZANBJAuW/I7lWO7JU5DmxR9+netucMQjuxyNDyBgAo6Dy1RpeGLX?=
- =?us-ascii?Q?kPLJjdSfWMcwWywgdVtA9M+85peHKObAseZJBkD2l4gSbsfrmi04uzZ8J4mP?=
- =?us-ascii?Q?jdP8Smh1w5KbToXgXLh8ixQvwDNzA0qn3Zal+DjThkSRhzfdfYCXl0t8zT96?=
- =?us-ascii?Q?AKZe+AcEYsRsdBSDapkcijxb4sCm2PDR7jsAoTt+lz74stJu5xdIOZJO9Lio?=
- =?us-ascii?Q?jrIWUixiyAGjcDEtrfJP2xzEh7i56B9EQeZsb7o7aa5Cr7PSwFgs1Y0sjUs7?=
- =?us-ascii?Q?4QBo4oZFkW0Kq7MMMuV4Oj1+5KZBXE0G3KHsSSV9tRvvcVbnqGSSB9q8y411?=
- =?us-ascii?Q?eXaRXiCrfRU0R56pTrM+SDpZqp1zMo1esVsjQ/sOuK6uyYBWvVcJ4ffN1rhi?=
- =?us-ascii?Q?9vvmkmEfhgL6AjYy7pqOYCoN+6UK60CWaQ+k1PjxnzskksVGeod6ohxgiHBV?=
- =?us-ascii?Q?U5xhFA79dOwaMY+EZjgTUmUWzWjkEojLXn0lNykW54p/cdoSF1H38TYrIm3h?=
- =?us-ascii?Q?C1CACYMAxA7Mwroj+TnrXgS+GklZQJmyb+j6XUhVQgzAGD/h5Bncvs4hb6Y+?=
- =?us-ascii?Q?z3mv/bWUjPpdLHll/mOJ8C+L58rTTCL6B4rA7dECOuz0L0ZVvxTBc0pGircH?=
- =?us-ascii?Q?gUu2ps+sID5tphd+3rK6ESR0iVJ3cjS5T0BfwIRJByrhIgSgPM6Q9WwUOEZp?=
- =?us-ascii?Q?C11VqhnYxqxdGUoxk3SnOYqsblqTFGuA3YtvgqwbgfEf2Y5Tyqeqk+QVrlLe?=
- =?us-ascii?Q?0lq28xbN22dp6Jp+Rz6ErTcOEnznxpHvyHrsK/C7J7vPPR/U2k8c1WUW5B2M?=
- =?us-ascii?Q?72KAKokUfwPkdTTX18v4lntSqWFEwYH2tNhQu9joICh8HhFG?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96a394d5-179e-42ed-2e58-08df2eb61e23
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:26:23.5262
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fzn7CdXWk5lDjprnMvj3sCkdcSgTLGlXrpG2vpN//dFo5JcX3SxLlyfZHoWXJp2q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9500
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 10:41:40AM -0700, Nicolin Chen wrote:
-> On Tue, Oct 13, 2026 at 11:49:36AM -0300, Jason Gunthorpe wrote:
-> > I think if you want to compress the nvec's array it should be done
-> > directly.
-> > 
-> > The smmu should have a small array
-> >    u8 msi_map[]
-> > 
-> > Which holds the xx_MSI_INDEX value. Then arm_smmu_write_msi_msg()
-> > would indirect to get the config:
-> > 
-> > 	phys_addr_t *cfg = arm_smmu_msi_cfg[smmu->msi_map[desc->msi_index]];
-> > 
-> > And we just compress msi_map as we go through the normal flow
-> > 
-> >    index_msi[EVTQ_MSI_INDEX] = nvec;
-> >    smmu->msi_map[nvec++] = EVTQ_MSI_INDEX
-> > 
-> > Then it isn't fragile at all.
-> 
-> Thanks. I replaced this patch with:
-> 
-> Subject: [PATCH] iommu/arm-smmu-v3: Pack the MSI vectors of the used sources
-> 
-> arm_smmu_setup_msis() skips the PRIQ vector by decreasing nvec, which only
-> works since PRIQ_MSI_INDEX is the last index. A subsequent change will make
-> the EVTQ optional for kdump, whose index is 0, so that trick won't work.
-> 
-> Pack the vectors of the used sources instead, and record the source of each
-> vector in a new msi_map, for arm_smmu_write_msi_msg() to find the register
-> set, regardless of the sources in use.
+On Tue, Oct 20, 2026 at 01:24:00PM +0100, Sudeep Holla wrote:
+> Commit 4b3dc9679cf7 ("arm64: force CONFIG_SMP=y and remove redundant #ifdefs")
+> removed UP support and made SMP default enabled.
 
-Yeah that looks pretty easy to understand
+Thanks. RISC-V still allows UP: CONFIG_SMP is a plain bool with no
+default, yet arch/riscv/Kconfig selects GENERIC_ARCH_TOPOLOGY
+unconditionally while the only callers of init_cpu_topology() and
+store_cpu_topology() sit in smpboot.c, which is built only for
+CONFIG_SMP. That mismatch is what this patch closes.
 
-Jason
+Gating that select on SMP instead does not work. UP would then fall back
+to the cpumask_of(cpu) defaults in include/linux/topology.h and report
+the same sysfs, but vmlinux no longer links: arch_freq_scale,
+capacity_freq_ref, topology_scale_freq_tick and topology_set_freq_scale
+all become undefined references.
+
+arch/riscv/include/asm/topology.h binds the arch_scale_freq_* and
+arch_set_freq_scale hooks to symbols that only drivers/base/arch_topology.c
+provides, and those defines suppress the generic fallbacks in
+kernel/sched/sched.h and include/linux/sched/topology.h. Making the
+gating work needs extra conditionals at several Kconfig and Makefile
+gates, and gives up freq and capacity invariance on UP, which is a much
+larger change than the twelve lines here.
+
+Conor, and RISC-V maintainers: would you rather force CONFIG_SMP=y on
+RISC-V as well and drop UP altogether, or keep UP buildable and take
+this fix? I would keep the current approach unless you prefer the
+former.
+
+Best regards,
+Pei
