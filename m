@@ -1,97 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792489020;
-	b=eJ4/CAMYRKavy4/A/x+X2kaloQiKmHvNUZpCvecrJfMNxbmmpeEEX4UaCY/iSjr6O5sC
-	 7pYC+yvpRRamkgLRKQ1oZ32V8TSm9RBZjmAMO90QLp7scPbezmratwQtZyJabzAQ8+w1l
-	 RPG846vXo6+Lf+7LQJJY6+CyWijve2vlTZVK4unRVouY+N3Fe2Hy6UIJpnR1WM9opdFl0
-	 YoqwymVGuX74YDdHITPjq5M/a9Rz7xCEk4AP7aye/GXBXR0Z3LI53CKb1xIryjHOW2QvD
-	 l5e7gYORWCxOWuGxNCOUye48WCh5P2sgPNL9WZ8TllpS0HScf9F1dBp2KRbPh0kRdtQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489020;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NN07oYTNHpgrWHpr4dT00mwXmigBoQA2gSJgLQQ5k1Q=;
-	b=uwfAo+Uz+r2EPCRa5w80gq98JckPDI64K2LdMUXv5LNYqLlLa6RFoVnFrLEsTd14rIym
-	 1/VmRYxtKpqufEyYxuI1cO9mE6PynL4R7F50EKJZqIyL9jhoB8jgZTHW71eE8AvribOCT
-	 V5IoqAdyT6qMT2q3VknPIar8JfQxIPetIn3Bb7OFTXdwaQkUDvKaVtLfX0Mq4PZD62VPf
-	 kFIkbr9KWn528jHQma81Z2frwCw5CsiFyl2TzLOQLVoM159sbzlOwdNkVOBFNeM6kc+WS
-	 08tkthWMU3eLmh4PvfMgsrzgZ9Yk/Imq6la7yWqQD6nwfWmFzIz5MlEKvpXITL3EFxQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=mqD+cVm0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.58
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011058.outbound.protection.outlook.com [52.101.125.58])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792489030;
+	b=kJL3Lsx/VrrYsHklgKQLojW8WtlukmnErtJwfeWsnYU70uhNETiCAfdsdJF+KuchITDy
+	 hJicevzWGBNxIcLkn91i3M4h0cRYryaffYhdVc1s8BJf9LeAuZAAHVjDOUL/OyrJm86BM
+	 0YnvFT8AWhHe3ixuqc0+Q3xNE3zYpTAGmQDmdugD3q67Pf+Hvcr9xO/kHYDrEDVy311bF
+	 XRdjdZXVVgfHyS9QjUkOkZTwJgDQeKub8OIDHPRM+v0AorM/Gb2b3KX3ld/gEqTcYKJxs
+	 lUVlah938rFIe8VS24Svw+k8vstIuP2aCX1ggfX5P66SCVVXresdIcr4nF4WSbiTKMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489030;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=H4GOGL2XRIUNcWmRMGdO+Qzk7DbDP4YbYaaDzFcYy0w=;
+	b=eDHkyhp9Pxgm2Bz3AIP+KMplW0iiknXBQVZAKcneHLzBHReGJQZXD1g9cMP0km3hbj+V
+	 ITno5/rcm+B00qd09L3v8Jv5M6CQfMbBedxACj4Ur+hvd7e7qbu9THgQ/UMUT63D+MTku
+	 IhBUQhw4oNKzTzRg89LFgLLlVtl6skM2iqNLYcLkFsHfAnpmD7f8lkCi0zMkY9PYz7Cwx
+	 b7Ztb1FA7tef2C8YML3IDsCtOtRFfg+Tp/je3u7hlXUAi1BQ06KmuNJ3n8EeBqWqaPg4E
+	 NroccWeWW+B0TbvSWMtyMVcr9XDWckn5us32TKJdDJNT4vcOMLD8JjKAmXPrKDDebNQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sartura.hr;
+	spf=pass smtp.mailfrom=sartura.hr;
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=DyCaFXpu;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF23606A326;
-	Tue, 20 Oct 2026 09:37:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AF23606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B1F60A2614
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75B1F60A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=mqD+cVm0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HMDguOLJGyGRwCpUsatXF0OUNdHGHOz5vFqjvSHCtPum6Nr9q1n5XTI1S8v9e/XYxr7Od/HxVVjD5W/1w5Ea/A8Xj3s65tJ1unYEzs9qnVbIzShYnd0jZSDKnuv8U4R1WP0eJaZLUaavAA+JHqgUUScgqjLxh9IFif7iGcZ/EDYw0jxFn0UXbOhZPROZqvEQq69C0IxT7UQIwhG/xMxgXazfWgkedp3XaCB2GI0u4qAH5cSbaY5TW2Ui3fE7Y5NEk9ePS0ISfVIy1AHOcHcl8YPTtUfxNzzy7uKC1OeY0ZVw6jRZtfkrqCcP1BnXUuUsnIRLMW0n0ghn6CBZCR4TjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NN07oYTNHpgrWHpr4dT00mwXmigBoQA2gSJgLQQ5k1Q=;
- b=L1f+poFfwbdZtuO3AB7Zni9Si5RPSi4Vgr+jmbq1H0ZjwboYA0QGauS4NQnzwCCAJ+mXc9cmcWapogVKIC4MowQr79nDIhIMuvrJLgH+RsRP4yDqOjLUTFY9ron0bRTP2fVRCp8X/VKiyX3iD40vo/IfForakrmsbi/pqDqyUoLVUW75ekM37WZPEqmBfAiYq9KAFsgfhwunlrdtuc2SEsyk6x6gMuIPnTY8a3SED7886np9t4I55Uo5wP76P1rrSi19zOgFeI8LYomC0Fn0OoxtVBkAb8Gw4lMZ+MssWpaK7+QCk5qPNGQOJ7TylV15WqYk5VJ9kJfoCNd+BVqgdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bootlin.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NN07oYTNHpgrWHpr4dT00mwXmigBoQA2gSJgLQQ5k1Q=;
- b=mqD+cVm0vrOiZ1E/eZ5WAJBnGrjAzGh0gCrsgqUabnpSzoLO8JKLUAuvSxZ36DV9sAhvOPDgqL7p205dJ6nl7bqEXyQFC27JKpf5DKkAFZDfKLRHVnzLdKZHVEJ7zP9R5iOMxKRGhpxQHgjl2PpwBJydVI8ePfYNnnFFEO0xNKM=
-Received: from OSTP286CA0117.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:225::7)
- by TYRPR01MB15089.jpnprd01.prod.outlook.com (2603:1096:405:224::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 09:36:55 +0000
-Received: from OS1PEPF0000D216.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:225:cafe::af) by OSTP286CA0117.outlook.office365.com
- (2603:1096:604:225::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Tue,
- 20 Oct 2026 09:36:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
-Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- OS1PEPF0000D216.mail.protection.outlook.com (10.167.240.23) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15
- via Frontend Transport; Tue, 20 Oct 2026 09:36:53 +0000
-Received: from [192.168.1.82] (unknown [10.226.92.108])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 044F8300024F;
-	Tue, 20 Oct 2026 18:36:48 +0900 (JST)
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Date: Tue, 20 Oct 2026 10:36:28 +0100
-Subject: [PATCH 3/3] arm64: dts: renesas: r9a08g046: Enable I3C analog
- noise filter
+	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=DyCaFXpu
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4322d310e7so293755866b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:37:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1792489029; x=1793093829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H4GOGL2XRIUNcWmRMGdO+Qzk7DbDP4YbYaaDzFcYy0w=;
+        b=DyCaFXpuNo2qreLvjLkI0Hkp/j0h/KSJhtDB+JWBTwzeVn2JS7TzFqTBLfsmNXVzow
+         z+eG5oe6tiG8AS40BoZNrNtLguY5+4hdWB2N8STR8Y3I/yynOI0Oc39K6xKKm2lUgiz0
+         WiqWJvYGJhBP+x/Xap1zEN17pfbp2i+N4V2dCCsLM1A+m7WkR3EswTlapSyCaBNrCAzM
+         Gs7uLUw8KNYyue1VuvZCjFQGWeBAM/2rc73rQDoPyeOJH9LFNlxnSZu1lF2egSg4KymF
+         0MUYQTZsKhWIXDctVbPMPkCxDC8U0RJ/IQeqs7MP8UrIq4Dftt6NA2N2LrELJTwfWgNr
+         7U3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792489029; x=1793093829;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H4GOGL2XRIUNcWmRMGdO+Qzk7DbDP4YbYaaDzFcYy0w=;
+        b=s4ynTM1U3q9SC21/8O8eKV6mt2ALIJ5iNKKNHgeFnmJAGTB59v6LSkl82AR4rfvX4X
+         NwTyxzGuN1d/RFw6BZv8fLr5TMd6m6g2lptAfEeibl1p908PmPNoRDmiT4P0AunN5Hgu
+         kOY0HzPfmKePEMxS48nqjVShZKLaUd3ezkJnW+a+xnZ3aZYeF+dQ52kDFRDTbDPzwf9w
+         pd0CfaiJMwa/DBd08PNcJYhGTq839ulDCVoJ3xav+vfR1LS4ORUgY1aMc0yjGExdgWYC
+         wziUiwuUffLZyV9f4wCumzfJ+eLdhDDkLKNM9MxMT5NJYVHfXrBs/J4FzPcR3+sB0bmY
+         3WgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVs5PG0GSgtOTmj0ADyK+68S+NR1oGkyJTmkfRwelNSOS/BnpCVh0sQBprPYFZ45A97UjIKOaPa6eltgY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+0w32lZikTwl8hSz2+511eW9eC2hlh1msRC7q66qK1uFB3SFe
+	Uq170o5KUpXehUdAF54k66CIL3Z+LzAI9jygaYoh16l/da5Qc9NurHJPdEnFG5exqEg=
+X-Gm-Gg: AYBFou1L67+AtJAp5vh21ndzRoilhYJiRhMwZg7HKXy1W1VfpJPsKgREsaLRypM/+9k
+	rllXQahSTj5p5HDsQNDVPYfqZJfH+GYwv2xRj0lF527AD7Nks1R0d8vM9IQxD6d8nociNjzza0a
+	P/0TrpaWa/UJWioXKhnM19m61OpISP3dnDRu2OVKOf/KAu8SGq+3llfZQ3cAA2FNyMQim+4Jkhh
+	fVcK4sD6qQXZsbV/cOoWnMw6QOSwdl48uy54zraWuXqTzxh4zSu9PbcNbqjz06CnEDGRhPtNxDn
+	bmvizLIjvGA/+7fG6FLFFwC9iXV3xvV6OJ6szLnKh7BoTKcjrbvf/mBv7CHxq7Uc677Jxg7Kd7K
+	Klj8t7jE74W29tY0WzmhlygXpzEvgKVY7r/2GURptjiwl9O7weKJ3fIP4afnbCORO9daKMHT0rq
+	TwbLgiRaarl9I8cCa291lQag5v1q09bMQjrH5yUdSxzU4GDPTqzltrpXcg1Ahw+LAGKOolZamFG
+	etZNolG/ipQgnz821kMbg0UR9dFGcJsRntNtB3gSYZlnntrsnyrzw7NBImce1s/ucuBcDiPW1Nz
+	drm7Pt1VQQP4M+UUdJs9IP3YsMUD46ZdaVdI8FUdK/6W6A==
+X-Received: by 2002:a17:907:96ab:b0:c3e:f39b:2286 with SMTP id a640c23a62f3a-c419699e001mr779531066b.0.1792489028894;
+        Tue, 20 Oct 2026 02:37:08 -0700 (PDT)
+Received: from threadripper-fedora-workstation (cpe-109-60-82-88.zg3.cable.xnet.hr. [109.60.82.88])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ceffesm462730966b.47.2026.10.20.02.37.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 02:37:08 -0700 (PDT)
+From: Robert Marko <robert.marko@sartura.hr>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	lxu@maxlinear.com,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	michael@walle.cc,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: lrosu@maxlinear.com,
+	luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH net-next v3 3/5] net: phy: mxl-gpy: release MxL86211C Super Isolate
+Date: Tue, 20 Oct 2026 11:35:36 +0200
+Message-ID: <20261020093655.344585-3-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020093655.344585-1-robert.marko@sartura.hr>
+References: <20261020093655.344585-1-robert.marko@sartura.hr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,80 +114,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-3-b7ad60cde650@renesas.com>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
-In-Reply-To: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Diogo Ivo <diogo.ivo.sx@renesas.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792488992; l=924;
- i=diogo.ivo.sx@renesas.com; s=20240529; h=from:subject:message-id;
- bh=NKF6tbMMjmvGOAeEsWBOVON2VPeVy4ixWhxfv4jHvFU=;
- b=IeOFsqRLeRP/iDAKA8KgUcr9Yy4VIZkX0zIAGbMv+zD74Owma/YRo/SUj/Snv+0tTLGYpZPuS
- rdXGtjOCJpQC9Z7/689TU5Cd9RtoRz+bHzWN5acWp54zoXsRFs0XR7a
-X-Developer-Key: i=diogo.ivo.sx@renesas.com; a=ed25519;
- pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS1PEPF0000D216:EE_|TYRPR01MB15089:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0e80432-e730-4888-7e4c-08df2e8dad0c
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|7416014|18002099003|22082099003|11063799006|10067099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	8oSZEn7kKB6TJfjLqbl0ZY2zOkqVs1/mb7OP0HwZyDjs8DNzf1959+Df2H3L5uh6noEx+6YFLD1+a8H6jWGoyl+8as/U6+LWy6ti4yovEEU6CR5nfwMrvYed9uYIOaYd328wQS2HcAgydqkhjQe6+44BzazqXTNX72vjcVb8bhcAzDczhTE/xIc3Em4YSlUKSVZe/4E7TAkWeQz7C3moDVUhJjqXEf1C9KjknrPShGEt6GwSSolKnykHjGZWzrB2rIxlyUwPuUAamWp4skXt+VxeWJpGeAlA1PYgYy6puuhYiS757CiOCDLAz7aRt8untCYDopOqtbPlEjVRBAECDwiAs97EY5Pece0gy07uOtBxQeG/LhqOEM0NHAOb3T3fMywBhaTbRT7TwDCZ+LYohWYpL6yGwSELvmrDy9rP+iXwJRNwNmKfrsC+sXMAB4NdxUB0AJp5YFBNcqdAEzjHjc0exTdNCtpZdD0BPsL6dxYZp8+i2EDXIEqmd35GWK0Ciiml8GByV5WFlQWpj47XxUkdzAIALuLg1bKe7wbNBAh7h86PSHjKFACUn6vNESQxnev8v0JmzQ8pNtI1kyx2D+RAZdM6hXDEcZA7loI+RIOTkQM123N/Hx1SXBGewNF2uwxzPOtWZAVT6kshjGr6Zu3+5WNFlq/AbuvtawWiKxTJeT6r/p4trXgVAOhqreKGAwq4Q+Sz2fb2U/28SlCjuA==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(7416014)(18002099003)(22082099003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZTC7AejI75TN87JJIRNAVlZX1FLRQOAPmF2UstdM+301SZh0wbfdTEb9f0a4LOIW1abNadwFn3zv4/iwN+i/OqKBI2GLT2FSZjwVJf0f5NBgx/33ePPO3P+I7YmYM3+3VUWTe2hficiHvfn9TNcpq5845tzkFHLoD133WRVR27EXpT7x6bdF3wbVAMOdg5tw6TGbgDBpYnKNt3SqWz1lV8bZpF13pVcn/2xjTMtePmR5gw+ReqOleeY/eyu5MSy8Pdn4kmxTFuJqrFuy5UplGYuzSbSgMZDSUbyPeYSxOMlqUFIBvSBQt6BWiJmwyZpoIwyIL9dwRBulG60+CiLane889JZIMCZs3KqmXnqnJ27D3JyW1Z2RL6oI8C6LnNbPJTuR1oadrGimS6tVWWfiQ6fce80Zw3RUtpNan53XLaCBsaHDwv7PXvlBjV4Sye07
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 09:36:53.7821
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0e80432-e730-4888-7e4c-08df2e8dad0c
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D216.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15089
+Content-Transfer-Encoding: 8bit
 
-The input terminals of the I3C controller on the RZ/G3L SoC have an
-analog filter for noise removal, controlled through the SYS_I3C_CFG
-register of the system controller. Enable the filter through the
-renesas,analog-noise-filter property.
+The MxL86211C can be strapped into Super Isolate mode, leaving the PHY
+halted after reset until software releases it.
 
-Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Release Super Isolate before gpy_probe() reads the firmware version. Do it
+again in config_init, where optional VDDP setup is reapplied after each
+hardware reset.
+
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- Release Super Isolate during probe before reading the firmware version.
+- Reapply the MDIO pad voltage only when a VDDP supply is provided.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index 1b0b95b12ef8..1968e18fa587 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -650,6 +650,7 @@ i3c: i3c@100e0000 {
- 				 <&cpg R9A08G046_I3C_TRESETN>;
- 			reset-names = "presetn", "tresetn";
- 			power-domains = <&cpg>;
-+			renesas,analog-noise-filter = <&sysc 0x440 1>;
- 			#address-cells = <3>;
- 			#size-cells = <0>;
- 			status = "disabled";
+Changes in v2:
+- Move Super Isolate release from probe to config_init for resets.
+- Reapply the MDIO pad voltage before releasing Super Isolate.
 
+ drivers/net/phy/mxl-gpy.c | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
+index 952272faac1e8..dba0777158b2d 100644
+--- a/drivers/net/phy/mxl-gpy.c
++++ b/drivers/net/phy/mxl-gpy.c
+@@ -114,6 +114,7 @@
+ /* Packet Manager Control */
+ #define VSPEC1_PM_CTRL		0x0c
+ #define VSPEC1_PM_CTRL_MDIO_VOL	BIT(14)
++#define VSPEC1_PM_CTRL_SI	BIT(12)		/* Super Isolate */
+ 
+ /* Temperature sensor */
+ #define VSPEC1_TEMP_STA	0x0E
+@@ -427,6 +428,30 @@ static void mxl86211c_disable_vddp(void *data)
+ 	regulator_disable(data);
+ }
+ 
++static int mxl86211c_release_super_isolate(struct phy_device *phydev)
++{
++	return phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
++			      VSPEC1_PM_CTRL_SI, 0);
++}
++
++static int mxl86211c_config_init(struct phy_device *phydev)
++{
++	struct gpy_priv *priv = phydev->priv;
++	int ret;
++
++	if (priv->vddp) {
++		ret = mxl86211c_configure_mdio_voltage(phydev, priv->vddp);
++		if (ret)
++			return ret;
++	}
++
++	ret = mxl86211c_release_super_isolate(phydev);
++	if (ret)
++		return ret;
++
++	return gpy21x_config_init(phydev);
++}
++
+ static int mxl86211c_probe(struct phy_device *phydev)
+ {
+ 	struct device *dev = &phydev->mdio.dev;
+@@ -456,6 +481,10 @@ static int mxl86211c_probe(struct phy_device *phydev)
+ 			return ret;
+ 	}
+ 
++	ret = mxl86211c_release_super_isolate(phydev);
++	if (ret)
++		return ret;
++
+ 	ret = gpy_probe(phydev);
+ 	if (ret)
+ 		return ret;
+@@ -1481,7 +1510,7 @@ static struct phy_driver gpy_drivers[] = {
+ 		PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C),
+ 		.name		= "Maxlinear Ethernet MxL86211C",
+ 		.get_features	= genphy_c45_pma_read_abilities,
+-		.config_init	= gpy21x_config_init,
++		.config_init	= mxl86211c_config_init,
+ 		.probe		= mxl86211c_probe,
+ 		.inband_caps	= gpy_inband_caps,
+ 		.config_inband	= gpy_config_inband,
 -- 
 2.56.0
 
