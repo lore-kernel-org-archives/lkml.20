@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792463025;
-	b=F616Ik3orBNzhm4UYjEnlJsqjzUfpIUoyeoD63Omfqt5JxZg8LvKXWTOiT+bz7jbSoQA
-	 N0+PvEwf1qoFVjZPajVVwi2bXoFFWrhf6WsIMZ8IPRU7ouNNRat/MvxwF0iHPFn7c5LLh
-	 NbL1Oa21QQri717Eq7LeKgDdPHNFcRLAKuDw0cj3idyPw+RDQDstKB6fxen/l2Qy9ejQV
-	 TSwnh1SMxohXzlR4olzpnkpJpZW+9DqFmhY6Bqvou+ZN95+Ut6sAA2Rv/05X4LfueVJq+
-	 GRPe5QEJPt5+pyAypekOfsutxNGXa/nSQ6JGTrbhujimqNhF1p7G+Qm+perk96PAYzA==
+	t=1792463106;
+	b=b6LLTTYN2GJ0vxITXZL8kZ99PJKMyP6gR0St7mggx0o951yqLELorQwmPpBUOkHQkxg3
+	 9gHU8m7DpE8oFYfkgs09cUiKdg2oE5MqYAQzzCkhDPnxHnXlj+KSvRE/HE5lZyYxnK1PT
+	 ojAtMxo7oyCWHjqNWQaYDM0JEAZr3oY/7kVV548QLfEOyIWgB4TVUqXzOry9S8vdqGSGq
+	 0OuML6xz+j5sM4+oDwy97OZBIoxjoFRM9IidQG4fHD61l5YlPehzHxTqM49VjzxgG2/qR
+	 XEF+suY5cCN3cpm4CU+Ith8SAdAGZzz4Z9LQgbvBhKoHsnUkL8R9gTEW/eJQdNKpAVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463025;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=3YSXATQnuiR/2Cds4ydGp0NOJ5A0pcMSXUyguAbgaEs=;
-	b=mykOuoyMBEZVBDhEw7FMz+e/UwOWQevezpu5aeOIoAo44vZN0vLBHbRpXTcqEgOHjoEU
-	 /gKaXVdrAgw3+CIq4VDUtjshubMQYVASOFJq66WEgU+dp+Z3TUmCxanshlmbs7V2hi6qm
-	 n0vFNRVNEYXUITBvcagdYZSUQZq7LhmBRip/1JPik9GqExpKhsjhwrtkkGTk1nuXfDJk8
-	 9iQwocI19oTBwnTrt2QQXSduPPOFwKMWkTh1vojEhOlDnUyzOVP6QC2COC0udoBiTdmfI
-	 a4Qmj46OXCISr56YNEdBbZY3TBMr4q1oRHxVesG/iLkfd+eeNf/VPeNegmKsZDqb2AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463106;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kYD02ZXBlrEEySdNfcMyQ0toSOLtwjrwU+Tdgho5Jkg=;
+	b=RIPl/kG2/5TV2ue6+cAvVo37ZQ6DxGclOASjp87C1HJwL8ENLvRtOvdVliXYl/KjZFY1
+	 yFh7Es8HYMSBzicagO7BYX23afkOqwfMU/jXGOZ+5FXjFl+SSDFvoQnDv/9UGeb33Evyj
+	 2yb7nt9VxV74G8Sf6LT7+9Txc5NlTo1qrQc6Fi5yiXh6NhU8asZQQrzjLe74y6p23K7cb
+	 TJIy+GrDdhZ3927ue9qFlDv2VxEWfpwaDgHps0PNf176zjfp/45OkwVwqrNK1xDGzN94Q
+	 RDIIWbQNq1yqSeC9ietphlsdZV+HMWxPw8k2sPQaBgSWpjjBll71DT2b/zbYT8FOMMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qDgLWYLT;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPfgy3rU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3E1606A319;
-	Tue, 20 Oct 2026 02:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C3E1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9402F606A319;
+	Tue, 20 Oct 2026 02:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qDgLWYLT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=3YSXATQnuiR/2Cds4ydGp0NOJ5A0pcMSXUyguAbgaEs=; b=q
-	DgLWYLT8BeTxcAl5CN7IulgbTCBlFcWAWJaakMNbdy50Hyiq0LMlmmW2l14GqN1m
-	7sBI8oq66ZFHWMP2a691JUS3NAJ7MgMevUD/depCGkM1fCIMDFxv8eLx+dlR0rAd
-	rJxI4LD65J757iCpoq7N4Ury6ylx2RWO61wVOHlEDU=
-Date: Tue, 20 Oct 2026 10:23:07 +0800 (CST)
-From: "Jiale Yao" <yaojiale02@163.com>
-To: "Felix Fietkau" <nbd@nbd.name>, "Lorenzo Bianconi" <lorenzo@kernel.org>,
-	"Ryder Lee" <ryder.lee@mediatek.com>,
-	"Shayne Chen" <shayne.chen@mediatek.com>,
-	"Sean Wang" <sean.wang@mediatek.com>,
-	"Matthias Brugger" <matthias.bgg@gmail.com>,
-	"AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
-	"Peter Chiu" <chui-hao.chiu@mediatek.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: "Jiale Yao" <yaojiale02@163.com>
-Subject: [PATCH 10/10] wifi: mt76: mt7915: validate RF register response
- length
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261019101506.1926943-1-yaojiale02@163.com>
-References: <20261019101506.1926943-1-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAPidvUEj4SeeYOkcn08ShO49XMOyvfoi2YFTc98FtwD2/gAgcWZ6I2D88/+uBy+FqSWSfhhg4+5wV5Ny/D1I43rTvc52AeP9fY9F2Q==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPfgy3rU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E721F000C4;
+	Tue, 20 Oct 2026 02:25:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792463106;
+	bh=kYD02ZXBlrEEySdNfcMyQ0toSOLtwjrwU+Tdgho5Jkg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SPfgy3rUpMslapQQG1A++l4xkexw+M4TH++6ArexD8P5QxXwn/7eHCfkB2FyrZJrO
+	 1Hfib7VStokWwiJYb7rH3KpBMILwfWoFOGjSVMQNEfh681e10ESLp+O3PnWzV0fu7T
+	 sxJcybPCyqxZFhepvffia3Rt/rj1dmENSfwh3axtuKlw934tHC/jkI4MQOcmrOlJYy
+	 bMII4r8Ddaiq9ntZs93CU8oe8Q3oVmztqswKlUESszqjmmKUvtIuT9Ewxpu2vR2NtX
+	 SJHLyOczQ2Py5JTaJq5TRwKysg4bX72vvawXGnd6KPcej90Z7+B2lWWivriTkjfIj+
+	 s+yFe8PVU+A+w==
+Date: Mon, 19 Oct 2026 19:25:05 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: Jiacheng Xu <stitch@zju.edu.cn>, <andrew+netdev@lunn.ch>,
+ <davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+ <jiri@resnulli.us>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH net] netdevsim: avoid NULL dereference after failed
+ probe
+Message-ID: <20261019192505.5e7b1341@kernel.org>
+In-Reply-To: <20261015080133.lv4rnnyuontntlkb@DEN-DL-M70577.microsemi.net>
+References: <20261012135941.78329-1-stitch@zju.edu.cn>
+	<20261015080133.lv4rnnyuontntlkb@DEN-DL-M70577.microsemi.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,28 +62,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <192ec1cd.2297.1a1571ea203.Coremail.yaojiale02@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgDXV7GM0NZqxzklAA--.655W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQyn4WrW0IzXqgAA3a
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-VGhlIFJGIHJlZ2lzdGVyIHF1ZXJ5IHJlYWRzIGEgMzItYml0IHZhbHVlIGFmdGVyIGFuIGVpZ2h0
-LWJ5dGUgcmVzcG9uc2UKcHJlZml4IHdpdGhvdXQgY2hlY2tpbmcgdGhlIHNrYiBsZW5ndGguIEEg
-dHJ1bmNhdGVkIGZpcm13YXJlIHJlc3BvbnNlCmNhbiBjYXVzZSBhbiBvdXQtb2YtYm91bmRzIHJl
-YWQuCgpSZXF1aXJlIHRoZSBwcmVmaXggYW5kIHJlZ2lzdGVyIHZhbHVlIGJlZm9yZSBhY2Nlc3Np
-bmcgdGhlIHJlc3BvbnNlLgoKRml4ZXM6IDBhMTczMjlhZTljMSAoIm10NzY6IG10NzkxNTogYWRk
-IGRlYnVnZnMga25vYiBmb3IgUkYgcmVnaXN0ZXJzIHJlYWQvd3JpdGUiKQpTaWduZWQtb2ZmLWJ5
-OiBKaWFsZSBZYW8gPHlhb2ppYWxlXzIwMjZAcXEuY29tPgotLS0KIGRyaXZlcnMvbmV0L3dpcmVs
-ZXNzL21lZGlhdGVrL210NzYvbXQ3OTE1L21jdS5jIHwgNCArKysrCiAxIGZpbGUgY2hhbmdlZCwg
-NCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0
-ZWsvbXQ3Ni9tdDc5MTUvbWN1LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2
-L210NzkxNS9tY3UuYwppbmRleCA0YTExYTRhMGRiZGUuLjY1MGVlOTEzNGRkZiAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3Ni9tdDc5MTUvbWN1LmMKKysrIGIv
-ZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3Ni9tdDc5MTUvbWN1LmMKQEAgLTQyNTYs
-NiArNDI1NiwxMCBAQCBpbnQgbXQ3OTE1X21jdV9yZl9yZWd2YWwoc3RydWN0IG10NzkxNV9kZXYg
-KmRldiwgdTMyIHJlZ2lkeCwgdTMyICp2YWwsIGJvb2wgc2V0KQogCQkJCQkmcmVxLCBzaXplb2Yo
-cmVxKSwgdHJ1ZSwgJnNrYik7CiAJaWYgKHJldCkKIAkJcmV0dXJuIHJldDsKKwlpZiAoc2tiLT5s
-ZW4gPCA4ICsgc2l6ZW9mKF9fbGUzMikpIHsKKwkJZGV2X2tmcmVlX3NrYihza2IpOworCQlyZXR1
-cm4gLUVJTlZBTDsKKwl9CiAKIAkqdmFsID0gbGUzMl90b19jcHUoKihfX2xlMzIgKikoc2tiLT5k
-YXRhICsgOCkpOwogCWRldl9rZnJlZV9za2Ioc2tiKTsKLS0gCjIuMzQuMQ==
+On Thu, 15 Oct 2026 10:01:33 +0200 Daniel Machon wrote:
+> There might be another approach though. Did you explore nsim_driver.dev_groups?
+> Adding nsim_bus_dev_new_port_attr/nsim_bus_dev_del_port_attr there might work,
+> and the fix will be simpler. I cant claim to be an expert in this area, but it
+> might be wort investigating.
+
+I had a similar feeling, but looks like nsim_bus_dev_numvfs_store()
+already checks drvdata :\ Let's stick to this approach, but please
+fix the flow to look identical to the check in numvfs_store:
+
+        device_lock(dev);                                                       
+        ret = -ENOENT;                                                          
+        if (dev_get_drvdata(dev))                                               
+                ret = nsim_XXX(nsim_bus_dev, num_vfs);            
+        device_unlock(dev);     
+
+Please make sure to include the info requested by the bot in next
+version, namely:
+
+- How the issue was discovered, e.g. hit in production, hit during
+  development, syzbot report, manual code inspection, LLM or static
+  analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+-- 
+pw-bot: cr
