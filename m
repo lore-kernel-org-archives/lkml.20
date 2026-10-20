@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792476292;
-	b=v0zyp2LE2vTos7AWodbU7qziUpVpf5p5KLT7bnbdpRsLecp+rQXMA1TFTOYxBACcUTR7
-	 wcO/xaQRr/4S0jdD5DICdMwZG1k0K4DT0mL1bmuQtfy0DCGn0ab+AeG9Wn3lVXVwaGFPA
-	 ctjHZ+Ipxhv9P59w9+HhyavIolYmWj+WpXyUKm2JcBcx00dmwh7YN2I1k9KWIfGVOBHUC
-	 FFWZGyn0ae3uzEOMhBHfDeZiNKNx783vYMvFHp0zOarLRjA9CzVfAMolskKLOI3o2bifc
-	 GDwJyfCHeNQzLBamdnGVzqiTnywqTCsC+3br6R3QPUuxUkdmS8MagkzoGoJ+wibowmg==
+	t=1792476394;
+	b=gAAFlLB6QWSEWbSF4lmjBmyR8Pe+BxUi4cruyYayRVA8MKA0+jWqCUQ+8A0PgDaTm84+
+	 wpFskQPrCJbNEjywBFkQ9LLfSU9HFrSFy0tRCt1pw536iBKrUhzoc1S1ROUzeev9MbKPY
+	 d8nxJNE9kpGmcnh1DJQW0UmHwE/OH4okCNROljPwhezH9kbVBJHAWhpfaHgi8n8hcV8GS
+	 MSl1tiFeCbfApnhOWs8+egrfSkUeBhgzqpw85WyoGkflWxQzHqASJSNupwIfBOVmhejYE
+	 4jZU5uX3e3rcc6V+PtPeSDlKeHDIY7En6iMIN8UuCGxbdwv9XCotkIn2E9XxHIKM4qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792476292;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476394;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rQqFxEC/LlvMiwUar68b8H+DzYLlRZlQd9Usb1HL9CA=;
-	b=S8iQ4kVkd7UBl47EyRxuqT8icxmUT5aicD2/yMyY+fUh/TzPjrXkNNSQWL4OweMVASz1
-	 +ulB1KUL7NiUDbv0VMzV1TGKOKJj+NK0+pYh2ZLVzBG3yj9/JoSthmJMULgOjDrHlAL6c
-	 6ziZcvsE3EmAX4sJFgQXEDUA0HlWNdtAjfmBWmDpqI1GPKg6ynV3z6Eg7lqjn0xfImSfd
-	 WlVvzAdazGkagZCkSO7SmOWkIC6c86MGHSb1a+dHJK5z7jVXu/oW0PIUlGWMI4LM6LPWH
-	 RzHEnvRWjoUQkkVIyzc0moC+4KJ94fTgWNc8fWRPWidDRFRb1DOhNzhmxsbu9YVui8A==
+	bh=83A0XPftJ0rwMZhi+3J48PbNxeaJNHF08TuoPP3WXuQ=;
+	b=ULh88uie7qnFHSDEayfCbU5fciOR3TUxUMfoZR8U0g4r9cVOiA6Z6kRuH4XKFMkVUP4s
+	 8IA9gvUQ+l/hmX9Gw8rgU7lYV4A/oPBsBnTlmz7wYXqGVmJa7r91362VaRurSY41lnQyk
+	 urbgEJaZ0i8HVc+vqkh45lcBQFe6i8Xhj0n40d5fPoTiWJMafB5EIqEFco6gOXVqjsTJg
+	 rWuJmbNi0lepcc8AleamEwhgZMJ9q+QyEY+W4y8yGp5dagYegdIPO7r5H9wLo4a1ZpGCU
+	 IAfZdMCg0v8KR8Qvv3GzLzu8NEB2tQWcPcU4MnGKwwFwsGTsK668G0liiZQX0ztuBpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zon0lnby;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2d5Jtwr+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960C0606A31C;
-	Tue, 20 Oct 2026 06:04:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA66606A319;
+	Tue, 20 Oct 2026 06:06:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zon0lnby
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1881F000C4;
-	Tue, 20 Oct 2026 06:04:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2d5Jtwr+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356AF1F000C4;
+	Tue, 20 Oct 2026 06:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792476291;
-	bh=rQqFxEC/LlvMiwUar68b8H+DzYLlRZlQd9Usb1HL9CA=;
+	s=korg; t=1792476393;
+	bh=83A0XPftJ0rwMZhi+3J48PbNxeaJNHF08TuoPP3WXuQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zon0lnby0Lm4ap+qIbwrlj4VJWZocAJUJeDAlvKvDZ1ewa1tYp4mTlhTphpaE2lTV
-	 TR9ImDQ8jfEaq4+PX2FlwKbRHqV3ZTiggnI/F8mj+wz44G3Ct6YcqVrf9DG6VgYCPm
-	 qtxbOAH0Wh3Q+kLg1FuTXP9qvP5Q0JuE1CAOtDzY=
-Date: Tue, 20 Oct 2026 08:04:47 +0200
+	b=2d5Jtwr+I3TQlDkWymIMsYsJF1wAeBnZAiweWa8Jl3/dSoG/y3icAkvcvtCA4gnOC
+	 XjoEpJu8wgsbOdOVSqLQ7fwIufi5rXRrjjcGT6196e7tF5xXzVt0u8DsaOoQ+UISpv
+	 dhzyV/JadBsFKJUFT5ktRhc4R+3+cSk6MCZaECtg=
+Date: Tue, 20 Oct 2026 08:06:25 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Mike Christie <michael.christie@oracle.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	linux-usb@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] usb: gadget: f_tcm: NULL-ptr-deref / use-after-free when
- the UDC is disconnected during in-flight target I/O
-Message-ID: <2026102035-unsure-garland-2281@gregkh>
-References: <20261020052629.92551-1-yuz08559@gmail.com>
+To: jiale yao <19888972804@163.com>
+Cc: Huang Wei <huangwei@kylinos.cn>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH] usb: typec: ucsi: acpi: Check ACPI companion before
+ use
+Message-ID: <2026102048-condiment-cause-320a@gregkh>
+References: <20261017064321.3816776-1-yaojiale02@163.com>
+ <20261020022707.3691899-1-huangwei@kylinos.cn>
+ <105b5747.252f.1a15726bc8f.Coremail.19888972804@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,17 +59,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020052629.92551-1-yuz08559@gmail.com>
+In-Reply-To: <105b5747.252f.1a15726bc8f.Coremail.19888972804@163.com>
 
-On Tue, Oct 20, 2026 at 03:26:29PM +1000, Yu Zhang wrote:
-> Hi,
+On Tue, Oct 20, 2026 at 10:31:58AM +0800, jiale yao wrote:
+> Hi Huang,
 > 
-> f_tcm frees its per-endpoint USB requests on the teardown path without
-> waiting for in-flight target_core commands to finish, so a command that
-> is still being processed by the backend when the gadget is disconnected
-> completes into freed/NULL request memory.
+> At 2026-10-20 10:27:07, "Huang Wei" <huangwei@kylinos.cn> wrote:
+> >Hi Jiale,
+> >
+> >A heads-up on the history here: a functionally identical patch was
+> >posted in September by Yogesh Gaur:
+> >
+> >  https://lore.kernel.org/linux-usb/20260920090711.300-1-yogeshgaur.83@gmail.com/
+> >
+> >Greg declined it on the grounds that the only realistic way to reach
+> >probe without an ACPI companion is the driver_override + sysfs bind
+> >path, which is a deliberate root action, with the resulting OOPS
+> >being identifiable by the taint flag - "if userspace does it, it
+> >deserves the pieces the kernel ends up in":
+> >
+> >  https://lore.kernel.org/linux-usb/2026092130-thong-secrecy-1dd4@gregkh/
+> >
+> >The open question left from that thread was whether syzbot still
+> >exercises the override+bind path - if it does and keeps generating
+> >these reports, that would be an argument for taking the guard anyway.
+> >Yogesh's version referenced a syzbot report; yours does not, so I
+> >can't tell from the patch whether you hit the same report or found
+> >this independently.
+> 
+> Thanks for your reply.
+> The bug was found by my static analysis tool, which is currently under development.
 
-Great, can you submit a patch for this?
+And how does that tool reach this patch without hitting the "the kernel
+is now tainted because the user did something wrong" setting?
 
 thanks,
 
