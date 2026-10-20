@@ -1,114 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792527199;
-	b=trcR12zXHiAVrfxkQcbQyIFi865LWY6VPCoaKWHGcv/PwOxlo+Q6sKScSwGk1YoR7H+i
-	 03KJQ0aZoIFUyjbErSV6mPIwYy/x2TgN52RK9sc0+fkhAWDnZyaace3qfVm8XO2hobyiK
-	 dnnQYJSpmnJ1Xg0YwixbB86upvvpOObwNmM2aHGORnyPUSH08FXPWzP+XFgYdjjY94iO2
-	 O0RcwFIgQ1lKcPveGkPlk56iNvATphMX/EKb0s656gEilaCA+hYPY4yKBnHLGRxcs5/dB
-	 ArKsgec6u6BHrCO7rm9E9hzAxhj+WjX5pKiiEXMjVSEHIWLt7UOC//cbmEoy8XYZXlg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527199;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2kGP3oRWPA7bHX9Gal7Hr4OMwzeTUhfZIzxmNaVqo2s=;
-	b=gd8psUAS4YfWLUu+u0Uzf4iKiyd7z5oczBGP6Azfcz4QUMmTw9V1FIhkjXAV8LIoSMSq
-	 4C6uLmxFKeC2TcKYVXjKc0akCbkeMRB7b/naHDBerbi9yqX48J5Qr9oG6T6LFij+btUTU
-	 7faZioA/ehBIY0xNA+UwgApJoOJ0F0GFH4N07+70/TDvgZVMAXNw5EgOvFBac+jJ9B1Np
-	 fYxOCWvUs8l55TUuXI9H+YGApVel+rhIERUFHBHT0tcY6iXrVdVOwzp5NcJeK2rW5f12q
-	 mzx3/Y2wA/JbR3dTQSba1CHi+jgtzahtghof1NdWfIpDhVg6perx0GcqJLUP0ACMktg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YCRXfRzA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.44
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010044.outbound.protection.outlook.com [52.101.69.44])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792527207;
+	b=zbvQf0DHxktONi2PKVcl+hg72z7j6EvtDxeaJ9HCT7/bHT79VtZW7mHX3dmdNJgxJ/Yx
+	 WDuMz51RGNizMliXgoC1hwJrszbrZsiHB+4b8jjMG9dgXoQPN3nMvQjk9jTkvSA6GTyi9
+	 6LIqVSTKScYqWkM3daAKmDbdAdo/o8gla5tQne9PVupkwnYwyYZytmysa6lqBOMwTTA/s
+	 m1R9N3T+4vOhC2muYmZwKEBaqk066VC/eFDuYjMTy8rYVdbgIRNptIOg8XdXhuEPNzAzg
+	 yeoSwDhxiItvzS0J7Ctpkslh15szNKbfJPVYLB14ME4SQtIu8QeOyLnFjGPXbpQD3kw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527207;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=iF/2g8ezmRgNpkHpQC85116K3p+NIblnBxlCe9zwHwA=;
+	b=0cIZcGIxAD7XA2xM6UzTg4mxtLFj75kG/z9ZPJz3LRFb3hmVpkG41yu8NGGl7I94QusE
+	 AR2JgQ8SNqT3Q+sZhcsc/RpcaVy6iwalaqouTXOjd3cmGy/8AfQ6CTJUPsX9Q5nL/Ajue
+	 zjltfP6xSDPdNFLTfwVrN8XT0t8F2oUmunzyM8V1oaWJkRn5Cq4CmCuPnQXGpSl6bp+hp
+	 Q28cQUiURvwwSL8anvivisVAk/WtovvxLWNC4JwPkvMeJejHYlbTFyL3USplodGvgB0hG
+	 Yy+AjjBus0sw5RNS95dSLoYILW6pNgLdf44St1DlgHfzgIoQk9vgZJOUUz1ojUl1YCg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="I/WwyRq2";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A3F606A321;
-	Tue, 20 Oct 2026 20:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77A3F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68301606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:13:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68301606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YCRXfRzA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JyosxkXIWZPfg9rDawrMs6JFTrgt/4XlzyCGUU4pjhMFQB1n3l2e8Bl7hgjwlpqCg+18LrCmJb0oz6rNkwcSZ/SvsvZYk/HBECy5jRmZBUWP5Ku0LNBtz+G0oUJtVfavNBkmFCrZnH+tZL+KVwXwGT/9bv1V+jeznajnEQMKHImVYf76On9V3zJQfwz5kNx84CYxdngDGr5ApVVMZmNV7G1A7RLOiewzZ/HPqGOQi7KXnnNM+FQIpFIypqeJzTzVXk8ufMLcORtyv+D+r8RGm0UMOq8ytA7Hf9zLQRTO3Xft5VlMNLLyLtxPA/SBnM0OO+9F7FCe4ldFWNpXI3y4bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2kGP3oRWPA7bHX9Gal7Hr4OMwzeTUhfZIzxmNaVqo2s=;
- b=rH3ZIsLrSOMwgdSYQxEVcvoalVWVG/dsSwcIkwM9M77nEdoKo+BABasF+ZDF1NrW8BxKNliVMkAy6xzdPdtoC4/z1aUMl2E9UEtVwpbkC9RYmYvXtuHyaW1i7QHausRQat5dMP9i1FCADF2S7SZ1f3/Bq+qgbG4639cyMz+lxEJcDtqYvrEvvyEgzU11cSedPeXXouhLYldVkXrHZyJzjckmKz3R/pV+/0jM0a/wjtm2icV+pi1w/O+FJYJekfCte6PApDgpOLAGgTKw1EjU7pLF39Jjg9SlS+wh6xWXzuL1uC/TF+DpnGC28lz7ltNJ/ed2brVdHsEXxmdVtJriwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2kGP3oRWPA7bHX9Gal7Hr4OMwzeTUhfZIzxmNaVqo2s=;
- b=YCRXfRzAOj2ltjwqMU0v+tUbSy+1P7Ng4jChdB9BsAmgL3ZFDec/XHQDAFQZKrWWJUP6XHPH3wqEgCrppRw++O9T5YSO0dNFGfqct/AeeBbOTo/4re/dVEzzsNtK4hMBCIyxGmyaHt7wN2OavU0Esev8LP9rInBOB7hr2IlSYI2TxlL8oc/ay/L4ADnutpX7e3ZgHTTPC0paRtiiIu95JashlFV8ve8Yll8oMSXzqpw3CDKnPxs1RjNWbPy9D1hymLWwdoRYaMQDX+uMvKnof2ohdU1r1zfaJ8E6EyXyir7GJ/JXXbfjpYEyN4TPE2+SMO6xl9z/FD+XyjT/IIxjxg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by PR3PR04MB7323.eurprd04.prod.outlook.com
- (2603:10a6:102:88::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 20:13:15 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 20:13:15 +0000
-From: Frank.Li@oss.nxp.com
-Date: Tue, 20 Oct 2026 16:12:51 -0400
-Subject: [PATCH v3 1/7] dt-bindings: lcdif: add compatible string for
- i.MX8QXP and i.MX8DXL
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-dxl_lcdif-v3-1-adc944659e14@nxp.com>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
-In-Reply-To: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792527183; l=1808;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=sCahuZvfwqRKEttnXuwHDV27tSv4cFZUITUV9d6SkEo=;
- b=0i1rryXX71DqrhItzCdfQg9dHkG5tTog76mr9F8xtmHHbBkgYBPNd6bWuP3uwbw2NB3UmmqTs
- ez3L1fA06JiBCKbfpRr/RZoNyjE8sYmHv5koDIxrA+cvfPFJZow3q9B
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: PH0P220CA0030.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:d3::30) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I/WwyRq2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792527206;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iF/2g8ezmRgNpkHpQC85116K3p+NIblnBxlCe9zwHwA=;
+	b=I/WwyRq2g4nSm9gRQwMQPZjyaiphmTiZcIoB2fnj4o+7DYdrQYkZDZJPd8LlDA7IWUYlMi
+	YfAmigF65nWaPaggpJrTE8ItQvUIL7n+RmwHOZFHsmcYijr5EM7iNzE0c/s4bnxlPmk8fw
+	RkxUqbVHDpPUCmLaa0O7Pt7V6DXY8oI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-433-AG6VDaP-MuaY6qqQwcB3AA-1; Tue,
+ 20 Oct 2026 20:13:21 +0000
+X-MC-Unique: AG6VDaP-MuaY6qqQwcB3AA-1
+X-Mimecast-MFC-AGG-ID: AG6VDaP-MuaY6qqQwcB3AA_1792527199
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CB91C1955F6E;
+	Tue, 20 Oct 2026 20:13:18 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.48.29])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 008D7195608B;
+	Tue, 20 Oct 2026 20:13:14 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jeffrey Altman <jaltman@auristor.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 2/3] rxrpc: Fix counting of in-flight transmitted packets
+Date: Tue, 20 Oct 2026 21:12:53 +0100
+Message-ID: <20261020201258.290827-3-dhowells@redhat.com>
+In-Reply-To: <20261020201258.290827-1-dhowells@redhat.com>
+References: <20261020201258.290827-1-dhowells@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,128 +87,248 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|PR3PR04MB7323:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9766eb6e-3bf1-4821-ff63-08df2ee692c5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|7416014|1800799024|261009223027099003|10067099003|56012099006|18002099003|22082099003|921020|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	jtM3NVIsGgOt6NEuUCBYICi0erYVrSkckO7F2AJpDmEihI8syVOdzL0aymzuQ9gp1kcOTwxbQ17TTO2qXgscuuRqo9f0zLM1Eg87FzEGRbVUeE+dZkj2KmdNsGyGSmow2nMnZ2QyRGZF/Aij6eRJS06WIj8VqJFs4DP8otb4p4IuEY1SRdL7Jibdumh+Q6sGeDGvEdHXqz8gsw4yRpPXuj1mnB8blMwSUaOmvVDmL872oqPV+iFsfc3faNTkZcvxxij93vGE/Iepyts5hOY0u3jq0qe44hAVNZL/GeR1Zs+TyYqfmFtb4uUxn11KnbUBu9iPYpTMIW2qx1NBX+pSpbrZ7VElSPzQO+q9tZ/vc3SAbatMk/1BbWmfGBFpQdty/Mq17qqAWNdWO8cX4/YHDKmpwqidCCsRUWd59zq3pfNvD5N1LXDT048VULrz81PUJUiOCLZwkXjld7TBYW0A+4HPHQh24oCfeR9CWBcDDKxxOdf2dtHDETo26oQSzbiFDdKUi7INy2oIcaQMu21Wgu0eoJwCmazEOmQeFBufgvcQcvxUyV8AvWChokeOgziuGkookVFEuuezu0tmqIRKdUzzyXxE6qxQQgqAZDn2ERB2jfsy4Qnu076b0K9HgF//QuS/EuWe0s6eLf2jkPAcCLwnx2Xqb9l4CX404kO6VeLfR6QYdnnzAOxY/u74XZPdR0emPhUumBXfbyrYBJiWeg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(7416014)(1800799024)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(921020)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QllHNkVsbTZDbTd2MlVlZDlYN2hEcmttNGZORHRrNFdtYUN0R0RzM1hUeG44?=
- =?utf-8?B?bU43TWY1VHpQV1ZmaHc0bWpNbGVOUVhvbmE2bnZ4d3JTT3pOYmVxMG1tMnVE?=
- =?utf-8?B?M2FkelY2MmNPMTNuSzZxL3dYaHk0S0JQK24zWVNKaEtNbys1QmVJdXdoSVpY?=
- =?utf-8?B?MFZVMWpaNk16OG1sYkgwN0tIZDNpSTNtR3I3TTY3bFUxdW1ZRURENmVDNG5H?=
- =?utf-8?B?dVZkM0xrREF6ZW4wa1FFNU1IeUloRDBFUHdSSzdvL2U3QnoxRmZoS3QxbUNw?=
- =?utf-8?B?ajM5alQvbVh3VHlOSERsZ3orU1FQSnZXMCt3anpFR240U0FLYzFCNUJ3MVM3?=
- =?utf-8?B?ejhKVEo4V1RqT3lRWVhpWUpmZUNMZzJvcVFvVXJyYnk3cVVWUnNSOUlKNkhq?=
- =?utf-8?B?Uzdhck1RbVp1RzlFTytaL0ZTREd2aFBSRTN4enA3U3AyaWd5Vmd2bU9CcjY1?=
- =?utf-8?B?RFQyVzNiYWlqSW9NdHBPQk9kUzVOb3g1b3N4TmJtVG9rWkEvdHFrZlkzbnJS?=
- =?utf-8?B?RTdRK09OTW4rNWdsemtpVnk3TXA0cHhpRExvRlRLV0pFeXJvSmhGUlVvZmta?=
- =?utf-8?B?TGsrN0lYVUdheUhKOVY2MVRWWkpWaW1wdnRiUnAvQmIvZTdBMmJad25QUUl3?=
- =?utf-8?B?akg5ZFd1bUNIREp5U29pdzJ5b01VTXp3cXhKMWswSFk5WVBHZWthNDVGMjc4?=
- =?utf-8?B?RXhlWmZwNVFqd2lQZHdRRXhKTm9RQjFHdThRaUd0T0ZzR0dOQ2lpZWYwRVVz?=
- =?utf-8?B?Um1ueHdQTlcyMWR5V1huTXV2RGFQcVhibjU5dnFnTUZqQTAvR1ZMbnhJc3NV?=
- =?utf-8?B?UlJFb1hxNWNIRzF0NzNKY0ZNZUpoNEwzdFRCYjRmRVptUjBRdlA2ZHJDWncx?=
- =?utf-8?B?MlgyNm1rTnpYMi9EQ0J0NXN6Q2NjVjRRM08xZG8vWkNuNXlxMUFTd29TN3JE?=
- =?utf-8?B?MkgySkNqQnh4NFlRWTNlL3Z0LzlYVldDLzhYeEthVFk4T2tTVnp1eWxsRk1F?=
- =?utf-8?B?Tm5WbTgxbE1iRWwyTzE0UStxRXVuWlNZR0JSVytscHZsYlY5QjhKOXN4SG1k?=
- =?utf-8?B?KzlQa1VJZ29zbDZJZXZOZkVjM1pGeHpKcEM4Zjk0TWFXM3c3SkNSZ01LYm9j?=
- =?utf-8?B?WllTY0FxcDB4WWhTc0Y0YnZuSVJvZjhObGZucmVVMG10dFdwSTl6Y2FCWlFG?=
- =?utf-8?B?VjdFSGppWUdZYmdoeGRkek5vbnZxaklnQTRHNFB6UkpvUS9uZjJNZG40OWtV?=
- =?utf-8?B?NU45SFMzSDhnUFMwNGhlNmFOTTJ6OWhOYTQyOTBvaGJkRWVBc2haOHlnOFlJ?=
- =?utf-8?B?Y1dPTUQvM2Z0Mi8rNTNwV2wyVmtyL1RRWDdrL2tuVXcvd0NrSWdhczlKR0l3?=
- =?utf-8?B?N3RDdVZzQkxQZElxWDlmZ1UwUlZ1Rm9iaFFHSytZZTZSaEhlakE1a3JMZzgr?=
- =?utf-8?B?WE1RYzFvajJ5SmhxdjlDd3Jla2t5ZWFGMFJvZmU0ZUJiZnIwNWVlY2t4aVV2?=
- =?utf-8?B?S0ZXN1VoaHM4Y1JkMUZFL2ZCbVF6THAyNUUrNXpPUHhBUVV0ZUhkZ3FiZG8v?=
- =?utf-8?B?T3pqWGllWVIyMEJMSFoyWE5mKzByWlg3dG80b2h0ZU80TGJZVUNhM3lJYW5q?=
- =?utf-8?B?Y2VaaWlNRjVQbXJpaHpadE04L3BqUUVDYzdxRWRNTVJtdWJTb2FLYmdLWDJk?=
- =?utf-8?B?b29Zd2cyVlJXeTQwaUF4N2RhWVNJcXVzYXB4czZselhSYVRCYWF0a2JnYmpk?=
- =?utf-8?B?K1BDQ25qOUhYMzdhVnorRkVLZHprN3VCb0U5cVQ5TlZhYlpXcFVMMStkdW43?=
- =?utf-8?B?UzdmL2VtSm5wTUlDK3prV3BRVDdma3dxMDV6RXpxSnlFZkpLd3VxempHcVhr?=
- =?utf-8?B?eDVFRyt2MG0yN3dMY0dMWHFxWXNkc2w0L21sWVZJSXQ2WW9ydHp5WCtyOG1L?=
- =?utf-8?B?Um5qMnRqSTE5YXVDSFN1SmNKcmxCcjArS0VHZHUvRk5yVktETEROOVhnRk9u?=
- =?utf-8?B?anAvNlUzQnhma25sQVBHYStReGpVU0RRdDFRQkRrbFdEUjlaRjM1elRSK2dY?=
- =?utf-8?B?aVN6UElES1JwaTlNb0I1aFFocVlTODRLZ0tzdDhUVzlNNGVoY2xsSkxKWjQ3?=
- =?utf-8?B?ZnpTazhVbnptNWtpZW1wNm5uTjRNNUhRVnRkWlFQVkY0WXpuek9SVFlvbHR1?=
- =?utf-8?B?ZGF5c09ubUROVDUvamsxbnpRbE10bDBkYlJRcmNTWE04bUZjR3I0ajIveG0y?=
- =?utf-8?B?U1VBTjQ3WmdCSFdEVHJQWjd6bnczUk8wSW9ibGRja3crNE1NcmR5aTlOVkhJ?=
- =?utf-8?B?RkFjSzMxTkVTSE5YNW9Vc0JrTVZHTlJWSDQ5TUFtdENHUWgyR0tkQzMvM0tX?=
- =?utf-8?Q?FFxbYjShW18ZKBXfL21o1Pse+yFmzFGKgqy4W?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9766eb6e-3bf1-4821-ff63-08df2ee692c5
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 20:13:15.3586
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kFsfpkhg6PjbeRblBH2RjzpvU1SLkvh6mr0d/QTHMxR3q17Is6Vd1GPMbjk24XMRs/IiM/He8XCb4ZT9932dD7q+1ykG8MZC9hd6TuXOJFGv1eickO9E1slgsOGGeMta
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7323
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Frank Li <Frank.Li@nxp.com>
+The RACK-TLP algorithm [RFC8985] makes use of the count of in-flight
+packets in decisions (denoted as FlightSize).  This is currently based on
+an approximation derived from the sum of other values:
 
-i.MX8QXP and i.MX8DXL have lcdif, which back compatible with i.MX6SX. Add
-front compatible string "fsl,imx8dxl-lcdif" and "fsl,imx8qxp-lcdif", which
-fallback to "fsl,imx6sx-lcdif".
+	tx_nr_sent - (acks_nr_sacks + tx_nr_lost) + tx_nr_resent
 
-Required power-domains for both. Required 3 clocks and clock-names.
+This, however, turns out not to be very good here as the component counters
+aren't updated together and this may lead to an incorrect estimate.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Fix counting of in-flight transmitted packets by tracking them directly
+rather than deriving the value:
+
+ (1) On each rxrpc_txqueue struct, keep a bitmap of which packets (txbuf)
+     from the set managed by that txqueue are considered in-flight.
+
+ (2) A new counter, tx_in_flight, is then added to the rxrpc_call struct to
+     keep track of the number of packets considered to be in flight.
+
+ (3) Set a packet's bit when the packet is transmitted and if the bit
+     wasn't already set, increment tx_in_flight.
+
+ (4) Clear a packet's bit when an ACK is received for the packet or if the
+     packet is declared lost - and if the bit wasn't already cleared,
+     decrement tx_in_flight.
+
+The value in tx_in_flight is then used instead of the approximation.
+
+The tx_nr_sent and tx_nr_resent counters are then removed and the
+rxrpc_rack tracepoint updated.
+
+Fixes: 7c482665931b ("rxrpc: Implement RACK/TLP to deal with transmission stalls [RFC8985]")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925191520.2206700-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jeffrey Altman <jaltman@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
 ---
-change in v3
-- require 3 clocks ans clock-names
-change in v2
-- require power-domains (sashiko)
----
- Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/trace/events/rxrpc.h | 11 ++++-------
+ net/rxrpc/ar-internal.h      | 18 ++----------------
+ net/rxrpc/input.c            |  8 ++++----
+ net/rxrpc/input_rack.c       | 19 +++++++++++--------
+ net/rxrpc/output.c           |  5 +++--
+ 5 files changed, 24 insertions(+), 37 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-index 5f56e733c4f7f..c986ac87fc2bf 100644
---- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-+++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-@@ -28,9 +28,11 @@ properties:
-               - fsl,imx6sll-lcdif
-               - fsl,imx6ul-lcdif
-               - fsl,imx7d-lcdif
-+              - fsl,imx8dxl-lcdif
-               - fsl,imx8mm-lcdif
-               - fsl,imx8mn-lcdif
-               - fsl,imx8mq-lcdif
-+              - fsl,imx8qxp-lcdif
-           - const: fsl,imx6sx-lcdif
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 56dc9b614071..67a5612cdc55 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -2584,9 +2584,8 @@ TRACE_EVENT(rxrpc_rack,
+ 		    __field(rxrpc_serial_t,	ack_serial)
+ 		    __field(rxrpc_seq_t,	seq)
+ 		    __field(enum rxrpc_rack_timer_mode, mode)
+-		    __field(unsigned short,	nr_sent)
++		    __field(unsigned short,	in_flight)
+ 		    __field(unsigned short,	nr_lost)
+-		    __field(unsigned short,	nr_resent)
+ 		    __field(unsigned short,	nr_sacked)
+ 		    __field(ktime_t,		timo)
+ 			     ),
+@@ -2596,18 +2595,16 @@ TRACE_EVENT(rxrpc_rack,
+ 		    __entry->ack_serial	= call->rx_serial;
+ 		    __entry->seq	= call->rack_end_seq;
+ 		    __entry->mode	= call->rack_timer_mode;
+-		    __entry->nr_sent	= call->tx_nr_sent;
++		    __entry->in_flight	= call->tx_in_flight;
+ 		    __entry->nr_lost	= call->tx_nr_lost;
+-		    __entry->nr_resent	= call->tx_nr_resent;
+ 		    __entry->nr_sacked	= call->acks_nr_sacks;
+ 		    __entry->timo	= timo;
+ 			   ),
  
-   reg:
-@@ -122,7 +124,9 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - fsl,imx8dxl-lcdif
-               - fsl,imx8mp-lcdif
-+              - fsl,imx8qxp-lcdif
-               - fsl,imx93-lcdif
-     then:
-       properties:
-@@ -162,9 +166,11 @@ allOf:
-           contains:
-             enum:
-               - fsl,imx6sl-lcdif
-+              - fsl,imx8dxl-lcdif
-               - fsl,imx8mm-lcdif
-               - fsl,imx8mn-lcdif
-               - fsl,imx8mp-lcdif
-+              - fsl,imx8qxp-lcdif
-               - fsl,imx93-lcdif
-     then:
-       required:
-
--- 
-2.43.0
+-	    TP_printk("c=%08x r=%08x q=%08x %s slrs=%u,%u,%u,%u t=%lld",
++	    TP_printk("c=%08x r=%08x q=%08x %s fls=%u,%u,%u t=%lld",
+ 		      __entry->call, __entry->ack_serial, __entry->seq,
+ 		      __print_symbolic(__entry->mode, rxrpc_rack_timer_modes),
+-		      __entry->nr_sent, __entry->nr_lost,
+-		      __entry->nr_resent, __entry->nr_sacked,
++		      __entry->in_flight, __entry->nr_lost, __entry->nr_sacked,
+ 		      ktime_to_us(__entry->timo))
+ 	    );
+ 
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index f0c8cbcc5dd5..d0e18eb6301e 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -782,9 +782,8 @@ struct rxrpc_call {
+ 	rxrpc_seq_t		tx_top;		/* Highest Tx slot allocated. */
+ 	rxrpc_serial_t		tx_last_serial;	/* Serial of last DATA transmitted */
+ 	u16			tx_backoff;	/* Delay to insert due to Tx failure (ms) */
+-	u16			tx_nr_sent;	/* Number of packets sent, but unacked */
++	u16			tx_in_flight;	/* Number of packets considered "in flight" */
+ 	u16			tx_nr_lost;	/* Number of packets marked lost */
+-	u16			tx_nr_resent;	/* Number of packets resent, but unacked */
+ 	u16			tx_winsize;	/* Maximum size of Tx window */
+ #define RXRPC_TX_MAX_WINDOW	128
+ 	u8			tx_jumbo_max;	/* Maximum subpkts peer will accept */
+@@ -980,6 +979,7 @@ struct rxrpc_txqueue {
+ 	unsigned long		segment_acked;	/* Bit-per-buf: Set if ACK'd */
+ 	unsigned long		segment_lost;	/* Bit-per-buf: Set if declared lost */
+ 	unsigned long		segment_retransmitted; /* Bit-per-buf: Set if retransmitted */
++	unsigned long		in_flight;	/* Bit-per-buf: Set if "in flight" */
+ 	unsigned long		rtt_samples;	/* Bit-per-buf: Set if available for RTT */
+ 	unsigned long		ever_retransmitted; /* Bit-per-buf: Set if ever retransmitted */
+ 
+@@ -1601,20 +1601,6 @@ static inline unsigned int rxrpc_tx_window_space(const struct rxrpc_call *call)
+ 	return max(winsize - transmitted, 0);
+ }
+ 
+-static inline unsigned int rxrpc_left_out(const struct rxrpc_call *call)
+-{
+-	return call->acks_nr_sacks + call->tx_nr_lost;
+-}
+-
+-/*
+- * Calculate the number of transmitted DATA packets assumed to be in flight
+- * [approx RFC6675].
+- */
+-static inline unsigned int rxrpc_tx_in_flight(const struct rxrpc_call *call)
+-{
+-	return call->tx_nr_sent - rxrpc_left_out(call) + call->tx_nr_resent;
+-}
+-
+ /*
+  * debug tracing
+  */
+diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
+index 73cafe6bfa9f..f497eba59cf6 100644
+--- a/net/rxrpc/input.c
++++ b/net/rxrpc/input.c
+@@ -33,7 +33,7 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
+ 					struct rxrpc_ack_summary *summary)
+ {
+ 	summary->change = rxrpc_cong_no_change;
+-	summary->in_flight = rxrpc_tx_in_flight(call);
++	summary->in_flight = call->tx_in_flight;
+ 
+ 	if (test_and_clear_bit(RXRPC_CALL_RETRANS_TIMEOUT, &call->flags)) {
+ 		summary->retrans_timeo = true;
+@@ -288,11 +288,11 @@ static bool rxrpc_rotate_tx_window(struct rxrpc_call *call, rxrpc_seq_t to,
+ 			trace_rxrpc_rotate(call, tq, summary, seq, rxrpc_rotate_trace_snak);
+ 		}
+ 
+-		call->tx_nr_sent--;
++		if (__test_and_clear_bit(ix, &tq->in_flight))
++			call->tx_in_flight--;
+ 		if (__test_and_clear_bit(ix, &tq->segment_lost))
+ 			call->tx_nr_lost--;
+-		if (__test_and_clear_bit(ix, &tq->segment_retransmitted))
+-			call->tx_nr_resent--;
++		__clear_bit(ix, &tq->segment_retransmitted);
+ 		__clear_bit(ix, &tq->ever_retransmitted);
+ 
+ 		rxrpc_put_txbuf(tq->bufs[ix], rxrpc_txbuf_put_rotated);
+diff --git a/net/rxrpc/input_rack.c b/net/rxrpc/input_rack.c
+index 072e1d9ecb2e..e43ce032a261 100644
+--- a/net/rxrpc/input_rack.c
++++ b/net/rxrpc/input_rack.c
+@@ -23,12 +23,13 @@ static bool rxrpc_rack_sent_after(ktime_t t1, rxrpc_seq_t seq1,
+ static void rxrpc_rack_mark_lost(struct rxrpc_call *call,
+ 				 struct rxrpc_txqueue *tq, unsigned int ix)
+ {
+-	if (__test_and_set_bit(ix, &tq->segment_lost)) {
+-		if (__test_and_clear_bit(ix, &tq->segment_retransmitted))
+-			call->tx_nr_resent--;
+-	} else {
++	if (__test_and_set_bit(ix, &tq->segment_lost))
++		__clear_bit(ix, &tq->segment_retransmitted);
++	else
+ 		call->tx_nr_lost++;
+-	}
++
++	if (__test_and_clear_bit(ix, &tq->in_flight))
++		call->tx_in_flight--;
+ 	tq->segment_xmit_ts[ix] = UINT_MAX;
+ }
+ 
+@@ -136,6 +137,8 @@ void rxrpc_input_rack(struct rxrpc_call *call,
+ 		unsigned int ix = __ffs(new_acks);
+ 
+ 		__clear_bit(ix, &new_acks);
++		if (__test_and_clear_bit(ix, &tq->in_flight))
++			call->tx_in_flight--;
+ 		rxrpc_input_rack_one(call, summary, tq, ix);
+ 	}
+ 
+@@ -289,7 +292,7 @@ static void rxrpc_rack_mark_losses_on_rto(struct rxrpc_call *call)
+  */
+ ktime_t rxrpc_tlp_calc_pto(struct rxrpc_call *call, ktime_t now)
+ {
+-	unsigned int flight_size = rxrpc_tx_in_flight(call);
++	unsigned int flight_size = call->tx_in_flight;
+ 	ktime_t rto_at = ktime_add(call->tx_last_sent,
+ 				   rxrpc_get_rto_backoff(call, false));
+ 	ktime_t pto;
+@@ -313,7 +316,7 @@ ktime_t rxrpc_tlp_calc_pto(struct rxrpc_call *call, ktime_t now)
+  */
+ void rxrpc_tlp_send_probe(struct rxrpc_call *call)
+ {
+-	unsigned int in_flight = rxrpc_tx_in_flight(call);
++	unsigned int in_flight = call->tx_in_flight;
+ 
+ 	if (after_eq(call->acks_hard_ack, call->tx_transmitted))
+ 		return; /* Everything we transmitted has been acked. */
+@@ -333,7 +336,7 @@ void rxrpc_tlp_send_probe(struct rxrpc_call *call)
+ 			call->tlp_serial = call->tx_last_serial;
+ 			call->tlp_seq = call->tx_transmitted;
+ 			trace_rxrpc_tlp_probe(call, rxrpc_tlp_probe_trace_transmit_new);
+-			in_flight = rxrpc_tx_in_flight(call);
++			in_flight = call->tx_in_flight;
+ 		} else {
+ 			/* Retransmit the highest-sequence DATA sent */
+ 			call->tx_last_serial = 0;
+diff --git a/net/rxrpc/output.c b/net/rxrpc/output.c
+index 88cad087f13b..3ccd9a27643a 100644
+--- a/net/rxrpc/output.c
++++ b/net/rxrpc/output.c
+@@ -571,15 +571,16 @@ static size_t rxrpc_prepare_data_packet(struct rxrpc_call *call,
+ 
+ 		_debug("prep[%u] tq=%x q=%x", i, tq->qbase, seq);
+ 
++		if (!__test_and_set_bit(ix, &tq->in_flight))
++			call->tx_in_flight++;
++
+ 		/* Record (re-)transmission for RACK [RFC8985 6.1]. */
+ 		if (__test_and_clear_bit(ix, &tq->segment_lost))
+ 			call->tx_nr_lost--;
+ 		if (req->retrans) {
+ 			__set_bit(ix, &tq->ever_retransmitted);
+ 			__set_bit(ix, &tq->segment_retransmitted);
+-			call->tx_nr_resent++;
+ 		} else {
+-			call->tx_nr_sent++;
+ 			start_tlp = true;
+ 		}
+ 		tq->segment_xmit_ts[ix] = xmit_ts;
 
