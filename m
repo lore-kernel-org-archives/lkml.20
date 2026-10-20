@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487418;
-	b=gH4JtFhMs37j0R5Gjzyjy6dL+Bur0fn/NxtBbehKibOKQIzZ2wkigWiJNoeYAD2Qb5h/
-	 YBCvIun0kDEYltEMToIO0Ost7LM+DXa1m9gPFcINNCxHv+9q1m1RMfK9XHWmoAYIZ8vz/
-	 H2YiOE3hHn4g28o4ebyHSAcEARHn6fc3NZ1dywzlsTIGsSK2BczhtoOjTARKCNWc/GKiH
-	 +h3kGzipsQ5Sp7tEAGwCFEhFvzFoVq8AoyJvIPlSfRqqMjDG0huj26zytOa6ILIGoXayh
-	 YB9lpQNewSwk/AMGw1lMjDKG1WvFC3wGy7ilIUtYdzrjgUn57iM+rOz4yFQuvg1BudA==
+	t=1792487409;
+	b=A1nXFuoCJgRWcAezduSVSSQoHkOmerGx53y0TQSfr+Hgm495dQpNADIWCHUJneu8dCOH
+	 jx/RUU4Lea6xoZ8hbkQARGzXjMWFvcwpuiqHpPAap+y7IrSUOsi5bwuqBRQeqr6VGqMYe
+	 gDrDGO9Ezgp8zdOEQ2cv3KQR+e33lHAG5w6jiVF3coSeyIGB2PCQ1xI+BAogzI1g46mSE
+	 4bIbtBcedcueVWiQm7TUMZvCzajoMdor8amMt6nppO8yexBBnz0W4tRzY+vfoGpFSvwFx
+	 kmORgDNTyvoXIT2lD1AuGtv9Vryrr8eB+QkA2tgt0o/QRTpacveIBdX/j3+Ve4nEbxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487418;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=t6f4NK2OKn/mbjCM0VqV3d8nJcMxOhTPDQofbd71OdU=;
-	b=GfrtWGEoRCZ7Sg705Z9FCO1qY6ErPxBg2iWEkHDOwfBIJGGgSSBKej2/H1VSK7r/MPkf
-	 CmgCZfkTmeLiD34lxu0j20+sGYO6rMEG7HqjgotLD0Iwz7DVecdqgitCV5Vb2GWllCPNX
-	 PPPmT/ILOFioMk87DoGK0hPWWoyRiD6A7yXGywask+RLjuDRsialBQ8uS4C8Qf+issITL
-	 JWnDHh+AGt36A6q0fIawHkiY4xAKuCgkroJlPm79aHCs8dhZ8Qu23b1ymgka5Zcqbg3I1
-	 KMp3g8+Xg3aTAEzw4cZdfkQ8aKYrs45o5MaoI+DquPzuiIVF59nEQIbel8aTKAvbaDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487409;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=fU9U0uIRH8WBIkNkp2Lbc2R5Qf6sT3RKPiKH0b8/2Vs=;
+	b=vRPjnMUr++a45/N4FtPBmQ8FVIQCdtXSfVh9Tdgy2yhfpwq3wzWX8Ifx8XEnJlkaA31X
+	 qimAcJn6T5o5WCvcORPqz6RtuNWj5qKJplXuCBX/spkHJB8Fm5/YxXpeOYeKUXafLwqS+
+	 fdmR1lugt0wz89Tc14XUzoOtMMWhbr5lfdapdz6ukoXib+lacal8zfOPJKb2GYbahJhmL
+	 W50tkSeKX3TgJ91lDobt6FkyFriOsmKL/Z7KnV2rYwV8Tc+xYfaxnBjzd5cmsIYzKqDLK
+	 h7VWfZ8c1c1k8XTemAUWfrY3qplAqqAMKA5foH99DI4Wvb5X5AmpB0ofqc/gruxA0SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=cZt5xPZ4;
-	arc=none smtp.remote-ip=212.27.42.6
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WciBHmUQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1F0606A31D;
-	Tue, 20 Oct 2026 09:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F1F0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69804606A321;
+	Tue, 20 Oct 2026 09:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=cZt5xPZ4
-Received: from [127.0.1.1] (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 14EE6780375;
-	Tue, 20 Oct 2026 11:10:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1792487416;
-	bh=CXY9aS0FiFY086gIWa+qp0Nn0cj1Amx0kU6gGI3rh/4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=cZt5xPZ4qkiVtdscfOHYAycqmA2B4qlSKfY//XnhDjcCCfbRbqPpOqbGWI1qrB80P
-	 /TU5KMy3oe8cISe3K/HOj5uYhc+yTSWCefU153zQrvVcUASQzQmh4KE9R/tsRRDmMx
-	 8GHPR+k0DwgL4NJgVZA+QZeoST9OwcvCesWIpGncIcslqKexymX7jS7NwW0QWCH9Is
-	 nBLycMIS4qIMJOg/zI2gIo89+Df04FGQnJ/ot8Jwh5ziwE2GyaFD3jyMyHZyr03J4m
-	 Po1NzRs+c+FrEK4Uky2JWyy8od5UhmyhnBNI5XzTjqpGA+tiVyCllGD26JlcUJuuAi
-	 qIcOoPsXPk1Yg==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Tue, 20 Oct 2026 11:08:14 +0200
-Subject: [PATCH v3 09/10] can: peak_usb: unregister the netdev before
- dev_free() on probe failure
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WciBHmUQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C271F000C8;
+	Tue, 20 Oct 2026 09:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792487409;
+	bh=fU9U0uIRH8WBIkNkp2Lbc2R5Qf6sT3RKPiKH0b8/2Vs=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=WciBHmUQqiu0nh62RO0RHj3LQpuTIqMpjvLXuY8JNdeZgPgZImvIBf9mwKavTHsA/
+	 tXkiXW8lOr8MJTYGnPhC7WMHWn5vA56Q5Tu57sGHY9nxT9eogVm27Ht+m8Q31Rmnk2
+	 WkLWwWuQB5RQ5H0RR/i/cn6SuJCAh63oTN6PGH9ORKB7Fsd3yQAtSE+Y0iNIr9nqzv
+	 djJvT4BFK5glKfeGGmnXuiSX7GcxYu0mGabOOnN0XW0ZL2qpPhLwSB4hyr35Dhyi4S
+	 wqfmA1JSH29xmdp5zwxPBHs9mWei9PD0G/jXXZtx2HoEceQIJ4GnSlabs628lDP1bD
+	 crM5BJPrzKboA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F160D3808209;
+	Tue, 20 Oct 2026 09:10:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,58 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261020-canfd_check_channel_idx-v3-9-74d17c5a599e@peak-system.fr>
-References: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
-In-Reply-To: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+Subject: Re: [PATCH net-next v3] tun: use pskb_may_pull_reason() and remove
+ SKB_DROP_REASON_HDR_TRUNC
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179248740778.3599760.15657338483590300771.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 09:10:07 +0000
+References: <20261014054615.1656074-1-littlesmilingcloud@gmail.com>
+In-Reply-To: <20261014054615.1656074-1-littlesmilingcloud@gmail.com>
+To: Anton Danilov <littlesmilingcloud@gmail.com>
+Cc: netdev@vger.kernel.org, willemdebruijn.kernel@gmail.com,
+ jasowangio@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ idosch@nvidia.com, linux-kernel@vger.kernel.org, willemb@google.com
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Hello:
 
-When the device fails to switch the CAN bus off after the channel has
-been initialized, peak_usb_create_dev() calls dev_free() before
-unregister_candev(). For the first channel of PCAN-USB FD and Pro
-adapters, dev_free() releases the interface object shared by all
-channels, and also the command buffer on PCAN-USB FD.
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-The netdev is registered before the channel is initialized, so it may
-have been opened in the meantime. unregister_candev() then closes it,
-which accesses the released interface object and, on PCAN-USB FD,
-sends commands through the released command buffer.
+On Wed, 14 Oct 2026 08:46:15 +0300 you wrote:
+> tun_get_user() is the only user of SKB_DROP_REASON_HDR_TRUNC. It sets
+> it when pskb_may_pull() fails to pull the Ethernet header of a frame
+> written to a TAP device.
+> 
+> pskb_may_pull_reason() reports why the pull failed: PKT_TOO_SMALL if
+> the packet is shorter than requested, NOMEM if pulling the data into
+> the linear area fails. Use it for both header pulls in tun_get_user(),
+> on TAP and on TUN devices, and remove the now unused
+> SKB_DROP_REASON_HDR_TRUNC. The pull of the IP version byte on a TUN
+> device with IFF_NO_PI was reported as NOT_SPECIFIED and now reports
+> PKT_TOO_SMALL, for example when only the virtio-net header is written.
+> 
+> [...]
 
-Unregister the netdev first, as peak_usb_disconnect() does.
+Here is the summary with links:
+  - [net-next,v3] tun: use pskb_may_pull_reason() and remove SKB_DROP_REASON_HDR_TRUNC
+    https://git.kernel.org/netdev/net-next/c/47b393b997ae
 
-Fixes: a0b96b4a6274 ("drivers: net: fix memory leak in peak_usb_create_dev")
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb_core.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-index 4c08656e7768..981168fead92 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-@@ -1039,8 +1039,13 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
- 	 */
- 	peak_usb_stop_rx(dev->prev_siblings);
- 
-+	/* as in peak_usb_disconnect(), unregister the netdev before calling
-+	 * dev_free(): closing it may still use what dev_free() releases.
-+	 */
-+	unregister_candev(netdev);
- 	if (dev->adapter->dev_free)
- 		dev->adapter->dev_free(dev);
-+	goto lbl_restore_intf_data;
- 
- lbl_unregister_candev:
- 	unregister_candev(netdev);
-
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
