@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792484299;
-	b=FQAOGl6gIewx9avSwdAaQaxtoBFQcfjpwvcvAnGmp5vbA4Vl7yJcbjqCuDwAveCNP74T
-	 KMb7aJE0sDI6Oe/RrIrXi9RfTUpZQbhfUgaOC8KIW1vuV01HqaAB+vxCsq7bS2wVcHiyM
-	 FSIlFIWY/PR2YY3Llp52LFuI3yltJEP6APlMLHljRWUuVdMkD7Q8nK3ad+LaPH3AcxmO/
-	 ZR+GFnJAznlUum+ilsubq11lwynP2q9norsUIJNb0NJE2VwlUM4pOMSV33baQau3nkQk1
-	 itaOk5RbXUO8sAnK6WxqgEri6CPnIf5eeJwUo4QDh0ROoYyIW88tmbrXJ2hu6G3gAVA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484299;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oqyb34NJt+mKr4mCCkLuPOBnP+Hrp3mJFwETCEQdsGg=;
-	b=tIquLF+ECie8CXCfHEBmtje4h7jG2DB21kKHBc+GCbaqlDDaVIXebekz/HltLGv89oXB
-	 1leakwK68zmlLkD1zxZGEU81icg1x50lG1R+z7NIhZA1q9gl0JkoIyckzxLUCj2lT4DVs
-	 GGUSLN0hJE5LOqp2y8QkbSuZP9fDxBvGZV9rfYVUCtCVoNgmHYgTftCSLcG5AMQ4lpMNY
-	 11gH/JIEs1V/Fr9ec17wf6NjsjMWY3qLH1g/Z7RhKK2mPPGHrImURMfxM/qvPhl1InGgE
-	 5W8GTLohVJR6SRBgn6WbM4ppy//J4tLvkN+sTvKgOAvC1DRpM9hlne+Ry40ZweBETFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YP6cOuvL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792484308;
+	b=Bfg1wvjifS+zAvIuyu5pgbyruGqb3W4C1uy5arENQTRHLsSkqqHzc6j/mX7Buv6aDrCk
+	 mXIgCeKCzyl7+DctvZjNInlS03dJNHAVfvoy3zzP4oCtP7c2UPc6Xc7P7GwtWmwVDQo0+
+	 kqDfsaVr7z7c9KBOl1UzbzBuKMw2NoRxZv1i+7upqHxTB6ADbQbf7pGpro83gBMfDxUFV
+	 qm40yTS88sxnngA5tL+LcHDJdZ27KmSGZKEVhS17OAdW24DKUkUUAO6MYvlnLn5nmcytd
+	 DVizFlzQ3ZYW442zXy3WXlpAHh5Qczi5t7LX//HJznGN4dEL3L9kIjTprPzJTvhZUlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484308;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rhd9i6MZ/tSeH3TKysGHa5PRQgjZlpMeCGZ/ilQN7u4=;
+	b=cQyasgj2aYs1dZRy2kddyHIICoAQH/503kzh8gTQdUEphT2FPB4P8k2WnZOUJm7K0fsO
+	 XYUOPODjcm0qfRJIAWS89ptgwjXMwMuqsZHf9g4h7mY4Cg7pepc2BScDdKup+t2qyTBYe
+	 J0+FiYvgT6S9QQS44wNtPsK2A7wguGBWVJCcjXSNTMLm6KQAkM/wW8VaTRF3ya+AoNYMM
+	 LxUl1XKSWroBaOZGU4jCKH/nSG1FsbMWAnRXx/3UypNA+HakkDdsvhVp50HR7j1vza0U7
+	 CLUMR0Upvc90WlkiE3+UaCiIdqYOYUxNp7b0cEj3LdtYDF4YbM7hy+EdwfEG4P2QyEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuyZcDLB;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3ABC606A319;
-	Tue, 20 Oct 2026 08:18:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B56606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:18:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YP6cOuvL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792484298;
-	b=upoDMnRwnvZvqxkeUrd/bLqS6L4CQ6VTw3vCJwbZjMHI+DA558FB8zenLNloTjyVysBv
-	 XiR0VEEF7O+0MB2LgTj+4AtZV00Tuh0Q0lQQm/iGOj2JpH5/3qBSFd8YSj7E2j3SdvEl8
-	 IYyj+ApAZNTKjCCooRZX1wSAoRB+kBLndWuO0TSEo6+MsXLHiCRnjEX3nVV5aGB74ip/Q
-	 /XsMo5PZF2lNn09VT6+yH3dmiBhsau9XpJqefl3QRYwN6sW/qvdBWERPTgggjAnX/KJui
-	 sCqjdLh432vWP8wGsbFH0swuf2h2c9CuUxGNmM1M69hnaf1yImHePPTU21SHk/LzJNg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792484298;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oqyb34NJt+mKr4mCCkLuPOBnP+Hrp3mJFwETCEQdsGg=;
-	b=PEIW56s6y6Nfp9drp8mUy5Di3DJwXKGNkKSE/W4pond63xKWAl6apF38Z4zRcbfF4Rgc
-	 F7r83sXwyFmzUi32diEBWYniBC2eTHjKcTQ0cGn0AeZ8nAfMkzTZFkhWuhKhDbPZoJhhR
-	 cRy/5vQV+9oGl1igtIvlSDaRCDm0cDTSQ8Va0kHbtApHA/WlFFnYdDA8wHcBNYdJo3kDy
-	 dtNUpRYv2/CrwUL1mO8/yYOCSbUI598laYYlYVUFL8Y0CH9qVILJoxj1q8F0/GF07wNEu
-	 M/Qq3vhxVwpCld2YsT+UHc6S3xH8acbG8+a2S6pcmEqkucNRwjLmFx5hf9yBJMgv3eA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D748A1F000C4;
-	Tue, 20 Oct 2026 08:18:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuyZcDLB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878311F000C4;
+	Tue, 20 Oct 2026 08:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792484298;
-	bh=oqyb34NJt+mKr4mCCkLuPOBnP+Hrp3mJFwETCEQdsGg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YP6cOuvLXYS5Ml8kJifhM5+Zc30RE9F08hkD71cm6NVgsAyxSCjQxoOEMVNg5LGSv
-	 PUEiNKrR8T4YOlhxKU1TESP0MzOFLHCYVCfPOYpe/8babnoMCFRXFNiUtCnFPSz/kE
-	 W1eWieI59RL1P5JiM5hU9gFnJdxd2LZK3h7FwTE16Gj9Y7vhpnIuc6ry+X7f4fAaeR
-	 MFW199FN+vxcRUfKr8G9eWIahc7RVIOIh0pGNklkxd+96IfFtEQ+lmdcnuG2T0/Ybp
-	 s4OJAMH/xIYPlyiO+T9sNqnylz0XUrsHoUbVT1TBRa0k9W4xydFzxjK6gEmgo21SWk
-	 Bez8X1o9Zw2Rg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3607740612;
-	Tue, 20 Oct 2026 08:18:17 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Tue, 20 Oct 2026 03:18:14 -0500
-Subject: [PATCH v2] ALSA: hda/hdmi: Enable HBR capability
+	s=k20260515; t=1792484307;
+	bh=rhd9i6MZ/tSeH3TKysGHa5PRQgjZlpMeCGZ/ilQN7u4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DuyZcDLBfXNWGZLzrjjSwNI0RzkczO2f3zpg9vZGZFaS9pACw8aG3t0ARdAuQvUpJ
+	 Y0yKh/MRIGouMTXjxlKTSRaT6iXqHy71ZAbQXpZ9MkolrGsHxKh/dr/OX1/4OMSeQd
+	 8Igv/fmXqVZP1lAGUC08nLriQ983EoBLSu9HIRMP3ZScQWfvC0afHppbX81k0ZFnEr
+	 TI1vDWFtseK9Dfpk7vRuXTWYPHawurc49SNlwPBVNrosNDt+prbwGFkSHmFlmVRYgQ
+	 tux4Gr+NELTlqmf4DbsgcToRnH0obdgf52u7zp6K/OETHTxV3DpRhRN2JvX9TbaFM/
+	 /XwIgnp+F4UPg==
+Message-ID: <b6d4de88-cf2c-444d-8050-da2a9b22c7b9@kernel.org>
+Date: Tue, 20 Oct 2026 10:18:23 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,120 +51,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-tegra-hda-hbr-v2-1-6968017f585b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMQQ7CIBBFr9LMWgxD04quvIfpopQpTGKLgYZoG
- u4udu/iL95P3tshUWRKcGt2iJQ5cVgrqFMDkx9XR4JtZVBS9ShRi41cHIW3dSaKtkN5Ua02vbp
- CdV6RZn4fvcdQ2XPaQvwc+Yy/918po0BhtDE4o9UWu7tbRn6ep7DAUEr5AmwhUV2qAAAA
-X-Change-ID: 20261018-tegra-hda-hbr-35107238b629
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484297; l=3023;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=ABJMYi6wtZe91Rymkn3xsq8E4KBzp1tYt+2VfPsra24=;
- b=bVoDPBipwOi09/R8hJx5+RRUGyN1s4FqNUs/cHVBhOrpt7uE3YJMMs1kkqY9IGev/7PPJCVqa
- la2qswWv3J8BEprLp9mFGz/S21e4zprgHMd8qj8YTXuBb6w/5BUWl1A
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 1/3] mm/hugetlb: fix mremap move length truncation
+To: Li Zhe <lizhe.67@bytedance.com>, muchun.song@linux.dev,
+ osalvador@suse.de, akpm@linux-foundation.org, rppt@kernel.org,
+ peterx@redhat.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261019113034.97690-1-lizhe.67@bytedance.com>
+ <20261019113034.97690-2-lizhe.67@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261019113034.97690-2-lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On 10/19/26 13:30, Li Zhe wrote:
+> move_hugetlb_page_tables() returns the number of bytes moved, but
+> its return type is int while the generic move_page_tables() path uses
+> unsigned long lengths.
+> 
+> A hugetlb mremap() move length above INT_MAX can therefore be
+> misreported to copy_vma_and_data(). The out-of-range conversion to int
+> is implementation-defined; on common 64-bit builds, for example, a
+> 4 GiB move can be reported as zero, making the caller treat the move as
+> a failure and use the wrong length for rollback.
 
-Tegra HDA does not set the HBR capability bit, however every SoC since
-Tegra114 does support HBR. Override the hbr setup function for these
-SoCs to unconditionally enable the feature. Since Tegra30 does not
-support HBR, this override will not be applied.
+Sounds like we want to CC stable here, right?
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
-Before this, any attempt to open an hbr stream resulted in a rejection
-on Tegra hardware. Looking at the downstream support, that just bypassed
-the capbility check for all supported Tegra hardware in the common code.
-This replicates that in a driver specific hook.
+> 
+> Return unsigned long from move_hugetlb_page_tables(), matching
+> move_page_tables() and preserving the full byte count.
+> 
+> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+> ---
+>  include/linux/hugetlb.h | 18 +++++++++---------
+>  mm/hugetlb.c            |  8 ++++----
+>  2 files changed, 13 insertions(+), 13 deletions(-)
+> 
+> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+> index 16c4c4caa126..cc12040e4032 100644
+> --- a/include/linux/hugetlb.h
+> +++ b/include/linux/hugetlb.h
+> @@ -121,10 +121,10 @@ void hugepage_put_subpool(struct hugepage_subpool *spool);
+>  
+>  void hugetlb_dup_vma_private(struct vm_area_struct *vma);
+>  void clear_vma_resv_huge_pages(struct vm_area_struct *vma);
+> -int move_hugetlb_page_tables(struct vm_area_struct *vma,
+> -			     struct vm_area_struct *new_vma,
+> -			     unsigned long old_addr, unsigned long new_addr,
+> -			     unsigned long len);
+> +unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+> +				       struct vm_area_struct *new_vma,
+> +				       unsigned long old_addr, unsigned long new_addr,
+> +				       unsigned long len);
 
-This has been tested on a SHIELD TV 2019 Pro trying to bitstream an
-Atmos demo video. It attempts to play, but mostly just underruns the
-entire time, with a few spurts of correct noise. My expectation is that
-issue is userspace, since that is a WIP android audio hal. But even if
-there are more kernel problems, this should be correct as a standalone
-change.
----
-Changes in v2:
-- As suggested by Takashi, just don't apply the override for unsupported
-  SoCs instead of trying to replicate the unsupported path.
-- Link to v1: https://lore.kernel.org/r/20261018-tegra-hda-hbr-v1-1-b8bb1f1d8d15@gmail.com
----
- sound/hda/codecs/hdmi/tegrahdmi.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+While at it, can you convert all these to use double tab indent instead?
 
-diff --git a/sound/hda/codecs/hdmi/tegrahdmi.c b/sound/hda/codecs/hdmi/tegrahdmi.c
-index ebb6410a48313..171d1ee154d9c 100644
---- a/sound/hda/codecs/hdmi/tegrahdmi.c
-+++ b/sound/hda/codecs/hdmi/tegrahdmi.c
-@@ -227,6 +227,37 @@ static int nvhdmi_chmap_validate(struct hdac_chmap *chmap,
- 	return 0;
- }
- 
-+static int tegrahdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
-+				   int dev_id, bool hbr)
-+{
-+	int pinctl, new_pinctl;
-+
-+	snd_hda_set_dev_select(codec, pin_nid, dev_id);
-+	pinctl = snd_hda_codec_read(codec, pin_nid, 0,
-+				    AC_VERB_GET_PIN_WIDGET_CONTROL, 0);
-+
-+	if (pinctl < 0)
-+		return hbr ? -EINVAL : 0;
-+
-+	new_pinctl = pinctl & ~AC_PINCTL_EPT;
-+	if (hbr)
-+		new_pinctl |= AC_PINCTL_EPT_HBR;
-+	else
-+		new_pinctl |= AC_PINCTL_EPT_NATIVE;
-+
-+	codec_dbg(codec, "%s: NID=0x%x, %spinctl=0x%x\n",
-+		    __func__, pin_nid,
-+		    pinctl == new_pinctl ? "" : "new-",
-+		    new_pinctl);
-+
-+	if (pinctl != new_pinctl)
-+		snd_hda_codec_write(codec, pin_nid, 0,
-+				    AC_VERB_SET_PIN_WIDGET_CONTROL,
-+				    new_pinctl);
-+
-+	return 0;
-+}
-+
- static int tegra_hdmi_init(struct hda_codec *codec)
- {
- 	struct hdmi_spec *spec = codec->spec;
-@@ -255,6 +286,10 @@ static int tegra_hdmi_init(struct hda_codec *codec)
- 	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
- 	spec->nv_dp_workaround = true;
- 
-+	// Tegra 3 does not support HBR
-+	if (codec->core.vendor_id != 0x10de0020)
-+		spec->ops.pin_hbr_setup = tegrahdmi_pin_hbr_setup;
-+
- 	return 0;
- }
- 
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20261018-tegra-hda-hbr-35107238b629
-
-Best regards,
 -- 
-Aaron Kling <webgeek1234@gmail.com>
+Cheers,
 
-
+David
