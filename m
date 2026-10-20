@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485951;
-	b=KtcKkUprG3Iv1JbNh3wsc9aCN0Li7NDLj7+7dT0Yfd+vnoI6IW5MXMJuZkyCgr2AKE+X
-	 dCs41P0hqzGGOvvpu1VeLKEr3J9CO8plwdl3DQ3+dzV4jwuHGuGBZiGlbByC4HL3gC2Au
-	 On74b0xgWyzOZ7EKSoarfA6Y1pT556uPhXGpQic6vgSwZnWp3epPDN83hica/MzFu7nU8
-	 uNyR6mO5dBTPw77rTxofYpbuhhA/H4/1AZ+LLPuBq0zjV8ib5DBCmRkSVwAma7NOXWHAT
-	 JxFogxGetJB0czH2JWs684vUmWWTC/1AhTk5qfs3QRFB4HuFdgFBsuyL0NGpy4uKoHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485951;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=XjIDvvhb6nX1krJ/shSnmRBIC/MZtCJhBxPs9ocJ//8=;
-	b=1+q/lfovYJriHneKTW4CIjTKuiCRfHtMzKPggHSQCFJRuMr5w5tOPIgYf96yfHJeb6zv
-	 ClxK7kg0GygQrS4mk1G6vD4K4lj6LLA2I/0yqm0yGA2f5SBOgo4H4YZxhv212Cdfw2RnJ
-	 kd8cJynpPK87ZjuBYAOb95Bd91n+v306OLArkFbWOX3PPsHk2QPJTqEiCsFupxH3HGFno
-	 L93HvH/0r+zfl768tkicF35NvOuit+ge9aQjm/v5IK/ps4AZMg/4vm4HVaw23nwjacPIC
-	 c0VpY4kN8XxkEK/7P//YVSBaAs2jAdrBCWfC83LKk2KhJvTM2aj672qvW7XiZyMCOOw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="dT/gKesc";
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792485965;
+	b=lpFO8ddvWit6Xt5B6bZaII6rG+UbCA6pErJJhgYiA3nALvoSBL7OYfVwIqUEuC2y53R2
+	 Dj+cBYTUKlbRuQgg/BE072gBneCjYA/njARfQjBhZGqguzz6cgdpphKStYC3hjp5y7BJG
+	 0kZOzkgUgEvwPiMFiEtIeLuEwPXrrrJY0jZNEx0z+ICsz3zGlW7LwQTtUPQ+e/SdZBU5+
+	 NOn/RQSiTTQ6m4vTeD987XYRPraw2of6DLOxuZh1H+BNNRVitF0l4mo9Fkg2kMDU8Gwmm
+	 Uqp+fVw9usAgC0BqszCy/Sm6UEeMD6mCjRXJjHv+EIlV263v+KqyGS/W8S/1ykL4NxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485965;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
+	b=M4UTW5ibP4+BYH1IXhmq2BKJKxlHFQYEFdB4mBXzRVDp73CiuckvVMZiT+u+OStNFVvt
+	 7dbE8wn9SMZ4LNIxMbdt59JDegBbBa5HP9PVFPTCB+29bmcnZTg+FlKeTiQCiCWHZvQ62
+	 M6SnDgySbI5qBpAfz0umpCZc7oMUMgnEUtpAQHnecWDOusvNzZSB6cJdLFP88O798XdBi
+	 K4wiOmCU6rOZZ6N9IrELJuzL0kaN7cV7m2Hcegvu/UaCNU2qS6DqZfITmihUjvrDiwSPl
+	 598NACRkGwjPJJuafhxI6MikAGJKzPklMJXqydj5dGp0g1wdIaA5PGwxJWzEe/9zkfg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EOxh4Z9f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93F460A2638
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:45:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D93F460A2638
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CCF60A2603
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59CCF60A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dT/gKesc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Xj
-	IDvvhb6nX1krJ/shSnmRBIC/MZtCJhBxPs9ocJ//8=; b=dT/gKescWSNa+zuVuk
-	5+5zY0kDZTr5Z2Yf6ymdzIUKsj/8EA7gqZyHKciWA2Gb0SoigXy5QsM4bxKqfKoH
-	0q7kq56VZdkn622wYBHrJU7Vnieecyfp2vE8z3MZDYpasRSjVmsVNXqvSgzt4pxT
-	zsJu9SQmc+VhCyKDUAO+KKZpg=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n0ksKtdq7UkHBg--.56105S9;
-	Tue, 20 Oct 2026 16:45:39 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	wangxuewen@kylinos.cn,
-	wudandan@kylinos.cn,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 15/31] ntfs: report attribute conversion and mapping update failures
-Date: Tue, 20 Oct 2026 16:44:05 +0800
-Message-ID: <20261020084421.2196486-16-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
-References: <20261020084421.2196486-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EOxh4Z9f
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0728so856245f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:46:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792485964; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N/XhNHWfn66G11IClct8cUbCNnc2DnJuMSRflLRhgfqROK5Pl3o4gDjSTwDb/dPCdt
+         yH3NczB6ExOBNFC7WzLnpbgTyuwETK/Fws2pgta8HCzrVhlADcPvBpsWE/rMK2DowvlF
+         zTgnpmgdXosniflOLoLSgu9rcMvt9pgZnNvoJtn729+7uD/+hdt3s5zLmeKfVGW33IDv
+         jV1HbV2HXh2RCaAM+pi+F3ZE7I3RF53PbWzCVSq4LpN08f5nLG/KYvaHToh/zjDkK4UK
+         g//5CU0UsSXyCfBVVxk4aB/lOn9RkK5yDpkb1JmH3WgSeFqoA5VSXYfAWSB1xYMaShQU
+         8zaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
+        fh=MOELC1KuT5gApMQ9O+TezGCrVNXAHdoho/y/pRxq1Yg=;
+        b=Uh7XoxfxKA59G/pkGXMl1t0LCJ4zFyQIMPXeMO1TShqm7kZNOyFEGgqLr3ZI/AgdCB
+         jDvS7C3GdqSz9usqqHW9QtGD/y204iaXsU/wdHnE07EfyyYaMVnCVXE15TUqB2IKp4D3
+         RSJNQjsuX3txIn+HtV6jSu9TcwO6Btj7NRHpcvl9F6Gnu7D4qIevdNkj0J8TQ7Mp/6fo
+         SLEJQurRcjK9B1/5TPAkRBjhtoR39AaXESRMz/pSKHfjY4d4Ih7AKKY0tjif+dtF614l
+         ix08HstKJ/SUXj1+zx9+Kb/PR7T+9RkYufQHbL1HhaQRg0orflwranrO8X+0Q4I77+fU
+         1Okw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792485964; x=1793090764; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
+        b=EOxh4Z9fRoRRWu9Bm9Z1tMLnFfM66s4Xo5FSgm6P97Ssxb2g2lliXffr40zTofIYnQ
+         s9EDK4fYMTvAII44PVeoCGqdpxWOewXUdkwzhK0Scw78OW9ZRumBAGz7QGGl8Xi7A+gS
+         7KEYnrbwreEkmc3lqEdsw+l3qs/LoVavXszWMkVq+aOr/fYv5yyJVehmXvT4cCDcB5vW
+         V8/VvC1+G+WH9tZQV/G0bNtq+/gWXbAOf15ey+qK8wsBCsdUvaZjVipaPkI4m70fTwlX
+         HoR798GKWTlqfKktrtQpdgwmrE/1Cfo7Kz5sQnKx20YzGWxuwB1j5FX+It3tmWUr8jfB
+         oASg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485964; x=1793090764;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
+        b=rBjOIrfSsv5xIzo18q1qlI/mvkwWH2y0hcIjzJiOZV7yotsLbHGffAsX50Y6guZ2I8
+         yKkzqG53KuXqV8IJtl4E8B+nSdiDy27a3ccWoJDpT11R6S6wzhvDJZbr/UdGqSm4rDv3
+         F2CPMuiw1u9iFyyz3fSl5yEty45b6N6Yd9DvyxO4lPFfNiU22+s+k9c4KLOMekjoZPTN
+         TNpbtVHjlP/qKBLHPkG/PNhS5HBP69iWSEAX8TayUFdeB/6x3Okk0FB6nsyT8BKJsYHW
+         Ke4U+dRZ1YYLx1dnpe/LvUSFOZGg4E+YgedwhUZFLHWpWNSZpim6/aXzYs13uGN7JniY
+         /lPA==
+X-Forwarded-Encrypted: i=1; AKwUvByyuuIk9HhKuovkEupr81xh6eTc3QoEvOr0nTtq5SPH87usbiSbiXP1uVTHhEAfrWf6Il53BQk0IPkNZ4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0TfEywY8x36xSfsnC7TdvNCvTeY7au+VPv/rLWQGbqE5p5lNg
+	i5etHYmzkxzRH+2TYnrx/2gUC+JZeO8hLORFPLWeqj00HlfcY3/ilQJXcDyMhIP1pBFlms4QVuy
+	veSdUv0lLqH+/y6BCQ6gnhqfCWnHFP0M=
+X-Gm-Gg: AYBFou2qDh/92ZsvJAHqdVtKfgWMb/1sV/P7nEGrLd+hy7fB+/yNxQGV5jrK7SOeCOl
+	0IXd6gFASRno1eJEkqSGujCqMpFFAyItJQISAZSkeXYRu3pAY4R5eRANE0gLCfGE9dW7PPYH9ZT
+	rORKwcedL52KEYY4JdGk3SE/ztTDTN3glvQ2epEk+dXqm6gHpQd3ZOfBQeV4GWTxo73NgkEvDjq
+	k2RUM71thoiwL//FqngBjBRZ1wLL/CGRUPt98mk4hp8/Ec28J4bOpu2PhW2HnRyQUROTQWqJO7K
+	bBABW/BEEw9DQHPUIDlcREEzP9mkDxXNkjMxu6Z6alygw4wqYoH/O1yWguARzY3v97spSVOVjVL
+	sSvp4d+hUC7gMTyMTw3Sf0NVoBrGGooGOCT0B1Q==
+X-Received: by 2002:a5d:5d09:0:b0:482:fd9c:3740 with SMTP id
+ ffacd0b85a97d-48e07f98e2dmr24424365f8f.22.1792485963500; Tue, 20 Oct 2026
+ 01:46:03 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,389 +104,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n0ksKtdq7UkHBg--.56105S9
-X-Coremail-Antispam: 1Uf129KBjvAXoWfJF4fCr1DuryfWw4Dtr18Krg_yoW8JFWxJo
-	W3Aa1Fkw4vkw1Yk3yj9wn8tasxZanxC398JrWrArsrAF92qw4DG3WxJ3W3W3yru3yFgrn0
-	qr1ktFs5AF4xAry5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU4iiSUUUUU
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hMn8WrXKjN91AAA3i
+References: <20261019065025.2146539-1-claudiu.beznea@kernel.org> <20261019065025.2146539-8-claudiu.beznea@kernel.org>
+In-Reply-To: <20261019065025.2146539-8-claudiu.beznea@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 20 Oct 2026 09:45:36 +0100
+X-Gm-Features: AclHuK_0o_tLTtHRdwY1U_jUmzmwgKQ2ANnJ0QG91z7D7pQ5ZyLEGjAx2_i3mmg
+Message-ID: <CA+V-a8sQe-bb7AEagc8QzQYVVY27+aVF2v=x1SxNtXQagpSOUw@mail.gmail.com>
+Subject: Re: [PATCH v7 07/14] PCI: rzg3s-host: Use cached MSI address in .irq_compose_msi_msg()
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
+	geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+Hi Claudiu,
 
-Attribute conversion and mapping updates can detect corruption or fail
-to recover modified metadata without reporting it. Cover missing
-required attributes, malformed mapping pairs and failed extent cleanup.
+Thank you for the patch.
 
-Preserve ENOMEM from runlist merges and report invalid merges as
-EFSCORRUPTED. Report failed cluster release, mapping restoration and
-record cleanup separately from the initiating error.
+On Mon, Oct 19, 2026 at 7:57=E2=80=AFAM Claudiu Beznea
+<claudiu.beznea@kernel.org> wrote:
+>
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> The MSI window address is already cached in msi->window_base when the
+> MSI window is configured. Use it to fill msg->address_lo and
+> msg->address_hi in .irq_compose_msi_msg() instead of reading it back
+> from the controller registers.
+>
+> This avoids unnecessary register accesses.
+>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
+>
+> Changes in v7:
+> - none, this patch is new
+>
+>  drivers/pci/controller/pcie-rzg3s-host.c | 14 ++------------
+>  1 file changed, 2 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
+oller/pcie-rzg3s-host.c
+> index b0a150262959..6acb0231a067 100644
+> --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> @@ -660,19 +660,9 @@ static void rzg3s_pcie_irq_compose_msi_msg(struct ir=
+q_data *data,
+>                                            struct msi_msg *msg)
+>  {
+>         struct rzg3s_pcie_msi *msi =3D irq_data_get_irq_chip_data(data);
+> -       struct rzg3s_pcie_host *host =3D rzg3s_msi_to_host(msi);
+> -       u32 lo, hi;
+> -
+> -       /*
+> -        * Enable and msg data enable bits are part of the address lo. Dr=
+op
+> -        * them along with the unused bit.
+> -        */
+> -       lo =3D readl_relaxed(host->axi + RZG3S_PCI_MSIRCVWADRL) &
+> -            RZG3S_PCI_MSIRCVWADRL_MASK;
+We need to drop RZG3S_PCI_MSIRCVWADRL_MASK macro, as this now triggers
+the below warning:
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
- fs/ntfs/attrib.c | 136 +++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 107 insertions(+), 29 deletions(-)
+drivers/pci/controller/pcie-rzg3s-host.c:66:9: warning: macro
+=E2=80=98RZG3S_PCI_MSIRCVWADRL_MASK=E2=80=99 is not used [-Wunused-macros]
+   66 | #define RZG3S_PCI_MSIRCVWADRL_MASK              GENMASK(31, 3)
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 66845c78ab8d..73ccc438b319 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -2106,8 +2106,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
- 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 			CASE_SENSITIVE, 0, NULL, 0, ctx);
- 	if (unlikely(err)) {
--		if (err == -ENOENT)
--			err = -EIO;
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+		}
- 		goto err_out;
- 	}
- 	m = ctx->mrec;
-@@ -2161,12 +2164,16 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
- 	mp_size = ntfs_get_size_for_mapping_pairs(vol, rl, 0, -1, -1);
- 	if (unlikely(mp_size < 0)) {
- 		err = mp_size;
-+		if (err == -EFSCORRUPTED)
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
- 		ntfs_debug("Failed to get size for mapping pairs array, error code %i.\n", err);
- 		goto rl_err_out;
- 	}
- 
- 	if (NInoNonResident(ni) || a->non_resident) {
--		err = -EIO;
-+		err = -EFSCORRUPTED;
-+		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
- 		goto rl_err_out;
- 	}
- 
-@@ -2240,6 +2247,9 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
- 	err = ntfs_mapping_pairs_build(vol, (u8 *)a + mp_ofs,
- 			arec_size - mp_ofs, rl, 0, -1, NULL, NULL, NULL);
- 	if (unlikely(err)) {
-+		if (err == -EFSCORRUPTED)
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
- 		ntfs_error(vol->sb, "Failed to build mapping pairs, error code %i.",
- 				err);
- 		goto undo_err_out;
-@@ -2350,10 +2360,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
- rl_err_out:
- 	up_write(&ni->runlist.lock);
- 	if (rl) {
--		if (ntfs_cluster_free_from_rl(vol, rl) < 0) {
-+		err2 = ntfs_cluster_free_from_rl(vol, rl);
-+		if (err2 < 0) {
- 			ntfs_error(vol->sb,
- 				"Failed to release allocated cluster(s) in error code path.  Run chkdsk to recover the lost cluster(s).");
--			NVolSetErrors(vol);
-+			ntfs_report_file_metadata_error(vi, err2);
- 		}
- 		kvfree(rl);
- folio_err_out:
-@@ -2444,8 +2455,14 @@ int ntfs_attr_set_initialized_size(struct ntfs_inode *ni, loff_t new_size)
- 
- 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 			       CASE_SENSITIVE, 0, NULL, 0, ctx);
--	if (err)
-+	if (err) {
-+		if (err == -ENOENT && !ntfs_inode_is_named_stream(ni)) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+		}
- 		goto out_ctx;
-+	}
- 
- 	ctx->attr->data.non_resident.initialized_size = cpu_to_le64(new_size);
- 	ni->initialized_size = new_size;
-@@ -3800,7 +3817,8 @@ static int ntfs_attr_update_meta(struct attr_record *a, struct ntfs_inode *ni,
- 
- 	sparse = ntfs_rl_sparse(ni->runlist.rl);
- 	if (sparse < 0) {
--		err = -EIO;
-+		err = -EFSCORRUPTED;
-+		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
- 		goto out;
- 	}
- 
-@@ -3838,8 +3856,10 @@ static int ntfs_attr_update_meta(struct attr_record *a, struct ntfs_inode *ni,
- 		}
- 		if (!(le32_to_cpu(a->length) -
- 		    le16_to_cpu(a->data.non_resident.mapping_pairs_offset))) {
--			err = -EIO;
-+			err = -EFSCORRUPTED;
- 			ntfs_error(sb, "Mapping pairs space is 0");
-+			ntfs_report_file_metadata_error(VFS_I(ni),
-+							-EFSCORRUPTED);
- 			goto out;
- 		}
- 
-@@ -3883,7 +3903,9 @@ static int ntfs_attr_update_meta(struct attr_record *a, struct ntfs_inode *ni,
- 
- 		new_compr_size = ntfs_rl_get_compressed_size(ni->vol, ni->runlist.rl);
- 		if (new_compr_size < 0) {
--			err = new_compr_size;
-+			ntfs_report_file_metadata_error(VFS_I(ni),
-+							-EFSCORRUPTED);
-+			err = -EFSCORRUPTED;
- 			goto out;
- 		}
- 
-@@ -3932,6 +3954,7 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 	struct attr_record *a;
- 	s64 stop_vcn;
- 	int err = 0, mp_size, cur_max_mp_size, exp_max_mp_size;
-+	int rollback_err;
- 	bool finished_build;
- 	bool first_updated = false;
- 	struct super_block *sb;
-@@ -3994,8 +4017,10 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 			 */
- 			first_lcn = ntfs_rl_vcn_to_lcn(ni->runlist.rl, stop_vcn);
- 			if (first_lcn == LCN_EINVAL) {
--				err = -EIO;
-+				err = -EFSCORRUPTED;
- 				ntfs_error(sb, "Bad runlist");
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
- 				goto put_err_out;
- 			}
- 			if (first_lcn == LCN_ENOENT ||
-@@ -4046,6 +4071,9 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 				stop_vcn, -1, exp_max_mp_size);
- 		if (mp_size <= 0) {
- 			err = mp_size;
-+			if (err == -EFSCORRUPTED)
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
- 			ntfs_error(sb, "%s: get MP size failed", __func__);
- 			goto put_err_out;
- 		}
-@@ -4081,9 +4109,10 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 					goto put_err_out;
- 				}
- 				ntfs_attr_put_search_ctx(ctx);
--				if (ntfs_inode_add_attrlist(base_ni)) {
-+				err = ntfs_inode_add_attrlist(base_ni);
-+				if (err) {
- 					ntfs_error(sb, "Can not add attrlist");
--					return -EIO;
-+					return err;
- 				}
- 				goto retry;
- 			}
-@@ -4100,8 +4129,9 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 		if (((mp_size + 7) & ~7) != cur_max_mp_size) {
- 			if (ntfs_attr_record_resize(m, a,
- 					le16_to_cpu(a->data.non_resident.mapping_pairs_offset) +
--						mp_size)) {
-+					mp_size)) {
- 				err = -EIO;
-+				ntfs_report_file_metadata_error(VFS_I(base_ni), err);
- 				ntfs_error(sb, "Failed to resize attribute");
- 				goto put_err_out;
- 			}
-@@ -4136,6 +4166,9 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 		if (!err)
- 			finished_build = true;
- 		if (!finished_build && err != -ENOSPC) {
-+			if (err == -EFSCORRUPTED)
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
- 			ntfs_error(sb, "Failed to build mapping pairs");
- 			goto put_err_out;
- 		}
-@@ -4169,6 +4202,11 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 				NInoSetFileNameDirty(ni);
- 			mark_mft_record_dirty(ctx->ntfs_ino);
- 		} else {
-+			if (err == -ENOENT && !ntfs_inode_is_named_stream(ni)) {
-+				err = -EFSCORRUPTED;
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
-+			}
- 			ntfs_error(sb, "Failed to update sizes in base extent\n");
- 			goto put_err_out;
- 		}
-@@ -4222,10 +4260,14 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 		m = map_mft_record(ext_ni);
- 		if (IS_ERR(m)) {
- 			ntfs_error(sb, "Could not map new MFT record");
--			if (ntfs_mft_record_free(ni->vol, ext_ni))
-+			rollback_err = ntfs_mft_record_free(ni->vol, ext_ni);
-+			if (rollback_err) {
- 				ntfs_error(sb, "Could not free MFT record");
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								rollback_err);
-+			}
- 			ntfs_inode_close(ext_ni);
--			err = -ENOMEM;
-+			err = PTR_ERR(m);
- 			ext_ni = NULL;
- 			goto put_err_out;
- 		}
-@@ -4247,6 +4289,9 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 			unmap_mft_record(ext_ni);
- 			ntfs_inode_close(ext_ni);
- 			err = mp_size;
-+			if (err == -EFSCORRUPTED)
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
- 			ntfs_error(sb, "%s: get mp size failed", __func__);
- 			goto put_err_out;
- 		}
-@@ -4259,8 +4304,12 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 		if (err < 0) {
- 			ntfs_error(sb, "Could not add attribute extent");
- 			unmap_mft_record(ext_ni);
--			if (ntfs_mft_record_free(ni->vol, ext_ni))
-+			rollback_err = ntfs_mft_record_free(ni->vol, ext_ni);
-+			if (rollback_err) {
- 				ntfs_error(sb, "Could not free MFT record");
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								rollback_err);
-+			}
- 			ntfs_inode_close(ext_ni);
- 			goto put_err_out;
- 		}
-@@ -4271,10 +4320,17 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
- 				mp_size, start_rl, stop_vcn, -1, &stop_vcn, &start_rl,
- 				&de_cnt);
- 		if (err < 0 && err != -ENOSPC) {
-+			if (err == -EFSCORRUPTED)
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								-EFSCORRUPTED);
- 			ntfs_error(sb, "Failed to build MP");
- 			unmap_mft_record(ext_ni);
--			if (ntfs_mft_record_free(ni->vol, ext_ni))
-+			rollback_err = ntfs_mft_record_free(ni->vol, ext_ni);
-+			if (rollback_err) {
- 				ntfs_error(sb, "Couldn't free MFT record");
-+				ntfs_report_file_metadata_error(VFS_I(base_ni),
-+								rollback_err);
-+			}
- 			goto put_err_out;
- 		}
- 		a->data.non_resident.highest_vcn = cpu_to_le64(stop_vcn - 1);
-@@ -4385,7 +4441,8 @@ static int ntfs_attr_make_resident(struct ntfs_inode *ni, struct ntfs_attr_searc
- 		 * already checked that attribute fits MFT record).
- 		 */
- 		ntfs_error(ctx->ntfs_ino->vol->sb, "BUG! Failed to resize attribute record. ");
--		return -EIO;
-+		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
-+		return -EFSCORRUPTED;
- 	}
- 
- 	/* Convert the attribute record to describe a resident attribute. */
-@@ -4413,6 +4470,7 @@ static int ntfs_attr_make_resident(struct ntfs_inode *ni, struct ntfs_attr_searc
- 	 */
- 	freed = ntfs_cluster_free(ni, 0, -1, ctx);
- 	if (freed < 0) {
-+		ntfs_report_file_metadata_error(VFS_I(ni), freed);
- 		ntfs_error(sb, "Eeek! Failed to release allocated clusters");
- 		ntfs_debug("Ignoring error and leaving behind wasted clusters.\n");
- 	}
-@@ -5393,7 +5451,7 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 	s64 vcn = vcn_start, lcn, clu_count;
- 	s64 freed;
- 	s64 lcn_seek_from = -1;
--	int err = 0;
-+	int err = 0, err2;
- 	size_t new_rl_count, old_rl_count;
- 
- 	err = ntfs_attr_map_whole_runlist(ni);
-@@ -5409,6 +5467,11 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 			CASE_SENSITIVE, vcn, NULL, 0, ctx);
- 	if (err) {
-+		if (err == -ENOENT && !ntfs_inode_is_named_stream(ni)) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+		}
- 		ntfs_error(vol->sb,
- 			   "ntfs_attr_lookup failed, ntfs inode(mft_no : %llu) type : 0x%x, err : %d",
- 			   ni->mft_no, ni->type, err);
-@@ -5434,10 +5497,13 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 		}
- 	} else {
- 		WARN_ON(lcn == LCN_RL_NOT_MAPPED);
--		if (lcn == LCN_ENOENT)
-+		if (lcn == LCN_ENOENT) {
- 			err = -ENOENT;
--		else
--			err = -EIO;
-+		} else {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+		}
- 		goto out;
- 	}
- 
-@@ -5489,10 +5555,11 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 			 old_rl_count * sizeof(*old_rl), GFP_NOFS);
- 	if (!old_rl) {
- 		err = -ENOMEM;
--		if (ntfs_cluster_free_from_rl(vol, rlc)) {
-+		err2 = ntfs_cluster_free_from_rl(vol, rlc);
-+		if (err2) {
- 			ntfs_error(vol->sb,
- 				   "Failed to free cluster allocation after runlist backup failure.");
--			NVolSetErrors(vol);
-+			ntfs_report_file_metadata_error(VFS_I(ni), err2);
- 		}
- 		kvfree(rlc);
- 		goto out;
-@@ -5502,8 +5569,16 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 	if (IS_ERR(rl)) {
- 		ntfs_error(vol->sb, "Failed to merge runlists");
- 		err = PTR_ERR(rl);
--		if (ntfs_cluster_free_from_rl(vol, rlc))
-+		if (err != -ENOMEM) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(ni),
-+							-EFSCORRUPTED);
-+		}
-+		err2 = ntfs_cluster_free_from_rl(vol, rlc);
-+		if (err2) {
- 			ntfs_error(vol->sb, "Failed to free hot clusters.");
-+			ntfs_report_file_metadata_error(VFS_I(ni), err2);
-+		}
- 		kvfree(rlc);
- 		goto out;
- 	}
-@@ -5526,7 +5601,10 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 			if (freed < 0 || freed != clu_count) {
- 				ntfs_error(vol->sb,
- 					   "Failed to free cluster allocation. Leaving inconsistent metadata.\n");
--				NVolSetErrors(vol);
-+				err2 = freed < 0 ? freed : -EFSCORRUPTED;
-+				ntfs_report_file_metadata_error(VFS_I(ni),
-+								freed < 0 ?
-+								(int)freed : -EFSCORRUPTED);
- 				goto out;
- 			}
- 
-@@ -5538,11 +5616,11 @@ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
- 			ni->runlist.rl = old_rl;
- 			ni->runlist.count = old_rl_count;
- 			old_rl = NULL;
--			if (ntfs_attr_update_mapping_pairs_locked(
--					ni, 0, ni)) {
-+			err2 = ntfs_attr_update_mapping_pairs_locked(ni, 0, ni);
-+			if (err2) {
- 				ntfs_error(vol->sb,
- 					   "Failed to restore mapping pairs after allocation rollback.\n");
--				NVolSetErrors(vol);
-+				ntfs_report_file_metadata_error(VFS_I(ni), err2);
- 			}
- 		}
- 	} else {
--- 
-2.51.0
+Cheers,
+Prabhakar
 
+> -       hi =3D readl_relaxed(host->axi + RZG3S_PCI_MSIRCVWADRU);
+>
+> -       msg->address_lo =3D lo;
+> -       msg->address_hi =3D hi;
+> +       msg->address_lo =3D lower_32_bits(msi->window_base);
+> +       msg->address_hi =3D upper_32_bits(msi->window_base);
+>         msg->data =3D data->hwirq;
+>  }
+>
+> --
+> 2.43.0
+>
+>
