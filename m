@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792528352;
-	b=SZZSuafJ/CqTMIjTA5MXRBJHjnC0vpExocgHyOfGgvt0GxnJhlkMkViLHQlxRmHfTigL
-	 XvylcbpDmZRWI2eDkep1UpkSXKKe3qyWqH/s41C5vFL1ZVb5YKlwtb9FJlAzaZW7hUfh/
-	 saYzYo6nMP0bu5qLE9wyvvsnp9vtHvYRcft+yR0MX0xaXRgHwiGcaSapbWSSfrkDojtz2
-	 lks8ch0SKJJWwy5NsABb1yRdU45119egJAMEc3ivlWfJ5L/eCKhTojIMSSZC4enMKhvcB
-	 OqaIaG4WEmUYXc56E6gOMRCC3SE7CyNkig86aiUgyRC8PArlBq1ZJQnxko0GmOWe2Ag==
+	t=1792528360;
+	b=VZO+8XIIy5oIfIUWhVZByTQfm/prOQDozlYX8tWenO0Q35w8CqWllqYMinSlggUbAmJD
+	 ZSAbwr5dKB07agf+9G4HJEoMHteneoX8Bn+8fG8m4kYmCH/6iby/2F5Jhcs8ijZL8y9l3
+	 1RakDjTuqetjIkpFiqEiobje4CQ6kdKTkv9o5P2YL0W5Dp/zurOf1MJ013ouZzCBDLCYN
+	 xF+DK6lHPtnrClVK9yuI8mCgwY0Qy386UUiS7mN1en1VhBuE/96jpq3uT9thxGgl5y3K0
+	 7ZeYnwCgJSSescW1Yuoezmr/jZA00W+uee9VjBgpPG4Q/XMwGRV0TUoUpiE7tKKICPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792528352;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ZkWQE/uALqfLnZKuscsosAHo1zEUz4R5lm4SmlWWw6w=;
-	b=Zb5F8usyzSb2PpHqyQp+AioVnL2FXWLuGUM53gZA1+BI54TwzhYnWI3QnuvyuIW8fZOF
-	 3ihSHHCOwHXNy+dWDJ5gIFdWb+zVVFQye13hWUPmbWbMusuNGxRru+00alAzmahUeCXJz
-	 Ec6LBBdk66XPkY14YZQ1p/n9ZjWK4q0hrTqPZhKUTvoiR8kctu2E6rT814JbgQLeYn8sV
-	 By+lqQxOJ9R8Ppb/9wPgZGJ4GID6T4MfGFzDd3sWZGWACnk13OqS+NC5vY/jIkmaUko4R
-	 pdi2iaCxGCzttBylh3sG+YiX9+H/72PXvZOFyTjQGNNFEUqEDfYT3UTbDPUnEwUU11g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792528360;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=ZMhN4YWqU46nfJ2wks0JC39BiEuwNXi38a0DZImfk4I=;
+	b=D99egAtok1KQkJ8N5PS4+f+qb84o3nBwuLIgflWZuMN5q/D7+joGYVuFbD5fHewAM3JT
+	 RqBoMccKTeXhFUzXwBNs42SizqcDOAlVCFqtbA0jI03D3PgCOwX918+1QekdsottrHURT
+	 EacrZ+gGzC/GaUFXRCL7/lj3vw1Xw4m8UqRE7s8d9qeqfwYRfPmwhi8AQMjcrl6unyNId
+	 PlKNFDpTxMupkhZXpyROYPNWncOdoX5aCjnuKwqMM9ITrN/XhiiwfpgphEaeUJuGuA4ex
+	 8qBtgL3UCf+QXH3rn2eOS7nPO1cn0e9NbezQBE6kOGCTvYsUm0pe4sISeMGmUtPAlDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gkq5TCq8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RFQzkah1;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20C7606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:32:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D34606A31C;
+	Tue, 20 Oct 2026 20:32:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D34606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gkq5TCq8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E941F000CB;
-	Tue, 20 Oct 2026 20:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792528351;
-	bh=ZkWQE/uALqfLnZKuscsosAHo1zEUz4R5lm4SmlWWw6w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gkq5TCq80SSQskzQkfsgHUu2HSuSGc2Oma4YCr3nINfDqKXggEiwb73ITrV5JWm33
-	 pxLn2/TngXZISnhZ9YdLBKz6+QgYL13L7SNfjTuYuTSmNMp0tww2AHOyeHc6xWhXPC
-	 ghrrO1bi8QeyJ71g+Ouz2T+YA2Eag/4UHprOsAQjQrKuOXE28t81olCd3k79j3u7xn
-	 C+fi1MXADW+CzgbApqf03EWF6PSoNQgubxBilMUMIUyy6j4TcRODsun2DGoLMLYyQ/
-	 M40boy1QIk2NHM3G+b74wx4n65Lmh6xF0J7U5URhMOOpJMa9nVXQryE2fJmSVc7yMf
-	 4nTHQAVFho+ww==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 0E7C8F4006B;
-	Tue, 20 Oct 2026 16:32:30 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 20 Oct 2026 16:32:30 -0400
-X-ME-Sender: <xms:3s_XamN42F183gxMSO2a_dH2dOTn1d7hJoYI6qhAoV2_jio4lXkL2w>
-    <xme:3s_Xap0LasOYBCh50uK7ALGn3NvYnW18g-8lJ9UIpt5RruCceNUhlmZjEAXxpd0Vx
-    nc7-j6Hl0D_AeI60gVcDBIPCCdwLU40_0horMMH0N1uiaG9oEaQSf0>
-X-ME-Received: <xmr:3s_Xal1InojV7R7LAGL7hua-2NBFRmRnnrcVfP5gCDdJi_kHMmyxEEVTgfiOB9s_yraPKyjLJFkRaAk7RxgKT3voYrSfqRKa>
-X-ME-Proxy-Cause: dmFkZTF2jD+MaXG7JBc6kMXRFqJOwuJfgs6TtjLrVebZcy1oGq69rP+skQs/Q55fcuR+hP
-    dfOwQXHwP0n0T/4mX/xRrgdyTMsXGJeEojmwqRazHVvRzeptbDaLb1X0Lqe+/U78n5p0YT
-    n+kNVD9LgQrvUZaqpz2azFY8EBZcZYbfTwELiJdrnj7ojVEUi3oytPg9Phv8o71pJ/FjvN
-    o2EPTS04NWPTbygPRy+m9kzkNV+KBGQrB0ol291C5DgE4mjXWciYXJCweQZNTdpe5hJQNt
-    LqdpBpdKYkQCjLh6phrlhg8DGIWr2d7vgaNwCi+hayS6Z6+UWWsnxpQA6DzobiGBGGDauI
-    1Su7SHOYPoYQKX5XVb0grr6MPWB3iMC44UYNKCdT50t/0vgDs4VWwLUPVLes9OrfM27vWl
-    EwBFf520/RLSi3SkQDCxTjsnTI6fBKd3FWMeTUcdCz2oqButbZ1rtWnYf0Y/Nyw6iKAGN0
-    TlT2l962IFu82q0dIk5olwo8QUoCy8rw76J5RIqZg6f9T5xrtSg2x0Az8fWToKxP2U2Ofp
-    r3QUR3mMVrZVadZi69zGNrhEh9KYleUXDMuNJTL+7YG34nJAOQCihYnXzmx+LIRQ/G02R7
-    QOX4D4Kdj6mXBTufPQ1IxU/fC09AUNMv37vSjHlG6b8jz1yvd+VOyduhI2ug
-X-ME-Proxy: <xmx:3s_Xan-sJ5hctZHYIj2ooDyZC_LMHhd_Velr9G36LPhzdE66xtHWJw>
-    <xmx:3s_XahZzBp70_C5oUv30CAFDWebM2OkgGZY8nTLYakCfsdTAmQl4Qw>
-    <xmx:3s_Xamyu35PIA4Eo6qYHlXisAzjeQmB08Vv-7en9b7Z9fJOYy8Mg0w>
-    <xmx:3s_Xav8E7ttZeS01BqXbvCBAtbTCVI5fJIOgR-yNKngHoD-B6PRJ3w>
-    <xmx:3s_XaizRRPpmZg0Mw0sP9ak_DgKL77ZXrdSAGg-gH9E0OBtYHECJDNxd>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 16:32:29 -0400 (EDT)
-Date: Tue, 20 Oct 2026 13:32:28 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Vlad Poenaru <vlad.wing@gmail.com>, netdev@vger.kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Davide Caratti <dcaratti@redhat.com>,
-	Breno Leitao <leitao@debian.org>,
-	Nilay Shroff <nilay@linux.ibm.com>, linux-kernel@vger.kernel.org,
-	Vlad Poenaru <thevlad@meta.com>
-Subject: Re: [PATCH net-next 0/2] net/sched: don't wait for RCU when
- destroying qdisc lockdep keys
-Message-ID: <atfP3PyUjF6pKh--@tardis.local>
-References: <20261019170225.729789-1-vlad.wing@gmail.com>
- <atZtYi_Xnz27O8Bp@tardis.local>
- <c3de29a9-8edf-4186-bc26-82d1d68c4c78@acm.org>
- <ateu_3PV81VuFK1i@tardis.local>
- <9b33cc28-9e30-4bdb-aa1e-cd8dec149833@acm.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RFQzkah1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792528360; x=1824064360;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=fs08BkGZd244acMeAJaZ0Jtbav2E6i3/PVNh9U3vmh0=;
+  b=RFQzkah1m3CgffofWykDe5PsiANVTDhWTHbs1CbUSigV9PYmv7Ha/9i3
+   gg/0AqnQXiLNZd6EL7PTLypNCCC6M04mYkbBnN2zhjZsIQLY2X/QrXF3j
+   xYujm+6dM9K+FYaFSlJkRcnG5AN4T8mVn0ne1yclGsIgL95mhOxQkUTpp
+   Wz4XiChHBuY7XecfKDEnTNGK19Nn+czKRbVslKi6vWjR3CiCJZRpll99t
+   ZzkqxKrq/OkYRUx5WGDL/w1juxO/ahXePh9gzJuOkTYiwcPToBcDRDeSe
+   D3SEHEP1H5PM5425Bz4bdDhhZS6bRWQxVe+7EkpmQQKB1jBgJPsSGkD/q
+   w==;
+X-CSE-ConnectionGUID: 5TbTUvIJR3q8wi7dwMyN+A==
+X-CSE-MsgGUID: fQ5GO1UlQ9+SVOO0wHSCAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1254985"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1254985"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 13:32:39 -0700
+X-CSE-ConnectionGUID: 5AMqFZ0nQ9CrjL5bhMQ54A==
+X-CSE-MsgGUID: SgQ6um/xQ5yfRStGbLUcjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2948477"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 13:32:35 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 20 Oct 2026 23:32:31 +0300 (EEST)
+To: Cole Leavitt <cole@unwrap.rs>
+cc: Hans de Goede <hansg@kernel.org>, 
+    Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, 
+    Xi Pardee <xi.pardee@linux.intel.com>, 
+    Rajvi Jingar <rajvi.jingar@linux.intel.com>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86/intel/pmc: Use each PMC's own status map
+ on S0ix failure
+In-Reply-To: <20261018164037.133658-1-cole@unwrap.rs>
+Message-ID: <20096655-ef73-b57a-b1c6-4a580b2bff60@linux.intel.com>
+References: <20261018164037.133658-1-cole@unwrap.rs>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,26 +82,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9b33cc28-9e30-4bdb-aa1e-cd8dec149833@acm.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Oct 20, 2026 at 01:21:28PM -0700, Bart Van Assche wrote:
-> On 10/20/26 11:12 AM, Boqun Feng wrote:
-> > Is there any context that I'm missing that you want to shut up this
-> > discussion and rush the change in?
+On Sun, 18 Oct 2026, Cole Leavitt wrote:
+
+> When S0ix entry fails and warn_on_s0ix_failures is set,
+> pmc_core_resume_common() dumps the latched LPM status registers of every
+> PMC.  The loop over pmcdev->pmcs[] however passes the register offset and
+
+One space is enough.
+
+> bit maps of the main PMC to pmc_core_lpm_display() for all of them, so
+> the registers of the secondary PMCs are read at the main PMC's offset
+> and decoded with the main PMC's bit names.  On platforms with more than
+> one PMC, such as Arrow Lake-HX with an 800 series PCH, the dump
+> attributes the PCH's power gating state to the wrong IP blocks, which
+> makes it useless for finding the device that blocks S0ix.
 > 
-> I'm not trying to shut up anything or rush in anything. All I did is to
-> share my opinion.
+> Use the status offset and maps of the PMC being displayed.
 > 
+> Fixes: 2bcef4529222 ("platform/x86:intel/pmc: Enable debugfs multiple PMC support")
+> Signed-off-by: Cole Leavitt <cole@unwrap.rs>
+> ---
+> 
+> Notes:
+>     Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
+>     Barlow Ridge host, I226 Ethernet), in daily use since 2026-09-17.
+> 
+>  drivers/platform/x86/intel/pmc/core.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/intel/pmc/core.c b/drivers/platform/x86/intel/pmc/core.c
+> index 9f77c0716e59..3fd72e6a08ce 100644
+> --- a/drivers/platform/x86/intel/pmc/core.c
+> +++ b/drivers/platform/x86/intel/pmc/core.c
+> @@ -2068,8 +2068,6 @@ int pmc_core_resume_common(struct pmc_dev *pmcdev)
+>  {
+>  	struct device *dev = &pmcdev->pdev->dev;
+>  	struct pmc *pmc = pmcdev->pmcs[PMC_IDX_MAIN];
+> -	const struct pmc_bit_map **maps = pmc->map->lpm_sts;
+> -	int offset = pmc->map->lpm_status_offset;
+>  	unsigned int pmc_idx, i;
+>  
+>  	/* Check if the syspend used S0ix */
+> @@ -2114,7 +2112,9 @@ int pmc_core_resume_common(struct pmc_dev *pmcdev)
+>  		if (!pmc)
+>  			continue;
+>  		if (pmc->map->lpm_sts)
+> -			pmc_core_lpm_display(pmc, dev, NULL, offset, pmc_idx, "STATUS", maps);
+> +			pmc_core_lpm_display(pmc, dev, NULL,
+> +					     pmc->map->lpm_status_offset,
+> +					     pmc_idx, "STATUS", pmc->map->lpm_sts);
 
-Phew. I value your input but note the Vlad already offered some options
-to resolve my concern [1]. It'll be valuable to examine these first in
-my opinion.
+This looks good finding but I suggest you use intermediate variables 
+similar to what the other callers of pmc_core_lpm_display() do. It would 
+also allow converting that if check to use the same local var.
 
-[1]: https://lore.kernel.org/lkml/20261020125335.678200-1-vlad.wing@gmail.com/
+-- 
+ i.
 
-Regards,
-Boqun
-
-> Bart.
