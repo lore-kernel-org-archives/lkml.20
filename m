@@ -1,110 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485691;
-	b=g3NubTLuzSumirVwHN8ebe87pYb3vlcGTYgvrEwK9oUkf4fvU/6vxUsE3H6kP/M1C28I
-	 Ta1GKw4npbLfRMbsDZKQwcg2stE1at+nyKcu0zQb2SOVaec8dS/l+sTU+MmxKUoNphy63
-	 r2pFYzHjiU4EPnD/SiPZY9G7/9LhZ6PAgY5tui45c/+5tB5BJXA3BG7AcsDUqofyMKMyb
-	 +XalGI0Edzzm1llAkSQ0A8uxtKO5aw6qec3g/dtUeFcm0GR8dBcioFqWOBZYC0NuJGRu9
-	 YSikYs4nGosufGtx4xOBneJws/K7THvDNi6nGFLOS1msGORlQU2/mz7Njbt2qnKOxfQ==
+	t=1792485692;
+	b=Jgzfdxvq0hE5TEUDqSCH58ZJ9qL/6Do1U4/MSqXfDZEePBoskPHBAKGBdI9k+i6FEE6v
+	 cknOSujclG1wGZE0T4k+RjX/4+GnsZKhWZZpNIjQR5wEKJNNA50wfoSYNYNVAWJnSGN/E
+	 4dN658+qYSP20D/MrelLPtvM25fCNdrvwOOw7au9t2ofA63NwUxOR6gfJjeHazcIhITut
+	 nQs4VEXBP6l8OoIKq7Vj3CNP7oDJqpjyy5o2Tl26QU4BuBWzNzhMc6BM8tmYjF7U7lBsd
+	 adddjaErUiYImtdAmS6q35nbQVtHf06B/p5sJ9CVHrJ2dyNryk2E3n1mZq4c/i56NbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485691;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spamd-Result;
-	bh=6bn4M6YeN2g8PEYJ8AzJWKAPmNUUfpbov7oAzbUB368=;
-	b=VPL+mGL2KmHrIyfgVlBTbvPxb/TFAht1F/ptiLnhl3d8xmTCN+QKRQR5MW34tCkLwFOL
-	 A+iqiDKIjWcDyYK+s3pRaLseT7qlxumfYq6kMZG6AHe9dl6ZInMlRSm2UCdwwBTWQXE58
-	 gxo+w7Rm7GMU1oT+8IqC3qJJ5dBjr43rzpKQnt09nTqkNLw0ASLsXl+KKBSoZWs/vszFw
-	 hz4knj55wiUXFAjsvVS+VVnk9gk+JPqIw81ARNcgHtHv5PSMA8mp4V/qycnwq655mAVI/
-	 4xD6y09rBxm4MfgDH21E6uHMDgkiZ7EmYXU9aciNapVgxG2UhfrKALZhNi08DdqrQ4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485692;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=C0F7Qr64T8vgIgJx6fh5eCdIiZjLiQKaub8Hq/PVVak=;
+	b=p2ZtzgMqQ2b3Fe1VXFOh31IPJebuWqldFa/pQNY1mHiifNurwqlNm4cmMFj/wNuMI33A
+	 fbyFPdxP7olKlm56fZ3Pv9xocZOSqWwVgx63ZN/y4OT5510B71wTwI5SS92uCdcVYBCrV
+	 c2Kb+otiaBXFHSZTP0r/3iF0PMpdtiHroHuSOt3hwjFwmCtRK+ePBcURIMNYx6tXvnxbU
+	 6QSZ2bh+hZTMV+aommxzs0n96iVmc2v+NQS+HG7EIoIzZsjcsrFdLUkVkiKbpMZ0a25As
+	 WO5A257N0VVTL8ePyE6S6MTRENuNl+FeJrFNAjN0nzViU6qXk1KgMd8DoPsA5Pv18MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XEI5579Q;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gZpLRX64;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XEI5579Q;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gZpLRX64;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=W28KrUrB;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SeG1rRau;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AF2606A31E;
-	Tue, 20 Oct 2026 08:41:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79AF2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655D7606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 655D7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XEI5579Q;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gZpLRX64;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XEI5579Q;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gZpLRX64
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BA47121D81;
-	Tue, 20 Oct 2026 08:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792485688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bn4M6YeN2g8PEYJ8AzJWKAPmNUUfpbov7oAzbUB368=;
-	b=XEI5579QHP6V72aSSg8VC/OwOoN5B6oREWReR7r9zMq2hj5NghkhTloZbeQV4s4Qp1rbN7
-	cs+S3ETy5Q2zqKrnk7aOpcb0PeTalQ23uHsRmeCydsfxGy4iw32lq27E2o30sZDq0dcUVr
-	MMVqBTP3SfYhaV9kXhbM1FFPajdTiNY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792485688;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bn4M6YeN2g8PEYJ8AzJWKAPmNUUfpbov7oAzbUB368=;
-	b=gZpLRX64IetHgnxPwbXTkTZ/0n9RMj5co4d58vXXsJhaFmlQ9f8d7gYAIP467m5JsmlKhC
-	8tFMijQUI30qlNCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792485688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bn4M6YeN2g8PEYJ8AzJWKAPmNUUfpbov7oAzbUB368=;
-	b=XEI5579QHP6V72aSSg8VC/OwOoN5B6oREWReR7r9zMq2hj5NghkhTloZbeQV4s4Qp1rbN7
-	cs+S3ETy5Q2zqKrnk7aOpcb0PeTalQ23uHsRmeCydsfxGy4iw32lq27E2o30sZDq0dcUVr
-	MMVqBTP3SfYhaV9kXhbM1FFPajdTiNY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792485688;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bn4M6YeN2g8PEYJ8AzJWKAPmNUUfpbov7oAzbUB368=;
-	b=gZpLRX64IetHgnxPwbXTkTZ/0n9RMj5co4d58vXXsJhaFmlQ9f8d7gYAIP467m5JsmlKhC
-	8tFMijQUI30qlNCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66F78136CC;
-	Tue, 20 Oct 2026 08:41:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id y78lEjgp12prSgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 08:41:28 +0000
-Date: Tue, 20 Oct 2026 10:41:27 +0200
-Message-ID: <87ecdkix1k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: webgeek1234@gmail.com
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-sound@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: hda/hdmi: Enable HBR capability
-In-Reply-To: <20261020-tegra-hda-hbr-v2-1-6968017f585b@gmail.com>
-References: <20261020-tegra-hda-hbr-v2-1-6968017f585b@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=W28KrUrB;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SeG1rRau
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8a9bx2877957
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:41:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	C0F7Qr64T8vgIgJx6fh5eCdIiZjLiQKaub8Hq/PVVak=; b=W28KrUrBKiz4w8Ec
+	Rs+OrSmMHWy3N1RcagyI0NJ9E5zW1qEmNDibvU9Je/LU5Ioc77rP0YloMFuRi5aI
+	lICjajkqEmIkuIwzhWoDNSpJXduyAquWJc8xfr6iEbqjd8Xr4byC5anHZO8bpBeP
+	4NxYWQSnTT2Ecf+U1v4oglp7Jz4AqwvuE54GsrI0AfqW6a/hz+lsiYEw+qC8ob5R
+	nIo208S7bKjNKiE3JFp1spVHPnFAEzRECQGhFLPWB6a3G28zKHZ1yqyvInqQIUD6
+	OFeZ0HiSzUyy+6wEXL9yQF35wNDghtplmC0e4h5zEjRRfpsMtE14pC+VG+0v/tqC
+	odM41Q==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5psp93-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:41:31 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3aca98f01c1so3070509a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792485691; x=1793090491; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C0F7Qr64T8vgIgJx6fh5eCdIiZjLiQKaub8Hq/PVVak=;
+        b=SeG1rRauC6Qt7VAO0+6GN17iflchd+CaqNl6d9NomztUVhrY3xiPZ2Alwuq6AUvGCc
+         AT+8zZ/lSGKGa+WR2K39pnBU/Fd9acsyfrcGfRdgoZShdOJ3IeR+fUVcnfX88oY88U+T
+         YQ+yg5hQYaPKeaiPRpQkqvReYzazX/RTTxhz14jdaH43ETxgArnhzKXQxsyYad9eM08g
+         k0jcQU2bg8nNxXRRzgfdOG+iZk9OzYNPTR4fTV4GufzXBobYtBa7yr0ay6iq8PnmLd1Y
+         C9rixPNWUYJzEu3+znoa0+H83QFLH2LQZFZfSqLlZqW+P+Wed/jwOUWgsTJHVzZHpwbz
+         94Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485691; x=1793090491;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C0F7Qr64T8vgIgJx6fh5eCdIiZjLiQKaub8Hq/PVVak=;
+        b=WMP/CbK8+Ve2WXquy7cmceIujt+o5kqdeYamR0yVIVrZcvvFS4iyhbIknIXKCAPGNk
+         h44xf5ufc/PmdPI86Y+sURviks4NkFfsvkZpAnRMJPxgRdnXW5tC/qzHEJOE3tfu9UcD
+         VVnD00EBZVdfXmPZ0eHitTPPCu0N1+Drav5WCwKTItTepLKR1LVsSOzz1xK0sqaRUAdF
+         2SYo3n9DtLglS3lpwolkB/RitnCqFPjkUG6dt4wy5gUCyd/r4o9G/LB4HTHQyJz2KVaR
+         EjGvojIvd56tvmR0daPOWxQ4g9TwW9Ci1w+zvOU6rxuDYfQLhz4Uxh1vrPKGwMbaIqhg
+         OjSw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbga9wEaD2/zy54FRdGe/x2fwFYe4t1Uswxkf0GnRBirUFDS17MfBhw7NlKIuQ094SXntc0CKqWgjnyHE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYvWOPMm0socxhPJJP6KeydTntOuqduwEdSb5qZsKGif2K2+/y
+	SxP5t3rGd/UuheJVerPw2A29OwHd5RMbadayVdM5fIZB1wJgB5mxCRbGmxiJuA3B9egjK2xDTm+
+	xQNonk7cpaYU7HHLXzU7C859H5npFBOV3zROWffxv1HcaNSKuq/AAZM7y1B8jdkp8CEo=
+X-Gm-Gg: AYBFou00miZN0ZO+9NblhBhAKQBoWKllaTWeyXF7oaWX48w9djI7Xm0kCMzCRhmUyoK
+	SDgDmrIRsm37QSU/shIU6JqnS402gEf9DA0SsK+LYkxg173oV2FWk66RyKXG4FUfEYgclx3mn30
+	VjvUiLKcnvS0OHvHUhskGNa+eHrTLQWe/y6znZmXfBe//q05nTTpYtFFhqdXbTeqUj9/Gu/VhV7
+	C487yDfHSl5gXqtkHLYZ8QvkoG4wRDO5crA2mEUTpN6eubauI9xYX4lhtfUJ5ZmC5eTWm7i66hM
+	1qg4hjoWWQrbPmDslcPBxsd3P8rG4dNYS+nk1CxxyjlXiqd2ycTwk9VlsJQ33RPl9QW9wxJD9CG
+	0wI7JNkwlse95s/Eftbn5knuEKXiMgaVk5WqyMSpR28Sb2V28xNhMGist/C7liKghXEerGneI
+X-Received: by 2002:a17:90b:28c5:b0:3ac:4e18:237c with SMTP id 98e67ed59e1d1-3aced87290fmr8764724a91.0.1792485690881;
+        Tue, 20 Oct 2026 01:41:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:28c5:b0:3ac:4e18:237c with SMTP id 98e67ed59e1d1-3aced87290fmr8764712a91.0.1792485690408;
+        Tue, 20 Oct 2026 01:41:30 -0700 (PDT)
+Received: from [10.133.33.78] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60f8ae57sm2624196a91.12.2026.10.20.01.41.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:41:30 -0700 (PDT)
+Message-ID: <4f2a06f4-601b-4e96-826b-a5453bc03ec9@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 16:41:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,45 +112,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] wifi: ath12k: fixes to improve MLO station
+ stability
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Cc: ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+        jjohnson@kernel.org, johannes@sipsolutions.net,
+        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org
+References: <aaf175a7-86e0-4da2-a3fc-df87d906f800@oss.qualcomm.com>
+ <20261017080444.41177-1-jtornosm@redhat.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261017080444.41177-1-jtornosm@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=DrrDa2/+ c=1 sm=1 tr=0 ts=6ad7293b cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=k-oXM3pZaSIHxhfxeJQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNCBTYWx0ZWRfX4pqM7JBjJiuW
+ VS9Kf2VuvtN3kpEmFSvOY0i0lYA/JxBoMY3oROAcgbJIM59ONAV0aSDRnlvHqe3LY/MiCHxAz2R
+ gruOpIZJOTu3n/YMCoOJ36NcFacp2CJG37y4VR3VxVy+Pzxl7STYQJ4VeOscCks8ISr6vjxbpc9
+ jHAzSXP1/av+V3PaT2OsGNuGU5+1itUZoZ3BZSxJEkWiCpOyVs1EmAhqcNU9ZCvJDEHTIoW77p7
+ Zw1jMuNbtTJvSeIcBcJWeGw5cd6RO8zI7/CIrHE3a6VM9gAfCq7Y/XDjyjQl72VfUr1kPBhukE3
+ n7JsQf0tFvWYWlrQm5bCnqogc9pZ9dh2m/5tIg0aO7BpiWESpVLg/Rc9Wju7fraCJhDHBKMn5T9
+ r7Q+dPFDYkYo1/qbNZZE5P8/VE3hw5T8AOWnaJaCcz8VO53Ww8e0GcMMuh2V5MWs/epDpjGB7gs
+ grT2soEHOQWFae5sb8g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNCBTYWx0ZWRfX9D4w01m6KFkm
+ Rn2CeoNj0sYKryyo6NGDUsbtb4Zd+++1K22LQm2f+rpjDWwcYa36pL4hDkRE8j9eP6ScTQ5cfC5
+ JS+WGiOZJ+OyO0wX2ZK7dk5bjggqjns=
+X-Proofpoint-GUID: bvikhqZ8UhLmpyaSOmpyxZDqUhkrZT5t
+X-Proofpoint-ORIG-GUID: bvikhqZ8UhLmpyaSOmpyxZDqUhkrZT5t
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 spamscore=0 adultscore=0
+ suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200034
 
-On Tue, 20 Oct 2026 10:18:14 +0200,
-Aaron Kling via B4 Relay wrote:
+
+
+On 10/17/2026 4:04 PM, Jose Ignacio Tornos Martinez wrote:
+> Hi Baochen,
 > 
-> From: Aaron Kling <webgeek1234@gmail.com>
+> I agree that per-callback guards don't scale well long-term. Johannes
+> can comment better because both alternatives need mac80211 changes,
+> but let me share my thoughts.
 > 
-> Tegra HDA does not set the HBR capability bit, however every SoC since
-> Tegra114 does support HBR. Override the hbr setup function for these
-> SoCs to unconditionally enable the feature. Since Tegra30 does not
-> support HBR, this override will not be applied.
+> Option 1 (recovery inside .start()) holds rtnl for ~1.3s, that seems
+> too long to hold.
 > 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> Option 2 (split ieee80211_restart_hw() into early barrier + deferred
+> restart) looks like the right direction. It would benefit any driver
+> with async recovery, not just ath12k. But it is a mac80211 core change
+> and a bigger effort, and it still needs in_reconfig checks added to
+> callbacks that don't have them today (scan, for one), so the guarding
+> moves to mac80211 rather than disappearing.
+> 
+> In the meantime, the crashes this series fixes are real: without it,
+> an MLO firmware crash gives NULL derefs and 20+ second recovery. The
+> guards here cover the callbacks that actually run during that window,
+> not a speculative list.
+> 
+> I am happy to work on the mac80211 side (option 2), but would it make
 
-Applied now.  Thanks.
+Johannes doesn't like option 2, let's forget it now. Instead, are you interested in
+(working on) option 1?
 
+> sense for you to land this series as an interim fix while that is
+> worked out as a follow-up?
 
-Takashi
+Jeff can make the call.
+
+> 
+> Thanks
+> 
+> Best regards
+> José Ignacio
+> 
+
