@@ -1,69 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494409;
-	b=VnzHMxOaQVMCvOWZPV2qsmQGNGqKPLfnFLRdKs2f8YqBN3nZxzd9qR3CBlAKmn17vpw0
-	 HxQBq5nEXjzjQRwjcfvw7vtzOTccKOX8EBrFd3kXSzzVbKkOvNLMgqn+potOIZifW/nmW
-	 kkv/zKROdjE2Hqs007xa6sWcnthfOBQfBp73b3Pu7dG2OTQwUQ3WSXEM78fbw/Ka7fI5W
-	 Msdd3tgp2dOAw6e1pz7/AW61kOA/qHuGLzmkh/Xdh9e98l/3+E3HytBI/j9nglYaUfVHG
-	 IY8lEI5i7UiFcYx02W0EORAH6LZMWIoN77jvKX7lO+9GvFspNxf6hOlFZ+YM0B/H4dQ==
+	t=1792494430;
+	b=GBvnF+ZcxdJVrHaV8ucO8gmBjV9CmHXnn/1xSsE9BHwzCKweg/cGmJLiOXK1yVJ9u1N0
+	 sDZsUmrc/vnZKJ54YZPROk4ck5VzYuvLSobS9z66dgGnuE9VwK88NQ8/AuapqpM+qRc8N
+	 ZfP61+DMWtkFN6qk6aYjhNpeg0yATs/G6AIWhKkEP9g4J/OKUxNU3j43l8UqF4mPHS/6k
+	 WNpjXFbFZtYQHt5KNZPgnX1iAA/3gdZzc9XjP0weoMMup8PXaon7FB7EoeNOD+y+6RXm3
+	 i635oVpYQ3FTxa8pNNX4fYdk+AFgj7eETcifI6TxtguiouauTBsULM4lOJUwS8fpFwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494409;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=nsrfJy/ey4fDpT1tLiGBQkd5nhrqessg78qrhYlxuN8=;
-	b=yIrW3lf18JQ9+cdO6318fUWOvGsPykepqqz97ibxFlM6yn3rcn2xMT4VeKuNmOFUSSEs
-	 prjSvFge2OXAyp2yNXmuO3P6A86wudYH+y3EgI2Op+L4BScFYenJGIXpfemF3Y15XPFoq
-	 yWqIk5cKT0USN6lTC6+8GcDsFkRhJMgZHZ6jAt99lbdpPlbjLBtPtYex8FcWOe8n1Q0+C
-	 5Q1LvnoUhPvNxzE2u4t6sAVLR+PvebN8NJpv3BJMzV8a574KcG0LD6SQesJ3WCWuz3Wbp
-	 EjNIhQ9R+yoVVxEC00khgdAf8soVV6PbPxAvRi2LvqDtoREXfqPZSL8puDE5B5zMkng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494430;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=+nnri8KOVD+ERhkDe4Xd/rLUN/DpKeYj7ODaxNj7yac=;
+	b=vY2bzHydKYZzGX0fzIND0hYHOIcz4D7m7LRWy+CPJS5QHpzgTEXoMptiSYhZH40Zk++G
+	 slzK00FtPLs8N2HubX4baDWJZNIWKKEJLbH8f6spZqwnSuEqf9Qx/7Z7tWmZmlinzidFG
+	 eAuFWgtjXmlTCqM6bJzp1lWHBP7IN//NCezgiCY/fnUr1yv9/t4wFJEI7kImyEKh2NEpo
+	 liMBGQnSHD/ghWWMZybwiDPCFhdrWttjzrSi7nHGJPbso5oMY9njotwS2HDfvI3Wd/B4R
+	 hKRHDtUDXs0S+Obe155ANTF4dGwuTEmz6iT1hjmElVdyZd3gN3rhSYgYJ6uqtdRhC8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rendec.net;
-	spf=pass smtp.mailfrom=rendec.net;
-	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=d3dYfp1A;
-	arc=none smtp.remote-ip=80.86.107.70
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D1r4qRiE;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E568E606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E568E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBC2606A319;
+	Tue, 20 Oct 2026 11:07:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBC2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=d3dYfp1A
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id E5404D2328;
-	Tue, 20 Oct 2026 14:06:37 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro E5404D2328
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1792494399;
-	bh=nsrfJy/ey4fDpT1tLiGBQkd5nhrqessg78qrhYlxuN8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=d3dYfp1AEenlAqAJAsf1d1H8SA57AMYvrFbObQbVxMBs5fiEzwYZdlpXE0Q92jZ/3
-	 yKlRMJnDXYTUEyPCvdyiUDPBFtFulR4AiQtLFpKJe1aFTL2ghqh6OuktMBYbXEthqx
-	 a+E5upFPrQKIPjxk3mB+tjir8IWPFbDVakxVsLzUUXRCAxYICEPsN3ulPaIwNt8SnN
-	 je2YOes+Z45PDuJWot4+LBy306Nho3uw239mXQKqW+PvAHTLjVYN+wf92ttqFeffX9
-	 Mcd+GeeysGd/6kW23kdiV6meWXGAyT1bEc+4AKycBs6eWzSdjYOGfK+y4ky4cq/q1k
-	 XCK/rIOoMLNlw==
-Message-ID: <c01c5b7ceaef8fbdee2af384f2286f3a89350f46.camel@rendec.net>
-Subject: Re: [PATCH v6 8/9] genirq/irqdomain: Add
- devm_irq_domain_create_linear()
-From: Radu Rendec <radu@rendec.net>
-To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
- Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
-	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Jindong Yue
-	 <jindong.yue@nxp.com>, xuegang.liu@nxp.com, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Date: Tue, 20 Oct 2026 07:06:36 -0400
-In-Reply-To: <20261008090231.796511-9-Zhipeng.wang_1@oss.nxp.com>
-References: <20261008090231.796511-1-Zhipeng.wang_1@oss.nxp.com>
-	 <20261008090231.796511-9-Zhipeng.wang_1@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D1r4qRiE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792494430; x=1824030430;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=AybVLInNist+fsVCvf7sGNK1znFzY0/gag7DVWJXQ7c=;
+  b=D1r4qRiEW8Tqnpir9+hwyJQKCLZUCyyNKXKvWix0kLaPlMsyoxkB5c3D
+   Or6Dsv3NQI2fawJg1sVWsa2IQfLcH9MWOCAZjsDOCFCqNfHdb+okbJOCg
+   Qj13+bQySsXuIUe+Fuf0vy6c/7UMlCDF8tZGVe8/GX2jvpbGP98QQ4QxT
+   UX+RukdvUxW9WDrY77PriMAP1XEq48v45aPY2qadtFGZix0p8sKPl3yE0
+   e6rxkazkbhU1P/+HUO5sCB1tR3XuUjd6RKpQ8EToheP5P4r93inJ+egaJ
+   P6c1p2pLQamMjELAKN9vPA6tHIAFwL+npMYTpycr+9RKjKdqhTmPZ7EoF
+   g==;
+X-CSE-ConnectionGUID: bBEkQYDwSaKfgKzdyglX3g==
+X-CSE-MsgGUID: ZBuv4EsHQny0n0ZyfX4c5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1096879"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1096879"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:07:10 -0700
+X-CSE-ConnectionGUID: d7bIo4nzTcyCp6bZxT3EtA==
+X-CSE-MsgGUID: wtFbA/3LTjSOY8miVsOiIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2744933"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:07:07 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 20 Oct 2026 14:07:02 +0300 (EEST)
+To: Mark Brown <broonie@kernel.org>
+cc: Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, linux-next@vger.kernel.org
+Subject: Re: Missing signoff in the drivers-x86 tree
+In-Reply-To: <atZqoXnT_27rGAn9@sirena.co.uk>
+Message-ID: <e1119f07-83cc-8178-3c6a-e87778d3cb16@linux.intel.com>
+References: <arUBQuAfW4HJQHik@sirena.org.uk> <4ad00775-b067-452b-9869-29d5b6712f66@sirena.org.uk> <asOdosd0zROmuzu1@sirena.co.uk> <1a363159-02b9-4644-9cc8-38e210d97d5d@sirena.org.uk> <atZqoXnT_27rGAn9@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,72 +78,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 2026-10-08 at 18:02 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
-> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
->=20
-> irq_domain_create_linear() has no devres-managed counterpart, so a
-> driver that wants a linear revmap domain tied to the device lifetime has
-> to open-code an irq_domain_info and call devm_irq_domain_instantiate()
-> directly.
->=20
-> Add devm_irq_domain_create_linear() as the devres-managed sibling of
-> irq_domain_create_linear(): it builds the same linear-revmap
-> irq_domain_info and hands it to devm_irq_domain_instantiate(), so the
-> domain is removed when the owning device is unbound. The return
-> convention matches irq_domain_create_linear() (NULL on failure).
->=20
-> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> =C2=A0include/linux/irqdomain.h | 30 ++++++++++++++++++++++++++++++
-> =C2=A01 file changed, 30 insertions(+)
->=20
-> diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
-> index 73c25d40846c..b6b360cb6525 100644
-> --- a/include/linux/irqdomain.h
-> +++ b/include/linux/irqdomain.h
-> @@ -457,6 +457,36 @@ static inline struct irq_domain *irq_domain_create_l=
-inear(struct fwnode_handle *
-> =C2=A0	return IS_ERR(d) ? NULL : d;
-> =C2=A0}
-> =C2=A0
-> +/**
-> + * devm_irq_domain_create_linear - Allocate and register a linear revmap
-> + *				=C2=A0=C2=A0 irq_domain tied to the device lifetime.
-> + * @dev:	Device that owns the domain. The domain is removed via devres
-> + *		when the device is unbound.
-> + * @fwnode:	pointer to interrupt controller's FW node.
-> + * @size:	Number of interrupts in the domain.
-> + * @ops:	map/unmap domain callbacks
-> + * @host_data:	Controller private data pointer
-> + *
-> + * Returns: Newly created irq_domain, or NULL on failure.
-> + */
-> +static inline struct irq_domain *devm_irq_domain_create_linear(struct de=
-vice *dev,
-> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct fwnode_handle *fwnode=
-,
-> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int size,
-> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct irq_domain_ops =
-*ops,
-> +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *host_data)
-> +{
-> +	const struct irq_domain_info info =3D {
-> +		.fwnode		=3D fwnode,
-> +		.size		=3D size,
-> +		.hwirq_max	=3D size,
-> +		.ops		=3D ops,
-> +		.host_data	=3D host_data,
-> +	};
-> +	struct irq_domain *d =3D devm_irq_domain_instantiate(dev, &info);
-> +
-> +	return IS_ERR(d) ? NULL : d;
-> +}
-> +
-> =C2=A0static inline struct irq_domain *irq_domain_create_tree(struct fwno=
-de_handle *fwnode,
-> =C2=A0							const struct irq_domain_ops *ops,
-> =C2=A0							void *host_data)
+On Mon, 19 Oct 2026, Mark Brown wrote:
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+> On Mon, Oct 12, 2026 at 08:03:17PM +0100, Mark Brown wrote:
+> > On Mon, Oct 05, 2026 at 02:52:50PM +0200, Mark Brown wrote:
+> > > On Mon, Sep 28, 2026 at 03:37:30PM +0100, Mark Brown wrote:
+> > > > On Thu, Sep 24, 2026 at 11:53:54AM +0100, Mark Brown wrote:
+> > > > > Commits
+> > > > > 
+> > > > >   4dabecbb202e8 ("platform/x86: hp-wmi: add Omen Transcend 14 8C58 support")
+> > > > >   9af7fddef448d ("platform/x86: asus-wmi: suppress -ENODEV warning in fan_curve_get_factory_default()")
+> > > > > 
+> > > > > are missing a Signed-off-by from their authors
+> > > > 
+> > > > This issue is still present today.
+> > > 
+> > > And today.
+> > 
+> > And today - should Ilpo be added to the list of contacts for this tree?
+> 
+> And today.
+
+Hi Mark,
+
+Something odd is likely going on here. Neither of those commits above are 
+in my tree anymore.
+
+Your latest merge:
+
+commit 233956951080612ff68d0c54f620606c53a1c91c
+Merge: 67f116b3a9f8 98f039265e58
+Author:     Mark Brown <broonie@kernel.org>
+AuthorDate: Mon Oct 19 17:58:11 2026 +0100
+Commit:     Mark Brown <broonie@kernel.org>
+CommitDate: Mon Oct 19 17:58:11 2026 +0100
+ 
+    Merge branch 'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git
+
+I don't know how you got that 98f039265e58 but that hasn't been in pdx86 
+tree for multiple days by now:
+
+https://git.kernel.org/pub/scm/infra/transparency-logs/gitolite/git/1.git/commit/?id=1bd7f5b78426fd94a4a3f75c79835a4416809e87
+
+
+$ git log ea40f1e9f07aab937b9a217633be7a1f66260394 | grep -e 4dabecbb202e8 -e 9af7fddef448d
+
+
+-- 
+ i.
+
