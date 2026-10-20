@@ -1,132 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503889;
-	b=J6KjQPT3Ii6NNm/HyerDYyxCRWRvC/eS6w9ksgA1IN9/A0QkOmrO7Uox+nD5Vs1L0Wqy
-	 Fhy9hH5SxUduzY/p/32Ym8pScwYj2NW7qoNoK6t6te3EaEojLqJfRnqMgrca+GBB1GLS8
-	 s24GQ9PlQzgBb8V0jksB+ug331ezoHheeElnjA/JTxBx1OOtNRcp6XPc5tBC2KEnRdteg
-	 PaRgcmBcqBVeF/sKRMfQq3IaxE/p3J36ZF5sjzBIc9OG1IeXB7HI4VE5qCbXNrb4xo1k5
-	 2hSFoQEdSzMuCF+zwnXv87G680donsaSF+hN+LR9i40kPx+Cqg0LMl0XjWHorASgdOA==
+	t=1792503943;
+	b=5GU9KmBIWfmttGXUa0J+50jSIxF1x927xVVnSybQAiwAJliFMVLCmXcxS7uIlCLbAQbB
+	 FbXovJG3szEJ1Cm/sXojjqwMUUMauH2GT9SvIAyncKTtOXwXjRAfKpfyutkeqmumrfm1M
+	 qKmvVlLD1N6ZrPTLVZR+5IF7DUnxPayQmyhsXpHZs8ipkc7Tjv7xnwvELEuSjSUcxEEwx
+	 HYAOtk9GMYih4IP9hwJFrq5FuZpTEDY1VijLtbAujvFoi5zFYyI2WGrWmEzSrE48R0avU
+	 rjleKgHvooMOPiBeBxGJCEn/pfnLGTeC0SDHn6VBtKEim1n2m+WxIKwnDhEjJahENHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503889;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=7sFqYPku9IMCaAgjb1BHGg9OMs1Jn2kXfjeeNqqIfW4=;
-	b=w4qnW1V8fhST4g4hgJp2pv0hdDN/p9axTuGA9Qe0s/fXBsP8Sv+XgmgRuX3bY5JsAxhz
-	 IuUVaRU9MC0HrI9RkewB1G1TYCbdu9c1d8PTG1LWudJuTzwhxhXCcXC/SWA91zpuQgret
-	 eYqHEhd7PyzDA21DWex7eOvHdw759bDwBWEbzjq2M5iqbeWGzfSLeWRBLh6E9AUfGuiFg
-	 jbRxukXCRRvw8+FSxvjHJ5XaIKAL6pOjDA3ssBIn70By9GG488cKb3Ip7DqV93sSnk8r1
-	 lk0lxBa5g7ZLBHosb2X+AYH+rnB5LMdpoIMlp79hmWX0GW4wBtd+V4rhz4rgk8sUn6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503943;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TBlQ8XEvNLoQoc5u8Ixhu1A95c9gfj4lGqG4ps0UPhA=;
+	b=rt3AZFTOdTv7ydsrLVtN9YmQFCMkzehhZOSf6IzuK0H5xbeN476kCDsJgHNqzGfdM4tq
+	 +xgiiaLNeg4jVULTFOe4xoMGPk760T6aWwmWigVVi9yAINH2nwXnHYTv7Nx/pPmHE0c3E
+	 P2IRJ3xZ/eDTTfa9wGQ8G73PIPfmbGRfevmeopIrKzVBf9foAP5NCH1vcawmU2ChcZYKV
+	 iwPxXiwEo06adwjACjswpmSOJZgKrJNcR877+gFqmapK8hnurQHVBolZ3ZL08W1+amTV0
+	 l6vHZfNBlkciFNGKRxfOLc16hk7QKURGY7CzfiSZ2ZFARRhfRd2N1OM+JosrJ5bcwVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=Azw65VhM;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=o7Ae6oBD;
-	arc=none smtp.remote-ip=103.168.172.156
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lobz1BKJ;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB89606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:44:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB89606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39951606A319;
+	Tue, 20 Oct 2026 13:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39951606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=Azw65VhM;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=o7Ae6oBD
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C60DF1400128
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:44:47 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 20 Oct 2026 09:44:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792503887;
-	 x=1792590287; bh=7sFqYPku9IMCaAgjb1BHGg9OMs1Jn2kXfjeeNqqIfW4=; b=
-	Azw65VhMY29Q5fqTJy/B/ERFesM94CIXQfuf1QNF+KlAe3GVPs4G4H1d+m/72BSu
-	rNpUylzVIpHuLZxHy6jLsI90mSWwX9PjWKcbo8ta/P/k3Gl8cNqJPBqcq6MpzKpz
-	Z8NbTUir+JU2o7WX6/oyJCGSW1tywCsLSW/vCL+He6wWSEqYpeBiKvXsuEjzZU56
-	QejeR/yTBML1obHIWWNffMI3yXhDpJjUkpf7MzxPSHG6bPvi4k0YqJg4VYD5p/Zm
-	wyZVnpU2yFid2HLovNiQep0oCRfS+Z4t/VFXnYqsEDKl235QN+0oTfuLghC+KA7u
-	nI4iP5fXaQahnkJ6ByvRPA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792503887; x=
-	1792590287; bh=7sFqYPku9IMCaAgjb1BHGg9OMs1Jn2kXfjeeNqqIfW4=; b=o
-	7Ae6oBDo74Z8A56wSzQSlQ11NhVK3ZiU+yRe8GIpSuktQvXGQzfWVwT9DzDXbfgP
-	xfDnCNPPHyvJu1NeFRcZzM/GpbffW5X7FT0ymYE2GLDAMBo19t+tgVzyZ10tVCfD
-	egDBHZPrrwfI2It4OHDnYs8JrBKrU79bSBOfx/Mg6v25sFN+AJmztw+WBKiftigb
-	p/8rEConEfTgogo3R2iu/S7yVnaTQFGFPe9hZy8XhMx+IGjwAT9TektwbBrJZs36
-	eIxaP9FYT7mhaVdRC9eBw23k56Mai1LaTSLTz5bjw9xaVz7KRLa3B8YkgiLWK/pS
-	JKC0Y0Jgdxl9fBUbmOo3Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792503887; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:gxSdyZWZXvgmVuVLatj369C7pmV1Vv3Jd85H9RfJMXzJa5H
-	zc6YQPq1WIueFfuQ6xzlorC+B+NWUARFNz482cejj+bI8AbQaD6JfpuvkOdQYfg7
-	pJwEOzPwr53SkkMJEZDqPRVdeGkJ+u7LkhkQO0QsWAGjMmXWeq3vAT/dw3bx4kGp
-	PmezaPpr47sb6BrG+xH0cryTHSmdumEYC9XuQcL56g94SX1VzJCCcHkBGPhZ0MjC
-	mlJe0Xa1hrR02MsdNRuhJ+qlUEXYGonPPcptGDe7ScVcRvruUGd1yXDGiV6qjw1S
-	Z9/afc+mpEeAEKoLBTfTzq9dp0OZqzsZh/r5xvA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:IeknNZlS48ZgPlaDg9w+WYE+IXDLDzMZ8dlg4l8Q0UQ=:SBzfYmoygIRTYjuunMl4N8cUIjWvhkSILabDTFdYnZU=;
-X-ME-Sender: <xms:T3DXauoazgYSH4FcNxN3eRbUWtPnn6ixt0AbQK_1eIbku8JD3MkAFg>
-    <xme:T3DXakyDpvhA-MgMURwdi6JDAnN1IkKtpizMe1It0fabOkN91tJwZSpR7gJ7LhOdG
-    qy9lTvJIBLi9r3pMM8EytLKRzg8BBtzkCcC9ZsfMCQHccPNwdFv73jC>
-X-ME-Received: <xmr:T3DXais9hTTl99HJ4uBkgAE8c71HhsxEFIyEQIohCDoH4TWWL15BtI3zynMJ6sNvDb4buBFLio5iVhUU8CMl__o9Q1LmU7M>
-X-ME-Proxy-Cause: dmFkZTFIg3lKdUyp26TRMc44J7IZ/m5v61+2X4w0llVDhQsWoMpOuaqnFv8z1H3n3YbuMg
-    4j2P5cQ3PYMTvpNF0s0HI1l9d7YYvvBWLG0M2jdVqikgQjqckR1pyaijHJjLG5ZBv5dm8Q
-    DM86YskcEFVqyu5+GkXcLICIUi5UOFPXGubhBMhSzrJPYfXBkwDHpF0U15QNP//kE6VGII
-    s1SNFLszlrytpJHzmCi/7CTXOcWjhbbzPd5N58vaPmwpVy19NuIbeolNhWHRmZdjANLCmn
-    39oBAtVxXqF7fHSKOJzhp0it+Uuja9Mhj+mZF+1GX3Bhy/bkyt4NNkPyOKEufgvIg59qrr
-    JlL1o2Zi1MRP1EXMZ7zJmQ+Ea9oISlEIB5tvRHE9wav0CkxE4e4Ax6Sayv79hGk2y0ivlI
-    Yc5TFwaolnno239jDwTbarIk+5LzD6gEoLzZFqu6ypdCdgp010Y6xqO+/7Qgj7btJRuNnk
-    Xq2YWwGqF7wGTfSumHnc94wvbjxhotlZT0txDpTjJv/HMof5zPfAZPyXmV6jHUnH2h/JqA
-    +h6/PFhuaFLlxnQgbYjJNyW3/wPfyGK+ZVAYcLB+wmhp1PeUVGgJrAQaZc5x3sR5BUj+av
-    ba1ujUUuQH7qe98Mw0XiuOPKmJ8j4Fu9PLIPxrPlxe+Fi9PtfbyzHOf5uFAg
-X-ME-Proxy: <xmx:T3DXat0rvhFvXZRavha9VKdASLzD8fovHxs12Sv2_YoRIzg969oWLQ>
-    <xmx:T3DXaqBcDfwrwX3-1yjLh_nRzKRCgFJ45VdyhCzXmZssBc0b8xXF3g>
-    <xmx:T3DXarDP1dt2849R7Ji_csARzez1OrxeTtkI_BqzAGqtgh1ilBJDMg>
-    <xmx:T3DXarmYy2HbAsJ8rTPv5uH9QYHa7O0J7McJ2le4R-hIJDl1AZXc5Q>
-    <xmx:T3DXarAOYE-YRvvjmEicKEFTJX7omJfCr5z6TvOtnn-dDUHtrz_D9tYi>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 09:44:46 -0400 (EDT)
-Date: Tue, 20 Oct 2026 15:44:44 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	=?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>,
-	Yusuke Goda <yusuke.goda.sx@renesas.com>,
-	Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] media: rcar-isp: ispcore: Honour requested
- bytesperline on RAW input
-Message-ID: <20261020134444.GC1172387@ragnatech.se>
-References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
- <20261019-v4l2-add-nv12-v1-1-4a84736803b6@ragnatech.se>
- <6c8e77c9-c0a2-40c6-8e7f-7e2d51c71740@ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lobz1BKJ
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDE6jQ2677907;
+	Tue, 20 Oct 2026 13:45:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=TBlQ8X
+	EvNLoQoc5u8Ixhu1A95c9gfj4lGqG4ps0UPhA=; b=lobz1BKJ7orrjhojPMHzS+
+	nezKnO4H0YowUzeui0QgHi+B+RNDC4ieaTfD/wKGBYt0DyWQME/wzliQdWap0mzK
+	Bx6HRiHVJBn/eTOtFM5qmu0KQAN+WDsxKbVwec2oKSHOHevRlfUXH44UtxQpf54A
+	b1ZkFysMN9ekffIC+Q9HS1rRo4EXQOecWXjAhfqAAh4hVG6+WtFxefAWHvleNyQV
+	8DiRVHgGME9P3827chCUzF2QPEV7KJdfodeu8PpqBsjq7kxOMAvieOGjmKkbUmWz
+	tueLfbaJw6y3Pv3o21oSTVX4SB8J7MPY+YnBwlmC+THptJekbaYa4J0TdtC9WdeA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw58k5r7-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 13:45:18 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDZ2Ss1539114;
+	Tue, 20 Oct 2026 13:45:17 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hckqvjcrq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 13:45:17 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69KDjG3N8192700
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 20 Oct 2026 13:45:17 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 811925805B;
+	Tue, 20 Oct 2026 13:45:16 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E3B3A5805E;
+	Tue, 20 Oct 2026 13:45:13 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.185.52])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 20 Oct 2026 13:45:13 +0000 (GMT)
+Message-ID: <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Dionna Glaze <drdeeglaze@gmail.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+        linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+        linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+        ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+        sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
+        jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+        jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+        suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+        elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+        sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+        roberto.sassu@huawei.com
+In-Reply-To: <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+	 <20261016234354.GA664420@nvidia.com>
+	 <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+	 <20261017203407.GM13920@nvidia.com> <atPgqROZZxnihYfC@kernel.org>
+	 <20261017231007.GP13920@nvidia.com>
+	 <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+	 <atX9fugGUsI0hGcA@FV6GYCPJ69>
+	 <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 09:45:13 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,92 +113,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6c8e77c9-c0a2-40c6-8e7f-7e2d51c71740@ideasonboard.com>
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: JtM8A38RBL3pm-4XpExNGRnUJbYOx1IJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NCBTYWx0ZWRfX5a0BTeNDogy7
+ HQ0ku9noWvy//AajEmcZvoM8yDC4VlINY6GJLGXIshPQ9qYymdbZncUJRcGN6eoGPSMZCX07m+G
+ acJPmPM4yBTYsF4o+YWZvyI9CBeL5Ko=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NCBTYWx0ZWRfXyxPutWlpO7ER
+ sAuCdwbWN4XoLLpGWf1AgJqgPZKv/nRELbbFHPd9VAOItOlJf4x6EKK41MIww9qGCwHZRdNtgc9
+ mvUVQjKNRDJlEZ0D+vKN6tGkGFgCDxPEnlB1t5C0qVYHzlffxB5njJnn+SfbdO2/d54MQuG4hKl
+ A5JVTCcjVl/eQPH7BkJRsnk0xRnd5yytBexE8cWHNphq93NHqqMMLAbvtzIAiaU9F8TQTV3axG7
+ 3aN+/u2ZdLVQsUxAyey0SYMrzOkVJyZc2zHRX52+5KeAJbrwCaOOwzKl0F+zAwKlWyrdP9V/cye
+ fEOGOJv/EHagwzxRpOu+b+8dRYFTDM2dcP530+30a9ETbjWHdbVk/ovWGEO+1BKP3Em/WZUZJ3u
+ 9j7Ckg9ejD+12OXwLFxkH6KwR2Z4/xEaw9KUJQFPiczsNq79WF7GUBkJhxSeWttr992xweGJJdw
+ 2qp8yPFtoi8ZTmus/BA==
+X-Proofpoint-ORIG-GUID: O8O2cJueqZADDX7RlQ3tl2sxveS2Ra_I
+X-Authority-Analysis: v=2.4 cv=Ob4NnRTY c=1 sm=1 tr=0 ts=6ad7706f cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=FK4dugxTnjcHPJTaTJcA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1011 impostorscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200054
 
-Hi Barnabás,
+On Mon, 2026-10-19 at 09:10 -0700, Dionna Glaze wrote:
+> On Mon, Oct 19, 2026 at 5:08=E2=80=AFAM Jiri Pirko <jiri@resnulli.us> wro=
+te:
+> >=20
+> > Yeah, I was thinking about this and went back and forth. In the end, th=
+e
+> > only reason for leaving it unbounded is to allow multiple independent
+> > users of the same register. For example, IMA and systemd could share a
+> > TDX RTMR. The systemd side would read the journal through the
+> > attestation device and the IMA side through securityfs, but both are
+> > views of the same journal. If one side truncated it, the other could no
+> > longer replay the RTMR. Isn't this the valid usecase? Do you see how to
+> > resolve this?
+> >=20
+>=20
+> Bright minds have spent a significant amount of time working on this.
+>=20
+> +Roberto Sassu, +Mimi Zohar
 
-Thanks for your review.
+Dionna, thank you for including us in this discussion.
 
-On 2026-10-20 11:36:04 +0200, Barnabás Pőcze wrote:
-> Hi
-> 
-> 2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
-> > From: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> > 
-> > The RAW input video device always overwrote the bytesperline requested
-> > by userspace with width * bpp. The input buffers are however shared with
-> > the VIN, which may use a larger line stride (for example 3296 instead of
-> > 3280 bytes for a 1640 pixel wide 10 bit image). The dmabuf exported by
-> > the ISP was then smaller than the VIN buffer size, and queueing it to
-> > the VIN failed with -EINVAL:
-> > 
-> >    __prepare_dmabuf: invalid dmabuf length 4042752 for plane 0,
-> >    minimum length 4060672
-> > 
-> > Use the requested bytesperline if it is larger than the minimum.
-> > 
-> > Signed-off-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> > [Niklas: Use max(min(..)) instead of if statement]
-> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > ---
-> >   drivers/media/platform/renesas/rcar-isp/core-io.c | 11 ++++++++++-
-> >   1 file changed, 10 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > index b60b91f43d42..badde72352c1 100644
-> > --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > @@ -5,6 +5,8 @@
-> >    * Copyright (C) 2026 Ragnatech AB
-> >    */
-> > +#include <linux/sizes.h>
-> > +
-> >   #include <media/v4l2-ctrls.h>
-> >   #include <media/v4l2-event.h>
-> >   #include <media/v4l2-ioctl.h>
-> > @@ -335,6 +337,7 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
-> >   				     struct v4l2_pix_format_mplane *pix)
-> >   {
-> >   	unsigned int bpp = 0;
-> > +	unsigned int bpl;
-> >   	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-> >   			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> > @@ -352,11 +355,17 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
-> >   		bpp = risp_io_input_formats[0].bpp;
-> >   	}
-> > +	/*
-> > +	 * Honour the line stride requested by userspace, the buffers are
-> > +	 * shared with the VIN which may use a larger stride than the minimum.
-> > +	 */
-> > +	bpl = max(pix->width * bpp, min(pix->plane_fmt[0].bytesperline, SZ_64K));
-> 
->   clamp(pix->plane_fmt[0].bytesperline, pix->width * bpp, SZ_64K)
+Based on my questioning AI, it sounds like the purpose of this patch set is=
+ to
+introduce a vendor-agnostic common attestation subsystem framework that can=
+ act
+as an internal kernel multiplexor for any measurement consumer, like IMA or
+DRTM. By providing a direct kernel-to-kernel call path, it allows measureme=
+nts
+to be routed to different Roots of Trust (ROT)=E2=80=94such as physical mot=
+herboard
+TPMs, Intel TDX RTMRs, AMD SEV-SNP registers, and PCIe SPDM devices=E2=80=
+=94without
+hardcoding IMA to specific device drivers.
 
-Good idea.
+To support this framework, IMA requires a strict, atomic execution sequence=
+ to
+maintain the Measure =E2=86=92 Extend =E2=86=92 Execute (Measure Before Use=
+) guarantee. This
+initializes early during the late_initcall phase within the initramfs (via
+dracut).
 
-> 
-> ?
-> 
-> And does the device really accept any value between these two limits?
+If the new subsystem introduces a direct kernel-to-kernel multiplexing call
+path, how will it ensure the mandatory synchronous wait behavior when exten=
+ding
+multiple hardware backends?
 
-The stride register where this is programmed is 16 bit wide.
+I strongly agree with Jason=E2=80=99s point that we should table any discus=
+sions
+regarding a new dynamic log or uAPI additions at this stage, and focus stri=
+ctly
+on exposing the static firmware-level TDX log. I also echo Jiri=E2=80=99s c=
+oncern that
+replacing the securityfs template log with a placeholder string would break
+backwards compatibility for the existing IMA ecosystem.
 
-> 
-> 
-> > +
-> >   	pix->field = V4L2_FIELD_NONE;
-> >   	pix->colorspace = V4L2_COLORSPACE_RAW;
-> >   	pix->num_planes = 1;
-> > -	pix->plane_fmt[0].bytesperline = pix->width * bpp;
-> > +	pix->plane_fmt[0].bytesperline = bpl;
-> >   	pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
-> >   }
-> > 
-> 
+Thanks,
 
--- 
-Kind Regards,
-Niklas Söderlund
+Mimi
+
+
+> IMA logs and systemd logs are both system level concerns that are
+> relevant to the OS construction, not individual users,
+> so I would just say to reroute IMA to use ctlv using a kernel config
+> setting, then make systemd the new system manager of the holistic log.
+
+
+> The securityfs log contents can simply say, "log managed by ctlv" in
+> this setting, in the form of the template identifier.
+> For policy violations, only the 0... extend needs to go to ctlv.
+> IMA can still keep its violation log as a ring buffer when it's not a
+> 1-to-1 violation to extension
+
+
