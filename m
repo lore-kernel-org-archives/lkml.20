@@ -1,128 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459781;
-	b=UepG9S6Fx30w7CYEarKzZ60W9iiOi1F6x0YLrbYPWRuTH1IORf7n92afkYUfwcKPpgVA
-	 kMbGfUl76NWpZysJuB3Uuis656Xc8/YqpbUcG+ZYtbXv0nggIX8dJEtQSMOtg/jPr2syP
-	 HCLZbNJ2NIZ8edfr/3gkPb+jz2sf+vNw/7gkew6ElgA/quwifan38jENHevOEzmEYHHzm
-	 fUBYLZqQKc0JgoT57qz6c8FmqUIr1NQlE3zaBy9RFXi6Wwbkcsa5nXXt1jUZCtl58EuFH
-	 Cym6V4BjnWEPfqzC493H0kKGpBpK57PqUbM1VCWK4aG3c9QpOdU6ecyIMFyyA4Nzi3Q==
+	t=1792459780;
+	b=5FplJ/zAkECDcBMwpG0Dp4QK4QhjGxNAoHTRLK1o5QCRD1fMApPDbiGJavuVCaftBhF5
+	 Bvy49yBixjKVBXboDLHhkdiL96AXMf7ZJT7Fo7hxSkNoNMLBcn74IzBWeOLhhpaq+1FIS
+	 A0iqOGNNY2iY8a9TW1QePwtfdt4fR/QEWBVyW1h5pLLikL3g1UbkI+fBptEeQPvtEQQWp
+	 8NlJ1dpI9zivBW9W/D2qfb+9dCOxRjRsGTrumMzcn1Wvk6H9Z+w5XFYHoWKecsbMpxNEj
+	 eEBPQs2S0q6lgyE57NhwPYS+0wOw5M5Z6Qi1UZb2Lf4zhxXbX1ybA6VWT1MhEAye2SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459781;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=;
-	b=XmOx3AHNTfU7VNz/Yh+KW4RUR25YD7lFBPfHIWDnZHpR2tZSB5JHjHnFNiIZ84m1ipnx
-	 1KaHm0Z++UM+NYcmqHbW9L31oWazBmaAADiAuYMPWW4ITcxTm6Db7L+4PVJMi4g0e/wGf
-	 q6urnwvRJ7fzzHcuRtDDbKbi0E35g6f/mrlTw4ipneO/UbNhzmwu3Us5mKEqDdDp6Jmge
-	 QmhV0tX0U0d2Z/I22GbtPT8fPYPrxC+yADFm/q23Y57bOn7X/V/s8qutrCad5f3p0Vmmt
-	 tnKJmM65d6r9nvIOC2pmn10nzVimIg6dGYxAvY6zJ9/ihgd0vatlSU2MUTR3RKaqoow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459780;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QT3eFXHVHoqDLuSaSFM8eK63zSLUEeeoFpkJDMWYrL0=;
+	b=Sq3KZZjH0ddFc7gP0be+HZTLi/+ITAWkA9rD2CUJ9XTExaX3MOPocmUfrAAMml4xVuFk
+	 0pibgWEkXCm5tkWDL2f4OyQ7tA9ZBpiBYXHIx9zvKGuLamK4pKBdY6XYUa50oDiRfCMzP
+	 RfHTW9WNPzQxEJqBXFSVe9DilkIqez+j19WTo9wIGL2CCvLfn7ORjSf1VuDkUbwKSVK8p
+	 gs7L2vtKM/drjBCVSlTtJKW26TAqDDXYbvV+ObzJq9v2M3sTYle/4SC1NmqvVFZzcyWPm
+	 pusSoTXX9pDIEScQ6EIiTlkYb1C9P7YKzUAOxYQCJc1MeYWT4Ihi5ANECW5Wsp316bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=themaw.net;
-	spf=pass smtp.mailfrom=themaw.net;
-	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=SVcKanoO;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=LRKN6rvs;
-	arc=none smtp.remote-ip=202.12.124.148
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XxUN2kZ6;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8207F606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E2B606A31E
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8207F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E2B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=SVcKanoO;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=LRKN6rvs
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id BA80E1D001E4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:29:39 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Mon, 19 Oct 2026 21:29:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792459778;
-	 x=1792546178; bh=4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=; b=
-	SVcKanoORputMS9MO8AZ+m9CLbuEiMGHUFhu8+iq4XrQnvlronqdcgOyYQgirLwt
-	v+in1h9mrh5fqFtUjrWtripYx0aac65Ksu5psUX2IKyf3B/d7vc0QcXTvFHVJHcT
-	0rIPT6+DfKAitRd6QNk/7WsSdvDKtF7o+SDYEaaqwaCi5Dfbmh334Krz9CKZria4
-	gG4da+nk02euiIZa8epvSyBDlLq0tv8IcJqFpJB/kEWGNa+Fq5rERscXfkVJVsJX
-	X1RQS616RedgX5XhcQI7e7Ljgh1WAOQbee1s2eNp+AkoP3QRPTiXMFbyuR0rSxim
-	/LgokHKspJeMb9DPnix1sA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792459778; x=
-	1792546178; bh=4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=; b=L
-	RKN6rvsLGKJEPn1a+HKIUTjGlhoNcbwA62lUK9av8hrXG1OrxrS8TVICDfygnSQd
-	ORlbI9T12cxNWDsefTeGTR7CWtbYzfPpLN/zYHquF96krWCXrZwgZMmdCISJrN6V
-	Wr+Sd2KQS+eKDOpqGHi3BLeDx2o/3xINgW5BEpjrxCb649M3kGMpeSijzIou9NvO
-	qte92R9ELwRViQbWxTihgoYQy+DAYefvnuWUGkqCgdtLCfDI4lvSCuxD9X5x43hb
-	fN/Ajfi2Sa+s4qmoPQpZbHavTCgBKq7XO5UtkGyYh0Bqhv1mgpSZhG2aj1iOmT4Y
-	3kIygFT01ZL7CWH03HjWg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792459778; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Gq2eRefMk0g3ReYg4M6zXgb4wmvrDZJ1wVvYesWRzx41hpz
-	fRZMz587reNP2YEWVfUPxRwp6JcDh51dSoIh0sM5/VzfCo5Y/VCATMsevec1JIG1
-	jG4ciJ3mU/S+ZA6FAubJ6B3E8Nee6hCQoZytaoispDuePkodPQVd5LT0ZAIthjqd
-	kb1Ab1hC0x6WqDgPH0ZaSZAUBfKqByp3Do3W1XwLYLgqLZc8dwl+dKlHPDXV6NmB
-	STAkZVxK4BJxMK8FgNklh9/U+AEr4SUs3bYXk0geTW9dMUO9s/qgSfAvHluszLsU
-	Lv0iwpc99SDeRaiiQbFRVFxpKbuRmWOmsBs4iyQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:EN79Ak7wVgDgTEBK9FL+qs89KwROzfndLX4I0+ZDfkM=:4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=;
-X-ME-Sender: <xms:AsTWasfqRNzjpJ9gg-BuufdKOj498BlH0X6g3r9grUPzdNfu2HdDHw>
-    <xme:AsTWagyhbujE37DIweAPH5lxhqLuobr_SMLFa5nbRw--KwKvJowbkeZcjxho0VIBP
-    5-7wc9FPicaf_guEh2MBjPiFw5ROU9fiB1EMgF9ImlMTwtMIw>
-X-ME-Received: <xmr:AsTWahIv-cEu1JAuQp4CCCA3ULid1ETlPWBjhViiJpZ8RNkU9_MmdcOqC_RkgEfMz22jrlHzj4W8cn_I60b2I1U-qoTxLdH3AFrHV4xqRhiA01Pmop5fHbazr4c>
-X-ME-Proxy-Cause: dmFkZTFI8fi4K3lVj+IvxJ7hiVFq2ywh9HFKS3KgmEYlO0KtXeRuLfVLPDQaPpNCmMQJrD
-    jTOYDRQ0ay4fbW6Hmhhfrv9rHJFRKQG2ouOqai0SmVtSTJ7ZihZZIcueBPLfYhxyTyAZ7H
-    WIr0nwr9SFuqPI/s6T/qRgUC0u7viODrwoTl8yxKgmUiyXDG6iz6EUtoccKCQCZQjVf5UK
-    qULd6zOA5Yxch1zmcTRetUQ2dBn39VzrPe5NKPuzT9mmc5yHGpkQzl8vtRFgIhsD+aR7em
-    9xoJ9fpRuaLYHBa4e8tnrc7ij5V1G/gxRVCwEHxdlaW9jQHZfx1ZQXIhTHqmYlGunLujOG
-    ykvhB2kqnrfwDzbj//+M/ttIVx1KcuwEnG0vgxZhvRyd5VWVnOVdtI5uqSlcMzRlYCGAn5
-    1/Uy5gyW4rbBATkWE0m/ZgcGrTpJZkn6OXgwqgN72yxRs3oRYPYbH32diAZAePFNnQNQ1I
-    MuDRNVP/G1J14ijqS6WKW15DTCaNesy8teY/B8ZxH9HDsm1rQ2SXGv1OFyK060WZxErRq3
-    Dz1MNiLWuP8lbrpW8xw4nbhf3j1D25iSDgYAQ9PCCPCAxp0+CbcBDbTwt+N/iiPPuvNbR7
-    rUNESjLG+ifBz/3Iza+eUKvTdjnzkBIhcva39IkNsFEpY6YJCWLA/YHvWtOA
-X-ME-Proxy: <xmx:AsTWaiHsh4W96KM4MtEEQSBrazKqucWCqF-OxgTrPCiBuFNqLZ9BYw>
-    <xmx:AsTWat9f8cYv3xql7QW8tJNzaLxauiHYK3Va9qYltCCdS78wwxaoEQ>
-    <xmx:AsTWaiLiHWa2rK6XDEttBDQcba2D7v5CnH_KBdQvLncbSX9-J2QLzg>
-    <xmx:AsTWarvQQhATPAuMnKENsKPn7_dX7X6j2Vl4sO0PdpMUhVTUR8pwsA>
-    <xmx:AsTWakxEawTDmazIV5bVgDu47kaeR4_P0Ga3H_eyp5IXDhIJrpUaUB0s>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 21:29:35 -0400 (EDT)
-Message-ID: <d0bc6eaac2fc84cb43b569f49ee503057784b45c.camel@themaw.net>
-Subject: Re: [PATCH v4 0/5] Fix easy bits of the negative dentry problem
-From: Ian Kent <raven@themaw.net>
-To: NeilBrown <neil@brown.name>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner	
- <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Amir Goldstein
- <amir73il@gmail.com>, 	linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jake Edge	 <jake@lwn.net>
-Date: Tue, 20 Oct 2026 09:29:31 +0800
-In-Reply-To: <179237697885.1724252.11956785709205194840@noble.neil.brown.name>
-References: <20261019000810.1837917-1-neilb@ownmail.net>
-	  <f1c42d0bd125c6b1c39f1ebaee41340b5f6f03f6.camel@themaw.net>
-	 <179237697885.1724252.11956785709205194840@noble.neil.brown.name>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XxUN2kZ6
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-18cdcfc05ffso1328440c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:29:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792459780; x=1793064580; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QT3eFXHVHoqDLuSaSFM8eK63zSLUEeeoFpkJDMWYrL0=;
+        b=XxUN2kZ6oEaNF06NIkbaryynlksV1cMlxhrkyWtOISac7KzbtvUgeFnp+pcITmQZo6
+         7AFTE+xDCMWFB+Ka8hPWmtY2+ouBmJJsz7SFOycY9AVFqqjPFDTIu4Wqbu596LB/c8y2
+         hw7uTy+fEPpI5avdn9oR0gwb+8dMYujIZ2owbXkrQh4NeT9ExNYRiCndy27rStV9CZ4n
+         AJX8EJqDvZ6gUrRhlZce8XO2+M8PdnA+eHtnJu6gzYkAyBMSxE/HaqxBu8UmYooBsWMX
+         Pwt+VbKoawGN1yuYtTfxtD4d3xHe2zuw3X+FRB4cRQvrZ6Iur5RSVRHzbUNmSWPRiGMP
+         K4Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792459780; x=1793064580;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QT3eFXHVHoqDLuSaSFM8eK63zSLUEeeoFpkJDMWYrL0=;
+        b=OKsH5goa7WtlhApk/U2rrChfAVMLNlybaQ3gMOKegdgBnyw0W5iBZtIJDJjw+Eyec8
+         hB7lUZpaAXz2F5btSxTsj+jpb9ZaitwEKscWrheCtOuVwCfl/JV8siFSmY6T/4ePeZT4
+         zIQpNaCEj9spk/CoIpgq2kXHVe7geDuVbKrI3a1b8XjV3HGF0gapy4zdzgKHJXheBbx1
+         EATRTnqitsqlV1cACmZnfMMx9/TCTql+dU7lXpURr/gkUSeCW/eUTP6dzdsHWtHGamfU
+         UCqNO/5zxVO3F3Zg9j8oY4JvF4fi/GvGykkM6GxsUA5xndn8cfFWQQXiPOjMCAQx24L3
+         bEFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAP45kH02e9IZFbNOc4a816XXJcTNosFgxg5TxsihPok1TS37pyvNguUeBafDLw3mfV2wQ+dY+VOiofUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhVE2T55I0QlHQAJ73rIQO1zagny/B4ta9/vDS0TxnVGlD0kLF
+	2645zHhGpDzFc6aK43uyIGYnQ0NIUsJ9KC773FtrUF0Aq93fR6ctrTCn
+X-Gm-Gg: AYBFou3W1gFMQ31pze8raC/NSQ2jqBOOlwKIxn9qUTOM3Ko5031AkyT9AKhWBCf1sym
+	HIpjXHMSoCM6VIWJvroFHPx9Aju1zxVZJUeuCWATLv4oFL/DaFFzKbgIWdUrJq3tUGoxtl+606l
+	tpsi2uIke+dsb/2m14QY5Sg7qnmZXvwVng2Gb848MdyfAknFBJ9EkkznB4+voU7YmsxC5Zorklz
+	gDlXa1GKzuxiiVh1E0OETavrrr0qOcGmhmp0QYjhxAg8mfWFH/Maed//W+ijZj/H08kPeEObhNR
+	dM4ZrlW0W4LGAurbuZLiLipHeKjz+aS0EHx/5cTqDZ5auNo4gIcyYqBSMYG0rVOeLrY5TDRSSb9
+	HFla/N4Hzx8ecN1nmWRLWXucC3m5l+t5IgFNIyEnIiv0RVMLqGveunTHsO9MXXK6FfaQJT0Ldlo
+	BB+qMr50CmyvCaatBN6/6pNeATCYCfI22CYm6UekhHIjg4ziJohw0ToR51ZgFXnn3vE4wAp1C+d
+	nSj0iTSWkCx
+X-Received: by 2002:a05:701b:42c3:10b0:168:6ad8:e89d with SMTP id a92af1059eb24-18511eb6876mr14641867c88.11.1792459779536;
+        Mon, 19 Oct 2026 18:29:39 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm49277908c88.11.2026.10.19.18.29.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:29:38 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:29:38 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: qcom-wdt: Document SM8750
+ watchdog
+Message-ID: <10d6863a-67ac-42c4-86b6-aa3b0871b502@roeck-us.net>
+References: <20260930-sm8750-watchdog-v2-0-b16fcda275d2@oss.qualcomm.com>
+ <20260930-sm8750-watchdog-v2-1-b16fcda275d2@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,141 +107,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-sm8750-watchdog-v2-1-b16fcda275d2@oss.qualcomm.com>
 
-On Mon, 2026-10-19 at 13:29 +1100, NeilBrown wrote:
-> On Mon, 19 Oct 2026, Ian Kent wrote:
->=20
-> >=20
-> > As is so often the case you've come up with an interesting and
-> > useful
-> > proposal, ;)
-> >=20
-> > Nothing stood to me out as problematic given the scope of the
-> > series.
->=20
-> Thanks :-)
->=20
->=20
-> >=20
-> > >=20
-> > >=20
-> > > =C2=A0[PATCH v4 1/5] VFS: don't count references through ->d_parent
-> > > =C2=A0[PATCH v4 2/5] fsnotify: update children flags only when adding
-> > > mask
-> > > =C2=A0[PATCH v4 3/5] fsnotify: don't hold i_lock while walking
-> > > d_children
-> > > =C2=A0[PATCH v4 4/5] Add d_for_each_positive_child family of iterator=
-s
-> > > =C2=A0[PATCH v4 5/5] Use d_for_each_positive_child() in fsnotify.
-> >=20
-> > Did you have any thoughts on how to contain the number of negative
-> > dentries, (perhaps) including directory entry counts, in an
-> > intelligent
-> > way (meaning "as you go" rather than "brute force" when needed)?
-> >=20
-> > A significant problem, particularly on systems that count their
-> > memory
-> > in TBs rather than GBs.
->=20
-> I would need to understand *why* this is a significant problem, which
-> as
-> yet I don't.
+On Wed, Sep 30, 2026 at 06:32:05PM +0530, Komal Bajaj wrote:
+> Add the SM8750 compatible string to Qualcomm watchdog binding.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-I think there is something more needed to understand the problem.
+Applied.
 
-The source of my concern was originally the traversal of the entire
-list of child directory dentries in the notification code to set a
-flag that depended on a parent dentry setting.
-
-From the information I got (which is usually somewhat limited) it
-was obvious the number of dentries was very large and there was a
-large proportion of negative dentries. The obvious assumption is
-that the implicated list traversal was causing the lock held too
-long messages due to the number of entries. There was evidence in
-the vmcore analysis the proportion negative dentries in the child
-list was unusually large too, similar to the proportion of system
-negative dentries.
-
-I should be able to grab the vmcore again and get more details if
-that would be useful to you.
-
-While the unbounded accumulation of negative dentries has often
-appeared to be a problem, and the case Miklos and I were looking
-at implicated that, I also thought that traversing the entire list
-of children to set a flag based on the parent dentry was not good
-design. After mentioning that Jan replied (wrt. using the parent
-dentry instead of setting a flag on the child) saying dget_parent()
-was high overhead. I let that go even though I didn't understand
-why dget_parent() was needed. Using dget_parent() would only ensure
-the parent dentry didn't disappear from under you (it wouldn't
-protect you from deletes or renames) but dentries are rcu managed
-so an rcu_read_lock() should do the same.
-
-So what am I saying, I'm saying that I think the list traversal
-that was causing this particular problem can be eliminated. But
-that doesn't do anything to come up with a mechanism to better
-manage negative dentry accumulation which I think would be better
-done as part of the dentry life cycle than as a shrink operation.
-That's just my preference.
-
-> Allocating things that don't get used much isn't intrinsically a
-> problem.=C2=A0 We have a shrinker which will gradually removed them - or
-> less
-> gradually when memory is short.
-
-But if there are Terabytes of memory it often doesn't become in
-short supply.
-
-This might be able to be better managed by updated or possibly
-expanded settings based more on number of (negative) dentries
-than memory size.
-
-TBH I haven't looked at that aspect.
-
->=20
-> But maybe shrinker activity itself is a problem?=C2=A0 Is that it?
-
-Mostly only in so much as it not happening.
-
-Problems with shrinker operation don't come up as much as they
-used to so I don't see that as a problem myself.
-
->=20
-> I think it could make sense to separate positive and negative
-> dentries
-> on the d_children list.=C2=A0 This is quite do-able, though there is a
-> small
-> cost when a dentry transitions from one to the other.
-
-Not sure about that.
-
-One thing a negative dentry needs to do is maintain it's
-linkages in directories and such so it can be located on
-lookup to effect caching benefit. So separate lists might
-be cumbersome and possibly problematic.
-
->=20
-> The only other thing I remember from the lwn article and the various
-> other articles and emails it referenced, was something about poor LRU
-> performance.=C2=A0 Lots of largely useless negative dentries push more
-> useful
-> positive dentries to the end of the LRU and we lose them too soon.
-> I think that can be addressed by having separate LRUs for positive
-> and
-> negative dentries, and giving them different weights.=C2=A0 I think the
-> cost of this would be tiny, but I'm not confident of the benefit.
-
-Or maybe adding negative dentries to the end and positives to the
-front might be simpler.
-
-A ttl might be useful too, use it to discard stale entries as they
-are encountered (although the discard policy would probably be
-somewhat more involved taking into account positive vs. negatives
-etc.).
-
-This in line with my preference to mange these "on-the-go" so to
-speak, not necessarily related to any functional parameter
-improvement that might be possible.
-
-
-Ian
+Thanks,
+Guenter
