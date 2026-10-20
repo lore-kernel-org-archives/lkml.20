@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482127;
-	b=oFFwp+SwAydTkpnWyQQUU/2zmnnMPLo4C/XKl8QFLkzDqrYlHHSCqGb/0eaeaQTmiLqg
-	 QTJZwprERMJo5dlJuMRuk7vO2PEBqKSy1QASQhr9XlSDVhb+BmvsCMp4f7euilboPHTfx
-	 tUldU9TJEZczlKniOlJjyKJqmA8YlimAIEltxVDhl+gkjY8+Dt+jC3OHejs+9MjncmbmR
-	 fMgEy6gNZOXbM9a1EIHHZn3Z35Qs9d8kcs4hrKowAD5EX5p2PPKvn+kas3gzt9NKapeeT
-	 KG0gR3QM2g/Klh5HdhgteMKWGdqHkqdK/C7+loePYxPVq5coMnQfsCN/iBCzhX5XrVA==
+	t=1792482161;
+	b=a7fbox8cp8J1ZoSdqvtUh+/JCHikj0p8ad5BJXsBtS09XPgXahatXXmpDXAzhbxoVuce
+	 3Fwf6NxFG4jntCWMUF10MliU8X3ChxRyf+BOQRdHeINDg4o7TSx8BwpyDI/BcJBsWja9f
+	 SEB5XBfWnFK1b+E34OSNkr62ZaLUwOnASNA3GrkV055xDW4ZtPAVUw1te1ynLg8IngI9X
+	 SvR8qx1+Z8kAOyMGNz2ctrcoEkVfDoW6U2tr39pfW4vNHYRemKRS0yoolufZUoj9JAZjJ
+	 7XWN4IfsTcYoePB75Iy5ROuxnKXb7ryEZRxrPOGNO/BTyhEpG9Ws+JDW5ez8zQ0hwEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482127;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=SuWKI/RUrqXAHxQn1RyYywEeadNWv9dy2AG43KMbWRg=;
-	b=d51JHOF1MhnldfJNZIO+maTQQd5ID6yw9EaR9XYoXWJlMpGAmp3zMp4HbC6YkJGcmp1g
-	 sbl9+KiH97JqE5DkuwaQoGI+H20QC1VYktACW69vWHwHcGcVg2zuaGh0AQh3NS5EGVIHK
-	 vgCXrZcWc5XQ8LKgBTy0DWnLCPxvGt15ntWrkh/us/1oyX9MVYUr6Y9+HukkCA+b+LOrc
-	 sGMHOMPtHBTmAVRXFY9tW/CcQuwz2eNGBrElD3lTqOlxD7egXjCGQI7bZ+nb+4O9EO4Zg
-	 oqXAK02ck3Ly8GRcrSUg2+kzT5ROgS3FXo1gyJQaCpeaJT4zgrGauE3FItFWnFI2qUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482161;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Scanned-By;
+	bh=6Clz3D4Wf01VZMPl8ROzHV0lszXJavJDkKiRC97TBCw=;
+	b=xlsim6I9JrkF/l23+CEonQOc5T8LJH256NoDgkK7+E/kfE5T89sXf/R2LmMh8bdelICV
+	 SA4o5U8OKj3LymjQnEF2tkmLbIcGd7HmCSNDsfHdZX0WchPC1X4EUttY5sA1UwHAn9Au2
+	 Bj3bYWSYzOEh9mimlxqNFuHzQ2enJwmX1w4m+RM8uZZEF10xxKdYk5y7F2UYwuBfSrEbF
+	 OiRR0/RC859F7dD6F5utpFAksGPAWONWUUp2tPD1xaIXLPxOxge2fsfCVUxg0HcW33FQZ
+	 sMSVFzzkEH8FtIgqz6fgCHISe4PvBlhe98H6kwDeRPbqWLh6iecGUH9FtFmcInpL5vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zHc4DU9u;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=NUIaLfL5;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Apr18TO/";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0474606A319;
-	Tue, 20 Oct 2026 07:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0474606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD16606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:42:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD16606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zHc4DU9u;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=NUIaLfL5
-Date: Tue, 20 Oct 2026 09:42:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792482123;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Apr18TO/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792482159;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SuWKI/RUrqXAHxQn1RyYywEeadNWv9dy2AG43KMbWRg=;
-	b=zHc4DU9uVGws6yzHHa9NO/l7OoEaXxR+mkXy5M9iFzwrNq7EsK4VRXKjy3EVJp7Q1iLsXo
-	nVIfTEijBf6WdkzpnI/hbDpxcjpDjqWXHOa4nm1Y+0/hl/AzthsIK3Sf5QIsEsN/k6lIgJ
-	PFLnIZ0SvPuI0z1Uz0tKvGRIc+KZw0w+0HOJSKLL7hn+LyNZPhgiq7NO11kbJbSRkZLDXh
-	8j5rArUCmTshptRF9AaHTjxM54v18leNtCrgwawybTKfinNH3alQDZxNhVkeu/fjI0TBxd
-	Zzk47MwB5kxvedyMomsQzf2BXbro19QCPI7xsehY4iYrBInl2xCla0MyqP9ZqA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792482123;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SuWKI/RUrqXAHxQn1RyYywEeadNWv9dy2AG43KMbWRg=;
-	b=NUIaLfL5rD4fWCZZjCNXdenRMCpfsTt5DUlzX8yP8vmPTEuadwgtBf1MoUXIcRE4FlMT7o
-	kElxRLlYiZ41ozDw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Stephan Gerhold <stephan@gerhold.net>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ilia Lin <ilialin@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH 3/3] regulator: qcom_spmi: don't take a sleeping lock in
- the SAW IPI
-Message-ID: <20261020074201.Hug86drL@linutronix.de>
-References: <20261019-fix-qcom-saw-v1-0-9c7ba3fc2493@oss.qualcomm.com>
- <20261019-fix-qcom-saw-v1-3-9c7ba3fc2493@oss.qualcomm.com>
+	bh=6Clz3D4Wf01VZMPl8ROzHV0lszXJavJDkKiRC97TBCw=;
+	b=Apr18TO/3vCi33K0EGbN/1wRNrjBNPwXya6N3DabC4eLYyL/L3VzO3iQkAAv0qGxkGCjTc
+	/uHMSsW+X7ei/vXd0VFdjwdtG+eYm5jgEhRUTqSKfzwjQlENxUgASes6yvo7rQsizGcaXy
+	OEZEw7zxY6STsOkF3c46em40oEXOnZ4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-658-dB3IkWoeNQKDLIC4XWl2Tw-1; Tue,
+ 20 Oct 2026 07:42:30 +0000
+X-MC-Unique: dB3IkWoeNQKDLIC4XWl2Tw-1
+X-Mimecast-MFC-AGG-ID: dB3IkWoeNQKDLIC4XWl2Tw_1792482149
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1C3361955D7D;
+	Tue, 20 Oct 2026 07:42:29 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BC3F51956088;
+	Tue, 20 Oct 2026 07:42:26 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Tue, 20 Oct 2026 09:42:28 +0200 (CEST)
+Date: Tue, 20 Oct 2026 09:42:25 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: shaos <shawnq1@163.com>, Jiri Olsa <jolsa@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: mhiramat@kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	x86@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] uprobes/x86: uprobe syscall accepts forged trampoline
+ frames
+Message-ID: <atcbYbiI9Ez5yHhK@redhat.com>
+References: <20261020003704.1012276-1-shawnq1@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,32 +84,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019-fix-qcom-saw-v1-3-9c7ba3fc2493@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020003704.1012276-1-shawnq1@163.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On 2026-10-19 17:39:21 [+0300], Dmitry Baryshkov wrote:
-> --- a/drivers/regulator/qcom_spmi-regulator.c
-> +++ b/drivers/regulator/qcom_spmi-regulator.c
-> @@ -2523,12 +2532,22 @@ static int qcom_spmi_regulator_probe(struct platform_device *pdev)
->  	if (!reg)
->  		return -ENODEV;
->  
-> -	syscon = of_parse_phandle(node, "qcom,saw-reg", 0);
-> -	if (syscon) {
-> -		saw_regmap = syscon_node_to_regmap(syscon);
-> -		of_node_put(syscon);
-> -		if (IS_ERR(saw_regmap))
-> -			dev_err(dev, "ERROR reading SAW regmap\n");
-> +	saw = of_parse_phandle(node, "qcom,saw-reg", 0);
-> +	if (saw) {
-> +		saw_base = devm_of_iomap(dev, saw, 0, NULL);
+(resend with more CC's)
 
-I was asking if the syscon could be made using a raw_spinlock_t if all
-users do simple reads/writes.
-	https://lore.kernel.org/all/20260929-rbrue-suez-upstreaming-mtk-pinctrl-raw-regmap-v1-1-db92943f42cb@gmail.com/T/#u
+On 10/20, shaos wrote:
+>
+> The x86 uprobe syscall checks only that regs->ip lies somewhere in the caller's
+> executable [uprobes-trampoline] VMA, then trusts ax, r11, cx and retaddr copied
+> from the user stack.  A process can jump into that VMA with a fabricated frame
+> and make an enabled uprobe report a hit at a site it never executed, with
+> caller-chosen register values.
 
-If the qcom,saw-reg registers are not shared anywhere, then this should
-work, too.
+Yes sure. Userspace can easily fool the sanity checks in in_uprobe_trampoline().
+This is a known issue. I think we don't care, and in fact IMO in_uprobe_trampoline()
+can die.
 
-> +		of_node_put(saw);
+At worst this can trigger a wrong a trace event, right? Nothing to fix, I think.
 
-Sebastian
+Oleg.
+
+> 
+> HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
+> git tree:       upstream Linux checkout, local branch master
+> source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
+> compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
+> 
+> console output:
+> https://gist.githubusercontent.com/shaos26/82a14d478c3e5b27d81713f9989693cd/raw/9eb4cfbf7c87bf4b06cd6138775a13814ded54c6/console-output.txt
+> kernel config:
+> https://gist.githubusercontent.com/shaos26/82a14d478c3e5b27d81713f9989693cd/raw/b1d9a09b984075b425aab4875117a6766a795110/kernel-config.txt
+> reproducer:
+> https://gist.githubusercontent.com/shaos26/82a14d478c3e5b27d81713f9989693cd/raw/b7e400345a004b4a4c340eccad862ac1f569aaee/poc.c
+> 
+> Build the PoC and run it in a disposable VM with tracefs mounted.  First print the file offsets for site1 and site2, then register and enable a uprobe event at each offset.  The forge mode executes site1 once to map the trampoline, then makes the forged syscall from a uid 65534 child:
+> 
+>     cc -static -no-pie -O1 -fno-ipa-icf -fno-stack-protector -o forge poc.c
+>     mount -t tracefs tracefs /sys/kernel/tracing
+>     cp forge /forge
+>     /forge offsets
+>     echo "p:uprobes/site1 /forge:OFFSET1" > /sys/kernel/tracing/uprobe_events
+>     echo "p:uprobes/site2 /forge:OFFSET2" >> /sys/kernel/tracing/uprobe_events
+>     echo 1 > /sys/kernel/tracing/events/uprobes/site1/enable
+>     echo 1 > /sys/kernel/tracing/events/uprobes/site2/enable
+>     echo > /sys/kernel/tracing/trace
+>     /forge forge
+>     cat /sys/kernel/tracing/trace
+> 
+> Replace OFFSET1 and OFFSET2 with the file_off1 and file_off2 values printed by /forge offsets.  Run as root for tracefs setup; the PoC drops its forged child to uid 65534.  
+> 
+> Two fresh boots emitted a trace event for registered site2, which was never executed, and reported attacker-chosen ax/r11/cx values.  Legitimate execution produced only site1; an unregistered offset produced no site2 event; calling uprobe without the trampoline returned EPROTO.
+> 
+> Impact and prerequisites:
+> This falsifies tracing and profiling data for an enabled uprobe in the caller’s address space.  The evidence demonstrates event and register-value forgery, not kernel memory corruption, cross-process data disclosure, or privilege escalation.
+> 
+> A fix needs to authenticate the probe context before dispatching consumers.  Checking only the trampoline address is insufficient because that mapping is user-executable.
+> 
+> Validation: Two independent boots emitted a trace event for registered site2, which was never executed, with attacker-chosen register values.  Legitimate site1 execution, an unregistered offset, and a direct syscall without a mapped trampoline served as controls.
+> 
+> Thanks,
+> 
+> shaos
+.> 
+
