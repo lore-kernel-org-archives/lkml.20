@@ -1,95 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506972;
-	b=y8riKdflRf1s5D3ArHpLeonogOnyFPUnjzGzqaztP6p3WiIqfnXuLl4D/TmVoc6s6P2B
-	 NfsC7EdaggEz5aW1X+evFq0++dgTsXcY14vcE8FZpnnawO3D+gFtgA1MsugEo4sJ/vssS
-	 GDNmRxAqi83IzVEma2EtqsNwsYAou0Ow5ws41Pxr9ajcaPXrM9MeRMlx2lhT5TQyzv6RL
-	 zQb0a13BX0kceZcNOaHPrMuu57N3+dEJnYVTcn97uTO6QbYtglGVU97a3iY8UYFLdu0+V
-	 lO6SQw8dEFLJQVXgIn+UB3OJWzFmVlwsa6k7L9EsSoz9La6Qb+YG5AA2/iIJIs00UIw==
+	t=1792506984;
+	b=Yg4hDtMzRx6aN5HeyUXWNakqC7ESOeUaU9S0E85YmhXg7XJUFImXeKddnM7c0CzZa07D
+	 qOMS5gGao13ptHgyyR9qVEE6t/E2r5EK6746/uhNnga85pru/p0ZHvLxbWUl0ePSg1emJ
+	 ld4cUlgbSb4195raaiCfiu/d266WXC5wamM+92w17OaO96u81KEamyc9F/wxsCj3F88sp
+	 kLrDpbFPvBAHr2rE8PSPSojMghr2UCcC5Mug2jX9AxP5gss3lMbEAPU4jejMpIvfV8RRq
+	 h1YgG2HVY8NZAoFaxJe3fDq682oMoWxkSPaJOTSnopStgnj8fyMatyQMwEjfSrhL4tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506984;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+2iu3aIJF32cGS02KODg//wkIy9/0jNAnx60DBj5Tuc=;
-	b=taakRk/vS0U51Bf/4nn3M6ivbNIKeVhWlwkAVT2luiNcBcOzZWLq8D6SW7FaNy2I1msa
-	 KdWIQmdvS+/LA6yTjWJ40gVK29vsZ0Wo8nnj1/xgOc6TeEtQPqtJaO+VTVJysjo/rbmDB
-	 y7O3udzZyTT5UXzTfMDtB0IdTLO5kFToi5zqJLEk41EK9oJE5IObgKL+WHR/NrhGcyzC6
-	 McTFRkKwOaZ+l1rhCtxvDeyZZ6ZVgi2T8j81CVb+pApYCJ0SdT9TMRUBtK5fPh/gMa991
-	 KF+LHfaFpcvpU6SZGJruQWicDm/k5FkvmaoHZTY32Sr23EMAK7gByGNAf1A9fE6fdNg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=GikeMcL0RrnlrjkigfHn4bmphngNDtuGpxDpa3/PnB4=;
+	b=Q7FObfgX7V8gMng+ODQ5HSLGXDVmkqjfC5RUmNrv50WKVi26fAM0a9yT0CMuREnlp8oS
+	 mMmp9nI3Ua8UD8XJSVLuZIeP2IWVP9slj99HTulmReaPS8OzarxGUFDObF+oPXk+L1OCV
+	 uHGCSrugVgJWXpCcc/KYe7QESZhuc8evOaNHpPUQMN0kFsu8oSy4zwLcs7sncywXe+t12
+	 XuV0fA8yggenJf7/BDw/glK+xaPMYUYjKSL3E9m4k5IMNT+CCXo0XNai4qWys7Z7xrskQ
+	 lAJRyiaXQ10dYK3FF9U7BV3roBEcAW+BfR/5j8fxYHkYLohcF5d4VZtBzxGBty7vFqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fTmicZM5;
-	arc=none smtp.remote-ip=209.85.208.178
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=GzwKj62z;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2AB606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F2AB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69C6606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:36:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D69C6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fTmicZM5
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a65120bf25so2851851fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:36:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=GzwKj62z
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53512cd2f85so37280111cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:36:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792506970; x=1793111770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2iu3aIJF32cGS02KODg//wkIy9/0jNAnx60DBj5Tuc=;
-        b=fTmicZM5odu+gs3ANXnT8HxcmR3UtJLbn5fjVooKO0eaT9jpt9b5Z/Io5arniaXgMK
-         RmQFTESEQZR/dp4VsF8C4ifL/wgaQs+gs5e8rp5IvOMamrps72D3+CLVfRu+ZuVYPiJa
-         rTn9VA/TGd0+AYKuAJqRDkQ9eU7+MXaAbWrorrq3FSopnL9OOAL82RlUv/Rp6YWvUGgH
-         twEIsEbX7yq91cEau0L+2aJcl4vOSIdxizPqlLtwKzj7G3MrVi63Tc6JqEAlvs9zBsqo
-         msI5VzNIObJ0gWmYwBtsUeTyeYWPzYQZYYhFQc1LDY+VUqTtbIgijUr4kdYrRq5db4rB
-         vAGw==
+        d=ziepe.ca; s=google; t=1792506983; x=1793111783; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GikeMcL0RrnlrjkigfHn4bmphngNDtuGpxDpa3/PnB4=;
+        b=GzwKj62z5bUVTtMtQaRtXDHyPWzUfDqBcPNykSSm7jJ4lOypBEf2RbuZf9v4ZujGn9
+         HrerrrRyCJguaiRtzcQgDA3kdfU0Xkc3WrfWzAGVK2ulKWaAhnnSPpMYs4tWfExeHN8Q
+         tkC7A/WCtJmPQnHWDnKVbNHD2OuNTzQjq6IZkiL9/GMQhS/NwGkqE1k9W9QNVIe1O4QQ
+         bp5Ih47xFTi/rp1McFFydlFAwIe1aBrxcmsuWjGZSgUxozeTP9s5kXRvkstuolCZpR7K
+         i5lEW29eEv0l8Xidr9MpDH2WnVN4zuba8GCZTRkMhv8UdCTC+V9z13+RJEWLQrlbCgK2
+         +/3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792506970; x=1793111770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+2iu3aIJF32cGS02KODg//wkIy9/0jNAnx60DBj5Tuc=;
-        b=Z2qN/TPScx1i1hb82tmyp7+5wEXAblgFH1/yFSm7HAx39tR8H93tWWo0+V1pfjbgmX
-         8WSiq+OWy8jBwZOhJwsdkZkME1QuwPCG1or9LxFYQVLZcQMv2WBzmu6IOwkHHFSMZLiN
-         1vbhYTcoCZThlXcnTlIOhfluvY3xNr9C8779vJUu2McjatZdflKxpufeSzn1guTam27u
-         LI39ZiJtZUkATQbn1fTMx/JhonEbMacZbXyJLv3wC2xEwoyWXRn0WDWwSYU/UZgcdQQz
-         X5c8IpSnOsG6VwYtI4XcGbapu6qUDSUxy7DRpemyT21RQZVWC5KrWRd5Z2slzfAufNOS
-         4nEw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0goVonAY5Sfjc9sZNler49D1G76/gS8G53BwQQ0ABDbF0U9YDrjq0slECoBuCXWzVwmNoUuxbbyKpkZs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXnambuXZwNNOL0mpd258EKvO1sHk2FOq3ekJgbeIfcBw80P+X
-	Nh6dStDgLhMIPm+zi+gW64dbz+ofxmjVToUL6C5sP7Zy5GtoumgC/Vh5
-X-Gm-Gg: AYBFou0MRCLV8zpQUNnrTRyXpxulPg7EhMz5H88eWTsv20HStjMGuQSnZxsoY27gDDv
-	nXKu/FZKYYvV5+LgbNaHLxNd5/uSdiH7V8KXiCDdfbG70iDvNvHTC6tSihLzK8mbfIa9P1RGqzT
-	UrKhAktNJK5w68/b1Arq1SountjUKSCDaZtOQx14TLQTREBOXumdOmBP5NCz6Ks7slwkXcgFasg
-	YgBThXO7UGOfi5/a5HypimeVJCVQr9swGIWHQFZB5oily8TYKVT3PFOqD0CKsZDvzbGDLFKzMMi
-	E10GroJCMYYkedSd9VnQw7rHVck3fzahyI2H1lZIQZYYUBqlyxCAQF6MvScjagJXj9ygP0/MH9R
-	jrnoQXsBTb+5krn4pbFrsCiFIMukg9W9aFgGKfFMr79aiTewr51sm1Dw/44w5Mi0tGpvqpFYo58
-	INn9qYwCl8V/Ln/iDhsu8+9/L3ZCyyrjWuTYwawqQGeIjRIHchbL8ZcAjGQl2i8wG/v+ljC6hsH
-	8p4+8guxUBb
-X-Received: by 2002:a2e:bcc4:0:b0:3ab:618:fc81 with SMTP id 38308e7fff4ca-3ab29118d90mr28181761fa.1.1792506969799;
-        Tue, 20 Oct 2026 07:36:09 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab16d7ddd0sm33890831fa.4.2026.10.20.07.36.07
+        d=1e100.net; s=20260707; t=1792506983; x=1793111783;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GikeMcL0RrnlrjkigfHn4bmphngNDtuGpxDpa3/PnB4=;
+        b=j+mxH15Qy7STl+Pzi8v+FecErNz8cj0kkMGOVG1mYFFnhAuxZ6u4APfaU6Q/SFfMp2
+         TPeRpA1u2VzISB+NnUkSyOkfAKNn/lKRy/+9HxbtHnog/SlvOf1EbcRm5Uc1dkYZAa/e
+         Iis6xqUqvgVnpGOlUwICyu/ROsEByOlWUdACFvmDAQZKJYtuIyMCNHIByr+YkWK057jZ
+         mMXIsSANnJfEey0BuV79Nk/3Kb1H+ByRTIXc6LwmdIUa+KLeF53eaGwxi85rZvBstpIj
+         czvKTBLd/syl2oIbAzBiiIoW/sH8r9A7rbUmpKWnF3ORf9LdDkaOkeSRYBcOYzubRUyY
+         y7vw==
+X-Gm-Message-State: AFq9FYLZLYuZfGiNnHiHNuJLKZ6xLtVz6FABKh34fWLp4Z3J+N1+TxRU
+	2cYISqsF9jsST5+B35+C5YF5nKUCrmFI2DOx7iYpc4Ex1lD2CtgVmX5Bh7SUR0zbrqs=
+X-Gm-Gg: AYBFou0J1OyqEpIEaN5h7J5xtKj9yYwUCABj6TPouKzfNLVmFwKj0oppTeacWZndta3
+	+RnjzRovVMN4xTAvBO73+a8SLaQ2YGuLf0NV8M5ZT4Rz4VWVQ2a1a58yhh+XwvcAdq1/LHuvktK
+	3rtTAeRtyXa7inK1xSN3jC4+efgETjIWtqUPnqEs1sR6oEIYIBRzH8djcQJnmkEagI2g9Ayb5fB
+	sAEjlc/Vfo6n4ACnW/SlN6NazeiK54xF0jC6y4GcM55Y0AzInxWJXv+Q0T7runsEu5iU3KABgMd
+	TcDMaIcxjCqqi5tA1TLiy/PZK9o5GEmqWfvjs0opSS12nmGWtoKCrBKz6484RLVWSsvoQWk26nI
+	NYQkqqWhwghcxWtvfRSz9i+/EG5rTUYdTo2yiV3byKXA9AQRHLQFlnJVff8qSe1o/2moQ63VqrO
+	YO5PUxxnyzT5Bw7QPbeG3h0RiCIvFzaZc9uEQeljS466wgBIQ9Jwv8uFcmIikhlfx5wTQZNKbNt
+	FQlZ1MucMM1niLN3/at/WRtP21lS2n2ZhSzOmN6NrsgpenPnMAG0hHg
+X-Received: by 2002:a05:622a:2615:b0:532:e4bc:b80f with SMTP id d75a77b69052e-53646074ce3mr154755381cf.60.1792506982644;
+        Tue, 20 Oct 2026 07:36:22 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53636731fcfsm111546931cf.19.2026.10.20.07.36.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:36:08 -0700 (PDT)
-From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: lvc-project@linuxtesting.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Steve French <stfrench@microsoft.com>,
-	Ze Tan <tanze@kylinos.cn>,
-	linux-kernel@vger.kernel.org,
-	linux-cifs@vger.kernel.org
-Subject: [PATCH 1/3] ksmbd: fix uninitialized locks in __session_create() error path
-Date: Tue, 20 Oct 2026 17:35:51 +0300
-Message-ID: <20261020143553.105014-1-dokunevdmitriy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 20 Oct 2026 07:36:21 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xJAwu-0000000CgOq-215N;
+	Tue, 20 Oct 2026 11:36:20 -0300
+Date: Tue, 20 Oct 2026 11:36:20 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <20261020143620.GP14213@ziepe.ca>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+ <20261019233532.GL14213@ziepe.ca>
+ <atcUoSdggT9eU8YE@e129823.arm.com>
+ <20261020124536.GM14213@ziepe.ca>
+ <atdvnMJuHUJlqX8t@e129823.arm.com>
+ <20261020135006.GO14213@ziepe.ca>
+ <atd2_9Q2wTv_3MXz@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,62 +111,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atd2_9Q2wTv_3MXz@e129823.arm.com>
 
-In __session_create(), the ksmbd_init_file_table() call is
-made before the tree_conns_lock, rpc_lock and chann_lock rw_semaphores
-are initialized with init_rwsem().  If ksmbd_init_file_table() fails
-(which can happen on -ENOMEM), the error path calls
-ksmbd_session_destroy(), which in turn calls
-ksmbd_tree_conn_session_logoff(), ksmbd_session_rpc_clear_list() and
-free_channel_list(). All three functions call down_write() with
-uninitialized rw_semaphore.
+On Tue, Oct 20, 2026 at 03:13:19PM +0100, Yeoreum Yun wrote:
+> > I wouldn't over complicated it. We already have smccc bus to do this,
+> > we don't need layered stacks of busses here. Just change smccc bus to
+> > be able to break up the multi-function SMC into several devices.
+> 
+> I think my explaination was poor. Apologise...
+> I'm not saying another bus making but just wrapper of smccc-bus APIs
+> for firme specific and definietly, this would separate the
+> multi-function SMC to defien each firme device (attestation and IDE).
 
-INFO: trying to register non-static key.
-  ...
-  down_write+0x7d/0x1c0
-  ksmbd_tree_conn_session_logoff+0xa2/0x1f0
-  ksmbd_session_destroy+0xaf/0x380
-  ksmbd_smb2_session_create+0xdb/0x110
-  ...
+I don't see that kind of complexity is necessary.. I think it is
+better to just have the root smcc bus spawn them 
 
-Fix it by moving the three init_rwsem() calls above
-ksmbd_init_file_table(), so that all locks are valid on every error
-path.
+> But, the *base* is common. and I couldn't find any proper location to
+> deploy *common* code unless making arm_firme.
 
-Found by Linux Verification Center (linuxtesting.org).
+What common code excatly?
 
-Fixes: a1f46c99d9ea ("ksmbd: fix use-after-free in ksmbd_session_rpc_open")
-Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
----
- fs/smb/server/mgmt/user_session.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+There shouldn't be? Getting an attestation is entirely orthogonal to
+set link ide, for example?
 
-diff --git a/fs/smb/server/mgmt/user_session.c b/fs/smb/server/mgmt/user_session.c
-index 44dc3f800cd4..fc28088772ac 100644
---- a/fs/smb/server/mgmt/user_session.c
-+++ b/fs/smb/server/mgmt/user_session.c
-@@ -844,6 +844,10 @@ static struct ksmbd_session *__session_create(int protocol)
- 
- 	ida_init(&sess->tree_conn_ida);
- 
-+	init_rwsem(&sess->tree_conns_lock);
-+	init_rwsem(&sess->rpc_lock);
-+	init_rwsem(&sess->chann_lock);
-+
- 	if (ksmbd_init_file_table(&sess->file_table))
- 		goto error;
- 
-@@ -855,9 +859,6 @@ static struct ksmbd_session *__session_create(int protocol)
- 	xa_init(&sess->rpc_handle_list);
- 	sess->sequence_number = 1;
- 	atomic_set(&sess->refcnt, 2);
--	init_rwsem(&sess->tree_conns_lock);
--	init_rwsem(&sess->rpc_lock);
--	init_rwsem(&sess->chann_lock);
- 
- 	ret = __init_smb2_session(sess);
- 	if (ret)
--- 
-2.53.0
+If you can identify what you think would ever be common that might
+help clarifgy what to do..
 
+Jason
