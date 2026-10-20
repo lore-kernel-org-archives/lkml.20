@@ -1,85 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485977;
-	b=bX/Fdq8NrNPw/+APA8XtymFRsbMlR11j8qIRNVQa/RSINOQlF6r/sBUxTrF1W9OIDJFm
-	 ZvAeVqdWLB2l1LVyDp1bc+eg8j/v5aoISufd8F6MfX0VaOxQY8tbC/x/PEVW6FcqDuvYp
-	 hoA/jpBdOYiINizsmZCMsqi4SxYXMTcAJuhhrCJJ6DJbABKO4Prsd1tzRHoN6bBuuIJq3
-	 QDandehZ8JHlC9qntoha/P37gDYiwmUVDp95jajW/ckBG2YJ7dFEkCgbZoRcp/esukxIz
-	 6YDV1Dk/pxeZ/yhj12n2iRkYVrsAjNCmE4EeG8PzKkmwPWwnZ/NXXgmXfSfWAmES64A==
+	t=1792486014;
+	b=TfiVRnfylEO55pxdgGizwYwoTAVtOKDIMoRgT4JyOcHqD8DbyPyNWTzZT74xYLfzfDIQ
+	 VGnntnfADHwO1XO+VRFOsLYXo3feeDc7aOvVV+iXgosg9m/1tJCx3QSHfmjIfrFY981f8
+	 ln37eE4rVM8/FvX7f2fJP8cSqc0NlD7oV1h+8F8I91LSy8nm883uGD4QVpcinYGCGZnJc
+	 xlr7s9y4mEkNYhL0d6rjXvLrFO7UYLFql7NZcIchIZbqKLdublDGPiX+i2IzDCH5o8AIn
+	 LQzTXd5fCEUbN2QVcUZc9cE9BjykrKqRWI4n/RtwTYcl0o72DOvh4Nzz9GOWB0NAaXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485977;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:Cc:From:
-	 Subject:To:Content-Type:Content-Transfer-Encoding;
-	bh=58BbleitPsJoz6q3EjDgcPxgw/nmtVLy4GsoSeahJJs=;
-	b=CwJM8WnaRrrN8zc59G9tW2ytvKnfLkxg9RhHWD1hLzSDxMOn7u5cIOViCqOhqK9mg9KL
-	 jS4kDS3Kz73UBKJA1jNQ9b3coqwoRNLgugOKsTT62fOHFjZXHmbb3WKLXCGhlm5ELLziW
-	 t4CW11UnK/1sYHNFtkVgK9jUKi4badfeFJbU2QFvCm1FAW6BFKpWQqfZvO/DTaKH35bB0
-	 JENG6bm+0nBBkwn+/IpngGlgXFlmlAZFBn3PKF1S60UvWlXqYNLCrVyWtun4b8GCTVQNj
-	 HZkvJJSNWhCWnZvbgPVCuP5bWEgkcxgmy8etCWaWeBH/y+S6Sl8Gdb/JoF8d0M4uEVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486014;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=S8byRuhxVMCO68MJXGoZMkq3//bzdEFz5h/LONihcR0=;
+	b=eglnwxNNiK/94ZYU0wVH+KQMKK7buKlCXFCyg4YLK1Th3qWeJlLtSFt66nhI9XKHTZxV
+	 KZWQao8+V5pCNaREM/+m/BOIoeipBSW9ZHiBzqF6cx+p0sLWvJQ++tlMSv2/gasrtmxDl
+	 1JVelsEJU8MraOOup3Ybevj93TfiV7fPb6VpH93uGq1j3XP3ZMkOaandC+dXUqi8YMNL/
+	 CB1gUsLGXq4SZAR1vskR1KdA9Wm7hI0AivyURLI1vHeE8phpD1eivTmK1u31OZYkE7GMP
+	 mvTKdWmtWNELRbeknjwQbFX4hnKfaE3eAt/bYiSjBLE2QW+ktuPd11ENqfvrXUKoFCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="JiGvJP/C";
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="k+pMMSj/";
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147ED606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 147ED606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277E0606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 277E0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JiGvJP/C
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2271635f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:46:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792485975; x=1793090775; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:from:cc
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=58BbleitPsJoz6q3EjDgcPxgw/nmtVLy4GsoSeahJJs=;
-        b=JiGvJP/CTmLewS8lxrgtQQ5NQaUIciYwuczcA53QItl548K2g6Y7UgdTm5ooanBjhK
-         Mgqf3ykoFYsIRgG94G0yIAxNS0Ay2laqRxMIOJwTJl17xtKGLPCLs1/6pBZg/eJrD57Y
-         8e6fxsZwxK0xZ5vnaFkcagd6jl8YuIFYArCI+Xunbj5dVzBr+UiuvGeSUDQcihetQgAC
-         PpGyi2F8X+EnyPpTAWtZVli/xS9nu45j2D99l6P9wxA+MVrhIWXpPn/p+q1LIe/e32My
-         t9V/yR02fbVy8qCANweqY7WVBBUVetFA6ikxogNXDsrZxcxn/JjEA1Cn8Yr5lB/NkcfS
-         fFZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792485975; x=1793090775;
-        h=content-transfer-encoding:content-type:to:subject:from:cc
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=58BbleitPsJoz6q3EjDgcPxgw/nmtVLy4GsoSeahJJs=;
-        b=ZSNvg5uYeL45i24lUaL+AD1AkOnnQB5YWhatU66MuwPJyx4YhJQw2pAwrXCZLEfp46
-         5XZ5v79jXMEOxGy5mquFlYKlzBOqr/0e0HqZ+ae1N4OxEbB5oHjjdhRQUBWxJ69EMA45
-         tbVh0WjG+8h2QMFkbm12z+jdZARN8pKxF7lcmE0nCwoWzYmtC4PODuS+esAQ/yONnznM
-         43HmvlKPP0E5rNyPy1I5E4uPB/cbQjmE90JH7W2FUd4PgqE5IT19TlPTeC31a5htN0Ye
-         zyUK+54+sAT2rW/BJzmArXQ0f5dgJDpCXtA0tYRqQ/pD7h/ziCiAjuoTPV+zNVieXBnn
-         rMNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzoc0evYMsNAQB7rAaRfWuJ878lcchWi5GZAsORBDgUb0iZBMVaZ+oAnbHkP4oGWzumUNQw9AuUDDFXx5E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLo55jj14aJ9yMlvce++qNjjyyzrvX3DUK6UaEQ2NfmwHyQYsnX
-	V/tDXcXY7EbfiWULSZlJM6ZstW7BL5h3E41MurYHciy3h9t9NCC8HSac4yxtYEfKEgg=
-X-Gm-Gg: AYBFou2WtE4tSVFNHS5uJ5Ik9yk/24jafZrOzTP2QY59YaLROQcMXDwyI85fGZXk4PY
-	yj6SkcrS5/PXRC3zAkHCH1uxPK5NdEMDo6RLbVTsGHiY7pvpMNUXYCZ+PbzWiknHkzEalIOtWqq
-	d1Xxsbslobip6+LkF4Bit+/KAfHwPaE0g44RcgxBPYBzllQxsJ5w4izvrTWNnryO5ezRY2IE4io
-	xRWBOM1BvyGNwzAY2lKkWulZ3JCzZ7cDqJzOC4dFyTnddOGfbVHREleaW5nDDFvgmyhptYcbVIf
-	eft+66LsSMkRSM4JdKjm52sSoWiPdYU+yYe9T175ePqvxtOtM2cKIDoFOei+BMDd0EFltAc4Eog
-	ArxnvnJ4VCksj4qRF33/Znokcz8tsyfKzhocQ+B5ulej+2wYegV4gtdaXw79JEkkCYlJGyFxewU
-	wzuxL3OytTFptpINDabZThgcDzs1MIPyo7fNh9k8rIPVDfv8o+gnMyYz6esZlMTWhVA8TZ4stJW
-	hPxOJ77qZQ24UTUyexUqx3ngtqCnrGYQiCK
-X-Received: by 2002:a5d:634c:0:b0:48d:eec6:308b with SMTP id ffacd0b85a97d-48e07bc6411mr13861381f8f.21.1792485975301;
-        Tue, 20 Oct 2026 01:46:15 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80fafdsm4811846f8f.9.2026.10.20.01.46.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 01:46:14 -0700 (PDT)
-Message-ID: <71c66d25-389b-4d28-b031-1d7d5261decf@suse.com>
-Date: Tue, 20 Oct 2026 10:46:14 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=k+pMMSj/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=S8
+	byRuhxVMCO68MJXGoZMkq3//bzdEFz5h/LONihcR0=; b=k+pMMSj/dHPLMBMUlj
+	31JWkEQ/OZcNF3Ni8as+cbfct5SccgDmRI1F4IprmWcZWcjXMZNa2Wj5r+MStRWL
+	mkMwW3lKjKuhXyQGwQV2g6AJHPpLzsAIpWENgAI+BaRjlGGCfRI/AG7We6b+Di1j
+	T4VSyUh01wSpaXM6TetdCMLLE=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3X_tvKtdqGocHBg--.23211S2;
+	Tue, 20 Oct 2026 16:46:40 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	wangxuewen@kylinos.cn,
+	wudandan@kylinos.cn
+Subject: [PATCH v4 16/31] ntfs: report attribute resize and relocation recovery failures
+Date: Tue, 20 Oct 2026 16:44:06 +0800
+Message-ID: <20261020084421.2196486-17-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
+References: <20261020084421.2196486-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,180 +65,327 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Kees Cook <kees+treewide@kernel.org>,
- Priya Bala Govindasamy <pgovind2@uci.edu>, Binbin Deng
- <18983559317@163.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Petr Pavlu <petr.pavlu@suse.com>
-Subject: [GIT PULL] Modules changes for v7.4-rc1
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X_tvKtdqGocHBg--.23211S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWfJr1ftr4xAr43Kw1xJr1DZFb_yoWkZw1Dpa
+	9xGr9rtwsxJr92grn2y34qvw1akw10g3yUWr9rW3WxAan0yw1IqFW0yFy09FWfKrWkJ3s5
+	ta1UC3y7Ar4UXrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1tC7UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RE3AmrXKnFncAAA38
 
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+From: Dandan Wu <wudandan@kylinos.cn>
 
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+Resize can fail after changing allocation or record placement without
+reporting the resulting state. Report failed recovery and missing
+required attributes, preserving allocation errors and using
+EFSCORRUPTED for confirmed corruption.
 
-are available in the Git repository at:
+After a nonresident shrink, report context or lookup failures when the
+old data size exceeds the shortened allocation. Track whether resident
+resize moved records and report interrupted moves or failed list updates
+afterward. Keep early allocation failures distinct.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/modules/linux.git/ tags/modules-7.4-rc1
+Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
+---
+ fs/ntfs/attrib.c | 88 ++++++++++++++++++++++++++++++++++++++++--------
+ fs/ntfs/inode.c  | 11 ++++--
+ fs/ntfs/inode.h  |  2 +-
+ 3 files changed, 83 insertions(+), 18 deletions(-)
 
-for you to fetch changes up to 08abfa5a161e1b6e6244cb2090b0530bc0920798:
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index 73ccc438b319..62985be67a09 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -4092,7 +4092,7 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
+ 					goto put_err_out;
+ 				}
+ 				err = ntfs_inode_free_space(base_ni, mp_size -
+-							cur_max_mp_size);
++							cur_max_mp_size, NULL);
+ 				if (err)
+ 					return err;
+ 				err = ntfs_attrlist_update_locked(
+@@ -4514,6 +4514,7 @@ static int ntfs_non_resident_attr_shrink(struct ntfs_inode *ni,
+ 	int err;
+ 	struct ntfs_inode *base_ni;
+ 	bool runlist_locked = locked_ni == ni;
++	bool sizes_inconsistent = false;
+ 
+ 	ntfs_debug("Inode 0x%llx attr 0x%x new size %lld\n",
+ 		(unsigned long long)ni->mft_no, ni->type, (long long)newsize);
+@@ -4591,7 +4592,9 @@ static int ntfs_non_resident_attr_shrink(struct ntfs_inode *ni,
+ 		ntfs_attr_put_search_ctx(ctx);
+ 
+ 		/* Truncate the runlist itself. */
+-		if (ntfs_rl_truncate_nolock(vol, &ni->runlist, first_free_vcn)) {
++		err = ntfs_rl_truncate_nolock(vol, &ni->runlist, first_free_vcn);
++		if (err) {
++			ntfs_report_file_metadata_error(VFS_I(base_ni), err);
+ 			/*
+ 			 * Failed to truncate the runlist, so just throw it
+ 			 * away, it will be mapped afresh on next use.
+@@ -4619,15 +4622,20 @@ static int ntfs_non_resident_attr_shrink(struct ntfs_inode *ni,
+ 		err = ntfs_attr_update_mapping_pairs_locked(ni, 0, ni);
+ 		if (err) {
+ 			ntfs_debug("Eeek! Mapping pairs update failed. Leaving inconstant metadata. Run chkdsk.\n");
++			ntfs_report_file_metadata_error(VFS_I(base_ni), err);
+ 			goto unlock_runlist;
+ 		}
+ 		if (!runlist_locked)
+ 			up_write(&ni->runlist.lock);
++		sizes_inconsistent = ni->allocated_size < ni->data_size;
+ 	}
+ 
+ 	/* Get the first attribute record. */
+ 	ctx = ntfs_attr_get_search_ctx(base_ni, NULL);
+ 	if (IS_ERR(ctx)) {
++		/* The old sizes no longer describe the shortened allocation. */
++		if (sizes_inconsistent)
++			ntfs_report_file_metadata_error(VFS_I(base_ni), PTR_ERR(ctx));
+ 		ntfs_error(vol->sb, "%s: Failed to get search context", __func__);
+ 		return PTR_ERR(ctx);
+ 	}
+@@ -4635,8 +4643,15 @@ static int ntfs_non_resident_attr_shrink(struct ntfs_inode *ni,
+ 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
+ 				CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (err) {
+-		if (err == -ENOENT)
+-			err = -EIO;
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
++		} else if (sizes_inconsistent &&
++			   (err == -ENOMEM || err == -EINTR || err == -ERESTARTSYS)) {
++			/* Lookup does not report these otherwise harmless errors. */
++			ntfs_report_file_metadata_error(VFS_I(base_ni), err);
++		}
+ 		ntfs_debug("Eeek! Lookup of first attribute extent failed. Leaving inconstant metadata.\n");
+ 		goto put_err_out;
+ 	}
+@@ -4886,7 +4901,9 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 				 rl->length != first_free_vcn -
+ 					ntfs_bytes_to_cluster(vol, ni->allocated_size) ||
+ 				 rl[1].length)) {
+-				ntfs_cluster_free_from_rl(vol, rl);
++				err2 = ntfs_cluster_free_from_rl(vol, rl);
++				if (err2)
++					ntfs_report_file_metadata_error(VFS_I(base_ni), err2);
+ 				kvfree(rl);
+ 				rl = ntfs_cluster_alloc(vol,
+ 						ntfs_bytes_to_cluster(vol,
+@@ -4907,11 +4924,20 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 			/* Append new clusters to attribute runlist. */
+ 			rln = ntfs_runlists_merge(&ni->runlist, rl, 0, &new_rl_count);
+ 			if (IS_ERR(rln)) {
++				int free_err;
++
++				err = PTR_ERR(rln);
++				if (err != -ENOMEM) {
++					err = -EFSCORRUPTED;
++					ntfs_report_file_metadata_error(VFS_I(base_ni),
++									-EFSCORRUPTED);
++				}
+ 				/* Failed, free just allocated clusters. */
+ 				ntfs_error(sb, "Run list merge failed");
+-				ntfs_cluster_free_from_rl(vol, rl);
++				free_err = ntfs_cluster_free_from_rl(vol, rl);
++				if (free_err)
++					ntfs_report_file_metadata_error(VFS_I(base_ni), free_err);
+ 				kvfree(rl);
+-				err = -EIO;
+ 				goto unlock_runlist;
+ 			}
+ 			ni->runlist.rl = rln;
+@@ -4957,8 +4983,11 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
+ 			       CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (err) {
+-		if (err == -ENOENT)
+-			err = -EIO;
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
++		}
+ 		if (ni->allocated_size != org_alloc_size)
+ 			goto rollback;
+ 		goto put_err_out;
+@@ -4982,8 +5011,10 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 	/* Free allocated clusters. */
+ 	freed = ntfs_cluster_free(ni, ntfs_bytes_to_cluster(vol, org_alloc_size),
+ 				  -1, ctx);
+-	if (freed < 0)
++	if (freed < 0) {
+ 		ntfs_debug("Leaking clusters");
++		ntfs_report_file_metadata_error(VFS_I(base_ni), freed);
++	}
+ 
+ 	/*
+ 	 * Now, truncate the runlist itself.  Restore allocated_size before
+@@ -5005,10 +5036,14 @@ static int ntfs_non_resident_attr_expand(struct ntfs_inode *ni, const s64 newsiz
+ 		kvfree(ni->runlist.rl);
+ 		ni->runlist.rl = NULL;
+ 		ntfs_error(sb, "Couldn't truncate runlist. Rollback failed");
++		ntfs_report_file_metadata_error(VFS_I(base_ni), err2);
+ 	} else {
+ 		/* Restore mapping pairs. */
+-		if (__ntfs_attr_update_mapping_pairs(ni, 0, ni, true))
++		err2 = __ntfs_attr_update_mapping_pairs(ni, 0, ni, true);
++		if (err2) {
+ 			ntfs_error(sb, "Failed to restore old mapping pairs");
++			ntfs_report_file_metadata_error(VFS_I(base_ni), err2);
++		}
+ 
+ 		if (NInoSparse(ni) || NInoCompressed(ni)) {
+ 			ni->itype.compressed.size =  org_compressed_size;
+@@ -5048,6 +5083,7 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	struct super_block *sb = vol->sb;
+ 	int err = -EIO;
+ 	struct ntfs_inode *base_ni, *ext_ni = NULL;
++	bool moved;
+ 
+ attr_resize_again:
+ 	ntfs_debug("Inode 0x%llx attr 0x%x new size %lld\n",
+@@ -5069,6 +5105,11 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	err = ntfs_attr_lookup(attr_ni->type, attr_ni->name, attr_ni->name_len,
+ 			CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (err) {
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
++		}
+ 		ntfs_error(sb, "ntfs_attr_lookup failed");
+ 		goto put_err_out;
+ 	}
+@@ -5157,6 +5198,10 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 				(__le16 *)((u8 *)a + le16_to_cpu(a->name_offset)),
+ 				a->name_length);
+ 		if (IS_ERR(tvi)) {
++			if (PTR_ERR(tvi) == -ENOENT) {
++				ntfs_report_file_metadata_error(VFS_I(base_ni),
++								-EFSCORRUPTED);
++			}
+ 			ntfs_error(sb, "Couldn't open attribute");
+ 			continue;
+ 		}
+@@ -5192,16 +5237,23 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 				return err;
+ 		}
+ 
+-		err = ntfs_inode_free_space(base_ni, sizeof(struct attr_record));
++		err = ntfs_inode_free_space(base_ni, sizeof(struct attr_record),
++					    &moved);
+ 		if (err) {
++			/* Previously moved records are not restored on this exit. */
++			if (moved)
++				ntfs_report_file_metadata_error(VFS_I(base_ni), err);
+ 			err = -ENOSPC;
+ 			ntfs_error(sb,
+ 				"Couldn't free space in the MFT record to make attribute list non resident");
+ 			return err;
+ 		}
+ 		err = ntfs_attrlist_update(base_ni);
+-		if (err)
++		if (err) {
++			if (moved)
++				ntfs_report_file_metadata_error(VFS_I(base_ni), err);
+ 			return err;
++		}
+ 		goto attr_resize_again;
+ 	}
+ 
+@@ -5215,6 +5267,11 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	err = ntfs_attr_lookup(attr_ni->type, attr_ni->name, attr_ni->name_len,
+ 			CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (err) {
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
++		}
+ 		ntfs_error(sb, "%s: Attribute lookup failed 2", __func__);
+ 		goto put_err_out;
+ 	}
+@@ -5256,8 +5313,11 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	}
+ 
+ 	err = ntfs_attrlist_update(base_ni);
+-	if (err < 0)
++	if (err < 0) {
++		/* The record moved, but its on-disk list entry is still stale. */
++		ntfs_report_file_metadata_error(VFS_I(base_ni), err);
+ 		goto put_err_out;
++	}
+ 
+ 	ntfs_attr_put_search_ctx(ctx);
+ 	/* Try to perform resize once again. */
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 564682f59203..83d45383a5d6 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -3326,7 +3326,7 @@ int ntfs_inode_add_attrlist(struct ntfs_inode *ni)
+ 	/* Free space if there is not enough it for $ATTRIBUTE_LIST. */
+ 	if (le32_to_cpu(ni_mrec->bytes_allocated) -
+ 			le32_to_cpu(ni_mrec->bytes_in_use) < attr_al_len) {
+-		if (ntfs_inode_free_space(ni, (int)attr_al_len)) {
++		if (ntfs_inode_free_space(ni, (int)attr_al_len, NULL)) {
+ 			/* Failed to free space. */
+ 			err = -ENOSPC;
+ 			ntfs_error(ni->vol->sb, "Failed to free space for attrlist");
+@@ -3609,16 +3609,19 @@ static int ntfs_attr_position(__le32 type, struct ntfs_attr_search_ctx *ctx)
+  * ntfs_inode_free_space - free space in the MFT record of inode
+  * @ni:		ntfs inode in which MFT record free space
+  * @size:	amount of space needed to free
++ * @moved:	optional output, set if any attribute record was moved
+  *
+  * Return 0 on success or error.
+  */
+-int ntfs_inode_free_space(struct ntfs_inode *ni, int size)
++int ntfs_inode_free_space(struct ntfs_inode *ni, int size, bool *moved)
+ {
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	int freed, err;
+ 	struct mft_record *ni_mrec;
+ 	struct super_block *sb;
+ 
++	if (moved)
++		*moved = false;
+ 	if (!ni || size < 0)
+ 		return -EINVAL;
+ 	ntfs_debug("Entering for inode %llu, size %d\n", ni->mft_no, size);
+@@ -3626,7 +3629,7 @@ int ntfs_inode_free_space(struct ntfs_inode *ni, int size)
+ 	sb = ni->vol->sb;
+ 	ni_mrec = map_mft_record(ni);
+ 	if (IS_ERR(ni_mrec))
+-		return -EIO;
++		return PTR_ERR(ni_mrec);
+ 
+ 	freed = (le32_to_cpu(ni_mrec->bytes_allocated) -
+ 			le32_to_cpu(ni_mrec->bytes_in_use));
+@@ -3699,6 +3702,8 @@ int ntfs_inode_free_space(struct ntfs_inode *ni, int size)
+ 			break;
+ 		}
+ 		freed += record_size;
++		if (moved)
++			*moved = true;
+ 
+ 		/* Check whether we done. */
+ 		if (size <= freed) {
+diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
+index 952398753ed1..45eee1e8d462 100644
+--- a/fs/ntfs/inode.h
++++ b/fs/ntfs/inode.h
+@@ -371,7 +371,7 @@ int ntfs_inode_attach_all_extents(struct ntfs_inode *ni);
+ int ntfs_inode_add_attrlist(struct ntfs_inode *ni);
+ int ntfs_inode_free_empty_extents(struct ntfs_inode *ni);
+ void ntfs_destroy_ext_inode(struct ntfs_inode *ni);
+-int ntfs_inode_free_space(struct ntfs_inode *ni, int size);
++int ntfs_inode_free_space(struct ntfs_inode *ni, int size, bool *moved);
+ s64 ntfs_inode_attr_pread(struct inode *vi, s64 pos, s64 count, u8 *buf);
+ s64 ntfs_inode_attr_pwrite(struct inode *vi, s64 pos, s64 count, u8 *buf,
+ 		bool sync);
+-- 
+2.51.0
 
-  drivers: Replace __MODULE_STRING() with __stringify() (2026-10-14 10:51:18 +0200)
-
-----------------------------------------------------------------
-Modules changes for 7.4-rc1
-
-- Ignore local labels and mapping symbols during module load
-
-  These symbols were already ignored during kallsyms address-to-symbol
-  lookups. Filter them out earlier during module loading to reduce lookup
-  overhead and prevent them from appearing in /proc/kallsyms.
-
-- Fix potentially incorrect access of SetOnce<T> when setting Rust module
-  parameters.
-
-- Fix a potential read of an uninitialized count when printing taint
-  information for unloaded modules.
-
-- Allocate the kmod argument array using kmalloc_array() in preparation
-  for conversion to type-aware allocators.
-
-- Clean up includes in linux/kmod.h
-
-  Add explicit includes of linux/umh.h to files that use usermode helpers.
-  Then clean up the #include list in linux/kmod.h, notably removing the
-  compatibility linux/umh.h include.
-
-- Remove the error-injection.h include from linux/module.h
-
-  Add explicit includes of linux/error-injection.h to files that use the
-  ALLOW_ERROR_INJECTION() macro and currently rely on it being provided
-  indirectly via linux/module.h. Then remove the unnecessary
-  linux/error-injection.h include from linux/module.h.
-
-- Replace __MODULE_STRING() with __stringify() in various drivers in
-  preparation for removing the former macro.
-
-The changes to several #include lists have been reported to cause trivial
-conflicts in linux-next with the drm, drm-xe, and usb trees.
-
-----------------------------------------------------------------
-Binbin Deng (1):
-      module: Fix uninitialized count read of unloaded taint tracking record
-
-Kees Cook (1):
-      modules/kmod: Allocate argv with kmalloc_array()
-
-Petr Pavlu (10):
-      umh, treewide: Explicitly include linux/umh.h where needed
-      time/jiffies: Include linux/sysctl.h for proc_int_u2k_conv_uop(), ...
-      module: Bring includes in linux/kmod.h up to date
-      block: Include error-injection.h for ALLOW_ERROR_INJECTION()
-      net: Include error-injection.h for ALLOW_ERROR_INJECTION()
-      syscalls: Include error-injection.h for ALLOW_ERROR_INJECTION()
-      drm/i915: Include error-injection.h for ALLOW_ERROR_INJECTION()
-      drm/xe: Include error-injection.h for ALLOW_ERROR_INJECTION()
-      module: Remove the error-injection.h include from linux/module.h
-      drivers: Replace __MODULE_STRING() with __stringify()
-
-Priya Bala Govindasamy (1):
-      rust: module_param: Fix potentially incorrect access of `SetOnce<T>`
-
-Tiezhu Yang (3):
-      module/kallsyms: Rename is_mapping_symbol() to is_ignored_kernel_symbol()
-      module/kallsyms: Refactor current symbol filtering into is_core_symbol()
-      module/kallsyms: Ignore local labels and mapping symbols during module load
-
- arch/x86/kernel/cpu/mce/dev-mcelog.c               |  2 +-
- block/blk-core.c                                   |  1 +
- drivers/block/drbd/drbd_nl.c                       |  1 +
- drivers/comedi/comedi_fops.c                       |  5 +-
- drivers/gpu/drm/drm_fb_helper.c                    |  3 +-
- drivers/gpu/drm/i915/display/intel_connector.c     |  1 +
- .../gpu/drm/i915/display/intel_display_driver.c    |  1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c          |  1 +
- drivers/gpu/drm/i915/gt/intel_gt.c                 |  2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c          |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c              |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c           |  1 +
- drivers/gpu/drm/i915/i915_driver.c                 |  1 +
- drivers/gpu/drm/i915/i915_pci.c                    |  2 +
- drivers/gpu/drm/i915/intel_uncore.c                |  1 +
- drivers/gpu/drm/xe/xe_device.c                     |  2 +-
- drivers/gpu/drm/xe/xe_exec_queue.c                 |  1 +
- drivers/gpu/drm/xe/xe_ggtt.c                       |  2 +-
- drivers/gpu/drm/xe/xe_guc.c                        |  1 +
- drivers/gpu/drm/xe/xe_guc_ads.c                    |  2 +-
- drivers/gpu/drm/xe/xe_guc_ct.c                     |  2 +-
- drivers/gpu/drm/xe/xe_guc_log.c                    |  2 +-
- drivers/gpu/drm/xe/xe_guc_relay.c                  |  2 +-
- drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c      |  1 +
- drivers/gpu/drm/xe/xe_hw_engine_group.c            |  2 +
- drivers/gpu/drm/xe/xe_mmio.c                       |  1 +
- drivers/gpu/drm/xe/xe_oa.c                         |  1 +
- drivers/gpu/drm/xe/xe_pm.c                         |  2 +-
- drivers/gpu/drm/xe/xe_pt.c                         |  2 +
- drivers/gpu/drm/xe/xe_pxp.c                        |  2 +
- drivers/gpu/drm/xe/xe_sriov.c                      |  2 +-
- drivers/gpu/drm/xe/xe_sync.c                       |  1 +
- drivers/gpu/drm/xe/xe_tile.c                       |  2 +-
- drivers/gpu/drm/xe/xe_tuning.c                     |  2 +
- drivers/gpu/drm/xe/xe_uc_fw.c                      |  2 +-
- drivers/gpu/drm/xe/xe_vm.c                         |  1 +
- drivers/gpu/drm/xe/xe_wa.c                         |  2 +-
- drivers/gpu/drm/xe/xe_wopcm.c                      |  2 +-
- drivers/greybus/svc_watchdog.c                     |  1 +
- drivers/i2c/busses/i2c-kempld.c                    |  3 +-
- drivers/macintosh/windfarm_core.c                  |  1 +
- drivers/net/ethernet/atheros/atl1e/atl1e_param.c   |  9 ++--
- drivers/net/ethernet/atheros/atlx/atl1.c           |  3 +-
- drivers/net/ethernet/atheros/atlx/atl2.c           | 11 ++--
- drivers/net/ethernet/intel/e1000/e1000_param.c     | 15 +++---
- drivers/net/ethernet/intel/e1000e/param.c          | 16 +++---
- .../net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c  |  7 +--
- drivers/net/netdevsim/tc.c                         |  1 +
- drivers/platform/cznic/turris-omnia-mcu-watchdog.c |  3 +-
- drivers/pnp/pnpbios/core.c                         |  2 +-
- drivers/rtc/rtc-ds1374.c                           |  3 +-
- drivers/thunderbolt/tb.c                           |  3 +-
- drivers/thunderbolt/tunnel.c                       |  5 +-
- drivers/tty/serial/8250/8250_platform.c            |  3 +-
- drivers/usb/atm/speedtch.c                         | 15 +++---
- drivers/usb/atm/usbatm.c                           | 17 ++++---
- drivers/video/fbdev/uvesafb.c                      |  1 +
- fs/coredump.c                                      |  2 +-
- fs/nfs/cache_lib.c                                 |  2 +-
- fs/nfsd/nfs4layouts.c                              |  2 +-
- fs/nfsd/nfs4recover.c                              |  1 +
- fs/ocfs2/stackglue.c                               |  1 +
- include/linux/compat.h                             |  1 +
- include/linux/kmod.h                               | 12 +----
- include/linux/module.h                             |  1 -
- include/linux/module_symbol.h                      |  7 ++-
- include/linux/syscalls.h                           |  1 +
- kernel/cgroup/cgroup-v1.c                          |  2 +-
- kernel/module/kallsyms.c                           | 59 ++++++++++++----------
- kernel/module/kmod.c                               |  3 +-
- kernel/module/main.c                               |  1 +
- kernel/module/tracking.c                           |  2 +-
- kernel/power/process.c                             |  2 +-
- kernel/reboot.c                                    |  2 +-
- kernel/time/jiffies.c                              |  1 +
- kernel/umh.c                                       |  2 +-
- lib/kobject_uevent.c                               |  2 +-
- net/bridge/br_stp_if.c                             |  2 +-
- net/core/skb_fault_injection.c                     |  1 +
- rust/kernel/module_param.rs                        |  9 +++-
- scripts/faddr2line                                 |  2 +-
- scripts/mod/modpost.h                              |  2 +-
- security/keys/request_key.c                        |  2 +-
- security/tomoyo/common.h                           |  2 +-
- tools/perf/util/symbol.h                           |  4 +-
- 85 files changed, 182 insertions(+), 130 deletions(-)
