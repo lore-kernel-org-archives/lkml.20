@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792485965;
-	b=lpFO8ddvWit6Xt5B6bZaII6rG+UbCA6pErJJhgYiA3nALvoSBL7OYfVwIqUEuC2y53R2
-	 Dj+cBYTUKlbRuQgg/BE072gBneCjYA/njARfQjBhZGqguzz6cgdpphKStYC3hjp5y7BJG
-	 0kZOzkgUgEvwPiMFiEtIeLuEwPXrrrJY0jZNEx0z+ICsz3zGlW7LwQTtUPQ+e/SdZBU5+
-	 NOn/RQSiTTQ6m4vTeD987XYRPraw2of6DLOxuZh1H+BNNRVitF0l4mo9Fkg2kMDU8Gwmm
-	 Uqp+fVw9usAgC0BqszCy/Sm6UEeMD6mCjRXJjHv+EIlV263v+KqyGS/W8S/1ykL4NxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
-	b=M4UTW5ibP4+BYH1IXhmq2BKJKxlHFQYEFdB4mBXzRVDp73CiuckvVMZiT+u+OStNFVvt
-	 7dbE8wn9SMZ4LNIxMbdt59JDegBbBa5HP9PVFPTCB+29bmcnZTg+FlKeTiQCiCWHZvQ62
-	 M6SnDgySbI5qBpAfz0umpCZc7oMUMgnEUtpAQHnecWDOusvNzZSB6cJdLFP88O798XdBi
-	 K4wiOmCU6rOZZ6N9IrELJuzL0kaN7cV7m2Hcegvu/UaCNU2qS6DqZfITmihUjvrDiwSPl
-	 598NACRkGwjPJJuafhxI6MikAGJKzPklMJXqydj5dGp0g1wdIaA5PGwxJWzEe/9zkfg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EOxh4Z9f;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792485967;
+	b=eYRmsXwAoMlrIeKlgO7/9ct9y8qLczn7ztHIEcaHKYUUZzMtdUDZWhbCvkMa1N/scjVS
+	 A1CNoPDFgQVvbUQSfZwzc3gKuoPVrsHVCLcnbvhtVZbA+76mGFwYXhzUvOK9GW7YXRevA
+	 86pqkWNqb/kJBDExP10gO6a7w/decD1qcfgbEQF+8Nz2de6R0xDg4/N/hj+lLHJEUWVVG
+	 En55IXP66ec7cenrd6WjqMojGEdzi7OgY9s6ArReW281yWIkb6UFZdPzjBZgAJxspyRDl
+	 DP6fj8RR+L1tsmYq1yWUnXyV3hEToTOii/I93CbYYFofouvZb+/00f26i12ja157DuA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485967;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=jLZNqZ797ffi18BTv1o+2kbw3qIa8d3zQHXnbXOJ2Fs=;
+	b=B3/Vd1BBBXcm3+TmYHmC58x8maPA+XtLg+YFkR7yPeZWtwplX5CcMDfI9+diPCVmT3Ch
+	 ZqGaKA/5Sl3UiNwZNsasEe1movczmbqW5ZBdo3ePsGgULku/92r/MFbNlHh0KbrEWqHiM
+	 mrk7255y+jLclKJ/mZpXP8Rp3VHvAKzVDOIZ6/N9SMFVpy9MmD2gj2qIaSqAe+2SjBuOb
+	 1cW0SxdjaIzbc30f5PfJX43ki6DwVGGVT/HBi+89pgiieGkpRnXzWV3KYrVZTq6x/6s5s
+	 yMknrWI2Ylgz2vaZnu+9PrEICCyGB5C4HpfL4FhaS211ytTLtdOq/JDwVrlNLhizIng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="IQKsM/5w";
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CCF60A2603
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59CCF60A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B5660A382B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B5660A382B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EOxh4Z9f
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0728so856245f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:46:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792485964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N/XhNHWfn66G11IClct8cUbCNnc2DnJuMSRflLRhgfqROK5Pl3o4gDjSTwDb/dPCdt
-         yH3NczB6ExOBNFC7WzLnpbgTyuwETK/Fws2pgta8HCzrVhlADcPvBpsWE/rMK2DowvlF
-         zTgnpmgdXosniflOLoLSgu9rcMvt9pgZnNvoJtn729+7uD/+hdt3s5zLmeKfVGW33IDv
-         jV1HbV2HXh2RCaAM+pi+F3ZE7I3RF53PbWzCVSq4LpN08f5nLG/KYvaHToh/zjDkK4UK
-         g//5CU0UsSXyCfBVVxk4aB/lOn9RkK5yDpkb1JmH3WgSeFqoA5VSXYfAWSB1xYMaShQU
-         8zaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
-        fh=MOELC1KuT5gApMQ9O+TezGCrVNXAHdoho/y/pRxq1Yg=;
-        b=Uh7XoxfxKA59G/pkGXMl1t0LCJ4zFyQIMPXeMO1TShqm7kZNOyFEGgqLr3ZI/AgdCB
-         jDvS7C3GdqSz9usqqHW9QtGD/y204iaXsU/wdHnE07EfyyYaMVnCVXE15TUqB2IKp4D3
-         RSJNQjsuX3txIn+HtV6jSu9TcwO6Btj7NRHpcvl9F6Gnu7D4qIevdNkj0J8TQ7Mp/6fo
-         SLEJQurRcjK9B1/5TPAkRBjhtoR39AaXESRMz/pSKHfjY4d4Ih7AKKY0tjif+dtF614l
-         ix08HstKJ/SUXj1+zx9+Kb/PR7T+9RkYufQHbL1HhaQRg0orflwranrO8X+0Q4I77+fU
-         1Okw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792485964; x=1793090764; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
-        b=EOxh4Z9fRoRRWu9Bm9Z1tMLnFfM66s4Xo5FSgm6P97Ssxb2g2lliXffr40zTofIYnQ
-         s9EDK4fYMTvAII44PVeoCGqdpxWOewXUdkwzhK0Scw78OW9ZRumBAGz7QGGl8Xi7A+gS
-         7KEYnrbwreEkmc3lqEdsw+l3qs/LoVavXszWMkVq+aOr/fYv5yyJVehmXvT4cCDcB5vW
-         V8/VvC1+G+WH9tZQV/G0bNtq+/gWXbAOf15ey+qK8wsBCsdUvaZjVipaPkI4m70fTwlX
-         HoR798GKWTlqfKktrtQpdgwmrE/1Cfo7Kz5sQnKx20YzGWxuwB1j5FX+It3tmWUr8jfB
-         oASg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792485964; x=1793090764;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dPaUlNkCPLziA90hnNp1lAWN/FLqY45sp3q9cJ5rzKc=;
-        b=rBjOIrfSsv5xIzo18q1qlI/mvkwWH2y0hcIjzJiOZV7yotsLbHGffAsX50Y6guZ2I8
-         yKkzqG53KuXqV8IJtl4E8B+nSdiDy27a3ccWoJDpT11R6S6wzhvDJZbr/UdGqSm4rDv3
-         F2CPMuiw1u9iFyyz3fSl5yEty45b6N6Yd9DvyxO4lPFfNiU22+s+k9c4KLOMekjoZPTN
-         TNpbtVHjlP/qKBLHPkG/PNhS5HBP69iWSEAX8TayUFdeB/6x3Okk0FB6nsyT8BKJsYHW
-         Ke4U+dRZ1YYLx1dnpe/LvUSFOZGg4E+YgedwhUZFLHWpWNSZpim6/aXzYs13uGN7JniY
-         /lPA==
-X-Forwarded-Encrypted: i=1; AKwUvByyuuIk9HhKuovkEupr81xh6eTc3QoEvOr0nTtq5SPH87usbiSbiXP1uVTHhEAfrWf6Il53BQk0IPkNZ4k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0TfEywY8x36xSfsnC7TdvNCvTeY7au+VPv/rLWQGbqE5p5lNg
-	i5etHYmzkxzRH+2TYnrx/2gUC+JZeO8hLORFPLWeqj00HlfcY3/ilQJXcDyMhIP1pBFlms4QVuy
-	veSdUv0lLqH+/y6BCQ6gnhqfCWnHFP0M=
-X-Gm-Gg: AYBFou2qDh/92ZsvJAHqdVtKfgWMb/1sV/P7nEGrLd+hy7fB+/yNxQGV5jrK7SOeCOl
-	0IXd6gFASRno1eJEkqSGujCqMpFFAyItJQISAZSkeXYRu3pAY4R5eRANE0gLCfGE9dW7PPYH9ZT
-	rORKwcedL52KEYY4JdGk3SE/ztTDTN3glvQ2epEk+dXqm6gHpQd3ZOfBQeV4GWTxo73NgkEvDjq
-	k2RUM71thoiwL//FqngBjBRZ1wLL/CGRUPt98mk4hp8/Ec28J4bOpu2PhW2HnRyQUROTQWqJO7K
-	bBABW/BEEw9DQHPUIDlcREEzP9mkDxXNkjMxu6Z6alygw4wqYoH/O1yWguARzY3v97spSVOVjVL
-	sSvp4d+hUC7gMTyMTw3Sf0NVoBrGGooGOCT0B1Q==
-X-Received: by 2002:a5d:5d09:0:b0:482:fd9c:3740 with SMTP id
- ffacd0b85a97d-48e07f98e2dmr24424365f8f.22.1792485963500; Tue, 20 Oct 2026
- 01:46:03 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IQKsM/5w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jL
+	ZNqZ797ffi18BTv1o+2kbw3qIa8d3zQHXnbXOJ2Fs=; b=IQKsM/5wy491VtvhGb
+	0U6X07ntJNM0uEz+ZhGx4MqG8qwL6LOKOMC244KCzUd7CmvQPbJCp8Z4FTVnNeSB
+	xZtfHSocT+x5zLh9QuHkidPdwxU2JLa/wjLr8xY9U3Gg+B9zWJx4mziBztLmDTWC
+	7VTIVRlUoVbTJbh88FAnsH9/M=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n0ksKtdq7UkHBg--.56105S3;
+	Tue, 20 Oct 2026 16:45:34 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	wangxuewen@kylinos.cn,
+	wudandan@kylinos.cn
+Subject: [PATCH v4 09/31] ntfs: report iomap corruption and preserve buffered read errors
+Date: Tue, 20 Oct 2026 16:43:59 +0800
+Message-ID: <20261020084421.2196486-10-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
+References: <20261020084421.2196486-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,88 +65,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019065025.2146539-1-claudiu.beznea@kernel.org> <20261019065025.2146539-8-claudiu.beznea@kernel.org>
-In-Reply-To: <20261019065025.2146539-8-claudiu.beznea@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 20 Oct 2026 09:45:36 +0100
-X-Gm-Features: AclHuK_0o_tLTtHRdwY1U_jUmzmwgKQ2ANnJ0QG91z7D7pQ5ZyLEGjAx2_i3mmg
-Message-ID: <CA+V-a8sQe-bb7AEagc8QzQYVVY27+aVF2v=x1SxNtXQagpSOUw@mail.gmail.com>
-Subject: Re: [PATCH v7 07/14] PCI: rzg3s-host: Use cached MSI address in .irq_compose_msi_msg()
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
-	geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n0ksKtdq7UkHBg--.56105S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtF1xXF48Wr17AF1fKryrXrb_yoWxJrWDpF
+	9Ikr9xKr4rXr9rWrn3tFZ8Zw1F9w18K34UXryxGwn7Zan0yw47K3W0kF4Y9FySqr95Jw1q
+	qrWUKrW7ua1UZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFq2_UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4m8GrXKi5ZFAAA3F
 
-Hi Claudiu,
+From: Dandan Wu <wudandan@kylinos.cn>
 
-Thank you for the patch.
+The iomap paths detect missing required attributes and invalid runs
+without reporting them. Report these conditions as EFSCORRUPTED while
+preserving allocation and underlying mapping errors.
 
-On Mon, Oct 19, 2026 at 7:57=E2=80=AFAM Claudiu Beznea
-<claudiu.beznea@kernel.org> wrote:
->
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The MSI window address is already cached in msi->window_base when the
-> MSI window is configured. Use it to fill msg->address_lo and
-> msg->address_hi in .irq_compose_msi_msg() instead of reading it back
-> from the controller registers.
->
-> This avoids unnecessary register accesses.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
->
-> Changes in v7:
-> - none, this patch is new
->
->  drivers/pci/controller/pcie-rzg3s-host.c | 14 ++------------
->  1 file changed, 2 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
-oller/pcie-rzg3s-host.c
-> index b0a150262959..6acb0231a067 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -660,19 +660,9 @@ static void rzg3s_pcie_irq_compose_msi_msg(struct ir=
-q_data *data,
->                                            struct msi_msg *msg)
->  {
->         struct rzg3s_pcie_msi *msi =3D irq_data_get_irq_chip_data(data);
-> -       struct rzg3s_pcie_host *host =3D rzg3s_msi_to_host(msi);
-> -       u32 lo, hi;
-> -
-> -       /*
-> -        * Enable and msg data enable bits are part of the address lo. Dr=
-op
-> -        * them along with the unused bit.
-> -        */
-> -       lo =3D readl_relaxed(host->axi + RZG3S_PCI_MSIRCVWADRL) &
-> -            RZG3S_PCI_MSIRCVWADRL_MASK;
-We need to drop RZG3S_PCI_MSIRCVWADRL_MASK macro, as this now triggers
-the below warning:
+Capture synchronous iomap errors in read_folio so buffered reads retain
+their errno instead of turning corruption and allocation failures into
+EIO. Keep the existing partial-read behavior.
 
-drivers/pci/controller/pcie-rzg3s-host.c:66:9: warning: macro
-=E2=80=98RZG3S_PCI_MSIRCVWADRL_MASK=E2=80=99 is not used [-Wunused-macros]
-   66 | #define RZG3S_PCI_MSIRCVWADRL_MASK              GENMASK(31, 3)
+Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
+---
+ fs/ntfs/aops.c  | 22 ++++++++++++++++++++--
+ fs/ntfs/iomap.c | 43 ++++++++++++++++++++++++++++++++++---------
+ 2 files changed, 54 insertions(+), 11 deletions(-)
 
-Cheers,
-Prabhakar
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index 7884737657d5..474e99aa123d 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -48,6 +48,22 @@ static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
+ 	.submit_read		= ntfs_iomap_bio_submit_read,
+ };
+ 
++static int ntfs_read_folio_iomap_next(const struct iomap_iter *iter,
++				      struct iomap *iomap, struct iomap *srcmap)
++{
++	int *error = iter->private;
++	int ret;
++
++	ret = ntfs_read_iomap_ops.iomap_next(iter, iomap, srcmap);
++	if (ret < 0)
++		*error = ret;
++	return ret;
++}
++
++static const struct iomap_ops ntfs_read_folio_iomap_ops = {
++	.iomap_next = ntfs_read_folio_iomap_next,
++};
++
+ /*
+  * ntfs_read_folio - Read data for a folio from the device
+  * @file:	open file to which the folio @folio belongs or NULL
+@@ -72,6 +88,7 @@ static int ntfs_read_folio(struct file *file, struct folio *folio)
+ 		.cur_folio = folio,
+ 		.ops = &ntfs_iomap_bio_read_ops,
+ 	};
++	int err = 0;
+ 
+ 	/*
+ 	 * Only $DATA attributes can be encrypted and only unnamed $DATA
+@@ -103,8 +120,9 @@ static int ntfs_read_folio(struct file *file, struct folio *folio)
+ 			return ntfs_read_compressed_block(folio);
+ 	}
+ 
+-	iomap_read_folio(&ntfs_read_iomap_ops, &ctx, NULL);
+-	return 0;
++	/* iomap_read_folio() otherwise discards synchronous mapping errors. */
++	iomap_read_folio(&ntfs_read_folio_iomap_ops, &ctx, &err);
++	return err;
+ }
+ 
+ /*
+diff --git a/fs/ntfs/iomap.c b/fs/ntfs/iomap.c
+index c248c61854cc..e0ac03dd5138 100644
+--- a/fs/ntfs/iomap.c
++++ b/fs/ntfs/iomap.c
+@@ -76,8 +76,13 @@ static int ntfs_read_iomap_begin_resident(struct inode *inode, loff_t offset, lo
+ 
+ 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
+ 			CASE_SENSITIVE, 0, NULL, 0, ctx);
+-	if (unlikely(err))
++	if (unlikely(err)) {
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
++		}
+ 		goto out;
++	}
+ 
+ 	attr_len = le32_to_cpu(ctx->attr->data.resident.value_length);
+ 	if (unlikely(attr_len > ni->initialized_size))
+@@ -215,11 +220,12 @@ static int ntfs_read_iomap_begin_non_resident(struct inode *inode, loff_t offset
+ 	rl_length = ntfs_cluster_to_bytes(vol, rl->length - (vcn - rl->vcn));
+ 
+ 	if (rl_length == 0 && rl->lcn > LCN_DELALLOC) {
++		ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
+ 		ntfs_error(inode->i_sb,
+ 				"runlist(vcn : %lld, length : %lld, lcn : %lld) is corrupted\n",
+ 				rl->vcn, rl->length, rl->lcn);
+ 		up_write(&ni->runlist.lock);
+-		return -EIO;
++		return -EFSCORRUPTED;
+ 	}
+ 
+ 	if (rl_length && length > rl_length - vcn_ofs)
+@@ -418,7 +424,7 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
+ 		err = ntfs_map_runlist(ni, vcn);
+ 		if (err) {
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+-			return -ENOENT;
++			return err;
+ 		}
+ 		down_read(&ni->runlist.lock);
+ 		rl = ni->runlist.rl;
+@@ -430,9 +436,17 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
+ 	/* Seek to element containing target vcn. */
+ 	rl = __ntfs_attr_find_vcn_nolock(&ni->runlist, vcn);
+ 	if (IS_ERR(rl)) {
++		unsigned long irqflags;
++		s64 allocated_size;
++
++		read_lock_irqsave(&ni->size_lock, irqflags);
++		allocated_size = ni->allocated_size;
++		read_unlock_irqrestore(&ni->size_lock, irqflags);
++		if (offset < allocated_size)
++			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
+ 		up_write(&ni->runlist.lock);
+ 		mutex_unlock(&mrec_ni->mrec_lock);
+-		return -EIO;
++		return offset < allocated_size ? -EFSCORRUPTED : -EIO;
+ 	}
+ 	lcn = ntfs_rl_vcn_to_lcn(rl, vcn);
+ 
+@@ -451,19 +465,22 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
+ 	 * extent over clusters that are allocated on disk but unknown to us.
+ 	 */
+ 	if (lcn == LCN_RL_NOT_MAPPED) {
++		if (!map_err || map_err == -ENOENT)
++			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
+ 		up_write(&ni->runlist.lock);
+ 		mutex_unlock(&mrec_ni->mrec_lock);
+-		return map_err == -ENOMEM ? -ENOMEM : -EIO;
++		return !map_err || map_err == -ENOENT ? -EFSCORRUPTED : map_err;
+ 	}
+ 
+ 	max_clu_count = min(max_clu_count, rl->length - (vcn - rl->vcn));
+ 	if (max_clu_count == 0) {
++		ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
+ 		ntfs_error(inode->i_sb,
+ 				"runlist(vcn : %lld, length : %lld) is corrupted\n",
+ 				rl->vcn, rl->length);
+ 		up_write(&ni->runlist.lock);
+ 		mutex_unlock(&mrec_ni->mrec_lock);
+-		return -EIO;
++		return -EFSCORRUPTED;
+ 	}
+ 
+ 	iomap->bdev = inode->i_sb->s_bdev;
+@@ -506,11 +523,17 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
+ 			rl = ntfs_runlists_merge(&ni->runlist, rlc, 0,
+ 					&new_rl_count);
+ 			if (IS_ERR(rl)) {
++				err = PTR_ERR(rl);
++				if (err != -ENOMEM) {
++					err = -EFSCORRUPTED;
++					ntfs_report_file_metadata_error(inode,
++									err);
++				}
+ 				ntfs_error(vol->sb, "Failed to merge runlists");
+ 				up_write(&ni->runlist.lock);
+ 				mutex_unlock(&mrec_ni->mrec_lock);
+ 				kvfree(rlc);
+-				return PTR_ERR(rl);
++				return err;
+ 			}
+ 
+ 			ni->runlist.rl = rl;
+@@ -698,8 +721,10 @@ static int ntfs_write_iomap_begin_resident(struct inode *inode, loff_t offset,
+ 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
+ 			CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (err) {
+-		if (err == -ENOENT)
+-			err = -EIO;
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
++		}
+ 		goto out;
+ 	}
+ 
+-- 
+2.51.0
 
-> -       hi =3D readl_relaxed(host->axi + RZG3S_PCI_MSIRCVWADRU);
->
-> -       msg->address_lo =3D lo;
-> -       msg->address_hi =3D hi;
-> +       msg->address_lo =3D lower_32_bits(msi->window_base);
-> +       msg->address_hi =3D upper_32_bits(msi->window_base);
->         msg->data =3D data->hwirq;
->  }
->
-> --
-> 2.43.0
->
->
