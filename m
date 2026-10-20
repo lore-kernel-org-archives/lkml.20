@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514576;
-	b=ZbYAMMf1XHEpaIUp16exLgdDX/k9MKC0pQ3WpbqG8qa3R0xre1h/6VRR+lAJTMTHpfHx
-	 EAqpwYJTrV4Txs6cjNovIadzN6YZ8+h9yQ5qR+H2ZCP5DsNMSHkbiCpRfjLn4OjQa+0mA
-	 eY1eTslS3fk2+j69jQOyNT0Wj6YpFscs2GCPCcG2+lArntkXmjC5ACLCrfj7XsH12bs0O
-	 eME8QT6a3nHhSgkgFktbVahPCrgYVjIC9Dl06a0p7Dgb0TPiVULaVXOat1bFaMh6cj6j1
-	 NLtL5KgWHEI48G9yDfze0pRFceQ6yRmxzTqNh17Dxeqd/yWP7UzIa13ZT2Oppr++lVQ==
+	t=1792514662;
+	b=4nPq9UYGJDXl27chBSv5VToxR5wLTioI9mbAmyKL9Zznvgo0x7/TZlkvWAuaZC+Suxra
+	 kZkvydWogbg6o95ijlKgT4Zm3K6e3uV1FTvkH8RAwWGOtOyBKsw8NV/HB/HfLZKBeaZj4
+	 sKf4trg+0KnVt/uqgJMValZl7jThBibNVhOzdVMkTo2WGqe9bex5lU/FtI5MOvOVa9lv8
+	 0THD6GuDYHFXah1cV/F5lMStLS3rD322VenRy9g0RQoZfD6JzrbSPBR1ucjjSooY13ifO
+	 KZh84uU4eHpE6ly9pnaRcUKdhOJwOIHWl4JlBqjCweE4oSbAc5EumqjYEGdjnpOhWcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514576;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YbI3E9wpo32mpl8w38bTVPHTLpJsQclRJaeIGMppCCY=;
-	b=QeZZZnler+qcNJtjI9E+6JIUn5fl9SkX9oUv4bIxpANXjhNLp4rD1zS2MmKG4jp88cFU
-	 jx7gbRIaMAf76lif8gK8NjMo7cSvt7ayJ/24CUYWUBLWdXnUCUWHZJ7Yvn+ZxyeZTfiuj
-	 Jt6eUMU58khzvYjKKBWkzdM0WUVNjwSF9H9028PonlX3/i2VK90XTa0C42sNzJRLxxFj1
-	 Zyb3ba0HRZvs4urz6NvrSewij8RZ1vBjQplqfFr176ZO2m8KrzaOhKY5VJg2KGnhQxNGt
-	 /iTnTUWYmJ8dQj8UuJa7omnPpPMIzl3XgZCDngEb2MrkIgtn3kDYUHwZ2ksyTcziefw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514662;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=XLwvzlrUsD5o3ePpbK5ubMcqgWldw7icsY7i1tOGkEk=;
+	b=dKWojtTGGFZOk1ttHHQ9LTvDpcLqJ2Hut5KYvNqqVabVWSqPuOjZFw/nT3ZG6HWSj5jv
+	 mmG2rMylOorvgVQK5BRJIlZAhzZL+se2hzGn+Hz/49IZA0hKAw6HU5UQW7RuJdmsE0ibL
+	 H71RymHRYEaAORXBIZ8HCUS/DqRXoJTV2zxEoqpsYnyyFI7uwFZvWlngTLZiC5pHQtqMi
+	 bWpgrGggZUrnm6KmgFxL7AC+3FALYqbrV3KxrfJ7rwvz9NjjS5Jfl3zuVlkKozES9Uwf8
+	 gFFta6aYpxbU9Zo1shAUJv/5O+3BzFkorgwJjbWfrrCzy4tUzEg39hszRf9M/RaHmKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZHlKlrM1;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nbd.name;
+	spf=pass smtp.mailfrom=nbd.name;
+	dkim=pass header.d=nbd.name header.i=@nbd.name header.a=rsa-sha256 header.s=20160729 header.b=qr5s2evi;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2341C606A328
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2341C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB639606A319;
+	Tue, 20 Oct 2026 16:44:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB639606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nbd.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nbd.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZHlKlrM1
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so533285e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792514574; x=1793119374; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YbI3E9wpo32mpl8w38bTVPHTLpJsQclRJaeIGMppCCY=;
-        b=ZHlKlrM1Qj7f9ziupsQLSfI6saYrZDMCs7hnCXMF7RrG+CpaHxCYRC97K23SIVcgg/
-         Sdonjvek8squKoyvDGjl4+zAQz46TJHeFr2xnBtrkoT1eDcnHr9pW6hXzcStcniojJxL
-         QY0M7C/l3UyIWq7jH5M15Wn5I8IPIuCBmsblxWfWIQo8iSCqimNwa1Th5W+GUrjTChhb
-         vh1h2iL1fCyqks/gny7IUw+3qSqVBnc1wuhu7dWgbeiT9x7SJc8qT3XxbW7x+OsxQRl6
-         +qAzYrVRyp7Yn7Veh2b6f+hyBZvTk51ren49WJzWPOzCV9PWJvL7x/mGMJR1WMPPLqxr
-         I/zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514574; x=1793119374;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YbI3E9wpo32mpl8w38bTVPHTLpJsQclRJaeIGMppCCY=;
-        b=lW3RJnspjvg34NfXyTlfHjTL0O1CMv85OTlcsR4WGn/9m8s4RONv2UjI8dFs+AZGbi
-         bkrvM0qI76LygU9xEt50UHkrGF2vTGP9N7NtBugaFXd90Q+11sFL+86ssmZ3FIK7drsu
-         5Mum7UMXSMBMVnDbP4boPoKm1RIbhUWTSE3B3ZWKabHYvTPtPLaRqu2js62MvkpWwn8H
-         TC66+e6obmACmZ8pB3Zh0gPlupNrY3BoTkJVnNlf+II1WMzxnPgk+ju34qqtcSYxVnyw
-         4VyByILRBniFrYeucFginiUXJIi9mF8ClIXBmUnIIPyapZAwECi62VK3VKdeNNkIUyMw
-         veAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxluyhQEEzFm9AqCEaol2ECBAY3mu/Jf7OIV36Hq6t7PP34ruPyG/M23bx/gZ74WH9Ds0+kf0fOzdJgz0c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9iQmrPj/LDDKae3YXx7YsjZ/LipsYEJp8VBvLQJij6cOHeArO
-	NEgJdj337peITthBnSjbYRQVL0UEJzms1XGE4g5xGDwBkVqKP855Bw34
-X-Gm-Gg: AYBFou2E31aaXm7+BmYI0oLTLSwSSsPiB5xsn7sJSf8jiDoicUCRtF7pkxFBfXqCLPC
-	PnCv3+CWz1yrYlVhijhYYoUU6rsSWlT5f7roEO5LypJs28eGscWl6llLsqDdjEgX9xvtplHQReG
-	5eo/oFYwudqxb23RBf6fgis40ZTqfzJf6Sjp91qXKPYBZGDNoI83esM8ndN29UR+3ycpf9IsMBq
-	qCZgvUYwUfANP0M8R2NdhDv7Gd1jDzzrUNPBaeiIoZLp1xO06NllpMqCMFYxQPxSKYnT+PGJChA
-	DKJWmYbirKEy3Hr6Yk0XOmxnlM2ukCyURLhxOq65xF3s8HETCmEBxESYzWJzE8RpHgMX1VNP325
-	6qs7m4sIIP9bl4iwRwXONvrXJNdUjoW/YLU7seStx4UPum6LxkWZPri+Y59kQ1TzIFewfjeRNzp
-	3EOY/EcaN1qL9rKxLHfJRYe+kgQh8lNHL6v/WfBXTbGvDLk1HxLJ3cd8tWp4R7RrxNR8H3QAtdb
-	xSDN8rsDg==
-X-Received: by 2002:a05:600c:8b51:b0:4a1:da58:1ee with SMTP id 5b1f17b1804b1-4a1da58073fmr212926695e9.31.1792514574361;
-        Tue, 20 Oct 2026 09:42:54 -0700 (PDT)
-Received: from foxbook (bfd231.neoplus.adsl.tpnet.pl. [83.28.41.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm244278035e9.4.2026.10.20.09.42.52
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 20 Oct 2026 09:42:53 -0700 (PDT)
-Date: Tue, 20 Oct 2026 18:42:44 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
- <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
- on xHCI
-Message-ID: <20261020184244.69b78d5e.michal.pecio@gmail.com>
-In-Reply-To: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+	dkim=pass (1024-bit key, unprotected) header.d=nbd.name header.i=@nbd.name header.a=rsa-sha256 header.s=20160729 header.b=qr5s2evi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=nbd.name;
+	s=20160729; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=XLwvzlrUsD5o3ePpbK5ubMcqgWldw7icsY7i1tOGkEk=; b=qr5s2evifiDaOVEQuWLwpmN5r5
+	u6o672ilphM3wtXfhmwoVVfkCkZ9UqCwoEU5Ac6DcgbbbX2bKHDgT+tbblG3aD4ZZXT1CdjrYF15b
+	EYUFKLR5dFN/R3n23qYVvh23KCpIMRzsSn873Z4oxiAudOb6zNcicqCgO3ZOmr1YHK8E=;
+Received: from p54a4360c.dip0.t-ipconnect.de ([84.164.54.12] helo=nf.local)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <nbd@nbd.name>)
+	id 1xJCwf-007wTR-2P;
+	Tue, 20 Oct 2026 18:44:13 +0200
+Message-ID: <8e57a7f2-6495-4535-af99-9abf5bcaa1f9@nbd.name>
+Date: Tue, 20 Oct 2026 18:44:13 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,68 +59,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: mt76: mt7603: discard power-save loopbacks after
+ wakeup
+To: Cristian Papa <pcristian292@gmail.com>
+Cc: lorenzo@kernel.org, ryder.lee@mediatek.com, shayne.chen@mediatek.com,
+ sean.wang@mediatek.com, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <6e7358fe-4070-4a88-b8da-77e2f9e9bdf8@nbd.name>
+ <20261020161545.9330-1-pcristian292@gmail.com>
+Content-Language: en-US
+From: Felix Fietkau <nbd@nbd.name>
+Autocrypt: addr=nbd@nbd.name; keydata=
+ xsDiBEah5CcRBADIY7pu4LIv3jBlyQ/2u87iIZGe6f0f8pyB4UjzfJNXhJb8JylYYRzIOSxh
+ ExKsdLCnJqsG1PY1mqTtoG8sONpwsHr2oJ4itjcGHfn5NJSUGTbtbbxLro13tHkGFCoCr4Z5
+ Pv+XRgiANSpYlIigiMbOkide6wbggQK32tC20QxUIwCg4k6dtV/4kwEeiOUfErq00TVqIiEE
+ AKcUi4taOuh/PQWx/Ujjl/P1LfJXqLKRPa8PwD4j2yjoc9l+7LptSxJThL9KSu6gtXQjcoR2
+ vCK0OeYJhgO4kYMI78h1TSaxmtImEAnjFPYJYVsxrhay92jisYc7z5R/76AaELfF6RCjjGeP
+ wdalulG+erWju710Bif7E1yjYVWeA/9Wd1lsOmx6uwwYgNqoFtcAunDaMKi9xVQW18FsUusM
+ TdRvTZLBpoUAy+MajAL+R73TwLq3LnKpIcCwftyQXK5pEDKq57OhxJVv1Q8XkA9Dn1SBOjNB
+ l25vJDFAT9ntp9THeDD2fv15yk4EKpWhu4H00/YX8KkhFsrtUs69+vZQwc0cRmVsaXggRmll
+ dGthdSA8bmJkQG5iZC5uYW1lPsJgBBMRAgAgBQJGoeQnAhsjBgsJCAcDAgQVAggDBBYCAwEC
+ HgECF4AACgkQ130UHQKnbvXsvgCgjsAIIOsY7xZ8VcSm7NABpi91yTMAniMMmH7FRenEAYMa
+ VrwYTIThkTlQzsFNBEah5FQQCACMIep/hTzgPZ9HbCTKm9xN4bZX0JjrqjFem1Nxf3MBM5vN
+ CYGBn8F4sGIzPmLhl4xFeq3k5irVg/YvxSDbQN6NJv8o+tP6zsMeWX2JjtV0P4aDIN1pK2/w
+ VxcicArw0VYdv2ZCarccFBgH2a6GjswqlCqVM3gNIMI8ikzenKcso8YErGGiKYeMEZLwHaxE
+ Y7mTPuOTrWL8uWWRL5mVjhZEVvDez6em/OYvzBwbkhImrryF29e3Po2cfY2n7EKjjr3/141K
+ DHBBdgXlPNfDwROnA5ugjjEBjwkwBQqPpDA7AYPvpHh5vLbZnVGu5CwG7NAsrb2isRmjYoqk
+ wu++3117AAMFB/9S0Sj7qFFQcD4laADVsabTpNNpaV4wAgVTRHKV/kC9luItzwDnUcsZUPdQ
+ f3MueRJ3jIHU0UmRBG3uQftqbZJj3ikhnfvyLmkCNe+/hXhPu9sGvXyi2D4vszICvc1KL4RD
+ aLSrOsROx22eZ26KqcW4ny7+va2FnvjsZgI8h4sDmaLzKczVRIiLITiMpLFEU/VoSv0m1F4B
+ FtRgoiyjFzigWG0MsTdAN6FJzGh4mWWGIlE7o5JraNhnTd+yTUIPtw3ym6l8P+gbvfoZida0
+ TspgwBWLnXQvP5EDvlZnNaKa/3oBes6z0QdaSOwZCRA3QSLHBwtgUsrT6RxRSweLrcabwkkE
+ GBECAAkFAkah5FQCGwwACgkQ130UHQKnbvW2GgCeMncXpbbWNT2AtoAYICrKyX5R3iMAoMhw
+ cL98efvrjdstUfTCP2pfetyN
+In-Reply-To: <20261020161545.9330-1-pcristian292@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 16:33:37 +0200, Nicolai Buchwitz wrote:
-> The Siglent SDM4065A-SC, Rigol DP800 and Rigol DS1000Z (and probably
-> others) advertise 64-byte bulk endpoints at high speed. USB 2.0 only
-> allows 512, which xHCI correctly implements. Unfortunately this breaks
-> usbtmc on these devices. Reads stop after the first packet, and longer
-> writes also fail or hang the OUT endpoint until a USB reset:
+On 20.10.26 18:15, Cristian Papa wrote:
+> On 20.10.26 11:48, Felix Fietkau wrote:
+>> On 14.10.26 08:22, Cristian Papa wrote:
+>>> Discard late frames rather than retransmitting their old sequence and
+>>> packet numbers after newer traffic or a wakeup BAR. This loses the late
+>>> frame; it does not recover delivery. Use the station's sleep state, not
+>>> the temporary hardware PS bypass used during U-APSD service periods.
+>> Why did you decide to drop them instead of pushing them to immediate tx?
 > 
->   usb 1-1.3: config 1 interface 0 altsetting 0 bulk endpoint 0x81 has invalid maxpacket 64
->   usbtmc 1-1.3:1.0: Device sent too small first packet: 8 < 12
->   usbtmc 1-1.3:1.0: Unable to send data, error -110
+> Hi Felix, thanks for looking at it.
+> 
+> Because the looped-back frame keeps the TXD it was first queued with.
+> mt7603_mac_write_txwi() puts the 802.11 sequence number in the TXD with
+> SN_VALID, and with a hardware key it also takes the PN from key->tx_pn at
+> that point. mt7603_rx_loopback_skb() only rewrites Q_IDX, so a late frame
+> pushed to immediate TX would go out with its original SN and PN.
+> 
+> On wakeup, mt7603_sta_ps() sends the psq ahead of the newer traffic, so
+> the order holds there. A loopback that arrives after that drain is older
+> than frames that may already have gone out with newer SN/PN. With CCMP the
+> peer's replay check would drop it, in an aggregation session it can fall
+> behind the window after the newer frames or the BAR, and on an open link
+> it would arrive out of order. So I expected immediate TX to mostly spend
+> airtime on a frame the peer discards.
+> 
+> I haven't measured how late these loopbacks arrive, though. One that
+> arrives before the newer frames go out would still be delivered in order.
+> If you'd rather push them to immediate TX, I can send a v2 that does that.
+I'm not 100% sure which approach is the right one either way, I just 
+wanted it considered.
 
-Fascinating.
+Not rewriting SN and PN is intentional. If the frame with its SN was 
+part of an active aggregation session, receiver side reordering should 
+ensure that it arrives in the right order.
 
-But SDM4065A is apparently pretty modern (2025) gear marketed for
-"automatic production lines", so it's odd that it has such issues.
-Has anyone looked if the same out-of-spec descriptor shows up on
-Windows or (don't laught at my optimism) consulted vendor support?
+It all depends on whether the receiver has moved on and considers the 
+frame lost, or if there is value in sending it to avoid the reorder 
+timeout (which would cause some jitter). Either way, we should likely 
+only allow immediate-tx if aggregation is enabled.
 
-Maybe Windows xHCI driver tries to enable out-of-spec maxpacket?
-We could do that too, though IIRC not all controllers are happy,
-so a SW workaround may be unavoidable.
+If you have some time, could you test, which variant works better?
 
-And xHCI doesn't support URB_SHORT_NOT_OK, for the record.
+Thanks,
 
-> We ran into this in our factory once we switched some test PCs from
-> dwc2 based hardware to xHCI based ones. dwc2 uses the advertised 64
-> bytes, so the devices worked fine before.
-> 
-> This series adds a quirk table to usbtmc and moves one packet per URB
-> for the devices in it. The DP800 also wants a ZLP after a write that
-> ends on a packet boundary. Only read() and write() change, the ioctls
-> behave as before. More devices can go into the table as they turn up.
-> 
-> The Rigols still have one issue I can't work around. They split
-> replies over 500 bytes into several transfers, and a follow-on
-> transfer that ends exactly on a packet boundary never arrives. Raw
-> libusb shows the same, so I guess it's another firmware bug. Should
-> be fine for most use cases though.
-
-What exactly is the sequence of URBs you see vs would want to see?
-
-> 
-> Tested on a Raspberry Pi CM4S (BCM2711 xHCI) and a CM5 (RP1 xHCI).
-> 
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-> ---
-> Nicolai Buchwitz (4):
->       usb: usbtmc: handle undersized high-speed bulk IN packets
->       usb: usbtmc: handle undersized high-speed bulk OUT packets
->       usb: usbtmc: add Rigol DP800 and DS1000Z to the packet I/O quirk table
->       usb: usbtmc: send a ZLP after a full last packet in packet I/O mode
-> 
->  drivers/usb/class/usbtmc.c | 87 ++++++++++++++++++++++++++++++++++++++++------
->  1 file changed, 76 insertions(+), 11 deletions(-)
-> ---
-> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-> change-id: 20261020-fix-usbtmc-short-packets-1c4e233ae407
-> 
-> Best regards,
-> --  
-> Nicolai Buchwitz <nb@tipi-net.de>
-> 
+- Felix
