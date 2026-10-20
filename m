@@ -1,96 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792499453;
-	b=cnJn3yST7uGlpBZaB9WkdY8sZec0x88D14Euz7yFDgQaSm6tK1h1zIPNbugsgf26Vws8
-	 /zpmPmW9lOX9BopQnCmBypiIpvDvXZ9vY7grG2mg+6qAqKl1WuEZgeUbNB9yRr3dHGq7d
-	 XWndNW2e9JkMPifF1hVGbhuuhcAmeBqqL9fcXFpHV9ExdGsnW792LyN+4RZTxXo8NH9HH
-	 yYVweFfIGezvciS82EJdknOrYa/BdEuY2eomCYAc1haM6CmW+zGlJCFP4ONhdSF2txWg2
-	 smYb98+wussfyWgCDJilYcBp+FIBpkyK+VcAaZNVYAH8FJPiEFG+SYaJYZuhgNh0JGA==
+	t=1792499458;
+	b=TDUD0Hsq6dxcoZCCjrpx5JA5fV0sCcN9DmYB4//pRQFHpclqf4/xDN49F6VGnBU70BfR
+	 WmgoYpgKAelMrW5Ytg6TsMNHcZAb0IH4PolmtmFLvyDMGwZ1P2m+Q0ob/C54juZ4QXtYm
+	 h8Ryp9I3QTQdO6ob8nYGqgBkQifRE3sLKQqL6LUtjmIJuQMCzPRSR0gNzYGFazBdtsmDR
+	 ggxuf9H33ZrDbPo2sj6Qzne+cTcdP/wafK6Nwj6JeAOW/UKGA+cBCcY4L2tTsxltztL+h
+	 NvNbkzOGbFg5XI0yK7xEhfdxAx70zyr41d0DE71MqDCfCWrsXAHW53DF4WgxAkEdSJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=r7W1rJt9IDsmCTMPs7E6cwvO7KQhC7QspT2DHRypph4=;
-	b=l0loHr9m2jnv3tB63KaFlmsMhpdOra4UemV9SJUJp2psz4KQCuY1nvC6lXTbenwjqwir
-	 HmmBv42ZZYCKWfMOBw4YsPetbjHL4s9V2WUcGSCUNVJSiKFxVGh/BFmDU/MAWdpz0qR8Y
-	 i5VVxxUc4ZlwSV5UaN0f93dRqd7QVTj+GQ/TKCd1mvck3uOTOMlbPkorB4pHicv2IYLRX
-	 bK01oHIfcrazhU0wWtT4Gv0PA9qTl5rASVK2GE4+PmrPW49kOt7a348KzpwS68W8k8pdc
-	 lt8KzLQZT1XIiUbTra1r4+GLltSuP7p73QduI/b0UTb5SIJ9vxWjwf/FmOrxk9c53Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499458;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zcO4EZHYcvxPDEYxtrbQd73V1Ga4xxNs4GqACyVzAD4=;
+	b=D7Vsffz4YsiDXS1ao4BzStKpuOLDjqjzU8vh5yqSAEixZEMVQGMhTXnH0Av3E17vtQsY
+	 NpkysS71QTH4ktRXJ6CL0kQHudcJAughkYoJRwXQ/DJyCfGXNmsKuyL88HqXnL1ckT+7e
+	 Ag5EgQ1UE61F2syAOdWKR12lrkxL0Gyo9g8hzGXa7KKt6pioZwn5LTIxPRu6JI4y8b5SL
+	 K3+uGZ8DBmEM0414iTDbYDu+ysW5z9zmrIk5Hr+Zcdxr/SRcVj/516X0stkn10l+OX/lE
+	 Xs3DvNEwxmBlZD/MBhUjSK+HORrD5lRvFw7eq/1H2z1jQM/hT4ZIn8S4Bsl+FbuHZwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MGbp4qZx;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZXmdSi5n;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="FR2R//4q";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CE7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CE7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD769606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:30:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD769606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MGbp4qZx
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ad51132eeaso249126a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:30:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZXmdSi5n;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FR2R//4q
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAx924419896
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:30:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zcO4EZHYcvxPDEYxtrbQd73V1Ga4xxNs4GqACyVzAD4=; b=ZXmdSi5n/DG88tJx
+	UPnGgvl3IgKNtWd/ecIZr8qlbTT5aAVPWz4yHGN6r7Bivaw0lYGZ/eBZ9BuAwt3z
+	blHDmwcKpnq3o3u1J+CqFWYsEgB431fRyZJA9ynjTZXIb2bMwhycJZc3Vba1270x
+	mDnJHZOBUepZPchh24itBwpmuAbzeR9ObwL6VsLM0zi3bivKAd9Yx0tnkDGcVkMn
+	l3Wg+n+HjGpeaJgs6HK+lptO4Xq5ZORGxulLbKbHhaXxaY1fdNK6crCNAX1Dz7QN
+	/LSFDOrBf6Ce3npWqnfZ9J0KMf3peOniv07fCShYyJI8nY58HGCL0kBv5Ju2QzsS
+	zyQMgw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5stdkx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:30:56 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92eebb130dcso71761785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:30:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792499453; x=1793104253; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r7W1rJt9IDsmCTMPs7E6cwvO7KQhC7QspT2DHRypph4=;
-        b=MGbp4qZx4EIRTCRzrgZYAtC3H9I/XO6VBPTbo8pn9LEgZOZTyksmEy7aqBTwRyBF7C
-         1naFXOUIl6s6tHJ/P5/Pd6/U3k6/2qlYFbCns7qRjf3neh8me0Uc1RXxwpfXMV/rH/y9
-         xVJzdQZT6kaD/L3GNZOHcutF/ozurPybsN2HF1raYKixC1t3bRxhSxrebYup30NFqgiZ
-         AGuY5qA0pCf96gWY7uh+gX/F4UWA7QjaZe8fYOPs8l0iFHvdhLCRnDOyiKVeH0Dn1Dk3
-         mHjV8a2Krz69nXhInbWwG27e365r7T0KwgNLud2ERPkFXBMHj0VHVrtuv1K5cRrzOtAC
-         cIPA==
+        d=oss.qualcomm.com; s=google; t=1792499456; x=1793104256; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zcO4EZHYcvxPDEYxtrbQd73V1Ga4xxNs4GqACyVzAD4=;
+        b=FR2R//4q9gB2RcUe9SyaJOUNRcMYCPU1VuP3HxcZylZ7hZy95Z82FsTQf123Je5FKf
+         a9c4VMB6yu50WPRuSUnZFrwZC0d6s/wBwtJtDyokG6M4z557ANSaYqwDa0qnN+0Bq9oy
+         42kMJU9vEh4oO9wtU1UuRI2JeVJCRDGsrMfTOJTlc3vK+vBhe9KDaQmolteCtRRut9We
+         972zARMAr2OgMBS0fkHos8tCyMdWWx8Wm+V8OG3feaGSQPaIuvmku7BT9Bv3ibkyfGub
+         NigSC0VwyRPjG2/bq+s16VqK0xYdllKxrEXFNup6o+Iw5AEezFX+9X423CfrNPUwpU4n
+         VVBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792499453; x=1793104253;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792499456; x=1793104256;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r7W1rJt9IDsmCTMPs7E6cwvO7KQhC7QspT2DHRypph4=;
-        b=PCieqiMx0Wmo3GxI45CA7R4BPWSOjdQMjx65x3TMwSdvsQQFmeOK7D7nnaWU6ISmJC
-         h0a2pytz47pnygq6jFFDbR854h0ECJ43ObLu0NNaNtvVRlZdyjH/QLtDAHCvOBHVnpuc
-         Mp0zyFOBnJS67t4DM/kjrs3Rc7ETLVa090bVCqcIhM9sNucGFZ3MHCfNMyVhjr688ro8
-         /J8pyfDhbv8w0UnTouM3iG791PMnOY6TqpCfXAH/2IQOiGCS9vERA2AZi6qv1H0IjdUF
-         qDNHdrKIwe41NbD/GjX0FOpsH7sVCzeWdXqb5HLM+jiezi/q+4RzCVdzXxHmyKy/Ebrv
-         amyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxRmhD4bQnaIvrN/1gZH+DwOnGVRLTJlbEr6svnH4uVdHY4Kb/9qkeK71jeNkHp+EV6l3ZTOgPnQXnZmoo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyAz68lD/tG77s6+5k2Iryp51/trMHLvq5G7sliCzXcnsaAvOr
-	deur+f6bIinJae7XefTmkaeYvcnQwOpkDzII9SZF7Z/F3Wu1d0RWGj4X
-X-Gm-Gg: AYBFou3n9kRbFuaeq/vmkWB3NdZilflQQop0KxoRHhnFLqDO1hXqHzS4ZzBSGu742Mn
-	G9QE8P3/oZJIdSOYaH1a1ePArQdf5KN1t3OF/h0kNQoOdszjq+NSyI9YrFfgQWFfEX3N5mLO9rk
-	ujdbSstpux3DC02EGKjwLrajPPhM7F8708/cTEAwkOLM5m8wU2/JzZJAXf1/r9i+gsY98xTW68y
-	oGpivaL0jkKP/C2yEv2SiwnPul392K+bhLV/8G6GKYzeFd24ZhKGWHinJQzqK3suRox4qX4WP4W
-	GdPynKeyQkcio0nNd2B2wbOFxScm+Koyf8PU5+3T1FUc5aYjo6/bhNmrbJ/ql6x6bkxmzPKpuhS
-	v3ywn9ZvCCiOFXImoI0/7cdExX90u4B5Uuz4A8+ZOh7S1LTH8BlDzj1RbruPH/r7YpkwmYgBel4
-	xbDhwR7akg2p7OhkGB4QvfrvJaO1CQv0exa2ihL6ul+ErylLiPcy/z2jmDsFcPl/KFda7JTgdDs
-	rgvO/n+kgE8wI4Xr1KtCoikr5hp35g94jMtdRPUXtIcCqO2hFEb8RtEaa7Rn/JYAi/K14drUniQ
-	8BsBaQ==
-X-Received: by 2002:a17:90b:5111:b0:3ac:a7ee:6785 with SMTP id 98e67ed59e1d1-3acee29305emr15938113a91.1.1792499452686;
-        Tue, 20 Oct 2026 05:30:52 -0700 (PDT)
-Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65497e28esm4783715a12.7.2026.10.20.05.30.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 05:30:46 -0700 (PDT)
-From: Wenwu Hou <hwenwur@gmail.com>
-To: hannes@cmpxchg.org,
-	yosry@kernel.org,
-	nphamcs@gmail.com
-Cc: chengming.zhou@linux.dev,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Wenwu Hou <hwenwur@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm: zswap: set zswap_ever_enabled when enabling zswap at runtime
-Date: Tue, 20 Oct 2026 20:29:42 +0800
-Message-ID: <20261020122942.3477541-1-hwenwur@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=zcO4EZHYcvxPDEYxtrbQd73V1Ga4xxNs4GqACyVzAD4=;
+        b=sro57IHJryiUFZPdQmqlPN8RGOy4RJXvRFQpMsUw9zBgKz2Dhp3OiTABgISueA2cvl
+         QolkMzbRINd+miDSVB4twYkZ/JIBuvgvvV4Srh0JbS/0qSUzYGqcD8Y8G+IP/yoVWXb/
+         nPipBktRGZUaCNi9VXFz0G0noSAvztkSbhBJ1ilQBWgb0EDzTn/PPRyYwy5wsL45P9sb
+         ksLkJvnQTivO6y4yYxEMJbz2lf4jzx4Rz5VjU30yALQYU3r+ad9kwqG8HWveu5cVGdf2
+         82JDerzRE/XSiidIerAJsuYPKR2UyP5uAn0QN24kgRr/HfX2SQwCKLqSG/SRlZ+6GJng
+         iMkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzB/P8sf56pYhEJNYxro0N8umquqnCjJ8XENxBwhXHT8yyxjSLJEK4j9FO/UePJiQAHe679hGEkUUyhOM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0DGQKRTqmKQrhvpEApMcgsEmL58axRFWnJmHLCT4h+Y4QuRxo
+	LJBlO2oVx0ZhylnCJpRS90yf8ryGKI+TQzWG9mPdXnXREljr9QLca/6mz85uELdfC/tyzFrfhh7
+	fiGdb4IwNIdIuftHgl19vaJ+rsILFNdC5gawnfEkwrDH8QuLuxEOb9pTW5VZH5odvyvO9fJkSoO
+	c=
+X-Gm-Gg: AYBFou3T/9w3w0hxb6kmF/+HD+9SFO9cM8i1XvVlwKDvjl5OM5+kwdp/QL5cKkKnQC4
+	G5f/c702eRH7C2GqiHAESA3PBRFOIu8QvHFMLyVhaBUpWD0BjThRsj2g+Xl+c9WB+PXKwOV8YlI
+	lHP8iiIYNKA/bjCjg5W4wzm1/4sSVCCgeWyL5NNEKDU/i5Ez2X4LPpcsMJQRGyOgfvO5TcRd1f7
+	N/Jdru0r4qZcfcd8nVT6K0mOuBC6IDonJOw+qGdDso9GqSE30LY75/hWvkJb/O95dx9gfAjKqzb
+	lxegbsNTkB9UeY4weeHJFgwfWwzymvemgXLQagcexVKyG4eKr+xOYXftN7eoapze33rO6Cpqo5v
+	oGPLMOFcZVmhgOHcOrkQhlA==
+X-Received: by 2002:a05:620a:a99a:20b0:93f:43a4:a48f with SMTP id af79cd13be357-93f43a4a566mr535237485a.5.1792499455993;
+        Tue, 20 Oct 2026 05:30:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:a99a:20b0:93f:43a4:a48f with SMTP id af79cd13be357-93f43a4a566mr535231885a.5.1792499455448;
+        Tue, 20 Oct 2026 05:30:55 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1c6240sm5318361a12.15.2026.10.20.05.30.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 05:30:54 -0700 (PDT)
+Message-ID: <73e35f02-002c-40f0-a42f-92402fc058ba@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 14:30:50 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,73 +116,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: Add thermal
+ zones
+To: Liviu Nicoara <lnicoara@thinkoid.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Aleksandrs Vinarskis <alex@vinarskis.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261006185557.23016-1-lnicoara@thinkoid.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261006185557.23016-1-lnicoara@thinkoid.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0OSBTYWx0ZWRfX0DATkgd1LllB
+ PSy+fu4+4GCuO0DqFnero9wPbXThOnFVBRd1fUGyiJOj6ir5GRuo79UAD9HlBqvEnuJiSeLgHCI
+ Bm/QDEjNWjKlC0CmT1PbD/S+/t3HdmWvwlStZ9elT1yCmGrbipKlbIPhIxW6eOLXVGvaHxJWaRw
+ fm5QRk8Eirg7NUJeyp1m4Yv3aFKqxNvie93GH7uxUirZPy3jUjhEoMRRa6IJ8yupEQiC1MbU+go
+ A9jAL8BpY8fDd1Tj6dgLeZKLFMGK6wEG7qbIbQ7kgl+8stOrijaFIssICxH27j0LtqPx9o50vKF
+ LSQ1aNc+oT33sv3x0JbjCDA/VRNvbBq1sX9T5Z0SsXkLq+h2bU22MHOOdcx5xuCCeviVFXjQLkv
+ XyKEUkp6X+UMckMGUtwSp4B6yMK4t35bvKMOedyGbRLXA0KcHkEmCWoQxyiR3cAnR/oEw3kfRjc
+ wZA+q/Zhsi+2GaJxDJg==
+X-Authority-Analysis: v=2.4 cv=fIusTpae c=1 sm=1 tr=0 ts=6ad75f00 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=vsDZt6SWGVavrg_UzXUA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: bNuNLGg0X9jxLEdGoST2GkxCF5Asj5au
+X-Proofpoint-ORIG-GUID: bNuNLGg0X9jxLEdGoST2GkxCF5Asj5au
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0OSBTYWx0ZWRfX9SVcXqH1m6iL
+ HmiA1p5DKY75Iq+kAMrHn3PVH0CZXXV9MZ+9v1tAIreu7pB9jCxTBQORK6ZI5hvM3i3XMpWHDDt
+ 2Y8DjOUZcn++rmNJnfZdDB02q9nufNk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200049
 
-zswap can end up enabled without zswap_ever_enabled being set, which
-leads to data corruption. With CONFIG_ZSWAP_DEFAULT_ON=n:
+On 10/6/26 8:55 PM, Liviu Nicoara wrote:
+> The XPS 13 9345 has seven board thermistors on the PMK8550 VADC: AMUX1
+> to AMUX5 THM and AMUX1 and AMUX2 GPIO, each with a 100k pull-up. The
+> ADC configuration in Dell's Windows driver package lists the same seven
+> channels, SYS_THERM1 to SYS_THERM7.
 
-1. zswap_setup() fails to create the initial pool. Setup still counts
-   as successful, but zswap_has_pool stays false.
-2. The user writes a compressor name to
-   /sys/module/zswap/parameters/compressor.
-   zswap_compressor_param_set() creates a pool and sets
-   zswap_has_pool = true, but never enables the zswap_ever_enabled
-   static key.
-3. The user runs "echo Y > /sys/module/zswap/parameters/enabled".
-4. zswap_store() now stores pages in zswap, and swap_writeout() skips
-   writing them to the swap device.
-5. On swap-in, zswap_load() first checks zswap_never_enabled(). It
-   returns true, so zswap_load() reports that the page is not in zswap.
-   The page is then read from the swap device, which holds stale data.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Fix this by enabling zswap_ever_enabled in zswap_enabled_param_set()
-before zswap_enabled becomes true.
-
-Fixes: 2d4d2b1cfb85 ("mm: zswap: add zswap_never_enabled()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
----
- mm/zswap.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e3..d2b4c248baa67 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -629,12 +629,29 @@ static int zswap_enabled_param_set(const char *val,
- 		if (zswap_setup())
- 			break;
- 		fallthrough;
--	case ZSWAP_INIT_SUCCEED:
--		if (!zswap_has_pool)
-+	case ZSWAP_INIT_SUCCEED: {
-+		bool enable;
-+
-+		if (!zswap_has_pool) {
- 			pr_err("can't enable, no pool configured\n");
--		else
--			ret = param_set_bool(val, kp);
-+			break;
-+		}
-+
-+		/*
-+		 * The initial pool may have been created later by the
-+		 * compressor param rather than by zswap_setup(), in which
-+		 * case zswap_ever_enabled is still off. Flip it before
-+		 * zswap_enabled becomes visible to zswap_store(), otherwise
-+		 * zswap_load() would skip stored entries and read stale data
-+		 * from the backing swap device. param_set_bool() treats a
-+		 * NULL value as true.
-+		 */
-+		if (!val || (!kstrtobool(val, &enable) && enable))
-+			static_branch_enable(&zswap_ever_enabled);
-+
-+		ret = param_set_bool(val, kp);
- 		break;
-+	}
- 	case ZSWAP_INIT_FAILED:
- 		pr_err("can't enable, initialization failed\n");
- 	}
--- 
-2.43.0
-
+Konrad
