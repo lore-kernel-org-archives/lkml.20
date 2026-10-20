@@ -1,84 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792526523;
-	b=N2NQ9yewpkiHvY4bdq4gM1K1+lZxTr1T1zf0MD4pMjemyTkS36Q9nWeX8nO0coMDRtq4
-	 4usQOOl3eRQvHXR6giqG65OW5FfuPcB3W1Qm8IheUacxrSq8rXtf/EV8sWzCAY2rgTcOA
-	 CoeSsZNdYuIhkERRVVbDVk0oMhSx6YY23lGVFG16xwvcHn4Isuhd5TYlQIxVB+lXjEBA5
-	 tCqGrna3xcawsLWgAFyBhNPCbmtHmJ5vrEN9Xh/R7wGVou77F0mCQG5qoNYFvhlfOakz6
-	 VFBkn/7/KqaOFt26iD+7CR9SvP0bN6vwNgpf4FCt4Nu/nmC2aJ4KlaGs6naIPcSIiYQ==
+	t=1792526549;
+	b=WAM7lzoRljQbOlV0Exe/wqrfgz7U4Riibf9gasgB51Me5nIhrclxxovOXr8AsdjR5wTt
+	 30jheJh3CATFpWuRP9ni6K1zJpq0IJkwQ49cPOAsKq8uOqgbGL51MwAoxYrd0BwKRNzO3
+	 weI6mGKU6H4P/W3+rK8kFOh4wnFvK06yCeRcfTh1iSjaVsyFVBkv0dBQvjMRNpk60zssc
+	 Px1PSSYXOWPKgZcg2lHDoTS9hICWHkgrqIxTaTI8fmhXXxih3O2M+SPcS1KNwkRUAVOFh
+	 M3QABra/pU2KACaKBidpcLPRSQ+wsOEqyq61zwnWql9Jzl12FFXREyVJ7OI3aDi9+Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792526523;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=JHXwTP335MxDgP+BPDXR7Sif4BPFnwVWZi4BilcXnUE=;
-	b=0iLsxXg61S5Bvz4SinxmtlGSD+BvvvYSADFPFlo1XGbTruWvMNqm3Y/j+OizUxz3qCyW
-	 ABJJY9LuMoAIgDD7zO2IylAPtoiyTrikPfAKpJKhm724ZHXC8Dx+j0Mim1tDHdGoLwzqe
-	 6wb5wM4kgxYd2hkktsjnXREt1QS7jugUcvaAqhHUs/IhEkC08Uqusdl/KhWySrNW7QSty
-	 KKF4aK5ezmBmWxZyhnKkjKqEXvQ5oqGZOOOthOaXTg0MCWYqwikls9pHUMHS0wOSEcN+H
-	 zPs1cUcMIHRvI1/QbyhorgqnB4xpyvSdfDhPMUD0Ii5gmRlQMMY2w1v8lMU7tKInb7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526549;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8ZysMSfbg6fBNJbq7ExrYH4kJLqlOfTHrM/s3F+kdh8=;
+	b=iUJCov/MyvkFLOTkJN62SODUoZrRhqYHc9o5kbJyDDbyUCDw4T4Z1OjNSWBVzDt99GU8
+	 733QyYxYDd2qdpzTOFRND0G1u0jqE1BdI54CD99n8bELDvFJxfOi0H889Ej6ZtZxsnPhR
+	 Z5bplVlRcTOGmVJI4SkXCeCRZ2fuhEibd9JTeNI7NNWneJC0d/dlgPe070D4cJD4D57Tw
+	 Z9Z2lySih9vRZtHoe/6VMVJOSyPe9StjACGanucYlKiHZt75uOwrizdFA/Ss4yefK3KRg
+	 aVZ8jmOCtDu2KR4v8U/njYfJq4m4o2t6KjZ7rg4r0VtIs5nHH0V7XpcxpSGv5wphIEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UOqol7H6;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hAm+sOt6;
+	arc=none smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB12606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF52606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AF52606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UOqol7H6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792526523; x=1824062523;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=Iz9a2HXW9rNhwpna6g7KdeGMBg4TiEzYBy3JslOSDfo=;
-  b=UOqol7H6cfPdiKQ9pEOS8vvBtFL+QzGGyq9LdntmFuUnv4nh9uFUE2Xz
-   s6r7z20rOFfhwPsp6Lpp1un11H+fgMNvkr1zoqhgSBfu5Q75Sdy0Q93iQ
-   pVaVt5JZmqs1DPnLGWKilR8DEq6g3Iz9uEzeAt5fgcZs8rUPLikZ0czVs
-   uRzJntOkWCV0mDRTrF2hfihksttaHOKsG/tVoDqhRIs+qjPvvkptd3kz9
-   RzVJnXk5s96StJemQyr7mV74QlDIzVzPWzCub9DK8Olmit3BGtuQDgK0G
-   LShYNGk2tDEDyTpg4anmWrCBeOes9/UyhUAHRspQaWUijWmGWKKmDkizD
-   Q==;
-X-CSE-ConnectionGUID: Jq9o34ITQTqtyerjkTg4jg==
-X-CSE-MsgGUID: cpRgXpW9QlioXiCrB0LD2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1134150"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1134150"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 13:02:02 -0700
-X-CSE-ConnectionGUID: oc4JofqPSbGCmSOWyZB6gA==
-X-CSE-MsgGUID: FG5SfCQbTvKkCfCtvsEjvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3008852"
-Received: from unknown (HELO [10.241.242.209]) ([10.241.242.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 13:02:02 -0700
-Message-ID: <96c89ebc2cd7f8217e0053a7e5302594fb039683.camel@linux.intel.com>
-Subject: Re: [PATCH v2] sched/cache: Ignore non-fair current in
- alb_break_llc()
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>, peterz@infradead.org, 
-	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
- <rostedt@goodmis.org>, Ben Segall	 <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Valentin Schneider	 <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>, Ricardo Neri	
- <ricardo.neri-calderon@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>
-Cc: linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 13:02:01 -0700
-In-Reply-To: <20261020185402.57017-1-kayracizmeci@gmail.com>
-References: <20261020185402.57017-1-kayracizmeci@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hAm+sOt6
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-745497ac8fcso45981137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:02:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792526548; x=1793131348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8ZysMSfbg6fBNJbq7ExrYH4kJLqlOfTHrM/s3F+kdh8=;
+        b=hAm+sOt6EH4D5vva7EW689YF9IYxKzNh8GBRAPeaZ+3G+Ik1z1FdOzMr6/PIaD6pPa
+         stexztaNe0IQbsnqsC6kiklftJIVIvKi97lt7ZjTrSQ+/eHykVg9NVjEG8ZiMSrAuhEz
+         zLZEA5qwYYXtyt63z98Y0GM7/fZ2R1vExKgHCZ7C9TE+NKsxmlDzmJMXsxC0eEm5REPg
+         RBUXRkGExaXKA2VQnTcdAvVP6Gxp+7Fm30QiuCgQOoC+9DsFa6fYQ47QAgf6dNZ7ewrn
+         suSbbPGDpaunXHKGkFfamklUyJy6QTeEuiHcdRwHN51ssl05Xd7ezZX5NtkXHhCBNhfY
+         0XXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792526548; x=1793131348;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8ZysMSfbg6fBNJbq7ExrYH4kJLqlOfTHrM/s3F+kdh8=;
+        b=VM0rJ57V5Z1hlw+4DDNAIHHONk/GbVdbiLfNfOBahti4bVh7zoHEukl43xjYdLqPpg
+         mktqtOVO9WJNelrAOnTBft7MRTYM4rqsYEjDA+GEZB590tw7dujTddu8wTIxCxSB8QP0
+         A1O4tFp1M+Y8Ef8kGIev0DXBfBxOTwS5SO5HblyS87z4vPflGSLKSlXBj+bYCulxMpKc
+         AKUx06SgnKEi8POAabQjk5qdPpG0nvg5H6ZCkt4UcqmMqklAN/dUTMNMumZG0Q8a4kML
+         t/rWi0PcQwpczpfciaJRXi+MCYt1840Bbw186r0BSGBul96EORYgqSTAkACGHNqwcI9a
+         x0+g==
+X-Gm-Message-State: AFq9FYJ/6piketdpyjRMklDwoJ9e5OlBZSEQGroiyaIxvEtnDf4xVgLq
+	U11VtdYKLQc9DD3snEPEsBVGKDuSPyaupr1bxfGi3ha5ZdkslnLNVmFY
+X-Gm-Gg: AYBFou1ISnqZEvhy0znwFPoCvHVSENS3nH+KVaDC/l2pW0MosgOe9heSiSTYXCmbgh1
+	iWMSjDYZXdqAU4vv+gl5VocJsKTxcn7YO/njd62allAN7O4n711K9dSvlDuECkVZSDEWaq0MqID
+	rnFOZBk19G5SNbhpBVZjiPSAgPl2fXWRZXU8BpxIu2n8kMs59J/McbypzK+p5FaH8ysLrqwtl/O
+	8+sVeRMV7TK2oXMfYmS02p7DYVc1K8mm97YCdUOa1vW2sloU1VRt/EcKPWWj6vD3IMW/oh+7YzB
+	n73FcrbJ8VkodQqrn5M9DPt3FU0BZrJjjF3j2p5SEMUOqAuc5yQ0p+amJxf7rjupScnOTd7bmO9
+	IG8GRiEiWHBnnB42NCSmDFdwVW1Xdn91TTEORSf8gXEHKgA6/RHyp3hs8hnIl/IF3FiC5OL3qZV
+	h4khP1kHwZAf+F1l68AjxjmDL3VT+Mjv56u/hnYIZvpp86lkPVTtoLHQGIrzi/7S3452Id+Z5l9
+	U1RO7edfnX3uLkdQDEJHviTEDCyBAW+tWIlZNn8Q/PZ9xwobK8jsDyihAJBjjmqpW0ityHylLI/
+	gWNrWlXxO/5TUI3lYYKBvXqEcpq5NVU9zy8Q1g==
+X-Received: by 2002:a05:6102:38ca:b0:7b2:508e:3d57 with SMTP id ada2fe7eead31-7cc92469ef4mr87919137.4.1792526547926;
+        Tue, 20 Oct 2026 13:02:27 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc9236f63csm306154137.5.2026.10.20.13.02.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 13:02:26 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:02:26 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, 
+ Chris Arges <carges@cloudflare.com>, 
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+ Phil Sutter <phil@nwl.cc>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Max Krasnyansky <maxk@qualcomm.com>, 
+ Rusty Russell <rusty@rustcorp.com.au>, 
+ Simon Horman <horms@kernel.org>
+Message-ID: <willemdebruijn.kernel.57aa9aa58b62@gmail.com>
+In-Reply-To: <20261020153650-mutt-send-email-mst@kernel.org>
+References: <cover.1792411304.git.mst@redhat.com>
+ <b1dce3e055b973bd87bdbdc9e9729971fa383326.1792411304.git.mst@redhat.com>
+ <willemdebruijn.kernel.26f697d5a674b@gmail.com>
+ <20261020153650-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH net v3 1/8] net: account for ingress-resolved virtio net
+ hdr state
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,61 +116,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-10-20 at 21:54 +0300, Kayra Cizmeci wrote:
-> Commit d6b9afab44e23 ("sched/cache: Fix
-> checking active load balance by only considering the CFS task")
-> stopped using task_util() for non-fair cur.
->=20
-> __active_load_balance_cpu_stop() calls detach_one_task(), that only looks
-> to cfs_tasks list. So if the rq->curr is not fair, doing a decision
-> according to it is wrong, since we only migrate tasks that is fair.
->=20
-> Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
-> cache-aware balancing") passes cur to task_misfits_asym_cpu()
-> without checking if the cur is in fair class or not. Fix this.
+Michael S. Tsirkin wrote:
+> On Tue, Oct 20, 2026 at 03:27:46PM -0400, Willem de Bruijn wrote:
+> > Michael S. Tsirkin wrote:
+> > > The following patch will add ingress resolution of uncommon virtio net
+> > > hdr checksum metadata (software checksum completion at ingress) which
+> > > adds performance overhead to the packet processing.
+> > > 
+> > > We should make it visible, so a hypothetical workload relying on
+> > > uncommon metadata can be distinguished from none at all. This way issues
+> > > in the parsing will be reported and not quietly pay the host-CPU
+> > > checksum overhead instead of offload.
+> > > 
+> > > Flip every call to virtio_net_hdr_to_skb to test for negative errno
+> > > only, and have tun count these events per device as rx_csum_sw, exposed
+> > > via ethtool -S.
+> > > 
+> > > Assisted-by: LLM
+> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > ---
+> > >  drivers/net/tap.c        |  4 ++--
+> > >  drivers/net/tun.c        | 41 ++++++++++++++++++++++++++++++++++++++--
+> > >  drivers/net/virtio_net.c |  2 +-
+> > >  net/packet/af_packet.c   |  4 ++--
+> > >  4 files changed, 44 insertions(+), 7 deletions(-)
+> > > 
+> > > diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+> > > index ff67d99deb39..73e883394446 100644
+> > > --- a/drivers/net/tap.c
+> > > +++ b/drivers/net/tap.c
+> > > @@ -649,7 +649,7 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
+> > >  
+> > >  	if (vnet_hdr_len) {
+> > >  		err = tun_vnet_hdr_to_skb(q->flags, skb, &vnet_hdr);
+> > > -		if (err) {
+> > > +		if (err < 0) {
+> > >  			rcu_read_unlock();
+> > >  			drop_reason = SKB_DROP_REASON_DEV_HDR;
+> > >  			goto err_kfree;
+> > > @@ -1084,7 +1084,7 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+> > >  
+> > >  	if (vnet_hdr_len) {
+> > >  		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
+> > > -		if (err) {
+> > > +		if (err < 0) {
+> > >  			rcu_read_unlock();
+> > >  			goto err_kfree;
+> > >  		}
+> > 
+> > similar to tun, should tap count this event?
+> > 
+> > > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> > > index 242899f7fd07..19cb443c89b0 100644
+> > > --- a/drivers/net/tun.c
+> > > +++ b/drivers/net/tun.c
+> > > @@ -210,6 +210,7 @@ struct tun_struct {
+> > >  	u32 flow_count;
+> > >  	u32 rx_batched;
+> > >  	atomic_long_t rx_frame_errors;
+> > > +	atomic64_t rx_csum_sw;
+> > 
+> > is a normal (and cheaper on 32b platforms) atomic_t or atomic_long_t sufficient?
+> 
+> well it can overflow easily. i don't know that we care that a slow
+> path will be even a bit slower on these ancient platforms. correct
+> reporting seems more important.
 
-Sent out a suggested update to the commit log of v1 before I saw v2.
+Ok. I would hope that monitoring catches this before it hits 4B, but
+agreed that as slow path it doesn't matter.
 
-This updated log and patch looks okay to me.
+> 
+> > >  	struct bpf_prog __rcu *xdp_prog;
+> > >  	struct tun_prog __rcu *steering_prog;
+> > >  	struct tun_prog __rcu *filter_prog;
+> > > @@ -1935,11 +1936,16 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
+> > >  		break;
+> > >  	}
+> > >  
+> > > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr)) {
+> > > +	err = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr);
+> > > +	if (err < 0) {
+> > >  		atomic_long_inc(&tun->rx_frame_errors);
+> > >  		err = -EINVAL;
+> > >  		goto free_skb;
+> > >  	}
+> > > +	if (err > 0) {
+> > 
+> > } else if (err > 0) {
+> > 
+> > > +		atomic64_inc(&tun->rx_csum_sw);
+> > > +		err = 0;
+> > > +	}
+> > >  
+> > >  	if ((tun->flags & TUN_TYPE_MASK) == IFF_TAP)
+> > >  		skb->protocol = eth_type_trans(skb, tun->dev);
+> > > @@ -2605,12 +2611,15 @@ static int tun_xdp_one(struct tun_struct *tun,
+> > >  	tnl_hdr = (struct virtio_net_hdr_v1_hash_tunnel *)gso;
+> > >  	skb->dev = tun->dev;
+> > >  	skb_set_network_header(skb, ETH_HLEN);
+> > > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr)) {
+> > > +	ret = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr);
+> > > +	if (ret < 0) {
+> > >  		atomic_long_inc(&tun->rx_frame_errors);
+> > >  		kfree_skb(skb);
+> > >  		ret = -EINVAL;
+> > >  		goto out;
+> > >  	}
+> > > +	if (ret > 0)
+> > 
+> > same
+> > 
+> > > +		atomic64_inc(&tun->rx_csum_sw);
+> > 
+> > maybe reset ret = 0 in all these branches
+> > 
+> > >  
+> > >  	skb->protocol = eth_type_trans(skb, tun->dev);
+> > >  	skb_reset_network_header(skb);
+> > > @@ -3739,7 +3748,35 @@ static void tun_get_channels(struct net_device *dev,
+> > >  	channels->max_combined = tun->flags & IFF_MULTI_QUEUE ? MAX_TAP_QUEUES : 1;
+> > >  }
+> > >  
+> > > +#define TUN_STATS_LEN	1
+> > > +static const char tun_ethtool_strings[TUN_STATS_LEN][ETH_GSTRING_LEN] = {
+> > > +	"rx_csum_sw",
+> > > +};
+> > > +
+> > > +static int tun_get_sset_count(struct net_device *dev, int sset)
+> > > +{
+> > > +	return sset == ETH_SS_STATS ? TUN_STATS_LEN : -EOPNOTSUPP;
+> > > +}
+> > > +
+> > > +static void tun_get_strings(struct net_device *dev, u32 stringset, u8 *data)
+> > > +{
+> > > +	if (stringset == ETH_SS_STATS)
+> > > +		memcpy(data, tun_ethtool_strings,
+> > > +		       sizeof(tun_ethtool_strings));
+> > > +}
+> > > +
+> > > +static void tun_get_ethtool_stats(struct net_device *dev,
+> > > +				  struct ethtool_stats *stats, u64 *data)
+> > > +{
+> > > +	struct tun_struct *tun = netdev_priv(dev);
+> > > +
+> > > +	data[0] = atomic64_read(&tun->rx_csum_sw);
+> > > +}
+> > > +
+> > >  static const struct ethtool_ops tun_ethtool_ops = {
+> > > +	.get_sset_count		= tun_get_sset_count,
+> > > +	.get_strings		= tun_get_strings,
+> > > +	.get_ethtool_stats	= tun_get_ethtool_stats,
+> > >  	.supported_coalesce_params = ETHTOOL_COALESCE_RX_MAX_FRAMES,
+> > >  	.get_drvinfo	= tun_get_drvinfo,
+> > >  	.get_msglevel	= tun_get_msglevel,
+> > > diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> > > index daab43ac92ce..2e6fd81df9c4 100644
+> > > --- a/drivers/net/virtio_net.c
+> > > +++ b/drivers/net/virtio_net.c
+> > > @@ -2519,7 +2519,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+> > >  	skb_set_network_header(skb, ETH_HLEN);
+> > >  	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
+> > >  				      vi->rx_tnl_csum,
+> > > -				      virtio_is_little_endian(vi->vdev))) {
+> > > +				      virtio_is_little_endian(vi->vdev)) < 0) {
+> > >  		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
+> > >  				     dev->name, hdr->hdr.gso_type,
+> > >  				     hdr->hdr.gso_size, hdr->hdr.flags,
+> > 
+> > should virtio_net count these too? Or do we assume that devices are
+> > more trustworthy, so unlikely to cause this issue?
+> 
+> With memory encryption, from an untrusted host?
+> i can add that.
 
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+I honestly don't know if it's worth the effort. Just curious whether
+you had purposely skipped this and tap.
+> 
+> > > diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> > > index 52ae3d875e97..e6aec9ecfa99 100644
+> > > --- a/net/packet/af_packet.c
+> > > +++ b/net/packet/af_packet.c
+> > > @@ -2913,7 +2913,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+> > >  		}
+> > >  
+> > >  		if (has_vnet_hdr) {
+> > > -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
+> > > +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le()) < 0) {
+> > >  				tp_len = -EINVAL;
+> > >  				goto tpacket_error;
+> > >  			}
+> > > @@ -3136,7 +3136,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+> > >  
+> > >  	if (vnet_hdr_sz) {
+> > >  		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
+> > > -		if (err)
+> > > +		if (err < 0)
+> > >  			goto out_free;
+> > >  		len += vnet_hdr_sz;
+> > >  	}
+> > > -- 
+> > > MST
+> > > 
+> > 
+> 
 
-Tim
 
->=20
-> Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-awa=
-re balancing")
-> Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-> ---
-> Changes v1->v2:
-> * Add suggested comment (Tim Chen :>)
-> * Change the changelog so that it says the issue is passing a
->   non-fair cur to task_misfits_asym_cpu()
->=20
-> This versions not compile-tested. Tho only change is this comment,
-> so it should be fine. Right? ;-).
->=20
->  kernel/sched/fair.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 0feec172fd37..9d7fd6cec376 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -11016,7 +11016,14 @@ alb_break_llc(struct lb_env *env)
->  			return true;
-> =20
->  		cur =3D rcu_dereference_all(env->src_rq->curr);
-> -		if (cur && cur->sched_class =3D=3D &fair_sched_class)
-> +		/*
-> +		 * Active balance only detaches CFS tasks, so a non-fair
-> +		 * curr is never migrated. Ignore it and avoid using its
-> +		 * stale util in the misfit and LLC checks.
-> +		 */
-> +		if (cur && cur->sched_class !=3D &fair_sched_class)
-> +			cur =3D NULL;
-> +		if (cur)
->  			util =3D task_util(cur);
-> =20
->  		if (task_misfits_asym_cpu(env, cur) ||
