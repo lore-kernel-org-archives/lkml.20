@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498127;
-	b=B6eM5SFp/4VgRc7woJSh/9v9yYfPco56pY0Ye6T2jQw6Y5/7Fv5S2gE1r4PKEW5u/1+1
-	 LGK/xMeha4ITVB6Ntl1CVZba+ZNKOocaeYtr/uLIkfiOCOE5qkycV+yUaGO23STD6WMRo
-	 gNrVcd+LovJW4d/Fs64z2BRRppY82KxhUZdBTbMSAwVN7x4hRMU65j7VjbA28lgZsb8Ta
-	 fmSDdclAn3Zj+0LcXGbIiQi2bbnMsdC4ILYZFFVU2ZjXV/0SAIZSQ6GQJYNHHeHgpzgd/
-	 Ui8Mk0MuDf8jL3Frn1mI/fR6kCDl0AMeNWbOdxBhUFTL05TMf2qnOTkz4fRNk/P3fjA==
+	t=1792498146;
+	b=d/FZW3GJrCCAX+QzefdeGi1l3fEhoaWX9Rdw+8qhj4IMYdrqZJDvxkf64e7HC9/EAo3z
+	 4//70pmERjfHRAqDwBNtSKsh10nMZyJX3iS/NBJfQQ0+yziK2c/NSMQvv2+Xwo2kwtMgw
+	 IDNbVEgoXx5q3cvMa2Yv0oXcUjqTgyQemKiwUjQjuhYmm9h2X+xQ4/9S39pcqsXRsTgag
+	 SzNwy0L2WCLC0CIO2IgLbwehqt1JZdhXuM4wRYeSzQNiW1eBcPB7bwH/KeVNWWOJVP0i7
+	 0G8/2BsutoDTeVl972/Wuq5ARruyUowaPqo+rXOL+n37bF9BWvyIWQS5T/3alaZM6NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498127;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=o3HYFtbT84qJYX+FGS49qE6dDheWm1z/RgZhsb4Q7ek=;
-	b=fHgidu+nP7KyiI7rs6OD6w80tQiP6HYT4hCzBOALvKyeDnS+ItYY41tIH8Ck910J8QBr
-	 1DacW/UEWMS3xb27PpFJe6TmQH+sH6/xx+AVdmxP/hePel3YbK+a2f7pPo/f47GKFalcP
-	 1TRqYOMoxhsbEH1MkpgnIQMns3KJ8TnUdTzcwVYW7ynvChCZOxs+XaSxX//KP48jKiFRY
-	 M41qJPACVHntISEoe9jcSeIQCI7ZdR1mbJoDu2SMOnaQpgGs6d9MrrvI1NcfCgwpMI3XH
-	 mwtlq6HatKHg3dHPqJl65a/INYAIeV9dpZIHHlEELVtzwaORS2bllhPnxbLiyEsR5wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498146;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=2oAYJPU4rS/B67nm2olDeHtopzXuD57QG29t513sHn8=;
+	b=dF/rgpWLXE73kOsdYiEMGA7r4rbc8eiOhIC36S5iwLV8nRn5iiCMoyjUArkxNfa4fhCh
+	 hUOKZd6LgqlUIvfEvdLpMDICSKzCJYR/CQ9XAQVsSG/cSspzMfW6MjhkTpO5CaVPPil2m
+	 3fNp1jwVcRlwtjVdInauUcSqPsp5Tg4lGW1QlZoVGUr51w/bCqy11EtBTfpkkemXk5EbV
+	 aXG7/VMfDojtMti6BlbGn+C7ucqJA+gqelqWezcpqk2sOXflOuAAFZZwl/1RxAgF1++tu
+	 8yY7s6GZuagdtZBG3ejt931bRWhLwFaRBe8y+8XHUqNVS5ClmSZJshagKD5zrp5CJMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ay8DbV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M+7uNKlk;
+	arc=none smtp.remote-ip=95.215.58.177
+Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AC9606A31B;
-	Tue, 20 Oct 2026 12:08:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC124606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC124606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ay8DbV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0825A1F000C4;
-	Tue, 20 Oct 2026 12:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792498127;
-	bh=o3HYFtbT84qJYX+FGS49qE6dDheWm1z/RgZhsb4Q7ek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A3ay8DbVa1wWHxg17DxkKHb3vCbWSfi1ox+BHqlHep0/rx4ZG/Gs2PyrorGSVPEXl
-	 zwVrapUZYB/m9GHL3gCX2uYHBWPmQMrufqVk8p3rQV9qQXOsE2QhwSI1s7ZJQRKagl
-	 rl7zQ8OfPaQqje6Vth7vUJcvogVV9P5oGNJKjyf2Harai41X0IWithef6b6SQ9gIWr
-	 /OtkE53t5X2FTvjmfcEM455Hs1Srm/ymkylnbPWxLbAKBLDg8/S+CR9NdDc7IYSsvh
-	 fPRsCHegPyQJExkPJUqserXIaG60w9H51lOAIvJ0uaI7r1XIxQY34tXPyhRBmQieyU
-	 u+vy6prXFBTHA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 325841AC57D0; Tue, 20 Oct 2026 13:08:44 +0100 (BST)
-Date: Tue, 20 Oct 2026 13:08:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>, linux-next@vger.kernel.org
-Subject: Re: Missing signoff in the drivers-x86 tree
-Message-ID: <atdZzEMsMWhzO2gO@sirena.co.uk>
-References: <arUBQuAfW4HJQHik@sirena.org.uk>
- <4ad00775-b067-452b-9869-29d5b6712f66@sirena.org.uk>
- <asOdosd0zROmuzu1@sirena.co.uk>
- <1a363159-02b9-4644-9cc8-38e210d97d5d@sirena.org.uk>
- <atZqoXnT_27rGAn9@sirena.co.uk>
- <e1119f07-83cc-8178-3c6a-e87778d3cb16@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M+7uNKlk
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NHvbn3ue2nkgb328laFkEqNkxDgGzunCyN1UR3R7YQU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792498137; v=1; x=1793102937;
+ b=M+7uNKlkKoX7RObvP2s1ErlPC3SXJKgoI5mhc+dVsQucAfnZ7p0hFStgvI4PQIG0zg3ZaXUJ
+ mnf2X2kVupOb9V5zUa0nZC46vyb/7n54WVky3aeQSTtu0UMUQLejzv/ERU35Fl4klH53WoIYL/C
+ zkOYUg95KIvHCfrKDWXCYd60=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cac925beb0231a6d;
+	Tue, 20 Oct 2026 12:08:57 +0000
+X-Mizu-Trace-ID: cac925beb0231a6d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b75feca5-6025-44ff-8b82-b1da48cc5ced@linux.dev>
+Date: Tue, 20 Oct 2026 17:38:44 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,50 +58,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="P3j17JiV0CwEqRby"
-Content-Disposition: inline
-In-Reply-To: <e1119f07-83cc-8178-3c6a-e87778d3cb16@linux.intel.com>
-X-Cookie: You buttered your bread, now lie in it.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] BCM4355 Wi-Fi fails with Intel IOMMU on
+ 7.3.0-2-t2-noble
+To: Peter Kiddier <peter@kiddier.org>, linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev, iommu@lists.linux.dev,
+ arend.vanspriel@broadcom.com, regressions@lists.linux.dev, jgg@nvidia.com,
+ kevin.tian@intel.com, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, dwmw2@infradead.org, baolu.lu@linux.intel.com,
+ linux-kernel@vger.kernel.org
+References: <CA+3E589O46nj=c1Y+Rwk_nPZZKEUjFvMfWaAFmQ2-7De9iUxFw@mail.gmail.com>
+ <CA+3E58-2N-uVNsmwvOGDKZvtnDQ1DF=GzFbTyRLuN8FpAd4qdg@mail.gmail.com>
+Content-Language: en-US
+From: Aditya Garg <aditya.garg@linux.dev>
+In-Reply-To: <CA+3E58-2N-uVNsmwvOGDKZvtnDQ1DF=GzFbTyRLuN8FpAd4qdg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---P3j17JiV0CwEqRby
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 02:07:02PM +0300, Ilpo J=E4rvinen wrote:
+On 20/10/26 5:19 pm, Peter Kiddier wrote:
+> Adding the IOMMU maintainers and linux-kernel.
+> 
+> The original report and test results are below for context.
+> 
+> I haven't tested a vanilla upstream kernel, and may have limited time
+> for further testing, but wanted to share the findings in case they're
+> useful.
+> 
+> Thank you.
 
-> Something odd is likely going on here. Neither of those commits above are=
-=20
-> in my tree anymore.
+https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/info.html
 
-> Your latest merge:
+Similar issue is present in older non T2 Macs, so definitely not a T2 patches issue. Also, T2 patches do not touch IOMMU or brcmfmac
 
-> commit 233956951080612ff68d0c54f620606c53a1c91c
-> Merge: 67f116b3a9f8 98f039265e58
+> 
+> 
+> On Tue, 20 Oct 2026 at 22:32, Peter Kiddier <peter@kiddier.org> wrote:
+>>
+>> Hello,
+>>
+>> I am reporting a Wi-Fi regression on a 2018 Apple MacBook Air with a
+>> T2 chip, running Linux Mint Zena based on Ubuntu 24.04.
+>>
+>> The Broadcom BCM4355 Wi-Fi device works with kernel 7.2.11-3-t2-noble
+>> but fails with 7.3.0-2-t2-noble. Disabling the Intel IOMMU using
+>> intel_iommu=off restores Wi-Fi on 7.3.0-2.
+>>
+>> Hardware:
+>> - Apple MacBook Air 2018 (MacBookAir8,1)
+>> - Wi-Fi: Broadcom BCM4355 802.11ac Wireless LAN SoC
+>> - PCI ID: 14e4:43dc (subsystem 106b:0843)
+>> - Driver: brcmfmac
+>> - Interface: wlp2s0
+>>
+>> Test results:
+>>
+>> - 7.2.11-3-t2-noble, default kernel command line: Wi-Fi works.
+>> - 7.3.0-2-t2-noble, default kernel command line: Wi-Fi fails.
+>> - 7.3.0-2-t2-noble with intel_iommu=off: Wi-Fi works.
+>> - Reloading brcmfmac on the failing configuration does not restore Wi-Fi.
+>>
+>> On the failing 7.3.0-2 boot, the driver detects the device, loads its
+>> firmware and creates wlp2s0:
+>>
+>> brcmfmac 0000:02:00.0: enabling device (0000 -> 0002)
+>> brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac4355c1-pcie for
+>> chip BCM4355/12
+>> brcmfmac: brcmf_c_process_txcap_blob: TxCap blob found, loading
+>> brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4355/12 wl0: Jul  8 2023
+>> 17:49:51 version 9.30.503.0.32.5.87 FWID 01-e74b9cb0
+>> brcmfmac 0000:02:00.0 wlp2s0: renamed from wlan0
+>>
+>> However, Wi-Fi subsequently stops responding. The kernel log reports
+>> errors including:
+>>
+>> brcmf_msgbuf_query_dcmd: Timeout on response for query command
+>> brcmf_cfg80211_scan: scan error (-5)
+>> brcmf_run_escan: error (-5)
+>> brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
+>> brcmf_cfg80211_get_channel: chanspec failed (-5)
+>>
+>> There is also an error creating the P2P interface:
+>>
+>> brcmf_cfg80211_add_iface: add iface p2p-dev-wlp2s0 type 10 failed: err=-52
+>>
+>> I tried reloading the driver using:
+>>
+>> sudo modprobe -r brcmfmac_wcc
+>> sudo modprobe -r brcmfmac
+>> sudo modprobe brcmfmac
+>>
+>> The driver and firmware loaded again, but Wi-Fi remained unusable.
+>>
+>> The firmware files are present under /lib/firmware/brcm/, and the
+>> firmware version reported by the driver is the same on the working and
+>> failing kernels.
+>>
+>> The brcmfmac module metadata differs between the kernels:
+>>
+>> Working kernel 7.2.11-3-t2-noble:
+>> srcversion: 3B6176FDB720DDE8E7C596B
+>>
+>> Failing kernel 7.3.0-2-t2-noble:
+>> srcversion: 3DCA38D52402541701276CF
+>>
+>> I did not find obvious PCIe AER or fatal errors in the failing boot's
+>> kernel log.
+>>
+>> It has been suggested testing intel_iommu=off after reloading
+>> brcmfmac. The driver reload did not help, but booting with
+>> intel_iommu=off restored Wi-Fi.
+>>
+>> This strongly suggests an interaction between Intel IOMMU handling and
+>> the BCM4355/brcmfmac driver in the 7.3.0-2-t2-noble kernel.
+>>
+>> I have not tested a vanilla upstream kernel, so I cannot yet confirm
+>> whether this reproduces outside the T2 kernel packages. Unfortunately,
+>> I have limited time available for further testing, so I may not be
+>> able to investigate additional requests promptly. I wanted to report
+>> the reproducible behaviour and the intel_iommu=off workaround in case
+>> it helps identify the regression.
+>>
+>> Could you advise on further diagnostics, or whether this should be
+>> investigated as an IOMMU or brcmfmac regression?
+>>
+>> Thank you.
 
-> I don't know how you got that 98f039265e58 but that hasn't been in pdx86=
-=20
-> tree for multiple days by now:
-
-> https://git.kernel.org/pub/scm/infra/transparency-logs/gitolite/git/1.git=
-/commit/?id=3D1bd7f5b78426fd94a4a3f75c79835a4416809e87
-
-That's what I fetched yesterday, I don't know if there was some infra
-issue which caused the fetch to fail.  What I'm seeing for today is
-commit 893018d51f27ec0449155b0afe371aaf65380630, hopefully that's what
-you expected.
-
---P3j17JiV0CwEqRby
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatdZywAKCRAv73Ows9A4
-ieZPAP90JcMoLywyS8JowlZIy+wPuOozvfAHCOSp0rYg1y8G9AD/UH++c7kbWw0p
-FKgloovNB7HW4fQWVt1IKeTNJXSEcwg=
-=neIK
------END PGP SIGNATURE-----
-
---P3j17JiV0CwEqRby--
