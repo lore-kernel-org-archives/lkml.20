@@ -1,103 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504157;
-	b=U/06IMLxcmVDJItGp22IqoUdXro6D3EqRfV5HsKBbLZWpKKeKAPl5H8bCHLP0lnQljoA
-	 kDXYpzUpec5KHH/4AXnfnePcO5C9rP3C6ry73hl6Gfb4GOOuYD7Xfabnwo9GyfLHtf+I4
-	 gkl4TEmExTGAVZCVFIydtcDSHhNFTVa6z7N4yTddvtmhVl+DAY2I9Vu78WLfLKIaVh0QJ
-	 18vF5QSOmkXQcvKqizL/Cce01MFo6K59vGd8z6Eo7QKitIpLGHD26i0IMuufjHUnH0+UW
-	 yjFb+n5zMxRTQ+/VUCXt6A5WI7g9JOn5ipVbhHygF82WZc1Iao5xWiN95VANgboKGog==
+	t=1792504163;
+	b=qOKdcTXwbV8r5nDZmCEJOdcm6UcAvI6iynMasjRXJe7kaaH4SSWIjYMoYvh49IA3PDyW
+	 uoCIpi95KigHswOyJbSJnCutT0303pC63qe19BhmRGKvMl4IxJm+9RwBSHm+MtYMu1VH0
+	 4uYwlAE0XVCmA+H8daXzfoYJgWgTmb2EflvYA+vuFkONzaA2WtOpzvIo8GvNQe/qSxzhv
+	 CnVeX0ONQPlFJF55LJINH3XJagBTVV0zOEAJdsYBX7AfWpkxP7IL0+8Mf+Pipqa3GZUMV
+	 nzoU6dZASNXFPw20ODKBQc3h7Ec3VIGLcqzzvCgTTiuJiT/Ntkr3dmGAyLDTc/fIFqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Vx5pn8LfJKkYukkBFBaIEiQbK6iX6OqWjqt7DXKords=;
-	b=IUnfB3CQVZmkTEgNihnI6iXEHPR2W7h3c+ouVf79YsnF7oYQQ9Nb5UrM2dvXqwpMrMTo
-	 eyP2uN3hpP48SehEkWmQQGImDI3QD1ZaBTC8p0xyTMsKZ96ZRLdcaZOjPIafws/vcd7ca
-	 nBXT4LyM6+uQPX8392SDRI+sDl7zLWN17UF70Qmx7TxnF6tNsxOhvgS/e+TtcbrqH3Xah
-	 4hv/8cisLzf1i2U03IkRyYp/qrqUBJmQOjBLkDGjBWBQTlVKnzS1ITuPUQgtV7jDIEeW7
-	 VBPk1M0g8rqHgMB9+ETR+i1u6VLM9i5C9KKjZ4DpGmxqNP/f9d/0D9nzVuag/syZ1Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504163;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=B4XBOXR54p8X1Gek+q5qNs74yiXGndZ+GxTQ8y5U1u8=;
+	b=OOkoCgBaTSmY7Cea1LgJKzTvLrBde0mRVYgw3RPDdPAcekkP2ADbSm6NsrTw3JB57PfU
+	 Jkuh9iXltwWTkq7PwcBgHvrmHie7A6EECIWO3qp2jzihxBOSuOAUFvVVIsM0jXwMrRTGY
+	 osLlen5JX4ZyLXJ/PVJ1TC3e4YlM41uuEYPbg9Xh6LieTQyUw4LzVH83bUhUWH7Wvy89N
+	 Em0R+Gm38tL3wNySNP/8Ts5AfS8uIfJmDf0RHzElSXqUWVxt7lcFgqeJ807ur64Md7yGO
+	 VmI8h3rYDWICGlYScboHfG3lNaZSX/KCozTutl8moCickpb1TZ0xLlJ7CSWkub/Ak7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qQpRgCIB;
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=45.249.212.51
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFF8606AB1F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:49:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AFF8606AB1F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qQpRgCIB
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eadef147ffso430655e0c.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:49:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792504156; x=1793108956; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Vx5pn8LfJKkYukkBFBaIEiQbK6iX6OqWjqt7DXKords=;
-        b=qQpRgCIBv2HcEljAYpQ+GyAMm/ETVu+Ak1bTpWnkvkKdb8jiTNswmqyaTjMjBRv1QO
-         3VajOtVYiY66DUePelWveibiWhlWIsbPgFZTDKsW6Ue0sr/DN9zRI1qkrCxwRwpHhUL6
-         zLQGIQV3eRzcgdcqh238UBSZRoiq9jaZBZmDQSpj5SVBM/60GBQ6qFzkL+e2jJnPsI5v
-         7opj3f5RPUzi2OpBbRu9NxkVzJfMQNr9Fcy+SBNXorNmhV01hSbKprI3dB0pPOx05jD5
-         VroN/7WtsFq8dYET0gfsDloqDlNb/EavO14inXf9P1CETV70e7tE8sCs9MJfkoGoLo+k
-         EoFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792504156; x=1793108956;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vx5pn8LfJKkYukkBFBaIEiQbK6iX6OqWjqt7DXKords=;
-        b=KjXXAwXXaoGpmVdVsS4doGAn5kGoSyhBvvuCkR86uTWl6pUBfwVSGXTHlt2b7WcN4x
-         9ljmVm5RF46Vefsc07SYAZetKStCLpolPbG/xWi7bvVzNM8zFz4ma7dahuwgnCOaTl7p
-         NZKEmDPDFKRDsQH5KnOXwoMcCQQfbsBnK7h/VxK4sibjmoS9Dmvcln0Wtey+7YGhjJlp
-         302JwDRtwpmq+fR+9SPvyaD125P75sVArflCDdWl28jxgLrsQji4OQojlq2yzHzqcBI4
-         O+cijb2RKIoQl0VAl6rWju9E3lugqWaJB1ddjUbb6WygGj2HgYc1hnx5eLa7cKimCJuW
-         bBDg==
-X-Forwarded-Encrypted: i=1; AKwUvBx+tJ5yrB3+rg41InWaN1pGpIE//odLga8KbYnVJk1oG7Q4k/igdMMTIGmnMWGelaOnUwAF60hK0NpWBAQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdVLMV0Yz+JAiyg3BNkA2oNSleOeKxS24VRTBHnbLPqY56WaHX
-	UQf9a/HRw9eX2NdmH92WFBALLF+ciDFU2oM4jzY91T4gDDfbJ+UNC/Ou
-X-Gm-Gg: AYBFou0GmqkRSTgowXvIsr0aptB5SN7VjemFtBjxq4OjOFXv24UE/eqhEqJCJ6gL9nG
-	g9jqFq+R89Ls3nYltAq50NNF8HMb5OhQSypBUoBoOgXWeW2NSOhnxIuG62yJoe8/b0ZFBy2D8va
-	KLL2KlIkq999LDRM4d7a+sWRtL+GWpANHzSN1YHvLyiiyes0S80FA30ddenIWiDtiXbXWEruDiG
-	UNb/yU4cfTs7aaGVRRNE5OB+6JbeHTQytiikcJ49ud896wJ5G3tuUaVZEBd74TP0rpLY9IHcudA
-	uNLHsiW/2A6CTt3X6e7EqD9j3dqDWUKyTnACEgAjBYU1sPjA/EDftLmV15hj23Yy3VG5f4cCjYv
-	Q78ahNz/1E+P8rYtZ6NUonqEZun8ZQgeVQ3GcteFGTKMfbUDbcznRIBTbmHoF5a+oGbDEaMRymU
-	+Kxc3FH+bOlQzsJ61Cmu7sWSAMKiTGPYTGs/tFQLu2xzFLcTazzWEE8tVrZAVC78hXwyDp05sz7
-	F/ED2hdVgXntoW1IxhocXELcWrQUlQf5rnUAq92g3uCbj6oyM30/IDgh7lWPzTmn6DSgM780YY5
-	AVbETXkV1CtnUPFSS0GiBL8eKm+Mdzn1+9j0k0/WJOwyu1xiXPZO8vWDiTdvbHVQMtKe4UfzC4J
-	U7nNXZwiQQsOzhJPJ+uW/
-X-Received: by 2002:a05:6122:1d05:b0:5ea:e052:2ef0 with SMTP id 71dfb90a1353d-5eae05230d8mr360440e0c.9.1792504156234;
-        Tue, 20 Oct 2026 06:49:16 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b518bc8sm12525922e0c.11.2026.10.20.06.49.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:49:15 -0700 (PDT)
-Date: Tue, 20 Oct 2026 09:49:15 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>, 
- Josh Don <joshdon@google.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.1d24f2bb46330@gmail.com>
-In-Reply-To: <atbsxDZecXYSDBqH@google.com>
-References: <20261019230758.2960779-1-joshdon@google.com>
- <atbsxDZecXYSDBqH@google.com>
-Subject: Re: [PATCH] udp: Add noinline_for_tracing annotation for
- udp{,_v6}_send_skb()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBF3606AB37;
+	Tue, 20 Oct 2026 13:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FBF3606AB37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKn0pLNzYQtvV;
+	Tue, 20 Oct 2026 21:49:17 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id 19894408EF;
+	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
+Received: from localhost.huawei.com (unknown [10.67.174.243])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S5;
+	Tue, 20 Oct 2026 21:49:18 +0800 (CST)
+From: Xu Kuohai <xukuohai@huaweicloud.com>
+To: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Yonghong Song <yonghong.song@linux.dev>
+Subject: [PATCH bpf-next 03/16] libbpf: Place the percpu chunks in the bpf arena
+Date: Tue, 20 Oct 2026 13:22:48 +0000
+Message-ID: <71de6bedb308d1ad6841c0071944426944a5d0ae.1792503001.git.xukuohai@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792503001.git.xukuohai@huawei.com>
+References: <cover.1792503001.git.xukuohai@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,33 +65,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S5
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFy3Gr47JF1DAr4xCr1xKrg_yoW8ZF1kpr
+	4fGw12gFZ8Jrn5uw4UWr4rJrW5uFn5Xayxt3W7tFy8Zr17ZF4UG34jya1FyFy5X3yfZr1U
+	ta4jqrnrXF4DJr7anT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBCb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUWw
+	A2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
+	IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8Zw
+	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
+	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64
+	vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0x
+	vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUzo7KUUUUU
+X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 
-Kuniyuki Iwashima wrote:
-> On Mon, 19 Oct 2026 23:07:58 +0000, Josh Don wrote:
-> > We hook udp_send_skb() and udp_v6_send_skb() using BPF fentry programs
-> > to monitor UDP transmits. Both functions are static and have two
-> > callers: udp{,v6}_sendmsg() and udp{,_v6}_push_pending_frames().
-> > 
-> > After an FDO profile update, udp_v6_send_skb() is now inlined into
-> > udpv6_sendmsg(), while an out-of-line copy remains for
-> > udp_v6_push_pending_frames(). The fentry program still attaches
-> > successfully, but it is silently bypassed for all uncorked sends.
-> > 
-> > To address this, make both functions noinline explicitly for tracing,
-> > as was done for tcp_drop_reason() in commit dbd5e2e79ed8 ("net: tcp:
-> > Add noinline_for_tracing annotation for tcp_drop_reason()").
-> 
-> Unlike tcp_drop_reason(), udp_send_skb() is a hot function as
-> inlined by FDO.
-> 
-> Did you see how this change affects to udp_rr performance ?
+From: Xu Kuohai <xukuohai@huawei.com>
 
-Yes, maybe I was a bit too fast in assuming that this does not
-meaningfully affect performance. A tcp_rr is worthwhile.
+Place the percpu chunks in the bpf arena, alongside the global arena
+data.
 
-Or, since these functions call ip(6)_send_skb, which cannot be
-inlined, perhaps a robust obviously free path is to attach BPF
-hooks to that (and filter on sk_type and sk_protocol).
+When full-range ldimm64 offset is supported, the global data sits at
+the end of the arena, place the percpu chunks right before it:
+
++------------+---------+---------+----+---------+--------+
+|            | percpu  | percpu  |... | percpu  | global |
+|            | chunk 0 | chunk 1 |    | chunk N | data   |
++------------+---------+---------+----+---------+--------+
+
+Otherwise, the global data region sits at the beginning, place the
+percpu chunks right after it:
+
++---------+---------+---------+----+---------+------------+
+| global  | percpu  | percpu  |... | percpu  |            |
+| data    | chunk 0 | chunk 1 |    | chunk N |            |
++---------+---------+---------+----+---------+------------+
+
+Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
+---
+ tools/lib/bpf/libbpf.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+index 02ee57e3f6c7..6fc8c7f549d9 100644
+--- a/tools/lib/bpf/libbpf.c
++++ b/tools/lib/bpf/libbpf.c
+@@ -833,6 +833,7 @@ struct bpf_object {
+ 		void *chunk; /* copy from section .arena.percpu, zero-padded to chunk size */
+ 		size_t chunk_sz;	/* chunk size, page-aligned */
+ 		size_t nr_chunks;	/* how many chunks, one chunk per possible cpu */
++		size_t offset;		/* offset within the arena */
+ 		bool present;
+ 	} arena_percpu;
+ 
+@@ -8212,8 +8213,12 @@ static int bpf_object__relocate(struct bpf_object *obj, const char *targ_btf_pat
+ 		}
+ 
+ 		/* place globals at the end of the arena (if supported) */
+-		if (kernel_supports(obj, FEAT_LDIMM64_FULL_RANGE_OFF))
+-			obj->arena_data_off = mmap_sz - data_sz;
++		if (kernel_supports(obj, FEAT_LDIMM64_FULL_RANGE_OFF)) {
++			obj->arena_data_off = data_sz ? mmap_sz - data_sz : 0;
++			obj->arena_percpu.offset = mmap_sz - data_sz - percpu_sz;
++		} else {
++			obj->arena_percpu.offset = data_sz;
++		}
+ 	}
+ 
+ 	err = bpf_object__relocate_data_ptrs(obj);
+-- 
+2.47.3
+
