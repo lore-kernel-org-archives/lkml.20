@@ -1,99 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792525225;
-	b=pzPp151f+BUyT25IsFiNsNepjwjmFT+FcLsE6F6so3tpdMAHCSgBz6LKgRRWk+E+xAlE
-	 0jL8D5bUsd2dzVwYw63SN23m4xDY9zglTZ5J0HuAkbcqNovOIshYewrktr9RTSlSWNl1K
-	 0raVXm4J8OaVJ3dFo2PV5qmLNlFa0ok92bfD8oAOGBXFhk1XkdsmW0RDnQmovZmyS7sWH
-	 EjDxYWKxWJnt+UDRAJY7r6QXU8hhz0hifb+SH6/lOUI6syUmhijg2AssqugE+GVXtTDxe
-	 SqPR4fDKW8Z6YnxZrrt6q9aMCfnob1lgkTgDaB4qe+iP1JjqcQuwqcbW1ADVVg7zweg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525225;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=e4JsFSb02TA55hrw/5psLRJkNgQYlwZOZtfuBpG76qU=;
-	b=cjtbCaJAASID7nsmhZTC/epU6V7LoMS+ZRTk/bIl+T7RPZd+CnakR1ndtU7agKFz89g1
-	 pFRs1WaYnuM2bN+Wfkt+TKU6kDLZT+c+UK4n00FfZOurZSh5vanEiNffMsbf+H4Wt1rXV
-	 ss/+fHA+Hur84wDpbXW2OiTvrAbzO93sjn87ASeSepR6EZ0MQ94T18FfXt+sWALIR0hnx
-	 qS8R+qQdjmk+O1Rx7I/QrF7WelbvCAQkz940mbKahcTt4Me2z/6vFcyWQFnHo7DH3CjGG
-	 m3vlG4mn+RAzqMms4G0vg0irW5DnxxRYc8Vo6HL3XD0XzN+bKba6Wwxbyj82rpqaitA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792525300;
+	b=N1uO/zveZbC0vekYof0nqkpCkomrtIlpgG8/ymgVpEtivjnG2fh3iOdK0lYCML+JHmBf
+	 VwJCCRolVi/nekAwnZIUh50xbb9vORQSg2UVKRrJsf9amEmqgNqJBbO1YaETnkzJ4jfwf
+	 JLk1+hP+Y9XE1Gbd+ahyWXYNXbfZly6fRBvtYGVAK28GyFRHRVRoyHuHpXuWW3at+sVlT
+	 tZtdOeHR3rNOCFRS32HCj8fOYbvZm+rCdyBlpLzEH4uSas576S9EPyxVOVoI+ZsIwceRy
+	 g1zrjzvxsuW0GQ0ksGWpnyfx9xhW2W7vRTg3eFlpdV5/ZJndFvm0YbmRnWBiEYPGruA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525300;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=IDpOMWhvYKOjAnThywjKu9/+Z0RvuBq6iLA0jjyKXbU=;
+	b=T5pJgXjrZ/cZOf001bWtqD46nRp024q0faa4j36G3w4r6ExXICWWjYcZXuSWa+QikiRc
+	 bsylYK+rquevosRPGHOcp0IzNIcVv/Tc/qiUk/R0R7NJVqDhBE0zwt73f8VioEoqaHe4F
+	 oHopWRWZLVK9FA9EBfN+H4fwNORzY65lluYx0NIpxmTQ6SxFX63Fg5AUit1Bcx6rTde9y
+	 RvtxWQv4TOjPi9bm5FaVOz80bK9xdRmOC1JyCTfn51OrP1cpUIPpgiP+CW6AK0Gbhhvj/
+	 XFPyISPsdavjYJw75ei0O/zCxzg8KSBbBqBv/0hF+R5VTCv2rNumN8ww1BgOPw38lHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=marliere.net;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sDq4O5Mz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	dkim=pass header.d=marliere.net header.i=@marliere.net header.a=rsa-sha256 header.s=dkim header.b=u0O60poT;
+	arc=none smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769C6606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 769C6606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC0B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC0B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sDq4O5Mz
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b0d126f631so59647b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:40:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792525224; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PSgMDRgg02N/3MHKtsaRRCjOEml+8q+Yav7TZQG+g6S33mofR4W2hFl99I7oaZ/yFL
-         rZ/iKOCTaZkv/epj9YkGEwaHTccC0vrmQG2KdMFFX/4X/V6zKvEETt7wgfpPBplyvI0M
-         eoqjIq0svrlsqIK+FXKiZpWbLuYGEIBGeXvEqmL6i7NmMmL8ew3fq2rqsKfaEV6zlyrR
-         58jpuy7WqGNjPzKhstVaFKZOJVRTI1bzbzo+f2bC/6elXW1g7v70Ok7TKV41lP4RkaTx
-         uIFAXkiNPyJ57lDGvReoZ1Ul/fed4z1gZO5i6YY8T0sN0iVKY0GesOvuibTfgrTG8Gph
-         Yy1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=e4JsFSb02TA55hrw/5psLRJkNgQYlwZOZtfuBpG76qU=;
-        fh=s+tHbcIqi+Uj0DGSyUOoYEJbreP2jKo/uMuzgxNeIko=;
-        b=MArXWKwFK1XQiNNFueFL4xc0VBKy9lgHF3JS5wWN5n6kyEQ3FkZRIiRd2HarRVqYEh
-         hcfAV73kDTUahxnZvzWoFWpbxCpc/WHGztt8v5bGEn5FRSrToGDaCk2EYLeOKjLZJZ1X
-         HlogtjfkeLDoCwgnhTG6BryVmm3wkJt33kt8XFai9X9v8lARotg/kNdSYDTgbpzWnKBV
-         f2AHLmNVHAIvCxJbB95lS+AyHYs7oL79ncn7eywqkimZA9D2G2WScleoqLTJcsQiPmnw
-         CgBddez7SEwkPfCWfKywhfGCwxCWh3HY8bBsQSKM1yGy6d/CpeujvWB02bQKrJrsvyZu
-         AKcQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792525224; x=1793130024; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e4JsFSb02TA55hrw/5psLRJkNgQYlwZOZtfuBpG76qU=;
-        b=sDq4O5Mzv7SmSuBHS4/QTeRkTYRt6RhWEfl8ZGLyy8160fn+uTZ3CXqPFf2+79S0Km
-         SDYJ/z7uhRxvfIcef2kxnQeREhqofAYj/xN5S7T8HuUi2RsE6a43WK8wm8sZHC42zGOK
-         3sVw6jq/wurpM7z0B7/kw8EoYfjoQHgX56LbMfcD1yIcPiQR9LatgvbHkOKlx7T+HewV
-         B50XErQ2qAWjhzE448dWlpZcwINXqVof3JTa5DiMoy2f77Rucd0+/yc3RmTb/jreNC/a
-         iuC+FeJYjEkydPyNEuOUgY5E3nUbZhPZRd9NocGLCqbqHGrs3k32kDUOStaHJrI06Kel
-         AcOw==
+	dkim=pass (2048-bit key, unprotected) header.d=marliere.net header.i=@marliere.net header.a=rsa-sha256 header.s=dkim header.b=u0O60poT
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-845788309b4so5838a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:41:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792525224; x=1793130024;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=e4JsFSb02TA55hrw/5psLRJkNgQYlwZOZtfuBpG76qU=;
-        b=GBQoEdZ0BlYlnRF7pTgD2F83dg95gd7MY2wsZFyyKD0/KDL9SU61+9vXs96qz2Es8F
-         D17QBfHmgoikUgv304tvXZTTyCboJfP69jWZpplIJa1C8nskeM3QqDvB+hEoNO/r1uct
-         ZGSm+zjoI2jW+eHvyFxTjLWgDXOm3nusU0cuV0Jvztgjdz9+tQoN3WNKjIjfo3+RzHlF
-         x81+FpNRH0N6HNeFa+1QWD+13nXfqzFwcXHAE+4FHF4Kd4rBv4eDDlVxh7mTgcMIYIwE
-         Bz1CC6UEDaWNL/3ZvsZBDPtZ798U9jpGSrFBStMEqYgxZv/Vd9qxHBom6JV1SdB50DHE
-         54aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzC6scQ5Ma24QbHkjyL7auedL/bVylxxKmQEnhC6T7EzhhTrH0peOTC49A5pyUNKfR5DmvXL/mIcS3wQh8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLo3WLQGd95ynIde12kQAnnD4y31uNNHaB26nHtSpX53OjKUmsR
-	a8sVc3s0rOuZ+1BpV9eaDBRYu/Y9ve9dMLKGprv2XoCLWqZqHfNisHYYBiBFbLpqATuRFxAa2kU
-	W3m92HZoab9IlGi3jQGHp0rl/wjlvNKU=
-X-Gm-Gg: AYBFou1WolsFyCwFUXEzi2AtQ7k46XCbQ4HY+vv7C8cnp+YxVpMuFK4xzTPxI+2psct
-	//qunXxgX6VGtDm7fvQl71wdJeAWdEDhOPYiMxYimJH+vtzYoALL1viX8McqUQs8qBevB5ob/ML
-	XO6IqHhkeW4MMQCTySgqyWssZv4NuODSGv8uelwxK1KgSpucDHqTqoZjE4nGDCz1HZlwxLray6w
-	OpxOqlo37ffKpWVN5pzu4LVvuR5gDb9oxg9TENwLbbDO+KhgeOfXytqPSMxsnX6uYQBNF32N3Dz
-	mEQws1z8qXkEPDPCaLV59sKahM+8jwoCJF5oJZb0bXmfZyrffjX+qXjgkTHvlbWdhSvN+b7kfSb
-	sCit8Jcz5Nzt7GeeLJ/Dud5af0mBnpkfhIc45ZT0=
-X-Received: by 2002:a05:690c:788:b0:8a8:8456:a970 with SMTP id
- 00721157ae682-8b0f21e9dbemr44226057b3.68.1792525224347; Tue, 20 Oct 2026
- 12:40:24 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792525299; x=1793130099;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IDpOMWhvYKOjAnThywjKu9/+Z0RvuBq6iLA0jjyKXbU=;
+        b=Sv1IHxcYYathzToGpIVPN+RrOUCEeH9Ir7WrwV1qtNjOmKN6mbUCfcqSLwD/Aq7+p8
+         zaqnOO4tSWQUQ6M52/XY+0j8VSCZvZUadtoYZeo/0zYWVtcuqCptVAXpNcSqBvt5ALED
+         mxmRGHPOR/6NZRgOZ/TieZeSjcxtWlwPMPM1amJPzWrP+b3Ix7Efvujt3YwpRrbgM04X
+         c4W3u+vn1d/jLlo6M14LxbhDt63/stgzKBdyrPR1JSID/DvaOZmRzokgCgQc0iUtthRv
+         nE5IHZ1ElKpJOr2qQsY6brkszC8lTXAY6sX9sObl7kp5awtA7svaLNYwuhLol9hao1/F
+         nTDg==
+X-Gm-Message-State: AFq9FYJTzEK2KQTBq6Y+4+pWaqYVGidW++AK/FyY3fvYd6HFz/ZWalLo
+	Lkcg1x0c6UsiPj/77+cEdopnOcnsd3Hzkv3yT5tvVn/25bXGtAdgbceW
+X-Gm-Gg: AYBFou3wesJ0eBmDMKNodNHQoEGESVn5DuwWfrzrydttheJKLwQD3MFuvWu/IGwjjwi
+	K5c1RlLJkEnnKkRoV3gm1BWfopCFPKLClPRSGlLOYiAalRbAQ5LiigCa92AgQPxsqp62A+Z0h+A
+	GRl9lV76bt4XFVCHWb1D5F6I4jrmd7qYa3n4SmfG5KSjsNfaaRY4qBPnBfnVNdp54mPpRNnVPW3
+	hdC0ryiOBESMIICT9VPJp5iSjg8e/7Rcj47Afr6TqdS3l2M65y2U/HN/s/5U8xRdSgz2u0TDLG1
+	3pe/pEk47BlumI8qJ7hfiioVQEkVs2Y6ALegKmKxRDibzHJSV+DYMpxC5Jcu199kmsJYudU620P
+	RKT2l9+wUfYd3DuUvd8Neva24HolyjF9UhS+0KjUcwwUDU5QpMfbAHwo8rg4nZ/4eer9jxZGwIv
+	ZBTEpwQiAEkSD1+LAmJGSZ/TsbTs1jx5Gu+90c8Fdk5MHPwe4XsxjSiwLNplyxw0ZUWuBj2AIsS
+	dk6bEY47CWj3QyzyoiicLe9yTu8+4lyutvvekhgAcVemuFfC69kSCLy3R0cKEbPPrT0Qw+X5gz6
+X-Received: by 2002:a05:6830:3c0c:b0:843:d5ee:5785 with SMTP id 46e09a7af769-8450114fe44mr13903378a34.12.1792525299024;
+        Tue, 20 Oct 2026 12:41:39 -0700 (PDT)
+Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbc7d9c39sm397677a34.4.2026.10.20.12.41.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 12:41:37 -0700 (PDT)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EC267605ED;
+	Tue, 20 Oct 2026 19:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
+	s=dkim; t=1792525296;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=IDpOMWhvYKOjAnThywjKu9/+Z0RvuBq6iLA0jjyKXbU=;
+	b=u0O60poTiVvmdHJpStdl8Zq+O5no3lkrroHxP4jtCb5VkNW+z0LmaQlRljgJ+cyQHzzc7u
+	acE5Nw0rsen5j1W/JRfqLE6IJH0GRo7j6/h9kKmrKJn5PtIhM/CpVqQ4dIQqTOGVCCcICN
+	0b483lzb79cvNh7POa2zzSKVw3RRbEZNhPBDphGKZN1ayYScqx8ewwVK5eV1P4i+zlU3QZ
+	bFDKQ+tQegfrhy+gMZsynfGWAIieOwkI5HSLE64LEbCqhnR4AhqVAn6cBqP8S07iTYIg+g
+	rQEYyJQ+FDBjoBNsW1KoH65S5hnLifh73fP3iVMpTUPnsJmYsJv5YBehgTzgcA==
+From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+Date: Tue, 20 Oct 2026 16:41:31 -0300
+Subject: [PATCH v2] ktest: Accept quoted bad term in git bisect output
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,85 +89,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792345559.git.jan.koester@gmx.net>
-In-Reply-To: <cover.1792345559.git.jan.koester@gmx.net>
-From: ronnie sahlberg <ronniesahlberg@gmail.com>
-Date: Wed, 21 Oct 2026 05:40:12 +1000
-X-Gm-Features: AclHuK_4nBepdHPIpyzJ4Q-CKoanV6D7TiXN__qc8a6qvpWN2kog280Tj0oflWc
-Message-ID: <CAN05THQGpsya=GJgZjwdNpsrDF7FgRw1mTQePnaoRAgFfKVRgw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ksmbd: NTLM pass-through to a domain controller
-To: Jan Koester <jan.koester@gmx.net>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, Steve French <smfrench@gmail.com>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261020-ktest-git-bisect-v2-1-1605122620f3@marliere.net>
+X-B4-Tracking: v=1; b=H4sIAOrD12oC/32OwQ6CMAyGX4Xs7JTNBcGT72E4bFCgKsO0k2gI7
+ +6Gd9PT1/792kUwEAKLc7YIghkZJx9B7zLRDNb3ILGNLHSuC5XnlbwH4CB7DNIhQxOkLSvTmZM
+ uzRFEXHsSdPjelNf6x/xytxhNnpRwlkE6sr4ZUmsi7NEfRssBKM0H5DDRZ/tpVsnz5/ysZKxWG
+ V12ReM6cxktPRAI9h6CqNd1/QLI3gkP5QAAAA==
+X-Change-ID: 20261009-ktest-git-bisect-a894f472843e
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ John Hawley <warthog9@eaglescrag.net>
+Cc: linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openssh-sha256; t=1792525293; l=1709;
+ i=ricardo@marliere.net; h=from:subject:message-id;
+ bh=df47vrq7dkwE0AjjlYUdJrweN6GuCI3+e6pDYSsrFtM=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
+ x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QJxdpTUghodnqBnJZtH2sObuT1JTm4e8eClrj357PczcszvhWqMJjWz93T/L9Be7OsCIUAV4xPy
+ aXLwB5ayHkws=
+X-Developer-Key: i=ricardo@marliere.net; a=openssh;
+ fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 19 Oct 2026 at 03:53, Jan Koester <jan.koester@gmx.net> wrote:
->
-> Hi,
->
-> a ksmbd server joined to an Active Directory domain can authenticate
-> domain users with Kerberos, but not with NTLM: it has no password hash
-> for them, so the NTLMv2 response can't be checked locally. Clients that
-> fall back to NTLM (access by IP address, machines outside the domain,
-> mount.cifs with user name and password) are refused.
->
-> Samba solves this by forwarding the response to a domain controller
-> over NETLOGON (NetrLogonSamLogonEx on a schannel connection). These two
-> patches give ksmbd the kernel half of that, and leave the NETLOGON client
-> to user space, like the rest of ksmbd's user handling:
->
-> 1/2 adds a KSMBD_USER_FLAG_PASSTHROUGH login flag. For such a user,
->     ksmbd_decode_ntlmssp_auth_blob() doesn't compute the response from a
->     local hash. It sends the server challenge, the user, domain and
->     workstation names and the NT/LM responses to user space in a new
->     KSMBD_EVENT_NTLM_AUTHEN_REQUEST event, then takes the session base
->     key from KSMBD_EVENT_NTLM_AUTHEN_RESPONSE and goes on with the
->     existing key exchange. Both events have a strict netlink policy and
->     are checked in ipc_validate_msg().
->
-> 2/2 puts the workgroup, not the netbios name, into MsvAvNbDomainName and
->     MsvAvDnsDomainName of the challenge's target info. A domain
->     controller checks these when it verifies the NTLMv2 response (Samba
->     in NTLMv2_RESPONSE_verify_workstation()), so without this patch
->     every pass-through login fails with NT_STATUS_LOGON_FAILURE. The
->     patch also checks that the challenge blob fits the response buffer,
->     since the workgroup can be longer than the netbios name.
->
-> Logins of users without the new flag are checked as before. The only
-> change they see is the domain names in the challenge's target info
-> (patch 2/2). ksmbd-tools doesn't set the flag yet. The user space side
-> we tested with is sharedd/adconnect from FenrirOS: it marks domain users
-> without a local hash as pass-through, and it answers the event through
-> a NETLOGON schannel client, tested against a Samba 4.22 AD DC.
->
-> I can send the matching ksmbd-tools change if the interface looks
-> acceptable.
+Git commit 0c0f93e7fa64 ("bisect: print bisect terms in single quotes")
+changed the completion message to put single quotes around the bisect term.
+run_git_bisect() only recognizes "is the first bad commit", so it misses
+completion and continues the bisect loop with newer Git.
 
-Please see https://github.com/cifsd-team/ksmbd-tools/pull/346
-If added it will give you much improved DCE/RPC support instead of the
-hand-marshalled
-stuff and make it much easier to add additional DCE/RPC functions
-you might need for this in ksmbd-tools.
+Accept both quoted and unquoted forms to retain compatibility with older
+Git versions.
 
->
-> The series is based on v7.3-rc7.
->
-> Jan Koester (2):
->   ksmbd: pass through NTLM authentication to a domain controller
->   ksmbd: put the workgroup into the NTLMSSP target info's domain names
->
->  fs/smb/server/auth.c          | 109 +++++++++++++++++++++++++++++++---
->  fs/smb/server/ksmbd_netlink.h |  41 +++++++++++++
->  fs/smb/server/smb2pdu.c       |  21 ++++++-
->  fs/smb/server/transport_ipc.c |  73 ++++++++++++++++++++++-
->  fs/smb/server/transport_ipc.h |   3 +
->  5 files changed, 236 insertions(+), 11 deletions(-)
->
->
-> base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
-> --
-> 2.56.0
->
->
+Link: https://git.kernel.org/pub/scm/git/git.git/commit/?id=0c0f93e7fa645c1058226a9bfde9e2b4441edf96
+Assisted-by: LLM
+Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+---
+Changes in v2:
+- Dropped '(?:' usage
+- Link to v1: https://patch.msgid.link/20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net
+
+To: Steven Rostedt <rostedt@goodmis.org>
+To: John Hawley <warthog9@eaglescrag.net>
+Cc: linux-kernel@vger.kernel.org
+---
+ tools/testing/ktest/ktest.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/testing/ktest/ktest.pl b/tools/testing/ktest/ktest.pl
+index f94ed2e98887..5bee1c9a351a 100755
+--- a/tools/testing/ktest/ktest.pl
++++ b/tools/testing/ktest/ktest.pl
+@@ -3019,7 +3019,7 @@ sub run_git_bisect {
+     doprint "SUCCESS\n";
+     if ($output =~ m/^(Bisecting: .*\(roughly \d+ steps?\))\s+\[([[:xdigit:]]+)\]/) {
+ 	doprint "$1 [$2]\n";
+-    } elsif ($output =~ m/^([[:xdigit:]]+) is the first bad commit/) {
++    } elsif ($output =~ m/^([[:xdigit:]]+) is the first (bad|'bad') commit/) {
+ 	$bisect_bad_commit = $1;
+ 	doprint "Found bad commit... $1\n";
+ 	return 0;
+
+---
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+change-id: 20261009-ktest-git-bisect-a894f472843e
+
+Best regards,
+--  
+Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+
