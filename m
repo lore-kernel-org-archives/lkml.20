@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792482211;
-	b=J7AoVhn4nMJSX4dbdwRy0RMnuCLA4opaHMKWhH86j81JiTc52Gwvw5wXm+MjTJyD2C2k
-	 9SBhPtAwPrlz8YPZcRiRVGlP9gokoSCaZ+Fnsv5VuVEMzqnAZuwTxHAbuNdG2K+5FgtHr
-	 ifyIGGnaTJ8W9JnU6ySe3zY4V+N5xmEMD7rW9d7B088t261YFVlIold947LFfwVcxP1Ae
-	 2dRLnN/1nkOc20ygsYU79HaDi0ZyO+87FWozlSiQOh/tleSmmizzO3/cKXqChMmxdzgtX
-	 CUbYptTJZHFyIG7UFqe9UVLAhuzEsM/1c68qDBZeqhJyE99hbatmb/1ELs9MVBTzsnA==
+	b=3/EuhVIJGnbg7XFJEN1ev6v5hTdcjwKe/DZWTMVFPRT5uOfZ5uQT1ooDVLmi6R6NTEl+
+	 gvBNj+1bzkXbjpEJUHkIkO9K10UEbrxMyU7MF7mAvARg7o3iLRiCNXSS7G7uLNoPfqN3A
+	 bfL5EVhLAzdJ1MKFaXjjQuWzKQv/yQr6fjh2MaLmiJFpisqNUBW0EnSie4IfmM8zSXZ0k
+	 VflkMzFqSwSNNBaNJR6bMHWbx4GU1HhOVkuEp2UvvPXpHKeRO/ZQjKB5ok4DQFo73b2t9
+	 oQkACRnlkUf6WYfpCxakY3TFkb8zXoccV1D9RsUYOAOguXiWJpV1Iz4XtypiqRlLl3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792482211;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vU0z7m5xe8g7wdR48TxjDcDkibjrJE+rIqBFjrvHAwc=;
-	b=v6GeV5XYBisCnL592pmI1qkcG0nv3YFSSfBk4bEEUPF/hxJo9JrlYLGCCC8xpMeUHCcV
-	 x0nXD0/jN8qxHWNM3cu4mtFTPPgooqYGJbyauHy+ameelSGEvBZJ2MnP9+514uvSlCDO1
-	 /JcbhfSNkGAAbVWKxvgOy4Qw3hYrhMkTmYyAFHhxmrdXd8iOq+xSPHD417uIQ/QpidHgv
-	 GR7cRcONe+aMT8auEX7fZjXBKtcG1AWm4cCp3maIQdQ5oPj5PR2CJaJz7bOtQsoltz4LG
-	 rK72AmTiEfVn+grjJpj53Q11hRzUYc1v/r6d7gHdIsHt5NOJtKfuhD93sZEiYWenWhw==
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:Cc:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uu63qmqNvAJMzzdOPrVRwU8iPV7E/KmddMafoX0Pa1U=;
+	b=hYCXSaGFpohlRO7VqWplkSxxxNdYZy+FzHi6baWuZS4C58cmmh+s6S63fO4/6evN0cvt
+	 LidjTuTt1wUCRYg9qt65QrJ3VQAsZJ/8jIUcmjWntEV4sRe3G+yefYWUUhP6sYc231MPj
+	 E5qWLb8uLDS4QZBbYauC09Xt25eKi7MYM3LVVyHU4RO2LEQaK/KpGJFIi6s4wBhWrWrmu
+	 og8mhT7Yq+pjIcNtzVjkFyHEskBZ601Je/mDufARrxUL6BtWiptRcKiI76BIaZtVpkVXE
+	 3Y1dReqftibyz6GoIUS+eXAi6UCBQqNCpXR4tKW3rnOKJ+1j0Hun07D2g4ZFdptqcVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="b/gEWzmI";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="iS/MJXfF";
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8293606A319;
-	Tue, 20 Oct 2026 07:43:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C42606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C42606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=b/gEWzmI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA711F000C6;
-	Tue, 20 Oct 2026 07:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792482210;
-	bh=vU0z7m5xe8g7wdR48TxjDcDkibjrJE+rIqBFjrvHAwc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b/gEWzmIn5UmvCA0H08E+zVeH7GIr0bew5OcqfsbMynh7eqTZzFaXEpn/wY3JTa7C
-	 xv4ZZNszgfeIxh4AUfpmCrYqo/UGmhDmLSMja9HHBCw2TzauBuA4vmK4ZuA9+a6hAC
-	 3Q/ADSjv3Mes060W5MrECqih86p6fAzySbxensj4=
-Date: Tue, 20 Oct 2026 09:43:27 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Peter Schneider <pschneider1968@googlemail.com>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
-Message-ID: <2026102018-staunch-evidence-bc19@gregkh>
-References: <20261017160431.119607952@linuxfoundation.org>
- <827e9f8d-5654-4964-a999-5ce94bd98fd4@googlemail.com>
- <7201018c-20e8-4187-832a-aeb0e5db98ca@googlemail.com>
- <rc-reply-0001-6f27dc9abcab@kernel.org>
- <892078c7-7fa1-4e32-a00f-1ac907c0ebcc@googlemail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iS/MJXfF
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792482202; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=uu63qmqNvAJMzzdOPrVRwU8iPV7E/KmddMafoX0Pa1U=;
+	b=iS/MJXfFVANvwkDVNpNM29xZe3bNRcEci6gdLQgFu+kJ8UjrKyrovcXy8sxshB51v+2tcXx8jy8LK7oVqxGHROAIwWkT+5V+fcKG7oqcI06UkFywul8kDGXHCDvR6sxaZRUeNSbfXsfR84slKquwDz21weIx/J8C+MU9Kstsxa4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R631e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XDC9X5v_1792482201;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDC9X5v_1792482201 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 15:43:21 +0800
+Message-ID: <f4f403bf-efc4-4629-bb7b-2c3b2cc35303@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 15:43:21 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,29 +53,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <892078c7-7fa1-4e32-a00f-1ac907c0ebcc@googlemail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: validate non-coherent freefrag bitmap inode
+To: Jiale Yao <yaojiale02@163.com>
+References: <20261018114118.927071-1-yaojiale02@163.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Heming Zhao <heming.zhao@suse.com>, Tristan Ye <tristan.ye@oracle.com>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261018114118.927071-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 09:10:50PM +0200, Peter Schneider wrote:
-> Am 19.10.2026 um 18:54 schrieb Sasha Levin:
-> > On Mon, Oct 19, 2026 at 06:02:37AM +0200, Peter Schneider wrote:
-> > > # first bad commit: [7c1e132b0967210526de05e7af6f1c26ad0c1516] sysfs: Introduce a mechanism to hide static attribute_groups
-> > 
-> > Thanks for bisecting this.
-> > 
-> > > I think the problem is, that if you take this patch for stable, you need to also take the patch which is upstream [
-> > > cd69fedf58f8ab1ab511f7c6ac1969cebf1c935f] sysfs: Fix crash on empty group attributes array. It addresses the exact crash
-> > > that I've run into.
-> > 
-> > Rather than adding cd69fedf58f8, I dropped d87c295f599c ("sysfs: Introduce a
-> > mechanism to hide static attribute_groups") and its dependent c7fbb8218b4a
-> > ("sysfs: check visibility before changing group attribute ownership") from the
-> > 6.6 and 6.1 queues.
-> > 
-> 
-> Yeah, that seems to be the cleaner approach. I just tested this, and this works fine, too.
-> 
-> Will there be an -rc2?
 
-Based on all of the reports, yes.
+
+On 10/18/26 7:41 PM, Jiale Yao wrote:
+> The non-coherent freefrag ioctl path reads the global bitmap inode
+> directly and trusts its chain list. A malformed cl_next_free_rec value
+> can therefore index beyond cl_recs while scanning chains.
+> 
+
+Could you  provide the detailed bug report?
+
+> Validate the inode block before consuming its bitmap and chain metadata.
+> 
+> Fixes: d24a10b9f8ed ("Ocfs2: Add a new code 'OCFS2_INFO_FREEFRAG' for o2info ioctl.")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  fs/ocfs2/ioctl.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/fs/ocfs2/ioctl.c b/fs/ocfs2/ioctl.c
+> index cbe59d231666..8383f900c847 100644
+> --- a/fs/ocfs2/ioctl.c
+> +++ b/fs/ocfs2/ioctl.c
+> @@ -575,6 +575,12 @@ static int ocfs2_info_freefrag_scan_bitmap(struct ocfs2_super *osb,
+>  			mlog_errno(status);
+>  			goto bail;
+>  		}
+> +
+> +		status = ocfs2_validate_inode_block(osb->sb, bh);
+> +		if (status < 0) {
+> +			mlog_errno(status);
+> +			goto bail;
+> +		}
+
+ocfs2_validate_inode_block() only validates cl_next_free_rec when
+on-disk dinode has OCFS2_CHAIN_FL set. So a crafted global bitmap block
+without that flag still lets the freefrag chain walk index past cl_recs[]
+and read out of bounds from the buffer_head.
+
+Thanks,
+Joseph
+
+>  	}
+>  
+>  	gb_dinode = (struct ocfs2_dinode *)bh->b_data;
+
