@@ -1,80 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478829;
-	b=mmbmxC/rStai1R8CRXBaFI1+AVRZ4zblBnnF4ALluUKnDxYflYWt/5tQPWIF5eWUpBtb
-	 boaNIEsIhHbdog2eKqo5A9O08cEOoY7m7Xj46ihBs3GY23TfX/xGG81aY2FBC91PUq/dd
-	 M3+GbPiEUQNwiyQtwlXqMHa0cLQUEaJNxub2MuatY9+K7a/k1z3+8/uB1QXKR4LF0SW/1
-	 uq+4HdatmlAikbEyME1IxBitb+iN5yeITjmP/fQgUyDp224GUcuwQBMfa5l+nPEFNkhzh
-	 ywAq+X3MFPo5uuphO51MtQhGoBr1oEh+frmRZa/UH90UuTR1nRE3iSdwzbjWu9Ch/Wg==
+	t=1792478898;
+	b=lVUWvYecFOIrGs9IGnB+StdVRkDUAv1cH0FT0mEZEG3IoO+vV3LWJGLhIsCKp58zk/zm
+	 clTwhCZziVdTzYt7nd01sAkpTjR2yEtSkIIYB8Vb6MgkV1W7uBJoj4BKxWsj2RQoJW2Q8
+	 Br3CiOYqGyOLUsBlCbwdmqOkkLT+QInIxpE1gUrlSL+unPAafZs3NSFDvOCEGHwR4XGjs
+	 jYhFxJcFkIDT4LxL37BwFIPPviUXnjxz1f1h0qrjEDWP/L1vF+y9LvM83pfuAPKOsl6kI
+	 CfcCxVf9sgsWYDrGOJ566FYOD+B7k/sKRKGFomItp+V97UdMNcYCOOC9x8yVIrf5MXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478829;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=CttS6bLkCRkmCK7/rWH8vIsMnUvlXcALwNj2LzjHU/g=;
-	b=EFUiyjsM0lbiEKmI/X9Fzjaz3TqVboZnte5vj5BcerEEReTSNaaArYbcve8X1QSDR6bg
-	 ah4qBEo85A+u/MbC+TDgiBV6VsmIVtNMW8dKfTL5TtI3tabgtxPJedhk89KL1i/f6ZW49
-	 Vua/RKCi/btWV2wskr0emcHW+f6ld1sADFYAvqGMBfZRaq095REFYpMy8Fj2IeYSNYevU
-	 BHypL0lDElF+b577iqTOkLk16mgxH3ST5L1+XFw08DtJW7JWJX4hophFaElLmsywo1S9k
-	 6R0XeeaZ6EOqszrdNntIZ/beX5pltnnb4nRHRNBctYAPoQdR+HFDn7F05gT4pywpAcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478898;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=r3Gw4C6d+cgZHvQCxnDAyJZCCrWKpRWiNstAmvZcl4I=;
+	b=05grKXZpge8JJk0dN0AXARLKPMqd4YdpvCl+Ocde0PpSnKoogNNXhtlzGg+robkowJBj
+	 3VKIpgAz4EEp1vaREow8i+8i4QZ/HslYD07xPsu7e0hNQrc0VI8lMIL3gixR7G3t+XuRM
+	 zMTwjSJBDIdUf2knL/71DUCUvHlOD/p6dQdcN2U1xH2G6BaKJd7KVVbA95h6mt1nSHzL5
+	 xlqd3+M4lRBrQ3E8TZGFxXFAbz7IO+l+6eJx9YEBLjpYvMNAveZO60Jog002IEc0UjIxE
+	 tR4hfESFRM8dNkkeGZ2kv2wek6XiGwqJHb0wxg7Ws30mQidFQLtRo0bbe3aOicbJiRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=EPB+nD3E;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC88606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC88606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EgkdXkAR;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C9A2606A328
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:48:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C9A2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=EPB+nD3E
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261020064707epoutp019dedaca50c540391d301f573a799f89e~gKf8OhAQl2252922529epoutp01C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:47:07 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261020064707epoutp019dedaca50c540391d301f573a799f89e~gKf8OhAQl2252922529epoutp01C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792478827;
-	bh=CttS6bLkCRkmCK7/rWH8vIsMnUvlXcALwNj2LzjHU/g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=EPB+nD3EGu/FcyoOwFTrty/SmNyp3qccgrtTJ22lfAwBBvXmIf+wv/2aKK6MyyayB
-	 Gil/wsKViA4/Gky/nWDpYo4n/LAGxcu+UaWWThZQX1yKjdTsTJhNpGumpyv+g+qtuU
-	 rHb7faSCvM2qJCW0pIouNspIY1sl9UVIZENlNFps=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261020064706epcas5p4bd760fb2eb20a9c208831c2345c44756~gKf7WC4GN1149911499epcas5p4J;
-	Tue, 20 Oct 2026 06:47:06 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4j82yd1W7Hz2SSKd; Tue, 20 Oct
-	2026 06:47:05 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063830epcas5p399de5889b53cc8d033aad76f13691bb1~gKYatkDcg1675316753epcas5p35;
-	Tue, 20 Oct 2026 06:38:30 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063827epsmtip1d254156560785875aa46e9282f78f8da~gKYYP-GOp3272632726epsmtip1P;
-	Tue, 20 Oct 2026 06:38:27 +0000 (GMT)
-From: Raghav Sharma <raghav.s@samsung.com>
-To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-	conor+dt@kernel.org, raghav.s@samsung.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
-	pokala.reddy@samsung.com
-Subject: [PATCH v3 11/14] arm64: dts: exynos8855: add cmu_top & cmu_peric
- clock DT nodes
-Date: Tue, 20 Oct 2026 12:25:55 +0530
-Message-Id: <20261020065558.1829402-12-raghav.s@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020065558.1829402-1-raghav.s@samsung.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EgkdXkAR
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23D261595;
+	Mon, 19 Oct 2026 23:48:12 -0700 (PDT)
+Received: from [10.164.19.55] (unknown [10.164.19.55])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 91B2D3F7D8;
+	Mon, 19 Oct 2026 23:48:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792478895; bh=aYYGnkNV3bcqHzLEEf22D04oPGihf8ZUUTG5EXgXVKY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EgkdXkARiPYv2Q1yTzLgHYb6CbRVmx9K8avmQlFKvUvokkbsFc+/5/4FCpnGY0vA7
+	 H6em7VkIAk6kFq0ir70z8Na1VW55BCsAD/DuSNjvrPT0HtlIFr1lL5N2G7NIcH4jVr
+	 v+cHL5eJ+a5qTryJXovQTH0dZrf6pgY23+nqtzn8=
+Message-ID: <0aae72c3-7f46-4236-8cbb-d3e6f3c66e62@arm.com>
+Date: Tue, 20 Oct 2026 12:18:06 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,84 +53,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020063830epcas5p399de5889b53cc8d033aad76f13691bb1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261020063830epcas5p399de5889b53cc8d033aad76f13691bb1
-References: <20261020065558.1829402-1-raghav.s@samsung.com>
-	<CGME20261020063830epcas5p399de5889b53cc8d033aad76f13691bb1@epcas5p3.samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 2/4] mm: compaction: target mTHP order for
+ proactive compaction
+To: Bo Zhang <zhangbo0325@gmail.com>
+Cc: akpm@linux-foundation.org, vbabka@kernel.org, david@kernel.org,
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
+ hannes@cmpxchg.org, ziy@nvidia.com, ljs@kernel.org, liam@infradead.org,
+ rppt@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+ kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, zhaonanzhe@xiaomi.com,
+ lipengfei28@xiaomi.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Bo Zhang <zhangbo56@xiaomi.com>
+References: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
+ <20261019150315.2018934-1-zhangbo56@xiaomi.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261019150315.2018934-1-zhangbo56@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add required dt node for cmu_top & cmu_peric block.
-This also add sysreg_peric node. sysreg_peric contains
-DRCG and MEMCLK SFRs bits which are used in clock driver.
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
----
- arch/arm64/boot/dts/exynos/exynos8855.dtsi | 32 ++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-index 0333b80eba84..2e5dc79d66bc 100644
---- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-@@ -10,6 +10,7 @@
-  */
- 
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/samsung,exynos8855.h>
- 
- / {
- 	compatible = "samsung,exynos8855";
-@@ -170,12 +171,43 @@ pinctrl_cmgp: pinctrl@12030000 {
- 			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
- 		};
- 
-+		cmu_top: clock-controller@13900000 {
-+			compatible = "samsung,exynos8855-cmu-top";
-+			reg = <0x13900000 0x10000>;
-+			#clock-cells = <1>;
-+			clocks = <&oscclk>;
-+			clock-names = "oscclk";
-+		};
-+
- 		pinctrl_usi: pinctrl@15030000 {
- 			compatible = "samsung,exynos8855-pinctrl";
- 			reg = <0x15030000 0x1000>;
- 			interrupts = <GIC_SPI 440 IRQ_TYPE_LEVEL_HIGH>;
- 		};
- 
-+		cmu_peric: clock-controller@15400000 {
-+			compatible = "samsung,exynos8855-cmu-peric";
-+			reg = <0x15400000 0x10000>;
-+			#clock-cells = <1>;
-+
-+			clocks = <&oscclk>,
-+				 <&cmu_top CLKCMU_DOUT_PERIC_NOC>,
-+				 <&cmu_top CLKCMU_DOUT_PERIC_MMC_CARD>,
-+				 <&cmu_top CLKCMU_DOUT_PERIC_IP>;
-+			clock-names = "oscclk",
-+				      "bus",
-+				      "mmc_card",
-+				      "ip";
-+			samsung,sysreg = <&sysreg_peric>;
-+		};
-+
-+		sysreg_peric: syscon@15420000 {
-+			compatible = "samsung,exynos8855-peric-sysreg",
-+				      "syscon";
-+			reg = <0x15420000 0x10000>;
-+			clocks = <&cmu_peric CLK_GOUT_SYSREG_PERIC>;
-+		};
-+
- 		pinctrl_peric: pinctrl@15440000 {
- 			compatible = "samsung,exynos8855-pinctrl";
- 			reg = <0x15440000 0x1000>;
--- 
-2.34.1
+On 19/10/26 8:33 pm, Bo Zhang wrote:
+> On 19/10/26 1:42 pm, Dev Jain wrote:
+>> I wonder if this function should be left alone?
+>>
+>> compaction_proactiveness, as I understand is given as a sysfs knob to
+>> ensure that the user can control how much power they want to invest into
+>> compacting. So suppose the value is 20, and the highest mTHP order is
+>> only 2. This gives wmark = 90 * 2 / 9 = 20. So, even if 80% of the memory
+>> can serve order-2 allocations, we will still perform compaction for
+>> order-2. This seems "extremely proactive" :)
+> 
+> Thanks a lot for looking at this closely, and you are right that the
+> scaling factor is the weakest part of this patch. I called it out as an
+> open question in the cover letter and I don't have a solid theoretical
+> basis for the linear order/COMPACTION_HPAGE_ORDER form.
+> 
+> What pushed me towards scaling the watermark at all was the opposite
+> problem on the measurement side: without any scaling, the order-9
+> threshold is essentially never reached for a small order, so proactive
+> compaction effectively never runs for order-2.
+> 
+> I instrumented fragmentation_score_node() for order-2 on an 8G,
+> data=journal kernel-build workload and sampled it at ~100ms. On the
+> unpatched kernel the order-2 score looks like this:
+> 
+>   order-2 score (unpatched, same workload):
+>     mean      17.3
+>     p90       47
+>     p99       91
+>     max       100
+> 
+>   fraction of time the score exceeds a given threshold:
+>     > 90 (unscaled, the current order-9 wmark):  1.0%
+>     > 20 (scaled down to order-2):              27.2%
+> 
+> So with the current (unscaled) watermark, the order-2 score crosses the
+> trigger only 1% of the time, which in practice proactive compaction almost
+> never fires for order-2.
+
+I get it, so the workload is rapidly allocating mTHP, and kcompactd does not
+kick in time, leading to direct compaction (compact_stall) or fallback.
+
+But I think this is a tradeoff with the current design in Linux and has nothing
+to do with our mTHP usecase right? Even with PMD sized THP we may have the same
+problem.
+
+I think the uncontroversial bit of your patchset is the fact that currently we
+migrate large folios just to free up a 2M region. To make forward progress it
+will be great if you can find a workload which gets us an improvement without
+the threshold changes and we could get those patches merged first.
+
+I am saying that because the reason you keep crossing the 90% threshold is
+due to the nature of the workload and that you set 32k mTHP to always. I doubt
+on a real system you will cross the threshold this rapidly since mTHP would be
+mostly "madvise" and that mTHP-requiring workload wouldn't be the only workload
+running.
+
+Given that, one thing that comes to mind is this algorithm - kcompactd wakes up, sees
+that the threshold got crossed again, which means it woke up too late. So
+it should manipulate the threshold or its wake up time. We need a signal to
+say that the mTHP allocation is too abundant and we need background compaction
+more frequently.
+
+This algorithm may be in contradiction with the sysctl ... so instead of changing
+the threshold, we could lower the wakeup time.
+
+This is similar to how the pcp list changes its threshold if too much allocation
+is happening.
+> 
+> That said, your example shows the linear scaling clearly overshoots in
+> the other direction: a scaled wmark of ~20 can keep compacting while a
+> large fraction of memory is already usable, which is not what the
+> proactiveness knob is supposed to express. So I agree the current formula
+> is not the right answer.
+> 
+> I'd appreciate your thoughts on the direction here. A couple of options
+> I can see:
+> 
+>   1. Leave fragmentation_score_wmark() alone and instead make the score
+>      itself order-aware / normalized, so that a given proactiveness value
+>      maps to a comparable amount of work regardless of the target order.
+>      This keeps the knob's meaning intact.
+
+The challenge is the normalization algorithm, the problem is that there is
+nothing we can deduce apart from the fact that
+frag_score (order x) <= frag_score (order y) where x <= y.
+
+> 
+>   2. Keep scaling the watermark but with a floor / non-linear mapping so
+>      it cannot collapse to a value that triggers when memory is clearly
+>      sufficient.
+> 
+> I haven't settled on either yet and would rather hear which direction you
+> think makes more sense before reworking it.
+> 
+> Also, thanks for the review on patch 4 -- good to know the
+> costly/non-costly split seems like a reasonable compromise.
+> 
+> Thanks,
+> Bo
 
