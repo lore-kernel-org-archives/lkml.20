@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.134.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509200;
-	b=QtW1wJpCt+VqU1AQ8ZG1i8XdPU/wqaiw+mLn7EUZKp5MSQ70/xEuHd7JTIH2xPbdag7F
-	 qLdEwS5/IbRVN1ixBbhd+A8djrGmDLWu46ka1kFqQnCGOSFITNE46BrKAJD16b5CaCRXB
-	 tMlFvHUcojYVxXGixdVLsC0F+Y4ziwsQ+yumhludeDVes25aeIVktQdipLR4bbh6XjQCZ
-	 H3IEYymcIkNkhpzAdb9kg/u5yW+No6N4QlbP8SuC/uQDZn+5OP43FpcLPg7sfWkbV+w+O
-	 3ayybqRYe1jWVvRcrhSo72MDj0fSXbL0Z/U5Ms+/wV8OK39Qb1PVOFrEdOjFnTBBzYg==
+	t=1792509218;
+	b=adBVjZBUDk3NH7knYzILQwZMRTdE72Ai5tDUn3/szdqKgf99X7kYsRQeQTkdAlKpwnzN
+	 E7ePu5KJUppLXn8DUiEiyseOQYjLWjWTSYOYcdVWI4/FRbXSGtxuk/GWuzLm7TxZhNUIE
+	 VV44I98xeZApdBdLC5oLeJ1SINokpGbne7WdThzXCfueJSMdLambNTun6M0FRjK64BFRq
+	 oSl+nQIOAJ681FUjW+1kkp7JumXgiOVEqzrVoAkVMDb8htrfUmGcM2NzVr+zVEskqqFmp
+	 5uVd6HMpAVNZXiu5UpoNSEnWgdaSVysRZbz5Y81/k9N7chPadcy8GUT4zgKmYsRXp3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509200;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=H2h3v76gfHtVHikUOLXmKivfl8RgxeQZwE9oswtNVR0=;
-	b=NAG8S1BT2PVZkwerJxawgEu0/q1ByxQTSVoO1pONccfti24PhqkEaOJCLzI31HrRQ2Kd
-	 r2RvakBgo9EyosIchdgh5lO53QA+4ojbg+HOyvzN+0Ot4utDddJ0b/hQ/4PRL1Ja2WgiD
-	 UJ2P23lo7yesdJzCEhoxIDSZE8CGeTBOqZKM26osufbfDRS//QFps2qir6WQTOQ0JXxkN
-	 s2sOaELbdc8vZPih1jrqj0inX7P9n2bjJj9yTCiE93S1lHgzTmfjfHpVvs4eM5sEqFs97
-	 MxMsBAvgtbLp+Jdq4CdiohxX8KXD47kfcE7QS58gYHKqJPef0JhjQ9dm1LrebZs0fJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509218;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=gW7rrrhTvNhaJ7ABkNTgkXkWHwGvVO8uazQn6vOaTgU=;
+	b=FmYujjH2sbC1Q2zNZJ9xSTjtfiEJvJNyJn4GuQMv97tnJZf+YQ7IEI0jSrWpKOjAAuc2
+	 Kmss3qHNd42hvs2qc1KVm/5DS26l8l/N1ITYdw2VO0kP6n6Z+hdBlqiIQhZ9joH8G4NqR
+	 97iv0+YwWWiPAe1gcZkIMqVeVRB5LSbgJ2J2MY7OUGvIYnK0pg2Ch36vBSt7kwAxU+riJ
+	 n2cNJInddgGWTUm3IU0qQyXghq6TctV3KyWDU5OePxNxyEzffJaaKLhuNC1osw+LH5LRD
+	 OcRW2jKCuKUCzNlI0dtO60FZ+k122LNWjqi3sbzNhQSSMfnihmu2bLtFPK/JsgT4jBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideco.ru;
-	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=RQX8OWOy;
-	arc=none smtp.remote-ip=51.250.56.165
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Zg2jwCsp;
+	arc=none smtp.remote-ip=74.6.134.41
+Received: from sonic307-2.consmr.mail.bf2.yahoo.com (sonic307-2.consmr.mail.bf2.yahoo.com [74.6.134.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039C260A2613;
-	Tue, 20 Oct 2026 15:13:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 039C260A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077EC60A262B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077EC60A262B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=RQX8OWOy
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 680542031C0A;
-	Tue, 20 Oct 2026 20:13:10 +0500 (+05)
-Received: from laptop-ak (unknown [5.189.116.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id EDECF203157F;
-	Tue, 20 Oct 2026 20:13:04 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru EDECF203157F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1792509189; bh=H2h3v76gfHtVHikUOLXmKivfl8RgxeQZwE9oswtNVR0=;
-	h=From:To:Cc:Subject:Date;
-	b=RQX8OWOyxWLmonu5khKxQSQZ+jAWUJ2qGVYzhGH85gCU/ShSpDEaJda1TtTxcNa38
-	 MVZFTOUWocZudu7fT17eJANgMdWQb3v1+8zg6yHodm7J3RHN+wjYMz4IK+cMbXi1PZ
-	 gQgxkKo7p8KvgVWSijjKEA3b/GZEyHrbikrWb/9L+a+VapKk8Go7/1z7e0ThBTLqx9
-	 RKTbWiCKnRLduzf8A8peTUwICuZA93ccVWAWMy+FRZ1SaLm+M/l5hjdf1OF+l5atan
-	 m/QDtJkuL5Q+jDcKcQPJ8/Svnotavt/UXHODofZY21rfohQ5yWz1U30k1KvjZyfCr2
-	 5f/WLwNtpyMTw==
-From: Andrey Karelin <a.karelin@ideco.ru>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Andrey Karelin <a.karelin@ideco.ru>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH] media: atomisp: check load_copy_binary() result in load_advanced_binaries()
-Date: Tue, 20 Oct 2026 20:12:43 +0500
-Message-ID: <20261020151247.441124-1-a.karelin@ideco.ru>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Zg2jwCsp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792509217; bh=gW7rrrhTvNhaJ7ABkNTgkXkWHwGvVO8uazQn6vOaTgU=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=Zg2jwCsp3P4iMf6pRdIUeLBSunTiSsyewr0xl+jmQAnHdf/piFw174yUvzoRExzOFK+i4/f6bUtWVgKgc7oGbFdQBCFJq7rxoa2WobQmoVRwEL53hHj2PxSbV7p/xfm/1xGkjxI8Qcpc0MdV4Z7IQTAkgTuxPCkJLS0bAC5X1P7fGRJVjTWP1Ta/5wjgoalO8l0cJPk8+Cc4Ug4LpCIm+ZTfO0gERO4MaXmQgsi3ymsGYli/iASTIQlP+/txsAuw5O7axIQQr6n0kGBB3Eqbx7n+pI+bWby2c9SwlR42RqXVYfVVirgf+19EPCOjWSTGChKtr84tvGtWpoTNi/CoLQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792509217; bh=gmW+bm26geerfJCjP9YQbjYnU5IJ4Zl4rDpAZaWUBKV=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=jnM2lNgJTnGWuKgQrtlNTcRKAYpKff0QTk5gJ9nlofuddaYs6U25QyNv+2SYyci4MLEOtqmAmYmIgnCrFJLbyxgEaTn8VvVVJ8V5DuJNXVsmSJIRF9ZIEge3S7t0FRUOE96UuvuzJIA1lqV+cfjgPpsnWsscXQoQ6v6bsY9E/ZRuNZZ5epy/l6QLYsV6FyjaMueibfBhCwY2oEXQddT987cmqSc4cKE05TKeYbbLSzd1Q1NnOUdATpml5rOy7rAf21zF38XNKid6r4nbbq2s3ql7IxM7h390va2FN3dioTWEn3K7GrH7IuGuiNTvSYp4qqTLYZ0rgxQohyFP9VeNLg==
+X-YMail-OSG: jCdKiA4VM1m7zt4OsFSXXgI_fAwkzi5Zm5csGs4LKuPiAa01PuRLbKdHG_Webvs
+ j2CosCrrbIcRxC5XmAys1VOYgDiUQ24TBm2.rDg3FRmivj8U1cKWwdMseRzOOT7rEgZXwutuu9Kv
+ y57cciW9USvDkiPX2uIFFpEI7XZ9EY.uoo50Ykmq0PklddEkV70f44_qLEwOACwhE.uWvRccuRPh
+ q_9KKlGvOcV_7gyLim5eXA36w_FDNQAfcpsnNgEbthL8.pmlAOWdt9eWkAbh4Ac0dLmawscnwzAi
+ wFQpMUAW9uRLjHDx6uiMdWdvttV169PFa01A42VBwmLUuMpRLPLvMNQVUgfugAA2iw0877JkxSae
+ h2KW8BmwruY6jBF2ORvlTOhwFMm7.QyVNqSRyXDAJQho9xT2lTPcnZ_SBw5QucqSqxX_Dl0e4wBa
+ yhm0ezh.DCt6MWEcAHTxwcQLShTTC7ImR6fzwqwpYE6fnp5l5tMdUhll.6Lwxaa9aLvy7P8bGWX6
+ cKmjhG0w493LIRe7I7OZJEElN6WFvaLO0xxPVAPFcNaFCJUsK2Z_bINKpe6LsJq7_m5nXfxLz3nD
+ 0zIaeOhJ6JFOulsnXb2NXV8onDLl4LjIgXbbHPjtd.W_WsSwH4oCqgLmoWabhceLXJ5EvGvzZ.jf
+ W7MLyOAT2w2a6naK2DYP0h2purBRJJiweaKJuOKkPYLjq9GQnKja2D3rEPLGmTMvG1tmdfAlbRRe
+ SERUsUIg5EncnbetEEKcvuy4PuTexNE7TWXXym6.2t_QOrs3y4Ngvi5MPgAonNIK8PMvKjJJ1Pk1
+ 7.ylkOLoBT15HnezKrbK6mcI4aZ3Kbb4N8HKNm1ELJnwp5.W_gnaWqCxuUDiNVN4du2tHg2w7tnO
+ A66sY82iIGHG2wttqCV0EACsopUL2sJkRq_N3CSfM8jzzdq9YFPDwlx7chwvhEPri46SPQG95lk_
+ TkHgcu2kNWch7EMi3_Z2L4tnAl0R01l509D2PzyM1YKvmY_SMoZQ0m7fHao.jbr0CV8ke8_SsVUc
+ E_d.4Lh8r9srRrx0j3khLLfCOLZ3DVqZUPL7l.lggzNtpyA67IDkOlr8nNF58l5mtpBud9i681px
+ U5Pp8p.dexvPAGhjbQ0fhXCYSUExBmNubDMP363WFz3Q8rjR9gE8lTbrja3Q2PfeRaTXEM2c9Bnn
+ XnYUwrP_2U8x.jt2g_lbfDez.H5KsS5fVuwM5XBSujsl0AlUQeceHtdk4c_i_wyJxFZSBce.jxGP
+ n1SAw68CK49JwUq0yw7_CLK3aLk4ul7DhIINnNRhHxb64Ki1VQsgDX5Hnz2WoqXRzB2I5iUNlJTO
+ eGoOSDk6ogmDPP2.p.t9Q1YLel3UOmD3y2n691jeINSlnkZ56nD4LOHaiaBGACAMXlCPYPn7BfCf
+ 4bQ8d2Merjk4X67Jgn9rg3e1_R3g.98EqskjY010vmEeGBJIL5y4pgFsJkeHHW10DZzmDGMcnRhB
+ OuUHcm7ZQZ7Twtf2uKQhe0cSWuw13d_DoPN0SrYtatam61XRsDp7ShW6DZ3VKQC4fo0Xs_ZcGmE2
+ O4QRLgPfcUSynoZg0NUj0xy0NgHzyUIjo5onPbidnygCnKXSmKI5v7znzX5PduFBl9PDd_8l1WO_
+ YHJg8.pfjoIsClik8GKgWO1ZZf_n39k9Q0fgFbTZbvjb4pgjqN6rfM_OXCZ8yAJptI7kWs3kqJPK
+ gk7NMUuNvdQXD.ENewdEvCflU9WxkNzJ.hRS7Kcz7Po3XlVeqQMIGJ2OAQ2BLyxBZN8vllNEpvY_
+ lUXsESPI.aB18Gtov.FrY_HyLPfARXQe.5iIFprw2Y.per9BTzDiuinhu80p1iue5CXood2C0XPI
+ jldgJLzcc7aGBkhhQAHGOmKSC8Ymu9nsV3bLgdWPM.uih_76SAmkSsvLWQdUjCmAdLdrEh3vdawh
+ sddnTdgmkFC8DQ5d1utVDD4leOhREQ7l6fFNpf7TS90zfRUh.q02RSnDl.rJMGvl2mRXJ0HXPNsi
+ jeKDbS4mbT_KB.C3bXJW_6JS4gJ0DHtTS8lFOfB2vw6e0AcZ8iwFcXp.zqjFu_54MusaKN5MtYyK
+ EXT9LTXsPWHzfctZp_.aKOxiNKMU6tvrRfE.kc2bGD7cbthqjH373fxgHfSvtLrZfZ8ipmFKFQoD
+ cV2cnfasJiDG4tg8vkAcYdyNH40myIYfYDjV.4FLngWbKgNbLW2a2HRl5brAqE3ZhaQP9u7KmR6m
+ ZZTqPOXRTew52tJsE6FyHibhOc41Qkw--
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: bd98e620-d938-40c4-8a3f-5b21ebedd5ce
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.bf2.yahoo.com with HTTP; Tue, 20 Oct 2026 15:13:37 +0000
+Received: by hermes--production-bf1-6d6877594b-4fmm8 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c27b5baec59ebcab6bc6425e1a3166a1;
+          Tue, 20 Oct 2026 15:13:32 +0000 (UTC)
+Message-ID: <8365f405-2686-4ea3-b216-7928b826f6a1@yahoo.com>
+Date: Tue, 20 Oct 2026 09:13:26 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,45 +83,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
+ <20261012140346.3065-1-deaner92@yahoo.com> <atH835VJLqo_mdjY@monoceros>
+Content-Language: en-US
+From: Jeremy Clifton <deaner92@yahoo.com>
+In-Reply-To: <atH835VJLqo_mdjY@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-load_advanced_binaries() ignores the return value of load_copy_binary(),
-unlike all other callers of this function. If no suitable ISP copy
-binary is found, the error is lost, the copy binary stays unloaded and
-the capture pipeline is created without the copy stage although it is
-required (always on ISP2400, for direct sensor input on ISP2401).
+On 10/16/26 4:33 AM, Uwe Kleine-König wrote:
+> Hello Jeremy,
+> 
+> On Mon, Oct 12, 2026 at 02:03:46PM +0000, Jeremy Dean Clifton wrote:
+>> +maintainers:
+>> +  - Jeremy Dean Clifton <deaner92@yahoo.com>
+> 
+> What kind of commitment do you plan for this maintainer role? Do you
+> have the hardware?
+> 
 
-Propagate the error to the caller as the other binary loading steps in
-this function already do.
+I don't have the hardware, but I'm willing to get it and test on
+it if it comes to that. I'm glad to answer questions about the binding
+and to review future changes to it, also.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+If you'd rather have someone closer to the driver listed as maintainer
+instead, that's fine with me too. I'm happy with either possibility.
 
-Fixes: a49d25364dfb ("staging/atomisp: Add support for the Intel IPU v2")
-Signed-off-by: Andrey Karelin <a.karelin@ideco.ru>
----
- drivers/staging/media/atomisp/pci/sh_css.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Jeremy
 
-diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 4a182dc384ca..3f3671ceca59 100644
---- a/drivers/staging/media/atomisp/pci/sh_css.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -5459,9 +5459,9 @@ static int load_advanced_binaries(struct ia_css_pipe *pipe)
- 		need_isp_copy = pipe->stream->config.mode == IA_CSS_INPUT_MODE_SENSOR;
- 
- 	if (need_isp_copy)
--		load_copy_binary(pipe,
--				 &pipe->pipe_settings.capture.copy_binary,
--				 &pipe->pipe_settings.capture.pre_isp_binary);
-+		err = load_copy_binary(pipe,
-+				       &pipe->pipe_settings.capture.copy_binary,
-+				       &pipe->pipe_settings.capture.pre_isp_binary);
- 
- 	return err;
- }
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.56.0
-
+> Best regards
+> Uwe
 
