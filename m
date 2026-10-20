@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505831;
-	b=033dTEfuw4E4MFW00WfZblF3x5mohLd3/9YBTvhleLK2k/FT6SZdjNU2RAq6V8yHhe7y
-	 5ZX1iIAU5/TAjlBdYAz3qaYzLy+qid05scvpMcH9qX6NLuRulWFApfZaUDqddh6AxF+cp
-	 bf+Uieqb0PMk+ZYTCO3Tf8HZj8Wxz2/mkB6DW99U8UcpbUVyWjOkSDYOE4owirViEvKLu
-	 XdAs08yoPL3atWTJqGCqxuGy3L+94e36jvhtAFh2McefiOPTR/w8+FYUOTYJE8TMXl/hr
-	 7097eE9kf09P7nFAYYc4YkyZj+SDc8q1XBaCnDSEGYrIIAQHDW9Xn5GmXfO11zVLMlg==
+	t=1792505838;
+	b=i4zDihDVFTlCfTjeHhN+8qldhYCyllWvNwbgrL0fXJHNrP2hDuMnmU6yjehtIgzL3/TR
+	 5fx2s8HdCZB2MZJiy1TlKnMwZwNXg2QqCgLXQJ7UR4Q/mi47bJt8KFuymlL/5Kk2BHxRF
+	 CUh4h64phfqkub3SYGia/RT106hELAem2SAbU+kJa1H8jhogFdiNzWBy0ckhU79uqGgct
+	 zE6lYoFWCzB6NjtCDp0cqHkikD1G2JoBlalRdos7iN1fEgK7UKOmYNUzs0C5fNvgSByFc
+	 BR5HCH9YAVMU+gytt39RR9Q2+8dIQiJKT/Ggv0Lr5Oi/4F8lZba9EENLVzT0jE/h2Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505831;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505838;
 	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
 	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=EvEWwZXJOQ9AXxY31LoCfiy60IlEMawdYT0DrZFa57A=;
-	b=zY1YTVb3Ob9TbE+h/WiICB2Nn4jO8Unjcbj6GdAtrWZJ2ZU2T3XaHsrR1NoP5D9c4ro6
-	 H6ZWoqFFAC66nrC/d4GSuY21WDTPTgDAkf//0vYPokALRVxPNj/u7Y6hos6RpxnzKKc1+
-	 ENAGDm3evjWYIi70gIW1zmtCrGjtm/M5kr1r+6txu4ruVB9iD3VF99UzraPAUMrWXQDf/
-	 JudIfOIaEp9Yh4LYaeGfAWpyraLAaIM7CrGm3ttgpuKzVzBQbiZQFEtLZ/rFgs4txfpdv
-	 +7LaTFYAbDmf2YrJTdkdD8ZvnlhgKG0tv7LHr8A7rXQUvZU7aXLoJEHPs9qF23eIF7Q==
+	bh=0boloPQ39hIjmi7oYpL3vbRuNspjkXMV1QcRUTOY9KY=;
+	b=FKdJp0gr3lBL0KophQki6Oni2tv/y8y/yhBYh8jzZ015neooHtzyl2cEFkWTvD9ztq+T
+	 p52PkjTTzZShbk3E/vkyvNqL3FBrOjHqHgUwoYev7j0Y6aktKo77NCwx0xpdOq2NjhUDy
+	 YmwUaP3hCRyixj88kdnTX0kmLu7fG4/960VuPsy47cZ5fBpivMZX4wgN2MAI85CDz7wKc
+	 6fjt4gY5DLaMX2DEbvdU1rVPzf1XidBiZfGg5f4l7U0PrA3uGqtS76WRl0vtzoUYS+Mzh
+	 HrYwpmIIScojpJ8X3PGJQ4oY8TTWCtvubOL/BR9VNqkzseMf6cEqadCD4Sn799ox76g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOWzZbVM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFmHTbdV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8B5606C212;
-	Tue, 20 Oct 2026 14:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AF0606C235;
+	Tue, 20 Oct 2026 14:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOWzZbVM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA191F000C4;
-	Tue, 20 Oct 2026 14:17:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFmHTbdV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E191F000C4;
+	Tue, 20 Oct 2026 14:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505831;
-	bh=EvEWwZXJOQ9AXxY31LoCfiy60IlEMawdYT0DrZFa57A=;
+	s=k20260515; t=1792505837;
+	bh=0boloPQ39hIjmi7oYpL3vbRuNspjkXMV1QcRUTOY9KY=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=JOWzZbVMzJHD9YT2GIP5+X0V8Cj/V90twOPhqK1f1iYY1U8oE9X3seQShMF3ZbP8q
-	 /oNigFu9nmnyE4Pa7BiXSlVi5/SyKrpchzJ2CfovIOtg4Rk+TKKQMNjb7u6NEPD4Bd
-	 uHP3L8oc9Jyryj63n2V76+7/DynpH48uWp4tChhd0zDdW+hk8/of9XTXvt6L4/MXNB
-	 YXiYDgyetzF5L7gCIEkAsT7Q6OgFTyn67zxC2/4kQ7kGxoL1RXL6lrY2FxA9CEjXzF
-	 9C2LLsWNkO1OU1QUYKwnANoYyxdc0DQMqIk496eIZ8Jv23KiX2UMKouPJG180SyHti
-	 2c2ZPzvuXWVAg==
-Content-Type: multipart/mixed; boundary="===============5171442887851383942=="
+	b=oFmHTbdVaIZyDMV2+MXK93b0xcpiCMIArymKGSs5HODPzEjkCmK1QTVs1FBDygftt
+	 rCwLauNqlCg0qH1xatW6cJBAfHIKe9N4dzHZLyki5HbIlX4kfQVNpEFYVkq512igXh
+	 YvtB+7G9JD2pWDCoYDvO22KHzv10jBaJs5KExTn65Jxdp+RIrRC9iTZG4FN7ux1zUn
+	 /KfihV7VLxNQCQXE+PtG+SC5faNWi6ZmccD1g6bFr9co2S3oxYoQot5AZKhx0bnFNv
+	 yZP7cbDUobRqBjEkT6O4Lk9W3hplK/MG+/c0k0vMIMyBAvoDOWRmSWO+gcN2tvUanK
+	 7QLzYCAwhDNCA==
+Content-Type: multipart/mixed; boundary="===============8750485772685352005=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,61 +49,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <723450d805c81106880f33239053949f2da673394089f83cecea50b067c58ff8@mail.kernel.org>
-In-Reply-To: <d56952f063f90acb07c0a37c96a83851bea227d8.1792503001.git.xukuohai@huawei.com>
-References: <d56952f063f90acb07c0a37c96a83851bea227d8.1792503001.git.xukuohai@huawei.com>
-Subject: Re: [PATCH bpf-next 12/16] libbpf: Introduce arena percpu helpers for user space
+Message-Id: <382819e642302a560c3a9caa157a604c0711828de9ecde51ef490d7cf2f34a3d@mail.kernel.org>
+In-Reply-To: <09a19ff6dfc65af56dca0ec5cee051766470f36a.1792503001.git.xukuohai@huawei.com>
+References: <09a19ff6dfc65af56dca0ec5cee051766470f36a.1792503001.git.xukuohai@huawei.com>
+Subject: Re: [PATCH bpf-next 02/16] libbpf: Create arena percpu chunk from the arena percpu ELF section
 From: bot+bpf-ci@kernel.org
 To: xukuohai@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
 Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,emil@etsalapatis.com,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 14:17:10 +0000 (UTC)
+Date: Tue, 20 Oct 2026 14:17:17 +0000 (UTC)
 
---===============5171442887851383942==
+--===============8750485772685352005==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> libbpf: Introduce arena percpu helpers for user space
+> libbpf: Create arena percpu chunk from the arena percpu ELF section
 
-TL;DR: The new libbpf arena percpu symbols are exported under the
-already-released LIBBPF_1.8.0 node instead of LIBBPF_1.9.0, which changes that
-version's ABI and can cause undefined symbol errors at runtime.
+TL;DR: Reading the possible-CPUs sysfs file at open time may make
+bpf_object_open() fail, breaking 'bpftool gen skeleton' in sandboxes without
+/sys; suggests computing nr_chunks lazily in relocate.
 
-> diff --git a/tools/lib/bpf/libbpf.map b/tools/lib/bpf/libbpf.map
-> index eeba4072a5da..eda89ab60543 100644
-> --- a/tools/lib/bpf/libbpf.map
-> +++ b/tools/lib/bpf/libbpf.map
-> @@ -458,6 +458,8 @@ LIBBPF_1.7.0 {
+> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+> --- a/tools/lib/bpf/libbpf.c
+> +++ b/tools/lib/bpf/libbpf.c
+
+[ ... ]
+
+> @@ -3267,6 +3274,41 @@ static int bpf_object__init_arena_data(struct bpf_object *obj)
+>  	return 0;
+>  }
 >
->  LIBBPF_1.8.0 {
->  	global:
-> +		bpf_map__arena_percpu_base;
-> +		bpf_map__arena_percpu_ptr;
->  		bpf_map__attach_cgroup_opts;
->  		bpf_prog_stream_open;
->  		bpf_program__add_flags;
+> +static int init_arena_percpu_data(struct bpf_object *obj, void *percpu_data, size_t percpu_sz)
+> +{
+> +	static const char *fcpu = "/sys/devices/system/cpu/possible";
+> +	bool *mask = NULL;
+> +	int possible_cpus;
+> +	int err;
+> +
+> +	if (percpu_sz == 0) {
+> +		pr_warn("arena percpu: empty %s section\n", ARENA_PERCPU_SEC);
+> +		return -EINVAL;
+> +	}
+> +
+> +	err = parse_cpu_mask_file(fcpu, &mask, &possible_cpus);
+> +	if (err) {
+> +		pr_warn("arena percpu: failed to get possible cpus: %s\n",
+> +			errstr(err));
+> +		return err;
+> +	}
 
-Should these two symbols be added to the LIBBPF_1.9.0 node instead of
-LIBBPF_1.8.0?
+Can this make bpf_object_open() fail on hosts where
+/sys/devices/system/cpu/possible cannot be read?
 
-Commit 3ead4ead078f ("libbpf: Start v1.9 development cycle") states that
-libbpf 1.8.0 has been released, bumped LIBBPF_MINOR_VERSION to 9, and added
-an empty node at the end of libbpf.map:
+init_arena_percpu_data() is reached from bpf_object__init_user_btf_maps()
+during bpf_object_open(), so opening any object with a .arena.percpu section
+now reads this sysfs file.  Until now libbpf only needed the possible CPU
+count at load or runtime, through map_set_def_max_entries(), the per-cpu
+value size checks and perf_buffer setup.
 
-    LIBBPF_1.9.0 {
-    } LIBBPF_1.8.0;
+The value computed here, obj->arena_percpu.nr_chunks, is first used in
+bpf_object__relocate(), which runs from bpf_object_prepare():
 
-That node is still empty here, so exporting the new functions under
-LIBBPF_1.8.0 changes the ABI of an already released version.
+> +		size_t percpu_sz = obj->arena_percpu.nr_chunks * obj->arena_percpu.chunk_sz;
 
-Binaries that use these symbols will record them as @LIBBPF_1.8.0, so
-symbol-version based dependency generators (for example rpm's
-libbpf.so.1(LIBBPF_1.8.0)) would accept the real libbpf 1.8.0 release, which
-does not have bpf_map__arena_percpu_base or bpf_map__arena_percpu_ptr.  At
-runtime the dynamic linker then fails with an undefined symbol error instead
-of a clear "version LIBBPF_1.9.0 not found" message.
+Open-only consumers such as 'bpftool gen skeleton' and 'bpftool gen
+subskeleton' call bpf_object__open_mem() and never load, so they now depend
+on the build host's sysfs.  In a build chroot or sandbox without /sys, open
+fails with "arena percpu: failed to get possible cpus" and skeleton
+generation breaks, even though the CPU count is never used there.
 
-No later commit in this series changes libbpf.map.
+With 'gen skeleton -L', open fails with this error before the intended
+-EOPNOTSUPP check in bpf_object__relocate() is reached:
+
+> +		if (obj->gen_loader && obj->arena_percpu.present) {
+> +			pr_warn("map '%s': light skeletons don't support arena percpu variables\n",
+> +				arena_map->name);
+> +			return -EOPNOTSUPP;
+> +		}
+
+Would it work to allocate and copy the chunk at open time, and compute
+nr_chunks lazily in bpf_object__relocate(), where it is first needed?  No
+later commit in the series changes this.
+
+> +
+> +	obj->arena_percpu.chunk_sz = roundup(percpu_sz, sysconf(_SC_PAGE_SIZE));
+> +	obj->arena_percpu.chunk = calloc(1, obj->arena_percpu.chunk_sz); /* zero padding */
+> +	if (!obj->arena_percpu.chunk) {
+> +		free(mask);
+> +		return -ENOMEM;
+> +	}
+
+[ ... ]
 
 
 ---
@@ -111,4 +147,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39434884362
---===============5171442887851383942==--
+--===============8750485772685352005==--
