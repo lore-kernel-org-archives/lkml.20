@@ -1,97 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792512418;
-	b=MIwLDN3fLAUkGj+Wg7WAjIUj7/gjs2iSSvXgDDyn/70+fLIZHm3yVTC32GMGrGO0IQ03
-	 jmR3o09HA8P1SM9S70IgaIrQSpVY3sBhZDmFkBfrBy+8u1MNhOkoz4J59huKeJ2g8tEOT
-	 Okzofknicow3MNPcKK1OLh3HxIxJ2gcfkeABHYdJ4v5Tr6QkTnKpsre2z6lw4Ra3E1xip
-	 AVJoCs7lZU/YTrWfClb7GE3+C0G8AeRCJ8mjCely6VnHsAgU7d43gzmqFu1dKu4qwdMFi
-	 n4bJ7TQ3i3MQH3TU84fuVvu/LNqnfwM8F3nO+2zZ7+PROotp1tBmZyGQDrGG+suz1GA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512418;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5BCnk88S0aGlsS8RoQkcoP/wYU7AczF+WG5JZl73g0w=;
-	b=aaNMQkAJ/IfqD6IXkoy/yuGjDa6BWVWmpAY2DuVORqtqnKJY/yNkmQxwjc1hz8sZDGN+
-	 xQuQs4KC9wXQ0O4UYiXgkf+nkBMPC00g99F4xXrRUSmSUfTUPG3YFGEpUAQ0bkjll0ncL
-	 LIK9TnRtaW6NehtvlRb3zxzwqfpDRJV6fGdkwBIQp+KjIS5NG6ED3gm6C3e29vr1i8NTL
-	 bc7DsIrlCqSxDyZfxdgHfOfPO706seKmZcKNHN/bhVgE8xGRRucKcsEVd9rnM6mBNOEDq
-	 4dO6ssagcwp9XPrStGh4udhN2vbbBOHJR/aRU/3fnF9vMaIoIO++VItzYlMibFeRBmw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Jfl6uNgO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.52
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011052.outbound.protection.outlook.com [52.101.65.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792512525;
+	b=rApSFyPwX/UjNafoAHP+G6UOJGWDCjXMwLOxGpJCylesB1+j7ym/zoF3KauH2BA+qGXU
+	 phV3r8viVL9gTJiV109H2E6as8P3fIUurbW1rIiGC7gtXNTUuxpFhWxibre06f/BaWTi9
+	 8V4w8phHHjo30urjlJx1SM6LWPVjILDwd/iesYj2dQcPn2o+adc756oyyPbuA/dN9h60t
+	 Q+6c4C9GKj7K6jaGeG2u1yngepsbyq33sT1Q7MB16/SlSeIfbWvRToz7cZvmP580e1utX
+	 PBkg8B6EzoWaFMn4FXccen0P/OnpI1Cxz8YORVssOTcXwtC7E3uyhwomusS3aqmiIow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512525;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=JZGvSJ/T2lFQAZNU+lUoUCnDcDPrtpGrw0LMffwgz3o=;
+	b=MI3bY/HynyaASkC9lWmrzazO433SASpJd357JwWlGRyeo+uouq5l1BTAaVMKvS85dj2p
+	 a+VsZ5ibWufcB4N640tCcl3326/8wK4GVylLWC4BBSGCTA20iJbL+Ss2e5KywR8H8OwdC
+	 EQ4Qv/VGUQUo7PPrysj4BzN0bkKdu/eLDmCReNBWiox83njiGZKtQZhq+kenovg3PNupn
+	 p6VFZY82LhKMc4V81UElpE20XiHzMyQ8Oo1P1MCEeqIlseBxZt9q9Kf09VKBy9VVJnz5b
+	 Ce+3y9YoBSUiLZ5z7OUVG1Fq1V6C+PHH7BGK3G/b20vSTlhrXVGBw+JAGMPaCNhnDSw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VwWYW3JI;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AD8606A31A;
-	Tue, 20 Oct 2026 16:06:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06AD8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF4E606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:08:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EF4E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Jfl6uNgO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tx2G4LO25ITP49Takbz28jJ6op+kKY6vlH8cJGiJ3OD9WTcg38Ng4QhsdzTZmg8pwnvXf24pX4wZ+IBwi7g+Wli6MBu1XdU9mgkk7TWI33SemYX9C819Szd6Y+Jiv5WVCJ4EEpUgvblNv3syo5IZbrYjZ0ohyt13Bx5APozpaw3KiXejHtq2EoRvQdeLpX/n3936/NtI2H5sObFpe0YbjC8MUlcnDaFB2ShL1a5a4e9lfVfSXZfMteQDJG+5t8DkVN91Ga4osH4x1MXaarL58qAhw+NAvPbd8BqfIBtpSTLLhc4BJHc+QrPG4pcmEhZM4+5rKzvqWdmGXOhU2uaxIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5BCnk88S0aGlsS8RoQkcoP/wYU7AczF+WG5JZl73g0w=;
- b=ONYONIxGc9azqkxC4Fp2KbJHeXxwy/P5A9sHcyKwjirlungzzZLxiPi+zKe0PKOk7SiRMVpvMqQo49+bSL0v8KrYhXa1dPheb98xN/8VKIkJyZcp0vHpbgZo+9Dif0tiFF7adfoHj/xu8eGsuShwcEh/WF8Vj0sYGfkMjja5fTRHVew+jRZ94rLpQ8/AN5emsShDUIR3r2as4Kp6+JNc3GamtG6rrbTIT0XF3ylCjOH7slk0ppKPhHHsYrDfQSLrbqiu7QXARxjG0YZpnNi7Xrc30E5xlty0ysRoXhmLZrKvqhewsXZB0p5X8CpswWK+IWoFITN4QugR5rZMDIYCdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5BCnk88S0aGlsS8RoQkcoP/wYU7AczF+WG5JZl73g0w=;
- b=Jfl6uNgOpbxkXg+lXhfMdaa4zWIyf7+VxiBo8RZTMg/U6D+nGFgc46XQJyTgtQq18cLhOeOeYLBkY1bqOqeIqx2snM2ULb/HgUSDuchAPy2dxsNwmiphT8M6e5lutTwTaIzUMWXW8Fc/VZqltezay++AUe2zznt03PMkgFjmaK6gOkq5A5P5qZLixjfMtelekkDUBppAJgqIpO5HBIZGoNNUT1g4n2xgDcOuECLUT1Skbi326Vlqjl2/QmIoxUdtvbYeBL+DOVEzDYGkkPQi4aWCMNUsu+SlYfFjgbVTkCnWbjQjResFK9GhyyDc6ab4Vwd5Qcqm7eSHfIlRRM3kPg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by MI9PR04MB342248.eurprd04.prod.outlook.com (2603:10a6:290:d3::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 16:06:54 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 16:06:54 +0000
-Date: Tue, 20 Oct 2026 11:06:46 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	Huang Shijie <b32955@freescale.com>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/3] bus: imx-weim: reject devices without match data
-Message-ID: <ateRlt9Na6qDfjmT@SMW015318>
-References: <20261020093637.1654161-1-yaojiale02@163.com>
- <20261020093637.1654161-3-yaojiale02@163.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020093637.1654161-3-yaojiale02@163.com>
-X-ClientProxiedBy: DS1PR03CA0003.namprd03.prod.outlook.com
- (2603:10b6:8:450::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VwWYW3JI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792512523;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JZGvSJ/T2lFQAZNU+lUoUCnDcDPrtpGrw0LMffwgz3o=;
+	b=VwWYW3JIFF2TGB4sO0AN5b4BADapfxMRyLBp9qOz3aeo3Yd5A3GnYwCATs89PCYcwa+pmJ
+	/R9yMf9GcG5at1FIe9CvM2TmPcxnQtBEsMjlqg7up+qzY1JuI/Tjn0kjeT+2RPD5I5IYHK
+	hnIaDkQUh7Bupp4cuIG1B3yWRUR52nU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-686-PrNzLbbOMWmkiqW3IDyx1g-1; Tue,
+ 20 Oct 2026 16:08:40 +0000
+X-MC-Unique: PrNzLbbOMWmkiqW3IDyx1g-1
+X-Mimecast-MFC-AGG-ID: PrNzLbbOMWmkiqW3IDyx1g_1792512517
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB3F7195E915;
+	Tue, 20 Oct 2026 16:08:36 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF6651800495;
+	Tue, 20 Oct 2026 16:08:32 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: julius@bairaktaris.de
+Cc: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	baochen.qiang@oss.qualcomm.com,
+	hujy652@gmail.com,
+	jeff.johnson@oss.qualcomm.com,
+	jjohnson@kernel.org,
+	jtornosm@redhat.com,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	tamizh.raja@oss.qualcomm.com
+Subject: Re: [PATCH v7 0/4] ath11k/ath12k: implement TX flow control
+Date: Tue, 20 Oct 2026 18:08:30 +0200
+Message-ID: <20261020160831.2133912-1-jtornosm@redhat.com>
+In-Reply-To: <20261018131930.1116724-1-julius@bairaktaris.de>
+References: <20261018131930.1116724-1-julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,103 +86,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MI9PR04MB342248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10886205-3f38-46a1-ffaf-08df2ec428ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|19092799006|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	D8iDL0YUdgw2O+fMLkXYRxZyWLd8I5nNSwhLE1sOSoYZNkfxrI02WQB2szOjfy0aVx9QxGnL4TZq7Qn0ibVU5AC5fQkiAps/Rrd8T+GoIS1jBx8hJ2RzXmnpYbbpf6bzFFnBT6hbkIc7+DtPvkL44Zk82MwyZW0OWG3RHGHJbV5CEX6K1rKdEbZQLWGjBOeuKGIqpnU3fh0NVI6r+EGdsgBsmaOcEqsrHiAU2lXVcIQZyep0V0Y3Ub07pJOUYI94eHzaji4fCar7wwzO6jyrgP7XTlurlziyNJdfJKEr8PidzGg32B+lZxJ7QcQazYPVz/lhASudZeiQI5ZTixcUq5vhIU1qcgtBpN2A/fsxr4Wb7NnYYTDyyoleLdkJB1vEOZ7qh1/4PAIPXw/KfwJXfCNPOJY9gATp0HEsSBt6+0iF47tf6mAstzdRlQeMmIl/9DJ8vYrBNErn2j3rdiAIfyNughuN9v7O+jYwwuRRw4ENB5Klu6taVM4le+jTlyqyqsRsHdkc36kEYnScCCNqNGOO9kAJuW2+lQJgGqO4rsLrj9KHMHdiHKkapriObCoQ0hqBurU9skXKWAZVZz9ZDyAIUQtA6PXIQOVLiJc6j/7yxIws4X6CitopzznhcnbZtUlqbTNnsooCvwZku63yM1xfEuZ8MStEkj8GDxXWim0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(19092799006)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Wkz9tndMCFh4ibjcPCQ8bowXgUy8owclRCXBdTip0aUhlzYo45D6CQIHJQBX?=
- =?us-ascii?Q?oAKn65NBUMOS8DUFdVjlgMu6ttbpV3ltrCGzdq1xVYdLZOCafaszlIVmuzbi?=
- =?us-ascii?Q?VqORCVHgWj/aC24P8DAE6Dw3LWPoPhSNJZ+ZTyVa4XmXNa4cHFlW6r3mToa7?=
- =?us-ascii?Q?RG4QPMBzsfPCM9ZMto/2RLfcIG7rW9vxhw8I948Z7Dh7azwThjemsmusFUrR?=
- =?us-ascii?Q?9zT2mxvX6jdzjgpQohxWv/jUZa+4UArbFiROXQ3nGlIHzMptKTavpHxesE4m?=
- =?us-ascii?Q?jWyvhbmV8/h+044T5r47+jMRitS0Wa7x8qJhAIbDWB8ciNQglG8z5thkU1WS?=
- =?us-ascii?Q?XkSF/vRE6XfLPoLPUZaJh5YCjaIPDQkTdvOkaecOWZjlpi7o8F3vkY/Qj816?=
- =?us-ascii?Q?K499q3JUCvsJrkrFJ4EO35vxZ3KCKpqHu7f4nN7ORBlqeedhFPJXi5hWfqWf?=
- =?us-ascii?Q?Ua/puwnz/mXAvlHbclE9vFyoi84ApxMfR5NYaP/JmBZs3bNWfJP2qJmt1TcL?=
- =?us-ascii?Q?bE+hviTCUvHv206uoKj3++eoy7QeoVlC4xn8B6ZFsSutJQj2nrWrypa/tiiu?=
- =?us-ascii?Q?leNsfpwwD3ksll9lQqjfdRV6Hrcddj1Q3j4uVmhHtZ7S+oIEJCjhx/esw4iW?=
- =?us-ascii?Q?JOOF2bRzzXv/hImihObv8xbxW4n/iwY7HHukDNlL1qbqCS8bsa9G8fyUUK2Z?=
- =?us-ascii?Q?qVy2wk1WDX7kMCgp1K8GNPcdtJ9w2/DCOsqWlLXhKIM26lR/dS17sWgSIJwP?=
- =?us-ascii?Q?2653M7RlaAUI2by1sc/6tnFhad/NyAGdd78XWtBzofwOzmD/Gim0rOEZYD//?=
- =?us-ascii?Q?YJu5dC6yatTiuouBgJZghG3gjpbGYt/JrimIn4AAUoSqisUhf/JgwKX7It7m?=
- =?us-ascii?Q?cLfsdxmryU1/7ZkERP76ZwcwBydwGCxBLABS6UvdqufRT22OmRGZFTtiXbTN?=
- =?us-ascii?Q?7z5SqpcZku6yL2LVKz/xBd0KzJIb0R86Yxv3wTJaYb4XDsf6IRYEuINhcX++?=
- =?us-ascii?Q?ocEGJ+KL2lKoy+nygol9o+Lpq0vVx/QUk2ChqQ0JsJL3FQL6la01K8D+n/jA?=
- =?us-ascii?Q?2DdiR7lNevQ+A1GhokuNMvCBt4aMK6aUv4jbb++IeiGUj4uwflLnykxtYpwp?=
- =?us-ascii?Q?CxZg/M7vpyMtp0XMUMIofBJcchuEfTV1x/1EeKx0vjrYqJVaRV7CXDwFBu+v?=
- =?us-ascii?Q?YT+e5ZItF3oUHYMzS6L4e4h11Lol3PHbWrBtIW7La5fQ5PUBenLnhm436TDs?=
- =?us-ascii?Q?7XH5+UwfJW/X5SPEUgQylFZuH5uVE6kYvaZxvpIqP4enNEKXRaqbKq17IWY1?=
- =?us-ascii?Q?a2WNeyLog6JI7LBgAgvo6jYX9bITeAfFSy1vbmYPG11IG2flUe0jFyRX8+Kx?=
- =?us-ascii?Q?wXJjcLRiZJniBNlSdD8bPPDfrknufUaJWzSQx2eEjL2RVD4AR3RE2f4aLnt0?=
- =?us-ascii?Q?IG1F3nqHE5PVc5qX0fqXCsS0pVjYpzMOCtOo4ovM0uVIEdtn8uGpTLIllgfj?=
- =?us-ascii?Q?8h900Xge7fJ41HzEmZvedRWHarE1OqymMtYt+9DW0jTE85mu8JI0NMrobrdb?=
- =?us-ascii?Q?6jVZ1VdtnNUVarP5IW3mk/7dYUdARZfq4idq4eakNiewY9sCtY4PR98QU6zU?=
- =?us-ascii?Q?0po/0K5cC/oyDTIztutshI+mxWyV4s5hiVu08e6gcToZwDBjxTdoyfsTTJpu?=
- =?us-ascii?Q?q/bqYVfUI8m6pOkWeLHQU1rE1Eo7mj4vxmsPSpiXXBKEQ90HGd6UmGJIJlDJ?=
- =?us-ascii?Q?4nwjKTz0KgtumK64DU4QCRN+/Hcsx632oWZA3YkdAr92zEYQV31U?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10886205-3f38-46a1-ffaf-08df2ec428ff
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:06:54.8044
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uqza651ixKx56Iw7rqhWFeRLPSkDcYUe948Ipqr3k2eXFnThlnl1tnSUyLXChGydqAd2CLom4GGKYo/AQ/ckXcDILr6YSxtXsizChZyoYFqXE+hHP694N8S0FVGNa3Jw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB342248
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Tue, Oct 20, 2026 at 05:36:34PM +0800, Jiale Yao wrote:
-> Platform driver_override can bind a device to this driver without a
-> matching OF entry. In that case, device_get_match_data() returns NULL
-> and weim_parse_dt() dereferences it while configuring the controller.
->
-> Reject devices without match data before parsing the device tree.
+Hi Julius,
 
-This should never happen, if run to here, driver data is always existed.
+Thanks for the review and the Tested-by.
 
-Frank
+> One thing on patch 3, from reading the code:
 >
-> Fixes: 85bf6d4e4b10 ("drivers: bus: add a new driver for WEIM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/bus/imx-weim.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>> +             if (num_free == 0) {
+>> +                     spin_unlock_bh(&tx_ring->wake_tx_lock);
+>> +                     break;
+>> +             }
 >
-> diff --git a/drivers/bus/imx-weim.c b/drivers/bus/imx-weim.c
-> index 87070155b057..3ecad0e453cc 100644
-> --- a/drivers/bus/imx-weim.c
-> +++ b/drivers/bus/imx-weim.c
-> @@ -205,13 +205,17 @@ static int weim_timing_setup(struct device *dev, struct device_node *np,
->
->  static int weim_parse_dt(struct platform_device *pdev)
->  {
-> -	const struct imx_weim_devtype *devtype = device_get_match_data(&pdev->dev);
-> +	const struct imx_weim_devtype *devtype;
->  	int ret = 0, have_child = 0;
->  	struct device_node *child;
->  	struct weim_priv *priv;
->  	void __iomem *base;
->  	u32 reg;
->
-> +	devtype = device_get_match_data(&pdev->dev);
-> +	if (!devtype)
-> +		return -ENODATA;
-> +
->  	if (devtype == &imx50_weim_devtype) {
->  		ret = imx_weim_gpr_setup(pdev);
->  		if (ret)
-> --
-> 2.34.1
->
->
+> When this breaks, the frames stay in the txq and nothing restarts it
+> until mac80211 queues the next frame for that txq. A sender waiting for
+> ACKs then stalls until its retransmit timeout. With AQL I measured this
+> in v4: one download in three stalled, max RTT 347 ms. A restart from
+> ath11k_dp_tx_completion_handler() fixes it.
+
+Good point. The break when the ring is full is intentional, it keeps
+the frames safe in the txq instead of the current -ENOMEM drop. Your
+TX completion restart (patch 6) would make the recovery from that
+stall faster, which is a nice improvement on top. Another reason for
+both series to land.
+
+Since we agree, I am going to split ath11k and ath12k into separate
+series to try to unblock both.
+
+Thanks
+
+Best regards
+José Ignacio
+
