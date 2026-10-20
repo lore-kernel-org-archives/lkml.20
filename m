@@ -1,101 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497513;
-	b=kZNsXeOF3kzAv/PXgwipkiFO3Gl2agaUMgqKsJ/sjrXRydVYL4F9n8o+JKLHfeFYc0ZK
-	 S6stFFKk0EMCeUgARlYa2/2+i0oaj8UfhJknP6NMvXls4zc3X1RH/6YkU8MH2NrBfNZ+5
-	 v1LuhKr1Ax8r7BTICBeoGC6IR91MlrgUSrLXIt9xpDA1eTq0CpxO58UQDJTbQDZ9F8vC6
-	 1BdkASMj/wR7MDFsSxuEWx9kO9OufbaYYd09I95ZQgI6qWHMH/nG6M/ILPfGEJ7yexRJn
-	 bd7BYyr8+sX5JZvGK8MNt/E7BdKJdOYPF1sxB2b/VfYLr8916EVF40CpnhXwpOONg1Q==
+	t=1792497493;
+	b=VysubJbHQOrVV3FKXzAdwH9o9DovOq9oXuS5ggCdx79g/OyPi1hV8jV/qwNcrynKJRlw
+	 rDTDmAnrW1lhxs6TaIzmbAJEhozM28kdcrsdi1UdjZv6Kch26uVAq3Vp+HHLCcHqcYt5g
+	 RzAB0dulHyRvpTWob3QsyDUXzC/D/UvSi1tHT8F3oa4HZDc6QPsStHbiyw8TyctoM3bjY
+	 DIuLOoQSWL15lzJRM+GyQu+Zb5yOE4/vzG2Ojjp85Iy+MYBwjZzXZwTw7UYNduWsqYObS
+	 BvdugYxO9fzpTO84ck/SraTHFl9PlWag6RnzFToorxh9icRMwQ6J9bua0/v+GLlTdnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497513;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Jpuez3gyskb3VAlGg3DcMx9gb6CiW0/rZ3601UfyRuA=;
-	b=F7eQ/lv9cWY3/GPaGH3v+JaGiOSp0xigfbhap0gbYoR3W6qzm1OAHeX1i/6CZpNg+qQK
-	 uoj5Hz+4HQE583MEmTz+ONmuUbL7q4Hv0NBLO6INSacx088JSOquu4l5o18zJqF9Jouc7
-	 3oiHIJE1N5/tKNn6H+4yHPOCR3IpsJHFxO+Vmag3K2yygFi125JmL7EiguCCpa4wApg2w
-	 aQ9ixvciDjUzMLjP/gfM1mLYDVkeVGmOfRyUs3yE+rZFcrPJvuCdGmz27P6FfeCcyDh7+
-	 4ECBWcg0JEmkS0kEw3cPjnlsxS66Mht7LJJ9LBk18RNBsA1V1in8ordkVcHnQis5xFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497493;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=psxTBiyBkH+KxLML7YqAe/upIHPCDfQs4bqvvBxC+lE=;
+	b=HeH3V38RmfCseKhL4g+RbpAT0rcZOFp7UW6/g8wC0i3T+7ZkPrxO+YvzZola20guiGT1
+	 67tYuXnbUuSmiekzsUrVcJKmxt9BinJlP+wku5SFw7AJkHUM8eoLLuvtJehnbLaIF+yzR
+	 yFwssOTOQUWbJukkuHDMNkhBoT3hO1gH7huaGH4WXG50X6BhGaMGKHP93KgHIgxE/Lc+j
+	 X0e0aqu6vj/1u8UU6ahJBAu0CPbabWIGtEfrar8r/UlEq4pZrLfDA/3NAbHAvvevoiOvT
+	 6cFCqQ07KKm79aso2zUbvZ2W7Q+mwupyBwaueowjOp0/LWOKNdkPs26ONjrfYf4VZ5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="caZ6f+/Y";
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HcaoLPDy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B618C606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:58:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B618C606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EA7606A31C;
+	Tue, 20 Oct 2026 11:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=caZ6f+/Y
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso2305778a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:58:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792497512; x=1793102312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jpuez3gyskb3VAlGg3DcMx9gb6CiW0/rZ3601UfyRuA=;
-        b=caZ6f+/YOwKGAvs08zsRM4U1wRNqSrAjwAM5nsFn2+Ro5NQJKoNzuLAFIapcuvA2hl
-         Pr0upRZB429MedxboQfZH7Yl7T4UxkGOlKM8mFpU4zbZ8t326OxHZ57cYjCV7ckh0NPU
-         ncuQXqczRdkUk9R0IkSFOFMxhi9KuTShiyznbcDRs8QoaJ/MQxyI6TsatIMy1HxoaI/q
-         qOTFM4GMmmnq/dXfRu6RA35zOyaED2f5iRnib1Mwj0HUNXiU3b5P3lecydeV1Z4kKgIM
-         btJqOuu6jC2YsFfHFRItNcOA8b2pPDjtK2LwM4IAfpyjz7fIQx7O8Fi5b2pso5QtrzkI
-         vMLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792497512; x=1793102312;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jpuez3gyskb3VAlGg3DcMx9gb6CiW0/rZ3601UfyRuA=;
-        b=lqCQTM1tgoXSrsRdvdFGZx7nlG3d2rpNhPd0qXTyBS3EljSI6Ylt1/uTUgYlnedpxc
-         ca8owPdQmfvC2TFCQJEaxSDqfHs5EquJD5j5COqEnGmfJ99MXXtCK2KnDJ0cbKfv5Ry3
-         gjt8GMJKF+m7JQA5WIbhqgw+oFzGXDqAxBtPn2bVzNoLo80RRkiLVexj3oX5SAXXU4hy
-         cVYiV4W45zaPKB1gq/ASiBhmuafBwCyKsbHjw3WttjXVBvqAU2vvm2zSfwCzF0oxtIQT
-         RsQ2cbcPp7fEYDk07hzNo7yGe8yJabEdPTm2Ny/UcY3OugFQm5ju/PzoOYbhG4EbEChe
-         Glnw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2hMJYzhIz2HDHKNFcA8EafsWFpV3U8jGs2JQjSj2QN7SJ7f+8GXDaZPwfVs0rPMqiTqjo1gVCQOpKbeM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKP7YD8sMfmW+tifpC3KimC07PmWrd/QNhtz2xTfiog1j7yRubw
-	n+E0ZWc5LkpzAaDFSHvfrS8ntku03Lhqiy1diw5AeLmS56frJ0WCLTUn84ubSFYh2Dw=
-X-Gm-Gg: AYBFou3397xE8I56MmFv1kHa9kfpRxEbz3Vvv2WWP4yZO+o7auIcgFedhIepEHgmBFc
-	07sHAZrCq9orzGBZaW3WRAzi5spLuYkqIf35hAtfMG2AikGZIgA84HMDLslWLVyMp+Iyji1XTHu
-	FmsvtwDd/sl6iETQXsX8NY3icrfy/FXp3lhA2qAM9iFQ1tvM3erIWI85ciIK9DWHqiK9dl2IPcL
-	nsOdEtMrQrogJ+D871MPO5tSTbZLt8EuBbpk8KCPg9Qhqt6Rz4dYohBR0DoFi9rJV5R7MTo9UYm
-	PfpN+wOR6Jkf6JgMqMQKzAO+5juJxupralSkuJfhbAwUYKmU4rQdKGOZN7XJNuKPstnv1+sa3PP
-	Cdj1oZjQ0PRPcKaFZKtiCjkEEBpdg0U+Lvc8kgcsOPIy6RW+zq7Jmut7t2dtuE8kKpaUlj/WSTT
-	+GuL5kvc3ihj/kY0ezJ1YGwhol+JxlnhrNqn3uea47ClaKEy8DM8m5q2aLb5WZ7Skz0pecuUpDY
-	UbTnpyTpx3kw7G7z/PJY+9hcecK8jYnpnSbOx5BFaTbrJKsU1gGkGYVDsCKX1/dz4XnSOVbPs9L
-	qA==
-X-Received: by 2002:a17:90b:1d49:b0:3ab:1e1c:837f with SMTP id 98e67ed59e1d1-3acef56d593mr8517817a91.47.1792497511899;
-        Tue, 20 Oct 2026 04:58:31 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.102])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60274fc1sm3448095a91.0.2026.10.20.04.58.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 04:58:31 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>
-Cc: Qi Zheng <qi.zheng@linux.dev>,
-	Lance Yang <lance.yang@linux.dev>,
-	James Houghton <jthoughton@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH 02/12] mm: hugetlb_vmemmap: unify VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
-Date: Tue, 20 Oct 2026 19:58:14 +0800
-Message-ID: <20261020115824.823278-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261020115306.813483-1-songmuchun@bytedance.com>
-References: <20261020115306.813483-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HcaoLPDy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955561F000C4;
+	Tue, 20 Oct 2026 11:58:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792497492;
+	bh=psxTBiyBkH+KxLML7YqAe/upIHPCDfQs4bqvvBxC+lE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=HcaoLPDytPyCiCnlZsuFUxkvjLxqnRbTFvBIXp+RP2q/yNkwLA082kKTYIq2GU6FW
+	 Gn8usd6nf4LgC8MXPFuQGkBpW0aLp7FDFTa3nc+5s1tjzRWUVkJUWMxElA9Kev7I1K
+	 kyc9hohT4v+jK7T+22P9qJisyFJ+sfhmb3uDD9Bzz1O4GuKcNRS8TFpxABUp3LAODc
+	 T46mpT5uqV2BESDygC458ZfAZ0r0ZeJEz+DnW3rHMe83siOWtYOplxQuGfvqydXl+1
+	 c66ebZrU97I/82j+OGjFdeGNWXux59i7J4rcyyrIvJ2qy5MV8VWNjn/em2NGziwF4O
+	 7jwgzy229h6Zw==
+Subject: Re: [PATCH net-next v3 1/8] dt-bindings: net: add Xilinx TSN Endpoint
+ Ethernet MAC
+From: netdev-bot+sashiko@kernel.org
+To: srinivas.neeli@amd.com
+Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, richardcochran@gmail.com, michal.simek@amd.com,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
+ edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
+Date: Tue, 20 Oct 2026 11:58:11 +0000
+Message-ID: <179249749105.3135.3116293825083161439@kernel.org>
+In-Reply-To: <20261016-patches_v2_external-v3-1-e33d3960ca1e@amd.com>
+References: <20261016-patches_v2_external-v3-1-e33d3960ca1e@amd.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,69 +67,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
-describe fully independent choices. A split-only walk can defer the
-PMD-split flush to a later global flush, and a remap-only walk can
-defer the final remap flush. However, when a PMD split is followed
-by PTE remapping, the split flush must happen before the PTEs are
-changed, because stale large-page translations must not overlap with
-new small-page translations that map different physical pages.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Replace the two flags with a single VMEMMAP_REMAP_NO_TLB_FLUSH flag.
-Keep split-only walks able to defer the flush, but force the split
-flush whenever a remap_pte callback is present. Callers that batch
-HVO work can still defer the final remap flush and issue their own
-global flush.
+Low priority / nit picks for your consideration:
 
-Current callers keep the same flushing behavior.
+- [Low] In Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-
+  ethernet-mac.yaml, the ethernet@ node's dma-names (lines 81-96) does…
+- [Low] Concern: tx-queues-config only enforces a lower bound tied to
+  xlnx,num-priorities, and the rest of the checking is left to a driver…
+- [Low] The child compatibles in
+  Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-…
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
- mm/hugetlb_vmemmap.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+--
 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 1105aa925acc..8b3abb562599 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
- 	struct list_head	*vmemmap_pages;
- 
- 
--/* Skip the TLB flush when we split the PMD */
--#define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
--/* Skip the TLB flush when we remap the PTE */
--#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
-+/* Skip the TLB flush while updating the vmemmap page tables. */
-+#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(0)
- 	unsigned long		flags;
- };
- 
-@@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
- 		/* Make pte visible before pmd. See comment in pmd_install(). */
- 		smp_wmb();
- 		pmd_populate_kernel(&init_mm, pmd, pgtable);
--		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
-+		/*
-+		 * Modern MMUs allow overlapping TLB entries with different mapping
-+		 * granularities only if they map the same physical address. So
-+		 * remapping must not proceed without first flushing the TLB.
-+		 */
-+		if (walk->remap_pte || !(walk->flags & VMEMMAP_REMAP_NO_TLB_FLUSH))
- 			flush_tlb_kernel_range(start, start + PMD_SIZE);
- 	} else {
- 		pte_free_kernel(&init_mm, pgtable);
-@@ -272,7 +275,7 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
- {
- 	struct vmemmap_remap_walk walk = {
- 		.remap_pte	= NULL,
--		.flags		= VMEMMAP_SPLIT_NO_TLB_FLUSH,
-+		.flags		= VMEMMAP_REMAP_NO_TLB_FLUSH,
- 	};
- 
- 	return vmemmap_remap_range(start, end, &walk);
+dt-bindings: net: add Xilinx TSN Endpoint Ethernet MAC
+
+This adds a YAML binding for the Xilinx TSN Endpoint Ethernet MAC IP in
+its Bridged Endpoint configuration. The wrapper node owns the shared
+clocks and xlnx,num-priorities. It has two children: an xlnx,tsn-ep-mac
+endpoint that holds the DMA channels, and an xlnx,tsn-switch three-port
+switch with its MDIO buses and ports.
+
+> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+> new file mode 100644
+> index 0000000000000..bca834120b3b1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+> @@ -0,0 +1,491 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    const: xlnx,tsn-endpoint-ethernet-mac-3.0
+
+[ ... ]
+
+> +patternProperties:
+> +  "^ethernet@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/net/ethernet-controller.yaml#
+> +    unevaluatedProperties: false
+> +    description:
+> +      Endpoint MAC sub-node. Provides the host-side data path through the
+> +      DMA channels described by its dmas / dma-names.
+> +    properties:
+> +      compatible:
+> +        const: xlnx,tsn-ep-mac
+
+[Severity: Low]
+The wrapper compatible is versioned (xlnx,tsn-endpoint-ethernet-mac-3.0).
+The child compatibles here and on the switch node (xlnx,tsn-switch) are
+generic and carry no version.
+
+writing-bindings.rst asks for specific compatibles, with no device-family
+names. For sub-blocks of a bigger device, it asks for device-based
+compatibles.
+
+If a later IP revision, or the planned Endpoint-only variant, changes the
+endpoint or switch register layout, how would these child nodes be told
+apart? The endpoint driver later in the series matches only on
+"xlnx,tsn-ep-mac" in xlnx_tsn_ep_of_match.
+
+Should the child compatibles be tied to the device or version, the same
+way the wrapper compatible is?
+
+[ ... ]
+
+> +      dma-names:
+> +        minItems: 2
+> +        maxItems: 16
+> +        items:
+> +          pattern: "^(tx|rx)_chan[0-7]$"
+> +        allOf:
+> +          - contains:
+> +              pattern: "^tx_chan[0-7]$"
+> +          - contains:
+> +              pattern: "^rx_chan[0-7]$"
+> +        description: |
+> +          Names matching the entries in 'dmas', one per DMA channel and in
+> +          the same order. TX channel names use "tx_chan<N>" and RX channel
+> +          names use "rx_chan<N>", where N is 0..7. At least one TX and one RX
+> +          channel are required. Example: "tx_chan0", "tx_chan1", ...,
+> +          "rx_chan0", "rx_chan1", ....
+
+[Severity: Low]
+The description says the names are "one per DMA channel". The v3
+changelog says "Cap TX at 8 and RX at 8 channels". Does the schema
+enforce either of these?
+
+Without uniqueItems: true, dt_binding_check appears to accept a 16-entry
+list of fifteen "tx_chan0" plus one "rx_chan0". It also appears to accept
+"tx_chan0".."tx_chan7", then "tx_chan0".."tx_chan6", then "rx_chan0".
+
+dtschema doesn't add uniqueness to -names properties by itself. For
+example, renesas,drif.yaml lists "rx", "rx", while renesas,sdhi.yaml sets
+uniqueItems: true on its clock-names.
+
+Could uniqueItems: true be added here? The pattern only allows eight
+names per direction, so that would also enforce the 8 TX / 8 RX limit.
+
+Later in the series, ep_count_dma_channels() rejects duplicate TX and RX
+names at probe time. So the runtime result is a DT that passes schema
+validation and then fails probe.
+
+[ ... ]
+
+> +        patternProperties:
+> +          "^queue[0-7]$":
+> +            type: object
+> +            additionalProperties: false
+
+[ ... ]
+
+> +        required:
+> +          - queue0
+> +          - queue1
+
+[ ... ]
+
+> +allOf:
+> +  - if:
+> +      properties:
+> +        xlnx,num-priorities:
+> +          const: 3
+> +    then:
+> +      patternProperties:
+> +        "^ethernet@[0-9a-f]+$":
+> +          properties:
+> +            tx-queues-config:
+> +              required:
+> +                - queue0
+> +                - queue1
+> +                - queue2
+
+[Severity: Low]
+With xlnx,num-priorities = <2>, can a tx-queues-config that contains
+queue0 through queue7 still pass dt_binding_check?
+
+The ^queue[0-7]$ pattern accepts every index from 0 to 7. The if/then
+blocks for num-priorities 3..8 only add entries to required. So the
+schema has a lower bound tied to xlnx,num-priorities, but no upper bound.
+
+Later in the series, ep_parse_tx_queue_config() rejects queueN with
+N >= num_tx_queues at probe time, so only schema validation is affected.
+
+Could each if/then block also set queueK: false for K >= N, so the
+schema rejects these nodes too?
+
+[ ... ]
+
 -- 
-2.54.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-patches_v2_external-v3-0-e33d3960ca1e%40amd.com
