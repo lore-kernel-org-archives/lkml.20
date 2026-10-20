@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456208;
-	b=n7B+Ix3/EJ9abfY+tqf1LwewMeGdzAszSAZFIB99847te0QEvPnZb3bpOYTUCidt+jvI
-	 cYhmpXNxmcrtrfkVyV4HRUmiORxJ/Q0nLkVQ7RYLYTSd6cHBYB5HCiJyZy1XdV9ACanoZ
-	 Ssh14nvplaNvm7fBoGaKUyKzFi0oMcIjdKgorKUI3GFeLnYa0nofUXY2hUK+XocrGJLM4
-	 sMz6LabvVvuMeCnXHBi13eZiKVWdyzVViv+gjiwxMKBju4hrS8X3L6ZKwK0q8e5O+ncmh
-	 W5vQDThoVrEncQ7oqDLesAf52h8/J+h8pWYmLADXkv9b3NxhcfP2BtWIIcoJP3f5qXA==
+	t=1792456212;
+	b=4qSHYwUWNcckd3cnG4YCsG53KifvsjU4AEkqvI4tg1O26nSm1wr8w2SntssYX3cERTJq
+	 UFLmxTBc17LHBVLs+DuVE4EN088Ecqqfui7/czHz6tXZi1+A/YH6jjElCd/SJK1J5yavJ
+	 vzvZzmRKOl5vEIbA52xFpzcGObm/R20FQTzKagm4fHm+S/sGVYMfi2hmQbCWXBhW4uGyv
+	 fPluG0ESbxlvufOHrKRRp+bUCO5Wz99gyEwzaBrcOmva8c3UwREvHaapvSKC6evtPRNDf
+	 CuT938VDlX+tS97PGTYCzuD65eSXjdJSpGLv7ryCFJJa8LpfJcVkBUiywz6p/SSveow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456208;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=v/itqcaZj20oy9iaG1WD7g6OMfZmjMhyPYVdcy9JOJI=;
-	b=4hhHuDxw968MlduUZCH6cliF5COohyXB98y7o9oqatiCCr9hYV+1wvkp7ALHH/+FEnbM
-	 4reJNxgeDxZOB/Yje7xAEEe6se7NRTfbe9kfqm0X/IlQqbeuIN+GS75eZ+eaI1tkaPRM9
-	 JuRqFpFNxT2I34jSxVPo1kpeJrgqPxGBCdB53NZu0rZg7YHsmd8n2xeFOwGnUXTSofpse
-	 HppjCCivTQb5FIzeQrepYBF6GkF6/n+ozeLuIfJt5Fc6KbiSkkGIbCH1mRoo1L2xczRU0
-	 lWbviSXkioUHzRr+5sxscJCOcDS0zoJ84f6CuTFTF0Sib16rsZhVIY1YgzvtCfXXaHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456212;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	b=k1hBglOV25iU0A9+/duOkWayb6c59Vgm5HHAa0OP7DWs1AwxvTiTRjQF/U1ZWbghbaoI
+	 XEMEacZSRLaFsuagxJiWKtri/A77G0wG19xmGsuguv77ccgPBDSL2Qo60I/NnZdN7++z3
+	 YY4V4IY9ed0ufRFan/gdeIbihfw4D0y/f6w99IzyK+aeJIkklPBEHeWaFbanqZ1pLZoVQ
+	 NWMHj8ncLkObJVzFvd+HqHFamZxPFESd5AvOEDpMD1b/vy4v0Y/VXWX9QfwPf0UOOv/UC
+	 UEn2HHOheqcpyKGXxvQYgO6LPdRLR17hjUMu9o/LujJarIIchXIu6Q5baadrgJMAYBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTF+2Iyg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NPlFtxU3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1CE606A31E;
-	Tue, 20 Oct 2026 00:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875FB606A31D;
+	Tue, 20 Oct 2026 00:30:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTF+2Iyg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D2C1F000C5;
-	Tue, 20 Oct 2026 00:30:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NPlFtxU3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0151F000C4;
+	Tue, 20 Oct 2026 00:30:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792456207;
-	bh=v/itqcaZj20oy9iaG1WD7g6OMfZmjMhyPYVdcy9JOJI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=NTF+2IygV4JP9HdUSlIVuoCE51dx9rtYvrVTnPGXGGgTgY6nMEgrbuzF4Ha0FPsHK
-	 2dNntfyCmX4Bq0dZIXSTViELGb6Dw8PNnDJrAyzwgn7D6AD6BuPz4Ddw89zsWWYTLx
-	 gpA8TSPxKU2HNjjt4MXdQuRp3NRh5mbfmI5Pl7V9ceZDu4Fa9WO0EH7DeaNYqyR/YW
-	 V/fiLXeBfYh36QUhCaTmhgCT/F45q+XlrA5NkBgIjXYj8qJAeIBNVFZ68c0iMJQWXd
-	 rVANTuI2m1fPkoKqXwTP8XgxsE1lXwBLeQ6O9WS6eWlGAnqEoW0HsAiXIZvw565fTl
-	 tEKCNdYK4QHDg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 772FD3924A6F;
-	Tue, 20 Oct 2026 00:30:07 +0000 (UTC)
+	s=k20260515; t=1792456211;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NPlFtxU39KdcImvC4QnL8KWmpgIUxiP/vl8Z5o15vV575NbjBnWlwfLVy9V2ehoSg
+	 3Zxyi/KL8X/TQ2mntPVHLXSfCtlBJ8uyPRWhrdsrKJOPMfWNqMSKhkjL4MHNGw5cyJ
+	 7wdUZKHgS51mx2dSvVdlSQkVw69F+2CgKEsvJzC7gQ683jkqt7X6q1bjy12oOCgszi
+	 dJ4hOXNgYJGrCT0zzbPFh0qLFPgKWY7uDYLDiIsb0fR7uLLcrCyL3f6/6hXPMuEyrQ
+	 8R/39SLvoe5rPYF1bIX5saD+DI5QthiwOaGeuPa+xxwHaTVXUNPGWvJjIr+ZWrQyQ6
+	 bskxKjsgRgB2A==
+From: netdev-bot+sinfo@kernel.org
+To: Omar Ramadan <omar@blockcast.net>
+Cc: Taehee Yoo <ap420073@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net v4 0/5] amt: relay tunnel lifetime, validation and
+ request-path hardening
+Date: Tue, 20 Oct 2026 00:30:10 +0000
+Message-ID: <179245621074.3290.4127113725002865428@kernel.org>
+In-Reply-To: <20261020002557.3984927-1-omar@blockcast.net>
+References: <20261020002557.3984927-1-omar@blockcast.net>
+Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,43 +65,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v2] bpf: Annotate data races on bpf_lru_node type
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179245620614.3402121.11443505330541884495.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 00:30:06 +0000
-References: <20261019-fix-lru-node-type-kcsan-v2-1-c10a410b3565@gmail.com>
-In-Reply-To: <20261019-fix-lru-node-type-kcsan-v2-1-c10a410b3565@gmail.com>
-To: Nicholas Velten <nicholasfvelten@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com
 
-Hello:
+Hi!
 
-This patch was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-On Mon, 19 Oct 2026 14:38:20 -0300 you wrote:
-> From: Nicholas Velten <nicholasfvelten@gmail.com>
-> 
-> KCSAN reports a data race on bpf_lru_node::type between the LRU list
-> rotation and the free path of the common LRU:
-> 
->   BUG: KCSAN: data-race in __bpf_lru_list_rotate / bpf_lru_push_free
-> 
-> [...]
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Here is the summary with links:
-  - [bpf-next,v2] bpf: Annotate data races on bpf_lru_node type
-    https://git.kernel.org/bpf/bpf-next/c/f25f6319e248
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
