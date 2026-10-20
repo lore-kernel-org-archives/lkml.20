@@ -1,49 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479426;
-	b=G1A3z0aQ+BsgNAFO1h3/wMZs3Efn76SrcIkXAdsJpG6VTqXMxDDOFjbDjRdPvt0pENZO
-	 Crxzb48mIworK9HaxEUoTfKxaz6QFCXgzK8w8O9Uo/ZZOqoss/GaqdFOmleJwMUWwsysj
-	 0gCY/h8ODfMpQMBiP0L0WsWgwz1XfDVzI25PWoOz7SCCjsE9pAaZRh5Vq0TQRE2tWVpnk
-	 MwUuDpuYaQOtNw5N/WDiyKCDx0Zf15+jh4CMQLklF06bxtOX3KiofSL+UwcfRnLVu1taW
-	 F66r50UeBgGPJWXOJ34r8+5ZEEYTTGDlLLJB+N3ZccqG1CCnf87SZ24gZo4cVv8uOng==
+	t=1792479428;
+	b=TDK//GzdxoaU9tiKUW1NsnfpaVGwCxy2us2ia704uwOBsm/4iQ5v26496wTFdCn+j36W
+	 YpsilPFdT1fSKFFX5pd+NZd3aHwk5lAdc55kRG1/cOOoaQgqhO8+q9MSWTvF4TUhYeegI
+	 V5u6mI/jVYnkMV8G4uGSO3He4DAZlgmzFA/GOarIbn0moN4q2W24/k9E/wXmLXrWkY0b9
+	 mOBSH7uiSvSnL9P1v53g5Hc1YLTFlhVNokRDFyhlzwkfI485At2kB+oYLYiXWErvsz5+z
+	 gT0s/txXvsEV049Rm/hfTCj2JphCq67AscwOIexMgDMGQGCn/CVP1SRcpaXNdWSIBcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479426;
-	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=iG0aUIBeV/zYIg4N92+3vkhTNWz/ar0q70g/y98WEaw=;
-	b=VkRiIrG19E7eJ+Gf2NAvDla44UUUVnAO3dbjqvSTM9R42BvH5abFPlvUh8pvdxpJo+s/
-	 XF2uGwi/FxiLyNnhNy3XvSaiM0Z5rST0EH7y96gHLB1rKVkji6VoU+jmgLp1PbsNu5iHn
-	 5QcylTF48AAGUyThCXBIT4rhmGjTEKoVK+oaDsv7DIyQtWKkQXjTRyvtZJ8vywg+AwnQ7
-	 udGBLCy3rmK5wEcg3uqWsy4u6q5RVzAkWJt5fXDVlLo4IKWH+VBRYPgT6LpPJWS1g5uLi
-	 1cKNjuRWD5Yzw6DfxIBMMtAGRidIfgyWVrb+SVXHHoe//gJJw7Dpa+OLRa8TG1wOrQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479428;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X7li7zppPfXAQDWIziNGfnEjMbFeJImmkhr9aLqumbs=;
+	b=jFYHR/5atvmd2Y4KVJ9zalqylVq1rN/4Omw+IFJPn6jhJHdWwaUmddrVbf4kXtMeUs1h
+	 W4zAQD8PclVNLgMWoxmoGgkeQtURx5RP6YjuMeYSfpgKlHZrX2/zQYM5gfIBMYVHc1lnP
+	 tZWg2KuaS5MAOZbVtm03kImLGYudMu2tK2kMGc0cz/WZ8TFNCcS6g1NC8vC85z3wan+oc
+	 s9tuf8eK/Oc4lv0UM4U29/3B9IrtWd+novVSenundH+qt6T44kf1t2ScpMLKeORa491bP
+	 mViyfQyY+qX81/dcmDnO6dzjI9p32BsiOPYkomOiPVieGI1S6gS9wZKVo3YsQw9PtyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C14B60A2617;
+	dmarc=pass header.from=cs.unibo.it;
+	spf=pass smtp.mailfrom=cs.unibo.it;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=oZeAzt9L;
+	arc=none smtp.remote-ip=130.136.161.50
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78A81606A321;
 	Tue, 20 Oct 2026 06:57:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39ECE1F000C4;
-	Tue, 20 Oct 2026 06:57:05 +0000 (UTC)
-Subject: Re: [PATCH net-next 2/3] ipv6: take fib6_sernum from a sequence
- shared by all netns
-From: netdev-bot+sashiko@kernel.org
-To: odys.yuan@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- razor@blackwall.org, kuniyu@google.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 06:56:34 +0000
-Message-ID: <179247939485.3135.13096111463721138716@kernel.org>
-In-Reply-To:
- <20261016-bug-net-netns-move-rcu-barrier-v1-2-4157d798658f@gmail.com>
-References:
- <20261016-bug-net-netns-move-rcu-barrier-v1-2-4157d798658f@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78A81606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=oZeAzt9L
+Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id C28E71C0251;
+	Tue, 20 Oct 2026 08:56:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1792479420;
+	bh=kecThFQauD5pORZjNAwNTrsBZzkWTRHw2R4hetODibc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=oZeAzt9LAx7VhJ95rrODuBZq0TUfJxDYfDzhnRMVkLZgidLms+gqQ+yuahFM6mNtd
+	 yZ3NCF/HcuRHTW3fSXxGYOnTadPqNd85XyJ0IOCQOtrHlBi6e3Ns1YOMedfnBv8fZh
+	 VuaK6Hlki41GZHXsQheHgRRPKCNcY3ytcRhwl3+Y=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: linux-kernel@vger.kernel.org
+Cc: Davide Berardi <berardi.dav@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+	Kees Cook <kees@kernel.org>,
+	Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Alexey Gladkov <legion@kernel.org>,
+	Eugene Syromyatnikov <evgsyr@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	strace-devel@lists.strace.io,
+	Renzo Davoli <renzo@cs.unibo.it>
+Subject: [PATCH v8 1/3] seccomp: let the tracer skip a syscall independently of its number
+Date: Tue, 20 Oct 2026 08:56:31 +0200
+Message-ID: <20261020065635.490528-2-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261020065635.490528-1-renzo@cs.unibo.it>
+References: <20261020065635.490528-1-renzo@cs.unibo.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,118 +78,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: Davide Berardi <berardi.dav@gmail.com>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+At a PTRACE_EVENT_SECCOMP stop the tracer can only skip the system call
+by setting its number to -1, which seccomp reads back with
+syscall_get_nr().  This depends on how each architecture lays out the
+syscall number and the return value in the registers:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+ - on some architectures the syscall number shares a register with the
+   return value (e.g. v0 on MIPS), so setting the return value after the
+   number would overwrite the skip request, and each of them needs its
+   own way to keep it (MIPS keeps a copy of the number in thread_info);
 
-- [Medium] The patch makes every netns take fib6_sernum (and fn_sernum)
-  from one static counter, fib6_sernum_seq.
+ - on s390 syscall_get_nr() returns the low 16 bits of int_code, so -1
+   is read back as 65535: seccomp does not skip the call but runs the
+   filters again on syscall 65535, which kills the task if the filter
+   denies unknown syscalls.
 
---
+Add a per-task flag which the tracer sets with
+seccomp_ptrace_skip_syscall() while the tracee is stopped at the
+PTRACE_EVENT_SECCOMP stop, after it has set the return value.  When the
+tracee resumes, seccomp skips the system call like for
+SECCOMP_RET_ERRNO, which every architecture already handles without
+touching the return value.
 
-ipv6: take fib6_sernum from a sequence shared by all netns
+The flag is cleared by the tracee before the stop and written by the
+tracer only while the tracee is stopped, so it needs no locking: the
+wake-up of the tracee orders it like the registers written by the
+tracer.
 
-This patch replaces the per-netns fib6_sernum counter with one static
-sequence, fib6_sernum_seq, that all netns draw from, including for the
-initial value. The goal is that a nexthop pcpu route cached against one
-netns can no longer match the fib6_sernum of another netns after its
-device moves.
+The next patch uses this in PTRACE_SET_SYSCALL_INFO.
 
-> diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
-> index 0dc6ebee6e568..c66466be64451 100644
-> --- a/net/ipv6/ip6_fib.c
-> +++ b/net/ipv6/ip6_fib.c
-> @@ -89,13 +89,21 @@ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
->  	write_unlock_bh(&net->ipv6.fib6_walker_lock);
->  }
->
-> +/*
-> + * Draw every fib6_sernum from one sequence shared by all netns, so that a
-> + * route cached against one netns never matches the sernum of another one,
-> + * e.g. after its device moved.
-> + */
-> +static atomic_t fib6_sernum_seq;
-> +
->  static int fib6_new_sernum(struct net *net)
->  {
-> -	int new, old = atomic_read(&net->ipv6.fib6_sernum);
-> +	int new, old = atomic_read(&fib6_sernum_seq);
->
->  	do {
->  		new = old < INT_MAX ? old + 1 : 1;
-> -	} while (!atomic_try_cmpxchg(&net->ipv6.fib6_sernum, &old, new));
-> +	} while (!atomic_try_cmpxchg(&fib6_sernum_seq, &old, new));
-> +	atomic_set(&net->ipv6.fib6_sernum, new);
->
->  	return new;
->  }
+Suggested-by: Michal Suchánek <msuchanek@suse.de>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+---
+ include/linux/seccomp.h       | 33 +++++++++++++++++++++++++++++++++
+ include/linux/seccomp_types.h |  4 ++++
+ kernel/seccomp.c              | 11 ++++++++++-
+ 3 files changed, 47 insertions(+), 1 deletion(-)
 
-[Severity: Medium]
-The comment says a cached route "never matches the sernum of another one".
-Does the code guarantee that once fib6_sernum_seq wraps?
-
-The shared counter still wraps to 1 at INT_MAX:
-
-    new = old < INT_MAX ? old + 1 : 1;
-
-Nothing checks whether the reissued value is still held by a live netns, a
-fib6_node, or a cached dst.
-
-Validation has not changed. ip6_rt_pcpu_alloc() records only the value:
-
-    if (f6i->nh)
-        pcpu_rt->sernum = rt_genid_ipv6(dev_net(dev));
-
-rt6_is_valid() then compares it for plain equality against the device's
-current netns:
-
-    return rt6->sernum == rt_genid_ipv6(dev_net(rt6->dst.dev));
-
-and ip6_dst_check() returns the dst on a match:
-
-    if (rt->sernum)
-        return rt6_is_valid(rt) ? dst : NULL;
-
-After a wrap, couldn't netns B be given the same value S that a socket in
-netns A cached? If A's device then moves into B while B holds S, the
-original problem comes back in the window before nexthop_free_rcu() runs.
-
-This patch also links netns that used to be independent. Each successful
-fib6_add(), fib6_flush_trees(), the link up/down sync paths, and
-rt6_insert_exception() (reachable from a received ICMPv6 Packet Too Big)
-now advance the shared counter. Any netns can therefore push it through a
-full cycle, including one owned by an unprivileged user namespace.
-
-Before this patch, netns N could only reissue an old value after N itself
-made about 2^31 draws. Now, once the global counter has wrapped, can a
-route add in N draw exactly N's current fib6_sernum, or a value still held
-by a stale cookie? In that case the cached dsts that fib6_add() should
-invalidate would still pass ip6_dst_check() and keep using the old route.
-
-A hit needs about 2^31 draws plus an exact match, so it is far rarer than
-the per-netns collisions this patch removes. The commit message makes the
-same absolute claim, though:
-
-    so that a cached route never matches the fib6_sernum of
-    another netns.
-
-The later patch in this series, "net: remove rcu_barrier() from
-__dev_change_net_namespace()", relies on this as well. It cites that
-"rt_genid and fib6_sernum are now unique across netns" as its reason for
-dropping the barrier. The end of the series doesn't seem to add a wrap
-guard, a wider generation, or a check on the originating netns.
-
-Could the comment and the commit message be reworded so they don't claim
-uniqueness? Or, if the rcu_barrier() removal depends on uniqueness, could
-the series handle the wrap explicitly?
-
+diff --git a/include/linux/seccomp.h b/include/linux/seccomp.h
+index fcb3eb9825e5..ee31857f3ba6 100644
+--- a/include/linux/seccomp.h
++++ b/include/linux/seccomp.h
+@@ -75,6 +75,32 @@ static inline int seccomp_mode(struct seccomp *s)
+ #ifdef CONFIG_SECCOMP_FILTER
+ extern void seccomp_filter_release(struct task_struct *tsk);
+ extern void get_seccomp_filter(struct task_struct *tsk);
++
++/**
++ * seccomp_ptrace_skip_syscall - make a tracee skip the current system call
++ * @tsk: tracee stopped at a PTRACE_EVENT_SECCOMP stop
++ *
++ * Must only be called by the tracer of @tsk while @tsk is stopped at a
++ * PTRACE_EVENT_SECCOMP stop, after it has set the return value of the system
++ * call.  When the tracee resumes, the system call is skipped and the return
++ * value is left untouched, like with SECCOMP_RET_ERRNO.
++ */
++static inline void seccomp_ptrace_skip_syscall(struct task_struct *tsk)
++{
++	tsk->seccomp.ptrace_skip = true;
++}
++
++/**
++ * seccomp_ptrace_syscall_skipped - check for seccomp_ptrace_skip_syscall()
++ * @tsk: tracee stopped at a PTRACE_EVENT_SECCOMP stop
++ *
++ * Return: true if the tracer requested to skip the system call during the
++ * current PTRACE_EVENT_SECCOMP stop of @tsk.
++ */
++static inline bool seccomp_ptrace_syscall_skipped(struct task_struct *tsk)
++{
++	return tsk->seccomp.ptrace_skip;
++}
+ #else  /* CONFIG_SECCOMP_FILTER */
+ static inline void seccomp_filter_release(struct task_struct *tsk)
+ {
+@@ -84,6 +110,13 @@ static inline void get_seccomp_filter(struct task_struct *tsk)
+ {
+ 	return;
+ }
++static inline void seccomp_ptrace_skip_syscall(struct task_struct *tsk)
++{
++}
++static inline bool seccomp_ptrace_syscall_skipped(struct task_struct *tsk)
++{
++	return false;
++}
+ #endif /* CONFIG_SECCOMP_FILTER */
+ 
+ #if defined(CONFIG_SECCOMP_FILTER) && defined(CONFIG_CHECKPOINT_RESTORE)
+diff --git a/include/linux/seccomp_types.h b/include/linux/seccomp_types.h
+index cf0a0355024f..4bdb8424055b 100644
+--- a/include/linux/seccomp_types.h
++++ b/include/linux/seccomp_types.h
+@@ -18,11 +18,15 @@ struct seccomp_filter;
+  *
+  *          @filter must only be accessed from the context of current as there
+  *          is no read locking.
++ * @ptrace_skip: set by the tracer while the task is stopped at a
++ *               PTRACE_EVENT_SECCOMP stop to request that the system call is
++ *               skipped, after it has set the return value.
+  */
+ struct seccomp {
+ 	int mode;
+ 	atomic_t filter_count;
+ 	struct seccomp_filter *filter;
++	bool ptrace_skip;
+ };
+ 
+ #else
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index 86cf4460d69e..edeb21fa3e23 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1306,6 +1306,7 @@ static bool __seccomp_filter(int this_syscall, const bool recheck_after_trace)
+ 		}
+ 
+ 		/* Allow the BPF to provide the event message */
++		current->seccomp.ptrace_skip = false;
+ 		ptrace_event(PTRACE_EVENT_SECCOMP, data);
+ 		/*
+ 		 * The delivery of a fatal signal during event
+@@ -1319,7 +1320,15 @@ static bool __seccomp_filter(int this_syscall, const bool recheck_after_trace)
+ 		 */
+ 		if (fatal_signal_pending(current))
+ 			goto skip;
+-		/* Check if the tracer forced the syscall to be skipped. */
++		/*
++		 * Check if the tracer forced the syscall to be skipped, either
++		 * with seccomp_ptrace_skip_syscall(), which does not depend on
++		 * how the architecture encodes the syscall number and the
++		 * return value in the registers, or by setting the syscall
++		 * number to -1.
++		 */
++		if (current->seccomp.ptrace_skip)
++			goto skip;
+ 		this_syscall = syscall_get_nr(current, current_pt_regs());
+ 		if (this_syscall < 0)
+ 			goto skip;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-bug-net-netns-move-rcu-barrier-v1-0-4157d798658f%40gmail.com
+2.55.0
+
