@@ -1,121 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792487567;
-	b=Vbf9DpN+xtwwGEUfJ9c9MXgl6dzJ3qN3vFAgpyNWLxsLqewmPmKEAqaUz7ZZ6qpunCDS
-	 BRdw6VU5CwEoc3Zq0Bjg8JvFPbaVJpmR/f2TuAtuPSuzD/dGhZiu9uy8Y19NZbo5gEmTU
-	 BZc1IpRVen8Y4a9HCM39Qg8sRGCaT5qCTDVN5kLoM65BaWev/KtB2J5GuAY0K8nVi745A
-	 RtD/el1LP9fP7VYgZ234f2YV2E22KJ72adYknBcbQKkjUGFJIoHkxraTPH/mviepiGU/J
-	 E9VtqYWn7H9CxzBR3O59v43MF5nqItmMSm2SqcHn0UTtp3DZZi5Wzpqgj+Mx9Ga14Wg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487567;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ws/nAel3gKigB9xjBOx8xYnJzYDjiCbjwmjPbmNoQBg=;
-	b=GCVt36BZ21MAQlpZAOSd9w3saKdxO6oF1svg8V9pNWuQ55cKbzTDVv4U7JJio8YnklCF
-	 ABpLJzgwT2mXthzsNHKkv1iNSqwbNsPeYmXX9p/QP/52eHWnJ/xxin0FXsahWVCwRdBxb
-	 CfAZlTIcy3zi+X1P1ykgJqV595msSgW8RH6DjzE7Y32gqxIQUjSWSVOG8xswBzW1vgB56
-	 yq67OgwEVMFRp/TjTlu1Biw2rDCl+5nUwgM3v1rnBGLTS8+q0ZO6uhYr5YWHjD/cxrSEw
-	 iOmPFVRjcFXBXhijC4xsbpvNkjVlZps6edWAQbGo/N5xqywJNuYr004Iep9OsMR7Gew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BBz2pK4s;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RjpmwlSO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792487572;
+	b=y0ImsnAidx0WWwUjWEpQhr8kJ8bwysRCGfgSk5CUEXlh6jc+PZc3FpEanKR9NCdyyuEd
+	 5hj/p5Tlq128mNxw+YTPq7nK+YVj3oRL+rSE1iBD+3RSsDm/X1CGa2oUlfQOHhHwD8Ije
+	 5yyXkhyLWaYu75rM69H+UTMsFCl4zqtXjQa4o0zv6aeaqPt18K5M7VPYnDM55sBbCZALG
+	 Rz/dtxia3xxF2/YJMAeXhuN/nMt32CTfD3shZ2hYeAQvR9fCUNCkPi4DcDpodYICd0Sl/
+	 tzswN5ntsjAhkY4klFUUdpznGic5PNpiPQ1VVnYE23D8d4BXEm7frnrbkd+nGzrC8eQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487572;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Message-ID:Date:
+	 MIME-Version:User-Agent:Reply-To:Subject:To:Cc:References:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=vU+z02vLYKXPdaAV10b8G93MI5kusn0c4HjxHq8ujnM=;
+	b=baYD2oIOWGJp6C4sr6sNI82QiWp4iu3LP9PL9GbX1yw6vWOSfRo4/XY+iK4IRKoNLU9u
+	 7rxOpBAim7x3WO0+GuHFc+izWhwyqdGMEOuh2oTHlywMrdfW+a2RUPeTYbWNhaC0LtSyU
+	 k/MNACZLXADJ4dar8RBY+XimqLapEGrWw0vdrW4m0Y7c8tsxuqWI5gYHEsH7Ch/aJpNQT
+	 g/SZuv0aNkiQt8HyslOewpk5ExXgObcd6tI7ilgglBczRbqjBFYo0/7vPEBQBwzNTX5Zd
+	 4jhax+cBP6SENY1cDPtpDydGnCOBKsm9Ft3sNMMvNZONr8L5mgIEA37JOedLi1itGew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=radxa.com;
+	spf=pass smtp.mailfrom=radxa.com;
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE43606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:12:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE43606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BBz2pK4s;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RjpmwlSO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792487565;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ws/nAel3gKigB9xjBOx8xYnJzYDjiCbjwmjPbmNoQBg=;
-	b=BBz2pK4so24MfB+xS/099doREDDjDg0uPZhNBrm9wGyAMYK2AOrWredClTa6kyCOr6Y0Fu
-	9CqRYSQoQuvlqHXsGASovbVj12EhWvI+S/OkVnbi6GKmMteXZ2E1JDx5uEaE9nx/BYZWe0
-	aNZ/oEJCdrtUUSyRMlfM2tzon8cLlkQ=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-534-ePf0k7XzM_2g_pmxSD-wRA-1; Tue, 20 Oct 2026 09:12:42 +0000
-X-MC-Unique: ePf0k7XzM_2g_pmxSD-wRA-1
-X-Mimecast-MFC-AGG-ID: ePf0k7XzM_2g_pmxSD-wRA_1792487561
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e1291432aso1577323f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:12:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792487561; cv=none;
-        d=google.com; s=arc-20260327;
-        b=H+VGBgjjY3MrW8x+RyDfautsPOI0/wMGwBlJvD1x5LMVLMkgSzgcqb7f8wbABs1cOD
-         H6gk6fBpROXGCDan9J/NIQUojgshaBQWiC++9lCv8Aj2678uexEOyo+oBtc3WKSHbTYe
-         nRn6LwQ/lcl7WSd1uWSYC/MlRgo1zP3T9g3HVu83ujw+mtMzMXbGEr/eMfrOe67i14Bb
-         6vIO1JvAK0Tidw0YTSCqCLdvEgB4UREvBdTYX2RQJk04QtM3A2RY3OAH7EGdOkCdT2Hg
-         KiVfELKu5De7kQQPq/gNf0T2AYowZT1hUZj3+dk8/1WGl2lDQmQe97qNguReV9wJ5fv+
-         GSgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ws/nAel3gKigB9xjBOx8xYnJzYDjiCbjwmjPbmNoQBg=;
-        fh=dziKW/zJmJBQfVHIe3tYkvitcxywnVD3/4c1Cr7CpB0=;
-        b=awnkb7vJuN/zQov8GZ9ebJqbLYQgSW28YY7afTGKziC/OtlFg79iE6OcrjC8pMuEGF
-         blF885yQs+g7qmXnNXlO+o3XNsvgGiWb1uzJebhVdCv/UiOYpEyK8QvXu/XQS1I4TBVz
-         cQItvhDY3/nqFU4MAfoWzvHU9nNdHS2Q5WIFSrRIY1DiFNM7XIR+gEwM2Xpubz5GbgNz
-         x7VnGef969GgSsBK4I37fYXx+IlgE5FmNQlfBQktLV3Te4kNR7xx5tO/kQYZZk2f2RmP
-         GRCxVSyCQ0NLqxt0HebBQXVdulyeHlTbHMR+llgLT69wcUgGMy8Mgq2ZyAXFDpnDskDq
-         TfKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792487561; x=1793092361; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ws/nAel3gKigB9xjBOx8xYnJzYDjiCbjwmjPbmNoQBg=;
-        b=RjpmwlSO5deu6v74SbJFeC+/cs6rPQCcxOwX+77f1JeZA9FUx7TmEOYQ3GWV2/O1Ar
-         ENJBEE4VhEMJgncIoI36mOfKZbYA6rnhiIynRSOn67MKm3rM3wl59yZPG1KOmRxbQfPo
-         HmzNRMfIpvTnVxFcFENkgTTdMbNuTO4fRgeehP/p0DX8LwrUvzLLBWZwfw5soBpBs+pY
-         3qSiD1P5XYAVD4zmRr9S0NylvmdMIsLf7QGVh4VfSENaDj2ZtfPJks1YFfHT2I+dkWH+
-         8/EWntvDVjHooscn5wxLkMcLJ98hgkIVS5Zes3TWBqgsRobUmDmfNmWb0b/18vmYcsd2
-         wNHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792487561; x=1793092361;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ws/nAel3gKigB9xjBOx8xYnJzYDjiCbjwmjPbmNoQBg=;
-        b=Tu+QogcRLHoSIcmTvCgYnm03THBDBiA51JEzE/6uHQkQviA2s0NpHOZt/nUe2+tFG8
-         XskzdFnOvWPXvnRl95BS62za7+w3JYIA8zwECXdx2p5iC09/AunmOwvhFBYh9hOuME8E
-         h4mPNvT4I9LiAdL+KjgZJLFuJQdpfjKtEnUwI0i+xE2TI7dRbyT3a9TFgywRh20H/KLD
-         m2s8p7N9f/1wINpY+jHmbjO+U3dHiN1U3fIFPnw6vCfnLP9HHd7/fOpNJo9UigNO/pFJ
-         dtGZTNngtZRnTANyHmE65tfXjkdV9huJEyG/w0LBatktrZhnOpy1mD1s7RKQa4v8Y2rB
-         MPOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwZbRGIzSzVwdLsaMfSJUwqZqQs/66Wb1BVRzpMOEVJX0ANqiz6UkQndTQhfknMpDx1V7nOPBzksDZWx1Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1fd68qsp4bQKuE9lDwwcG9GvVKi5f1vLA2okMk1b9w2+3Cimv
-	eLIzJv7th/ZmlxqvV3QJc7YItKSGcaf6dHtkvOgIStg+U2FyEqgVy3UNiR/a5X1EFgZQAuJdOLw
-	c5WQj2fgf1g7PXnoFL8silc48GP/6yxqaRlrnNZMrMs/VN++bmv3wHciMwsEk/wQlEs9gXRuXEQ
-	ci+tyawivuaeD4kXfg+DjEW+iAIticE32sV2vYa+wH
-X-Gm-Gg: AYBFou2RoUeisomyRG5gSTx/aDSB/i8ubYXueiTzfrFPO+EFxwnlv7uCMmrivttP8mz
-	CxG7qwcicgiBUjSyE7NQon2bWOJ4M+xUnFEvcxAbATnh1u/6fhJ3NOjS2osS/V53Vj0FQKboJ6T
-	7Al6Z62uGV9bWlRbUT7Ccetga4D6ZYn+DV4/UBOkv95328Re35o6DWtouv1pduxzO4uAzf/3CL+
-	qggWT9niaCdEeksOaKOZgSDn2FN6EMnNmpwLPIiXhJOXae6/UmWk45gANgQVQ==
-X-Received: by 2002:adf:e6c4:0:b0:48a:fe3b:64b7 with SMTP id ffacd0b85a97d-48e07fbbd81mr15612504f8f.53.1792487561028;
-        Tue, 20 Oct 2026 02:12:41 -0700 (PDT)
-X-Received: by 2002:adf:e6c4:0:b0:48a:fe3b:64b7 with SMTP id
- ffacd0b85a97d-48e07fbbd81mr15612464f8f.53.1792487560497; Tue, 20 Oct 2026
- 02:12:40 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C00C606A331;
+	Tue, 20 Oct 2026 09:12:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C00C606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpgz6t1792487489t04aa9426
+X-QQ-Originating-IP: xblyLXtYUkaN+mcRUZlY6MFFt1npan14bWp9+SQNemM=
+Received: from [127.0.0.1] ( [180.159.160.209])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 20 Oct 2026 17:11:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10771054805953698164
+EX-QQ-RecipientCnt: 32
+Message-ID: <C782C697D7D26A70+05200ff5-c7c6-4425-ad15-67222a2ebacc@radxa.com>
+Date: Tue, 20 Oct 2026 17:11:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,31 +51,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <atZJV1B79VsZoy8u@sirena.co.uk> <CABgObfYRYCrOj-rHDaDd3LSFMSd0ug-YoB2pD7jDA8ZgMR0sCA@mail.gmail.com>
- <86wlrczvyl.wl-maz@kernel.org>
-In-Reply-To: <86wlrczvyl.wl-maz@kernel.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 20 Oct 2026 11:12:28 +0200
-X-Gm-Features: AclHuK-CANssAdVajcJL7_fA2sG8dYMTVFsVqplrwOo8ywfc31IgZ0Xj8SjnqCI
-Message-ID: <CABgObfboCa74iJg7SgGqP1emsETwd-oSZG57p9XARYv89tdScQ@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the kvm-arm tree with the kvm tree
-To: Marc Zyngier <maz@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Oliver Upton <oupton@kernel.org>, KVM <kvm@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Reply-To: sophon@radxa.com
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
+ <3bb9a390-3b5e-4321-a25f-77e4f5c88f9a@oss.qualcomm.com>
+From: Xilin Wu <sophon@radxa.com>
+Organization: Radxa Computer (Shenzhen) Co., Ltd
+In-Reply-To: <3bb9a390-3b5e-4321-a25f-77e4f5c88f9a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: M44gPKlhuS3s9ib/HF+x2es0LH39PYX+RI5y1uBElRr3DpD4G/LYBV9+
+	jCwpMftPGiziUbPpTd+j9gQgRiapMghIYmKDzE6rZ+emvpDK4sryt5l1Vr1x7GnDaRf4Giy
+	6kRo7t+rbhCppjloVej8SJdVh7dZhBPZLnNDReUd3xH38qvJDvP3Zu8vBOF4+Xqh1z2MpQr
+	TEr+yXAoLfRD2D0/TX2CEhWVcCfsjRwVFPbIAXFqAZ8soenRlLVIl+kDkHklxvuLdEwdp52
+	xmZSGIDpYNz6iNfc2sj2BVAnzfXO3RduVWhtYsjMx8xdBHIryzWZ9xashH7riJoCFaOWU7Y
+	uH/MuT7iy7GZ6y0V+9VhMxFRvDy7Q86k6ktS8kXdwm4m1WhBdS76Tm7HLOFk9wsx5nY/jNv
+	XG1TcOeom9Ig9qGjywkpBgeFY//LZB+7+6du9UM7U1CZdtapjGFj7ozPR9kq90otC61yNky
+	cSi7mJQbBxCzGvxYA9psf6pXP9VWjoIHC55fRbUQOvugvBWlqgchMzsTKFWJDDl4CoJ8Kmz
+	RnS/R2QJ44O9KD2zCLiQDFxCWamVW4JPqTKUR31ryViJJW42o5ltGJCk7VUaxCJw3syEdeE
+	iSTgkvruCd098ui4vI/OSOCVd+DnZ5zPRturB5+oOYfi466aTwJfNmGAVULCpdBweOuA9gH
+	1QZnL74yd3SSak72Ldr1d1oF7kl36vbSb6a69TKsHfllgIC05ZwEJ7O7Nzt6bKYbo18Fkd5
+	OLcRT6VHUW7QHw0kK+c4DN9X0xrPWm+7/7Rc5n4KEh6r0mtMYPsmgbymvw7jwjG+7uByIle
+	53en9gbGG3vF/yKB4iSMuY+Cou/vPigx5rrnAe43MXjQ7sUg8scmJtAOgkJvXpvo3y/bbXn
+	kcoj+ht0rHlOJMDb8K68yrR3+IHkQ3YLu5HP+N2NRvIdVvB/yyV7hMvq9H1BquUyRHnH0jk
+	XV1IPRP3I947nL3Pwh1rMFJosTgts4mckeTVv1zjKuVJIcD4baGRvZcBVdyzFmXyuhVdsij
+	kV9lo/jIuZlgh10IQe7Srrp20BDgSQJhCGaciICyLmJzWLL1tTWO53T/GgGKLykd/MscYbX
+	CTPxSS4Y9QRhMifeGj2iwc/2GsfleKL1iwzv1/Ky4xr
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On Tue, Oct 20, 2026 at 9:13=E2=80=AFAM Marc Zyngier <maz@kernel.org> wrote=
-:
-> > Hi Marc/Oliver, is this something that will be fixed on your side by re=
-basing?
->
-> Yes. As soon as you have a stable tag on your side, I'll remerge the
-> fix branches on that, and all will be forgiven.
+On 10/20/2026 4:27 PM, Konrad Dybcio wrote:
+> On 10/9/26 9:55 AM, Xilin Wu wrote:
+>> Add initial device tree support for the Radxa Dragon Q8B,
+>> a single-board computer based on the Qualcomm Snapdragon 8cx Gen 3
+>> SC8280XP platform.
+> 
+> [...]
+> 
+>> +	pmic-glink {
+>> +		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
+>> +
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +		orientation-gpios = <&tlmm 166 GPIO_ACTIVE_HIGH>,
+>> +					<&tlmm 49 GPIO_ACTIVE_HIGH>;
+> 
+> Please align the '<'s
+> 
 
-I have pushed both the next branch and tags/for-linus to kvm.git, so
-you can go ahead.
+Ack.
 
-Paolo
+> 
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +				port@0 {
+> 
+> Please add a \n before the subnode
+> 
 
+Ack.
+
+> [...]
+> 
+>> +	vcc_5v_s: regulator-vcc-5v-s {
+>> +		compatible = "regulator-fixed";
+>> +
+>> +		regulator-name = "vcc_5v_s";
+>> +		regulator-min-microvolt = <5000000>;
+>> +		regulator-max-microvolt = <5000000>;
+>> +
+>> +		gpio = <&tlmm 159 GPIO_ACTIVE_HIGH>;
+>> +		enable-active-high;
+>> +		startup-delay-us = <250000>;
+>> +		off-on-delay-us = <150000>;
+>> +
+>> +		pinctrl-0 = <&vcc_5v_s_reg_en>;
+>> +		pinctrl-names = "default";
+>> +
+>> +		/* CH7218A needs to be powered on for HPD logic to work */
+>> +		regulator-always-on;
+> 
+> Does the power supply reference at the connector node not handle this?
+> 
+
+No, the regulator will be turned off if there's no active display.
+
+> [...]
+> 
+>> +&gpu_zap_shader {
+>> +	/* Reuse firmware from x13s as the SoC is unfused */
+>> +	firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
+>> +};
+> 
+> Other than the signature, the zap firmware is wholly generic.. I wonder
+> if we can just add a symlink in l-f to get a generic path..
+> 
+> WDYT +Dmitry?
+> 
+
+I would prefer that indeed.
+
+> [...]
+> 
+>> +/* M-key Gen3 x4 */
+>> +&pcie2a {
+>> +	/* Place ECAM and BAR space above 4 GiB to accommodate large BARs. */
+>> +	reg = <0x0 0x01c20000 0x0 0x3000>,
+>> +	      <0x0 0x3c000000 0x0 0xf1d>,
+>> +	      <0x0 0x3c000f20 0x0 0xa8>,
+>> +	      <0x0 0x3c001000 0x0 0x1000>,
+>> +	      <0x5 0x00000000 0x0 0x10000000>, /* ECAM config */
+>> +	      <0x0 0x01c23000 0x0 0x1000>;
+>> +
+>> +	ranges = /* IO (1 MiB) */
+>> +		 <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
+>> +		 /* 32-bit non-prefetchable memory (256 MiB) */
+>> +		 <0x02000000 0x0 0x40000000 0x5 0x10000000 0x0 0x10000000>,
+>> +		 /* 64-bit non-prefetchable memory (3.5 GiB) */
+>> +		 <0x03000000 0x5 0x20000000 0x5 0x20000000 0x0 0xe0000000>;
+> 
+> Please drop this change on the board side, this is SoC-specific.
+> Likewise for the other ports.
+> 
+
+Ack. Do you think this change can be applied to SoC DTSI?
+
+> [...]
+> 
+>> +&pmk8280_pon_pwrkey {
+>> +	status = "okay";
+>> +};
+> 
+> I am confused why this isn't enabled by deafult but that's of course
+> not your fault
+> 
+> [...]
+> 
+> 
+>> +&sdc2 {
+>> +	pinctrl-0 = <&sdc2_default_state>;
+>> +	pinctrl-1 = <&sdc2_sleep_state>;
+>> +	pinctrl-names = "default", "sleep";
+>> +
+>> +	full-pwr-cycle;
+> 
+> Hm, is that something that comes from the controller itself? Should
+> we advertise it on other SoCs too?
+> 
+
+It is observed that the boot firmware can leave an inserted SD card in a 
+state that makes the first Linux enumeration fall back to 50 MHz 
+high-speed mode. This property allows the MMC core to fully cycle the 
+controllable card supply after voltage selection so UHS-I voltage 
+switching succeeds reliably.
+
+> [...]
+> 
+>> +
+>> +	vmmc-supply = <&vreg_l9c>;
+>> +	vqmmc-supply = <&vreg_l6c>;
+>> +
+>> +	cd-gpios = <&tlmm 131 GPIO_ACTIVE_LOW>;
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&sound {
+>> +	compatible = "qcom,sc8280xp-sndcard";
+>> +	model = "SC8280XP-Radxa-Dragon-Q8B";
+>> +
+>> +	audio-routing =
+>> +		"IN1_HPHL", "HPHL_OUT",
+> 
+> Please don't break the line here, start right after the '='
+> 
+
+Ack.
+
+> [...]
+> 
+>> +	usb0_sbu_default: usb0-sbu-state {
+>> +		oe-n-pins {
+>> +			pins = "gpio101";
+>> +			function = "gpio";
+>> +			bias-disable;
+>> +			drive-strength = <16>;
+>> +			output-high;
+> 
+> Drop the forced output state from both SBU pin states
+> 
+
+Ack. Thank you for the review.
+
+> Konrad
+
+
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
