@@ -1,104 +1,139 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496942;
-	b=bJfZB/60+LqwsB0hEMGqtNW75+476iLxEEvZhFmFUGiiuxhOrfb0Q+0cvb0TgG6Je9Vt
-	 /JgIivEGutR6fmRcLG2wJy3B3Ggbjbh8fFnZUJz0CTRnL1Al3axxVR9u1C+mKAOr4pbuw
-	 uHxMsvAkAmVziTv8AJU87RCUM0utFB3e7MiZAgZn/RtoVRWiwMz8FbPRg9iZ9wY4QqFbO
-	 L1yaORX51uF29gJ+C4xv0hgUglHA78IGv/j7zzKesfWXxn0+KMkUNyi085/uMUjLoZHOS
-	 iTvYEHNShWl2EE2yL+QQJBmlwEHvnZ3RHtdaZG7GphXS/yG8lToxeJ6xsE8F6cCJzuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496942;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Action:
-	 X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Server;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=03FPPXRDdgDCkbZ12Jh0RTzdXLTcxrU3VjFS5UtRx3PAPnVItTB5Ggu0dmgbWRGmRmFO
-	 KP2dnhZH+GMHTg3PSLV0fjB0taHPq5wMQXMJvZD91EpXOnR3Fa8rsO8RbmWtYSwfX3E21
-	 cvIZx+d2i6C7QN9ENU4hbv/7bNXqRdWrFsXAyShFEXJYE/L6CLBIX80OhH4H65Tc4yGEW
-	 a1CNsDTayNR9pe85bXv6JQEJpdbzi6+mSMIjdnfG4gt5st7D56/tm6d/cwfunY7ZT82lY
-	 W4L3QC7N6llwIwYXPYDOyTMDQZ3okpmqF7+Pmenrv0Q8TYtvfAL2mXufGC79ZXMjSTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792496973;
+	b=JR+IkI067MI25Q6Rl0u/Z9pzL8QyrFzMoQBrwUS2Z1eGnHzEobJ5VKhKMDk0R1g9gICh
+	 KG2+uoicqgTrh2cIhsQ2xcUu5lCdv7lLgYwdYYjmDhcKXONJFs5+3W+fvcIFr14SXdk6s
+	 h7StqiEppDWrrAcJAX0W2uRDE5kSzUr807acpGT+PiVv7AwORTd8NL00hiu51LjPK/2O0
+	 WxDpz3TapaE4SniTzKV3hE3YRzUY/UWY0FCslJf601vXLJr4FGb18SPbymV8A83sAw32u
+	 hJSRrGSZwnTOy5Q/d2ryUyLLv9x1AYxp6o22p9gCZKBpf7oXskYVI3rhtwyG537wFtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496973;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Ieie4=;
+	b=hs/s+TuI5ktOPqYzO75w3aFBEOOSIMB1B0FrCeLONdhbQk3qPgzyb6dBi1nFYj/cQMdQ
+	 T/X4a4Vc58Om5SOMB7ZMfTsrmu1ulAntjj+pPMD77aqTzNb7OkefEWCP6iMiILp25QI6C
+	 jD3Gd2eKChorbUBuD+YyHK2Hvz/iFqK95WH8IWIv4Xks1Jt789DxzzEpB7vn/N3Yqx38k
+	 +oY3i6NAvM8k5syziCC8dZemBO2IZifVzw3i2qtIMM8qc5wBIAtLyznGERevWhiRxZm2H
+	 vKLwjY7bv6G853Ir5ecDiYh8XSrN3+BDc561nsaENAbeH9z1ieVTFS9nHn4XguatK8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=g3OXYf8C;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=bpAbSntn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303E0606A31A;
-	Tue, 20 Oct 2026 11:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 303E0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D50606A326;
+	Tue, 20 Oct 2026 11:49:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5D50606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 41E931F7B4;
-	Tue, 20 Oct 2026 11:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792496939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=QWbpmRRS6AZN1XbgMF67CO6zRLIGk3FbX838PcCZJheIReioFfgmBNG/5MkLUMPrXrh2Ms
-	GZl2mnT6WaCXzggpy06xuCg/siK5UYxPgejnZ8d6M3vrmT35H3KJJ6oziBWJUz5AaKxgrO
-	4mAR9HiRp08IAB5bApN3XiW4A/0eNTI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792496939;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=NWsxM4SgtbiWEMavfVNSLcG5rXgAfzcsgVlokyXN6tDVPccsyhRnL3H4IuapXZ6RNovIUS
-	6tY+GkdltGbMS0Dw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NWsxM4Sg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792496939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=QWbpmRRS6AZN1XbgMF67CO6zRLIGk3FbX838PcCZJheIReioFfgmBNG/5MkLUMPrXrh2Ms
-	GZl2mnT6WaCXzggpy06xuCg/siK5UYxPgejnZ8d6M3vrmT35H3KJJ6oziBWJUz5AaKxgrO
-	4mAR9HiRp08IAB5bApN3XiW4A/0eNTI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792496939;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=NWsxM4SgtbiWEMavfVNSLcG5rXgAfzcsgVlokyXN6tDVPccsyhRnL3H4IuapXZ6RNovIUS
-	6tY+GkdltGbMS0Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDF39136C6;
-	Tue, 20 Oct 2026 11:48:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jLRhKipV12rCFQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:48:58 +0000
-Message-ID: <3a4c4a4d-6ab4-42b6-8ae6-7ca0730b8069@suse.de>
-Date: Tue, 20 Oct 2026 13:48:58 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=g3OXYf8C;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=bpAbSntn
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KBFWI12359962;
+	Tue, 20 Oct 2026 06:49:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Iei
+	e4=; b=g3OXYf8C0bgfl+wknP19kYW9sAstq7HdoQ9a4MmdrYF8848t+V7FMOonL
+	vPeLZxKmBjNLpI+Tw9hvjhdlBIGhjPEcdoRtak4GROwSzG1bXLMLcZYXA1mOLK5i
+	roJSZuv8RloOM+bgS0/4IQTTgJmEnU0UYM5GZFz3u/HCnePBClHULITd7tOFn/zR
+	kpJee6KYbbdh+wJLciKUdI2UIDwCxYkYl7ztfqXmvmJWYcKNf1AuMa4Tvcz34nCN
+	tnshwDIsWTI7Rh3IrD81AMcxt0RksClxa4okrRHGb1bxe+15if/rANIip2LmzdN2
+	7YKWzGb4IrWVzhW1/i0RbDLVqhliQ==
+Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4he7940440-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 06:49:25 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xR3aIW/YjQPYwedlT2n/kiIPHj8JVw4eBceXfxcqWNbZ5ldGY0XmfRAStoxNWrm8L0+231PbafDihNWobTUzaIz5Dhy14yb1KiyNyEQ+dMqpDiZcm0p4qU+sMK4kpvbpgdGUrKWC7EsBVNRf3RtbmrEe8aCMC7dIb2rAjuTckA3d9mRbaitHmKRWKE68mGbXWO9whIJ/sWv4zmE46BGmOx5DP5+brWBHQhTAom5rgStMlrnDINWRHvWmgrxhng46HlWrfktii8yNk4LpCzkzPubJlmD5Str8dGcuNgt48a5e9bqDxz4o4i4PUSyX3u6siw/EG1bmr17K3KlAiszxQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Ieie4=;
+ b=f5ob2qewlYHcfN2Xn16tL/RnTuq02hPRAUJq+3IanKKFWxDw740oZKUFDmh3CmpMrkv38xLYrCc5aWx6ABOk3B0jv9QOn2k6SIABf97rg2u9MloHF6zfOcJw7fG8SGQYfrQgNGsd1tVT+mDLmoLlxvGouNDwnTdtlRVTGgvS/Xtz4OXeeDzVZlWcntula9dhrR2BmsO3aIjZaXDWJOtEDjsIptlkO8v1qAhGR/20NAWPz0s4lZStr8ZULvJoYaMVEXm2oRllo63TkN9RFO+XOLHsDD95wOUwhrcOcK29qxY+YAgmhFUWIFxu6nhQ46sJiwEdJgk/3fttfuft1B2cqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Ieie4=;
+ b=bpAbSntnSsY/FNK3Xc8lLtSN1JBLDcYs3VU3HH3aSqeyhuM5aeiPbRS8MhnLV3EzQinBNh2x8I5qXdkwfTE+3tRp4+fJ1MVSxN/0ZACsgJklFFjbU8a8jbIG8/sbkn05YdTSZ5g+flGpcsAg0d6pswM7a5az8BnwPwd3GYAHumI=
+Received: from BN9PR03CA0324.namprd03.prod.outlook.com (2603:10b6:408:112::29)
+ by PH7PR10MB7010.namprd10.prod.outlook.com (2603:10b6:510:274::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.11; Tue, 20 Oct
+ 2026 11:48:40 +0000
+Received: from BN3PEPF00022BBA.namprd04.prod.outlook.com
+ (2603:10b6:408:112:cafe::4c) by BN9PR03CA0324.outlook.office365.com
+ (2603:10b6:408:112::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 20 Oct 2026 11:48:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN3PEPF00022BBA.mail.protection.outlook.com (10.167.248.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 11:48:39 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
+ 2026 06:47:55 -0500
+Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
+ 2026 06:47:55 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 20 Oct 2026 06:47:55 -0500
+Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [10.24.52.205])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69KBlglo516673;
+	Tue, 20 Oct 2026 06:47:51 -0500
+From: Swamil Jain <s-jain1@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <tomi.valkeinen@ideasonboard.com>
+CC: <devarsht@ti.com>, <praneeth@ti.com>, <u-kumar1@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
+Subject: [PATCH v7 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
+Date: Tue, 20 Oct 2026 17:17:42 +0530
+Message-ID: <20261020114742.872536-3-s-jain1@ti.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020114742.872536-1-s-jain1@ti.com>
+References: <20261020114742.872536-1-s-jain1@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,193 +143,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: Lanfeng Wei <xlfylawarthur@gmail.com>, airlied@gmail.com,
- decui@microsoft.com, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- longli@microsoft.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- regressions@lists.linux.dev, simona@ffwll.ch, ssengar@linux.microsoft.com,
- stable@vger.kernel.org
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
- <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
- <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spam-Score: -4.50
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MID_RHS_MATCH_FROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,microsoft.com,lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,lists.linux.dev,ffwll.ch,linux.microsoft.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,bootlin.com:url];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 41E931F7B4
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBA:EE_|PH7PR10MB7010:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b897041-9a3c-4cd8-75f1-08df2ea01506
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|261009223027099003|18002099003|10067099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	tp6lDeULntYT7fEhaAeFabUQaEYLjZT1y/SlpfDW/4tIx0yFNKqz3Uyw9UuKYPzKwWxShFkJMUlLuAoMsjkln5kbNI/jIiOSpYPIg4FA36drmwm4UOjZchDVFiHJg1TANXz0D7ky7OePDpae6zyA0rSPBxtmAZGchTzBsBjWmWjurGTE4qQ1uRMFIiCv4FpS+Ln8PICWP+gxcjOkr36i0v2wnzBKR0fgW+bAfGrCGywvYl9GuI9ynnqVWI6Tr7aFyPZGiAZEW7SbBoOeIECnEhPPWw+jOMwdbiSQbkFpGgP+6AUQVHjj2MXa6sFGTD8bkdCQGMT5vKkSHrI3I2egyo1bvYVChZ+Pz8OoVv92q3usT7a0fHG7Qcp1n26wFZ8+eABNQYrvl3johaaDQuFyOVj/UibB8+8sEXRXZbqEKGkSqpkYKKdruZjgrrIVkbtSolncL+XyjNpwp9jbVAXiN5uifoFCvFRuU7OuqqJ1MJfr2TC1GF2kqoZMoKC04Bea7nsFxgvGbd2xud+43rEpp6zhby858QYdOXzAwpt1mluk/WmMJSABk+RbzhfqK/Pq4+W1a5HvxvNCvFJKZmw2+LEEwXd0G8INhkUi2oFWbHSGS7RyX3u9iIZHG6VWd5loNOrejSdpI0TIXofZnD6AsKvFQVureEO39p2DnX9nf9mgNuAxLhDFHmqvl3svq0/pWfIBm50YkNuwXzUsmOVzzw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(261009223027099003)(18002099003)(10067099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	D5aCNDpbE3tqYYL8XvnR0Db+0sxqDnmlTI+ngkz0rwAvZ1THVdvcBHe9GfMuEgXgf+7kk4YGGflCbEjMaZinfT5P82ipqMl2ccbKWCYQHR3DfFkcM0K6XHxn5wwci5XT2YS2EpHLqnsm1fGHesipqrYwhk7NxEqHTysuzlFSjvJcV9EI7Huxalh/tfLGSOOsZ93A4kJL+uLEAI3kQ3yQq5xGO4g15OAXfC63URuNTspQFPGK0vX8OQbuTK+D8Jd29HoDWrzokdPHcNiMmxE5/WscuutEeRiqfkQGnWhGicKBlzm/FPv8eRsGn4VcDWqgZprm5PVk9QUkJ3ptrCez8mUKQpru0ze/VW0m7Fe/dHFfSG/Yxr+WEeam/WCAMP3p7sPdXWZSIkvlzjzLsOvtai1tp/Uamo7RlFq7cWiTKmd3qacQwiMrjjuauLrN7B5g
+X-Exchange-RoutingPolicyChecked:
+	eRJgLNwwXwwGWZgfgwqQEtlUiFxtnk2qxhyBlQOt9XR7UJDCBWMk69tGR56GD0eET1ibUmZtmFshCRRQqXxIZymKIgZGi698cbIXK4xhQjtlkzSgMhiJzUsDGvWAdptIO+FRuhMf3rsFYDG/jqIYd9nlqa5sKHs4rgl8vPkfelD7dAK06L7tU9ohb9fNZYV+14o0+Ff17k1XQof0S+BaGZsiHYi2u0XGPGfMPqxetmV4jY85kefDJDT2zvNZGWuZ0LHZiDWxigTnezHM2g2DmTdwkAI4AJo24robQjZqSIikvn/UIwKV2QduE32kxHwF9RlpUXCgIsOgjC+Ukjmc8g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:48:39.1179
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b897041-9a3c-4cd8-75f1-08df2ea01506
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7010
+X-Proofpoint-ORIG-GUID: x6DB6d45XSYPleagOldtvqcMCfzSrih4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NiBTYWx0ZWRfX3E2CFXd5IDo1
+ J3e84kpsGdF3iOISdQJUoChKJHeysdaSXzLkTIjreuCrFowNviekyAaDpMBEUtprzXIBn1gcyHZ
+ p37X/iTXfs1n2Ot8WVEoXEpmh9qBRLJRBpk8vnYfg4x+xaMLC8TYZDFpI6UbHnBW6gpM5FkIkml
+ N1o4IYol0GK8kDC5rzF+l/i7QewwKkxB7wqFWNS2Sa8RuefXyOJIvXpihdAcExo/YBZBo1CYpUS
+ 7q+Wgn/+aRQoIpRkWu/RrPRttLWSYAW+RfGg6gCEuJY3hOTfhzMXfSXLPsBELzp4Bmw5ZTCE49D
+ 4qonKgWXBayUcEWEHqa3cd+HlxCUQXkZjYLrFeKYnn0E6BnhOwuOXa1rjxMxSkhDQtFZs+qB5/K
+ GGeN5QkLKCWc/8nesgZF2+nHyTlDl8E3epw3L53CbfeSFFOJrafPg3xwTDHN0zUd2i4145Iqt6i
+ PjLVFf6Coj+CHHpCm8w==
+X-Authority-Analysis: v=2.4 cv=DMAacCNb c=1 sm=1 tr=0 ts=6ad75545 cx=c_pps
+ a=SJ9xqO7H1Prqh+YlTuKNYQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
+ a=sozttTNsAAAA:8 a=P1BnusSwAAAA:8 a=WcmwVEcwf4aBJvEe8xcA:9
+ a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-GUID: x6DB6d45XSYPleagOldtvqcMCfzSrih4
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NiBTYWx0ZWRfX5kBmyYcPZdBg
+ nw/JSBiOb3NdH2pM/1PFeuowlN9dXNd2pxZab6yFmaLgUJzOgZRv5qw3i7Xu3RBzymqGoBQ75dj
+ nqhh9MOGuyv5F0S3nOiSNv6/UB90Vpw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 adultscore=0 phishscore=0
+ impostorscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200046
 
-Hi
+From: Devarsh Thakkar <devarsht@ti.com>
 
-Am 19.10.26 um 20:38 schrieb Hamza Mahfooz:
-> On Mon, Oct 19, 2026 at 06:03:55PM +0200, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
->>> Hi Thomas,
->>>
->>>> Yeah, what's the cause of it? Switching off features does not fix any
->>>> bugs or improve the status quo.
->>> You are right that the module parameter is only a workaround for users
->>> affected; it does not fix the underlying scheduling problem.
->>>
->>> The cause is that the synthetic vblank timer is used to pace completion
->>> of atomic updates triggered by dirtyfb, in addition to providing
->>> synthetic vblank events. In Xorg's software-cursor path, pointer motion
->>> damages the primary framebuffer and the damage is instantly submitted
->>> via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
->>> synchronous atomic commit, and with the vblank timer enabled that commit
->>> can wait for the next simulated vblank. Under continuous pointer motion,
->>> these commits dominate the update path and delay normal client updates,
->>> resulting in sever frame-rate drops.
->>>
->>> This particular regression results from the combination of the blocking
->>> dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
->>> cursor plane in Hyper-V. While the Hyper-V video protocol does have a
->>> hardware-cursor command path, the upstream hyperv_drm driver currently
->>> exposes only a primary plane. Cursor plane support was deferred during
->>> the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
->>> back to software cursor-rendering path and it competes with periodic
->>> graphical updates on the primary plane.
->>>
->>> So the proper long-term fix could be adding cursor plane support in the
->>> Hyper-V DRM driver, which may take some time. Providing that the stated
->>> purpose of the offending commit is to rate-limit display updates, while
->>> its current implementation regresses the existing software-cursor path,
->>> I think adding a switch or reverting the commit until the requested
->>> features in the driver is ready, is a reasonable short-term fix.
->> The problem is that module parameters are impossible to remove in practice.
->> Once in place, someone always depends on it. They also increase the number
->> of states to test.  Avoiding them is usually a good idea. Especially as
->> workarounds for bug or regressions.
->>
->>
->> I'm not familiar with the Hyper-V protocol, so I have a question. Why is it
->> hard to implement cursors? From the link at [1], I assume that cursor
->> support was left out because the simple-kms pipeline did not support cursor
->> planes. This has long been resolved: the simple-kms pipeline is gone and
->> hyperv_drm runs on the regular DRM framework.  Unless there's anything
->> special with the Hyper-V protocol, cursor-plane support should be do-able in
->> a single patch. [^1]
->>
-> I actually have been working on cursor plane support for hyperv-drm.
-> I'll post a patch soon.
+Add the SII9022 HDMI bridge and HDMI connector nodes, along with the
+DPI pinmux configuration connecting VOUT0 to the bridge. Enable the DSS
+and hook up its DPI output port to the SII9022 bridge input, and the
+bridge output to the HDMI connector.
 
-Awesome! Even if it doesn't fix the reported bug, it is still an 
-improvement for everyone.
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Udit Kumar <u-kumar1@ti.com>
+Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+---
+ arch/arm64/boot/dts/ti/k3-am62l3-evm.dts | 97 ++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
-To fix the bug, you *might* have to implement atomic_async_update. [1]  
-It allows legacy cursor updates to jump ahead of the commits and change 
-the cursor without vblank synchronization. It's a little-used feature 
-and semi-deprecated, but maybe necessary in case.  (Make it a separate 
-patch, I'd say.)  There's existing support in other drivers to see how 
-it works.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.3/source/include/drm/drm_modeset_helper_vtables.h#L1406
-
-Best regards
-Thomas
-
->
-> Hamza
->
->> Best regards
->> Thomas
->>
->> [^1] See https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c
->> for an example of how this looks. Most of it is hardware-related, but hyperv
->> would likely be similar in concept.
->>
->>>> We had another fix for a problem with vblank timers:
->>>>
->>>> https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
->>>>
->>>> Did you validate that this fix is unrelated?
->>> Yes I tested that fix and confirmed that it is irrelevant. It solves
->>> issues with excessively long frame durations, however this problem is
->>> found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
->>> below INT_MAX).
->>>
->>> Best regards,
->>>
->>> Lanfeng Wei
->>>
->>> [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
->> -- 
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
->>
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+index 964387eb5178..3cda48c3a918 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
++++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+@@ -44,6 +44,19 @@ usr: button-usr {
+ 		};
+ 	};
+ 
++	hdmi0: connector-hdmi {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "a";
++
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&sii9022_out>;
++				bootph-all;
++			};
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+@@ -192,6 +205,37 @@ exp2: gpio@23 {
+ 		bootph-all;
+ 	};
+ 
++	sii9022: bridge-hdmi@3b {
++		compatible = "sil,sii9022";
++		reg = <0x3b>;
++		interrupt-parent = <&exp1>;
++		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
++		#sound-dai-cells = <0>;
++		sil,i2s-data-lanes = < 0 >;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				sii9022_in: endpoint {
++					remote-endpoint = <&dpi_out>;
++					bootph-all;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				sii9022_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++					bootph-all;
++				};
++			};
++		};
++	};
+ };
+ 
+ &i2c2 {
+@@ -221,6 +265,41 @@ usb_con_hs: endpoint {
+ };
+ 
+ &pmx0 {
++	dpi_pins_default: dpi-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
++			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
++			AM62LX_IOPAD(0x00e8, PIN_OUTPUT, 1) /* (L19) GPMC0_CSn1.VOUT0_PCLK */
++			AM62LX_IOPAD(0x00e0, PIN_OUTPUT, 1) /* (M21) GPMC0_DIR.VOUT0_DE */
++			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 1) /* (L22) GPMC0_AD0.VOUT0_DATA0 */
++			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 1) /* (L23) GPMC0_AD1.VOUT0_DATA1 */
++			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 1) /* (K22) GPMC0_AD2.VOUT0_DATA2 */
++			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 1) /* (J23) GPMC0_AD3.VOUT0_DATA3 */
++			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 1) /* (K23) GPMC0_AD4.VOUT0_DATA4 */
++			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 1) /* (H22) GPMC0_AD5.VOUT0_DATA5 */
++			AM62LX_IOPAD(0x0090, PIN_OUTPUT, 1) /* (H23) GPMC0_AD6.VOUT0_DATA6 */
++			AM62LX_IOPAD(0x0094, PIN_OUTPUT, 1) /* (J22) GPMC0_AD7.VOUT0_DATA7 */
++			AM62LX_IOPAD(0x0098, PIN_OUTPUT, 1) /* (H19) GPMC0_AD8.VOUT0_DATA8 */
++			AM62LX_IOPAD(0x009c, PIN_OUTPUT, 1) /* (H20) GPMC0_AD9.VOUT0_DATA9 */
++			AM62LX_IOPAD(0x00a0, PIN_OUTPUT, 1) /* (H21) GPMC0_AD10.VOUT0_DATA10 */
++			AM62LX_IOPAD(0x00a4, PIN_OUTPUT, 1) /* (H18) GPMC0_AD11.VOUT0_DATA11 */
++			AM62LX_IOPAD(0x00a8, PIN_OUTPUT, 1) /* (G23) GPMC0_AD12.VOUT0_DATA12 */
++			AM62LX_IOPAD(0x00ac, PIN_OUTPUT, 1) /* (G22) GPMC0_AD13.VOUT0_DATA13 */
++			AM62LX_IOPAD(0x00b0, PIN_OUTPUT, 1) /* (F22) GPMC0_AD14.VOUT0_DATA14 */
++			AM62LX_IOPAD(0x00b4, PIN_OUTPUT, 1) /* (F23) GPMC0_AD15.VOUT0_DATA15 */
++			AM62LX_IOPAD(0x00b8, PIN_OUTPUT, 1) /* (L21) GPMC0_CLK.VOUT0_DATA16 */
++			AM62LX_IOPAD(0x00c0, PIN_OUTPUT, 1) /* (N19) GPMC0_ADVn_ALE.VOUT0_DATA17 */
++			AM62LX_IOPAD(0x00c4, PIN_OUTPUT, 1) /* (N20) GPMC0_OEn_REn.VOUT0_DATA18 */
++			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 1) /* (M19) GPMC0_WEn.VOUT0_DATA19 */
++			AM62LX_IOPAD(0x00cc, PIN_OUTPUT, 1) /* (P23) GPMC0_BE0n_CLE.VOUT0_DATA20 */
++			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 */
++			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22 */
++			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23 */
++			AM62LX_IOPAD(0x00ec, PIN_INPUT,  5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLKIN */
++		>;
++		bootph-all;
++	};
++
+ 	gpio0_ioexp_intr_pins_default: gpio0-ioexp-intr-default-pins {
+ 		pinctrl-single,pins = <
+ 			AM62LX_IOPAD(0x01b0, PIN_INPUT, 7) /* (B12) SPI0_D1.GPIO0_91 */
+@@ -321,6 +400,24 @@ AM62LX_IOPAD(0x0004, PIN_OUTPUT, 0) /* (AA23) WKUP_UART0_TXD */
+ 	};
+ };
+ 
++&dss {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&dpi_pins_default>;
++};
++
++&dss_ports {
++	/* VP1: DPI Output */
++	port@0 {
++		reg = <0>;
++
++		dpi_out: endpoint {
++			remote-endpoint = <&sii9022_in>;
++			bootph-all;
++		};
++	};
++};
++
+ &sdhci0 {
+ 	/* eMMC */
+ 	pinctrl-names = "default";
