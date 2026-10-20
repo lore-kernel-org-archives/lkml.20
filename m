@@ -1,104 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510493;
-	b=V/qjtU3oUJFK5aYkCqO7G1PQyZQX2zMaTv3fYeLkRQ9Vd+imFjUyn1ileAUzfqb298S6
-	 9RmN517C+FcFaCW62zJgTpTkGPE5/WFvWchSZhGQEd2dMwPiiAr2MHuNQACFXTnjCGukA
-	 LKCCooAWusUHGwr7xMyPhevkayBnWRxYZrocDNwKekygR7mDrm3i6IB0muCX5J7t6owAm
-	 KBLwI6N45jnpUvbEFY8B+LX+rUOvnpapHEkjJK4K4/NtzovXlft/kZ9u+Qfoo42YmPPV2
-	 OcBlj3hHvfrKJB/SWPVEucQzoNPNpFEcDQZwDy7rNXUS7IHn4igZQjLFbGtjGYlcmRw==
+	t=1792510563;
+	b=X4Uj21T97I6Mn89+ExhpYvzMyJg3Kw4FhT1071opZLddE6xX4G+Zwo4dsuD4bdIyzVc5
+	 24nsLN0/Ep7aSj9RozEjyBBdHqA9LH3rHhl9XqAvTCjlHtMljJBap8eYFyiY9zTC4622l
+	 W9Bi7AjAihO0oVfZbYp+DikdQwgCLAW1ELzOYfvbrEGZJF1b74orafkg0H9NPV+YgQU87
+	 uC9lStMnIxvys2p6VIcQzm2rXE/bKqa5K4f83HR6ZCbwbuEYY7xXrIVt6xVXEUG87pN5i
+	 33UGTrSRDVgy4vc7COlPXLdwsP/QYzGN2ouq7e8xdN0jWpw32yfkdb50TeCY/M6Vyzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510493;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Spamd-Result;
-	bh=FXOWBPmOf21F5XJZl5ItIlWjS1sUT59gcr713iMgN/Q=;
-	b=fBkKMMZ9F0ztCFM/xNyLOxeKe7NMXqCipuGQP3GFPbtlqumw6vB9EsbCa68rFMvomcaB
-	 rm2M7Y3b72rTRQcCBrsaleve4q/CSdAXFJzRD7pmxaZpQXR/j6JzPuNR52r/El0QD399y
-	 IIWTYrAsuaPZrvwqWwYtQv0Wuqy7UsaQc7fG1DFW2pGLMEu/ZRptb4ZM50ogwlb+Zd1Jg
-	 UXop3oFIv9L2BV2nbBR+vEprWicKkT3EEg7/LKmW8cz6KMdF+GKkA6dMcU1zA3Z0ojD5W
-	 cTyt6QgjnyA6HFgDQRZAJRBekofT/NUjr2x+NBlWA2pP3U3lQhc/0XPQxxfZOOdHcog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510563;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=pOwLtvBNWYcPUXh0MDKShRbc4hIk6nWsRpW0T7LlthE=;
+	b=WrCU1Qfk/HGzdHxjvgAO5V5sQXTy4O0ExEP3L/LKGbPz+TrA3vxFSbAWsCRyZPUCp69p
+	 pzg0Q7DYhJxxq5XgJVe9XDdqe+0bhAKYAlMdj4vbLy8XLdAnCwCiGWd3zf8ie6cb2SICc
+	 Q/bLL0mb3rEztCFYN+UytVTHdbzmhwW5r4d436LyJuwYhwu+ssFwpobImvahGobrBBgFx
+	 I9xix9cJHjKazM8fAwWnXaS0UU49jQiFURZz1MllHpFJzgtVSKO9f1VuaRQC995pMTZ6L
+	 /INfF3qRjEe2pH6CNojxS/AqU8bVxFt6QWVHKenhtEA/b0bZqzT2uxK6ZcwD79sdW8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="fbc/LIL4";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W14fTtIT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="fbc/LIL4";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W14fTtIT;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFpqJ0az;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8FB606A31D;
-	Tue, 20 Oct 2026 15:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE8FB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20F6606A336;
+	Tue, 20 Oct 2026 15:36:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fbc/LIL4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W14fTtIT;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fbc/LIL4;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W14fTtIT
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0BD871F7C1;
-	Tue, 20 Oct 2026 15:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792510491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=FXOWBPmOf21F5XJZl5ItIlWjS1sUT59gcr713iMgN/Q=;
-	b=fbc/LIL4fvrsVJUpJE5F0nTx6ucltOQ0cQXf35uqPkFY1xVej0jYrY1BOf1NWOuE0JUhtQ
-	QjGt+hEK37rOxX2QCpWIAqpGIZJv7V/T/Ei/SQypCAairOLKFnksGiZo+Sq0Iqqxrq2bei
-	LikHbKYd41mF1OwxDRnefAGh1SonXik=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792510491;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=FXOWBPmOf21F5XJZl5ItIlWjS1sUT59gcr713iMgN/Q=;
-	b=W14fTtITfJHq4faXSQxi5vOY1S3rXhePNfH5jUHcPMlIWu1uEThsmTQP+6n/xiPb9AROj9
-	ANvIvkkCvNXv/rBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792510491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=FXOWBPmOf21F5XJZl5ItIlWjS1sUT59gcr713iMgN/Q=;
-	b=fbc/LIL4fvrsVJUpJE5F0nTx6ucltOQ0cQXf35uqPkFY1xVej0jYrY1BOf1NWOuE0JUhtQ
-	QjGt+hEK37rOxX2QCpWIAqpGIZJv7V/T/Ei/SQypCAairOLKFnksGiZo+Sq0Iqqxrq2bei
-	LikHbKYd41mF1OwxDRnefAGh1SonXik=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792510491;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=FXOWBPmOf21F5XJZl5ItIlWjS1sUT59gcr713iMgN/Q=;
-	b=W14fTtITfJHq4faXSQxi5vOY1S3rXhePNfH5jUHcPMlIWu1uEThsmTQP+6n/xiPb9AROj9
-	ANvIvkkCvNXv/rBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A508F136C6;
-	Tue, 20 Oct 2026 15:34:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id nEjVHBqK12p9BgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 15:34:50 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-acpi@vger.kernel.org
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] efi/cper: Fix forgotten type check in cper_print_arm_err_info()
-Date: Tue, 20 Oct 2026 17:34:29 +0200
-Message-ID: <20261020153449.419646-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFpqJ0az
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 475461F000C5;
+	Tue, 20 Oct 2026 15:36:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792510562;
+	bh=pOwLtvBNWYcPUXh0MDKShRbc4hIk6nWsRpW0T7LlthE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=tFpqJ0azLNADX5d5UDjN6PB0O2z5IXHbXR5CodntOysND/cjQKab5wRv8suBNW6BL
+	 FkM2lo4Fv7WBIAx0BkFFoPnFEfW7PF005V08DWU9IxFiKr6TBStsJQGRbRDJZKjR3u
+	 lflyhI9Vt7IK4BAkTGJVfXggRoRR9a6Qx31xpKKg=
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Date: Tue, 20 Oct 2026 11:35:26 -0400
+Subject: [PATCH v2 2/2] docs: submitting-patches: make LKML a list of last
+ resort again
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,57 +50,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-get-maintainer-the-rest-fallback-v2-2-162aea473488@linuxfoundation.org>
+References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+In-Reply-To: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+To: Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, users@kernel.org, 
+ Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, 
+ Carlos Bilbao <carlos.bilbao@kernel.org>, 
+ Avadhut Naik <avadhut.naik@amd.com>, Alex Shi <alexs@kernel.org>, 
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, 
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Petr Pavlu <petr.pavlu@suse.com>, 
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+X-Mailer: b4 0.17-dev-39d60
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1962;
+ i=konstantin@linuxfoundation.org; h=from:subject:message-id;
+ bh=A4Lp7gFeUfcf3p09zbqDUXS2edDiBqlXcq1mBxaMvQk=;
+ b=owGbwMvMwCW27YjM47CUmTmMp9WSGLKud4W+LGtslvii+FzHWEYyV0TJfJW3uPoRqfreu1t/r
+ GHieyXcUcrCIMbFICumyFK2L3ZTUOFDD7n0HlOYOaxMIEMYuDgFYCIffRgZzrpwMmUn9ocf2Hh6
+ Y0/T6mnHxVK3R326NCdTYndCvYaLDSPDu0uWmc1zVy49vH3TOufDSR/V+juzfdfynLuj/eLLbvM
+ VPAA=
+X-Developer-Key: i=konstantin@linuxfoundation.org; a=openpgp;
+ fpr=DE0E66E32F1FDD0902666B96E63EDCA9329DD07E
 
-In the previous conversion of CPER type to bitmap in the commit
-96b010536ee0 ("efi/cper: align ARM CPER type with UEFI 2.9A/2.10
-specs"), one place was forgotten to be replaced, ended up with the
-incorrect comparison.  Fix it to the bitmap comparison.
+Commit 77167b966b7e ("docs: submitting-patches: clarify the role of
+LKML") changed the documentation to say that all patches should be sent
+to LKML by default, because get_maintainer.pl always suggested it.
 
-Fixes: 96b010536ee0 ("efi/cper: align ARM CPER type with UEFI 2.9A/2.10 specs")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Now that get_maintainer.pl only falls back to THE REST when no other
+matching section provides a mailing list, update the documentation to
+match: send patches to the subsystem-specific list, and use LKML only
+when there isn't one.
+
+Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+Signed-off-by: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 ---
+ Documentation/process/submitting-patches.rst | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Just spotted by a code review, not really tested
-
- drivers/firmware/efi/cper-arm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/firmware/efi/cper-arm.c b/drivers/firmware/efi/cper-arm.c
-index b21cb1232d82..b620cc9f8b5d 100644
---- a/drivers/firmware/efi/cper-arm.c
-+++ b/drivers/firmware/efi/cper-arm.c
-@@ -181,7 +181,7 @@ static void cper_print_arm_err_info(const char *pfx, u32 type,
- 	}
+diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
+index 7ae79452e1b4..b4a2750599a7 100644
+--- a/Documentation/process/submitting-patches.rst
++++ b/Documentation/process/submitting-patches.rst
+@@ -239,9 +239,12 @@ patches as arguments to scripts/get_maintainer.pl).  If you cannot find a
+ maintainer for the subsystem you are working on, Andrew Morton
+ (akpm@linux-foundation.org) serves as a maintainer of last resort.
  
- 	/* The rest of the fields are specific to bus errors */
--	if (type != CPER_ARM_BUS_ERROR)
-+	if (!(type & CPER_ARM_BUS_ERROR))
- 		return;
+-linux-kernel@vger.kernel.org should be used by default for all patches, but the
+-volume on that list has caused a number of developers to tune it out.  Please
+-do not spam unrelated lists and unrelated people, though.
++You should also normally choose at least one mailing list to receive a copy of
++your patch set.  Look in the MAINTAINERS file for a subsystem-specific list;
++your patch will probably get more attention there.
++linux-kernel@vger.kernel.org functions as a list of last resort for patches
++that do not have a subsystem-specific list.  Please do not spam unrelated lists
++and unrelated people, though.
  
- 	if (error_info & CPER_ARM_ERR_VALID_PARTICIPATION_TYPE) {
+ Many kernel-related lists are hosted at kernel.org; you can find a list
+ of them at https://subspace.kernel.org.  There are kernel-related lists
+
 -- 
 2.55.0
 
