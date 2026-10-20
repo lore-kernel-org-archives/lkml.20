@@ -1,104 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487654;
-	b=RPCt+XsoSr5ftuG7S4J3+DRfBBZUr0GxE5N5JBmAC3z6j6yKfR3qEe+B6h5fC1CDwvVL
-	 NoMbG6q//WZQKPVur0mOAVT9x/8zwmV6V9v3j4PaawuNhGvdTIoDmsfH0TezCtSb8xYkV
-	 cx2wqDiX5iP+GSzHrjuNH0kh3/KZ0RGTmMAL3pyWy+DV2KEQwQXl9On0oEgMtwCX+NMpx
-	 3QWGzmhbR89xjFt/sHuPBLLmAPIyyegRR3gyD900UvLr9fcZ3M3rO+IR7e9RN0dcjhBxG
-	 ULr2NcJdx4RnjUW1qsBLaQ9dQfq41to1tZQAkc7m4u+uE4NSv+ssID07NFckVaVNnUA==
+	t=1792487664;
+	b=dzkvJklk9EW0FwgKXEtq6cV0LEeqBT21ftvf6iGqsb+u/3CHP7urdd72uwwSmyuR2Bss
+	 807+HHRahL6pjFVJe5Ghn9d+UuS5TKUDJobXJqC/G4fQ+3R0KTDydm8avmehMnwq0LEJe
+	 Zy6jwwVQ0ig7gyYp7GbVxL5WElmWHKv/gEjTE/uFXuPu3pm1258PL1s2PqZMCKSR8RPu7
+	 lha/x9rvTzC3ve/uTqs9TOAoqY4B/SIc9jbYIHxZKXQgBanTK4BNRG5Jn715VuxGK3m7T
+	 rLVuP7ljtFzEhC+LnuUrfLc3U2fE7lsCKoyDPNmyiOol6Vdr8F1ugnZAONfKFwkpLAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487654;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Flag:X-Spam-Score;
-	bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
-	b=Sxu15r6JSNq+5+AE6V0u18f665PX55ZOCp7yNkhTbNepku5MeB1RtuA3atg+t1xJmTuO
-	 HypS5pVVncqyn6+mfILxrZ8VXdPSGJnDrzJZBRJ9Aa6CUgmDVFezdaSiMQWv/dH6YUnbX
-	 R8SOFZJ9GRaDZAQN3kE3dMqYneqFuzV0W4H4E8qpKl2/Nepm+ErauMG4dBHMQeK+z0HJS
-	 X3gRgekrCSg3AaY2edeA/7+0EA2TjJK7sjk8pqR7jadR9aNMgS3W5r3rn+PB7bDe5xbIu
-	 PSQdMZVkoboA/C8Dgr3lYHY11rudCkrE25aD5IRIBoZE3cKpRYOszzLWvi+Ji4lQRUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487664;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wsw+cMVNcuXb/+EKvkTcobn9fmysfOHYp5okORl6mzA=;
+	b=sLa3TZMG1sYg2gV+tj2XZ1BeTEStoirfwT8AmMb62XnZ45J0QF1uVnq7e/mKQueh18H1
+	 xeh9iknOYjUt/smDhbgsjrOU5LgdmeE0gZGh1QnNjDH+PY81Lmr9TRFyAhBlppjYYgE8k
+	 CwGOtPpIFlGL2ez94tZ8OlD453HJsx0wfCJJyRCrhbpyMkdJUv2HYMTu4S3Oj4Iy75JRL
+	 1s6OR/RVwjujSps8QMQJ2bFXtlmAyctcy0ISbyQSxqEVhd/fj0Y7w/h7VIup67iNByEyQ
+	 ISHgLmoVJ/xHYq974ElWhI+ZGu79q8x2F6DghtG8PW9JihNNNdD6Go0SXtXJCDsS1wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qz5T1yBj;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qz5T1yBj;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qXiiGIau;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E580606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:14:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E580606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5335606A31E;
+	Tue, 20 Oct 2026 09:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5335606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qz5T1yBj;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qz5T1yBj
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B8EE91F44E;
-	Tue, 20 Oct 2026 09:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792487637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
-	b=FabIPXEbdQj8PnsJLgzWdOf0WlEkKJ31RrCT4zjm8/5VkwE1fDv9WOtYbaxqB1TqxZ3vry
-	RjRYv+jx0Zo6P6GqGNjq/Kj1H/GNol08e6Wl/FbloYUJayPGz3HC9Z+EOQ3EHBZc33F2CI
-	IDqAktxOkzYlACENhzTuztADxpMNaOA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792487637;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
-	b=qz5T1yBjGy5qGXamBQRVTNpt+TV9+BJ51Dqbcj8/GhO2kTgQNcw6X8xHiwAn0iLcc7lbld
-	W5qJSMBDztjCC6DA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qz5T1yBj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792487637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
-	b=FabIPXEbdQj8PnsJLgzWdOf0WlEkKJ31RrCT4zjm8/5VkwE1fDv9WOtYbaxqB1TqxZ3vry
-	RjRYv+jx0Zo6P6GqGNjq/Kj1H/GNol08e6Wl/FbloYUJayPGz3HC9Z+EOQ3EHBZc33F2CI
-	IDqAktxOkzYlACENhzTuztADxpMNaOA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792487637;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
-	b=qz5T1yBjGy5qGXamBQRVTNpt+TV9+BJ51Dqbcj8/GhO2kTgQNcw6X8xHiwAn0iLcc7lbld
-	W5qJSMBDztjCC6DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12F0D136C6;
-	Tue, 20 Oct 2026 09:13:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +OANMNQw12rebAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 09:13:56 +0000
-Message-ID: <1d3aecdb-2537-4f08-a4d2-22c81ebaca03@suse.de>
-Date: Tue, 20 Oct 2026 11:13:56 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qXiiGIau
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K1EE773640920;
+	Tue, 20 Oct 2026 09:13:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=wsw+cM
+	VNcuXb/+EKvkTcobn9fmysfOHYp5okORl6mzA=; b=qXiiGIauaSLjfpHvr0WBkW
+	3YxgA4S1njXVZ7USUMCbbStzZ/zN5NrR09+zRfBvA3TIxh3jmx3FFOxwZiGWFaM9
+	ulHuUl/MgXxIhhel1IXfimPpFiTMrCsz45kEqfQkZJbY75LlgD8Xn5cgCBBCg1dX
+	xb5QqNuCaoI89qnr2Gw1zteV425E65z+RVqQemV0BicjTJ+lRHgwW2CjYzKdqRdK
+	trkjgFNzguz06qZWbSN3Rq5FiXb6pxssPtLqFvH1c1M1zMYYQXynKJrmPEadshkm
+	PlGXmOaRc6vq8Mx5s64XTfRDqg2w9mu2BaTX25OckoKNMHoo3OmJroEmft9U87Jg
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5b9ywm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 09:13:25 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69K6roq3749071;
+	Tue, 20 Oct 2026 09:13:24 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hckqvhhce-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 09:13:24 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69K9DJOl34210244
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 20 Oct 2026 09:13:19 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 18BB020043;
+	Tue, 20 Oct 2026 09:13:19 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9B5AC2004B;
+	Tue, 20 Oct 2026 09:13:18 +0000 (GMT)
+Received: from [9.224.76.67] (unknown [9.224.76.67])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 20 Oct 2026 09:13:18 +0000 (GMT)
+Message-ID: <e560fc10-f0f4-4cfe-b86d-4df4e2ba3120@linux.ibm.com>
+Date: Tue, 20 Oct 2026 11:13:18 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,275 +87,96 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/13] efi: bgrt: add accessors for the boot graphics
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-3-maximpedraza@gmail.com>
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
+ capacity systems
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, Andrea Righi
+ <arighi@nvidia.com>,
+        Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>,
+        Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+ <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+ <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
+ <CAKfTPtCianGNWSu0s2J_B_aO_rtKWO17k9guYmwgXXLUHQE+SA@mail.gmail.com>
+ <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com>
+ <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
+ <ce85388c-3ea0-4363-8c89-fe2bf71b284a@linux.ibm.com>
+ <CAKfTPtC70sx58uiaMEXv=vOk+o-Q_1PcHewiVjGCWMd_kvn=tA@mail.gmail.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261013093243.505776-3-maximpedraza@gmail.com>
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <CAKfTPtC70sx58uiaMEXv=vOk+o-Q_1PcHewiVjGCWMd_kvn=tA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B8EE91F44E
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.com:url,intel.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
-X-Spam-Score: -3.00
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: bXIR07yBw0I1S-fqNglbU_RljOgyci3y
+X-Proofpoint-ORIG-GUID: e4D7YGIDG8rOS7o_L2PMplWT1iy1UGDf
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNCBTYWx0ZWRfXxw/W0T2hZrFZ
+ xLXrVUrjKyOK0z1gN9K/Ka0BHShWcBmhg5ctYRHuobFDU6kv+vsadasWY6uPbXRIt0soYeEvaJ+
+ dxlhCAXj6EjSSiCIz4jl4id0J+RLmAI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNCBTYWx0ZWRfXwBAlxeG7b8sW
+ F/z8EcAVeAfSJ7ZDZoMRgtXOyFvNdQNk3u4VC64vMBAW7zaxy0pX1HAOajNsaSNE0BRj7xwWJDv
+ v+LhyzugXg+SOMkB5LQWEuVRqNLG9WH2mwqE/MI3YdPh85G2JMAx9Vg8w+RW5bx7Vemz73uQZq4
+ F3tVLQKcLJqnFZhy7Gm9XoiYwpCoAALE8lDv16gI7cETrSx9n/RwCOoxr41fpp8pWXPea19tc5a
+ ac3YvfJfguYySRnTvkbHDQ3As/ICEhQMud+sXkByk2q751OxclfDIYjM9QvTGz+FJy27mbXkX6J
+ 6tp1yccyD+Os0KQVdWrVUumITFRE9VPZk0530DdT7wDQJUa6KdPZKJEeDZ4Zu9+T76GrJKIyYMD
+ S80DL+FR+prrg0Zbokcz8AVzUZUVaXRg/1vmDQSrRwwFtB/gHwRdoaPfakxr16Dsm4pUAcpuSWO
+ /gjq9G9YdyEt7bt7zbw==
+X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6ad730b6 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=8Vysr41LJf8a2GMkEQ8A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200034
 
+Hi again,
 
+>>> What you describe really fit into the prefered core that Shrikanth
+>>> Hegde has developped
+>>
+>> I agree, but Shrikanth's solution can not bring some of the
+>> behavior changes required. cpu_preferred_mask can help
+>> direct task placement away from low capacity cores but idle
+>> core first approach still places tasks to fully idle low
+>> capacity cores. This patches proposal tries to move tasks
+>> first to the idle SMT siblings.
+> 
+> We have compute capacity to decide which CPU is better than others.
+> The capacity of SMT CPU has also been somewhat random, but we should
+> find a way to fix this instead of adding a threshold to decide whether
+> to pack or spread tasks onto idle cores. With correct per CPU
+> capacity, we can easily decide if an idle low core is better or not
+> than the sibling of an already busy high core.
+> 
+After thinking about this a bit more, I have decided to work
+on a different approach rather than trying to integrate
+into Shrikanth's vCPU backoff or trying to expand this series.
 
-Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
-> The DRM splash client shows the boot graphics the firmware left behind,
-> and needs the image address and size, its offsets and the status bits.
-> Reading them from bgrt_tab and bgrt_image_size works with drm_client_lib
-> built in, but it can be a module, and neither is exported:
->
->    ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_tab' undefined!
->    ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_image_size' undefined!
->
-> Rather than export the data, add an accessor for each of them, exported
-> GPL only, with stubs in efi-bgrt.h for CONFIG_ACPI_BGRT=n so that users
-> need no #ifdef of their own. The variables stay global for
-> drivers/acpi/bgrt.c, and are only written by efi_bgrt_init(): mark them
-> __ro_after_init.
->
-> Reported-by: Mario Limonciello <mario.limonciello@amd.com>
-> Closes: https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
-> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+I'll come back with another series after I become more familiar
+with how the SMT capacities are calculated and incorporated in
+the decision making process. My gut says the real challenge is
+going to be finding a way to benefit all architectures that
+configure asymmetric capacities but I'll give it a shot.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/firmware/efi/efi-bgrt.c | 74 ++++++++++++++++++++++++++++++++-
->   include/linux/efi-bgrt.h        | 39 ++++++++++++++++-
->   2 files changed, 110 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-bgrt.c
-> index 1da451582812..01425c4d2e70 100644
-> --- a/drivers/firmware/efi/efi-bgrt.c
-> +++ b/drivers/firmware/efi/efi-bgrt.c
-> @@ -16,8 +16,8 @@
->   #include <linux/efi.h>
->   #include <linux/efi-bgrt.h>
->   
-> -struct acpi_table_bgrt bgrt_tab;
-> -size_t bgrt_image_size;
-> +struct acpi_table_bgrt bgrt_tab __ro_after_init;
-> +size_t bgrt_image_size __ro_after_init;
->   
->   struct bmp_header {
->   	u16 id;
-> @@ -89,3 +89,73 @@ void __init efi_bgrt_init(struct acpi_table_header *table)
->   out:
->   	memset(bgrt, 0, sizeof(bgrt_tab));
->   }
-> +
-> +/**
-> + * efi_bgrt_has_image() - Whether the firmware left a boot graphic
-> + *
-> + * Return: true if the BGRT points at a BMP image, which efi_bgrt_init()
-> + * checked and reserved.
-> + */
-> +bool efi_bgrt_has_image(void)
-> +{
-> +	return bgrt_tab.image_address != 0;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_has_image);
-> +
-> +/**
-> + * efi_bgrt_image_address() - Physical address of the boot graphic
-> + *
-> + * Return: the address of the BMP image, or 0 if there is none.
-> + */
-> +phys_addr_t efi_bgrt_image_address(void)
-> +{
-> +	return bgrt_tab.image_address;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_address);
-> +
-> +/**
-> + * efi_bgrt_image_size() - Size of the boot graphic
-> + *
-> + * Return: the size of the BMP image, as its header gives it, or 0 if there
-> + * is none.
-> + */
-> +size_t efi_bgrt_image_size(void)
-> +{
-> +	return bgrt_image_size;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_size);
-> +
-> +/**
-> + * efi_bgrt_status() - Status field of the BGRT
-> + *
-> + * Return: the status byte. Bit 0 tells whether the image is still on
-> + * screen and, since ACPI 6.2, bits 1-2 how far it has to be turned to show
-> + * upright (ACPI_BGRT_ORIENTATION_OFFSET).
-> + */
-> +u8 efi_bgrt_status(void)
-> +{
-> +	return bgrt_tab.status;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_status);
-> +
-> +/**
-> + * efi_bgrt_image_offset_x() - Horizontal position of the boot graphic
-> + *
-> + * Return: the X offset, in pixels, at which the firmware drew the image.
-> + */
-> +u32 efi_bgrt_image_offset_x(void)
-> +{
-> +	return bgrt_tab.image_offset_x;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_offset_x);
-> +
-> +/**
-> + * efi_bgrt_image_offset_y() - Vertical position of the boot graphic
-> + *
-> + * Return: the Y offset, in pixels, at which the firmware drew the image.
-> + */
-> +u32 efi_bgrt_image_offset_y(void)
-> +{
-> +	return bgrt_tab.image_offset_y;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_offset_y);
-> diff --git a/include/linux/efi-bgrt.h b/include/linux/efi-bgrt.h
-> index e6cd51005633..1c287e5fd388 100644
-> --- a/include/linux/efi-bgrt.h
-> +++ b/include/linux/efi-bgrt.h
-> @@ -9,7 +9,14 @@
->   void efi_bgrt_init(struct acpi_table_header *table);
->   int __init acpi_parse_bgrt(struct acpi_table_header *table);
->   
-> -/* The BGRT data itself; only valid if bgrt_image != NULL. */
-> +bool efi_bgrt_has_image(void);
-> +phys_addr_t efi_bgrt_image_address(void);
-> +size_t efi_bgrt_image_size(void);
-> +u8 efi_bgrt_status(void);
-> +u32 efi_bgrt_image_offset_x(void);
-> +u32 efi_bgrt_image_offset_y(void);
-> +
-> +/* The BGRT data itself; only valid if efi_bgrt_has_image(). */
->   extern size_t bgrt_image_size;
->   extern struct acpi_table_bgrt bgrt_tab;
->   
-> @@ -21,6 +28,36 @@ static inline int __init acpi_parse_bgrt(struct acpi_table_header *table)
->   	return 0;
->   }
->   
-> +static inline bool efi_bgrt_has_image(void)
-> +{
-> +	return false;
-> +}
-> +
-> +static inline phys_addr_t efi_bgrt_image_address(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline size_t efi_bgrt_image_size(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline u8 efi_bgrt_status(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline u32 efi_bgrt_image_offset_x(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline u32 efi_bgrt_image_offset_y(void)
-> +{
-> +	return 0;
-> +}
-> +
->   #endif /* !CONFIG_ACPI_BGRT */
->   
->   #endif /* _LINUX_EFI_BGRT_H */
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Thanks for the valuable comments and guidance.
+-Mete
