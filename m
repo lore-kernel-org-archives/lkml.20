@@ -1,73 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.25.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521486;
-	b=0YIxVVVtUT3ZYJErwmiqtj5PhGgu4lw1LJ4KI/NpVjCGbzRoqZiwCiKRxwqZSMzVAh5M
-	 D1gzKnBeFqhgLn3AGwRXLKbbciz4r3aOKUtQXQumaHQC2kJXSzDxbHwvPo8b2aNaw0Xgc
-	 ZYOivg8kX2ethnYqfjkWQ4P2RmGte2tNGKRmLe6mqKpYhtisg8Cd0KEq6yCiaIH2nKtLO
-	 038/NP9QsaovOPxdW2SVbxfFbCsOD7sbaSDSuUkkhmkYNWnGcJ5zMvLjpXgIJWhvAbKbD
-	 aXU37VQgdVfyd/XQ913TfuXqgJpskFyuh7D882OGkhJACesK004wepxvXxaOEyamr1Q==
+	t=1792521607;
+	b=IB74oLBZ5HCMiw6GHYZd/tx9X9vkqeaTqmnm82YTUXVrxuTioKyL4z/vg0N/nEUlh2S4
+	 ylXeAcnQAfDSuUHKmLdNWk7IajGch2hbPSfrlGg6DzRnE63VZWDdG87yV0Bn6UOuoZ1Vz
+	 7DIj5DgUkLH6tXOs8u5Q8rLigZ6Ey3a6jNoBA5X2+ZByPWzt08R8L0lQ7KdHljk4jRm82
+	 AhVfqqsSljLpIsanVuV0NUFPyJX0wwylBBECQgo2RXr/QRMZlYjzJNzQGam73Zi3+4PJb
+	 jxq9nKffRsxT3Q53KBVF1YZhkMymeM18ohh8PvJbSag9eCqXlPzayM8Pv82Fk17EfQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521486;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Infomaniak-Routing;
-	bh=Pr5tsmnntCf16xoQZruQvjUzk9vMB//UroElAOAsHX4=;
-	b=zDsFUKSu2GOY4WXtkpHSJiyDIMFDfxgcLRG5zMj75o1YlKAwFz/2pDR74pdzeOHR1zuB
-	 Ts0v3fo4FXpggPUWh18PZ6DrUJcZtSWrHFjUGM5Wv+ztGs7BhXmL1lwJB3qOCKBVjbCxA
-	 JpCVXO19rRYogC+d5ZHfAnYbM3ZXg7WMPLBaEyrbeQq9Tg7H5VSWoCXUxsCpzggBPytaY
-	 aYnmCbpE8fYvjx+sQ+8EBguYZoLaT/M8UL8hUqgvNk6ocI1hdaDTQ97/tv1ceuUM1w2eh
-	 lsHTXKJOe/yf3VK0y6DXGf0OHxK8n6ndDVrih4h6juMuYS9F0m9C9Ll/Dt7AAFHdTNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521607;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EOZpM7CuUTVEfDbgBRvKlOXtuH3AUTE2in12R3NoLdY=;
+	b=UBGVIjPst3Ze1rnnoQgTRw1CC3z2Gou8g2qvpDISjd74xxpOvuAZdrc2qe3dp3RHJ4IF
+	 ELM/cO9L2CIQbkQ+A19wu+lTSh4oVsNb0qIXq4t/fH0pm02Y5AZ0KS+jFaDtyNdazpWn2
+	 O3GDKRVsTHG9DUnHlTIUgj8Ow548JpRq1mQCAXRmLQzXzfGI2CD6jPiXsnQkk24UCxxTr
+	 NM23Yo9rwVTV5cq1kLtQSGGxgHO0zhOFO6C3MgLamZq6t6lBBgRvgD1tMz/qKIy95jRS4
+	 W5WyiYuGc590+tXfVuCyTJ29un3BTthtxeW1UlrOfJ7iVrmrN88/sxv4OBTr75kR2nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=yMdKCsMo;
-	arc=none smtp.remote-ip=185.125.25.12
-Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch [185.125.25.12])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjqZteqL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF194606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:38:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF194606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39755606A31D;
+	Tue, 20 Oct 2026 18:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=yMdKCsMo
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j8Lkw5pMbznjT;
-	Tue, 20 Oct 2026 20:38:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1792521480;
-	bh=Pr5tsmnntCf16xoQZruQvjUzk9vMB//UroElAOAsHX4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=yMdKCsMolUavEVmgMhSTA49ormN3OEV/fDdxYmqsA7HkJHcEwxL/HPA/yAlAw+0iF
-	 dmtOdiH0jvq4OUTMreoubhxD7uszI5MrBlsbriJHkXED08zJUO8HpGLFBjDQkh5KSX
-	 INXyii7ZadMPi2U+U2FE2AjiSBHRz0+UMrO9R1HA=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j8Lkt4K95zMPV;
-	Tue, 20 Oct 2026 20:37:58 +0200 (CEST)
-Date: Tue, 20 Oct 2026 20:37:57 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Justin Suess <utilityemal77@gmail.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>, 
-	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E . Hallyn" <serge@hallyn.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Yonghong Song <yonghong.song@linux.dev>, 
-	John Fastabend <john.fastabend@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	Amir Goldstein <amir73il@gmail.com>, Mateusz Guzik <mjguzik@gmail.com>, Shuah Khan <shuah@kernel.org>, 
-	Tingmao Wang <m@maowtm.org>
-Subject: Re: [PATCH bpf-next v1 00/11] fs: unified VFS ancestor walk for
- Landlock and BPF
-Message-ID: <20261020.eiP2Kohshahj@digikod.net>
-References: <20261013164800.2906577-1-utilityemal77@gmail.com>
- <DM6PICFFAU5Z.14KOZT5YJO7MA@gmail.com>
- <atdw4wVVarvwgRH0@zenbox>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjqZteqL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0027F1F000CA;
+	Tue, 20 Oct 2026 18:40:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792521606;
+	bh=EOZpM7CuUTVEfDbgBRvKlOXtuH3AUTE2in12R3NoLdY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bjqZteqLF/Bq7vcGZ3WV9MU3lv14rWUDFvDQdlIzPJTrt+LW2uTFrBi2jchQ34lO+
+	 Kk89zT0clX+NoThMqLvS2e55wsZrrtAo01Ev1X/eMqC+a25/y2nDFdjDj5e+xP6hNi
+	 E+IRH+r1IaN58xSsprmwoKjEHg959dem7eg8JKz3dnHHQ1KbKfmZ3hMxK5VlMl4fQz
+	 clV4CMGNfsKKHcQxHqcOHXtt6etaO1ElQOXQ5sNBsumfhLDvjeufwp8oPBpydGMt0b
+	 I5aORTs3eBFXDOiAPSwU4ook3Y23Dc5VasJafWukMdDsDIwT2SXkzqxb67TxGXSM+D
+	 Ul+AxZlDO7RpA==
+Date: Tue, 20 Oct 2026 21:40:02 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Pavel Popov <pavel.e.popov@intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Lukas Wunner <lukas@wunner.de>, Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+Message-ID: <20261020184002.GO64621@unreal>
+References: <20261020173736.81755-1-pavel.e.popov@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,75 +64,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atdw4wVVarvwgRH0@zenbox>
-X-Infomaniak-Routing: alpha
+In-Reply-To: <20261020173736.81755-1-pavel.e.popov@intel.com>
 
-On Tue, Oct 20, 2026 at 10:05:54AM -0400, Justin Suess wrote:
-> On Sat, Oct 17, 2026 at 01:02:40AM +0000, Alexei Starovoitov wrote:
-> > On Tue, Oct 13, 2026 at 12:47 PM Justin Suess <utilityemal77@gmail.com> wrote:
-> > > The structure is unchanged from the RFC [2]: a stepwise engine private
-> > > to namei.c, a callback front-end for in-kernel callers (Landlock
-> > > is converted, fixing the follow_up() race Al reported, hence the
-> > > Fixes: tag on patch 3), and open-coded BPF iterators over the engine in
-> > > referenced and rcu flavors, with bpf_path_ancestors_legitimize()
-> > > escalating from the latter to the former mid-walk.  Patch 1 is carried
-> > > from Song's series.  See the RFC cover for the full background and API
-> > > listing.
-> > 
-> > Song's series stopped at
-> > "It is a conceptual dead-end to expose these two modes via separate APIs
-> > and leak this implementation detail into non-core code. It will not
-> > happen as far as I'm concerned."
-> > VFS_WALK_RCU, -ECHILD to the caller, two bpf iterators and the
-> > legitimize kfunc are that leak.
-> Following up on this, plan is I'll submit v2 of the verifier fixes
-> series and get that finished first.
+On Tue, Oct 20, 2026 at 10:37:34AM -0700, Pavel Popov wrote:
+> VMware and Hyper-V expose passthrough devices to guest VMs without an
+> explicit host bridge device. Consequently, host_bridge_whitelist()
+> cannot automatically identify the underlying host bridge structure,
+> causing Peer-to-Peer DMA (P2PDMA) requests to be rejected unless the
+> device IDs are explicitly listed in pci_p2pdma_whitelist[]. To enable
+> P2PDMA on Intel hosts, this series extends cpu_supports_p2pdma(), which
+> so far covers AMD Zen and newer, with an explicit list of Intel Xeon
+> server generations.
 > 
-> Then after that I'll do a redesign around a single iterator
-> implementation that decides the walk type and abstracts away the details.
-> It will be KF_RCU_PROTECTED and callers will need to break out of the
-> loop to do sleepable work. They'll be able to acquire the path
-> references with a kfunc to take them out of the loop.
+> Patch 1 moves the CONFIG_X86 #ifdef out of cpu_supports_p2pdma().
+> Patch 2 is the v3 patch rebased on it, with Logan's Reviewed-by carried
+> over; the Xeon list and the check are unchanged.
 > 
-> That drops the __uninit iterator changes and the legitimize kfunc as
-> well.
-> 
-> > Landlock still passes flags == 0, so nothing in the kernel walks in
-> > rcu mode.
-> Mickaël would you be interested in the hybrid walk conversion as part
-> of this series? Or prefer sleepable walk be retained for now and
-> converted later?
+> Changes in v4:
+> - Add 1/2, moving the CONFIG_X86 #ifdef out of cpu_supports_p2pdma()
+>   (Logan Gunthorpe, Leon Romanovsky)
+> - Keep the #ifdef around the asm/ includes, as these headers exist
+>   only on x86 (Bjorn Helgaas)
 
-I would prefer a standalone series for VFS and Landlock that also
-include (with dedicated patches) the RCU optimization proposed by
-Tingmao.  That would prove that it works end-to-end with the RCU
-optimization, and that would be easier to review and merge.  Then a
-series dedicated to BPF could leverage this work.
+I'm confident that this is wrong usage of asm headers.
 
-> 
-> Justin
-> > Patches 1-3 fix a real race and don't need bpf.
-> > Send them to Christian, Al and Mickael on their own.
-> > 
-> > > Verifier fixes propagating the RCU-ness to trusted fields can be done,
-> > > but it's best as a separate series where the idea can be examined more
-> > > closely.  Then marking the dentry as trusted will allow you to use the
-> > > dentry xattr kfuncs.  Nothing in this series strictly depends on having
-> > > a trusted dentry, nor will marking it trusted require changes in this
-> > > API.  See my follow up [4].
-> > 
-> > Then what can a prog do with a position?
-> > pos->dentry is untrusted now.
-> > Marking it trusted will require changes.
-> > d = pos->dentry is not linked to pos. It will stay trusted after
-> > bpf_path_put(pos).
-> > pos of the rcu iterator points into bpf stack.
-> > MEM_RCU propagation fixes neither.
-> > What next() should return depends on how the verifier tracks it.
-> > Let's do the verifier part first.
-> > 
-> > pw-bot: cr
-> 
+Thanks
