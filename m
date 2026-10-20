@@ -1,84 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792526221;
-	b=GYUU3KGkvB1ZajZVEOvXoUnGFTOFe8f9KDHgAj2/aXxuasv/6pynKviMT5FgGZV6cjll
-	 X9DkOskzm2Z0D7+2+RjiuXyn/gPg1bvA2PqRuKBlKzYl52L94GfU0ZthWi9iOaLAZ8Wxa
-	 p8Y0QAms3VNa3Lf0Rqij8xLhTE/0wVZD8y7qJxXagLuxsZ2ZzYLPsDJeMUnKOptvxOTyi
-	 2lrTO2n7nuaZFvzTtbBPDFdfKSHgpo3tXJK/Wjafes3RA7xkXGsv96BKDXXjFbCU434Z8
-	 Af7XJTMJ6jliA87nFyETi0M9PgiHWho9NHGgjivw5RBLrxWEulVV+YfKIw4fr/5UoqQ==
+	t=1792526263;
+	b=JrLQxouBJzObtZ6agYd/Vl4VMi2wjqpGfZ0xedcZld5JRKwAIlhNSN9uW4wetVQaqJm3
+	 TJkztNCWC55zgky0kFygDC7zHBYQ3++t7tmWLTNn65Neq5BcHeRd5K4jhSoSeGn1zcbzl
+	 rDvg6n/FZkwlkB3Jw9YoAgwvboZ2BKfyStRXHAG4s6xK2L0o9KEf36XW3dt5F0g4JPsch
+	 g01dfTxhuWJiXOaFxe2NnQbxsqZZfFHQWYRfSU4CLfapYXjpKuw64g9SCyex84l3ZO4A6
+	 nnWFhsiP7VZmvl8glT+/ZRDLGFXWuFn/U4rK7fdys84ohz68NnOhlYreyKud1yFRu4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792526221;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=ZHJqnjP8g/3yDGwxBSj5xvPKD1sNfHJrCGIjTMarSAw=;
-	b=LTHv9AtOGQ2i4XmZiWp68qPHGhrmq4Hkoxko3XD175XFjSj5UeODgvt3l79OOmp3gLZ3
-	 dnDS5gBsJCqdfWVkHHNrtve8fVDcfhQMHg8dWe9BlSx+CSPPxPq/cuzJGwSVnYWpv0MFY
-	 1wFxsR5ON5Dt0ifUBDtBDPOFh0PtQxYfMuZttikTEQ0lA2y4LskA8Xn3rm41cBV0lP49k
-	 345cojfAJB/gIVY91sQI+YVu9IDiqzRy1WFeiKBBrggnyeHOqVzTxxo7+FkUBjDV1QScV
-	 PifdrVO0WCptmTdoR1PoQY67oeOGSHd7VevibuXoe9VhOew9Fxmo3pBruJLyUjwQwMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526263;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sTEUgbUTY2uEZgUhNSeKZNJZu7md/19toDkZImjF00M=;
+	b=Jd624XC98QtNJm9I4jnU+GBheg/3Ucwt4i8idSNGkc8G5/IU3RnlAnCT5pEQKs+hWZyy
+	 ktKulW/QyAbjZGEDxoJyfLi7gvVpw9QcLz3hdoZFjeEzQPYN3E58uFLx1Jp/kuDZSvJKL
+	 FFCmGM5NGwHZ3o3FwtkAWZQyEtHFhoUoWD+NO335rnb/JkroQ+Cw86OP3Ur54/2GReCNa
+	 ZTYGZxq4ckLsF61I2n++laUog0V/IqAP03JqwwGeMuobyLgz+y1LYDPQHH63wFNIJknTy
+	 vodKqAsxPklBjNuKmLt2HMngqlXo8SSN4qJOhcMTMsN/iosW8qg3xWHt9v05tLA6BGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePwCjIbN;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=zZgSE7Fi;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B104E606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B104E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60A4606A319;
+	Tue, 20 Oct 2026 19:57:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B60A4606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePwCjIbN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792526221; x=1824062221;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=awu3qVpHXeUGdCR1yBLT1pFtzDDKmfiOadqoWwHL7OQ=;
-  b=ePwCjIbNU6ocHPCJtTvU7Opc59E1VuzC6zo365TNGPFyGtNwglFRmc0x
-   rEHkxZXX5VtrCEevA/PYOIYCe50m6rPQ+2AUoN6+nA/mmCppgOlDOrcLr
-   W1Ro/xoxJNHpX0JhnhhdNrePv0xG6BJ8iMKnMf4wpip612L9tG76oCKrf
-   pQzXZk412vR/KUDnjmfJJs0TP63V4UQal+NWMf48sCO6zcIGHjAhEPclx
-   qQfz92pG1mdrPGeiRpZ8SyQC6pt4zg9vglVOxfiUjf9acjgi5r5jz7maZ
-   IqRKJkr8WGnrAyNTR4WwnwNDJNoUG1B3vAFHcUDjfTV3CFhKPHQWjFlWZ
-   A==;
-X-CSE-ConnectionGUID: UhAjudbtSdWp1egeULDKfg==
-X-CSE-MsgGUID: 8AC59iloQGaa0OS1BvA8Iw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1220499"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1220499"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 12:57:00 -0700
-X-CSE-ConnectionGUID: CZwSjB9fRNC3N+m/KAtdNg==
-X-CSE-MsgGUID: 7NjMx2TgTaqykoTjw5wHBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="4643579"
-Received: from unknown (HELO [10.241.242.209]) ([10.241.242.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 12:57:00 -0700
-Message-ID: <ed3daf45d18d539c849b1e6c804fc9dca961b028.camel@linux.intel.com>
-Subject: Re: [PATCH] sched/cache: Ignore non-fair current in alb_break_llc()
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>, peterz@infradead.org, 
-	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
- <rostedt@goodmis.org>, Ben Segall	 <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Valentin Schneider	 <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>, Chen Yu	 <yu.c.chen@intel.com>, Ricardo
- Neri <ricardo.neri-calderon@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 12:56:59 -0700
-In-Reply-To: <0bca533c5667732d3490341b4f766dda5852e4ad.camel@linux.intel.com>
-References: <20261020161755.55690-1-kayracizmeci@gmail.com>
-	 <0bca533c5667732d3490341b4f766dda5852e4ad.camel@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=zZgSE7Fi
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8NVm5nWgz1XM4Tn;
+	Tue, 20 Oct 2026 19:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792526252; x=1795118253; bh=sTEUgbUTY2uEZgUhNSeKZNJZ
+	u7md/19toDkZImjF00M=; b=zZgSE7FiotGSntfoWSCZxUUCLkb/F/uW2mkXDhdN
+	yU5dt7OWsLii6b4W2cICIG8W0bAiN0SBtwujpImz2txsnGQPc7xgeu6t4KYngnrr
+	V7Ol/zSzSdsn/NarmlhiZrTNGuKnsYJJx13gLqfBVLWqmcmB92MATTnSVqVuACTQ
+	WKhFaBJ7yHeMnQ4M9cnsjKfGj31slx8tmruwYfEOb1Vy+OnW+8Pt/s2q8BGg2/lj
+	XioP3QQyoQ+Qqww4qyWJuqnBBmLk/gwODm2I6O9LCXqp0epudg5TVE46Nm70e1LX
+	FxHljSRh+KDzbdfI6lI1wohq1M2pK4t1sP5M95aKViCIkw==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id qfgUZ2C7llJB; Tue, 20 Oct 2026 19:57:32 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8NVh05Mpz1XM4Tl;
+	Tue, 20 Oct 2026 19:57:31 +0000 (UTC)
+Message-ID: <163380cc-fee3-49ee-a773-d67f4e907143@acm.org>
+Date: Tue, 20 Oct 2026 12:57:29 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,88 +70,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] scsi: ufs: core: Fix double completion in
+ ufshcd_clear_lu_cmds()
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261020082110.3511797-1-stanleyjhu@google.com>
+ <20261020082110.3511797-4-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261020082110.3511797-4-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-10-20 at 11:14 -0700, Tim Chen wrote:
-> On Tue, 2026-10-20 at 19:17 +0300, Kayra Cizmeci wrote:
-> > Commit d6b9afab44e23 ("sched/cache: Fix
-> > checking active load balance by only considering the CFS task")
-> >=20
-> > Stopped using task_util() for non-fair tasks. Since the values
-> > of non-fair tasks can be stale.
-> >=20
-> > __active_load_balance_cpu_stop() calls detach_one_task(), that only loo=
-ks
-> > to cfs_tasks list. So if the rq->curr is not fair, doing a decision
-> > according to it is wrong, since we only migrate tasks that is fair.
-> >=20
-> > Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
-> > cache-aware balancing") uses cur without checking if the cur is in fair
-> > class or not. Fix this.
+On 10/20/26 1:21 AM, Stanley Jhu wrote:
+> In SDB mode, ufshcd_clear_lu_cmds() clears the request slot in the
+> controller and completes the request, but leaves its bit set in
+> hba->outstanding_reqs. ufshcd_poll() treats a request whose bit is set
+> in hba->outstanding_reqs and clear in the doorbell register as finished,
+> so the next ufshcd_poll() completes the same request again and unmaps
+> its DMA buffers twice.
 
-I suggest rephrasing the log a bit:
-
-  Commit d6b9afab44e23 ("sched/cache: Fix checking active load balance
-  by only considering the CFS task") stopped using task_util() of a
-  non-fair curr in alb_break_llc(), as the util of non-fair tasks can
-  be stale.
-
-  However, commit f0d243a96f26 ("sched/fair: Avoid creating misfits
-  during cache-aware balancing") still passes curr to
-  task_misfits_asym_cpu() regardless of its class, which then calls
-  task_fits_cpu() on it. A non-fair curr is never migrated by active
-  balance, since detach_one_task() only picks tasks from cfs_tasks.
-  Ignore a non-fair curr so it does not affect the decision.
-
-Tim
-
-
-> >=20
-> > Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-a=
-ware balancing")
-> > Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-> > ---
-> >  kernel/sched/fair.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > index 0feec172fd37..6347ae4cb419 100644
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -11016,7 +11016,9 @@ alb_break_llc(struct lb_env *env)
-> >  			return true;
-> > =20
-> >  		cur =3D rcu_dereference_all(env->src_rq->curr);
-> > -		if (cur && cur->sched_class =3D=3D &fair_sched_class)
-> > +		if (cur && cur->sched_class !=3D &fair_sched_class)
->=20
-> Thanks. util was already 0 for a non-fair curr, but cur was still
-> passed to task_misfits_asym_cpu(), which would evaluate
-> task_fits_cpu() on a non-CFS task. Since nr_pref_llc_running and
-> h_nr_runnable only count CFS tasks, curr can be e.g. an RT task here
-> with a CFS task queued behind it, and active balance would only ever
-> detach a CFS task anyway. So the fix makes sense.
->=20
-> Suggest that you put a comment here:
->=20
->                   /*
->                    * Active balance only detaches CFS tasks, so a non-fai=
-r
->                    * curr is never migrated. Ignore it and avoid using it=
-s
->                    * stale util in the misfit and LLC checks.
->                    */
->                   if (cur && cur->sched_class !=3D &fair_sched_class)
->                           cur =3D NULL;
->                   if (cur)
->                           util =3D task_util(cur);
->=20
-> Could you update the changelog to say explicitly that the issue is the
-> non-fair curr being fed to task_misfits_asym_cpu(), not util?
->=20
-> Tim
->=20
-> > +			cur =3D NULL;
-> > +		if (cur)
-> >  			util =3D task_util(cur);
-> > =20
-> >  		if (task_misfits_asym_cpu(env, cur) ||
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
