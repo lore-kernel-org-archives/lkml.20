@@ -1,96 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792474849;
-	b=0fOYBqrTVpRIgaKkWTzsrpIFKMfZsAvfoxTB6WSzb0KEmzqD0ofdlBHVXiHMlOXS0StL
-	 q3AH0cgt0FDO+88s6rJaDzX/023xL8as/+WKP8s2ypIUxY6scd5T6QfhPacHCah41gQbG
-	 Q2wzEFqs/nTxJBjlOzLz0/I27dZvTBmdcBOUpreQvu9oW9eTFcqST6/AuLLqeor0etV5u
-	 TlDluqBtXvpHJQsDwjKg4DkYYqQOSsMh5wgGNqfHmweEaJAK5KM58NHFn2wu8f8uF6FNN
-	 Hm/IrNd31VRz4FfmTY7nnplSk9Y1R9iPv03jHVsBmVm3Au+Oq2JclqwLp5hIq6FXIkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474849;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=gl8OUi5kGil7GVVr3uKIin4pJiUyLxB1/O7d9fmIcws=;
-	b=wdFxxr3ZrhR66OU9He8KiAgSkL8qZtnPFw8nYBchF/AQWZenvlp7J2KDVrnNksSRkBOl
-	 VsjQfFPxULs0mQ2QYxHpSRwgUP+eB8R609cWCDsJcMUHZp2XRKNHz9pJKRb0l/+Mx9zLj
-	 /qL4RP9LiagkU2PjSuvi9O6hqG+258ldp50GhaQ0i7KZlNk/X4RCkK5KscR1xAurOnq55
-	 MsYjyZDJ5VPvhP2/0CmOnanu8Mqjg0dpCx+BVNFJbhbUaeLvMZUMXJk86UvV/lam17bi8
-	 E5tRhRJlydBZIteFZwvjsoyWFNXluLH8kbFj+9dG/S1znlK2OgpYIa0o5nW8HcPD14Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bQZk+xq7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792474873;
+	b=RunGC3q8FExiPZe5LYP23B1bkqsE74KeOIlKHiP36yO7oyvv49fayeysfnOnxeRIevFl
+	 D0Z1crRANDUtuBcVfrmlBjY6PEMFZip4mc2UkQ9s+BEwotkPzOcetKdC1GF6mgFmjU80k
+	 vEoPgrNBBLxyIbrp4m/BvXcPKW9vRa+FxiGhJVwzs+dpmlY2c897QPigW1XwVzBeKEScj
+	 SAYI02oW4RUO33NdI+4mk9nPzNeML50yr2TDmNsAod9dfxwBn+pSC5EknsH7bKJep0O/Q
+	 0NxLlL3tRZ+hXxXt4IpOljXBlctMmwPW0gEm1JSkmykkOhS5FxkIGKiZobUHmmuC0aA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474873;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uTLoMN4OPawg9FcCWDIerqTFK0G6Yu2FDRi+Pe3MEZU=;
+	b=2Kr7Jpeu9hDZjOfJpkfl+RGEyIJiReCSEAbcpA1Dai0yheNIrmFudb1FTeSpmIP7ZdaM
+	 6OFYhW0owgqbuichkLVk/P4/yFaRxke0A6rW93gjRF+/XOXzc6o1akF3mdQSHOdLnWEDp
+	 kivTCbRFFBWAP+/kU1Eq9KtZelztYgL4RR5am07snkAzxErcSgpvjtG6iM0X3bTwLqyNm
+	 rdhtj4qKrA359m7m6NnVvtTqVnNY0oH0ydbKWcK4jDdFHCp7By0z+fv9yYiS9+WaKySGV
+	 o18O1Vm0aqD6OWSqrK7PBccgooIczXFa9rwUFDGNfUN8euLAznuAKUYkGdww/081ggg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbssqYTY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B43606A319;
-	Tue, 20 Oct 2026 05:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B43606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BC9606A319;
+	Tue, 20 Oct 2026 05:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bQZk+xq7
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1D0B2201709;
-	Tue, 20 Oct 2026 07:40:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792474845;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to; bh=gl8OUi5kGil7GVVr3uKIin4pJiUyLxB1/O7d9fmIcws=;
-	b=bQZk+xq74fwC9zq8UroJBR7N9b7OMq1CgWepbLdFIHDCKF3i2AXLLJKS4gqDwCMsPW4dXK
-	4iEzeXUBS3xTqsk1YLYl4G1yY0Klxw8b4GJYenY+lSDmzsNCV5ebfSJrEmIbFjSt61SIn4
-	uLwdyPAR1d6ZuVg8OW51z+mnLf4HGiH3ENS+JCld/bdq8dqS+yWiiSP3TATOr0UeTar9go
-	HUiDQ/EJtjNA4CXkikaSFHZ2rx7vS+xwcOnk0ci5T1AJ6LhE2XsUgt+4/E18Yc6xseoSWD
-	82WmhAf4WlpyFfLE0afqzhnjXmwjM01cAcnNzyITWagX8sYWo1RvJoM4vzGVnA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792474845; a=rsa-sha256;
-	cv=none;
-	b=B91ElkoeoRGSwhhQ+nrc6zSBq/u1PZMT/Nm22wmHELJJjd/koEambypwj3/gvfGLqZC2EP
-	lKHuCWauYXTtUuSLnmNev0VS9i2AigejwzQP9tinjKFour1YNXWNumVGClE/+w3woPLCAB
-	sZGicGNHX5h5U8cgSM0aKFKXkelzmhvWBl60MpGmS7uI1MAeb0CFPR/M8AkF8QdyB+sUgL
-	PMq2rZk+6BSyE8QJ3pxKJxgLzJDyvvaoEbXXBL1xpWhA7O3kH2zDHNJN131obIcusGILu/
-	fcnURsn1dLuT9UyUB4IcaTgn4gvMxPSvN8rtkFhjkbCu4EkZrAI3bwkveke/NA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792474845;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to; bh=gl8OUi5kGil7GVVr3uKIin4pJiUyLxB1/O7d9fmIcws=;
-	b=QQv337OO7HI/TRkS71rgAZQO+DBgkxaY2N4DkfYar5rcYdJQcp++mzUgTv7xZxjrdwY0gK
-	MdyF3BbOOXnv86kkaUuQoos1PrXke4Uj3O26UfJbZ4iebkBgOKoI26zg0ZPElNmAgAdz0N
-	uJ2zSYZBOpNKKw5v1CAXdXQi/Jtk4YgHku3sGty1YNymfaerjKU1rFvjO9KgIFqn/Gk1KN
-	pWtM20FropYlyrggrRRQtKqtL/2eEdtLx/jSGX4JbCbPeKXOCqdE6b7S4VHQVdI4kaSGT3
-	mfmEXViFtepPJDLdg4ZHa6nI+tnUt7moN8xIYPUFTcA4UxMWPFD9H3zeXI4c6A==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJ2ab-000KJi-06;
-	Tue, 20 Oct 2026 07:40:45 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJ2aa-00000003kKd-3nb0;
-	Tue, 20 Oct 2026 07:40:44 +0200
-Date: Tue, 20 Oct 2026 07:40:44 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Kory Maincent <kory.maincent@bootlin.com>
-Cc: netdev-bot+sashiko@kernel.org, github@szelinsky.de,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, piotr.kubik@adtran.com,
-	saikrishnag@marvell.com, horms@kernel.org, kyle.swenson@est.tech,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de, broonie@kernel.org, lgirdwood@gmail.com,
-	mazziesaccount@gmail.com, Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: Re: [PATCH net 05/10] net: pse-pd: check the PI state under the lock
- when setting a power limit
-Message-ID: <atb-3EIJynaRwuwe@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbssqYTY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 981521F000C4;
+	Tue, 20 Oct 2026 05:41:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792474872;
+	bh=uTLoMN4OPawg9FcCWDIerqTFK0G6Yu2FDRi+Pe3MEZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XbssqYTYNiiI3JbX1bPyppyWIF5K3GB9KLe7bjzi5TVykWVhEZOxKO1RJmR0EaDJa
+	 nzHO9qEjZZivErOr3gWAFm5IgJhHcxYEF0xd42v4gunZcKouMuHeVNGy48ZBEqeeux
+	 3XCxn95DFlvWEknmkl95/OkjfpfqcjVH90wHIQzfJMhyDinJL5ETVhHC48y8jIMhWN
+	 fqO9B6wsA8xny1aAJlOiKNc07Saj7aEUpQeqNkboHkoZaJqLe+OF7cDpjLpj12SYk1
+	 ilDPJJH+zO2G+HzDxhrnVxJxGY4E1NYHlY3LuziC/YrSWC5nm74F3CE6AaI1IDU7tv
+	 Q79B34Ae0ShuQ==
+Date: Mon, 19 Oct 2026 22:41:10 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
+	jolsa@kernel.org, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, mingo@redhat.com,
+	peterz@infradead.org, eranian@google.com, ddhariwal@google.com,
+	rcu@vger.kernel.org
+Subject: Re: [PATCH v4 2/7] perf bpf-filter: Support BPF sample filters on
+ tracepoint events
+Message-ID: <atb-9j8tLZ2rFtOm@z2>
+References: <20261018053710.2572636-1-irogers@google.com>
+ <20261019220915.3943592-1-irogers@google.com>
+ <20261019220915.3943592-3-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,107 +64,404 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <bb8eaf92-2b5b-46a1-b39d-a29ae273a3b5@bootlin.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+In-Reply-To: <20261019220915.3943592-3-irogers@google.com>
 
-CCing regulator related folks.
-
-On Mon, Oct 19, 2026 at 02:30:24PM +0200, Kory Maincent wrote:
+On Mon, Oct 19, 2026 at 03:09:10PM -0700, Ian Rogers wrote:
+> Commit 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
+> updated set_filter() to route non-tracepoint filter terms (such as uid
+> and gid) on PERF_TYPE_TRACEPOINT events to evsel->bpf_filters instead
+> of the ftrace tracepoint predicate filter.
 > 
-> On 10/19/26 10:51, netdev-bot+sashiko@kernel.org wrote:
-> > >   	previous_pw_allocated = pi->pw_allocated_mW;
-> > >   	pw_diff = pw_req - previous_pw_allocated;
-> > >   	if (!pw_diff) {
-> > 
-> > [ ... ]
-> > 
-> > > @@ -1908,21 +1920,17 @@ int pse_ethtool_set_pw_limit(struct pse_control *psec,
-> > >   	/* Update power budget only in software power control case and
-> > >   	 * if a Power Device is powered.
-> > >   	 */
-> > > -	if (pse_pw_d_is_sw_pw_control(psec->pcdev,
-> > > -				      psec->pcdev->pi[psec->id].pw_d) &&
-> > > -	    psec->pcdev->pi[psec->id].admin_state_enabled &&
-> > > -	    psec->pcdev->pi[psec->id].isr_pd_detected) {
-> > > -		ret = pse_pi_update_pw_budget(psec->pcdev, psec->id,
-> > > -					      pw_limit, extack);
-> > > -		if (ret < 0)
-> > > -			return ret;
-> > > -		previous_pw_allocated = ret;
-> > > -	}
-> > > +	ret = pse_pi_update_pw_budget(psec->pcdev, psec->id, pw_limit,
-> > > +				      &updated, extack);
-> > > +	if (ret < 0)
-> > > +		return ret;
-> > > +	previous_pw_allocated = ret;
-> > >   	ret = regulator_set_current_limit(psec->ps, 0, uA);
-> > 
-> > [Severity: Medium]
-> > The scenario in the commit message, where budget is reserved for a port
-> > that is no longer powered, looks closed now. But can the budget and the
-> > hardware limit still drift apart in the other direction?
-> > 
-> > The state check and the budget change now share one pcdev->lock critical
-> > section. The hardware limit is still written in a separate one:
-> > 
-> > pse_ethtool_set_pw_limit()
-> >    pse_pi_update_pw_budget()        <- takes and drops pcdev->lock
-> >    regulator_set_current_limit()
-> >      pse_pi_set_current_limit()     <- takes pcdev->lock again
-> >        ops->pi_set_pw_limit()
-> > 
-> > The threaded pse_isr() only needs pcdev->lock, so it can run in between:
-> > 
-> > CPU0 (ethtool set_pw_limit)
-> > pse_pi_update_pw_budget()
-> >    sees isr_pd_detected == false
-> >    *updated = false, nothing reserved
-> >    mutex_unlock(&pcdev->lock)
-> > 
-> > CPU1 (pse_isr, classification event)
-> > pse_set_config_isr()
-> >    isr_pd_detected = true
-> >    _pse_pi_delivery_power_sw_pw_ctrl()
-> >      pw_req = min(pi_get_pw_req(), pi_get_pw_limit())  <- old hw limit
-> >      pse_pi_allocate_pw_budget(pcdev, id, pw_req, extack)
-> >      ops->pi_enable()
-> > 
-> > CPU0
-> > regulator_set_current_limit()
-> >    pse_pi_set_current_limit()
-> >      ops->pi_set_pw_limit()         <- new, higher limit
+> However, in the kernel's __perf_event_set_bpf_prog()
+> (kernel/events/core.c), attaching a BPF program to a perf_event fd
+> branches on perf_event_is_tracing(event):
+> - Non-tracing events (hardware PMU, software events, breakpoints) call
+>   perf_event_set_bpf_handler(), which requires BPF_PROG_TYPE_PERF_EVENT
+>   (SEC("perf_event")).
+> - Tracepoint events (event->pmu == &perf_tracepoint) reject
+>   BPF_PROG_TYPE_PERF_EVENT with -EINVAL and instead require
+>   BPF_PROG_TYPE_TRACEPOINT (SEC("tracepoint")), which is attached to
+>   event->tp_event->prog_array and executed in
+>   perf_trace_run_bpf_submit() before perf_tp_event(), dropping the
+>   sample if the BPF program returns 0. Furthermore, the
+>   bpf_cast_to_kern_ctx() kfunc is only permitted in
+>   BPF_PROG_TYPE_PERF_EVENT programs.
 > 
-> @Oleksij, Here is another example of an issue related to the PSE PI being a
-> regulator provider.
+> Add SEC("tracepoint") int perf_tp_sample_filter(void *ctx) in
+> sample_filter.bpf.c to evaluate context-independent filter terms (uid,
+> gid, tid, cpu, time, cgroup) using BPF helpers without calling
+> bpf_cast_to_kern_ctx(). When preparing a BPF filter on a
+> PERF_TYPE_TRACEPOINT evsel, autoload perf_tp_sample_filter instead of
+> perf_sample_filter and attach it once to the shared trace_event_call.
 > 
-> @Carlo, Kyle is working on a series that remove the support for a PSE PI
-> being a regulator provider. We will see where it goes.
+> Before:
+>   # perf record -e kmem:mm_page_alloc --filter 'uid == 0' -- true
+>   libbpf: prog 'perf_sample_filter': failed to attach to perf_event FD 3: Invalid argument
+>   Failed to attach perf sample-filter program
+>   failed to set filter "BPF" on event kmem:mm_page_alloc with 22 (Invalid argument)
+> 
+> After:
+>   # perf record -e kmem:mm_page_alloc --filter 'uid == 0' -- true
+>   [ perf record: Woken up 1 times to write data ]
+>   [ perf record: Captured and wrote 0.024 MB perf.data (42 samples) ]
+> 
+> Fixes: 466db4275edd ("perf parse-events: Add parse_uid_filter helper")
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/util/bpf-filter.c                 | 136 ++++++++++++++++---
+>  tools/perf/util/bpf_skel/sample_filter.bpf.c |  85 ++++++++++++
+>  2 files changed, 201 insertions(+), 20 deletions(-)
+> 
+> diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.c
+> index 72e83ac1d6a4..4e99af4764f1 100644
+> --- a/tools/perf/util/bpf-filter.c
+> +++ b/tools/perf/util/bpf-filter.c
+> @@ -123,15 +123,26 @@ static int check_sample_flags(struct evsel *evsel, struct perf_bpf_filter_expr *
+>  {
+>  	const struct perf_sample_info *info;
+>  
+> -	if (expr->term >= PBF_TERM_SAMPLE_START && expr->term <= PBF_TERM_SAMPLE_END &&
+> -	    (evsel->core.attr.sample_type & (1 << (expr->term - PBF_TERM_SAMPLE_START))))
+> -		return 0;
+> -
+>  	if (expr->term == PBF_TERM_UID || expr->term == PBF_TERM_GID) {
+>  		/* Not dependent on the sample_type as computed from a BPF helper. */
+>  		return 0;
+>  	}
+>  
+> +	if (evsel->core.attr.type == PERF_TYPE_TRACEPOINT) {
+> +		if (expr->term == PBF_TERM_TID || expr->term == PBF_TERM_CPU ||
+> +		    expr->term == PBF_TERM_TIME || expr->term == PBF_TERM_CGROUP)
+> +			return 0;
+> +		if (expr->op != PBF_OP_GROUP_BEGIN) {
+> +			pr_err("Error: %s tracepoint event does not support BPF sample term %d\n",
+> +			       evsel__name(evsel), expr->term);
+> +			return -1;
+> +		}
+> +	}
+> +
+> +	if (expr->term >= PBF_TERM_SAMPLE_START && expr->term <= PBF_TERM_SAMPLE_END &&
+> +	    (evsel->core.attr.sample_type & (1 << (expr->term - PBF_TERM_SAMPLE_START))))
+> +		return 0;
+> +
+>  	if (expr->op == PBF_OP_GROUP_BEGIN) {
+>  		struct perf_bpf_filter_expr *group;
+>  
+> @@ -427,6 +438,7 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+>  	struct bpf_link *link;
+>  	struct perf_bpf_filter_entry *entry;
+>  	bool needs_idx_hash = !target__has_cpu(target);
+> +	bool is_tracepoint = (evsel->core.attr.type == PERF_TYPE_TRACEPOINT);
+>  #if LIBBPF_CURRENT_VERSION_GEQ(1, 7)
+>  	DECLARE_LIBBPF_OPTS(bpf_perf_event_opts, pe_opts,
+>  			    .dont_enable = true);
+> @@ -444,9 +456,15 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+>  		goto err;
+>  	}
+>  
+> -	if (needs_idx_hash && geteuid() != 0) {
+> +	if (needs_idx_hash && geteuid() != 0 && !perf_cap__capable(CAP_BPF)) {
+>  		int zero = 0;
+>  
+> +		if (is_tracepoint) {
+> +			pr_err("Error: Tracepoint BPF filter requires CAP_BPF capability\n");
+> +			ret = -EPERM;
+> +			goto err;
+> +		}
+> +
+>  		/* The filters map is shared among other processes */
+>  		ret = create_idx_hash(evsel, entry);
+>  		if (ret < 0)
+> @@ -484,8 +502,17 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+>  		return 0;
+>  	}
+>  
+> -	skel = sample_filter_bpf__open_and_load();
+> +	skel = sample_filter_bpf__open();
+>  	if (!skel) {
+> +		ret = -errno;
+> +		pr_err("Failed to open perf sample-filter BPF skeleton\n");
+> +		goto err;
+> +	}
+> +
+> +	bpf_program__set_autoload(skel->progs.perf_sample_filter, !is_tracepoint);
+> +	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, is_tracepoint);
+> +
+> +	if (sample_filter_bpf__load(skel) < 0) {
+>  		ret = -errno;
+>  		pr_err("Failed to load perf sample-filter BPF skeleton\n");
+>  		goto err;
+> @@ -501,15 +528,35 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+>  		goto err;
+>  	}
+>  
+> -	prog = skel->progs.perf_sample_filter;
+> -	for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
+> -		for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
+> -			link = bpf_program__attach_perf_event_opts(prog, FD(evsel, x, y),
+> -								   &pe_opts);
+> -			if (IS_ERR(link)) {
+> -				pr_err("Failed to attach perf sample-filter program\n");
+> -				ret = PTR_ERR(link);
+> -				goto err;
+> +	if (is_tracepoint) {
+> +		/*
+> +		 * For PERF_TYPE_TRACEPOINT, PERF_EVENT_IOC_SET_BPF attaches the
+> +		 * BPF program to event->tp_event->prog_array on the shared
+> +		 * trace_event_call, which perf_trace_run_bpf_submit() executes
+> +		 * for all CPUs and tasks before iterating the per-CPU perf
+> +		 * events. Attach once on the first FD so tp_event->prog_array
+> +		 * does not get duplicate copies for each per-CPU FD.
+> +		 */
+> +		prog = skel->progs.perf_tp_sample_filter;
+> +		link = bpf_program__attach_perf_event_opts(prog, FD(evsel, 0, 0),
+> +							   &pe_opts);
+> +		ret = libbpf_get_error(link);
+> +		if (ret) {
+> +			pr_err("Failed to attach perf tracepoint sample-filter program\n");
+> +			goto err;
+> +		}
+> +		skel->links.perf_tp_sample_filter = link;
+> +	} else {
+> +		prog = skel->progs.perf_sample_filter;
+> +		for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
+> +			for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
+> +				link = bpf_program__attach_perf_event_opts(prog, FD(evsel, x, y),
+> +									   &pe_opts);
 
-Removing the regulator provider support is a bad idea:
+This link should be saves somewhere.  I've sent a fix for it.
 
-- We will end up implementing a poor man's regulator framework inside the
-network subsystem. Networking folks will have to deal with physical constraints
-already solved by the power management community, requiring a different mindset
-and domain experience.
 
-- We lose built-in regulator infrastructure: DT safety constraints
-(regulator-max-microamp), over-current/under-voltage notifications, and
-sysfs/debugfs (regulator_summary) visibility.
+> +				ret = libbpf_get_error(link);
+> +				if (ret) {
+> +					pr_err("Failed to attach perf sample-filter program\n");
+> +					goto err;
+> +				}
+>  			}
+>  		}
+>  	}
+> @@ -641,6 +688,45 @@ int perf_bpf_filter__parse(struct list_head *expr_head, const char *str)
+>  	return ret;
+>  }
+>  
+> +static int pin_filter_object(struct sample_filter_bpf *skel, const char *path)
+> +{
+> +	char *prog_path = NULL;
+> +	int ret;
+> +
+> +	ret = bpf_object__pin_maps(skel->obj, path);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (asprintf(&prog_path, "%s/perf_sample_filter", path) < 0) {
+> +		bpf_object__unpin_maps(skel->obj, path);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	ret = bpf_program__pin(skel->progs.perf_sample_filter, prog_path);
+> +	if (ret < 0)
+> +		bpf_object__unpin_maps(skel->obj, path);
+> +
+> +	free(prog_path);
+> +	return ret;
+> +}
+> +
+> +static int unpin_filter_object(struct sample_filter_bpf *skel, const char *path)
+> +{
+> +	char *prog_path = NULL;
+> +	int ret, map_ret;
+> +
+> +	if (asprintf(&prog_path, "%s/perf_sample_filter", path) < 0) {
+> +		bpf_object__unpin_maps(skel->obj, path);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	ret = bpf_program__unpin(skel->progs.perf_sample_filter, prog_path);
+> +	free(prog_path);
+> +
+> +	map_ret = bpf_object__unpin_maps(skel->obj, path);
+> +	return ret < 0 ? ret : map_ret;
+> +}
+> +
+>  int perf_bpf_filter__pin(void)
+>  {
+>  	struct sample_filter_bpf *skel;
+> @@ -655,6 +741,7 @@ int perf_bpf_filter__pin(void)
+>  	}
+>  
+>  	/* pinned program will use pid-hash */
+> +	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, false);
+>  	bpf_map__set_max_entries(skel->maps.filters, MAX_FILTERS);
+>  	bpf_map__set_max_entries(skel->maps.event_hash, MAX_EVT_HASH);
+>  	bpf_map__set_max_entries(skel->maps.idx_hash, MAX_IDX_HASH);
+> @@ -674,7 +761,7 @@ int perf_bpf_filter__pin(void)
+>  		goto err;
+>  	}
+>  
+> -	ret = bpf_object__pin(skel->obj, path);
+> +	ret = pin_filter_object(skel, path);
 
-- The race above is just a lock scope issue across pcdev->lock and the
-regulator call, not a flaw in the abstraction.
+Why is this change needed?
 
-- Writing a custom power state machine in net/ will introduce more bugs than it
-fixes - especially if we overestimate our ability to upstream complex custom
-logic under LLM review supervision.
+Thanks,
+Namhyung
 
-Let's fix the lock serialization instead of dropping the framework.
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+>  	if (ret < 0) {
+>  		pr_err("Failed to pin BPF filter objects\n");
+>  		goto err;
+> @@ -683,8 +770,8 @@ int perf_bpf_filter__pin(void)
+>  	/* setup access permissions for the pinned objects */
+>  	dir_fd = open(path, O_PATH);
+>  	if (dir_fd < 0) {
+> -		bpf_object__unpin(skel->obj, path);
+> -		ret = dir_fd;
+> +		ret = -errno;
+> +		unpin_filter_object(skel, path);
+>  		goto err;
+>  	}
+>  
+> @@ -727,6 +814,8 @@ int perf_bpf_filter__pin(void)
+>  
+>  err_close:
+>  	close(dir_fd);
+> +	if (ret < 0)
+> +		unpin_filter_object(skel, path);
+>  
+>  err:
+>  	free(path);
+> @@ -740,13 +829,20 @@ int perf_bpf_filter__unpin(void)
+>  	char *path = NULL;
+>  	int ret = -1;
+>  
+> -	skel = sample_filter_bpf__open_and_load();
+> +	skel = sample_filter_bpf__open();
+>  	if (!skel) {
+>  		ret = -errno;
+>  		pr_err("Failed to open perf sample-filter BPF skeleton\n");
+>  		goto err;
+>  	}
+>  
+> +	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, false);
+> +	if (sample_filter_bpf__load(skel) < 0) {
+> +		ret = -errno;
+> +		pr_err("Failed to load perf sample-filter BPF skeleton\n");
+> +		goto err;
+> +	}
+> +
+>  	if (asprintf(&path, "%s/fs/bpf/%s", sysfs__mountpoint(),
+>  		     PERF_BPF_FILTER_PIN_PATH) < 0) {
+>  		ret = -errno;
+> @@ -754,7 +850,7 @@ int perf_bpf_filter__unpin(void)
+>  		goto err;
+>  	}
+>  
+> -	ret = bpf_object__unpin(skel->obj, path);
+> +	ret = unpin_filter_object(skel, path);
+>  
+>  err:
+>  	free(path);
+> diff --git a/tools/perf/util/bpf_skel/sample_filter.bpf.c b/tools/perf/util/bpf_skel/sample_filter.bpf.c
+> index e5666d4c1722..576fbed270e5 100644
+> --- a/tools/perf/util/bpf_skel/sample_filter.bpf.c
+> +++ b/tools/perf/util/bpf_skel/sample_filter.bpf.c
+> @@ -192,6 +192,28 @@ static inline __u64 perf_get_sample(struct bpf_perf_event_data_kern *kctx,
+>  	return 0;
+>  }
+>  
+> +static __always_inline __u64 perf_get_common_sample(struct perf_bpf_filter_entry *entry)
+> +{
+> +	switch (entry->term) {
+> +	case PBF_TERM_TID:
+> +		if (entry->part)
+> +			return bpf_get_current_pid_tgid() >> 32;
+> +		return (__u32)bpf_get_current_pid_tgid();
+> +	case PBF_TERM_CPU:
+> +		return bpf_get_smp_processor_id();
+> +	case PBF_TERM_TIME:
+> +		return bpf_ktime_get_ns();
+> +	case PBF_TERM_CGROUP:
+> +		return bpf_get_current_cgroup_id();
+> +	case PBF_TERM_UID:
+> +		return bpf_get_current_uid_gid() & 0xFFFFFFFF;
+> +	case PBF_TERM_GID:
+> +		return bpf_get_current_uid_gid() >> 32;
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+>  #define CHECK_RESULT(data, op, val)			\
+>  	if (!(data op val)) {				\
+>  		if (!in_group)				\
+> @@ -295,4 +317,67 @@ int perf_sample_filter(void *ctx)
+>  	return 0;
+>  }
+>  
+> +/* BPF program to be called for tracepoint perf events */
+> +SEC("tracepoint")
+> +int perf_tp_sample_filter(void *ctx)
+> +{
+> +	struct perf_bpf_filter_entry *entry;
+> +	__u64 sample_data;
+> +	int in_group = 0;
+> +	int group_result = 0;
+> +	int i, k = 0;
+> +	int *losts;
+> +
+> +	entry = bpf_map_lookup_elem(&filters, &k);
+> +	if (entry == NULL)
+> +		goto drop;
+> +
+> +	for (i = 0; i < MAX_FILTERS; i++) {
+> +		sample_data = perf_get_common_sample(&entry[i]);
+> +
+> +		switch (entry[i].op) {
+> +		case PBF_OP_EQ:
+> +			CHECK_RESULT(sample_data, ==, entry[i].value)
+> +			break;
+> +		case PBF_OP_NEQ:
+> +			CHECK_RESULT(sample_data, !=, entry[i].value)
+> +			break;
+> +		case PBF_OP_GT:
+> +			CHECK_RESULT(sample_data, >, entry[i].value)
+> +			break;
+> +		case PBF_OP_GE:
+> +			CHECK_RESULT(sample_data, >=, entry[i].value)
+> +			break;
+> +		case PBF_OP_LT:
+> +			CHECK_RESULT(sample_data, <, entry[i].value)
+> +			break;
+> +		case PBF_OP_LE:
+> +			CHECK_RESULT(sample_data, <=, entry[i].value)
+> +			break;
+> +		case PBF_OP_AND:
+> +			CHECK_RESULT(sample_data, &, entry[i].value)
+> +			break;
+> +		case PBF_OP_GROUP_BEGIN:
+> +			in_group = 1;
+> +			group_result = 0;
+> +			break;
+> +		case PBF_OP_GROUP_END:
+> +			if (group_result == 0)
+> +				goto drop;
+> +			in_group = 0;
+> +			break;
+> +		case PBF_OP_DONE:
+> +			return 1;
+> +		}
+> +	}
+> +	return 1;
+> +
+> +drop:
+> +	losts = bpf_map_lookup_elem(&dropped, &k);
+> +	if (losts != NULL)
+> +		__sync_fetch_and_add(losts, 1);
+> +
+> +	return 0;
+> +}
+> +
+>  char LICENSE[] SEC("license") = "Dual BSD/GPL";
+> -- 
+> 2.56.0.212.g129ede20d9-goog
+> 
