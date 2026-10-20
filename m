@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483973;
-	b=UMc9yMxvbQoghkkkSCwFzgYVrk7Bgc9G/lcNTQe7nbgqwrq6Lqb2czMuC2P5nsn2yrFM
-	 WXBhq8CKt5PhrbhdpjQJoKCs5cEDf479A99LlRNuJa7DO/dbrkT54a5ynLM/fOGclYwko
-	 9b7sOlb+lSfjPcVMLS9s0L6rwEcEuVn7mKbTeUqDJCqpYbmDYLjvAZOCKGemMT/67kskb
-	 xLY9aYLaBFrMyBlfIepayfUM4cvBFKKypVBCCUTBXCQa9cOjR/vkDE3pSrYuzTzp8aOwO
-	 gB1pteLhyVFykX0l1FL0T6aeOSsY5Xc3+JFJQRJXNW2BH++aHSpzx2mWkdd//7Px8TA==
+	t=1792483954;
+	b=zBX2ZqNRT6+f3nruiv/VoqFpQ9DbVbGi+lJxVmmVEUmfuq3Oc1t/Sd+A6aRrvhaltP9w
+	 GAYJOCp9AF3bPBdSmIKgPMdZIy2F6pgi8inVD4FExEG3zJgkBJJusXtmKXNhciuv8lfp9
+	 r7gIto3Hr+40bOz1thC6kAL7oV1wg/ovkqXv3qxYWLyldFEngazRXktY8JJe5RH4u/lUL
+	 /4NC/ZfOM/eIYA84M2p4vU9VkWftk8EU3mBAgzRQNTRbV9gtjf+RvXbXFJkEiO4FBi8UL
+	 RNzjnLUyGAJBLMnKBXnWddRXIQQwTc24tAM2F/EDYCS8fbxWvn6J/g+64ndFIF0/Xhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=f63bQLBXHYlw5Kr7m+qCxUpgsrgXJgF6I45Lwx8IJPk=;
-	b=MncGMHizTnR5E/BDGUH0xy7MmbSVtyeUJCnJaYhLu9euAPOPGI9RCAIwEYj2aIIY2I1c
-	 lvA1XjsCWG0vYb10QBehuzFjx+7gmmxqfd0Q4X3ILyoBVfX3jWSU3f7c4sLp9zlHlgDUj
-	 ovHSg0ibFOg4CZyuBDXzse+s+m+cDIb9J3IpxF+KBGUoPJxWUzXqmLDdfEhVavSQxE7J1
-	 GJXTj3K4ph3DPVsRFP7x7Fzvzt9J3eRoy/lzK20itSTDKUSBhqpKEoQiNDAH4SSSHTpRQ
-	 +TYjBch8Bv2depa0oq2FQGgCfzFdZ7gxznJgjm7zqcXmyiwz+P/ZxUnNYH7jlxzw7Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483954;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=B3uMwlL2e0WwbW2iwPu4EXtN34mpgk+5/6RVJb8Z1iM=;
+	b=mYIGPLGXT47pGoSa6H8ncbaXS3RoUpGNNa7zjwMX8jXuCVu/fD19jSBP6Su/drF8FFgE
+	 24ByQ0tRrmZLlU3FmMCg9lKWnTs37jpFn09WjIQ6JJfiJ6d3Nx7vzuLFOEvjNC5K/5aVa
+	 JcpPe2YajbMxeRmls6wAZ6wPPLFxbm3b9cpjQvfpFVjb4LiyLprdyQoMAZf+sAKcHqYow
+	 woJUwRx2ozXhqoto9iwf6ik7mUf/EKhknPS9gwRFYB+ECqeHzd9V7UBZUdaHom0bz02LQ
+	 4szeG20XBHeQi9JXO5mLJUN3xAfwBAfOowRUR+mgb+pXQd9B/K4cSIYV32TpCjNvVZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rrTwGjbF;
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TdE8rrpb;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC2B606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AC2B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7507606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7507606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rrTwGjbF
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b3dc91781fso1948327a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:12:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792483971; x=1793088771; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f63bQLBXHYlw5Kr7m+qCxUpgsrgXJgF6I45Lwx8IJPk=;
-        b=rrTwGjbFVWyooJGQGAZZGGonlGWceeg9vV86YY+V0lUM+g61C13sJEpiFljrQQN/7/
-         5Ii8iEqbPz9mqbFBzwGfhip9QTOZaxCryBytxgpJ9dWrrJIXbi2O7QKEM201o6EWcG4i
-         +aSP4QKX27n/ET7txmrxZ6Op2SKJ0aCD6WLnag9RKTU6pPVQEdBcsPJDnC8EeOCsCqKP
-         3aO2Wvx5k9r+SDosgGq3mcRjI3fklSsJtg9iTYLjI4DaG2QQYXiAfJVe9QdyiC7P5iZ/
-         Ww+nQ3fd9mgIJegXxSeO8HkLIjS9f57vzfRSqD3nEDQ6ABydzIn2iRCcNU1V6nWrEjSS
-         E/Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483971; x=1793088771;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f63bQLBXHYlw5Kr7m+qCxUpgsrgXJgF6I45Lwx8IJPk=;
-        b=Ah2z9lLK489EtCMeXIt/zgGJaZKp+aaLBc9EBrzh+ZwzF03FbIXdMubO6/qLtYSpIb
-         357eDwjU3MnjvoxwSmfkIYPsxGfGHmLWuou+HtMxEBY2zChD6XmH1CIOFXdYxsRJa4ba
-         K86v3CVP49316fzdKSDYBoS9YBHkyvgAge39Owb8XJaNYrx2snqWV8CrhTjQTzetVrE9
-         Eyxf5yvAY3ZZ/Nbsj53fBYRfjE4TtzcAjncrTzA2STYj0TGfax4NgawspAgEpuGAUQ0u
-         83WR1Uj0931ZqJqRlb2aa9FUUqAZ1w8KYZ7wxtHlidXKz0hiGi2lIsKLFFcV9Uoai9Dh
-         rGbw==
-X-Forwarded-Encrypted: i=1; AKwUvByq+NrIQ+OUw3ZqO26dtA2BHNk7AtevjX+rkeTvGy1HTIfciaUi2iTJY4mBdT0zT39Vioem1lZpgqcGhnc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLN/FIYs8CY9neYuzPwZmYv4VP93TkTqs4iH/VR+fOPUlE5VKf9
-	NmDvOhYsPWETDYpvg2F+xc+oWDSKJfNECRlX5Pv5u+1T9yHOAr9F1S5eX8sx7yQWlSeaOlX5uzD
-	SHQx2DJGodFC2VtvTQQ==
-X-Received: from edwg15.prod.google.com ([2002:a05:6402:114f:b0:6ac:c84f:3304])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:51d4:b0:6b1:b9da:2047 with SMTP id 4fb4d7f45d1cf-6b3a816fac9mr6710522a12.16.1792483971098;
- Tue, 20 Oct 2026 01:12:51 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:12:47 +0000
-In-Reply-To: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TdE8rrpb
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 558061A12A1
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:12:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B36E60393;
+	Tue, 20 Oct 2026 08:12:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D6FC10328D80;
+	Tue, 20 Oct 2026 10:12:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792483951; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=B3uMwlL2e0WwbW2iwPu4EXtN34mpgk+5/6RVJb8Z1iM=;
+	b=TdE8rrpbke2FBHPaslAw6LNrUoOpOAViXV9YzO25cJAB9uFQ2dbVIm09AIhTh0mehyedJ5
+	DTS2i0PX6C9tPdF6pp9JCC7rfrR2snnIqXX0QM5A4q6rNuFZYlhi7oJvB5FW20j5mNeUvd
+	Erd7H7yH1e6LLPrger7ErkARig8j1Mh3RlGxGAHjw0RqciDHXdh3w8T5/1hAhSsYqxOs5q
+	3YhUHxzdiBKXKfXjRyn40c7qy6lDfDdaEaZfuA8zgcZFsFR0N8o1XCzLQZOrG6J/otZjHQ
+	/dU+vk8/B8nUC6dTd9baT5QH7UfrSGcx+8Qkq4BnNLgygInMocIfEi4P+l2fUg==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Date: Tue, 20 Oct 2026 10:11:54 +0200
+Subject: [PATCH v5 1/5] watchdog: w83627hf_wdt: Replace magic numbers with
+ descriptive macros
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,45 +63,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com> <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020081248.1761160-1-aliceryhl@google.com>
-Subject: Re: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for hrtimer_restart
-From: Alice Ryhl <aliceryhl@google.com>
-To: Sami Tolvanen <samitolvanen@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
-	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-w83627hf_wdt-improvements-v5-1-90b226684fc7@bootlin.com>
+References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
+In-Reply-To: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483947; l=4210;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=qXG1MXzCoF7pMSNABWaRFVOFzBpOTIDybA96c/TBmq0=;
+ b=Qz7sLZo5luW4dCh12Lo4D4MDLAo0TgJWjfos4ZoCMzsuh2STgZjkMIKymp7TiSF30lz39SMs0
+ WiSsfkBrI7FCHmuXy3IMKxzmqhQbNUKyeC1AfTMLirTRoPlbCCxE7zz
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 19, 2026 at 11:34:38PM +0000, Sami Tolvanen wrote:
-> The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
-> generates as c_uint. C calls them through hrtimer->function, which
-> returns enum hrtimer_restart. kCFI encodes enum types by name even with
-> integer normalization, so the type ids never match and every call fails
-> the CFI check.
-> 
-> Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
-> for lru_status, and adapt HrTimerRestart to the newtype.
-> 
-> Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Raw hex values for Super I/O register addresses are difficult to
+understand without constantly consulting the datasheet. Use named macros
+instead.
+Also, replace macros value that contains bit position with the BIT()
+macro.
+Remove comments that doesn't help understanding the code.
 
-Missing
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+ drivers/watchdog/w83627hf_wdt.c | 41 +++++++++++++++++++++++++----------------
+ 1 file changed, 25 insertions(+), 16 deletions(-)
 
-	Cc: stable@vger.kernel.org
+diff --git a/drivers/watchdog/w83627hf_wdt.c b/drivers/watchdog/w83627hf_wdt.c
+index db77599e43a0..fa1808a4c6c8 100644
+--- a/drivers/watchdog/w83627hf_wdt.c
++++ b/drivers/watchdog/w83627hf_wdt.c
+@@ -27,6 +27,7 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <linux/bits.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/types.h>
+@@ -71,6 +72,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
+  *	Kernel methods.
+  */
+ 
++#define SIO_REG_LDSEL		0x07	/* Logical device select */
++#define SIO_REG_DEVID		0x20	/* Device ID (1 or 2 bytes) */
++#define SIO_REG_ENABLE		0x30	/* Logical device enable */
++#define SIO_CONF_PORT0		0x2E
++#define SIO_CONF_PORT1		0x4E
++
+ #define WDT_EFER (wdt_io+0)   /* Extended Function Enable Registers */
+ #define WDT_EFIR (wdt_io+0)   /* Extended Function Index Register
+ 							(same as EFER) */
+@@ -115,9 +122,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
+ #define W836X7HF_WDT_CSR	0xf7
+ #define NCT6102D_WDT_CSR	0xf2
+ 
+-#define WDT_CSR_STATUS		0x10
+-#define WDT_CSR_KBD		0x40
+-#define WDT_CSR_MOUSE		0x80
++#define WDT_CSR_STATUS		BIT(4)
++#define WDT_CSR_KBD_INT_RESET	BIT(6)
++#define WDT_CSR_MOUSE_INT_RESET	BIT(7)
++
++#define WDT_CTRL_RISING_EDGE_KBD_RESET	BIT(2)
++#define WDT_CTRL_MINUTE_MODE		BIT(3)
+ 
+ static void superio_outb(int reg, int val)
+ {
+@@ -144,7 +154,7 @@ static int superio_enter(void)
+ 
+ static void superio_select(int ld)
+ {
+-	superio_outb(0x07, ld);
++	superio_outb(SIO_REG_LDSEL, ld);
+ }
+ 
+ static void superio_exit(void)
+@@ -165,9 +175,9 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
+ 	superio_select(W83627HF_LD_WDT);
+ 
+ 	/* set CR30 bit 0 to activate GPIO2 */
+-	t = superio_inb(0x30);
++	t = superio_inb(SIO_REG_ENABLE);
+ 	if (!(t & 0x01))
+-		superio_outb(0x30, t | 0x01);
++		superio_outb(SIO_REG_ENABLE, t | 0x01);
+ 
+ 	switch (chip) {
+ 	case w83627hf:
+@@ -248,16 +258,15 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
+ 		}
+ 	}
+ 
+-	/* set second mode & disable keyboard turning off watchdog */
+-	t = superio_inb(cr_wdt_control) & ~0x0C;
++	t = superio_inb(cr_wdt_control) &
++	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
+ 	superio_outb(cr_wdt_control, t);
+ 
+ 	t = superio_inb(cr_wdt_csr);
+ 	if (t & WDT_CSR_STATUS)
+ 		wdog->bootstatus |= WDIOF_CARDRESET;
+ 
+-	/* reset status, disable keyboard & mouse turning off watchdog */
+-	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD | WDT_CSR_MOUSE);
++	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD_INT_RESET | WDT_CSR_MOUSE_INT_RESET);
+ 	superio_outb(cr_wdt_csr, t);
+ 
+ 	superio_exit();
+@@ -355,7 +364,7 @@ static int wdt_find(int addr)
+ 	if (ret)
+ 		return ret;
+ 	superio_select(W83627HF_LD_WDT);
+-	val = superio_inb(0x20);
++	val = superio_inb(SIO_REG_DEVID);
+ 	switch (val) {
+ 	case W83627HF_ID:
+ 		ret = w83627hf;
+@@ -431,7 +440,7 @@ static int wdt_find(int addr)
+ 		cr_wdt_csr = NCT6102D_WDT_CSR;
+ 		break;
+ 	case NCT6116_ID:
+-		val = superio_inb(0x21);
++		val = superio_inb(SIO_REG_DEVID + 1);
+ 		if (val == NCT6126_VER_A_LOW_ID || val == NCT6126_VER_B_LOW_ID)
+ 			ret = nct6126;
+ 		else
+@@ -513,11 +522,11 @@ static int __init wdt_init(void)
+ 	/* Apply system-specific quirks */
+ 	dmi_check_system(wdt_dmi_table);
+ 
+-	wdt_io = 0x2e;
+-	chip = wdt_find(0x2e);
++	wdt_io = SIO_CONF_PORT0;
++	chip = wdt_find(SIO_CONF_PORT0);
+ 	if (chip < 0) {
+-		wdt_io = 0x4e;
+-		chip = wdt_find(0x4e);
++		wdt_io = SIO_CONF_PORT1;
++		chip = wdt_find(SIO_CONF_PORT1);
+ 		if (chip < 0)
+ 			return chip;
+ 	}
 
-otherwise LGTM:
+-- 
+2.56.0
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
