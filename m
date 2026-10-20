@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483321;
-	b=RaApkmmzF3J8jnOe8InhzqhmRXI0JcaC8Z9Y38z9moxfI8pblN4YRlQOgIy9lw9EvycW
-	 Ca/yZmywI4+I3lv7Hq8tWdQg2C8MQwfC/CqTAsjfg2JQDaXVOoOH8DlQDlK1DOPsJzkHT
-	 zDOWLH6g70Mfoe/1OJzU6XI3GGMMF7LYXOu8lRmLHCnEfwOr41rgWSKwZqIMOhgbKUtlQ
-	 Qg3Ch4EFlFlzG9BlTT8KHSqYB4L9KPknHltxDce8ZdkiAdDAvpzHko1QMJW/5pd7Pv04B
-	 ViA3Auw9ewHZvHItZaXqRoLX6HFmK/VnsgD7ScZOAhN0Uu4sWPb5qGuZbjgs2Dhfsog==
+	t=1792483351;
+	b=xgdESEU0FJ41Od7+d2h6q8WBWMMkttNcCpunaJq+EVti1qjNZLKHsMzjWquIHvrCywSi
+	 YxCe+ao4tF710HWbS17YvCuAmP+ukEbuPW6TG3ZFwb9Ne7YzI1P8b0pZPD2QryGzYirl1
+	 2+mRPqMJ5GeTHVY4fe3vW00lSlqYbs3iH/NEAJbo8+3hbtsG/SLQk6ZnlmlNnoiqf9CTp
+	 PCjLOA+puP9CenbS2t3EbfKHMkrG1ZPEQGUn+9wtmZ+j4isS6cwkGR/W0FxkGSXUPHkTx
+	 uc9U6+TuB6nZgnjoTddAgdtrQIh/h/yKexNl1gji+1rHMcHrct6RaXJt5G6FH3oEZOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483321;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=a5szgawaqFYahDoR6WgawlMOYcIGKmjMs7XIVNwb/WA=;
-	b=ZqIYgLljdrQuw8AGmEhskgs0yMmDmqrhQKd8fe03sEQWxFuoSA6CfjS5fdtzMlJOSvrJ
-	 vO4BQJTMxty8Zdonmr0dUe0hZ/x14BT2Y5VICr9NAIBLaPhcuVpcW2YUCdgt4WTGM8LWZ
-	 O4+GxVLvCdPlYAoKSUEoRr2uQF4ZHxx+Nuf71albPKPtwJw24SoWV3ZZZrwyjCEiDkpYX
-	 ssnpr99AuLBRnho0iv9Pyq63FNu1V/7zsOfxsqW5SpjHmXMzrVqPazmHPN5FGG43zL2uz
-	 8vonOgsG99rOAyf+1Ncp2YlGIVTC8YFMWmKh42BieGrPECk3Ti56N9e8zs1Pt6Q/img==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483351;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=Fo3vwrE7fHnIYVTUYb0Nag0rB104aRrYkLus86COehs=;
+	b=eP8BaC9lGAjuhfuycanYnsGA1nAVVhRXv9sXQRZnz0Qi8hwiQfLGvspqt3O2kXzYDTkq
+	 Nq/9nxAwGrURljgUlXYESbFJqPUP5znfQ7vNl6SnBIcMR0BGPnm2P/blhO+252mbCJSHE
+	 lKsvBrvmiftowVI6QFpw55mb64l4LpjkC/8W24F9ZX/Y+FzI1Iz0+DOfzXa9qbPWlZ6NN
+	 2WBbZefWDeuVkk2oy8wnEil4GO12zDlj21IhpM4avH4vbZd0MIONU9ZQbLYumHnyfRup3
+	 wGr7s9w0buhKZOdZskmT2jsFAGC6oMDdlzK4QpRsz8hPhYbk/ohSRHiv26JB/biVymg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bTSzKRuQ;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GgQIGnOX;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FD8606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:02:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8FD8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C73606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:02:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22C73606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bTSzKRuQ
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1e3efca9aso22731595e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:02:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792483319; x=1793088119; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a5szgawaqFYahDoR6WgawlMOYcIGKmjMs7XIVNwb/WA=;
-        b=bTSzKRuQMaj/nUNDQiFNgbMW7VY0cz1uEsSS9LODUy0rJpJ1NcOHZpuiEdx+Pv7xXw
-         JrElKjWS5h1Lp2Uz3pS/CT+/pMYXJRqTXssYsJ7wjI7R7X+qG5ciwO4xiqCQUSzcglif
-         ydTELKHh+OttyFrwibpJMAdhiLwYxHPYxrOaDQgWDiZIN6J5xE/hMbtGsHcVHfYey0kv
-         ZRep3ZCoqCKoD/5J7rRIsh1Xy66FLIzjyemzZWLRrsQi/OnYXLY5je/W00I2AzK5MvhY
-         l5DRfcCp5zVSKq3pYqc8MEvHQKEgrjnPSD/02FuqoUXaB862DgHjp78dvjw5ER/PTxC6
-         4Nyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483319; x=1793088119;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a5szgawaqFYahDoR6WgawlMOYcIGKmjMs7XIVNwb/WA=;
-        b=UubeCmXKZzzPggH0DAsSOHOPKPFgsaSJvuv1UiEhn4zSwbE8ELDittyYusYXmSXWl+
-         YKGmRygO+DC+zFpWIpAbHcHo+fR03NqkVoEtr6NLia+AZSXrNG7GqY3Abej2V3+rI0Yz
-         4ge5ICb6i3S7jjsFBoFs/WkLM8EOnhJWfWMpaewRVif3qsqZx1hihWYQFrISm33a2wjb
-         rAB3DzgQfXB3JkOGvJHQW1XHO/Fb+XPgY+p7KhRkz0ZG4LmCEFPRRkNMyNpQXPY/TQdw
-         0GhUGXGLY8xzqotbqmmjA8QOPCTAQDxedTq1/xAByA2B5NhmJpOyiP9XBeZFYsRK9jG1
-         2nAw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0aaw11/xJdxx4YZEIjg6k1oImiipbNt2eu+syqvy/qlJH+RbfDQ2k6tQBI+Fry508JJga7iafeER/Kc0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKswfpzGZm+RzcbxqPGjyx3SoTxOaySCYnoirQQiI9Xz0P/faPx
-	TFplDrXelfZzzEwLm/5vuWoWps/f/MrETOiQJm8fUEKDc0DZyoa4ubSpiJxtF9BNNVVfJpMhWrs
-	yp6s05vWpOmO1emdlmw==
-X-Received: from wmcu7.prod.google.com ([2002:a7b:c047:0:b0:4a1:f37f:7f0b])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:638e:b0:4a1:e6ad:baa3 with SMTP id 5b1f17b1804b1-4a1e6adbbe4mr113338955e9.15.1792483319125;
- Tue, 20 Oct 2026 01:01:59 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:01:46 +0000
-In-Reply-To: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GgQIGnOX
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 49D4C1A1291;
+	Tue, 20 Oct 2026 08:02:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E90460393;
+	Tue, 20 Oct 2026 08:02:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D54501032840C;
+	Tue, 20 Oct 2026 10:02:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792483344; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Fo3vwrE7fHnIYVTUYb0Nag0rB104aRrYkLus86COehs=;
+	b=GgQIGnOXA18Lmuu9VwsgPu8TONd4flhmla/Re1KJ7Ha+IXljck3OYIDdKLz7mzkYfLPB87
+	hJfbMwtlU9RJ68ggMah+xs9Uth0a9iJvmQZiGVGY8H2EPnQ+GQnnBnDcFfgohNjND3RvNJ
+	tBBVVhUHNYgTsbKxVarlSvbkbsNlOPE46zOOKOcx0+6RFWD1/yd1foT75IkdgB/TD0LH7y
+	GceC46n793POCNUBXCQwH+VXnYWU8v/e08ZFYwi9gbVdso+dTXlo//JoMm63u5Mib9hdNh
+	4GHoWw1nLfmhu83ItJVURSHcgzGB7ZVJ4tAL+7EpJc8K+qORaUL2Yg5UqzeD7g==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,34 +59,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020080147.1743459-1-aliceryhl@google.com>
-Subject: Re: [PATCH 0/7] rust: io: add read-only and write-only views and registers
-From: Alice Ryhl <aliceryhl@google.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
-	Bjorn Helgaas <bhelgaas@google.com>, 
-	"=?utf-8?q?Krzysztof_Wilczy=C5=84ski?=" <kwilczynski@kernel.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, driver-core@lists.linux.dev, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 10:02:22 +0200
+Message-Id: <DM9IBBKOPUC2.2TAO8GMMX63MV@bootlin.com>
+Cc: "Tzung-Bi Shih" <tzungbi@kernel.org>, <linux-watchdog@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <stable@vger.kernel.org>, "kernel test
+ robot" <lkp@intel.com>
+Subject: Re: [PATCH v4 0/6] watchdog: w83627hf_wdt: Convert driver to the
+ driver model and add minute support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Guenter Roeck" <linux@roeck-us.net>, "Paul Louvel"
+ <paul.louvel@bootlin.com>, "Wim Van Sebroeck" <wim@linux-watchdog.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com> <3e233439-d05b-4d65-a527-882043d64d7e@roeck-us.net>
+In-Reply-To: <3e233439-d05b-4d65-a527-882043d64d7e@roeck-us.net>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 15, 2026 at 04:19:40PM -0300, Daniel Almeida wrote:
-> This series adds read-only and write-only I/O views, and the #[ro]
-> and #[wo] attributes to register!. An access in the wrong direction
-> then does not compile.
+On Tue Oct 20, 2026 at 4:00 AM CEST, Guenter Roeck wrote:
+> On 10/13/26 06:58, Paul Louvel wrote:
+>> Hi,
+>>=20
+>> This series aims to improve driver readability and convert it to the
+>> Linux driver model by means of a platform driver.
+>> Furthermore, support for minute-based counting has been added to allow
+>> timeout values longer than 255 seconds. When setting a timeout value
+>> that is not a multiple of 60 seconds, the value is rounded up to the
+>> nearest multiple.
+>>=20
+>
+> Please address the issues reported by Tzung-Bi.
+>
+> Thanks,
+> Guenter
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Will do.
 
-I heard a suggestion that it'd be better to drop the Io from these trait
-names so they are just Readable and Writable, because not all
-implementations do IO (i.e. if it's SysMem it's arguably not IO). Not
-super important to me, though.
+Thanks,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
