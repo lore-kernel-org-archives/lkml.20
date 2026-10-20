@@ -1,66 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792534043;
-	b=lyRiEa/Zfwl9PgC59jWwf8eorXF1j08JlTw3PzDQ1tB9bbpbO+YiNcjPbCn7dCarFH3j
-	 mg4cVvmfaGhteebQAEobLQ0L9F2YP1hDujcKygJoLEu8jTcYAv8nxCsnUdIOA6p/Sae1d
-	 y6ovkefXtii2gG89UC/nFspHgYOLp31WiYK4Z+506WlDEQFswwlKy/RHM3SKcaN1J2ZZZ
-	 phYamRWlln57I/lE36WGj14nQzq4sYKYWc2kYyfy3JNK7V5e9RMgYIAu7MdketSzSTZv8
-	 tG4eSAPrpzaMwX856GM9nqYYZ7aQ2q0VkNZt/tEMe2kpBcEb+eVD67H+n/uXd+kFdlA==
+	t=1792534052;
+	b=DFyUbdDL1G+vorHGUP/GQjHcdaBwezXXWapz0VKrgBvjCmlwcIH7kqmGPGxV+L4+XUou
+	 etfAy0oTrhINui3Gj0gsZR4nG5ddfWZPHpURR0lvfUIaOL6AdVTOZeMBL/Bf2UNyDe8ia
+	 ENNScWXnjHD2Sub4L+4BhHB3ElCu0OgseL0KWRIcZHa9yaUV6rQpQbqUl6bQWzqQHPRm5
+	 hrkBu3jlA7m+IMhh7equyBD8fbcg9zsxK4A6t5EGc6CTNpsYiv/zzF7SMCgqyGcV8ufZ1
+	 lbNjB8YWG1D/k+R7MXHMbLXFeiZZU1wwH4v+tQ8tfSQXvuJqGE2ukQwAQukSSPLK8qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792534043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792534052;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=n9Uj6I/vyje6NpHmWRgLFomQk1yoneAGW7/KZ4kNqIY=;
-	b=Ospncj6P1pxnIKRwwnDTdJ2lw/FSgHaAJ4tFhS2GKK6SnMVowJxjsKA/VlLxqVbQXc8i
-	 aI5hqa/4W59TUbZ+CKYrWX+keUCJTby0VsGXjmjhBFoW6j7HAZvoU3ZL/+ytlSvFMAi4S
-	 U487NA6TOaGc38+UxSivcGCzRTCPcHd94aODsfLT/FWN0zhDU8j0sAv8Fo9rJ850yvKrA
-	 KD1TQDpLujgebKhAhpRiDbDCldwvVIPg9/F1AE8NGT1ELqiHaXsowdG3LAuF6yfm8QUr1
-	 eVbUrMR+IUUvKFtzNgfSajpJgnaSwQgitVmyekkcnzcoVi1tBlldwPO6kAsy1ItuIEg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pWdjr/d/hf7wlxe3EUx/jojVqEBvoFrMCPGjGaxAxZQ=;
+	b=yvGyrQKqq68iNG4WZOKEBut6eJfCdBaNeZ5UCjFR3HsaVTpo1Lu4gvIV3188jaZrx03M
+	 iipGtYKQksgwVzXwuEchg9AU1XdkKHM25Tif8K+O8rEYFJg3sX1pl/jtJ6BRfeegqZz4o
+	 t422J18Wuen6wuDaXwLSRwqKqyPJrKT5Hz51yLiMSFg+Ow0JO0rGXqKMn99eczU9HnHWC
+	 aJVIQHHXK2x0zV2bZf6WyS5/IqHsZB4nXgphx2yZhe6sE9rltr7wKEVlzQs5Wmh4stgdi
+	 NFTyClAJgAULF5eOHg2pNKsKYSeOeuH/7Avp7gn0lCjAnTJ+PshXXZuzvoN7xgQZ13A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPrrBgbU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYNjetCH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1376606A319;
-	Tue, 20 Oct 2026 22:07:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD0C606A31E;
+	Tue, 20 Oct 2026 22:07:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPrrBgbU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A841F000CA;
-	Tue, 20 Oct 2026 22:07:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792534042;
-	bh=n9Uj6I/vyje6NpHmWRgLFomQk1yoneAGW7/KZ4kNqIY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aPrrBgbUNdrGEu1Uw4wv7tSFj4Ap2UM1XENFp6x4IdBcCzvtI2l+UzPXrSLsCQnor
-	 tCOxpGVbohItdMi5AmMfrSLtzsDTgm0UwOS95oCAtb8ptK1OzlejGcyfJ99PBU5xZZ
-	 koCO92tbqFX3EbZOloUqQq1RkuT9A5oNSAplXD3qWIscYjWmMlSYebeXA9NEcWvrWR
-	 s2kFepDeRuZhPn+/JO0BKq45nXpUZEuOKMf3bqgiaFMH/91tdGVjqncxM/hVOb5AWj
-	 OhKfDYdmoUp2BKjdSsutBdpwswI29+EeT03+4F4IwNRF4LCnPME4lk7Y7Xp7R+n9P9
-	 dyDS2Tt8yA49Q==
-Date: Tue, 20 Oct 2026 15:07:21 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Christian Brauner <brauner@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Halaney <andrew@amutable.com>, Kuniyuki Iwashima
- <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, Simon Horman <horms@kernel.org>, Willem de Bruijn
- <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Alexander Mikhalitsyn
- <alexander@mihalicyn.com>, Eric Dumazet <edumazet@kernel.org>,
- broonie@kernel.org
-Subject: Re: [PATCH v4 00/10] net: support thread-specific pidfds for send
- and connect
-Message-ID: <20261020150721.0f23d7ea@kernel.org>
-In-Reply-To: <atfAmtsj0LmZtBZs@meerkat.local>
-References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
-	<1ab71b00-fbe1-42a0-a99e-27d5cd5e5a6e@redhat.com>
-	<20261016-erdball-skisport-erhaben-93d64cfd2890@brauner>
-	<20261016085732.2f1ffb8a@kernel.org>
-	<atfAmtsj0LmZtBZs@meerkat.local>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYNjetCH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C2E1F000C9;
+	Tue, 20 Oct 2026 22:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792534051;
+	bh=pWdjr/d/hf7wlxe3EUx/jojVqEBvoFrMCPGjGaxAxZQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RYNjetCHcRRPhydHWUGAHk2nDz4REzEneMHTySufPG6jbxTNTxwfkRxiou8LWIKZ7
+	 VVjPQ4prwD+LYVP8bNE4oIWRPPC5ZdSdyl5DuUwblg/xPS/U7DyrpAQZxyshhnYPU5
+	 M1jNvI9IIHLRBediFSzmztmdYUF8hjER5nlazc4M=
+Date: Tue, 20 Oct 2026 18:07:30 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-doc@vger.kernel.org, workflows@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261020-brown-potoo-of-relaxation-3e9a72@lemur>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,60 +54,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261020212235.1143086-1-ebiggers@kernel.org>
 
-On Tue, 20 Oct 2026 19:39:20 +0000 Konstantin Ryabitsev wrote:
-> On Fri, Oct 16, 2026 at 08:57:32AM -0700, Jakub Kicinski wrote:
-> > Konstantin, could you consider adding a b4 option which would
-> > make it apply the patches on the most recent Linus release tag
-> > and then merge them into current branch as normal?
-> > Simpler version is to let the user name the application base.
-> > This lets other trees trivially create a branch later if they
-> > want to.  
-> 
-> This was a fairly frequent request, so I made this change now:
-> 
->     b4 shazam -M <msgid>
-> 
-> applies the series on the nearest annotated tag in the history of your current
-> branch (e.g. v7.3-rc6), and then merges it into your branch with the cover
-> letter as the merge message, just like a pull request. If the series doesn't
-> apply cleanly on that tag, or there is no annotated tag, b4 falls back to
-> applying on HEAD and tells you why.
-> 
-> As previously, use -H instead of -M if you just want the result in FETCH_HEAD
-> so you can look at it first.
-> 
-> If you don't want to upgrade to current master, you can already use
-> --merge-base to achieve the same effect:
-> 
->     b4 shazam -M --merge-base v7.3-rc6 <msgid>
-> 
-> It takes any commit, branch, or tag. The most recent master also takes a few
-> new markers: _tag (the nearest annotated tag, with no fallback to HEAD),
-> _specified (the series' own base-commit, which is what -M used before), and
-> _guess (guess from the blob hashes in the patches).
-> 
-> The breaking change here is that b4 no longer uses the series' base-commit by
-> default -- it was always envisioned as more of a hint for the CI systems. As
-> far as I'm aware, almost every real maintainer wants to apply to HEAD or, at
-> least, to the most recent tag as the base.
-> 
-> One potential pitfall: b4 can't know if "the nearest ancestor annotated tag"
-> is actually useful or meaningful, so if your own annotated pull request tags
-> (e.g. net-7.3-rc7) are in the history of your branch, one of those could end
-> up being the nearest tag. b4 always prints which tag it picked, so if you see
-> that, just pass --merge-base with the release tag you wanted.
+On Tue, Oct 20, 2026 at 09:22:35PM +0000, Eric Biggers wrote:
+> Many patches still don't include base tree information and can't be
+> applied.  Such patches can't be properly reviewed or tested, nor can
+> they be accepted.  submitting-patches.rst already describes how to
+> include base tree information, but it's characterized as optional,
+> appears only towards the end of the document, and is missing details.
 
-Hopefully it only looks for tags which haven't been deleted?
+I'm happy with this change, but I'd disambiguate the title a bit. With b4, we
+started providing both a base-commit and base-tree footer, specifically
+because often times the "base-commit:" line by itself is not sufficient.
 
-> The same logic now is in the "b4 review" TUI when taking a series with the
-> merge method: the dialog shows which base it's going to use and lets you
-> change it before anything is applied. I know Mark has been asking for this
-> (cc'ing him for review).
-> 
-> Please let me know if this works for your workflow, or if you run into
-> problems, or if I completely misunderstood the request. :)
+Imagine this scenario: a developer is working on some code in a feature branch
+and come across a pre-existing bug. They create a fork off of their feature
+branch to fix the bug and send it in. In this situation, the "base-commit"
+footer would be meaningless, because it references some transient commit-id in
+their feature branch. In an ideal scenario, the developer would rebase that
+bugfix branch on a known tag, but that doesn't always happen.
 
-Looks like you got it right. Thanks a lot!
+This observation doesn't really preclude this patch from being accepted, I'm
+just recording my own experience that, by itself, base-commit is often
+insufficient.
+
+Reviewed-by: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+
+-K
