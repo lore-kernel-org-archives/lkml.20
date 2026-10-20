@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792458030;
-	b=HM4pmU+WvngJ9ckMEGMEDIYlvtyohzUPXXXs7F+JIOyTrDyjsmk7P6tbcUe4299B787y
-	 UXsN2nvQ0r4IuX1g7hQSn/ZYu49IQB07t5PXCk682jKaaT4DX92Akk8Alo99HnfrhbLYG
-	 PLu/h6rpCf7iZafqeqoIDLhnpTfM+WkZXSRYNO7129zfZXbzEhvIGUWtQUnNuNeYwXjDn
-	 FYnhHZW9yUoyc7wJOGsX8PgQWR/xRfKpllzzrXCnICLo2hmpJ2Tae1FxprsRrrEBdgBI1
-	 i0s7vcZxbf9NkZQPvzEr0URjB0Z2S5EOdNp5lwfEAY+N/MVcm0zDmDujC1lbd+3pNGQ==
+	t=1792458071;
+	b=lJrL/7CZWNYsaduaPoZxMRDtY9FTHrZ+WZaAmC2IgTESyFUlXv705hKNPMqN9Gzvcs3g
+	 RpK9cUXGPLxICcN2LA9/I0Kq3ncMvM0OwZPgIkT7zucgVsHVj7Pbe7jgS3qp2OK8vNtjl
+	 O54EP/vQhDvOI/4KJRMwKbjtC+9BGKc2LVJZAtAsHM0aKv3L9yeGauV6sOnQKrBYNnlPm
+	 lrEF/5NWxldW432zVfyLdpnU0aLt3w4UMLBXM4OVKgprIWbujqsbbhXcv2n+wRCrv5IVL
+	 6ogwxe5M6lIz1SqaTPvlOSOkG2Q1rrq3b6PnxEbzahzFZvjeXG+YiQdPbzF89Pc7NHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792458030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792458071;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
 	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=v3oHSdXRqTXEkQ1Kg6tzlq5Y/Vbou/Oklmbka51QfB8=;
-	b=Hmmv1vARIZTNsbkM2D0Z0SFYafbC/15VG3odp2g/IOfiVSvB8bNzxGcrwLm0sMFwp7zy
-	 JlPJHiXA1sCUPp9y4H8qIxF3RkoAjWvEXSpt8QvmjccjuTIs996aNprNqbIe2FWvtD9E+
-	 wTt1t3nQwUXVMpsmnW35QV4Yw+zQMa0jhEqMAgd9W9n/VZO4atSyC5EJ0DTMvEq4wODbB
-	 MIAJLAjph2KcH5OzAwv9rII8mRt7BI93egbvlqHHiHZ3zrxcXVvpa5h7aWD4KTTqwPA/G
-	 4ZziMQOhhc4JN4X2ZWRFuptfYD/AD34V5us59Y1IXx7tIVbblyqDm5fUjdcyfzNbCYg==
+	bh=R1s7MEiNk3YEdNy8JitFCBfRyq5B3y/z+JpJ2i0d7u0=;
+	b=OroLfp0E64i6gCVvITh8K2L6f+ahxjajAw9qIfupI13vjKgh43xNo+2S84fR58HepWGX
+	 8elNQoq+M2ackTs/IB5PBN8EHUAQddATK7g8FoBRFY4LSzPy4Hd0RmmEc3p5FINgehL1L
+	 DdlKzD87rC4dblIf3EIiV+Pkvg+L6e6xMjYMw9ZtpsEZzpZrJyTxzJdQRW7w7A1OQ3cRm
+	 qbRA6WNhA9OAR/3iJo0Gnf6MVpowYjElXO6AKuUpC5hKDj+MzYEGqweNc3MOUcFhAqKai
+	 AxXxes6Ka2SWCiRAYFH5H83SzXa0kDXnv5QaDyFK3wJDPt32Dcp26KJ1O61Fy6MHbCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MgIUQ1Hg;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xu0J4k5h;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A012F606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:00:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A012F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60467606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:01:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60467606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MgIUQ1Hg
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so2433600a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:00:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xu0J4k5h
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9ae391a05so1316135ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792458029; x=1793062829; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792458071; x=1793062871; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v3oHSdXRqTXEkQ1Kg6tzlq5Y/Vbou/Oklmbka51QfB8=;
-        b=MgIUQ1HgumkagGfq3ojlaOllQGiyh3tuIxCCZ93uzNoKbH0UctstNJTiov6h/15hgc
-         SWKCJRMffuIlR2hMSwDvjb23iTMLj3yK3MIYPDSbntHRVZ2KmXpUdV5EIbvuwn7gS+wg
-         LNVsJ1CTDC2TTOquOZIfTz4GagudWLX5os0euOM2f8kpFylb7iw81bnvbX7wY0CW2h4E
-         KCcqoriRVD+XNmjCkNpX2MgRmqABOlbkicuYgYWLfTMvlknyAv8jTqnaJTzjgTOXHZuG
-         7NUJmQIg9uxEqDVEyh3RhdQEfyiW/2TLNeJ1VYrRzcUzcZF/y8u+yMEUV5xhQNrutnDZ
-         WiqQ==
+        bh=R1s7MEiNk3YEdNy8JitFCBfRyq5B3y/z+JpJ2i0d7u0=;
+        b=Xu0J4k5hM2EawMwY962trFJpQtyvGlZpuyCsaUUhwF7+hGQwGnZct6T+z/AYgWF5UF
+         3qp/Xhegtz34ZSBba72MGGzV9rJNmmCeAYZqO8dkExio2cwSJ3Ja6icVoNyRirnInhjH
+         6fgHQaqEPla06e6ARO8cbgw1WjR5x6kQtNVU19ekHl3+xupIPNVkykdvbwYtV1QP49XM
+         3NeXuirVyWUpREFxqQ15tuMftouXJDKjkVQmFK0FwYpjs8+VpE0JvcCB9sRzkxOtpJvt
+         OQodju21KcepV0jaHxa8IEQ/cZvBv+d/trWZf718v+zwT5LA8aRgkQZhkCT6Odcv3y4n
+         lwcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792458029; x=1793062829;
+        d=1e100.net; s=20260707; t=1792458071; x=1793062871;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=v3oHSdXRqTXEkQ1Kg6tzlq5Y/Vbou/Oklmbka51QfB8=;
-        b=K0O+9QHnk+4s0u+5kbpgjeyO67WgKFX795zlQ2BjECpRZtx5jptMWEpywiQUCT5xfi
-         58J9fDerWyO8EACYbOs0LlCCQkhyX63QODD1IlzOoP541X1HSx0baTwC2XkzH4OU4mwA
-         ie1RnyGCoqmbv34h0NWdgCkqwc5MtXEN0r78wzPs1mb8AM1hq7FAsM8USsF20ebBgCeL
-         SyQnRgGfGQJz8+yfpqedZyIWAsOaqgYMjsHEZDoYIfaTB63+mSerRAcN6aKml3S9e8ql
-         jVfr3L7RdWqie+vEGUiGs5x5ds4iElfGAw/BLIo4Cg8QHJ7ME7MdmiMozO4ma5pz8rBD
-         qARA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8FG24Mqvd6jKX5n1qhchMU6tMUKeC7zsjWHHE5Cg0XaCPhRHv61tXWmnorYUIkBSSOfw9BhRdFrwrpfw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeVyL4iqhNL4H4bOg44hcIv944Ekg/Faui+uFRkY0BwOGqzPHO
-	p3imTBSzRwZHFMxKadCMP5wTqFp97VMo7wSYY9eIhGJVAFiYBPWlVcQr
-X-Gm-Gg: AYBFou2qS21+8pdKIrMi0jiaVUUZyoZgJuZhzLPiz0KvLKem/Wv5DYpZPnky07pe+TE
-	dNmM7Q11S/OQBhArRLpczuZ5MdN1Av99Do2Qg4BtO//egYJtW25NwX3BPOFKo094YDr3kqGpLLt
-	NPCVzCz9UiF1ICAHQ2k8aESQ5h0DND7mjIqkKkzJFxp49rpLzDcKyrMuBRfV/+x5Xll5xZlFItb
-	/KifyDuZ9LRlqRT1LIh7/r5R+VKJWwjDmeNNJhP/2LXte2S+0wXQKcKX87yR4OVDj0laF2J7UWM
-	p225hPgrtADlmWn9AY/vtcBDlT0oqpDuka1RU9ASYkRJtLWrO77csmyYa03BjBGvxnN+YYnRxvv
-	t/vq8ed9rUY1Tm/P63fFaNHKwPRnDs6EYwpljXj2WQHHUb19Zy1E/zzIWWc4kMciEkE900V1X4p
-	t6noekRTUsckTvEHhXEA6Oji/ptfLzx+si/gT/NK8xNaDaOTWs4mtzyWV8N9zKc6H/PNDfubRCc
-	2RTLkIvAwPXD3o6CTljYt5amSIPOF11ZCpuQVFaS4y0cpet
-X-Received: by 2002:a17:90b:380b:b0:3ab:413:49b1 with SMTP id 98e67ed59e1d1-3aceefb87eemr7913039a91.48.1792458028879;
-        Mon, 19 Oct 2026 18:00:28 -0700 (PDT)
+        bh=R1s7MEiNk3YEdNy8JitFCBfRyq5B3y/z+JpJ2i0d7u0=;
+        b=Xovn2IDPpOChYABTTLigC4kXWhbNOaMIbG/ld08yTM5zZx/oeUeaNC+pNet/Bq2q7M
+         mK3OmzXW35lftkQ1W5HeGFKl6BAVEabbtJ6/eVFgPBot5H3yLIVFo6Uoz81gHnZV3g8k
+         wZdMZOVZldRqC9yuWY2ZDb1TfOGnahMw2sw6pjsTaoup5syvdhpIIicwbdWpuMbkIqI6
+         SftFgHNkfVB/BPDz7ejLpJa1YSHpEPAKyfkAUg6G/0jeQYP3e8hKOOohSEEjv0zCOfXf
+         aIQWiH3nxrUSXeEqZ9ANvMYhLeCKZ6sqDtKEOAT2NwzaoM6nT3fDeV/JVbhA5yDIwfHP
+         dl+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzkjWi1PeL5NWIcUeMWWOhq26T3TnN0/a/ZPAEaubooXRS81wHDCBkAEUXm1m1RZqnmrgyN2FbboWY0ceU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7Zo+ktCtaAv7PRtCC0QKlS+BZajP5ioo6vJo5F7RNLxX5HCUY
+	lWXZAaO8lvFceeGUFV9X8QyTx//ljF07zvdSAFTI8bq751cdC6At43dW
+X-Gm-Gg: AYBFou2B5VF7A1lYwIvRNiqb62lBHxXJX5bbW7kMqMZoL0VHBzAKvxHMz4oOs8r9mdi
+	8yq7k49UwS6kOqie6eXdA7ejT1bPExmNRF/p5JlYIetetqNBk/s5r3yH5b4Sz823Nqq1ijpFjKb
+	X22j0GcNqm/yc7a0LRndBCFjtj2C70drnL6yboN+e8/IPuBYDvIroWL28qjYzAcmqKZi0qZW9Po
+	ZZGfOVKiUxY+vcOcZ8g76zcjYJ98XlBWi/xGpCvXFJO3bh2gluegXpC+couyxhap2ta8Gle2YuV
+	cAF0gwlRXFUf+Uywc9w2+A1Tvv1iI1U7Z/MsdNBDt+gKrMY5jID09yohUx1U0235ifx5UCpSli8
+	lLICN54SDIpUqb7srIReVNclAbowP7NcDawEaa/BtneIlybb/fO2lNOaIoVolC624JHu0IimtOb
+	dvSXaRWvvLPKlLzBu/Ufr7aVmehxQS/CONAj550MUhnPmL9wCuk9WxBwxTRR1eACdIQrTzQOgB/
+	U9mZQVr/3rz6dFJLbxFTn8Hn6sX0Wcy280eNxbC8B2N7Z1y333NtoVhsZGbl2HKlZ6b3CEp1EzG
+	piOsK5FFUOgxNFB9v/zMh1gcyw0O+g==
+X-Received: by 2002:a17:902:eb8b:b0:2e9:199c:f800 with SMTP id d9443c01a7336-2ea1dda3ad9mr4561775ad.37.1792458070568;
+        Mon, 19 Oct 2026 18:01:10 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1517e7cfsm6466715ad.58.2026.10.19.18.00.27
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea145b5099sm7107725ad.6.2026.10.19.18.01.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 18:00:28 -0700 (PDT)
+        Mon, 19 Oct 2026 18:01:09 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <85d47f47-1432-48fe-b83b-4d53381c5461@roeck-us.net>
-Date: Mon, 19 Oct 2026 18:00:26 -0700
+Message-ID: <6991e32c-cc2f-44d0-a266-4e13e30916ba@roeck-us.net>
+Date: Mon, 19 Oct 2026 18:01:07 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +94,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] MTX-1 watchdog driver removal
+Subject: Re: [PATCH 1/5] watchdog: gpio: Allow devices described by software
+ nodes
 To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
 Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -111,6 +113,7 @@ Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
  <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
  manuel.lauss@gmail.com
 References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-2-f.fainelli@gmail.com>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -156,22 +159,49 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261016221617.2223004-1-f.fainelli@gmail.com>
+In-Reply-To: <20261016221617.2223004-2-f.fainelli@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 10/16/26 15:16, Florian Fainelli wrote:
-> This patch series removes the bespoke mtx-1_wdt driver and migrates it
-> to the generic gpio_wdt driver which it should have done ever since
-> gpio_wdt existed.
+> The driver reads its configuration through device properties and obtains
+> its GPIO with the descriptor API. Neither operation requires ACPI or OF,
+> so allow the driver to be selected on platforms using software nodes.
 > 
-> Assuming the patches are satisfactory, I suppose it would be easier to
-> merge those via the watchdog tree than the MIPS tree?
+> Add a platform module alias so a non-OF platform device can also load the
+> driver when it is built as a module.
 > 
- From my perspective, patches are ok, and I'd be happy to apply
-them through the watchdog tree. However, I would need an Ack
-from a MIPS maintainer to do that.
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-Thanks,
-Guenter
+For my reference:
+
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+
+> ---
+>   drivers/watchdog/Kconfig    | 2 +-
+>   drivers/watchdog/gpio_wdt.c | 1 +
+>   2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index f7d0a0c2c0ef..f50709c635e5 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -267,7 +267,7 @@ config DA9062_WATCHDOG
+>   
+>   config GPIO_WATCHDOG
+>   	tristate "Watchdog device controlled through GPIO-line"
+> -	depends on GPIOLIB && (ACPI || OF)
+> +	depends on GPIOLIB
+>   	select WATCHDOG_CORE
+>   	help
+>   	  If you say yes here you get support for watchdog device
+> diff --git a/drivers/watchdog/gpio_wdt.c b/drivers/watchdog/gpio_wdt.c
+> index 1abc7d0b78a6..ff323d6e692e 100644
+> --- a/drivers/watchdog/gpio_wdt.c
+> +++ b/drivers/watchdog/gpio_wdt.c
+> @@ -191,3 +191,4 @@ module_platform_driver(gpio_wdt_driver);
+>   MODULE_AUTHOR("Alexander Shiyan <shc_work@mail.ru>");
+>   MODULE_DESCRIPTION("GPIO Watchdog");
+>   MODULE_LICENSE("GPL");
+> +MODULE_ALIAS("platform:gpio-wdt");
 
