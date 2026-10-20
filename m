@@ -1,94 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792534845;
-	b=WqT5e0ivzQzDJl65fmUpQ1iFXtxL5V+bD6tbQ4uwF79eFxeit1/sch4vwWY4FTt8OBRw
-	 TFMid/LHdZSNySuCS9ES959ZQnwdk47QJNrlilJ3QnZwZ8uZRN9MaSLJqYFOZgfbEUh49
-	 k36pGj87bFjU9VPh6OXLTSj2N5M6BfyYl4psezdn6S5eXVr//a8A5nCYGaPSgosbCkOHn
-	 Z63VbI6G0YcvJodbVw12WmPctAxNandvH8L1TvrRdWn2TsdUgSFciqgyZZgNaR/OBCdta
-	 gkKZrNX0hd9d5aYwS6hj49RSGRAhfn/DbHJfqGs/ge3G+JNqVTBMYYL7j3inDxdRl2g==
+	t=1792534864;
+	b=B0L6V7LdKdOzeqqg/m8kw6PDGAPZ6mmM0E4g/cHgoWkn58pUC/2bU8A63c4BO6ohMdzm
+	 JO018eSvjOhj6oji+K9sO3CPqq7IwzCdYrQuPzcKaLk66DnVygCeZ79PuV5YE0wvEqsN4
+	 2b7l+eu6n0O30rOFGyu4PY1Yfz5EeDjpLs78t92Zwh2PMTixZ/+j2SzeL2ZoBb8RVngmd
+	 wFwtjIr9LG60aPsk1/y/invQvyCYqzKHJWMpt2G/aB5y++Cru4yUSkjMkdxyAqazzKSjH
+	 EHvzU4Oa19HulXW7SZiTU4VRNpEckwgOpxxT4KU4JE1FkBopFLU91eLcPYoHSFiUPmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792534845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792534864;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
 	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=e+rTVv+iVEWd7x5t04ng7tJ6COM7wdfTXhcIHfC1DuM=;
-	b=Z96yeGv9Ebmt2R/t5XrZKRGmMGVIoDXHrdh9bA2GqXZjynEbsxtBbdyfjrdllDXTGgwc
-	 h2IgrpUN2uu14byTe+kZSeeLKU8dk7lHRQ6cHzBmN4X8SzIlJ8rdb6oJZGawSqRX9Bzul
-	 9dBM8hgVlTByUCdtoplMmtXMGov8hz2pKs5YEKdLKqjlU6tE0AECIlACvm3g49H7XNuqg
-	 uEkYBrRsaCzxKvJU2VwS7X9d4Sq4/E6EkhN9tTGSgqCsJLEPbOopbfiXGN0TDS/5lHApY
-	 YilfbhbqgAvbScKE7rdoPd0lwVqu8ZG4GxPMHCdI/zetDG5XXSPc+5/2luYNuSILkAQ==
+	bh=pghdpTVdNq2MZRY0h0Gn+vje5VJFjDa/Zt8muo4zdOA=;
+	b=zeTnKhacZyGLQNz5PidT84Q6dQG2Ii+OcOi5UFkQAatbmvSKIPyaq0do/uP6QX4d8wFZ
+	 aEjsbHxWxLyFFRiCZrvCxApuY5/pjBm5Xa1z0H/Rmj0gbFKAtsyjTd1lLSqZnhKOMEx48
+	 u0E1ACxGQAM6FIKNzvuaRCjU7FGFwKvmPsP5YYUqw8WZCJi1fNW9n0Ci25PrqfN90Dels
+	 PgVdR/l9VYynfp7xuM1CE19eqa/e50u5i2EMSbY+Vi1wfhMDhobRNUk0lH8rQkJGZnc3C
+	 tIp+HREiFlvyt1KCJxXROcs3kp7QY9LgsuV1z1jr8a+G5iKOMwuwKbv3Q1yLRO6IYog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dubeyko.com;
 	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=MqPk8s2a;
-	arc=none smtp.remote-ip=209.85.128.173
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=vngB984g;
+	arc=none smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A410606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:20:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A410606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5831606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:21:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5831606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=MqPk8s2a
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b0a28a720aso1216507b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:20:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=vngB984g
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b0f59a5fdeso1340497b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:21:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792534843; x=1793139643; darn=vger.kernel.org;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792534862; x=1793139662; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e+rTVv+iVEWd7x5t04ng7tJ6COM7wdfTXhcIHfC1DuM=;
-        b=MqPk8s2a4tjVazcQHMfxG051sFME4NlP1WUT0DIlituCnD1S+lzkfKxLK/TXi6f/Bi
-         UtmG4uh7z2l8FoMSTAa3vWo6J8xB65/dvUUASQVo7uUY2xHw81xRxQYMfKhFBugmuLDS
-         27lwafyyM3mp+EF1sBdKs11vYiVDS2wKl/CZWOMTXvXvL9D+/7Y30xNVQtdL/aoZOwV5
-         KXG+8oL60CwFN7zLFsh8fusIKRKYO+wD9Un0fdUIoAWaJ5bAsFqq72MAi/HAkpZxM14v
-         3tqYUzb/TOEy8Q4c7eDG+6Cj7QJM4na+O7sWqP6HpPFCN+gdS4CCSFfI3xmyOQD9CUWB
-         dOww==
+        bh=pghdpTVdNq2MZRY0h0Gn+vje5VJFjDa/Zt8muo4zdOA=;
+        b=vngB984guw4e/6yXsRFA0mI/1yvZR6zowP/Vyp8TvEB+TLQfLP0noNJy75rnmfeuwc
+         CCyvpm4I+jis5wvfVr8vDph1j/EgYVKQF546Upf7Y1E1DhL+2LGOKiJ52PbNwlSINjVQ
+         qsiX1XMyygB8vwGOGiwB8s4A2mJ65FCO/sRQZ+c5qZpeezuUN1JQiTb3H8v+IRBb7HzW
+         JTE5BZ3/FoZVuJ8Ui6gMuO2wup7/sBWyFW/I7rTuzANgC3S6eZlraTJi6azIPctLLVIm
+         ZzZoLUJEMvwwn92r1dt4fLDOiXezmkOc6KD0RHgJ5V1Fs1GLPjW1gQccZgPb3BiO/SLv
+         3AVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792534843; x=1793139643;
+        d=1e100.net; s=20260707; t=1792534862; x=1793139662;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=e+rTVv+iVEWd7x5t04ng7tJ6COM7wdfTXhcIHfC1DuM=;
-        b=UPuBOo/PJ7a/7SpDzFVN7pb8ODvFyWwS4Jlg7H8vUBBS+WadOzCTpkHZ5iWYfCcStR
-         JEpo0P/7+VXXFeb75n//7WV2gfiHiPV/M9a7JgW59sLU6wO/J4bSmPRjcK8prPQCaveD
-         uvVMsdBFjFxP+Y/fbOhJjV/AmWJOQHdR/EQM93c3CjdCoT7f3nH3V/fYOlOCZpQc83bw
-         8og8QG4qbpYsihezRJf3vaP33T/26Mf3/Z/jz9wO8Qwy2Jf7E12cjm2qPEQuy//gOVhw
-         dfwbB+BVtYh8MNZYnJh6+MycAuPdD/Y1GBk+uYOM2oGuukxx8FfsJX/HuYXsw1zzoigq
-         6xgA==
-X-Forwarded-Encrypted: i=1; AKwUvBymT9nmnLpCqAuvwx6iMatVR9MOlKUDt22wRROwupmbPIkIOHRjOzGjAotgUTwvo8TSoIU6fNvimQaDEjY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLi89plavbNo3Efw4rLzLFx2k2OJwIsETFCcoQQIiO9yz+G4J/J
-	zOftDn0I3VDLdNzy/uGCf8T6tX3B51VwGkf1F+QONU5/BYSrmrvdwn74YLHfGWxy5mA=
-X-Gm-Gg: AYBFou35Zru/ULQLFUv6fcC2v1YkBuGQg/HYr9IYVEeYWpOnfqcUDsILIRgWX4YUDGs
-	WGKC+5sr66mZa5l5dDS3gJ0xk3Yg6PwRRNxK6Gq5LyYHYWL4GlQwkLTu/pZzUy4pT4aydhW/xij
-	NmlHoZatEuKXXeTTxegQykHdfEjcoixJBojsfmF5VakRpEWSU2z6XDirrp82L7kwfqb7vjRfonz
-	gh20NDzE1iLyXfLXQZQ8T5/MPnEL5BzuU/2H6okjspzHUondDXwL+X5rYSIWgmAun50ZpxU3xQ3
-	/DVtIZhCo8Eyqll8ju1oUgAZ5qKflZXTDZLGCFLjhVTWEjOhui1Gn7rOC5r9cFuDiyg7JDbDHmv
-	txCnD9gHVHlwplMPyqsPNcflXSR6i1klChtHr0noT+n8xfhcpodc5n8sG2Ko97kd0lV+3r/zYt3
-	HaDMjOeEIkGier615jl3aoPMhJctOlDaOYFqqCtV/Wa6OkhRd+T2bd8ZDVoPiNjypLxwgpj147b
-	U0kz8yN0nlXICgOj2gQ2lryf70S7fDSlk70n3O1RX4mYFD+YaE+gRYLQZh7TGhjO+kz5Lubc3qv
-	cBWXqz8oNVBPlszogy+MnVJoCAMJIDXwzVqfwVHxuEyx/RxvvqW/LuVr1l7O2A==
-X-Received: by 2002:a05:690c:e183:10b0:8a8:7e5a:dc2f with SMTP id 00721157ae682-8b133e48e78mr1338827b3.12.1792534843355;
-        Tue, 20 Oct 2026 15:20:43 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:9597:5848:ae16:6bc? ([2600:1700:6476:1430:9597:5848:ae16:6bc])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1301045a3sm3834287b3.28.2026.10.20.15.20.40
+        bh=pghdpTVdNq2MZRY0h0Gn+vje5VJFjDa/Zt8muo4zdOA=;
+        b=1hZS5gulNVCNWxqMiqq1V19vLcZ3PUT8EzfIs7ze8DPv6nBL4cMwZ6mgGDQBcN3X9c
+         uOQLHcVTZuvF7LFTkTi8Xp+tg+4KP3oIQZ197l3PTIJ3N7EheOmLy5jbyhM0UE/CBODc
+         RBjJflTcwypqyXrbdPhuhXYyxThJqxW7CDdcbL+JFTyiTC+cdAxwYOvtWEYjngmIu6gs
+         M7X2Q6GlLJa+beTrwAd62e2ugmHWCHurhPZVOHloINTxPnsOX47+03b5BGVguH+Z27iv
+         rPpZkA3NIg345auJw1HRW/Q/J58xgX8zJS9tTUiFVaVIQm3kGPjTefwxb0Q7LUXCJmGE
+         8kjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9ty2f06WoEs0dmKEgTflYWj4DSE0e+6y2u9MX7FhXY6L3w7YpO7Feg1U7p3DiVOzOgnDY5FJ2e9GuaUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU5f4AIeUu8sEA6MR6af5kcJ7/tOlAsRhKaux1usnxqtHRLPXr
+	tbY1imjQLMbihltnGMjZ4vkn2aCgL3na+Ucvd4XjTiFoUTZ/k8oWcTkqKXhPRKuekr0=
+X-Gm-Gg: AYBFou1GLqeQgfS794wF4C7bj48rYP9CURIIwcQS0Zaykxw5at9cLpkUUVQwq9YbVU1
+	8YV/hygXpckzg5lLrMdwT30M1NbRcbyoOJSIKV+Ef78MaCK3ncXKg5oSfp9AcfQ32+SqqNqpidx
+	jpUm7E7ynN/HKrlRtlJY77zAdw6+SMZf4KHMwWZz5rSD5C3i97DMJd69aj26COc1KIKoJ8h8qbD
+	n80cMIoXWjXvMv2s6iJG1/dZZLYCBkC0TW7hxr5TSrUjn3TwC/71P0I8Nwlg9vYBy7uts+FBi6m
+	Typg76cforkeCxzg2xCa9b+uwbZVUx03vKwn0o25EuljSqbMkrbNwhnWoeVNjD9+oN/EvgBu9vS
+	OgnDUazketNX6Ao42iJxPsHOAWnhexiSCpYk3Pd78AVr7IpLxVKmUj9LazHDEkQSdZli9p6DM4/
+	x/BUi4ahuWyEL5xhKHc9hpoY6pCKv86DhdNiGyDjRTkIAP/d24klfYE4nTgiKtIGLfqneV3LHO4
+	LoR5f1qkRm3iSwmFW8XMKDQvqEh5TK7ChXbjQ9zwZj7w8USizuxSGRKiHmXoiPmOeL2C87TQgxN
+	wWDmHkAUjoQDGIzca/49SnjYFgph
+X-Received: by 2002:a05:690c:6e84:b0:8b0:d75a:9cf8 with SMTP id 00721157ae682-8b133d2a29fmr1910447b3.41.1792534862540;
+        Tue, 20 Oct 2026 15:21:02 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430:9597:5848:ae16:6bc])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b13012f929sm3810567b3.33.2026.10.20.15.21.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:20:42 -0700 (PDT)
-Message-ID: <582a511b9ff2229d012587e93249b1c3df2cc7e1.camel@dubeyko.com>
-Subject: Re: [PATCH v6 1/2] hfs: initialize B-tree inodes and validate
- catalog CNIDs
+        Tue, 20 Oct 2026 15:21:02 -0700 (PDT)
+Message-ID: <74392849b266368d821d6dcaae4eda5d459d2e22.camel@dubeyko.com>
+Subject: Re: [PATCH v6 2/2] hfs: return ERR_PTR() from hfs_iget()
 From: Viacheslav Dubeyko <slava@dubeyko.com>
 To: yangguikun <yangguikun19@qq.com>, John Paul Adrian Glaubitz
 	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 15:20:39 -0700
-In-Reply-To: <tencent_63539C28151F9BA8C854BF6FAF9101A72707@qq.com>
-References: <tencent_63539C28151F9BA8C854BF6FAF9101A72707@qq.com>
+Date: Tue, 20 Oct 2026 15:21:00 -0700
+In-Reply-To: <tencent_190DA969DF79232C4E2FA681510C3E365108@qq.com>
+References: <tencent_190DA969DF79232C4E2FA681510C3E365108@qq.com>
 Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
  keydata=mQINBGgaTLYBEADaJc/WqWTeunGetXyyGJ5Za7b23M/ozuDCWCp+yWUa2GqQKH40dxRIR
  zshgOmAue7t9RQJU9lxZ4ZHWbi1Hzz85+0omefEdAKFmxTO6+CYV0g/sapU0wPJws3sC2Pbda9/eJ
@@ -147,220 +146,99 @@ Precedence: list
 MIME-Version: 1.0
 
 On Tue, 2026-10-20 at 18:19 +0800, yangguikun wrote:
-> hfs_btree_open() leaves the internal B-tree inodes with i_mode =3D=3D 0.
-> A crafted catalog record naming CNID 3 or 4 can return one of these
-> cached inodes through hfs_iget(), triggering VFS_BUG_ON_INODE() in
-> may_open() with CONFIG_DEBUG_VFS=3Dy.
+> hfs_iget() returns NULL both for corrupted catalog records and for
+> allocation failures, so the callers cannot tell them apart:
+> hfs_lookup()
+> reports every case as -EACCES and hfs_fill_super() as -EINVAL.
 >=20
-> Initialize the B-tree inodes with S_IFREG and their address-space
-> operations before publishing them. Reject attempts to reuse an
-> already-cached B-tree inode.
->=20
-> Validate catalog CNIDs and record types before the inode-cache
-> lookup,
-> since cached inodes bypass hfs_read_inode() validation. This also
-> prevents a crafted file record from aliasing the root directory
-> inode.
->=20
-> Found by syzkaller-style fuzzing of v7.2-rc7.
+> Return ERR_PTR(-EIO) for the corruption cases and ERR_PTR(-ENOMEM)
+> when
+> the inode cannot be allocated, the same way minix_iget() does, and
+> let
+> the callers propagate the error.
 >=20
 > Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
-> Link:
-> https://lore.kernel.org/linux-fsdevel/tencent_24D928451FEFA8A35482EFFA913=
-2A7305307@qq.com/
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
 > Signed-off-by: yangguikun <yangguikun19@qq.com>
-> ---
-> Changes in v6:
-> =C2=A0- Drop set_nlink() and tz_secondswest initialization for B-tree
-> inodes.
-> =C2=A0- Use WARN_ON_ONCE() for an already-cached B-tree inode.
-> =C2=A0- Defer hfs_iget() error propagation to a separate patch.
 >=20
-> diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-> index 41b4e8f..1891ad5 100644
-> --- a/fs/hfs/btree.c
-> +++ b/fs/hfs/btree.c
-> @@ -155,44 +155,9 @@ struct hfs_btree *hfs_btree_open(struct
-> super_block *sb, u32 id, btree_keycmp ke
-> =C2=A0	tree->cnid =3D id;
-> =C2=A0	tree->keycmp =3D keycmp;
-> =C2=A0
-> -	tree->inode =3D iget_locked(sb, id);
-> -	if (!tree->inode)
-> +	tree->inode =3D hfs_system_iget(sb, id);
-> +	if (IS_ERR(tree->inode))
-> =C2=A0		goto free_tree;
-> -	BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
-> -	{
-> -	struct hfs_mdb *mdb =3D HFS_SB(sb)->mdb;
-> -	HFS_I(tree->inode)->flags =3D 0;
-> -	mutex_init(&HFS_I(tree->inode)->extents_lock);
-> -	switch (id) {
-> -	case HFS_EXT_CNID:
-> -		hfs_inode_read_fork(tree->inode, mdb->drXTExtRec,
-> mdb->drXTFlSize,
-> -				=C2=A0=C2=A0=C2=A0 mdb->drXTFlSize,
-> be32_to_cpu(mdb->drXTClpSiz));
-> -		if (HFS_I(tree->inode)->alloc_blocks >
-> -					HFS_I(tree->inode)-
-> >first_blocks) {
-> -			pr_err("invalid btree extent records\n");
-> -			unlock_new_inode(tree->inode);
-> -			goto free_inode;
-> -		}
-> -
-> -		tree->inode->i_mapping->a_ops =3D &hfs_btree_aops;
-> -		break;
-> -	case HFS_CAT_CNID:
-> -		hfs_inode_read_fork(tree->inode, mdb->drCTExtRec,
-> mdb->drCTFlSize,
-> -				=C2=A0=C2=A0=C2=A0 mdb->drCTFlSize,
-> be32_to_cpu(mdb->drCTClpSiz));
-> -
-> -		if (!HFS_I(tree->inode)->first_blocks) {
-> -			pr_err("invalid btree extent records (0
-> size)\n");
-> -			unlock_new_inode(tree->inode);
-> -			goto free_inode;
-> -		}
-> -
-> -		tree->inode->i_mapping->a_ops =3D &hfs_btree_aops;
-> -		break;
-> -	default:
-> -		BUG();
-> -	}
-> -	}
-> -	unlock_new_inode(tree->inode);
-> =C2=A0
-> =C2=A0	mapping =3D tree->inode->i_mapping;
-> =C2=A0	folio =3D filemap_grab_folio(mapping, 0);
-> diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-> index e250f87..8d52170 100644
-> --- a/fs/hfs/hfs_fs.h
-> +++ b/fs/hfs/hfs_fs.h
-> @@ -163,6 +163,11 @@ extern int hfs_cat_move(u32 cnid, struct inode
-> *src_dir,
-> =C2=A0extern void hfs_cat_build_key(struct super_block *sb, btree_key
-> *key,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 parent, const struct qstr *na=
-me);
-> =C2=A0
-> +static inline bool hfs_is_system_reserved_cnid(u32 cnid)
-> +{
-> +	return cnid > HFS_ROOT_CNID && cnid < HFS_FIRSTUSER_CNID;
-> +}
-> +
-> =C2=A0/*
-> =C2=A0 * Validate the CNID of a catalog record.
-> =C2=A0 */
-> @@ -219,6 +224,7 @@ extern void hfs_inode_read_fork(struct inode
-> *inode, struct hfs_extent *ext,
-> =C2=A0				u32 clump_size);
-> =C2=A0extern struct inode *hfs_iget(struct super_block *sb, struct
-> hfs_cat_key *key,
-> =C2=A0				hfs_cat_rec *rec);
-> +extern struct inode *hfs_system_iget(struct super_block *sb, u32
-> cnid);
-> =C2=A0extern void hfs_evict_inode(struct inode *inode);
-> =C2=A0extern void hfs_delete_inode(struct inode *inode);
-> =C2=A0
+> diff --git a/fs/hfs/dir.c b/fs/hfs/dir.c
+> index e1f1fb3..0834d40 100644
+> --- a/fs/hfs/dir.c
+> +++ b/fs/hfs/dir.c
+> @@ -35,8 +35,6 @@ static struct dentry *hfs_lookup(struct inode *dir,
+> struct dentry *dentry,
+> =C2=A0			inode =3D ERR_PTR(res);
+> =C2=A0	} else {
+> =C2=A0		inode =3D hfs_iget(dir->i_sb, &fd.search_key->cat,
+> &rec);
+> -		if (!inode)
+> -			inode =3D ERR_PTR(-EACCES);
+> =C2=A0	}
+> =C2=A0	hfs_find_exit(&fd);
+> =C2=A0	return d_splice_alias(inode, dentry);
 > diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-> index 2aef3c3..a66de7b 100644
+> index a66de7b..d28fbbd 100644
 > --- a/fs/hfs/inode.c
 > +++ b/fs/hfs/inode.c
-> @@ -421,6 +421,69 @@ static int hfs_read_inode(struct inode *inode,
-> void *data)
-> =C2=A0	return 0;
+> @@ -484,15 +484,6 @@ struct inode *hfs_system_iget(struct super_block
+> *sb, u32 cnid)
+> =C2=A0	return inode;
 > =C2=A0}
 > =C2=A0
-> +static int hfs_system_read_inode(struct inode *inode)
-> +{
-> +	struct hfs_sb_info *hsb =3D HFS_SB(inode->i_sb);
-> +	struct hfs_mdb *mdb =3D hsb->mdb;
-> +
-> +	HFS_I(inode)->flags =3D 0;
-> +	HFS_I(inode)->rsrc_inode =3D NULL;
-> +	mutex_init(&HFS_I(inode)->extents_lock);
-> +
-> +	inode->i_uid =3D hsb->s_uid;
-> +	inode->i_gid =3D hsb->s_gid;
-> +
-> +	inode->i_mode =3D S_IFREG;
-> +	inode->i_mapping->a_ops =3D &hfs_btree_aops;
-> +
-> +	switch (inode->i_ino) {
-> +	case HFS_EXT_CNID:
-> +		hfs_inode_read_fork(inode, mdb->drXTExtRec, mdb-
-> >drXTFlSize,
-> +				=C2=A0=C2=A0=C2=A0 mdb->drXTFlSize,
-> be32_to_cpu(mdb->drXTClpSiz));
-> +		if (HFS_I(inode)->alloc_blocks > HFS_I(inode)-
-> >first_blocks) {
-> +			pr_err("invalid btree extent records\n");
-> +			return -EIO;
-> +		}
-> +		break;
-> +	case HFS_CAT_CNID:
-> +		hfs_inode_read_fork(inode, mdb->drCTExtRec, mdb-
-> >drCTFlSize,
-> +				=C2=A0=C2=A0=C2=A0 mdb->drCTFlSize,
-> be32_to_cpu(mdb->drCTClpSiz));
-> +		if (!HFS_I(inode)->first_blocks) {
-> +			pr_err("invalid btree extent records (0
-> size)\n");
-> +			return -EIO;
-> +		}
-> +		break;
-> +	default:
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +struct inode *hfs_system_iget(struct super_block *sb, u32 cnid)
-> +{
-> +	struct inode *inode;
-> +	int err;
-> +
-> +	inode =3D iget_locked(sb, cnid);
-> +	if (!inode)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	if (WARN_ON_ONCE(!(inode_state_read_once(inode) & I_NEW))) {
-> +		iput(inode);
-> +		return ERR_PTR(-EEXIST);
-> +	}
-> +
-> +	err =3D hfs_system_read_inode(inode);
-> +	if (err) {
-> +		iget_failed(inode);
-> +		return ERR_PTR(err);
-> +	}
-> +
-> +	unlock_new_inode(inode);
-> +	return inode;
-> +}
-> +
-> =C2=A0/*
-> =C2=A0 * __hfs_iget()
-> =C2=A0 *
-> @@ -446,6 +509,11 @@ struct inode *hfs_iget(struct super_block *sb,
+> -/*
+> - * __hfs_iget()
+> - *
+> - * Given the MDB for a HFS filesystem, a 'key' and an 'entry' in
+> - * the catalog B-tree and the 'type' of the desired file return the
+> - * inode for that file/directory or NULL.=C2=A0 Note that 'type'
+> indicates
+> - * whether we want the actual file or directory, or the
+> corresponding
+> - * metadata (AppleDouble header file or CAP metadata file).
+> - */
+> =C2=A0struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key
+> *key, hfs_cat_rec *rec)
+> =C2=A0{
+> =C2=A0	struct hfs_iget_data data =3D { key, rec };
+> @@ -507,15 +498,17 @@ struct inode *hfs_iget(struct super_block *sb,
 > struct hfs_cat_key *key, hfs_cat_
+> =C2=A0		cnid =3D be32_to_cpu(rec->file.FlNum);
+> =C2=A0		break;
 > =C2=A0	default:
-> =C2=A0		return NULL;
+> -		return NULL;
+> +		return ERR_PTR(-EIO);
 > =C2=A0	}
-> +
-> +	if (!hfs_is_valid_cnid(cnid, rec->type) ||
-> +	=C2=A0=C2=A0=C2=A0 hfs_is_system_reserved_cnid(cnid))
-> +		return NULL;
-> +
+> =C2=A0
+> =C2=A0	if (!hfs_is_valid_cnid(cnid, rec->type) ||
+> =C2=A0	=C2=A0=C2=A0=C2=A0 hfs_is_system_reserved_cnid(cnid))
+> -		return NULL;
+> +		return ERR_PTR(-EIO);
+> =C2=A0
 > =C2=A0	inode =3D iget5_locked(sb, cnid, hfs_test_inode,
 > hfs_read_inode, &data);
-> =C2=A0	if (inode && (inode_state_read_once(inode) & I_NEW))
+> -	if (inode && (inode_state_read_once(inode) & I_NEW))
+> +	if (!inode)
+> +		return ERR_PTR(-ENOMEM);
+> +	if (inode_state_read_once(inode) & I_NEW)
 > =C2=A0		unlock_new_inode(inode);
+> =C2=A0	return inode;
+> =C2=A0}
+> diff --git a/fs/hfs/super.c b/fs/hfs/super.c
+> index 5e6d66f..d201502 100644
+> --- a/fs/hfs/super.c
+> +++ b/fs/hfs/super.c
+> @@ -378,8 +378,10 @@ static int hfs_fill_super(struct super_block
+> *sb, struct fs_context *fc)
+> =C2=A0	res =3D -EINVAL;
+> =C2=A0	root_inode =3D hfs_iget(sb, &fd.search_key->cat, &rec);
+> =C2=A0	hfs_find_exit(&fd);
+> -	if (!root_inode)
+> +	if (IS_ERR(root_inode)) {
+> +		res =3D PTR_ERR(root_inode);
+> =C2=A0		goto bail_no_root;
+> +	}
+> =C2=A0
+> =C2=A0	if (is_bad_inode(root_inode)) {
+> =C2=A0		iput(root_inode);
 
 Looks good. I have run the xfstests for both patches and I don't see
 any new issue.
