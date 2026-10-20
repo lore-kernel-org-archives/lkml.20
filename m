@@ -1,115 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.68
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792517796;
-	b=AoBEOOkz+b9ZuwNO4XrdpW4jYnJpbaWqzEtFIK3SgTMNV2m9XB2bazCxBkU5gyHYwoXd
-	 3S/ARzZd/ttOGloFm9jjQDOhr0AhnC5TnijckPgrh5azGlAovyBaNh+EaprPb9RyrAeCX
-	 jZr/C2Ga9QkamOM60t27axD3DNz6qWZ7zQFgzacC2fPx8+L5Glw6ZHGs1y8VFDtQEgdhX
-	 9Wvzbs63aMAPVpP9ZpMhzpRYobpled2OXJL8NKtG/CNauaKutK9KKD3J49ieES0MNyFvB
-	 SbYo/xLzQtxPnNpuLUnM4ErfZATd4U5AigKe6T9KkG/vspulA0hCHeGp7JFu1FMcFhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517796;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=q9YLzauE97mN/5zqnD9jU8gAi/Zk5uH01SdB9tn2mAs=;
-	b=RY9rCcfKtW19nT2maQwK3YSjar+lkj1QO5M7Nb/hKeKl3wNxHXGoQGP7IYhyZuYYDt2P
-	 0gMUzyGca8oTb3dc8MqP7wJZnxkccsl46uU158om2pMwMpSVLD0/vTU2Z8e9V8El5ipaz
-	 2LZpcz7vVHoDjAiFX2zsawBseM/r+md7P32CKp2I5W6vHgIShAlPf+W3ZQZZs7aLJNSoA
-	 wn+dlq+ruoKyuIvOxPfmYRHlBHcG2T1n+JG2fAYB16ba5EHB66lX7gj3K20L2jJivKkDV
-	 sJrc4/Ok4t23mdOyVk5iLY5U7UA7a9z2P03DBCcrTB37gtflXmXxyjokymBw9I6ypjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="q/98Noll";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.68
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010068.outbound.protection.outlook.com [52.101.46.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792517797;
+	b=gc/lSxp1L9hvV1bc89KtyBeNJ/CvFY9KUHFB5Vy2WCk1k2xodQMu+U1u9Y5enOuK8RYT
+	 wnbpUfYdsyUVqFE0NqTDiVUg+2mzuY4RIO+MYNpsF3pH4QaLr7xoEYNxsWENKW+dbINmG
+	 VNuIAlwWcQivHlKlFYFLaBlYZigqYIcJZY1P5sqJN9KL1AFadT1bg3d6GLRbT2h6CZ6vd
+	 5MgcLWP3GzzD1UJJGwy9MYHVlw0NjJy+CpEnTNwXeCu39T1FOIgB5s0Z8Mw8rHPDHIY59
+	 3yRTO2KpJ8RwxQaPCgGP+4KexJfTpwgpfRmuqTRJhjwrsuZ2aqv9CSvPvAJHCPC7TYQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517797;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8853baHqPNdH1KHeomuAl3JHZ/VQiqVZydafLmmOWWo=;
+	b=3CeDqnFOC4fJ3F0keATAxy2U4tqbemcBj2COUkE1QSrb3lFriLCArn/4/sqUUW1djEpF
+	 7euf/RdKgfvWzyfE4qF9cClAengj77BrQZu3OwqTpELzgzm+HGN+UnaBgegM+gykkbHQa
+	 VWn+rLWUJfviL7K9OJ+E6pM3b74Z/DxjiplTC/69xYIikTJ2APD084Z9PHcD0r5Z2bDhm
+	 weGpR2/Kv3t3DN49r2KGbyRODxO9iSlH0qWmBXb8RntWylH4mkJ3OCcstPxNOUEab9Js5
+	 zkSVZakQpm0SpngV0Sf9gCHVpe6SABe2GyNBrg4NU8T4JhWMJX7jCMmmgDNgcxE1G2g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M1pqBTNF;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4128606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:36:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4128606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4F6606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:36:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D4F6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=q/98Noll
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OCkc4rmlZOy7i01jwrtTbpVy2y9QpoVBaAzUdJxXSI0TRLPVrd40SqeRacRyUauvd54GIYsjl8B611sYed5N+7B1PCpes0GEQzmZsO+qqHuaC6di/sDh7ubzgzroJWKJjVivuJhAPbpo0xDBAv2mS5qO6qvgwLjLxi3YCCIr27O6S7zFudNcgAByMBF9BYoDMSZMYJZbRAq9stV1sqfprOjDmK7XzFMvbGdgJlQgEAlMr+UXu7S1zjRslAG1P1tw/OgeO6oWmobrmm4dYLZUTm9uQOoLEHh2M88uXRFI+b3ofZZ9FNs1vVTsw+aBiZlsJtwqMfecyfZfoT4sWEQTdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q9YLzauE97mN/5zqnD9jU8gAi/Zk5uH01SdB9tn2mAs=;
- b=YcW0K4MZqKnlwX7PROL4B9KNOF5m1gkuxxb8B1srMfCQYS/xGcVw0fjM/bB8P1cC44eG25FT/KVPPTn63oefCHqRFx3D3os4zEpVOCN5ZdnYG4iemPAOK6u1PAD1mauVgQYNxd0fBzUyPm2dz7vJm1aYyFSSA/pkPMRQOu//l364WIUr/R5kk9BXPVNKYeT8ofpieds9jiYREn5Lk8x5qBsRlMPTYZP/gOMHdFgOpJ1YDirl4DzOBjygnd904mlEA+A3yE9eRG0g08aauztjHjHwSyJ+Hjf1x4InXFesOI0w1zR629jWrMnjixByZP8LZT0voXfyDRL8b4BvqLZu+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q9YLzauE97mN/5zqnD9jU8gAi/Zk5uH01SdB9tn2mAs=;
- b=q/98NollNc5d2EBnmM9lVV4B1oN/daG9UxdscLUyLEbLQ0sW640tv1uTOFliQUubobVbQrbvTkkXJvNp6FmRN7aWVD7JUZdX3TjfkaWYExK5gk5lW6Ec6gSq/6+D6qe3/+Bkvf8ydNSH4jDUDqik8xGhNNZGmwwQFY8biwFDi2sgfY5i/SBthwvUn0R+uBUwN6nEIzdbDeLk8efriki5kGxHq1DvNujnnwvQ52z1qlT+GX65C+uX+Qa80prbfxr9Oxu9zeXiBdBMeeVgGuk5JrOuExSeMnXkhFase16GFgABr/+V/8MU1c0gbco73hMWRz4nuSzq9leRwcLpVHAMWw==
-Received: from MW4PR04CA0284.namprd04.prod.outlook.com (2603:10b6:303:89::19)
- by IA1PR12MB7758.namprd12.prod.outlook.com (2603:10b6:208:421::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 17:36:30 +0000
-Received: from CO1PEPF00012E62.namprd05.prod.outlook.com
- (2603:10b6:303:89:cafe::11) by MW4PR04CA0284.outlook.office365.com
- (2603:10b6:303:89::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
- 20 Oct 2026 17:36:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CO1PEPF00012E62.mail.protection.outlook.com (10.167.249.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 17:36:29 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
- 2026 10:36:05 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 20 Oct
- 2026 10:36:04 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 20 Oct 2026 10:36:03 -0700
-Date: Tue, 20 Oct 2026 10:36:01 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
-	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>,
-	Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 06/11] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <atemgT/67JPpdk57@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
- <atdSrRwrphdI9ZQA@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M1pqBTNF
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48df4f540ebso2004507f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792517794; x=1793122594; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8853baHqPNdH1KHeomuAl3JHZ/VQiqVZydafLmmOWWo=;
+        b=M1pqBTNF/69jm2Q4mikPCszRYfwVx1U+tkZKSh8lgZb5Jguhmai9AcMugyo3JJRfZe
+         2nA6jkwJhDaY8yaDFurE8pSpg6StnaO6fEQ8pOMyM8k9OxFpRPLKEdUtCWfpW8PLBi89
+         +lFcfbt24RiLxCLfXvIVHoBmES6b0AhZBSr7FiaeMiXmPvetQpcFFWIeR+RkkWqTZboW
+         QDU2I9oa3aUwy7EnrG75fNEEWbRwUFund+kSXoETMSDSeXXzNPmcMlsKcJz3KfPI1jJb
+         Q0bVTVt9CfB0zJLfwqpN0X9prVL0BMzCVPpMWlM2lMfIZJ5MR0aoB1udlj3+Y3lf4THV
+         sayw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792517794; x=1793122594;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8853baHqPNdH1KHeomuAl3JHZ/VQiqVZydafLmmOWWo=;
+        b=QCfgzQKwpK4jjwrUEOxW3XARuGOuAe0fS4xQPBMa6KzaBYR2hcOjdsaCoIzKywbLwC
+         wJgDy5IR4c3YQYdQ+PLyHQfntxB58tOE8zwLUzb5A3TwIYvz2t8j3PIgpoo4+Uqof8i2
+         oXkPwra+lT/zV8yGKRmxtCsjCdvouzYpvSbN7OMOBGRp1Qk9+N3KaKdk+/BTOTpWDoEd
+         m0Be7lGBfOloyk8u9eoLcGNkmD3ROsoFDJnCXGsnV1gcQfJSfs143IcyRnW8Kg1QDw1x
+         Sy1VfdHkVTIr0Ky0qmXP0IJjubuV0j60xmimT18YSR2i5HoiDDxBbvwhYseaiJwa4K9d
+         sXIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxNrX9FYhM9wmLkbBEDtqmlhEQARXZ1wMCBRr5/xTqMqITeeJe240il2WhSCYgrryS4+1CNgK33RNTMWA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzuZFWT1wusQJ9+A7CKgAsjLykyQPM4sJXw+vmBQvgMZ1G6FQf
+	WqfJwrgAgdAc8EmlgxgAsOHFyidGt4z/NaNFVBygKPdvqw6WTIDyZhVN
+X-Gm-Gg: AYBFou1JaZrfznZHMLGnuVcj9OHT2giK74VmhaKJCgd6km8gWj7ISRLE/4sdvRF7rxy
+	7Exq0WHgRhYhtXUgAP4cmJa0Yt0y7WB95dHblRTaJQzGiFoOhp+mF4ANd9XrVfyoQHYPxkh3iZk
+	Ptn/GV+u9myyBoJut3pRwlE9V5loiOwEw4Qu99xLEHGiooh41tezWJUGf7H9NIfSWyNWulVwhiN
+	u1mFkT1v+Y+DZaGgWpGou1kWp9yEI/A/tDLuCl1BJ+pgzie+RdfJyoE3Q7Ea3i+cAdKXIcjKy1M
+	3wMgZsFychAsEZhw/VTPjI/S2bGehBTdOTyeqwIJekGiIj8k3EvHbhqdpkrWowyAvdvFcfOIkj9
+	YSIIA9Zgv5zw5+LoLrV/NGX2VNgqKcmrKjdhYY+wN61LdbrGwuAtJhURoIOFcK7cmgKq94HbyE8
+	/b1i/0Robp0B2X/XK2bvk9zHq0X/a/E8/MojlmUvkr4j52lEp10WsbwehujuPkuobWaw==
+X-Received: by 2002:a05:600c:64c5:b0:4a1:d1f7:bea with SMTP id 5b1f17b1804b1-4a1d7603dddmr261762935e9.17.1792517794282;
+        Tue, 20 Oct 2026 10:36:34 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f8016c93sm52505235e9.5.2026.10.20.10.36.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 10:36:33 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Val Packett <val@packett.cool>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH RESEND v10 0/9] Add support for MT6392 PMIC
+Date: Tue, 20 Oct 2026 19:33:21 +0200
+Message-ID: <20261020173556.632798-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,168 +115,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <atdSrRwrphdI9ZQA@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E62:EE_|IA1PR12MB7758:EE_
-X-MS-Office365-Filtering-Correlation-Id: da8f7411-0292-485f-ae8d-08df2ed0aceb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|82310400026|376014|1800799024|23010399003|6133799003|22082099003|18002099003|10067099003|5023799004|11063799006|4143699003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	p1nVJek8Rr7RiItFESY9LiOZ5fSaQAUu5jY8nYUv2RpVykj1WMuDlcT2TW5iU2hA/QDWaZcxfkxyg9Jo8Z6VbMZetVUhevGhbxVaJm+SgsVqTzCiXc5Uop9VQ28wl5bRn/xS9prxzSMVHKTu2vgDCJUd9NGM4bU60F0TJs+AnpjYpz1f6GZytU3WmwhcWrcjjUhFpmnupnOe85AlcXgqE0pE5o3DnRm5yPmp6NWkMqD14DE+lZwfvscY2SoPt8PU9dHxzi9vZhnEqAAkkDmapYNJ5MMwPqGIaRcwUjMY+ij2OULQXkPn+etPYSdTHtvldBg3kuqM4z2tPJ0/svPiql0VXk8tKwuGZQRfXou+7+esvlXzFwKloroQev9PGH9y6RNFfKIE045Wf9m8rut4jxY8TWPbxV62kdt09+gylefXp4OBdEJHOgStREbzHGPQ806etg0ixSk2pKjMlAcq2xai8I6aWcjchWz9qJndOpMsphayvFTlQ1TK4Bze5VqR9SntAnMm5l2pIxnkv2dRZWbB3JeGEnLygcEaWmdBsHXXz+Xzd7kBgsBcHGvzLeqzlmS7fzmRs1oLjumSLSzDtmpIEs6sGdSW59juL0gfXb1KZv34VSz6IebeKMbfj+S/RzyXZU3xa2KF66sHHcCpJp8nfCH1kzCCNHjszovG6BN8lOPCrfoWJCD6ktQ53mK/5a9OxLjIr1lcRLUxVsPX8w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(82310400026)(376014)(1800799024)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TpSV9znDAloiw4EYAM05FWLJyuMpmcr5Arbiobv38DOrhvj0AF5WonTHTvJUjB8cyoFdOX8/yhgVFHRyOgPGFMNsDgfcJ8PMvzFDxELRj0w83X7aQvkuEXt5vUmk9Bdf3wV52+heqvtGj12iVBzepAA+Jcye2gZK3IaEMeuCfzAIQZ4LgmpJSe3rq4DAlQUfwbyQyw1GqYbRUn6SZRGrm3dyw5KFoO01Ws+aSkeVEamkLk0quDxcNAjIbNH8MATF/Adnx1oow/6PZKh4fa6RqdMxlh+jxlyfPucvx6+OCPO4i90+7ZUQPV5+9iLebW20/Kjhs4DI0oiZGxRIQFkmmAZYXtU77uDdCsmglFClpCbCug3fPEX2omJQe2uoaS70IyzriEdEl218GMSEWP+iIfK9dMMV7aYZowGoYROfuQ3rYI3NVAUaJDGsS9XK7V3p
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 17:36:29.8039
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da8f7411-0292-485f-ae8d-08df2ed0aceb
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E62.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7758
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 11:38:21AM +0000, Mostafa Saleh wrote:
-> On Mon, Oct 05, 2026 at 12:30:49PM -0700, Nicolin Chen wrote:
-> > +	/*
-> > +	 * According to spec (6.3.24), HW aligns the base down to the table size
-> > +	 * and ignores the low bits, so an unaligned base would make this kernel
-> > +	 * read a different table.
-> > +	 */
-> > +	if (!IS_ALIGNED(base, size)) {
-> > +		dev_err(smmu->dev, "unaligned stream table base %pa\n", &base);
-> 
-> I understand these are best effort, but what happens if the address
-> corrupted and happens to be aligned?
+The MediaTek MT6392 PMIC is usually found on devices powered by
+the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
 
-This is a basic sanity so HW wouldn't immediately fail. A corrupted
-address would be trickier to test out; also we don't have a perfect
-way to do that. Earlier versions had some address range check. I've
-dropped it, following Jason's comments.
+This series is mostly based around patches submitted a couple
+years ago by Fabien Parent and not merged and from Val Packett's
+submission from Jan 2025 that included extra cleanups, fixes, and a
+new dtsi file similar to ones that exist for other PMICs. Some
+comments weren't addressed and the series was ultimately not merged.
 
-This is also in the kdocs of the whole smmu kdump functions:
+These patches enable four functions: keys, regulator, pinctrl and RTC.
+Mono speaker amp will follow later as I need to work further on the
+audio codec.
 
- *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
- *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
- *    the real hardware. Callers of these functions are responsible for gating
- *    ARM_SMMU_FEAT_COHERENCY once during the probe.
- */
+I added a handful of device tree improvements to fix some dtbs_check
+errors, added support for the pinctrl device and addressed the comments
+from last year's reviews.
 
-> > +int arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu,
-> > +					    u32 sid, phys_addr_t base, u32 span,
-> > +					    struct arm_smmu_strtab_l2 **l2table)
-> > +{
-> > +	struct arm_smmu_strtab_l2 *table;
-> > +	size_t size;
-> > +
-> > +	/*
-> > +	 * Retest the span in case the L1 descriptor has been overwritten since
-> > +	 * the adopt. Reject this master's insert; panic or SMMU-disable would
-> > +	 * either lose the vmcore or cascade aborts. Do not try to fix it, as it
-> > +	 * would break all other SIDs in the same bus (PCI case). The corruption
-> > +	 * blast radius is already bounded to that bus range.
-> > +	 */
-> > +	if (span != STRTAB_SPLIT + 1) {
-> > +		dev_err(smmu->dev,
-> > +			"L1[%u] span %u changed since adopt (was %u)\n",
-> > +			arm_smmu_strtab_l1_idx(sid), span, STRTAB_SPLIT + 1);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	size = (1UL << (span - 1)) * sizeof(struct arm_smmu_ste);
-> > +
-> > +	/* Same live-corruption check as the span; reject an overwritten base */
-> > +	if (!base || !IS_ALIGNED(base, size)) {
-> > +		dev_err(smmu->dev, "L1[%u] bad l2 table base %pa\n",
-> > +			arm_smmu_strtab_l1_idx(sid), &base);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> 
-> Those are a bit similar to arm_smmu_kexec_parse_strtab_2lvl() is it
-> possible to have some helpers instead?
+Please note that patch 0006 and 0008 depend on patch 0005 as they need the
+registers.h file, but belong to different driver areas. I'm not sure if
+I'm supposed to squash them even if they belong to different driver
+areas of if it's fine like this. Any advice is welcome.
 
-Sure. I can do that.
+Patch 0009 also depends on patch 0003 because of mt6392-regulator.h.
 
-> > +int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
-> > +{
-> > +	u32 cfg_reg = readl_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE_CFG);
-> > +	u64 base_reg = readq_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE);
-> > +	bool was_2lvl = smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB;
-> > +	phys_addr_t base = base_reg & STRTAB_BASE_ADDR_MASK;
-> > +	u32 fmt = FIELD_GET(STRTAB_BASE_CFG_FMT, cfg_reg);
-> > +	int ret;
-> > +
-> > +	dev_dbg(smmu->dev, "adopting crashed kernel's stream table\n");
-> > +
-> > +	if (fmt == STRTAB_BASE_CFG_FMT_2LVL) {
-> > +		/*
-> > +		 * Both kernels run on the same hardware, so it's impossible for
-> > +		 * kdump kernel to see the support for linear stream table only.
-> > +		 */
-> 
-> STRTAB_SPLIT which influences ARM_SMMU_FEAT_2_LVL_STRTAB is a SW choice, so it is
+The series has been tested on Xiaomi Mi Smart Clock X04G, on the
+Lenovo Smart Clock 2 CD-24502F, on Sony PlayStation Classic Mini
+SCPH-1000R and on the Lenovo Tab E7 TB-7104F.
 
-I missed that.
+Changes in v10:
+- Removed the fallback on mediatek,mt6323 in the MFD binding document
+  and in the dtsi file. Suggested by Sashiko [11], thus removed the
+  Reviewed-by tag provided by Kryzsztof Kozlowski in patch #1, version 9.
 
-> possible to get such mismatch if STRTAB_SPLIT of the newer kernel is larger than the
-> older kernel.
-> However, I agree that in that case it's better to refuse the adoption.
->
-> > +		if (WARN_ON(!(smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)))
-> > +			ret = -EINVAL;
+Changes in v9 [10]:
+- Correct binding for vrtc as it does not support mode setting.
 
-I can replace the FEAT guard here with
+From Sashiko:
+- Added missing include in MFD documentation example.
+- Fixed constraints for regulator-initial-mode in regulator binding.
+- Fixed wrong register write while setting LDO standby mode.
+- Added missing pmic interrupt definition in the pumpkin-common include.
 
-	if (WARN_ON(FIELD_GET(IDR0_ST_LVL, idr0) != IDR0_ST_LVL_2LVL))
-		ret = -EINVAL;
+Changes in v8 [9]:
+From reviewers:
+- Added example code to the MFD device binding, removed it from the
+  regulators docs.
+- Added minItems/maxItems constraints on the regulator mode definitions,
+  improved the mode constants.
+- Fixed formatting issues in the regulator binding.
+- Import the mt6392.dtsi file in pumpkin-common.dtsi, as it was originally
+  meant in [8].
 
-> > +		else
-> > +			ret = arm_smmu_kdump_adopt_strtab_2lvl(smmu, cfg_reg,
-> > +							       base);
-> > +	} else if (fmt == STRTAB_BASE_CFG_FMT_LINEAR) {
-> > +		/*
-> > +		 * The kdump kernel need not match the crashed kernel. An older
-> > +		 * crashed kernel that predates two-level stream table support
-> > +		 * may have used a linear table on 2-level-capable hardware, so
-> > +		 * enforce the same format here to match the adopted table.
-> > +		 */
-> > +		ret = arm_smmu_kdump_adopt_strtab_linear(smmu, cfg_reg, base);
-> > +		if (!ret)
-> > +			smmu->features &= ~ARM_SMMU_FEAT_2_LVL_STRTAB;
-> 
-> For simplicity, it is better to enforce the same table formats between
-> kernels as the rest of the file, for example,
-> arm_smmu_kexec_parse_strtab_2lvl() refuses different STRTAB_SPLIT.
-> Some checks can be removed and the was_2lvl error path. It's
-> very unlikely to hit such case anyway.
+From sashiko:
+- Added more explicit constraints on the regulator modes definitions.
+- Use the appropriate modeget register for LDO regulators, Buck registers
+  don't have the corresponding register according to the data sheet.
+- Added the missing of_map_mode function.
+- Removed some debugging code that had no use and masked error codes.
 
-Sashiko pointed out a corner case that a modified kernel kdumps
-into a vanilla kernel. It is not really a big effort to support
-it. So, I would rather keep this.
+Changes in v7 [7]:
+- Removed patch 0008 dependency on patch 0003.
+- Reintroduced the regulator driver. In earlier revisions of this series,
+  it was proposed to remove the dedicated compatible for the regulator
+  device [3]. The driver does not use actually it, but it is not possible
+  at this time to remove it from the bindings since it's a required
+  property.
 
-> > +	} else {
-> > +		dev_err(smmu->dev, "invalid STRTAB format %u\n", fmt);
-> > +		ret = -EINVAL;
-> > +	}
-> > +
-> > +	if (ret) {
-> > +		arm_smmu_kdump_adopt_cleanup(smmu);
-> 
-> Probably easier to inline the error handling after each call and remove this?
+  Making the regulator-required property conditional was NACKed in [5],
+  with the suggestion to create a separate binding altogether for devices
+  that do not require the compatible property. I tried implementing this,
+  but since the parent device needs to be declared as compatible with
+  mt6323, it leads to a warning in dt_binding_check since mt6323 would
+  be declared as a compatible in both mt6392 and mt6397.
 
-I don't quite follow this. The clean function is used by three
-sites. How can we remove it?
+  In the end the only regulator driver from the mt6397 documentation that
+  still declares an of_match is mt6397-regulator and it does not seem
+  to be necessary, so it should be possible to remove it and make the
+  regulator compatible optional for all regulators, but that change would
+  probably deserve its own separate patch series.
 
-Thanks
-Nicolin
+Changes in v6 [6]:
+- Dropped the regulators driver for the moment
+- Explained the FCHR key name origin in the commit message
+- Introduced the MFD_CELL_* macro in the sub-devices definitions.
+  A separate, independent commit introduced MFD_CELL_* to all the
+  subdevices in the mt6397-core.c file for consistency
+- Replaced of_device_get_match_data with device_get_match_data
+- Removed the mfd_match_data enum in favor of the preexisting
+  chip_id enum
+- Adjusted the error message if the device is unsupported
+
+Changes in v5 [5]:
+- Double checked regulator driver with data sheet and Android sources.
+  The data sheet I have misses a lot of register descriptions, but
+  Android sources have been helpful to fill the gaps
+- Reintroduced the required attribute for the regulator compatible
+  in the bindings
+- Fixed the missing reference to the MT6392 schema
+- Fixed casts/unused vars reported by kernel test robot
+- Removed Reviewed-by tags from the regulator patches as they have been
+  modified in this version
+
+Changes in v4 [4]:
+- Dropped usage of the regulator compatible
+- Fixed commit messages text to properly reference the target subsystem
+- Added supply rails to the regulator
+- Reworked the regulator schema and PMIC dtsi. Now all supplies are
+  documented and the schema no longer includes voltage information
+- Removed redundant ldo- / buck- prefixes
+- Renamed the pinfunc header to mediatek,mt6392-pinfunc.h
+- Modified the MFD driver to use a simple identifier in the of_match
+  data properties
+
+Changes in v3 [3]:
+- Added pinctrl device
+- Changed mt6397-rtc fallback to mt6323-rtc
+- Added schema for regulators
+- Fixed checkpatch issues
+
+Changes in v2 [2]:
+- Replaced explicit compatibles with fallbacks
+
+Initial version: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/cover.1771865014.git.l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/20260306120521.163654-1-l.scorcia@gmail.com/
+[3] https://lore.kernel.org/linux-mediatek/20260317184507.523060-1-l.scorcia@gmail.com/
+[4] https://lore.kernel.org/linux-mediatek/20260330083429.359819-1-l.scorcia@gmail.com/
+[5] https://lore.kernel.org/linux-mediatek/20260420213529.1645560-1-l.scorcia@gmail.com/
+[6] https://lore.kernel.org/linux-mediatek/20260612200717.361018-1-l.scorcia@gmail.com/
+[7] https://lore.kernel.org/linux-mediatek/20260615071836.362883-1-l.scorcia@gmail.com/
+[8] https://lore.kernel.org/linux-mediatek/20190323211612.860-25-fparent@baylibre.com/
+[9] https://lore.kernel.org/linux-mediatek/20260620200032.334192-1-l.scorcia@gmail.com/
+[10] https://lore.kernel.org/linux-mediatek/20260820122242.120039-1-l.scorcia@gmail.com/
+[11] https://sashiko.dev/#/message/20260820125850.3B34D1F000E9%40smtp.kernel.org
+
+Fabien Parent (3):
+  dt-bindings: input: mtk-pmic-keys: Add MT6392 PMIC keys
+  mfd: mt6397: Add support for MT6392 PMIC
+  regulator: Add MediaTek MT6392 regulator
+
+Luca Leonardo Scorcia (4):
+  dt-bindings: mfd: mt6397: Add MT6392 PMIC
+  regulator: dt-bindings: Add MediaTek MT6392 PMIC
+  mfd: mt6397: Use MFD_CELL_* to describe sub-devices
+  pinctrl: mediatek: mt6397: Add MediaTek MT6392
+
+Val Packett (2):
+  input: keyboard: mtk-pmic-keys: Add MT6392 support
+  arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
+
+ .../bindings/input/mediatek,pmic-keys.yaml    |   1 +
+ .../bindings/mfd/mediatek,mt6397.yaml         |  72 ++
+ .../regulator/mediatek,mt6392-regulator.yaml  | 112 +++
+ arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++
+ .../boot/dts/mediatek/pumpkin-common.dtsi     |   7 +
+ drivers/input/keyboard/mtk-pmic-keys.c        |  18 +
+ drivers/mfd/mt6397-core.c                     | 307 ++++---
+ drivers/mfd/mt6397-irq.c                      |   8 +
+ drivers/pinctrl/mediatek/pinctrl-mt6397.c     |  37 +-
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h |  64 ++
+ drivers/regulator/Kconfig                     |   9 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/mt6392-regulator.c          | 764 ++++++++++++++++++
+ .../regulator/mediatek,mt6392-regulator.h     |  23 +
+ include/linux/mfd/mt6392/core.h               |  43 +
+ include/linux/mfd/mt6392/registers.h          | 488 +++++++++++
+ include/linux/mfd/mt6397/core.h               |   1 +
+ include/linux/regulator/mt6392-regulator.h    |  42 +
+ 18 files changed, 1974 insertions(+), 168 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+ create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+ create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+ create mode 100644 drivers/regulator/mt6392-regulator.c
+ create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+ create mode 100644 include/linux/mfd/mt6392/core.h
+ create mode 100644 include/linux/mfd/mt6392/registers.h
+ create mode 100644 include/linux/regulator/mt6392-regulator.h
+
+-- 
+2.43.0
+
