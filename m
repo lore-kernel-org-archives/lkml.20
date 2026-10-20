@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517228;
-	b=X0zQN2Dn/l2yrx9pE+QGGmLU5vnDwqfVmfaTlLCZ3JULn0g7ap5WPh6Za5lf4JlI3kR8
-	 4aKsC4X3TXB2CU74YU0pCH2Nnts40yQEfbvdF2DPojgYjJxpa0LpQ1/mRBsH174jAZ9Sp
-	 sWHhNyu7NK3BcqUF6qIwrar4j9tiHtSAonila0Cyk4UWPnOE9ArphOBYtBLrG6r8kQviQ
-	 JPUs56hF9EMaoih7pBOY6FRUAjMXfvmbYIRbUnXSq1tQfFhJFMv/pQYqlr6KIzHgrgZ7P
-	 EaQ878X3J6syCCxboe7K2UHo/FfBJMfTu/Dle9TOnQQPu5L3o1YCUVS+T6k7YSLZChg==
+	t=1792517267;
+	b=e8DWaYC+7GOjXgxCqv4p+1ggM3uXVZeic3Hyyp5qWUQuKlBuwVFZwSMsak4QHwjqt0o1
+	 kmHCxqkUFI4RJhMC5ogcmn6BbyPCMKnclV36wtGtMFeHMdzvrn2iz76tXAR4//S8UwiX5
+	 Fi6mS4FgmX8PyEKs996EE3QabVf1h1FTlcn444qQNVseG5PuHlJ1X0fMV6ALN+rDkhemF
+	 QHV6BYxXRECF+3OE0gvnj1kZbNVA4QV47J9Y5jWsMAGUtmzuQgVerodCB9Hj+YLWaH6Gf
+	 4nQs//RUZwqSz/UkjGt+E+CdcmW2vF6CWk8bZTZraPy5rjQv+PP2KJXwQoZ6Dn5L5hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517228;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NHAmGjcfTdm8qHvpHOWbs3PA4mhZ0gnX7tnDSRMFqS0=;
-	b=DCS3aj0hrwBDIgMgq0uPKVNVBz/syI84Tk+W7GxUQFyeVRwWqBu7eLelp0E+N8ZuMP9T
-	 6/gkkU2MbywNY76KuEG1m3xNW28rFe5oNi2GYRG2xDZyDlzkxGBT88re9Eqgp7RaGbty6
-	 chsPwUHEbZduhmVy3hifJuR89brMdAdSn3/mdlmzfP7bb/WHSmTWrt20tXXXjS4mhUmyC
-	 b/cqQWO/PJYurDEcnIhB2sQ8O8PRc3ZnLrNv5dy+0lrx1xQ9RxCDDANUyaeeivs+fkrsA
-	 wQDy3CYcy71G5NhW1161XZtBhuEUvqx4xhqF7smdCuVCXG/U3bnXPXeKQAG1DBx14OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517267;
+	h=Received:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=yU04/QpgFe3hGyqIUoTM6z5+gKHxPwBv/6QVAeU2r6Y=;
+	b=sHKUiC1k2oeWwzaGMYwpzFHFYgQ88LqTm3nf6Gx4MzPUhwcQxl+Ursx2RJFZTprP/18N
+	 7uij4NmvezIWU9c65Jv3aLNbiLqjifQMiXeMpgmIuL24mYOK3CxrNXsJca8tlNQl1J3uA
+	 vdaLRi/Qpr9ChBwMTiQ3WD81Nj8YKfRP+nD1tBqFTGGkiU3v+wcSaBrhXZkFBjOlxUvlQ
+	 1gcHwNcB6Rlp60R0igQXSpvk31hTYVUA8H0HuP4dEzNHceYbBBFYoiGCLI4C7szvaWWKg
+	 EjSK0/d3G/lqL6J9HEtZoU/A2bhRZIhtMZLwCDdb8hdDf7JSdn9cKFbz7RVq0y/Lihw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B5jMLift;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA1F606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:27:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA1F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B5jMLift
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso18709085ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:27:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792517227; x=1793122027; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NHAmGjcfTdm8qHvpHOWbs3PA4mhZ0gnX7tnDSRMFqS0=;
-        b=B5jMLiftl50uzfRJ9Ytx4MTHqxHFkHmokX994LfPaRx9pIkV0QcoUI3rFafUxnK4X+
-         M87zfm0eROxTPvS81l1ICDsYOf4Vv3A+0Zw77IA5JJpo+65bD3NX6qNycChMVAWTx3XQ
-         51nipwU79FTekphCszbzGqXBiiyvPYxL0uQc+050JnTm8IG1rG+WuYinzPC4h/Cx4sou
-         Bt5FZueogVkYnYZI+Mp7VpTbJF5CsM9FxBGWveNigmO0+bI9DNEzSqlc88Z8bmhdEgzh
-         nGAgSRxx/qQ1mNv9kWOtMqaDFXE05LWnj9jLASIF2YMK44NVfhOD4U4AzpOOaQHyEkpi
-         43ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792517227; x=1793122027;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NHAmGjcfTdm8qHvpHOWbs3PA4mhZ0gnX7tnDSRMFqS0=;
-        b=khlBUWv4D6LASUaP+D0HfC4E4p+xhpDWxE18Cj0KcL+vB+HoN+HZ0sN1VY9DrInrNr
-         tqt6LfJHaFs6TzsbI+Ihoy7awVssh4NKwMyaPFLW8cgU23TPb1+eJIgXr3PPIJuL8/wH
-         XKUTRn3UB78rssPTmKkSWy5V9XrYUl88nSUnETgG27qWOdyNI4jkbtNkLMEHZsqz2T4B
-         8n4lwdgIHrR4z/UKBUt5aM/iBeIDxov7uArm9tv0aKLSSCrLg2L80g0loUbUgZEtR1v4
-         EWT8gv29R2ssNlnUeM+6ZDLLBPNGSQpvMDJMo88Hy20vygPOjXMou+paVDiKFkuFBHhP
-         ZYhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw29GVpD/PZ/hwGrkrBq8tAnfMsmzJrE/S94ybA3Zr1lQYV2+Mqbev5NVf5ERFQiqasUwd9uieR5hoZDTg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMolCpZhdl3mvqRrpepfPFOB6zVniF2G6svEoYNAGRk4ZNAi+X
-	QOaU1RSO/m/CzYzpG16z8zhzxKeofIQ2FRCSPsDVa52Y+jeNF+Qg7tqQ+C3kKA==
-X-Gm-Gg: AYBFou1XZid6PVzZWLpizFs0VKuxb82ud2qA+2CxkGjL6oUz7LFFTwf3cEiqQPcyvno
-	89gY3NKnr8ajcySHYq6/8fDuHNzQvdpZcHy5OcWOlI8iCsvClBsMNkoNmIUvV1T7yTWgxq63bof
-	ACC6DWbdzwWXUWpyLvGVUxYZZBXU/6mTLgzGPz1hV79C8BiMg7vOPrpIqR/RLrw6UuyiwinPWD7
-	uc6Hv9CfG2ghBJgqhlimPjOVZUVQVidMNABzy6dFg8PMaapHrZkL7KXb2GH7ZmrbOMBr9cDXQxu
-	jSsHd07B+FIEHpWW6tpeable+84fsdv+9fXiohjL2VGpAuNdR3rNZGrpPnAmBetB0KOdW5GEkGT
-	paJ3KUBObK6HTBz2rbss2ijFNCccKHTPLUiuzv3nKZrbBWs6xuO8Z5+FZMdHViD8odgZw5BUn5p
-	QzfxX1wED13eyrqq16C1XfTVWSiiF3rk8M+8vlB72Pjd8fP6f5FAxyFfpBF7RwOFglyhzIKteZg
-	H2iJwl+YL9GAI8PxTyk8EJqD9B8QP6BcJSbHl4XNWVzZuVwPJmwbcHzjVJK
-X-Received: by 2002:a17:90b:28c8:b0:3aa:548f:eb77 with SMTP id 98e67ed59e1d1-3acef5f1ccdmr10361895a91.56.1792517227458;
-        Tue, 20 Oct 2026 10:27:07 -0700 (PDT)
-Received: from localhost ([2a03:2880:7ff:4::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad802917c3sm487593a91.7.2026.10.20.10.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 10:27:07 -0700 (PDT)
-From: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>
-Cc: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>,
-	Dimitri Daskalakis <daskald@meta.com>
-Subject: [PATCH net] eth: fbnic: Correct packet header prefetch
-Date: Tue, 20 Oct 2026 10:27:06 -0700
-Message-ID: <20261020172706.1090951-1-dimitri.daskalakis1@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D586606A31B;
+	Tue, 20 Oct 2026 17:27:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB3A1F000C9;
+	Tue, 20 Oct 2026 17:27:44 +0000 (UTC)
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.ams.internal (Postfix) with ESMTP id DE3A0198003A;
+	Tue, 20 Oct 2026 13:27:18 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Tue, 20 Oct 2026 13:27:26 -0400
+X-ME-Sender: <xms:dqTXajhhAkytqTNlgANjRk-o93Rtlpoi-Ezo2eNr-yvrypWxigvkoA>
+    <xme:dqTXap3VaCSp2pOEbBYe1ZkKPW8sbSwgHzYOcqxs-uQ4aDw1JhDGZ2W6MMl0KiX5F
+    n6cbzk1SsrVVgNEt_agSPV4sFIcUGKYnktw3qqF8zk_vl6240UCdrI6>
+X-ME-Received: <xmr:dqTXamw4BWbJQ3vzYTcY1e0ey3jevieyfoMrSuzq0XSJ26cqwC1_BnfN5_k>
+X-ME-Proxy-Cause: dmFkZTGzP+F9vGPOZyaAazPtUwGQnMUL7fv9cbbx9r1tOaZQdDv97soC3NeH5tlEJqA6MA
+    8AB1mvW+ert6FpnONSEWAGkFPR+x/6nRW2wqDxG/x8xhzSPhANNTFTZd8rW1kL2SaYnlii
+    9CI3mhrsxtoq1xY4vpBJF2vYlEEH0XnB8T5gYNVsrEhr2hHVW9SAl6G+hpF9cS/72KRnf7
+    fX8wTM61liLZyYgaGEdx2EdbDIPJx0z5cvtRj60sqAXPKKMWkjnpExa4OE7h4TrxEplFja
+    gINIRlbgECBRkQGX0Y+PF8v3BMTWO8ODfE4TdaqEy7j/P6a++XwxGK7gWEuEvV58vHXkWg
+    WOptSd0fB6Ww8rvbb1gSU7DkB+If5hEwJrAAF94suydCEtNuR68UWN7C18EE9EBmf7vpTF
+    DVZwc4RymnasVGbQFGCY0HDcvIk8ASkm8W4hyO2amxhWiWEg/ItJJoQ22r4YQs+iaV0nrf
+    YxI5i3jEm7+V4W88aFGO3OjJf9X0g0VikjKzXcF/VABnLpgxgh2c55aD7z1uLzqqhrE0Un
+    L7UjVXQhOuSZh6QuXmTr5pRCs28i6LGHt1HXz8ISWHDlSYVzyrNKfw/r3zNUG58zDm+fPw
+    MpWHZg0Pmo8unfVtRtd10UaJA3WTyjHukRe0nCFdaaJMNHrjLQz2ivfer5jA
+X-ME-Proxy: <xmx:dqTXarMZAHnl-2VfPFpCVLhSbIyQ8eiCVvp8RDdJTT7SdGmmdBNKrg>
+    <xmx:dqTXasuSLTcjkFNVxoGGymoNkeMRJ4TmCNlACvbvralnp8AeSs0OXw>
+    <xmx:dqTXahw8P6Ddpi2XRDE8N8zFmRAaAflhBcRy-Fefac_t226a92ea5w>
+    <xmx:dqTXat5joCdsDY05-ygPYgGmt6bbzdoYQlnK8jCHFK_SS14gocQfoA>
+    <xmx:dqTXasUj_G7FDmOs-kp4WRZ1iUv4_A1bbyHE3n5OYDJmSq9S0lNvc__p>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 13:27:17 -0400 (EDT)
+Date: Tue, 20 Oct 2026 18:27:16 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Harry Yoo <harry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>, 
+	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	"Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	"Paul E . McKenney" <paulmck@kernel.org>, Pedro Falcato <pfalcato@suse.de>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
+	Jaegeuk Kim <jaegeuk@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, kernel-team@meta.com
+Subject: Re: [RFC PATCH 00/18] mm: read the page cache without folio
+ references
+Message-ID: <atejY_iL7U29bV4Q@thinkstation>
+References: <20261019154913.1765974-1-kas@kernel.org>
+ <atZurH8mp-yW3Upg@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,40 +92,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atZurH8mp-yW3Upg@thinkstation>
 
-From: Dimitri Daskalakis <daskald@meta.com>
+On Mon, Oct 19, 2026 at 10:20:52PM +0100, Harry Yoo wrote:
+> On Mon, Oct 19, 2026 at 04:48:53PM +0100, Kiryl Shutsemau (Meta) wrote:
+> > Small reads of one file from many CPUs all take and drop a reference on
+> > the same folio, and its refcount bounces between the CPUs.  This series
+> > lets filemap_read() and shmem copy from the page cache without taking a
+> > reference.  It is Linus' RFC [1], reworked: a folio that such a reader
+> > may copy from is freed only after an RCU grace period.
+> >
+> > Only the folios that reads keep coming back to get the flag,
+> > PG_rcu_free: those that folio_mark_accessed() finds as accessed as the
+> > LRU records.  Streaming reads and data that never gets hot are not
+> > deferred, so the memory held back stays small and most frees are not
+> > touched.
+> 
+> By applying this to hot folios only, small reads would benefit only when
+> they contend on the refcount. That further narrows down the scope of
+> workload that would benefit from this. Random or sequential small reads
+> still perform the atomics on the refcount.
 
-The existing call to net_prefetch() fetched a stale address. The data
-pointer is not initialized until after the call to xdp_prepare_buff().
-Thus, making the prefetch ineffective.
+They do, but an atomic on a cache line the CPU already owns is cheap.
+The cost is the line bouncing between CPUs, and that takes many reads of
+the same folio, which is what the hot marking looks for.
 
-Open code the address calcuation to give the prefetch as much time
-as possible.
+Single thread, 16-byte pread() of one page, mitigations=off: base does
+7.4-7.7M reads/s, the series 7.7-8.0M.  Dropping the reference saves a
+few percent when nothing contends.  With 64 threads on the same page,
+base falls to 17M reads/s in total and the series does 220M.
 
-This was found by manual code inspection. No issues have been observed
-from this.
+> Maybe we should try to either 1) find a better heuristic to mark
+> which folios should have PG_rcu_free to make it beneficial for wider
+> range of workloads or 2) identify workload that heavly contends on the
+> refcount of a small set of folios...
 
-Fixes: 9064ab485f04 ("eth: fbnic: Prefetch packet headers on Rx")
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Dimitri Daskalakis <daskald@meta.com>
----
- drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Marking more is not free either.
 
-diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-index 10caacffee0f..69cd96a4508f 100644
---- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-+++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-@@ -1011,7 +1011,7 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
- 
- 	/* Build frame around buffer */
- 	hdr_start = page_address(page) + hdr_pg_start;
--	net_prefetch(pkt->buff.data);
-+	net_prefetch(hdr_start + headroom);
- 	xdp_prepare_buff(&pkt->buff, hdr_start, headroom,
- 			 len - FBNIC_RX_PAD, true);
- 
+A flagged folio goes back to the page allocator only after a grace
+period, so what reclaim and compaction free is not usable right away,
+and they have to work harder to keep up.
+
+I am all for finding a better heuristic. But it is hard balance.
+
+I will get back with data from real workloads.
+
 -- 
-2.52.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
