@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456552;
-	b=Xg3VAx6zaR4PZJRjoP/Q4jd4olwlivCYXuKl31Fzq9qmjRA/bTl0JS73OngICF0lfUwQ
-	 kBcVjs60gF9VIwELjNH2+y57JXnFQlvox3pLty3b4UrnC+Vb25QKmTuLoZOJpQpShTMes
-	 FDE8+NjTZLMWyOXa979z0xnGQyJI3M2n+okXyPPtdz4+NlKpoL2rLOz8Ki0bOpv8bQjqk
-	 E/vVH98QWiE0HaiEif+ZArgsZmCBXQ7RhTCrocfSoMMDTgwhjdg4gtqWG8gH3yFg3woj/
-	 ightvQZB7AoBm6Wkw/LC1CXkCa+5FbSmqubetGfX0UuPORNQzXYg19vCY8nWSJowGSg==
+	t=1792456563;
+	b=3VI5+CNPyC7KgGdr2RUCNgJnG0bwMG0qEY6kCRPPFp3UX/QfzYOV2IP7teowOyC2G6Rf
+	 RvJml3QdN2j9MU1I36LEju7xPXdL/3prlN9XjbwvNk+NyrgWVEA4GvZAHKODBIe+QhkFd
+	 LNOBaq79HyfQpAE0sI2s03CjGOBg8iAutVzMIkcgv/YwGGJnNDKsjpzlp7yECsuerqAuB
+	 ELmNNoVn7/Woi8VKMNjh3SfHTZKOjUKnCTYcd0uFNgNkvUD6PLwdMl05RG6/q8POvx0Ef
+	 qMUImkUhSLjbkhwsh5MujPgP+ZrehKDNb0W+XH3OE5GgP2OAkxq0fP+jIs1X+F62u9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456552;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=oayzeq/ffRRZK2XsT9LR9PLQ/VgPUckLtfFvkcIvl5I=;
-	b=V62XTbmDgmkIv5QCJNAoc5+WQ/aSn5PbsXj5S1xyKV+H5gV8ifXo+xNEUeZv5TtWnWMl
-	 oLzKZgUXk8Bn3O/W/KFfQ++B8fvbDZMKmSM/cXU/H2i6LAXWC+ww039JTbc+A2K6WEakn
-	 cj/99V303r68thvWvANft2X3vVeyudaChAr/v693MSQa/M5OvLPm4Q01YKqEg9ECL921s
-	 wdAYklYZrqciSOBoAyj3uKXGvDsvwGK2jFlqoUy3tmNsgS4KA/gHWPMPKWHm8Bxa7YHVi
-	 8WdNkaSIOjTmzByxEaC8y6ScjX1G/vVDGAXWG42t+7w4ogWWZg8ACZtArlcUPu+KLvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456563;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=mypQyYyod7FbsUHTBuDz8BoApKJwDuLXZk29pLmZ7Ow=;
+	b=N621pzVAQRfWfxvf2kR67V3WDAaUGNVeSbB65KL2/FL6ypBuOzkPKgg3cNWG648PYNWL
+	 inCLDtf1zMXPYMqwKJJ+m0oc0ISceMwKlBlYF2NgkziObQ8XgGfaeWssVGy6Ej5VtM1iu
+	 umgrcEKNMuVSexxtq5xUrZ/snUVHLxptyA2IuK5oAzPPvWX1GVhdY5chqCkfBtLyE3wKm
+	 OFuEv5iOIpS/r0CIRVUpsqGqp9q/cCzbIyHXO0F8etzOJP3DBb2U+7snd4M9pq1AnevUi
+	 lZ8EGOlbZ+biRNbcOau+ZkUZ5IGafbOaqC/gbJvB4raFKsO4oUi2GdDf69lUxl3GAYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eAEVRu2V;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=j+nNSKr1;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2350C606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2350C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55BA606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:36:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C55BA606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eAEVRu2V
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so1490010a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:35:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792456551; x=1793061351; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oayzeq/ffRRZK2XsT9LR9PLQ/VgPUckLtfFvkcIvl5I=;
-        b=eAEVRu2V4UqcP56T4HZZ1IlytaLi5bONS8LprSycjgJbf6TD/KsczqfSf33xwoFgiP
-         cO2CNmUYrXJl1hyP73PYfr4VL3zcDyPMQuXqD8A3/m3qg17pDBC+FwZMchuT1GEVYkqk
-         Pno/b/ifwhs88auTwgvA4hVBT9I0+QanT3SIWcEM8qinBfPLg2YMUKPorVsKw8OIvSRR
-         pfUJN9UZ+YcsaxATxIwIOPMNsc+q0p+0SwvkszAbxKE6vg+XgyxyV/UcvARA+I7QZjXb
-         f8O8GAbTEe7rNqCQj2mcN0+QhyQ35IqE1ZGA/SqzpRwP/EUm3ht4nFbFBTSEGZzual/A
-         LOBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792456551; x=1793061351;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oayzeq/ffRRZK2XsT9LR9PLQ/VgPUckLtfFvkcIvl5I=;
-        b=LMPtnLoextNsqQcZcnuC3w1RJBCIY8sMmgqyOVWjGzcbVBdEFNXhPgu3AulzFe6y5c
-         wk7IjYk7QNQ6WtcS7MK0lMWoHbyYBvkzXwpIrtabGbvzzQ26/p14uC+t3JowM/tUEdZY
-         u85sBlH2Xx7A4rj4W5Y0yK+g400UDE/iejFspehMEBD7UZ9lEufgn3UMiThyxi1qv7tl
-         ODfoTyD8V7/Y+nebNodzqenfe2r8YDhzZGE8rL//U4sLZz8+Tt7UZS3XQ0/W/eVzcdom
-         6/TCNL8mw5AULQl7PhOA5TbFhWEbZbrQxnYY3VYou2xBcOY4mH3cCfoTtKjVBROYGWG8
-         RkKg==
-X-Forwarded-Encrypted: i=1; AKwUvBwrxwoQ1HZwiB5HwtMf2qctBGQ/gVhJSKljI7yMFj8OjFKOAxvlfF2ts3Ff7lO1kA44Qgng4ElRGtPIMIM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkkZMpT9IKUA0svtL/i///U8gbXSxZTu8vKTOD2YAZ4Z7zVvlm
-	N7KeGL8ECF+BukMG38JcN6mJhYRG1MyCyLeCFFtFXZpHdjFlam35nLOY
-X-Gm-Gg: AYBFou1IbgnJj3GiiYlRAQIBPbcjMMgqXH7oQUiHx4afo09kj++7C/AcRwSb/WX3ckb
-	qgRpd+Q4RVqNCV6/HPvcU36qYZ3HsCAPBeTJlCCWZyOiwIvSNbTIJ8fy4T7IRqBUSRDSDvI5XKl
-	f4ssGmmudUKBDyzDYZRZmakkMwSzAX542q/rdt3Rqga7zSBGvUhFBOQlL4j5HOd4NWRHNZZHQyH
-	LCj41guBuXvKaWDa8GOv7f1C7mc3pBQIr7fW5kQJbKpPQeaRp5sLKWtmVE7cWwACyFhz5tJk9Sy
-	mOc76Q/sujRqSHM1i+mkeP9hdYcJq66UKQgTtKOtvFOdrfzqTYhTCZLuK+CYyENyWJiQt2c3HHk
-	D6lg/OGS+U1cfAjAxlkwYAyyD60dFzKCGI85x51Rab7paIi6C7OcGE2w6DGmnnyJ9XAHFr8Sntx
-	bN8oSINd37O8Pb9dyjqrOKNAJmvvjSu306teY0V6Nmt46p195OoEB/FFactsZQnEgPyPvD9wDqn
-	lB/AF18iH37Oips90JcXDZvU2h0XlqBPNfZOKvIRxyGweynTgnpzyE6tyitdgd2Um9ptIyN+GO0
-	uG4=
-X-Received: by 2002:a17:90b:35cb:b0:3ac:8fff:5a1b with SMTP id 98e67ed59e1d1-3acef3d9570mr8518570a91.34.1792456551322;
-        Mon, 19 Oct 2026 17:35:51 -0700 (PDT)
-Received: from localhost ([153.61.198.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d56eddbsm1552366a91.9.2026.10.19.17.35.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 17:35:50 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 20 Oct 2026 00:35:50 +0000
-Message-Id: <DM98TFI010XS.5UZ5IEJBS2RQ@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: =?utf-8?q?Adri=C3=A1n_Garc=C3=ADa_Casado?=
- <adriangarciacasado42@gmail.com>, "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>
-Cc: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next] bpf: Add __printf attribute to
- bpf_diag_source()
-In-Reply-To: <20261019195916.186225-1-adriangarciacasado42@gmail.com>
-References: <20261019195916.186225-1-adriangarciacasado42@gmail.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=j+nNSKr1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+	Content-Type; bh=mypQyYyod7FbsUHTBuDz8BoApKJwDuLXZk29pLmZ7Ow=;
+	b=j+nNSKr1GDAjP+jg3n23lv4fe/QVr0ykw5XaBoFbQ0/UwtBrgXiQiJlRzYMf6l
+	jg3Lgns0hwo3Bw6HYS8BeRzGtvjYPpCVJrjhBuPYAq+d8FcYcBeIa4VmeMiQZLnr
+	5/Fo4XGhXSTud/MjpYwF9xQeU2YwNy/uwIok3pygjoBlg=
+Received: from shaos.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3v9Bft9ZqHddJBQ--.50832S2;
+	Tue, 20 Oct 2026 08:35:44 +0800 (CST)
+From: shaos <shawnq1@163.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] fs/ntfs3: nocase lookups alias distinct ADS names
+Date: Tue, 20 Oct 2026 00:35:43 +0000
+Message-Id: <20261020003543.1010357-1-shawnq1@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,18 +60,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v9Bft9ZqHddJBQ--.50832S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXry7tryDCFW5Xw4rur43Awb_yoW5AFykpr
+	Z7t342yr1xKFn7Wws2yF1FvrWIgwn7AayUKF1093s7Zay8tr1ruF1xt3W0yr1furyUW3y5
+	ZrW0vryDJ34DZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UWWl9UUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzwBWZGrWt2DtqgAA3R
 
-On Mon, Oct 19, 2026 at 12:59 PM Adrián García Casado <adriangarciacasado42@gmail.com> wrote:
-> @@ -794,6 +794,7 @@ static void diag_print_insn_context(struct bpf_verifier_env *env, u32 insn_idx,
->  	}
->  }
->
-> +__printf(4, 5)
->  static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
->  			    const char *fmt, ...)
+Hello,
 
-1. This doesn't apply to bpf-next. 
-2. The warning was fixed a month ago:
-commit 7f2b0b57a8d7 ("bpf: Add printf attributes").
+With ads,nocase,iocharset=utf8, ntfs_d_hash() and the slow path in ntfs_d_compare() convert base:stream names but use only cpu_str.name and cpu_str.len.  They ignore ads_len and the stream name.  Two different Unicode ADS dentries such as carrier:é and carrier:ß therefore hash and compare as the same dentry, and the second open returns the first stream's contents.
 
-pw-bot: cr
+HEAD commit:    5dd1818b15d98d4a20806cd00b1b40320b06004f
+git tree:       upstream Linux checkout, local branch master
+source version: v7.3-rc3-313-g5dd1818b15d98
+
+console output:
+https://gist.githubusercontent.com/shaos26/8ec54c999a8be8aed41f7cf3c2cd3a53/raw/33e333f56adce7cbdcf30c739a94d212d0de04f7/console-output.txt
+kernel config:
+https://gist.githubusercontent.com/shaos26/8ec54c999a8be8aed41f7cf3c2cd3a53/raw/98f68c316e64add97f6e7084b160ca561c103240/kernel-config.txt
+reproducer:
+https://gist.githubusercontent.com/shaos26/8ec54c999a8be8aed41f7cf3c2cd3a53/raw/3617a80a8398b22a9e0f15e9dd8cd0d30e0cba0a/poc.c
+
+Create an NTFS image with two distinct Unicode named $DATA streams, then mount it read-only with ads and nocase enabled.  ntfscp is from ntfs-3g:
+
+    dd if=/dev/zero of=/tmp/ntfs-ads.img bs=1M count=128 status=none
+    mkntfs -F -q -c 4096 -s 512 /tmp/ntfs-ads.img
+    printf 'BASE-CARRIER-CONTENT' > /tmp/base.txt
+    printf 'ASCII-ADS-CONTENT\n' > /tmp/secret.txt
+    printf 'OTHER-ASCII-ADS-CONTENT\n' > /tmp/other.txt
+    printf 'UNICODE-ADS-CONTENT\n' > /tmp/stream-e.txt
+    printf 'SECOND-UNICODE-ADS-CONTENT\n' > /tmp/stream-ss.txt
+    ntfscp -q -f /tmp/ntfs-ads.img /tmp/base.txt carrier
+    ntfscp -q -f -N secret /tmp/ntfs-ads.img /tmp/secret.txt carrier
+    ntfscp -q -f -N other /tmp/ntfs-ads.img /tmp/other.txt carrier
+    ntfscp -q -f -N 'é' /tmp/ntfs-ads.img /tmp/stream-e.txt carrier
+    ntfscp -q -f -N 'ß' /tmp/ntfs-ads.img /tmp/stream-ss.txt carrier
+    mkdir -p /mnt/ntfs
+    mount -t ntfs3 -o loop,ads,ro,nocase,iocharset=utf8 /tmp/ntfs-ads.img /mnt/ntfs
+    cc -O2 -Wall -Wextra -o ntfs3_ads_dentry_alias poc.c
+    ./ntfs3_ads_dentry_alias /mnt/ntfs carrier:é carrier:ß \
+        UNICODE-ADS-CONTENT SECOND-UNICODE-ADS-CONTENT
+    umount /mnt/ntfs
+
+The trigger reproduced in both opening orders and returned the first stream's bytes for both names.  ASCII stream names and the same Unicode streams without nocase returned their distinct expected contents.  The KASAN-configured run showed no memory fault.
+
+Impact and prerequisites:
+This is an object-confusion and data-integrity bug, not memory corruption.  It requires an NTFS volume containing distinct non-ASCII ADS names and an explicit nocase mount; no privilege escalation is demonstrated.
+
+Validation: The alias reproduced in both lookup orders.  ASCII-name and case-sensitive controls returned their expected contents, and the KASAN-enabled run reported no memory fault.
+
+Thanks,
+
+shaos
+
