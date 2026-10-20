@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792462966;
-	b=OnXqtTRun9Ljakqj4xp2ZL3o4KT/7QzFTyf8vsv/z7PfLHqUxaI+DN2LMo5MgMVWmoZV
-	 G7LXDVoVGyTk9ZmP0VuKufSw4kqgPxdhtMZ7oEzzIL6cilEeOUDje+UnPwn4r69zMHXCo
-	 bMDvFqEwqMbrLWTvrx272jmcqQZNkPY15/Eub2gs8Mm7k6ng33C+NLoKYUO/0TciixZzK
-	 BpDluGHDhKfKMlBfKykC6yNU5qYnfSHFelwKXVWSqhfDz39vPf4teEZWJISF09YvFRCOk
-	 49SKoCjwg303kzU2bst11LqyoA6YJPbiKLMSX0/ta8QjQRIBzW+hzEtIQ7jF7r5VzIQ==
+	t=1792463025;
+	b=F616Ik3orBNzhm4UYjEnlJsqjzUfpIUoyeoD63Omfqt5JxZg8LvKXWTOiT+bz7jbSoQA
+	 N0+PvEwf1qoFVjZPajVVwi2bXoFFWrhf6WsIMZ8IPRU7ouNNRat/MvxwF0iHPFn7c5LLh
+	 NbL1Oa21QQri717Eq7LeKgDdPHNFcRLAKuDw0cj3idyPw+RDQDstKB6fxen/l2Qy9ejQV
+	 TSwnh1SMxohXzlR4olzpnkpJpZW+9DqFmhY6Bqvou+ZN95+Ut6sAA2Rv/05X4LfueVJq+
+	 GRPe5QEJPt5+pyAypekOfsutxNGXa/nSQ6JGTrbhujimqNhF1p7G+Qm+perk96PAYzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792462966;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=eI64DZ+ukr7FZWp/2WNMGTkGtr8XOw1qflCT06bI7PE=;
-	b=KZ4bCpciX/YujKD/q7BxMJzxv1RgcGHYIikf1x+oZ4tEvMeR9I7IWUW4w7HSKAyrmK3q
-	 LaADZIEjfoUdEV7MLuBpFuIsvQqYdXZpSOmCLmZSraJKygIVbKw3izCPMCZBGvSk3Azyr
-	 /gFBq/EBORnB61Buh6Jo46+6vBOZUCGmQrl0kugy1gCzKwpbDMiCywm4hJS3rM1sIt7wd
-	 KoZkypi7pm6fWSIDuN5uyyeSdqMraokukFR7Rg31BjH5VD2l4jXhT5UygBRK+1vzislMw
-	 EmBjfQYuxJp5BMYSwAufZAolstdmaeJO5cJIJB67/lC83uKr/TNlhxXbUt5o/uHYiyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463025;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=3YSXATQnuiR/2Cds4ydGp0NOJ5A0pcMSXUyguAbgaEs=;
+	b=mykOuoyMBEZVBDhEw7FMz+e/UwOWQevezpu5aeOIoAo44vZN0vLBHbRpXTcqEgOHjoEU
+	 /gKaXVdrAgw3+CIq4VDUtjshubMQYVASOFJq66WEgU+dp+Z3TUmCxanshlmbs7V2hi6qm
+	 n0vFNRVNEYXUITBvcagdYZSUQZq7LhmBRip/1JPik9GqExpKhsjhwrtkkGTk1nuXfDJk8
+	 9iQwocI19oTBwnTrt2QQXSduPPOFwKMWkTh1vojEhOlDnUyzOVP6QC2COC0udoBiTdmfI
+	 a4Qmj46OXCISr56YNEdBbZY3TBMr4q1oRHxVesG/iLkfd+eeNf/VPeNegmKsZDqb2AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDQJBgiA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qDgLWYLT;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04970606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:22:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3E1606A319;
+	Tue, 20 Oct 2026 02:23:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C3E1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDQJBgiA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5141F000C4
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792462965;
-	bh=eI64DZ+ukr7FZWp/2WNMGTkGtr8XOw1qflCT06bI7PE=;
-	h=From:Date:Subject:To:Cc;
-	b=jDQJBgiA232TrP5tV+A18OEWQtfyuZw184HXAcJ0PlhTza2l/si6mq3RTjAKlyMeu
-	 xIGtykNH2zYUY4quTgB49XQPDs3jTe8tek9xIb38pQcAgm5iJt9Qi5MmTZIc9M3dvG
-	 ceVHr3Hl0PnoluoisYxg1usKy98pxedsqvrWRGWdupv5ch1DLxhsBJI74VyAoZSq1O
-	 LTE8hMhTQcPJfMAT3lL+lhsunRyCow3tUSGeelke0IZC5+8xHUYm3kV5/VnowZsea6
-	 O70vLM7Q7ar5PWLAHTTWoKt24TwP8yWqjljZ45hnJ/mB3Oyf+ri8yqPXgYcZxVvdJH
-	 XtA5r3gF3oJ5w==
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3477134eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:22:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByIBhKmvRJxkwBRQfzeNAo6dd3htUgvz8T5ZdnxbAH7uzSAkeQ9bJSa8dqvZTsoYg+WPSmCX1WGKCIrDrc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+a1IqTHza/KYnU9qLFNVg6JVgsbrXsQs8eJhZ9GQAdGlGuWxh
-	agL9IakHJcIarFr9xwORyPODPq/2PEPeX3yYCQnunvLC9Ijj8jxYrGb4KEmCJ11BgzV9+md+EKN
-	4kOe7drPOj26aN1drPRtv+M4XvhN4fOA=
-X-Received: by 2002:a05:701b:21c7:b0:151:ece6:b171 with SMTP id
- a92af1059eb24-18512c38171mr12004012c88.14.1792462965049; Mon, 19 Oct 2026
- 19:22:45 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qDgLWYLT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=3YSXATQnuiR/2Cds4ydGp0NOJ5A0pcMSXUyguAbgaEs=; b=q
+	DgLWYLT8BeTxcAl5CN7IulgbTCBlFcWAWJaakMNbdy50Hyiq0LMlmmW2l14GqN1m
+	7sBI8oq66ZFHWMP2a691JUS3NAJ7MgMevUD/depCGkM1fCIMDFxv8eLx+dlR0rAd
+	rJxI4LD65J757iCpoq7N4Ury6ylx2RWO61wVOHlEDU=
+Date: Tue, 20 Oct 2026 10:23:07 +0800 (CST)
+From: "Jiale Yao" <yaojiale02@163.com>
+To: "Felix Fietkau" <nbd@nbd.name>, "Lorenzo Bianconi" <lorenzo@kernel.org>,
+	"Ryder Lee" <ryder.lee@mediatek.com>,
+	"Shayne Chen" <shayne.chen@mediatek.com>,
+	"Sean Wang" <sean.wang@mediatek.com>,
+	"Matthias Brugger" <matthias.bgg@gmail.com>,
+	"AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
+	"Peter Chiu" <chui-hao.chiu@mediatek.com>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: "Jiale Yao" <yaojiale02@163.com>
+Subject: [PATCH 10/10] wifi: mt76: mt7915: validate RF register response
+ length
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20261019101506.1926943-1-yaojiale02@163.com>
+References: <20261019101506.1926943-1-yaojiale02@163.com>
+X-NTES-SC: AL_Qu2SAPidvUEj4SeeYOkcn08ShO49XMOyvfoi2YFTc98FtwD2/gAgcWZ6I2D88/+uBy+FqSWSfhhg4+5wV5Ny/D1I43rTvc52AeP9fY9F2Q==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,81 +72,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Fan Wu <wufan@kernel.org>
-Date: Mon, 19 Oct 2026 19:22:33 -0700
-X-Gmail-Original-Message-ID: <CAKtyLkFZqpVB5+Bvj0OQhVkkRWfQQ2Rh1F_fnDxZfxeMrKo=bg@mail.gmail.com>
-X-Gm-Features: AclHuK_ulsMvo3NRF65SP5skc32sV2D3MuD3iJFiTNo86No41tRVlWmCTs3EuWU
-Message-ID: <CAKtyLkFZqpVB5+Bvj0OQhVkkRWfQQ2Rh1F_fnDxZfxeMrKo=bg@mail.gmail.com>
-Subject: [GIT PULL] IPE update for 7.4
-To: torvalds@linux-foundation.org
-Cc: linux-security-module@vger.kernel.org, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <192ec1cd.2297.1a1571ea203.Coremail.yaojiale02@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgDXV7GM0NZqxzklAA--.655W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQyn4WrW0IzXqgAA3a
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hi Linus,
-
-Seven IPE patches for the Linux v7.4 merge window:
-
-- Fix an extra empty audit record on enforcement changes
-
-ipe_audit_enforce() started an audit buffer but logged the state change
-with audit_log(), which emits its own record.  Ending the unused buffer
-produced an additional empty AUDIT_MAC_STATUS record every time the
-enforcement state was changed.
-
-- Keep the name and token tables in sync with their enums
-
-The audit name tables now use designated initializers, so each name
-stays bound to its enum value, and static assertions on the policy
-parser token tables break the build if an enum value is added without
-a matching token.
-
-- Constify token_default() and correct a comment about policy text
-  ownership, with no functional changes
-
-- Fix an invalid sgid value in an audit event example in the docs
-
-- Point the docs to the new IPE website and test suite repository
-
-These commits have been tested in linux-next for weeks without
-any issues.
-
-Thanks,
-Fan
-
---
-The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
-
-  Linux 7.3 (2026-10-18 13:14:58 -1000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/wufan/ipe.git
-tags/ipe-pr-20261019
-
-for you to fetch changes up to e2f08fadb48509c239e47cdaf81438c162395932:
-
-  ipe: update the project and test suite links (2026-10-19 17:21:22 -0700)
-
-----------------------------------------------------------------
-ipe/stable-7.4 PR 20261019
-
-----------------------------------------------------------------
-Fan Wu (6):
-      ipe: constify token_default()
-      ipe: use designated initializers for audit name tables
-      ipe: check parser token table sizes
-      ipe: correct policy text ownership comment
-      ipe: fix enforcement audit
-      ipe: update the project and test suite links
-
-Manuel Ebner (1):
-      ipe: fix invalid sgid value in audit event documentation
-
- Documentation/admin-guide/LSM/ipe.rst |  6 +++---
- Documentation/security/ipe.rst        |  2 +-
- security/ipe/audit.c                  | 52
-++++++++++++++++++++++------------------------------
- security/ipe/policy.c                 |  2 +-
- security/ipe/policy_parser.c          | 10 +++++++++-
- 5 files changed, 36 insertions(+), 36 deletions(-)
+VGhlIFJGIHJlZ2lzdGVyIHF1ZXJ5IHJlYWRzIGEgMzItYml0IHZhbHVlIGFmdGVyIGFuIGVpZ2h0
+LWJ5dGUgcmVzcG9uc2UKcHJlZml4IHdpdGhvdXQgY2hlY2tpbmcgdGhlIHNrYiBsZW5ndGguIEEg
+dHJ1bmNhdGVkIGZpcm13YXJlIHJlc3BvbnNlCmNhbiBjYXVzZSBhbiBvdXQtb2YtYm91bmRzIHJl
+YWQuCgpSZXF1aXJlIHRoZSBwcmVmaXggYW5kIHJlZ2lzdGVyIHZhbHVlIGJlZm9yZSBhY2Nlc3Np
+bmcgdGhlIHJlc3BvbnNlLgoKRml4ZXM6IDBhMTczMjlhZTljMSAoIm10NzY6IG10NzkxNTogYWRk
+IGRlYnVnZnMga25vYiBmb3IgUkYgcmVnaXN0ZXJzIHJlYWQvd3JpdGUiKQpTaWduZWQtb2ZmLWJ5
+OiBKaWFsZSBZYW8gPHlhb2ppYWxlXzIwMjZAcXEuY29tPgotLS0KIGRyaXZlcnMvbmV0L3dpcmVs
+ZXNzL21lZGlhdGVrL210NzYvbXQ3OTE1L21jdS5jIHwgNCArKysrCiAxIGZpbGUgY2hhbmdlZCwg
+NCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0
+ZWsvbXQ3Ni9tdDc5MTUvbWN1LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2
+L210NzkxNS9tY3UuYwppbmRleCA0YTExYTRhMGRiZGUuLjY1MGVlOTEzNGRkZiAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3Ni9tdDc5MTUvbWN1LmMKKysrIGIv
+ZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3Ni9tdDc5MTUvbWN1LmMKQEAgLTQyNTYs
+NiArNDI1NiwxMCBAQCBpbnQgbXQ3OTE1X21jdV9yZl9yZWd2YWwoc3RydWN0IG10NzkxNV9kZXYg
+KmRldiwgdTMyIHJlZ2lkeCwgdTMyICp2YWwsIGJvb2wgc2V0KQogCQkJCQkmcmVxLCBzaXplb2Yo
+cmVxKSwgdHJ1ZSwgJnNrYik7CiAJaWYgKHJldCkKIAkJcmV0dXJuIHJldDsKKwlpZiAoc2tiLT5s
+ZW4gPCA4ICsgc2l6ZW9mKF9fbGUzMikpIHsKKwkJZGV2X2tmcmVlX3NrYihza2IpOworCQlyZXR1
+cm4gLUVJTlZBTDsKKwl9CiAKIAkqdmFsID0gbGUzMl90b19jcHUoKihfX2xlMzIgKikoc2tiLT5k
+YXRhICsgOCkpOwogCWRldl9rZnJlZV9za2Ioc2tiKTsKLS0gCjIuMzQuMQ==
