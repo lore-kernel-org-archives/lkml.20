@@ -1,110 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493896;
-	b=M00ZLQPYtiKG9PmkPywwAaB/jQIZPWtG0yMl38PUuNtD9DrfOlsF5lMBPWIpXgbwseoH
-	 TOtcMFyWwHRJYPVyVBOQsTKinhdIZeQxtKQes8yHVI70dgjpwfOLEdASeOkUQKSn8jcxY
-	 Nm1RyQatmd6r+30BaaT74QTnagLyh8ZdeSb5DGAfsM07qMkNX6ZWxgT/at+iZmzaCStal
-	 QywHQTTV+IRUDPd+WJkfxc2l0gIfNnCEol/zihs37O/DePlcoyYCPdbvtNE39xIgmhkjE
-	 NAed4pm13M3YYurTHEGqIypUNvgMLgaHBxXXAszGBV383Yj+FQqgyGVgWXBiSBkx9aQ==
+	t=1792493910;
+	b=IR5mszdohkrYxLmYOBX0QC0WySISXIOevqWlIutmUiDauDwaykXaUV5BvOBSuXfK5VA3
+	 ot9O3pJbmXLSSWJtq+VsGGwUh2FADQtqhjkiL54ddZwex9LWHRkHmOv22xbtUa1jCtL/A
+	 uZgJ5NIIFXBxVFRqQXoPDpZn8gQrMJf4RGCUdP2F4Lyl+u8sTQprIaoxivfJucHuS8IKb
+	 tGJ2TyhXUpB0AGwzd38DH7WbILdnXh0K+TksMpcYoWvQXPB3TeE5xc1dZ3vvHavld0TEj
+	 Go3nR4TXLHwgysJHm9zWJknc6+3s3AGm24xcqCWbWC27tEewkCJW+4icix2SYPL757w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493896;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Action:X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Server;
-	bh=OKXUBaXYic17nh/PWooz1q/CXfH7wZ5k14U7GJU175c=;
-	b=pqNlqrBygWQYghYNNcXrlfiXApLx4wcS2dlF59KrIAWiHT8rTnVdq4897Z0Dwu5eJ2z6
-	 ejsMvXKhVBx7iYOZLgC7gxe1dUBCgstRCCWRONjeDtb3Kj0ydq7M9N9YTgnHlrh+Il0Dk
-	 pnYlabO8Kqn7dMsg8vOnxHE00Lg38geK23Z/NAOGitPQOPW2cAclXNgfg3XdVXqrdhVh6
-	 CjYrPiF156efwL6fjLN+mCko/by/vHfyQ0ie2f5o2gNKiiN1nAiuk47UdUQZQfqxgUty+
-	 0djRKoHCpyFDw4hoCx8b3Nrb9eVQ7rB+Q/VRY36Y4drwQCbIOG1q6xENnVVgM0TAirg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493910;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1jFt5YFldzGGLz0MFAETG7hojRbmHr0n1t9QhabZ5Bs=;
+	b=Ut5BdjImANJ+zGZliL+qh0ejShCzILozDnnEmIV1FTYoAnDGdZRad821nXLw0LfUQ3D6
+	 pGj91Y8CwOguP7qeAxvcR/SX5WGsLqxmJMNvv8Hgd86eoH/l2G1G3vFnaraV/gANbh63h
+	 pISI2rt2yxK188D6ha9JAxK9O3aGwT9aAWFHEhs5jOZBdxqXMHbNoWmi1BBiRx1WwCnmA
+	 z07lcyHZxVPC/ArtAZkzj+iyB7903waq6nT49PVUyt8aiGpEhQUdOdE7ROfeB/swWrBtJ
+	 Z0J0LCv28x0VJAj9yS6QwR/BOS2b8pAEXsARKCcwKe8fLR7IaH4xNeWyenIFcbjWoKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Yyi69PUq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rZR+AT4u;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Yyi69PUq;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rZR+AT4u;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=none header.from=queasysnail.net;
+	spf=pass smtp.mailfrom=queasysnail.net;
+	dkim=pass header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm3 header.b=QHcDcOVG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=E98saQ7+;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28012606A319;
-	Tue, 20 Oct 2026 10:58:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28012606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5875606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:58:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5875606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Yyi69PUq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rZR+AT4u;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Yyi69PUq;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rZR+AT4u
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 34FA31F7B6;
-	Tue, 20 Oct 2026 10:58:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792493894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OKXUBaXYic17nh/PWooz1q/CXfH7wZ5k14U7GJU175c=;
-	b=Yyi69PUqMonnZVKoEICO1syMYJ06SriNhcXYmPSorBNc3lcDBrx4OfNQsFKsFUgUPT4/Q3
-	aXLZKdosS9BYMfoa5ST4Uxq3qJKYS6k5J1gqjdEz0EWokm+mYCaw/omAxZIvu23hlsUr+S
-	PF4njdLU1qYFxr0JXzcYMYz8NiAglWY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792493894;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OKXUBaXYic17nh/PWooz1q/CXfH7wZ5k14U7GJU175c=;
-	b=rZR+AT4uib3WLaR1CQ/8diTQo1HT0YwkrmuXhGyyhFCjeSmDEe5U5AuzHsoKh13bxTUsYf
-	XAVI9swZnnxXxxCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Yyi69PUq;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rZR+AT4u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792493894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OKXUBaXYic17nh/PWooz1q/CXfH7wZ5k14U7GJU175c=;
-	b=Yyi69PUqMonnZVKoEICO1syMYJ06SriNhcXYmPSorBNc3lcDBrx4OfNQsFKsFUgUPT4/Q3
-	aXLZKdosS9BYMfoa5ST4Uxq3qJKYS6k5J1gqjdEz0EWokm+mYCaw/omAxZIvu23hlsUr+S
-	PF4njdLU1qYFxr0JXzcYMYz8NiAglWY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792493894;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OKXUBaXYic17nh/PWooz1q/CXfH7wZ5k14U7GJU175c=;
-	b=rZR+AT4uib3WLaR1CQ/8diTQo1HT0YwkrmuXhGyyhFCjeSmDEe5U5AuzHsoKh13bxTUsYf
-	XAVI9swZnnxXxxCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB01E136CC;
-	Tue, 20 Oct 2026 10:58:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LtHvK0VJ12pZXgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 10:58:13 +0000
-Date: Tue, 20 Oct 2026 12:58:13 +0200
-Message-ID: <87tsmghc56.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Wang Yan <wangyan01@kylinos.cn>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	runyu.xiao@seu.edu.cn,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: mtpav: restore negation dropped in guard() conversion
-In-Reply-To: <20261020090959.570101-1-wangyan01@kylinos.cn>
-References: <20261020090959.570101-1-wangyan01@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm3 header.b=QHcDcOVG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=E98saQ7+
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id 13870EC016D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:58:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Tue, 20 Oct 2026 06:58:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1792493907; x=
+	1792580307; bh=1jFt5YFldzGGLz0MFAETG7hojRbmHr0n1t9QhabZ5Bs=; b=Q
+	HcDcOVGmaz6vX+UIYmgkLsrzVMPSNy29esctGtRl3AKaDDuO2jWaN4nnjLwD9ay5
+	DfB/4MxiX3xFvmlG+D254eyO99egOP+cfTKFWg/5ULUWQuuX+HeHZrSdLPoJycQM
+	eFXrJlm6cPD+iOCyAii+AA9/353pbq/Pch1JqDCrj7jNfFJePnnCozCpEm8r77PE
+	q8mG/DRxJyFnLq6Lgtxq4jsVul1yVVAxk0Qe5FDYKt3c7F1hTt+vngxlBNDTKQtZ
+	zGYHJCb6vExqwzkl2OiFj9LIFFg4m2Ra0w3TUZ7xvrpH/92M2ErI2VxCLr1I/pIO
+	MnxXo8YbXOrtu4c59TTqw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792493907; x=1792580307; bh=1jFt5YFldzGGLz0MFAETG7hojRbmHr0n1t9
+	QhabZ5Bs=; b=E98saQ7+fZAH8jJlZl9BcYICKjf8kdPdj5jUeUx7fyXEVuYuh8G
+	fhZUl2EGRFRp/CDiD0T45axIiuQzsqvdspkG6opC9F6Lu/LNERX7y/vYQ/H9ITxs
+	wwnr6bI/Sd8iLtpDVy1SFyLMFVzcrCo1g/zVQa16juskBs9zquVPD6urjAB/gCKV
+	T9914tdsX+2F9rEdA0dXtWf2VF1KQTx6IycAbCfBQKwlBoBHBedeAhw9AyeMWUh9
+	Mer2pLTbxoI7cRa1CgoR0y1xOnf23sllzwEQtNFesx7qzxMiVtOUOmb/l6xhuYEX
+	Lk/UAszSiV6OUv30FqQpytcbbcb5FaOoyIA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=queasysnail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792493907; d=queasysnail.net;
+	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:m24xuqzDBwJM5q/ZPbOJxmv2ID9PYUBefhm1gXok62StQcb
+	EziXM0eKbOZAjq4qks3gsK5wE5AIBwX2/FYCFlyN38KVqVXuAKUUd9jT1sC7m0mH
+	163KMs6xLLxj6oT8QzmSevjQ4qHYdwRAkqBvd5BPWa3XAk5Uw/NGRIxvQfq19d+6
+	MvLcs8aRAVC5VvvkuG2sBxC0RzYxujjUEaeOIOQKanD0xWSN9YOyyvI6lojPCvJh
+	3wpNCy3LQhR6AgjxnH5NCgn9C0fWkg9McvpKMURmxMlE4ADFKpG7Vi+D/+QYWMVV
+	xq4msyNokMZdTIgPXXX0FMOGiV2MUyRoPZK74GA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:tANeBEaU9fAbLL8ASsdV+u1DOi7myWZzyDgqpLt22vI=:XWTAZfIddkwVPW+CPsWGSvyj4ac/JppaA8LmC6xSMFY=;
+X-ME-Sender: <xms:U0nXapRWPRUSDpDbowHlGwai-6V0MMIPraotzcSy9aeKpMyy4Riwjg>
+    <xme:U0nXaq6mVXpJf6-Ke_Aze0jMDT8T07XGviSTZjUYxGKRP1pt95_ngVrOedhtPXaaq
+    uvJZwY-GTX_CD-x8YQ9VGfTWro5Xb-qnBopvXrOZCZ7FsrCugT9_sI0>
+X-ME-Received: <xmr:U0nXauVZOWDP6mF_50OfI2GjrkxX0KLR8A2hcaNWtGYP6bCrggA2mueHDM8>
+X-ME-Proxy-Cause: dmFkZTFXEQN/Xxf/lgfRpKYRYGZEymmhlBHtyrIXr2Z1miJzA+kYdEmNb1kRpKSNZTtE/C
+    BQSg16Jh9mnkyfKJ4EBCN3d827zkOejqoLctJnrTGE9/xtf+CrJdPpjktqHbho7FZXcQIj
+    fmpuiwCaJQYh9Yt8YLA2tTsW1WO5raYx8WlxiVlUTqCqQtohLa4hvBP7odHQJJWcUPAGyj
+    CLOPP/PZbxehPqu9NHQQ/T1fAI67GvTZhjCZRMzSjkHPpJ1jVbFN4VHFK5SFq+uw22nIEg
+    SwCfl34WmjPwwlHTR3aXhGT40Jrz7J+Mdrr7zwD7dJwbBjiSiNJggDpKTYKdwVcjP7ugWP
+    3H0HP/dYMfp5E76ATFY9r6seTZOmSCIujcgqvJmJKTAgkmA470shzNtlJi/RwnwQxLFpPl
+    3OH3/EKqvyBMJ8W6t/2kHaeq/C18Jj220746Tki/1DqTDRieyubVVsoR8uMTena6huD7CR
+    V1HwvjrhObXM8iXTVEQH4z+SfH2tUJD31JVJAtllyS9itLkqC+MfcV9XMHjPJgMa8sdY8b
+    FRxt3gg283JMxOnn9a+kWO8KEbqhsq9pInsyUJtvQgh0c7MoSh3LQprqpgYle/WYhmpUvX
+    ZFNXv2R9MQZU03Hnd2VV+N3vjQK/v1u/TaM4X4Xjk0gXenh/pX0cMG8nluuA
+X-ME-Proxy: <xmx:U0nXag-DtUZIhPGhuYHnh_5fuK08SljIqQVPIIm9qs8lPeu4ShAT9w>
+    <xmx:U0nXaupozH_5fdrs_UV8GvFBGihwM3htrzlM_HohHnBQaHtAPJvhrg>
+    <xmx:U0nXajKHcBnQn6FOCIVnaSZ3QEh0hc2jfwhIx17mOozdzIn41uHyHg>
+    <xmx:U0nXahOHYoWbNlvRpS4p0cd5U86RY8-NgkK3GtGa1UReFaBho9rlOQ>
+    <xmx:U0nXah2RlhgqG3oDML7_Sm2UFU69iDtaXEolobHIssChVeozJUmTE16c>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 06:58:26 -0400 (EDT)
+Date: Tue, 20 Oct 2026 12:58:24 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	horms@kernel.org, wilfred.mallawa@wdc.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] tls: check the right open record in
+ TLS_TX_MAX_PAYLOAD_LEN
+Message-ID: <atdJUP6Jb0jODBYE@krikkit>
+References: <20261019222626.745408-1-rjethwani@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,54 +125,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 34FA31F7B6
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019222626.745408-1-rjethwani@purestorage.com>
 
-On Tue, 20 Oct 2026 11:09:59 +0200,
-Wang Yan wrote:
-> 
-> commit 316e0074ecdc ("ALSA: mtpav: Use guard() for spin locks")
-> claims to be "Merely code refactoring, and no behavior change", but
-> it accidentally dropped the "!" from
-> 
->         if (! (portp->mode & MTPAV_MODE_OUTPUT_TRIGGERED))
-> 
-> in snd_mtpav_output_trigger().
-> 
-> Restore the negation.
-> 
-> Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
+2026-10-19, 16:26:25 -0600, Rishikesh Jethwani wrote:
+> do_tls_setsockopt_tx_payload_len() refuses to change the record size
+> limit while a record is open, because both TX paths size the record they
+> are filling against tx_max_payload_len. It looks for the open record
+> through tls_sw_ctx_tx(), a plain cast of priv_ctx_tx to
+> struct tls_sw_context_tx.
 
-Applied now.  Thanks.
+There was already a patch for this
+https://lore.kernel.org/all/20260901072927.128688-1-jiayuan.chen@linux.dev/
+with extra locking to address sashiko comments.
 
+Jiayuan, were you going to send a v3 to address Paolo's comment? Or
+maybe resend your v2, since it got marked as "changes requested" in
+patchwork?
 
-Takashi
+-- 
+Sabrina
