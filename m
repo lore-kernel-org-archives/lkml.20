@@ -1,139 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792496973;
-	b=JR+IkI067MI25Q6Rl0u/Z9pzL8QyrFzMoQBrwUS2Z1eGnHzEobJ5VKhKMDk0R1g9gICh
-	 KG2+uoicqgTrh2cIhsQ2xcUu5lCdv7lLgYwdYYjmDhcKXONJFs5+3W+fvcIFr14SXdk6s
-	 h7StqiEppDWrrAcJAX0W2uRDE5kSzUr807acpGT+PiVv7AwORTd8NL00hiu51LjPK/2O0
-	 WxDpz3TapaE4SniTzKV3hE3YRzUY/UWY0FCslJf601vXLJr4FGb18SPbymV8A83sAw32u
-	 hJSRrGSZwnTOy5Q/d2ryUyLLv9x1AYxp6o22p9gCZKBpf7oXskYVI3rhtwyG537wFtg==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792496986;
+	b=afpI9mwQ3uKOZGT34sgfUMYcQ3DUULrK4JPtE3NvmFE6xb+fy7eSuyTGYf3ms2IqTxMp
+	 Hzt9cmEGD/Ug+p7sQq9aiqqrXd0x+OYBvOSCq/F0tMElxADQJgEqSuD54qKsEkSTa3yws
+	 W7cSSnlsbnRH8z+o6S4COepasUvG/k7MJchTUOgVVauDzH5H1Xha9eISYOnDKve5S5+UE
+	 tkJAMoDJGucFnd9YJ5Bw3RR1X9WmXlxTPdJw/ZcM0mqrnUwcpKo3OGokfHnav2zCo9Qv9
+	 q/GlFq9cLc7pVroGdqSjCaiKkwUuQ+wuOyh2yTd+ut9pKZU3+M0RClQXRucZNnRl/QQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496973;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Ieie4=;
-	b=hs/s+TuI5ktOPqYzO75w3aFBEOOSIMB1B0FrCeLONdhbQk3qPgzyb6dBi1nFYj/cQMdQ
-	 T/X4a4Vc58Om5SOMB7ZMfTsrmu1ulAntjj+pPMD77aqTzNb7OkefEWCP6iMiILp25QI6C
-	 jD3Gd2eKChorbUBuD+YyHK2Hvz/iFqK95WH8IWIv4Xks1Jt789DxzzEpB7vn/N3Yqx38k
-	 +oY3i6NAvM8k5syziCC8dZemBO2IZifVzw3i2qtIMM8qc5wBIAtLyznGERevWhiRxZm2H
-	 vKLwjY7bv6G853Ir5ecDiYh8XSrN3+BDc561nsaENAbeH9z1ieVTFS9nHn4XguatK8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496986;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
+	b=u/PXUWyAU8CZlt6H1kN9MPtl8AuXFW5PZSv3kVkW28zR1tpNxcJ5vGx080emrRFzWC25
+	 bOwh4NNWmy+zDQKRl9Zd8blkbSiRIJTXtAhi+SLqoegTUK54LvQH8A0KIRSgWHfZxJYKW
+	 HCy4EHKRIxxmQ+TRfH3/TtPDXU8S8VtNLYGlsPEbH8MwDr26sd3gyKVDgsjM99EUK3YEs
+	 /gMueZgaPXlQe2wnnic3aLrqBT2nTQEAcJuf7shJoSrNhREYxI324IN81aE5pHpkC4M8l
+	 MRIHU4rBFzSG4LfqZhyemKClEYcrY4FbxvZs5v1dTWMkD3y+RTl0qLOIDVFMP6yY9Tg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=g3OXYf8C;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=bpAbSntn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kiddier.org;
+	spf=pass smtp.mailfrom=kiddier.org;
+	dkim=pass header.d=kiddier.org header.i=@kiddier.org header.a=rsa-sha256 header.s=google header.b=jcEXUuFN;
+	arc=fail smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D50606A326;
-	Tue, 20 Oct 2026 11:49:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5D50606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060C2606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 060C2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kiddier.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kiddier.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=g3OXYf8C;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=bpAbSntn
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KBFWI12359962;
-	Tue, 20 Oct 2026 06:49:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Iei
-	e4=; b=g3OXYf8C0bgfl+wknP19kYW9sAstq7HdoQ9a4MmdrYF8848t+V7FMOonL
-	vPeLZxKmBjNLpI+Tw9hvjhdlBIGhjPEcdoRtak4GROwSzG1bXLMLcZYXA1mOLK5i
-	roJSZuv8RloOM+bgS0/4IQTTgJmEnU0UYM5GZFz3u/HCnePBClHULITd7tOFn/zR
-	kpJee6KYbbdh+wJLciKUdI2UIDwCxYkYl7ztfqXmvmJWYcKNf1AuMa4Tvcz34nCN
-	tnshwDIsWTI7Rh3IrD81AMcxt0RksClxa4okrRHGb1bxe+15if/rANIip2LmzdN2
-	7YKWzGb4IrWVzhW1/i0RbDLVqhliQ==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4he7940440-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 06:49:25 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xR3aIW/YjQPYwedlT2n/kiIPHj8JVw4eBceXfxcqWNbZ5ldGY0XmfRAStoxNWrm8L0+231PbafDihNWobTUzaIz5Dhy14yb1KiyNyEQ+dMqpDiZcm0p4qU+sMK4kpvbpgdGUrKWC7EsBVNRf3RtbmrEe8aCMC7dIb2rAjuTckA3d9mRbaitHmKRWKE68mGbXWO9whIJ/sWv4zmE46BGmOx5DP5+brWBHQhTAom5rgStMlrnDINWRHvWmgrxhng46HlWrfktii8yNk4LpCzkzPubJlmD5Str8dGcuNgt48a5e9bqDxz4o4i4PUSyX3u6siw/EG1bmr17K3KlAiszxQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Ieie4=;
- b=f5ob2qewlYHcfN2Xn16tL/RnTuq02hPRAUJq+3IanKKFWxDw740oZKUFDmh3CmpMrkv38xLYrCc5aWx6ABOk3B0jv9QOn2k6SIABf97rg2u9MloHF6zfOcJw7fG8SGQYfrQgNGsd1tVT+mDLmoLlxvGouNDwnTdtlRVTGgvS/Xtz4OXeeDzVZlWcntula9dhrR2BmsO3aIjZaXDWJOtEDjsIptlkO8v1qAhGR/20NAWPz0s4lZStr8ZULvJoYaMVEXm2oRllo63TkN9RFO+XOLHsDD95wOUwhrcOcK29qxY+YAgmhFUWIFxu6nhQ46sJiwEdJgk/3fttfuft1B2cqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (1024-bit key, unprotected) header.d=kiddier.org header.i=@kiddier.org header.a=rsa-sha256 header.s=google header.b=jcEXUuFN
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5e941201909so945338e0c.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:49:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792496985; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fVGUTgPdWZVPj6R5qzulExi4zg/0jyAYCm/Hne90WmKp5xgDn1K1CuJU1HDyH093zI
+         vZTSPNZ6+8jNvjumDUvazqnEm7ogLIulIfTsEC00Zm4pB5sgILzM2YFkEgX/y5/QOvux
+         7W4PVzrdL2x9qPCR6kNZwPYBjsuV1do7J5sVQSGpU9LH+D7OtJ1ck/GVBWhqkoHwPP5M
+         c5GoAekrh0Y0WGahWYIwnvALKeNLdK8yYis9fHphyJzg8i3lNRfcK3an1eViIkLr1Lj6
+         FzPoRjCntdfXtyX7BkufsgY/Jjdinkr11PIdt9qFvcjYsI6SufZMKyDnvhYNg0KIZkIn
+         RCWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
+        fh=JL+77x43m6LoSmP/A2qGPQcehWOmFUXVIitFVjoGvLk=;
+        b=eDKp9FDk2Qki7WWpVMAikJd76g2emawHk7QCg+RjsySz+ZSwa+ipTBtEMxHII3vfvz
+         rHNuJtD5+0ANV22nswsxKF74FTRf4Z0jrCldKx51YLte9fFv9cBl4ec8X2wJYJh/f/0C
+         gM2RSpynLiXbTB9Se3lD1+hCo+/fqSn7IpuLQleWTmXIj87WUhOSc/jtm6E3mqNOVp6v
+         sYVPdYFvp2phcAe1CoBC6vWNOZGf2HhiazvAoUaOWFd43yK/+N5lQS99odS7CQjabF6T
+         uFvCFBV89y645wNN85Zah19w72u1p7fGXhHQZuyf1EbXpfrrNHhNh/uayDzQoi9Trsa8
+         UPUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8T1ClgVl/HWi8VJCZKi025obesp5Y2xrkqjAQ0Ieie4=;
- b=bpAbSntnSsY/FNK3Xc8lLtSN1JBLDcYs3VU3HH3aSqeyhuM5aeiPbRS8MhnLV3EzQinBNh2x8I5qXdkwfTE+3tRp4+fJ1MVSxN/0ZACsgJklFFjbU8a8jbIG8/sbkn05YdTSZ5g+flGpcsAg0d6pswM7a5az8BnwPwd3GYAHumI=
-Received: from BN9PR03CA0324.namprd03.prod.outlook.com (2603:10b6:408:112::29)
- by PH7PR10MB7010.namprd10.prod.outlook.com (2603:10b6:510:274::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.11; Tue, 20 Oct
- 2026 11:48:40 +0000
-Received: from BN3PEPF00022BBA.namprd04.prod.outlook.com
- (2603:10b6:408:112:cafe::4c) by BN9PR03CA0324.outlook.office365.com
- (2603:10b6:408:112::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
- 20 Oct 2026 11:48:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BN3PEPF00022BBA.mail.protection.outlook.com (10.167.248.116) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 11:48:39 +0000
-Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 06:47:55 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 06:47:55 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 20 Oct 2026 06:47:55 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [10.24.52.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69KBlglo516673;
-	Tue, 20 Oct 2026 06:47:51 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <tomi.valkeinen@ideasonboard.com>
-CC: <devarsht@ti.com>, <praneeth@ti.com>, <u-kumar1@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
-Subject: [PATCH v7 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
-Date: Tue, 20 Oct 2026 17:17:42 +0530
-Message-ID: <20261020114742.872536-3-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020114742.872536-1-s-jain1@ti.com>
-References: <20261020114742.872536-1-s-jain1@ti.com>
+        d=kiddier.org; s=google; t=1792496985; x=1793101785; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
+        b=jcEXUuFNMltH+U9bsfQhaoEJcw3oYpquLvoEe01+X9wWxXWVoLM1NWoQ5VmxHTpO72
+         CUDxuZC/MlUj6w0dEYWAgd+KNbwbAbUZTaCw/G1YeFJSNCUf8LHNp4Gw8tfsNQHImRfw
+         NcVz6VVZKV1sZw3L5/1LyAKyJEVQP4JJdRmxI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792496985; x=1793101785;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XLGNYitZ4EdMcotU/GOI9I5PtjbgIsDlPVNeP1wv+jI=;
+        b=rYpxwkdRYVlD+l0RyTkKp4y3NudRzo72rpw713pGrsnjqZxu9k9eK4SJ3Ba1xHr3mF
+         prHBwzq7/Gbo/p9Cog0hQdyGWXEvU5K9YrFzelCnTv2Ix4XT/GI08tUtI2TVdN4c94Zh
+         kxFdZNu+MFBzdEoD4veeEa6Amm1Ap0GJ93g2ZrmLtlI42UZffuVt7UqCf7MERpPzHv39
+         AOZm45ev4c+dzN+nyVBS/2nuZ/anDSYlpGlPcC6wUvhZ/d6I0Vq65yc5lolERuP/aU2A
+         41Um29FbsHndxiUmNDSUqGuej1hecEHlmpuSBLv0c0vuTWL8+6oOhc0t3J9lW1OIjgCV
+         pgcA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhTYZaqZXT8axBY40+ILWg2k4Sr0LjC4lQc5WqvsNOzqwNmfpzke9WCOFNxKkZUW8WFxOhUXIRqtquvmY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0pujiUuDdJEx1So0moTUF5DMrEZwZDtgOqaVYuqBjlmsFevXq
+	qLkEmcjSk+9KetAPCoX5POSNXesFbAa55FrbDf/W1rcqZnNSE6v/QF8g+dUhr61/ObN/5j3tXPz
+	vcbhiYibvtsyiBQ0lYKic6TkqczjiYmBYZT9q+cjTaQ==
+X-Gm-Gg: AYBFou2SRL1z6rNJmNQ67hs2KhsYbx7UBSQw3y32iR8ytBcTgH1+4OnmKc4HeDFa4Nu
+	wRWnJSGBmjkmN7r6QyuJ7Llh8FibFcIBddBSJycrHN6P0UDeUB4ATdpTApcq1heDPoJPvgtx80m
+	nQskEjdkm+pBJOv3Pf9y0F1DM8J+GNQnp7mNIGMZ1oSQLmj4wKTLlvmfepZfYiQ77z2c99Le/GC
+	3ebZ8dQNt4grHspbaIP5ADvEg9VKkoHApE/KQWQiLiVQewJqoblq85dqLMYgrVOtq1rPsmMreic
+	bSB21NgtbV0bZNj8osoSm8XTSompz45ijzv8NV2vBMmC/1h+g3YYIplNqw==
+X-Received: by 2002:a05:6122:8c1:b0:5da:9b81:1aa4 with SMTP id
+ 71dfb90a1353d-5eaaa3c174cmr3451932e0c.5.1792496984909; Tue, 20 Oct 2026
+ 04:49:44 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,205 +99,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBA:EE_|PH7PR10MB7010:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b897041-9a3c-4cd8-75f1-08df2ea01506
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|261009223027099003|18002099003|10067099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	tp6lDeULntYT7fEhaAeFabUQaEYLjZT1y/SlpfDW/4tIx0yFNKqz3Uyw9UuKYPzKwWxShFkJMUlLuAoMsjkln5kbNI/jIiOSpYPIg4FA36drmwm4UOjZchDVFiHJg1TANXz0D7ky7OePDpae6zyA0rSPBxtmAZGchTzBsBjWmWjurGTE4qQ1uRMFIiCv4FpS+Ln8PICWP+gxcjOkr36i0v2wnzBKR0fgW+bAfGrCGywvYl9GuI9ynnqVWI6Tr7aFyPZGiAZEW7SbBoOeIECnEhPPWw+jOMwdbiSQbkFpGgP+6AUQVHjj2MXa6sFGTD8bkdCQGMT5vKkSHrI3I2egyo1bvYVChZ+Pz8OoVv92q3usT7a0fHG7Qcp1n26wFZ8+eABNQYrvl3johaaDQuFyOVj/UibB8+8sEXRXZbqEKGkSqpkYKKdruZjgrrIVkbtSolncL+XyjNpwp9jbVAXiN5uifoFCvFRuU7OuqqJ1MJfr2TC1GF2kqoZMoKC04Bea7nsFxgvGbd2xud+43rEpp6zhby858QYdOXzAwpt1mluk/WmMJSABk+RbzhfqK/Pq4+W1a5HvxvNCvFJKZmw2+LEEwXd0G8INhkUi2oFWbHSGS7RyX3u9iIZHG6VWd5loNOrejSdpI0TIXofZnD6AsKvFQVureEO39p2DnX9nf9mgNuAxLhDFHmqvl3svq0/pWfIBm50YkNuwXzUsmOVzzw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(261009223027099003)(18002099003)(10067099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	D5aCNDpbE3tqYYL8XvnR0Db+0sxqDnmlTI+ngkz0rwAvZ1THVdvcBHe9GfMuEgXgf+7kk4YGGflCbEjMaZinfT5P82ipqMl2ccbKWCYQHR3DfFkcM0K6XHxn5wwci5XT2YS2EpHLqnsm1fGHesipqrYwhk7NxEqHTysuzlFSjvJcV9EI7Huxalh/tfLGSOOsZ93A4kJL+uLEAI3kQ3yQq5xGO4g15OAXfC63URuNTspQFPGK0vX8OQbuTK+D8Jd29HoDWrzokdPHcNiMmxE5/WscuutEeRiqfkQGnWhGicKBlzm/FPv8eRsGn4VcDWqgZprm5PVk9QUkJ3ptrCez8mUKQpru0ze/VW0m7Fe/dHFfSG/Yxr+WEeam/WCAMP3p7sPdXWZSIkvlzjzLsOvtai1tp/Uamo7RlFq7cWiTKmd3qacQwiMrjjuauLrN7B5g
-X-Exchange-RoutingPolicyChecked:
-	eRJgLNwwXwwGWZgfgwqQEtlUiFxtnk2qxhyBlQOt9XR7UJDCBWMk69tGR56GD0eET1ibUmZtmFshCRRQqXxIZymKIgZGi698cbIXK4xhQjtlkzSgMhiJzUsDGvWAdptIO+FRuhMf3rsFYDG/jqIYd9nlqa5sKHs4rgl8vPkfelD7dAK06L7tU9ohb9fNZYV+14o0+Ff17k1XQof0S+BaGZsiHYi2u0XGPGfMPqxetmV4jY85kefDJDT2zvNZGWuZ0LHZiDWxigTnezHM2g2DmTdwkAI4AJo24robQjZqSIikvn/UIwKV2QduE32kxHwF9RlpUXCgIsOgjC+Ukjmc8g==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:48:39.1179
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b897041-9a3c-4cd8-75f1-08df2ea01506
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BBA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7010
-X-Proofpoint-ORIG-GUID: x6DB6d45XSYPleagOldtvqcMCfzSrih4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NiBTYWx0ZWRfX3E2CFXd5IDo1
- J3e84kpsGdF3iOISdQJUoChKJHeysdaSXzLkTIjreuCrFowNviekyAaDpMBEUtprzXIBn1gcyHZ
- p37X/iTXfs1n2Ot8WVEoXEpmh9qBRLJRBpk8vnYfg4x+xaMLC8TYZDFpI6UbHnBW6gpM5FkIkml
- N1o4IYol0GK8kDC5rzF+l/i7QewwKkxB7wqFWNS2Sa8RuefXyOJIvXpihdAcExo/YBZBo1CYpUS
- 7q+Wgn/+aRQoIpRkWu/RrPRttLWSYAW+RfGg6gCEuJY3hOTfhzMXfSXLPsBELzp4Bmw5ZTCE49D
- 4qonKgWXBayUcEWEHqa3cd+HlxCUQXkZjYLrFeKYnn0E6BnhOwuOXa1rjxMxSkhDQtFZs+qB5/K
- GGeN5QkLKCWc/8nesgZF2+nHyTlDl8E3epw3L53CbfeSFFOJrafPg3xwTDHN0zUd2i4145Iqt6i
- PjLVFf6Coj+CHHpCm8w==
-X-Authority-Analysis: v=2.4 cv=DMAacCNb c=1 sm=1 tr=0 ts=6ad75545 cx=c_pps
- a=SJ9xqO7H1Prqh+YlTuKNYQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=sozttTNsAAAA:8 a=P1BnusSwAAAA:8 a=WcmwVEcwf4aBJvEe8xcA:9
- a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-GUID: x6DB6d45XSYPleagOldtvqcMCfzSrih4
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NiBTYWx0ZWRfX5kBmyYcPZdBg
- nw/JSBiOb3NdH2pM/1PFeuowlN9dXNd2pxZab6yFmaLgUJzOgZRv5qw3i7Xu3RBzymqGoBQ75dj
- nqhh9MOGuyv5F0S3nOiSNv6/UB90Vpw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 adultscore=0 phishscore=0
- impostorscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200046
+References: <CA+3E589O46nj=c1Y+Rwk_nPZZKEUjFvMfWaAFmQ2-7De9iUxFw@mail.gmail.com>
+In-Reply-To: <CA+3E589O46nj=c1Y+Rwk_nPZZKEUjFvMfWaAFmQ2-7De9iUxFw@mail.gmail.com>
+From: Peter Kiddier <peter@kiddier.org>
+Date: Tue, 20 Oct 2026 22:49:33 +1100
+X-Gm-Features: AclHuK_KgzridKLRANvtLJkSHaLWJWHnmxsRRdoNj6COaR_e09DKIcJwjLUSHC0
+Message-ID: <CA+3E58-2N-uVNsmwvOGDKZvtnDQ1DF=GzFbTyRLuN8FpAd4qdg@mail.gmail.com>
+Subject: [REGRESSION] BCM4355 Wi-Fi fails with Intel IOMMU on 7.3.0-2-t2-noble
+To: linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev, iommu@lists.linux.dev, 
+	arend.vanspriel@broadcom.com, regressions@lists.linux.dev, jgg@nvidia.com, 
+	kevin.tian@intel.com, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
+	dwmw2@infradead.org, baolu.lu@linux.intel.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Devarsh Thakkar <devarsht@ti.com>
+Adding the IOMMU maintainers and linux-kernel.
 
-Add the SII9022 HDMI bridge and HDMI connector nodes, along with the
-DPI pinmux configuration connecting VOUT0 to the bridge. Enable the DSS
-and hook up its DPI output port to the SII9022 bridge input, and the
-bridge output to the HDMI connector.
+The original report and test results are below for context.
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Udit Kumar <u-kumar1@ti.com>
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am62l3-evm.dts | 97 ++++++++++++++++++++++++
- 1 file changed, 97 insertions(+)
+I haven't tested a vanilla upstream kernel, and may have limited time
+for further testing, but wanted to share the findings in case they're
+useful.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-index 964387eb5178..3cda48c3a918 100644
---- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-@@ -44,6 +44,19 @@ usr: button-usr {
- 		};
- 	};
- 
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&sii9022_out>;
-+				bootph-all;
-+			};
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 		pinctrl-names = "default";
-@@ -192,6 +205,37 @@ exp2: gpio@23 {
- 		bootph-all;
- 	};
- 
-+	sii9022: bridge-hdmi@3b {
-+		compatible = "sil,sii9022";
-+		reg = <0x3b>;
-+		interrupt-parent = <&exp1>;
-+		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
-+		#sound-dai-cells = <0>;
-+		sil,i2s-data-lanes = < 0 >;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				sii9022_in: endpoint {
-+					remote-endpoint = <&dpi_out>;
-+					bootph-all;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				sii9022_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+					bootph-all;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &i2c2 {
-@@ -221,6 +265,41 @@ usb_con_hs: endpoint {
- };
- 
- &pmx0 {
-+	dpi_pins_default: dpi-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
-+			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
-+			AM62LX_IOPAD(0x00e8, PIN_OUTPUT, 1) /* (L19) GPMC0_CSn1.VOUT0_PCLK */
-+			AM62LX_IOPAD(0x00e0, PIN_OUTPUT, 1) /* (M21) GPMC0_DIR.VOUT0_DE */
-+			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 1) /* (L22) GPMC0_AD0.VOUT0_DATA0 */
-+			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 1) /* (L23) GPMC0_AD1.VOUT0_DATA1 */
-+			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 1) /* (K22) GPMC0_AD2.VOUT0_DATA2 */
-+			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 1) /* (J23) GPMC0_AD3.VOUT0_DATA3 */
-+			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 1) /* (K23) GPMC0_AD4.VOUT0_DATA4 */
-+			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 1) /* (H22) GPMC0_AD5.VOUT0_DATA5 */
-+			AM62LX_IOPAD(0x0090, PIN_OUTPUT, 1) /* (H23) GPMC0_AD6.VOUT0_DATA6 */
-+			AM62LX_IOPAD(0x0094, PIN_OUTPUT, 1) /* (J22) GPMC0_AD7.VOUT0_DATA7 */
-+			AM62LX_IOPAD(0x0098, PIN_OUTPUT, 1) /* (H19) GPMC0_AD8.VOUT0_DATA8 */
-+			AM62LX_IOPAD(0x009c, PIN_OUTPUT, 1) /* (H20) GPMC0_AD9.VOUT0_DATA9 */
-+			AM62LX_IOPAD(0x00a0, PIN_OUTPUT, 1) /* (H21) GPMC0_AD10.VOUT0_DATA10 */
-+			AM62LX_IOPAD(0x00a4, PIN_OUTPUT, 1) /* (H18) GPMC0_AD11.VOUT0_DATA11 */
-+			AM62LX_IOPAD(0x00a8, PIN_OUTPUT, 1) /* (G23) GPMC0_AD12.VOUT0_DATA12 */
-+			AM62LX_IOPAD(0x00ac, PIN_OUTPUT, 1) /* (G22) GPMC0_AD13.VOUT0_DATA13 */
-+			AM62LX_IOPAD(0x00b0, PIN_OUTPUT, 1) /* (F22) GPMC0_AD14.VOUT0_DATA14 */
-+			AM62LX_IOPAD(0x00b4, PIN_OUTPUT, 1) /* (F23) GPMC0_AD15.VOUT0_DATA15 */
-+			AM62LX_IOPAD(0x00b8, PIN_OUTPUT, 1) /* (L21) GPMC0_CLK.VOUT0_DATA16 */
-+			AM62LX_IOPAD(0x00c0, PIN_OUTPUT, 1) /* (N19) GPMC0_ADVn_ALE.VOUT0_DATA17 */
-+			AM62LX_IOPAD(0x00c4, PIN_OUTPUT, 1) /* (N20) GPMC0_OEn_REn.VOUT0_DATA18 */
-+			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 1) /* (M19) GPMC0_WEn.VOUT0_DATA19 */
-+			AM62LX_IOPAD(0x00cc, PIN_OUTPUT, 1) /* (P23) GPMC0_BE0n_CLE.VOUT0_DATA20 */
-+			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 */
-+			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22 */
-+			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23 */
-+			AM62LX_IOPAD(0x00ec, PIN_INPUT,  5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLKIN */
-+		>;
-+		bootph-all;
-+	};
-+
- 	gpio0_ioexp_intr_pins_default: gpio0-ioexp-intr-default-pins {
- 		pinctrl-single,pins = <
- 			AM62LX_IOPAD(0x01b0, PIN_INPUT, 7) /* (B12) SPI0_D1.GPIO0_91 */
-@@ -321,6 +400,24 @@ AM62LX_IOPAD(0x0004, PIN_OUTPUT, 0) /* (AA23) WKUP_UART0_TXD */
- 	};
- };
- 
-+&dss {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dpi_pins_default>;
-+};
-+
-+&dss_ports {
-+	/* VP1: DPI Output */
-+	port@0 {
-+		reg = <0>;
-+
-+		dpi_out: endpoint {
-+			remote-endpoint = <&sii9022_in>;
-+			bootph-all;
-+		};
-+	};
-+};
-+
- &sdhci0 {
- 	/* eMMC */
- 	pinctrl-names = "default";
+Thank you.
+
+
+On Tue, 20 Oct 2026 at 22:32, Peter Kiddier <peter@kiddier.org> wrote:
+>
+> Hello,
+>
+> I am reporting a Wi-Fi regression on a 2018 Apple MacBook Air with a
+> T2 chip, running Linux Mint Zena based on Ubuntu 24.04.
+>
+> The Broadcom BCM4355 Wi-Fi device works with kernel 7.2.11-3-t2-noble
+> but fails with 7.3.0-2-t2-noble. Disabling the Intel IOMMU using
+> intel_iommu=off restores Wi-Fi on 7.3.0-2.
+>
+> Hardware:
+> - Apple MacBook Air 2018 (MacBookAir8,1)
+> - Wi-Fi: Broadcom BCM4355 802.11ac Wireless LAN SoC
+> - PCI ID: 14e4:43dc (subsystem 106b:0843)
+> - Driver: brcmfmac
+> - Interface: wlp2s0
+>
+> Test results:
+>
+> - 7.2.11-3-t2-noble, default kernel command line: Wi-Fi works.
+> - 7.3.0-2-t2-noble, default kernel command line: Wi-Fi fails.
+> - 7.3.0-2-t2-noble with intel_iommu=off: Wi-Fi works.
+> - Reloading brcmfmac on the failing configuration does not restore Wi-Fi.
+>
+> On the failing 7.3.0-2 boot, the driver detects the device, loads its
+> firmware and creates wlp2s0:
+>
+> brcmfmac 0000:02:00.0: enabling device (0000 -> 0002)
+> brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac4355c1-pcie for
+> chip BCM4355/12
+> brcmfmac: brcmf_c_process_txcap_blob: TxCap blob found, loading
+> brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4355/12 wl0: Jul  8 2023
+> 17:49:51 version 9.30.503.0.32.5.87 FWID 01-e74b9cb0
+> brcmfmac 0000:02:00.0 wlp2s0: renamed from wlan0
+>
+> However, Wi-Fi subsequently stops responding. The kernel log reports
+> errors including:
+>
+> brcmf_msgbuf_query_dcmd: Timeout on response for query command
+> brcmf_cfg80211_scan: scan error (-5)
+> brcmf_run_escan: error (-5)
+> brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
+> brcmf_cfg80211_get_channel: chanspec failed (-5)
+>
+> There is also an error creating the P2P interface:
+>
+> brcmf_cfg80211_add_iface: add iface p2p-dev-wlp2s0 type 10 failed: err=-52
+>
+> I tried reloading the driver using:
+>
+> sudo modprobe -r brcmfmac_wcc
+> sudo modprobe -r brcmfmac
+> sudo modprobe brcmfmac
+>
+> The driver and firmware loaded again, but Wi-Fi remained unusable.
+>
+> The firmware files are present under /lib/firmware/brcm/, and the
+> firmware version reported by the driver is the same on the working and
+> failing kernels.
+>
+> The brcmfmac module metadata differs between the kernels:
+>
+> Working kernel 7.2.11-3-t2-noble:
+> srcversion: 3B6176FDB720DDE8E7C596B
+>
+> Failing kernel 7.3.0-2-t2-noble:
+> srcversion: 3DCA38D52402541701276CF
+>
+> I did not find obvious PCIe AER or fatal errors in the failing boot's
+> kernel log.
+>
+> It has been suggested testing intel_iommu=off after reloading
+> brcmfmac. The driver reload did not help, but booting with
+> intel_iommu=off restored Wi-Fi.
+>
+> This strongly suggests an interaction between Intel IOMMU handling and
+> the BCM4355/brcmfmac driver in the 7.3.0-2-t2-noble kernel.
+>
+> I have not tested a vanilla upstream kernel, so I cannot yet confirm
+> whether this reproduces outside the T2 kernel packages. Unfortunately,
+> I have limited time available for further testing, so I may not be
+> able to investigate additional requests promptly. I wanted to report
+> the reproducible behaviour and the intel_iommu=off workaround in case
+> it helps identify the regression.
+>
+> Could you advise on further diagnostics, or whether this should be
+> investigated as an IOMMU or brcmfmac regression?
+>
+> Thank you.
