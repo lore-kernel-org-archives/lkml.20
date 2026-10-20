@@ -1,75 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514246;
-	b=wXrdAsdsYyG7K6NhQ5qvbAgktinIeP9m3N4tuvkjugrUZDSWrg4erox1IXu125WyuqgR
-	 HPxfxoJv1C/+dEIHLjcpzXkwAurArL26PG6SqJXDmwEfWXcNBoqwrz/cEvVu5m2cchoWL
-	 r7msBMcBaZtSNywTgkkLR2OIcGh8Yd7/RZN/iVWicQ8IXz/52oGGWVXA0R1C1aDV6vHQL
-	 wXAIOSRY9tmJ6aojLVeKhR2EwnJvO3VecURJkIF99Bx9JpWgrKqvu0kTbqSp+yAHgu1Vz
-	 CKyfVKS9rFfkO9Go7WxcCcihuqQR00O8FDT4mtjSU4sKY9ZCZQPRjxDZfq+zM7g8Nig==
+	t=1792514310;
+	b=UgxmryG7O1Co8JhzWhaRYaZrKyHkN+RiI1iBMIe4Ke8ylXToGW+eGo+DYBx8EMZd6DFU
+	 CufCY19zlnYmIzV9z13TJakLEpF+dBj06Tgwy4khv3YghEolD8J7rEqzkKWRi1pe6FoND
+	 SUsgO2YkQIJ8Mu0BWTdxKiNaoyHanO/v2NbVIqNsFRPgrtR3JVsFQCZsrZibB/j16xFsF
+	 M0hC0hRDb2tQukdZdsbfBQ1OmLP2Ruy5SOKUn2GxSbKJyOBz+CBKCdGxpGFHgEXirDBqb
+	 tdYnooCkJoTqX3IbX+OF4PFCfBRL3NhcfAC3txENSLgnfORbep7Fmv97XT3ciTP6qWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=dre+hbOKTxf3B5Sh6dXNmqRCROVNAmt0s7WlUHXOWM8=;
-	b=zfZ/6c4ZFbFI2da3t6hPcUGsYzuf4s/5dlG9alDdJ9AMqxOEXew3UaPluwxwWcdI6pJf
-	 KTcWJD3rptu+6Dj/UWHvtcU/Sf6rY1Goil4zik9Dzg0iPm/IANCqMzn87Eabg+mIyPT7x
-	 AyXVyhEo47O7jEWcBj1FxI/7Hgi4z5tzcIn5bIcQ5g61FITMq8b+sg5FEG4nFSfZOZiA9
-	 BQ5fM5C2imd9fRgIznW6ptaOxqaPeJMhsS+CHhU6wxydzshkOutklw06WBVfOhMCsjDKM
-	 IaGucATXS/9Wf9h2FAgniCP0z8peSV7TKOXqtTWTB/Teev3cospLvqbyXmE6gHFzQWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514310;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Q5Xt0UyWQsUyZE4GjIfeTD7EOcY9CWq9fj7d2Ed+wQ4=;
+	b=jxdUwnzV0mGPt+DYwczp3wlHEf3Wc+pI64m1Wj1cEViKdv486UIhGXtWxlxeWOEHQAPB
+	 wfKYaF1KJ31SjYblyYdfAbgkKqU5BSWWdWDEDwP+15JD9o/ANAN+fiLTLk4oBnjkSpapd
+	 97upKbN8zLBnwX9WhakE2z6pyz2VMgNUnjAK2s4zANnNh54nd2tJBE2cRThjLlx2b+03y
+	 TieYCrkYPs/IrboE665K3sLX2KxcnWWkpKqlwD9ETmpE5fImwhMhtAo+nnjqwE2SKlosl
+	 j2Y/BznXgbqGsLTi0FGHrXxStOtYRY5Aj7T5BOHDMaU1Qtd2QVZMkKZiScJ13B9PpRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iInrtfJs;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAD760A5BD1
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DAD760A5BD1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iInrtfJs
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-139b62317d0so12568336c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:37:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792514246; x=1793119046; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dre+hbOKTxf3B5Sh6dXNmqRCROVNAmt0s7WlUHXOWM8=;
-        b=iInrtfJsW0vSempJ4N6CuVfIumEp2qzaY/FNGe15UV+0IRhOZkp5by8zWvmhMb96Ah
-         HE7GKtBr7UA7/AA4BPSt509Y1UkdA95lIcheMkK3FsfWGff1Bblp6tPTjMBE02xSyEe+
-         CXNZG1atyjzaiQAc7pt7JUJWiUzmdeXgpZMXhAy0q/7v/fQDv3jaQp2Zcqv2aOcnJSvM
-         BFs1o+2rb+09SR8b2M39cPBnGulNgOzTDpAB32RPInlBU+zQM815EkpvVLQHZbNTa9P7
-         0cELQhshIo4zQTE8YF3CYKCpGq5kOAKrdqk5B532eMMguXJ/61L28ytLaPujBDVDRaam
-         kamQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514246; x=1793119046;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dre+hbOKTxf3B5Sh6dXNmqRCROVNAmt0s7WlUHXOWM8=;
-        b=Kg+fig3DJl0BLn7jqJ6q9uGIMntVwomkBn6AT95vubs4lrnqp2/XfznXt1pvX+RYQo
-         JBEZuhiJSmGszA3GBfyqXOKI9GuGm7m8sajhAp2BHBRgzd/CnmdCE3FZCbF/oRaZ3zgd
-         dZmrvbxcUL0rSZFqXzRMdqr95idl4HRkoRUkHWHcDA3pcNKj53UyFrakYJBGsV5WTUr7
-         iD2XpLAzYaIoywSRxHt9+1J86k1vxc+qRTn1u95IO7Qb1qvvkfDjuz5Jhmabb2yUSqjf
-         +lcvAjuQVUBHF0s29t+1/6qUvvjM84gI5O7A6jCbusZzKTCGQrieHzQnZjdeChsUpkKJ
-         jNwA==
-X-Forwarded-Encrypted: i=1; AKwUvBweBL4xjO5b+OLZFYdIuPZXihHK8A0IU11no9xyzEYaNld6PoE9lgZskklVPJj8Vo4XN1CKZL8jAoET46k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM9Zww2zG7+kWF+aBV/7YQaRPO3xdWjGIKRkaKxctFF+58S5mx
-	vX0WPDEImXJweamKPIgGyBBxxHFJPtpPxP5USvBTuP5c4s3h9I3VkgkUlM+a/iob6UtULDIH4zh
-	3Mc9qr/nRuw==
-X-Received: from dlbur7-n1.prod.google.com ([2002:a05:7022:ea47:10b0:185:5973:326c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea50:b0:184:ad2a:d1fd
- with SMTP id a92af1059eb24-1851434f3a6mr15396560c88.37.1792514245276; Tue, 20
- Oct 2026 09:37:25 -0700 (PDT)
-Date: Tue, 20 Oct 2026 09:36:37 -0700
-In-Reply-To: <20261020163640.746159-1-irogers@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E30E606D508;
+	Tue, 20 Oct 2026 16:38:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1ACF1F000C4;
+	Tue, 20 Oct 2026 16:38:29 +0000 (UTC)
+Date: Tue, 20 Oct 2026 11:37:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Pavel Popov <pavel.e.popov@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Lukas Wunner <lukas@wunner.de>, Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+Message-ID: <20261020163758.GA2342476@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,278 +50,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261016221700.1282659-1-irogers@google.com> <20261020163640.746159-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020163640.746159-15-irogers@google.com>
-Subject: [PATCH v5 14/17] perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	justinstitt@google.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
-	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
-	ndesaulniers@google.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020161447.GN64621@unreal>
 
-Replace tpebs_mtx_get() and its pthread_once() initialization helper
-tpebs_init() with DEFINE_MUTEX(tpebs_mtx) and static initializers for
-control_fd and ack_fd.
+On Tue, Oct 20, 2026 at 07:14:47PM +0300, Leon Romanovsky wrote:
+> On Tue, Oct 20, 2026 at 08:13:05AM -0700, Pavel Popov wrote:
+> > Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
+> > upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
+> > VMware guests, passthrough devices appear directly on virtual root
+> > buses without host bridge devices. In Hyper-V guests, each passthrough
+> > device appears in a PCI domain of its own without a host bridge
+> > device. Consequently, P2PDMA checks evaluate endpoint Device IDs
+> > against the host bridge whitelist, causing P2PDMA requests to fail
+> > regardless of host support.
+> > 
+> > This affects discrete devices such as GPUs, NICs and NVMe drives.
+> > 
+> > Add an explicit list of the Intel Xeon server generations from
+> > Skylake-SP to Diamond Rapids to cpu_supports_p2pdma(). These are the
+> > CPUs whose host bridges are in pci_p2pdma_whitelist[] without
+> > restrictions. AMD Zen and newer are already covered by
+> > cpu_supports_p2pdma(), so only Intel entries are needed.
+> > 
+> > Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
+> > cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
+> > 
+> > Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+> > ---
+> > Changes in v3:
+> > - Drop the hypervisor check and move the Xeon list into
+> >   cpu_supports_p2pdma(), next to the AMD check, as suggested by Logan
+> >   Gunthorpe and Leon Romanovsky [1]
+> > - Fold the VMware and Hyper-V patches into one, as the check no longer
+> >   depends on the hypervisor
+> > 
+> > Changes in v2:
+> > - Replace the Skylake-and-newer threshold with an explicit list of Intel
+> >   Xeon server generations, from Skylake-SP to Diamond Rapids (Logan
+> >   Gunthorpe)
+> > - Move the CONFIG_X86 #ifdef out of hypervisor_supports_p2pdma()
+> >   (Logan Gunthorpe)
+> > - Rebased on current mainline
+> > 
+> > [1] https://lore.kernel.org/r/20261016153147.GC219304@unreal
+> > 
+> > v2: https://lore.kernel.org/r/20261016223402.19991-1-pavel.e.popov@intel.com
+> > v1: https://lore.kernel.org/r/20261009154034.82321-1-pavel.e.popov@intel.com
+> > 
+> >  drivers/pci/p2pdma.c | 26 ++++++++++++++++++++++++++
+> >  1 file changed, 26 insertions(+)
+> > 
+> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> > index 9334eb314663..2650d605d87d 100644
+> > --- a/drivers/pci/p2pdma.c
+> > +++ b/drivers/pci/p2pdma.c
+> > @@ -21,6 +21,11 @@
+> >  #include <linux/seq_buf.h>
+> >  #include <linux/xarray.h>
+> >  
+> > +#ifdef CONFIG_X86
+> > +#include <asm/cpu_device_id.h>
+> > +#include <asm/intel-family.h>
+> > +#endif
+> > +
+> >  struct pci_p2pdma {
+> >  	struct gen_pool *pool;
+> >  	bool p2pmem_published;
+> > @@ -519,6 +524,23 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+> >  	seq_buf_printf(buf, "%s;", pci_name(pdev));
+> >  }
+> >  
+> > +#ifdef CONFIG_X86
+> 
+> Do we really need all these #ifdefs? I'm pretty sure they're not
+> needed for the includes.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/intel-tpebs.c | 79 ++++++++++++++---------------------
- 1 file changed, 32 insertions(+), 47 deletions(-)
+Apparently we do.  I experimentally removed them and cross-compiled
+for arm64:
 
-diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
-index 47c939fc2058..1812917bfb85 100644
---- a/tools/perf/util/intel-tpebs.c
-+++ b/tools/perf/util/intel-tpebs.c
-@@ -38,11 +38,11 @@
- 
- bool tpebs_recording;
- enum tpebs_mode tpebs_mode;
-+static DEFINE_MUTEX(tpebs_mtx);
- static LIST_HEAD(tpebs_results);
- static pthread_t tpebs_reader_thread;
- static struct child_process tpebs_cmd;
--static int control_fd[2], ack_fd[2];
--static struct mutex tpebs_mtx;
-+static int control_fd[2] = { -1, -1 }, ack_fd[2] = { -1, -1 };
- static bool tpebs_stopping;
- 
- struct tpebs_retire_lat {
-@@ -59,23 +59,8 @@ struct tpebs_retire_lat {
- 	bool started;
- };
- 
--static void tpebs_init(void)
--{
--	mutex_init(&tpebs_mtx);
--	control_fd[0] = control_fd[1] = -1;
--	ack_fd[0] = ack_fd[1] = -1;
--}
--
--static struct mutex *tpebs_mtx_get(void)
--{
--	static pthread_once_t tpebs_once = PTHREAD_ONCE_INIT;
--
--	pthread_once(&tpebs_once, tpebs_init);
--	return &tpebs_mtx;
--}
--
- static struct tpebs_retire_lat *tpebs_retire_lat__find(struct evsel *evsel)
--	__must_hold(tpebs_mtx_get());
-+	__must_hold(&tpebs_mtx);
- 
- static int evsel__tpebs_start_perf_record(struct evsel *evsel)
- {
-@@ -205,19 +190,19 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
- {
- 	struct tpebs_retire_lat *t;
- 
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	if (tpebs_cmd.pid == 0) {
- 		/* Record has terminated. */
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		return 0;
- 	}
- 	t = tpebs_retire_lat__find(sample->evsel);
- 	if (!t) {
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		return -EINVAL;
- 	}
- 	if (should_ignore_sample(sample, t)) {
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		return 0;
- 	}
- 	/*
-@@ -227,7 +212,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
- 	 */
- 	t->last = sample->weight3;
- 	update_stats(&t->stats, sample->weight3);
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- 	return 0;
- }
- 
-@@ -257,7 +242,7 @@ static void *__sample_reader(void *arg)
- 	return NULL;
- }
- 
--static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
-+static int tpebs_send_record_cmd(const char *msg) __must_hold(&tpebs_mtx)
- {
- 	struct pollfd pollfd = { .events = POLLIN, };
- 	int ret, len, retries = 0;
-@@ -271,7 +256,7 @@ static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
- 	 * Let go of the lock while sending/receiving as blocking can starve the
- 	 * sample reading thread.
- 	 */
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- 
- 	/* Send perf record command.*/
- 	len = strlen(msg);
-@@ -327,14 +312,14 @@ static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
- 		pr_err("tpebs: perf record control ack failed\n");
- out:
- 	/* Re-take lock as expected by caller. */
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	return ret;
- }
- 
- /*
-  * tpebs_stop - stop the sample data read thread and the perf record process.
-  */
--static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
-+static int tpebs_stop(void) __must_hold(&tpebs_mtx)
- {
- 	int ret = 0;
- 
-@@ -355,9 +340,9 @@ static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
- 		 */
- 		tpebs_cmd.pid = 0;
- 		reader_thread = tpebs_reader_thread;
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		pthread_join(reader_thread, NULL);
--		mutex_lock(tpebs_mtx_get());
-+		mutex_lock(&tpebs_mtx);
- 		if (control_fd[0] >= 0) {
- 			close(control_fd[0]);
- 			control_fd[0] = -1;
-@@ -493,20 +478,20 @@ static int evsel__tpebs_prepare(struct evsel *evsel)
- 	struct evsel *pos;
- 	struct tpebs_retire_lat *tpebs_event;
- 
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	tpebs_event = tpebs_retire_lat__find(evsel);
- 	if (tpebs_event) {
- 		/* evsel, or an identically named one, was already prepared. */
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		return 0;
- 	}
- 	tpebs_event = tpebs_retire_lat__new(evsel);
- 	if (!tpebs_event) {
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		return -ENOMEM;
- 	}
- 	list_add_tail(&tpebs_event->nd, &tpebs_results);
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- 
- 	/*
- 	 * Eagerly prepare all other evsels on the list to try to ensure that by
-@@ -541,9 +526,9 @@ int evsel__tpebs_open(struct evsel *evsel)
- 	if (!tpebs_recording)
- 		return 0;
- 
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	if (tpebs_stopping) {
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		return -EBUSY;
- 	}
- 	/* Only start the events once. */
-@@ -553,17 +538,17 @@ int evsel__tpebs_open(struct evsel *evsel)
- 
- 		t = tpebs_retire_lat__find(evsel);
- 		valid = t && t->started;
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		/* May fail as the event wasn't started. */
- 		return valid ? 0 : -EBUSY;
- 	}
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- 
- 	ret = evsel__tpebs_prepare(evsel);
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	if (tpebs_stopping || tpebs_cmd.pid != 0) {
- 		ret = -EBUSY;
- 		goto out;
-@@ -618,9 +603,9 @@ int evsel__tpebs_open(struct evsel *evsel)
- 				if (started_thread) {
- 					pthread_t reader_thread = tpebs_reader_thread;
- 
--					mutex_unlock(tpebs_mtx_get());
-+					mutex_unlock(&tpebs_mtx);
- 					pthread_join(reader_thread, NULL);
--					mutex_lock(tpebs_mtx_get());
-+					mutex_lock(&tpebs_mtx);
- 				}
- 				tpebs_cmd.pid = actual_pid;
- 				finish_command(&tpebs_cmd);
-@@ -649,7 +634,7 @@ int evsel__tpebs_open(struct evsel *evsel)
- 			}
- 		}
- 	}
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- 	return ret;
- }
- 
-@@ -669,7 +654,7 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
- 
- 	count = perf_counts(evsel->counts, cpu_map_idx, thread);
- 
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	t = tpebs_retire_lat__find(evsel);
- 	/*
- 	 * If reading the first tpebs result, send a ping to the record
-@@ -678,10 +663,10 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
- 	 */
- 	if (t && &t->nd == tpebs_results.next) {
- 		ret = tpebs_send_record_cmd(EVLIST_CTL_CMD_PING_TAG);
--		mutex_unlock(tpebs_mtx_get());
-+		mutex_unlock(&tpebs_mtx);
- 		if (ret)
- 			return ret;
--		mutex_lock(tpebs_mtx_get());
-+		mutex_lock(&tpebs_mtx);
- 	}
- 	if (t == NULL || t->stats.n == 0) {
- 		/* No sample data, use default. */
-@@ -720,7 +705,7 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
- 			break;
- 		}
- 	}
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- 
- 	if (old_count) {
- 		count->val = old_count->val + val;
-@@ -745,7 +730,7 @@ void evsel__tpebs_close(struct evsel *evsel)
- {
- 	struct tpebs_retire_lat *t;
- 
--	mutex_lock(tpebs_mtx_get());
-+	mutex_lock(&tpebs_mtx);
- 	t = tpebs_retire_lat__find(evsel);
- 	if (t) {
- 		list_del_init(&t->nd);
-@@ -754,5 +739,5 @@ void evsel__tpebs_close(struct evsel *evsel)
- 		if (list_empty(&tpebs_results))
- 			tpebs_stop();
- 	}
--	mutex_unlock(tpebs_mtx_get());
-+	mutex_unlock(&tpebs_mtx);
- }
--- 
-2.56.0.212.g129ede20d9-goog
+  drivers/pci/p2pdma.c:24:10: fatal error: asm/cpu_device_id.h: No such file or directory
+     24 | #include <asm/cpu_device_id.h>
+	|          ^~~~~~~~~~~~~~~~~~~~~
 
