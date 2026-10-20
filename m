@@ -1,47 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492390;
-	b=sQajjs63gkBxbKjC6iQYAk1FC7Ae7hCn36TZklJzAXHLEolzG4w89wnpUJ6KCI6s17n4
-	 fxMrOrQc7ZNygc9V+4kYPlHqH4PH2Pn9l4jQkhYoovsal1P8pgVVcZLEEKfLowi4ZChGu
-	 /yoNWoWJZUCa6JTIOJ6tA4hi4i8PlV/Noe3miTAFb58XZ+oPouLuvAbtlauDMElKDibFA
-	 3cgN7DCcrvYTcUYCC/4ym44XX9htncqJXWqXWuFG3pMh7XaswYd08ifKkTFuqdosxUFml
-	 vXS0XMyiDg2occlIFRodFbIjb9GwE5UaU3GW1K+A8U1QHuGrTvzKqxHhku1/j/GWGPw==
+	t=1792492400;
+	b=a7fCX3RttiZ4JD1nGuNTgbaja8/NY4EfGsk33FpDdcJlOq7mZ4r9S8tz2JOQe7Rnkw9w
+	 sGnqpaLswNU9zStjZlfh5mqWgOmULjttBoW4EjO/sVrSXIgF3vrzOf8V/vSMNLMLVXUR5
+	 b5q3BeaHqN9PSedERXUBF0wBqlJSIksOKVtiVifqWmEZfIbXmvsXHY+xLETu/trpBwypc
+	 m9fDwbj0NX8b93WjuJQvuremxGSPupyNe4rXltGGOJpoUjpUX5qzU1nddVzkA5s002w0w
+	 GoaWSfT4ez4e3RH/geG80eNgZF7vY9FPfel5Nt8tOOUbhHpAiX5qrRnPVsObc0OoN1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492390;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FihuiNID/Pk5K/0ONXyOSOSNJje8QjS2ThIwMHmFPbk=;
-	b=pep2lhv7GFazzJJyCm+zMWWQrgqhEqlKde+XrZqgTat9QYadYa7Fqz0ID2gcpyWeqqjZ
-	 FEuUEONFboDFrvhVPgDCMEVakzXVDLLDHNzsunNcyuBwa06gplKuL3a5rT0MnK8DzieS5
-	 pHIxWhnKruJJg0DlBKc1cgoHj8POTklMDRtleeF1VMoCDYh0+6QUHyRCwm0ZhpJiIsrD3
-	 8yBAlnqP8J22gni282nbOW4jFiA1/b6KMtaVwOtvfe017e5qnSaWRzO9r0EoqnoFdbfxG
-	 uVY7LZ1nzRfoj6qVXEV8cAvvZz8X+SNweX6Sg0c/yfnf0v3GYkrjnS5PPu4Ua36e/OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=iQyv3UXDKrcHPg5SiBMTwmI7JSOMjEBmbwi+E5uk+A8=;
+	b=svITp/Hs3JE2XYQrVoZBbzyDUvC1ErL4AYz3WqZgoBt5BB0jgrMfs+l/H1mqH2qFrIKO
+	 fbndgtZzLWOooFXdXN9oEC7XqZXBnUoK/ii4D5OyriiIXUuf3RLh1XqbzzHFfP/RSw3n8
+	 ZVa1WomBoqYS1HcI+JOHNYqJdPzIaO9A76IzBBuMFFOHt6VQernJe+8BXRs+JJZLLFNt5
+	 4ZbsWBYjahrGq2H/azQcYTcQkZPQ5Nf/bqmjRlt6Trw608BONlXPC61u0ifwyFkTyshRL
+	 p1sjUxbNLEpV/sbhNdC7afmJFBGXOXyceSyde8gPAJwX0n7urDjHTyt8BuOWJDJnCxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OESRhMpe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fC9GZjUE;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2B7606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA80E606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA80E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OESRhMpe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA6B91F000C4;
-	Tue, 20 Oct 2026 10:33:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792492389;
-	bh=FihuiNID/Pk5K/0ONXyOSOSNJje8QjS2ThIwMHmFPbk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OESRhMpeLDUSaKFGrPf+6FmN6yHuBITxtUHklGUlHeJRR6FAaH6Yj3spEbEXpAejG
-	 oZO5WDKIm+m7WJLnydupi9P2UsZuT10iJxyqQr+/aG3ByqyQyl7/AtOqrw0QXMLgcu
-	 nvfjWrVd1F5fvqAIN0QxmCqMMdo7XwuMbfJDjMbQtuHBlFz4YH+Swf3+vv+YldUTMq
-	 qNnhocpZRPCy4vgJmr9QaoPVR4BKXcJSQFg5LDCvz2UuGIZFOREUm6eFO4RnpXopzv
-	 zvmTiuyZlMRYaoeRUwM63AFx++PevK7IAQtttP2Q1A1LMFVIH6q0ptEp7QZkOgmH63
-	 w0/bi/wRRsSbQ==
-Message-ID: <baf5943f-b3fc-4a8d-85cf-bd897bb9a08a@kernel.org>
-Date: Tue, 20 Oct 2026 12:33:05 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fC9GZjUE
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15354aa70e8so198904c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:33:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792492399; x=1793097199; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iQyv3UXDKrcHPg5SiBMTwmI7JSOMjEBmbwi+E5uk+A8=;
+        b=fC9GZjUEOmYIv+aaLMdcv5eL/hIbg/oG6svqLSHKOzRIqNw8UJ0uX4u7TLxJ+8G7wE
+         TC0sjxIAzJCZopM2fJd6xJVJiTeuEIAeHwXPP0cmlCFxdF0TrJFb9OBeDjt5DZDMErsM
+         7MJHCgOS3f3tYB4U1ICzDh3CZ2HUQuQZca8udKAeDZJ1iSr5GVTttuMpa8vCe9G96N+L
+         6BZ1opy8OSh6TCb2JNce7ObgWN4j+doWPWHo2ubP2E2E1Gx2hwbhRJ/dxR48tPOEdzs7
+         2dXggms9K7qzZilw4RtRBDS9OUJz6ghXbbnDwvErJ/pLXlgRSV/p35Hu96x8FWSTKy8Y
+         NJZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792492399; x=1793097199;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iQyv3UXDKrcHPg5SiBMTwmI7JSOMjEBmbwi+E5uk+A8=;
+        b=hyL+J/VbZRUe9D8n7WvJpe1VYGwXPacaIH1uPcXObs5FdtETCZiewLVsKIAJ4CQM6Z
+         PAjwbNEu6gVG7P+W3AXr9l686cdbkEcFQ/VA9wN2COMwBbO3gDtE9lZ9C2NyJzQ7SyG6
+         aMsohsoP7Xdg0TGZFlQKFmORnG1A/cnjKCa9LGK9pblgkXy3iRcPetkCCfIJklhS/poR
+         NCqUGDiHDX++rOadlkLpiynTsUSJnVtYc+nzJ/RuTXfll5LMWnGupuScBIxIT9CNhrQF
+         +/z1eiu4RTLxnwbHxkzuWERl9L3+uNEgAsZJpLMgwgADK4EDblCHzad5seiRkcf2PVz5
+         IN/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxfb047G46ZwHBdqB6qIDl4+R3n2+yyFhlNxgTdumz+3md4mT/GRa1VYvgbM80A1ghh5DlTgN+8sFr/XVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjZzWlFPZ634Ga+0E+E7Vieji0RQ8A93V0RwrOZ4RrX+evsMiS
+	UkcfAZJvzNRzJa22SjccWE1gI1ZTZEPBe/CKxKBNGTwLDmVGJdCE5jNm
+X-Gm-Gg: AYBFou1dGh5g/S2qmi0F/tHzXU1Vbo9DU7l4DMEXxzij9FAAEqIWa9haz7A4wq+3fJE
+	DqLnw/k8uWUYxDpPBGH9YfW4KWS7oY520v8mbQ8f4qQ6GOBuUHkh5WaRiS1m7fZYWGOe0H4pJ8o
+	61cQmebFbwVDVkp9TuwbCf6O5xl4j5XFEOSI2Dme9zBkuhsdu+nYCrUR1fyfFkbB0/VSVajvJGs
+	uSoZNcfKLLKkKD6NBxM8/pR+/s4hpn6271MfXbB0JIBuNaMVD0osh3Kb+P/B3kIRIfnMWC14bJ0
+	9WhHO+PpOJm21NI6iEBN5q/BOGY5c7DiwxybRc5iLpwFXzinCkqRZHsIAny2Ts/QRrFZK9lV0WI
+	ZjCHrTbUWs5YqVB+dEQox9up+8Y+5Zo4hYQWQ9fG6nZhZ6jUnGbIx+Y6YNCKYudmFpGzGlD1aRT
+	ePe+5y023t6CftN5SPRX/+uWK/j4TfZx9OMNySmixcAp/YLQNIJitOFANBm0RdjrrZlSDtWngq0
+	zi5
+X-Received: by 2002:a05:7022:1001:b0:14c:be8e:69fe with SMTP id a92af1059eb24-1850c8da80emr20220476c88.5.1792492398134;
+        Tue, 20 Oct 2026 03:33:18 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c4d4675sm35068908c88.21.2026.10.20.03.33.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:33:17 -0700 (PDT)
+Date: Tue, 20 Oct 2026 07:33:10 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
+Message-ID: <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
+ <atZxhWaUWthEHkti@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,132 +107,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 2/3] mm/hugetlb: disable PMD sharing for UFFD missing
- mode
-To: Mike Rapoport <rppt@kernel.org>, Li Zhe <lizhe.67@bytedance.com>
-Cc: muchun.song@linux.dev, osalvador@suse.de, akpm@linux-foundation.org,
- peterx@redhat.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261019113034.97690-1-lizhe.67@bytedance.com>
- <20261019113034.97690-3-lizhe.67@bytedance.com> <atc-PW2PirXZzNZh@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <atc-PW2PirXZzNZh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atZxhWaUWthEHkti@SMW015318>
 
-On 10/20/26 12:11, Mike Rapoport wrote:
-> On Mon, Oct 19, 2026 at 07:30:33PM +0800, Li Zhe wrote:
->> From: "David Hildenbrand (Arm)" <david@kernel.org>
->>
->> For UFFDIO_POISON to install a poison marker in a hugetlb mapping, it is
->> sufficient to have the VMA registered for missing mode.
->>
->> However, UFFD missing mode does currently not block PMD table sharing, so
->> installing the marker will be visible to everyone using the shared PMD
->> table, which is wrong as UFFDIO_POISON must stay local to the process.
->>
->> To fix it, include VM_UFFD_MISSING in uffd_disable_huge_pmd_share(). Add
->> a debug check on the marker installation path.
->>
->> The existing registration path will then unshare PMD tables, and
->> subsequent faults will not share them while the mapping remains
->> registered.
->>
->> The alternative would be to unshare PMD tables selectively when
->> installing poison markers, which results in way more complexity. Or
->> alternatively, simply failing the marker installation, which might break
->> some use cases.
->>
->> This effectively disables PMD sharing for missing-mode registrations
->> that never use UFFDIO_POISON.
->>
->> Suggested-by: Li Zhe <lizhe.67@bytedance.com>
->> Fixes: 8a13897fb0da ("mm: userfaultfd: support UFFDIO_POISON for hugetlbfs")
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->> ---
->>  include/linux/userfaultfd_k.h | 13 +++++++++----
->>  mm/hugetlb.c                  |  1 +
->>  2 files changed, 10 insertions(+), 4 deletions(-)
->>
->> diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
->> index a4351cffc60c..fe78ba14dc68 100644
->> --- a/include/linux/userfaultfd_k.h
->> +++ b/include/linux/userfaultfd_k.h
->> @@ -169,7 +169,10 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
->>  }
->>  
->>  /*
->> - * Never enable huge pmd sharing on some uffd registered vmas:
->> + * Never enable huge pmd sharing on the following VMAs:
->> + *
->> + * - VM_UFFD_MISSING VMAs, because UFFDIO_POISON may install markers and we
->> + *   want PMD tables to be unshared when installing these markers already.
->>   *
->>   * - VM_UFFD_WP and VM_UFFD_RWP VMAs, because the write protect / access
->>   *   tracking information is per pgtable entry.
->> @@ -182,9 +185,11 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
->>   */
->>  static inline bool uffd_disable_huge_pmd_share(struct vm_area_struct *vma)
->>  {
->> -	return vma_test_any_mask(vma,
->> -		mk_vma_flags_from_masks(VMA_UFFD_WP, VMA_UFFD_RWP,
->> -					VMA_UFFD_MINOR));
->> +	const vma_flags_t uffd_flags =
->> +		mk_vma_flags_from_masks(VMA_UFFD_MISSING, VMA_UFFD_WP,
->> +					VMA_UFFD_RWP, VMA_UFFD_MINOR);
+On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
+> On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
+> > From: Leonardo Costa <leonardo.costa@toradex.com>
+> >
+> > Add a device tree overlay for the VGA output available on the Apalis
+> > Evaluation Board, which is driven from a parallel RGB interface passing
+> > through a non-programmable video DAC to a VGA connector, without VESA
+> > DDC I2C signals.
+> >
+> > The non-programmable video DAC consists of a simple resistor ladder that
+> > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
+> > an active-low data-enable signal.
+> >
+> > The overlay is also combined with the various Apalis Evaluation Board
+> > device trees to provide ready-to-use DTBs.
+> >
+> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > ---
+> >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+> >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
 > 
-> Since this essentially disable pmd sharing for any uffd mode, maybe replace
-> the flags check with the check for non-NULL userfaultfd_ctx?
+> what's difference with
+> 
+> https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
+> 
+> Is it possible share one dtso also?
+> 
+> Frank
 
-That would likely even better and we can just simplify the comments as well.
+Hi Frank,
 
--- 
-Cheers,
+The Apalis iMX6 one needs to set up the connection between the IPU the
+LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
+Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
+the bridge on the Colibri iMX6 doesn't have any control signals, while
+this one on the Apalis iMX6 has an active-low data-enable signal
+specified on the input endpoint. Because of all of these, the overlay
+needs to be different between these modules.
 
-David
+Best regards,
+Leonardo
