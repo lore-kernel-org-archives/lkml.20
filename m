@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503799;
-	b=XXn+DKC0ZwtopXygz2N4Z/S3Pv2T0Lm96C0qDWXJEgBxo3xG68ELpMrueDFZ5QCYwjAj
-	 bBtAYyFu8UJwD3G9a5Bj4/PkAMQTKv0mTWmtufw23RDgYgJdhCmsI69VXccnDwPJ6wFBf
-	 z6yJqr++jE/HsMGK2PhsnONMFY6FAe8mF89G1pApQSGIwhrqWI6Zwd+s3BN2Po+Utn5bl
-	 E/PEuJKU+YmJHEZ1XSwx0RENIEq2PfzXi+oo9FKA4EFbdL7hlZwlueaCvmAL6IHd0RhcW
-	 bUNY8FJYBpJ+oVtBEW6P9kNSNTdiH4y5RlhHuABAqxxy1CC3/8ZwFbzQN/XT4zgh69Q==
+	t=1792503802;
+	b=DzqCdwOv9ciU98vefoYKO+XT1wOcKOXVZfxGBtIhI+oJdenBAev7NpJJ3Zhk4+ZQxKF3
+	 I9oZzPPkxTXqKaVIyP793WmGU7RZG+J5l/ytnIp17fY31Z9m6Y4QRgub0qjoLoHpE3C8a
+	 QVxuJmGYILCAeucfAYXiV82bzldK/eBuKYG5NzcL5YKKsiRRpA+CU9wBOKsQ1FhFvXZlT
+	 2bci/f0QATsa7WkDLxLubJ4WPd3+qJ5FIWi4wnV7LYYsoBg0rGANM12KF1DV2FsAjAw8s
+	 mLOsfa3Yv6LwCfVkCIABAGACuEf0TkFxFkHX7jNWXO++In7dembiWHzFGrUUESyeYJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503802;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=YXDXBL7SFuHL5V0DHT5sHodyascRCzMkodYe0ccJZS4=;
-	b=0+A9Xl/FWGHVr6IerHx1vJg/TdqZnk/1C6J4mTIatbzZVHPIp/rVKESw1BnDRXnrWYXO
-	 sZUiXemJAHfIMn1IT38DdYQG3Natm1jjd2uHUN8pzFMyhXVFI6Dc1Y20GJaIRfF09PhSW
-	 5cLqfkoQUdiQNPfF4cNF+cY2kBBqldjZOfv+tqfCoSxR22jXsbnYbjmw6vEh0eFKN5mB2
-	 3OIQKa3m2NU2naZvv4vCN35TUW+vxMt3ZszjSLG3Yxc4M0blUR5l1Z7l/+p/kjTBtTD9i
-	 Qq2gmaZsg72ToW7oQLqsVjNQPsNHY8OZIGZOe7S/AZYf6dZw325iJyHKvOK4eZzhi4g==
+	bh=44TqSoX+q8h8ddGSZSblkTlgZtgYqXfX3/G/CaPVp2k=;
+	b=2PR5vL4iZrVV1igEL1e3gu5sLdvWDc5zrSqY4TqI4Kls7cAUDb4i0LW37OVhXpMLm4CB
+	 tmcBXGqqFZhltT/0YbTsEJnzqH8M7WJQ1oUDyCmzTOvL1ygb9TjVB7ZjTs3nG2vpuGKph
+	 ItAQ0M9WUXY9KN+92xAl8fu4xu21nrUs/++qH1WepFph+MnMlVqCGWmoPn2a/m17kylRV
+	 8/rlQE2V/FrhmwfXmnjoiVYB5XoR41f21g+nmmSVLadK8NpPglAxbSNrVTKma8HhEEznx
+	 Ro5+q6Tf0lPQfIStoXvHXo+Vwn+Yv0k0gJLBN+RPScLm8CoxD7g97540KUj0qB03Blg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sNQdQxOJ;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5GpIE+vG;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA10D606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA10D606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A1560A2600
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A1560A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sNQdQxOJ
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5GpIE+vG
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=YXDXBL7SFuHL5V0DHT5sHodyascRCzMkodYe0ccJZS4=;
-	b=sNQdQxOJ75PrBAmJsYpY32SqK4QlxMni14d0GSGsfOZu0ZgvXlVrKV6VRgaYIR5nHxZnkvHwz
-	9mmnSO1h+9ewGyDxG4OsGhjJ43uETwSB1S09V5CqCABAth36LNJkY/mKCYpZ+vqldsd7cbAjC38
-	/+RjB0UNePq9cQzFjphnPGA=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j8DBh4d8dz1prKf;
-	Tue, 20 Oct 2026 21:43:08 +0800 (CST)
+	bh=44TqSoX+q8h8ddGSZSblkTlgZtgYqXfX3/G/CaPVp2k=;
+	b=5GpIE+vGSoZ4QU2mFc1xWXhk2yNyibmYDaFqqfZISjBsn6artUEufbwHM+28vvv//kFfoOz/j
+	/L1av4SEYqkE3q4H912bmdUFpduuV3g12N4hzKj0XWi6Woi4GdieknpnWOHsztfat1d1HQzR6zB
+	WOqbAh6CjD1713xM9Tz6xcs=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j8DBf4bgHz1T4GB;
+	Tue, 20 Oct 2026 21:43:06 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 180D840537;
-	Tue, 20 Oct 2026 21:43:12 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 6FA5540575;
+	Tue, 20 Oct 2026 21:43:13 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 21:43:11 +0800
+ 2026 21:43:12 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
@@ -59,9 +59,9 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<ruanjinjie@huawei.com>, <tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>,
 	<jic23@kernel.org>, <gshan@redhat.com>, <catalin.marinas@arm.com>,
 	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v10 RESEND 03/15] arm_mpam: Fix error return in resctrl_arch_mon_ctx_alloc()
-Date: Tue, 20 Oct 2026 21:42:27 +0800
-Message-ID: <20261020134239.3921377-4-ruanjinjie@huawei.com>
+Subject: [PATCH v10 RESEND 05/15] arm_mpam: Don't stall MPAM enable when an MSC fails to probe
+Date: Tue, 20 Oct 2026 21:42:29 +0800
+Message-ID: <20261020134239.3921377-6-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261020134239.3921377-1-ruanjinjie@huawei.com>
 References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
@@ -79,43 +79,82 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-resctrl_arch_mon_ctx_alloc() stores the allocation result in a
-heap-allocated int and returns the pointer unconditionally. When
-allocation fails with anything other than a retryable -ENOSPC (e.g.
--EINVAL, -EOPNOTSUPP, or -ENOSPC with a pending signal), the caller
-receives a valid heap pointer that IS_ERR() does not detect.
+mpam_msc_drv_probe() registers the discovery cpuhp callbacks only when
+the number of successfully probed MSCs reaches fw_num_msc. Every failure
+path returns before the counter is incremented, and a failed probe is
+final - the driver core does not retry. One failing MSC therefore leaves
+the counter below fw_num_msc forever: the discovery callbacks are never
+registered, mpam_enable() is never scheduled, and MPAM stays dead
+system-wide - the resctrl filesystem is never registered, and no error
+message hints at the cause.
 
-The caller then treats the error code as a monitor index: hardware
-reads use an out-of-range index, and resctrl_arch_mon_ctx_free() hands
-it to ida_free(), corrupting the allocator state.
+An MSC can legitimately fail to probe on an otherwise working system:
+firmware may describe MSCs that are not accessible from any possible
+CPU, e.g. when the possible CPUs are restricted with nr_cpus=. The MSCs
+of the clipped CPUs then fail with "MSC is not accessible from any
+CPU!", or their cache resources become unresolvable from PPTT.
 
-Return ERR_PTR() when the allocation failed.
+Count every completed probe, successful or not. Failed MSCs are not on
+mpam_all_msc (either never added, or removed by mpam_msc_drv_remove()),
+so the discovery path skips them naturally, and MPAM is enabled for the
+surviving devices.
 
-Fixes: 2a3c79c61539 ("arm_mpam: resctrl: Allow resctrl to allocate monitors")
-Cc: James Morse <james.morse@arm.com>
+Cc: stable@vger.kernel.org
+Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>
+Cc: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Fixes: f04046f2577a5 ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- drivers/resctrl/mpam_resctrl.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/resctrl/mpam_devices.c | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index edd8da460fd7..23a8771ef148 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -413,6 +413,13 @@ void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
- 	} while (*ret == -ENOSPC && !signal_pending(current));
- 	finish_wait(&resctrl_mon_ctx_waiters, &wait);
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 61cbc75625fa..a44d66a5733d 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -2120,21 +2120,31 @@ static int mpam_msc_drv_probe(struct platform_device *pdev)
+ 	msc = do_mpam_msc_drv_probe(pdev);
+ 	mutex_unlock(&mpam_list_lock);
  
-+	if (*ret < 0) {
-+		int err = *ret;
-+
-+		kfree(ret);
-+		return ERR_PTR(err);
+-	if (IS_ERR(msc))
+-		return PTR_ERR(msc);
++	if (IS_ERR(msc)) {
++		err = PTR_ERR(msc);
++		goto out;
 +	}
-+
- 	return ret;
+ 
+ 	/* Create RIS entries described by firmware */
+ 	err = acpi_mpam_parse_resources(msc, plat_data);
+-	if (err) {
++	if (err)
+ 		mpam_msc_drv_remove(pdev);
+-		return err;
+-	}
+-
+-	if (atomic_add_return(1, &mpam_num_msc) == fw_num_msc)
++out:
++	/*
++	 * A failed MSC must not prevent MPAM being enabled for the
++	 * surviving devices. Firmware may describe MSCs that are not
++	 * accessible from any possible CPU, e.g. when the possible CPUs
++	 * were restricted by nr_cpus=. The failed device is not
++	 * re-probed, so count it here too: otherwise the counter never
++	 * reaches fw_num_msc, the discovery cpuhp callbacks are never
++	 * registered and mpam_enable() is never scheduled - MPAM stays
++	 * dead system-wide, without any error message.
++	 */
++	if (atomic_inc_return(&mpam_num_msc) == fw_num_msc)
+ 		mpam_register_cpuhp_callbacks(mpam_discovery_cpu_online, NULL,
+ 					      "mpam:drv_probe");
+ 
+-	return 0;
++	return err;
  }
  
+ static struct platform_driver mpam_msc_driver = {
 -- 
 2.34.1
 
