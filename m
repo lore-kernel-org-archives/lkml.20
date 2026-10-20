@@ -1,55 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456601;
-	b=p+ZgjmlCeH5QeLbbbo0RgQxhXSKcaULIk2pZFZx9Ento4H6o92rpQya08KmwrpYgAATS
-	 fQSRhtxejMXU6Y+HsVChPL063bzynOTS7HXmtNiwUo2zTudN+EXotACjU3/QmRH7C53KC
-	 vol/sw0f1aYadPk1eqXhMwcrxZSjAvmDb/yKWq0S7/AWqBDeT1NXgL5bO0JGOs3y6hSGg
-	 lLIeKh0t0Ppjz7gh00Q+IxlXFBPhv2eGufKrN1HxV/LmLG3vBs4dfeHqJ/d6Jr9KjuXT3
-	 xM4sKapYd+Sif36jE9PJ0e2Okpm/IKSLjD92zbDcgmfVrB66ZLMObuQVYCGj+eBjzUQ==
+	t=1792456614;
+	b=QSgdE9dqXhyr2xfxGzaJRqcHvK6eWF6hA2q15kK13uYReEBnHbybbvnAiAz3uxPb8Lz7
+	 +obAmRwCxiKiMJl7NfEUGODsmvxDUKBnzBjYPYNzUtOOzN3fZp0KmpkzKV2HwE4vJUQpJ
+	 cAOrZhWMix4zwqsaq0vEYD3yYtN1MlNUoX1joApuozb2KgUuRTC856U4+9uM44r0+SKh1
+	 UfC7amx6okbetwA10lnljLCnhBvXuwzHk64QBlJGd+mMmrrARrV4Rz4XEGO+OJPdtNQqu
+	 wzaIjZS61wsD1ey1FD0rRMTOCUzVlmW3IH+roqK1YhJEL5nHlYrvJPU4XT6HxhQKd+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456601;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=DpUqO6IYFNGg75SBjj0qg+xX0HmTEsTlFF09ahrMwrY=;
-	b=ypz6bNvZo28eZusrNYPTPlXwLQ7pLHUJE6CxTHysWuw7mcg9EHIM3TnEcDPlopQLoZrP
-	 paSxnm78HIKgZmiS0Cbz9uAcBF3TXo2niKz/TFJDjbus2I5FaS1rbIuBiywuTKhModWs6
-	 FxoJRt+ykMMItuV4KZauVBexWn2rnH+2+9T3TofrZC9PVogQMBzw+PPyITvWXGVhh0p1f
-	 MQ7xXDTX1kegLNMDfLAyLZ4eMQFii8CKZYAruLLfuSd+zdl5r9bvGvsXN9nAU2cO091do
-	 xZOpgGrN0RW5JPPlXytRQ2RN5ykIoTCfjZ/r+tiK3roP285hyZVykZ1VC6ruJivsemw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456614;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=tYLzgEFMLbU+10QLZBwGrlpV/UdgmwvgieWaGFdOtj0=;
+	b=uTbhEnRwdAFtucdm1sHIrewwKlf5BE77cnjH3rC0lZYNP5GZ9jClSgEpVGWi5X9Sh0sz
+	 9gHQqLMlBOT7fezLvPQJgeH0zQ6Q5Y6eNZhH/BiCvTa24hL+fhLSJaitEPsbiCGLfUEp2
+	 9RKnBvCWHqLsy0vX2zadhjo0nVcaH+EMY8c3xTgIN30ZD78EvYUzlpNezvG3R2ub7OFKR
+	 e4goYjxghKdYoOzdBKSv18wLRY/3XMkwGo0Doj/UGCKGJbxWLD/7HntDwF5htGW56JlAa
+	 aEqC5fGPDaAcQQc0gMfAD/vmwh0uU75qCtnRKbggdI0+awA4DQEWiLro9v+agz8zU3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bInwt0Ld;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=otZInzdJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE17606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:36:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE17606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7303A606A319;
+	Tue, 20 Oct 2026 00:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bInwt0Ld
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Dp
-	UqO6IYFNGg75SBjj0qg+xX0HmTEsTlFF09ahrMwrY=; b=bInwt0Ld+Boo8LgNd4
-	zgrYr09i3lcZYZRCglHdUZCkrpV+R75KzhDDGaZzsOf5ro3MZkWNZVjGXs6e6cvO
-	iR+FXkvyRRzg8NE+XD74jaYvS/++noEL/GFtdSKpbROIdAztDe2VQSAQ15vbEwn8
-	qzaTDJSvmzhsfeJjQXpuzrAOo=
-Received: from shaos.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3zTyMt9ZqfUOYAw--.46111S2;
-	Tue, 20 Oct 2026 08:36:29 +0800 (CST)
-From: shaos <shawnq1@163.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] fs/ntfs3: setting a security xattr on an ADS dereferences NULL
-Date: Tue, 20 Oct 2026 00:36:28 +0000
-Message-Id: <20261020003628.1011754-1-shawnq1@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=otZInzdJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D3C1F000C6;
+	Tue, 20 Oct 2026 00:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792456614;
+	bh=tYLzgEFMLbU+10QLZBwGrlpV/UdgmwvgieWaGFdOtj0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=otZInzdJ0WqqGTrJUKQhZw7pVa7NMN17igKQC+9rr6tbJdzP51fDgHCFkWSl9LtZ8
+	 fM8YmPLMMJ1yKftyPi2B8nEG2QZVpyCxJ/Pq9nXCGH3W377WSFxbn5KLkEAbz4vzX9
+	 FMIVuIbgRapHFExU9ZkKgfor7qZLd4s862FaHTb7Vl71owzqXEJsDd+tmMmko5jv0s
+	 H3IqK7C/hb3UEMRTu6t+JZbgh2U2VLdm0U+L370MeF4WXqHxh9I452ZMUaXSSY3Ah3
+	 m7xrHUpoiXZ2nxhGQ8MCQGfRhzAULebfxudD25lHj1z4C2H8GVrZliOyF0uPKa5LI+
+	 TWRMqqWS8u2lA==
+From: SJ Park <sj@kernel.org>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: SJ Park <sj@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	hannes@cmpxchg.org,
+	david@kernel.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	dave@stgolabs.net,
+	roman.gushchin@linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive reclaim
+Date: Mon, 19 Oct 2026 17:36:45 -0700
+Message-ID: <20261020003646.105993-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,48 +78,34 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3zTyMt9ZqfUOYAw--.46111S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWkuFWUKw47JF1kKFW8Xrb_yoW8uw1Dp3
-	909an5Kr4rtF4Utwn29FW8W3WF93sFyrWakF98Xws7ur45t3W7AryIk34YvFnFvrs7Kr98
-	taykJay8Xws8uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UWa0QUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzw1hb2rWt43w+wAA3B
 
-Hello,
+On Mon, 19 Oct 2026 14:50:02 -0400 "Gregory Price (Meta)" <gourry@gourry.net> wrote:
 
-ADS inodes share the base file's MFT record, but ni_std5() passes the ADS inode's uninitialized mi to mi_find_attr().  Setting system.ntfs_security on an ADS reaches that helper and dereferences mi->mrec at NULL+0x18.  The crash is reachable with an ordinary setxattr() call by a user who owns the file.
+> user_proactive_reclaim() limits per-node reclaim to
+> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
+> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
+> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
+> reclaims a node's movable memory. A movable-only node, such as dax/kmem
+> or hotplugged memory onlined movable, reclaims nothing and fails with
+> -EAGAIN.
+> 
+> To reproduce, fill a movable-only node with clean page cache and write
+> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
+> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
+> 
+> Scan every zone, as memory.reclaim does.
 
-HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
-git tree:       upstream Linux checkout, local branch master
-source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
-compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
+Both the issue description and the fix make sense to me.
 
-console output:
-https://gist.githubusercontent.com/shaos26/a045de92005a251e1cc33b71f352de96/raw/00e77de3ad1fe8ba5df29f5b5d54619025579979/console-output.txt
-kernel config:
-https://gist.githubusercontent.com/shaos26/a045de92005a251e1cc33b71f352de96/raw/3a45887bd13dcef8a37d87699309038ddc0aa586/kernel-config.txt
-reproducer:
-https://gist.githubusercontent.com/shaos26/a045de92005a251e1cc33b71f352de96/raw/4d7823afe03fcbc7299266715ed014e776105dca/poc.c
+> 
+> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Run in a disposable VM with a fresh read-write NTFS3 image mounted at /mnt with ads enabled.  The PoC starts as root, gives its base file to uid 1000, and performs the triggering setxattr as that user:
+Reviewed-by: SJ Park <sj@kernel.org>
 
-    dd if=/dev/zero of=/tmp/xattr.img bs=1M count=64 status=none
-    mkntfs -F -q -L TEST -c 4096 -s 512 /tmp/xattr.img
-    mkdir -p /mnt
-    mount -t ntfs3 -o loop,ads,rw /tmp/xattr.img /mnt
-    gcc -O2 -static -o ntfs3-ads-xattr-null poc.c
-    ./ntfs3-ads-xattr-null
-    dmesg | tail -60
-    umount /mnt
-
-Three fresh image runs and a uid 1000 run produced a NULL-pointer Oops at mi_enum_attr(), called by mi_find_attr() -> ni_std5() -> ntfs_setxattr().  Setting the same xattr on a base file and using ads=0 did not crash.
-
-Impact and prerequisites:
-A local user with write access to an NTFS3 file can trigger a kernel NULL dereference and denial of service when panic_on_oops is enabled.  No privilege escalation is demonstrated.
-
-Validation: Three fresh-image positives, including a uid 1000 run, reproduced the NULL dereference.  Base-file and ads=0 controls were clean.
 
 Thanks,
+SJ
 
-shaos
-
+[...]
