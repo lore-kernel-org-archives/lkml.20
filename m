@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459871;
-	b=rv3f/hzTxzew/MKYZLEfDWR6ONn17E+mDJsI71oM3WDXdhW1iSdO1/XS1pzyg1vlCBeJ
-	 oKpr9MibZ1Lk07LyO+L0i/MExsWQlS5QPcY3h2vgPQmtVr18PYSga47Eq/F2oc539J/MC
-	 0jET7XEwn/wgwhPx99fRnfLRJJUzwlxsuEpIuKryx1CxOm0UAmqCMQdbo7tyM9lQIXjz2
-	 iMG1xlH1vZBpJy7cnS4uca0xXFVaRg+z/tWPHe27QeC0V6xYRQbOm43RgQW7NW9a3/2Ag
-	 j+OX6NHNcQQIQo3RUWT1M+9i9ajCKYXC/AkyQEYzGU6XvGWLdSPcddAq9UohCTUmHbQ==
+	t=1792459944;
+	b=h0AY5TcxGdLZXZsXkWTyvpH/4/Ba65nZadafqomOTiXYhbBXjiB67+iOUm3wafDix4PL
+	 7Qf0tdpfNJQrOw7E0v/qO6G6nlW8MJKtyOaUwoYRzJwL/DR7k4R64wwy8vjsk3JmVhAC5
+	 bR3yLNnj98aEhGZvSeMjrPhZywZ7wd79K24HEEUHAZHFVlle0PioARWImlbT6JH5+/Op/
+	 GPRvCqeWIWVA0dG14Xj5ybjYJo7B4D+/a6UoAHqOpRHQhYI9qrRjsO8oN+fyzXlIsMkhb
+	 0uhp1tsa/9mitCqs3YJGkww5Q04Vns5B9bmOUO9Wnm+FSVWQmW3jmE3VEeouBfyfsWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459871;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=FzrF64kiEKqqwWT5o3bxL2C80x1Hbvhrh6y19AZ3iRw=;
-	b=pCV15CqsNyXo1xoM7JW8Dd4+wDlAy+NaJr7lGMVj+u/07ondn5VyauKQx7lHizF/TjHX
-	 8LmYUTsTRfdVt8mFiAGImwBv4tmgVDP5p5Haa9Bij8Dtd0pzlTUuoQlzJF/WdKG6in42r
-	 MxVJ1DeYFxdYM9MAOgmfFIvXtMxH/vHdvuqjBkMJgLLViu4EbdfeCimy/vIiLS0RnNVnc
-	 zBGSsertjhjG7W5d1LXgEsPAL1iRmBnaeREIVT/2R7EfWYYqwpvq8zPSbWEZvfIka94r2
-	 SZUHBobevWsa9hcRGEMmVXlXmBk1Rj4qMfhdmJfZA9d6zz8is/6rux10XerAToc7aPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459944;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RHHZce2bisqZNUvfZX9Hgcl7uv7oyGBAYDbe5ybUc7g=;
+	b=l9+7a2ceEPug6ofE2ZIkInb7iv2x3durGq3z4GkLSAwarLDCOo7+L+XcQ7DhCN8fgdVM
+	 8Qiu+F5ptXKYIsNkAjV0HRELhEGMSUN2jpNRX00MpB+NwiPGM31T0dZn5g4+Zxpq7x0PW
+	 xPc73TSiV/NuHfMk8+D52vW4CA2SkFhcRcxu5gFErZaXoaG4nyLDD0HYtTR1QVHl6l4BH
+	 SSw13QReMk/9dSg7w6H++OmmnBilB7To0r5w67/FWMjzAjXIy8f+dM+WN6sfIvotlz4ah
+	 Q72gLBgddlNoKZXQFl0evQhHteotWiOsRBt1Ywi3QdACSHq0Aiuu9olGc0uphlzC4XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aPdLPZff;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9fyw9BW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCFA606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DCFA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EA8606A319;
+	Tue, 20 Oct 2026 01:32:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aPdLPZff
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35c76e9614aso5153612eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792459871; x=1793064671; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FzrF64kiEKqqwWT5o3bxL2C80x1Hbvhrh6y19AZ3iRw=;
-        b=aPdLPZffNmo217G9eWGlRm1FdljKwmlMRRhAYx4MmC6SLEKjyRsg8qO+e+UU4wGfvK
-         IXxJKWu/71cohwDuIAM72o/901AzzXVFeZ77ai8hv9VfcGWR0iGFF03S3/8r0AkeI+rk
-         MmEHUgxBULR6/gEWt7F4jqrP4gB06tCzw0R36h3mYFNJwFKdzxAGXo8xSDD1cUZaKixW
-         JLRFEeZ5KnqR2IQdmpyRdrLMGxT2y+7geNUYN1cc7/3tZDN6dfb1ONb+fawinXq3kKiO
-         DQl1LKXtuLia+4Ta/39Xng8xFeZ6ebvCiIWk9VWm0rM+i2YkypHQHTFQDBxHRYI3Xgfc
-         72WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792459871; x=1793064671;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FzrF64kiEKqqwWT5o3bxL2C80x1Hbvhrh6y19AZ3iRw=;
-        b=FJ89aZom/1pW37Jp+94d8Rpflzy/fUWmToBfhPh/FfJlveQb3tkzvSOl5jE6KkXfIH
-         H5P5GW093fAyXQrfh2J0FENmU9gEc4fFF2s86DHhJ/mdtfegrxm2BpyY1rBx09Cor9LJ
-         Z7FCKqXW94R59vBPa7b66KT4QbTtidebqPNnWNoaUNOq/DYYvzmoEkQP6/9/Ux5t9+nf
-         f7xh104z2R1XDTN7Q4xyNw+aA+2ORxw8o0QNGkk90lUjOTZ6HSc7A3ul9UOyCVfjzkQL
-         1sIA3mJdNH+2rvGxNBVlnwfXJG9DTAkuho5RNGUghb2AwX/MUtYi4LY2k4QCasRNVbwi
-         po4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxlULJcRLEA0EnNrvAheNN4N3zTYnuhnbyVEmL3t0HLbY5I6ttNdYtLSwop8PWgjAYeXbzwr+dU6a0AcVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxYAkf+xGwRroCFfphf6Wv4JCBtUBFT6jlGonONKScs440X51X
-	lGZ7u0uCwZi5Ur4AJjvbYOTqZ/U8lcpHTIgVIaAwAiulyVPIrJQiPe2a
-X-Gm-Gg: AYBFou2XpqUBMIujCvofrkru4sLjw+NULy2uEMKyLwo7yDfA6yJTqOm6Y3RNSWNXOVV
-	BlJi/tj24smUGUsYKvuzcgwyi/pteAtLoeKDWztq+OZt7xug1MozZfdokLTOoQxmv/r35BCgXWL
-	UYp7PtNEpYjeAqrPbQcGgJgOQfhI8B87F/4MvXXZM20zssYLwUp3Q34M5rjN0JkgZ5fd8wXcOEs
-	SeUKnvr1Fn2MmZfLDiLo5J/MwUwh5DJAQ5A8+V3QgXLHDA1ccz3xF5MEhm7SEn7Es40CFG/aZbW
-	6B+0SM8kTljWzNUMbS9ZJtJ9GKh7Vvi3ycOJ7jzfI61LvNEAH5n1qgA0FXEKrYWctKC4czsKJ/l
-	RBmslaOESqLcSiGyPCrCpSGw/twAHUz27Dc7Bz2uiNofiDzbIY0CLPTKXGhy7Bbep8TBMHbdNxF
-	eoohIN0Kc/uVj6Rn8s0+C+azbzHW4AZ1QWwZJsQByq9wLZYy50xB/Du+bM1itjiDtfwB7UaYYF+
-	uDkBF2Y3FUD
-X-Received: by 2002:a05:7022:f51b:b0:159:aa67:28c1 with SMTP id a92af1059eb24-18512b3e25dmr13513794c88.20.1792459870405;
-        Mon, 19 Oct 2026 18:31:10 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-185aaea8b24sm25427211c88.19.2026.10.19.18.31.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 18:31:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 19 Oct 2026 18:31:08 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rajendra Nayak <quic_rjendra@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: watchdog: qcom-wdt: Document SM8650
- watchdog
-Message-ID: <4b808464-c860-451b-b179-fdaa39e14fbc@roeck-us.net>
-References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
- <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9fyw9BW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4FD1F000C4;
+	Tue, 20 Oct 2026 01:32:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792459944;
+	bh=RHHZce2bisqZNUvfZX9Hgcl7uv7oyGBAYDbe5ybUc7g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=m9fyw9BWEA2jRonWWI+6v7nTpS04pSAddzT88+LEFIeWb1PsUprhO9zMQPc1zK5WD
+	 SLSMsRI93ZzBBzkgyACFkTLREk9zB4pAynyKUZHGnAEC3XmTexo84HVMnzdxnVEHGD
+	 EuKtbZtUeN9N1VXkAhGtQ05T+JMTCPGXLqEziTp1aMO4IAyeuRES27cIlcC18cgRop
+	 Or9cL5mJel0UWcFbcNLQcGi0CHLDkuasEC0Hd5J/NPO0uBaLM+dA7zh08cJGwc3BJ/
+	 kHjmU4mnnjF9nbiFflwky6Ch4sDqy6Y5cG3tv12HZHAtx4ngFIHvtF0JTn1m0WnJ9/
+	 mGP5uyJ7A0/mw==
+Date: Mon, 19 Oct 2026 18:32:23 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Cc: hexlabsecurity@proton.me, Paolo Abeni <pabeni@redhat.com>, Thorsten
+ Winkler <twinkler@linux.ibm.com>, Eric Dumazet <edumazet@kernel.org>,
+ Alexandra Winter <wintera@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, Nagamani PV <nagamani@linux.ibm.com>, Hidayath Khan
+ <hidayath@linux.ibm.com>, netdev@vger.kernel.org, Simon Horman
+ <horms@kernel.org>, linux-s390@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net/iucv: serialize HiperSockets receive with
+ the socket lock
+Message-ID: <20261019183223.49a59d6f@kernel.org>
+In-Reply-To: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
+References: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,17 +64,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 02, 2026 at 11:45:28AM +0200, Neil Armstrong wrote:
-> Add the SM8650 compatible string to Qualcomm watchdog binding.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Sun, 11 Oct 2026 14:08:17 -0500 Bryam Vargas via B4 Relay wrote:
+> +static int afiucv_hs_dispatch(struct sock *sk, struct sk_buff *skb);
 
-Applied.
-
-Thanks,
-Guenter
+Please reorder the code to avoid forward decl, please respond to AI
+reviewer's feedback. Please trim the slop in the commit msg and notes.
+-- 
+pw-bot: cr
