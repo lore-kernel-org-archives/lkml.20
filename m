@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478744;
-	b=F5g9y9gVnymrvw3dJdcQGvFMrY/XiqzaSRh0tjkgQ7Tz3IBPqelhP1/5En63RLN2nFXV
-	 ZcFLuT4fPYTMymZky04dEmXLqtECipPKx6bI5kse1bGFdRIyyCSf6gOwCBe2ymZ0C50Iy
-	 fMxxcOK/fQAxEbi6tIGgCNILbTmRDAQp3beH9p/0RjfuHatmY5kRgpAP9FjSRGRWEjp8V
-	 3GltoC8oF3GJTdaP9VJ3ko7mUvhzv1dr8zl02RZ57UwuvxtWvVp/z4gPM+oXbUzgV45o/
-	 pefXrP8mu+uM641Rx3B4+Rk2u7urM4n52EPTIDCo7mu7NgiR+l7y0B0TLBTxGlHgXXw==
+	t=1792478768;
+	b=Lbp//B4iNtDvExP/rR5Fp0pRrGRxI0GJRcqaKzcJIhl2uQfYGJvJ7ha79eoWJl56aOeu
+	 YPfeC/MmwUQDJ2QR2Vq0fAVkajoFjwib1ehuNBpA6eHWAlVxWWUPZ0WbQVd8nVjX+1V0m
+	 GPie3+NuR8fkvWJOky3l/ccpNQEwtkomr50lco4xvF9CrYGvo+rQVvNzXvyMUd4+NBzMq
+	 Xv0eSFh1sWVJPCInZM9OlF129hOkWdAZmZxsR1PePTAZBB8XCKIc0aXM9L5YIl+D0Vg5j
+	 7VMKQSwYKnfwrqUBeTQIEpG9lr+h87R5aH5u36+rinyeQXbo41iPnUdj0EDq4teh9AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478744;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478768;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=PM96lafS/rwv826v2LZCH6guF3z+x32g3ULBEqHU5jk=;
-	b=H+VFMp9Q5TSVcKGd7lotFR1Dm52xNY1YdQhKKa/jXrMgRshb5opuluY4grtfJfk/QFXA
-	 RddJ2hdgdkWO9ZHteG/Qocu8NjCAfxjVbrdNPZHUgJcDksYd4PcDb0EE9/A2TJNbzrJFT
-	 U8RVsp6YhAAGgsPCCUli04Lkd7QQLkxFicG/pksxe2hVmCD6W73akzkGiXv6Dh2MLA29S
-	 0uqREMXPB973z3uFoMk87AqAz170zwBw2bR2nO33XSpuE3dyIHKAdM/reOsN0tqoruA9n
-	 snQqlgl7d4AS8h/xcTV0K3k+OxrBir9aKBLd0/DwzEKWeyBeB+TeXqE8cMpdMbmug4g==
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=+NP2Sc9QfAH27QKUaoXkjp0qHnyNnKKBhYsb0OsmWbM=;
+	b=tGKEQpXKGoen+eH2gs7gq+9pmZu3z0HIbGqjx1MM0yRwmbXb3ytawVKTYn7A+ztAX5Dn
+	 WjPQR+68IK0lC5fKQPQGUZqWsDJtoHZ9eloEmr6iGpHkxIrBW5nK16eIRySnnXYLuHhIY
+	 SMKL+CnFfUOlznjVqrCIwlOCCuZNJMLP7YJAqj7gHiqw+EMcEwMUcpfpY7JhgzXIkP1oi
+	 f/XUMqwjeaTM8oBOydjRlcP5ig/KDzdP6C4DeAwIlBKXfbrRfy9he2r4WwJWw/nrS/iPN
+	 dTB4oJHzuYKlUMcfkd0/ybkpcwxjhHQggTTwckiLneM4RP4SM9u1WNIrV+SsKawbsRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=A+aZWDOQ;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=T5v6jubQ;
 	arc=none smtp.remote-ip=203.254.224.34
 Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5928606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5928606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4065A606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4065A606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=A+aZWDOQ
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261020064534epoutp04bb23f05d69d9d666838f11905e1b41f4~gKemDJgst1938219382epoutp04h
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:45:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261020064534epoutp04bb23f05d69d9d666838f11905e1b41f4~gKemDJgst1938219382epoutp04h
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=T5v6jubQ
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261020064605epoutp04bb7d6f80bbca171f74baa6e75637c13e~gKfC31uoA2126321263epoutp04p
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:46:05 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261020064605epoutp04bb7d6f80bbca171f74baa6e75637c13e~gKfC31uoA2126321263epoutp04p
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792478734;
-	bh=PM96lafS/rwv826v2LZCH6guF3z+x32g3ULBEqHU5jk=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=A+aZWDOQfCxsTXBG59fgz4Yb6Zci8DGZwkUC1Gh3j4UXXwisTIzramkvRmR7mM6VP
-	 C4Ox0zjUoon8Qp7ngVcimWlr8qGKWsG0EfodnC5nDil6HosZRdowjBUtV+OTBtRzri
-	 1EkQ90nFTvArnZZN4QXbrSu69AQC4BAP4UiLk7hw=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261020064533epcas5p4051fa2be1289b585cb16ce3f93314fd1~gKek5UybU3227532275epcas5p4U;
-	Tue, 20 Oct 2026 06:45:33 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4j82wr16ylz6B9mF; Tue, 20 Oct
-	2026 06:45:32 +0000 (GMT)
+	s=mail20170921; t=1792478765;
+	bh=+NP2Sc9QfAH27QKUaoXkjp0qHnyNnKKBhYsb0OsmWbM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=T5v6jubQGzQRG7yKQZxGlVS2Jt2bKRFkKRmj/cuR0fiW206MlZ0+lU8xkFOAdMvt9
+	 v1gOp2rxL2H72YKeO5BMXh0SEPUgUkfBP5MIumi30rKWb9mMDvat8juCY7GARlt9Wk
+	 gWpuMya/UdySkVdNF1RR6CuZd5qzDq1sod+4DPzA=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261020064605epcas5p19592347b004bc7738bdaaefeb2acc084~gKfCdk5_b3226632266epcas5p1C;
+	Tue, 20 Oct 2026 06:46:05 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.89]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4j82xS36vyz2SSKq; Tue, 20 Oct
+	2026 06:46:04 +0000 (GMT)
 Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063759epcas5p1e91cb3158cd6c9c8f23a251cfc33d420~gKX9z8PpP1099110991epcas5p1L;
-	Tue, 20 Oct 2026 06:37:59 +0000 (GMT)
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261020063816epcas5p4e531ac51a34ccd0cc9a5e919fc830882~gKYOCYwVC0054500545epcas5p4G;
+	Tue, 20 Oct 2026 06:38:16 +0000 (GMT)
 Received: from bose.samsungds.net (unknown [107.108.83.9]) by
 	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063756epsmtip1cc87584145afe4f37d93fe220c01669a~gKX7La8pH3255632556epsmtip1k;
-	Tue, 20 Oct 2026 06:37:56 +0000 (GMT)
+	20261020063813epsmtip10952631de719c793aedee8998c965985~gKYLNry0-0259902599epsmtip1W;
+	Tue, 20 Oct 2026 06:38:13 +0000 (GMT)
 From: Raghav Sharma <raghav.s@samsung.com>
 To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
 	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
@@ -69,10 +69,11 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
 	pokala.reddy@samsung.com
-Subject: [PATCH v3 00/14] Add clock support for Exynos8855 SoC
-Date: Tue, 20 Oct 2026 12:25:44 +0530
-Message-Id: <20261020065558.1829402-1-raghav.s@samsung.com>
+Subject: [PATCH v3 06/14] clk: samsung: clk-pll: Add support for pll_4313
+Date: Tue, 20 Oct 2026 12:25:50 +0530
+Message-Id: <20261020065558.1829402-7-raghav.s@samsung.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020065558.1829402-1-raghav.s@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,78 +84,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020063759epcas5p1e91cb3158cd6c9c8f23a251cfc33d420
+X-CMS-MailID: 20261020063816epcas5p4e531ac51a34ccd0cc9a5e919fc830882
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: REQ_APPROVE
 CMS-TYPE: 105P
 cpgsPolicy: CPGSC10-543,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261020063759epcas5p1e91cb3158cd6c9c8f23a251cfc33d420
-References: <CGME20261020063759epcas5p1e91cb3158cd6c9c8f23a251cfc33d420@epcas5p1.samsung.com>
+X-CMS-RootMailID: 20261020063816epcas5p4e531ac51a34ccd0cc9a5e919fc830882
+References: <20261020065558.1829402-1-raghav.s@samsung.com>
+	<CGME20261020063816epcas5p4e531ac51a34ccd0cc9a5e919fc830882@epcas5p4.samsung.com>
 
-This patch series adds clock support for below blocks
-found in Exynos8855 SoC
-TOP & PERIC
-PERIS
-HSI
-USB
-There are many other blocks, for which the support will be
-added in a forthcoming patch series.
+From: Alim Akhtar <alim.akhtar@samsung.com>
+
+PLLs 4313 are found in the Exynos8855 SoC and it is similar
+to pll_531x except for CON8 offset, so re-using code for
+pll_4313
+
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
 Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
 ---
-Chanegs in v3:
- - Addressed Sashiko review comments
- - Collected Reviewed-by tags
- - In patch#2, added samsung,sysreg property to the binding,
-   somehow this was not cought by dt_binding_check
-   Have kept reviewed-by of Krzysztof on this patch  
-Changes in v2:
-- Removed name duplicates login, as pointed by Krzysztof Kozlowski
--Corrected the sequence of binding, driver and DT entries
-- Removed <linux/mod_devicetable.h>, as pointed by Uwe
-- Added all the TOP clocks in single patch
-- Organised the patches in the order: dt-bindings → clk-driver → dtsi
-- Added Automatic Clock Gating, as suggested by Peter Griffin
--Since we are adding ACG, we need to add SYSREG, hence, added that
-- Followed the name mangling strategy as mentioned in clk-gs101
+ drivers/clk/samsung/clk-pll.c | 11 ++++++++++-
+ drivers/clk/samsung/clk-pll.h |  1 +
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-Link to v2: https://lore.kernel.org/all/20261009120137.2801911-1-raghav.s@samsung.com/
-Link to v1: https://lore.kernel.org/all/20260728121111.2077860-1-raghav.s@samsung.com/
-
-Alim Akhtar (2):
-  dt-bindings: soc: samsung: Exynos8855 SYSREG compatibles
-  clk: samsung: clk-pll: Add support for pll_4313
-
-Raghav Sharma (12):
-  dt-bindings: clock: exynos8855: add top & peric clock definitions
-  dt-bindings: clock: exynos8855: add peris clock definitions
-  dt-bindings: clock: exynos8855: add hsi clock definitions
-  dt-bindings: clock: exynos8855: add usb clock definitions
-  clk: samsung: exynos8855: add block top and peric clock support
-  clk: samsung: exynos8855: add block peris clock support
-  clk: samsung: exynos8855: add block hsi clock support
-  clk: samsung: exynos8855: add block usb clock support
-  arm64: dts: exynos8855: add cmu_top & cmu_peric clock DT nodes
-  arm64: dts: exynos8855: add cmu_peris clock DT nodes
-  arm64: dts: exynos8855: add cmu_hsi clock DT nodes
-  arm64: dts: exynos8855: add cmu_usb clock DT nodes
-
- .../clock/samsung,exynos8855-clock.yaml       |  196 +++
- .../soc/samsung/samsung,exynos-sysreg.yaml    |    8 +
- arch/arm64/boot/dts/exynos/exynos8855.dtsi    |   95 ++
- drivers/clk/samsung/Makefile                  |    1 +
- drivers/clk/samsung/clk-exynos8855.c          | 1378 +++++++++++++++++
- drivers/clk/samsung/clk-pll.c                 |   11 +-
- drivers/clk/samsung/clk-pll.h                 |    1 +
- .../dt-bindings/clock/samsung,exynos8855.h    |  233 +++
- 8 files changed, 1922 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
- create mode 100644 drivers/clk/samsung/clk-exynos8855.c
- create mode 100644 include/dt-bindings/clock/samsung,exynos8855.h
-
-
-base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
+diff --git a/drivers/clk/samsung/clk-pll.c b/drivers/clk/samsung/clk-pll.c
+index 3d837bd74355..7b0756127306 100644
+--- a/drivers/clk/samsung/clk-pll.c
++++ b/drivers/clk/samsung/clk-pll.c
+@@ -1306,7 +1306,15 @@ static unsigned long samsung_pll531x_recalc_rate(struct clk_hw *hw,
+ 	u64 mdiv, fout = parent_rate;
+ 
+ 	pll_con0 = readl_relaxed(pll->con_reg);
+-	pll_con8 = readl_relaxed(pll->con_reg + 20);
++	if (pll->type == pll_4313) {
++		/* Offset for PLL_CON8 which hold FDIV different for PLL_4313
++		 * which is PLL_LOCKTIME_OFFSET - 0x4
++		 */
++		pll_con8 = readl_relaxed(pll->lock_reg - 4);
++	} else {
++		pll_con8 = readl_relaxed(pll->con_reg + 20);
++	}
++
+ 	mdiv = (pll_con0 >> PLL531X_MDIV_SHIFT) & PLL531X_MDIV_MASK;
+ 	pdiv = (pll_con0 >> PLL531X_PDIV_SHIFT) & PLL531X_PDIV_MASK;
+ 	sdiv = (pll_con0 >> PLL531X_SDIV_SHIFT) & PLL531X_SDIV_MASK;
+@@ -1729,6 +1737,7 @@ static void __init _samsung_clk_register_pll(struct samsung_clk_provider *ctx,
+ 	case pll_309:
+ 	case pll_531x:
+ 	case pll_4311:
++	case pll_4313:
+ 		init.ops = &samsung_pll531x_clk_ops;
+ 		break;
+ 	case pll_1031x:
+diff --git a/drivers/clk/samsung/clk-pll.h b/drivers/clk/samsung/clk-pll.h
+index 2457cf47c109..4825e1f5b9db 100644
+--- a/drivers/clk/samsung/clk-pll.h
++++ b/drivers/clk/samsung/clk-pll.h
+@@ -49,6 +49,7 @@ enum samsung_pll_type {
+ 	pll_0718x,
+ 	pll_0732x,
+ 	pll_4311,
++	pll_4313,
+ 	pll_1017x,
+ 	pll_1031x,
+ 	pll_a9fracm,
 -- 
 2.34.1
 
