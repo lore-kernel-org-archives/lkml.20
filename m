@@ -1,110 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792522062;
-	b=I5xeVutOwBs5Uhss1oGtlfYzJNCRrUgbW5KSMy3NldPSuidHJxzKTY2bfW+3bFmnajgo
-	 vHXLmawjIGQlOXu5GkZr0gjyv3OKnUcG/3G+wrmH5EzTH/NBQitmI9ppqt3t1ZsPydtL2
-	 UbfcCpaH+ZYgkHYu5InywdOV6jLWuonGJA8kCXyBOINAyRhQS2B01bSkj7LaQKQxYBPH7
-	 n5HWMzvW1mznpEZ0nvbnj6NoczmW0DUNev7+e8Oc7yocfkjiuuc2Td4qF4MvBKAaZTP+C
-	 Po68PGiGgK4q1xzZxAfc/oCOCqmASxCAgdzSTwUbeAVnLcASTmwv5Z0z1YbcykqJg1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792522062;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NEVIAWxa+q6sbG3Bq/x2CA113pzvbMJrwYJBK5kHkqE=;
-	b=3GNF/fQz/c7mlCzs/F3zqQOfdwSbQxEanbVv/OpEy1ixDqOqrhsdWaW/vpr7yv929y1M
-	 2PHmaoSvRV3uxEbOXSs+DSrlwBdru5UZeVHydPVDdJA9xH9pO4lT9ZbXlxsRAstYamVP4
-	 Pfv+p6J4SrgQY8iD9jKnqjevUItFjFI+wXekGT6Ga3dp0Iw0rKACrt0F3CUPO+Ep3ytSx
-	 wvBWxVjm5x8SEtY+Oqo37prnSDH3s48WTL+l9wLcNSbpaRAUDD+k6MsqbAeb+yVAHOvM1
-	 iVI8KcFZlAIDfjRHFwXVa+FrEH5yc+YhUG5AIV22CCuG5BG2F1cZ3QcU3N6SRudvw+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Sa5NXzLZ;
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792522064;
+	b=2f4e4JnBQptIAxXIwCrSH0fS8bqC8uC4n3DAml6E7UOl9MVbD5FF079xYQsGKGulhHik
+	 OrJYRD1ZKqOaVmTCgdrN+7GBTNC6HA4oOsooa6KPO9hnKRVqz+P2CBXLK3FvvQJKkWKk8
+	 QDBP6zPwNLYJK3nFEwnAJH8lYBkly7rlOwLryjDfjO5thzOcczQizfySMbML1Wne5OI4m
+	 T7DBtzhe2CRjD/e/0BCocIY7yzVqhsAwh31z7wlmEW/bXMnLqGA8o4ObbaEfZCV4lB6dq
+	 7Tek7/+TB285KhkTaxp4nPYybT8ugFEem0K3qIkrEQdP1L0rwHjukMCQz4UbHyYI9nA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522064;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=x1VVaEUDzb2/nrNG93+ykjC2fHUXOiU55DLUJIrnj3o=;
+	b=RiJKflq9+TxTDbCAvFYfFkzrxkNhCgRA96aPO+edVbHaNavO3NZgihLZcVfwepZTGj1y
+	 AhmhuUX8ywYSDAc3uidI4rFJuUs5IPXwf/O1gAPwI63+PasgB8Us+LsLyy9AXls5uSR03
+	 4LMWwGkT8kBybpi32MH7Tjs9Ke5rVQgEHYyeDqjV2aRTWqgzbZvSc8taizquBJM8KTDSu
+	 LO6G8UaAo2U72Pt7+ytMqsVkNADd6PO7rgJpuelctMIjpZxkWEWQenzgn2I6zwpuNqxYB
+	 Xt6UHBX0H4ClgnfzI2ftPANnPignN8IRfd2Zw/m2UZ9/vC9jpkwZDdqYfwHpkZDcqhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fCv0MJk1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.54
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012054.outbound.protection.outlook.com [52.101.66.54])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC26606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EC26606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AEB606A321;
+	Tue, 20 Oct 2026 18:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65AEB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Sa5NXzLZ
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-535179e995bso148801cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:47:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792522060; x=1793126860; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NEVIAWxa+q6sbG3Bq/x2CA113pzvbMJrwYJBK5kHkqE=;
-        b=Sa5NXzLZLC5cl1xFp6GpVEMA9olp832CfbB6VI6WfjZthAIjfFaha31rnOLtmDxQrP
-         Tqmc26+JG+x654yj0+nWvtCYOf7YXrj4nhwPMkHiSN3snHTSGkFBj8sExLpFsweD392P
-         Th4lphLYZanW72sbY44dkj1vE2guWlEU4enLxSi5cU4HRlqmDEXyuGYrohOonjllHp/f
-         X6C839DMt2gQIGX0/yoCr+wFi1WELclFxhSC9u2YdLkDa5H49OjE3ctEuxOEaJztQPOq
-         /O4AQC3J66GegucPpgvcl9q8Rc7L23eGZVs6QPwesiC7Xj8PLO1sfpH9xB+zeHJ6hDf8
-         R3kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792522060; x=1793126860;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NEVIAWxa+q6sbG3Bq/x2CA113pzvbMJrwYJBK5kHkqE=;
-        b=ghfXvHfqzEafWXZMkBGYDdUrc4ARGbMZ5kEeyzcYd25zjjtwinyf3oIlUEqW0T20HF
-         QisFXiw/BqjaofLYB5Je6qrlJaefxUMlDTNwmpwqp8QwhfA1nNj8TgkWOI0YxOp3+QL6
-         V6XOGm9j+aB1BIBFcbpJ3xSrRLDOHscGDJ6C+P9rBz9CZxtet8pRLncp4eqwcFI52wCu
-         1oh/QqUy0Rd+sn2E9c2G486Nsk3kKjHzIeeKMTQXciKcDGom8zRFpoIUGRrfW6YbhfSk
-         rO6hXR3Hm7ZLwX/YtlgYXS0C0MiI/e/lHaD8V3QFqbpZgKh/bKoAHXDCIkwbtsPsmA+Q
-         oHrg==
-X-Gm-Message-State: AFq9FYLo1BGDWhjHpFO8t7AW/MF5Z8TSyvdS3ebZJpZGroFvuMVstGSL
-	bjJmUehgtCECvKG490A7SUkD9zGKtpi00monqzg8ZgevwrvUCl8L8OFDJ6xXk+6nnCY=
-X-Gm-Gg: AYBFou2oYh6hEphc6DZzy3KsROJSgDBhe6N2N8C6SLlSBg7F0kloXmvHULhyqs79Sbx
-	M5STqcIg3h0Qxnm0fp9MN7NGNopBjAMNplEgw97bLnUwkr27wRc14mwOsIMcGRuU6oY7AfY8TT7
-	41VcJLy/DOIeoZElATu4L+KPQvx8PBPLdnwNojSDikj+4M7RKEoWNxQ5H8Zh/fagZ+IHx5RqJzu
-	Sy2MVckMt1qNjMqmTBfvZ021sWXx1VwAjWA6tEBD4WLJtCWOToI85rUw0ZhizVMrqZbI5/gkzNu
-	30sVbP+MFpvRxtDzk4GTSv8OeHroH7Vp3mcv2DwQDFmirl5S+rX50JLhmUNaFGwqgfAQLZgYWf+
-	tX1SUT6KTiJn7/szEToKFOaQUBVy0R/YShr7DO/Rd1ul82gH7AHtHYK9KZYw6Xlar84i4RzNPDP
-	9x+rlmntr8pcjf0d71MiOZa9/t0kPMOkmmSBxyGiLKdFSr3/66xXHI+IJdw/g6oS1b+XILNx3qR
-	RzsIPKCosfwqZSCHIKMWb5ySLQPMOxR8UwLvZcUt2QPVa/CGtRMaDBdrk+WoLjG9Wg=
-X-Received: by 2002:a05:622a:1aa5:b0:535:232f:ca25 with SMTP id d75a77b69052e-53645bfef7emr161704501cf.7.1792522060406;
-        Tue, 20 Oct 2026 11:47:40 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698b427f5sm2545661cf.15.2026.10.20.11.47.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:47:37 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJEs5-0000000CtNP-0Yiq;
-	Tue, 20 Oct 2026 15:47:37 -0300
-Date: Tue, 20 Oct 2026 15:47:37 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
-Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
- host attestation
-Message-ID: <20261020184737.GS14213@ziepe.ca>
-References: <20261020124536.GM14213@ziepe.ca>
- <atdvnMJuHUJlqX8t@e129823.arm.com>
- <20261020135006.GO14213@ziepe.ca>
- <atd2_9Q2wTv_3MXz@e129823.arm.com>
- <20261020143620.GP14213@ziepe.ca>
- <atd-I059nHAwcZFE@e129823.arm.com>
- <20261020145806.GQ14213@ziepe.ca>
- <ateGVeZmDcOSxaOD@e129823.arm.com>
- <20261020164755.GR14213@ziepe.ca>
- <atefXz-0cD9viNHK@e129823.arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fCv0MJk1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ho9iTVYwKOljrWaOqCqPaC1ElHpTun6lz5vP9viH3t+cQ4Yh7X/px14RyijKew19Rj/vHsVBsWrOEgkpijvBIgdwQXJzBOLHAuvMOLMU9gYkR/s72PUCMfcYBcnCEEqWpL2cUBgbqmoNij42bCIJKrTKT4IcuK+BRjnrE5+uXqN8hkqGhWHHzSs0WqGBg6nhWHp8k+o+orbS91/a7V2I1qMAvwji9zlhQ1sdWcSs6c6gPBEASOZDkZ22z83wqCjEzjAD7bGmsUKFupCKFbWwlC/qKtWNI/akxJ8Bi+wTDF0Op1WbnWDGEZgsX+NgrhiWFPggXVf+3GcjtVJ5AbkflQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x1VVaEUDzb2/nrNG93+ykjC2fHUXOiU55DLUJIrnj3o=;
+ b=p/XRbRY62jkf+E6Kr8l63BAztEGaWAkKPgRUrM43686AbszPsXIrXdaLgB8pqX4QDzTTW7s/W3cKBg/g4WWVgNGhswad2elKFK2wFsyajOfxRvQTCg7cE4lFAK92+xDQlmzeJLzusnDDgLQelhRiUldJysi7Ax4xxtR/UkKndHX3e+FWyh42nua+LG/hpugk7U3Wa6/Z65opdi6I4ZA4uszI+pHoBIYGrtupFemY1z7WXanJ73Pe1G/baQ9FAbCVrPRMlv2G/+VbOfWKNsCO8QM9Z7TQh+4z1nM9fwytjMOG/PqLxNOjw42vxQ96oHN79FK3TtIta9p0US+icIENrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x1VVaEUDzb2/nrNG93+ykjC2fHUXOiU55DLUJIrnj3o=;
+ b=fCv0MJk1G7ETVWx+nKQDrm/37OYYaOrN6O0Qg1fU3c3EMonVMWX48B6c049J9bfFFpoX+REkLLfWZqKCbkuDBC1VwH+WhrKF2++Z5AtCtJee2boyF3/HNiUkBWHg7+F7gVRHVZdu6xivu4T4wNjYfonNAxsdY3H0jwiRRd/rF1fRGERYJ3F4y9Flq7UlHK+uoinkMrUsX0r5AdCcOIetD/FUPrMubf6O8zi0wxXvNtUXm7RU+olIcR4/uUbTJxW1C4eDpRdZVmsQilslJ86fFN7kMUJw/9QqFYxT9beIh+v4Or2kEhvIDt7OTo+/Rq8mBDfs44MaagVHYX0X02iOUg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM9PR04MB7667.eurprd04.prod.outlook.com (2603:10a6:20b:2d5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 18:47:38 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 18:47:38 +0000
+Date: Tue, 20 Oct 2026 13:47:30 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, vkoul@kernel.org,
+	Frank.Li@kernel.org, bartosz.golaszewski@oss.qualcomm.com,
+	pramod.gurav@linaro.org, andy.gross@linaro.org
+Subject: Re: [PATCH 1/2] dmaengine: qcom: bam_dma: Take a PM ref at remove()
+Message-ID: <ate3QoD2ESDtB9wq@SMW015318>
+References: <20261020180804.140766-1-smostafa@google.com>
+ <20261020180804.140766-2-smostafa@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020180804.140766-2-smostafa@google.com>
+X-ClientProxiedBy: DS7P221CA0034.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:8:25e::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,37 +98,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atefXz-0cD9viNHK@e129823.arm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB7667:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60c5b170-fdf0-44e7-40a5-08df2eda9d2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|19092799006|366016|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	EGnBMwdDMUHNaN/FetKcydiCkUoJJRkSpFSnX+AFVLjR35/Q5IZnDV2zMjIF/7qfX9DoUPE1Sgsh4Fm7FxOgD102pwwfrgkbn3eRCj0l32OizUUdhvbIvZLgePVaFCnsojPAxTEozBjHPMdh+2BudgoKF29VktcbisBEyuwqYg8UNM1J/R/L7gIi1uLtd8cTEmfIWbq2eXXQfqGHspUbqxNpT3C115wUJq6qDjaGX0e3FeXnMPRvv2f41Qg3iJGvsKmMjAi3w3P7VNYjlShSUErPztjkmxEeupMtjo8k9OYTY1dy4R/F0ksIZeDexO4oW1xAS2Xuky8PF99WVLqqUUhfmEH0UGHRWfMyZXr3dkna2Zv519VrQPaXr4DnnvQ7ajdH+J4JIv2OW6GB2bzFm2FSaj1nkMI3oI9fQV10DFjpqy2qvrNsij81RPsJHyWqkb+d467eDxgqcstkGiYdIn6RK5I/pVRj44GANYKp8dahiTByZjUpDd/WnLy4aEKcUor4DCbb5N43KoryXK321fEFqepKjExUchLhKW0egaldHAhiZ6m11Qs8IEuaqfT14GWZwLLlKbVQTILwBHlCNd+6Qs6l/rBRRxkC4r9jSiU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(19092799006)(366016)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?aEH7kccZQn1An8vW5I9XOU+wxoRpcmNxd97Wwz3Ew2/9KcCSsJhjX4I12vPQ?=
+ =?us-ascii?Q?HMiJfk/RLhTvC9RAaShflf2ZQqO/lZCFy6C+c9Uy1cXDi23CvOjSRYI8vKDW?=
+ =?us-ascii?Q?v+Wh/9bZrH0j0+0Nn2V4dwLELs76sS3KJ01djWGPLMWKc0Gxxmv0tkKhw2Pf?=
+ =?us-ascii?Q?qBnw5mHO4rC2O+S6CLcD1bQD8BVlX5d7Gkn+Z446JoJyDnAGxNZX7eterJ0s?=
+ =?us-ascii?Q?XTtTecvVeTCBzsrGP8l9Q2gFlEeRrJbRbPq/1FmRnzluGR1u/r3hyOB/g9GX?=
+ =?us-ascii?Q?kiQGL517qVPNUAR5T5CQ8brGXn1aMWWjJUhGf6IGj9x6V4q7I4lQHEoQjt10?=
+ =?us-ascii?Q?J9+tdPVMD1m2dD/bBOy82Z7gYCHVWDrhB24lGLrCPgHbE1yTVoQo2na/h4ds?=
+ =?us-ascii?Q?bRsgDAAb+C4Kr/OgqI73xKmIxNvLORRTcNEH91aqlAHw6edYz5mssw+BqEuq?=
+ =?us-ascii?Q?zXecs6kaUjkiuGuWyjW2BwBtCLakMY/jWmAaPNbYosp6d5p57qHuZohN6p4s?=
+ =?us-ascii?Q?jqLCnEy1QuIEnKC7ETbsR8MIqGMtZWyBz6AAjDRZRO0cWmucCH1IFZzStwSE?=
+ =?us-ascii?Q?hAZzKG7Gr9w6M9QbTkz2mTZD/Ae34vgizDm8eWlgpz5iE7ehYNdHeTYfI6yr?=
+ =?us-ascii?Q?90MBGymI7u4k0xR/ti4YZNMy0q5nhlcTAn98qbzLm5C7V5cnw2HkaYNDjzuh?=
+ =?us-ascii?Q?p6sEpgGduUy9IsdEyly/vur96XkNSP+JwOuBk65YgtfzsTmXiS62y2wzBhfv?=
+ =?us-ascii?Q?kV/XWvRprWAhDeZSpAtAbJwGRUZpd/9cGU2R2qL93IQpZF8kY2Apelt8r2bj?=
+ =?us-ascii?Q?8Q+1j28lYBLe3EsVpxDwFZBtPFWb+t3PS/MrwDKTNPuYMnJ4RRPYq0pbqr8W?=
+ =?us-ascii?Q?s0hBLr93AzYV80tCP/zr45UHii59ldYzsXZ5jDWwlua6VaqtPINkIvmV/6Bz?=
+ =?us-ascii?Q?+JWIZO9OyHHbR2ouoS0rA+Igy2nk4z2DZDLdLZ1z8FAkRuCkrMXVUl5N0twY?=
+ =?us-ascii?Q?FzPVjjFykntI+L+2MQCgvdKryrty9Xd/uHpgAwQOLcExvn8fKcUgoDQT3bS4?=
+ =?us-ascii?Q?hfdBldHhdigkQamaqFIhgf4CDOFxK6aPEUPKAFOakrkRl655p/m2xZ0wIgfZ?=
+ =?us-ascii?Q?JLb3RxwdmwjHyDFn8hvsDIIHMdJl87TI1BXKTGsfZJgOwu6vmBjHY22jlUYt?=
+ =?us-ascii?Q?98J4JqO85RKRDcQwxyo/VioE0eWwJTavohJmrz2bU2ZLLFpzoCsVCJnS0/09?=
+ =?us-ascii?Q?x217msVSmb0NZcSN1gBibJZ/tUYxBNaG7sTcTvs5Fey7joKvs481AU86HdLP?=
+ =?us-ascii?Q?wIu8lDW/GFxYDI1m9d7nNm86BLsHTQ9zrX7WX/vngh3bozltL8rHZH4mAJJD?=
+ =?us-ascii?Q?+K1N9m0arpCMAvU/znW5Tx+ZKwKvARnaqNg6KmikZcPhXMAuRvXWL4TI2xdY?=
+ =?us-ascii?Q?dMHhaA1zT7MqrKDskO/7uqQf5DQFTBMXARx4FZU7s5LegSjRnrb8DklaqZfg?=
+ =?us-ascii?Q?tRDl43fWpHdVcxRaosIl+od4PM44rawi0LH33qR7QmTo7P+pWXc6bMrL7TQm?=
+ =?us-ascii?Q?RU2WbaMABIbMogkdms9MrgFq5qiw+eUHB44y425oK6syJAU829FYyL2SnUPN?=
+ =?us-ascii?Q?J+cITQCEd6fGhjl4Lw/llAWgvSoXcQoECEClprl78iW6rM8nFDT+bquQnUvd?=
+ =?us-ascii?Q?2BSZKIHlvq4dyl5YiBMR/VHU7uutLfiflkJnUX36cLHnZuyHs2kaEWy1i1t/?=
+ =?us-ascii?Q?84lWJG/ulU8PkaxrL7n4pCyOCh+SD3H0IFD3xJ6lQNuVnfW+cWBK?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60c5b170-fdf0-44e7-40a5-08df2eda9d2d
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 18:47:38.6755
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MB200jm4DlGR8QYWn2RBwE+A8PO6Lvd/eQye3e25karfj3eU3Zvntpz1GDrlfXyitcnp/YeNuV9RStATqKgH5SGjAQoMF49ZzkMvJ4qXmwTvQPQT2NngeckTNGiZ25rp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7667
 
-On Tue, Oct 20, 2026 at 06:05:35PM +0100, Yeoreum Yun wrote:
-> > 
-> > > If we implments this with library, are you thinking that file should
-> > > be located at driver/firmware/arm_firme or other place? though we make it
-> > > with library, I still think it should be located at
-> > > driver/firmware/arm_firme or some place in arch/arm64, but as
-> > > perspective abstraction to mange firme helpers in one place,
-> > > I think this design seems good.
-> > 
-> > Will has indicated a preference for driver/firwmare
-> 
-> Okay. with this let me make a driver/firmware/arm_firme as library not
-> a module format and make this library APIs (base, attestation) to be used
-> attestation and other. This means device / driver registeration with
-> smccc and done in driver/attestation/provider but use the APIs from
-> /driver/firmware/arm_firme.
+On Tue, Oct 20, 2026 at 06:08:02PM +0000, Mostafa Saleh wrote:
+> [You don't often get email from smostafa@google.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> bam_dma_remove() calls pm_runtime_dont_use_autosuspend() and
+> pm_runtime_force_suspend(), which on a BAM with its own clock disables
+> bam_clk, and only then writes BAM_IRQ_SRCS_MSK_EE and terminates the
+> channels, touching registers of a block whose clock has just been
+> removed, causing the board to reset.
+>
+> Sashiko(Locally) also reports, it then calls clk_disable_unprepare()
+> on a clock that runtime suspend already disabled, which can trigger
+> "already disabled" warning in clk_core_disable().
+>
+> Hold a runtime PM reference across the register accesses and the
+> channel teardown. Once the hardware is quiet, disable runtime PM with
+> the device still active and drop the clock exactly once, balancing the
+> clk_prepare_enable() in probe.
+>
+> Fixes: 7d2545599f5b ("dmaengine: qcom-bam-dma: Add pm_runtime support")
+> Signed-off-by: Mostafa Saleh <smostafa@google.com>
+> ---
+>  drivers/dma/qcom/bam_dma.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+> index f67a93a37d48..bd583f78e0c1 100644
+> --- a/drivers/dma/qcom/bam_dma.c
+> +++ b/drivers/dma/qcom/bam_dma.c
+> @@ -1403,12 +1403,10 @@ static void bam_dma_remove(struct platform_device *pdev)
+>         struct bam_device *bdev = platform_get_drvdata(pdev);
+>         u32 i;
+>
+> -       pm_runtime_dont_use_autosuspend(&pdev->dev);
+> -       pm_runtime_force_suspend(&pdev->dev);
+> -
+>         of_dma_controller_free(pdev->dev.of_node);
+>         dma_async_device_unregister(&bdev->common);
+>
+> +       pm_runtime_get_sync(&pdev->dev);
+>         /* mask all interrupts for this execution environment */
+>         writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+>
+> @@ -1428,6 +1426,9 @@ static void bam_dma_remove(struct platform_device *pdev)
+>
+>         tasklet_kill(&bdev->task);
+>
+> +       pm_runtime_dont_use_autosuspend(&pdev->dev);
 
-You should try to structure it with a firme headerfile, and some
-inline helpers to invoke the smcs and then a very small set of out of
-line functions that *are used by multiple firme drivers*.
+After
 
-Don't put attestation in driver/firmware/arm_firme..
+commit d1706f9da9f40dffe8621cc0ee03b847f41f1d6d
+Author: Joshua Crofts <joshua.crofts1@gmail.com>
+Date:   Sat Sep 19 10:24:28 2026 +0200
 
-You can look at what I did for DRTM for some inspiration
+    PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()
 
-https://lore.kernel.org/all/11-v2-989a18390eb1+486-arm64_drtm_jgg@nvidia.com/
+    Add a pm_runtime_dont_use_autosuspend() call to pm_runtime_reinit() to
+    ensure autosuspend is disabled on driver teardown.
 
-After some feedback from Jonathon I think it turned out fairly well.
+    Suggested-by: Frank Li <Frank.Li@nxp.com>
+    Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+    Link: https://patch.msgid.link/20260919-move-dont-use-autosuspend-v1-1-f6e2d1315c23@gmail.com
+    Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Jason
+
+Needn't call pm_runtime_dont_use_autosuspend()
+
+
+> +       pm_runtime_disable(&pdev->dev);
+
+Can you use devm_pm_*() call to fix this problem.
+
+Frank
+> +       pm_runtime_put_noidle(&pdev->dev);
+>         clk_disable_unprepare(bdev->bamclk);
+>  }
+>
+> --
+> 2.56.0.212.g129ede20d9-goog
+>
