@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478714;
-	b=HwgcKC7hbmAhDu0hawv1jnECfv1T2uTH4+D/kQXZbK5FMcvkP9Lb26Tnc1t8EtzoZ+s8
-	 dj35Mar+DMw7/S9EHyYVOOOgPzapo/CHVHfr6Xw0RYALWf9qH48+xtPng7JkPqI4pmH+y
-	 lKQbmSyh3xNMj/tHpmeyjnjBxqRhpyzg5vwonvu7YEVpz3OBYYx68JM40PpEQuUkCh7xL
-	 Z996xyy//Orr0X0UN+0f9/WiQlLgz069y10hJm31r45XhM3XV8yWSWLwo4Z/2m3EKGiaC
-	 m3KMIxOUwW1zYDA+6iC6qmbFTe3q2pKcOPeGdt1/bu6g0/GYpHSWeerAIOuOCtaXG0A==
+	t=1792478743;
+	b=3Niv5xB6Oofepj8wk1ZZ5IIXZqMY0dzjX5jLtBLEtAO8LDlIbpFrtPJXykbA9kQEz7qJ
+	 XKOPrVaGsnYNTQw8LIWY9MEVUFlLTWjqkwegF9MuOVBe22uCJ9u3GlxZGUKjEIRl+wmfR
+	 6jcgjL09i9flyJON+8IMswFEcrTEFT45/I2SeaqjKre+mCxV55WtSnGcDQ8SWujeSxkZB
+	 yEoTX8ufVLbyME2b5ThIa8kBkRXUh/OQyDbgvLVFIfzHL9T0eYAU7AK0etrQAb8+xknys
+	 6figjKmObYVTrVWm0OJNOIq/oUIbdvWMJSo6AyQK3hFkTwDFG1p3dsOUcdidoncKW0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478714;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+UdPCHMg1FScbhxVPW4mzgiUXb1gccMlfPmwASjRzO8=;
-	b=RDawTpgSQqnkbLp7BCLLTnaoknWwKRfcHkP9Fak6XhQwl9xsmBN0B6sMlYIeTz0iI7u5
-	 8fXco5vPjpI0iKt8L79NZXrriq4ZybIQCIas3kfYtVfvKrgMAWepMxIiTecX8LdSYU0sY
-	 e7QgqG5xKXVdQMDVMIFU3McnFfY6T1EYnpWJcOFLqYz8qoYrN3/s5x52486eMjeMVmq5u
-	 ULPNSeN+NCMKCx7Aql+3CC8PSXr0oTO99uyimOG9ldBVofvVqudw5ypoll3ybtF7kZleF
-	 ltwfiY7Khz4ehvt4vBNYUzM3szA8iw+O2UHvpDLsuJAanrDsWehGovdoC4LLfNLy9Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478743;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
+	b=xWhFPrN43bLTJqp/T8AD/BJ0CeIZOxtQi12ZKuN2losbVa9KcbTJ5jmlrrhgA0k2/wpp
+	 R4wRkOXmpXIsTrl/8BxrqxR3U2si025a1EX6VrX5mBhlcTrjfS/lx9H8KkM9bNj6Eqkvg
+	 PXQ0JWaTSnlir4vwvzw2z/xEaUti71kF5jrCqAOL9F10RgjLEiTkKX1YNQY7MZknWbi1e
+	 1v2X6Q54b7Q2C8GU3htYQpgdLOwsAD/lD2VTcJ2ZooHywaPLjbPJ8LroFQFgUGy+mJikQ
+	 6BK9qGBCXR+/eziD9XYinZL+6V7P4QtrGtxINoR6VeHa32fuhvJgtQGjVMtxs/sX//w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mTMGPEP8;
-	arc=none smtp.remote-ip=115.124.30.97
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cjq0HcCT;
+	arc=none smtp.remote-ip=203.254.224.24
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8568606A320;
-	Tue, 20 Oct 2026 06:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8568606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3B2606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C3B2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mTMGPEP8
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792478703; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=+UdPCHMg1FScbhxVPW4mzgiUXb1gccMlfPmwASjRzO8=;
-	b=mTMGPEP8wdouMygJ7+/zizkD1I7UjUsp1ngnTY1DZ+HCQ7Foj8l7Rz/nT87TAvvxeNT48r+QDvAvzIGQezigHUfJfEuiudI+oUFwKaozrYp0BaP7W12h78CJkSIr4tvBxMM5Tgdu49vK4adOW5tDdPdz7I935/1cwaBCDl/nm5w=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XDBupRa_1792478692;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDBupRa_1792478692 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 14:45:03 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	io-uring@vger.kernel.org
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	xiangzao@linux.alibaba.com
-Subject: [PATCH 0/2] io_uring: add schedule points to request freeing loops
-Date: Tue, 20 Oct 2026 14:44:50 +0800
-Message-ID: <20261020064452.3633250-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cjq0HcCT
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261020064539epoutp01f097b28595fafb086760fe5f1ee9c289~gKeq_C2WP1986119861epoutp013
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:45:39 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261020064539epoutp01f097b28595fafb086760fe5f1ee9c289~gKeq_C2WP1986119861epoutp013
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792478739;
+	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=cjq0HcCTa9Xi+H8jMoTGQm++P/N+gaSL1/3Cqfkp5c7fZPKmRTWumnar/iLzSXHx0
+	 7uNubglU28tFEo2rpwDQw3VWBl+t1scm7X4ObCbUsLz8tn7UXTMvnHWrDut5w2mcxk
+	 cw6F45LmdkSbxwyxjaGqI5T+OTbL3aEu0uHJ633M=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261020064539epcas5p3c476d8c07199488467b05bea9777f99e~gKeqen15S1867518675epcas5p35;
+	Tue, 20 Oct 2026 06:45:39 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j82wy2K8yz6B9m9; Tue, 20 Oct
+	2026 06:45:38 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261020063801epcas5p25a6322caaff32c7e4d75c8c66e2909b8~gKYAHHciG1318613186epcas5p2R;
+	Tue, 20 Oct 2026 06:38:01 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261020063759epsmtip101a08c475fa3316a9c293e2f933b720b~gKX9xGC3-0369603696epsmtip1E;
+	Tue, 20 Oct 2026 06:37:58 +0000 (GMT)
+From: Raghav Sharma <raghav.s@samsung.com>
+To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+	conor+dt@kernel.org, raghav.s@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
+	pokala.reddy@samsung.com
+Subject: [PATCH v3 01/14] dt-bindings: soc: samsung: Exynos8855 SYSREG
+ compatibles
+Date: Tue, 20 Oct 2026 12:25:45 +0530
+Message-Id: <20261020065558.1829402-2-raghav.s@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020065558.1829402-1-raghav.s@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,75 +85,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261020063801epcas5p25a6322caaff32c7e4d75c8c66e2909b8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261020063801epcas5p25a6322caaff32c7e4d75c8c66e2909b8
+References: <20261020065558.1829402-1-raghav.s@samsung.com>
+	<CGME20261020063801epcas5p25a6322caaff32c7e4d75c8c66e2909b8@epcas5p2.samsung.com>
 
-An I/O stress test on a production v6.6-based debug kernel (stress-ng -a 1
---class io -t 7h on a 384-CPU machine) hit the soft lockup watchdog
-twice.  The kernel was built with KASAN, kmemleak, lockdep and
-CONFIG_PREEMPT_NONE=y.  Both lockups occurred while a CPU was busy
-in an io_uring request freeing loop that has no scheduling point:
+From: Alim Akhtar <alim.akhtar@samsung.com>
 
-1) A stress-ng worker looped in io_free_batch_list(), reached from
-   exit-time task_work, until the machine panicked on "softlockup:
-   hung tasks".
+Add exynos8855 sysreg compatibles in bindings
 
-2) A completion fallback work item held uring_lock for 671 seconds
-   in that same free loop, until the watchdog fired again
-   ("BUG: soft lockup - CPU#61 stuck for 671s").
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+---
+ .../bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-The field kernel is v6.6-based, so to check whether the same
-weakness exists in current mainline, I tried to reproduce the
-pattern on v7.3-rc7 on a 192-CPU debug kernel (KASAN, kmemleak,
-lockdep; preempt=none - see the note below), with a test
-that submits 32K requests per ring and then kills the rings.  I
-don't know whether real workloads hit these exact loops on
-mainline as hard as our test does, but the loops clearly have the
-same unbounded shape:
-
-- A single io_free_batch_list() call freeing a 32K completion batch
-  took 443ms with no scheduling point in between.
-
-- Killing 48 rings at once made one __io_req_caches_free() call
-  drain a single cache for up to 13 seconds, with 8 kworkers each
-  stuck for over 12 seconds; a separate run with 96 rings produced
-  97 soft lockup warnings during teardown (the stack is in patch 2).
-
-With this series applied, the same 96-ring run produces zero
-kworker soft lockup warnings: all 97 drain-path warnings are gone.
-This series targets the request freeing and cache draining paths;
-the submission loop itself may need a separate treatment and is
-intentionally left out of this series.
-
-The free loops are the remaining gap: the CQ overflow flush already
-drops the lock and reschedules (eac2ca2d682f), and io_add_buffers(),
-io_remove_buffers_legacy(), the fdinfo dump loops and the tctx
-teardown all iterate with a cond_resched() in the loop.  These two
-request freeing loops have none.  The debug options amplify the
-per-request cost, but the loops are otherwise bounded only by the
-number of completed or cached requests.  No functional change is
-intended; the patches only add scheduling points to long loops,
-and cond_resched() only invokes the scheduler if need_resched()
-is set.  Unlike the overflow flush resched point, these do not drop
-the lock or leave any critical section, so they introduce no
-reordering concerns.
-
-Note: the mainline test was booted with preempt=none to match
-the production kernel above.  On x86 this required a local Kconfig
-adjustment to disable PREEMPT_LAZY; this is a test-environment
-detail and does not change the fix.  cond_resched() is the standard
-schedule point on PREEMPT_NONE/VOLUNTARY kernels.
-
-Tested with CONFIG_DEBUG_ATOMIC_SLEEP and CONFIG_PROVE_LOCKING
-enabled; no might_sleep or scheduling-while-atomic warnings during
-the reproduction runs.
-
-Yuanhe Shu (2):
-  io_uring: add a schedule point in io_free_batch_list()
-  io_uring: add a schedule point in __io_req_caches_free()
-
- io_uring/io_uring.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+index fcdb9ffd2644..845e0caba15a 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+@@ -31,6 +31,10 @@ properties:
+               - samsung,exynos5-sysreg
+               - samsung,exynos7870-cam0-sysreg
+               - samsung,exynos7870-disp-sysreg
++              - samsung,exynos8855-hsi-sysreg
++              - samsung,exynos8855-peric-sysreg
++              - samsung,exynos8855-peris-sysreg
++              - samsung,exynos8855-usb-sysreg
+               - samsung,exynos8895-fsys0-sysreg
+               - samsung,exynos8895-fsys1-sysreg
+               - samsung,exynos8895-peric0-sysreg
+@@ -103,6 +107,10 @@ allOf:
+               - samsung,exynos850-cmgp-sysreg
+               - samsung,exynos850-peri-sysreg
+               - samsung,exynos850-sysreg
++              - samsung,exynos8855-hsi-sysreg
++              - samsung,exynos8855-peric-sysreg
++              - samsung,exynos8855-peris-sysreg
++              - samsung,exynos8855-usb-sysreg
+               - samsung,exynos8895-fsys0-sysreg
+               - samsung,exynos8895-fsys1-sysreg
+               - samsung,exynos8895-peric0-sysreg
 -- 
-2.43.7
+2.34.1
 
