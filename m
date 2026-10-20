@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484767;
-	b=5KmTh+JOekMhraYPn1MxrbUjCMhZdJ0Cg2UKpZ7Cvl747MDIgbbX5t9LxQApd9FJqMu8
-	 rsntX1WTUWAUqveq1GKFoj6VrOPZAjfrUiZsyU4T/BtDVvuZb4cK/1jlpjcX/Lw97w86I
-	 KqdsfzxMbRG57NQBj8dL+Zvkc9WAQS+JjhuMavGW88I8K5H9kw15Xb1DYmgCRo4+eGqPR
-	 LJLKQ8TPKdZFAkDtK3vlPLfdfqFKJqGnoqB4sbM2/KGooZllMU2JcVBTAUH1qiT29m9dm
-	 6+5VRAKyF/L5VyiaTxpaSINrGRvlWojVU/zeAoISdbtdLU46tiTJFWJJN7/H+V7L4uA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484767;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=G2NGub2u3EAG0gIiS6fRuNblk5mM8yDZt5k/Kj252Xk=;
-	b=e9OvXIsr02zSJUbleZMUPXvo+xkYkBQcN1o58R470YD9Bl0uQURwykb6YgOtKg5A4FXL
-	 kYJCZuXOZBmXYYVPiiQZlAqkY7uUSYl5MWVmgfJJqvwaNMfjacAw9P6/IP4aUm6zBKsvw
-	 8WGURFqQR6N9EkRHe1FR7S6tMYsdFpVpmEj/nepUGCsANLp/HZkw0AsfInc5RM4/jeqrz
-	 RcgIe05JOcaLeDHRDGjRXVt+ERmqlOX7Ls2wxs07JHlhocuywGozSvXdRugsFn6ksFY6g
-	 hPyHFJrkbPlhbqh9vkRBT/jp6YhKwhWXOsG6hbCL+0/WaWBYYQ84vX9jHO9xdTbxt2g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJShVjqS;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792484752;
+	b=XIvO67E5aIWKRooauREw6Y+BkRX0Wd4lrwyi4w3n3p6MkXNX5xbFIcwc0gNECPzIghLy
+	 kZQBTf2/TJ91ECqyFgghCLqfPRcytHlReYMhH8tEEoAb5IOAwxJzhenjxN8pVWZPrpATv
+	 g8Nww50lMYXxgjEiCOFImpYJl/N3bDApPVdVu62mSIjAGY3HakkZIiV9RUuun3f4hQmzW
+	 +xa7GX5H8c8CpVf2RUsh0xO4etqqXFdBTwoDnFTZ7iIeruRy5Jo9qz5M8rbivQUY92imB
+	 nEVgE58z3rjH4YCLY+zDbyVukRLBOP8DtcLcNNnraFMvtxsEk83/j01M+jM6e469Pqw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484752;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=e+6nVyZLjebD5QCGUBHeGP+gzXckIy/LBOsLfc7yS0k=;
+	b=M20xG+UF8DGUojHn5Iv61bV5J5111ks2V+QNeGP74YPji45HPuAFzO7KuXL2fAgew5j2
+	 1JdRr11xsJrUTnVI+BYAc2+lKZun3VDvZ/zYdkEDXfx8maQ1HE1ttYS+xudYF88/u0wCp
+	 WcXJqbaK4CF1r0SBp4YFMCvwFkX0uxgXkAqae/jDmRsS7h0B2vg5NC2Zi4NVMDPJFUsVD
+	 kZj5qGLGK5rN/MWQWjHfV1VVGk6WytZcrTDRaBSV4AqF+TOXQoFRp8TmEM1Pu7h1tfmrP
+	 XPBCmLg79gFKK9w5tof4TKQTfee1BIMuMVoi58SZ1wq0Fu0yekhs2H3IfRTvYV12XMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FupvrTXL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D2560A3802;
-	Tue, 20 Oct 2026 08:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB99560A2619;
+	Tue, 20 Oct 2026 08:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJShVjqS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 964271F000C8;
-	Tue, 20 Oct 2026 08:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FupvrTXL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792484750;
+	b=zWaNAvCmp5xdHjoFVqp/S2tloPsgzZO/3AUQQLGH6vRbHIQAIitTaf3p5sKbxWq0DoKF
+	 WN56UFKdp4tNTSiRwtSIhoAv1JHDirBq1fP8FvCeL6AJyP27G0BYuzegVmPUq/zdGJvK7
+	 1qHJVF6G72GF4Kt8HiBuqFsspsMW/ZiCjI7EbSkeHRxPLvMqSzFMtv+s1GBiBYhzJuSBK
+	 ydQjDARS9RJG5IfgNEC7fdXqF+Trem4hejZvCt3WXf2bNIZNaVeq5V7wctm6TGUCykVxg
+	 lNVgtRQzQwX91/xclFRFNYddKRv0QK9CRzKo97U5PcAHSOFGA/oHJGspLngg9V9kg2Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792484750;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=e+6nVyZLjebD5QCGUBHeGP+gzXckIy/LBOsLfc7yS0k=;
+	b=pqlQPlQ7VIlPFmsp1K1e8pkIf3iIOOBtoagTpqL90lfUy5BsjEz3dGEsrY2UnJaduBwP
+	 gJm/RBH/jpzrHiPsUPrRlsZoQYSsFYDYd96KlORE3saqTfHgquCl0YSIBAUe/rTgU1/lO
+	 46mTxToN2A7FUqrPLhmr0iulRztQvRP8Rmqcolbi5kRHszVSF+Myp7XZ0AJbq4Xerrevn
+	 Td/bdlUrIjEtyIZD50pyFsbAi6UsXr/5LiTclocerpBN2Y43TRIpsIbq3gUwc7XZLzkUD
+	 1egnirFHAu7hRHraX6zdLvij9x9GVGml1Q4qpeiq4MPamaS/WL8QOQslOJtOZJgR54A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 44FC21F000C5;
+	Tue, 20 Oct 2026 08:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792484767;
-	bh=G2NGub2u3EAG0gIiS6fRuNblk5mM8yDZt5k/Kj252Xk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TJShVjqSP5q8lS7p/fGP84dumAYHzPZeWXeYZMT72o9T848qdgVatlOPF6ogqFnnI
-	 hHeIkw/Aci5TYP6/oOxQ5iWG/a0Gk3e+QhTkPb9PwHcj7HhD8b2TAFTLt/qGSs4KBk
-	 xxGEXrn9I4CGeopSCGuF7/qLkjdiQodC8jwI/dIVH8ei0fi9JJpfdemnvkBh2pW6dl
-	 m9xR5DNQePafzKz4QyH2PSOamqBwPemRSg9Two8V0jgEs7xdMelUmgEDQMS1HX3XCE
-	 kOesql9yHPnQq54skesRuHNpEyauE71LcjJhUrysREpJ6fb522dnS7vyJ5JylBEclU
-	 8LEIElSg3RgPQ==
-Subject: Re: [PATCH net 2/3] enic: retain admin-channel DMA until queues stop
-From: netdev-bot+sashiko@kernel.org
-To: satishkh@cisco.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, sebaddel@cisco.com, aradhana@cisco.com,
- rfaucett@cisco.com
-Date: Tue, 20 Oct 2026 08:26:06 +0000
-Message-ID: <179248476612.3135.14483608638763767032@kernel.org>
-In-Reply-To: =?utf-8?q?=3C20261016-b4-enic-dma-vf-index-net-generic-first-v1?=
- =?utf-8?q?-20261010-v1-2-d27b55f69883=40cisco=2Ecom=3E?=
-References: =?utf-8?q?=3C20261016-b4-enic-dma-vf-index-net-generic-first-v1-?=
- =?utf-8?q?20261010-v1-2-d27b55f69883=40cisco=2Ecom=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792484750;
+	bh=e+6nVyZLjebD5QCGUBHeGP+gzXckIy/LBOsLfc7yS0k=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=FupvrTXLH0LyxcAiC5Xh4k52MGgHqL2LniyJyWZ3PTCjp8d3Rv9FXaQ+1BpKr2mwM
+	 kQcOFNxiqR7+OMcHRCW8JXZvIcIEd0DQIdq3SVvFepgYZcJ06gREA9H4Y6frdJvra3
+	 dBZN7IlJOLNY8Rqj6lLZbTRf2nBiD64foNGx20h02Ldl8q+MNiDd7SmpRTP3xvxL7s
+	 cCt5lX/dnp4GzNJITqXbrRehsFezw5U1YVLruqNu5le80gesEpUUTwjqwqdXYdE4WI
+	 fR/sb16vDxlokb+/uRFztXbJxX9yiRrmuVfWhjfH1zJsoowLXhYNsFadmxhckCSTxR
+	 cXbPrNogiANuw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9371A430CE;
+	Tue, 20 Oct 2026 08:25:45 +0000 (UTC)
+From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
+Subject: [PATCH v4 00/11] drm/tyr: add VM and BO ioctl support
+Date: Tue, 20 Oct 2026 16:25:17 +0800
+Message-Id: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,343 +83,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAG0l12oC/02Nyw6CMBBFf4V07Zi2CAmu/A/Doo+pNGJrppVAC
+ P9uIS5cnntzclaWkDwmdq1WRjj55GMocDlVzAwqPBC8Lcwkly3vuIC8EPho8pjACY6OW6Odalk
+ RtEoImlQww65YegF9UoaAc97/N6Hz8xG794UHn3Kk5WhP9b7+MrL7z0w1cJBt1zROCyFsc3suo
+ w8xnU1g/bZtX1s/RDLFAAAA
+X-Change-ID: 20260901-tyr-ioctls-f10ef0dcbfa6
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
+ driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
+ linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=4895;
+ i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
+ bh=0W/Zzd3YJxNeZ/dKwlzvsYXdPOz5NCl/hBwAO8KxQJc=;
+ b=ZCt+HemY9ZaAgV5qL4JXMw4PoShS3j9pE/9zTZikxUtm+7rqPO/xfi9uboxExmsU0kTCg74MU
+ gOX+ht0Cji7BgDZkLM5fZzFZylhpPfO6T9gA38oJuHNgYfFVa4c2MgP
+X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
+ auth_id=950
+X-Original-From: Ke Sun <sunke@kylinos.cn>
+Reply-To: sunke@kylinos.cn
+
+Add the VM and BO ioctls to the Tyr driver, aligning its userspace
+interface with panthor.
+
+The series is based on Danilo's `drm-file` series on
+`drm-rust-next`. It also carries Sami Tolvanen's buffer
+cache-management patches from
+https://gitlab.freedesktop.org/panfrost/linux sami/tyr/7.3/dev.
+
+The panthor IGT tests pass on an RK3588S device.
+
+A branch with the full series and all prerequisites applied is
+available at:
+https://gitlab.freedesktop.org/alvinsun039/linux.git tyr-ioctls
+
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/64
+Signed-off-by: Ke Sun <sunke@kylinos.cn>
+---
+Changes in v4:
+- Rework VmPool teardown: add() returns an AddError the caller owns,
+  a conflicting stored VM is killed with EBUSY, and remove() kills
+  before the ID is reused (Daniel, Deborah).
+- Wrap dev_dma_attr in a DmaAttr type with dma_attr()/is_coherent()
+  and rename the patch accordingly (Danilo).
+- Fetch the sg_table unconditionally in new_object() and drop the
+  conditional flush call (Daniel).
+- Use dev_dbg!() instead of dev_err!() for user-input validation and
+  EOPNOTSUPP for the async VM_BIND path (Daniel).
+- Drop the pr_err!() calls from the VM specification patch (Daniel).
+- Link to v3: https://patch.msgid.link/20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn
+
+Changes in v3:
+- Drop the VmOwner wrapper and kill VMs explicitly on destroy and
+  file close (Deborah).
+- Add Sami Tolvanen's buffer cache-management patches: coherent
+  devices map buffers cached, write-combine buffers flush at
+  creation, and BO_CREATE accepts WB_MMAP.
+- Drop the new_dummy_object refactor; the dummy object stays a direct
+  Bo::new since new_object now fetches the sgtable for write-combine
+  buffers.
+- Document the LargeSizeConstants trait in the sizes patch (Miguel).
+- Misc commit message and comment cleanups.
+- Link to v2: https://lore.kernel.org/r/20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn
+
+Changes in v2:
+- Fold the VM pool into vm.rs and cap it at 32 VMs per file (Deborah).
+- Add VmOwner so a VM is killed exactly once on drop, regardless of
+  remaining references (Daniel).
+- Replace the VmSpec enum with new_for_fw()/new_for_user()
+  constructors (Daniel).
+- Parse VM_BIND op types via VmBindOpType and use the kernel
+  Atomic<bool> for the unusable flag (Daniel).
+- Use PAGE_SIZE for the dummy object size (Daniel).
+- Rename BoData::create_flags() to flags() (Daniel).
+- Report VA-split failures with dev_err! at the caller.
+- Link to v1: https://lore.kernel.org/r/20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn
+
+To: Miguel Ojeda <ojeda@kernel.org>
+To: Boqun Feng <boqun@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+To: Björn Roy Baron <bjorn3_gh@protonmail.com>
+To: Benno Lossin <lossin@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+To: Trevor Gross <tmgross@umich.edu>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+To: Tamir Duberstein <tamird@kernel.org>
+To: Alexandre Courbot <acourbot@nvidia.com>
+To: Onur Özkan <work@onurozkan.dev>
+To: Lorenzo Stoakes <ljs@kernel.org>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Lyude Paul <lyude@redhat.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: rust-for-linux@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: driver-core@lists.linux.dev
+
+---
+Alvin Sun (8):
+      rust: sizes: add SZ_4G constant
+      rust: mm: add `task_size` helper
+      rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
+      drm/tyr: add per-file VM pool
+      drm/tyr: add user and MCU VM specifications
+      drm/tyr: add BO creation and lookup helpers
+      drm/tyr: add VM-related ioctls
+      drm/tyr: add BO-related ioctls
+
+Sami Tolvanen (3):
+      rust: device: expose the device DMA attribute
+      drm/tyr: gem: flush write-combine BOs from probe-time coherence
+      drm/tyr: gem: map cached BOs for DRM_PANTHOR_BO_WB_MMAP
+
+ drivers/gpu/drm/tyr/driver.rs   |  24 ++-
+ drivers/gpu/drm/tyr/file.rs     | 407 +++++++++++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/tyr/fw.rs       |  21 ++-
+ drivers/gpu/drm/tyr/gem.rs      |  76 +++++++-
+ drivers/gpu/drm/tyr/vm.rs       | 357 +++++++++++++++++++++++++++++++++--
+ rust/bindings/bindings_helper.h |   1 +
+ rust/kernel/device.rs           |  24 +++
+ rust/kernel/mm.rs               |   7 +
+ rust/kernel/sizes.rs            |  12 ++
+ rust/kernel/sync/arc.rs         |  12 +-
+ 10 files changed, 891 insertions(+), 50 deletions(-)
+---
+base-commit: 015bdd5eb1e4a1a35673727f294a88fb0969c77c
+change-id: 20260901-tyr-ioctls-f10ef0dcbfa6
+
+Best regards,
+--  
+Ke Sun <sunke@kylinos.cn>
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 4
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The notify DMA target that the patch now keeps while the admin
-  graph is quarantined is never unregistered.
-- [Medium] After admin quarantine, enic_admin_channel_close() calls
-  pci_clear_master() (enic_admin.c:708).
-- [Medium] enic_reset() and enic_tx_hang_reset() reopen the admin channel
-  without checking whether the enic_open() just before it quarantined…
-- [Medium] The admin quarantine path calls pci_clear_master() on the
-  whole PCI function (enic_admin.c:708) while the generic datapath WQ/RQ…
-- [Low] In the rewritten enic_probe() unwind, `goto
-  err_out_disable_sriov;` sits on the line directly before the…
-- [Low] Claim: enic_open() has no admin-quarantine gate, so
-  enic_change_mtu_work -> _enic_change_mtu() -> enic_open() could re-…
-- [Low] The three callers of the newly parameterised
-  enic_datapath_release() apply different rules.
-- [Low] enic_stop() decides whether to keep the shared notify target from
-  a lockless READ_ONCE of admin_chan_state (enic_datapath_release(enic,…
-
---
-
-enic: retain admin-channel DMA until queues stop
-
-This patch tracks the enic admin channel as DOWN, LIVE or QUARANTINED. The
-admin WQ/RQ/CQ graph is released only after both queue disables observe
-RUNNING == 0. On a disable timeout the graph is kept and bus mastering is
-cleared, and the reset, SR-IOV, probe and remove paths are updated to hold
-quarantined graphs until a final recheck at remove time.
-
-> diff --git a/drivers/net/ethernet/cisco/enic/enic_admin.c b/drivers/net/ethernet/cisco/enic/enic_admin.c
-> index 61c82b48044d0..a5c08cbcb3391 100644
-> --- a/drivers/net/ethernet/cisco/enic/enic_admin.c
-> +++ b/drivers/net/ethernet/cisco/enic/enic_admin.c
-
-[ ... ]
-
-> @@ -600,68 +612,141 @@ int enic_admin_channel_open(struct enic *enic)
-
-[ ... ]
-
-> +	/* QP_DISABLE does not report every low-level stop failure.  The direct
-> +	 * WQ/RQ RUNNING observations own the admin allocation graph.
-> +	 */
-> +	if (wq_err || rq_err) {
-> +		WRITE_ONCE(enic->admin_chan_state, ENIC_DMA_QUARANTINED);
-> +		WRITE_ONCE(enic->mbox_tx_poisoned, true);
-> +		mutex_unlock(&enic->mbox_lock);
-> +		netif_device_detach(enic->netdev);
-> +		netif_carrier_off(enic->netdev);
-> +		/* Stop new PCIe requests without treating bus-master disable as
-> +		 * proof that already-issued DMA has completed.
-> +		 */
-> +		pci_clear_master(enic->pdev);
-
-[Severity: Medium]
-pci_clear_master() here applies to the whole PCI function, and the generic
-datapath WQs and RQs may still be enabled. Can a healthy datapath still
-drain after this?
-
-In enic_reset() and enic_tx_hang_reset() the admin close runs before
-enic_stop(). In a V2 VF enic_remove() it runs before
-unregister_netdev()->enic_stop().
-
-enic_stop() then calls vnic_wq_disable() and vnic_rq_disable(), which poll
-ctrl->running for 500 ms. With bus mastering cleared, the function can no
-longer do the descriptor fetches and completion writes needed to retire
-in-flight work. If those polls time out, enic_datapath_quarantine() keeps
-the datapath until reboot. That seems to contradict the commit message:
-
-  "Keep the admin and generic datapath ownership graphs independent."
-
-The same question applies to enic_admin_channel_recheck_on_remove(). It
-polls the admin WQ/RQ after bus mastering has already been removed. The
-commit message says clearing bus mastering does not "prevent the final
-remove-time RUNNING recheck from observing a queue which subsequently
-drains". Is this behaviour of the VIC queue engine documented anywhere?
-
-> +		return wq_err ?: rq_err;
-> +	}
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/cisco/enic/enic_main.c b/drivers/net/ethernet/cisco/enic/enic_main.c
-> index 5a205ea3031b9..06d76648b420c 100644
-> --- a/drivers/net/ethernet/cisco/enic/enic_main.c
-> +++ b/drivers/net/ethernet/cisco/enic/enic_main.c
-
-[ ... ]
-
-> @@ -1729,11 +1730,15 @@ static void enic_notify_timer_start(struct enic *enic)
->  	}
->  }
->  
-> -static void enic_datapath_release(struct enic *enic)
-> +static void enic_datapath_release(struct enic *enic, bool release_notify)
->  {
->  	unsigned int i;
->  
-> -	enic_dev_notify_unset(enic);
-> +	/* The notification allocation is a separate vNIC DMA target.  Keep it
-> +	 * with the shared lifetime envelope if another DMA graph is quarantined.
-> +	 */
-> +	if (release_notify)
-> +		enic_dev_notify_unset(enic);
-
-[Severity: Medium]
-Once this unset is skipped, does any later path ever do it?
-
-enic_stop() can run while the admin graph is quarantined. Two examples:
-
-  enic_reset()->enic_admin_channel_close() times out, then enic_stop()
-
-  a V2 VF enic_remove()->enic_admin_channel_close() times out, then
-  unregister_netdev()->enic_stop()
-
-In both cases release_notify is false. datapath_state becomes
-ENIC_DMA_DOWN while vdev->notify is still registered with firmware through
-CMD_NOTIFY.
-
-Later in enic_remove(), enic_admin_channel_recheck_on_remove() can succeed
-and set admin_chan_state to ENIC_DMA_DOWN. enic_datapath_recheck_on_remove()
-is skipped because the datapath is not quarantined, so no caller passes
-release_notify=true. enic_dma_quarantined() is then false and the full
-teardown runs:
-
-enic_remove()
-  enic_dev_deinit()
-  vnic_dev_close()
-  vnic_dev_unregister()
-    dma_free_coherent(..., vdev->notify, vdev->notify_pa)
-
-vnic_dev_unregister() frees the buffer without the CMD_NOTIFY retraction,
-which only vnic_dev_notify_unsetcmd() issues. Can this free a coherent
-buffer whose bus address firmware still holds as its notify target?
-
-Bus mastering was cleared at quarantine. For this to cause corruption, the
-stale registration would have to survive until a later bind, where
-enic_probe() calls pci_set_master() before notify is set up again.
-
-The kept block also makes any later enic_open() fail in
-vnic_dev_notify_set() with "notify block ... still allocated".
-
-[ ... ]
-
-> @@ -1899,7 +1904,7 @@ static int enic_open(struct net_device *netdev)
->  		enic_datapath_quarantine(enic);
->  		return err;
->  	}
-> -	enic_datapath_release(enic);
-> +	enic_datapath_release(enic, true);
-
-[Severity: Low]
-Should this follow the same rule as enic_stop() and
-enic_datapath_recheck_on_remove()? Both pass
-!enic_admin_channel_is_quarantined(enic).
-
-The comment in enic_datapath_release() says notify is kept "if another DMA
-graph is quarantined".
-
-For a V2 VF, enic_remove() calls enic_admin_channel_close() before
-unregister_netdev() and without rtnl. At the same time, enic_open() can be
-running under rtnl from a user "ip link set up".
-
-If the admin close quarantines and clears bus mastering mid-open,
-enic_dev_enable() can time out. This unwind then releases notify with
-release_notify=true and issues a CMD_NOTIFY unset that cannot reach
-firmware.
-
-[Severity: Low]
-Separately, enic_open() only checks enic_datapath_is_quarantined() before
-it proceeds. Can enic_change_mtu_work->_enic_change_mtu()->enic_open()
-reach this function after the admin graph has been quarantined and bus
-mastering cleared?
-
-In the final state of the series this does not seem to reach ring
-enablement. enic_dev_notify_set() fails first, either with -EINVAL from the
-kept notify block or with a DEVCMD2 timeout once "enic: require DEVCMD2 and
-set the V2 VF mailbox source" makes DEVCMD2 mandatory.
-
-With only this patch applied, though, a devcmd1 V2 VF could get past
-CMD_NOTIFY and re-enable the datapath rings on a contained function. Would
-an explicit enic_admin_channel_is_quarantined() check here be clearer?
-
-[ ... ]
-
-> @@ -1974,7 +1979,8 @@ static int enic_stop(struct net_device *netdev)
->  		return disable_err;
->  	}
->  
-> -	enic_datapath_release(enic);
-> +	enic_datapath_release(enic,
-> +			      !enic_admin_channel_is_quarantined(enic));
-
-[Severity: Low]
-Is this lockless read of admin_chan_state stable against a concurrent
-enic_admin_channel_close()?
-
-enic_stop() holds only rtnl here. In enic_remove() for a V2 VF,
-enic_admin_channel_close() runs before unregister_netdev() without rtnl. It
-publishes ENIC_DMA_QUARANTINED under mbox_lock only:
-
-CPU0 (ip link set down)          CPU1 (enic_remove)
-enic_stop()
-  reads "not quarantined"
-                                 enic_admin_channel_close()
-                                   WRITE_ONCE(enic->admin_chan_state,
-                                              ENIC_DMA_QUARANTINED)
-                                   pci_clear_master()
-  enic_datapath_release(enic, true)
-    enic_dev_notify_unset()
-
-This releases the notify target while another graph is quarantined, which
-release_notify is meant to prevent.
-
-[ ... ]
-
-> @@ -2398,13 +2426,17 @@ static void enic_reset(struct work_struct *work)
->  	if (reopen)
->  		enic_open(enic->netdev);
->  
-
-[ ... ]
-
->  	if (enic_has_admin_chan(enic))
->  		enic_admin_chan_reopen(enic);
-
-[Severity: Medium]
-Should enic_admin_chan_reopen() be skipped when the enic_open() just above
-has quarantined the datapath?
-
-The return value of enic_open() is ignored. enic_open() can enable RQs,
-fail later, and then time out disabling an RQ. In that case
-enic_datapath_quarantine() sets mbox_send_disabled, detaches the netdev and
-clears bus mastering.
-
-The new checks in enic_admin_channel_open() test only admin_chan_state and
-mbox_tx_poisoned (and, later in the series, sriov_stats_dma_unresolved).
-The reopen therefore still allocates admin resources, requests the admin
-IRQ, enables the admin WQ/RQ, fills the admin RQ with freshly mapped
-buffers and sends QP_ENABLE.
-
-On a devcmd1 device QP_ENABLE succeeds and mbox_send_disabled is cleared
-again, which undoes enic_datapath_quarantine(). With DEVCMD2, QP_ENABLE
-times out and the partial-open close polls admin queues that cannot
-complete DMA. That could quarantine the admin graph too.
-
-enic_tx_hang_reset() has the same sequence.
-
-> +	if (enic_admin_channel_is_quarantined(enic)) {
-> +		stop_err = enic_stop(enic->netdev);
-> +		netdev_err(enic->netdev,
-> +			   "Admin queue did not stop after reopen failure (datapath stop %d); resources retained until reboot\n",
-> +			   stop_err);
-> +	}
-
-[ ... ]
-
-> @@ -2422,30 +2454,39 @@ static void enic_tx_hang_reset(struct work_struct *work)
-
-[ ... ]
-
-> -	if (enic_has_admin_chan(enic))
-> -		enic_admin_channel_close(enic);
-> +	if (enic_has_admin_chan(enic)) {
-> +		err = enic_admin_channel_close(enic);
-> +		if (err && enic_admin_channel_is_quarantined(enic))
-> +			netdev_err(enic->netdev,
-> +				   "Admin queue did not stop: %d\n", err);
-> +		else if (err)
-> +			netdev_warn(enic->netdev,
-> +				    "Admin QP disable returned: %d\n", err);
-> +	}
->  
->  	enic_dev_hang_notify(enic);
->  	if (reopen)
->  		stop_err = enic_stop(enic->netdev);
-
-[Severity: Medium]
-If enic_admin_channel_close() has just quarantined and called
-pci_clear_master(), can the devcmds that follow still be delivered?
-
-Later in the series ("enic: require DEVCMD2 and set the V2 VF mailbox
-source") DEVCMD2 becomes mandatory for admin-channel functions.
-_vnic_dev_cmd2() writes into the host-memory cmd_ring, bumps posted_index,
-and then busy-polls result->color. Only a device DMA write can update
-result->color.
-
-With bus mastering off, each of these commands would spin for its full
-timeout under devcmd_lock with BH disabled, then return -ETIMEDOUT:
-
-enic_tx_hang_reset()
-  enic_dev_hang_notify()          HANG_NOTIFY
-  enic_stop()
-    enic_rfs_flw_tbl_free()       filter deletes
-    enic_dev_disable()            CMD_DISABLE
-
-enic_reset()->enic_stop() runs into the same thing.
-
-dc2c->posted, next_result and color keep advancing while the hardware
-fetch_index does not. Once the ring fills, commands fail with -EBUSY.
-
-At remove, after a successful admin recheck, the CMD_NOTIFY unset,
-enic_dev_deinit() and vnic_dev_close() are lost the same way. Then
-vnic_dev_deinit_devcmd2() frees the results ring before it disables a
-DEVCMD2 WQ that still holds unfetched descriptors. Does this leave firmware
-with the vNIC open and a stale results-ring address?
-
-[ ... ]
-
-> @@ -3499,12 +3564,24 @@ static int enic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
-
-[ ... ]
-
-> -err_out_dev_deinit:
->  	enic_dev_deinit(enic);
->  err_out_dev_close:
->  	vnic_dev_close(enic->vdev);
-> +	goto err_out_disable_sriov;
->  err_out_disable_sriov:
-
-[Severity: Low]
-This isn't a bug, but this goto jumps to the label on the very next line.
-Was it meant to be removed?
-
->  	kfree(enic->pp);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-b4-enic-dma-vf-index-net-generic-first-v1-20261010-v1-0-d27b55f69883%40cisco.com
