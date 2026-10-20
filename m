@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506418;
-	b=QoBBqxvXsz1FHe9WH9tYRebnvJfRtEefgHOzvv3LEru1Fq/ANM+pWlHyWIfZw1AKD0Vy
-	 g4pFwy+DF0bu90rKGPipRhP/VohJrscZBqsFI9nJSW89qMenregSoQP/ZDSZy47spdB72
-	 O56GzYDlfgH3a4syi90jUsGUh9f/YVCFppWqI6tEpYdmBt9FayqdksUd/GoVMfM9EzJSG
-	 vCg3GkzqntXM0i4W3aGh3kifVdN4AXS+wJjmykHDXxvJrBz85bDb1VsKsgwrEsHs4aux8
-	 KoxwrDD2ON0Jcsgl/N8j3vuimv12sbWOPuqJjTXpymGL8VdNX6UsnzHdX4q6rn5nz/A==
+	t=1792506456;
+	b=YyLp8RzjMEk9MQEaFoZUFSjZJesVMODJNVJitDVgQquQWgSVkeYF470+aGxcyMrsTgRr
+	 ehunLTiqG87RPxIpu7EwwynxStY8gRuYRRVKTf/VxiKB1wJHmLei/enORjIy+Kgc7N2h8
+	 YyN9tDZJCo0s5xpw5bsH/YhIbBxgs2/R3w7YohewLp840sqmAtTRI+VU0jiWk6FhXdfFr
+	 O+d8pCWNtX3aNTaSErO1CAqMNKUXEbDYBu5f6MJdUMOSsLHzXUfmX1TiHCLP3udPk9ecS
+	 SC4yLns58aUEcLHIkMrFpHoTG3/m5xfic+/v4j6vmncw/IkNy8wv6oK8SCEdBFf/Mdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506418;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+g08uAhXqYKhCa3FdEX1OoM2Qo5+lDEhNVXKFxBV9mM=;
-	b=GeTeNR0sKGJm6t5NFpod3a7p+BMjXYoke/Vyjz3F/Zvh4LgICEsLKqLWcR2v2el6itff
-	 GAkQxt89BFWnYqI6IVO7tUqG/WudEbu13Asz7f6epn2wgiB4Obz8qpWt+IUZh7ifPX62o
-	 kpLS9cLSa+Sk37Q9KU+OxEN9n4SPnO/IsmiEwY5Ngh2GuikzK2iWP0NSlSoI3L7lmGVMm
-	 DWE4LE9cPQ71b+kfukXQoO1ZYitlD9yWtDaLXLzPBdafNOV9gmyDD2pFwizRKndjOI9Mr
-	 QMSkSHW1Sxby71DCnJiB3lIezlPnjGzbCjqh56F23FM49oDqaD2fvmBZrWDnzEv8YlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506456;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Dd9e46BTrpHgF60mWtnGPE2/vPI3dSQPcJz11b4S1jk=;
+	b=Nma0kkoZzKOUpH+G2RHqfPkPQjRQ8CU3koXUe2+1x+nwAucJmcwXWSfNiclqIjyDZS8H
+	 9jD0xgv3lm5fGLgb6oXvLj1FPMvcu0TWj9TTBKKpb02LEyzx2IfGoauY0zQW4zgKplR7t
+	 CGtlRoxBh4HQB5aCKNngmZt5rQG1jAypiOYtFLjOBBaSoxp5ac5NRH8bRJJ5zIjThAw9c
+	 rzPO58ld37vaVsFdJd9Akmf11K4HLs5+fsGnNSjvWJGHYgx2hnjWCYcPE8sAixi4YyuRM
+	 ra/86mHL8jYPcg5usmVpCxv8yI/oF0aRlMT1mpZwCyydW5YmyPJna+YQpJ1DaXlBtug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=XbvtxDrq;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EB8606A31F;
-	Tue, 20 Oct 2026 14:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27EB8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BPAHlMuP;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52B59606A331;
+	Tue, 20 Oct 2026 14:27:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B59606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=XbvtxDrq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792506414; x=1792765614;
-	bh=+g08uAhXqYKhCa3FdEX1OoM2Qo5+lDEhNVXKFxBV9mM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XbvtxDrqduWmmBoKEMRi+kVEBP7YU8OeKKcMw0y0o83IGG13MSLea8Fgbn/k5VG9C
-	 4sDRuq30IQKTj2BTPNZ2xA85951V8DNxN3DIBjKkn5DNykCtA/oXo+FQSlPhcOSued
-	 j761N1o+fWrU6OsqcYlSPGlaImf0fUuB7y/dGFjZbwkreSeEwdEA9D5TNaz/gqt5CV
-	 YDcu3/vfNhZvvd+In5jvZ2C23ho6E4z4KeG/sKhy9/mMCyh+eZ6K8R4De34mTyNv/g
-	 MyeuTrzQQwipckeMSSAT+1IOV9t5HKCfGHgc1NYsJfpyi+OTagxpXQelGb1iJeGkZo
-	 NO7FnxjV377zg==
-Date: Tue, 20 Oct 2026 14:26:49 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, George Neacsu <geocausa@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261020142641.24808-1-lsa.uz@pm.me>
-In-Reply-To: <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com> <20261020085200.60619-1-lsa.uz@pm.me> <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 85762cc40d38bca2648fe6e637be1ef3cf0e2070
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BPAHlMuP
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4272616F8;
+	Tue, 20 Oct 2026 07:27:31 -0700 (PDT)
+Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D2363F7D8;
+	Tue, 20 Oct 2026 07:27:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792506454; bh=II7XzKF/T9a42uG8lOm7+KYJJnneubeimBS3uGSkock=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BPAHlMuPMZTzU3zfBQVYdzZx6EFum1IZ9tNdfI41BIOD1ynRavvH/BLSpoHVkwC7j
+	 GsxOWywnQWifJ95J1IVxn6CyoFnm6HTr1FG1Zk1MR5LW8CW5zDQlNmBupLWLyCWxE6
+	 +Tufm7Qk3l7H79TsgTEtkuAfPiAAvp+fpJIutrRk=
+Message-ID: <08521420-5adb-4e3a-8110-4713bcd5dfa0@arm.com>
+Date: Tue, 20 Oct 2026 15:27:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,26 +53,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Jean-Philippe Brucker <jpb@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-16-ryan.roberts@arm.com>
+ <20261015164102.GC13920@nvidia.com>
+ <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
+ <20261016144202.GG13920@nvidia.com>
+ <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
+ <20261020141540.GB3008132@nvidia.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261020141540.GB3008132@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Benjamin,
+On 20/10/2026 15:15, Jason Gunthorpe wrote:
+> On Tue, Oct 20, 2026 at 11:41:57AM +0100, Ryan Roberts wrote:
+>> On 16/10/2026 15:42, Jason Gunthorpe wrote:
+>>> On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
+>>>> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
+>>>>> I think I said this last time, please don't use vfio mdev for
+>>>>> anything. There is nothing mediated about this.
+>>>>
+>>>> We don't multiplex a device between guests, but the host driver must
+>>>> control part of the device registers while the remainder is assigned to
+>>>> a guest. The host configures accelerator access, stage-2 translation,
+>>>> handles CPUHP and context save/restore. So we can't bind the device to
+>>>> vfio-platform.
+>>>
+>>> That's fine, you can make a proper vfio-cla driver.
+>>
+>> Hi Jason,
+>>
+>> Thanks for taking a look at this! I've been chewing on this comment and trying
+>> to educate myself deeper on the subject. I have a proposal...
+>>
+>> Currently we create a struct device per CLA device instance. But multiple CLA
+>> device instances cooperate within a domain and the domain is the "unit of
+>> isolation"; 
+> 
+> Well that's weird and a bit confusing.
 
-On 20/10/2026 14:25, Benjamin Mugnier wrote:
-> I guess there could be an issue on the receiver side ? Maybe your
-> receiver is ignoring data types and completes the frame with ISL data,
-> effectively filling up the DMA ?
+Yes; this conversation is helping me to see that... :)
 
-Not on the Intel model: IPU7 drops them, as you expect. With 0x0329 at
-1, the test-pattern frames match those at 0 with no shift, and the top
-rows hold image data, not the embedded lines.
+I was originally trying to avoid creating any globally visible entity that
+describes a "domain", since I thought there was a possibility that each process
+might want to define it's own view of a domain. But in hindsight I don't think
+that's helpful...
 
-On the Snapdragon model it runs the other way: George's stream stops
-with the status lines off and runs with them on, and on 16/10 his
-vd55g1 build streamed with them off. So I agree the register itself
-should not matter there; something else in v1 probably does, and George
-can narrow it down on CAMSS better than I can. v2 leaves the register at
-its default, which changes nothing on IPU7.
+> 
+>> we can't have some CLAs from a domain assigned to a VM, while others
+>> from the same domain are used by the host. Therefore it didn't feel like the
+>> correct model to unbind one of these devices from the native driver and rebind
+>> it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
+>>
+>> But looking into it in more detail, I guess something like this might be a bit
+>> more standard:
+>>
+>>  - Split the existing CLA driver into three components:
+>>     - cla-core: Hardware discovery, domain configuration, struct device
+>>       registration and CPU hotplug
+>>     - cla-native driver: Provides the user space accelerator interfaces
+>>     - cla-vfio driver: Enables domains to be assigned to virtual machines
+>>  - Each domain has a struct device (created by the core)
+>>     - An individual CLA is not represented by a struct device
+>>  - Either cla-native or cla-vfio can then bind to a domain device
+>>     - cla-native exposes a char device per domain, per accelerator class
+>>     - cla-vfio
+>>
+>> For VFIO, I guess we could use one VFIO region per CLA, which would allow the
+>> VMM to construct a device tree. But it would need to additionally determine
+>> which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
+>> could expose?
+> 
+> I don't know alot about your CLA, but this sounds reasonable. There
+> may be uses with containers to have the split exposed like this too.
 
-Sergey
+...This all feels much clearer and simpler. I'll work on an approach like this.
+
+Thanks,
+Ryan
+
+> 
+> Jason
 
