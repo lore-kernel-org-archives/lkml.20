@@ -1,86 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792623646;
-	b=Tw9hGNJOpMnVceUGQUQNy/8fkLmdKK9jjUzf0MnhFnDXy0VzJQoes9AkTexop1MNP+f7
-	 dCeg7YCrwK2C3KTifYgkM00e/qX0XYnxIqZnPMgQHTS7uOZG4Ch+PQTltCnmXAL88e5mn
-	 53dOMGnBCC08Sgdsh/csZ9LR4fiSZJfnN7tgdyNPGsJNwIly1q31CbdxNxFDRXzLZem+X
-	 bxlX05ak1mVucqbg3mDMKZ4UPDbnr1gT9Q5jEy82lSkEHmLHEgaVcd+WfIZ1ipXvw25Y6
-	 MuFvbS0M0JNLYerS5PhpPIPazaq/R9m7vo0OuiYIUVwnqTBiCF1GXX8p7+Se0D9E8CA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792623646;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
-	bh=o0uJl9SaCMTX22dhBn+kimrcYeaap+l2h4VH/HTX/Bw=;
-	b=S3yGJmzQ+XT0hQz3bhC3qwU27ps6KmDZr8HxXhMQOKeo921dn8sPSr9Dz2fpE1e16y9P
-	 ldyxe2KDMnfrGjBXGToRU480MxncyIFJnb+4r1hqQq2Z7gs8CZ2+B1PuIX44W8U1dJSGu
-	 tMb4G7ZGKWsBBTCnBQZgKYpbY4vmBb4KMHBog/bSin0WXj/riKOiUIpS6uf8BStFOFdBc
-	 utpeOO0w2P2y3ghwn66NeAS0F0cdi8brTMvl3kPgqdLWHSPHvo9U2UZMgdnPviV8Mf5Td
-	 F2BXA/3u/PAZCPRpCOlYhHPTQtJIOR8tuJ0VqrOXLmgZk+aqAEVCQVFEr8Ge2FtfHXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=OfOoJvBW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792623741;
+	b=xsMyyu9WOrK9rxwcmhYlP2qlDNTl10qC78ZOLpL4oEnBJUSHWWXNmVL5c8tKNySqgLwK
+	 6vs7W3Ha1T0SNYmuG6BPkwxTY8z2W0hE0DJ4+4MuHBx/2FpV1pB/GZZ2gzD6fY9sSfv4J
+	 K+atHJmDt1vqOnv3k8NDthB7iGvD6c54PkS8lGIloqM2+KpuF95KAN4hMuBA5LJYL0Z7X
+	 GQT89aAtpTCpjRLjMSbMSGhv4aWaJW4RPzTNGSHgsMi8HLpy5mrl+3Zrfm5IFZRpSHdA8
+	 eXvO9LjkIrFrcvAeMu3AZX5zbrl7yNFr6cPqRTw97rf48cGVOdI0qkcsYEAS46cZyRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792623741;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=Rh1ct0ynFCJmpIeBgUsQvZu9SOoIsv6E2A9BdvVwioc=;
+	b=dcfLXfwqrbWUuDig2Zf73O4IL7W9CXaupWgMXr2ugYOtywdlR8DClrYcxoLw0hpgXhfL
+	 JJs0j7WBdqM5/oUkgjA4sBcNT6D/autypEclB4WZ9P3UNYTLiRnmjgCyd2pSHGjXs7CUR
+	 +RLHgMTK6LtHoCFqXA+y2uKtEZXexbG/ykpNkaLF1OCHR9NfW3LUQxrYGQagTIImBoADC
+	 VlZheV9Nowwgay0qis0A9faY4WLNZsCKf7PV001InZRqmd4hsR9wTUwHU5HAIbTjr+/Bb
+	 uBzgwdxa8DQ2wTC3Xzep3WWQDSRLV5x6vsZMZMkZwiABkHdjkW/xoWdNkYevSwI6AZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Gz4UAPgW;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD92606A31F;
-	Wed, 21 Oct 2026 23:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD92606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B64606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:02:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25B64606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=OfOoJvBW
-ARC-Seal: i=1; a=rsa-sha256; t=1792623577; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YxVBf2r3nDwKMI/w4Cfj6wBPEhOJrYrOvgbHQuNF1ywKWQm7TKXl1BxN0MCzVhGnVPMmrOcH6Y7vwHRpSGH/RcyW4o/9bbNlAwDyJXiUXdg5ErkLkwoq1J2TXCQPoltJqCXeE7TykTIHOmTKyvOGdSm6I7BjWVq1/ZLJ0hXuUmw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792623577; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=o0uJl9SaCMTX22dhBn+kimrcYeaap+l2h4VH/HTX/Bw=; 
-	b=khUxgC7K6Dump7HNsU+T7sITG0K+jmATCHUoast6WPDxWHGGdTDBC0/QIMUIlIBg2Ki/G7lkO1OKQptby+w0tcfAj8SqJX6EGe78xbKaBP5tEaQXn0e3LAwEtnAJ4oJ2vyHWOXNz8bzWJ2c4vg/iUCx6qvZl2sHz8MuJup+spKc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792623577;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=o0uJl9SaCMTX22dhBn+kimrcYeaap+l2h4VH/HTX/Bw=;
-	b=OfOoJvBWtQLZeQ1qUOZGpKI9LGZH2kuAFdLAMNQV3geS/kzBnYy8rznRYzbMbVBM
-	HFcT0dwlhYAlcWgqtInVd0oIjVSrKah+jST9FZrq3K24sTSH9+BXxBAmWKElb0bJ6GL
-	HYDwBvjQDUlcmMPboCn0WDmQXXbUEACnRUzHCU1w=
-Received: by smtp.zohomail.com with SMTPS id 1792623575793141.6930617524606;
-	Wed, 21 Oct 2026 15:59:35 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:59:34 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Ke Sun <sunke@kylinos.cn>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	rust-for-linux@vger.kernel.org, linux-mm@kvack.org,
-	dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v4 04/11] drm/tyr: add per-file VM pool
-Message-ID: <atlD1jzWqQhKE3w5@um790>
-References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
- <20261020-tyr-ioctls-v4-4-704de77da223@kylinos.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Gz4UAPgW
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so626287a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:02:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792623740; x=1793228540; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rh1ct0ynFCJmpIeBgUsQvZu9SOoIsv6E2A9BdvVwioc=;
+        b=Gz4UAPgW8JCrFaLwd83C+NYLWBh7WrVeAbPCKceaugzzPgdHzZFvs8xQ6P/pBp/GFn
+         kNfUOGF2clZnhpB6j0JG8SCjgqZVXBLcBt3zjTlthbSSJqXFq6YSQPByfgyeRZOMqGqY
+         gFdiOi9nkyHnv7/S3ROeTwkHOkKFreTBDdA1soan8c5QpUTRCqhdn5fOHAdholqli5V3
+         I9GKiTsc4yn/PjkjUPmdhxRgJSQ5dc5azJvexnRibXFtw6B8mh1iWuZUq5JyRnh1rp+u
+         2icul+79TpLQiVKEnbkiuQLaITX1iVd1WDOO/mhnpqnRnK1kTPPYSni7VSdjAHbgjppR
+         F26Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792623740; x=1793228540;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Rh1ct0ynFCJmpIeBgUsQvZu9SOoIsv6E2A9BdvVwioc=;
+        b=yVnQmyQAKc99QEzBOxGlvx+tqCoh8kJhlvvnc2yGs+4laDIGkGEmxuuCSd47cNEF92
+         nZb09bYnlEB+XGz7hE0iw+KKxI+qrYEndXtbIcYAFd/p4RYSLE8DavsKcK72rfnnel0M
+         NtAa0D3ITu9v5bYkC3QxQ5r0Ct0gnwCNPL83WxYl0s5zp2M9Aso4/YqtTvv/8okXtRdE
+         lyAOaE5r/xxxKrX7umFY/OoFyTY6q2vCKan/DZMRD+QDDQ0WzNRbfnvYOL7NJrFk9mqU
+         PR0ZZzxZGivS9K3AGsgBGE5rILH7s4ZnLxsVod0kNQ1c8Rb23/IFcTFB7WuwwD8D0+bW
+         +xng==
+X-Forwarded-Encrypted: i=1; AKwUvBxbQUV7a5qVxiicxmljdELhR2+hEgFUj/lNr+uRrse24bQHXTOiM3/Q8XirYhvpDiH4nTK61EOtx1qjcGE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKL3Glg8YxD58W0o4GikSrZ58MXbVeBGdQqSOkOeQBqTH5RD7dG
+	J4+fOYf2NolZbp3Hzh7TYXctvyO3j5QBjBxoRI9yoXKIgFNY14gK4rdEpZpgVRp0Kw==
+X-Gm-Gg: AYBFou312c4DgD9JbO/TR2fC5dDcpy6tsPaWBEeyVzMiaD1MlVH+EcdX4T87nZGrac5
+	Uhp1i6BRsexc6EcoC3xvCSXGzI9JpWoBE3cVvzKl8VzvWxsYW7iqXfaXvYKeoQeVmHdJYzbWXc8
+	xXRGHglJLYhFxhdEG8Qty3H0h8l6DUpUUGXUmpkJSnjipHCqN2FENqlcnXE3UKjqNKuqb/sOe75
+	a7npIWAtJR1cUt5+2gckpryCCA3MzT636Yh4Oka2f+x5Unlrw2GxEX7Z/gsJMlhzxzyC58/yiGa
+	huCRDQ5rIov+PiYMkXPsHvQQzoLwWeEkiGI1uuq6rKkuKHCLh+4BNUKyGMtuEG/fFRXVxH7xenk
+	NWYgllhQnHAlb3av59D4Y853y0HmqLGAExfdywHT9HtO5yEKbSN1JwHJnl53x710QfEJxbXpw7J
+	sTl4qcnRQDLOvix/5DYao1X1RAxtFeD6hc3UfAesAoB6NIQRAoj/BH1bebp6Y4vug44cY93S5At
+	8zVwysjGVVa0LXWuJisSH56gKZbqsnfmNUsxVPpGr5W9PKNLtqrhF5yhSpJQreHlSaXDi64UXr5
+	s1nzrlx+4RYr/+auBohy2DlO8ZPvyMWFK2bMGg==
+X-Received: by 2002:a17:90b:2f85:b0:3ac:7c4d:8be6 with SMTP id 98e67ed59e1d1-3ad86d9e088mr2829501a91.40.1792623739843;
+        Wed, 21 Oct 2026 16:02:19 -0700 (PDT)
+Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4896c4dsm1314919a91.7.2026.10.21.16.02.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 16:02:18 -0700 (PDT)
+Date: Wed, 21 Oct 2026 23:02:14 +0000
+From: David Matlack <dmatlack@google.com>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Tarun Sahu <tarunsahu@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org,
+	Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
+	will@kernel.org, Alexander Graf <graf@amazon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
+	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 2/4] liveupdate: Select file handler by name in
+ the preserve ioctl
+Message-ID: <atlEdhPjlyTPDWmG@google.com>
+References: <20261021152527.375070-1-tarunsahu@google.com>
+ <20261021152527.375070-3-tarunsahu@google.com>
+ <CA+CK2bCnS8wcVDbOymBGeJB6pDUkknOpF22EynbwSV=D5=J4ow@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,219 +112,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020-tyr-ioctls-v4-4-704de77da223@kylinos.cn>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/292.612.36
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+CK2bCnS8wcVDbOymBGeJB6pDUkknOpF22EynbwSV=D5=J4ow@mail.gmail.com>
 
-On Tue, Oct 20, 2026 at 04:25:21PM +0800, Ke Sun wrote:
-> From: Alvin Sun <alvin.sun@linux.dev>
+On 2026-10-21 01:17 PM, Pasha Tatashin wrote:
+> On Wed, Oct 21, 2026 at 11:25 AM Tarun Sahu <tarunsahu@google.com> wrote:
+> >
+> > Currently luo_preserve_file() iterates over luo_file_handler_list and
+> > picks the first registered handler whose .can_preserve() callback
+> > returns true. When a subsystem introduces a new, backwards-incompatible
+> > file handler alongside an existing one for the same file type, userspace
+> > has no way to choose which handler preserves a file descriptor, nor can
+> > the kernel keep the existing rollback-safe handler as the default while
+> > allowing callers to opt into the new handler.
 > 
-> Userspace needs multiple independent GPU address spaces per file,
-> addressed by ID through the VM ioctls as in panthor. Store them in an
-> IdPool (capped at 32 for panthor parity) plus an XArray. On a failed
-> insertion the caller tears the VM down through the returned error, so
-> an aborted creation never leaks a VM. The pool kills every VM still
-> stored when the file closes.
+> That is not how it will work. If we are in the .can_preserve() call,
+> it means the user has already decided which file handlers to use. We
+> need to do that before any preservation happens; otherwise, we could
+> run into conflicts on FLBs i.e. FH of different version require
+> different FLBs.
 > 
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
->  drivers/gpu/drm/tyr/vm.rs | 138 +++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 137 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> index c5e307b1e2416..6935e4db667b9 100644
-> --- a/drivers/gpu/drm/tyr/vm.rs
-> +++ b/drivers/gpu/drm/tyr/vm.rs
-> @@ -33,6 +33,7 @@
->          }, //
->      },
->      fmt,
-> +    id_pool::IdPool,
->      impl_flags,
->      io::PhysAddr,
->      iommu::pgtable::{
-> @@ -53,7 +54,11 @@
->          ArcBorrow,
->          Mutex, //
->      },
-> -    uapi, //
-> +    uapi,
-> +    xarray::{
-> +        AllocKind,
-> +        XArray, //
-> +    }, //
->  };
->  
->  use crate::{
-> @@ -948,3 +953,134 @@ fn pt_unmap(dev: &Device, pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>)
->  
->      Ok(())
->  }
-> +
-> +/// Maximum number of VMs a single file may hold, matching panthor's
-> +/// `PANTHOR_MAX_VMS_PER_FILE`.
-> +const MAX_VMS_PER_FILE: usize = 32;
-> +
-> +/// Per-open-file pool of VMs.
-> +#[pin_data(PinnedDrop)]
-> +pub(crate) struct VmPool<'drm> {
-> +    /// Parent device, for error reporting.
-> +    dev: &'drm Device<Bound>,
-> +    #[pin]
-> +    ids: Mutex<IdPool>,
-> +    #[pin]
-> +    vms: XArray<Arc<Vm<'drm>>>,
-> +}
-> +
-> +/// Error returned when a VM cannot be added to the pool. The caller
-> +/// owns the teardown of the VM in [`AddError::vm`].
-> +pub(crate) struct AddError<'drm> {
-> +    pub(crate) error: Error,
-> +    pub(crate) vm: Arc<Vm<'drm>>,
-> +}
+> Therefore, there should be a luoctl call (i.e via a new ioctl to set
+> compatability) that provides the kernel with the specs file of the
+> target kernel we are updating to, allowing the kernel to select the
+> compatible file handlers. Since .can_preserve() is called when the
+> user is already preserving files, the specification must have already
+> been supplied, or the kernel should fall back to using the default
+> (i.e., latest) file handlers.
 
-When I try to compile just this patch i get an error about
-this being unused so better annotate it with #[expect(dead_code)]
-like the others.
+I don't think that is the right direction. IMO the kernel should not be
+choosing which file handler to use, userspace should be. If userspace
+gets it wrong and chooses a file handler the next kernel does not
+support, that's on them.
 
-> +
-> +impl<'drm> VmPool<'drm> {
-> +    /// Creates a new [`VmPool`].
-> +    #[expect(dead_code)]
-> +    pub(crate) fn new(dev: &'drm Device<Bound>) -> impl PinInit<Self> {
-> +        let ids = IdPool::new();
-> +        pin_init!(Self {
-> +            dev,
-> +            ids <- new_mutex!(ids),
-> +            vms <- XArray::new(AllocKind::Alloc),
-> +        })
-> +    }
-> +
-> +    /// Stores the VM and returns the allocated ID.
-> +    ///
-> +    /// On failure - ID space exhausted or a store failure - the VM is
-> +    /// returned in an [`AddError`] so the caller owns the teardown.
-> +    // TODO: allocate IDs with the XArray directly (once it grows range
-> +    // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
-> +        let id = (|| {
-> +            let mut ids = self.ids.lock();
-> +            let unused = ids.find_unused_id(1).ok_or(ENOSPC)?;
-> +            if unused.as_usize() > MAX_VMS_PER_FILE {
-> +                return Err(ENOSPC);
-> +            }
-> +            Ok(unused.acquire())
-> +        })();
-> +        let id = match id {
-> +            Ok(id) => id,
-> +            Err(error) => return Err(AddError { error, vm }),
-> +        };
-> +
-> +        let mut vms = self.vms.lock();
-> +        match vms.store(id, vm, GFP_KERNEL) {
-> +            Ok(prev_vm) => {
-> +                if let Some(prev_vm) = prev_vm {
-> +                    // An existing VM at the freshly allocated slot means the
-> +                    // IdPool and the XArray are out of sync: the stored VM is
-> +                    // a pool entry, so the pool kills it and the caller's VM
-> +                    // is handed back for the caller to kill.
-> +                    let stored = vms.remove(id);
-> +                    drop(vms);
-> +                    prev_vm.kill();
-> +                    self.ids.lock().release_id(id);
-> +                    dev_err!(
-> +                        self.dev,
-> +                        "IdPool/XArray out of sync at VM pool id {id} (stored VM conflict)"
-> +                    );
-> +                    return Err(AddError {
-> +                        error: EBUSY,
-> +                        vm: stored.expect("VM was just stored"),
+The problem with the kernel making a decision about file handlers is
+then userspace does not know what arguments to pass in. We are adding
+custom per-file handler arguments to PRESERVE_FD and RETRIEVE_FD. If the
+kernel is picking which file handler to use, say for a memfd, then
+userspace doesn't know which arguments to pass in.
 
-Since the rust for linux coding guidlines say:
-    panicking should be very rare and used only with a good reason.
-    In almost all cases, a fallible approach should be used, typically returning a Result.
+Sure you could add some method where userspace could query which file
+handlers are active and decide arguments based on that. But it feels
+backwards.
 
-I'm wondering if there is a way to avoid this expect().
-For example, you could store a vm.clone() in the xarray and keep the vm
-that was passed to this function so that it can be returned on error.
-And on success, the vm would just drop so the overall ref count wouldn't
-be incremented.
+I think a much cleaner solution is that userspace chooses file handler
+during PRESERVE_FD. I would even require it for RETRIEVE_FD so that we
+are guaranteed that the args the user is passing in are being sent to
+the right file handler. Passing to RETRIEVE_FD also opens the door to
+transforming across Live Update (similar to how AWS did LU from Xen to
+KVM as discussed at LPC).
 
-> +                    });
-> +                }
-> +                Ok(id as u32)
-> +            }
-> +            Err(err) => {
-> +                // Drop the XArray spinlock before acquiring the `ids` mutex.
-> +                drop(vms);
-> +                // Release the pooled id; the VM never entered the pool, so it
-> +                // is returned to the caller for teardown.
-> +                self.ids.lock().release_id(id);
-> +                Err(AddError { error: err.error, vm: err.value })
+Regarding FLB conflicts, today we don't support multiple FLBs for the
+same global state, so there is nothing to conflict. Selecting a file
+handler during PRESERVE_FD doesn't change that.
 
-When i run rustfmt on this patch it reformats this line, can you double
-check you ran rustfmt?
+If we ever need to support multiple FLBs for the same global state
+(e.g. an incompatible change to the PCI FLB), we can add an ioctl that
+lets userspace select which FLB to use before preserving any files.
+After that, only file handlers registered with the selected FLB can be
+used to preserve files. PRESERVE_FD with any other file handler fails.
 
-
-> +            }
-> +        }
-> +    }
-> +
-> +    /// Removes and kills the VM with the given ID.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn remove(&self, id: u32) -> Result<()> {
-> +        let mut vms = self.vms.lock();
-> +        let vm = match vms.remove(id as usize) {
-> +            Some(vm) => vm,
-> +            None => return Err(EINVAL),
-> +        };
-> +        // Drop the XArray spinlock before killing, since `kill()` may sleep.
-> +        drop(vms);
-> +        // Kill the VM before handing the id back to the pool, so a VM is
-> +        // never reusable while still alive.
-> +        vm.kill();
-> +        self.ids.lock().release_id(id as usize);
-
-Since i just learned about this myself, I should mention that you can
-now use num::casts::FromSafeCast and then write
-usize::from_safe_cast(id).
-
-> +        Ok(())
-> +    }
-> +
-> +    /// Gets a shared reference to the VM with the given ID.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
-> +        let vms = self.vms.lock();
-> +        let borrow = vms.get(id as usize)?;
-> +        Some(Arc::from(borrow))
-> +    }
-> +}
-> +
-> +#[pinned_drop]
-> +impl PinnedDrop for VmPool<'_> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        let this = self.project();
-
-I don't think you need to project the VmPool here because we only
-need a shared ref to the pool, and the vms guard gives us the interior
-mutability we need to modify the xarray anyway.
-
-> +        // Kill every VM left in the pool. The ID range is bounded by
-> +        // `MAX_VMS_PER_FILE`, so this loop is cheap and runs at file close.
-> +        for id in 1..=MAX_VMS_PER_FILE {
-> +            // Release the XArray lock guard before killing: `kill()` may sleep.
-> +            let vm = this.vms.lock().remove(id);
-> +            if let Some(vm) = vm {
-> +                vm.kill();
-> +            }
-> +        }
-> +    }
-> +}
-> 
-> -- 
-> 2.43.0
-> 
+That keeps the FLB decision up front and global, like you want, while
+still letting userspace pick the file handler for each fd. I'd also
+expect this to be rare, since FLB serialized state can use the same
+feature flags as everything else in this series.
