@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792545933;
-	b=eeEL4YKFNGaBzDvFpR5jHSdnLrJJE76gkEqeF3CxcfNrNt5sYtll3CDb1/JBz2drNhNY
-	 RHuN0jIB/aaBeMxUuFc+lOtQM4vn8tYFb9JW8iVEN/oygRLsWBlo9Omeg+EidQcmyn8db
-	 E16cxtSXD17An0suco9e8fRncSIwQaHVSB4UGjp67kRihEoW2GzyTsrmkmZ1ksm9cERbR
-	 Tncn02wb3bcAUAhtRKPcUlaZNYz5jqNChOP0pX/fSBlwpn7IXBpCWxn4mCqUTA3Bhv/6O
-	 Oqfx6GtFKTnaJ+Zf9Vn2kayAlGOPFG/vF8esFRep1nTmceW0EB36qpEaWADyoXVF4KQ==
+	t=1792545956;
+	b=l4gu+Ceddsahrlx+dYbiVF4yBTRec1/l9U72ZbigGmH4v9UNaSusmgd/qw1R4voPqSMb
+	 rVcoGn6WU55e2LaRG/fko7TTzoH3P9PCgxT7xaE4ZW96AhkqFNZMMWocRin0xC+1/zyZy
+	 WksZSI0dc05Nt60JmKaUKwtFqfYEZwjlo+p6XFULgmE3HQCS1WJxbNnesXrXsCGyN9blv
+	 TWjM+k4sLiBKgpXN0rGLhUhhm0vcqnHibIcp6FYuNfA/Wb+68pYkcNduE8KC8rSgajR4y
+	 ddawaFClG43o1Tvkf45dpDhkpEr9u/i5yaKkowD94xg9X8cAKF1Oyw3sIuyiBQMtsIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792545933;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=k5DXLo6R/kdSN6QGlOTZcY8/4DMXbPtBMmC00YCocIU=;
-	b=OjLcg56oXFJIIIJ7+ZiGRXYXUMLyRhH0EhwUOFozhuNfavcbo2e3dERDYcyrLoF5fLJX
-	 AQWhXRrUzi83W0oitOOIpZ4R5RS5qoFzGupUI2V1uFvjUQ+cvix3GZ0B4fJ0ShOK06u6V
-	 Vw39j7z777Os5uhgBuGIk/CYCsPf8rUm6xEcy7y+6OKi4cgPYIJb6vpJdAb6nlHKelZM8
-	 ZpSwJEVx/NRE9o+WFErua1GAUBuUJhYdLHoP5Mv8MB13Hs6y3kbZ8U8hR07X/QR/8Ky5+
-	 q+t24ZMHbeRQVNXfhQn+RXgegWu5VuYM9azayfxTA4bEPIkp9Em+glSsDV4SvtV5Kjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792545956;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LSKx9HPzqZclmFp5mScoD3vPAujYoTxBMOBIwcaE/Kc=;
+	b=RzuGxxBy60Skrgdd84WWTxFjVXoY8x0KqCPRgadIUmBgx/+yIk/0DCdpSFCw4N4pDeof
+	 a4/4jRdBhmajG+KnFheuQ26/prCWQBwntAHD3F4HlF57vsE1diWtPB8vtrfZovhM2wZu7
+	 WN9zwqiIk8eBmi+dq9dhl3E1HqFvxQRB8imkWe4rLYHEQ9dnu3hVWuxJyKXT/J0lGS2Y0
+	 7JOZ6FAOsFkf8Srtg/DVWhaDba6xJpTzHQVGm4moUPx0TBk60nHs4KcZtFNlq5M1MGvjR
+	 z4kbdcgC6pjOoPP06k3opLoleP68cjkWEdQatfuv4Bh42AKCWInhPNFbvN4k3SI1EjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=X8z4nyCn;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oIhj/1Ph";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C56606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42C56606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42DF606A319;
+	Wed, 21 Oct 2026 01:25:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=X8z4nyCn
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so281541c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:25:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792545932; x=1793150732; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k5DXLo6R/kdSN6QGlOTZcY8/4DMXbPtBMmC00YCocIU=;
-        b=X8z4nyCnqdptQB3KTUImfEbJ8lP5/E5s80Jy6LK9ZJSs8+r8ik5GyvhQjyHEh2v3Z2
-         oqLDnKEJ3xRGq+0oarBgMRSHNCwUNOTb9TuP4lbZXfqIYM/xv0fAxNu82NBKx3Vgn1aN
-         EQ8A/TCioFjGvLd3Vm3z8FHqWzvxTNTdktzBcA2XExDYjmmhN7OWuQKNYf3GZ2CHu0FC
-         gSrfMj9HkZ2AXHKTaZuMbjNUtU6F/EGww6uIAGcO/vR1va6LSDcI23bINggAIu4J1lcA
-         xRpuGjr9WGqsfO2a3/vj0W1UAyaZUE+IONiFXAnHzOwydX3/Q3ctEHoSxwfl5u4tF1Hn
-         HZgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792545932; x=1793150732;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k5DXLo6R/kdSN6QGlOTZcY8/4DMXbPtBMmC00YCocIU=;
-        b=p3nwavMPuDnKZlp37hLMSEjnmY+rgxQfHUwPGobbC1gvvk/KmeQiXygT3FhTvnx3U1
-         OijfB32rglEh/ZLrzfweuaNU0CRcKaM5aaaSb5Sd4qH5eNDcjrTJRdDy0TX/LAjwB3/n
-         88YuvFHKHA73yrp0p6FAj+eClcXnzuRZUge73WqcLGNYzTNNYKNymxceoaIQUHME8ibS
-         OVJMg3IMIvwmP91AGePS2ODnh0vmZ0QNMllJ1Jxa/HBlSmcB7k0OhFpZkswfmkOTzITj
-         AZnglaS/rlQURP1WGZZUJBcX6VByg05wfpMkgPMahB/KdprTEy6h5mdRoYNwgPRAzKSS
-         iVLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKzjEBzVC7FLHFqwZe12ZXNogfgHc2RZt3nQLNhS2WT4DAlyvgZkKAxhCcZEL5FrazSo82NQtXmzvR7+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI59DTAfR8kUnn/duR7INF+6/XoSKaQvzffOSSeSV2KcKP8+IvQ
-	Mhp63o/vwq732lzgJsZnJ55SW/PkDEPPKwYDBbqGTKEwd03vDJ1qRE1diIeMZJ+H1Yg=
-X-Gm-Gg: AYBFou3oPQGsndiwi73Yen+xEC7Kbvj1mByJ0ChY55d3k2btRcbxDRJylEPrRD+4kf9
-	XVTM41BII0dlJ2Ip8q6W1H04++80OW+aFdELVOeyg7USJfDawDd24QXjxScm++NhJs9A6LHzMJD
-	PACeC18Q01ofN6+9COkCW91HV/sjKCB1Vb6rOohibCfdeC6BEJoqSjaiemdvrkS6UsWwue6yI3u
-	jcaIz6+17wuq8MQu7mJWbhcR1b0KvQ0kCsdys5WNW6/nqU8v+MMc9zztfYlkxqXkQE7tU+Q9rVE
-	TUpUBZgY7SIC60Zh08jj0Jvg5uy7+G0fkhkzyMgQd0axHIa4QFsARrX6+5VLacYWbORwI02l3Xd
-	Mqn9H8MGNHoiJtePlOy4Gu20N5sjnwGEr7/KXYJVPhr4RgLtFszSfyaRjuhx1ORVgFdNFBhL7OY
-	yPyuWcuWNX/RnGoQ0xNzD6BkuPK+fttnxLNW4yKpBsfr6Kv41Xt248OqENtX0HfODOJElRhW3Rw
-	+LIQDr4p9UaT0pNmqIOtaedi2eQIGOIGlSoGp/KRdtOO+ACntI/P1aLZFc3v4KiTbFHaZ0wqxsJ
-X-Received: by 2002:a05:7022:7a9:b0:187:eb7f:b8f with SMTP id a92af1059eb24-190a50efe13mr997401c88.13.1792545931941;
-        Tue, 20 Oct 2026 18:25:31 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1903bb7f098sm2943035c88.12.2026.10.20.18.25.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 18:25:31 -0700 (PDT)
-Date: Tue, 20 Oct 2026 18:25:30 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 11/18] nvme-rdma: Use CCR to recover controller that
- hits an error
-Message-ID: <20261021012530.GT2931-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-12-mkhalfella@purestorage.com>
- <8cfb3b90-7629-4a8c-a393-7f724f01c19c@flourine.local>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIhj/1Ph
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830461F000C9;
+	Wed, 21 Oct 2026 01:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792545955;
+	bh=LSKx9HPzqZclmFp5mScoD3vPAujYoTxBMOBIwcaE/Kc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oIhj/1PhFyssGjP16AI+j08SrtuigFRA7t20hvLDtD1Fqjp0QkuqQ+aVVXFb666pU
+	 4fkGTiBGLJYu9X1Bi0e3+bHoGNeEQ4jsF+N2gODHhN9TYuaJIntJ/YMzq0KfJK/Vsy
+	 LRVQf5p20vEbSLTcuZojCYe3TwJ+kYA7eEu69/g4FL7ZCEcK80qvjeJmvxqWcMvzav
+	 vFkToo3jX1Tapi3TAGJa2A/fXToEYm0jVIuDjzmBFlj+5Xkv8CPLFVM6Z851tkbWVV
+	 OXTkgrxc42I4yswc9ovUWqH2ZquFTS1MC+C6gmQWyZ+W20hHrX/t+JF3w4EaBF2TP9
+	 jptWb7xgA2trw==
+Date: Tue, 20 Oct 2026 18:25:53 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: bpf@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S .
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, Jesper
+ Dangaard Brouer <hawk@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Steven
+ Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Shuah Khan
+ <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Hangbin Liu
+ <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>, Masashi
+ Honma <masashi.honma@gmail.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH bpf-next v3 2/6] bpf: Add syscall common attrs support
+ for xdp link_create
+Message-ID: <20261020182553.534c8d6e@kernel.org>
+In-Reply-To: <20261020152804.39863-3-leon.hwang@linux.dev>
+References: <20261020152804.39863-1-leon.hwang@linux.dev>
+	<20261020152804.39863-3-leon.hwang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,27 +76,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8cfb3b90-7629-4a8c-a393-7f724f01c19c@flourine.local>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue 2026-10-20 11:36:56 +0200, Daniel Wagner wrote:
-> On Sun, Sep 20, 2026 at 11:28:09AM -0700, Mohamed Khalfella wrote:
-> > @@ -1990,13 +2014,15 @@ static enum blk_eh_timer_return nvme_rdma_timeout(struct request *rq)
-> >  	struct nvme_rdma_ctrl *ctrl = queue->ctrl;
-> >  	struct nvme_command *cmd = req->req.cmd;
-> >  	int qid = nvme_rdma_queue_idx(queue);
-> > +	enum nvme_ctrl_state state;
-> >  
-> >  	dev_warn(ctrl->ctrl.device,
-> >  		 "I/O tag %d (%04x) opcode %#x (%s) QID %d timeout\n",
-> >  		 rq->tag, nvme_cid(rq), cmd->common.opcode,
-> >  		 nvme_fabrics_opcode_str(qid, cmd), qid);
-> >  
-> > -	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
-> > +	state = nvme_ctrl_state(&ctrl->ctrl);
-> > +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
-> 
-> documentation needs to be udpated like in the tcp patch.
+On Tue, 20 Oct 2026 23:28:00 +0800 Leon Hwang wrote:
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -97,6 +97,7 @@
+>  #include <linux/kthread.h>
+>  #include <linux/bpf.h>
+>  #include <linux/bpf_trace.h>
+> +#include <linux/bpf_verifier.h>
+>  #include <net/net_namespace.h>
+>  #include <net/sock.h>
+>  #include <net/busy_poll.h>
+> @@ -10771,7 +10772,8 @@ static const struct bpf_link_ops bpf_xdp_link_lops = {
+>  	.update_prog = bpf_xdp_link_update,
+>  };
+>  
+> -int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
+> +int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+> +			struct bpf_verifier_log *log)
+>  {
+>  	struct net *net = current->nsproxy->net_ns;
+>  	struct bpf_link_primer link_primer;
+> @@ -10784,6 +10786,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
+>  	dev = dev_get_by_index(net, attr->link_create.target_ifindex);
+>  	if (!dev) {
+>  		rtnl_unlock();
+> +		bpf_log(log, "Invalid target_ifindex.\n");
+>  		return -EINVAL;
+>  	}
+>  
+> @@ -10812,6 +10815,8 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
+>  	if (err) {
+>  		link->dev = NULL;
+>  		bpf_link_cleanup(&link_primer);
+> +		if (extack._msg)
+> +			bpf_log(log, "%s\n", extack._msg);
+>  		trace_bpf_xdp_link_attach_failed(extack._msg);
+>  		goto out_put_dev;
+>  	}
 
-Done
+No, this is silly. We shouldn't be spreading bpf_verifier.h includes
+around, and making core networking code use bpf_log().
+
+Add an extack to this API and for the extack -> bpf_log() conversion
+in the caller or some "boundary crossing" helper.
