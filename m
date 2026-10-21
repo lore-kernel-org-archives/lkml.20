@@ -1,63 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792608494;
-	b=XRAVAmozcqkcs6DsAyWatOaIgkC1rrbVejTHnpcOrEYCXGsvG7H7MNZEF+dEBKemjsy+
-	 hJL93xea9D/P2WrjNNolvKD8KP3lwB2epBEudUc0GSP7wSWnHI8Og+u7XOfAMGWhUSn5M
-	 Bt4cXaB7HZKP/3+l5HbN8CYcNIQotCeKRwPFZwfL9BCK3jLki2D103jnVGnZMhI+X0Ua5
-	 rOqt7aRMHErFTxQQVB9D+aorAkiIAi0bmUDkNihQ5aQVCkQu7i3P+6U6N3gpCbl5Utaae
-	 HCE6+9TAEdPAtMJVyuQNGNEYVtAvuqYe14JV+tHJZPRh04dm98nq/fSxr7pfpGZdqhA==
+	t=1792608567;
+	b=2tjx5IAsu2nUHXoSN21XkxiUNvyQmxEtrCKiSYpjgfnTxUWVfi1l2Z4zzEpeLvhRi9Ji
+	 WZJuyN2C4cGYTOJvE8PaI37IBseGG742NC8uaeOTBFgLxoDnVrSIjdKqG3E6oei8z2n9z
+	 oPCebTllvkcJ12lk2O9Kl6EG0FEgkecCB+YMC7D92UqBDJSQ8zxdEJYokAroPovF7lBy3
+	 JDUq/Z+zbhcPKAB2bhM1h6MpabtoCZVHinVomCDvoPKTSmaWzxdXj36Q42itlcVk22KvZ
+	 0Of+J0/Hp0rwmGW4FKzhXTOTNgJGrZG1iBWLn6V+nSra5D3XHjL4XnwTlQtPSZMkQIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792608494;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k41VHhw91SIJ/+9kJ/zui2CNjpfyi/O9zkcP938SdjI=;
-	b=lJQZyCG+dAeEnFeoxRsqz4TWif8s8CJSxTN8xwJNOLRaXSsP6vu5KkEGsy1B2QYyoe97
-	 NkcNG5LrPFGKe6Km0Gjv1m1rC/4k+ksGUAkIzXTSPK83KNkiwXTUhHJKqwPhbkBAqHTgc
-	 P62gV6fKrpIx9RnWzAhXh7AvE76LGBZmFyvHKyBSxBmf2V0gbMX+1I++o4L6LAddTpNll
-	 glM4OzCnXmZaK8eliHcLyxAb9Fm4SkZreDTlcmeAaemrtOtiQ/QS5nSR9ZG7QjJ3Kp0Jj
-	 jT+7CzkpW51xfLyauTyvRvWVXUNzv440gfDIyrUPxVxwcf+f4Mus5NOIkqgg5sQdohw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792608567;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=wq1/fUbSP408+1Q3Fl5D/AoNlkMMVExemigFlptzFc8=;
+	b=oA2gdhFiGByMv9gV9BnsaOd4dOi673deCdx32yT9vqDMS575JbZtDYY6MVX8Xs4uuY0a
+	 Ly+XJiiclLAEOFdgmSneRhxXyCL5kabDd+h7wk7djppdvFwS31ucMwyx+fbZBtvyRkkMb
+	 xYsagEchKBhsDb/B5904rg8GSnbCm4bTzLaZO04gPE5uP/vSoHdlqX4THgjVrhibk6Dy8
+	 wxaBx4n8LZjC25hsBH/qn3h2thwFZ+RrMsfbh7El9m15h6VPIfLTbUXKlDjOUtstdsmsO
+	 PFupqUrMQsDUaytBIaFzzoCJIFZ7mFbSiVk7OjF1/SMdrXafrmcYiS8MLS9XizmRxcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HZ/WHhN8";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cloudflare.com;
+	spf=pass smtp.mailfrom=cloudflare.com;
+	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=MdBgk1We;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D82606A319;
-	Wed, 21 Oct 2026 18:48:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06C9606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:49:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F06C9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZ/WHhN8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B971F000C1;
-	Wed, 21 Oct 2026 18:48:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792608494;
-	bh=k41VHhw91SIJ/+9kJ/zui2CNjpfyi/O9zkcP938SdjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HZ/WHhN8oklwMD0+O3/AocQolDLgMpBdi9zYFcrKNiszSGLT9yf9y8a0kUCCQ+nGx
-	 1pLR6F91DyD/3HKpCV8uQYRKjo63mGAKsyjv39D3zxXcL4oh2Fbqkcjescn7xXfQfU
-	 lvyG/rLzD5t3LMs+4xMTvZKtGJeAsH0ZrWQgbmDZ6+pCwb/1nZ2W5ZmbyQ7+r8BEMi
-	 vinxjzdv6Fr3UYCojbY8hiP1rzJ7n2Q6Peb5STKiMvnDI5ZIy6Brk6zFUZmaM/fzKh
-	 pw5WIjZhPCfwCBeSF/uuwZk1lW+LqQs+Kz8JWMS7dRtB56gCvo9pl7+bC/hyq7qUWz
-	 fJEMRfSCB26jQ==
-Date: Wed, 21 Oct 2026 19:48:12 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Casey Schaufler <casey@schaufler-ca.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>, Hao Ge <hao.ge@linux.dev>, 
-	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH slab/for-next 11/14] smack: specify SLAB_MAY_ACCOUNT for
- smack_rule cache
-Message-ID: <atkEXgQNK05PGTMG@thinkstation>
-References: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
- <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-11-096800aa3330@kernel.org>
- <0aeea80c-e3ac-4b6f-b1c9-ef18ea2964b3@schaufler-ca.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=MdBgk1We
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f48c750afcso715611a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:49:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1792608566; x=1793213366; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wq1/fUbSP408+1Q3Fl5D/AoNlkMMVExemigFlptzFc8=;
+        b=MdBgk1WeXVW4we2m7Lh9XTyYMe6RmHuEhY5hO1EjgclurjFlE6iypVoahcVivZsBoE
+         iaZaWsVH86Plngf8casByA+PbHLI03Tk1oXgxpqfIJRRVXa8YfaBIVpoKjMEVUHNApHL
+         kmFnxEMP/FPsXCnu9LaLhwdJc0HyGlnoKRxOinucl/UkNIT/eLvVJBbjteB9puSTeILY
+         8O8MZ+Ja/Xdak57jSWmPsqN/QA0oIOVzjRTk2CGABSQZcE2t0UOmuC4MDunah1o9XVrV
+         zG4pwnTicZM7eFXOe9ozqpM9CAkTpIy+Wr0lq18lYkcGNnYjylghVZ+OTiY3Ra57LIQq
+         /8Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792608566; x=1793213366;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wq1/fUbSP408+1Q3Fl5D/AoNlkMMVExemigFlptzFc8=;
+        b=s1QNDEWnkHUI3DEoMfEYOpvagcbqxWirS5WkGJyONs/hC2xNw1LSylCouIiqkqVEr9
+         UPEQ5Sl+f8776KUcAAsU5/3nXhwFuGGjy3SEudqBwTbVULyNTncxPIOVsDnDBY3LqL9g
+         krqlBJM8wuxM5IMfyynqJvqeLnqcuI9ektLsueYQNwCkZBgNwjdEgDReZmKu625ZhbFO
+         owJgMB3TTb4dlp8yzvvb0mCj0fGz27OWZr20Xy7OszDnMafq4gRmFqLKCZYnuqwdJVGK
+         sXe3wQtzXeHPS0ZS8Gu6/eQ1IWH4oX/cNDw/IAoGTTRYuynEKCV5zgoBtKoBREI7slE2
+         NYIw==
+X-Gm-Message-State: AFq9FYKNc7sdthmPXLkHISQpm3BWGNpMrOys215bifcRYCQkHqyh9yM9
+	3CrJeURg+xAsOiRMgsG7fSo9MPdDZQgJJo6NxqF7CYHthu+oU6HOUWhzSPDuUrxSf3Q=
+X-Gm-Gg: AYBFou3WRSPCADNyXtXRfPt7WiFTIE/95aVflJ7Y3Jp32B/pimp/J+31cZJlorawqWS
+	Zu5XPb8b/w/AMKHiKBeWy4fNdu1kuDmBT9HYbNAroEWEUAQmw4yYbaMCBwhjzFyhiuAUf22DQAL
+	4vksQYDgdgBWiAmoBOMYYwqMwO6dMIxjsaMCdeEEfstNfHYt3UkEiNQgKpJjOPQd721+PQaMSt9
+	eNbbYL5vSEPMpuAf/WbjEalIGeqGTFqjCY131gL38Ms2ukQ1q2OMHC2mV+4TQWY9jcEitwvGrFY
+	NsH0MY90pp/iYRknPGmKBDUlmYdcr9hhf5xayOJD2ahU7qhgwmr1+W7gcDR9Nzc8/X3iEqDYghm
+	4YiSZI7LPi8vjE5Z4E/zauRrZ3ohqQ/RwZjiHWuxonRW61zTNSK+FxdKE3xRsneDi9lMPFIedF5
+	YSWXkO21Ci/07lGShDkVBYsLL8KROMpi1j+wvnlPMgRc7Vt44LyeAuF87ywX8lpz3BZAcMweeRg
+	3o0JypfijRxdssTpNu1xMeYL2GZQ2maeI32Ok8=
+X-Received: by 2002:a05:6808:1903:b0:4b3:3e1:4a25 with SMTP id 5614622812f47-553559a2395mr2044396b6e.11.1792608565668;
+        Wed, 21 Oct 2026 11:49:25 -0700 (PDT)
+Received: from 20HS2G4 ([2a09:bac6:bf21:15e1::22e:5d])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b583fd57sm2528069b6e.8.2026.10.21.11.49.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 11:49:24 -0700 (PDT)
+Date: Wed, 21 Oct 2026 13:49:21 -0500
+From: Chris Arges <carges@cloudflare.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>
+Subject: Re: [PATCH net v4 0/7] more virtio-net csum hardening
+Message-ID: <atkJMTj3aGMrXmY8@20HS2G4>
+References: <cover.v4.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,140 +105,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <0aeea80c-e3ac-4b6f-b1c9-ef18ea2964b3@schaufler-ca.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cover.v4.git.mst@redhat.com>
 
-On Wed, Oct 21, 2026 at 09:59:15AM -0700, Casey Schaufler wrote:
-> On 10/21/2026 4:46 AM, Harry Yoo (Meta) wrote:
-> > smk_copy_rules() allocates rules with the gfp passed from
-> > security_prepare_creds(), which is GFP_KERNEL_ACCOUNT. Specify
-> > SLAB_MAY_ACCOUNT when the object may be charged to a memcg.
-> > __GFP_ACCOUNT without SLAB_MAY_ACCOUNT will not be allowed.
-> >
-> > Path: fork() -> copy_creds() -> prepare_creds()
-> >   -> security_prepare_creds(GFP_KERNEL_ACCOUNT) -> smack_cred_prepare()
-> >   -> smk_copy_rules() -> kmem_cache_zalloc(smack_rule_cache)
-> >
-> > Assisted-by: LLM
-> > Cc: Casey Schaufler <casey@schaufler-ca.com>
-> > Cc: Paul Moore <paul@paul-moore.com>
-> > Cc: James Morris <jmorris@namei.org>
-> > Cc: "Serge E. Hallyn" <serge@hallyn.com>
-> > Cc: linux-security-module@vger.kernel.org
-> > Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+On 2026-10-21 03:50:20, Michael S. Tsirkin wrote:
+> v4 and I'm pretty tired of this family of issues.
 > 
-> How was this change tested?
-
-From the cover letter:
-> Each tested cache was verified with the warning in patch 13:
-> I confirmed that 1) the warning is triggered without the conversion,
-> and 2) specifying SLAB_MAY_ACCOUNT resolves it. However I could not test
-> io-pgtable_armv7s_l2 and sun50i's pt_pool caches due to lack of the
-> hardware and emulation support. So they are compile-tested only.
+> Willem suggested more cleanups, but I don't think I will
+> be able to dedicate much more time to this, there's a pile of
+> fixes I queued that need to get tested and go into rc2, and a bunch
+> of qemu features that need review.
 > 
->   cache                  tested  environment
->   ---------------------  ------  -----------------------
->   radix_tree_node        yes     x86
->   maple_node             yes     x86
->   buffer_head            yes     x86
->   skbuff_head_cache      yes     x86
->   fanotify_*_event       yes     x86
->   smack_rule             yes     x86
+> Hopefully if any changes are required this can be done by patches on
+> top, or if someone wants to take over this, very welcome.
+> 
 
-Good, this can be reasonably tested.
-Let me write down instructions to replay this testing.
+Happy to help if needed.
+Again, I was able to test this patchset minus the UM portions and verify
+that it fixes my tests.
 
->   io-pgtable_armv7s_l2   no      compile-tested only
->   thread_stack           yes     ppc64le (64K pages)
->   pgd_cache (arm64)      yes     arm64 (64K pages)
->   PGT_CACHE (powerpc)    yes     ppc64le
->   PCI_DMA_*_tables       yes     s390x (zPCI + vfio)
->   hostfs_inode_cache     yes     UML
->   sun50i pt_pool         no      compile-tested only
+--chris
 
-# Pull the b4 branch from git.kernel.org and configure the kernel
-
-$ git clone -b b4/memalloc-prof-dont-waste-slabobj-ext-metadata \
-      https://git.kernel.org/pub/scm/linux/kernel/git/harry/linux.git smack-repro
-$ cd smack-repro
-$ make defconfig kvm_guest.config
-$ ./scripts/config -e MEMCG -e SECURITY_SMACK -e DEBUG_VM -e FUSE_FS -e VIRTIO_FS -e VIRTIO_MMIO
-$ make olddefconfig
-
-# Create a script to run in a VM
-$ cat > repro.sh << 'EOF'
-#!/bin/sh
-mountpoint -q /sys/fs/cgroup || mount -t cgroup2 none /sys/fs/cgroup
-echo +memory > /sys/fs/cgroup/cgroup.subtree_control
-mkdir -p /sys/fs/cgroup/test
-echo $$ > /sys/fs/cgroup/test/cgroup.procs   # non-root memcg; root is not charged
-mountpoint -q /sys/fs/smackfs || mount -t smackfs smackfs /sys/fs/smackfs
-echo 'foo bar rwxa' > /sys/fs/smackfs/load-self2
-sh -c :   # fork -> prepare_creds -> smk_copy_rules(GFP_KERNEL_ACCOUNT)
-echo "WARN count: $(dmesg | grep -c 'WARNING:.*__memcg_slab_post_alloc_hook')"
-dmesg | sed -n '/cut here/,/end trace/p'
-EOF
-
-# Revert this patch, build the kernel, and test
-
-$ git revert --no-edit HEAD~3 # Revert "smack: specify ..."
-$ vng --build
-$ vng --user root -a lsm=smack -- sh repro.sh
-WARN count: 1
-[    1.178905] ------------[ cut here ]------------
-[    1.178913] WARNING: mm/memcontrol.c:3627 at __memcg_slab_post_alloc_hook+0x4a0/0x7b0, CPU#11: sh/434
-[    1.178922] Modules linked in:
-[    1.178925] CPU: 11 UID: 0 PID: 434 Comm: sh Not tainted 7.3.0-rc1-virtme-g121988b3e78d #3 PREEMPT(lazy)
-[    1.178928] Hardware name: Bochs Bochs, BIOS Bochs 01/01/2011
-[    1.178929] RIP: 0010:__memcg_slab_post_alloc_hook+0x4a0/0x7b0
-[    1.178932] Code: 86 e2 e3 ff e9 2e fe ff ff e8 7c a3 e3 ff 48 8b 53 10 f6 c2 03 0f 85 53 02 00 00 65 48 ff 0a e8 66 e2 e3 ff e9 52 fc ff ff 90 <0f> 0b 90 e9 ff fd ff ff 48 81 c3 bc 00 00 00 48 8b 0c d8 4c 8b a1
-[    1.178933] RSP: 0018:ff7dde988181bbf8 EFLAGS: 00010246
-[    1.178935] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ff4f87a042e55d00
-[    1.178936] RDX: 0000000000400dc0 RSI: 0000000000000000 RDI: ff4f87a041828b00
-[    1.178937] RBP: ff7dde988181bc80 R08: 0000000000000001 R09: ff7dde988181bc80
-[    1.178938] R10: 0000000000000000 R11: ff7dde988181be90 R12: ff4f87a045b600c0
-[    1.178939] R13: 0000000000000000 R14: ff4f87a04b95dc08 R15: ff4f87a041828b00
-[    1.178943] FS:  00007f5efb4e0780(0000) GS:ff4f87a0de940000(0000) knlGS:0000000000000000
-[    1.178945] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    1.178946] CR2: 0000555ab8c2dda8 CR3: 000000000594e006 CR4: 0000000000771ef0
-[    1.178947] PKRU: 55555554
-[    1.178948] Call Trace:
-[    1.178950]  <TASK>
-[    1.178951]  ? srso_alias_return_thunk+0x5/0xfbef5
-[    1.178955]  ? __memcg_slab_post_alloc_hook+0x517/0x7b0
-[    1.178957]  kmem_cache_alloc_noprof+0x3ac/0x3e0
-[    1.178960]  ? smack_cred_prepare+0x84/0x180
-[    1.178964]  smack_cred_prepare+0x84/0x180
-[    1.178966]  security_prepare_creds+0x49/0xa0
-[    1.178970]  prepare_creds+0x168/0x280
-[    1.178974]  copy_creds+0x25/0x130
-[    1.178976]  copy_process+0x6d4/0x2830
-[    1.178981]  kernel_clone+0xd5/0x420
-[    1.178984]  __do_sys_clone+0x65/0x90
-[    1.178987]  do_syscall_64+0xda/0x4b0
-[    1.178992]  ? srso_alias_return_thunk+0x5/0xfbef5
-[    1.178994]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    1.178996] RIP: 0033:0x7f5efb5d30e8
-[    1.178998] Code: 7d e0 e8 2b 58 f5 ff 45 31 c0 31 d2 31 f6 64 48 8b 04 25 10 00 00 00 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 70 41 89 c4 85 c0 75 31 64 48 8b 04 25 10 00
-[    1.178999] RSP: 002b:00007ffce2898640 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
-[    1.179001] RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f5efb5d30e8
-[    1.179002] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
-[    1.179003] RBP: 00007ffce2898660 R08: 0000000000000000 R09: 0000000000000000
-[    1.179003] R10: 00007f5efb4e0a50 R11: 0000000000000246 R12: 0000555aad43184c
-[    1.179004] R13: 00000000ffffffff R14: 0000000000000000 R15: 0000555ab8c37740
-[    1.179007]  </TASK>
-[    1.179008] ---[ end trace 0000000000000000 ]---
-
-# Revert the revert and run the same script in a VM
-
-$ git revert --no-edit HEAD
-$ vng --build
-$ vng --user root -a lsm=smack -- sh repro.sh
-WARN count: 0
-
-Hope this helps.
-
--- 
-Cheers,
-Harry / Hyeonggon
+> ------
+> 
+> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+> others, credited below, found more ways the bug can affect users):
+> 
+> allowing untrusted hardware to specify csum start/offset for
+> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
+> outside the actual checksum, and depending on the setup, the networking
+> stack could be looking at the packet both before and after the edit, and
+> seeing different results.
+> 
+> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
+> completing checksum") validated all known instances where this
+> causes the most grief, but the real fix is to make sure
+> that either only actual checksum fields are ever edited,
+> or the checksum is completed before the net stack looks at it,
+> so it is always consistent.
+> 
+> 
+> This basically goes back to
+> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
+> except in a narrow list of specified known good cases.
+> 
+> 
+> Summary of the patchset:
+> 
+> These are probabably net material (and seem to be too big for stable,
+> or I would recommend backporting there, too):
+> 
+>   net: account for ingress-resolved virtio net hdr state
+> 	- accounting, not the fix itself, dependency of the fix
+>   um: vector: trim skbs before verifying the header
+> 	- fixes the um receive path: without it the checksum would be
+> 	  completed over the unreceived tail of the buffer
+>   virtio_net: parse tunnel csum_start little-endian
+> 	- bugfix, a dependency of validating the header
+>   net: resolve uncommon partial checksums at ingress
+> 	- fix itself
+>   net: add a sysctl to opt out of virtio net hdr checksum validation
+> 	- reducing risk of the fix by adding a sysctl to disable it
+> 
+> These are cleanups, can be deferred to net-next, too:
+> 
+>   net: add ip4_parse()
+>   virtio_net: cleanup protocol calculation
+> 	- cleanup resulting code duplication
+> 	 (kept separate to simplify backporting)
+> 
+> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> 
+> Changes since v1:
+> 	- reorder patches to fix bisectability, addressing
+> 	  a comment by Björn Töpel.
+> 	- code refactoring, different patch splitup,
+> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
+> 	- fix a bunch of minor issues spotted by LLMs
+> 
+> 
+> Changes since v2:
+> 
+> virtio_net: parse tunnel csum_start little-endian
+>   - new patch. correctly parsing the header is a dependency
+>     of validating it, otherwise i do not know what to validate
+> 
+> net: account for ingress-resolved virtio net hdr state
+>   - make rx_csum_sw counter 64 bit so it won't wrap
+>     (spotted by LLM review)
+> 
+> net: resolve uncommon partial checksums at ingress
+>   - tunnel fixes to bugs noticed by Willem de Bruijn and
+>     Chris Arges
+>   - restore the csum_offset checks as suggested by Willem
+> 
+> net: add a sysctl to opt out of virtio net hdr checksum validation
+>   - the knob is no longer writable by root inside a user
+>     namespace: changing it now requires capable(CAP_NET_ADMIN)
+>     suggested by Willem de Bruijn
+> 
+> net: add ip4_parse()
+>   - comment converted to kernel-doc format (Willem de Bruijn)
+> 
+> um: vector: trim skbs before verifying the header
+>   - new patch, found by code review
+> 
+> 
+> Changes since v3:
+> 
+> net: account for ingress-resolved virtio net hdr state
+>   - um: vector: honor virtio net hdr conversion failures
+>     folded in (Björn Töpel)
+>   - count on tap and virtio_net, too (Willem de Bruijn)
+> 
+> net: resolve uncommon partial checksums at ingress
+>   - walk the frame on loopback, too: loopback_xmit() runs
+>     eth_type_trans() on it (Willem de Bruijn)
+>   - return the mismatch handling directly, GSO is implied in
+>     the tunnel path so drop there outright, and fold the helper
+>     into its one remaining caller (Willem de Bruijn)
+>   - read the IP version through struct iphdr (Willem de Bruijn)
+>   - document the ipv6_find_hdr() flags choice
+> 
+> net: add a sysctl to opt out of virtio net hdr checksum validation
+>   - renamed to virtio_net_hdr_validate, in case more validation
+>     is gated by the same knob later (Willem de Bruijn)
+>   - point .data at the value like the neighboring entries,
+>     the per-netns registration rebases it, and the handler reads
+>     the value directly - no ctl_table copy (Björn Töpel,
+>     Willem de Bruijn)
+>   - check the opt-out before parsing: with the knob off, packets
+>     the parser cannot handle were still dropped (Willem de Bruijn)
+>   - include virtio_net.h in net/core/dev.c so the static key
+>     definition sees its declaration (build warning reported by
+>     Jakub Kicinski)
+> 
+> net: add ip4_parse()
+>   - add the missing kernel-doc Return: section
+>     (Jakub Kicinski)
+> 
+> Tested: full suite on the final tree, tunnel included.
+> um part compiled only.
+> 
+> 
+> Michael S. Tsirkin (7):
+>   net: account for ingress-resolved virtio net hdr state
+>   um: vector: trim skbs before verifying the header
+>   virtio_net: parse tunnel csum_start little-endian
+>   net: resolve uncommon partial checksums at ingress
+>   net: add a sysctl to opt out of virtio net hdr checksum validation
+>   net: add ip4_parse()
+>   virtio_net: cleanup protocol calculation
+> 
+>  Documentation/admin-guide/sysctl/net.rst |  19 +++
+>  arch/um/drivers/vector_kern.c            |   6 +-
+>  arch/um/drivers/vector_transports.c      |   4 +-
+>  drivers/net/ipvlan/ipvtap.c              |  36 ++++
+>  drivers/net/macvtap.c                    |  36 ++++
+>  drivers/net/tap.c                        |   8 +-
+>  drivers/net/tun.c                        |  41 ++++-
+>  drivers/net/virtio_net.c                 |  14 +-
+>  include/linux/if_tap.h                   |   1 +
+>  include/linux/ip.h                       |  30 ++++
+>  include/linux/virtio_net.h               | 279 ++++++++++++++++++++++++++++++-
+>  include/net/netns/core.h                 |   1 +
+>  net/bridge/br_netfilter_hooks.c          |  15 +-
+>  net/core/dev.c                           |   7 +
+>  net/core/net_namespace.c                 |   1 +
+>  net/core/sysctl_net_core.c               |  50 ++++++
+>  net/ipv4/ip_input.c                      |  13 +-
+>  net/ipv4/netfilter/nf_reject_ipv4.c      |  13 +-
+>  net/packet/af_packet.c                   |   4 +-
+>  19 files changed, 533 insertions(+), 45 deletions(-)
+> 
+> -- 
+> MST
+> 
