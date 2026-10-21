@@ -1,107 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792586914;
-	b=4jYSb3g1eW/SfMG5V1Ew5NP86T+RPddo60nX+qGj/JZcaAkkobMXP5hKNCTTuhbIwjnW
-	 cwj+dhXyTINEWgVA6eAQ96vridOd9PGFVvGQHjXCpteFgSqERwRdA3B1I6mF5GuxRAjHF
-	 Ecar0K6QAJCDQsLpmU/gqzTkUzhRi1e7PZziheqCPMpk0otInP3Ky7LkPQxOLnDYZlRmW
-	 plYK1BPqM3Rn10zKiygMvWqoF/ep4pEVT5WR7vpnb+j3eZQzxiEGHS9ppaObX8DjKj4mb
-	 N9WjIFDzqtRwl07UFJGLzlpG8cMrjobdPrO2hn1WLSHfOEz9HcuaEdqvmmN8JyhoXvA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586914;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=jUm/2BR6ze1rcECKH1J15rNzpuOX+gPscXt8OLTMYMc=;
-	b=0sis2T0dgJHbQYVxOJToYye5NxgjkUyiQKwfCUhG1H7lPwy6BbNiMd7KJlzN//M+5A4j
-	 6aih7UN98HnWJ5LYng/4qHsNceglbcNGhjExE+Nk9LUjnHt0FIHsINncUSwOMusTVYWQm
-	 dz9LhcVwHyC2TkTcusZNi1lh0/PQ+LsvAxHqlxaJgD8aHXvu/Ice6mnK7xxCfhftwfMRL
-	 Mhn5MUglU8GVXIxlHlnEx0nOX0RBO5nfA8dp7wc7xVEYjTd6aXe9q/tF41CTSZTxo2POH
-	 DEbfOf8cxFLDNduI8jb/IIMBQ39Rf5r6fOsOc/Uw5TZSrz/SDkC4S6Jy8ef2glGbI3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Soe0+LCc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792586991;
+	b=V+ZbeJcjWm5nsWK/tCnQJqaMFCtUX8SPGnR7xfJW7Eq5howFL+ll1KeZxy/hHUBaqYKX
+	 HPU4exOUqmw4m9Qj7cVsSyCrgHpErcCzjNziAWIVgsKc6k+FCxHDZB+m0UZYz/XkSCAL7
+	 E2dL8x3ThKxNWGnD8ne2I9JACDf2agVBE3TZxUMb3spxihbB/6EVzBi+jY04I1X0uzCIU
+	 0LiPFVcs75KMN0avg7rq5NNkwKdXiSmcw0rMusP9YLmTAw+TcRje6tY8YbL/qm2uelmY9
+	 T3nre95wj3e/TcZmSNO7p48SPPaxPTEdMedFAT4tq/dVc1tkSNGY0WPxWV0xlOKKOjA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586991;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=lfnYZLKIiZVXPHMfsSfYR3WNLa/4FyJKqBCOhOsvSoQ=;
+	b=pXx0E8Hfqpk+H3+BqzFvsf+B0ydC0g2Uyfm/8taiPVz4cjyeEjUL9kttbM67Jk6hZqF6
+	 3VugygtcIoIzy16ljadZHAjzizmEMYRP3JU+O46Kwby/xIfB4VcLq5X6hJVtg7WBo+LW/
+	 VOlwrR1+NishIAQmb/POC6YqTFCYZ7Ppms5EW7qedhxGmUFFSLG1XfwSfCREq/HRdecN8
+	 QxL2Rj2wnME9Slkj2BPMYN6/o+uqzVF/wZn+KFHOqbG61Rppi3KqGgPVZ+kKvhKqwjMYr
+	 MZkZNEMnX4VHaF4BS9cJqm2zgh51uIEW+ERPEesc/1PADQ0U+QQ6hNjYIWuJOfsJ4ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="c/2LEONi";
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD7B606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:48:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FD7B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7C3606A319;
+	Wed, 21 Oct 2026 12:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C7C3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Soe0+LCc
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b9e758c50so8848716d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:48:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792586912; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QHQrEtK0S7qJBT6YDbheDccvD7Bt8YSkKbd7FFJgJd/wh+AvWl4AfEuAO8DPgPMLYD
-         d53A2zt0i9LwehFKpixcWKyBVBzohad4eIr4K6k/4bkb5qIBvZckPhFgi1QAs9F+8grq
-         wiSXV6FSp3JZuZ0KKqLLYexxS+qhk2Kz7kxFqWEh1aw0a+cZv2e5zCE6xGeR0kCnCTCy
-         qx5mv1KX/qD5VzSdsXjBEIbZMTxPEApf4WXNwjZY3E/C6sWOwo/661i+LkF3sJJUWXK3
-         W1IedO/L1RGQWiVxqRSV36WTnReVIGx/6XkNq6wSWv7HITMyFWMIZ1O/XEDWH3yky1GZ
-         epIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=jUm/2BR6ze1rcECKH1J15rNzpuOX+gPscXt8OLTMYMc=;
-        fh=RyFWEG0k25P1sx3ogHP9i4iYBOVNtKARpgn16zKVyOU=;
-        b=SPAzROXR6NaiaDkwe0flSbjxQNMBr1Rd2B9nHWqbaih/TmvRZcqFoGervCEJrVQDua
-         D04jV2DTRPHXQi4VFDXb6RI1uA3zyMqYTO2DHoCyenVNykD6r7fjFGs9i+KOEhJemqUV
-         5iMAyRe5GaEdxDQj8LrqPkj8uYju0QeQ86dLwYpU15AW5307ZzFAcpNDLkaDUoLXw5nz
-         bNXheOGyFXrzckK0fZrPukTKLoXPlzgQJtNhsBOHp/IBp25f8wjPNh9hcrRQbJIc+GcK
-         Oqx8OzgvSujvmfxpN4NABmrXwTx8t6v/P530cab0Bs19sQYUQilBRf3KmAts98DNZ8CT
-         6rnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792586912; x=1793191712; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jUm/2BR6ze1rcECKH1J15rNzpuOX+gPscXt8OLTMYMc=;
-        b=Soe0+LCco3Pw35ipiXqjfCaEI3OPNtN4FImHef2F4TBwHhHt1OPZLaIGg2oLlYR0eX
-         GHQYL+ORtH1KKwLeh6zCvzlwOX2ELQEGGfy5PuLOMAvVbYCqUIjAMuy7L/9Q8tnyEGaw
-         gcmE9FN2C3ZwkuQVXLnfKLHMPz0c93IoHmQ69SG9F28TB3qxKkD2t7ilDLZjDA77OZmG
-         Y4pgvbIN7ULCF7fh3NUZ0hFwmLz0TK7F2FtLXhef+UuUadT46HoDgugfl0binsR+a7Fd
-         ATe/jpzKWMldv/C3mpEm8CRURgo906zNu4VbGhwNUkXLmravANdGrJqJ6Mw419nbOkZR
-         NTzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586912; x=1793191712;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jUm/2BR6ze1rcECKH1J15rNzpuOX+gPscXt8OLTMYMc=;
-        b=ap6A9BuQq73cgl9minEzS1NBU6fIQrh7r8ntxznNHd7eIE2IG/sG7YRlfaNhrKpbe1
-         KeH4110R0tZqv4ugQHz+yfDL0rfFpENCeJXhkF5QN/1pttzvBnnq+MbWK4Lzv1OMVC6u
-         bPQEwbOhOZIyptTTNkXAQcndc+sJ2W37q87h2+ZrmM2N/T6hlGjEKniWUkZZU0Ph+pc+
-         Nh9MxXi95iXwgSLucKMpVF0MzPLKFTQIxUuv7CdMB0csfZoB6xyYuVD9YGgblbfji/kO
-         6zJrhxmeGzCf2Z4HRN2suRETHWpObbDSZHlOiV3q5Al4pDhwh0If420KXUb/U5ALgyzh
-         lVqg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+fOuYsS+seR2EBb5/X7C/y2UmxKrrH8a7z8hmeooXfoA5aY7wd0KN8XGhDDsEos21hYWr6PKvbfey/jk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSGVreb8aEmqXWx8LCYC1VenZAaFpiB0Cg/dGbQ1HUNWVar5+O
-	orT2jBZ7SasNDn1Zgd0ML3jPyDeREEMhngggWwR04X0x8xqT5p5QBngtdSlI7QfQP8U4xGHorYx
-	lD2BWz58LoNKZu57EHOzE0hZsEWIoDtWvxj1KnU/8
-X-Gm-Gg: AYBFou1ccDGF4yod/UuC6x52FA97yruq+vLNMXmaAqRi2+ZMUNCZ9x5Z4o6a96Egpja
-	uFQeyN11h2H7KrrmIgKydQ/I4V3KzjyFy6HUYqSOWICFtwSvvQhggcPejGDQvjRxTF2mpTuuCKh
-	u/7eBAxDuMXNCfuynleg8Ymt0bJkrqH6niaYDV3xBEjJ8nFQfeDlScBE9ih9l9CxwDpBuHzcMBv
-	7NiwLG85/XZdCcg7yHG+BoP3I1ls0AnkKYPYcZRUHBPG35c5DvE2jLxgP5q9IInrtaZZODAFH3U
-	g6aClf+6SmjZg7I+0FeuywfwBO0pMh2cNX5vuzEyOdeFapqOd3LDhbydP4GD/KGCqoUfolV0hhE
-	yjY1sj8vcy8IvX6uDQBGvt3oLA4VDDssFY1eL/wQC5R2xK0tqPEW8PRn33Js6PQRa/+YFqBcCnS
-	eFDwFr6xxp9iPB
-X-Received: by 2002:a05:6214:4589:b0:917:a1d0:890c with SMTP id
- 6a1803df08f44-91c056b270amr87924726d6.17.1792586911258; Wed, 21 Oct 2026
- 05:48:31 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 05:48:30 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 05:48:30 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261020131447.122096-2-pbonzini@redhat.com>
-References: <20261020131447.122096-1-pbonzini@redhat.com> <20261020131447.122096-2-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=c/2LEONi
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j8pyX5smMzKnB7;
+	Wed, 21 Oct 2026 14:49:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792586980; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lfnYZLKIiZVXPHMfsSfYR3WNLa/4FyJKqBCOhOsvSoQ=;
+	b=c/2LEONi60z6Kz54vZJJL3DkDd/VneNflB8WzwpZzMxF+lm6XWQWwFGN7Y9x7XCdU62lFq
+	iieAL/UWCA9ebw+oXGyYtmBpdvyA4Gw3vMDGCC/nQY9qnEr3dGExjjp2LZ8mhSh1xGaZqu
+	y1wCAH/47Ojer+whhr1G2oEQpBaiYTgE7pSreffhKRRTikTLs1j1ohn+nN06XZWJLPbQhr
+	kZYCPz2D/pUTCXipUsz2RpX6QZAgJo5tfixMCt8Ta7/7HFsH1hlibyOLYt730jj4/eCqWl
+	1GHHpOfDqk7QgH6BMY4+HBMIrDBvkGGBc6Si5etuCYbWXMONtw4p+1VsRkVtFw==
+Message-ID: <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
+Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Date: Wed, 21 Oct 2026 14:49:34 +0200
+In-Reply-To: <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+References: <20261020100034.759183-2-phasta@kernel.org>
+	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
+	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
+	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
+	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
+	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,43 +96,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 21 Oct 2026 05:48:30 -0700
-X-Gm-Features: AclHuK_Dm1J20mdRZ_zyhTFrFUGVGiUQEI63SZVUaH4uZSxjd5cCfTtyvwhdhPw
-Message-ID: <CAEvNRgF89=xb2t1xAOLZJAE68CuSDW0asYh4n3karuffsnrfdg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] KVM: split CONFIG_KVM_PRIVATE_MEMATTR_VM out of KVM_VM_MEMORY_ATTRIBUTES
-To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: Fuad Tabba <tabba@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Shivank Garg <shivankg@amd.com>, 
-	Yan Zhao <yan.y.zhao@intel.com>, Sean Christopherson <seanjc@google.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MBO-RS-META: 3bmg6dk9gyqm43c5y7c8ggghkg156yj5
+X-MBO-RS-ID: 29c0397ed4351857f79
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
+On Wed, 2026-10-21 at 13:53 +0200, Christian K=C3=B6nig wrote:
+> On 10/20/26 17:36, Philipp Stanner wrote:
+> ...
+> > > > > First of all that prevents concurrent execution of the callbacks
+> > > > > which for a lot of use cases is a must have.
+> > > >=20
+> > > > Currently only set_deadline() can execute in parallel.
+> > >=20
+> > > Especially the is_signaling() callback is executed in parallel by ton=
+s of use cases.
+> >=20
+> > ops->signaled() you mean.
+> >=20
+> > Anyways, only one will succeed at having the fence marked as signaled
+> > anyways, and then all other callers of dma_fence_is_signaled() will be
+> > guarded by the fastpath bit-check (which btw is also broken; but we
+> > want to address that in a different patch. For now my series proposes
+> > keeping the fastpath).
+>=20
+> What should be broken here? As far as I know the signaling path works per=
+fectly fine.
+>=20
+> What we have problems with is the lifetime of things.
 
-> With Linux 7.4 the "private" memory attribute was moved from the VM
-> to the individual guest_memfd file descriptor.  The old semantics are
-> available for backwards compatibility via CONFIG_KVM_VM_MEMORY_ATTRIBUTES.
->
-> However, this ties support for VM memory attributes entirely to
-> a backwards compatibility symbol, which is a problem when adding
-> VM memory attributes other than PRIVATE.  Thus, make
-> CONFIG_KVM_VM_MEMORY_ATTRIBUTES the equivalent of the old
-> CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES, and use a more descriptive name
-> for the private memory attribute.
+The signaled bit is set under lock-protection, fully ordered. Reading
+is just racing. See my other patch series, I linked two bugs that could
+have been avoided if it were ordered.
 
-I see this fits into your other work on adding other VM attributes. I
-thought the plan was to do something like this when the other VM
-attributes get added back.
+Anyways, I was just answering your point. These functions' parallelism
+is unchanged.
 
-> Do this now, instead of waiting
-> for more attributes to come, before distros start adjusting
-> their build configuration.
 
-This is a good point though.
+> > > >=20
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+[=E2=80=A6]
 
->
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
->
-> [...snip...]
->
+> >=20
+> > Nope, I want to protect shared data, which is the signaled-state. Which
+> > is currently a race-condition worked around with RCU (and sometimes
+> > with manually doing the right thing (locking!)) [1], stemming from the
+> > fact that the fence's spinlock is not used consistently.
+>=20
+> The fence spinlock is consistently used for protecting the fence
+> signaling, in other words it always happens with the spinlock held,
+> same for adding callbacks.
+>=20
+> The only thing which happens without the spinlock held is the fast
+> path checking of the signaled and enable_signaling bits and as far as
+> I can see that is ok as well.
+
+No, it isn't. It makes the API fragile.
+
+	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+
+There are certainly more related bugs around.
+
+Also think of the various ordering issues between signaled-bit and ops
+pointer that you and I observed.
+
+> The problem here is not about the state of the fence, but if the
+> callbacks are still executed or not. And that is not a good task for
+> a lock, instead what is usually used for that is a barrier and that
+> is exactly what RCU provides.
+
+Locks are for mutual exclusion. Which is what you want here: you want
+to exclude someone from signaling the fence while you are working on
+it.
+
+Tell me one thing:
+If locking is the wrong approach, then how come it was added to
+literally all callbacks except for set_deadline()? Seems to me that it
+must have solved some issues.
+
+
+>=20
+> > > > > Then as I pointed out before the second problem is that this agai=
+n
+> > > > > makes the existing lock inversion between the signaling by pollin=
+g
+> > > > > and signaling by interrupts even worse than it already is.
+> > > >=20
+> > > > We asked for examples in our last discussions, and the only one eve=
+r
+> > > > presented was the list-access requiring the fctx-lock in
+> > > > nouveau_fence_no_signaling(). Nouveau is often not a good example.
+> > > >=20
+> > > > Can you provide examples in the kernel where deadlock would occur?
+> > >=20
+> > > Just exercise the simple example of a driver supporting both pull and=
+ interrupt:
+> > >=20
+> > > Interrupt: Handler takes lock protecting a linked list, finds fence
+> > > and signals it.
+> > >=20
+> > > Polling: is_signaled is called with fence lock held, can't take list
+> > > lock and so needs to work around that somehow.
+> >=20
+> > signaled() neither needs a list lock nor any other lock.
+>=20
+> I don't think we should decide that inside the framework, this is up
+> to the implementation of the dma_fence backend.
+>=20
+> By taking the lock for the callbacks we just move the complexity of
+> handling from the framework into the dma_fence_ops implementations,
+> and that is something I would *really* like to avoid.
+
+Of course the framework needs to specify exactly what the callbacks are
+about and what the driver should do in them. That's btw why many expect
+Rust to result in often better driver design, because by the type
+system you can define how your API can and cannot be used.
+
+> > It needs to read a sequence number from somewhere, so a u64. And then
+> > it returns true or false to the fence_backend.
+> >=20
+> > The u64 can easily be an atomic. Also ioremaped reads should work
+> > locklessly.
+> >=20
+> > No need for any lock.
+>=20
+> It is perfectly possible that you need to take whatever lock you want
+> to cleanup things. E.g. spinlock for list removal, common lock with
+> the interrupt handler etc....
+
+That's like saying it's perfectly possible that someone will want to
+allocate memory in a callback. Yet we say No, you cannot do that.
+
+>=20
+> That's also why I said that the whole approach with the signaling and
+> enable_signaling callback returning a boolean is broken.
+>=20
+> Instead what we should do is to forward the requests to the dma_fence
+> implementation. And that dma_fence implementation calls
+> dma_fence_signaled() as necessary.
+
+dma_fence_signal() you mean?
+
+I don't get your point. What you wish to happen is already the case:
+
+dma_fence_is_signaled(struct dma_fence *fence)
+{
+	const struct dma_fence_ops *ops;
+
+	if (dma_fence_test_signaled_flag(fence))
+		return true;
+
+	rcu_read_lock();
+	ops =3D rcu_dereference(fence->ops);
+	if (ops && ops->signaled && ops->signaled(fence)) {
+		rcu_read_unlock();
+		dma_fence_signal(fence);
+
+
+
+> > >=20
+> >=20
+> > Where does such a driver-lock need to be held while operating on a
+> > fence, opening the deadlock-path?
+>=20
+> In the interrupt handler.
+
+I don't see that either. In the interrupt you will want to do:
+
+driver_lock();
+seqno =3D get_seqno();
+driver_unlock();
+
+signal_fences_up_to(seqno);
+
+>=20
+> > Note that, as I pointed out many times, all callbacks are already
+> > called under lock-protection. Especially enable_signaling(), and
+> > is_signaled() must be lock-resistant, proven by
+> > dma_fence_is_signaled_locked() existing.
+>=20
+> Yes, but we clearly want to get away from that.
+>=20
+> See the calling order in the interrupt signaling path is driver ->
+> framework.
+>=20
+> While in the is_signaled/enable_signaling/set_deadline path it is
+> framework -> driver.
+>=20
+> The dma_fence framework solved this issue by using a shared external
+> driver provided lock, and that lock is then taken before calling into
+> the backend operations. But we want to get away from that and use an
+> inline lock in each dma_fence.
+>=20
+> So the only two possibilities I can see is to either call the backend
+> without holding locks or force the backend operations to use a
+> lockless approach for their internal handling.
+
+Right now, we do both: call callbacks with a lock *and* force all API
+users to do the RCU dance.
+
+So we have the worst of both worlds.
+
+>=20
+> > Regardless, what I propose would only make a potential difference for
+> > *new* users, with inline-lock, who can then cleanly design to avoid
+> > locking problems.
+>=20
+> Yeah, but I'm desperately trying to avoid the complexity of using a
+> lockless approach in the driver implementation.
+>=20
+> Just take a look at amdgpu_fence.c and how complex the RCU handling
+> there becomes because of this issue here.
+
+AFAICS amdgpu only uses ops->enable_signaling(), and there it does
+exactly what I would have expected: register a timer who will see the
+fence gets signaled.
+
+As I said, no reason to do list accesses like nouveau. That's just the
+driver being misdesigned.
+
+Interestingly btw amdgpu's ops->release() does a call_rcu() to free the
+fence.
+
+You do agree with me that our API being usable like this:
+
+dma_fence_signal(f, err);
+dma_fence_put(f);
+
+would be robust and desirable, don't you?
+
+>=20
+
+[=E2=80=A6]
+
+>=20
+> And I still think that this is the simpler and especially more defensive =
+approach.
+>=20
+> The dma_fence framework should not leak it's internal lock anywhere exter=
+nally and that includes calls into the backend operations.
+>=20
+
+Calling a callback while holding a lock is not leaking the lock. It's
+sometimes necessary. All fence callbacks are being called under lock
+protection, for the same reason as I propose here: prevent the fence's
+state from changing while they execute.
+
+
+P.
