@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792570200;
-	b=HDlj0ENXXdcpYvQecE0NSFRUnMwUBlB8xvVQqbg5dYzjfJrKzaJpHaQ2vUufnbfsU9PV
-	 4izF5SPRLLpX8qde03xJ3oSdKnE/VVLjSsFU2dL1FIo0bnb4+rnM04OWHxF3BIKOcrdPN
-	 A6hpRuXk/hKU1kcWTE6LaS0mkSbwGGutAJ7+vFCLI3lyKEgI7z/62PycRY4KObfHx60HZ
-	 jQfyqAdFDNyM+5j5/b8XSGHcQP4LatMnMHR17ETXPMRnHHadUP3SQb3NkACqeZ3QjR16e
-	 JgYttScDq9WXk5SQaEmv2v4vjfAYYdbwzkOww1WF+8QP7GZHtBB3rvJdFzAat1edaWQ==
+	t=1792570198;
+	b=LM2w2nMCqM3GMqgfmZJCVIPySdDRd+7EMTqDNddJbizpIZ9Dm+sXi4nC7HoMLKt5E5/L
+	 k0Z5rtFOvKIBlStA8X47N81kj2Uk3i7sYtGUUe9pTQCiC6A200AyivyM9IAZ6oiT5+iwC
+	 mcZDlWkeheH2G0bzXsPeC0a2faznlDXX+HyCjRgNIghnAwTlA8RbMBrsh6FwoYgpCpTcZ
+	 RrHPQ/Z1+leq2XZuOLux721Qpv4xj3FddTuzTsaLlRw9PR+4z7oNsU3IWPBn3SQr4aOEe
+	 cYEz+4dUpRirjk2fVpznkXySS0l4c5aJuxpHdmjyf8pX5DPkc0TWC9y90TmzUAIAPWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792570200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792570198;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=km6joHkwcxH7CACYh2zbb3xiLfYHLA+77WxK652vDwg=;
-	b=wEM4hkp8lF8m+8l0QOmgl5ruI6pfexVnKjpQ0ssaQ+u4Gw118QPgjMqcU7L1tltuTTtG
-	 793a5KFwKBCeoW7oEU81xmR1CVf0tq0GEE56c0LYonwvPegxUFXxeh2+53pgAVB0Zeu4F
-	 RoRvsgOzw3oW14o+Ei9ICj7M4kN8vsQ/eFqL28S642ZiJHfpj8pZ87lk2yeFzRoZowZj4
-	 bByHMfxG2qmolDRza83T95sGy/cB6KVMCo2yXHPk7leeuTtRgdrkfQEv1cW7HsxI9kH/j
-	 rXfygVXWfNQsD7LZGSh7nq/XQz4jqNs92vD8/o1C6C9vysJVER9BU46hSfJStFrlOmQ==
+	bh=ZAB7/hCKkKAoMIDThIlw5LbxXMZC/TORWW4H4NENksU=;
+	b=bGdJb5e09mB3nEovdN1JZoU6km11sEe3r7dwzjdpnp4hdXZ5/ZHo5jLkJrI/QdELRb/9
+	 NqxzqRMVa5kfteHm7bJ8E2/IzjubdzvgZUlMWLvLuq6w9UHJ893aqpdHC4iP5JDGfn6cA
+	 yMd456ShYizmd3Mx98QQcX/rB28nUuyCf91UOkrrOLpYSMtEkEHSfFMsCTYXfaBQBtBoK
+	 Sua/Wx4TGTOx2pvo+bLgaMgDNzPZBYpKXyyvGpTmmnicG5ZMA0GOfPadP9QYmFt6Wbz73
+	 kud97melDeGEKRfzBcTO+w/kBVtWXVNvJkoEqGqZBMRPOp/5LK3B+fRYh+w2iBd3okw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fM6fAgeh;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EaTH8EjF;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BC9606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:09:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2BC9606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0F3606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE0F3606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fM6fAgeh
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EaTH8EjF
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D477D1A12AD;
-	Wed, 21 Oct 2026 08:09:57 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5BEBA4E4125C;
+	Wed, 21 Oct 2026 08:09:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A8520606E3;
-	Wed, 21 Oct 2026 08:09:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0339D10328D61;
-	Wed, 21 Oct 2026 10:09:54 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 26FEB606E3;
+	Wed, 21 Oct 2026 08:09:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 75F7C10328934;
+	Wed, 21 Oct 2026 10:09:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792570196; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=km6joHkwcxH7CACYh2zbb3xiLfYHLA+77WxK652vDwg=;
-	b=fM6fAgehrLndt57TzGIEIEpR1UIsINEzVwMBNBQr5yVRmpO145/0JiGtSMERL2WLTRdRXN
-	xyl2Xaglj7w9mPTC3kHUloeMZ7cm42ldkMAImlyaTVg31l9nSKtVHjiDGKExCbVqv4+hzp
-	UESISZau6NB0FkcDLgm+HJ/xOB+DM5xXzJXQZL1DJkKqSF9LGqOod1wvGhjWyAAGvfazr8
-	/kRFVb6TeKGjzda278kNQbXkcLN8RtFqPY9UzYngXdWO1M+EdrjprbiB5mFVxrxasNSELG
-	WLTJFrX45UEzPFGYSITDYFqe4J0/jAAS8Ej+6TTAMwpN/IVObtKJW4fA1tdmWg==
+	t=1792570192; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=ZAB7/hCKkKAoMIDThIlw5LbxXMZC/TORWW4H4NENksU=;
+	b=EaTH8EjFazQqArMqLY4HQgSKLw5UTigyedzb/yLfJdgfm1IitqfbT6GmAplaOonaoTKPNx
+	E8YmCNLQsrWoPu9xBjqIGJeWvraAt4xi/TxsyEMgDz16lIC7vuA+SFwgtP3MQ47Hw/ULXw
+	nk3zpWM7bQ7/ZtiC/dqiZ4+IGNm2mu3EMiK4bh4jj2HlmSLEArLslt0t2f8PGfzRh3+J+w
+	CgF7wel8SHo8HrAWsZqZTPqA2SyPuC7XwmB8jIqbr0/CD+56fWY0NXDUu4QA/x3e18roYG
+	LT/KXyQNhqXHVg/YBNEbSZ+H3rETKO/sf2dVufO/kQy1lG9UGHuOiWE+5BHqCQ==
 From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>
@@ -67,12 +66,10 @@ Cc: Tero Kristo <kristo@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Richard Genoud <richard.genoud@bootlin.com>
-Subject: [PATCH v5 2/6] remoteproc: k3: skip mapping firewalled lpm-metadata memory region
-Date: Wed, 21 Oct 2026 10:09:43 +0200
-Message-ID: <20261021080947.3747284-3-richard.genoud@bootlin.com>
+Subject: [PATCH v5 0/6] dts: ti: k3-j7: Reserve memory for LPM metadata
+Date: Wed, 21 Oct 2026 10:09:41 +0200
+Message-ID: <20261021080947.3747284-1-richard.genoud@bootlin.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261021080947.3747284-1-richard.genoud@bootlin.com>
-References: <20261021080947.3747284-1-richard.genoud@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,81 +82,80 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The region lpm-metadata is firewalled by TIFS on Jacinto devices, so it
-should not be mapped to prevent speculative access crashes
+For TI Jacinto SoCs (J7200, J721S2, J784S4, J722S, J742S2) which support
+low power modes, a chunk of memory is reserved for LPM metadata, needed
+for saving ATF context and the certificate information of ATF and OPTEE
+and the DM image. This LPM metadata area is firewalled to be accessed
+only by TIFS.
 
-Just skip this memory region during initialization.
+At boot time, U-Boot R5 SPL copies the DM image into this memory region
+so that it doesn't have to be reloaded from storage at resume, speeding
+up the resume time.
 
-Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
----
- drivers/remoteproc/ti_k3_common.c | 36 +++++++++++++++++++++----------
- 1 file changed, 25 insertions(+), 11 deletions(-)
+U-Boot R5 SPL/TIFS use this area to save and restore:
+- ATF context
+- ATF certificate information
+- OPTEE certificate information
+- DM image
 
-diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
-index 3cb8ae5d72f6..baebb5de56f8 100644
---- a/drivers/remoteproc/ti_k3_common.c
-+++ b/drivers/remoteproc/ti_k3_common.c
-@@ -471,7 +471,7 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
- 	struct device *dev = kproc->dev;
- 	struct device_node *np = dev->of_node;
- 	int num_rmems;
--	int ret, i;
-+	int ret, i, j;
- 
- 	num_rmems = of_reserved_mem_region_count(np);
- 	if (num_rmems < 0) {
-@@ -501,30 +501,44 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
- 		return -ENOMEM;
- 
- 	/* use remaining reserved memory regions for static carveouts */
--	for (i = 0; i < num_rmems; i++) {
-+	for (j = 0, i = 0; i < num_rmems; i++) {
- 		struct resource res;
-+		const char *region_name;
- 
- 		ret = of_reserved_mem_region_to_resource(np, i + 1, &res);
- 		if (ret)
- 			return ret;
- 
--		kproc->rmem[i].bus_addr = res.start;
-+		ret = of_property_read_string_index(np, "memory-region-names",
-+						    i + 1, &region_name);
-+		/*
-+		 * lpm-metadata is a firewalled region accessible only by TIFS.
-+		 * Skip mapping it to avoid speculative access crashes.
-+		 */
-+		if (!ret && !strcmp(region_name, "lpm-metadata")) {
-+			dev_dbg(dev, "Skipping firewalled memory region %s %pR\n",
-+				region_name, &res);
-+			continue;
-+		}
-+
-+		kproc->rmem[j].bus_addr = res.start;
- 		/* 64-bit address regions currently not supported */
--		kproc->rmem[i].dev_addr = (u32)res.start;
--		kproc->rmem[i].size = resource_size(&res);
--		kproc->rmem[i].cpu_addr = devm_ioremap_resource_wc(dev, &res);
--		if (IS_ERR(kproc->rmem[i].cpu_addr)) {
-+		kproc->rmem[j].dev_addr = (u32)res.start;
-+		kproc->rmem[j].size = resource_size(&res);
-+		kproc->rmem[j].cpu_addr = devm_ioremap_resource_wc(dev, &res);
-+		if (IS_ERR(kproc->rmem[j].cpu_addr)) {
- 			dev_err(dev, "failed to map reserved memory#%d at %pR\n",
- 				i + 1, &res);
- 			return -ENOMEM;
- 		}
- 
- 		dev_dbg(dev, "reserved memory%d: bus addr %pa size 0x%zx va %p da 0x%x\n",
--			i + 1, &kproc->rmem[i].bus_addr,
--			kproc->rmem[i].size, kproc->rmem[i].cpu_addr,
--			kproc->rmem[i].dev_addr);
-+			j + 1, &kproc->rmem[j].bus_addr,
-+			kproc->rmem[j].size, kproc->rmem[j].cpu_addr,
-+			kproc->rmem[j].dev_addr);
-+		j++;
- 	}
--	kproc->num_rmems = num_rmems;
-+	kproc->num_rmems = j;
- 
- 	return 0;
- }
+https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
+
+NB: Unlike for Sitara, this memory region is not part of the DM memory,
+which is not retained across suspend, so the Sitara binding can't be
+re-used here.
+
+Patch 1 adds a new binding for this layout.
+Patch 2 skips the firewalled lpm-metadata memory region
+The other patches add the memory region for the TI Jacinto SoCs (J7200,
+J721S2, J784S4/J742S2, J722S)
+
+Changes since v4:
+- rebase on v7.3
+- move J784S4/J742S2 carveout before optee and factorize it in
+  k3-j784s4-j742s2-ti-ipc-firmware-common.dtsi (suggested by Udit)
+- use dedicated printk format %pR for dev_dbg() log
+Link to v4: https://lore.kernel.org/lkml/20260921145325.300025-1-richard.genoud@bootlin.com/
+
+Changes since v3:
+- rebase on v7.3-rc4
+- skip mapping the firewalled lpm-metadata memory region
+Link to v3: https://lore.kernel.org/lkml/20260703143717.177362-1-richard.genoud@bootlin.com/
+
+Changes since v2:
+- Split the DTS changes per ipc-firmware.dtsi
+- Reference the LPM carveout through a phandle
+- Add a dt-bindings patch documenting the "lpm-metadata" memory-region
+  name for the Jacinto layout.
+- Use the generic @memory node naming instead of @lpm-memory.
+- Clarify how the DM image is handled
+Link to v2: https://lore.kernel.org/lkml/20260427160326.370415-1-richard.genoud@bootlin.com/
+
+Changes since v1:
+- add specific lpm region for j742s2 and j784s4 instead of the common
+  one since the addresses are not the same.
+- add j721s2 lpm_memory_region
+- change j722s addresse to prevent holes
+Link to v1: https://lore.kernel.org/lkml/20260312113446.1857592-1-p-mantena@ti.com/
+
+Richard Genoud (TI) (6):
+  dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM memory region
+  remoteproc: k3: skip mapping firewalled lpm-metadata memory region
+  arm64: dts: ti: k3-j7200-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+  arm64: dts: ti: k3-j721s2-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+  arm64: dts: ti: k3-j784s4-j742s2-ti-ipc-firmware-common: Reserve
+    memory for LPM metadata
+  arm64: dts: ti: k3-j722s-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+
+ .../bindings/remoteproc/ti,k3-r5f-rproc.yaml  | 18 ++++++++--
+ .../boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi | 12 +++++--
+ .../dts/ti/k3-j721s2-ti-ipc-firmware.dtsi     | 12 +++++--
+ .../boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 12 +++++--
+ ...-j784s4-j742s2-ti-ipc-firmware-common.dtsi | 12 +++++--
+ drivers/remoteproc/ti_k3_common.c             | 36 +++++++++++++------
+ 6 files changed, 80 insertions(+), 22 deletions(-)
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
