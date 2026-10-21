@@ -1,92 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.93
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548301;
-	b=srieKamyluTRac/iBKoR0UOMmaiGpexFGqWuAhecp+TSiVdRiOiK7TD90CumNP9Wgk8S
-	 3DIV0sdEH0YiSmT80s4eXExeMI8LUql1R7G9frMxhRXRMKvRcU+VzS/DrzYrCiP/y2w1a
-	 RBU6W9PRmFjTL6GOjzH9k7SGANpEK1hcL0Wnvla6fHIIfhzL8waEkUqM7rmjS78oachKN
-	 lG0t/htncvMyM6LEu8hom0uP8N2fpHjtfFEOnjHZRrl3IW+uMbWb+wQ3rOeIOUyI+2l6k
-	 JcqLWoyKUqmQLlIAwzy0ir19AiM6GJyuf2gwLqMz1ZUQEVy+Th+CXeyn6SfMKAndcjw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548301;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=zgK2/EbQq4Wko0fal9WMxNMt30UIOgXg5MWzZwgJ9rg=;
-	b=ndUQP7LEsT2hcpOOxzYO4Ic8/Mdcrr0DgKwXiROvr39uXPL455N5RKNCi/jq4L287XMz
-	 8bDJ4EokqtyKsfP2iiGtFKLQLbnvRIlvO9Bi/wtHM+N2ESOx3/RCSsFEAZVBM8PEG16AP
-	 /ngFefPlgHnZpVJpM1ApaEmdQ+S1Fk6gMAwYBDYqEO1OBO6npTbp6IaApSdl8XuElk5Fo
-	 OUMIIsJF+1IzeYY5z7MdZaMQavd9K1FOZepsPJTmoMmuRIZOZnXWrycFpl48WgCRmTQA8
-	 C6LuKblVwQ090DlOf0d5zCiDr3/LHoOCTbI7Qi/d9uhNM4GsTolPTVjVeq57Jl8ABQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GmtlhePM;
-	arc=none smtp.remote-ip=95.215.58.93
-Received: from mta1.migadu.com (out-93.mta1.migadu.com [95.215.58.93])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792548299;
+	b=fRQtq6+eG8TizMcyAXbB9FzIlxzgUgVcIBkotXuAg0lf6VJf9vvdHl4jlpew1bXSA5p3
+	 bGafB4JbTYVjXrRntPm02OTC1e1bAv3NtazEIPWGUlr00y8U5Bz4uxKd74jQ7A95KV/1n
+	 YW+2lBn5DDiv1ZdSYzNtJZAmex59MRASf9pcWLIiGMzsnCEtZURxDT4SuuWnn1xowjK/W
+	 o5Ua13hlDsCSMUQqgwWkRkYHv2/cNMxr+QMhVFwq3gH1GJgG/3isQRanS/5Y3wZK1YFxm
+	 ToNsOA2LIIh5y/0f0hgzn32VwjQ0A9b0Jissekq2CNnAEAYEV481/Qq7zoXtadegW6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548299;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lB+jvg6oIqL9bfq+1Ij+kEFBGzuhIR5vwUL/6kM2glo=;
+	b=pvgRmH/TdLP+tc8LZn4DuUXFjAaV0LTWXFG12yWgJLILxou18/8CAmZCu3x8J6Sw/v4G
+	 e8NV9tdkgjMeIM2WuIVdLvxuCNlXe/JhY7gl7BqVn8LQ33819IuUzZLxtXsCB8yqKznvz
+	 8o0E9DiffY8nayxxjCAzj3h3aS5RrFEehdtxsw+AK1T/TzNs1EGzffNVVwYAKYV5rdS5D
+	 wyQ0s80yBuxD8ttZHMtSFpU8yvA5U/J4EmSPuu/SOQBtquq1K+dZf9gmczqH/CLQmN0XX
+	 Hg5wxWvPmSExItVii57wgTD+JY/2uE57fYSskUTqiIGypFwm4D7M/dtdL3DowHGnVZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dDo1YRCU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.40
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8CB606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:04:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE8CB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043C2606A31B;
+	Wed, 21 Oct 2026 02:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 043C2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GmtlhePM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ysiCbX/B8PX9EOlUItfenqtvSRkF3eedWpo/CA62AIo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792548297; v=1; x=1793153097;
- b=GmtlhePMFLdrntnHY5IPjUDWGSrQcGrTO35U95TTrNNnNz9J3TiVfT4UB3wem69JM1iP46yT
- 0wRetimE/NesrwcF2HXjMwuPJiuLIW6LjqBGyWoJZ+vgWQzvyX9oOINlhiEtYsdnKH0UnQpHi4X
- Pqnj1N0vlPbJ+zB7vW1eblb4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 186e51eaaad1686a;
-	Wed, 21 Oct 2026 02:04:57 +0000
-X-Mizu-Trace-ID: 186e51eaaad1686a
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 21 Oct 2026 10:04:50 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Petr Mladek <pmladek@suse.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, x86@kernel.org,
-	Joel Granados <joel.granados@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	Dave Young <ruirui.yang@linux.dev>,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Pratyush Yadav <pratyush@kernel.org>, Kees Cook <kees@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Stephen Brennan <stephen.s.brennan@oracle.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Ian Forbes <ian.forbes@broadcom.com>
-Subject: Re: [PATCH v2 1/6] panic: Add a notifier chain for pre-kdump
- callbacks
-Message-ID: <atgdwrSbsZD5iWsX@fedora>
-References: <cover.1790014793.git.zack.rusin@broadcom.com>
- <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
- <bc783856-9480-3944-67fb-675e4c11d8c2@igalia.com>
- <atdYIxwz8ksYNty6@pathway.suse.cz>
- <atd7GInNurGWLUha@pathway.suse.cz>
- <ateYxCu63pRY9EGq@pathway.suse.cz>
- <CABQX2QOKCpoUY_ObhFif7xN7OF-NzcxEM0JABAXo9n9KaacO7A@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dDo1YRCU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T0yTr5FpvhYvb5k4YF5xqkgRnNK+fauunADGat3HV3uXHmzBFl+3ZcVAp8ptYhIKQblA7UONJdYycAxszUIN+Gz2hhGdYd14PB6l1ssM6SpQeAjKwdHOiX00k/xfj86CfEMgCvDZEzn+WH/JCJpD+f3Vk0AVfeSNrFMDEF8rwj02KUVl3aLWdQQr/DFKEWX7Mr/9X9v9AYKkkN1veBnUa+oed7bZ1Rnv+Teygmo4E/27jmiCCInoQePjGJwK6dwh3y6x2hyFcRfZPs2Cj22vlEYXzfNXYvd87CgwO/Lk6wI4W8dNLqAzpbP7KhDTj62jpbk94YwTg+SyKfaF9yCPOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lB+jvg6oIqL9bfq+1Ij+kEFBGzuhIR5vwUL/6kM2glo=;
+ b=ur/6lkiwh9f0LiAn8rac28Jktlt80LRdxX5vZZlw7E7hvff6dZu10IzN+q5VdEfgt9+ICqe8ii7gRtehucOv9h7/d2Up+Ls9GJGDuYg5EupL6S8CvC8XhnLcJwTIf++SvnnGFFXtHGyJvdeHABMJAI5fTCYC2jrK6GganweKrgbaz41fvnHqreWg85R9vwV9wgA6b87ipVEdl/oexxRIxzZRiCQshSAhP8N6c66kafr6i1EMNZAxXdU0urBIg979FZzfC4PrLjc0KC44OG9BeftY7r0WbEBnfPyAAKlPZKavtbvHxlDMFKRV2zPeYG7kwcXOxlN4ToL2C2joQ1tALQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lB+jvg6oIqL9bfq+1Ij+kEFBGzuhIR5vwUL/6kM2glo=;
+ b=dDo1YRCUzUkJVzAaHioud81642Yt+aUbHf/Db1oRRJ12p/zuiT/wBAAS4Q72qZsB0aYZYk4U+DVlwf5tDLBnoVYRT6dJYFGdZbabuOWS1qOAxDAlnDLbkeK8OjPbUmcOwaGaSva6HDvjTrf1CmhFTShYSOqwKx10sNi9dA+MiIft+1AInl2xrc2YXY//ME1lvZcfZDGVF9fT2h/fDwF01ra+Kaflq8CSF3Kg7knkExIX0GTAQKVJjmw0aaW6Wj0rs3zHTyw+7et0rsQnLLFcurWPLnY5+Hqd9bJdcX7FdADl9GHTtReFjVRbHLt5LVzv9dfLhTfb/t8P3zGfgkBuJg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS0PR12MB8561.namprd12.prod.outlook.com (2603:10b6:8:166::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 02:04:54 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 02:04:54 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, stable@vger.kernel.org
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>,
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>,
+ admin@tsv-stahl-riesa.de
+Subject:
+ Re: [PATCH] thermal/drivers/tegra/soctherm: Program throttrip with hot trip
+ temperature
+Date: Wed, 21 Oct 2026 11:04:50 +0900
+Message-ID: <5z1T3MJbRUWQUClLWuCCnw@nvidia.com>
+In-Reply-To:
+ <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+References:
+ <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0343.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38e::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,160 +106,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABQX2QOKCpoUY_ObhFif7xN7OF-NzcxEM0JABAXo9n9KaacO7A@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB8561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a805ed6-71e9-4ba7-3597-08df2f17b299
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|10070799003|23010399003|7416014|1800799024|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	XzyKF+zl5RVwMiQu7WJHEx64zlA3hmqECqDNdbaqp3MGAPGcc4pZuJiArbm6+xykDx4W2bnh3F7Qds1KZlupWbb2+0hfUcQat87azwMmfCLDUEuGQKRyyw0FYoC1KUUMlOCsJlRRkUacPId3AdUi12DlnTSDw2v7iy9o1B9LJO2YwUzBhL163d/zW/s8d8D+ZHJuynCQwGp/fPIlAxvmAxvZJ+QJSLYt+lvKEdkyVE7reJ8Ky3OmZEqwhPsvMjuxIDGMWEvncrwgtStOeg8oCoxQrBGCS3jDdXxDQw2t9084BWJT8ga/FAnxyBSGgvik01L6MmzlG7ymMIwq8Fca3cX4K5ZrD68f2AkoMqoIkEODqNUmZB0mRopPwyRE6XU3EdIdVDULvuU90q5M83+52uhafgphScwuXDW5yBqrpP/ZNHznippofasBKQ1vnH+crpme/9oRwUbDeAQAs8YSWg4ZaTdP3xWLYXeSA6h7kFXNnSTEN9OFTbpA7YKl6jKqMlzMrF0BdkYKO3DTrK8zHkA/5ygU7Aef1ZS8EO+qrbCSumB8EQDtAkifTZ3mjOs7ZQMl5gsxS6ucKvlmozafk5KPTidCJN17QfcvuyWTrsETLPJKPY2QpCdCGkzdmYRs15U+bDmUNgsp633BKS+fkM7eHU13bkPLCalr7XKiicQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(10070799003)(23010399003)(7416014)(1800799024)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SDdIdHJ4b25LVFRXWVV2ZW5zSVJsWFg3QXphTnI2b2YzYVptME1sRlJ5c3Rz?=
+ =?utf-8?B?blRBWVdCL3g1eGlsOVR5YmNHbHFtV1V2UUtYbE1iTUJzSWNWazlQSjlyTjRB?=
+ =?utf-8?B?Qm1iQ3NsWWVSQjB6Z1A0WDBkbThPSHVxWFlLVHNRWFUrK3MvelR0ZjNCQ1dK?=
+ =?utf-8?B?bUhCYldFRkgwS0xtN0gya0FNODJaUG1HVmZ0TEM4UE5aZXRucXpGbzBDQVZM?=
+ =?utf-8?B?bEUyZDg2MHR6eG5DTG5HZGo2SnQybDBNYjF6WmthQ08vMmxockRHN3hhMjlU?=
+ =?utf-8?B?VjY4RVVyTUNKdnpFY2J0SS84Qk5QaTFIblZkY2hmTFI1MllIcDR6bjBGMG1s?=
+ =?utf-8?B?ZitydWc3UUpMTnY0b041Z2tZWXlnU1ZKTFhnSkc5QzdnNGZJbStITmxFTDBx?=
+ =?utf-8?B?eGpTcU9lRTBaaGhXWFI1KzNFVGpYR2ZHQjNSNHh6TEoxV2lPZ2l1d2VZMGdl?=
+ =?utf-8?B?cjFqRVRaNjQvajg2VTJqNFZEZ2xKL1pKNnB0LzFkNVNvYWlYbU5pRHBUaXNl?=
+ =?utf-8?B?Q1d6WndGUVVuckFrL01YZ3pKTXhmVDQ2dGlIRGI3aTdPNFV0RW84b2hTUVgy?=
+ =?utf-8?B?V0dGQWhPNzBBM05ZU2szQ3VINGkrUFNkVEhQdDEzWGxWaFNuekJFdjgySWp5?=
+ =?utf-8?B?NUhCcTRlangrc3lqQTlqWStxZHV6U0NOR0dCV01KRCtDVGJoN01NbjFpZ2Ex?=
+ =?utf-8?B?UDRrcmIxM2ZibnVBOXR5Q3FtKzlsVTBoTWY3c2ZrV2dkaTR4L1RuUld5SFRT?=
+ =?utf-8?B?a0c3cVZxamw2ZS9nbjRjU252WFlLc0cvZFhDdTRWZjFxSFFjNlZtZmJRTFoz?=
+ =?utf-8?B?b2hoWklMSU9XZlA5MnE4bnNhaUNlZ3JucVJBMXNpRHNRcE5mRkp5V3NMandR?=
+ =?utf-8?B?M0EwRkJMdFl2WXE1eDJMcmQ1OGtyRWxRQ3RtQytESmFWVEU3Nm9ySm02am9J?=
+ =?utf-8?B?VW41NEVUZDU5SlBHSWpnT1E3MG9Ra1R2SmVxK0lDckhQRWhlcGRDREpFZG8z?=
+ =?utf-8?B?dGFXRnZXZUo5bGxBVFRqZWMyZlNLaUhXeDRFTTFvblVMRHpUZHVRb0pKRm5v?=
+ =?utf-8?B?MEI3MUdmN0FGeFJmNkloTExsVUNONlEvMS9ZSHMrTjBIUEpGaEpCV3lKRTIx?=
+ =?utf-8?B?K1lZdzJ4cVY3MTBPNTdacG9mdDVaWDFLQVdOWHViMTduK3l3K3dMaVJQL3JG?=
+ =?utf-8?B?RjN5b1YwZnNoekpQYjZWdkE0c0VjR1V0dnQ3ZG95dHFobWpmeHBIVWRxVFhD?=
+ =?utf-8?B?R25RM3VjTmZmc2RrOVprQnRlTHpkZU5kOW92TncyR2dUeTF5dXcwb0wvd1VP?=
+ =?utf-8?B?ZzhFOVhwT0ZieXpLUEJEWnhiS3hxMG9KdmtyUEQ5OTlDNUZkbTA5YlhSVUpi?=
+ =?utf-8?B?K0hYaFRjRjBMU0lBU0VSS0tBbG1INUZnV3NaKzU4K1d3SXorZnZXY1AvTk96?=
+ =?utf-8?B?dy9XZStYQnNpS1BjZk9IUkJIK2FOVThpRzN3RUJyNWFHdEYvYjZ6dUFSWkZu?=
+ =?utf-8?B?Uy9ZckdXd2tOcEFOelJucmNGeFpDRkx1QVhHVVFtaUFyWEJkWkJjRkxJM3hB?=
+ =?utf-8?B?OWl0dSt5MWxWVVVHWUh6UGZWcE5YKzdrNk5mK0p4TUI3WWxqRlgrdmFPenM4?=
+ =?utf-8?B?OHdsbzhGSU9NRVppVWd5dGFvVVFlUDlFNXM3RFMxOXF6REpCRzlOVHA2bStt?=
+ =?utf-8?B?bXJCTlJDU1BJVTlJL2ZoaFRLdFNJZGEvVUpaYVAzZGE2ekhFejY1RWdvbEFK?=
+ =?utf-8?B?dVdGWE5oUHNxcUx5ell5UmgrTWpSZkVsMWduZTVPbXJJYWRXZS9Gc29CelpC?=
+ =?utf-8?B?cjBxd2cvZVdNZG5UaHBDdmh2d2RhSWFFZTg0TTdYVWN3ZWdIaWIrRmxWR2k3?=
+ =?utf-8?B?QWZKM1J3SmRwb1JlMTFHN0xkUlBOUkxPck5oL0U5QVpOMWlOZk5keXR1M1Y3?=
+ =?utf-8?B?UUp3S2s5MWszWWJCMk92d3BDMVZ5Z0htMUgrWUlnQzF1Y2lEd0NJWjlSaVpJ?=
+ =?utf-8?B?RWJCOUhjblpGUkNHaWZFYkd5R2gzWDVhelI5ZzM1NkI1WHJnY1FBaEZkVm15?=
+ =?utf-8?B?MURXVEJEK3orZkVEMUJnK1F2NmhRTDU3dVd0TGhqQ3JURHptSmlwSW9mc0Mz?=
+ =?utf-8?B?Vm5qK2t1eC9qa1JvR1MzTkpjYVZUTkswelVzdHBVZ2M5enN0WjEySVdNN2hU?=
+ =?utf-8?B?U3BIQ1llZlRhRW9Kc2dsZG1Ua1hOWkczSXNYZlJlTnluMmFybzlUQkQ0TEtS?=
+ =?utf-8?B?K0lKeFFZTCtrbkRiR1lUczh6YjdhdXcwWWljZnRaR09xamgwUjV2TDdyR2lY?=
+ =?utf-8?B?dWc2OFFHbllnKzQxcERtM3c0Wi92cm5ROVVmZjU5RHdRZTRwNUVzZ3ppbk8w?=
+ =?utf-8?Q?oPNTLqAtTIk5EuE2WPycAvxBoQydpHBfmmWc4b5VKGHvB?=
+X-MS-Exchange-AntiSpam-MessageData-1: +oBsnsSn7lIKbQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a805ed6-71e9-4ba7-3597-08df2f17b299
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 02:04:53.9582
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zD2xs5iTuR25LOT3pOC9Q1b2ozoNQJj/f34SurBokaC1wmHzuVvmCRjWu0vcVYtlA+KHHXhFW9t7MNm0XoWbZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8561
 
-On 10/20/26 at 03:23pm, Zack Rusin wrote:
-> Hi, Petr.
-> 
-> First of all I really appreciate you going over this. Thanks!
-> 
-> On Tue, Oct 20, 2026 at 12:37 PM Petr Mladek <pmladek@suse.com> wrote:
-> > Approach B: Three lists: platform, smp_safe, and smp_unsafe()
-> > =============================================================
-> >
-> > It is similar to approach A. We would just add an extra:
-> >
-> >      + panic_notifiers_platform_list
-> >      + disable_panic_notifiers_platform_list
-> >
-> > This list would be used for smp-safe notifiers which are
-> > required be some platform. It would be the notifiers which
-> > are crucial. Which are currently the reason to set
-> > "_crash_kexec_post_notifiers".
-> >
-> > It might be called also when __crash_kexec() is called
-> > outside panic().
-> [...]
-> > This patchset, adding vmware_log_notifier, might implement just
-> > the panic_notifiers_platform_list. The rest might be
-> > added by another volunteer.
-> >
-> > How does this sounds, please?
-> 
-> That sounds good to me. For v3 I'd do just the platform list:
-> 
-> - One call in vpanic(), right after kgdb_panic() and before the first
-> __crash_kexec(), whatever crash_kexec_post_notifiers is set to. The
-> list runs before kdump and before the other CPUs are stopped.
-> - One call in __crash_kexec(), after it has taken the kexec lock,
-> found a crash image and saved the registers, for paths that enter
-> kdump without panic(), like oops_end() or Hyper-V's hv_crash_handle().
-> Once the early panic call has run the list, the guard makes this one a
-> no-op. That removes the dependence on crash_kexec_post_notifiers you
-> pointed out before.
-> - A once-only guard shared by both, so the list also runs only once
-> when a callback panics.
-> - disable_panic_notifiers_platform_list as a boot and runtime switch,
-> checked in the same helper, replacing panic_pre_kdump_postpone.
-> - Kernel-doc with your definition: smp-safe callbacks a platform
-> needs, which would otherwise be a reason to set
-> crash_kexec_post_notifiers.
-> 
-> Roughly:
->         kgdb_panic(buf);
-> 
->         panic_notify_platform();
-> 
->         if (!_crash_kexec_post_notifiers)
->                 __crash_kexec(NULL);
-> 
-> and in __crash_kexec():
-> 
->         crash_setup_regs(&fixed_regs, regs);
->         /* Direct entry outside panic() */
->         panic_notify_platform();
->         crash_save_vmcoreinfo();
-> 
-> I'd keep the second call in __crash_kexec() rather than crash_kexec(),
-> because afaict crash_kexec() can return without a crash image, e.g.
-> from the BPF kfunc, or from oops_end() before it panics. Calling the
-> list there would use up the guard even when no kdump follows.
-> 
-> crash_kexec_post_notifiers, the existing list and the kmsg dumpers
-> stay as they are, and moving other platforms over can come later.
-> 
-> The VMware log copy would be the only user, and it's still best-effort
-> diagnostics: kdump and the reboot don't depend on it. It copies the
-> log tail into an 8 KiB buffer. On panic() that happens after the panic
-> message and any local backtrace; on direct entry from an oops, after
-> the exception output. With the list enabled throughout, the copy
-> precedes the later panic notifiers, sys_info() and the all-CPU
-> backtrace step. The guest-crash report stays a late kmsg dumper that's
-> skipped while a crash kernel is loaded, because the host can power off
-> the VM inside that call.
-> 
-> If that matches what you had in mind, I'll do it that way in v3.
-> 
-> Guilherme, Stephen, Baoquan, does that work for you too?
+On Wednesday, October 21, 2026 4:18=E2=80=AFAM Patrick Fischer via B4 Relay=
+ wrote:
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+> tegra_soctherm_set_hwtrips() is supposed to program the hardware
+> throttle trip (throttrip) with the temperature of the thermal zone's
+> hot trip point. Since commit 735a968d2fea ("thermal/drivers/tegra: Use
+> generic thermal_zone_get_trip() function"), get_hot_temp() only looks
+> up the hot trip and no longer stores its temperature, and the later
+> conversion to get_hot_trip() kept that behaviour. throttrip_program()
+> is therefore called with the value still left in 'temperature', which
+> is the thermtrip or critical temperature that was just used for
+> thermtrip_program().
+>=20
+> As a result, hardware throttling only starts at the shutdown
+> temperature instead of at the hot trip. On the NVIDIA Tegra Note 7
+> (P1640, Tegra114), where tegra114.dtsi defines the hot trips at 100 C
+> and the critical trips at 102 C, soctherm reports:
+>=20
+>   throttrip: will throttle when cpu reaches 102000 mC
+>=20
+> instead of 100000 mC. Svyatoslav Ryhel observed the same on the ASUS
+> Transformer Pad TF701T (Tegra114) and the Xiaomi Mi Pad (Tegra124).
+> All boards using soctherm with a hot trip bound to a throttle cooling
+> device are affected.
+>=20
+> Use the temperature of the hot trip for throttrip_program() again.
+>=20
+> Fixes: 735a968d2fea ("thermal/drivers/tegra: Use generic thermal_zone_get=
+_trip() function")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Tested-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
+>  drivers/thermal/tegra/soctherm.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soc=
+therm.c
+> index f74acf13b24d..903215502606 100644
+> --- a/drivers/thermal/tegra/soctherm.c
+> +++ b/drivers/thermal/tegra/soctherm.c
+> @@ -765,6 +765,8 @@ static int tegra_soctherm_set_hwtrips(struct device *=
+dev,
+>  		return 0;
+>  	}
+> =20
+> +	temperature =3D hot_trip->temperature;
+> +
+>  	for (i =3D 0; i < THROTTLE_OC1; i++) {
+>  		struct thermal_cooling_device *cdev;
+> =20
+>=20
+> ---
+> base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+> change-id: 20261020-upstream-soctherm-throttrip-ad6965977b6c
+>=20
+> Best regards,
+> -- =20
+> Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+>=20
+>=20
 
-Hi Zack,
+Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
-Sorry I didn't check this series before, just trying to catch up.
 
-I like the Approach B direction: one panic_notifiers_platform_list for
-platform callbacks that must run before kdump. While I have one concern
-about the long term.
-
-Today the list has only the VMware log sender. Later, more handlers may join
-(for example pvpanic, Hyper-V, Xen, gsmi, SNP). When the list grows, someone
-will want to run only their handler, or to skip some handlers. The easy
-answer is "add a new list for my handler". I think this will be a problem too
-in the future. Every new list adds a new global ordering rule and a new disable
-switch. Petr already said we should keep the number of lists small.
-
-Currently, atomic_notifier_call_chain() runs all registered callbacks. There
-is no per-handler enable/disable and no filter. NOTIFY_STOP_MASK can stop the
-chain, but we must not use it here, because one handler could hide all the
-later handlers. The list-level disable_panic_notifiers_platform_list can
-only disable the whole list.
-
-I have some rough though, just for reference:
-
-1. Keep one panic_notifiers_platform_list.
-
-2. Give each handler a small wrapper with a name and an enabled flag:
-
-   struct panic_pre_kdump_notifier {
-           struct notifier_block nb;
-           const char *name;
-           bool enabled;
-   };
-
-3. In the dispatch, skip a handler when enabled is false. Print the name
-   before calling it. This also helps when a handler hangs and we want to
-   know which one it was.
-
-4. Add a boot parameter to disable handlers by name, for example:
-
-           panic_pre_kdump.disable=vmware_log,hyperv_crash
-
-   Parse it early. At panic time we only read the flag. We do not parse
-   strings in the panic path.
-
-5. Keep the list-level disable_panic_notifiers_platform_list. It is still
-   useful to disable the whole list for debugging.
-
-6. If the list is still too broad later, we can add a reason/class argument
-   (for example PANIC, OOPS_DIRECT). A handler can then decide if it cares.
-   This is better than adding a new list.
-
-So with them:
-
-- We keep one place to register, one ordering rule, and one place to look
-  when something goes wrong.
-- "Run only my handler" becomes a debug switch (disable the others), not a
-  new global list. Or vice versa.
-- We do not change the general struct notifier_block.
-- The panic path only reads a bool, so it is safe and cheap.
-
-just some rough thoughts, maybe not well polished, just for reference.
-Thinking of these becasue I do meet requirement in real use case where
-they really want to run their own one specific panic handler before
-kdump while not easy to make it.
-
-Thanks,
-Baoquan
 
