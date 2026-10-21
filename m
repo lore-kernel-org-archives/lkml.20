@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572855;
-	b=0hJ+u7nJQG0RGBEawLebmzGRIykjNHTVNa2YE5iEK6YE26kX50B8bLHpc5quhiiNK2pl
-	 3aAh+zEwCYBDe6to8TW8n4Gp43jY8CsXJguw/aY7Cvltu9gWeFlrula52NEqQJqe17rHD
-	 Up5tr28tnywkrINfISodGUeqn/TZy3Wd6orjU6NUhHSbPuVr0H9F5zUMWj9LK8s0y5pHA
-	 OtyaQ1FxxNDSXegjGJ3wOpe0lNh7uagB5u36CMWR35J5/2NmGl7voQKCAMuHH7TZaTv4w
-	 rxtES1J08Fsdlm/pJHrTc1ZN4hO0EQYz81CK/g7t06Kucdt57fZ4rcgoIUIHPvrfX6g==
+	t=1792572878;
+	b=wgzU0PHDhuczvYWBc44n+S69qrNEEFtFHy5i92j9CN+NF7JCjN0w6ksRDr8QhqIsXtQy
+	 M1UkDLQpVc0KManOW6XLATfOpHPd1TGZti7cTKZN6t6ulF9ouvK3WGdg6iREqUVrAgI/P
+	 6ch9DPb9uBg1Mj2P9ZI5fzJBp7LMiq9OFhAhg6uNlRe4q3rkmjcd/zLNX8zaoJUCG+3Fu
+	 cCvuDguSdIZja34paZl9/P70+QLjZo0OqCFrB0wYp23qQetPuEhE9cdZuOPW4wMQYrfwJ
+	 HFLH4UJF4NNXYYmplTFpqkJPoAn4A0VDNRT//1w4h+FnAW/RxKKWuvzrr64lSVAWK4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572855;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=;
-	b=ilzwwO3n+z8Elqfx5s0SdEPwonViE2Cacip76G3oN8ZkpVmpk1d/mD4wQyU+BMsVJnGn
-	 K8Dj5dI2s2wb2WNjYa+YEg8HFnValrHespqBZFyCl6g+57Bk3yJJngQWETA1HHzsvxFyy
-	 lciwTzaAp55MNj8wmPpf2grGuUYus4iWAKjowgLI/mTsDX8OgYtyo5MK5XVHl7oCbZGgu
-	 EUKoJLsI4SKz7870ke9wJlzlXzWyEMJUMSxlUWCn5TKVZsAZkcvytmR7mnhkdeVtNUpkk
-	 1X8sqe/kVKsmwMOedQ3nQnRueZiUxyD+dpJ32vP+clDdMYABvPaGI93LokFMKzIDX4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572878;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Ih0kmKcb+JTGX8X9TmKGdoWXmH5JYncIL9JCeP4tsvU=;
+	b=Rw5tXjFMU+IB14WLIU3AonNuyjR+tHHIcp+cXRLVK8+lBQz5Li2jj4iE7jwcquVMpgGr
+	 JUUpxfkkbvvE+na/ZH4gNzzWEqc6xUP2jWEpnVmLkDrYENGEYNliOMSSi5uwpxzQBcRuz
+	 HsNoXxiHA+CTNihO3IEH2WEJ7koo5/E/0KUfzIS7jVjVtReIyD89N5YgyTQ/kLAw5VGiP
+	 qlqpl/tw7FO8S2tkgkPgFLqwF9nVLZ7ZOa47dFfyZOazSN0LQONqfqcJickVgDcN/ZCZb
+	 F0nwquzbH9JvgVADytyDr+k90OCnsDqBtp2TIzdIkpPeNSiQLP6sbjrUzzLKcCs5hDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UuXTUMT9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JdS8auAn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+MsoB9L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEDB606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEDB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9CD606A319;
+	Wed, 21 Oct 2026 08:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UuXTUMT9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JdS8auAn
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jI1v2848156
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:54:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=; b=UuXTUMT9sHPc0oaJ
-	oGz/YooBQ4zlHr80gMeUyAfk0CopnKjtkEuGLk9FEJw4eT4K5MpGd9pgyKk1R4b2
-	Xcrj9E2GUNBVBCTIp13UVioEtK1m7vK2F2T6GgXSq8nhCkLk7MW8G6hRa/4C10GE
-	Q7CNPWnY1RFgj2hVwZ9IqBNnEWI1r0AMvNE65qGB08XNIfuYIsEaLPAmHHRoo6Pj
-	h33l9GTZuokOxj28o7OEKqjx2nTkl0Qh8dUK/qb77C6YX1P1S+TE3eM3Fm0KcMbq
-	eWwtfu4LnUHoJDy8NZN5vmPOE4v/HKcZG2Sqm+ddMZHDRgnOlDT5r2BHfrqufpOH
-	/h9qyg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9avu2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:54:13 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2bdebfc5so14692185a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:54:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792572853; x=1793177653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=;
-        b=JdS8auAnw/hUHbTKueIWNoDhcfjNhZrupqcVGSkas7bRcCdo9KdYcQqJg4Eu7ZRjGl
-         fNTe+lC8nKULV31Vu3sYoyUCadvG4YmXo/6O/jQ/B+DEN2qexJIKeZ9GK7BqIN9TtCwG
-         Ke1Epb4GrcYL7tVyaXzMMPUOUVIt7IbBTM2vIAvuaHAy92U7No4LKtF2mR0Ojm974Lt7
-         t8aBi/1g4yjFEe1rlCarlNwKaRlOCDZpJzlEwyxbbp7qBWpfNHd+4ketP4a7AnYams6/
-         /4ETcnD+3+/w55IfxVfEWKAfdnfwezwZ7ExcEETq7OvucC3vnsT1nC0COrsFL/qoBdi3
-         M1UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572853; x=1793177653;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=;
-        b=Zo8Y94snko9ZBTpJCmXvFkL/j71zNjb70Yw9DWLRPXHWk0YDn4wKSsvQQ4WLj+5Lz8
-         m15Z6+sYi3SMzyUSj8klJs5+feXr8NXT7Peul/6j6uigNr29OsR/+SIcEmZIWSkHx6Zy
-         fX875wd7S7k4k4DwYJmey21BjPidr557b2ENAjltiue5G3OUh6kcOntxFAHs1X7b1+qJ
-         VqR3lsQ12CntfqcMtSv2d3yf8iom3uxWwA8roiZONyvhglZzfCsG8xcF68dT2ELy23Ud
-         Y8tD7CaXh6ZV/OeuOBCazXdyIWMPz6ttxXPFE4cD7wkq56k98OLt9iqJoKXzlmhvbzpj
-         UQpw==
-X-Forwarded-Encrypted: i=1; AKwUvBx/+6I0VzUIRqI1OeSvJpZ7hlKWLj171fc1q26ViLWw4iPqxbxMeRrpZfWdVXDuggpBJzjqqlzrsYGku0U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOs/CGxgghtcQdymeRGCkY0fuCh11ai3bRtwzeUkgw+EXVwLe8
-	xk05LBRA6IuL+8TeI9Vx5Bs3bG2BhTcdXuMmlilU3quHjlRzYZakY9eJOQ8TYtC/XOXzW/MVhRn
-	cG4+huirH2vchFtq1aGEGaLg9RisiixSKogTHxdJGyXNcaYk48/wjmQMKsrMGxztMtxI=
-X-Gm-Gg: AYBFou0atfVx0W4z3OxMbHMHGX2rSRSnqoHiffgo9K+ZKnPGasXTOf/z0CfvbyK1pX9
-	ZchG/tGV1XUqNIcqbtn5O3SreqmEdq0i2vbsNsBVua2YaEIfYF/tfBQEq3abhhjcnsX3zgH/pob
-	lGgnl2mTaZgVTQVGR9lEZHvcazC53yRofrv187B0z+dUzYBm2GvixLTY6L5R/iFOPum5z3JZCf3
-	MODNdB1glGfSBNYPRfYRYLyFzKvsA4yZ3wMp6j9uJ5luwSukFzV84LfDZn9472kzewiS5B/JzwY
-	nLwy+fASAQVRwMa5JPPiCm0iK4vNODcDOf1mUwPI19MVxJ52wtWEZbCegXh5AeUZGXUwk7j/JAs
-	OJGVEdVjVmHSk5+a+fpXsmw==
-X-Received: by 2002:a05:620a:4589:b0:93e:508b:7800 with SMTP id af79cd13be357-93f57d7628emr374396385a.0.1792572852975;
-        Wed, 21 Oct 2026 01:54:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:4589:b0:93e:508b:7800 with SMTP id af79cd13be357-93f57d7628emr374394785a.0.1792572852579;
-        Wed, 21 Oct 2026 01:54:12 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4030dafe2sm610154a12.12.2026.10.21.01.54.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 01:54:11 -0700 (PDT)
-Message-ID: <b5734dac-1285-452b-8107-9164e6a3e5fa@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:54:09 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+MsoB9L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E60A1F000C9;
+	Wed, 21 Oct 2026 08:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792572878;
+	bh=Ih0kmKcb+JTGX8X9TmKGdoWXmH5JYncIL9JCeP4tsvU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V+MsoB9LTGZnEE9Fye5EvMTP+G79p8Ot8rTKibVKnoqv6jEmhVeF3HkkkFCOLts8I
+	 EA9r1gCAFe4HbAc0HKOqNsBK0ehaKc8b6TfF63+Or3XdBUwIjb9EIAgZlIqrXCGccW
+	 2FQmR2/wZfbqaFZVfb64J8u7ZWvZEQeM5ouogy+iO5XKYy2o9TZSheakWuXdvW8Wza
+	 5DK77KeVgJ9TOZ86JrqkDfenBj89xOlSJqePj+WmrJ7lddpylMiUE1L9k/SDErZHdx
+	 09TCcn6bER55lOoTXP1CIoWaioSpuH1+rPVnk8vYY1wvjQzxwPigVY4f9Ejq6psb5e
+	 clbd3dOfVwVEA==
+Date: Wed, 21 Oct 2026 10:54:29 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, 
+	Jiri Olsa <jolsa@kernel.org>, Mark Brown <broonie@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH vfs v2] bpf: Allow bpf_d_path() from filp_close_sync()
+Message-ID: <20261021-ananas-siegen-kurstadt-24cc3e5c1ce6@brauner>
+References: <20260925210347.1364191-1-ihor.solodrai@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,64 +60,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: glymur: Add CAMSS and CSIPHY
- nodes for Glymur
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261015-glymur_camss_dts-v2-0-e7b1f403146f@oss.qualcomm.com>
- <20261015-glymur_camss_dts-v2-1-e7b1f403146f@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-glymur_camss_dts-v2-1-e7b1f403146f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfXzCc4Xw3n8gxg
- vVVD4Dzvaf/9m8ArXo+nIVWzhQAXCzgOQKub4ysgn0asoFpPLF40RjD7TVpWxqhd34YEtauB1ZI
- 4u53Mb5/ii5/6CfyuA0Q36GXDSOZQtA=
-X-Proofpoint-GUID: PLb0ULXcriRtsVzwCz8TuPVX8Vks333N
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX3LalUokYlwmg
- pxtS7dBPUIDd9fRdAmDD4ZaW8p5/BBEkslc+DdcYk9yvALLIjT8/X3lMN87LLH5OcJcdfRL+kOl
- XMIMrF0oMIAMk1KYGnwXlFHREq2uvwMnqJvQFj0cNwwMkPrl9EnZKf36I7AugZfd0gbTtKJ2Kqj
- lqqHWcm97t7YC8eL6NvaqojrfZwuDtx99lqozk0E1XkCm4QUMijwBnHMgYGbiLiynggPvA5GQgp
- s2Hn0Md0pCr80vNaU040kSf0lE3iCnvAAs9SxvOtul1tLYsOiRaSpfLr2ZZd9ViK5SSQ1QldFLV
- WmYRPW+PkIdfO1y8/n2HNxjnLqa9yjj67BJa4td3jWsEOuJEFLlwBaORl8FrfHXEaWK4qi2fSpY
- I7lN2cnzcKN1MI3Koc3aQSK+kt31GSeRRa7fk0YCHjpe3VXiZ87J2M3+mCqb0zq12kQFJk3PF3G
- p8fypL6Oqjmkac9shlg==
-X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad87db5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=Yiy9HrlOpii1y77HuFoA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: PLb0ULXcriRtsVzwCz8TuPVX8Vks333N
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210035
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260925210347.1364191-1-ihor.solodrai@linux.dev>
 
-On 10/15/26 12:52 PM, Nihal Kumar Gupta wrote:
-> Glymur shares the same IP as X1E80100, with three CSIPHYs that use
-> the new standalone PHY API. Compared to X1E80100, csiphy2 is absent
-> on Glymur.
+On Fri, Sep 25, 2026 at 02:03:47PM -0700, Ihor Solodrai wrote:
+> The d_path selftest closes its descriptors with close_range() so that
+> its fentry program on filp_close() runs. The vfs commit
+> c1ed65ea167b ("fs: make close_range() synchronous") switched
+> close_range() to filp_close_sync(), so the program still attaches but
+> is never called:
 > 
-> Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # Zenbook A16
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>   test_d_path_basic:FAIL:close trampoline for filp_close was not called
+> 
+> With that series, close(), close_range() and the closes on exec and
+> exit all go through filp_close_sync(). Few paths still reach
+> filp_close(), dup2() being one of them, so a program on filp_close()
+> no longer sees most file closes.
+> 
+> Allow bpf_d_path() from filp_close_sync(), but only from fentry.
+> filp_close_sync() drops the last file reference inline, so by the time
+> an fexit program runs, file->f_path may already be freed, with no RCU
+> delay for NORCU dentries such as pipes and sockets.
+> 
+> Attach the selftest program to filp_close_sync() and keep triggering
+> it with close_range().
+> 
+> Add a test rejecting bpf_d_path() from fexit/filp_close_sync.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+> 
 > ---
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+This seems fine to me. Sashiko has some comments though.
+Maybe go through them and resend as necessary.
