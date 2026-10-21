@@ -1,52 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603180;
-	b=YsK2p+hKAcebByZM4poWYf53+eN4ll67qzB06L4uPWTwoBEqBnkigbwj+ny4KOLDSTHC
-	 vTvUY0CxE3gbT4wDk2hoAVlGQXCj0Jz5O4ggpfb3MoORnQ7YsylRXl/WH9Qe4r9kbeA/+
-	 DsAsVkthLJOSweyuiMBeGEMXqBzuAtYIYwTjmiNP7uGyTzi2w5xY//PRDOJvqLffodINK
-	 AlODGnmV/EjHDPKM2LhnYOKJM3ZmuAM5jPQJjopiCXydQ1AR5JyW3UiwhDBY4z8J2H+Hn
-	 Km3XqyFMq6iYVADLYL/zIAEHIPozGMjjPPnvhKJYtOLtcfl0CU1OSdzuZckHSS85EnA==
+	t=1792603182;
+	b=iz89uwEcIGFc1MybHBGz61AEiNijM+O9ZBC1QI2G+6CBKr0Pxz5sWc+Ut8j4DD0+P9Ce
+	 M6feajqdh8gA64Px/21ZFSb6CdnKQcc+q1u/zeM5BMbaJ6b6DgIBwZLAzBEUdddMyMszW
+	 zUCVQvhXlj/C29FxCFjNUszdDJHWNSajbe2zS+y+yrtNTKO3KOTg0Sv5UoOpcdmDjxgnS
+	 XdQSSGqboERndtVAid1EAgKlhg7VFQydW2ZxKVRjkFWEJ5yPdDznoAJUHElwIbL/9tZ0i
+	 YN/Zek0A9A2Yxa2m1CoMgg91MsyzgLzueWJKBRwS3fBCxnOFcL7c2BF2AcD7KAOaCzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603180;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=p/oEcNKqidn4ieT1WIF/VipiAVLf85drKemekyUd3/Y=;
-	b=Kp35+iidKjU12r7+f8K4oecxTJjogiNS3mfUn5Uxdiaap6/3mGq1J3nSeWEk2igzJQi5
-	 9/t4/b1+2fyKXoXeX7zGzgivxVzMQp4H30Di2bzWs73l2KUDCsccS9gnKZtHGtShfujTs
-	 X/tqLmc1GlV92Km45Gw38+LwyJoJw5tr3sAi1q/btslE2NzCjgyVBR1H0ryf8ISBDMzo5
-	 Tk2CjBw7N6rM7lL8tySTMzrr/zID173iEnJLDajb6govfl5e8KRsuULDq3frk1r9+/B6l
-	 zZp+7cWQ3ldQbr5qGZq6Trz5pLukAJC7tNy8+gNQZq3DQl/Gt9wRMChuG79SWsKpmwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603182;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=OQEPziaRa61k8Y8WGD/haQ1/evkCynUVKvZb0RQuDtQ=;
+	b=1+4xKn5TiU3d434TTtpeqbaIIp/0SgivMxT4udcle/atYiXpukW0uI96u3PlO9RU64YJ
+	 8jmWlL8qZwTnkh9sAEOC1OnJbThpESxqn+FDAp3KpzHC/lPKtIUWGWj9ylOAgZy/oCDRI
+	 alxnARqHfAxelfkuuS7nMH7Io2qFvOlceP6XC3CfATv8tLRVc9T0k8FGJ+iSVNaiPvyzB
+	 BlshBjeiNAuxj5E2VClhYsXpXr3JBwuav1H40kGdER7MrYsZX5zlToa+RroonLil53BsE
+	 /KwzBgtBrLIs28J53jaPJGVokixB3W+2vf8W4WQOIe1XrRHG7N4FBEdeAH8WbcpXzwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=VlfyyDlU;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=MMhGgRWj;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WyIMh0OF;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36975606A319;
-	Wed, 21 Oct 2026 17:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36975606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F68606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1F68606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=VlfyyDlU
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 96C6D10A93D;
-	Wed, 21 Oct 2026 19:19:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792603173;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=p/oEcNKqidn4ieT1WIF/VipiAVLf85drKemekyUd3/Y=;
-	b=VlfyyDlUqMsVamAweIBx8XqfE3scpw/yiN1G5k6hPlSg7yEhTErIDLKCr7X/QugmOEc3SE
-	Q0c/X9kPTLrw5X/fCxt+qPzOEivqk6RICAaNdcuXHKyVjPNk4ZFZ7pX3BJenR/BzlSvCjD
-	jK2z/nldjYt7uAja1frN/uJ5tVL/czMUF+8Pybx2qbqS9jehqyRGfRu2z5Uyd1b5z6L/+0
-	+B0pdA7MoDpuManAJuKsA+uRQVVclBB5x6ZKIWKNXna9ueFhsY6d+SWafizZLXhuDRuyeY
-	fYBBdNIkyX842C97CG4ccd6KO+KdIEW7Ica6X+KctBsnj2/GuivdKL7lL2U7TA==
-Message-ID: <1073daf0-3676-4123-9ca4-c182ea5883a3@nabladev.com>
-Date: Wed, 21 Oct 2026 19:19:30 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=MMhGgRWj;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WyIMh0OF
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4987B1D00141
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:19:41 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-10.internal (MEProxy); Wed, 21 Oct 2026 13:19:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1792603180; x=1792689580; bh=OQEPziaRa6
+	1k8Y8WGD/haQ1/evkCynUVKvZb0RQuDtQ=; b=MMhGgRWj0Dsnho0xbXsfa3jCCs
+	Uv+5/qxqRJOSJ7GtqMsvGJNB86TojfaN1q1zxHNfcui/GHUz9oBocyhacQDcdZAw
+	M1uMUT/XrN5Nk1Lcg+ivpYtgpOJypQUkEggPDz7auENOKN+Eg657EBgC6dl52Alw
+	6V+orckPSqwca92fM6+nxzrzS8Tid6eyDzoW28uc31vFq+3QmUkJQPSrV4NNa3GR
+	e9XZC67Vzx97BsvHbBGlGTRF2heNdUeEoFUdoiX7nkpNJiH0LUuKTjaaDXi/tElG
+	b8ZMSnmToOUnEoG6dVtlYtRlKoPOAiaRF67oGpDf/iCJSIGo7RakNTeS/A/Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792603180; x=1792689580; bh=OQEPziaRa61k8Y8WGD/haQ1/evkCynUVKvZ
+	b0RQuDtQ=; b=WyIMh0OFwmR9Mj9nnMxQNzZonzsBJG/L5YUu1CTXKH60/e9i4e8
+	BXr2v840dPRaxjXDXrdB8jam4DAQgWmPuJjB5QG+y3T3WRNRQWojCDwgimrsijb1
+	9JgL5SBeLhPu3/4m5mFlNwq7r+VpKypgeSLZE9jklJ78pcUaNdzHCWDf5GADr51t
+	ch5wqmEQ2hbn9TrsH6t+wvFJA5C3JAiyMiQnwM5XhRERhEis2OORPg23e0jUiS0+
+	XMo6uWSPl/5XGqDefH7Vj9xiCwdhTrhffZZ01GthLiVOT1CnqVJAR4OtZlMQvjdf
+	T2STS7BQhLnBNBDosNpsWZcqqytTsKdy+lg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792603180; d=pobox.com;
+	mf=PGdpdHN0ZXJAcG9ib3guY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Cc+AnH2UufXV2sHt9Y7kAi9ZZEmes42RKTRirTa7UILdjrJ
+	YbU1EWrQaoOQyhbHITXhHb+dROEGCokrjb9WQmdEmubwZsS8jZbzHE0qmY1oEs+Y
+	Y+1CuKBy5pqg10IKhZo1X6BX19lCQxPWAooVUOhni2o+W9+JfFUHNmCSeYIWDFqG
+	MPZShuU1pe9NVSo/hqlDDC8XGMOKN9UmjgVIDoTyh2xBDIaq2sgtSbLaWOCoyqMC
+	1ZEfGP/xh4rf8GSHJ5exHt8LftXqgaMJxgPBWqrMhJPOav2DHzPLackXOAL+lzOZ
+	shTtnwNm43EVTca7EPxML2QM6q+47jwI+3UO4YA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:+E/PJ/tDfKpCscy2bmrCcJ1pEQ0lrG06AW/ZnlTejsc=:LsIIVlm8iEU63tzNsUS1zqiUMs75KQ4jK+LoxNK7aDg=;
+X-ME-Sender: <xms:LPTYaphNtA6SZvCz9ma3kumLqaH7YCdaxzBzlwpLrwTGopnZR2_mWQ>
+    <xme:LPTYausHSyc7voBWTeFIHKMv-tTM7vRfeGPpkb9q8U2GasqOZojPcU-wMMw96mIzr
+    KPs6rnKiNnY6H7Tj9B4ZqRwMfiZMdPiIXIjgoVUizY8lGG2Pc7TA6s>
+X-ME-Received: <xmr:LPTYanRVaILSNlOSltmPYNZU0dA41xB9U4Ig33m2vWa5ry8BqJzHJB9WELC_wzwDcTnKj2g6Q1sfdawvcAip5iI7WotWcPELfmfL>
+X-ME-Proxy-Cause: dmFkZTE7t/4Zsget9VKVoqQo6RUw4wlZbtWfaxNJrk3fsGwIcDP0WXKl/igPtx91uNPxxh
+    WbQG8GeCdExcItcnaObEj1AYuTooqWTtJN+q/2RvIGwYHUD9aBtZnHxj5MrVdLimbTiDVP
+    oGdPDjas1npO4cvSvyIWXXJzFrWTA5kp6s5OifWw0OLAVW9B8t2HZvZ72dF65Yu3KUlUCA
+    +h3Vj62CIjFE/m4Ru5yz+6sHyGVLaXBtDbypVBoeWO14EhYFr2LV88mvresiGWfDgiHM+i
+    yaKBRaaxuz6Qnb4f0sgj0UK3uoNkA2ZmegSgAgdUulg7n1Im2wLRi9WuyYjReXKWMeD7Xu
+    yL/ArtaxR0JcOIHTUI67BVLFpVGZw4ZzizHds/PlZcMQhr43eCvkAE+R81/P7uY3IDFfJJ
+    iOCKWaUnHYyXJgoho18p9V4KxJXiT7jqTcMCwfIWz9aOzB9FU9mrxNnfBIcTrgabD4jjSq
+    NvxiIVMPf4FUVIrOn29TN2muXF9I+KQWMN4ASck9DDq02ruVVl4nju613nKmEPO0WhXNQ+
+    UGzEdllBe0NkGJFMVvWIMQaWDSW///RxinSYxF8pEfR9S9Y7GALoEjF/TOLTz+BPalWsQA
+    BWusH1u9Ubp9HJ2RqcgrGDbqtWusfYTfwQWaXJZ4UPGg2DNKOyR2jv9yaYRg
+X-ME-Proxy: <xmx:LPTYai36b_QTJ2xM0iDtz8rjV68tp_oGpf7R7eVpWQ1KlP_uYvpldw>
+    <xmx:LPTYastOyMkXuq68tAdz3wM9kR0JbrZaZbfl8IAYdKMTd8kuhCtycA>
+    <xmx:LPTYaojpoBzzAz6wBLO9v3wQK_af_iXDxE0R8nBexBPuiLmpBzVKVQ>
+    <xmx:LPTYat9cQI_D-N0YFrgp50KtgcPnxksFx5KWT17JMKociQaT-sY-Bw>
+    <xmx:LPTYau3AnB-3cUoLk91Bp0aTEFfl1M52LmTDFGqcUKGcJzSyvOfVzHVy>
+Feedback-ID: if26b431b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 13:19:39 -0400 (EDT)
+From: Junio C Hamano <gitster@pobox.com>
+To: "Theodore Tso" <tytso@mit.edu>
+Cc: Steven Rostedt <rostedt@goodmis.org>,  git@vger.kernel.org,  LKML
+ <linux-kernel@vger.kernel.org>,  Jonas Rebmann <kernel@schlaraffenlan.de>,
+  Ricardo =?utf-8?Q?B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+Subject: Re: FYI, git output messages are being used by other tooling
+In-Reply-To: <ate61iEAj4HDIvzY@mit.edu> (Theodore Tso's message of "Tue, 20
+	Oct 2026 15:09:20 -0400")
+References: <20261020141011.0015d172@gandalf.local.home>
+	<xmqq8q3sw75e.fsf@gitster.g> <ate61iEAj4HDIvzY@mit.edu>
+Date: Wed, 21 Oct 2026 10:19:38 -0700
+Message-ID: <xmqqse1zotsl.fsf@gitster.g>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,60 +126,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused SPI
- device
-To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-On 10/21/26 3:44 PM, Christoph Niedermaier wrote:
-> On the maveo box, the SPI pins are connected to connector X10,
-> but no device is connected. The device "dhcom-board" was used
-> only to test the hardware, but was not removed afterward. So
-> remove this device to accurately represent the current hardware
-> configuration here.
-> 
-> Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
-> Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-> ---
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Marek Vasut <marex@nabladev.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: kernel@dh-electronics.com
-> Cc: linux-kernel@vger.kernel.org
-> ---
->   arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts | 8 --------
->   1 file changed, 8 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> index 047f7b2d8526..eb0b91040110 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> @@ -60,14 +60,6 @@ &ecspi4 {
->   	pinctrl-0 = <&pinctrl_ecspi4>;
->   	pinctrl-names = "default";
->   	status = "okay";
+"Theodore Tso" <tytso@mit.edu> writes:
 
-Drop "status = "okay"" too , since this controller will be unused ?
+> A structured output that contained the result of the "git bisect
+> good|bad", and the first bad commit if it has been found, would be
+> certainly be a more reliable way for automated git bisection harneses
+> to rely upon.  It'd be great if that was something that was in git
+> 3.0.
 
-[...]
+I am afraid that anything we propose today would be too late for the
+3.0 breaking changes list, but a new optional feature does not have
+to wait for 3.0 at all ;-) I do not know if the format to do so
+should be .jsonl or .yaml or what, but I agree that machine-readable
+status output would be a helpful addition for automation.
+
+Thanks.
