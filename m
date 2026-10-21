@@ -1,60 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792610390;
-	b=OgSFMGsNS55ifX8C/NcxpZjZAmZNRnX4Hzfsk3mx8pLPpWHyAkIunIV6yxqia4RvvnMl
-	 FHFVAYCyh1gdpV3tmQt8QtbK51h7U2krG62N8ZMC+uXQahlnQU62aTlDSu46ZBLfBd+u9
-	 t8xNhQaQGJebFoYRusCY1FtvbQoWJF6pfjblfMXMHioqD0iyBtW8IWC27S3CwWQ5GAys4
-	 nR730cTjKNpaEao2Z1qRdG4XQlZWXcrtYsyVAGx0dAkHiPnkpnL++tny41k5N+uy89OtP
-	 D1Us2q7CkB0z03V5vy3c3lUCNvIcClgsEzd4y86cv4Zx2S8RFNghVFBY1ZYgE+b3hkQ==
+	t=1792610411;
+	b=gHFfwFhvN1ubgD1u3a0yYrJ7kNJumux+JPr6pCmN9eql3wzg5FgSN96RRSbaVrKvAEzO
+	 TkABJbS/+105XaWjxidiXs9qYVb5VLQmhaDdSh483axRE5v6dvbSRPgzX3DCRnURfXM6P
+	 JaZXdn0lxnalnhUCUZUCe/w9t7eeEx9kFsbLyGAEOZugqh94lQ95xB3Hnn6/ieHrqRXPv
+	 0uTx0UyGkAhKsEUFKhol6RDUGMHiFFTMS1U1Pi8XLIOk7uSOhZkPiH4/7sU+mQVAAzWYz
+	 BihY6LnG2jF5i5DqpNFB716ucdRdbJm5DrLGI+SxrbA1+uqn9d6J1Zz1YqBP3hHwHnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792610390;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792610411;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ubD8jlES2r9JS1ilGa+r04b+PuxqIhs9kd1HnDejkPY=;
-	b=sj+mKhOhgH0RIdwqQRwsojsXPMDndU84ggtJJDMng3Gje8ZdDTn0kl4clbtI4V9XPIQz
-	 TPcTez20GZ/OYqgh9mrJT/PAqCI4beHGZ3P8yTOVue5HDgnYGgvhC7CfBuQkCPNqN/J78
-	 QDN1MN6lTg/Y/NcDuBByLz2tEjrxgQz7IF4bfysF6ySyrXKLq7RgpQYukBb+SR20tWzCw
-	 1F2UcQ46eWsTySWOeO2TLuLbwyxlr8gEU3cbACfhyNtYaqDL1avsNsIstrx1LPPvDHwBA
-	 4C2X59+ZmHX2dsD7IPQTYz7nR5ayPtOduKJXjB8pAb7gr+yb54xvD8FjLBdHqpTr/6Q==
+	bh=N55gIs/itUQnf0q8CJBUzovM0UEJlW4e387F7nHqjT8=;
+	b=rqg6t+UAr1/7s95fGQMsQ9oTCTFnPlXLJFYxT9oNKr4RiH8CyNGkwkhCE5dYdHKC9Slo
+	 K9BQhL3c/IMLn3pF4EnBlTXhsAKK52+wiqSOJD4JqEhdHkwPwIjux/ebR/SG0cbO1eWNM
+	 WqLXIdqPyF+Er3+Oez/93szOlbCK8yY1IwfpLJC9VPfepGfZ/IW8vRyYx5LCf0KmmfLew
+	 VAE3Mvg6eDhBe9tiJ9BFPwSp4Pw7ozy09/tUcN3G/6PGxqyXZMFsuk7slTOEJvgPunYdd
+	 IF0GWnfxC8Et5BmL1e8QFfqQv2gIDEtOlYpoY2PYn+kTm9zAKSqpYQj3GC3J7izS7Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbA0vOuq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KP27sovf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DDD606A324;
-	Wed, 21 Oct 2026 19:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009CC606A31A;
+	Wed, 21 Oct 2026 19:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbA0vOuq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0E71F000C2;
-	Wed, 21 Oct 2026 19:19:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KP27sovf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A5A1F000C1;
+	Wed, 21 Oct 2026 19:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792610389;
-	bh=ubD8jlES2r9JS1ilGa+r04b+PuxqIhs9kd1HnDejkPY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BbA0vOuq4XksLwfEBfKH0Mg/HesUwrzRg3nbNBByJuoIfwSj//7JtxU8UX2urpuiC
-	 y9CD6iqC8wPLe24M9fSoQ2xx022IoaPUW5IxH0wRyb/NsVbvuEEqiVGyjaKg4Aq1EM
-	 m+qfMkt5WpvQtVgBW9uQoijmRNfqCAhn+CXpUvZrPZ5Inc1nVUO0TWy1yN91bAjvW0
-	 OQw+dWJ9Lvt4fF6XS6kWV8Zu5tvjIVOLZzxYX+GqPmC0lcEfcqZH1HjX1Qwnbb4ouf
-	 P2ZAzQhs7KqMHMkMfeFXIkJFi5pfVYStj779wXkEBjQvkonBRoH+eo2ssWNaDT4UcG
-	 t2cJpPkALSe/g==
-Date: Wed, 21 Oct 2026 20:19:43 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Shi Hao <i.shihao.999@gmail.com>, Rachna Patil
- <rachna@ti.com>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH 28/28] mfd: ti_am335x_tscadc: Remove redundant
- ti_tscadc_dev_get() helper
-Message-ID: <20261021201943.6159ecdf@jic23-hlaptop>
-In-Reply-To: <20261021121245.3111563-28-lee@kernel.org>
-References: <20261021121245.3111563-1-lee@kernel.org>
-	<20261021121245.3111563-28-lee@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792610410;
+	bh=N55gIs/itUQnf0q8CJBUzovM0UEJlW4e387F7nHqjT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KP27sovf3epPRHQdX3YhqrM0vdEeOuHUWf4x1+ZsE6aGki0XudEx5CF7Qt5W4C2W7
+	 pvdsrdcvTeUnFSucqq0CQDh9xHhntQw54gY8yXVMOdvbPcWY5VuDHalhUlqRQD6dlM
+	 uGRa6ggJ5nPq6V+1onVxAjt8s4LFqh7VpiXrWiTn86i2NC2au0SBhLyY219vzGsFpz
+	 /DlXy1/2lkH+z/PJVp2gmG4BhdHNGOSE52K6/i/O57tyNnQVpDDEqOHrmegRf6Yq++
+	 JAUkZIdbO/kG/LwN4JjbXwXR+LXOtMYtPIasXOh8JNRTuN8ImDO7XFb35Uk0sCB4f5
+	 uYjlEynk5jxnQ==
+From: Chuck Lever <cel@kernel.org>
+To: Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2] nfsd: add NFSD_CMD_FILEHANDLE_GET for root filehandle lookup
+Date: Wed, 21 Oct 2026 15:20:06 -0400
+Message-ID: <179261039943.1716542.9468280490238427804.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261021-nfsd-filehandle-get-v2-1-bd7fc8b1b783@kernel.org>
+References: <20261021-nfsd-filehandle-get-v2-1-bd7fc8b1b783@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,71 +74,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 21 Oct 2026 12:09:50 +0000
-Lee Jones <lee@kernel.org> wrote:
-
-> Now that ti_tscadc_dev_get() is a single-line wrapper around
-> dev_get_drvdata(p->dev.parent), remove the bespoke helper and retrieve
-> the parent driver data directly in the child ADC and touchscreen
-> drivers.
+On Wed, 21 Oct 2026 07:44:13 -0400, Jeff Layton wrote:
+> rpc.mountd still fetches export root filehandles via the
+> /proc/fs/nfsd/filehandle transaction interface to satisfy v2/3 MNT
+> requests.
 > 
-> Signed-off-by: Lee Jones <lee@kernel.org>
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-Seems moderately unlikely we will get a flurry of activity on
-this driver and if we do merge conflicts should be minimal
-so no need for an immutable I think.
-
-J
-> ---
->  drivers/iio/adc/ti_am335x_adc.c           | 2 +-
->  drivers/input/touchscreen/ti_am335x_tsc.c | 2 +-
->  include/linux/mfd/ti_am335x_tscadc.h      | 5 -----
->  3 files changed, 2 insertions(+), 7 deletions(-)
+> Add a netlink equivalent:
 > 
-> diff --git a/drivers/iio/adc/ti_am335x_adc.c b/drivers/iio/adc/ti_am335x_adc.c
-> index 1516dd332f90..77ea59d6c6b7 100644
-> --- a/drivers/iio/adc/ti_am335x_adc.c
-> +++ b/drivers/iio/adc/ti_am335x_adc.c
-> @@ -636,7 +636,7 @@ static int tiadc_probe(struct platform_device *pdev)
->  
->  	adc_dev = iio_priv(indio_dev);
->  
-> -	adc_dev->mfd_tscadc = ti_tscadc_dev_get(pdev);
-> +	adc_dev->mfd_tscadc = dev_get_drvdata(pdev->dev.parent);
->  	tiadc_parse_dt(pdev, adc_dev);
->  
->  	indio_dev->name = dev_name(&pdev->dev);
-> diff --git a/drivers/input/touchscreen/ti_am335x_tsc.c b/drivers/input/touchscreen/ti_am335x_tsc.c
-> index 623546e80668..40ffdec9d207 100644
-> --- a/drivers/input/touchscreen/ti_am335x_tsc.c
-> +++ b/drivers/input/touchscreen/ti_am335x_tsc.c
-> @@ -418,7 +418,7 @@ static int titsc_probe(struct platform_device *pdev)
->  {
->  	struct titsc *ts_dev;
->  	struct input_dev *input_dev;
-> -	struct ti_tscadc_dev *tscadc_dev = ti_tscadc_dev_get(pdev);
-> +	struct ti_tscadc_dev *tscadc_dev = dev_get_drvdata(pdev->dev.parent);
->  	int err;
->  
->  	/* Allocate memory for device */
-> diff --git a/include/linux/mfd/ti_am335x_tscadc.h b/include/linux/mfd/ti_am335x_tscadc.h
-> index 4a048a897cf3..36d365b64fe6 100644
-> --- a/include/linux/mfd/ti_am335x_tscadc.h
-> +++ b/include/linux/mfd/ti_am335x_tscadc.h
-> @@ -175,11 +175,6 @@ struct ti_tscadc_dev {
->  	struct adc_device *adc;
->  };
->  
-> -static inline struct ti_tscadc_dev *ti_tscadc_dev_get(struct platform_device *p)
-> -{
-> -	return dev_get_drvdata(p->dev.parent);
-> -}
-> -
->  static inline bool ti_adc_with_touchscreen(struct ti_tscadc_dev *tscadc)
->  {
->  	return of_device_is_compatible(tscadc->dev->of_node,
+> FILEHANDLE_GET takes domain, path and maxsize and replies with the
+> composed handle, like write_filehandle(). Unlike /proc, which silently
+> clamps maxsize to NFS3_FHSIZE, maxsize outside [NFS_FHSIZE, NFS3_FHSIZE]
+> is rejected with -ERANGE. Include a kselftest covering validation and
+> byte-parity with the /proc interface.
+> 
+> [...]
+
+Applied to nfsd-testing, thanks!
+
+[1/1] nfsd: add NFSD_CMD_FILEHANDLE_GET for root filehandle lookup
+      commit: c9d646d1dd8b2fd96548d3f22fc709a84dc6f3e0
+
+--
+Chuck Lever
 
