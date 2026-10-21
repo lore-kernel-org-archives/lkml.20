@@ -1,112 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597423;
-	b=oWIziR66lflCJQTWc+Ib7FJp2HUVETR1GVcO6G3KykgUyjCHa011X2yfU3FZ9fnJyloC
-	 OJVrpLqQ6/rjt19HwId2kU3vzPDVqN0VMOtujROkFP+/khdB50ReJAkk/23jTRKUx16nb
-	 CgrdEkrW5SacQHiq2OrJY79qcRsqP5ikXbLcSpdy+pB+fT33dMciuS+z1bIrhDCdB92Wt
-	 iZE9aIIIVD+HjtsAqOf6olsny73JNNH88rK1hYlwxUVYAZ23yYEdMM4N+14JfndXN6oVh
-	 bIvH5FYqxY1rY5yM9Eff4t4AwyyCymF5JEenIvcbuQfL5zX78wpOAudug/cHQ+VA4OQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597423;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=7/aF8g01Trbdxz8TZjbr9PZplLDUT8OZook3IGPzEqc=;
-	b=I+O4NgJgjmMfLcPc0I+zb3Sgb5NjlyRong8gxYpx3bO2afnBePKXjTl44FEyUq7EJJeS
-	 LBTtqP6TsUBA2w5i1i4zpF1fCxT2TUagUIfQYwS5isudvT67TpXE8cMlAQh4Z24mbAUmD
-	 MzmH4QbCHP/n+dPGTnB43UG2WDSkHNp2E2VmLbpZ+FAFGr8QWKlv1A7EUDqepaKHmRqUn
-	 fMpyOcnVqu+DGL48am0SkiYkVBWWakk6P73ATCDaUl5zCoAL7B7XHS/uCLwM2GY3eCfe2
-	 YggLPvEbHeEqeU4s65CzjdJh8p070702/YqkDD28my72ZRODDtriIyCA58u8+5ZUSwA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ATT8dEPL;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="a/AKCV4f";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792597425;
+	b=pG/wDvXnvDvNktynx0qJWFNjbCrKr6nluHnFUU/zdao7Ib2CXrlDx+wGON2/euJcr4gT
+	 4GcO0Obh7riVIjDQUlbI9fyaAIGieocqrfkPGJJO7MBY8HGurCn7DcEsOnnLMqv0N+Dm2
+	 WAxkOXJdjYOicFw70LPfYExM6aUdsfdSuTeUaphmyFu2tiz6tpDEv25Z1oQ6tOkkyPfco
+	 uWiKH0QZM1gZ+Eq+oUZzMBShpI55r+OQDqE3hWScS6xuuxfEGdlBmTpx/wmuI7uAOiUnQ
+	 UrSFiS8WkV9bgSqCQvugozaiSiwbmSq7MaPzxTJKxYp9JL4w0JtAUF1ghcABP4bMq+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597425;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kHii8f14H9f2GlAXEq94y1Sg4Xrrc8XE4uliTeNT+4c=;
+	b=deFIqYQkpiK6nvDe7FTeqjJW2tB2pIcz0SIoQKqBO4tbBmOwnaX2a298YHBst+ckx3nU
+	 oJwudto/bivEFzL5lY4mzgJpoN4HihMdxbA81BU3O/MT5xI4qKnb9uCAMiiDYLFMxWB++
+	 ncfqGifXf/3VlWIz+pTt/6w01NEU06MByFM6sKxfQDsqRKaGkk5BhyWtg20FsgzR0kFG8
+	 72SyXLBixGt/gT1eqWkcDBZa5srucska1TNmtmcqehU/1A2yb6FrAFTEGSlviUMnS6uRD
+	 TtQMgVapG8yjKa93woLaz97gA4NBQNucKHfF1OOEXO20W6QLILZ4Gh5rFMjG4h79uaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mIaGdtf4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.20
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013020.outbound.protection.outlook.com [52.101.72.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F37360A5BC1
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:43:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F37360A5BC1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D2460A5BD3;
+	Wed, 21 Oct 2026 15:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D2460A5BD3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ATT8dEPL;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a/AKCV4f
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LFTuTr1045400
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:43:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7/aF8g01Trbdxz8TZjbr9PZplLDUT8OZook3IGPzEqc=; b=ATT8dEPLOVtcZ/GT
-	5c4qYDbF30/M4HlZbwrep4CbQbcmIcaqP77yYf4WhgjGx3lBhl/iiMzQK0H7h5Xq
-	lhg/FVgG94JtUM+75ND9RKjCeRZnM0x/wveE+3WvAJOEIT2VPmYCdvQk5UrO+d4r
-	2q991aC6sYupCA4lym2u3FwO98fVM0FgeGYIC3o34TPXDU4QhkkVXR6phhokz6Rd
-	GzfXmqKUGU66gEnm+gSYVaJ79bwOzZ5xbZrl17bmqTH0E9WvxnwhzqdYzY6fVzGP
-	cNjh869+o8beRQgCelC/QgCvQhlukeU4QRvkxmhgfgaZLIZ/KMCbCMMcfri+vKiw
-	I2ScYw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hetj49he1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:43:42 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33713e5e6daso1423022eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:43:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792597422; x=1793202222; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7/aF8g01Trbdxz8TZjbr9PZplLDUT8OZook3IGPzEqc=;
-        b=a/AKCV4fodods1iUzafRvdQjqKVLh7DH1vYU3+t80hay5kCl0DBnErRn1EUhfFFP+T
-         RbTpuuCB4zBNACrPcdreMGjuPAOfAaanTzHF/f4dDPKBipSydjCFKaURg0//H1veHgLB
-         toLs0e9DDMnXst8l5jwNe6C73itUBZx/5FR34fDBRSHJoznhGBL/mXiGjX+PrziKregK
-         4iVxFF1NxM9DTlaObJqvpX3vCJv9QloZJpfmO2Fbmei0BJE/g1/F3ezF1UT4sIP3lCh4
-         rrOkndZTf/tR1LRNqLQQHS+zOVG8NEqq5AyLGEmD9lfeXZLNhkIxblqOPAnmOKM1PaRJ
-         nnSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792597422; x=1793202222;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7/aF8g01Trbdxz8TZjbr9PZplLDUT8OZook3IGPzEqc=;
-        b=f8BN0pMwO8/s56RauHCb2EESANSfCAG4HAVbxAJffNtpzbugFH+UUASEosb1L1NjLg
-         rdGiwHUvgBLv7poJyD1CSLLJbbF1U7kh4SLRGp1CBbhwv8VR70IXIU4yFDVk155KAtVK
-         gnIN44iWLbEsoN2/tQ3G9aaljFj+NphZNqbhYJ/E59yc1EoiHWuzUl7bLVYplJZn1ovQ
-         vFaBpHX/FYcphgEV8s0gMRhYZB+KJfe46U/fPJGXAiJ3u6OWMAQhy1IcIwCCK7TXvyxv
-         x/hRVsOVRMMGGAMCZx5AJnYKWL38GeskA81COENHxgJfxN3WtxIgvdR2DdUeizChIfWK
-         Q6YA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8BJd9OYc4YQPeuW+p6vP4ksE2uS2LcHarVLkF8rBO2WBCfryYxrxY02chkn/g1+2seEcsGa2PbbAGM7E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXt7zAXiYv+B5L+n2c5u7XoIATN7tjAbg0IXSx5rPcSuSTuOs4
-	hCH1iHiJ+PLPBSO18a+RnXKv0Ux3UDvjye4hOwUt8WB+K26gxnk+QaFrkYdv0lQnvZQu12w6ACa
-	aR7A4uqtLqqWhEv/iyuf3Q851O+vNwBQXYDkVjjAylcVVa9X1G3c4tjVNiuOzvU2A1RRjXcE/L6
-	U=
-X-Gm-Gg: AYBFou1kt0ihQ4Uz3+JbSgzR8NDajAg44dbKkR1m8oXd6SIThshfARYtoqCVKgZKuhQ
-	aDXZtf+rE14KkFTIuWZmSIt24ZI3LwTXZS0Q7HgwEy107AzOysiyLmXCPxOHsmtVpPbRLsySG3X
-	CMdI5oK/8nbkrreMMTYL4EiwCA2OkOK3LAPyxNoA2VGiH0bnk1dDOoNXI5UoFPNIRHTMLr59fFc
-	Tn+4Y/LdBJkZMxIPSYW2VVNZ3rWZ3c/odH5aPcUy5V/+ckSAbUo0lCf/kHyKBWwmDmj2c8wPZUu
-	7sM/BxQ98Ch+l8sqJZsUUEEt1tV6HlkEm5cGFX2qL8bDhTVfD9mX0/1CV0EZSgFb3uvi+OMoh1Z
-	4hERYWSfnO8DsiWmt6sonNAcs
-X-Received: by 2002:a05:7022:ec8a:b0:168:fe32:35a with SMTP id a92af1059eb24-190a57ac54dmr3475728c88.20.1792597421157;
-        Wed, 21 Oct 2026 08:43:41 -0700 (PDT)
-X-Received: by 2002:a05:7022:ec8a:b0:168:fe32:35a with SMTP id a92af1059eb24-190a57ac54dmr3475677c88.20.1792597420487;
-        Wed, 21 Oct 2026 08:43:40 -0700 (PDT)
-Received: from hu-hdev-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1902f96dc4bsm7937768c88.0.2026.10.21.08.43.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:43:40 -0700 (PDT)
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 21:13:09 +0530
-Subject: [PATCH 3/5] firmware: qcom: Add an TEE bus based ICE back-end
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mIaGdtf4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iXiz000sihD+lUTmOxTUQhkmX0fFdtovbhX7oTTWIBsjXGmx/DpObVKLHFDksyoUnr6oWJYJZYKO2ettjvYHhqVakmK1EjPj8KGfW76wHYv/lz9GtoiD1ZF7w6GKk8xqO2xYCxK/VV4/Ix/FQ/UGXl8bUqXCW0mXyVAMye9LahFVrQjiYj2JZxvafUQ98lAFoqC0HGrixVM0R6h5B5iBTnAcjpQmnVoBpqDlnSSDkiXNCOrAusPu91oFlJ7oTryRfvFs8rLLLibFxFgHVZ1NsqMjC/F5tSafN0ggAFbhreFWLmW7HnIlr3XHSeKvkplfMzEcSOh/IDNfVwSqck/4aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kHii8f14H9f2GlAXEq94y1Sg4Xrrc8XE4uliTeNT+4c=;
+ b=VOZe8l5td3AuVLQOy26U3C9wCzZgEYpvz12no38eX/rSHeBMVOr/N4T+ZrokGhE/QoFuwPL+mGqTThLAMkji2b6kBYzID0/xgGlzC5q5OdRi+x9QhjAqULFc4kGUmt5q10nswzC6R7k3i5Rw9FIdRzOpL2GvSYEunXAbqFruahYgBTIy303GmhVa2hyj99rT2bfcMWIu3N0jtXWFqmCDeD6Vj8C8VQZT0SBfGclPrRc9N4yzNBzw5jMRMoxru3YYLgWn0reYE5gyQ26mtGDw3sLcaMV1lG1GQMNaeAnJe33rpFZmeyYh9nFxjZFv2dz8AbGnmfXYjYc/5oO0dbS9/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kHii8f14H9f2GlAXEq94y1Sg4Xrrc8XE4uliTeNT+4c=;
+ b=mIaGdtf4HTfJLOiKO2dhomfNTBtLRPa6bCBWNsxvOddZ/LI0rF89/qg3Jdksh9t5jRgLnrYafurfYRXRAxixyItc19/WLpZSaNdFJ9rmDqbekP8iUzj1ny2lYE1yPpMfXxHKJP/6phabvjIaFAIP/ZLg+AGz/lePqiYZ27FLWRLd6snZkyNaL7nwDDoDKpd3+d97hRN2noizIra8kTsRarkBZ0pDnmG9UXbHndgopIL5enDV6W+IY0DUTEm1Bc4q/ESSnjDtVTCI1yJ9sdi5SmAgaboB/lI57HcZVFoHgIofDMPc1p7K5G7E4oro1wR+R5e9Xia/9RXLH3JAOwu0zw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB10534.eurprd04.prod.outlook.com (2603:10a6:150:205::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 15:43:32 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 15:43:32 +0000
+Date: Wed, 21 Oct 2026 10:43:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	bhelgaas@google.com, linux-pci@vger.kernel.org, robh@kernel.org,
+	thierry.reding@kernel.org, jonathanh@nvidia.com, kishon@kernel.org,
+	Frank.Li@kernel.org, vidyas@nvidia.com, cassel@kernel.org,
+	den@valinux.co.jp, marco.crivellari@suse.com,
+	andriy.shevchenko@linux.intel.com, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 09/10] PCI: tegra194: Balance core monitor clock on
+ failures
+Message-ID: <atjdmjX4-Hv2hGVq@SMW015318>
+References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
+ <20261021061349.1265704-10-mmaddireddy@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021061349.1265704-10-mmaddireddy@nvidia.com>
+X-ClientProxiedBy: PH7PR03CA0013.namprd03.prod.outlook.com
+ (2603:10b6:510:339::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,506 +102,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-ice-migrate-tee-svc-v1-3-b035be7aab0a@oss.qualcomm.com>
-References: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
-In-Reply-To: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>
-Cc: Basant Kumar <basantk@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597401; l=12871;
- i=harshal.dev@oss.qualcomm.com; s=20251124; h=from:subject:message-id;
- bh=fja1EocfzMIrsKQbYh7D32xrr8xUrvqluhCasdjihlA=;
- b=Ak50a0lT/3tGCVjFCofD/Oo2BPV/Kx73AbD+TUAL69VdxGSKsZcTn/7MSG/NXD31C0pSLOWz6
- lwalL8w06flClIa9/ag8lVwMFXyTFqZmd2VSUIdbcvDGpWuV7qvURC+
-X-Developer-Key: i=harshal.dev@oss.qualcomm.com; a=ed25519;
- pk=SHJ8K4SglF5t7KmfMKXl6Mby40WczSeLs4Qus7yFO7c=
-X-Proofpoint-ORIG-GUID: FUL-6XjAF0XRyJwBvHv3ktjOjGnXFKPn
-X-Proofpoint-GUID: FUL-6XjAF0XRyJwBvHv3ktjOjGnXFKPn
-X-Authority-Analysis: v=2.4 cv=N768hG9B c=1 sm=1 tr=0 ts=6ad8ddae cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=wV6y_F6WGLPFbETn8MUA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2MiBTYWx0ZWRfX2Z9diG5l/vfw
- Fb7KZ1/860RKZZYIPjzkAmmZz5eocYxA8wbPU4ox4aJub8cEoafGA+j+2ucyFJIexII3/eWDd6g
- UkdCXVgK5ZZCq59DQGt4iwdJA8LgnNSRYWzrX9Y6vNfB7OdTMvJ+lK0ynofOD7WPHBP8RVjKk4D
- 8JDDyGis4CQEPDmQc1xO8igUJOn1OXOmfPi2r82n05RTY40v31xKWBvX/v9UOSAZg6xMlj7D8UG
- uH85iIb2+FKJNffb7ASV1G6636gEluceYOWN0tXifct7tTFJcVeZdmb2puEzIGNjh7Xu4u3cwFs
- aAEn1jsnU0rLyM98TREqq1dxd5qwPjcDwCSATh0nwK9Glz2pqHfrXlPFD4uQngdAtCkcpnVpIm4
- clkHqGu2QSs80JAuOjZjAd5ewn2yXQZe4QAKQ2v3MEcN2gl35E3/8uA/EtG5Il4HHJTg8b+ae+3
- E6Bw8/RyiX0y3lXNdXg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2MiBTYWx0ZWRfX3IR9HUNJHCdY
- nSmkESMNka+fEhj4nfEDLQYUVnb+k0qHx22DndZn6Q/qAsKph20ep1KXSjzW3tk4yUNcszpe8sk
- V/lSCsDEr3N48eWlfpvxO94ml8RDwZ0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 malwarescore=0 suspectscore=0 phishscore=0
- bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210062
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10534:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3a11ae6-e843-4d64-bb56-08df2f8a0fc5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|23010399003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	VoiO/Ilz1wufHLV0AjHVdUokgjod3pyNV1zxFOXKXI6eLfsa6BpM8gTHwUqD+JozTpERnX3usG6ejddTW3PbWWmyDUVtwcotthNJ3bgP8krc6Ke/RMzWxiHlFT27MBOjZ+lgfWQLU9G2cuLcKT07C8UVGvMoKHLARGaCSLEQNHDkQFro2klT20vBP1uoGuyudbpwdvXM1GrQuM7+V5tjh5MZ+Yv3VvgMP+tJQM3rOYy3rZYdaNmfZGt02yzFxRLYuGioRb6Pufs6XyD29crl/57js47tXRU5YXB7LOlutUVuGwchGOlcjNEycXDGkMye5cKu8DWEvcVATM84Jb5J8nTZfcKouWv3jCuaK+Twf2mq3uLeVTb30f93aSQkXx3oRaf8cUowlndLTgDosBcKXTzK9CUHSsDDLhAaeECoyz2oT2yMg1YipoMsPwNMGW6TIDDrKZvi5jwI9HemWlbF2k2l72d1j9KckiFlHR72C+yfRlOqNZGaHKcxsjBdhpK54E01MDx3M/5eMN7eMwAnlhojqHgIZHoxf+Mnlh+dglA4rr0s9cTAKdAe/R2DZNYQtW0m8XyzIVgrpGjCRr75wNyLknMmy1IfXvp4jU4kZ0uO7NZb6T0Pi0MIrAWOmCxw+nwh9+HMluZDwCNTX5B0yn+mrWMP8uZ0gTublp/tEJM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?AXkmWT/CsJq3m8aqXDuBySYId//6nhLZsVAXEhOCGPcQC3rWqfCwcI3n6uRY?=
+ =?us-ascii?Q?uVt1rj0YTAW82N69ZvTKniK98m0LcHY6UZtoHfIy7MTmG3tZePnEBr+TD3Dt?=
+ =?us-ascii?Q?VhRfYSDuSJcoJJ+REbltPGrec+/mSX2YrQyAvOn8hC2HuNfVQEySbfDb+Uwf?=
+ =?us-ascii?Q?+1XLFRacQ9E46dp7mbMJhabhb18+Av7gq3GwLr1c3NBadlubc2NP0o5tTaOK?=
+ =?us-ascii?Q?WgxjWzOt3AjbnLQHOBFe8Bya7rqfUjifTqhrJZPM8Gae3zsOoVhCgx2hAokv?=
+ =?us-ascii?Q?Gu/hIIk1Y/EiAHwaEI9W4Yjr7HBjF3NhpijuptLi7SSeADS+EbgYsLkVW52H?=
+ =?us-ascii?Q?EeC6IPuyQlkPASXdelM/y3FTQRGMjN/yFtuJ4db43HoALAemxkacd3be3NsQ?=
+ =?us-ascii?Q?A8PpRRtmw4R7diQdwQpwBT40P2uHFWSYJFK+H4Kmwu3ICGizN4sw/RO6MJd8?=
+ =?us-ascii?Q?ASrPhA8ISbARQe6dpm+jEGj2fn4fIV08HGSPeBfsEIXNoWw3w7jVyUnYt+cA?=
+ =?us-ascii?Q?kCOkoaYojTUJw2LitnoRij39TD9BAsaTrNA5lVFesmE5mBtxHpIKS4GrhfXt?=
+ =?us-ascii?Q?88B45NaU/WM1yiXW9IYB0OaQfgLtd+1AK36d+s6Hp0GHySP0IBm6z5y18euu?=
+ =?us-ascii?Q?OAKz3vG3ND6n6JOXL2DFg46DLQDf3ayZlyqJ3tV7kRu53xXuw0oans74IdBa?=
+ =?us-ascii?Q?1zlX8cFZFPd2YrJ5VLdW6Th9SsWeeqgT7ix/6K7mq2cvmRuqbpkbIQ0t0s1j?=
+ =?us-ascii?Q?Ce6q0aUPJxFapZilKUzn7y6+Ru2sbl9x9zC0+yWuBzl+9CMl0Afhs4muTJel?=
+ =?us-ascii?Q?nwYZsw2QM6A7z6/OTUN9b4X8E8kJGwd4M8gtnlQsmqcjIrxIZGXKD1GZkLn+?=
+ =?us-ascii?Q?Tj4qI7ebAE6udISAxevyJmVI2wo3KrqSgOsm6PJt6dUGSXVBp5oDFA87xKGu?=
+ =?us-ascii?Q?sHQhgnC4sKIDovVCZmsH4mVZcYyjgXhjVlbs/5ealHBIKjLvTE2xS5X+sNON?=
+ =?us-ascii?Q?ZRq6rKgULOjM9VSaUBvHsUPRYeXa5B+KECw5LCiZ/wPxrkaVOScN7rcSWwf7?=
+ =?us-ascii?Q?CBYNWA3V3uSC1tO6vLCBpVtDUF8uHhqvDvquR2V+8jD+l3MNat3uvZMnbe2+?=
+ =?us-ascii?Q?9/bSORBnFmvWnToNLNRVVQwyKDfRHj/X3LhhK5/A/J0aiziMwSGX6oTjrZor?=
+ =?us-ascii?Q?AMkwMeaQHMGV6FMh7mWRvdlKtyWoiF/Akelj4eyxN3AxWSLuqu1Dz8Q0jbwN?=
+ =?us-ascii?Q?NpvIWbY2s5JoitOSooE/t1iPZR32/mIbFDlM6LCGealvHTBND1+adKr9jeLc?=
+ =?us-ascii?Q?w9NyytZ1IWr9XcsY51IF39mixGxTth8cTKC4kMGErNffou6SPAF+ZHsuUoN8?=
+ =?us-ascii?Q?D/TehIOLoLFytI7qeizq/CVDIzi5J2pcOtkl6BM4J5AxVR6B2B5AbYjyTXa+?=
+ =?us-ascii?Q?fB+54ubrXxS7hHJPziB0BLFqwqwfWFCs4CFE0iu38WZvFJ84hmYT2Lg0FfxB?=
+ =?us-ascii?Q?w9ZTxBGQ45qNU2QV5hGXt5sqctqyC4reLivUr+2Wh0bkLeBXp0QP8e05VR1O?=
+ =?us-ascii?Q?MXlpE97wHq6MQV0Uq5U2jEJuxJUBErNP0qmbcXCU7O2w2ijOi23L/5TvBIpJ?=
+ =?us-ascii?Q?Yo3PLIojgpTUdUWNw4OpGXJz7YSbOlNntQQzy0MdvPCADXhbfbMmfL4KBA+a?=
+ =?us-ascii?Q?Bq3bqToUsdhbmJQnP1Mb2kMqpvm12wdf2jY0VYvMTfAFCzkaaf5wqktuNsY7?=
+ =?us-ascii?Q?75x7Gy7g4iw9gFW24JF1vQqMonJea74rtqoDL07r0/NRSzynuUBg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3a11ae6-e843-4d64-bb56-08df2f8a0fc5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:43:32.7267
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e36Zm09nj3UUUdr9zakilwV4eyYqNw0vI4Twe9tkrBgO/QSA5PgpUwCXEkiB908qNuy0yPmKMPwKO1q9OM0PzbkhUeMwIlX5Dxn0DjgtNEVFgDBxALbZ8I+szo7CF1kd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10534
 
-Add support for a TEE client driver which forwards calls from the Inline
-Crypto Engine (ICE) service (invoked by the ICE driver) to the OPTEE ICE
-Psuedo-TA.
+On Wed, Oct 21, 2026 at 11:43:48AM +0530, Manikanta Maddireddy wrote:
+> tegra_pcie_dw_host_init() enables core_clk_m, but failure paths that leave
+> after the host init callback can unconfigure the controller without
+> disabling that clock. The enable error is also only logged, so later
+> cleanup can try to disable a clock that was never enabled.
+>
+> Track the monitor clock state, return enable failures, and use a common
+> helper on retry, remove, suspend, shutdown and host-init failure paths so
+> the clock is disabled exactly when it was enabled.
 
-The ICE PTA supports both ICE Legacy and Standard modes. In Standard mode
-Hardware Key Manager v1 is supported.
+Feel like checking core_clk_m_enabled for clock is not good desgin. Do you
+disable clock when linkdown?
 
-Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
----
- MAINTAINERS                          |   1 +
- drivers/firmware/qcom/Kconfig        |  10 +
- drivers/firmware/qcom/Makefile       |   1 +
- drivers/firmware/qcom/qcom_ice_tee.c | 384 +++++++++++++++++++++++++++++++++++
- 4 files changed, 396 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a80b776896c..d5d4f1ca85b2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23014,6 +23014,7 @@ L:	linux-crypto@vger.kernel.org
- S:	Maintained
- F:	drivers/firmware/qcom/qcom_ice.c
- F:	drivers/firmware/qcom/qcom_ice.h
-+F:	drivers/firmware/qcom/qcom_ice_tee.c
- F:	include/linux/firmware/qcom/qcom_ice.h
- 
- QUALCOMM INTERCONNECT BWMON DRIVER
-diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
-index 6cde1704dbc7..bb67bd93cc51 100644
---- a/drivers/firmware/qcom/Kconfig
-+++ b/drivers/firmware/qcom/Kconfig
-@@ -33,6 +33,16 @@ config QCOM_ICE_SERVICE
- 	  plugged in whether it's an SCM implementation or a TEE bus based
- 	  ICE service implementation.
- 
-+config QCOM_ICE_TEE
-+       tristate
-+       select QCOM_ICE_SERVICE
-+       depends on TEE
-+       depends on !CPU_BIG_ENDIAN
-+       default m if ARCH_QCOM
-+       help
-+         Enable the generic Inline Crypto Engine (ICE) firmware service TEE
-+         implementation as a backend.
-+
- config QCOM_SCM
- 	tristate "Qualcomm PAS SCM interface driver" if ARCH_QCOM || COMPILE_TEST
- 	select QCOM_PAS
-diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
-index 6403e8a17249..db9c9823420b 100644
---- a/drivers/firmware/qcom/Makefile
-+++ b/drivers/firmware/qcom/Makefile
-@@ -12,3 +12,4 @@ obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
- obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
- obj-$(CONFIG_QCOM_PAS_TEE)	+= qcom_pas_tee.o
- obj-$(CONFIG_QCOM_ICE_SERVICE)	+= qcom_ice.o
-+obj-$(CONFIG_QCOM_ICE_TEE)     += qcom_ice_tee.o
-diff --git a/drivers/firmware/qcom/qcom_ice_tee.c b/drivers/firmware/qcom/qcom_ice_tee.c
-new file mode 100644
-index 000000000000..b7434f19e6eb
---- /dev/null
-+++ b/drivers/firmware/qcom/qcom_ice_tee.c
-@@ -0,0 +1,384 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/firmware/qcom/qcom_ice.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/slab.h>
-+#include <linux/tee_drv.h>
-+#include <linux/uuid.h>
-+
-+#include "qcom_ice.h"
-+
-+#define PTA_QCOM_ICE_INVALIDATE_KEY		0
-+#define PTA_QCOM_ICE_SET_CONFIG_KEY		1
-+#define PTA_QCOM_ICE_GENERATE_KEY		2
-+#define PTA_QCOM_ICE_IMPORT_KEY			3
-+#define PTA_QCOM_ICE_EXPORT_KEY			4
-+#define PTA_QCOM_ICE_GET_RAW_SECRET		5
-+#define PTA_QCOM_ICE_HAS_WRAPPED_KEY_SUPPORT	6
-+
-+#define TEE_NUM_PARAMS				4
-+
-+struct qcom_ice_tee_private {
-+	struct device *dev;
-+	struct tee_context *ctx;
-+	u32 session_id;
-+};
-+
-+static int qcom_ice_tee_invalidate_key(struct device *dev, u32 index)
-+{
-+	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
-+	struct tee_ioctl_invoke_arg inv_arg = {
-+		.func = PTA_QCOM_ICE_INVALIDATE_KEY,
-+		.session = data->session_id,
-+		.num_params = TEE_NUM_PARAMS,
-+	};
-+	struct tee_param param[TEE_NUM_PARAMS] = {
-+		[0] = {
-+			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-+			.u.value.a = index,
-+			.u.value.b = 0,
-+		}
-+	};
-+	int ret;
-+
-+	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-+	if (ret < 0 || inv_arg.ret != 0)
-+		ret = ret ?: -EINVAL;
-+
-+	return ret;
-+}
-+
-+static int qcom_ice_tee_set_key(struct device *dev, u32 index,
-+				const u8 *key, u32 key_size,
-+				enum qcom_ice_cipher cipher,
-+				u32 data_unit_size)
-+{
-+	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
-+	struct tee_ioctl_invoke_arg inv_arg = {
-+		.func = PTA_QCOM_ICE_SET_CONFIG_KEY,
-+		.session = data->session_id,
-+		.num_params = TEE_NUM_PARAMS,
-+	};
-+	struct tee_param param[TEE_NUM_PARAMS] = {
-+		[0] = {
-+			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-+			.u.value.a = index,
-+			.u.value.b = cipher,
-+		},
-+		[1] = {
-+			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
-+			.u.value.a = data_unit_size,
-+		},
-+		[2] = {
-+			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
-+		}
-+	};
-+	struct tee_shm *key_shm;
-+	u8 *key_buf;
-+	int ret;
-+
-+	key_shm = tee_shm_alloc_kernel_buf(data->ctx, key_size);
-+	if (IS_ERR(key_shm))
-+		return PTR_ERR(key_shm);
-+
-+	key_buf = tee_shm_get_va(key_shm, 0);
-+	if (IS_ERR(key_buf)) {
-+		ret = PTR_ERR(key_buf);
-+		goto out;
-+	}
-+
-+	memcpy(key_buf, key, key_size);
-+	param[2].u.memref.shm = key_shm;
-+	param[2].u.memref.size = key_size;
-+
-+	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-+	memzero_explicit(key_buf, key_size);
-+	if (ret < 0 || inv_arg.ret != 0) {
-+		dev_err(dev,
-+			"ICE set_key failed, idx=%u, ret=%d, err=0x%x\n",
-+			index, ret, inv_arg.ret);
-+		ret = ret ?: -EINVAL;
-+	}
-+out:
-+	tee_shm_free(key_shm);
-+	return ret;
-+}
-+
-+static int qcom_ice_tee_wrapped_key_call(struct device *dev, u32 cmd,
-+					 const u8 *in, size_t in_size,
-+					 u8 *out, size_t out_size)
-+{
-+	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
-+	struct tee_ioctl_invoke_arg inv_arg = {
-+		.func = cmd,
-+		.session = data->session_id,
-+		.num_params = TEE_NUM_PARAMS,
-+	};
-+	struct tee_param param[TEE_NUM_PARAMS] = { };
-+	struct tee_shm *in_shm = NULL;
-+	struct tee_shm *out_shm = NULL;
-+	u8 *buf;
-+	int ret;
-+
-+	if (in && in_size) {
-+		in_shm = tee_shm_alloc_kernel_buf(data->ctx, in_size);
-+		if (IS_ERR(in_shm))
-+			return PTR_ERR(in_shm);
-+
-+		buf = tee_shm_get_va(in_shm, 0);
-+		if (IS_ERR(buf)) {
-+			ret = PTR_ERR(buf);
-+			goto out;
-+		}
-+		memcpy(buf, in, in_size);
-+
-+		param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT;
-+		param[0].u.memref.shm = in_shm;
-+		param[0].u.memref.size = in_size;
-+	}
-+
-+	if (out && out_size) {
-+		out_shm = tee_shm_alloc_kernel_buf(data->ctx, out_size);
-+		if (IS_ERR(out_shm)) {
-+			ret = PTR_ERR(out_shm);
-+			goto out;
-+		}
-+
-+		param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
-+		param[1].u.memref.shm = out_shm;
-+		param[1].u.memref.size = out_size;
-+	}
-+
-+	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-+	if (ret < 0 || inv_arg.ret != 0) {
-+		dev_err(dev,
-+			"ICE cmd %u failed, ret=%d, err=0x%x\n",
-+			cmd, ret, inv_arg.ret);
-+		ret = ret ?: -EINVAL;
-+		goto out;
-+	}
-+
-+	if (out && out_size) {
-+		buf = tee_shm_get_va(out_shm, 0);
-+		if (IS_ERR(buf)) {
-+			ret = PTR_ERR(buf);
-+			goto out;
-+		}
-+		memcpy(out, buf, out_size);
-+		memzero_explicit(buf, out_size);
-+	}
-+out:
-+	if (in_shm && !IS_ERR(in_shm)) {
-+		buf = tee_shm_get_va(in_shm, 0);
-+		if (!IS_ERR(buf))
-+			memzero_explicit(buf, in_size);
-+		tee_shm_free(in_shm);
-+	}
-+	if (out_shm && !IS_ERR(out_shm))
-+		tee_shm_free(out_shm);
-+
-+	return ret;
-+}
-+
-+static int qcom_ice_tee_derive_sw_secret(struct device *dev,
-+					 const u8 *eph_key,
-+					 size_t eph_key_size,
-+					 u8 *sw_secret,
-+					 size_t sw_secret_size)
-+{
-+	return qcom_ice_tee_wrapped_key_call(dev, PTA_QCOM_ICE_GET_RAW_SECRET,
-+					     eph_key, eph_key_size,
-+					     sw_secret, sw_secret_size);
-+}
-+
-+static int qcom_ice_tee_generate_key(struct device *dev,
-+				     u8 *lt_key, size_t lt_key_size)
-+{
-+	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
-+	struct tee_ioctl_invoke_arg inv_arg = {
-+		.func = PTA_QCOM_ICE_GENERATE_KEY,
-+		.session = data->session_id,
-+		.num_params = TEE_NUM_PARAMS,
-+	};
-+	struct tee_param param[TEE_NUM_PARAMS] = { };
-+	struct tee_shm *key_shm;
-+	u8 *buf;
-+	size_t out_size;
-+	int ret;
-+
-+	key_shm = tee_shm_alloc_kernel_buf(data->ctx, lt_key_size);
-+	if (IS_ERR(key_shm))
-+		return PTR_ERR(key_shm);
-+
-+	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
-+	param[0].u.memref.shm = key_shm;
-+	param[0].u.memref.shm_offs = 0;
-+	param[0].u.memref.size = lt_key_size;
-+
-+	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-+	if (ret < 0 || inv_arg.ret != 0) {
-+		dev_err(dev,
-+			"ICE generate_key failed, ret=%d, err=0x%x\n",
-+			ret, inv_arg.ret);
-+		ret = ret ?: -EINVAL;
-+		goto out;
-+	}
-+
-+	buf = tee_shm_get_va(key_shm, 0);
-+	out_size = param[0].u.memref.size;
-+
-+	memcpy(lt_key, buf, lt_key_size);
-+	memzero_explicit(buf, out_size);
-+out:
-+	tee_shm_free(key_shm);
-+	return ret;
-+}
-+
-+static int qcom_ice_tee_prepare_key(struct device *dev,
-+				    const u8 *lt_key,
-+				    size_t lt_key_size,
-+				    u8 *eph_key,
-+				    size_t eph_key_size)
-+{
-+	return qcom_ice_tee_wrapped_key_call(dev, PTA_QCOM_ICE_EXPORT_KEY,
-+					     lt_key, lt_key_size,
-+					     eph_key, eph_key_size);
-+}
-+
-+static int qcom_ice_tee_import_key(struct device *dev,
-+				   const u8 *raw_key,
-+				   size_t raw_key_size,
-+				   u8 *lt_key,
-+				   size_t lt_key_size)
-+{
-+	return qcom_ice_tee_wrapped_key_call(dev, PTA_QCOM_ICE_IMPORT_KEY,
-+					     raw_key, raw_key_size,
-+					     lt_key, lt_key_size);
-+}
-+
-+static bool qcom_ice_tee_available(struct device *dev)
-+{
-+	return true;
-+}
-+
-+static bool qcom_ice_tee_has_wrapped_key_support(struct device *dev)
-+{
-+	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
-+	struct tee_ioctl_invoke_arg inv_arg = {
-+		.func = PTA_QCOM_ICE_HAS_WRAPPED_KEY_SUPPORT,
-+		.session = data->session_id,
-+		.num_params = TEE_NUM_PARAMS,
-+	};
-+	struct tee_param param[TEE_NUM_PARAMS] = {
-+		[0] = {
-+			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT,
-+			.u.value.a = 0,
-+		}
-+	};
-+	int ret;
-+	bool has_support = false;
-+
-+	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-+	if (ret < 0 || inv_arg.ret != 0) {
-+		dev_err(dev,
-+			"ICE wrapped_key_support failed, ret=%d, err=0x%x\n",
-+			ret, inv_arg.ret);
-+		goto out;
-+	}
-+
-+	has_support = param[0].u.value.a;
-+out:
-+	return has_support;
-+}
-+
-+static struct qcom_ice_ops qcom_ice_ops_tee = {
-+	.drv_name = "qcom-ice-tee",
-+	.is_ice_available = qcom_ice_tee_available,
-+	.ice_invalidate_key = qcom_ice_tee_invalidate_key,
-+	.ice_set_key = qcom_ice_tee_set_key,
-+	.ice_has_wrapped_key_support = qcom_ice_tee_has_wrapped_key_support,
-+	.ice_derive_sw_secret = qcom_ice_tee_derive_sw_secret,
-+	.ice_generate_key = qcom_ice_tee_generate_key,
-+	.ice_prepare_key = qcom_ice_tee_prepare_key,
-+	.ice_import_key = qcom_ice_tee_import_key,
-+};
-+
-+static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
-+{
-+	return ver->impl_id == TEE_IMPL_ID_OPTEE;
-+}
-+
-+static int qcom_ice_tee_probe(struct tee_client_device *ice_dev)
-+{
-+	struct device *dev = &ice_dev->dev;
-+	struct qcom_ice_tee_private *data;
-+	struct tee_ioctl_open_session_arg sess_arg = {
-+		.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL,
-+	};
-+	int ret, err = -ENODEV;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->ctx = tee_client_open_context(NULL, optee_ctx_match, NULL, NULL);
-+	if (IS_ERR(data->ctx))
-+		return -ENODEV;
-+
-+	export_uuid(sess_arg.uuid, &ice_dev->id.uuid);
-+	ret = tee_client_open_session(data->ctx, &sess_arg, NULL);
-+	if (ret < 0 || sess_arg.ret != 0) {
-+		dev_err(dev,
-+			"tee_client_open_session failed, ret=%d, err=0x%x\n",
-+			ret, sess_arg.ret);
-+		err = ret ?: -EINVAL;
-+		goto out_ctx;
-+	}
-+
-+	data->session_id = sess_arg.session;
-+	dev_set_drvdata(dev, data);
-+
-+	qcom_ice_ops_tee.dev = dev;
-+	qcom_ice_svc_ops_register(&qcom_ice_ops_tee);
-+
-+	return ret;
-+out_ctx:
-+	tee_client_close_context(data->ctx);
-+
-+	return err;
-+}
-+
-+static void qcom_ice_tee_remove(struct tee_client_device *ice_dev)
-+{
-+	struct device *dev = &ice_dev->dev;
-+	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
-+
-+	qcom_ice_svc_ops_unregister(&qcom_ice_ops_tee);
-+	tee_client_close_session(data->ctx, data->session_id);
-+	tee_client_close_context(data->ctx);
-+}
-+
-+static const struct tee_client_device_id qcom_ice_tee_id_table[] = {
-+	{UUID_INIT(0x29e87b9e, 0x012a, 0x4878,
-+		   0xa1, 0xe1, 0xa1, 0xb9, 0x0a, 0x21, 0x5b, 0x16)},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(tee, qcom_ice_tee_id_table);
-+
-+static struct tee_client_driver optee_ice_tee_driver = {
-+	.probe		= qcom_ice_tee_probe,
-+	.remove		= qcom_ice_tee_remove,
-+	.id_table	= qcom_ice_tee_id_table,
-+	.driver		= {
-+		.name		= "qcom-ice-tee",
-+	},
-+};
-+
-+module_tee_client_driver(optee_ice_tee_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Qualcomm ICE TEE driver");
-
--- 
-2.34.1
-
+Frank
