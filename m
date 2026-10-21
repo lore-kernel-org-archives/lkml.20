@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792611226;
-	b=HNjM4vFyW+uzMYFR7SJQIJx8KQJQNvC280ofyEmGbINaduaDj7qWWPAYenamqVdqJeca
-	 Vu8PXXhZTjpe41ppDX/nQiZu+Wko6t/6Q9WW6UjFc6NIaVFabc4RWX9k6IPxvNwI/Aliy
-	 otgKCUdtEJukKsPWqWFwYEpVlzOq7M8v1lF1ayE6KYUi29BfH3BRiBQpegN80h5AbBhG9
-	 NM5wgbiZDDL+lIP8tSv0XdrWIHxCBMVFZCo5s1ePNOYRhSdyK7uvhVX/YyZeIP9bZ44+4
-	 pModQitfcDVRE7nsNfgaOnLkzH4D/OxjDBHwFGMk6T7HXhnWW6c1cycjfiuoD+sAffA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611226;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9txDIgQwheV+fR7k/v+i+WYoRf4iUo+S9yPZXzd4p68=;
-	b=wMRAreNHyLXsVC0eJZWYDj/uEe+USKt73+ZhNwegD6ZBrPlA3PWKcWTPDLSCKQpJouVU
-	 ZzARaPq0MFLYNlfWBABcnUwP3G4TY2I6NHm/hJBwSFmJM71mQbDdCKbA+Eonz5rKKOHMx
-	 GB8QaGBkiTiWQcHqIQgB6XJ0jKPIumyCeM07uYYuSjBFavhI8JQqvKWbVbUzkWoZYChf2
-	 I50dFjrEeQAH5gdZbYN7h+CfZ9bCkTsk+vbMsF/gZWwM5NbqbVKBOcSuFR/TxOShkh9LU
-	 4cEZuu+uDoqLf1cgnGIfHat6SBcCInjFtfgysz3K9V+gv6ikE/MaA+wlvlKUnJXgMMQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJS4+NyK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792611246;
+	b=gIgnuK1wlcwmbBWOurdAOoVPjuKorGTVecAPW6qqUGtG1C+0sqbkAi34kBWWeQg3VKz/
+	 OzO/PeAFWPI2LnFCxxrnFO0V2t7qEe4RgS+d1/ywwBwIUleGjAH+c1F7uwAaiDwIhff0m
+	 zsR9S+fgPpy8pmsReHVBPnYmD/GwbSpIcJrmcgTunNXD5NcTp8A+sdWKb0FILqUqRZgTI
+	 rFxICRowsDGXsJJyiOK6F/umIwXLPbDtOhFOxJrgAXffzkSI94G+3RR4IFohOxZApN14N
+	 2sBPcEhRX9A47n9Pi2ztHcDXAka94J2wzPUGLcVn3wz17xb/grgKWrgO6yttCIqslNg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611246;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=xgjjvMcj+/SEphMyf29PqBcaIf1/jtjvKrod8J12SlE=;
+	b=1VR9o5ntajefaTHqFTbXgQ1083d7FiOwE7xTBwDkjChWzmfd4v8sNTqHNCPkCafKsiOy
+	 8fBLADo8L5MCUE9YGnzQqAFqbJyf5ms6td6k1luKYWEEiox6edsgGAoca+uthX35OYbrK
+	 V+dO/ILLbmrk+3/jiMWjo1QQsozHvnIBeZTS19JGlZ8mW8Ig6IInyX9QIdYLJ0M3kh8T/
+	 5lT2xXmjrC5Ha/nml2JSc5tjvVPxX67VV/7jJIYkd9prR5Ln6Bi7UJUBsKTyqpyclnmev
+	 FsmwTrxzNJAA47DpodNUu1ycqhlOo4YRnqgbNWPzveRfYYdT0kZLzyC4fpfdzZUzxlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jmOfVYrR;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FDB606A320;
-	Wed, 21 Oct 2026 19:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC397606A31B;
+	Wed, 21 Oct 2026 19:34:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC397606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJS4+NyK
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792611225;
-	b=mGozZY10PPaFRLLpvF+wSOLdtg+iccDZUBbNNEVXu1fIS/J1b3ALP49bTntMj/cMZ+39
-	 6h1h3rlpFbgB9zn190E8wK7oKSBNUoyOLdgQKySL9p9HRNWqO7lv/tGKpAUvkI1rhYPHc
-	 1Ba01ZZm9EZANnQ8f3HrdKAawEcbPQ+iYXlKqoEmBjLHlBl4njIKM9W6y9hIpxPzuHG0n
-	 RgN2+9XZ1ZvjEBBeV6X0PBFqaVRme1u+w+2qD+L/YH/bZ6dQoiZ7GXl8JOnwj4LYc3u1A
-	 jAEdB28hIF3mRxMWvil2s1d7OHQ/rKTHDU6Zwj4fVB/DFBDDVd4f01MmpkI6pAD62Eg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792611225;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9txDIgQwheV+fR7k/v+i+WYoRf4iUo+S9yPZXzd4p68=;
-	b=VilLlmoZy3jbbFybgKqLnVJoI66vmKXLfdyKmhZqcxo6/aphQWYkD2CiSMMeaDyHo1SX
-	 Flk0HdwXRY1XuxSRwGRrrY7X2TwQSRjsrXJo/QtLGaHlVhJ8lI+F9EGTy3SxMF5VSWTBW
-	 FfNdRf8bA/oytIY/GgHRiQb5VSFq5XpFdXhkoYpxNAQuzVINI4HtFqmkrBTJ/eozl8Fh5
-	 OjFDu3Ua92Phw2xuEj3WwwzC7jy+DZ3pJdWsKc9gQAP/HViFupwvFCPVekzmiFQx7hROL
-	 gs4cA8L7xZawkwyS1jP+ZHT6h/zlXnlPyz/VM97X1rAR1Y+6AfQNi2ftjhlm42IU+kQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4028E1F000C3;
-	Wed, 21 Oct 2026 19:33:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792611225;
-	bh=9txDIgQwheV+fR7k/v+i+WYoRf4iUo+S9yPZXzd4p68=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WJS4+NyKgAnoNnFVaRQp3yctNORS6NwcUyS2PaFUTLMbtLK00vqDUKXsxL9qkNGJo
-	 gmFBT+iCfGiJJ4RoalyPccyD0cfdNWWRoFHXWuKa57/sW2VjBPvLAX6sQzGWpXp4K4
-	 mj/L9uhLViXo0U6CEdEHln43H7JU9XQ8Xg9YzeOQH1GJq1nqnAAZNO470vl2Pnw9/P
-	 Mmw5+jlP9avkxkVZTSrgoLmMlq9YLO1OMeSDIOvztG/8YOer4f6JgU5ys8KkgWdVrG
-	 bkKOl1pubo/ATlPrPFDhr8Hmy8EtzYiaJbBaiWWCXB/gqDBONxb7y+BppP1KcbpfZF
-	 12HSnW0v7PusQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A574743426;
-	Wed, 21 Oct 2026 19:33:43 +0000 (UTC)
-From: Serv Pol via B4 Relay <devnull+servpol.tuta.io@kernel.org>
-Date: Wed, 21 Oct 2026 19:33:44 +0000
-Subject: [PATCH v2 2/2] power: supply: Add GL.iNet GL-E750 MCU battery
- driver
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jmOfVYrR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792611246; x=1824147246;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=g074VJ2zsRyfbcPLhiVF6ww/zRqj2WDgDiYthX+xHcI=;
+  b=jmOfVYrR0AK7gw3sJzf2eA5IpmQ78QZEZCTho/V88CDryKQv5gp2uOYK
+   fZA2ubbu30fngxuRNEgbMrlmyuCvuI7aI8B6PP2UYjB+uTSMw2n7DNkGV
+   s6KptEeokIPC6HOsj0pt+PxW0pVighUpOU0EsPXPJ+i3GI9jGeMKSee2q
+   OEvUIV4kc/Lw4PZYte1XWP2NJDRMelb0E24ZfUwS8OTX3iBRFAYv8Q1vN
+   AZiTNRSYCsJzEKUwpC2pQBKQBNw7AAZ26lM8sM36JQ2dQeoALcN7ryJ3i
+   zlSw83rogy+pBQ2bdV2Rq6u52pjKOYEp7VDqEalcVwMqWZp2LVWXqR3yV
+   Q==;
+X-CSE-ConnectionGUID: eEpgEj4ORzaXDwHRCznLwg==
+X-CSE-MsgGUID: gxE2WDPeQ82gJc1yXWB8fQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1382755"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1382755"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:34:05 -0700
+X-CSE-ConnectionGUID: uAfhMxmxQ2GngWwt2x8PbQ==
+X-CSE-MsgGUID: 3DVvLgvrTPeDVOY4x0WQTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3170729"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:34:04 -0700
+Date: Wed, 21 Oct 2026 22:34:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] gpiolib: avoid krealloc() in gpiod_get_array()
+Message-ID: <atkTqWUn-2tzRw69@ashevche-desk.local>
+References: <20261021190212.2237804-1-dmitry.torokhov@gmail.com>
+ <20261021190212.2237804-5-dmitry.torokhov@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,480 +82,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-gl-e750-mcu-v2-2-9bd7e7c2e0e1@tuta.io>
-References: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io>
-In-Reply-To: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io>
-To: Serv Pol <servpol@tuta.io>, Sebastian Reichel <sre@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792611222; l=13812;
- i=servpol@tuta.io; s=20261005; h=from:subject:message-id;
- bh=JoHLZy5I9ek9rN5BkWAaEmApO4fNgS8RBNNh6SSQmEE=;
- b=iip1tQrUBlCKgnbS5K6e9PdzN79hxfyWURzBvoVpD+Qjkr2ssmd0bdTjXizvo8Vcz2FW5BTgS
- vEMrqb4ljnEDHrDlID/EACywhZFKgmCuQTtCWNtIWkjQuH5ZsXE0cLV
-X-Developer-Key: i=servpol@tuta.io; a=ed25519;
- pk=2HCjaqYjXxgwTYu30Nem9DOHT8mtKgjitt1vEXKpwrE=
-X-Endpoint-Received: by B4 Relay for servpol@tuta.io/20261005 with
- auth_id=1120
-X-Original-From: Serv Pol <servpol@tuta.io>
-Reply-To: servpol@tuta.io
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021190212.2237804-5-dmitry.torokhov@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Serv Pol <servpol@tuta.io>
+On Wed, Oct 21, 2026 at 12:02:10PM -0700, Dmitry Torokhov wrote:
+> Instead of allocating descs before the loop and reallocating it via
+> krealloc() when candidate hardware array matching is detected on the
+> first iteration, defer allocation of descs until the first descriptor
+> is retrieved.
+> 
+> Factor descriptor allocation and fast-path validation into helper
+> functions gpio_descs_alloc() and gpio_descs_check_fastpath(). Inside
+> the loop, acquire the descriptor using __free(gpiod_put), allocate
+> descs once on the first iteration, check fast-path candidate
+> suitability, and transfer descriptor ownership using no_free_ptr().
 
-The status MCU of the GL.iNet GL-E750 (Mudi) travel router sits on the
-SoC UART and talks in text lines: the host sends JSON objects whose values
-are all strings, and a request containing "mcu_status": "1" is answered
-with
+...
 
-  {OK},<percent>,<temperature>,<charging>,<cycles>
+> +static struct gpio_descs *gpio_descs_alloc(unsigned int count, struct gpio_desc *first_desc)
+> +{
+> +	struct gpio_device *gdev = gpiod_to_gpio_device(first_desc);
+> +	struct gpio_array *array_info;
+> +	struct gpio_descs *descs;
+> +	size_t descs_size, alloc_size;
+> +	unsigned int bitmap_size;
+> +
+> +	/*
+> +	 * If pin hardware number of array member 0 is also 0, select
+> +	 * its chip as a candidate for fast bitmap processing path.
+> +	 */
+> +	if (gpiod_hwgpio(first_desc) != 0)
+> +		return kzalloc_flex(*descs, desc, count);
+> +
+> +	descs_size = struct_size(descs, desc, count);
+> +	bitmap_size = BITS_TO_LONGS(max(gdev->ngpio, count));
+> +	alloc_size = descs_size + struct_size(array_info, invert_mask, 3 * bitmap_size);
+> +
+> +	descs = kzalloc(alloc_size, GFP_KERNEL);
+> +	if (!descs)
+> +		return NULL;
+> +
+> +	array_info = (void *)descs + descs_size;
 
-Poll that every 30 seconds and expose the result as a power_supply.
+> +	array_info->get_mask = array_info->invert_mask + bitmap_size;
+> +	array_info->set_mask = array_info->get_mask + bitmap_size;
 
-When the power switch is turned off, the MCU sends {"shut_down": "1"},
-without a line ending, and cuts the power a few seconds later. Shut the
-system down cleanly in that case.
+> +	array_info->desc = descs->desc;
+> +	array_info->size = count;
+> +	array_info->gdev = gdev;
+> +	bitmap_set(array_info->get_mask, 0, count);
+> +	bitmap_set(array_info->set_mask, 0, count);
 
-The MCU also renders the status screen from JSON fields (SSIDs, clients,
-cellular state...). That vendor-specific content is not handled here.
+With the above being done, I would rather see bitmap_zalloc() for bitmaps.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Serv Pol <servpol@tuta.io>
----
- MAINTAINERS                        |   1 +
- drivers/power/supply/Kconfig       |  13 ++
- drivers/power/supply/Makefile      |   1 +
- drivers/power/supply/gl-e750-mcu.c | 369 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 384 insertions(+)
+> +	descs->info = array_info;
+> +
+> +	return descs;
+> +}
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 247432449..505aa205c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11110,6 +11110,7 @@ M:	Serv Pol <servpol@tuta.io>
- L:	linux-pm@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/power/supply/glinet,gl-e750-mcu.yaml
-+F:	drivers/power/supply/gl-e750-mcu.c
- 
- GNSS SUBSYSTEM
- M:	Johan Hovold <johan@kernel.org>
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index ee7dc5f26..e87c76c18 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -1203,4 +1203,17 @@ config MACSMC_POWER
- 
- 	  Say Y or M here if you have an Apple Silicon based Mac.
- 
-+config BATTERY_GL_E750_MCU
-+	tristate "GL.iNet GL-E750 status MCU battery driver"
-+	depends on SERIAL_DEV_BUS
-+	depends on OF || COMPILE_TEST
-+	help
-+	  Say Y or M here to enable the battery driver for the status
-+	  microcontroller of the GL.iNet GL-E750 (Mudi) travel router.
-+	  It reports the battery state and shuts the system down when
-+	  the power switch is turned off.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called gl-e750-mcu.
-+
- endif # POWER_SUPPLY
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index f3c0d1006..5d405556e 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -78,6 +78,7 @@ obj-$(CONFIG_CHARGER_TWL4030)	+= twl4030_charger.o
- obj-$(CONFIG_CHARGER_TWL6030)	+= twl6030_charger.o
- obj-$(CONFIG_CHARGER_LP8727)	+= lp8727_charger.o
- obj-$(CONFIG_CHARGER_LP8788)	+= lp8788-charger.o
-+obj-$(CONFIG_BATTERY_GL_E750_MCU)	+= gl-e750-mcu.o
- obj-$(CONFIG_CHARGER_GPIO)	+= gpio-charger.o
- obj-$(CONFIG_CHARGER_MANAGER)	+= charger-manager.o
- obj-$(CONFIG_CHARGER_LT3651)	+= lt3651-charger.o
-diff --git a/drivers/power/supply/gl-e750-mcu.c b/drivers/power/supply/gl-e750-mcu.c
-new file mode 100644
-index 000000000..37541915e
---- /dev/null
-+++ b/drivers/power/supply/gl-e750-mcu.c
-@@ -0,0 +1,369 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * GL.iNet GL-E750 (Mudi) status MCU battery driver
-+ *
-+ * The MCU sits on the SoC UART. It drives the OLED screen, monitors the
-+ * battery and watches the power switch. The host sends one JSON object per
-+ * line, where every value is a string. When a line contains
-+ * "mcu_status": "1", the MCU answers with
-+ *
-+ *	{OK},<percent>,<temperature>,<charging>,<cycles>
-+ *
-+ * When the power switch is turned off, the MCU sends {"shut_down": "1"} and
-+ * cuts the power a few seconds later.
-+ *
-+ * Copyright (C) 2026 Serv Pol <servpol@tuta.io>
-+ */
-+
-+#include <linux/completion.h>
-+#include <linux/ctype.h>
-+#include <linux/devm-helpers.h>
-+#include <linux/math.h>
-+#include <linux/module.h>
-+#include <linux/power_supply.h>
-+#include <linux/property.h>
-+#include <linux/reboot.h>
-+#include <linux/serdev.h>
-+#include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
-+
-+#define MCU_BAUDRATE		115200
-+#define MCU_RX_LINE_MAX		128
-+#define MCU_POLL_INTERVAL_MS	30000
-+#define MCU_REPLY_TIMEOUT_MS	1500
-+
-+static const u8 mcu_status_req[] = "{ \"mcu_status\": \"1\" }\n";
-+
-+struct gl_e750_mcu {
-+	struct serdev_device *serdev;
-+	struct power_supply *psy;
-+	struct delayed_work poll_work;
-+	struct work_struct poweroff_work;
-+	struct completion reply;
-+
-+	/* receive buffer and battery state, filled from the serdev callback */
-+	spinlock_t lock;
-+	char rx_line[MCU_RX_LINE_MAX];
-+	size_t rx_len;
-+	bool valid;
-+	int capacity;		/* percent */
-+	int temp;		/* tenths of a degree Celsius */
-+	bool charging;
-+	int cycles;
-+};
-+
-+/* "37.4", "40" or "-1.5" -> tenths of a degree */
-+static int mcu_parse_tenths(const char *s, int *out)
-+{
-+	const char *dot = strchr(s, '.');
-+	char whole_str[8];
-+	int whole, frac = 0;
-+
-+	if (!dot) {
-+		if (kstrtoint(s, 10, &whole))
-+			return -EINVAL;
-+		*out = whole * 10;
-+		return 0;
-+	}
-+
-+	if (dot == s || dot - s >= sizeof(whole_str))
-+		return -EINVAL;
-+	memcpy(whole_str, s, dot - s);
-+	whole_str[dot - s] = '\0';
-+	if (kstrtoint(whole_str, 10, &whole))
-+		return -EINVAL;
-+	if (isdigit(dot[1]))
-+		frac = dot[1] - '0';
-+	*out = whole * 10 + (*s == '-' ? -frac : frac);
-+	return 0;
-+}
-+
-+/*
-+ * "{OK},<percent>,<temperature>,<charging>,<cycles>", called with the lock
-+ * held. Returns true if the line was a valid status reply.
-+ */
-+static bool mcu_parse_status(struct gl_e750_mcu *mcu, char *line)
-+{
-+	char *p = line + 4, *f[4];
-+	int capacity, temp, charging, cycles, i;
-+	bool changed;
-+
-+	if (*p++ != ',')
-+		return false;
-+	for (i = 0; i < ARRAY_SIZE(f); i++) {
-+		f[i] = strsep(&p, ",");
-+		if (!f[i] || !*f[i])
-+			return false;
-+	}
-+
-+	if (kstrtoint(f[0], 10, &capacity) || mcu_parse_tenths(f[1], &temp) ||
-+	    kstrtoint(f[2], 10, &charging) || kstrtoint(f[3], 10, &cycles))
-+		return false;
-+	if (capacity < 0 || capacity > 100)
-+		return false;
-+
-+	changed = !mcu->valid || mcu->capacity != capacity ||
-+		  mcu->charging != !!charging || mcu->cycles != cycles ||
-+		  abs(mcu->temp - temp) >= 10;
-+	mcu->capacity = capacity;
-+	mcu->temp = temp;
-+	mcu->charging = !!charging;
-+	mcu->cycles = cycles;
-+	mcu->valid = true;
-+
-+	complete(&mcu->reply);
-+	if (changed)
-+		power_supply_changed(mcu->psy);
-+	return true;
-+}
-+
-+/* called with the lock held */
-+static void mcu_handle_line(struct gl_e750_mcu *mcu, char *line)
-+{
-+	if (!strncmp(line, "{OK}", 4))
-+		mcu_parse_status(mcu, line);
-+	else if (strstr(line, "\"shut_down\""))
-+		schedule_work(&mcu->poweroff_work);
-+	else
-+		dev_dbg_ratelimited(&mcu->serdev->dev, "unhandled: %s\n", line);
-+}
-+
-+/* hand the buffered message over, called with the lock held */
-+static void mcu_flush_line(struct gl_e750_mcu *mcu)
-+{
-+	mcu->rx_line[mcu->rx_len] = '\0';
-+	mcu_handle_line(mcu, mcu->rx_line);
-+	mcu->rx_len = 0;
-+}
-+
-+/* a status reply is waiting in the buffer, called with the lock held */
-+static bool mcu_status_pending(struct gl_e750_mcu *mcu)
-+{
-+	return mcu->rx_len > 4 && !strncmp(mcu->rx_line, "{OK}", 4);
-+}
-+
-+static size_t mcu_receive_buf(struct serdev_device *serdev, const u8 *data,
-+			      size_t count)
-+{
-+	struct gl_e750_mcu *mcu = serdev_device_get_drvdata(serdev);
-+	unsigned long flags;
-+	size_t i;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	for (i = 0; i < count; i++) {
-+		char c = data[i];
-+
-+		if (c == '\r' || c == '\n') {
-+			if (mcu->rx_len)
-+				mcu_flush_line(mcu);
-+			continue;
-+		}
-+
-+		/*
-+		 * Status replies and JSON events may come without a line
-+		 * ending. Every message starts with '{', so a new one ends
-+		 * the previous message, and a JSON event ends with '}'.
-+		 */
-+		if (c == '{' && mcu->rx_len)
-+			mcu_flush_line(mcu);
-+		if (mcu->rx_len < MCU_RX_LINE_MAX - 1)
-+			mcu->rx_line[mcu->rx_len++] = c;
-+		if (c == '}' && mcu->rx_line[0] == '{' &&
-+		    strncmp(mcu->rx_line, "{OK}", 4))
-+			mcu_flush_line(mcu);
-+	}
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	return count;
-+}
-+
-+static const struct serdev_device_ops mcu_serdev_ops = {
-+	.receive_buf = mcu_receive_buf,
-+	.write_wakeup = serdev_device_write_wakeup,
-+};
-+
-+static void mcu_poll_work(struct work_struct *work)
-+{
-+	struct gl_e750_mcu *mcu = container_of(to_delayed_work(work),
-+					       struct gl_e750_mcu, poll_work);
-+	unsigned long timeout = msecs_to_jiffies(MCU_REPLY_TIMEOUT_MS);
-+	unsigned long flags;
-+	int ret;
-+
-+	/*
-+	 * Only an earlier status reply is consumed here; a partially received
-+	 * event stays in the buffer.
-+	 */
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	if (mcu_status_pending(mcu))
-+		mcu_flush_line(mcu);
-+	reinit_completion(&mcu->reply);
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	ret = serdev_device_write(mcu->serdev, mcu_status_req,
-+				  sizeof(mcu_status_req) - 1, timeout);
-+	if (ret < 0) {
-+		dev_warn_ratelimited(&mcu->serdev->dev, "write failed: %d\n", ret);
-+	} else if (!wait_for_completion_timeout(&mcu->reply, timeout)) {
-+		/* the reply may come without a line ending */
-+		spin_lock_irqsave(&mcu->lock, flags);
-+		if (mcu_status_pending(mcu))
-+			mcu_flush_line(mcu);
-+		else
-+			dev_dbg(&mcu->serdev->dev, "no status reply\n");
-+		spin_unlock_irqrestore(&mcu->lock, flags);
-+	}
-+
-+	schedule_delayed_work(&mcu->poll_work,
-+			      msecs_to_jiffies(MCU_POLL_INTERVAL_MS));
-+}
-+
-+static void mcu_poweroff_work(struct work_struct *work)
-+{
-+	struct gl_e750_mcu *mcu = container_of(work, struct gl_e750_mcu,
-+					       poweroff_work);
-+
-+	/* the MCU cuts the power a few seconds after reporting the switch */
-+	dev_info(&mcu->serdev->dev, "power switch turned off, shutting down\n");
-+	orderly_poweroff(true);
-+}
-+
-+static const enum power_supply_property mcu_battery_props[] = {
-+	POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_TECHNOLOGY,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_TEMP,
-+	POWER_SUPPLY_PROP_CYCLE_COUNT,
-+};
-+
-+static int mcu_battery_get_property(struct power_supply *psy,
-+				    enum power_supply_property psp,
-+				    union power_supply_propval *val)
-+{
-+	struct gl_e750_mcu *mcu = power_supply_get_drvdata(psy);
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_TECHNOLOGY:
-+		val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
-+		break;
-+	case POWER_SUPPLY_PROP_STATUS:
-+		if (!mcu->valid)
-+			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
-+		else if (mcu->charging)
-+			val->intval = mcu->capacity >= 100 ?
-+				      POWER_SUPPLY_STATUS_FULL :
-+				      POWER_SUPPLY_STATUS_CHARGING;
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+		break;
-+	case POWER_SUPPLY_PROP_CAPACITY:
-+		if (mcu->valid)
-+			val->intval = mcu->capacity;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	case POWER_SUPPLY_PROP_TEMP:
-+		if (mcu->valid)
-+			val->intval = mcu->temp;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	case POWER_SUPPLY_PROP_CYCLE_COUNT:
-+		if (mcu->valid)
-+			val->intval = mcu->cycles;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+	}
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	return ret;
-+}
-+
-+static const struct power_supply_desc mcu_battery_desc = {
-+	.name = "gl-e750-battery",
-+	.type = POWER_SUPPLY_TYPE_BATTERY,
-+	.properties = mcu_battery_props,
-+	.num_properties = ARRAY_SIZE(mcu_battery_props),
-+	.get_property = mcu_battery_get_property,
-+};
-+
-+static int gl_e750_mcu_probe(struct serdev_device *serdev)
-+{
-+	struct device *dev = &serdev->dev;
-+	struct power_supply_config psy_cfg = {};
-+	struct gl_e750_mcu *mcu;
-+	int ret;
-+
-+	mcu = devm_kzalloc(dev, sizeof(*mcu), GFP_KERNEL);
-+	if (!mcu)
-+		return -ENOMEM;
-+
-+	mcu->serdev = serdev;
-+	spin_lock_init(&mcu->lock);
-+	init_completion(&mcu->reply);
-+	serdev_device_set_drvdata(serdev, mcu);
-+	serdev_device_set_client_ops(serdev, &mcu_serdev_ops);
-+
-+	/*
-+	 * devm teardown runs in reverse: the poll work is cancelled before the
-+	 * port is closed, the power-off work (queued from the receive path)
-+	 * and the battery only after it.
-+	 */
-+	psy_cfg.drv_data = mcu;
-+	psy_cfg.fwnode = dev_fwnode(dev);
-+	mcu->psy = devm_power_supply_register(dev, &mcu_battery_desc, &psy_cfg);
-+	if (IS_ERR(mcu->psy))
-+		return dev_err_probe(dev, PTR_ERR(mcu->psy),
-+				     "failed to register battery\n");
-+
-+	ret = devm_work_autocancel(dev, &mcu->poweroff_work, mcu_poweroff_work);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_serdev_device_open(dev, serdev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to open serdev\n");
-+
-+	serdev_device_set_baudrate(serdev, MCU_BAUDRATE);
-+	serdev_device_set_flow_control(serdev, false);
-+	ret = serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to set parity\n");
-+
-+	ret = devm_delayed_work_autocancel(dev, &mcu->poll_work, mcu_poll_work);
-+	if (ret)
-+		return ret;
-+
-+	schedule_delayed_work(&mcu->poll_work, 0);
-+	return 0;
-+}
-+
-+static const struct of_device_id gl_e750_mcu_of_match[] = {
-+	{ .compatible = "glinet,gl-e750-mcu" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, gl_e750_mcu_of_match);
-+
-+static struct serdev_device_driver gl_e750_mcu_driver = {
-+	.probe = gl_e750_mcu_probe,
-+	.driver = {
-+		.name = "gl-e750-mcu",
-+		.of_match_table = gl_e750_mcu_of_match,
-+	},
-+};
-+module_serdev_device_driver(gl_e750_mcu_driver);
-+
-+MODULE_AUTHOR("Serv Pol <servpol@tuta.io>");
-+MODULE_DESCRIPTION("GL.iNet GL-E750 status MCU battery driver");
-+MODULE_LICENSE("GPL");
+...
+
+>  	count = gpiod_count(dev, con_id);
+> -	if (count < 0)
+> -		return ERR_PTR(count);
+
+Leave this and simply add
+
+> -	struct gpio_descs *descs __free(gpiod_put_array) =
+> -		kzalloc_flex(*descs, desc, count);
+> -	if (!descs)
+> -		return ERR_PTR(-ENOMEM);
+> +	if (count <= 0)
+> +		return ERR_PTR(count ?: -ENOENT);
+
+	if (count == 0)
+		return -ENOENT;
+
+The currently proposed code is less readable.
+
+...
+
+>  	for (i = 0; i < count; i++) {
+> -		desc = gpiod_get_index(dev, con_id, i, flags);
+> +		struct gpio_desc *desc __free(gpiod_put) =
+> +			gpiod_get_index(dev, con_id, i, flags);
+>  		if (IS_ERR(desc))
+>  			return ERR_CAST(desc);
+>  
+> -		descs->desc[descs->ndescs++] = desc;
+> -
+> -		gdev = gpiod_to_gpio_device(desc);
+> -		/*
+> -		 * If pin hardware number of array member 0 is also 0, select
+> -		 * its chip as a candidate for fast bitmap processing path.
+> -		 */
+> -		if (i == 0 && gpiod_hwgpio(desc) == 0) {
+> -			struct gpio_descs *array;
+> -			size_t descs_size = struct_size(descs, desc, count);
+> -
+> -			bitmap_size = BITS_TO_LONGS(gdev->ngpio > count ?
+> -						    gdev->ngpio : count);
+> -
+> -			array = krealloc(descs, descs_size +
+> -					 struct_size(array_info, invert_mask, 3 * bitmap_size),
+> -					 GFP_KERNEL | __GFP_ZERO);
+> -			if (!array)
+> +>  		if (i == 0) {
+
+This is almost invariant to the loop. Can we move it out?
+
+> +			descs = gpio_descs_alloc(count, desc);
+> +			if (!descs)
+>  				return ERR_PTR(-ENOMEM);
+> -
+> -			descs = array;
+> -
+> -			array_info = (void *)descs + descs_size;
+> -			array_info->get_mask = array_info->invert_mask +
+> -						  bitmap_size;
+> -			array_info->set_mask = array_info->get_mask +
+> -						  bitmap_size;
+> -
+> -			array_info->desc = descs->desc;
+> -			array_info->size = count;
+> -			array_info->gdev = gdev;
+> -			bitmap_set(array_info->get_mask, 0, count);
+> -			bitmap_set(array_info->set_mask, 0, count);
+> -			descs->info = array_info;
+>  		}
+>  
+> -		/* If there is no cache for fast bitmap processing path, continue */
+> -		if (!array_info)
+> -			continue;
+> +		gpio_descs_check_fastpath(descs, desc);
+>  
+> -		/* Unmark array members which don't belong to the 'fast' chip */
+> -		if (array_info->gdev != gdev) {
+> -			__clear_bit(i, array_info->get_mask);
+> -			__clear_bit(i, array_info->set_mask);
+> -		}
+> -		/*
+> -		 * Detect array members which belong to the 'fast' chip
+> -		 * but their pins are not in hardware order.
+> -		 */
+> -		else if (gpiod_hwgpio(desc) != i) {
+> -			/*
+> -			 * Don't use fast path if all array members processed so
+> -			 * far belong to the same chip as this one but its pin
+> -			 * hardware number is different from its array index.
+> -			 */
+> -			if (bitmap_full(array_info->get_mask, i)) {
+> -				descs->info = NULL;
+> -				array_info = NULL;
+> -			} else {
+> -				__clear_bit(i, array_info->get_mask);
+> -				__clear_bit(i, array_info->set_mask);
+> -			}
+> -		} else {
+> -			dflags = READ_ONCE(desc->flags);
+> -			/* Exclude open drain or open source from fast output */
+> -			if (test_bit(GPIOD_FLAG_OPEN_DRAIN, &dflags) ||
+> -			    test_bit(GPIOD_FLAG_OPEN_SOURCE, &dflags))
+> -				__clear_bit(i, array_info->set_mask);
+> -			/* Identify 'fast' pins which require invertion */
+> -			if (gpiod_is_active_low(desc))
+> -				__set_bit(i, array_info->invert_mask);
+> -		}
+> +		descs->desc[descs->ndescs++] = no_free_ptr(desc);
+>  	}
 
 -- 
-2.47.3
+With Best Regards,
+Andy Shevchenko
 
 
