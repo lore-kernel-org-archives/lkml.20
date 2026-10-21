@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573616;
-	b=B44JbaUPSS4XEpxp0rWhHtl7DNd/wkRva0FheVO2FLBDep4DHDy5xjAqG7HnT09jLP5x
-	 0WrDI90Ud7XfYblRBd6YQEePHRSgZ2RuFxAdCej+0cCwa7kxaB6FAya215F9kNVSdymvi
-	 0a9I9qekkx+7JHFLsukZ6NH3YFoaxdAA2rB+NwWDbWOEu11WNABY+sJcPDc6knsewI6eM
-	 B9mkG6YyjAdxs1bfiGKCFBW++qpOHi+Dul5KAYhaRQnlbeh7cDvE9bu10J2xtOp2q5XRW
-	 Rf1jXTQSVVLAsPT9xHpxSqfQIy8txkr1f61jfWu3xLnxa6qfrgftNDfVU5aS/pUj9KQ==
+	t=1792573629;
+	b=rJumeTl39JHTbqjLTwfTxJUB5jCU8SoP6Xt42Vtog9CeFnGWvaT5vzBFwePrgjlgwM/Y
+	 i0i2FHbX9uUuB04slTejOoyhkGrBAIfdDHoZvM/zb83VW+Mcah4/YNr1OTMxFoFdM1d6D
+	 dFKf7ywiJMU7Dl8SRYf/GA1Yw3XSSOWFrIvS/Xv4vZOJUmp/PRNwDSNYyoIi2+w0Iwt9Z
+	 lbe+r5JeFSJUXuaexh6K5p+OXmvadm37Yp0RauPNBWSLLFwXcQrxeENaX61zJn1lvvCvO
+	 jZGEVloxlO0v5vN2gKqYdABbETtGxJRW2dhS95V5LhQjQFDIVTc5rP0twOsC0HbuxoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573616;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=uwQSFZ3FSogyaone7anL8mKsD0j7h3eCsLGxjb5kG8A=;
-	b=FLcxd5ZwI5Tn4yN9NfPjz2+YvGMJfjgeGTuUq1O0RJaOjaOt/XTXIT0NELofGZLQtbA2
-	 PzFA2ZDJztPxidciLmYtnzuZkCYzAGGDeN3nb+zVsWf2nI0lK2u4f5ipOUoqGRMKLfrCh
-	 /STRyFXXg6i8ljQnqs7qQOCmwNHbqxFHlzz4HJ0mRVVMr51+r9987oX/lZZ3j4Nm4bJRR
-	 IoxqW8ZdY/TBWRh+XSaBJBS0n6eBkpn+L7mzKQO6bT5Ifq5cbUC3Os1W0xUkMwhDeAVK/
-	 gBG1Rb6Ecd3J7bMok5rERWM95r3Mzd8PrFssse1S+9S3RU4HkPLQ87y2zUAjLh8rHBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573629;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=rg0LSI4npnBDUHtGy7KX4tR0xQfgXS+TF5Cj0A9UQlA=;
+	b=TwReF0pqTdL156r1ljAVacn3FKYqMOkoZvCi5WusGSUgovFNjyx8XCN8rA3MD/j+Skg3
+	 mIV3JwvsqZqrvj9xKeM3wWFkgly+FhRNyxHbDZ2p4TmMC2SIZ7BO0p8v6Lc2XIZQrovF/
+	 86k0YDC4YAbZAaesDpJm1I1MQgikWhOOtf0i3O+has/Ats5Q/baZYUP1UZapDSmrV2Vjj
+	 XrjK3IoW7IsWOo/lUM/N4neMQAp39fD/8DKyAWlSFH0XLKsEyJTo4CZOLcd5BCdHfu9RA
+	 PgGaDlEPmmJXWrW1UnbuxoFQflcUR1uDAUVtvhT+l4763yVqXZ2j7Kqxb7V1sLQiozA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="v+0qIXZ/";
-	arc=none smtp.remote-ip=95.215.58.223
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dyuS/W3e";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A92606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33A92606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59655606A31A;
+	Wed, 21 Oct 2026 09:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v+0qIXZ/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Po7qkO1SjHqn4Bxa+MKkPPqkGbMVv052HeJ8cSEw26c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792573613; v=1; x=1793178413;
- b=v+0qIXZ/fyvbcF5DEGvAHUQqdC8Vl7VnleFjNNvwB8O5CT5ZoXIXYrNJIy831Jz/dY05pH7l
- QgOs/T/9Y0sIOi05TSaiQ1zfjYdvLp3Yo4cjFeizd4mzNhRxuwox8qePnGLTSoh5xpkJJjDvRKC
- +KxplTTdY6JdWL+MCk/Jy3oM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 6eab166210853d46;
-	Wed, 21 Oct 2026 09:06:52 +0000
-X-Mizu-Trace-ID: 6eab166210853d46
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 21 Oct 2026 17:06:44 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Li <chrisl@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
-	Kairui Song <ryncsn@gmail.com>, Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <atiApNwSTKejgcor@fedora>
-References: <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
- <20261014195354.GA371161@cmpxchg.org>
- <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
- <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org>
- <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
- <CACePvbVbMPZTrD5y=--XgBS+sa4CHb7e4RFTYCbWfzHzVc3vXA@mail.gmail.com>
- <7e998cd5-57e0-432b-a8e0-676a5b773436@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyuS/W3e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFE11F000C9;
+	Wed, 21 Oct 2026 09:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792573629;
+	bh=rg0LSI4npnBDUHtGy7KX4tR0xQfgXS+TF5Cj0A9UQlA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dyuS/W3ea7Wx2GQYveNRK6A4clR9WKquzSo7emGhmilDJhGfkRm482JLiSIwwvRnx
+	 tRz4YkGWU3RkgKsj26EjGPNpY38Ya01YaNDP0hCT90bnF7P5q+D7Py9DsMI5woYLHu
+	 wWbIaBLbHYHuXIVgoDtWJ0GLSihrVcRJkLfNz8gTGWeofTATdXiiLIVoIqZpPBnzRO
+	 XCtataIa6A8TKYyIOUu2+EzZ1bNvRfuGc+c8P/3T4KJasoornuP0Gp+q4aozA5S8bU
+	 fB3ivzGfBxENRbMhT6L4jvtekd5apDXWVnfilDfcEojbQzi8sh0s8xZWFvkeCBEgDP
+	 PUnDjzchRcszg==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	mfd@lists.linux.dev,
+	linux-serial@vger.kernel.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	linux-ide@vger.kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	linux-leds@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v2 00/53] MIPS: SGI-IP27: add support for the IP35 (Bedrock hub) machines
+Date: Wed, 21 Oct 2026 11:05:55 +0200
+Message-ID: <20261021090556.21168-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020145611.4e277615@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org> <20261020110619.12774a1c@kernel.org> <20261020204214.28625-1-kaloz@kernel.org> <20261020145611.4e277615@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,59 +79,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e998cd5-57e0-432b-a8e0-676a5b773436@kernel.org>
 
-On 10/21/26 at 10:18am, David Hildenbrand (Arm) wrote:
-> On 10/21/26 09:41, Chris Li wrote:
-> > On Mon, Oct 19, 2026 at 5:35 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> >>
-> >> On Mon, Oct 19, 2026 at 5:28 AM David Hildenbrand (Arm)
-> >> <david@kernel.org> wrote:
-> >>>
-> >>>
-> >>> I'm traveling this week, so it's a bit tricky. I cannot make Thursday morning.
-> >>>
-> >>> On Thursday I'll be traveling back from Cambridge. But hang on.
-> >>>
-> >>> My plan lands on Oct 22, 11:10 PM. I should be home around Friday 1.30am - 2am.
-> >>>
-> >>> I could just naturally join that day.
-> >>>
-> >>> So one day later would work for me.
-> >>
-> >> Would that be too rushed for you? :)
-> >>
-> >> For everyone's convenience, this would be the time slot:
-> >>
-> >> PDT: Thu Oct 22, 5:00 PM
-> > 
-> > Works for me :-)
-> > 
-> >> EDT: Thu Oct 22, 8:00 PM
-> >> Europe: Fri Oct 23, 2:00 AM
-> > 
-> > Ouch, David. If you commit to that, I understand it is very
-> > challenging. Thank you for taking one for the team.
-> > 
-> >> China: Fri Oct 23, 8:00 AM
-> > 
-> > Other swap developers: Kairui, Baoquan, YoungJun and Barry, when you
-> > have time, please comment on whether you can make the meeting as well.
+On Tue, 20 Oct 2026 14:56:11 -0700 Jakub Kicinski wrote:
+> I don't think you answered my question, or at least I'm too daft 
+> to catch what you mean. IP35 was not supported so nobody is using
+> it with Linux today. You're adding the support, and since it's 
+> a platform discontinued 20 years ago there's 0 chance of real users 
+> of any of this code.
 > 
-> I took the liberty to schedule the meeting and send out google calendar
-> invitations to everyone on the CC list (to keep it simple on my end ;) ).
+> What am I missing?
 
-Thanks, David, I received the gmeet invite. I will join the meeting.
+The users are the people running these machines, the same population
+as for IP27 and IP30, and the ioc3-eth driver in net/ exists for them
+today. The series was developed and tested on a Fuel and a Tezro in
+regular use, so "nobody is using it with Linux" is true only in the
+sense that the support isn't merged yet; that was equally true of IP30
+when it went in for 5.5, and of every port before it.
 
-> 
-> If anybody did not receive an invite but wants to join, please let me know.
-> 
-> If anybody received an invite and does not want to join, just ignore :)
-> 
-> -- 
-> Cheers,
-> 
-> David
+The kernel's test for a platform isn't commercial relevance, it's a
+maintainer, which Thomas is, and testers, which this series has. If
+netdev doesn't want to spend time on it, say so and I'll ask Thomas to
+take the two ioc3-eth patches through the MIPS tree.
+
+
+Imre
