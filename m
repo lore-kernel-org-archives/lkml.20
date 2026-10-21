@@ -1,45 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584131;
-	b=pEAQNRjCMNlME/ZVYt3IQ6lZ1XRPyZmCmlcR+nEsQFQhge1XjVNrcJ9ADhFWAnOezndi
-	 EgK9NkSGlPM4yQDuE/I7DWFksJC0U//2RZN/YexL/IW+WJ2qYBiOw2T25wRHz8SV83OwH
-	 tzqml3KpyZxLSUiDEYSvgX6LkT5V/dD72Pt6q7OTX4zxwEhmAR8SR47ohRHMSfKeB15Br
-	 L3VHV7aJ8JUb76ZALn9g2qMTQmiLshaTEOT/22CBeqVEf3xekcj/y4V8XoctxB0EFBlXC
-	 de3XHu2+OG3AZsTA01ijjbtZxmcJIkAlAG98Dtw4KD1dBD87nu3ELM304e9qi8RSnBQ==
+	t=1792584289;
+	b=BVRCx/KCkUm4AhF8oFWOVBfv0RDY0SBSmot51ErKOPsXMVjK4YNNX+eI2lDlKxo5kPYt
+	 PBOorOTF2/M+tjhfDjMvhD/NlN7+khb0s6sWpnv0rHfM6JjBQDWDhvFRgOhOCUDXKFA2s
+	 wWk0W6H0K99eleVDYrdrbq2wy/Nu48HzG7eiJqXzT/ZMHU9y1CQQGyX+T56XJH9353shl
+	 P/atVqow0jLYpTcN0ST4927DH2AWYA0HXyL8JVJYGZt4XPACQW5wZpW5PMPiehFN1EbtF
+	 zVVPAkgdyP5dNs5r+96MyRhuydmhnIdZncqV1AopEJ0EMAo69TN78lq8bkSvl1NtyPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584131;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=TB7v9N/W2xTmNch7MkNivf/9UIfr6xOKYhQd3i+ONPg=;
-	b=Nkrt2Fj+8S8NsTQI/v+QhMIjIeH8uEsO2+/rXkrDnoAeUPaJGlQRzfbsT/WkUj/p8rhB
-	 6Ur6W5c/dZAJCjosGmzkGQvadJnyBzajR3qu1JtKOGBXwcn+VawIW4C94CqpO5YRGUXuF
-	 ZMFfPUSUOsFMqKDS5BwE2FzBb8pOc2MIulkFazWX0RBRK9mEz5VD5t3m/nsiENlgR06Ly
-	 ht63k4jy0TXQD3n1N340wUOirwsfURrMHdfYAzD+Dsr4YXu8dCpFRQ47vuM0NtWz30scc
-	 RVwQ6I8X1hT/T2xkXiecbfcC1zFxUQnuq6rgyhpNLKvNynyRyLoxMShuHSLNTqZTA1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584289;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=lVnw2USx2TyzNv+Sffbcxp/BIiUfguSBZbsmuhMg8fY=;
+	b=F5sbToP9+YP5U8quX29XUvyx/VVpYG63uLDDxfVwWJmXrl++Zul6fjN0DKGibPSqeHOB
+	 P8y6HwNehSqkZNrnp7PL92gV4DJf3rV3EWVRTdOKugiHR/+cNuyo5MmlMrKWpoP0n16xM
+	 eHZ98a9cq4zG9lPdU7YlJH0FlSwQjSFdcpXTjxzGgWCzaP4ZyD+K50h3KIBHv8OvzgLJ6
+	 aLTaYiw8hwQ8UNt+xobvs4ZZaL9xee97daLU3345391N5su5qiJh3v1RyWgIkUWpCtkdz
+	 x2tIVIXgWTEhwXSaITS6qTAJ3M4UO3bblhSCfYXenDaJo+P6JTJQXFlbgWBfVHAgwkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTb0PsEY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U+cERM6H;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M5Qjc4a8;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AAA606A322;
-	Wed, 21 Oct 2026 12:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76384606A328
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76384606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTb0PsEY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDDE1F000C9;
-	Wed, 21 Oct 2026 12:02:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584131;
-	bh=TB7v9N/W2xTmNch7MkNivf/9UIfr6xOKYhQd3i+ONPg=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=oTb0PsEYgwLw1y9tW1PiZ51FoiwOLqMvmA1ZNC242x9QOenanDFnyvuYdUAeVQ/Rn
-	 c2yAVy2IuhgPC35XIHJrcGXEWcQtaCr7K9R8jWFIWJx6OJh+luQtc1j/qEMlyU0ydt
-	 ZLOGzrVG5IDe9cyrOfb1infJBUv6P4UVyHzvYtDhWsiZNAlrkAtb6ApxrtB8TQrWxa
-	 tkTzQPC5PNL+3JMw9qPYvjZv2DD/sg4njywHCpRYzue+MLWOpZMqP326KSW7dDmF80
-	 3/SsINkZNkwf4y74LDrfjP69m8FuI48RDqx7JM+ZxAHvVDxjPcEG3AZO5R3/EXlMea
-	 n5YtHaDeqWe/g==
-Content-Type: multipart/mixed; boundary="===============5182620710229058046=="
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U+cERM6H;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M5Qjc4a8
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBfxnh1568124
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:04:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=lVnw2USx2TyzNv+Sffbcxp/B
+	IiUfguSBZbsmuhMg8fY=; b=U+cERM6Hs7kMYYj8l8dw1V3O4BY5C+TYCPX6f1hY
+	X9lgC1EeLQazoPLr2w2ihUiLPTciOw0kaXObHyNrclw2NDtNfvJ/03p04DsOqmK1
+	DnnGJDu/KuTAvYG/+VvwDSEvkztpXs7awKI6kzSwU7arHuxAwSd2J7oPntrYiZTD
+	vq4tXzZrqrdPXOmlYTmksaKmLlKwHydNMKvJaVUFs7NC5XPuWZMgEMNk8X0BZB9s
+	TbJXgimEDbqV5lL/k+9vgrnwnvGeYOWnoOFhfnMa/qlEzKze+z+/oD+Q/V33WNMD
+	2LKcytcOJOi9BDbsQQ4FNrNNiGff1WhWi1DzUg6DG2axTw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4us97-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:04:48 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99076c676cbso117321241.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:04:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792584288; x=1793189088; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lVnw2USx2TyzNv+Sffbcxp/BIiUfguSBZbsmuhMg8fY=;
+        b=M5Qjc4a8UG51DaMRFb5V9VoztEffd8h86i6+HQ3Zfo8pG2a4gA64gN2BeQ1lGJoKMo
+         zyRVBxCQ1tlcOC8XLxHuFhYcwoeXjA1dw4QWezOA4+P18CmU8MlxOTsDIiHtPa8C8AKs
+         AllNqs3m0TbPTAe/Y0eh7D4h0him72apCtsRuZuMvruBT++8XjZQyryJHe86Yem+Yw2G
+         odlYzE/H+Iao4jWCNgaVDeFJU064EhhvUthj8lWWDg14O1wIudt1gHO0Q0TJqy3x8dFf
+         oR6SVFfd28VPaVh36Fa2o8Z4mdCfv0bN6EjFBjOrXsB3WTukdlLpRjZTpGkZ51515/no
+         EEtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792584288; x=1793189088;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lVnw2USx2TyzNv+Sffbcxp/BIiUfguSBZbsmuhMg8fY=;
+        b=P0cUP0sI8yuYRJI9mK1pQLfTOgU/RSZVBn9yKi4YOZ/kTJJx62u1l2jENtsBtXIkov
+         PyanWo8EWMbu9SldO6rAZ1Ln3tSjrU/ts+LeN22f5/eg8HcHf7qRNO/zpP5NqqF0wr6s
+         bjp/0JO20IzG+Bwx32GjXlWfkdAcxhY/eE62xNzhGph0wVJRU+aQ5antgIpZw/SV2+Iv
+         diCh9xbjPVTcqADIMSbrgZAa/iQZPz+6RMRRGqE5fn7uuDQ/bVwOHw2Zevl1HmlxS4gN
+         A+0VqqYmhO9Ni47UBF505PKqUGTMR44xJ3Re5vXoMM0fxT6t+PHN7cT8qu7S8j5j+FSF
+         VXPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxN7w+7X77XTph2D2RbdQ0ex3qbVweyfbFeMEL65kUx7JQ1G6WbjQydpm3hsOeFRfUolz1bmSlaSwO33bU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAkPFY77pP5nRjhgEPRjdK3Ys3ct+7Ry78+yEVBxbt6mOu6OXg
+	CTuoXcCEfyGY8fHfhb1MfQxUPXTFT7i50poatVN5GEfm81Yrawgs71/rLcitzOUeKRRvDqQcnFC
+	3jZ6Nte/g6+1nu3RNSual1Jh6K/lxcXdVt2rfpWmlPPovqFHFLzHe77aI+6lO1CSq+Oo=
+X-Gm-Gg: AYBFou3YEAH3858i3JUu2IWQ5tMeC9KaZHMv/slM9ZWDPwpTe8uTwGW7P4S+GlTP2c1
+	p9r/nvsCq+hM1Fz34/ML0Jc/C7KRX2xE+0aWJIH9QbpsC/UTUJAqHrh4rcfm8p+gqavtsm4nw44
+	n1RLGdo3IS1e3S3E7LWkoYWGxkXwm07vcSV+4krEhWIG/x7Nxt+Ro/K2ldLbZ0+TSfJVZ+8PqqA
+	cO6VS2nuEOJID+DKF6ZMfrFX+wRUEI+PQN5Zcy7H+o1uePxMSVc82CpR1mDruIVBBWg4xLfLk9u
+	ZkNPBFvYuc1EXZ8xj93Pyo5Z70d26T0Vy2yuJ2p12VEtoC0ZWEnkd7GNRLU359X7pZMiseg4Mth
+	2m/DCyYrm0Sv7mfuA
+X-Received: by 2002:a05:6102:688b:b0:7c1:8aa5:36d6 with SMTP id ada2fe7eead31-7cc925e0fecmr559550137.11.1792584287282;
+        Wed, 21 Oct 2026 05:04:47 -0700 (PDT)
+X-Received: by 2002:a05:6102:688b:b0:7c1:8aa5:36d6 with SMTP id ada2fe7eead31-7cc925e0fecmr559538137.11.1792584286653;
+        Wed, 21 Oct 2026 05:04:46 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm44223715e9.3.2026.10.21.05.04.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 05:04:45 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:04:44 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: hawi: Add memory-region for audio PD
+Message-ID: <yzgojjbovtrbbz3lomoe5qiooh4e6f5dtrjpogvoj2kv6cjm5l@jdvh5nq6fupz>
+References: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,152 +125,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <c4c7baf05581e93321e536d935a27b4c1da8b7d8879852664864bff8d3b269a2@mail.kernel.org>
-In-Reply-To: <20261021112437.1799213-3-zhen.ni@easystack.cn>
-References: <20261021112437.1799213-3-zhen.ni@easystack.cn>
-Subject: Re: [PATCH v3 2/7] mm/page_owner: protect page access with mem-hotplug read lock
-From: bot+bpf-ci@kernel.org
-To: zhen.ni@easystack.cn,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,akpm@linux-foundation.org,vbabka@kernel.org,surenb@google.com,mhocko@suse.com,brendan.jackman@linux.dev,hannes@cmpxchg.org,ziy@nvidia.com,shuah@kernel.org
-Cc: bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,zhen.ni@easystack.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 21 Oct 2026 12:02:10 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: TDTAZJ5Zv34xae96oDZwu8YomMu5l9sO
+X-Proofpoint-GUID: TDTAZJ5Zv34xae96oDZwu8YomMu5l9sO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX9fOdMrVkaZAM
+ 9C+1Pc/HaJ8OGEefB9ycleD0XaVBe0luhuhvXApU8Ogj6osNUHi9rpdJ0VHx6aOSFPmvgzvoS2a
+ y9hT7EG7FGfv22Befoj94MoKaaWgl9s=
+X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad8aa60 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=qltNFNbxueZ9_HQRUAkA:9 a=CjuIK1q_8ugA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX/r0EU+aNqtA9
+ 7v7uwGkCkGHVjTHd7TYhxpBq4iXzS7SJuVAIXPHWNJeJ1H43Hl4w84SILTf6yFhuZLvIUCQ8ie/
+ VoAjvcVUswxbQSMCROlGyVA9Aax0uCGioKdnGPbsKFmYzxpi3oVsEWwsmc2uRpCIvxK5b1iZrPM
+ /L4p7z7HCj5a0/H6jfzWqS6pN7kkLpsFIZXDzOKxZG0WwK4QNhXSainISzyqsaN/eYjOckHHIoc
+ fvi3WEdy+Mc51AFngwosdaLEB2cqw5JIXrznSK8Io9tZMP5JSwyo7bbaezkO5FUzcmVzmTLTVMT
+ fPi7oX1+rJALBbAL7MzxfPHZNBx6As7ifH1yDa9ZB/RLP9sbpgudNTSWPK77uUWpSAgUJxJSyrH
+ 3YDmsv6rejw/st7zxdyGmORGwpV2o+cZSxKoimqOlXrLER3rVOW5qEKwjGHnt/ldmtCq0bowann
+ RUYds6qSrys5RhT37wQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210048
 
---===============5182620710229058046==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On 26-10-21 17:15:02, Ekansh Gupta wrote:
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-> mm/page_owner: protect page access with mem-hotplug read lock
-
-TL;DR: read_page_owner() holds the mem-hotplug read lock across
-copy_to_user(); a page fault there may deadlock against mmap_lock (lock-order
-inversion with memremap_pages callers) and userspace can stall hot-remove
-indefinitely.
-
-> diff --git a/mm/page_owner.c b/mm/page_owner.c
-> --- a/mm/page_owner.c
-> +++ b/mm/page_owner.c
-
-[ ... ]
-
-> @@ -831,7 +843,17 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
->
->  	/* Find an allocated page */
->  	while (page_owner_next_eligible(&scan)) {
-> -		struct page *page = pfn_to_page(scan.pfn);
-> +		struct page *page;
-> +		ssize_t ret;
-> +
-> +		/*
-> +		 * The scan is lockless. Re-resolve the page under a mem-hotplug
-> +		 * read-side lock so that we never access a hot-removed section.
-> +		 */
-> +		get_online_mems();
-> +		page = pfn_to_online_page(scan.pfn);
-> +		if (!page)
-> +			goto skip_continue;
-
-[ ... ]
-
-> @@ -851,10 +873,13 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
->  		/* Record the next PFN to read in the file offset */
->  		*ppos = scan.pfn + 1;
->
-> -		return print_page_owner(buf, count, scan.pfn, page,
-> +		ret = print_page_owner(buf, count, scan.pfn, page,
->  				&scan.po_snap, scan.po_snap.handle, state);
-> +		put_online_mems();
-> +		return ret;
-                ^^^^
-
-Can this deadlock against mmap_lock?  read_page_owner() now holds the
-mem_hotplug_lock reader across the whole print_page_owner() call, and that
-includes the copy_to_user() of the formatted record:
-
-print_page_owner()
-    ...
-    if (copy_to_user(buf, kbuf, ret))
-            ret = -EFAULT;
-
-Once kbuf is formatted, nothing in that copy touches struct page, so the
-reader isn't needed there.  A user page fault on buf taken inside this
-region takes current->mm->mmap_lock for read (on x86 a fault from
-kernel-mode uaccess always does, see the 'goto lock_mmap' path in
-arch/x86/mm/fault.c for !FAULT_FLAG_USER), and __might_fault() records that
-dependency for lockdep.  That creates the lock order:
-
-mem_hotplug_lock(R) -> mmap_lock(R)
-
-The opposite order already exists in the tree.  Code that hotplugs device
-memory while holding mmap_read_lock goes through memremap_pages() ->
-pagemap_range() -> mem_hotplug_begin(), which does cpus_read_lock() and then
-percpu_down_write(&mem_hotplug_lock):
-
-nouveau_svmm_bind()
-    mmap_read_lock(mm)
-    nouveau_dmem_migrate_vma()
-      nouveau_dmem_migrate_chunk()
-        nouveau_dmem_migrate_copy_one()
-          nouveau_dmem_page_alloc_locked()
-            nouveau_dmem_chunk_alloc()
-              memremap_pages()
-
-lib/test_hmm.c:dmirror_migrate_to_device()
-    mmap_read_lock(mm)
-    dmirror_migrate_alloc_and_copy()
-      dmirror_devmem_alloc_page()
-        dmirror_allocate_chunk()
-          memremap_pages()
-
-With three threads sharing one mm, could this sequence occur?
-
-T1 read(page_owner):
-    get_online_mems(), then copy_to_user() faults on buf
-T2 SVM bind ioctl:
-    holds mmap_read_lock(mm), blocks in percpu_down_write(&mem_hotplug_lock)
-    waiting for T1
-T3 mmap()/munmap():
-    queues on mmap_write_lock(mm) behind T2
-T1 fault:
-    mmap_read_lock(mm) blocks behind T3
-
-None of these waits has a timeout.  While T2 waits it also holds
-cpus_read_lock(), so CPU hotplug writers and every later get_online_mems()
-caller stall too.
-
-Even without that cycle, the reader can now be held for as long as
-userspace wants.  A buf backed by userfaultfd or by a slow or remote file
-mapping could stall memory hot-remove for an unbounded time.  Does that
-match the commit message claim:
-
-    "Taking the lock per-page bounds the writer's wait to a single page's
-    check-and-deref, keeping hot-remove stalls brief while all accesses stay
-    protected."
-
-For comparison, ptdump_walk_pgd() already takes get_online_mems() followed
-by mmap_write_lock(current->mm).  This new instance sits on a much more
-commonly used debug path, and here the lock isn't needed around
-copy_to_user() at all.
-
-Would it work to format the record under the reader (or snapshot the
-page-derived fields: pageblock migratetype, page->flags, memcg info), call
-put_online_mems(), and only then call copy_to_user()?  The kmalloc() in
-print_page_owner() could also move outside the locked region.
-
-The last commit in the series (5b123f2cd336 "selftests/bpf: add tests for
-the page_owner bpf_iter target") still calls print_page_owner() under the
-reader, so the series does not address this later.
-
->
->  skip_continue:
-> +		put_online_mems();
->  		scan.pfn++;
->  		cond_resched();
->  	}
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39593164040
---===============5182620710229058046==--
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
