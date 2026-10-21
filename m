@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792595783;
-	b=VrRW/OoWQAjIVL/LFtakQukWLdTllLjYMsgASyR1QpGfA/O8KvFSmG20w+eKsB9Wnb7H
-	 2aeQpO4RzVAKWnS/ktckCF9EBVxtj2daBsH6UnxgN5jGE767Nn4lHUwH93YAvwYRTot3x
-	 /gpynzp+bL9875kaOblbM/jLmEKMKhP59sGWDCInfda+mSLBjsG5UlQtVi/ZaEu0P99/E
-	 i1C17jJCqoAeLICp/naZcLMBADchn/OSQg5aokvzz221y/DUCNKXLk2SN9EZhetkslYkj
-	 kvYkwLIhiEdtNnm7PFWO3u3DxykBicH9SbKgAno7IS96rOJ7y1HAigeIlVMJZ1p4KdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595783;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sw2SOLaawbFPqXp7JY4scp1cgeD9LlD6E/UpVVUMVVg=;
-	b=Qk7RgeOWQbbkPJSzR45vhpEONIghTPh3Jk6NjSTmizWs5etw96VysDERW4HhZ+PaqMdG
-	 6RpkejoeSjT59q9WKGgiPj05Pzua57P9kjlxO23k3EB3D/vp+StKonWIxSTyaP7nl7TdV
-	 CrA8u+ZZkfCiFVvgonIPqto2rv7PJTA3JxXseQzQFi2WWClaYzNQxZ9gmG7nL8yAzP3fG
-	 bBvOKdUuzOYNfiyUJQpsQnKJtZ39+wH3bE2+EfK5eTcyzDBbmjVqXnMGDKq2L+FHqtNpc
-	 qcs10cX75vK9ArUwbPhRRwLn3pXIjnjvjRFXQ0iD15ofCusPw5xJtW6qhPYw/VZFUsw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OVb13d10;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792595823;
+	b=qg/cGBZLdy6WEOq6PueocNjvgIEqepQFDsNWI8WPCe8ywAUbYRSawVYdc9ygBDNKxby6
+	 AjFIxrNYOD60SHPNQkA7bIUZpKvHalqgW0CZN4Q8KvWWP7gNYV+hPKymbSCY+G+4TvM3i
+	 vcg2kuttFO7tHZWNlum4Rm1VetRlbbPyx74ViPrbKgHrOghuzK7VXQXPhNEm+6uKKA5R4
+	 WgJ5Wg6b+uvptO8x2t11+wTQhuanKVZJ0RzP/3VDd6d0Z1h7g88jgclWbdcnVVGPVMeUS
+	 q7Jciiyo/H5RyzDi8unJXOHP3AD9+86zDoco/A/Yst6DlSjRbbpg0oX9blJV+drKCZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595823;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=VUwVNBdTmyElFd5++SFMk99jQ0/AW6Li9MfUrUHf72o=;
+	b=Yt5X8C0PBct/GG9ZFlxribAvtp5ZtO4fOkN4d5Ld3REhbnM8HCzEPmZNL6DIixWNiw/A
+	 aHcOk1XaSLGRpd2Fj6RZKaLnDuvvziADDBGCPEL0/nZeGVmuMB5ZFGC1620b3YbdUQ2jN
+	 kJ6J2VtbJiajFZcF9UHHf1AQqtHPR6DRemta+P7I1IQ14riqgVVWLp5RU6Lm02+eeM3bM
+	 R2B69WZckfAlfT9XrdljuDO5v40jfNO854nTbfyWTKIkgNDvOlMIjCdY4Ng21XEy7oG6N
+	 or7xM9mla8XFBLhbSEgjuhtXacbWo8ZaoQfnp1i2CUBh8Vn0EkP4LQAMglwR+1wLxVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=a9ldZ8pP;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FF3606A33B;
-	Wed, 21 Oct 2026 15:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63FF3606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3978E606A319;
+	Wed, 21 Oct 2026 15:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3978E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OVb13d10
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UEDW0RwOzQerjuerqaiiGVsdy0RldnffFF12QSrtI5Q3Y5qQW/pE+kVtS7GzPLMsrsrIZZm4RApfep8VFCW6SIxpyo82tFIStq9iDUWB0JqG1mB7W7VZxQw8np/Vmja1YWBTtSAVbqNKmWP3PEY/qZA5KddHxq1TNtpl1vbwPP3TWff3Ef9Vp4EuqncGikGfNgchIfG3+nBjAOF+ZZUn64Ox2MzQb2fDE+uRqMlhqHPvkQNlxJguyzu+SJJ5Deszdo700z2CUsM+RlYY7JdDdtlmhmV45lqsausejALkNO/wIs7W5+WiSlqZChr7GGjpKhbUW8aA7l3ofEAA0ghBxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sw2SOLaawbFPqXp7JY4scp1cgeD9LlD6E/UpVVUMVVg=;
- b=Z30J1Vp3gAPlsKkWaB4yosqPFmpuyYvNFHuaX22jI5ztDcJWvEPX5HudmOzR0dYlBp1mqNVfOkhNZOCrYxfa+We2P3BEIlxrIMVDtg3+gPiaU6dzSd0W+nMSLVBvFFero0hzyaIbWU1Vmq8q7ltJ4p1njWqOMUg7y+j0huTDbE0K9H/r86XVM+6fpUVZ4W9V8oXBK69aJccLc1n6p1CqOXBMLNGldrpXyINg7UJsnZtBRpNqoiIMBLYTUUhZnOvQe9KobiTC82OOz47nFTp7tfSfGYZYaEFd9wni9/desgHKngZpKcemdHLiBuNwYza3GQtzUwh0acIvQ0Pr9BgAzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sw2SOLaawbFPqXp7JY4scp1cgeD9LlD6E/UpVVUMVVg=;
- b=OVb13d10U832vy80PQ2oU21HSA0ouXBgyQX4Cwe0msjbPrRnryBq6Izp4jFb20Ew9Sb6Mfur2HL0u9UBIvqrK1yfVcdlk4daYDTyiB8qQ/slbraZpXBcgso4NC2ZLL7NqhBX6DqXEwa69RScg5veu+duqSP7hoSuBtl6PgQSFw3Lwewc2hSKSwNepgiMVr8Uyxtyr10uUH0dCcegF1895/ox55g0fLZeCyHHDNgaNxNw+ZYBTidxGj8L7710M00Ydke4CJ2epD1zEc7m7Yzy5/nZlKcAAkFkTWwILO+OQLZ7T9zKdpybbC74g3gOi6tdjzxRIK1TKiehplbnqKazag==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS4PR04MB9460.eurprd04.prod.outlook.com (2603:10a6:20b:4ec::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 15:16:19 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:16:19 +0000
-Date: Wed, 21 Oct 2026 10:16:10 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	bhelgaas@google.com, linux-pci@vger.kernel.org, robh@kernel.org,
-	thierry.reding@kernel.org, jonathanh@nvidia.com, kishon@kernel.org,
-	Frank.Li@kernel.org, vidyas@nvidia.com, cassel@kernel.org,
-	den@valinux.co.jp, marco.crivellari@suse.com,
-	andriy.shevchenko@linux.intel.com, linux-tegra@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=a9ldZ8pP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=VU
+	wVNBdTmyElFd5++SFMk99jQ0/AW6Li9MfUrUHf72o=; b=a9ldZ8pPBmOnKhSwQA
+	Fm5LFjpzG2LWRHv1aF53IRTqIYUn4uei+RVC0z1ZIAywUwoTpcBW3K8/YsEH3LBQ
+	17V6iW5lx32QkJ134kY8nBGl1CMOAu6XM72Wbj2biAzvADgZ1RpJ1KZBbzc7+DjW
+	l+ux9wZFHW+d49BPWIZ876v68=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDn93cq19hqoFfvBQ--.50052S5;
+	Wed, 21 Oct 2026 23:15:57 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 02/10] PCI: tegra194: Check core reset deassertion
-Message-ID: <atjXOqLOijOiwO2c@SMW015318>
-References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
- <20261021061349.1265704-3-mmaddireddy@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021061349.1265704-3-mmaddireddy@nvidia.com>
-X-ClientProxiedBy: DSSP221CA0005.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:8:3d5::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+Cc: stable@vger.kernel.org
+Subject: [PATCH v3 3/4] media: wave5: handle encoder runtime resume failures
+Date: Wed, 21 Oct 2026 23:15:50 +0800
+Message-Id: <20261021151552.428590-4-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261021151552.428590-1-yaojiale02@163.com>
+References: <20261021151552.428590-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,146 +68,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS4PR04MB9460:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85210488-47b9-4e86-b0d9-08df2f864253
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|19092799006|23010399003|366016|376014|1800799024|10067099003|261009223027099003|11063799006|56012099006|4143699003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	OJR57KA6Td6onX7R3LVYLrptIFZJQMcwS19peLgEsO1/YLlt6km6U3QA8xmYDs2wFLk/KApJr3hvgcp+H1jaYVZ72QUn7rb7upGI9eayBfh8ZssnaclK5ZXdKyDNqkhxCGw2MZyvFTOt3ntVqShcJ2clhUFuED2mkZwDOMBe+jw5VCTwbSKf6WKyDeYWfO+PunXsBikZ2UnJ7S5ysZk6AKzy8BUBBmpvItxrrecarlqkI4yVp1t/QggazKKJRMIWgqTjxCXYUc3KLXxKeHzu/J6IM1AdnzWfEbEL0PZykU81NwjXLZ05VPo6mBwuyvUfeIzodr/6Knood9hVl8/rEetbKJEyF6hly8iT+I6wH+HLQ14iKMzT+3mpi+PAS79bcxnh5altjd/1uDJCZIMBJaLbxndX6U7YOTzKUV8b6OU3n4NF7PDVJc0S56rVX7EbRto4ejbzpnONy9ZcU1k/zXRRAATTBQDVGEq2jDcmGfidVXRq4CZbI9jpjFOIEwEJCsqnqBvoDHQ4wfXIP+IWLMERkA5592SwaW0/2DoRAtilYTq8l6lNgBzJBAPmQ1FjX4Ml+SS7u/4mjazuAQ3Kfxz2eg5M00Y1QrOuP/ryWNW7ex9aQJSDaHbE2Epc+sSiDBupZWa95p66C8ODXGhwBdw3SejQ0n5QA9OqQS1IesE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(23010399003)(366016)(376014)(1800799024)(10067099003)(261009223027099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aH1PblghOrUxiFFJIm/qwJvoUYhOucrcsAPq6FyAy7BQ/huOSr5t6ynzW5HU?=
- =?us-ascii?Q?Th2eLM1PzZPZcnc7iBthO+99rG76q9wVTpz/g4wAiCBn+FVE6WH9QuKAd0kn?=
- =?us-ascii?Q?oSrrt86kexOX9xnopg8m5JeE69ci6hRcrcYE0hRei3pTUD46o0yT7j8VKl5N?=
- =?us-ascii?Q?RrtOm9+lb5TDc2p79fUUb5a0QUodTPFgd8AAM1Fy/TN3xYjrDAeJMGhAG7sv?=
- =?us-ascii?Q?FnFksfslFCheKatkoOfKMWmNVpCy7XN4vLYIpaPy8X61GXFm+SxYRzQJGsr5?=
- =?us-ascii?Q?A4TNleq1RWrmKQgiusaqcqUyGwO5kdsFvCt0pDgkS6O+7wdFXqR4UJTH/GaQ?=
- =?us-ascii?Q?3sGcSF9Prutsq5uueTbO81k33sp0PXCJA26QYIwo1cUfZbSjgNgtcbvEUNbP?=
- =?us-ascii?Q?j28+EmQHPzBpYwBGl6oyCgKpDeivnqBQrWB45r8oa4EyD+uUrAKFC21ris59?=
- =?us-ascii?Q?V00oENPMryx0pLwqui9AphyfSzWteNX68EykZRF6uzL7SNgcrfluya7zU3v2?=
- =?us-ascii?Q?IaeTcgMaxig2nNe5BKNZ/l2vilZ8T4IqWOLjGwlyivVY1xynf7AQtDQ+qocM?=
- =?us-ascii?Q?nO/18rlwQqjwUxhFPBlmEt2sOD4qqjv6vqbuy1NsWFzZaDYhSx4SBuUfoT0U?=
- =?us-ascii?Q?2B9IxS5raCjFbMBBswE+Xl+Q/rHzPYbWIUmvIjef009EEQzgGIFMD0WmJKIl?=
- =?us-ascii?Q?sSmT7AF3cDE937lv3iPOXYDiGjXHfv3R+9bHTub/5pUr8mLrY8EXR04Iz7iL?=
- =?us-ascii?Q?7ogjavXNx0KNpNsu53dRxSfEHmIRTiIHhjf8CtFx4plQAQusGQOjDE53UaAa?=
- =?us-ascii?Q?pC4nHM5VS98zCbjPHO+SNO4qZvNR/5JnFrTnJ8e+/nbXHc8Sp8ElyR97OSFV?=
- =?us-ascii?Q?TrXWYLF7yo4puF3POEq/H3LtRIWruqsibwOZn5+VypBHSpt3Q4TnZPZDug6F?=
- =?us-ascii?Q?l/u/yUfmzWi7O0CJjvrSNyuXgu1Sfdx6nf7t/5aujGrIWYOap2CHw23ZMvYl?=
- =?us-ascii?Q?L/Z0oUosFIbBKGIUlPXxcWBKMtRvVnhi1162LbLrvBS1Ytb0pIFtUIu4TEZ6?=
- =?us-ascii?Q?p9IvtdI0Aqv/bQbhbm7fmWZRpp18UD3GO0FRjqo2epytCGq9S0F7qF2mgSH3?=
- =?us-ascii?Q?qG9RhaxIzeTx2g57dp98ot/A3ygL8NMuLcC5DMJXvxew8k72ZJwDFNzZFJ6g?=
- =?us-ascii?Q?WrxoORnGePOn2QWehjBV8sBGqmDeQV/WEeMtvllGcPEs0Xa2RQGMLLruEu4I?=
- =?us-ascii?Q?EfTylpOOGkuO4alr2WlGBTY8LS8np2eWsIXTehBCr6LD1Wy+BduWTuYycoGv?=
- =?us-ascii?Q?ApNY5JlbXKIaODqSGt4Wl7Ojp5PT2xT8Ec+zaCC3MIEqsus1RwudfGBCSST1?=
- =?us-ascii?Q?Qg3But/SsHJqGmQf9RBh602VRutbDk9+a1xGpz4rLOeVZpdUmRja48bdFi9q?=
- =?us-ascii?Q?jZJVZOncpX2ARBiiG7h2iv5lMhLnHpnXOiGmBfyVTuO0Qd8rtZw1CvzpphwY?=
- =?us-ascii?Q?oczzJkSuqmBhGw4OriRO4+vt0iVoJOyA4nuOxwFcDjcz1Ibgw8RfxBkLqJVB?=
- =?us-ascii?Q?gi1qOAWJu+VGbgm1pdAh9RsQSk9Z9rR/xp8KRHf56DuU5M9OeToD+S/xKAWe?=
- =?us-ascii?Q?pXrPbd0sU6xZXFdhSwVkpajtN8ZKLQ9olR4D/0IDdGetG0/FYTamWtsIPl+Y?=
- =?us-ascii?Q?xOokyDH7QhblL3hbHqc1IgXAVn0nqNdgWQBcI0gxCP5RDmFMN9nlYViU0jnE?=
- =?us-ascii?Q?27ts39fl60E4YwkWWiSSRsHIs9cgQeo7Jd5gpmkN1v83+1FNZCfm?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85210488-47b9-4e86-b0d9-08df2f864253
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:16:19.6767
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J7cpLi4PDXH+DNIGZh0qrVvW+rDxY0m/KRkLxPPqRelWZCPk9FdqOTtPXuVnCvNxL8tu9KEH4nS0/QSw625Sz1AA8LaLp8O/h/xONELhJN6IDcfJslS2DqTJoYBh4ECE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9460
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDn93cq19hqoFfvBQ--.50052S5
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF4UKF45uw1kZr4UWw4Durg_yoWrGrWrpr
+	yvg3ZIkrWUtw18Xw4xJr4xZF90kws3CrWxCF93Gas7Ary3Jr1qvr12yF1jvF1kCrWkJa98
+	Cr4DZ3y7CF42vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jqSoJUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg3RDGrY1y3sCAAA3y
 
-On Wed, Oct 21, 2026 at 11:43:41AM +0530, Manikanta Maddireddy wrote:
-> Several paths access DBI registers after deasserting the controller core
-> reset. If reset_control_deassert() fails, those DBI accesses can trigger a
-> CBB timeout, or setup can return success with the core still in reset.
->
-> Check core reset deassertion in Root Port setup, the DLF retry path and the
-> Endpoint PERST# deassert path. Unwind before DBI access when deassertion
-> fails.
->
-> Fixes: 56e15a238d92 ("PCI: tegra: Add Tegra194 PCIe support")
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> ---
+The encoder callbacks ignore failures from pm_runtime_resume_and_get()
+and continue issuing firmware commands. Runtime resume can fail while
+enabling the VPU clocks, leaving the registers inaccessible. The
+callbacks can then drop a runtime PM reference that was not acquired.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Runtime PM retains a resume error, so simply finishing the current job
+leaves PIC_RUN runnable and causes the mem2mem scheduler to retry the
+same failing job. On a resume failure, stop the instance, mark both
+queues in error, return their queued buffers as errors, and finish the
+job. Also stop the instance in stop_streaming() before attempting the
+runtime resume, since the state transition only touches software state.
+Propagate the error from start_streaming() and preserve buffer cleanup
+without accessing the hardware or issuing an unmatched put.
 
-> Changes V1 -> V2: None
->
->  drivers/pci/controller/dwc/pcie-tegra194.c | 23 +++++++++++++++++++---
->  1 file changed, 20 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-> index 6104a22d930e..89dbef83dd9e 100644
-> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
-> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-> @@ -954,6 +954,7 @@ static int tegra_pcie_dw_start_link(struct dw_pcie *pci)
->  	struct tegra_pcie_dw *pcie = to_tegra_pcie(pci);
->  	struct dw_pcie_rp *pp = &pci->pp;
->  	u32 val, offset, tmp;
-> +	int ret;
->  	bool retry = true;
->
->  	if (pcie->of_data->mode == DW_PCIE_EP_TYPE) {
-> @@ -1009,7 +1010,12 @@ static int tegra_pcie_dw_start_link(struct dw_pcie *pci)
->  		appl_writel(pcie, val, APPL_CTRL);
->
->  		reset_control_assert(pcie->core_rst);
-> -		reset_control_deassert(pcie->core_rst);
-> +		ret = reset_control_deassert(pcie->core_rst);
-> +		if (ret) {
-> +			dev_err(pci->dev, "Failed to deassert core reset: %d\n",
-> +				ret);
-> +			return ret;
-> +		}
->
->  		offset = dw_pcie_find_ext_capability(pci, PCI_EXT_CAP_ID_DLF);
->  		val = dw_pcie_readl_dbi(pci, offset + PCI_DLF_CAP);
-> @@ -1455,10 +1461,16 @@ static int tegra_pcie_config_controller(struct tegra_pcie_dw *pcie,
->  		    pcie->atu_dma_res->start & APPL_CFG_IATU_DMA_BASE_ADDR_MASK,
->  		    APPL_CFG_IATU_DMA_BASE_ADDR);
->
-> -	reset_control_deassert(pcie->core_rst);
-> +	ret = reset_control_deassert(pcie->core_rst);
-> +	if (ret) {
-> +		dev_err(pcie->dev, "Failed to deassert core reset: %d\n", ret);
-> +		goto fail_core_rst;
-> +	}
->
->  	return ret;
->
-> +fail_core_rst:
-> +	tegra_pcie_disable_phy(pcie);
->  fail_phy:
->  	reset_control_assert(pcie->core_apb_rst);
->  fail_core_apb_rst:
-> @@ -1853,7 +1865,11 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
->  	      LTR_NOSNOOP_MSG_REQ;
->  	appl_writel(pcie, val, APPL_LTR_MSG_1);
->
-> -	reset_control_deassert(pcie->core_rst);
-> +	ret = reset_control_deassert(pcie->core_rst);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to deassert core reset: %d\n", ret);
-> +		goto fail_core_rst;
-> +	}
->
->  	/* Perform cleanup that requires refclk and core reset deasserted */
->  	pci_epc_deinit_notify(pcie->pci.ep.epc);
-> @@ -1927,6 +1943,7 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
->
->  fail_init_complete:
->  	reset_control_assert(pcie->core_rst);
-> +fail_core_rst:
->  	tegra_pcie_disable_phy(pcie);
->  fail_phy:
->  	reset_control_assert(pcie->core_apb_rst);
-> --
-> 2.34.1
->
+Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ .../chips-media/wave5/wave5-vpu-enc.c         | 35 ++++++++++++++++---
+ 1 file changed, 31 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+index f9fcdf4c22..3463b7d7fb 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+@@ -1351,7 +1351,12 @@ static int wave5_vpu_enc_start_streaming(struct vb2_queue *q, unsigned int count
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
+ 	int ret = 0;
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
++		return ret;
++	}
++
+ 	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
+ 
+ 	if (inst->state == VPU_INST_STATE_NONE && q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
+@@ -1451,6 +1456,7 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct vpu_instance *inst = vb2_get_drv_priv(q);
+ 	bool check_cmd = true;
++	int ret;
+ 
+ 	/*
+ 	 * Note that we don't need m2m_ctx->next_buf_last for this driver, so we
+@@ -1458,11 +1464,18 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
+ 	 */
+ 
+ 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
+-	pm_runtime_resume_and_get(inst->dev->dev);
+-
+ 	if (wave5_vpu_both_queues_are_streaming(inst))
+ 		switch_state(inst, VPU_INST_STATE_STOP);
+ 
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
++			streamoff_output(inst, q);
++		else
++			streamoff_capture(inst, q);
++		return;
++	}
++
+ 	while (check_cmd) {
+ 		struct queue_status_info q_status;
+ 		struct enc_output_info enc_output_info;
+@@ -1526,7 +1539,21 @@ static void wave5_vpu_enc_device_run(void *priv)
+ 	u32 fail_res = 0;
+ 	int ret = 0;
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		struct vb2_queue *src_vq = v4l2_m2m_get_src_vq(m2m_ctx);
++		struct vb2_queue *dst_vq = v4l2_m2m_get_dst_vq(m2m_ctx);
++
++		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
++		switch_state(inst, VPU_INST_STATE_STOP);
++		vb2_queue_error(src_vq);
++		vb2_queue_error(dst_vq);
++		wave5_return_bufs(src_vq, VB2_BUF_STATE_ERROR);
++		wave5_return_bufs(dst_vq, VB2_BUF_STATE_ERROR);
++		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
++		return;
++	}
++
+ 	switch (inst->state) {
+ 	case VPU_INST_STATE_PIC_RUN:
+ 		ret = start_encode(inst, &fail_res);
+-- 
+2.34.1
+
