@@ -1,61 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792541249;
-	b=2ZaIRsgOaQ0XgZF++R3fKL1C1cFHM42w5F9xAMNqwLK2nKSotAVLyeKOZF9n8nisa20u
-	 kPme5Ks/EH1dnrQWggRnszjYraeWbEZkkyoBCLGWbg+ar9Bthm08gntH1KapY3zPbILMS
-	 7W8zZLyC+eNaqD4DIOtKP4OoDBEl60sJGuufYj6PkhIr7+DCPhUnIhl9Yz0v2Z7a72Cbr
-	 sOvYyvloHQmEnG99A+0XxS8QxrnKH8FFaRkxKNEqwLLdIIBzxDN5Tgr6mNidRe9X4G/o/
-	 C9YTVI2PTkmwzzg1HFTZ23MAMeGiW8l59qOlOKbPvdSv+kvW82eoijrdDZ4sMlaeLBg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792541249;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=1zUR5GEK6BA5S7bCITK+tOcim+IiL0R8T8uB3uRypFw=;
-	b=CStFYSXEDWtY2rU8ZRk9Wez+YiXHDFiyAZfD57cRekeSE791XZH4jDGd2Bn04YH/bQwd
-	 sdqbdGLeH0iKEZAg+oeB/LTbo7upAX4gCydFbkYxGs+8SSU7m7i5NV1EJCi6IuGdHYaJU
-	 ZnQkEtQ+xld+STJXGS5UvaKW2zqV0hinITiwlqgnqobbW9c97Dv4E+0wClIkZCQg9Y+y3
-	 5Pi6cTG9CjvVxE93ziWwi+/yJgmW0oGooLJfLY+BJQu5iA5KDPtyJToIM8860Dx17TeNP
-	 evz+8hgIJDMKFjrl11mPnwrRAW+iLMoKgs4/HA+7ZU8uOnwGNwkBxwbMfyQbKTh/P1g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DBJaNnN0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792541311;
+	b=apgJoQjvKRqs9pGVgrW6LPJ7VD9aB/N3Kz6qam0l885vr5Qltpk3n8/h8Rf53E3Td7DA
+	 qoEHNsqzMrFUpEdMWC14JXRcvrRLpsdL/iMz4uVrl+LQb/GAUBIHHFE7l9RLznOir/Rus
+	 ZYS9uEeqRyzIuwoWpb6bXHBfdzCKuOiMAQ2q5A/yVQjRGwwvhu5aK86A5K4VIXSlCEkZA
+	 7c3xaJNiPv0n11SXezbCmR3tm+sZxpl5R08vMu66vmB9s2m4Ylpb9Cj7i333yYbXnMpgg
+	 CLAzViyFPeCE25b4r797q7/XbNtTqdFKc0HvQkJsaDGWbnzJPlN+4isA+Bv0cjtMPiA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541311;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:From:To:Subject:Date:Cc:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
+	b=eKRSUhUo8N2VonVnbwMab77uhVJhKn26NBkSnxPTM1bMBHJa8ZoBD8l6QxQxBkyZiucn
+	 duGJ8uE/NFSpN3iD2AdWdjfZ9fOG/zQVJOmpIjljp33RvI+Vdy3MtpL4ZBV1UNH4XYslX
+	 QnQYjYkhfu+3NPVaR3AmxgqLuyIWd+Eelm1nbUavzf/VN0vpiVNzI63bYk7TQBFY6IvHJ
+	 SF3GNmEHAXXkctoOKWkc0QRB4uUpxxLd8qs9owkdfr7KFSohQcfINSsj+59H7k+98cdlq
+	 o6iChTe3OpkuqBN42//41X4v3mLuAW1dSUq0PPNQ/XvSvkum4iN8dnEGPj86n6QfPnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=utexas.edu;
+	spf=pass smtp.mailfrom=utexas.edu;
+	dkim=pass header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b="il6YDP/4";
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E25606A321;
-	Wed, 21 Oct 2026 00:07:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15E25606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DD7606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:08:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10DD7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utexas.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DBJaNnN0
-ARC-Seal: i=1; a=rsa-sha256; t=1792541212; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PhBeSy07WAmNjWA4OynPKIL0BawTBtdmvPV3KWlfcOKUzuYA7NJDfz4B5NiHvQTasN8LyHrdsIYsEKdDdFoHFk/Na3DT9Y+OxGSfZ/Ga+DfLJkpUHZ6U9ChmutNMye8Ma79RydzrC7txtpSjwpkPLErtcBRCLKa1V2iACGZC53Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792541212; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1zUR5GEK6BA5S7bCITK+tOcim+IiL0R8T8uB3uRypFw=; 
-	b=ekfzL4yyN6JVoAJX5jHHmeryjsljDmmFa59sgLsJvzoBtggl+Rat/n5Vpuj4TALUv2HJQe95R6CChLdCnpiRdeii2DHfruOeyjntD047NssLNnGxACrA1nz7nw96N6BoEQi+c+hOoC368NAgFNJGtqsuQddnV+y6uNK8ptVgr08=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541212;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=1zUR5GEK6BA5S7bCITK+tOcim+IiL0R8T8uB3uRypFw=;
-	b=DBJaNnN0xwPmmWzktPGNzvjxbQglRv47/8iJ7FWqpBQOw4gHUmy7gIbQJhUU03lk
-	RonFSD4Z1vcxW+YuMkqs2rphAy6U49uknah/CSOTlxyLW/EcTW2B29LRF+y9T/QRaTD
-	jT9QnfSkQJIqo+ysgWF67Po7XGdSa7ilClojNbAE=
-Received: by smtp.zohomail.com with SMTPS id 179254121012077.48844824785681;
-	Tue, 20 Oct 2026 17:06:50 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Tue, 20 Oct 2026 17:06:47 -0700
-Subject: [PATCH v4 3/3] drm/tyr: allow userspace buffers to be mismatched
+	dkim=pass (2048-bit key, unprotected) header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=il6YDP/4
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-833e671ee9fso148133a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:08:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=utexas.edu; s=google; t=1792541309; x=1793146109; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:cc:date:subject
+         :to:from:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
+        b=il6YDP/4MWTaE9oOQd29crSa0vn02P2eqibmeGX38ROUktudUqJdcUa95VncnY3tVB
+         aOyJfnJETgKmVcdlTdlB9BZS7lyCuGws4QsAthBzdIOAwtzYbEpfUAzL+pnZ0g5QRh70
+         b7YOIKlilcoeaAEevpULEfolsuQObT1IwmCIp1MYMvNg8KY6zaIWpp3K2zF2JFJU4rch
+         glgy2kUenOxtK843TFra8hKMVm7g87U1B/x+7EzJd7CeMnh46pKMo/14EpaMjGU5IdkN
+         i0EEFF7disU8PCdSgTZSv+YnrWca8T6XHvrNKiHHK6gHE6r3SA8c4lkbKtBHVcqysAdg
+         3SeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792541309; x=1793146109;
+        h=mime-version:content-transfer-encoding:content-type:cc:date:subject
+         :to:from:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
+        b=AL5BnbScXN2Kt1C8XMvG4wePL7qIiNUCuRxxZu67eFlpT1iN3IwQbqVxQzlul5WX5N
+         xyH30JsjFaKja/9jLYAlNQGKLTt67NVW3+ZLUH6geDjeZ3aXvDE4ia7SN228byu8kXMz
+         p889a0QoYOStH2f8B3f6GQORnqz0Ely8D5JUVX5IOTuwvkENuORma7YgjFcBEM5nqB7z
+         QA5nXqYDbdZxCDH3H4nPFB2LGYdDSXvSK5vdvJF0D3NHJ+mFriBbJh/vscnS4pgk+Ueb
+         Ly3Q1eKQWP3RrBwS/TVI5nrnMEayOZQU8PRvKyVaayaq/T+MkIu87vll1QOz0MLxlLfe
+         rmrg==
+X-Forwarded-Encrypted: i=1; AKwUvByjMK/Jlt5qcu3ipUMEHF96IuvF8ZWbhofwLC+sR42frK/Ht/6nrM6wSLI5OHtuTutEFrmDyJcGxnq8aYE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoZEHTjaobHsw/NU8VWAq+RBnBITqDd0fYSxqXvtC9509ueDIx
+	HxmSTztJ8R/MOtDuKtCOvzLIlappD4aBfzZ1skON8vvntoLrx95Yx5gLXxBxoBOONd4=
+X-Gm-Gg: AYBFou2RWADqZlXg71/U3LNIYQTxpXQ97EE1wLdzIVIaB/lwMCp1IFDoSNNkB1Olj7F
+	PN3L3hNTe2MQjFNKLnHZKF8/0l3/jol8vQKoGdxVxRa5zchaqlgP6F1HkUVMcEG/3OHP9txgaNr
+	+INGMlBjNqcianC9rEk5RBlKTD3Jmsynq7+RLQ/F0U5DSpKpMwT4bCYMTQoZ/N79eZq9Ab6mURf
+	o8C2igdOtVcAVDPjqkJjAG1RyRedEQYss3WpR6STRJ4LTqkOYfjcn9aXNV8Qxvh5lR6I3TMfKb9
+	eetnFUgT0cWPlErwUrf1nQ0oxbHy3d0IOzPnwyheP0I9zZwun/Hq+p5zi5lUG2HHy6Ee1IbRuSU
+	4ESaufo02BEn+5OVyh3uv/kxsu1Uf0wO0GAknI+zqjySF92Kp8gZ9Y7NRxJcyHYeXTr8AVTphUg
+	2AHZD6+lBDDiF0lFzDyI+JMUZwfhWvL17XOVfzFULljQh2U9VaVSt4uZnRaRUMUZoKv5b0FrEYJ
+	HAeQx8WZ/8tnKm4wTkQ80FX0GPFQhbb3uw3RTnW9T5DGXUEqqYUUiPJ4MONwDrzjuWU14gpxBBY
+	0b9QcWbjP+OK3kB1rWA2TjJfs7ciaum/6KGC4hFiAtYPbmWxmCGoWpM/B2P3Nyxtm6u+Hq3OJA2
+	HQYJkh0qvy3+FM552MMiz+Uk71yhevlw4SxduXkNFTHTwKY41uHsyY0uERaSt2mXDcCQpjQzvdc
+	YQAnAy43wc0JMtoKBO1A==
+X-Received: by 2002:a05:6830:4425:b0:81c:37e2:2012 with SMTP id 46e09a7af769-84d07f09896mr256325a34.15.1792541308869;
+        Tue, 20 Oct 2026 17:08:28 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([173.174.112.101])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbd7d4431sm955195a34.19.2026.10.20.17.08.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 17:08:28 -0700 (PDT)
+Message-ID: <6ad8027c.7f7fe2b9.10c6e4.4073@mx.google.com>
+From: karim.sabar@utexas.edu
+To: Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update array
+Date: Tue, 20 Oct 2026 19:08:27 -0500
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Karim Sabar <karim.sabar@utexas.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,136 +102,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-b4-dev_query_fixes-v4-3-df66b4c98bc6@collabora.com>
-References: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
-In-Reply-To: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3093;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=cw/gH4gJ7P+GmpjRc8el+UvRXUZRj4b9UKEbdATligI=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mERnajzZ/E6LRUzhsr5DqkaYW2vLl7d7Vn3/3aBVr
- 7BbRTSoo5SFQYyLQVZMkeWsvVGPeNV7I935/5th5rAygQxh4OIUgImkBzMyfHR5s5GXZes+8dNe
- O948t0+dFbpNuejaheo73FVFlmVPtjAyHN3KwRSxYbPw8dUPxX7zFzBLdOZqBqceXNzKf+InV6E
- JGwA=
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-Allow userspace to provide a buffer that is smaller or larger than the
-object that the kernel expects to write into it.
+From: Karim Sabar <karim.sabar@utexas.edu>
 
-Set a minimum buffer size to match those in PANTHOR_UOBJ_MIN_SIZE. If
-userspace provides at least the minimum buffer size, then simply write
-until the buffer is full.
+Big games die after every s2idle resume on flat-CCS iGPUs. The exec
+ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
 
-If userspace provides a larger buffer than necessary, then zero out the
-remaining buffer.
+On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
+these parts. On resume the first exec rebinds every VMA in one go and
+xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
+Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
+array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
+__GFP_NOWARN keeps it out of dmesg.
 
-This ensures UAPI compatibility with Panthor.
+Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
+after resume:
+  xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
+  xe_vm_rebind      -ENOMEM on 63 of 63 attempts
+  BO validate, TTM populate, PT prepare  never failed
 
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+The array is only used by the CPU and doesn't need to be contiguous.
+This switches it to kvmalloc and kvfree.
+
+With the same change applied as a module on that kernel, the game
+survives every sleep I tried with zero ENOMEM. The biggest array was
+30,753 ops (11.8 MB).
+
+drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
+struct xe_pt_job_ops"), but that's part of a big series that won't go
+to stable.
+
+I tracked this down and tested it on my own device. I used an AI
+assistant to help with the debugging, i.e the kprobe tracing and
+reading through the xe code. I ran every test, picked the fix and
+reviewed the change myself.
+
+What I couldn't do: this is build-tested on drm-xe-fixes but only
+run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
+not on a mainline kernel.
+
+Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
+Cc: stable@vger.kernel.org # v6.11+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
 ---
- drivers/gpu/drm/tyr/file.rs | 49 +++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 41 insertions(+), 8 deletions(-)
+Downstream SteamOS report with the same data: https://github.com/ValveSoftwar=
+e/SteamOS/issues/2962
+---
+ drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index ceadde976502..bf66238ea4c6 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -1,14 +1,18 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
- 
-+use core::mem::offset_of;
-+
- use kernel::{
-     drm::{
-         self,
-         Registered, //
-     },
-+    num::casts::FromSafeCast,
-     prelude::*,
-     uaccess::UserSlice,
-     uapi, //
- };
-+use zerocopy::Immutable;
- 
- use crate::driver::{
-     TyrDrmDevice,
-@@ -16,6 +20,37 @@
-     TyrDrmRegistrationData, //
- };
- 
-+trait UobjMinSize {
-+    fn min_size(&self) -> usize;
-+}
-+
-+impl UobjMinSize for uapi::drm_panthor_gpu_info {
-+    fn min_size(&self) -> usize {
-+        offset_of!(Self, tiler_present) + size_of_val(&self.tiler_present)
-+    }
-+}
-+
-+// If the user buffer is at least the minimum required size, then
-+// copy as much of the kernel object as will fit into the user buffer.
-+// Don't fail if the user buffer is smaller than the kernel object.
-+// If the user buffer is bigger than needed, zero out the remainder.
-+fn set_uobj<T: IntoBytes + Immutable>(
-+    usr_dst: u64,
-+    size: u32,
-+    min_size: usize,
-+    src_obj: &T,
-+) -> Result {
-+    let size = usize::from_safe_cast(size);
-+    if size < min_size {
-+        return Err(EINVAL);
-+    }
-+
-+    let mut writer = UserSlice::new(UserPtr::from_u64(usr_dst), size).writer();
-+    writer.write_slice_partial(src_obj.as_bytes(), 0)?;
-+    writer.clear()?;
-+    Ok(())
-+}
-+
- #[pin_data]
- pub(crate) struct TyrDrmFileData {}
- 
-@@ -48,14 +83,12 @@ pub(crate) fn dev_query(
-         } else {
-             match devquery.type_ {
-                 uapi::drm_panthor_dev_query_type_DRM_PANTHOR_DEV_QUERY_GPU_INFO => {
--                    let mut writer = UserSlice::new(
--                        UserPtr::from_addr(devquery.pointer as usize),
--                        devquery.size as usize,
--                    )
--                    .writer();
--
--                    writer.write_slice(reg_data.gpu_info.as_bytes())?;
--
-+                    set_uobj(
-+                        devquery.pointer,
-+                        devquery.size,
-+                        reg_data.gpu_info.min_size(),
-+                        &reg_data.gpu_info,
-+                    )?;
-                     Ok(0)
-                 }
-                 _ => Err(EINVAL),
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 99e42bd29..5caef443b 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, bool=
+ array_of_binds)
+ 			continue;
+=20
+ 		vops->pt_update_ops[i].ops =3D
+-			kmalloc_objs(*vops->pt_update_ops[i].ops,
+-				     vops->pt_update_ops[i].num_ops,
+-				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
++			kvmalloc_objs(*vops->pt_update_ops[i].ops,
++				      vops->pt_update_ops[i].num_ops,
++				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+ 		if (!vops->pt_update_ops[i].ops)
+ 			return array_of_binds ? -ENOBUFS : -ENOMEM;
+ 	}
+@@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
+ 	xe_vma_svm_prefetch_ops_fini(vops);
+=20
+ 	for (i =3D 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
+-		kfree(vops->pt_update_ops[i].ops);
++		kvfree(vops->pt_update_ops[i].ops);
+ }
+=20
+ static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 tile_m=
+ask, int inc_val)
 
--- 
-2.56.0
+---
+base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
+change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
+
+Best regards,
+-- =20
+Karim Sabar <karim.sabar@utexas.edu>
 
