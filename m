@@ -1,116 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599249;
-	b=FukPID1B3bctDu2ROSJMll0LXKWKEo+LKpObtNjn4jL8zrWY8ZOgZYP9em/ego4LB9Zw
-	 7sKQDnLgLpa5GaLrZoo2n2E3Aj6uR33WLy18N+uOkLMhqWU3EOmtrOMhiWALqFR7owxuK
-	 LtKSdvYmLV+QImt/IRQTjsfr+WOfruUGb9i7d2GvUS4isZV/2VkjrPwKZkrtL88NbFJSA
-	 dSaaoWfPw9pOhSC3XneDShQQu5M943khJeiyAWSa2LWkswGD1ag1rihl4UxcX2a0fa+Le
-	 V+/SPRXLowiUNY7mtf7blmh0nkGoc5UVB+8B62gdSdFl0Tg6QekO8ytzedZIGLHZw6A==
+	t=1792599277;
+	b=oRiqO2xXPrdliijO968EIFsGzf9jywFoqGim2pRfE9BchUUwvBDQ1FIOW47azxW6ZLBF
+	 aZwh4cZblgorQGMNrFj43ciTEVmOQcm68CfSMjLtXi2KSr+Q4o8CRDD6hPP+NlITmk8en
+	 cdSHNFzmOvQx3iQS47WGn05RuaWJS2iIGLFd9JgJAEnOcDzp9yBfvBDyVwBEMV9lmIRZo
+	 G+tmH6Rz35uyqcK0RGMLZCbbygMHqpTZQ5rp7gM1JAH7lgMzxw2QZbg3Uh1ZMheJ/NR8o
+	 NuZyco5MOBbcleAMUOdxD5lw4B+iP4INsDG0FC5CuWTwqJWhu74CPsgeD3ujhFbZ2Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599249;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599277;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=q0CCx5zBhN0UXD1LzII8NwADZSGCTEpTQppyCBNHFl0=;
-	b=xttmq/QRGwxVc5q6d6uaMRGjjwn+IJjY7eGsXGK6VQGBhNTd6t9GOf/9Wcss1bej9bkc
-	 RSXwFhvUXBcFeslzgTnGSCOz+2OpW2PZBO6/dQzZS2hiwjoJBkk2O9/1kVt999FRKPAfy
-	 FDGNY5W3IDyrgtNUdLOnu1tnMw3JLIyvkFJG+aGX2kNgLdrffTJY208MfEWyRKY7DVzGU
-	 7TutO5ss8HCxu4yNWG7Nt+P4TflgrLTq15ewhgRkGqCXMRv3+qZstdRfI3706gcdj/cnF
-	 5IPSicYMUeP4VtqXV9eZrgdc2cnQZWvZg8SqBUezHiZA2GXNGBkvD+unh30DLmoqYWw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=EYfi7okTi0CauQZlFNuFbrUJBFVpuaI/7/o4adTAMHk=;
+	b=Jq9+IBgspx8FTV7LJ1pQezvzjdm6NCVJyXx/XmzdkxHcQsI10oJPXkWbukc2JkrgEZWP
+	 GplkN2+KRnbGIaF0GTq6+oLA49Bd+YcyfyPKTeuAWW7qT1f9jo783SytbrCwEEUM4Z0pW
+	 P2Et9hGguodv3MXUTPsoflbef5EmN8dO29pV+TadnSM91e5YAg0dfHrDwIMQ9iYfCgZd+
+	 7AadtXJKJpWFYqwyTifVdlw+WDdXD/hkl7dRNDleMzwY+H/MZegSIXpCHsepqz9LY4IYg
+	 yzKW/xLNYMulhZK9kczMAc86DWiWp5rh8wcHfuStcntAIEwS5/jd51i2YXRkwFiI9iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eF9pnWtd;
-	arc=none smtp.remote-ip=209.85.222.43
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79E7606A57A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79E7606A57A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eF9pnWtd
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9828fee1b4bso258968241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:14:08 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BA4606A578
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:14:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26BA4606A578
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df8fe8513so884408f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:14:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792599248; x=1793204048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q0CCx5zBhN0UXD1LzII8NwADZSGCTEpTQppyCBNHFl0=;
-        b=eF9pnWtdEq3WSD4Ywhg2iwjsDFp5Vh0YqyOff8MBi0QVXDi4dFI46ucw4bYE0op/+c
-         1F/qQIca2RcWZT4iN16zIt1jWr6ZFYOiPx9NN5cIkrrEyw+E/XH0M9oCJYdMW6cmJZcB
-         HapzSaCJ6Opkp8aU4ZEUL2hO9e8FoaEavrrEuUBWKJdraCE/iHTQLPc64bikh1s7kOOi
-         qkO1DWMjcGiIWvUep0Dd4+Ne6jedd6II++fSimRre7snR1dbjRqDlVKEcXELVQAlVMzZ
-         bQZuTLez0kGOo5H4kRJL7y2JPFlYSN1ImhpT7FJeSe53zlqDA7XbhzQw8/s4+WdLqc/T
-         ST9Q==
+        d=baylibre.com; s=google; t=1792599264; x=1793204064; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EYfi7okTi0CauQZlFNuFbrUJBFVpuaI/7/o4adTAMHk=;
+        b=YCvufwYMMCbR6JgJ7YV8qJiqV9S9KJVzrgAdjuqJJRWbg1Y31t8jMfajRYqEpvfdlc
+         ACuyzdCAY65Mi7chBCIqIZEezxMU6H7bdQXFJ54h6WxVNQH7Exhz12cuQaK9Bs1TyK9Y
+         un3TXpt14Wd+S+LOv7k0HrFzvDr4MmODYzBTky2uEGUvzSGcnxvD2jOfcdkvn7rD40m3
+         IENOmr/NVpSqgPeCf8w0px+hCvFR3CGqZIo1qVCglnfVbWE06Sv3gce11o//6VMpRz2C
+         ywHkVfiwIlPXiFQMbRMbwuIcpzmdF401Ys3BkVF1O4ZzU/7RRKQX+iCsXZ8avL9XOA3w
+         oLJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792599248; x=1793204048;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792599264; x=1793204064;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=q0CCx5zBhN0UXD1LzII8NwADZSGCTEpTQppyCBNHFl0=;
-        b=sQwBzGiImqNdFZWSm2UAZjQFYhF+RWz9dq27ByxFnmDjHHH91MyPwoiP3bAvZLLGrf
-         nxCLpWd8PFIZ3AqtdKqN+dHFZsbGoyfoINUInerXBNDMzxsw8fP/xW3YC+lOAWEfbQ8g
-         6tehcC5JRJyzDfR15UntDUE6PxtrFOKD7zdgcGFF94J9YirApcwtmJtoCEq8hfr+20pg
-         GNLfA4HMv8xuWZotnL9aZL6DQzbpDj++rVJvI5DC5njEfFMFANGpFMfblGjH+Eu7cpwe
-         9Uz3mzZP7iOYF/SbxrE+HCFgCxHGKH6kNTM1Zk4cp+4Mry/3DoeF+pnkZM9wr4/z8H2P
-         2WzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwky+r1l65AwI3pdqtTG9XtGivLL8CzA4BtUgGgaG8fQuMK7FWeg6V630MeSssU4HiqxupHOZSdRfZ43bg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXRrgW20yWzOPXvDfRR2zs0stIi/Y12JO4lCBz65sCXTOUOK3m
-	ZC8nPkMGuoryQGDV/DpvrUClkcea1SKAmb+NDforJ/lCsKv2EIe1Xf/C
-X-Gm-Gg: AYBFou2dofStMm3gD63lBR6nC9bQPwiW0OQBj1RIAMt0+BgIro6WnRc9Ga0jgXZvnsU
-	ZHSnZcO3zRpMtZdB+4TKwuCwrtMl5sS91dWYJAvkx3QAbWmn9YoK9YuX4nraiSfxazUSSQpZILX
-	Y6/LMO6Hu9YakLlD/yQnQC4UXtNmBwrDtiX/OShxuSI7p/Hr4o249yuvXzWKndJkYXYiBSOoplG
-	OZuFadbErI2sDzL2FNVxkkx0onLy9p4FXICfEWzGK/+x8WPPzIl8kxpl3A8L2/YQdL6uTDze8sd
-	u2xZAUQOIo5pgVtspZSTk6qEORhJVVZEH60+Q9G5k6wjPkuqlmWfr+9X46n2DWc9gT6QCCIlISY
-	gPTqA3fRnW23qr0oGWgYENL3qptGv7J+MxXsgdDoPmWvjyn2dGe0CBBTCxSbOHundKAH2S3lWMK
-	cM+1aaaGMWwCkBpLE0dtUDTy5GfacPxie6I5VZQWmlUfJoD7o/6TytNxsqB7xxpfa3TGVdYZIec
-	KbNRhvpx2PmfKOshllokVHTnjjlSBrRQQOoqrKWI9K5C4z6f0aBkh+++b8J4vQWnrMXjbw6aWT3
-	lxWejSLCnuxiqhDTvgVmJERG5PqAQizetiYfLGQ+PPqAFmcRH9ZgYUg9WCjNYLgtz+7hmLbkoLU
-	TAJKBU7PpU9qVqvjG7Gto
-X-Received: by 2002:a05:6102:3fa8:b0:7c3:9a14:cfdb with SMTP id ada2fe7eead31-7cc926820ccmr912621137.17.1792599247553;
-        Wed, 21 Oct 2026 09:14:07 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc92327896sm3196621137.4.2026.10.21.09.14.07
+        bh=EYfi7okTi0CauQZlFNuFbrUJBFVpuaI/7/o4adTAMHk=;
+        b=po6Fmn5CXcwDQW+m/F7QNtKhsicLiOZfi/BehIkbAhvDcMKo5p2f3VHimf2GXFVnhG
+         pxa2NTHkX5yWGeaRAJLuCctqKUw/GnZp6jziQVODGnfDdPz4+dWmoly55tUOGYoGFPNh
+         SRA2glOd+Ri+3HuqqvfMS8qkYx7L/oRd7DhPfaAPp0KnHXplFsQKpAEBE5UgF2OMjDj5
+         aazXs7cvHD25VeoCaH+0uJpq1vASdvoK8tZXMKxXniACeMVjeOkKCR2hBgYlcP8HLSp0
+         2AsjVYvZkijBE4BlmOydm38lpge0yDEgRzsgjS7JWTKlZBVlS6LfG66kNLMRvKyNva1Y
+         K27w==
+X-Forwarded-Encrypted: i=1; AKwUvBxA0s5hxjvr4SZxHwvOCOiGT6PIDI9DSRdST3GhzflF4brJ66sP79tX2hBlkVcS96AR2ieV7O1lFJZglHw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKesbyzFYtb7Fpjc6lDiX9mIzYIBdqLvF6FThpCu/msCXoLZhC+
+	qHVeVQLFtX+b7NT9iWtgYMvSGnolpckVLfnkSAJFIcPJVzYk1r6sI93ZorfjJsFt4U8=
+X-Gm-Gg: AYBFou2/sJGMs+NkZSskEHnbESCDj/OOOMYs2Nag///mURuj1kouA5p/0uZnXRfo5sG
+	sxiSRLHJH/qHg22+p96c6KvZ/5lVMXN1GabhcnWyjFMdymBNpxqMRT+FabGTb7CZ34o7j91+03b
+	8r0aNw/gZO7hV/WV5Fru96zDvyebwLwHypUZS3J5gwBYfCdN5mJQXtKztkGysMsHyaJQArg8ac9
+	sAPc6Cy/tqCaGtDkNb+n7XVf9irTu3Yo444ldgESS2GRkk3LZlpEf5egD3mEICBn9PEt/gw2q/L
+	ZfF6taeHgSVnGsrzr+UEgaP8jX0POpagsQTRsIzPctKvJ/p+5HiUBfPTW/xaRcychUdxCw9qs0C
+	g5FnrKYglmrLQtczjj7I9lrRPovhQqJJvostg/5PuHu1Pi726Vb+vYK9ngkEVi+tmqo4OdYVs9k
+	FF6d/lGwNMSHU50fR5AyOonliwA7lKUeCALmQT8ekmzFeXGadsqDAfK0P6EGwHpglO3p4mDr12G
+	+nO8sGsyXjA1DV9OGLlOpFIeHBm6Mh7M8cpHI68zjXzOzFJ31m0A8aK6IBdtO29hbD308NiNlHI
+	PaaWnMDCTmjLMnhWpSM+Xb++zuXW0bei4KJtmZGa2TA=
+X-Received: by 2002:a05:6000:2dc9:b0:48d:fbdd:4132 with SMTP id ffacd0b85a97d-48e264a6345mr5617302f8f.18.1792599264403;
+        Wed, 21 Oct 2026 09:14:24 -0700 (PDT)
+Received: from localhost (p200300f65f19a904634661a51962f5e0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6346:61a5:1962:f5e0])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e25841fe4sm6698401f8f.53.2026.10.21.09.14.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 09:14:07 -0700 (PDT)
-Date: Wed, 21 Oct 2026 12:14:06 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Chris Arges <carges@cloudflare.com>, 
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
- Phil Sutter <phil@nwl.cc>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- Max Krasnyansky <maxk@qualcomm.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Simon Horman <horms@kernel.org>, 
- linux-doc@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.311d7bcc5fba0@gmail.com>
-In-Reply-To: <595385b672b5411849d1defc78b68b25a908a77a.1792565282.git.mst@redhat.com>
-References: <be251d104f881a309cfef150455efa128ebb101d.1792565282.git.mst@redhat.com>
- <595385b672b5411849d1defc78b68b25a908a77a.1792565282.git.mst@redhat.com>
-Subject: Re: [PATCH net v4 5/7] net: add a sysctl to opt out of virtio net hdr
- checksum validation
+        Wed, 21 Oct 2026 09:14:23 -0700 (PDT)
+Date: Wed, 21 Oct 2026 18:14:22 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+Cc: Olivia Mackall <olivia@selenic.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 2/2] hwrng: starfive: rework clk/reset teardown order
+ for JHB100
+Message-ID: <atjkINr76NvWasY8@monoceros>
+References: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
+ <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,32 +98,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n5t7utkqknwcdicr"
+Content-Disposition: inline
+In-Reply-To: <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
+
+
+--n5t7utkqknwcdicr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v9 2/2] hwrng: starfive: rework clk/reset teardown order
+ for JHB100
+MIME-Version: 1.0
 
-Michael S. Tsirkin wrote:
-> The ingress validation as implemented by the previous
-> patch is stricter than what it replaced: GSO
-> packets whose checksum metadata matches no transport header are
-> dropped, and non-GSO ones get their checksum completed in place.
-> Such packets used to pass with the metadata unvalidated,
-> and with no overhead.
-> =
+On Wed, Oct 21, 2026 at 04:37:12PM +0800, lianfeng.ouyang wrote:
+> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+>=20
+> Rework the StarFive TRNG driver to address hardware-specific requirements
+>   for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
+>   ensures clocks are gated before asserting reset during teardown for
+>   JHB100, while JH7110 retains the original reset-first sequence.
+>=20
+> Add per-compatible match data (struct starfive_trng_data) describing the
+>   clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
+>   select the ordering from it.
+>=20
+> Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
+>   paths, manage PM and the clk/reset teardown via devm so all error paths
+>   unwind correctly, run the SEU-triggered reseed from a workqueue instead
+>   of hard IRQ, and serialise the command sequences with a mutex.
 
-> I judge that this should not affect any deployments, but there is still=
+This sounds like three commits, with at least the third getting a Fixes:
+line.
+=20
+> +#include <linux/bits.h>
+>  #include <linux/clk.h>
+>  #include <linux/completion.h>
+> -#include <linux/delay.h>
+> +#include <linux/container_of.h>
+> +#include <linux/device.h>
+> +#include <linux/devm-helpers.h>
+>  #include <linux/err.h>
+> +#include <linux/errno.h>
+>  #include <linux/hw_random.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/io.h>
+>  #include <linux/iopoll.h>
+> -#include <linux/kernel.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/lockdep.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mod_devicetable.h>
 
-> some risk that it does.  In case a deployment depends on them anyway,
-> provide a per-netns switch to get the old behavior back:
-> =
+Please don't add <linux/mod_devicetable.h>. <linux/platform_device.h>
+already provides of_device_id, so just dropping
+<linux/mod_devicetable.h> should work fine.
 
-> echo 0 > /proc/sys/net/core/virtio_net_hdr_validate
-> =
+>  #include <linux/module.h>
+> -#include <linux/of.h>
+> +#include <linux/mutex.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+> -#include <linux/random.h>
+> +#include <linux/property.h>
+>  #include <linux/reset.h>
+> +#include <linux/types.h>
+> +#include <linux/workqueue.h>
 
-> The default is validating.
-> =
+All that header rearrangement is worth pointing out in the commit log.
 
-> Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Best regards
+Uwe
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+--n5t7utkqknwcdicr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrY5NsACgkQj4D7WH0S
+/k67hAgAkskrK7Zfzy1Ye0Z3TqK6UQV0vrDBR6LB4bRpA7K5fC2zxEHV3jjN6CwO
++k+1d2C/DKYEQ8arf67BX3wqGKW6KjqqSfbEbUM9trV0jIZwLPAHlyDSGxiVPKDn
+z28jyuNDMjmVJfTZXUyD0/JRnyLo20evi9pEFGI0OB80CLwg3nWf+g0hnIVaJg0b
+n2HZO8PF42OzET7+9gVski9Rh3qdq0kEBZgVDAe57ybfSKFM7pFDelzMwXYKxX65
+zfSYB1qImYb0Y8oe3TA3mDYTdWXrh56+fLIWUAMAkBIfVu34qf8WfAdIuCcmcd40
+lm14jNAcwCHd0U308PYpap0aWDIFjw==
+=S1vP
+-----END PGP SIGNATURE-----
+
+--n5t7utkqknwcdicr--
