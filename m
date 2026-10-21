@@ -1,101 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792565879;
-	b=SEW8VloXv4hZT/pQtbsMMrA8Vg8MJjFlF//NvmUaDbc3C3n0PON1yVg5OhAz0nYifG/y
-	 d+nOjH/OgdFTg0nOGWxX7lkebOKvoFHJRb1nOiQS96wZrDSavK6VvkzgcbebVHs2EL6Lq
-	 x8TxnDrk/knNnaWyINHjITbjzPUpEy4dpWG/IxCGGaH+6waMKEIeSKcnhYzPDZQeBY0C8
-	 IjkVT2lLVGN7umG0862k5MeEIlMFgwnAsZQ3jlt/nhQhkJk2xwuA0uvNjwIkIWfrF93W/
-	 oYyfYkNx1HA21pfEkBWCCvxAjjiEaM6YmOh4cVqVprw3neO+8xH70xLtaXjI5MQE13w==
+	t=1792565924;
+	b=k+RM8rwpgQxsJDIbISDxF9W4AOVw/Qwrglw1ip99aRdcZ6CYHIXWYSyEbBYZvReqqMXK
+	 bwIirW0zPH3g9Ae2RPY694wL+stGp93lgHvgjX8eVvD/4Cvhgd4YTd3gCyKV+nRGtVlqJ
+	 SaCsMBsTKj9oxVfkxjYxuCx9KlhPaJEdKVCEsUh8RLjPWXPvClqcUfu+49o3M25bBNzby
+	 cS3+/CZU5bKhe9oWEv9dK6p0YvhRB+hoLfwhBLnMTvUyVRrsgU3Ri7V5ybOBPbyDmghHO
+	 jjtpfbGS4fAu71q1WxS6dFXp+alsVBPHablDecqEYqcF3JZT/49lpnPJw55rfmm7/bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565879;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=e2nqfpyXfJR53yAw3YRwGK6gvdGsh0en4mbKV0oOf+o=;
-	b=nANpvm6oSXbLkgvxC89DGXwrlC19JFwQiijh+SQO27GAf49wZv5xIFdhvbZPHNKHZh2Q
-	 ZPYMoCFHSqHsbp7t5Q/SSInS/1zxKlY5JrMA03oNh176oseBDiLTnwdK1z+qLEubANQsm
-	 jSEs/czhLfsw9ACKbwKno/gMXCQ7tc5VNEUfpQSbii9i8yp9GxnKDY5SVFqwK6UF34mSX
-	 iam/iPLNEmivL/Xs0QuJP3bKy1WM62CGHT9YIaDtgvbrr67bogNT21wk6ZGEOvf+FQo8M
-	 DklSK7WuGPEutQVgnWAwB0OZBsKwFTkWYebrakIgajNiFSozCg+rUQJ3kVbNK8d3oVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565924;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=4CoDiCaTJN+LFxlwyURPQlkHoXPhaz72iTcURzvPQHU=;
+	b=K9mnZPL+jUtG9D4QK60z7W2nbfki5G39IMIYB7vXmCiz7oAh+d1lZQnFji4rFfgsWnR1
+	 085slwN5+pJQgRwn16/Qya8BQWkuhIBii6abh4XrZr3juFi/HbgMP5wMICgsEGLKNfqQ9
+	 lONRVPlCuxCWuRQWkuSQPGsiIP+g3bw6O8N19c/CV4Mux8rSQoioN1Cdfy8/+dbWnAuwz
+	 voQc8r5rf2kynjfYW/TY6fuqglYZOcfzIKMgfHJWQtkGj+2cBc2AuMTZRkiykMJYUVm3d
+	 PWfHY/MrgM6fpadMMh3/DcfWmgeGy/391+Ag7zoNk7j7DZXShDpYNECAoxnvGm//AmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V18Ap8EZ;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DvSQlGzQ;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF33C606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF33C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473F5606A31A;
+	Wed, 21 Oct 2026 06:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 473F5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V18Ap8EZ
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36681e85e87so768205eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:57:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792565878; x=1793170678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e2nqfpyXfJR53yAw3YRwGK6gvdGsh0en4mbKV0oOf+o=;
-        b=V18Ap8EZvxLEHfDo9rRyXAXLgI/iH4CAqIguoR9KG2hQNicwlE4xG14qmtAIOOrJk1
-         nhSmhm7VcmYVAXA8a330g8j6qsK3LIgKqkDd/dZ++6ag4s0hw9OKffWNGjz4D/S/ng1M
-         pZ3GHFmyCeBQIJD0aJNFAjjRHc3yFljclDz5XfmXlNntj+Q/2LuhYZtvUds4PX6oBlMt
-         OB8zlbU/bhjemznFVa6bT6zCkQTm2qvR6iM74efiMd/JGOqipHbA6UQRjjEOPE0APH3H
-         LDtRsY1Ij8rLIeo1mDqsvSh48LyWi6VU372ar92W3xPh2+1IqgW8BT1drdSDAEKLrX58
-         g6RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792565878; x=1793170678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e2nqfpyXfJR53yAw3YRwGK6gvdGsh0en4mbKV0oOf+o=;
-        b=A6RbbNe3GCLHRsdYcelAI2E32D4v/kS6BGi4HUw07mRBSDGEus6CI+4KbE5nQkSKtI
-         GY9dncTx9eJYZj4BLuoS8c3O7SrDfjRurjqesVgrqkmufaKPg+hO/XJ4HTsdZz1KlWkg
-         8Ibo42G1ZPnABcQayjz8aUDXbAU1OL7P+XQ07cUMcr9psdUTyGW4yKUZciia0/1LQ/n5
-         I/39qZQV7YjptRZMtfvcuSKwm1AdsyCTHuX0HR1y47xRAcmN6Hl8qmYM+OuTOoH3S9Q5
-         15q9iBEjZ4JCZEXCbO65EgOIZzVFf7USGYXUnBgapfC7CBuY8Fosna8yD1x2YTsqQJYi
-         rdqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxC3bXj18xPu6RrbBqHj26lcsSroLpgH8n2gx6yFr+hSv+pBQmDwmOFDByTxu/js/aqh1czApwTNaJcxVc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjZndKQlo+LPV3OcG/NAigKmddQo5en0xfbEvIYRvzQGtibogG
-	vXRTIM4oYDmJmFVHktFpQYGdq4gEkvoNjBcmcxopNljr1nuaMue6mNT3snUDwg==
-X-Gm-Gg: AYBFou39hHRNMw+agfP3bOEnB2/PYALWqdOQczKWQpjfKQobXlL3nneB7xR2pzZzCyA
-	jtsoScWVd0GkX4/szWd6GsaKfcrqUr05OQQrXQpSjMemV6x/9BcwkJ1w28UHcpbukoB3ez5ynJI
-	TLieuZvo13L0mQ/b2w6JtSkx3DWGFE04LMLVlvaJ1Y9e/12+sFqsrNUGbATdnYFsRQVFdUbft/5
-	SRh3ZHw1LxuVVDvarJ4r6cAuAeKD19/YtX4YEn8pRNT2eINxY9yUDBe8MN7N14jTxxhYYjxQLZx
-	XN+4jMx3O3hmNLyBIr12vcEXkDdaQ6lkKPPOHCzvUc8dlqYOQIQEsQhdIrnupow9eHcvAs2WtTy
-	WXUnAyMtCWhZq2Wl39M5yvJAhwgiltxK7gBIdWEZk9RSf/1kKVSfvXc9wR3C6wvu0W8T9L5RAfO
-	UgKIMtMPWorRI3u/oyz5dVPt87pfhZm9FGllzusc8Y4jm9L9r0HzxVtiVXDxyRO11siPvDeRxx5
-	ozdmfrC8D3oZg7Pfz+L5MLp2FJXV5u7AutvGDjw+LWebJWO7zYm4sWQrGF+rJKlTWEJ3hH/VVgK
-	NgX5qz8HiwMB6nymSgSOT1cdBBueUAGmhTCrE/P4So3qu3IULm1WuZ8TbNiWYsTYhdUQpH5nRlY
-	YoxsIJA9oqoTwQD/IsO5XKM58
-X-Received: by 2002:a05:693c:60dc:b0:362:fa87:2aa6 with SMTP id 5a478bee46e88-367487699e9mr2317177eec.0.1792565877638;
-        Tue, 20 Oct 2026 23:57:57 -0700 (PDT)
-Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411b4145sm5165118eec.15.2026.10.20.23.57.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:57:57 -0700 (PDT)
-From: Anil Kaushik <anilkaushikwireless@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Harald Welte <laforge@gnumonks.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	osmocom-net-gprs@lists.osmocom.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Anil Kaushik <anilkaushikwireless@gmail.com>
-Subject: [PATCH net] gtp: Require 'CAP_NET_ADMIN' when joining the gtp multicast group
-Date: Wed, 21 Oct 2026 06:57:50 +0000
-Message-Id: <20261021065750.2069795-1-anilkaushikwireless@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DvSQlGzQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792565924; x=1824101924;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=i07QuMRn/2JfcFy0JuCMmwxFwETBHdVXa2IAMSqe/48=;
+  b=DvSQlGzQHaF2gS2vowBqFRYEkl0w/Q7LcHEHbOe/+YRD+GZXXq52LB/M
+   3jiFExm1GHrpTyUHx9BwL+SUNhIxVScaWh6rowgTdphKw9BTF+qc3wV1m
+   OCu0p4lwYCwcueKL0JZVbsdzhAcUiM1TjY27LWoRuJNhnFiaTJjQZSbSL
+   KS5ohGuHGK9kzqnDp/Q9NpfPXbECxehA65apCUWq8yS8crHaSX7XYz9nG
+   EskyxVIdbBm9xY+fbh2UJg3SBGqYbL1fqpHCGyA3tN7nAKqNH30QEfTJ7
+   XAcHsbctjk6Z+4OO8+MEcBqrqUO6sjD1LAt+whzobf6BagOGFtnGcO3+m
+   w==;
+X-CSE-ConnectionGUID: +ImzHyDxRfSzdNpaG8LWIw==
+X-CSE-MsgGUID: oQlBF+K0TE2TXrv22O8YDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1184182"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1184182"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:58:43 -0700
+X-CSE-ConnectionGUID: S6AFesmrT1+KJSlx5aB2uw==
+X-CSE-MsgGUID: +peAPlOLSZe1ssAQhB/ynQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="2933131"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:58:35 -0700
+Date: Wed, 21 Oct 2026 09:58:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+Message-ID: <athimRqtDvQu1ZzA@ashevche-desk.local>
+References: <arZDwutoadki7tiZ@ashevche-desk.local>
+ <arZNL9BnTGK0Klwc@red-moon>
+ <arZS4vwxps01dGb7@ashevche-desk.local>
+ <arqSqcoWAkhy-8do@red-moon>
+ <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
+ <asieTvinZ7c2QpQm@red-moon>
+ <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
+ <atXyIadz1TEKSodg@red-moon>
+ <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
+ <ateI-JcExDyfXKrs@red-moon>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,54 +102,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ateI-JcExDyfXKrs@red-moon>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The gtp generic netlink family sends notifications on its "gtp"
-multicast group when a PDP context is added or deleted, and for GTP-U
-echo responses. They carry the same attributes as a GETPDP reply: the
-MS and peer addresses, and the TEIDs, or the TID and the flow label.
+On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
+> On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
+> > <lpieralisi@kernel.org> wrote:
 
-GETPDP requires CAP_NET_ADMIN, but generic netlink lets any user join a
-multicast group by default, so an unprivileged user in the network
-namespace of the gtp device can read all of this.
+[...]
 
-Fix by marking the group with GENL_MCAST_CAP_NET_ADMIN, like the psample
-"packets" group. Only users with CAP_NET_ADMIN in the user namespace
-owning the network namespace can then join it.
+> > Basically, yes, the idea is to defer the creation of the platform
+> > device until the dependency is met.
+> > 
+> > > till the dependencies are cleared but then, without a _CRS, where will
+> > > the consumer driver find the platform device resources ?
+> > 
+> > Well, good question.
+> > 
+> > > There are multiple facets in this issue and possibly some of them have
+> > > been already solved but I need to pull them together.
+> > >
+> > > > Note that the dependencies can be added to acpi_dep_list after
+> > > > creating a struct acpi_device with acpi_add_single_object() and
+> > > > acpi_scan_add_dep() is not really suitable for that, but it should be
+> > > > doable if the dependencies can be found.
+> > > >
+> > > > > I need to have a deeper look into this next week but I wanted to ask first
+> > > > > whether there was something I missed - most likely.
+> > > >
+> > > > Well, it is not really straightforward.
+> > >
+> > > Yes it is getting messy. This RFC, with all its flaws, does not transparently
+> > > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
+> > > dependencies - though it does so by adding more stuff into ACPI static fwnode
+> > > that to be honest I'd rather see gone.
+> > 
+> > I think what you need is a notification mechanism that will trigger
+> > when a specific device (enumerated via the ACPI Namespace) becomes
+> > operational.  It doesn't look like any of the existing ones (platform
+> > device probe deferral or ACPI device dependencies tracking) is really
+> > suitable for your use case.
+> 
+> Yes. It might just be a notification from ACPI core to say "the driver for
+> this ACPI device probed, go create platform devices that depends on it".
+> 
+> We can check and track the dependency in code that does create those
+> devices today.
+> 
+> I will think about this to see how bad this might look like.
 
-Tested by joining the group as root, as root without CAP_NET_ADMIN, and
-as an unprivileged user:
+Don't we do something similar in drivers/acpi/x86/lpss.c?
 
-Before:
-  root: joined
-  root without CAP_NET_ADMIN: joined
-  nobody: joined
+> > > > I'm still not sure why you can't represent all devices in the ACPI
+> > > > namespace in addition to describing some of them in static tables.  I
+> > > > guess that would work for everybody, wouldn't it?
+> > >
+> > > That's a fair point - though then code will have to work with firmware
+> > > that does NOT explicitly require those devices in the namespace (ie: firmware
+> > > as it is specified _now_); it can turn out to be a mess even less
+> > > manageable than this discussion ;-)
+> > 
+> > If it has to work under these conditions anyway, then adding stuff to
+> > the namespace is rather pointless.
+> 
+> Yes that's the problem, reworking the code to make it work with namespace
+> devices is doable the issue is existing firmware and that we can't change it
+> (and we can't create it in the kernel either).
 
-After:
-  root: joined
-  root without CAP_NET_ADMIN: EPERM
-  nobody: EPERM
-
-Fixes: 50aba46c234e ("gtp: add notification mechanism")
-Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
----
- drivers/net/gtp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-index 69fe5717846b..e5ff1621ed62 100644
---- a/drivers/net/gtp.c
-+++ b/drivers/net/gtp.c
-@@ -118,7 +118,8 @@ enum gtp_multicast_groups {
- };
- 
- static const struct genl_multicast_group gtp_genl_mcgrps[] = {
--	[GTP_GENL_MCGRP] = { .name = GTP_GENL_MCGRP_NAME },
-+	[GTP_GENL_MCGRP] = { .name = GTP_GENL_MCGRP_NAME,
-+			     .flags = GENL_MCAST_CAP_NET_ADMIN, },
- };
- 
- static void pdp_context_delete(struct pdp_ctx *pctx);
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
