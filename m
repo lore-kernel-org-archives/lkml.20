@@ -1,49 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792600315;
-	b=RwmkTVYo0dD31T+DZ2Gv6yizsYQpAJoLjrMZI4EevcSLjjkiVe/UFtQSR8Z1VTSom7EZ
-	 jRJS0VX6m8GItGo0+NKGCZ01yrcKth87aM66uxOVcBbX6NOnL1qksc0at7bgorgWd3u5k
-	 46wdp6GNW64/preMrvBJlrLxFia4O46CamQKoRS/DOhBMxyCsBVr+EPkZoRGbrymB+VmX
-	 R89X0G0qWJrkPTmMsTYl4Tn1DaqwJuAHeKiUTzVxT0vkiAdi2aLu1Dy/tiTy9MHn0Imnx
-	 kl4sP9F0aEKr0xoJql+E4oX5yBH0HmXPZg/Mt6bhhPglMR03SVREjkzpPFfknHKlEUw==
+	t=1792600362;
+	b=qBTSeYrsPNGzPq4/rCiJiFnZj7r4HAOORBbUua4oA/uwOr9zRkn/iGawya3NTcV3S9/x
+	 Ton8b1asVhc8qX3GsWeHSvLcPiLKRMBQlF+yAL+MEAAa7KIKOHMXlM8N+Er8ChbRn4pwq
+	 MPqbK6xSeveK3Ef5PX0wisGdNjCaRmoFmzPZ6H92xpHhaotSX3VEJ/Gq3bmrBvWU/L3bP
+	 I0bBLN9e9GlpOciVvzZYDgYa/Fnw1kdQVDfQKWVXqoq0o7Mtr6HIFhsjRZFd4aeBPhY/A
+	 eOS2qbG+Bzp7iQm1wXpRi01KSJhE8DfRKssL0tS/lhSBl0xyt1m/z799SSJ5gXEBKUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792600315;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=3Bc76Zyj7fjJAs6twP2BXgV+vjnIbg8KFD0gadMNdtU=;
-	b=adP2NXKEAVrB7CawwoOeZcRSysLB93lGaSze/GPoxE7+Y1fEg8noaA2SozJDvh7XJcl7
-	 XicJi/NL5Mti8rOSRj4jo3ZmqTEzMnASCRuCAsSaG7D6sI0yFkOj0EJMnO6cfTW9Uk/FZ
-	 rqRgH1e1492FOmkhFBpcI/QvsHq4c7sYhei2iXe5SxqRLsgnMtDEVMwwOrzRDyAqUJoz5
-	 nFruCe8t7c2F5UHaCY85igzBBKZZz4+/8v0TUaIrlKic9TqXoIr8hRKIzvVGCNutvqKIt
-	 y7SYY0j45DgzV67gJZTLlUMysRf9y9DUTfn8ue8pC5WqoU2YYbP/hQa9aPic4JotUgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792600362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dC+5Lunx5dUQ5dWu37CHLZRWRMYn1XOzLPwBfQqIc2s=;
+	b=eyTt6MqyZ9tE2k0mFh234XzmMragjGLkot0PlZkENJ/NfNdMhT4Sk/thUmnDGiXc2WkN
+	 ufa3tnH/+5r7rbhNJUxORLGhzEaDBQkykbBw42RThpQZLUYrU+UpCCuE/zd2HRbn0rExz
+	 8dZawQpC1ukSiJKsOJoNS+FI5/F6ez91wEUJ1ZZXq6nHLlb3M+yGbU/WXX4OXYsvqnEHn
+	 FuH0S8wx/4QJxrR1/mbJSDXmFfshnrbUZxWkVFHmivPktZohjkseAlGQqyJHZmknqwnke
+	 ggFQOYHuh+3XyHJZ/rqryMaCEpOQxwwe9i05wlUQcI+jhvq0CG8VzdWrTsiQC4Bkotw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qaX1G4g6;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84E00606A31A;
-	Wed, 21 Oct 2026 16:31:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84E00606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ok0zsLYF;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A345606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A345606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qaX1G4g6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 31A521595;
-	Wed, 21 Oct 2026 09:31:45 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8077D3F7D8;
-	Wed, 21 Oct 2026 09:31:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792600308; bh=wjg8va0dwrFjEhHJbzt9fHvFZWhxWkaPeVPa02AKIW4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qaX1G4g6y/zAemw/PIi92bhfww5ZlXN1TDVUH9CcPgoBWZ7C/6l+X2AwwlacBeEfP
-	 32LenG75QQInJL0AvexSWb/aWT/1W96gwPKH8mPm0Nb688mEzj6BLmZT6C+S3n80ch
-	 JR9bqGALMM5PQvDpxI3VTbMoegyxtFdMMq1qr4Hk=
-Message-ID: <a718389c-5c0d-4e4a-988d-6d3a61e667f9@arm.com>
-Date: Wed, 21 Oct 2026 17:31:45 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ok0zsLYF
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so513643a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:32:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792600360; x=1793205160; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dC+5Lunx5dUQ5dWu37CHLZRWRMYn1XOzLPwBfQqIc2s=;
+        b=ok0zsLYF6Jt/8Qjs3Kouo2Hzmuakm+SQxEo0XQvD95+U0UY1ZRvyAH9axs1/PubNR+
+         ySRUGtxOsFYH7B6eJCgGD35Q43GfFsIAm0ds7WDg5uKXytYT+K2bu/MiXsK96XEahIrr
+         LmV5/vV18/k2UtrB48TVICp3aKT/FrH3PED1mJRwpfur3y4hfNR/I+rq4BGtX8PYXBYe
+         xuvq3hZy4pyuzD7ozUn7eG6lO50PP1Rd+k0qvZMyaSA0Kew7qmSo4GZC2IkXbxrMQEmo
+         kshvDGnk6gF7pa6O5v63sFlndH/DRnUPOP605Q/EmggJO2qII0sYznH5JUZoXWPa6TTR
+         /hwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792600360; x=1793205160;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dC+5Lunx5dUQ5dWu37CHLZRWRMYn1XOzLPwBfQqIc2s=;
+        b=iLV+AhiBhDmuckGhoiVzN3H0v/eNBDFceZaVfCnIMqZMtT+oGuxJa4cv3bfUq7pVYy
+         G/KKIFAMEAGJnCNcP7e39dkm3deUMplVLqDtO+b1c8xpC3lNvF5b7qEMg0oKM4LkK1c2
+         gG8vqEyM5HH9EWeKxaOzzje8lYRRyVyQSlmrqKTk0gFr0+1FTkDx6f+8q0FP5FjRrjEH
+         WXQer3OABV2Orf3GMS5TM91mcq/m4ssEEGFs/jOnHxcviYQglgOYv63wCQ7cOMDvjFPg
+         GGinyRisA4g8Wr3uR3RS/bYsVJxw0UqzktVXyDo0mfIbcApJObclzEgAZQ30zkfzUy1h
+         MtwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHf6aA32mskMLMDo8MyCqnV/L2lad6L2tt3JoxFfuSPAR3+wze+zezHVwACCTKa37WTfVWQ11enit6L00=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDCqZX2+HoGP95bMaZ4ZgOiwsT8+TJiC5eizeAjRpHMuoc8evY
+	QfUOnYNpkZwi/Nm3Y26vv64tO+yvIbjzuIKnmJASZ3eVqe+0HWDMKYFHNkooyNTQSu0u2KyimgW
+	ix5qem9s=
+X-Gm-Gg: AYBFou1SrPI7qVLlGbO5I8CBZuF3sG39uR/nVp4cxcwyQoHkBG3JZStSkh9YK5B4E0n
+	sBdaTJBcv6GiY4a0R8CktQ9wQAaPS+ABBnbhBBUXvQBHk3NbP8YHTkmvuJdvN9hCdioBfzuqXJT
+	RnkR5e/fjsNqH/DlkjKAUhWrMtEdWnR4WA8rYsRA3j1akhqgYWsrTzm4tM3YAVhjibmIKoFB1Mi
+	xIBXHbAOI5TAmmRL7Vb4ry6wWfcq7C0aWtFPGYmzDH9MkWd8LZVrf0GIM/xeaJ2ScAx4mimQTfE
+	T0Df3jcrH1WCnb6YhucSHYyWlEVWxK+TtiNJLVXIZmadueBuZ7lEE8YBy3Fl2SVdHfopcu6oU8k
+	aPeTehkrwyS/lPwlwsEKwsqbEL5kE0ukSQRp+wZ3fhGM5NKBOXRmTXCJbUmcVs2YOYlRAen/PRF
+	dJJIDqZlRbUoAjgu5pf5phFaXxsdpebjT9J8WYlF6NvgW3shfgcFK0n4lfjlqa2PcxcSrrupJ4z
+	5ViSRcv3y/odesVkeS8lZuv6ikM+VDuBjBe16M5GzfEKflZ06/y/hzoxj84lOvH12bKWF9+7Hdc
+	vY9fhvZttiouE9eypUdYNtgPONEr40ZZcIZ1v5MRk9exs8bAKHZRVCWcE58v
+X-Received: by 2002:a05:6a20:9154:b0:3e0:b445:5612 with SMTP id adf61e73a8af0-3e287dd624emr2111224637.14.1792600359159;
+        Wed, 21 Oct 2026 09:32:39 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6b8482048sm247328a12.7.2026.10.21.09.32.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 09:32:36 -0700 (PDT)
+Message-ID: <db225771-106e-4014-bc43-3cd8f0e459cb@kernel.dk>
+Date: Wed, 21 Oct 2026 10:32:35 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,76 +94,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] selftests/resctrl: Recognise aarch64 as a vendor
- for L3_NONCONT_CAT
-To: Reinette Chatre <reinette.chatre@intel.com>,
- Richard Cheng <icheng@nvidia.com>, tony.luck@intel.com, x86@kernel.org,
- shuah@kernel.org, fenghuay@nvidia.com
-Cc: Dave.Martin@arm.com, james.morse@arm.com, babu.moger@amd.com,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
- kristinc@nvidia.com, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-References: <20261012074729.40042-1-icheng@nvidia.com>
- <20261012074729.40042-3-icheng@nvidia.com>
- <415d1bf3-342d-45b5-b31e-ddc654510d85@arm.com>
- <801eeed4-6c31-40e7-8cfa-279d0740aa98@intel.com>
+Subject: Re: [PATCH] blk-mq: clear stale inactive flag on hctx reuse
+To: Bart Van Assche <bvanassche@acm.org>, Nirmoy Das <nirmoyd@nvidia.com>
+Cc: ming.lei@redhat.com, hare@suse.de, dwagner@suse.de,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261020125129.430600-1-nirmoyd@nvidia.com>
+ <ff516ed8-d4b0-463d-952b-14cf110ec8da@acm.org>
+ <29692751-e80e-4f29-a07a-ea0221f1116e@kernel.dk>
+ <a39c904d-4d84-49ef-84b2-16db1b28b706@acm.org>
 Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <801eeed4-6c31-40e7-8cfa-279d0740aa98@intel.com>
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <a39c904d-4d84-49ef-84b2-16db1b28b706@acm.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Reinette, Richard,
-
-On 21/10/2026 15:56, Reinette Chatre wrote:
-> Hi Ben,
-> 
-> On 10/20/26 9:18 AM, Ben Horgan wrote:
->> On 12/10/2026 08:47, Richard Cheng wrote:
-> 
->>> diff --git a/tools/testing/selftests/resctrl/cat_test.c b/tools/testing/selftests/resctrl/cat_test.c
->>> index 0a417267dd74..f4b02b3eedd7 100644
->>> --- a/tools/testing/selftests/resctrl/cat_test.c
->>> +++ b/tools/testing/selftests/resctrl/cat_test.c
->>> @@ -271,8 +271,13 @@ static bool arch_supports_noncont_cat(const struct resctrl_test *test)
->>>  {
->>>  	unsigned int vendor_id = get_vendor();
->>>  
->>> -	/* AMD and Hygon always support non-contiguous CBM. */
->>> -	if (vendor_id == ARCH_AMD || vendor_id == ARCH_HYGON)
->>> +	/*
->>> +	 * AMD and Hygon always support non-contiguous CBM. ARM/MPAM defines
->>> +	 * MPAMCFG_CPBM as a bitmap with no contiguity constraint per ARM
->>> +	 * DDI 0598.
-
-Nit: DDI 0598 is retired. The new spec version is IHI0099.
-
->>> +	 */
->>> +	if (vendor_id == ARCH_AMD || vendor_id == ARCH_HYGON ||
->>> +	    vendor_id == ARCH_ARM)
->>>  		return true;
+On 10/21/26 9:18 AM, Bart Van Assche wrote:
+> On 10/20/26 7:39 AM, Jens Axboe wrote:
+>> On 10/20/26 8:13 AM, Bart Van Assche wrote:
+>>> On 10/20/26 5:51 AM, Nirmoy Das wrote:
+>>>> diff --git a/block/blk-mq.c b/block/blk-mq.c
+>>>> index 025a799f35b924d..00b75eb95dd943a 100644
+>>>> --- a/block/blk-mq.c
+>>>> +++ b/block/blk-mq.c
+>>>> @@ -4002,6 +4002,7 @@ static int blk_mq_init_hctx(struct request_queue *q,
+>>>>            goto fail;
+>>>>          hctx->queue_num = hctx_idx;
+>>>> +    clear_bit(BLK_MQ_S_INACTIVE, &hctx->state);
+>>>>          hctx->tags = set->tags[hctx_idx];
+>>>
+>>> Why clear_bit() instead of __clear_bit()?
 >>
->> Would it be better not to just to use the information resctrl advertises?
->> /sys/fs/resctrl/info/L3/sparse_masks
+>> Since this isn't a hot path at all, going into details like
+>> that does more harm than good. clear_bit() is totally fine
+>> and honestly preferred.
 > 
-> The result of this architecture specific test is used to validate that 
-> /sys/fs/resctrl/info/L3/sparse_masks provides accurate information.
-> 
-> This test was originally developed on Intel where support for
-> sparse masks need to be discovered from the hardware. 
+> Although I'm fine with the patch as-is, I want to clarify that
+> the concern behind my reply is code readability rather than a
+> micro-optimization. No other context should be accessing a hctx while
+> blk_mq_init_hctx() is in progress. Using clear_bit() instead of
+> __clear_bit() might make readers of this code wonder whether any other
+> context might be accessing the hctx concurrently with the
+> blk_mq_init_hctx() call.
 
-Ah ok, thanks for putting me straight.  The defined(__aarch64__) check looks to be the common way of
-checking in the selftests. This looks fine to me.
+I know that was your intent, but it just reads the opposite to
+me. Whenever someone uses the __ variants it should only be
+for optimization purposes, and preferably with a comment
+explaining why it's safe. Unless there's a reason to do so,
+using the normal variants is just preferable to me.
 
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-
-Thanks,
-
-Ben
-
-> 
->>
->> Is there any reason this test doesn't use that other than being written before its introduction?
-> Reinette
-
+-- 
+Jens Axboe
