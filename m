@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792614389;
-	b=ij+o/aRUww2oNMPT3JEGSJi01U/OLenC1cF5KoHUwltN6kzbeF0S9NEYF9TOGG8hpmVL
-	 1hfgNfgBeXuAFXTXnjjQqODleDN98IWmfNkb+ZMGitrmpYFaqlknPZMz7wT6BYLxcUurN
-	 BPBdgcagLnPtV1diLnIG4EixfA6B3LPyTmK+5XX/MfLIL3e8HPlx4Ut9UmXJKe7rB0LOM
-	 K8MrfHprqBp7WtUQhjl9FJCGOoALmkZvcm/TOMN6njwEahkTd5NMrUQv6zyJci0H3UaJ8
-	 NMVdoIxy29uNVren6lijWthcLDJ50bjzHy1E9SLsaP+fKphK2WUdBR3X4a2fcNSxWGA==
+	t=1792614394;
+	b=bUVs0UxgxpFu4VxPC1f26HgC7SJU7V9aLMUJdd1NNQ77z5IvP7yfClrWFQ/pgn/Gnx2O
+	 bC+zsjODmKNaKkJVEDOPNZe/DASduEHMLBDzAVq8/rJYqMBSAmOocjsN1+CUf/Ow7feO5
+	 auECARn1ujZaCV5IMHSwQUCDmRQUbtAyKmgMueFP+xjyogUmAvPxhgE9n7Iq3+1iKpGY2
+	 1hi0dbpvH1XvxtIlXuC9alKbMORLSgXDrh1IDPAVAsKdxN+vNij8CRZi2n3GMnLTDcPi3
+	 RDEWA9DnEFvPvZGPoDy1NsHNmN0jIvl7NjOtMdc4lKyNzk9uI2BG6kjPJFxJwnpK8qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792614389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792614394;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Bce2KlDG4ggff4eJWY/Cqm429Y6p4LEqCaZ6RsNcRH0=;
-	b=EI2w4LaeRocQP+W5OVpAUJEPxAusMXYOArabA33WlE5i7krQFBkXy6ZynNtuFwsUxJbO
-	 dIH51iajtvTDXorD+0FXwDVqF/7Ch/Ym1dUBoEqKUlh5yGXDBCYl7135raSQJlMS0gLBM
-	 ZikH9xDqjwhfaSl5/FX0EvwzcaHGHRZLRkm5HZzg1KNXKpDok8FqRGIbroPxz9njHud2Q
-	 PJABsMYJJqziynbKswNMVWS+VAuIeHrxwAB9MpEnfSp2bWZjWqZf0ZUHypseBjdweVHWU
-	 AWfOCu+oBGDnW+O8lUK5GMBxJ2nUcmi2jUOSr+xEKUysgb9FU8+43TX0/XD544Qcsrg==
+	bh=yMaByKpIrW0LSyYgQK6ZFp9Smoe+FCDXKYUFjdBbhF0=;
+	b=S6ZAVOmdtP2YoZ1HlsEllO/bX++Vkha1aJlaToBNC+FyayqjlPmDjya9FYGztkYNZ6Al
+	 0d4kwbSXjw3Xj3g/6vSzEShbif2jgQKlbKRbk6PgFkb0CktZUIowx2XrAnc8qyeYgxb4b
+	 wu07CXBleHZ7+SnKwe5Squgq1YY811aD5qrMKi5iYBjt0yp1kgf/D4Z+NdwVyp04ojTZt
+	 sOW1mtfEXwJxfPcw8c1xNg3jfdOnLg3hLaPgjL0IpHwNnp5djqKEcynRrUPrSXO3Xi9Si
+	 GUUc5CXI6N5rnKZQE/XhY93OZSw9v1oRJDIVkulOxrHlprgfR3l/4Yv/wR6TdE/c3HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=E+KBQkQE;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=B9dG5wGE;
+	arc=none smtp.remote-ip=79.135.106.29
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C088606A31B;
-	Wed, 21 Oct 2026 20:26:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C088606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAF1606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:26:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FAF1606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=E+KBQkQE
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=B9dG5wGE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792614386; x=1792873586;
-	bh=Bce2KlDG4ggff4eJWY/Cqm429Y6p4LEqCaZ6RsNcRH0=;
+	s=protonmail3; t=1792614391; x=1792873591;
+	bh=yMaByKpIrW0LSyYgQK6ZFp9Smoe+FCDXKYUFjdBbhF0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=E+KBQkQEFkzbBzlQftAxcYF1jybkzElM1zoymGeLrC5kjyrf/trxyNJtH4n2njzTY
-	 tS9r09T+ZzNiQ2eGGOrVvbo4Q7GSHFm6aXB1zWaW5kNnUQUzCmv6s4oyJP927zlUIU
-	 cXpLPpeTngInBWLHiW9oNf/nxSn2sxxeK6Vu2Juq5EyJ5/RTi0yC4J0Fjjy6tds8Kp
-	 aMuLo/yxh5nueXWzcFH+GlzL0E3UyIVWdNmvfYmgKioCJKy0KIfTWFpJnnu+F5hyTx
-	 othTOQvqBJPLq7PldAsyejnP4T9YWGnTUlyWhjfHzClrpNnLID6Ihua7xYKaJaUbP0
-	 xAN3oJU3j5WZA==
-Date: Wed, 21 Oct 2026 20:26:17 +0000
+	b=B9dG5wGEQtC0HV+f+BE0KkdleNJlL7wLJR0n+SpH9ZopIwYCweo7qAU3OzkHFbeU6
+	 ytYuEZK/8iYUOSK6mPffyJ326ARGSvvjL1GQoZR+Ayo5aD8gct6hHfIh+HB44d9ul6
+	 JnVDHqSmOxnTVY9m8oLxaP0AsytHcQKbTKLpUORshFSXdb3xfg5RxZoxdbvNecx8hY
+	 V/I8Y4x5B6zprJMhT4oOdjzxAU32aT4/X2TgiCg/CZkSkkM0xOPsz5NXDDltXrDuO0
+	 WDkEgVhlPBh10rPedVuJirjuF/z709EE/hhKHnoXGy6MUpkg4esxXPT5jVhBc8b0Y8
+	 Y2v3jjSJw833w==
+Date: Wed, 21 Oct 2026 20:26:23 +0000
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 From: Birk Skyum <birk.skyum@pm.me>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>, linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Subject: Re: [PATCH v10 09/14] crypto: qce - Only register algos if the user really wants it
-Message-ID: <179261435862.92690.611780170759449709@pm.me>
-In-Reply-To: <20261013-qce-fix-self-tests-v10-9-57162a38a554@oss.qualcomm.com>
-References: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com> <20261013-qce-fix-self-tests-v10-9-57162a38a554@oss.qualcomm.com>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>, linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, linux-arm-kernel@lists.infradead.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Subject: Re: [PATCH v10 10/14] Revert "crypto: qce - Mark QCE as BROKEN"
+Message-ID: <179261435862.92690.4559755086697722828@pm.me>
+In-Reply-To: <20261013-qce-fix-self-tests-v10-10-57162a38a554@oss.qualcomm.com>
+References: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com> <20261013-qce-fix-self-tests-v10-10-57162a38a554@oss.qualcomm.com>
 Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 65740e0ea33da3bf88d934988af2b35a331cb6e5
+X-Pm-Message-ID: 26a209665153582a3536c663df4ec6c159407ded
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +67,31 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 11:57:38 +0200, Bartosz Golaszewski <bartosz.golaszewsk=
+On Tue, 13 Oct 2026 11:57:39 +0200, Bartosz Golaszewski <bartosz.golaszewsk=
 i@oss.qualcomm.com> wrote:
-> The power-management part of the driver is kept as is to allow scaling
-> down of interconnects gating of clocks by runtime PM.
+> The self-tests for this driver have been fixed. The crypto algorithms
+> are only registered if the user explicitly requests it with the provided
+> module parameter defaulting to false. There's no reason to further keep
+> it unbuildable with the BROKEN label.
 
-On X1E80100 that part brings deep sleep back. With this applied to
-7.3's driver, qcrypto binds without registering algorithms, both crypto
-paths drop to 0 in runtime suspend, aggre2_noc and mc_virt reach
-sync_state(), and a deep suspend counts aosd, cxsd and ddr again.
-Details in my reply to 10/14.
+On X1E80100 the BROKEN label also costs deep sleep in suspend. With
+nothing bound to the crypto node, aggre2_noc and mc_virt never reach
+sync_state() ("sync_state() pending due to 1dfa000.crypto"), and on a
+Lenovo Yoga Slim 7x a deep suspend on 7.3 never counts aosd, cxsd or
+ddr in qcom_stats.
+
+I built qcrypto out of tree from 7.3 with 09 applied, which is what
+this patch makes possible in tree, and loaded it on 7.3 (with distro
+patches, none in QCE, the interconnect drivers or the driver core) and
+the crypto node as in mainline, with ALWAYS tags on its paths. It bound
+without registering any algorithms, went to runtime suspend with both
+crypto paths at 0, and both providers synced. The next deep suspend
+counted aosd, cxsd and ddr, with about 13.7 s in them during an 18 s
+suspend.
+
+Herbert asked for the series to be split, and the resends since then
+don't carry 09 and this one. Both should come back as fixes, for 7.3.y
+as well.
 
 Tested-by: Birk Skyum <birk.skyum@pm.me> # X1E80100, Lenovo Yoga Slim 7x
 
