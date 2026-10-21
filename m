@@ -1,66 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792553629;
-	b=UjcrQIyo/vQcWER9+ialmgnNq9ofatrp/0RX/ra/rWvtMf9/Ye13auZTdHVbX8g1fCmz
-	 pp4saZeXPbF+UJIs6gq8bSawkk/8E0JqDvVlr18YULr0fQdxWAj5D183UnJvFwyt09kYe
-	 x9cbiN9zyvAYjdr/Kwu2v2r1btQZWkswlFKwm1sPwqz5PWVZlBS3SlInPN7q6meSYyJgt
-	 ty3ct7k3mnFdkDlsSB5X/Em4Uwx4GIhFD8RfUubxvR+JWmMwuPAzwSzWdzZDCJXYdeAoG
-	 V5Qg8pNUU0HHhIRTWWq38MMGt2qrhLfUEwqZsY2l6dUPufbmgLHJSux4TIwCHzz6+Rg==
+	t=1792553633;
+	b=W4UAv2Qsn0FdF5KzyqcLg4KRJWw8Any8fm6YvbSZiXjQa2XQJD9XlVWPElOzUGHN+w6X
+	 eIQD3ev0Mg92sBzjS4iWdMaKN2LELed0mnC8NBxOxCnjal8LLxA7vHPRSC3hfAhirqpgx
+	 3T/KK3rcHSwv0ndVJXjIlcHLfEunc4/UOPPcpTdxCXHN+lcGv4ezGOagl12Y1u/5Ju+H7
+	 shr4gyRewokva7w0HRX66sKlxTQTpULMv3yn7ghuaXQav+ocOQ0dmIIUSoz7yreOA9ZtS
+	 bc8wel5AYPkBIEuGzRnv1ERij4JUWhHn1EAJDkCUevmLR4s9Jhs4Rd+y3NUIIcAx5mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792553629;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h9uL3bUFmsFJ4jdYyY5J7tcbz3RUdrntjKEXNV+fUxA=;
-	b=s9ilpiHdIdr++IbtI9npcduXQDQ2pugTuIs0e4vk+aoqDn7C9qjsYN/pByXlyhf6mPpt
-	 FCTF5mi5ynKj0DLCZZnCarphMWS9WaOoPZWQY70RUpn57hRMuCG+BAMwYnhF2saB3wCzt
-	 9E1A1297mx3+DNY/eCxD2ntXLCuLxdlnTZvUi9l7ecZSDM5Wu+6/2LKgtuMVJhdRVuLRw
-	 hx2KuN/AVS9GL5NCJ0egCwOR9SBP5yDxFC2ufC8DqOdUo8w/tUCh0CzJ5fyRMV8W1LzQw
-	 TnrwWbYLeWAhibC+seD4BI5RxXwvZPM/iYYKuHO2DPv6NmjMLnE2WU1uiWVjWDUmFWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792553633;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RbLlIDBzxSpd5cJfPOd2N3zvhSlGP9L2jcWxKocz/10=;
+	b=ECWvIA7JTclHVd10ySto1IWcFpZVQ34AoERLzCnpNtMBy5ilG3nvBQR4OwUY3a3uhJfK
+	 SHr/yqkrv2JjMJRDRRJNY6UY0/L7Vtb0VimkQ5T/+ekl1Gzfb7llg55OXgFxbecNDDvXM
+	 6+G+MxTAyg8j19ob+dxqWI4fyDmYyYy1AfFMVg05isI+JXJ4h/SGUX/e0y/N4mZlWFTwE
+	 nye5flzSC1OEYvqIgxA9/1pVJhV9c594O+wI0x+R77+Dthtib69pBy8VKx8UBZdLZ3bTX
+	 afb/yO8pbSvr0yqvWW4Ef+mWAD+vacHDWsazrIB4VxFgSb0XxYlN+Ljuq7tbtSR1tiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsdgFKmY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HuUipxgR;
+	arc=none smtp.remote-ip=91.218.175.76
+Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41400606A31D;
-	Wed, 21 Oct 2026 03:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50BEF606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:33:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50BEF606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsdgFKmY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A22B1F000C9;
-	Wed, 21 Oct 2026 03:33:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792553628;
-	bh=h9uL3bUFmsFJ4jdYyY5J7tcbz3RUdrntjKEXNV+fUxA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hsdgFKmYIr746vJb5AVItEQ4HIw3Om+dTG00YWvXTPXt3AWrNZkk/Sb2zITmOvGfV
-	 7crUvAqQZPUu3MPS+Vkd+KrdqnnUEg3aq7vPNks1tSL0ZzigTgWzH04VdymlBbWoJI
-	 xB3qyK1sl9d2mg5YvvN4jQkbqSEV8wMwNnDkAB8fRmlo7huI3VPJ2FTeXwjXLD8NMm
-	 hWItyHlTEJI1E1r3j+5ug9gohOVVS6E2za9yPbvXgmZOMjvT7s88niSTE0AHKDwWuk
-	 4DGNinyPVfLtr4N2At44NE0U7KakY9Oh0gwiqJD0mRPlwOPlM5/WnAgRPTI1T++8ON
-	 TkYaH73gJeVIQ==
-Date: Tue, 20 Oct 2026 22:33:47 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>, linux-tegra@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	dri-devel@lists.freedesktop.org,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <thierry.reding@kernel.org>
-Subject: Re: [PATCH v3 3/7] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <179255359778.4065508.6211892525325768326.robh@kernel.org>
-References: <20261019095705.91062-1-clamor95@gmail.com>
- <20261019095705.91062-4-clamor95@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HuUipxgR
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y927hDeFwTRi1uuF8AFccBXiuWM2sJNn4YnO+caicLI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792553630; v=1; x=1793158430;
+ b=HuUipxgRWS3e7sDvPB7ilyEUPgRtTmYZ+Pmv+0G7aSfoBB64N9Ezdvggr7cyCJYhNYRoNABQ
+ 1NIALLv0lL+pT7s1Ta2HlXtIcSDzHQRv1LjU8Bz41eNK1xug9eM3nBz5/ICuWBm7aW60JdMJAdN
+ h6MPK5xaXrRLUQqt3HGTojB0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 071bc8b21379f3c8;
+	Wed, 21 Oct 2026 03:33:50 +0000
+X-Mizu-Trace-ID: 071bc8b21379f3c8
+X-Migadu-Flow: FLOW_OUT
+From: George Guo <dongtai.guo@linux.dev>
+To: pratyush@kernel.org
+Cc: rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	chenhuacai@kernel.org,
+	ardb@kernel.org,
+	shuah@kernel.org,
+	ilias.apalodimas@linaro.org,
+	akpm@linux-foundation.org,
+	baoquan.he@linux.dev,
+	ruirui.yang@linux.dev,
+	guodongtai@kylinos.cn,
+	kernel@xen0n.name,
+	graf@amazon.com,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-efi@vger.kernel.org
+Subject: Re: [PATCH v5 1/5] efi: add a KHO configuration table channel
+Date: Wed, 21 Oct 2026 11:33:42 +0800
+Message-ID: <20261021033342.3110-1-dongtai.guo@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2vxza4p95v6e.fsf@kernel.org>
+References: <2vxza4p95v6e.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +82,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019095705.91062-4-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Hi Pratyush,
 
-On Mon, 19 Oct 2026 12:57:01 +0300, Svyatoslav Ryhel wrote:
-> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> Tegra20/30 SoCs display controller.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../display/tegra/nvidia,tegra-dbi.yaml       | 138 ++++++++++++++++++
->  .../display/tegra/nvidia,tegra20-dc.yaml      |  15 ++
->  2 files changed, 153 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
-> 
+Thanks for the detailed review. I've rewriten the comments and commit messages
+myself for v6. Replies inline.
 
-Reorder your patches to avoid the warnings.
+On Tue, Sep 22 2026, Pratyush Yadav wrote:
+> > +config EFI_KHO
+> > +	bool
+> > +	depends on EFI_STUB && EFI_GENERIC_STUB && KEXEC_HANDOVER
+> > +	help
+[...]
+> I don't like adding a config for this sort of thing. Do we really need
+> this? Why not just have the code always compiled and only used by
+> loongarch? I don't really see we need a user decision for this sort of
+> thing.
 
+Agreed, v6 drops it.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > +		/*
+> > +		 * Reserve the stub-allocated table so it is neither handed
+> > +		 * out by the buddy allocator nor placed on by kexec
+> > +		 * segments, mirroring the memreserve handling above.  This
+> > +		 * runs on every boot, so it also protects the table in the
+> > +		 * next kernel until it reads it.
+> > +		 */
+>
+> Nit: this comment is too wordy. Can you please make it more concise and
+> to the point?
 
+v6:
+
+	/* Keep the buddy allocator and kexec segments off the table. */
+
+> > +			if (kho->fdt_addr)
+>
+> When can kho->fdt_addr be NULL? Also, perhaps print a warning if
+> early_memremap() fails?
+
+It is 0 when there is nothing to restore:
+
+  - on a cold boot, because the stub installs the table zeroed;
+  - after a kexec into an image without KHO state, such as a crash
+    kernel, because the table is zeroed just before that kexec.
+
+v6 says this in the struct documentation, and adds a pr_warn() when
+early_memremap() fails.
+
+> > +	/*
+> > +	 * Keep a persistent mapping of the table, the same way
+> > +	 * efi_memreserve_root_init() keeps the memreserve root mapped:
+> > +	 * efi_kho_update() is also called on the crash kexec path, where
+> > +	 * memremap() is no longer an option.
+> > +	 */
+>
+> No need to mention memreserve. Just explain the reason here. And keep it
+> as short and to the point as possible.
+
+v6:
+
+	/* Map it now: the table is also written at panic time. */
+
+> This is unreadable. Please add a human touch to this.
+>
+> And once again, the fact that it mirrors efi_mem_reserve_persistent()
+> isn't important.
+
+v6:
+
+	/*
+	 * Write the KHO addresses the next kernel should use, or zeroes
+	 * if it should boot without KHO.
+	 */
+
+> Why ENODEV? Wouldn't ENOENT be a tiny bit better?
+
+Neither, in v6. No table is the normal case outside LoongArch, so
+efi_kho_update() now returns 0. The only error left is a table that
+could not be mapped at boot, which returns -ENOMEM.
+
+> This has too much information. You need to make it more to the point.
+> For example, "without a device tree" already implies there is no /chosen
+> property in the first place. No need to mention the function either.
+>
+> The lifetime of the table is certainly useful information but again,
+> should be much more clear and to the point.
+>
+> Also, you should document what each of the members of the struct mean.
+
+Agreed. v6:
+
+	/**
+	 * struct linux_efi_kho_data - KHO state passed to the next kernel
+	 * @fdt_addr: physical address of the KHO FDT, 0 if there is none
+	 * @fdt_size: size of the KHO FDT
+	 * @bootmem_addr: physical address of the bootmem area list
+	 * @bootmem_size: size of the bootmem area list
+	 *
+	 * Pointed to by the LINUX_EFI_KEXEC_HANDOVER_GUID configuration table.
+	 *
+	 * The EFI stub installs this table zeroed on a cold boot. It stays
+	 * in place across kexec; the running kernel rewrites it just before
+	 * each kexec, and the next kernel reads it during early boot.
+	 *
+	 * The layout is fixed. Changing it requires a new GUID.
+	 */
+
+> Note: I recently sent a series that renames scratch to bootmem [0]. It
+> looks close to landing. So you likely need to rename this to
+> bootmem_{addr,size}.
+
+Thanks for the heads-up. It is in liveupdate/next now, so v6 is based
+on it and uses bootmem_{addr,size}.
+
+> Why __packed?
+
+No good reason. All four members are u64, so there is no padding
+and __packed changes nothing. Dropped.
+
+Thanks,
+George
