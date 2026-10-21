@@ -1,54 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585917;
-	b=2C9BzUaA1yqkJxoiomaEqsdXzpHlBBRSFITSvyH7jpLwmr21guwePVJz9Jf0B8IrqrCq
-	 PssP7dcJ4WArnYlh3jn2GYOkawM7EkgQ1ufo4gbnzSiUqAYam1KcMbS3QG/UT2AnoLG+G
-	 fjs0aN1p9OJSdWGWjJFEaH9f4B5rTKK+9I0anwbAy8AuNF0+MOdW1XTBhsFf/KxQfcQZy
-	 M4Vcd8+bOPubcP6vOQBC93BYBkansqfLQ1+tYGl2yqI8k2FkDtu6Uy6B6jCTTCcbTHBhI
-	 0XrCBiuLcAuK6H1nlk91BjLmmc2xYFnNx2OH9HVKcO3uCf0fSi301GH5nl3VtV9JScw==
+	t=1792585914;
+	b=rhm8uHxUVX0j1uf5uFNuNh1utrNQlhV0ZhqweO4Vg7SZ+HpQK8BZiDGd5WygIooHvcne
+	 Ak7wSY6+fX+4N0R/4i+EpZRtdmcqnyleWaajPHmvmJVyXmsEkvSCusfaNexJI/lz7B3ug
+	 mChOZ6qZLfLsZN5KRGjipuo4D4n7YtnXsTgSQw1lqs60kmuHNuzOuWza/RlWDvWxvXzrB
+	 vr+a8CjT5UAy4iuvHFGKV6yiHI031HOwdaZw7lvV2u0+BHtdOxxvjXpLkzFv/Cjp09lBH
+	 31sGttHQ4bec1D4bNtMq3tWWdlZyhVZ+dE0i3y80n9rbZY88smyZy83MGGNGSSWiDqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585917;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Vi/DPnceOq0VsSSRedDFBN2uKDptzqnJwZc3aUmq6lQ=;
-	b=LcoNrDGBLbHSWQIOZWwgyoBbreQfl62mtLZvOG2u/PqkN++BA3NEsu3YO/RQ8GGzWkYs
-	 5m0sc3IbSUBwVUXARn2QGbOnyT6eD+b2BVqpncHIDELjQE/w/PnDT5LBp80FzczEACVeu
-	 y58/CYoX99C1sNRcgdmo5CmIO5HFwqHKHiLhijwa1ewNEe9Znp709HYPtdToxObLwzT4L
-	 nhLEzFSO7W0wwmx+C4QUYtRkhdCjpZTxGgVpscZKTD4iIpoYvjY5VMEd7Il5FaXI624IL
-	 G/0CdEtUXwFpK3aZQnghqg6jB0qK24iVeDDZyj/01DDM3A/QLiUz26+8KWURkjklEwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585914;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=DvokbbwgUedu+R/7T0+nvoQgtbpEqoqXXbDX6qN/PMY=;
+	b=oGY0chV/9u1iP40xr+YBg85qxkRMQJ8mcp7CHdPPj7Q3XaNgbwSBOxjc8ZU+hzaSOxc2
+	 fUJYSVCraZ7eNsjYI+/eicBxVIXELTytQf2j64NnuXQsjgqtcr3xgGu+TBlbWJIrfuRa+
+	 ifQFj8gZ9V0oxc5Ny4beXdThvWT2VaxM4gNAM4PnktzW9B6T4eur4pZBOmYyG0TKLpCeT
+	 FSjBxnty9v3p9IC4PQPmw1GtBsMpBoZxxRLtdmo32kEjiOW92opqR5FgyPhIG1fpUe6UM
+	 4yu/Ja29lLXPVq5tN+FBSwzl0Pf4AhDzofLldvDO7eijkMfNmf0yX8DC7a8Dubv/7DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HN4AMym7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epYyEUIG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B64606A330;
-	Wed, 21 Oct 2026 12:31:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0459C606A322;
+	Wed, 21 Oct 2026 12:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HN4AMym7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7ADE1F000C6;
-	Wed, 21 Oct 2026 12:31:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epYyEUIG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6B61F000C5;
+	Wed, 21 Oct 2026 12:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792585916;
-	bh=Vi/DPnceOq0VsSSRedDFBN2uKDptzqnJwZc3aUmq6lQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HN4AMym7jksJoTV6FE19Xu82a+/hEi3StMBEmZVCnuMh1qDfcWicvC4LrU6CByUFu
-	 XA5AIeDggmwbCeIa7KQA1rSfZ4iBoWDCrTiuRJFw6eZoAKoWf8KkimapRGaJDcUAz0
-	 ABIFQRDcDel1oCbzYtTtS4uZuzSKykiBiv4jZNxIuh36Lf6LEhBy229tY3a6E1RZY/
-	 OIaLx6PMAGTDtamZB0zIzQzgrUaSXVvUGafTkaNA1doCUdLDNtrKS21GYuNj50grUs
-	 UN/hQHSfQTDOU9jpk3lpqQzn4NSy8RZ2wAhUC0KK5K2vZzutlr2xKFkRK9cA9R+2Mf
-	 dPtQTfatPRVEQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 00/28] mfd: Assorted resource lifetime, teardown, and error-handling fixes
-Date: Wed, 21 Oct 2026 12:31:14 +0000
-Message-ID: <20261021123114.3159750-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
-References: <20261021121245.3111563-1-lee@kernel.org>
+	s=k20260515; t=1792585913;
+	bh=DvokbbwgUedu+R/7T0+nvoQgtbpEqoqXXbDX6qN/PMY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=epYyEUIG4tu03eofkyY8ffP5iSgRwFlbkSzO7dMBI03AkEcjJ3sjmXW4w1pbNGMM2
+	 8Ul5Zs3wpcQ+hemNNGjErsL4dZWW45c+X+09BatBwRn1vVyv+tsHYNvlhwl0dLobmN
+	 LLn29m6l0VzaE1JgUW+KfYS1V/02xpsmZfeoMmx0wZXcVoIavS49RWvecoWP7rvFN9
+	 pLl7naO3NIyEZlV8iUqk78Eo0v5uUDACB6o4lSoOXS7/G37RlfJXB2Ph9x/hgm/3z8
+	 yLuhQExrFmg/CtxYYo230oix1ktpUmMxK1Re7lEElkr4RGTccb4eupZCGec9DDtMBF
+	 G/Vwv62Ls+Ehw==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Marcin Knap <Marcin.Knap@vecima.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>
+Cc: Magnus Karlsson <magnus.karlsson@gmail.com>, Tony Nguyen
+ <anthony.l.nguyen@intel.com>, Przemek Kitszel
+ <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Magnus Karlsson <magnus.karlsson@intel.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>,
+ Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper
+ Dangaard Brouer <hawk@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, "jtollet@cisco.com" <jtollet@cisco.com>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>
+Subject: Re: [PATCH bpf] xsk: Do not free ZC Rx buffer when the Rx ring is full
+In-Reply-To: <DS4PPFFD8A841C22E2663DBBA3A1B4F581E80672@DS4PPFFD8A841C2.namprd18.prod.outlook.com>
+References: <20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com>
+ <ataHK9s/MpNgXWhT@boxer>
+ <CAJ8uoz38cE-1diOnih=HYW+ACqq9YQhaM7tz8KCHjTxgZVc+rQ@mail.gmail.com>
+ <DS4PPFFD8A841C2AC917618A9B1B19453C480672@DS4PPFFD8A841C2.namprd18.prod.outlook.com>
+ <atddQ8qN/R1tU1fk@boxer>
+ <DS4PPFFD8A841C22E2663DBBA3A1B4F581E80672@DS4PPFFD8A841C2.namprd18.prod.outlook.com>
+Date: Wed, 21 Oct 2026 14:31:50 +0200
+Message-ID: <87ld7r6xqh.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,98 +77,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-These issues were reported by Sashiko.
+Marcin Knap <Marcin.Knap@vecima.com> writes:
 
-This series addresses a collection of resource lifetime, teardown
-ordering, uninitialised memory, and error-handling issues across MFD
-drivers (along with two related patches touching i2c-cgbc and the
-ti_am335x_tscadc child drivers):
+> On Tue, Oct 20, 2026 at 07:00:47AM +0000, Maciej Fijalkowski wrote:
+>
+>> Please don't top-post on MLs and configure your mail client to wrap your
+>> lines. Kernel people get triggered by this :P
+>
+> Sorry for that, I was trying but not good enough...=20
+> cannot setup this on web outlook and I have blocked every other client.
+>
+>> ZC drivers are supposed to break processing and yield cpu to
+>> application when xsk rxq gets full. We didn't want to expose
+>> particular packet multiple times to XDP progs as that might confuse
+>> internal logic of progs. Therefore we drop the packet in the core and
+>> let driver side know about this via ENOBUFS return value.
+>
+> Thanks, that explains it and it makes sense to me.=20
+> I will drop the core change and fix the
+> drivers that free the buffer again after -ENOBUFS instead.
+>
+>> Marcin, could you re-iterate why Jerome's fixes were not enough for
+>> you?
+>
+> This is how I understand this but I don't know this code well and I can be
+> wrong.
+> Jerome's patches stop mlx5e from releasing the same WQE buffer twice
+> when a refill is retried. They don't cover the case where the core
+> has already freed the buffer on -ENOBUFS. mlx5e_xdp_handle() treats
+> the failed redirect as XDP_DROP, skip-release isn't set, and the
+> buffer is released again when its slot is refilled.
+>
+> xp_free() only catches this if the buffer is still on the free list.
+> The free list is LIFO and refill allocates replacement buffers in
+> bulk, so the buffer freed by the core is usually handed to another
+> WQE before its old slot is refilled. The second free then puts a
+> buffer that is still in use back on the free list, and the same UMEM
+> frame is later published twice.
+>
+>> Would also be nice to align mlx-5 to -ENOBUFS case.
+>
+> Will do, I have potential mlx5 fix (this was my workaround).
+>
+> I did quick analysis with AI tool and it sounds like all drivers have=20
+> similar problem and they don't handle -ENOBUFS correctly except=20
+> Intel drivers needs_wakup path. Given that, would you prefer the driver=20
+> fixes, or do you have any other ideas?
 
-- Resource teardown & lifecycle fixes:
-  Ensure IRQ domains, chained/parent interrupts, GPIO GSIs, delayed/reset
-  work items, PM notifiers, system power-off handlers, sysfs groups, MFD
-  child devices, and global singleton pointers are properly unregistered
-  or managed via devres on probe failure and driver unbind (ls2kbmc,
-  ioc3, intel-lpss, max8907, twl-core, loongson-se, abx500-core,
-  ab8500-core, tps65217, mt6397/mt6358).
+Marcin, FWIW, we'll discuss this topic on the office hours today [1].
+Feel free to join! I added a link with suggested wording for a future
+doc [2], and asked an LLM to audit the drivers [3].
 
-- DMA, URB, & hardware error handling:
-  Allocate USB transfer buffers on the heap rather than the stack, avoid
-  resubmitting interrupt URBs on endpoint stall (-EPIPE), zero-initialise
-  command and version buffers, and validate DMA masks, engine IDs, and
-  polled transfer status (nct6694, cgbc, i2c-cgbc, loongson-se).
+Bj=C3=B6rn
 
-- MFD cell descriptor & driver-data clean-ups:
-  Avoid storing stack frame addresses in MFD cell platform_data and
-  resource pointers, and retrieve parent driver data directly via
-  dev_get_drvdata() in the ti_am335x_tscadc child drivers (ls2kbmc,
-  bd96801, db8500-prcmu, ti_am335x_tscadc).
-
-Lee Jones (28):
-  mfd: nct6694: Allocate USB DMA buffers with kzalloc_obj()
-  mfd: ls2kbmc: Unregister GPIO GSI via devm_add_action_or_reset()
-  mfd: ls2kbmc: Cancel reset work on teardown via devm_work_autocancel()
-  mfd: ls2kbmc: Allocate simplefb platform_data on the heap
-  mfd: bd96801: Allocate watchdog IRQ resource on the heap
-  mfd: ti_am335x_tscadc: Retrieve parent driver data via
-    dev_get_drvdata()
-  mfd: db8500-prcmu: Make AB8500 cell and IRQ resource static
-  mfd: nct6694: Do not resubmit interrupt URB on endpoint stall (-EPIPE)
-  mfd: cgbc: Zero-initialise version buffer in cgbc_get_version()
-  mfd: ioc3: Request parent IRQ via request_irq() and free before domain
-    removal
-  mfd: intel-lpss: Remove registered MFD child devices on probe failure
-  mfd: max8907: Manage power-off handler via
-    devm_register_sys_off_handler()
-  mfd: twl-core: Clear pm_power_off callback in twl_remove()
-  mfd: twl-core: Clear twl_priv pointer on teardown and probe failure
-  mfd: loongson-se: Check return value of dma_set_mask_and_coherent()
-  mfd: loongson-se: Zero-initialise controller command structures
-  mfd: loongson-se: Reinitialise completions and wait uninterruptibly
-    for commands
-  mfd: loongson-se: Zero-allocate driver data and initialise engine
-    completions in probe
-  mfd: loongson-se: Prevent out-of-bounds engine access in
-    se_irq_handler()
-  mfd: loongson-se: Stop controller and mask interrupts on teardown and
-    shutdown
-  mfd: loongson-se: Validate engine ID, DMA buffer size, and IRQ
-    registration
-  mfd: abx500-core: Unregister device ops on devm release
-  mfd: ab8500-core: Register sysfs attribute groups via
-    devm_device_add_group()
-  mfd: tps65217: Manage IRQ domain teardown via devres
-  mfd: mt6397: Manage IRQ domain lifecycle with devres
-  mfd: mt6397: Unregister PM notifier on probe failure and unbind
-  i2c: cgbc: Propagate hardware errors when polling read status
-  mfd: ti_am335x_tscadc: Remove redundant ti_tscadc_dev_get() helper
-
- drivers/i2c/busses/i2c-cgbc.c             |  27 ++++--
- drivers/iio/adc/ti_am335x_adc.c           |   2 +-
- drivers/input/touchscreen/ti_am335x_tsc.c |   2 +-
- drivers/mfd/ab8500-core.c                 |  11 +--
- drivers/mfd/abx500-core.c                 |  29 +++---
- drivers/mfd/cgbc-core.c                   |   2 +-
- drivers/mfd/db8500-prcmu.c                |   8 +-
- drivers/mfd/intel-lpss.c                  |   1 +
- drivers/mfd/ioc3.c                        |  32 ++++---
- drivers/mfd/loongson-se.c                 | 110 +++++++++++++++++-----
- drivers/mfd/ls2k-bmc-core.c               |  27 ++++--
- drivers/mfd/max8907.c                     |  28 ++++--
- drivers/mfd/mt6358-irq.c                  |  17 +++-
- drivers/mfd/mt6397-core.c                 |   4 +-
- drivers/mfd/mt6397-irq.c                  |  31 +++++-
- drivers/mfd/nct6694.c                     |  23 +++--
- drivers/mfd/rohm-bd96801.c                |  11 ++-
- drivers/mfd/ti_am335x_tscadc.c            |   7 +-
- drivers/mfd/tps65217.c                    |  40 ++++----
- drivers/mfd/twl-core.c                    |  45 +++++----
- include/linux/mfd/loongson-se.h           |   8 +-
- include/linux/mfd/ti_am335x_tscadc.h      |   7 --
- 22 files changed, 327 insertions(+), 145 deletions(-)
-
--- 
-2.56.0.218.g1ec904b173-goog
-
+[1] https://lore.kernel.org/netdev/aqPxxX9MeGmAqGy6@boxer/
+[2] https://gist.github.com/fb-bjorn/d6835c49650bc3433b427a9c9708fbe2
+[3] https://gist.github.com/fb-bjorn/181786547c4dd8182ba09e23cf394dbe
