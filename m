@@ -1,57 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616336;
-	b=ZhfVaSDO4BUCr46npDbygO3Je9q684sFpelZ8QcolD7o7vQZ4EnUz8mXV1YALq7vbCqT
-	 dmOWZKuHfWKboZ4cTZ52ddamZ+Z+QxJCUq9/kzFXe4Le8gMNRlg4QCFvA0n2KDP4uRv1N
-	 3X0WCKN0xbDagDXE+I5nsagT0S9EHw0WMiRgl3xIUBQ1J1GcWhjtk4orn5mEyYBn91mew
-	 1iok1ZVIhve4CQrnEzgF+zkwUtOdYLB0/nhMqullQHOeIxqTubcCS2qKTLohNj6xDLwiJ
-	 hEVL3ali5enlBIeXVfVKeog5WBaqPB6sNr6+mz2SwTafhEOya9X4ZHS7PF8Lc/hHqeg==
+	t=1792616379;
+	b=d7yZKGszF/c5fKJedMR75MJIbhpEi51G5YwOyAIRmOcCdMLonwFH0pfO7sAtwgKKBxrW
+	 EWw5bJgKQlwFBYDX36+Gtqj/PgyankAzEfKztOohwAKLmQ3kFMhfirMhbbQ21x1ioAVwu
+	 SnV4Mi3Ak3WQ8RXPv8w3mV4sQlGEu4eLMsGECIbvq93Ch0R3wTu3fAOd7+atMxzLpHjUV
+	 QNG0WyxRaW9TE6BAajD1v3lRupWyDyZxdICQFGUNw6FZQHBg3He9nyIxmJQ0Jc4uKfjtt
+	 TAn3O/SYXiEWlt82sWfaRoCwED3VkgXhambY4wGYfH1e2RH+BPnBF8dY62rpPbUDekA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616336;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=W8QpUwmMkLvVxRBYSH3rqkRjfuSW4enaMRdeQNLqIcg=;
-	b=I+47OgqIe0ytCoWRNiIp0+rSh9VanmPfmD5KmZBbAQvqQo+FoxABjCjgmC1qEmNc0aaL
-	 cEGHixdX/uSRo6f+8j1P0Peqv1/fVkMCtGYoMgpvPE6QBb3yvVDEYsZNRCg0syO1cLBEP
-	 eyQt1SwHBzVuAsenmzJNyRnVfQmcSgX+wgIdlpr+gWYNhwfaoiHUCBAWPQunUzHhSaMoT
-	 OG/PPsRqv9hOT6+ZVw0YqhZO122/RyWoNZgr6KC7o1aLApTd0VvKV6JE3mXJPB3Sc5vQp
-	 z+wjAVoCJmzBUEp9BCU8hwvBbpzmRk9Mc5Vq7i9Evm6dnPSdtFXO6uFP/97xEzbi49Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616379;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=MB1VWokoTNzjBoK6XypOYuBfmm/Gm+5i6Hamx66M7Xk=;
+	b=KmvYnVy3DhA8dBtaXaWgh957l/VkqQnqpIFyHR2JabHfYwlRl8YbenfNOzrP4OFheFKG
+	 O1T6aLDIWDqmixD2zXQ9BUt66IVy8/x6e9dsxmbomSA4CRlRwP/JXcXIgxZfqcth3YGVH
+	 hxSALx4/lZY1wOkCZRmDndnob7lagnz3NVV6s6WhfNjbazcHgnDz2Xij4zqb2GoiRBsv3
+	 fgYgmvj23l70n+FuXD+gVpukKGEoAlTvg3W//8GBFa2/Dml8tIpUW51hvW38jqViIiUX8
+	 Zgcrac1qcoXpUXeWsgo1jvhbDHYwoZ6rJQ/MHvsaAQicX3Ksr2H/3dYz5UNGIY+EW6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8wdlYnJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=KsArCnRI;
+	arc=none smtp.remote-ip=44.246.1.125
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760A8606A319;
-	Wed, 21 Oct 2026 20:58:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A08606A31D;
+	Wed, 21 Oct 2026 20:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A08606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8wdlYnJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00AFF1F000C2;
-	Wed, 21 Oct 2026 20:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792616336;
-	bh=W8QpUwmMkLvVxRBYSH3rqkRjfuSW4enaMRdeQNLqIcg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b8wdlYnJygC9QUFvBH0kNwqRrRzW8FCxvY4yW0TAOjd0ISGq+EPh3zZUhSGohygFR
-	 iogrxxdFBaPr9Bk0pySII4vMnbmTzuk2+eRdzF4FVSHXnEpHM2Uj6gCMeo9IH/Ujk6
-	 dfVthZhXotiix0YjX7KAnUb3TOhEc1BL4q8e3SnIdJSIudcdOeIH6FGkm1AEFqwBYm
-	 dv0CsN+sjEB/ScQ9RgK6kw5tBIB+qyga1Ik7XSkdVYk/b3Eq65DzhX5B+VI4TrYUra
-	 E+P8CC33dj/APijwMMU9rTkR+XiyM2BsPQY1u+lyWQjGnen4umSKHm4LNtUWXKQboJ
-	 JYH1kNNIPCt3g==
-Date: Wed, 21 Oct 2026 13:58:54 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mshv_vtl: fix poll waitqueue handling
-Message-ID: <20261021205854.GM851443@liuwe-devbox-debian-v2.local>
-References: <cover.1792398881.git.4ncienth@gmail.com>
- <61e6d816-7cd4-4124-960c-805f7689b568@linux.microsoft.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=KsArCnRI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792616379; x=1824152379;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=MB1VWokoTNzjBoK6XypOYuBfmm/Gm+5i6Hamx66M7Xk=;
+  b=KsArCnRInEnPRSdlXhbTSvNgjCsLWAE43TBIw0DdG4I+YV6Lf301gKeA
+   xzEnXTXxqFlqhVjE6ELYVu8F5Xdr8hHJGHAH0ptFu/Yh1k24XZWuCoui6
+   p87W3PdyzZNs4FJAKyEcHety38/+P0QSUqpjTyMazHkVowLPzGIqciQnk
+   r7wEeXelbRKrVMF2FcU9Y65TvZxM5oUDl9POWqg33G5RcmSCTHf3dA0m1
+   HUcu1XVpbbfs+aFlwGs5Aub9cZpz6m8jgvzCmgDXOg5uxUv7f3kSuQsFq
+   dzq7OsYKXxWqWG32sp/KLrTP43QOK2/KYv10OsyiWNPfPc0m7qL4cMPof
+   A==;
+X-CSE-ConnectionGUID: Rkmt/MsITkyPWq0IYQKaUQ==
+X-CSE-MsgGUID: QqDTH57+TNeT69MrtTe1mQ==
+X-IronPort-AV: E=Sophos;i="6.27,170,1787011200"; 
+   d="scan'208";a="31914408"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 20:59:38 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:11671]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
+ id 3c360efc-706c-4df0-9397-675341b7d311; Wed, 21 Oct 2026 20:59:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 3c360efc-706c-4df0-9397-675341b7d311
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 21 Oct 2026 20:59:38 +0000
+Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
+ (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Wed, 21 Oct 2026
+ 20:59:37 +0000
+From: Patrick Zhang <patrzhan@amazon.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+	<mailhol@kernel.org>, <linux-can@vger.kernel.org>
+CC: Pavel Pisa <pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>,
+	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/3] can: enable NAPI before starting the controller in three drivers
+Date: Wed, 21 Oct 2026 20:59:21 +0000
+Message-ID: <20261021205924.2538511-1-patrzhan@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,65 +85,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61e6d816-7cd4-4124-960c-805f7689b568@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon, Oct 19, 2026 at 02:37:39PM +0530, Naman Jain wrote:
-> 
-> 
-> On 10/19/2026 2:13 PM, Daehyeon Ko wrote:
-> > MSHV_SET_POLL_FILE retains one embedded wait entry per CPU after vfs_poll()
-> > returns. Two independent bugs affect that state.
-> > 
-> > First, a provider such as signalfd may retire a non-file-owned waitqueue
-> > with POLLFREE. The MSHV callback leaves its entry linked and retains the
-> > queue pointer, allowing a later replacement to access freed provider
-> > memory. Patch 1 detaches on POLLFREE and introduces an RCU-safe removal
-> > helper.
-> > 
-> > Second, a poll callback may register more than one waitqueue. MSHV inserts
-> > the same embedded list node into each queue, corrupting the first list.
-> > Patch 2 rejects a second distinct queue and uses the common helper to
-> > unwind the first registration.
-> > 
-> > The roots, triggers, effects, and runtime oracles remain independent.
-> > Source-equivalent KASAN/LOCKDEP tests reproduced both bugs and validated
-> > the fixes. The local system is not a Hyper-V VTL2 environment, so the
-> > series has not been exercised through the real MSHV ioctl. OpenVMM does
-> > not exercise these paths in its current use of the interface.
-> > 
-> > An LLM assisted the source audits, fix development, and validation. Each
-> > patch notes that assistance in its changelog.
-> > 
-> > Changes in v2:
-> > - combine the two previously standalone fixes into one series;
-> > - rebase onto current Torvalds master;
-> > - introduce the removal helper in patch 1 and reuse it in patch 2;
-> > - replace the obsolete Assisted-by trailer with changelog prose.
-> > 
-> > Previous standalone submissions:
-> > - POLLFREE v1: <20261017141527.623376-1-4ncienth@gmail.com>
-> > - multi-waitqueue v2, now withdrawn:
-> >    <20261019070438.3732624-1-4ncienth@gmail.com>
-> > 
-> > Daehyeon Ko (2):
-> >    mshv_vtl: detach poll waiter on POLLFREE
-> >    mshv_vtl: reject poll files with multiple waitqueues
-> > 
-> >   drivers/hv/mshv_vtl_main.c | 51 ++++++++++++++++++++++++++++++++++----
-> >   1 file changed, 46 insertions(+), 5 deletions(-)
-> > 
-> > 
-> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> 
-> I would suggest you to generally wait for a couple more days to collect
-> other reviewers feedback as well, in case someone is reviewing your changes.
-> You can then address them together in the next version.
-> 
-> For the series,
-> Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+Hi,
 
-Applied.
+Three CAN drivers open the device in the order "start the controller
+and unmask its RX interrupt, then napi_enable()". Each of them has an
+ISR that masks the RX interrupt before calling napi_schedule(), and a
+poll that is the only place the RX interrupt is unmasked again. A frame
+that arrives between the controller start and napi_enable() is handled
+by the ISR, which masks RX and calls napi_schedule() on a NAPI instance
+that is still disabled. napi_schedule_prep() sees NAPI_STATE_SCHED set
+and drops the schedule. napi_enable() clears SCHED without scheduling.
+Nothing ever polls, so RX stays masked and the interface receives
+nothing until the next close. Transmit keeps working and no error
+counter moves, so the failure is silent.
 
-Wei
+The affected drivers are ctucanfd, xilinx_can and ifi_canfd. The fix is
+the same in each: call napi_enable() before the controller start, so
+that an early RX interrupt can schedule the poll, and call
+napi_disable() on the error path if the start can fail.
+
+Patch 1 (ctucanfd) was tested on QEMU with the ctucan_pci device.
+Patch 2 (xilinx_can) was tested on a Versal board. Patch 3 (ifi_canfd)
+is from code inspection only. I do not have the hardware, so it is
+compile tested only. The sequence is the same as in the other two
+drivers, and I would appreciate a test from someone who has an IFI CAN
+FD core.
+
+The bug has been present since each driver was added, so each patch
+has a Fixes: tag pointing at the commit that added the driver.
+Patches 1 and 2 are marked for stable backport. Patch 3 is not,
+because it is untested. The patches are independent and can be
+applied separately.
+
+I looked at the other NAPI users under drivers/net/can. at91_can had
+the same persistent-mask pattern in 6.6 but no longer masks RX in its
+ISR since the conversion to rx-offload, so I left it alone; ti_hecc and
+virtio_can start the device before napi_enable() but do not leave RX
+masked, so a dropped first schedule only delays the first frame. All
+the others enable NAPI before the device can interrupt.
+
+Patrick Zhang (3):
+  can: ctucanfd: enable NAPI before starting the controller
+  can: xilinx_can: enable NAPI before starting the controller
+  can: ifi_canfd: enable NAPI before starting the controller
+
+ drivers/net/can/ctucanfd/ctucanfd_base.c | 6 +++++-
+ drivers/net/can/ifi_canfd/ifi_canfd.c    | 5 ++++-
+ drivers/net/can/xilinx_can.c             | 6 +++++-
+ 3 files changed, 14 insertions(+), 3 deletions(-)
+
+
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+-- 
+2.50.1
