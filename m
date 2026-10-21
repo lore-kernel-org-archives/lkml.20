@@ -1,137 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586782;
-	b=WlEFlKlVLeIdBFR9uamOQr1tQJbVj8nyw3oNTNySMW0YNy1ybQVPcsLXYeHSoGoTYdd2
-	 CxHHNd1cfygtuQx1xgqFjPLKpAff+MEqIBWDFvkAWOKqjhBmd7foRXjykCQGTLvoLEfCs
-	 oQm3+YciU+j4GfXSxs3yVXjCTR6VLkfGoTix0MpdYnHTyqafA6UF/BfmXGGf3OJO73ftv
-	 XA5JsKK9kJz/aQj11y3Us1Iuc/A52jCJuf9LQus1H9pZeaEstCm0IJO89ZesM2T4Bufdb
-	 jLN2WlCNNAwJjW1n2YCedBiMgmDoyuywFbq+kNXn+0e+n3KikBsfC8CG+Frz6KMP15A==
+	t=1792586783;
+	b=3c33vbxmwOk1s8q/lkwyvsksDxXpjmoWzslSQXHayyry3KkqU3z7u5aY0+Pakc+BkQew
+	 PAFhf5pa19zzCgdJFLHENCenVlnJCZaLGOwKErpZver/IV6AcaGdZ4ei/XdJaQ14DdbsT
+	 WmS5imjQ8ps7xsXBGJjGqKGF55BbggvRqf5dceZwBCCt0g06oluNJYlgvtDeCC2iVmVPC
+	 SXA5LzpoxEAdkzkWnqiCgBH8JIJrKRRNZ9rTxCIzeJjkB571zI/J9hK97D0HhQTK/VMQs
+	 fqw4jw3jiaYQg+prdob52IDXygZt/SkWPm0v57AewbhRs//MJxRYrQV0R26aR0k+8uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586782;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=3HxypoKlJhiUOxRu9kwra01Pu+7Ut2AigS6g9BvU0a0=;
-	b=oEn79OwYzBxQWbIYObx6ea3QS/a4lWJZam/16Wdhu+TfN7zVEAmrbH4rIhwwgQMQtUJf
-	 iiD/foG3e+fRssq1PL5aTaDu/Fg/WMGHgEkjUz0fjqmsS6kXE4NDWkaz1cvvecE6PKNXa
-	 /EXqHRs3DuETROIwRCyCXoA3IPhsHU8pFSpt407ZPNv6ijBwq0tfzdAduMClA7tBaF+X1
-	 w/W38QaqYhrWrGCyHEtfU8Bjg5CtBqnkT1OughsCC2BRJdVCEMLbhh+Lo2kvAI5CjXuvJ
-	 CXORqmSDGwumh6A6n//qH9ZsGRIUm0JggJ04UOaDe2BkFKimOvFYuFRD5EyTbfn2YWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586783;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WwZtUrdYtW8MtDYG2yC3ydbDQlF/r6XHSO1vV5BkgeA=;
+	b=Lv3YKUqOLZxt014w6+rGZaEkzMHvRG+waph5rjJFTKtvrt7dPSalrDITNYbPoXMRXY3x
+	 XHhgb27n/JxPsL29buljtQ7VfKjm4pcaa9MP8PJdU5eOsmnpSJyyVe/SYSjj4eKpEYFrN
+	 venLwfVkK81GxklVhiJkFHVRHndKJJqeS8y/VufZCEKk+GGCeTz78EC3fFFSQn2BT+kcv
+	 crAS0zdEw7gYM44FEV4H8igePXWzNpRRpmou4YXsbjOKZ7NhCy9ey+32X74SZ1eGoONX1
+	 Pp7RyBCKlupezPYmrOZ2HVRJsylIHuAY3uhtkiFwwXMqo/Jhr7xyT4ogp0RjRH2THVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9jMBe0y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TFq6P6r4;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7E0606A31B;
-	Wed, 21 Oct 2026 12:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE555606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE555606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9jMBe0y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26F8D1F000C4;
-	Wed, 21 Oct 2026 12:46:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586781;
-	bh=3HxypoKlJhiUOxRu9kwra01Pu+7Ut2AigS6g9BvU0a0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=g9jMBe0yU4yvG3TN2ACt4gljElfWu0P3rkwVrccOFOFuSoEtH/hBytjSiW/Kj917c
-	 D47Llr3X9zx77IxvKGb/C6FDIEFd7Lb/HopxDw6WzhuNVHr7bc8+VeBXYa1KdXzSk0
-	 fZFLobQ40iH1fYMNhn+SOC+pOAzryFJWenmy+3vzexGrOvw9SciVTdbXy7Dmim2+BE
-	 IZWv9btR7ttank+7bgbLviNw7yd588M/5NB8CkNTV4T1jwNNXVJo+wI04o51aXUX4O
-	 9bmulklnUAvwKBXcJZ6BtBS6W3zhBqHNMhdqonM8bVDRDQH9Q6ufSjF5vdYamX76hN
-	 SbRKWq9j9BLrQ==
-Message-ID: <8271fb05fba1237bd47cdeac967d8a9ec8f8abb9.camel@kernel.org>
-Subject: Re: [PATCH v3] nfsd: store net in svc_serv instead of deriving it
- from sv_permsocks
-From: Jeff Layton <jlayton@kernel.org>
-To: Deepanshu Kartikey <kartikey406@gmail.com>, cel@kernel.org,
- neil@brown.name, 	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, 	anna@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, 	pabeni@redhat.com, horms@kernel.org
-Cc: bfields@fieldses.org, skinsbursky@parallels.com,
- linux-nfs@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, 
-	syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
-Date: Wed, 21 Oct 2026 08:46:18 -0400
-In-Reply-To: <20261021124213.6288-1-kartikey406@gmail.com>
-References: <20261021124213.6288-1-kartikey406@gmail.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TFq6P6r4
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so405273b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:46:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792586782; x=1793191582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WwZtUrdYtW8MtDYG2yC3ydbDQlF/r6XHSO1vV5BkgeA=;
+        b=TFq6P6r439sMoTmALZIeItkoFlfJeoKAlxxoA82luquzE5l+j6g3th/bVRROMHmjtm
+         881PAPylfPqjNr+I6KrFgKKDNbxNGmXAqWGhvMDNcVDPOJMur3DVR26mqVqdfYYFZ/Gi
+         KnOiGWIBK93oHGKOopJPlU2SUCuxspDu1ibqqMK/n3Rw9bJGaNWQY2Lpl1LYfHBfmFDN
+         E/5BE7aw9noyNxFU7kFOKcUDZAoJ+C1zG1ErrzhV/NIvgVFZHhvgK3odMUSdpSzyLUXN
+         1MRD13U2M94QtKe9pp/d+4sVEh471wHPXhdCV5SxGqoOiMstjaTzoMf1W7j09QeqU66l
+         y9YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792586782; x=1793191582;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WwZtUrdYtW8MtDYG2yC3ydbDQlF/r6XHSO1vV5BkgeA=;
+        b=aMFxRNVP21nqgb1K8eShAOZutPt57JJ7DoHAD/9zlMAVFRxsQHE6Szcp4kJVRHZ2/A
+         FsiBjEkg8+9fct8S0eiprgU1z3iCkZU3bLnR50iHWil3UxnDsH0wNB3CMPOXapk8RKNz
+         WvP2hE45hTZjxjD9KTvnvU56jnf9EB/7s1Ii0X8DdG0YZSogoqRfPdy3xfn8w2Pql+j+
+         6wQPmDqaBzMOpY4XW2vn44UU2p1oWt+TFp3Ma6oOnnQphK4RDDjVFtxEPMYYIMVTfQgn
+         PleTodIEppll1UtaiyIW+ODKyh3pxMvDPpCtudQ7QGfHbocoWBTfteHNofthHlCBlcJe
+         DKdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKtFYdKo2BuxTPf66iihSYH1n3wRdL/A6/j8uhVjYg0F7WMHKQXikgzfXjoY0cS13oFqY2cH2sUGFGZp8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjvdDzIWougfre/yQL9t3/sjnuUh3RqJldOR8MrK7MVY8jlP+N
+	bKpxeUM/dM040CDIAV5rpH08lh2S83qhChbEvT4adUfgKWkVc5cBed5v
+X-Gm-Gg: AYBFou38QLLJ8oJkGMUQ1EOeSmZQf71oYKfgfaXRcL6X8rnPEABstww+ChVqLRDxt8u
+	ixKHfQeIsWfRwAJPNWjZhb9ktG75JrLOjgmoUgv8IOKjCNA6+9FgxRA0YEys538+qkEC/nwS7cN
+	e6CMYJvrFExNHKi/B0lk6zU6l0jCCQY0IIYkHJuNNGqPyUUl8YF1fsZlY2TnfakdlzTn6xIy0Vb
+	QeKmcMjFI7pKJLOVkwlDhmOmXUA3syseiUp3G7qLOY/JUrTGKtMIwC7nKmsH6ugjGfR/u9CvJbt
+	ciel18SUn3tFLrzuosupxPYZQqG6sDCVCsle3MTtzmXxoGiNqjcwulRXHfLvo7nNFFf1+Y6mp5U
+	iy+mNEXIUwp/QisAa/7RhXgdSk2vk9K/ExBSBjL9nzQXNqsi/o7yDU8N81/9ikAeLludMYW+dia
+	dp/y00EAK0N06AAqvbuLDRREobaY+B7Gb0wid/JrhppRcnEQq9VhqLeD5j3wqB3BT6lQv142im0
+	pWIXSjNMjEEG6GfbZv4IgAOOzpTDcyZoDVh39KfxMhnz1AKUFa+qCihxyw9DjEkEsFBSDiudqVx
+	XAVnXy/GfHtdnlAD
+X-Received: by 2002:a05:6a00:420a:b0:89e:f8e9:205f with SMTP id d2e1a72fcca58-8a089df2652mr1470227b3a.32.1792586782100;
+        Wed, 21 Oct 2026 05:46:22 -0700 (PDT)
+Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a08960fa88sm832964b3a.53.2026.10.21.05.46.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 05:46:21 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jun Yan <jerrysteve1101@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] dt-bindings: sound: add Everest ES7202
+Date: Wed, 21 Oct 2026 20:45:47 +0800
+Message-ID: <20261021124552.767218-2-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261021124552.767218-1-jerrysteve1101@gmail.com>
+References: <20261021124552.767218-1-jerrysteve1101@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,117 +105,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-10-21 at 18:12 +0530, Deepanshu Kartikey wrote:
-> nfsd() derives its struct net from the first entry of
-> serv->sv_permsocks using list_entry() without checking that the list
-> is non-empty. If the list is empty, list_entry() returns a bogus
-> svc_xprt computed from the list head embedded in struct svc_serv, and
-> the following perm_sock->xpt_net load reads past the end of the
-> svc_serv allocation:
->=20
->   BUG: KASAN: slab-out-of-bounds in nfsd+0x118/0xbc0 fs/nfsd/nfssvc.c:894
->   Read of size 8 at addr ffff88802d423f50 by task nfsd/5988
->=20
-> Rather than validating the list head before referencing it, store the
-> net in the svc_serv when it is created. svc_create_pooled() is only
-> used by nfsd, so add a struct net argument to it and record it in a
-> new sv_net field, then use that in nfsd().
->=20
-> Fixes: 88c476661719 ("nfsd: pass proper net to nfsd_destroy() from NFSd k=
-threads")
-> Reported-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D561b859d032c8bf2fb53
-> Suggested-by: NeilBrown <neil@brown.name>
-> Tested-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
-> Reviewed-by: NeilBrown <neil@brown.name>
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> v3: reword commit message, fix stray whitespace in svc_create_pooled()
->     prototype (Neil)
-> v2: store the net in svc_serv via svc_create_pooled() instead of
->     walking sv_permsocks under sv_lock (Jeff, Neil)
-> ---
->  fs/nfsd/nfssvc.c           | 5 ++---
->  include/linux/sunrpc/svc.h | 2 ++
->  net/sunrpc/svc.c           | 3 +++
->  3 files changed, 7 insertions(+), 3 deletions(-)
->=20
-> diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
-> index 2edf716ea022..06a756d5636c 100644
-> --- a/fs/nfsd/nfssvc.c
-> +++ b/fs/nfsd/nfssvc.c
-> @@ -620,7 +620,7 @@ int nfsd_create_serv(struct net *net)
->  		nfsd_max_blksize =3D nfsd_get_default_max_blksize();
->  	nfsd_reset_versions(nn);
->  	serv =3D svc_create_pooled(nfsd_programs, ARRAY_SIZE(nfsd_programs),
-> -				 &nn->nfsd_svcstats,
-> +				 &nn->nfsd_svcstats, net,
->  				 nfsd_max_blksize, nfsd);
->  	if (serv =3D=3D NULL) {
->  		percpu_ref_exit(&nn->nfsd_net_ref);
-> @@ -890,8 +890,7 @@ nfsd(void *vrqstp)
->  {
->  	struct svc_rqst *rqstp =3D (struct svc_rqst *) vrqstp;
->  	struct svc_pool *pool =3D rqstp->rq_pool;
-> -	struct svc_xprt *perm_sock =3D list_entry(rqstp->rq_server->sv_permsock=
-s.next, typeof(struct svc_xprt), xpt_list);
-> -	struct net *net =3D perm_sock->xpt_net;
-> +	struct net *net =3D rqstp->rq_server->sv_net;
->  	struct nfsd_net *nn =3D net_generic(net, nfsd_net_id);
->  	struct nfsd_thread_local_info ntli =3D { };
->  	bool have_mutex =3D false;
-> diff --git a/include/linux/sunrpc/svc.h b/include/linux/sunrpc/svc.h
-> index 2db1b9ec5658..49a5052b2670 100644
-> --- a/include/linux/sunrpc/svc.h
-> +++ b/include/linux/sunrpc/svc.h
-> @@ -72,6 +72,7 @@ enum {
->  struct svc_serv {
->  	struct svc_program *	sv_programs;	/* RPC programs */
->  	struct svc_stat *	sv_stats;	/* RPC statistics */
-> +	struct net *sv_net;		/* only set for pooled (nfsd) services */
->  	spinlock_t		sv_lock;
->  	unsigned int		sv_nprogs;	/* Number of sv_programs */
->  	unsigned int		sv_nrthreads;	/* # of running server threads */
-> @@ -461,6 +462,7 @@ void		   svc_exit_thread(struct svc_rqst *);
->  struct svc_serv *  svc_create_pooled(struct svc_program *prog,
->  				     unsigned int nprog,
->  				     struct svc_stat *stats,
-> +				      struct net *net,
->  				     unsigned int bufsize,
->  				     int (*threadfn)(void *data));
->  int		   svc_set_pool_threads(struct svc_serv *serv, struct svc_pool *poo=
-l,
-> diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-> index 8297bad2b177..810c2db27fe3 100644
-> --- a/net/sunrpc/svc.c
-> +++ b/net/sunrpc/svc.c
-> @@ -481,6 +481,7 @@ EXPORT_SYMBOL_GPL(svc_create);
->   * @prog:  Array of RPC programs the new service will handle
->   * @nprogs: Number of programs in the array
->   * @stats: the stats struct if desired
-> + * @net: network namespace the service belongs to
->   * @bufsize: maximum message size for @prog
->   * @threadfn: a function to service RPC requests for @prog
->   *
-> @@ -489,6 +490,7 @@ EXPORT_SYMBOL_GPL(svc_create);
->  struct svc_serv *svc_create_pooled(struct svc_program *prog,
->  				   unsigned int nprogs,
->  				   struct svc_stat *stats,
-> +				   struct net *net,
->  				   unsigned int bufsize,
->  				   int (*threadfn)(void *data))
->  {
-> @@ -502,6 +504,7 @@ struct svc_serv *svc_create_pooled(struct svc_program=
- *prog,
->  	if (!serv)
->  		goto out_err;
->  	serv->sv_is_pooled =3D true;
-> +	serv->sv_net =3D net;
->  	return serv;
->  out_err:
->  	svc_pool_map_put();
+Add the device-tree bindings for the Everest ES7202, a 2-channel PDM
+analog-to-digital converter controlled over I2C.
 
-Much nicer.
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ .../bindings/sound/everest,es7202.yaml        | 56 +++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/everest,es7202.yaml
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+diff --git a/Documentation/devicetree/bindings/sound/everest,es7202.yaml b/Documentation/devicetree/bindings/sound/everest,es7202.yaml
+new file mode 100644
+index 000000000000..ce98d2d600d4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/everest,es7202.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/everest,es7202.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Everest ES7202 2 channel PDM analog to digital converter
++
++maintainers:
++  - Jun Yan <jerrysteve1101@gmail.com>
++
++properties:
++  compatible:
++    enum:
++      - everest,es7202
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to the reset pin (active low)
++
++  vdd-supply:
++    description: Main power supply, 1.8 V or 3.3 V. Optional; defaults to 3.3 V
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - "#sound-dai-cells"
++
++allOf:
++  - $ref: dai-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        es7202: codec@30 {
++            compatible = "everest,es7202";
++            reg = <0x30>;
++            #sound-dai-cells = <0>;
++            reset-gpios = <&gpio0 0 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&vcc3v3_sys>;
++        };
++    };
++...
+-- 
+2.56.0
+
