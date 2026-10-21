@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616241;
-	b=xskyj7kOVGIvfiyxgXmhEXx2FMByajChxCjQwO9xglSk3q2nBSjbwAUE5DxBLnWdF0UP
-	 P9rIbB3RBfdu/J0VIzo6xEk/qDupifZ6+zbWegKR0+/yESFMWHn7mfgon+dcAiWDtkXzu
-	 LDw87XcM3JpkDD9+5UDsjfesiGaMfpd2ivlS2eB5V9XOt5YaPZoycdzxw+JIWVT/HW6v4
-	 ZbTOlkUf/PpMFGpWtPx5/v9/KbxqZ3yiAyoZ7XN8ZRF+vYVN+9zhqcAWt+DFAQsuPk6pr
-	 zPkHfwDvLk7BvqMRbGr++qCILchKMow6mR9l5eRhZoUKY0r7EHDGcB+thqV/bAcWWVA==
+	t=1792616246;
+	b=G+RKo9UGs6CHKdWeWdfDupWC+JrkoFR67yfWKdE36G1HFtuUJukUh/jMRJYe+zjHIYPl
+	 7fzuY70gBRyTz7zsYKsinumrwCTtwmbxzxdImQ7bzMk75B4yKBlb7mxXzeRuTcl4ci22G
+	 uQD6fmLbL5kXrGAhJ7ggyUwnK2IKoXUHliPqfCYsvWOqo6H+D9fMfBqoNOBWJkAMsJkXq
+	 b70XRZGvzbPpXhscDSk9H8efaAg/nERBljEg+8XeHS8QDe3/AbpeuoHXvkfBGsxhG9uzQ
+	 g90tNsbjKpHuVugm5YFm6H1q6P9jnTKt2cEGjtIkRRN8AwMjxf0ppXDpCr4kpm88Enw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616246;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=svpaPlWQ3kiRUSxvrVjWiPIzFOlTHujdEaUrpizU6Tg=;
-	b=wz/qx7sDonnrvzp38fYChhY7RtmJ6juNRaKyYdozh6uyDnCvqEq6SHl2l8ZyGEXy6iIN
-	 IDfkWMALo2g4TQ+XzAWHon5eBWCQsvN4o8fq8AggUs0GNS9+HX9UUynV1OSma6Gjc20kR
-	 ClLytUdCZJ6s9oR7mtQyTBi8IFDMr/kNz9XnKp+5N/BsChPnAjilnyzk7IJpqM0seszRO
-	 MIzNe6jWOB/w9QUauf1AIPOm9ys4BiZBuBGOjg9lJatoOqisJ8Nopij4H2YSBIgnXmskF
-	 1ps3W4fpVKbbs4+3OQFUj9UjuX+DnE+OH9SeEAocB5bgHpzWNjmpMttbPceKDFS3SpQ==
+	bh=AMF4QHAGquMqZj2Vy845rVn3rz16W/4eYJ+XdOmh9/k=;
+	b=RXFiuwGDrdcZ93jxYWnjuHRmalxxgWyScznwH05BvxwqlW3P7dOA3kWrEDhbkh+kkpvb
+	 1PpH7JPQkYZtdYlq74gpOuns/t+v6b8B8qCM28EOMP0czdIk/KzTL0KqL0xMGbQTzPuck
+	 Kva1f8WQDZQjWTPbMGUfI2Fe+YFDImesPynhgQrKb2I0Q6nPJWjlYB4Br1eXIwL5O/NMw
+	 NiegP/JpqeI5v/qfGt0ETXAwljTvPinWSV4lOfikWWLs9ZLX7dCWWGIUG2xsWwZdBGgzq
+	 FUthQdaVXb3qNYU6Sup2+CaDdbjdUDZIfMDCk/19fozlK1xNBhWni5J2RozNcNujKkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=oupeLWxK;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TpPXbtMD;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A52606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:57:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53A52606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0A3606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:57:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE0A3606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=oupeLWxK
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89e05d31e54so875431b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:57:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TpPXbtMD
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1170897a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:57:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792616240; x=1793221040; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792616245; x=1793221045; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=svpaPlWQ3kiRUSxvrVjWiPIzFOlTHujdEaUrpizU6Tg=;
-        b=oupeLWxKbfd9DGxg5flKRdQ7c/+SDwRnTopgoQXLxB2Y6lZn+PrtYw/u4zlpDzHzM3
-         K2IZIwu7K6Tjnz9FwwL5tVbMLBRfngIMBSyaZfAe5iEVMuYU4BvGPJ5TNTVcStQyWYWx
-         NdW0Qa0WKti+R84vvVZycganZ8RP58B95uwtYL8o0T2oA1PWQ6fXW0BsiPXcTNhMidYj
-         GTqI1/VDSew2ErnAj/JxW1ARZ6xTSqJoC9C3zZyiDhbBGTflbj+LEW7R1SIFnzAVxHgK
-         FdrYeMxziZCnxLwdynkXrc5qZrMULXNHbOO4Lxbt7rSHWmkyykcRN1W1Jo3wXQFACQKD
-         mftg==
+        bh=AMF4QHAGquMqZj2Vy845rVn3rz16W/4eYJ+XdOmh9/k=;
+        b=TpPXbtMDhK8DnIHR5IRl7yUlsvvL5rPDT4DiEwMLkZ226NR3RF9nrSh7K3+7imRKTN
+         u7ZJh3lW4Wm1yfBTye1USFage3uFLmI+2blTMc5IoPOiUGQYt1TjmzXw7+oemrr11Hbc
+         Le58JJu+ijlEGOlU+D/hwkDOoA6BOZ3FnnTnfJJQQw6vLCr84TQfX4BINFZyzdol/+Ui
+         pY8arT6gsVgWYKaJgvEZEwNcmpl9OHlbhcfHUc3EXV1TIwddjLUz6PEnivaABGW5IQ55
+         ewfFe24bb4De+iYZukruKEb+kl8EHnwKAzZcFV0RkWx+yWhvCpkBhDAJozG9yvI9ud4b
+         V0Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792616240; x=1793221040;
+        d=1e100.net; s=20260707; t=1792616245; x=1793221045;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=svpaPlWQ3kiRUSxvrVjWiPIzFOlTHujdEaUrpizU6Tg=;
-        b=WyWoad3nEoSYqBT9xq2EOaHn7u52EsMhPSqU3vBBIUqU+h7g618SZt+W2z15nH9V3a
-         RW6FOGpKjNOXRh4LiZ6xCh/XvA3ZD95LpsHZ80EcbV/rjRQWq99w/od6WXm9F+OX6Mit
-         AvZgm9BOzkEhwdYwbSNeDDWeXyuxoktXhrnSYe+769tvpd8degQTDCt/KimfdIT0hc1m
-         7ozBuLF7OzRc2dDzysOsv3J4cX4KbjIjUMIL/IlVQ67TefPQFD1Ip8+M/Pn1HioijmYD
-         lUn8f4E9hwVxwYIxB+f96H7SDouN1VFJDwbdEbadWZP4QnOKupciOJy8zCK/ZVGbY6Ak
-         7ygQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJbR9rkbFoRVd+WKMlzmszWjTrsAl9V98TME3aad5ZEA/gr3nnEn6qM8m7lM/BkttdQpKoYyjEvUrAQKY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCFrM6BPRnQrjTEnEvTeCsOEAJPNO/wigOynl686vRNzLVZTLi
-	MAToud0uxACy2GNGXIzi2z6Q2BL+z27miNsXaSl9flK6xK8IlFPWLnoV7owNun0ZNvycwhLIr/k
-	d13G85SLST2uO0+YOZ6edU7tM1g==
-X-Received: from pffl12-n2.prod.google.com ([2002:a05:6a00:c34c:20b0:8a0:9000:c7a4])
+        bh=AMF4QHAGquMqZj2Vy845rVn3rz16W/4eYJ+XdOmh9/k=;
+        b=rsIXa5LbG+zVlEYMhopkcADYg274XhyuVZfgutOPISEshr3Psg3d1PF6CnEpMbGHOp
+         JO9kZ6fsoNQYD59hcJ4NRiQsI1UwNY2zEAOIvHeYF+91GyP7u0ofoSN2zPCQ9TOup9FK
+         YhvawlqNqTnl2zJrexPVFWHhWgHPlPT2YBo1Lp4LD7XZyL4OdWaHiHJYITkGymDuTn/q
+         pJlbEWsJa58zVUqt5p867IMKuTT/rcm4oxgpn0fxeyD4GrEKIR8NGRcgcYRsuEpurGou
+         YWtUSC0HcFuSIxnYP1k7KJp/CqYLf5tI3cSfPrgY1v141l2bASNpy4F8e/z9oxqaXkPb
+         9oUA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6Lh6LTtnLmSa1c5FAPKtLrccYOMUC2GZtb64vR/KGZqljATmYMYFio9nIvkxOmvkgHIIodg4NiIAvGZY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdyv7q6pg8R81pUV+OMIe9botWJEv96lh6qCZF+FIpJnGSfkSv
+	ckqPrcQz9SG1k/RRXbjqV/gVzd6hFyumpdw5+wzP/XZwkLvw9psd7hY0dFFOeS6NbB5HBZvRKDX
+	nbC0tTDYT6LDWbZeV6A0F1pibxg==
+X-Received: from pgbj24-n1.prod.google.com ([2002:a05:6a02:61d8:10b0:cd6:9a6f:2802])
  (user=suseendranb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:2e93:b0:8a0:3ed7:93a2 with SMTP id d2e1a72fcca58-8a089f8b366mr2376676b3a.52.1792616239453;
- Wed, 21 Oct 2026 13:57:19 -0700 (PDT)
-Date: Wed, 21 Oct 2026 20:56:25 +0000
+ 2002:a05:6a20:3d08:b0:3c3:6f6c:aa21 with SMTP id adf61e73a8af0-3e287dd5c8dmr2833277637.11.1792616244847;
+ Wed, 21 Oct 2026 13:57:24 -0700 (PDT)
+Date: Wed, 21 Oct 2026 20:56:26 +0000
 In-Reply-To: <20261021205626.3286270-1-suseendranb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261021205626.3286270-1-suseendranb@google.com>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021205626.3286270-2-suseendranb@google.com>
-Subject: [PATCH 1/2] crypto: return -ENOSPC on compression destination overflow
+Message-ID: <20261021205626.3286270-3-suseendranb@google.com>
+Subject: [PATCH 2/2] mm/zswap: classify compression dst overflow as poor compression
 From: Suseendran Bhaskaran <suseendranb@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
 	"David S . Miller" <davem@davemloft.net>, Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
@@ -95,111 +95,81 @@ Cc: Chengming Zhou <chengming.zhou@linux.dev>, Nick Terrell <terrelln@fb.com>,
 	Suseendran Bhaskaran <suseendranb@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-In the acomp/scomp compression interface, callers pass a bounded
-destination buffer and rely on the return code to distinguish a
-destination buffer overflow (incompressible input) from genuine
-compressor failures (such as invalid parameters, uninitialized state, or
-hardware errors).
+Commit dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page
+as-is") and commit 0b1bf60c324a ("mm/zswap: reduce the size of the
+compression buffer to a single page") updated zswap_compress() to pass a
+PAGE_SIZE destination buffer to crypto_acomp_compress() (so
+incompressible pages typically overflow the PAGE_SIZE buffer due to
+compressor metadata overhead) and check:
 
-While the multi-segment streaming path in zstd_compress(),
-crypto/deflate.c, and lib/842/842_compress.c returns -ENOSPC when the
-destination buffer runs out of space, the single-buffer path
-zstd_compress_one() (taken when input and output are contiguous single
-pages, such as in zswap) as well as lz4, lz4hc, lzo, and lzo-rle return
--EINVAL instead of -ENOSPC on destination buffer overflow.
+    if (comp_ret || !dlen || dlen >= PAGE_SIZE)
 
-For users such as zswap, which reduced its per-CPU compression buffer to
-a single page in commit 0b1bf60c324a ("mm/zswap: reduce the size of the
-compression buffer to a single page"), incompressible pages typically
-overflow the PAGE_SIZE destination buffer due to compressor header/token
-overhead. Because these compressors return -EINVAL rather than -ENOSPC,
-zswap cannot distinguish a destination buffer overflow from a compressor
-failure, causing broken debugfs error accounting (reject_compress_fail
-vs. reject_compress_poor) or masking real compressor errors.
+Because crypto_acomp_compress() previously returned -EINVAL on
+destination buffer overflow, this check conflated destination buffer
+overflow (incompressible page) with unexpected compressor failures and
+did not set comp_ret = -ENOSPC when rejecting incompressible pages,
+resulting in two user-facing issues:
 
-Update zstd_compress_one(), lz4, lz4hc, lzo, and lzo-rle to return
--ENOSPC when the compressed output overflows the destination buffer,
-matching the streaming path in zstd_compress(), deflate, and 842.
+1. When zswap writeback is disabled (e.g. memory.zswap.writeback = 0),
+   zswap_compress() sets 'comp_ret = comp_ret ? comp_ret : -EINVAL' and
+   jumps to unlock. Whether the compressor fails on destination overflow
+   with -EINVAL or succeeds with dlen == PAGE_SIZE, comp_ret becomes
+   -EINVAL. Consequently, incompressible pages are misaccounted in
+   debugfs under reject_compress_fail instead of reject_compress_poor
+   (leaving reject_compress_poor stuck at 0 and triggering false
+   compressor failure alerts on normal incompressible workloads).
 
-Fixes: f5ad93ffb541 ("crypto: zstd - convert to acomp")
+2. When zswap writeback is enabled, any non-zero comp_ret (such as
+   -EINVAL from an invalid compressor context, -ENOMEM, or a hardware
+   accelerator error) is treated identically to an incompressible page:
+   comp_ret is cleared to 0 and the raw page is stored uncompressed in
+   zsmalloc. This silently masks genuine compressor failures
+   (reject_compress_fail is never incremented) and miscounts pages that
+   encountered a compressor error under stored_incompressible_pages.
+
+Update zswap_compress() to treat only comp_ret == -ENOSPC or
+(!comp_ret && dlen >= PAGE_SIZE) as an incompressible page (storing it
+uncompressed in zswap when writeback is enabled to preserve LRU order,
+or rejecting it with comp_ret = -ENOSPC when writeback is disabled so
+zswap_reject_compress_poor is incremented), while jumping to unlock on
+unexpected compressor errors (comp_ret || !dlen) so
+zswap_reject_compress_fail is properly incremented.
+
+Fixes: dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page as-is")
 Signed-off-by: Suseendran Bhaskaran <suseendranb@google.com>
 ---
- crypto/lz4.c     | 2 +-
- crypto/lz4hc.c   | 2 +-
- crypto/lzo-rle.c | 2 +-
- crypto/lzo.c     | 2 +-
- crypto/zstd.c    | 5 ++++-
- 5 files changed, 8 insertions(+), 5 deletions(-)
+ mm/zswap.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/crypto/lz4.c b/crypto/lz4.c
-index 57b713516aef..c37e29afc831 100644
---- a/crypto/lz4.c
-+++ b/crypto/lz4.c
-@@ -35,7 +35,7 @@ static int __lz4_compress_crypto(const u8 *src, unsigned int slen,
- 		slen, *dlen, ctx);
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e..5f2a941fcaf1 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -881,12 +881,12 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
+ 	 * only adds metadata overhead.  swap_writeout() will put the page back
+ 	 * to the active LRU list in the case.
+ 	 */
+-	if (comp_ret || !dlen || dlen >= PAGE_SIZE) {
++	if (comp_ret == -ENOSPC || (!comp_ret && dlen >= PAGE_SIZE)) {
+ 		rcu_read_lock();
+ 		if (!mem_cgroup_zswap_writeback_enabled(
+ 					folio_memcg(page_folio(page)))) {
+ 			rcu_read_unlock();
+-			comp_ret = comp_ret ? comp_ret : -EINVAL;
++			comp_ret = -ENOSPC;
+ 			goto unlock;
+ 		}
+ 		rcu_read_unlock();
+@@ -894,6 +894,9 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
+ 		dlen = PAGE_SIZE;
+ 		dst = kmap_local_page(page);
+ 		mapped = true;
++	} else if (comp_ret || !dlen) {
++		comp_ret = comp_ret ? comp_ret : -EINVAL;
++		goto unlock;
+ 	}
  
- 	if (!out_len)
--		return -EINVAL;
-+		return -ENOSPC;
- 
- 	*dlen = out_len;
- 	return 0;
-diff --git a/crypto/lz4hc.c b/crypto/lz4hc.c
-index bb84f8a68cb5..3098466eb72a 100644
---- a/crypto/lz4hc.c
-+++ b/crypto/lz4hc.c
-@@ -33,7 +33,7 @@ static int __lz4hc_compress_crypto(const u8 *src, unsigned int slen,
- 		*dlen, LZ4HC_DEFAULT_CLEVEL, ctx);
- 
- 	if (!out_len)
--		return -EINVAL;
-+		return -ENOSPC;
- 
- 	*dlen = out_len;
- 	return 0;
-diff --git a/crypto/lzo-rle.c b/crypto/lzo-rle.c
-index 794e7ec49536..483327873efd 100644
---- a/crypto/lzo-rle.c
-+++ b/crypto/lzo-rle.c
-@@ -34,7 +34,7 @@ static int __lzorle_compress(const u8 *src, unsigned int slen,
- 	err = lzorle1x_1_compress_safe(src, slen, dst, &tmp_len, ctx);
- 
- 	if (err != LZO_E_OK)
--		return -EINVAL;
-+		return err == LZO_E_OUTPUT_OVERRUN ? -ENOSPC : -EINVAL;
- 
- 	*dlen = tmp_len;
- 	return 0;
-diff --git a/crypto/lzo.c b/crypto/lzo.c
-index d43242b24b4e..378b491b0cbd 100644
---- a/crypto/lzo.c
-+++ b/crypto/lzo.c
-@@ -34,7 +34,7 @@ static int __lzo_compress(const u8 *src, unsigned int slen,
- 	err = lzo1x_1_compress_safe(src, slen, dst, &tmp_len, ctx);
- 
- 	if (err != LZO_E_OK)
--		return -EINVAL;
-+		return err == LZO_E_OUTPUT_OVERRUN ? -ENOSPC : -EINVAL;
- 
- 	*dlen = tmp_len;
- 	return 0;
-diff --git a/crypto/zstd.c b/crypto/zstd.c
-index 556f5d2bdd5f..7fafbdc19fd9 100644
---- a/crypto/zstd.c
-+++ b/crypto/zstd.c
-@@ -86,8 +86,11 @@ static int zstd_compress_one(struct acomp_req *req, struct zstd_ctx *ctx,
- 
- 	out_len = zstd_compress_cctx(ctx->cctx, dst, req->dlen, src, req->slen,
- 				     &ctx->params);
--	if (zstd_is_error(out_len))
-+	if (zstd_is_error(out_len)) {
-+		if (zstd_get_error_code(out_len) == ZSTD_error_dstSize_tooSmall)
-+			return -ENOSPC;
- 		return -EINVAL;
-+	}
- 
- 	*dlen = out_len;
- 
+ 	gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
 -- 
 2.56.0.218.g1ec904b173-goog
 
