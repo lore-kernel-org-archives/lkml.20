@@ -1,111 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792582436;
-	b=GJO+RLiestBQY7JiHsls0Cho8FOs/XnKuP5znLgNDv6nIiUvmBe9TaZp8GTH/oJb4D98
-	 Gmi4AAnRPlHs5yjDlDOda0n44iavio8f8KU8R+PzuksymVlI+q4NnJM5eiPh7TKzl5r25
-	 QEAhpaz8hHWM5Uhj7SxoG1PJP5CkJZgx0XlorLHq1dPv6w0/wMmoXAq1k/YXLrnneWp2C
-	 GRdDbDN7+pg0b1SwFy1jQ/tUltqLMWrvJEa9DyczjT5o2J3TuyBlT66sMDKnuAdkeZQxd
-	 WTjEkNOQhSPt/YyYTAOcaFTM+Chi8kd+0g12bvUX2kUTPEusYj4EaV3k2Ls7r1CVcoQ==
+	t=1792582477;
+	b=N3dpQ4BPlcAc6qtJdGfq9y8e0Lttb451o/fWq+FEWjA7KYCW5p0vkqThzMHMnSm9pnqu
+	 jHMV8gUHzcqizKBtYHnqvjjEy8j3kY74P6VHUkl0FpmGV1ZC3A1M3BaqegsBt8nJiUFfd
+	 RCjiFN9pojwBwfgX3K5RsJWV0o0C9ZY2b1GJlcq/t2f/XUr576G+WlpLC/ZKJiiFlK4hS
+	 vlOmL1iYJrWA+Q6FymlerGQTzko3CBkiLOpUKMsh3RPz/49d7cnjshY0M05clp0cIH6cC
+	 jNldR5rFxb/sPj6+CJfHEHBQskf/EY1wByvuWPuqYdB3vBZmzPbX/G+W6MFDtFptXnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792582436;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=FhfwrUgR3BveD2SaYPstYM1HYNtfUANzUsTcnVa0coU=;
-	b=l30mjP8t9xfyKhqp0rngORyiCqnr7aITUjbP5OXwJyOWU+Ye3Lp1WlVUWiyyJUHv/kdS
-	 KZdtVJbojUcGimPTCgt09DOSxx4+5T93iJFsniPPRRDzkGAADEaxrhQAMmVz4Eo8A4/Am
-	 C6Q7DxmDonrzj1do45pdRkYVCL5l4y5MQHW40bnYj9VCX4Hdo58jREfS+ylBBvs305oeY
-	 hisz06zKzC2QwqhuubJRVQ/kp9D8bBti1tvPNk+/s7kr4v4S0Xb5nDH0h4rSfnokf+IFB
-	 RNjy3eRZSnenh2dHt74aUVmIPPolX7YxGmKgrvtswq7r8GmUAzQF6yfpi8qDXzTvmiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792582477;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=e+ciZeljp4XbV+7Ul/HTP2zfMzICzcEEGNyLNPo0cRI=;
+	b=ovyd0XGM1g0EbKeEvPqAKGZKnudpz4zqFMQbB8gyEavhCsG3ik6sJaAOKe6DLpD3aAtg
+	 M92/legv/1jrYqNkhBdacnSoe2kZKe0Exx8HI4ntcsc6pTOmg182g6KCTTqPEp5xFu+br
+	 wBbEiVaAnObn/Z3ebMY0UJ9v95stltCtdrx3ueVJOdt0wULcIDEaYWaCy1bAcygYEPhT5
+	 2cvtOdAaIet2uQgOfqeZCJm5eOAhNz/K8uCTHZFBBNYa6BMNuG7QbVqrpyOx1nts8Ha0w
+	 kzVFvTp7+H5pMik+cWueaDwx1JC12TExkTT2mB8UBmrpnDAetl6ChKX3FhrmX7zvPUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=NZikNmCq;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZMi1T3A3;
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PwqR7+SE;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DAD606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28DAD606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B4F606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1B4F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=NZikNmCq;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZMi1T3A3
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 541487A011F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:33:55 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 21 Oct 2026 07:33:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792582427;
-	 x=1792668827; bh=FhfwrUgR3BveD2SaYPstYM1HYNtfUANzUsTcnVa0coU=; b=
-	NZikNmCq5hnFipHY3T3pHMhBaTnl5WF9NiEBjL0s0T9H7YK0NWggwWZT7XRABt6s
-	80aZT7L/mn7hBxbXyvbelzxKReDlV6XczHqLq199f+utgfU0J9sO79fHl7C7J3mf
-	Bj6rTe0FfUPSQ6TOZT1pcDv/fUgVPaDdzy3h010YDC5u8Kw5mxEfJm4tRghBs1+x
-	f2Hl2CcdS0R0Aw1hwAFbrMOIOwZ9pEIrRk32oWsXw+fp/uwIxs3OLsz4zsGK747f
-	w9Cc47DxTItHCjPrLCiAT8tUsst752fa5wJ9UMoDoL0jxQ3lLhLJ1SmR9DrpcEHP
-	3jf9wFzgvRcfC3tZO1Ed5Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792582427; x=
-	1792668827; bh=FhfwrUgR3BveD2SaYPstYM1HYNtfUANzUsTcnVa0coU=; b=Z
-	Mi1T3A3TRsaKUk6rWpMJbtzdUnoNSwXVq8w8lMDzbbfyPPlV39s3XESm+xtZ79YE
-	gTzldWPSXK99VHccb7uiXc/TqHHMgtjLQ6Z8np97mjjieMumXfRjUljfjXH8dotJ
-	6xBRD7s2xxwBk9U/VIShf/2KsQvSS5wVE1PUQM4i18ELwyYm8FIHFf7PbhRWpHZ7
-	81d1WevFEQigBSrK0+Ug9bbNTkK526fgaF1uhFtDGVm7xqdNYh6Atx9if497qIwG
-	qvMuoRClJ+uzZTrkBau4spI0GmZD4XR+6fNCVuekNUap8Aba1z/qy1vxUgr3rhTu
-	+HsJyuSTDtFtfksqjWv9Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792582427; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:j0YIg11N10q7KMXP9YPJmKiwQL+HpaxCN4U9NU3POYayCfk
-	xg5yKd6R7Iw3vEmHQZsnZu/+3rZZVv4fusO5UDDdD+balZERIP67zM81BEBk7N/v
-	0vbyrd8k1QWol/FUS0JS/VFPZ1BflffqmVFBsnINZhSx4ZLPmV3cJ9KJizqU1JY2
-	DdtzeW+h4Ky+JWOc34/qpNHTBBKJA3IxjGFWBXWh49/9of91/TlvijvT8M4xxOsv
-	4/8B79wWtnw3M8B8xEC8RVdROx+qSWfm5SxURQmIqpphX/SRcDuM533YL91MMx4I
-	wxILxOaVnOnI4W7hKBWKvY6d1DNj2l09Fr9H1qg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:wdfcJkxIoZbQsw04DDRm+doRsUlelEbDIxnYdy4YTpo=:AUQ6V3jU1DCpdN5Uc9KTJwbNgDBLdxc+xFCQfHu1Xw4=;
-X-ME-Sender: <xms:FqPYauHO6wt4-wliZSJDZf0nZMf-odMvfJTORmSG3IdOnFMIry0Xbw>
-    <xme:FqPYaqIPQKB2HZ1vSoE-23_MoNA33LR57IFAZ1VcRddP5EtRECozcG0xIpnNXn6pc
-    7MvrK5j0zTmbulYX-wX1kc5ZL7NzS0PCslT_5SnOeHvbZysYxGaG4bj>
-X-ME-Proxy-Cause: dmFkZTFha+pd8I8exs+OpH7qLvKdVOk62O7Il4mAGiDExZLyUfVdeh5R92a7RS4G5MsUWG
-    WJRVVQeroTl1+yM8nKEX/qNHPt5al0gdhWUH6Jes403bRQhp/0BADM9CG2lUgfDKsXCPFd
-    6LoxhNAfKM+IMz7oZhDL/F1Z3DsPvbU3m7pSwIdp+l0c3tG00eZ4VEmqNk9NWaLNOB108e
-    ttM14e8KKQajBsNpQpe5I4XyarIcoVMGwjmmE8iYNUqdLbDhWtRcOl9nJ14XtFEh5TQFUT
-    5SwnO6ii/j847TfaCEt35AcoYAbyoN9T2RQgn45w349P++WRgqANt2N3Oek+5zETp7R8tm
-    Kv3yUoIUHwrDeYSq7Q5yUICjBuHZyezx0FnpdqG3+0hGq0ItM1dR1phVkcyJHOo6g3/+dV
-    rVmxpNJSku++flgi8bMWOAaSarLdAWABTmtS6QTreA5HkmAbum4N0kw+4trUsr96Lda5AV
-    rd9+yelGrZNNlx7q3DD9A01eiUFBQALtnhj5a1UDd4GopqBCI9onkhFp5AUHD7+5qFwq2O
-    cTm9ZOLp5L0kCApIY8k4347G5fmSLU7hltEQOTfhIQGpXBZWLwLjdLSCSKDj0/WD2VTx+t
-    AI5G7giuK91aAqU7jelivMT6L2hfIBKPX1lpzxGikBgdPQUPsSgHr5Cuiztg
-X-ME-Proxy: <xmx:GKPYamsrFkb3jIeI59fcTde-gTk_8ZuSzkTqr5q5zQwr_JGAyeHYuw>
-    <xmx:GKPYap8mgbKzRwrZN_OBeMM2_fsv5TfrFwT8Rm9NGZzj9AAVgeRpIQ>
-    <xmx:GKPYatSKYiRTK9Jf35BMq-UaYXGcFpy8TPQkuOhBQDergM7N7kfepA>
-    <xmx:GKPYarUnm7ypPLDFu40nx6e3zZTxWEWzEXZrEKlIIRx7Jz03SMHuSA>
-    <xmx:G6PYalkD1JFlzOBhTuBitH1hqlywl1aJX5Eru1n8URBeYnvj5dfF2ixd>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AF66432A0093; Wed, 21 Oct 2026 07:33:42 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PwqR7+SE
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso626327f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:34:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792582475; x=1793187275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=e+ciZeljp4XbV+7Ul/HTP2zfMzICzcEEGNyLNPo0cRI=;
+        b=PwqR7+SEfDE00LHg4c6TRp/whilgLicIH9x0KLuJDLz6mDthbM7bchork4oSUc81ng
+         hALl3itrm02INZTTCzLc2RdczMaWHwhYOv0kJhdbCatYSwptUuOy/HTGu40yfyE0jtOG
+         fzThuyYZibmqMqOj24UT0s9+iyvHzDtjh8+RIMKG3fXZUQTfBLFQvPRX2ipzDimQvR2g
+         EnoGXlas70SxzBZDY1o7/Fz2+EOLGzeo7HF9YetHEK3WN5n4Nqg33sEykBzHaffOzjzk
+         U9sMBK3RGjSSGPXXDfLiTZFiablIHEM9K/y+UPLBohxP0Y/1bOHNWGClAMBYIJE4dh3v
+         ubgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792582475; x=1793187275;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=e+ciZeljp4XbV+7Ul/HTP2zfMzICzcEEGNyLNPo0cRI=;
+        b=pJqXh6wk97uF5ukfhcYkYN406W5SP0CHrfmcmR3n8+TsB9BfvpB9mlAf8zEGNRDgEH
+         Jh4SH0aZ8UXLqoTyfC1MFxxXQXtECJiY5nFGDWGn2tMf5ho3PJ+7rC1LfVw6WPn7kq+E
+         yKNNP1SYNPoRZz6Cl1dRDoJ4ciOHM6anT1j7DJUZ/ARfY1GlNSjIsTFCqExMOKbEVpUN
+         Rmuw1CbKu3tD9/vF70gH6fwQcXpddCAgrFk+CGIZWyaQ7rhTzyIe7jOMBjb9+1947McW
+         ZqF2YuA/RseIZv7OBMemJv4TdqJ8G8xDxV1/WilmmIp5mwY4Ob+bjjs6dJ+tstWcphy1
+         dz0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxx1+wGbtu1Od6BJzcCYz8fAkO2OG80xpzxWDxZ4obEOxr3oHjykh8Xy2heFcf2sEgi/xR5/r0CulMiRrE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhS4SpGhREP89iqmjRD/dbHRyZ4n3k+UzuJbtVGdl0/CvnYs6G
+	azj+RkxjxrYbhKhcoAORCI6YcWGflFppiJMS5vozAQC6ebDe5sI3MxL0
+X-Gm-Gg: AYBFou3gOoBGBL1VekA63rVKQVO/cG1a4kZhnl/zqReVrOClWpuc8LdXLTiUdvCAj8U
+	gYB6giXL4kCe6VX67BeHU3QjRWbKirdGtbKPPgl9oBI/RNn5fVLFEaNWU7yEUu4Hz/WyVSoPKcA
+	R1UepMZlG476fWs1nqwEe3yg6EgZ4aZXHA4NZCvPj8jh2Eaapuic8XlDBFEEOlxV5a/LsKf9rfA
+	9LxxfHt4HDdbZu3Fkkps0XEa5qpzGHbt8SMN7MVSajMUj30rkto1Afywnc15oeXOL5mIfu+ncPR
+	owyelxgogW9JwsTudM74FT1xDetD+vjf6UsqVcGiUYMLSJlmf6GhbfdcFQynaYJrFWYHovcQNUj
+	Qd7quY3IsmaPaCDHkMxMO1d7OiR7LazxLZ1zPhwad4XS/+D11XBkK7yj0OQYVTKuMlnOXbSkU5Z
+	04oD3gVfp5LCVCGG1ePpV/dAyrsJvNHCuztzgS4G0oSRXIFvuYC2OUZrPRSPP9JFDB+wY90739S
+	j7hfO4iFXsBpAdNctAugF9+QNPZgbkI1ByYPc76FdgHaBN7UtspPPTE7XVT1r/gn5j8ruVBCRbQ
+	AN/lS588J9LZCPQgZuZhED2aByAJ9nJU4ur8+plL27IIxqoTB+r0WMOjBmUE
+X-Received: by 2002:a05:6000:4b0b:b0:48c:414f:cc12 with SMTP id ffacd0b85a97d-48e264d185bmr3297266f8f.40.1792582474839;
+        Wed, 21 Oct 2026 04:34:34 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e25833b9asm5068768f8f.33.2026.10.21.04.34.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 04:34:34 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RESEND PATCH 1/2] dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
+Date: Wed, 21 Oct 2026 13:34:16 +0200
+Message-ID: <20261021113419.283015-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261021113419.283015-1-ansuelsmth@gmail.com>
+References: <20261021113419.283015-1-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,116 +102,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Anl2GdpqQwQR
-Date: Wed, 21 Oct 2026 13:33:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Philipp Stanner" <phasta@kernel.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Yury Norov" <yury.norov@gmail.com>,
- "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
- "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- "Paul E. McKenney" <paulmck@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>
-Message-Id: <9f4bbc9a-fc36-4e3a-9c42-d18419c9d025@app.fastmail.com>
-In-Reply-To: <20261021095512.1345191-3-phasta@kernel.org>
-References: <20261021095512.1345191-2-phasta@kernel.org>
- <20261021095512.1345191-3-phasta@kernel.org>
-Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026, at 11:55, Philipp Stanner wrote:
-> The kernel already has test_bit_acquire(). A set_bit_release(), however,
-> was missing so far. It can be expected to be useful for parties that
-> need release ordering, but not the stricter full ordering of the other
-> bit-setting functions.
->
-> Add set_bit_release().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Document support for Airoha AN8855 Switch SoC. This SoC expose various
+peripherals like an Ethernet Switch, a NVMEM provider and Ethernet PHYs.
 
-> +/**
-> + * set_bit_release - Set a bit with release ordering
-> + * @nr: Bit to set
-> + * @addr: Address to start counting from
-> + *
-> + * This is an atomic ordered operation (implied write memory barrier).
-> + */
+It does also support i2c and timers but those are not currently
+supported/used.
 
-Can we fix the mismatch between code comments and documentation for
-the set_bit()/clear_bit()/change_bit() barrier semantics while adding
-this? I'm always confused by this and the new function makes it harder
-to understand in the current form:
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../bindings/mfd/airoha,an8855.yaml           | 176 ++++++++++++++++++
+ 1 file changed, 176 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
 
-- Your patch description mentions that set_bit() has strong rw
-  barrier semantics and that set_bit_release() would be a weaker
-  write-barrier version of it. This makes sense given the
-  set_bit() implementation based on strong raw_atomic_long_or()
-  in arch_set_bit() and the text in Documentation/memory-barriers.txt
+diff --git a/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+new file mode 100644
+index 000000000000..48127e956c96
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+@@ -0,0 +1,176 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/airoha,an8855.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN8855 Switch SoC
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  Airoha AN8855 Switch is a SoC that expose various peripherals like an
++  Ethernet Switch, a NVMEM provider and Ethernet PHYs.
++
++  It does also support i2c and timers but those are not currently
++  supported/used.
++
++properties:
++  compatible:
++    const: airoha,an8855
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  efuse:
++    type: object
++    $ref: /schemas/nvmem/airoha,an8855-efuse.yaml
++    description: EFUSE exposed by the Airoha AN8855 SoC
++
++  ethernet-switch:
++    type: object
++    $ref: /schemas/net/dsa/airoha,an8855-switch.yaml
++    description: Switch exposed by the Airoha AN8855 SoC
++
++  mdio:
++    type: object
++    $ref: /schemas/net/mdio.yaml#
++    description: MDIO exposed by the Airoha AN8855 SoC
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - mdio
++  - ethernet-switch
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        soc@1 {
++            compatible = "airoha,an8855";
++            reg = <1>;
++
++            reset-gpios = <&pio 39 GPIO_ACTIVE_HIGH>;
++
++            efuse {
++                compatible = "airoha,an8855-efuse";
++
++                #nvmem-cell-cells = <0>;
++
++                nvmem-layout {
++                    compatible = "fixed-layout";
++                    #address-cells = <1>;
++                    #size-cells = <1>;
++
++                    shift_sel_port0_tx_a: shift-sel-port0-tx-a@c {
++                       reg = <0xc 0x4>;
++                    };
++
++                    shift_sel_port0_tx_b: shift-sel-port0-tx-b@10 {
++                        reg = <0x10 0x4>;
++                    };
++
++                    shift_sel_port0_tx_c: shift-sel-port0-tx-c@14 {
++                        reg = <0x14 0x4>;
++                    };
++
++                    shift_sel_port0_tx_d: shift-sel-port0-tx-d@18 {
++                       reg = <0x18 0x4>;
++                    };
++
++                    shift_sel_port1_tx_a: shift-sel-port1-tx-a@1c {
++                        reg = <0x1c 0x4>;
++                    };
++
++                    shift_sel_port1_tx_b: shift-sel-port1-tx-b@20 {
++                        reg = <0x20 0x4>;
++                    };
++
++                    shift_sel_port1_tx_c: shift-sel-port1-tx-c@24 {
++                       reg = <0x24 0x4>;
++                    };
++
++                    shift_sel_port1_tx_d: shift-sel-port1-tx-d@28 {
++                        reg = <0x28 0x4>;
++                    };
++                };
++            };
++
++            ethernet-switch {
++                compatible = "airoha,an8855-switch";
++
++                ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    port@0 {
++                        reg = <0>;
++                        label = "lan1";
++                        phy-mode = "internal";
++                        phy-handle = <&internal_phy1>;
++                    };
++
++                    port@1 {
++                        reg = <1>;
++                        label = "lan2";
++                        phy-mode = "internal";
++                        phy-handle = <&internal_phy2>;
++                    };
++
++                    port@5 {
++                        reg = <5>;
++                        label = "cpu";
++                        ethernet = <&gmac0>;
++                        phy-mode = "2500base-x";
++
++                        fixed-link {
++                            speed = <2500>;
++                            full-duplex;
++                            pause;
++                        };
++                    };
++                };
++            };
++
++            mdio {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                internal_phy1: ethernet-phy@1 {
++                  compatible = "ethernet-phy-idc0ff.0410",
++                               "ethernet-phy-ieee802.3-c22";
++                  reg = <1>;
++
++                  nvmem-cells = <&shift_sel_port0_tx_a>,
++                      <&shift_sel_port0_tx_b>,
++                      <&shift_sel_port0_tx_c>,
++                      <&shift_sel_port0_tx_d>;
++                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
++                };
++
++                internal_phy2: ethernet-phy@2 {
++                  compatible = "ethernet-phy-idc0ff.0410",
++                               "ethernet-phy-ieee802.3-c22";
++                  reg = <2>;
++
++                  nvmem-cells = <&shift_sel_port1_tx_a>,
++                      <&shift_sel_port1_tx_b>,
++                      <&shift_sel_port1_tx_c>,
++                      <&shift_sel_port1_tx_d>;
++                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
++                };
++            };
++        };
++    };
+-- 
+2.55.0
 
-- Contrary to that, the kerneldoc comment over set_bit() mentions
-  "This is a relaxed atomic operation (no implied memory barriers)"
-  and leaves out the kcsan_mb() that is in test_and_set_bit().
-  This makes the new set_bit_release() sound like a /stronger/
-  version of set_bit() the same way that test_bit_acquire()
-  is a stronger version of the (relaxed) test_bit().
-
-As I understand it, the kerneldoc comments here are incorrect
-and trace back to the include/asm-i386/bitops.h file before the
-git era. The patch below should make them consistent with your
-patch and with the actual implementation.
-
-       Arnd
-
-diff --git a/include/asm-generic/bitops/instrumented-atomic.h b/include/asm-generic/bitops/instrumented-atomic.h
-index c010d54275e4..df200802e929 100644
---- a/include/asm-generic/bitops/instrumented-atomic.h
-+++ b/include/asm-generic/bitops/instrumented-atomic.h
-@@ -18,13 +18,14 @@
-  * @nr: the bit to set
-  * @addr: the address to start counting from
-  *
-- * This is a relaxed atomic operation (no implied memory barriers).
-+ * This is an atomic fully-ordered operation (implied full memory barrier).
-  *
-  * Note that @nr may be almost arbitrarily large; this function is not
-  * restricted to acting on a single-word quantity.
-  */
- static __always_inline void set_bit(long nr, volatile unsigned long *addr)
- {
-+	kcsan_mb();
- 	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
- 	arch_set_bit(nr, addr);
- }
-@@ -34,10 +35,11 @@ static __always_inline void set_bit(long nr, volatile unsigned long *addr)
-  * @nr: Bit to clear
-  * @addr: Address to start counting from
-  *
-- * This is a relaxed atomic operation (no implied memory barriers).
-+ * This is an atomic fully-ordered operation (implied full memory barrier).
-  */
- static __always_inline void clear_bit(long nr, volatile unsigned long *addr)
- {
-+	kcsan_mb();
- 	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
- 	arch_clear_bit(nr, addr);
- }
-@@ -47,13 +49,14 @@ static __always_inline void clear_bit(long nr, volatile unsigned long *addr)
-  * @nr: Bit to change
-  * @addr: Address to start counting from
-  *
-- * This is a relaxed atomic operation (no implied memory barriers).
-+ * This is an atomic fully-ordered operation (implied full memory barrier).
-  *
-  * Note that @nr may be almost arbitrarily large; this function is not
-  * restricted to acting on a single-word quantity.
-  */
- static __always_inline void change_bit(long nr, volatile unsigned long *addr)
- {
-+	kcsan_mb();
- 	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
- 	arch_change_bit(nr, addr);
- }
