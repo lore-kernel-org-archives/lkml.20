@@ -1,80 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595216;
-	b=BrUNshKhd7o2rLUcZb3cersAtzXIFXivk/krky2njrR1eGBeeVsuJ3T5jfWqE8HRwPsG
-	 IpvKxvpFvkwuxbmUlW7NWtE4KegQFm6KiiQGs6oW6HvVWSSNHumt9D4FMVlA+WWBs2qsh
-	 cvqEzB3kjSPhEA/Kz7R9ynaKdgoCShQSUJNVmLFsDSmvN2UkqqWegrtGQNuCQAK5bKmcb
-	 CxN86mtDYDr+Bct7JTifgF6A2OWeJZVgsE3XrIEC5VPIcnDocw9LRwWsb2jxz2bJMN48W
-	 y2RJvjQyHzPzh7llC5B9zCqh7YuEFMfzi2y3qLs8CkPYHIwoM6vSUJiX1LrMZUawGyA==
+	t=1792595276;
+	b=pxV12KH2auRBMOROjLlDkIiAi8gPb2xuwKzANnLtQ+Drchs2tYxt4nunC1ckOLfQ+XUn
+	 ILW14ezccWO8+7inid8KhljRFAiQOR2/TYnFWitRAEtpKqM5xabaFJ8ChrdPQbFGLwf+/
+	 EjNzt/ypLe6hjDUvzFHLHNj9UzE7poMIiHAJBdWMp6yOw3pq5OB/mCb8ZBjblsZ8iUhqH
+	 meZWK9aRrMjh5giCSAXcCFWSzjClzC33mMQSNasDvKy1IeNdDPlQYsD6C01buuUuu3IcZ
+	 2pjj887se4oEd6R5uIR4Z2E2oz0WDAVq/WrAKrvNB6AFWIahtHtgnL9yL07JVN/UHkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595216;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=jIAh43IOLV0xvXg2nADBjKECV1gFB1vvfMqiMKoAItY=;
-	b=ucrywuRQnOFLtxczLlEgndSalMy6x51807jo3vr9icF/RBUvAepjDuS4lUxxvEPHVaj8
-	 kMVhF1I8zGbyZy2aG7HfG3bl9uGMO9kPXoi0vFkZK8XKm7SjGeeP3VZLpUgi/oDv4zHDD
-	 VRLcX7bV5LXK/FhJRCOb7OuAiPp0661rXXU1LYusWq+eQHWBaay0nTuXMUVSlwCjHP5mI
-	 ZtV99JEcG4sj+MPCmzW9PUjFOUdDxxCWwMhlGoqwb1DbNqDYQZf5VxixnO+PSOlaJH+bm
-	 W+3Yse+PuJzaJQoNcNqUtQHmNt4lXsHHcjHSyH6JErC2L6zEY6wlztSH91gAfaUmlZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595276;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
+	b=4QpnFbZ9dVgdiuvmzkn3JEpsZ41tIgJ8p3f5gaTJJfZE/kk31ykYgOE52tGO9LNIQ6yx
+	 wf9VHjrEWIHdKspw4YTaNbw9a16B7rCzDvSppK7U3BmVfWNvDYmlqEv0PlB2JpDG+MoQw
+	 j+fk4QeJu4QrTw4XEY2yL0O24RDntfWNtfWpUxa6qjPoTETXavz5+2KluylEYqUVVEXGi
+	 /FuuXoKzN0r3BnKYedeAR2IDqNfl9/1hwLhifzUkIwsLw8/d4YODtT8WyudN6kgjqMj7P
+	 xnBs76eQ9RNjtdJ4cj/mNSKixY8wmHbEeV55pxDHAUeZ7XKobNKvUhQ70cwgEzTBrdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AKj32HPb;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kFdhW9k8;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fjGwKxnF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Afx3HhuS;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=41gz4xnp;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B6B606A31A;
-	Wed, 21 Oct 2026 15:06:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B6B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8E6606A319;
+	Wed, 21 Oct 2026 15:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8E6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AKj32HPb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792595217; x=1824131217;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lXuCJJ+UReprAQLjjbNsA4fxfCgtC4uNbnMiE6WjgHg=;
-  b=AKj32HPbToK+GCaK2IiZiH53HaeKTcArRE4UvXmRGeejAvaQoEBBZfJI
-   jsIo+ot8xmFmPZR5KslyZDwHcJBNfZVyo59uyGYxacphK/+CQOvyQ/vz8
-   ydisEOtsGezh3V+dZ8+blXz2XKcDhb2IwR1ypJ2e5rJgrWXNY9i56kTuR
-   AylGqe73ZcSD6qYpbREsjkebAQsS03z+8wJmZNvqURiR3SdA9MPvNrerh
-   6ilCVVUcKRzEr/M6km3HFRXEPhBN4EokEP+f10VMN6Pk8G2uy63NRGM3y
-   5bn4O9JoBemi+bMnNGzALbB3hdTA4pVRXyU0zkVBt7vuJTwGOQB4yKcWh
-   g==;
-X-CSE-ConnectionGUID: 7WPZYhUuSzOBq7CiKGk2CQ==
-X-CSE-MsgGUID: lX7LQ4nsRG+Q3Lvgz0Yh3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1303390"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1303390"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 08:06:56 -0700
-X-CSE-ConnectionGUID: MRg1WDyISu6XGhF61//vog==
-X-CSE-MsgGUID: EsGAWDFPSbi7nqlxq0YY1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3583603"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 08:06:52 -0700
-Date: Wed, 21 Oct 2026 18:06:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Santos <Jonathan.Santos@analog.com>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux@analog.com, broonie@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	Michael.Hennerich@analog.com, nuno.sa@analog.com, jic23@kernel.org,
-	dlechner@baylibre.com
-Subject: Re: [PATCH v4 4/9] spi: restrict CS logical values to a contiguous
- sequence
-Message-ID: <atjVCVNzq3j34hjv@ashevche-desk.local>
-References: <cover.1792435248.git.Jonathan.Santos@analog.com>
- <dd50e45bff4b59ad656f94fffecca28a49f1d2d3.1792435248.git.Jonathan.Santos@analog.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kFdhW9k8;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fjGwKxnF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Afx3HhuS;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=41gz4xnp
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 04DAA21F93;
+	Wed, 21 Oct 2026 15:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792595274; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
+	b=kFdhW9k85lZxkLuQFkoMN1Di1Ys1mAf090DUb/Ji7ixNmKq/7S+1NpATauaLFaNpF2ZyKE
+	tXYT4LFJFLCQW6Wl5eY6+3oDi5TVAEBQBS+HK0BUM8yMIN0itndeky0yVmXyMcz0xLZERu
+	JjA5PGnQ6zMwRZ3Avq2mAccSo0Trsew=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792595274;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
+	b=fjGwKxnF9K6US9y2Fxt0YOsr+du6LfzBFo8MYsB1tqkvVrOz6L1nti9tJZ0e46/PicKWhJ
+	UkJp5qKsFSvUBUAQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792595272; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
+	b=Afx3HhuSSFNpkakRqGh9I0RnIMjicwBbxKLXHp6MhGJOvuIdqA/BJL7AlsjoNTaBsB/05H
+	z0sM9DHquMUjpDCt6FqUdatEvbRv/JdU/JxnuhdM7WMYaWmTW4LW2MuC06qcQYUS2xxWnX
+	3ZCc8J8qQq6KJ/QMrwNHb9GahepSSYQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792595272;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
+	b=41gz4xnpCASbZfXud9a6C7Kcx7fCf3dbp8s0+8/xXgef7skC4pF/NTncrOEb2ewFJVQE7M
+	AI7f5EUdBu7Y/pAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CFF70134A5;
+	Wed, 21 Oct 2026 15:07:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ixtZKUbV2GrnfAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:07:50 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 59E92A13C6; Wed, 21 Oct 2026 17:07:46 +0200 (CEST)
+Date: Wed, 21 Oct 2026 17:07:46 +0200
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	shr@devkernel.io, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/page-writeback: avoid 32-bit overflow in dirty
+ threshold shares
+Message-ID: <n6sci6hug3mywpnhcylk5b3fldm3xjekiexwugqgmxx35sotsc@wcdhaetb23jr>
+References: <20261021060654.27855-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,45 +113,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <dd50e45bff4b59ad656f94fffecca28a49f1d2d3.1792435248.git.Jonathan.Santos@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261021060654.27855-1-dennylin0707@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
+X-Spam-Score: -12.80
 
-On Tue, Oct 20, 2026 at 10:57:28PM -0300, Jonathan Santos wrote:
-> When a device uses more than one chip select, require the logical CS
-> numbers to be consecutive (for example 2, 3, 4). If they aren't,
-> __spi_add_device() now fails with -EINVAL and logs which CS breaks
-> the sequence.
+On Wed 21-10-26 06:06:54, Hungyu Lin wrote:
+> The ratios used by __wb_calc_thresh() are scaled to parts per million,
+> but the threshold and ratio operands are unsigned long. On 32-bit
+> kernels, their multiplication can wrap before the result is assigned
+> to u64.
+> 
+> For example, with a threshold of 25600 pages and the default maximum
+> ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
+> The shared threshold and minimum share calculations can overflow in
+> the same way, producing incorrect per-writeback dirty limits.
+> 
+> Use a u64 threshold for the three ratio multiplications and div_u64()
+> to retain the existing division order and rounding.
+> 
+> Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-...
+Looks ok. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
 
 > ---
-> Changes in v4:
-> * New patch, suggested by Andy. I assume this might have impacts on
->   existing users. Should we make something else to complement this?
-
-But do we have any sparse chipselect lists anywhere (in DT?)?
-
-> +	/* Restrict CS logical values to a contiguous sequence */
-> +	for (idx = 1; idx < spi->num_chipselect; idx++) {
-
-		... prev = spi_get_chipselect(spi, idx);
-		... curr = spi_get_chipselect(spi, idx - 1);
-
-> +		if (spi_get_chipselect(spi, idx) != spi_get_chipselect(spi, idx - 1) + 1) {
-> +			dev_err(dev, "cs%d is not consecutive with cs%d\n",
-> +				spi_get_chipselect(spi, idx),
-> +				spi_get_chipselect(spi, idx - 1));
-
-		if (curr != prev + 1) {
-			dev_err(dev, "cs%d is not consecutive with cs%d\n", curr, prev);
-
-> +			return -EINVAL;
-> +		}
-> +	}
-
+> Changes in v2:
+> - Use a u64 threshold variable instead of repeated casts, as suggested by
+>   Andrew Morton.
+> 
+>  mm/page-writeback.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
+> index eeab25d6ce36..1d6aab8781a5 100644
+> --- a/mm/page-writeback.c
+> +++ b/mm/page-writeback.c
+> @@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+>  {
+>  	struct wb_domain *dom = dtc_dom(dtc);
+>  	struct bdi_writeback *wb = dtc->wb;
+> +	u64 threshold = thresh;
+>  	u64 wb_thresh;
+>  	u64 wb_max_thresh;
+>  	unsigned long numerator, denominator;
+> @@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+>  	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
+>  			      &numerator, &denominator);
+>  
+> -	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
+> +	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
+> +			    100 * BDI_RATIO_SCALE);
+>  	wb_thresh *= numerator;
+>  	wb_thresh = div64_ul(wb_thresh, denominator);
+>  
+>  	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
+>  
+> -	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
+> +	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
+>  
+>  	/*
+>  	 * It's very possible that wb_thresh is close to 0 not because the
+> @@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+>  			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
+>  	}
+>  
+> -	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
+> +	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
+>  	if (wb_thresh > wb_max_thresh)
+>  		wb_thresh = wb_max_thresh;
+>  
+> -- 
+> 2.43.0
+> 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
