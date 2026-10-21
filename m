@@ -1,92 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792555015;
-	b=4LZFtE594ewX0GaHCIaAGvZ8A0GE0BAk9htNPhTEQplezneF+NNX1ENDESuzNvlXKRas
-	 Es7xgpHEncqUwRLiBMfpQUjYKzhfo47FPlSL57GQTGySRtBYz+oAdkGaOC/Wcq/cNTN6G
-	 ayZpDkFDT02cRQB35wL5s+Y64l+FTm9Ryh/YUdsOVjfiFLhdQr7Qzf65r5s8tiFZlbfFk
-	 WZ2oDr5tZsXN+yjsWSfpG3qnHCQtm8iPKlxPh8b5sA3gHCFhB21LLh3ecNuPyedz1iWxc
-	 fwhCegCEpqcx72rFJ4e8HrsHwctycOxrrMw4iU/rDoq8Zedg9xNpAoWgRZwAqQ8YfZQ==
+	t=1792555399;
+	b=VBy9ufuVe+DvAoJDYWHeNegauDXlpKhHCn1dpCZwgF3IIsvQQREK8jKSOVJ2JANpI+8o
+	 II6rzo/PoBqUeT8PzUge28g5Ho9S/bSwYJXAS55aDHlWu2lJSRgS3RAEe2z+tlvGWPIBD
+	 W2i93Pjmh/9/3aWSZh0/f61nJ7+14iOksC39heR55PBTLGcB//XUuMGilxZ4Yo7kcvutV
+	 JjqQ2hCm5a40JWs0O5fyx4xrD4ZE2GOKhPyTM/JiY0GtrfCltXf9XGlPu2UdWonQ4bY6F
+	 bET+Btbs/63iJl4+MBw9Jr/sBXAa6wKWSZnBiLnsVTz1VmlIp+ksR0mxVuJmb0ftgvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792555015;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9hCF0mlcp/ziupFrj3DR7yTQMLI+9lDhDQnOx2f3Cow=;
-	b=J3MYe62QsjtaQ75V85D2O9573mig+BjKeYf7YUuShWDAwE6BlKmTZQAtaI+LJCW5q8jM
-	 njSUJDFNwuzefbmuBlq2oOtC3czJ8HvbXzKXfk1wELqjqyF4L6vedd5kHxp5mfCm2zYJk
-	 qWI8USi31qQEb59Xzk5XODQJYT3zADW+GMCAS/t7639tBd+xHav8RtsE/aA+9qHQfddky
-	 4UlPmaNDNaSYemuGKQFZxMSMyOVOcAdC0L3LW8+Q6p1eWdELmOeSb4r8EOxq25prSIukK
-	 uN1+c2wM3BY/cMUbyT7WPzSM8yVyin10aQGUwkhfhdlIwlOt8MB/0nvpHdduKVU2nTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792555399;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=R/vjUdN7l6MMbVXVqQIOOhrZyiP+lwy/sbzpp28dRMQ=;
+	b=AHQewEV61tsdvctsngHxYQa5cDXrEk6mPeWN422z6Xqs6Pq67P6tAdSR3ZTz5AvS309i
+	 GqqrLwx9hnxhBs+qpjltRlx2+ChMLsQUw0N3KKKPB/9drD8aFTXAqjbt1HIahZIeIs/Ul
+	 5FgwSWkWb4KsF0YcG6OK2IOKftPFitkSOHhGsYGhCdCv4NT1CUnMM9D5w+zDq1zgw5uFI
+	 cAUn6X80iYSvLFBjT1/H8NuK7hkCTmMCorJkWeNKrtkOF9taJjCbahIT1gAFg3rSvpT7o
+	 mxwdVKKtHIk7aFCH30YSiDiL1gNduY4dPi3eDfi2pZKZ5UURRBRwb3vTC/+JJtbNpjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t32U+W81;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PhjAvGEP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B8E606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B8E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21574606A319;
+	Wed, 21 Oct 2026 04:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t32U+W81
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36661f953e4so563895eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:56:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792555014; x=1793159814; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9hCF0mlcp/ziupFrj3DR7yTQMLI+9lDhDQnOx2f3Cow=;
-        b=t32U+W81DI+uRXHeY5SOqR6nLWkS2rbrPfnLWOYOVJoroMIPjGKr8szG4I8VAKLlEF
-         6ktTVtCI+TfbfWuHU08TpOsNiGTRo1QPR95hbyLxgtZSDlqN4RBb2zd4WPjKoNS1/iMI
-         Hv3CyDtwP0DE/Absgsqh1k8ylM1GvSMGh78wXZWxFYdxUOQf4TWUzgXSHkn9UTvl83hn
-         ggKZB66C5I1KNQOyzj+fAnslridvRWku2IQI+cxpmFVxYqRTz60h2F3UV0agDFFCs6bl
-         5NUinfyn75y91WkHVbmujPf9BorzkSucvQLSi6sZ6Gf3kUYk3W0IKpT2vOl5iobevJEv
-         vPqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792555014; x=1793159814;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9hCF0mlcp/ziupFrj3DR7yTQMLI+9lDhDQnOx2f3Cow=;
-        b=kEprKUCtD62TMiBnlPodMQ884/DOiG4gc+Ls3PE+iHIlzv39WSVvYfFzZvf5hCfs2Q
-         LxW90aC8tn2w4HBxShCmYPpPOWfajAugPvYQIAqTjeiwZqLkhXJpwmBLzhiY1+r8OlHN
-         JVCyOl0mfQHlNE+y/e3wZRtfWIFjv7JYGzyGdSurf7wYyqH0xwdkPZvXQ5lfaSWUnzpY
-         Vr0fuvJe67w3gjCWPH4SVW5Qzq2z57OdqQ5R8mTfIgLRq5DJUF4CPxF5axz0HMZUwZ3p
-         hvqwef7KsVOiJQDgWhY0a29OowgyjzXhNuFLD93OB+RKsOrLPW6DosKe1VtnqPhp3bPi
-         6Edw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlwTaUBm9xWrHyVm3J6Ka/RpWMGg1K1GH1Qr7n7dzS9ObFGEWVIOgxhd+Jnqt8S9vlZiuMaWuLemaU50o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKj48ZANxYbAQJEio8qteudL55pL/JDh90OMM9zvwpqj1PwPPYD
-	RRCIFw2HIcbHXc76jRIfBzNpSMNEq06fyXXlI3sxqkjjW4+O0vOA8r+psMxneovhBBQ=
-X-Gm-Gg: AYBFou28UHmPZ9wRwIVonsNE9rTpiQhYE9aTN/+w9Xk/xCNgDkIU2YB3qYDMfkr4S9m
-	DcLclLKk5TpVHK5l9EDO77Y7jWL9gJaC0/+YltX3X38tjZiZdrIAHqrvix/jdpluWHdF+3rvXa5
-	R78XX4K9PdEbSH7G/ErA750vGxDSOWMZUKQa91vSrgOm1bxEFxk2zo0fR7CN0snUR7Q/kHXyu/M
-	tfCW/EJuVjM56tujpjPJaspU66LwQg693z9bZ8VIj5DSMKnPeTbSeLsycR9iUXQkgLa/h96xj18
-	ObYcLclIv/PxIcTyS4yNCTyf+BIvVQyavTnIaOy8dIwH6YmnRl6dZIixA7bUy1hJ9U8lRTk4TID
-	8tTnDm2c/oWoZOHfKC86bgWyNX8a/ItLIdeUY31U6EH00stBfeOZ0NYtOSs3rEcUGygA0X2fouz
-	nYG6w4qbZctb8RZvSD6HSGDsl4XfRozXe2ZkgFwcuyTEt7jyDUdV9ZS4I1glGzRaYw4zx8Xs34r
-	P0x+m8rRvBgSBzxfYLaqOPigH+ewYIa4O21EvDtxKJViB8+gWz4fI/4ug==
-X-Received: by 2002:a05:7301:d594:b0:35d:3370:d8e7 with SMTP id 5a478bee46e88-3674b53009cmr1815104eec.2.1792555013393;
-        Tue, 20 Oct 2026 20:56:53 -0700 (PDT)
-Received: from localhost ([122.172.82.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1cdsm3507906eec.25.2026.10.20.20.56.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 20:56:51 -0700 (PDT)
-Date: Wed, 21 Oct 2026 09:26:48 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] cpufreq: longrun: fix kernel-doc warning
-Message-ID: <atg4APgeoSHQWNeI@vireshk-B250M-D3H>
-References: <20261020071913.1677196-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PhjAvGEP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB511F000C9;
+	Wed, 21 Oct 2026 04:03:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792555398;
+	bh=R/vjUdN7l6MMbVXVqQIOOhrZyiP+lwy/sbzpp28dRMQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=PhjAvGEPJDvNbV+BvdfgJHIv5DCumkZua0q9FAzCiMyGMwCJrVtYAOzpgzBEfnJg2
+	 RND2Zytp6F0E3/o8nf2a+aVBSVsRVKa/15+BRv9L1Hau0ZULIFMqqOZ98HmSL2zebc
+	 maBL4WU1Oh270/xRztb7EzGFUCN+ujtI/FsPLnF5xiqafuX3ScyzXdMyEHGpbbz7QB
+	 OYMy9NetTBKnRey8UVIhSutjMQLv7nVDPq0gSdU1jgRRAFHViWA4IN/wvKhR5WWMeH
+	 T14ko9AQZgb4zyj+vqzZHJxFDT5LHXx17MJ+s4fV1OUG2V5S3Mb+59vyk+i5N4cty/
+	 fuv9AgngZgXSw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 59500CE09E8; Tue, 20 Oct 2026 21:03:18 -0700 (PDT)
+Date: Tue, 20 Oct 2026 21:03:18 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	kernel-team@meta.com
+Subject: Re: [PATCH] rcu: Print CPU that preempted stalled reader wants to
+ run on
+Message-ID: <22d0d56c-6cef-47d7-a923-1d888e224b58@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
+ <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
+ <0d0974b0-5235-4764-abad-0a665c27a1d0@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,21 +75,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020071913.1677196-2-manuelebnerli@mailbox.org>
+In-Reply-To: <0d0974b0-5235-4764-abad-0a665c27a1d0@amd.com>
 
-On 20-10-26, 09:19, Manuel Ebner wrote:
-> Replace kernel-doc comment with normal multi-line comment thereby fixing:
+On Wed, Oct 21, 2026 at 09:11:02AM +0530, K Prateek Nayak wrote:
+> Hello Paul,
 > 
->   $ ./scripts/kernel-doc -none drivers/cpufreq/longrun.c
->   Warning: drivers/cpufreq/longrun.c:21 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
->    * longrun_{low,high}_freq is needed for the conversion of cpufreq kHz
+> On 10/20/2026 2:17 AM, Paul E. McKenney wrote:
+> > This commit defines a cpu_curr_snapshot_rcu() function that invokes
+> > rcu_dereference_all(cpu_curr()) to determine which task is currently
+> > running on the specified CPU.  The RCU CPU stall warning then uses this
+> > new function in order to print the task that has preempted the stalled
+> > task (the stalled task being the one that is in an RCU read-side critical
+> > section, thus preventing the current RCU grace period from completing).
+> > This modified stall-warning message also includes the CPU, along with
+> > an exclamation mark ("!") after the CPU number if that CPU is currently
+> > offline.
+> > 
+> > This is a potential step towards allowing people (or LLMs, for that
+> > matter) locate any tasks that might be preventing the preempted RCU
+> > reader task from running.
+> > 
+> > Adding a get_task_struct() for the currently running task would be a
+> > bug because we are not in a position to prevent that task from exiting.
+> > Yes, yes, because interrupts are disabled throughout, the corresponding
+> > task_struct structure cannot be freed, but following sequence of events
+> > is all too possible:
+> > 
+> > o	The check_slow_task() function places a pointer to the task_struct
+> > 	structure in its local variable "th".
+> > 
+> > o	The corresponding task exits, reducing its task_struct structure's
+> > 	->usage to zero.  The task_struct structure is therefore passed
+> > 	to call_rcu().
+> > 
+> > o	The check_slow_task() function invokes get_task_struct(th),
+> > 	setting th->usage to one.
+> > 
+> > o	The rcu_print_task_stall() function invokes put_task_struct(),
+> > 	again reducing ->usage to zero, and again passing the task
+> > 	struct to call_rcu().  This results in either double-call_rcu()
+> > 	or use-after-free, depending on when the RCU grace period for
+> > 	the first call_rcu() completes.  Both outcomes are bad.
+> > 
+> > This commit therefore relies solely on disabled interrupts acting as
+> > an implicit RCU read-side critical section that prevents all of the
+> > task_struct structures from being freed, thus avoiding the need for
+> > get_task_struct().
+> > 
+> > The original get_task_struct() calls in rcu_print_task_stall() on the
+> > tasks on the ->blkd_tasks list are safe because those tasks cannot exit
+> > without first acquiring the rcu_node ->lock that this code already holds
+> > (because these tasks must remove themselves from the ->blkd_tasks list).
+> > But it is better to be consistent and rely on RCU in both cases.
+> > These pre-existing get_task_struct() and put_task_struct() calls are
+> > therefore removed.
+> > 
+> > [ paulmck: Apply feedback from K Prateek Nayak and Peter Zijlstra. ]
+> > [ paulmck: Apply feedback from Steven Rostedt. ]
+> > 
+> > Link: https://lore.kernel.org/all/a7a21bf3-a7d5-45bb-be4f-0119fe53fa20@paulmck-laptop/
+> > Link: https://lore.kernel.org/all/e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop/
+> > Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> > Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 > 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> I tested this on your old dev branch on top of commit 5433117c67f0 ("EXP
+> rcutorture: Disable RCU priority boost testing on non-TREE03 scenarios")
+> and the idle state during stalls are reported correctly.
+> 
+> Feel free to include:
+> 
+> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
 
-Applied. Thanks.
+Thank you, and I will apply this on my next rebase.
 
--- 
-viresh
+> > diff --git a/include/linux/sched.h b/include/linux/sched.h
+> > index 8b3d47a325cca..3606e5a2cec32 100644
+> > --- a/include/linux/sched.h
+> > +++ b/include/linux/sched.h
+> > @@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
+> >  DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
+> >  
+> >  #endif
+> > +
+> > +struct task_struct *cpu_curr_snapshot_rcu(int cpu);
+> 
+> nit.
+> 
+> I think this and the function definition in core.c can go right after
+> cpu_curr_snapshot() in respective files to keep the related bits
+> together.
+
+Excellent idea, especially given that its current location is getting me
+merge conflicts when I test with the -next tree.  Done!
+
+							Thanx, Paul
