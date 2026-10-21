@@ -1,47 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792564912;
-	b=P+x8Ni2pvIMu3OXus9gNqNoruu535zI6ZjywVwkTke54UfO/zSgTnfbP84hrDH+yZyB0
-	 nCxwKx07mqBOqu2FEeLUlfmWMunm+LiM7oggL/LPbaZoP6RGVq5zHs/XI0EQ9Syop96Ra
-	 rNfxPwN8QbqxKRPc6LVzSdleig+yOoCRlB+RD9K7WgEuJ4cN55+hjDgxnQaRXgSdntQZS
-	 C8+hGZOdVTJ4XCW79f+K/imf+z6XNnqBXW91fp9MtHoYatbalLZAcJSa1Dl45hgSxv1Jx
-	 XFpD0uwnF9Xprc9MPJBjdZOmofxvyXN4SHwyEGkGmvSl/NFn0sjVfE0nYo3E3atk0OA==
+	t=1792564952;
+	b=27kinaX3vXBEj8Yzqs6XOnGIQdt7byTOTtNh4ES9URsTWi5flJiK/aKhZpMADvJak/v3
+	 rTw+0Po8vkdWTefjI9kZa1JQCORxjaivAH9fEaOaQNLB+1K0RP0MZwtHwVRyMPFmHeqQv
+	 OCMMZeqvJfwkPJzQUJWs/0uuDYDsujQkxXDLxqLanj724x8NDw0VZDCItQ4TvkcdTB6gB
+	 SKFIA43mQzU3Hlb9QqzOESoUX8X50nB7jeFs1Ucq9vXFlTrqkoQ0017GhfVfwqkfE38Wj
+	 EDA3Q2ozTp3lFXGaOWLFNxzFKEMg05FcEfZX2ZFd14C9Uf3Gin0nSfqAcFMwclDSUzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792564912;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=86NK9jBb1rqz71KvDNZ40l3OCX5mf7WDgGhh0Xh1ztw=;
-	b=MYpx7anUg9xV9SQp5uAycAEMhnrrbNpMiJhNfbg3QRQOJWPxE6Kh/MaZ8dv9lsq6SRCC
-	 BVFhk3K6IWEroEzhsMjUgShvf4VSzO7U32+tVVnilculhqlbypwb4qruf9mDSMqto0lpH
-	 +CA91gIcV00kqb34EosZj2Xag9o5RcebJmKCktFUnffr4t/hJru/4HabJ5xq59y4aVOTB
-	 snS0FsRBBJ1BpzCXStNi7T5pRb5GrzuoL56fFcLsTcER2WGiTpZQmD4x48dgDVdUrlhjX
-	 WDAW8eiyz1MhWl/3dEtElpIOQFpScockkcwvO6xENvVrOe3gQxnuNK7cfhGkl/doK2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792564952;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=xKvnDsvcrUclI7bmfx6XSwXsJ6fBbrciYsjEvfxco8Y=;
+	b=IMmW4PmB/KiWw4LvDuyl7JXGP9C9Oqk7syiz23m+kmBQHireDNeWtNx79I2GS0RgzV6S
+	 WrW/nBo9/H9Qk8ynOFXDoGqLYT94pRdi8Tz9whP5JecwXLNKIe2YOunsUGIjAeZVMjNDr
+	 qvyyM7BDRAzHl9vL7aAoJn4U9WqSKObE4kg5/RmGZa6CIruNnnMz9lxpvOwewkR0qP06w
+	 zecP4hm7ygZAQWxq/2UIw0DqMjH71bajTS4YGwEM0sADSo/zp5elH0hCOETiuU1KMtj4v
+	 HXeAEnfxkmLTLa3E2Ns8edUteBgIG9yTK+hsBQ5lI+Ps9cHZXP89HH7izLuTpMapjtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ry4E8LTQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="gm9Zci/5";
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB0B606A31D;
-	Wed, 21 Oct 2026 06:41:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8BC606A31B;
+	Wed, 21 Oct 2026 06:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB8BC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ry4E8LTQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD751F000C9;
-	Wed, 21 Oct 2026 06:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792564911;
-	bh=86NK9jBb1rqz71KvDNZ40l3OCX5mf7WDgGhh0Xh1ztw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ry4E8LTQJKJsBggy1wl5gaD0y8W8704/5l/kFnspa1rrLPnwDRB6SlGOuLsZuWSfm
-	 lnjoDQ8aOouO6AE4uYLtrguo+XDlHj9mLeb/QaR/7a81Zf++dMAEzh7H4mPCgIBmTt
-	 9V2W1U0wATl9oxVnjEEKUvlK9AgE5V6o3bvjOqvO4rArqOOMFso3AiLq4VSGs+PlMO
-	 yrlGe/F4sZHllibpQHdajX6e6CfpHLKtaD6osEIy9NL5h8I+yeiF3ljPzRaof2a3EU
-	 46SiFhyW/prGhLA/ElWt3qGnFGmpcYRKScfyvohC3uxURyeU7MA594f/FV4t87Cc3u
-	 VP8BrLQWoMM4A==
-Message-ID: <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
-Date: Wed, 21 Oct 2026 08:41:47 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gm9Zci/5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792564952; x=1824100952;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=u83JnWYhV8tXdA0VeD7wuq6PNl1DjfWmUWC3duEyOH8=;
+  b=gm9Zci/5WaqFocMzIscm17zBUWD1Q8qgP7xmT49eFc9s7CkglkN9viWF
+   7bV3BBTnHdFHn9HEfIZYGvlmDwiVHGs582FAkfCl/COCxJWC1jxMetUx4
+   39X0H342Y9CoASbiC80hMuajN9ZAXQS/qlzmh00zMcV/Ag0di50TVXj42
+   0uzGVDaHGY+aJBn7yn05jLwlD1RoCH1AssKUwFiQQcZTPUVNtOAdTaPr6
+   wkvQ0o80+vwAIHJMDmh7KcXw1zuHb2xi9/BEbOYTrszwmpt0zXtxaoS/g
+   BSdFWybWQOOrLh5Yp+yBNpB7sU0bY072odaoeMQM3KJnr72y306IYSLzc
+   Q==;
+X-CSE-ConnectionGUID: ooLIIyOSTEyNqVtrdYIqxQ==
+X-CSE-MsgGUID: vi4dXOAJTBO27ClPI85w/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1261929"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1261929"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:42:31 -0700
+X-CSE-ConnectionGUID: a+ZzgIexTNKCA3Xwk92Tug==
+X-CSE-MsgGUID: kakhjIkcTQSPqoihcgSIvw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="4809657"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:42:28 -0700
+Date: Wed, 21 Oct 2026 09:42:25 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
+	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
+ when DLF is present
+Message-ID: <athe0QikG2mzCAtd@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <atcrpTI_R4kRM8pb@ashevche-desk.local>
+ <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,113 +90,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261021063927.GA31908@sol>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 21/10/2026 08:39, Eric Biggers wrote:
-> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote:
->> On 20/10/2026 23:22, Eric Biggers wrote:
->>> -Make sure that base commit is in an official maintainer/mainline tree
->>> -and not in some internal, accessible only to you tree - otherwise it
->>> -would be worthless.
->>> +    If ``git format-patch`` with ``--base=auto`` (or
->>> +    ``format.useAutoBase=true``) can't detect a base commit, e.g. due to
->>> +    the current branch having no upstream tracking branch, it exits with
->>> +    an error. In such cases, pass an explicit base commit to ``--base``
->>> +    instead. This is also needed if git detects the wrong base commit,
->>> +    such as when the upstream branch has local, unpublished commits.
->>> +
->>> +The base commit must be in a well-known public tree, such as the
->>> +subsystem development branch the patch is targeting. See
->>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-next
->>> +can also be acceptable bases, depending on the subsystem.
->>
->> I disagree, that's pointlessly too hard requirement.
->>
->> For many of my contributions base is obvious and not needed to be
->> explicitly defined. For all the patches I accept, answer is the same -
->> base is either obvious or if not and patch does not apply, then the base
->> does not matter.
->>
->> Requiring it is just bureaucracy without actual benefit.
->>
->> The only benefit would be if maintainer COULD change its base to apply
->> some patch with odd base... but this cannot happen. Maintainer base is
->> fixed - it's the HEAD of his development branch for given category of
->> commits (e.g. DTS branch for SoC maintainers).
+On Tue, Oct 20, 2026 at 07:47:53AM -0300, Vinicius Pedrosa wrote:
+> On Tue, 20 Oct 2026, Andy Shevchenko wrote:
+
+...
+
+> > > +		/* Keep a hook the driver has already installed */
+> > > +		if (!p->set_divisor)
+> > > +			p->set_divisor = dw8250_set_divisor;
+> >
+> > On top of my previous reply, why is this hunk needed?
 > 
-> There are many use cases for applying patches besides the final patch
-> acceptance, such as review (by anyone, not just a maintainer), testing,
-> CI systems, etc.
+> dw8250_probe() installs the BUSY-safe dw8250_set_divisor() before
+> dw8250_setup_port() runs. Without the !p->set_divisor check, detecting
+> DLF replaces it with the dwlib setter, which is the BUSY problem
+> described in the commit message.
 > 
-> HEAD of a branch is of course not fixed, and changes every time a patch
-> gets applied.  That's especially relevant when wanting to check out an
-> old patch for any reason.  Trying to guess a base commit based on the
-> date and patch subject is a waste of time.
+> > In the case of existing _set_divisor, do we want to keep the possible set
+> > _get_divisor as well? Shouldn't we introduce a respective _get_divisor in
+> > 8250_dw.c?
+> 
+> 8250_dw.c doesn't install a get_divisor, so there's no existing getter
+> to preserve.
 
-All these tools should just work on top of linux-next. Requiring people
-to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" is
-pointless. I understand that base is helping, but helping and requiring
-an obvious information just do not go together.
+Right.
 
-So again: base has ZERO meaning to the maintainer process. It has
-meaning to tools, so fix the tools to work on known and obvious trees.
+> The dwlib getter is still needed when DLF is present,
+> because it computes the fractional part used by the preserved BUSY-safe
+> setter.
 
-Best regards,
-Krzysztof
+Right, but have you read my second question in the above paragraph?
+
+> > But now I see that we have same function name in two files. Can we rename
+> > those in dwlib to, for example,
+> > dw8250_get_divisor --> dw8250_get_dfl_divisor
+> > dw8250_set_divisor --> dw8250_set_dfl_divisor
+> 
+> I'll also clean up the naming in v3: dw8250_update_dlf() with a frac
+> parameter, static inline after dw8250_writel_ext(), and the dwlib-local
+> helpers renamed to dw8250_get_dlf_divisor() and
+> dw8250_set_dlf_divisor().
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
