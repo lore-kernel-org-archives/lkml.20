@@ -1,102 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792617841;
-	b=s6iR8jKzAIRlpDkOukznVYibFUzJ52tw9ICkjnvY1G3ilV6q4eIK4amEau2BUCurtQlE
-	 j18vBEJiT23nxB33UYqr9Ey8mPMjeOM8chIuN07g7FCsKnkxzcpHfjSsmVYfEpIU5Ges7
-	 XLowyl5uzChCy03KD9tjy7vfBVRcTRuGRU/aMthCom8t3PWoFlzHB0UOFfJO0HGrr8Z3J
-	 Kyi+T/O5GQhnYKH9lFkbG6UJjUHG/LBZmVXgEYG9r/QSwVXAyKrJ0taseaJLMfsEIg5YZ
-	 WmMQpjbf9qJS8aCnYoPFYo9ZiPT1rkLdkxT+sKIgna5CEZ+7l8E5WfEpY8DH3Cvv1bQ==
+	t=1792617876;
+	b=iKlXqTooJaQV/UE0QkIF0BxbZaOCRbzvQz6YAlp6NKBtNhEhPS7xhgfdemmzwiD1sISM
+	 EZ45YvEXnXorL4pxXZ5DXAqA8c4+4ShdGaftHcLxBGO/bgpoir6s2IEHKaFCnEcna1u5Q
+	 hcNlzo6HuPF9baGtdnLECkB/b2q7UFV/aMsDV8sakBTl3zPMsuxD2W25FyyVjX6lbnd8e
+	 vsBp2t7jYjktgTTJZZIbEXESU2CxEioEXoJQF8Kaek0lID+kCEQ0IYAAI0xLTjfRMygfK
+	 IORAdoztJ3BURmuOkvbKB3xWg39DfmEa4NcwY9B1gJl7/ZhI6fGOnC0XUtG8F5+E2GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792617841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792617876;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=AmBBAIm3prH8kTpiX53UrfBCPaNJtwirI+Fnb++A7x4=;
-	b=HuoVDF4eeCp8KNAKirEnyssPU4D3CYaVeHn/T0a9XDVK5DRg37udR45Uwb+bKOhtq8fH
-	 xkfZclLgrJhVigv0LZ9XYN5BeGpC6I9blZLmaXKjTGlNAf20FeCOAkVHJyYkE+bmMswz3
-	 X9BpLwB8gJORI021VD9/I/d/BtTPddQoNNzs1Mk+QgGNxqjEiZ9F+LzV9c5cnZSEwqqjw
-	 HwJzWjVkoHPZKO3BDWejWpvBr1N2LSnutIBmnZwyWVIDht9E4zcoqTqhiItdxCUrNwxuU
-	 rS+6cu9iaJNfX33S3dkRV2fI0/5E66jLMANP/lTjHWb2ACWfRsoay6Za0ar0ZbQSwPw==
+	bh=8IEZ9olq160T2eeN056hVBHNHsrJXJMeuGcg8w/hmqY=;
+	b=JfLD9sD5dkBj71nD3mVQg9NfrUWJ4LQvyQ2LmHThwpi0yYAxjvFqx19OTgDpVKsFLgOO
+	 WS2/vi8b2yVXrnr+vQOYKyOIV4aMhbG1pfIPgWkRXvTJm/B2Zq+IkNk78ExTjSB7n5TfI
+	 Ka4HF609eh6VsLDMkC0tfud0CoKqTHVMs7RGdTFX1uOeFHyer+udZvBf77VOy37OBn7Nm
+	 eg5po4s6mNQgwBV+ei7WssvViGEyuV6aBd4oW8uWpDPrW8nse2cpxO3ups/mwK4UCuTRD
+	 yxuGbchUZERbqywUb84exfGJ6y6/BHcq6ew2iGqS3/AkeWSVHtrXIyG2KZQ95FtmQng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eMwcj+QR;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TaisdxF7;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35D5606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:24:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B35D5606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FF0606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55FF0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eMwcj+QR
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1341610eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TaisdxF7
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f30660e69so75602785a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792617840; x=1793222640; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792617874; x=1793222674; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AmBBAIm3prH8kTpiX53UrfBCPaNJtwirI+Fnb++A7x4=;
-        b=eMwcj+QR5Y9YLYIMQWCqY46k5GLGNfbRnUvF6LndBn9rrU6Jqgs3nOeunfriDiq8Pc
-         DoYHh6/+86dEFEWde0W/l0s6x/bTshLg/e2CaH551GSA7O75qCX0f/aepU5Sdcsso5Ez
-         PJzZv0r5FOqL6yg8dZCLheCNrP28Obl1lVWlwywFXRcCaDnNjbQmvVvqATS1/OUwyK5k
-         iCkQOk/P8opxI7HDlhcx6BouvQWs0AEl7B4RYzGKjz8In+zALcHbj+L6hufx5iDnv94Q
-         krjVcYfF8EpC5iAJQ0EJ1DgXucWeHHU/LtLM+hD4EIqB62mZP9eX1ZO2Ty36IuWUNnNY
-         l1xg==
+        bh=8IEZ9olq160T2eeN056hVBHNHsrJXJMeuGcg8w/hmqY=;
+        b=TaisdxF7bL6oVi+T0MnL5svDJyrfja+UU17YMr3PigM4Ru03zOtsr//PovAO1RxFGg
+         e47haOHhuqUs+p3irN46GBdxDAp4qZoF37PgHBZQvLIxroKgrQPyJqKnrvvkkL1Mlami
+         oTLEH6l3CV34DV/zkanFJR9qlJmg68wzkwpc27lSxCJb97pF+OeMPPH5UVpMBcmLWUp3
+         5JkHQkySopq9buZEGrPIRQ3gyADpRdoARQJMPp5Je4W4igzpE21P5KxR16jlhdD9jAlE
+         a/gb45n5rdSFhAouOCoG1rXTOfO6auFRXBoNxWweBFkVqje9AcwnWt9m3BXaZYZLEr/c
+         TyUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792617840; x=1793222640;
+        d=1e100.net; s=20260707; t=1792617874; x=1793222674;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AmBBAIm3prH8kTpiX53UrfBCPaNJtwirI+Fnb++A7x4=;
-        b=zy3tqhARjZaPavqOFi76maq9rhaAwQZEztGHxMdWzM3kcTybsoPoDx3ASzlFX+B/V6
-         3Xojqw/x3TbZgXZJfxphI8SJEA16Op88aE669h7Ed4yUP+6b8P++hRovmy7my5z0zyUp
-         2nGKP8tzk2SM31O9LhG5hAFiyIu+b+u1lUofBkwHK/1l4ascwgXTMUvHg/tTnW3E4mmj
-         IsqZYreRxY7SEz9Pm8jqUVsUVVam2mvUg1EVNwvLRxmzYKGigg5Ep6eRvopaROTVSvO6
-         N30330jRXTYYiEzgzAUHCPt9sFCdRtUJTbgGN/KHK5IvMPd3VbdZSFeJEflPINWRJ9/m
-         uhDg==
-X-Forwarded-Encrypted: i=1; AKwUvByBZGIBmp4vixMmiOM9ZJ0JtHhU4TT983fLDDEwOqj1eaF9XrJEHB81SBKoeLkaGHcs6qRd5J1euyWTLK0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0r6bhWWL821YpZwcjb32BibwnzD8czP1gb1vQ4kP8/8OYEmuC
-	1b/7JMmRE+Mnl+DXDzW03PMe74GUUzaUzhwJ+aiIE/Di71/zoSpsX5uZLogOroSB6DM=
-X-Gm-Gg: AYBFou0i3HUx1fZu4FG0sv0HT+hE3T+6v6p8cMhvnIVKoJpzFtyLdlOM1EWyHHGE781
-	mryZF4qlCf8w8+osxf6G4AqPe5Ob6e4iftR5czbPnjUdykO6UHpzfWjnfdOpRDGr0MoHmxwejpU
-	1btdLYREcu94oJNwaXlJUi3rsSZl2/7u+TkGhv7a8mAY2zR9sBKUwQOmcHlW+d9AGsdl9oXmhWL
-	tF2YYz6o+FA65rjwcf++SP+yeyURwRb5x6NZp8HGyMM1RAIGuvt8DOCjLzEgBVr4dfypfw0Zx2H
-	+zVIq++A4ZX1/o+v5qORKM4nT5jgjjTkJ4SSkFQ+X1MGQL7v0oNkFj1h2LUWK3v3frrc+nqYko/
-	ZtoLSikFUm1yLPYk/eA1AATo6C0CwQVWjS2SYXK9pT3lSvhCFPCrSzlYjEgJLNmYeULjv+k5xBA
-	OIgZIOD1v9mQ58XMNv26eKLiATZzA7xaI7bHqETzy8DFWB2Y53ARNnKuKVxgVYpfrK8RvWMT0rO
-	qH72nbN/LIJK3dQf5Mj5Cvqy2Pb7mvtFPbsLpZFQ6Ydnr+Uw2cW6xu7YKCu9bLLQXKRggmIfhc+
-	04Lzd147JEOOOPJDkTn4wA==
-X-Received: by 2002:a05:7022:5f04:b0:166:4b44:66e9 with SMTP id a92af1059eb24-190a87a48d6mr3690427c88.32.1792617839532;
-        Wed, 21 Oct 2026 14:23:59 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1903e02901fsm9050248c88.22.2026.10.21.14.23.58
+        bh=8IEZ9olq160T2eeN056hVBHNHsrJXJMeuGcg8w/hmqY=;
+        b=EbPFXmAvLkg5e5ZXwZfN1SSFEz5Nm7EXb3VVQbZXNKCzvowoB6SQzRizdN8N1C/NIL
+         ow7aFNCVpywcs6w7dOQlsvl9zKYlw45g3XFMF35SJur3IdaLaZ7nQIMVvDUNkTSdMJh/
+         0mdIvG63e2cf0HnWAjPk0D1latr/mT7IKL8ra5xF59LJd1ItvSg9+uBVKNSnAVmSmr3p
+         OtBPVq7veLnzK7IjQFXlgOb5vFmcvki3YTUT3bJxxFu+DtYVaYlCGGb/CyC6wdg1Sx5R
+         /5vhJCLB/3/dsHL9KTibStK5cxeiYppeHinM46s1bNkgh3D6baBHOffmrWqpsi3PAQzm
+         BQlA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPvjmuC99TvaUCmhZCIfEaIBjF5YgR8dpKG5cg7huRJjmMFAdkUMGxwSaT6Y/ChsOkXzB9giPVh+4Aupk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAwj3UYjEISbP12FhyFKPsY8rb6x8Mbs9y2RZrgN8EaApADGe/
+	HOxQ5qq1zjOU3Wz7CB69X1ZoWNplKCkYzMSoXXghJjHPH6UFYpRL5+8yFTJgxYbMH7o=
+X-Gm-Gg: AYBFou0yo7DfOhzwKNxNfyQJzZxue7TOscQahQiJ3BHbENTv8YiWG11912CLpCQ0/qO
+	WUGDX4KTJd5LS0hx4rroMr/f3jxwxFfSMM5jS4fiyitvbQWKbaG4/Y92KEsnlUOL9aJPBQOKmiu
+	EjYIlbnnqzfEW3cIbGzb6nlNKl9Iy6UqoSL2/vOr6GInLzvn/RwbRSxguSUNiCVbg/TF2llPEec
+	V8U33epKf4vklS/iBxrhfjmA+CQ6+9I47SCRd/fHIT+pshZYfPMbCtw382uFyR+v7kprzKhG27F
+	BxXnUKOLvWGPMPzKkget8ZWqqIAMfMzh7vu3bKexMNLcktutmiG8bZPfUUToK68irio34jjKKFd
+	087WJnB2+F72hdJmjGQdAQVwpxwndtiax9aSAJs5HnX4VjxXbxBu95H/hVchKs14OxRTLl129ul
+	RresiaCMsO4RFyjNtU69JaQfh097g9jmSGdSr/Qp+dUC9vfVHM4eiVxbtOp17Ars1DDiuttAAfK
+	AnlxfVtjIsg3+MBmPbKF1qNDw19Zu0FdsPN4j48O+BSxK03QC1Zpk8pgBPaekFA1xR4jmSShUxc
+	2Yv9YhV3BR6cOrXQom1yEZtZX2HZZ/kMPlmH
+X-Received: by 2002:a05:620a:4414:b0:93f:16d4:3bf0 with SMTP id af79cd13be357-93f57f23fa4mr670081285a.42.1792617874277;
+        Wed, 21 Oct 2026 14:24:34 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56df2ad5sm349884785a.27.2026.10.21.14.24.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 14:23:58 -0700 (PDT)
-Date: Wed, 21 Oct 2026 14:23:57 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 15/18] nvme-fc: Hold inflight requests while in
- FENCING state
-Message-ID: <20261021212357.GZ2931-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-16-mkhalfella@purestorage.com>
- <d9563967-9ddb-4cd7-9149-d1f37522e1fa@flourine.local>
+        Wed, 21 Oct 2026 14:24:25 -0700 (PDT)
+Date: Wed, 21 Oct 2026 17:24:20 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Chris Down <chris@chrisdown.name>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when
+ parent is the root
+Message-ID: <atktYGL3OP088D9P@gourry-fedora-PF4VCD3F>
+References: <20261021204818.3431099-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,53 +102,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d9563967-9ddb-4cd7-9149-d1f37522e1fa@flourine.local>
+In-Reply-To: <20261021204818.3431099-1-shakeel.butt@linux.dev>
 
-On Tue 2026-10-20 14:21:59 +0200, Daniel Wagner wrote:
-> On Sun, Sep 20, 2026 at 11:28:13AM -0700, Mohamed Khalfella wrote:
-> >  static void
-> > -nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
-> > +__nvme_fc_teardown_association(struct nvme_fc_ctrl *ctrl)
-> >  {
-> >  	struct nvmefc_ls_rcv_op *disls = NULL;
-> >  	unsigned long flags;
-> >  
-> > -	if (!test_and_clear_bit(ASSOC_ACTIVE, &ctrl->flags))
-> > -		return;
-> > -
-> >  	spin_lock_irqsave(&ctrl->lock, flags);
-> >  	set_bit(FCCTRL_TERMIO, &ctrl->flags);
-> > -	ctrl->iocnt = 0;
-> > +	atomic_set(&ctrl->iocnt, 0);
-> >  	spin_unlock_irqrestore(&ctrl->lock, flags);
-> >  
-> >  	__nvme_fc_abort_outstanding_ios(ctrl, false);
-> > @@ -3287,11 +3328,18 @@ nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
-> >  	nvme_fc_abort_aen_ops(ctrl);
-> >  
-> >  	/* wait for all io that had to be aborted */
-> > +	wait_event(ctrl->ioabort_wait, atomic_read(&ctrl->iocnt) == 0);
-> >  	spin_lock_irq(&ctrl->lock);
-> > -	wait_event_lock_irq(ctrl->ioabort_wait, ctrl->iocnt == 0, ctrl->lock);
-> >  	clear_bit(FCCTRL_TERMIO, &ctrl->flags);
-> >  	spin_unlock_irq(&ctrl->lock);
-> >  
-> > +	/*
-> > +	 * Wait for a started nvme_fc_fcpio_done() to complete before we
-> > +	 * proceed with cancelling inflight requests. This guarantees a
-> > +	 * request is completed by one of the two codepaths, not both.
-> > +	 */
-> > +	synchronize_rcu();
-> > +
+On Wed, Oct 21, 2026 at 01:48:18PM -0700, Shakeel Butt wrote:
+> page_counter_calculate_protection() runs without locks. Several
+> reclaimers can update the same counter's emin and elow at the same
+> time, and readers such as mem_cgroup_below_min(), mem_cgroup_protection()
+> and the dmem eviction code load them with READ_ONCE().
 > 
-> The synchronize_rcu() protects against nvme_cancel_tagset() racing with
-> an fcpio_done() for an op that completed normally and therefore wasn't
-> counted in iocnt. Wouldn't it be clearer to make the hold explicit in
-> op->state (e.g. FCPOP_STATE_HELD) and only complete held ops in
-> nvme_fc_flush_held_requests(), instead of using RCU as a barrier for
-> running callbacks?
+...
+> 
+> Use WRITE_ONCE() for these two stores as well.
+> 
+> There is no functional change. Readers already accept stale values, and
+> compilers emit a single word-sized store either way: with GCC 14 the
+> x86-64 object code is the same before and after this change.
+> 
+> Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store tearing")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-Adding new FCPOP_STATE_HELD will result in a more invasive change and it
-will result in nvme-fc no using nvme_cancel_tagset(). My intent with
-this change is to bring nvme-fc closer to other transport and only
-cancel inflight requests. synchronize_rcu() is a simpler in this case.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+
