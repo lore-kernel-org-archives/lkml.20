@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590099;
-	b=L6uSSVlfo5RHbK/rDoNB5XOI4y8rXhekkdkU16c8NytfPYbOa1UvpP/wN3aa6CUFwmAW
-	 yluB4ziT9l/iAHu8LpaamKC0lw8cuBj1CUjiMUml4SdzOWmHOhILV5E+e1nYhWQXKPLxQ
-	 +EoTY6k4kAUqyNM1lJNyU6ynNnFivk7XVzcQ935Sj3stG296lZrGOWmtsr4enP0TpTTz/
-	 E+C4rwASai8PP6ph6KAzoLHcUZ6x0nKPvmB3EtTi5WYuQDvGg2rTbDpfgXAraq5oAPKZG
-	 GiKkk2IcuP99NgErsQ0pthgqO1Sm5MPZD2F8mGu2lp8sUrqt4uN5tLJAYhwMepyZM0A==
+	t=1792590119;
+	b=2XwRurc2eUnJmoHK9Q7489ou9Q7aEd/ljA7wmByd/FDSfHgv7O2+y9V4SwmOMM8/Ld1O
+	 c/N/cHfjfG4/e+qcbZrlj8A+CKydMt+4+KgAgQt3BiNmvNzdcgt8ebPEdRKUV5SKZLAmJ
+	 UoNq6tIcvjq4hp9Agvog/hmp6H1T3BhRyUj/+8wpK1CW5wuZ8adUYM8QSuhEM/IPU1Vh4
+	 /ZUJaMEPAI5WYzcF3SB2+ZZtVzDQndCsLFU2x6FWXIGpPJPbCzMKJRFqG73mKzWi3lA4e
+	 ThmhDqO8GnVCuvpqVatpVc3XuGCcW3ftxxuRKBFV2FB6iu0Uo1dVX+PyasUAkoqnBbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590099;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lTFhtZqgicHqPLQLHq7f0+ApWdYensFNsFbqs8ibbZ8=;
-	b=TzZDomQoaTT2AX6OvBhzFEQN/FNfSFQrcjRRzmiGmXWNwqSH+Dwl6EDftK55R9AoqjWv
-	 yAnMx4P8H2b8i/kluHsNVuFOQ7kVr2Vgn1OL4BaFC8nPzKbasVbEL2fcUVLuFMb4Px18F
-	 fvrd5O9Q9G+bAIn02veIDD0KcWFl2F9d/wj+Xc94IY3RddZmmznXS37SV709xBRHF9EeE
-	 YmSK5kBqqeooFWuV5LG6u2vWN39zpPQU1ZgUuSL/m2QSAVLXo8vlk1PwRTvrSYsVqpPYg
-	 W773+WNEsv1IOssCqVdPjET5AzTSamZUrlOJOT3dx6NbUp749oj5fDEFiCsVWafgItw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590119;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ywqdoksWZOxBEsKjGYaWE7dzHDWPLk7jVmwHHRaLveU=;
+	b=zWwPnMLNQurXbJjXkzpvawBAdSV2iUs5CWExs/KEAFTcCSWqQXqp+aGE5SDa6BCKdJLU
+	 F+UMQgLFJdOJoPHcYa4XWeE/vUkWjfnk3Venb770obP2Mty40aQadZlBsi1YJb7KspMNY
+	 XBnIknLaq5vZiAH6JR+6GXHNkQZeC+IovlEfyBqrMKq7BN7+t8+O8sF7jiN5BY2+mwA8A
+	 Bbuq7vHIULmODIOEGN7bk4xeq9qHT2e9uz2ni+VI0CAAi+2kvypjGLIhdiUTMAQpw3khT
+	 OngNW8UzEIC8HplctI6Tq3rlGBdtgusrsJ/KT+dtSZWvJR1I+1oyd/AWJWjVr68oaPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIPX+SlG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cTNWLBv5;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995CA606A321;
-	Wed, 21 Oct 2026 13:41:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C1D606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42C1D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIPX+SlG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5051F000C6;
-	Wed, 21 Oct 2026 13:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792590099;
-	bh=lTFhtZqgicHqPLQLHq7f0+ApWdYensFNsFbqs8ibbZ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aIPX+SlG7yHmfF6l9Vgd8xZG0tgIQpxmgyph8tOgd8j+PPYZNdq1QjbE37zVFdcmO
-	 ztUF/I0qJQnq0n634ioclSbE1tc5KFfKuv1GVcF8TL7NDRewd7OAtuJsOr9zX5rd53
-	 7/DN9LPcwLgXw/lt/s6+hBabQpIgAG9a6nljg6UJaq8RegqQ4UZi4SEZrZbkdBnXeH
-	 xpVswCNUD9WTtU0jL9qSHqTZ8IMxYBRhwqOdD8IPNe3g7DtkkYAEJ+HXeYqRR5xtqX
-	 UEA3BTPnzlXGgZ6JmozO4UHtfUj7YbolwGEqOoebfYjmapFDqlCd4yxcysw3TuXF1F
-	 NVJ9/mpUwJxyw==
-Date: Wed, 21 Oct 2026 08:41:38 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: linux-mm@kvack.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>,
-	Wandun <chenwandun1@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v3 0/2] of: reserved_mem: use dynamically allocated
- reserved_mem array
-Message-ID: <20261021134138.GC3667411-robh@kernel.org>
-References: <CGME20261015082333eucas1p28bad74cde14ee0afac2eea11bbe6696c@eucas1p2.samsung.com>
- <20261015082315.56876-1-m.szyprowski@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cTNWLBv5
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dd3367198so81038f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792590117; x=1793194917; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ywqdoksWZOxBEsKjGYaWE7dzHDWPLk7jVmwHHRaLveU=;
+        b=cTNWLBv5u68Vm7ONZtq4Wi1HY7JigVi2CND5dATmJc2Xmfv1aqkpcV/IdAGk8nNs0J
+         Zlhl+I/Z4r/YuMhgN+b8Btty3GH/MrOQyXKcF9XSgei7yYx0pwULvm6VeGZZBJVjWGw/
+         d2pE/+cyLXtWIHjNnuDP560OVo5VhgLIWBy+einGtgZoulAcJneyHbOUIluyxmZTj2cr
+         oZhUxxASTAPVVqnl01VyHP9bYEVNWx5KZTQ8mnYCjgYiRyWoAXKm8w/2sUZ67RVn9ctX
+         /zBSc2EIQtw04L8vyHcdekZ6C5BlFqiL9MdixyMV5IDiDn7qNoRG6HKMVd3xQeHgfj6/
+         j61w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792590117; x=1793194917;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ywqdoksWZOxBEsKjGYaWE7dzHDWPLk7jVmwHHRaLveU=;
+        b=TZSPEVU7BvDhgR0uaGoDOBhLBgiVCb6jl+Qx2lf2I1sm5r3kyGj0iiWeA2jpl/Mutb
+         4N27Je9Nw/rsmWr1sH4K6nRyE+AgQ0+z9qk8yEyAYhPpraqiIYAPrEFfFnbEtre/ygiJ
+         ERl0gl5yqDgywCZ08z1UNs10KuQeSFj3vL+UHw1EQTTgoGuER+2sHaqtHQcgFEtGOqeU
+         fXk/TcC5FmwvoeF0DDv2rTz/nh5QVnZeO/dBLNpY8wt6RLdkC1WBpWjP7fV6snmAj/n9
+         bTrwc1uOG/3GOMqKRlzSla612lK6cDG4t1gIwDPU6l5AoLavGSHBYfwU/EWibKksl3Nj
+         FArg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeBSMiNsteyXW5CN7Z6fMEXHO59XsvcfCSzhgoLSji5Zo2W3D2rXxSac7s6TGZB2pf2d+lmZllyEoVSaI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDqHLHd14bTnaEswJ1bYA1cIlr0XulLD6aiSTtJU+TS9xvPPcT
+	PnbBV18TA3OSb6L8Bbanzx6OofMd/NDZwPZc1kA6jjWCt+LGnyDGTliO
+X-Gm-Gg: AYBFou1y8H/cRZhysb2O/OwQyrUlQveqQTanKItqX8GZfVi/R6h2aArt2fKS0sKmeV1
+	bYpZtvaTaKmTNGiOVQNtonOQsYo57N7O18vugMcxWUQa2qbjtbH8mDeULRVH1oGR0tR2Mlshsnk
+	f57W7jq7hh3CDgnSr/RbCTDcQkAYOlTA+FdITljoJhcwpAn/Er//Pk2MB2DGN5S8DWbj1vIAUUK
+	gFeGteNQPjGkBFjyPuTe/1OF8clrdshiwoEyEnPCOLn9xt3ckjoMzjJWkgQZ0w53paXsng6g0CW
+	ejr2HYTCcTyqil3B8Uo5xXbH7jj8RgXSP2U4r61wjR2BIL4qB8haAMswbPr7aEhCxsjWo74d9Ek
+	2wubaDSzQ2f6dXmZWk8UgaxBpyZyDarvuo46wYZ0Br5fbc4jKeij6PoEr50OZRTCAZp6K8FGXR6
+	eV4yBCvEkx9T+/TJPQQGEzdzhJVm5A48K0TFuVt2/2ibdSXYz1cQLturuGDVCgKL5re4q9r3RU6
+	Dcyd633SHJxQzRkv0RFjF9hWD+pqm1MmyRwOmw2mEmASKbWAIfKjS/NBBSfdl/4vQS/35jFxGRO
+	d6PKnR4=
+X-Received: by 2002:a5d:68d2:0:b0:48d:f9c1:2ad4 with SMTP id ffacd0b85a97d-48e264c4036mr2820239f8f.4.1792590116806;
+        Wed, 21 Oct 2026 06:41:56 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835e22sm6317584f8f.44.2026.10.21.06.41.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:41:56 -0700 (PDT)
+Date: Wed, 21 Oct 2026 16:41:52 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, mingo@redhat.com, 
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, jakub@okonski.org, longman@redhat.com, tj@kernel.org, 
+	hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org, jstultz@google.com, 
+	qyousef@layalina.io
+Subject: Re: [PATCH v2] sched/eevdf: Fix sched idle task group preemption
+Message-ID: <ati_o5c-SoiOp529@scheduler.schedules>
+References: <20261019182622.1584454-1-vincent.guittot@linaro.org>
+ <20261021131313.GM2823843@noisy.programming.kicks-ass.net>
+ <CAKfTPtDOZ0=nrQe1-WSTamgU0qqdJVvD3KZPtnsqwwnE53BSKA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,66 +102,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261015082315.56876-1-m.szyprowski@samsung.com>
+In-Reply-To: <CAKfTPtDOZ0=nrQe1-WSTamgU0qqdJVvD3KZPtnsqwwnE53BSKA@mail.gmail.com>
 
-On Thu, Oct 15, 2026 at 10:23:10AM +0200, Marek Szyprowski wrote:
-> Mike Rapoport suggested [1] how to properly use dynamically allocated
-> arrays during early boot.
+On Wed, Oct 21, 2026 at 03:32:59PM +0200, Vincent Guittot wrote:
+> On Wed, 21 Oct 2026 at 15:13, Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > On Mon, Oct 19, 2026 at 08:26:22PM +0200, Vincent Guittot wrote:
+> > > Even with flat hierarchy which puts all runnable tasks in the same cfs rq,
+> > > we need to parse the hierarchy to check for sched_idle task group.
+> >
+> > I F'ing hate cgroups :-(
+> >
+> >
+> > > +static void
+> > > +find_matching_se(struct sched_entity **se, struct sched_entity **pse)
+> > > +{
+> > > +     int se_depth, pse_depth;
+> > > +
+> > > +     /*
+> > > +      * preemption test can be made between sibling entities who are in the
+> > > +      * same cfs_rq i.e who have a common parent. Walk up the hierarchy of
+> > > +      * both tasks until we find their ancestors who are siblings of common
+> > > +      * parent.
+> > > +      */
+> > > +
+> > > +     /* First walk up until both entities are at same depth */
+> > > +     se_depth = (*se)->depth;
+> > > +     pse_depth = (*pse)->depth;
+> > > +
+> > > +     while (se_depth > pse_depth) {
+> > > +             se_depth--;
+> > > +             *se = parent_entity(*se);
+> > > +     }
+> > > +
+> > > +     while (pse_depth > se_depth) {
+> > > +             pse_depth--;
+> > > +             *pse = parent_entity(*pse);
+> > > +     }
+> > > +
+> > > +     while (!is_same_group(*se, *pse)) {
+> > > +             *se = parent_entity(*se);
+> > > +             *pse = parent_entity(*pse);
+> > > +     }
+> > > +}
+> > > +
+> > >  static int tg_is_idle(struct task_group *tg)
+> > >  {
+> > >       return tg->idle > 0;
+> > > @@ -476,6 +508,11 @@ static inline struct sched_entity *parent_entity(struct sched_entity *se)
+> > >       return NULL;
+> > >  }
+> > >
+> > > +static inline void
+> > > +find_matching_se(struct sched_entity **se, struct sched_entity **pse)
+> > > +{
+> > > +}
+> > > +
+> > >  static inline int tg_is_idle(struct task_group *tg)
+> > >  {
+> > >       return 0;
+> > > @@ -10129,7 +10166,35 @@ preempt_sync(struct rq *rq, int wake_flags,
+> > >  }
+> > >
+> > >  /*
+> > > - * Preempt the current task with a newly woken task if needed:
+> > > + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> > > + * in the inverse case).
+> > > + */
+> > > +static inline enum preempt_wakeup_action
+> > > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
+> > > +{
+> > > +     int cse_is_idle, pse_is_idle;
+> > > +
+> > > +     find_matching_se(&cse, &pse);
+> > > +     WARN_ON_ONCE(!pse);
+> > > +
+> > > +     cse_is_idle = se_is_idle(cse);
+> > > +     pse_is_idle = se_is_idle(pse);
+> > > +
+> > > +     /*
+> > > +      * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> > > +      * in the inverse case).
+> > > +      */
+> > > +     if (cse_is_idle && !pse_is_idle)
+> > > +             return PREEMPT_WAKEUP_RESCHED;
+> > > +
+> > > +     if (cse_is_idle != pse_is_idle)
+> > > +             return PREEMPT_WAKEUP_NONE;
+> > > +
+> > > +     return PREEMPT_WAKEUP_PICK;
+> > > +}
+> > > +
+> > > +/*
+> > > + * Preempt the current task with a newly woken task if needed.
+> > >   */
+> > >  static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_flags)
+> > >  {
+> > > @@ -10137,7 +10202,6 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+> > >       struct task_struct *donor = rq->donor;
+> > >       struct sched_entity *nse, *se = &donor->se, *pse = &p->se;
+> > >       struct cfs_rq *cfs_rq = &rq->cfs;
+> > > -     int cse_is_idle, pse_is_idle;
+> > >
+> > >       /*
+> > >        * XXX Getting preempted by higher class, try and find idle CPU?
+> > > @@ -10174,22 +10238,14 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+> > >       if (!sched_feat(WAKEUP_PREEMPTION))
+> > >               return;
+> > >
+> > > -     WARN_ON_ONCE(!pse);
+> > > -
+> > > -     cse_is_idle = se_is_idle(se);
+> > > -     pse_is_idle = se_is_idle(pse);
+> > > +     preempt_action = wakeup_preempt_sched_idle(se, pse);
+> > >
+> > > -     nse = se;
+> > > -     /*
+> > > -      * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> > > -      * in the inverse case).
+> > > -      */
+> > > -     if (cse_is_idle && !pse_is_idle)
+> > > +     if (preempt_action == PREEMPT_WAKEUP_RESCHED)
+> > >               goto preempt;
+> > >
+> > >       update_curr_fair(rq);
+> > >
+> > > -     if (cse_is_idle != pse_is_idle)
+> > > +     if (preempt_action == PREEMPT_WAKEUP_NONE)
+> > >               goto update;
+> > >
+> > >       /*
+> >
+> > What is the actual semantics of cpu.idle nonsense? Why do we care about
+> > this common ancestor?
 > 
-> Use this approach for reserved_mem array during early scan of the
-> reserved regions. Having all the reserved regions in a single array
-> removes the need of the two pass initialization introduced by commit
-> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
-> regions are processed"), so implement it to make the code simpler,
-> easier to understand and ready for adding proper error checking.
-> 
-> Tested on ARM32, ARM64 and RiscV64 based boards. Arch specific issues
-> with early mappings were discovered by LLM.
-> 
-> [1] https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
-> 
-> 
-> Best regards
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
-> 
-> 
-> Changelog:
-> 
-> v3:
-> - allocate the reserved_mem array only after all static regions are
->   reserved or marked as no-map, so it cannot be placed inside any of
->   them
-> - record failures of the early static reservations and print a single
->   message asking to fix the device-tree
-> - restore conditional compilation of the early mapping code, because
->   some architectures lack support for it (C-SKY & Sparc64 as reported
->   by kbuild robot)
-> - allocate the array bottom-up, to avoid allocating from highmem, what
->   might be an issue on Xtensa, C-SKY and MIPS32
-> - don't use the early mapping on PPC64, where the scan is done before
->   early_ioremap_setup()
-> 
-> v2: https://lore.kernel.org/all/20261008152403.766439-1-m.szyprowski@samsung.com/
-> - removed superfluous ifdefs
-> 
-> v1: https://lore.kernel.org/all/20261008094125.3197971-1-m.szyprowski@samsung.com/
-> - initial version
-> 
-> 
-> Patch summary:
-> 
-> Marek Szyprowski (2):
->   of: reserved_mem: group allocation helpers together
->   of: reserved_mem: allocate and map the reserved_mem array early
+> AFAICT, cpu.idle applied to one level and against entities at the same level
+>
 
-Can you confirm the sashiko issues are not issues?
+Yeah. Like on here:
 
-I'll apply this after rc1. Are you willing to be added as reviewer or 
-maintainer for this code? I'd prefer not to have another entry just for 
-the reserved mem code, so you'd have to filter out the rest of the DT 
-code (not the bindings and dts firehose) which isn't too much.
+    ROOT
+     /\
+    /  \
+   /    \
+  GA    GB
+   |    /\
+   V   /  \
+  TA  GC   GD
+      |    |
+      V    V
+      TB   TC
 
-Rob
+If GA is idle and GB is not, while GC is idle and were looking to TA and
+TB we gotta choose TB. But if we just look to GC and GA we would choose
+neither. .idle just applies to one level as Vincent says.
+
+> >
+> > Can't we do any of:
+> >
+> >  - propagate cfs_rq->idle to all child groups in sched_group_set_idle(); or
+> >
+> >  - have se_is_idle() walk up and report true if any of the ancestors is
+> >    idle?
+> 
+> I'm fine with either way but this will change the behavior.
+> 
+
+So is it good or bad to change the behavior in this case? If we don't
+want to change it are there any cleaner way? Well I can't find any.
+
+> >
+> > I despise this find_matching_se() thing and was so very glad to have
+> > deleted it.
+> 
+> +1
+> 
+> >
