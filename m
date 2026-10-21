@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602723;
-	b=RuEMHNL/8iEUmdmoHFT8F8FTNRddovrdgcfLvjMEX7qdFTWst135EYEEsV6TxVmbBzC4
-	 PI5j3rdK5uzCfwFN1Plug6OXnUf+qVNR2EKOpHa9NQwM2oAUdP/4OknC4hUgWpsoLONut
-	 EO8bmTqqXFPlXcLVj7r++Pg4hbOmRoGuwOAP4JZpd+/T7WANCReZqbnKOjvO+55nQZrdd
-	 9NBzuNRJTyGLJY0ioSVBSDmaXhDNAs6UkYcPRcOAZBncmi92gBVZlm/4jbd23oCIJkEB+
-	 HLkkS6OYxM12DHZt2zfDhbe+eAJiVG3YEz1neYJp45Bi8+NC8h/y6xL9SbAtiSmklpw==
+	t=1792602720;
+	b=SwJJUlCf0qgPRiX/VDrcHJVdJEBcOT+eKcz+qKxvneHH1trIeJFvnT/nvimP8vX61uHy
+	 zwCWyl5MZL6f58FTYGkHV87FHv6LuZAMDIo4rPysIvmUP0s67A3itgLhhnYAYIL+xPZxe
+	 C2QnlyDcFtQdJtrrHbHfLBCU5GB7Cq35yQBDG6bL5Uf6Ki3tJIdR7xV9oqj0nxoDN8xGx
+	 cdbToK0WjApyhnC0jAmToUnvckPn/9pZ2JhT0sJY/2qka+oYt3KD5wdyl6QL7MWUkRp6W
+	 fPixYjOYdEEXZhQTpqhOqIHll9XUbNqRqOvXIr8Z1b0nkAvcz27Fq/FZ8+t/yz3Q+sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602723;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=tSMiQ6NIUcAT0NRQb854JTEOyM6xl86cQuNOuZ1ci/Y=;
-	b=vb1bQA7eWQHxil8qmSUp97hWQWNI7rud+e8D/snCT/I5ogWHD0YaqJgzgiSRhf81Ctj/
-	 HGCDyzt0oCJNv6xLTLuSeF9YkkqCRNx8ullt48IiMwgKL948CjeNmlJJlDRpAUZ95fFXR
-	 k9cTFVoEB4+bnMghxDGkzvnUwttJmp1yGKGhiLveDOKZxaGCp1ySqsCBMp07K0n2Vf0zU
-	 mHz70WP1j7/4V6JvOjuFRcS8sIJcz42V252sKlXg0widA2j221/SKhjvrnlAzSvbDwn0U
-	 oIQfDm+PhGujpnw/iKWrl26PYcCvEPk6cxoM8PJZtCPz+Ns71WixDRAYEDl4TES5rAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602720;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
+	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=1tnzbTVQ51uWZal+Jth6879qYR8Xa8UKPaBRBV/R8Yw=;
+	b=5EGuO7OUYLmPxYeHXAGOcTYeldH5JHMdA6ipeO0yfOiUtj7yV8LzBZfcxnUeZlqo38mk
+	 rWXgxP/STfaYrU+ojBKc9eQoy3F4Hgkn/URl4jeW59RoNom+w+YloPb7mrFHroTYplr/F
+	 EOaesSePrgqcZ50kjlZQtKF7jVoOkhvEU4pTefWiPgvAF2qsfBP99NDiREPzmL6pj7UGC
+	 9q7+K2bk+6/6uom7BhCtYrOKwCI+GH5t7i/w3p/001CconRqqsL3t4ce1Wi8k7s3X+Bkw
+	 /SISH1FGwhFqCC9knBSfMLd0IuxLETbU8F/srdxdG2tGrdgVXOuXkkXHUJSishq2xCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=W64jZwJQ;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FFPDORY8;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25248606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:12:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25248606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F0460A263E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:11:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83F0460A263E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=W64jZwJQ
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35cbea41088so1724601eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:12:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792602722; x=1793207522; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tSMiQ6NIUcAT0NRQb854JTEOyM6xl86cQuNOuZ1ci/Y=;
-        b=W64jZwJQtnwxXEFM2ypwvFrA3vtOPWyIbthccSegGrphsx3BU5h4NGACZ575MmHB/t
-         Sh37cGJLHQt/YUoiYsmitLAiRjNdmnETUc73jBhdrE1sGI+BaWNMQCWUsedTFJ6odoaO
-         pOigGuUMZoIvUWAymeh6amaH0H7FkQXp5NfQp5Q7Xq4YQNnfGVsy1hCt3Tu8q96umhzr
-         Ag7JMYdaYy4i+0eATlYhvopBhvUNFX6ytMVwm9NpKpxueXZKq/0wGjqZf2MA8GpGLRCx
-         TuGNrIs4gOPuD1LBULUNICGuxHl5CQE6PMUhQYfRrv/yIa3QzMIqhuNs84LL38oEoIoX
-         B7oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602722; x=1793207522;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tSMiQ6NIUcAT0NRQb854JTEOyM6xl86cQuNOuZ1ci/Y=;
-        b=2pH80BXzRe7FLNC0xSBtKhwaQ7LaPB6gTCNUFntKwWDEwubnogWw5sAairAjtrKHtf
-         D3p0TiJszOSUTlVnjdZkb5TpSSWQa2++g+YaXcgVZQ9/ByJdFn5zC279i4n0GGC2JRrv
-         e0lAy9JWDpHsOanWUBSDMzNY+vjj5DT9eh7nDnGqob5SEG764CLBNZCmWhZxqepIp5JS
-         lJuUrk3J4DKDSNXDk3QkImwQHCmBoaXpIsNdShZZFZB0iBny+bfGoX4IRMlHp34gdkl0
-         Iko3pVgfDRBdepPgQx3vA/pFxXdqTq71+1+WWQPCdeKZLb95KQRh4bLWWaFrWHt9y3lP
-         8h3A==
-X-Forwarded-Encrypted: i=1; AKwUvBz6y/2REHNCpPvDp0eS+cFSeKXP7ZOKeIotGvXxgWLDv7F3xltKlqw+t0DDnGefzVskGWqnTvez0jVaOV4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJHecQyx+ouQm6+6044x/DzGHFY+08NQ42BzWGVtjgH6p+d1Nu
-	KgaLYjIHH0AKCYy0/c5QGRnzYuPx20bOTjDdvNWhlNCn8pvOckCsAomf70r9eHVG6fbgwn4++b4
-	ml1MF8CqeWA==
-X-Received: from dlbvg25.prod.google.com ([2002:a05:7022:7f19:b0:182:2feb:a149])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4642:b0:188:ea93:6cf9
- with SMTP id a92af1059eb24-190a709edf1mr2930187c88.43.1792602721780; Wed, 21
- Oct 2026 10:12:01 -0700 (PDT)
-Date: Wed, 21 Oct 2026 10:10:38 -0700
-In-Reply-To: <20261021171044.155240-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FFPDORY8
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D11094E41266;
+	Wed, 21 Oct 2026 17:11:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F01D606E3;
+	Wed, 21 Oct 2026 17:11:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2218C103289F5;
+	Wed, 21 Oct 2026 19:11:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792602715; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1tnzbTVQ51uWZal+Jth6879qYR8Xa8UKPaBRBV/R8Yw=;
+	b=FFPDORY8amXem0dXx+KM4QkcYhR4YxwcmnlvfN5R02wk3st8BP2sBZ8EytAUMvqU7W1+VF
+	cLEsbeHGkcZnXyr9i5aftrn3eLTe4nokqn5sT6sWlx+PBFv3prmA/GaOOoCJ2OrZYkUU/g
+	gTGgq0sbFmKONpet23SsyVRCYY9Jt2omxtxGpe22TVUdGD8KctUAojpZYvtgJzhd/I7f5R
+	rQqiUUtlDK1cnFX2u7InHqX7oPqL1L/Dk5nEE3LEHghx7jzVdzR07p2ZR3k6vC9q2+UnW0
+	B+f6ABGnRsNBOXq5pl9O6h4bxvF+6klq5m5HFm982uisSC/PlHhwZEYJqSAZUw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,174 +59,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261020163640.746159-1-irogers@google.com> <20261021171044.155240-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021171044.155240-13-irogers@google.com>
-Subject: [PATCH v6 12/17] perf thread: Expand context analysis annotations to
- threads and namespaces_lock
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	justinstitt@google.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
-	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
-	ndesaulniers@google.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 19:11:51 +0200
+Message-Id: <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
+Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add
+ regulator-boot-force-off property
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Conor Dooley" <conor@kernel.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
+ <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
+ <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
+ <20261021-wind-reopen-490475bc470d@spud>
+In-Reply-To: <20261021-wind-reopen-490475bc470d@spud>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Annotate shard and last_match in struct threads_table_entry with
-__guarded_by(&lock) and add __must_hold_shared()/__must_hold() to the
-last_match helpers in util/threads.c.
+On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
+> On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
+>> Introduce a new property to immediately disable the regulator at boot
+>> time.
+>> This property is useful when a consumer device may query the state of
+>> the regulator at boot time, and want to disable it right away, without a
+>> prior regulator_enable().
+>>=20
+>> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+>> ---
+>>  Documentation/devicetree/bindings/regulator/regulator.yaml | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/regulator/regulator.yaml =
+b/Documentation/devicetree/bindings/regulator/regulator.yaml
+>> index 019aeb664cae..2da8f70d7e7a 100644
+>> --- a/Documentation/devicetree/bindings/regulator/regulator.yaml
+>> +++ b/Documentation/devicetree/bindings/regulator/regulator.yaml
+>> @@ -41,6 +41,14 @@ properties:
+>>      description: boolean, regulator should never be disabled
+>>      type: boolean
+>> =20
+>> +  regulator-boot-force-off:
+>> +    description: a regulator may be enabled by default when the system =
+powers up.
+>> +      A consumer may query the regulator's state during boot and disabl=
+e it if
+>> +      it is already enabled, potentially resulting in an unbalanced dis=
+able
+>> +      operation. This property ensures that the regulator is disabled a=
+t boot,
+>> +      regardless of its previous state.
+>
+> To be honest, I'm not sure how the commentary about querying the state
+> or being unbalanced is relevant to the description - that sounds like
+> something specific to the linux regulator framework?
 
-In util/thread.h and util/thread.c, add __returns_ctx_lock() to
-thread__namespaces_lock() and thread__comm_lock(), annotate
-namespaces_list and comm_list with __guarded_by(), and add
-__must_hold_shared()/__must_hold() to the namespaces_list helpers.
+Yes it is. Maybe I miss something, does this binding is used outside linux =
+?
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/thread.c  |  2 ++
- tools/perf/util/thread.h  | 28 +++++++++++++++++-----------
- tools/perf/util/threads.c |  4 ++++
- tools/perf/util/threads.h |  6 +++---
- 4 files changed, 26 insertions(+), 14 deletions(-)
+>
+> In fact, I'm not sure why this is needed at all? Can't you just change
+> the software so that it is okay to disable a regulator that has an
+> explicit enable count of zero?
+>
 
-diff --git a/tools/perf/util/thread.c b/tools/perf/util/thread.c
-index 616d5bf87baf..af761b1fc5d5 100644
---- a/tools/perf/util/thread.c
-+++ b/tools/perf/util/thread.c
-@@ -149,6 +149,7 @@ void thread__put(struct thread *thread)
- }
- 
- static struct namespaces *__thread__namespaces(struct thread *thread)
-+	__must_hold_shared(thread__namespaces_lock(thread))
- {
- 	if (list_empty(thread__namespaces_list(thread)))
- 		return NULL;
-@@ -169,6 +170,7 @@ struct namespaces *thread__namespaces(struct thread *thread)
- 
- static int __thread__set_namespaces(struct thread *thread, u64 timestamp,
- 				    struct perf_record_namespaces *event)
-+	__must_hold(thread__namespaces_lock(thread))
- {
- 	struct namespaces *new, *curr = __thread__namespaces(thread);
- 
-diff --git a/tools/perf/util/thread.h b/tools/perf/util/thread.h
-index 9d0ce7742c06..a7850eebce4e 100644
---- a/tools/perf/util/thread.h
-+++ b/tools/perf/util/thread.h
-@@ -48,10 +48,10 @@ DECLARE_RC_STRUCT(thread) {
- 	bool			exited;
- 	bool			comm_set;
- 	int			comm_len;
--	struct list_head	namespaces_list;
- 	struct rw_semaphore	namespaces_lock;
--	struct list_head	comm_list;
-+	struct list_head	namespaces_list __guarded_by(&namespaces_lock);
- 	struct rw_semaphore	comm_lock;
-+	struct list_head	comm_list __guarded_by(&comm_lock);
- 	u64			db_id;
- 
- 	void			*priv;
-@@ -230,30 +230,36 @@ static inline void thread__set_comm_len(struct thread *thread, int len)
- 	RC_CHK_ACCESS(thread)->comm_len = len;
- }
- 
--static inline struct list_head *thread__namespaces_list(struct thread *thread)
-+static inline struct rw_semaphore *thread__namespaces_lock(const struct thread *thread)
-+	__returns_ctx_lock(&RC_CHK_ACCESS(thread)->namespaces_lock)
- {
--	return &RC_CHK_ACCESS(thread)->namespaces_list;
-+	return (struct rw_semaphore *)&RC_CHK_ACCESS(thread)->namespaces_lock;
- }
- 
--static inline int thread__namespaces_list_empty(const struct thread *thread)
-+static inline struct list_head *thread__namespaces_list(struct thread *thread)
-+	__must_hold_shared(thread__namespaces_lock(thread))
- {
--	return list_empty(&RC_CHK_ACCESS(thread)->namespaces_list);
-+	/* Readers hold the shared lock; writers hold the exclusive lock. */
-+	return context_unsafe(&RC_CHK_ACCESS(thread)->namespaces_list);
- }
- 
--static inline struct rw_semaphore *thread__namespaces_lock(struct thread *thread)
-+static inline int thread__namespaces_list_empty(const struct thread *thread)
-+	__must_hold_shared(thread__namespaces_lock(thread))
- {
--	return &RC_CHK_ACCESS(thread)->namespaces_lock;
-+	return list_empty(&RC_CHK_ACCESS(thread)->namespaces_list);
- }
- 
--static inline struct rw_semaphore *thread__comm_lock(struct thread *thread)
-+static inline struct rw_semaphore *thread__comm_lock(const struct thread *thread)
-+	__returns_ctx_lock(&RC_CHK_ACCESS(thread)->comm_lock)
- {
--	return &RC_CHK_ACCESS(thread)->comm_lock;
-+	return (struct rw_semaphore *)&RC_CHK_ACCESS(thread)->comm_lock;
- }
- 
- static inline struct list_head *thread__comm_list(struct thread *thread)
- 	__must_hold_shared(thread__comm_lock(thread))
- {
--	return &RC_CHK_ACCESS(thread)->comm_list;
-+	/* Readers hold the shared lock; writers hold the exclusive lock. */
-+	return context_unsafe(&RC_CHK_ACCESS(thread)->comm_list);
- }
- 
- static inline u64 thread__db_id(const struct thread *thread)
-diff --git a/tools/perf/util/threads.c b/tools/perf/util/threads.c
-index 6ca0b178fb6c..39b3c420635a 100644
---- a/tools/perf/util/threads.c
-+++ b/tools/perf/util/threads.c
-@@ -21,6 +21,7 @@ static bool key_equal(long key1, long key2, void *ctx __maybe_unused)
- }
- 
- void threads__init(struct threads *threads)
-+	__context_unsafe(/* initialization */)
- {
- 	for (int i = 0; i < THREADS__TABLE_SIZE; i++) {
- 		struct threads_table_entry *table = &threads->table[i];
-@@ -32,6 +33,7 @@ void threads__init(struct threads *threads)
- }
- 
- void threads__exit(struct threads *threads)
-+	__context_unsafe(/* teardown */)
- {
- 	threads__remove_all_threads(threads);
- 	for (int i = 0; i < THREADS__TABLE_SIZE; i++) {
-@@ -63,6 +65,7 @@ size_t threads__nr(struct threads *threads)
-  */
- static struct thread *__threads_table_entry__get_last_match(struct threads_table_entry *table,
- 							    pid_t tid)
-+	__must_hold_shared(&table->lock)
- {
- 	struct thread *th, *res = NULL;
- 
-@@ -76,6 +79,7 @@ static struct thread *__threads_table_entry__get_last_match(struct threads_table
- 
- static void __threads_table_entry__set_last_match(struct threads_table_entry *table,
- 						  struct thread *th)
-+	__must_hold(&table->lock)
- {
- 	thread__put(table->last_match);
- 	table->last_match = thread__get(th);
-diff --git a/tools/perf/util/threads.h b/tools/perf/util/threads.h
-index da68d2223f18..54fba16657db 100644
---- a/tools/perf/util/threads.h
-+++ b/tools/perf/util/threads.h
-@@ -11,10 +11,10 @@ struct thread;
- #define THREADS__TABLE_SIZE	(1 << THREADS__TABLE_BITS)
- 
- struct threads_table_entry {
--	/* Key is tid, value is struct thread. */
--	struct hashmap	       shard;
- 	struct rw_semaphore    lock;
--	struct thread	       *last_match;
-+	/* Key is tid, value is struct thread. */
-+	struct hashmap	       shard __guarded_by(&lock);
-+	struct thread	       *last_match __guarded_by(&lock);
- };
- 
- struct threads {
--- 
-2.56.0.218.g1ec904b173-goog
+Do you mean by calling regulator_force_disable() instead ? I thinked about =
+that
+but I don't think this is ideal.
+Or just patch the core to allow unbalanced disable downstream ?
+My intent was to provide an upstream solution to the problem I described in=
+ the
+cover letter.
+
+>> +    type: boolean
+>> +
+>>    regulator-boot-on:
+>>      description: bootloader/firmware enabled regulator.
+>>        It's expected that this regulator was left on by the bootloader.
+>>=20
+>> --=20
+>> 2.56.0
+>>=20
+
+
+
+
+
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
