@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792568527;
-	b=q4iRMdAOEx5KH7cElVVAuKtb81SIzs+w2HtnvuZPF6FjwpK+lVVpgLqRWZAiv2G1TXTQ
-	 udXyq2+OE85wVHwk/Mn3zBjB/qht/VuvX6Dy+Jmxxtl/+hvRxtzlfMVEQ7ENgCRiO8YFi
-	 rH3i7hJFyWz4iTfrauC1/+viT4X0smLLJdT2OFYlf+N7YuxYbfe7CB6czCx3wZOxMJHO0
-	 m//V4llFyaG6+27bFMb+VU8+IwR6reMI92bKqi0XCJKe88b9jqRi8d7/OgeHLKZ5IfBKW
-	 c7d1ImfYpqxSj2v7uPEd5nta9yT1oIipUw138tE1aloBGTuGwEmxbCes6X/zpETkxEg==
+	t=1792568554;
+	b=ZVKQ5jAG8iq1oqqgHM2Ut43S/NaZ/eNHn6y1CgKxepPI4iEJOdCkUcDe7+I2EMDe8pIN
+	 Y/6B1pfXBz8qfVIAf2IhxIRcllgPZArex7eHANJEW0P5I99yHZkC+J+AYsX00X1SzXTu2
+	 8DVJCZ3uFsQaN327+6W0JSkISqH83GL3eeZm1gKpq3gntz316fIE6LZJR/k+TwBZfc8Am
+	 Po6xjyR4AjZPrzGZGPSCSjyIrIzZmY9LB7/jYmj3ozB6V4MziwH7IWvsY73vTW/UFzkhB
+	 B2obtIEMhn6PgdHvhFQR126TGDsO+H/c2cdU4mXB3+QoX0OIY8/rtLctv1019X2h+wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792568527;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=RGi14GFRYI30G0NJsm1BUhv71kMQcZIB0wrkrGWixoo=;
-	b=LFgstvhsf/s4M2OEqRcpk65B55qaS9vWL2ugkdnvNm5d9HBoTBQyaPFLwC7ZUKQeX63O
-	 EmKMRKuV0EV74OXSiSHgIjZD2YW3/WvAuNDg+09f6Pa8/yZoRiH58wkzw3BkeyyuSm1GC
-	 SjQuucuh8PRlPdzcoP4d4YAJfjHZal+YJb5mztBdY409v840qVnu9aIUxI/fgcKHERMKI
-	 vz7xLezHeiXR253SAJfCbaDFV2fqOkZkjVR4aWN4juuepQYs4fsvausZgE1TPKeRHWEC+
-	 U00FcQrh/gIe5c3s8C+9Hd5FBFOviN4B5utYya8SKLbHYRBDHlcqJzuDdu5lI8DvsFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568554;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=SrMJu/tPUiSUut5zE490wX9ihBWXDV4lmTuNbxq60bg=;
+	b=maYaxRykfn+/PEhd7nipLJsPxspKtG/lpbC5PKQCt7y6ROa307ypoH5wBU8mAEGUEJut
+	 0k56OXKM+YXgJoOF26cK0vA1iK8OCnwner8qOAACO4z2eo7dT3acx06vqz5iqxaLFUFRw
+	 pF5OT8e0jb6RlnF0HSaZ+zY3RkUSCGDyoN1V566UReHxvHRH+0YBw7eX2cEfsHq3FJWwY
+	 JMa2bAW98Wu9Yi3LplpB31pzRYgKmng2lSodFQtHzzErieyaG7MDm2YFzQrCO0aWd7y80
+	 9W5Ww4ueYYP11M9TVmJ4X2vbuYE8BDXYYxP6dbw6+SCEN2jlq10GyTitA41qnQ9xJDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mWOlMyMM;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=BXZG+It6;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558DA606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 558DA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888C6606A319;
+	Wed, 21 Oct 2026 07:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 888C6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mWOlMyMM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792568526; x=1824104526;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sF+EXOjWoRjHwSXrYrKIrkJdnKQAkyJ2jM7+RYSypqs=;
-  b=mWOlMyMMFUTmNNyfca5cVl5qr9EuhDO+S7t4Z8kYkyo8mTGWatnvr5JK
-   4AEeDmmUm6oP/7k/aG0E5TL8lRqmmGeA8955a3NtdbdU7WSi4gyTm5oeA
-   WrdtTl8uZVHIbEEH8sM8TAX63fA8fZgObwzpgyMDgY6Tm/8v2QgldnbJF
-   ApfwlVnh4GqCE03qlwgLG50dC0cDx9U9MsPCwaVlNO5iVZhN3T9zH2B9T
-   yEYH1BHRFedHfkRV2kSWWauSYNScmXpAdcR4AsA6UPfr6uCkuhVjcIU4h
-   sn+6I/6MLnLHxp/I4NYkwxKH0W1TIRhnTZgYbwvD2xYoGdYzeecWztTJb
-   Q==;
-X-CSE-ConnectionGUID: 1qpyqf6KSri7GVEx0Kssqg==
-X-CSE-MsgGUID: ULO5uqFIRni3dfmHZxzkyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1174050"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1174050"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 00:42:06 -0700
-X-CSE-ConnectionGUID: MrrJJTUUTlyi6yexrGtAqA==
-X-CSE-MsgGUID: riQy9ryIROu1V9qc4P6mbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="2965686"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 21 Oct 2026 00:42:02 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xJQxT-00000000P8c-3o2G;
-	Wed, 21 Oct 2026 07:41:59 +0000
-Date: Wed, 21 Oct 2026 15:41:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Woodhouse <dwmw@amazon.co.uk>, Jann Horn <jannh@google.com>,
-	Kees Cook <kees@kernel.org>, Breno Leitao <leitao@debian.org>,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>
-Subject: Re: [PATCH] kthread: Teach lockdep about kthread_flush_work()
- dependencies
-Message-ID: <202610211501.YBj5GUfA-lkp@intel.com>
-References: <6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=BXZG+It6
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1262DA012B;
+	Wed, 21 Oct 2026 09:42:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792568550; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=SrMJu/tPUiSUut5zE490wX9ihBWXDV4lmTuNbxq60bg=;
+	b=BXZG+It6CtWbR7Obz+4TgjB+ZwtyvWP/bZ/K4akuDDZdysVL3gWs/GNx8uc92oQU56UJZB
+	hIPbTMZUSIAts9v27IKLJECoGZs6mZpJbV5Ic8w0mf5GO1TkMDsJj0vOSsrqp6dmo/LH5Y
+	FY0WmrPlzv2cUher+V0Z/kNSFc7Xz1IzX+e82rSvfUp+X2l1UF3wJXsgHTyWEBTVYthYzf
+	14CHKyp+ZSVPs8wM8PKX+oVWqG3Y5OppvovknOz+WYECCxgYMujkseVdEUC18+cN4jGAn2
+	5TEYCuf5w8X8aOtgxIZBzaa2LdfPZBy2QzKzvFxYqCBf7w0l4oQSjPtSXyWROw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,65 +53,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel@infradead.org>
+Date: Wed, 21 Oct 2026 09:42:28 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
+ <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>
+Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
+ on xHCI
+In-Reply-To: <20261021005654.23517441.michal.pecio@gmail.com>
+References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+ <20261020184244.69b78d5e.michal.pecio@gmail.com>
+ <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
+ <20261021005654.23517441.michal.pecio@gmail.com>
+Message-ID: <5f7be4fcf5cb8c3b60e8acc5312d9980@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+Hi Michal
 
-kernel test robot noticed the following build warnings:
+On 21.10.2026 00:56, Michal Pecio wrote:
+> [...]
 
-[auto build test WARNING on chrome-platform/for-next]
-[also build test WARNING on chrome-platform/for-firmware-next linus/master v7.3 next-20261019]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>> So this looks like the better fix. How would we want it gated, a USB
+>> core quirk flag per device, or per controller?
+> 
+> [Cc Mathias]
+> 
+> Good question. Do you need this fixed in stable?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/David-Woodhouse/kthread-Teach-lockdep-about-kthread_flush_work-dependencies/20261020-160400
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
-patch link:    https://lore.kernel.org/r/6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel%40infradead.org
-patch subject: [PATCH] kthread: Teach lockdep about kthread_flush_work() dependencies
-config: arm64-allnoconfig (https://download.01.org/0day-ci/archive/20261021/202610211501.YBj5GUfA-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261021/202610211501.YBj5GUfA-lkp@intel.com/reproduce)
+Would be nice, as I've also seen other reports of this issue with
+Rigol / Siglent test equipment. Otherwise I can carry it for a while
+in our tree.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610211501.YBj5GUfA-lkp@intel.com/
+> 
+> Depending on regression risk maybe we could get away with no quirk
+> flag at all. That's what ehci and dwc2 seem to do, which means that
+> hopefully no device specifies illegal packet size while using 512.
 
-All warnings (new ones prefixed by >>):
+They do. dwc2 just takes usb_endpoint_maxp() as is, and ehci even does
+it on purpose, see qh_make():
 
-   In file included from kernel/rcu/tree.c:45:
-   kernel/rcu/tree_exp.h: In function 'sync_rcu_exp_select_cpus_queue_work':
->> include/linux/kthread.h:219:46: warning: unused variable '__work_key' [-Wunused-variable]
-     219 |                 static struct lock_class_key __work_key;                \
-         |                                              ^~~~~~~~~~
-   kernel/rcu/tree_exp.h:470:9: note: in expansion of macro 'kthread_init_work'
-     470 |         kthread_init_work(&rnp->rew.rew_work, sync_rcu_exp_select_node_cpus);
-         |         ^~~~~~~~~~~~~~~~~
-   kernel/rcu/tree_exp.h: In function 'synchronize_rcu_expedited_queue_work':
->> include/linux/kthread.h:219:46: warning: unused variable '__work_key' [-Wunused-variable]
-     219 |                 static struct lock_class_key __work_key;                \
-         |                                              ^~~~~~~~~~
-   kernel/rcu/tree_exp.h:497:9: note: in expansion of macro 'kthread_init_work'
-     497 |         kthread_init_work(&rew->rew_work, wait_rcu_exp_gp);
-         |         ^~~~~~~~~~~~~~~~~
+         /* The USB spec says that high speed bulk endpoints
+          * always use 512 byte maxpacket.  But some device
+          * vendors decided to ignore that, and MSFT is happy
+          * to help them do so.  So now people expect to use
+          * such nonconformant devices with Linux too; sigh.
+          */
 
+So I'd suspect that Windows takes it as is too.
 
-vim +/__work_key +219 include/linux/kthread.h
+> 
+> Other possible risk is some device doesn't truly care (no transfer
+> is ever large enough to matter) and works with 512, but setting its
+> requested packet size (needlessly) breaks some xHCI controller.
+> 
+> Such devices seem not very likely to exist, though more likely than
+> the former kind, so I will try to test whether such xHCI breakage is
+> possible. Preliminary results are encouraging: although several of
+> my HCs reject packet size of 1024 or corrupt data, 64 is accepted by
+> all but one. I haven't checked for corruption yet.
 
-   216	
-   217	#define kthread_init_work(work, fn)					\
-   218		do {								\
- > 219			static struct lock_class_key __work_key;		\
-   220			memset((work), 0, sizeof(struct kthread_work));		\
-   221			INIT_LIST_HEAD(&(work)->node);				\
-   222			(work)->func = (fn);					\
-   223			__kthread_init_work_lockdep_map((work), &__work_key);	\
-   224		} while (0)
-   225	
+Thanks for testing!
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> I will also see if I can figure out what Windows does in such case,
+> because doing the same thing as Windows may be the safest bet.
+
+Sounds good to me. Doing the same as ehci/dwc2 (and maybe Windows)
+feels like the cleanest option. Happy to test whatever you come up
+with on BCM2711 and RP1 xHCI with the three devices here.
+
+I can also check on Windows, but I'll need to look up how, as I'm not
+really familiar with Windows internals anymore.
+
+Given Guido's reply and the USBTMC spec (the host "should not send a
+zero-length packet" if the last payload is wMaxPacketSize), I'll drop
+the usbtmc series and work around the Rigol ZLP issue in our test
+software instead.
+
+>> >> The Rigols still have one issue I can't work around. They split
+>> >> replies over 500 bytes into several transfers, and a follow-on
+>> >> transfer that ends exactly on a packet boundary never arrives. Raw
+>> >> libusb shows the same, so I guess it's another firmware bug. Should
+>> >> be fine for most use cases though.
+>> >
+>> > What exactly is the sequence of URBs you see vs would want to see?
+>> 
+>> The Rigols split anything over 500 bytes into two transfers:
+>> 
+>>    REQUEST_DEV_DEP_MSG_IN #1
+>>    IN: 8 x 64 bytes (12 byte header + 500 data), then a ZLP
+>>    REQUEST_DEV_DEP_MSG_IN #2
+>>    IN: header + the rest
+>> 
+>> That works fine, unless the second transfer happens to end exactly on
+>> a 64 byte boundary (e.g. 640 bytes). Then the device just never
+>> answers request #2 and the first IN times out. I also tried leaving
+>> the ZLP from #1 pending until after request #2. That fixes the
+>> boundary case, but then the device randomly ignores request #2
+>> instead (roughly 1 in 5). Raw libusb behaves the same, also with
+>> maxpacket 64 in xHCI, so I'm pretty sure it's just another firmware
+>> bug. What I'd want to see is simply the second transfer arriving :)
+> 
+> Doesn't look like any obvious xHCI problem to me. Did it also happen
+> with those USB2 controllers that you used previously?
+
+Yes, it's pre-existing and also is present on dwc2, which is what we 
+used
+before. Replies up to 500 + 480 bytes are fine, but as soon as the 
+second
+transfer ends on a 64 byte boundary it times out, and some of the
+missing data shows up later as garbage in the next reply ("wrong
+MsgID: 79 != 2", 79 being the 'O' of RIGOL). So that's a firmware bug,
+which I can work around in our application if needed.
+
+The only real blocker is the strict maxpacket handling in xHCI. If it
+could be relaxed to what dwc2 (and ehci) already do, that would help a
+lot!
+
+> [...]
+
+Thanks,
+Nicolai
