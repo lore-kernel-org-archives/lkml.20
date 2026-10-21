@@ -1,106 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792551392;
-	b=dMEwF1NNd1ddmf96EuZ88qjOpH3Eps05EvfnzjHV9s64m4tQr7LnXxyCJa6+Jsmz9vib
-	 f21A2oFytjR6KMskSlar46U4OYsVlvKjxhz0sRulazHSuCw5Ep/REGklWKSTEVRAjXhLG
-	 eiA7PyNCeS+E0UeUOr9e6ZLRLENBRaSGCY5zI3l4OcABdb3i0SmB7yazKmvcHnDo2U1Nn
-	 p1dlGlwZSoMGXds/IjbR+olborZ9LrxPLsLB+uTdP7TCC5ZtbK3wIe7t2/vYFGAAGupog
-	 CpWKPoSnWY/64XAS0rWNmHTGVxby2lT5OimZ608Rp3gi9nwgDDq4c17OFKa6f/4ZqiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551392;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HANTeur/Ki+zmOxvulIzVJ7OAanFmdA9rRDzL3y9yCg=;
-	b=kFr/PtuG2BKVIL9+MZtigKhfQU5wHIW19g/V5b788a9+u9rfevcW69ianHDWBkBMkJnX
-	 iihHqGegBxsObISGMcYtbs7gTb0+LB+UZcjR4taMxsLRo7wWaNJr35ehb+mz9z/5cZwPB
-	 6BILa8jTtGijyH3mm3VdoFXa3Di0Lz61wH4g4kuAh+mL9uGJBt64wNIXQu96C3fRoKd7r
-	 GD6yiV77DySHH0BkzaxMvi4rT7HVGMXcZBOZO0hRSGCrrSyN+doTNxKGf1UsmHpsb0FNZ
-	 EbPC31tXZVgvE+IpBDyj/NrKAfO915x+n6S17n/YuaZJ3Fj9ab7Za2b+k0VBdoAzRMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=ebzg3HP7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.75
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022075.outbound.protection.outlook.com [52.101.126.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792551400;
+	b=TOgQSp5iCiC6g+ezdOBNwfGFxnaIBG+3Mgx7/D9QBwrd5y/3GjqSPceeWPQC0+NalkH5
+	 Jg63XZBUEcq7PoQctETB6h2AUxsZcgIIs4rE5DaoinRNmfHIHysJeZAZS1WCBhovQY3G4
+	 LGBA2pUbgrQscFVqQXxloHFk97v6zQ2jfFRq+Mr4lnDz0MbzyfRxp7dU+aaF8TV6BMTiE
+	 noTHQ5Sfqnm5sXHXX45K05zVnPdd+drpmUyemXBylNUueofT0cydN8SdJG2j0rb2ICZqL
+	 Pz7bZxSOFLTxzM6hMxXuSFxuyziQqwdAUpnBjuqqoQxo8aP8jHbhnVyxdoLORTMS8EQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551400;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=adBKmkAuQPG1pNEqNQsG9z5fLXrMmEzel894oEpnrT8=;
+	b=g5V0DZLaZDxYB2j6R3lJ75SR4K7FmITAxg9aeo/L5e3ZFeTmd3s8Tp1Z97Xuk222TIjv
+	 +zUhy1AvvSAaeoEmFNqAJ2MvMLS0vcghomevPqbN1L6vbbhOMd4+UiB9LOMQ5S9B9dgh1
+	 MkYfxYZ5JFBBOVIwcRTUznqsZ6QzmkkKG5sCLH8rxeMEhA5aovWZN+zkn8lIU+Xlo/dyJ
+	 +K9hfXIruO83hfoZyWKotwAU1FHYbiNx345NwkGEUapTsr/XgBZRSXEbf9WpaxHaHDvFn
+	 ABhM/RAslKTB73PTWFmB1yQ4Z07XbFTwZDUYx0VaO0S/f6ORpVAwl3DcUMkwLHz2zsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=UHDGXmxu;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E8E606A31E;
-	Wed, 21 Oct 2026 02:56:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23E8E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A6E606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A6E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=ebzg3HP7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cVxSkQ2oNETEwkIoKYsQTqmZbwApzY7qKjYSaqNzkELi3wT3o4Htog9bdI1m9Ra+7LcMwD6PFhRZy26B8ZaLZZU998c5qW6V6DqNSH58KlZqrL4xKfQvZ1L/KZAOW11BJ6DF3K1D6sOW5QiLMBXK7xYOWrQJ0RBvnbwhMLp5RqpRNL/XYCevtXVfsPi0eqaK19d9sZG5WEjr8oL/u8+QKv+1ivJTfBQIF6IZqXpJyjz3J8SWH5wJZp9p9PAAKRk26TGrJ8ntdsKL52Tkn2cJlfM5btRHRuAmtbn2SYv6jnrDkOi0in8n6LUKKC1tKC4Vpn5BpBSxJTtezzfFlLKYgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HANTeur/Ki+zmOxvulIzVJ7OAanFmdA9rRDzL3y9yCg=;
- b=qBVHEvqOsk8wCMstcDXD98sOF57IOI7ntgBUIU+tcDCdYZVbplFgV/goxj3+x4kSjsoNlmqD8gIcoW9xK2KBsiRuERGNIoudzw4lIBv9pd2gi63KlDasN9AYybZghic7GHNMIasFSlWsz74aJTXOyt22lAv/BIhd4Dy7W6pUEUom+3gSlzJsjVzPFEix6jMOTMJQhm8hBfyxRaQJHYZ9cNyIFWKOGGM9mrs44kYxeNJu37Q9DhshekXYz0BaCXiu0AF0unr1AxSGDnNJ8m5k/og2PlfDAiiUCxQgtOyGRQXFOqt0ZNkhlihh7EtZ7zdEnspyNn8rf6Pf7roTtyskRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HANTeur/Ki+zmOxvulIzVJ7OAanFmdA9rRDzL3y9yCg=;
- b=ebzg3HP7ntZ2dFAw34eAMy4oevFQTQ/zm5pp4KssibVWd2OcIm04v3DIcC6ODPOyfN1Ucfp7uaJHRuQWihvGqb++okmx4WzhtSIgaT4RFCBmtOJYEDdRqs6LdK6vjNNX1hNTsd4JfyNZdeucxeesH/gxy70olkIh8vCGq7Npjrf/6a4WBkKnaqI09V/SciUGOLOmb9YuAyRP5X7hbl1a1/i/lzI6C6o0c8yDag2E5UyKJ/Hlu+/X02jOhbXd+WekDUFEEb/m1CE/4Zz6/6y8Z26pdQiyGNl0Z7+xJmKQtZWBIZUz/yQjU6wAkC8JVk7PoxswoD5fIL8sq2NMvLULYg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB5743.apcprd03.prod.outlook.com (2603:1096:400:74::7)
- by KUZPR03MB9662.apcprd03.prod.outlook.com (2603:1096:d10:64::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 02:56:27 +0000
-Received: from TYZPR03MB5743.apcprd03.prod.outlook.com
- ([fe80::7f51:5771:90c4:8c40]) by TYZPR03MB5743.apcprd03.prod.outlook.com
- ([fe80::7f51:5771:90c4:8c40%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 02:56:27 +0000
-Message-ID: <887f0b2d-3a05-418b-bda5-0b01abbcb409@amlogic.com>
-Date: Wed, 21 Oct 2026 10:56:19 +0800
-User-Agent: Mozilla Thunderbird
-From: Junyi Zhao <junyi.zhao@amlogic.com>
-Subject: Re: [PATCH 1/3] i3c: master: Rework SVC I3C to support vendor glue
- layers
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
- linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
- Kelvin.Zhang@amlogic.com, junyi.zhao@amlogic.com
-References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
- <20261019-a9_i3c-v1-1-329d819d621f@amlogic.com> <atZ-YyEmG-KvUZAF@SMW015318>
-Content-Language: en-GB
-In-Reply-To: <atZ-YyEmG-KvUZAF@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SE2P216CA0071.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:118::13) To TYZPR03MB5743.apcprd03.prod.outlook.com
- (2603:1096:400:74::7)
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=UHDGXmxu
+Received: from macsyma.thunk.org (pool-173-48-113-115.bstnma.fios.verizon.net [173.48.113.115])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69L2tfaT032022
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 22:55:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1792551351; bh=adBKmkAuQPG1pNEqNQsG9z5fLXrMmEzel894oEpnrT8=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=UHDGXmxuazjo9kg0UJBMosrzyJJQ0GTYgx9rT8vBbYtt1yEdHYvoklxa4vdyHRQnJ
+	 6vDWhg5S/uuxmRw5coSoUvvHFJe2htO1nXFxGFCZg2EmlLNIVkfZRukUG3QOBhEV/1
+	 6FJQnYs/Xqcd+MSvYsgkwGArnqXakd4fNMAWvyFh+Gdg17IST3YkGJfqF+KkkUdqQ8
+	 rYfUII2iGEx0y+XqD85X5xCo6r1q16/MXlN7GtZvLza03pIAuKtNLE3us7XLz2lRa7
+	 Q3gRg43M+YPrdYwYM0ZWJSc4ZM1FA8Et4o2GES5cPhiJJsblvciW3SvaXwm4g0WZ2Z
+	 IIznWg5R7Njjg==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 04FB821CF0C7; Tue, 20 Oct 2026 22:54:41 -0400 (EDT)
+Date: Tue, 20 Oct 2026 22:54:40 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
+        corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+        federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+        workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Justin Stitt <justinstitt@google.com>,
+        Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Jori Koolstra <jkoolstra@xs4all.nl>, Brian Foster <bfoster@redhat.com>,
+        Christoph Hellwig <hch@infradead.org>,
+        David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
+        Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+        "David Hildenbrand (Arm)" <david@kernel.org>,
+        Vlastimil Babka <vbabka@kernel.org>,
+        "Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <atggaWq0EU6Km8r0@mit.edu>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+ <20261013173240.GK4214@killaraus.ideasonboard.com>
+ <atI_TSQXzAQFWBfx@gremlin>
+ <20261020211532.GD15441@killaraus.ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,131 +90,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB5743:EE_|KUZPR03MB9662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b499cdf-fc6c-4e6b-8ac7-08df2f1ee65d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	/B6ug7NleIRCrF3GGt7hV461Jp0gaUHdJvrIZXRDNWyON4quIXTfkcitVG7AqzyWqBq0FGIbSBkttNOWD1FzlK1okNXtkzhrdtGMjYy7PNEey1FJ1Uh0MJkFHIDl45odcUpwPnlz6+Rt+s7uk7jBJs7OxEsep31J+FYVChWjnYxVHVk7CaCelHzEWwdoQ3YDsqAguKTFXeHNwF6sEOfuSDa0bv18v/NHkLuMvTCJzRarc5N3zWQTn+H/Xy94sN4T4ZwcWPa6WJsb6Ys7QlZxZklh4uucV7voJWOKsEqpxFMncig14BgjnbEj2q76eHnYYH+dQKqhI1H8JX0a+8ZE08l9hJRMzETU0xJX7O/EmbzokpKAxQY+zaknC2voO36HVzGo9gvCH5XAiqzxCtyXKdvyZlSCUO9gBRS0xDx/JKFdVishfWdTAUjq/QbUHPN4/yxywyffrjZrozbr+TKa5xfui0L5zVlazKmI7dUur/ZKCjUFeM5mk54GNah4VH1lP0vawBdarfGxYFruouf2I2gwoz4te66Ko2buAWQQJqtCtInuA614n18IxBOipzBBD5AOqrl+7+hlXklotYBTadcTqE3pkO3LU3RC8IE5GX6E1QHRRUYol9ztAk5B4ygPGiBQ+VtIvvWTeN6MFjprz1n+T/FgvoWZbPVH0OFo/jQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB5743.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U3JYQVlKeHJhZDVnSEhxT3h4djV5cDgvdkh6NVJhalN3eXJocXRhNGN2RlpX?=
- =?utf-8?B?cVZlb1RSeGFXVTZzWFdCUm5XamtvWmxiajJRMkdVQ3lzblR5aGFheklQVDFs?=
- =?utf-8?B?Uk5DcmtRaWdjeHloekh1Uml4YzE1bzIya3hsSUFDaGRuVWVGalRTaHBHdzVI?=
- =?utf-8?B?MWx3S1R0ZTA4aThIeVVJakR1VjFvdi9WK2xFY0JhWVk4SXZyWGFxVmpPYkM1?=
- =?utf-8?B?MUxxSUhndmtEQVp5aEpXcVMzT1diVW5UL1JZcnVOTGtJZk5sOHBnUnYwUU5v?=
- =?utf-8?B?ZEFwRXliWkFtSVBnUVZVc1JyZ3UxS1FIYUptNDlzTGhUczBJajZYQmNVKzRF?=
- =?utf-8?B?bExUR3V6NXc1S3Z1Y1k0WkJzV0ErM1RHeVI0bUZVWTZBYnBnUXEzdzJRVkZk?=
- =?utf-8?B?U1RjWGFienBYK3FTRFdMMFZOclU5ZjZydmFWRExEKzlmQnZzTW9La1h3RHpZ?=
- =?utf-8?B?am83NDdITU5naGVGYURtSmhJNUdJMDVmWEJZcU1WV2l0T1htMlBBVU1lSGZS?=
- =?utf-8?B?cGlCQ25GbENGVkh1QU5vQTA4QWREVmNEVnBhUEhweXZFejEzTlJzVW5zbTk5?=
- =?utf-8?B?THRPKzk3VEhZV1JsOXhSWkFxY3BtWWIrQ2lXYXR5Mkp1S2greGpHaE9XdGNN?=
- =?utf-8?B?YVppeUJWYWNDZG5uZnJUdWt1d2R6RDJuRG9LdWFab2h1cFRZR3diYjUrVUQ3?=
- =?utf-8?B?WmgrbjFrUEVxYjBYcXpTdjhBWXNGNkM2K0Zob2ZvbmZQQVJxWmIvMFpHMWZY?=
- =?utf-8?B?TDBnM01aTXFITjJSMUJac3dla3lrMHc2RWExQUVkVE1xNUg4WlZBaTlJZTNl?=
- =?utf-8?B?eXZzaTRzVFBqekJCaGJGVHNzZFJ6ZE1DdU0vb2pjYjAvM2tsQW42aDZXMTJY?=
- =?utf-8?B?bmQ5UHcvRkp3MFBJRHpWd0trUDJNV01rdVRsU2UwcjVuKzRzMG55dE5PSUNn?=
- =?utf-8?B?TXhmbWJ5czgvQThZVk9nVml1QTkvQVBXdmVGRnRMWGdseWY4YmhJVG5XdGxR?=
- =?utf-8?B?SnFMelNoQTlneFpIUjNobGJxOVkwZzUzbTBpVFk3cFNNU3loVjI1VUtYVDRP?=
- =?utf-8?B?VGxuQXlDUjNGa0l0bXVrRnM5TDIxYzNZNWdWbUtxWUdaT3pqaVB6VWp6WTk0?=
- =?utf-8?B?dXNXN0pYcWttd2JzbHg4QXhQck0wVnF2TjlKMXJySU85dHdSZzNRUWgzMnR4?=
- =?utf-8?B?MlBkNldMM3M0S1A0RkNTUmVma2dLRjBOUzA3cFZ3THlzMVd0VDhlM0N1YmVQ?=
- =?utf-8?B?S2lZUFU0Y2poVVF5MXVVaEkvRm9COGZtRE8xWXBZWExlTnhLSUl3SU1kd2hm?=
- =?utf-8?B?ZWx6aFlzNkEvc01MbEk1cWJOYktNakhmZXF3b1o4QXJTR0E3MG5qS0syZ3BU?=
- =?utf-8?B?c2sxQkZ0bmgyTytDV1NXVG1PbVYrbDJFNURwZ1dqMUVNc0FObHd2SU1sVjkx?=
- =?utf-8?B?OHJOcWdPOEkxOUhkZ3BneWVyQVBtbHNQVHB4RjJzUkNHZGVPOFd3RkkzaUdV?=
- =?utf-8?B?ZjNNU25odThBOGNkejAwS0pxTWF2ZWFlV3ZBcWJWM3JhTGFSRmZKRmkrU3dT?=
- =?utf-8?B?ZzU3VHd4RG5ObGlldXgzQW8xc0JUZUNNNmhwRU92b2lZdVlHVXYwVDc0bTFk?=
- =?utf-8?B?S0xSQTJnQldyRWZSdWF5b2RDN05pL3pnZUhsMzNUTUxPaCtjclV4TFVqTTl3?=
- =?utf-8?B?SW5kSjQyUXRYaWpKcm9nM1F0NzdtMVZHTENRa2I5NWphWkQwOWx4LzBPYnAr?=
- =?utf-8?B?N1lZSlBpT3dDc0NaV3NzaVMvdVlqWWk4UkN4NTc2Z1ZERFY0WmxJMTRXV0dS?=
- =?utf-8?B?TmRMQ1B4ZFh3TjJEbVBja2ZCcjVHQzlxTk9ibDRLb2wyMndVQ2QrckE5a1JX?=
- =?utf-8?B?ejhOT1JxdXcvY0xqTWFBMVFLWEtadEZ6L0xNc29lYnpyYWZuRzVMSnNraTNC?=
- =?utf-8?B?cVlZTmxVQUxucTJRWDRHVTl3ZGcvYUVVK0xzaGpTVkRZSFlnaDIvbWJ4OVBi?=
- =?utf-8?B?VkgrYmFteFIxK1hWTWFtdVZBdWFFbS9BRjdIZ3pNYU5yTVZQQXVsOUVOSEM3?=
- =?utf-8?B?ZEFWRVBBUVlwK1poQWJpVHlaYUNyMU45SDJxRllxWGZMdDRGS1p5dmZZWFdt?=
- =?utf-8?B?VGxZM2JYa1VySUwydXpKVnVlbjl0MlNUUUI4UTFyOE5QOFE5UWhPWXp1NmFo?=
- =?utf-8?B?N3VaMzQvUnhZVmg2NnFPTzdmcDV2WnQ4QjZRaHZwRElyRXdQWFl2UXBHbXdY?=
- =?utf-8?B?SVFaNlc3cVNYME9IU3FrbWszcGRDNWVTNS9iRnJvZ2NLOWxxWHU5M1NjN3Va?=
- =?utf-8?B?OGxCVElaVjUrZEpGcWsrbGsxUHFHOGxEOXVNckZwRFJURjdGWGEzQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b499cdf-fc6c-4e6b-8ac7-08df2f1ee65d
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB5743.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 02:56:27.2452
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4JBY6hJjKL7gaY0iYT+JYYjylyL7oDxjgMUFcnCJcvAt+xgqFDObTvEgWwo7krDLNhSgfYaugq3BDQXSuF5xjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR03MB9662
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020211532.GD15441@killaraus.ideasonboard.com>
 
-Hi Frank,
+On Wed, Oct 21, 2026 at 12:15:32AM -0500, Laurent Pinchart wrote:
+> I fully understand that many maintainers currently feel they're too
+> pressured to invest time in the next generation. We need to find
+> solutions to make that possible.
 
-Thanks for looking at this.
+One possibility is to create tools and/or procedure to amplify signals
+about which newcomers are most likely to become the next generation,
+as opposed to someone who is just sending drive-by patches.
 
-Amlogic A9 used the same SVC I3C IP engine, but the integration of it
-differs in the resources *around* the controller, which cannot be
-expressed as another quirks entry:
+The reality is that the vast majority of first time patch submitters
+won't become part of the next generation.  So if we are getting 10x
+the newcomers, if we can be more discerning about which newcomers we
+invest in, the project won't die, even if we are ignoring, 3x to 5x
+the number of newcomers.
 
-- On the "ao" instance the bus clock is generated by an internal
-   divider (I3C_AO_FCLK_DIV_CTRL @0x304) programmed directly by the
-   driver; there is no CCF clock to clk_set_rate() on, while the
-   common probe assumes the fclk is a plain enable-able clock.
+> This is something we really need to improve quickly. Over the past week
+> multiple active kernel developers asked me if I thought they needed to
+> find a job elsewhere, thinking maintainers will now ignore anything but
+> perfect patches and dismiss contributions from developers who don't use
+> LLMs. That's a wrong impression (at least I very much hope so, and you
+> clarified that you're not advocating for that), but it's a disastrous
+> impression that many people got from the maintainers summit and the
+> following mailing lists discussions.
 
-- Amlogic added register blocks outside the Silvaco map: a
-   DMA bridge and a bus monitor (0x200..0x22c).
-   Enabling the DMA bridge later will need hooks in the common
-   transfer path.
+If someone is an active kernel developer, presumably they already have
+enough of reputation that they won't get ignored.  The issue is really
+going to be newcomers who don't yet enough of a reputation, not
+"active kernel developres who are wondering if they need to find a job
+elsewhere".
 
-Adding A9 support to svc-i3c-master.c directly, would make these
-becomes if-branches in probe()/PM/transfer paths of the shared
-driver, and the next vendor repeats that. With the glue layer,
-i3c-main.c keeps today's logic unchanged: i3c-silvaco.c is the
-current probe code moved as-is (rename with 79% similarity), so
-blame/history is preserved.
+And if they have a job, meaning they are in the industry, hopefully
+their employer is willing and able to hire a more senior kernel
+developer with a reputation in the industry to help them out.
+Fortunately, certain companies like Oracle have graciously been
+releasing a lot of such talent on the market, so these people *are*
+available.  :-)
 
-If the file move is the main concern, I can keep
-svc-i3c-master.c where it is and only export the alloc/probe/remove/PM/
-interface for glue drivers -- the essential part for me is keeping
-the resource handling out of the common code paths.
+A senior kernel developer will be able to help introduce more junior
+developers to the community, both online via e-mail and at conferences
+such as Plumbers.  More importantly, the more senior kernel developer
+can help the more junior developer write cover letters which better
+motivate why a particular patch is important.  Half the problem is
+that a lot of the "AI Slop" patches aren't particular important, and
+in some cases, the business case has been wildly exagerated.
 
-Also, per Neil's suggestion I'll try modeling the AO divider as a
-CCF clock in v2, which should drop one hook.
+(For example, there was the patch which claimed to address a very high
+severity "one click exploit" bug --- but the exploit required (a)
+tricking someone to download a malicious file system image, and (b)
+running a fairly obscure "tune2fs -U random" command on said image,
+and (c) be stupid enough do it as root to justify the astronomical
+CVSS score.  By calling this a "one click exploit" with an extremely
+high CVSS score, that engineer and their company has been forever
+tainted in my eyes, and you can *bet* that I'm going to take any
+patches from them far less seriously.)
 
-Thanks,
-Junyi
+Anyway, all of this might mean that someone who has zero prior
+reputation, and doesn't have the $$$ to attend a conference, and who
+isn't able to get a job at a company where a more senior kernel
+engineer can introduce them to the community, and who can't get a
+position at a mentorship program like Outreachy or GSOC might have a
+much harder time to get a maintainer's attention.  Yes, this will suck
+for some newcomers; but so long as we get enough new blood from other
+sources (such as new college grads working at a traditional Linux
+company), it doesn't follow that just because we aren't engaging with
+*every* *single* *newcomer* that it spells doom for the Linux kernel
+community.
 
-
-On 2026/10/20 4:32, Frank Li wrote:
-> [ EXTERNAL EMAIL ]
-> 
-> On Mon, Oct 19, 2026 at 01:34:26PM +0800, Junyi Zhao via B4 Relay wrote:
->> [You don't often get email from devnull+junyi.zhao.amlogic.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> From: Junyi Zhao <junyi.zhao@amlogic.com>
->>
->> The SVC I3C controller IP can be integrated into SoCs from different
->> vendors. Peripheral resources associated with the controller, such as
->> clocks, may vary between vendor implementations.
->>
->> Rework the driver to separate common functionality from
->> vendor-specific extensions. The common logic is shared across all
->> implementations, while platform-dependent operations are provided
->> through vendor-specific hooks.
->>
->> Also add a corresponding MAINTAINERS entry for the SILVACO I3C
->> controller.
->>
->> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
->> ---
-> 
-> No big difference. Needn't rework svc-i3c-master.c, you can add amlogic at
-> svc-i3c-master.c directly.
-> 
-> Frank
+					- Ted
