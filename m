@@ -1,62 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792541238;
-	b=rBAJCPVZupROdj1GAcz9iWxKIJGEAJcBeCuTNLka85lwJ1yfgjtjZeA1oTE1VQxyXf3W
-	 Uh2APsOankQ4mk0PQz/TYD3veXTrs1e0FKPJZqQitgsydrSCGkfIjBgi/bFmy/Ck8cf+f
-	 uEg9MRtskfj6r1nLA7fvsNuanzsQ4noL0PO+esIK3dxvIOqGZeUvG3hefZ1ILe/5lHafk
-	 ez0Ejjfiijsvs2hF34eBGtfvOZiw57oWjK3ptS1DH1GoleCqXxNnLNCnzj3zk336P7f2e
-	 us8nb4+H/O73mfQXwg1ESH1vTBiYw/pGRwyGECNCxH8p3J0k3EGMxGylCt/ILPZqBpw==
+	t=1792541240;
+	b=43GYa4hKeFqLh9m1n6xJvKIrT88umpsFOZXDZ33io2qBe46y7nWIVT0d/wDkXnFNUYWH
+	 416p9bPsQ9bEQN4dWBpij4ky/I1ocZ1VLEpmH3QJQC/DAUhNi2G3aO7cpfihB7gI9Hu5s
+	 IDKTzBf3AcPs3+TYS7OsEsDJiU2XfilC4CdVsKiZIzUqr4NypaejHfGS2zXq7KlHEFxul
+	 StQ8FDmzSKIY1WJVl72ukFWCiSMDoPoYPk3KvMXHvprZoD/EFZgfDwbFD5/0eNH5bID7Z
+	 TktPS0UB+CFVBrWLeh4qbdKGFsq6b5pGuDafIHENesrQd1eI4+buwUm4nO+zo0r8DZA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792541238;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=;
-	b=L//GEI5yQCOGAqZSeVKUnRUN3EsNV999bfxGg+rC9l+rOUDJUrJ9N84a9qYNsfJszvwq
-	 +P+UfVMSz9hs3AiLXgFAD7Wqoq0eRMAp/rk/vYxiEblXpG2+SO6+A+3qAReXfFVuila5a
-	 K1cI74eJssnZ1MVf6bykIwbFjFHhe9T19/VswykRVmGjEH0ZSTynubnTPLSjmAguyrITG
-	 CyHwCmmwAkgjEO/tKF6zAtzcPG/Ehcd+eZgJ70lqHpQU+EBgxC7f3ONlc1nXK6oPeBTt8
-	 IYneh5XPUa3Yg8mwuasVmP6ikta66PVNpGoXJ1+0fAD3qQrdZnzHea1kNFVkT0b9UFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541240;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=yKA+rjO6S2yRbNZMtjsewu159Akak1qQqcaEuzo5K58=;
+	b=dvU19AmS+DxLIU1ICH/QRTCeYeWm/AuCZ/c02MUHcaI1Pz+U99sGJl+K9gdh2Xjgdl4A
+	 xZ6TcJSr4JD8alo4tuTIzLZX/dI7mhs0XklgOV0Gy3j1s+RVSTCo53j8uyARoTxZWKZn0
+	 hy6lvjXzdtqnZMGLlZg+rdSuobbC8ubJP89MNmuaOq/uYFCZKEM687t6GdVBQjaAAdr08
+	 MeAgPL7jhJBiDcXoMD9cWd9dv1HzIH4RL7a2l5hXlIMscSdt7iTvu7JVYPwbI5vXrGSuq
+	 el6sWPvOFkI9bqi/BaovjdXHr08N/kSeybNtsQbLxgwXad9vbBpxX1lTGN80ujVRwNQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Kk64iPFI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=lQde1zTu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149D7606A319;
-	Wed, 21 Oct 2026 00:07:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149D7606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16548606A31B;
+	Wed, 21 Oct 2026 00:07:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16548606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Kk64iPFI
-ARC-Seal: i=1; a=rsa-sha256; t=1792541208; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=lQde1zTu
+ARC-Seal: i=1; a=rsa-sha256; t=1792541210; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=mDNRmGcFsBoI+QahUVD4rH0GuzFzvfICeQmo8INaC4tWeyisd3SMPm8rCrvjQ29WK0ZCXzoXzxwn4+NRcyIwTMShSNwdlNn7xORA6vyEwUjr7Cgka3IcJ0o4hSsX+VgkBXWVSaAaL5jAlDiigdpbTGplfm5c+eORxYjr3kHTBBs=
+	b=KLwsshecwBIRiNUzvkmJZWS79qPETJGW3p7jZLP1MVUMHFBLsEzuundAiVP0YzMisaun0VHALpjSELxNJ3F0LZ/xr/E7DeeIozdyVAC6OUYr0lr22vR5Q1vnyn93PiPgCSZVTNe8o56ZXg1kW9td+NSd1Hfhz5Sqc0a7h/Cb2K8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792541208; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=; 
-	b=OhrWFmGHgLm3q+r73Q31S1Zl6V9ZSbriMBZgpZ2ughJgskXJs6VprkNDxjXjJ7aigMW/AJEBvUDeejvoNjw3OYEXK3QQpVRam+Du2v6wZ9dEaeq9skxaGXnh6tMwM9TRzVCr14aRThdxaFwJQxgS/avnOnRxZ/8c3khk7Ez3wL0=
+	t=1792541210; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yKA+rjO6S2yRbNZMtjsewu159Akak1qQqcaEuzo5K58=; 
+	b=hrFK28teCbN2oRro6CYfmvayNOhSwHbgRQAZ/e0PmvT0y3IPd+ZSnoYo5LBvIz3q53vXkHQW2zxvisidrGZ/G5OobO/XGKuji75LTZbmu6/cIGX7BhRgtGuUKUnqDcr05ph1GJmrh1qL8fktrySwI8rbq/f1KvTc5uv8JXfQ75A=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
 	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541208;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541210;
 	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
-	bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=;
-	b=Kk64iPFI+la3xEnrUdP/iMSv4DN3klAcgpqq6/2/+TlCJtHMPHebO7xQSru3T9yo
-	nl8kptpnWtNeFYSQ42Gx7vcAMKQ+9NvwhTWYAtvnKWa70X3raaYLKMt5iNb/uNmMpRe
-	YuXUUJch71o9EA/Omge/4HBzngexmCiudXsqgvoY=
-Received: by smtp.zohomail.com with SMTPS id 1792541206606520.137903256707;
-	Tue, 20 Oct 2026 17:06:46 -0700 (PDT)
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=yKA+rjO6S2yRbNZMtjsewu159Akak1qQqcaEuzo5K58=;
+	b=lQde1zTuHBY1gsZZb4ZWAawXFOBL7sVIk378pR7XUSMj7M29kQiw7KI6gJw2AMHe
+	zkQqPe/JK8FKY/OKM9lCtVUWpHkZy7ycS4XyCdSdjnYL+R+2lHKEaBS7mrandheg5IN
+	Mu085UYJdDmvU6alVm3oNqwS3nBoZTCxI666rkzQ=
+Received: by smtp.zohomail.com with SMTPS id 1792541208950353.81731289226013;
+	Tue, 20 Oct 2026 17:06:48 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: [PATCH v4 0/3] drm/tyr: allow mismatched buffers for dev_query
-Date: Tue, 20 Oct 2026 17:06:44 -0700
-Message-Id: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
+Date: Tue, 20 Oct 2026 17:06:46 -0700
+Subject: [PATCH v4 2/3] rust: uaccess: add method to get UserPtr from u64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,13 +67,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QS27DIBAG4KtYrEs1DA8Hr3qPqrJ4jBOkJCTYs
- WpFuXtxsmhURd0g/cB8MHNlI5VEI+uaKys0pzHlYw3qrWFh545b4inWzBDQCBCKe8Ujzf35QmX
- ph/RNI1cEzgMqtMqxWngqdD+odZ9fNe/SOOWy3N+Yxbr7LzcLDtwiKCkAvGrxI+T93vlc3HvIB
- 7aSMz4z+iWDlSFJJqIGDcG/YuQzY14ysjLDBloRopNa6L/M7dFxofOlTm96tP07vK5ZdbAoV31
- 7uvTpOOS6TNkv9TYPGJUe0EodNt2s1wF6NxKv+CFNXSOVbZ0CiUZ5sIp8NMJvfKu1MDpqQ220M
- ci2/uT2A7QKKhTPAQAA
-X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
+Message-Id: <20261020-b4-dev_query_fixes-v4-2-df66b4c98bc6@collabora.com>
+References: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
+In-Reply-To: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -90,60 +85,53 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1980;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1403;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=3mXYYH2Wyp7iMdOVfIyLyhIL3ZJckx+Ml8KpZV29isc=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mERfTo/dHbnGdP7B+5tdf7y8z2Q7r3NNVohomLxKw
- L7vwlmtHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEwkrp2RYe2anoJHPh9UcrpM
- 2DZM9Xf2iJdcd+ubcoQBr0TXDYfLKQy/2ew6i2Pr2/6c5l5am/vvUkpFyrqEtlf9DAsfrtqvfjq
- XGwA=
+ bh=WNaLWF3sjYdXQjRj645udU5OHS/SnUHc+mDrPyN+V1M=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mES/Rm15pjdFQOJ60F1vvlUZHzxd1dbOvb3Trrl+n
+ VRwVvnujlIWBjEuBlkxRZaz9kY94lXvjXTn/2+GmcPKBDKEgYtTACbido2R4d/PzHsHZ7FEPFiV
+ sEvh6xSVK9vuz03qM7F0W8lvzDpfoYqR4W69fdvnpSvSlvlXvlo0ebH+4VOl7+Y4HJ8oYsItfy3
+ pMDsA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-Panthor UAPI for DRM_IOCTL_PANTHOR_DEV_QUERY allows userspace to provide
-a smaller or larger buffer than the kernel needs. Revise Tyr's
-implementation to match the expected UAPI behaviour.
+Currently a UserPtr can be created from a usize integer representing a
+userspace address. To create a UserPtr from a u64 integer, the u64 must
+be cast to usize. On 32-bit systems, this cast will discard the upper 32
+bits of the address.
+
+Provide a new method to create a UserPtr from a u64 integer. This avoids
+the caller having to cast before creating a UserPtr and also clarifies
+that the truncation is intended. This is equivalent to the C-side
+macro u64_to_user_ptr() that provides typechecking and casting to a __user
+pointer.
 
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
-This series depends on:
-[PATCH v5 0/2] drm/tyr: safely write GpuInfo to userspace 
-https://lore.kernel.org/rust-for-linux/20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com
+ rust/kernel/uaccess.rs | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Changes in v4:
-- add new UserPtr method to accept u64 address
-- replace write_truncated() with write_slice_partial()
-- replace AsBytes with IntoBytes + Immutable in set_uobj
-- replace u32_as_usize with usize::from_safe_cast
-- remove redundant import size_of_val
-- Link to v3: https://lore.kernel.org/r/20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com
+diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+index 8e18285ec44b..a6fd1af155b3 100644
+--- a/rust/kernel/uaccess.rs
++++ b/rust/kernel/uaccess.rs
+@@ -31,6 +31,15 @@ pub fn from_addr(addr: usize) -> Self {
+         Self(addr as *mut c_void)
+     }
+ 
++    /// Create a `UserPtr` from a u64 userspace address.
++    ///
++    /// Deliberately truncate upper bits for 32-bit systems.
++    #[doc(alias = "u64_to_user_ptr")]
++    #[inline]
++    pub fn from_u64(addr: u64) -> Self {
++        Self::from_addr(addr as usize)
++    }
++
+     /// Create a `UserPtr` from a pointer representing the userspace address.
+     #[inline]
+     pub fn from_ptr(addr: *mut c_void) -> Self {
 
-Changes in v3:
-- replace "as" cast with lossless u32_as_usize()
-- Link to v2: https://lore.kernel.org/r/20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com
-
-Changes in v2:
-- Added #[inline] to UserSliceWriter::clear()
-- Link to v1: https://lore.kernel.org/r/20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com
-
----
-Deborah Brouwer (3):
-      rust: uaccess: add UserSliceWriter::clear()
-      rust: uaccess: add method to get UserPtr from u64
-      drm/tyr: allow userspace buffers to be mismatched
-
- drivers/gpu/drm/tyr/file.rs | 49 +++++++++++++++++++++++++++++++++++++--------
- rust/helpers/uaccess.c      |  6 ++++++
- rust/kernel/uaccess.rs      | 33 ++++++++++++++++++++++++++++++
- 3 files changed, 80 insertions(+), 8 deletions(-)
----
-base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
-prerequisite-change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8:v5
-prerequisite-patch-id: 0ff3c9871f563680d2888d489cc155cc52788048
-prerequisite-patch-id: ecf0aed0bd7e4f8d3bc1bbaabb02976fc8d5fa4d
-
-Best regards,
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
+2.56.0
 
