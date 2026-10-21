@@ -1,82 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611263;
-	b=XQC4PKCsWxw4OXsnhR6xiEQY5g5xeW2JR04dBPm5XYOa24h+LEGvk/PmzUXGRrlQkh2y
-	 e+r+svdJGg/cG5mqx3npLEKTOj+c+HVhf/8cMMeStTAbJ+WzTjMDm1NsTy2zeas+hUfv8
-	 enM5+XX+65CSXw9KBNfzCNz04m3n23w1OpARgwa3Vuqhoa5OzoZvk364xh73UehnEycB6
-	 l99vTTkMAEzEaxzYi+OUR6LrCMq/xv4EK3seWLJ3Ew+bZAoQ/eBe6khBGetnH2sAtrCZI
-	 fDefzo5VyNyD/BGu+r1Td+qFhePBk14ay4cNBcG2qbmDeLdgZm4BqxwAXIWnC7OQ2pg==
+	t=1792611332;
+	b=iv9i7lP+I0s+hmjepbMnaA6z/B433+YxZMZTKbelXAiNhz85WrbNyyDrnb5Arz0rA6h5
+	 Qx3PlIgFnPZTQ3zDPMTBKKezIBC6NQWrE4H66wFU4WYzD+/2SE7rj0mGACQusfpWP/ext
+	 0HF3+sAvuaDHv2illp8OAZ/s+Xs2L6l6Y0yPk7J9vWhmO1MJEFkJ2xE7WukbZzSsYgpuE
+	 F48nwZndzgQBppQMLDqGvXxYwItv1sd7egr19IwfuSkQ+zZ8WTTxOmTwuzpNc7MlxpweJ
+	 7p8o6ZDs4+aSmiW9pqg5BQfbMthd6WdSQWC0nOajdsoeb4g20XS5owi3D2aczmT1+pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611332;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Message-ID:Date:MIME-Version:User-Agent:Content-Language:
-	 To:Cc:From:Subject;
-	bh=OMntn2ETO/usbSkqKLYHo+A7xvI2yL7wnu1Sxs1PaIY=;
-	b=Dj/TwL1/d4TtS1aGV3/S8E3RCtwh49OK3+iByih7cHMzEgSlfPxJvKLeDUOQUKTusVaf
-	 W5VfIw2wwCzrP1mRVuIV8En7DEwj+U0tPtopf3x5W4b+dvx49UP+bX1k3FC/OEQ4Enhjy
-	 XCItRBWFItXo7oL6e8bSbLvRwCLmrqJvn07QAzDSHfo8NacftXAOuM9mrV2lhMar8g1CZ
-	 HWLEPpmuupN7smnOF3Rei3no4hCKmmmiVmBYBg1j7JeXHT7z5ppNy0KIbSLm0Dt+Y6MOK
-	 YR7ffKy47QyZY3iofMO9airzNx/yBCHWrniCTy1NDWW/KmytzNjFnUGvvOx4WAtIjkg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pt5urRMT2WSF8F6D5dXj/zEgDBH8Cy6Wkm/uZuSTaoY=;
+	b=mUTK0In7XXjQD1PPeKqKzSQx6fjEd0xWDqyApKnjQq+EJrhVucqg/hGr5zsP3uwTlVw9
+	 682VIQbwcdD7HhE0iyClkp2zpXOEvDCdfuYIvCIf99fXTKBlxCecV2twlAwGJytGlMeop
+	 +YLK45l0x5WC/deQRQ9hMM5CQqkABHFOWhhv1HioVDWwJ/jCeWG61vGiGvE1O9Js/06AR
+	 254dg1fzMx3ZIcsEDDFBc8B1PxrgSF4KpuclloM5jMTB/FyDeE+su+JLRgx1t247bOMuO
+	 Aqc28nS+rhmBs4SWHfxFMjE4Gg0Gi6hW55jp15UUktE8V8HPG4krbScGKCW8tcAirwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=QPwAYVLx;
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=srsxHlyP;
+	arc=none smtp.remote-ip=209.85.208.71
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27798606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27798606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471BA606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 471BA606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=QPwAYVLx
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-83bbcfba0ffso685108a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:34:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=srsxHlyP
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b4083d33cfso765915a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:35:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1792611261; x=1793216061; darn=vger.kernel.org;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:content-type:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OMntn2ETO/usbSkqKLYHo+A7xvI2yL7wnu1Sxs1PaIY=;
-        b=QPwAYVLx3E8jOL7ejskplrN0BUIUmV6ctOC2VtmGdSK0DZLDiRUlJcDrKjQh1rD4NK
-         nqc8jjNYIbbmUdz5i+HFQQToN/VT3/sN2c9o0/9pubC7ukHgICKJoFCxNlfTsvA/0RBP
-         yTUqq9WU/EA4IgVFreetlBU3dhmcHWD5desAU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792611261; x=1793216061;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:content-type:x-gm-gg:x-gm-message-state:from:to:cc
+        d=google.com; s=20251104; t=1792611330; x=1793216130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=OMntn2ETO/usbSkqKLYHo+A7xvI2yL7wnu1Sxs1PaIY=;
-        b=FhffiF69fImWfp/OMZOXylIhVYigz8vhZYyYvMXkiqITW4GEmSSf6HQ2oK762EB0uH
-         NhEb3hJzMLfAoW8F1Bve4Kc/oWhzFz/isDvMbTfJcftukg1E+CnmgE5lEzhQ1yHaxO5k
-         NZC89O/piB7FXW2VbHRQrUxnWFlRDQrzsocNsHfGvkTdrX8njwqI18MBp+mVqfUo0Rga
-         6A1KR9xeaKx613Gd1DUhIU7ULJ/ufJOlctSkDsR2T6Yd+SLlRADwPg4edrFuzZb4jnmp
-         oXSOWDhgjmUe8EPmqpSKrBM0UK6uiWTfw3+J3zp8S3/jBqQuU12/Wprb2oZAqvR4Gpoa
-         h8NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzV7gBEJdn/x35axUWIu8ZPxVYAiAxhWhAp/HMW2Ak5aBos7+bCiNTPvUF4eZvekHhghIZ6iSAM/RdjhHw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkYL73u/4HmLKRQVF1+EWB6X062aj+1qA1RpPs91PH/+/K6/2G
-	Pog49WANUc4anb6XBnZOUzpDABLuZIZZUFAhz5i8/TVBREmUVJmSLhnqgAFdjiPhr3E=
-X-Gm-Gg: AYBFou1t9WAD4DhbIISEzuLXITO6dy/yiIymyc8/0mRkMhGcb/Xb3nowhavJkkQUnGM
-	l4T0pEUAHw+UCw/y8bSLvYWbmLhBprc8mwN1qHAWEQqJtoDhWaZTQ1WVjnk8tTUf8tRxrTxCvXo
-	VnWkhRnXXcGGqQT8N/ZwHlOGdVlMEXIVVuUP/ghjIHkGsaq09GXPnP0SKHsSHK/TL80ClqQuizF
-	UR/mpfIZRseW6pnFLVgnxLK1gmhs0gH3GtRi9KjV8wffTL215I1P+hLg9jUjpC2icvVIjPZV0ua
-	QPYyKFpcQCOKGztvwb8hZbIVPow/tD1rLuyFcrVI9MZfQL4Xq0CXDM1WiknJ1h7vC/n8vWFlq5k
-	n3BoV+e4ADc7rs+adatHL7HjxvRUK33loSTu9pxaYuBkW9/bMtJDeNvwW1yLuT5lT45u9XEFjKG
-	1QUQ+kHjKLof9oL4wZzhJTDHBnyZoKcF1GoEpLwYJDFkR4CmL1oLqe1hNApLhU/DmRApSa0k7ml
-	Q+TX7VvP26O3Q4RuJW01muIIQV7zFo1rboyArZJv+wAEebqtuYL+jBlifufiJ2q
-X-Received: by 2002:a05:6830:6413:b0:80c:d30f:974 with SMTP id 46e09a7af769-84d090127aamr2214379a34.21.1792611260924;
-        Wed, 21 Oct 2026 12:34:20 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbd7d5330sm3126307a34.21.2026.10.21.12.34.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 12:34:20 -0700 (PDT)
-Content-Type: multipart/mixed; boundary="------------Ny4XWLDXtAEXw20wG9D9U2aC"
-Message-ID: <4017e436-9f32-4cdb-a75d-4cbfcddd69f4@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 13:34:16 -0600
+        bh=pt5urRMT2WSF8F6D5dXj/zEgDBH8Cy6Wkm/uZuSTaoY=;
+        b=srsxHlyPdeo0YtzEPSQcyIweJ8y4TlQVCgaRxqKCfZG34fIHWaWsTGT1l6iDnnMhwc
+         JMV1CZXht6ZiPYMn7j63ttL8vkJTtZcu6JlZq3+lZHI3jVM3gcVMdBnfWi05aWjRdR38
+         2B5alE9fD/FhF2dDt9LxWJIzb5b3JRKZOLfxNtxYWfR11SBBRZPU9Bu0q+4pTCVmAHPc
+         BHtVYWSonfZ7wqkWpLh74sQ/1kzcB4gYDW14wlitJ4hWIWNyjeRvSTN5YWtLDYXDiMOE
+         W+iRIngsBLdvItvn/pKuJKdthJ+bTzXUb2qI/mVnd1OcmCCNCWF+hI3pHv3QrVTwgEak
+         f39A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792611330; x=1793216130;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pt5urRMT2WSF8F6D5dXj/zEgDBH8Cy6Wkm/uZuSTaoY=;
+        b=E5bRmPNwlUlagIhBDSctNKyT++AXvcOFvL0Karp9RAiGnmOknjYkw+A7qlyqnJFwyY
+         o2zb1espI5an33vu5weMvnnOp7owpwgfht12EhOZd0c0wQw7LuAbCQT8cdp9Rk41FcGY
+         Ksg9TKsSGhvLQn+q1uT/ItXKGLblwm1vjBoBWlSqZ8vgcZLR7jSVU5SQNtKc7lYlFXiZ
+         XWsVmo/Uh0KD9+MgxJT0xnA98eL0ByH0+XED3sWG8AKxD5GEjRwmyvzHvh6kqze4SFG5
+         nzZZ885/DQLsXSPErX0LfoikkRbc3hMDZgXhhQ8y7xLy6oqLMcPwzCtYtltj7zN+2B8V
+         n8BQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPMwAUlhgJVlt0xXOH+rUHH5tBAS0EEtCHeDnMVabvufSCAXCiLV3zdhaqvONCvhG5xiJ7JbNX310+iJc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0P7LexlPR7vtW92OJDkzZIwjrD734NnPO+E6wWmyweAREWhSq
+	z9yLuUmjBgN0VO6q5RGp8UlHqYDI514DI9v0zs3aP/Xu7W4Z18ZKQJjMyoph+YNA0wiUQeGczfU
+	ysP7B/Bp76ioHNDphiA==
+X-Received: from edrm11.prod.google.com ([2002:aa7:d34b:0:b0:6b1:f575:1672])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:1cc2:b0:6b1:cd52:5798 with SMTP id 4fb4d7f45d1cf-6b408ef1e43mr1941841a12.42.1792611329210;
+ Wed, 21 Oct 2026 12:35:29 -0700 (PDT)
+Date: Wed, 21 Oct 2026 19:35:28 +0000
+In-Reply-To: <CA+CK2bDyk=F7W3J=q3pKCjsr2wy_PLdgqgu+ywp0F5HL=VoMpA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,746 +79,772 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: shuah <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-From: Shuah Khan <skhan@linuxfoundation.org>
-Subject: [GIT PULL] kselftest next update for Linux 7.4-rc1
+Mime-Version: 1.0
+References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-2-tarunsahu@google.com>
+ <CA+CK2bC_wc4LxvHe0TREbBP7esYW3pcMNtkGK-kqvf6MyvOh2g@mail.gmail.com>
+ <9huzik2u6hs5.fsf@tarunix.c.googlers.com> <CA+CK2bDyk=F7W3J=q3pKCjsr2wy_PLdgqgu+ywp0F5HL=VoMpA@mail.gmail.com>
+Message-ID: <9huzld7q4zjz.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH v2 1/4] liveupdate: Rename handler compatible to name
+From: tarunsahu@google.com
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	David Matlack <dmatlack@google.com>, jgg@nvidia.com, robin.murphy@arm.com, 
+	loganodell@google.com, oupton@kernel.org, kevin.tian@intel.com, 
+	alex@shazbot.org, dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, 
+	will@kernel.org, Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	baolu.lu@linux.intel.com, linux-arm-kernel@lists.infradead.org, 
+	linux-arch@vger.kernel.org, sagis@google.com, linux-mm@kvack.org, 
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev, linux-pci@vger.kernel.org, 
+	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is a multi-part message in MIME format.
---------------Ny4XWLDXtAEXw20wG9D9U2aC
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Pasha Tatashin <pasha.tatashin@soleen.com> writes:
 
-Hi Linus,
+> On Wed, Oct 21, 2026 at 2:16=E2=80=AFPM <tarunsahu@google.com> wrote:
+>>
+>> Pasha Tatashin <pasha.tatashin@soleen.com> writes:
+>>
+>> > On Wed, Oct 21, 2026 at 11:25=E2=80=AFAM Tarun Sahu <tarunsahu@google.=
+com> wrote:
+>> >>
+>> >> File handler and File-Lifecycle-Bound (FLB) identifiers name the
+>> >
+>> > Please use FLB directly, no need to spell it out.
+>> >
+>> >> registered handler or FLB rather than a monolithic compatibility vers=
+ion.
+>> >> Rename compatible to name across LUO headers, structures, and consume=
+rs:
+>> >> - struct liveupdate_file_handler and struct luo_file_ser name field
+>> >> - LIVEUPDATE_HNDL_NAME_LENGTH (in include/uapi/linux/liveupdate.h) an=
+d
+>> >>   MEMFD_LUO_FH_NAME
+>> >> - struct liveupdate_flb name field, LIVEUPDATE_FLB_NAME_LENGTH,
+>> >>   PCI_LUO_FLB_NAME, and LIVEUPDATE_TEST_FLB_NAME
+>> >>
+>> >> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+>> >> ---
+>> >>  drivers/pci/liveupdate.c        | 10 ++++----
+>> >>  include/linux/kho/abi/luo.h     | 26 +++++++++----------
+>> >>  include/linux/kho/abi/memfd.h   |  4 +--
+>> >>  include/linux/kho/abi/pci.h     |  2 +-
+>> >>  include/linux/liveupdate.h      | 18 +++++--------
+>> >>  include/uapi/linux/liveupdate.h |  3 +++
+>> >>  kernel/liveupdate/luo_file.c    | 45 +++++++++++++++++--------------=
+--
+>> >>  kernel/liveupdate/luo_flb.c     | 16 ++++++------
+>> >>  lib/tests/liveupdate.c          | 22 ++++++++--------
+>> >>  mm/memfd_luo.c                  |  2 +-
+>> >>  10 files changed, 73 insertions(+), 75 deletions(-)
+>> >>
+>> >> diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
+>> >> index 51695782ed42..3cf01d7d615c 100644
+>> >> --- a/drivers/pci/liveupdate.c
+>> >> +++ b/drivers/pci/liveupdate.c
+>> >> @@ -424,7 +424,7 @@ static struct liveupdate_flb_ops pci_liveupdate_f=
+lb_ops =3D {
+>> >>
+>> >>  static struct liveupdate_flb pci_liveupdate_flb =3D {
+>> >>         .ops =3D &pci_liveupdate_flb_ops,
+>> >> -       .compatible =3D PCI_LUO_FLB_COMPATIBLE,
+>> >> +       .name =3D PCI_LUO_FLB_NAME,
+>> >>  };
+>> >>
+>> >>  static void pci_liveupdate_flb_put_outgoing(void)
+>> >> @@ -667,13 +667,13 @@ static struct pci_flb_incoming *pci_liveupdate_=
+flb_get_incoming(void)
+>> >>
+>> >>         /*
+>> >>          * Live Update is enabled and there is incoming FLB data, but=
+ none of it
+>> >> -        * matches pci_liveupdate_flb.compatible.
+>> >> +        * matches pci_liveupdate_flb.name.
+>> >>          */
+>> >>         if (ret =3D=3D -ENOENT)
+>> >>                 return NULL;
+>> >>
+>> >>         /*
+>> >> -        * There is incoming FLB data that matches pci_liveupdate_flb=
+.compatible
+>> >> +        * There is incoming FLB data that matches pci_liveupdate_flb=
+.name
+>> >>          * but retrieve failed (pci_flb_retrieve() returned an error =
+or LUO
+>> >>          * failed to acquire a reference to pci_liveupdate_flb_ops.ow=
+ner).
+>> >>          */
+>> >> @@ -998,7 +998,7 @@ EXPORT_SYMBOL_GPL(pci_liveupdate_is_incoming);
+>> >>   */
+>> >>  int pci_liveupdate_register_flb(struct liveupdate_file_handler *fh)
+>> >>  {
+>> >> -       pr_debug("Registering file handler \"%s\"\n", fh->compatible)=
+;
+>> >> +       pr_debug("Registering file handler \"%s\"\n", fh->name);
+>> >>         return liveupdate_register_flb(fh, &pci_liveupdate_flb);
+>> >>  }
+>> >>  EXPORT_SYMBOL_GPL(pci_liveupdate_register_flb);
+>> >> @@ -1009,7 +1009,7 @@ EXPORT_SYMBOL_GPL(pci_liveupdate_register_flb);
+>> >>   */
+>> >>  void pci_liveupdate_unregister_flb(struct liveupdate_file_handler *f=
+h)
+>> >>  {
+>> >> -       pr_debug("Unregistering file handler \"%s\"\n", fh->compatibl=
+e);
+>> >> +       pr_debug("Unregistering file handler \"%s\"\n", fh->name);
+>> >>         liveupdate_unregister_flb(fh, &pci_liveupdate_flb);
+>> >>  }
+>> >>  EXPORT_SYMBOL_GPL(pci_liveupdate_unregister_flb);
+>> >> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.=
+h
+>> >> index 288076de6d4a..5fb2f46425d7 100644
+>> >> --- a/include/linux/kho/abi/luo.h
+>> >> +++ b/include/linux/kho/abi/luo.h
+>> >> @@ -39,9 +39,9 @@
+>> >>   *     Multiple blocks are linked via the `next` field in the header=
+.
+>> >>   *
+>> >>   *   - struct luo_file_ser:
+>> >> - *     Metadata for a single preserved file. Contains the `compatibl=
+e` string to
+>> >> - *     find the correct handler in the new kernel, a user-provided `=
+token` for
+>> >> - *     identification, and an opaque `data` handle for the handler t=
+o use.
+>> >> + *     Metadata for a single preserved file. Contains the handler `n=
+ame` string
+>> >> + *     to find the correct handler in the new kernel, a user-provide=
+d `token`
+>> >> + *     for identification, and an opaque `data` handle for the handl=
+er to use.
+>> >>   *
+>> >>   *   - struct luo_flb_header_ser:
+>> >>   *     Header for the FLB array. Contains the total page count of th=
+e
+>> >> @@ -49,9 +49,9 @@
+>> >>   *     that follow.
+>> >>   *
+>> >>   *   - struct luo_flb_ser:
+>> >> - *     Metadata for a single preserved global object. Contains its `=
+name`
+>> >> - *     (compatible string), an opaque `data` handle, and the `count`
+>> >> - *     number of files depending on it.
+>> >> + *     Metadata for a single preserved global object. Contains its F=
+LB `name`
+>> >> + *     string, an opaque `data` handle, and the `count` number of fi=
+les
+>> >> + *     depending on it.
+>> >>   */
+>> >>
+>> >>  #ifndef _LINUX_KHO_ABI_LUO_H
+>> >> @@ -84,18 +84,16 @@ struct luo_ser {
+>> >>         u64 flbs_pa;
+>> >>  } __packed;
+>> >>
+>> >> -#define LIVEUPDATE_HNDL_COMPAT_LENGTH  48
+>> >> -
+>> >>  /**
+>> >>   * struct luo_file_ser - Represents the serialized preserves files.
+>> >> - * @compatible:  File handler compatible string.
+>> >> + * @name:        File handler name string.
+>> >
+>> > We are renaming from cpmaptible to name; I am not sure that is
+>> > necessary. We can still use compatible for the same purpose as name.
+>> > Unless it really bothers people, but for me 'compatible' works just
+>> > the same.
+>>
+>> Yes it is necessary, For example if we have two handler for a single
+>> subsystem. We should refer it by handle this or handler that, not like
+>> handler with compatible string this and handler with compatible string
+>> that.
+>
+> I still feel like compatability makes more sense to me. Take an example:
+>
+> We have two file handlers for memfd (i.e., FH_OLD and FH_NEW): one has
+> compatibility =3D "memfd", and the other has compatibility =3D
+> "memfd_next_generation". The user chooses one of them to preserve the
+> memfd data, and the compatibility string is saved alongside the FD.
+> When the next kernel scans through the registered file handlers, it
+> must find exactly one that is compatible with the preserved data.
 
-Please pull the kselftest next update for Linux 7.4-rc1.
+I will open this for vote.
 
-- Improves selftest build, run-time, and install framework
+I can debate this in the following way:
 
-   Installs even when some modules fail to build, prints summary of test
-   results at the end of the default test run, keeps the build status from
-   wrapping to success so build errors are reported, and optionally records
-   per-suite build and install results:
+ We have two file handlers for memfd (i.e., FH_OLD and FH_NEW): one has
+ name =3D "memfd", and the other has name =3D "memfd_next_generation". The
+ user chooses one of them to preserve the memfd data, and the name
+ string is saved alongside the FD.
 
-       selftests: lib.mk: Don't fail install if no modules were built
-       selftests/lib.mk: run_tests: print summary at the end
-       selftests: keep the build status from wrapping to success
-       selftests: optionally record per-suite build and install results
+ When the next kernel scans through the registered file handlers, it
+ must find exactly one whose name matches with the preserved data.
 
-- Adds LLVM support to kselftest_deps.sh
+ name here is the identity of the handler which feels like "In target
+ kernel, Find this handler to operate on the payload." and compatiblility
+ feels like "find the handler in the target kernel for which the payload is
+ compatible with."
 
-       selftests: kselftest_deps.sh: Support LLVM
+ Based on LPC discussion, if current handler gives up to support
+ anything new without breaking backward compatiblity. Then only, we
+ should have a new handler.
 
-- Fixes resctrl, breakpoints suspend, ftrace, and tracing tests
+ So New handler is new identity for a same subsystem. While compatiblity
+ string sounds feasible when comparing among all different kind of
+ subsystem handlers.
 
-       selftests/resctrl: Skip L3_CAT when no exclusive cache portion exists
-       selftests: breakpoints: Skip step_after_suspend_test on systems
-                  without a wakeup capable RTC
-       selftests/ftrace: skip gcov symbols when picking a function to probe
-       selftests/ftrace: Avoid unlink error on first run
-       selftests/ftrace: Add nice dependency
-       tracing/selftests: Fix incorrect invocation of exit_fail
+~Tarun
 
-- Fixes and enhances resctrl test use link lists to manage IMC counters
-
-       selftests/resctrl: Introduce linked list management for IMC counters
-       selftests/resctrl: Replace counter index references with pointers
-       selftests/resctrl: Enable dynamic management of IMC counters via
-                          linked list
-
-diff is attached.
-
-thanks,
--- Shuah
-
-----------------------------------------------------------------
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest tags/linux_kselftest-next-7.4-rc1
-
-for you to fetch changes up to 368e5d4d12a802ee3708800319cd13904721286f:
-
-   selftests: breakpoints: Skip step_after_suspend_test on systems without a wakeup capable RTC (2026-10-19 18:05:00 -0600)
-
-----------------------------------------------------------------
-linux_kselftest-next-7.4-rc1
-
-- Improves selftest build, run-time, and install framework
-
-   Installs even when some modules fail to build, prints summary of test
-   results at the end of the default test run, keeps the build status from
-   wrapping to success so build errors are reported, and optionally records
-   per-suite build and install results:
-
-       selftests: lib.mk: Don't fail install if no modules were built
-       selftests/lib.mk: run_tests: print summary at the end
-       selftests: keep the build status from wrapping to success
-       selftests: optionally record per-suite build and install results
-
-- Adds LLVM support to kselftest_deps.sh
-
-       selftests: kselftest_deps.sh: Support LLVM
-
-- Fixes resctrl, breakpoints suspend, ftrace, and tracing tests
-
-       selftests/resctrl: Skip L3_CAT when no exclusive cache portion exists
-       selftests: breakpoints: Skip step_after_suspend_test on systems
-                  without a wakeup capable RTC
-       selftests/ftrace: skip gcov symbols when picking a function to probe
-       selftests/ftrace: Avoid unlink error on first run
-       selftests/ftrace: Add nice dependency
-       tracing/selftests: Fix incorrect invocation of exit_fail
-
-- Fixes and enhances resctrl test use link lists to manage IMC counters
-
-       selftests/resctrl: Introduce linked list management for IMC counters
-       selftests/resctrl: Replace counter index references with pointers
-       selftests/resctrl: Enable dynamic management of IMC counters via
-                          linked list
-
-----------------------------------------------------------------
-Anirudh Srinivasan (1):
-       selftests: breakpoints: Skip step_after_suspend_test on systems without a wakeup capable RTC
-
-Eva Kurchatova (1):
-       selftests/ftrace: skip gcov symbols when picking a function to probe
-
-Jaewon Jung (2):
-       selftests/ftrace: Avoid unlink error on first run
-       selftests/ftrace: Add nice dependency
-
-Mark Brown (2):
-       selftests: lib.mk: Don't fail install if no modules were built
-       selftests: kselftest_deps.sh: Support LLVM
-
-Matthieu Baerts (NGI0) (1):
-       selftests/lib.mk: run_tests: print summary at the end
-
-Richard Cheng (1):
-       selftests/resctrl: Skip L3_CAT when no exclusive cache portion exists
-
-Sasha Levin (2):
-       selftests: keep the build status from wrapping to success
-       selftests: optionally record per-suite build and install results
-
-Woradorn Laodhanadhaworn (1):
-       tracing/selftests: Fix incorrect invocation of exit_fail
-
-Yifan Wu (3):
-       selftests/resctrl: Introduce linked list management for IMC counters
-       selftests/resctrl: Replace counter index references with pointers
-       selftests/resctrl: Enable dynamic management of IMC counters via linked list
-
-  Documentation/dev-tools/kselftest.rst              |  38 +++++
-  tools/testing/selftests/Makefile                   |  31 +++-
-  .../breakpoints/step_after_suspend_test.c          |  11 ++
-  tools/testing/selftests/build_report.mk            |  26 ++++
-  tools/testing/selftests/ftrace/ftracetest          |   2 +-
-  .../test.d/00basic/ringbuffer_subbuf_size.tc       |   6 +-
-  .../ftrace/test.d/00basic/trace_marker.tc          |   4 +-
-  .../ftrace/test.d/kprobe/kprobe_eventname.tc       |   2 +-
-  .../inter-event/trigger-onchange-action-hist.tc    |   2 +-
-  .../inter-event/trigger-snapshot-action-hist.tc    |   2 +-
-  tools/testing/selftests/kselftest_deps.sh          |  83 +++++++++-
-  tools/testing/selftests/lib.mk                     |   5 +-
-  tools/testing/selftests/resctrl/cat_test.c         |  23 ++-
-  tools/testing/selftests/resctrl/mba_test.c         |   1 +
-  tools/testing/selftests/resctrl/mbm_test.c         |   1 +
-  tools/testing/selftests/resctrl/resctrl.h          |   2 +
-  tools/testing/selftests/resctrl/resctrl_val.c      | 169 +++++++++++----------
-  17 files changed, 304 insertions(+), 104 deletions(-)
-  create mode 100644 tools/testing/selftests/build_report.mk
-----------------------------------------------------------------
---------------Ny4XWLDXtAEXw20wG9D9U2aC
-Content-Type: text/x-patch; charset=UTF-8;
- name="linux_kselftest-next-7.4-rc1.diff"
-Content-Disposition: attachment; filename="linux_kselftest-next-7.4-rc1.diff"
-Content-Transfer-Encoding: base64
-
-ZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2LXRvb2xzL2tzZWxmdGVzdC5yc3QgYi9E
-b2N1bWVudGF0aW9uL2Rldi10b29scy9rc2VsZnRlc3QucnN0CmluZGV4IDY0YzBlYzc0Mjhh
-Mi4uMjZhNTM2ZWY0Y2Q2IDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL2Rldi10b29scy9r
-c2VsZnRlc3QucnN0CisrKyBiL0RvY3VtZW50YXRpb24vZGV2LXRvb2xzL2tzZWxmdGVzdC5y
-c3QKQEAgLTEzMyw2ICsxMzMsNDQgQEAgYnVpbGQgc3VjY2Vzc2Z1bGx5OyBtYWtlIHdpbGwg
-YWJvcnQgYXMgc29vbiBhcyBhbnkgdGFyZ2V0IGZhaWxzOjoKIFRoaXMgYXBwbGllcyB0byBi
-b3RoIHRoZSBgYGFsbGBgIGFuZCBgYGluc3RhbGxgYCB0YXJnZXRzIGFuZCBpcyB1c2VmdWwg
-aW4KIENJIGVudmlyb25tZW50cyB3aGVyZSBhIHNpbGVudCBwYXJ0aWFsIGJ1aWxkIHdvdWxk
-IGJlIG1pc2xlYWRpbmcuCiAKK1JlY29yZGluZyBzdWl0ZSBidWlsZCByZXN1bHRzCis9PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PQorCitTaW5jZSB0aGUgYnVpbGQgc3VjY2VlZHMg
-YXMgbG9uZyBhcyBvbmUgdGFyZ2V0IGJ1aWxkcywgdGhlIGV4aXQgc3RhdHVzIG9mCittYWtl
-IGRvZXMgbm90IHNob3cgd2hpY2ggdGFyZ2V0cyBmYWlsZWQuIFNldCBgYEtTRlRfQlVJTERf
-UkVQT1JUYGAgdG8gdGhlCithYnNvbHV0ZSBwYXRoIG9mIGEgZmlsZSB0byBoYXZlIHRoZSBg
-YGFsbGBgIGFuZCBgYGluc3RhbGxgYCB0YXJnZXRzIGFwcGVuZAorYSB0YWItc2VwYXJhdGVk
-IHJlY29yZCBmb3IgZWFjaCB0YXJnZXQgdGhleSBwcm9jZXNzOjoKKworICAkIDogPiAvdG1w
-L2tzZnQtYnVpbGQudHN2CisgICQgbWFrZSAtQyB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cyBP
-PS90bXAva2VybmVsLWJ1aWxkIFwKKyAgICAgICAgS1NGVF9CVUlMRF9SRVBPUlQ9L3RtcC9r
-c2Z0LWJ1aWxkLnRzdiBpbnN0YWxsCisKK0VhY2ggcmVjb3JkIGhvbGRzIHRoZSBwaGFzZSAo
-YGBhbGxgYCBvciBgYGluc3RhbGxgYCksIGEgbmFtZSBhbmQgdGhlIGV4aXQKK3N0YXR1cyBv
-ZiB0aGF0IHN0ZXAuIFJlY29yZGluZyBkb2VzIG5vdCBjaGFuZ2Ugd2hpY2ggdGFyZ2V0cyBh
-cmUgYnVpbHQgb3IKK2luc3RhbGxlZCwgb3IgdGhlIGV4aXQgc3RhdHVzIG9mIG1ha2UsIGFs
-c28gd2l0aCBgYEZPUkNFX1RBUkdFVFM9MWBgLiBUaGUKK2NhbGxlciBjcmVhdGVzIG9yIHRy
-dW5jYXRlcyB0aGUgcmVwb3J0IGJlZm9yZSBhIGJ1aWxkOyB0aGUgcnVsZXMgb25seQorYXBw
-ZW5kIHRvIGl0LiBOb3RoaW5nIGlzIHJlY29yZGVkIGJ5IGBgbWFrZSAtbmBgLCBgYC10YGAg
-b3IgYGAtcWBgLgorCitUaGUgc2FtZSBuYW1lIGNhbiBhcHBlYXIgc2V2ZXJhbCB0aW1lczog
-YGBpbnN0YWxsYGAgYnVpbGRzIHRoZSB0YXJnZXRzCithZ2FpbiwgYW5kIGdlbmVyYXRpbmcg
-YGBrc2VsZnRlc3QtbGlzdC50eHRgYCBpcyByZWNvcmRlZCBhcyBwYXJ0IG9mIHRoZQorYGBp
-bnN0YWxsYGAgcGhhc2UuIFRhcmdldHMgdGhhdCBhcmUgYWRkZWQgYXV0b21hdGljYWxseSBh
-cyBpbnN0YWxsYXRpb24KK2RlcGVuZGVuY2llcyBvZiBvdGhlciB0YXJnZXRzLCBzdWNoIGFz
-IGBgbmV0L2xpYmBgLCBhcmUgcmVjb3JkZWQgdG9vLgorU3VpdGVzIHRoYXQgYXJlIGJ1aWx0
-IGZyb20gc2V2ZXJhbCBzdWJkaXJlY3RvcmllcyBtYXkgYWxzbyByZWNvcmQgZWFjaAorc3Vi
-ZGlyZWN0b3J5IHVuZGVyIGl0cyBwYXRoLCBmb3IgZXhhbXBsZSBgYGFybTY0L3RhZ3NgYDsg
-YSBmYWlsdXJlIHRoZXJlCittZWFucyB0aGF0IHRoZSBzdWl0ZSB3YXMgYnVpbHQgb3IgaW5z
-dGFsbGVkIG9ubHkgcGFydGlhbGx5LiBBIHJlY29yZAorYmVsb25ncyB0byB0aGUgdGFyZ2V0
-IHdpdGggdGhlIGxvbmdlc3QgbmFtZSB0aGF0IGlzIGVxdWFsIHRvIHRoZSByZWNvcmQKK25h
-bWUgb3IgZm9sbG93ZWQgYnkgYGAvYGAgaW4gaXQuCisKK0EgdGFyZ2V0IHdhcyBidWlsdCBh
-bmQgaW5zdGFsbGVkIHN1Y2Nlc3NmdWxseSBvbmx5IGlmIGFsbCBvZiBpdHMgcmVjb3Jkcwor
-aGF2ZSBhIHplcm8gc3RhdHVzLiBNaXNzaW5nIHJlY29yZHMgZG8gbm90IHNob3cgdGhhdCBh
-IHRhcmdldCB3YXMgYnVpbHQuCitBIHN1Y2Nlc3NmdWwgdGFyZ2V0IHRoYXQgaW5zdGFsbHMg
-bm8gdGVzdHMgaGFzIG5vIGVudHJpZXMgaW4KK2Bga3NlbGZ0ZXN0LWxpc3QudHh0YGAuIElu
-c3RhbGwgdGhlIGtlcm5lbCBoZWFkZXJzIHdpdGggYGBtYWtlIGhlYWRlcnNgYAorYmVmb3Jl
-IGJ1aWxkaW5nOiBhIHN1aXRlIHRoYXQgZmFpbHMgYmVjYXVzZSB0aGUgaGVhZGVycyBhcmUg
-bWlzc2luZyBpcworcmVjb3JkZWQgYXMgZmFpbGVkIGV2ZW4gaWYgYSBsYXRlciBzdGVwIGlu
-c3RhbGxzIHRoZW0uCisKK2BgS1NGVF9CVUlMRF9SRVBPUlRfVkVSU0lPTmBgIGluIHRvb2xz
-L3Rlc3Rpbmcvc2VsZnRlc3RzL01ha2VmaWxlIGdpdmVzIHRoZQordmVyc2lvbiBvZiB0aGlz
-IGZvcm1hdCwgY3VycmVudGx5IGBgMWBgLgorCiBSdW5uaW5nIHRoZSBmdWxsIHJhbmdlIGhv
-dHBsdWcgc2VsZnRlc3RzCiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09CiAKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL01ha2VmaWxlIGIv
-dG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvTWFrZWZpbGUKaW5kZXggMmQ5NjA2MjY3NTBlLi5k
-NGM3MWFkMjBiYmIgMTAwNjQ0Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL01ha2Vm
-aWxlCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL01ha2VmaWxlCkBAIC0xNzEsNiAr
-MTcxLDEwIEBAIGVuZGlmCiAjIG9mIHRoZSB0YXJnZXRzIGdldHMgYnVpbHQuCiBGT1JDRV9U
-QVJHRVRTID89CiAKKyMgUmVtZW1iZXIgZHJ5IHJ1bnMgZm9yIHRoZSBidWlsZCByZXBvcnQg
-YmVmb3JlIE1BS0VGTEFHUyBtYXkgYmUgY2xlYXJlZC4KK0tTRlRfQlVJTERfUkVQT1JUX0RS
-WV9SVU4gOj0gJChzdHJpcCAkKGZvcmVhY2ggZixuIHQgcSwkKGZpbmRzdHJpbmcgJChmKSwk
-KGZpcnN0d29yZCAtJChNQUtFRkxBR1MpKSkpKQorZXhwb3J0IEtTRlRfQlVJTERfUkVQT1JU
-X0RSWV9SVU4KKwogIyBDbGVhciBMREZMQUdTIGFuZCBNQUtFRkxBR1Mgd2hlbiBpbXBsaWNp
-dCBydWxlcyBhcmUgbWlzc2luZy4gIFRoaXMgcHJvdmlkZXMKICMgaW1wbGljaXQgcnVsZXMg
-dG8gc3ViLXRlc3QgTWFrZWZpbGVzIHdoaWNoIGF2b2lkcyBidWlsZCBmYWlsdXJlcyBpbiB0
-ZXN0CiAjIE1ha2VmaWxlIHRoYXQgZG9uJ3QgaGF2ZSBleHBsaWNpdCBidWlsZCBydWxlcy4K
-QEAgLTIxNSw2ICsyMTksMTAgQEAgQVJDSCAgICAgICAgICAgPz0gJChTVUJBUkNIKQogZXhw
-b3J0IEJVSUxECiBleHBvcnQgS0hEUl9JTkNMVURFUwogCisjIFZlcnNpb24gb2YgdGhlIG9w
-dGlvbmFsIEtTRlRfQlVJTERfUkVQT1JUIGZvcm1hdCB3cml0dGVuIGJ5IHRoZXNlIHJ1bGVz
-LgorS1NGVF9CVUlMRF9SRVBPUlRfVkVSU0lPTiA6PSAxCitpbmNsdWRlICQodG9wX3NyY2Rp
-cikvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnVpbGRfcmVwb3J0Lm1rCisKICMgc2V0IGRl
-ZmF1bHQgZ29hbCB0byBhbGwsIHNvIG1ha2Ugd2l0aG91dCBhIHRhcmdldCBydW5zIGFsbCwg
-ZXZlbiB3aGVuCiAjIGFsbCBpc24ndCB0aGUgZmlyc3QgdGFyZ2V0IGluIHRoZSBmaWxlLgog
-LkRFRkFVTFRfR09BTCA6PSBhbGwKQEAgLTIyMywxMSArMjMxLDEzIEBAIGFsbDoKIAlAcmV0
-PTE7CQkJCQkJCVwKIAlmb3IgVEFSR0VUIGluICQoVEFSR0VUUykgJChJTlNUQUxMX0RFUF9U
-QVJHRVRTKTsgZG8JXAogCQlCVUlMRF9UQVJHRVQ9JCRCVUlMRC8kJFRBUkdFVDsJCQlcCi0J
-CW1rZGlyICQkQlVJTERfVEFSR0VUICAtcDsJCQlcCisJCW1rZGlyIC1wICQkQlVJTERfVEFS
-R0VUICYmCQkJXAogCQkkKE1BS0UpIE9VVFBVVD0kJEJVSUxEX1RBUkdFVCAtQyAkJFRBUkdF
-VAlcCi0JCQkJTz0kKGFic19vYmp0cmVlKQkJXAotCQkJCSQoaWYgJChGT1JDRV9UQVJHRVRT
-KSx8fCBleGl0KTsJXAotCQlyZXQ9JCQoKHJldCAqICQkPykpOwkJCQlcCisJCQkJTz0kKGFi
-c19vYmp0cmVlKTsJCVwKKwkJc3RhdHVzPSQkPzsJCQkJCVwKKwkJJChjYWxsIGtzZnRfcmVj
-b3JkX2J1aWxkX3N0YXR1cyxhbGwsJCRUQVJHRVQpOwlcCisJCSQoaWYgJChGT1JDRV9UQVJH
-RVRTKSxbICQkc3RhdHVzIC1lcSAwIF0gfHwgZXhpdCAkJHN0YXR1czspIFwKKwkJWyAkJHN0
-YXR1cyAtZXEgMCBdICYmIHJldD0wOwkJCVwKIAlkb25lOyBleGl0ICQkcmV0OwogCiBydW5f
-dGVzdHM6IGFsbApAQCAtMjg0LDcgKzI5NCw3IEBAIGlmZGVmIElOU1RBTExfUEFUSAogCWlu
-c3RhbGwgLW0gNzQ0IGtzZWxmdGVzdC9rdGFwX2hlbHBlcnMuc2ggJChJTlNUQUxMX1BBVEgp
-L2tzZWxmdGVzdC8KIAlpbnN0YWxsIC1tIDc0NCBrc2VsZnRlc3Qva3NmdC5weSAkKElOU1RB
-TExfUEFUSCkva3NlbGZ0ZXN0LwogCWluc3RhbGwgLW0gNzQ0IHJ1bl9rc2VsZnRlc3Quc2gg
-JChJTlNUQUxMX1BBVEgpLwotCXJtIC1mICQoVEVTVF9MSVNUKQorCTogPiAkKFRFU1RfTElT
-VCkKIAlAcmV0PTE7CVwKIAlmb3IgVEFSR0VUIGluICQoVEFSR0VUUykgJChJTlNUQUxMX0RF
-UF9UQVJHRVRTKTsgZG8gXAogCQlCVUlMRF9UQVJHRVQ9JCRCVUlMRC8kJFRBUkdFVDsJXApA
-QCAtMjkyLDkgKzMwMiwxMSBAQCBpZmRlZiBJTlNUQUxMX1BBVEgKIAkJCQlJTlNUQUxMX1BB
-VEg9JChJTlNUQUxMX1BBVEgpLyQkVEFSR0VUIFwKIAkJCQlTUkNfUEFUSD0kKHNoZWxsIHJl
-YWRsaW5rIC1lICQkKHB3ZCkpIFwKIAkJCQlPQkpfUEFUSD0kKElOU1RBTExfUEFUSCkgXAot
-CQkJCU89JChhYnNfb2JqdHJlZSkJCVwKLQkJCQkkKGlmICQoRk9SQ0VfVEFSR0VUUyksfHwg
-ZXhpdCk7CVwKLQkJcmV0PSQkKChyZXQgKiAkJD8pKTsJCVwKKwkJCQlPPSQoYWJzX29ianRy
-ZWUpOwkJXAorCQlzdGF0dXM9JCQ/OwkJCQlcCisJCSQoY2FsbCBrc2Z0X3JlY29yZF9idWls
-ZF9zdGF0dXMsaW5zdGFsbCwkJFRBUkdFVCk7IFwKKwkJJChpZiAkKEZPUkNFX1RBUkdFVFMp
-LFsgJCRzdGF0dXMgLWVxIDAgXSB8fCBleGl0ICQkc3RhdHVzOykgXAorCQlbICQkc3RhdHVz
-IC1lcSAwIF0gJiYgcmV0PTA7CQlcCiAJZG9uZTsgZXhpdCAkJHJldDsKIAogCkBAIC0zMDgs
-NiArMzIwLDkgQEAgaWZkZWYgSU5TVEFMTF9QQVRICiAJCXByaW50ZiAiRW1pdCBUZXN0cyBm
-b3IgJCRUQVJHRVRcbiI7IFwKIAkJJChNQUtFKSAtcyAtLW5vLXByaW50LWRpcmVjdG9yeSBP
-VVRQVVQ9JCRCVUlMRF9UQVJHRVQgQ09MTEVDVElPTj0kJFRBUkdFVCBcCiAJCQktQyAkJFRB
-UkdFVCBlbWl0X3Rlc3RzID4+ICQoVEVTVF9MSVNUKTsgXAorCQlzdGF0dXM9JCQ/OyBcCisJ
-CSQoY2FsbCBrc2Z0X3JlY29yZF9idWlsZF9zdGF0dXMsaW5zdGFsbCwkJFRBUkdFVCk7IFwK
-KwkJKGV4aXQgJCRzdGF0dXMpOyBcCiAJZG9uZTsKIAlAVkVSU0lPTj0kJChnaXQgZGVzY3Jp
-YmUgSEVBRCAyPi9kZXYvbnVsbCk7IFwKIAlpZiBbIC1uICIkJFZFUlNJT04iIF07IHRoZW4g
-XApkaWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnJlYWtwb2ludHMvc3Rl
-cF9hZnRlcl9zdXNwZW5kX3Rlc3QuYyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JyZWFr
-cG9pbnRzL3N0ZXBfYWZ0ZXJfc3VzcGVuZF90ZXN0LmMKaW5kZXggY2EyYWFhYjllNGNhLi43
-Mjc3OTAyNTk0MjkgMTAwNjQ0Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JyZWFr
-cG9pbnRzL3N0ZXBfYWZ0ZXJfc3VzcGVuZF90ZXN0LmMKKysrIGIvdG9vbHMvdGVzdGluZy9z
-ZWxmdGVzdHMvYnJlYWtwb2ludHMvc3RlcF9hZnRlcl9zdXNwZW5kX3Rlc3QuYwpAQCAtMTgs
-NiArMTgsNyBAQAogI2luY2x1ZGUgPHN5cy90aW1lcmZkLmg+CiAjaW5jbHVkZSA8c3lzL3R5
-cGVzLmg+CiAjaW5jbHVkZSA8c3lzL3dhaXQuaD4KKyNpbmNsdWRlIDx0aW1lLmg+CiAKICNp
-bmNsdWRlICJrc2VsZnRlc3QuaCIKIApAQCAtMTU4LDExICsxNTksMjEgQEAgdm9pZCBzdXNw
-ZW5kKHZvaWQpCiAJaW50IGVycjsKIAlpbnQgY291bnRfYmVmb3JlOwogCWludCBjb3VudF9h
-ZnRlcjsKKwlzdHJ1Y3QgdGltZXNwZWMgcmVzOwogCXN0cnVjdCBpdGltZXJzcGVjIHNwZWMg
-PSB7fTsKIAogCWlmIChnZXR1aWQoKSAhPSAwKQogCQlrc2Z0X2V4aXRfc2tpcCgiUGxlYXNl
-IHJ1biB0aGUgdGVzdCBhcyByb290IC0gRXhpdGluZy5cbiIpOwogCisJLyoKKwkgKiBDTE9D
-S19CT09UVElNRV9BTEFSTSBjYW5ub3Qgd2FrZSB1cCBzeXN0ZW1zIHRoYXQgZG9uJ3QgaGF2
-ZSBhCisJICogd2FrZXVwIGNhcGFibGUgUlRDIGZyb20gc3VzcGVuZC4gQ2hlY2sgaWYgd2Ug
-aGF2ZSBhIHdha2V1cC1jYXBhYmxlCisJICogUlRDIHRvIHByZXZlbnQgdGhpcyB0ZXN0IGZy
-b20gY2F1c2luZyB0aGUgc3lzdGVtIHRvIGhhbmcgYWZ0ZXIKKwkgKiBpdCBzdXNwZW5kcy4K
-KwkgKi8KKwlpZiAoY2xvY2tfZ2V0cmVzKENMT0NLX0JPT1RUSU1FX0FMQVJNLCAmcmVzKSAh
-PSAwKQorCQlrc2Z0X2V4aXRfc2tpcCgiTm8gd2FrZXVwLWNhcGFibGUgUlRDIGZvciBDTE9D
-S19CT09UVElNRV9BTEFSTVxuIik7CisKIAl0aW1lcmZkID0gdGltZXJmZF9jcmVhdGUoQ0xP
-Q0tfQk9PVFRJTUVfQUxBUk0sIDApOwogCWlmICh0aW1lcmZkIDwgMCkKIAkJa3NmdF9leGl0
-X2ZhaWxfbXNnKCJ0aW1lcmZkX2NyZWF0ZSgpIGZhaWxlZFxuIik7CmRpZmYgLS1naXQgYS90
-b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9idWlsZF9yZXBvcnQubWsgYi90b29scy90ZXN0aW5n
-L3NlbGZ0ZXN0cy9idWlsZF9yZXBvcnQubWsKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXgg
-MDAwMDAwMDAwMDAwLi4wNDdjMjM5OTI1ZTEKLS0tIC9kZXYvbnVsbAorKysgYi90b29scy90
-ZXN0aW5nL3NlbGZ0ZXN0cy9idWlsZF9yZXBvcnQubWsKQEAgLTAsMCArMSwyNiBAQAorIyBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAorIworIyBPcHRpb25hbCBwZXItc3Vp
-dGUgYnVpbGQgcmVwb3J0LCBzZWUgIlJlY29yZGluZyBzdWl0ZSBidWlsZCByZXN1bHRzIiBp
-bgorIyBEb2N1bWVudGF0aW9uL2Rldi10b29scy9rc2VsZnRlc3QucnN0LiBDYWxsZXJzIHNl
-dCBLU0ZUX0JVSUxEX1JFUE9SVCB0byBhbgorIyBhYnNvbHV0ZSBmaWxlbmFtZSBhbmQgdXNl
-IGtzZnRfcmVjb3JkX2J1aWxkX3N0YXR1cyBmcm9tIGEgc2hlbGwgbG9vcCB0aGF0CisjIGhh
-cyBzdG9yZWQgdGhlIGV4aXQgc3RhdHVzIG9mIHRoZSByZWNvcmRlZCBzdGVwIGluICRzdGF0
-dXMuCisKK2lmbmVxICh4JChLU0ZUX0JVSUxEX1JFUE9SVCl4LHh4KQoraWZlcSAoJChmaWx0
-ZXIgeC8lLCQoZmlyc3R3b3JkIHgkKEtTRlRfQlVJTERfUkVQT1JUKSkpLCkKKyQoZXJyb3Ig
-S1NGVF9CVUlMRF9SRVBPUlQgbXVzdCBiZSBhbiBhYnNvbHV0ZSBwYXRoOiAnJChLU0ZUX0JV
-SUxEX1JFUE9SVCknKQorZW5kaWYKK2VuZGlmCitleHBvcnQgS1NGVF9CVUlMRF9SRVBPUlQK
-Kwora3NmdF9idWlsZF9yZXBvcnRfZHJ5X3J1biA6PSAkKEtTRlRfQlVJTERfUkVQT1JUX0RS
-WV9SVU4pIFwKKwkkKGZvcmVhY2ggZixuIHQgcSwkKGZpbmRzdHJpbmcgJChmKSwkKGZpcnN0
-d29yZCAtJChNQUtFRkxBR1MpKSkpCisKK2lmbmVxICgkKHN0cmlwICQoa3NmdF9idWlsZF9y
-ZXBvcnRfZHJ5X3J1bikpLCkKK2tzZnRfcmVjb3JkX2J1aWxkX3N0YXR1cyA9IDoKK2Vsc2UK
-K2RlZmluZSBrc2Z0X3JlY29yZF9idWlsZF9zdGF0dXMKK2lmIFsgLW4gIiQkS1NGVF9CVUlM
-RF9SRVBPUlQiIF07IHRoZW4gXAorCXByaW50ZiAnJXNcdCVzXHQlZFxuJyAnJCgxKScgIiQo
-MikiICIkJHN0YXR1cyIgPj4gIiQkS1NGVF9CVUlMRF9SRVBPUlQiIHx8IGV4aXQgMTsgXAor
-ZmkKK2VuZGVmCitlbmRpZgpkaWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMv
-ZnRyYWNlL2Z0cmFjZXRlc3QgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9mdHJhY2UvZnRy
-YWNldGVzdAppbmRleCAyNDZkN2UxZDAxNWMuLjk1ODA0NjEwZTA3OSAxMDA3NTUKLS0tIGEv
-dG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL2Z0cmFjZXRlc3QKKysrIGIvdG9vbHMv
-dGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL2Z0cmFjZXRlc3QKQEAgLTI0Myw3ICsyNDMsNyBA
-QCBlbHNlCiAgIG1rZGlyIC1wICRMT0dfRElSIHx8IGVycmV4aXQgIkZhaWxlZCB0byBtYWtl
-IGEgbG9nIGRpcmVjdG9yeTogJExPR19ESVIiCiAgIGRhdGUgPiAkTE9HX0ZJTEUKICAgaWYg
-WyAieC0kTElOS19QVFIiICE9ICJ4LSIgXTsgdGhlbgotICAgIHVubGluayAkTElOS19QVFIK
-KyAgICBybSAtZiAkTElOS19QVFIKICAgICBsbiAtZnMgJExPR19EQVRFICRMSU5LX1BUUgog
-ICBmaQogZmkKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0cmFjZS90
-ZXN0LmQvMDBiYXNpYy9yaW5nYnVmZmVyX3N1YmJ1Zl9zaXplLnRjIGIvdG9vbHMvdGVzdGlu
-Zy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC8wMGJhc2ljL3JpbmdidWZmZXJfc3ViYnVmX3Np
-emUudGMKaW5kZXggZDQ0ZDA5YTMzYTc0Li44Y2ZlNTlkMzJiMWYgMTAwNjQ0Ci0tLSBhL3Rv
-b2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0cmFjZS90ZXN0LmQvMDBiYXNpYy9yaW5nYnVmZmVy
-X3N1YmJ1Zl9zaXplLnRjCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0cmFjZS90
-ZXN0LmQvMDBiYXNpYy9yaW5nYnVmZmVyX3N1YmJ1Zl9zaXplLnRjCkBAIC02MCw3ICs2MCw3
-IEBAIHRlc3RfYnVmZmVyKCkgewogCSMgdGhlIHNpemUgbXVzdCBiZSBncmVhdGVyIHRoYW4g
-b3IgZXF1YWwgdG8gcGFnZV9zaXplIC0gZGF0YV9vZmZzZXQKIAlwYWdlX3NpemU9JCgocGFn
-ZV9zaXplLWRhdGFfb2Zmc2V0KSkKIAlpZiBbICRzaXplIC1sdCAkcGFnZV9zaXplIF07IHRo
-ZW4KLQkJZXhpdCBmYWlsCisJCWV4aXRfZmFpbAogCWZpCiAKIAkjIE5vdyBhZGQgYSBsaXR0
-bGUgbW9yZSB0aGUgbWV0YSBkYXRhIG92ZXJoZWFkIHdpbGwgb3ZlcmZsb3cKQEAgLTcxLDE0
-ICs3MSwxNCBAQCB0ZXN0X2J1ZmZlcigpIHsKIAluZXdfc3RyPWBhd2sgJyAvdHJhY2luZ19t
-YXJrX3dyaXRlOi8geyBzdWIoL14uKnRyYWNpbmdfbWFya193cml0ZTogLywiIik7cHJpbnRm
-ICIlcyIsICQwOyBleGl0fScgdHJhY2VgCiAKIAlpZiBbICIkbmV3X3N0ciIgPSAiJHN0ciIg
-XTsgdGhlbgotCQlleGl0IGZhaWw7CisJCWV4aXRfZmFpbAogCWZpCiAKIAkjIE1ha2Ugc3Vy
-ZSB0aGUgZW50aXJlIGxpbmUgY2FuIGJlIGZvdW5kCiAJbmV3X3N0cj1gYXdrICcgL3RyYWNp
-bmdfbWFya193cml0ZTovIHsgc3ViKC9eLip0cmFjaW5nX21hcmtfd3JpdGU6IC8sIiIpO3By
-aW50ZiAiJXMiLCAkMDsgfScgdHJhY2VgCiAKIAlpZiBbICIkbmV3X3N0ciIgIT0gIiRzdHIi
-IF07IHRoZW4KLQkJZXhpdCBmYWlsOworCQlleGl0X2ZhaWwKIAlmaQogfQogCmRpZmYgLS1n
-aXQgYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9mdHJhY2UvdGVzdC5kLzAwYmFzaWMvdHJh
-Y2VfbWFya2VyLnRjIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC8w
-MGJhc2ljL3RyYWNlX21hcmtlci50YwppbmRleCA5YWEwZGIyYjg0ZmMuLjE5ODZjMWJmMTYw
-NiAxMDA2NDQKLS0tIGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC8w
-MGJhc2ljL3RyYWNlX21hcmtlci50YworKysgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9m
-dHJhY2UvdGVzdC5kLzAwYmFzaWMvdHJhY2VfbWFya2VyLnRjCkBAIC02OCwxNCArNjgsMTQg
-QEAgdGVzdF9idWZmZXIoKSB7CiAJbmV3X3N0cj1gYXdrICcgL3RyYWNpbmdfbWFya193cml0
-ZTovIHsgc3ViKC9eLip0cmFjaW5nX21hcmtfd3JpdGU6IC8sIiIpO3ByaW50ZiAiJXMiLCAk
-MDsgZXhpdH0nIHRyYWNlYAogCiAJaWYgWyAiJG5ld19zdHIiID0gIiRzdHIiIF07IHRoZW4K
-LQkJZXhpdCBmYWlsOworCQlleGl0X2ZhaWwKIAlmaQogCiAJIyBNYWtlIHN1cmUgdGhlIGVu
-dGlyZSBsaW5lIGNhbiBiZSBmb3VuZAogCW5ld19zdHI9YGF3ayAnIC90cmFjaW5nX21hcmtf
-d3JpdGU6LyB7IHN1YigvXi4qdHJhY2luZ19tYXJrX3dyaXRlOiAvLCIiKTtwcmludGYgIiVz
-IiwgJDA7IH0nIHRyYWNlYAogCiAJaWYgWyAiJG5ld19zdHIiICE9ICIkc3RyIiBdOyB0aGVu
-Ci0JCWV4aXQgZmFpbDsKKwkJZXhpdF9mYWlsCiAJZmkKIH0KIApkaWZmIC0tZ2l0IGEvdG9v
-bHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC9rcHJvYmUva3Byb2JlX2V2ZW50
-bmFtZS50YyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0cmFjZS90ZXN0LmQva3Byb2Jl
-L2twcm9iZV9ldmVudG5hbWUudGMKaW5kZXggYmExOWI4MWNlZjM5Li4wNjg4YTVjNDdkMWUg
-MTAwNjQ0Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0cmFjZS90ZXN0LmQva3By
-b2JlL2twcm9iZV9ldmVudG5hbWUudGMKKysrIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMv
-ZnRyYWNlL3Rlc3QuZC9rcHJvYmUva3Byb2JlX2V2ZW50bmFtZS50YwpAQCAtNSw3ICs1LDcg
-QEAKIAogOjs6ICJBZGQgYW4gZXZlbnQgb24gZnVuY3Rpb24gd2l0aG91dCBuYW1lIiA7Ogog
-Ci1GVU5DPWBncmVwICIgW3RUXSAuKnZmc19yZWFkJCIgL3Byb2Mva2FsbHN5bXMgfCB0YWls
-IC1uIDEgfCBjdXQgLWYgMyAtZCAiICJgCitGVU5DPWBncmVwICIgW3RUXSAuKnZmc19yZWFk
-JCIgL3Byb2Mva2FsbHN5bXMgfCBncmVwIC12IF9fZ2NvdiB8IHRhaWwgLW4gMSB8IGN1dCAt
-ZiAzIC1kICIgImAKIFsgIngiICE9ICJ4JEZVTkMiIF0gfHwgZXhpdF91bnJlc29sdmVkCiBl
-Y2hvICJwICRGVU5DIiA+IGtwcm9iZV9ldmVudHMKIFBST0JFX05BTUU9YGVjaG8gJEZVTkMg
-fCB0ciAiLjoiICJfImAKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0
-cmFjZS90ZXN0LmQvdHJpZ2dlci9pbnRlci1ldmVudC90cmlnZ2VyLW9uY2hhbmdlLWFjdGlv
-bi1oaXN0LnRjIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC90cmln
-Z2VyL2ludGVyLWV2ZW50L3RyaWdnZXItb25jaGFuZ2UtYWN0aW9uLWhpc3QudGMKaW5kZXgg
-NTVhYjAyNzBlNWY3Li4wNGU2ZGIyYTczNGQgMTAwNjQ0Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcv
-c2VsZnRlc3RzL2Z0cmFjZS90ZXN0LmQvdHJpZ2dlci9pbnRlci1ldmVudC90cmlnZ2VyLW9u
-Y2hhbmdlLWFjdGlvbi1oaXN0LnRjCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Z0
-cmFjZS90ZXN0LmQvdHJpZ2dlci9pbnRlci1ldmVudC90cmlnZ2VyLW9uY2hhbmdlLWFjdGlv
-bi1oaXN0LnRjCkBAIC0xLDcgKzEsNyBAQAogIyEvYmluL3NoCiAjIFNQRFgtTGljZW5zZS1J
-ZGVudGlmaWVyOiBHUEwtMi4wCiAjIGRlc2NyaXB0aW9uOiBldmVudCB0cmlnZ2VyIC0gdGVz
-dCBpbnRlci1ldmVudCBoaXN0b2dyYW0gdHJpZ2dlciBvbmNoYW5nZSBhY3Rpb24KLSMgcmVx
-dWlyZXM6IHNldF9ldmVudCAib25jaGFuZ2UodmFyKSI6UkVBRE1FIHBpbmc6cHJvZ3JhbQor
-IyByZXF1aXJlczogc2V0X2V2ZW50ICJvbmNoYW5nZSh2YXIpIjpSRUFETUUgcGluZzpwcm9n
-cmFtIG5pY2U6cHJvZ3JhbQogIyBmbGFnczogaW5zdGFuY2UKIAogZmFpbCgpIHsgI21zZwpk
-aWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC90cmln
-Z2VyL2ludGVyLWV2ZW50L3RyaWdnZXItc25hcHNob3QtYWN0aW9uLWhpc3QudGMgYi90b29s
-cy90ZXN0aW5nL3NlbGZ0ZXN0cy9mdHJhY2UvdGVzdC5kL3RyaWdnZXIvaW50ZXItZXZlbnQv
-dHJpZ2dlci1zbmFwc2hvdC1hY3Rpb24taGlzdC50YwppbmRleCA5ZWIzN2MyZmE0MTcuLjY0
-YmIwZGNhN2UzYiAxMDA2NDQKLS0tIGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNl
-L3Rlc3QuZC90cmlnZ2VyL2ludGVyLWV2ZW50L3RyaWdnZXItc25hcHNob3QtYWN0aW9uLWhp
-c3QudGMKKysrIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZnRyYWNlL3Rlc3QuZC90cmln
-Z2VyL2ludGVyLWV2ZW50L3RyaWdnZXItc25hcHNob3QtYWN0aW9uLWhpc3QudGMKQEAgLTEs
-NyArMSw3IEBACiAjIS9iaW4vc2gKICMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0y
-LjAKICMgZGVzY3JpcHRpb246IGV2ZW50IHRyaWdnZXIgLSB0ZXN0IGludGVyLWV2ZW50IGhp
-c3RvZ3JhbSB0cmlnZ2VyIHNuYXBzaG90IGFjdGlvbgotIyByZXF1aXJlczogc2V0X2V2ZW50
-IHNuYXBzaG90IGV2ZW50cy9zY2hlZC9zY2hlZF9wcm9jZXNzX2ZvcmsvaGlzdCAib25jaGFu
-Z2UodmFyKSI6UkVBRE1FICJzbmFwc2hvdCgpIjpSRUFETUUgcGluZzpwcm9ncmFtCisjIHJl
-cXVpcmVzOiBzZXRfZXZlbnQgc25hcHNob3QgZXZlbnRzL3NjaGVkL3NjaGVkX3Byb2Nlc3Nf
-Zm9yay9oaXN0ICJvbmNoYW5nZSh2YXIpIjpSRUFETUUgInNuYXBzaG90KCkiOlJFQURNRSBw
-aW5nOnByb2dyYW0gbmljZTpwcm9ncmFtCiAjIGZsYWdzOiBpbnN0YW5jZQogCiBmYWlsKCkg
-eyAjbXNnCmRpZmYgLS1naXQgYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9rc2VsZnRlc3Rf
-ZGVwcy5zaCBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2tzZWxmdGVzdF9kZXBzLnNoCmlu
-ZGV4IDQ4N2U0OWZkZjJhNi4uNzBiODM0MzYxY2I3IDEwMDc1NQotLS0gYS90b29scy90ZXN0
-aW5nL3NlbGZ0ZXN0cy9rc2VsZnRlc3RfZGVwcy5zaAorKysgYi90b29scy90ZXN0aW5nL3Nl
-bGZ0ZXN0cy9rc2VsZnRlc3RfZGVwcy5zaApAQCAtMTAsMTMgKzEwLDIwIEBACiB1c2FnZSgp
-CiB7CiAKLWVjaG8gLWUgIlVzYWdlOiAkMCAtW3BdIDxjb21waWxlcj4gW3Rlc3RfbmFtZV1c
-biIKK2VjaG8gLWUgIlVzYWdlOiAkMCAtW3BdIDxjb21waWxlcj4gW0FSQ0g9PGFyY2g+XSBb
-dGVzdF9uYW1lXVxuIgogZWNobyAtZSAiXHRrc2VsZnRlc3RfZGVwcy5zaCBbLXBdIGdjYyIK
-IGVjaG8gLWUgIlx0a3NlbGZ0ZXN0X2RlcHMuc2ggWy1wXSBnY2MgbW0iCiBlY2hvIC1lICJc
-dGtzZWxmdGVzdF9kZXBzLnNoIFstcF0gYWFyY2g2NC1saW51eC1nbnUtZ2NjIgotZWNobyAt
-ZSAiXHRrc2VsZnRlc3RfZGVwcy5zaCBbLXBdIGFhcmNoNjQtbGludXgtZ251LWdjYyBtbVxu
-IgorZWNobyAtZSAiXHRrc2VsZnRlc3RfZGVwcy5zaCBbLXBdIGFhcmNoNjQtbGludXgtZ251
-LWdjYyBtbSIKK2VjaG8gLWUgIlx0a3NlbGZ0ZXN0X2RlcHMuc2ggWy1wXSBMTFZNIgorZWNo
-byAtZSAiXHRrc2VsZnRlc3RfZGVwcy5zaCBbLXBdIExMVk0gQVJDSD1hcm02NCBtbVxuIgog
-ZWNobyAiLSBTaG91bGQgYmUgcnVuIGluIHNlbGZ0ZXN0cyBkaXJlY3RvcnkgaW4gdGhlIGtl
-cm5lbCByZXBvLiIKIGVjaG8gIi0gQ2hlY2tzIGlmIEtzZWxmdGVzdHMgY2FuIGJlIGJ1aWx0
-L2Nyb3NzLWJ1aWx0IG9uIGEgc3lzdGVtLiIKK2VjaG8gIi0gQ29tcGlsZXIgY2FuIGJlIGdp
-dmVuIGFzIExMVk0gdG8gdXNlIGNsYW5nLCBhcyB3aXRoIExMVk09MSBpbiIKK2VjaG8gIiAg
-dGhlIGtzZWxmdGVzdCBidWlsZC4gTExWTT08cHJlZml4Pi8gYW5kIExMVk09LTxzdWZmaXg+
-IHNlbGVjdCIKK2VjaG8gIiAgdGhlIGNsYW5nIGJpbmFyeSBhcyBpbiB0aGUga3NlbGZ0ZXN0
-IGJ1aWxkLiBBUkNIPTxhcmNoPiBzZWxlY3RzIgorZWNobyAiICB0aGUgY2xhbmcgdGFyZ2V0
-IGFyY2hpdGVjdHVyZSwgZGVmYXVsdGluZyB0byB0aGUgaG9zdDsgaXQgaXMiCitlY2hvICIg
-IGlnbm9yZWQgZm9yIG90aGVyIGNvbXBpbGVycy4iCiBlY2hvICItIFBhcnNlcyBhbGwgdGVz
-dC9zdWItdGVzdCBNYWtlZmlsZSB0byBmaW5kIGxpYnJhcnkgZGVwZW5kZW5jaWVzLiIKIGVj
-aG8gIi0gUnVucyBjb21waWxlIHRlc3Qgb24gYSB0cml2aWFsIEMgZmlsZSB3aXRoIExETElC
-UyBzcGVjaWZpZWQiCiBlY2hvICIgIGluIHRoZSB0ZXN0IE1ha2VmaWxlcyB0byBpZGVudGlm
-eSBtaXNzaW5nIGxpYnJhcnkgZGVwZW5kZW5jaWVzLiIKQEAgLTUzLDEzICs2MCwzMiBAQCB3
-aGlsZSBnZXRvcHRzICJwIiBhcmc7IGRvCiAJZXNhYwogZG9uZQogCisjIFB1bGwgYW4gb3B0
-aW9uYWwgQVJDSD08YXJjaD4gb3V0IG9mIHRoZSByZW1haW5pbmcgYXJndW1lbnRzLiBUaGUK
-KyMgZW52aXJvbm1lbnQgaXMgdXNlZCBpZiBpdCBpcyBub3QgZ2l2ZW4gb24gdGhlIGNvbW1h
-bmQgbGluZSwgYXMgd2l0aAorIyBtYWtlLgorYXJncz0oKQorZm9yIGFyZyBpbiAiJEAiOyBk
-bworCWNhc2UgIiRhcmciIGluCisJCUFSQ0g9KikKKwkJQVJDSD0ke2FyZyNBUkNIPX07Owor
-CQkqKQorCQlhcmdzKz0oIiRhcmciKTs7CisJZXNhYworZG9uZQorc2V0IC0tICIke2FyZ3Nb
-QF19IgorCiBpZiBbICQjIC1lcSAwIF0KIHRoZW4KIAl1c2FnZQogZmkKIAogIyBDb21waWxl
-cgotQ0M9JDEKK2Nhc2UgIiQxIiBpbgorCUxMVk18TExWTT0qKQorCXNldHVwX2xsdm0gIiR7
-MSNMTFZNfSI7OworCSopCisJQ0M9JDE7OworZXNhYwogCiB0bXBfZmlsZT0kKG1rdGVtcCku
-YwogdHJhcCAicm0gLWYgJHRtcF9maWxlLm8gJHRtcF9maWxlICR0bXBfZmlsZS5iaW4iIEVY
-SVQKQEAgLTE3OCw2ICsyMDQsNTYgQEAgZXhpdCAkPwogfQogIyBlbmQgbWFpbigpCiAKKyMg
-TWlycm9yIHRoZSBMTFZNIGhhbmRsaW5nIGluIGxpYi5tazogTExWTT08cHJlZml4Pi8gb3Ig
-TExWTT0tPHN1ZmZpeD4KKyMgc2VsZWN0IHRoZSBjbGFuZyBiaW5hcnksIGFuZCBBUkNIIHNl
-bGVjdHMgdGhlIHRhcmdldCB0cmlwbGUgd2l0aCB0aGUKKyMgaG9zdCBhcyB0aGUgZGVmYXVs
-dC4KK3NldHVwX2xsdm0oKQoreworCWxvY2FsIGxsdm09JHsxIz19CisJbG9jYWwgbGx2bV9w
-cmVmaXg9IiIKKwlsb2NhbCBsbHZtX3N1ZmZpeD0iIgorCWxvY2FsIGNsYW5nCisJbG9jYWwg
-dGFyZ2V0CisKKwlkZWNsYXJlIC1BIGNsYW5nX3RhcmdldAorCWNsYW5nX3RhcmdldFthcm1d
-PWFybS1saW51eC1nbnVlYWJpCisJY2xhbmdfdGFyZ2V0W2FybTY0XT1hYXJjaDY0LWxpbnV4
-LWdudQorCWNsYW5nX3RhcmdldFtoZXhhZ29uXT1oZXhhZ29uLWxpbnV4LW11c2wKKwljbGFu
-Z190YXJnZXRbaTM4Nl09aTM4Ni1saW51eC1nbnUKKwljbGFuZ190YXJnZXRbbTY4a109bTY4
-ay1saW51eC1nbnUKKwljbGFuZ190YXJnZXRbbWlwc109bWlwc2VsLWxpbnV4LWdudQorCWNs
-YW5nX3RhcmdldFtwb3dlcnBjXT1wb3dlcnBjNjRsZS1saW51eC1nbnUKKwljbGFuZ190YXJn
-ZXRbcmlzY3ZdPXJpc2N2NjQtbGludXgtZ251CisJY2xhbmdfdGFyZ2V0W3MzOTBdPXMzOTB4
-LWxpbnV4LWdudQorCWNsYW5nX3RhcmdldFt4ODZdPXg4Nl82NC1saW51eC1nbnUKKwljbGFu
-Z190YXJnZXRbeDg2XzY0XT14ODZfNjQtbGludXgtZ251CisKKwljYXNlICIkbGx2bSIgaW4K
-KwkJKi8pCisJCWxsdm1fcHJlZml4PSRsbHZtOzsKKwkJLSopCisJCWxsdm1fc3VmZml4PSRs
-bHZtOzsKKwllc2FjCisJY2xhbmc9JHtsbHZtX3ByZWZpeH1jbGFuZyR7bGx2bV9zdWZmaXh9
-CisKKwlpZiBbIC16ICIkQVJDSCIgXTsgdGhlbgorCQl0YXJnZXQ9JCgkY2xhbmcgLXByaW50
-LXRhcmdldC10cmlwbGUgMj4vZGV2L251bGwpCisJCWlmIFsgLXogIiR0YXJnZXQiIF07IHRo
-ZW4KKwkJCWVjaG8gLWUgIlx0VW5hYmxlIHRvIHJ1biAkY2xhbmcgLi4uIgorCQkJZXhpdCAx
-CisJCWZpCisJZWxzZQorCQl0YXJnZXQ9JHtjbGFuZ190YXJnZXRbJEFSQ0hdfQorCQlpZiBb
-IC16ICIkdGFyZ2V0IiBdOyB0aGVuCisJCQllY2hvIC1lICJcdFVua25vd24gQVJDSCAkQVJD
-SCBmb3IgTExWTSwgc3VwcG9ydGVkOiIKKwkJCWVjaG8gLWUgIlx0JChlY2hvICIkeyFjbGFu
-Z190YXJnZXRbKl19IiB8IHhhcmdzIC1uMSB8IHNvcnQgfCB4YXJncykiCisJCQlleGl0IDEK
-KwkJZmkKKwlmaQorCisJQ0M9IiRjbGFuZyAtLXRhcmdldD0kdGFyZ2V0IC1maW50ZWdyYXRl
-ZC1hcyIKK30KKwogYWxsX3Rlc3RzKCkKIHsKIAlmb3IgdGVzdCBpbiAkbDFfdGVzdHM7IGRv
-CkBAIC0yODUsNiArMzYxLDcgQEAgcHJpbnRfcmVzdWx0cygpCiB7CiAJZWNobyAtZSAiPT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0i
-OwogCWVjaG8gLWUgIktzZWxmdGVzdCBEZXBlbmRlbmN5IENoZWNrIGZvciBbJDAgJDEgJDJd
-IHJlc3VsdHMuLi4iCisJZWNobyAtZSAiQ29tcGlsZXI6ICRDQyIKIAogCWlmIFsgJHByaW50
-X3RhcmdldHMgLW5lIDAgXQogCXRoZW4KZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2Vs
-ZnRlc3RzL2xpYi5tayBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2xpYi5tawppbmRleCBm
-MDJjYzhhMmU0YWUuLjg4MWYxM2VlMmM4YSAxMDA2NDQKLS0tIGEvdG9vbHMvdGVzdGluZy9z
-ZWxmdGVzdHMvbGliLm1rCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2xpYi5tawpA
-QCAtMTA2LDcgKzEwNiw4IEBAIGRlZmluZSBSVU5fVEVTVFMKIAlpZiBbICJYJChzdW1tYXJ5
-KSIgIT0gIlgiIF07IHRoZW4gICAgICAgXAogCQlwZXJfdGVzdF9sb2dnaW5nPTE7CQlcCiAJ
-Zmk7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKLQlydW5fbWFueSAk
-KDEpCisJcnVuX21hbnkgJCgxKTsJCQkJXAorCWt0YXBfcHJpbnRfdG90YWxzCiBlbmRlZgog
-CiBkZWZpbmUgSU5TVEFMTF9JTkNMVURFUwpAQCAtMTU1LDcgKzE1Niw3IEBAIGVuZGVmCiAK
-IGRlZmluZSBJTlNUQUxMX01PRFNfUlVMRQogCSQoaWYgJChJTlNUQUxMX0xJU1QpLEBta2Rp
-ciAtcCAkKElOU1RBTExfUEFUSCkvJChJTlNUQUxMX0xJU1QpKQotCSQoaWYgJChJTlNUQUxM
-X0xJU1QpLHJzeW5jIC1hIC0tY29weS11bnNhZmUtbGlua3MgJChJTlNUQUxMX0xJU1QpLyou
-a28gJChJTlNUQUxMX1BBVEgpLyQoSU5TVEFMTF9MSVNUKSkKKwkkKGlmICQod2lsZGNhcmQg
-JChJTlNUQUxMX0xJU1QpLyoua28pLHJzeW5jIC1hIC0tY29weS11bnNhZmUtbGlua3MgJChJ
-TlNUQUxMX0xJU1QpLyoua28gJChJTlNUQUxMX1BBVEgpLyQoSU5TVEFMTF9MSVNUKSkKIGVu
-ZGVmCiAKIGRlZmluZSBJTlNUQUxMX1JVTEUKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcv
-c2VsZnRlc3RzL3Jlc2N0cmwvY2F0X3Rlc3QuYyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3Rz
-L3Jlc2N0cmwvY2F0X3Rlc3QuYwppbmRleCAzNzFhMmYyNmRjNDcuLjBhNDE3MjY3ZGQ3NCAx
-MDA2NDQKLS0tIGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvcmVzY3RybC9jYXRfdGVzdC5j
-CisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0cmwvY2F0X3Rlc3QuYwpAQCAt
-MzU3LDExICszNTcsMzIgQEAgc3RhdGljIGJvb2wgbm9uY29udF9jYXRfZmVhdHVyZV9jaGVj
-ayhjb25zdCBzdHJ1Y3QgcmVzY3RybF90ZXN0ICp0ZXN0KQogCXJldHVybiByZXNvdXJjZV9p
-bmZvX2ZpbGVfZXhpc3RzKHRlc3QtPnJlc291cmNlLCAic3BhcnNlX21hc2tzIik7CiB9CiAK
-K3N0YXRpYyBib29sIGNhdF9mZWF0dXJlX2NoZWNrKGNvbnN0IHN0cnVjdCByZXNjdHJsX3Rl
-c3QgKnRlc3QpCit7CisJdW5zaWduZWQgbG9uZyBtYXNrOworCisJaWYgKCF0ZXN0X3Jlc291
-cmNlX2ZlYXR1cmVfY2hlY2sodGVzdCkpCisJCXJldHVybiBmYWxzZTsKKworCS8qCisJICog
-VGVzdCByZXF1aXJlcyBhbiBleGNsdXNpdmUgY2FjaGUgcG9ydGlvbi4gU29tZSBwbGF0Zm9y
-bXMgbWF5CisJICogbGVnaXRpbWF0ZWx5IHJlcG9ydCBhbGwgYml0cyBhcyBzaGFyZWFibGUs
-IHNraXAgdGhlIHRlc3QgaWYgdGhhdAorCSAqIGlzIHRoZSBjYXNlLgorCSAqLworCWlmIChn
-ZXRfbWFza19ub19zaGFyZWFibGUodGVzdC0+cmVzb3VyY2UsICZtYXNrKSkgeworCQlrc2Z0
-X3ByaW50X21zZygiQWxsICVzIGJpdHMgYXJlIHNoYXJlYWJsZSwgdGVzdCByZXF1aXJlcyBh
-biBleGNsdXNpdmUgY2FjaGUgcG9ydGlvblxuIiwKKwkJCSAgICAgICB0ZXN0LT5yZXNvdXJj
-ZSk7CisJCXJldHVybiBmYWxzZTsKKwl9CisKKwlyZXR1cm4gdHJ1ZTsKK30KKwogc3RydWN0
-IHJlc2N0cmxfdGVzdCBsM19jYXRfdGVzdCA9IHsKIAkubmFtZSA9ICJMM19DQVQiLAogCS5n
-cm91cCA9ICJDQVQiLAogCS5yZXNvdXJjZSA9ICJMMyIsCi0JLmZlYXR1cmVfY2hlY2sgPSB0
-ZXN0X3Jlc291cmNlX2ZlYXR1cmVfY2hlY2ssCisJLmZlYXR1cmVfY2hlY2sgPSBjYXRfZmVh
-dHVyZV9jaGVjaywKIAkucnVuX3Rlc3QgPSBjYXRfcnVuX3Rlc3QsCiAJLmNsZWFudXAgPSBj
-YXRfdGVzdF9jbGVhbnVwLAogfTsKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRl
-c3RzL3Jlc2N0cmwvbWJhX3Rlc3QuYyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0
-cmwvbWJhX3Rlc3QuYwppbmRleCAzOWNlZTk4OTgzNTkuLjRiYjFhODJlYjE5NSAxMDA2NDQK
-LS0tIGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvcmVzY3RybC9tYmFfdGVzdC5jCisrKyBi
-L3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0cmwvbWJhX3Rlc3QuYwpAQCAtMTY2LDYg
-KzE2Niw3IEBAIHN0YXRpYyBpbnQgY2hlY2tfcmVzdWx0cyh2b2lkKQogCiBzdGF0aWMgdm9p
-ZCBtYmFfdGVzdF9jbGVhbnVwKHZvaWQpCiB7CisJY2xlYW51cF9yZWFkX21lbV9id19pbWMo
-KTsKIAlyZW1vdmUoUkVTVUxUX0ZJTEVfTkFNRSk7CiB9CiAKZGlmZiAtLWdpdCBhL3Rvb2xz
-L3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0cmwvbWJtX3Rlc3QuYyBiL3Rvb2xzL3Rlc3Rpbmcv
-c2VsZnRlc3RzL3Jlc2N0cmwvbWJtX3Rlc3QuYwppbmRleCA2ZGJiYzNiNzYwMDMuLjY4Yzg5
-ZjUwYTM0YSAxMDA2NDQKLS0tIGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvcmVzY3RybC9t
-Ym1fdGVzdC5jCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0cmwvbWJtX3Rl
-c3QuYwpAQCAtMTI1LDYgKzEyNSw3IEBAIHN0YXRpYyBpbnQgbWJtX21lYXN1cmUoY29uc3Qg
-c3RydWN0IHVzZXJfcGFyYW1zICp1cGFyYW1zLAogCiBzdGF0aWMgdm9pZCBtYm1fdGVzdF9j
-bGVhbnVwKHZvaWQpCiB7CisJY2xlYW51cF9yZWFkX21lbV9id19pbWMoKTsKIAlyZW1vdmUo
-UkVTVUxUX0ZJTEVfTkFNRSk7CiB9CiAKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2Vs
-ZnRlc3RzL3Jlc2N0cmwvcmVzY3RybC5oIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvcmVz
-Y3RybC9yZXNjdHJsLmgKaW5kZXggMTc1MTAxMDIyYmYzLi5hNzU1NmNkYWUwZGUgMTAwNjQ0
-Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0cmwvcmVzY3RybC5oCisrKyBi
-L3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL3Jlc2N0cmwvcmVzY3RybC5oCkBAIC0yNCw2ICsy
-NCw3IEBACiAjaW5jbHVkZSA8bGludXgvcGVyZl9ldmVudC5oPgogI2luY2x1ZGUgPGxpbnV4
-L2NvbXBpbGVyLmg+CiAjaW5jbHVkZSA8bGludXgvYml0cy5oPgorI2luY2x1ZGUgPGxpbnV4
-L2xpc3QuaD4KICNpbmNsdWRlICJrc2VsZnRlc3QuaCIKIAogI2RlZmluZSBNQgkJCSgxMDI0
-ICogMTAyNCkKQEAgLTE4Myw2ICsxODQsNyBAQCB2b2lkIG1lbV9mbHVzaCh1bnNpZ25lZCBj
-aGFyICpidWYsIHNpemVfdCBidWZfc2l6ZSk7CiB2b2lkIGZpbGxfY2FjaGVfcmVhZCh1bnNp
-Z25lZCBjaGFyICpidWYsIHNpemVfdCBidWZfc2l6ZSwgYm9vbCBvbmNlKTsKIHNzaXplX3Qg
-Z2V0X2ZpbGxfYnVmX3NpemUoaW50IGNwdV9ubywgY29uc3QgY2hhciAqY2FjaGVfdHlwZSk7
-CiBpbnQgaW5pdGlhbGl6ZV9yZWFkX21lbV9id19pbWModm9pZCk7Cit2b2lkIGNsZWFudXBf
-cmVhZF9tZW1fYndfaW1jKHZvaWQpOwogaW50IG1lYXN1cmVfcmVhZF9tZW1fYncoY29uc3Qg
-c3RydWN0IHVzZXJfcGFyYW1zICp1cGFyYW1zLAogCQkJc3RydWN0IHJlc2N0cmxfdmFsX3Bh
-cmFtICpwYXJhbSwgcGlkX3QgYm1fcGlkKTsKIHZvaWQgaW5pdGlhbGl6ZV9tZW1fYndfcmVz
-Y3RybChjb25zdCBzdHJ1Y3QgcmVzY3RybF92YWxfcGFyYW0gKnBhcmFtLApkaWZmIC0tZ2l0
-IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvcmVzY3RybC9yZXNjdHJsX3ZhbC5jIGIvdG9v
-bHMvdGVzdGluZy9zZWxmdGVzdHMvcmVzY3RybC9yZXNjdHJsX3ZhbC5jCmluZGV4IGYyMGQy
-MTk0YzM1Zi4uN2U3ZDBmOWNjMjQ5IDEwMDY0NAotLS0gYS90b29scy90ZXN0aW5nL3NlbGZ0
-ZXN0cy9yZXNjdHJsL3Jlc2N0cmxfdmFsLmMKKysrIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVz
-dHMvcmVzY3RybC9yZXNjdHJsX3ZhbC5jCkBAIC0xNCw3ICsxNCw2IEBACiAjZGVmaW5lIFJF
-QURfRklMRV9OQU1FCQkiY2FzX2NvdW50X3JlYWQiCiAjZGVmaW5lIERZTl9QTVVfUEFUSAkJ
-Ii9zeXMvYnVzL2V2ZW50X3NvdXJjZS9kZXZpY2VzIgogI2RlZmluZSBTQ0FMRQkJCTAuMDAw
-MDYxMDM1MTU2MjUKLSNkZWZpbmUgTUFYX0lNQ1MJCTQwCiAjZGVmaW5lIE1BWF9UT0tFTlMJ
-CTUKIAogI2RlZmluZSBDT05fTUJNX0xPQ0FMX0JZVEVTX1BBVEgJCVwKQEAgLTI4LDYgKzI3
-LDcgQEAgc3RydWN0IG1lbWJ3X3JlYWRfZm9ybWF0IHsKIH07CiAKIHN0cnVjdCBpbWNfY291
-bnRlcl9jb25maWcgeworCXN0cnVjdCBsaXN0X2hlYWQgZW50cnk7CiAJX191MzIgdHlwZTsK
-IAlfX3U2NCBldmVudDsKIAlfX3U2NCB1bWFzazsKQEAgLTM2LDQ0ICszNiw0MCBAQCBzdHJ1
-Y3QgaW1jX2NvdW50ZXJfY29uZmlnIHsKIH07CiAKIHN0YXRpYyBjaGFyIG1ibV90b3RhbF9w
-YXRoWzEwMjRdOwotc3RhdGljIGludCBpbWNzOwotc3RhdGljIHN0cnVjdCBpbWNfY291bnRl
-cl9jb25maWcgaW1jX2NvdW50ZXJzX2NvbmZpZ1tNQVhfSU1DU107CitMSVNUX0hFQUQoaW1j
-X2NvdW50ZXJzX2xpc3QpOwogc3RhdGljIGNvbnN0IHN0cnVjdCByZXNjdHJsX3Rlc3QgKmN1
-cnJlbnRfdGVzdDsKIAotc3RhdGljIHZvaWQgcmVhZF9tZW1fYndfaW5pdGlhbGl6ZV9wZXJm
-X2V2ZW50X2F0dHIoaW50IGkpCitzdGF0aWMgdm9pZCByZWFkX21lbV9id19pbml0aWFsaXpl
-X3BlcmZfZXZlbnRfYXR0cihzdHJ1Y3QgaW1jX2NvdW50ZXJfY29uZmlnICppbWNfY291bnRl
-cikKIHsKLQltZW1zZXQoJmltY19jb3VudGVyc19jb25maWdbaV0ucGUsIDAsCi0JICAgICAg
-IHNpemVvZihzdHJ1Y3QgcGVyZl9ldmVudF9hdHRyKSk7Ci0JaW1jX2NvdW50ZXJzX2NvbmZp
-Z1tpXS5wZS50eXBlID0gaW1jX2NvdW50ZXJzX2NvbmZpZ1tpXS50eXBlOwotCWltY19jb3Vu
-dGVyc19jb25maWdbaV0ucGUuc2l6ZSA9IHNpemVvZihzdHJ1Y3QgcGVyZl9ldmVudF9hdHRy
-KTsKLQlpbWNfY291bnRlcnNfY29uZmlnW2ldLnBlLmRpc2FibGVkID0gMTsKLQlpbWNfY291
-bnRlcnNfY29uZmlnW2ldLnBlLmluaGVyaXQgPSAxOwotCWltY19jb3VudGVyc19jb25maWdb
-aV0ucGUuZXhjbHVkZV9ndWVzdCA9IDA7Ci0JaW1jX2NvdW50ZXJzX2NvbmZpZ1tpXS5wZS5j
-b25maWcgPQotCQlpbWNfY291bnRlcnNfY29uZmlnW2ldLnVtYXNrIDw8IDggfAotCQlpbWNf
-Y291bnRlcnNfY29uZmlnW2ldLmV2ZW50OwotCWltY19jb3VudGVyc19jb25maWdbaV0ucGUu
-c2FtcGxlX3R5cGUgPSBQRVJGX1NBTVBMRV9JREVOVElGSUVSOwotCWltY19jb3VudGVyc19j
-b25maWdbaV0ucGUucmVhZF9mb3JtYXQgPQorCW1lbXNldCgmaW1jX2NvdW50ZXItPnBlLCAw
-LCBzaXplb2Yoc3RydWN0IHBlcmZfZXZlbnRfYXR0cikpOworCWltY19jb3VudGVyLT5wZS50
-eXBlID0gaW1jX2NvdW50ZXItPnR5cGU7CisJaW1jX2NvdW50ZXItPnBlLnNpemUgPSBzaXpl
-b2Yoc3RydWN0IHBlcmZfZXZlbnRfYXR0cik7CisJaW1jX2NvdW50ZXItPnBlLmRpc2FibGVk
-ID0gMTsKKwlpbWNfY291bnRlci0+cGUuaW5oZXJpdCA9IDE7CisJaW1jX2NvdW50ZXItPnBl
-LmV4Y2x1ZGVfZ3Vlc3QgPSAwOworCWltY19jb3VudGVyLT5wZS5jb25maWcgPSBpbWNfY291
-bnRlci0+dW1hc2sgPDwgOCB8IGltY19jb3VudGVyLT5ldmVudDsKKwlpbWNfY291bnRlci0+
-cGUuc2FtcGxlX3R5cGUgPSBQRVJGX1NBTVBMRV9JREVOVElGSUVSOworCWltY19jb3VudGVy
-LT5wZS5yZWFkX2Zvcm1hdCA9CiAJCVBFUkZfRk9STUFUX1RPVEFMX1RJTUVfRU5BQkxFRCB8
-IFBFUkZfRk9STUFUX1RPVEFMX1RJTUVfUlVOTklORzsKIH0KIAotc3RhdGljIHZvaWQgcmVh
-ZF9tZW1fYndfaW9jdGxfcGVyZl9ldmVudF9pb2NfcmVzZXRfZW5hYmxlKGludCBpKQorc3Rh
-dGljIHZvaWQgcmVhZF9tZW1fYndfaW9jdGxfcGVyZl9ldmVudF9pb2NfcmVzZXRfZW5hYmxl
-KHN0cnVjdCBpbWNfY291bnRlcl9jb25maWcgKmltY19jb3VudGVyKQogewotCWlvY3RsKGlt
-Y19jb3VudGVyc19jb25maWdbaV0uZmQsIFBFUkZfRVZFTlRfSU9DX1JFU0VULCAwKTsKLQlp
-b2N0bChpbWNfY291bnRlcnNfY29uZmlnW2ldLmZkLCBQRVJGX0VWRU5UX0lPQ19FTkFCTEUs
-IDApOworCWlvY3RsKGltY19jb3VudGVyLT5mZCwgUEVSRl9FVkVOVF9JT0NfUkVTRVQsIDAp
-OworCWlvY3RsKGltY19jb3VudGVyLT5mZCwgUEVSRl9FVkVOVF9JT0NfRU5BQkxFLCAwKTsK
-IH0KIAotc3RhdGljIHZvaWQgcmVhZF9tZW1fYndfaW9jdGxfcGVyZl9ldmVudF9pb2NfZGlz
-YWJsZShpbnQgaSkKK3N0YXRpYyB2b2lkIHJlYWRfbWVtX2J3X2lvY3RsX3BlcmZfZXZlbnRf
-aW9jX2Rpc2FibGUoc3RydWN0IGltY19jb3VudGVyX2NvbmZpZyAqaW1jX2NvdW50ZXIpCiB7
-Ci0JaW9jdGwoaW1jX2NvdW50ZXJzX2NvbmZpZ1tpXS5mZCwgUEVSRl9FVkVOVF9JT0NfRElT
-QUJMRSwgMCk7CisJaW9jdGwoaW1jX2NvdW50ZXItPmZkLCBQRVJGX0VWRU5UX0lPQ19ESVNB
-QkxFLCAwKTsKIH0KIAogLyoKICAqIGdldF9yZWFkX2V2ZW50X2FuZF91bWFzazoJUGFyc2Ug
-Y29uZmlnIGludG8gZXZlbnQgYW5kIHVtYXNrCiAgKiBAY2FzX2NvdW50X2NmZzoJQ29uZmln
-Ci0gKiBAY291bnQ6CQlpTUMgbnVtYmVyCisgKiBAaW1jX2NvdW50ZXI6CWlNQyBjb3VudGVy
-IGNvbmZpZwogICovCi1zdGF0aWMgdm9pZCBnZXRfcmVhZF9ldmVudF9hbmRfdW1hc2soY2hh
-ciAqY2FzX2NvdW50X2NmZywgdW5zaWduZWQgaW50IGNvdW50KQorc3RhdGljIHZvaWQgZ2V0
-X3JlYWRfZXZlbnRfYW5kX3VtYXNrKGNoYXIgKmNhc19jb3VudF9jZmcsIHN0cnVjdCBpbWNf
-Y291bnRlcl9jb25maWcgKmltY19jb3VudGVyKQogewogCWNoYXIgKnRva2VuW01BWF9UT0tF
-TlNdOwogCWludCBpID0gMDsKQEAgLTg3LDIxICs4MywyMCBAQCBzdGF0aWMgdm9pZCBnZXRf
-cmVhZF9ldmVudF9hbmRfdW1hc2soY2hhciAqY2FzX2NvdW50X2NmZywgdW5zaWduZWQgaW50
-IGNvdW50KQogCQlpZiAoIXRva2VuW2ldKQogCQkJYnJlYWs7CiAJCWlmIChzdHJjbXAodG9r
-ZW5baV0sICJldmVudCIpID09IDApCi0JCQlpbWNfY291bnRlcnNfY29uZmlnW2NvdW50XS5l
-dmVudCA9IHN0cnRvbCh0b2tlbltpICsgMV0sIE5VTEwsIDE2KTsKKwkJCWltY19jb3VudGVy
-LT5ldmVudCA9IHN0cnRvbCh0b2tlbltpICsgMV0sIE5VTEwsIDE2KTsKIAkJaWYgKHN0cmNt
-cCh0b2tlbltpXSwgInVtYXNrIikgPT0gMCkKLQkJCWltY19jb3VudGVyc19jb25maWdbY291
-bnRdLnVtYXNrID0gc3RydG9sKHRva2VuW2kgKyAxXSwgTlVMTCwgMTYpOworCQkJaW1jX2Nv
-dW50ZXItPnVtYXNrID0gc3RydG9sKHRva2VuW2kgKyAxXSwgTlVMTCwgMTYpOwogCX0KIH0K
-IAotc3RhdGljIGludCBvcGVuX3BlcmZfcmVhZF9ldmVudChpbnQgaSwgaW50IGNwdV9ubykK
-K3N0YXRpYyBpbnQgb3Blbl9wZXJmX3JlYWRfZXZlbnQoaW50IGNwdV9ubywgc3RydWN0IGlt
-Y19jb3VudGVyX2NvbmZpZyAqaW1jX2NvdW50ZXIpCiB7Ci0JaW1jX2NvdW50ZXJzX2NvbmZp
-Z1tpXS5mZCA9Ci0JCXBlcmZfZXZlbnRfb3BlbigmaW1jX2NvdW50ZXJzX2NvbmZpZ1tpXS5w
-ZSwgLTEsIGNwdV9ubywgLTEsCi0JCQkJUEVSRl9GTEFHX0ZEX0NMT0VYRUMpOworCWltY19j
-b3VudGVyLT5mZCA9IHBlcmZfZXZlbnRfb3BlbigmaW1jX2NvdW50ZXItPnBlLCAtMSwgY3B1
-X25vLCAtMSwKKwkJCQkJICBQRVJGX0ZMQUdfRkRfQ0xPRVhFQyk7CiAKLQlpZiAoaW1jX2Nv
-dW50ZXJzX2NvbmZpZ1tpXS5mZCA9PSAtMSkgeworCWlmIChpbWNfY291bnRlci0+ZmQgPT0g
-LTEpIHsKIAkJZnByaW50ZihzdGRlcnIsICJFcnJvciBvcGVuaW5nIGxlYWRlciAlbGx4XG4i
-LAotCQkJaW1jX2NvdW50ZXJzX2NvbmZpZ1tpXS5wZS5jb25maWcpOworCQkJaW1jX2NvdW50
-ZXItPnBlLmNvbmZpZyk7CiAKIAkJcmV0dXJuIC0xOwogCX0KQEAgLTEwOSwxMSArMTA0LDEx
-IEBAIHN0YXRpYyBpbnQgb3Blbl9wZXJmX3JlYWRfZXZlbnQoaW50IGksIGludCBjcHVfbm8p
-CiAJcmV0dXJuIDA7CiB9CiAKLXN0YXRpYyBpbnQgcGFyc2VfaW1jX3JlYWRfYndfZXZlbnRz
-KGNoYXIgKmltY19kaXIsIHVuc2lnbmVkIGludCB0eXBlLAotCQkJCSAgICB1bnNpZ25lZCBp
-bnQgKmNvdW50KQorc3RhdGljIGludCBwYXJzZV9pbWNfcmVhZF9id19ldmVudHMoY2hhciAq
-aW1jX2RpciwgdW5zaWduZWQgaW50IHR5cGUpCiB7CiAJY2hhciBpbWNfZXZlbnRzX2RpcltQ
-QVRIX01BWF0sIGltY19jb3VudGVyX2NmZ1tQQVRIX01BWF07Ci0JdW5zaWduZWQgaW50IG9y
-aWdfY291bnQgPSAqY291bnQ7CisJc3RydWN0IGltY19jb3VudGVyX2NvbmZpZyAqaW1jX2Nv
-dW50ZXI7CisJYm9vbCBmb3VuZF9ldmVudCA9IGZhbHNlOwogCWNoYXIgY2FzX2NvdW50X2Nm
-Z1sxMDI0XTsKIAlzdHJ1Y3QgZGlyZW50ICplcDsKIAlpbnQgcGF0aF9sZW47CkBAIC0xMjYs
-MTMgKzEyMSwxMyBAQCBzdGF0aWMgaW50IHBhcnNlX2ltY19yZWFkX2J3X2V2ZW50cyhjaGFy
-ICppbWNfZGlyLCB1bnNpZ25lZCBpbnQgdHlwZSwKIAkJCSAgICBpbWNfZGlyKTsKIAlpZiAo
-cGF0aF9sZW4gPj0gc2l6ZW9mKGltY19ldmVudHNfZGlyKSkgewogCQlrc2Z0X3ByaW50X21z
-ZygiVW5hYmxlIHRvIGNyZWF0ZSBwYXRoIHRvICVzZXZlbnRzXG4iLCBpbWNfZGlyKTsKLQkJ
-cmV0dXJuIC0xOworCQlnb3RvIG91dDsKIAl9CiAKIAlkcCA9IG9wZW5kaXIoaW1jX2V2ZW50
-c19kaXIpOwogCWlmICghZHApIHsKIAkJa3NmdF9wZXJyb3IoIlVuYWJsZSB0byBvcGVuIFBN
-VSBldmVudHMgZGlyZWN0b3J5Iik7Ci0JCXJldHVybiAtMTsKKwkJZ290byBvdXQ7CiAJfQog
-CiAJd2hpbGUgKChlcCA9IHJlYWRkaXIoZHApKSkgewpAQCAtMTYzLDI4ICsxNTgsMzMgQEAg
-c3RhdGljIGludCBwYXJzZV9pbWNfcmVhZF9id19ldmVudHMoY2hhciAqaW1jX2RpciwgdW5z
-aWduZWQgaW50IHR5cGUsCiAJCQlrc2Z0X3BlcnJvcigiQ291bGQgbm90IGdldCBpTUMgY2Fz
-IGNvdW50IHJlYWQiKTsKIAkJCWdvdG8gb3V0X2Nsb3NlOwogCQl9Ci0JCWlmICgqY291bnQg
-Pj0gTUFYX0lNQ1MpIHsKLQkJCWtzZnRfcHJpbnRfbXNnKCJNYXhpbXVtIGlNQyBjb3VudCBl
-eGNlZWRlZFxuIik7CisJCWltY19jb3VudGVyID0gY2FsbG9jKDEsIHNpemVvZigqaW1jX2Nv
-dW50ZXIpKTsKKwkJaWYgKCFpbWNfY291bnRlcikgeworCQkJa3NmdF9wZXJyb3IoIlVuYWJs
-ZSB0byBhbGxvY2F0ZSBtZW1vcnkgZm9yIGlNQyBjb3VudGVycyIpOwogCQkJZ290byBvdXRf
-Y2xvc2U7CiAJCX0KIAotCQlpbWNfY291bnRlcnNfY29uZmlnWypjb3VudF0udHlwZSA9IHR5
-cGU7Ci0JCWdldF9yZWFkX2V2ZW50X2FuZF91bWFzayhjYXNfY291bnRfY2ZnLCAqY291bnQp
-OwotCQkvKiBEbyBub3QgZmFpbCBhZnRlciBpbmNyZW1lbnRpbmcgKmNvdW50LiAqLwotCQkq
-Y291bnQgKz0gMTsKKwkJaW1jX2NvdW50ZXItPnR5cGUgPSB0eXBlOworCQlnZXRfcmVhZF9l
-dmVudF9hbmRfdW1hc2soY2FzX2NvdW50X2NmZywgaW1jX2NvdW50ZXIpOworCQlsaXN0X2Fk
-ZCgmaW1jX2NvdW50ZXItPmVudHJ5LCAmaW1jX2NvdW50ZXJzX2xpc3QpOworCQlmb3VuZF9l
-dmVudCA9IHRydWU7CiAJfQotCWlmICgqY291bnQgPT0gb3JpZ19jb3VudCkgeworCWlmICgh
-Zm91bmRfZXZlbnQpIHsKIAkJa3NmdF9wcmludF9tc2coIlVuYWJsZSB0byBmaW5kIGV2ZW50
-cyBpbiAlc1xuIiwgaW1jX2V2ZW50c19kaXIpOwogCQlnb3RvIG91dF9jbG9zZTsKIAl9CiAJ
-cmV0ID0gMDsKIG91dF9jbG9zZToKIAljbG9zZWRpcihkcCk7CitvdXQ6CisJaWYgKHJldCkK
-KwkJY2xlYW51cF9yZWFkX21lbV9id19pbWMoKTsKKwogCXJldHVybiByZXQ7CiB9CiAKIC8q
-IEdldCB0eXBlIGFuZCBjb25maWcgb2YgYW4gaU1DIGNvdW50ZXIncyByZWFkIGV2ZW50LiAq
-Lwotc3RhdGljIGludCByZWFkX2Zyb21faW1jX2RpcihjaGFyICppbWNfZGlyLCB1bnNpZ25l
-ZCBpbnQgKmNvdW50KQorc3RhdGljIGludCByZWFkX2Zyb21faW1jX2RpcihjaGFyICppbWNf
-ZGlyKQogewogCWNoYXIgaW1jX2NvdW50ZXJfdHlwZVtQQVRIX01BWF07CiAJdW5zaWduZWQg
-aW50IHR5cGU7CkBAIC0yMTIsNyArMjEyLDcgQEAgc3RhdGljIGludCByZWFkX2Zyb21faW1j
-X2RpcihjaGFyICppbWNfZGlyLCB1bnNpZ25lZCBpbnQgKmNvdW50KQogCQlrc2Z0X3BlcnJv
-cigiQ291bGQgbm90IGdldCBpTUMgdHlwZSIpOwogCQlyZXR1cm4gLTE7CiAJfQotCXJldCA9
-IHBhcnNlX2ltY19yZWFkX2J3X2V2ZW50cyhpbWNfZGlyLCB0eXBlLCBjb3VudCk7CisJcmV0
-ID0gcGFyc2VfaW1jX3JlYWRfYndfZXZlbnRzKGltY19kaXIsIHR5cGUpOwogCWlmIChyZXQp
-IHsKIAkJa3NmdF9wcmludF9tc2coIlVuYWJsZSB0byBwYXJzZSBiYW5kd2lkdGggZXZlbnQg
-YW5kIHVtYXNrXG4iKTsKIAkJcmV0dXJuIHJldDsKQEAgLTIyMiwyMSArMjIyLDE4IEBAIHN0
-YXRpYyBpbnQgcmVhZF9mcm9tX2ltY19kaXIoY2hhciAqaW1jX2RpciwgdW5zaWduZWQgaW50
-ICpjb3VudCkKIH0KIAogLyoKLSAqIEEgc3lzdGVtIGNhbiBoYXZlICduJyBudW1iZXIgb2Yg
-aU1DIChJbnRlZ3JhdGVkIE1lbW9yeSBDb250cm9sbGVyKQotICogY291bnRlcnMsIGdldCB0
-aGF0ICduJy4gRGlzY292ZXIgdGhlIHByb3BlcnRpZXMgb2YgdGhlIGF2YWlsYWJsZQotICog
-Y291bnRlcnMgaW4gc3VwcG9ydCBvZiBuZWVkZWQgcGVyZm9ybWFuY2UgbWVhc3VyZW1lbnQg
-dmlhIHBlcmYuCi0gKiBGb3IgZWFjaCBpTUMgY291bnRlciBnZXQgaXQncyB0eXBlIGFuZCBj
-b25maWcuIEFsc28gb2J0YWluIGVhY2gKLSAqIGNvdW50ZXIncyBldmVudCBhbmQgdW1hc2sg
-Zm9yIHRoZSBtZW1vcnkgcmVhZCBldmVudHMgdGhhdCB3aWxsIGJlCi0gKiBtZWFzdXJlZC4K
-KyAqIERpc2NvdmVyIHRoZSBwcm9wZXJ0aWVzIG9mIHRoZSBhdmFpbGFibGUgaU1DIChJbnRl
-Z3JhdGVkIE1lbW9yeSBDb250cm9sbGVyKQorICogY291bnRlcnMgaW4gc3VwcG9ydCBvZiBu
-ZWVkZWQgcGVyZm9ybWFuY2UgbWVhc3VyZW1lbnQgdmlhIHBlcmYuIEZvciBlYWNoIGlNQwor
-ICogY291bnRlciBnZXQgaXQncyB0eXBlIGFuZCBjb25maWcuIEFsc28gb2J0YWluIGVhY2gg
-Y291bnRlcidzIGV2ZW50IGFuZCB1bWFzaworICogZm9yIHRoZSBtZW1vcnkgcmVhZCBldmVu
-dHMgdGhhdCB3aWxsIGJlIG1lYXN1cmVkLgogICoKLSAqIEVudW1lcmF0ZSBhbGwgdGhlc2Ug
-ZGV0YWlscyBpbnRvIGFuIGFycmF5IG9mIHN0cnVjdHVyZXMuCisgKiBFbnVtZXJhdGUgYWxs
-IHRoZXNlIGRldGFpbHMgaW50byBhIGxpbmtlZCBsaXN0IG9mIHN0cnVjdHVyZXMuCiAgKgog
-ICogUmV0dXJuOiA+PSAwIG9uIHN1Y2Nlc3MuIDwgMCBvbiBmYWlsdXJlLgogICovCi1zdGF0
-aWMgaW50IG51bV9vZl9pbWNzKHZvaWQpCitzdGF0aWMgaW50IGVudW1lcmF0ZV9pbWNzKHZv
-aWQpCiB7CiAJY2hhciBpbWNfZGlyWzUxMl0sICp0ZW1wOwotCXVuc2lnbmVkIGludCBjb3Vu
-dCA9IDA7CiAJc3RydWN0IGRpcmVudCAqZXA7CiAJaW50IHJldDsKIAlESVIgKmRwOwpAQCAt
-MjY1LDcgKzI2Miw3IEBAIHN0YXRpYyBpbnQgbnVtX29mX2ltY3Modm9pZCkKIAkJCWlmICh0
-ZW1wWzBdID49ICcwJyAmJiB0ZW1wWzBdIDw9ICc5JykgewogCQkJCXNwcmludGYoaW1jX2Rp
-ciwgIiVzLyVzLyIsIERZTl9QTVVfUEFUSCwKIAkJCQkJZXAtPmRfbmFtZSk7Ci0JCQkJcmV0
-ID0gcmVhZF9mcm9tX2ltY19kaXIoaW1jX2RpciwgJmNvdW50KTsKKwkJCQlyZXQgPSByZWFk
-X2Zyb21faW1jX2RpcihpbWNfZGlyKTsKIAkJCQlpZiAocmV0KSB7CiAJCQkJCWNsb3NlZGly
-KGRwKTsKIApAQCAtMjc0LDcgKzI3MSw3IEBAIHN0YXRpYyBpbnQgbnVtX29mX2ltY3Modm9p
-ZCkKIAkJCX0KIAkJfQogCQljbG9zZWRpcihkcCk7Ci0JCWlmIChjb3VudCA9PSAwKSB7CisJ
-CWlmIChsaXN0X2VtcHR5KCZpbWNfY291bnRlcnNfbGlzdCkpIHsKIAkJCWtzZnRfcHJpbnRf
-bXNnKCJVbmFibGUgdG8gZmluZCBpTUMgY291bnRlcnNcbiIpOwogCiAJCQlyZXR1cm4gLTE7
-CkBAIC0yODUsMzEgKzI4Miw0MiBAQCBzdGF0aWMgaW50IG51bV9vZl9pbWNzKHZvaWQpCiAJ
-CXJldHVybiAtMTsKIAl9CiAKLQlyZXR1cm4gY291bnQ7CisJcmV0dXJuIDA7CiB9CiAKIGlu
-dCBpbml0aWFsaXplX3JlYWRfbWVtX2J3X2ltYyh2b2lkKQogewotCWludCBpbWM7CisJc3Ry
-dWN0IGltY19jb3VudGVyX2NvbmZpZyAqaW1jX2NvdW50ZXI7CisJaW50IHJldDsKIAotCWlt
-Y3MgPSBudW1fb2ZfaW1jcygpOwotCWlmIChpbWNzIDw9IDApCi0JCXJldHVybiBpbWNzOwor
-CXJldCA9IGVudW1lcmF0ZV9pbWNzKCk7CisJaWYgKHJldCA8IDApCisJCXJldHVybiByZXQ7
-CiAKIAkvKiBJbml0aWFsaXplIHBlcmZfZXZlbnRfYXR0ciBzdHJ1Y3R1cmVzIGZvciBhbGwg
-aU1DJ3MgKi8KLQlmb3IgKGltYyA9IDA7IGltYyA8IGltY3M7IGltYysrKQotCQlyZWFkX21l
-bV9id19pbml0aWFsaXplX3BlcmZfZXZlbnRfYXR0cihpbWMpOworCWxpc3RfZm9yX2VhY2hf
-ZW50cnkoaW1jX2NvdW50ZXIsICZpbWNfY291bnRlcnNfbGlzdCwgZW50cnkpCisJCXJlYWRf
-bWVtX2J3X2luaXRpYWxpemVfcGVyZl9ldmVudF9hdHRyKGltY19jb3VudGVyKTsKIAogCXJl
-dHVybiAwOwogfQogCit2b2lkIGNsZWFudXBfcmVhZF9tZW1fYndfaW1jKHZvaWQpCit7CisJ
-c3RydWN0IGltY19jb3VudGVyX2NvbmZpZyAqaW1jX2NvdW50ZXIsICp0bXA7CisKKwlsaXN0
-X2Zvcl9lYWNoX2VudHJ5X3NhZmUoaW1jX2NvdW50ZXIsIHRtcCwgJmltY19jb3VudGVyc19s
-aXN0LCBlbnRyeSkgeworCQlsaXN0X2RlbCgmaW1jX2NvdW50ZXItPmVudHJ5KTsKKwkJZnJl
-ZShpbWNfY291bnRlcik7CisJfQorfQorCiBzdGF0aWMgdm9pZCBwZXJmX2Nsb3NlX2ltY19y
-ZWFkX21lbV9idyh2b2lkKQogewotCWludCBtYzsKKwlzdHJ1Y3QgaW1jX2NvdW50ZXJfY29u
-ZmlnICppbWNfY291bnRlcjsKIAotCWZvciAobWMgPSAwOyBtYyA8IGltY3M7IG1jKyspIHsK
-LQkJaWYgKGltY19jb3VudGVyc19jb25maWdbbWNdLmZkICE9IC0xKQotCQkJY2xvc2UoaW1j
-X2NvdW50ZXJzX2NvbmZpZ1ttY10uZmQpOworCWxpc3RfZm9yX2VhY2hfZW50cnkoaW1jX2Nv
-dW50ZXIsICZpbWNfY291bnRlcnNfbGlzdCwgZW50cnkpIHsKKwkJaWYgKGltY19jb3VudGVy
-LT5mZCAhPSAtMSkKKwkJCWNsb3NlKGltY19jb3VudGVyLT5mZCk7CiAJfQogfQogCkBAIC0z
-MjEsMTMgKzMyOSwxNCBAQCBzdGF0aWMgdm9pZCBwZXJmX2Nsb3NlX2ltY19yZWFkX21lbV9i
-dyh2b2lkKQogICovCiBzdGF0aWMgaW50IHBlcmZfb3Blbl9pbWNfcmVhZF9tZW1fYncoaW50
-IGNwdV9ubykKIHsKLQlpbnQgaW1jLCByZXQ7CisJc3RydWN0IGltY19jb3VudGVyX2NvbmZp
-ZyAqaW1jX2NvdW50ZXI7CisJaW50IHJldDsKIAotCWZvciAoaW1jID0gMDsgaW1jIDwgaW1j
-czsgaW1jKyspCi0JCWltY19jb3VudGVyc19jb25maWdbaW1jXS5mZCA9IC0xOworCWxpc3Rf
-Zm9yX2VhY2hfZW50cnkoaW1jX2NvdW50ZXIsICZpbWNfY291bnRlcnNfbGlzdCwgZW50cnkp
-CisJCWltY19jb3VudGVyLT5mZCA9IC0xOwogCi0JZm9yIChpbWMgPSAwOyBpbWMgPCBpbWNz
-OyBpbWMrKykgewotCQlyZXQgPSBvcGVuX3BlcmZfcmVhZF9ldmVudChpbWMsIGNwdV9ubyk7
-CisJbGlzdF9mb3JfZWFjaF9lbnRyeShpbWNfY291bnRlciwgJmltY19jb3VudGVyc19saXN0
-LCBlbnRyeSkgeworCQlyZXQgPSBvcGVuX3BlcmZfcmVhZF9ldmVudChjcHVfbm8sIGltY19j
-b3VudGVyKTsKIAkJaWYgKHJldCkKIAkJCWdvdG8gY2xvc2VfZmRzOwogCX0KQEAgLTM0Nywx
-NiArMzU2LDE2IEBAIHN0YXRpYyBpbnQgcGVyZl9vcGVuX2ltY19yZWFkX21lbV9idyhpbnQg
-Y3B1X25vKQogICovCiBzdGF0aWMgdm9pZCBkb19pbWNfcmVhZF9tZW1fYndfdGVzdCh2b2lk
-KQogewotCWludCBpbWM7CisJc3RydWN0IGltY19jb3VudGVyX2NvbmZpZyAqaW1jX2NvdW50
-ZXI7CiAKLQlmb3IgKGltYyA9IDA7IGltYyA8IGltY3M7IGltYysrKQotCQlyZWFkX21lbV9i
-d19pb2N0bF9wZXJmX2V2ZW50X2lvY19yZXNldF9lbmFibGUoaW1jKTsKKwlsaXN0X2Zvcl9l
-YWNoX2VudHJ5KGltY19jb3VudGVyLCAmaW1jX2NvdW50ZXJzX2xpc3QsIGVudHJ5KQorCQly
-ZWFkX21lbV9id19pb2N0bF9wZXJmX2V2ZW50X2lvY19yZXNldF9lbmFibGUoaW1jX2NvdW50
-ZXIpOwogCiAJc2xlZXAoMSk7CiAKIAkvKiBTdG9wIGNvdW50ZXJzIGFmdGVyIGEgc2Vjb25k
-IHRvIGdldCByZXN1bHRzLiAqLwotCWZvciAoaW1jID0gMDsgaW1jIDwgaW1jczsgaW1jKysp
-Ci0JCXJlYWRfbWVtX2J3X2lvY3RsX3BlcmZfZXZlbnRfaW9jX2Rpc2FibGUoaW1jKTsKKwls
-aXN0X2Zvcl9lYWNoX2VudHJ5KGltY19jb3VudGVyLCAmaW1jX2NvdW50ZXJzX2xpc3QsIGVu
-dHJ5KQorCQlyZWFkX21lbV9id19pb2N0bF9wZXJmX2V2ZW50X2lvY19kaXNhYmxlKGltY19j
-b3VudGVyKTsKIH0KIAogLyoKQEAgLTM3MSwxNyArMzgwLDE1IEBAIHN0YXRpYyB2b2lkIGRv
-X2ltY19yZWFkX21lbV9id190ZXN0KHZvaWQpCiBzdGF0aWMgaW50IGdldF9yZWFkX21lbV9i
-d19pbWMoZmxvYXQgKmJ3X2ltYykKIHsKIAlmbG9hdCByZWFkcyA9IDAsIG9mX211bF9yZWFk
-ID0gMTsKLQlpbnQgaW1jOworCXN0cnVjdCBpbWNfY291bnRlcl9jb25maWcgKnI7CiAKIAkv
-KgogCSAqIExvZyByZWFkIGV2ZW50IHZhbHVlcyBmcm9tIGFsbCBpTUMgY291bnRlcnMgaW50
-bwogCSAqIHN0cnVjdCBpbWNfY291bnRlcl9jb25maWcuCiAJICogVGFrZSBvdmVyZmxvdyBp
-bnRvIGNvbnNpZGVyYXRpb24gYmVmb3JlIGNhbGN1bGF0aW5nIHRvdGFsIGJhbmR3aWR0aC4K
-IAkgKi8KLQlmb3IgKGltYyA9IDA7IGltYyA8IGltY3M7IGltYysrKSB7CisJbGlzdF9mb3Jf
-ZWFjaF9lbnRyeShyLCAmaW1jX2NvdW50ZXJzX2xpc3QsIGVudHJ5KSB7CiAJCXN0cnVjdCBt
-ZW1id19yZWFkX2Zvcm1hdCBtZWFzdXJlbWVudDsKLQkJc3RydWN0IGltY19jb3VudGVyX2Nv
-bmZpZyAqciA9Ci0JCQkmaW1jX2NvdW50ZXJzX2NvbmZpZ1tpbWNdOwogCiAJCWlmIChyZWFk
-KHItPmZkLCAmbWVhc3VyZW1lbnQsIHNpemVvZihtZWFzdXJlbWVudCkpID09IC0xKSB7CiAJ
-CQlrc2Z0X3BlcnJvcigiQ291bGRuJ3QgZ2V0IHJlYWQgYmFuZHdpZHRoIHRocm91Z2ggaU1D
-Iik7Cg==
-
---------------Ny4XWLDXtAEXw20wG9D9U2aC--
+>
+> Pasha
+>
+>>
+>> It ease the conversation and people will understand it quickly with
+>> name.
+>>
+>> ~Tarun
+>>
+>> >
+>> >>   * @data:        Private data
+>> >>   * @token:       User provided token for this file
+>> >>   *
+>> >>   * If this structure is modified, `LUO_ABI_COMPATIBLE` must be updat=
+ed.
+>> >>   */
+>> >>  struct luo_file_ser {
+>> >> -       char compatible[LIVEUPDATE_HNDL_COMPAT_LENGTH];
+>> >> +       char name[LIVEUPDATE_HNDL_NAME_LENGTH];
+>> >>         u64 data;
+>> >>         u64 token;
+>> >>  } __packed;
+>> >> @@ -134,7 +132,7 @@ struct luo_session_ser {
+>> >>  } __packed;
+>> >
+>> > Unreleated to this patch, but should be handled by this work, let's
+>> > remove all the '__packed' attributes, the are not needed, we will
+>> > explicitly fill in all the holes, with reserved fields.
+>> >
+>> >>
+>> >>  /* The max size is set so it can be reliably used during in serializ=
+ation */
+>> >> -#define LIVEUPDATE_FLB_COMPAT_LENGTH   48
+>> >> +#define LIVEUPDATE_FLB_NAME_LENGTH     48
+>> >>
+>> >>  /**
+>> >>   * struct luo_flb_header_ser - Header for the serialized FLB data bl=
+ock.
+>> >> @@ -156,7 +154,7 @@ struct luo_flb_header_ser {
+>> >>
+>> >>  /**
+>> >>   * struct luo_flb_ser - Represents the serialized state of a single =
+FLB object.
+>> >> - * @name:    The unique compatibility string of the FLB object, used=
+ to find the
+>> >> + * @name:    The unique name string of the FLB object, used to find =
+the
+>> >>   *           corresponding &struct liveupdate_flb handler in the new=
+ kernel.
+>> >>   * @data:    The opaque u64 handle returned by the FLB's .preserve()=
+ operation
+>> >>   *           in the old kernel. This handle encapsulates the entire =
+state needed
+>> >> @@ -172,14 +170,14 @@ struct luo_flb_header_ser {
+>> >>   * If this structure is modified, `LUO_ABI_COMPATIBLE` must be updat=
+ed.
+>> >>   */
+>> >>  struct luo_flb_ser {
+>> >> -       char name[LIVEUPDATE_FLB_COMPAT_LENGTH];
+>> >> +       char name[LIVEUPDATE_FLB_NAME_LENGTH];
+>> >>         u64 data;
+>> >>         u64 count;
+>> >>  } __packed;
+>> >>
+>> >>  /* Kernel Live Update Test ABI */
+>> >>  #ifdef CONFIG_LIVEUPDATE_TEST
+>> >> -#define LIVEUPDATE_TEST_FLB_COMPATIBLE(i)      "liveupdate-test-flb-=
+v" #i
+>> >> +#define LIVEUPDATE_TEST_FLB_NAME(i)    "liveupdate-test-flb-v" #i
+>> >>  #endif
+>> >>
+>> >>  #endif /* _LINUX_KHO_ABI_LUO_H */
+>> >> diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/me=
+mfd.h
+>> >> index 08b10fea2afc..371ffd108a79 100644
+>> >> --- a/include/linux/kho/abi/memfd.h
+>> >> +++ b/include/linux/kho/abi/memfd.h
+>> >> @@ -87,7 +87,7 @@ struct memfd_luo_ser {
+>> >>         struct kho_vmalloc folios;
+>> >>  } __packed;
+>> >>
+>> >> -/* The compatibility string for memfd file handler */
+>> >> -#define MEMFD_LUO_FH_COMPATIBLE        "memfd-v2"
+>> >> +/* The name string for memfd file handler */
+>> >> +#define MEMFD_LUO_FH_NAME      "memfd-v2"
+>> >>
+>> >>  #endif /* _LINUX_KHO_ABI_MEMFD_H */
+>> >> diff --git a/include/linux/kho/abi/pci.h b/include/linux/kho/abi/pci.=
+h
+>> >> index 9485ed73c351..973ca5b26dbd 100644
+>> >> --- a/include/linux/kho/abi/pci.h
+>> >> +++ b/include/linux/kho/abi/pci.h
+>> >> @@ -23,7 +23,7 @@
+>> >>   * incrementing the version number in the PCI_LUO_FLB_VERSION number=
+.
+>> >>   */
+>> >>
+>> >> -#define PCI_LUO_FLB_COMPATIBLE "pci"
+>> >> +#define PCI_LUO_FLB_NAME "pci"
+>> >>  #define PCI_LUO_FLB_VERSION 2
+>> >>
+>> >>  /**
+>> >> diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
+>> >> index 6051abc0612c..475da5fc22ee 100644
+>> >> --- a/include/linux/liveupdate.h
+>> >> +++ b/include/linux/liveupdate.h
+>> >> @@ -90,10 +90,8 @@ struct liveupdate_file_ops {
+>> >>  /**
+>> >>   * struct liveupdate_file_handler - Represents a handler for a live-=
+updatable file type.
+>> >>   * @ops:                Callback functions
+>> >> - * @compatible:         The compatibility string (e.g., "memfd-v1", =
+"vfiofd-v1")
+>> >> - *                      that uniquely identifies the file type this =
+handler
+>> >> - *                      supports. This is matched against the compat=
+ible string
+>> >> - *                      associated with individual &struct file inst=
+ances.
+>> >> + * @name:               Unique handler name string (e.g., "memfd-v2"=
+), matched
+>> >> + *                      against &struct luo_file_ser.name in the tar=
+get kernel.
+>> >>   *
+>> >>   * Modules that want to support live update for specific file types =
+should
+>> >>   * register an instance of this structure. LUO uses this registratio=
+n to
+>> >> @@ -102,7 +100,7 @@ struct liveupdate_file_ops {
+>> >>   */
+>> >>  struct liveupdate_file_handler {
+>> >>         const struct liveupdate_file_ops *ops;
+>> >> -       const char compatible[LIVEUPDATE_HNDL_COMPAT_LENGTH];
+>> >> +       const char name[LIVEUPDATE_HNDL_NAME_LENGTH];
+>> >>
+>> >>         /* private: */
+>> >>
+>> >> @@ -209,11 +207,9 @@ struct luo_flb_private {
+>> >>  /**
+>> >>   * struct liveupdate_flb - A global definition for a shared data obj=
+ect.
+>> >>   * @ops:         Callback functions
+>> >> - * @compatible:  The compatibility string (e.g., "iommu-core-v1"
+>> >> - *               that uniquely identifies the FLB type this handler
+>> >> - *               supports. This is matched against the compatible st=
+ring
+>> >> - *               associated with individual &struct liveupdate_flb
+>> >> - *               instances.
+>> >> + * @name:        The FLB name string (e.g., "iommu-core-v1") that un=
+iquely
+>> >> + *               identifies this FLB type. In the target kernel, it =
+is
+>> >> + *               matched against the name stored in &struct luo_flb_=
+ser.
+>> >>   *
+>> >>   * This struct is the "template" that a driver registers to define a=
+ shared,
+>> >>   * file-lifecycle-bound object. The actual runtime state (the live o=
+bject,
+>> >> @@ -221,7 +217,7 @@ struct luo_flb_private {
+>> >>   */
+>> >>  struct liveupdate_flb {
+>> >>         const struct liveupdate_flb_ops *ops;
+>> >> -       const char compatible[LIVEUPDATE_FLB_COMPAT_LENGTH];
+>> >> +       const char name[LIVEUPDATE_FLB_NAME_LENGTH];
+>> >>
+>> >>         /* private: */
+>> >>         struct luo_flb_private __private private;
+>> >> diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liv=
+eupdate.h
+>> >> index 4043d4038712..509c6236720d 100644
+>> >> --- a/include/uapi/linux/liveupdate.h
+>> >> +++ b/include/uapi/linux/liveupdate.h
+>> >> @@ -46,6 +46,9 @@
+>> >>  /* The maximum length of session name including null termination */
+>> >>  #define LIVEUPDATE_SESSION_NAME_LENGTH 64
+>> >>
+>> >> +/* The maximum length of file handler name including null terminatio=
+n */
+>> >> +#define LIVEUPDATE_HNDL_NAME_LENGTH 48
+>> >> +
+>> >>  /* The /dev/liveupdate ioctl commands */
+>> >>  enum {
+>> >>         LIVEUPDATE_CMD_BASE =3D 0x00,
+>> >> diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_fil=
+e.c
+>> >> index a39992da504f..fb81239bedf3 100644
+>> >> --- a/kernel/liveupdate/luo_file.c
+>> >> +++ b/kernel/liveupdate/luo_file.c
+>> >> @@ -50,7 +50,7 @@
+>> >>   *
+>> >>   * 2. Freeze (Pre-Reboot): Just before the kexec, luo_file_freeze() =
+is called.
+>> >>   *    It iterates through all preserved files, calls their respectiv=
+e .freeze()
+>> >> - *    operation, and serializes their final metadata (compatible str=
+ing, token,
+>> >> + *    operation, and serializes their final metadata (handler name, =
+token,
+>> >>   *    and data handle) into a contiguous memory block for KHO.
+>> >>   *
+>> >>   * 3. Deserialize: After kexec, luo_file_deserialize() runs when ses=
+sion gets
+>> >> @@ -220,7 +220,7 @@ static bool luo_token_is_used(struct luo_file_set=
+ *file_set, u64 token)
+>> >>   * 1. Validates that the @token is not already in use within the fil=
+e_set.
+>> >>   * 2. Ensures the file_set's memory for files serialization is alloc=
+ated
+>> >>   *    (allocates if needed).
+>> >> - * 3. Iterates through registered handlers, calling can_preserve() t=
+o find one
+>> >> + * 3. Iterates through registered handlers, calling .can_preserve() =
+to find one
+>> >>   *    compatible with the given @fd.
+>> >>   * 4. Calls the handler's .preserve() operation, which saves the fil=
+e's state
+>> >>   *    and returns an opaque private data handle.
+>> >> @@ -238,7 +238,7 @@ static bool luo_token_is_used(struct luo_file_set=
+ *file_set, u64 token)
+>> >>   *         -EBUSY if the file descriptor is already preserved by ano=
+ther session.
+>> >>   *         -EBADF if the file descriptor is invalid.
+>> >>   *         -ENOSPC if the file_set is full.
+>> >> - *         -ENOENT if no compatible handler is found.
+>> >> + *         -ENOENT if no compatible handler is found for the file ty=
+pe.
+>> >>   *         -ENOMEM on memory allocation failure.
+>> >>   *         Other erros might be returned by .preserve().
+>> >>   */
+>> >> @@ -456,9 +456,10 @@ static void __luo_file_unfreeze(struct luo_file_=
+set *file_set,
+>> >>   *    private data handle during this step.
+>> >>   *
+>> >>   * 2. Serializes Metadata: After a successful freeze, it copies the =
+final file
+>> >> - *    metadata=E2=80=94the handler's compatible string, the user tok=
+en, and the final
+>> >> - *    private data handle=E2=80=94into the pre-allocated contiguous =
+memory buffer
+>> >> - *    (file_set->files) that will be handed over to the next kernel =
+via KHO.
+>> >> + *    metadata - the handler's name string, the user token, and the =
+final
+>> >> + *    private data handle - into the pre-allocated contiguous memory=
+ buffer
+>> >> + *    (file_set->files) that will be handed over to the target kerne=
+l via
+>> >> + *    KHO.
+>> >>   *
+>> >>   * Error Handling (Rollback):
+>> >>   * This function is atomic. If any handler's .freeze() operation fai=
+ls, the
+>> >> @@ -495,13 +496,13 @@ int luo_file_freeze(struct luo_file_set *file_s=
+et,
+>> >>                 err =3D luo_file_freeze_one(file_set, luo_file);
+>> >>                 if (err < 0) {
+>> >>                         pr_warn("Freeze failed for token[%#0llx] hand=
+ler[%s] err[%pe]\n",
+>> >> -                               luo_file->token, luo_file->fh->compat=
+ible,
+>> >> +                               luo_file->token, luo_file->fh->name,
+>> >>                                 ERR_PTR(err));
+>> >>                         goto err_unfreeze;
+>> >>                 }
+>> >>
+>> >> -               strscpy(file_ser->compatible, luo_file->fh->compatibl=
+e,
+>> >> -                       sizeof(file_ser->compatible));
+>> >> +               strscpy(file_ser->name, luo_file->fh->name,
+>> >> +                       sizeof(file_ser->name));
+>> >>                 file_ser->data =3D luo_file->serialized_data;
+>> >>                 file_ser->token =3D luo_file->token;
+>> >>         }
+>> >> @@ -747,7 +748,7 @@ static int luo_file_deserialize_one(struct luo_fi=
+le_set *file_set,
+>> >>
+>> >>         down_read(&luo_register_rwlock);
+>> >>         list_private_for_each_entry(fh, &luo_file_handler_list, list)=
+ {
+>> >> -               if (!strcmp(fh->compatible, ser->compatible)) {
+>> >> +               if (!strcmp(fh->name, ser->name)) {
+>> >>                         if (try_module_get(fh->ops->owner))
+>> >>                                 handler_found =3D true;
+>> >>                         break;
+>> >> @@ -756,9 +757,9 @@ static int luo_file_deserialize_one(struct luo_fi=
+le_set *file_set,
+>> >>         up_read(&luo_register_rwlock);
+>> >>
+>> >>         if (!handler_found) {
+>> >> -               pr_warn("No registered handler for compatible '%.*s'\=
+n",
+>> >> -                       (int)sizeof(ser->compatible),
+>> >> -                       ser->compatible);
+>> >> +               pr_warn("No registered handler for name '%.*s'\n",
+>> >> +                       (int)sizeof(ser->name),
+>> >> +                       ser->name);
+>> >>                 return -ENOENT;
+>> >>         }
+>> >>
+>> >> @@ -789,9 +790,9 @@ static int luo_file_deserialize_one(struct luo_fi=
+le_set *file_set,
+>> >>   * in-memory linked list of 'struct luo_file' instances.
+>> >>   *
+>> >>   * For each serialized entry, it performs the following steps:
+>> >> - *   1. Reads the 'compatible' string.
+>> >> + *   1. Reads the handler 'name' string.
+>> >>   *   2. Searches the global list of registered file handlers for one=
+ that
+>> >> - *      matches the compatible string.
+>> >> + *      matches the handler name.
+>> >>   *   3. Allocates a new 'struct luo_file'.
+>> >>   *   4. Populates the new structure with the deserialized data (toke=
+n, private
+>> >>   *      data handle) and links it to the found handler. The 'file' p=
+ointer is
+>> >> @@ -884,9 +885,9 @@ void luo_file_set_destroy(struct luo_file_set *fi=
+le_set)
+>> >>  /**
+>> >>   * liveupdate_register_file_handler - Register a file handler with L=
+UO.
+>> >>   * @fh: Pointer to a caller-allocated &struct liveupdate_file_handle=
+r.
+>> >> - * The caller must initialize this structure, including a unique
+>> >> - * 'compatible' string and a valid 'fh' callbacks. This function add=
+s the
+>> >> - * handler to the global list of supported file handlers.
+>> >> + * The caller must initialize this structure, including a unique 'na=
+me'
+>> >> + * string and valid 'fh' callbacks. This function adds the handler t=
+o the
+>> >> + * global list of supported file handlers.
+>> >>   *
+>> >>   * Context: Typically called during module initialization for file t=
+ypes that
+>> >>   * support live update preservation.
+>> >> @@ -908,11 +909,11 @@ int liveupdate_register_file_handler(struct liv=
+eupdate_file_handler *fh)
+>> >>         }
+>> >>
+>> >>         down_write(&luo_register_rwlock);
+>> >> -       /* Check for duplicate compatible strings */
+>> >> +       /* Check for duplicate handler names */
+>> >>         list_private_for_each_entry(fh_iter, &luo_file_handler_list, =
+list) {
+>> >> -               if (!strcmp(fh_iter->compatible, fh->compatible)) {
+>> >> -                       pr_err("File handler registration failed: Com=
+patible string '%s' already registered.\n",
+>> >> -                              fh->compatible);
+>> >> +               if (!strcmp(fh_iter->name, fh->name)) {
+>> >> +                       pr_err("File handler registration failed: Han=
+dler name '%s' already registered.\n",
+>> >> +                              fh->name);
+>> >>                         err =3D -EEXIST;
+>> >>                         goto err_unlock;
+>> >>                 }
+>> >> diff --git a/kernel/liveupdate/luo_flb.c b/kernel/liveupdate/luo_flb.=
+c
+>> >> index cd715a7c1d99..222c6d7f821e 100644
+>> >> --- a/kernel/liveupdate/luo_flb.c
+>> >> +++ b/kernel/liveupdate/luo_flb.c
+>> >> @@ -178,7 +178,7 @@ static int luo_flb_retrieve_one(struct liveupdate=
+_flb *flb)
+>> >>                 return -ENODATA;
+>> >>
+>> >>         for (int i =3D 0; i < fh->header_ser->count; i++) {
+>> >> -               if (!strcmp(fh->ser[i].name, flb->compatible)) {
+>> >> +               if (!strcmp(fh->ser[i].name, flb->name)) {
+>> >>                         private->incoming.data =3D fh->ser[i].data;
+>> >>                         refcount_set(&private->incoming.count, fh->se=
+r[i].count);
+>> >>                         found =3D true;
+>> >> @@ -337,7 +337,7 @@ static void luo_flb_unregister_one(struct liveupd=
+ate_file_handler *fh,
+>> >>
+>> >>         if (!found) {
+>> >>                 pr_warn("Failed to unregister FLB '%s': not found in =
+file handler '%s'\n",
+>> >> -                       flb->compatible, fh->compatible);
+>> >> +                       flb->name, fh->name);
+>> >>                 return;
+>> >>         }
+>> >>
+>> >> @@ -442,9 +442,9 @@ int liveupdate_register_flb(struct liveupdate_fil=
+e_handler *fh,
+>> >>                 if (luo_flb_global.count =3D=3D LUO_FLB_MAX)
+>> >>                         return -ENOSPC;
+>> >>
+>> >> -               /* Check that compatible string is unique in global l=
+ist */
+>> >> +               /* Check that FLB name is unique in global list */
+>> >>                 list_private_for_each_entry(gflb, &luo_flb_global.lis=
+t, private.list) {
+>> >> -                       if (!strcmp(gflb->compatible, flb->compatible=
+))
+>> >> +                       if (!strcmp(gflb->name, flb->name))
+>> >>                                 return -EEXIST;
+>> >>                 }
+>> >>
+>> >> @@ -596,9 +596,9 @@ void __init luo_flb_setup_incoming(u64 flbs_pa)
+>> >>   * preserved (i.e., its reference count is greater than zero), it wr=
+ites its
+>> >>   * metadata into the memory region designated for Kexec Handover.
+>> >>   *
+>> >> - * The serialized data includes the FLB's compatibility string, its =
+opaque
+>> >> - * data handle, and the final reference count. This allows the new k=
+ernel to
+>> >> - * find the appropriate handler and reconstruct the FLB's state.
+>> >> + * The serialized data includes the FLB's name string, its opaque
+>> >> + * data handle, and the final reference count. This allows the targe=
+t
+>> >> + * kernel to find the appropriate FLB and reconstruct its state.
+>> >>   *
+>> >>   * Context: Called from liveupdate_reboot() just before kho_finalize=
+().
+>> >>   */
+>> >> @@ -614,7 +614,7 @@ void luo_flb_serialize(void)
+>> >>                 long count =3D refcount_read(&private->outgoing.count=
+);
+>> >>
+>> >>                 if (count > 0) {
+>> >> -                       strscpy(fh->ser[i].name, gflb->compatible,
+>> >> +                       strscpy(fh->ser[i].name, gflb->name,
+>> >>                                 sizeof(fh->ser[i].name));
+>> >>                         fh->ser[i].data =3D private->outgoing.data;
+>> >>                         fh->ser[i].count =3D count;
+>> >> diff --git a/lib/tests/liveupdate.c b/lib/tests/liveupdate.c
+>> >> index 4c08a7c6fb78..e4df09eed1f3 100644
+>> >> --- a/lib/tests/liveupdate.c
+>> >> +++ b/lib/tests/liveupdate.c
+>> >> @@ -17,7 +17,7 @@
+>> >>  static const struct liveupdate_flb_ops test_flb_ops;
+>> >>  #define DEFINE_TEST_FLB(i) {                                        =
+   \
+>> >>         .ops =3D &test_flb_ops,                                      =
+     \
+>> >> -       .compatible =3D LIVEUPDATE_TEST_FLB_COMPATIBLE(i),           =
+     \
+>> >> +       .name =3D LIVEUPDATE_TEST_FLB_NAME(i),                       =
+     \
+>> >>  }
+>> >>
+>> >>  /* Number of Test FLBs to register with every file handler */
+>> >> @@ -34,7 +34,7 @@ static int test_flb_preserve(struct liveupdate_flb_=
+op_args *argp)
+>> >>  {
+>> >>         ptrdiff_t index =3D argp->flb - test_flbs;
+>> >>
+>> >> -       pr_info("%s: preserve was triggered\n", argp->flb->compatible=
+);
+>> >> +       pr_info("%s: preserve was triggered\n", argp->flb->name);
+>> >>         argp->data =3D TEST_FLB_MAGIC_BASE + index;
+>> >>
+>> >>         return 0;
+>> >> @@ -42,7 +42,7 @@ static int test_flb_preserve(struct liveupdate_flb_=
+op_args *argp)
+>> >>
+>> >>  static void test_flb_unpreserve(struct liveupdate_flb_op_args *argp)
+>> >>  {
+>> >> -       pr_info("%s: unpreserve was triggered\n", argp->flb->compatib=
+le);
+>> >> +       pr_info("%s: unpreserve was triggered\n", argp->flb->name);
+>> >>  }
+>> >>
+>> >>  static int test_flb_retrieve(struct liveupdate_flb_op_args *argp)
+>> >> @@ -52,11 +52,11 @@ static int test_flb_retrieve(struct liveupdate_fl=
+b_op_args *argp)
+>> >>
+>> >>         if (argp->data =3D=3D expected_data) {
+>> >>                 pr_info("%s: found flb data from the previous boot\n"=
+,
+>> >> -                       argp->flb->compatible);
+>> >> +                       argp->flb->name);
+>> >>                 argp->obj =3D (void *)argp->data;
+>> >>         } else {
+>> >>                 pr_err("%s: ERROR - incorrect data handle: %llx, expe=
+cted %llx\n",
+>> >> -                      argp->flb->compatible, argp->data, expected_da=
+ta);
+>> >> +                      argp->flb->name, argp->data, expected_data);
+>> >>                 return -EINVAL;
+>> >>         }
+>> >>
+>> >> @@ -69,10 +69,10 @@ static void test_flb_finish(struct liveupdate_flb=
+_op_args *argp)
+>> >>         void *expected_obj =3D (void *)(TEST_FLB_MAGIC_BASE + index);
+>> >>
+>> >>         if (argp->obj =3D=3D expected_obj) {
+>> >> -               pr_info("%s: finish was triggered\n", argp->flb->comp=
+atible);
+>> >> +               pr_info("%s: finish was triggered\n", argp->flb->name=
+);
+>> >>         } else {
+>> >>                 pr_err("%s: ERROR - finish called with invalid object=
+\n",
+>> >> -                      argp->flb->compatible);
+>> >> +                      argp->flb->name);
+>> >>         }
+>> >>  }
+>> >>
+>> >> @@ -103,7 +103,7 @@ static void liveupdate_test_init(void)
+>> >>                 err =3D liveupdate_flb_get_incoming(flb, &obj);
+>> >>                 if (err && err !=3D -ENODATA && err !=3D -ENOENT) {
+>> >>                         pr_err("liveupdate_flb_get_incoming for %s fa=
+iled: %pe\n",
+>> >> -                              flb->compatible, ERR_PTR(err));
+>> >> +                              flb->name, ERR_PTR(err));
+>> >>                 }
+>> >>
+>> >>                 if (!err)
+>> >> @@ -124,18 +124,18 @@ void liveupdate_test_register(struct liveupdate=
+_file_handler *fh)
+>> >>                 err =3D liveupdate_register_flb(fh, flb);
+>> >>                 if (err) {
+>> >>                         pr_err("Failed to register %s %pe\n",
+>> >> -                              flb->compatible, ERR_PTR(err));
+>> >> +                              flb->name, ERR_PTR(err));
+>> >>                 }
+>> >>         }
+>> >>
+>> >>         err =3D liveupdate_register_flb(fh, &test_flbs[0]);
+>> >>         if (!err || err !=3D -EEXIST) {
+>> >>                 pr_err("Failed: %s should be already registered, but =
+got err: %pe\n",
+>> >> -                      test_flbs[0].compatible, ERR_PTR(err));
+>> >> +                      test_flbs[0].name, ERR_PTR(err));
+>> >>         }
+>> >>
+>> >>         pr_info("Registered %d FLBs with file handler: [%s]\n",
+>> >> -               TEST_NFLBS, fh->compatible);
+>> >> +               TEST_NFLBS, fh->name);
+>> >>  }
+>> >>
+>> >>  MODULE_LICENSE("GPL");
+>> >> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+>> >> index 6b68220275eb..64f8b8cb75bd 100644
+>> >> --- a/mm/memfd_luo.c
+>> >> +++ b/mm/memfd_luo.c
+>> >> @@ -602,7 +602,7 @@ static const struct liveupdate_file_ops memfd_luo=
+_file_ops =3D {
+>> >>
+>> >>  static struct liveupdate_file_handler memfd_luo_handler =3D {
+>> >>         .ops =3D &memfd_luo_file_ops,
+>> >> -       .compatible =3D MEMFD_LUO_FH_COMPATIBLE,
+>> >> +       .name =3D MEMFD_LUO_FH_NAME,
+>> >>  };
+>> >>
+>> >>  static int __init memfd_luo_init(void)
+>> >> --
+>> >> 2.56.0.212.g129ede20d9-goog
+>> >>
