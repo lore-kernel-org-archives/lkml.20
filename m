@@ -1,87 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792582760;
-	b=ZwvpipHP9y/p7MaHnO6pN1G49Vopkaa+FLVaeaY4NtjDjB0GEYPVAK0nhnPQLnC1Xeev
-	 hRBWZRkC5IQQ6mzrgPhVJ+4OhYNe3ubO5KUQb4lvTqL8qZ6fCxefw8H5zlT/UZm5r9vmF
-	 56ZcngaqnmThJ1P1mUm5stV/JyM4XwJujb+QhrDoOUw2oVIAK3v+eF/2npQdMjObHqHHp
-	 oAaIkYqXmUVg4sboiwmejsUTcsQfJdvA7eOePCWN/lUgb6bVzvJ3WaBbwJeUZEz3nYYSj
-	 orG0WKx6s3ZBtpBbf1XwaywcvX3NyQP1xbwLnn1sXxk6VAp6s83nWh1ClMktpkUIboA==
+	t=1792582772;
+	b=WyMvopoeCwZy5rzEdd5DM6IuhvC1w2+4RHcG50vKxAXZ1C0iHwFY6SbcQcExgO8E6ujs
+	 G0LInk09gfgNaLirj1VgW52BOSvy1tSmLbHHiKv69y8XeBtKEUjo6Wxvo8BAQWjqJWvit
+	 hOOo9xUKFG1iCceGqgCQviYt3D6xpHk0jTtDhCpLzMxygyUhwEeDcFWLufTTIXkwOBzt+
+	 +ZXlPWugLvv90fgP98IpPaKBo8GZZdfF63Rh2IVx4haXJdHyJJjocB+fHw0lUTZwDfoOO
+	 pPNJs1r9M5Vjih84B3jkw3xg67M5+yXRYvFLzK4ZU+51DIhJ/7VH/WBHGBwxsssBAsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792582760;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=+VaxDdm2yeMQ8nyfzutJWB96P5Dynk6cu803aKWGLq8=;
-	b=0tsgzXdb7Hqmt0zM+uwMZknPsU1I9xfog8HPAvtdQGnQrqS2/7kf3OFOR70jsNc64if1
-	 Tv3QRtHA95WVL39bMt2Tk3PqZjpmQPf4dah++ga65JSvIyt/oe3IhC5VE9fpdC9+B23xP
-	 cuavJqmyq4iTEiPm0mO3slvj9pirQnnLzw2WdJYeBi6ZqQGkOyWxvMOVCCKRUGRUpKB37
-	 yLqTplt4Vg5+w6zX2Z7wfALhNQr140JFEMVawC8Jm7nEcRi8RoyMyC1EQlVLaRWJzHR5c
-	 bmgg4f5+B0ACfMvKqBrs+eYat0E28tBENGWKFBSTklX8iFGrh60y6r1eepE7Mo1ZV6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792582772;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=bGXJfjCCrUH5RZmEcReSeM7EPT2qwuvFA/PK6PwffXI=;
+	b=swxDToYXeLoMnq9sO9C2srwiiWBVwAJvQvhchpKr501p991UeS1RZaYKm3FJEN/75AjZ
+	 5NZ7MR9ZzkqbmKVhOsE0s6gv4bCenckjn1/WsM9VDuR/1eNIJUmZLUu+h40sDgoqtYwbZ
+	 9LRgI0+4cvlsI2Ro3p1TQTa/Ugot026N9PrYHn9Q32OQNCagRRsd6aWhtzTJkpBdfyIQi
+	 e8L5xPDU102h/v1QMRHfX6q8+npMvFaQdZYQdPa6pd3QAw6bfyokgjEb/Y/8oiw85IHor
+	 VvF92EEExae1GxpCI5DGEW1cqbbwXwA6ibYPGuM5kAMzy33b5dZAiSBo61+Ayu8sg3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=beagleboard.org;
-	spf=fail smtp.mailfrom=beagleboard.org;
-	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=Fj2alYtc;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T9VRn1QL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HnOGRBnv;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3235606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:39:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3235606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF31606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:39:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF31606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=Fj2alYtc
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so565108a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:39:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T9VRn1QL;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HnOGRBnv
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LB1DRB401972
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:39:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bGXJfjCCrUH5RZmEcReSeM7EPT2qwuvFA/PK6PwffXI=; b=T9VRn1QLoZ3qsW1g
+	7n1m07aEUz0lY+4t+8Oe1+aBdXw9JEmYIQnw6ZkxlTM4byCoWqImniHAyYrLeGHz
+	8nrooNDQ0kSJvUSTpw3Pv1i38317ZFO1LJ6BYSzejBh59oEGQgCKptPeIWL3Znlc
+	WD2Vw0Fqb16vKs+6YDgQwN0DfK4HnT6Z5uWYUvCaq9kFuuiw7MPh8+Ovc6j2HcM2
+	GCn0bRvkJVmP186Zn7rL82ZhDfmZ6LTxyHJeKWRelnS5ADJISfORmV9o23G04RCC
+	ai93GFgIIN22kofHu3LBpjMkloNAPsWhUVek8QWEM0fk0kPuenN+WRZqMKWbyOmY
+	qHxjcQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r2sxn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:39:29 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd60e4e8bc3so335077a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:39:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1792582759; x=1793187559; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+VaxDdm2yeMQ8nyfzutJWB96P5Dynk6cu803aKWGLq8=;
-        b=Fj2alYtcn4FZXplYC9JMUPZa66i3rvRnXP/LB0cycDQzM2Kod+du5mHlGzYL4VDKoH
-         NVVZSiocLTE08wAovePgsuJdThGaV8nTx3Dfj24Lw0a73jxgXe9p7e7uV/DSiOl8a8tR
-         HVpgpgN54T4XkHMmCxC8Ip/Pw6MeZf86TZ+Kau7gb5ay4Z1TFyc7hxeLdpWwDC7wNL11
-         pMf9JP8OTlcrK+G99wo7TIZ6PzTHXbMQflM6mIVjrwStgdbNGiSTR8paRUEM3qW9G56I
-         4bOTmvIzFFh42ZcPIs+5L/hyniinaUYeMitFWvtCaSFiZ8sd+nHMF8jcfdz4DcnKJf7m
-         BsrA==
+        d=oss.qualcomm.com; s=google; t=1792582768; x=1793187568; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bGXJfjCCrUH5RZmEcReSeM7EPT2qwuvFA/PK6PwffXI=;
+        b=HnOGRBnvJsKgrR45CSTnp2NkHUf3lcYfG1DI6rFx6wDDUIiqxcUtBX2XGoAAAInPKF
+         wQD/UCeOw79sW96yI6ztVPwMRb0UdeUyMS47n/7A3Ay0monkRjmxXfwaKceDO3wz9D5f
+         LfhgZ/8E0D2AWRd7kJzaFNBP1mMMOipH6zfvVViHTb52iVTEA39CAoCud+N7kB41k7eA
+         wdpoKT4B7Nvj2MvD2bVqSfhq0/gLEpc1ZQ5SlWlrig4tiTH2DnVVIIzr+D6LS74vqXw9
+         UsvhBelgQcvX3wQ+1zbg2WMsLDCOSXoUlCB8UOPZdjOuggSdIgeybLGAETxsAgsofNao
+         5K0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792582759; x=1793187559;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+VaxDdm2yeMQ8nyfzutJWB96P5Dynk6cu803aKWGLq8=;
-        b=ffiosG1v8lrnmGUC7fUto4/bV5/e9zD9sR2NyGrAWbEfUSy1ZMELjVpp5dLXy+Kq3H
-         rRpEApjYOw4EwQrKNpczT+PHr445AeqCijnBq96bDMboctQuxSW2syS3+j0DjdFxacV3
-         CELPksA9SMKYk9yMhhbxKBCuPWQ3tYCwH7vZ9/G+0pJfwwD0C+teYIUPO61frM8WEo/J
-         ABdfs4cJP68wE0iHPu39Xy3yEH6AHVyyNHOl2AyW1OYBR2NAl90d4vO78hmCQnhupJUh
-         GQRd6+Qd+oCAg16sGV5ezh1ieBbtnCFLhHO2SiCg8T0MGQSABBAoSDP49fqUUUIe+Uwd
-         Bnlg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNAf6EhaDaGB4I27VmGjTxlmf8sxAXgDaVZoEIMI68e7N6Zww6BMilMlLlmpbUrpYeRVPqowAqMtD9nJc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIe7CxcUZ5UEeEF/wNiz0vvln/53g+bLmfHWjXa/dbS6fJN7P4K
-	q6AU9HEBuxXJuTrCyApZYQE87vZ5nVQfKxlzMBEBDZF0swdNiTDXSSYcQnZ4iinaxg==
-X-Gm-Gg: AYBFou3v/RT7c44+XNJCs5Ydzxbiq7/qx3Oqc1xetaEsPKGmdIvBJgIFDRq9FTjPw2h
-	TaevxvQPsQ2qzJkkWgCGMBx/Uac8lmOXXaTdnNS/1IyWCL2qOfIstJJmcvDutXth9nFUVcsbQ1N
-	wsqW9gFxeppem9b3mtrNFZaimh7m+tuxJxAXvfU/9lk3czEAKA989FUeNUsszQmTcVsO910NelL
-	y2t6T/LXOMb85JkUDOO6a2RltBby8RMIQ9aGpkm6Umb3lfM/+kS1NGXynrDd90h8ZREXtN1f2pY
-	geZTBg5RlwuqhYw37WyQRMCNZrx7ZQLILcVRmgsyQPh/L5nYQl0CQ2cK6dLsz4CJMOPPDB+8Dq8
-	wm7P00RFlu9pIT2/FWtc3bfioy9qNmGkXsj3iNKMOuaPD3Jw69xikxmcjWb6QSpGitUvC08lgNw
-	7aHSSRIDPbozgxeLbNoFBH2ipwLEerKvRqGoJE8KsH1PDn2POhTSValMa33cPK35joVJjgyG1T6
-	pZnBbwAkh994uBRoaproOtt4sPKTx4LXlGpQnFfe46AZs/fuaDRzgiahDpAlxjaw68=
-X-Received: by 2002:a17:90b:3848:b0:3ab:188b:c5be with SMTP id 98e67ed59e1d1-3ad87084014mr1570077a91.45.1792582758877;
-        Wed, 21 Oct 2026 04:39:18 -0700 (PDT)
-Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm4023732a91.15.2026.10.21.04.39.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:39:18 -0700 (PDT)
-From: Ayush Singh <ayush@beagleboard.org>
-Date: Wed, 21 Oct 2026 17:07:54 +0530
-Subject: [PATCH v4 6/6] greybus: Add Rust UART node driver
+        d=1e100.net; s=20260707; t=1792582768; x=1793187568;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bGXJfjCCrUH5RZmEcReSeM7EPT2qwuvFA/PK6PwffXI=;
+        b=bnMoOl4m9pBkCqrkbfvgqcr/tZSf5widwIFnqW1qFFvwX8N/TvtpCgbBC//lH57kLv
+         +HyULabA+cVntpI9+e5rA3T6dfgRwAVbASmnZfsSd27ePa7R5Rjo8HO/GqR0cI5+5+EV
+         hvt6IPCi45aUn+1ICjf0PmNrynfuLb4Xb34JAiOhDS76ZGasNZlzCZuJdBls2Uu1QYR8
+         6DEDsuAjbHmyqgwAF7VA6en/7C/9GF2B+SvGAOXEkPVPIUJT/6ryNrWh9gIYIHmMsoVN
+         xhbgy2I4PguQvRgSqwllrpYWVdU14BGXLKHkxBHdMqt/gsyC1onzSggEQ2mdnGpGQo4y
+         Wx8w==
+X-Forwarded-Encrypted: i=1; AKwUvBw1twThoWOPkSdnPXALrN3qzetTCqtJfH6rp/blGG8Xlh3sMQFF9xqoiiaAjIXXy+6wjsDu2bzPNpc4YKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJulpH2q5Qopi/8snwOW+d3IYC++0mdRo4VBCvkAOKGN/YrHVPZ
+	JbpMKobwp3bqaMVIx4qV+iNTZL90+mTGx4rUl7YLqldIDHVNR4JSZrV+FOHK0qUxykK/5bEjNYt
+	zIzjIBCP/1SwqSZpVx8hf8JAD7QnQVNZHkNUnpUa3xVxFFrSLz4PlALcAZA46skJd04o=
+X-Gm-Gg: AYBFou00Of6loU/zl9cr0TuKGnB+NszeYz0Fe2S+oxF/E+F+HbCoyVHjhZkE08LuMun
+	678djdkHvSQDBL6f/AYIDxTB/vxQ3ntTkiqjZidk3CnMmSLG1ne1KeIhdvr6hmquac6lL0xA3H/
+	tRYBCn7xOyjC3/222GySXbuBoGgHkgaBJ1GInmcRrnBKT8CZgDWd/OZapeOqydD664gW2grsJYo
+	QTajppysJU1g3doswTMCR2lpli0CcJ2r0iFiNORR9GKDEWo4mhAjP2s1aNrk0x4gocroo7qrPr6
+	8yx03JLwSySNyOOI5wUaaYD+gwm8cphiBi+kTfg3sebHoZdqVapJFppl+U+s3tRPd1nlNF9OG1o
+	zsh/G1GXvCRt2s9/3yuk2V1uFGow/3sXkKQ==
+X-Received: by 2002:a05:6a20:6a1b:b0:3de:46cc:b63c with SMTP id adf61e73a8af0-3e287d53782mr1589285637.11.1792582768164;
+        Wed, 21 Oct 2026 04:39:28 -0700 (PDT)
+X-Received: by 2002:a05:6a20:6a1b:b0:3de:46cc:b63c with SMTP id adf61e73a8af0-3e287d53782mr1589233637.11.1792582767612;
+        Wed, 21 Oct 2026 04:39:27 -0700 (PDT)
+Received: from [10.204.79.28] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6a85a32b2sm712484a12.8.2026.10.21.04.39.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 04:39:27 -0700 (PDT)
+From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
+Message-ID: <f7926ef7-1edf-4d74-9758-2ee0c8a795bc@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 17:09:15 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,412 +116,414 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-gb-uart-transport-v4-6-c308ce821d45@beagleboard.org>
-References: <20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org>
-In-Reply-To: <20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org>
-To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
- Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
- Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Uladzislau Rezki <urezki@gmail.com>, 
- Markus Probst <markus.probst@posteo.de>
-Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11876;
- i=ayush@beagleboard.org; h=from:subject:message-id;
- bh=a8QqTGAat63BV9GwbIKilpnLs4ixF9+MdlNnluICNlY=;
- b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq2KQU0rSyFZnLU0rkl3is1ARUQflYsh5UWwRBz
- YOyQ9VfObOJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCatikFAAKCRAFzvXHieVa
- dD0wD/448yTXe/orHFbrDdO5lWc73ZdcB4DyGaStTy/RhyK7QHKC+A7mZh5AIt/TrvryKr/y4qQ
- 3T1BT98NSG6b9Bg9EszSCRCB2jjpmUDTDi2u+RLMOydNiLi7NhYsLZ/OAXZkhTPCJWKamJATyt3
- EdWEwiUkm+9Y0AW0nnroAhcLU7i+I4llqwKedrpOHs2wffzqgBWBPuahQhxavU6TfIr5Gm6K8i8
- dKz4Y5cENblMdkflIF9LYzgGRa8rI1InlPHy/q7d1FfwILhkJ9Y9mNrwc/eQxTl4rLYcdBQjsEi
- f7VccGIGXepNm1N5KaDfnP34c/wV5bs4C/lhXXXe9aA0/w3OmoQiWIPgaytWg+jzXFDK/9MMj3L
- GDtTra3VCXzx88YI6ibes0CJCxAUjxFh65/7DyTJCAbjkHMfEHUbE+VYLycyz2c2Q7JmBQS3oGo
- WBxIOgNm2uAFWx1i1vAy/9GUzsox6rFp3stCnxYHYZgL5HmkxQysD4v4h4VbF/f5HaOPp0Xf6OG
- gV0FCDoJrv+/slT+jc4zFf/XTOHutCYAlirPxHvbmrYgutKQl77F1nPn0D8WHEz1t46nrYSQKr0
- Tn3MBpZU2hL3ISw+flZ1Pz5r35hjGWnR2xPXd0LoKYzKCzXmJoy1W88eW/pUbVvfqZZxJTOC/Ux
- x1wrTkzSTIesX5A==
-X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
- fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] dt-bindings: display: msm: Add Qualcomm DCP
+ bindings
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        iommu@lists.linux.dev
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-1-48aad0fe4f72@oss.qualcomm.com>
+ <hprf3vrsveovq3hwcgjrfj6uhmlxlq5u5bx4lkbswgxe476qwz@pacalsdgrjx7>
+ <ea81fcc1-c7e4-4b80-b65e-f483487bd1a1@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <ea81fcc1-c7e4-4b80-b65e-f483487bd1a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad8a471 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=kn4dWm41NmOkgBkIVkoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-ORIG-GUID: H30PQMG9atx01lC_1mL00FnqoCnyYZfW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NiBTYWx0ZWRfX98xUUMBEBT0z
+ lqtzFHe1f0DDEImfAPH2AeLk7iIm1FsbGZp+iCIryyqqO/si4HMk27UC9VYYQaNwmIZMXeBmhr1
+ x2JwUFrzcq3Y+SXVp21UUpoEnZe3BdQYqnd3mcg78sa6y5aPeRpYqJi+QofWgV639QTNBFWtWzw
+ ACUpslumi0Yz2DKc8i0u8S6Vs1j6xgYHFhXd1JZFEsJ5v7KuTgr8l3WDntCx9CscOtdmi4ZSy1U
+ oY0TC4BjtrGPdM1FDaQ65St0XmY+O276RW8kNeDR2RQ2CdD6gff7gKQK+bibMagPgOy2i5Q1gsD
+ jzsFjr7vRBZ8TZx12WP5bT8sLPWQLLkS2bohKzFMm+O6rhZ6lPof2Av62ZHc5i6ILkqWNK7x42H
+ 4rfjVK6f/sWLcMmNFsTg7VTpEUOz4n0OB01Azn5tPqzIDnpQJdMcpEk9OZivrCZoW4QB3YJ37cv
+ 4Tub3c0rQEAfbuALuUQ==
+X-Proofpoint-GUID: H30PQMG9atx01lC_1mL00FnqoCnyYZfW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NiBTYWx0ZWRfX/mZzTCNiZOZo
+ Qkilnk9/l1kEkUNXONpesqhK6IYUKJtOMTwTUN302j6r1607O5BX+pmJBv61ciaZSeG+gqB+5es
+ nYTHudOKhn+lhRiqPFqJ/6f3qxEskBw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210046
 
-Add a driver for Greybus nodes attached over a plain serial port. The
-node is registered with the software SVC (gb-softsvc), which handles the
-SVC protocol on behalf of the AP, so no dedicated coprocessor running
-SVC firmware is needed.
 
-Greybus messages are carried over HDLC framing on the wire. Each frame
-carries a one-byte address (0x01 for Greybus) and control byte, followed
-by the 16-bit CPort ID and the Greybus message itself.
+On 21-10-2026 14:15, Jayant Shekhar wrote:
+>
+> On 15-10-2026 17:47, Dmitry Baryshkov wrote:
+>> On Thu, Oct 15, 2026 at 01:08:21PM +0530, Jayant Shekhar wrote:
+>>> DCP platforms place the display pipeline under firmware control, so 
+>>> Linux
+>>> cannot discover display resources through direct register access. 
+>>> The DRM
+>>> driver therefore needs device-tree descriptions of the firmware 
+>>> transport,
+>>> display topology, IOMMU contexts, and panel connections.
+>>>
+>>> Add bindings for the Qualcomm DCP VirtIO display function, including 
+>>> the
+>>> INTF graph and DSI host outputs. Document the framebuffer IOMMU 
+>>> context,
+>>> IPCC power-notify mailbox and interrupts, firmware display topology, 
+>>> and
+>>> firmware-visible IOVA window supplied by the parent VirtIO-MMIO 
+>>> transport.
+>>>
+>>> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>>> Assisted-by: LLM
+>>> ---
+>>>   .../bindings/display/msm/qcom,dcp-dsi.yaml         |  75 
+>>> +++++++++++++
+>>>   .../bindings/display/msm/qcom,dcp-virtio.yaml      | 113 
+>>> +++++++++++++++++++
+>>>   .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 119 
+>>> +++++++++++++++++++++
+>>>   3 files changed, 307 insertions(+)
+>>>
+>>> diff --git 
+>>> a/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml 
+>>> b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+>>> new file mode 100644
+>>> index 000000000000..f7178c66c09e
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+>>> @@ -0,0 +1,75 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-dsi.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Qualcomm DCP DSI host
+>>> +
+>>> +maintainers:
+>>> +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>>> +
+>>> +description: |
+>>> +  A MIPI DSI host exposed by the Qualcomm DCP VirtIO device (see
+>>> +  qcom,dcp.yaml). DCP is a firmware protocol shared across multiple
+>>> +  Qualcomm SoCs, not specific to any one of them; Hawi is its first
+>>> +  platform. The DSI host and its connection to a panel are described
+>>> +  using the standard DSI controller and OF graph properties.
+>>> +
+>>> +allOf:
+>>> +  - $ref: /schemas/display/dsi-controller.yaml#
+>>> +
+>>> +properties:
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +    description: Index of this DSI host among its siblings.
+>>> +
+>>> +  status: true
+>>> +
+>>> +  ports:
+>>> +    $ref: /schemas/graph.yaml#/properties/ports
+>>> +    description: |
+>>> +      port@0: Input from the DCP virtio device's DPU INTF output port.
+>>> +      port@1: Output to the attached panel.
+>>> +    properties:
+>>> +      port@0:
+>>> +        $ref: /schemas/graph.yaml#/properties/port
+>>> +      port@1:
+>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>>> +        unevaluatedProperties: false
+>>> +        properties:
+>>> +          endpoint:
+>>> +            $ref: /schemas/media/video-interfaces.yaml#
+>>> +            unevaluatedProperties: false
+>> Why do we need OF graph here? Would it be enough to link one of the
+>> ports of the root node with the panel's input?
+>>
+>>> +
+>>> +required:
+>>> +  - reg
+>>> +  - ports
+>>> +
+>>> +unevaluatedProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    dcp-subsystem {
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <0>;
+>>> +
+>>> +        dsi@0 {
+>>> +            reg = <0>;
+>>> +            #address-cells = <1>;
+>>> +            #size-cells = <0>;
+>>> +
+>>> +            ports {
+>>> +                #address-cells = <1>;
+>>> +                #size-cells = <0>;
+>>> +
+>>> +                port@0 {
+>>> +                    reg = <0>;
+>>> +                    dcp_dsi0_in: endpoint {
+>>> +                        remote-endpoint = <&dcp_intf1_out>;
+>>> +                    };
+>>> +                };
+>>> +
+>>> +            };
+>>> +        };
+>>> +    };
+>>> diff --git 
+>>> a/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml 
+>>> b/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+>>> new file mode 100644
+>>> index 000000000000..018694310dfb
+>>> --- /dev/null
+>>> +++ 
+>>> b/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+>>> @@ -0,0 +1,113 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-virtio.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Qualcomm DCP VirtIO host
+>>> +
+>>> +maintainers:
+>>> +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>>> +
+>>> +description: |
+>>> +  Qualcomm's DCP VirtIO host provides the generic VirtIO-MMIO 
+>>> transport and
+>>> +  the host-side IPCC channel used to wake the DCP firmware.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    contains:
+>>> +      const: qcom,dcp-virtio
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  iommus:
+>>> +    maxItems: 1
+>>> +
+>>> +  iommu-ranges:
+>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>>> +
+>>> +  interrupts-extended:
+>>> +    minItems: 2
+>>> +
+>>> +  interrupt-names:
+>>> +    items:
+>>> +      - const: virtio
+>>> +      - const: dcp_power_notify_irq
+>>> +
+>>> +  dma-coherent: true
+>>> +
+>>> +  mboxes:
+>>> +    maxItems: 1
+>>> +
+>>> +  mbox-names:
+>>> +    const: dcp-power-tx
+>>> +
+>>> +  dcp-subsystem:
+>>> +    $ref: qcom,dcp.yaml#
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - interrupts-extended
+>>> +  - interrupt-names
+>>> +  - iommus
+>>> +  - dcp-subsystem
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+>>> +
+>>> +    virtio@9be8000 {
+>>> +        compatible = "qcom,dcp-virtio", "virtio,mmio";
+>> Is it really compatible with virtio,mmio? Can it be handled completely
+>> by virtio,mmio?
+>
+>
+> There are two possible approaches:
+>
+> Option 1 — Use the standard VirtIO-MMIO parent (preferred)
+>
+> Keep the parent as:
+>
+> compatible = "virtio,mmio";
+> reg = <...>;
+> interrupts = <...>;
+> iommus = <...>;
+> iommu-ranges = <...>;
+> dma-coherent;
+>
+> The generic virtio/mmio.yaml binding would be extended only to 
+> document the generic iommu-ranges property.
+>
+> The DCP-specific resources would be placed on the virtio,deviceXX child:
+>
+> dcp-subsystem {
+>     compatible = "virtio,deviceXX";
+>     iommus = <...>;
+>     interrupts-extended = <&ipcc ...>;
+>     mboxes = <&ipcc ...>;
+>     mbox-names = "dcp-power-tx";
+> };
+>
+> The parent uses the standard VirtIO-MMIO interrupts property. The 
+> child has one DCP-specific interrupt, so interrupt-names is 
+> unnecessary and the driver uses interrupt index 0.
+>
+> Option 2 — Add a Qualcomm-specific VirtIO-MMIO parent binding
+>
+> Keep a Qualcomm-specific compatible such as:
+>
+> compatible = "qcom,dcp-virtio", "virtio,mmio";
+>
+> and extend the parent binding to describe iommu-ranges, the additional 
+> IPCC interrupt, mailbox, and related DCP resources.
+>
+> However, this approach duplicates the generic VirtIO-MMIO binding and 
+> is only justified if the transport requires Qualcomm-specific 
+> handling. Since the DCP transport is handled completely by the 
+> standard VirtIO-MMIO driver.
+>
+> Which one do you prefer?
+>
+> I will be addressing other comments in v2.
+>
+>
+> Thanks
+>
+> Jayant
+>
+>
 
-Port parameters are taken from the firmware node: "baudrate" if
-present, otherwise 115200, with flow control and parity disabled.
+I think Option 1 is not suitable because the IPCC power-notify sequence 
+is required before the first VirtIO-MMIO register access. The standard 
+VirtIO-MMIO driver would otherwise probe the DT node directly and access 
+the registers before Qualcomm-specific initialization is complete.
 
-Since gb-uart-node imports types from gb-softsvc, Rust to Rust calling
-setup from nova-core [0] is being used.
+   Would the following Qualcomm-specific transport approach be acceptable?
 
-[0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@nvidia.com/
+   - qcom,dcp-virtio is the DT-compatible Qualcomm wrapper. It 
+initializes IPCC and sends the required power notification before 
+creating a synthetic virtio-mmio platform device.
+   - The unchanged generic VirtIO-MMIO driver probes the synthetic 
+child, accesses the MMIO registers, creates the VirtIO queues, and 
+registers the VirtIO device.
+   - The DCP VirtIO driver binds to the resulting VirtIO device through 
+its VirtIO device/vendor ID table and initializes HFI, firmware 
+capabilities, and DRM/KMS.
+   - The virtio,deviceXX DT child is discovered by the VirtIO core and 
+describes the DCP-specific IOMMU context, DSI hosts, display graph, and 
+panels.
 
-Signed-off-by: Ayush Singh <ayush@beagleboard.org>
----
- MAINTAINERS                     |   1 +
- drivers/greybus/.gitignore      |   1 +
- drivers/greybus/Kconfig         |  15 +++
- drivers/greybus/Makefile        |  10 ++
- drivers/greybus/gb_uart_node.rs | 257 ++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 284 insertions(+)
+   The flow is:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 521bc6c67979..5bdd500ef63e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11527,6 +11527,7 @@ M:	Ayush Singh <ayush@beagleboard.org>
- L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
- S:	Maintained
- F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
-+F:	drivers/greybus/gb_uart_node.rs
- 
- GREYBUS SUBSYSTEM
- M:	Johan Hovold <johan@kernel.org>
-diff --git a/drivers/greybus/.gitignore b/drivers/greybus/.gitignore
-new file mode 100644
-index 000000000000..ff9c4a3539b4
---- /dev/null
-+++ b/drivers/greybus/.gitignore
-@@ -0,0 +1 @@
-+exports_gb_softsvc_generated.h
-diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
-index 709563f8c0ad..ce2030161f30 100644
---- a/drivers/greybus/Kconfig
-+++ b/drivers/greybus/Kconfig
-@@ -61,5 +61,20 @@ config GREYBUS_SOFTSVC
- 	  To compile this code as a module, choose M here: the module
- 	  will be called gb-softsvc.ko
- 
-+config GREYBUS_UART_NODE
-+	tristate "Greybus UART node transport"
-+	depends on GREYBUS_SOFTSVC
-+	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-+	depends on RUST_GREYBUS_ABSTRACTIONS
-+	select RUST_CRC_CCITT_ABSTRACTIONS
-+	help
-+	  Select this option if you have a Greybus node connected over a
-+	  serial port. The node is registered with the software SVC, which
-+	  handles the SVC protocol on behalf of the AP, so no dedicated
-+	  coprocessor running SVC firmware is required.
-+
-+	  To compile this code as a module, choose M here: the module
-+	  will be called gb-uart-node.ko
-+
- endif	# GREYBUS
- 
-diff --git a/drivers/greybus/Makefile b/drivers/greybus/Makefile
-index 0fa802fdf6ca..bf4d08f728fe 100644
---- a/drivers/greybus/Makefile
-+++ b/drivers/greybus/Makefile
-@@ -28,6 +28,12 @@ obj-$(CONFIG_GREYBUS_ES2)	+= gb-es2.o
- obj-$(CONFIG_GREYBUS_SOFTSVC)	+= gb-softsvc.o
- gb-softsvc-y			+= gb_softsvc.o gb_softsvc_exports.o
- 
-+obj-$(CONFIG_GREYBUS_UART_NODE)	+= gb-uart-node.o
-+gb-uart-node-y			+= gb_uart_node.o
-+
-+# Export Rust symbols from gb-softsvc only if gb-uart-node actually references them.
-+gb-softsvc-export-deps := $(if $(CONFIG_GREYBUS_UART_NODE),$(obj)/gb_uart_node.o)
-+
- rust_needed_exports = \
- 	{ $(if $(strip $(2)),$(NM) -u $(2);,) echo "__DEFINED_RUST_SYMBOLS__"; \
- 	  $(NM) -p --defined-only $(1); } | \
-@@ -66,3 +72,7 @@ endif
- # Output gb_softsvc's crate metadata for use by gb_uart_node at compile time.
- RUSTFLAGS_gb_softsvc.o += \
- 	--emit=metadata=$(objtree)/$(obj)/libgb_softsvc.rmeta
-+
-+# Allow nova-drm to import nova-core's types.
-+$(obj)/gb_uart_node.o: $(obj)/gb_softsvc.o
-+RUSTFLAGS_gb_uart_node.o := -L $(objtree)/$(obj) --extern gb_softsvc
-diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uart_node.rs
-new file mode 100644
-index 000000000000..f3779737c75e
---- /dev/null
-+++ b/drivers/greybus/gb_uart_node.rs
-@@ -0,0 +1,257 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Greybus UART Node driver
-+
-+use kernel::{
-+    alloc::Flags,
-+    crc_ccitt::crc_ccitt,
-+    device::{
-+        AsBusDevice,
-+        Bound,
-+        Core, //
-+    },
-+    error::code,
-+    new_spinlock,
-+    of, //
-+    prelude::*,
-+    serdev,
-+    sync::{
-+        aref::ARef,
-+        Arc,
-+        SpinLock, //
-+    },
-+};
-+
-+use zerocopy::little_endian;
-+use zerocopy_derive::{FromBytes, Immutable, KnownLayout};
-+
-+/// Most greybus implementations will have a limit on greybus message length. The theoretical limit
-+/// is [`u16::MAX`], but the real limits are much more modest. 256 seems to be the limit I use on
-+/// most of my peers, but let's use 512 to be on safe side in kernel. The only real big request that
-+/// I frequently encounter is manifest_get. However, if camera protocol ends up being supported at
-+/// some point, this might need to be increased.
-+const HDLC_MAX_FRAME_LEN: usize = 512;
-+const HDLC_FRAME_HEADER_LEN: usize =
-+    2 * size_of_val(&HDLC_FRAME) + 2 * size_of::<u16>() + 2 * size_of::<u8>();
-+const HDLC_MAX_MSG_LEN: usize = HDLC_MAX_FRAME_LEN - HDLC_FRAME_HEADER_LEN;
-+
-+const HDLC_FRAME: u8 = 0x7E;
-+const HDLC_ESC: u8 = 0x7D;
-+const HDLC_XOR: u8 = 0x20;
-+const HDLC_EXPECTED_CRC: u16 = 0xf0b8;
-+
-+const ADDRESS_GREYBUS: u8 = 0x01;
-+
-+#[repr(C, packed)]
-+#[derive(FromBytes, Immutable, KnownLayout)]
-+struct GreybusFrame {
-+    cport: little_endian::U16,
-+    msg: [u8],
-+}
-+
-+struct HdlcRx {
-+    rx_buf: KVec<u8>,
-+    rx_in_esc: bool,
-+    rx_overflow: bool,
-+    sdev: ARef<serdev::Device>,
-+    node: gb_softsvc::Module,
-+}
-+
-+impl HdlcRx {
-+    fn new(sdev: ARef<serdev::Device>, node: gb_softsvc::Module) -> Result<Self> {
-+        Ok(Self {
-+            node,
-+            sdev,
-+            rx_buf: KVec::with_capacity(HDLC_MAX_FRAME_LEN, GFP_KERNEL)?,
-+            rx_in_esc: false,
-+            rx_overflow: false,
-+        })
-+    }
-+
-+    fn frame_finish(&self) -> Result<()> {
-+        if self.rx_buf.len() < 4 {
-+            return Err(code::EFAULT);
-+        }
-+
-+        let crc = crc_ccitt(0xffff, &self.rx_buf);
-+        if crc != HDLC_EXPECTED_CRC {
-+            dev_warn!(self.sdev.as_ref(), "CRC failed {}", crc);
-+            return Ok(());
-+        }
-+
-+        let addr = self.rx_buf[0];
-+        let _ctrl = self.rx_buf[1];
-+        let payload = &self.rx_buf[2..self.rx_buf.len() - size_of::<u16>()];
-+
-+        match addr {
-+            ADDRESS_GREYBUS => {
-+                let frame = GreybusFrame::ref_from_bytes(payload).map_err(|_| code::EINVAL)?;
-+                self.node.submit_message(0, frame.cport.into(), &frame.msg)
-+            }
-+            _ => Err(code::EINVAL),
-+        }
-+    }
-+
-+    fn rx(&mut self, data: &[u8]) -> usize {
-+        for i in data.iter() {
-+            match *i {
-+                HDLC_FRAME => {
-+                    if !self.rx_buf.is_empty() {
-+                        if let Err(e) = self.frame_finish() {
-+                            dev_warn!(self.sdev.as_ref(), "bad frame: {e:?}\n");
-+                        }
-+                    }
-+
-+                    self.rx_buf.clear();
-+                    self.rx_in_esc = false;
-+                    self.rx_overflow = false;
-+                }
-+                HDLC_ESC => self.rx_in_esc = true,
-+                // Skip data if buffer has overflown.
-+                _ if self.rx_overflow => {}
-+                _ => {
-+                    let c = if self.rx_in_esc { *i ^ HDLC_XOR } else { *i };
-+                    self.rx_in_esc = false;
-+
-+                    if self.rx_buf.push_within_capacity(c).is_err() {
-+                        dev_warn!(self.sdev.as_ref(), "buffer overflow. Dropping frame");
-+
-+                        self.rx_overflow = true;
-+                        self.rx_buf.clear();
-+                    }
-+                }
-+            }
-+        }
-+
-+        data.len()
-+    }
-+}
-+
-+struct GbNode {
-+    sdev: ARef<serdev::Device>,
-+}
-+
-+impl GbNode {
-+    const fn new(sdev: ARef<serdev::Device>) -> Self {
-+        Self { sdev }
-+    }
-+
-+    fn fill_buf(mut crc: u16, data: &[u8], buf: &mut KVec<u8>) -> Result<u16> {
-+        for i in data {
-+            crc = crc_ccitt(crc, &[*i]);
-+            if *i == HDLC_ESC || *i == HDLC_FRAME {
-+                buf.push_within_capacity(HDLC_ESC)?;
-+                buf.push_within_capacity(i ^ HDLC_XOR)?;
-+            } else {
-+                buf.push_within_capacity(*i)?;
-+            }
-+        }
-+
-+        Ok(crc)
-+    }
-+}
-+
-+impl gb_softsvc::InterfaceOps for GbNode {
-+    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Result<()> {
-+        // SAFETY: `GbNode` only exists while its serdev driver is bound, so the device is in the
-+        // `Bound` state for the duration of this call.
-+        let bound: &serdev::Device<Bound> =
-+            unsafe { serdev::Device::from_device(self.sdev.as_ref().as_bound()) };
-+
-+        // Drop messages which are bigger than what is supported.
-+        if data.len() > HDLC_MAX_MSG_LEN {
-+            return Err(code::E2BIG);
-+        }
-+
-+        let mut buf = KVec::with_capacity(HDLC_MAX_FRAME_LEN, gfp_mask)?;
-+
-+        let mut crc = 0xffff;
-+
-+        buf.push_within_capacity(HDLC_FRAME)?;
-+
-+        crc = Self::fill_buf(crc, &[ADDRESS_GREYBUS, 0x03], &mut buf)?;
-+        crc = Self::fill_buf(crc, &cport.to_le_bytes(), &mut buf)?;
-+        crc = Self::fill_buf(crc, data, &mut buf)?;
-+
-+        crc ^= 0xffff;
-+        Self::fill_buf(crc, &crc.to_le_bytes(), &mut buf)?;
-+
-+        buf.push_within_capacity(HDLC_FRAME)?;
-+
-+        bound.write_all(&buf, 0)?;
-+
-+        Ok(())
-+    }
-+}
-+
-+#[pin_data]
-+struct GbUartNode {
-+    #[pin]
-+    rx: SpinLock<HdlcRx>,
-+}
-+
-+impl GbUartNode {
-+    fn init(sdev: &serdev::Device<Core<'_>>) -> Result<HdlcRx> {
-+        if sdev
-+            .set_baudrate(
-+                sdev.as_ref()
-+                    .fwnode()
-+                    .and_then(|fwnode| fwnode.property_read(c"current-speed").optional())
-+                    .unwrap_or(115200),
-+            )
-+            .is_err()
-+        {
-+            return Err(EINVAL);
-+        }
-+        sdev.set_flow_control(false);
-+        sdev.set_parity(serdev::Parity::None)?;
-+
-+        let node = gb_softsvc::Module::new(&[Arc::new(GbNode::new(sdev.into()), GFP_KERNEL)?])?;
-+
-+        HdlcRx::new(sdev.into(), node)
-+    }
-+}
-+
-+kernel::of_device_table!(
-+    OF_TABLE,
-+    <GbUartNode as serdev::Driver>::IdInfo,
-+    [(of::DeviceId::new(c"beagle,beagleconnect-freedom"), ())]
-+);
-+
-+#[vtable]
-+impl serdev::Driver for GbUartNode {
-+    type IdInfo = ();
-+    type Data<'bound> = Self;
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+
-+    fn probe<'bound>(
-+        sdev: &'bound serdev::Device<Core<'_>>,
-+        _info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self, Error> + 'bound {
-+        dev_dbg!(sdev.as_ref(), "Probe gb_uart_node.\n");
-+
-+        try_pin_init!(Self {
-+            rx <- new_spinlock!(Self::init(sdev)?, "gb_uart_node::rx"),
-+        }? Error)
-+    }
-+
-+    fn receive<'bound>(
-+        _sdev: &'bound serdev::Device<Bound>,
-+        this: Pin<&Self>,
-+        data: &[u8],
-+    ) -> usize {
-+        if let Some(mut guard) = this.rx.try_lock() {
-+            return guard.rx(data);
-+        }
-+
-+        0
-+    }
-+}
-+
-+kernel::module_serdev_device_driver! {
-+    type: GbUartNode,
-+    name: "gb_uart_node",
-+    authors: ["Ayush Singh <ayush@beagleboard.org>"],
-+    description: "Greybus node connected over UART",
-+    license: "GPL v2",
-+}
+   qcom,dcp-virtio
+       → IPCC power-up
+       → synthetic virtio-mmio device
+       → generic VirtIO-MMIO driver
+       → virtio,deviceXX DT child
+       → DCP HFI/DRM driver
 
--- 
-2.56.0
+   Since the Qualcomm wrapper creates and owns the synthetic VirtIO-MMIO 
+device, the parent node uses only:
 
+   compatible = "qcom,dcp-virtio";
+
+   It should not also advertise "virtio,mmio", because the generic 
+driver must not probe the parent directly before IPCC initialization.
+
+
+>>> +        reg = <0x09be8000 0x1000>;
+>>> +        interrupts-extended = <&intc GIC_ESPI 956 
+>>> IRQ_TYPE_LEVEL_HIGH>,
+>>> +                              <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
+>>> +        interrupt-names = "virtio", "dcp_power_notify_irq";
+>> Why do you need names? Can they be dropped in favour of using indices?
+>>
+>>> +        iommus = <&apps_smmu 0x15a3 0x0>;
+>>> +        iommu-ranges = <0x0 0x84000000 0x0 0x04000000>;
+>>> +        dma-coherent;
+>>> +        mboxes = <&ipcc 13 5>;
+>>> +        mbox-names = "dcp-power-tx";
+>>> +
+>>> +        dcp-subsystem {
+>>> +            compatible = "virtio,device34";
+>>> +            iommus = <&apps_smmu 0x400 0x2>;
+>>> +
+>>> +            #address-cells = <1>;
+>>> +            #size-cells = <0>;
+>>> +
+>>> +            ports {
+>>> +                #address-cells = <1>;
+>>> +                #size-cells = <0>;
+>>> +
+>>> +                port@1 {
+>>> +                    reg = <1>;
+>>> +                    dcp_intf1_out: endpoint {
+>>> +                        remote-endpoint = <&dcp_dsi0_in>;
+>> Can this point directly to the panel_in? What's the point of describing
+>> internal paths in the DT?
+>>
+>>> +                    };
+>>> +                };
+>>> +            };
+>>> +
+>>> +            dsi@0 {
+>>> +                reg = <0>;
+>>> +                #address-cells = <1>;
+>>> +                #size-cells = <0>;
+>>> +
+>>> +                ports {
+>>> +                    #address-cells = <1>;
+>>> +                    #size-cells = <0>;
+>>> +
+>>> +                    port@0 {
+>>> +                        reg = <0>;
+>>> +                        dcp_dsi0_in: endpoint {
+>>> +                            remote-endpoint = <&dcp_intf1_out>;
+>>> +                        };
+>>> +                    };
+>>> +                };
+>>> +            };
+>>> +        };
+>>> +    };
