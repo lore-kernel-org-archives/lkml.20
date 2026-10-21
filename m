@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579666;
-	b=ZbtKzLN+4r30HGKBFzAy+e0SVW4ZwTZr5SQskjgh2IKQD625k+/UgZ+VOiMw5zKCC9a/
-	 Lvlw4re4f8hzwj9L6Vpz/8RE3+QLrOWWCfd7PJwdWNKBnIXobP2ZU3S39zndWZnvVqjwQ
-	 xwV+k0fLEbOALoEiVS8CrayhKRZiLL6cva0PrbVaADIieqIB1gqACgBbe9kdh9CGsB/0d
-	 RvDpmSQGFYyOyy/XdtoSN1fugC7256mkHS+ql49VR1m8VugAaY1sYSiHUxWCZMzfsR8gR
-	 OmseteJVeHkoc9W2TZUABJVaoklS5sEs3hZNnQZaWnSu5yazb7gUtc5HYP8IPWHdgOA==
+	t=1792579665;
+	b=1+vGE4g2/xGFz0EyBD1FwCkfIKGp3kH4FEix8zR81UMHKnxGLLoThY4Jn/PMYi1ktkDE
+	 +oOdJx40MA9iuZ/rffnOw/Bt/bofM2rkqA0ynT7as1YSHxrjMui/3QxDtRuWKkrFdn+m2
+	 U6oFeX2g4pbOw/nSlXuTYEVtrOMQCZXBvYPSMShXM2TdztUSokTi9a641MaKGP6zBPOUn
+	 4yQKho1Pjp0FCmVlAY1lnjF27Wxz5nBl426uNh/lKnbd6m51N53liXVqc14+5Zf+KprZ2
+	 djxgnmZ8jSjPTgsZ9VXG0FtrkWWhrFvo/53lyJfVR5nOdbmrnZ9NrApofhKqvLjYabg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579666;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579665;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=iFM3u1yFQoUGk7xH09RrFv71Siu+/Us78ex+Nl+B1l8=;
-	b=Hi193/6QWOD7Ahd60aOhS6N48ydPvbF+p8HHZo/yoQmS906WFvplGoomiKY7cUyFyUQS
-	 LwrSOgRyoNDfA5GTORum7S2KDKccvXn7jFe1XaZb6yAy5rJ1cZJKVj0oqZFjlrcuIZUFJ
-	 5ZM0vWvApkeDE5h277i0AqjpleLQp0UO8DAI3TlVkcky62g26x6RuZDSBP3MnnffTnN6U
-	 YnC3lVKP9xl0ONyeUUCQ1g/o68Tuu/oixmULY4kfSKWxyllpu9MLJdeCzj+3QwcpFzGCA
-	 w2CwxE5NSYDYqYowG/UnEiuO3G3ldXXJOLp6vJZ9+HbF3eJ5zEkPC+07WxNgcWEo2VA==
+	bh=/Yh6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=;
+	b=yQkywx9w0sCwZ+KK6eCX7W8/f44K616zFs2tbvFQUJTwnmrTOpIs5pbtTCb7rdfuc3kw
+	 7p+DiFVS+9B9SlUCQ+lyFSjgNOtBumDL6FPJc/ZfLcKV6q6gFzWQl6diRuiQL5ETlJsZy
+	 jLH1UUPHuSZp3Fw0XSZGkjehuHZ22B9EfDFEdnMqeMdGL/0ERMYfTEfdb5zzFhb9NejJe
+	 KATvtSGcavHTKTVQ/a6XAhevbpn7i7yLgCLmPjLCMwF2poLfC4FUNgf0OsmwoehEE4F54
+	 b3vnism6dYW2A6ON3c5EorKtf7bzUIcMf0b5BV1mwt9pt6QGWp1A+1AURIdOHjoEYJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=OOjhdw8G;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008F9606A31F;
-	Wed, 21 Oct 2026 10:47:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 008F9606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F85606A329;
+	Wed, 21 Oct 2026 10:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F85606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=OOjhdw8G
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=iF
-	M3u1yFQoUGk7xH09RrFv71Siu+/Us78ex+Nl+B1l8=; b=OOjhdw8GiMsrdBj72U
-	infnrsfOCg5/6h1raNGLgo53sIUnvjMgZvx5ZKDg9eSYpe0cKt1pO2IrB/+r++hl
-	PXlF6B7Mn+J8dilqewnXp+KYbMvVNn+EJyFW4GtFAkjul1ItaMrQBaQ264yXktzx
-	rizO9Bwu8BdTIcgZ+3N9zM6WE=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/Y
+	h6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=; b=pk3gdYEH3/33iineDs
+	tsH0pxabz1INhNNEdbZVeQg1XQJE2pN3sZYEy3rnsTNI9zslpn7vBq784KxO0/5C
+	ppsP7YH85ULzkkKiPp+HaWb19gWZ27Qp1Ro2t3aTI+UCiO1k0m+S/gdkqYkSYSn4
+	0hBQYDU97Oo4khHvVkkDFAprc=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S3;
-	Wed, 21 Oct 2026 18:47:23 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S5;
+	Wed, 21 Oct 2026 18:47:24 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Minas Harutyunyan <hminas@synopsys.com>,
+To: Mathias Nyman <mathias.nyman@intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Youn <johnyoun@synopsys.com>,
-	Felipe Balbi <balbi@ti.com>,
-	Mian Yousaf Kaukab <yousaf.kaukab@intel.com>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 1/4] usb: dwc2: initialize debugfs command buffer
-Date: Wed, 21 Oct 2026 18:47:16 +0800
-Message-Id: <20261021104720.4106961-2-yaojiale02@163.com>
+Subject: [PATCH 3/4] xhci: debugfs: initialize command buffer
+Date: Wed, 21 Oct 2026 18:47:18 +0800
+Message-Id: <20261021104720.4106961-4-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261021104720.4106961-1-yaojiale02@163.com>
 References: <20261021104720.4106961-1-yaojiale02@163.com>
@@ -68,39 +65,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S3
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWUXw4kXrykKFy5ZrWkWFg_yoWDZFbEqa
-	sYqrWkWryDKFyDtw4xA3yaqFWYga45Xr1v9F9av3W3Gr42gr1rZr4vgws2vFs8ua43AF9r
-	CrZrJrn7CwsrKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0VBTUUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRsFP2rYmDsp-wAA3r
+X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S5
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWUCrW7Kw4ftF15Jw4kXrb_yoWkGFcE93
+	say348W34DCFWFvr1xAr4YvFW2ga4UXrn29Fna9rnxGwsrX3WF9Fs7urn7XF45Wa15t34D
+	C39xWr1rK3WjkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0mNt7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRwGQGrYmDwqEAAA37
 
-testmode_write() copies user input into an uninitialized stack buffer
-and compares fixed command lengths. A short write matching a command
+xhci_port_write() copies user input into an uninitialized stack buffer
+and compares ten bytes against the compliance command. A short matching
 prefix can make strncmp() inspect bytes that were not initialized.
 
 Zero-initialize the buffer so the copied input is always terminated.
 
-Fixes: f91eea447ac3 ("usb: dwc2: move debugfs code to a separate file")
+Fixes: 87a03802184c ("xhci: debugfs: add debugfs interface to enable compliance mode for a port")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/usb/dwc2/debugfs.c | 2 +-
+ drivers/usb/host/xhci-debugfs.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/dwc2/debugfs.c b/drivers/usb/dwc2/debugfs.c
-index 3116ac72747f..9fedeb2e3562 100644
---- a/drivers/usb/dwc2/debugfs.c
-+++ b/drivers/usb/dwc2/debugfs.c
-@@ -31,7 +31,7 @@ static ssize_t testmode_write(struct file *file, const char __user *ubuf, size_t
- 	struct dwc2_hsotg	*hsotg = s->private;
+diff --git a/drivers/usb/host/xhci-debugfs.c b/drivers/usb/host/xhci-debugfs.c
+index 2aa01d99f23d..a020cbab9674 100644
+--- a/drivers/usb/host/xhci-debugfs.c
++++ b/drivers/usb/host/xhci-debugfs.c
+@@ -347,7 +347,7 @@ static ssize_t xhci_port_write(struct file *file,  const char __user *ubuf,
+ 	struct seq_file         *s = file->private_data;
+ 	struct xhci_port	*port = s->private;
+ 	struct xhci_hcd		*xhci = hcd_to_xhci(port->rhub->hcd);
+-	char                    buf[32];
++	char                    buf[32] = { };
+ 	u32			portsc;
  	unsigned long		flags;
- 	u32			testmode = 0;
--	char			buf[32];
-+	char			buf[32] = { };
  
- 	if (copy_from_user(&buf, ubuf, min_t(size_t, sizeof(buf) - 1, count)))
- 		return -EFAULT;
 -- 
 2.34.1
 
