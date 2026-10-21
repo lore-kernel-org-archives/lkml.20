@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596607;
-	b=GIgtrnXRJEUiWVB2j6T15UV6rEXGZ6CVrZwWWvLoOcnEQFrZ0JxNvbdbdKeQs6PvtB3V
-	 +FHszeBTKvIw/Q1wf7g5OzwY1nm7++7e+gAwzZkODktJpg+a+KqFrMMKJG4QAr6mE5mOQ
-	 4t2fXW2MLf5RzbYxugqgMAPf4S9uak7q5FoLO1RygalOCrJxvkqQXpAayvnrOZMXv7rph
-	 j4uPrBG307uPFQMk/iuFy/EFqFJL2t3iYjFtkpcXmmWk6K0vN3uupBVuYe+L0vTaM0G0y
-	 25CKwPyd1QM/T+it9XhOPh+pNuwCtihSUduBtxzWPtwgt3ErKaINeNAguv9fOrov+kg==
+	t=1792596615;
+	b=ocqe2pW/UhJpzhxMqnx/XvFXYpubwChCfxuo0nAGfE6QwJ7Egk3+aspqMd2rvcOIBfuP
+	 7SSfeIe8y+3wUj8rsbQsLgXiVczShsf4vFka+XWFnbMb1afysfyckjVRgjBBdNXBYdK0b
+	 CizYB4EbEuH+1dNpv/npwN/bszosI0E3zyZN8vjbkKy3AATba/k5U19EyGzfWbusfU7qD
+	 nX5b6tkUyv80WDYpaJSNIH7nTjoDxUxU7WeUO9Y7vgEDyFITpDFH368fTkKmuaJhnpwA+
+	 tJAq8rlKIf/SGJ3+xfpbIBYOugg8TXsvUys/Rqm0IcIJMc+PK3/f6Xiz0ETOpYrBCfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596607;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
-	b=P6ZhE3cbdkX+3SGreolWTdLTCnWCrWLY8GG3c33iZbEScsAR4TzMQKYbdz5IcJKAHA1x
-	 eEYkQxU2Y5UGmrXXyls9SxRhyhz9avgQIWk9pBM+mkEghS2mlU+sIDcFAZTmSr9T4Y7Vk
-	 IUGePbuCy2C+b4xgENQYgL1R+tabg/wGwS9iEFV6TMF9V3I9Mf/y2hjRaUOUFjsysiWBQ
-	 02lXsJ46rnkJvYjyMdB1Kflhg/v2h94ntDEICR95cz1AmxpXi/j2XMb8H+bSoCeNTFo1w
-	 SessXkM5h4Y0AqR+e7n1DuUhDWdVJ/kjKmbNp0liJkYmTF5bu1UDjWRhJNx+Lx+BS9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596615;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5CRmc5lAViuSw2eMUXLr8sP6YVEevy9FEYxV4LYZv9k=;
+	b=GaP53r8GvxBa6WpUsKNBm9hozTDi6fDv4HhMvyHGLXk+PW9jYakzZs9Do03Fhxh5TCSh
+	 UH2k0HXmzciLGdtvCWyTzSenNRVRe2H6/l51RmiOZHudNZfKLy6f20tA436rbpDVc5fag
+	 BdLtyx6ySjb3K42YYMjXR6hZ+xhreAP04ModGqX8/A63lzOI0PhWBEOzgrnESjT7HPDEk
+	 mdQySoVyIllbR6P4/j+2rF8kPU3dPNMDBscddC09c18BdBVNduIcMqRSo72rBG1I9bXnh
+	 +ZhRRhp+v0eBDfVIJHBslP7Gq5AV5rR1lFo0lvoontcffVZOIw+M6T42FskgLRbKcqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JUz+9Pzj;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="re/OyTLv";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f279zzle;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=niU1uIJq;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F0g2FVBx;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E6606A31B;
-	Wed, 21 Oct 2026 15:30:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99E6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A733606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:30:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A733606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JUz+9Pzj;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=re/OyTLv;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f279zzle;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=niU1uIJq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D70E222019;
-	Wed, 21 Oct 2026 15:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792596605; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
-	b=JUz+9PzjFFvT68FU8KbVKnG9ONPa90Jx1jDJjXCpX1ap3DuKTdLsMyqj/clMsUJ8ON4w4p
-	wLf5XGQl0b4RHWITx5eE9YjHWBAn5i+eTvtBwnV1WXjV0Wa1Nx/y7dLizZ43PBtASZzUWo
-	SZJSdK/b/ygQDeqUSo9McPrB2hyyL6s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792596605;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
-	b=re/OyTLvyhxvPBv31y3qG45QYv69fN91b+v856lgqv2vQIdrGMx5g+cRSgf81p7FnaRSbz
-	1NsqT92yn5MchNDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792596604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
-	b=f279zzleEbbQn+5QK4zJCFpw82PKJ3T99LUEwIjcfY8H45YQWvMYuCLGvVsEm/vWPDZlh7
-	b8kC4TyIc9JOB9ID9quFLa/1fdFddOIb55NyihyU6xqDIQRgiWYs6CT/lmAHmSz2RinUbi
-	/pLQrFgsEIwRAgm4S1LZMJhiQViVcwo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792596604;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
-	b=niU1uIJqowBJeRdaiquQw54mbqjXEIup3RWdChZ+madKbfWqR31SagOEFJfBCwCSZ2RnVK
-	Vez1AXPIIWH2M5CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B72AC134A5;
-	Wed, 21 Oct 2026 15:30:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HlWtJXza2GrqFAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:30:04 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4E115A1418; Wed, 21 Oct 2026 17:29:56 +0200 (CEST)
-Date: Wed, 21 Oct 2026 17:29:56 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
-	Jeff Layton <jlayton@kernel.org>, shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 5/6] listns: don't wrap around with a U64_MAX cursor
-Message-ID: <mlpsaezfk3apjsk3jl6nksrxp7fmmpsahxwljs2ilornsovgyu@ohmycilav6el>
-References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
- <20261021-work-mount-statmount_listns_fixes-v1-5-8917a4c1bd14@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F0g2FVBx
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso632149f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:30:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792596614; x=1793201414; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5CRmc5lAViuSw2eMUXLr8sP6YVEevy9FEYxV4LYZv9k=;
+        b=F0g2FVBxNGt25z15jXHDVej8cSyycGJloSn/fXbzGxg6vLaYBa3sw+KStMwK5TnxR9
+         a17xy8NhyFOaRggNefISisvAQlvSrZUTfjJdykNp+RqywmeVdXNHvyoiGos21tDt6BVl
+         owk9zd28+/bo/wyawd+KbXtb5rCkzmANQEnlSfDKOJ860CgKcTt2OXZgp6mspQx0mg1c
+         Gj2SpG1HOLbn0q487wuoULJ71f8p4zd8tWsL0o4XKXV6ayUMH1Pv5i3TpCioZhqwA3jt
+         7aZu1lYSRPPIANGjcz7N65zGf6pKRotoLKlZQrdWyBDjOaCYr84oPVCLCb2SzrvhTXU8
+         PxEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792596614; x=1793201414;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5CRmc5lAViuSw2eMUXLr8sP6YVEevy9FEYxV4LYZv9k=;
+        b=yPUOkno55Oj2LbxSrvTuZlVRWAdjN0uECoJqIFljRvaPGa+r7jv1aAqDIc+s7h/SQw
+         aFs8QJsV4/p32MQ3VChl4Gbd931092HpiGCoTp25KwebBD1lssXcsXvoC3FpNeETAPs/
+         31VebheCa+IwPBaeb3Gbdoh6yLgljS67BJ3nBm1ji8xukd7+qZTxj/IzxpMtKcWfzdP+
+         hNadg+Q/aE2KbtQfj3I80DGqD6lZaA5kWKyP/dFzPLmS9syJ0+hoXsQIKHOAp5e5C8dq
+         4eqlScwHfUYLBJGqBqvG7XRmI+c7C17Go+XIn1+jzFXoesfbE5HpQVOgb341ZUCrlDkT
+         edbg==
+X-Forwarded-Encrypted: i=1; AKwUvByiXK/RNACGmi/VdYqtnw1VMSmz3jSXZ8lRAzgfqv/uFPjjK3BWvNoabVz1cVeEWC4uwrsE0/nhAynTIkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJliwSwCPukW+Qr9fTJ3AJfTfIiVtLgxaexRfe5Igkah8YM+aq+
+	gyuX1HFpuwZZbIQGi+fjEAbFiTKxMjeOnE5BoTXcGCFdWfd8aIwZSvXR
+X-Gm-Gg: AYBFou1RYMc0XCACZ8bXuacoNYrGURe7ojhP6YVqKSioYm12XZrpSZWCXXMjVX+ntnL
+	AxHzCQxVk0642nfE4PoiripYyCvkV33jX0Eo391TY1hK15FyAN/cOO2hfMg4RoEqEs3o3IQApFZ
+	yxGQGCFJaNmssujUVjORcxfxdNuD9s5Md0JYJbLPNraMs/HJVVGKvwgO64nz75F0uJ5Ihem6dVL
+	9fsM98Am+Jwy6R14pwb2s5b+b4pb7FbB8F3bKAO6btB0HLTtapoVJsNSi5ALavK0feMpZVkhORE
+	jiSGihlR+dTkbzCuE16zjZEDvGqaWFKR8SJ/W/k1Km24n4wgd0lD6PL2lLFn0+ipzU5KDg3Bz/6
+	J6SZ+/xX8gDbLo/nfVy8ZM9F3kgEzqZFy+hYzUGpF26LJRiFmF2LLxmqdPGSAvPOyHtPkGLg1jC
+	kYGgQY6mY1tJVtI5lf+tqFJWXgrjJSZCJFnPhbXEOhErZuXaw+sjcqIPMyaStMo1MNin/VF1uyC
+	BhsH5JGSa6ltwyoFZGYjre6R86tET/xfDJvaKdc8f+cJWrAbidBXvOhjAQ+s9GgCDu02qem/ypQ
+	7hrdZ6qY2GewQTUzQ49ylwNNgUm7BXnQnCrJdTFyuNWlcMO2yQg+3bY=
+X-Received: by 2002:a05:6000:1623:b0:48c:4553:790b with SMTP id ffacd0b85a97d-48e264e4b62mr3988627f8f.48.1792596613403;
+        Wed, 21 Oct 2026 08:30:13 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258358c1sm6370102f8f.43.2026.10.21.08.30.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:30:12 -0700 (PDT)
+Date: Wed, 21 Oct 2026 17:30:11 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v2 3/6] dt-bindings: connector: Add Toradex camera
+ connector
+Message-ID: <6uiccieqybi7rmdpf2bjgfppjdgpzt6sollr2y7ygex4ofssbh@anwfmi6qbyxp>
+References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
+ <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
+ <20261002-prepaid-retired-3d2c9cbc035e@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,221 +106,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-5-8917a4c1bd14@kernel.org>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[163.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,redhat.com,kernel.org,163.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <20261002-prepaid-retired-3d2c9cbc035e@spud>
 
-On Wed 21-10-26 13:46:58, Christian Brauner wrote:
-> do_listns() and do_listns_userns() take the last namespace id the caller
-> saw and look up the first namespace after it by searching the rbtree for
-> last_ns_id + 1. With U64_MAX that wraps around to zero and the search
-> returns the namespace with the smallest id. So a cursor at the largest
-> possible id restarts the listing from the beginning instead of failing
-> with ENOENT like a cursor of U64_MAX - 1 does. That's the case for the
-> unified tree, the type-specific trees and the owner tree alike.
+On Fri, Oct 02, 2026 at 06:05:24PM +0100, Conor Dooley wrote:
+> On Thu, Oct 01, 2026 at 01:44:11PM +0200, Ernest Van Hoecke wrote:
+> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > [...]
+> > +  "#gpio-cells":
+> > +    const: 2
+> > +
+> > +  gpio-map:
+> > +    minItems: 1
+> > +    maxItems: 4
+> > +
+> > +  gpio-map-mask:
+> > +    items:
+> > +      - const: 0xffffffff
+> > +      - const: 0
+> > +
+> > +  gpio-map-pass-thru:
+> > +    items:
+> > +      - const: 0
+> > +      - const: 0xffffffff
 > 
-> No namespace will ever have that id. They come from a counter and a
-> caller that only feeds back ids it got from us can't hit this. It's
-> still wrong.
+> These seem incredibly wide for something with only 4 gpios?
 > 
-> Instead of adding one to the cursor and searching for the smallest id
-> that's greater or equal make the lookup helpers search for the smallest
-> id that's strictly greater than the cursor. That's what both callers
-> want anyway and there's nothing left to overflow.
+> Thanks,
+> Conor.
 > 
-> Reproducer, unprivileged:
-> 
->     #define _GNU_SOURCE
->     #include <errno.h>
->     #include <stdint.h>
->     #include <stdio.h>
->     #include <sys/syscall.h>
->     #include <unistd.h>
->     #ifndef __NR_listns
->     #define __NR_listns 470
->     #endif
->     #define CLONE_NEWUSER		0x10000000U
->     #define LISTNS_CURRENT_USER	0xffffffffffffffffULL
->     struct ns_id_req {
->     	uint32_t size, spare;
->     	uint64_t ns_id;
->     	uint32_t ns_type, spare2;
->     	uint64_t user_ns_id;
->     };
->     static void list(const char *tree, uint32_t type, uint64_t owner,
->     		 uint64_t cursor)
->     {
->     	struct ns_id_req req = {
->     		.size = sizeof(req), .ns_id = cursor, .ns_type = type,
->     		.user_ns_id = owner,
->     	};
->     	uint64_t ids[8];
->     	long ret;
->     	errno = 0;
->     	ret = syscall(__NR_listns, &req, ids, 8, 0);
->     	printf("%s cursor %llu: ret %ld errno %d", tree,
->     	       (unsigned long long)cursor, ret, errno);
->     	for (long i = 0; i < ret && i < 3; i++)
->     		printf("%s%llu", i ? "," : " ids ", (unsigned long long)ids[i]);
->     	printf("%s\n", ret > 3 ? ",..." : "");
->     }
->     int main(void)
->     {
->     	static const uint64_t cursors[] = { 0, UINT64_MAX - 1, UINT64_MAX };
->     	for (int i = 0; i < 3; i++)
->     		list("unified", 0, 0, cursors[i]);
->     	for (int i = 0; i < 3; i++)
->     		list("userns", CLONE_NEWUSER, 0, cursors[i]);
->     	for (int i = 0; i < 3; i++)
->     		list("owner", 0, LISTNS_CURRENT_USER, cursors[i]);
->     	return 0;
->     }
-> 
-> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM:
-> 
->     unified cursor 0: ret 8 errno 0 ids 1,2,3,...
->     unified cursor 18446744073709551614: ret -1 errno 2
->     unified cursor 18446744073709551615: ret 8 errno 0 ids 1,2,3,...
->     userns cursor 0: ret 1 errno 0 ids 3
->     userns cursor 18446744073709551614: ret -1 errno 2
->     userns cursor 18446744073709551615: ret 1 errno 0 ids 3
->     owner cursor 0: ret 8 errno 0 ids 1,2,4,...
->     owner cursor 18446744073709551614: ret -1 errno 2
->     owner cursor 18446744073709551615: ret 8 errno 0 ids 1,2,4,...
-> 
-> After:
-> 
->     unified cursor 0: ret 8 errno 0 ids 1,2,3,...
->     unified cursor 18446744073709551614: ret -1 errno 2
->     unified cursor 18446744073709551615: ret -1 errno 2
->     userns cursor 0: ret 1 errno 0 ids 3
->     userns cursor 18446744073709551614: ret -1 errno 2
->     userns cursor 18446744073709551615: ret -1 errno 2
->     owner cursor 0: ret 8 errno 0 ids 1,2,4,...
->     owner cursor 18446744073709551614: ret -1 errno 2
->     owner cursor 18446744073709551615: ret -1 errno 2
-> 
-> Reported-by: shaos <shawnq1@163.com>
-> Link: https://lore.kernel.org/r/20261020110732.959552-1-shawnq1@163.com
-> Fixes: 76b6f5dfb3fd ("nstree: add listns()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Looks good! Feel free to add:
+Hi Conor,
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Thanks for the chat at ELC and clarifying what was said here on the
+list.
 
-								Honza
+Regarding these masks and their width, they are indeed wide but they
+determine what to match against, and we have no reason to match anything
+except the exact number.
 
-> ---
->  kernel/nstree.c | 29 +++++++++++------------------
->  1 file changed, 11 insertions(+), 18 deletions(-)
-> 
-> diff --git a/kernel/nstree.c b/kernel/nstree.c
-> index 831f279d174a..58b2b55fa8d2 100644
-> --- a/kernel/nstree.c
-> +++ b/kernel/nstree.c
-> @@ -459,10 +459,10 @@ static inline int prepare_klistns(struct klistns *kls, struct ns_id_req *kreq,
->  }
->  
->  /*
-> - * Lookup a namespace owned by owner with id >= ns_id.
-> - * Returns the namespace with the smallest id that is >= ns_id.
-> + * Lookup a namespace owned by owner with id > ns_id.
-> + * Returns the namespace with the smallest id that is > ns_id.
->   */
-> -static struct ns_common *lookup_ns_owner_at(u64 ns_id, struct ns_common *owner)
-> +static struct ns_common *lookup_ns_owner_after(u64 ns_id, struct ns_common *owner)
->  {
->  	struct ns_common *ret = NULL;
->  	struct rb_node *node;
-> @@ -476,10 +476,8 @@ static struct ns_common *lookup_ns_owner_at(u64 ns_id, struct ns_common *owner)
->  		struct ns_common *ns;
->  
->  		ns = node_to_ns_owner(node);
-> -		if (ns_id <= ns->ns_id) {
-> +		if (ns_id < ns->ns_id) {
->  			ret = ns;
-> -			if (ns_id == ns->ns_id)
-> -				break;
->  			node = node->rb_left;
->  		} else {
->  			node = node->rb_right;
-> @@ -565,7 +563,7 @@ static ssize_t do_listns_userns(struct klistns *kls)
->  	 * then use it's list entry to iterate from there.
->  	 */
->  	if (kls->last_ns_id) {
-> -		kls->first_ns = lookup_ns_owner_at(kls->last_ns_id + 1, ns);
-> +		kls->first_ns = lookup_ns_owner_after(kls->last_ns_id, ns);
->  		if (!kls->first_ns)
->  			return -ENOENT;
->  		first_ns = kls->first_ns;
-> @@ -613,10 +611,10 @@ static ssize_t do_listns_userns(struct klistns *kls)
->  }
->  
->  /*
-> - * Lookup a namespace with id >= ns_id in either the unified tree or a type-specific tree.
-> - * Returns the namespace with the smallest id that is >= ns_id.
-> + * Lookup a namespace with id > ns_id in either the unified tree or a type-specific tree.
-> + * Returns the namespace with the smallest id that is > ns_id.
->   */
-> -static struct ns_common *lookup_ns_id_at(u64 ns_id, int ns_type)
-> +static struct ns_common *lookup_ns_id_after(u64 ns_id, int ns_type)
->  {
->  	struct ns_common *ret = NULL;
->  	struct ns_tree_root *ns_tree = NULL;
-> @@ -643,13 +641,8 @@ static struct ns_common *lookup_ns_id_at(u64 ns_id, int ns_type)
->  		else
->  			ns = node_to_ns_unified(node);
->  
-> -		if (ns_id <= ns->ns_id) {
-> -			if (ns_type)
-> -				ret = node_to_ns(node);
-> -			else
-> -				ret = node_to_ns_unified(node);
-> -			if (ns_id == ns->ns_id)
-> -				break;
-> +		if (ns_id < ns->ns_id) {
-> +			ret = ns;
->  			node = node->rb_left;
->  		} else {
->  			node = node->rb_right;
-> @@ -708,7 +701,7 @@ static ssize_t do_listns(struct klistns *kls)
->  	}
->  
->  	if (kls->last_ns_id) {
-> -		kls->first_ns = lookup_ns_id_at(kls->last_ns_id + 1, ns_type);
-> +		kls->first_ns = lookup_ns_id_after(kls->last_ns_id, ns_type);
->  		if (!kls->first_ns)
->  			return -ENOENT;
->  		first_ns = kls->first_ns;
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+This was previously shortly discussed here, and clarified by Rob:
+https://lore.kernel.org/all/20260918192012.GA1465432-robh@kernel.org/
+
+I'll be sending a v3 of this with only the camera patches soon.
+
+Kind regards,
+Ernest
+
