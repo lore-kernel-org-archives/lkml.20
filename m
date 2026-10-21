@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792563469;
-	b=dLZ2JpfxVk/u6NgrSDJeN1AAEaLZp9o21CxihFkrXFKu/RQJGL1bWsu+Q2+xOzcGmGx2
-	 zUSJyHz/jPuNLdg1S6GNSkPPNEGiTkH2rB5ekAInGcu2/uGN9kOn9cv0fs3YwoDe+HlWv
-	 LgFFyr/qkriQggJpVIZHonf31NBaCnlzqnDoXIvo1YbqMfiAtYLkIF5wcRHr6XOl02Sbc
-	 ABM+aBJ2i74qNJ+kFmC0VQOHopuhcc56W4BlNiK7deyq9xfs8Tjj54NLoyRwcq4kCOmDi
-	 JFabEwzFSTLnLJev60FQgg7jrSpsbY18Dh7M9NswNI5uMQUYdYF9JkiZyl26evlakaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563469;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OpMUSfXjYdpw9tHtxpMBZ2ptmbz/1TA55D+obf0dVY0=;
-	b=jbveICXuKFqha1iIC62wl25P0InMplggjeSLmOeD18dr1kdj/2dP/mzzDESDozLiLWoT
-	 WhewXVgKVVbEe8dsJ9tga0BGGUVk2lmwBB6C7Qe532qu+ZYqNg4KdO/ILV2UlS618OOHf
-	 JdojADGoiT5pelFKPzs2N3wO65lvCQ59GE0rduiFNHhXV4ly+l3fdzvpU6xydYrRIS0/E
-	 O0UC/ajf3i0hWyoJcL92oudmB72WeG1kxjfrY+ORA6GbyM7GaFYJFGjlxQ2cgLWiKcpXe
-	 5FEoz9jjGTY4QaT8+ZTTb4fm/rHsvToUp6utC1o0CpU3Mo0yH6BKG4TjKetdM9QBEoQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=pQIPJhuw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792563461;
+	b=AYqvfbTHv+pynlC8le9lCf1ltTIo/TE/AZjbH6TvkVkFlt4pQKhxpupktAeaPVuGWNqm
+	 Ig3H9qyeuaTcevaJ73EnqnBiis1l1HY3UotrLunTIhDC2RnGQZj00qtmus/nIO6HEL5Hl
+	 S6YG6Mqo2RqQVgAi1XyupgdbbWnS52Ne5dsuI6wv5C2qIiiQ27AdAO0xYYg4DV3eGLOlR
+	 8Xc/drkSl35EZMV7AO3Le93YbM0O+Z4BnDPEDDvJ9tAAMe9smC4E/Zr7UTf7NInRQkZtF
+	 Kg5PVoKsbRUmFhxP8q5H2jx+/hhgKYilVa6XV4PE52dRLzJNs5QMGUyXtwueOqUIaCw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563461;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=X9hbRgzzqdzEgo+mQiwsrplcDlyPm54cxNU5JkvB5c0=;
+	b=BfEpDjCSHCSqSz8BkTcSsnYoCabyLsVWWFoVxzjfdNcxYwkTa0bkS9HVG3pOhQNN4Gwy
+	 lsuhWnQf+ua1rTCYT08jS5WvyNrsG0NKt9MFXHoFNp2UOqXRwvQT/SyW6yKWrw6Tqgiub
+	 fsU/yyAEP5NutJPmmKOoOwNJSgD4otjoN4ZnYD5OPbybWUw8nrT8oSh95iRSAX6dH0FRm
+	 5XMK+8O2KUZQC3JsyTzvHXH9XKBS6qB7S17KKU/6wjr/2I1UYVYueGGvzBp3uRjLYCvQM
+	 b8ZgBunj1yfZpkah137GugAnO1xDUY4bzdM3XAbnPK2kWs6qe6dwy6LxeeONsIH3lfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lB+oW/uH";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9A5606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA9A5606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C20E606A334;
+	Wed, 21 Oct 2026 06:17:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=pQIPJhuw
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so7540a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:17:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792563467; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JScJWgSdHHb7MPTC4SeM964wi2u/5lYm9l1uax46IqpQlX55FpnLHQkpGXf2Z5HIr1
-         JgiNND7J16IKE8g6ei952O97UF6Jvto5ftFRLgLa36Wv6x61jzYeISIRBeT3FQxXWX3r
-         q0HwnUeeGH0qF9FftcGTBS9DcLp2QWGECzWbo7QRdilQh1u2m7JywVFi5TvAJJ1uL2Nt
-         ZtFPPAJgtPrbsztIsYqksHUI0S9Yu7veV6bQsB26/fzPOe9Ly9Jtx0RlXyHTHnfctjLl
-         rhewwYmn0+R4IcR5IEFgAPSYYlPqYErK8P9vt8bEei83+2jBYnAdSLisUbUZWi+e3qml
-         xhUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OpMUSfXjYdpw9tHtxpMBZ2ptmbz/1TA55D+obf0dVY0=;
-        fh=2Up3HvTKRb6jDabc+1vuDJH7gnBL3pEaIabsjzYLwXg=;
-        b=mQ0E8KgnW8RT/ij/+pyhOY38Qd23Pfs9oGcDidye+h5yJt8RxZDb/UAq/eXPIEEPAR
-         PuOsIAffCjaGH/RU6dk1/3N61+VoLGl32kIjLciMy90LONr/TkFxyA99GrJoH53Ucs2b
-         dCtBhYOwCk3MXO9paGiSr0pxKrd/V0FE/Osl+H5QlrwP6TXAbKByvcfC/BDWO7BdEldD
-         8jHLiA2mD4cnsGpJ5tVryocgqoCpGbjmuO0Y09+k3oYzVTPXvnPBrn/JdY50moYojjM7
-         pCLqIwbgBuyRQstoK4fhGiBkyg6LLr48iCtjIHuxPL70uBxeVXOcibzKNb5bBlsnzRWw
-         Pxdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792563467; x=1793168267; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OpMUSfXjYdpw9tHtxpMBZ2ptmbz/1TA55D+obf0dVY0=;
-        b=pQIPJhuwRgwitqjGA3ItWVLOGRQSBJ2UxZPYrPAWnSbOgQb7bum+xLkiJsThMZqhOH
-         dwhP0Tb7gfDJbRLLmYO0L58nN/lbc0ijCbj7vD9/AsO9AN+96fT1k2yklolZXbSXuPwo
-         LvDI+a8olKugTFENbi6HjsCC3zDMl6Iz1h6NBkZRClcTcPd8ggh/X4oK3qTp3lqZ6g+A
-         1/vCcb7V+C3SGzXl2pN5Qza6vN7p6/inIC4foXEFviRK7uLerabWIo3jtiqgZBXKVU0E
-         35IRXsTcGT6NK/j4Qt7Yug3jaRtwJPct+J6CNc9iCK/DHqCogYkMU/l3zqzSbvR0IHLw
-         KzOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792563467; x=1793168267;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OpMUSfXjYdpw9tHtxpMBZ2ptmbz/1TA55D+obf0dVY0=;
-        b=u2RMPNcM6ayRrEwshVJ8NQeEDpaQzxUDj4aKtlhIa8tU63f5geFHvp/TqDZsTLUUTK
-         sk3iMbKA/h3wZZ66GLYPFGdsiyD7KHVb5zQaFACrAkXQdbjS+W/aPVqQv2yfuyItzZ3q
-         pzcaeNRjqp2J1aonwak5hGOZ5C+RZQL+VUV0VzYehXSkOzcvNTUhkBEFrzA2XvpUO+Gp
-         EH7sIu0St0ay4l3lfteZefRqcuRxPni8owBMOlYWQP/2WUk/o0Zx5JLaMGWQ150WamEQ
-         ++H9nEeZcLh3fSvaEUB99tPXLkeozP5Y/lSXHm+wyZhEfE2KBG4gf4rzRWx3i4I85jfu
-         ou4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxwq2FeTeeHQnPXiAn5lUtFlE8GZ7Dmz4zrLQ4JAgbU2vflqLpCll2eSDce/sKqLD4CRm9WnWQc3rlorZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINw9C1qHni1RtfrXCVs/SrzPQ80ytxkzzGDsYKtL+kvkhYnvM8
-	HNvgk+hEWJGjpTbRD8IacXa51FBVh3J1oQGjUf/T83pGH4aKjnrJmvvT0jZeP7/g9hYhtGjL6IU
-	AohO1aKTrs0p1/7MA+75UxW3t2oQcBC318MiA2YEm
-X-Gm-Gg: AYBFou1M6j6B2rAsOyXUmMMR9b9IW83EXBH8lMiyHcSuAecufzA4NvA6jNh3PUZMvyG
-	eg23kFK79qZkFcOW8vAVVstefTCZCkc+vZ6Gn3PGbbL9rSZA9P/SUqKn7qZYWKOYLBWQa+MHAso
-	AUj4pkeVQK3CM1tAzRkbOLOReHsmbL9RLaq6f9CIy4QEwnW4Uinjo6AR4pPW1rs6tQg2oPD4MeX
-	PSklWnpwgOyMiOpt1QAh5eyzNGTM835tjBmvlRXl9pJn4RT8mSc9uf0rrdxkM2Ems2kgc+9OxhJ
-	D4iVDmLUJ0wRNVxh8GG7PN13RxNAk+ImWIhdChDg8BuyEt7FKN6k6ugXGP+jaxiL4jNMkq0AM2O
-	zT7dLqRXuZZmVSWiZKlp7iz9dJar33dGbuA==
-X-Received: by 2002:a05:6402:4050:20b0:6b1:bce6:1220 with SMTP id
- 4fb4d7f45d1cf-6b3e77153d8mr91222a12.12.1792563466679; Tue, 20 Oct 2026
- 23:17:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lB+oW/uH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B67C1F000C9;
+	Wed, 21 Oct 2026 06:17:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792563461;
+	bh=X9hbRgzzqdzEgo+mQiwsrplcDlyPm54cxNU5JkvB5c0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lB+oW/uHMa7tEG6aTH+Yj+nP4PTlPcQRRf/owEFV5gRaUKjUJN+hK8ni3Z+ordSwM
+	 +UByQRc7i/MQOZSLYadi2DQqwuOjT8JuNRfsWLO4PWGFNl0341FeIP1/eIBj/ACM65
+	 Pc5/13nRJl3awPgatKFlNnQ6lTlIiQ/i1PE2V6JH4O2F51mRlU3kapOruMy6xX9u9g
+	 VMUd4y/su+M3jv1NDjDD1P8Fr+1KIxGRIrvnboVqhLNc2S+0go0bv+pgVyKU2dtpuG
+	 QuvDGn7XK0rH6Q3Ak4c/3PvonFMa5kEuI8txyW8fNwvrB5mljHh7fs6mzayCjaHRiA
+	 E2JlA1fvO2oVA==
+Message-ID: <ecc66886-1989-4e61-86e7-fba6555c870a@kernel.org>
+Date: Wed, 21 Oct 2026 08:17:36 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,56 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-4-almasrymina@google.com> <20261020121858.3b9107c5@kernel.org>
-In-Reply-To: <20261020121858.3b9107c5@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Tue, 20 Oct 2026 23:17:34 -0700
-X-Gm-Features: AclHuK9x4qWdNnjJvUjsI2EHUcAIAKj09plc1NcLTKxrSfCtCSi6D5JlUi63xuU
-Message-ID: <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: cpufreq: qcom-nvmem: Allow generic OPP
+ tables
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Ilia Lin <ilia.lin@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015-opp-v1-1-f18fb6f9bae1@oss.qualcomm.com>
+ <20261017-calm-tangerine-marmot-2e8bfc@quoll>
+ <athPyI5nvYG4vmfl@hu-varada-blr.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <athPyI5nvYG4vmfl@hu-varada-blr.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 12:19=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> w=
-rote:
->
-> On Thu, 15 Oct 2026 16:39:14 +0000 Mina Almasry wrote:
-> > Set a 64-bit DMA mask on nsim_bus_dev, enable NETMEM_TX_DMA on the
-> > netdevsim net_device, and configure page_pool instances with
-> > PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus PP_FLAG_DMA_MAP |
-> > PP_FLAG_DMA_SYNC_DEV when CONFIG_HAS_DMA is set, so devmem bind-rx and
-> > bind-tx netlink operations can be tested against netdevsim in software
-> > selftests.
->
-> Slightly worried this will bring a bunch of maintenance burden and
-> "bugs" in netdevsim. IOW that this will be more pain than gain.
+On 21/10/2026 07:38, Varadarajan Narayanan wrote:
+> On Sat, Oct 17, 2026 at 06:45:53PM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Oct 15, 2026 at 04:25:28PM +0530, Varadarajan Narayanan wrote:
+>>> The OPP table node-name pattern also matches peripheral OPP tables on
+>>> supported SoCs. However, it only handles Qualcomm CPU and level OPP
+>>> compatibles, causing unevaluatedProperties errors for generic
+>>> operating-points-v2 tables.
+>>
+>> But the select should not select them. How can I reproduce the issue?
+> 
+> Sorry for the delay, it was a long weekend here.
+> 
+> With the attached patch, I get the following error.
+> 
 
-I felt the same way when I noticed many reported bugs against this
-series because I didn't add proper support.
+Does not apply, but exactly that sort of opp-table is already all over
+the tree. Just check yourself.
 
-But on the other hand the test coverage is nice, and maybe one day if
-we add enough devmem support in netdevsim we'll be able to fuzz the
-data path or something. Is there a way to get the best of both worlds?
-Like put a comment on top of netdevsim that this is test simulator
-device and any missing functionality and/or bugs in it should be
-medium criticality max or something? Or is it too much trouble and I
-should drop the netdevsim support and tests?
-
---
-Thanks,
-Mina
+Best regards,
+Krzysztof
