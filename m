@@ -1,93 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606608;
-	b=PMtU1pHi7DHdgrzUkEAS+2llu/Qgj9pVVRFKFfwG7oL3J+GUo3sj7A2WhBg4VztM7PwI
-	 YGSXpOj/HITJ5xd4osW2LZONwBLs32pH+hhNTT8ndgPvryp2pFnIvzYHY8prNDVrmNUXQ
-	 stt5zLauJMtHELplbFoJeofhph7lqMN4UvXaBemL/dIyuFQo4fyFhJnSevaApnhEdnyfV
-	 6bPhOsMzXf5wMQ9LVntJV1Zi4AsrwCT6H0gyMw6BA3qnjugKeUSTn33Ubc2fix7AYEYhl
-	 iPOYjaazPfEDCcagx4C3nyZP8+oAdZzxzAE5RQv4/ES9ffzUdmqBCBJ52dJ6HV2dkrw==
+	t=1792606621;
+	b=vItGPmdkgnwcfmV/lDLirA1oUTl20Akzx/5eaaLXBEkBVFNpEZzREBnuu2WE9nNS+w0s
+	 gp1u+HRmZjQ4yXENiL+0SF9aH/RXX0zbnAJo+oLGAtkDfY3xU6h+APHbqLhKCp6SnLpNv
+	 ti/8k7zUkYzpr8gVXM2x59MeF/lSrcD2rFyTK95VUood3DKSUZCsf+4bhAuefhnR7nMyQ
+	 w9hUrF36nsPP1H5FNj1vpYBriGjoLSmB3zEz91rj2O8nkt4cBvRAUZQvxHD9ocHldLmA5
+	 rKvxNdNpnqU1N5u3wnDIWwu3Ed9Dx8v274V/2Y3zktj5e5lhAqDIXiOSaZ32US+HaAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606621;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yEhVZPhGMEYsPhUdE3zVy4aLvJE9Xbyd5jbdjX2FImA=;
-	b=r5ssHMIi73Rjxkj61JityTWo0SLhrXNB9iUbpnlXjmsTiXPlbjq2oWjK0sldpTfHmcwv
-	 qQO9CizML/ze7gs1e2Hw7qyjobBKVtTKm9T8CGN/w1zcAco/71ULlLnyVOXLQeH/N4v9S
-	 0khnpvl1y5Br0APhYvvPOyUR8h9O5cQhgXtuIZi5BeAgy0cKPTkX2melI4ZJkhQnfd0rz
-	 P/qC3gQnu2bluG964XZz2vSqlFzBxtSeNPRUSbiGAfeh3f5/oSKDe4DaDwi+44CDnxgxq
-	 Vj82IAwWFBfO7EeRQo+ODwyNYZvF2yQpW0fWBZCM2ReRagoporia/66G/R24AMqZY+w==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Mmr/IR1zCY9h4L4dj3m8FpWvL2EHS7s4xmQLBcny3D4=;
+	b=FZ+3OUB07ahyFWUfbbW/GH7U18NKylIbepdkA0xX76GVCidP72t4c8J+u2U4Tu3qz+UC
+	 V7CvRYWJR4hwhNXfycm8cmJew0MKn5Eern15N2GuxW1AeYPFdu7/nJy0QPGSWw1kQyhkQ
+	 wBfC9dhs8eRr4MZgzkzNE9QAK5s2JOKFObMMG6wpI1ITiJn9xwvGctKI/PH1rfLsOQxbd
+	 vEcziuTSf47OffXnRtBtD3+KeA6K6GDM+ECVdUgkW20H9TquiAY22SQRykqkZ/9/DdLju
+	 NZzjW69M+5wn5vVwa7E9i5YRk0qR8kO/KkWO8gigby5SahGUemyj5Cfy3a+JzC1Bucg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nK1eZqMZ;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=JVptMShM;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6DE606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:16:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6DE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA01606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCA01606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nK1eZqMZ
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so894419f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:16:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=JVptMShM
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so2819296eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:17:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792606606; x=1793211406; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yEhVZPhGMEYsPhUdE3zVy4aLvJE9Xbyd5jbdjX2FImA=;
-        b=nK1eZqMZ7+PSQI7iCEqS+Fc64a20N+Lyojhw37axMqXg6vIJ233XhS7EedOKzdtRzu
-         QHc3TsiyKpsQHMurFC91Jvuyx9MY+H/5LM6a6IPnHD+9yIlUO9e2ipkZIgArrfVqDt1e
-         LgQGVpPTZmpsdimBc9AfEMN1Sd2W35rod0fmj2UtrRYv7j4k/f1+23nmMoVZg6mBYznZ
-         U8QXY1I2ZbJ2cHnXcEkRErGJNJzlW6YOY6bgNQ1z6Hk1u4JLYF1kYivzVvvHO1FTdmNn
-         vNEXTZ50/4iNxoLIrEB3YR2vxP8eVf92fOEBjDLeXAtXgkOhORe83A/n41607XEKi9/4
-         ZlDg==
+        d=purestorage.com; s=google2022; t=1792606620; x=1793211420; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mmr/IR1zCY9h4L4dj3m8FpWvL2EHS7s4xmQLBcny3D4=;
+        b=JVptMShMD3lOCav6lLV1cSuKUNsMSZ/4tlwfHZEYmxdDzEKjsU63xcZG1pKs/01+gF
+         A0TIkF1+Nf6jSYSFlBlLqj2S/3D6aiGpRcgMSqFU6RjFriYsv6JP0IV1sHq541JAM8zm
+         0BK6NJOCXuHoVgG/aOWc25EJYVJLMl7/1mcLw87pAQt/3yGP/1b8of+LVO/UIeUotSmi
+         dRF4sr+Rn7nY1V7Iehcbu3kOE5UcRZ5Vlw9DcBPpo71sQDfqbt340CRaxBU8W9R1O+iJ
+         38oWk87PT6v8gE+SZ9z4Ovvl5lFUcSPrvP36mYf5muqI0ArpqJg04uNh5FKpCDf4JUJX
+         P0wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792606606; x=1793211406;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yEhVZPhGMEYsPhUdE3zVy4aLvJE9Xbyd5jbdjX2FImA=;
-        b=w+J/f8hyukUnIRCPbA2j34kEdEilMaEYMP7P/oSiA6HJbFR3711HwWdntOvqyZy/Lq
-         P4wCEwHjqcRTamNE94syTPhnK4nfN+U+kCUUjXpEePfHKlzUef9HHf253CrGVctx8M2T
-         dgrZXHE8EvVxjAAT+rHgFP6xvQj1cI9y73lmzQtIUZLQW2RM3bXYwy+/rr3DbJ5XJe/M
-         XO0a3bclmKKPSlg3d+n1hXb0Gk+biDBLqbirDaa+uERjs2RCzsAL/3ZFFAzpmbQ9nWfh
-         Y5ZFuVZAasqx+6b55/7pdVkEzyGBJ9RHqfzGAu88yzHMigSzMaQTNyaRoqEmRaVtRrff
-         UI3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxdtElp2cavcx5YPl8zAGPPGFHN/bk5hCDrzW/YfW3Rhc8jIzhXsYR2xazqyzkJFmiZ4yEHWU6VFZOw9ZE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJj2dGOHChQFoNJ3fy5+Cupm7X8155ulY9wI7CIJaZShRSarH+x
-	y3xv+HF02C1LE9jzgJhDjxNt6Tih0clgCnCsifRsFyOhfpO8MTexA6tftwrDrCbwA4E=
-X-Gm-Gg: AYBFou2q+IFRVLinTg3E6oaOxmok+CYTcH/LJu1m0VSz3J1CyXDFGYeykiKvXlbjB4/
-	+EuGV3HdWr9XYcXQKPRJ87vm5gNjUbbg6M3g87izH47TwKmgChtzgN/TnQENQy/DVYZZbQkWBG8
-	gzCtjVw1gvO5w/LNMKDnd+1AZr/4vVrunikdmOt9Tr7kovgsmrURPeMEk+30c4hJc0eqzAxPTCq
-	BjkA5W9Da45hUjVHlWq+2P51TcKXBexIt0GbJf8em2bgCR62nhIvJqeCooTq2ZTsMYjEZx45Mwq
-	Q6yDvQLHWTOF2bJLAw6E1w5PfvoAJkKte70UjQwZDpF9X+xyy7W3SCE7/kgUQ4dy+yzgd5D1EEa
-	otLlvyvAHovt9EntL7z+tzxEFxJ89cGgiq5gRKLch3NlyqrGnQfyk78PbWePDyk/yJFvMnIxAy7
-	YDkAJt81+sjiJkWSJEDVgrxCresFSmDf4wOjOHtGTkUNClmWZblTBlBF7FxALPrbTQAArc22fe0
-	7RFWtIWFwbyg05fk3FtNVqTSokpanRj0xMTrCNj611w/TNuYen0mPuxigA5GrF/EoZzi/z9+ail
-	2AOhVOX4mkSKefTJ0+eN8YZZqftbsq1gka9trIN5P21EYZHwL2asW0avdEOlFdYAnvCro2rL2TR
-	qCmZzxVo329N2ba7qQXrGy4+pzcQVArCnwHAITnapi3EhUxL3Td2lEOJjpLDiipA+SEIh1Y1Vag
-	HKvhZf1cLsxlAiboZqwMHSWmSrRCHJ9g==
-X-Received: by 2002:a05:600c:3b1d:b0:4a1:d41b:5060 with SMTP id 5b1f17b1804b1-4a1fdb1358bmr65477465e9.22.1792606606135;
-        Wed, 21 Oct 2026 11:16:46 -0700 (PDT)
-Received: from longitude (2a02-8434-fda5-4201-fbd6-1bb0-8c10-7bd8.rev.sfr.net. [2a02:8434:fda5:4201:fbd6:1bb0:8c10:7bd8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a200c1cc03sm28195805e9.0.2026.10.21.11.16.44
+        d=1e100.net; s=20260707; t=1792606620; x=1793211420;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mmr/IR1zCY9h4L4dj3m8FpWvL2EHS7s4xmQLBcny3D4=;
+        b=ZCycqmbl45Dt/JcZuu/qTBja4bLPnRCfqF6lPUHZd8WWY/BQcq+i4gOAGDIaGOfXal
+         HCXiN1EPZqtzBggDUm78Mr1GyFexDMhvF2XQnCuD1lfmUuQdcJVpVh3450C72VTIOWt5
+         24P9Xt5tnFQOZ5Bg3TO8Hg4eirVWM0DP4876uG8OJzdnwL7O29V0DBrw1P2+6JillutM
+         HU/bz9I+PubVl1esZkniWPpH33d6LoPRLjEs88z9+A7cOVoOdLnsT5cm3rjaSYCJRgzQ
+         t/6UK/Q+ngqc6bzMH+HbF3k0rDcxpiSgpXXptWEi/ZgGVRAPksNuJHmErIoDRmvaGiaX
+         HbnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzH99d+SRzIH9oMOvWBu365xBIHTF/38rj6kEC/kByYHokjKqJ2Ernj7XidJKr9yovbHrhfQUfKpwTcMTI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8I+R4YM6dYTPzu54SVJ4xbDDshGn5H3vYReXWDQq7r8p0uV5e
+	baor/Gq1AD1DUmyq4d/MH+3KVkd1SwQc5ThEjzPgOYcmZ+zedzaqxCErkX75tWku3Ts=
+X-Gm-Gg: AYBFou3JBvo5kaIkH/t6LltCxKC/zNsNz9sot7TmIi/w3VglijjETFvvXZPE75rYbe+
+	aP7GYNjblIEZkbwkZSdkvsc6CCD16lb+DDidtEm3rXm/ejgEED943w2y+g0D7EH2UeKN1080GOi
+	ojZFZOYih2E8De8btYpTzusY+3RLfYEQBzU0YEwWzyHn5p+fjIv4UyMhjeMJ+RaKGK/AzKsVxrV
+	b2V1q7N0UlvmvUmafmodn1mnZHmQUrrNIpwmyM8ELy9QYFxLgzyftxbHKRYdz30/qwDHTzNpEi+
+	OCmakY8HceS/vP8iKfiIYFMHs9G4lY1KJJimHQpKywaoY3SbAMtzaQCvxTGThuANReoZTB/xhm+
+	BxyJmfFDLt0ZTz6quFjFGe79VoQ69t+Inp72p0WcD2OwX+AnmqpHYzq6phr+CzGrPjqtVfbxzL2
+	okjo0qEG6HRyPMmSe5Y/VRcBsgc9eG/pAOV2QtvH3GLHmBCHXJ5tcNLvJMchyW97vhsSOOS87jQ
+	CIrj9Qj+VJHBsRSZANynxhveqtPtAmCtTABIH+5K9CBZCbS7AI8dVC7VdxNBxZf1iwybO/SIqos
+X-Received: by 2002:a05:7022:eb46:10b0:14f:5cd:f286 with SMTP id a92af1059eb24-190a61447a2mr3916698c88.34.1792606619346;
+        Wed, 21 Oct 2026 11:16:59 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1903a180b9esm12244049c88.4.2026.10.21.11.16.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:16:45 -0700 (PDT)
-From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-To: mhiramat@kernel.org
-Cc: rostedt@goodmis.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/bootconfig: Fix enabling all events in bconf2ftrace.sh
-Date: Wed, 21 Oct 2026 20:16:26 +0200
-Message-ID: <20261021181626.2004489-1-edumucelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Wed, 21 Oct 2026 11:16:58 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:16:56 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 09/18] nvme: Implement cross-controller reset
+ completion
+Message-ID: <20261021181656.GV2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-10-mkhalfella@purestorage.com>
+ <207f5a00-7fee-4ea5-b541-38424d4766bd@flourine.local>
+ <20261021010438.GR2931-mkhalfella@purestorage.com>
+ <02c2a904-2264-46b8-b49f-6f7109913da6@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,47 +107,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <02c2a904-2264-46b8-b49f-6f7109913da6@flourine.local>
 
-A bootconfig containing ftrace.event.enable makes bconf2ftrace.sh try to
-write to events/enable/enable. The per-event loop treats the global
-enable key as an event named "enable" in a group with the same name.
+On Wed 2026-10-21 10:43:03 +0200, Daniel Wagner wrote:
+> On Tue, Oct 20, 2026 at 06:04:38PM -0700, Mohamed Khalfella wrote:
+> > > What happens to the waiters on sctrl->ccr_list when the source
+> > > controller enters error recovery while a CCR is pending?
+> > 
+> > You already answered it below :)
+> 
+> I tried to figure it out, but I'm still not sure if I really understand
+> all the conditions. So bear with me.
 
-Since events/enable is a file, this write fails. With --apply, the script
-exits before it reaches the code that enables all events. The same thing
-happens with ftrace.instance.NAME.event.enable.
+No problem. Take your time.
 
-Skip the global enable key in the per-event loop and let the existing
-global handler write to events/enable.
+> 
+> > > As far as I can tell, ccr_work itself is fine. The reset path cancels
+> > > it via nvme_stop_ctrl(), and in the error recovery path the Get Log
+> > > Page just fails once the admin queue is torn down. But the target drops
+> > > all CCRs issued by the old association when it frees the controller,
+> > > so the CCR completed AEN for them will never arrive. Nothing on the
+> > > host side walks ccr_list when the controller leaves LIVE, so
+> > > nvme_issue_wait_ccr() sleeps until min(kato, deadline - now) runs out
+> > > before nvme_fence_ctrl() tries the next source controller. In the
+> > > worst case that eats the whole fencing window.
+> > 
+> > If the remaining of the fencing window (deadline - now) is less than
+> > kato then I am fine with this scenario wasting this time anyway. If we
+> > hit the deadline then we consider fencing done anyway. If it consumes
+> > kato from the deadline then we retry another path.
+> 
+> Okay, this might be something worth documenting? It seems like a case we
+> will get bug reports in the future.
 
-Fixes: 1d8365a553a7 ("tools/bootconfig: Support per-group/all event enabling option")
-Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
----
-This is my second submission to the Linux kernel. Feedback is welcome.
+I do not think this behavior worth documenting as stable behavior. We
+should be able to refactor/change/optimize this code in the future
+without worrying about breaking a documented behavior.
 
-Tested with --apply in a temporary tracefs instance on my Ubuntu machine,
-running kernel 7.0.0-38-generic, with recording disabled. The original
-script exits with status 2 and leaves events disabled. With the fix, it
-exits successfully and the instance's events/enable reads 1. Per-group
-enabling works with both versions.
+The main point of CCR is to speed up controller fencing in order to avoid
+CQT delay. I think of it as a best-effort process attempted in a bounded
+amount of time. If it succeeds we skip the CQT delay, otherwise we spend
+the time we will have spent in CQT delay anyway.
 
- tools/bootconfig/scripts/bconf2ftrace.sh | 1 +
- 1 file changed, 1 insertion(+)
+Can we do better within this bounded amount of time? Sure, this is what
+is being suggested here. However, I prefer not to do that part of this
+patchset. Also, do not like to clutter the code with comments about
+potential changes.
 
-diff --git a/tools/bootconfig/scripts/bconf2ftrace.sh b/tools/bootconfig/scripts/bconf2ftrace.sh
-index 850c207343..7745c97e7a 100755
---- a/tools/bootconfig/scripts/bconf2ftrace.sh
-+++ b/tools/bootconfig/scripts/bconf2ftrace.sh
-@@ -218,6 +218,7 @@ setup_events() { # prefix("ftrace" or "ftrace.instance.INSTANCE") [instance]
- 	prefix="${1}.event"
- 	if xbc_has_branch ${1}.event; then
- 		for grpev in `xbc_subkeys ${1}.event 2`; do
-+			[ "$grpev" = "enable" ] && continue
- 			setup_event $prefix ${grpev%.*} ${grpev#*.} $2
- 		done
- 	fi
+> 
+> > > Would it make sense to fail all pending entries (set ccrs to a failure
+> > > status and complete them under ctrl->lock) when the source controller
+> > > goes into error recovery, so the fencing code can move on to another
+> > > path right away?
+> > 
+> > Failing pending CCR entries that we know we are not going to complete
+> > will help in this case. The question is where to do that. A LIVE
+> > controller might hit an error and transition to FENCING, or manually 
+> > reset and move to RESETTING, or deleted and go to DELETING. Do we need
+> > to consider all these places to fail the pending CCRs?
+> 
+> I'd say yes. Anyway, I don't think this needs to be addressed right away
+> if the current code is functional correct and we are just not as fast as
+> possible. 
 
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
--- 
-2.53.0
+Agree, the goal of the patchset is to add the initial support for
+CCR/CQT. If there are functional issues they should be addressed now.
+Known gaps and optimizations can come in later patchsets.
 
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index ca7f083702f5..6c0703fba8ff 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -863,6 +863,9 @@ bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
+                wake_up_all(&ctrl->state_wq);
+        }
+
++       if (changed && old_state == NVME_CTRL_LIVE)
++               nvme_fail_pending_ccrs(ctrl); /* TBD */
++
+        spin_unlock_irqrestore(&ctrl->lock, flags);
+        if (!changed)
+                return false;
+
+One way to fail pending CCRs is to add it to controller state machine.
+Something like the diff above.
+
+> 
+> > You might have also noticed that nvme_issue_wait_ccr() calling
+> > __nvme_submit_sync_cmd() might consume the entire fencing window if the
+> > CCR command gets held because the source controller hits an error. This
+> > is another area be optimized. I am inclined to leave the code as it is
+> > today. What is being described here is an optimization that can come
+> > later on.
+> 
+> Yes, I was actually about to ask about __nvme_submit_sync_cmd in this
+> path next. Since my questions are about optimization, I don't think we
+> should make the current version any more complex than it already is. We
+> can handle optimization later, but please document those cases in the
+> meantime.
+
+Hannes also raised this point. It is on my todo list to add timeout
+parameter to __nvme_submit_sync_cmd() and use that here.
