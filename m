@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792602180;
-	b=GzCwzBQcrSTiSTjvR+g1GbX8XmKaUda1nK6d7/JVpG1Ppw3PymCSVmbLvPrPzyyeHcS5
-	 hHe5iWBDB9+GaZGuDk3cpWdGBF/P3Rg6reTb8hl0Gv3AtQzjcGMkTcLpmJdZA48ZTiUTZ
-	 EApc1cJcP2FCWfMUy3K68IfF6dBHJ49ostUkVmZOJnuXoJIVVOz+EBX+ZhcPFOpy0lgDJ
-	 TBhAeJ0KlIHR17OL0rX/uphboMa+63DTrjfcpNXdZM72eh10R2ZceD4AdJCBzNJPBNd1q
-	 3HWZ/0BUpP+tVpStJWX/sTKnjlDeJynWEc2TQ7sxeTAaX//EJiSTOIyhDSGGd6pLE9Q==
+	b=DQ85YjwB9wlC8sxZzzHaFnRDkTfMUYQwfz20hN44n5g9EiY0KM/uJ9UNMEas+FCFPgDG
+	 2TL3nOCWiXzZydLFX+IyxwlHNGPpYViYzGRlHwc0gchTWHCDUKVZ7yPk0h61jGMSgyKkI
+	 wsMp/5KUzHcoDGDDUjBD1NmGYY0ZpXBPcAYs6LzE5JB9hQzgjJ2XV9guiUSQEds7IF501
+	 Cv3Nvid/hogWfxSaZpAK7KJHcoS6WFCn4rGXi12ExMm627Ka/SNWHNXLdYSc+y50xxLRY
+	 n6YtRtMH5QvymVKlW/ZXCLzQdkeJk6QlLC1EX6Oqq/ivDwLJL0jRbf1A7C1wau2Xd1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792602180;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=G2Wb2r2zAu+yNNCY0UufSECh98Xmgt4eIzLuEewJe74=;
-	b=jthXXWI9MflHlqnb8TmGY7xW0GuXRYcHZ+xjFDpxRTAihilF/oYV1oG2ZvuovmxFjxq+
-	 z1wUKDywrrfVgQhHUxDED3KJJl6zbvyeRTjw6ZceiMtJwZOW4gYltmhYg/c7z+8WgJByg
-	 gbsjpxz/4F+5d18hbp5rHsmSUNqE3RIvJoEtX5ZJdGE1+V4yy40TWA9VNilExOyp6Wars
-	 6BiH/DFkchqANOKh94EpEv/gtnmZpxZE0L+kAzXT1Qen332Femg1zaNNpNOXdf2pGn0vw
-	 MtLHpBQHw/hE7dFyKHCk40/ucLn+qhVQ5tR8G/ZMdIBvzC9F0F5Afegy3sXW/srzqyA==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2jSm9zb8eTcGFKhjyNMrS+8X+DXl1nyYa3sW6PQX9iw=;
+	b=geW2mRZGeLP9vzoC2Y5mE1+IKqxbMHjnTZyU+pzcJUPNjAU47MQ9EmL4uxtc4IKm6YeG
+	 NoEjk1oTv52Z1Jm4Fn4q95jiWLlGMVlcbJudSt32BqFx1SM4uRXItmrDrkp6MJhgVfhww
+	 Ha+cgX8wI05jbulG4H4swmVm2LpXCHtpiVo+VrhfvSiCJnTGQXUlhkXkc0u1k3swIPjFi
+	 QvqcJQCEYqmmdl4Vgczm6YLjnthhwOuris/vcptA0Xq0qmc+FKMISHWhW6G2Omdsn4Lt/
+	 OSWR58052XHQmoX3xDEe3EkAlq8udxTik3cbjxgCsxrsIulg4zcnuVfr/phb1RY4ZEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XkZmtTC5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PEsKqQbO;
+	arc=none smtp.remote-ip=74.125.228.8
+Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D7D606A323;
-	Wed, 21 Oct 2026 17:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB29606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB29606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XkZmtTC5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E8A1F000C2;
-	Wed, 21 Oct 2026 17:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602179;
-	bh=G2Wb2r2zAu+yNNCY0UufSECh98Xmgt4eIzLuEewJe74=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XkZmtTC5S9VoCPJxFs4W6Nn32XI/9WoARvotlczkWiK/fgzgwYL9NUWAK7/UhnQEw
-	 a1MYNEG5gxgpbR2AQ8HOvf2u77T2OoEh+uQ+8KH8kkqu9M6qNPFMHb3odoRABgD7Ap
-	 NnodJhbm6ewhuPWrdg4aRCufKPtO6ImN+QeiSpm9UuwQ8G4sqwyM9cGunrUVZET1fe
-	 iB/Xx90Gq5wHuIal2BskYPHW7DSAIz5Ou5XSEYxbM7t+DIM43d3o92T/rvQYbv8iqc
-	 2gRzy6gh91csitC9FU1hYjhGrPDhvVMMsEaVVT2NkeBGm6hBefegTkk1IWRLAzmMa/
-	 iStvlOMozH3IQ==
-Date: Wed, 21 Oct 2026 20:02:39 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
-	chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com,
-	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
-	ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	hpa@zytor.com, gregkh@linuxfoundation.org, rafael@kernel.org,
-	dakr@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, leitao@debian.org, yeoreum.yun@arm.com,
-	sourabhjain@linux.ibm.com, robh@kernel.org, coxu@redhat.com,
-	kees@kernel.org, tangyouling@kylinos.cn, liukexin@kylinos.cn,
-	zhangtianyang@loongson.cn, guodongtai@kylinos.cn,
-	maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com,
-	vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com,
-	thuth@redhat.com, jbouron@amazon.com, me@linux.beauty,
-	mclapinski@google.com, graf@amazon.com, bgwin@google.com,
-	hbathini@linux.ibm.com, eric.devolder@oracle.com,
-	takahiro.akashi@linaro.org, james.morse@arm.com,
-	palmer@rivosinc.com, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	driver-core@lists.linux.dev, kexec@lists.infradead.org
-Subject: Re: [PATCH v6 09/14] x86/crash: Fix massive out-of-bounds write on
- 32-bit Highmem
-Message-ID: <atjwL407guk-76DK@kernel.org>
-References: <20260921090450.807575-1-ruanjinjie@huawei.com>
- <20260921090450.807575-10-ruanjinjie@huawei.com>
- <179248377976.302547.17579416672238014424.b4-review@b4>
- <b729d819-39c9-42a1-8f9c-49019091b81f@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PEsKqQbO
+Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-cd3da0e82daso182966a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:02:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792602179; x=1793206979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2jSm9zb8eTcGFKhjyNMrS+8X+DXl1nyYa3sW6PQX9iw=;
+        b=PEsKqQbOXvfJFz2c2I7r+EqbYJiJf6mmHhyOTmtewxrRVXE+OjAMOttlPk92p6otPn
+         piF9WW3JL+bZ0FK2Y/wtdlnHvL5obI04iJq21D97f4xhZWsEx3FFpJEWmDDy9//ZUcXc
+         6yYiQDkr6x7LCKpzgE++Fdi41SN5SNQUPpLLBtKqc4340VetJ3i9ouHXb9P/EUkg8VZm
+         jCaPMWaQgMMq2cGo184rdTgODArJbAAHXZ4bCVf3f2higlYQR6Q9X5xjCSDZ99M61TOM
+         4ZLDJFSnNf/sSOWq89VigFClms1egL9v2rHHIerhJnxTlq8vwHJ7RluHBRofxkjt13dt
+         h6VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602179; x=1793206979;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2jSm9zb8eTcGFKhjyNMrS+8X+DXl1nyYa3sW6PQX9iw=;
+        b=X7s2wV9X4/CDdWYB5FcmoEoH4IfCnM9/i3bZuZlxflDAwDYYGyZjxad9yULZW7q3cq
+         /tAf0hfUET2W1R/+BReA+pnxymWdVxaMUkmmC2Tkn9QzBe1SSup+VBMurFphw8w+uS9q
+         IEXm9Ihtnk1ItcQjuk7a/kQ4wY5b6pyE3n1nOGb85YF52QLlThJDBIMoPWbeXFPjYCoy
+         C2mh53BnjYmG11ofAGdbrP02vAay6HfVaG3yHM7BvEctEqayFzfGtzYV2FhwfuSvaRHX
+         /ilNrG5N8zOVWzYSNv+mwQxc2qTpdBGz7FbF77EIpLCbOmSlJD/x59+z/buUg7aR/cP+
+         N2kQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwo/J8cCezumm6snYOOkggrqgxfW8S60R1BoeVVyGuq0ktOsmGRPMVKJYTRscxGm4HhDwPEUfeoOSmHzwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILFd129mvyh79f176MeDBM3Lw8bLOC6RPgGPSL45AxCdv+o530
+	Edct7LRC9CuibdRRl8fjobbvUeoK954xJkEN925DyYxMKvhZaHwA4anP
+X-Gm-Gg: AYBFou3aX1nJh7y8Bd4/ccreMH9sCaJeA52xcC1F+DPKwtH4LbDbSSXUxED6E1FWUz3
+	xeXkXa7onCl9vSdklFXOpjapLdxtsfnvvDIh+bxt9Y9scCrfsfC1bv6vI59xqteUcM8/YbvrhwP
+	jpn1UPoIOg+lUn332O9FZoc9Dy/6ikMbppl5CVrXHQLq5JJXab0OVEUhKXTaPHWEE+Vs2DSNzud
+	V/WKrBDJD3EekjAWUS2sAU3ykhEfcxLgLAnx5W/jK/JnPYq4eM/8kFmN5ETVoGDgs41LSsu/F62
+	AZU66bcrHK8txTNfYcVCDk19XAE0YKxhAgd0Dx1/4Fs4t41KqKGnALrGEhV7iE8P0S2XmG2uZpp
+	n1T8R6p2gUTzvVW3ztp7Jj3qPT/R8b+pz3DIMQLzuB/YZGkCyiDuRq65/NLqurQyYlOF4vRbh6X
+	+fsggA/MUTvZnVeJ4uUmHIimbH42JBmmelgFy3ewRnMnRwdXtMX1ITCck+ii/aIHveKqqv76B0A
+	AXQP7iJUcus9dh2qEsXY7xgAQ+I/S/a6xw4lB5Qt8Lx4hOVL33CIBJTRuhYrka6AehNtyOHWL+7
+	Bg==
+X-Received: by 2002:a05:6a00:950b:b0:878:3538:8f7a with SMTP id d2e1a72fcca58-8a089e946bdmr2149384b3a.40.1792602178944;
+        Wed, 21 Oct 2026 10:02:58 -0700 (PDT)
+Received: from AERO17.taila7786d.ts.net ([152.175.65.31])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b3749sm1195785b3a.15.2026.10.21.10.02.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:02:58 -0700 (PDT)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4] net: phy: realtek: Add support for JLSemi JL2101 and JL2121 PHYs
+Date: Thu, 22 Oct 2026 01:02:48 +0800
+Message-ID: <20261021170248.49264-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,155 +100,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b729d819-39c9-42a1-8f9c-49019091b81f@huawei.com>
 
-On Wed, Oct 21, 2026 at 04:28:31PM +0800, Jinjie Ruan wrote:
-> 
-> 
-> 在 2026/10/20 16:09, Mike Rapoport 写道:
-> > Hi Jinjie,
-> > 
-> >> On 32-bit x86 systems with HIGHMEM, kmap_local_page() only maps a single
-> >> 4KB page. However, the elfcorehdr segment can span several pages (up to
-> >> hundreds of kilobytes).
-> >>
-> >> The original code blindly copies 'elfsz' bytes at once via
-> >> memcpy_flushcache(), overwriting adjacent fixmap entries or critical
-> >> virtual addresses.
-> >>
-> >> Fix this by copying the new elfcorehdr page by page.
-> > 
-> > This is independed of other fixes and can be sent as a separate x86b fix.
-> 
-> Yes
-> 
-> > 
-> >> Cc: Thomas Gleixner <tglx@kernel.org>
-> >> Cc: Ingo Molnar <mingo@redhat.com>
-> >> Cc: Borislav Petkov <bp@alien8.de>
-> >> Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> >> Cc: "H. Peter Anvin" <hpa@zytor.com>
-> >> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> >> Cc: Vishal Verma <vishal.l.verma@intel.com>
-> >> Cc: Baoquan He <baoquan.he@linux.dev>
-> >> Cc: Chao Gao <chao.gao@intel.com>
-> >> Cc: Sean Christopherson <seanjc@google.com>
-> >> Cc: Eric DeVolder <eric.devolder@oracle.com>
-> >> Cc: Hari Bathini <hbathini@linux.ibm.com>
-> >> Cc: Andrew Morton <akpm@linux-foundation.org>
-> >> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> >> Cc: stable@vger.kernel.org
-> >> Fixes: ea53ad9cf73b ("x86/crash: add x86 crash hotplug support")
-> >> Link: https://sashiko.dev/#/patchset/20260907125404.922123-1-ruanjinjie%40huawei.com
-> >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> >> ---
-> >>  arch/x86/kernel/crash.c | 26 +++++++++++++-------------
-> >>  1 file changed, 13 insertions(+), 13 deletions(-)
-> >>
-> >> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-> >> index e681ec9cf1dc8..3c9f4fbbe7ff0 100644
-> >> --- a/arch/x86/kernel/crash.c
-> >> +++ b/arch/x86/kernel/crash.c
-> >> @@ -447,9 +447,10 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
-> >>   */
-> >>  void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
-> >>  {
-> >> -	void *elfbuf = NULL, *old_elfcorehdr;
-> >>  	unsigned long mem, memsz;
-> >>  	unsigned long elfsz = 0;
-> >> +	void *elfbuf = NULL;
-> >> +	unsigned long done;
-> >>  
-> >>  	/*
-> >>  	 * As crash_prepare_elf64_headers() has already described all
-> >> @@ -484,21 +485,20 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
-> >>  
-> >>  	/*
-> >>  	 * Copy new elfcorehdr over the old elfcorehdr at destination.
-> >> -	 */
-> >> -	old_elfcorehdr = kmap_local_page(pfn_to_page(mem >> PAGE_SHIFT));
-> >> -	if (!old_elfcorehdr) {
-> >> -		pr_err("mapping elfcorehdr segment failed\n");
-> >> -		goto out;
-> >> -	}
-> >> -
-> >> -	/*
-> >> -	 * Temporarily invalidate the crash image while the
-> >> -	 * elfcorehdr is updated.
-> >> +	 * The segment is physically contiguous but can span several pages.
-> >> +	 * On 32-bit Highmem architectures, kmap_local_page() maps only a
-> >> +	 * single page at a time, so copy page by page.
-> >>  	 */
-> >>  	xchg(&kexec_crash_image, NULL);
-> >> -	memcpy_flushcache(old_elfcorehdr, elfbuf, elfsz);
-> >> +	for (done = 0; done < elfsz; ) {
-> >> +		size_t chunk = min_t(size_t, PAGE_SIZE, elfsz - done);
-> >> +		void *dst = kmap_local_page(pfn_to_page((mem + done) >> PAGE_SHIFT));
-> >> +
-> >> +		memcpy_flushcache(dst, elfbuf + done, chunk);
-> >> +		kunmap_local(dst);
-> >> +		done += chunk;
-> >> +	}
-> > 
-> > HIGMEM is only enabled on 32-bit and there elfsz cannot be "massive"
-> > because it is the size of the headers just built for the CPUs and RAM
-> > ranges actually present, not the large memsz reserved for hotplug.
-> > On x86_32 (NR_CPUS <= 64) that is a few KiB at most.
-> > 
-> > Also, crashkernel is capped at CRASH_ADDR_HIGH_MAX = SZ_512M on X86_32,
-> > which is below the default lowmem limit. For lowmem pages,
-> > kmap_local_page() returns the contiguous direct-map address, so the old
-> 
-> Hi Mike,
-> 
-> x86 32-bit doesn't support memory hotplug, and NR_CPUS is capped at 8.
-> 
-> config NR_CPUS_RANGE_END
->     int
->     depends on X86_32
->     default    8 if  SMP
->     default    1 if !SMP
-> 
-> According to the elf header size calculation in
-> crash_prepare_elf64_headers():
-> 
-> - nr_phdr = num_possible_cpus() + nr_mem_ranges + 2
-> - sizeof(Elf64_Ehdr) = 64
-> - sizeof(Elf64_Phdr) = 56
-> 
-> so:
->     elf_sz = 64 + (num_possible_cpus() + nr_mem_ranges + 2) * 56
-> 
-> To exceed 4K:
-> 
->     64 + (num_possible_cpus() + nr_ranges + 2) * 56 > 4096
-> 
-> 
-> So we'd need at least 60+ RAM ranges, which seems unlikely on real
-> hardware without memory hotplug. I think this problem can't actually be
-> triggered in practice, so we can safely drop this patch.
+JLSemi (JingLue Semiconductor) JL2101 and JL2121 Gigabit Ethernet PHYs
+are register-compatible second-source alternatives to the Realtek
+RTL8211F. They share the same paged register layout (page select at
+register 0x1f), RGMII TX/RX internal delay registers (page 0xd08
+regs 11/15), and specific status register (0x1a). Wake-on-LAN (WoL)
+events (page 0xd8a regs 16/17 and page 0xd8c reg 16) and LED control
+registers (page 0xd04 reg 0x10) match RTL8211F.
 
-I think you are right and my LLM overestimated the amount of memory used :)
+In the IEEE 802.3 PHY ID allocation, JL2101 (0x937c4032) and JL2121
+(0x937c4030) share the same Model number 0x03 (bits [9:4] of register 3),
+differing only in revision number bits [3:0] (0x2 vs 0x0). Both chips
+share identical operational characteristics. Consolidate them under a
+single PHY_ID_MATCH_MODEL(0x937c4030) entry covering all revisions of
+this model.
+
+Unlike RTL8211F where PHYSR (0x1a) can be read directly on page 0,
+JL21xx requires reading PHYSR from page 0xa43 via phy_read_paged().
+Reading 0x1a on page 0 yields 0x0000, which causes rtlgen_decode_physr()
+to erroneously downshift to 10Mbps half duplex. Introduce
+jlsemi_read_status() to read PHYSR from page 0xa43.
+
+Extend the Realtek PHY driver to bind JLSemi JL21xx by its Model ID to
+the RTL8211F-compatible driver operations, and add the ID to the MDIO
+module device table.
+
+Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+---
+Changes in v4:
+- Consolidate JL2101 (0x937c4032) and JL2121 (0x937c4030) into a single
+  PHY_ID_MATCH_MODEL(0x937c4030) entry as both share Model number 0x03
+  and differ only in revision number (Andrew Lunn).
+
+Changes in v3:
+- Drop standalone driver drivers/net/phy/jlsemi.c and extend the Realtek
+  PHY driver directly as suggested by Andrew Lunn.
+- Add jlsemi_read_status() to read PHYSR (0x1a) via phy_read_paged()
+  from page 0xa43, avoiding false downshift to 10Mbps half duplex (verified
+  on physical ALINX AX7Z020B board).
+
+Changes in v2:
+- Drop redundant phy_interface_is_rgmii() check in jlsemi_config_init()
+  (Andrew Lunn)
+- Change speed check in jlsemi_read_status() to '>= SPEED_1000' since
+  JL21xx only supports up to 1000M and 100BASE-TX does not use Master/Slave
+  clock resolution (Andrew Lunn)
+- Check device_can_wakeup() and configure wakeup capability and wake IRQ
+  in probe() when 'wakeup-source' is present (Andrew Lunn)
+- Drop redundant .features = PHY_GBIT_FEATURES (Andrew Lunn)
+- Use PHY_ID_MATCH_VENDOR() for generic driver and mdio table (Andrew Lunn)
+ drivers/net/phy/realtek/realtek_main.c | 40 ++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 177b62a7b..13039d9f8 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -259,6 +259,9 @@
+ #define RTL_8261C				0x001cc890
+ #define RTL_8261C_CG				0x001cc898
  
-> > code was already fine.
-> > 
-> > So the overflow needs the crash region to be in highmem, either through
-> > crashkernel=size@offset above lowmem or through a large vmalloc=
-> > setting, and an elfcorehdr larger than one page.
-> > 
-> > It is still worth fixing, but please drop "massive" from the subject.
-> > 
-> > The changelog should also mention the conditions when this could happen.
-> > 
-> 
-> -- 
-> Best regards,
-> Jinjie
-> 
-
++#define JLSEMI_JL21XX_PHYID			0x937c4030
++#define JLSEMI_STATUS_PAGE			0xa43
++
+ #define RTL8261C_CE_MODEL		0x00
+ #define RTL8261D_MODEL			0x81
+ #define RTL8261X_INT_AUTONEG_ERROR	BIT(0)
+@@ -1731,6 +1734,23 @@ static int rtlgen_read_status(struct phy_device *phydev)
+ 	return 0;
+ }
+ 
++static int jlsemi_read_status(struct phy_device *phydev)
++{
++	int ret, val;
++
++	ret = genphy_read_status(phydev);
++	if (ret < 0 || !phydev->link)
++		return ret;
++
++	val = phy_read_paged(phydev, JLSEMI_STATUS_PAGE, RTL_PHYSR);
++	if (val < 0)
++		return val;
++
++	rtlgen_decode_physr(phydev, val);
++
++	return 0;
++}
++
+ static int rtlgen_read_vend2(struct phy_device *phydev, int regnum)
+ {
+ 	return __mdiobus_c45_read(phydev->mdio.bus, 0, MDIO_MMD_VEND2, regnum);
+@@ -3192,6 +3212,25 @@ static struct phy_driver realtek_drvs[] = {
+ 		.led_hw_control_get = rtl8211f_led_hw_control_get,
+ 		.led_hw_control_set = rtl8211f_led_hw_control_set,
+ 		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
++	}, {
++		PHY_ID_MATCH_MODEL(JLSEMI_JL21XX_PHYID),
++		.name		= "JLSemi JL2101/JL2121 Gigabit Ethernet",
++		.probe		= rtl8211f_probe,
++		.config_init	= &rtl8211f_config_init,
++		.read_status	= jlsemi_read_status,
++		.config_intr	= &rtl8211f_config_intr,
++		.handle_interrupt = rtl8211f_handle_interrupt,
++		.set_wol	= rtl8211f_set_wol,
++		.get_wol	= rtl8211f_get_wol,
++		.suspend	= rtl8211f_suspend,
++		.resume		= rtl8211f_resume,
++		.read_page	= rtl821x_read_page,
++		.write_page	= rtl821x_write_page,
++		.flags		= PHY_ALWAYS_CALL_SUSPEND,
++		.led_hw_is_supported = rtl8211x_led_hw_is_supported,
++		.led_hw_control_get = rtl8211f_led_hw_control_get,
++		.led_hw_control_set = rtl8211f_led_hw_control_set,
++		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
+ 	}, {
+ 		.name		= "Generic FE-GE Realtek PHY",
+ 		.match_phy_device = rtlgen_match_phy_device,
+@@ -3420,6 +3459,7 @@ module_phy_driver(realtek_drvs);
+ 
+ static const struct mdio_device_id __maybe_unused realtek_tbl[] = {
+ 	{ PHY_ID_MATCH_VENDOR(0x001cc800) },
++	{ PHY_ID_MATCH_MODEL(JLSEMI_JL21XX_PHYID) },
+ 	{ }
+ };
+ 
 -- 
-Sincerely yours,
-Mike.
+2.56.0
