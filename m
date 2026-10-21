@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792602999;
-	b=BhY+SLsD17POOfeJDfJi2xd+hAxO8EZ6QKZrJ3H4+FmVVXCcqEq0/hD00sV+ek2kxPHu
-	 8tZWkCfMgAf5MV1Tn/QzAwZKlgps9mQA1jT0M6xIzqhaNTu+R4PU4uyo18bi4hcywnJ/l
-	 lWkw8QQbC8Tap/zML6q7p4+hlVm+rNt79iAAN9JrZccJcVLsgVRwupsEVXQekpwct5XPO
-	 XQkK+REAiCfJihOUNiAvIyWgnRlCAbogs3vlWd/I5budwSteWOdrl5ZM+Q1neYyyGDpXE
-	 44lSjzt1V3mR/g08jXsRIyZDKCx4tSjexc1CdvS+gYgZAj/SfP7XUdukagMwuUNxBaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602999;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=osRbuQ/Bkf4fHB+3iFdZWVyxGfpI6q99uA9VbpH4+zA=;
-	b=hNpJTReemmJUDn5vGx0KuAafqq1Wrwaz1nn8tqQHKvbSlBtDzqxMF4gR4qXY7aRmHaUM
-	 jAeJLyuhBaU1SGbKnCT/QYD7V9yQ9AD52jMed503S4F9VxuPF6UBRQgbwDsqnoX+JmJgL
-	 nmHPY6JJwfBzGkTPSSfJwZjNPcp8hiFaoUdKN/vjdKa9ZfA1YH+j0Jqer3yL+B6lrvRl8
-	 dAgP6FdlG1oVWr0KHJwJhFVr1998yMiUG325ra+k6AVNyI2YgDMhRewiVD+moKfVWPRhn
-	 LYulseXdruq9EGsdYGpqoYhUAY72dHFNpJarrclz45gfQWNxm879TrByCOG1HEjSBIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WULuCDb1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA862606A319;
-	Wed, 21 Oct 2026 17:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WULuCDb1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792602998;
-	b=DRlQjR2pd/lMPyQfa/+IhJp7lZXCbA6dMkTrN1BHT/l8a3r0VIv1QcdR1mbneFfiwnyg
-	 G2f6ploQ4H5lpTpJlqHgKwV1qzynw+kb0q82jUxxsKCEksdtJf/RyW0K7qJtxYZS7dJVd
-	 4gX0ME+mPUavZ5zdEMDNO2lwCMVT1PKOhd1lSCCGdirfU0NsQ+luNSQOhnDqLezo9uk5G
-	 2jqH4O+V8V1iYgCBAN7/B6ajgOR71jlVHoAYhr7bEYE/21fo6Wjub/YmuXLKR1U9xMzY2
-	 xrkPhaNnzpBQjCsDXdTHUeU/g3RnWwS1nKjjkHzI4l4C2ZKpNaHSa+YQrabcYHXvcUA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792602998;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=osRbuQ/Bkf4fHB+3iFdZWVyxGfpI6q99uA9VbpH4+zA=;
-	b=SsLxtVhSYEAEQlYYyoo3/756rg/EpqV8dIsYB/umDzIWNtavivZBEjo4rSg40Zo9bgyB
-	 JrkItE783k01L/fJohV7F/gRssbKulYGL/AaxWCxJ10xx5fHgnUbmquk8j9Idhe2qkat5
-	 PVYwHO3g4SlV5Tc19hy1xEEBhbk6X4G4rhGBXvnogfN95EhXzvQK3hAOj9eo5cM6piIz2
-	 6Oyi+gSP3tGCSnp0s77sl0aKsI88lVaY+T180qASaxc4nrf2gg3WugXhlMuTsLAxyaQ6e
-	 K/oBChE1oqd2FHIRLdfG0NA9W9PscWfdwweOBY7Yb5+lx//ThHb6aB1d37jAjQZb6pQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792603018;
+	b=p9SEuY9iG04AOEchIuFbtKZ+3v0ttNEhqhDWBkRTlLwbs5r/o3IRfHPCJb/a5+DxRT8p
+	 HL8dhP5zxZ+1lJMZiasy5ymIrMbmgigKI8oRCSQ1QANRLLdQcQ5BSSmefkkmuEVUZ0y5x
+	 5jlRc6KNqMaputT//2BjYN3mcemT3Zz0G7M7HiLZDpChj40vZWqGKcpuG9WFf3BH9O9S1
+	 3b/03fZAhA+5r48H2S1uLDm3XEZ6QZoLg/5Iaf0M3DwT1Hhu0Xyr7HlaYN3oOanVSBTeG
+	 BvNUirIFM2JIWYY5DMDtkd2vU8j+9VCagRNUjWYuP3WViBoIAIPi/9PqrGMh7guIMxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603018;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=0uGVdqw1cUG+jYneBUBB2quro9jHiY9dYgBcdfEkjcA=;
+	b=Gd0nzj9HxZEGozoh0gjChW8fBVHe/PFb/If6fY/FwDW1UI2jqYxF2rVMBarqPqOMOIcb
+	 bOrAUVZoOxdF8pEIAHeCTozpwiJ3SdckqlINixANBg2b3hSFKwb4SQSVP/YZns0s+iQgZ
+	 RsviAYp2RWX6s31MVO3e555B1wLzRmzoauhouIjmTa+1/Ab/FEifDrUbCrgHnYMw9jlwl
+	 syqNjN2Z5dL8ig5fvYdWSOuXYvNbliYS7l939jfBRcVCkTAvmzlckrliK/+RX8scSzF0P
+	 rERStI+4WXNCS5aJccLK7RCkDtv1LCzbM0EWbg56oabLnq8USgJ6wkaV83FgJ7qmq/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VqghTt76;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AC8231F000C1;
-	Wed, 21 Oct 2026 17:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602998;
-	bh=osRbuQ/Bkf4fHB+3iFdZWVyxGfpI6q99uA9VbpH4+zA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=WULuCDb1uAoVNb9mO6Srz96qBl7FPsOJ1kTxorP4QEALAhfJvOahsHPoVU3cAuZso
-	 ieSmdyZHouz4Xht9GlPW9RkfAYYQ3YzmFSEhf73SXbtE0F7NuRgXxQDz/E/9SO969Z
-	 KhzYT9b7ZV3VZm9rpb+BUMkMy8MV/1t0imx7r5i3mlWhmtfjFVmlKlV/ntvKHzk+zZ
-	 LMZPUOYF1nK1YNurhgjDHnci8PjT+l00KTnW6WUZQOy+d8IyVyT8Ta9L/Dywep9YsP
-	 2gND7YUxbG77ZZQaoZNo4CApO9IgLKCg8pJZs0Q+DzBiiF55Batd7bd94JIEX2Akep
-	 eynXO+JmMhAIQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2902F400AB;
-	Wed, 21 Oct 2026 17:16:37 +0000 (UTC)
-From: Moe Mahhouk via B4 Relay <devnull+moe.flashbots.net@kernel.org>
-Date: Wed, 21 Oct 2026 17:16:32 +0000
-Subject: [PATCH] virt: tdx-guest: Poll Quote status with exponential
- backoff
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76205606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:16:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76205606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VqghTt76
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3550c917fd3so1256058eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:16:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792603018; x=1793207818; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0uGVdqw1cUG+jYneBUBB2quro9jHiY9dYgBcdfEkjcA=;
+        b=VqghTt76eLCzZfFRs5YNUaWU0L5lTwxAo46eI6Pcn74RJ4HgqlH69DnhvW4FmZPy0G
+         4wwK5gFOYgQ5uGSkmou4UM5hp4NJ9gLjsRZ08qUXnl6enMzjB53lD6Fh53+IVWG2brPk
+         OS8qF7DybBDwxXj3RSvWYFF/Q3Syk8wimdEaqQsa79j4iswWbDCADR+irlcPTTJj741q
+         TVaOiZL5i+vK5mBAhOdFuEc6QxwXZ5ReTdrPSIgggtt20B/fLXL9cGEI/JkSawRFyW2W
+         SmwA6WdG02pewUKBMtQk/G5qK6i2z0M7gEIlp0inHn0H93KLvXpwur74t98nBkNU5WP9
+         GTjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792603018; x=1793207818;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0uGVdqw1cUG+jYneBUBB2quro9jHiY9dYgBcdfEkjcA=;
+        b=Z3kYDgC8mbfVr0NL5BZqs4M2gQOFKFyHCEN9h+SBmuTVFejMxRZ9RHHShb5bB0SHIi
+         d8VNF6FXQKFBGTNy754YynwtfEAZalOY6/TyiC5g/otTYXmbyDpw/OPKf4zr4ERWY1QX
+         ZLx3W/3YzGokbZBeKRsaMXKfg6ftdqdcEIT3d7/DWwL+qS5A7GL6qRXICLFci/6hoYBt
+         UQItpoqiEv7fhbTPevvbLg6mNv3NUo33zm4+e9WNjlgs8pCx1oJBPNlRaBeu45DK07jB
+         +bwM33AkAOzSdiepSvPQKScbM7PtGpbjIZGyocFfFlWZwLLjgEIRyCTLAweU4BreIKnj
+         pH9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxlDEIy9Pb4LikuJSovmKcIZXAh6439RWBl0pMcDnm0ASDbQMg5tADrXJC+QxT8Pq03S9PYprrb4Zt7zmQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7qOAqCcLZlCB76wiVMKw/7Db9hw1qsWNJgKhwBLRLz0fIaDW7
+	iu22UYHFrCFSDZ2Qj61toeOYz7itVEVncWK4S60YOC+wkGprcKM6FflD
+X-Gm-Gg: AYBFou0KX/pX3ohiKO8xjZ4b4iUL9WQTxLqxaFa5VhuZ/lwN2Ot0R8kZkgBqxM6r5Gj
+	DUbj/bNPrsmLWuWf5E0xyZLr948P08VBbtE0mLIqZYhLzRSGkstoa8fifYem2DFBUVxG2QlUn+6
+	OqBp3JXTHEwCHBdQACaIvNOBHTFF/aqB/0j5gRHGw6pJBP7w2A+eWVh+sJqvro3WnTjrQOVvxy5
+	w0z3mcFt5UsPWjsDQHXBWkTySaB2UlEOwX/AnVlLX+DIJQgvdYapftaJRgSZCpZ+75Jz4dlVQRa
+	bUP4fIUKa6KIbqJSiAZIjmmtOSNfWXwFj32VBS2oGQPopqSTtE+kxG9DaSzue4MW2l9aDiBxpdc
+	z4UyPkoWwiqIL9uOqKE3xlUeoEsP0OOLwECmK5Is/k0QrIpv/XPYMCzDgoOWrn3gfYraQGP9Hn3
+	t/t6yI7TXKUxC6ggbiqloRWdJmuH18nZxWBljf+ZRPtZYHB9bG2LrFQ9mkxWDxnoaXajXQ2GS3o
+	rU2QfbiDYwMArsIDefeWHkG+8gXvPv49Rfs1gJalVR2tDfDG2U7Tgrj+ayAfeSSiLWNm9XvrNHU
+	6pFIjRX/ovqpi23+Xder90CQgxbDAzQIttdkQGVNFg4=
+X-Received: by 2002:a05:693c:8345:b0:367:68c:860d with SMTP id 5a478bee46e88-3674d65d2e0mr3958768eec.29.1792603017470;
+        Wed, 21 Oct 2026 10:16:57 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cca3d8sm8748248eec.14.2026.10.21.10.16.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:16:56 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:16:53 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH 3/3] Input: soc_button_array - convert to software nodes
+Message-ID: <atjzUS_zdVf_2KzV@google.com>
+References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+ <20261021015004.1537738-3-dmitry.torokhov@gmail.com>
+ <CAMRc=MfZg36BULXh3n-ce_x_4B_xOn3Jp4Jgo5BN1LsB2FqaTw@mail.gmail.com>
+ <atjuDNi0_SXs4y2d@google.com>
+ <9496ea3b-563f-4517-86d6-e20694e2ec9b@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,120 +101,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-tdx-guest-quote-poll-v1-1-919a87812ecb@flashbots.net>
-X-B4-Tracking: v=1; b=H4sIAG/z2GoC/yXMQQqDMBBA0avIrDswCbRir1K6aOJEp4ixmaQI4
- t2b6vIt/t9AOQkr3JsNEn9FJc4V5tKAH1/zwCh9NViyN0PWYO5XHAprxk+JmXGJ04QUWhf8teu
- IHNR0SRxkPbaP52kt7s0+/1+w7z+kcMDgeAAAAA==
-X-Change-ID: 20261021-tdx-guest-quote-poll-0f7bfc59900b
-To: Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Moe Mahhouk <moe@flashbots.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792602996; l=3676;
- i=moe@flashbots.net; s=20261021; h=from:subject:message-id;
- bh=ovLjrwfOdsN8YV/HwtnnZX45Tn33AdVlaLj2iyiZxOg=;
- b=NerAd036wmkMOdNkDJm5yKzKT8DYx11lgGw4sGyYs33FluB7iBSKnw0ovprvbNvjeyeRTOoib
- Chgkf+bdwTWAe2iY3uOW0Za4az4NHjcAknw5+o6DNLQwK+5cV3GQbYR
-X-Developer-Key: i=moe@flashbots.net; a=ed25519;
- pk=hJTKfjLno/YESrpxMIKDJk34GM+/8Tol+24XK2b4xf0=
-X-Endpoint-Received: by B4 Relay for moe@flashbots.net/20261021 with
- auth_id=1259
-X-Original-From: Moe Mahhouk <moe@flashbots.net>
-Reply-To: moe@flashbots.net
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9496ea3b-563f-4517-86d6-e20694e2ec9b@app.fastmail.com>
 
-From: Moe Mahhouk <moe@flashbots.net>
+On Wed, Oct 21, 2026 at 07:02:32PM +0200, Arnd Bergmann wrote:
+> On Wed, Oct 21, 2026, at 18:56, Dmitry Torokhov wrote:
+> > On Wed, Oct 21, 2026 at 05:11:32AM -0500, Bartosz Golaszewski wrote:
+> >> >
+> >> > -	*gpio_ret = desc_to_gpio(desc);
+> >> > +	gdev = gpiod_to_gpio_device(desc);
+> >> > +	fwnode = dev_fwnode(gpio_device_to_device(gdev));
+> >> > +	if (!fwnode) {
+> >> > +		gpiod_put(desc);
+> >> > +		return -ENODEV;
+> >> > +	}
+> >> > +
+> >> > +	*gpio_ref = SOFTWARE_NODE_REFERENCE(fwnode, gpiod_hwgpio(desc),
+> >> > +					    active_low ? GPIO_ACTIVE_LOW :
+> >> > +							 GPIO_ACTIVE_HIGH);
+> >> 
+> >> Sigh... I hate it and it looks hacky but I also don't have a better idea. :(
+> >
+> > Thanks, that is quite common reaction to the code I write ;)
+> 
+> When I looked at this one in the past, the only other idea I had was to
+> completely separate it from the regular gpio_keys driver and just make
+> it a separate input driver. I think that would make this driver a bit
+> cleaner, but it would also require a bit of code duplication and I
+> can't tell if that is worth it.
 
-wait_for_quote_completion() sleeps for a full second before it first
-checks whether the VMM has completed a GetQuote request, and then
-rechecks once per second. Every Quote request therefore takes at least
-one second, however quickly the host answers.
+Yes, I had the same idea and tried doing this. And pretty much ended
+duplicating gpio-keys in soc-button-array...
 
-With a local Quote Generation Service the VMM completes the request in
-a few milliseconds. On an Emerald Rapids host (KVM, QEMU 11.1, Intel
-QGS), 40 back-to-back Quote requests through configfs-tsm took
-1021-1024 ms each; with this change they take 2-3 ms. Since quote_lock
-serializes requests, the one-second floor also caps a TD at about one
-Quote per second, which hurts users that bind a fresh Quote to every
-connection, such as attested TLS.
+Thanks.
 
-Poll with an exponential backoff instead: start at 100 us and double the
-interval up to 100 ms. A fast Quote is noticed within a few milliseconds,
-a slow one costs at most ten wakeups per second. The timeout is
-unchanged, and a pending signal still aborts the wait with -EINTR.
-
-The latency was found while measuring TD boot and attestation times.
-The code and this changelog were written with an AI coding assistant,
-Claude (Claude Code, model Claude Opus 5.5), which also ran the tests.
-Tested on mainline a804c5742 in a TDX guest (KVM host v7.0, QEMU 11.1.2,
-TDX module 1.5.34, Intel QGS) with 40 Quote requests per kernel; builds
-with W=1 and passes checkpatch.pl.
-
-Signed-off-by: Moe Mahhouk <moe@flashbots.net>
----
-The GHCI SetupEventNotifyInterrupt mechanism would avoid polling
-altogether, but it relies on the VMM implementing that service. This
-patch keeps the existing polling model, which works with any VMM, and
-only removes the fixed one-second floor.
----
- drivers/virt/coco/tdx-guest/tdx-guest.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
-index 11d741da3..5cb7365b2 100644
---- a/drivers/virt/coco/tdx-guest/tdx-guest.c
-+++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
-@@ -16,6 +16,8 @@
- #include <linux/set_memory.h>
- #include <linux/io.h>
- #include <linux/delay.h>
-+#include <linux/jiffies.h>
-+#include <linux/sched/signal.h>
- #include <linux/sockptr.h>
- #include <linux/tsm.h>
- #include <linux/tsm-mr.h>
-@@ -271,18 +273,25 @@ static struct tdx_quote_buf *alloc_quote_buf(void)
-  */
- static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
- {
--	int i = 0;
-+	unsigned long deadline = jiffies + timeout * HZ;
-+	unsigned int sleep_us = 100;
- 
- 	/*
--	 * Quote requests usually take a few seconds to complete, so waking up
--	 * once per second to recheck the status is fine for this use case.
-+	 * A local Quote Generation Service usually completes the request
-+	 * within a few milliseconds. Poll with an exponential backoff, from
-+	 * 100 us up to 100 ms, so that a fast Quote is noticed promptly while
-+	 * a slow one costs at most ten wakeups per second.
- 	 */
--	while (buf->status == GET_QUOTE_IN_FLIGHT && i++ < timeout) {
--		if (msleep_interruptible(MSEC_PER_SEC))
-+	while (READ_ONCE(buf->status) == GET_QUOTE_IN_FLIGHT) {
-+		if (time_after(jiffies, deadline))
-+			return -ETIMEDOUT;
-+		if (signal_pending(current))
- 			return -EINTR;
-+		usleep_range(sleep_us, 2 * sleep_us);
-+		sleep_us = min(2 * sleep_us, 100 * USEC_PER_MSEC);
- 	}
- 
--	return (i == timeout) ? -ETIMEDOUT : 0;
-+	return 0;
- }
- 
- static int tdx_report_new_locked(struct tsm_report *report)
-
----
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
-change-id: 20261021-tdx-guest-quote-poll-0f7bfc59900b
-
-Best regards,
---  
-Moe Mahhouk <moe@flashbots.net>
-
-
+-- 
+Dmitry
