@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590316;
-	b=Z7sbFj+/6foAJobUlKM+wmnHbSW2IyB+ZVkdAiKXKjTPJ/nv9hj2huCU2KNqSIuKI+lo
-	 nWuz0eepOxgn3BkaRuL9KLHzEDAQXXzubg8U5ZabiRPZ1hCqenC+pALnOxi2At78t8tKA
-	 6szu5IyNtlbutVMNH3hZKOgabpLx/6ajZ0U8TPwtPUnZsETv0/upzTSrdl3b9MEbgIE24
-	 p9iHVfI77cjYRwbdFU5nS7KszMKk5+irJGYRkQHZCXy1MRVEXAWHLX+Hi/uJxXu7ECkdh
-	 OFN5CiXtxs4zuw5n8Pj564T1Eu3pL4bNm8sWCSac+UewM0g/HnKYGTKZZeqeh6Fd/pA==
+	t=1792590348;
+	b=iK6hI6C1PJU22ERrOq/FssRPnnPoTS5UK4UBrALdadijkSzFDk5PO8T/ZhPtIimnV9ow
+	 CcXbvbGsYHKWtsNdWKwBLTVoReL/XyNVBqO3AbX/RBfzcAD0hmHFujJ3qj+iAxCP9wKL8
+	 NSKX4TIH3ybJWcUxtfGHpP/JJD9LKh5r8NnyLR7OcdB/R3JWZ3TcRR1gHq04F8WyXjEQH
+	 r061crQnGAs8lvTfeP+//OsZa56Tgc2Ywp6p3sFj/RmWqW9twq0IOsDzPVKUSK/v7w+xk
+	 Zxgk6mQLcg9/Sft/oJZRAB2KrC/XFkGICC/W07sQHehbNPET6WHuE623CUCLlzHVOdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590316;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=5pK3nSJ4wLpKfoQCQKqWUDREBlLUyktJJbQs5rz8ksE=;
-	b=jBFvl2UtUh3ltgpMRD4ppFzaOc3OAdjjlPhwEa+h3nJF9ci4hjHCflc996jq5cqJnR8F
-	 hJFrZ5AloiV2s8cz0DmHH181JIcXR2Aotxwa+F4hVgpTUxmClrvnyxSzNt2ly1Ug4TxIe
-	 GPoinmffuNmQJY8ztJ32an74C7AvHQytBo9GnQVSYVZp1MlDJx3lNHNgW1mSRvOXJi05I
-	 s19VJOgpEw78a2LE0HDVJ4A0Y8lGu/NUTg08N69NLnGhfDymQOzYKmODbuldm+c+OA35V
-	 bOY3q9qXTkbc0rIxxFpIpptsm3o4qpoPXsl8xxAb9aHSkegGFj68dRtgyons+qcP7Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590348;
+	h=DMARC-Filter:DKIM-Signature:From:To:CC:Subject:Date:Message-ID:
+	 X-klartext:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=GwYxX1wk58u2mRJeMPK0eBJeUORqabGvuAvjULQKsPI=;
+	b=QmAfk4HaHrlH0/mQxOwu7XYFQ9E2Kmq/inNHmozy76e7+yQg29fKA6JlVfuLoG9JmjKG
+	 bvjiQ3YAsZUQ31W37zlVWYSavX+rEvOaZR2BTVu/j8fYRN3+3Q21IwnAxmQJMAfSHKuFj
+	 w+7SMBsxB4WGEfli7mTigqYaIE/V9ox1tnHH6QpI9ynqTdJciKPHcKDh+GYr2aTLumYWY
+	 cIHw0QCI9QYSkfxKdc6PaSOPwl74ujh9tZCTK3A31ngy2kGOWJLharOWYz+Jc6vhz681Z
+	 JBiEwWeF4XIzJBQfy6SQFITbD/dW0IZqz6Mx9y3lqIyImqYOZmAgvmOIN8MhKm08thA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PaI9DRN/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD29606A31A;
-	Wed, 21 Oct 2026 13:45:15 +0000 (UTC)
+	dmarc=pass header.from=dh-electronics.com;
+	spf=pass smtp.mailfrom=dh-electronics.com;
+	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=GPql0afa;
+	arc=none smtp.remote-ip=116.203.31.6
+Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C5F3606A319;
+	Wed, 21 Oct 2026 13:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C5F3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PaI9DRN/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D891F000C5;
-	Wed, 21 Oct 2026 13:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792590315;
-	bh=5pK3nSJ4wLpKfoQCQKqWUDREBlLUyktJJbQs5rz8ksE=;
-	h=Date:From:To:Cc:Subject;
-	b=PaI9DRN/ig4skT8UNdqqxdYirbU2mI+PrsWHx7KkE1eBVLs8tiM1R0syaMfnV2Wpy
-	 Mn4+iu/xFKhvpsaBZcY7m7UnR51KIgvNDbGxtsPK/zWkKDoziQyLfCN08pvNUmcvux
-	 +6/XUHGrVGxrx+1P3HD+v1/7PZC7EUBsZsUy0k3BoCDItHAF00MZr11YFJZV5Zd3RL
-	 NSgLRJ2JK9T4EXfSv4Hvyjj23Gz+t40PAR19GGziPKi1Vd+uBSpO8cyJKl1IUuAMri
-	 oNp0g2WdVIQkczGQn5ZfqvV3CtbmGwFXV7d0E6ZVTL4CYymnyuf2Tx5/v6fFSap2O8
-	 xZ+Z4Xu2W0Bsw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 4A41D1AC5996; Wed, 21 Oct 2026 14:45:11 +0100 (BST)
-Date: Wed, 21 Oct 2026 14:45:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Oct 21
-Message-ID: <atjB56qH6sl4yo3w@sirena.co.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=GPql0afa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+	s=dhelectronicscom; t=1792590294;
+	bh=GwYxX1wk58u2mRJeMPK0eBJeUORqabGvuAvjULQKsPI=;
+	h=From:To:CC:Subject:Date:From;
+	b=GPql0afaXz3KvtX0jWuuLVZm9xr+e42VbE+OOBRuTufjjkrn/ECrHgaXzhWEUZHhe
+	 hDhkpnf5uK0mccZ1mJzjWmI8HjHtn10YcefBLxHdYqScM09PqFRiGdNr91xQR3pnx9
+	 3YE3U3SsMX89Rt35CSXu6u+FnpWyU4hE1mf/BBliiRUahmuiiiYp42CfNkYofXFQXM
+	 62c924b+NzmvmBr7cYanchI4aPKbo1xoRPUDiRCAaF/dfb/m/d5dMCRQ01E4R495I5
+	 fW5bcpEhbRYHNH9ipZLWhNuml6g4QUk0YfKqfM9U4v2lrxVsiM//CuUthXh3mUtaVu
+	 /9g0TttgrpLPw==
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+To: <linux-arm-kernel@lists.infradead.org>
+CC: Christoph Niedermaier <cniedermaier@dh-electronics.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@nabladev.com>,
+	<devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
+	<kernel@dh-electronics.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused SPI device
+Date: Wed, 21 Oct 2026 15:44:34 +0200
+Message-ID: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
+X-klartext: yes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,72 +61,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uFq43R0oQpOopVds"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+On the maveo box, the SPI pins are connected to connector X10,
+but no device is connected. The device "dhcom-board" was used
+only to test the hardware, but was not removed afterward. So
+remove this device to accurately represent the current hardware
+configuration here.
 
---uFq43R0oQpOopVds
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
+Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+---
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: kernel@dh-electronics.com
+Cc: linux-kernel@vger.kernel.org
+---
+ arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts | 8 --------
+ 1 file changed, 8 deletions(-)
 
-Hi all,
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
+index 047f7b2d8526..eb0b91040110 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
+@@ -60,14 +60,6 @@ &ecspi4 {
+ 	pinctrl-0 = <&pinctrl_ecspi4>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
+-
+-	spidev@0 {
+-		compatible = "dh,dhcom-board";
+-		reg = <0>;
+-		spi-cpha;
+-		spi-cpol;
+-		spi-max-frequency = <54000000>;
+-	};
+ };
+ 
+ &gpio1 {
+-- 
+2.30.2
 
-Changes since 20261020:
-
-The kbuild-current tree acquired a conflict with the origin tree.
-
-The bluetooth-fixes tree acquired a conflict with the net tree.
-
-The rust tree acquired a conflict with the kbuild-fixes tree.
-
-The mm tree acquired a conflict with the origin tree.
-
-The gpio-brgl tree acquired a conflict with the origin tree.
-
-Non-merge commits (relative to Linus' tree): 16460
-
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 434 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---uFq43R0oQpOopVds
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatjB2QAKCRAv73Ows9A4
-icomAP9IUMq5lQ/83TsaNtekPtT14SMNAaWcRMtcQ46lTuon2wEAgW/DueS4ZRCn
-BbUemcnO0RUCIhxkPA+vUaBIG8FSLg0=
-=5QZv
------END PGP SIGNATURE-----
-
---uFq43R0oQpOopVds--
