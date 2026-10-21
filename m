@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792623541;
-	b=bx/OSTTESFd/l6rTcXEjVPKaFgVmFRJ7o0+YJo0d1myyxvPToONvkfmycH9KOXMe0JtU
-	 r2Z0Gitijwp+Nep8Y2z+71XwQZqzJgMGYWpVpU+um445XGGGrJvlL+Hi1e0cfDJTxChmF
-	 Bws4CZYWLfpYvofRKPerzt+ew0SssWx338+TEeY+d2BPsLazxdYvqpjiiJjKx3JEWrK5x
-	 zQwUN9fi5OLRbj1b66XGoEAA+hw+8v5k3m2BV+uBHt8B5FE4OmSHMMWmHXOHYC4gl7fUt
-	 V6J5vRP4DA3g05KMz4WGDTGUa28HFXn3kT6WsVJLWcvEe6wboCosMtHd+2WHOR0Q7iw==
+	t=1792623535;
+	b=IDLdq6egtACanemE+e2pIfNHnrLrXILkvCP7YV9A8RuulBLarJP9PpPBLOKEKfGdz05N
+	 QETN8LuZG4YrRaBcbwYLvtThe5b0HSs7gAn+WeTY/HdauKLgvzrBTnrt5xsjRNduA7oMB
+	 Fp99Zxzdp62yoFy9bdfZl9UFSXz95zDQs6ZoF9/aT7/4OWrbxSh2NMY8qihX7AE9hJ/w5
+	 eod+GWvLJgGjVHynRUAx3DCUcAUAHXOL4k7JMnhfew4b14rBGpn2YXJpU3NOSGbRGssvs
+	 T38N4mBh9s/cjMVsnG/nO5n7av1Nz+ld6rg4sOBgNrWgFgmJmZrLWOk4SvaeRviXUjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792623541;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792623535;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=bGFxZD6xNVodRu361F4ICxHoOfRqAEYXJii33uzdyvY=;
-	b=uHMbRWkKt/+H5b5uiB5uLxpzMFEPiBvGLXbPDsuYFDdNUyvn5iUnfU+RsE8yjrBifvny
-	 lem0yLeGEuKcuiz8Sr3ECKhOWNJIXQoIzHa11c+GtENZbCOYokj3oVS6gG3WrrgxA0FPf
-	 YCrFYPkn/Hw8GNZRCY/zzMw51dFASeqfW8NcCDbHODZrYZ02iE/h7y4FTnt4QvYRAxDEq
-	 YP/OhNykmhyJL2g2PWBi+Xso/oTkcrHo1Ggb7+T0jLi1b8DF6y0HlSo4B2oHeRTVKZh0j
-	 oOyofsOEt889/fGutUIIfUfDkfMQQYC2SVZ9pyWSYPY7uUudp7oUvUzg/Fs2aM52MeA==
+	bh=tlSKJT8HzkuZ0adk32vyh7qjQd77kLOszqukCnHcIyg=;
+	b=q1+090tRwDwp+wWQFKbAEIuxhnF4hSyUhhMCp2W0bz33tOHaG5sfPufZe7O1Pu1clrM+
+	 WiiBodcHqCdQ8PNP2OyqCr8AdwWlVHvwhFmwMhQkCV6+ood+JomIyXtnR6GN2B2faJApm
+	 zAZeki8qgRoBifbjvZgOwD/5PNbFBmir0z7MiBBM16GHEknLiQsTsD+GTEbzqJh1cu4/e
+	 bhobZXZvkXS+XiBeQE3m/Bk50wxwYFHBxsPnPcG0asYJm5mzjCIg6J5igNvlnEiyREb9k
+	 wNREP09N8l6FGfoBM3ls2ZW5rPmaM6H8kGk+dvPSiNxbe+Ngqfa9fYVTgDSCu6gqTQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzIXv+Zu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ia7HUW87;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCCB606A327;
-	Wed, 21 Oct 2026 22:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4CC606A31A;
+	Wed, 21 Oct 2026 22:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzIXv+Zu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFE61F000C6;
-	Wed, 21 Oct 2026 22:58:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ia7HUW87
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A351F000C2;
+	Wed, 21 Oct 2026 22:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792623534;
-	bh=bGFxZD6xNVodRu361F4ICxHoOfRqAEYXJii33uzdyvY=;
+	s=k20260515; t=1792623535;
+	bh=tlSKJT8HzkuZ0adk32vyh7qjQd77kLOszqukCnHcIyg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hzIXv+Zu1/8oGU9nyhzCDIejAAqX9ltT4VjZ6i36ttUTO7XeBlyY6kS2E00ny9trN
-	 +naXuQmRnNKIEuRHfCQYL33YuTpVw6EG6aGTpSA19At3l1ECMPwuXmr0Oywana0mVM
-	 Y9m4HCL+4AyD/rpXuzKNdefM7JQlyv+xzo0y7BVJ1rvpW7bZ7di9775GgKll67j2qD
-	 8sBgtruRFhB1srkk7KbfuJGrT21vw1wVnV0Jnn7+1xIC0SLt+X5dJWDW+VLIVjK+K7
-	 DnQarWZJQXXjp22lIGWXaPYOMMllZsBpA/C6X5gH0lruHBuHAJhY/mnJGcMtJ3MPfV
-	 AGe2VUtCuQlgQ==
-Subject: Re: [PATCH v3 09/10] can: peak_usb: unregister the netdev before
- dev_free() on probe failure
+	b=Ia7HUW879PmbASSejt/wI4JhGygvjkg4/q2mEtLzMULkmafQizrYwbbLJniGimDbb
+	 UsV7oYpgYtQOG+jj0wNH0qbvMMONNu49MxbzDpz8exFVyrQId3S1tPgmQuvgFMWNEa
+	 O8sImoq70d8WC68cBClwvjmJ8a5Q1EIco+TAg2eaQHM5RaI+rXoDrOPtFZWej6pGO3
+	 yBkN53FTlQk1dLULSt4wn/JXsPY6jmWSPh4aqgPnA6aK6tbwgHWmxyl4uhVKkA+BZd
+	 MNupLWb1d15eeHFRx9yYHRLS66QUUUEfSuXuD8l35MaV3V9SIW5ueTJJNMw5xDBIDL
+	 vZaFi/kufMSlQ==
+Subject:
+ Re: [PATCH v3 10/10] can: peak_usb: only dump received bytes on decode error
 From: netdev-bot+sashiko@kernel.org
 To: stephane.grosjean@free.fr
 Cc: mkl@pengutronix.de, mailhol@kernel.org, error27@gmail.com,
  wg@grandegger.com, s.grosjean@peak-system.fr, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Wed, 21 Oct 2026 22:58:53 +0000
-Message-ID: <179262353328.3131.14088207507034751765@kernel.org>
+Date: Wed, 21 Oct 2026 22:58:54 +0000
+Message-ID: <179262353431.3131.13190579092278457529@kernel.org>
 In-Reply-To:
- <20261020-canfd_check_channel_idx-v3-9-74d17c5a599e@peak-system.fr>
+ <20261020-canfd_check_channel_idx-v3-10-74d17c5a599e@peak-system.fr>
 References:
- <20261020-canfd_check_channel_idx-v3-9-74d17c5a599e@peak-system.fr>
+ <20261020-canfd_check_channel_idx-v3-10-74d17c5a599e@peak-system.fr>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -69,7 +69,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 (2) · Medium: 0 (2) · Low: 0 (2)
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,260 +77,122 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Incomplete fix: the same close-after-free use-after-free is
-  still reachable when dev_init() fails on PCAN-USB FD channel 0.
+- [High] The patch only partly does what it says.
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  peak_usb_create_dev() makes the netdev visible with register_candev()…
-- [High] This problem wasn't introduced by this patch, but the PCAN-USB
-  (pcan_usb.c) asynchronous restart is never drained before the device…
-- [Medium] On PCAN-USB FD all channels share one command buffer
-  (pdev->cmd_buffer_addr is copied from channel 0 in pcan_usb_fd_init()).
-- [Medium] If the registered netdev is opened between dev_init() and
-  probe's unconditional dev_set_bus(dev, 0) in peak_usb_create_dev(),…
-- [Low] The comment above pcan_usb_pro_free() still says it is 'called
-  when PCAN-USB Pro adapter is unplugged'.
-- [Low] On PCAN-USB FD and Pro, the first channel's dev_init() sends
-  drv_loaded(1) and sets the LED.
+- [Medium] This problem wasn't introduced by this patch, but
+  pcan_usb_pro_decode_buf() (pcan_usb_pro.c:737-758) runs its loop on…
 
 --
 
-can: peak_usb: unregister the netdev before dev_free() on probe failure
+can: peak_usb: only dump received bytes on decode error
 
-This patch reorders the adap_dev_free error path in peak_usb_create_dev()
-so that unregister_candev() runs before the adapter's dev_free() callback,
-as peak_usb_disconnect() already does. The goal is to stop ndo_stop from
-touching the shared interface object and the PCAN-USB FD command buffer
-after dev_free() has released them when dev_set_bus(dev, 0) fails.
+When decoding fails, peak_usb_read_bulk_callback() now dumps only the
+urb->actual_length bytes received from the device, not the whole RX
+buffer. That dump is also rate limited with net_ratelimit(), because a
+faulty or malicious device can make every transfer fail to decode.
 
 > diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-> index 4c08656e77681..981168fead927 100644
+> index 981168fead927..a58317cdde4eb 100644
 > --- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
 > +++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-> @@ -1039,8 +1039,13 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
->  	 */
->  	peak_usb_stop_rx(dev->prev_siblings);
->  
-> +	/* as in peak_usb_disconnect(), unregister the netdev before calling
-> +	 * dev_free(): closing it may still use what dev_free() releases.
-> +	 */
-> +	unregister_candev(netdev);
->  	if (dev->adapter->dev_free)
->  		dev->adapter->dev_free(dev);
-
-[Severity: Low]
-This is a pre-existing issue, but the comment above pcan_usb_pro_free() in
-pcan_usb_pro.c still mentions only unplug:
-
-/*
- * called when PCAN-USB Pro adapter is unplugged
- */
-static void pcan_usb_pro_free(struct peak_usb_device *dev)
-
-This probe failure path also reaches it, and it can kfree() the shared
-pcan_usb_pro_interface here. The FD version, pcan_usb_fd_free(), already
-says "called when the USB adapter is unplugged, or when probing a sibling
-fails".
-
-Could the Pro comment be updated to match?
-
-> +	goto lbl_restore_intf_data;
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but on PCAN-USB FD and Pro the
-first channel's dev_init() has already told the firmware that the driver
-is loaded:
-
-pcan_usb_fd_init()
-	err = pcan_usb_fd_drv_loaded(dev, 1);
-
-pcan_usb_pro_init()
-	err = pcan_usb_pro_drv_loaded(dev, 1);
-
-Only dev_exit() sends the matching drv_loaded(0) and turns the LEDs off.
-This path, the lbl_unregister_candev path and peak_usb_disconnect() never
-call dev_exit().
-
-After a failed probe, does the adapter stay connected in the "host driver
-loaded" state with no driver bound?
-
->  
->  lbl_unregister_candev:
->  	unregister_candev(netdev);
+> @@ -265,10 +265,10 @@ static void peak_usb_read_bulk_callback(struct urb *urb)
+>  		/* handle these kinds of msgs only if _start callback called */
+>  		if (test_bit(PCAN_USB_STATE_STARTED, &dev->state)) {
+>  			err = dev->adapter->dev_decode_buf(dev, urb);
+> -			if (err)
+> +			if (err && net_ratelimit())
+>  				pcan_dump_mem("received usb message",
+>  					      urb->transfer_buffer,
+> -					      urb->transfer_buffer_length);
+> +					      urb->actual_length);
 
 [Severity: High]
-This handles the dev_set_bus() failure. Can the same close-after-free
-still happen when dev_init() fails on the first PCAN-USB FD channel?
+Does this rate limit cover the case the commit message describes? The FD
+and Pro decoders dump the same buffer themselves, with no rate limit,
+before they return the error to this callback:
 
-That failure still ends up here:
-
-peak_usb_create_dev() {
+drivers/net/can/usb/peak_usb/pcan_usb_fd.c:pcan_usb_fd_decode_buf() {
     ...
-	if (dev->adapter->dev_init) {
-		err = dev->adapter->dev_init(dev);
-		if (err)
-			goto lbl_unregister_candev;
-	}
-    ...
-}
-
-On its error path, pcan_usb_fd_init() frees both shared objects and leaves
-the pointers set:
-
-pcan_usb_fd_init() {
-    ...
-		err = pcan_usb_fd_drv_loaded(dev, 1);
-		if (err) {
-			...
-			goto err_out_2;
-		}
-    ...
-err_out_2:
-	kfree(pdev->cmd_buffer_addr);
-err_out_1:
-	kfree(pdev->usb_if);
-err_out:
+fail:
+	if (err)
+		pcan_dump_mem("received msg",
+			      urb->transfer_buffer, urb->actual_length);
 	return err;
 }
 
-The netdev is registered before dev_init() runs, and the device can stall
-the pcan_usb_fd_drv_loaded() request until it times out. If the interface
-is brought up during that window, pcan_usb_fd_start() increments
-usb_if->dev_opened_count. After the free, unregister_candev() here then
-runs:
-
-unregister_candev()
-  peak_usb_ndo_stop()
-    peak_usb_unlink_all_urbs()
-    pcan_usb_fd_stop()
-      if (pdev->usb_if->dev_opened_count == 1)
-          pcan_usb_fd_set_options()  <- command built in freed cmd buffer
-      pdev->usb_if->dev_opened_count--;
-    pcan_usb_fd_set_bus(dev, 0)      <- freed cmd buffer written again
-
-pcan_usb_fd_send_cmd() checks PCAN_USB_STATE_CONNECTED, but that bit is
-still set for dev on this path, so the sends go ahead. The RX URBs
-submitted by the open also keep decoding through the freed usb_if until
-peak_usb_unlink_all_urbs() kills them.
-
-The commit message describes this same scenario, and no later patch in
-the series touches this path.
-
-Would it be better to keep dev_init() from freeing state the netdev can
-still reach? Another option is to register the netdev only after
-dev_init() and dev_set_bus(dev, 0) succeed.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but register_candev() runs
-before dev_init() and dev_set_bus(dev, 0). What stops an open from racing
-with the half-initialized device? The only check in peak_usb_ndo_open() is:
-
-	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
-		return -ENODEV;
-
-That bit is already set before registration.
-
-On PCAN-USB Pro, pcan_usb_pro_init() sets pdev->usb_if only at the very
-end. Before that it sends two pcan_usb_pro_send_req() INFO requests and
-calls pcan_usb_pro_drv_loaded(), and the device can stall each of them:
-
-pcan_usb_pro_init() {
+drivers/net/can/usb/peak_usb/pcan_usb_pro.c:pcan_usb_pro_decode_buf() {
     ...
-	pdev->usb_if = usb_if;
-    ...
+fail:
+	if (err)
+		pcan_dump_mem("received msg",
+			      urb->transfer_buffer, urb->actual_length);
+
+	return err;
 }
 
-Suppose the bitrate is set and the interface brought up during that
-window:
+Device-controlled data reaches these paths: "got frag rec", "got short
+rec", "got unsupported rec", and errors from the per-record handlers. The
+URB is resubmitted right away.
 
-peak_usb_ndo_open()
-  peak_usb_start()
-    pcan_usb_pro_start()
-      if (pdev->usb_if->dev_opened_count == 0)  <- usb_if still NULL
+Can a faulty or malicious device that presents as an FD-family or Pro
+adapter still flood the log on every bulk-IN completion? Each dump can be
+up to rx_buffer_size bytes, which is 2048 for FD and 1024 for Pro.
 
-Would this be a NULL pointer oops?
+As far as I can tell, only pcan_usb_decode_buf() gets the benefit of the
+net_ratelimit() here, since it has no dump of its own. For FD and Pro
+adapters, whenever net_ratelimit() allows it, the same bytes are printed
+twice.
 
-FD has the same problem with a shorter window. pcan_usb_fd_set_bittiming_slow(),
-pcan_usb_fd_start() and pcan_usb_fd_send_cmd() dereference
-pcan_usb_fd_cmd_buffer(dev) and pdev->usb_if before pcan_usb_fd_init()
-assigns them.
+The netdev_err() messages on those failure paths aren't rate limited
+either. One example is in pcan_usb_pro_decode_buf():
 
-[Severity: Medium]
-This is also pre-existing and comes from the same register-before-init
-ordering. Suppose the netdev is opened after dev_init() but before this
-probe-time call in peak_usb_create_dev():
+	if (!rec_ptr) {
+		netdev_err(netdev, "bad msg hdr len %d\n", urb->actual_length);
+		return -EINVAL;
+	}
 
-	/* set bus off */
-	if (dev->adapter->dev_set_bus) {
-		err = dev->adapter->dev_set_bus(dev, 0);
+Another is the "usb message length error" message in pcan_usb.c.
 
-This puts the controller back in reset mode (PUCAN_CMD_RESET_MODE on FD,
-SETBUSACT 0 on Pro). If the command succeeds, probe returns 0 and the
-netdev stays up: can.state is CAN_STATE_ERROR_ACTIVE,
-PCAN_USB_STATE_STARTED is set and the TX queue is running.
-
-Does that leave an interface that neither sends nor receives until it is
-taken down and brought up again?
+One option is to drop the decoder-level dumps, so this rate-limited dump
+is the only one. Another is to put them behind net_ratelimit() too. In
+either case, the related netdev_err() calls could be guarded the same
+way.
 
 [Severity: Medium]
-This is a pre-existing issue, but on PCAN-USB FD every channel shares one
-command buffer, copied from channel 0 in pcan_usb_fd_init():
+This is a pre-existing issue and wasn't introduced by this patch. While
+looking at the decoder dumps, though, is there an out-of-bounds read in
+pcan_usb_pro_decode_buf()? The loop count comes from the device, and
+pr->data_type is read before rec_ptr is checked against msg_end:
 
-		pdev->cmd_buffer_addr = ppdev->cmd_buffer_addr;
+	rec_cnt = le16_to_cpu(*usb_msg.u.rec_cnt_rd);
+	for (; rec_cnt > 0; rec_cnt--) {
+		union pcan_usb_pro_rec *pr = (union pcan_usb_pro_rec *)rec_ptr;
+		u16 sizeof_rec = pcan_usb_pro_sizeof_rec[pr->data_type];
+		...
+		/* check if the record goes out of current packet */
+		if (rec_ptr + sizeof_rec > msg_end) {
 
-While probe initializes channel N, it writes into that buffer without RTNL
-or any other lock. The writes come from pcan_usb_fd_set_clock_domain() and
-pcan_usb_fd_set_can_led(), and then from pcan_usb_fd_set_bus(dev, 0) in
-peak_usb_create_dev().
+Suppose the records exactly fill urb->actual_length and rec_cnt claims
+more. Then rec_ptr ends up equal to msg_end, and the next iteration reads
+transfer_buffer[actual_length].
 
-Meanwhile, a sibling that is already registered can be opened, configured
-or driven through ethtool under RTNL, and it writes the same buffer, for
-example:
+If actual_length is PCAN_USBPRO_RX_BUFFER_SIZE (1024), that byte is one
+past the kmalloc() buffer. KASAN would report it as slab-out-of-bounds.
 
-pcan_usb_fd_start()
-  pcan_usb_fd_set_filter_std()
+pcan_usb_pro_wait_rsp() has the same pattern, and it has no
+end-of-buffer check at all:
 
-Can these commands interleave, so that the adapter receives a corrupted
-command list?
+		rec_cnt = le32_to_cpu(*rsp.u.rec_cnt);
 
-[Severity: High]
-This isn't a bug introduced by this patch either. On PCAN-USB (pcan_usb.c),
-the asynchronous restart doesn't seem to be drained before free_candev(),
-either on this error path or in peak_usb_disconnect().
+		/* loop on records stored into message */
+		for (r = 0; r < rec_cnt; r++) {
+			pr = (union pcan_usb_pro_rec *)pc;
+			rec_len = pcan_usb_pro_sizeof_rec[pr->data_type];
 
-pcan_usb_restart_async() submits an unanchored URB with pdev as its
-context:
-
-	usb_fill_bulk_urb(urb, dev->udev,
-			usb_sndbulkpipe(dev->udev, PCAN_USB_EP_CMDOUT),
-			buf, PCAN_USB_CMD_LEN,
-			pcan_usb_restart_pending, pdev);
-
-	return usb_submit_urb(urb, GFP_ATOMIC);
-
-The completion arms a timer without checking urb->status:
-
-pcan_usb_restart_pending()
-	mod_timer(&pdev->restart_timer,
-			jiffies + msecs_to_jiffies(PCAN_USB_STARTUP_TIMEOUT));
-
-The timer callback then touches the device:
-
-pcan_usb_restart()
-  peak_usb_restart_complete(dev)
-	dev->can.state = CAN_STATE_ERROR_ACTIVE;
-	netif_wake_queue(dev->netdev);
-
-Nothing in pcan_usb.c calls timer_delete() or timer_shutdown() on
-restart_timer, and the adapter has no dev_stop or dev_free callback.
-peak_usb_ndo_stop() only kills the RX and TX anchors, and close_candev()
-only cancels the CAN core restart work.
-
-Suppose a bus-off restart (restart-ms, or "ip link set canX type can
-restart") is still in flight when the device is unplugged or probe fails.
-Can the URB completion or the timer then run on the netdev private area
-after free_candev() has freed it?
+With a u32 rec_cnt supplied by the device, can pc walk past
+actual_length here? If so, the out-of-bounds bytes could be printed by
+the "got unwanted rsp %xh" and "got rsp %xh but on chan%u" messages.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-canfd_check_channel_idx-v3-0-74d17c5a599e%40peak-system.fr
