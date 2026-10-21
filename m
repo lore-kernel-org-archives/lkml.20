@@ -1,96 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595444;
-	b=aEDMWUf1no0aVTDf0UcGrFjvODj/Lup1QYd0UTIxpYrepmOcu72SthlLi7PPhrE6zH8Y
-	 wc+Jt8I0SO33eV8OkYdFxYz773SzvM5KznD5Ic4FId8OWU5gJfW6hQMIVj7Nal2lH2Qzl
-	 LLVGk1RtdmbC6D0Wn+FxWd8nfgztToc0BerAdSojSW0xgxgknCEUWknyAOaMpoi9Yo1zd
-	 p+A34dT/fieoKIrriFT8BfAz2S02KvBfVFIDc0H5KHhuj5hRPElbw+yNwcC4jn2wXZz3F
-	 OqzaUVMvGVF3N8c8kU69E6uggn3Q+v0l0o6p0nXLf4AlSbW8lfhBivs+hNbWgoQfQ3g==
+	t=1792595465;
+	b=Vx3PzVHe4xYYG9ecfgfusFwUIvx2gBiCHZA7ycHYFMiKpDL5wqGyepESj2Y5ZVTy9GE4
+	 IE/pCnIg5Nt1/OepSCTmAbBUh4nhqYyEUvronY48+6nKic8ShaQ/+8cwDrDXPcvYUbWYc
+	 f/oHKWklHwHmu17cqu7UK8MOgDbg+vzpRvEJx142XiNqCnnwKZwezPv7BF8Z9jhXN5x1Z
+	 SEr9tNzgYerLQVK85uOm/eh0dAh9t63aK2ZxZetr1c3OOA61H7sKdhYMEEtP0HBKHMAIS
+	 TsHrM+SdJ+HYV7dXsk1AT6PcGpf8V8Kcv6F+2UDR8pks3u4OJWDdIH49psEdCtSCb4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595444;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=W8mbMH/zd4LfA7Gj7RbbT0d7KvJilvfrispWtDi6taQ=;
-	b=TlBYsxJWoZCwKqkKiM2zUdTpOYVnOjAB3t/f+jIP1znWcntVmh6b0rax8wbHXqVQ3DuV
-	 tXi15O8ZKw0kaktlfG6epoMmEFDqyhF8i4BMIZKJ8dSsj8DI7kdwwR4E3vAK5mlEQ8/SZ
-	 5ik/wUFf3BHA/f1Vl/eLMipuTnFpDP4GGsOxtsDNtl0EYPZqs9wx2wz+quhNgyJhrPGJg
-	 dw6bCaVTo2tmuipmz8guDi80QnPglJnrKM4bfVIvgujYCACDBM52L+yFRCZjX8fzh64z3
-	 VyqmUE/rign6JqLFvZByVQ6hAAARzlrXlkqvoNMeqg45hqKT6RUpA4dOnnN/EaiDUdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595465;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Ge43eIHUMDj2Nf9HJikyp0YoVqIdxuYhYlKmwDwqUc8=;
+	b=Ss9HNrJCsSKV2SRzPNFIwKlJ+zVaQHCFjJDkeQtTji/C/oV/u//X+eHnid7z/EeCdBwE
+	 DmuPVzUzYc5o4oXUz8NtlrMollbi/02jdtq4331/hOnzR5n1TuS3J8TPm/1+BCX0axcz9
+	 qKDYfbc8vXWYU0YtPyr8m8bbgykAqpvKPZmFIZlVpdwrwpO6Ft4b8qjDqsvWgjOrVT054
+	 LqvgUTb6tWWcCN0RELIDz4PHOrsuEzlNRKzvOF5iF6ynZidetR05L8pDRjilbPd3wQv9R
+	 Hw7BOVfsjkjXI3eU578q/GEMjMOGiAPy8R9Mg/azqIHfGk8rt4F3Wo7HzrxqAeR+rRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="jwTMR9D/";
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="gZ/TDgzK";
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F293D606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F293D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEAA606A319;
+	Wed, 21 Oct 2026 15:11:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFEAA606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jwTMR9D/
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so9988395e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:10:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792595442; x=1793200242; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W8mbMH/zd4LfA7Gj7RbbT0d7KvJilvfrispWtDi6taQ=;
-        b=jwTMR9D/gfasU3/o9bndwoGOsikOYd3KZcNt6YADXeFTnchLV78PDoLv4SYJX5BFBS
-         Eyj/6G8mH/ehvkBe4+u+i6t3hOBWF/Gk0ulUTgVFTElVCxTQHSRoL3dJmUds5/ydNZvd
-         HY/O5dHYG7C/mU1JtvWd9xt0qf1j4O52JM0M524yVle+uGYziWoz3TSSRHxFfmvTfib7
-         7KrCKvDsq+XRqXoNXUMwa8nPzyXizBSazY7dcvkJ3DIJjlsTGSX+wJK4j3+TQlhptZPr
-         PAYDXMR2Pe79rIPp0irRoaTfbkppt9XE01kSTtpMGfWYBZ5D/PT9j0jS87p5DWdigitm
-         kWAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595442; x=1793200242;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W8mbMH/zd4LfA7Gj7RbbT0d7KvJilvfrispWtDi6taQ=;
-        b=whINr0YLo7umXUvDfuLwhTaaEnPMnFLV2nxCsGvO7cwzFZg9LEUhKQ0UUmIj6jG4hn
-         a6mos7o4OCU7aJjdZCkj4RYisMSv0xK6ax5xUZx0KRipQ+8G7hqIE/8RDFNmM2T7Badc
-         t4uM3hpwYsXHDsgw92N0TyNwummaMsJMBDLWTkkwkBF3Z8NXxGAJZW37QYE1jzz19Ian
-         GcTCOH2y1F6dusGHOS6tvLij3YnHBnkFH4UuDhYh9Z3XZtOXSVjZIJYI93I15nrxibkW
-         YI1yFj2CdfXP0AXVEoqo6t73kWxioUHQeYX/CFlvaI0HY1me0/sDWG1azUvke5Fh9FKS
-         Dbpg==
-X-Forwarded-Encrypted: i=1; AKwUvByFFLenLWD0UgeC5YmK8UZ+Yg+5dvBQwdwBMLX/8LhxxvCoDOCYwyF7gTNwKahnZXGwV4w08F9BG3TQF0w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZ6YtKGByAx2GGIgaU73R65ZFCgM3JWRLQAtPyhIcAdG77NqH9
-	H85i9eHTad3RPgvbkTBGBg0FE7Bm0p5tLBUjU2ASWIpxxh8aii3ME558soOcgBq+r/M=
-X-Gm-Gg: AYBFou1YvvK4ue/6K/0VLTi0IlhtiGiDU56OLep59mQFV/srMvMSJpIf5gfCiqZBx/C
-	i477Sxz5n5moH3KkjLF1aXfzGOXvfRopJP9Q3wx7c7EtBtQ7Y0MbFVYYDIx4yvFeE7G9ohu+Lpg
-	lkeZryi3IBk9BQmV522xXFl3H5xxYbainQfG477F72nhUPcgGGHHJ9D3xHRz7Zd9SK4lgOoU5p0
-	hy2LwUtwaOp6fS2N+EvodPhN29Crhr4U/HduQZJ00PBd/6X0cxtZfQmsjSFijRu+EfshePKVOph
-	Vtqpy4hhsgL9UDwC4euLNo2grLLXZaYct6p3ULun5uSC/ScVt4YKZ3uvZEaWHkaM5muLl0KklHG
-	AlvWVHV7J6eghhyD+6X8Islj8Tfkxk3U3mQc9K1DYo9s/bEj4ReAT8ifj4OBPMEJwSl00Lv/gwR
-	xDHIE2vFQVXBfGZvhqoZ/lFWsfEU5CK39U+aeRkQF+ZLWajLNOfaAFr4uhFRHKuAUiKt0WgEYDA
-	b+I4T+cUZqmDEZH3h6plC3BSDerTyykoCT9LRREK+vHpSn+IOXFUJ7K/izcRpcEd8KTqh+dI6BZ
-	BGUSZSgv1pE+n1sbk2B6VOrKataQ8NmbmzvWin2Ooy3nrhEE2PrFanYQ+fhT2Uds
-X-Received: by 2002:a05:600c:3d92:b0:4a1:dbb7:bb44 with SMTP id 5b1f17b1804b1-4a1fdb1d84fmr50055655e9.5.1792595442409;
-        Wed, 21 Oct 2026 08:10:42 -0700 (PDT)
-Received: from localhost (p200300f65f19a904634661a51962f5e0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6346:61a5:1962:f5e0])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm58202855e9.0.2026.10.21.08.10.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:10:41 -0700 (PDT)
-Date: Wed, 21 Oct 2026 17:10:40 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Herve Codina <herve.codina@bootlin.com>, 
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
-Message-ID: <atjVWgpbnejKtblE@monoceros>
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gZ/TDgzK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792595464; x=1824131464;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=gTDFgNaBbiHHvEgqK5fPS/5wgU6d/2pzUAVf1hPnHAU=;
+  b=gZ/TDgzKTTdb2pQ59X3YV4msjIoPdKjQ5YxjFcQasRqn58YIGS35uYot
+   XJiI9JoNQlWR55lj99PTjx6LVvN8C//hbU5X8sA6gvkUFAlfhB6JZZGd/
+   xt6O5oq66HS530NP96//NJlSe7uc12F0QIBL9nFnvc3A71l9V8rgGGw5c
+   9GSUhXYGQXxOTGJ+o/uLzsFSx/ebYF6a220i/7bOFudYQMJzRblNp0KjL
+   hx7JhQbYLRSNACrQv7ilDIKD1RTktyBfnU4hKzCHGcW9WjmWcZWIxZwcM
+   jKROX4wYqnTXvv26KmLQvWv2O3GH3QUO1V+4+GOXZ9oazEAR35o6CvPpv
+   w==;
+X-CSE-ConnectionGUID: 9K+WimJ6SiyK+veoEDNWaQ==
+X-CSE-MsgGUID: u115l8poQ/+rsEHsK8KMcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1224947"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1224947"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 08:11:04 -0700
+X-CSE-ConnectionGUID: Rnwad+ELRdu9zFnFRezKNg==
+X-CSE-MsgGUID: NXdZdAywRaq0JFELYkPAAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3451749"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.133]) ([10.125.111.133])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 08:11:03 -0700
+Message-ID: <68cd9767-3079-4f23-9416-4637815a4a56@intel.com>
+Date: Wed, 21 Oct 2026 08:11:02 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,64 +72,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5zdcowfgw4xunjqo"
-Content-Disposition: inline
-In-Reply-To: <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] lib/firmware_table: validate subtable bounds
+To: jiale yao <19888972804@163.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org
+References: <20261016144154.2818962-1-yaojiale02@163.com>
+ <20261016161547.bc418897d11f3f19924065b4@linux-foundation.org>
+ <10926256-ce32-4403-9f45-84f42fefe29c@intel.com>
+ <748c0fc7.9d0c.1a15efdf1bc.Coremail.19888972804@163.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <748c0fc7.9d0c.1a15efdf1bc.Coremail.19888972804@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---5zdcowfgw4xunjqo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
-MIME-Version: 1.0
 
-On Wed, Oct 21, 2026 at 12:27:46PM +0200, Paul Louvel wrote:
-> +#include <linux/i2c.h>
-> [...]
-> +#include <linux/mod_devicetable.h>
+On 10/21/26 8:04 AM, jiale yao wrote:
+> At 2026-10-19 23:29:57, "Dave Jiang" <dave.jiang@intel.com> wrote:
+>>
+>>
+>> On 10/16/26 4:15 PM, Andrew Morton wrote:
+>>> On Fri, 16 Oct 2026 22:41:54 +0800 Jiale Yao <yaojiale02@163.com> wrote:
+>>>
+>>>> The generic firmware table walker dispatches matching entries after only
+>>>> checking that a generic subtable header is present. A record whose
+>>>> declared length is shorter than its header or extends past the table can
+>>>> therefore reach a handler before its bounds have been established.
+>>>>
+>>>> Validate the complete generic header and the declared record range
+>>>> before looking up or invoking a handler. This also rejects zero-length
+>>>> records and prevents malformed lengths from advancing the cursor outside
+>>>> the table.
+>>>
+>>> Thanks.
+>>>
+>>> get_maintainer is quite unreliable with lib/ files.  Please always use
+>>> git-blame when determining who should be cc'ed.
+>>>
+>>> Dave, can you please take a look?
+>>>
+>>>> --- a/lib/fw_table.c
+>>>> +++ b/lib/fw_table.c
+>>>> @@ -172,7 +172,20 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
+>>>>  	    ((unsigned long)table_header + table_size);
+>>>>  	subtable_len = acpi_get_subtable_header_length(&entry);
+>>>>  
+>>>> -	while (((unsigned long)entry.hdr) + subtable_len < table_end) {
+>>>> +	while ((unsigned long)entry.hdr < table_end) {
+>>>> +		if (table_end - (unsigned long)entry.hdr < subtable_len) {
+>>>> +			pr_err("[%4.4s] Invalid subtable header\n", id);
+>>>> +			return -EINVAL;
+>>>> +		}
+>>>> +
+>>>> +		entry_len = acpi_get_entry_length(&entry);
+>>>> +		if (entry_len < subtable_len ||
+>>>> +		    entry_len > table_end - (unsigned long)entry.hdr) {
+>>>> +			pr_err("[%4.4s:0x%02lx] Invalid length %lu\n", id,
+>>>> +			       acpi_get_entry_type(&entry), entry_len);
+>>>> +			return -EINVAL;
+>>>> +		}
+>>>> +
+>>>>  		for (i = 0; i < proc_num; i++) {
+>>>>  			if (acpi_get_entry_type(&entry) != proc[i].id)
+>>>>  				continue;
+>>>> @@ -186,16 +199,6 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
+>>>>  			break;
+>>>>  		}
+>>>>  
+>>>> -		/*
+>>>> -		 * If entry->length is 0, break from this loop to avoid
+>>>> -		 * infinite loop.
+>>>> -		 */
+>>>> -		entry_len = acpi_get_entry_length(&entry);
+>>>> -		if (entry_len == 0) {
+>>>> -			pr_err("[%4.4s:0x%02x] Invalid zero length\n", id, proc->id);
+>>>> -			return -EINVAL;
+>>>> -		}
+>>>> -
+>>>>  		entry.hdr = (union acpi_subtable_headers *)
+>>>>  		    ((unsigned long)entry.hdr + entry_len);
+>>>>  	}
+>>>> -- 
+>>>> 2.34.1
+>>
+>> Can this turn a previously accepted table into a fatal parse error? My
+>> main concern is breaking previously tolerated behavior and we end up
+>> breaking deployed systems. Given this code has been around a long time.
+>> Maybe Rafael or Len can comment.
+>>
+>> The old loop stopped quietly when subtable_len or fewer bytes remained
+>> after the last entry. Here subtable_len is sizeof() the subtable header
+>> structure, 2 bytes for MADT or 4 for CDAT, not the entry's length field.
+>>
+>> Now fewer than subtable_len leftover bytes return -EINVAL. Exactly
+>> subtable_len leftover bytes are read as a header, and fail the entry_len
+>> check below unless they happen to hold a valid one. A table with a few
+>> bytes of padding after the last entry now fails the whole parse.
+>>
+>> On x86 that error is not contained to one entry type:
+>>
+>> early_acpi_process_madt()
+>>  early_acpi_parse_madt_lapic_addr_ovr()
+>>    acpi_table_parse_madt(ACPI_MADT_TYPE_LOCAL_APIC_OVERRIDE, ...)
+>>      -> -EINVAL
+>>
+>> 	if (error == -EINVAL) {
+>> 		...
+>> 		pr_err("Invalid BIOS MADT, disabling ACPI\n");
+>> 		disable_acpi();
+>> 	}
+>>
+>> Would it be safer to keep tolerating leftover bytes too small to hold a
+>> subtable header, and reject only entries whose declared length is
+>> invalid? The loop condition can end the walk in that case without a
+>> separate check:
+>>
+>> 	while ((unsigned long)entry.hdr + subtable_len <= table_end) {
+>> 		entry_len = acpi_get_entry_length(&entry);
+>> 		if (entry_len < subtable_len ||
+>> 		    entry_len > table_end - (unsigned long)entry.hdr) {
+>> 			...
+>> 			return -EINVAL;
+>> 		}
+> Thanks for your review,
+> how about this one, https://lore.kernel.org/all/20261021150159.399043-1-yaojiale02@163.com
 
-<linux/i2c.h> already provides both of_device_id and i2c_device_id.
-<linux/mod_devicetable.h> provides a plethora of more device_id structs
-and thus implies a lot more build dependencies. So please drop the
-latter.
+LGTM
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> 
+> Jiale
 
-> +static const struct i2c_device_id lm51772_id[] = {
-> +	{ "lm51772" },
-
-Please use a named initializer.
-
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, lm51772_id);
-> +
-> +static struct i2c_driver lm51772_driver = {
-> +	.driver = {
-> +		.name = "lm51772",
-> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> +		.of_match_table = lm51772_of_match,
-> +	},
-> +	.probe = lm51772_probe,
-> +	.id_table = lm51772_id
-
-missing trailing comma
-
-Best regards
-Uwe
-
---5zdcowfgw4xunjqo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrY1ewACgkQj4D7WH0S
-/k4kQQf/amz6cRsSwMfisVWMIoPvzfkvufe/wPOqr7qIAWWvAEtFhzMZsmkejVae
-c9Q7/m+QGilqgpy6KS56ACE7J3TmBXUw5fMHjO5qhGj+8h8iMpA2RutXI1300yaQ
-oyLuHPmmiz1x3lXxR+otWDhP3/3L/F9ZWR5w3cLvqByO7OW6csRVpGWAK6UfTwpk
-XD1bMjsrYEgzyxgN+TL9DiF9ev/+UAWeJ/16y/dQnIbhcn0464hHA21F19xPn7v2
-rFnOwgYj4rkW993Vdjn28rkprvLYa1/QQPln2ZbOlhCzWuimfccuL7xJPzm2riL8
-i1ZX4Ou1mnRCuDoHqBSXeHwhtTRBlA==
-=Omu0
------END PGP SIGNATURE-----
-
---5zdcowfgw4xunjqo--
