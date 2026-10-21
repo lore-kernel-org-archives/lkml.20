@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792622408;
-	b=mRlfTDdUYldEshATkLg8FmuMNc1jFoZWJLlRKs6PI1eyCHBCl6LOqhBC0LU22bVzVtcH
-	 KI9ntqZWttsrjJU3I2vNZIHzh8foCbj5F3VitC2feai6UfMrvEeK1eecEQ+gpD2UAcqkp
-	 F/jvSQmHaRDcMwU3Aksf2yl+UR1Wq3kIRTw4Ltkr6DmDmtFzbjY5myQR5Xkb4ZjoTtIKc
-	 QXoJxFEEn4iscSmcM9Zz51f7qfCczbq6ZkMtFdOoCxhjQTUu7RPBRhhgJyuPeUX1cRR4e
-	 43go9R94L1GjoQJ4qY81nwUM1ZuwbGS0HU3YkEgP116PVSpJShpw4Rrrs/ABUl3Sa+g==
+	t=1792622638;
+	b=EWM6cD/IM2JiEFkGCS0HTET0I2hy2N+LY8gZWGD+5lRfgkhLlOrMfAMvo4nt+aCdMsa/
+	 cefmFEQjx63zNwicM6SBxY9Uee28pL9fymwUUPyp3fhYL6KczImU/3go5u1upAQmkQRca
+	 zhrNYYFYXjDpTMTXlfRtYR4p89QPwd2O74ROF9uq89iElptdtXWJM+5TWWXIMsDLo+SdI
+	 aomCwjsXsy5k5f4ujZ1sep4t1/Up1reTJ1a2bIfxSNK3AVVqNQlRkQrXLVj9WRbDf4sVa
+	 F7+oYGvYhYke1UufMb/I7BYeS/+pxa3H5gBYJCSKalTZNIUsPoTXeUnp6R59Rjenhlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792622408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=TYMBvXCTRXuQ5mO/8vFF6FRl/G2RGG2wmeXJ7prmFOQ=;
-	b=waVzWVVF56zK1sj9UyEw+tGmAw+YDQEAK5BvxpM0gjJMgKhCVCMgH3oyCVupkb2UM2Wr
-	 kzpnzXOJ7NXJW5KF30Ze3+7IyipQRSqHBBGygfu7NDRSu56/LRy8d80WLqTkKKwTFRSx+
-	 xo3SiaQqGhT9P/Vm1J9ZlOqb7iwoy34B4xbLVkBPSjusaXSZlPIWXRHRnD60eQc7hB5o4
-	 iUO702VSJQjEoW1NvTrBv/WQ4zrnNL3qS4pAT3UbFoRW9YZAe/9mYl07miZXLlLOiRYLJ
-	 8MxZNmVOegCKrE4pVZtV6J6UL1BAnpCkir7TJZAjQbe+9DjDTDMR6gT+2jtIsFEL6zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792622638;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding;
+	bh=/rDyevIpZGbgRLz03UqC+BeKvLzHeEGsK20YVIDmBsU=;
+	b=ajlCA8sFRcdMZBCQWzVS4D77zbWztdGXxd/5ivDhuRja2uHeY0d2lh9Eke064moXG1i/
+	 fDkOGEpQCfGGY5WiQdtHns2Kjx2E6UHql7k3oOW036FfJNTvUMjiz+frXxBi6fnHfVByL
+	 aoBZ5E+VYWM6I1DmMuOoMon7V4qAezm63VYNvXScJD9uJRAAgDO4YQZaHQHV6WuK/irx9
+	 ak78AdqrTg7UoE53jb6Ng5agIvFm4LMZwQuRhbV73oGpEkxGAbxjCXK0mjlOZfUyFrZGN
+	 r6AUydzj4P6CFNV81qEsGd9Fm6uNcxe/iWpfxY7QN/gspWhWMCOJOP9RMqZ04jTrGvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=o3txSSW5;
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wz6Wyer6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0A6606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D0A6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49101606A319;
+	Wed, 21 Oct 2026 22:43:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=o3txSSW5
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-18ab3ee4935so885362c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:40:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792622406; x=1793227206; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TYMBvXCTRXuQ5mO/8vFF6FRl/G2RGG2wmeXJ7prmFOQ=;
-        b=o3txSSW5+tF/0JoiO6OTWHuKxHjTe2EkCw9iBx+FzF35eog/klmb1EPFDcP0T7Creo
-         8qADhONZnRzZ+UMAnEAtdbO4+CAF6vGCVEnwEPYTwj8BggBVRxEUi4oBZQcK8AOZQS5G
-         2kx0/lBjUwshRgohjwCXC1U709eCm7iutjHJjGecWt3oa8SxE9dsyEucvh/ID3CeYLSr
-         0l5SEho0SHrgPHB9RekSIkeMH8jKCpnT9Te1wsST+YsLGYj0pxttVIB3nnmg5DuEeB+d
-         smw2R0ySoYNk/dUX3Qiq9Iwfx1K4yt4ThdL8Dp8dog0Z4qlNS0FK2iH381GScJ2dsUXs
-         yqTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792622406; x=1793227206;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TYMBvXCTRXuQ5mO/8vFF6FRl/G2RGG2wmeXJ7prmFOQ=;
-        b=XYUpVVrfUXYHXWBMX/4f6Rh+Twx4EVUTKtxgB0Z2/ovAczy2TExAGoZnY4DmVET1g4
-         xMrIuIaYvKPS0x1Y8lCAG9q+r1oYapTLqvopuxEIqQVJGt0U9V8n+bNMTAmYNskKPE4I
-         5y+PG/RY7WD/R01OuOsnXWAKegN24ZJRFD1oU7CtrOiBIeLbdpNoLtL3C9qHEAJfQ8kq
-         0CrAn+3C8pSoxv/pfPL5j1pRMaTv0zatvzCaanzBzMfhdbIUqRFD6E28dJyUHOVhS6gB
-         /nYw9/GrPH3jEWSIhfYwM6DR7GkDUyuzEK7PChgfkPs7smuJqjUE7VAA7y74bs+oHaBI
-         EI0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwU71w65sA4A9bYWIyPW37mdQyBlFNleW5gJ+c89nwHsKaOGkMDP4fwmrnMpOJB4Ss1BjXPStmi3Vn7BV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPO688BlXSdVrKStGJjyOZ5w0RlzSzkdCkDP4/OLBTaT11BhuQ
-	ct+t3f2gr6hjwkwNEvy76fFD6yowNIR9gr9JSU3sD4ieUJIoqaiNPpL4bMr25wZvhG09y5PAYh8
-	VyThFeRa1Gg==
-X-Received: from dlbps11.prod.google.com ([2002:a05:7023:88b:b0:165:775d:c25a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:451c:10b0:143:50a0:56be
- with SMTP id a92af1059eb24-190a437b8b4mr3918600c88.14.1792622406134; Wed, 21
- Oct 2026 15:40:06 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:39:05 -0700
-In-Reply-To: <20261021223905.715051-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wz6Wyer6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820901F000C1;
+	Wed, 21 Oct 2026 22:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792622636;
+	bh=/rDyevIpZGbgRLz03UqC+BeKvLzHeEGsK20YVIDmBsU=;
+	h=Date:From:To:Cc:Subject;
+	b=Wz6Wyer6kBc4uwfjSiO8MF51gsjvUDgVaWyh5EEhaDKLmO3dZ1Mg2u5VQWFrq6CT8
+	 7GO+anZnLVZSe6gv2XdkVzJUp+9otxo5lCBTjUqvqssDE8GVOSiY6Afy+L2DzrNM2R
+	 cWI257iNmVimEhEeHudbPwIb9cQI+jImkbey6wq7xkS0Z7DXqaLlf91Dlxq9T55eF1
+	 XmGh3NJuPzrlj7B02sgCxrqAsYlx6rN2PoavHvjqfsr4dCfHunG25kam/4i4Apo4U5
+	 Oz6Ag0HPpMfrDfdfoOo8SARoT5H6TTUOElXQDJggdy4lxVBO0t7R9dsHhVvcGmoBXc
+	 YFKppSdrHse9g==
+Date: Wed, 21 Oct 2026 17:43:55 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Subject: [GIT PULL] PCI changes for v7.4
+Message-ID: <20261021224355.GA2571577@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,513 +58,790 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261021171044.155240-1-irogers@google.com> <20261021223905.715051-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021223905.715051-18-irogers@google.com>
-Subject: [PATCH v7 17/17] perf maps: Add context analysis annotations
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	justinstitt@google.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
-	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
-	ndesaulniers@google.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Add __returns_ctx_lock() to maps__lock(), annotate DECLARE_RC_STRUCT(maps)
-members protected by lock with __guarded_by(&lock), and annotate
-internal maps helpers with __must_hold() and __must_hold_shared().
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/maps.c | 122 ++++++++++++++++++++++++++---------------
- 1 file changed, 78 insertions(+), 44 deletions(-)
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-diff --git a/tools/perf/util/maps.c b/tools/perf/util/maps.c
-index e947506c60a5..1c9e8e22793d 100644
---- a/tools/perf/util/maps.c
-+++ b/tools/perf/util/maps.c
-@@ -31,12 +31,12 @@ DECLARE_RC_STRUCT(maps) {
- 	 * @maps_by_address: array of maps sorted by their starting address if
- 	 * maps_by_address_sorted is true.
- 	 */
--	struct map	 **maps_by_address;
-+	struct map	 **maps_by_address __guarded_by(&lock);
- 	/**
- 	 * @maps_by_name: optional array of maps sorted by their dso name if
- 	 * maps_by_name_sorted is true.
- 	 */
--	struct map	 **maps_by_name;
-+	struct map	 **maps_by_name __guarded_by(&lock);
- 	struct machine	 *machine;
- #ifdef HAVE_LIBUNWIND_SUPPORT
- 	void		*addr_space;
-@@ -51,26 +51,33 @@ DECLARE_RC_STRUCT(maps) {
- 	 * @nr_maps: number of maps_by_address, and possibly maps_by_name,
- 	 * entries that contain maps.
- 	 */
--	unsigned int	 nr_maps;
-+	unsigned int	 nr_maps __guarded_by(&lock);
- 	/**
- 	 * @nr_maps_allocated: number of entries in maps_by_address and possibly
- 	 * maps_by_name.
- 	 */
--	unsigned int	 nr_maps_allocated;
-+	unsigned int	 nr_maps_allocated __guarded_by(&lock);
- 	/**
- 	 * @last_search_by_name_idx: cache of last found by name entry's index
- 	 * as frequent searches for the same dso name are common.
- 	 */
- 	unsigned int	 last_search_by_name_idx;
- 	/** @maps_by_address_sorted: is maps_by_address sorted. */
--	bool		 maps_by_address_sorted;
-+	bool		 maps_by_address_sorted __guarded_by(&lock);
- 	/** @maps_by_name_sorted: is maps_by_name sorted. */
--	bool		 maps_by_name_sorted;
-+	bool		 maps_by_name_sorted __guarded_by(&lock);
- 	/** @ends_broken: does the map contain a map where end values are unset/unsorted? */
--	bool		 ends_broken;
-+	bool		 ends_broken __guarded_by(&lock);
- };
- 
-+static struct rw_semaphore *maps__lock(const struct maps *maps)
-+	__returns_ctx_lock(&RC_CHK_ACCESS(maps)->lock)
-+{
-+	return (struct rw_semaphore *)&RC_CHK_ACCESS(maps)->lock;
-+}
-+
- static void check_invariants(const struct maps *maps __maybe_unused)
-+	__must_hold_shared(maps__lock(maps))
- {
- #ifndef NDEBUG
- 	assert(RC_CHK_ACCESS(maps)->nr_maps <= RC_CHK_ACCESS(maps)->nr_maps_allocated);
-@@ -120,55 +127,65 @@ static void check_invariants(const struct maps *maps __maybe_unused)
- }
- 
- static struct map **maps__maps_by_address(const struct maps *maps)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	return RC_CHK_ACCESS(maps)->maps_by_address;
- }
- 
- static void maps__set_maps_by_address(struct maps *maps, struct map **new)
-+	__must_hold(maps__lock(maps))
- {
- 	RC_CHK_ACCESS(maps)->maps_by_address = new;
- 
- }
- 
- static void maps__set_nr_maps_allocated(struct maps *maps, unsigned int nr_maps_allocated)
-+	__must_hold(maps__lock(maps))
- {
- 	RC_CHK_ACCESS(maps)->nr_maps_allocated = nr_maps_allocated;
- }
- 
- static void maps__set_nr_maps(struct maps *maps, unsigned int nr_maps)
-+	__must_hold(maps__lock(maps))
- {
- 	RC_CHK_ACCESS(maps)->nr_maps = nr_maps;
- }
- 
- /* Not in the header, to aid reference counting. */
- static struct map **maps__maps_by_name(const struct maps *maps)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	return RC_CHK_ACCESS(maps)->maps_by_name;
- 
- }
- 
- static void maps__set_maps_by_name(struct maps *maps, struct map **new)
-+	__must_hold(maps__lock(maps))
- {
- 	RC_CHK_ACCESS(maps)->maps_by_name = new;
- 
- }
- 
- static bool maps__maps_by_address_sorted(const struct maps *maps)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	return RC_CHK_ACCESS(maps)->maps_by_address_sorted;
- }
- 
- static void maps__set_maps_by_address_sorted(struct maps *maps, bool value)
-+	__must_hold(maps__lock(maps))
- {
- 	RC_CHK_ACCESS(maps)->maps_by_address_sorted = value;
- }
- 
- static bool maps__maps_by_name_sorted(const struct maps *maps)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	return RC_CHK_ACCESS(maps)->maps_by_name_sorted;
- }
- 
- static void maps__set_maps_by_name_sorted(struct maps *maps, bool value)
-+	__must_hold(maps__lock(maps))
- {
- 	RC_CHK_ACCESS(maps)->maps_by_name_sorted = value;
- }
-@@ -178,11 +195,22 @@ struct machine *maps__machine(const struct maps *maps)
- 	return RC_CHK_ACCESS(maps)->machine;
- }
- 
--unsigned int maps__nr_maps(const struct maps *maps)
-+static unsigned int __maps__nr_maps(const struct maps *maps)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	return RC_CHK_ACCESS(maps)->nr_maps;
- }
- 
-+unsigned int maps__nr_maps(const struct maps *maps)
-+{
-+	unsigned int nr;
-+
-+	down_read(maps__lock(maps));
-+	nr = __maps__nr_maps(maps);
-+	up_read(maps__lock(maps));
-+	return nr;
-+}
-+
- refcount_t *maps__refcnt(struct maps *maps)
- {
- 	return &RC_CHK_ACCESS(maps)->refcnt;
-@@ -221,12 +249,8 @@ void maps__set_libdw_addr_space_dwfl(struct maps *maps, void *dwfl)
- }
- #endif
- 
--static struct rw_semaphore *maps__lock(struct maps *maps)
--{
--	return &RC_CHK_ACCESS(maps)->lock;
--}
--
- static void maps__init(struct maps *maps, struct machine *machine)
-+	__context_unsafe(/* initialization */)
- {
- 	init_rwsem(maps__lock(maps));
- 	RC_CHK_ACCESS(maps)->maps_by_address = NULL;
-@@ -248,11 +272,12 @@ static void maps__init(struct maps *maps, struct machine *machine)
- }
- 
- static void maps__exit(struct maps *maps)
-+	__context_unsafe(/* teardown */)
- {
- 	struct map **maps_by_address = maps__maps_by_address(maps);
- 	struct map **maps_by_name = maps__maps_by_name(maps);
- 
--	for (unsigned int i = 0; i < maps__nr_maps(maps); i++) {
-+	for (unsigned int i = 0; i < __maps__nr_maps(maps); i++) {
- 		map__zput(maps_by_address[i]);
- 		if (maps_by_name)
- 			map__zput(maps_by_name[i]);
-@@ -301,6 +326,7 @@ void maps__put(struct maps *maps)
- }
- 
- static void __maps__free_maps_by_name(struct maps *maps)
-+	__must_hold(maps__lock(maps))
- {
- 	if (!maps__maps_by_name(maps))
- 		return;
-@@ -308,7 +334,7 @@ static void __maps__free_maps_by_name(struct maps *maps)
- 	/*
- 	 * Free everything to try to do it from the rbtree in the next search
- 	 */
--	for (unsigned int i = 0; i < maps__nr_maps(maps); i++)
-+	for (unsigned int i = 0; i < __maps__nr_maps(maps); i++)
- 		map__put(maps__maps_by_name(maps)[i]);
- 
- 	zfree(&RC_CHK_ACCESS(maps)->maps_by_name);
-@@ -341,12 +367,13 @@ static int map__start_cmp(const void *a, const void *b)
- }
- 
- static void __maps__sort_by_address(struct maps *maps)
-+	__must_hold(maps__lock(maps))
- {
- 	if (maps__maps_by_address_sorted(maps))
- 		return;
- 
- 	qsort(maps__maps_by_address(maps),
--		maps__nr_maps(maps),
-+		__maps__nr_maps(maps),
- 		sizeof(struct map *),
- 		map__start_cmp);
- 	maps__set_maps_by_address_sorted(maps, true);
-@@ -389,7 +416,7 @@ static int maps__sort_by_name(struct maps *maps)
- 				err = -ENOMEM;
- 			else {
- 				struct map **maps_by_address = maps__maps_by_address(maps);
--				unsigned int n = maps__nr_maps(maps);
-+				unsigned int n = __maps__nr_maps(maps);
- 
- 				maps__set_maps_by_name(maps, maps_by_name);
- 				for (unsigned int i = 0; i < n; i++)
-@@ -398,7 +425,7 @@ static int maps__sort_by_name(struct maps *maps)
- 		}
- 		if (!err) {
- 			qsort(maps_by_name,
--				maps__nr_maps(maps),
-+				__maps__nr_maps(maps),
- 				sizeof(struct map *),
- 				map__strcmp);
- 			maps__set_maps_by_name_sorted(maps, true);
-@@ -410,18 +437,19 @@ static int maps__sort_by_name(struct maps *maps)
- }
- 
- static unsigned int maps__by_address_index(const struct maps *maps, const struct map *map)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	struct map **maps_by_address = maps__maps_by_address(maps);
- 
- 	if (maps__maps_by_address_sorted(maps)) {
- 		struct map **mapp =
--			bsearch(&map, maps__maps_by_address(maps), maps__nr_maps(maps),
-+			bsearch(&map, maps__maps_by_address(maps), __maps__nr_maps(maps),
- 				sizeof(*mapp), map__start_cmp);
- 
- 		if (mapp)
- 			return mapp - maps_by_address;
- 	} else {
--		for (unsigned int i = 0; i < maps__nr_maps(maps); i++) {
-+		for (unsigned int i = 0; i < __maps__nr_maps(maps); i++) {
- 			if (RC_CHK_ACCESS(maps_by_address[i]) == RC_CHK_ACCESS(map))
- 				return i;
- 		}
-@@ -431,18 +459,19 @@ static unsigned int maps__by_address_index(const struct maps *maps, const struct
- }
- 
- static unsigned int maps__by_name_index(const struct maps *maps, const struct map *map)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	struct map **maps_by_name = maps__maps_by_name(maps);
- 
- 	if (maps__maps_by_name_sorted(maps)) {
- 		struct map **mapp =
--			bsearch(&map, maps_by_name, maps__nr_maps(maps),
-+			bsearch(&map, maps_by_name, __maps__nr_maps(maps),
- 				sizeof(*mapp), map__strcmp);
- 
- 		if (mapp)
- 			return mapp - maps_by_name;
- 	} else {
--		for (unsigned int i = 0; i < maps__nr_maps(maps); i++) {
-+		for (unsigned int i = 0; i < __maps__nr_maps(maps); i++) {
- 			if (RC_CHK_ACCESS(maps_by_name[i]) == RC_CHK_ACCESS(map))
- 				return i;
- 		}
-@@ -471,10 +500,11 @@ static void map__set_kmap_maps(struct map *map, struct maps *maps)
- }
- 
- static int __maps__insert(struct maps *maps, struct map *new)
-+	__must_hold(maps__lock(maps))
- {
- 	struct map **maps_by_address = maps__maps_by_address(maps);
- 	struct map **maps_by_name = maps__maps_by_name(maps);
--	unsigned int nr_maps = maps__nr_maps(maps);
-+	unsigned int nr_maps = __maps__nr_maps(maps);
- 	unsigned int nr_allocate = RC_CHK_ACCESS(maps)->nr_maps_allocated;
- 
- 	if (nr_maps + 1 > nr_allocate) {
-@@ -541,10 +571,11 @@ int maps__insert(struct maps *maps, struct map *map)
- }
- 
- static void __maps__remove(struct maps *maps, struct map *map)
-+	__must_hold(maps__lock(maps))
- {
- 	struct map **maps_by_address = maps__maps_by_address(maps);
- 	struct map **maps_by_name = maps__maps_by_name(maps);
--	unsigned int nr_maps = maps__nr_maps(maps);
-+	unsigned int nr_maps = __maps__nr_maps(maps);
- 	unsigned int address_idx;
- 
- 	/* Slide later mappings over the one to remove */
-@@ -631,7 +662,7 @@ bool maps__empty(struct maps *maps)
- 	bool res;
- 
- 	down_read(maps__lock(maps));
--	res = maps__nr_maps(maps) == 0;
-+	res = __maps__nr_maps(maps) == 0;
- 	up_read(maps__lock(maps));
- 
- 	return res;
-@@ -659,7 +690,7 @@ int maps__for_each_map(struct maps *maps, int (*cb)(struct map *map, void *data)
- 			 * the array - this may cause maps to be skipped or
- 			 * repeated.
- 			 */
--			for (unsigned int i = 0; i < maps__nr_maps(maps); i++) {
-+			for (unsigned int i = 0; i < __maps__nr_maps(maps); i++) {
- 				struct map **maps_by_address = maps__maps_by_address(maps);
- 				struct map *map = maps_by_address[i];
- 
-@@ -686,7 +717,7 @@ int maps__load_maps(struct maps *maps)
- 		return 0;
- 
- 	down_read(maps__lock(maps));
--	nr_maps = maps__nr_maps(maps);
-+	nr_maps = __maps__nr_maps(maps);
- 	if (nr_maps == 0) {
- 		up_read(maps__lock(maps));
- 		return 0;
-@@ -719,7 +750,7 @@ void maps__remove_maps(struct maps *maps, bool (*cb)(struct map *map, void *data
- 	down_write(maps__lock(maps));
- 
- 	maps_by_address = maps__maps_by_address(maps);
--	for (unsigned int i = 0; i < maps__nr_maps(maps);) {
-+	for (unsigned int i = 0; i < __maps__nr_maps(maps);) {
- 		if (cb(maps_by_address[i], data)) {
- 			__maps__remove(maps, maps_by_address[i]);
- 			removed = true;
-@@ -773,7 +804,7 @@ struct symbol *maps__find_symbol_by_name(struct maps *maps, const char *name, st
- 	 * This prevents deadlocking if iteration triggers further map insertions.
- 	 */
- 	down_read(maps__lock(maps));
--	nr_maps = maps__nr_maps(maps);
-+	nr_maps = __maps__nr_maps(maps);
- 	maps_copy = calloc(nr_maps, sizeof(*maps_copy));
- 	if (maps_copy) {
- 		for (unsigned int i = 0; i < nr_maps; i++) {
-@@ -858,9 +889,10 @@ size_t maps__fprintf(struct maps *maps, FILE *fp)
-  * Same as find_vma() in kernel.
-  */
- static unsigned int first_ending_after(struct maps *maps, const struct map *map)
-+	__must_hold_shared(maps__lock(maps))
- {
- 	struct map **maps_by_address = maps__maps_by_address(maps);
--	int low = 0, high = (int)maps__nr_maps(maps) - 1, first = high + 1;
-+	int low = 0, high = (int)__maps__nr_maps(maps) - 1, first = high + 1;
- 
- 	assert(maps__maps_by_address_sorted(maps));
- 	if (low <= high && map__end(maps_by_address[0]) > map__start(map))
-@@ -885,10 +917,11 @@ static unsigned int first_ending_after(struct maps *maps, const struct map *map)
- 
- static int __maps__insert_sorted(struct maps *maps, unsigned int first_after_index,
- 				 struct map *new1, struct map *new2)
-+	__must_hold(maps__lock(maps))
- {
- 	struct map **maps_by_address = maps__maps_by_address(maps);
- 	struct map **maps_by_name = maps__maps_by_name(maps);
--	unsigned int nr_maps = maps__nr_maps(maps);
-+	unsigned int nr_maps = __maps__nr_maps(maps);
- 	unsigned int nr_allocate = RC_CHK_ACCESS(maps)->nr_maps_allocated;
- 	unsigned int to_add = new2 ? 2 : 1;
- 
-@@ -945,6 +978,7 @@ static int __maps__insert_sorted(struct maps *maps, unsigned int first_after_ind
-  * adjusted or removed so that new fits without overlapping any entries.
-  */
- static int __maps__fixup_overlap_and_insert(struct maps *maps, struct map *new)
-+	__must_hold(maps__lock(maps))
- {
- 	int err = 0;
- 	unsigned int i, ni = INT_MAX; // Some gcc complain, but depends on maps_by_name...
-@@ -956,7 +990,7 @@ static int __maps__fixup_overlap_and_insert(struct maps *maps, struct map *new)
- 	 * Iterate through entries where the end of the existing entry is
- 	 * greater-than the new map's start.
- 	 */
--	for (i = first_ending_after(maps, new); i < maps__nr_maps(maps); ) {
-+	for (i = first_ending_after(maps, new); i < __maps__nr_maps(maps); ) {
- 		struct map **maps_by_address = maps__maps_by_address(maps);
- 		struct map **maps_by_name = maps__maps_by_name(maps);
- 		struct map *pos = maps_by_address[i];
-@@ -1067,7 +1101,7 @@ static int __maps__fixup_overlap_and_insert(struct maps *maps, struct map *new)
- 			return err;
- 		} else {
- 			struct map *next = NULL;
--			unsigned int nr_maps = maps__nr_maps(maps);
-+			unsigned int nr_maps = __maps__nr_maps(maps);
- 
- 			if (i + 1 < nr_maps)
- 				next = maps_by_address[i + 1];
-@@ -1151,8 +1185,8 @@ int maps__copy_from(struct maps *dest, struct maps *parent)
- 	}
- #endif
- 	parent_maps_by_address = maps__maps_by_address(parent);
--	n = maps__nr_maps(parent);
--	if (maps__nr_maps(dest) == 0) {
-+	n = __maps__nr_maps(parent);
-+	if (__maps__nr_maps(dest) == 0) {
- 		/* No existing mappings so just copy from parent to avoid reallocs in insert. */
- 		unsigned int nr_maps_allocated = RC_CHK_ACCESS(parent)->nr_maps_allocated;
- 		struct map **dest_maps_by_address =
-@@ -1236,7 +1270,7 @@ struct map *maps__find(struct maps *maps, u64 ip)
- 		if (maps__maps_by_address_sorted(maps)) {
- 			struct map **mapp = NULL;
- 			struct map **maps_by_address = maps__maps_by_address(maps);
--			unsigned int nr_maps = maps__nr_maps(maps);
-+			unsigned int nr_maps = __maps__nr_maps(maps);
- 
- 			if (maps_by_address && nr_maps)
- 				mapp = bsearch(&ip, maps_by_address, nr_maps, sizeof(*mapp),
-@@ -1272,7 +1306,7 @@ struct map *maps__find_by_name(struct maps *maps, const char *name)
- 
- 		/* First check last found entry. */
- 		i = RC_CHK_ACCESS(maps)->last_search_by_name_idx;
--		if (i < maps__nr_maps(maps) && maps__maps_by_name(maps)) {
-+		if (i < __maps__nr_maps(maps) && maps__maps_by_name(maps)) {
- 			struct dso *dso = map__dso(maps__maps_by_name(maps)[i]);
- 
- 			if (dso && strcmp(dso__short_name(dso), name) == 0) {
-@@ -1284,7 +1318,7 @@ struct map *maps__find_by_name(struct maps *maps, const char *name)
- 		/* Second search sorted array. */
- 		if (!done && maps__maps_by_name_sorted(maps)) {
- 			struct map **mapp =
--				bsearch(name, maps__maps_by_name(maps), maps__nr_maps(maps),
-+				bsearch(name, maps__maps_by_name(maps), __maps__nr_maps(maps),
- 					sizeof(*mapp), map__strcmp_name);
- 
- 			if (mapp) {
-@@ -1307,7 +1341,7 @@ struct map *maps__find_by_name(struct maps *maps, const char *name)
- 
- 				down_read(maps__lock(maps));
- 				maps_by_address =  maps__maps_by_address(maps);
--				n = maps__nr_maps(maps);
-+				n = __maps__nr_maps(maps);
- 				for (i = 0; i < n; i++) {
- 					struct map *pos = maps_by_address[i];
- 					struct dso *dso = map__dso(pos);
-@@ -1337,7 +1371,7 @@ struct map *maps__find_next_entry(struct maps *maps, struct map *map)
- 		down_read(maps__lock(maps));
- 	}
- 	i = maps__by_address_index(maps, map);
--	if (++i < maps__nr_maps(maps))
-+	if (++i < __maps__nr_maps(maps))
- 		result = map__get(maps__maps_by_address(maps)[i]);
- 
- 	up_read(maps__lock(maps));
-@@ -1354,7 +1388,7 @@ void maps__fixup_end(struct maps *maps)
- 		__maps__sort_by_address(maps);
- 
- 	maps_by_address = maps__maps_by_address(maps);
--	n = maps__nr_maps(maps);
-+	n = __maps__nr_maps(maps);
- 	for (unsigned int i = 1; i < n; i++) {
- 		struct map *prev = maps_by_address[i - 1];
- 		struct map *curr = maps_by_address[i];
-@@ -1401,7 +1435,7 @@ int maps__merge_in(struct maps *kmaps, struct map *new_map)
- 	first_after_ = first_ending_after(kmaps, new_map);
- 	kmaps_maps_by_address = maps__maps_by_address(kmaps);
- 
--	if (first_after_ >= maps__nr_maps(kmaps) ||
-+	if (first_after_ >= __maps__nr_maps(kmaps) ||
- 	    map__start(kmaps_maps_by_address[first_after_]) >= map__end(new_map)) {
- 		/* No overlap so regular insert suffices. */
- 		up_read(maps__lock(kmaps));
-@@ -1416,7 +1450,7 @@ int maps__merge_in(struct maps *kmaps, struct map *new_map)
- 
- 	first_after_ = first_ending_after(kmaps, new_map);
- 	kmaps_maps_by_address = maps__maps_by_address(kmaps);
--	kmaps__nr_maps = maps__nr_maps(kmaps);
-+	kmaps__nr_maps = __maps__nr_maps(kmaps);
- 
- 	if (first_after_ >= kmaps__nr_maps ||
- 	    map__start(kmaps_maps_by_address[first_after_]) >= map__end(new_map)) {
-@@ -1470,7 +1504,7 @@ void maps__load_first(struct maps *maps)
- 	struct map *first = NULL;
- 
- 	down_read(maps__lock(maps));
--	if (maps__nr_maps(maps) > 0)
-+	if (__maps__nr_maps(maps) > 0)
- 		first = map__get(maps__maps_by_address(maps)[0]);
- 	up_read(maps__lock(maps));
- 
--- 
-2.56.0.218.g1ec904b173-goog
+are available in the Git repository at:
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git pci-v7.4-changes
+
+for you to fetch changes up to f4319f548f7d8cb595ac1c91bfd459876399eeb3:
+
+  Merge branch 'pci/misc' (2026-10-21 13:20:39 -0500)
+
+You should see this trivial drivers/pci/pcie/aer.c conflict:
+
+  upstream 79c168e2aa95 ("PCI/AER: Skip error recovery on false alarms")
+  vs PCI   d4c842c3af5b ("PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing")
+
+Preferred resolution at https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/tree/drivers/pci/pcie/aer.c?h=v7.4-merge#n1395
+
+----------------------------------------------------------------
+
+Enumeration:
+
+  - Set supported_speeds in set_pcie_port_type() so sparc64 and powerpc,
+    which call it via of_create_pci_dev() instead of the usual
+    pci_setup_device(), correctly set the supported PCIe link speeds (Stian
+    Halseth)
+
+  - When pcie_set_mps() changes MPS, update the value in the saved state so
+    a subsequent restore doesn't restore an invalid value (Niklas Cassel)
+
+  - Skip Target Speed quirk on clamped ports with no link (Maciej W.
+    Rozycki)
+
+Driver binding:
+
+  - Assume control of portdrv-related features only when portdrv is
+    enabled, since we can't use them without portdrv (Kuppuswamy
+    Sathyanarayanan)
+
+  - Centralize feature ownership checking so code only needs to check
+    'host->native_X' and doesn't need to also check 'pcie_ports_native'
+    (Kuppuswamy Sathyanarayanan)
+
+Error handling:
+
+  - Fix leaks when ACPI APEI/GHES error events overflow the kfifo or
+    mention a device that no longer exists (Priyank Rathod)
+
+  - Fix aer_process_err_devices() leak when a device is recorded as an
+    error source purely by being mentioned in the Root Port Error Source
+    and the device is inaccessible or logged only masked errors (Priyank
+    Rathod)
+
+ASPM:
+
+  - Disable ASPM when drivers request that, even if the OS doesn't own
+    ASPM; otherwise drivers do it on their own, which is worse (Ilpo
+    Järvinen)
+
+Power management:
+
+  - Align hibernate poweroff flow with suspend flow for bridges so they can
+    be powered down at hibernate as they are for suspend (Mario
+    Limonciello)
+
+  - Restore BARs after powering up during enumeration to fix a regression
+    on devices that don't preserve state in D3hot (Keng-Yu Lin)
+
+  - Avoid D3 on PLX PEX 8532/8533/8548 downstream ports, where putting them
+    in D3hot takes down the whole switch (Imre Kaloz)
+
+Power control:
+
+  - Add GPIO driver for Toshiba TC9563 embedded GPIO controller (Alex
+    Elder)
+
+  - Add DT documentation and pwrctrl driver support for TC9563 embedded
+    GPIO controller (Lorenzo Bianconi)
+
+  - Switch the tc9563 per-port reset to use the GPIO descriptor API instead
+    of direct regmap accesses (Lorenzo Bianconi)
+
+  - Only destroy devices created by pwrctrl core, so that when removing a
+    PCIe controller driver that uses pwrctrl, we don't remove devices
+    populated by another mechanism (Shawn Lin)
+
+  - Power off child devices on power-on failure (Lorenzo Bianconi)
+
+PCIe native device hotplug:
+
+  - Make the 'pciehp_poll_mode' parameter read-only to prevent changes via
+    sysfs, which can cause errors when unbinding (Runyu Xiao)
+
+Virtualization:
+
+  - Read SR-IOV VF Revision ID and Subsystem ID from VF instead of assuming
+    they're the same as VF 0; they may differ (Logan Odell)
+
+  - Add ACS quirk for Pericom PI7C9X2G304 switches (Hans de Goede)
+
+Peer-to-peer DMA:
+
+  - Add Zhaoxin KX-6000, KH-40000, KX-6000G, KX-7000, and KH-50000 host
+    bridges to allowlist (LeoLiu-oc)
+
+  - Add Alibaba T-HEAD Yitian 710 host bridge to allowlist (Feng Tang)
+
+  - Add Intel Haswell client host bridge to allowlist (Scott Lee)
+
+  - Intel Xeon E3/E5/E7 0x6f00 host bridge to allowlist (kai zhang)
+
+  - Fix handling of errors in pci_p2pdma_add_resource() to avoid (a)
+    unmapping a BAR if registering another fails and (b) use after free of
+    p2p_pgmap (Leon Romanovsky)
+
+  - Wait for RCU readers before freeing state to avoid use-after-free of
+    pdev->p2pdma (Leon Romanovsky)
+
+  - Restrict pci_p2pmem_find_many() to providers backed by a pool (Leon
+    Romanovsky)
+
+  - Safely terminate ACS redirect lists to avoid out-of-bounds access to
+    the buffer (Leon Romanovsky)
+
+  - Silence 'Host bridge not in P2PDMA whitelist' warnings unless caller,
+    e.g., pci_p2pmem_find_many(), requests 'verbose' (Leon Romanovsky)
+
+Sysfs:
+
+  - Return -ENODEV or -EIO sysfs 'label' or 'acpi_index' attributes when
+    Device Name _DSM fails, not -1, which is interpreted as -EPERM
+    (Krzysztof Wilczyński)
+
+  - Return valid sysfs 'acpi_index' attribute even if the Device Name _DSM
+    returned an invalid 'label' (Krzysztof Wilczyński)
+
+  - Expose sysfs 'acpi_index' and 'label' based on whether the Device Name
+    _DSM returns valid data, not merely whether the _DSM is implemented
+    (Krzysztof Wilczyński)
+
+  - Avoid out-of-bounds reads of the label returned by the Device Name
+    _DSM, which is in UTF-16 characters, not bytes (Krzysztof Wilczyński)
+
+  - Reject unaligned resource I/O port accesses, which can oops on arm64
+    (Deepanshu Kartikey)
+
+Endpoint framework:
+
+  - Pass the correct physical and virtual endpoint function numbers when
+    setting translation of inbound memory windows (Koichiro Den)
+
+  - Make embedded doorbell IRQ non-shared, since currently only the first
+    EPF can allocate doorbells (Koichiro Den)
+
+  - MSI doorbells currently target the first EPF attached to an EPC; let
+    other EPFs try the embedded doorbell instead of failing when they can't
+    use the MSI doorbell (Koichiro Den)
+
+  - Serialize scan of vNTB virtual PCI bus with other PCI topology changes
+    (Koichiro Den)
+
+  - Manage vNTB lifetimes to avoid leaking virtual devices and buses and
+    allow removal (Koichiro Den)
+
+  - Track vNTB link state from both sides so both see the same effective
+    link state (Koichiro Den)
+
+  - Configure vNTB MSI-X when supported to avoid IOMMU faults and failure
+    to deliver doorbell interrupts on RC (Koichiro Den)
+
+APM X-Gene PCIe controller driver:
+
+  - Use devm for clocks so they're automatically disabled, unprepared, and
+    released if errors happen during probe (Yuho Choi)
+
+ASPEED PCIe controller driver:
+
+  - Fix clk and PHY leaks in aspeed_pcie_port_init() error paths (Liu
+    Zhenlong)
+
+Broadcom iProc PCIe controller driver:
+
+  - Expose devm_pci_alloc_host_bridge_release() so drivers can share a devm
+    release function even if they don't need the device tree parsing done
+    by devm_pci_alloc_host_bridge() (Bjorn Helgaas)
+
+  - Request only the memory window from BCMA Enumeration ROM and warn if it
+    doesn't match the one in DT, which fixes an iproc-bcma probe failure
+    (Semih Baskan)
+
+Broadcom STB PCIe controller driver:
+
+  - Replace bool properties for each SoC configuration with a u32 bitvector
+    and a BFLAG() helper (Jim Quinlan)
+
+  - Use a similar BQUIRK() helper to test various SoC quirks (Jim Quinlan)
+
+Cadence PCIe controller driver:
+
+  - Remove device links to PHY, which are redundant because the PHY core
+    itself adds them (Vladimir Oltean)
+
+  - Return error (not success) from cdns_plat_pcie_probe() if
+    pm_runtime_get_sync() or cdns_pcie_ep_setup() failed (Vladimir Oltean)
+
+  - Correct the driver data pointer usage; previously .probe() stored
+    'struct cdns_plat_pcie *', but .shutdown() used the pointer as 'struct
+    cdns_pcie *', resulting in accessing garbage  (Linmao Li)
+
+ESWIN PCIe controller driver:
+
+  - Publish the platform driver MODULE_DEVICE_TABLE so the driver can be
+    autoloaded when built as a module (Pengpeng Hou)
+
+Freescale i.MX6 PCIe controller driver:
+
+  - Fix resource and pwrctrl device leaks .probe() (Zhijian Han)
+
+  - Improve i.MX95 Gen3 link stability by changing MPLLB_BANDWIDTH from
+    default 120 to 140 (Richard Zhu)
+
+  - Use dev_err_probe() in host init error path to silence -EPROBE_DEFER
+    messages (Alexander Stein)
+
+  - Avoid dereferencing NULL clock names when 'clocks' includes more
+    phandles than 'clock-names' has names (Rudi Heitbaum)
+
+  - Add suspend_poweroff flag so platforms like i.MX that power off RC
+    controllers during suspend can enter L2 so endpoints can get
+    PME_Turn_Off notifications before power loss (Richard Zhu)
+
+Freescale Layerscape PCIe controller driver:
+
+  - Enable PROBE_PREFER_ASYNCHRONOUS to reduce probe time of the four
+    controllers on LX2160A (Vincent Jardin)
+
+Intel VMD host bridge driver:
+
+  - Flush DMA writes before handling MSI on Meteor Lake: MSI may arrive
+    before write has completed, resulting in an nvme 30 second stall before
+    a QID timeout and possibly other similar problems (Rickey Bartlett)
+
+  - Flush DMA writes before handling MSI on Arrow Lake (Vladimir
+    Nedoshivin)
+
+Marvell Aardvark PCIe controller driver:
+
+  - Disable PHY on probe failures (Myeonghun Pak)
+
+Marvell MVEBU PCIe controller driver:
+
+  - Refcount child OF nodes during .probe() to make a concurrent OF overlay
+    removal safe (Krzysztof Kozlowski)
+
+MediaTek PCIe controller driver:
+
+  - Find INTx DT property by 'interrupt-controller' name instead of
+    assuming it's the first child node (Zhengping Zhang)
+
+MediaTek PCIe Gen3 controller driver:
+
+  - Fix a 64-bit type truncation in mtk_pcie_set_trans_table() to avoid
+    issues with windows above or larger than 4GB (Sreeraj S Kurup)
+
+NVIDIA Tegra264 PCIe controller driver:
+
+  - Fix the Link Capabilities offset so we read the correct register (Bjorn
+    Helgaas)
+
+Qualcomm PCIe controller driver:
+
+  - Only collect reset GPIOs from PCI bridge DT nodes to avoid stealing
+    resets used by downstream devices like USB controllers (Christopher
+    Obbard)
+
+  - Block accesses to downstream devices on link down to reduce a storm of
+    Completion Timeout AER interrupts (Qiang Yu)
+
+  - Skip system suspend/resume for firmware-managed PCIe, where firmware
+    manages clocks, regulators, resets, etc (Mrinmay Sarkar)
+
+  - Honor IOMMU provider's #iommu-cells in qcom_pcie_config_sid_1_9_0()
+    (Manivannan Sadhasivam)
+
+  - Deinitialize endpoint on remove (Guangshuo Li)
+
+  - Treat Root Port error recovery as successful even if link doesn't come
+    up after reset because the device was hot-unplugged (Konrad Dybcio)
+
+  - Skip unnecessary iMSI-RX initialization if DT 'msi-map' is present,
+    indicating an external MSI controller (Ayiluri Naga Rashmi)
+
+Renesas R-Car PCIe controller driver:
+
+  - Limit Max_Read_Request_Size to 256 to avoid hardware erratum (Marek
+    Vasut)
+
+  - Support PERST# via reset subsystem as well as the existing GPIO support
+    to prepare for R-Car Gen5 SoCs (Marek Vasut)
+
+  - Add DT and driver support for the R-Car Gen 5 X5H (R8A78000) PCIe Gen 4
+    core (Marek Vasut)
+
+  - Add Application/Local register reset DT description and driver support
+    for both host and endpoint mode (Marek Vasut)
+
+  - Add PM ops so controller works after suspend/resume (Marek Vasut)
+
+Renesas RZ/G3S PCIe controller driver:
+
+  - Disable refclk on probe failure (Lad Prabhakar)
+
+  - Propagate platform_get_irq_byname() errors so probe deferral works
+    correctly (Lad Prabhakar)
+
+  - Tear down INTx handlers if subsequent initialization fails (Lad
+    Prabhakar)
+
+  - Add RZ/G3L (R9A08G046) DT and driver support (Biju Das)
+
+Rockchip PCIe controller driver:
+
+  - Limit host and endpoint controllers to 2.5 GT/s since 5.0 GT/s is
+    unsafe per Rockchip (Geraldo Nascimento)
+
+Synopsys DesignWare PCIe controller driver:
+
+  - Set DMA_BYPASS bit in outbound IATU CTRL2 register to avoid data
+    corruption if the iATU translates DMA engine transactions (Sumit Kumar)
+
+  - Use FIELD_PREP() to remove need for *_SHIFT definitions (Hans Zhang)
+
+TI DRA7xx PCIe controller driver:
+
+  - Remove device links to PHY, which are redundant because the PHY core
+    itself adds them (Vladimir Oltean)
+
+  - Fix optional clock leak when .probe() fails by using
+    devm_clk_get_optional_enabled() (Felix Gu)
+
+TI Keystone PCIe controller driver:
+
+  - Remove device links to PHY, which are redundant because the PHY core
+    itself adds them (Vladimir Oltean)
+
+UltraRISC PCIe controller driver:
+
+  - Allow DWC drivers to skip outbound iATU setup if they don't need
+    translation between CPU and PCI addresses (Xincheng Zhang)
+
+  - Skip MEM outbound iATU setup on DP1000 (Xincheng Zhang)
+
+Xilinx Versal CPM PCIe controller driver:
+
+  - Add DT and driver support for optional PERST# for use in warm reset
+    scenarios (Sai Krishna Musham)
+
+Xilinx XDMA PCIe controller driver:
+
+  - Fix device node reference leak in xilinx_pl_dma_pcie_init_irq_domain()
+    (Wentao Liang)
+
+----------------------------------------------------------------
+Abel Vesa (1):
+      PCI/pwrctrl: tc9563: Allow RESX reset assertion to sleep
+
+Alex Elder (1):
+      gpio: tc9563: Add support for the embedded GPIO controller
+
+Alexander Stein (1):
+      PCI: imx6: Use dev_err_probe() in error path of pci_pwrctrl_power_on_devices()
+
+Alexey Charkov (1):
+      PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()
+
+Ayiluri Naga Rashmi (1):
+      PCI: qcom: Skip DWC MSI host initialization when DT 'msi-map' is present
+
+Biju Das (2):
+      dt-bindings: PCI: renesas,r9a08g045s33-pcie: Document RZ/G3L SoC
+      PCI: rzg3s-host: Add support for RZ/G3L SoC
+
+Bjorn Helgaas (44):
+      PCI: tegra264: Fix Link Capabilities register offset
+      PCI: Expose devm_pci_alloc_host_bridge_release()
+      Merge branch 'pci/aer'
+      Merge branch 'pci/aspm'
+      Merge branch 'pci/doe'
+      Merge branch 'pci/enumeration'
+      Merge branch 'pci/hotplug'
+      Merge branch 'pci/mps'
+      Merge branch 'pci/p2pdma'
+      Merge branch 'pci/pm'
+      Merge branch 'pci/portdrv'
+      Merge branch 'pci/pwrctrl'
+      Merge branch 'pci/reset'
+      Merge branch 'pci/sysfs'
+      Merge branch 'pci/tph'
+      Merge branch 'pci/virtualization'
+      Merge branch 'pci/endpoint'
+      Merge branch 'pci/controller/misc'
+      Merge branch 'pci/controller/aardvark'
+      Merge branch 'pci/controller/aspeed'
+      Merge branch 'pci/controller/brcmstb'
+      Merge branch 'pci/controller/cadence'
+      Merge branch 'pci/controller/mvebu'
+      Merge branch 'pci/controller/rockchip'
+      Merge branch 'pci/controller/dwc'
+      Merge branch 'pci/controller/dwc-dra7xx'
+      Merge branch 'pci/controller/dwc-eswin'
+      Merge branch 'pci/controller/dwc-imx6'
+      Merge branch 'pci/controller/dwc-keystone'
+      Merge branch 'pci/controller/dwc-layerscape'
+      Merge branch 'pci/controller/dwc-qcom'
+      Merge branch 'pci/controller/dwc-rcar-gen4'
+      Merge branch 'pci/controller/dwc-ultrarisc'
+      Merge branch 'pci/controller/iproc-bcma'
+      Merge branch 'pci/controller/mediatek'
+      Merge branch 'pci/controller/mediatek-gen3'
+      Merge branch 'pci/controller/rzg3s-host'
+      Merge branch 'pci/controller/tegra'
+      Merge branch 'pci/controller/tegra264'
+      Merge branch 'pci/controller/vmd'
+      Merge branch 'pci/controller/xgene'
+      Merge branch 'pci/controller/xilinx-cpm'
+      Merge branch 'pci/controller/xilinx-dma-pl'
+      Merge branch 'pci/misc'
+
+Christopher Obbard (1):
+      PCI: qcom: Only check bridge nodes for PERST# GPIOs
+
+Deepanshu Kartikey (1):
+      PCI/sysfs: Reject unaligned resource I/O port accesses
+
+Donggeun Yoo (1):
+      PCI/DOE: Fix double free of a duplicate feature's sysfs name
+
+Felix Gu (1):
+      PCI: dra7xx: Fix clock enable leak on probe failure
+
+Feng Tang (1):
+      PCI/P2PDMA: Add Alibaba T-HEAD Yitian 710 to allowlist
+
+Geraldo Nascimento (3):
+      PCI: rockchip-ep: Do not attempt 5.0 GT/s retraining
+      PCI: rockchip-host: Do not attempt 5.0 GT/s retraining
+      PCI: rockchip: Drive at 2.5 GT/s, error other speeds
+
+Guangshuo Li (1):
+      PCI: qcom-ep: Deinitialize endpoint on remove
+
+Hans Zhang (4):
+      PCI: cadence: Fix enum type mismatch warning in LTSSM debugfs
+      PCI: dwc: Align register macros with Synopsys documentation
+      PCI: dwc: Remove unused PCIE_ATU_UNR_* register definitions
+      PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
+
+Hans de Goede (1):
+      PCI: Add ACS quirk for Pericom PI7C9X2G304 switches [12d8:b304]
+
+Ilpo Järvinen (1):
+      PCI/ASPM: Disable ASPM when driver requests it
+
+Imre Kaloz (2):
+      PCI: Disable MSI for ULi M1575 EHCI controller
+      PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
+
+Janusz Krzysztofik (1):
+      PCI: Avoid FLR and SBR on Intel DG1 0x4905 graphics adapters
+
+Jim Quinlan (10):
+      PCI: brcmstb: Remove redundant const specifier for struct fields
+      PCI: brcmstb: Use flags u32 instead of bools
+      PCI: brcmstb: Add Broadcom quirks macro
+      PCI: brcmstb: Declare and assign quirk OB_WIN_32BIT_ADDR
+      PCI: brcmstb: Declare and assign quirk OB_WIN_MAXSZ_128MB
+      PCI: brcmstb: Declare and assign flag IS_BMIPS
+      PCI: brcmstb: Declare and assign quirk 32BIT_PCI_OPS
+      PCI: brcmstb: Declare and assign quirk NO_RGR1_TIMER
+      PCI: brcmstb: Declare and assign quirk EARLY_PERST_ASSERT
+      PCI: brcmstb: Declare and assign quirk PERST_PCIE_REV_CUTOFF
+
+Jose Ignacio Tornos Martinez (2):
+      PCI: Add device-specific reset for Qualcomm SDX62/SDX65 modems
+      PCI: Add device-specific reset for Qualcomm WCN6855/WCN7850 WLAN
+
+Keng-Yu Lin (1):
+      PCI/PM: Restore BARs after powering up during enumeration
+
+Koichiro Den (8):
+      PCI: endpoint: pci-epf-vntb: Pass PF/VF number when BAR programming
+      PCI: endpoint: pci-ep-msi: Make embedded doorbell IRQ exclusive
+      PCI: endpoint: pci-ep-msi: Let non-first EPFs use embedded doorbells
+      PCI: endpoint: pci-epf-vntb: Serialize virtual PCI bus scan
+      PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
+      PCI: endpoint: pci-epf-vntb: Track link state from both sides
+      PCI: endpoint: pci-epf-vntb: Use a local epf pointer in interrupt setup
+      PCI: endpoint: pci-epf-vntb: Honor MSI-X selection
+
+Konrad Dybcio (1):
+      PCI: qcom: Ignore -ENODEV after Root Port reset
+
+Krzysztof Kozlowski (2):
+      PCI: mvebu: Simplify with scoped for each OF child loop
+      PCI: mvebu: Keep child node refcnt for probe duration
+
+Krzysztof Wilczyński (4):
+      PCI/sysfs: Stop reporting _DSM failures as -EPERM
+      PCI/sysfs: Decouple acpi_index from the optional device name element
+      PCI/sysfs: Handle a malformed _DSM result in acpi_attr_is_visible()
+      PCI/sysfs: Pass the device name length in UTF-16 code units
+
+Kuppuswamy Sathyanarayanan (3):
+      PCI: Assume control of portdrv-related features only when portdrv enabled
+      PCI/ACPI: Tidy _OSC control bit checking
+      PCI/ACPI: Centralize pcie_ports_native checking
+
+LECOINTRE Philippe (1):
+      PCI: dwc: Correct PCIE_DW_PLAT_EP reference in Kconfig help
+
+Lad Prabhakar (3):
+      PCI: rzg3s: Disable refclk on probe failure
+      PCI: rzg3s: Propagate platform_get_irq_byname() errors
+      PCI: rzg3s: Fix IRQ domain initialization error handling
+
+LeoLiu-oc (1):
+      PCI/P2PDMA: Add Zhaoxin host bridges to allowlist
+
+Leon Romanovsky (6):
+      PCI/P2PDMA: Update DMABUF lifecycle docs after move_notify() rename
+      PCI/P2PDMA: Do not tear down the allocate attribute on registration failure
+      PCI/P2PDMA: Wait for RCU readers before freeing state
+      PCI/P2PDMA: Restrict the p2pmem search to pool-backed providers
+      PCI/P2PDMA: Safely terminate ACS redirect lists
+      PCI/P2PDMA: Gate the host bridge whitelist warning on verbose
+
+Linmao Li (1):
+      PCI: cadence: Store the core controller in platform drvdata
+
+Liu Zhenlong (1):
+      PCI: aspeed: Fix clk and PHY leak in aspeed_pcie_port_init() error paths
+
+Logan Odell (1):
+      PCI/IOV: Read VF config values that need not match PF
+
+Lorenzo Bianconi (6):
+      PCI/pwrctrl: tc9563: Rely on regmap APIs
+      PCI/pwrctrl: tc9563: Use devm-managed I2C dummy device allocation
+      dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
+      PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
+      PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
+      PCI/pwrctrl: Power off child devices on power-on failure
+
+Maciej W. Rozycki (1):
+      PCI: Skip Target Speed quirk on clamped ports with no link
+
+Manivannan Sadhasivam (1):
+      PCI: qcom: Honor IOMMU provider's #iommu-cells in qcom_pcie_config_sid_1_9_0()
+
+Marek Vasut (14):
+      PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes
+      PCI: dwc: Add dw_pcie_ep_ops->post_deinit() callback
+      PCI: rcar-gen4: Use .post_deinit() to handle dw_pcie_ep_init() failures
+      dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible
+      PCI: rcar-gen4: Rework .additional_common_init() into .init()
+      PCI: rcar-gen4: Add .deinit() callback
+      PCI: rcar-gen4: Add .speed_control() callback
+      PCI: rcar-gen4: Handle PERST# via reset subsystem
+      PCI: rcar-gen4: Add support for R-Car X5H PCIe4
+      PCI: rcar-gen4: Drop documentation about obtaining platform firmware
+      dt-bindings: PCI: rcar-gen4-pci-host: Document Application/Local register reset
+      dt-bindings: PCI: rcar-gen4-pci-ep: Document Application/Local register reset
+      PCI: rcar-gen4: Add Application/Local register reset control
+      PCI: rcar-gen4: Add missing PM ops
+
+Mario Limonciello (AMD) (2):
+      PCI/PM: Split out code from pci_pm_suspend_noirq() into helper
+      PCI: Align hibernate poweroff flow with suspend flow for bridges
+
+Mohamad Raizudeen (1):
+      PCI: Fix out-of-bounds MMIO read in nvme_disable_and_flr()
+
+Mrinmay Sarkar (1):
+      PCI: qcom: Skip system suspend/resume for firmware-managed PCIe
+
+Myeonghun Pak (1):
+      PCI: aardvark: Disable PHY on probe failures
+
+Niklas Cassel (1):
+      PCI: Update saved Max Payload Size in pcie_set_mps()
+
+Peng Fan (1):
+      PCI: dwc: imx6: Use regmap_assign_bits() for conditional set/clear
+
+Pengpeng Hou (1):
+      PCI: eswin: Publish the platform driver OF alias
+
+Priyank Rathod (4):
+      PCI/AER: Fix memory leak in aer_recover_queue() on kfifo buffer overflow
+      PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing
+      PCI/AER: Document that aer_recover_queue() takes ownership of aer_regs
+      PCI/AER: Fix struct pci_dev reference leak in aer_process_err_devices()
+
+Qiang Yu (1):
+      PCI: qcom: Block accesses to downstream devices on link down
+
+Richard Zhu (2):
+      PCI: imx6: Update MPLLB bandwidth to improve i.MX95 Gen3 PCIe stability
+      PCI: dwc: Add suspend_poweroff flag for platforms with RC power loss
+
+Rickey Bartlett (1):
+      PCI: vmd: Flush DMA writes before handling MSI on Meteor Lake
+
+Rudi Heitbaum (1):
+      PCI: imx6: Avoid dereferencing a NULL clock name
+
+Runyu Xiao (1):
+      PCI: pciehp: Make 'pciehp_poll_mode' parameter read-only
+
+Sai Krishna Musham (2):
+      dt-bindings: PCI: xilinx-versal-cpm: Add PERST# and reset support
+      PCI: xilinx-cpm: Add support for PCIe RP PERST# signal
+
+Scott Lee (1):
+      PCI/P2PDMA: Add Intel Haswell client host bridge to allowlist
+
+Semih Baskan (1):
+      PCI: iproc: Use the EROM outbound window on BCMA
+
+Shawn Lin (3):
+      PCI: dwc: Rename dw_pcie_allocate_domains() to dw_pcie_allocate_msi_domains()
+      PCI: dwc: Rename pp->irq_domain to pp->msi_irq_domain
+      PCI/pwrctrl: Only destroy devices created by pwrctrl core
+
+Sreeraj S Kurup (1):
+      PCI: mediatek-gen3: Fix 64-bit type truncation in mtk_pcie_set_trans_table()
+
+Stian Halseth (1):
+      PCI: Set supported_speeds in set_pcie_port_type()
+
+Sumit Kumar (1):
+      PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register
+
+Thierry Reding (1):
+      dt-bindings: PCI: tegra: Convert to json-schema
+
+Vincent Jardin (1):
+      PCI: layerscape: Enable async probe by default
+
+Vladimir Nedoshivin (1):
+      PCI: vmd: Flush DMA writes before handling MSI on Arrow Lake
+
+Vladimir Oltean (2):
+      PCI: cadence: Preserve all error codes in cdns_plat_pcie_probe()
+      PCI: Add missing headers transitively included by <linux/phy/phy.h>
+
+Wei Huang (1):
+      PCI/TPH: Validate the firmware Steering Tag response
+
+Wentao Liang (1):
+      PCI: xilinx-xdma: Fix device node reference leak in xilinx_pl_dma_pcie_init_irq_domain()
+
+Xincheng Zhang (2):
+      PCI: dwc: Allow drivers to skip MEM outbound iATU setup
+      PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000
+
+Yuho Choi (1):
+      PCI: xgene: Use managed clock for PCIe controller
+
+Zhengping Zhang (1):
+      PCI: mediatek: Find INTx controller by property
+
+Zhijian Han (1):
+      PCI: imx6: Fix resource leaks in probe error paths
+
+hanzhijian (1):
+      PCI: imx6: Fix pwrctrl device leak on PM runtime setup failure
+
+kai zhang (1):
+      PCI/P2PDMA: Add Intel Xeon E3 v4/E5 v4/E7 v4 host bridge to allowlist
+
+vladimir.oltean@nxp.com (3):
+      PCI: keystone: Remove device links to PHY
+      PCI: cadence: Remove device links to PHY
+      PCI: dra7xx: Remove device links to PHY
+
+ Documentation/ABI/testing/sysfs-bus-pci            |  14 +-
+ Documentation/PCI/controller/index.rst             |   1 -
+ .../PCI/controller/rcar-pcie-firmware.rst          |  32 -
+ .../bindings/pci/nvidia,tegra20-pcie.txt           | 670 ---------------------
+ .../bindings/pci/nvidia,tegra20-pcie.yaml          | 532 ++++++++++++++++
+ .../devicetree/bindings/pci/rcar-gen4-pci-ep.yaml  |   9 +-
+ .../bindings/pci/rcar-gen4-pci-host.yaml           |  83 ++-
+ .../bindings/pci/renesas,r9a08g045-pcie.yaml       |  33 +-
+ .../devicetree/bindings/pci/toshiba,tc9563.yaml    |  14 +-
+ .../devicetree/bindings/pci/xilinx-versal-cpm.yaml |  38 ++
+ Documentation/driver-api/pci/p2pdma.rst            |   6 +-
+ MAINTAINERS                                        |   1 -
+ drivers/acpi/pci_root.c                            |  78 ++-
+ drivers/gpio/Kconfig                               |  12 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-tc9563.c                         |  99 +++
+ .../pci/controller/cadence/pcie-cadence-debugfs.c  |  15 +-
+ drivers/pci/controller/cadence/pcie-cadence-plat.c |  33 +-
+ drivers/pci/controller/cadence/pcie-cadence.c      |  16 +-
+ drivers/pci/controller/cadence/pcie-cadence.h      |   2 -
+ drivers/pci/controller/dwc/Kconfig                 |   4 +-
+ drivers/pci/controller/dwc/pci-dra7xx.c            |  24 +-
+ drivers/pci/controller/dwc/pci-imx6.c              | 161 +++--
+ drivers/pci/controller/dwc/pci-keystone.c          |  40 +-
+ drivers/pci/controller/dwc/pci-layerscape.c        |   1 +
+ drivers/pci/controller/dwc/pcie-designware-ep.c    |  18 +-
+ drivers/pci/controller/dwc/pcie-designware-host.c  |  60 +-
+ drivers/pci/controller/dwc/pcie-designware.c       | 178 +++---
+ drivers/pci/controller/dwc/pcie-designware.h       | 292 ++++-----
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c      |   1 +
+ drivers/pci/controller/dwc/pcie-eswin.c            |   1 +
+ drivers/pci/controller/dwc/pcie-fu740.c            |   6 +-
+ drivers/pci/controller/dwc/pcie-histb.c            |   1 +
+ drivers/pci/controller/dwc/pcie-nxp-s32g.c         |  18 +-
+ drivers/pci/controller/dwc/pcie-qcom-common.c      |  28 +-
+ drivers/pci/controller/dwc/pcie-qcom-ep.c          |   3 +
+ drivers/pci/controller/dwc/pcie-qcom.c             | 190 ++++--
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c        | 374 ++++++++++--
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c      |   3 +
+ drivers/pci/controller/dwc/pcie-tegra194-acpi.c    |  22 +-
+ drivers/pci/controller/dwc/pcie-tegra194.c         | 103 ++--
+ drivers/pci/controller/dwc/pcie-ultrarisc.c        |  16 +-
+ drivers/pci/controller/pci-aardvark.c              |  31 +-
+ drivers/pci/controller/pci-mvebu.c                 |  21 +-
+ drivers/pci/controller/pci-tegra.c                 |   1 +
+ drivers/pci/controller/pci-xgene.c                 |  11 +-
+ drivers/pci/controller/pcie-aspeed.c               |   9 +-
+ drivers/pci/controller/pcie-brcmstb.c              |  92 ++-
+ drivers/pci/controller/pcie-iproc-bcma.c           |  40 +-
+ drivers/pci/controller/pcie-mediatek-gen3.c        |  15 +-
+ drivers/pci/controller/pcie-mediatek.c             |   4 +-
+ drivers/pci/controller/pcie-rockchip-ep.c          |  13 -
+ drivers/pci/controller/pcie-rockchip-host.c        |  21 +-
+ drivers/pci/controller/pcie-rockchip.c             |  14 +-
+ drivers/pci/controller/pcie-rockchip.h             |   3 -
+ drivers/pci/controller/pcie-rzg3s-host.c           |  76 ++-
+ drivers/pci/controller/pcie-tegra264.c             |   9 +-
+ drivers/pci/controller/pcie-xilinx-cpm.c           |  77 ++-
+ drivers/pci/controller/pcie-xilinx-dma-pl.c        |  10 +-
+ drivers/pci/controller/plda/pcie-starfive.c        |   1 +
+ drivers/pci/controller/vmd.c                       |  55 +-
+ drivers/pci/doe.c                                  |   5 +-
+ drivers/pci/endpoint/functions/pci-epf-vntb.c      | 243 ++++++--
+ drivers/pci/endpoint/pci-ep-msi.c                  |  40 +-
+ drivers/pci/hotplug/pciehp_core.c                  |   4 +-
+ drivers/pci/iov.c                                  |  25 -
+ drivers/pci/p2pdma.c                               |  43 +-
+ drivers/pci/pci-acpi.c                             |   3 -
+ drivers/pci/pci-driver.c                           | 100 ++-
+ drivers/pci/pci-label.c                            |  92 ++-
+ drivers/pci/pci-sysfs.c                            |   3 +
+ drivers/pci/pci.c                                  |  34 +-
+ drivers/pci/pci.h                                  |  14 +-
+ drivers/pci/pcie/aer.c                             |  56 +-
+ drivers/pci/pcie/aer_cxl_rch.c                     |   2 +-
+ drivers/pci/pcie/aspm.c                            |  33 +-
+ drivers/pci/pcie/err.c                             |   2 +-
+ drivers/pci/pcie/portdrv.c                         |   6 +-
+ drivers/pci/pcie/portdrv.h                         |   2 -
+ drivers/pci/probe.c                                |  33 +-
+ drivers/pci/pwrctrl/Kconfig                        |   2 +
+ drivers/pci/pwrctrl/core.c                         |  22 +-
+ drivers/pci/pwrctrl/generic.c                      |   1 +
+ drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c           | 325 ++++++----
+ drivers/pci/quirks.c                               | 152 ++++-
+ drivers/pci/tph.c                                  |   6 +-
+ include/linux/pci-epf.h                            |   3 +-
+ include/linux/pci.h                                |   2 +
+ include/linux/soc/qcom/tc9563.h                    |  19 +
+ 89 files changed, 3156 insertions(+), 1852 deletions(-)
+ delete mode 100644 Documentation/PCI/controller/rcar-pcie-firmware.rst
+ delete mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
+ create mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.yaml
+ create mode 100644 drivers/gpio/gpio-tc9563.c
+ create mode 100644 include/linux/soc/qcom/tc9563.h
