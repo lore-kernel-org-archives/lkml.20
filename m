@@ -1,80 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606343;
-	b=mlbX1qu8jRypQg/i+N/r4Uyn2vSuoDUs5OgfXhqCtGqLSjwAPC0gcHlac4JjJLf1jj+i
-	 AOxBIBeM8mIxAH7JnBT48lemTBeMlK6eKMVuYCACrvWL3YDyAi6UvhzHpcbG0E5P3kzKL
-	 1c0vcVzlKKE5pkQEqB1b0GrdF8uNvgFME9HRVo189hIl32YvWb2mXL3CfYMXvpXmQnrYv
-	 syPyDLMnAWqMcv5t0xXG1IZt5juEVtnP9SLiWlisQH+/O7LbTHuE1+ZBi2v7vQNZaY7BW
-	 LLL34RL9H2dPtdIcENHKLjUMHviIArOiaAhhbVnUFOfq/BNJFM+VcYrnFXQuU5Oz0hg==
+	t=1792606480;
+	b=ifzX9K71MKmeURARuHJroEQLqzCZ6X+0c3hQ3mOOJH09PxtaYCN78s4fIrMczZwpiQ+Q
+	 80eE1rV1baotycLN6efNvhsg91DXXuByq906GNuMfvNroXI472lEEFL2CyY50BoUUb5ZX
+	 l2KasRftb08tNrSrBjVnKOaucAQbIWAaVkrA2N/SAgfCZkp3a8In1m5F7+xPVgBnPHBBo
+	 AdBJBHTrMwMIg+2RJjTm/prH/DqaqR+cL8XAG3Ux6UiTwumfGcZ7lpUoxnrTig/R1XRR6
+	 NxC/Z/quxWc0fRhhDLI/MhFjO2UWfYK6accgGR1EblYqxXo1uJJJkKfcKs8wJvdclBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606343;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+PH9zTDs7qXdIs87sy4Roo89pD6vSPYgRkevIEWEu44=;
-	b=EikzgwOBBaClpJgKQNzRXsjH5j1B/dkYS9k8aqVDDupkGaAFIZ5ZZOUro7uTrUKCfFp2
-	 DZwrF5oiqLk6YPlJ8AJjvKB+iG3ed/60iHEof0DEglYYUJMZ3AsILUUgN2PfUFVpVdbiK
-	 ON+Pg3XL7moGB07LviZi69dHAS2KJneO1WWfrzEkjjsMnhw16gmLgmkXheJdPId1XNXJV
-	 oZ8H/0//gFC+Cq/GlohubAd6KcR7K9IgpNLOAxbyF8BGnMtU5LFr6NX+puQaEQ4q7zGN8
-	 7xV53z0xkeNXp4DYy+qZ+qQaObxmfdRsNziX19qLt9wml9si4G2R//fJWWhoAiEy0rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606480;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP;
+	bh=upISL5VcKfB0IUzXvKf/csjl1o76bI/wcMHoqPwE4qc=;
+	b=xuPYl33JV0dpW/kPx5OgY3Ul9cqx0TGTs9MrP6mvrRoYz6dxf+8vrmiH4ZNrJNJSX0IT
+	 g5tTCJHPeA8B1a2VHJlKK41h0JqepFDDAZZQv0xuMmEqcxno1TJk5azBxZ6kXaboE/PIJ
+	 LENSirYWoA4ebvlKnJIlHqoDMTRH23xXPCH34GJG5uYuskRzSyZ1Y7eVJOtN90XsckJo/
+	 fnIeqnYfpq+b5+u2Y0IHFAfr3q11okxeFIzr6BqKDn/Co9B5PjA0BGcwczX94y/gmlUXZ
+	 Rqad1SDmV7DvoYRrhp3uOyZc1VXfGByBFbXexCaFd9K2YM5bqTzEX2rbHAoPYLk4URg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=CbZRsVQa;
-	arc=none smtp.remote-ip=35.83.148.184
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=posteo.de;
+	spf=pass smtp.mailfrom=posteo.de;
+	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=iEvwwhiR;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E55606A31B;
-	Wed, 21 Oct 2026 18:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1E55606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B89606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26B89606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=CbZRsVQa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792606342; x=1824142342;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=+PH9zTDs7qXdIs87sy4Roo89pD6vSPYgRkevIEWEu44=;
-  b=CbZRsVQaYxyf4mOIhE51F6o96ESnlyt64OfzjuPoANme6YGKcuYN/NHO
-   g2P9SttCHVMy8gLhl9wnDf3pGwkaS1e5DQNs0f7p37XBC8+XqdPo0ct5V
-   1OBvz7eY1IIJXADqSOKnq1oVUW01/tKSlhK6i5JJGzd/X2xD30slLBH8/
-   Ff6MQIxy998Fu8ihZJwUYjT0/obQQyZgoneor1eloiLjotam4s16S3nij
-   K2y417kM5jkExbyVpwaUDl9IMqwpFIIo+YVndZb+1r8Haji5BMZoxhQtN
-   MttmXR8GkL/Rxkrab9h9iY2W6rlTTtOPokKphKE8df0vf/mZP8p8mWcoP
-   w==;
-X-CSE-ConnectionGUID: G3TrxJyyTa+g5VQvwbjqcA==
-X-CSE-MsgGUID: p6CqAlqYSceCiQKVC25+tA==
-X-IronPort-AV: E=Sophos;i="6.27,170,1787011200"; 
-   d="scan'208";a="31686578"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 18:12:22 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:24446]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
- id f0401e93-fdd5-44e8-9f5b-88715e886dd6; Wed, 21 Oct 2026 18:12:22 +0000 (UTC)
-X-Farcaster-Flow-ID: f0401e93-fdd5-44e8-9f5b-88715e886dd6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 21 Oct 2026 18:12:21 +0000
-Received: from dev-dsk-youyouyu-2c-7ec217cf.us-west-2.amazon.com
- (10.189.234.25) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Wed, 21 Oct 2026
- 18:12:21 +0000
-From: YouYou Yu <youyouyu@amazon.com>
-To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
-CC: Alexander Viro <viro@zeniv.linux.org.uk>, Lichen Liu <lichliu@redhat.com>,
-	Dylan Johnson <dgj@amazon.com>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Gunnar Kudrjavets <gunnarku@amazon.com>
-Subject: [PATCH v2] quota: initialize dquot cache before mounting rootfs
-Date: Wed, 21 Oct 2026 18:12:17 +0000
-Message-ID: <20261021181217.20171-1-youyouyu@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=iEvwwhiR
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 4C789240104
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:14:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1792606472;
+	bh=upISL5VcKfB0IUzXvKf/csjl1o76bI/wcMHoqPwE4qc=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=iEvwwhiR8NWiTz36FlFoyhD1N1KnFCXenbI22g82uMPV4vZqV1dwqZGAbo6d6mpVv
+	 F5Jmzc/qN31R4aWaCky4CCCsRgzSEuaVSmIg6Bk4nZLd0Zpnav/yfEKi4U+tXwkOd2
+	 qy21swIgjhev2vWm09kk89sN3Mn/KWmKD8zPADHQrkMOS8HnDNMLPMuhVj5ywkPgzh
+	 meJ17oohINw7mI2RjO8cDJeomVTPycOn+l5YFe6u3iCWXk42+wWNZhM/xwo3MrxHQB
+	 1YNNuqu7+yWAYQ2NFbd4G+gElwdoeSLa2V+8FAiYn94xeaP1mGWInx7X73st2TlpL5
+	 KKPfImpqGrRCA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4j8y9L3yQJz9rxQ;
+	Wed, 21 Oct 2026 20:14:30 +0200 (CEST)
+Message-ID: <90df4e3068d89c37b4c6813aacae02fcf9fc188a.camel@posteo.de>
+Subject: Re: [PATCH v2 1/3] serdev: handle devices without an ACPI or device
+ tree node
+From: Markus Probst <markus.probst@posteo.de>
+To: Hans de Goede <hansg@kernel.org>, ChunAn Wu <an.wu@canonical.com>, 
+	linux-serial@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
+	jirislaby@kernel.org, ilpo.jarvinen@linux.intel.com,
+ mpearson-lenovo@squebb.ca, 	derekjohn.clark@gmail.com
+Date: Wed, 21 Oct 2026 18:14:31 +0000
+In-Reply-To: <97dd05c2-0a6f-4856-a473-59183a5b3424@kernel.org>
+References: <20261021092124.2306053-1-an.wu@canonical.com>
+	 <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
+	 <59137675cf11f7b034220c3b71c5ababab48f8d0.camel@posteo.de>
+	 <97dd05c2-0a6f-4856-a473-59183a5b3424@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-7FxLjH+liG0hWwWorbVz"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,154 +120,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On some systems, a tmpfs backed rootfs is extensively used throughout
-system's lifecycle. tmpfs quotas are needed to limit per user rootfs
-usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
-and "initramfs_options=usrquota" panics at boot:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:dqget+0x1ac/0x490
-  Call Trace:
-   __dquot_initialize
-   dquot_initialize
-   shmem_get_inode
-   shmem_fill_super
-   ...
-   mnt_init
-   vfs_caches_init
-   start_kernel
+--=-7FxLjH+liG0hWwWorbVz
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The rootfs is mounted from mnt_init(), but the dquot hash table and
-cache are only set up later by dquot_init(), an fs_initcall. Creating
-the root inode of a quota enabled rootfs thus dereferences the NULL
-dquot_hash in dqget().
+On Wed, 2026-10-21 at 20:07 +0200, Hans de Goede wrote:
+> Hi,
+>=20
+> On 21-Oct-26 17:08, Markus Probst wrote:
+> > On Wed, 2026-10-21 at 16:32 +0200, Hans de Goede wrote:
+> > > Hi,
+> > >=20
+> > > On 21-Oct-26 11:21, ChunAn Wu wrote:
+> > > > Driver-created serdev clients may lack an ACPI companion or device =
+tree
+> > > > node.
+> > > >=20
+> > > > Add a creator-supplied name for these clients. Use it as a serial
+> > > > modalias fallback and to match a serdev driver of the same name. Ke=
+ep
+> > > > returning -ENODEV for unnamed clients.
+> > > >=20
+> > > > Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+> > >=20
+> > > For v3 of this series please include a cover-letter and explain
+> > > why this series is an improvement over the` existing situation.
+> > >=20
+> > > The dell-uart-backlight and lenovo-yoga-tab2-pro-1380-fastcharger
+> > > drivers are both pretty special cases and here you are adding
+> > > a chunk of code to the serdev-core for those special cases,
+> > > so I wonder: why?
+> > >=20
+> > > The current manual attach approach taking in these 2 special
+> > > drivers works fine.
+> > >=20
+> > > What does this new approach gain us ?
+> >=20
+> > That was my review comment [1] that resulted in this.
+>=20
+> Thanks, that is useful info and the kinda info I would
+> expect in a cover-letter :)
+> > From what I can tell from revision 1, ChunAn Wu is trying to fix that
+> > accessing uevent and modalias of the device (via sysfs) results in a -
+> > ENODEV error.
+>=20
+> I see. Makes me wonder though how that -ENODEV is a problem,
+> it is weird. But is it a problem?
+>=20
+> The v1 patch writes the following about this:
+>=20
+> "This makes the modalias sysfs read fail and suppresses the device
+> add uevent, even though the device is registered and bound to its driver.=
+"
+>=20
+> Ok, but the backlight driver ultimately ends up adding a
+> /sys/class/backlight device which I assume does get
+> a uevent, or is the problem that one never getting a uevent
+> because of its parent not getting one ?
+>=20
+> And the lenovo-yoga-tab2-pro-1380-fastcharger driver does all
+> it needs to do fully in kernel and does not even export
+> a userspace interface.
+I am not sure which issue is solves precisely. Maybe udev doesn't like
+it?
 
-Rename dquot_init() to dquot_cache_init() and call it from
-vfs_caches_init() before mnt_init(). The slab, percpu and early
-workqueue code it relies on is available there, and the workqueue
-rescuer and shrinker debugfs entries are set up later by their own
-subsystems. Keep the sysctl registration in an fs_initcall, as done
-for the dcache, inode and mount sysctls. This only moves existing
-allocations earlier in boot.
+ChunAn Wu has to answer that.
 
-Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: YouYou Yu <youyouyu@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
----
+Returning -ENODEV on an existing device there is likely not intended.
 
-Notes:
-    v2:
-    - Mention the use case in the changelog (Jan)
-    
-    v1:
-    https://lore.kernel.org/all/20261015183608.22507-1-youyouyu@amazon.com/
-    
-    Tested on v7.3-rc7, x86_64 QEMU/KVM, booting from an initramfs without root=:
-    - without this patch, initramfs_options=usrquota panics in dqget() as above
-    - with it, initramfs_options=usrquota,grpquota,usrquota_block_hardlimit=10M
-      boots, rootfs is mounted with quotas, and a non-root user is limited to
-      10M on rootfs
-    - /sys/kernel/slab/dquot, the quota_events_unbound rescuer, the fs/quota
-      sysctls and (with CONFIG_SHRINKER_DEBUG) the dquota-cache shrinker
-      debugfs entry are all created as expected
-    
-    An LLM (Claude Opus 5.5) helped drafting this changelog.
-    I reviewed the change and ran the tests above.
 
- fs/dcache.c              |  2 ++
- fs/quota/dquot.c         | 10 ++++++----
- include/linux/quotaops.h |  5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+>=20
+> > As mentioned in my review:
+> >=20
+> > - "/* TODO: platform modalias */"
+> > - "/* TODO: platform matching */"
+> > still exist in the serdev codebase (drivers/tty/serdev/core.c) and are
+> > unresolved. Resolving those also fixes the issue mentioned above.
+> > Therefore I think this would be a better approach.
+>=20
+> With that said given that there are TODO comments for this
+> I guess addressing the TODO-s is ok.
+> > A cover letter is ofc still needed.
+>=20
+> Ack.
+>=20
+> > > Also if you are going to do this may I suggest looking at doing
+> > > some sort of of-compatible matching based on a compatible string
+> > > inside a swnode ? I do not know what that would look like but
+> > > that is something which seems like it might be generally useful
+> > > also outside these 2 special cases.
+> >=20
+> > I haven't used them before, but I don't think of-compatible string
+> > matching inside a swnode is done anywhere in the kernel (At least I
+> > haven't found a case).
+> >=20
+> > They can be added supplementary if needed.
+>=20
+> The idea was to make this a generic match mechanism / helper
+> function busses can call, like the current of and acpi
+> match (and modalias) helpers. And then have matching by
+> a compatible string instead of by name since matching by name
+> only works if there is only 1 instance.
+Please take a look at my previous review comment [1].
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index f44c7b39c3b..b208cbdda0f 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -32,6 +32,7 @@
- #include <linux/bit_spinlock.h>
- #include <linux/rculist_bl.h>
- #include <linux/list_lru.h>
-+#include <linux/quotaops.h>
- #include "internal.h"
- #include "mount.h"
- 
-@@ -3525,6 +3526,7 @@ void __init vfs_caches_init(void)
- 	inode_init();
- 	files_init();
- 	files_maxfiles_init();
-+	dquot_cache_init();
- 	mnt_init();
- 	bdev_cache_init();
- 	chrdev_init();
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 1c78c695d0d..cd142c9cc7e 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -2942,7 +2942,7 @@ static const struct ctl_table fs_dqstats_table[] = {
- 	},
- };
- 
--static int __init dquot_init(void)
-+void __init dquot_cache_init(void)
- {
- 	int i, ret;
- 	unsigned long nr_hash;
-@@ -2950,8 +2950,6 @@ static int __init dquot_init(void)
- 
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
- 
--	register_sysctl_init("fs/quota", fs_dqstats_table);
--
- 	dquot_cachep = kmem_cache_create("dquot",
- 			sizeof(struct dquot), sizeof(unsigned long) * 4,
- 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
-@@ -2992,7 +2990,11 @@ static int __init dquot_init(void)
- 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
- 	if (!quota_unbound_wq)
- 		panic("Cannot create quota_unbound_wq\n");
-+}
- 
-+static int __init init_fs_dquot_sysctls(void)
-+{
-+	register_sysctl_init("fs/quota", fs_dqstats_table);
- 	return 0;
- }
--fs_initcall(dquot_init);
-+fs_initcall(init_fs_dquot_sysctls);
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index f9c0f9d7c9d..bbe22c22439 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
- /*
-  * declaration of quota_function calls in kernel.
-  */
-+void dquot_cache_init(void);
- int dquot_initialize(struct inode *inode);
- bool dquot_initialize_needed(struct inode *inode);
- void dquot_drop(struct inode *inode);
-@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
- 	return 0;
- }
- 
-+static inline void dquot_cache_init(void)
-+{
-+}
-+
- static inline int dquot_initialize(struct inode *inode)
- {
- 	return 0;
+In this I suggested adding a `id_table` field to `serdev_driver`.
+This allows to match multiple instances, including providing different
+private datas.
 
-base-commit: 7c6f8a2841d4eeeceacf42689cd2717fe76d9f7c
--- 
-2.47.3
+software node is only relevant I think if you already use
+`fwnode_property_read_string` inside a driver next to acpi and of, and
+also want to handle devices without of or acpi.
 
+Thanks
+- Markus Probst
+
+[1]
+https://lore.kernel.org/linux-serial/0be5624e3778c3426f88daf2d67376435f4744=
+97.camel@posteo.de/
+
+>=20
+> Anyways this is just an idea and somewhat out of scope for
+> this patch-set.
+>=20
+> Regards,
+>=20
+> Hans
+>=20
+
+--=-7FxLjH+liG0hWwWorbVz
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrZAQAbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS+fYP/RN5aeIpd2NqW43K/Kf4
+aRfJXUBdyVuAvxHzouIeVju4RSZgDOHwbhUxaVIMxKFVfCz7g+GuhCWXXb/oQvZL
+jNrR7hXw53CE5DnXBPHO8wtzqD9rGU+Nwy3fCacP8t0MKL2ajh99le4b8tmWHmyN
+OoZyFQ19f4blE84fMZTZpOP/3NHZNqhsnVUIXvA48izhik6AV49cmiDjqWwanwcN
+aJcbCdq1yCh8xyPhEevahSe8KFuMdHYrPRqfX7G4+W/rhy4sOAPXkcCTUb3dSWOb
+kGgdpeTk7hL1cbfQ4XKHr4LSC62UTK/jt97PeMfKkFswjbb80scCaDAyocuz16Ao
+0l4qpXLAc2hVnwgAjFIwHOSjqfnfPsw1j3hNkRhWzgqOy1bCsmQlCl4VyZN8kMaR
+5CxcB5j//rmohc4FkWEVIoP7mD8eeDU0AFO5syrejfdhSV6NYFfYtuv2Jb70tyeM
+sHmt/vRmSWNjq33OTyvGTM0buz64rC3W53S0nz4841GZF/Is00R2y8vgpxEmaVA/
+q6LzZr2aDSpAooxFaYmeDF1N9OVKph7uAtIJdUMd2dGYK12Rhb6oUZfMs538se32
+lp1s0BtO/4j3I/3ylJLaSNgBLLmqw7HTBdnCQ+pD4o0/+BKcxaG2LyQbiROFhqlj
+sCxxVgpWyHUU3Id7q9Tssu63
+=Ej9S
+-----END PGP SIGNATURE-----
+
+--=-7FxLjH+liG0hWwWorbVz--
