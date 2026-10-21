@@ -1,61 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792625569;
-	b=UHt4EUw24oSVuCRWgIOOODYMyA4pjqDf1U/d05cD6eK2lwFvwcXpME314pfC3cY1fGta
-	 sXvxkONTNN1Tn/BMMUDuAygGbpdIY6A0s9AMMP7pY3pj37yBLTuQB6aejZPDoj7wpMSEA
-	 lBSUFvRyuVMFCCg/yuU4Oaw5zyhairExoQxZUezoq2zOnbQhvgroc5007tJ60G1NLnKSe
-	 quikI9tFfZeWNhsF+l1dYB/crlgdTwmwM/r5/R2Lli4k1lvNirrYDb6wGFdOmx/5ri+RQ
-	 2HPhLhYYRb6sUtqUD8u3vAdW/cDaGAX9mMSHPyuXveoe8ShTi6cLdglpw8H9+G+ZtSQ==
+	t=1792625625;
+	b=ie26tEi3638ngcl/Nr5uZueFII1A+rScqDN7jC4lUFJBiEdalInsHn68Js057WOnXxSt
+	 OxbuhicL/oCTxejMcFZNDgIXnfvkoxU3e4w9uoz9TckiiPqor84SZa1psg3WKOdQmBI9f
+	 U3yplQXDV15WSDrW+6yOfdh7F8yj+oCXeYHtFiAh1jIm714jELx+yXO/oJxz0wXaxz2De
+	 RcUH9oPBsVcISuuTateIrpBVTTWI+Yydyq7bSl0aBqPXKoo8s2iNTSplgpgCZI9oi930f
+	 2fPoMbThjjgrd1KgtstqFQTPsgeOVlSwIritBwiQ2cIn54EJIoUH0ieaCERejiG0+eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792625569;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CoDNx2ORHU3Q/BEFy3nYC5wv5kPrSTM3G0Q9KMektEU=;
-	b=mf2y/Op75alJLJAFoAeglK5/4c+U+LCpMTAJ4k/F3soa0GuKC6uEvA4LyOuIcNzhpo/I
-	 Z1fJpvtNSYa4kDcGw7lCGH1f3n9DSs0YUM/KySPCEmBGjAEIA/qDlnMT4rxNuzfsIjCo6
-	 DwAAVaYILYIO6bxjG60a7UlXQtbH0dsojldGbEdrA8bJeZalYKjnID1+CXtvO1hswMSwO
-	 v/EXC6/2ygNH+j8WQNk+lzrMZC/lOqyLTuoY967Aygy0SZc0raBYs2Ak3VKTSp61jgIxk
-	 3JN4qiYOYTjjiiYs+9JejiqwtSGi3C1IQ4V1xYWKfy/7CWel/PyWYpMDuODdqmNlRZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792625625;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=TfJDjIuUl4aJETYDbJIgG7qSKIZz1GaGZ/99HJHyisc=;
+	b=CsNzPRhOLjne6XaNr++sqOZ7sZEqJR9b58TnJXRI2lbQ/KMC3lqFqOl3aOjhwJKVMA/3
+	 FwycFZE/WL4qC4j7NQ1f0ILKK0gIYLKiAkvMLoeEIoBdJquVsgfb+gvR6G7H2zOv32Rdu
+	 6qJiqlHspRYDopRF2HdzjFn/rAcqL6q77CDX1PeCJMyNJtu0f9Y4mf1fdCoRABBNECMTj
+	 M22kefNaqQTmwySXLnAiNyMEGQtpGF/zveyDmCAePlkfLLVlKAqCUKuCUKiK+jFeMKfQa
+	 m4hvPqQ3YKXSSzpOoMI8buWxXngTu6EJD5iphjIY01HHYCU/otb2w0004bnSw4bsRZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oeHs/Jxc";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="vLHDv/Dp";
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62D1606A319;
-	Wed, 21 Oct 2026 23:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF2F606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:33:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAF2F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeHs/Jxc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C901F000C1;
-	Wed, 21 Oct 2026 23:32:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792625569;
-	bh=CoDNx2ORHU3Q/BEFy3nYC5wv5kPrSTM3G0Q9KMektEU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oeHs/Jxcj0jxp55A8R+vil0AVqaPwk1B0PDDKnwOf2hOs362ofJI5/vWXy3VWkJo1
-	 D2XyQp6iPXHAqx0/oZ+DFW/BBUQQaE52/eUCvRj4orpXC5TxpUymfMBMI8X2kN4gmy
-	 RTE76DkhDv2c8geshpcqoSzJfGw6uZtJ3TRJyxBb8xnztgtqnQVSiepKdK/LyIomYp
-	 jfMRdXYZt8eB16EDLwjEZFLIS4fl8AIcQIxn0QHEudrlSAyjfGEUnzUXFMtpNUVTSK
-	 6mJNsZsT4K085eARWSztuxozF3EoAMKQfWCdGSeKJLuKtc07sZZt74Fguw4+ekeL1z
-	 SgCBJxESKeTDw==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Andreas Larsson <andreas@gaisler.com>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	sparclinux@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vLHDv/Dp
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=331uUGN146HsRaO79pxY8Tvt1YQauDOWvdtP61Fu73M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792625621; v=1; x=1793230421;
+ b=vLHDv/DpLOOiWnSIvOWDvFx2bhBUfIw/X/8/TXXh0vpXBEv1r8FpM+3rywjqcdCDHN/SC6Oy
+ BqWMw32S7VIZhirP5V3TFwdc+asJ/90Zz+c20ZLqbxT9nxetF3qev5Fkej8qyMZRKxjHgbFTq2F
+ ri4cIJbQoXLnrTtNj1zsf33M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 139855eab81ec8b4;
+	Wed, 21 Oct 2026 23:33:41 +0000
+X-Mizu-Trace-ID: 139855eab81ec8b4
+X-Migadu-Flow: FLOW_OUT
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Stian Halseth <stian@itx.no>
-Subject: Re: [PATCH v2 2/2] sparc64: flush vmalloc ranges from the D-cache on map and unmap
-Date: Thu, 22 Oct 2026 01:31:38 +0200
-Message-ID: <20261021233139.27341-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <1649afcb-ae04-406c-ac41-92f62d7343ed@gaisler.com>
-References: <20260928132102.1707-1-kaloz@kernel.org> <20260928132102.1707-3-kaloz@kernel.org> <1649afcb-ae04-406c-ac41-92f62d7343ed@gaisler.com>
+	Victor Shih <victor.shih@genesyslogic.com.tw>,
+	Lucas Lai <lucas.lai@genesyslogic.com.tw>,
+	Ben Chuang <ben.chuang@genesyslogic.com.tw>,
+	Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: [PATCH] mmc: sdhci-pci-gli: GL9767: Wait for UHS-II PHY before LPM
+Date: Wed, 21 Oct 2026 16:33:13 -0700
+Message-ID: <20261021233313.247155-1-matthew.schwartz@linux.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,32 +68,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Andreas,
+sdhci_gl9767_set_clock() re-enables low power negotiation right after
+releasing the UHS-II PHY reset. If the bus then goes idle before the
+PHY has settled, every SDHCI MMIO read returns all-ones for about 250
+us. sdhci_uhs2_interface_detect() takes that as IF_DETECT and LANE_SYNC
+set, so a UHS-I only microSD card is treated as UHS-II. The attach then
+either fails with "SDHCI_UHS2_CAPS_PTR(65535) is wrong" or, if the
+registers come back before the CAPS_PTR read, runs DEVICE_INIT 30 times
+with a 10 second timeout each and delays card detection by 5 minutes.
 
-Thanks for the review!
+Config register 0x8CC reads 0x2000 from clock enable until about 250-300
+us after the PHY reset release and 0x1000 otherwise. Poll its bit 13
+before re-enabling low power negotiation. The register meaning is
+inferred from that behaviour, and with the wait in place 12 of 12
+UHS-II probes of a UHS-I card correctly found no UHS-II interface.
 
-> I would not say a cross call lands on address 0, which kind of sounds
-> like execution would end up there, [...]
+Fixes: 27dd3b82557a ("mmc: sdhci-pci-gli: enable UHS-II mode for GL9767")
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+---
+ drivers/mmc/host/sdhci-pci-gli.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-Agreed, reworded in v3.
+diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
+index b55618566d651..bd383918d27c7 100644
+--- a/drivers/mmc/host/sdhci-pci-gli.c
++++ b/drivers/mmc/host/sdhci-pci-gli.c
+@@ -205,6 +205,9 @@
+ #define   PCIE_GLI_9767_COMBO_MUX_CTL_RST_EN		  BIT(6)
+ #define   PCIE_GLI_9767_COMBO_MUX_CTL_WAIT_PERST_EN	  BIT(10)
+ 
++#define PCIE_GLI_9767_PHY_STS			0x8CC
++#define   PCIE_GLI_9767_PHY_STS_UHS2_BUSY	  BIT(13)
++
+ #define PCIE_GLI_9767_PWR_MACRO_CTL					0x8D0
+ #define   PCIE_GLI_9767_PWR_MACRO_CTL_LOW_VOLTAGE			  GENMASK(3, 0)
+ #define   PCIE_GLI_9767_PWR_MACRO_CTL_LD0_LOW_OUTPUT_VOLTAGE		  GENMASK(15, 12)
+@@ -1190,6 +1193,27 @@ static void gl9767_set_low_power_negotiation(struct pci_dev *pdev, bool enable)
+ 	gl9767_vhs_read(pdev);
+ }
+ 
++static u32 gl9767_read_phy_sts(struct pci_dev *pdev)
++{
++	u32 value;
++
++	pci_read_config_dword(pdev, PCIE_GLI_9767_PHY_STS, &value);
++
++	return value;
++}
++
++static void sdhci_gl9767_uhs2_wait_phy_ready(struct sdhci_host *host)
++{
++	struct sdhci_pci_slot *slot = sdhci_priv(host);
++	struct pci_dev *pdev = slot->chip->pdev;
++	u32 value;
++
++	if (read_poll_timeout_atomic(gl9767_read_phy_sts, value,
++				     !(value & PCIE_GLI_9767_PHY_STS_UHS2_BUSY),
++				     10, 10000, false, pdev))
++		pr_warn("%s: UHS-II PHY not ready after reset.\n", mmc_hostname(host->mmc));
++}
++
+ static void sdhci_gl9767_uhs2_phy_reset(struct sdhci_host *host, bool assert)
+ {
+ 	struct sdhci_pci_slot *slot = sdhci_priv(host);
+@@ -1276,9 +1300,12 @@ static void sdhci_gl9767_set_clock(struct sdhci_host *host, unsigned int clock)
+ 
+ 	sdhci_enable_clk(host, clk);
+ 
+-	if (mmc_card_uhs2(host->mmc))
++	if (mmc_card_uhs2(host->mmc)) {
+ 		/* De-assert reset */
+ 		sdhci_gl9767_uhs2_phy_reset(host, false);
++		/* Low power negotiation before the PHY settles makes MMIO read all-ones */
++		sdhci_gl9767_uhs2_wait_phy_ready(host);
++	}
+ 
+ 	gl9767_set_low_power_negotiation(pdev, true);
+ }
+-- 
+2.56.0
 
-> I'm afraid this solution could be a bit fragile though, [...]
-
-Good idea, that's the new 1/4 in v3 (not for stable), and the 3/4
-message now says why the filter stays.
-
-> This is a strange email address to use for a Suggested-by
-
-It's the GitHub noreply one and I don't have a real address, so v3
-drops it and credits them through the Link instead.
-
-> Given that this patch depends on the previous patch in the series, [...]
-
-Done.
-
-
-Best,
-Imre
