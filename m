@@ -1,53 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792607601;
-	b=vLz5TAgn+jWU8LWtzk0QBHJhgVpM0PZPyRa3b+kNqM8fVLn4ZR+CIr3X827oIcTt6/ds
-	 uSaSI3NNd78YbOxkiskRaCKlodgnmQsIB04rutQ1za+HCb+k3lEHvgYcHZg+LiLxCBgup
-	 /MpxgXjuHsAIQFI2loN69gOZA62Jw5KQ2YAhyV4FhEolQPF/DBp33yb8lY5T7CeDQdG3k
-	 FgJ9TWY/vYXJNlgi5keoIs+Z3sDdNNAuELP2+//yhj0w6fqqkhziJHIu55ciUSkCSlOlw
-	 NsID2pUivZ8H6uoJFzraVkEQoxDowuiGsKjd/wOmijlFOBAdWJVgwpfpfnYA/f4RzfQ==
+	t=1792607641;
+	b=KcdJFvICt7ibVv05ru1HaebsJ91s2qC65p1klPNUNRo5cX53DUN4SoFMa7yaXraqw4+B
+	 UtfPvvikCiTP+U7aXjfy8W237h8c/T3Ibjj/VfIBDsPiHpX3zNXsr0YfmE0yUPCcExsXQ
+	 rq5yC1ieo+mAepctHevkKdNP5mb1h8x/hf5pGVcYq+NG7HVyO4Bzw13wff5RSsZXXWFx8
+	 99RbVo+1BCh0odPtpgor9gBPCRv7L6LA5CrZhFqAqQb/h0dZNQpgdwTSuZ7i7fy/Nt2d4
+	 c9/dr1RzDw0+GA/FbpQ/kc6CZxXWff88fTyteizNaVekznEJzLl03PZPVHXbXEDmYfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792607601;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7jgKOdLsgvQJKNOMTOZC41PaMPlEkcHgH9vTY2CQXdA=;
-	b=Q4ZiOTZjKoa+upj3EYfpoJPllp8J/Dypfno3yFfwtEelaKoqzJf7hsSyYNFf57uF4a4T
-	 t0wn7D5iCFJw/M1iFmXI+pNP2M47cFsvWxyYCO+aUeSvR/xTPjLs5YKr45S+g8XgTJhbZ
-	 sUSoDs0ynIs/g9qSCPrHM9VUnUxeh4OSbctz38zegeKg3pJmkceMFMtCErFpPKKKi1BVg
-	 9oTVfBoE5OFtP1v4QKY3iskyn2LSJ8IWtX6ADLTroNtqsWA+Xxr8eOf//HcRaDsjcuZcJ
-	 mMmCpGexn71XKlonNjrWPwANL/kRX241pvIyVlDfhjmlOagezCkEgJjW3o2ptZ2rM4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792607641;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=plcuA3qVi85xQIO4mh6Ev7EJr32wMKiIckXkpumk08A=;
+	b=AjRmUaQgsYwBVV6ryNv8M99HwTdM/0EhRBM751dDdb+F98XNhZc9LM7KxhdyAHnUU1sM
+	 EJjbLq4y4DkNrx8PuLOPKHR2UZ8WPlfCInkcmj/PLIFRk1iiWL3H9Fqgbw2xG+19X365+
+	 zpTxJRJTmLMiXumY7/hpxT3kBC4gEwVSQaBCIc0wovtOBSYgYKavES+3Rgae6sPYtsol5
+	 iH2sRr56/XDK+KcOOof9sibwxVwU402zSZRlfL5/znkooTN/G6HPZ1SGpLBD+R5x354VI
+	 q0icQpJArZvB6IibSt+3Bzfw64PYAuOx8FFvv1v0yzGY8tYkcw2u1mVsIuMCeC0tfjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=Igalia.com;
-	spf=pass smtp.mailfrom=Igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hecidf4Z;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eMrbmVqM;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DBB606A319;
-	Wed, 21 Oct 2026 18:33:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9DBB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A4D606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3A4D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hecidf4Z
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=7jgKOdLsgvQJKNOMTOZC41PaMPlEkcHgH9vTY2CQXdA=; b=hecidf4Zvb6KucUY3eq3X/XKXX
-	sHiU+xXRkJcm0AGH6IlWOq91HFwHhsoEOBDkTQFSiTTnDI9i7wO3W3kuosxkigS7b+sCmtuB1xYYc
-	QEboIVXsdwfdykMy8gmZUsfQ6mfPKMNla5dzFD1BWYjItwjq5qmQI1w/ZPRB9/sTWbyGTXGRn0EUo
-	w6vOVGaGWgbA3gAs536+s5tdhNJb1tL9Z8R8/3esSMCNnAEnts1955hUcxOlMbmZ8ehRQ3Jv6sIzw
-	XPkv2Nlpjxw0XMaA4eh69jlzryylEtuziFBxvFfU2SbSokBAM1U8hUf6NEBL9eIO6N6dcT9lXER70
-	xRE8vtSA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xJb7V-005uGb-MW; Wed, 21 Oct 2026 20:33:01 +0200
-Message-ID: <0328d182-0a13-45f9-9ae7-317453b7eec0@Igalia.com>
-Date: Wed, 21 Oct 2026 11:32:53 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eMrbmVqM
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-14394530ec6so1343490c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:34:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792607640; x=1793212440; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=plcuA3qVi85xQIO4mh6Ev7EJr32wMKiIckXkpumk08A=;
+        b=eMrbmVqM8ZS8wzT5W9ACvqQjHYOzMXM9IMg2lsFlHRwgIofYT/XSzju48JriaWgDSI
+         Onq8AHkkeuslDuEsJa9erTsSMxBXyqnJjSGgukb9gP/W2LFviugbwyrAul/19c9J+CZx
+         /OJh1d/tKIeAvJWtuTOdjeQ+NkWpNO/dWpwVn/X25Qb5cDBngSDEJXWq7c0y8eFlnrRH
+         I+UwfvtvsPJdcTugpzjCuJ/jwdqiD9dFxTCVEj14s5Wa9HlH1u6RwdjP1mJ+s3rpT4eY
+         8MRJZP9HFhtT+Huy1RqzJqFS2LQ94AN4AEF5m9LBNRZj38YOsv1xyyW4szGgf3ofqmQu
+         mZ5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792607640; x=1793212440;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=plcuA3qVi85xQIO4mh6Ev7EJr32wMKiIckXkpumk08A=;
+        b=f/mLiPgetO2gOGetX2lFKf6HE2Dw1Tv5MlHD8wYgKLqzeFnwAcTjWmWGUij4YMWXUE
+         70OlYzy+TTOJwXP93eLxcoNtEy/O0VAYM5jVF8ZqnGt7WmftG62P9hMNgnsTtL/AE/nw
+         Ldip8xhS9qi9VWq58PRCyyUxZFr/qwh7agJLtn7yCR/93QOcQaTpKV2i7SJLacm10L5v
+         MrfbdFfHFW6CSn6tXCdsw2d4dw8geKelVFN9IyTE78W7iZK5HHA3qGILfoLfwyQedRdq
+         rVkFYzAzKTbuE6vmwVeTfBM9k0ySI0IcfPPwfPihwXxKBUBXOuko9IBDF6JdNTzCeet1
+         UZwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzZWytlHjF1t6wjyK8iLoBrCa3NSj/Xhw3Bsd2qPTig+ZsmWw6S0akQQl4wl6Lo+Iq7/pBMK07myDj5R5Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLn+KCw40Eyh+OZ953zM9fS9aWjwla6KrYSt2neELlTUnqVcuF1
+	DuCsSqRGIxWp/eN6WtPisBLDcpuLXA3/3w0n8Im9aLYQqP9CapwddoKElZmepIUbzKw=
+X-Gm-Gg: AYBFou0xutqVeCJuxzVfs/ZbzFHskHNRKus+6CzVxq7KJsMa5Cj/EfmjYn8TkvLb2BO
+	5E+TS/1zLfhho7jtvLWEc+Q5iBLQYwQHDa2GI2RqwZoAmLMDt03KMD2lowqGz03FBh6Fyf/BrfV
+	2ThQEHhHkWiDWM6x5nSQHMHHljOtHBWF0eC/0/gwey3MepDivOpgdrrrqmeVd6L7U6SodhHJOyc
+	XGLbe/MQYYuw55DufrXSgTMApTqXKm5zKSxuBHFj0dlaLWi1ZqynTyhUa0fTUEIBOzOmfJkFiQf
+	dBlbZu8IP4Ah0D9ETQK4B6h3itXmrGG+8O0TWH0HtrxL+t85itMhFfGEfDC8kgwwv5CBcEBXw1F
+	kJY4ax4P/wQNUYbjRJAP5bQJ2uruac+8ZsD8S4l8WEoHafBRSfs19N4sLt/3QgD0qP95DOYqG5A
+	6LAL8uJkcOom4yDaxAkN/NB8yQi3ciZuuaaL8e2q0r6oQhW1V3y212tBpsvTOzuVAcmJvgYIuRt
+	MgdSbhEhGce1EJka+EeDYPbxEeWm1VwWnLpCVeN2wwCm+lofQKVpDuuoLcTm9QjFcuY8NR6FhXN
+X-Received: by 2002:a05:701b:2059:20b0:144:fb31:a597 with SMTP id a92af1059eb24-190a738126dmr3541263c88.47.1792607639443;
+        Wed, 21 Oct 2026 11:33:59 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1903aff3481sm8406817c88.10.2026.10.21.11.33.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 11:33:58 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:33:57 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>
+Subject: Re: [PATCH v6 07/18] nvme: Introduce FENCING and FENCED controller
+ states
+Message-ID: <20261021183357.GX2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-8-mkhalfella@purestorage.com>
+ <179242929827.3619480.8550407233438315193.b4-review@b4>
+ <20261019212630.GN2931-mkhalfella@purestorage.com>
+ <7e73057c-698a-4ce6-b153-3b8b1077f77c@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,111 +108,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 9/9] drm: writeback: drop the drmm writeback cleanup
- action
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
- <20261019-wb-drop-encoder-v7-9-d4288a26eb54@oss.qualcomm.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20261019-wb-drop-encoder-v7-9-d4288a26eb54@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e73057c-698a-4ce6-b153-3b8b1077f77c@flourine.local>
 
-On 10/19/26 06:12, Dmitry Baryshkov wrote:
-> drmm_connector_init() already registers drm_connector_cleanup() as a
-> managed action, and that now cleans up the writeback state too. The
-> extra action registered by drmm_writeback_connector_init() just does the
-> same work a little earlier, leaving drm_connector_cleanup() nothing to
-> do. Drop it.
->
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+On Tue 2026-10-20 15:10:11 +0200, Daniel Wagner wrote:
+> On Mon, Oct 19, 2026 at 02:26:30PM -0700, Mohamed Khalfella wrote:
+> >  Description:
+> >  		Shows the current state of the controller. Possible values:
+> > -		"new", "live", "resetting", "connecting", "deleting",
+> > -		"deleting (no IO)", "dead".
+> > +		"new", "live", "fencing", "fenced", "resetting", "connecting",
+> > +		"deleting", "deleting (no IO)", "dead".
+> > 
+> >  What:		/sys/class/nvme/nvmeX/numa_node
+> >  Date:		November 2018
+> > 
+> > 
+> > How about a diff like the one above? Similar to CIRN and CIU, I am not
+> > sure what to put in "KernelVersion".
+> 
+> I think the KernelVersion is when it first appeared. I would leave it as
+> it is and instead extend the description
+> 
+>   		Shows the current state of the controller. Possible values:
+>  		"new", "live", "resetting", "connecting", "deleting",
+>  		"deleting (no IO)", "dead".
+>         v7.5 introduced additionally:
+>         "fencing", "fenced"
+> 
+> Obviously, this is not idea. If someone starts to complain we might have
+> to filter out these two new states.
 
-> ---
->   drivers/gpu/drm/drm_writeback.c | 25 ++++---------------------
->   1 file changed, 4 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index 272012a70efe..0c5d2fbe7a7c 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -16,7 +16,6 @@
->   #include <drm/drm_device.h>
->   #include <drm/drm_drv.h>
->   #include <drm/drm_framebuffer.h>
-> -#include <drm/drm_managed.h>
->   #include <drm/drm_modeset_helper_vtables.h>
->   #include <drm/drm_property.h>
->   #include <drm/drm_writeback.h>
-> @@ -303,14 +302,6 @@ void drm_writeback_connector_cleanup(struct drm_connector *connector)
->   	spin_unlock_irqrestore(&wb_connector->job_lock, flags);
->   }
->   
-> -static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
-> -						   void *data)
-> -{
-> -	struct drm_writeback_connector *wb_connector = data;
-> -
-> -	drm_writeback_connector_cleanup(&wb_connector->base);
-> -}
-> -
->   /**
->    * drmm_writeback_connector_init - Initialize a writeback connector
->    *
-> @@ -321,7 +312,8 @@ static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
->    * @formats: Array of supported pixel formats for the writeback engine
->    * @n_formats: Length of the formats array
->    *
-> - * This function initialize a writeback connector and register its cleanup.
-> + * This function initializes a writeback connector. Cleanup is automatically
-> + * handled with a call to drm_connector_cleanup() in a DRM-managed action.
->    *
->    * This function creates the writeback-connector-specific properties if they
->    * have not been already created, initializes the connector as
-> @@ -344,17 +336,8 @@ int drmm_writeback_connector_init(struct drm_device *dev,
->   	if (ret)
->   		return ret;
->   
-> -	ret = __drm_writeback_connector_init(dev, wb_connector, enc, formats,
-> -					     n_formats);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup_action,
-> -				       wb_connector);
-> -	if (ret)
-> -		return ret;
-> -
-> -	return 0;
-> +	return __drm_writeback_connector_init(dev, wb_connector, enc, formats,
-> +					      n_formats);
->   }
->   EXPORT_SYMBOL(drmm_writeback_connector_init);
->   
->
-
+Is Documentation/ABI/stable/sysfs-nvme a living history of sysfs-nvme
+documentation or a documentation for the specific kernel release?
