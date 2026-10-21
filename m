@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581534;
-	b=2LYq6rVew8oEuS02vBE6t5vhz2nAiZGMtK5E+GK4+kmp1w4kg6n9VFp3P7/iD1xxwzli
-	 iKB238f7qnJW0/Qu54n5CHMCa6FihpzEHdftnvwO/oA6CegIm29KYV/Ww1Z3kAgCqVZ66
-	 zf32wwHXSDMLleFwY2KKmJyTivjZ7lxXzYdnl3DDu/+YEJgbDgu80vpTF53+Vbpipiwsl
-	 hwxjU2tSy55f1d8KCjdW6Ccl1tNYjEa5dE9v1zad+JALHFVpgHwchYImVNEuVDExNqm/n
-	 RbJ6SiROGGcHoTe/rb/tXK3SY5LgfTf7bf7IMEnIK+tQDXc3IexVPlKOMvF0gBRqCFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581534;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=RUVSPvOusEPDcxbKoxUzwI+i0SOx4REoavCHaUCGKS8=;
-	b=4Q1AU68bx+6QPWQzo4dIYCCj3JdgvKxe3kCB8FxU7AAr6IW7cvqAeiKB+xR8t9EQeIL5
-	 zZtzZydHZzSaLBemD8QbNhXsQNNwklMV76N0tWdAzao48jmL70tnHisVIFdYxLgy3Nh6M
-	 DkP8n5g/ynTTLz269URO93L4VXMFbvDRDYRmWpJras+gFimJmfBm3V1rr+/EP55uHerws
-	 aXd8oiogDjn8d+VRz+sSUzsne8Jr5l8dBCIlkPEjdf6J2Ay2NEfk2q1vIltYdWP8W+YDv
-	 YDiGqQnvJlckJtoLBirrpJhY3YUsgzoQqsH5dz1Uep863PrhOk1zViC5ITSNxOEyEkA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Nzihi9PT;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28AF8606A319;
-	Wed, 21 Oct 2026 11:18:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28AF8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792581554;
+	b=cirVjLmbirOUbM40h2lXD9Losiryd5YwlVZEhTnlvvIDp0+97CUPjYrWkEct/WjHwHeU
+	 c/AgK5orX5T+CEQ16uzaLVI8kEWi7JtiY+5TO3Bt6q4iqfYyJk0jVczKWPDPDA0rSmeFV
+	 VoBZwfnwY0Gibd8AlGFyX73kHVY9AqoBJP7zJWdfTXqC0KRO+70U5wraYYaWzZhr6pawO
+	 M0Y6aQHoiO+cItXPB+LyNd4yfUNlNscVqfdyDrH5qXYIRDL99vkVODxmWN+zD4NrSPOpF
+	 Zt7Jxsx3p+9PvZAm7GrM8Anyc47EVByn8voShXPn1iJDFlxbGZGbrdamd560cq+H43A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792581554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=o4GqgC/8uo2HzaoUqlTv+3o9qdHmo/p865F4COeyagY=;
+	b=xE6vZH27/ridEjkSx5zikR84F88DXU05pw9olQ1ifI05BOmZHT//cefV2xLlmrdtfNHH
+	 zC6SBY7u05Z2CrXvRpwP3jh1+4BH2FS92zbn604rJnm0WpiVk9GBtN50Wwc+AEG89RmNk
+	 shdv/wIos/OCCKqcLJpWHg0oKHVNTwe/wIF+I03yWg9LdJy4MlcEqPp45vy9e+voaJPwE
+	 TM868OmbT+kUQONgJ57VaeoCgLPr28e4ojyS6wMcw5i7xKY9S9NSpoF1RkwC+3dtl7Uzn
+	 RaLxzHyKcV2V9q29lUllRXys4P+OjUTmB/mFzAzIOKKJFUjQ+POY4CYb6ioTdQUUmqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OdTQxZhU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEC8606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBEC8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Nzihi9PT
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C926016F8;
-	Wed, 21 Oct 2026 04:18:48 -0700 (PDT)
-Received: from [10.57.78.129] (unknown [10.57.78.129])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1324E3F7D8;
-	Wed, 21 Oct 2026 04:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792581532; bh=9asrnmphDtRD/Xpr13UrW46SqE+vWmkJ5y1evI5+R6M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Nzihi9PT0ig+89d5JTsqKKaFfSwnuT/hEwWjYN5I8yaqpIgMwHjjgbhJm55Chfqix
-	 1vaBGhJmt3z21nuaXtVGMXVIgVWgAl4bF5AqWGryVVwQ9WkLuPx6vwy/G6aOG/wN1/
-	 Gv4eo9vyvP8GpUA46s9cC5wD742tzJPBBdAN+jxc=
-Message-ID: <7f077fd3-9c67-409a-b46f-7f28a55c180b@arm.com>
-Date: Wed, 21 Oct 2026 12:18:39 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OdTQxZhU
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c45551fa84eso77160666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:19:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792581552; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kZaoYkcf+sNJkMKgdcyZ2wDnq0b/YuK1bCtJVMMJsLI9PGeFmxabHT3rjRDuxa0hqP
+         4ey1tEXdDuHMLMPm5oanfcxmmbSJ4fCVoBKTC+rgvFtswdd+97Zacbk/NjPKM17Jn47W
+         JcFWW+ZVrmhwrzRioPawM88YjkWgvLWe110U3vVX5IfKIjP4cYSik02HIUzH4KD/3+Gp
+         fCu5JrF6DeXJeyE3WKHuCjgh3LEgYdCexFvlRDx3Ju69d+pOlXoiBwfneExJT6ynV+Ys
+         nNpr+O+/FogWbsglCI+T6krD6Q0obB8cxPLK9ZeC8gOWnr36N+CVT+C1evK2NKBmVfgF
+         kA+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=o4GqgC/8uo2HzaoUqlTv+3o9qdHmo/p865F4COeyagY=;
+        fh=0vs3t1yhArPOXoU+xsSWOlnCyZtFqYifyLOBqTdTW9Q=;
+        b=PTQu68kGG0lZjxL5CV4dI3aHPFgg7OkOwMLt+d4QjvPEtb9qqqu9lxuMvZ0y/H2iEQ
+         S6L/cJyfyzXDCN1qXiMgZ28y2yACptSOlluRTeSi1aMA4HrQ8i6Xtt+OTMbysjaoe/ue
+         Knxa6LDDnQwsqRjIPoWwddKWP4dj+NjI4i4Y7xQhmibogZUQIz4fn4I2hWSjqp2n6fV9
+         ZlP5MP0HEieMlxpJyWfeeEE/fCOqODuX74IeQqw/mMB9hrKfn/609TqHisYqYrGFSbZ8
+         6I4LPfiA+UFWvzf/gSTJ3BB7bDbyVYpavJlchqmOnZUN1SN42KWoBadb2GS8PxM5b3OF
+         hk8A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792581552; x=1793186352; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o4GqgC/8uo2HzaoUqlTv+3o9qdHmo/p865F4COeyagY=;
+        b=OdTQxZhUXfbcrZCBYp3yHotpszVXdULIYN/rEwoLPO4S/UQXkDoEiMZtH+Lnd7v+/8
+         SasnUNOOtRk5YshNiHEHp7b79tptB8Pux5rAd5p+gu6x7K+ipvATspyXRo9kerLbAcy/
+         jmPeS+dnfrT5Vz2wXz2eaHva9PEflF6U3Qm7AHmmA8Y2XkUKSMqGaWy4dT/GhPQljGCn
+         UxTq5/j0/3rvY5XXNfuOq7fp4kcmXP00WMpdGdpjV6Le+U8zOGXMs0FY10wKNhU6F9y1
+         Dd9kOwRxcQyFW8tHdUypMvlX5hx7pf9o1VU3DChJpHg1BS8gd65a0IP5prBmN/+VEAqs
+         jCmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792581552; x=1793186352;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o4GqgC/8uo2HzaoUqlTv+3o9qdHmo/p865F4COeyagY=;
+        b=qt8G3I41kZlKPzBB4JeeL9DX5k4tEKefLbkZcRjiGRZYc+uVZ2UfVMyyeomnYD4UnN
+         xAwbkSF/M9liESlCVHl3iyb7nQQPkKWowlwDqCf8atog6Iz7E0EqSwFUpiWdSsLzW9tF
+         bLi/qdEhBYabVJn8pjAbIf5iLauAaoDu5ApJfRMeTdSNvBPZTimxuBiZ10+nEqedhIST
+         sVndbm5zOpuA0mhgoq3W5MihaYSn8tjIYeOv4mEoqylbQlU7TgDe7jVRvFcPw75ng5cZ
+         KUDOQzJedahoEkJMpv4DHtrKJ/rtKZf5wx8qk66nqapwHfMTa2DADRT9e5yjhgmIeGXU
+         kndA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2bH2HVlYNATZ0NBX666IvIHxSB3+SrvdVtUq+mceQUndWyZX5nZWKmNSX0MkwpLTO3Itl9K/YbkuJ88k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhFqUAruAElc3Pv/LvpQ9Z8ynKp+7O28GaWRDKP85pHosdEHF7
+	iw5hcWKCUdFNq3a7QUx/BhCDLX57Xn2jHvgK9SzXSP1TKiMvmtet2br7BP0wXAD6qU5k0qqLIJA
+	pzWrAWpFsBD4DdmpKWQ5fQdjQDYD7Cv4=
+X-Gm-Gg: AYBFou3QeQ+2wTVxY97icnA/oWolmT1nojBbF6pdVMmZooH7GgePl3vDfx1sZpkCukz
+	PkzBB5pJpy1AdR4+fpP4vt+vv5vMganjYCjWEGLyDUElEz82hS4hRiI98LjmthRO3D3VVR/Ttls
+	bx7peECa/yMtG5D2V6VWFNnGfjOuNfSjneF+ylEInBlG+CmO6eucY38CxiDthLMw2Da/GVS/+FA
+	rrc/PcNCnoFR7imecvKVACX2aDH8K3luenV37GIvR4Z3Y3hglzd0d3Mpx3DcCpnrf/FI+fo2m18
+	Qa/qcXFVM3hIGf9jCBxfNkn83NwDVjuhaQoJ9tVyPJYaZyJnLmItkYpW4ipcO2ZXN1JKg9dR41I
+	L4YTK0A+XS7nqVWDlWRLdJyFMxvMe02BjuPEiVg==
+X-Received: by 2002:a17:907:9608:b0:c28:599b:7782 with SMTP id
+ a640c23a62f3a-c467959800cmr145664366b.21.1792581552020; Wed, 21 Oct 2026
+ 04:19:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,116 +101,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, driver-core@lists.linux.dev,
- linux-watchdog@vger.kernel.org
-References: <arZNL9BnTGK0Klwc@red-moon> <arZS4vwxps01dGb7@ashevche-desk.local>
- <arqSqcoWAkhy-8do@red-moon> <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
- <asieTvinZ7c2QpQm@red-moon>
- <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
- <atXyIadz1TEKSodg@red-moon>
- <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
- <ateI-JcExDyfXKrs@red-moon> <athimRqtDvQu1ZzA@ashevche-desk.local>
- <atiAmZSPiRNBAO5O@red-moon>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <atiAmZSPiRNBAO5O@red-moon>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
+Date: Wed, 21 Oct 2026 12:19:00 +0100
+X-Gm-Features: AclHuK95cnmQUwRjUGBQFe8hBFruDLBNtySqrDloIqyCO5VZ-yqafKYk9aUkxq4
+Message-ID: <CA+xk8n-n535aeZLEYeENYXzhrp54cBHtp5kGxt85qERk4ECd9Q@mail.gmail.com>
+Subject: [PATCH v2] ecryptfs: replace ecryptfs_from_hex() with hex2bin()
+To: Tyler Hicks <code@tyhicks.com>, Christian Brauner <brauner@kernel.org>
+Cc: Thorsten Blum <blum@kernel.org>, Eric Biggers <ebiggers@kernel.org>, linux-kernel@vger.kernel.org, 
+	ecryptfs@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-10-21 10:06 am, Lorenzo Pieralisi wrote:
-> On Wed, Oct 21, 2026 at 09:58:33AM +0300, Andy Shevchenko wrote:
->> On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
->>> On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
->>>> On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
->>>> <lpieralisi@kernel.org> wrote:
->>
->> [...]
->>
->>>> Basically, yes, the idea is to defer the creation of the platform
->>>> device until the dependency is met.
->>>>
->>>>> till the dependencies are cleared but then, without a _CRS, where will
->>>>> the consumer driver find the platform device resources ?
->>>>
->>>> Well, good question.
->>>>
->>>>> There are multiple facets in this issue and possibly some of them have
->>>>> been already solved but I need to pull them together.
->>>>>
->>>>>> Note that the dependencies can be added to acpi_dep_list after
->>>>>> creating a struct acpi_device with acpi_add_single_object() and
->>>>>> acpi_scan_add_dep() is not really suitable for that, but it should be
->>>>>> doable if the dependencies can be found.
->>>>>>
->>>>>>> I need to have a deeper look into this next week but I wanted to ask first
->>>>>>> whether there was something I missed - most likely.
->>>>>>
->>>>>> Well, it is not really straightforward.
->>>>>
->>>>> Yes it is getting messy. This RFC, with all its flaws, does not transparently
->>>>> prevents enumeration but rather relies on -EPROBE_DEFER to sort out
->>>>> dependencies - though it does so by adding more stuff into ACPI static fwnode
->>>>> that to be honest I'd rather see gone.
->>>>
->>>> I think what you need is a notification mechanism that will trigger
->>>> when a specific device (enumerated via the ACPI Namespace) becomes
->>>> operational.  It doesn't look like any of the existing ones (platform
->>>> device probe deferral or ACPI device dependencies tracking) is really
->>>> suitable for your use case.
->>>
->>> Yes. It might just be a notification from ACPI core to say "the driver for
->>> this ACPI device probed, go create platform devices that depends on it".
->>>
->>> We can check and track the dependency in code that does create those
->>> devices today.
->>>
->>> I will think about this to see how bad this might look like.
->>
->> Don't we do something similar in drivers/acpi/x86/lpss.c?
-> 
-> I suppose I can add a notifier that checks whether the device whose
-> companion represents the ACPI device a given platform device IRQ depends
-> on was bound to its driver and then map the IRQ and add the platform device
-> _then_ - after all that's what acpi_dev_clear_dependencies() does (similar
-> at least).
-> 
-> There is still the question - where the GSI number, flags should be
-> stashed so that the notifier can grab them in a uniform way. We
-> could simply attach platform data storing those values to a pdev, either on
-> a per static table basis or generalize the data so that a single notifier
-> would be able to deal with it.
-> 
-> That or I can just piggyback on acpi_dev_clear_dependencies() and add
-> a separate dep mechanism to acpi_dep_data that instead of being acpi_handle
-> based the consumer is fwnode based (something Rafael mentioned before).
-> 
-> I will have a stab at this and see what's the least bad solution I can
-> come up with.
-> 
-> I suppose we are scrapping the -EPROBE_DEFER solution (ie this set),
-> what we are talking about above won't need to defer anything other
-> than the time when platform devices are added.
+ecryptfs_from_hex() relied on the deprecated simple_strtoul(). Rather
+than patching it to use kstrtoul(), its intended replacement, remove it
+entirely and switch all call sites to the generic hex2bin() helper
+from <linux/hex.h>, which already provides the same functionality.
 
-I dunno, that seems pretty drastic for some use-cases - the fact that a 
-GSI is described in a table doesn't necessarily mean it is critical to 
-device operation. If we don't even create the device until all possible 
-resources are available, then its driver never has any chance to decide 
-whether it's happy to ignore the deferral and just use MSIs or polling 
-instead...
+Update call sites with the (u8 *) casts required by hex2bin()'s
+signature.
 
-Thanks,
-Robin.
+All call sites guarantee that src is at least 2*dst_size bytes,
+but nothing guarantees that src is valid hex, and also hex2bin's return
+value needs to be checked, so we add a fail early check to call sites.
+
+Signed-off-by: Drif Abdelmalek Mohamed Said
+<drifabdelmalekmohamedsaid@gmail.com>
+---
+v2:
+ - Added fail early check for hex2bin's return value
+ - Fixed doubline empty lines
+v1:https://lore.kernel.org/ecryptfs/20260829194528.5652-1-drifabdelmalekmohamedsaid@gmail.com/
+ fs/ecryptfs/crypto.c          | 19 -------------------
+ fs/ecryptfs/ecryptfs_kernel.h |  2 --
+ fs/ecryptfs/keystore.c        | 20 +++++++++++++++++---
+ 3 files changed, 17 insertions(+), 24 deletions(-)
+
+diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
+index e67119b6029c..059294df4b38 100644
+--- a/fs/ecryptfs/crypto.c
++++ b/fs/ecryptfs/crypto.c
+@@ -29,25 +29,6 @@
+ #define DECRYPT                0
+ #define ENCRYPT                1
+
+-/**
+- * ecryptfs_from_hex
+- * @dst: Buffer to take the bytes from src hex; must be at least of
+- *       size (src_size / 2)
+- * @src: Buffer to be converted from a hex string representation to raw value
+- * @dst_size: size of dst buffer, or number of hex characters pairs to convert
+- */
+-void ecryptfs_from_hex(char *dst, char *src, int dst_size)
+-{
+-       int x;
+-       char tmp[3] = { 0, };
+-
+-       for (x = 0; x < dst_size; x++) {
+-               tmp[0] = src[x * 2];
+-               tmp[1] = src[x * 2 + 1];
+-               dst[x] = (unsigned char)simple_strtol(tmp, NULL, 16);
+-       }
+-}
+-
+ static int ecryptfs_crypto_api_algify_cipher_name(char **algified_name,
+                                                  const char *cipher_name,
+                                                  const char *chaining_modifier)
+diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+index 58165928ed1e..0efda4cea71d 100644
+--- a/fs/ecryptfs/ecryptfs_kernel.h
++++ b/fs/ecryptfs/ecryptfs_kernel.h
+@@ -47,8 +47,6 @@ ecryptfs_to_hex(char *dst, char *src, size_t src_size)
+        *end = '\0';
+ }
+
+-extern void ecryptfs_from_hex(char *dst, char *src, int dst_size);
+-
+ struct ecryptfs_key_record {
+        unsigned char type;
+        size_t enc_key_size;
+diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+index 51651314b7a6..4aaf62e61f3a 100644
+--- a/fs/ecryptfs/keystore.c
++++ b/fs/ecryptfs/keystore.c
+@@ -18,6 +18,7 @@
+ #include <linux/random.h>
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
++#include <linux/hex.h>
+ #include "ecryptfs_kernel.h"
+
+ /*
+@@ -713,9 +714,14 @@ ecryptfs_write_tag_70_packet(char *dest, size_t
+*remaining_bytes,
+                goto out_free_unlock;
+        }
+        s->i += s->packet_size_len;
+-       ecryptfs_from_hex(&dest[s->i],
++       rc = hex2bin((u8 *)&dest[s->i],
+                          mount_crypt_stat->global_default_fnek_sig,
+                          ECRYPTFS_SIG_SIZE);
++       if (rc) {
++               printk(KERN_ERR "%s: Invalid fnek sig [%s]; rc = [%d]\n",
++                          __func__,
+mount_crypt_stat->global_default_fnek_sig, rc);
++               goto out_free_unlock;
++       }
+        s->i += ECRYPTFS_SIG_SIZE;
+        s->cipher_code = ecryptfs_code_for_cipher_string(
+                mount_crypt_stat->global_default_fn_cipher_name,
+@@ -2015,8 +2021,12 @@ write_tag_1_packet(char *dest, size_t *remaining_bytes,
+        int rc = 0;
+
+        (*packet_size) = 0;
+-       ecryptfs_from_hex(key_rec->sig, auth_tok->token.private_key.signature,
++       rc = hex2bin((u8 *)key_rec->sig, auth_tok->token.private_key.signature,
+                          ECRYPTFS_SIG_SIZE);
++       if (rc) {
++               printk(KERN_ERR "Invalid token private key signature;
+rc = [%d]\n", rc);
++               goto out;
++       }
+        encrypted_session_key_valid = 0;
+        for (i = 0; i < crypt_stat->key_size; i++)
+                encrypted_session_key_valid |=
+@@ -2179,8 +2189,12 @@ write_tag_3_packet(char *dest, size_t *remaining_bytes,
+        int rc = 0;
+
+        (*packet_size) = 0;
+-       ecryptfs_from_hex(key_rec->sig, auth_tok->token.password.signature,
++       rc = hex2bin((u8 *)key_rec->sig, auth_tok->token.password.signature,
+                          ECRYPTFS_SIG_SIZE);
++       if (rc) {
++               printk(KERN_ERR "Invalid token password signature; rc
+= [%d]\n", rc);
++               goto out;
++       }
+        rc = ecryptfs_get_tfm_and_mutex_for_cipher_name(&tfm, &tfm_mutex,
+                                                        crypt_stat->cipher);
+        if (unlikely(rc)) {
+--
+2.43.0
