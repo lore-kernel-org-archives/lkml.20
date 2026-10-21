@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583234;
-	b=HvFCGjQ+sL6uTQ4ECk8S3CKsX6vdrFcJ4hQr69iOYaceTbxG8WNfg779d6x886oubdmF
-	 O6iLqd8tilgLTfi6JWc13mDS6QJc0cY6h5apuuwSECltsX3xd52BE5rTCdTXRpmzQ1XSL
-	 xrkKc0sbp261tbOWkFFQu6iBIup6RBmCGRDZljUJyq06Df9JMrR/8bN2WnnftqmqdWNqJ
-	 Etkxn3y6+9U+TXvU50pStr28Gnt3Oa6GoP4GoLhTMjVfFPnnKZX+3rUUTSMKIPUs4u0Z/
-	 FcI8PSWrqAJmQ5S1SVddT2Bm3aFHayO3Jx7uy4Q5t5TXy2Trd43cgh457/Hl6MDWntg==
+	t=1792583247;
+	b=4h5SwOy1W64Ovt9EPVP7/A8C84VMo+Kin/zc7DphHsUVR7HooXcLE9IRb+HScPefUzc+
+	 DEMi3ZYWQQ2kAaoxSQOEXvD+S+aHGYs5jVK35fXnuP3NfPh1weuSXWBEIsQB9WC/D9bxv
+	 G6nzuz4Isf38OQMLbtk3P7sftifoq4cNEMGYwpj1JTq17fTywa/iY5xZFhhFHCUN8hp2m
+	 htlSn8bXkLxWTGRCJ+ktdup1jsWuXesQf934O2ABCzhMA/ZYO6IVnvpCJdF3Z5VS54d/9
+	 sgXVDctd21v/G6ePj9x+oGGC5HENyw3qLN+x0Lu/i6cmiuNkic0vHGjvc/otFY+MJ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583247;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=p9dYZ4F9rlJcJCmJHQmhoHVJiIw7UG5SjWR8xpPAdug=;
-	b=ZAh445qQyfdgmml9imizp58LMb7EQ3NuGBZd2G9UdJBOmNtcnezppj9LNEivVemGfiUS
-	 WsvfHaB0mt5DKmtEMxUVbzlgulrxaoKh8h1/nKIGWpA8GIAfBnUtemZTWA6vK6FSThvj3
-	 6DsvIvOoEj6WfyrCUiBABki5N3jmo3E0767Fso/xjlU4srUy4BdJhVT2brMODJfORWT+k
-	 b86oEHWwFY4KhbZE/tWi7xqsO+jP0kdk44KfrfdZ3ZUfYNLzQNSLwS+JEc8St+zWMApq3
-	 YmEqBL+KHZ0khmeQHTAC6QqaVZyDpZzG0lYQF0udAXWmiJqOwf1Asp2ZNFLCHKdc8MA==
+	 X-Mailer;
+	bh=O0NXh8hdG+uzuvBEcab3bue23KeeKcY2/7YypkLouPE=;
+	b=mylK/onAJy52qnlY40XCUIGZQrcpWzrMPM0qprVVt0slYaaKlYenuCusSRp0iBxgypYE
+	 nkdbFZy72hoQmz/isO+caEtmNLK8GzlNkhU13SAYK3A0ebmbfZahIa8Do9vCwmYzxeySw
+	 VGOg3L3vZcdBseFd4bqyzq4hDUJ18aDLGhl9Xz6u1HIDSoYwSsgOVX+4Dh8iCaByc5/1l
+	 SGAb54+fN40N4HSZeAL4PfrkNsxwIEFoTGkql5yTELv5qjfS3lX9yQlhikijoVlr8gyJ5
+	 fTtfYy/zrPwcpgokSjCptEQlL0jyq4MaUfdvg4aDGOWpSWxjlZo9RlroJm1szHaqdVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsV2JvEP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FeIwbXVa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEE8606A320;
-	Wed, 21 Oct 2026 11:47:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E542D606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:47:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsV2JvEP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA141F000C5;
-	Wed, 21 Oct 2026 11:47:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FeIwbXVa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392971F000C7;
+	Wed, 21 Oct 2026 11:47:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583234;
-	bh=p9dYZ4F9rlJcJCmJHQmhoHVJiIw7UG5SjWR8xpPAdug=;
+	s=k20260515; t=1792583246;
+	bh=O0NXh8hdG+uzuvBEcab3bue23KeeKcY2/7YypkLouPE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=NsV2JvEP9ZqOBGONjfbCv+HNQq27qJ0E7SB1ZkV9Ry5MGIn/b40SqT9oRH73ClDNE
-	 PhTM6156P2JkaqRm6puzUZqWkiSSFoq1VzuvEp9EDWxWJySVj+r5nzhHGh+ILJXprw
-	 SZn+WIi3wiKQ7kbb4ohBV8og1Kc64xOitmc2Q3hsBPc1wqD2TxrCrUMKe4eMeCHZtb
-	 xnlugAjLWw70rWkflL4CsgB5efYxDloNobYLdV/tDtj+TFH20oWfpf5ytxlFDlTjnd
-	 L9cNHVRLyntqMvdSwd9LSPkjMKpTofvjtKxsJXV6uVVUVjNAD/DPE034qHkvjtUDM/
-	 awsjEQNEB+KxA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 21 Oct 2026 13:46:57 +0200
-Subject: [PATCH 4/6] selftests/filesystems: check listmount() with a
- U64_MAX cursor
+	b=FeIwbXVa4VI7WJv3ok6ERoNwYKIgZ5pQ6nWD20UtkfoA0IpkgcqH8zAE55uqLRb1M
+	 G1zxVIw2+vFkKcfs+jnML3y7c+3JP8EiddfweYD2fwQWJn5kMJxj9Z5vjfW+PzDE2B
+	 TgARio/GdAS1jgtORs5ufeKUWyijpmLoB1jVlYsj8ACeA+05OibGU9yEE4qWHAMLLY
+	 IG4cSaPCVUhI/z7SHyA4VF2+VxS1iFLP1R9U6NvvmHc3/sq8gnNbZk4n05G0T8IyL5
+	 goBf7zAacatnIyIWdoUEJ1MNtSAuNi5XW3G5M3cFegppeQMbiRUF4ScWZlURkPpPoV
+	 qrKh1YDtjm2dg==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Date: Wed, 21 Oct 2026 12:46:42 +0100
+Subject: [PATCH slab/for-next 01/14] mm/slab: allow passing
+ SLAB_MAY_ACCOUNT to kmem_cache_create()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,54 +55,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-work-mount-statmount_listns_fixes-v1-4-8917a4c1bd14@kernel.org>
-References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
-In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Miklos Szeredi <mszeredi@redhat.com>, Jeff Layton <jlayton@kernel.org>, 
- shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1036; i=brauner@kernel.org;
- h=from:subject:message-id; bh=v2s01NuJ0gxPAL+XB47/cuWa8tpTQp1RNhAzdUP7HpY=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdWGYsFRcqXbeBM8R775EcndOXlpVu0nRtcxM85X+5M
- OLvRdmCjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImkTGBk6LuyaqFm1v9bjybu
- 8zlUvlacOe/GWV4O+Yg5B+oedfWEHWT4X/lcO4xJ8MsyF8Y6Qf5vsnsPz2Gb+XS2R/Wmuqm3r5h
- M5AAA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Message-Id: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-1-096800aa3330@kernel.org>
+References: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
+In-Reply-To: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>, 
+ Hao Ge <hao.ge@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ "Harry Yoo (Meta)" <harry@kernel.org>
+X-Mailer: b4 0.16.0
 
-Pass the largest possible mount id as the cursor and check that
-listmount() returns no entries instead of starting over at the first
-mount.
+Callers will specify SLAB_MAY_ACCOUNT for caches whose objects may be
+allocated with __GFP_ACCOUNT. Accept the flag in SLAB_CORE_FLAGS.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 ---
- .../testing/selftests/filesystems/statmount/listmount_test.c  | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ mm/slab.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/filesystems/statmount/listmount_test.c b/tools/testing/selftests/filesystems/statmount/listmount_test.c
-index 8bc82f38c42f..e603525ce17b 100644
---- a/tools/testing/selftests/filesystems/statmount/listmount_test.c
-+++ b/tools/testing/selftests/filesystems/statmount/listmount_test.c
-@@ -63,4 +63,15 @@ TEST(listmount_backward)
- 	}
- }
+diff --git a/mm/slab.h b/mm/slab.h
+index e94ac63d10dc..31783311e23e 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -472,7 +472,7 @@ void flush_rcu_sheaves_on_cache(struct kmem_cache *s);
+ 			 SLAB_CACHE_DMA32 | SLAB_PANIC | \
+ 			 SLAB_TYPESAFE_BY_RCU | SLAB_DEBUG_OBJECTS | \
+ 			 SLAB_NOLEAKTRACE | SLAB_RECLAIM_ACCOUNT | \
+-			 SLAB_TEMPORARY | SLAB_ACCOUNT | \
++			 SLAB_TEMPORARY | SLAB_ACCOUNT | SLAB_MAY_ACCOUNT | \
+ 			 SLAB_NO_USER_FLAGS | SLAB_KMALLOC | SLAB_NO_MERGE)
  
-+/* A cursor at the largest possible mount id must not wrap around. */
-+TEST(listmount_cursor_max)
-+{
-+	uint64_t list[LISTMNT_BUFFER];
-+	ssize_t nr_mounts;
-+
-+	nr_mounts = listmount(LSMT_ROOT, 0, UINT64_MAX, list,
-+			      LISTMNT_BUFFER, 0);
-+	ASSERT_EQ(nr_mounts, 0);
-+}
-+
- TEST_HARNESS_MAIN
+ #define SLAB_DEBUG_FLAGS (SLAB_RED_ZONE | SLAB_POISON | SLAB_STORE_USER | \
 
 -- 
-2.53.0
+2.54.0
 
