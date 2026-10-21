@@ -1,38 +1,38 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.129.254.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581909;
-	b=4qJyOzW6GvaUbAE+Ya4LaH5nBbKnCKtqG5YPFwnmytSaPYpwDoYp0Foy9mgp219QQJvY
-	 Np3zaYXItYzlxKSXMh3u4DRP35u1mEPlHYfrJixO4Z9wok1XdaXcSsIO9pxIDqbnLkBmp
-	 xHqSWUz8QgguA6DZjL12YJx3RpfQPXvc54WXdPfs3GR81IvpBGLmQlEFr68fixc/VEt59
-	 jXThQnD7wTqNmku/0MBPaDLzdBJKKVft30pRS0iWaS/L4F+24fC9ZNi+vuRaYgImGvS8D
-	 AM+smBpxfvxTSApq9iNbcqLc9nYijqdV71fG4N8/sfDMazph5U8PlhVNEequcQ7zAxw==
+	t=1792581904;
+	b=V7eoQiWGz2pZpzmg/ZjLrWXtmNMlhUlThb6hzbtYgzEypp1N660A3HEZJ7yhlNJCSY5r
+	 pphiZzIPq9ybDDiqUggP4J9vRiHxUsFvNUESo2OczXOeNTRwcyKwHXcOmzylat32ORCPi
+	 izA3z0M5c2yFdAITyAXuQR0fJuA+4vaeWffu+cT4phuvKy0K+AgbPIUoVK0lcqz+OfExk
+	 QomhjRSijuOFlhrs7FvpIT+Nbk7mBg7JGiSFB/4BSX8QhvhmBNRi33l/Tjjo2TLeEo9kZ
+	 93T8EwD79AX7065IG5g010zqP5q5lii4y39wwjhdniQN5DdwDHO1L9jLnO5jPXcga7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792581904;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=RAG/2ax1ucQUbAiCg/s1Qqe5BmQBfpQgRvDtOVmHwa4=;
-	b=BGSVg4XSTJHGPLK6M4f8z9/hnVwxXQMwFy91aXSNjLS7S13KLAyFjpRO+AWCshT1++x7
-	 G0lH19GwDTvf08V3zyH4PzH8V8YUyd8IupFsiF8enTJsLzQdJGguYnQ0Ba0utNDxB1B4m
-	 jTbSvx6513STcUqKbVaJ3rqYRkIgyZ4+WYUIRtd1o7SMyiCU0aWPVahHFJXQdCxh+RJcC
-	 oZ8ChjFb0TDoNnEDddnI9jGelUKy2t4eTLoQ3NvvTNNGC58WQ3xgye31EMFgoELY6lYB0
-	 MMGVAOZDGKbarPiewgKuhQulyginh5CyQbgu8+kedyMxbCZ5U7SZdcgjiiEsKOPGtDg==
+	bh=EPDlZMTSTVQ5eCE68sbvYSTGTpxshvufAloZkiCKtC0=;
+	b=3ZNJTS7U++rMcG4aiS918xAqt3GUsuPGfaZVX7QVx2JwvFJc8I67ng9hkcX5cQPJvbpq
+	 wdZ435yj2d+Dy2NZYk/V7ZaLZjAcyTlA0IosE0k2mQ9L9euohp8S7cSXbVBmIZTtd+HHA
+	 0PtgWUsjqxpMMQUMXvoZI+mgfQOol25KnJXgWmLJ+R7AgLwuqZsH8DKICqA9R6S/qg+gj
+	 /psa2+s1xVqPwMAXsrMpHag8j98fWuKDmfmDxVLstNFCMAGZeVqhpzF1bUyfx3kUkQvYy
+	 PRqQUpQydgiTDqqRPYUUv4b8k14S4ZI1/Op+Hv9bOEhv+hkc0TDRU12A+h20ZswpNmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=easystack.cn;
 	spf=pass smtp.mailfrom=easystack.cn;
-	arc=none smtp.remote-ip=103.209.128.28
-Received: from mail-m12828.netease.com (mail-m12828.netease.com [103.209.128.28])
+	arc=none smtp.remote-ip=103.129.254.92
+Received: from mail-m25492.xmail.ntesmail.com (mail-m25492.xmail.ntesmail.com [103.129.254.92])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE18A606A333;
-	Wed, 21 Oct 2026 11:25:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE18A606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5F8606A330;
+	Wed, 21 Oct 2026 11:25:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C5F8606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151ae;
-	Wed, 21 Oct 2026 19:24:56 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151ab;
+	Wed, 21 Oct 2026 19:24:53 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: ast@kernel.org,
 	daniel@iogearbox.net,
@@ -58,9 +58,9 @@ Cc: bpf@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v3 6/7] mm/page_owner: add bpf_page_owner_get_memcg_info() kfunc
-Date: Wed, 21 Oct 2026 19:24:36 +0800
-Message-Id: <20261021112437.1799213-7-zhen.ni@easystack.cn>
+Subject: [PATCH v3 4/7] mm/page_owner: add open-coded page_owner iterator
+Date: Wed, 21 Oct 2026 19:24:34 +0800
+Message-Id: <20261021112437.1799213-5-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20261021112437.1799213-1-zhen.ni@easystack.cn>
 References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
@@ -74,295 +74,164 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa15e350a610229kunme08c1fd526acf1
+X-HM-Tid: 0aa15e34fe6f0229kunme08c1fd526ace2
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUxJVhpLTBlLHxlJThhMT1YVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkNMVk9KT0JPSk5NGB5CT1YVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Expose per-page memcg information to BPF programs, so that a bpf_iter
-over page_owner can aggregate and filter allocations by memcg.
-Attributing an allocation to a specific cgroup needs its full cgroup
-path, not just the memcg name.
+Add an open-coded bpf_iter over the pages eligible for page_owner
+output, reusing page_owner_next_eligible().
 
-Split memcg info collection out of print_page_owner_memcg() into
-get_page_memcg_info(), which fills struct memcg_info and, when given a
-caller-provided buffer, writes the full cgroup path via cgroup_path().
-print_page_owner_memcg() now consumes the struct; this introduces no
-functional change to the debugfs output.
+A sleepable BPF program drives it with
+bpf_iter_page_owner_new()/next()/destroy(); each next() returns the
+page_owner_scan. po_snap is copied inside the page_ext RCU window, so
+the program needs no RCU section when it reads it.
 
-The helper takes a single READ_ONCE snapshot within one RCU read-side
-critical section, so the flags and cgroup path reflect a consistent
-view of the page. cgroup_path() returns the path relative to the cgroup
-hierarchy root, so memcg attribution works on both cgroup v1 and v2.
-
-Because scan->pfn is selected by a lockless scan, the kfunc re-resolves
-it with pfn_to_online_page() under get_online_mems() to avoid accessing
-a hot-removed section. If the PFN is offline or removed, the kfunc
-returns -ENODATA instead of dereferencing memcg_data.
+Also add bpf_page_owner_stack_snprint(), which renders the stack trace
+of the current page into a caller-provided buffer.
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
 Changes in v3:
-- Check the page_owner_inited static key.
-- Resolve the page with pfn_to_online_page() under get_online_mems().
+- Gate the kfuncs with KF_PERFMON.
+- Check the page_owner_inited static key in the iterator.
+- Without scan->page, start at min_low_pfn - 1 and let next() pre-increment.
+- bpf_page_owner_stack_snprint() rejects a NULL or zero-size buffer.
 
 Changes in v2:
-- bpf_page_owner_get_memcg_info() now resolves the page with
-  pfn_to_online_page() for an offline or removed pfn.
-- Buffer/info args renamed to info__uninit/buf__uninit/buf__sz.
+- bpf_page_owner_stack_snprint() now takes the scan cursor.
+- Buffer args renamed to buf__uninit/buf__sz.
 
-v2: https://lore.kernel.org/linux-mm/20261013122125.843451-6-zhen.ni@easystack.cn/
-v1: https://lore.kernel.org/linux-mm/20261009112308.240769-6-zhen.ni@easystack.cn/
+v2: https://lore.kernel.org/linux-mm/20261013122125.843451-4-zhen.ni@easystack.cn/
+v1: https://lore.kernel.org/linux-mm/20261009112308.240769-4-zhen.ni@easystack.cn/
 ---
- kernel/bpf/helpers.c |  1 +
- mm/page_owner.c      | 85 ++++++++++++++++++++++++++++++++++----------
- mm/page_owner.h      |  9 +++++
- mm/page_owner_iter.c | 48 +++++++++++++++++++++++++
- 4 files changed, 124 insertions(+), 19 deletions(-)
+ kernel/bpf/helpers.c |  9 +++++++
+ mm/page_owner.h      |  3 +++
+ mm/page_owner_iter.c | 64 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 76 insertions(+)
 
 diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-index 0ba836f77957..bba9eeb076c3 100644
+index 712dca5a2c5b..0ba836f77957 100644
 --- a/kernel/bpf/helpers.c
 +++ b/kernel/bpf/helpers.c
-@@ -4954,6 +4954,7 @@ BTF_ID_FLAGS(func, bpf_iter_page_owner_next,
- BTF_ID_FLAGS(func, bpf_iter_page_owner_destroy,
- 	     KF_ITER_DESTROY | KF_SLEEPABLE | KF_PERFMON)
- BTF_ID_FLAGS(func, bpf_page_owner_stack_snprint, KF_SLEEPABLE | KF_PERFMON)
-+BTF_ID_FLAGS(func, bpf_page_owner_get_memcg_info, KF_SLEEPABLE | KF_PERFMON)
+@@ -4946,6 +4946,15 @@ BTF_ID_FLAGS(func, bpf_iter_dmabuf_new, KF_ITER_NEW | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_iter_dmabuf_next, KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_iter_dmabuf_destroy, KF_ITER_DESTROY | KF_SLEEPABLE)
  #endif
++#ifdef CONFIG_PAGE_OWNER
++BTF_ID_FLAGS(func, bpf_iter_page_owner_new,
++	     KF_ITER_NEW | KF_SLEEPABLE | KF_PERFMON)
++BTF_ID_FLAGS(func, bpf_iter_page_owner_next,
++	     KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE | KF_PERFMON)
++BTF_ID_FLAGS(func, bpf_iter_page_owner_destroy,
++	     KF_ITER_DESTROY | KF_SLEEPABLE | KF_PERFMON)
++BTF_ID_FLAGS(func, bpf_page_owner_stack_snprint, KF_SLEEPABLE | KF_PERFMON)
++#endif
  BTF_ID_FLAGS(func, __bpf_trap)
  BTF_ID_FLAGS(func, bpf_strcmp, KF_PERFMON);
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 8bc15bcdc24e..7470b5d002be 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -538,16 +538,22 @@ void pagetypeinfo_showmixedcount_print(struct seq_file *m,
- 
- #ifdef CONFIG_MEMCG
- /*
-- * Looking for memcg information and print it out
-+ * Collect memcg information of @page into @info; when @buf and a
-+ * nonzero @size are given, also copy the full cgroup path of the
-+ * charged memcg into @buf.
-+ *
-+ * Return: 0 if @page is charged to an attributable memcg; -ENODATA
-+ * otherwise.
-  */
--static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
--					 struct page *page)
-+int get_page_memcg_info(struct page *page, struct memcg_info *info,
-+			char *buf, int size)
- {
- 	unsigned long memcg_data;
- 	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
--	bool online;
--	char name[80];
-+	int ret = -ENODATA;
-+
-+	*info = (struct memcg_info){};
- 
- 	rcu_read_lock();
- 	memcg_data = READ_ONCE(page->memcg_data);
-@@ -555,31 +561,68 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 		goto out_unlock;
- 
- 	if (memcg_data & MEMCG_DATA_OBJEXTS) {
--		ret += scnprintf(kbuf + ret, count - ret,
--				"Slab cache page\n");
-+		info->is_slab = true;
- 		goto out_unlock;
- 	}
- 
- 	objcg = (void *)(memcg_data & ~OBJEXTS_FLAGS_MASK);
--	memcg = objcg ? obj_cgroup_memcg(objcg) : NULL;
-+	if (!objcg)
-+		goto out_unlock;
-+
-+	memcg = obj_cgroup_memcg(objcg);
- 	if (!memcg)
- 		goto out_unlock;
- 
--	online = css_is_online(&memcg->css);
--	cgroup_name(memcg->css.cgroup, name, sizeof(name));
--	ret += scnprintf(kbuf + ret, count - ret,
--			"Charged %sto %smemcg %s\n",
--			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
--			online ? "" : "offline ",
--			name);
-+	info->is_kmem = (memcg_data & MEMCG_DATA_KMEM) != 0;
-+	info->is_online = css_is_online(&memcg->css);
-+	cgroup_name(memcg->css.cgroup, info->name, sizeof(info->name));
-+
-+	if (buf && size)
-+		cgroup_path(memcg->css.cgroup, buf, size);
-+	ret = 0;
- out_unlock:
- 	rcu_read_unlock();
- 
-+	if (ret < 0 && buf && size)
-+		buf[0] = '\0';
-+
-+	return ret;
-+}
-+
-+/*
-+ * Print memcg information from memcg_info
-+ */
-+static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
-+					 const struct memcg_info *info)
-+{
-+	if (!info)
-+		return ret;
-+
-+	if (info->is_slab)
-+		ret += scnprintf(kbuf + ret, count - ret,
-+				"Slab cache page\n");
-+
-+	if (info->name[0])
-+		ret += scnprintf(kbuf + ret, count - ret,
-+				"Charged %sto %smemcg %s\n",
-+				info->is_kmem ? "(via objcg) " : "",
-+				info->is_online ? "" : "offline ",
-+				info->name);
-+
- 	return ret;
- }
- #else
-+int get_page_memcg_info(struct page *page, struct memcg_info *info,
-+			char *buf, int size)
-+{
-+	*info = (struct memcg_info){};
-+	if (buf && size)
-+		buf[0] = '\0';
-+	return -EOPNOTSUPP;
-+}
-+
- static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
--					 struct page *page)
-+					 const struct memcg_info *info)
- {
- 	return ret;
- }
-@@ -589,7 +632,8 @@ static ssize_t
- print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 		struct page *page, struct page_owner *page_owner,
- 		depot_stack_handle_t handle,
--		struct page_owner_filter_state *state)
-+		struct page_owner_filter_state *state,
-+		const struct memcg_info *memcg_info)
- {
- 	int ret, pageblock_mt, page_mt;
- 	char *kbuf;
-@@ -639,7 +683,7 @@ print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 			migrate_reason_names[page_owner->last_migrate_reason]);
- 	}
- 
--	ret = print_page_owner_memcg(kbuf, count, ret, page);
-+	ret = print_page_owner_memcg(kbuf, count, ret, memcg_info);
- 
- 	ret += snprintf(kbuf + ret, count - ret, "\n");
- 	if (ret >= count)
-@@ -822,6 +866,7 @@ static ssize_t
- read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- {
- 	struct page_owner_scan scan;
-+	struct memcg_info memcg_info;
- 	struct page_owner_filter_state *state = file->private_data;
- 
- 	if (!static_branch_unlikely(&page_owner_inited))
-@@ -855,8 +900,10 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		/* Record the next PFN to read in the file offset */
- 		*ppos = scan.pfn + 1;
- 
-+		get_page_memcg_info(page, &memcg_info, NULL, 0);
- 		ret = print_page_owner(buf, count, scan.pfn, page,
--				&scan.po_snap, scan.po_snap.handle, state);
-+				&scan.po_snap, scan.po_snap.handle, state,
-+				&memcg_info);
- 		put_online_mems();
- 		return ret;
- 
+ BTF_ID_FLAGS(func, bpf_strcasecmp, KF_PERFMON);
 diff --git a/mm/page_owner.h b/mm/page_owner.h
-index 934bc9f84d6f..65598415af73 100644
+index 0aa7695bec82..4ab513f17fc9 100644
 --- a/mm/page_owner.h
 +++ b/mm/page_owner.h
-@@ -41,7 +41,16 @@ struct page_owner_scan {
- 	int nid;
- };
+@@ -6,6 +6,7 @@
+ #ifndef __MM_PAGE_OWNER_H
+ #define __MM_PAGE_OWNER_H
  
-+struct memcg_info {
-+	char name[80];
-+	bool is_slab;
-+	bool is_kmem;
-+	bool is_online;
-+};
-+
- bool page_owner_next_eligible(struct page_owner_scan *scan);
-+int get_page_memcg_info(struct page *page, struct memcg_info *info,
-+			char *buf, int size);
- 
++#include <linux/jump_label.h>
+ #include <linux/page_ext.h>
+ #include <linux/sched.h>
+ #include <linux/stackdepot.h>
+@@ -13,6 +14,8 @@
  /*
-  * mm/page_owner_iter.c
+  * mm/page_owner.c
+  */
++DECLARE_STATIC_KEY_FALSE(page_owner_inited);
++
+ struct page_owner {
+ 	unsigned short order;
+ 	short last_migrate_reason;
 diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
-index b7e0ce1dfa80..a649e1207e24 100644
+index 529b2c4a589a..4b9741a2de53 100644
 --- a/mm/page_owner_iter.c
 +++ b/mm/page_owner_iter.c
-@@ -181,4 +181,52 @@ __bpf_kfunc int bpf_page_owner_stack_snprint(struct page_owner_scan *scan,
- 	return len;
- }
+@@ -4,6 +4,7 @@
+ #include <linux/memblock.h>
+ #include <linux/mm.h>
+ #include <linux/seq_file.h>
++#include <linux/stackdepot.h>
  
-+/**
-+ * bpf_page_owner_get_memcg_info - Report the memcg charged for the current page
-+ * @scan: page_owner scan handle.
-+ * @info__uninit: output buffer for the memcg_info.
-+ * @buf__uninit: optional output buffer for the full cgroup path.
-+ * @buf__sz: size of @buf__uninit.
-+ *
-+ * Fills @info__uninit with the memcg charged for the page backing
-+ * @scan->pfn.  If @buf__uninit and @buf__sz are provided, the full
-+ * cgroup path is also copied out, so a BPF program can attribute a
-+ * page_owner allocation to a specific cgroup.
-+ *
-+ * @scan->pfn is resolved to a struct page under get_online_mems(),
-+ * so the page cannot be accessed after its memory section is offlined
-+ * or removed.
-+ *
-+ * Returns:
-+ * * 0 on success
-+ * * -ENODATA if the page is not online or not charged to a memcg
-+ * * -EOPNOTSUPP if built without CONFIG_MEMCG
-+ */
-+__bpf_kfunc int bpf_page_owner_get_memcg_info(struct page_owner_scan *scan,
-+					      struct memcg_info *info__uninit,
-+					      char *buf__uninit, u32 buf__sz)
+ #include "page_owner.h"
+ 
+@@ -116,3 +117,66 @@ int page_owner_iter_register(void)
+ 
+ 	return bpf_iter_reg_target(&page_owner_iter_reg_info);
+ }
++
++/* opaque to BPF programs */
++struct bpf_iter_page_owner {
++	__u64 __opaque[16];
++} __attribute__((aligned(8)));
++
++struct bpf_iter_page_owner_kern {
++	struct page_owner_scan scan;
++} __attribute__((aligned(8)));
++
++__bpf_kfunc_start_defs();
++
++__bpf_kfunc int bpf_iter_page_owner_new(struct bpf_iter_page_owner *it)
 +{
-+	struct page *page;
-+	int ret = -ENODATA;
++	struct bpf_iter_page_owner_kern *kit = (void *)it;
 +
-+	if (!static_branch_unlikely(&page_owner_inited))
-+		goto nodata;
++	BUILD_BUG_ON(sizeof(*kit) > sizeof(*it));
++	BUILD_BUG_ON(__alignof__(*kit) != __alignof__(*it));
 +
-+	get_online_mems();
-+	page = pfn_to_online_page(scan->pfn);
-+	if (!page) {
-+		put_online_mems();
-+		goto nodata;
-+	}
-+	ret = get_page_memcg_info(page, info__uninit, buf__uninit, buf__sz);
-+	put_online_mems();
-+	return ret;
-+
-+nodata:
-+	*info__uninit = (struct memcg_info){};
-+	if (buf__uninit && buf__sz)
-+		buf__uninit[0] = '\0';
-+	return ret;
++	kit->scan.pfn = min_low_pfn - 1;
++	return 0;
 +}
 +
- __bpf_kfunc_end_defs();
++__bpf_kfunc struct page_owner_scan *
++bpf_iter_page_owner_next(struct bpf_iter_page_owner *it)
++{
++	struct bpf_iter_page_owner_kern *kit = (void *)it;
++
++	if (!static_branch_unlikely(&page_owner_inited))
++		return NULL;
++
++	cond_resched();
++
++	kit->scan.pfn++;
++	if (!page_owner_next_eligible(&kit->scan))
++		return NULL;
++
++	return &kit->scan;
++}
++
++__bpf_kfunc void bpf_iter_page_owner_destroy(struct bpf_iter_page_owner *it)
++{
++}
++
++__bpf_kfunc int bpf_page_owner_stack_snprint(struct page_owner_scan *scan,
++					     char *buf__uninit, u32 buf__sz)
++{
++	int len = 0;
++
++	if (!buf__uninit || !buf__sz)
++		return 0;
++
++	if (static_branch_unlikely(&page_owner_inited))
++		len = stack_depot_snprint(scan->po_snap.handle, buf__uninit,
++					  buf__sz, 0);
++
++	if (!len)
++		buf__uninit[0] = '\0';
++
++	return len;
++}
++
++__bpf_kfunc_end_defs();
 -- 
 2.20.1
 
