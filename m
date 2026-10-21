@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612283;
-	b=MCaENSZ4r7cgiDrC5flXSxNDydhTpsA3Nj6ec1tk0qZfmYSs4hkYobjckvbL/oCs0usA
-	 WfXQoIMJUY85f7jjmte6HGIAjdkRgYqYXgGSUkF/Ta7TjiW/BJY93QmjU6kTh1YaNdGzF
-	 1nOIEWmTfK08qitj8Gcp7QtkoONdFIZ1b9S9K9DrC+UKv9lsfgM8LsmYpOeVm7lDYghr+
-	 NiWRLSB3O0TbAK78XCwSHvVQkNRyOYKYMfJLalduGlxi5oWGyyTYPNfPc82SzZ5KqBg2u
-	 z/oG1BuV08CDL/k+5EBtaBc2jfE1Wgg0TZ0sNlyPVedBaaKH/O9VbPZjBU7Uzid2Ing==
+	t=1792612284;
+	b=X1umzRyIueaFRy1DO7vWM1/x8Aq2kHUecgwCa56afeG8PAuVd7Xl+T3DeX73PYD2p1tW
+	 Rlx8N7z7swd7JoZE7hsgSF1a/uBctJFBRr0zwgYodbMAU5/Gu6YS/UV9+zXfcuVLNACpF
+	 Rx1yPVslV4VoPbwv1ACBk9pr+DQzXowwygCVqAkNWw1YK2qXxAQq045XzrD9mEUpHCcu5
+	 GJfWDKS6wqrJPs69hR/C40nW3hWqbjYgHdQb/11qnUTqkWUUgSFVvZiaaM96URWa4vhOF
+	 AtVFanOM6ADUU9/77ZeBjrEbvkM7OoGvu8BObW0zjv5Zhr0jlQMi7I2vI1hDcXDbeHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612284;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Subject:To:Cc:From:
 	 Date:References:In-Reply-To:Message-Id;
-	bh=7Wxq0Tpm1aalOHES/DGjUKwPrhQKwD4LCX+2/1DFnTk=;
-	b=nwRx9/R7YOyXSXgpGAJOxQ8nV/ojytp2CCHzmPJTNmlB/1iXiWfgKcf3iEuk72wlsvAr
-	 Jyse2037sY6bgmo8XUtFVGXYhT1oB8qkrVvzZQT+B5mQSDI9HYtU1/aQLbSH4VjF/Uhs0
-	 h5qEfzGQaIazIJQWZFrfSRW79/t3TcFgYtHAxZzMw7bVwaWmeCw3lcSt3u9uscw4ScB4t
-	 7ZUw64rJaqwvBrYkvjAnmvGqy4HLgSsuWrB+p8rjbCziE0nSgbprvR9kVzMhAleB5Hl/U
-	 uJDcz3w/k+Imilp3Z05h3az27NmiIrq1y4sJhLqzHzXVg2GGI0ezcMwfJElKDZzFYoQ==
+	bh=yFtnMB5RDN6IJVZN4f6S6Gl+0h86imTPfhj+pxneW8U=;
+	b=il22rCmHCbRBcSrL2nvK67GCQOYoNrfVlzNJif29WnW1kKjWNUgOn2D2VhA34nfWFoxy
+	 U05OK74gNLABY7u32nKJKLkbeyFQVTz/rji3NqRSYPeIMAPJ9nKcl/wghzPcfRJ6EGWgI
+	 sMcF+hySgnsiblbxLhjh6+HoFrhxjqnlMOAH/W0JFkL06Z6cETFQp4vuavpZL1rUQ3L8P
+	 PYHyYskGJgjOQgyqbfAi8/GAKSBKrWS0IMnI3lMZ7cN+5dtleqE0rF4bgE3MKmZi9chmQ
+	 oEAU+7T4ka+Ul4rK0bQ2j5CyvgIH31HEbtd6y2YJeVxjiCs4xjmDSynIyOzsPaaROjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="RPekdre/";
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jlFsGHSj;
 	arc=none smtp.remote-ip=198.175.65.16
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBE0606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FBE0606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA343606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:51:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA343606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RPekdre/
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jlFsGHSj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792612282; x=1824148282;
+  t=1792612284; x=1824148284;
   h=subject:to:cc:from:date:references:in-reply-to:
    message-id;
-  bh=9NMEAGvwfhaErtp/rLp4sA+7esY9LhUmvQE0coqlddI=;
-  b=RPekdre/bF59nN5awTVp/b+q780YQ2TzwOZQVN/ax60aH8UpalbiBsuc
-   sq8zbwVZ8e3ip8PQXj7C8DYQcWGqeQ9vc6k+Z0XkQ5f1EU5bzPJl+dfsG
-   A7FRMnqjBdOpA5ObUETPXhTRexk65OlD8Fszza+gK2XmOd38zXShCUDyt
-   ciTEhtczY4y4udL3qglfmjI0lU5LSq/ni58LxOwZrfCPetQjYNi8S4Y0S
-   bs030t+CdgRn65f20Mi4By7RUdig4LhZ0HPsYr4ZlvVinmc1bvMS9v3wa
-   VBC/4/e39Naqsk818RSwO56RcfxeycfjwMwoaq65I8P682Ag7z7Okgqyo
+  bh=dTxYcnn/Osro5eM3LiFseTnBsVeJ33ICVpfO/evrT4U=;
+  b=jlFsGHSjOe/kgad4wJvOjUxi5aHQ+yKRnotQBQHIbfQj1yoVhv9YG2et
+   j6zXTvaCyVZ7/5jq33/Akzlaakykxn6FvKiu+6OzCjQ4xWqBv1NUpVWWv
+   yyVPZXO8w9F6ycPcapVvNaFhkhoB69DdxYlHtULZYJJe8JX4EE7biRaRh
+   F7zsW2jBtCUXRH1c5Bv8mbJTVG/bD3fSRtOWrKP7J36Kec49NcejWojAz
+   Z8V2ZjOUYXkp+0q19+mJHNYg7HRPMgxXUBOfQ5itBeo7l+MeUKV9hNGDL
+   KC3hzPyuY9F19f6nQ7EbFq3j3gZd/d3h5FriSwkBTru8eiCEtLciPp3jS
    Q==;
-X-CSE-ConnectionGUID: xFOxSBArQy22JtXk0OXzag==
-X-CSE-MsgGUID: 2R0rEVYFQcS5ZHdqESIg9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1341775"
+X-CSE-ConnectionGUID: ApJdNO+bQxGx3lK9vP8T1A==
+X-CSE-MsgGUID: m2uy4HpzQDi6z/iakZ1pog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1341782"
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1341775"
+   d="scan'208";a="1341782"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:51:22 -0700
-X-CSE-ConnectionGUID: M6vNVHLWQ/m1V0EvcJRE9A==
-X-CSE-MsgGUID: ag8Y36BvTKmxIm+nGmVJFA==
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:51:23 -0700
+X-CSE-ConnectionGUID: WbLRcXQHTVKLJWdbadf53A==
+X-CSE-MsgGUID: 4aOq9Ke0To6yMljvL+ZkcQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3248195"
+   d="scan'208";a="3248199"
 Received: from davehans-spike.ostc.intel.com (HELO localhost.localdomain) ([10.165.164.11])
-  by fmviesa003.fm.intel.com with ESMTP; 21 Oct 2026 12:51:21 -0700
-Subject: [RFC][PATCH 01/24] kernel/fork: Break out vmap task allocation into helper
+  by fmviesa003.fm.intel.com with ESMTP; 21 Oct 2026 12:51:23 -0700
+Subject: [RFC][PATCH 02/24] kernel/fork: Use sizeof() union instead of TASK_SIZE
 To: linux-kernel@vger.kernel.org
 Cc: Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Edgecombe, Rick P <rick.p.edgecombe@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, the arch/x86 maintainers <x86@kernel.org>, Kees Cook <kees@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
 From: Dave Hansen <dave.hansen@linux.intel.com>
-Date: Wed, 21 Oct 2026 12:51:21 -0700
+Date: Wed, 21 Oct 2026 12:51:23 -0700
 References: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
 In-Reply-To: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
-Message-Id: <20261021195121.B9894E1D@davehans-spike.ostc.intel.com>
+Message-Id: <20261021195123.337677D7@davehans-spike.ostc.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,42 +78,36 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
 
-Prepare for kernel shadow stacks. Move the low-level vmalloc call
-into its own helper. This will soon have to deal with more things
-like appending the shadow stack allocation and setting up the
-different permissions for shadow stack pages.
+thread_union is sized with TASK_SIZE. Instead of needing the definition
+and this code to match, just use the thread_union size. This way, if the
+thread union size changes, this code will still be correct.
+
+Foreshadowing: shadow stack support will change the size of thread_union.
 
 ---
 
- b/kernel/fork.c |   11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ b/kernel/fork.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff -puN kernel/fork.c~alloc_thread_stack_node-perms kernel/fork.c
---- a/kernel/fork.c~alloc_thread_stack_node-perms	2026-10-21 12:36:32.589870843 -0700
-+++ b/kernel/fork.c	2026-10-21 12:36:32.592870848 -0700
-@@ -330,6 +330,13 @@ err:
- 	return ret;
- }
+diff -puN kernel/fork.c~alloc_thread_stack_node-2 kernel/fork.c
+--- a/kernel/fork.c~alloc_thread_stack_node-2	2026-10-21 12:36:33.082871786 -0700
++++ b/kernel/fork.c	2026-10-21 12:36:33.085871792 -0700
+@@ -315,7 +315,7 @@ static int memcg_charge_kernel_stack(str
+ 	int ret;
+ 	int nr_charged = 0;
  
-+static void *__vmalloc_thread_stack_node(int node)
-+{
-+	return __vmalloc_node(THREAD_SIZE, THREAD_ALIGN,
-+			      GFP_VMAP_STACK,
-+			      node, __builtin_return_address(0));
-+}
-+
- static int alloc_thread_stack_node(struct task_struct *tsk, int node)
+-	BUG_ON(vm_area->nr_pages != THREAD_SIZE / PAGE_SIZE);
++	BUG_ON(vm_area->nr_pages != sizeof(union thread_union) / PAGE_SIZE);
+ 
+ 	for (i = 0; i < THREAD_SIZE / PAGE_SIZE; i++) {
+ 		ret = memcg_kmem_charge_page(vm_area->pages[i], GFP_KERNEL, 0);
+@@ -332,7 +332,7 @@ err:
+ 
+ static void *__vmalloc_thread_stack_node(int node)
  {
- 	struct vm_struct *vm_area;
-@@ -356,9 +363,7 @@ static int alloc_thread_stack_node(struc
- 		return 0;
- 	}
- 
--	stack = __vmalloc_node(THREAD_SIZE, THREAD_ALIGN,
--				     GFP_VMAP_STACK,
--				     node, __builtin_return_address(0));
-+	stack = __vmalloc_thread_stack_node(node);
- 	if (!stack)
- 		return -ENOMEM;
- 
+-	return __vmalloc_node(THREAD_SIZE, THREAD_ALIGN,
++	return __vmalloc_node(sizeof(union thread_union), THREAD_ALIGN,
+ 			      GFP_VMAP_STACK,
+ 			      node, __builtin_return_address(0));
+ }
 _
