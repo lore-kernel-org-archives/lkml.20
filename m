@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792553851;
-	b=qETq+8kXSUGvUaXc5r3mz6ELiGk/SLQYehu9Un7siT8TlAKpRmVXhe9shXV0+AikDiw8
-	 nVxkzrZT4UQ978/rNANyJ7m7B5YVe9JokpLNRGp7EofygCDmJ3VSKiBnbkg/LG3uEptz5
-	 C734V2WILKl+QpKSOFObNE832glztzfmzVLzqjDCaQtuEyz1I6wwCX2J7zM/h290xzlXu
-	 GhPKWnhQuIW+uLbny8Tr5d/ocXjvaTdoSZdDxTsS+zeYc92rFRVJx92BTtrIplDNo39u0
-	 s5b1ucvSWrRm7ATSILP+KH7IdbKSWrLknHYw/BQwLCsyO9fjtshHSPpUW5tScUnEn7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792553851;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=JlRmug8M8jL+izLY5CnmCZpoNqlaHo91H3D4D0KORIQ=;
-	b=w2h98i4Od6LSGTNM+6pMdxVy9xOqKTDibcqP+tRLbzVNqQ1uKBF1yMoK23OxOl2pckZh
-	 tmmuXuhoYfRGZq56TwKTgeDDIODH5hTMtAkEPqexA5qD1lSEUEn9krfNsYQ4u5HBGBwm2
-	 7yyp7xtCsFYWA8h0rtTqTS4E7mlanlMhDlr7mBNh8PtH3rNXxW1H+30/u0ke8sAFsj6OC
-	 ddWCwn/prQrEJ6897EsMbb48bO+gY9sJayONW0sl020KE6w8ZMK+DNquFMw5e7oknN4SP
-	 5luopT2le/n6zSH2lE3gRsldxx0ne9d7VeenuVWYPJiaX6adDSfU8rb4AS4s7+yEfzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v6knzeLY;
-	arc=none smtp.remote-ip=115.124.30.100
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.55
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792554074;
+	b=sq7MSxbmuQCeAOBY5lteq1Vtr7BG/wyWU57WKpKq6Gub6NnRf8Zgl9UpQOk5fPOXDI/0
+	 revOLJGPPYfWUwV4uruvbcEqcVWgFV7aaTaL/y6LHHAvEabOCPGxWevrKmm/CJN6kW1jw
+	 lnaqI4cXlRJZmjpHtr4T+HWlkQtLeQxzmAM1a3LYDK0Mpluwftj858uiSjE4xDJ0jy+Ar
+	 K9UuosdzsdZSbQhJzoQAwc5SgUA9M+PdA3aRk8cNAmgGwjxv0rzDWIDRyqlqkoPcb5cEE
+	 TOFwmgy4fUqssehZmnFVKLvw4gHjATzl4wymn2ek7tToLWk2xf7dcdLGPXPH5dE4/Wg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792554074;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iJt9Lku9ZTIA7h8E2r15ZUbMqbDELnTBdSjAXJZJubc=;
+	b=YXO2nmSqdx2RgzEsMuXgTxCssZ5JP7SlSTznlxuBpIlmTTEX3k2s8yUGOZZkgVmgJiTR
+	 WxiODFvU59ZsNeECzxwugc4GhO8fX58d6ZW80U2U80IOPhqWVDf3duGRI7q7XIn5aCk2m
+	 JFfpYaEIgfYKASeXXP4RqfRTZZlpy13nUkt6wue8IH0Gdkj2kQdCF4nkfwRoRt8QRjdzZ
+	 e0PlhO/V7mEUUEKCiR1b+DLoV5s+n6PmI4B7/OUn5xgF/V+AFjvKg9IIR7m47kMgzTKFS
+	 /MTUJE2md2iXxpB44fFNGGS907K2NxPHrUUHT++6CQowZ+ooAP1djeCIpno2SJ36ovQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="vzJkZuF/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.55
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36F6606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C36F6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829C9606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 829C9606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v6knzeLY
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792553847; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=JlRmug8M8jL+izLY5CnmCZpoNqlaHo91H3D4D0KORIQ=;
-	b=v6knzeLYhoOevSDZafqomGZAQJhuVioZPMPBmQhWfnxT+mb0lqAWtUdngvb9WgTWK3lEe6levZoQX2bLAn22k9yDJTNCPuCZ5ectuCxMy+QWAEXmQXEqH5X02P/Lp5dOe8+UDcx7D2WU+DRMxA8rAVtST1fp8C7kak64HBKP/jw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R811e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XDFBTxn_1792553844;
-Received: from 30.74.144.135(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDFBTxn_1792553844 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 21 Oct 2026 11:37:25 +0800
-Message-ID: <0d0e6e7a-eb2f-4435-9be8-0c82d39b4cb1@linux.alibaba.com>
-Date: Wed, 21 Oct 2026 11:37:24 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vzJkZuF/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=csA63bkuMf20BtIL2Udvj51Ouq8QLnwRFuYzqRG1wCfQ8imIH8ugokfyiOnMWA/ZX2dQL4TsZNKjpFt8nI7PXyX3OpjBIFGuKXL9ohWUKkyj9u3KoO0J9mkDZd7xvIgm0jP1JHBG4dvQsSR3h8Up5f/Oh++dEQUdH56WPzfm+U+wWsIlv96KXTG3ONWfi2wZKueb6anAyC9kfBg5gxuuEyV+dOVn1yvV0gW8ZGp4E2DT9lqc+tRhCvnTS9a0UwV2hL56quP1MZ+SgwFqGCC0OlUrAJHklYJjZe6LF68l3duDnENlRJgsR37tVbcaLOB3TC89nev9EJ7o5twgjbWb9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iJt9Lku9ZTIA7h8E2r15ZUbMqbDELnTBdSjAXJZJubc=;
+ b=d+zEkI8l0BPrBPRMmAYzhFgQiH5L2ME3qylFRK4elMPuEjuYui1eB+ZTheIm+wrx35/nxy6NpfInSoHXYioEHpSAtel+xuYvxtx1Qd14kXcksD1G1fEOAfftX702vcWGFwFRd4VeletbAJT68JqPuGqCctODXtPz1bWA5N8PSdYObt9hapvaBOERbuELkBJHJilPpMnfcNg6ThXjSObkqSLDBDWj/7gSBOlHpHuMGRdQNYf08YOnNnpvemqgfDg2Z3OT8++VpVpWJ6kugj/aOIlG2UxXCcZL+sZqWdtmJoEHi97kcw1VkVfeUH6RFcS2N4BU7m9lWXj/L9Mjod0/VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iJt9Lku9ZTIA7h8E2r15ZUbMqbDELnTBdSjAXJZJubc=;
+ b=vzJkZuF/Jlz+CiV3nVB3qBXBdwup7Adg0HtN2kX+ZnSYXwehVeEs7doZYuA+ZsIFMMIcPmwXDo6UgSBm9CkKKdJAvbUVVy1eNGZdDuqxSbyQGeLldmhsP0ybaM2EmPp9k2Tb1z1pBCiINu9LiGGzACbwf9+S5v1qfNFmaigT6MQ=
+Received: from SJ0PR03CA0108.namprd03.prod.outlook.com (2603:10b6:a03:333::23)
+ by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 03:41:09 +0000
+Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
+ (2603:10b6:a03:333:cafe::8b) by SJ0PR03CA0108.outlook.office365.com
+ (2603:10b6:a03:333::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
+ 21 Oct 2026 03:41:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:41:08 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
+ 2026 22:41:07 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
+ 2026 22:41:07 -0500
+Received: from [10.136.41.43] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 20 Oct 2026 22:41:03 -0500
+Message-ID: <0d0974b0-5235-4764-abad-0a665c27a1d0@amd.com>
+Date: Wed, 21 Oct 2026 09:11:02 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,78 +106,139 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: unqueue deferred split folios outside the lruvec
- lock
-To: Joanne Koong <joannelkoong@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Lance Yang <lance.yang@linux.dev>,
- Hugh Dickins <hughd@google.com>
-References: <20261019230646.3510790-1-joannelkoong@gmail.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261019230646.3510790-1-joannelkoong@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] rcu: Print CPU that preempted stalled reader wants to run
+ on
+To: <paulmck@kernel.org>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
+	<peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Joel Fernandes
+	<joelagnelf@nvidia.com>, Clark Williams <clrkwllms@kernel.org>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <kernel-team@meta.com>
+References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
+ <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|DM4PR12MB7527:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7dc2b07-abc5-479e-67d8-08df2f2524dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|36860700016|82310400026|13003099007|56012099006|4143699003|11063799006|5023799004|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	wC9r7Uy4uWsYSvtN3JXCLIcNJtdq1ll0kLYSKF6Tvp0qyxsi2ElH3YsQ6DKzWJLyJ//NvuGEv9AFpcPsRQmtEoITwmfQ3DtyETkDbN9B8yPacFyw8aALS/a2J4mHxQUQ3p/MenSBtbAkbUSqEGK8Aet1EpQJ3cVD/A9vI+GRbUu9AoDBlBRSXCkX6znG+CjbLTk/uD5JYN9xkASeK5VRX1/MiIxZhx44MpDE1bAR4J6zR+aPQC1dSeXa/ZTciu4O+yrkAv9hGZfew8ddC+0yQIwycSg0FvRrP0ZancktgpcDjSrZuPweVx6U888Lxb6UzaISuosm8mPXBRFzTNYUJIhGVri8nloRe9P+qoJBoCDrPPKbx8UQUk7m7nsKakMpGJZfq/jYNyClApI33x4Wjq6qR8cQoTQ6gXmc6SmfHLhrjaIMgci4BCvGOzZQjJgKFIGwmnrykJXk8i+av/aPRItIqzIpzfK8o9AvKIOsABNpw2Mkk2wVMDN26WiSyi9qWU2OINMeat9k8sEYGEtKvt1j8E2AFmCCaoDBh0eN7/NxLWpONx0KkcGWRfA/OawgudBswWJrJBTYleK4kzOREsluk3SuWQuzEtbFqjwNDIDO7SKSRWGhI+5pDE6zWoBudGWZV3Gine9BR3eMnJosjdkyRa3pXn4OU8FzkbH8eY4oG/LXci+rqR7VNKSQEzfyND7HV6R8w0qicsGlnoOAsQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(13003099007)(56012099006)(4143699003)(11063799006)(5023799004)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Zn24194avExxDwAet2YpnuBxwNnKbERXIEADvd3njFpPT75CIMMaokp3+8lVmg0LfRFUCu3COG9P6Wetqc35XkqrtATh3yi5GEXCRYyLSNcaCram3fHUML9xs/YjRIhciPjmVxt3gmt0Zl4abGcvF/1i2Lr0/utAB/7X3pYVwP03h7Qfy7n+hI+PtSXU0GNyzsQN6XyllTbW9C66ED9UTSXmKCouct4R3qUaZZa/ML7VkkKWlOpdu5ppy3eU+es0Gv7sh8vkhLQuv6aeyFJSpQQG6+MD/8rIPTKdg4rv7MPYIg/DjkL6oSYdAbY04y85qSqK+LPj8e3LetyLjIsaRnyR29e8aR1ZCra/X8aXy8+GLXZvMEmaz0zCaZJBW3tE3eT9oxlrBf2Qv/7Y40RqrnVktwuEcsCevCVhXYqO1j+oa5ULtZb/J35xEKBo2sTV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:41:08.7363
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7dc2b07-abc5-479e-67d8-08df2f2524dc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF000264B2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
 
+Hello Paul,
 
+On 10/20/2026 2:17 AM, Paul E. McKenney wrote:
+> This commit defines a cpu_curr_snapshot_rcu() function that invokes
+> rcu_dereference_all(cpu_curr()) to determine which task is currently
+> running on the specified CPU.  The RCU CPU stall warning then uses this
+> new function in order to print the task that has preempted the stalled
+> task (the stalled task being the one that is in an RCU read-side critical
+> section, thus preventing the current RCU grace period from completing).
+> This modified stall-warning message also includes the CPU, along with
+> an exclamation mark ("!") after the CPU number if that CPU is currently
+> offline.
+> 
+> This is a potential step towards allowing people (or LLMs, for that
+> matter) locate any tasks that might be preventing the preempted RCU
+> reader task from running.
+> 
+> Adding a get_task_struct() for the currently running task would be a
+> bug because we are not in a position to prevent that task from exiting.
+> Yes, yes, because interrupts are disabled throughout, the corresponding
+> task_struct structure cannot be freed, but following sequence of events
+> is all too possible:
+> 
+> o	The check_slow_task() function places a pointer to the task_struct
+> 	structure in its local variable "th".
+> 
+> o	The corresponding task exits, reducing its task_struct structure's
+> 	->usage to zero.  The task_struct structure is therefore passed
+> 	to call_rcu().
+> 
+> o	The check_slow_task() function invokes get_task_struct(th),
+> 	setting th->usage to one.
+> 
+> o	The rcu_print_task_stall() function invokes put_task_struct(),
+> 	again reducing ->usage to zero, and again passing the task
+> 	struct to call_rcu().  This results in either double-call_rcu()
+> 	or use-after-free, depending on when the RCU grace period for
+> 	the first call_rcu() completes.  Both outcomes are bad.
+> 
+> This commit therefore relies solely on disabled interrupts acting as
+> an implicit RCU read-side critical section that prevents all of the
+> task_struct structures from being freed, thus avoiding the need for
+> get_task_struct().
+> 
+> The original get_task_struct() calls in rcu_print_task_stall() on the
+> tasks on the ->blkd_tasks list are safe because those tasks cannot exit
+> without first acquiring the rcu_node ->lock that this code already holds
+> (because these tasks must remove themselves from the ->blkd_tasks list).
+> But it is better to be consistent and rely on RCU in both cases.
+> These pre-existing get_task_struct() and put_task_struct() calls are
+> therefore removed.
+> 
+> [ paulmck: Apply feedback from K Prateek Nayak and Peter Zijlstra. ]
+> [ paulmck: Apply feedback from Steven Rostedt. ]
+> 
+> Link: https://lore.kernel.org/all/a7a21bf3-a7d5-45bb-be4f-0119fe53fa20@paulmck-laptop/
+> Link: https://lore.kernel.org/all/e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop/
+> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-On 10/20/26 7:06 AM, Joanne Koong wrote:
-> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call
-> folio_unqueue_deferred_split() on folios where the refcount has dropped
-> to zero. In these paths, folio_unqueue_deferred_split() is called with
-> the lruvec lock often held (move_folios_to_lru() always holds it and
-> folio_batch_move_lru()/folios_put_refs() usually hold it for every folio
-> in the batch except the first). However, it's not needed to hold the
-> lruvec lock.
-> 
-> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
-> the deferred split queue lives on folio->_deferred_list in
-> deferred_split_lru. The deferred_split_lru is a list_lru with its own
-> per-memcg per-node lock.
-> 
-> There are already other existing callers that call
-> folio_unqueue_deferred_split() without holding the lruvec lock (eg
-> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
-> 
-> Add folio_batch_unqueue_deferred_split() and use it in
-> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
-> unqueue each batch of zero-refcount folios from the deferred split list
-> after the lruvec lock is released and before
-> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
-> critical sections, which run with IRQs disabled and are highly
-> contended.
-> 
-> This came out of the discussion on v2 of the mTHP shrinker series [1],
-> where queueing small mTHP folios on the deferred split queue was found
-> to regress Barry's fault microbenchmark. With [1] applied and
-> khugepaged/max_ptes_none=0 so that every folio is queued, perf lock
-> contention showed that the extra cost came from waiting on the lruvec
-> lock in the free path.
-> 
-> Test setup: 2-socket Intel Skylake, 40 cores / 80 threads, memory bound
-> to node 0 so that all threads contend on one lruvec, with each of 80
-> threads faulting in and unmapping 16 MB of anonymous memory 200 times.
-> With only 16K mTHP enabled, this patch reduces the queueing cost from
-> 15% runtime to noise, and lruvec lock wait time (summed across threads)
-> drops from 491 seconds to 38 seconds. Most of the remaining contention
-> moves to the deferred split list_lru lock, but runtime still drops back
-> to the unqueued baseline. This test uses a worst-case configuration ([1]
-> is expected to only queue folios of 2M and larger).
-> 
-> [1] https://lore.kernel.org/linux-mm/CAJnrk1a2PpUGTsCgS7jct2KET4K2zAL+_h+te8G1MaU9bXs99w@mail.gmail.com/
-> 
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> ---
+I tested this on your old dev branch on top of commit 5433117c67f0 ("EXP
+rcutorture: Disable RCU priority boost testing on non-TREE03 scenarios")
+and the idle state during stalls are reported correctly.
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Feel free to include:
+
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+
+> 
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index 8b3d47a325cca..3606e5a2cec32 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
+>  DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
+>  
+>  #endif
+> +
+> +struct task_struct *cpu_curr_snapshot_rcu(int cpu);
+
+nit.
+
+I think this and the function definition in core.c can go right after
+cpu_curr_snapshot() in respective files to keep the related bits
+together.
+
+-- 
+Thanks and Regards,
+Prateek
+
