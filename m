@@ -1,113 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563542;
-	b=gmX+195EtJlnXqEoNFTnGtBHoRcKotK28NtgbxyDhcyVN/Sfonf5sND4YvFYwqRgiqUD
-	 NVAoZfwSq5o77S9LLihHUwWOPW5hr8iI9Iw3V5Atrih7sSTtL15zqmzrpOOMd2XNxehNT
-	 1Uu6ktU7dCwb+INm0Hy7md4HZ2hOC0R65k3FN4ipZFNKIcnP8268QfYkrwspZrWONGMMh
-	 udsfQNalJfa9Uauf9nIN6oyn/5vKlshfll0tttbN+15nzdbJ7TRHDODpzhbR0HBC/vAMp
-	 Ya18dQZaP4HwPkyqhDMO0JwFZb2HlI8UNYVxYGdP+8n6oZQpmoF/nBUfOR/fcXnjJyQ==
+	t=1792563549;
+	b=HnuRQdVbuOxDQFXAwHFw65AZd/OZAUTsDAx/0tq9Lg1HSZjG9WY2WH9mq1M12rMI4uGk
+	 jzttl4DMB2ya2yVMRUUO1UFNj5Y5Vv1Jkvc2msKXM2tCawNhs3uhk8O95nudkVMvvR7dy
+	 ovafgl9OpU+Xgn1+ewMgw7hxbJEHq6p5fHqTFnCbtvJN5FT436V997NSsu+uBHssbPQFx
+	 VQ8O6r/w5Wr+jgY55tlhD1jV0ZHrhLxEjlyRHw7/FVvsi+pWctHnol4F54I6R1Fi0uwZj
+	 Zok7namKl90EFnZxBxL/+xgNhaX5GE5jPqjVyWPmlRaEZrRNXeVmRK2OJz+0bZTnvgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563542;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RoWA2tpxrvJqsbVDhYiO5b4SnQrsRG+wn2mJu+39iWA=;
-	b=TtXAhtpxTMoISPGKuQjzl2YDp/THV5IGQJa7IX6I6bDf/+YSxDvt53xztNeO5KzIlEuO
-	 9Qh/1+iO8FRowjJG5B7Hzl1jG7JptGwqSxqnU7StM40800w061KW0zDxKaFeqCuplwt+I
-	 zGbekI+ZKMJDPP0Fg+llrtVa9McvUuXN2WOX8ZfyA1iQWoKCxs0eP7+q4lAUkOXebWeOd
-	 rdy3xUiAxp6wF4ihrlNSA3C4dP9ZUcaflHHNNl7Febp9jb2As2RcjuqMAA4JpVOmwd8cG
-	 ZZXiwM8b4pJFfg04DwPWO6j7AHE1/u1hKa/dTlS/QuWWE6f5GXR0Vhupx/xEnsmTU6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563549;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=n2RVWOwtwVAdp5hN/dRfD4IYzXjvrWfHTyFtS6kDdI0=;
+	b=4SuNh+xK1XjH2XZNhgfxWr2DnbaXgmpMQM0xGwVdSANffK1QismjKrlUogbOZIZtSgR3
+	 /EtGr7Xj9Z8QdFoLv2sH/49ALlgwKhSZTqija/cW0LL9yNArKkV/fT4I6JERpJd2RkxxJ
+	 pJRyMh3hXltvOtLJVknnr17GHIA1cTcr+YNa64FI+JuKTuHBdSOGouZAmxvy3B+S+8hmG
+	 yRz5ULpQyuA3D/HIkhsJI+XM5821aUyQEA81opstRCveI5gbtHgsK3c6I5XRcP/jDi71u
+	 FUMuwg5tPACQ3jwhkED6tFi1bMIJmFg6S+gzcBSId2fpicnwSAzISiOllXdqaCkhy0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J+Rbha6M;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TCCCxBkF;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EEB606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:19:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53EEB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3919D606A319;
+	Wed, 21 Oct 2026 06:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3919D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J+Rbha6M
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1145216eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:19:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792563541; x=1793168341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RoWA2tpxrvJqsbVDhYiO5b4SnQrsRG+wn2mJu+39iWA=;
-        b=J+Rbha6M9V1ZKCc5nzYs0d7L65Us8Gqd7SXSE9ETiRwIthgsK8DygvNGE0xYG8RVQl
-         J7Me9PRFWEhoabnvYHvooBWQlzu2w1Ttg9KLSCHh8qQ7IAgg3x/HYGZqZQgWymUWYrKQ
-         uMzK2UDJeg5EaQRXdV2yS8iyYu91Az40XKYxo2L+AZbm+VWva0/IJgwJIOIdicWn+m1u
-         GzJSa4k7AfAYi+PXKl+fl4nMedfVmfACg02i21IALfYIR+JtBPGuuquWiBUkKpjQsjdg
-         8B5yIteeejna516vO2r12bUKHebKElnQuvQwHU9Wp7W+vmZf+L/0DXuvJtKO8TWvZ5lW
-         028A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792563541; x=1793168341;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RoWA2tpxrvJqsbVDhYiO5b4SnQrsRG+wn2mJu+39iWA=;
-        b=SQdZUgb1D859O8htjIUAY9+kRR1hN9x8KU6Gai2qEW6nzrIEWdNgmJDw9/+uqwxnVW
-         mHpvQp3/cVPBlqHzkQ8VPB7SHZdtDNxXR0URjf9/AjggDqCNZa9aMyMaEP2K0hXol8r4
-         goUc8NELMRuE/X4E78Vpid1Z9USE+5ebEJSBBGU8dYbzMDWdkm8SqN+RWkCyjBpfChj6
-         xG9Zxb1r+be1eFwE41yr4NKZMOgW1TNtPe5DbTcUvVKYelbBw7GnCeAfo5pWADJmFs+U
-         4H8pfuqKv9NJWGjuMeTVJrBAdCQXHAS3qfdpJfK7KTRTqrnVZLYETgZPSsrAFR6P2g4+
-         OwaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXGzBgbb88nPAbnXkbLWoKk8McCazXX7zEwgs8OoVC1C+GMj97olJt4xTfLNVoTQwHdeQH1xHmH/9/mRI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjqnwsYvWFIhOQM0szvs4EHO3B53+WhYx6UrOFnHazXYfs54T9
-	kWqhMiW8NzIuuK8DyGhTSmK5JMzK03o2g+1t2ieZeXUKeG7+G1o17/hF
-X-Gm-Gg: AYBFou0mihsif8w+Eep3sjlUA6znHZ3DZfBTrmZ01c5TE9xIxs1MyyQ6pT2jwNox2nQ
-	DNSE/epzEtsjcFmjKNDd8IQBS0PUBWp3XSTxoZ/yRMdX+XjKbxmfqBu/0IVyJAETjrugx3gk3HO
-	wuc7CVtSRo4ROLmbUuTErwfI7sxLaPKlhFUyp1gLVwlbc5eFB8bspuVB8qYi7kXHRvLDBBu8Aqq
-	bWXivJjDKow0OFO+wzgR6nxyPlJ0OotXkat3Q55mcJPNR4BmDxKtPLwXuaoDkq/qzaeiZfnOiee
-	ZwmkdbqELDBfLGAKiLOVw+lAcqdYbH1eGeEb4ZGGmH65RL+CUW4v/FrFaScN5nLfo3HrAk857Oi
-	fAbmLBM608qldcwyCeFl9ZWzjbjxeZf3TBe9GAcvUnaTyZLiML6nqKzLRucPZmaknD6BH+QTl6H
-	s1qiED3694/hheDJhmA1IlMoE10tF+eLz+86Sx3kuy0F7C48jspeahJ7D2cKaN6gjGqvCoLxjTy
-	jE/H6b42956j5Zg1o4Dz7dOOS+ebouiJiQ8s/IbEiRQZEKd+2oRQMMt+7XJQcivBS8QbHj9Vg==
-X-Received: by 2002:a05:7300:72d0:b0:360:444f:a56b with SMTP id 5a478bee46e88-3674e450f0emr3159821eec.12.1792563541063;
-        Tue, 20 Oct 2026 23:19:01 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8c6dsm4550577eec.12.2026.10.20.23.18.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:19:00 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: dev.jain@arm.com
-Cc: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	david@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	zhaonanzhe@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 2/4] mm: compaction: target mTHP order for proactive compaction
-Date: Wed, 21 Oct 2026 14:18:53 +0800
-Message-Id: <20261021061853.2254944-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <0aae72c3-7f46-4236-8cbb-d3e6f3c66e62@arm.com>
-References: <0aae72c3-7f46-4236-8cbb-d3e6f3c66e62@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TCCCxBkF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792563548; x=1824099548;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4hf/ZYCQEbLQdcQAHf2NLPCtHj3/Vk+yCaDqI6OH32Y=;
+  b=TCCCxBkFQzN/XRtFS6Q0csnAfvspgRCGTZx9zbuQ8x47KO5hkFIEzlNw
+   oHt9+0oKHKcv8W0wgRpzc8Ysbxh2S0OMERdtyMXOdzKb0eCa2bYX3Yh22
+   jyoItYSm8T/lvtG8kTQWeMEU9QBhzCHlGx8dfmH7HH82nMqR71zHhpl+1
+   TmHJQlzqUKdq7BKU13HaeRFBEEq/Zpy+rcWpiNXICpmxwQqp2ht0SpiCp
+   PHh+ar6UzkJlNBCcULm/hHXSK+upPO9/x6iu02Z7ixOjp+KxPOsgFcdRs
+   HujFKvU0jPq0r/uKKYBcx0LsNIDN4GDBqDLQQzL7Y5BD/Zs5dcsK35FlT
+   w==;
+X-CSE-ConnectionGUID: eazXc6fcTSKcKNzQFs8R1g==
+X-CSE-MsgGUID: kbwFHsvWRJutKf0Dgafv3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1259885"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1259885"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:19:07 -0700
+X-CSE-ConnectionGUID: GjxiM/qyQv2pNpRG6nwxfA==
+X-CSE-MsgGUID: vRjgnCvmQNyA5vhvOjzqAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3406889"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:19:05 -0700
+Date: Wed, 21 Oct 2026 09:19:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Tsao, Bruce" <bruce.tsao@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/2] iio: dac: add support for AD5413
+Message-ID: <athZVjaGYmCyuNrW@ashevche-desk.local>
+References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
+ <atXY4kLEXxmG-tnk@ashevche-desk.local>
+ <DS2PR03MB84188FD41F8847EEB34759D9FB672@DS2PR03MB8418.namprd03.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,72 +87,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DS2PR03MB84188FD41F8847EEB34759D9FB672@DS2PR03MB8418.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 20/10/26 12:18 pm, Dev Jain wrote:
-> I get it, so the workload is rapidly allocating mTHP, and kcompactd does not
-> kick in time, leading to direct compaction (compact_stall) or fallback.
->
-> But I think this is a tradeoff with the current design in Linux and has
-> nothing to do with our mTHP usecase right? Even with PMD sized THP we may
-> have the same problem.
+On Tue, Oct 20, 2026 at 11:53:53AM +0000, Tsao, Bruce wrote:
+> On Mon, Oct 19, 2026 at 11:46:26AM +0300, Andy Shevchenko wrote:
+> > Why in a brand new driver?
+> 
+> Thanks for taking a look.
+> 
+> The nearest existing driver is ad5758, and the two parts are closely
+> related at the register level (the DAC_CONFIG RANGE field, DIGITAL_DIAG,
+> the slew-rate block, the reset and calibration-refresh keys), so an
+> ad5758 variant is certainly feasible -- that was the first option I
+> considered.
+> 
+> The differences are a mix of hardware and current implementation:
+> 
+> - Hardware: the AD5758 integrates a DC-DC converter (adi,dc-dc-mode is
+>   mandatory in its DT parse and currently drives channel selection) that
+>   the AD5413 does not have; the AD5413 is also 14-bit rather than 16-bit
+>   and supports a different set of ranges.
+> 
+> - Current implementation: ad5758 disables the SPI CRC at probe, whereas
+>   the AD5413 driver keeps it on and computes a CRC-8 per outgoing frame
+>   (CRC is optional on the AD5413 too); the two also use different reset
+>   APIs.
+> 
+> None of this makes a shared driver impossible -- there's a genuine
+> common layer (two-stage readback, read-modify-write, the
+> reset/calibration/slew/output-enable sequences). I went with a
+> self-contained driver mainly to keep the change off existing ad5758
+> users and keep the blast radius small, at the cost of some duplication.
+> That's a tradeoff rather than a hard line, so if you or Jonathan would
+> prefer AD5413 as an ad5758 variant, I'm happy to prototype it; I'd just
+> like to agree the direction before spinning a v2.
 
-Agreed, the underlying "kcompactd reacts too late" tradeoff isn't specific to
-mTHP. mTHP just makes it easier to hit because the allocations are frequent
-and small.
+I also would let David to comment as he has an expertise in the combining
+drivers (if I'm not mistaken). In any case he is also an official reviewer
+of IIO and might have some good ideas.
 
-> I think the uncontroversial bit of your patchset is the fact that currently
-> we migrate large folios just to free up a 2M region. To make forward progress
-> it will be great if you can find a workload which gets us an improvement
-> without the threshold changes and we could get those patches merged first.
+From my perspective sounds like there is not enough justification for
+a brand new driver. I remember seeing such a configurations (as per your
+item 1) just be provided via driver data depending on the compatible line.
+As for your item 2, I saw some development for CRC case in another driver
+and IIRC David driven that activity and he might give a better view.
 
-That makes sense to me, and I'm happy to split it this way - get the
-uncontroversial "don't migrate folios that already satisfy the target" part
-in first, separate from the threshold discussion.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-One caveat: the exact shape of that part (patch 3) is tied to the cc->order
-refactor Vlastimil suggested on the cover-letter thread. If proactive carries
-a real target order, skip_isolation_on_order() largely covers patch 3 on its
-own; if we keep order == -1, patch 3 stays as a separate check. So I'd like
-to settle that refactor direction with Vlastimil first, then post the
-uncontroversial part in whatever form falls out of it, to avoid reworking it
-twice.
 
-> I am saying that because the reason you keep crossing the 90% threshold is
-> due to the nature of the workload and that you set 32k mTHP to always. I doubt
-> on a real system you will cross the threshold this rapidly since mTHP would be
-> mostly "madvise" and that mTHP-requiring workload wouldn't be the only
-> workload running.
-
-Fair point, and I should be upfront about it: with madvise, or when higher
-order fallback is acceptable, you're right that there won't be nearly as
-many moments where the score is high enough to warrant compaction.
-
-> Given that, one thing that comes to mind is this algorithm - kcompactd wakes
-> up, sees that the threshold got crossed again, which means it woke up too
-> late. So it should manipulate the threshold or its wake up time. We need a
-> signal to say that the mTHP allocation is too abundant and we need background
-> compaction more frequently.
-> This algorithm may be in contradiction with the sysctl ... so instead of
-> changing the threshold, we could lower the wakeup time.
-
-Adjusting the wakeup time is a reasonable idea, but I have a worry that it
-may not reach the actual bottleneck for small orders. Once kcompactd wakes
-up it still has to pass should_proactive_compact_node(), i.e. score > wmark,
-before it does any work. For order-2 the fragmentation score itself stays
-small (mean ~17 in my runs, vs the unscaled order-9 wmark of ~90), so no
-matter how often kcompactd wakes up, the score won't reach the threshold
-and it won't compact.
-
-I actually have a data point for this: the 100ms loop I used in the cover
-letter already drives the wakeup frequency very high, and even then, when the
-score is small, it simply doesn't trigger compaction - more frequent wakeups
-don't help if the check that follows never passes. So waking up more often
-and lowering the threshold seem to address different stages: frequency
-controls how often we check, the threshold controls whether a check for a
-small order can ever decide to compact. That's why I don't think wakeup
-tuning alone replaces the threshold question, though I agree it could help
-on top of it.
-
-Thanks,
-Bo
