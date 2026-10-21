@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792566157;
-	b=2gfwM07wh/sRI2m/oM7fmRo7v4/zmOuekWLr77Ed5VjZ5CXQIJn6p40GlMb/SdYkPdjA
-	 BJmnlbqjJRin+acUmHILKYnZ+CAKxb2IDb/cy4piekXHWuRVX4u1u8Av88Wq8gdujZMOy
-	 XxurWDRXgYUQ1YeAvG+b259iQOMXnbSKknu+QVvkua3m3HtNYxNCc/31KAxuop11fDrKG
-	 f4/RdecCq/TfBXiWZZWfU0hn2ypBenvaVYFXp/+gmDT+ippA5BeetwCMuYX+siXnOcyGM
-	 xlQ5h2gEiqySG5uqxdeGx8cpSQ5dmULUBHdfiX6OA89YlWhTb+uHHz3bcGFhmOoFy+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792566157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ScI2PR6LLaTrA1CijXDQyJr+PpnB33pyJUIbjOPXVkE=;
-	b=MFhiNuJTc/hrUeEefP588skGHxC/zOZGOy01azLC5KSvD5GlgPAMI2Y+Vq1RM1YkExLa
-	 3NbSJVetJXt1ZgYreb/6iasQKBdy4BcplVaW0GjWjeYH9LpejRLldK+nvI1kHhtYBHt7u
-	 xS0MvqJcPg9BuObnNeLbVRckHgk/wRxmnQ7ULSV7HOh+e+xqHJr4osW39tuYwTJx6EUjQ
-	 3FPGe+OV/CoS+9UYzWLiKZYpK/IqZP9AQ4ygiKmhn5u1NuMgzsL+EGR46w/qL7cw5znfR
-	 oZWTNlhSicPHRdseBrt9QoGNSMZZKpE4cby4GVVSqK2Cav6wCH2ZFry2JMK+AFc0UoQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dydAQVFD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.219
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792566172;
+	b=clheuX+dwFJ8J/aMTGIlpwnaG0S4JiH+ZOlEoK9DcRYSUp3pF/qfax7owLU1sV227eUU
+	 nm9sJgLYJDYv3VTxF43C9lTKIyUQHGSpI1C1AhwM4hy+Ck8S0krZ+GthVW16Io0DXsX1e
+	 zzlYqpeNB/1TJq/hscTXWnflnE8lqoKOvd769HZiHBel/lf3oHFk6rqDSyUvlkt51MZ9E
+	 JoYcDqKoxzO2clqzk/+7yJU8pciXQe1livjEZAhV4KzCDhkg+go1iBsX/31/gvdiZcGDE
+	 98VIYp1Jpy2LmD2Q4UouRb+ni+XwFicsSsQS0KT4OLRwliFzx4HYpEEsxm0Uio+Y4AQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792566172;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9ejJRb6pdg5woczfJr39UioN6agm7SyfQ7LOX7To5E0=;
+	b=xNqS6mFaNLgzUxDlPLlxoC5TKeQD5cValzKQd9g74NeGqF4VeU8zSiGiUm79XdbZx1j8
+	 7wulky19KINCUbNum7xQGeA8Bs+kK9NxkhPM+3DsR0U94EmdXbJwUzZnrLnxihnaQBX2U
+	 lhcMrzvLG18wC2abvV250mhb4b7j3vkL6PGasFTatrf7eAkwD4RMS+izSZM7Q+XnWjXEn
+	 sgDKLZtpAqyQ9pU/FHAU0e4MpQL3IVPsAIjeVIrJ8CBDnPL8k6UOMp0H4YonXYqmnqwIm
+	 firKnz40LehrKaXgpkGatKJYRJT6kR591W+uIaln+/nbjqphORgLa9pwBdAhwFBK0kg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=YwrEjJIt;
+	arc=none smtp.remote-ip=115.124.28.219
+Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364FB606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 364FB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD70606A31E;
+	Wed, 21 Oct 2026 07:02:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AD70606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dydAQVFD
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab3b29a210so4123231fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:02:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792566155; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pRB9m2crjH/Ac084eptZQo5btfng5NJ4S1XBquMxH1TQp90BEOdlVm7SqJgXv5ws4g
-         SNl3LNRFpQxGbwYOqSRJmliftp6sKbk23H+oaDLnbslmkoLLEPAUAsFa99wOMzR67HIV
-         sJVRfEdFUNoPzpg3yjFTQSTKy6yh+UaQDVbsqvzl/ZgIdgwSI0cvUkg2FH4HQnaraENN
-         dw/aL0dv1QntWM8COy+ts1oa1yQWyk8aiPNpGwyAGjM4UDJXrOJfERf9lEpNdi/kLwFh
-         NUI49h0/8Vd2bLo5m4Mx+YnRyHeUV+MYHftiWH+QcM1k2R9pnVRLQE6aGS8NUNFEWqqO
-         jXxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ScI2PR6LLaTrA1CijXDQyJr+PpnB33pyJUIbjOPXVkE=;
-        fh=DJRhZUKvPjwgLxwiMjn4TJ4VclMFDNYvpEVmvuwZjZI=;
-        b=VwKI/O0fxTX0PfESWbSJ2+aQQRBFLKFNCCjcU7g0g09VpZ58L2Hr9OUtWVEy4zFqkU
-         D4bK+twssNvqMZ1VPf7S7SrRll4Cf+gTVxl/FEBeIo2A0pkUPwCEY1hG+7Kw8qMKjXI8
-         LjN+iUcufgmFh03ymL1TUYXxf5XXt8h+/33jnTp7oEouz1+avr9YgK0lm3/2mrtIZusR
-         emFF1g84iv4R0kImsL4nAaXxJ7GuhPOh6cahJUTYpUInxJzhYBn+Gq+MH1WWjxZ5a2Ci
-         PQwyH/0dCiyq1GT7czuUcvEwnbkksSLYED3x9hL/nJ+dmo98dX2T13p/Tt29/poDq51S
-         GDqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792566155; x=1793170955; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ScI2PR6LLaTrA1CijXDQyJr+PpnB33pyJUIbjOPXVkE=;
-        b=dydAQVFDCmszIweiK1I6g87TOuPuZr7IuJihgHtNx0uWoscuIm8HOVg80pHAaTauwB
-         CiiGRfFqiFjx3r006HaN4o5QxN5ZhQ/QQz8SROfF5ZDR2JJgvjEXT0wPAtnWOoI2AlFu
-         Ibe/HNRzdOzEEE/MZVg3SN0OR72vkjm6xHP/riv3Lw9ZoTzITob7RCGU71xFhbnVu/AT
-         t31z6K7bsRPKQM2FWOMRd6y5yQOxspK7YY0fjenhhPd3/EkCet2IHS8MWGGVi4lbPvcq
-         DsFzyrQgP2xLJ4G5LaVEaq1CNRsvfvv2luqBqonUd+2ySIzSHNFwfxNY4yPZ0w93EJtC
-         amCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792566155; x=1793170955;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ScI2PR6LLaTrA1CijXDQyJr+PpnB33pyJUIbjOPXVkE=;
-        b=PeV3EUQzf21bjI5b6Dbh7HW7+uNuPUjk00BgK3f1/7P868rgcv3KGfNNu0bfwdXCv0
-         k1mPELfpqo/dOjHuNFpmmjXX2kZ+VPwfb3V2h+C1Y+j8daTVaWfaSK0KzEABgn6cSuD4
-         Gf9V1Zbb6Fc8h9tP6a2qhAiDm7QxV1sduFKBdJt3AxWOvbiAdr1ayOM0O3ByG9gNpFlS
-         3I3RfQ7S/x6y6xivN9iWiqakrQYpZiqqfmgbdwp7PRcNA5IDAkDAOfvqnGpSq2e/Ga+M
-         RxtJo7Wu9xlohQOWEVQ9zS5NuPeKuU8peESZEez5wEWYZjKYQvxly/Zc9rJhlzK8DThj
-         8puQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6O48pON4YZy2DjZxswl9s+LdCU+M9zYRQNiPj1Ru5k0EMNtE3MNocm5AH2ZZp8vqqou+djOT2e5UWbaA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIU/48np7tog9SfT3IgpRFZZbOEcz1MCPqPomZqL7FI2p86jmLK
-	cZNTkmpLkQhI5Uou2niSAITbqWq6B5ZEx+krn2RFch0EyJM1kXCvNMgy/pww+defj8uFd64/XmJ
-	6ll4xRwOjBFa6stQKubvSuW08tmFEwdg=
-X-Gm-Gg: AYBFou17k8foGN8IT01qr3kVlHHJVN+M1Kyghz0gmkbY3h20B5lMOapYYcljCj7TZqY
-	j5QDffTLbpUh5iq0O0KBwEs5YEHSmqXFCnfA227l3i2zw9ppMVcAyB7pVWcDX+tqrUarAP/Gp/8
-	Ygou0/sxX9AeX6R8DukiWvlk5wSzqy8Dxn07XgvvOQLHAVhaGu3DJGL87Px4MUmK5qL3JqQLFQF
-	roWDpUJDkWetBCQA6oqZnNgJ8XKT2koFNUD+NlTe9gu7GbVkBVZmONugLo3s5yzKMoFEY5BdHJ0
-	knDr3AMSop1TNS+ZbpmXVcWskjGlAYCJPCxE32svHjHwpRzvQ7pfpm+y4xoz39XBUUOvo169n8S
-	oZcA9JYdfropULSC8W23iVl8tP8yJcovQfjwyxiQW5IH/2nQtXVmwBasW
-X-Received: by 2002:a2e:be90:0:b0:3a7:635c:d56c with SMTP id
- 38308e7fff4ca-3ab4edf6d7dmr9603521fa.7.1792566155073; Wed, 21 Oct 2026
- 00:02:35 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=YwrEjJIt
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792566164; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=9ejJRb6pdg5woczfJr39UioN6agm7SyfQ7LOX7To5E0=;
+	b=YwrEjJIt4Qo2FdRuNOIoq0rWZzvczRVxu1ZDl9XYrMwmtZbAsx906yO1AsMaqHJ95+djlFgp/fasCxqckiJRM5wCxhabrr5zhRwRDkuLVG9P0hBLg3t+q45DdRCqsv3kRJYSwOhhzEettNz+mL2VQHSflKpnysf2MOD8xpkPArI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04958579|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00520256-0.00060955-0.994188;FP=10361852787305131134|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jmQmQl9_1792566162;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jmQmQl9_1792566162 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 21 Oct 2026 15:02:44 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: [PATCH] vhost/vringh: reject zero-length indirect descriptor tables
+Date: Wed, 21 Oct 2026 15:02:42 +0800
+Message-ID: <20261021070242.75009-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,64 +66,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-adt7316-error-codes-v1-0-1970b7e242ac@gmail.com> <DM8FXLI78NYT.1211XFYSRH5P7@gmail.com>
-In-Reply-To: <DM8FXLI78NYT.1211XFYSRH5P7@gmail.com>
-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-Date: Wed, 21 Oct 2026 08:02:23 +0100
-X-Gm-Features: AclHuK8t7geITgCelH7NvQN5uToH4QCPhBjI31ls-GZ-beJJ-UXA196JduQkipo
-Message-ID: <CAJsKa+4+raxftmYPT5yyU6EnP=jEnngOy4PSGaztUgL-N+cXkQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] staging: iio: addac: adt7316: error code and probe cleanups
-To: Ethan Tidmore <ethantidmore06@gmail.com>
-Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux@analog.com, linux-iio@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 at 02:58, Ethan Tidmore <ethantidmore06@gmail.com> wrote:
->
-> On Sun Oct 18, 2026 at 4:41 PM CDT, Raffaele Tranfaglia via B4 Relay wrote:
-> > Two small cleanups for the adt7316 driver.
-> >
-> > Patch 1 makes the driver return the error codes reported by the bus
-> > helpers instead of replacing them with -EIO, so callers see the
-> > actual cause of a failure.
-> >
-> > Patch 2 removes the dev_info() printed on successful probe, as
-> > drivers that are working properly should be quiet (see
-> > Documentation/process/coding-style.rst).
-> >
-> > Tested on arm64 QEMU, with i2c-stub providing the device:
-> >
-> >   insmod i2c-stub.ko chip_addr=0x48
-> >   i2cset -y 0 0x48 0x4d 0x01
-> >   echo adt7316 0x48 > /sys/bus/i2c/devices/i2c-0/new_device
-> >
-> > - probe succeeds and no longer prints a message
-> > - device_id reads back the stub register value
-> > - writing 0/1 to "enabled" updates CONFIG1 (0x18)
-> >
-> > Error path, instantiating the device where no stub chip exists:
-> >
-> >   echo adt7316 0x49 > /sys/bus/i2c/devices/i2c-0/new_device
-> >
-> >   before: probe with driver adt7316 failed with error -5
-> >   after:  probe with driver adt7316 rejects match -19
-> >
-> > Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> >
-> > Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> > ---
->
-> This is the current policy regarding AI and staging [1].
->
-> Thanks,
-> ET
->
-> [1] https://lore.kernel.org/r/2026080354-skater-urgent-31b2@gregkh
+move_to_indirect() accepts an indirect descriptor with a zero length,
+setting desc_max to 0. __vringh_iov() then reads descs[0] before
+checking the descriptor bounds, resulting in an out-of-bounds read.
 
-I see, thanks for sharing.
+Reject a zero-length indirect table in move_to_indirect() so the
+caller returns -EINVAL before dereferencing the table. Also use the
+converted length in the warning to report invalid lengths correctly
+when the vring byte order differs from the CPU byte order.
 
-Thanks,
-Raffaele
+Fixes: f87d0fbb5798 ("vringh: host-side implementation of virtio rings.")
+Cc: stable@vger.kernel.org
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+ drivers/vhost/vringh.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
+index 9066f9f12ba1..ce4f5a02c8d2 100644
+--- a/drivers/vhost/vringh.c
++++ b/drivers/vhost/vringh.c
+@@ -197,8 +197,8 @@ static int move_to_indirect(const struct vringh *vrh,
+ 	}
+ 
+ 	len = vringh32_to_cpu(vrh, desc->len);
+-	if (unlikely(len % sizeof(struct vring_desc))) {
+-		vringh_bad("Strange indirect len %u", desc->len);
++	if (unlikely(!len || len % sizeof(struct vring_desc))) {
++		vringh_bad("Strange indirect len %u", len);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.50.1
+
