@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598408;
-	b=BNdSIVeZGgLeVBHPY3GKnUktnA2KE5AQw4VcEEpxWz+Fmg6MhFoULyNEDaGW47j+Yg6r
-	 mSDXw+LHKjfXGkp0/6/NwxuhHqxPzhXX3tLJjG62J45I3FH0+nGPGyAuqdyY9WsYtlcoa
-	 z5yQK7S3qvidGrU2D7+zfCJmLvzhgTJvSjhGkQTMQ4Z4mzhDPzA1DoEYHUj64aRwGeF1J
-	 sDLRahAH0oGUrt3zNeiVKVOqsQueOTrx3NhmBZrbIc0gG9PAwbLv/eYsueVN1Yrwwwev2
-	 uYl2nOEFSmSwVWbwzT9SCgDkRCDWIsVboc5Z8DPcydRBh1mYwvBz0YnFMryF9vdDS6g==
+	t=1792598447;
+	b=dyCvnRC/BE8PpEU0t//m1xWf1hpJOMyoquh0iQyuM//TrvuNb3y0nA+aWMjsLTdrLBCU
+	 zglh68sqpbBZR5B5M2YucMdDpXV0XuUk+nBg3G5b4qRri05ct/FgZMDrok7p0kxq8dlDo
+	 H14IH72Z1gEBlO4UgYPKqm2lHbJhC6avKZZ6U3Ekr16nLaStwlUYHm1XZfK9X76b6X7Kz
+	 2QTMdXxuDp/ylWwt6I3IyMnwaeBXMf7TYoPxLwKZtKv/sLQ7PiQk0rbb+mm8UhhWrh4j4
+	 w5SvRIc7uHV89lckdJ2njrkWV+XlHBtGqVQx7/58qjrheViSJogltmwJDuzNTJMAplw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598408;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9SqXtViRtGm7JEuHgSEjRHXF1lGpWBdC4iVKnbS5m7U=;
-	b=HwzvBvKQfJmVdO9qTzVB/F7cg0jcjA6qFGtiUlktD/UHwJNZTblOfpNzwoSNK9kcI6sX
-	 QKl6KHl33RGg7G5FLQ7j4fh3NWaWeyim2YV/p5V1+ReVEg+G2Q8h6zszGHOK8ucvfNw8c
-	 M4X1a5NOSb3nDKoQpoGI8QaB9dYviWQ3KqNNd9Buba9v3yMPRIv3gZkkSjy+0EFzs5Gsg
-	 G+Kd/K87kGZqZfexLbIekzBmgcoEub/QqEHNbBpgHq8q59jnzKdQInkbBUhxy2iSNDur3
-	 hXp3Zy7UNSnszxkCS0jRUDptT91I1v2RNKTLoqbM5u6EtOySIsHraEoHmqnnkmly+Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598447;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5W0wO5ApY1ruwZkrfuprI8pGOadn8UJEcw8Q72azQTg=;
+	b=aC8zaI6xRJyO2N7YpAFPNS8hlf7dPwjZDfYVXvJbqG8o4AYCfP6yjo4/lIGiREYrAuX5
+	 KSgZ4KSXt2wokZPZEIBpdICYY/XnhwVVkVIuueFWbIipGydAVptgRQF4T63pD/8Rxfc18
+	 9kBe3JwN+VspBAVkkjySwXqedDiSq9VqVBsh5fao8wCDMZX3qG5Uw/GPrnQmIcGCe6iVo
+	 72LURyXErHg1TzB7x2dZosZADC+gwgdmO2asQKegV20eZwD+WM4iaof09RS+folTpLQDO
+	 HGLw8nYbGP2OPLay5BzfLJnv+v8zkaPz0kczXOhXJwcFCxw88F3/0GFj118/RsSwTyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYHKFdI0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Da1j54ML;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD378606A31D;
-	Wed, 21 Oct 2026 16:00:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD3C606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:00:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BD3C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYHKFdI0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3774D1F000C2;
-	Wed, 21 Oct 2026 16:00:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792598407;
-	bh=9SqXtViRtGm7JEuHgSEjRHXF1lGpWBdC4iVKnbS5m7U=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=YYHKFdI0tFg3gscTYD/+fS2GUihAgW+EyoJnGT8r1b2scz9Vfdcey3gdQCHvsyHhw
-	 vSTkw9Muwrb/TG12o1jkyqosVK5Wu4qG8pUcCuT5t5gtABI/jmprYgA4DtbTFViIeS
-	 ud0XAAjLmfDB3WBgtwJbrDgSqJr4d26sm36Gc5cZwW19WbVrYsSkHlDmHJ2FCLB2bi
-	 Js32ce6vPjPdADunjxyJOy2rxk1hxSpJYmOIg6r1NKvUiqdsDRgEzawFB2Hu3tUCUc
-	 Tv+JBDGf8KWemoEoVwQuZa62rW+fFbSy3YnkjvwAKgr1+MDZ78U3o/sl0spHj1xf/f
-	 B5U52SnxG++Xw==
-Message-ID: <9704f11c-4c2e-426b-87df-13ea2ffdca3c@kernel.org>
-Date: Wed, 21 Oct 2026 17:59:19 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Da1j54ML
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1431565a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:00:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792598446; x=1793203246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5W0wO5ApY1ruwZkrfuprI8pGOadn8UJEcw8Q72azQTg=;
+        b=Da1j54MLWXzMDCGdsiTtXHdyLIMS/sLY0ALdYu5+yEuOj2cF+9wHeDEkFTUPs47ceo
+         VUR9DthWpwi++NojMWx4zaZgvG+TOYts2pUHpt+C5S4zMXyV3lxOVyrqA7tezl4TWiNz
+         s/eys0/jgJMmQN1wUqMQTZSmzrmvmJiEVv7xE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792598446; x=1793203246;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5W0wO5ApY1ruwZkrfuprI8pGOadn8UJEcw8Q72azQTg=;
+        b=CsowhwGj+0wDdPoPaTz1ckWfrNu12agQ9VwfFoqz5IRULvDdG77dmsYaXndMvtEX3o
+         C3Yr+FF4ge/MWNdw5TELl1PJfXiRQwuFJVvNx0fdfiF69PzUncYigQCDOUfFIKvQfKJ8
+         xQTDjaOC51Xe+obgRtUgeb010ru6i1Q32Ojrop1IcjKNd+8yi+5iUwqvlT1ZW/76lreV
+         SGJ0COtSAyffd657doR2mBV3CfGXlPDeUVQIMn0H7EWpd9aUfRVcltNhkHdThhdAkeVG
+         5uh3hkX6dNL1lrrvcsUX36tsd9s/Ve6zyPfBe4E7xekzR1thi2wbPE+E4vwNC8RfwJHm
+         1tyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAgh9tht2+3/nCWZMhN6a1lRn/x6jZwwBrpKd7INKNiMAG+TXfjeXls7PDmti8XRzOChTVQMhNd/GbUH4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCfQEuJ6//Y/3RBVuQ6LdlorWyncqM8r/9xmCQy5BihgznGoi/
+	xqq7yiq3UeKdK08T9ZyZpQJLROLq++UM7a/Yqmm8q0LchR9hPIFqvUT0jGGb/rt2WKcx6zGXaYM
+	seqICluAZ
+X-Gm-Gg: AYBFou0U5X0HTAtnOICM2MsNzjXC8MPGiB+vCN4YZXsqvyXbMUYw+aOLaTOLhu86j1T
+	noJI/w1gbrRY8xXacW7eW6GGT5BfMEulbw0nbvBaXZEIXsyAB2XXEAengZTgJqJAsG7r9XRF+/Q
+	GJHEJTrJz8xSvZES3PBvue3EKJ353OzuyBs5tTplnU7e1uniqLykgDKFhre3Ke6sni7BjKL2N8h
+	J7LXer3T/EiTlaByVmEL0EH1Kzr9JUotJyWqgsirTV6mGDxHPHqR9jvKh8saE6zTJHQiHFfM69a
+	pYAjYFfP1NjWRIdf+BlECv6oZ5lbnrbGIcp8mhvncmHoOjYyeHZ+YCtJaDo52g4ZiR/dAAO7aoY
+	Uimu2vd5MXuSEcxrS9QouOJoQnd6PrbOY5rXeEIQPg7lSfMwJOSzpnFiHZ06yPr7kS4nZD5uhO/
+	Vwn01awmWcgMuAnpdYsLIhpRFl3eSt8HieqA2DxLzUbsPMQyWkKBBi0pByc7fzMk5gZYlIuKV/2
+	8Ao8I23b7iVH1GiOBhWZGsrBXkfZ6N+PeYLHhy0r2ivhHlCHyjLDMuInoYVfj0butTjsw/ZhCR2
+	DNxziOeRFbRDjUA=
+X-Received: by 2002:a05:6402:c4e:b0:6b3:f840:59b5 with SMTP id 4fb4d7f45d1cf-6b408ebfce3mr1757802a12.27.1792598444133;
+        Wed, 21 Oct 2026 09:00:44 -0700 (PDT)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com. [209.85.208.47])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40315506bsm983074a12.29.2026.10.21.09.00.38
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 09:00:42 -0700 (PDT)
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so11931a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:00:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzkg2Eh3kTpYSjQxIFuWK9fFwZQwQ45lviN/n9t8sx8sy0XmK8626dBGPn9lSg55Z6DczRqURsD7j3+okc=@vger.kernel.org
+X-Received: by 2002:a05:6402:c181:b0:6b4:124b:da30 with SMTP id
+ 4fb4d7f45d1cf-6b4124bda8emr34019a12.12.1792598437038; Wed, 21 Oct 2026
+ 09:00:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,111 +94,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Jonathan Corbet <corbet@lwn.net>, Eric Biggers <ebiggers@kernel.org>,
- linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <87y0br3zln.fsf@trenco.lwn.net>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <87y0br3zln.fsf@trenco.lwn.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1792392288.git.kmehltretter@gmail.com> <f2258d73562e0ebf2efd793b646706ba0dacb2c7.1792392288.git.kmehltretter@gmail.com>
+In-Reply-To: <f2258d73562e0ebf2efd793b646706ba0dacb2c7.1792392288.git.kmehltretter@gmail.com>
+From: Tomasz Figa <tfiga@chromium.org>
+Date: Thu, 22 Oct 2026 01:00:19 +0900
+X-Gmail-Original-Message-ID: <CAAFQd5CDPG4RxUwPDbPUJSCxVZE1cEeYEZvQ25Sy4CuJR861Yg@mail.gmail.com>
+X-Gm-Features: AclHuK9e58N_Im_zhkbxzzSKI3JdeU-CBpj5GNDyWEt5aL7nKqE3jFXgtXMdHNo
+Message-ID: <CAAFQd5CDPG4RxUwPDbPUJSCxVZE1cEeYEZvQ25Sy4CuJR861Yg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-media@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Tomasz Stanislawski <t.stanislaws@samsung.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/10/2026 16:19, Jonathan Corbet wrote:
-> Krzysztof Kozlowski <krzk@kernel.org> writes:
-> 
->> For many of my contributions base is obvious and not needed to be
->> explicitly defined. For all the patches I accept, answer is the same -
->> base is either obvious or if not and patch does not apply, then the base
->> does not matter.
->>
->> Requiring it is just bureaucracy without actual benefit.
->>
->> The only benefit would be if maintainer COULD change its base to apply
->> some patch with odd base... but this cannot happen. Maintainer base is
->> fixed - it's the HEAD of his development branch for given category of
->> commits (e.g. DTS branch for SoC maintainers).
-> 
-> I fairly routinely get docs patches that don't apply to docs-next; when
-> I'm in the mood, I'll try to figure what they *do* apply to, then
-> cherry-pick them over.  Base information would make that process easier,
-> and even automatable.
-> 
+Hi Karl,
 
-Some maintainers do that indeed and I propose not to. Every two months I
-see one of my or other folks around my area patch which is being changed
-in incorrect way between mailing list and Git. Change is done because:
+On Mon, Oct 19, 2026 at 4:14=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
+l.com> wrote:
+>
+> VIDIOC_PREPARE_BUF leaves a buffer DEQUEUED after calling buf_prepare()
+> and the prepare() memory operation. VIDIOC_REMOVE_BUFS accepts that state
+> but frees the buffer without calling the matching finish operations.
+>
+> With VIDEO_ADV_DEBUG, vivid reports:
+>
+>   unbalanced counters for queue 000000009fa716f8, buffer 0:
+>        buf_prepare: 1 buf_finish: 0
+>        prepare: 1 finish: 0
+>
+> Finish prepared buffers before freeing them, as queue cancellation does.
+>
+> Fixes: a3293a85381e ("media: v4l2: Add REMOVE_BUFS ioctl")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 
-1. Patch did not apply cleanly (a lot of simultaneous work, so base is
-obviously old the moment the maintainer applies such patch)
+Thanks for the patch. Please take a look at my comments inline.
 
-2. Maintainer tried to resolve that by applying to the correct base (so
-followed your process) and then did git rebase or cherry pick to his
-final development branch.
+>
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/me=
+dia/common/videobuf2/videobuf2-core.c
+> index b0a6084f17573..460eaf4e82f78 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -1746,6 +1746,19 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsi=
+gned int start, unsigned int c
+>                         goto unlock;
+>                 }
+>         }
+> +
+> +       /* A buffer can be prepared without being queued. Finish it first=
+. */
+> +       for (i =3D start; i < start + count; i++) {
+> +               struct vb2_buffer *vb =3D vb2_get_buffer(q, i);
+> +
+> +               if (!vb->prepared)
+> +                       continue;
+> +
+> +               __vb2_buf_mem_finish(vb);
+> +               call_void_vb_qop(vb, buf_finish, vb);
+> +               vb->prepared =3D 0;
+> +       }
+> +
 
-3. Maintainer is overloaded and has no time to investigate whether
-rebase/cherry-pick from above is truly correct, except building the
-code, so every two months result of such rebase is wrong.
+__vb2_queue_cancel() does much more than that, especially all the
+media request handling. In addition, this open coded handling just
+causes code duplication.
 
-This is a real issue because it is very difficult to spot - your commit
-is applied, but you never verify whether is applied THE SAME way and
-maintainer thinks everything was applied cleanly.
+Would it make more sense to refactor the relevant part of the buffer
+cancelation loop from __vb2_queue_cancel() into a helper function and
+call it here instead?
 
-If (1) happens and patch does not apply, the solution is to ask the
-contributor to rebase.
+Best,
+Tomasz
 
-So sorry, but the proper base rather encourages risky patch
-merging/rebasing, instead of pushing the rebase problem to the person
-actually knowing the patch and having hardware to validate it.
-
-Best regards,
-Krzysztof
+>         __vb2_queue_free(q, start, count);
+>         dprintk(q, 2, "%u buffers removed\n", count);
+>
+> --
+> 2.47.3
+>
