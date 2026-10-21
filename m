@@ -1,48 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792543924;
-	b=cqzDc84b+fN8ccZ5sd23VMBP6Y7VBnQxNf3lnl9gT3RVlNMK97Nu5gembcLVeopH5s4Q
-	 caHQJuaHmcLj2xgLVnh1OjigXF8XEf5ctL/XIVPG9xWCM+4nNXmCNqwGZjsv2U8ZkpIfi
-	 21AeGeQgEBv1YFLOP+vrvw/A6guEgr8KxaZZIKoSToKBftKwOJPQ9S24VO553zV4yKnfd
-	 wmBPVm/4av0CAeuQDlF9+Vqd4ZFNW4V1WfKLZX8NSlcUi36Y20zr4RPDtIVYpzueW3i2d
-	 2or0fZfTuXaWr5H3eYcUPi2/3MYeX7i5EA+pzcZaK09vVjr8ClJ79Ei4gMvW2DZeSIQ==
+	t=1792543933;
+	b=j7p/hmzsnBofJEKzhTfDQ0JyivvV88DSIt1Fgo4uteqHsOqbW64x+L4/LxbbiLHY9dOE
+	 I05XZxohFwQ9rHL4y6l60CFp2goJfGfVx2FKKndxXb2CTjUrYIMsu+BhviXb5wYL7u4Xn
+	 3B8hqgX8HRSvH9oikPec6jIIjlCQbXx0ExPHa2cdHqWm6pGfeOnboAt7+hlQAm+w+vzyK
+	 1U3AN9xLoo8dNKaQrjcgehQ/Bgzg57nnQ6r682L07VJaIyvfZ6mHbBkE5QPe9YYK4ryh7
+	 ObJS3EesQW4XwQtSSD8L67osKN3h5hUCJuUt0CyWKckEU13nPjG+Xt68asmHfFykl9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792543924;
-	h=Received:DKIM-Signature:Date:To:From:Message-Id:In-Reply-To:
-	 References:Subject;
-	bh=3IkbfkJBNqm598Pvm3Y0LA2Z/piM4gxhUmj/DrosS7o=;
-	b=pFKn362wYIaae47jRNK8U70HoAhV+WcJsivFaVeXOu9iXvZexJqBEO/YGw+W4QCJhPYJ
-	 RHx0OrO8+542xPGXvBiLrgcgIpxiXipLtUiWRYY/3OPIUgP1eURM5yEvOwxw/kyPu0Rfk
-	 0dCdjwdwn3ZDAHGwypZo7jcRAn+riKoMXzQQaf34GaPRfX3S0AFhBAZRNcIKrV2d5Va9d
-	 Vwn2st14WOiiZtbhV8e4PepWuJCB5wW0kB2NBjllQ6f8NJeVBjYDyotOS9XHqFV8elgEK
-	 54uj7tQC+QjQZOrQZ9HNuC6pIQ80gOcVwMEUr5N+4CuZIMjziFouVHl0I4RhCHGZAvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792543933;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GBFH6oRYSJP/dQWfGegi7pqI65g5/qbXzo/olR5/xbg=;
+	b=iMhy+Pb4rCuzJhbWItYKgYWkcy2f4ITE0gzdAzQysELAXJvBPMOOOM12lHV496shFT3H
+	 2jwQROWv0Q4etrzACPTQiWzein+F/Ns8VWesaiBCMKzboUPy72OkZZrH69wHfDVEu2e3l
+	 8Jbb3Ab17Ol4UZl6U9PicFkY6rx5o0H9FFMbgHUcfGjjIPdMIx8IKmRrf0ZN+zKo1rq9z
+	 gFXyOnwVRbysqfdsIh8hoorNI2IRj6RWIo9kBJ3gDu7xhpSRUqSwGUNqqzzjbD/L3zdPU
+	 4HW9fG4jE5aKJyQ8XpPBXyoKmhwJiHwicCfOI5UTdF7SHYeFTONyb9D6lf8CqflM/Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gCVEdhaG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bII38EBC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646A4606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:52:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61829606A323;
+	Wed, 21 Oct 2026 00:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gCVEdhaG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD78B1F000CA;
-	Wed, 21 Oct 2026 00:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792543924;
-	bh=3IkbfkJBNqm598Pvm3Y0LA2Z/piM4gxhUmj/DrosS7o=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=gCVEdhaGKWqi6sK2qfWcz77Nz/TKFPhxKBzMYBHGcGXh30htyufJ6lmxkz8S3Rxgy
-	 8MEg0yaFg9T76NeuwM9ghJXKatbW2xh7AdI5hdeIGr5sinMGew6z/VUxOwckCEn6aA
-	 cOhLmmlH+k68X3xtzA0+zEQb1S+8+m3Ncqtdk19o=
-Date: Tue, 20 Oct 2026 17:52:03 -0700
-To: thnkslprpt@gmail.com,brads@mainlining.org,akpm@linux-foundation.org,linux-kernel@vger.kernel.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Message-Id: <e7e8de4d10204573a54c2044c060379b.3@linux-foundation.org>
-In-Reply-To: <e7e8de4d10204573a54c2044c060379b.1@linux-foundation.org>
-References: <e7e8de4d10204573a54c2044c060379b.1@linux-foundation.org>
-Subject: [PATCH 3/3] profile: simplify /proc/profile read layout
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bII38EBC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A690B1F000C9;
+	Wed, 21 Oct 2026 00:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792543933;
+	bh=GBFH6oRYSJP/dQWfGegi7pqI65g5/qbXzo/olR5/xbg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bII38EBCvPXNjrjqOumQ4YCpuKNsNvskPH4yy49yKaPsullfPKOZAGf35AFSKgQLy
+	 j9cIwXj2GbDVMG8rr+WoIz6RPtSheHVjwqOdv3BQKUNbHNTyAEtg7JAEZRuOxqhDjk
+	 MStfA7WozJuuoO2uorH5vPqIrnoIMPn0IU+39Ny+6cown/DIpjkUnOvYEuyHTWl/k/
+	 /ZQ+fd548btLFQR4kLQYR9/bD+a2OOOyHkcub2cN5VeOAc77Sl9lZDIdoo8VMiGcz4
+	 1nT+0ZnodbPdx90NmX35t4aSu6SrS5U0J2g2XhVyLhDVMfVauV6V4GcDQFOmR7W2jd
+	 wEIaHTmHdlRaA==
+From: Jakub Kicinski <kuba@kernel.org>
+To: hsu.chih.kai@realtek.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	netdev@vger.kernel.org,
+	nic_swsd@realtek.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	edumazet@google.com,
+	bjorn@mork.no,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	mail@birger-koblitz.de
+Subject: Re: [PATCH net-next v7 05/10] r8152: fix up and down register settings for RTL8156/8156B/8157/8159
+Date: Tue, 20 Oct 2026 17:52:12 -0700
+Message-ID: <20261021005212.1254979-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261014081904.6491-6-nic_swsd@realtek.com>
+References: <20261014081904.6491-6-nic_swsd@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,118 +66,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: profile: simplify /proc/profile read layout
-Date: Tue, 20 Oct 2026 23:58:33 +0000
-
-read_profile() is needlessly difficult to understand.  It copies the
-four-byte sampling-step header one byte at a time, then manufactures
-a pointer before prof_buffer so a file offset can be used as a
-counter-array offset.  Its signed byte counter, unsigned long file
-offset and repeated size calculations further obscure where each
-read starts and how many bytes it transfers.
-
-Treat the file as two consecutive regions: a four-byte header and
-the profiling counters.  Use size_t for byte positions and lengths,
-copy the bounded header in one operation, and address the counters
-relative to the start of prof_buffer.  Brief comments explain each
-region.
-
-Keep the word-sized shift and explicit narrowing required by Avi
-Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
-Assign the header value separately and explain why the 32-bit ABI
-requires a narrowing conversion.
-
-Preserve the partial-read and fault semantics established by [1/2],
-including short copies within either region.  No userspace-visible
-behavior change is intended.
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Bradley Morgan <brads@mainlining.org>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
-Tested the combined three-patch series on x86-64 QEMU/KVM, with
-CONFIG_PROFILING=y, CONFIG_PROC_FS=y and profile=12.
-profile-read-test.c: PASS (0 failures). Covered header decoding,
-short/unaligned and boundary reads, EOF, partial copy faults,
-return values and file-position updates.
-The 64-bit big-endian case was not tested. No per-patch or
-unpatched-versus-patched runtime comparison was reported.
+r8152: fix up and down register settings for RTL8156/8156B/8157/8159
 
- kernel/profile.c |   57 +++++++++++++++++++++++++++------------------
- 1 file changed, 35 insertions(+), 22 deletions(-)
+This commit corrects several up/down and OOB register settings for the
+RTL8156, RTL8156B, RTL8157 and RTL8159 chips, following the earlier
+per-generation split of the up/down callbacks. It changes the PLA_RCR1,
+USB_SPEED_OPTION, Clear_SDR, PLA_BDC_CR/PLA_OOB_CTRL and OOB
+PLA_RMS/PLA_MTPS settings, and drops PLA_MCU_SPDWN_EN handling from
+rtl8157_up()/rtl8157_down().
 
---- a/kernel/profile.c~profile-simplify-proc-profile-read-layout
-+++ a/kernel/profile.c
-@@ -153,35 +153,48 @@ void profile_tick(int type)
- static ssize_t
- read_profile(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- {
--	unsigned long p = *ppos;
--	ssize_t read;
--	char *pnt;
--	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
--	size_t not_copied;
-+	const size_t header_size = sizeof(unsigned int);
-+	const size_t file_size = (prof_len + 1) * sizeof(unsigned int);
-+	unsigned int sample_step;
-+	size_t pos = *ppos;
-+	size_t done = 0;
-+	size_t n, not_copied;
- 
--	if (p >= (prof_len+1)*sizeof(unsigned int))
-+	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
-+	sample_step = (unsigned int)(1UL << prof_shift);
-+
-+	if (pos >= file_size)
- 		return 0;
--	if (count > (prof_len+1)*sizeof(unsigned int) - p)
--		count = (prof_len+1)*sizeof(unsigned int) - p;
--	read = 0;
-+	count = min(count, file_size - pos);
- 
--	while (p < sizeof(unsigned int) && count > 0) {
--		if (put_user(*((char *)(&sample_step)+p), buf))
--			goto out;
--		buf++; p++; count--; read++;
-+	/* Copy the four-byte sampling resolution. */
-+	if (pos < header_size) {
-+		n = min(count, header_size - pos);
-+		not_copied = copy_to_user(buf, (u8 *)&sample_step + pos, n);
-+		done += n - not_copied;
-+		if (not_copied)
-+			goto fault;
-+		buf += n;
-+		pos += n;
-+		count -= n;
- 	}
-+
-+	/* Copy raw counters using offsets relative to the counter array. */
- 	if (count) {
--		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
--		not_copied = copy_to_user(buf, pnt, count);
--		read += count - not_copied;
-+		not_copied = copy_to_user(buf,
-+					(u8 *)prof_buffer + pos - header_size,
-+					count);
-+		done += count - not_copied;
- 		if (not_copied)
--			goto out;
-+			goto fault;
- 	}
--	*ppos += read;
--	return read;
--out:
--	*ppos += read;
--	return read ? read : -EFAULT;
-+	*ppos += done;
-+	return done;
-+fault:
-+	*ppos += done;
-+	if (!done)
-+		return -EFAULT;
-+	return done;
- }
- 
- /* default is to not implement this call */
-_
+> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
+> index b245b63fb6aaf..045460a35f383 100644
+> --- a/drivers/net/usb/r8152.c
+> +++ b/drivers/net/usb/r8152.c
+
+[ ... ]
+
+> @@ -6938,8 +6937,18 @@ static void r8156_enter_oob(struct r8152 *tp)
+>  	rtl_disable(tp);
+>  	rtl_reset_bmu(tp);
+>  
+> -	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1522);
+> -	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, MTPS_DEFAULT);
+> +	switch (tp->version) {
+> +	case RTL_VER_16:
+> +	case RTL_VER_17_QFN68:
+> +	case RTL_VER_17_QFN100:
+
+[Severity: Medium]
+This patch has three Fixes: tags:
+
+  Fixes: 195aae321c82 ("r8152: support new chips")
+  Fixes: fd3c7d080df5 ("r8152: Add support for the RTL8157 hardware")
+  Fixes: ad2a55b63b41 ("r8152: Add support for the RTL8159 chip")
+
+Will it apply and build on the trees those tags point to?
+
+RTL_VER_17_QFN68 and RTL_VER_17_QFN100 come from an earlier patch in this
+series, "r8152: split RTL_VER_17 into QFN68 and QFN100 package variants".
+Before that patch the enum only has RTL_VER_17.
+
+rtl8157_up() and rtl8157_down() also only exist after "r8152: split
+rtl8156_enable/up/down into per-generation functions", which is described
+as no functional change. Before that patch there is one shared
+rtl8156_up() with tp->version >= RTL_VER_16 and tp->version < RTL_VER_16
+checks.
+
+So a stable backport would either conflict or need both non-fix patches
+as prerequisites. One of them is the package detection change, which
+makes an unrecognised PLA_PKG_DET value fall back to RTL_VER_UNKNOWN.
+
+Could these fixes go to net separately, written against the pre-refactor
+code? Or could the commit message at least name the prerequisites?
+
+> +		ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1526);
+> +		ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, 10 * 1024 / 64);
+> +		break;
+
+[ ... ]
+
+> @@ -6997,6 +7008,11 @@ static void rtl8157_up(struct r8152 *tp)
+>  	}
+>  
+>  	r8153_aldps_en(tp, true);
+> +
+> +	/* Enable Clear_SDR */
+> +	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xd378, BIT(7));
+> +	/* Clear SDR bit */
+> +	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(15));
+>  }
+
+[Severity: High]
+The commit message says:
+
+  - RTL8156B (VER_13/15) need Clear_SDR enabled on up, which nothing
+    ever did for them.
+
+Is the RTL8156B part missing from this patch? These are the only
+Clear_SDR writes the patch adds. rtl8157_up() is only used for
+RTL_VER_16, RTL_VER_17_QFN68 and RTL_VER_17_QFN100.
+
+In rtl_ops_init(), RTL_VER_13 and RTL_VER_15 are bound to rtl8156_up():
+
+	case RTL_VER_12:
+	case RTL_VER_13:
+		tp->support_2500full	= 1;
+		fallthrough;
+	case RTL_VER_15:
+		...
+		ops->up			= rtl8156_up;
+
+This patch does not change rtl8156_up(), and it still writes no
+Clear_SDR register:
+
+	r8156_exit_oob(tp);
+
+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3, PLA_MCU_SPDWN_EN);
+
+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
+			  RG_PWRDN_EN | ALL_SPEED_OFF);
+
+	ocp_write_dword(tp, MCU_TYPE_USB, USB_RX_BUF_TH, 0x00600400);
+	...
+	r8153_aldps_en(tp, true);
+	r8153_u2p3en(tp, true);
+
+So every open or resume on an RTL8156B goes through ops->up ->
+rtl8156_up() without the Clear_SDR enable. The later patches in the
+series don't add it to rtl8156_up() either.
+
+Should rtl8156_up() get the RTL8156B Clear_SDR writes under an
+RTL_VER_13/RTL_VER_15 check, or should this bullet come out of the commit
+message? The 0xd378/0xcd06 writes used for RTL8157/8159 can't be assumed
+to apply to RTL8156B.
