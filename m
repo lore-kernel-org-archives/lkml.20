@@ -1,113 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595626;
-	b=e8sfRGOxyedCM2VukYPVcob80F6Yv7pux/NZSPkxSuFo8gcLRh5gcqJ+Utc+JamtxKDw
-	 3Eu/aJlpONkQf9LiaICXuWcZdqJU18j/faXRq7/ZxOsCz2dTRxDHBB97kBwQ6P/eN5uC3
-	 pwQyYqd6eq48sS4JCz5Om8V7AhnOkAleZoK1V0cCl5DiVSsHgfGHaCbL+RQ8oyh4Nkbky
-	 uJzYc6PCxK28ngFLv719p1aIIpNdjfAU+Ta6okINR6NfjUH7YT57NbSe767Rg9pu3ashM
-	 1QMRRsHsRfTCTl7GC1fYvmDwUFJ3YaUQiu789gMK4Wz5cbVm5e+rCEGS2YzH3AT22Gw==
+	t=1792595624;
+	b=SG9GQu8NSWTpNggC2MqSx/b1VhqajIXg3ZSdxZCHiIrmhqdH0JuVsNt0xdLk4gxJV6pB
+	 3Syf/HC+SmGzKws5XvSeK0hI1CiLVHMNQIJeznWYhyvLLa+UY+FHURLNb2+tT1F3n/g1I
+	 Kx9WhMDdzsxlmLpYPrPMJOdf2sUUVvO9tI9g4ABWF0aplEwEeptU1fEFdwafuq2BIHU74
+	 eakdoLGvM60WpdZWWomVtOAHxv+VFIWb1C+S/gM10gaKSDOjCZctGZ9dtBotC7qsg7UBk
+	 6GFmQI2l02kydrjuVDoqtngNH6jBjnGC83lpzI0df+sNXGNSr7rc0uMpfGx1Sv8Kl7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595626;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:X-Mailer:X-Mutt-Fcc;
-	bh=QCOfg1rZWMUgTb5ZTU+yOGOcFfR8PsoLRApHT5roxNo=;
-	b=aXANZEvQnUPCEuo+pCj/u31wQjYwkKr6YugNG0JFbdbAm8u4JHB+REE70ZLhF20fvQ5f
-	 RfdIYG0cGeH93hsFsrpUWmmV3KJhg36QhqDmuLHhZVKIOxI2OUmySKkgSOLRWzIPXYrfF
-	 40Rw+L5y6kI2OEI9KEeNLfCzX/aKSpQFOG48kiqcIlUGOJEZb/oZ26nB4M1k85dNPvejw
-	 UxWXB8ShtCdE2baV3P2YNCoFnhGIEk8wxUx4DO2K41maeJPE7EcaFEaKqpWspf4qQ3WVs
-	 OJzpVspmDYiLBeDWXV4I7OJKTOyBqAgmokGWngWpd5Jelz4JfsR0n4bfdGmuxi9aeDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595624;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=KxpO86Q0W+aWjReqhlSHVuBksZU+TOD9Uy4JnKjmlfs=;
+	b=lzzRQK8CWbMqwUB4Qsv31tsK32jlDYis7RYfxJYa4nqCdVsYyWLlA5icUk/1Cd1r3TAK
+	 eazq5WZVLe+LFWhD+tmx9P7qfz53eP9BwkfJNGFQTiTt4uJp7q6J+VKoUrO7bzqzJrjSN
+	 mVKYv2wSfc73pbaerVWpf7HTT+cSsGrzdFy1fxh5zJNrYNbhfO0rY/gDYNjG71bV5qRW1
+	 1HK1p64eJ3evyAMqV1gquVQSS+i++5wXHgm5w0ZiTgD/3JS0KRW48W9+paxl0/LXc8Ffp
+	 KjPkxcs+zPKtSoXLDdzFE/k3QJ1/qhZlBTpqTJvbqlh0kbtj9s12crCCVWP0OBYMRlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q0heT1MH;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lA125dKp;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eZ32q6fD;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401E6606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 401E6606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E04606A319;
+	Wed, 21 Oct 2026 15:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E04606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q0heT1MH;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lA125dKp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792595624;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=QCOfg1rZWMUgTb5ZTU+yOGOcFfR8PsoLRApHT5roxNo=;
-	b=Q0heT1MHOpvzD80tOlcazVYKTdfY1KJ65kvZbAgp/KWz3GxYedkwNVArNd3FjZyByXWunw
-	YaAmpF5ZTc9AIX34LbFXewIWDI+VK36KuXGICgQt324g4FzslKw/Nr4oRGYJNp1lBQJH1B
-	8+Y6QCzRcSR5Ial0aMV1mJfyuSIT1UU=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-512-Vmhyr6WZP9mj4yNpCifrng-1; Wed, 21 Oct 2026 15:13:43 +0000
-X-MC-Unique: Vmhyr6WZP9mj4yNpCifrng-1
-X-Mimecast-MFC-AGG-ID: Vmhyr6WZP9mj4yNpCifrng_1792595622
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b3f6d9827eso734124a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:13:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792595622; x=1793200422; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QCOfg1rZWMUgTb5ZTU+yOGOcFfR8PsoLRApHT5roxNo=;
-        b=lA125dKpTF48B05jQLljtTOtDyrp0VwXaJgZI5jbIK+K4fYZcZmd0l0bI/hOnwNpQO
-         WIDdKWk8WKRKIDF7YiTE2O3XuomKb54jGE52xxLbGGBkdbvXxUOSESXA/dyj0qHuWxhs
-         7mqVFOK2o1H8JCQzMoORMIWvPz+6ErB4KCOWcwiCyYY+fRaMsHP/VUU2YQfseaU6o2Bu
-         einyLwsxZeqQM/CX9U1UI9AsLokCOTavYW0cyiiwsDJkku3JdFHvsDneWHNAtqUJMjfG
-         /ZxdjMZZdMSsWzHCmSQz7JhiKtpiZJZSFYiSth0Y3T9eypqrWwA1NmVSPIfEgmGb2/4U
-         bpcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595622; x=1793200422;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QCOfg1rZWMUgTb5ZTU+yOGOcFfR8PsoLRApHT5roxNo=;
-        b=j325b6Ww72mYwkxo9YKJxWUKve1RiHBgvb4g+xgzXXBSm7q9/Z9KfdBTy2I1jILZ+N
-         hU6P6+d4iZSBnUBbD5XR8Vkc8mdMtbKL45ZpYOzqVX5vTJ/BK9elCZXyNfVM+Z3r1rCZ
-         Bfo881+3+XQi7IaMy+yOkX1LeCMcQIpVnrAwq2NLeR6XFfV7WAk3qUht/SyYz6rytrE4
-         JDi2ef+6JgrzSpxHNGF+/V7LN+cO/MfWQC+l8JkXq62/di2HqMjN0tLla0DtJOS78Hrz
-         RMyY7AzGZKkBAXf91zGxk+LT3wlCh2sQjwkhkI7ptZLts4GO+49cxTTPUYEBAczX3oLE
-         6lXA==
-X-Gm-Message-State: AFq9FYKQhu0VyrT1KoF3Qhvr1Qd/TqSlays3EjYuzbdNfqsgskd3EH8U
-	GGd2ac4xB7e2lm6571mqoQoB8X8CKSsG3t6vY8XwoYKdPYRXHtieWOTnxs/ftujoREaiPhbjuRX
-	rR13nkglgCWZHc/xR24pxB/ZJ+wvvfXzwGPwVVJjd3PvtWxYBMMkWlbNDWN2McknMLPncuPe177
-	SUmxJZ9g8fSjfem7pytUKHn0PBbMDjuJq/uJqKGvAjucA=
-X-Gm-Gg: AYBFou2fvw/fHAjaxLMQrpn5abL4SAp9QdffPndbXGzdk4BjXkzGJq+dfVy5bpQbj/T
-	KYmsgHTO0KdUzfQLt8dIO8yDF0XmWtQkOK6K8BJf6zKlAifc8jbm7Agp+EMfXTO3l/G4sq1AdE3
-	kiI7g7rUif2dwGZS9ZJjImCUVolgFTQGk1XMnn6ZROECvxmCjFQKMzW1nuL0TmqdTRDhK50vFLC
-	E10jc4OEf8CfTI3TJGa5UmZpeJZMD8PMmDYA44xtXjO21KgMh0wkLIOkzH9WJvXYNpnDJO8Otkn
-	cLNwsxCc4jXTE852nfmpjxCss4sqUoVk/qG+GsqHmeX4NrZVZjj1QkfgOTMz0DQ7c8Q=
-X-Received: by 2002:a05:6402:3244:b0:6b1:c6fa:c45c with SMTP id 4fb4d7f45d1cf-6b408ee9f92mr1327651a12.38.1792595621548;
-        Wed, 21 Oct 2026 08:13:41 -0700 (PDT)
-X-Received: by 2002:a05:6402:3244:b0:6b1:c6fa:c45c with SMTP id 4fb4d7f45d1cf-6b408ee9f92mr1327622a12.38.1792595620934;
-        Wed, 21 Oct 2026 08:13:40 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581f15esm6499835f8f.20.2026.10.21.08.13.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:13:39 -0700 (PDT)
-Date: Wed, 21 Oct 2026 11:13:37 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>, netdev@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH net v3] net: gso: validate transport header before computing
- segment length
-Message-ID: <52b8bfe4ee848aff8ace47752352de486171d45f.1792595507.git.mst@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eZ32q6fD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792595622; x=1824131622;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UIFQcVy5Zsmxy4T/q0obmOoralhVzyur/Xc2hxCmnTM=;
+  b=eZ32q6fD46OwdSXBdYoUmcjW0t/vP1Dasxa2esK96Wkj8NaIBCYEeTa4
+   V1wzf764+JcRkKmy0fnN05Wf+kDWFzeFHldBnI2v+E2P+qYW0VNzbNtMf
+   uGZfqH4xK9tn4d5dAMkKUxFW9khn75mE4DS09dlk2XP3OSY+oQP1VsHaZ
+   ItfKLAZfRRBfX66k0LLy449u9E1cZt3+CCkPohit6uT22e3+pz/yWaXG6
+   oaZ9Uj8UGMGi+yqC+2SolcSeKGaXpHTlVRip25TfVrgzYjD21zZi1TGH3
+   HtVpVkygikfeVWBa6/sTXcqHvVOiPabxf9oDDKVHm5j2XRFsaeY8DDVAd
+   g==;
+X-CSE-ConnectionGUID: bF7/4nVMSRO8Kpj4LZ1Wjg==
+X-CSE-MsgGUID: L96qcTiFSi2OR9Te308U5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1212278"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1212278"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 08:13:41 -0700
+X-CSE-ConnectionGUID: n2DUfOjvRROA1dh/XPSPRw==
+X-CSE-MsgGUID: Iq8tyuFxQVKj66CHfi152g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3038524"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 08:13:38 -0700
+Date: Wed, 21 Oct 2026 18:13:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Santos <Jonathan.Santos@analog.com>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux@analog.com, broonie@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	Michael.Hennerich@analog.com, nuno.sa@analog.com, jic23@kernel.org,
+	dlechner@baylibre.com
+Subject: Re: [PATCH v4 8/9] spi: spi-engine-ex: Add support for multi-CS
+ devices
+Message-ID: <atjWoMzRHsSbOjbi@ashevche-desk.local>
+References: <cover.1792435248.git.Jonathan.Santos@analog.com>
+ <183539c950c013d472c6b46e3f1365b022e7c716.1792435248.git.Jonathan.Santos@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,236 +86,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
-X-Mutt-Fcc: =sent
+In-Reply-To: <183539c950c013d472c6b46e3f1365b022e7c716.1792435248.git.Jonathan.Santos@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-If a TSO packet is processed in the stack before a transport
-header was ever established, the TCP data offset is read through the
-unset header offset, far outside the packet.
+On Tue, Oct 20, 2026 at 10:58:37PM -0300, Jonathan Santos wrote:
+> The SPI Engine controller only handled the first chip select when
+> asserting CS lines and configuring CS polarity inversion, ignoring
+> additional CS indices present in cs_index_mask.
+> 
+> Update spi_engine_gen_cs() to iterate over all set bits in
+> cs_index_mask and toggle each corresponding CS line in the assert mask.
+> Update spi_engine_setup() likewise so that SPI_CS_HIGH polarity is
+> applied to every active CS index rather than only index 0.
+> 
+> Set SPI_CONTROLLER_MULTI_CS in the controller flags to reflect the
+> capability to the SPI core.
 
-This was demonstrated by syzkaller, back when the input path did not
-dissect such packets: a virtio net header supplying a malformed
-network header was enough.  Qdisc length estimation has carried a
-guard against exactly this since
+...
 
-commit a0dce8752193 ("net: Skip GSO length estimation if transport header is not set");
+> +static unsigned long spi_engine_get_chipselect_bits(struct spi_device *spi,
+> +						    unsigned long index_mask)
+> +{
+> +	unsigned long bits = 0;
+> +	unsigned int idx;
+> +
+> +	for_each_set_bit(idx, &index_mask, SPI_DEVICE_CS_CNT_MAX)
+> +		bits |= BIT(spi_get_chipselect(spi, idx));
+> +
+> +	return bits;
+> +}
 
-the GSO length validators never got one.
+Since the chipselects are in a sequential range, wouldn't that repeat one of
+bitmap_gather() / bitmap_scatter()?
 
-We used to, but we no longer allow such packets in: since
-
-commit 44378d02c5aa ("net: always dissect GSO packets in __virtio_net_hdr_to_skb()")
-
-the virtio net input path dissects all GSO packets.
-
-But as a defence in depth measure, let's also check before we read: if
-the TCP header is unset or outside the linear data, report the packet
-as not fitting.  What happens to it then is up to the caller: the IP
-output path segments in software, a forwarder answers with an ICMP
-error, policers apply their exceed action.
-
-No unprivileged path is known to produce one - IP input resets the
-transport header to the parsed position, local delivery pulls data
-exactly to it, and tunnel decapsulation clears it altogether - but a tc
-BPF program can leave one behind through bpf_skb_adjust_room().  The
-comparison is free, so let's not rely on enumerating producers.
-
-Found by code review.
-
-Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-Cc: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
- include/linux/skbuff.h | 30 +++++++++++++++++
- net/core/gso.c         | 75 ++++++++++++++++++++++++++++++++++++------
- 2 files changed, 95 insertions(+), 10 deletions(-)
-
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index a3ff380d43f0..6f33c014e568 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -3041,6 +3041,13 @@ static inline bool skb_inner_network_header_was_set(const struct sk_buff *skb)
- 	return skb->inner_network_header > 0;
- }
- 
-+static inline bool skb_inner_transport_header_was_set(const struct sk_buff *skb)
-+{
-+	typeof(skb->inner_transport_header) th = skb->inner_transport_header;
-+
-+	return th > 0 && th != (typeof(th))~0U;
-+}
-+
- static inline unsigned char *skb_inner_mac_header(const struct sk_buff *skb)
- {
- 	return skb->head + skb->inner_mac_header;
-@@ -3250,6 +3257,29 @@ static inline int skb_transport_offset(const struct sk_buff *skb)
- 	return skb_transport_header(skb) - skb->data;
- }
- 
-+/* Is the (inner) transport header, as specified by
-+ * skb->transport_header/inner_transport_header, in the linear data?
-+ */
-+static inline bool skb_transport_header_linear(const struct sk_buff *skb,
-+					       unsigned int hlen)
-+{
-+	int thoff;
-+
-+	if (!skb_transport_header_was_set(skb))
-+		return false;
-+
-+	if (skb->encapsulation) {
-+		if (!skb_inner_transport_header_was_set(skb))
-+			return false;
-+
-+		thoff = skb_inner_transport_offset(skb);
-+	} else {
-+		thoff = skb_transport_offset(skb);
-+	}
-+
-+	return thoff >= 0 && thoff + hlen <= skb_headlen(skb);
-+}
-+
- static inline u32 skb_network_header_len(const struct sk_buff *skb)
- {
- 	DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
-diff --git a/net/core/gso.c b/net/core/gso.c
-index e96ef6350064..204ab9d08c18 100644
---- a/net/core/gso.c
-+++ b/net/core/gso.c
-@@ -131,6 +131,22 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
- }
- EXPORT_SYMBOL(__skb_gso_segment);
- 
-+/*
-+ * TSO processing (but not UDP/SCTP GSO, which uses fixed header
-+ * sizes) reads the TCP header as specified by
-+ * skb->transport_header/inner_transport_header.  Make sure it is
-+ * there to read.
-+ */
-+static bool skb_tso_transport_header_ok(const struct sk_buff *skb)
-+{
-+	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-+
-+	if (unlikely(!(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))))
-+		return true;
-+
-+	return skb_transport_header_linear(skb, sizeof(struct tcphdr));
-+}
-+
- /**
-  * skb_gso_transport_seglen - Return length of individual segments of a gso packet
-  *
-@@ -140,12 +156,18 @@ EXPORT_SYMBOL(__skb_gso_segment);
-  * individual segments, including Layer4 headers (TCP/UDP).
-  *
-  * The MAC/L2 or network (IP, IPv6) headers are not accounted for.
-+ *
-+ * Return: the length, or a negative errno if the TCP header is not
-+ * there to read.
-  */
--static unsigned int skb_gso_transport_seglen(const struct sk_buff *skb)
-+static int skb_gso_transport_seglen(const struct sk_buff *skb)
- {
- 	const struct skb_shared_info *shinfo = skb_shinfo(skb);
- 	unsigned int thlen = 0;
- 
-+	if (unlikely(!skb_tso_transport_header_ok(skb)))
-+		return -EINVAL;
-+
- 	if (skb->encapsulation) {
- 		thlen = skb_inner_transport_header(skb) -
- 			skb_transport_header(skb);
-@@ -175,13 +197,21 @@ static unsigned int skb_gso_transport_seglen(const struct sk_buff *skb)
-  * individual segments, including Layer3 (IP, IPv6) and L4 headers (TCP/UDP).
-  *
-  * The MAC/L2 header is not accounted for.
-+ *
-+ * Return: the length, or a negative errno if the TCP header is not
-+ * there to read.
-  */
--static unsigned int skb_gso_network_seglen(const struct sk_buff *skb)
-+static int skb_gso_network_seglen(const struct sk_buff *skb)
- {
--	unsigned int hdr_len = skb_transport_header(skb) -
--			       skb_network_header(skb);
-+	int tlen = skb_gso_transport_seglen(skb);
-+	unsigned int hdr_len;
- 
--	return hdr_len + skb_gso_transport_seglen(skb);
-+	if (tlen < 0)
-+		return tlen;
-+
-+	hdr_len = skb_transport_header(skb) - skb_network_header(skb);
-+
-+	return hdr_len + tlen;
- }
- 
- /**
-@@ -192,12 +222,21 @@ static unsigned int skb_gso_network_seglen(const struct sk_buff *skb)
-  * skb_gso_mac_seglen is used to determine the real size of the
-  * individual segments, including MAC/L2, Layer3 (IP, IPv6) and L4
-  * headers (TCP/UDP).
-+ *
-+ * Return: the length, or a negative errno if the TCP header is not
-+ * there to read.
-  */
--static unsigned int skb_gso_mac_seglen(const struct sk_buff *skb)
-+static int skb_gso_mac_seglen(const struct sk_buff *skb)
- {
--	unsigned int hdr_len = skb_transport_header(skb) - skb_mac_header(skb);
-+	int tlen = skb_gso_transport_seglen(skb);
-+	unsigned int hdr_len;
- 
--	return hdr_len + skb_gso_transport_seglen(skb);
-+	if (tlen < 0)
-+		return tlen;
-+
-+	hdr_len = skb_transport_header(skb) - skb_mac_header(skb);
-+
-+	return hdr_len + tlen;
- }
- 
- /**
-@@ -250,10 +289,18 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
-  * skb_gso_validate_network_len validates if a given skb will fit a
-  * wanted MTU once split. It considers L3 headers, L4 headers, and the
-  * payload.
-+ *
-+ * Return: Whether the skb will fit.  Also false if the TCP header
-+ * is not there to read.
-  */
- bool skb_gso_validate_network_len(const struct sk_buff *skb, unsigned int mtu)
- {
--	return skb_gso_size_check(skb, skb_gso_network_seglen(skb), mtu);
-+	int seg_len = skb_gso_network_seglen(skb);
-+
-+	if (seg_len < 0)
-+		return false;
-+
-+	return skb_gso_size_check(skb, seg_len, mtu);
- }
- EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
- 
-@@ -265,10 +312,18 @@ EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
-  *
-  * skb_gso_validate_mac_len validates if a given skb will fit a wanted
-  * length once split, including L2, L3 and L4 headers and the payload.
-+ *
-+ * Return: Whether the skb will fit.  Also false if the TCP header
-+ * is not there to read.
-  */
- bool skb_gso_validate_mac_len(const struct sk_buff *skb, unsigned int len)
- {
--	return skb_gso_size_check(skb, skb_gso_mac_seglen(skb), len);
-+	int seg_len = skb_gso_mac_seglen(skb);
-+
-+	if (seg_len < 0)
-+		return false;
-+
-+	return skb_gso_size_check(skb, seg_len, len);
- }
- EXPORT_SYMBOL_GPL(skb_gso_validate_mac_len);
- 
 -- 
-MST
+With Best Regards,
+Andy Shevchenko
+
 
