@@ -1,100 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602874;
-	b=b9o18F66hRdue+US4wd1zdv8+BwiZSCosAqxAtOSAvbfIoeMZC4bFm1AsgbKAf8YS2n3
-	 GLTrlJgSh3EEqb71ia1v3vHVDIZzbntckME/r1tMkT9ZKYKWIIK9JOyMVUbaTFQGodrDu
-	 u+ikaZxZSdeKW88cUSCmTLuGJT/ub8CJttaJdO6eE3ruNwUi5UmTAuCjH7LE+UzRJKjO/
-	 Zgq7/QIbTEv9dSqe9yK0fhi7NaQ8lwVpkbEKwYWWmCCoRuwS2klx3BpjLWnUasVkguxev
-	 z0rv4W0dvvCElttNArcdKZA1bI4AGtt6Wb6EyBXYZ7O+7UddzthV9M7J/mH6DmYOH3w==
+	t=1792602890;
+	b=vFF9oGecRbyfIqNC8SVxogMcvPnum5fdQ9M1Zogz2zLaHabjBSNWcpq5ztBctgG6I72/
+	 fyzY822aQ6RAnUvnXesNX+g0sKrgdhbWFQwMObr9IqosvlG2dVbr/m/bVEoAaTi/PQBdr
+	 JZSnkO1rdZxftcX/5nt18QeeMTQYTyrlav4P1khWxlI+5HdefkruLbd9lxZ0MT/BOnnGs
+	 WL4Nml7QgXRvkIrbNbq7YxAE/zrNc3uL4FNY2lekP1m5J4088qP8zn3DWHxhSbTb+cQVf
+	 QgHJGc8GFvleIbTf9SRpYD6Om3Up9u7xW1KnM57ZiPpFbsvdagoAO3vqStycqVc1krw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602874;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602890;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
-	b=HjdL4RZ9snEKvhnYQzSPqeZi6eObzYbLA7ZWAq69poDkDonBxgOmtKDeMNbzRAbuP7oB
-	 LcAztm+yIpe/S1G6WlSIovAHtcCCeCHGCdSZoM1nAldWZP7cNwRFZX9dvO53HOserNZcZ
-	 tP7pPNOBq5tAf+RTQkzlsor+c3esnMH3l19NUk/qaNg/A3TNtFvigXGnAoD2AJTqnR3di
-	 RewEL8tTVYjlj/s9DZYJe7ploGHOFdUr44XZcan3MOkazwFAIDe6SjAlLblB7nPBdtxCy
-	 aqnsGqsxxpGEK7OXTbB3Q0eRIAdegOQ42jlLEPTlboFhStQ/6emrNdWIM7VwY90XjMA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1LfQgKp0ztlf0EQ9y2RTrGf8UOpxokWsfVnFXAkS3BA=;
+	b=eEP9VryBXPVzEZ0528cFkd4c9czkdnp7a8VxA32L3WJQAaenNYJO+tY4e7+RJBticPHd
+	 lpumgwBEOdoM9yrcQP2hu6sIMPiCJuoDOCFz+frdjvZZjA8P0aEafmrqg+u7DgLP1air0
+	 mMZKNqC55E7KpBo1zJuWaLr+UZZAjgg4qoUAb28YYDQs7sy+7lsx4dtciAhSMhj9LbQIR
+	 oZKa8xMIzjeC8g0QAW5N12KOm5zO1hk2VRysgGDVvSt3FG85rbm0Vxv9bBV+WaKBEUqc2
+	 gKaU46XABWwojiBD95aWmPFv4DRq/YcYSm76pIaJChRA6HXAUNZhBxKVTzMbEJvN7wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MV+0efPP;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=gyrnnNCA;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD4B606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCD4B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513F3606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:14:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 513F3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MV+0efPP
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2001dd4e7so9227905e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:14:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=gyrnnNCA
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-368581df789so85170eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:14:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792602872; x=1793207672; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
-        b=MV+0efPPjre42SVRq3x08Nqwaif8RbXYpP/8z4IZC9aOkuID0XUwy/drnZy+oc2V7U
-         +x6j6MDkKPPCHgEtU/icfbi5YZkSM/4pmVt5kAgka6sSoh8m2MuL9dJTd33xZ+FSW3XF
-         M8/3m2BYNewTj5uqB9hTQ9xHHXtulTbRx55m0lgFdEHMP1PhhaUJzLEfeWYtVMVApNsy
-         +oRxH3bKVcRA1xc0HEFKiywzEspm3OzT9qmr/DFyMVDx7U8rgA+cGB/oXvHezl025tOC
-         s3IGb7yrvmwgqvg0P3/bFgd7xrwZT8KWG38ToEYi8hdgDilPMoZqn8/a/avR2AW9C1c0
-         erQw==
+        d=trailofbits.com; s=google; t=1792602889; x=1793207689; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1LfQgKp0ztlf0EQ9y2RTrGf8UOpxokWsfVnFXAkS3BA=;
+        b=gyrnnNCAok29B5+xIlr8Sc9LwxGU7weiLCTmja+5PDQ51jyX3L5E5jTHOBbHvb0EOc
+         aJmUsu4f4VKzJPm5US+CpAyN5P2V5jP+qTW5fj4+oDwJMLPLuSc6vEZGUmrLnaR9Amq/
+         CU2qjlqUvJHRLfize0/hrjt5c5q7ZzD6uNNSl4FxxDj8VuM+CXyUSxaIi0ffJdgPj5Vt
+         VpV3uo1gpyhDLsla4BpwksK6CL+A/wY69psQHhtgUX0ZyQnzOCOWYXjdql7KS4m9elLR
+         9fpDiFDNS9Qq44+MEgYuJVMmWY6DhP+MeHFXY5UOE6v1hlte2/M0dLUmowo/QwA+6BnO
+         pQDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602872; x=1793207672;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
-        b=SL/4GbiYB1ifPwIk7/nB/ihTyd2KzFn27nJCWJAxyEsw5YJ1Tg5ICBOkP1C9PQLfqk
-         z7wkeYXTWBioO4wAIu6WcZi9wtH4h9hP5DmHC83nqKMG9VEHntQqe6aeiZ4UJ8Xuey39
-         wL0nfB9DxPDeRNhJqxozijfRyfh1dzvwr+Is5UpvSkIVIoUB5c9bS7Srnk4GgCzycrkB
-         1MhzoW9y4NbADKl9l6DSaBZJs8NWn5MTXgYB9fUTRTp59X/l3EbDOhFedCD9XD9dMhwB
-         U5BZ3FUsXs9SoSWLn/RYLkgaMwNK7vf6KZTn8glQa3isfaNINZNTe+j/BAxSE5kl/gmV
-         PUuw==
-X-Forwarded-Encrypted: i=1; AKwUvByGfpsBYFGxbsAWWPRpk8yb0KhC57D4Q1xURzVF4Ki0C+eaSA997bzx1pNjlaNAueZpSdIFgZtbSpEH3s4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkz7iWGCuVsXPbPZ7btJLNpqM3Ove4TUPJcvCny00Su9wXTgqm
-	b/OSM6HBcloXd8NCKJWgrTQtq66EOpimXRIlzHsGhviOt7nI0/iSGJXWQ/IwIK4ftf8=
-X-Gm-Gg: AYBFou0QWbVlOWJi7S7w1dt7lufY8/Qvj+S228OVgKojWN+WQSUJ4FmAu7ZkBcuWZIV
-	KbwMJegkCiZ9c35wR0tvGwc3BmqfAwEcdL5k7p9a+/mn9B1hHr0P+JPS9DiP9hha/JzImG/8GD4
-	jKe8suo85J2E1dpaF+ix2EbO8zhoKtJGNAx8SdAfJCCj0Q9KPML6OWrvmew+wCVr4cZMceQKTOJ
-	8ILXBruMiOQBkh+JdnXSu79eqcfDawahz049tnhYXitz5pJZ0Qgrv1GIcfMuj2RzH4A7od2eltl
-	ASYX3EK/hUSM2A/iTjn5G5IAbhuHbAggNeQXyO0Zig4ewE9WS5hE9u+cMFFaaEC2MOpNpzW/FPF
-	K3egRWXgYmn0A8XBl32Oldh1R3ZUVKWrm6dyHa6cg6x6wx4nVsQlEhvmtM6utAhMqFJET2+bcgV
-	1JstceG1ErtCy6SPolQT/X+gIO1SSEoQ8SVTdc/p+NjrDM4/ey+XZvOzdRdkYLRsmhnKRiceaO1
-	aTEAbZ29Qxm6qquj0B8sm7098hnDf8qK1OciAk4Yg+0oWi1x8qDym2jW+ZEzZWJQ0M=
-X-Received: by 2002:a05:600c:628e:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4a1fdb0a346mr56541315e9.18.1792602871904;
-        Wed, 21 Oct 2026 10:14:31 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f10:9608:8385:755e:e1cc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b42befsm4715775e9.8.2026.10.21.10.14.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:14:31 -0700 (PDT)
-Date: Wed, 21 Oct 2026 19:14:25 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	konradybcio@kernel.org
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	johannes.goede@oss.qualcomm.com, conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792602889; x=1793207689;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1LfQgKp0ztlf0EQ9y2RTrGf8UOpxokWsfVnFXAkS3BA=;
+        b=de/KkKtDuxAeUei9/CSFTWvtfiTZfy6u5erpNK19jDYgmQ5ckp3UKCSuuIAGlndORs
+         6HJXBLWrCqlhznjy9H14EkJ0nQJ04hwXofZt/Rgx1L46qIbuELpNrxcOmioARdCHHg7A
+         AHjsnD39fCmI0Csp42jlop54LDLZMh7rp+glHf+Wnfab1PWxmljqW0/jQ7P23w7NsaYO
+         i8ykvCCIxpEproYhvMKje4xNLANH7VZjKgZs9Jc3CjaSc5heNHgRXDbDsgq+JTCUAUo4
+         iPt8K6QMyrWMWrqN5vJsdnivi6i7hlmASativmAbrSYPG7Z3oqUlw/8lsu4d/QhUIFtw
+         nQHg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+gsocorhJ17VBMTeUusrCvGMLMX7PhhU4dxZGpRhq9wYpS5Uk79T15ntCfqVLHEaHgjaeT3wRYI6NlH0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrgQecK/32Foa2u/2IX7NxujN9/zhWN6FtCXNmCBmY+0tI27Ea
+	hZ5I2Pf8zHDeb1OwRfbIywMjR0uCa6R0cWK5WlFm7g/m6GSTGlOnin+/xYFOknXwYfM=
+X-Gm-Gg: AYBFou2TZyitBU9admOJk9XF49/LJrHLxwn0c2w2mlvBbQ3py5XwGVy26WZ6v0sZY7O
+	Hu2Ew17NDvz4Oel9b6dixqXPn1XZLganFcVKiBpZZJMQzT+qjyCLE2iwdJPqG1fqK0FAi4mO9vj
+	drY4GONar676whKDuFl/aTME23AQxtlkMOZLa5DcMn+D8cqQ7KsrOMF5q7p9Hw4Q6+PcB5kOQ2H
+	ASj1/l8RFJqfCwJyJrSLa9YEQFOhDizP3F4edWPXH98W9sT7oPUoZwgFwVi7wNhvvpTEd0HTkR3
+	M2DmE4klCljBD4g9w6q/WYH3CZdKszcJDYDn948V9NBTWXU8f7A8yuZaRAYJAizvweljnFzpNT0
+	//WcA6Ax9UJn0jXqys35tIEll0Zic/VdCLEBd+YySDtHqqvUVQSwAHFD3d6htxaaTQIWekRChSS
+	p92zgoVZHkFNZuSPYEHU+JWXrJXAmJJw5YjcOE9x/6MeSTJR2XSl3lyiWoi87z2p08hTceNnCQe
+	G9DZVcoMJ1ZwRpq5Z+5jpKpQKUGcKRjbWNJO82BXESw7BtoK8tRMRv8FZGas07FbJBhXlnawTDz
+	dUDJtkIw+9Bfaxu7/b9v0SNnKsibsJj2ofBVkIWPPnqs2IZk8E6F
+X-Received: by 2002:a05:7301:d804:b0:351:7848:85ca with SMTP id 5a478bee46e88-36888be04femr354554eec.7.1792602889175;
+        Wed, 21 Oct 2026 10:14:49 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm9458105eec.11.2026.10.21.10.14.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 10:14:48 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	jolsa@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-Message-ID: <atjy8ZVUW61VBa26@linaro.org>
-References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
- <atH0oW5j9pxsTty4@linaro.org>
- <aca2cd5d-18e1-406d-a062-e219478b243c@oss.qualcomm.com>
- <ath8tHxHOdA7G-Bx@linaro.org>
- <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
+	martin.lau@linux.dev,
+	memxor@gmail.com,
+	olsajiri@gmail.com,
+	paul.chaignon@gmail.com,
+	song@kernel.org,
+	yonghong.song@linux.dev
+Subject: [PATCH 6.6.y] bpf: Check the helper function is valid in get_helper_proto
+Date: Wed, 21 Oct 2026 13:14:44 -0400
+Message-ID: <20261021171444.99931-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +108,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 06:20:55PM +0200, Daniel Lezcano wrote:
-> On 10/21/26 10:49, Stephan Gerhold wrote:
-> > On Tue, Oct 20, 2026 at 06:08:56PM +0200, Daniel Lezcano wrote:
-> > > 
-> > > Thanks Stephan for the additional information, that's very helpful.
-> > > 
-> > > We currently have an urgent thermal issue on this platform, and getting this
-> > > thermal mitigation upstream is important to prevent overheating under
-> > > sustained workloads.
-> > > 
-> > > Would it be acceptable to address the sensor naming and description
-> > > improvements in a follow-up patch, so that we can get the thermal protection
-> > > in place first?
-> > > 
-> > > Of course, if any of these changes are critical for the correctness of the
-> > > thermal mitigation, we should address them now.
-> > > 
-> > 
-> > I have no intention to delay this patch. In fact, since I'm using the
-> > latest unmodified stable kernel on my T14s, I'm also suffering from
-> > these thermal issues. :-)
-> > 
-> > On the other hand, we are at the beginning of the merge window and Bjorn
-> > is unlikely to queue patches until that ends. The changes that
-> > I suggested are purely cosmetic (the names of the thermal zones), there
-> > is no need to repeat the thermal validation. The throttling behavior
-> > will be identical no matter which name is used for the thermal zones.
-> > 
-> > IMO we should use the remaining time until the merge window ends to
-> > correct the naming to avoid any confusion for people reading the patch
-> > once it lands.
-> 
-> Ok, fair enough
-> 
-> I propose the following names for the thermal zone:
-> 
->  dram-board-thermal
->  gpu-board-thermal
->  fan-board-thermal
->  wwan-board-thermal
->  chg-board-thermal
->  cpu-board-thermal
->  typec-board-thermal
-> 
-> so we can capture with the name the ones related to the non-on-die sensors
-> 
-> Sounds good ?
+From: Jiri Olsa <olsajiri@gmail.com>
 
-That works for me, I don't have a strong opinion about the naming (maybe
-@Konrad has?). I guess people reading this might mistakenly assume that
-these refer to separate "sub-boards" in the sense that there is a
-"mainboard", a "Type-C board", a "DRAM board", a "GPU board", etc.
-But I can't think of a better name either. :-)
+[ Upstream commit e4414b01c1cd9887bbde92f946c1ba94e40d6d64 ]
+
+kernel test robot reported verifier bug [1] where the helper func
+pointer could be NULL due to disabled config option.
+
+As Alexei suggested we could check on that in get_helper_proto
+directly. Marking tail_call helper func with BPF_PTR_POISON,
+because it is unused by design.
+
+  [1] https://lore.kernel.org/oe-lkp/202507160818.68358831-lkp@intel.com
+
+Reported-by: kernel test robot <oliver.sang@intel.com>
+Reported-by: syzbot+a9ed3d9132939852d0df@syzkaller.appspotmail.com
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Acked-by: Paul Chaignon <paul.chaignon@gmail.com>
+Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+Link: https://lore.kernel.org/bpf/20250814200655.945632-1-jolsa@kernel.org
+Closes: https://lore.kernel.org/oe-lkp/202507160818.68358831-lkp@intel.com
+Assisted-by: LLM
+[ Backport to 6.6.y: Apply the function-pointer validity check in
+  check_helper_call(), because this target has no get_helper_proto().
+  Refer to the target get_func_proto() callback in the tail-call comment.
+  ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please consider this backport of the fix for CVE-2025-39990 to 6.6.y.
+
+The helper-validity check is applied in check_helper_call() and its
+comment names the target get_func_proto() callback. See the bracketed
+backport note above.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
 
 Thanks,
-Stephan
+Artem Dinaburg
+
+ kernel/bpf/core.c     |    5 ++++-
+ kernel/bpf/verifier.c |    2 +-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
+index 9fa984ee076bccbf5e90eb6a194cec68f2351200..bec8876f12375bbbe00d8cbe5ee7d410e48ecd88 100644
+--- a/kernel/bpf/core.c
++++ b/kernel/bpf/core.c
+@@ -2959,7 +2959,10 @@ EXPORT_SYMBOL_GPL(bpf_event_output);
+ 
+ /* Always built-in helper functions. */
+ const struct bpf_func_proto bpf_tail_call_proto = {
+-	.func		= NULL,
++	/* func is unused for tail_call, we set it to pass the
++	 * get_func_proto check
++	 */
++	.func		= BPF_PTR_POISON,
+ 	.gpl_only	= false,
+ 	.ret_type	= RET_VOID,
+ 	.arg1_type	= ARG_PTR_TO_CTX,
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 778a68bfb91dd4e765252cfb1bacb4b658d1381b..a72e1561464cb94942afa723e57c76f032d30dc0 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -10091,7 +10091,7 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 
+ 	if (env->ops->get_func_proto)
+ 		fn = env->ops->get_func_proto(func_id, env->prog);
+-	if (!fn) {
++	if (!fn || !fn->func) {
+ 		verbose(env, "unknown func %s#%d\n", func_id_name(func_id),
+ 			func_id);
+ 		return -EINVAL;
