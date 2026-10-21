@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579665;
-	b=1+vGE4g2/xGFz0EyBD1FwCkfIKGp3kH4FEix8zR81UMHKnxGLLoThY4Jn/PMYi1ktkDE
-	 +oOdJx40MA9iuZ/rffnOw/Bt/bofM2rkqA0ynT7as1YSHxrjMui/3QxDtRuWKkrFdn+m2
-	 U6oFeX2g4pbOw/nSlXuTYEVtrOMQCZXBvYPSMShXM2TdztUSokTi9a641MaKGP6zBPOUn
-	 4yQKho1Pjp0FCmVlAY1lnjF27Wxz5nBl426uNh/lKnbd6m51N53liXVqc14+5Zf+KprZ2
-	 djxgnmZ8jSjPTgsZ9VXG0FtrkWWhrFvo/53lyJfVR5nOdbmrnZ9NrApofhKqvLjYabg==
+	t=1792579678;
+	b=hDrHvlG0ieqRZ060w7crJ0SFatTiKHh2eTawy8jeguuHNmSAmNCQbL2v99hmd0c2BLqS
+	 2trsbQEEC7OHBN8LcoddjcnPgTnh2u5xsK5aoZwxuXdKUm5TAtIyBCD/yWpy/7djUPisf
+	 P8QlZdWKLaIMDTITVyEflXIitd7PeeKgwlpVJnn//TOK5hJ2vqiUdJvon1do+6zEHP2vk
+	 gQ8L3cVNOihiKmzDiIuHLKqxBrD2//yVR75/Hers016471LB+Pt2M6sUECywT9xuPNrwa
+	 yYAtMGKwLKTcLXftI+xK5eioGCeODRZ4jNTQ7vfWwp871rnA1oLf4XEZi7r2OfbVfOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579665;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=/Yh6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=;
-	b=yQkywx9w0sCwZ+KK6eCX7W8/f44K616zFs2tbvFQUJTwnmrTOpIs5pbtTCb7rdfuc3kw
-	 7p+DiFVS+9B9SlUCQ+lyFSjgNOtBumDL6FPJc/ZfLcKV6q6gFzWQl6diRuiQL5ETlJsZy
-	 jLH1UUPHuSZp3Fw0XSZGkjehuHZ22B9EfDFEdnMqeMdGL/0ERMYfTEfdb5zzFhb9NejJe
-	 KATvtSGcavHTKTVQ/a6XAhevbpn7i7yLgCLmPjLCMwF2poLfC4FUNgf0OsmwoehEE4F54
-	 b3vnism6dYW2A6ON3c5EorKtf7bzUIcMf0b5BV1mwt9pt6QGWp1A+1AURIdOHjoEYJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579678;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=WEyiM5jVzOlufAoK40II4YYcsd0cpnT1mchqY1Loq2k=;
+	b=UI2VypejdFTAiuEOz96Uz8yuGagOET0vwDsMC2wc8BPTeP8H7Ra1Rt8vGn5bpJ+0gZCv
+	 5zWdaarHzCCPBWLKFF/X+MEc0GkScxwl16CV05xo3/Q4YVM2xAwYFGNHvDevR5k6Yk3hy
+	 GF3BKSVAoAzeQbwawfuQJ8cpSqwDBeMCuuUrb7Q1H9aEWm8j1i88WEukKWUbBA+Ss/QWU
+	 BxODnHObP1HJGvCS/L31nwOJX0m2mi1F4Ynm8mIkaBIhOSDx+mqrRLrkAUwdtB8AyzdcE
+	 B7XSLuFzImFgyOONRYo9ug6tPkN/F71CcpvZomYRc5koWmoGSiEPufcb2+4ZvPr1piw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=g4DWlf64;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F85606A329;
-	Wed, 21 Oct 2026 10:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F85606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1622960A2606;
+	Wed, 21 Oct 2026 10:47:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1622960A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=g4DWlf64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/Y
-	h6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=; b=pk3gdYEH3/33iineDs
-	tsH0pxabz1INhNNEdbZVeQg1XQJE2pN3sZYEy3rnsTNI9zslpn7vBq784KxO0/5C
-	ppsP7YH85ULzkkKiPp+HaWb19gWZ27Qp1Ro2t3aTI+UCiO1k0m+S/gdkqYkSYSn4
-	0hBQYDU97Oo4khHvVkkDFAprc=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=WE
+	yiM5jVzOlufAoK40II4YYcsd0cpnT1mchqY1Loq2k=; b=g4DWlf64eSz/XX8BJO
+	cjF0eqrLJPQnGeFJKUz+r4OCNsQ5qxNY4ET7hxRS0Gp/mWRd/9OWLbpJ+f0kx2mC
+	6i3jy0ed0ancCdTSU5OEToKbVCgwKqKuK3BqcN8UXIOVVxijuxaD8+f8g1F53X2+
+	kZ70L8lXYBm4rHx+I2uXqWlMU=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S5;
-	Wed, 21 Oct 2026 18:47:24 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S2;
+	Wed, 21 Oct 2026 18:47:22 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
+To: Minas Harutyunyan <hminas@synopsys.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	John Youn <johnyoun@synopsys.com>,
+	Felipe Balbi <balbi@ti.com>,
+	Mian Yousaf Kaukab <yousaf.kaukab@intel.com>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
 	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 3/4] xhci: debugfs: initialize command buffer
-Date: Wed, 21 Oct 2026 18:47:18 +0800
-Message-Id: <20261021104720.4106961-4-yaojiale02@163.com>
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH 0/4] usb: initialize debugfs command buffers
+Date: Wed, 21 Oct 2026 18:47:15 +0800
+Message-Id: <20261021104720.4106961-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021104720.4106961-1-yaojiale02@163.com>
-References: <20261021104720.4106961-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,39 +69,32 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S5
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWUCrW7Kw4ftF15Jw4kXrb_yoWkGFcE93
-	say348W34DCFWFvr1xAr4YvFW2ga4UXrn29Fna9rnxGwsrX3WF9Fs7urn7XF45Wa15t34D
-	C39xWr1rK3WjkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0mNt7UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRwGQGrYmDwqEAAA37
+X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrurWUKr15CryUJr48XFy7Jrb_yoW3trXEv3
+	sYkrWDXw4kuFWjq34xArWYvayUua13Xrn7XF9Iqw4xuw48Z398Zr4kCr92qr15CFyUZr4D
+	Cr1fJr18Xa42gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU85Ef7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BsFP2rYmDvdWAAA3F
 
-xhci_port_write() copies user input into an uninitialized stack buffer
-and compares ten bytes against the compliance command. A short matching
-prefix can make strncmp() inspect bytes that were not initialized.
+Several USB debugfs write handlers copy user input into uninitialized stack
+buffers and then compare fixed command lengths. A short write that matches a
+command prefix can therefore make strncmp() inspect uninitialized bytes.
 
-Zero-initialize the buffer so the copied input is always terminated.
+Zero-initialize the affected command buffers so every copied input is
+terminated and the comparisons do not depend on stale stack contents.
 
-Fixes: 87a03802184c ("xhci: debugfs: add debugfs interface to enable compliance mode for a port")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/usb/host/xhci-debugfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Jiale Yao (4):
+  usb: dwc2: initialize debugfs command buffer
+  usb: gadget: renesas_usb3: initialize debugfs command buffer
+  xhci: debugfs: initialize command buffer
+  usb: mtu3: initialize debugfs command buffer
 
-diff --git a/drivers/usb/host/xhci-debugfs.c b/drivers/usb/host/xhci-debugfs.c
-index 2aa01d99f23d..a020cbab9674 100644
---- a/drivers/usb/host/xhci-debugfs.c
-+++ b/drivers/usb/host/xhci-debugfs.c
-@@ -347,7 +347,7 @@ static ssize_t xhci_port_write(struct file *file,  const char __user *ubuf,
- 	struct seq_file         *s = file->private_data;
- 	struct xhci_port	*port = s->private;
- 	struct xhci_hcd		*xhci = hcd_to_xhci(port->rhub->hcd);
--	char                    buf[32];
-+	char                    buf[32] = { };
- 	u32			portsc;
- 	unsigned long		flags;
- 
+ drivers/usb/dwc2/debugfs.c            | 2 +-
+ drivers/usb/gadget/udc/renesas_usb3.c | 2 +-
+ drivers/usb/host/xhci-debugfs.c       | 2 +-
+ drivers/usb/mtu3/mtu3_debugfs.c       | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
 -- 
 2.34.1
 
