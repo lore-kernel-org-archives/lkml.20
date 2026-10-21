@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563369;
-	b=FZq43BqI/HmOW8ZqgXGk4KFljVxksZrxw53BoTRvVjphqmew40taPtvyN7xd9wZRjhGY
-	 vzDOjWK2rY1Hxq/iPl/ztR/pc2yT09UAcpNMLYWHrQ40dT9bS0VHi1uMN+cwC8NbGCe35
-	 LstBfMakno2tZkuYXgHniQQGsQVZ3mNIt5qthmH3+OWCkgqEX78euReNEGpEKF1LeefXU
-	 GLpQmtwwkY2vu8+VJ/xniqbr9i62jtA4d9gRqpCChNpLmeJBJFLx+pos5jbk/+9FydEiu
-	 RnyQ/U3QhkwKw55FomuIvA6ausqcReueIlbH1avVWrlEMH9AcRh/kbnF1f+uMz1oXcA==
+	t=1792563435;
+	b=zIHVQllj4npLnTXtcSDpvADk1pZx5/2pqqNaeE8rmJbRpObBgeevGwH0AAXGSR8okaF3
+	 cPu0RGb7Q3icuQeO1Oz1hIb6X86NO/IjYk5N4Yiviz1ehxaVHuUjquLLlh4TiJxci0zny
+	 73SXllUenaBmviiKz6F+R4tEfBkB+DH07rz/33Fcy3yj/E3N3Nl+xYqpLhnE8jxZe6PJX
+	 o0ICcooqSKRchb+sxQWtk+VBbvc20kG067kEhlYEmdDJ3zpJ+eLAGHaefqgVnZ6JL7gqU
+	 2jdjSlSXjKhzXPMWBM5GAY7pck1/4Ctfd9Bv1fVXzWGrR8Nzayi4NRWf1VSoPl8FbRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563369;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=NwxXxk3IG/0jN67Jp1dQn6a0zeAIazOAnBJBfQ5pj78=;
-	b=VRXsMrz2OyC8K7fB0T/R/bUBvfSZJZvtxnbR0qXf0Vr83CrEzLdvdnKC6FzVt4RTiR9q
-	 pBzMMcneGOA+o14loEK/uz7K1BSBb7WITdSvF0Jx+RATeB5VGc1HUyO/LkcjFwTLZJKi2
-	 Iug+loFzZpOjDwaAHHCpYZuCs85qwu15GBCT75gfYO0+iey6WutCeiF3odujeBoQtO70k
-	 1ndmIh7FiFdC7G52Bg6iAbeOs5J7NKBvn6MEQbZCtJIzVE+IkHYamDccTXZLvys4+Gue9
-	 6Ck2ytmFTHBzz4p05jtWht1LwoGUmyNSilTj9tf8fhijxJ7C2QnT3szL8xjlB3P+6Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563435;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Vg2ShJMcjsC770hWl6oiFReH3M1VPeeK+ScU02AJ7ec=;
+	b=zuS9sn6YLiXuOnj3LWKDTrWKM08g3P/2bH88wecJzAFIDAtpEBAurG6hf6XLz4tqoQ6h
+	 NPSMwxPomXJIS+5dPoyBMcWbUIa16reFZma8FqDgmsXUkDkW/wN0+pgizVeoIz7n4Xu9W
+	 SfGvZc7lV2CR3E3aIwrQLlvM68DUQW0jcRPCwiAcxZ7zs5m69OExWsWO7nmi1/rfP8nXR
+	 +qzrPnAd+auHWrJbesQh96GILAsFUmyieqMd69u/JJS7Z2PeoXXXBnZntAScTKFDS8M4A
+	 lY5MtfDTQyJQd5G4pxFhzRy7A4CIBkmxrO8/wkQYZ4BmbhYxa8OaWZMg/A9MMY3h77A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=U0pFtW0S;
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B9UcNTf2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BAE606A326;
-	Wed, 21 Oct 2026 06:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0BAE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0756606A31A;
+	Wed, 21 Oct 2026 06:17:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=U0pFtW0S
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792563358; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=NwxXxk3IG/0jN67Jp1dQn6a0zeAIazOAnBJBfQ5pj78=;
-	b=U0pFtW0Sui7thy/yL1k4jld9obWiQV8yq9WmIOr0c7wpIYrKNDSRLNFBO+lekbvaaJWu7xq/gfpwb/e63M4AHod7OecW5+8SeVcfnJkFqAlj4iwUXEdTs/q2UH8g7WyxpjFOrVa8rq/AAOzvaFUdSLd40elDYUWJxr/mWCcuHQU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R461e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XDFS7Kq_1792563356;
-Received: from 30.74.144.135(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDFS7Kq_1792563356 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 21 Oct 2026 14:15:57 +0800
-Message-ID: <214aa9dd-33c2-4877-8a2d-18bf677d1426@linux.alibaba.com>
-Date: Wed, 21 Oct 2026 14:15:55 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B9UcNTf2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A004A1F000C9;
+	Wed, 21 Oct 2026 06:17:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792563434;
+	bh=Vg2ShJMcjsC770hWl6oiFReH3M1VPeeK+ScU02AJ7ec=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B9UcNTf2K2J318a+qZ6ZLTWfC4QbPw8If5B7imtIGYKje7npzvljEyLzeHl2kng8o
+	 qwuqNbG7LcIhYcSF84KI8Fe1eT+1ouZp2bWDZkxXUPeACfbOa9qDXXT/V1BpIBsTMq
+	 CGb7g+kYl8ttF3GlDbGQ/hatHeqBSTgBW7xgtCo4=
+Date: Wed, 21 Oct 2026 08:17:11 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: LiuJunyuan <2058432396@qq.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: vme_user: fix crcsr_bus assignment on
+ allocation failure
+Message-ID: <2026102153-surrender-exhume-845b@gregkh>
+References: <tencent_A9C3CCA9DE8FBE61A3F51944B22D1E7AC606@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,99 +53,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref
- with memcg disabled on cmdline
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
- akpm@linux-foundation.org, hannes@cmpxchg.org
-Cc: david@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, ljs@kernel.org, kasong@tencent.com,
- baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, baoquan.he@linux.dev, yuzhao@google.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, apais@microsoft.com,
- rlmenge@gmail.com, stable@vger.kernel.org,
- Hardik Garg <hargar@linux.microsoft.com>
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261017050928.128582-1-sidchintamaneni@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_A9C3CCA9DE8FBE61A3F51944B22D1E7AC606@qq.com>
 
+On Wed, Oct 21, 2026 at 11:02:22AM +0800, LiuJunyuan wrote:
+> Assign bridge->crcsr_bus only after bridge->crcsr_kernel has been
+> successfully allocated.
 
+Why?  There's nothing wrong with the original code.
 
-On 10/17/26 1:09 PM, Siddharth Chintamaneni wrote:
-> When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
-> per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
-> lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
-> first folio_add_lru().
-> 
-> With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
-> directly to shrink_one(). If direct reclaim runs before anything has
-> called mem_cgroup_lruvec() for the node, which can happen during early
-> boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
-> up dereferencing a NULL pgdat:
-> 
->    Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
->    pc : get_swappiness+0x68/0xb0
->    lr : try_to_shrink_lruvec+0x54/0x2c0
->    Call trace:
->     get_swappiness+0x68/0xb0 (P)
->     try_to_shrink_lruvec+0x54/0x2c0
->     shrink_one+0x8c/0x240
->     shrink_node+0xc6c/0xe08
->     do_try_to_free_pages+0xdc/0x570
->     try_to_free_pages+0x124/0x278
->     __alloc_frozen_pages_noprof+0x6e8/0xf78
->     alloc_pages_mpol+0xc4/0x1c0
->     alloc_frozen_pages_noprof+0x54/0xe8
->     alloc_pages_noprof+0x1c/0x40
->     atomic_pool_expand+0x98/0x300
->     __dma_atomic_pool_init+0x58/0xd8
->     dma_atomic_pool_init+0x154/0x170
->     do_one_initcall+0x64/0x350
->     kernel_init_freeable+0x214/0x430
->     kernel_init+0x2c/0x208
->     ret_from_fork+0x10/0x20
-> 
-> The classic LRU path and MGLRU before per-node lru_gen_folio lists
-> obtained the lruvec through mem_cgroup_lruvec(), which sets
-> lruvec->pgdat.
-> 
-> The above was hit on an arm64 kdump kernel (6.18-based) booted with
-> cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
-> arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
-> CONFIG_LRU_GEN_ENABLED=y and:
-> 
->    mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
-> 
-> These options only serve to force direct reclaim early in boot; with
-> 160M the boot eventually ends in OOM regardless. On mainline the first
-> LRU reclaim happens while unpacking the initramfs, and faults the same
-> way:
-> 
->    Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
->    pc : get_swappiness+0xd4/0x150
->    Call trace:
->     get_swappiness+0xd4/0x150 (P)
->     try_to_shrink_lruvec+0x44/0x2b8
->     shrink_one+0x80/0x1a0
->     shrink_node+0xd98/0xea8
->     do_try_to_free_pages+0xf4/0x4b0
->     try_to_free_pages+0x110/0x360
->     __alloc_frozen_pages_noprof+0x8b0/0x1718
->     ...
->     __filemap_get_folio_mpol+0x2ac/0x548
->     simple_write_begin+0x44/0xf8
->     page_symlink+0x178/0x198
->     ...
->     do_populate_rootfs+0x13c/0x200
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Cc: stable@vger.kernel.org # 6.3+
-> Assisted-by: LLM
-> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
-> ---
+thanks,
 
-Good catch. LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+greg k-h
