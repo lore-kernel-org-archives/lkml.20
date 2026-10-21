@@ -1,62 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792549941;
-	b=XLSgi93KA4+8EUWnXmldQXURkbNxqdXSzs+NzkTvjLOjR25OfjR+GcNmk4L4wMwiaLDP
-	 n5DcSZWKAQjVU43hTDk7gAe1Wn6HhZzDtDDcLjPKa3UiCQcaigR0hXmncUTBt5zNbv9Fo
-	 tBKA1giR8T9ZacZUZ0QoildWnZYARkd4l4DyYgn7urnv21UxYwkr2NomdIW/4mJC87ni6
-	 g+lzRXoSahGHU+6O8+M9GHxvaBVtBc+fn2CD5ZIYv4bmjb5JHs52W1BD/IBQlqQlmxenp
-	 bmI+7ry5b+/GjeVrFhCVbluSmJl7eNuWpRdi+c0rq8rLB6TdN0/ovkv4K+Ev/Lgifdg==
+	t=1792549967;
+	b=MmtHMPFRogwBadgtOqB1blRnGP8BtwtUPrNNUpWw94XzMucznAJuoXJecaVuwZak8Vvk
+	 H/EKomEkJoTgTXYyULScu7as2CcZ1Tplhu5Q/A7ARlrE+rqosusasyDNdc3LFi6hZp4OA
+	 92sApq9Vat+daT7F1Hu1LlVMwiT8OXwEL6vyqZXqompNdgDSUftDMc/Tf9Zlg+xo+p9Yq
+	 7JW+w28/SR5I8BjXfbvPkWWRTfHpCfb9RGbkHF8+jQQ1vfV892SBMKXNZXjLvfHzOgh2L
+	 7y+Oi7PHhsV0Gx5qI0HwnXPRHQazZmsLwEaZ6JWfyHntwThZy1rMVAE7008I2J0lFDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549941;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792549967;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nUXkImdoPBH85t2GfK//fEKYQ26SGF4cAAnRKZUyyDE=;
-	b=woDikKnrimwOPIZgrAKC3rBGXwHThkHMNXn5vpxnK89hTDew39Lgavg79dpxIl81FV6H
-	 qpbwNzobN07u0WCRIi0xlMcltTlST+wlhwwQcfxOCWeNzP2IixdcBeI44foF0xsZBUmvO
-	 157j/uveFC/dmp9D+mt4SCDWRjZHYgh3Y5SoJQfChE7dAbD9P4ZTznwLuCvZMk91tRVeq
-	 eIMQpShKgacJ8/Ta/o9UivkKg6ausLuydVKgwqnjBlMtiUd4HBEZbJgsapNl/0c2Q+1FC
-	 v7uBGubw7dt20eDA1ihHZmJzFV5yHBGALM1AAFxi9ULnvuryWMelJ2M2pOHLTiO32mg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5BIOTNs2nezs/HO6l5CjGvSoFAHf9bcbJ2W8/ufQESo=;
+	b=TQgyI0VOFlhKRjPDLP1K+hPNkXm/+8e9LTZRiWBjTzunJOAqdp/ch6BsuWssRxKhiWeY
+	 Pdek4ewB/ty6LZZk6ekT893krAOWUAbt8OCLEcLKG/BR65QfasOiwLE/cKPk1ujRsa/9e
+	 sG0/jhrY66U3c7ZudZeY64wHW+0qtR1+4LZ7aDAliS0XAYyfkuuXeW+aD0BOezCboh26m
+	 xbcPy+fnKBvYOanVTFgonh/YxvlE1OmmQ+5kooQN1iv7sMG5IuuCLvsHYBONDiJronACO
+	 HgNFJJN6SfkvlCuAmRghC25C+rQ+PDTmU6CUXikqPuHEwTdofuO0hQKuryWRdWGpmlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=clIwSiY3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=diMBHzPq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264DE606A31D;
-	Wed, 21 Oct 2026 02:32:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA83606A319;
+	Wed, 21 Oct 2026 02:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=clIwSiY3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B1C1F000C9;
-	Wed, 21 Oct 2026 02:32:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=diMBHzPq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BDC51F000C9;
+	Wed, 21 Oct 2026 02:32:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792549940;
-	bh=nUXkImdoPBH85t2GfK//fEKYQ26SGF4cAAnRKZUyyDE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=clIwSiY3Bu0QALCTfAUPRQoVl6BKsSUAxriv1xAFkEAPO0jkukUunQA1l0Q+GtlPn
-	 aWhykxCWGlbeN/3KGxOiPIs89FNEbe1st4uEwcknoCUWUXt0IIwnJVyahnGqz0bkWl
-	 MVLYWs0gePU9VYDvJuLuz2ziEirLK6h4K/bsHoKy72ldkgZt0h9BQQ74GCmEGzvycs
-	 /uDh/TrgtlokSQ+Y4uszupT36XhU9/71xs+pyVkx7E73uhWHGivrocJ/I1gw/73LuT
-	 ad1GilIyAjMiFbecOUdWBz7m24xxh0zXdi3SrQO8T+EBIA1ZgsRoB+4VbWuiMKHUn7
-	 xyAvOdanGvnoQ==
-Date: Tue, 20 Oct 2026 19:32:19 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>, Chris Arges <carges@cloudflare.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Phil Sutter
- <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>, Eugenio =?UTF-8?B?UMOp?=
- =?UTF-8?B?cmV6?= <eperezma@redhat.com>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- virtualization@lists.linux.dev, Max Krasnyansky <maxk@qualcomm.com>, Rusty
- Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v3 0/8] more virtio-net csum hardening
-Message-ID: <20261020193219.342f3c75@kernel.org>
-In-Reply-To: <cover.1792411304.git.mst@redhat.com>
-References: <cover.1792411304.git.mst@redhat.com>
+	s=k20260515; t=1792549966;
+	bh=5BIOTNs2nezs/HO6l5CjGvSoFAHf9bcbJ2W8/ufQESo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=diMBHzPqA9Vic4uQ8X89NL3ds5Erirm7bqnEMM9F8MaK4G/aHh7ZF7+0MNhKPS5hx
+	 61KHv4SAHm5DleXqB3A5Pb5b97wVpin7wwzKB/IhRpj100ytyHJOHe6yljwTwRgIpU
+	 Bnfmb1fiu/qCs8yx7OaHzQNHZjvPuAJJoMCtLaTlUVeI1N9NAd+d9vb5i73u4H74ij
+	 /ptFC2xgm/gSE/LtGv++LlJCqefvj9tWCaNWD2JSVKLXXM5Pp2M4vzAeSKRSuf9jUv
+	 7O4SHv3g7ONDCg75OLq/XCrHshK6pcEzM8AXFmF+JjKvgMeYDNDiE6X/ISW+SykxO7
+	 NTNYOoWHNSn7A==
+Date: Tue, 20 Oct 2026 21:32:45 -0500
+From: Rob Herring <robh@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Val Packett <val@packett.cool>, Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, mfd@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
+Message-ID: <20261021023245.GA3650393-robh@kernel.org>
+References: <20261020173556.632798-1-l.scorcia@gmail.com>
+ <20261020173556.632798-2-l.scorcia@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,17 +72,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020173556.632798-2-l.scorcia@gmail.com>
 
-On Mon, 19 Oct 2026 08:03:00 -0400 Michael S. Tsirkin wrote:
-> Subject: [PATCH net v3 0/8] more virtio-net csum hardening
+On Tue, Oct 20, 2026 at 07:33:22PM +0200, Luca Leonardo Scorcia wrote:
+> Describe the MT6392 PMIC and its RTC and regulator devices. This device
+> is mostly based on MT6323 with some similarities to MT6397 and is usually
+> found on boards using the MT8516/MT8167 SoC.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../bindings/mfd/mediatek,mt6397.yaml         | 72 +++++++++++++++++++
+>  1 file changed, 72 insertions(+)
 
-FWIW patch 6
+You need to reorder your patches to avoid errors.
 
-net/core/dev.c:2396:1: warning: symbol 'virtio_net_hdr_csum_check_disabled_key' was not declared. Should it be static?
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> index 3cbc0dc12c31..06e93c545e3b 100644
+> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> @@ -39,6 +39,7 @@ properties:
+>            - mediatek,mt6328
+>            - mediatek,mt6358
+>            - mediatek,mt6359
+> +          - mediatek,mt6392
+>            - mediatek,mt6397
+>        - items:
+>            - enum:
+> @@ -72,6 +73,10 @@ properties:
+>                - mediatek,mt6331-rtc
+>                - mediatek,mt6358-rtc
+>                - mediatek,mt6397-rtc
+> +          - items:
+> +              - enum:
+> +                  - mediatek,mt6392-rtc
+> +              - const: mediatek,mt6323-rtc
+>            - items:
+>                - enum:
+>                    - mediatek,mt6359-rtc
+> @@ -99,6 +104,7 @@ properties:
+>                - mediatek,mt6331-regulator
+>                - mediatek,mt6358-regulator
+>                - mediatek,mt6359-regulator
+> +              - mediatek,mt6392-regulator
+>                - mediatek,mt6397-regulator
+>            - items:
+>                - enum:
+> @@ -663,3 +669,69 @@ examples:
+>              compatible = "mediatek,mt6397-rtc";
+>          };
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/input/input.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    pmic {
+> +        compatible = "mediatek,mt6392";
 
-patch 7
+Or drop the example. Is this one really different enough from the 
+existing example(s)?
 
-Warning: include/linux/ip.h:72 No description found for return value of 'ip4_parse'
-Warning: include/linux/ip.h:72 No description found for return value of 'ip4_parse'
+> +
+> +        interrupts-extended = <&pio 28 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <2>;
+> +
+> +        keys {
+> +          compatible = "mediatek,mt6392-keys";
+> +
+> +          key-power {
+> +            linux,keycodes = <KEY_POWER>;
+> +            wakeup-source;
+> +          };
+> +
+> +          key-home {
+> +            linux,keycodes = <KEY_HOME>;
+> +            wakeup-source;
+> +          };
+> +        };
+> +
+> +        pinctrl {
+> +          compatible = "mediatek,mt6392-pinctrl";
+> +
+> +          gpio-controller;
+> +          #gpio-cells = <2>;
+> +        };
+> +
+> +        regulators {
+> +          compatible = "mediatek,mt6392-regulator";
+> +
+> +          vproc {
+> +            regulator-allowed-modes = <0 1>;
+> +            regulator-initial-mode = <0>;
+> +            regulator-min-microvolt = < 700000>;
+> +            regulator-max-microvolt = <1350000>;
+> +            regulator-always-on;
+> +            regulator-boot-on;
+> +          };
+> +
+> +          // ...
+> +
+> +          vadc18 {
+> +            regulator-allowed-modes = <0 2>;
+> +            regulator-initial-mode = <0>;
+> +            regulator-min-microvolt = <1800000>;
+> +            regulator-max-microvolt = <1800000>;
+> +            regulator-boot-on;
+> +            regulator-always-on;
+> +          };
+> +
+> +          vefuse {
+> +            regulator-min-microvolt = <1800000>;
+> +            regulator-max-microvolt = <2000000>;
+> +          };
+> +        };
+> +
+> +        rtc {
+> +          compatible = "mediatek,mt6392-rtc", "mediatek,mt6323-rtc";
+> +        };
+> +    };
+> -- 
+> 2.43.0
+> 
