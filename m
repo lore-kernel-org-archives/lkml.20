@@ -1,93 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792604747;
-	b=ypYiVg9yUcuw2CR/nt5xP1LzR3RmesfRN+aYBBzOzF89JwicsF8/QNOFE/BzDCVKHERm
-	 JwRKHJPcnAVf1Rb8ibZe3rn5oiwDCDLMe/kjfvH0SG0HTdx49iLOxvYhNyMcayhDpcwqz
-	 3CDgzfgfGLF89IyrqcCN5/AMMtp3Hwn3IKJ0k+qGXhxa3lAbbWnuLqHTbzgvVrvxitZTx
-	 5NpTKsoM1d2PAe/7RWg7IAf5dgteAkyDVfCOHC+sln1ZSon/Y0UBz+jP/gfVRTJYEbZ0w
-	 7+TrHi+Y4EOFaxca36sWNuQR9suCwPP18/Opm0fUlklmUlYFAaBmkECI6H62bljy3nA==
+	t=1792604940;
+	b=FDhbwVr3K2My1a9FHIRazK67yXtHEmIzyZLgVA+CYhAmJeOmGGvjlsv5aznFUnMnwXpg
+	 qg9vu+Gw5IhZVckRjNQEDNmIghLYb6APiGXop87xHKODy2kXioM5v4rjioM9lgamZrYD3
+	 MLDikq9tzybpKUsVxQZQQSSq/7cqe3gI8RHwHzBSBEaVC0UJPJpST4m/LTbiTFEo1zfKc
+	 uh9ocM7MQEqjgwGJfEcJIEreaRcDJQMrS+N2o4yGqQh16gyS5BNDk5WmLuHBnrKpb0daK
+	 YGd1CC13QHj4dzG/4S93SSmvPU9taJ4LBl+NrAFs4kuD/aOwnndjnAUBhO5prUFWkng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792604747;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qMSnAmvn+xg6zpwC7JmIegT9TgfMe039TBaNzlGjfQg=;
-	b=eOiZB2qaoP8JcUGkwgejwQpzTuwIp2sRix9OGoI0fGZam4IIgTk0ARHtklQVdvSHpEli
-	 JYx2TAy5Y81iKu3enuFKcdAWAqH/1pi9svMZnLZtJBslbywhY+0wls5HyzCW0eS5V+bUy
-	 HAZIxDZHmUbkD1dV/GZ1/WS03ASFd8z98SgJhlnRA8lMyHBq6dJInMtK5NwuO9JNbQpp8
-	 jqY5NII6NpjAhGQpOjNv5OWaHnq1orobCuKhr0nOFP/qsFM0I5+fCwbe+ZHItoJ9ETHOI
-	 /YaX2qGLwvrZjnv6r3tQrjhdIARFXKB+3JomSLNYzlTmEVvMhf7BVTuRrXWtm/JnzKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792604940;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=u21UTFmux6GWpsHxQyjMm4C7qQp2KgUxiXBHFByAtzM=;
+	b=NML1v3x9GqaW3Q6wHyUXtCMgM7UO2XE93b+OkEyZOt6jOtw4Y203vWPK5cfdKzl1n/tb
+	 DASu5zRsUhasBGxdW5gw8ZEEwkXuoOznfhvgK3QJVXvznnPUZbqTxKiTXGnMn7E7XSWPB
+	 jeuGuOWsO1QR4jsshvl/hY5KiWVw3XyfQk1SXx4mGfl/ccg+KhXc8+qEkqmMbkbFm3x19
+	 yWhDzKrJSBKBpJnh4FLhXan699jvi5/WJmOBcgEpK7sFLc4CZLFlrNO9Gldi5SSnx6nGK
+	 LaXHVIaMk7kR0uOFbtWebx8Ak7dUs9/JMU0q5kFedqCd+Lp6TRUQb3/JFMvGOLxJR9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=E4K0X3i8;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8620606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:45:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8620606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jLO2LuVO;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDEC9606A319;
+	Wed, 21 Oct 2026 17:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEC9606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=E4K0X3i8
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8ab38a051aaso10193807b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:45:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792604746; x=1793209546; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qMSnAmvn+xg6zpwC7JmIegT9TgfMe039TBaNzlGjfQg=;
-        b=E4K0X3i8r+6CaMc7vAJpCu7jS+wDCnhpEaPPLdQvVZCLJD37G+UJgN38uvC4T8dzwr
-         NOfzj9+2eIomAlkoy02RfEzQG6qRQAhSVRjTdMvDG+rn1IW9pThm8Zqz/2dKsf1gIsmk
-         ZRTF66Ylj9OO0YQxDgt2uNJCVrMbUuVzKZy3NrjoQwf31cJ8d5szD90Rm+QWb7Rb+DYs
-         bRUTIH8nvFu/pqvIKTJhTz9gkdpR7+EpTOWmaB4k8JGZHf5tsS4ZbU8ueDmBuLQzm0z7
-         rVsGvLeT1cvTkdC41gXIHWzZ1zH8Mwtu1NverGxQJ1vrt7j2o3kdnqX/BhGPFAVSol9Z
-         wRxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792604746; x=1793209546;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qMSnAmvn+xg6zpwC7JmIegT9TgfMe039TBaNzlGjfQg=;
-        b=Guy2FwHfDSwKcDVnTsYh4YbRRISdLrAu3NY7mMUrGdHyJ6IIuw6ZQqwd4LwU0ZolSK
-         uN1w50xRKjcXKmzzQxh/pDd/qyRxS8KvhjkvcpRlDZYFSCxGhHCIIFxKr7kxfHVnWq8H
-         LVwXhCv4+3fzgzBrnC2YV4D6v/kTB6r0ZPMIuk1BJKBwaokxmAP1eAxVXfS8Wt/I2Go+
-         p8/Y/YKcXfz9YpJaSkoNUGQxrAxvSUdkQHVgabTmUxU6BQcMeM2gktUFBeLxT0cYFbyr
-         P4Yp2ZG0yh0tAcbx49e7zgd4JWKhrdk7nFsaHzeeZu3yiojZHdB6DcBcY0DScZqks4F9
-         W+Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzw7plZ0ViZUZVmyD6ETN0XF3vuYmcrPbQpZSzAIXipf9ggmtuqQ0DujnVhbQAHOBLz6IWZwzekTVaLSKw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLglPGeSFgLPQDyt8gfBSsBAcr1R9w/a/VU5plzm5rwGmAg08BE
-	JVm6gSizrShaWAZiYhkyC62zxDx6YokP4CBGqnkzttx+rZsp3Lr/akYiX8ejW8jn3Q==
-X-Gm-Gg: AYBFou1KC+PMUcbskMrZfbtzkCg1VESiGgyUg53iqnSLDnCoxXcWNkcFohD/k0VgAIA
-	FGpt8L3fOExWKbvbtxFI17I6zMiFqbWyiQrjkkQwOPstrfov55IqyTTXs8EtuVOuMvcUzaymHJg
-	+wMi0K5+RtwejlVYfoCQEZTqAkNqXH5q5co4Cyg0SMJaqxES6kRqEvr5R/Wmh6HGd5IuaYWu6wS
-	BC/L2rjh7Ib3duBE2jEDCK3rLVAeZdE7dq2NEj+LRspS50NLbtKLJLtjD8eoWIQ0eigJ5pqy0a4
-	GLtYZPPv6R1VCq3YHJrSJUB9gpkihYqX8SA45suMZNuZCimpnFuWIQQdi1jRtpP/qCt7qiygD0+
-	RdTz6B9VitJpxbPsPkCbVUaU0wSqE0keBDgYrP7I3LkZOXFx/g13s54AFDQPp5E/Uok87CPki2Q
-	QIkifAK5ye/aS8tHDM1ovIsOiWjm+MDrTMRhVw6LkkbjdsG/vE9Ke4wN2TE0l2HOtipvoFgLoAl
-	vueHSQHQoqTS7v8cdEfWEWRD0V8gmyI3i03eqDp1B2qLo8Ib8q4y/c4RIhfmTrd0/t6Au4aeuVp
-	Qbk=
-X-Received: by 2002:a05:690c:e251:20b0:8b1:901:b9ee with SMTP id 00721157ae682-8b133e48cc2mr11819357b3.13.1792604745668;
-        Wed, 21 Oct 2026 10:45:45 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300f3cfesm14789647b3.27.2026.10.21.10.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:45:45 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: slava@dubeyko.com
-Cc: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] hfsplus: preserve FinderInfo when listing extended attributes
-Date: Wed, 21 Oct 2026 13:45:34 -0400
-Message-ID: <20261021174534.482192-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jLO2LuVO
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 55CF516F8;
+	Wed, 21 Oct 2026 10:48:54 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 356E33F7B4;
+	Wed, 21 Oct 2026 10:48:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792604937; bh=bEa9giIeZfDBMDwMUgTW8YTFn1UnEm9XoYsTu1CX0h8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jLO2LuVONwtdmLRHFnELMpS1lxH3gZTntDBxAbGW9KjLlWgiBvkDKAp5Nw1YJcZxO
+	 lipPGRVxkc03dKFZUrIiHwM2M4wUyIatvCJAj5t3jkuQCxVl/GRwS4d4Pc/G49ZX0C
+	 argPPnBs8MRvzm4HMuckndnnPQaxYrK4eORDIYaI=
+Date: Wed, 21 Oct 2026 18:48:51 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev, will@kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
+Message-ID: <atj7A1CV4paW3htS@arm.com>
+References: <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+ <araketG70TIKeNuf@arm.com>
+ <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
+ <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
+ <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
+ <arqrZ_Auk9BYOopa@arm.com>
+ <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com>
+ <arudWVBPXcnUvYNh@arm.com>
+ <5d487949-9195-442f-97af-acb9e3fdfb0d@arm.com>
+ <86ld7ryvm8.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,72 +76,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86ld7ryvm8.wl-maz@kernel.org>
 
-Commit aef507847129 ("hfsplus: fix generic/062 xfstests failure") made
-hfsplus_listxattr() return zero when the inode has no records in the
-attributes B-tree.
+On Wed, Oct 21, 2026 at 03:30:07PM +0100, Marc Zyngier wrote:
+> On Wed, 21 Oct 2026 10:58:13 +0100,
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> > 
+> > On 29/09/2026 12:15, Catalin Marinas wrote:
+> > > On Mon, Sep 28, 2026 at 07:28:20PM +0100, Suzuki K Poulose wrote:
+> > >> On 28/09/2026 19:01, Catalin Marinas wrote:
+> > >>> possible, to defer the RMM activation until the first user (still do the
+> > >>> RMI probing as an initcall). If we run on RME-capable hardware and
+> > >>> firmware but don't care about realms or TSM, we still get the normal OS
+> > >>> functionality.
+> > >> 
+> > >> Would you prefer this in the first drop of the RMM ? Or is this
+> > >> something we could add as a separate series ?
+> > > 
+> > > I think we could add the deferring as a separate patch, maybe together
+> > > with the KVM bits. An advantage of keeping it here if we merge this
+> > > first is that we still exercise the activation path without full realm
+> > > support or TSM. Otherwise a lot of this would be dead code until the
+> > > other series arrive. Either way, do it as as separate patch on top of
+> > > this series.
+> > > 
+> > 
+> > I have been looking at the "on-demand" activation support and came
+> > across the following design decision.
+> > 
+> > * We have KVM_CAP_ARM_RME which advertises that KVM can create Realm VMs
+> >   to the userspace. A VMM could check this before it creates a Realm VM
+> >   using KVM_CREATE_VM with type=RealmVM.
+> > 
+> > 
+> > Now, we could delay the RMM activation as late as the KVM_CREATE_VM and
+> > kick it off while we initialise the kvm as part of kvm_arch_init_vm().
+> > But if that fails, we would fail the KVM_CREATE_VM.
+> > 
+> > The question is, what should KVM_CAP_ARM_RME indicate ?  We could
+> > initially enable the cap based on the presence of RMM (but not
+> > activated). However, should we turn the KVM_CAP_ARM_RME=off when we
+> > fail to activate the RMM ? Is that senisble ? (i.e., runtime
+> > disabling a cap).
+> 
+> I think this sets a bad precedent. If activation can fail, KVM end-up
+> not delivering on the promise that it makes, and that's not great.
+> 
+> My take is that the least surprising behaviour is best. If you have
+> bought into the CCA kool-aid by enabling it on the kernel command
+> line, that's not by accident. You expect your VMs to reliably be
+> created when KVM tells you that CCA is available.
+> 
+> So KVM_CAP_ARM_RME should indicate whether the RMM has been
+> successfully activated, and nothing else.
 
-However, osx.com.apple.FinderInfo is stored in the catalog record, and
-hfsplus_listxattr() has already added it to the result at that point.
-Setting the result to zero drops it. As of now, a file whose only
-extended attribute is FinderInfo gets an empty list on a volume with
-an attributes B-tree, which mkfs.hfsplus creates by default. getxattr()
-still returns the value.
+Tying activation to kvm-arm.mode=rmm works for me, roughly similar to
+kvm-arm.mode=protected. It's still an eager activation (just
+conditional) and KVM_CAP_ARM_RME then only reports whether activation
+succeeded. We lose kexec/hibernation but that's fine, it was explicitly
+requested on the command line.
 
-The issue can be reproduced with:
+There's also the case of a host-only PCIe TSM (without realms). IIUC
+(grep'ing FIRME spec) on an RME system IDE key programming goes via the
+RMM, so this would need the RMM activated even without KVM. Not sure it
+makes sense without realms, so I think we can ignore it until there's a
+concrete use case (and add one more hook to activate the RMM).
 
-    truncate -s 64M hfs.img
-    mkfs.hfsplus hfs.img
-    mount -o loop hfs.img /mnt
-    touch /mnt/file
-    v=0x54455854$(printf %056d 0)
-    setfattr -n osx.com.apple.FinderInfo -v $v /mnt/file
-    getfattr -m - /mnt/file
-
-Without this patch, getfattr prints nothing. With this patch, it lists
-the FinderInfo entry.
-
-This patch keeps the result of hfsplus_listxattr_finder_info() when no
-attributes B-tree records are found, as is already done when the
-volume has no attributes B-tree. A file without extended attributes
-still gets an empty list.
-
-Fixes: aef507847129 ("hfsplus: fix generic/062 xfstests failure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Tested in KVM with KASAN on a804c5742bff, without and with this patch:
-- The commands above, and a C test of listxattr() sizes and buffer
-  lengths: a file with only FinderInfo gives 0 without the patch and
-  25 with it; a file without extended attributes gives 0 on both.
-- generic/062: 10/10 passed on both kernels.
-- Full fstests (805 generic tests): 186 passed, 11 failed and 608 not
-  run on both kernels, with the same failing tests. fsck.hfsplus -fn
-  reported no new errors.
-
-With this patch, getfattr above prints "osx.com.apple.FinderInf". The
-last character is lost by a separate bug in copy_name(), which Maurycy
-Pawlowski-Wieronski's patch fixes:
-https://lore.kernel.org/all/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com/
-
- fs/hfsplus/xattr.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 71364e093fa7..c74c81966f12 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -838,7 +838,6 @@ ssize_t hfsplus_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	err = hfsplus_find_attr(inode->i_sb, inode->i_ino, NULL, &fd);
- 	if (err) {
- 		if (err == -ENOENT || err == -ENODATA) {
--			res = 0;
- 			goto end_listxattr;
- 		} else {
- 			res = err;
-
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 -- 
-2.53.0
-
+Catalin
