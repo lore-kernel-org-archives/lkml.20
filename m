@@ -1,80 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577287;
-	b=KJf7puWd0MAWUVHFskxDIT6geyGqB2tUtEj1sIayy4HrcGHxe1fo++902G4V3RqzYHG7
-	 7nl8V6QqDHRIiwtT1OpS67+hNldrkyHZ8UpqA7+4jvCQIfrm3DQjZbMj9WdcdxP/zgf1P
-	 xz8NGuFt9qma7tqMZ/810T+zCdN5Dytr+eikuVZPDwwwITpyncWNNBFygDRCirui/Dy2Q
-	 oBibkXIP90PCvlix6JafIzNr17CjrguheugG2uWD37Uk0Gz/BwTUTbSKcqNFmbHRTLzSc
-	 Q5l3tD/8kTMcqLoURqGU4mT2BLYYhbKfJgggK9E7IOpCOZslWHLDSUpM8uT6bh2FFPA==
+	t=1792577370;
+	b=DEix6at/BgFfW0kGYD7LFXuEZkJhsaVUkty9uHyme/jG3SUohZZB8//MSJEzH7XVM9+Q
+	 zhVW608JSs43FFKjQmfhOkw1T3AHtJNAVBZK23b3q9LQy6M0EYKV4jGOOp91AUnO81RHd
+	 lVHHHB8gCQ3Spvl9SjFYowgmc4FHZVUlIsHx+jS5mD0QER1C55IE2vUALIJIsqUUuwhEJ
+	 plqH8ODFddLExUNTuT8upUPIG0PIHRWrD19uEsQW26I7tS9WWsNPLatovoPE2GtjzI88s
+	 PCdJUFfg+3UulWf5gpC/WPmNAuelnNw7yxGry5oGDYa15gTGlSavey4O55qAoZTpttw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577287;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis;
-	bh=i5uNBN+MRyPLdo9zowEj4PF3R/r1IegXfv1EcVCX6JI=;
-	b=0riWtxDyoontFgDfP5OFRd37bHu8AJEVXasPhw+qg56ZeygIK7dRfDPeiPF2lbP27kBC
-	 w/dVndarrxjTy5pNQE+A3H5rabdGAVJVqyX+M96DoASfkMdgBU/1BUF9wHa3Dt+AFLE2D
-	 N7FJZRUxjLW3tmu3XF5g9yAfmelLpyOzyh5xcACn7Ev2KNt7n1wgnaLUxjcDKHrBkwwyy
-	 CH0oORi8rB+jRjEtqSevDCTg1ddMq0ZmuVqKECXCu73Liz16Q90Ek/kWto2vSwZxfViQE
-	 tQuaZutAfZari0cu1KbWLMOKIvKAbpL34/IsKayRYI6J9VHqV+eHQsbNlfjQ4Jm2oMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577370;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MomDzf9ezklTAjydgdZgOF6GCoe+fxI6qshI3Sn+i8k=;
+	b=FROCoGPXYbjRUWpY+NRO1wwPQfRAb1rLGK9Lx+/SqUjVuoLfY2DHDavJMeYZHwJjo8Lu
+	 LJlSumB22p+W81MgRY5itM6/iMwdj8D5oXv53gMq2xzMMM+BXR5RLiCM3UQ8c+6KKNXAu
+	 z+H/jvaYN9gTiHhlpe3TFA6q3tBLmanqzXrs7615dAAEqyOPL3lsmEmFOG70vt+k1E0P6
+	 7aVxK3X8nk4S2aOIUidr3haYKwtSPgfM8uHey24D727lWRfrWSX9SNBUDSUCEE6rI55F9
+	 z74T/HGLWF24zQ69JDwbeN1VDpx9RzfeTsyHMdBXw8T5+dAfRa/foGd4HHiYtDsvOfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Dv10+qBk;
-	arc=none smtp.remote-ip=185.132.180.163
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJJ16uNU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF68606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADF68606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E562606A31B;
+	Wed, 21 Oct 2026 10:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Dv10+qBk
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA6BDs2673753;
-	Wed, 21 Oct 2026 11:07:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=i
-	5uNBN+MRyPLdo9zowEj4PF3R/r1IegXfv1EcVCX6JI=; b=Dv10+qBkmVlqj9Gfa
-	DbbXkGnO8noEVjzkzmQ+VTdS9ImdIxrZymlyMsbPaSiN4lQest8xGTR+5u7mhqdT
-	2c+uOKbttFOpj5r2aHjVWnkHSwO5oigDCzvdXAPZuSadcOnVTx0/9DA7deWTCD3r
-	m/e7RbFh4kHGOJin8UtCWeDjTggyjgeZ7AMZSvzfJul5X+qXKsrBna0ClhF5AGYm
-	RbktW74f7Lpch2XU2NbOh+V7fXMsmYsbQbdVhMznnp4j/FGxuFgrL9LpZX3csYHF
-	jbLr7to3DqW8C7jFNO1ARC4KRwuRiA8hJVFaO0bLqo1pO/rZYqpOszzCs5Q1461F
-	S1jAQ==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hdvkahcfh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 21 Oct 2026 11:07:50 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 21 Oct
- 2026 11:07:47 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>
-In-Reply-To: <20261006-b4-check-virtual-addr-space-size-once-v1-1-677687e661d1@imgtec.com>
-References: <20261006-b4-check-virtual-addr-space-size-once-v1-1-677687e661d1@imgtec.com>
-Subject: Re: [PATCH] drm/imagination: Check virtual address space size only
- once
-Message-ID: <179257726720.217387.2226239851508710521.b4-ty@imgtec.com>
-Date: Wed, 21 Oct 2026 15:37:47 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJJ16uNU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041EB1F000CC;
+	Wed, 21 Oct 2026 10:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792577370;
+	bh=MomDzf9ezklTAjydgdZgOF6GCoe+fxI6qshI3Sn+i8k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AJJ16uNUIz51qa8990y8k2ylKV9i5N/ru1SxeChWYPDSl5EVlo2EbJDwxwdMyfIVz
+	 UTYYO+Rdl/21SI2Jsrcxb55jMvXwddYuLj10OSR7ve9HBQC+c6Nlq1zGHbBUgq8QJ/
+	 GXXNL11qRUwjTZbv3OckWlfUVvxnpvUhOEcsdz2v5hTe4UsfiqjXlIsJwKk0EdJC0l
+	 iECrKy5O3A13UQML6HLHo889otR5nj555AFiT6aFs8+TNttFWEXa+vuO2Tk5hGInQs
+	 oOuOFbXAwMGe0dMootsHB/ut7x0tbZJJOnZUL3AetUoXPLoCoqSYv4gmCAgaoSTV2m
+	 os0OVijAQjOpg==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 457E91980047;
+	Wed, 21 Oct 2026 06:09:25 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 21 Oct 2026 06:09:27 -0400
+X-ME-Sender: <xms:VI_YaghKAelp6C7x_UXpmnjm3YOvfwdKly3BSoKqRZ93n-FqQr6h8g>
+    <xme:VI_Yah0lg-SqfdPcMkM-dhqG-_IFhCC5ahg7RDdUIT3Asg5QC-EEqFY3ZrhShbTMh
+    -QIJmMtrlcLplA_X7WdDG3k9CVY5lL33YVZSQitLPouckYm2AA0yv2a>
+X-ME-Received: <xmr:VI_YavCVv33WjaojE5Of6tD-4fnnLinXLLAkpXlMA_IcpYu5aAMiGWaqfMI>
+X-ME-Proxy-Cause: dmFkZTFrWX9EKJlX/03kbzxt6ZTUfd0vFLBMSOeQ5q+rRZitrelbc4Zd+yLxR2dPEkZiXA
+    j4PF/cOMfxQ1CCz5rP4XxVYLzqoaq3b48MtdFRz6HVZtuE7fbmirp4a4LppcC0uJR7RBS0
+    evjYeDM1NQsmuXmlJgBWK5BYmxDgc7/T73/LeX2/QaI6XlFfp+VmpFT/Y+4OiVrMiaiFMT
+    cPZFsVM6DyLzuzitl0KuLmmeYy5CLgV37qmMXEoDUsMbathTjRK34ORJ3IwpNwrpwjSbbW
+    5DqZxyPbUbnNpIHBbyK33qtZQPagHPeuQuxL3tghFeA4xNW067Dp5rBj+G/ZMqGZAyN6sr
+    J8GxODShaeqI26vxsOXEACx9BadlPzK7fIVAObXm/DLO4hDugcBSq8EQsrUTFmfu3d8R2m
+    QdD2jKfZTJR4Ig6RIlzI2FpXeA+7YnxhJYXzWGIW+iL3ufKeAWp5j5ftZnzo+w8YpL93yc
+    Np+cXCR4T53mGTp21QecDDyVh62JNOde05ym84mUltA0NZc9J/9VIzLEHGMqa4kGWaNPHS
+    f4j/QOAkMjdyT3f0QF+bgQGKiI6prI2mqRjvuGTMYlZNnjQGIN7xzJsp7vxfjX1Xoo/s8V
+    PkyoxYeVkImJ7m4wL+GpV4NRaI6QgTEuGTtyflOEcAzGb5wrx3tohMwRdXnA
+X-ME-Proxy: <xmx:VI_Yaq2s-86Jp27jtg6KA6ztz3bIyyujIwWlDTFn79Fpvp9GxFFZsg>
+    <xmx:VI_YamrrldCSwESSfTCihyVu8KzugFFGI7X0tXdcy7mGTW34A6-twA>
+    <xmx:VI_YauVam1C0xDQu5_4jtKwJNoHXvUn7IIOU78hik9QT0qRigpETxg>
+    <xmx:VI_YaqiyTEYzR7OgsKV90UwxNGwwWXmgEzwt73YybkelrWAVPE0H9A>
+    <xmx:VI_Yat8fDEqIu_n0Ck9dLUzsiwKBP5JkIVI83cId-32f6UFAFYZJtp_w>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 06:09:24 -0400 (EDT)
+Date: Wed, 21 Oct 2026 11:09:23 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com, 
+	x86@kernel.org, adrian.hunter@intel.com, yan.y.zhao@intel.com, 
+	binbin.wu@intel.com, xiaoyao.li@intel.com, chao.gao@intel.com, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, nik.borisov@suse.com, 
+	yilun.xu@linux.intel.com, tony.lindgren@linux.intel.com
+Subject: Re: [PATCH v2 0/2] Drop unneeded cache flushing
+Message-ID: <atiPBtAVRC9hHXFm@thinkstation>
+References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,51 +88,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
-X-Proofpoint-GUID: Ns-ol1rxYiO7LbTLppQnEtUZZho5AaM1
-X-Proofpoint-ORIG-GUID: Ns-ol1rxYiO7LbTLppQnEtUZZho5AaM1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX+S7EoxalJ4vZ
- iO2WAd8mS/2NQvp1EdNtkSIeDWC62iaxBcpM7dS39GIXLoRDLllzA8tKB0gzjt0rriAK98JaKWo
- qtJ7crx++WiLUSC4WG7YRzc21RI0cXjPJrZ8QwnOsvOw6+MTvh3wcsSBIEC2OGh13105XjGqgfP
- bt5ZYL4i7Cbj4R9W3v+KemXqt9k5gI4Fhi0IQev2UFN8c01Q1GjS2QjjLgjRMX1Aofr/m5oESwX
- dVUiLVx0L3MFjGcEloeC8jKLmf+LVHtr2DF+GazQbeZYfG1SzjLJ7fD6gmNTQn+gX8iVcl+b20x
- UNo7R+hXNrFvuan5hCRnHJBLsJ/HEJYMcv6f2OTqigQ8NjEQcX+VpqN/ZIbvva2y3Ryjo4se8LX
- tLHKS/z3JvGCGR5oukhMrDDyfVdGsLYav57LTYtycN1tHpritzryf7GEuNH7PGK/Q3pVxWyv8jO
- FygRgcfD9WGa/XSIjRQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX8jlBpKi5gYWQ
- /0/Vp3kbu2hdcPhil/ehX6wVOsHokGHw9wAMi1N9wwyk+vkEyCT3TyIj2y/4AvQ+YT944FzqsXi
- XGVkY0mMRFQhoeINWSmGKcegCBGvoLY=
-X-Authority-Analysis: v=2.4 cv=eO+GH3p1 c=1 sm=1 tr=0 ts=6ad88ef6 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=V6QY0zI6KbwSomB2j5UA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
 
-On Tue, 06 Oct 2026 11:08:06 +0300, Alexandru Dadu wrote:
-> Every time a virtual memory context is created, the driver reads the
-> size of the virtual address space, as reported by the firmware binary,
-> and compares it against a define for the same, but both values are fixed
-> on a given core, and on top of that, all known Imagination GPU cores use
-> the same 40-bit virtual address space.
-> 
-> Move the check above to a new function for GPU device info validation
-> code, so it's performed only once.
-> This also allows other areas of the driver to reference the relevant
-> defines without having to perform other checks at runtime, as long as
-> all cores keep using the same virtual address space.
-> 
-> [...]
+On Thu, Oct 15, 2026 at 12:17:08PM -0700, Rick Edgecombe wrote:
+> Yilun's comment about cleaning up the TDR reclaim after the changes in 
+> patch 2 was a bit bigger that I expected. I really debated whether to 
+> split that out. But it wasn't very feasible to do it as a prep patch, so I 
+> left it as one big bigger. Really debated doing that, or an follow up 
+> cleanup patch. Opinions requested.
 
-Applied to drm-misc-next, thanks!
+I am fine with one patch.
 
-[1/1] drm/imagination: Check virtual address space size only once
-      commit: b3de601e57d983e4a42e27d499516041c11c2bde
+For the series:
 
-Best regards,
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
 -- 
-Brajesh Gupta <brajesh.gupta@imgtec.com>
-
-
+  Kiryl Shutsemau / Kirill A. Shutemov
