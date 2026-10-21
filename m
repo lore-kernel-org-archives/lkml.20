@@ -1,78 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563071;
-	b=fJd3NAHSK9IwlZ7Ws2HjmIq4RBn+Pq8dl+qjgjhvgzyPJ4C/xSNsWM49jrbIQw0iprYd
-	 vn7zJ7L6a+Eyj9PInTJDsz1dNaJcahnCcZjRFFUrSTPVEwsF7U3zZxo6FKqzrf96GFI6B
-	 Jw5cvezAu2htzXUcEIouwXL1KTOLt3K3IuthPb2AtMVEMWapjnXq0OcGfoxtqrCfuBD/0
-	 p7bARO9ON/Qb5hAWgZ7a457qcn0bFa6vPvYrNCOZSA294VVYQMOxO5k844ofpWNrCkn0m
-	 859oSDfvpKJwJIpmvJ6X2HuwbU1X4T3gctcWctXDyZpFMGCmFPvSgCDF1KXA+iHnGMQ==
+	t=1792563121;
+	b=PpDmG+hiFfM5WGn0zTFf0vEdu5c7St6IKqY27IgVV2b+MIR3FTMx6ymH1vKYDzOHWA8/
+	 MTRbef8pdqWX1DSoEk+t2rk8RzPTvVyw7TOI2HFNGWocq4iN3jgS5yjTG152bvLFxlP8N
+	 YX9YrCoPxYrUHFouLncD9wo/+6IGs/Qn5tEctoa86yc7x+c+/5uzTM8yQT9WJYJa66hVP
+	 hj5Pr8bfdX3gs7KY52IJegTnTs856GKnbnW0y4zJbNFqpcJ8LvkEGDuVE07+ZVu0XMKr0
+	 3vdGTa0EVDOvMqxLaIJGoJLOh8GHoRPJUYPzvaCQPJLWsUenqv9qnCCD1lSZ39dGqMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563071;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RoigheuXlEgEVVeOm0wqZxiwY5/DXHnZexKpxuh+vtk=;
-	b=CuYFzUNkez+uJK+KgvKd3XgUvVsdvFQXKZSHO8KDFHtAbqkVXKvrmhNC5QQ37LU1IWtc
-	 H+6/4TGzgi9G9WU+YHFtyZaawwgB0LlzY+q1qX1XZkEgKEk+cUhWx8it9gJXRsSAv06Nj
-	 z5CFU2ppC1LMgDAhrBQB3Ayv8GQSiDEIvqTRqa++4EgzR+CWraSHUoona8ulUdi90LHcs
-	 RAYnvRQtmUTqoHtezeDkEUeqS5GVFg5rKs/1qdamc7l0vpf7qnIiiolS5fVMftSP6cNSr
-	 3fIzEXRQOh7vE7fm4Ue4kRC3upyJNS/72rsR3aW6rPabEtQbSaU2MEY7nqT0iKSkQ2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563121;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=eO8b1OM4JwaIVPv9BJ3tr+Qzy2nu/LZKTjlzlZsLRBQ=;
+	b=s3P41+0PIljtzrOCYTRAQQ0nmZNKtSIwDItFE7/a0ECOmkDWxXOx3izDtRmLyOwywtFg
+	 860Wyqf3u44UbFTry0qPUMAtLq5LA/4ewSAA7Z/qz70OEJJxFRVIct4g7dhrsBBAp3TDy
+	 ay+1f1dIGRHEu6D4LrhuQYRPkMZ2HcuD3QAGHLmrgYaAQjTZ5Gk9+WxJcCGy1bh8MVgsR
+	 hJgRzAt9escVW8/ratrJ8Vk5UX0U1OZ1/Wl8qdje6Y1Zqx+gze4Jk7Z3FcV9jyCjaDl+g
+	 70MDfbv0+3DgaLVJJ3sHhgk2Wi8p5nYYqgsH+5DAT4fu7qeX3dfer+YiQNCLktbcpTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="KyAaAhH/";
-	arc=none smtp.remote-ip=91.218.175.214
-Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QQIj+pLb;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=S57lne5n;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C4606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:11:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E6C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07B5606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E07B5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KyAaAhH/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RoigheuXlEgEVVeOm0wqZxiwY5/DXHnZexKpxuh+vtk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792563069; v=1; x=1793167869;
- b=KyAaAhH/eYfv2EtlnJFOXQeqVG+6ADHWw8k6iQd17UIBgcsZIaW1WIf+o+/Q81kvO7aqjckN
- k9gsBbyAi4mn1MRj7Lgh/OA4smyfnFbNsOgKeACNDfbNnJViy7hw/dO6dgnysEK4hYW6c25EUpP
- Ur5IANeC4CF42e1c02Tz/W/U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 73700c2a578380af;
-	Wed, 21 Oct 2026 06:11:08 +0000
-X-Mizu-Trace-ID: 73700c2a578380af
-X-Migadu-Flow: FLOW_OUT
-From: George Guo <dongtai.guo@linux.dev>
-To: pratyush@kernel.org
-Cc: rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	chenhuacai@kernel.org,
-	ardb@kernel.org,
-	shuah@kernel.org,
-	ilias.apalodimas@linaro.org,
-	akpm@linux-foundation.org,
-	baoquan.he@linux.dev,
-	ruirui.yang@linux.dev,
-	guodongtai@kylinos.cn,
-	kernel@xen0n.name,
-	graf@amazon.com,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [PATCH v5 2/5] liveupdate: synchronize EFI KHO channel at execution
-Date: Wed, 21 Oct 2026 14:11:05 +0800
-Message-ID: <20261021061105.3697-1-dongtai.guo@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2vxz1pal5u64.fsf@kernel.org>
-References: <2vxz1pal5u64.fsf@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QQIj+pLb;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=S57lne5n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792563120;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eO8b1OM4JwaIVPv9BJ3tr+Qzy2nu/LZKTjlzlZsLRBQ=;
+	b=QQIj+pLbqJHiIRR3oSpmi+whjZXL0Odb8AJBIKFqnVhYtrgtc4Bkr8FhkdhRSCfYuhyem6
+	rsWNYFcyYtrZVwBOEZve+pEJ/OPyIDa7qeyuzjscAAz0bCMru4xds/gkckga0AKrmLPOIR
+	IbTZWPvdoclDu0XM2mMMA83XOPodQqc=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-373-y8cSiX9jNdqSqOpvv43aew-1; Wed, 21 Oct 2026 06:11:58 +0000
+X-MC-Unique: y8cSiX9jNdqSqOpvv43aew-1
+X-Mimecast-MFC-AGG-ID: y8cSiX9jNdqSqOpvv43aew_1792563117
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e1ad3cb66so148235f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:11:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792563117; x=1793167917; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eO8b1OM4JwaIVPv9BJ3tr+Qzy2nu/LZKTjlzlZsLRBQ=;
+        b=S57lne5nvzM5nDmguHNi6OKriYsLpNKrZDE+uumBTzEfmk2Mt9wBCF55yXhlIfv1bI
+         iF0o+Zwpc+KdcPiJnTuMV6DjDzx3A27Bn4uDpFhyni+PbOPl3OUQBoMK3aT1xJgmL+iS
+         j2hatLvoKPq70Gy8zj+u/p8J/35YZTTGpNZbqpKEY8KQx3bZIGy7rPNMWT15zTLtmrH3
+         CEQNdA+DonmZ8MBDAjN0TLbyj1KFlxT+jC/1taqItmkDrYAGeqwfeexJj0FnV+QkyHPq
+         JqqGtP1vk4C21o1ckyRHi6PwJdM8D014GDuvxLwOEWl+Sdjy2DyOp10oZxbm8enTTbws
+         UxCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792563117; x=1793167917;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eO8b1OM4JwaIVPv9BJ3tr+Qzy2nu/LZKTjlzlZsLRBQ=;
+        b=WK6Gjc5BfegcvTxU1T+O5wefHVCDwqYD5nnu44sxSExOi45EelGsP7k2Y+I/KnpCiL
+         rQrGQkSMqf19NZMXT4yuFi/Mg6A5jkMMicxCdiaA30HmWUm5r5PdZL/XzeYe7/T/mORS
+         nYtq/ytoI0I0bfGckXG7UsNz8j2Pk867+LGD2WfPUodVACZolSVmkbVIGgFO+O7z7csN
+         zLdJ16g+srmqn6TROKMzjp8Aj9v/TDRUAvhj8UPpOiwQwJtsZAOPcKeS214Cqk5fSyxQ
+         E3Z2ke6rCUm4/3oUnIjACOOLr002d4FfDSPGFm/fXSeUsza+qyLK4xYoxYIYOxQi7rOF
+         8Dwg==
+X-Gm-Message-State: AFq9FYJMrUuQQ0VzEZTs+zxG1NucADqGv3QTVcr95vBaCJeZn1tIqB/O
+	9n0dLkiiGSVX6P+UDc0zBZ93yvrt4ci4g1hqS0NE7nNWhtDqzKb2wH1aVOrqSwY9b+O4BDvznJQ
+	xygHB7SZByTyhj4AToswnh3E4ChzKWu1SDpLjpY+m8iBYHrq5NOqwNBOYdGAGCgxeDvD3GhUI8w
+	==
+X-Gm-Gg: AYBFou16jBEini0+KT7uQyM1DR3pZIa1KOCXh802g6rDIpcaA70BuvUZEbveuxzoXLK
+	aSdpNWZzoc7VwiOax0FYJvdOTIJEqnt3TewLlC9zzkCpC+M5fsrjltgymFO4JLtRl782C5acvei
+	ZOjpzdTMQ5ZwCuUghir/3D8GpQKLX+XTj3sDdOIl4+Hyp3PmlzyMkMMk7zAFcK6YIStj1uB2eid
+	8IfRDUuvgmb4n+f0cOWYg3w8BA8W4cP1aNKOLCgyYhfb3wnPvlJDY2wPj4K3aWE9prb7En6uK3+
+	23CJTfUdqC7eYA28NPDtdMktfZgd00So/nClXTuJxuIjMM5/l1UyrKgtJGlzMJcvbv110Q==
+X-Received: by 2002:a05:6000:4a10:b0:48e:e28:ada8 with SMTP id ffacd0b85a97d-48e264e4b73mr1603110f8f.52.1792563116643;
+        Tue, 20 Oct 2026 23:11:56 -0700 (PDT)
+X-Received: by 2002:a05:6000:4a10:b0:48e:e28:ada8 with SMTP id ffacd0b85a97d-48e264e4b73mr1603051f8f.52.1792563116008;
+        Tue, 20 Oct 2026 23:11:56 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258424bcsm3212155f8f.55.2026.10.20.23.11.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 23:11:55 -0700 (PDT)
+Date: Wed, 21 Oct 2026 02:11:51 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Chris Arges <carges@cloudflare.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Paulos Yibelo <habte.yibelo@gmail.com>
+Subject: Re: [PATCH net v3 5/8] net: resolve uncommon partial checksums at
+ ingress
+Message-ID: <20261021020654-mutt-send-email-mst@kernel.org>
+References: <cover.1792411304.git.mst@redhat.com>
+ <9c08d12b3a7819ae03ded6a154e4f908276e93d4.1792411304.git.mst@redhat.com>
+ <willemdebruijn.kernel.2eb449439b094@gmail.com>
+ <20261020170908-mutt-send-email-mst@kernel.org>
+ <willemdebruijn.kernel.1da723f98c23a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,60 +129,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <willemdebruijn.kernel.1da723f98c23a@gmail.com>
 
-Hi Pratyush,
+On Tue, Oct 20, 2026 at 08:05:29PM -0400, Willem de Bruijn wrote:
+> Michael S. Tsirkin wrote:
+> > On Tue, Oct 20, 2026 at 03:44:35PM -0400, Willem de Bruijn wrote:
+> > > > +/* Walk the L3 header at @nhoff: where does its transport header
+> > > > + * start, and which protocol is it?  Returns false if the header
+> > > > + * is truncated, malformed or fragmented.
+> > > > + */
+> > > > +static inline bool
+> > > > +virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
+> > > > +		    unsigned int *thoff, int *ip_proto)
+> > > > +{
+> > > > +	if (proto == htons(ETH_P_IP)) {
+> > > > +		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
+> > > > +
+> > > > +		if (!iph || ip_is_fragment(iph))
+> > > > +			return false;
+> > > > +		*ip_proto = iph->protocol;
+> > > > +		return true;
+> > > > +	}
+> > > > +
+> > > > +	if (proto == htons(ETH_P_IPV6)) {
+> > > > +		const struct ipv6hdr *iph;
+> > > > +		int flags = 0;
+> > > > +
+> > > > +		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
+> > > > +			return false;
+> > > > +		iph = (const void *)(skb->data + nhoff);
+> > > > +		if (iph->version != 6)
+> > > > +			return false;
+> > > > +		*thoff = nhoff + sizeof(*iph);
+> > > > +		*ip_proto = iph->nexthdr;
+> > > > +		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
+> > > > +			*thoff = nhoff;
+> > > > +			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
+> > > > +						  &flags);
+> > > > +			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
+> > > > +				return false;
+> > > > +		}
+> > > > +		return true;
+> > > > +	}
+> > > > +
+> > > > +	return false;
+> > > > +}
+> > > 
+> > > for all this parsing: could we use flow dissection, like the
+> > > !VIRTIO_NET_HDR_F_NEEDS_CSUM case?
+> > 
+> > Hmm I don't see how.  That one trusts the caller's protocol and network
+> > header. We could parse L2 ourselves and use the dissector for L3+. But
+> > it stops at whatever it does not know, and every miss would turn into a
+> > drop or a software checksum for a packet the stack delivers fine.  Our
+> > parser deliberately covers everything the stack can deliver.
+> 
+> You're right, the protocol and network offset need to be parsed
+> manually. After that it could be passed to the flow dissector.
+> 
+> Totally untested:
+> 
+>     static inline bool virtio_net_setup_l3_input(struct sk_buff *skb, int *nhoff, __be16 *proto)
+>     {
+>         const struct net_device *dev = skb->dev;
+> 
+>         /* Devices with Ethernet framing: ARPHRD_ETHER, loopback, macvlan, etc. */
+>         if (dev->header_ops == &eth_header_ops || dev->type == ARPHRD_ETHER) {
+>             if (!pskb_may_pull(skb, ETH_HLEN))
+>                 return false;
+>             *nhoff = ETH_HLEN;
+>             *proto = eth_hdr(skb)->h_proto;
+>         } else if (dev->type == ARPHRD_NONE) {
+>             /* Raw L3 devices (e.g. tun in IFF_TUN mode) */
+>             *nhoff = 0;
+>             *proto = skb->protocol;
+>             if (!*proto) {
+>                 if (!pskb_may_pull(skb, 1))
+>                     return false;
+>                 if ((skb->data[0] >> 4) == 4)
+>                     *proto = htons(ETH_P_IP);
+>                 else if ((skb->data[0] >> 4) == 6)
+>                     *proto = htons(ETH_P_IPV6);
+>                 else
+>                     return false;
+>             }
+>         } else {
+>             /* Fallback for other netdevs using caller's network header */
+>             *nhoff = skb_network_offset(skb);
+>             if (*nhoff < 0 || (unsigned int)*nhoff >= skb->len)
+>                 return false;
+>             *proto = skb->protocol;
+>         }
+> 
+>         return true;
+>     }
+> 
+>     static inline bool virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
+>     {
+>         struct flow_keys_basic keys;
+>         __be16 orig_proto = skb->protocol;
+>         u16 orig_net_hdr = skb->network_header;
+>         __be16 proto;
+>         int nhoff;
+>         u16 csum_offset;
+>         size_t min_thlen;
+>   
+>         if (!virtio_net_setup_l3_input(skb, &nhoff, &proto))
+>             return false;
+>   
+>         skb_set_network_header(skb, nhoff);
+>         skb->protocol = proto;
+>   
+>         if (!skb_flow_dissect_flow_keys_basic(dev_net(skb->dev), skb, &keys,
+>                               NULL, 0, 0, 0, 0))
+>             goto restore_fail;
+>   
+>         /* Disallow fragments: partial checksums cannot be retained across frags */
+>         if (keys.control.flags & FLOW_DIS_IS_FRAGMENT)
+>             goto restore_fail;
+>   
+>         /* Validate protocol matching */
+>         switch (keys.basic.ip_proto) {
+>         case IPPROTO_TCP:
+>             if (!virtio_net_hdr_match_proto(keys.basic.n_proto, hdr_gso_type))
+>                 goto restore_fail;
+>             min_thlen = sizeof(struct tcphdr);
+>             csum_offset = offsetof(struct tcphdr, check);
+>             break;
+>         case IPPROTO_UDP:
+>             if (!virtio_net_hdr_match_proto(keys.basic.n_proto, hdr_gso_type))
+>                 goto restore_fail;
+>             min_thlen = sizeof(struct udphdr);
+>             csum_offset = offsetof(struct udphdr, check);
+>             break;
+>         default:
+>             goto restore_fail;
+>         }
+> 
+>         /* csum_start must match the dissected transport header offset */
+>         if (skb_transport_offset(skb) != keys.control.thoff)
+>             goto restore_fail;
+> 
+>         /* csum_offset must point to the transport checksum field */
+>         if (skb->csum_offset != csum_offset)
+>             goto restore_fail;
+> 
+>         /* Ensure the transport header is linear */
+>         if (!pskb_may_pull(skb, keys.control.thoff + min_thlen))
+>             goto restore_fail;
+> 
+>         return true;
+> 
+>     restore_fail:
+>         skb->protocol = orig_proto;
+>         skb->network_header = orig_net_hdr;
+>         return false;
+>     }
 
-You are right about the text, and I am sorry. I used an LLM to help
-write this series. I meant to check every commit message and comment
-word by word myself before sending, but I made a mistake and sent v5
-to the list before doing that check. That is my fault, and it cost you
-time trying to read it.
 
-For v6 I am rewriting the messages and checking every line myself before
-sending.
 
-On Tue, Sep 22 2026, Pratyush Yadav wrote:
-> > The EFI KHO configuration table is a global channel. Updating it while
-> > a candidate kexec image is still being loaded can leave the channel
-> > pointing at the failed candidate even though the previous image remains
-> > installed. Synchronize it instead from the image selected for execution.
->
-> Huh? Sorry, I don't understand this is supposed to mean at all. What
-> failed candidate?
+Hmm, an interesting trick, but I don't see how this works for tunnels?
+We need to dissect at inner_nh, and on success we can not leave
+network_header there - the packet continues to outer IP processing.
+I fear making all this work will be more code than the parsing it
+replaces.
 
-Rewritten in v6.
 
-> Why are you setting this at kexec time? Why not set it at load time like
-> every other architecture?
+-- 
+MST
 
-Other architectures store the KHO addresses in the loaded image itself,
-so each image has its own copy.
-
-The EFI table is shared, but the normal and the crash image can both be
-loaded, and they need different contents: the normal kernel needs the
-KHO addresses, the crash kernel must find the table zeroed. Whatever is
-written at load time is wrong for one of them. For example, after
-"kexec -l" with KHO and then "kexec -p", a panic boots the crash kernel
-with KHO addresses that were meant for the normal kernel.
-
-kernel_kexec() and __crash_kexec() know which image is about to run, so
-v6 writes the table there: filled from that image, or zeroed if it has
-no KHO state.
-
-> Also what's this "sync channel"? Use simpler words that _actually
-> describe_ what they do.
-
-Renamed to kho_update_efi_table() in v6.
-
-> > Use the actual scratch payload size rather than its page-aligned segment
-> > size, and propagate update failures before live-update serialization.
-> > Keep clearing the channel for cold and crash images best-effort.
->
-> Huh? This is word soup and I don't understand what any of this is
-> supposed to mean.
-
-Rewritten in v6.
-
-Thanks,
-George
