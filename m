@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792617067;
-	b=AehRaHihJnz1Or6D3RWHIz2XvxO0hl4iM1t5+xtt2x1Hz1Ic9GS5UDZ+iXRLc/LsUWB7
-	 jlQvUOEL7TwsakHXzSdFm45SJObs2/r8a7nDppcFDwh7xWaqXKiO2i9q0Fwq52x5wK5UR
-	 Y+TfqR9wSs0VfV1Nkxdj0gkiIw0aY5UsqqUP+mr6XzpO1ifE+69AWPzqyoCadDe9SQh62
-	 H0CsAd4rKnNRqAZeRdNE9MRUTK21NoJwWS+BolK0vFGTrGBeOCsSTHT3LRQPnPJMe+8zV
-	 WLuv2i9d1Xtr3m+56wpCgsrkwozhjEzreh8yaatNz5CKfA1oxI4O9Y99j5D9xteYskA==
+	t=1792617070;
+	b=dlwqJeEUV4VVwDbnmogP5ZkUd0S3byg++a5DgfP+QXv7DlstUdGODNAvAzGjzPB9XFj4
+	 GEWZfH4BRN1YlRiNYwlRtlyL42hlHEbOtaUl611H2derTameq7USJ0UmYUS9I2KvR+2pK
+	 QtdQA3NF/ZE+/iPjeymzff8FxQ/QicI0cW4CPZZP/0kOXPmoHsqfGBEUyCnzjZwKHhqyD
+	 LIPdtSZe5HF/BVqDOeVYT+yoV1/ZxzHVwPPmpBeAOxttxM+Nj2ETS7seNQEjjdoLaPdXK
+	 P/SNJ9b3fXUGSqgdzejZeQ00Aicu9//hhTbt3qYRANQ3WlTvF/+YW6vh50pVTyGEw3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792617067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792617070;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tJhC0Ffmn6Au+X55U+ymWoJQmHp6YtJ+SrtYAdk8xK4=;
-	b=Ia+jgU21AT2UKTOz+n9CmpF9meCytHPpz4V1LcMabfsQh/e8JtNuobOfiAzdbNaPcqvt
-	 aVNjdk6WvP7wt4cfqkdWDtcA4NDUjfqViRVuDdHnL5pwgURMBFeD/NAFxPDL4bEtKSrPu
-	 bA2D9La9017IzX28jHf1s6j755wO3BprYF0h0l81ZsrU8c4zg+NxxA+pVGZV5UL30PkJn
-	 eFJJyCqm9nwr5kXHMBIJJXhmcXTeu1C1gChDdlM5deYS5J3l4S6icmNfFKi25rJWb+YmA
-	 0JNn56oVP66bA+cPzaTBWsd5CXl8iR5RzPYie67T5gPq22juZZGlkqmdnL7bMb+0OEg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=093JJqrrOxUj2abNMLhbp+4Uc4OaHt2/cWwMxdwN2F8=;
+	b=HIllU+ZPhCSNQCwgEZ1LdpHggPUgmPlxvXNAmvZdxfJQkPNk5A0ptnVRB3HGZdRhY72R
+	 y1PnKMd6iLOaWaQdihSnIrfR1nEw5Cpf6/XZ382FYP8k3qxNhjqZPvjHNifd6DvxraK5y
+	 0SO9EJ+NsbIw1Zk4FyGiJDJiePI0mMgVUilYfUYA7besTlyAdEB+Q/nP67Ps9GuBFDbnE
+	 fe9/RR4jJYkLFo7o2DJpsauL/Uqb9qyk8PjWKV4Afbnbf6zFh2mgOGIYHExPNDNCDzRRM
+	 Uku3D3fZeDAYXPNvUKVShTSkAwXz0sAOe5GFS0MzK8+EpiaGyZx2zlQmdhjkJLLNtkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oTpxeRYG;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gRTLfC7E;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78839606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:11:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78839606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C55606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C55606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oTpxeRYG
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so10035715e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:11:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gRTLfC7E
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so9886925e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:11:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792617066; x=1793221866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tJhC0Ffmn6Au+X55U+ymWoJQmHp6YtJ+SrtYAdk8xK4=;
-        b=oTpxeRYGwgN7QXE/HBMuXqHgL8hX7koj5gPjEj1b2AtejPZmeb6/s61E4Z2fonk/1S
-         ssG9d4XfrwVfnESFv8IvWpL+Eq/iZ3A0AUO98m53mdN9+MBTWKa3SotgpKhxVo2tRAOv
-         BdyA1bTpbbh+BRZR3jKbhjEhljzDKAXB7NE7NFBIAfU+dIgATetFqHT+jaURnAGNt68n
-         JJkgAvlpsCL7H4cnYpBqT/FcJQEHoJBxkr98m2yeWj1yG02nStlhCBr3aP9XTTLKpQdO
-         /SivsfGNkYpeQjcLeGFXYwX0h4qONNCnR8GvLaA/WNQ0cbsZIz7X2QeJJlbTQdhO/B3/
-         o4Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792617066; x=1793221866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792617069; x=1793221869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tJhC0Ffmn6Au+X55U+ymWoJQmHp6YtJ+SrtYAdk8xK4=;
-        b=1+0rM45OC8Oh2hkZnOi/cu1zFx/0lH4chX4K4L7cCp2f1pLmSTIqX/6iLIg6t1Qj+C
-         Ti5BQdfg80cLObssvqpopVs+BIIAK5oVs30uW5k1MCRRQ0mbshSquKlO2tDd2Hyn3X8X
-         W4knMdS2tVCWZDdwPr4piNkkCnQDyNVbFL/SoX30ZFlGp1WO48PU4tXgd82a5zF4SQM6
-         S+MXDajlqmDHzHb3ANx2OojV/WnGcsYOgGTEg5BtNfsPMgxPu6egAFX8CeOo5qSEjF/0
-         flTFAh9lMXX4nqHYCB0g1opz1Cm+FpyysR8UJPn3PvZgptqrDOXL48H1smHaTUMoVZFS
-         eKsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHVpX+S8Jn9X637q8fPNe0nmoJkfLihZZrreF6qGNFFNmAJ4yZ6qsJ44scn6hn6ugC39z1TKP1HIKdyNs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUDLZpCb6ibh5745nKTX1jKWwsVl+oYNY4t438OtgShmKfxsJD
-	ZcJ2NUii6e8QpwOyXMuejYHdPtkkxq2J7HSmQyyaXKWcF2E0tRNA2C2+
-X-Gm-Gg: AYBFou3U0b7hZpDdsbAcmD2HPyFYIC0jHbq6HbJKKxetSceUYqNGzwTeuFwM19IDEsG
-	WajRjoCjd+pZ5VA/B7lR0l07yzwZalKEdptOkjGHxjfKRQ9grTMUO1hJe8qKnyEiMDteXrChP5a
-	aTijJrxVPb9XSdYgifcN+y29uLh+nwNeWxNtSC4Q+hS00/3YaRGrXFcsitjyg+xrz3tFEty3x7/
-	h2d6/RTXSoddPDhR7imWvwjDfUOaerElm5gFDAqliVPa893g5Su9DDFtQ1nibsaw5apAvNWPJda
-	0/mZXjyvlpx6eYUMZfXQrtpSjFmFjMGXWoGCWC8s3gAtn36hktyErEph19x3HWz0/C2t9rduAPF
-	hocszYWV4Vf9T27M8DGqCcgBtSIVk1t7zb1utfmTniE4Cf5EzC7FZdkUvITJLxaCeOdtO31QGkq
-	DuEtgQDpZ34RDw5Ak+T3TdkkFLngb+uUpUXqV65iOGn6DPWJc4N+L2vRFrsp3ueiIZJj4MyzaUd
-	XMMzviKYczAeul6Gaq84nZgzelfplrObJ4KqF99
-X-Received: by 2002:a05:600c:4fd4:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4a1fdd53c8cmr68455165e9.27.1792617065604;
-        Wed, 21 Oct 2026 14:11:05 -0700 (PDT)
+        bh=093JJqrrOxUj2abNMLhbp+4Uc4OaHt2/cWwMxdwN2F8=;
+        b=gRTLfC7E+2xEPK660ztbvQPSTpwDINoztP4jGb+wRk1FLCpyYfundoN7DQyLL1v8dV
+         lEkiZkpQz7gypgKMYk9cWkOx/dF6SYYDhz42Vv2KexiZi+XoWJ1Ktsd7OXRRe0d0T2Rc
+         TSfWLcVlJjr3OnIeNeIeE3MWU4FwMkPEyMYjI5TISIEVw/850ETA1oSmqdooBm55VW9s
+         Evdp4YDX17TWOeitPWXMjMuJEiziqHmOBBHRjh8fHzDJZx995s8Cj6QVTYDWQBYEgOqe
+         Af9juM3ZrFnjxDfRiTGcJSGs6QXJmZOUNiERzBCKvC85cyKlxf1tpsgkERBAwF8pDt74
+         Kw3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792617069; x=1793221869;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=093JJqrrOxUj2abNMLhbp+4Uc4OaHt2/cWwMxdwN2F8=;
+        b=Ypk4Ah7RHVQcXa5ddCQi8Qrypd+H/euOgbUvYUw5leiPNk2YhiS+lmpaLIStL0tmjK
+         SpNAxhCj6mqhxzCeE1uEg4VSSeK013WP+mP7kuD2lskmAsOhHJyPkGZXvCMsq6FMiEHo
+         +zLXTp2IF9N0ws3TiFu1s1LJNIi+StLBMsnLF07MdPe3fgxTldpmkoBcruHw9PQm46NF
+         L0cmoAl+0mTnpx8xhRm14MEobfG92lx5R4wY/g//u4Lm0NL10TgLNFsN6hvwYuAky0vP
+         tp+uU1+Q2rUn7Qwo40Zr5vVdJrMGxEZ2jCLw2slkCMr6PBDcBd4FyMSNWivvzDSObHZv
+         fAmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwa25gnhFvxInDHpWfv2htjKOCbtVZNvy+dNtYoW7V+UCmKaVfFoU0W+zL1Cp6/S/agrOj1/mW8uk+X9hI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZph68fP59uktXPWnMZ3SQy2mZcAT+ucv/8OXzGAdlB/tSZPa5
+	bdB31IkenSIIu2lhXnw7Yj7PXX1MiW3lSOiZSNd4HsETj2XyjjUBt6LI
+X-Gm-Gg: AYBFou0fK9UOU7d5H1FaPZjS5AQdPDolkNzGmeNwLp8ChewLYMsi6UcuXTpPMBT6b0/
+	a/5A+GADLWqxZOpY+Yd/pKTqdG7jpD6U6QjixfyMMgQk41BzJ0Twv2lDSsZ4zyTHjXrvXIV4HZ+
+	7iJzcPKXAVe9z6oU1AvvxhvXm9sNXQXu246v96fErNZGIWcKrkYijMWj1YysC7WemfDYrwOqI/Q
+	u7aI7Ymu3QRnwdiFVSbAw6CXyFK72tDB2MSCw7snLQ8Be9EacPkbJ6h3/gWQ/PmclbMxh1MNNoK
+	L/XmmbmQFNcHqiEJ9CUOxY5+8MygOwVBR8SV1e98FqdkQi2TMVeWYOKqUEqFwdQh4iLllpwPrUB
+	gbfNt9uSdLBZC3msP5W4bpf3TNO+CB+vOInegwpWxRYGJBeHuLwlZGhVqdOquETQxJhMD+RMP8l
+	OpP0QrJlBtG45jpUFEh5UTlDHGn/bfwD2BQMGc5iGbf+C6yllceBWbblQoog8n0g2zeDUfxg06X
+	8FLe4HDw5+RlBgNypw82YLh1MI2HwcWOfDqKPk5
+X-Received: by 2002:a05:600c:46c3:b0:4a1:fc98:1cb1 with SMTP id 5b1f17b1804b1-4a1fd8cd9f5mr69945755e9.2.1792617068708;
+        Wed, 21 Oct 2026 14:11:08 -0700 (PDT)
 Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203a25fb5sm22891525e9.6.2026.10.21.14.11.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203a25fb5sm22891525e9.6.2026.10.21.14.11.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 14:11:05 -0700 (PDT)
+        Wed, 21 Oct 2026 14:11:08 -0700 (PDT)
 From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
 To: Mike Rapoport <rppt@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
@@ -90,10 +91,12 @@ Cc: Tony Luck <tony.luck@intel.com>,
 	Pasha Tatashin <pasha.tatashin@soleen.com>,
 	kexec@lists.infradead.org,
 	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [RFC PATCH 0/2] memblock: keep reserve_mem regions out of KHO bootmem
-Date: Wed, 21 Oct 2026 23:10:44 +0200
-Message-ID: <20261021211058.83483-1-azpijr@gmail.com>
+Subject: [RFC PATCH 1/2] memblock: factor out the KHO bootmem check from memblock_alloc_hugetlb()
+Date: Wed, 21 Oct 2026 23:10:45 +0200
+Message-ID: <20261021211058.83483-2-azpijr@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261021211058.83483-1-azpijr@gmail.com>
+References: <20261021211058.83483-1-azpijr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,43 +108,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On a KHO boot, a reserve_mem= region that can't be revived (new name,
-size or alignment) can be allocated from KHO bootmem, which the next
-kernel boots out of. With CONFIG_KEXEC_HANDOVER_DEBUG preserving it
-fails; without it, the next kernel's memmap ends up on top of it.
+reserve_mem regions are preserved with KHO too, and need the same search
+that keeps HugeTLB pages out of KHO bootmem. Move it into a helper.
 
-Patch 1 factors the bootmem check out of memblock_alloc_hugetlb(), and
-patch 2 uses it for reserve_mem. That also drops the TODO in
-reserve_mem(), which asks for the allocation to be outside KHO_NOPRSRV,
-though it's bootmem it has to stay out of.
+No functional change intended.
 
-Questions:
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+ mm/memblock.c | 70 ++++++++++++++++++++++++++-------------------------
+ 1 file changed, 36 insertions(+), 34 deletions(-)
 
-- If kho_discover_noprsrv() fails, only bootmem is NOPRSRV, and
-  reserve_mem() now fails with -ENOMEM instead of using it. Is that the
-  right thing to do?
-
-- Should reserve_mem skip mirrored memory like HugeTLB does, rather
-  than keep the fallback?
-
-No Cc: stable, since patch 2 relies on 14773e2aa4c5 ("kho: extend
-scratch") for room outside bootmem.
-
-Based on next-20261021, as it needs the KHO bootmem rename from
-liveupdate-7.4 and touches code changed in memblock for-next.
-
-Tested on x86_64 in QEMU.
-
-Jose A. Perez de Azpillaga (2):
-  memblock: factor out the KHO bootmem check from
-    memblock_alloc_hugetlb()
-  memblock: don't allocate reserve_mem regions from KHO bootmem
-
- mm/memblock.c | 100 ++++++++++++++++++++++++++++++++------------------
- 1 file changed, 64 insertions(+), 36 deletions(-)
-
-
-base-commit: 9a482184d910775cf648863148944945b74e2815
---
+diff --git a/mm/memblock.c b/mm/memblock.c
+index a450092a80fb..f43659688681 100644
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@ -1744,6 +1744,31 @@ void * __init memblock_alloc_try_nid_raw(
+ 	return memblock_alloc_internal(size, align, min_addr, max_addr, nid);
+ }
+ 
++/*
++ * Memory that can be preserved with KHO can't be in KHO bootmem, since the
++ * next kernel boots out of it. Bootmem areas are normally not very large, so
++ * this shouldn't take too many retries.
++ */
++static phys_addr_t __init memblock_find_outside_kho_bootmem(phys_addr_t size,
++					phys_addr_t align, int nid,
++					enum memblock_flags flags)
++{
++	phys_addr_t addr, start = 0, end = MEMBLOCK_ALLOC_ACCESSIBLE;
++
++	while ((addr = memblock_find_in_range_node(size, align, start, end,
++						   nid, flags))) {
++		if (!kho_bootmem_overlap(addr, size))
++			break;
++
++		if (memblock_bottom_up())
++			start = addr + size;
++		else
++			end = addr;
++	}
++
++	return addr;
++}
++
+ /**
+  * memblock_alloc_hugetlb - allocate boot memory for HugeTLB pages
+  * @size:      size of the memory to be allocated in bytes
+@@ -1761,52 +1786,29 @@ void * __init memblock_alloc_try_nid_raw(
+ void * __init memblock_alloc_hugetlb(phys_addr_t size, int nid, bool exact_nid)
+ {
+ 	enum memblock_flags flags = choose_memblock_flags();
+-	phys_addr_t addr, start = 0, end = MEMBLOCK_ALLOC_ACCESSIBLE;
++	phys_addr_t addr;
+ 
+ 	memblock_dbg("%s: %llu bytes, nid=%d, exact_nid=%d %pS\n", __func__,
+ 		     (u64)size, nid, exact_nid, (void *)_RET_IP_);
+ 
+ 	/* Don't waste mirrored memory on HugeTLB pages. */
+ 	flags &= ~MEMBLOCK_MIRROR;
+-retry:
+-	/* HugeTLB pages are always aligned by their size. */
+-	addr = memblock_find_in_range_node(size, size, start, end, nid, flags);
+-	if (addr)
+-		goto found;
++
++	/*
++	 * HugeTLB pages are always aligned by their size, and can be preserved
++	 * with KHO.
++	 */
++	addr = memblock_find_outside_kho_bootmem(size, size, nid, flags);
+ 
+ 	/* Try all nodes if allowed. */
+-	if (numa_valid_node(nid) && !exact_nid) {
++	if (!addr && numa_valid_node(nid) && !exact_nid) {
+ 		nid = NUMA_NO_NODE;
+-		/*
+-		 * If a previous candidate overlapped with KHO bootmem, it would
+-		 * update start or end. Now that the search is opening to all
+-		 * nodes, reset them.
+-		 */
+-		start = 0;
+-		end = MEMBLOCK_ALLOC_ACCESSIBLE;
+-
+-		goto retry;
++		addr = memblock_find_outside_kho_bootmem(size, size, nid, flags);
+ 	}
+ 
+ 	/* Found nothing... :-( */
+-	return NULL;
+-
+-found:
+-	/*
+-	 * HugeTLB pages can be preserved with KHO and no preserved memory can
+-	 * be in bootmem. So retry if found address overlaps with bootmem.
+-	 *
+-	 * Bootmem areas are normally not very large, so this shouldn't take too
+-	 * many retries.
+-	 */
+-	if (kho_bootmem_overlap(addr, size)) {
+-		if (memblock_bottom_up())
+-			start = addr + size;
+-		else
+-			end = addr;
+-
+-		goto retry;
+-	}
++	if (!addr)
++		return NULL;
+ 
+ 	if (__memblock_reserve(addr, size, nid, MEMBLOCK_RSRV_KERN | MEMBLOCK_RSRV_HUGETLB))
+ 		return NULL;
+-- 
 2.55.0
 
