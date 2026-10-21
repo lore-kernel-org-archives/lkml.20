@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584894;
-	b=pn7nZpZtJ4CeOw04HrgCnfza/xrarDEgRYI2cX9TbosgvVpSdRWZrM/W/eL66Gggn1BR
-	 g8bGZVqs6H+6lscRwAQUUlT/ju27nQtjICEyDzGog+tiU10bkNt2ChwXLikOKJDAuFoV1
-	 P8+p3HhU/EJrRJY4gpxMDfIhoBPAfbJzvfLU3kNLjmoxv89+7OGQw/XXAivrVJo+vbvbq
-	 shfbar4v0kz8SdgFjQy58SyDiJ9M5cbN+SJd6V2wRFfvoaZNmOxJ4k5RK/6E9M9oal1eF
-	 UPU0O3MdphXt10jMJPa7cR75ODB8cOo6SS9sQR0PWGrEkZ7YFD2TsNdZwTXK/MV1SFQ==
+	t=1792584906;
+	b=uUPsAG+cnID3JI3Qgn7TGRsMi7QJFY1HRF3lBrUglUIeUBK1cC6ci3phqwjgD5F9NC+w
+	 ybOc3rUNA4IRe7l8gJC6IdMUJMu9z+BSAP/ljHhXfBYk2fYiskWONzD0NuAHBc2bpcDrB
+	 2iWAYURKoHUKbgZ3VoSb5yAxdAw+cvcIVYtd0jUt3k7oiTp6ipYX82K1U/MYV7kDiKpS/
+	 p8alM+pnaLCVBrfKKT/idiCM+hEK8VcBWiFpeMKVyA86l7lRm0cfeHcs/oYR5KGqlIeY0
+	 OpKIdBtGkddoRuFuoFPJm/3/Hm1lP4jWBE1YHX9CEj8q9NV9i9RFIRIyDXDpXuUPviQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584894;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=1aLCrCY83kZmeumsZ3gfrMmWKqOZ+LFH4SgSm2GvtO4=;
-	b=eCkCIlqppFM9TU7xR0yIh2FH0GO7RsbLbkbkl0xH9KDfcI7WSK1mTa1x4okm3BFQL40P
-	 4E0/D57uxwKwQsyl5zOdM67yYNUQTQcQH8tDFYCFjL45btx99zUyLxZZxML0ayZBRz+Rp
-	 W6b4rL5E/qarDjDVHtEsXc5psuD3v+8jbdw7IgT9hja/nHaUoeopKGhUKHtvjxFxKR557
-	 jgtYuNq8fflGVdRAYctYLxQAoWJbwRvaXDd5kKuEO4wnJQXv7U+cvJVYWqXdiguj+k4T7
-	 5ljnntZLMIS7YnZjMx6d/gHodlrhwvEU2ez/c7PvjEC/FGjTqF++gjt5JnR3Rrjsl3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584906;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=RcKMeHcYRx93IMDgfCPVEkBbpRlDXdFVk+SNslSZ6lI=;
+	b=knG795FPYNx0z6yGGsfUXv4n4+5Xt0QpFsgrzL14yiOzLD7/7PYS8B42O0lCxIQjAVMT
+	 0YOvQycFd8aKPp/ifhBnPKxFqjte5Dei6eW2AOxGKB2X0Dvknt1QqJVxz+4ZA84PHheGA
+	 qTyV7LP580dd4mVbPJIxIUGH8MACJo89B/bjWj6CtWzRJyAjD8DxVNMLsNVYdBNpo2M1x
+	 S+swvuxYWEKOt1t+tahXrbDxnDQHqDbpdvHUqx3Ln8Gcw00tnoQhog1S+DJKq+RoM23RG
+	 g5dVZOfeOi2N36lXWDw5/75pUTbsAjIjfCJXpv3cV16XZoL30shaTazzdlxqlA6KAGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Ulo7PBC9;
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIH6Je2t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDACE606A31B;
-	Wed, 21 Oct 2026 12:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDACE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D914560A4AD6;
+	Wed, 21 Oct 2026 12:15:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Ulo7PBC9
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=1aLCrCY83kZmeumsZ3gfrMmWKqOZ+LFH4SgSm2GvtO4=;
-	b=Ulo7PBC9+384LLGpKjq1CHJP8849stoAn9H763QxZmixrE2zbfELnU07fvHP0qSI7iutqwwvK
-	bxqG4/bSe5oMrPMdNqW7Yr630Isg09cjQfQWmDeQG3phFhgrtwNhMTnWN3/+hKxJfmRPekHdnVH
-	8S0f3aGwud73SoUywN72gV0=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4j8pB64HHDzpTL5;
-	Wed, 21 Oct 2026 20:14:38 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id 39CBD40579;
-	Wed, 21 Oct 2026 20:14:48 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 21 Oct 2026 20:14:47 +0800
-From: Jijie Shao <shaojijie@huawei.com>
-To: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>
-CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
-	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
-	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
-Subject: [PATCH v2 net 1/3] net: hns3: fix vector resource leak in hns3_nic_alloc_vector_data
-Date: Wed, 21 Oct 2026 20:14:24 +0800
-Message-ID: <20261021121426.3096838-2-shaojijie@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021121426.3096838-1-shaojijie@huawei.com>
-References: <20261021121426.3096838-1-shaojijie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIH6Je2t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC291F000CA;
+	Wed, 21 Oct 2026 12:15:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792584905;
+	bh=RcKMeHcYRx93IMDgfCPVEkBbpRlDXdFVk+SNslSZ6lI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WIH6Je2tZeJpJ38F1nPdsDpjS51BfVsBi4/iCTwNcZN/3a+Ufc5Z1Q/6QC8jbYnhv
+	 2Vx0E/igpEl+NSSU6wWPBpfH3dEnL5pZeSa9dS/fXzl5Y9sEoQYHMnleN3okf0XGRc
+	 qwKyAVrBl/bnIHZMcGobFFTUx9qXNLyAfVtnhVMCwy30D7WPTMTDEozkL+JAY6pTCa
+	 UWcPboVUnetD0AN1te+pcphKBZuR8IkrmBWiqsypcO/MpSiSQCL6U4za17dOkLecdz
+	 +c4BGhxQERbKu4VS2PkgrClYkvH6bLtURcwo4KKQMSGU0WD78yl0M+xcbyyVgcaYbe
+	 u3pguUDxM0Vew==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 11/28] mfd: intel-lpss: Remove registered MFD child devices on probe failure
+Date: Wed, 21 Oct 2026 12:09:33 +0000
+Message-ID: <20261021121245.3111563-11-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
+References: <20261021121245.3111563-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,60 +64,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemo500018.china.huawei.com (7.202.195.199)
 
-After h->ae_algo->ops->get_vector() has acquired MSI-X vectors, a
-subsequent devm_kcalloc failure for priv->tqp_vector jumps to 'out'
-and returns without calling put_vector() to release them. The
-underlying hclge/hclgevf bookkeeping (num_msi_used, num_msi_left,
-vector_status[]) is left inconsistent: the vectors are marked as in
-use but hns3_enet never tracks or releases them.
+When intel_lpss_has_idma() is true, intel_lpss_probe() registers the
+iDMA64 child device via mfd_add_devices() before registering the host
+controller cell.  If the second mfd_add_devices() call fails, the
+err_remove_ltr error path returns without calling mfd_remove_devices(),
+leaving the iDMA64 child device registered after the parent's
+device-managed resources are freed.
 
-On the reset path this leak accumulates across failed reset attempts,
-steadily reducing num_msi_left until get_vector() can no longer
-satisfy the requested count, at which point the interface fails to
-recover.
+Call mfd_remove_devices() on the probe error path to clean up any
+previously registered MFD child devices, matching intel_lpss_remove().
 
-Call put_vector() for every vector acquired by get_vector() before
-returning an error, and reset priv->vector_num so the dealloc path
-cannot dereference a NULL priv->tqp_vector.
-
-Fixes: dd38c72604dc ("net: hns3: fix for coalesce configuration lost during reset")
-Signed-off-by: Jijie Shao <shaojijie@huawei.com>
+Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
+Closes: https://sashiko.dev/#/bug/linux-b0ba1dea-0272-491a-a1aa-2fd27c5eb9b0
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/mfd/intel-lpss.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-index 47788be64be6..2f3aeade558c 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-@@ -4854,7 +4854,7 @@ static int hns3_nic_alloc_vector_data(struct hns3_nic_priv *priv)
- 			     GFP_KERNEL);
- 	if (!priv->tqp_vector) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto err_put_vector;
- 	}
+diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+index 63d6694f7145..657b1e3fb896 100644
+--- a/drivers/mfd/intel-lpss.c
++++ b/drivers/mfd/intel-lpss.c
+@@ -455,6 +455,7 @@ int intel_lpss_probe(struct device *dev,
+ 	return 0;
  
- 	for (i = 0; i < priv->vector_num; i++) {
-@@ -4865,7 +4865,13 @@ static int hns3_nic_alloc_vector_data(struct hns3_nic_priv *priv)
- 		hns3_vector_coalesce_init(tqp_vector, priv);
- 	}
- 
--out:
-+	devm_kfree(&pdev->dev, vector);
-+	return 0;
-+
-+err_put_vector:
-+	for (i = 0; i < vector_num; i++)
-+		h->ae_algo->ops->put_vector(h, vector[i].vector);
-+	priv->vector_num = 0;
- 	devm_kfree(&pdev->dev, vector);
- 	return ret;
- }
+ err_remove_ltr:
++	mfd_remove_devices(dev);
+ 	intel_lpss_debugfs_remove(lpss);
+ 	intel_lpss_ltr_hide(lpss);
+ 	intel_lpss_unregister_clock(lpss);
 -- 
-2.43.0
+2.56.0.218.g1ec904b173-goog
 
