@@ -1,69 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596037;
-	b=o2HQgAs3pF8rZUKlyoOO3B2F3+/jZoyp+S5FJjku+t9Z/CVNqrIBCiojOFXa08vGdPFR
-	 wR/o2QB4Bqg7HOvNOG742Q9Li2mvRLD4LtFXMmw/t60j3n3QdlBJnz7dRyEZpYXHPb1hC
-	 wqwSny6C6GI/+DIqa8eu+bksbo/Gj6IcZ/fsRGZP3MOuZXyrXXUrEWnGodCcltTQuZK66
-	 Vho3YJ57vNxMhFZSN2RWpGXDBRJCcRLOw26FrMwht8yRZnDFo8z3OmG28fFJTRxwXSdlE
-	 nmRh5xS1KEjYf//uM/7zD590pjFqnvQ5CnpcZTAVsFFvwsgRF/YI6dMvm2TRbLpoZeA==
+	t=1792596061;
+	b=BxliKTfwftTmt2fdYD/KR6Qh6fH5+dFkvumfX3Z6mCVIowLAw49KWmXzYD1FjqP8/lRe
+	 FcyQvfrqgMW2h5+41Y7v0wuHgbVtLoMYPXj9fMB69Hup9aIDNed68eBS5vLnqslZyAve2
+	 xdGQPO1TcA7zdgDtcgDoY2YED8m1HSaDTAlu/zmHCwV5xcbET2/DzvyognkRHUsVnvABX
+	 L0UA2Ys8aKPfq6RDxa3jf2vU6LQX7OE7RRNhViKLvvlyN06KrFMAbIceOxvqaKNMEvwkN
+	 ThLBO1xP9icjJ6LTc0gvGD2YdxgtmBt0OwcoqJtZCE3/E0+mAVUsoZKvjn5OPauX4nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596037;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=cu/zlSUQD3+9WkWh3pfTBPHg3qjm9UWt13ZQLVa45Sg=;
-	b=4d6tmH/j6ncTXhOc3+5fE6o3zvxkYoEm1osb8GRoKe9CDn0ZAtdSLFecg6Yev6p81Ncg
-	 MRsfHCyZ8XL0e2y42yNOjKERRpYCbdviI/SUVZijPWUgSxsLBNu6yCNaUI4NUe3Va8Jg/
-	 TGFhXLjLohMKXhRzRgOT/3XRjoFayYopX+gOJs8IuHxm9VoMMDeIzuuMsom7HkB3Q9xSh
-	 EmQPJV+fFmMliDPwWg64cQCpRscn1KASrokDVO8HjZNnlBsnE1HhcFFOIJ3cMm4a1IHiu
-	 RWluMnvJ+FxZvao8GIEAqygxyctbY11/pivBzmL56nlJRHIo2HiMuP4rQ+QDs7TSDAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596061;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=qeUUc49iTPJXteXkFNDg1w8nSyOVubqVZaI+JbWQCK0=;
+	b=iTZYD39gb+0OB+JIIC/8k0bwPX47fxwMiQpqlOSpiyqZPQeWy8CBYAWaPHWhUXqYWXXh
+	 B5g+NpKlkOnn08DMNeV+W/MvBPwHHGjucRHzbPDduzI6FtWVibg8iXpFd8YSVwHBcmJF9
+	 rcwXAFpGDIHW1S97marL4UzLZ0u3hOUom6SYI+G0+FZmsxJFEtCQKEyiQ+ZDfcktXSazA
+	 EvkzaSjEb4iaJqu9QFNaoIZwF4P41YCGHQX8xFt5Qv9KaWqjvHEzRdS3/aVI/RGtRY7gx
+	 l8LEoOj6nAR4MVimsj/D4oq8aaV1qec4RrGuuIk/1kNH5kN47+XThQAhTEYHTNVY0vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cPaGrhB8;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygmG22N1;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3022606A31B;
-	Wed, 21 Oct 2026 15:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3022606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA93606A31D;
+	Wed, 21 Oct 2026 15:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA93606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cPaGrhB8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=cu/zlSUQD3+9WkWh3pfTBPHg3qjm9UWt13ZQLVa45Sg=; b=c
-	PaGrhB8JnJy6hwyG70+Fe3pfx+1t2F8pZTPTNu+G0ZrP7LDIggP8MlnDID+Akj0g
-	Lz1ErAyi5Z93LCNvvPZaTLzX5SMFQtSC9QNTb6p/c72UdMk7PVFJ43lYJdMglxjx
-	MHEJW9I1dVRPvNT2qjpD9seqYYgXKPUg1PV/TIlxEE=
-Date: Wed, 21 Oct 2026 23:20:12 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "jackson.lee" <jackson.lee@chipsnmedia.com>
-Cc: "Nas Chung" <nas.chung@chipsnmedia.com>,
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
-	"Nicolas Dufresne" <nicolas.dufresne@collabora.com>,
-	"Sebastian Fricke" <sebastian.fricke@collabora.com>,
-	"Hans Verkuil" <hverkuil@kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Brandon Brnich" <b-brnich@ti.com>,
-	"lafley.kim" <lafley.kim@chipsnmedia.com>
-Subject: Re:RE: [PATCH v2 4/4] media: wave5: handle runtime resume failure
- when closing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <SLXP216MB114802B1D531E9B75068A621ED672@SLXP216MB1148.KORP216.PROD.OUTLOOK.COM>
-References: <20261019082026.1798945-1-yaojiale02@163.com>
- <20261019082026.1798945-5-yaojiale02@163.com>
- <SLXP216MB114802B1D531E9B75068A621ED672@SLXP216MB1148.KORP216.PROD.OUTLOOK.COM>
-X-NTES-SC: AL_Qu2SAPmSuUgq5CGaZOkcn08ShO49XMOyvfoi2YFTc+AEnyzt4CYNekNFJlbR4NixDT6PtCCIYido2OlHUoR6totX1FOiHuXjqsefNOwwZA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygmG22N1
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A72094E41294;
+	Wed, 21 Oct 2026 15:20:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CE52606E3;
+	Wed, 21 Oct 2026 15:20:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E12A7103289F5;
+	Wed, 21 Oct 2026 17:20:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792596053; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qeUUc49iTPJXteXkFNDg1w8nSyOVubqVZaI+JbWQCK0=;
+	b=ygmG22N15GDQBbf7ScDnThNACy3au6xZ/o6vXJyjlJhHpaJZ0FHxcClNQLoXRi4ozLpOkj
+	INbqTMFPHEXjYdpDZU7dTFnXscTiUW8wxIaW77op9iHSsCPG7Lpu38rpQcMLTONQtjrjCK
+	9CvcGNtJmoIpN+u5PoCyp2uEJ3olaCQXXu1EYhLrUTGzcJirpy/MXIm5EYATdBzpnQh+fM
+	etHgCaRuwiiL4RhP2JuTSFQSFijVdCBz0846nwvXKyHG/lZLQYEAQRAXYDQ3DliSaIt0yw
+	0fzFdScFzvtKxt5oNSSYegkA1f5bvO0XqxG5yrs/V0BGIzWaT+qrLW+nA3Wn9Q==
+Date: Wed, 21 Oct 2026 17:20:43 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20261021172043.4bbd2bc5@bootlin.com>
+In-Reply-To: <atgi4rMsw5W6kKkS@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-16-herve.codina@bootlin.com>
+	<arDMhoNNXcPi81sR@gractus.seuss>
+	<20260925152157.511dc65c@bootlin.com>
+	<as3ZWBr3wRonkxXF@gractus.seuss>
+	<20261013190347.4f1d9b9d@bootlin.com>
+	<atGzdxETQZ9ovJFh@gractus.seuss>
+	<20261019151121.26d99f30@bootlin.com>
+	<atgi4rMsw5W6kKkS@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,97 +87,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <afc7210.9dc8.1a15f0c6c61.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:aygvCgDnr_Qs2NhqlIhdAA--.898W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wwSTGrY2CzAJgAA3d
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-SGkgamFja3NvbiwKCkF0IDIwMjYtMTAtMjAgMDk6MjY6MTksICJqYWNrc29uLmxlZSIgPGphY2tz
-b24ubGVlQGNoaXBzbm1lZGlhLmNvbT4gd3JvdGU6Cj5IaSBKaWFsZQo+Cj5UaGFua3MgZm9yIHRo
-ZSB1cGRhdGUuIAo+VGhlIGRpcmVjdGlvbiBsb29rcyByaWdodCwgYW5kIHRoZSBlbmNvZGVyIHNp
-ZGUgbG9va3MgZ29vZCB0byBtZS4KPgo+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiBG
-cm9tOiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gU2VudDogTW9uZGF5LCBPY3Rv
-YmVyIDE5LCAyMDI2IDU6MjAgUE0KPj4gVG86IE5hcyBDaHVuZyA8bmFzLmNodW5nQGNoaXBzbm1l
-ZGlhLmNvbT47IGphY2tzb24ubGVlCj4+IDxqYWNrc29uLmxlZUBjaGlwc25tZWRpYS5jb20+OyBN
-YXVybyBDYXJ2YWxobyBDaGVoYWIgPG1jaGVoYWJAa2VybmVsLm9yZz47Cj4+IE5pY29sYXMgRHVm
-cmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAY29sbGFib3JhLmNvbT47IFNlYmFzdGlhbiBGcmlja2UK
-Pj4gPHNlYmFzdGlhbi5mcmlja2VAY29sbGFib3JhLmNvbT47IEhhbnMgVmVya3VpbCA8aHZlcmt1
-aWxAa2VybmVsLm9yZz47Cj4+IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZzsgbGludXgta2Vy
-bmVsQHZnZXIua2VybmVsLm9yZwo+PiBDYzogSmlhbGUgWWFvIDx5YW9qaWFsZTAyQDE2My5jb20+
-Cj4+IFN1YmplY3Q6IFtQQVRDSCB2MiA0LzRdIG1lZGlhOiB3YXZlNTogaGFuZGxlIHJ1bnRpbWUg
-cmVzdW1lIGZhaWx1cmUgd2hlbgo+PiBjbG9zaW5nCj4+IAo+PiBUaGUgZGVjb2RlciBhbmQgZW5j
-b2RlciBjbG9zZSBwYXRocyBpZ25vcmUgcnVudGltZSByZXN1bWUgZmFpbHVyZXMgYW5kCj4+IHBy
-b2NlZWQgdG8gZmlybXdhcmUgY29tbWFuZHMuIElmIGVuYWJsaW5nIHRoZSBWUFUgY2xvY2tzIGZh
-aWxlZCwgdGhvc2UKPj4gY29tbWFuZHMgYWNjZXNzIHVuYXZhaWxhYmxlIHJlZ2lzdGVycywgYW5k
-IHRoZSBwYXRocyBsYXRlciBkcm9wIGEgcnVudGltZQo+PiBQTSByZWZlcmVuY2UgdGhhdCB3YXMg
-bm90IGFjcXVpcmVkLgo+PiAKPj4gUmV0dXJuaW5nIHRoZSByZXN1bWUgZXJyb3IgZGlyZWN0bHkg
-YWxzbyBwcmV2ZW50cyByZWxlYXNlX2RldmljZSgpIGZyb20KPj4gY2FsbGluZyB3YXZlNV9jbGVh
-bnVwX2luc3RhbmNlKCkuIFRoZSBpbnN0YW5jZSBoYXMgYWxyZWFkeSBiZWVuIHJlbW92ZWQKPj4g
-ZnJvbSB0aGUgZGV2aWNlIGxpc3QgYW5kIGl0cyBtZW0ybWVtIGNvbnRleHQgcmVsZWFzZWQsIHNv
-IGl0cyBob3N0LXNpZGUKPj4gcmVzb3VyY2VzIGxlYWsuCj4+IAo+PiBPbiBhIHJlc3VtZSBmYWls
-dXJlLCBza2lwIHRoZSBmaXJtd2FyZSBjb21tYW5kIGFuZCBoYXJkd2FyZSBsb2NrLCBmcmVlIHRo
-ZQo+PiBjbG9zZS1wYXRoIHJlc291cmNlcywgYW5kIHJldHVybiAtRUlPLiBUaGlzIGxldHMgcmVs
-ZWFzZV9kZXZpY2UoKSBjb250aW51ZQo+PiB3aXRoIGl0cyBjb21tb24gaW5zdGFuY2UgY2xlYW51
-cCB3aXRob3V0IGlzc3VpbmcgYW4gdW5tYXRjaGVkIHJ1bnRpbWUgUE0KPj4gcHV0Lgo+PiAKPj4g
-Rml4ZXM6IDIwOTJiMzgzMzQ4NyAoIm1lZGlhOiBjaGlwcy1tZWRpYTogd2F2ZTU6IFN1cHBvcnQg
-cnVudGltZQo+PiBzdXNwZW5kL3Jlc3VtZSIpCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8
-eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0KPj4gIC4uLi9wbGF0Zm9ybS9jaGlwcy1tZWRpYS93
-YXZlNS93YXZlNS12cHVhcGkuYyAgfCAxOCArKysrKysrKysrKysrKysrLS0KPj4gIDEgZmlsZSBj
-aGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+PiAKPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vY2hpcHMtbWVkaWEvd2F2ZTUvd2F2ZTUtdnB1YXBp
-LmMKPj4gYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2NoaXBzLW1lZGlhL3dhdmU1L3dhdmU1LXZw
-dWFwaS5jCj4+IGluZGV4IDRjMTg0MmYwMmMuLjgwNjkwMWU2MmQgMTAwNjQ0Cj4+IC0tLSBhL2Ry
-aXZlcnMvbWVkaWEvcGxhdGZvcm0vY2hpcHMtbWVkaWEvd2F2ZTUvd2F2ZTUtdnB1YXBpLmMKPj4g
-KysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9jaGlwcy1tZWRpYS93YXZlNS93YXZlNS12cHVh
-cGkuYwo+PiBAQCAtMjIwLDcgKzIyMCwxMSBAQCBpbnQgd2F2ZTVfdnB1X2RlY19jbG9zZShzdHJ1
-Y3QgdnB1X2luc3RhbmNlICppbnN0LAo+PiB1MzIgKmZhaWxfcmVzKQo+PiAgCWlmICghaW5zdC0+
-Y29kZWNfaW5mbykKPj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4+IAo+PiAtCXBtX3J1bnRpbWVfcmVz
-dW1lX2FuZF9nZXQoaW5zdC0+ZGV2LT5kZXYpOwo+PiArCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1l
-X2FuZF9nZXQoaW5zdC0+ZGV2LT5kZXYpOwo+PiArCWlmIChyZXQgPCAwKSB7Cj4+ICsJCXJldCA9
-IC1FSU87Cj4+ICsJCWdvdG8gZnJlZV9yZXNvdXJjZXM7Cj4+ICsJfQo+PiAKPj4gIAlyZXRfbXV0
-ZXggPSBtdXRleF9sb2NrX2ludGVycnVwdGlibGUoJnZwdV9kZXYtPmh3X2xvY2spOwo+PiAgCWlm
-IChyZXRfbXV0ZXgpIHsKPj4gQEAgLTI1OSw2ICsyNjMsNyBAQCBpbnQgd2F2ZTVfdnB1X2RlY19j
-bG9zZShzdHJ1Y3QgdnB1X2luc3RhbmNlICppbnN0LCB1MzIKPj4gKmZhaWxfcmVzKQo+PiAKPj4g
-IAlkZXZfZGJnKGluc3QtPmRldi0+ZGV2LCAiJXM6IGRlY19maW5pc2hfc2VxIGNvbXBsZXRlXG4i
-LCBfX2Z1bmNfXyk7Cj4+IAo+PiArZnJlZV9yZXNvdXJjZXM6Cj4+ICAJd2F2ZTVfdmRpX2ZyZWVf
-ZG1hX21lbW9yeSh2cHVfZGV2LCAmcF9kZWNfaW5mby0+dmJfd29yayk7Cj4+IAo+PiAgCWZvciAo
-aSA9IDAgOyBpIDwgTUFYX1JFR19GUkFNRTsgaSsrKSB7IAo+Cj5PbiB0aGUgZGVjb2RlciBzaWRl
-LCB0aGVyZSBpcyBhIHByb2JsZW0gd2l0aCB0aGUgcmV0ID09IC1FSU8gY2hlY2suCj5BZnRlciB0
-aGUgZnJlZV9yZXNvdXJjZXMgbGFiZWwsIHRoZSBhdXhpbGlhcnkgYnVmZmVyIGxvb3Agb3Zlcndy
-aXRlcyByZXQ6Cj4KPmZvciAoaSA9IDAgOyBpIDwgTUFYX1JFR19GUkFNRTsgaSsrKSB7Cj4JcmV0
-ID0gcmVzZXRfYXV4aWxpYXJ5X2J1ZmZlcnMoaW5zdCwgaSk7Cj4JaWYgKHJldCkgewo+CQlyZXQg
-PSAwOwo+CQlicmVhazsKPgl9Cj59Cj4KPlNvIHJldCBpcyBhbHdheXMgMCBhZnRlciB0aGUgbG9v
-cCwgdGhlICJpZiAocmV0ID09IC1FSU8pIiBjaGVjayBuZXZlciBtYXRjaGVzLCBhbmQgdGhlIHJl
-c3VtZSBmYWlsdXJlIHBhdGggZmFsbHMgdGhyb3VnaCB0byB1bmxvY2tfYW5kX3JldHVybi4gCj5J
-dCB0aGVuIHVubG9ja3MgaHdfbG9jayB0aGF0IHdhcyBuZXZlciB0YWtlbiwgY2FsbHMgcG1fcnVu
-dGltZV9wdXRfc3luYygpIHdpdGhvdXQgYSByZWZlcmVuY2UsIGFuZCByZXR1cm5zIDAuCj5Db3Vs
-ZCB5b3UgbW92ZSB0aGUgaG9zdC1zaWRlIGZyZWVpbmcgaW50byBhIHNtYWxsIGhlbHBlciBhbmQg
-Y2FsbCBpdCBmcm9tIGJvdGggcGF0aHMsIGFuZCByZXR1cm4gLUVJTyBkaXJlY3RseSBvbiB0aGUg
-cmVzdW1lIGZhaWx1cmU/IAo+VGhhdCB3b3VsZCBhdm9pZCByZWx5aW5nIG9uIHRoZSB2YWx1ZSBv
-ZiByZXQgYWNyb3NzIHRoZSBjbGVhbnVwIGNvZGUuCj4KPlRoYW5rcywKPkphY2tzb24KCkhvdyBh
-Ym91dCB0aGlzIG9uZSwgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYxMDIxMTUxNTUy
-LjQyODU5MC0xLXlhb2ppYWxlMDJAMTYzLmNvbS8KCj4KPgo+QEAgLTI3Miw2ICsyNzcsOCBAQCBp
-bnQKPj4gd2F2ZTVfdnB1X2RlY19jbG9zZShzdHJ1Y3QgdnB1X2luc3RhbmNlICppbnN0LCB1MzIg
-KmZhaWxfcmVzKQo+PiAgCXdhdmU1X3ZkaV9mcmVlX2RtYV9tZW1vcnkodnB1X2RldiwgJnBfZGVj
-X2luZm8tPnZiX3Rhc2spOwo+PiAKPj4gIAltdXRleF9kZXN0cm95KCZpbnN0LT5mZWVkX2xvY2sp
-Owo+PiArCWlmIChyZXQgPT0gLUVJTykKPj4gKwkJcmV0dXJuIHJldDsKPj4gCj4+ICB1bmxvY2tf
-YW5kX3JldHVybjoKPj4gIAltdXRleF91bmxvY2soJnZwdV9kZXYtPmh3X2xvY2spOwo+PiBAQCAt
-NzUwLDcgKzc1NywxMSBAQCBpbnQgd2F2ZTVfdnB1X2VuY19jbG9zZShzdHJ1Y3QgdnB1X2luc3Rh
-bmNlICppbnN0LAo+PiB1MzIgKmZhaWxfcmVzKQo+PiAgCWlmICghaW5zdC0+Y29kZWNfaW5mbykK
-Pj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4+IAo+PiAtCXBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQo
-aW5zdC0+ZGV2LT5kZXYpOwo+PiArCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoaW5z
-dC0+ZGV2LT5kZXYpOwo+PiArCWlmIChyZXQgPCAwKSB7Cj4+ICsJCXJldCA9IC1FSU87Cj4+ICsJ
-CWdvdG8gZnJlZV9yZXNvdXJjZXM7Cj4+ICsJfQo+PiAKPj4gIAlyZXQgPSBtdXRleF9sb2NrX2lu
-dGVycnVwdGlibGUoJnZwdV9kZXYtPmh3X2xvY2spOwo+PiAgCWlmIChyZXQpIHsKPj4gQEAgLTc3
-NCw2ICs3ODUsNyBAQCBpbnQgd2F2ZTVfdnB1X2VuY19jbG9zZShzdHJ1Y3QgdnB1X2luc3RhbmNl
-ICppbnN0LCB1MzIKPj4gKmZhaWxfcmVzKQo+PiAKPj4gIAlkZXZfZGJnKGluc3QtPmRldi0+ZGV2
-LCAiJXM6IGVuY19maW5pc2hfc2VxIGNvbXBsZXRlXG4iLCBfX2Z1bmNfXyk7Cj4+IAo+PiArZnJl
-ZV9yZXNvdXJjZXM6Cj4+ICAJd2F2ZTVfdmRpX2ZyZWVfZG1hX21lbW9yeSh2cHVfZGV2LCAmcF9l
-bmNfaW5mby0+dmJfd29yayk7Cj4+IAo+PiAgCWlmIChpbnN0LT5zdGQgPT0gV19IRVZDX0VOQyB8
-fCBpbnN0LT5zdGQgPT0gV19BVkNfRU5DKSB7IEBAIC03ODQsNgo+PiArNzk2LDggQEAgaW50IHdh
-dmU1X3ZwdV9lbmNfY2xvc2Uoc3RydWN0IHZwdV9pbnN0YW5jZSAqaW5zdCwgdTMyICpmYWlsX3Jl
-cykKPj4gIAl9Cj4+IAo+PiAgCXdhdmU1X3ZkaV9mcmVlX2RtYV9tZW1vcnkodnB1X2RldiwgJnBf
-ZW5jX2luZm8tPnZiX3Rhc2spOwo+PiArCWlmIChyZXQgPT0gLUVJTykKPj4gKwkJcmV0dXJuIHJl
-dDsKPj4gCj4+ICB1bmxvY2tfYW5kX3JldHVybjoKPj4gIAltdXRleF91bmxvY2soJnZwdV9kZXYt
-Pmh3X2xvY2spOwo+PiAtLQo+PiAyLjM0LjEK
+Hi David,
+
+On Wed, 21 Oct 2026 13:26:49 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> > 
+> > Ok, my proposal seems to be a no-go and so I will follow your proposal given
+> > above.  
+> 
+> To be clear, I'm rejecting the original proposal because I think it's
+> internally inconsistent (if you follow the consequences of decisions
+> far enough).  I'm not necessarily opposed to something other than the
+> above, as long as the rules for when unknown tags must be invalidated
+> (and what that does to the version) are made very clear in the
+> structured tag spec.  e.g. see an alternative proposal below.
+
+No problem, I understand your point.
+
+...
+
+> 
+> Essentially the theory of the proposal above is to be maximally
+> conservative: any write (adding, removing, changing, in-place,
+> whatever) will invalidate all unknown tags and downgrade the version.
+> 
+> 
+> But, here's an alternative proposal for invalidation/version semantics
+> that I think is consistent, while being a bit closer to your original
+> proposal.
+> 
+> 1. version and last_comp_version retain their meanings.  No new header
+>    version.
+
+Ok
+
+> 2. If version >= 18 the tree may include any structured tags, even if
+>    they weren't defined as of v18.
+
+Ok
+
+> 3. Some future version might _require_ certain structured tags to be
+>    present.  But a client must only rely on those tags if the version
+>    indicates it can.
+>      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+>        reading a v19 tree _might_ see some FDT_FOO tags (because of
+>        (2)), but cannot rely on them being present in all the places
+>        they should be.
+
+Ok, kind of degraded mode. Whether or not a v20 compatible client can continue
+or not will depend of each tags known by this v20 client. For some tags, having
+them removed will not be a problem whereas it will be a problem for some other.
+
+Makes sense.
+
+> 4. Any write to a property (including in place) invalidates all
+>    unknown tags on that property (they must be stripped)
+
+Ok
+
+> 5. Any write to a property invalidates all unknown tags on that
+>    property's node
+
+Will see in the implementation. The offset of the written property will be
+incorrect after the write. Indeed, some tags (tags related to the node)
+available before the property can be removed. With splices instead of
+FDT_NOP, offsets change.
+
+This also brings a question. Are API functions such as fdt_get_property_by_offset_w()
+need to be deprecated?
+
+Those kind of functions return a pointer to the data of a property for modification
+by the caller. We don't know if the caller will modify or not the property.
+
+Without deprecated it we can change the function to
+---- 8< ----
+struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
+						  int offset,
+						  int *lenp)
+{
+	int new_offset;
+
+        /*
+         * The modification is goind to be done out of libfdt.
+         * Unknown tags are removed (rules for modification when unknown tags
+         * are involved) but also known tags. Indeed, we cannot know if the
+         * modification will have impacts on known tags
+         */
+	new_offset = fdt_remove_all_tags_due_to_property_modification(fdt, offset);
+
+	return (struct fdt_property *)(uintptr_t)
+		fdt_get_property_by_offset(fdt, new_offset, lenp);
+}
+---- 8< ----
+
+The idea is to be conservative here also and consider that property data retrieved
+for writing will be modified by the caller.
+
+Also, the offset used as parameter of fdt_get_property_by_offset_w() is no more
+valid after the call.
+
+Last point to have in mind, getting the node offset from the property offset will
+need to walk the tree from the beginning. It can be costly.
+
+> 6. Adding or deleting a property on a node invalidates all unknown tags
+>    on the node
+
+Ok.
+
+> 7. Adding or deleting a subnode invalidates all unknown tags on the
+>    node
+
+Ok.
+
+> 8. Whenever a tag is invalidated and stripped, the overall version
+>    must be downgraded (to let clients know they can't count on tags
+>    being present)
+
+Ok.
+
+> 
+> Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+> sure how feasible (6) is to implement.
+
+Well, this new proposal is more complex to implement than your first
+proposal but it has a finer grain to handle unknown tags on modification.
+
+I can try to implement something based on this new proposal.
+
+> 
+> Note that because writes don't invalidate tags on ancestor nodes
+> beyond one level, this proposal doesn't permit tags to contain summary
+> information about an entire subtree that could be invalidated by
+> writes further down in that tree.
+> 
+
+Well this doesn't look like an issue on my side. At some point if such tags
+are added, we can avoid any modification using the last_comp_version field.
+
+Best regards,
+Hervé
