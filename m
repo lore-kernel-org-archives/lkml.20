@@ -1,111 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581845;
-	b=elANMCR575fjh4uHRlDDx5iXZcffSM/nojWcL++QCWjUODV/bz1vJUfv3emU0rMjSQ7Y
-	 1sX0Z+IjP7f/xdgi9myd0LbdjdX63SeYAalQ+foOJkoUoLPRi7JkhE0pPVCOulCtHWKZf
-	 1fh0zjEE3mKn4zuGbyo43c/ZgJaNwUBDdr3z48mGLYpqAdf14CDC3+oVo1w4ejt1lXRwm
-	 llEUdlDqehthlcNqaLUokirye9frRMkZpkvwZVGIngZRnp8oSxUyRG7MPcPBg5AhOG9l8
-	 ovEhza9t4ZfdDlHE/aXOeAnDFJ5dZnul2a4giGQLmc8bbjai355k4panC76t1A5v83A==
+	t=1792581905;
+	b=faQvv0RQaPuPC1K8DwTMnt1mtgPReYaZGRuopwdsTQAW7hgdNihEaNWaoDBeQWgnxffb
+	 y/Qx/e9RKYCd4Yk8gvnlzAPnOgKW78MBlfrqWmZ06WYSJ/TmdPw6CX0Zq0lhf/XYAVXSe
+	 ROIELklFH6QghhPF7OFAFIxCGhZ3zn7rWaD0grWmJPWaR8sc6hYGxnLZZ/Dz2vxpzZfux
+	 b0h9bCloWeXtgFrTcdYB/6SAE7m+3MPAzWq7Lv0zc7YYtpKYBrDXiixaGrq445SBexs2q
+	 TzmQ+Y51eSm9KB4jftNqiRhG7rkitEZVNDRsvUq2V8vCLe18WHeRTz6cwOQExh5K4ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581845;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ouy+lNJFQV07YpOgTzFfZDe5bIi4Od8Q0LOxRIrmGqU=;
-	b=NhEY7pzwRWursKL29MdGzCax+nMb/IIn4FShGFy3GkIvAOIDH7gnzCxHh9FV1p6f+A6a
-	 6QhEZvUXrdPiTAbtc0CDZvJSyaebo/SOQecNtTZ2jmxkHYMg/vG9gaWRq33DADbn1MRPh
-	 KqSB5FSfAXnGAcF+M1IFIsQwMo3FFwB/wG4sRLS5otkKM4DtoyBm+AHopl9XwwUNsVUFb
-	 HeNaWZlMeb31kL0mOtUlUVEfiqgfEVDtZjkDpuY+N15YOPPVJi2HdR/ffa+SOo+iWlxvy
-	 6bolzsbffwCZI3fKLOOACoXXxu0LHGZTVMbHKHTuBx5fFmtNmUYYTOnxk7SHq14VgyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792581905;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
+	bh=ND5EZj7JQ8YayZRBZb3U+AbUZ3EKzLPLjchuk2el9mM=;
+	b=dAUJi+ARmgS4lHgTMChxCB5HAX0VSjni/ZmspKap2PbQs+xU6rNGtPajc7T8KZdpBEK7
+	 ByuyMnwMavhbUXQHR2vvEtOf1y3rZBSdHbqCDO3uF+Ek4lyOp88AsFQS9usbm0GOwx6Ae
+	 4fBlC9gSuqh7FvHYihxzTjopDOGnYftgnDh1/0vjp9Qr9fKblTYqXHW0rTm9IfxpdY47N
+	 y28zQAIT8Y2ThbmsxfuejDHy3KpYwMEM491hho+6a4TJVRrlQ20yzJHrw/NbUc3pzBNel
+	 HK9tupcpfF494omBzNqyFKRwiESA01DVexMktePZO6lFtRGNW8FT29ABawI9KmD16fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XcK0r2QE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GT9ukZUk;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=easystack.cn;
+	spf=pass smtp.mailfrom=easystack.cn;
+	arc=none smtp.remote-ip=156.224.81.104
+Received: from mail-m81104.xmail.ntesmail.com (mail-m81104.xmail.ntesmail.com [156.224.81.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB06C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:24:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB06C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XcK0r2QE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GT9ukZUk
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA5oxP3620537
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:24:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ouy+lNJFQV07YpOgTzFfZDe5bIi4Od8Q0LOxRIrmGqU=; b=XcK0r2QEfl8UDzkl
-	K/afw81W8dmX8Xi6An8NA/wlU+g7WBHE0T3PAuo4AgSGg4lT5Tx8AGHtrNLc2vlB
-	v86y7yaJ6wOKgfBKIqmVxh6gXm4ibLxaLt3bOSoexMoN6IIxiDrZW+dK+hTzuphT
-	PiGjMCHAhGR9rzA6LdQazd/gk5Eshv5sQRM8OhXeClISnXLewDxJLX9/Xl1PKDkF
-	hblX5vmd9iNM/k44G5zhOtTZbEO9fzq/U9d2qpdKvdjyaKVQkhcl5sXiq8bFCRZS
-	6V0pyiSbJXq+heeDuUHAln0qvBvHC+XaBsFouB5y9myzIx3bo4fVjNapPclhOo01
-	icElhw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hebyd42e0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:24:03 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e869e00005so8220245ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:24:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792581843; x=1793186643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ouy+lNJFQV07YpOgTzFfZDe5bIi4Od8Q0LOxRIrmGqU=;
-        b=GT9ukZUkjFrBWaiVdPX2DI/oB/6bR0JPePYMEY4QGjyRJ4xbOvhw6bQjA/bsV0ryJi
-         BrqMSkANajoEz4gyRSTWM3K7VVKlLWkg/VcMkcqJAs+AGuHcNXCK0t38f9s0VXoPV4Gg
-         V2+/geCKU1SjatlDpvSarg2sbA/QZOqXaWYMjoSvdsS4+K9YTFu/JXoQiA/yh1+CZx3X
-         4+qUNHyl9ERMIG4JcFrBiJww6nKfLDwt2ApvWc1yu2KZvk8KgJym7n90YIjXmrwa3m41
-         Ni0UGn4all7EH49Vai25IZ5bGgKvyqk06DoGn+1h/fCOTb6qftyxoQaDcUh0p/Ua9nIc
-         Eg9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792581843; x=1793186643;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ouy+lNJFQV07YpOgTzFfZDe5bIi4Od8Q0LOxRIrmGqU=;
-        b=vi6tSH/4IkM50KMrcC4gA0dHJr+5mIndxx8oj6hDQAodYV8PkGlnJUBit2CwC227Rl
-         BIu6MYLxXl3be6pTcK5DTx/Dwn/u7xL6vl39tEWbrLI/Qcf8Nxi3dVJvxJYZIcmOc3Eq
-         X33Fyl3qB1RkMmld0oNX/7tSUWxSisr7XFKm4AiwzNrtP6crggHpHALShvLO5l6UPVlt
-         6K5styEV3aejtpMgG7Ke9g0OFoGzn1wdPzngEM0tu/JK3I91DXiBiJi/ixJ0wkawQP91
-         DdZOgYYe6ElpPeIlshjfbPvBI8eWznjovAdpTL4CHwJJzYjmqxq/HTSi1ifUqVhzxplv
-         An6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwCQpdgAhEeXkikNqvRTKv08XczF66SsdJnTW4QMUfaEvdYKefeKXc+IMVH7HAdwBusFSgWYAteAB/d0dI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAuey3XGG+bjyCuCQZJ43TpsR3REBS4X2WnfzHMkzVAt8HVupk
-	8cTa/+i6sYpTe91TK95ecOXGj8eZmBz75uQQIQnL03xw47/1meowWBaG7JDFn9rrD2qsaDqqohg
-	JEDPJB/RmjsQMS/4qewlSXUaYLA9csv/0BeNzTjB3CPj/kdw12IEBNEilFxOHqfyIkGw=
-X-Gm-Gg: AYBFou1IVACh6obAFg19ej7UwzKOySvsdzym6PbVQMfgPmalsCIv+8claIom/uWtAQm
-	9GKdEFDYcFTZlN2S0NKAmZ6VorO+vMD8aAsGbCi8ga9q9uC9oX/VY7xkJp/AWO/ZtSPooMm/Wzb
-	fqeRikrD11v9MxuYwZKQmFWiA08a2JZFfWKxY/6IuVdVBoNPUHPZ3UTOlJHuC1jfV10N/o2AlH5
-	SxJsVt+MjRaEsa/3v5jNcGZI/YPxw3nfdg8XTL9Tq4kQT5b7DZL7bRD6uwfJYrZXdF1SKQJcr6l
-	8EWOiq/jwlRzNY1kezy+LDnTiDsmk4rRnt5WQcPlPckDYV9q5E3MgdkNMLmiEm1ocoQQ50F7sKI
-	P5D5Bx2FgV71Ess3pEItIVsJNNMReG41w36j6x2NolQbOAHSmPCdf6IuqpFco
-X-Received: by 2002:a17:902:f606:b0:2dd:ad74:ac2e with SMTP id d9443c01a7336-2ea43e2407cmr14564435ad.23.1792581843250;
-        Wed, 21 Oct 2026 04:24:03 -0700 (PDT)
-X-Received: by 2002:a17:902:f606:b0:2dd:ad74:ac2e with SMTP id d9443c01a7336-2ea43e2407cmr14563935ad.23.1792581842315;
-        Wed, 21 Oct 2026 04:24:02 -0700 (PDT)
-Received: from [10.239.96.176] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b4addfbsm9853035ad.74.2026.10.21.04.23.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 04:24:01 -0700 (PDT)
-Message-ID: <c1a0dfe9-34bb-4d24-9644-0f758aff0af0@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 19:23:55 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EB2606A329;
+	Wed, 21 Oct 2026 11:25:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6EB2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from localhost.localdomain (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151a8;
+	Wed, 21 Oct 2026 19:24:52 +0800 (GMT+08:00)
+From: Zhen Ni <zhen.ni@easystack.cn>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	shuah@kernel.org
+Cc: bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhen Ni <zhen.ni@easystack.cn>
+Subject: [PATCH v3 3/7] mm/page_owner: add bpf_iter target "page_owner"
+Date: Wed, 21 Oct 2026 19:24:33 +0800
+Message-Id: <20261021112437.1799213-4-zhen.ni@easystack.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261021112437.1799213-1-zhen.ni@easystack.cn>
+References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,259 +73,315 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 04/14] media: qcom: camss: Issue stream-on REG_UPDATE
- from CSID
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-        Bryan O'Donoghue
- <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
- <20261011-kaanapali-camss-v21-4-04fd28d815c6@oss.qualcomm.com>
- <3843110c-4766-4352-ab2a-6d3017336534@oss.qualcomm.com>
- <dbde0e35-8246-4f69-b3be-cd617a1767d9@linaro.org>
-Content-Language: en-US
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-In-Reply-To: <dbde0e35-8246-4f69-b3be-cd617a1767d9@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NSBTYWx0ZWRfXwP1S955uso8n
- NN9XJeNgPPOMORIk0imzj++qFJQ2LjyHeUnoc1x5e3QV6uoLwda1UXanCRpr1qy9EKTZIlKeM/y
- Z5wZjQDVVjaPOP8uAPfu3vg6NBdi8Ibywoh0rbbkAF/bH7TvtDSJxa37hK/j1sRC91za0rEAaE3
- o4uk+t5HSM4kb5ePS8wecOAMwQHGtKhkvJpxq3fKshDkdo2daBiD479p0ZNAnwJyS658GZSdWyO
- zwhyBVSXhFNWe0NZkersJsyU5doBHI1UgefuiL6V2bAxWa0aAevI8Z3s4Cr0irQ3k6JUwjYxSWi
- SVDyECPWfuc/R/BUBrq8TYV+Yp44ckF3+yQB6getQp6t8UQWi1tTJF3HZPJwdiW4oWs7cOnfQQM
- aGQPwLgycbEL345GQKfn/g24WkYRWMMLRN2vR2OWOoSx9h3hkyw9nWBjeTCymDB8rUs45pQSPhz
- 0pFUFakhqPuYxoxZW8w==
-X-Authority-Analysis: v=2.4 cv=TdsDJhQh c=1 sm=1 tr=0 ts=6ad8a0d4 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=S6ipaplINJmNe55hSBAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: evnWhtbc2VntoEK0tDAoeA8APDAE_Ctg
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NSBTYWx0ZWRfX8Nm/+Yn0oUwS
- zum9n6mL8eTImN/PAPEzzSSNfM0wxdlQSCKmrk8+8UfH85V2RPF1vqsYY1pT9id5WoN5DBi3vr4
- gLjYtqN4lnIwCIDNwPIHLfnnlB9a9Hg=
-X-Proofpoint-GUID: evnWhtbc2VntoEK0tDAoeA8APDAE_Ctg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210045
+X-HM-Tid: 0aa15e34f8690229kunme08c1fd526acdc
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS08YVhlJQh0fTE9IGRgaH1YVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-On 10/21/2026 4:53 PM, Bryan O'Donoghue wrote:
-> On 21/10/2026 08:37, Wenmeng Liu wrote:
->>
->> Hi Bryan, Hangxiang,
->>
->> On 10/12/2026 2:45 PM, Hangxiang Ma wrote:
->>> On stream-on, CAMSS starts the subdevices upstream from the video node
->>> through their sink pads, so the VFE is started before the CSID.
->>>
->>> Starting with CSID 680, the REG_UPDATE is issued through the CSID
->>> rather than the VFE. However, vfe_enable_output_v2() still issues a
->>> REG_UPDATE after queueing each initial buffer, before the CSID has
->>> configured the stream. The VFE then never signals BUF_DONE. Therefore,
->>> the CAMSS now issues the REG_UPDATE from configure_stream() on CSID 680
->>> and CSID Gen3 instead. The operation happens after the RX configuration
->>> and before the RDI path is enabled.
->>>
->>> Skip the VFE-side stream-on REG_UPDATE only when the CSID connected to
->>> the VFE sink pad implements the reg_update callback. Platforms whose
->>> CSID does not provide this callback, as well as lines fed by ISPIF,
->>> keep the existing VFE-side REG_UPDATE.
->>>
->>> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
->>> ---
->>>   drivers/media/platform/qcom/camss/camss-csid-680.c |  3 ++
->>>   .../media/platform/qcom/camss/camss-csid-gen3.c    |  3 ++
->>>   drivers/media/platform/qcom/camss/camss-vfe.c      | 37 +++++++++++ 
->>> + +++++++++-
->>>   3 files changed, 42 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-680.c b/ 
->>> drivers/media/platform/qcom/camss/camss-csid-680.c
->>> index 345a67c8fb94..556cdfef6207 100644
->>> --- a/drivers/media/platform/qcom/camss/camss-csid-680.c
->>> +++ b/drivers/media/platform/qcom/camss/camss-csid-680.c
->>> @@ -296,6 +296,8 @@ static void __csid_configure_rdi_stream(struct 
->>> csid_device *csid, u8 enable, u8
->>>       writel(val, csid->base + CSID_RDI_CFG0(port));
->>>   }
->>> +static void csid_subdev_reg_update(struct csid_device *csid, int 
->>> port_id, bool is_clear);
->>> +
->>>   static void csid_configure_stream(struct csid_device *csid, u8 enable)
->>>   {
->>>       int i;
->>> @@ -307,6 +309,7 @@ static void csid_configure_stream(struct 
->>> csid_device *csid, u8 enable)
->>>           if (csid->phy.en_vc & BIT(i)) {
->>>               __csid_configure_rdi_stream(csid, enable, i, 0);
->>>               __csid_configure_rx(csid, &csid->phy, 0);
->>> +            csid_subdev_reg_update(csid, i, false);
->>>               __csid_ctrl_rdi(csid, enable, i);
->>>           }
->>>       }
->>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/ 
->>> drivers/media/platform/qcom/camss/camss-csid-gen3.c
->>> index 0fdbf75fb27d..830c9c818d3d 100644
->>> --- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
->>> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
->>> @@ -219,6 +219,8 @@ static void __csid_configure_rdi_stream(struct 
->>> csid_device *csid, u8 enable, u8
->>>       writel(val, csid->base + CSID_RDI_CFG0(port));
->>>   }
->>> +static void csid_subdev_reg_update(struct csid_device *csid, int 
->>> port_id, bool is_clear);
->>> +
->>>   static void csid_configure_stream(struct csid_device *csid, u8 enable)
->>>   {
->>>       u8 i;
->>> @@ -230,6 +232,7 @@ static void csid_configure_stream(struct 
->>> csid_device *csid, u8 enable)
->>>           if (csid->phy.en_vc & BIT(i)) {
->>>               __csid_configure_rdi_stream(csid, enable, i, 0);
->>>               __csid_configure_rx(csid, &csid->phy, 0);
->>> +            csid_subdev_reg_update(csid, i, false);
->>>               __csid_ctrl_rdi(csid, enable, i);
->>>           }
->>>   }
->>> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/ 
->>> media/platform/qcom/camss/camss-vfe.c
->>> index 2680a9914765..16a0b5663fe2 100644
->>> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
->>> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
->>> @@ -502,6 +502,37 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
->>>       spin_unlock_irqrestore(&vfe->output_lock, flags);
->>>   }
->>> +/*
->>> + * vfe_upstream_csid_has_reg_update - Check whether the CSID feeding 
->>> this line
->>> + * issues its own streamon RUP (i.e. its configure_stream does the 
->>> RUP).
->>> + *
->>> + * The CSID->VFE link is created in camss.c for all CSIDs and VFEs, 
->>> so the
->>> + * upstream entity of the sink pad is either a CSID (possibly with 
->>> RUP) or an
->>> + * ISPIF (no RUP). Only enabled links are considered.
->>> + */
->>> +static bool vfe_upstream_csid_has_reg_update(struct vfe_line *line)
->>> +{
->>> +    struct vfe_device *vfe = to_vfe(line);
->>> +    struct camss *camss = vfe->camss;
->>> +    struct media_pad *remote;
->>> +    unsigned int i;
->>> +
->>> +    remote = media_pad_remote_pad_first(&line->pads[MSM_VFE_PAD_SINK]);
->>> +    if (!remote || !is_media_entity_v4l2_subdev(remote->entity))
->>> +        return false;
->>> +
->>> +    for (i = 0; i < camss->res->csid_num; i++) {
->>> +        struct csid_device *csid = &camss->csid[i];
->>> +
->>> +        if (&csid->subdev.entity != remote->entity)
->>> +            continue;
->>> +
->>> +        return !!csid->res->hw_ops->reg_update;
->>> +    }
->>> +
->>> +    return false;
->>> +}
->>> +
->>>   int vfe_enable_output_v2(struct vfe_line *line)
->>>   {
->>>       struct vfe_device *vfe = to_vfe(line);
->>> @@ -511,6 +542,7 @@ int vfe_enable_output_v2(struct vfe_line *line)
->>>       unsigned long flags;
->>>       unsigned int frame_skip = 0;
->>>       unsigned int i;
->>> +    bool rup_in_csid;
->>>       sensor_pad = camss_find_sensor_pad(&line->subdev.entity);
->>>       if (sensor_pad) {
->>> @@ -523,6 +555,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
->>>               frame_skip = VFE_FRAME_DROP_VAL - 1;
->>>       }
->>> +    rup_in_csid = vfe_upstream_csid_has_reg_update(line);
->>> +
->>>       spin_lock_irqsave(&vfe->output_lock, flags);
->>>       ops->reg_update_clear(vfe, line->id);
->>> @@ -552,7 +586,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
->>>           output->gen2.active_num++;
->>>           ops->vfe_wm_update(vfe, output->wm_idx[0],
->>>                      output->buf[i]->addr[0], line);
->>> -        ops->reg_update(vfe, line->id);
->>> +        if (!rup_in_csid)
->>> +            ops->reg_update(vfe, line->id);
->>>       }
->>>       spin_unlock_irqrestore(&vfe->output_lock, flags);
->>>
->>
->> According to the hardware documentation:
->> Starting with CSID 680, CAMIF has moved into the CSID. As a result, 
->> RUP is now issued by the CSID and propagated to the IFE.
->>
->> Starting with CSID 980, software must also set the SET bit in 
->> RUP_AUP_CMD after issuing the RUP/AUP command. Otherwise, the hardware 
->> ignores the command and the corresponding register update does not 
->> take effect.
->>
->>
->> Bryan, according to the HW documentation, the change itself is 
->> consistent with the required programming sequence. The main question 
->> is whether this is the right implementation from the driver 
->> perspective, or if there is a cleaner way to handle it.
->>
->> I have tested the change on the Hamoa EVK board.
->> Tested-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com> # Hamoa EVK
->>
->>
->> Thanks,
->> Wenmeng
-> 
-> OK thank you for the explanation.
-> 
-> OTOH I agree with Loic's statement - it is cleaner to subtract the 
-> callback and disjunct on its presence than to add a flag to the same 
-> effect in reverse.
-> 
-> ---
-> bod
+Register a bpf_iter target "page_owner" that walks the pages eligible
+for page_owner output, with the same eligibility rules as the
+/sys/kernel/debug/page_owner read path.
 
-Hi Loic, Bryan, thanks for the review. I wonder if it would be better to 
-keep the check on the CSID side?
+For each eligible page the attached BPF program receives the pfn and the
+page_owner record, and can freely filter and format output.
 
-vfe->reg_update() is also used outside stream-on, such as bufdone, queue 
-buffer. It must be implemented in VFE. We only want to change the VFE 
-behavior at stream-on stage, in function vfe_enable_output_v2(). So 
-making vfe->reg_update() optional could affect runtime updates.
+The po_snap record in the scan cursor is taken inside the page_ext
+RCU window and handed to the BPF program as a copy, so no RCU window
+is needed at consumption time. Torn reads remain possible if the
+record is concurrently updated while it is copied, but this is the
+same best-effort behavior as the read path has always had.
 
-Maybe the cheapest way is still to check the CSID side reg_update 
-implementation at stream-on stage? I'm very glad to hear your 
-suggestions. Thanks a lot.
+The target is registered from pageowner_init() when both
+CONFIG_PAGE_OWNER and CONFIG_BPF_SYSCALL are enabled; a registration
+failure only disables the bpf_iter target.
 
+Userspace tools such as bpftrace can attach to this target like any
+other bpf_iter. For example, to count pages owned by init (pid 1):
+
+    bpftrace -e 'iter:page_owner / ctx->po->pid == 1 /
+                 { @ = sum(1 << ctx->po->order); }'
+
+Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
-Best Regards,
-Hangxiang
+Changes in v3:
+- Drop the page pointer from the BPF context.
+- Enable BPF_ITER_RESCHED.
+- Fix the bpftrace example in the commit message.
+
+Changes in v2:
+- Drop the scan->pfn++.
+- Fill page/po/pfn only when v is non-NULL.
+- Implement page_owner_seq_stop().
+
+v2: https://lore.kernel.org/linux-mm/20261013122125.843451-3-zhen.ni@easystack.cn/
+v1: https://lore.kernel.org/linux-mm/20261009112308.240769-3-zhen.ni@easystack.cn/
+---
+ mm/Makefile          |   3 ++
+ mm/page_owner.c      |  32 +++---------
+ mm/page_owner.h      |  47 +++++++++++++++++
+ mm/page_owner_iter.c | 118 +++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 175 insertions(+), 25 deletions(-)
+ create mode 100644 mm/page_owner.h
+ create mode 100644 mm/page_owner_iter.c
+
+diff --git a/mm/Makefile b/mm/Makefile
+index e7245cb88c66..d7307b5a964c 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -115,6 +115,9 @@ obj-$(CONFIG_DEBUG_KMEMLEAK) += kmemleak.o
+ obj-$(CONFIG_DEBUG_RODATA_TEST) += rodata_test.o
+ obj-$(CONFIG_DEBUG_VM_PGTABLE) += debug_vm_pgtable.o
+ obj-$(CONFIG_PAGE_OWNER) += page_owner.o
++ifdef CONFIG_BPF_SYSCALL
++obj-$(CONFIG_PAGE_OWNER) += page_owner_iter.o
++endif
+ obj-$(CONFIG_MEMORY_ISOLATION) += page_isolation.o
+ obj-$(CONFIG_ZSMALLOC)	+= zsmalloc.o
+ obj-$(CONFIG_GENERIC_EARLY_IOREMAP) += early_ioremap.o
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index 8e72a85c663c..ece3b69a2579 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -14,6 +14,7 @@
+ #include <linux/sched/clock.h>
+ 
+ #include "page_alloc.h"
++#include "page_owner.h"
+ 
+ /*
+  * TODO: teach PAGE_OWNER_STACK_DEPTH (__dump_page_owner and save_stack)
+@@ -21,30 +22,6 @@
+  */
+ #define PAGE_OWNER_STACK_DEPTH (16)
+ 
+-struct page_owner {
+-	unsigned short order;
+-	short last_migrate_reason;
+-	gfp_t gfp_mask;
+-	depot_stack_handle_t handle;
+-	depot_stack_handle_t free_handle;
+-	u64 ts_nsec;
+-	u64 free_ts_nsec;
+-	char comm[TASK_COMM_LEN];
+-	pid_t pid;
+-	pid_t tgid;
+-	pid_t free_pid;
+-	pid_t free_tgid;
+-};
+-
+-/*
+- * Cursor and per-page result of page_owner_next_eligible().
+- */
+-struct page_owner_scan {
+-	/* resume point */
+-	unsigned long pfn;
+-	struct page_owner po_snap;
+-};
+-
+ struct stack {
+ 	struct stack_record *stack_record;
+ 	struct stack *next;
+@@ -740,7 +717,7 @@ void __dump_page_owner(const struct page *page)
+  * must advance scan->pfn past the hit before calling again to resume
+  * the scan.
+  */
+-static bool page_owner_next_eligible(struct page_owner_scan *scan)
++bool page_owner_next_eligible(struct page_owner_scan *scan)
+ {
+ 	unsigned long pfn = scan->pfn;
+ 
+@@ -1221,6 +1198,11 @@ static int __init pageowner_init(void)
+ 			    &stack_fops);
+ 	debugfs_create_file("count_threshold", 0600, dir, NULL,
+ 			    &threshold_fops);
++
++#ifdef CONFIG_BPF_SYSCALL
++	if (page_owner_iter_register())
++		pr_warn("page_owner: failed to register bpf_iter target\n");
++#endif
+ 	return 0;
+ }
+ late_initcall(pageowner_init)
+diff --git a/mm/page_owner.h b/mm/page_owner.h
+new file mode 100644
+index 000000000000..0aa7695bec82
+--- /dev/null
++++ b/mm/page_owner.h
+@@ -0,0 +1,47 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * mm/ internal page_owner and page_owner_iter declarations
++ */
++
++#ifndef __MM_PAGE_OWNER_H
++#define __MM_PAGE_OWNER_H
++
++#include <linux/page_ext.h>
++#include <linux/sched.h>
++#include <linux/stackdepot.h>
++
++/*
++ * mm/page_owner.c
++ */
++struct page_owner {
++	unsigned short order;
++	short last_migrate_reason;
++	gfp_t gfp_mask;
++	depot_stack_handle_t handle;
++	depot_stack_handle_t free_handle;
++	u64 ts_nsec;
++	u64 free_ts_nsec;
++	char comm[TASK_COMM_LEN];
++	pid_t pid;
++	pid_t tgid;
++	pid_t free_pid;
++	pid_t free_tgid;
++};
++
++/*
++ * Cursor and per-page result of page_owner_next_eligible().
++ */
++struct page_owner_scan {
++	/* resume point */
++	unsigned long pfn;
++	struct page_owner po_snap;
++};
++
++bool page_owner_next_eligible(struct page_owner_scan *scan);
++
++/*
++ * mm/page_owner_iter.c
++ */
++int page_owner_iter_register(void);
++
++#endif /* __MM_PAGE_OWNER_H */
+diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
+new file mode 100644
+index 000000000000..529b2c4a589a
+--- /dev/null
++++ b/mm/page_owner_iter.c
+@@ -0,0 +1,118 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/bpf.h>
++#include <linux/btf_ids.h>
++#include <linux/memblock.h>
++#include <linux/mm.h>
++#include <linux/seq_file.h>
++
++#include "page_owner.h"
++
++struct bpf_iter__page_owner {
++	__bpf_md_ptr(struct bpf_iter_meta *, meta);
++	__bpf_md_ptr(struct page_owner *, po);
++	u64 pfn;
++};
++
++DEFINE_BPF_ITER_FUNC(page_owner, struct bpf_iter_meta *meta,
++		     struct page_owner *po, u64 pfn)
++
++static void *page_owner_seq_start(struct seq_file *seq, loff_t *posp)
++{
++	struct page_owner_scan *scan = seq->private;
++
++	if (*posp == 0)
++		scan->pfn = min_low_pfn;
++
++	if (!page_owner_next_eligible(scan))
++		return NULL;
++	return &scan->po_snap;
++}
++
++static void *page_owner_seq_next(struct seq_file *seq, void *v, loff_t *posp)
++{
++	struct page_owner_scan *scan = seq->private;
++
++	++*posp;
++	scan->pfn++;
++	if (!page_owner_next_eligible(scan))
++		return NULL;
++
++	return &scan->po_snap;
++}
++
++static int page_owner_prog_seq_show(struct bpf_prog *prog,
++				    struct bpf_iter_meta *meta, void *v)
++{
++	struct page_owner_scan *scan = meta->seq->private;
++	struct bpf_iter__page_owner ctx = {};
++
++	ctx.meta = meta;
++	if (v) {
++		/* @po: hit-time snapshot, no RCU window needed. */
++		ctx.po = &scan->po_snap;
++		ctx.pfn = scan->pfn;
++	}
++
++	return bpf_iter_run_prog(prog, &ctx);
++}
++
++static int page_owner_seq_show(struct seq_file *seq, void *v)
++{
++	struct bpf_iter_meta meta;
++	struct bpf_prog *prog;
++
++	meta.seq = seq;
++	prog = bpf_iter_get_info(&meta, false);
++	if (!prog)
++		return 0;
++
++	return page_owner_prog_seq_show(prog, &meta, v);
++}
++
++static void page_owner_seq_stop(struct seq_file *seq, void *v)
++{
++	if (!v) {
++		struct bpf_iter_meta meta = { .seq = seq };
++		struct bpf_prog *prog;
++
++		prog = bpf_iter_get_info(&meta, true);
++		if (prog)
++			page_owner_prog_seq_show(prog, &meta, NULL);
++	}
++}
++
++static const struct seq_operations page_owner_iter_seq_ops = {
++	.start	= page_owner_seq_start,
++	.next	= page_owner_seq_next,
++	.stop	= page_owner_seq_stop,
++	.show	= page_owner_seq_show,
++};
++
++static const struct bpf_iter_seq_info page_owner_iter_seq_info = {
++	.seq_ops		= &page_owner_iter_seq_ops,
++	.init_seq_private	= NULL,
++	.fini_seq_private	= NULL,
++	.seq_priv_size		= sizeof(struct page_owner_scan),
++};
++
++static struct bpf_iter_reg page_owner_iter_reg_info = {
++	.target			= "page_owner",
++	.ctx_arg_info_size	= 1,
++	.ctx_arg_info		= {
++		{ offsetof(struct bpf_iter__page_owner, po),
++		  PTR_TO_BTF_ID_OR_NULL },
++	},
++	.seq_info		= &page_owner_iter_seq_info,
++	.feature		= BPF_ITER_RESCHED,
++};
++
++BTF_ID_LIST(page_owner_btf_ids)
++BTF_ID(struct, page_owner)
++
++int page_owner_iter_register(void)
++{
++	page_owner_iter_reg_info.ctx_arg_info[0].btf_id =
++		page_owner_btf_ids[0];
++
++	return bpf_iter_reg_target(&page_owner_iter_reg_info);
++}
+-- 
+2.20.1
+
