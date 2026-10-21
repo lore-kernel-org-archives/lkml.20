@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792554074;
-	b=sq7MSxbmuQCeAOBY5lteq1Vtr7BG/wyWU57WKpKq6Gub6NnRf8Zgl9UpQOk5fPOXDI/0
-	 revOLJGPPYfWUwV4uruvbcEqcVWgFV7aaTaL/y6LHHAvEabOCPGxWevrKmm/CJN6kW1jw
-	 lnaqI4cXlRJZmjpHtr4T+HWlkQtLeQxzmAM1a3LYDK0Mpluwftj858uiSjE4xDJ0jy+Ar
-	 K9UuosdzsdZSbQhJzoQAwc5SgUA9M+PdA3aRk8cNAmgGwjxv0rzDWIDRyqlqkoPcb5cEE
-	 TOFwmgy4fUqssehZmnFVKLvw4gHjATzl4wymn2ek7tToLWk2xf7dcdLGPXPH5dE4/Wg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792554074;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iJt9Lku9ZTIA7h8E2r15ZUbMqbDELnTBdSjAXJZJubc=;
-	b=YXO2nmSqdx2RgzEsMuXgTxCssZ5JP7SlSTznlxuBpIlmTTEX3k2s8yUGOZZkgVmgJiTR
-	 WxiODFvU59ZsNeECzxwugc4GhO8fX58d6ZW80U2U80IOPhqWVDf3duGRI7q7XIn5aCk2m
-	 JFfpYaEIgfYKASeXXP4RqfRTZZlpy13nUkt6wue8IH0Gdkj2kQdCF4nkfwRoRt8QRjdzZ
-	 e0PlhO/V7mEUUEKCiR1b+DLoV5s+n6PmI4B7/OUn5xgF/V+AFjvKg9IIR7m47kMgzTKFS
-	 /MTUJE2md2iXxpB44fFNGGS907K2NxPHrUUHT++6CQowZ+ooAP1djeCIpno2SJ36ovQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="vzJkZuF/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.55
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792554105;
+	b=O9Nuo2oZ1kTaprEjL4u3g1JIoQbnxn2jOCnB11brUIWnIIjlEpEk05Ok6m5pCrWGd0L+
+	 BEaPmNXLPpjNTi2GgqfWDfLPJQyIRIl/IN+jCLKg5UJVgOE+wzh6ckR6whyaMqBQrJjoo
+	 eMhTGUvrnzBzkdKQW945aNA0tHqDWmB1bZ3Imec5T9SZLXW2yxpsFObMvvuz+blSWs++C
+	 /zjARCW5hHJCCJocUFfdc2VJO0eJZ/yzAFgcgMXwXr8lwzTSgBdZId7YeJGFcqwGJUAL3
+	 7G/XHQ5It1AgC0MdNgmzZDH2/ObxloanrW3MSI7RJglZCN+fzyAItS+NWJqXtkV7y5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792554105;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=;
+	b=3taDvmoTNe/ItcnPnkHCSDQtOkg+45Rf6OrF/zQigAmvTzmxS/iZIXkNF5SWu8jSbln0
+	 dSRO9LtJFGoKEZA73ESXIxnSOrf63lW6pHVrLFuyfYx2dsxRYNfnlwf3rGmjXwCKjt9we
+	 YEcexNowJfLL2oLYWHOoUsidMQ5QqIzsL6x1sX3qD/qB1YohQkAwFg8zZcmdSPvsz2neE
+	 vfz5O/I3rU0LQbQzHzE+ByGT2Huvilxalce5ydkfnyBKEjYMYZTu6SSZODKzpYl16cW80
+	 OifKywS2h+df4njnVPW8amWzcjlehRh5jaUdJR8U5biwiWm+NEYBmx1ueQJfYEG1CRw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vssd5sII;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CcJeIcHc;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829C9606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:41:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 829C9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347ED606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:41:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 347ED606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vzJkZuF/
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=csA63bkuMf20BtIL2Udvj51Ouq8QLnwRFuYzqRG1wCfQ8imIH8ugokfyiOnMWA/ZX2dQL4TsZNKjpFt8nI7PXyX3OpjBIFGuKXL9ohWUKkyj9u3KoO0J9mkDZd7xvIgm0jP1JHBG4dvQsSR3h8Up5f/Oh++dEQUdH56WPzfm+U+wWsIlv96KXTG3ONWfi2wZKueb6anAyC9kfBg5gxuuEyV+dOVn1yvV0gW8ZGp4E2DT9lqc+tRhCvnTS9a0UwV2hL56quP1MZ+SgwFqGCC0OlUrAJHklYJjZe6LF68l3duDnENlRJgsR37tVbcaLOB3TC89nev9EJ7o5twgjbWb9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iJt9Lku9ZTIA7h8E2r15ZUbMqbDELnTBdSjAXJZJubc=;
- b=d+zEkI8l0BPrBPRMmAYzhFgQiH5L2ME3qylFRK4elMPuEjuYui1eB+ZTheIm+wrx35/nxy6NpfInSoHXYioEHpSAtel+xuYvxtx1Qd14kXcksD1G1fEOAfftX702vcWGFwFRd4VeletbAJT68JqPuGqCctODXtPz1bWA5N8PSdYObt9hapvaBOERbuELkBJHJilPpMnfcNg6ThXjSObkqSLDBDWj/7gSBOlHpHuMGRdQNYf08YOnNnpvemqgfDg2Z3OT8++VpVpWJ6kugj/aOIlG2UxXCcZL+sZqWdtmJoEHi97kcw1VkVfeUH6RFcS2N4BU7m9lWXj/L9Mjod0/VA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iJt9Lku9ZTIA7h8E2r15ZUbMqbDELnTBdSjAXJZJubc=;
- b=vzJkZuF/Jlz+CiV3nVB3qBXBdwup7Adg0HtN2kX+ZnSYXwehVeEs7doZYuA+ZsIFMMIcPmwXDo6UgSBm9CkKKdJAvbUVVy1eNGZdDuqxSbyQGeLldmhsP0ybaM2EmPp9k2Tb1z1pBCiINu9LiGGzACbwf9+S5v1qfNFmaigT6MQ=
-Received: from SJ0PR03CA0108.namprd03.prod.outlook.com (2603:10b6:a03:333::23)
- by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 03:41:09 +0000
-Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
- (2603:10b6:a03:333:cafe::8b) by SJ0PR03CA0108.outlook.office365.com
- (2603:10b6:a03:333::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
- 21 Oct 2026 03:41:09 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:41:08 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
- 2026 22:41:07 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
- 2026 22:41:07 -0500
-Received: from [10.136.41.43] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 20 Oct 2026 22:41:03 -0500
-Message-ID: <0d0974b0-5235-4764-abad-0a665c27a1d0@amd.com>
-Date: Wed, 21 Oct 2026 09:11:02 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vssd5sII;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CcJeIcHc
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L2F46g2391346
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:41:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=; b=Vssd5sIIrq4j8ts2
+	ijkmHc7MV0i+ppTspuxGSeXl/ZH9hsFZ3HwCKL8402xJXkPgW6jllrGqbPa+afbk
+	/1usO2KZxw7ZWF+UhVts1cQ26Ewagw09xYtYXjCzXlqmrGho52GS/vTIbsNzRAiV
+	ozBsNyW2T2N9qOI+UYJTUI8FToxlgY/go1Kt9EENR2IGrhWyBfpOOxwzD+IDxq4x
+	Lbo86PHKV6K8irh+5hYZkARRqsJZCZq3q7Jfhg9XWEB3M5AEdkcXwvPk/GlnFxLO
+	Bm8tqNtDX26AcZBX71YpEXDMWpoiYC5/HJ4k2VaifOuloot+pspHckXLJzMN7sfp
+	qIaVgA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb99kgx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:41:38 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-359b81ad4e8so471929eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:41:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792554098; x=1793158898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=;
+        b=CcJeIcHcG7oDszfV09U574nRRY69IX5wtr1qG2u+A+7FlbMujc4wDKqWUoarzUO5D6
+         FgIaA9TbK32E10WfJH0F78ozHHTDZC9J1fKS3bQiy73JaLCPrOqvS4TOXoj+aUxw7lwu
+         iiFTrJRdvD491zUlPKBlNTPDPI6cI+7P++l/uDLhCZHx+NcCPmP/CVFg/9G6KSJS+Ba7
+         DS5mSgVohhQdWUhoPJpqyXwgPoBpWN3vRnz8Cq1kCfyF7r87EzoMlw7S5jW1vwuEYfl0
+         u++FlsP4Y2V2tDPUEukjwmuii8ah38So+lB8veCXiDVMUibG+r1xEqllGX3opWM/V6dD
+         s/bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792554098; x=1793158898;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=;
+        b=pDt/iIicqKjksdUQKOLo8bYahn9H9GTjWt9auwR+gWPr5fP8dyelHVPacF4HJ7HWiG
+         7BbWhNA43a6Cow/z0dl2ChU+pGw6zbhM6sDZU0gsfNLi0SYm84rtXs6r1b/rSK3bJn6H
+         6xtoPlNezja203swbmEtcD1ZJpC/paJHLQUd2YN9YFmAUpIUR6mQ2WiSpQUUD8hz0J45
+         0sQqWSEnyVeLj7QlVV6IYwsp2RwzfyxrQ6Qcp6487Npd+2qrESGew+oO1D99AsmFu0FR
+         xYqf6xc8bu5sAepugI5vt2Vqjs3C5WrTFP79JXiI+3PU5YsMKo3s+aIP3POtST04bCzz
+         OyLA==
+X-Forwarded-Encrypted: i=1; AKwUvByu257wrr3cqTvBWJt2oHiIlj48QqOPHRskg8O8pQuVFYm/fqA7oyRnOBXUb35or7nEakrBMOR1ilFoDcE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQ8fqfJhvg1FMYGrYE9iwuHLi5ltCfCaOwCRWMPmN/x9kXd2wP
+	2cgq6zVhDLGP8/S47+itxbx/gQ/ecj6OBUPcKjuxaBla6JsIyNr29CaKTMuiGHr05qGqD6s6hch
+	YkgfW0qlqT+yuBHP2VjWObO3v0j7RX1q+Xj3DtnKR13z34ExX2h7CQGi7w9cq12a0sMI=
+X-Gm-Gg: AYBFou3kOkX+nd3YgnwBHWtFpMHkkMUn1u93ppxnFFMbwZWn6H70tEmdsgf4CJp+m98
+	TI5jMhO2kl8oglz9vttvag8iZpxJg9yxgIk6aYK7f6bYc7zls3S5lh2luwEvpTky+zKtNs9ll1G
+	plZWVsGkyhCYDFK6ZLcDa0+zLCQwF8U657oacjrcjwxiY4HqqQazo71S3gm2Lrua/xZT/n/7TS2
+	nUc0EJWtaeqPc9LrH5pn7H+1KUlYmo/3JHYirJh/0FDiArsL4vjzkDNQlzc0BLt86xnbtgF4Xq9
+	eyJEuxp23UoEozJiNY+LXTRgleMR1iGjtlw9K2g58evG0yEaWs4elmB5aaCsrf4bnJ3obUmmitF
+	IXZfWaCail+9kDs0v1PjgsoVMFPZLgA==
+X-Received: by 2002:a05:701a:ca01:b0:151:8280:2c1a with SMTP id a92af1059eb24-190a6dbd524mr1236456c88.42.1792554097919;
+        Tue, 20 Oct 2026 20:41:37 -0700 (PDT)
+X-Received: by 2002:a05:701a:ca01:b0:151:8280:2c1a with SMTP id a92af1059eb24-190a6dbd524mr1236425c88.42.1792554097382;
+        Tue, 20 Oct 2026 20:41:37 -0700 (PDT)
+Received: from [192.168.1.10] ([103.211.19.100])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm3336442eec.11.2026.10.20.20.41.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 20:41:36 -0700 (PDT)
+Message-ID: <92c02649-454e-4b68-a9a8-2371f8a6e5da@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 09:11:28 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,139 +116,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rcu: Print CPU that preempted stalled reader wants to run
- on
-To: <paulmck@kernel.org>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
-	<peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Joel Fernandes
-	<joelagnelf@nvidia.com>, Clark Williams <clrkwllms@kernel.org>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, <linux-kernel@vger.kernel.org>,
-	<linux-rt-devel@lists.linux.dev>, <kernel-team@meta.com>
-References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
- <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
+        vkoul@kernel.org, kishon@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+        mani@kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+ <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
+ <20261019-funky-real-skunk-eda6dc@quoll>
+ <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
+ <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
 Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
-Content-Type: text/plain; charset="UTF-8"
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|DM4PR12MB7527:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7dc2b07-abc5-479e-67d8-08df2f2524dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|36860700016|82310400026|13003099007|56012099006|4143699003|11063799006|5023799004|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	wC9r7Uy4uWsYSvtN3JXCLIcNJtdq1ll0kLYSKF6Tvp0qyxsi2ElH3YsQ6DKzWJLyJ//NvuGEv9AFpcPsRQmtEoITwmfQ3DtyETkDbN9B8yPacFyw8aALS/a2J4mHxQUQ3p/MenSBtbAkbUSqEGK8Aet1EpQJ3cVD/A9vI+GRbUu9AoDBlBRSXCkX6znG+CjbLTk/uD5JYN9xkASeK5VRX1/MiIxZhx44MpDE1bAR4J6zR+aPQC1dSeXa/ZTciu4O+yrkAv9hGZfew8ddC+0yQIwycSg0FvRrP0ZancktgpcDjSrZuPweVx6U888Lxb6UzaISuosm8mPXBRFzTNYUJIhGVri8nloRe9P+qoJBoCDrPPKbx8UQUk7m7nsKakMpGJZfq/jYNyClApI33x4Wjq6qR8cQoTQ6gXmc6SmfHLhrjaIMgci4BCvGOzZQjJgKFIGwmnrykJXk8i+av/aPRItIqzIpzfK8o9AvKIOsABNpw2Mkk2wVMDN26WiSyi9qWU2OINMeat9k8sEYGEtKvt1j8E2AFmCCaoDBh0eN7/NxLWpONx0KkcGWRfA/OawgudBswWJrJBTYleK4kzOREsluk3SuWQuzEtbFqjwNDIDO7SKSRWGhI+5pDE6zWoBudGWZV3Gine9BR3eMnJosjdkyRa3pXn4OU8FzkbH8eY4oG/LXci+rqR7VNKSQEzfyND7HV6R8w0qicsGlnoOAsQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(13003099007)(56012099006)(4143699003)(11063799006)(5023799004)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Zn24194avExxDwAet2YpnuBxwNnKbERXIEADvd3njFpPT75CIMMaokp3+8lVmg0LfRFUCu3COG9P6Wetqc35XkqrtATh3yi5GEXCRYyLSNcaCram3fHUML9xs/YjRIhciPjmVxt3gmt0Zl4abGcvF/1i2Lr0/utAB/7X3pYVwP03h7Qfy7n+hI+PtSXU0GNyzsQN6XyllTbW9C66ED9UTSXmKCouct4R3qUaZZa/ML7VkkKWlOpdu5ppy3eU+es0Gv7sh8vkhLQuv6aeyFJSpQQG6+MD/8rIPTKdg4rv7MPYIg/DjkL6oSYdAbY04y85qSqK+LPj8e3LetyLjIsaRnyR29e8aR1ZCra/X8aXy8+GLXZvMEmaz0zCaZJBW3tE3eT9oxlrBf2Qv/7Y40RqrnVktwuEcsCevCVhXYqO1j+oa5ULtZb/J35xEKBo2sTV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:41:08.7363
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7dc2b07-abc5-479e-67d8-08df2f2524dc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAxMyBTYWx0ZWRfX4SqL1H9ewRta
+ fcutWBVqTPXTRFpRI+feFXFBNhi59a51jork+KPmcoaub9hc2wz+3P1tlEyV0biZdB+zbr/WbDL
+ dEPqrNpl16fnW7nY3Yd4KF42v8jEluU=
+X-Proofpoint-GUID: G9FCoGacyu3Fz7wvVfYFkx4b1HlghfYf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAxMyBTYWx0ZWRfX9xFcMCCRRXcD
+ pyiDc10jGn8bLXLIvXkWP3usrUfjeIODduMO+pkTEAaLt14GOt3tY21K+Zlr5cHovuTlgehinZX
+ 6xcQUrTTZ5EDnBDx86AjbuO+wNAi7+Wq0kg4CbjKnluieeiEfzqxmZgsoV1UrbfU2fZwS2D/WL6
+ HJ/xrmE2q4WjfvCCN9ZYpY/UYM2Amuwb1vfWd1W9Ccwnm2p/LlehwADt2QfxTHadhZdYHetZVal
+ PNUkrTMxkfV/owiUb4CupobuJVVK7AwbH8GRJPql7LjoGVnIFK85FvHUMtdWBSXhtqjrdaTnE6k
+ wEYFY/XHx1+59O4oNMBTDKunWwHmPZZ89JyVLneTRqJnscfprBxVLfp7sGM1Qb+dh3YQQ2iPSPr
+ HyutYBC/JQTVeOzauD8H6OfirDLBbtsOE1srcJ5D10GY2BmzsaG0gqprBgSw7sN18E2wNROsocI
+ O22QlKNjaFQm3aUo39w==
+X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad83472 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ocEEpg4cTnoGtXECQz/e5g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=TgBa4wLDfMOKYiLJ7W0A:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: G9FCoGacyu3Fz7wvVfYFkx4b1HlghfYf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210013
 
-Hello Paul,
 
-On 10/20/2026 2:17 AM, Paul E. McKenney wrote:
-> This commit defines a cpu_curr_snapshot_rcu() function that invokes
-> rcu_dereference_all(cpu_curr()) to determine which task is currently
-> running on the specified CPU.  The RCU CPU stall warning then uses this
-> new function in order to print the task that has preempted the stalled
-> task (the stalled task being the one that is in an RCU read-side critical
-> section, thus preventing the current RCU grace period from completing).
-> This modified stall-warning message also includes the CPU, along with
-> an exclamation mark ("!") after the CPU number if that CPU is currently
-> offline.
-> 
-> This is a potential step towards allowing people (or LLMs, for that
-> matter) locate any tasks that might be preventing the preempted RCU
-> reader task from running.
-> 
-> Adding a get_task_struct() for the currently running task would be a
-> bug because we are not in a position to prevent that task from exiting.
-> Yes, yes, because interrupts are disabled throughout, the corresponding
-> task_struct structure cannot be freed, but following sequence of events
-> is all too possible:
-> 
-> o	The check_slow_task() function places a pointer to the task_struct
-> 	structure in its local variable "th".
-> 
-> o	The corresponding task exits, reducing its task_struct structure's
-> 	->usage to zero.  The task_struct structure is therefore passed
-> 	to call_rcu().
-> 
-> o	The check_slow_task() function invokes get_task_struct(th),
-> 	setting th->usage to one.
-> 
-> o	The rcu_print_task_stall() function invokes put_task_struct(),
-> 	again reducing ->usage to zero, and again passing the task
-> 	struct to call_rcu().  This results in either double-call_rcu()
-> 	or use-after-free, depending on when the RCU grace period for
-> 	the first call_rcu() completes.  Both outcomes are bad.
-> 
-> This commit therefore relies solely on disabled interrupts acting as
-> an implicit RCU read-side critical section that prevents all of the
-> task_struct structures from being freed, thus avoiding the need for
-> get_task_struct().
-> 
-> The original get_task_struct() calls in rcu_print_task_stall() on the
-> tasks on the ->blkd_tasks list are safe because those tasks cannot exit
-> without first acquiring the rcu_node ->lock that this code already holds
-> (because these tasks must remove themselves from the ->blkd_tasks list).
-> But it is better to be consistent and rely on RCU in both cases.
-> These pre-existing get_task_struct() and put_task_struct() calls are
-> therefore removed.
-> 
-> [ paulmck: Apply feedback from K Prateek Nayak and Peter Zijlstra. ]
-> [ paulmck: Apply feedback from Steven Rostedt. ]
-> 
-> Link: https://lore.kernel.org/all/a7a21bf3-a7d5-45bb-be4f-0119fe53fa20@paulmck-laptop/
-> Link: https://lore.kernel.org/all/e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop/
-> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-I tested this on your old dev branch on top of commit 5433117c67f0 ("EXP
-rcutorture: Disable RCU priority boost testing on non-TREE03 scenarios")
-and the idle state during stalls are reported correctly.
-
-Feel free to include:
-
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-
-> 
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index 8b3d47a325cca..3606e5a2cec32 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
->  DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
->  
->  #endif
-> +
-> +struct task_struct *cpu_curr_snapshot_rcu(int cpu);
-
-nit.
-
-I think this and the function definition in core.c can go right after
-cpu_curr_snapshot() in respective files to keep the related bits
-together.
+On 20-10-2026 11:24, Krzysztof Kozlowski wrote:
+>> Krzysztof, should the binding example mirror the SoC bus address/size cell
+> Why are you suggesting in review something which maintainers never
+> suggested? Or actually opposite to what some maintainers were suggesting
+> before. Code has correct example.
+Understood. Thanks for the clarification.
 
 -- 
-Thanks and Regards,
-Prateek
+Regards,
+Nihal Kumar Gupta
 
