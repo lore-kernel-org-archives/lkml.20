@@ -1,88 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588402;
-	b=ILx68LIFU34/X6J1KzMp7emyD3gBX9u2RcyGqnbA+NNQCryP+Jl3KkG63jILd1rxA2J3
-	 cDL9g0GrNX7b9lzGyW/ghRduvaLEzsVcPUELp4Vae3aCaLllL9NHK0AA2hQs/v+bWyEh8
-	 w32j9Ku3rasZ4Vwd8jwfCpiCUzdriJY2tKtX5BaEXU2W/TbABJpIliCzATjrXGwiZDRUI
-	 fwfKY2wjMosADy35Me4RBCZHAO8YoOikLk0x2LQLAmIniEWz8q9t80eTi3JayC1kGBEMZ
-	 84hpC7XEO6vvc6wDWLTv6lmEDwLkvEzE9FzqUzsTNRYAPthOIK7vN4aW32WZDb/BZ8g==
+	t=1792588411;
+	b=J4MGSjnAexm8PZKr76BRviloCmKxz08FW28ncbiAV0UcWbQ9d0L1hy4JKgoCbGS2oR5q
+	 jaB4GdO0nxS/HxupD0LYIaKvrXmWhFp0UXfEniwAJFyo8zbtd53LHNrlalcMCjSIg2/mC
+	 TtkZsKn3LoPkfJ8jQWliBsFto/5RNxWYrYXE7udkumQBWdaZKQo5f0d53xQZqi5Swt9YW
+	 3P1K1Z0KKNDwoFsQDUiZwzXuI8A6jKW7XF66mUHfVu8rDeUZyIAg+HrF7CIS0UCSjpY3m
+	 +ZnxzX0VnvxrzAkh/93E8wxgDfdChC83JUdwnJK2ro4dMIK2mgJdehpwTW6Le4F6m/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588402;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=jjB3f6EHxvEifNSTVNnEiGYNsGRnur8C2W5GETve/jo=;
-	b=Y41HKNQV3HV4ducAGRSvs/6W9hGsUTpjddQZ/1DIPm0faDFQVlt4DUQY1jVhavUGM7dE
-	 chvy5Ly9cp+4IUpGYESMg+6UZRSXs5PkIlnttZMvim+ulmd5U1XMRsp90UAz1xPKpk0t9
-	 QJhXyq85IcucoVsCIpk+kaXvQp7pbuAUz0iVvl63flYHLpY/GWVkKIki44NZ2OG44IM9W
-	 o4N1P8bafBvzjrFE3N0r9zba92V5wq0pObYPTqgvbBalWRajKbTg/QiXLQmR75IZst7rl
-	 Hi6ocZeJnw6kkxnZoyaxHhwmGy6VKjPQK+8Q3VXiv2SakyMPVUqbC9+6Xn6ho+RMYPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588411;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=fQVxdpjVQsSEW62gRWdnoI61AHhe+xkzfdDCbZF3RUE=;
+	b=U0Vf103If8TTG0Syas4WdHJepJ0tYGPTzd7FI1lNFCDCj1npBt+UgouYFcC7eVoHyzTv
+	 +L32QWBinnKLx5imc/7M7va4kVJKNJMwvB+T8h+Inmc3/pNmsDr6GJ05kiJNcnamc22E0
+	 9mSsYM3+f0Lu6oBCslsJJ460k+QiZBaRSlrHaTojPyrX9MBF9ovMS5UaTmTpD5IhQJxTS
+	 e9MC0yLX0y8sClDCt9SUjbQLcd9uRghgw2xrg+zaZ3LzBWn/inj0WXG1zmQNlaZCOJWOl
+	 PMCad+Qi40FoDOm7H2ptegg/kgxVGKMPCQTlsFuuQ2tWq3C0fLuKcghhWLnTcIjz0hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QiuilJ4i;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=vTQV2A5a;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D7E60A2621
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:13:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4D7E60A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AA8606A33A;
+	Wed, 21 Oct 2026 13:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2AA8606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QiuilJ4i
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48bbb06e746so408585f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:13:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792588400; x=1793193200; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jjB3f6EHxvEifNSTVNnEiGYNsGRnur8C2W5GETve/jo=;
-        b=QiuilJ4ijhbYh0xee9S/Tx8GCCa88R/I+iyBgX6nSJMJkSR0vCeni3YLNeo5Pas01v
-         EpRwp5sHkEFs7Wl5TZeD9K+JoriJRdKPSyUSsPJVM2fqoGy8tA2CR8pIn9ddOUF8/H1U
-         93LKE3u1jvUq8xs7HFCU6+oU2Fu/1/qy63B5XSrtiYkaMUQjy7WjdiSpLFe/D+QO1TmQ
-         QxwqblVmh33q8eUwUiZvfesr7CpyEPkD/YSMY+J1SOTGwCUBPvCuGbV70Wu7tJztGh02
-         ZsHNwt6Qky0p4ifKJdaIv1+MKNxIhekGjYtty4Xmzd1tkpp4wJZHUaxnr33qLivnD5Mz
-         9G9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792588400; x=1793193200;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jjB3f6EHxvEifNSTVNnEiGYNsGRnur8C2W5GETve/jo=;
-        b=NIEvI9guag7KNq96zh5dN0Qq3MMQRcE7qyHffnRcE2q5AEOHlHqoIj0VNG8kWZ2qkB
-         3lMDhT+RJH3vzJwqIAgr7rBi+rCj0nCzosbVxWx1bJ89L5LN0QxMIvU4t6xABrsk7VRQ
-         zoUZSdDJCb+X0tbDTMpaurIFiSVvK6ZmWI0LgttUGw1wsAuCyvl8FGfd0hA258bAMSmC
-         FTKRB+UC6uAYtMFCDkkY9Ggt6z43DJn8Gi5QnzK1/DUdEoHY/QmZfIcN7s5Aas9wN8BU
-         R5FVL4oaOUu+ww6CTccQisMBD+xw5cRc2RpT/X2xHlslrOpJtfRy+xXHSNTc3F1ClIIA
-         XiIg==
-X-Gm-Message-State: AFq9FYK2Hx5vfPTd4Uh3/P9MXUjiO66zsNlALAQV0ELBFOprZKOxhU9K
-	oHdIn0QOmQjYLZ/Us3SwP/VfRwzkNesFPf5m4uwE3/2qyIIN3TworYmJ
-X-Gm-Gg: AYBFou3PA/pdOQPJM6fiI1MtFBGpiK7T6Qsbw3DPMNzPmMF9k8SV0l9LIv+fUiBgQHz
-	b08/IKHGup2S4EU2cj63OrpNFywMR52YbJGlhsRTV82DnejT909OGh0dAnay9dM/1yRK+ZbTdVd
-	Sa5T6Odo000xvjSFVktpjynvGhFK8Y0dIfVPaZtGxepRcSS6vkBdfHfrym+ZOvy2163i1yr5DU2
-	tffVU+0yJRqFB+bLAeI0cS+zUCaCOFZT+S32/W0Q1AL4NFZKA0tcW6hAFFesdiG5GoEbzHtsGPl
-	ppUZhOJ6ArGx7jEeNqr+x4SuSa3SXJbkjbLTiwMa45u/hg5sDObNmi5goQkb1eMd4wjVwpIeRUy
-	BN2g+i/iFH0xDDAfVyBg//pfvFYAbV9K1s6+YkMKbBRH5Jtw+r0md2AnzjWtHUg2rjq4UErIZQN
-	zFsdmT1+/HBzVXaH1QGuolccIHp/7BQcLYe96mDTN26kV4RpF6BfV38rYu0ZF6kA/8gPibli0gr
-	8FmSgoc2H2XD/aYRDjx7UWTvupIytjHbU4P//78LInf08YSFFlKu551osQBWw3OYXSjc4HwVnCI
-	WVLGWZjrJCqSChMm
-X-Received: by 2002:a05:6000:e92:b0:48d:f034:7fcd with SMTP id ffacd0b85a97d-48e2650e9cbmr2759721f8f.51.1792588400117;
-        Wed, 21 Oct 2026 06:13:20 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:39f4:e118:e272:79d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258358c1sm5655560f8f.43.2026.10.21.06.13.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:13:19 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Wed, 21 Oct 2026 14:13:15 +0100
-Subject: [PATCH v2 3/4] serial: sh-sci: Skip TDxE clear when hardware
- clears it automatically
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=vTQV2A5a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=fQVxdpjVQsSEW62gRWdnoI61AHhe+xkzfdDCbZF3RUE=; b=vTQV2A5aLCEygETIJBxyowuz4T
+	K+AiL6WskAnXCAnyalz2SIjrDDLm/4QUZzgXyqnd0Bz0O4DAqe5YTkaeiZmAr+QK0ugpYvfalfG6B
+	ofZROCWz2zPBeGAlOoe6nc0roVku+X0GhR0Kgq5yrpEAz0DdyfXbVIOVEs/I1z84AwvRDBZ7PAuEw
+	Pl2rEpFtGFvjeGrrojhUqxEwtkXx0sC+upXNpFcKw3p871rG94PXzknkrMumzmIlORLZKU3pdYip+
+	qE6IqkX3cyT8vkfmoJaRmiGEYRfa4wGzRXWBHvfNRpGyPiyK/JXMZQm+N7UZL1Yqo7rGwZ0N3iU0k
+	sG3RoYoA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJW81-00000009P00-3lpG;
+	Wed, 21 Oct 2026 13:13:13 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 0EA2A3008E2; Wed, 21 Oct 2026 15:13:13 +0200 (CEST)
+Date: Wed, 21 Oct 2026 15:13:13 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, jakub@okonski.org, longman@redhat.com,
+	tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+	cgroups@vger.kernel.org, jstultz@google.com, qyousef@layalina.io
+Subject: Re: [PATCH v2] sched/eevdf: Fix sched idle task group preemption
+Message-ID: <20261021131313.GM2823843@noisy.programming.kicks-ass.net>
+References: <20261019182622.1584454-1-vincent.guittot@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,114 +70,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-g2ul_sci-v2-3-b4e038220018@bp.renesas.com>
-References: <20261021-g2ul_sci-v2-0-b4e038220018@bp.renesas.com>
-In-Reply-To: <20261021-g2ul_sci-v2-0-b4e038220018@bp.renesas.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, x86@kernel.org, 
- linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>, Au Dang <au.dang.jx@renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792588395; l=3193;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=Y/PdxtI6+N01gYP5oufNYPKYCuexWL5hMhFV0qDpjvA=;
- b=APrCXhR4oqewtSnvMx0iGzGwgxblBK8Do39a7KN/jeZD1h2Lu5Sj5M3XY/G4IVSMwI4oxn7mm
- lLbvQmqn8VAAvzmmaUE/GFw0YCQyGw+YB/RbWbUY3e/AmTZxZPuZiD2
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019182622.1584454-1-vincent.guittot@linaro.org>
 
-From: Au Dang <au.dang.jx@renesas.com>
+On Mon, Oct 19, 2026 at 08:26:22PM +0200, Vincent Guittot wrote:
+> Even with flat hierarchy which puts all runnable tasks in the same cfs rq,
+> we need to parse the hierarchy to check for sched_idle task group.
 
-On some SCI variants, the TDxE (Transmit Data Empty) flag in SCxSR is
-cleared by hardware when data is written to TDR. Clearing it again from
-software via clear_SCxSR() generates a spurious TXI interrupt, causing
-the last character to be transmitted twice.
+I F'ing hate cgroups :-(
 
-Add a tdxe_auto_clear flag to struct sci_of_data, propagate it to struct
-sci_port as has_tdxe_auto_clear, and skip the clear_SCxSR() call in
-sci_transmit_chars() and sci_poll_put_char() when it is set. Enable the
-flag for the PORT_SCI (of_sci_sci) variant.
 
-Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v1->v2:
- * Updated commit header and description.
- * Replaced the PORT_SCI check with a has_tdxe_auto_clear flag in
-   struct sci_port, set from the new tdxe_auto_clear field in
-   struct sci_of_data.
----
- drivers/tty/serial/sh-sci-common.h | 2 ++
- drivers/tty/serial/sh-sci.c        | 8 ++++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+> +static void
+> +find_matching_se(struct sched_entity **se, struct sched_entity **pse)
+> +{
+> +	int se_depth, pse_depth;
+> +
+> +	/*
+> +	 * preemption test can be made between sibling entities who are in the
+> +	 * same cfs_rq i.e who have a common parent. Walk up the hierarchy of
+> +	 * both tasks until we find their ancestors who are siblings of common
+> +	 * parent.
+> +	 */
+> +
+> +	/* First walk up until both entities are at same depth */
+> +	se_depth = (*se)->depth;
+> +	pse_depth = (*pse)->depth;
+> +
+> +	while (se_depth > pse_depth) {
+> +		se_depth--;
+> +		*se = parent_entity(*se);
+> +	}
+> +
+> +	while (pse_depth > se_depth) {
+> +		pse_depth--;
+> +		*pse = parent_entity(*pse);
+> +	}
+> +
+> +	while (!is_same_group(*se, *pse)) {
+> +		*se = parent_entity(*se);
+> +		*pse = parent_entity(*pse);
+> +	}
+> +}
+> +
+>  static int tg_is_idle(struct task_group *tg)
+>  {
+>  	return tg->idle > 0;
+> @@ -476,6 +508,11 @@ static inline struct sched_entity *parent_entity(struct sched_entity *se)
+>  	return NULL;
+>  }
+>  
+> +static inline void
+> +find_matching_se(struct sched_entity **se, struct sched_entity **pse)
+> +{
+> +}
+> +
+>  static inline int tg_is_idle(struct task_group *tg)
+>  {
+>  	return 0;
+> @@ -10129,7 +10166,35 @@ preempt_sync(struct rq *rq, int wake_flags,
+>  }
+>  
+>  /*
+> - * Preempt the current task with a newly woken task if needed:
+> + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> + * in the inverse case).
+> + */
+> +static inline enum preempt_wakeup_action
+> +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
+> +{
+> +	int cse_is_idle, pse_is_idle;
+> +
+> +	find_matching_se(&cse, &pse);
+> +	WARN_ON_ONCE(!pse);
+> +
+> +	cse_is_idle = se_is_idle(cse);
+> +	pse_is_idle = se_is_idle(pse);
+> +
+> +	/*
+> +	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> +	 * in the inverse case).
+> +	 */
+> +	if (cse_is_idle && !pse_is_idle)
+> +		return PREEMPT_WAKEUP_RESCHED;
+> +
+> +	if (cse_is_idle != pse_is_idle)
+> +		return PREEMPT_WAKEUP_NONE;
+> +
+> +	return PREEMPT_WAKEUP_PICK;
+> +}
+> +
+> +/*
+> + * Preempt the current task with a newly woken task if needed.
+>   */
+>  static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_flags)
+>  {
+> @@ -10137,7 +10202,6 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+>  	struct task_struct *donor = rq->donor;
+>  	struct sched_entity *nse, *se = &donor->se, *pse = &p->se;
+>  	struct cfs_rq *cfs_rq = &rq->cfs;
+> -	int cse_is_idle, pse_is_idle;
+>  
+>  	/*
+>  	 * XXX Getting preempted by higher class, try and find idle CPU?
+> @@ -10174,22 +10238,14 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+>  	if (!sched_feat(WAKEUP_PREEMPTION))
+>  		return;
+>  
+> -	WARN_ON_ONCE(!pse);
+> -
+> -	cse_is_idle = se_is_idle(se);
+> -	pse_is_idle = se_is_idle(pse);
+> +	preempt_action = wakeup_preempt_sched_idle(se, pse);
+>  
+> -	nse = se;
+> -	/*
+> -	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> -	 * in the inverse case).
+> -	 */
+> -	if (cse_is_idle && !pse_is_idle)
+> +	if (preempt_action == PREEMPT_WAKEUP_RESCHED)
+>  		goto preempt;
+>  
+>  	update_curr_fair(rq);
+>  
+> -	if (cse_is_idle != pse_is_idle)
+> +	if (preempt_action == PREEMPT_WAKEUP_NONE)
+>  		goto update;
+>  
+>  	/*
 
-diff --git a/drivers/tty/serial/sh-sci-common.h b/drivers/tty/serial/sh-sci-common.h
-index 273856fbc20b..b75e5e1d3075 100644
---- a/drivers/tty/serial/sh-sci-common.h
-+++ b/drivers/tty/serial/sh-sci-common.h
-@@ -108,6 +108,7 @@ struct sci_of_data {
- 	const struct sci_port_ops *ops;
- 	unsigned short regtype;
- 	unsigned short type;
-+	bool tdxe_auto_clear;
- };
- 
- struct sci_port {
-@@ -163,6 +164,7 @@ struct sci_port {
- 	bool has_rtscts;
- 	bool autorts;
- 	bool tx_occurred;
-+	bool has_tdxe_auto_clear;
- };
- 
- #define to_sci_port(uart) container_of((uart), struct sci_port, port)
-diff --git a/drivers/tty/serial/sh-sci.c b/drivers/tty/serial/sh-sci.c
-index 58120b523ca1..aa179c787487 100644
---- a/drivers/tty/serial/sh-sci.c
-+++ b/drivers/tty/serial/sh-sci.c
-@@ -913,7 +913,8 @@ static void sci_poll_put_char(struct uart_port *port, unsigned char c)
- 	} while (!(status & SCxSR_TDxE(port)));
- 
- 	sci_serial_out(port, SCxTDR, c);
--	s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port) & ~SCxSR_TEND(port));
-+	if (!s->has_tdxe_auto_clear)
-+		s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port) & ~SCxSR_TEND(port));
- }
- #endif /* CONFIG_CONSOLE_POLL || CONFIG_SERIAL_SH_SCI_CONSOLE ||
- 	  CONFIG_SERIAL_SH_SCI_EARLYCON */
-@@ -1049,7 +1050,8 @@ static void sci_transmit_chars(struct uart_port *port)
- 		port->icount.tx++;
- 	} while (--count > 0);
- 
--	s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port));
-+	if (!s->has_tdxe_auto_clear)
-+		s->ops->clear_SCxSR(port, SCxSR_TDxE_CLEAR(port));
- 
- 	if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
- 		uart_write_wakeup(port);
-@@ -3653,6 +3655,7 @@ static const struct sci_of_data of_sci_sci = {
- 	.ops = &sci_port_ops,
- 	.uart_ops = &sci_uart_ops,
- 	.params = &sci_port_params[SCIx_SCI_REGTYPE],
-+	.tdxe_auto_clear = true,
- };
- 
- static const struct of_device_id of_sci_match[] __maybe_unused = {
-@@ -3791,6 +3794,7 @@ static struct plat_sci_port *sci_parse_dt(struct platform_device *pdev,
- 	sp->ops = data->ops;
- 	sp->port.ops = data->uart_ops;
- 	sp->params = data->params;
-+	sp->has_tdxe_auto_clear = data->tdxe_auto_clear;
- 
- 	sp->has_rtscts = of_property_read_bool(np, "uart-has-rtscts");
- 
+What is the actual semantics of cpu.idle nonsense? Why do we care about
+this common ancestor?
 
--- 
-2.43.0
+Can't we do any of:
+
+ - propagate cfs_rq->idle to all child groups in sched_group_set_idle(); or
+
+ - have se_is_idle() walk up and report true if any of the ancestors is
+   idle?
+
+I despise this find_matching_se() thing and was so very glad to have
+deleted it.
 
