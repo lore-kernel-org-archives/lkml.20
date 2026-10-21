@@ -1,95 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602590;
-	b=zatQU4BIQmCe3GEc/ape3T9G1Tra7xrVOToXkbcvPuN74I3LsfhE/DymvPIYt3GRuIwG
-	 gtoXCe0DBzih6/uIxXS+9W2yPILZfkggRoUUHcTBLwtkx23g+MNx2dpfPzOV9S7Km9gG4
-	 41R6YLEj5o40pbTE00Oa+KfInWv7F8iUGZlF5mLIaiYf+RoJLvSv0lJKhoEiDM9uEtibZ
-	 rEXXrcUrVzgyNmJPUegJ6NG47SjQA07irZdgA3jIo8ewMmY/Hl4yv2ZIQyDRWyp/dDtLo
-	 QzqWwlcagBMcQRhO4b3OKJhlkOHzA4fns9KqI0RjJkadl7AOEQxlUPY02uUQVq+ThSw==
+	t=1792602654;
+	b=uh74JsJ7kM1ihhUcETDq6kHmkljUBK/yhd3u60wfQvSMOVLIw+A4z7b+waNrayIvXygH
+	 dV37yMVIbndfdpeND0E2Q+8mDZPbeMxRouR8IKiDbnupLskjQNRYOQQTuq5xyb9unebnl
+	 0CTzCGLbSUv0y4Nitg2ce4fTVRbi1OwHhTTuROvLrRiZjshvg8/tRvHADzh4upXJIue+Y
+	 3wGoHVEI9wMqVSvlC5eFIEXVgmaM7T4sQCx9jAd9FWF10rMOptTvwU8tX+YUaUIYGliM4
+	 QPXmqIyKn0chKVSBtmPy9QxroVhkXmknZIo6paPTmBrTcgJ5n0ak8e7y/7CTTLa6m/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602590;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=mFv5pCfeZJzksfug+IhiQDAbXtzLBXfiEtm++e+fXl4=;
-	b=MGsuTx3Xce44Z+4R0qsWt9BNzpxuWmzeRFfeqQopPNNiOsSD8L+E6bqv54IKxZbO8Pyl
-	 eONqZItsuy1RH/sWS5dOItv8ah9S1VVVPVREWPXMTKUCLuOY4yTPJPIGD4mundh5cU+6n
-	 z//dQe8maCRkSM3hVC1rtSjwAZxrDOqzcd+UdxKE3RPJ49bJc0XnZj6ZvHpCSggAyrKMh
-	 j6Z9EZT9Z/P/VV6V4g0HhH/a4bMZz7L2kD25yA0bMydqo7ythvlyKMeRVPDNyvEN6zMxv
-	 36RSOopOxmxfjyra5mu9OJ2oyQDtAqosuaf1+FfXiaZDCZACrP+oZq0jIJCX5HYLGXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602654;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=HibgJhitNqYx90KHPc8hl4hJtyn8X6V6EDcChq4tAIE=;
+	b=C5f6l2RteMLuJdcwMRzxZDTd7du/ej5Uwypxp0Eu8X/UN+JIwwY8j2LxrUQMVDgZuqq/
+	 zb/Xia0xrAvI56LB3kIULxewf1d3opd7fmG8HT0jDNAsdVVyqqNeaa6VNS3Tek+qJnsJ3
+	 cBrTuvaLtRmXMvK68E2LJ0FNSNs61DTwo6uMwcqpLmcC2LwvsRbPOBI642K4nl9rPKn8K
+	 xwkO0DLoY/H+7/mA0jIEiUXCxJrbX1EYb4YK2mx4TI7dVzH9OHFkzwBpP6KANO3MITrT1
+	 urDwzuUSGs9Oxtvi89xZ1uj06wvejaJFqp58wxoQIXEMFA7p4s52Un4Vc03/gfDmSVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=N0cW9jJh;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=LunwwrYZ;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFABD606A31E;
-	Wed, 21 Oct 2026 17:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFABD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249AD606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 249AD606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=N0cW9jJh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=mFv5pCfeZJzksfug+IhiQDAbXtzLBXfiEtm++e+fXl4=; b=N0cW9jJhVDgBhyA7mkVjr84ZHZ
-	o6ImQUTsxEzTezoVDyMHzOq8hghs3gOCuNS8lTNLPIJwNtfHF6J7qym8rM3bRkp7/1xxRzCrk6ct7
-	V7Ng27LunL3z0yimFw4xYhp6vBuegAZvc/ZD22ZgM3X4IgVnjTZXoKoQ6Tf/tWr49cG4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xJZoS-00C8M0-Mc; Wed, 21 Oct 2026 19:09:16 +0200
-Date: Wed, 21 Oct 2026 19:09:16 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: 1579567540@qq.com
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Wu <david.wu@rock-chips.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Shawn Lin <shawn.lin@rock-chips.com>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, linux-gpio@vger.kernel.org,
-	netdev@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-phy@lists.infradead.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH 16/27] net: stmmac: dwmac-rk: Add RK3572 support
-Message-ID: <b1ab0503-628c-4f96-af38-727d4be06f8a@lunn.ch>
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-16-0b0fd85a31ee@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=LunwwrYZ
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35c902e0da2so87355eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792602653; x=1793207453; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HibgJhitNqYx90KHPc8hl4hJtyn8X6V6EDcChq4tAIE=;
+        b=LunwwrYZfP0AbgMU/Mp7VF6/3bYEn8Tc3H/bNp6VZYaq5L12PXH1/mXYbhtL6fYXES
+         Ti1T+G8j3IpptJRCQStJf7ytztj+2yB3XCOw8JiiBSJ+9HrcIjhc7k3h9f6YDsC1OYvH
+         tKYGi+WrOHo+IJ9EeCvx8Q7wIagFioMPmu48k6ZeqBQKq1NWg94n+8wOxGdu9r5MtvV+
+         eQYNmzde51ADw2NShW4WpA2Rm4uIkPPYf+7zcu8c/U9dZWZ1nLr7itop7bVficQ2bJur
+         SVkAC7F1tmbROJ/fRmtaaYcgAJHhWSYrqlzI1fiaioA6vDyyJmYsviGI9VsouSjVNFQw
+         fZTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602653; x=1793207453;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HibgJhitNqYx90KHPc8hl4hJtyn8X6V6EDcChq4tAIE=;
+        b=OoklV03kRThv1wsHPDO34U87/Exv1W4yWGt3Y4Bqvf/z6+cJOb4Ed84V0HiKVLcDi/
+         A+uHPNgwqqIwwlzSO6LHFDvBnwmlLacsSd6Pf7DM7xVZ9L9EVp/5xrzlH3LmWDF55d8v
+         GbaWWq6+gVzeenflnd7Ji9gWjuHa11H/byGbz8WvDdXTZ8a09HhwvTnSvsKZkfbZqEJt
+         TUYfkm7pFRQQEh/1Kne9lZgzcViYBLTvgE6S/3PKMZbtrPbqghgygV5HCBPfwR5DGV9D
+         KAlfchBUqwS27HlOGjEc3F71XvfvZTYT/F0PZ2ow+w3YEqYBqN3uwt0Og119tAU3f3uy
+         QorQ==
+X-Forwarded-Encrypted: i=1; AKwUvByy9YQD7VDStqfPK1p94pJkWdHt5oIv/jUavxGEdbtVpbAGutLTAwR6brYzYj+sUomAUUGTbIQsxCO3H/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrjTqWGORPQ6I3wyP2Mfak2o/euyLDWQAaidv7XCSOCInEFuHf
+	TA6I1YYajtcNXbd6p2FD1kn3NpeTQX5XQ6l7HEIVGUzDYoCr8gxD1COeqKifm8xe7OJr+mp79EX
+	LEKdSyL4fAw==
+X-Received: from dlbtx6.prod.google.com ([2002:a05:7022:fc06:b0:168:b4b9:d783])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:689e:b0:158:b944:b15
+ with SMTP id a92af1059eb24-190a7c21cb9mr4649944c88.22.1792602652788; Wed, 21
+ Oct 2026 10:10:52 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:10:26 -0700
+In-Reply-To: <20261020163640.746159-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,23 +78,175 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-add-board-ok3572-c-v1-16-0b0fd85a31ee@qq.com>
+Mime-Version: 1.0
+References: <20261020163640.746159-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021171044.155240-1-irogers@google.com>
+Subject: [PATCH v6 00/17] tools/perf: Adopt kernel compiler-context-analysis.h annotations
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 22, 2026 at 12:11:13AM +0800, Cunhao Lu via B4 Relay wrote:
-> From: Cunhao Lu <1579567540@qq.com>
-> 
-> Configure RGMII delays and clocks for both RK3572 GMAC controllers,
-> using GMAC-specific GRF registers.
+The perf tool previously added Clang thread-safety annotations in
+tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
+UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
+unified set of static context analysis macros and attributes in
+include/linux/compiler-context-analysis.h (context_lock_struct,
+__guarded_by, __acquires, __releases, __must_hold, etc.).
 
-You need to split this patches per subsystem. Please send all
-networking patches to netdev, once the merge window closes.
+This series makes tools/include/linux/compiler-context-analysis.h
+functional by synchronizing it and the required compiler_types.h helpers
+with the kernel headers, converts tools/perf from its custom mutex.h
+macros to the kernel-style compiler-context-analysis.h annotations, and
+expands context analysis coverage across comm, dso/dsos, thread/threads,
+config, intel-tpebs, env, and maps. Along the way, separate preparatory
+patches fix an unlocked __dsos__add() call and TOCTOU race in
+__machine__addnew_vdso(), avoid dropping _dso__data_open_lock in
+dso__list_del() under REFCNT_CHECKING, switch dso__data_open_lock and
+tpebs_mtx to DEFINE_MUTEX(), add a read-lock fast path to
+dsos__findnew_id(), fix an unlocked read of tpebs_reader_thread and
+double-close of tpebs_cmd.out in intel-tpebs, and avoid a potential
+read-to-write deadlock in maps__load_first() and out-of-bounds access in
+__maps__remove().
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+This series was developed and reviewed with assistance from an AI coding
+agent (Gemini 3.1 Pro) and reviewed with Sashiko.
 
-    Andrew
+v6:
+  - Rebase onto perf-tools-next.
 
----
-pw-bot: cr
+v5:
+  - Hold machine->dsos.lock in write mode across machine->vdso_info
+    initialization and temporary file creation in
+    machine__findnew_vdso() and __machine__findnew_compat(), and
+    annotate __machine__addnew_vdso() with
+    __must_hold(&machine->dsos.lock) (patches 7, 11).
+  - Reset tpebs_cmd.pid = 0 and return early without setting
+    t->started = true if start_command() fails in
+    evsel__tpebs_start_perf_record() (patch 13).
+
+v4:
+  - Place the DSO loaded in addr_filter__resolve_syms() into a dsos
+    collection so dso__dsos(dso) is populated (patch 8).
+  - Join tpebs_reader_thread on error in evsel__tpebs_open(), document
+    why tpebs_cmd.pid is cleared before pthread_join() in tpebs_stop(),
+    and include <pthread.h> and <signal.h> in util/intel-tpebs.c
+    (patch 13).
+  - Include <string.h> in util/maps.c (patch 16).
+
+v3:
+  - Rebase onto perf-tools-next (converting the newly added
+    dso__find_binary_type() lock annotations in util/dso.c).
+  - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso,
+    dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
+    tpebs_mtx, maps) from the annotation patches.
+  - Move AI coding assistant attribution to the cover letter and drop
+    per-commit Assisted-by tags per linux-next
+    Documentation/process/coding-assistants.rst.
+  - Add Marco Elver's Reviewed-by to patch 1.
+  - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
+    ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h
+    (patch 2).
+  - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
+    Makefile.config (patch 5).
+  - Pass write_locked to __dsos__find() (patch 7).
+  - Pass struct dso_data * to close_data_fd() and dso__list_del() to
+    remove the REFCNT_CHECKING dso pointer from struct dso_data and
+    avoid dropping dso__data_open_lock in dso__list_del(), and include
+    <assert.h> in util/dso.c (patch 8).
+  - Re-validate DSO lookup under the write lock in dsos__findnew_id()
+    via __dsos__findnew_id(), and handle NULL dso_id in
+    dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp()
+    (patch 10).
+  - Reset tpebs_cmd.out = -1 if start_command() fails and include
+    <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
+    util/intel-tpebs.c (patch 13).
+  - Bounds-check the index in __maps__remove() (freeing maps_by_name if
+    out of bounds) (patch 16).
+
+v2:
+  - Use -c rather than -E when probing for
+    -fexperimental-late-parse-attributes in Makefile.config to avoid
+    -Werror,-Wunused-command-line-argument.
+  - Acquire machine->dsos.lock in write mode across duplicate checking,
+    dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso().
+  - Avoid dropping dso__data_open_lock in dso__list_del() under
+    REFCNT_CHECKING.
+  - Pass tpebs_cmd.out directly to __sample_reader() and set
+    tpebs_cmd.out = -1 in evsel__tpebs_open() to avoid a double-close in
+    tpebs_stop(), and clarify the config_set_mutex comment.
+  - Drop maps__lock before calling map__load() in maps__load_first() to
+    avoid a read-to-write self-deadlock when loading kernel maps inserts
+    additional trampoline maps.
+
+Ian Rogers (17):
+  compiler-context-analysis: Avoid unused parameter warning in
+    _context_unsafe_alias()
+  tools headers compiler: Synchronize compiler_types.h with the kernel
+    sources
+  tools headers: Synchronize linux/compiler-context-analysis.h with the
+    kernel sources
+  perf mutex: Use kernel style compiler-context-analysis.h annotations
+  perf build: Enable additional Clang thread-safety flags
+  perf comm: Add __guarded_by annotations to struct comm_strs
+  perf vdso: Fix unlocked __dsos__add() and race in
+    __machine__addnew_vdso()
+  perf dso: Pass dso_data to close_data_fd() and dso__list_del()
+  perf dso: Use DEFINE_MUTEX for dso__data_open_lock
+  perf dsos: Use read lock fast path in dsos__findnew_id()
+  perf dso: Expand context analysis annotations
+  perf thread: Expand context analysis annotations to threads and
+    namespaces_lock
+  perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
+    handling
+  perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
+  perf config, intel-tpebs, env: Add __guarded_by and __must_hold
+    annotations
+  perf maps: Fix lock inversion in maps__load_first() and bounds check
+    in __maps__remove()
+  perf maps: Add context analysis annotations
+
+ include/linux/compiler-context-analysis.h     |   2 +-
+ .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
+ tools/include/linux/compiler-gcc.h            |  72 ++-
+ tools/include/linux/compiler.h                |  50 +-
+ tools/include/linux/compiler_types.h          | 206 ++++++-
+ tools/perf/Makefile.config                    |   8 +-
+ tools/perf/builtin-sched.c                    |  16 +-
+ tools/perf/builtin-top.c                      |   4 +-
+ tools/perf/check-headers.sh                   |   1 +
+ tools/perf/tests/dso-data.c                   |   4 +
+ tools/perf/util/annotate.c                    |   4 +-
+ tools/perf/util/annotate.h                    |   8 +-
+ tools/perf/util/auxtrace.c                    |  16 +-
+ tools/perf/util/bpf-event.h                   |   5 +-
+ tools/perf/util/comm.c                        |  10 +-
+ tools/perf/util/config.c                      |  43 +-
+ tools/perf/util/dso.c                         | 140 +++--
+ tools/perf/util/dso.h                         |  15 +-
+ tools/perf/util/dsos.c                        |  31 +-
+ tools/perf/util/dsos.h                        |  12 +-
+ tools/perf/util/env.c                         |   1 +
+ tools/perf/util/env.h                         |  19 +-
+ tools/perf/util/intel-tpebs.c                 | 133 +++--
+ tools/perf/util/libbfd.c                      |   4 +-
+ tools/perf/util/maps.c                        | 148 +++--
+ tools/perf/util/mutex.c                       |   4 +-
+ tools/perf/util/mutex.h                       |  90 +--
+ tools/perf/util/rwsem.c                       |   8 +-
+ tools/perf/util/rwsem.h                       |  10 +-
+ tools/perf/util/thread.c                      |  10 +-
+ tools/perf/util/thread.h                      |  30 +-
+ tools/perf/util/threads.c                     |   4 +
+ tools/perf/util/threads.h                     |   6 +-
+ tools/perf/util/vdso.c                        |  53 +-
+ 34 files changed, 1204 insertions(+), 481 deletions(-)
+
+-- 
+2.56.0.218.g1ec904b173-goog
+
