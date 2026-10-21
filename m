@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550646;
-	b=bzi8XK5cuKIMtvr6kiSP17E1BTjI3qLN4xeocdJgq5YQkF9CGtkWTs+szCIVIVVsVBKO
-	 bLdT3odHney5sQZXcn+wKIngNZNthGkShfiLrNiINnJwPJxp9I54/oIFGQ7iMQ1+GoVmW
-	 59BLe6Ud+kMtUNF2D7dtf3ZTJGyv2eb4w4hpV0mbO56rP8f0YCxPY7LDCUWf4LcDU6suQ
-	 bjqRhxGITUnjEx+rG7SexmFH4Ttf+xuSPZeV4sp+DIuxc4/O+NTK3ChAvZjwCMtIZXrjx
-	 JSfdYOK+64SP+T0IMkiikEkzFG61pPnGdRgWvMCv7fbPJKZbdUrAImzCIidzGqJzSkA==
+	t=1792550682;
+	b=Beig3/yeGPlftFUESNYhaiyB1dE07CjDQO3FSeZtmbG31/oA5ScLBnVSAfemZEWZxRzV
+	 w2AYdv9FgViYTXoG2AKoImKIV1w+7bKbUALH7WNjm6KM253NJE1aKVwnut4XwxQrjz+19
+	 dPBpgqwTWJGRJxCy4fxeEYWsWLCYL4ckWiArW4gs41/aAou+f8C9ozBxH53fe2GlL02Vu
+	 AuLPsYC+NObqSyNk15LIrzooD/xK+3EGvpPZGX0fWC9ZzdrzMdzEGouRB6TY8MiGDD9NA
+	 kXoJNSBRjc8YumLVaC/47rWB7PpbtIQjZXOI4PaNuVcZIot9W/icTb3ArxVWyPuCFfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550646;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=pym0WhT+qvTbeYJitXM6250lqg6RXxznxmPyuxJHkps=;
-	b=XndW9nV6QAcK57zCwHKyRLT97P51pOvoIjs0AMNQa9d7DPBsqW24O7h4E6AJ2lsBTEOf
-	 vSMPIO5jZBKv6YaA0ipQsUGhlTSCiMVYdJwmv7sNbe4NmmOrpOZksANhznO3miIvMeasu
-	 2K9H5p9JAqeyRzciyOny8PEohTWxs4Z0sZ0Wv9BrBSgRzN+flxDRHRCEYIQ7SlVMfTS3N
-	 rIBB2aKFJefFnisa4fC2lyVv3XIYnEkQrnrro38KvcYIX4dLCYYzqTU3MkeSVwFBZR7Qt
-	 cXo5TxNvO+bk62r8hm+BxHbtltqZPHOEfsqVauYYLFjHPx/1E3BJZyYjgsEmemp1i3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550682;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=NLzlKEOsCi9w1u4q3xRYee71IKEIz7iOlD+JfCxLSYE=;
+	b=ZeaOCKRbBdvQ4y8n66IJSP6IFGBwzAxjarq97suLulatszba7BxOZzwWFGjVaq5GzPFV
+	 /pCCRDqTmGnSs/B5PIBWlmxC39gtjolEpb/Qm1Nj4Bey+iJlKEskA2rwDVWL2RFf+zamw
+	 pqikSS//TMvg81vOkuyXn8bhja8VIUFWUv0XC6XKtz3ozWx18S1nVhlg5Y91JepoQLv4b
+	 BPV6pSq+VfvI5vbbLs4yb7Oq4w9KaTWG4G0SBpeoQgty2luLc/xivnZYgo5B35QWs9ro5
+	 9u09mrISMJELY+UAgoEo2IO5cc4L4hytjdB5YSvRLb0YlGqEc3C7/VSiKzRcebBN0KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ2K7Cfd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y5mLSoKN;
+	arc=none smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBD2606A331;
-	Wed, 21 Oct 2026 02:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20AD606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:44:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20AD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ2K7Cfd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0A61F000CE;
-	Wed, 21 Oct 2026 02:44:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792550646;
-	bh=pym0WhT+qvTbeYJitXM6250lqg6RXxznxmPyuxJHkps=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RZ2K7Cfd39sSBucECD68WaRzd02Wt1iZCE02GFAhNRdlvnP0XFQNEpF5XFNhxQ0gn
-	 mAEfCpyzmmYHOBDE2WvAY/vySg6Xmtmq2PZfwoVNX7hOxRkfeTD0Z1ozjdyG7L5iGV
-	 fQ1FxwNtR9/XyeerFMbV01HmH3WvxoVe3IkCPUTxN1OwbFXDgfV9WQ6ACkf71DeIEb
-	 kkHNVqIvMFeO4zTuvfisx6wLJQxzwMny5pkg1iYBN82CJuJrERbLPR8mdnslWKRBaz
-	 6xXBTsPdbXhGwbmBnIviWqd3LfC0J7eSqf5Vcmrc+h9aHyfm8WuoPdkxsyjZ6ynR6U
-	 Vwe2jC8tnlikQ==
-Subject: Re: [PATCH net-next v2 3/3] net: remove rcu_barrier() from
- __dev_change_net_namespace()
-From: netdev-bot+sashiko@kernel.org
-To: odys.yuan@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- razor@blackwall.org, kuniyu@google.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 02:44:04 +0000
-Message-ID: <179255064497.3135.10889465434398446823@kernel.org>
-In-Reply-To:
- <20261019-bug-net-netns-move-rcu-barrier-v2-3-b6eb7780c492@gmail.com>
-References:
- <20261019-bug-net-netns-move-rcu-barrier-v2-3-b6eb7780c492@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y5mLSoKN
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f30660e69so17419085a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:44:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792550681; x=1793155481; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NLzlKEOsCi9w1u4q3xRYee71IKEIz7iOlD+JfCxLSYE=;
+        b=Y5mLSoKN1wf+TJ7KGubIjdn3WlM/DL/bPWbC0kwnpROcjNtXwpaJpuPzxEBokXuT7g
+         BZ6iWdkbX6kAOkFyY6lqoVxJXNRb9qJ/xGpgnMnpEllAc7mo05t4gpdzxzPSC6aSOIfQ
+         F4CsiTTM53I3F4PGtHIVrP7GxKFmHc40BZTl5mmDnlVv5Gt4ajOyfkaRy51E7U5iDdap
+         IUP79AkB5miV24Vw0I9767QosQoip5MeU7EZfXs3cfZk5DCfvXgW/HaDrBWveJfGJaUY
+         huOWeY6f86eBMB7/2hOi7PYB4WlFVM6HuKTC+zhZzLHjM8f3VfUsa74VkF8XWGd0XOLx
+         fb6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792550681; x=1793155481;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NLzlKEOsCi9w1u4q3xRYee71IKEIz7iOlD+JfCxLSYE=;
+        b=minsVLF/RBOiZMNL13v+5hrE+3YXcYxXnHJfAhyP9Jwzxb35F4kyIMqPXjLn6V+X2y
+         30kNux2CqXWvtOcwpRAWOiEpCwUGv+ofnzs5+7+dqkHRPv7odLRxeidEfPA5SEggV51D
+         ssTNto7KX4CTswLSxvfdm6S4hjP53ESKGRNen2WlZSh7MfGbcFSU82qA/L8i2f7BZsXq
+         aF0r+wq6u+uzGLbjMdp9psjFWj1Xz1GJy8xCXV3VvZMugE9vnCuN5gPZQmJjeTeJm/O0
+         +VNRzqRv/iiITgGUZQxW2nMznQsrUL/+L0xkKlxlNZbHmB1xWGmLyJrKH2nW/kLpc8bc
+         u5Hw==
+X-Gm-Message-State: AFq9FYLPtHXm6ui4a0lbCH3C/qiPlIdLZ64DA2yraeXPrm1pzr0L0mej
+	wsavEvLtfd0IJ9q0GHGoUCbnmd9anocjhgz46WGdClR9FXgf9hTZTuHr7m+dkd/XkSo=
+X-Gm-Gg: AYBFou1ewMgKX56tTmONfkQwc5JEH+PgxY2Q6DJ5HGFo0TXb3m5IaKIo8N9daIg//Tj
+	Z7FaRKhMJNge5q4jkfkwt7CDFiGJ+ZZHqN28GSsh2My66afcmvo+s5TsZLk2BTujSo/u9+ylEko
+	XfIkvJGi96x6kGhENxkHhSWczlnz0AbFLEzarc2p3umkPtfohnvYroWjfqATVV//kW70JbQA5Vz
+	LxZOymRsgaTRmnuTXguIhAG1rljw2QV3jC31W23375snj4QmD9SLU2+jp6WbVNHa29TC0J0cfG2
+	qT6zoWV7rFZxkoWZrexu5YHDkYd/0mlccjKGw7C8QvJxOvq8+4Swkhvy78xlrlC2GaxoBzWB8Ij
+	Fvi+5tXqK4BpoupOpoqKu9IVVZwFR3czkZ6ni8x79shrPk4E9DKtWR7aKkgy6ellfp3y6ogCYxn
+	TTFIgmOHnqdKnBDK93DosHHSLKJ76cbLG/i9AsKcsJDi1i9z8OGhK+NgBcXzTu+JxNNPPLz4Sqb
+	Ui2WRKzgE0t6JlowLfRY66iMWhekK9uf22D92nKhClGvhY/TH7H3zIqvecigWcsfV6S8/HCCnoM
+	XS1wBRpO5KHkNINZSd/MVzxkJLh25A8Vl8Mlptkwkw==
+X-Received: by 2002:a05:620a:1a17:b0:939:c1d4:e2e1 with SMTP id af79cd13be357-93f57f0bd72mr216584085a.25.1792550680719;
+        Tue, 20 Oct 2026 19:44:40 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56dd0022sm140259385a.20.2026.10.20.19.44.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 19:44:40 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	gourry@gourry.net,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	weixugc@google.com,
+	aneesh.kumar@linux.ibm.com
+Subject: [PATCH v2] mm/memory-tiers: reset demotion targets of nodes without memory
+Date: Tue, 20 Oct 2026 22:44:38 -0400
+Message-ID: <20261021024438.1942502-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,80 +101,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+When a node loses its last memory, offline_pages() clears N_MEMORY
+before the memory-tier callback rebuilds the demotion targets.
+disable_all_demotion_targets() resets only N_MEMORY nodes, so the node
+keeps its old node_demotion[] entry while it has no memory. Before
+6c542ab75714, the reset covered every online node.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+A reclaimer reads the stale entry only between the node regaining memory
+and its targets being rebuilt, and it filters the entry against the
+current allowed targets, so there is no user-visible effect. To see it,
+online and then offline a node's only DIMM: a debugger still finds the
+lower-tier node in node_demotion[nid].preferred.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reset the targets of every node.
 
-- [High] net: stale IPv6 nexthop exception dst and wrong-netns stats
-  after netns move
+Fixes: 6c542ab75714 ("mm/demotion: build demotion targets based on explicit memory tiers")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+v2: +comment
 
---
+ mm/memory-tiers.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -12994,7 +12994,6 @@ int __dev_change_net_namespace(struct net_device *dev, struct net *net,
->  	 * the device is just moving and can keep their slaves up.
->  	 */
->  	call_netdevice_notifiers(NETDEV_UNREGISTER, dev);
-> -	rcu_barrier();
->  
->  	new_nsid = peernet2id_alloc(dev_net(dev), net, GFP_KERNEL);
->  
->
-
-[Severity: High]
-Removing the rcu_barrier() here looks like it opens a window for IPv6
-nexthop exception routes that the changelog does not cover.
-
-Consider a route in net_old that uses a nexthop group with more than
-one member, where one member, nh1, is bound to dev. When dev is moved,
-nexthop_flush_dev() calls remove_nexthop() on nh1. Because the group
-still has other members, remove_nh_grp_entry() only drops nh1 from the
-group. The fib6_info stays, its fn_sernum is not bumped, and nh1's
-exception bucket is not flushed synchronously.
-
-That flush happens later, in this chain:
-
-  nexthop_free_rcu()
-    -> nexthop_free_single()
-    -> fib6_nh_release()
-    -> fib6_nh_flush_exceptions()
-
-remove_nexthop() queues it through nexthop_put() and call_rcu_hurry().
-
-Under RTNL, synchronize_net() is synchronize_rcu_expedited(), which
-does not wait for that callback. Without the barrier,
-dev_net_set(dev, net) can therefore run first. Two things then go
-wrong:
-
-- RTF_CACHE exceptions created by ip6_rt_cache_alloc() have
-  rt->sernum == 0. ip6_dst_check() then skips rt6_is_valid() and goes
-  through rt6_check(), which still passes because rt->from is alive in
-  net_old with an unchanged cookie. A socket in net_old can keep
-  transmitting through dev after it has moved to the new netns, until
-  the callback finally calls dst_dev_put(). The fib6_sernum argument
-  in the changelog does not seem to hold for these entries.
-
-- rt6_remove_exception() uses dev_net(rt6_ex->rt6i->dst.dev) to pick
-  which rt6_stats->fib_rt_cache to decrement. When it runs after the
-  move, it decrements the new netns counter instead of net_old's,
-  leaving both counters wrong.
-
-Was this case considered? If the barrier goes, it seems the nexthop
-code would need to flush nh1's exceptions synchronously when nh1 is
-removed from a group because its device is going away, instead of
-relying on the RCU callback. Alternatively, rt6_remove_exception()
-could avoid deriving the netns from the dst device. Which direction
-would you prefer?
-
+diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+index 25e121851b58..9d872404592e 100644
+--- a/mm/memory-tiers.c
++++ b/mm/memory-tiers.c
+@@ -378,7 +378,11 @@ static void disable_all_demotion_targets(void)
+ 	struct memory_tier *memtier;
+ 	int node;
+ 
+-	for_each_node_state(node, N_MEMORY) {
++	/*
++	 * When the NODE_REMOVED_LAST_MEMORY event fires, N_MEMORY has already
++	 * been dropped from the node, so we must walk every node instead.
++	 */
++	for_each_node(node) {
+ 		node_demotion[node].preferred = NODE_MASK_NONE;
+ 		/*
+ 		 * We are holding memory_tier_lock, it is safe
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019-bug-net-netns-move-rcu-barrier-v2-0-b6eb7780c492%40gmail.com
+2.56.0
+
