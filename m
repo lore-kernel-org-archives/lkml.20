@@ -1,82 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606919;
-	b=jM+CLmnNm0zYjcZIHXg00FTJ9g3zvZhF6EM8Hrp/RO603AVlQQKvDTQ5J0ihV55I+Mb5
-	 8cHFd9oVrsMt4TOL/+RSYndRPNxgfOh2HMqb79otqcg4mtpclFW+ZI4L/5NiDwG7nJrCy
-	 CPkHQ2TEv6FpKFpFrO/vj+czOdfwZXhZVzT5ZVVZi4ZEPwyZ1LisTnhEoMrXFuPmoz/ci
-	 6bJskR4Kd8zQuRHLM5IRF0XsG3dYF8GMWyJzUscGdTlTpl6C1kDF03omxEuMoYPST4fus
-	 ZdlXHbgcZOEHFPFQTHdfXFcQ4KDteBCEx1L9P6XZfMIs2CnGKARJIlaS6Z4u875GbcQ==
+	t=1792606933;
+	b=WGrg3SypcdD8z3AXV5VRoBIqpqrAETBwryTm/FJB02vCFVqx5S33kbDvOgFNhgELTloH
+	 3QmV6rB8OSygo4t0la04xLFHpyscsCTTzbA441Gw+jV1Sfp4e6JDizZjNnUVnQqMG56tL
+	 kxYHv/yWujgWJkH3xot5J8VoyEXj3y5aKaLrBBfxo78Yx0kU3ZBxeSlUh2nqx28foOi6d
+	 XSwh5xFWtV2LlEfBXt6vN1F+mEGOj8s+0C4bwHV/tQnVI8u/A+83eTdVyifBT8jp9Lmcf
+	 dCCbT7CthLGyf2ixvET/gHyNembIurRvEX678MNlqig/dopAQU2k0V3aHoGTYIi/oQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606919;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=0Xi0GKbMN2Oqdu7m+YBVdZb5sclpnnu0dtiqv8V8WVI=;
-	b=tHHbKmAKDeA9pKsL5HmZ18LvbRuaqHZqjqjqWMGtsGW0+yuT5S5SFimlErZzuIC51I+5
-	 xGLW3Y32kYX10imaYw0dqIHRbpQVBeZFTn7O61X7Wc2xzbKOYmxNHWk8KrHaE5mvvBfTs
-	 D2S9lsXhbrXDCSP4rKvmixn0kp299oCZ2woSmkqR2m39YSMPgIMrzNa84B0mHvZD3UbAH
-	 gCpCkWMPPfg4nrFdqT5UjF+HWk7GvxlFsR6P+NyJa/czeaEb3h5QvdY7o/v2zWJKJuFdj
-	 xHA0ObJyh34Npm1q5HL7P6eEnW07wE1vwD6qlm/WfmETIJa8H3XlLqfbSpufOLGxKXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZP6s6OklCse3eR+K7bjref4ek+TXJ4xDNtPTRq25Yqs=;
+	b=fVu7qbcLbb+Dt2dBAWoz1lCCVYLtVw20ZlBSXIdLV0x9l07VcjVsZPfgObWaumYbpOOS
+	 w/Mdqgue23uSvXoIvMLFomXQ/Q6PkDqExWqmWTU0G5D0kUDSIoK/N4fc2520c9sExnWJN
+	 Xh/Xf9vs/YRCMK2UZfw+OpLsNk16690kBBZJ3tjtMi/MukrH4ak/EIg62YQ2N57g3kKTz
+	 sYE7duiRSrJE6O01SGD6xBs/f5F+ZD7XUG65xNvpuiZ0eN9trn8Phap+Ig7t2GK18ZCDC
+	 +1kdrfZSDtJy/ZI0GD8fupbdjevhmryfqBKkhDVsb8fQ6phLB2ZHXAtTLRMxQNMk09w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CnzU1iGG;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="dsrEps/x";
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89540606A319;
-	Wed, 21 Oct 2026 18:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89540606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67D2606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A67D2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CnzU1iGG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792606918; x=1824142918;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YqEW9tVezdaoJ8G/XXWCUZ3u3M0v5a2gt+v3QGHcdkM=;
-  b=CnzU1iGGfBCFldp2qcxkxhg7MsgPFzTdHtfaaL9RJiXMKyD+v3x6eGlD
-   bzN+XvePYX652/CTX9JiAtzA7YPxc/0jXyPmP7tugQh+yRdduxM4QSDpj
-   gqO6iyRKxNZF38tFHml/bveGQgwutT6sKFta2D5CG52Jh9fogwWgcQRoj
-   8eghIGgexky9u95sYlerdz8idKu3XmHCxY7F1Y8BGvsp1u22UMgxBcsPw
-   XMhO0EC7BS0kPDZDfWuOq3ikvHZIR2+VxFHDyJb//VZswEJ+xT4n1+YHI
-   ZBQxx9AO+18kGxs8kiMPDL4F07pmEfy6DXbblby0WQQZw/XPvWi23V47J
-   A==;
-X-CSE-ConnectionGUID: PPDsYtnRSyCqKYs6EmtTSw==
-X-CSE-MsgGUID: rcGzBuCKTRa04W8DEvKsDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1437979"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1437979"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:21:58 -0700
-X-CSE-ConnectionGUID: gj6my4CVQ+i+jFfC0jgiHw==
-X-CSE-MsgGUID: Zk07A7/XRMyswhzHp96dQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3225895"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:21:54 -0700
-Date: Wed, 21 Oct 2026 21:21:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] Input: soc_button_array - use __free() cleanup
- facilities to free memory
-Message-ID: <atkCwCXRcobOI9J2@ashevche-desk.local>
-References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
- <20261021015004.1537738-2-dmitry.torokhov@gmail.com>
- <atjw4b-ICVGH3-2a@ashevche-desk.local>
- <atjyyqxnlqEvwNxh@google.com>
- <atj5pgIU0VCcrHHX@ashevche-desk.local>
- <atj71VUZdpHO4aBT@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=dsrEps/x
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33fb4680717so2514775eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:22:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792606932; x=1793211732; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZP6s6OklCse3eR+K7bjref4ek+TXJ4xDNtPTRq25Yqs=;
+        b=dsrEps/xEOfJ1QY7b2uiCj8QW0fLNE5r3+4fr7RjSSDDI3p2gILfXV95rPBnx3jj9x
+         78F34zMuGmMnFjiJWvsndgLXPczylkaTBzobr1QaL6gSwWcX5c89PDmw1jEy/MWtlh2i
+         JgK2dZpji1lRhghPwxbBI9KL6NKTaI5AdNeGUpKUlBeecvVOHlxgVBl84UrXRCKh6J7S
+         WziTj3l/5A9a1a/EyqUmKFLtp/ABfk5IbVM6FmdMHvEfncCuiLnxnjCIwiHyqLtAZEaB
+         YyKIgxYvqG47ZG18ddL/EUI7IkFbnPwJDn7pf4CONtqKmwGe9+DC0jBQCIQ1f4WPz0yW
+         zR3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792606932; x=1793211732;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZP6s6OklCse3eR+K7bjref4ek+TXJ4xDNtPTRq25Yqs=;
+        b=gAm9UpRDlTuwALdrJwGSF093VaaFTVbg4s0/BDdujesYQbZNZdz86EMIZjqTlHOKeY
+         ++66jUapeXCe6PMJJzvdNDQlvxcKMsu2z3HFa0+WZLa4VVceJXJVE6GxB3hc8gOgOZ0i
+         O8zFESEOS4+IrxLYiFZI4Tt9mOLxotHvz2b5VRtXtHR95TepsxYptQG911h8MN4ktMSQ
+         rpkXIdKmVR7V84fqMVeWpcRTYN0TvrDfY41XFsSUT0M05P7+sOvjm9mJuWHaYAjwCmQR
+         lCCXFW+uhDcPhDcKM5AYSRBLsfK2Q2Ie46KMcmrOXHQR1uP3qHL9o+RvRiHcfpc0WyH3
+         9HsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynoRT7GBCVWdG2Vw//G2/KITCVcZGzpi3/8Wax0ZcBmGspceDz2D9Ql4A+C0FW4Q7tm/40W0XsioaSW0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCvfthqBWnCYuAh9A3inDmq9ezk8v/5c57Hq4W0WXZpYMd23hi
+	mF4hKW+5H5ghh6yXx2Y8NpK7cISsuKeiTOEbX6QcmFVixm39KZs8ar8XBjJs9AEVZJk=
+X-Gm-Gg: AYBFou3g3SU7SiDm3Bmle35j/4heAiWEra8h4oRLks/4m/5d90yrHSncWSOH3hEn//N
+	nBisqQ1QPWMbziBYBaW+BasE2ylVqSCj4WK8SAYj7rkSrZT5rsit2a6g+o8MRRjwii/7xfGzcCf
+	Yiy3QPFO7p1t/I6fVXqgMD5sSto/ACA2r3LYQmjBYt5Ir3ha0hhCeylaY6uqVNf9xYmeUr+blbc
+	b/bQ3d981uGX1OmXzgNDTjx1ZZvs0EWElpNsOrGOWQBwEZP8B9VOzDYH0DM9LwMGiAu6htiq/y5
+	OCjHiFdzVIZHpql44uaq1nItbA9FdU78uwXO6ZWRmfCNqUl0V6ApbFxugCHZANyh9UDYCmaf7cZ
+	ZXt6uKFtTjDTp8adCq/AnqN2wQSJPGLOkZa4JSnuT6k3erM9H/dCFkC+DnIo1mVodWmn4v7z/ME
+	grHQ7CD4xgRp43MAneaCRBejIZKsbE4ZURRarsdFS9JA3L426TEYrf99ERgjN64S0kq6aL+ZB4L
+	p67Ne0sBiBWuGftp4Zqbx/hOqDPTyupQWyzec3FSzsWBlmP+EbYsCqFl4SsfnRTucdGCdJcs1hN
+X-Received: by 2002:a05:7300:72d0:b0:353:5cf0:df09 with SMTP id 5a478bee46e88-3674c93add6mr5779594eec.8.1792606929814;
+        Wed, 21 Oct 2026 11:22:09 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-367411b4145sm10549688eec.15.2026.10.21.11.22.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 11:22:09 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:22:08 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 08/18] nvme: Implement cross-controller reset recovery
+Message-ID: <20261021182208.GW2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-9-mkhalfella@purestorage.com>
+ <6e0b4de0-b030-47cc-84ce-3f021a5c75b0@flourine.local>
+ <20261020235624.GQ2931-mkhalfella@purestorage.com>
+ <5f52d97f-dd27-48b5-8502-1a3b5ccf4d92@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,36 +108,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atj71VUZdpHO4aBT@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <5f52d97f-dd27-48b5-8502-1a3b5ccf4d92@flourine.local>
 
-On Wed, Oct 21, 2026 at 10:53:06AM -0700, Dmitry Torokhov wrote:
-> On Wed, Oct 21, 2026 at 08:43:02PM +0300, Andy Shevchenko wrote:
-> > On Wed, Oct 21, 2026 at 10:15:43AM -0700, Dmitry Torokhov wrote:
-> > > On Wed, Oct 21, 2026 at 08:05:37PM +0300, Andy Shevchenko wrote:
-> > > > On Tue, Oct 20, 2026 at 06:50:00PM -0700, Dmitry Torokhov wrote:
-
-...
-
-> > > > > +	const union acpi_object *desc __free(kfree) = buf.pointer;
-> > > > 
-> > > > Rafael added 'acpi_object_free' for __free() (pun wasn't intended :-).
+On Wed 2026-10-21 10:29:52 +0200, Daniel Wagner wrote:
+> On Tue, Oct 20, 2026 at 04:56:24PM -0700, Mohamed Khalfella wrote:
+> > > This part could be made a bit simpler and there is no need for the local
+> > > completed variable:
 > > > 
-> > > Not sure why it is better... It goes through ACPI_FREE() ->
-> > > acpi_os_free() wrappers which might be nice for ACPICA code, but has
-> > > limited utility in the rest of the kernel code...
+> > > [...]
+> > >         if (!wait_for_completion_timeout(&ccr.complete, tmo))
+> > >                 ret = -ETIMEDOUT;
+> > > 
+> > > out:
+> > >         spin_lock_irqsave(&sctrl->lock, flags);
+> > >         list_del(&ccr.list);
+> > >         spin_unlock_irqrestore(&sctrl->lock, flags);
+> > > 
+> > >         if (ret || !completion_done(&ccr.complete))
+> > >                 return ret;
+> > >         if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
+> > >                 return 0;
+> > >         return -EREMOTEIO;
+> > > }
 > > 
-> > Today it might be similar, tomorrow it might be different. ACPI objects should
-> > be freed with their proper APIs at least for the sake of consistency, no?
+> > You are right, this is deleting "completed" local variable at the
+> > expense of checking the ccr.complete again. I find the current code
+> > easier to read and reason about. I prefer to keep it as it is.
 > 
-> Fair enough. I'll add a todo to switch once it hits mainline.
+> The point is that with the local variable, the reader has to track back
+> and work out where it is set. I had to do exactly that while reviewing.
+> Putting !completion_done() in the condition makes it self-documenting
+> and ties it directly to the wait_for_completion_timeout() above.
 
-I believe it's pending for v7.4-rc1. Are you planning to push this series
-to upstream before that one is out?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+I think this is a subjective point. For me seeing completion_done()
+after wait_for_completion_timeout() raises the question "Do we not
+already know if CCR completed or not? Why are we checking again?"
