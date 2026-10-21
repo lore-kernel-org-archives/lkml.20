@@ -1,91 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792545743;
-	b=QHK5gAVeOPnxJiuIdBA60gLwwaNaZWYMZDE3xOOJR4I/B4RtrtPAOO92y8d94bj/73D8
-	 K/s1XFis/MEwFff1z0fBesJorlMN8WdEiTEEbq2k0VgNWdMfUJ+peI+brBSQ1uhjS8R6p
-	 ya72H4R1dtGGw4jxdLQgJCyPCQHUZ2BElHd6SEv7CI0g0k5joYNYiDQsBYN9DsaGyxFjM
-	 3UCpSHfU7DzoZuoluKctpMjRWCoJ5R3H0FMMCPpU13rY5jGMf8csAMGi1z2JFAH3D1/HC
-	 LujKcacaIoRtk6aC+g3ZhlBqp9vysbkh4QiMnnZmT3uo8n3zGkrXwvFeL3t5AzjiIYQ==
+	t=1792545917;
+	b=Xt2qHP5efUNxHTwGXHxbPbJ6PWXqy5hFpftes3KWf+YjecSmWYopDdge48wFdKah9s1l
+	 5ies5R+V+wBRZMwDHt0Te+tvIaAEOuz0VbW79LWsA/HBu1l627sLekRDbhbkf+zRNQvbO
+	 O9vC6mKh7/98rqG6tH2smb988Q6VF8l70OySskcB3lo51teWcUuUiX49+45ORe+xXPsmX
+	 /7/ZvSCO4Psx9VX8JnfO9hUFRnLhksKSXsJm41YquH4s/uteDROcZdrF6Ab5j08fKlk7V
+	 6s87RAm3OK9pFcykdNrpMkhftwlxgPncCoHkByUrrGfZ+80+CLcG1OU8nV445Vg0SpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792545743;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792545917;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/06k/OCF8qTJ0wBVY/M8ek9mzAGmnWdgB2kFs8X3vhc=;
-	b=LMCGZpjvqm2nEVHTrF8cIDk+0T0CsykYA43XYQp73SQQKy9QJIwYjuw2GwJ4/Zvr0Ixa
-	 1p08Xw2U2FPt/Ds8y1pfuyW+wp0ZGsmZZdt6RBh8RL9tpQe+pufq/EevBTa+jdByic+q7
-	 +R2S7EPdJE9uxVnd9QfeQeNfr7J0/P5TFmzGVZRoEXM0ipqAgV+0Ti8X+WhrFJzW2sXzm
-	 4IyxpsZwY7nSIFdnvNBRa/r35+E5uEYxjx+iy4CyK7qbR/2RPERwd2n18oE+v0E5gYp7Z
-	 00mB8fWd+PPj/8rGtgvTNL2vDlAf8ZMGeD+NglT70mNdMN5MsHMCCmTETKiCHIi/6xg==
+	bh=4bdhRhvLCR2OGjIxKNlvor52ldxxtItwDVGS0GO5vlE=;
+	b=xaLeNlFpoNXoYFlrh8QGiqOvWXfGGbHiwpiZYOvWRD5RR+VRQuXuzorgW2CPHwY18scZ
+	 7yNlM/16CqrN6DIGJ5DfyMzPf3tD0CLKtflHMcfcMqAO8gPwQU2kDSeB2o1td52JpaMYd
+	 5k7/ztQvEGEEbMTjxaFty24gdJNICIHq4GrCMN0CX4jvKGxPwXHPDFnKSoI+5mD9UUhKT
+	 5zVNyxujdAOIhWQfxcmWfhA7WOMgRCcWny4LwmM/FqPiUr7ogAM9cxmBhTjKMT3xe3pSi
+	 fiJsjIFe5HoZLN1sXtxmj+/o8Ykrqi3jPy0R2R4aw2//804VxvzmDcspqNqHqzMv7GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=obwkoVec;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l9ZFmHKE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12BD606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B12BD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321E6606A319;
+	Wed, 21 Oct 2026 01:25:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=obwkoVec
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15354aa70e8so615990c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792545742; x=1793150542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/06k/OCF8qTJ0wBVY/M8ek9mzAGmnWdgB2kFs8X3vhc=;
-        b=obwkoVecAkYYZz8g4jFcYK7AYWGEYr4NK+xZTIJYXNVAMhuNsmp4RnYr8Sc8c3FFa3
-         co7DEXC5uG6TP9+Kmah33xHb3viiK3hRgqddzXyLBLSnVlAcZ2lb/kShvIzYXEU8tkX9
-         5RVRiGkYAX3cJFFbDl7YyBFl7AnP8ZJcuNCNEjVznRvZ/cM4SsnS+c83NRNyHqMEkzzn
-         wEW6InOM8DXK7nyLH4WZIV6/9eu0YP0JqNTqoKviXrACHl3qhE/6uG3jP9bjYRZ6YYRB
-         F9i8S4nmlcu1xnrkIrK5498J3RfErA2Uo61d6DH6+vX/vqZvXTBCt1lGuHDqplU9FQnS
-         5yDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792545742; x=1793150542;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/06k/OCF8qTJ0wBVY/M8ek9mzAGmnWdgB2kFs8X3vhc=;
-        b=qgoqlD9IX056XSVtnwCTc1s9VypxOxfFX4n8Z4Hip6lWsBBvx48By1HUD2PMlTFNLX
-         Te2PSoM8IfhqkXUeozWE82fUn6jcCeAHiI8RdkNOQMOCrB9DdfakUo3HthiZEfYsdjtA
-         KrmbQo3sA7LFI+W94yXrxJOQUkjdcic96uWY427fxf7tiKMlGSOvegBuoSCng4b1Es2Y
-         WxJ6YyRjIlJK2lH0oj2x2yfrgz69LvaZB/ctoyc8/2Q5W0Z4XR4Rs5j2GufEDaATbXW3
-         zfGeGsHDfdEUntHndIx7ucDvOwkb8XROEQkamlWBTIxBfT0hji42wVU2T4pCkTDPDiq5
-         WPkg==
-X-Forwarded-Encrypted: i=1; AKwUvBySYJ+cFRZiHH6LwBnNLL5ewACS+vA9cluFQ2mqg2jb/igImf8hThsL0aT76IoiZA80MpphMySiq60OcQA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgyn+AOESW6G6zjVSBQOc1ETCOZixL8EqORO29TZehdIMrX6+U
-	4683XTxZrSVXNyZskNidNFFwWWkgXLuBeHltCA8W7BkZ0vO+tayWGVcg
-X-Gm-Gg: AYBFou0ArHnWX1O0hIliNbPRO9VerdX9KBKoAIXvedMWEQGYAJP2JIawgsgAPk/haWE
-	tTyJlHFX+wFVWk7uGgMCTg9Sbk6n7LUufUVWdSFKh2HH3bgPAe1lEg6nso2xDzlvILipQS3Y1Ea
-	r5fuk3328sqkgqn6cZCrU3BL160J5obdfjsFCh5JyKakcz+oDO8JwDBADpbxthwi2W4CANfsd6Q
-	WrbAa14kJu6akzFpNv1an595TleZykonV9AFrhRueIzGnNXcC4sXcbiM3PxRnqIXSqJJUQBchAs
-	u9aMsF49w0CeU3EEaIIus+LFFGqx0pN6lo6sShjBzuPRSOx8Ii2bw4tBzdAimCbmHDsiFcj+B7K
-	btQK3JQ1zAM6y/e9fAI7rKGgENM1X8jBtJffKhv5XkU6HgcGCYVt+dTf66qR8W9+i/uLJoC7JM3
-	0M/x6kDiz9qoPc6pDYwGes99k14NNqOMfBEK/ob1m3OOZwVxWYKYxh1dhRigQFbxCfizj69Vv5a
-	PDxbz7jEgjqVsHZt0xY0P8a4EkgU96R+kI5ElRAjGPnVHrePYUhFvdBl+vR
-X-Received: by 2002:a05:7022:b90c:b0:14d:baf5:c40f with SMTP id a92af1059eb24-190a465c250mr649391c88.14.1792545741421;
-        Tue, 20 Oct 2026 18:22:21 -0700 (PDT)
-Received: from CachingPlasma ([45.117.246.230])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a275026sm2935541c88.5.2026.10.20.18.22.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 18:22:21 -0700 (PDT)
-From: DragonicRage13 <ajaneshlal3@gmail.com>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	DragonicRage13 <ajaneshlal3@gmail.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Add mute and mic-mute LEDs for HP ENVY 16 (103c:8be5)
-Date: Wed, 21 Oct 2026 13:22:05 +1200
-Message-ID: <20261021012205.9431-1-ajaneshlal3@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l9ZFmHKE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505451F000C9;
+	Wed, 21 Oct 2026 01:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792545916;
+	bh=4bdhRhvLCR2OGjIxKNlvor52ldxxtItwDVGS0GO5vlE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=l9ZFmHKEU/tlzxe+ZQ2rXXUNZIZ7NRc9MDFn6t+2EnFjQd0F/F1eOOau1b+RvVxpk
+	 wmcQA7BXyhiQ+fCH4WmKbP0UH/KBcb337EZ/4QnsmExYnAu+hUqeurjT7b3fE5Fuap
+	 SjiRPzngmTN89MyNez5+pb6ubCwlVc9kUxwsLecQU9Q9EnyJsK67Mcg4UqdM1HW5nE
+	 /xTzxsMqO+TTbsSfx4XSV8xqdDNXhuOE+AmdLgOWtyh0v3Pi8/nyrdNZopK1NDxlan
+	 jygxgW7nU2Gm42PIWonHcgv8+L7n8/TO5zZ5N0dx51wjnV13PK/AKzpE90CtPviaiv
+	 x5wzvWgPedDbQ==
+Date: Wed, 21 Oct 2026 02:25:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
+ lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
+ cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
+ James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
+ qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
+ ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+ dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
+ peter.fang@intel.com
+Subject: Re: [PATCH RFC 12/20] ctlv: Add device and operation dispatch
+Message-ID: <20261021022505.6fe1b1bb@jic23-hlaptop>
+In-Reply-To: <20261015145053.3664509-13-jiri@resnulli.us>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+	<20261015145053.3664509-13-jiri@resnulli.us>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,80 +69,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The HP ENVY Laptop 16-h1xxx (PCI SSID 103c:8be5) uses an ALC245 codec
-with CS35L41 I2C speaker amplifiers. No LED fixup is applied for this
-subsystem ID, so the speaker mute LED and the microphone mute LED are
-never driven and do not follow their keys.
+On Thu, 15 Oct 2026 16:50:45 +0200
+Jiri Pirko <jiri@resnulli.us> wrote:
 
-Add a fixup that calls the existing ALC245 mute LED COEF helper and the
-GPIO mic-mute LED helper directly, then chains to the CS35L41 I2C
-amplifier setup so the speakers keep working. Use it for 103c:8be5.
+> From: Jiri Pirko <jiri@nvidia.com>
+> 
+> Register CTLV devices, resolve family chains and dispatch operations
+> through validated messages. Wire CONFIG_CTLV and the generated root family
+> after all module objects are present.
+> 
+> Assisted-by: Cursor: GPT-5.6 Sol
+> Assisted-by: Cursor: Claude Opus 5.5
+> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+> ---
+>  drivers/Kconfig             |    2 +
+>  drivers/Makefile            |    1 +
+>  drivers/ctlv/Makefile       |    4 +-
+>  drivers/ctlv/core.c         | 1517 +++++++++++++++++++++++++++++++++++
+Normally I'd push back hard on too big to read, but it is an rfc
+and other patches in the series are much large.
 
-Tested on an HP ENVY Laptop 16-h1xxx running kernel 7.2.11: the
-hda::mute and hda::micmute LEDs appear and follow their keys, and the
-speaker amplifiers still bind (CS35L41 Bound in dmesg). The mic LED
-GPIO pin and polarity are not verified on other hardware.
+I'm out of time for today and not sure when I'll get back to this,
+so just a few quick comments inline on the bit I did look at.
 
-Assisted-by: Claude:claude-haiku-5-5
-Signed-off-by: DragonicRage13 <ajaneshlal3@gmail.com>
----
-Changes in v2:
-- Resend with intact whitespace (tabs); no code changes.
+>  drivers/ctlv/device.h       |   17 +
+>  include/linux/ctlv.h        |   55 ++
+>  include/linux/ctlv_family.h |   22 +
+>  7 files changed, 1616 insertions(+), 2 deletions(-)
+>  create mode 100644 drivers/ctlv/core.c
 
- sound/hda/codecs/realtek/alc269.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+> diff --git a/drivers/ctlv/core.c b/drivers/ctlv/core.c
+> new file mode 100644
+> index 000000000000..aeab29fe2fdd
+> --- /dev/null
+> +++ b/drivers/ctlv/core.c
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index e98cc42e1..850a15801 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -1572,6 +1572,14 @@ static void alc245_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
- 	}
- }
- 
-+/* mute LED via COEF bit and mic-mute LED via GPIO, called directly */
-+static void alc245_fixup_cs35l41_mute_micmute(struct hda_codec *codec,
-+					      const struct hda_fixup *fix, int action)
-+{
-+	alc245_fixup_hp_mute_led_coefbit(codec, fix, action);
-+	alc245_fixup_hp_gpio_led(codec, fix, action);
-+}
-+
- static void alc245_fixup_hp_mute_led_v1_coefbit(struct hda_codec *codec,
- 					  const struct hda_fixup *fix,
- 					  int action)
-@@ -4230,6 +4238,7 @@ enum {
- 	ALC245_FIXUP_BASS_HP_DAC,
- 	ALC245_FIXUP_ACER_MICMUTE_LED,
- 	ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
-+	ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED,
- 	ALC236_FIXUP_HP_DMIC,
- 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
- 	ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
-@@ -6859,6 +6868,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
- 	},
-+	[ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc245_fixup_cs35l41_mute_micmute,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
-+	},
- 	[ALC236_FIXUP_HP_DMIC] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -7361,7 +7376,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8be1, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8be2, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8be3, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8be6, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8be7, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
--- 
-2.56.0
+...
+
+> +static int ctlv_file_open(struct inode *inode, struct file *filp)
+> +{
+> +	struct ctlv_device *ctlvdev = container_of(inode->i_cdev, struct ctlv_device, cdev);
+> +	struct ctlv_file *cfile;
+> +	int ret;
+> +
+> +	/*
+> +	 * A failed create can withdraw the cdev while an open is waiting for
+> +	 * the lifecycle lock, so admission itself first pins core storage.
+> +	 */
+> +	get_device(&ctlvdev->dev);
+> +	ctlv_file_open_pinned(ctlvdev);
+> +	scoped_guard(rwsem_read, &ctlvdev->registration_lock) {
+> +		if (!ctlv_file_open_allowed(ctlvdev)) {
+> +			ret = -ENODEV;
+> +			break;
+Personally I still dislike the hidden for loop in scoped_guard()
+and using break with that enough I'd do a 
+	do {
+		guard(rwsem_read)(&ctlvdev->registration_lock);
+
+	
+	} while (0);
+
+Just so it is obvious what those breaks are from.
+
+Maybe I just need to get this one into my code review head...
+> +		}
+> +		if (!(filp->f_mode & FMODE_READ)) {
+> +			ret = -EACCES;
+> +			break;
+> +		}
+> +
+> +		cfile = kzalloc_obj(*cfile, GFP_KERNEL_ACCOUNT);
+> +		if (!cfile) {
+> +			ret = -ENOMEM;
+> +			break;
+> +		}
+> +		cfile->ctlvdev = ctlvdev;
+> +		/*
+> +		 * Commits this description to the device. An open that failed
+> +		 * after this would have to take it back.
+> +		 */
+> +		ret = ctlv_event_file_init(cfile);
+> +		if (ret) {
+> +			kfree(cfile);
+> +			break;
+> +		}
+> +		/* This description keeps the reference taken on entry. */
+> +		filp->private_data = cfile;
+> +		return 0;
+> +	}
+> +
+> +	put_device(&ctlvdev->dev);
+> +	return ret;
+> +}
+
+> +struct ctlv_device *ctlv_create(struct device *parent_dev, const struct ctlv_family *family,
+> +				const void *init_info)
+> +{
+> +	struct ctlv_device *ctlvdev;
+> +	int devnum, ret;
+> +
+> +	if (!parent_dev || !family)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	ctlvdev = kzalloc_obj(*ctlvdev, GFP_KERNEL);
+> +	if (!ctlvdev)
+> +		return ERR_PTR(-ENOMEM);
+> +	ctlvdev->family = family;
+> +	init_rwsem(&ctlvdev->registration_lock);
+> +	spin_lock_init(&ctlvdev->transition_lock);
+> +	ctlv_event_device_init(ctlvdev);
+> +
+> +	/* Before anything reads the schema through this device. */
+> +	ret = ctlv_op_resolution_init(ctlvdev, family);
+> +	if (ret)
+> +		goto err_free;
+> +	/* What this family's events need of every queue opened on it. */
+> +	ret = ctlv_event_sizes(ctlvdev);
+> +	if (ret)
+> +		goto err_free;
+> +	/* Before a minor is spent on a device that could not be announced. */
+> +	ret = ctlv_device_uevent_check(family);
+> +	if (ret)
+> +		goto err_free;
+> +	if (ctlvdev->dynamic_ops_count) {
+> +		ctlvdev->disabled = bitmap_zalloc(ctlvdev->dynamic_ops_count, GFP_KERNEL);
+> +		if (!ctlvdev->disabled) {
+> +			ret = -ENOMEM;
+> +			goto err_free;
+> +		}
+> +	}
+> +	devnum = ida_alloc_max(&ctlv_device_ids, CTLV_MAX_DEVICES - 1, GFP_KERNEL);
+> +	if (devnum < 0) {
+> +		ret = devnum;
+> +		goto err_free;
+> +	}
+> +
+> +	ctlvdev->dev.devt = ctlv_device_number + devnum;
+> +	ctlvdev->dev.class = &ctlv_device_class;
+> +	ctlvdev->dev.parent = parent_dev;
+> +	device_initialize(&ctlvdev->dev);
+> +	/*
+> +	 * The core owns the file operations, so an open holds the core module
+> +	 * and not the family's, which may unload while readers remain.
+> +	 */
+> +	cdev_init(&ctlvdev->cdev, &ctlv_file_operations);
+> +	ctlvdev->cdev.owner = THIS_MODULE;
+> +
+> +	ret = dev_set_name(&ctlvdev->dev, "ctlv%d", devnum);
+> +	if (ret)
+> +		goto err_put;
+> +	ret = ctlv_family_claim_add(family->schema);
+> +	if (ret)
+> +		goto err_put;
+> +	ret = ctlv_family_privs_pre_init(ctlvdev, init_info);
+> +	if (ret)
+> +		goto err_put;
+> +	ret = ctlv_family_privs_init(ctlvdev);
+> +	if (ret)
+> +		goto err_put;
+> +	ctlv_op_publish_all(ctlvdev);
+> +	ctlv_event_contexts_start(ctlvdev);
+> +	ret = ctlv_family_privs_post_init(ctlvdev);
+> +	if (ret)
+> +		goto err_fini;
+> +	scoped_guard(rwsem_write, &ctlvdev->registration_lock) {
+> +		ret = ctlv_device_add(ctlvdev);
+> +		if (!ret)
+> +			ctlvdev->registered = true;
+> +	}
+> +	if (ret)
+> +		goto err_fini;
+> +	return ctlvdev;
+> +
+> +err_fini:
+> +	ctlv_device_fini(ctlvdev);
+> +err_put:
+> +	put_device(&ctlvdev->dev);
+> +	return ERR_PTR(ret);
+
+Jason did some nice handling in the fwctl stuff for
+device alloc and hand over after device_initialize()
+(I've copied it into a few places recently :)
+
+I'd like to see something similar here as it made
+it easier to follow lifetimes etc.
+
+> +err_free:
+> +	bitmap_free(ctlvdev->disabled);
+> +	ctlv_family_privs_free(ctlvdev);
+> +	kfree(ctlvdev->ops);
+> +	kfree(ctlvdev);
+> +	return ERR_PTR(ret);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(ctlv_create, "CTLV");
 
