@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792545917;
-	b=Xt2qHP5efUNxHTwGXHxbPbJ6PWXqy5hFpftes3KWf+YjecSmWYopDdge48wFdKah9s1l
-	 5ies5R+V+wBRZMwDHt0Te+tvIaAEOuz0VbW79LWsA/HBu1l627sLekRDbhbkf+zRNQvbO
-	 O9vC6mKh7/98rqG6tH2smb988Q6VF8l70OySskcB3lo51teWcUuUiX49+45ORe+xXPsmX
-	 /7/ZvSCO4Psx9VX8JnfO9hUFRnLhksKSXsJm41YquH4s/uteDROcZdrF6Ab5j08fKlk7V
-	 6s87RAm3OK9pFcykdNrpMkhftwlxgPncCoHkByUrrGfZ+80+CLcG1OU8nV445Vg0SpA==
+	t=1792545933;
+	b=eeEL4YKFNGaBzDvFpR5jHSdnLrJJE76gkEqeF3CxcfNrNt5sYtll3CDb1/JBz2drNhNY
+	 RHuN0jIB/aaBeMxUuFc+lOtQM4vn8tYFb9JW8iVEN/oygRLsWBlo9Omeg+EidQcmyn8db
+	 E16cxtSXD17An0suco9e8fRncSIwQaHVSB4UGjp67kRihEoW2GzyTsrmkmZ1ksm9cERbR
+	 Tncn02wb3bcAUAhtRKPcUlaZNYz5jqNChOP0pX/fSBlwpn7IXBpCWxn4mCqUTA3Bhv/6O
+	 Oqfx6GtFKTnaJ+Zf9Vn2kayAlGOPFG/vF8esFRep1nTmceW0EB36qpEaWADyoXVF4KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792545917;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4bdhRhvLCR2OGjIxKNlvor52ldxxtItwDVGS0GO5vlE=;
-	b=xaLeNlFpoNXoYFlrh8QGiqOvWXfGGbHiwpiZYOvWRD5RR+VRQuXuzorgW2CPHwY18scZ
-	 7yNlM/16CqrN6DIGJ5DfyMzPf3tD0CLKtflHMcfcMqAO8gPwQU2kDSeB2o1td52JpaMYd
-	 5k7/ztQvEGEEbMTjxaFty24gdJNICIHq4GrCMN0CX4jvKGxPwXHPDFnKSoI+5mD9UUhKT
-	 5zVNyxujdAOIhWQfxcmWfhA7WOMgRCcWny4LwmM/FqPiUr7ogAM9cxmBhTjKMT3xe3pSi
-	 fiJsjIFe5HoZLN1sXtxmj+/o8Ykrqi3jPy0R2R4aw2//804VxvzmDcspqNqHqzMv7GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792545933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=k5DXLo6R/kdSN6QGlOTZcY8/4DMXbPtBMmC00YCocIU=;
+	b=OjLcg56oXFJIIIJ7+ZiGRXYXUMLyRhH0EhwUOFozhuNfavcbo2e3dERDYcyrLoF5fLJX
+	 AQWhXRrUzi83W0oitOOIpZ4R5RS5qoFzGupUI2V1uFvjUQ+cvix3GZ0B4fJ0ShOK06u6V
+	 Vw39j7z777Os5uhgBuGIk/CYCsPf8rUm6xEcy7y+6OKi4cgPYIJb6vpJdAb6nlHKelZM8
+	 ZpSwJEVx/NRE9o+WFErua1GAUBuUJhYdLHoP5Mv8MB13Hs6y3kbZ8U8hR07X/QR/8Ky5+
+	 q+t24ZMHbeRQVNXfhQn+RXgegWu5VuYM9azayfxTA4bEPIkp9Em+glSsDV4SvtV5Kjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l9ZFmHKE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=X8z4nyCn;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321E6606A319;
-	Wed, 21 Oct 2026 01:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C56606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42C56606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l9ZFmHKE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505451F000C9;
-	Wed, 21 Oct 2026 01:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792545916;
-	bh=4bdhRhvLCR2OGjIxKNlvor52ldxxtItwDVGS0GO5vlE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l9ZFmHKEU/tlzxe+ZQ2rXXUNZIZ7NRc9MDFn6t+2EnFjQd0F/F1eOOau1b+RvVxpk
-	 wmcQA7BXyhiQ+fCH4WmKbP0UH/KBcb337EZ/4QnsmExYnAu+hUqeurjT7b3fE5Fuap
-	 SjiRPzngmTN89MyNez5+pb6ubCwlVc9kUxwsLecQU9Q9EnyJsK67Mcg4UqdM1HW5nE
-	 /xTzxsMqO+TTbsSfx4XSV8xqdDNXhuOE+AmdLgOWtyh0v3Pi8/nyrdNZopK1NDxlan
-	 jygxgW7nU2Gm42PIWonHcgv8+L7n8/TO5zZ5N0dx51wjnV13PK/AKzpE90CtPviaiv
-	 x5wzvWgPedDbQ==
-Date: Wed, 21 Oct 2026 02:25:05 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
- lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
- cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
- James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
- qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
- ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
- dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
- peter.fang@intel.com
-Subject: Re: [PATCH RFC 12/20] ctlv: Add device and operation dispatch
-Message-ID: <20261021022505.6fe1b1bb@jic23-hlaptop>
-In-Reply-To: <20261015145053.3664509-13-jiri@resnulli.us>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-	<20261015145053.3664509-13-jiri@resnulli.us>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=X8z4nyCn
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so281541c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:25:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792545932; x=1793150732; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k5DXLo6R/kdSN6QGlOTZcY8/4DMXbPtBMmC00YCocIU=;
+        b=X8z4nyCnqdptQB3KTUImfEbJ8lP5/E5s80Jy6LK9ZJSs8+r8ik5GyvhQjyHEh2v3Z2
+         oqLDnKEJ3xRGq+0oarBgMRSHNCwUNOTb9TuP4lbZXfqIYM/xv0fAxNu82NBKx3Vgn1aN
+         EQ8A/TCioFjGvLd3Vm3z8FHqWzvxTNTdktzBcA2XExDYjmmhN7OWuQKNYf3GZ2CHu0FC
+         gSrfMj9HkZ2AXHKTaZuMbjNUtU6F/EGww6uIAGcO/vR1va6LSDcI23bINggAIu4J1lcA
+         xRpuGjr9WGqsfO2a3/vj0W1UAyaZUE+IONiFXAnHzOwydX3/Q3ctEHoSxwfl5u4tF1Hn
+         HZgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792545932; x=1793150732;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k5DXLo6R/kdSN6QGlOTZcY8/4DMXbPtBMmC00YCocIU=;
+        b=p3nwavMPuDnKZlp37hLMSEjnmY+rgxQfHUwPGobbC1gvvk/KmeQiXygT3FhTvnx3U1
+         OijfB32rglEh/ZLrzfweuaNU0CRcKaM5aaaSb5Sd4qH5eNDcjrTJRdDy0TX/LAjwB3/n
+         88YuvFHKHA73yrp0p6FAj+eClcXnzuRZUge73WqcLGNYzTNNYKNymxceoaIQUHME8ibS
+         OVJMg3IMIvwmP91AGePS2ODnh0vmZ0QNMllJ1Jxa/HBlSmcB7k0OhFpZkswfmkOTzITj
+         AZnglaS/rlQURP1WGZZUJBcX6VByg05wfpMkgPMahB/KdprTEy6h5mdRoYNwgPRAzKSS
+         iVLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKzjEBzVC7FLHFqwZe12ZXNogfgHc2RZt3nQLNhS2WT4DAlyvgZkKAxhCcZEL5FrazSo82NQtXmzvR7+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI59DTAfR8kUnn/duR7INF+6/XoSKaQvzffOSSeSV2KcKP8+IvQ
+	Mhp63o/vwq732lzgJsZnJ55SW/PkDEPPKwYDBbqGTKEwd03vDJ1qRE1diIeMZJ+H1Yg=
+X-Gm-Gg: AYBFou3oPQGsndiwi73Yen+xEC7Kbvj1mByJ0ChY55d3k2btRcbxDRJylEPrRD+4kf9
+	XVTM41BII0dlJ2Ip8q6W1H04++80OW+aFdELVOeyg7USJfDawDd24QXjxScm++NhJs9A6LHzMJD
+	PACeC18Q01ofN6+9COkCW91HV/sjKCB1Vb6rOohibCfdeC6BEJoqSjaiemdvrkS6UsWwue6yI3u
+	jcaIz6+17wuq8MQu7mJWbhcR1b0KvQ0kCsdys5WNW6/nqU8v+MMc9zztfYlkxqXkQE7tU+Q9rVE
+	TUpUBZgY7SIC60Zh08jj0Jvg5uy7+G0fkhkzyMgQd0axHIa4QFsARrX6+5VLacYWbORwI02l3Xd
+	Mqn9H8MGNHoiJtePlOy4Gu20N5sjnwGEr7/KXYJVPhr4RgLtFszSfyaRjuhx1ORVgFdNFBhL7OY
+	yPyuWcuWNX/RnGoQ0xNzD6BkuPK+fttnxLNW4yKpBsfr6Kv41Xt248OqENtX0HfODOJElRhW3Rw
+	+LIQDr4p9UaT0pNmqIOtaedi2eQIGOIGlSoGp/KRdtOO+ACntI/P1aLZFc3v4KiTbFHaZ0wqxsJ
+X-Received: by 2002:a05:7022:7a9:b0:187:eb7f:b8f with SMTP id a92af1059eb24-190a50efe13mr997401c88.13.1792545931941;
+        Tue, 20 Oct 2026 18:25:31 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1903bb7f098sm2943035c88.12.2026.10.20.18.25.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 18:25:31 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:25:30 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 11/18] nvme-rdma: Use CCR to recover controller that
+ hits an error
+Message-ID: <20261021012530.GT2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-12-mkhalfella@purestorage.com>
+ <8cfb3b90-7629-4a8c-a393-7f724f01c19c@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,201 +105,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8cfb3b90-7629-4a8c-a393-7f724f01c19c@flourine.local>
 
-On Thu, 15 Oct 2026 16:50:45 +0200
-Jiri Pirko <jiri@resnulli.us> wrote:
-
-> From: Jiri Pirko <jiri@nvidia.com>
+On Tue 2026-10-20 11:36:56 +0200, Daniel Wagner wrote:
+> On Sun, Sep 20, 2026 at 11:28:09AM -0700, Mohamed Khalfella wrote:
+> > @@ -1990,13 +2014,15 @@ static enum blk_eh_timer_return nvme_rdma_timeout(struct request *rq)
+> >  	struct nvme_rdma_ctrl *ctrl = queue->ctrl;
+> >  	struct nvme_command *cmd = req->req.cmd;
+> >  	int qid = nvme_rdma_queue_idx(queue);
+> > +	enum nvme_ctrl_state state;
+> >  
+> >  	dev_warn(ctrl->ctrl.device,
+> >  		 "I/O tag %d (%04x) opcode %#x (%s) QID %d timeout\n",
+> >  		 rq->tag, nvme_cid(rq), cmd->common.opcode,
+> >  		 nvme_fabrics_opcode_str(qid, cmd), qid);
+> >  
+> > -	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
+> > +	state = nvme_ctrl_state(&ctrl->ctrl);
+> > +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
 > 
-> Register CTLV devices, resolve family chains and dispatch operations
-> through validated messages. Wire CONFIG_CTLV and the generated root family
-> after all module objects are present.
-> 
-> Assisted-by: Cursor: GPT-5.6 Sol
-> Assisted-by: Cursor: Claude Opus 5.5
-> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
-> ---
->  drivers/Kconfig             |    2 +
->  drivers/Makefile            |    1 +
->  drivers/ctlv/Makefile       |    4 +-
->  drivers/ctlv/core.c         | 1517 +++++++++++++++++++++++++++++++++++
-Normally I'd push back hard on too big to read, but it is an rfc
-and other patches in the series are much large.
+> documentation needs to be udpated like in the tcp patch.
 
-I'm out of time for today and not sure when I'll get back to this,
-so just a few quick comments inline on the bit I did look at.
-
->  drivers/ctlv/device.h       |   17 +
->  include/linux/ctlv.h        |   55 ++
->  include/linux/ctlv_family.h |   22 +
->  7 files changed, 1616 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/ctlv/core.c
-
-> diff --git a/drivers/ctlv/core.c b/drivers/ctlv/core.c
-> new file mode 100644
-> index 000000000000..aeab29fe2fdd
-> --- /dev/null
-> +++ b/drivers/ctlv/core.c
-
-...
-
-> +static int ctlv_file_open(struct inode *inode, struct file *filp)
-> +{
-> +	struct ctlv_device *ctlvdev = container_of(inode->i_cdev, struct ctlv_device, cdev);
-> +	struct ctlv_file *cfile;
-> +	int ret;
-> +
-> +	/*
-> +	 * A failed create can withdraw the cdev while an open is waiting for
-> +	 * the lifecycle lock, so admission itself first pins core storage.
-> +	 */
-> +	get_device(&ctlvdev->dev);
-> +	ctlv_file_open_pinned(ctlvdev);
-> +	scoped_guard(rwsem_read, &ctlvdev->registration_lock) {
-> +		if (!ctlv_file_open_allowed(ctlvdev)) {
-> +			ret = -ENODEV;
-> +			break;
-Personally I still dislike the hidden for loop in scoped_guard()
-and using break with that enough I'd do a 
-	do {
-		guard(rwsem_read)(&ctlvdev->registration_lock);
-
-	
-	} while (0);
-
-Just so it is obvious what those breaks are from.
-
-Maybe I just need to get this one into my code review head...
-> +		}
-> +		if (!(filp->f_mode & FMODE_READ)) {
-> +			ret = -EACCES;
-> +			break;
-> +		}
-> +
-> +		cfile = kzalloc_obj(*cfile, GFP_KERNEL_ACCOUNT);
-> +		if (!cfile) {
-> +			ret = -ENOMEM;
-> +			break;
-> +		}
-> +		cfile->ctlvdev = ctlvdev;
-> +		/*
-> +		 * Commits this description to the device. An open that failed
-> +		 * after this would have to take it back.
-> +		 */
-> +		ret = ctlv_event_file_init(cfile);
-> +		if (ret) {
-> +			kfree(cfile);
-> +			break;
-> +		}
-> +		/* This description keeps the reference taken on entry. */
-> +		filp->private_data = cfile;
-> +		return 0;
-> +	}
-> +
-> +	put_device(&ctlvdev->dev);
-> +	return ret;
-> +}
-
-> +struct ctlv_device *ctlv_create(struct device *parent_dev, const struct ctlv_family *family,
-> +				const void *init_info)
-> +{
-> +	struct ctlv_device *ctlvdev;
-> +	int devnum, ret;
-> +
-> +	if (!parent_dev || !family)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	ctlvdev = kzalloc_obj(*ctlvdev, GFP_KERNEL);
-> +	if (!ctlvdev)
-> +		return ERR_PTR(-ENOMEM);
-> +	ctlvdev->family = family;
-> +	init_rwsem(&ctlvdev->registration_lock);
-> +	spin_lock_init(&ctlvdev->transition_lock);
-> +	ctlv_event_device_init(ctlvdev);
-> +
-> +	/* Before anything reads the schema through this device. */
-> +	ret = ctlv_op_resolution_init(ctlvdev, family);
-> +	if (ret)
-> +		goto err_free;
-> +	/* What this family's events need of every queue opened on it. */
-> +	ret = ctlv_event_sizes(ctlvdev);
-> +	if (ret)
-> +		goto err_free;
-> +	/* Before a minor is spent on a device that could not be announced. */
-> +	ret = ctlv_device_uevent_check(family);
-> +	if (ret)
-> +		goto err_free;
-> +	if (ctlvdev->dynamic_ops_count) {
-> +		ctlvdev->disabled = bitmap_zalloc(ctlvdev->dynamic_ops_count, GFP_KERNEL);
-> +		if (!ctlvdev->disabled) {
-> +			ret = -ENOMEM;
-> +			goto err_free;
-> +		}
-> +	}
-> +	devnum = ida_alloc_max(&ctlv_device_ids, CTLV_MAX_DEVICES - 1, GFP_KERNEL);
-> +	if (devnum < 0) {
-> +		ret = devnum;
-> +		goto err_free;
-> +	}
-> +
-> +	ctlvdev->dev.devt = ctlv_device_number + devnum;
-> +	ctlvdev->dev.class = &ctlv_device_class;
-> +	ctlvdev->dev.parent = parent_dev;
-> +	device_initialize(&ctlvdev->dev);
-> +	/*
-> +	 * The core owns the file operations, so an open holds the core module
-> +	 * and not the family's, which may unload while readers remain.
-> +	 */
-> +	cdev_init(&ctlvdev->cdev, &ctlv_file_operations);
-> +	ctlvdev->cdev.owner = THIS_MODULE;
-> +
-> +	ret = dev_set_name(&ctlvdev->dev, "ctlv%d", devnum);
-> +	if (ret)
-> +		goto err_put;
-> +	ret = ctlv_family_claim_add(family->schema);
-> +	if (ret)
-> +		goto err_put;
-> +	ret = ctlv_family_privs_pre_init(ctlvdev, init_info);
-> +	if (ret)
-> +		goto err_put;
-> +	ret = ctlv_family_privs_init(ctlvdev);
-> +	if (ret)
-> +		goto err_put;
-> +	ctlv_op_publish_all(ctlvdev);
-> +	ctlv_event_contexts_start(ctlvdev);
-> +	ret = ctlv_family_privs_post_init(ctlvdev);
-> +	if (ret)
-> +		goto err_fini;
-> +	scoped_guard(rwsem_write, &ctlvdev->registration_lock) {
-> +		ret = ctlv_device_add(ctlvdev);
-> +		if (!ret)
-> +			ctlvdev->registered = true;
-> +	}
-> +	if (ret)
-> +		goto err_fini;
-> +	return ctlvdev;
-> +
-> +err_fini:
-> +	ctlv_device_fini(ctlvdev);
-> +err_put:
-> +	put_device(&ctlvdev->dev);
-> +	return ERR_PTR(ret);
-
-Jason did some nice handling in the fwctl stuff for
-device alloc and hand over after device_initialize()
-(I've copied it into a few places recently :)
-
-I'd like to see something similar here as it made
-it easier to follow lifetimes etc.
-
-> +err_free:
-> +	bitmap_free(ctlvdev->disabled);
-> +	ctlv_family_privs_free(ctlvdev);
-> +	kfree(ctlvdev->ops);
-> +	kfree(ctlvdev);
-> +	return ERR_PTR(ret);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ctlv_create, "CTLV");
-
+Done
