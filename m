@@ -1,114 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595301;
-	b=d0m2BVm2yX8c91r99vilntQoT1c1R5bQ85TdSlpKYPkrRhdflHRzRpTVAwOSvdhawJqH
-	 CXnmP+a9YScaCHzBfnYv9Ve3BHk+p1nrZBcbiwdyGE40/c2OL3+2rTRVdzb3NmdgJGv0M
-	 SEJKeMtAjG2RcR1+5PbfK0RtlXZoHxIdZwgnUNFmvcWbZQP9qJR1yD9VdCMxBX9Pw48se
-	 E3wZP01B/l2aIUXwNGJGImpP+hdxf/FebmnS194VXnlNa1VHs1rKPkooSSu07RZp9Y/jB
-	 h3Xcn88fbuUdrsaG7PfaugFw830qJhCp70WyRcsMzcTZtWwgOTiP1NkMhatUe4Nll5w==
+	t=1792595305;
+	b=tl/AZvaem1ryPyVd52DgEDkrp6tfLCYyByA9fSaPzIjLOeFThFCrpBcw0/Og42K4fidY
+	 MfaMx/buAIpXhMFEXT8H6ZyzyPc8JVx0waiaMnW/FdZV5jdiYN8/hg7SF9KikF1vLUU4l
+	 icjT9Bew54HG0TTHO1Zhqb/AFrzk9b1I5gQ9rJr6WLil/Vs0FQWQvP19k+jHehC92lDjU
+	 o+YNteD6SSsHc5VSbVizI3scwIxch79PDMxPzccfQ62Gd9JGgZOgFXERRyJIgSn3hzRfx
+	 8b9od+jNYnzJQDpHx3GCLgUXYMSV5xSzomDbAkx3fvapJQwz+p4JwD1hs7+kqhDc5Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595301;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP;
-	bh=46SSFjO9++Th4oDkhERxc+DpVEEjVqxW9M18rMqhX+U=;
-	b=TijHP69Ee8T7nrRFltQVLo4FpWCU1SryvrHa/0bPaNy0U0iq0iZ3L3NRohYjeFyyS+ka
-	 51e4hRVTl28RyfaLhCOJd+5tKt2/kAXeTS9AIJj2YRYlbJFSwgN8UgSRXQD3kKXiSNP0Z
-	 DsFASTYJmM3o0tGzXLgxAX63E0jy2L3BzEGoUn0gPRMeQUK1u9o9ynvxBu5Xi06D03lrL
-	 CXOTqOmxczmyOdz7BF1qrCuiReRKh2mwG3gza6WEPEFoFaHplHLgIA/MpTefpkNrw7Hps
-	 nqbdc3oLC4bNNaxd+rNKoI61AU5ua835pkOqf/41YNCzjrGmqaL7LIQsAN2wbpHD8fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595305;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=m0Hjc8l32fjqZfSZIiJhNxKSLbC3uFZbj2Kv1jpon6Y=;
+	b=48uU+kH1excXJYVEB4ZQ/I/5UHgpm/setZg8TDJ+nPDn59/k1qIRswLAOer7nJ3XI9ri
+	 nfk9jbbNvkUG5MltEnCvf4MlAGZ41X4yBNma3L5z5NR6NFQ6eYl/iTbwdsHl25CmY2EqW
+	 CzPvcOEorWi/axcv9EIpBYubTRmD5o7jby5VSaL+kTG45QezwgdzSyTuDzceVtwacqFXH
+	 OtGfzdcFL55Cj9gp/NKLoLz+zoRVnzmnhxgAdJxYoOrVzyIwJW2vbSmxIvw4SQj5jTN0k
+	 7rejUL8eOwUBapbKMgs/db+Eq4o7NZkgvlVz3KOraYTcodQJHcND4e3QGXzHHmnVlaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=jUq60387;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aEz4v8+K;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743D960A383A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743D960A383A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF4B60A3827
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CF4B60A3827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=jUq60387
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 70DD2240104
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:08:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1792595298;
-	bh=46SSFjO9++Th4oDkhERxc+DpVEEjVqxW9M18rMqhX+U=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=jUq603871CtCWPPmBhCMG63PMYwAl8XnnCXZ9XephxkYG4QG6jdd6ILV9EbftVwGO
-	 D08Tn6BNH9ZFMsfuaREQdSmIFv2Pin7z7NyfhQ/9tvVm88welHSlpEo7caAaXRNKRc
-	 KQ15S6Ad/nT3rFehWIvnQbtfHgtmuOEDuwPZT/YnDsQ62TowsIeIvgPrlCfRsZZqDX
-	 hnao7FXPsl6W/OutTsIvukSmx3gHLyVynAd6Q/KBA1klpiYrj5mfAqykPj1cMYFuuJ
-	 zMy1pLtax1NIm9e64mVbNqUyzhXQpXFyqAhlCyQR0mvWUOzK4hd86WgRZ9vC8tNLdg
-	 nKqsfWkBd1gEw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4j8t2S4j3Yz9rxL;
-	Wed, 21 Oct 2026 17:08:16 +0200 (CEST)
-Message-ID: <59137675cf11f7b034220c3b71c5ababab48f8d0.camel@posteo.de>
-Subject: Re: [PATCH v2 1/3] serdev: handle devices without an ACPI or device
- tree node
-From: Markus Probst <markus.probst@posteo.de>
-To: Hans de Goede <hansg@kernel.org>, ChunAn Wu <an.wu@canonical.com>, 
-	linux-serial@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
-	jirislaby@kernel.org, ilpo.jarvinen@linux.intel.com,
- mpearson-lenovo@squebb.ca, 	derekjohn.clark@gmail.com
-Date: Wed, 21 Oct 2026 15:08:17 +0000
-In-Reply-To: <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
-References: <20261021092124.2306053-1-an.wu@canonical.com>
-	 <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
- qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
- m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
- 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
- fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
- jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
- J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
- 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
- 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
- CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
- QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
- D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
- NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
- 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
- ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
- f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
- 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
- ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
- dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
- pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
- TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
- BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
- A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
- Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
- lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
- geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
- WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
- 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
- KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
- sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
- 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
- 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
- H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
- wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
- 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
- kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
- 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
- MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
- i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
- VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
- Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
- dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-JnwgaKYa7ffI2Wuf5sIs"
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aEz4v8+K
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso11216015e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:08:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792595298; x=1793200098; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m0Hjc8l32fjqZfSZIiJhNxKSLbC3uFZbj2Kv1jpon6Y=;
+        b=aEz4v8+KtCtKYXQtprtheQe+nu3i6WHB0t9CkNtxjc1EyOCQQO+xcgyXR4+XAfwuy1
+         Hc4qRI/tl6HJbHdmfD9xwo6IxJhj+KyZ454C9l7KO2pnL2AoOzapeohi0HD9sQOCv7zw
+         O/oEPOqGiZpwii+fQmir6NxjA66IBT+pQuZK5G0qZEPk042E6cEl1vGa4L8ze/oUowNz
+         Nd2N9vLMWb9kSxoycap1DHahTguVtugM/Vsl179fsEdGYoAKIRVM/ZzXmnCJiFkeL+Ez
+         WAP/De04r4zZMpo3pW3f8JGUcqJzr6PvioHyfq/k8UYGaJaPvnNc/lqLx8yNyuJjBmGG
+         x1ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792595298; x=1793200098;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m0Hjc8l32fjqZfSZIiJhNxKSLbC3uFZbj2Kv1jpon6Y=;
+        b=vUPz1Q1zsBg/fxf3cyS+6KUTJ8cNzthvcEMHqxwpjVkAPkAl94e6ZMFxhIyjMziLSq
+         ZW4kbDzcpml6/a9PF5/9+yo3hpv/4MjIQDUrafh0G1Jwii1uEWwpl+0+eXjlkcdrwDZC
+         vSZIymb5k3ij+tp+81VHXRNWepn5PzpSGjf8QFc8G11xsNv0ifTAYDkihMGgswOF0GhJ
+         Kkv9NKBaje2VRhVHfkFUHsmKe12UZZQLLcSLmbSuRGRfO6yZ6sZlDV6V9EXRLvxw3tyZ
+         zsulg6cblJc1O30UXSLbaVKSA7pLsIODifsxLZWaEhru/GrDus/OamqEyq0+QKnuX1vq
+         tMzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxeV9sT9/MgeqYHjs0huaSLOLj0cW4gdpM/sKzjiih6WM5r5R8Ee6Cy5M7JZ9vmXytMu1P6jzCyfPdm7EM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAoAS35XqyeeGL4Ac+WG5U3wCPMh6kZypEcA00RQT7K6YVdEvc
+	VEDl8y3Yt6+2KcrLtSawtW8bTAlUn4+mq/VHx8pEdnmBGbqHRv9PqcAwsQgVKa2OHHI=
+X-Gm-Gg: AYBFou2a54wbIOv7R4RTy8YIMNPvtzihlXxiBFPxGNl/c+N+iGR0IPIQ5xsQW7FXpC4
+	SDgE3I0h1dg7k5hoNwRNArFImLIzAh90bT19A3OuFFIiQJMwyIjAk/yneCBuhkE2MrkFvLTlKil
+	V+Qa9lr+zdB+mX+cXxjMLpIQdoXvT1XKMo4BRSPIVkaiPeMkzuCW8sQDoH1O0VSGj9p3La8MIV4
+	aGvykqW+GQxgvIogNHnllculLXF9ulcEGMg0U1KpBIyI7Ho+qtDYP2R1HOQWgSSvqIu1y9rfiBt
+	dJBb/b/ConhUZZHwmfmzgWfzcz8MbTjAds5pFHUXCOftlsXvjPB2tktGKgz2NQUwxaFfayaGTJC
+	jukbQ7l+sgSSzMEtbBXCoL2gp5gP6rIrYILJN8+tPY5McaLbX5BYWtklkpyysc0sN+FxZxr+hdt
+	ebraSj3MgBeeEJCUkY1L8jBjv1rYRYwlMLwIowXj089ZS/nOlZtCCvXd3d/bmrN1AzixS44kTDT
+	2/J7BmRI8F1+WT/8Br2gRzWEGcDaAQzE1WcZq7t6H31+aepWj9DnqOBoYHg8EfpCNgm6trSM6U=
+X-Received: by 2002:a05:600c:6296:b0:4a1:df50:5758 with SMTP id 5b1f17b1804b1-4a1fd8cb920mr50004785e9.1.1792595297894;
+        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a20049941dsm36794605e9.11.2026.10.21.08.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,272 +88,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 3/5] ASoC: meson: g12a-toacodec: Add S4 tocodec
+ driver
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jiebing Chen <jiebing.chen@amlogic.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-clk@vger.kernel.org, jian.xu@amlogic.com, shuai.li@amlogic.com, 
+ zhe.wang@amlogic.com
+In-Reply-To: <20261021-audio_drvier-v7-3-2b9aeae9cb8a@amlogic.com>
+References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
+ <20261021-audio_drvier-v7-3-2b9aeae9cb8a@amlogic.com>
+Date: Wed, 21 Oct 2026 17:08:09 +0200
+Message-Id: <179259528986.4070168.179126639869298765.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2307; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=aT/Bvwr1IC3lec+0KVaFiCrr+0v7baOk1896xqidnfQ=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFk3rsaXnu399Vj82hve2avywriU/6z0t5/K4BMyhdGpI
+ sSP9cedjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenANzkp4wMLxVKdWfazw34tVSo
+ LJAvcne0rSDrowsXO4PktqyfL6b0h+GvXKuDmBjT5pJZ+eztVi5G+Y/WXk2b/XTul0jV5CObErW
+ ZAQ==
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
+> The S4 requires additional clock control bits to be turn on while enabled.
+> The S4 has 8 TDM lanes, instead of 4 on previous SoC.
+> Update the widget accordingly.
+> 
+> Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
+> ---
+>  sound/soc/meson/g12a-toacodec.c | 49 +++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
+>
+> diff --git a/sound/soc/meson/g12a-toacodec.c b/sound/soc/meson/g12a-toacodec.c
+> index 21941ee552c5..9cfed3702354 100644
+> --- a/sound/soc/meson/g12a-toacodec.c
+> +++ b/sound/soc/meson/g12a-toacodec.c
+> @@ -41,6 +41,9 @@
+>  #define  CTRL0_BCLK_SEL_LSB		4
+>  #define  CTRL0_MCLK_SEL			GENMASK(2, 0)
+>  
+> +#define CTRL0_BCLK_ENABLE_SHIFT		30
+> +#define CTRL0_MCLK_ENABLE_SHIFT		29
 
---=-JnwgaKYa7ffI2Wuf5sIs
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Please follow the indentation convention in place (2 spaces)
 
-On Wed, 2026-10-21 at 16:32 +0200, Hans de Goede wrote:
-> Hi,
->=20
-> On 21-Oct-26 11:21, ChunAn Wu wrote:
-> > Driver-created serdev clients may lack an ACPI companion or device tree
-> > node.
-> >=20
-> > Add a creator-supplied name for these clients. Use it as a serial
-> > modalias fallback and to match a serdev driver of the same name. Keep
-> > returning -ENODEV for unnamed clients.
-> >=20
-> > Signed-off-by: ChunAn Wu <an.wu@canonical.com>
->=20
-> For v3 of this series please include a cover-letter and explain
-> why this series is an improvement over the` existing situation.
->=20
-> The dell-uart-backlight and lenovo-yoga-tab2-pro-1380-fastcharger
-> drivers are both pretty special cases and here you are adding
-> a chunk of code to the serdev-core for those special cases,
-> so I wonder: why?
->=20
-> The current manual attach approach taking in these 2 special
-> drivers works fine.
->=20
-> What does this new approach gain us ?
+> +
+>  #define TOACODEC_OUT_CHMAX		2
+>  
+>  struct g12a_toacodec {
+> @@ -141,6 +144,16 @@ static const struct snd_soc_dapm_widget sm1_toacodec_widgets[] = {
+>  			    &g12a_toacodec_out_enable),
+>  };
+>  
+> +static const struct snd_soc_dapm_widget s4_toacodec_widgets[] = {
+> +	SND_SOC_DAPM_MUX("SRC", SND_SOC_NOPM, 0, 0,
+> +			 &sm1_toacodec_mux),
+> +	SND_SOC_DAPM_SWITCH("OUT EN", SND_SOC_NOPM, 0, 0,
+> +			    &g12a_toacodec_out_enable),
+> +	SND_SOC_DAPM_SUPPLY("I2S BCLK Gate", TOACODEC_CTRL0, CTRL0_BCLK_ENABLE_SHIFT, 0, NULL, 0),
+> +	SND_SOC_DAPM_SUPPLY("I2S MCLK Gate", TOACODEC_CTRL0, CTRL0_MCLK_ENABLE_SHIFT, 0, NULL, 0),
 
-That was my review comment [1] that resulted in this.
+BCLK Gate => BCLK EN, same for MCLK
 
-=46rom what I can tell from revision 1, ChunAn Wu is trying to fix that
-accessing uevent and modalias of the device (via sysfs) results in a -
-ENODEV error.
+> +
+> +};
+> +
+>  static int g12a_toacodec_input_hw_params(struct snd_pcm_substream *substream,
+>  					 struct snd_pcm_hw_params *params,
+>  					 struct snd_soc_dai *dai)
+> @@ -226,6 +239,16 @@ static const struct snd_soc_dapm_route g12a_toacodec_routes[] = {
+>  	{ "OUT Capture", NULL, "OUT EN" },
+>  };
+>  
+> +static const struct snd_soc_dapm_route s4_toacodec_routes[] = {
+> +	{ "SRC", "I2S A", "IN A Playback" },
+> +	{ "SRC", "I2S B", "IN B Playback" },
+> +	{ "SRC", "I2S C", "IN C Playback" },
+> +	{ "OUT EN", "Switch", "SRC" },
+> +	{ "OUT Capture", NULL, "OUT EN" },
+> +	{ "OUT EN", NULL, "I2S BCLK Gate" },
+> +	{ "I2S BCLK Gate", NULL, "I2S MCLK Gate" },
 
-As mentioned in my review:
+Audio signal does not go through those Gate elements
+They should be supply path connected to OUT EN.
 
-- "/* TODO: platform modalias */"
-- "/* TODO: platform matching */"
-still exist in the serdev codebase (drivers/tty/serdev/core.c) and are
-unresolved. Resolving those also fixes the issue mentioned above.
-Therefore I think this would be a better approach.
+-- 
+Jerome
 
-A cover letter is ofc still needed.
-
->=20
-> Also if you are going to do this may I suggest looking at doing
-> some sort of of-compatible matching based on a compatible string
-> inside a swnode ? I do not know what that would look like but
-> that is something which seems like it might be generally useful
-> also outside these 2 special cases.
-
-I haven't used them before, but I don't think of-compatible string
-matching inside a swnode is done anywhere in the kernel (At least I
-haven't found a case).
-
-They can be added supplementary if needed.
-
-Thanks
-- Markus Probst
-
-[1]
-https://lore.kernel.org/linux-serial/8e4ca13d3e8acd5d649bd4c7357e5da0785ba6=
-b3.camel@posteo.de/
-
->=20
-> Regards,
->=20
-> Hans
->=20
->=20
->=20
-> > ---
-> >  drivers/tty/serdev/core.c | 36 ++++++++++++++++++++++++++++++------
-> >  include/linux/serdev.h    | 31 +++++++++++++++++++++++++++++++
-> >  2 files changed, 61 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-> > index 7500efcdfc21..8354a4688fd8 100644
-> > --- a/drivers/tty/serdev/core.c
-> > +++ b/drivers/tty/serdev/core.c
-> > @@ -29,13 +29,21 @@ static DEFINE_IDA(ctrl_ida);
-> >  static ssize_t modalias_show(struct device *dev,
-> >  			     struct device_attribute *attr, char *buf)
-> >  {
-> > +	const struct serdev_device *serdev =3D to_serdev_device(dev);
-> >  	int len;
-> > =20
-> >  	len =3D acpi_device_modalias(dev, buf, PAGE_SIZE - 1);
-> >  	if (len !=3D -ENODEV)
-> >  		return len;
-> > =20
-> > -	return of_device_modalias(dev, buf, PAGE_SIZE);
-> > +	len =3D of_device_modalias(dev, buf, PAGE_SIZE);
-> > +	if (len !=3D -ENODEV)
-> > +		return len;
-> > +
-> > +	if (!serdev->name[0])
-> > +		return -ENODEV;
-> > +
-> > +	return sysfs_emit(buf, "%s%s\n", SERDEV_MODULE_PREFIX, serdev->name);
-> >  }
-> >  static DEVICE_ATTR_RO(modalias);
-> > =20
-> > @@ -47,15 +55,22 @@ ATTRIBUTE_GROUPS(serdev_device);
-> > =20
-> >  static int serdev_device_uevent(const struct device *dev, struct kobj_=
-uevent_env *env)
-> >  {
-> > +	const struct serdev_device *serdev =3D to_serdev_device(dev);
-> >  	int rc;
-> > =20
-> > -	/* TODO: platform modalias */
-> > -
-> >  	rc =3D acpi_device_uevent_modalias(dev, env);
-> >  	if (rc !=3D -ENODEV)
-> >  		return rc;
-> > =20
-> > -	return of_device_uevent_modalias(dev, env);
-> > +	rc =3D of_device_uevent_modalias(dev, env);
-> > +	if (rc !=3D -ENODEV)
-> > +		return rc;
-> > +
-> > +	if (!serdev->name[0])
-> > +		return -ENODEV;
-> > +
-> > +	add_uevent_var(env, "MODALIAS=3D%s%s", SERDEV_MODULE_PREFIX, serdev->=
-name);
-> > +	return 0;
-> >  }
-> > =20
-> >  static void serdev_device_release(struct device *dev)
-> > @@ -88,14 +103,23 @@ static const struct device_type serdev_ctrl_type =
-=3D {
-> > =20
-> >  static int serdev_device_match(struct device *dev, const struct device=
-_driver *drv)
-> >  {
-> > +	const struct serdev_device *serdev;
-> > +
-> >  	if (!is_serdev_device(dev))
-> >  		return 0;
-> > =20
-> > -	/* TODO: platform matching */
-> >  	if (acpi_driver_match_device(dev, drv))
-> >  		return 1;
-> > =20
-> > -	return of_driver_match_device(dev, drv);
-> > +	if (of_driver_match_device(dev, drv))
-> > +		return 1;
-> > +
-> > +	/* Fall back to the name set by the creator of the device */
-> > +	serdev =3D to_serdev_device(dev);
-> > +	if (!serdev->name[0])
-> > +		return 0;
-> > +
-> > +	return strcmp(serdev->name, drv->name) =3D=3D 0;
-> >  }
-> > =20
-> >  /**
-> > diff --git a/include/linux/serdev.h b/include/linux/serdev.h
-> > index b6c3d957ec15..26baa0321eef 100644
-> > --- a/include/linux/serdev.h
-> > +++ b/include/linux/serdev.h
-> > @@ -8,6 +8,7 @@
-> >  #include <linux/types.h>
-> >  #include <linux/device.h>
-> >  #include <linux/iopoll.h>
-> > +#include <linux/string.h>
-> >  #include <linux/uaccess.h>
-> >  #include <linux/termios.h>
-> >  #include <linux/delay.h>
-> > @@ -19,6 +20,10 @@ struct serdev_device;
-> >   * serdev device structures
-> >   */
-> > =20
-> > +/* Large enough to hold the KBUILD_MODNAME of any serdev client driver=
- */
-> > +#define SERDEV_NAME_SIZE	40
-> > +#define SERDEV_MODULE_PREFIX	"serial:"
-> > +
-> >  /**
-> >   * struct serdev_device_ops - Callback operations for a serdev device
-> >   * @receive_buf:	Function called with data received from device;
-> > @@ -35,6 +40,9 @@ struct serdev_device_ops {
-> >   * struct serdev_device - Basic representation of an serdev device
-> >   * @dev:	Driver model representation of the device.
-> >   * @nr:		Device number on serdev bus.
-> > + * @name:	Name of the device, set by its creator, empty for devices
-> > + *		which are enumerated from firmware, see
-> > + *		serdev_device_set_name().
-> >   * @ctrl:	serdev controller managing this device.
-> >   * @ops:	Device operations.
-> >   * @write_comp:	Completion used by serdev_device_write() internally
-> > @@ -43,6 +51,7 @@ struct serdev_device_ops {
-> >  struct serdev_device {
-> >  	struct device dev;
-> >  	int nr;
-> > +	char name[SERDEV_NAME_SIZE];
-> >  	struct serdev_controller *ctrl;
-> >  	const struct serdev_device_ops *ops;
-> >  	struct completion write_comp;
-> > @@ -135,6 +144,28 @@ static inline void serdev_device_set_client_ops(st=
-ruct serdev_device *serdev,
-> >  	serdev->ops =3D ops;
-> >  }
-> > =20
-> > +/**
-> > + * serdev_device_set_name() - set the name of a serdev device
-> > + * @serdev:	serdev device.
-> > + * @name:	non-empty name to use, typically KBUILD_MODNAME of the clien=
-t
-> > + *		driver.
-> > + *
-> > + * A serdev device is identified by its ACPI companion, by its device =
-tree
-> > + * node, or by a name set by its creator. Serdev devices which are
-> > + * instantiated by a driver rather than by firmware have neither of th=
-e
-> > + * former, so they must set a name before serdev_device_add() to be
-> > + * identifiable. Doing so gives them a SERDEV_MODULE_PREFIX modalias a=
-nd
-> > + * makes them match a serdev device driver of the same name.
-> > + *
-> > + * Devices enumerated from firmware have no name and keep deriving the=
-ir
-> > + * modalias and their driver match from firmware only.
-> > + */
-> > +static inline void serdev_device_set_name(struct serdev_device *serdev=
-,
-> > +					  const char *name)
-> > +{
-> > +	strscpy(serdev->name, name);
-> > +}
-> > +
-> >  static inline
-> >  void *serdev_controller_get_drvdata(const struct serdev_controller *ct=
-rl)
-> >  {
-> >=20
-> > base-commit: 9e947d96915af63e28896caae85a81b74855621b
-
---=-JnwgaKYa7ffI2Wuf5sIs
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrY1UobFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSav8QAKpH3BR9SxleiyWCmxKp
-aaOdCQblx9BsYaVTJQ8QGWOOgs+t0iSwialbEwacztIDKNC83MJW8Z+mCx3yoyi8
-fyVCx5ptA0Ov+M8RkD7RUZ57cAFyZLsG3hacKDM3k1UV7h0ACLQsI4/3OYfoyXol
-6VNGag89E/TkEZFPW8FvhUewoRUajbxGhpXlTvAcbcsP3c8oomenFicfNE4u/iZc
-AQTDQAbRyqipWQ2vrnPujS/qkwU0oXvubRhFRtqG/LZcrOl2lmSLGbhqxSAV0lGl
-h1GsZW7tTKEmmen5BY669Y9olFa7OPnUsXBwoeJYDfSKFMwAgC1k4p0M68Dqlalo
-n4W8/lwtQ0V6w8S6CUuR318sk5GcZUjuDkHXnHgSiAEOMZpyk96Vl0fHPBB+heVq
-DwBO3FZgbgQEgfZ1CY9owNfc/NdsG/Z0xXC/vdg8rMaBwNk6Xq52QtTacmk2hCbS
-1V9gcVek/D7oHzGk7SnbWyvlbVwh0fzK0rHxusLTAOw4OR+DZEk7rA6kDMSWZQm0
-N4i2Yc9Pg4bP4fcnTDWEe2FTByX85uxR94nA0HraHw7mVJgGdKzPscG9XU+x54lh
-zf7BD5YAXv6I5a/p4Elp7SnaLi+FDUec7oQnPBosbeN8d0gNN7k2KpRkgKhZKDjb
-ot9xBKzY9nMMWmWzjae3A1Es
-=sdsc
------END PGP SIGNATURE-----
-
---=-JnwgaKYa7ffI2Wuf5sIs--
