@@ -1,80 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.214
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563036;
-	b=Sm741hwtH7jvWEw8yTb8jkBQicMpYH2XEZ3ecw/dgJ7jttgjpiGq618cQwXKrp/PWRAc
-	 JWWkTGuFhkfN5PFagVwBekD5TONnLA3kNPJpgSloxLzH2q7ymLUmkB1Ed/YH8gU2Kgqef
-	 to3Vp6lqXK+9r6O3yATD8B/GchCNCAjZGbOX5kqvYf7LJC5zPur8lAHwRRbIL3/j1GrB3
-	 AQgPTAgdbrn9ES3Bn1veP50dooI6816OcCMWRxCex5Bdy6+0nTxOKDA2H40fSFzk2MSmJ
-	 srVEGYAjzCNy6kz8El+AYCBpG/7PrPtinC8B6c+UaPvmLDOOcf0abbjylYgO51DXU6Q==
+	t=1792563071;
+	b=fJd3NAHSK9IwlZ7Ws2HjmIq4RBn+Pq8dl+qjgjhvgzyPJ4C/xSNsWM49jrbIQw0iprYd
+	 vn7zJ7L6a+Eyj9PInTJDsz1dNaJcahnCcZjRFFUrSTPVEwsF7U3zZxo6FKqzrf96GFI6B
+	 Jw5cvezAu2htzXUcEIouwXL1KTOLt3K3IuthPb2AtMVEMWapjnXq0OcGfoxtqrCfuBD/0
+	 p7bARO9ON/Qb5hAWgZ7a457qcn0bFa6vPvYrNCOZSA294VVYQMOxO5k844ofpWNrCkn0m
+	 859oSDfvpKJwJIpmvJ6X2HuwbU1X4T3gctcWctXDyZpFMGCmFPvSgCDF1KXA+iHnGMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563036;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
-	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
-	 Message-ID:X-Scanned-By;
-	bh=GuuDOm0BjSie9cFo6lFAftu5W8QXWJ6WU57HDoPu4Ao=;
-	b=eaLsEQzp2yv4Wf9p1Jv8DGwEcDObV3+YE5oIxd05cr10wrZ03c0loBBtVtsspAsmWH5j
-	 +Gr0I8r7kvNQNB4rTEEvrNum5YrgbZEka0prhfdFrf1um2ngYS9S01RVwjF16sz3+UU9m
-	 mWuwp1EZDjEZPKD3Qyl+KuvlViY4exI2AtouphzGk3QB+cS7UO6HbXc1AO55gNEGZ7miB
-	 nvOtXkRfYsnk6UiJJboJEPvBfmYuyR0MnTDg/SRMfVlxclsTaENcrCSQK1/nalK0GcNU8
-	 qmOSozKe/y5Po2XQ8S2YrdMdDNbgNV47o6Z+OaPlheOCf+aUJN10jRjBGZRlWghUFCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563071;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RoigheuXlEgEVVeOm0wqZxiwY5/DXHnZexKpxuh+vtk=;
+	b=CuYFzUNkez+uJK+KgvKd3XgUvVsdvFQXKZSHO8KDFHtAbqkVXKvrmhNC5QQ37LU1IWtc
+	 H+6/4TGzgi9G9WU+YHFtyZaawwgB0LlzY+q1qX1XZkEgKEk+cUhWx8it9gJXRsSAv06Nj
+	 z5CFU2ppC1LMgDAhrBQB3Ayv8GQSiDEIvqTRqa++4EgzR+CWraSHUoona8ulUdi90LHcs
+	 RAYnvRQtmUTqoHtezeDkEUeqS5GVFg5rKs/1qdamc7l0vpf7qnIiiolS5fVMftSP6cNSr
+	 3fIzEXRQOh7vE7fm4Ue4kRC3upyJNS/72rsR3aW6rPabEtQbSaU2MEY7nqT0iKSkQ2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=V1o046VE;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="KyAaAhH/";
+	arc=none smtp.remote-ip=91.218.175.214
+Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45A9606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E45A9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C4606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E6C4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=V1o046VE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792563035;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GuuDOm0BjSie9cFo6lFAftu5W8QXWJ6WU57HDoPu4Ao=;
-	b=V1o046VE4H8sKvyEi8yvHpT9K2DYLse9QxDE4a93MyCxym0ntHeD/NIyxgxd3BcCThFS3B
-	rdOXKkswjVCmWpD3VS3lb/e28/ADHXxeM+Ij2GN8jWWjtXa1T/Lm/4gJHhv65dKqaEsDHb
-	CDQJg9EVHfLE173iV/9F/4hjEIWS/PI=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-589-LqN27gqEOv-3PX80p2xKgw-1; Wed,
- 21 Oct 2026 06:10:31 +0000
-X-MC-Unique: LqN27gqEOv-3PX80p2xKgw-1
-X-Mimecast-MFC-AGG-ID: LqN27gqEOv-3PX80p2xKgw_1792563030
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2D8EC1955F0F;
-	Wed, 21 Oct 2026 06:10:30 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.48.29])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2DDFA1800446;
-	Wed, 21 Oct 2026 06:10:26 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20261020201258.290827-1-dhowells@redhat.com>
-References: <20261020201258.290827-1-dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: dhowells@redhat.com, Marc Dionne <marc.dionne@auristor.com>,
-    Jakub Kicinski <kuba@kernel.org>,
-    "David S.
- Miller" <davem@davemloft.net>,
-    Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-    Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 0/3] rxrpc: RACK-TLP fixes
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KyAaAhH/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RoigheuXlEgEVVeOm0wqZxiwY5/DXHnZexKpxuh+vtk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792563069; v=1; x=1793167869;
+ b=KyAaAhH/eYfv2EtlnJFOXQeqVG+6ADHWw8k6iQd17UIBgcsZIaW1WIf+o+/Q81kvO7aqjckN
+ k9gsBbyAi4mn1MRj7Lgh/OA4smyfnFbNsOgKeACNDfbNnJViy7hw/dO6dgnysEK4hYW6c25EUpP
+ Ur5IANeC4CF42e1c02Tz/W/U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 73700c2a578380af;
+	Wed, 21 Oct 2026 06:11:08 +0000
+X-Mizu-Trace-ID: 73700c2a578380af
+X-Migadu-Flow: FLOW_OUT
+From: George Guo <dongtai.guo@linux.dev>
+To: pratyush@kernel.org
+Cc: rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	chenhuacai@kernel.org,
+	ardb@kernel.org,
+	shuah@kernel.org,
+	ilias.apalodimas@linaro.org,
+	akpm@linux-foundation.org,
+	baoquan.he@linux.dev,
+	ruirui.yang@linux.dev,
+	guodongtai@kylinos.cn,
+	kernel@xen0n.name,
+	graf@amazon.com,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-efi@vger.kernel.org
+Subject: Re: [PATCH v5 2/5] liveupdate: synchronize EFI KHO channel at execution
+Date: Wed, 21 Oct 2026 14:11:05 +0800
+Message-ID: <20261021061105.3697-1-dongtai.guo@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2vxz1pal5u64.fsf@kernel.org>
+References: <2vxz1pal5u64.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,13 +82,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <311751.1792563025.1@warthog.procyon.org.uk>
-Date: Wed, 21 Oct 2026 07:10:25 +0100
-Message-ID: <311752.1792563025@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-Note that patch 1 might better go via net-next.
+Hi Pratyush,
 
-David
+You are right about the text, and I am sorry. I used an LLM to help
+write this series. I meant to check every commit message and comment
+word by word myself before sending, but I made a mistake and sent v5
+to the list before doing that check. That is my fault, and it cost you
+time trying to read it.
 
+For v6 I am rewriting the messages and checking every line myself before
+sending.
+
+On Tue, Sep 22 2026, Pratyush Yadav wrote:
+> > The EFI KHO configuration table is a global channel. Updating it while
+> > a candidate kexec image is still being loaded can leave the channel
+> > pointing at the failed candidate even though the previous image remains
+> > installed. Synchronize it instead from the image selected for execution.
+>
+> Huh? Sorry, I don't understand this is supposed to mean at all. What
+> failed candidate?
+
+Rewritten in v6.
+
+> Why are you setting this at kexec time? Why not set it at load time like
+> every other architecture?
+
+Other architectures store the KHO addresses in the loaded image itself,
+so each image has its own copy.
+
+The EFI table is shared, but the normal and the crash image can both be
+loaded, and they need different contents: the normal kernel needs the
+KHO addresses, the crash kernel must find the table zeroed. Whatever is
+written at load time is wrong for one of them. For example, after
+"kexec -l" with KHO and then "kexec -p", a panic boots the crash kernel
+with KHO addresses that were meant for the normal kernel.
+
+kernel_kexec() and __crash_kexec() know which image is about to run, so
+v6 writes the table there: filled from that image, or zeroed if it has
+no KHO state.
+
+> Also what's this "sync channel"? Use simpler words that _actually
+> describe_ what they do.
+
+Renamed to kho_update_efi_table() in v6.
+
+> > Use the actual scratch payload size rather than its page-aligned segment
+> > size, and propagate update failures before live-update serialization.
+> > Keep clearing the channel for cold and crash images best-effort.
+>
+> Huh? This is word soup and I don't understand what any of this is
+> supposed to mean.
+
+Rewritten in v6.
+
+Thanks,
+George
