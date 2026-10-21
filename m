@@ -1,97 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792597004;
-	b=YwnMAH6FgUs8z5MeoxFEoyltDeAYVlRB8VX/vPThVYyx5TxIH0IPH5EyoAgaolmKzKiu
-	 jR4R9TqD1FeiaHgzPONEbjaNRykWA+9F8c7CHfXofSV2toSUfA6Xl7WeMfHyczY0p9de+
-	 3qx7RO6h2wrDAhQWiHbd2arLc0s0YOrYu5yprfu9HSiFcPMs6apzdkh5SJbUg9l64Xmbb
-	 DJ+POjV/cEjre0p6zr1zUQoXEkImDuVkOcEPrshtDdmeNmLMqQFHV47963kZ4NSxr4BEO
-	 MFiNdmpeTFg/R3/B5AMT0CDkB8hBNlWP3k3Ax2emlFf/k1UElnLflevEVYBJp6/hxWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597004;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/cYx6V5JxbLM5HSBVYXqCgcFFkpkeuOHN8lbXSLgZZU=;
-	b=sYXU69+FTpcXOmiDR26cph0tttmKWOxQXKvOWG9U0epBgFscB6uh/lqEVGQ8S9Ati462
-	 p5l76tZBJgJIAfDZn/OH68m8Xjv2OVEjdiLhRDzGLukTuwxoRH68mlr5A7zfSDQGK4eoE
-	 WPcuXEgQRXrMhuKjTDG9LRjsRHmhSS8p+HzRH7PXZZTOySuYYH8+imi6RMsHBh0XtUfM8
-	 7vVYcjxVIgXibhpblMstKeysaunNQeJb6cYGX9HU61FRhWFPkPrsF6F0mJhdzHyENnkxK
-	 5AHX6NmmTwgpuVOEA0mWC5zlPwc6R7idW5D/EBMbXGI1Jb1KqL93cZjN2zbTQLeOjgA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kdcy2ohG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.32
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010032.outbound.protection.outlook.com [52.101.84.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792597071;
+	b=ifPLJf/Ly0nsRajid5QKXYckiFJMq/HP7/cQ743zHkWGDFqCOHcYEWOMJSkRJM674m1x
+	 xLo9zw+09VuKiMLBWF4HOzvB4T1lwBt/f1gkByAglsyXCL7yXVTcOn0G+zrWzZl619LUT
+	 +z4MyfpLjN8lPCoIosrgdcvdjTrmmY2ipnofJ6eDzz8j9o7tsIUzXdLk42ZRM/jPqLe/8
+	 fyusQcKJ6Axbb8KFQpMtvGeubRfb6C45PTHdIrFsa8jt6LpwziiqJWtYQ+Vpq0CtXNZWD
+	 FAYz/92ScbjKmPUfKIHqaWUhrc0rYwcQTqVCLPwUWA0q4yqEI0UChWxdt8JEdcifoaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597071;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
+	b=bdbxPV3VnAe//Z8icugxrlOHTf5GOyAlc9j/CawS1UIRZ4qT/IBcC1Y8ybRjdIDHGoQe
+	 D6P8WdGAMP8dsLYQmEiYIK/lU4t28ULrxbwW1jykMK6d15RaxIYfPnje3rEmUIOzxBGld
+	 2BR7QOilbBUz2cuDSGwpLlZQxg6gh4d2UVnw7d0GGTF4H6puquQAYELSPAhNgO+QOnMHW
+	 EuvhuppIyHyysI5dCEu8Djrm5MidsjHV1J4V0KE3QslQXMNSaane7J4Ww9YXoB5+pJGA9
+	 BlO0Ffxm8IN4839eah793Wkv1atDOyg6LwuWfEJ3wl8N+Tu/AtfoIx7+f1ierrkwfPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8WOfcfn;
+	arc=none smtp.remote-ip=209.85.221.180
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51513606A319;
-	Wed, 21 Oct 2026 15:36:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51513606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E678E606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E678E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kdcy2ohG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uk6RpqUh8FDl+onIui+3SP7Or777PGpWoeXzKKVeIySntzoiaGmfNiut8NSDGydpSutoJ+2W/0hGvj1UdURBaRxgVuMTz4cQ8S1lLh78WVKP/axQb8k2KpiGqT3dJcQotmADOK/IULfGOxTFfHmoKiEJAhPYqybYFCvS4DNzG892oSmqc5FRKhkmBCzM8TfPsz4/ScHtEWyEJuSMzBufkD2IPub2p6PjBlT1asNWZJ+2B9LCoCKpL8BHtEKSFEbTUmx2rqmI/m49YbeJenV0ZGYAlxH/Iyeael+vTDcqUnih1a1uZuWZ4VhF1vAsR3ToxMwwGDeIjQ9jqWmhn+DeOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/cYx6V5JxbLM5HSBVYXqCgcFFkpkeuOHN8lbXSLgZZU=;
- b=w5mf5hDRyZngiT4x+fTxEe3TT9QyVEO32SLvQ9zdwZibBjM2gYNX06rTVTRsdXNbLCf5NNtG8jF4iIl+klxOPyCpdRM2zMPSfvUWYmuniDSpK31xX1IP3q8536zX/rrm0Q1Bw6EHEcLVMAAGCEPn/HQYtgXOst17ZzBHCLvmjJNTXMoINH85MmlJQYKtXl9iWKVpJ1ULcwfFGm5WMhZ0FfNAlVYb11SXZGhsoyoOST38kNX6bQy8aGfX8SFsa99DGkI/NJcgyxLhB1nAETptWp47mMBmcNBaB5rC5u4TsPx/8b5ieS/2wWqpzUMhbCkTcD2fzL7gQgIMSR1Ee/E47Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/cYx6V5JxbLM5HSBVYXqCgcFFkpkeuOHN8lbXSLgZZU=;
- b=kdcy2ohGDha0uj6t4l0CLRGDzdZ7nWlw8o/dAIYs9t/ash80ebLRo9rhjFsnzjcAL217HTIP1s4cH3xRzdDx5/lm5s1jZSiVDfxjO6AMJPM7L/zrTvcPiWWRbg2G/4CelCNrlx9ZqMppPLThczp5lRv+WkgOSL8NPy5MADWhBeuAkkBCwnJns8Gb4xipgczicdXGga44uOWRJzsjFLxM6NpDaXE65CLnyTC45/TMdu2V74htb4v8xhLwBiq2AVjR8J2UuDMv5K/6HkJXnGbcdlujXq4jjh/xm8qfb+bIK7unJiE+SuxtfGWCQSoVkh1GKHRlz6JX3gMhjJPNw3wqiA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB9PR04MB12452.eurprd04.prod.outlook.com (2603:10a6:10:609::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 15:36:41 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:36:41 +0000
-Date: Wed, 21 Oct 2026 10:36:32 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	bhelgaas@google.com, linux-pci@vger.kernel.org, robh@kernel.org,
-	thierry.reding@kernel.org, jonathanh@nvidia.com, kishon@kernel.org,
-	Frank.Li@kernel.org, vidyas@nvidia.com, cassel@kernel.org,
-	den@valinux.co.jp, marco.crivellari@suse.com,
-	andriy.shevchenko@linux.intel.com, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 08/10] PCI: tegra194: Guard Endpoint PLL-off error path
-Message-ID: <atjcAJX0vddRTR4N@SMW015318>
-References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
- <20261021061349.1265704-9-mmaddireddy@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021061349.1265704-9-mmaddireddy@nvidia.com>
-X-ClientProxiedBy: SA9PR13CA0044.namprd13.prod.outlook.com
- (2603:10b6:806:22::19) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8WOfcfn
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eabf243d05so338395e0c.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:37:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792597070; x=1793201870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
+        b=U8WOfcfnMnpm6svYe5iJa9/W46YR4FzI8Nlj+7unkM7m0rftH2FoogDPMK26ILs3tw
+         ms9az8/IEBxBnq5+p+y8QpOkfxpbjyjMZpObKISMc1AlVpCtroY8L7HpWqaN9LJp7Av/
+         ikv7zKxySdsv74p2R/3OFIolqJNaymhzG9OFqPY65WDonlV5Pgagk71+wfZENoBDReGO
+         0Wi0rN+Y+MtHE2ZtMEgL2lJ1kLk0G8GP+JFXuGcKj/x824ojcSSn035B408ME33gWqMJ
+         ZSHXqIvQVikv3S5cRgsmonWb7b9tVLhoIH2cIzqoy0U/9rhbqQ6VhgYDS/9NOK7jFZHM
+         qLHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792597070; x=1793201870;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
+        b=DkM5/HVkRs1YDA2dtNJQUQYmt6aD25ScPaSLFpDzha1eOCTQtNT/DE0UJz1ie2K2wy
+         Td2CH3UGx+1rW4uZ5KQnX+n24cnTMURZkkZUIpk91WHTNOv2yexvbUoXHhAOQQfW8rRf
+         xzSRlvCzoxLo4DR7I3uu5Vi33AZuqaKzbt5mxOPrRIV1vKu3I9xDMm4KKMke9xF0a0oe
+         +w6XLE+/XNIGchBBst7p6G+ahO+DARXKkE52OgCXjosBS6f/xT8OAi399RtnA403sJNO
+         oWc/ICJJq33yXB7aI358LNmWbWajUv1WRAP14p2hT+2MEVqiMVDYQ0n+JzfSiUTWa8e5
+         pS1w==
+X-Forwarded-Encrypted: i=1; AKwUvByWSq3oV96JaQ7Y4DIVYnhfN73xmm1hCxofZuR7PinvS2qwOCrcfINdTQvXT3hor29YriObwVggK6JNpZo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwTzhemBcIIC+x9WFVVogAA+aToS9AGYzvSqPi7LhyqA8uYBTw
+	ilOVwlaVG3hyV52Mqkk1By81EYl234EX/DdS81XXLPtv9CWjqHBdvKWu
+X-Gm-Gg: AYBFou29GyxA2lIEYlyEHzRbyWmkT6H1S5th3oQEpG2G/VnhEHE56BlG0UK3G4r89m5
+	nVnE52jNOrXEk/KyJX3gRerR8EQCf99wNNWOzdrwxaFLpAd0KuIHq3NPqzTVu16SvV1cufsIe22
+	Yy3Em6y5I4V8XgFQDZO7eUN3YmkHAvbHPa/Xh1lyo7FNLij2KPkdqavGWLgB5lmKJozPPgYWRnT
+	BuFky6sJg6bj2N+6QfE66rvrYLNMfSDg0Q9326lkt93ymJxfE3hqtEKIJ0Uijex3Me2lnmKbMWm
+	h+vSS7jc7e/vChQSX4qXoKcaduu5ZPFVMXMP9g7CfNJ5BbWt+57lSVOgiMlvJP/aCqQUnUZEivf
+	mp22NxHpgkDEXDaaXwrZQKO6NhtId2aTV0IoT4oJhezhchX4GvVTeCH1CT3aP+AwNDn1uq7zIdP
+	wU9mG4DZ2G0HGN9BSyVPAM457dMUGpCnyXUOCqKMz64XWFzdJg6TBzLo5sykyeMh+GICAiFxUqc
+	HMnKQ/W6W78Yjm0DryrPcHlNnLXngMZK6nrX52BFyXJIzbf8WBz9rWnXVoDCyFImd5hKqWA5VVt
+	397a9YrjJsqKjp6OSEw/5x4wYbt35T2YEqgNQ+eC7JJoP7hE3wa5f9ieUyV1iFI=
+X-Received: by 2002:a05:6122:3122:b0:5ea:db3c:4a3f with SMTP id 71dfb90a1353d-5eaebc14cdemr1063889e0c.2.1792597069786;
+        Wed, 21 Oct 2026 08:37:49 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97f0a94sm3505688e0c.11.2026.10.21.08.37.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:37:49 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Wed, 21 Oct 2026 12:37:32 -0300
+Message-ID: <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <atjB-BnXclL3FcUm@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,95 +112,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB12452:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ada79c0-5d93-420d-cc9a-08df2f891a9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|19092799006|23010399003|1800799024|366016|6133799003|261009223027099003|56012099006|10067099003|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	nqiBdoiEtXk1qJbA74NkAESYUGAYEiOZSPBZCHecaFrAG+h+Mx3b+fVZ4pq39O2FPOKKSvUz5mZom9yq5ln5GBnkX5FERTQEd3vWsHKjVs0w3tz6oD83A+aN7IOqliSWoEZg757IPN9DqMRr6yHsMj1lZctbMu5jrswEKuC6Zf79ikIHqaUJ6tKRhQpwF1PrtlrGj/h4lN2rYMrCpo9HWXTn2MG+uyRpiNKdaqOnxMSC0R/ppt6cuFzK4iEjEzHuJTE/pkhVUB2VXlbVOc3OcvFZzs1B600Z3kNfqmQahvpSQonU7AseD95yib+YLRnuRhpAn2yuTBEEcL8wbmehjjCM+CL1aAMU1iyACgeCkwTgLzOeTmUnE5YmfVu5mDTZbaQYC6tpOiD8zs/+wyo8cryFwJVY79uZVpOulM81A+j1ekVzcqWwDhJYfNoznIf88XtxHDHW4MXBJd0VNe3cfIH/+3XKgMht8IH8R22WFsX2GgEBzc0Ry8+0n/wjMxv7PtHVDHO/8gF/oDyfVixCRY3S4jXwMxcWlp1kqkGMdpO6mpPmfGbGIIbhCX8zOjPCZ97ub6MwErKmb0gl7BK6jJp6b/Hz4LB5wCXfAPFeeSHbpKgLKvTdNRGVxJavyKgQcGEgn6gMcSxVbp4Y2k0DnMl5LDgF3g2nQy9ZF6l7xVk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(23010399003)(1800799024)(366016)(6133799003)(261009223027099003)(56012099006)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HcRYsd51zXvTqyzAYgqGkh+RqqU2zKo56QbK3QphfoGrs3AUduYAH3MUEBVE?=
- =?us-ascii?Q?AxQEVGIXu5MEgQQXBGXlJ42BHMT1i6j7Glc6zqoWi+9XM1rBIv7CplzqF8v1?=
- =?us-ascii?Q?fZ8Uj4US2ktP98RdfI0OSRrNhsGKaoj6En96r2ZCMXV3RmWowf1Bu5IaL+jl?=
- =?us-ascii?Q?oGSBgCupUw06TAh61t3kDepDvSNZtQZwjQ5l+r2QYprhppfoDE74IgkIreQ9?=
- =?us-ascii?Q?ePkNZQQdNzFiF7ZUmic0LLvTCg/Ec0kABujPMStz5/GtCAhq7IIvUCRpBjGO?=
- =?us-ascii?Q?EkPfyQtObCdS2k2QoWi2DebCvTtXO+9gbEU08FFlPQQef8SSOMXnIozPbxN2?=
- =?us-ascii?Q?OE+fRmCOHoytpdfnhsy7/yB8U7WGaXtsZC4gRd8djKFujCJ6XSFAauzoo6xd?=
- =?us-ascii?Q?cp1QI1SMn4wj1J1OW0nbvicN/NCMF9x3Ml/ua6n4uNqjj36xa0ftnK8ml5Bz?=
- =?us-ascii?Q?b7pm8pC+w0EjhQP7OdWQ+FVRdIixidnkKzOXcjxWCljjb9Ug00pGihUzbkJ5?=
- =?us-ascii?Q?TcZCNucdWpei2xbdr6SxCu9pLOav+aR7mbBB6sbiqELgsk98jg9Y0Q4KFvuB?=
- =?us-ascii?Q?gZQmub1MrAdCi7JaKOBB5i7pRhjnpvIxhzy7AIHDJMSvdzR3+atsNfCNpnVa?=
- =?us-ascii?Q?bMoAzjgr8CZ2V3x28C3OFXMKzsuti7yq9GnzGOtOuVwdIrgOk4Xb54moPs6g?=
- =?us-ascii?Q?8F/9N9Klc5u94zjk0rxlP/LKjj1TR2uQHCMNEHNgMCfGgKVGKArDa+CeexJB?=
- =?us-ascii?Q?lc3oGtQb44mKbY3pxC1M4G8o8VeTPq9IUyDuYtOPL/FLdl40GfHIksIgf6Ym?=
- =?us-ascii?Q?FYCsi21Cnd8jZj+HpoRS0UBMqpujMhZtGgtXVYLY5hJElBBfu9pP3jeWhwvY?=
- =?us-ascii?Q?1L7gcXOuS+Qeqe587xeHp57ZUiGu3nTwHz6ps8hqDzlJ30q+fwRjDuRe5D7P?=
- =?us-ascii?Q?66f+P58O6iCPljzY7g6bahapHEb0I1ZHei+mTgkAmO+z6ONhiFYp9wSy2Au/?=
- =?us-ascii?Q?DSkjqjTbKecaF7+wtNbKlYGcURJl8JD5mUQ0DJNVdwwPuUalV1zRmpqxTj3s?=
- =?us-ascii?Q?xMyCp/xyPq6lC79TNHJhy74PnjJArcEYhiNsHjbxODfX90Ul0L9JvMZ2AWId?=
- =?us-ascii?Q?hUrUjVLuyLI5SyMypWVY7l6e143VLmi6JZs+fnYuyzExswwhQqJEKd6/XVhK?=
- =?us-ascii?Q?dmESzCHSgkwtHmPaOKpfsHwhvjcfBqZWXUnPFhm8/xFuikR8ptkDnSdhw5BW?=
- =?us-ascii?Q?mTLbHNLHcp/qv5upm3UMERDRfuryAn1lq8ci9C/RM3THQNzTGZCE8Oa/248N?=
- =?us-ascii?Q?ru3tUws1xMJM4nAijgiabwxrZ2+m2QGQBepvGUkVMOPCX29i0kgVgDc98WnY?=
- =?us-ascii?Q?4LKzl6lrOr9nXUKKra34fSZxenglyoDRj90Zaj4AWmw3XG+oHSHiZ4oaGLTI?=
- =?us-ascii?Q?/CFgKg0MZWV0Cnv79BSMhAMDHWayMt1mCjl71/X+wTv/kHPLQcygkmB3Dv3f?=
- =?us-ascii?Q?BYUOk1wOWAAkGWkbNIBy+f8xTT2Zgen22QUXNpxMvdmixMuTiwmSu00B7v4O?=
- =?us-ascii?Q?elOOkgeg/FCbRJDtdEELKy/0Q6/CfXtTSWkvpgXVlms79SwZuldk3WNQaiRk?=
- =?us-ascii?Q?XNjC0VC/CkPrbNOgDObC7lA6Wgxwssdu/W1lcbdxNiZnrIfG3OyVamcW5uCX?=
- =?us-ascii?Q?A7B96WmgjrpSf9R7/kL8IWPTlX49qnXrPJEVkWVJrgKDHde+uvrYl/NTC5bQ?=
- =?us-ascii?Q?xE5hGVG9byckBWK7NqGXOchqxOsEiV1X/tX6QFJruh527JMKu9SU?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ada79c0-5d93-420d-cc9a-08df2f891a9c
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:36:41.5423
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0bSKE8iMoKsAn/9q04Mq7XGw+jpaC80hLP0Neu2ZVQI31ep2q/2l9nqXCEokWxDY8yvGPjUJ5omaDUdfxbPtXl4RrQF7CQl8d7hxWurFoSr6HOTWewa0vQG/AYfqEX6g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB12452
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 11:43:47AM +0530, Manikanta Maddireddy wrote:
-> The Endpoint PERST# deassert path initializes the external-refclk PLL only
-> when enable_ext_refclk is set, but the error unwind always sent the PLL-off
-> request.
->
-> Guard the PLL-off request with enable_ext_refclk so Tegra234 Endpoint
-> configurations that did not enable the PLL do not send a spurious BPMP
-> PLL-off command.
->
-> Fixes: a54e19073718 ("PCI: tegra194: Add Tegra234 PCIe support")
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> ---
+Hi Andy,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On Wed, 21 Oct 2026, Andy Shevchenko wrote:
 
-> Changes V1 -> V2: None
+> Ah, dw8250_idle_*() are already BUSY-functionality aware. So, what we need
+> is to provide dw8250_idlej_*() callbacks via struct dw8250_port_data and
+> make current 8250_dw::dw8250_set_divisor() to be part of dwlib.
 >
->  drivers/pci/controller/dwc/pcie-tegra194.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Patch 1 (dwlib): Add callback definitions for dw8250_idle_*() to struct dw8250_port_data
+> Patch 2 (dw): Assign new callbacks and use them in dw8250_set_divisor()
+> Patch 3 (lpss): Introduce stubs and assign new callbacks to them
+> Patch 4 (dwlib): Use dw8250_idle_*() in dw8250_set_divisor()
+> Patch 5 (dw): Kill now duplicate code pieces
 >
-> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-> index 0e6224b6751d..de14a23f9a4d 100644
-> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
-> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-> @@ -1973,7 +1973,8 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
->  fail_core_apb_rst:
->  	clk_disable_unprepare(pcie->core_clk);
->  fail_core_clk_enable:
-> -	tegra_pcie_bpmp_set_pll_state(pcie, false);
-> +	if (pcie->enable_ext_refclk)
-> +		tegra_pcie_bpmp_set_pll_state(pcie, false);
->  fail_pll_init:
->  	tegra_pcie_bpmp_set_ctrl_state(pcie, false);
->  fail_set_ctrl_state:
-> --
-> 2.34.1
->
+> Would it work?
+
+Yes, I think the approach works. Two details from checking the call
+paths.
+
+dw8250_setup_port() is skipped for Octeon (skip_autocfg), so 8250_dw
+would still have to install the setter from probe.
+
+For LPSS, I wonder if the idle callbacks could simply be optional.
+8250_dw would provide them and LPSS could leave them NULL, avoiding
+stubs and a separate LPSS patch. The common setter in dwlib would use
+them when present.
+
+I'd still prefer to keep patch 1 as the small fix with the stable tag
+and do the refactoring as a separate follow-up series. Would that work
+for you?
+
+I don't have LPSS hardware, but I can build-test the LPSS side.
+
+Thanks,
+Vinicius
