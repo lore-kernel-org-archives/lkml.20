@@ -1,129 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792568010;
-	b=gnSmWrDzZ3lJ9SXxOs7wvnWZMCt+NRJIDFVHrhQz1nJYLsMGLZopwxVcBddaCjckpkLb
-	 MufayTQyK3SQs6rprcwCIufJUTfLAHNdCkghA5ujf0SyH5+huvghY9TQTzDwAsuK/BUP/
-	 55s5HZpnsvFPewFjd2MkwiK8iV+8om2GXIQXjXYgGKuaZ2SbG72lkfUdAOo9Fo3S0Lv3y
-	 ehj5iamd5HLLDQCzJ1OXUw8+g+OsTy32QXgpcXhByN52ek7NsiIv1qOdWxu5Fs065oiqN
-	 1KT+T4HAOURSpsk9teNgNFbwbu8BsAH34HMUUSyQgwmFf3udYrE1Wiu096VPPv/WXRw==
+	t=1792568001;
+	b=4kFyrfuFtZjOX9k645NLgEwasCEv/hpJKJind5qJoZjj7xOZLyrujaRk8ZjEF48U+35B
+	 PRrpW2+YBNHYRMAfnIPgo/l2js3gjqb1VQbMWqPBNm5Ktisyd80P2F9cjjGIr3jD1L9Py
+	 Of9yn10te/KnH8qw2/jXUfh5WVjRiJ1YZY7u+EzFyWASM5JyoXhiu+/ZaeT+84TGyZHAV
+	 YwBIjd66KnRkk056f2ewRsKqL8qBtUqDkvvRtVlgcmF+Wgesh5ypScKs4aMtUxjqVYdgD
+	 AebFTiOpPKINyYYtfax25FFk16/2qdr9pkW05Y3lGxG65niYJKn1Zomd9bB5272fmcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792568010;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=;
-	b=BApzTpD+yQL79Up4v0PjBHcZD3SxRhDEEDNaEtgMnRyFijTypyZTCesgTpgIh46UVKJp
-	 r0OhDp8N7pLXcBDA21xcZcRRAFUnl5XFK7nEuPz6y4mvznrAoknq7oo5wshyrJ4+U+VH5
-	 14WdcXXhl1ByZP8/FTEZ2tEAOZBu9kVlhOQ1CG9X7UPcEYcxHMQLOgTkpBimBGPStTIco
-	 aZLRXpbfIUx2b0HnoUrefKjEzae4Ixqs/9uA06dg8xKzVu2ZIWllrifCIMwinjQEDMhSN
-	 zySlc2LiZdX4o1F3CJhtCRisQYMu3LUGQ9jv08FEtMZILAtxh6aBTnBuyFkI75oY0Yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=epyalV53Yd1ayP1dh9BRgh3jBqUbmF5KVHB1Kw/mzLk=;
+	b=1HKshBeL2Vhqg53ZQ8clJGQ8AGglxjYqg2OXuDm7sIvQvA5rfSiCgg8ID7v06a1k+g5O
+	 icDemafeqegvHhz3DzCN2uPVLVNkhPrE3Dr6IBqGu7PfONhM09uKi87QHz1WYTBBenLJf
+	 Nb6BqHa2dzkCbNRzUKs0TaxfhYQnw1Due/GhiiRVRl/Bq7mR1fxSl0P8mPfS4qxIf9l1k
+	 hK+ClREj31F/BsI8D3RlNeFtlAdeqXNuKlDCkpL1tY104Oa3ZicOEfIvbBM1im8gVAmJZ
+	 LkAIwwNqgf9h+SXHHjxRqCjcid4rtwqzm6tYPsK0H4m8k/V2fUAsSASoObWSdkstQlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=H2CZAlNU;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=MeoTVJvo;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=riptides.io;
+	spf=pass smtp.mailfrom=riptides.io;
+	dkim=pass header.d=riptides.io header.i=@riptides.io header.a=rsa-sha256 header.s=google header.b=bdLL6PKS;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9384606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9384606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62919606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:33:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62919606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riptides.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riptides.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=H2CZAlNU;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=MeoTVJvo
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 576D2EC01B8
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:33:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Wed, 21 Oct 2026 03:33:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792568008;
-	 x=1792654408; bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=; b=
-	H2CZAlNU4dJN4nZ+deU/xL+rLNt40eM9yOaxC7LoCAEUdPRkldX21YR12nJ+XUr8
-	3DMKxEi7kNuDzLriFSZllXka9gGUOjbF/jobdAoHm1X8y+yeb6WCv50xto8eOuZq
-	MfRiuA3eyOYVMdHsLTMYmvnJ66WUswmi7bLyWgPKNEnb9Wq4TLC4dRjYCshqRx2T
-	eESh/Q+eU4B0ZLGXNhO81jgV31NxsmIJHlyYMZj5WetcngX+m3LLcJvwkpGwG5pR
-	y9B+72ASE8sdAzEUhE73wxnqvYK+jr3A3VrYgZUdy5nshO0sqW/Toaop8UHw6Qg8
-	aMyT9DiUNpNaCs4GWwxFVw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792568008; x=
-	1792654408; bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=; b=M
-	eoTVJvoMSmfhJTi68FsgDFtBIPRrDKDuWAX3leqxy4fMbvGClEdkC7RBvOvqWkur
-	ca9rkNDo8bEsfq4uIlhNoSzxDX8/4LQXzdSJSPavLatUAeGNiA2cdW4EmTu+oD/u
-	6KI98tIHVnATZaQP2KZI3vutc242IoCPYfAlsJqxbbZZFOhigAvFzp28cdlQDTFg
-	C2Enm1Qv2qBKQYjoDfE2xh+l3TeMJqfMdNHocQHAe0cuIGOZAfTon+kcFBqDxx30
-	Cz4ssk+s8DHvy41TQVAZ+GGVr/W1DxPpZbTT24YMU+MpFGci2MWRplgXh1YzzmCG
-	nk9zGAmocLUsb22FfDzcQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792568008; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:SWNUP898WFC5BHYepUlJ1pIkN6IETID6ujgI81muIn5n7YU
-	+uMf1hgcjuZQXF7eFL4sp4Rpo54cab8S7QRc7zv2P9AhjXbkmOXxaWd7kvlUMMQM
-	NSbcgp2a/3HKJAAPyHK9+48ZTqVRfF01appiVjEOEWMtS+E4AXGRrZDkwXN4qcdV
-	XVRnr3pN3Jhw+uNT3T8cq0/t1bxlGNnO85thTeEwMYtGmJ4JPNRMEJAWdbMlBMEL
-	9lnMczQwTkCD8w951w4gqm4Ybl/+T+RotaDW53AGlW9h13Z4fbHYOQzrOp2b9GSA
-	557TGzctPtqkCfiyiG+NyRzE1o4CU+ihiwFPQUQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:sE7oviaG2W9U03+NUO1ZCJgJ5kzaLF7Ubos/2J9o5AA=:aIxrJQw6byJSSpI7JG68txUCarZU1Hc6/3WckQFzdGc=;
-X-ME-Sender: <xms:yGrYage2hmGQ4G-an03e3gvYKy9AfCVIu5WbSu0gTLw7ukE9GiJlpw>
-    <xme:yGrYavoQNMHup-ZRl0i_Nl0LAvFFiFvkYwozl80MotUsNYVH-5k_n5kCV4GuQ7d8F
-    O0LUeEx8lkQjZGcPXqJsO-AHFAVnYdpzayerwV8aW0fnYYzh5cnpTLV>
-X-ME-Received: <xmr:yGrYaheSNJsJEpEBKQlG7lWCRiv2OjR01-BfOSJMuNPeH8wVnCOrjIc72gWJKvsQEQnMyyuaPZwA1I7_D1oGe_ij>
-X-ME-Proxy-Cause: dmFkZTGpVTHn+SydJJT+VRdoTPrvGprGGVNIRF+afNyksTljI/Xz7ouNtYDX7THXy9XbOF
-    JGB8Rol1p2S2ksGNH3skRUpPGxxs44MvhLa+/OyhtEeBcu5j5bRa+cVNNtZz5jmWl58RGz
-    hfJCyX8x7mn1S9MXhKBvzTZYRkP7Tq+4cVthmDwsOA5BzUbNhG9TVk84hAQDq3xMKEd1Rf
-    xm3XJuochdBuUcTdvClfqF/K49B3YJJ5o1n6zBZIgTW6o1rpwa9XaDDihmK9mmzsnGBq4m
-    tqxXHJ29g24JySuuiiOVHgUwmIWcZRskKzfvX47BXmuutqmStjXWTN8t/v1IDQT5Gr5yBv
-    IbbsOlJZ4cbWNBjVCOYa1qAbVz4TRJRd3tPVKSh7vQTQ916/jf581kV3OzXBS1UtYN0Aap
-    RdA0ire71HaAkF1igf2U1BQIofJGw70oV80d3UsrfsybdWclUIvSlSdC76TlEwAFdTwTcm
-    nJdmIfCaKGyxk+4T54+lF61F8D7qr+bzlmCPmofv1GV02iYrwL9kS1bW6oPWHIqRe3Um5Q
-    Up2W57m5l4QTBw2nGif0a54AZyK7y8GFHgcFhs1L4bRLnLabHmGJhBKvxdqOdWLUjCQKYa
-    rLM/9v4esMOAr+GS4xFx3wpGQrYwRarizTc81eNig2hL7ld/CJEnYAFryA1g
-X-ME-Proxy: <xmx:yGrYanl2G1ptoFiX593oJTYOnLd7XEq2CDDYMCNjN8FSiVaizO4xpw>
-    <xmx:yGrYast_clruEqrFMBFv3KJvIVdxfpcX74yWbqGKyQhMhRj2RqP2UQ>
-    <xmx:yGrYaiz9EiwnTP6rDnWon3ax5og12YoCNZcX8NwRtdAThlcDx211hA>
-    <xmx:yGrYavy87Klf-1Zw4c4YKRU77MsPTmBuaUfGAni7lPyQxLVYhUun-Q>
-    <xmx:yGrYalNcEYcYdl00-2zGjMBALGGtnnZ0_Yws_plbzRuYV_smyg9KPS5R>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 03:33:22 -0400 (EDT)
-Date: Wed, 21 Oct 2026 16:33:20 +0900 (JST)
-Message-Id: <20261021.163320.943019405320974844.tomo@flapping.org>
-To: chenhan0017.work@gmail.com
-Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
- boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
- georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] rust: time: rename the rem_nanos() divisor
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261017111134.22546-2-chenhan0017.work@gmail.com>
-References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
-	<20261017111134.22546-2-chenhan0017.work@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=riptides.io header.i=@riptides.io header.a=rsa-sha256 header.s=google header.b=bdLL6PKS
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1fe9efc0eso2915905e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riptides.io; s=google; t=1792567999; x=1793172799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=epyalV53Yd1ayP1dh9BRgh3jBqUbmF5KVHB1Kw/mzLk=;
+        b=bdLL6PKSPa3VeSTm1ePhiSezv41ffNVfJB2j/PAj/vaHy2gQmfZIIRUI6eaY8aIQPV
+         qF1G3RWUSxq0513CVEkBRnkxAyrdNXbNMAU9OvTNrqpU3QhmPk3s+cpkxLZ2xycepDIE
+         ufUU/TrUzfJxQG7XqN2Jwc2B01oCZmh9oLqLGxsaf+SaXniEFbKY8sgCx6o8+qE55r6t
+         AzvwXi4zJqUUMeZ55ncwQ+fgvyy/I422DQGviTqDMafERRv+BExm573DzW8ZKkBGqMY1
+         F+HpKU5TiYdCBwzDzOdQtlfSSlOir1OIOJXx9EUcm4fBo36mFcuOU6UX7/dcOLY5G7fb
+         bhAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792567999; x=1793172799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=epyalV53Yd1ayP1dh9BRgh3jBqUbmF5KVHB1Kw/mzLk=;
+        b=FHTW2KKSrOncIfpnzyyZv7uWMXLWDitsUJkC2WRWge86AIeML4e/2VG4L/yvPeRJTr
+         0MMQKwT7aolNPUuLADgnzOMk/wUj6KHWBgVrSmhfbG8YPmGuVs3pMll/k0e6mnjRgj0w
+         SoJbBcIKan1aXLLf37+S3RVrv7Nzb72dWHO6bPwHBM3AslNKKVUJ2OyYWTAYJw9UBwRK
+         CnYxmJUw3dQzwJ7CzGNQQWnYx9okTPeA8JHsuTgWpcYceRKMhceCjcQiw7FxQeQN+NFf
+         QG2zoMaxfyHvBHVjejr2NE7kYgZRkkTtZiA29u+50oKBhWbWeafP9jspL3whfIUDqXi0
+         4Vwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEnlWMGgBed4jErMyKwrSnrdM0PUEOD16dVfd0EHrrC/Yf18gTtiAtSkGvAtkHdh+bJwO6c+KALZTBxqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7rZu+g1xHTX8A+PkjqQsvp3+Le4ULyG0vy81D513ULVgvV6e8
+	v3Ir82nHSA704knHgzFfuaCGeD4U65A6ZrXBnwo0OlPOVwsDh2IKUy059PStyU1IRvQOBg4AW0c
+	G2uMyN1xn4w==
+X-Gm-Gg: AYBFou2WMzQi6BMIQdqQ5q5GXJInNN2lkae2HFEAI6Vsrqb8L8UD1/ilR7t29CBjxLH
+	9fydEsEL20o7k3vql2S/xKAGen+aVnPgYbjVZSPKjmngegMD41ntxDZTCV81Ng1Aaj6m2Cz4ljr
+	XYX25So/DUzIxRgj7gL6E+JXey+LXw1/PNIkCp71WjvbY+J1qf344G+yBtGwvJ43kkH0NaI7yya
+	5zl60BSUgQg7NFR8r7XWELN3jAlyqRhtJYkQrbw5WRW4UlV9j1AFDcX9BwFAme5v0fr0j8nhH7o
+	TRDE1mIGP3Jj0ZupYuMNDyYCJaU1WtTX/Wc1bKiMjiZt7RQX70tHud9xlgmOoVlkUeWsp08sdAY
+	gj0l7vCvYoMMpv3+5CnFE+3KUSJABER21/aJr7SysnT2Q9wAFHMBD4escI+FCWBeuf1F7sZ4sK1
+	d/7PuZFTYBpCsKN3PzTtZA5k+jMPlbVorprPgrxJWzHUZtSMWg1waxb8EsE4U0O2QWgCCQbcFDo
+	B/v+iz2Svr5yKLUFiHv/h0t6PJyDP9JfeHT5rIkr+6bATVyAoODBdO2wIN31FkBZWJ+qvRA36pS
+	r9ZgaA1xX+R7+AKxaxghzVlLbcyjCPFhERVq0i9gMfg7MINd
+X-Received: by 2002:a05:600c:524f:b0:4a1:9a97:c88 with SMTP id 5b1f17b1804b1-4a1fdaefaa8mr21401525e9.5.1792567998665;
+        Wed, 21 Oct 2026 00:33:18 -0700 (PDT)
+Received: from Nandors-Air.localdomain (catv-176-63-83-112.catv.fixed.one.hu. [176.63.83.112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb95b390sm53230925e9.14.2026.10.21.00.33.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 00:33:17 -0700 (PDT)
+From: Nandor Kracser <nandor@riptides.io>
+To: netdev@vger.kernel.org
+Cc: John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Nandor Kracser <nandor@riptides.io>
+Subject: [PATCH net] tls: avoid field-spanning write when copying crypto info
+Date: Wed, 21 Oct 2026 09:32:33 +0200
+Message-ID: <20261021073233.16720-1-nandor@riptides.io>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,23 +101,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 17 Oct 2026 19:11:32 +0800
-chenhan <chenhan0017.work@gmail.com> wrote:
+do_tls_setsockopt_conf() copies the cipher-specific part of the crypto
+info to crypto_info + 1, where crypto_info points at the 4-byte info
+member of union tls_crypto_context. When optval is a kernel sockptr,
+copy_from_sockptr_offset() is a memcpy(), and FORTIFY_SOURCE bounds the
+destination by that member:
 
-> The argument to rem_nanos() is the divisor, while self holds the
-> dividend. Rename the argument and correct the documentation. Drop the
-> architecture-specific implementation explanation from the public API
-> documentation; the argument type already states the divisor's width.
-> 
-> This does not change the function's type or behavior. It is a preparation
-> for documenting and checking the invalid divisors in the next patch.
-> 
-> Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
-> Assisted-by: LLM
-> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+  [    6.948348] memcpy: detected field-spanning write (size 52) of single field "dst" at include/linux/sockptr.h:49 (size 0)
+  [    6.948480] WARNING: include/linux/sockptr.h:49 at tls_setsockopt+0x9b2/0xa30, CPU#1: init/1
+  [    7.001355] Call Trace:
+  [    7.003146]  do_sock_setsockopt+0xb0/0x190
+  [    7.003975]  __sys_setsockopt+0x76/0xc0
+  [    7.005368]  do_syscall_64+0xda/0x4b0
 
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+tls_setsockopt() gets a kernel sockptr whenever a cgroup setsockopt BPF
+program is attached, even one that leaves the option alone, because
+__cgroup_bpf_run_filter_setsockopt() passes optval on in a kernel
+buffer. With a no-op program on the root cgroup, a plain TLS_TX
+setsockopt() with AES-GCM-256 triggers the warning above on an x86_64
+build with CONFIG_FORTIFY_SOURCE.
+
+Copy into the union at offset sizeof(struct tls_crypto_info) instead.
+crypto_ctx already points at the right union for both the first set
+and the TLS 1.3 rekey (tmp) case, and the address is unchanged.
+
+Fixes: a7b75c5a8c41 ("net: pass a sockptr_t into ->setsockopt")
+Signed-off-by: Nandor Kracser <nandor@riptides.io>
+---
+ net/tls/tls_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
+index fbb274287..9b07ef8cc 100644
+--- a/net/tls/tls_main.c
++++ b/net/tls/tls_main.c
+@@ -701,8 +701,8 @@ static int do_tls_setsockopt_conf(struct sock *sk, sockptr_t optval,
+ 		goto err_crypto_info;
+ 	}
+ 
+-	rc = copy_from_sockptr_offset(crypto_info + 1, optval,
+-				      sizeof(*crypto_info),
++	rc = copy_from_sockptr_offset((u8 *)crypto_ctx + sizeof(*crypto_info),
++				      optval, sizeof(*crypto_info),
+ 				      optlen - sizeof(*crypto_info));
+ 	if (rc) {
+ 		rc = -EFAULT;
+
+base-commit: daac93975b8ff0a0a036a5e3562236c0b40c3e36
+-- 
+2.53.0
+
