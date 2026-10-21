@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792622867;
-	b=kxYRNllNji9y1Z65upV38j82ecp0iOTmMxdfmMjfyIzWAFK19sxHm+Oquph5aMwspM0Y
-	 O14k/j+XYw2o9m2y/cZy5+PhRMuy3GFMk+aLgF1p3xfQ7KAVDXG1VmHulDH+xdjo+2Kbu
-	 ash2is7+B2FRRoDCNC3Y6W8N869CVOQsD+XsATeE3IEdUa6rWi8FHokvWDgZcBXLMCqAN
-	 lrWN80Ul8G/QbtsBsq9Hvror9X8TkFvMIb7Kh3k6xbbUGOVon/0kIP6ODlyRbtfXI+4p2
-	 FTh1t/7kCABHfkGF3gjTzp4tAw2+EkYbIUfy8zwZASRV8O3OweqK2zgJlrtevKB17BQ==
+	t=1792623193;
+	b=lEij7qfkCVIfTcRbmoMpjZaxwzJ/6X0RBFGfdnFLsRR2UfRxq79F0DsW9bnKni0gnJdN
+	 0oE8qXXSxbAO1qzLvDdStg4MdLapoGNbcLcz1z4c4zX3sqUnZ5YuS3ORUHE4Ft88UPtgl
+	 UIFf3Mxb/IjjP3OouMMCIoiLux3ImYYpMaaprXM6oK5ujzNhYjgJ63ymtOh6fQ0xALCob
+	 mVYrcGO/+dyx/DB3Ux7657jZYtfolBXqnpENSuJ5JCRV0fR8MeO34f/x1uKx8d4DQ/dWZ
+	 my51sL1V9jiGWlW6AiAUVJVNEYwUAMEDZm534ATzm1sX1vQLkAelzNS+lfZiPxDN/Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792622867;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792623193;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Z17GSdCX2AVlDCVfP3oFeK5ugdwfseV89dBX+YdznSQ=;
-	b=A8C3Tc34FzGX30XKEZBQIwQLCuHVJYSk7kp/pNF2QpjQBRVKLsbeLdFcDM2cuS2vJL39
-	 pn+1m0o9wNzHTQQSRtl8AXEZEtwlkTkEWja1GDCxzaVw2+zPS1qxKHflSM+UeelDATRc5
-	 giofD/QAY5RnejBseCoakfSVa8qeCAl9EYgZNX6Xc3/fKcMvqnusAkbgTCOIv3rWlWz3B
-	 oFKL+oaSrlkfgVk8YqBgDvQqmEaIYt401+wMeGbwTmmrCBM5d4ygesYgYGdEUYM6b77zb
-	 8pQEvmf06p7z+b3yvxqEcnIHl8aLBFIx/ooWcDDg+jK2RSI8dyuvj6e3O0/Bel1ZmWQ==
+	bh=9dBd0LsCLxCDmDC84llNmb0TWCl+Ku3zRuVheUNJrJY=;
+	b=4BtF8Wi3+ciIW7uYpSxKdpVO3zG2ZDmzAw9o7tdSlKYksKB7aw0LqN7kcusjAl4xOfAY
+	 f6tP4MpzcESdLZrUPfhzJj1ByAE0j593Xo0b0wdIxj1/F4D8c15N0OrEniVW8xO5FgWVZ
+	 RnclAeyptbmY3htL8sSWQtGTymgoTuaHb/hM4SwXfVMmV5MRpcycUqrfB6VA06JMTIkWy
+	 AsE/F7SmUhzTuYvUDbquG43QYT1AwRv0Ej4Vn7l5gUhzfklxmO1uFpNqhlHg8vLMNlZmh
+	 kBelR3qZq2vq3qOkSNvWlpdCpMRhRMwtGsy6t1xPyGTVnVfcjrRWqeYchOBMoPIMeyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=DI3LSXNu;
-	arc=none smtp.remote-ip=185.70.43.97
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a3oXmX6k;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029D0606A31A;
-	Wed, 21 Oct 2026 22:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 029D0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDC2606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EDC2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=DI3LSXNu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1792622858; x=1792882058;
-	bh=Z17GSdCX2AVlDCVfP3oFeK5ugdwfseV89dBX+YdznSQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=DI3LSXNuFBeE+EcHbvnsjHBo8gZt6ugvDQytWrBZVkbgOGdRxORikB3zRDw+oNftr
-	 u0D3oWNP7Gk2ry71jQKu64RfMCwvslOO6Yc9zegYEjuamADjECcfcDZWDdBAc2Kcmx
-	 Kshv8zl30rLHUabLo8GtqRt5X5BYdLDnEcLGG13A95hqqwTwiC38PYfC+VvZQYaMVt
-	 zSQTyt11yESyt0lr2Bj8IlvfEe/JNt2Bm1ZrkQzkb2sQgddGf+Nw9H9hzlRkdCjIQb
-	 G7xF1stddMB/CeewcQBQ5hUgWfVnMCcRg8q8QAFLUoyUvpnVVFE/F7OBggeUu+jn9Q
-	 /T75YrFJ7lN4g==
-Date: Wed, 21 Oct 2026 22:47:33 +0000
-To: netdev@vger.kernel.org, magnus.karlsson@intel.com, maciej.fijalkowski@intel.com
-From: Paul Moses <p@1g4.org>
-Cc: sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Paul Moses <p@1g4.org>
-Subject: [PATCH net] xsk: restore UMEM flags after failed pool assignment
-Message-ID: <20261021224705.2078753-1-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: ecd6710c2687fda68e398888edecd953935d89d0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a3oXmX6k
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33fb4680717so3048367eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:53:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792623192; x=1793227992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9dBd0LsCLxCDmDC84llNmb0TWCl+Ku3zRuVheUNJrJY=;
+        b=a3oXmX6ki1f4RU80cDLqopO3xl0tZFydPl/dho8cigX3Rzlk47duV8ehC8eGRmV8lQ
+         8t4a2veqBsfAk5SojxEnUNYBX7PcYxkUDDuclbwtc/OtEOJbHCIk1VeZsZDEAy9u0y/s
+         gk40u1jK3981mrnBIK3mPYZ+W0MDAS+P2cWDj7B2Hd6q/8K2VBYrYBXUILzWpvxXHOcc
+         Lui9pvIVXyd3IAfLiAQrvdjBuuOe1LcEis3ToJ6HtXQrB0LJ2YECp3yZQZXiZ4RswI+V
+         J4Vq7fBPLW8fY7krnMjIlVsM+6uxDIpMcW9+OG2Fz6t0eYEc4aojM0cLQ1n5BIa5Ph1T
+         WeNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792623192; x=1793227992;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9dBd0LsCLxCDmDC84llNmb0TWCl+Ku3zRuVheUNJrJY=;
+        b=CwoLBAWvp2HLkZGHYQm26vdxL982ANkoLg0pPgBMs1lUdWK9MLfCqfWK7LRUlsz5m+
+         pjepeNr1f7E7S8V79GFthE+gA2nUQ3HPCEH7Md9cZG82FYxZRIri/lUq0bpXE4cgXPRv
+         rHyzLGpGo7smQjuYjFOZFtgjdDerXpuZnon4nHMvRBTAmIa/KJ0akzSb26b/j4MeF/xu
+         ODqAWzVQk++43d2qN3ehGwX/YRc6FNkSQRhy7i8j4mQm353d1U4d7QWnR7cOvtetvMln
+         BdZ3ZoXJpMvVXMmck04Huv7GnChsQ2VyAkFzM3z5q6V7CU4/r/pYjjCTltcddaHLRud3
+         P0Kg==
+X-Forwarded-Encrypted: i=1; AKwUvByOWbL7g2eLdJS1sjW9K2OLK3FcyGEnMXAI1zrTDjCCl33PHXvpBPWneKHO4aoStKQVBu46gQTWjt6wKdM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgZukH/YoUPmKNG+y5utGg74fYEExWv81q2JFU+1t2oNAvuTpo
+	7Qhe0afQejiRT+LaVz7K4Ku2PRSCp6oGn84Q9mfqxcNpZ1UPzJqzx38X9I002sMp
+X-Gm-Gg: AYBFou29/8Vz3HCcOcSZL0KFepvjSGKrNE+XH57D0op5MFPw29Sv5fTMUeGTKwcmsSH
+	2bHfOZgt1rujH9Lu3HEzXm3SIyfVBWB81ph5cFMpRsv/9IQ0AgyTmA6e6NsPevINJ7hGstE7iIx
+	Ylg6ZhVyVRNP9Hk1AUkI5jnj8B3CyxzMvaCj2+teh4gqiSotwM9M7aCloavFYRwwxnMXStv8ucv
+	UQVWZJOU+WPf4or7Xlj+x/6HU7hLA4PPCCSV08Ni0jmdaw+HNjdZUiRpJMEYo17rly+UIcj+C6q
+	GV8AHdWXDbTpfRGefDw5wOqOaiah31j+OcdlBx6VKQGHoLWgVHbqSroIiFVPXDrW0c8Y7K32i/N
+	NRclc/iBIJ217lfdo1xE5T591K/ScBWshwZZe4TFtJk7CJbB1DfPOpwYvDJnGKwCm71KrmGlUHg
+	CWgQ3Kcq3oT2Mz+bVawbyq3hFXQnTAFnuvTMF0wfBZGeFZXYr8FUqxCYvJEdo1tHKEo4QHffRXO
+	wPtdjWaJiePPzVmJGaTnumc7iWX276vORMAonIHBzPPBRxeA6lQ6EjcWj/TO27a0hxIllIl9WaZ
+	RqMsrHLUWu9JusM0kEenpAIcnbjqt795VCWR2yk9a+R1jaq7aVEiBU8hxNzLOLkuupVRLsVCsvF
+	cUgxgk016X8qRIvHmNeiKvtEcO7HX1yLx
+X-Received: by 2002:a05:7301:6d0b:b0:360:ca2f:ce38 with SMTP id 5a478bee46e88-3674c93bdf3mr5050567eec.12.1792623191663;
+        Wed, 21 Oct 2026 15:53:11 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8c6dsm11688901eec.12.2026.10.21.15.53.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 15:53:11 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: Arnav Kapoor <kapoorarnav43@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iio: core: fix signed integer overflow in
+Date: Thu, 22 Oct 2026 04:22:48 +0530
+Message-ID: <20261021225306.623361-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,53 +99,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-xp_assign_dev() sets XDP_UMEM_SG_FLAG before checking whether the
-device supports multibuffer zero-copy. If assignment fails, xsk_bind()
-destroys the pool but retains the registered UMEM. A subsequent bind
-without XDP_USE_SG inherits the stale flag.
+__iio_str_to_fixpoint() accumulates the integer part of the parsed number
+into an int. Feeding it a string with more digits than an int can hold
+overflows that variable, which is undefined behaviour. The same happens
+when the parsed value is INT_MIN and the sign is applied afterwards.
 
-The flag also changes RX buffer sizing after DMA mapping. On igc, a
-failed SG bind followed by a non-SG retry with 4096-byte chunks and
-1792 bytes of headroom passes admission with 2048 bytes, but programs
-a 1024-byte RX buffer. On I225-V hardware, an ordinary 1514-byte frame
-is truncated to 1024 bytes or 1008 with RX timestamps enabled.
-Restoring the original flags eliminates the truncation in both cases.
+The parser is reachable from userspace via the writable IIO channel
+attributes, for example the "sampling_frequency" or "in_voltage_scale"
+ones, and via the exported iio_str_to_fixpoint() helper used by a
+number of IIO drivers. A user writing a long enough string therefore
+triggers a signed integer overflow.
 
-Save the UMEM flags before assignment and restore them on failure.
+Accumulate the integer and the fractional part in a s64 and reject
+values that do not fit into an int with -ERANGE. The limit for the
+integer part depends on the sign as the sign is applied only after the
+whole string has been parsed.
 
-Fixes: d609f3d228a8 ("xsk: add multi-buffer support for sockets sharing ume=
-m")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Moses <p@1g4.org>
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- net/xdp/xsk_buff_pool.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/iio/industrialio-core.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
-index 0ebd4d46f7ab..7750d2ec4ee2 100644
---- a/net/xdp/xsk_buff_pool.c
-+++ b/net/xdp/xsk_buff_pool.c
-@@ -166,6 +166,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+index d73f2541375f..40f4375163c3 100644
+--- a/drivers/iio/industrialio-core.c
++++ b/drivers/iio/industrialio-core.c
+@@ -1008,7 +1008,8 @@ static ssize_t iio_read_channel_info_avail(struct device *dev,
+ static int __iio_str_to_fixpoint(const char *str, int fract_mult,
+ 				 int *integer, int *fract, bool scale_db)
  {
- =09u32 needed =3D netdev->mtu + ETH_PAD_LEN;
- =09u32 segs =3D netdev->xdp_zc_max_segs;
-+=09u8 umem_flags =3D pool->umem->flags;
- =09bool mbuf =3D flags & XDP_USE_SG;
- =09bool force_zc, force_copy;
- =09struct netdev_bpf bpf;
-@@ -268,6 +269,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- =09if (!force_zc)
- =09=09err =3D 0; /* fallback to copy mode */
- =09if (err) {
-+=09=09pool->umem->flags =3D umem_flags;
- =09=09xsk_clear_pool_at_qid(netdev, queue_id);
- =09=09hlist_del(&pool->dev_node);
- =09=09pool->netdev =3D NULL;
-
---=20
-2.56.GIT
-
+-	int i = 0, f = 0;
++	s64 i = 0, f = 0;
++	s64 limit;
+ 	bool integer_part = true, negative = false;
+ 
+ 	if (fract_mult == 0) {
+@@ -1024,12 +1025,21 @@ static int __iio_str_to_fixpoint(const char *str, int fract_mult,
+ 		str++;
+ 	}
+ 
++	/*
++	 * The integer part is accumulated as a magnitude and the sign is only
++	 * applied once the whole string has been parsed. Hence the limit
++	 * depends on the sign.
++	 */
++	limit = negative ? (s64)INT_MAX + 1 : INT_MAX;
++
+ 	while (*str) {
+ 		if ('0' <= *str && *str <= '9') {
+ 			if (integer_part) {
+-				i = i * 10 + *str - '0';
++				i = i * 10 + (*str - '0');
++				if (i > limit)
++					return -ERANGE;
+ 			} else {
+-				f += fract_mult * (*str - '0');
++				f += (s64)fract_mult * (*str - '0');
+ 				fract_mult /= 10;
+ 			}
+ 		} else if (*str == '\n') {
+@@ -1059,8 +1069,11 @@ static int __iio_str_to_fixpoint(const char *str, int fract_mult,
+ 			f = -f;
+ 	}
+ 
+-	*integer = i;
+-	*fract = f;
++	if (f < INT_MIN || f > INT_MAX)
++		return -ERANGE;
++
++	*integer = (int)i;
++	*fract = (int)f;
+ 
+ 	return 0;
+ }
 
