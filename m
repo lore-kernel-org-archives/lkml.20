@@ -1,112 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792564814;
-	b=sWGlmdchT5XXVEpyxjFgd0BTtCY3MPYitGm/ThN+bQ9yG3iAomOU9fUiV5WV3p3rfcZ1
-	 0OsPEJbyYM8fiZrw8E0e9vieuoLT6yKWpk9zQmS8/acOHjgQkex35JBcPfFdShws8pAI4
-	 yaP3HsHS2sArNGZJiqQHDw+WnW56jaW81N4R08AjkDkLpVCfmhIn0iQJA6Y0WM/vG7WHt
-	 pMOAyPTtW7GBcV5hKh47JpeOVlaQ5JUjM4hyc2/VhUByVW2B2ObGK/ZUArcY/XBmKPHtw
-	 BXnKzL1BD9JRPrpynFXmKXnuPol3LSlFgP4RHGfONDismrwsM1N89onjAad2EH6mBlw==
+	t=1792564828;
+	b=nvUWjEchH0tKBTi0LeWo+lTTfpzYh8EIisqv4zT0gztYcze5aR0mGD0zxnxWPOVmNJC1
+	 +qfyUSa95fDry5VsBPlor0f8ZvbNHCDTeT2WgtMjf280pQyScLWn2qAEXfvqvyW/QgKl7
+	 5SYB1mtdRS0YrdCjHGmsSFLYP/T+Ac8FHxpOxLABgZFDFd3s/9h23ChTsDLdc+V1D9erQ
+	 MRCZERviJm+H8UObu7eE5aaCnbP7lsWi0nNrInVLamazvL3b2ZEIp7qmf17hswN/le1Yv
+	 v6nzVu6KRZ8z4qPupmLpt/bHsyWH1EGuhgptTnoNiWKllEgvZegjECTFY8xXVpJLadg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792564814;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=cP9mBTTtOaaE43IcpziwZvt0RzsuA2Jb7C//CDklSMs=;
-	b=yWDz6Xgl5wg36uzh2bLfmUzGmnKqXXsUhZGe6dVrBYfviyvwAiBf2T4KDC/tYC2kFgxi
-	 lQ1THbXjK55zxZkR+atNbIGJc2Y6CqA+fFeg6JEB87LYdmduT52CkyXlU55yBcptbZS4M
-	 T/FjW5O1OkhAtACKobF4zqJl2rGBG7SaRsGIY+KwoOmWfI3UPeGA4yfpLxFtCU3T4fQQd
-	 wYeLTWAxL2zwD4PTiW4+cZppVdRtTtpn0U4G1klmBaDy4mzD5Gr2a3VA25e/JT5VVVIiD
-	 mZPG8fiJpCOOhmSsNTvPR1ySt67Se+0EHeF0e6aGzbaNmDeFWODc4NplpNFcz8qz+sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792564828;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Rspamd-Action:
+	 X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
+	 X-Rspamd-Queue-Id:X-Rspamd-Server;
+	bh=IFxtjK8vWWVjmsKHN1R3xD1X1PYGIrjdd4sH9XB5K68=;
+	b=zN0Xg9+xUXFiiBp0H6subduFLYQWznO/N6HjobaDRDp98qiO1fH+qfbVKqp/HDOIUowf
+	 mLp95y14TT8XbrFABQpEeJv08jkbbJjAsLswYSbpONtVhL3/jMQqDItAVXhkh5eY5SZpR
+	 9K6d+Jc7w3+KdubbDOBxdu72o909moGQG5ziUx5d7+0Iz9yMsnzSGyt/j1RUglFPM9fAX
+	 xVqohY77QHM4jfXlfxykFtbsCGvSQsVdCvy6G3HDA/3gw8fQrIJIEnc+BWWnt8CvNw40D
+	 MpS+dEf1admcRrnmx6SpsPSSUomvZw2a+nD7i/O1mslkVcq8n4UEkdigeecVO8X24Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qu7chctB;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aKwLkQ7M;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=15SSNEyl;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Y8l4M7fW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=15SSNEyl;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Y8l4M7fW;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78BC606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A78BC606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F0D606A31D;
+	Wed, 21 Oct 2026 06:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F0D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qu7chctB;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aKwLkQ7M
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jMSK2848656
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:40:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cP9mBTTtOaaE43IcpziwZvt0RzsuA2Jb7C//CDklSMs=; b=Qu7chctBBNJIQ0ns
-	EkwPOZvZZgkrQ/URAfWzkQEeEM4sZ+df8fZ11QDylEBvRzggjKIMjZur/pbR7k0G
-	cOw0Tdb4VPmzjfgbbwvnMH1EHlVGWSOmRKC8RRzWfvzv4nQ6JmMeHlpVhkTL79Ps
-	K/IgL0cm9/+waJHDOsQvoWGewp7bZKyVIHkCO/yO7C8ATwOOJ3RD3D8hP0uqIbE0
-	injjcvUTBV5C6diUW+wQ7AGI9oGyUiQVhPCihPuV/ZDwSJ3TT/lRw17y4ClkruPU
-	+a/YrnJn6Go6uVenVyhrWHc4ZQPK2ePW4CXWpVdTJPwfwACIWa0lfjwXeuXsu0tj
-	+mhOfQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9a5g0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:40:11 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac76132001so421039a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:40:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792564811; x=1793169611; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cP9mBTTtOaaE43IcpziwZvt0RzsuA2Jb7C//CDklSMs=;
-        b=aKwLkQ7M1B6FYRmOMkMBm2oKc2QOJ3xOJdfv1pqUaAZ6pxZgmtiCnq7cjZKkYhhMpa
-         WWE8IGSgMtllLR6miWIy8GF6bCDhep9/E8SBKzcNQ9Gsg7WwHl5l0nSWngsoj6Uj9B/4
-         GMWcELwcW2rV102zeQUB4cNYVvU85tNBIBlFsYx08CTEeI8YNbhljhRSHUcSOovVkggK
-         rU+uti1y4LNx7inZ2XNwbm1to/ZhlXvY2aw50Gw8d9Ib4VTOg02k1u+3f6vGCzQAK2YH
-         Y2nAJ2UHe7a+Pq/fLHi+kB9FdjDDEKdvYrVS0iImrRZhhK2/62oF4kkqSCMYSOtOXeRU
-         4J9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792564811; x=1793169611;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cP9mBTTtOaaE43IcpziwZvt0RzsuA2Jb7C//CDklSMs=;
-        b=K3PjhH5mLEhzYykBJL0kTz+KQ543TY95kLYTdboK9WK+CDNWHAEzuO8Un7pynmWyIG
-         t0A0nUwlU75jems9vRRPcIQK9iWLzVwbDfXaEubzP3ePVGoyOn9VnXmA5YcMae7ChvS6
-         IYWcTurldX+0ehRFw6yWCJoSNWeqbNDoEtoZZAiVBq6eHqHc72vWYXW7j9iPlsI4k2Jk
-         dBhP/yWWrvanVetBO/gt3+ubakAaJ95rQ7TLJJtABUOsDg86Z2bL3uuIBpv+xVOkuydQ
-         QkDGcVeeXHTbZqDsr46+fwdGqTBAVuYteJxXVnXHmuYoPQRRpb7hswD5m61KXPWeGZNs
-         U6tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzb6vs6syuJwGs5fRbnpilc0cR7CYLdIqA4dedoQrOQQiNAb5lhr58cO3pI4eWRHZoSUtXPioianWpvIXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8v6dV/xIcOz3WinciAIqLShTU7FF/+OwrAI1CnEV/9qowUnUy
-	GWY4uTpxZDjAq2yUSCx5SzvpGz+51biQJKZnq/vWZ16Tqe4gFxsglYQEno3o81f/wmmeE1En5UH
-	g0OZcRArwgntBuRbohwMxw8DdNwc24QImnYRlmZAz5Som+2j8e0t1GI0IudwOROfUuAM=
-X-Gm-Gg: AYBFou1/VTrDxtCBcA5+8+vkWFubbkcTKF/wlOM6yAcCDibkJUnLs2YZI2NBfLa0KKE
-	GBsa80gQJ1mi2zJwqfgpxOkS/petTqEp1mgFOuq8xo/pQlPxsrjwzjVG8g12wIRW2SLtm9Cg+TH
-	EqTyIfy4VHWa61N3jLJUEXyKJzeDUKYgrDkCLVCVk4YAtOIR8sJAGS0KsCPxfcoX+BJq+Y2qi1D
-	HVlOvSk2W73YOY0+XUMIzRRD8vY3mfy6Uaqm1Skj6fQXxJ1KPFXRjT1r6PYXi2rCPG3OxIOpwcb
-	XNteSH4OezJi6L1dfc64KL2cxzOzeGlfyWeavoAMOjU/D0drc0k4Rm3LqHfFiFusbijHz0n8VYK
-	c/UjECwlrmV1CL+rxBGqBTVilG9CQV8ObF08=
-X-Received: by 2002:a17:90b:1dcf:b0:3ac:4e18:238c with SMTP id 98e67ed59e1d1-3ad86f10199mr840932a91.49.1792564810750;
-        Tue, 20 Oct 2026 23:40:10 -0700 (PDT)
-X-Received: by 2002:a17:90b:1dcf:b0:3ac:4e18:238c with SMTP id 98e67ed59e1d1-3ad86f10199mr840918a91.49.1792564810312;
-        Tue, 20 Oct 2026 23:40:10 -0700 (PDT)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad82f0c0b1sm1163101a91.0.2026.10.20.23.40.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:40:10 -0700 (PDT)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 12:09:44 +0530
-Subject: [PATCH net-next v3 2/2] net: wwan: qcom_bam_dmux: Assign
- restricted DMA pool to remote processor
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=15SSNEyl;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Y8l4M7fW;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=15SSNEyl;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Y8l4M7fW
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C3BFD1F394;
+	Wed, 21 Oct 2026 06:40:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792564825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=IFxtjK8vWWVjmsKHN1R3xD1X1PYGIrjdd4sH9XB5K68=;
+	b=15SSNEylYkq/EosgujXgW/HDVBzX67U9/Xcv2XLAgyUE3yFlekMvB+UCahA+mjvEpcNoIN
+	ftV+vXpd0zI+c0KWNUx8vXILcXM/WtWnIzy9u6xqU1qEEzNB3KHHIDtJbgBwP4RCwk4OFn
+	z85pBNvbF7n+ZGB4V9lceFbs9TUPdWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792564825;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=IFxtjK8vWWVjmsKHN1R3xD1X1PYGIrjdd4sH9XB5K68=;
+	b=Y8l4M7fW9j4mTA/KLk38DkdpqaX0ParibPBzQOnyONE2OX9GNIVXKesPG3ywSEotHd/uR3
+	cxkPO+XLh+YaEvBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=15SSNEyl;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Y8l4M7fW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792564825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=IFxtjK8vWWVjmsKHN1R3xD1X1PYGIrjdd4sH9XB5K68=;
+	b=15SSNEylYkq/EosgujXgW/HDVBzX67U9/Xcv2XLAgyUE3yFlekMvB+UCahA+mjvEpcNoIN
+	ftV+vXpd0zI+c0KWNUx8vXILcXM/WtWnIzy9u6xqU1qEEzNB3KHHIDtJbgBwP4RCwk4OFn
+	z85pBNvbF7n+ZGB4V9lceFbs9TUPdWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792564825;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=IFxtjK8vWWVjmsKHN1R3xD1X1PYGIrjdd4sH9XB5K68=;
+	b=Y8l4M7fW9j4mTA/KLk38DkdpqaX0ParibPBzQOnyONE2OX9GNIVXKesPG3ywSEotHd/uR3
+	cxkPO+XLh+YaEvBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73DEE134A5;
+	Wed, 21 Oct 2026 06:40:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vDTAElle2GohYQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 21 Oct 2026 06:40:25 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	Junrui Luo <moonafterrain@outlook.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] platform/x86: ibm_rtl: Fix potential OOB read at signature search
+Date: Wed, 21 Oct 2026 08:39:55 +0200
+Message-ID: <20261021064012.457870-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,299 +107,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-qcom-bam-dmux-vmid-ext-v3-2-cedd1f681102@oss.qualcomm.com>
-References: <20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102@oss.qualcomm.com>
-In-Reply-To: <20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102@oss.qualcomm.com>
-To: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792564791; l=8482;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=mJhzhF/7WA8BSFcvRLcEwOGKZ7+vE9/EnrF4/T3J3iI=;
- b=emO+9SrGjvx+wA0OFUXk9RK+aVV0cpEIu/5mK4fq9uchgmzmzu1cqCL5yIQpJp//y0uFtAufR
- wm/zk/YF+h7D6M1IbnN3vN0lRurpZ/fHgus991ibi+DCfO4MywxqxwP
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAyNiBTYWx0ZWRfX/CjZ9DEEzSjG
- 2LlyodS58PbRZY7ZXDYCmf51j5HeJUWdD10bOI6SfmXC3q4pCPXpPmkDOCqiTGWmDe54rCCyzVh
- DV3g7/7nkcafeszGyYnzQRIA0Gk2OCE=
-X-Proofpoint-GUID: GbjL3lH6Wlr-7m-2AnvRf8zJUI3XJDl3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAyNiBTYWx0ZWRfX0G3Y+CZJN428
- WsVYKlSvjOG22NsQ5e2LSaghcoDhlVD2jXE6/6eLWUR4JmIrHEoGLC3lXnD5ehBOdhttfFj2cac
- 0e5a/ficev5qZojYizil5k96q/sQHZhrMskBHvXu7sL+4KjuL4DNmeLZmx6LQesakYNNn2JB/9a
- E7ATdDNhpj3PZRWwPhInvB8m0OzYfHGET3ne72+CH6ECxaqXqEmdhRqDZXpB0swss2yKSgdYqei
- LYe3XDqH6Gq5j+yg+kveN0DEGvDLn80EDMfo2uNDHEHqzT4g9KJCV9ORD0IeaAMdZCgyxPtuMki
- fSyb7vxBgfpaIltdg+kleqLvETsNH1Adb6AmoC2LiYQ6tQ6oifOdg5I7HM5B/KuuY3jky/9HYha
- 0jf9UGwYRuqzBanSseg4q5TmwrRyL8vWtlpvDrBQWw/FTh3t3z0PxEFCHOBg+mGqrRTPBCAAbuP
- QVb6ffPTn0ARv3rMr5A==
-X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad85e4b cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=bDPAjwpS2HP9AAYYRpEA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: GbjL3lH6Wlr-7m-2AnvRf8zJUI3XJDl3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210026
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[outlook.com];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,outlook.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C3BFD1F394
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
-domain with restricted access to system memory. BAM-DMUX DMA mappings
-and BAM descriptor FIFOs must therefore be constrained to a designated
-memory region that can be shared with the modem. Accesses outside that
-region can trigger an XPU violation.
+The loop for signature search fetches 22 bytes of struct ibm_rtl_table
+at each check, while the loop count is calculated in 4 bytes unit,
+which means that, at the last entry, it fetches over the limit.
 
-When qcom,vmid is present, require a restricted DMA pool and assign the
-entire pool to both the local and remote execution environments before
-requesting the DMA channels.
+Rewrite the loop to use the byte offset and correct the boundary
+condition check for avoiding the potential OOB access.
 
-This ensures that BAM-DMUX mappings are within the assigned region. When
-the BAM DMA controller references the same pool, its descriptor FIFOs
-are covered by the assignment as well.
-
-Track the assigned execution environments explicitly and reclaim the
-pool for the local environment after DMA channels and mappings are
-released during remove or probe error cleanup. Skip the reclaim and
-leave the pool assigned if the remote side did not acknowledge the
-power-down, since it may still access the pool.
-
-Fail probing when restricted DMA pool support is unavailable, when the
-VMID property is malformed, when memory-region does not reference a
-restricted DMA pool, or when the pool is not attached to the device.
-
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Fixes: 15dd100349b8 ("platform/x86: ibm_rtl: fix EBDA signature search pointer arithmetic")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/net/wwan/Kconfig         |   1 +
- drivers/net/wwan/qcom_bam_dmux.c | 119 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 117 insertions(+), 3 deletions(-)
+v1->v2: Replace loop counter with offset and correct boundary check
 
-diff --git a/drivers/net/wwan/Kconfig b/drivers/net/wwan/Kconfig
-index 958dbc7347fa84ee869439bf8b503037faab8bef..1b133c56231615269698140187ca3141dfe48dbf 100644
---- a/drivers/net/wwan/Kconfig
-+++ b/drivers/net/wwan/Kconfig
-@@ -65,6 +65,7 @@ config MHI_WWAN_MBIM
- config QCOM_BAM_DMUX
- 	tristate "Qualcomm BAM-DMUX WWAN network driver"
- 	depends on (DMA_ENGINE && PM && QCOM_SMEM_STATE) || COMPILE_TEST
-+	select QCOM_SCM
- 	help
- 	  The BAM Data Multiplexer provides access to the network data channels
- 	  of modems integrated into many older Qualcomm SoCs, e.g. Qualcomm
-diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-index cc6ace8d64371eb8d00c638a39b234ee540b83c9..fa3621224a56e34086635e1abe1220c3ae40e899 100644
---- a/drivers/net/wwan/qcom_bam_dmux.c
-+++ b/drivers/net/wwan/qcom_bam_dmux.c
-@@ -9,14 +9,17 @@
- #include <linux/completion.h>
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
-+#include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/if_arp.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
- #include <linux/netdevice.h>
-+#include <linux/of_reserved_mem.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/soc/qcom/smem_state.h>
- #include <linux/spinlock.h>
-+#include <linux/swiotlb.h>
- #include <linux/wait.h>
- #include <linux/workqueue.h>
- #include <net/pkt_sched.h>
-@@ -75,6 +78,9 @@ struct bam_dmux {
- 	struct completion pc_ack_completion;
- 
- 	struct dma_chan *rx, *tx;
-+	phys_addr_t dma_pool_base;
-+	size_t dma_pool_size;
-+	u64 dma_pool_perms;
- 	struct bam_dmux_skb_dma rx_skbs[BAM_DMUX_NUM_SKB];
- 	struct bam_dmux_skb_dma tx_skbs[BAM_DMUX_NUM_SKB];
- 	spinlock_t tx_lock; /* Protect tx_skbs, tx_next_skb */
-@@ -762,6 +768,96 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
- 	return 0;
- }
- 
-+static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
-+{
-+	struct device *dev = dmux->dev;
-+	struct device_node *rmem_np;
-+	struct reserved_mem *rmem;
-+	struct qcom_scm_vmperm dst[2];
-+	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-+	u32 vmid;
-+	int ret;
-+
-+	if (!of_property_present(dev->of_node, "qcom,vmid"))
-+		return 0;
-+
-+	ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
-+	if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
-+		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
-+
-+	if (!IS_ENABLED(CONFIG_DMA_RESTRICTED_POOL))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "qcom,vmid requires DMA_RESTRICTED_POOL\n");
-+
-+	rmem_np = of_parse_phandle(dev->of_node, "memory-region", 0);
-+	if (!rmem_np)
-+		return dev_err_probe(dev, -EINVAL,
-+					     "qcom,vmid requires memory-region\n");
-+
-+	if (!of_device_is_compatible(rmem_np, "restricted-dma-pool")) {
-+		of_node_put(rmem_np);
-+		return dev_err_probe(dev, -EINVAL,
-+				     "memory-region must reference a restricted DMA pool\n");
-+	}
-+
-+	rmem = of_reserved_mem_lookup(rmem_np);
-+	of_node_put(rmem_np);
-+	if (!rmem)
-+		return dev_err_probe(dev, -EINVAL,
-+					     "Failed to look up restricted DMA pool\n");
-+
-+	if (!is_swiotlb_for_alloc(dev))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Restricted DMA pool not attached\n");
-+
-+	if (!qcom_scm_is_available())
-+		return -EPROBE_DEFER;
-+
-+	dst[0].vmid = QCOM_SCM_VMID_HLOS;
-+	dst[0].perm = QCOM_SCM_PERM_RW;
-+	dst[1].vmid = vmid;
-+	dst[1].perm = QCOM_SCM_PERM_RW;
-+
-+	ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
-+				  ARRAY_SIZE(dst));
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "SCM assign restricted DMA pool failed\n");
-+
-+	dmux->dma_pool_base = rmem->base;
-+	dmux->dma_pool_size = rmem->size;
-+	/* Track the destination VMIDs explicitly for the reclaim operation. */
-+	dmux->dma_pool_perms = BIT_ULL(QCOM_SCM_VMID_HLOS) | BIT_ULL(vmid);
-+
-+	return 0;
-+}
-+
-+static void bam_dmux_reclaim_dma_pool(struct bam_dmux *dmux)
-+{
-+	struct qcom_scm_vmperm hlos = {
-+		.vmid = QCOM_SCM_VMID_HLOS,
-+		.perm = QCOM_SCM_PERM_RW,
-+	};
-+	u64 src = dmux->dma_pool_perms;
-+	int ret;
-+
-+	if (!dmux->dma_pool_perms)
-+		return;
-+
-+	ret = qcom_scm_assign_mem(dmux->dma_pool_base, dmux->dma_pool_size, &src,
-+				  &hlos, 1);
-+	if (ret) {
-+		dev_err(dmux->dev, "SCM reclaim restricted DMA pool failed: %d\n", ret);
-+		return;
-+	}
-+
-+	dmux->dma_pool_perms = 0;
-+}
-+
-+static void bam_dmux_remove(struct platform_device *pdev);
-+
- static int bam_dmux_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -796,6 +892,10 @@ static int bam_dmux_probe(struct platform_device *pdev)
- 				     "Failed to get pc-ack state\n");
- 	dmux->pc_ack_mask = BIT(bit);
- 
-+	ret = bam_dmux_assign_dma_pool(dmux);
-+	if (ret)
-+		return ret;
-+
- 	init_waitqueue_head(&dmux->pc_wait);
- 	init_completion(&dmux->pc_ack_completion);
- 	complete_all(&dmux->pc_ack_completion);
-@@ -829,8 +929,11 @@ static int bam_dmux_probe(struct platform_device *pdev)
- 
- 	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
- 				    &dmux->pc_state);
--	if (ret)
--		goto err_disable_pm;
-+	if (ret) {
-+		/* The PC IRQ may already have powered up the RX path */
-+		bam_dmux_remove(pdev);
-+		return ret;
-+	}
- 
- 	/* Check if remote finished initialization before us */
- 	if (dmux->pc_state) {
-@@ -845,6 +948,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
- err_disable_pm:
- 	pm_runtime_disable(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
-+	bam_dmux_reclaim_dma_pool(dmux);
- 	return ret;
- }
- 
-@@ -853,6 +957,7 @@ static void bam_dmux_remove(struct platform_device *pdev)
- 	struct bam_dmux *dmux = platform_get_drvdata(pdev);
- 	struct device *dev = dmux->dev;
- 	LIST_HEAD(list);
-+	bool remote_suspended;
- 	int i;
- 
- 	/* Unregister network interfaces */
-@@ -872,13 +977,21 @@ static void bam_dmux_remove(struct platform_device *pdev)
- 	pm_runtime_set_suspended(dev);
- 
- 	/* Try to wait for remote side to drop power vote */
--	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
-+	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
-+					      BAM_DMUX_REMOTE_TIMEOUT);
-+	if (!remote_suspended)
- 		dev_err(dev, "Timed out waiting for remote side to suspend\n");
- 
- 	/* Make sure everything is cleaned up before we return */
- 	disable_irq(dmux->pc_irq);
- 	bam_dmux_power_off(dmux);
- 	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
-+
-+	/* The remote side may still access the pool if it did not suspend */
-+	if (remote_suspended)
-+		bam_dmux_reclaim_dma_pool(dmux);
-+	else if (dmux->dma_pool_perms)
-+		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
- }
- 
- static const struct dev_pm_ops bam_dmux_pm_ops = {
+ drivers/platform/x86/ibm_rtl.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/platform/x86/ibm_rtl.c b/drivers/platform/x86/ibm_rtl.c
+index 139956168cf9..82fda8d9178b 100644
+--- a/drivers/platform/x86/ibm_rtl.c
++++ b/drivers/platform/x86/ibm_rtl.c
+@@ -234,9 +234,9 @@ static const struct dmi_system_id ibm_rtl_dmi_table[] __initconst = {
+ };
+ 
+ static int __init ibm_rtl_init(void) {
+-	unsigned long ebda_addr, ebda_size;
++	unsigned long ebda_addr, ebda_size, offset;
+ 	unsigned int ebda_kb;
+-	int ret = -ENODEV, i;
++	int ret = -ENODEV;
+ 
+ 	if (force)
+ 		pr_warn("module loaded by force\n");
+@@ -271,9 +271,9 @@ static int __init ibm_rtl_init(void) {
+ 		return -ENOMEM;
+ 
+ 	/* search for the _RTL_ signature at the start of the table */
+-	for (i = 0 ; i < ebda_size/sizeof(unsigned int); i++) {
++	for (offset = 0; offset + sizeof(*rtl_table) <= ebda_size; offset += 4) {
+ 		struct ibm_rtl_table __iomem * tmp;
+-		tmp = (struct ibm_rtl_table __iomem *) (ebda_map + i*sizeof(unsigned int));
++		tmp = (struct ibm_rtl_table __iomem *) (ebda_map + offset);
+ 		if ((readq(&tmp->signature) & RTL_MASK) == RTL_SIGNATURE) {
+ 			phys_addr_t addr;
+ 			unsigned int plen;
 -- 
-2.34.1
+2.55.0
 
