@@ -1,72 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596439;
-	b=o6lplVl4/aebaYPesg7ckcgT7/BWjgA3ejrLrNoA0vyJu6/Mcv03awQnpjfp2npFp32x
-	 biRDLADwC+BUmyexg2omh6k9Q+aDraq7/u8GX2eOQbDBQ/MGUPmQIsOoigKN4SLV0oi4C
-	 r9bU19F6jr/q5BpLFFZR0+LPQcUYvaCFa4z+srsyU9MlqT0eEE+5CLTfe4pB82qy7JQnk
-	 xodo+bNYuPo0gNs/3BrsRT05YFpo8wUugssmzr6K0+GlZojCHoausm4z1KHZHNGp5hUzc
-	 O2pSvUN+Rd8WjoGKjpdIcsneqjVXBiXOzCSn+4RuOhG5saQVzQtnB7ul+s7TvwDuqdQ==
+	t=1792596487;
+	b=EPxF+LpcmAg4MvTm4qKVrmmescAuxpADYULLSg7aajj+XC8SrdUxOdZTtABRre3ZJoi+
+	 JrcdA5OOhv5kWxCtMfi22cJscVSqtF9ZEDmTxUFVhkqubhupNsFIeMDd1UJfGaFvkO/Zt
+	 dEEY0p2GKbL/NGYDju0rWDR8NcuIKtIGDmU6fcm6xOMVVp7AMFdmwuwsulo75MNWOabfA
+	 z1AjW3Vm2Ngqgd1RiPAMXLz2K+UvqZ8RzTQZ0xD260yTLaPRjs1GrahQKrzxnJvTRltap
+	 9a/VM6IENJVZWDn8GF0hresi+atnHTBmbZ6TEZalKvPN3hD8FlCC2eGOYoowFLDkEQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596487;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=jgAnNPRw4bl7KLoUTwKbk6oRViEcdsIxPyek4/jTHZc=;
-	b=IuV0ya8vLJgJ7YBXsGrB9jl0wS5R2QcDs9qCSrXIaCz0fRspKtmQWIONnbdS3CJtaxYm
-	 9QfgPqxnCbYS4HO/n+LBP+YTLwihylXJXr6FJoJt0thCy565/j1XwrAIh5klfhiZSiXZ2
-	 bci9peRWeOw1A3ZYwx2uJ9MoS8vMpBhOGoH7bz7qsFNq5XU3l9TvvHkeFHR7dNc4RpI4C
-	 RrF5EvvB5Hft9rK7gk3K/hUcKmELtiIfid03VdGU8p1cu1QJwdT9s08hb7j+nHwPtUCfn
-	 ZgsMeuUYjCdBBPnukv5Z4IH0PqBjsTfoImfBKOSeYrpyiPPfeYjAtsLmowpGPkRaXyA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=J7iM+yhWKMhlaRTv9Dtyn+iVYrKHxFutAHJMBB4EGzM=;
+	b=hkzHhgo5TSYenNOc2d+M4fUY6EBEAa8lQIqZ8qN8veklQCdgbBFLO/xggoqTrkrF13ol
+	 qWZJ0BQ0SnL5D2DzSSm6ntBMt032HCVBP+suWdLMmMgmva+KJ43a7ciRipJnnt0Eu/6Ua
+	 JKUp/8Q91gTPnqcI3klIDZ7gwHWvwgD3L1PBn8GY8wrcq58r5R1D6f17vxYbyH2/jAt/u
+	 tPaX7NXBThuf0R3XPsqw4wDY6KjSQyzQoYrbU0j7RejJdjhVbjJhUws/BX/GvJV8TzRb1
+	 N6JTfW9oEN84XhuwG+jyDo9fya6IvLmLXZ4hV6JI4D61FuhZV0aLE7UTHl0d9N3afxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--gthelen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RWx0T6jq;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=NjkSxdlR;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEDF606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:27:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BEDF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gthelen.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C7D606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:28:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C7D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RWx0T6jq
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so2015200eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:27:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=NjkSxdlR
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9179bfa9e9cso12367436d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:28:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792596438; x=1793201238; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jgAnNPRw4bl7KLoUTwKbk6oRViEcdsIxPyek4/jTHZc=;
-        b=RWx0T6jqAP4HmT2K09lvjwGaIFrNgspwI+GiEccvd37c5EIofQ2Z90i2VF0eV+9EtW
-         QNuan04bsuIV5lePSClR20Yf54OtGxfL0UNC+1+iheIhH0M5Qv5EBYDmJ6C8S9St0NfV
-         wQDR/4VN+ylTCPqz1GJKvI2H+gchcDZETgzsXeJzL6a2rKrM3lsTkbxRZEUopeuCnzdO
-         +YeaVdSfb3opdL8y9vnYKrSoLD+KUp4X49ruFZOYhcXq+DrJVrgi/LWtkQ86F/296Z9I
-         FvnVC2aJhOKeHwyRNjfNtDNCu84/oj60zWLdKJeGupNojRFVl7Rye1eL3NLIM+LEVunE
-         zuZw==
+        d=gourry.net; s=google; t=1792596485; x=1793201285; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J7iM+yhWKMhlaRTv9Dtyn+iVYrKHxFutAHJMBB4EGzM=;
+        b=NjkSxdlRV0YeVz9c7b6C/ObSO3CV0F/hk+ur2ybp4U3aMmAsWcP+bU7/dNr90v16f4
+         lzE1t8ilfOMbXED2Faep7Yp5B95D2uUr/qMIEx5Oyw95DKLXGoh3caabdUt2LHq+Fi0j
+         vSya0ZD3VKvWY/eLMka4vEoMzAqmA7visb1VKBind7HuYq2Q86IXrdGSvBvLC4hjJMO4
+         aZXCGMpGcQKicHLpdJvPEmLzWgdSH16GK3pwIzAwfObU1r7I4EGPOadc8keV1VdF0i4+
+         KqPkYtVuJ9RYGRLHuNTHl+cgUIe3yW4bKzYvltjnytDJ3oAKPykNIzKqUiWhpgU+lh6v
+         376w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792596438; x=1793201238;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1792596485; x=1793201285;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jgAnNPRw4bl7KLoUTwKbk6oRViEcdsIxPyek4/jTHZc=;
-        b=s00tzH4Aa4k7uxh9SjXT7Kqx1iJ/IX/ek7nQR74Fy/hBDH4iLn4R6XUqAkiVjhJ5Pl
-         afi7tmPngIKOtuW9U1/FlOfgrdL4N90tfOGE0w84zS+50qZym0S1x0V05dnMV+AZaWqg
-         iEsHBSuVS2zQKUy3vP2ShnisxmI9IFzlRqzEB5OQXuEgFPNg25P+E74uPIB+Ca+lZQyj
-         /oDRCb5nofnptwYqzoWw08sDPz1oO1ifZl7S9LsGvs5HUfuGwzZg78JLm8aaeWOJ+ftX
-         Zw0WsY3CKLmiTfYmuywvVk/9fl1/kwKLDKczgxrqFENINmPtywYJcKXrlLJoDoPM44uj
-         OFpw==
-X-Forwarded-Encrypted: i=1; AKwUvByqbDabAxjd/mfkcAI20ORAL3JcY0yeivzS6cl1LQuRjiac1sxEfaH9abrqVqHmkDHhbJu/WPNFquabjVw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKz4NjMfgSnxINbkRvDbqyNPKnhv2c070D5OQsZoimnlSagUMOC
-	zPxwZwgCnAc8a8CvCVDCD6pGGGYdEsIAYce3Yg+qLij0KRwbHDABqydTaE5c1LoXc4Uf/DU+KX/
-	+pU58s0/9+A==
-X-Received: from dycpq4.prod.google.com ([2002:a05:7301:fd04:b0:34d:46b2:7513])
- (user=gthelen job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:d185:b0:359:a6ed:41ab
- with SMTP id 5a478bee46e88-3674db50cd0mr3750142eec.36.1792596438073; Wed, 21
- Oct 2026 08:27:18 -0700 (PDT)
-Date: Wed, 21 Oct 2026 08:26:58 -0700
+        bh=J7iM+yhWKMhlaRTv9Dtyn+iVYrKHxFutAHJMBB4EGzM=;
+        b=V28ATB32Brvn8rTEt30Q1zDtT8RzOBIT01E8Vrdl3CfZiEttmbrvzvhsL+oia9819A
+         jA7Ku8c+wazrNIgxXLgPvJPJLOtFfHUna/NaGbMAuEKnw8uNmqXnHeJ52NRZjnKZ10oS
+         pm/DTDnO6A9XMKONsMVVCfVkjWxaO2aVUvjrq8BLNPEZMy1zbf3hccdTeligVo0JOxLT
+         LutQFDdqr58YQUtpbC7OWCheEL7fGIX339BXB49wmDgk7xefnQuN3tVoAi5LDqsf3hjh
+         K/wLsfgYgyg395ReMlDbGgKMrQquJjupp/NaHCx/YxRC0v0ka5QxQLwrJVcXju8FHcoj
+         gZWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7TnlOGfjjqKzMG/FCr/Efai+FH5JMFUHARCHQG8RLglgc0AOP9khbEWhahuerNyl0uvR8kNlaCLGL56E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDUD/vqTthsh443szEo4y4dFPsDEfJJ+iuZkWf/WHq094jeeOB
+	FJmwMW4J03y1GMdkKmhq9hvrE1r3U7wUfx7Jv7FM51pKdLh7hlK+fmtFkr4kjlHuiaU=
+X-Gm-Gg: AYBFou1WWvczFiermkspsq1WIHPwLEYly1ESoxwqx+aRQlxxjqqtj3rmTfIJo3PMxzR
+	bBU7IX+0vfeGt1EigrOIuWh7tYQ7q12MFP/wlcA1YPDbfLNwqNo8RtHL5h+j7Zw2MkIRl8PkKkr
+	dOOaXLV4a9OyIdmdIk2pcnITjDPkw7UdQgDW7GBP4kK+GHQRN7DNRcclJG61i4yA5fXTlPYebXr
+	kY7/QIrBb8D9nKYr6QKReWbUINKbb8doUssIBhQEE5RpADWtSNjDl6WJoM9ZjgrykyheoZirYPb
+	qUBdqDNMScZLn8aWzTl+1jXPNeppt1+mVRn5cNbTUIbhZR9ra9/9XJNGDIhkQHxOQt2l4Vsdxmq
+	TVGR4OKm1+YVxKzG90KRmtIZdsJ6mKRkEGyH9ababLFCcQAxOQl/U0L8QSuoTRUgUy5TwxLzXi1
+	rOlH8OePoxhlyuoNUnbb8LfoBo9qcsGbHKShYKgbPEUItjYC38MaCvMjRuKigxwy33HnTIHApZt
+	0vE81yn8eR+sKew+GlOIbAOFwYWbjrGHTWZLdb8W9oHWbdMW3JUFe5WvyDnOqkZpmQW/YX+8/p/
+	d/JqAhCBv5rGvyeF187a9TmZ/F0W7WcO9xKs
+X-Received: by 2002:a05:6214:3a8c:b0:91b:d5d7:8c85 with SMTP id 6a1803df08f44-91c12eff3e3mr44319236d6.33.1792596485317;
+        Wed, 21 Oct 2026 08:28:05 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10c3b500sm27151986d6.35.2026.10.21.08.28.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:28:04 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:28:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	shr@devkernel.io, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/page-writeback: avoid 32-bit overflow in dirty
+ threshold shares
+Message-ID: <atjZ6yadzSeqjozA@gourry-fedora-PF4VCD3F>
+References: <20261021060654.27855-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,65 +97,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261021152658.2618709-1-gthelen@google.com>
-Subject: [PATCH net] selftests/net: tcp_mmap: remove unused -k option and keepflag
-From: Greg Thelen <gthelen@google.com>
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Soheil Hassas Yeganeh <soheil@google.com>, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, Greg Thelen <gthelen@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021060654.27855-1-dennylin0707@gmail.com>
 
-Commit aacb0c2e524c ("selftests: net: tcp_mmap must use
-TCP_ZEROCOPY_RECEIVE") removed the only read of keepflag in child_thread(),
-leaving the file-scope keepflag variable set by the -k option in main() but
-never read. This triggers a Clang 23 warning:
+On Wed, Oct 21, 2026 at 06:06:54AM +0000, Hungyu Lin wrote:
+> The ratios used by __wb_calc_thresh() are scaled to parts per million,
+> but the threshold and ratio operands are unsigned long. On 32-bit
+> kernels, their multiplication can wrap before the result is assigned
+> to u64.
+> 
+> For example, with a threshold of 25600 pages and the default maximum
+> ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
+> The shared threshold and minimum share calculations can overflow in
+> the same way, producing incorrect per-writeback dirty limits.
+> 
+> Use a u64 threshold for the three ratio multiplications and div_u64()
+> to retain the existing division order and rounding.
+> 
+> Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-  tcp_mmap.c:91:12: error: variable 'keepflag' set but not used
-  [-Werror,-Wunused-but-set-global]
-
-Remove the unused keepflag variable and the dead -k getopt option.
-
-Fixes: aacb0c2e524c ("selftests: net: tcp_mmap must use TCP_ZEROCOPY_RECEIVE")
-Signed-off-by: Greg Thelen <gthelen@google.com>
----
- tools/testing/selftests/net/tcp_mmap.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/tools/testing/selftests/net/tcp_mmap.c b/tools/testing/selftests/net/tcp_mmap.c
-index 487ae659a1f1..86241bed7f08 100644
---- a/tools/testing/selftests/net/tcp_mmap.c
-+++ b/tools/testing/selftests/net/tcp_mmap.c
-@@ -85,7 +85,6 @@ static int rcvbuf; /* Default: autotuning.  Can be set with -r <integer> option
- static int sndbuf; /* Default: autotuning.  Can be set with -w <integer> option */
- static int zflg; /* zero copy option. (MSG_ZEROCOPY for sender, mmap() for receiver */
- static int xflg; /* hash received data (simple xor) (-h option) */
--static int keepflag; /* -k option: receiver shall keep all received file in memory (no munmap() calls) */
- static int integrity; /* -i option: sender and receiver compute sha256 over the data.*/
- 
- static size_t chunk_size  = 512*1024;
-@@ -456,7 +455,7 @@ int main(int argc, char *argv[])
- 	int sflg = 0;
- 	int mss = 0;
- 
--	while ((c = getopt(argc, argv, "46p:svr:w:H:zxkP:M:C:a:i")) != -1) {
-+	while ((c = getopt(argc, argv, "46p:svr:w:H:zxP:M:C:a:i")) != -1) {
- 		switch (c) {
- 		case '4':
- 			cfg_family = PF_INET;
-@@ -490,9 +489,6 @@ int main(int argc, char *argv[])
- 		case 'x':
- 			xflg = 1;
- 			break;
--		case 'k':
--			keepflag = 1;
--			break;
- 		case 'P':
- 			max_pacing_rate = atoi(optarg) ;
- 			break;
--- 
-2.56.0.212.g129ede20d9-goog
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
