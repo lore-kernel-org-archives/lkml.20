@@ -1,48 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.247.131.55
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578248;
-	b=kb6kxKZGRF4a2TTWC43X6QkVxh83a7+9/bmdbjgLHOwYJw9go4cZ8mFOisJawCcqkNqt
-	 K089AiQGOqMfR6q//S0+OAZfDWlftfaCekqoFPahEITpcSR0SEf3RFCh1MTaSf5SeG8/U
-	 ybsXmWUqz+bUXAesJaM/d7lSMBaj2V1a13p+ZHy2aXT6vsibyh+J57Nd1JU2OYsERExSY
-	 at0go5PYDfdRMHKM5w/Zj/q5i97R1CRSn83qP0BBLHOFV6QjHmfz/xYRY2v7sJUrm+xRg
-	 uzrs9NWoFmXg7M0W9MRyElzBj64iZ9W9ET2W2pjO+kfXBiFWj8V9KKfK0MAt9ce9Gyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578248;
-	h=DMARC-Filter:DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:
-	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eanCuq/f8vbvsTBiZWE8wP9g1in6E4Q4CJBUVXP3MSw=;
-	b=DRxw8MGzLcEfAt3xGvvLa+qpTnDmBn81r/aRiw4PLVfFAjHvAx070izjCN+pF3t+7Joc
-	 Jgp9IAdGxPHYDZgEN7AX8T6yftvHvlS9EC2lViX+H+oo9eqmjkBf6XudmIAPR5nR1TvTw
-	 n97zqMuflKMtbwNxXNTjkXy0B9Woz5R7KoSHykNS+p28v8boWFtdiO429LZzgiYD5E2AI
-	 h7W5B4ohe99kXX5doLzGsLt5tz2aUeFW2qITrJ33oYtYSMCoUarhIV3RnRK9OySBg6FL2
-	 sqD28eVd3QVDO0IuN6bWOJIWX3aVDiSpZX+ffXKJ2mnq/nONU8lUTynCJOsY2mesa/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dakr.org;
-	spf=pass smtp.mailfrom=dakr.org;
-	dkim=pass header.d=dakr.org header.i=@dakr.org header.a=rsa-sha256 header.s=20250831r header.b=o6W3A05Z;
-	arc=none smtp.remote-ip=84.247.131.55
-Received: from hs01.dakr.org (hs01.dakr.org [84.247.131.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792578249;
+	b=C778fFZSVgpxwR4IDGukFJF60JjfbwqVRgs2y8RImPsz64PZhnZSwlEp9FPriMTOYu58
+	 Koh+SmV300LjqvOMRjJSExTg5qkx0hQxwfvmYi3uXkSW8g9PQMCmNmHtm25IxPOYcsFwV
+	 Y3LFegDa23zZGqaqa2HIRnVBxmy63P0t8TEwMHRLMVY+XNv1L5pXPy5aJ1RseHKExovri
+	 J9p0Drr6rmwwXkH6/np7MIGJeXEdr52a4dmQxI0efXbYd3t98vDDwxxfD7dHtC7tNyKpp
+	 txwRhQS3XmpSq3MBkSkj7l884rL2ZPuSRFAYMLw5ZgsamjRcHBjpMbJ9SmKTu5+Z+zA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578249;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VOMZZkZ47LzRUwWzSV4zQRcKDwW70Ygvq3uLyPdNJ8I=;
+	b=HaSwTSiJ3TXPIqh8kPnhQT8J/sk6cQayFQZLrN7WB4kWOQcdDZa9zmjSlfONY7fb8iMz
+	 GqmgzRvjueJVofOlVsl1FhtpUpXcdvnStoTAketUG+1HipheI66ZllhKut5b0b3vOnkkm
+	 A7GvbEL8RmS/AV1cd0qMPguKtoT8/b657R5BD30j4IkmF28KynakT5BCLXpEjhVlm8dBv
+	 AX+MdN5c94gKlOSv1ahsv2VvMXUeSiWxpybrFJT7SidxzpWOPZ9NjadMacAEHYITGoh35
+	 xWFd4pE7DT+xV+xPWmuNqfsoDSsu84BAv6EtRCgJCKoeNHdzrs6p4JrJ8u30/kSaKgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWkfdWGz;
+	arc=fail smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6348606A319;
-	Wed, 21 Oct 2026 10:24:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6348606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dakr.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dakr.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A97606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:24:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7A97606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dakr.org header.i=@dakr.org header.a=rsa-sha256 header.s=20250831r header.b=o6W3A05Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dakr.org;
-	s=20250831r; t=1792578239;
-	bh=eanCuq/f8vbvsTBiZWE8wP9g1in6E4Q4CJBUVXP3MSw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=o6W3A05ZjA8HLIzoqmsHAfjfwwrhTWj9JmaY0m+P1iOqErj621nNniEkOVbqjsABV
-	 D7PoNhPZo2wQh6Eti3Sl7FJL7lnnJ4gz9NoRjM3eV1yqYYlNn5r5dFeB+6uAxDHaZm
-	 lLFsVMWEmXNINBoQt3Buup/DCAKmooY5ewzZ2vpnZKJaLxvwcTFJAX91a44t/zJaT1
-	 g0dN+gEudRoUdVPW+aRC31AN+C6y5O3uqGeqNMpmVWa1wlVe6QW7bVKzXQ00+cI688
-	 EzuRDJTP7ouO9MhHoMCbY/5ggel0LVEnZ3AHcKtj3ES3OHmRFwRd4jHeIus4eglrmq
-	 tzHnMH8l6bUOQ==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWkfdWGz
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so830741a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:24:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792578247; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HyD2hYcGvVA6ysGzK974Lm3AYbvE0qdFjqOyLcndgn6yF1eoBFItmfVVfhVkE4D42c
+         SqFXYqa0FbAKdnP5MbcirQVGr9Eggr3S7h2pfUqyV4tnNaIdC2vxY8bSmU0aqqoRaYKw
+         i84G3OPw2Ty7dhtDmvoFg8yBDnaRZ1axteEoqHnG73NBbGSshMYnlqsQEy6Q/XlFMVH0
+         FFGu6s3+XnERAPLuBAsQuaOYrfJUp3PVIcnDsdJHwmMcxSnqnCDhEKl0crWLyR/f6C8d
+         TASFVDDUpQY9z9R3p3Erl5an8svc3E85HqSfWzEgvNZ9d2EP7c5NYFa+sV+hnTm4WvNB
+         h8wA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VOMZZkZ47LzRUwWzSV4zQRcKDwW70Ygvq3uLyPdNJ8I=;
+        fh=g5/j4myBVkqP2Ho86zpRuDzN3wEZbRa3tuS/IKgXi3w=;
+        b=iEnvil5Ns9SGA3ObQc9x+i9+CR2f2uvqgDQIrVKQnRwZn2tlk7EB9SVWc9SVl/BSqA
+         x2QmcV+9fq8OpeieAUWJ0wokjwcCSM+pI/V2/tFVZksRPSm6SYvCac74ngbcxhyYbDUo
+         wXGpLffhRUSvfDUOPuvSIQMuTcFyoeFEIvB18G4IoQHlZE9Mm2toWyCbAb44D+72qe51
+         LTpm8EF1eWyUi95x3LJbqa1XVvc0C2eVMiUNZnGSE5cUYNXG2shbINFedEfIgHB25DU/
+         ObVahdqSM8ooYdi5VUP3wsfrpNL/pDA1t61ywGbv21ABs6KyDOFM1zF4nAxNNioKsrKY
+         ww5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792578247; x=1793183047; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VOMZZkZ47LzRUwWzSV4zQRcKDwW70Ygvq3uLyPdNJ8I=;
+        b=CWkfdWGzhYCkALaAxkWEy92J/p5bnsgNKnuhCsSudXjcKntuPfHyyYSbdMiAVUKF/D
+         xXmU1nBAbvfTJZuKjeIep9ay8c36eyvAy5288F0ylX2jbnivSGoEeB6Xl41GbrodtbVh
+         dJgr46KGTgeDgDiyAHtdLbSgURMpkHbSq2THqIpwTD1yhABfVr57voRbKx+aB+dEB3IL
+         igF/ieRVXdgTCwos1/PbzzDinCSBGqBlGqtZp/gJfYCHa3Q5LlbJ74e4xSueFSZ9LRbh
+         Swtg/9gs84xNb5ww1o1XtR/Aauz5GMcnZEEbSlK9rMzwJrWjI0u0AjKe6m0QD+EYEKj9
+         zFrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792578247; x=1793183047;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VOMZZkZ47LzRUwWzSV4zQRcKDwW70Ygvq3uLyPdNJ8I=;
+        b=urjPntesp2m0+qfzOaZjY+OpXcOPIqRYh+IdunQ9X9n5i5USeXwmkEyYsi4Y0OPMy3
+         MW3uQwZlM82HOiLVbk8pFFq2m0VKWpVUednJ9AXjDpu6yPYatUSjlENPo+QQNQN9MbJJ
+         xUpjlhFnEpegTdJEyj1JFMc+oAdKzMwP22o6lNOUiI6P1UXB7OJIuxmhSdmXJ3UFRqyQ
+         QEPOLb5sGezEb4HAJOz/ESxmcNXQFNXw6VhlXa0kbkpc+TIHsfw+1giN5FomiXakFAGO
+         IjiSI8oSOIktvHvbkQI0l719qmCUQDAiw7arQiMLMu8xswHpkd4ThW37TMogsqPVDq6t
+         0fCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEECg69eLS+71JXrrJhv80M1HMbxgeLX/I3K+vAoCUNyWiXEJdngEh0RLux8JwAYjtD/TlPSfBofdxBX8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqCHkRUKHtorkpd06OMi3zBLisdc/Q/oihVKxLs2bi71a42Zbd
+	AjUw71LUJiOuLOdBUY6SYhscp6484B/znnWRuC9GwW8Omri0Co1hAGMndDqyQLjIMXfQfuGlOPP
+	JSQasLp60VUQdzdJZsA1Hd7NWy6w/T+c=
+X-Gm-Gg: AYBFou3d5uGea4YBSvknuZcBVq3GQAVBw2kC6vkGnDnE7Bk9jwwguUWUGfmVJYut+d4
+	FRclnx525oHn3/JCpUCU7JZsT0J3RwxIVqifovccvvNkzKk2jHK1oHHMG1j2fv2JNi2QgRHbjd+
+	ROpLpu9f+GU5kkb1ggY9K0aY94NNnXlstJSrGLHEWBhIPAMj4SVqs3MyHPDd99BOAmSxUcuOO6M
+	KTPMv1uVA+YeiJ4ZJ1BDht7VIeA+8dtE67EDb2T5gTb0WXED0nHyTQzlo+b06jP4IOlM8vCvXNu
+	cOTvSwU07wCWh2OSL6DdDREDYEpSNP9oeZtuizCefatpjjJghyDcatjywb1dDEqZ8x/Tl7H5dhW
+	teUTVaAh589PGe9Rbc2rra2/qfFQIaBRE2+tZSGd5zSdkgsUGVzMmqtM8vY3Ox5XLrQ==
+X-Received: by 2002:a05:6402:1952:b0:6b3:8018:7643 with SMTP id
+ 4fb4d7f45d1cf-6b408f17a21mr1001907a12.45.1792578246850; Wed, 21 Oct 2026
+ 03:24:06 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,34 +104,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 21 Oct 2026 12:23:57 +0200
-From: Danilo Krummrich <kernel@dakr.org>
-To: Sami Tolvanen <samitolvanen@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
- Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
- Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, FUJITA Tomonori
- <fujita.tomonori@gmail.com>, Frederic Weisbecker <frederic@kernel.org>,
- Lyude Paul <lyude@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Anna-Maria
- Behnsen <anna-maria@linutronix.de>, John Stultz <jstultz@google.com>,
- Stephen Boyd <sboyd@kernel.org>, Abdiel Janulgue
- <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev
-Subject: Re: [PATCH 0/3] rust: Fix CFI type mismatches
-In-Reply-To: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
-Message-ID: <471e91fb794f6a8dc57d4366d93d65b8@dakr.org>
-X-Sender: kernel@dakr.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261021-alpha-perf_reg_validate-v1-1-a8e8cc23ea7a@linutronix.de>
+In-Reply-To: <20261021-alpha-perf_reg_validate-v1-1-a8e8cc23ea7a@linutronix.de>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 21 Oct 2026 12:23:55 +0200
+X-Gm-Features: AclHuK_782kZK0_bPAJNGl8tM-pgq0N_Fyf-GVnQvK6PjIgABFx_7x0aoqI_f2E
+Message-ID: <CA+=Fv5QWoVZqOR1uHTaE20XWBkXoVqbjTE6bF2iDvvJn6j5hfA@mail.gmail.com>
+Subject: Re: [PATCH] alpha: add simd_enabled argument to perf_reg_validate()
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-20 01:34, Sami Tolvanen wrote:
-> This series fixes a few CONFIG_CFI indirect call type mismatches
+Hi Thomas,
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+On Wed, Oct 21, 2026 at 10:18=E2=80=AFAM Thomas Wei=C3=9Fschuh
+<thomas.weissschuh@linutronix.de> wrote:
+>
+> Align the alpha function with the generic function signature.
+> The alpha function was added in commit 9280e99d87dd ("alpha: add
+> HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP support") while the
+> generic function signature was changed in commit a2c64c74c029 ("perf:
+> Enhance perf_reg_validate() with simd_enabled argument").
+>
+> After both commits landed in Linus' tree the signatures now differ,
+> resulting in a build error:
+>
+> arch/alpha/kernel/perf_regs.c:46:5: error: conflicting types for 'perf_re=
+g_validate'; have 'int(u64)' {aka 'int(long long unsigned int)'}
+>    46 | int perf_reg_validate(u64 mask)
+>       |     ^~~~~~~~~~~~~~~~~
+> In file included from include/linux/perf_event.h:50,
+>                  from arch/alpha/kernel/perf_regs.c:4:
+> include/linux/perf_regs.h:13:5: note: previous declaration of 'perf_reg_v=
+alidate' with type 'int(u64,  bool)' {aka 'int(long long unsigned int,  _Bo=
+ol)'}
+>    13 | int perf_reg_validate(u64 mask, bool simd_enabled);
+>       |     ^~~~~~~~~~~~~~~~~
+>
+> Add the missing argument.
+>
+> Fixes: 742f62b63904 ("Merge tag 'alpha-for-v7.4-tag' of git://git.kernel.=
+org/pub/scm/linux/kernel/git/lindholm/alpha")
+> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
+> ---
+>  arch/alpha/kernel/perf_regs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.=
+c
+> index 33ea2e831ba0..c5a55bfa15a5 100644
+> --- a/arch/alpha/kernel/perf_regs.c
+> +++ b/arch/alpha/kernel/perf_regs.c
+> @@ -43,7 +43,7 @@ u64 perf_reg_value(struct pt_regs *regs, int idx)
+>         return *(unsigned long *)((void *)regs + pt_regs_offset[idx]);
+>  }
+>
+> -int perf_reg_validate(u64 mask)
+> +int perf_reg_validate(u64 mask, bool simd_enabled)
+>  {
+>         if (!mask || mask & REG_RESERVED)
+>                 return -EINVAL;
+>
+> ---
+> base-commit: 2c455ddca7827ad8fa3a64fdbf5a60efb928b46a
+> change-id: 20261021-alpha-perf_reg_validate-c9b0a144fd3c
+>
+> Best regards,
+> --
+> Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
+>
+
+Thanks for catching this. I reproduced the build failure on current
+mainline and confirmed your fix with GENERIC SMP and DP264 UP builds.
+Both also passed perf register validation and sampling tests in QEMU.
+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+
+If you have a route for this patch upstream, please go ahead and take it,
+unless Linus would prefer to pick it up directly.
+
+
+Thanks,
+Magnus
