@@ -1,79 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.139.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591217;
-	b=jb4F+Rk8/v1KUsq8Nq75ikPPtbGEBq1leyFM+hilfWWsfXT/jL45hkmR+i+0aZ9iylyF
-	 rB8DxPvTITC98pJJw0iWq4kIiaExbwevTz3BeWb21zNxUA1hkfNRA0SjKqaKCP19saYN5
-	 tKZzgqXdguD5J8XIH/VWkJWB+3aYl0aMOY54s5t2yVPdowBsIk0yf6iAD3/PCOkVWntLN
-	 uZVU9NXxPePLbxvsEqg64o2TXcvWBCuuSrr1Tze/3iiwiqP4cTFrTt4B1+Vsn6Z8Y7jwA
-	 fn8qIW/Yq32qpnE+XcTZayHTJTeG+d0slDHnz3gktUKxro9osB5O3bMq6tn67etkMcQ==
+	t=1792591232;
+	b=TrB1VAnlAM+R1zfMt+xlXYD6ownMcPEDHqv3Dk45GPXD0tOKTm9b21KWoDRbHnFCz0C7
+	 gmCYgAiNG9pAzwIxwGFn6644AryOgNtewwueQBXqBizY6MZ1XvdAyvLsAAjEqdENNIbc/
+	 gFrdWZF8C/Gb404zyQi5KSVNpro7S6xjCrPv1TmNgvRFzglpbVDPNMoK5sNCvrSQX2Ydd
+	 9nhTrvh084Coi+lXGy8gtGx0ClPTQ90Wnpws27fvT7kdMdFSbFFCWKvLgPGfEWYvHGE6m
+	 5lht7xhUuPsT0c+I7yu2xZeACwNuH4VmZutMlHHOO7QMiNy/zRG0fPwSpw5BMDKRZbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591217;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591232;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=e54v2sXDpXMrvOIRvuJWrskKuA/9bxwpK1+m7psog2g=;
-	b=PMKfN9fQJYCg7OmglGmpsRmoYFhpe6aGTMvxbtCtePLvKX5UTSruP/Q7kt0pkP7a2PPo
-	 7TB8zwjsF31hKrQn7eN4ROXSn+1AkihA8jEel49r7gUwvBGwfRnRJTbg5tl0kRWS8IzuM
-	 uX1qpJ5NlShC8gDXhcaZk/0NtpYcmO0edfUnPygHMAJEYSmWfJlnt/gk8WBEXYDMeAuuN
-	 s7s7spwL60MaPcq+/ftBJyBnCaITk4UGpg3C2U/YvlQoZs37CGagqElU7HQS78JElvOui
-	 0RtQE5VQ2X+dy8McvU1wdQXonZweK579/TOnYgSBa6af3yKev6F6FUW0xULG/WAvOug==
+	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wqSXevxtbUPzruyogfRR5D3qm9uGXtBSUWQoF9Cs71Q=;
+	b=KQZkmu5g626KlK3/iXXBlUbiFGrgVsr6lONyz9kZ0jr1PgCw2kNNVELBPIeyfvdl1utU
+	 EQ2HLOXrl+2sfO5O8KrpUV/bB/lB847ZyEvBWWehoZwKHrfNV62KddFQGFCMq3mqTzhio
+	 XpDTJLzYXbMmgANElSaCUvMRBanoYWPpRQQYXm9CMsml4nHwR27RPuBjGQ34CXtEEjd9z
+	 ceEVXB3D/jGjoUvKkuOZYfgYtD4rf5fcfYXJifMc2Ej44u93/EFC1I3pE5AtBPZxEdgpE
+	 CIlb2XH3hCpDbsN+IWMxK7VXKSXBor0/ogHzBm6LMlr6YEtKcV0s+hnFQE0vFa44rug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Y/u/IBLE";
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	dmarc=pass header.from=fujitsu.com;
+	spf=pass smtp.mailfrom=fujitsu.com;
+	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=SgiMcVY8;
+	arc=none smtp.remote-ip=68.232.139.139
+Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com [68.232.139.139])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5930C606A31B;
-	Wed, 21 Oct 2026 14:00:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5930C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9F2606A319;
+	Wed, 21 Oct 2026 14:00:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B9F2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y/u/IBLE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792591216; x=1824127216;
+	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=SgiMcVY8
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1792591231; x=1824127231;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=5LBM5+UAfH4pTOtJLNmTz3V90cHmGa/1nHPHhl+paT4=;
-  b=Y/u/IBLE5END4Qj1ceKVRbvqpCCJ9aqr9vjQF8OUjfJv+2R79Y328L9C
-   FoTyWKj6EcqQeYfYRAGrbTtgRaqqrzbccH8NYmZ+r1elNCHcxleYWbwi4
-   r7ln1ALfFvFMCCHGY58LNmlhzwiAj8vzKSmiC9gVp+is732j3wEavIefK
-   8h9p2FIzSeh0Q2yPZzpDMs31tdHRUAMbvPOY8Nuc4rhEuZSAHday0fh3D
-   8GpnyQzTxxAQCAAb+dTy2cmqNCU31bGwCWQoJMeVsd3INxu8qfWxsL8yP
-   zXpQDYUEeVy7wRX/TSRs9OcjTd7W7I0s/a+uzzcEEFRp8aywkKJvD+SXa
-   g==;
-X-CSE-ConnectionGUID: Oezi0kkmTcu+vq7MGKP9CA==
-X-CSE-MsgGUID: oQ2cXQgUScGfEibsKBklEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1414540"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1414540"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:00:16 -0700
-X-CSE-ConnectionGUID: ziacZsOlSdGtF2YRQU78Yw==
-X-CSE-MsgGUID: 0OVA9fH4QYq7LQfsN0UpSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4860352"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:00:13 -0700
-Date: Wed, 21 Oct 2026 17:00:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Chong Qiao <qiaochong@loongson.cn>,
-	Corey Minyard <corey@minyard.net>,
-	Huacai Chen <chenhuacai@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/28] mfd: ls2kbmc: Unregister GPIO GSI via
- devm_add_action_or_reset()
-Message-ID: <atjFa1-RbI9Q-z5R@ashevche-desk.local>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-2-lee@kernel.org>
+  bh=9DK2OEbFztWGhhecyDGTA244bbTa6mPCoyishduGujU=;
+  b=SgiMcVY8dR/hOrnNxIguXQJ/2AMwDN+YIbWGBsRTJ3zZP04jKX24M6BV
+   5vINf//+zKQh0Hc3FFxk1bmr4/5IxsTOK6NUb+hskadG2XhUVwtHPpQV+
+   ghMjB9ub1qOVIdIDtR8PkpdqqdlwpMzGySPWMef/SfBjiMENljFBH1Xsf
+   UlnW7aQ1ISRM62CIrFSM7lk1zMa0N3IjzWTy9eXFppjiTleCo4ZtvrIr6
+   8DtYk07Kj8lh5SH49f7GXe+oPBq9Pg/Nx/Y3hH78C1D+D7fQ+rK/7ql0l
+   bdWtwm9UjJwcTUPGyab0JreQLwqEcc2ktFovDh8QKdSKQlLkG/v2mJvJr
+   w==;
+X-CSE-ConnectionGUID: rSuFxFBDStSLtjbR56Bv1Q==
+X-CSE-MsgGUID: ERXfj0s5T/O4mAW1yBIEDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="262910274"
+X-IronPort-AV: E=Sophos;i="6.27,170,1786978800"; 
+   d="scan'208";a="262910274"
+Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
+  by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:00:24 +0900
+Received: from az2uksmgm1.o.css.fujitsu.com (unknown [10.151.22.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id 04D371002809;
+	Wed, 21 Oct 2026 14:00:24 +0000 (UTC)
+Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id AA96D8D6DAE;
+	Wed, 21 Oct 2026 14:00:23 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.8.62.79])
+	by az2uksmom4.o.css.fujitsu.com (Postfix) with SMTP id 28952405E2E;
+	Wed, 21 Oct 2026 14:00:14 +0000 (UTC)
+Date: Wed, 21 Oct 2026 23:00:13 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com, 
+	Soby Mathew <Soby.Mathew@arm.com>
+Subject: Re: [PATCH v22 06/10] firmware: arm_rmm: Ensure the RMM has GPT
+ entries for memory
+Message-ID: <atjEkyLimpQSL4d4@FCCLS0092175.localdomain>
+References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
+ <20261002061507.1600269-7-suzuki.poulose@arm.com>
+ <atiyZ7_S7aBxowIQ@FCCLS0092175.localdomain>
+ <34bf0c98-35b1-4402-842f-a100245cb9a7@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,29 +95,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261021121245.3111563-2-lee@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <34bf0c98-35b1-4402-842f-a100245cb9a7@arm.com>
 
-On Wed, Oct 21, 2026 at 12:09:24PM +0000, Lee Jones wrote:
-> ls2k_bmc_init() unconditionally calls acpi_unregister_gsi() immediately
-> after requesting the GPIO interrupt via devm_request_irq().  This
-> prematurely disposes of the active IRQ mapping while the interrupt
-> handler remains registered, breaking the GPIO watchdog interrupt and
-> causing a use-after-free when devres later frees the disposed IRQ
-> descriptor on probe failure or device unbind.
+On 10/21 14:35, Suzuki K Poulose wrote:
+> Hi
 > 
-> Register a devm_add_action_or_reset() callback before devm_request_irq()
-> so that acpi_unregister_gsi() is invoked only after devres has freed the
-> interrupt.
+> On 21/10/2026 14:07, Kohei Enju wrote:
+> > Hi Suzuki,
+> > 
+> > I've tested this series and found a possible TF-RMM issue.
+> > Please  below.
+> > 
+> > On 10/02 07:15, Suzuki K Poulose wrote:
+> > > From: Steven Price <steven.price@arm.com>
+> > > 
+> > > The RMM maintains the state of all the granules in the system to make
+> > > sure that the host is abiding by the rules. This state can be maintained
+> > > at different granularity, per page (TRACKING_FINE) or per region
+> > > (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
+> > > underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
+> > > all pages in the region must be of the same state, this implies we need to
+> > > have "fine" tracking for DRAM, so that we can delegate individual pages.
+> > > 
+> > > For now we only support a statically carved out memory for tracking
+> > > granules for the "fine" regions. This can be extended in the future to
+> > > allow modifying the tracking granularity and remove the need for a
+> > > static allocation by the firmware.
+> > > 
+> > > Similarly, the firmware may create L0 GPT entries describing the total
+> > > address space. But if we change the "PAS" (Physical Address Space) of a
+> > > granule, then the firmware may need to create L1 tables to track the PAS
+> > > at a finer granularity. Linux therefore checks if the platform firmware
+> > > manages the PAR region. i.e., the firmware is in charge of managing the
+> > > L1 GPTs (creation and the required memory for the GPT tables - via static
+> > > carveouts) without host intervention. Support for dynamic GPT creation by
+> > > the host will be added later.
+> > > 
+> > > If the firmware requires us to manage the tracking or GPT memory,
+> > > deactivate the RMM and reclaim any memory donated at RMM activation.
+> > > 
+> > > Apply the same checks when hotplugged memory is brought online.
+> > > 
+> > > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > > Reviewed-by: Gavin Shan <gshan@redhat.com>
+> > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > > Tested-by: Gavin Shan <gshan@redhat.com>
+> > > Signed-off-by: Steven Price <steven.price@arm.com>
+> > > Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > ---
+> > [...]
+> > > +/*
+> > > + * We do not support creating L1 GPTs yet. So, make sure that all the regions
+> > > + * are managed by the firmware.
+> > > + */
+> > > +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
+> > > +{
+> > > +	unsigned long l0gpt_sz;
+> > > +	unsigned long next, par_state;
+> > > +
+> > > +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
+> > > +					  rmi_feat_reg(1)));
+> > > +	start = ALIGN_DOWN(start, l0gpt_sz);
+> > > +	end = ALIGN(end, l0gpt_sz);
+> > > +
+> > > +	while (start < end) {
+> > > +		long ret = rmi_gpt_info(start, end, &next, &par_state);
+> > > +
+> > > +		if (ret != RMI_SUCCESS) {
+> > > +			pr_err("RMI_GPT_INFO failed for %llx-%llx: (%ld)\n",
+> > > +				start, end, ret);
+> > > +			return -ENXIO;
+> > > +		}
+> > > +
+> > > +		if (WARN_ON(next <= start))
+> > > +			return -ENXIO;
+> > > +
+> > > +		if (par_state != RMI_GPT_PAR_PLAT) {
+> > > +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
+> > > +				start, next);
+> > > +			return -ENODEV;
+> > 
+> > When system RAM starts at a non-L0GPTSZ-aligned address, the alignment
+> > in rmi_verify_gpt_firmware_managed() may cause the queried L0GPT range
+> > to include a memory hole.
+> 
+> > 
+> > On out platform, the relevant memory layout is:
+> > 
+> >      800c0000000-800dc3fffff : memory hole
+> >      800dc400000-82fffffffff : System RAM
+> > 
+> 
+> Thanks for the report.
+> 
+> > Consequently, Linux queries the following L0GPT range:
+> > 
+> >      800c0000000-80100000000
+> > 
+> > The query fails with RMI_GPT_PAR_RESERVED:
+> > 
+> >      [    8.551855] GPT for the region is not managed by firmware 800c0000000-80100000000
+> > 
+> > and arm64_init_rmi() subsequently fails.
+> > 
+> > As I understand it, smc_gpt_info() in TF-RMM checks only the beginning
+> > of the aligned L0GPT range. Since that address is in the hole, the whole
+> > range is reported as RMI_GPT_PAR_RESERVED, even though it contains
+> > platform-managed System RAM.
+> > 
+> > I believe this should be addressed in TF-RMM. Do you have any thoughts
+> > on the expected RMI_GPT_INFO behavior in this case?
+> 
+> I believe the RMM should report a value that represents the situation
+> better. In this case, there is a hole, and some conventional memory
+> areas. For the conventional memory, the RMM has to manage the GPTs.
+> (This applies to the tf-RMM implementation of TRACKING Granule state
+> too. It only looks at the first granule and reports the type of memory.)
+> 
+> RMI_GPT_PAR_RESERVED is not accurate as the memory region is not
+> reserved, unless it is reserved for firmware (in which case the
+> memory description is wrong).
+> 
+> I would say RMI_GPT_PAR_PLAT  is accurate if the L1GPT exists, as the
+>  region covered by the L0GPT has some memory that are delegable.
+> 
+> Otherwise it must be reported as RMI_GPT_HOST_NOT_CREATED.
+> 
+> The information that a given memory region is not "memory" (i.e. hole)
+> is basically TRACKING_STATE returned as RMI_MEM_CATEGORY_NONE
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-assuming you will add Reported-by: Sashiko...
+Thanks for the clarification. Could you please raise this with the TF-RMM
+team? Please let me know if I can help with testing or provide any
+additional information.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Thanks,
+Kohei
 
-
+> 
+> 
+> > 
+> > As a side note, we tested this series and the v23 integration branch
+> > with a Linux-side workaround to avoid the problem above, and we have not
+> > observed any other major issues. Sorry for the delay in testing this
+> > series.
+> 
+> Thanks for the testing !
+> 
+> Suzuki
+> > 
+> > Thanks,
+> > Kohei
+> > 
+> > > +		}
+> > > +		start = next;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> 
