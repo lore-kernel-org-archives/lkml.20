@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792543935;
-	b=GeGzUp98xBQpz1tp1eUkrV6bNZiWKGJQR/QuGecLAz14n+hzPXDILaLeKCu0vukfklLl
-	 caBi7skize3pHegGDAsWJe+K9QwtGhzsHq86G+jTTyZ28LKgr2Db2eXzc4nZaBPVIVXoZ
-	 cbM/Pi91nYG/zqewZ+DgRT9fCq0rxJCJ/Tg4ig2Hbq82tbD/0g7cd4MMUV1+XOPwTTyZn
-	 I8pZfbL6NkKvU8EMqSTct84SyInx9aUV8RpQQA85ZhjgNW9uh/bJt327/Y/MBwJ8GbyF6
-	 +iCX5d08c75CZqrSx0CuJp7ep4nOJsUPQTOcVkwMZyjncNwBM6I2Upis5Cc2tKaoIIg==
+	t=1792543962;
+	b=C6BuZa+fE8YZkjZN6VPA7/yrpRAEdS4fmpQjVXumTvp2rlMkrxAda6uX6UraLgWwSTlt
+	 TJipCdXDPv0wulls65XqN3SfB6wgV2QNAqaP2TG9wBfkfZuSGWNNdLrJsmIz3GZMTpNKo
+	 IS619RY7vEFGrklJJ5/8Nm9+vro45FsTT5TvrO6YKnGAwp6+L8Fb3f/iX5q+IsGkUY42Y
+	 viwGm8AvDWnntUPVySS+dZ2jBI7zwNjPa5Rw62UzDaCveUlXWcLnR9+C7KZXgy7Vof6O7
+	 pBo5/Eql2J/h8006oT8GVGW3wl4n9bQpzxboFdtLzeOnPpKeNHnRjmHgxRl/qCpegZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792543935;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792543962;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mSMY52hIg7vAcjDlf2LPfos459LIsVBRRd++d9Y3/3o=;
-	b=wTaTA++xyk5ltMxzMSaCCh0IMGKUh5wP6+K/BQF2+V9YiIr0Qxn8tjdTUxBfFao/5tIl
-	 rxS0cKZrCR8xmgF3lR2Ad/0OMQoHaiNBhoKSlU9nKqAzERks6pfzb/Z3Y6UScoIUcoKXx
-	 2+0jwyc5d3M1qzfxlBRoG1TeLb3vUmZpvma03nQCUa9STrWMWdcHEQyLcyf2S80m2AkIx
-	 adUHh5avwwbzGxTzxk10k2zdktsuhfsv/cd8fcqd5XF+fx0lxA2MwhrjBTDef1vV04V1T
-	 26+ezRfU2vqYNeIBpR8+vRvtFthOQkjeNJnjv7+MQLqxo/9PL65ku1cdOo2Ax7eqCsg==
+	bh=qb7Js6jWEBpRBnpheoU8QyOWSaJyuXRnZgnX25ZrCeE=;
+	b=knWxu/EjYkvW7Tna5ZEoLYRLERK+JCaeLG0BsyStAA0M9tamG58f/KpofCHxrktvOIVg
+	 jKXuB/r3ZYxyoPxgMP6SvdJlnX7/62TiKHBpFg+5ohEOz9gC0BvRZDUrl91Fh53Azd7YS
+	 dsmxZIu9hZAkLunuegEKrBDImkgqGm0MmSfz0LPa3+sP5z2EykNsDpfgkcD1TvLWPPIEG
+	 fHQQbZLmCCQat/O1yWp2BzaxwV+zkR2/ylNGvdSf8PUsqUdTwZb48xNUSZBuDmlPtlzp7
+	 hbCr5dMAag9witoFJ0aEGcsNr/6RBWsEZAD+Q48H+xfCn3wLhrWB42ybn4uuhQ2bRZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUrlgWNb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8rASglm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C476606A334;
-	Wed, 21 Oct 2026 00:52:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4371606A319;
+	Wed, 21 Oct 2026 00:52:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUrlgWNb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7091F000CD;
-	Wed, 21 Oct 2026 00:52:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8rASglm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2DE1F000C9;
+	Wed, 21 Oct 2026 00:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792543935;
-	bh=mSMY52hIg7vAcjDlf2LPfos459LIsVBRRd++d9Y3/3o=;
+	s=k20260515; t=1792543961;
+	bh=qb7Js6jWEBpRBnpheoU8QyOWSaJyuXRnZgnX25ZrCeE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oUrlgWNbShcp2IfJXHva/yfbd4HCjdm3HUzusQFH7rxQkPUe1O3vP06EXoYfNJjYV
-	 3AcbhyAu6qxb67lCqE+limZ9IA6ybTu4N/Jqbdx3nSlZCGDa8ZRxz0jdP8x9ktiZV6
-	 aOXIcUKbAv3fQ9jH8A4qZG2NiSt5Ohs1gmlYmi2Q9CxUXYtoMqnwoypBg2blrvzl1G
-	 /HxY+ULQlVZ794GHegELxwp+QA+T2TknhApj8DKD/lO1s1S6RtEvr4lxVcP1lBNfzE
-	 1pCuXGgUFDgJBfc9NUbJ6vfDEyVEQkDEIVS+QAbh6unn0TI8KLhLJbj96qUDpNxlwM
-	 a9JRUBe9m0wmA==
-From: Jakub Kicinski <kuba@kernel.org>
-To: hsu.chih.kai@realtek.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	netdev@vger.kernel.org,
-	nic_swsd@realtek.com,
+	b=C8rASglmwgB/cfgmQpR3BhfADDtX2fNF7GWL6In14mCOE+7W/rqFn5M3uhVDLpxJr
+	 6S28YT++pE4ykJTY0DVVUSv1WsetHBeFietptrPkMiJZtpk8SzuRmmvEdQEt5yYoKN
+	 uBYX9dN2xveE/0IHIFcPHw9up4OccSABaDGN64neWWm2VvzKYZkiTVgPmgghjnzENW
+	 ayrOjrG8ZuyxMLPv/KMvx+OCmp9stf8zU2s5OUr3MjUoVLguMvTUW52jxYcckGHHgN
+	 FrJOrAztHPAb9fz2Gryaa2n9u9k2udQ+58y8Yflb2Kvnp4Z7Eiq3l9jM1125SgNBP7
+	 BO2ISMCwFpdAw==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	edumazet@google.com,
-	bjorn@mork.no,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	mail@birger-koblitz.de
-Subject: Re: [PATCH net-next v7 10/10] r8152: enable UPS for RTL8157 and RTL8159 QFN68
-Date: Tue, 20 Oct 2026 17:52:14 -0700
-Message-ID: <20261021005214.1255071-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261014081904.6491-11-nic_swsd@realtek.com>
-References: <20261014081904.6491-11-nic_swsd@realtek.com>
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH] mm/damon/sysfs-schemes: hold damon_sysfs_lock in target_value_store()
+Date: Tue, 20 Oct 2026 17:52:33 -0700
+Message-ID: <20261021005234.94107-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020144726.88978-1-sj@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,196 +63,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-r8152: enable UPS for RTL8157 and RTL8159 QFN68
+On Tue, 20 Oct 2026 07:47:25 -0700 SJ Park <sj@kernel.org> wrote:
 
-This patch adds r8157_ups_en() and calls it from rtl8157_runtime_enable(),
-so UPS is now switched on and off during runtime suspend and resume for
-RTL_VER_16 and RTL_VER_17_QFN68. It also adds per-speed EEE flags and
-5G/10G speed encodings to r8156_ups_flags(), and skips the lite_mode
-encoding for those chips.
+> Remove a race condition under certain use cases that can trigger
+> divide-by-zero.
+> 
+> damon_sysfs_add_quota_score() setup damos quota goal as user configured
+> and pass to the core layer.  Because it could have a race with
+> damos_sysfs_quota_goals_rm_dirs(), which destructs the files that carry
+> user configuration, both are called under damon_sysfs_lock protection.
+> 
+> The damos quota goal setup disallows zero target_value parameter because
+> it can be used as a denominator later in the core layer function,
+> damos_quota_score().  Otherwise, divide-by-zero can happen.
 
-> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-> index 95f510da376de..7a1b34db1d88b 100644
-> --- a/drivers/net/usb/r8152.c
-> +++ b/drivers/net/usb/r8152.c
+This is no more true due to another patch [1].  The patch added the zero
+target_value case in the core layer central validation pass.  But it forgot
+removing the redundant check in sysfs.
 
-[ ... ]
+> 
+> For the zero value check and final assignment,
+> damon_sysfs_add_quota_score() reads damos_sysfs_quota_goal->target_value
+> twice.  And user can update damos_sysfs_quota_goal->target_value via
+> target_value_store(), which doesn't hold damon_sysfs_lock.  As a result,
+> a time-of-check-to time-of-use (toctou) race can happen.  If the user
+> sets the value to zero between the zero value check and final
+> target_value assignment, zero target_value is passed to the core layer
+> and results in divide-by-zero.
 
-> @@ -4484,6 +4522,49 @@ static void r8156_ups_en(struct r8152 *tp, bool enable)
->  	}
->  }
->  
-> +static void r8157_ups_en(struct r8152 *tp, bool enable)
-> +{
-> +	if (enable) {
-> +		r8156_ups_flags(tp);
-> +
-> +		ocp_byte_set_bits(tp, MCU_TYPE_USB, USB_POWER_CUT,
-> +				  UPS_EN | USP_PREWAKE | PHASE2_EN);
+So toctou race exists, but it cannot result in divide-by-zero.
 
-[Severity: Medium]
-This is a pre-existing issue, but this patch adds more callers of the
-ocp_byte_w0w1() read/modify/write path, and that path depends on
-get_registers():
+> 
+> Fix by holding damon_sysfs_lock in target_value_store() while saving the
+> value.  The read side, damon_sysfs_add_quota_score(), is already called
+> while holding the same mutex lock, so it avoids the race.
+> 
+> Users could reproduce the race by writing zero to the target_value sysfs
+> file while DAMON is starting, or online parameters update is ongoing.
+> The issue will only rarely happen in the real use cases.  It requires
+> sysfs write permission.  The race window is short.  Sane users wouldn't
+> write zero target_value.  Especially, they wouldn't do that while DAMON
+> enablement and/or online parameters update is ongoing.  That said, the
+> probability is not zero, and the consequence (divide-by-zero) is quite
+> bad.
+> 
+> Closes: https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
 
-drivers/net/usb/r8152.c:get_registers() {
-    ...
-	if (ret < 0)
-		memset(data, 0xff, size);
-	else
-		memcpy(data, tmp, size);
-    ...
-}
+Maybe Sashiko found the issue before the other patch [1] is applied.
 
-usb_control_msg() accepts short IN transfers. Could a malicious device
-reply with fewer than size bytes and leave stale kmalloc() data in the
-part of tmp it never wrote?
 
-ocp_byte_w0w1() then writes that byte back with only the masked bits
-changed:
+> Fixes: 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota goals user input to DAMOS")
+> Cc: <stable@vger.kernel.org> # 6.8.x
 
-	ocp_data = ocp_read_byte(tp, type, index);
-	ocp_data = (ocp_data & ~clear) | set;
-	ocp_write_byte(tp, type, index, ocp_data);
+So this patch is unnecessary for the mainline.  But still need to be added to
+older kernels.  Backporting the mainline fix [1] would be one simple way.  The
+backporting would be not that straightforward because the core layer parameters
+validation was introduced on 7.3 via commit b90408ef1163 ("mm/damon/core:
+safely validate src on damon_commit_ctx()").  Hopefully doable.  I will take
+time to do backports for relavant LTS and stable kernels.
 
-That would let the device read back up to 8 bits of stale heap data per
-read/modify/write. This does not happen with init_on_alloc. Every
-read/modify/write in the driver has the same pattern, and this patch does
-not change get_registers().
+[1] https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
 
-> +
-> +		ocp_byte_set_bits(tp, MCU_TYPE_USB, USB_MISC_2,
-> +				  UPS_FORCE_PWR_DOWN);
-> +	} else {
-> +		ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_POWER_CUT,
-> +				  UPS_EN | USP_PREWAKE);
-> +
-> +		ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_MISC_2,
-> +				  UPS_FORCE_PWR_DOWN);
-> +
-> +		if (ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0) & PCUT_STATUS) {
 
-[Severity: Low]
-This isn't a bug introduced by this patch, but ocp_read_word() ignores
-the return value of generic_ocp_read() and uses its local tmp anyway:
+Thanks,
+SJ
 
-drivers/net/usb/r8152.c:ocp_read_word() {
-	__le32 tmp;
-    ...
-	generic_ocp_read(tp, index, sizeof(tmp), &tmp, type | byen);
-
-	data = __le32_to_cpu(tmp);
-    ...
-}
-
-If RTL8152_INACCESSIBLE is already set, generic_ocp_read() returns
--ENODEV without writing the buffer. The same happens if kmalloc() fails
-in get_registers(). Would the PCUT_STATUS check here, and the
-BACKUP_RESTRORE poll below, then test an uninitialized stack value?
-
-When the device is inaccessible, the writes that follow do nothing, so
-the most likely visible effect is a KMSAN report. Every ocp_read_*
-caller is affected.
-
-> +			u32 ocp_data;
-> +			int ret;
-> +
-> +			ret = read_poll_timeout(ocp_read_word, ocp_data,
-> +						ocp_data & BACKUP_RESTRORE, 200,
-> +						20000, false, tp, MCU_TYPE_USB,
-> +						USB_GPHY_CTRL);
-> +			if (ret) {
-> +				rtl_set_inaccessible(tp);
-> +				dev_err(&tp->intf->dev,
-> +					"backup-restore timed out\n");
-> +				return;
-> +			}
-
-[Severity: Medium]
-Can this leave the interface unusable after a runtime resume, with
-nothing to recover it?
-
-With this patch, runtime suspend on RTL_VER_16 and RTL_VER_17_QFN68
-enables UPS power cut by default. That means any runtime resume that
-finds PCUT_STATUS set will run this wait:
-
-rtl8152_runtime_resume()
-  tp->rtl_ops.autosuspend_en(tp, false)
-    rtl8157_runtime_enable(tp, false)
-      r8157_ups_en(tp, false)
-        read_poll_timeout() times out
-        rtl_set_inaccessible(tp)
-
-r8157_ups_en() returns void, so rtl8157_runtime_enable() carries on, and
-r8157_u2p3en() and r8153b_u1u2en() quietly do nothing.
-rtl8152_runtime_resume() then runs napi_disable()/napi_enable(),
-rtl8152_get_speed() and usb_submit_urb(), and returns 0.
-
-rtl8152_resume() has a reset fallback, but it is skipped for runtime
-resume:
-
-	if (!runtime_resume && test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-		usb_reset_device(tp->udev);
-
-Once the flag is set, r8152_control_msg() also returns early:
-
-	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-		return -ENODEV;
-
-This happens before it gets to the usb_queue_reset_device() logic, so
-later register accesses cannot start a recovery either.
-
-The netdev stays registered and up while every hardware access is
-skipped. That lasts until a replug, a system suspend/resume, or an
-unrelated reset. Before this patch, rtl8157_runtime_enable() had no such
-wait.
-
-The commit message mentions this and defers recovery to a follow-up
-series. Since this path is on by default for these chips, should this
-patch at least queue a USB reset here (for example with
-usb_queue_reset_device(tp->intf)) or pass the error back?
-
-> +
-> +			/* clear USB fw_ver_reg */
-> +			ocp_write_byte(tp, MCU_TYPE_USB, USB_FW_USB_VER, 0);
-> +
-> +			tp->rtl_ops.hw_phy_cfg(tp);
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but r8157_hw_phy_cfg() can
-return early after it has already turned EEE and ALDPS off:
-
-drivers/net/usb/r8152.c:r8157_hw_phy_cfg() {
-    ...
-	r8153_aldps_en(tp, false);
-	rtl_eee_enable(tp, false);
-    ...
-	if (rtl_phy_patch_request(tp, true, true))
-		return;
-    ...
-}
-
-If the PHY patch handshake times out (for example -ETIME when
-PATCH_READY never appears), the code skips re-enabling EEE and ALDPS and
-skips set_bit(PHY_RESET). By then r8153_eee_en() has already cleared
-tp->ups_info.eee.
-
-hw_phy_cfg returns void, so r8157_ups_en() goes straight on to
-rtl8152_set_speed() and runtime resume reports success. Does EEE and
-ALDPS then stay off until the PHY is reconfigured? Would the next UPS
-suspend also leave out the new per-speed EEE flags in r8156_ups_flags()?
-
-The hw_phy_work path and r8153b_ups_en()/r8156_ups_en() share the same
-early return. This patch adds one more caller.
-
-> +
-> +			rtl8152_set_speed(tp, tp->autoneg, tp->speed,
-> +					  tp->duplex, tp->advertising);
-> +		}
-> +	}
-> +}
-
-[ ... ]
+[...]
