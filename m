@@ -1,77 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591494;
-	b=NXNJwlwyUdVTymemT5RTCdhEIqOBZhkM+ZQDPy2ZPr5Hhmc/PctIvBG5VCU/dJN8Ll0W
-	 kLlw1FSc5PmyVLl3G9ikvjnkVjlDyCBtaH030w0t8YLGYiFTo1ZsBJsWWreEZJ8F/oq73
-	 WxG5yTEn1JV1IBlEp8JIS216zCzur7tCwG4BUUaiWE0slRTufRAfAi3Z9eOkpyScSQRWa
-	 7mZpBdyGojwIlgOyMI4WYFCXDY0eJAiEXFpvZpCx8glqyBHAka24vuOkhhyXjzv0TCsOz
-	 IPUSNEhEAYth3jPCJFkG+kjpD3KSNHFg+iWBoQWr7yNLTVrJQhX/tDKuYQHz/nz1WJw==
+	t=1792591513;
+	b=YZTYK3Omy3Sx8A3yw/KKdTMQhIeLh5/diSmGhGhhnochG7yxOYqLaK5krN31T5ZCYhF0
+	 ncEUkkeepmHmLo4BN82CXlTKzKQc9poASTssOsDP8BiMae/r6nf34H42ehWefI3ANIMfL
+	 YhRBONoZqVnK9qV2KmGwW+Jv0kdF0A00O0ZZCyVOTC+QfYb3RfAuDkhgLia1mMim+scoV
+	 KTcPkmMQ6nzKXh9ibfmiw+qdey6slJZTyzMa6q0dLx5LqfqLUQO2XO+TjQNVQaiwdY/YZ
+	 gLQQIubSQHardrz24Mmo0jHdOBCG2n6iCjVGpKA8fx/cz09cWPEekAHmlNdd+3O+RFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591494;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=yA/d7xHCvimeiSgT5X9qinEfD4f+i9hf+y7HDZY8TE0=;
-	b=4srHYibEpUGb37QoOiHF3T2nAXrwr/PLQzj7yAroGvZXv5B2wyvyfgZ1cywwhuw5rfOy
-	 RUqudQIzRNvdl7rNbZu7OY5S0eYuGa6J9J9he80LNLTLIfrTGjHHxt85wC188Z9WaYhFW
-	 Em9Z0K1d5hx91nrp/DttatE2ospgz5J6m8BaZm17QhRtVJvt+wtbu01MRJzKaSLiuBGiB
-	 SC489Z0AiH1yFNqhUPUqh9j8DKL0GVmnQgoAquHEuXOWqKKKuBq9x/8G9I3Q6nP5mGVnX
-	 QCRHmpYMps3lrIg1VaWleA3PFvyooIuJe1C4SLF9u1EigAD4givsA2E/0NVX3m9dGyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591513;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
+	bh=FrXrhGc84F0SEW6ngQZtjtWKdGiIcLodKB76mx9Tm3A=;
+	b=rtofw81Zz75CS01Fvdd0gEjU+5HaodscVAPCnRACiGZR9DFIpCu4fB4ZkEaVVBo1T/nB
+	 l/8rJbcVAAD8PptD6Z4Nh1IKa6i3Pj8yTdtQo5so13m3C++HwLHLTIw+KCWMRjXL/6meU
+	 2wVw4gH1+eo+VfJNmUUkwfgVOY27Q210LJ6BmcAXjdc4zybTDMoH/TcpfmUrvnT3Vaf/A
+	 A8DDf4pCwsjQBz4cq1JmxK0wxnE2h7V3rzzuEo58WfD0sUwjafuHrqm9XDZutth6o9TIf
+	 rYxq65p17UqUglmc39ZirT9k0NRu4Tu/sa8whiI4B56Y+jJmprthIh5ZEx+Zi8avCsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZT563FZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=LnDF2sZJ;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841E9606A31D;
-	Wed, 21 Oct 2026 14:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21EE606A321;
+	Wed, 21 Oct 2026 14:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B21EE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZT563FZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585A91F000C4;
-	Wed, 21 Oct 2026 14:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792591494;
-	bh=yA/d7xHCvimeiSgT5X9qinEfD4f+i9hf+y7HDZY8TE0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UZT563FZdUGP4XEOxzleadiPXVItt+IukRA8Q0pvDTxGiRM352eYfiFV3ZpR+mAVS
-	 TOQjs7SZu0k5T4qA1b3jK/KenlsAX5Z/ktvQeei+NBo+GiJYMU1Zjl7ApteFHRINEI
-	 hSq9E9Ev9QMZzgUGPeHOlyrcDVwA8fX+4LWiRb554HkCtBIupo0D0UlBbWpJXsszA8
-	 fqCSms+YgllcSe8692GwRRjbTBNRea9tv5t7GhH9rz0zx+k55jhqDusib5AfuhpXlz
-	 uJSq+QtrtEsYVgA4KaAFAP6JAc1qfAqd9zwfAXk21T1y+5S8qY4UOCdilEeKp0VqcD
-	 I1xsQEQ7V0lVQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xJWw0-00000005dRI-1xo7;
-	Wed, 21 Oct 2026 14:04:52 +0000
-Date: Wed, 21 Oct 2026 15:04:51 +0100
-Message-ID: <86mrs7ywsc.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
-In-Reply-To: <ati3_lymW0zaBsSU@sirena.co.uk>
-References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
-	<ati3_lymW0zaBsSU@sirena.co.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=LnDF2sZJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792591518; x=1824127518;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=yW1XgpoWielDMW3UIfBB+wESIDB5LYWkKc7wBm5oMgY=;
+  b=LnDF2sZJFDEQqQPIkMpFyGxjstKmffU5nqrJzNStEzSdJQCEaJ3JJUaU
+   I10Dr1kQbfcARXpiNGntNRsWrSjbkhmO/NJ72DXojw6aO1ePl5gHTpT+H
+   Jq/6DXURLG1qKjlzov8UnZ6OBkA8xNYcjwB1DIALwzV/JaM1SJam7VXai
+   N+odYh0aa7fA8+iGPjrCM3GYbxuqCjnlRt0i5GFnAlOzOu2O88xVGB6oU
+   kYAOFhxXtkGQNMR5hkZpQxVG1pk+rE5yDapYPaUzh06g3CGANHcrHWZGU
+   Nal5xirHZqqwReo6VO/2ihLeon+XRBXldgun2qMNKeQpMSpZaHlv4NvAS
+   A==;
+X-CSE-ConnectionGUID: u22Z2VIBR/KVsPTy3Nax2Q==
+X-CSE-MsgGUID: oZgFHj/kSEKlmX0aTh2m5A==
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="75812527"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 21 Oct 2026 07:05:17 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 21 Oct 2026 07:05:11 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 21 Oct 2026 07:05:09 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Wed, 21 Oct 2026 16:04:59 +0200
+Subject: [PATCH net v2] net: sparx5: fix tx DCB index drift in fdma xmit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,27 +72,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: broonie@kernel.org, fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, ljs@kernel.org, tabba@google.com, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261021-sparx5-fdma-last-dcb-v2-1-7b8fabdb9239@microchip.com>
+X-B4-Tracking: v=1; b=H4sIAIrG2GoC/22NwQqDMBBEf0X23C1uqKnpyf8oHmKy1oVqJBGxi
+ P/eYK89vhnmzQ6Jo3CCR7FD5FWShCmDuhTgBju9GMVnBlUqTSUZTLONW4W9Hy2+bVrQuw5ZcX0
+ z1N19rSFP58i9bKf2CRMv0OZwkLSE+DmvVjqrn1WV/60rIWHfGWsqTUZ734ziYnCDzFcXRmiP4
+ /gCgxSEp8EAAAA=
+X-Change-ID: 20261019-sparx5-fdma-last-dcb-e2e8491b7d86
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>, Horatiu Vultur
+	<horatiu.vultur@microchip.com>
+CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-On Wed, 21 Oct 2026 14:02:54 +0100,
-Mark Brown <broonie@kernel.org> wrote:
-> 
-> It would be nice to have it be more obvious to the VMM and/or it's users
-> that it messed up, as things stand features it thought it had set will
-> just silently vanish from the guest - they'd need to know that this is
-> something that might happen and check after finalization or similar.
-> That's probably more a documentation/education thing than anything for
-> the patch.
+sparx5_fdma_xmit() advances dcb_index before checking that the FDMA is
+done with the DCB, and does not undo the advance when the check fails.
+Before commit f4aa7e361ae2 ("net: sparx5: use FDMA library for adding
+DCB's in the tx path") the next DCB was always the one after last_dcb.
+Since then dcb_index drifts one DCB further away from last_dcb on every
+failed transmit.
 
-The VMM is an integral part of implementing the architecture. If the
-VMM doesn't cooperate, that's its problem.
+While the ring is full, this drops frames even though completed DCBs
+sit behind dcb_index. After a run of failures, dcb_index can also land
+on last_dcb itself. Re-adding last_dcb loses the frame, because the
+FDMA has already passed the tail of the chain, and that DCB is never
+completed again.
 
-	M.
+Fix this by making dcb_index the next DCB to use, and advancing it only
+after the DCB has been added, as the rx path does. dcb_index and
+last_dcb now only move together, so dcb_index always points at the DCB
+after last_dcb.
 
+The issue was found by an AI code review agent. It was reproduced on a
+sparx5 PCB135 board with a modified kernel that forces 63 consecutive
+transmit failures. Afterwards, about 1 in 64 frames is lost for good.
+With the fix, the same test loses no frames.
+
+Fixes: f4aa7e361ae2 ("net: sparx5: use FDMA library for adding DCB's in the tx path")
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+Changes in v2:
+- Advance dcb_index only after the DCB has been added, instead of
+  rejecting last_dcb. This fixes the drift itself (AI review).
+- Reword the subject and commit message to match.
+- Link to v1: https://lore.kernel.org/r/20261020-sparx5-fdma-last-dcb-v1-1-fb9a956196dd@microchip.com
+---
+ drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
+index dbe86f937b21..15ec9b053824 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
+@@ -217,7 +217,6 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
+ 	struct fdma *fdma = &tx->fdma;
+ 	void *virt_addr;
+ 
+-	fdma_dcb_advance(fdma);
+ 	if (!fdma_db_is_done(fdma_db_get(fdma, fdma->dcb_index, 0)))
+ 		return -EINVAL;
+ 
+@@ -235,6 +234,8 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
+ 		     FDMA_DCB_STATUS_BLOCKO(0) |
+ 		     FDMA_DCB_STATUS_BLOCKL(skb->len + IFH_LEN * 4 + 4));
+ 
++	fdma_dcb_advance(fdma);
++
+ 	sparx5_fdma_reload(sparx5, fdma);
+ 
+ 	return NETDEV_TX_OK;
+
+---
+base-commit: 07bd391eb9572e74f073c49acef327611234f9bb
+change-id: 20261019-sparx5-fdma-last-dcb-e2e8491b7d86
+
+Best regards,
 -- 
-Without deviation from the norm, progress is not possible.
+Daniel Machon <daniel.machon@microchip.com>
+
