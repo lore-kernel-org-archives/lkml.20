@@ -1,63 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593523;
-	b=cWNV2FMC1xxmLCitgOnYwr01ruA2qcMG9SxKeFmpSSAQpE+66tJAcK3n7yoH0RMSc2CH
-	 JB0+1g/VTQgu5KVNa4UA0odONXfJb9jhCBfrFiJ1ioftFi44WY1ylWepPWnoK+1S5qv3t
-	 7XPU32Y85uAD+6yrPZfppcnF5C6q4NLIwoDafuILkr5xGVjzPnUzUyQuJjCxrxbTTWeyu
-	 +at8yhA6j2wFMrCHVMXOXW4DpCeuV5dweJpr/AF4GTjbnYDbRixok6afUTpQOcqICj/44
-	 tXAK3gTC1A4rCfgSnzzWu/k8ll8IogNI4j/F8xj39NMsjZNt8kDGJqIXyW+0A1UNIdA==
+	t=1792593563;
+	b=hpnHewK0kxbMtbFAtQJcC/uYKxSfNY5kIvfuo1NJUOUXSB9msRUKv9vb9gH3AxbKAmoB
+	 UVZB00dRmGqHz5HesMTUhqQ3f1+hC4ldiNkk8K9QWfkbAWDfWzmM3jOaLML/W7lUgpThZ
+	 HhMJnYVl98AsMM2qyVuP6w4VMMspDfGtsmf2pRnR9eK9KelSh27cQiSa6EIyW1zvUnU3n
+	 dFMWiAyzI0d1FOb7vWfXdqdYvHgSCWi1wtctAohQB+hlK2mPCoe9KcT5vwnXS6nqrYsfC
+	 e+rf47JsbpmvixXDiPK38nqVIjEemmCx72HIVIMhNlQdA563PgBVyH5OSZXXUoUW1ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593523;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=KoL7GRKqrRuEvjWhaorUa6GwE3B2CHX/zoowq8ecWdk=;
-	b=tcQL4c6/NHipFzIxGJFEtnqD8/kg6KF5O6UGYFT19mDtidLD3Zsz4UuhMhjdKL3tnBo3
-	 QZ2pgqRxmr1DUlPQakQCKyZGlcu5UFXfGrtUKJcCset6rq5kDxijUqXUxtFdSq+03M3t2
-	 XAThecRp7D9VSNx4R/kS8Xek0OnLW9BKvVEQDWWprAYbZZ5VtWzoEsc+ecqQUuV/PjHnK
-	 Pb40uSiLgEeWwapBcZtlLWIX09WLwH+hGOSZN1nrGMS/LO2QPA4N5KZVC3WSWAL9XvkgY
-	 emxhvtdzFk003Q9Fldby1gMjJm91RkNQgshtT8gOpA2Y5iO6yf/HdfZ+BivRTXioiLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593563;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2FZ6WSldowIQ5CGzRVSQzX5RHQEHuI8rIa0QlGDiTMI=;
+	b=BlRimoVfquKEJg7yi+2AOC+Dsye2ghoCTNp115uXOvGJVJbwp6E23KbxHRqMl9YGUYWK
+	 sGL4ok10X6xotDKSJAobktE27QJwF9JuuDLsO6s+ysICRUbt7cIS4Y0lIXMUuJA8iNjrs
+	 vAQOY/5mWlHLZXCxoi2tzNEn0zJT4QgjDexfY07gG+j3iRgh87dubnVCQFrRtuLNV27uo
+	 ryNHmpuseii7Gbn/sLjMN1TzYhbsz0xyfwjZAM5ixMdNX2v2AUAwJLo3coFCKZK61rIuz
+	 LB2HlMF6IHoL2FbBb3frruC17nohPhu4QwnboKvIJu/mWnWlZMYqrVAw0fybODj+0KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EzldkBFc;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJ4Tfzsb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442BE606A31B;
-	Wed, 21 Oct 2026 14:38:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442BE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03041606A31F;
+	Wed, 21 Oct 2026 14:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EzldkBFc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=KoL7GRKqrRuEvjWhaorUa6GwE3B2CHX/zoowq8ecWdk=; b=E
-	zldkBFcYUfmB7nEe6h6Nt+8kfwVm0srWOBQON5BByYwwnVHP51GgkCeuFf5Dt1Xz
-	Nrr/PUg4rg2iWz5sUfOqct1JGnxmBTvZ+LKofoobD0qizLNxYxmTOjiGMxAAO83U
-	FRTdUQdFeWAZ7DhvYRbO0djlJhZkdQh0EpSMNAHow4=
-Date: Wed, 21 Oct 2026 22:37:58 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Kameron Carr" <kameroncarr@linux.microsoft.com>
-Cc: "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
-	"Dexuan Cui" <decui@microsoft.com>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Stephen Hemminger" <stephen@networkplumber.org>,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] hv/vmbus: copy dynamic IDs before dropping the lock
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <7d9f70d0-1856-4424-89d9-c9f3552a8469@linux.microsoft.com>
-References: <20261019085544.1834700-1-yaojiale02@163.com>
- <7d9f70d0-1856-4424-89d9-c9f3552a8469@linux.microsoft.com>
-X-NTES-SC: AL_Qu2SAPmSvEws7iSfZ+kcn08ShO49XMOyvfoi2YFTc+AEnyzt4CYNekNFJlbR4NixDT6PtCCIYido2OlHUoR6m7aMhGa3PcNajq7P9qcyOg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJ4Tfzsb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D53DA1F000C1;
+	Wed, 21 Oct 2026 14:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792593562;
+	bh=2FZ6WSldowIQ5CGzRVSQzX5RHQEHuI8rIa0QlGDiTMI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UJ4TfzsbvdADPiJX+OB0+tvGgRkc1n8Cd4A+lMCi1apFYuz/IexXW/1dOy9xSi3YI
+	 liX/1X1GNN+m22ia5nzltzu2Nq3VYIvZ7PKI6yRMzjKf0Dgx+uB5mIaPutT+y1aATw
+	 Ra1CMqwgw0npxTCHYHSkxA2wVYL5qBEm0vpxYtgHJn59mWnvDQCHHKpIui2HdK/iuD
+	 /B/fKZ7Jbsk1Aswcs1InTrdFePxLaci3TAIzju2T7oQGYoTbaV9R8lXTKDnMZywoRb
+	 pS+hyP5bc0htYA29ZogtUZzcMj8GNwzQGneUNpKkRVYne4YM6dw99sUXkE7haOIyl3
+	 8LvkUzy5nzrBg==
+Date: Wed, 21 Oct 2026 07:39:21 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Lee Jones
+ <lee@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri
+ Slaby <jirislaby@kernel.org>, mfd@lists.linux.dev,
+ linux-serial@vger.kernel.org, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel
+ <cassel@kernel.org>, linux-ide@vger.kernel.org, Pavel Machek
+ <pavel@kernel.org>, linux-leds@vger.kernel.org, Bjorn Helgaas
+ <bhelgaas@google.com>, linux-pci@vger.kernel.org, Christoph Hellwig
+ <hch@lst.de>
+Subject: Re: [PATCH v2 00/53] MIPS: SGI-IP27: add support for the IP35
+ (Bedrock hub) machines
+Message-ID: <20261021073921.07632a37@kernel.org>
+In-Reply-To: <20261021090556.21168-1-kaloz@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org>
+	<20261020110619.12774a1c@kernel.org>
+	<20261020204214.28625-1-kaloz@kernel.org>
+	<20261020145611.4e277615@kernel.org>
+	<20261021090556.21168-1-kaloz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,101 +74,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <7b506cdc.9bbf.1a15ee5c351.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:aygvCgD3H+tGzthqW4ZdAA--.979W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgaVz2rYzkYtswAA32
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-SGkgS2FtZXJvbiwKCkF0IDIwMjYtMTAtMjEgMDc6MzA6NTUsICJLYW1lcm9uIENhcnIiIDxrYW1l
-cm9uY2FyckBsaW51eC5taWNyb3NvZnQuY29tPiB3cm90ZToKPk9uIDEwLzE5LzIwMjYgMTo1NSBB
-TSwgSmlhbGUgWWFvIHdyb3RlOgo+PiByZW1vdmVfaWRfc3RvcmUoKSBjYW4gZnJlZSBhIG1hdGNo
-aW5nIGR5bmFtaWMgSUQgd2hpbGUgVk1CdXMgaXMKPj4gcHJlcGFyaW5nIHRvIGludm9rZSBhIGRy
-aXZlciBwcm9iZS4gQ29weSB0aGUgSUQgd2hpbGUgaG9sZGluZyB0aGUKPj4gZHluYW1pYyBJRCBs
-b2NrIHNvIHByb2JlIG5ldmVyIHJlY2VpdmVzIGEgcG9pbnRlciBpbnRvIGEgZnJlZWQgbGlzdAo+
-PiBlbnRyeS4KPgo+SXMgdGhpcyB0aGUgc2FtZSBmaXggYXM6Cj4KPiAgM2ZmYzRjOTY5MGMzICgi
-UENJOiBGaXggVUFGIHdoZW4gcHJvYmUgcnVucyBjb25jdXJyZW50IHRvIGR5biBJRAo+ICByZW1v
-dmFsIikKPiAgZWY4MTU0ZDhiNTJkICgidXNiOiBmaXggVUFGIHdoZW4gcHJvYmUgcnVucyBjb25j
-dXJyZW50IHRvCj4gIGR5biBJRCByZW1vdmFsIikKPgo+SWYgc28sIGNvbnNpZGVyIGNpdGluZyB0
-aGVtIGluIHRoZSBjb21taXQgbWVzc2FnZS4gQWxzbywgY29uc2lkZXIgdGFraW5nCj5pbnNwaXJh
-dGlvbiBmcm9tIHRoZWlyIGltcGxlbWVudGF0aW9uLgoKWWVzIQoKPgo+Tml0OiB0aGlzIHN1YnN5
-c3RlbSB0eXBpY2FsbHkgdXNlcyAiRHJpdmVyczogaHY6IHZtYnVzOiIgZm9yIHRoZSBzdWJqZWN0
-Cj5wcmVmaXguClRoYW5rcyBmb3IgeW91ciByZXZpZXcsIGhvdyBhYm91dCB0aGlzIG9uZQpodHRw
-czovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjEwMjExNDMzMjMuMzM4MTQ2LTEteWFvamlhbGUw
-MkAxNjMuY29tLwoKPgo+Cj4+IEZpeGVzOiBmYzc2OTM2ZDNlYTUgKCJ2bWJ1czogYWRkIHN1cHBv
-cnQgZm9yIGR5bmFtaWMgZGV2aWNlIGlkJ3MiKQo+PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8g
-PHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2h2L3ZtYnVzX2Rydi5jIHwg
-MjUgKysrKysrKysrKysrKysrLS0tLS0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDE1IGluc2Vy
-dGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHYv
-dm1idXNfZHJ2LmMgYi9kcml2ZXJzL2h2L3ZtYnVzX2Rydi5jCj4+IGluZGV4IDQ2OTI2ODdjZGJm
-My4uOTZhZDBkZmFhNTBiIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h2L3ZtYnVzX2Rydi5jCj4+
-ICsrKyBiL2RyaXZlcnMvaHYvdm1idXNfZHJ2LmMKPj4gQEAgLTY2MSwyMSArNjYxLDIyIEBAIGh2
-X3ZtYnVzX2Rldl9tYXRjaChjb25zdCBzdHJ1Y3QgaHZfdm1idXNfZGV2aWNlX2lkICppZCwgY29u
-c3QgZ3VpZF90ICpndWlkKQo+PiAgfQo+PiAgCj4+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGh2X3Zt
-YnVzX2RldmljZV9pZCAqCj4+IC1odl92bWJ1c19keW5pZF9tYXRjaChzdHJ1Y3QgaHZfZHJpdmVy
-ICpkcnYsIGNvbnN0IGd1aWRfdCAqZ3VpZCkKPj4gK2h2X3ZtYnVzX2R5bmlkX21hdGNoKHN0cnVj
-dCBodl9kcml2ZXIgKmRydiwgY29uc3QgZ3VpZF90ICpndWlkLAo+PiArCQkgICAgIHN0cnVjdCBo
-dl92bWJ1c19kZXZpY2VfaWQgKmlkX2NvcHkpCj4+ICB7Cj4+IC0JY29uc3Qgc3RydWN0IGh2X3Zt
-YnVzX2RldmljZV9pZCAqaWQgPSBOVUxMOwo+PiAgCXN0cnVjdCB2bWJ1c19keW5pZCAqZHluaWQ7
-Cj4+ICAKPj4gIAlzcGluX2xvY2soJmRydi0+ZHluaWRzLmxvY2spOwo+PiAgCWxpc3RfZm9yX2Vh
-Y2hfZW50cnkoZHluaWQsICZkcnYtPmR5bmlkcy5saXN0LCBub2RlKSB7Cj4+ICAJCWlmIChndWlk
-X2VxdWFsKCZkeW5pZC0+aWQuZ3VpZCwgZ3VpZCkpIHsKPj4gLQkJCWlkID0gJmR5bmlkLT5pZDsK
-Pj4gLQkJCWJyZWFrOwo+PiArCQkJKmlkX2NvcHkgPSBkeW5pZC0+aWQ7Cj4+ICsJCQlzcGluX3Vu
-bG9jaygmZHJ2LT5keW5pZHMubG9jayk7Cj4+ICsJCQlyZXR1cm4gaWRfY29weTsKPj4gIAkJfQo+
-PiAgCX0KPj4gIAlzcGluX3VubG9jaygmZHJ2LT5keW5pZHMubG9jayk7Cj4+ICAKPj4gLQlyZXR1
-cm4gaWQ7Cj4+ICsJcmV0dXJuIE5VTEw7Cj4+ICB9Cj4+ICAKPj4gIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgaHZfdm1idXNfZGV2aWNlX2lkIHZtYnVzX2RldmljZV9udWxsOwo+PiBAQCAtNjg1LDcgKzY4
-Niw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaHZfdm1idXNfZGV2aWNlX2lkIHZtYnVzX2Rldmlj
-ZV9udWxsOwo+PiAgICogSWYgdGhlcmUgaXMgbm8gbWF0Y2gsIHJldHVybiBOVUxMLgo+PiAgICov
-Cj4+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGh2X3ZtYnVzX2RldmljZV9pZCAqaHZfdm1idXNfZ2V0
-X2lkKGNvbnN0IHN0cnVjdCBodl9kcml2ZXIgKmRydiwKPj4gLQkJCQkJCQlzdHJ1Y3QgaHZfZGV2
-aWNlICpkZXYpCj4+ICsJCQkJCQkJc3RydWN0IGh2X2RldmljZSAqZGV2LAo+PiArCQkJCQkJCXN0
-cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgKmlkX2NvcHkpCj4+ICB7Cj4+ICAJY29uc3QgZ3VpZF90
-ICpndWlkID0gJmRldi0+ZGV2X3R5cGU7Cj4+ICAJY29uc3Qgc3RydWN0IGh2X3ZtYnVzX2Rldmlj
-ZV9pZCAqaWQ7Cj4+IEBAIC02OTcsNyArNjk5LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBodl92
-bWJ1c19kZXZpY2VfaWQgKmh2X3ZtYnVzX2dldF9pZChjb25zdCBzdHJ1Y3QgaHZfZHJpdmVyICoK
-Pj4gIAkJcmV0dXJuIE5VTEw7Cj4+ICAKPj4gIAkvKiBMb29rIGF0IHRoZSBkeW5hbWljIGlkcyBm
-aXJzdCwgYmVmb3JlIHRoZSBzdGF0aWMgb25lcyAqLwo+PiAtCWlkID0gaHZfdm1idXNfZHluaWRf
-bWF0Y2goKHN0cnVjdCBodl9kcml2ZXIgKilkcnYsIGd1aWQpOwo+PiArCWlkID0gaHZfdm1idXNf
-ZHluaWRfbWF0Y2goKHN0cnVjdCBodl9kcml2ZXIgKilkcnYsIGd1aWQsIGlkX2NvcHkpOwo+PiAg
-CWlmICghaWQpCj4+ICAJCWlkID0gaHZfdm1idXNfZGV2X21hdGNoKGRydi0+aWRfdGFibGUsIGd1
-aWQpOwo+PiAgCj4+IEBAIC03NzMsNiArNzc1LDcgQEAgc3RhdGljIHNzaXplX3QgbmV3X2lkX3N0
-b3JlKHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcml2ZXIsIGNvbnN0IGNoYXIgKmJ1ZiwKPj4gIAkJ
-CSAgICBzaXplX3QgY291bnQpCj4+ICB7Cj4+ICAJc3RydWN0IGh2X2RyaXZlciAqZHJ2ID0gZHJ2
-X3RvX2h2X2Rydihkcml2ZXIpOwo+PiArCXN0cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgaWRfY29w
-eTsKPj4gIAlndWlkX3QgZ3VpZDsKPj4gIAlzc2l6ZV90IHJldHZhbDsKPj4gIAo+PiBAQCAtNzgw
-LDcgKzc4Myw3IEBAIHN0YXRpYyBzc2l6ZV90IG5ld19pZF9zdG9yZShzdHJ1Y3QgZGV2aWNlX2Ry
-aXZlciAqZHJpdmVyLCBjb25zdCBjaGFyICpidWYsCj4+ICAJaWYgKHJldHZhbCkKPj4gIAkJcmV0
-dXJuIHJldHZhbDsKPj4gIAo+PiAtCWlmIChodl92bWJ1c19keW5pZF9tYXRjaChkcnYsICZndWlk
-KSkKPj4gKwlpZiAoaHZfdm1idXNfZHluaWRfbWF0Y2goZHJ2LCAmZ3VpZCwgJmlkX2NvcHkpKQo+
-PiAgCQlyZXR1cm4gLUVFWElTVDsKPj4gIAo+PiAgCXJldHZhbCA9IHZtYnVzX2FkZF9keW5pZChk
-cnYsICZndWlkKTsKPgo+VGhpcyBjaGVjayBhbmQgdGhlIGxpc3RfYWRkX3RhaWwoKSBpbiB2bWJ1
-c19hZGRfZHluaWQoKSBydW4gaW4gc2VwYXJhdGUKPmNyaXRpY2FsIHNlY3Rpb25zLCBzbyB0d28g
-Y29uY3VycmVudCB3cml0ZXJzIGNhbiBib3RoIGFkZCB0aGUgc2FtZSBHVUlELgo+Q29uc2lkZXIg
-YSBwcmVwYXJhdG9yeSBwYXRjaCB0aGF0IG1vdmVzIHRoZSBjaGVjayBpbnRvIHZtYnVzX2FkZF9k
-eW5pZCgpCj51bmRlciB0aGUgc2FtZSBkeW5pZHMubG9jazsgc2VlIDA0ZmRlNzBmNzgyYiAoIlBD
-STogRml4IGR5bl9pZCBhZGQKPlRPQ1RPVSIpLiBuZXdfaWRfc3RvcmUoKSB0aGVuIG5vIGxvbmdl
-ciBuZWVkcyBodl92bWJ1c19keW5pZF9tYXRjaCgpIG9yCj5pZF9jb3B5IGF0IGFsbC4KPgo+PiBA
-QCAtODQwLDEyICs4NDMsMTMgQEAgc3RhdGljIGludCB2bWJ1c19tYXRjaChzdHJ1Y3QgZGV2aWNl
-ICpkZXZpY2UsIGNvbnN0IHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcml2ZXIKPj4gIHsKPj4gIAlj
-b25zdCBzdHJ1Y3QgaHZfZHJpdmVyICpkcnYgPSBkcnZfdG9faHZfZHJ2KGRyaXZlcik7Cj4+ICAJ
-c3RydWN0IGh2X2RldmljZSAqaHZfZGV2ID0gZGV2aWNlX3RvX2h2X2RldmljZShkZXZpY2UpOwo+
-PiArCXN0cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgaWRfY29weTsKPj4gIAo+PiAgCS8qIFRoZSBo
-dl9zb2NrIGRyaXZlciBoYW5kbGVzIGFsbCBodl9zb2NrIG9mZmVycy4gKi8KPj4gIAlpZiAoaXNf
-aHZzb2NrX2NoYW5uZWwoaHZfZGV2LT5jaGFubmVsKSkKPj4gIAkJcmV0dXJuIGRydi0+aHZzb2Nr
-Owo+PiAgCj4+IC0JaWYgKGh2X3ZtYnVzX2dldF9pZChkcnYsIGh2X2RldikpCj4+ICsJaWYgKGh2
-X3ZtYnVzX2dldF9pZChkcnYsIGh2X2RldiwgJmlkX2NvcHkpKQo+PiAgCQlyZXR1cm4gMTsKPj4g
-IAo+PiAgCXJldHVybiAwOwo+PiBAQCAtODYwLDkgKzg2NCwxMCBAQCBzdGF0aWMgaW50IHZtYnVz
-X3Byb2JlKHN0cnVjdCBkZXZpY2UgKmNoaWxkX2RldmljZSkKPj4gIAlzdHJ1Y3QgaHZfZHJpdmVy
-ICpkcnYgPQo+PiAgCQkJZHJ2X3RvX2h2X2RydihjaGlsZF9kZXZpY2UtPmRyaXZlcik7Cj4+ICAJ
-c3RydWN0IGh2X2RldmljZSAqZGV2ID0gZGV2aWNlX3RvX2h2X2RldmljZShjaGlsZF9kZXZpY2Up
-Owo+PiArCXN0cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgZGV2X2lkX2NvcHk7Cj4+ICAJY29uc3Qg
-c3RydWN0IGh2X3ZtYnVzX2RldmljZV9pZCAqZGV2X2lkOwo+PiAgCj4+IC0JZGV2X2lkID0gaHZf
-dm1idXNfZ2V0X2lkKGRydiwgZGV2KTsKPj4gKwlkZXZfaWQgPSBodl92bWJ1c19nZXRfaWQoZHJ2
-LCBkZXYsICZkZXZfaWRfY29weSk7Cj4KPkNvbnNpZGVyIGRvY3VtZW50aW5nIGluIGluY2x1ZGUv
-bGludXgvaHlwZXJ2LmggdGhhdCB0aGUKPmh2X3ZtYnVzX2RldmljZV9pZCBpcyBvbmx5IHZhbGlk
-IGR1cmluZyBwcm9iZSBzbyBmdXR1cmUgZHJpdmVycyBkb24ndAo+c2F2ZSB0aGUgcG9pbnRlciAo
-c2VlIHdoYXQgUENJIGFuZCBVU0IgZml4ZXMgZGlkIGluIHBjaS5oIGFuZCB1c2IuaCkuCj4KPj4g
-IAlpZiAoZHJ2LT5wcm9iZSkgewo+PiAgCQlyZXQgPSBkcnYtPnByb2JlKGRldiwgZGV2X2lkKTsK
-Pj4gIAkJaWYgKHJldCAhPSAwKQo+Cj5QbGVhc2UgcmV2aWV3IHRoZSBTYXNoaWtvIGNvbW1lbnQu
-Cj4KPlJlZ2FyZHMsCj5LYW1lcm9uCg==
+On Wed, 21 Oct 2026 11:05:55 +0200 Imre Kaloz wrote:
+> On Tue, 20 Oct 2026 14:56:11 -0700 Jakub Kicinski wrote:
+> > I don't think you answered my question, or at least I'm too daft 
+> > to catch what you mean. IP35 was not supported so nobody is using
+> > it with Linux today. You're adding the support, and since it's 
+> > a platform discontinued 20 years ago there's 0 chance of real users 
+> > of any of this code.
+> > 
+> > What am I missing?  
+> 
+> The users are the people running these machines, the same population
+> as for IP27 and IP30, and the ioc3-eth driver in net/ exists for them
+> today. The series was developed and tested on a Fuel and a Tezro in
+> regular use, so "nobody is using it with Linux" is true only in the
+> sense that the support isn't merged yet; that was equally true of IP30
+> when it went in for 5.5, and of every port before it.
+
+Not sure if you followed the discussions at the recent maintainer
+summit but we are now allowed to be more opinionated about code
+we merge. Merging code just to test that code seems like entertainment
+for the authors, not useful development.
+
+> The kernel's test for a platform isn't commercial relevance, it's a
+> maintainer, which Thomas is, and testers, which this series has. If
+> netdev doesn't want to spend time on it, say so and I'll ask Thomas to
+> take the two ioc3-eth patches through the MIPS tree.
+
+Not how subsystem boundaries work. You have to repost the two
+networking patches to get them merged via net-next. Our CIs
+will not trigger for partial posting to netdev.
