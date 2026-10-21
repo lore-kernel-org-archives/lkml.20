@@ -1,47 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792579643;
-	b=iW9SgPC+tSk+Zs7JmhorK63t8tGDp8J8U+cyrX7LqAKaF+v6Pi2af0WY2ILrv0OZhET/
-	 HAZ21lXCEz7PK6WdSzclH/cSqBbASw/LKE28z7fTxT7ciXSTFjkuRWU/paBDhzuVKtvVg
-	 sHNhB3ZNsa0iGP4KwPpYPbwNnQZd/4QhB9CyzNlE/r4MZvH8EGvxSS3awH17AEqCNmpKU
-	 lVvqlbK9qQDodyLnHRJHI1wGDkDVWmrZZxpB2VVtR+9c+Xqh+ayOwOYQXmmay5F/Rbm5y
-	 qrQ0TVnYBq5quAf0jH+i6n4IKdNBXYNGX3CL0FIGqzooejr/LpJdhr9cn8klacg9wIQ==
+	b=dO4gcxxbIFvLHp5vxZvKFlh7N7u1lmYD0FhHFDu8xREWfwXzoSYfhVfJy08Dgtfy+ijx
+	 NEY/2/c42NJDYRxVpIvNChHFkQpnDi7yREJtOacuPUi9DOdjqCNCiYc5SYBTEbIIR8cXa
+	 nKjSLXxvjqy0A+96HpTckLLRXoTkq1kozWnvjVP0dBxGD4xk1Wptrwtdnyd3FYadid8WQ
+	 jvo/9nRWZ678eywLxYzY1VUIBN8vY32DK/8YsT1l/akGzyx7WxkZQvmVf4dxBdbm8Rk9H
+	 otyoM35oXnUeuywT+fP9TMt/rjAVYteRIyFa63wcsoKDG78sy2a2oAMJ9crcwmcl1Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792579643;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=4bc3lyW8ExNMs+t0RxZYctVap348djpgztaEMV/DmNs=;
-	b=Of2XJi0ZpB3KrTPzVThx1IXOWiQr2baCNGQC+xO/9GWmfGHnEpehyvt9PH7YcZMiqC7I
-	 JjWqAh8zuV52yqpYObt96MAFq9YSHRyMg/Mn1kxAarupzOG+wSGu/6tWONX8wlfKmTowC
-	 NsJdv9wE1tBz9beeSVX+4MO0RM0ZgecdEbjoBrTiULgRPEWfnFIYyYlmKu73a4P7l3Xqq
-	 0JXGgvy1ra6Wt7Jt9Au3AruAiBqN0K421Zrl8cjqHA2nCG22NuOZrVhWI9Oyu8Xw+JMf/
-	 2MWLltcyQVUP1qyiyg+4fe9hdoqb9V3X5+SR1RNd4+4WGm1bBwyq/aaBkBCEz2I8Y2w==
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=bBJUmtbuATtCQI4WXAqiNK4mEbViXdkWjhd79WEwXiM=;
+	b=DdGVg+ckdszA0oEkpecHMyVNcbUbOtldhc3gWq2Kvk2Ka+4zjwlxqg6zFqOAEX0XMHK6
+	 86c9oooVUPY10VCdSBuMj4MgCjiUuYg/8OHcEPZCpvfQYVBPaGQVMLVRvTFGk6JPKDaOt
+	 3UiRyWEoa50ck4dj3PeZEYitASd9Ci0lvlC9RjI4ugvsh50fVcd1A+NlrwSLBQ8iOm6fs
+	 lqedWzFrydKJ2TL9F3Qed0+XSMpuoSZYe82PnhGsxsx2xlMMEfckP5Ze0m9iV0dFvZFNx
+	 VP8Kd0ymx6C9Vz6VcALiaRIui7lZ90Z6CMFHG3T8wc6IhcWaq/eafrUPMlmrJpgTAqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oLGvXQ98;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GaysVL2o;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEFE606A338;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA62C606A339;
 	Wed, 21 Oct 2026 10:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEEFE606A338
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA62C606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oLGvXQ98
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GaysVL2o
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4b
-	c3lyW8ExNMs+t0RxZYctVap348djpgztaEMV/DmNs=; b=oLGvXQ984248iRJ5qJ
-	tzRNkRq2PLyi3KzOHNdHtRpe64gdRSfX0s+t7wV3qXAg8quZ98tDZY457ItbJjuN
-	QDBH2GE6nVXv4nCueP4gqooUEjgFw3IidJ61H7c9edWSn14nRjb9I2x+k8fl8XgW
-	8dE8M8r4SchCwoyclzKz4/6n4=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bB
+	JUmtbuATtCQI4WXAqiNK4mEbViXdkWjhd79WEwXiM=; b=GaysVL2oznaB6ZBhTY
+	uJrmrvdFgr5hKCApxCt8UPZeQlp2BWqh4znUXe8gD+kzm/TQFkmhgdl/4Uwu+CGJ
+	aE+p+QS8VXo7QNikOfEfH7IniSMtQtpAmUfEK/IsYHRBJ0On1ww1qpbSEs/J+zTF
+	WzVck64z31PHFS5Fwu2N2dBRM=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXXzcZmNhqXKxSBw--.62283S2;
-	Wed, 21 Oct 2026 18:46:50 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXXzcZmNhqXKxSBw--.62283S4;
+	Wed, 21 Oct 2026 18:46:52 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
 	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
@@ -50,12 +51,15 @@ To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
 	Tony Luck <tony.luck@intel.com>,
 	Michal Simek <michal.simek@amd.com>,
 	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 0/2] EDAC: reserve space for debugfs input terminators
-Date: Wed, 21 Oct 2026 18:46:46 +0800
-Message-Id: <20261021104648.4105938-1-yaojiale02@163.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 2/2] EDAC/zynqmp: reserve space for injection input terminator
+Date: Wed, 21 Oct 2026 18:46:48 +0800
+Message-Id: <20261021104648.4105938-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261021104648.4105938-1-yaojiale02@163.com>
+References: <20261021104648.4105938-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,26 +70,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXXzcZmNhqXKxSBw--.62283S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUxdcTUUUUU
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Bv8N2rYmBvbUQAA3b
+X-CM-TRANSID:_____wDXXzcZmNhqXKxSBw--.62283S4
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xw1kAr4xCw4xJFy8ury8Zrb_yoWDGrg_u3
+	4kAFykJFWDAFyDt3Z3Aw4YvFW0k3W5XF1kW3Wa9Fyavr1UXrn3ZFn3uFnxXr4UuFWfWr9r
+	KwnYgFZ7Gw47GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUnFksDUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhz9OGrYmByFkAAA30
 
-The Versal and ZynqMP EDAC debugfs injection handlers allow the copied
-input to fill a six-byte stack buffer and then append a NUL byte one byte
-beyond it.
+inject_ue_write() caps the copy length at the full buffer size and then
+writes a terminating NUL at buf[len]. An input of six bytes or more
+therefore writes one byte beyond the stack buffer.
 
-Limit each copy to five bytes so the existing terminator write remains
-inside the buffer.
+Limit the copied input to one byte less than the buffer size.
 
-Jiale Yao (2):
-  EDAC/versal: reserve space for injection input terminator
-  EDAC/zynqmp: reserve space for injection input terminator
-
- drivers/edac/versal_edac.c | 2 +-
+Fixes: 3bd2706c910f ("EDAC/zynqmp: Add EDAC support for Xilinx ZynqMP OCM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
  drivers/edac/zynqmp_edac.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/edac/zynqmp_edac.c b/drivers/edac/zynqmp_edac.c
+index cdffc9e4194d..048a7b9becd6 100644
+--- a/drivers/edac/zynqmp_edac.c
++++ b/drivers/edac/zynqmp_edac.c
+@@ -304,7 +304,7 @@ static ssize_t inject_ue_write(struct file *file, const char __user *data,
+ 	if (!data)
+ 		return -EFAULT;
+ 
+-	len = min_t(size_t, count, sizeof(buf));
++	len = min_t(size_t, count, sizeof(buf) - 1);
+ 	if (copy_from_user(buf, data, len))
+ 		return -EFAULT;
+ 
 -- 
 2.34.1
 
