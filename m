@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584992;
-	b=d8iYrQO9QtKwC3OYgE00jn1U3j9qRu8RCfLQ7NrvHpPLXeRP9uwQMxE3b71dIa9GByI0
-	 EElXwz7vti8+9CNZfci9Co1cFZBocCqP0pllVtqb2GW2IrP/L79BRYZ2U1YslcbSR6kv1
-	 wcqNV5U2Y7U1Ltnf/fFNOCHxcYMK+AmH+SaBWkXbor3JF/DHxhClGHU+Ez3rnmWDAYhSD
-	 2BSsVyxTxTuQBMqsZdyxlWnuo5f57JT/2+cjtkZaDZjQmQPPlvbdiQmeuwqccMzTxfXWG
-	 Jf1BTWkjMQ7un3XjOUbg/xDV5z9qL8JDEf/fMe2+mq1bZzBR4VM1/4OWppVkD7qf8WQ==
+	t=1792584986;
+	b=Or2yjOV3FHjxk4BYHOzjZ7eH81xxgAnqejWS0w6nz41lsqlfJKt2IvFWI2gsaP9ZTVLt
+	 CEyNiMlXb3p+Wt4M/83iuN3+TVTV+az6vjod/+/b/M92mM5jS8m/0SqhBEASkALAtP3pw
+	 iCydcZ7QFBjmM2lcWABfMlwYiINiTSM0PTpSnNzFbwkh9RhzcoA00hZb25ACbfQjktMK3
+	 HZInNJROgmfbCxve9UMXRz/ZUaTvghwNYQmxtc8qd2PFqyIG772VezjEwV+MhcrxMKYqR
+	 lxhQMF7T+ZHuhRkBZViB+etylA6JtixN0nyqIKVctKkB1kUEYW42fOd8kgdGXep0BaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584986;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=47JPxnKtn88z3FWrX9k+DRLaFxM6US7BskZPlDapUxU=;
-	b=gLSQEsiOm40TLyGhmiIwyTgnyomIz05u3etOCyReAHDgLnm8Jwr/vxwZ3MK5EFwGTdbc
-	 hIPIJaKroUpL9opSWBruaNsPo/oI3blTuzUDU90Qv2kYTinDoCzPjeIrAWWsK9RHt4hmn
-	 HtJbqnWtk+M//gbqoPQmc3PZLHh0RtwjDtD4RQ16kIaUSBj3FvPidI/ytHC8GIQcc1PLx
-	 38veuN6i36GNEDQE+hBEid4ad811oCG2OkBNTpdTx1MMDXQLnytVe+OCvfuMxLiS5Nt9b
-	 zxstXWtCAM5WckBXs2KjrNfhq+hp06C9cD7HJqtSHHoFCAjK9ncqQm3vMPzZ6sQUGlA==
+	bh=M1n1hBWFrb7+3IcENFJ0R4sSlfudB755zznR4XrxZXc=;
+	b=CtvNGBac++68T8wfU1n/pB28O1NHVVR1c/8bc8D3N+COgfbmvnq2Nxhol2yB5Rvrcnuu
+	 PWL8cvVxtzzFtx++wCAKnlhNgKaB4uVMPgORrqWBPB2PbSHKgRJhP0fnW+o0TPlmhsVHe
+	 ruh+OICewOyLEOZ9s1dGVgM8Zchr61OA1OMSJu+e6Wu3HwTgqBlcSItq5s+4nTucbJyeG
+	 VhD/qjNwuZGeJ48v6nt/JRsCE+SRZXhzrNEt1ZwFUUdGRk5E53MxOpTGVL0m5/j0l/sBo
+	 RsZY/X+1k7U4yaPKr155ngP+V7Zh+eY38D50QGsyeDCXIM9h5g+WHd8h4igFgGWoOhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HTiFI/gR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LU8cB6vn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826F8606A319;
-	Wed, 21 Oct 2026 12:16:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD24260A5BD0;
+	Wed, 21 Oct 2026 12:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTiFI/gR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BC531F000C4;
-	Wed, 21 Oct 2026 12:16:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LU8cB6vn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D94E81F000C4;
+	Wed, 21 Oct 2026 12:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584992;
-	bh=47JPxnKtn88z3FWrX9k+DRLaFxM6US7BskZPlDapUxU=;
+	s=k20260515; t=1792584985;
+	bh=M1n1hBWFrb7+3IcENFJ0R4sSlfudB755zznR4XrxZXc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HTiFI/gRAcXJTgd7xuiXoBfiPSvqelwO/3RGk7rZqNg9NEI06XjAWsSMka1CZWFeq
-	 Oda3v69dDUnNcFSn8LTRVg06ujoNhH5JZH7FgG7PKjMckKMz+LYx2GrGH/+pOMTloO
-	 wsR6Ov/rFgIamo696hV23UrspCuwcexBH9nSoEST4GbaxoZTRXmgHgLv+GEBff7E/C
-	 iknsZ3pM2HH7E+6p4sf5mZNYPYOJhx8tUz2LAoKTxb1Fz4tNNesUL4l8Oq9r6FnIYh
-	 UZ8Gb467kxSKG6wa3kG9sO95Pwvm3ZaeElzfUDeYRBYYJaNnabtu6gta6/T3O4gJ4o
-	 CFmpji5cAy1jA==
+	b=LU8cB6vne4L6Qq8Oej/VmD3BuW0L+pIt+q5mkY8vUOpDTS0Q9Hptwta18nA5MivL/
+	 8yg30K55p4JIjEgUvHh1xCY+wmXU08M17tag6LFiBMvqbG6Maltu8FV+8Vt6BZOWhb
+	 10gPGk6rM6UFB2u20yZo+pTx+PjKS8JjFWTbm6ezdMWu2OOh+/o0VHTxp/ag4d/2qA
+	 mYsrTR4yz6kZXz31SPJuC/tSev5QPq1LonDxBM19fb+Q7EOcz0rZS8loZbMCLnz/3W
+	 t4jyjo97Zz23Ve0R5fEMnpfsLGdya+Ksge7l6SFZWNcFWBPAV0jK+06PBBt5JqyIw9
+	 /yXPuuEf27LTA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	AnilKumar Ch <anilkumar@ti.com>,
-	Milo Kim <woogyom.kim@gmail.com>,
-	linux-omap@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>,
+	Rabin Vincent <rabin.vincent@stericsson.com>,
+	Mattias Wallin <mattias.wallin@stericsson.com>,
+	linux-arm-kernel@lists.infradead.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 24/28] mfd: tps65217: Manage IRQ domain teardown via devres
-Date: Wed, 21 Oct 2026 12:09:46 +0000
-Message-ID: <20261021121245.3111563-24-lee@kernel.org>
+Subject: [PATCH 23/28] mfd: ab8500-core: Register sysfs attribute groups via devm_device_add_group()
+Date: Wed, 21 Oct 2026 12:09:45 +0000
+Message-ID: <20261021121245.3111563-23-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -69,110 +66,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tps65217_irq_init() creates tps->irq_domain with an unmanaged call and
-requests the parent interrupt via devm_request_threaded_irq(), while
-tps65217_remove() manually disposes mappings and removes
-tps->irq_domain.  Because tps65217_remove() executes before devres
-teardown, the IRQ domain is destroyed while tps65217_irq_thread() and
-child MFD devices are still active, allowing a concurrent interrupt to
-dereference a freed or NULL domain.  Furthermore, if probe fails after
-irq_domain_create_linear() or if tps65217_irq_init() fails, the IRQ
-domain is leaked, and if the device is probed without an interrupt
-(client->irq == 0), tps65217_remove() unconditionally passes a NULL
-tps->irq_domain to irq_domain_remove().
+ab8500_probe() registers up to two sysfs attribute groups with
+sysfs_create_group().  On AB8505 and AB9540 (cut 2.0 and later), the
+second sysfs_create_group() call unconditionally overwrites the return
+value of the first, and if the second call fails, ab8500_probe() returns
+an error without removing the first group.  Because the driver context
+is freed and driver data is cleared on probe failure, reading any leaked
+sysfs attribute dereferences a NULL ab8500 pointer in
+get_register_interruptible().
 
-Register a devres action to tear down the IRQ domain in
-tps65217_irq_init() prior to devm_request_threaded_irq(), propagate
-errors from tps65217_irq_init() in tps65217_probe(), and drop
-tps65217_remove().
+Register the attribute groups via devm_device_add_group() and only
+register the second group when the first succeeds so that devres
+automatically cleans up registered sysfs attributes on probe failure.
 
-Fixes: 40a50f8b307d ("mfd: tps65217: Fix page fault on unloading modules")
-Closes: https://sashiko.dev/#/bug/linux-7e358c08-6d75-48be-87d2-35dc037ea953
+Fixes: 93ff722e8853 ("ab8500-fg: Add power cut feature for ab8505 and ab8540")
+Closes: https://sashiko.dev/#/bug/linux-a9ac1a9d-5a97-4ad3-b4c5-c7775c24a333
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/tps65217.c | 40 ++++++++++++++++++++++------------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
+ drivers/mfd/ab8500-core.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index c240fac0ede7..a1e9b9e22d82 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -146,6 +146,21 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
- 	.map = tps65217_irq_map,
- };
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index 86fa99022cb3..408bad2f577a 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -1232,16 +1232,13 @@ static int ab8500_probe(struct platform_device *pdev)
  
-+static void tps65217_irq_exit(void *data)
-+{
-+	struct tps65217 *tps = data;
-+	unsigned int virq;
-+
-+	for (int i = 0; i < TPS65217_NUM_IRQ; i++) {
-+		virq = irq_find_mapping(tps->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
-+	}
-+
-+	irq_domain_remove(tps->irq_domain);
-+	tps->irq_domain = NULL;
-+}
-+
- static int tps65217_irq_init(struct tps65217 *tps, int irq)
- {
- 	int ret;
-@@ -165,6 +180,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return -ENOMEM;
- 	}
+ 	if (((is_ab8505(ab8500) || is_ab9540(ab8500)) &&
+ 			ab8500->chip_id >= AB8500_CUT2P0) || is_ab8540(ab8500))
+-		ret = sysfs_create_group(&ab8500->dev->kobj,
+-					&ab9540_attr_group);
++		ret = devm_device_add_group(ab8500->dev, &ab9540_attr_group);
+ 	else
+-		ret = sysfs_create_group(&ab8500->dev->kobj,
+-					&ab8500_attr_group);
++		ret = devm_device_add_group(ab8500->dev, &ab8500_attr_group);
  
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_exit, tps);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
- 					tps65217_irq_thread, IRQF_ONESHOT,
- 					"tps65217-irq", tps);
-@@ -333,7 +352,9 @@ static int tps65217_probe(struct i2c_client *client)
- 	}
+ 	if ((is_ab8505(ab8500) || is_ab9540(ab8500)) &&
+-			ab8500->chip_id >= AB8500_CUT2P0)
+-		ret = sysfs_create_group(&ab8500->dev->kobj,
+-					 &ab8505_attr_group);
++			ab8500->chip_id >= AB8500_CUT2P0 && !ret)
++		ret = devm_device_add_group(ab8500->dev, &ab8505_attr_group);
  
- 	if (client->irq) {
--		tps65217_irq_init(tps, client->irq);
-+		ret = tps65217_irq_init(tps, client->irq);
-+		if (ret)
-+			return ret;
- 	} else {
- 		int i;
- 
-@@ -373,22 +394,6 @@ static int tps65217_probe(struct i2c_client *client)
- 	return 0;
- }
- 
--static void tps65217_remove(struct i2c_client *client)
--{
--	struct tps65217 *tps = i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
--
--	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
--		virq = irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
--
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain = NULL;
--}
--
- static const struct i2c_device_id tps65217_id_table[] = {
- 	{"tps65217", TPS65217},
- 	{ /* sentinel */ }
-@@ -402,7 +407,6 @@ static struct i2c_driver tps65217_driver = {
- 	},
- 	.id_table	= tps65217_id_table,
- 	.probe		= tps65217_probe,
--	.remove		= tps65217_remove,
- };
- 
- static int __init tps65217_init(void)
+ 	if (ret)
+ 		dev_err(ab8500->dev, "error creating sysfs entries\n");
 -- 
 2.56.0.218.g1ec904b173-goog
 
