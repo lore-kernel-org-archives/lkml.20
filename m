@@ -1,85 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.68
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792561240;
-	b=qeMi4P3WtSLz5+/wpGDkYUi+uP6uFty2hq6IFOWZ2854MFAgH37FK5PZba3Utf5DdKFP
-	 ycHxs5HY5UnEkF/7tHHKWp1ztoV5RAzqoDhwVhyi8ZfepAhxCIeSXbsshkS0GqoijyLZP
-	 GHkriRVIinkwJF09TQ/wg+fw61KVRQ1BGILijmIcFWQ3Spf2oFULa0EHgazFhNmRr7Vn6
-	 dRdvHjSY+l3IFkXkYHVP6GNxe6u8VgFtupcp2rTVWbgsfANnYRzMxmM/soflEigRQsWrq
-	 2UUJrXBIajWue0urQ1G20TKamPh6HmRJlfJ+l/uNA39IdP10U2K/818ksE1cdu1jA3w==
+	t=1792561479;
+	b=D7iFkDk+zWDzJYwPyHMwQgzXqeG6Og5cdpVseCORWt8aHvpFirP3CQF6pbZbGzn+WgCS
+	 Yc8hLs3Wj0f8GuNv1RtxAufIh6A96zQZua9s+zDjZ9Mys+ZeqIXWScmX6Lm4q1r11L4sy
+	 Uo8tQSjv1CXHmIyCoC+3lfZGSSIEBiSL0Bh0QL/Kss52dLXtmmv6sCMlXjXxCduFBXwDC
+	 6WUuZMQwajJKLj52WfzpiE32av2RimAcOkrbkXFuV7EA6WIYd2KsKKXUePXuPPicO5CwV
+	 VZt8VOsLySbT6sq1PvlpERZ2tkHDxMDa92mbevfxoOhfTSH54o+aVmaXKaGUD05YKFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792561240;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MXiUGp1caAHyyuVtstCR/2L4nYD+n3m1gvu2wPtLXMI=;
-	b=zMvFRGtA84a1SA4EPWVWRQa4sOuPsF7MLejzfAFp/myxREo7F7BSlLAWEe4McvXs4wkK
-	 lunVXzIoX224NPo72obGik2DlbuRILMJBSJGJJr3p9nYRtDDUkiiu4sIKI8Ay9foNdRac
-	 F+8nlETSsa9QU8mh45PukAdQcAvIR0Lm+UG5lCxO/JTkhokJXp7qb5CHVKp04MNNkTPzD
-	 7kbZqf/DdsNlGeuzpXvUo4JiilYIfKSgbLroQbscltyeTegnozvCaSQ+Ma8WvM2KUYdzE
-	 z85xU5ZFlZBjIL/xOv5XE06bfdurX8gR3D8t46AR8JX4gQIzedCuQEmsWzZJtwqPtkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792561479;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:CC:Subject:
+	 User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=gjp0o7E7Pa+upNg0P/AiNTH4X61fq2ZotWdk2WRNMco=;
+	b=XUf7Z0r+CwFx9CNLQX1B8KhF1MzCjh+yD5+yhgwq0vCjI9BPll5K0fItr9VhujA2z7C9
+	 Ww8ZdLnbebHgy/cnK4IrKEZQz7XEmNcvzFTalx58Vf6ISd98tKzAkmhYFoslttgIsdpRy
+	 MnVQ+oEmpFkGpigL9gHFrIOWl7MjJxa27AfzrAk4wQPZdWr03Qcyp1kjf18KOSV/E9iNJ
+	 PjAIJ6jn1OK9EgWB4l9jRlyMPAjdf3rbNcEKoWFhYXrH6oGqsdISU7kyAVRL9tbgz0nvr
+	 UaaTvIpIMVMFsDWYFzefHRRVjUI38yTd2D/S5upYvxa4UmJJeo1MJTQ8cipbgtp16ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C+vG9SFB;
-	arc=none smtp.remote-ip=95.215.58.68
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=V3ciHOJJ;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA2A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA2A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D070606A319;
+	Wed, 21 Oct 2026 05:44:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D070606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C+vG9SFB
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MXiUGp1caAHyyuVtstCR/2L4nYD+n3m1gvu2wPtLXMI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792561237; v=1; x=1793166037;
- b=C+vG9SFBdBQyzmPAziKyxgOkVqVFMKpFAz91RKnVqhXiTWdcCNqsz48DU9VR4qp/m0yzSUQV
- Ukar89XaW1+7SLsXgAbtzL1jRmim1TE67erPvFkI9qwWgjmSW5einQc4C9m+YgKG5Gw8xPPaM06
- EGYG7YWYbrPWjGGM4uejPjW4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d2fc8a9e32f8bec1;
-	Wed, 21 Oct 2026 05:40:35 +0000
-X-Mizu-Trace-ID: d2fc8a9e32f8bec1
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	osalvador@suse.de,
-	maddy@linux.ibm.com,
-	corbet@lwn.net,
-	muchun.song@linux.dev,
-	lance.yang@linux.dev,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	qi.zheng@linux.dev,
-	linux-mm@kvack.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] powerpc/mm: map shared vmemmap tail pages as read-only
-Date: Wed, 21 Oct 2026 13:40:29 +0800
-Message-ID: <20261021054029.98875-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261019090830.1917657-3-songmuchun@bytedance.com>
-References: <20261019090830.1917657-3-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=V3ciHOJJ
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0ADC4A1626;
+	Wed, 21 Oct 2026 07:44:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792561474; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=gjp0o7E7Pa+upNg0P/AiNTH4X61fq2ZotWdk2WRNMco=;
+	b=V3ciHOJJORHb1sccJArRGx++x1e5/i6Ztv8x2QIkL1Z4LVY1dYxuqWIcMjbuH/Uo3SZoEb
+	gsMWA4feDIY3fwmSyjzNBrg4/NCAIf27ulqePqypWotjBok8iIFfl40Wrs6QhsO4PgCLWj
+	amNn/YD/sA8l/F0QVHOrs8dTQpbcDpTKfBE0NJaNXHpmddGbUbxxqw2LluLZM/07DQwOzA
+	6NR23olpR/k1zNPJwriNnaeay0LyGfPwgcC6JgFeU84MwD6r8OdAGaD4PwvXl/npRo3fXm
+	v9CwokaNSiEzb4JS0L2wyb3SK094g6S4POZR9zvqU5SfITXAzdtlQjbpGuDzaw==
+Date: Wed, 21 Oct 2026 07:44:28 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: dust.li@linux.alibaba.com, Dust Li <dust.li@linux.alibaba.com>,
+ Jakub Kicinski <kuba@kernel.org>, alibuda@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com
+CC: Chengfeng Ye <nicoyip.dev@gmail.com>, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, horms@kernel.org, linux-rdma@vger.kernel.org,
+ linux-s390@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net_v3_0/3=5D_net/smc=3A_fix_link_gro?=
+ =?US-ASCII?Q?up_scheduling=2C_registration_and_work_lifetime?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <atgBD0t0xHnMlwjX@linux.alibaba.com>
+References: <20261013091716.1210420-1-nicoyip.dev@gmail.com> <20261020125849.67c40566@kernel.org> <atgBD0t0xHnMlwjX@linux.alibaba.com>
+Message-ID: <1F2D6162-5113-41DE-B649-0E67F037E8CD@tipi-net.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,21 +69,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
 
-On Mon, Oct 19, 2026 at 05:08:28PM +0800, Muchun Song wrote:
->PowerPC radix uses an architecture-specific vmemmap population path for
->shared tail mappings, so it does not inherit the read-only protection added
->to the common path.
+
+On October 21, 2026 2:02:23 AM GMT+02:00, Dust Li <dust=2Eli@linux=2Ealiba=
+ba=2Ecom> wrote:
+
+> [=2E=2E=2E]
+
+>Are there any guidelines or mechanisms that can help with this?
+
+You can use suie and filter (funnel icon) for your driver(s)=2E The filter=
+ is AFAIK populated from MAINTAINERS file=2E
+
+For me this helps a lot, to keep an eye on patches and their state=2E
+
+[1] https://netdev=2Ebots=2Elinux=2Edev/suie=2Ehtml?delegate=3Dnetdev
+
 >
->Protect these mappings as well so illegal writes fault instead of
->corrupting metadata shared by multiple tail pages.
+>Best regards,
+>Dust
 >
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
 
-Nothing jumped out at me, feel free to add:
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Regards,
+Nicolai
