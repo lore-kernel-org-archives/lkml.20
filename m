@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594160;
-	b=2EIzXsqMTtZMnX51rZQUxmCmW8IK7LyaEmUBTbvuXMEY/fIaWROOGNt7zxjnphXzsj+Q
-	 ac+nNAo5QeAPxPA66duBVRMr0rR82kIMkVGMPBOgEIS73XXn0n2Cu7D812J539GvZzSa2
-	 dZD10zokAr9/SSOtj1ib46UDbHuAPplDLIKjMgDx96/fJ9d3Uxw8Nj3LJUaEpq8NXk6ve
-	 9xGUyJcNX5len404t0uWU6napfNCNBvCnOdCBUW2NpIpRJz6tYZ4VZTCGpkWRnbrCVfvz
-	 Mj6XXVMk+kUaDMGozD5+Ecd01aLAluy/lrSuHAvzOp69C+JW3V3Y4REGeLnpJT6LT2w==
+	t=1792594163;
+	b=th3hHxcN1hnui1bDgT51Wo7dY+Xk92R6PLA/Z4sLwB6OlBJ32n2YYuNJJnGkxNJ3jXbB
+	 2kjnvz9KCVI3Yf+kfvOn2pTEV/PyRVCvUQkGNS0QmjNnJhss1YdbqJviTk4ZD+dfAEzRV
+	 SYDkcRkDIG6CL6lwceVjCV69dUdEVGL3fSZO1LOEoRyAXEgsLqTQsFzNhMO5VRku+tZyJ
+	 fYxhVCpSsOz+iiByq1ItB7YyKSJl/4gjIiIiIbj7wwRiOzujc3bTg+pClsoGgRMZn9z/D
+	 G+9UkA4QljqXCEdhqVzXXQarJsoQXfOoJjJzyvxpChHXIoVZsXOOZ/dv/uhEm0tmlWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594160;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sYPK0zHlt9UxDqRXbbPbYofEwQ4ui24gzT+k2p3Lc/4=;
-	b=TkqfUPe/GGcZdtBq+WJ8UfbKSv7lDRufoKLPDBTyo6AwPkZEKIweSJ1g3q1xe2Gnj3Ju
-	 kTER0qmfjRO1p+7trFy2GpLzjrc7XrFN03L1KGAinRXvj4a2EDGbO2IbgSctPN5oNTBgT
-	 6mzWde7VAysybDPYb7L6C3zV+sIUt8icbz0v4gpu+f0M/0T702ZTqKjZNqY/LmiG+qEY2
-	 wnC97hSwqg4pO9iUNH8ohVWA8tHCJy5sIQ8q1gdg+0gd52rZEeygnvNU9R6g4j6eRg1XE
-	 r2MOBMBtHu3YqOcMOhhT4uhsbO5WXROLDd6lJtRdYFznFCOLP+ZlQWTG17fHiOulODQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594163;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yfEaQkneTB9b+YgCfnXXBIElAM8p4C3c9XW5Nph1cKY=;
+	b=aENybrdcRCXzY5WVqYBJYYjo2DOxaJPUuf4uHmVXzPSSktZZExO68bfhDeCk2DM8f0IB
+	 /KYOiQFu3rocetfUWM+t2HtGQQ1KnHYHsR2mfwUrTRNhyvcI2GROZuTeoU7aUIcDJo6Rj
+	 TcpASXYoZ5ejMHBney2vX9+iQ+l9HSprpkK3wK/8xFgiTh2KJdc7K8U5HI/6LIZq9Alnn
+	 QnxZhydWjdXtiWKSycoDxcUkl51rGAGBN2YP4ILUyI2XGTumpX1ryB8tS/hPKXWoaVcD5
+	 SOAjy23IDTaKAzfGRYHqzw0aauyItushwHh8zpdQIsWMiNUmhzWjJXDrV7b3PI4x57A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5r4xfWP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=SHnvXZhC;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=vWh68fKG;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B40606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:49:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A4560A2608
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:49:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71A4560A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5r4xfWP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016F41F000C1;
-	Wed, 21 Oct 2026 14:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792594159;
-	bh=sYPK0zHlt9UxDqRXbbPbYofEwQ4ui24gzT+k2p3Lc/4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T5r4xfWP2PK69r+XNBkMeHyhCwi3cjamhJGZkcdMr/65YDJfxxbv9SEP7RvGcoQ+E
-	 M8WE/+TpQgSFSHezN7NNnQxVLlPUxmXWOknkQcowvXzvYY75bTiX0ZfITUEBvmsE8Q
-	 eN+SglFjuuQhhRRCXOesKqM7MeK78fZNFN2+oUB6oV/iIfV61GRe/xsMbSFNvCuuYl
-	 30K1UhGl8Wiq/81OLEY+z54/uQ9O6zj3cLrhCJ+oE+pt80wSEIoczcRwuHLF1kBU1+
-	 EY1+mUQh4m/VrQoHmsHyaBlLGBY8JruxJ4LAxvMuWCUtrbRc61G4Cy+Cxwl2ZjaMBY
-	 4YXT8etkSpESQ==
-Date: Wed, 21 Oct 2026 15:49:15 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Julian Braha <julianbraha@gmail.com>, mark.rutland@arm.com,
-	Sudeep Holla <sudeep.holla@kernel.org>, lpieralisi@kernel.org,
-	tglx@kernel.org, radu@rendec.net, vsethi@nvidia.com,
-	sdonthineni@nvidia.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] irqchip: gic-v3: fix unmet dependency on
- ARM_PSCI_FW
-Message-ID: <20261021-rampant-fabulous-ant-cafccb@sudeepholla>
-References: <20261020222817.1231643-1-julianbraha@gmail.com>
- <86se1zzcet.wl-maz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=SHnvXZhC;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=vWh68fKG
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792594159; bh=yfEaQkneTB9b+YgCfnXXBIE
+	lAM8p4C3c9XW5Nph1cKY=; b=SHnvXZhCAhzbL2dnZ6gh2jhB9rr04lFVqlRm8lqi0jn/sdV7ly
+	gTpbmWKA1WTHElmx1itOKjdFTv/0v81tjvEMmnJjp8MDPsU2Mj0CSWHFlftBtBKVt2Z16Cm2H88
+	NFm9sCnqq3uWVeXDBOuffWtr6kYiBi8SlgJUziDmm1hS1134JSs6xoA9H4lU1MGAnY+b/BaV6yw
+	o67/639HRmQswmvmGL0jTsiQbiiS5H4UUZTJN6bd3VspMY2S6MZujZRPYp6Zx5wpfqtTNnADG4I
+	PYdlaTOOl4Px8hCHrM91akvlSVsY7DGWsaG4m1dN3Hc2XqAHcteIv6ICyHcVvgEOfCg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792594159; bh=yfEaQkneTB9b+YgCfnXXBIE
+	lAM8p4C3c9XW5Nph1cKY=; b=vWh68fKGu5p9vXHvX4qfkNOzGy00a7GEPMudogzDTEHp0Nt54n
+	Py6SxoewbRwdX3mIngIsoCxD/tCk+BxocABQ==;
+Date: Wed, 21 Oct 2026 15:49:19 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Andrew Morton <akpm@linux-foundation.org>, thnkslprpt@gmail.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] profile: simplify /proc/profile read layout
+In-Reply-To: <20261020182736.26ac79b01dd02ecda8a89ab6@linux-foundation.org>
+References: <e7e8de4d10204573a54c2044c060379b.1@linux-foundation.org> <e7e8de4d10204573a54c2044c060379b.3@linux-foundation.org> <20261020182736.26ac79b01dd02ecda8a89ab6@linux-foundation.org>
+Message-ID: <711BBB24-2293-49F0-ABA6-2FFABFD599EB@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,34 +63,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86se1zzcet.wl-maz@kernel.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 09:27:22AM +0100, Marc Zyngier wrote:
-> On Tue, 20 Oct 2026 23:28:15 +0100,
-> Julian Braha <julianbraha@gmail.com> wrote:
-> > 
-> > ARM_GIC_V3 currently selects HAVE_ARM_SMCCC_DISCOVERY without ensuring its
-> > dependency, ARM_PSCI_FW, is met.
-> > 
-> > Patch 1 of this series adds stubs for arm32 so that patch 2 can make the
-> > select conditional on arm64.
-> >
-> > ---
-> > Julian Braha (2):
-> >   firmware: smccc: provide stubs when discovery is disabled
-> >   irqchip: gic-v3: only select HAVE_ARM_SMCCC_DISCOVERY on arm64
-> > 
-> >  drivers/irqchip/Kconfig   | 2 +-
-> >  include/linux/arm-smccc.h | 7 +++++++
-> >  2 files changed, 8 insertions(+), 1 deletion(-)
+On 21 October 2026 02:27:36 BST, Andrew Morton <akpm@linux-foundation.org>
+wrote:
+>On Tue, 20 Oct 2026 17:52:03 -0700 Andrew Morton
+><akpm@linux-foundation.org> wrote:
+>
+>> read_profile() is needlessly difficult to understand.  It copies the
+>> four-byte sampling-step header one byte at a time, then manufactures
+>> a pointer before prof_buffer so a file offset can be used as a
+>> counter-array offset.  Its signed byte counter, unsigned long file
+>> offset and repeated size calculations further obscure where each
+>> read starts and how many bytes it transfers.
+>> 
+>> Treat the file as two consecutive regions: a four-byte header and
+>> the profiling counters.  Use size_t for byte positions and lengths,
+>> copy the bounded header in one operation, and address the counters
+>> relative to the start of prof_buffer.  Brief comments explain each
+>> region.
+>> 
+>> Keep the word-sized shift and explicit narrowing required by Avi
+>> Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
+>> Assign the header value separately and explain why the 32-bit ABI
+>> requires a narrowing conversion.
+>> 
+>> Preserve the partial-read and fault semantics established by [1/2],
+>> including short copies within either region.  No userspace-visible
+>> behavior change is intended.
+>
+>Me:0, Sashiko:1
+>
+>revised version, I'll resend in a few days.  I tested 32-bit now.
+
+Good luck if your using AI, they tend to include small regressions, maybe
+send them the sashiko prompt in memories so they put a pass through that?
+If you have Gemini 4 argon it will be better.
+
+
+>
+>
+>From: Andrew Morton <akpm@linux-foundation.org>
+>Subject: profile: simplify /proc/profile read layout
+>Date: Tue, 20 Oct 2026 23:58:33 +0000
+>
+>read_profile() is needlessly difficult to understand.  It copies the
+>four-byte sampling-step header one byte at a time, then manufactures
+>a pointer before prof_buffer so a file offset can be used as a
+>counter-array offset.  Its signed byte counter, unsigned long file
+>offset and repeated size calculations further obscure where each
+>read starts and how many bytes it transfers.
+>
+>Treat the file as two consecutive regions: a four-byte header and
+>the profiling counters.  Use size_t for byte positions and lengths,
+>copy the bounded header in one operation, and address the counters
+>relative to the start of prof_buffer.  Retain the full loff_t value
+>for EOF and negative-offset checks before narrowing it to size_t.
+>Brief comments explain each region.
+>
+>Keep the word-sized shift and explicit narrowing required by Avi
+>Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
+>Assign the header value separately and explain why the 32-bit ABI
+>requires a narrowing conversion.
+>
+>Preserve the partial-read and fault semantics established by [1/2],
+>including short copies within either region.  The full-width offset
+>check also prevents 32-bit pread64() offsets from wrapping into earlier
+>profile data.  No other userspace-visible
+>behavior change is intended.
+>
+>Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>---
+>Tested the combined three-patch series on x86-64 and i686 QEMU/KVM
+>guests with CONFIG_PROFILING=y and profile=12.
+>profile-read-test.c: PASS (0 failures) on both architectures.
+>Covered short and unaligned reads, header boundaries, EOF, partial
+>user-copy faults, return values, file positions and retry behavior.
+>The 64-bit big-endian sampling-step fix was not runtime tested.
+>No separate per-patch or unpatched-versus-patched run was reported.
+>
+> kernel/profile.c |   61 ++++++++++++++++++++++++++++-----------------
+> 1 file changed, 39 insertions(+), 22 deletions(-)
+>
+>--- a/kernel/profile.c~profile-simplify-proc-profile-read-layout
+>+++ a/kernel/profile.c
+>@@ -153,35 +153,52 @@ void profile_tick(int type)
+> static ssize_t
+> read_profile(struct file *file, char __user *buf, size_t count, loff_t
+> *ppos)
+> {
+>-	unsigned long p = *ppos;
+>-	ssize_t read;
+>-	char *pnt;
+>-	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
+>-	size_t not_copied;
+>+	const size_t header_size = sizeof(unsigned int);
+>+	const size_t file_size = (prof_len + 1) * sizeof(unsigned int);
+>+	unsigned int sample_step;
+>+	loff_t offset = *ppos;
+>+	size_t pos;
+>+	size_t done = 0;
+>+	size_t n, not_copied;
 > 
-> This probably needs to go via Sudeep's tree.
+>-	if (p >= (prof_len+1)*sizeof(unsigned int))
+>+	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
+>+	sample_step = (unsigned int)(1UL << prof_shift);
+>+
+>+	if (offset < 0)
+>+		return -EINVAL;
+>+	if (offset >= file_size)
+> 		return 0;
+>-	if (count > (prof_len+1)*sizeof(unsigned int) - p)
+>-		count = (prof_len+1)*sizeof(unsigned int) - p;
+>-	read = 0;
+>+	pos = offset;
+>+	count = min(count, file_size - pos);
 > 
+>-	while (p < sizeof(unsigned int) && count > 0) {
+>-		if (put_user(*((char *)(&sample_step)+p), buf))
+>-			goto out;
+>-		buf++; p++; count--; read++;
+>+	/* Copy the four-byte sampling resolution. */
+>+	if (pos < header_size) {
+>+		n = min(count, header_size - pos);
+>+		not_copied = copy_to_user(buf, (u8 *)&sample_step + pos, n);
+>+		done += n - not_copied;
+>+		if (not_copied)
+>+			goto fault;
+>+		buf += n;
+>+		pos += n;
+>+		count -= n;
+> 	}
+>+
+>+	/* Copy raw counters using offsets relative to the counter array. */
+> 	if (count) {
+>-		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
+>-		not_copied = copy_to_user(buf, pnt, count);
+>-		read += count - not_copied;
+>+		not_copied = copy_to_user(buf,
+>+					(u8 *)prof_buffer + pos - header_size,
+>+					count);
+>+		done += count - not_copied;
+> 		if (not_copied)
+>-			goto out;
+>+			goto fault;
+> 	}
+>-	*ppos += read;
+>-	return read;
+>-out:
+>-	*ppos += read;
+>-	return read ? read : -EFAULT;
+>+	*ppos += done;
+>+	return done;
+>+fault:
+>+	*ppos += done;
+>+	if (!done)
+>+		return -EFAULT;
+>+	return done;
+> }
+> 
+> /* default is to not implement this call */
+>_
+>
 
-Sure will queue it soon and send it as fixes at -rc1 or later.
-
--- 
-Regards,
-Sudeep
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
