@@ -1,108 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593288;
-	b=qJ6kdrIJl0xMQlIN0Fys2ZxeHo8HLPjqJiqNixRhzH662A/XhJlArmHL7wWdqxlAUpDH
-	 SCr/1JzajlI9rtxR2N4wyUQBCoZmzpYePV7XoEggcgz9YEDQkpNRchGGzO6CHC7d/buL3
-	 lhpu1VmPAyba9A+cCuMHcoLxXKc5/kdINAfVpCiZIAM9VJp2xjubgxLI4FXHTGyPWbN41
-	 gW6t06BX6FILhvak84q63C2M9P+NrabvnmyNMSWIy5utdpSmj2y/6FGFAuNfF4Vbm7O/L
-	 WdkzwjrryuOr61StKEtyJcB9EGDDcsIvLg/itSKgQZmomLEnWgvB61jeK09U9VdcWEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593288;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=i1o45mU1wVGBJYMOu+l6LXLaf1xRjqI1u8WDXqM4gzE=;
-	b=oY7hn8AeCrCaafQU9GmbzBe2w3WFnDJi9JBlaOnwSS6UlyYizZrpD1d8hPdKs/wyX/vx
-	 8hf/O+mKpxche52lc6onMAdmrg6DUlMpC3tlW7Pc/SFEsqkunc19BEfKy2A6M2Ea7StQy
-	 AGojxDaTnw4Uyj9l7N+wbSIrMo6cOE6qoZXgEb8JB+AJvCYnKciEsjKbjFpSi60dZXvzo
-	 KndQG59OT4z45QUxfPEMBqVzYmZC5rlVqrnkRmtd1+wBusqhh8NlANljA/Mh3jBihdl9d
-	 bJoWaQRn4PTV9syqpcZ3GgHvko8ai1cg3h7kI2xfwtmiUQZhBAmy3bF0izBZlkEJkZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yYoM0Iap;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XWwsFUKY;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yYoM0Iap;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XWwsFUKY;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.26
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792593335;
+	b=YXC/KhvGqs9G8eHQXF9L+CC1R3WGgljt/WFBNkUfXwgiq5oOJbYvbYLuuPJnhanUezFY
+	 8l6Bfr+DPuNF8XbmqgaW0NVbaLkUQo7pwI8EJuSbePXbbLuDfFfTCJqY7H37nQohQFv7y
+	 pY/7VVysz9x6OqFmQ+WM6i1t/GuUbGGXs+s8tKQh/3LsAC/Fx+Nfq8TdFn0pdffXVkUrm
+	 JK25outYqPWBy5nX9qyJU7jbwphBY+k2AyCYeeoKojnCg/C/U0zhGHc6v/ro4Jhufzd21
+	 ZzSVyOJM4KCIsyTS+CCUuvNZJJvvWdVbIjavA1SGdQzou6l9rc2Ud/YbnMJtjnlTRBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593335;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6PJyUzzN5QW9sAAFb8LWvG3kbRiJ5Bm6VDaOA9704+k=;
+	b=ZTb076tk6IgPAM1ci3GR7JADXI242dUOERVY9PYyQRC4JbeapN015rpgYMnq8aQIFJ0j
+	 GUNWfie5SB771+zK7LpbxXIR6AaN4DagAQY2OZqE2FPl3BrfLK6yyNnh8QTUwWKQmpGJV
+	 EbsQVWdUUd25uh/1ZLnDnZ2Fy1hb9eDV2BncCM7rgllr+54lgqgTKyJeqhSmiKg38/Ljt
+	 ti7fFphMqKWAJf9Hv7pOYy8jSaYfHlbKd3e/B5Gvq91/3sR7NUnK26MCBSJxa3JgaOnI3
+	 XAiWKzL79LU8CzxEhooLrvid3RkhlNBSkAElxmsminOV3BKm3coVvM+iSwuNecKNrVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UwmZifLj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.26
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010026.outbound.protection.outlook.com [40.93.198.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B3D606A328;
-	Wed, 21 Oct 2026 14:34:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76B3D606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76B9606A32D;
+	Wed, 21 Oct 2026 14:35:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B76B9606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yYoM0Iap;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XWwsFUKY;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yYoM0Iap;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XWwsFUKY
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A67541FAA3;
-	Wed, 21 Oct 2026 14:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792593279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i1o45mU1wVGBJYMOu+l6LXLaf1xRjqI1u8WDXqM4gzE=;
-	b=yYoM0IappbjPkKyB/pYvzpL+WN4kVfCoEWt8WjAKjmgPwrMUnj/NqsZIHMf0WpeAT+0pq7
-	3QMtkrifp/JRT+ILKAY8ZJiSWAl8t5HOrJLubnOvOuQ+/cQNvaBX78hDJ+dpBpXg4LAc2l
-	7IYdiAn4JqlXaSo7xlZtIefS+A1PLWQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792593279;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i1o45mU1wVGBJYMOu+l6LXLaf1xRjqI1u8WDXqM4gzE=;
-	b=XWwsFUKYkcPW1OsHvE0cU/Xk9Ey9EDWp0xESuHSE4wS/K2oRjh2ifwI/t4hgm/PHCxyffl
-	9tBcyFDNwsSAY0DA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792593279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i1o45mU1wVGBJYMOu+l6LXLaf1xRjqI1u8WDXqM4gzE=;
-	b=yYoM0IappbjPkKyB/pYvzpL+WN4kVfCoEWt8WjAKjmgPwrMUnj/NqsZIHMf0WpeAT+0pq7
-	3QMtkrifp/JRT+ILKAY8ZJiSWAl8t5HOrJLubnOvOuQ+/cQNvaBX78hDJ+dpBpXg4LAc2l
-	7IYdiAn4JqlXaSo7xlZtIefS+A1PLWQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792593279;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i1o45mU1wVGBJYMOu+l6LXLaf1xRjqI1u8WDXqM4gzE=;
-	b=XWwsFUKYkcPW1OsHvE0cU/Xk9Ey9EDWp0xESuHSE4wS/K2oRjh2ifwI/t4hgm/PHCxyffl
-	9tBcyFDNwsSAY0DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4F45A1351E;
-	Wed, 21 Oct 2026 14:34:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id KxuoDH/N2GoMWQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 14:34:39 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id EE445A141A; Wed, 21 Oct 2026 13:24:28 +0200 (CEST)
-Date: Wed, 21 Oct 2026 13:24:28 +0200
-From: Jan Kara <jack@suse.cz>
-To: Kaixuan Li <kaixuanli0131@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext4: stop verify_reserved_gdb() one entry short of the
- block
-Message-ID: <mlx7il3nok35qeppdkafrqgztvazj3fc44xrp2umziye5ox24m@xwg43blfi3jn>
-References: <20260919113940.1823559-1-kaixuanli0131@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UwmZifLj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LIQxPH/gucD/bqdh2grPWJQdy8A5N1XGuvQ2xgnMPAVH8JV6lwDgkZHFN6VkdO2BXfvmqIlKuBixJbPqq0FbWQgriDNLLfnIDdm9H12bh06SjcqIEzgA1zCwFitrmYork8+fcuey+/e9exNslbRzEN/smoaBsaaAvP297u3HOtLeYh/SUP3vFjGUjj3BcqJvxGdedG9kRqShOdsFtVX0n1UsbJ0EWl5r20KKH1dsAzF11XLYN9A/HtAm0Ri9S7bkajTQcS7QzEe990a1o7PWVzV9/fYsfMF+wdbbeoRVc4nik7/8XeEPUvBjInlJkLeAz0a+31E3GDWI873/T20K2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6PJyUzzN5QW9sAAFb8LWvG3kbRiJ5Bm6VDaOA9704+k=;
+ b=hztNDyFHxkpaE2mEllZ9Dl04YxcBSH0n2OBWAizgC+avtweMCynGs5oUgQfX9/BIBNRhr0YjiyJycxQ8TfTi/nZx8pCSolytyLuxdEhGDTTUWRgBDwyrbwFsDxY7LGU/2f9IHlSufb1IrpMwAXk4ZtoiltHinBFaOc9LYM/tMNx4+B6TIjcmOCSBEeaS3NYlVmUFpAvUvwobdlM+zupemxvS3+6qHbWlVxm9oL12g0zBOdKvXyxCksxm0AuPDAE8KQsLPqAHI4sujHOxtaEGsas0sZ2vpWHQG5kiM4FFLWDP1qPJoeI9s8OEkgf8YU/22E7Yu18jd+cLxd+d31/WaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6PJyUzzN5QW9sAAFb8LWvG3kbRiJ5Bm6VDaOA9704+k=;
+ b=UwmZifLjH4USqk42IA9jOG0JIF66JTKdC2kHSDJ6F8Lsyld0/El0kad2WsC7mUcRceeBybLh0IInFVYo604BVaJ6hjcEZJ1l07lJ57B0Sb6wwLMjKvOJyFoqtdRqGVDSEpEeg7UntR6or1RMzsQQS6jV75Ryx2IZbDyftffJuS8IbjGbprQL0D6Ygjz/NPzx46ZuOZglARIaqYu3U1zHYmhRAywfGtzDaoY+Pwmro/c4Cue5yJeflc4xHgrFJlIw7etzUPSKTtkAloMzaHpDMTOcGiCaKdza1uQEtXC95ZN2+tPuWh9Nm1/IFjiRVxBAjrEYkj8MvgJmYAvt9NCaAw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 14:35:30 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 14:35:30 +0000
+Date: Wed, 21 Oct 2026 11:35:29 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, Dionna Glaze <drdeeglaze@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+	roberto.sassu@huawei.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <20261021143529.GP3008132@nvidia.com>
+References: <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+ <20261017203407.GM13920@nvidia.com>
+ <atPgqROZZxnihYfC@kernel.org>
+ <20261017231007.GP13920@nvidia.com>
+ <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+ <atX9fugGUsI0hGcA@FV6GYCPJ69>
+ <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+ <20261019225658.GS13920@nvidia.com>
+ <ath4vwt7KGyDXKVJ@FV6GYCPJ69>
+ <103486a4a29ecc7b72940dd051c00ae59266bd05.camel@linux.ibm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <103486a4a29ecc7b72940dd051c00ae59266bd05.camel@linux.ibm.com>
+X-ClientProxiedBy: YT4PR01CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d1::26) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,133 +116,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919113940.1823559-1-kaixuanli0131@gmail.com>
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Score: -11.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LY0PR12MB727857:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bd9d0df-00d1-4c33-a074-08df2f808eb4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|4143699003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	HeSms7foGbA6TpGgbQHw9l5Yx4SGbuLSpOMeMjiexoGAC9uyRYrOMGl9G1ekWT40hm/XJLGSQ53TwiuAW4ZHKcZ96Xa1tU+QREyxKuCor4aHLfnfIak9kDoZBY2eFzbkg3GvYtwoB3lg5DWGOE042zj/uCdZKJd/8p4sj2PE97J08efxGjHMqKtFEJ7swZeWKMQzZBLaRihMzvqe4eR9rnIDWr8cahH5+ZTvY2JjDI7drdipW17BB2gwfG9lqkyfyGzemgrae3GoUjVcaVd4FTS0iyauBLDXTu/AYAeUYkrbvxTEIt/UQdet1MIhsj6qTEJgaPM8TQyyX1cnA1I13zWhB/03w2bf/86ghnnBvSH5j98B1Hea5Yatw180yBWe3VdxprSbMF3FtQ0ZbfJWn4HJTbB6FYUPao868p2UJt9k54SuatkGh/NZnN8N6sm7XOpsbJfvh1DF1qegG3K8C8mXU2nMgD2G7BEw0peq9LR/RHxgYZEAWtzWnsSEd/Ms1JO8DZLoqh+3yKZx/mfQYGcfoC2yGYqF1bm3reYiuQy1Pd0a6HU1GsK34CmAbbyIyy8105vfg0uS0627WYgAFL8BYLQP1rHnv4UL8mHyM4qnAZFB8SifKtBhoCXMeuckqloPrtRsZADoWgLePkDjfndVebQrnwRMU3syBsZknCM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4DxjdK7ShxQO4vqp+dR6dOklPL4BS7cRH7/Pzdg3kwCrGTeGfA+05lmRAQoj?=
+ =?us-ascii?Q?1r9FRF4waVA0Z7RMwp9T+bh9e0PPNrzHAR0rZWGiDNjctxmWPDhtFvwziy1t?=
+ =?us-ascii?Q?cPMRiBYVKxnvdIwbxtb+lgzfPLsfKaUeX0fGiEmOQwGWLwbC3APQjCY3Bcy9?=
+ =?us-ascii?Q?aLRGy4WLjSlwq1cZhFiMeeOetLflQb1e50iqMgeWITcatbbGC9Q+eMpBPu94?=
+ =?us-ascii?Q?O53KYhJO9cx5hBJwyHHzqg5tCPezA69wPT9olCfxYmznA6pgQWD8Cak8Fgm7?=
+ =?us-ascii?Q?abUCDLzF8K8Su8O+vP+qcFk6MAlLrOZ0of3qji7FOTo0yXBeGY+GgrE7mqvZ?=
+ =?us-ascii?Q?PGUQdKdkITRB4Qr1ELj80xrxb+X4HVm5AHqeoE2jgyEprPO7nDfHsYVuze1i?=
+ =?us-ascii?Q?doA82LsZRDPDWQ3rBB2gcLOYq5xP8fqiIXGDUrcITxONqvoOCqSQ4dEqB+Qk?=
+ =?us-ascii?Q?eSqFLaCLOKyRcGM1yRXRqMle5i3SXqjTe2OYVVdRtNs9hh4ZjK+nnpJOHMlV?=
+ =?us-ascii?Q?P5wO4X4jwd64ZbuVsmW8d/zZUhtY9pRHsFv22yxCQo8BNEIX0KEfZIhT4TdV?=
+ =?us-ascii?Q?L0jws71yhdEw1Szff9fEwnju5JhRge9sAuqazcwtByaYQWrpPWAcTjSkSZ8F?=
+ =?us-ascii?Q?6oZ8PhKkDays2wUO1Jllft91hXhOcG+pQVQq3V1PGe5ktKVSR3QXgt4NIJm/?=
+ =?us-ascii?Q?E1owZfM6E2dEqcQedRTnpxBBLdyymCxTLOSleVbzZhHIcigduI8Obg7zSGwx?=
+ =?us-ascii?Q?oPTapdFGi/gfA2NzyEeDcqvWR0mBdB1eBC3zOFSIDjTu6svetBrZhx/JQJpB?=
+ =?us-ascii?Q?jTNrScXefj7NuRq4G49e+lIuORWtqbz+BtjE1tueSUO+EY2occeBEDFRA3b4?=
+ =?us-ascii?Q?MIjvBmLq328STgxtbdcI7XguiXQ7wJtyDOweyFTBusMH16FhsuP1xDmnhj9x?=
+ =?us-ascii?Q?2fatt6sjzvvzxGcPDYGg/9VJTmOSmCeHC+eAaj0035JTtrhbALWQTFO4zrXj?=
+ =?us-ascii?Q?CEcQBBTtkfM8u6F/7fRoc+W/svvlHdisFzCy/Ma6JtYBJQrIe9quz8fOOEo/?=
+ =?us-ascii?Q?hOx/0F44K18vlNMDjpz8Hn4YZJhFXa0AqD6BMQx1WkUXJCYt4TXneChW8NBN?=
+ =?us-ascii?Q?1AIvjlGy6H176yLaDSSe2l5T5CSvpAf1TqBa1hDrFcJmxUDO45itrtHDPRb7?=
+ =?us-ascii?Q?JEqnXAYDsR0bXysQN5tQySpe0fztfcmRkB4lnw8e7IUADbolLNe7yVowjVWO?=
+ =?us-ascii?Q?8xcEb2kZ2hgo23hYn9C17sfXO3ylhqvUlIt0IWeiJQ4nWJBcWf3MhdzJDrRM?=
+ =?us-ascii?Q?a7pBXxd+8k1TaKaJyv6qh+pIoFzEfww1SysuMlilGAesFjc7ey/DZbKb2ptN?=
+ =?us-ascii?Q?dkCLh1CHrTFjSnCpnAiq/nGFJamU0GIGUhtullKJrSQS/aB+dHrQlPnfjTsd?=
+ =?us-ascii?Q?0FW77jjmyajmZcZhkJDmRPFH1N4q1xXiTuADtGdRyNZNMY+FiMkEP70SeTdU?=
+ =?us-ascii?Q?xm8XKYePaGml/+DaHCmDiHHNj2Ka3QOdp1QWRAzqoQ0Bpe6GD0G8yzxDSNeN?=
+ =?us-ascii?Q?lbY26Dg8cbw1/idcATYweTeeKKvO4oa3uVkeFsFwIGTetUIYzJEidOY8ZMiz?=
+ =?us-ascii?Q?wwGWAeARmO73wRJaFy+JXMZWFeMNH8NioGiABsJ5jt8XJEi0Vyb/EBX9jCWz?=
+ =?us-ascii?Q?UpLrr4o6eIFRSC1x7MMlvPT90L6j37LHM7XGJOqQgJdpgw8E?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bd9d0df-00d1-4c33-a074-08df2f808eb4
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:35:30.7559
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dVRXDGQRiDXrz0LUokLnq/LNZMSccK7jnf91+Pvt9wAVvpi0qogL8r7hQND/2Z2Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB727857
 
-On Sat 19-09-26 19:39:40, Kaixuan Li wrote:
-> verify_reserved_gdb() walks the backup group list, reading one __le32 from
-> the reserved GDT block per iteration, and bounds the walk after the read:
+On Wed, Oct 21, 2026 at 10:12:34AM -0400, Mimi Zohar wrote:
+> > > I think for now we should not include a new dynamic log here, the uAPI
+> > > around this Jiri drafted can remain a future step. I don't want to
+> > > open complicated discussions about new functionality at this
+> > > stage. The whole CTLV idea in general is a big enough thing to bite
+> > > off for this series.
+> > 
+> > Okay, dropping the log from this set.
 > 
-> 	if (le32_to_cpu(*p++) !=
-> 	    grp * EXT4_BLOCKS_PER_GROUP(sb) + blk){
-> 		...
-> 		return -EINVAL;
-> 	}
-> 	if (++gdbackups > EXT4_ADDR_PER_BLOCK(sb))
-> 		return -EFBIG;
-> 
-> The block holds exactly EXT4_ADDR_PER_BLOCK(sb) entries, so when gdbackups
-> reaches that value the test is false, the loop runs once more, and *p++
-> reads one entry past the block before -EFBIG is returned. The same value is
-> also the largest gdbackups the function can return, and
-> reserve_backup_gdb() then uses it as an index into a block of exactly that
-> many entries:
-> 
-> 	data = (__le32 *)primary[i]->b_data;
-> 	data[gdbackups] = cpu_to_le32(blk + primary[i]->b_blocknr);
-> 
-> which writes one entry past. Comparing with >= stops the walk before the
-> read and caps the return value one lower, which closes both.
-> 
-> The walk enumerates the groups ext4_list_backups() produces -- the powers
-> of 3, 5 and 7 below the group being added -- so EXT4_ADDR_PER_BLOCK of
-> them, 256 at a 1K block size and 1024 at 4K, cannot occur within a 32-bit
-> group number. The entry the old bound went on to read was therefore never a
-> real backup.
-> 
-> Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+> Thank you.  Please keep in mind going forward, that the scarce hardware register
+> limitation (like the 4 TDX RTMRs) should be resolved (e.g. by multiplexing the
+> extension path), not by combining distinct measurement lists.
 
-Looks good. Feel free to add:
+I'm not sure what you mean?
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Since the HW doesn't support sealing the only *technical* requirement
+is the verifier can reproduce the measurement register hash. So long
+as we can get there we can do whatever.
 
-								Honza
+Multiplexing extension alone isn't enough. We need some scheme to
+reconstruct interleaved logs too. 
 
-> ---
-> Reproduced on v7.2.4 x86_64 with KASAN enabled, and on v6.12.9 before that.
-> Three images, one reproducer, the resize target passed on the kernel
-> command line:
-> 
-> 	case                     stock                  patched
-> 	A plain, 8 -> 32 groups  0, 65537 -> 262145     0, 65537 -> 262145
-> 	B group 257 (APB + 1)    0, 2105345 -> 2113537  -EFBIG, no growth
-> 	C ^sparse_super walk     -EINVAL                -EFBIG
-> 
-> 	(APB is EXT4_ADDR_PER_BLOCK, 256 at the 1K block size used here.)
-> 
-> B is the write, and the thing to notice is that the resize SUCCEEDS on the
-> stock kernel -- this is not an operation that aborts after the access:
-> 
-> 	BUG: KASAN: slab-use-after-free in ext4_flex_group_add+0x50f0/0x5680
-> 
-> C is the read:
-> 
-> 	BUG: KASAN: slab-use-after-free in verify_reserved_gdb.isra.0+0x270/0x290
-> 
-> A is the control that matters for a one-character change: an ordinary
-> online resize goes through reserve_backup_gdb() -> verify_reserved_gdb()
-> and is unchanged by the patch, same return value and same resulting block
-> count.
-> 
-> Building B needs the group being added to be exactly EXT4_ADDR_PER_BLOCK+1:
-> below that the index is in bounds, above it the read defect trips -EFBIG
-> first and the call aborts before the write. At a 1K block size that is
-> group 257, so the image is built with groups 0..256 already present and the
-> resize adds only 257. sparse_super is cleared with debugfs so the walk runs
-> end-1 times rather than skipping most groups.
-> 
-> Mounting a crafted image is not a Linux kernel vulnerability
-> (Documentation/process/threat-model.rst), and I am not reporting it as one.
-> I have not attached a Fixes: tag: the bound reads the same in v2.6.32, so
-> it predates the git history I can bisect over.
-> ---
->  fs/ext4/resize.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> --- a/fs/ext4/resize.c
-> +++ b/fs/ext4/resize.c
-> @@ -794,11 +794,11 @@ static int verify_reserved_gdb(struct super_block *sb,
->  				     grp *
->  				     (ext4_fsblk_t)EXT4_BLOCKS_PER_GROUP(sb) +
->  				     blk);
->  			return -EINVAL;
->  		}
-> -		if (++gdbackups > EXT4_ADDR_PER_BLOCK(sb))
-> +		if (++gdbackups >= EXT4_ADDR_PER_BLOCK(sb))
->  			return -EFBIG;
->  	}
->  
->  	return gdbackups;
->  }
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+For example we could add an atomic sequence number for each
+extend. Every log sharing a register can report the sequence
+number. The verifier would have to globally sort all logs to confirm
+the hash.
+
+Hopefully we don't have to tackle this problem. I hope that 4
+registers is enough for Linux. One for IMA, one for systemd, one for
+user? Plus a spare!
+
+Maybe we can build a multiplexed scheme on the spare? I don't know.
+
+But we almost certainly need to have logs sequentially created in time
+occupying the same register. Ie IMA may take over the register from
+UEFI logging. Here we'd want to report the start/end hash values of
+the logs back to userspace so the verifier can stitch the order back
+together.
+
+It would also be nice to think about a way to restrict the registers
+to help avoid multi-user conflicts from misconfiguration.
+
+Jason
