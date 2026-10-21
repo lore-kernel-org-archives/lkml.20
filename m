@@ -1,74 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.221.207.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599710;
-	b=wJbedLvlEBIE3BPtJdyzwL4Socv+1GN7xAOZIgGqiB+FgtJ4E0zJM6LSjUtH4jn5wvpr
-	 t1vGmgpSe/EKrc5SJDdUa9TWdBoPWpJHZmgrbVRpTo2S+LjOE9c471XXmA/moqZ+h//bH
-	 iOqTZN7fKfnly7Fvn3NTmfBLBp7sV2+yT46vQ1O1mcVQ8LSs1/J2BfYcCpn/PwZBlMG28
-	 zxo4Vdpu/jr+hehbcPX5xVRLtiZFBVa9zNUACAT437MjkGiW38tF+kaca7zwaTBgH02sl
-	 jIsueVLvVYQT6UB2DN14w1womn+2Y5fwp34HCfgXvyAnIDrp06pIs3geVINewfFlRSQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599710;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition:In-Reply-To;
-	bh=NWEp0nYJIGjm7VjXAO0FQVtdY7Gg16upd3l3id45oXA=;
-	b=vgxK6q2O52u3r0U0EQioOAxnO+wrQ27B5N1FBpo/lyzQ52ItZdqqzMsIaxjYSqC1i1ff
-	 xD9LjNjBPOPXgaWnT0fhIs7hRBHpTSpaXQ+MkcyfQZVqGyoKaWEl5nRh4mwRc6iohQ9/p
-	 sqH6o3RTD1U57jR/cijdDBDkOBAShIbxlJfgujDKdVPu+uJMfW0Zv5N0W/YgWA+UZifUb
-	 ZTNB9IUkegs83liFA/oYWm2ZP1bd9lRWY5OuwcGvVRQBMw+3/9jCFRcGAGl727AYinPeq
-	 nu8CmDvrqgXNgjH0diutzLC6X11LHJK7C/m9916iyGHBXbULGmhgJSeK8edM4I5Fjpg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hozed.org;
-	spf=pass smtp.mailfrom=7el.us;
-	arc=none smtp.remote-ip=162.221.207.43
-Received: from bc (unknown [162.221.207.43])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792599786;
+	b=4zQzo2LZUNAz5cwIrTvlCb8NdYsnOG9gI+wVC8Kr9D/kdKil26TEGul3VsgK+fFZaupo
+	 ILc/UEzXGlJ0vYEASdZ7LncSU/Wqca53j+lZXLewIxb1es2W0WQoermORI3BlAC9qG9Tx
+	 HzAeT76UKrS0Q9rN3qv6wRWVBIS95MkhEiCCgxBSOfGAIVNiYZj+3nRzJ7sg/oCnQsJih
+	 oDUbnrNcS5JsQyjk8/vmt4c2en1GtJdzBWY8cuTbqTbgVKcloM3ijPkA8J9abn7PSh/xA
+	 KqWzHjJDFrg9wIRQAxk08OqFnm9J5hfIvzZRvWibD7fR6mFYsewLLXp488nXZk4l1bQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599786;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=O9mEig3jVt8VPVeW7VinQYSiFWnkI9dK6AUCpSQwbvo=;
+	b=Kf59zOG6uONGKgGw08zRQxV8MmGa9bkm9CcEykuwLPobvzll//7jthBzQ7D3Jg0OS6I8
+	 MSqUexu6yKnS49MyopOrg4zNWQkUX3D5GXg6Ha673rMqXvjDKndtz9exi2WDOqkv3L/w/
+	 xeBSkVkdqQrFUF1DMTL9JHPo9jhTfm+fl7K2FFkNyZwRCPH8uIPym5rHnHgRtanB1YWEP
+	 aFRci6fq4k/a1s9zht2n8Mhti3qGNiFWZaSfV8Ke8O8qN0baj0qF/lMfgDsk5kUImqDKy
+	 GS7rzGsvPpHlktmQBVtuQz5oI2H1QfJufKzsRfnv2EX6Z6C6ue63kwIdJ/93A6TRH9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="4raqU/QN";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.59
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010059.outbound.protection.outlook.com [52.101.46.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEF3606A560;
-	Wed, 21 Oct 2026 16:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EEF3606A560
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hozed.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=7el.us
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by bc with local
-  id 000000000004005E.000000006AD8E69D.002DCC94; Wed, 21 Oct 2026 16:21:49 +0000
-Date: Wed, 21 Oct 2026 16:21:49 +0000
-From: Troy Benjegerdes <hozer@hozed.org>
-To: Theodore Tso <tytso@mit.edu>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-  Krzysztof Kozlowski <krzk@kernel.org>,
-  Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-  skhan@linuxfoundation.org, rdunlap@infradead.org,
-  federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-  workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-  linux-kernel@vger.kernel.org,
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-  Linus Torvalds <torvalds@linux-foundation.org>,
-  Justin Stitt <justinstitt@google.com>,
-  Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-  Jori Koolstra <jkoolstra@xs4all.nl>,
-  Brian Foster <bfoster@redhat.com>,
-  Christoph Hellwig <hch@infradead.org>,
-  David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
-  Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
-  "David Hildenbrand (Arm)" <david@kernel.org>,
-  Vlastimil Babka <vbabka@kernel.org>,
-  "Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Message-ID: <atjmnZl3tQ_1uaSJ@false>
-References: <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
- <20261013173240.GK4214@killaraus.ideasonboard.com>
- <atI_TSQXzAQFWBfx@gremlin>
- <20261020211532.GD15441@killaraus.ideasonboard.com>
- <atggaWq0EU6Km8r0@mit.edu>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC2A606A31A;
+	Wed, 21 Oct 2026 16:23:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC2A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4raqU/QN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rYFIdJ8i6QhhE/pSoRgeyplEU4ZC6QEZeJAWQsF2lqeQGsPr6TJnld44BvhVJDGhvwZUlxX3wXEJ1eHCzwvY6ZRTdEmGX8nvh+nOfkZuoPtXpuSHyoEzvoQ3AA7c7RSS+nvmyDJpwxs+/PxyPox2X7EYcFEhJesH2WYeNhtyPP9F8z+hKv/siAKWmYBhaW29T34w93l03Z1EKQCwatVcAvcPw53egwB18vB2TJFFN5BzSJJ22VuUCdYuvDTyu5UCMaDqaKvvZp247tsMQndh8gH+sClYg6EHVdP7LOADq+i112hfu9ZWpNSA1YpCsRBPh7XiPigdY+SD6fVFXhsQ1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O9mEig3jVt8VPVeW7VinQYSiFWnkI9dK6AUCpSQwbvo=;
+ b=swhuRny4Qg4oi5RbGD0UCnPQvS8cn41MXehPSP6L4BqRJNyvazFX+Zfk9pi85VDvzhjqZx7mXc5vhaD2XH2GACUcmKiMhzWDegJJHpTQKe7YcU0tatsTinj6Kd/dEfa//JShTlM10k2VqqKXhlw3mdAHpG/O9XRV1GK5CmHVg3GxwcL2qr9Kc2fOsD1RIedr/4Y1lHgGTGE+O5thI0vuvYyJdNkFwPvumLAtyUqLCDE7PvXbdvNzBsmRtCYZsyzQzp3SfcxGOK+p+ySWqHjg3+1eKXJWV2qVztfo46QoXtRJaAs3Dipo5jkC1+83kEdmaZbP0IhPfqKMIrbqXay5Xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O9mEig3jVt8VPVeW7VinQYSiFWnkI9dK6AUCpSQwbvo=;
+ b=4raqU/QNbykS/r8WKEUKPtDODerINY7GajRN7MuwLJ5ZuPF6y316gekL3u1ETYKe/ZubSMueBYipbJY6eNJ8yJ/Xe8HDynmSOBjhNlLtXLYWoPlGhVkM+cjhCHmZlPVV/LTJ4NKR6iTLiStlH+L4sBNJkp8/w6DZ0wNVyFuuGi4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by MW4PR12MB7144.namprd12.prod.outlook.com (2603:10b6:303:21b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 16:23:01 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 16:23:00 +0000
+Message-ID: <65f7340f-09d7-4662-b5df-13c29f709b3e@amd.com>
+Date: Wed, 21 Oct 2026 11:22:56 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 04/18] fs/resctrl: Introduce kernel mode enum
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, tglx@kernel.org,
+ mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+ fenghuay@nvidia.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ akpm@linux-foundation.org, rppt@kernel.org, dapeng1.mi@linux.intel.com,
+ elver@google.com, enelsonmoore@gmail.com, jlayton@kernel.org,
+ kuba@kernel.org, ebiggers@kernel.org, seanjc@google.com,
+ ewanhai-oc@zhaoxin.com, binbin.wu@linux.intel.com, peterz@infradead.org,
+ ashish.kalra@amd.com, superm1@kernel.org, chang.seok.bae@intel.com,
+ prathyushi.nangia@amd.com, kim.phillips@amd.com, ackerleytng@google.com,
+ elena.reshetova@intel.com, naveen@kernel.org, darwi@linutronix.de,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org, eranian@google.com,
+ peternewman@google.com
+References: <cover.1790867441.git.babu.moger@amd.com>
+ <66efcdc1bf71c1cb47c546b1d1299b58594bd30d.1790867441.git.babu.moger@amd.com>
+ <6764525f-0245-4cd3-b35c-c2bbf4e65733@intel.com>
+ <a23f9f1a-3c5e-4166-8956-86c3063a9e64@amd.com>
+ <14e8bcd9-4431-4dba-887b-c5b5e156dea3@intel.com>
+ <b8ec67ee-3a5e-4c36-a1c6-2b291d013369@amd.com>
+ <69748525-438c-48be-8876-6e6cf1ba88fe@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <69748525-438c-48be-8876-6e6cf1ba88fe@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0077.namprd03.prod.outlook.com
+ (2603:10b6:610:cc::22) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,91 +114,167 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-In-Reply-To: <atggaWq0EU6Km8r0@mit.edu>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|MW4PR12MB7144:EE_
+X-MS-Office365-Filtering-Correlation-Id: caa2ec39-13f9-41a7-c708-08df2f8f9332
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|366016|18092099006|10067099003|18002099003|22082099003|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	BJ42u4izbGDVb9gtTjsybLR7MWSIFAzr0Xu8O0uZF+3lPEhRwS9DA4CKr5JSRSXQHDzaf8wHN5FXOPXABzVXdC7ui1L44HFzXn+GRZdbK/xGvXbtIIDaXncio9KdlsMeKHwGYUe+9fPDiS+eqsfxJyEOP6xnJvo4K7IgF8cIA88O4zir6975/OcvB8UR7RuT/oQe8bq/9/JceJvbR10y+5/AOLFtNp5tqG0n6fj/g+Iv/TFLcLXrhXLeXHfclsRMVxR4SVbGzGpPsRU+BrJtTcIzf/g31XFjzV3sfyCTtwig7Ct7bthPqvgjQiLSS9/ru3hCzIOEyRlFeWtaMaXA4FKEncJuQqiYNUxh6DI6pQOKSrpm4yXH8xvjpy8kY4zxUS0JnlVAU26MvMDHN4ocWtt0ODHgrZ7Ob0P1O1mTtGy+Rzv2/lRo4EzwqRGp3B2ryCH5L+M6fiEsdrZHyT65ChjQJvn5ZovotErokDfyej+1XXC+8bXHH+Hs2ju6NuVlyuolBGJD8hJVNbAEOWmzISIkV3LVRfp2I0UdV1Me0AfqfnIUY3ymljFckzltiDmyQkGDSy1WjEJs4WPNleV7KAHiaLuiFHuktdYeKOb7eMpkI/AvH6Lmka20bn/r/byWvigBRCVOAHxUlJ6xASr/vT9PVL8ueBg428eLf9qj0qw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(18092099006)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QjJucXZMbkd1NThoZkFWQUR1VW1VZldrVFpGQU5CYUMyS0Y4RVlKWG94bC9z?=
+ =?utf-8?B?RExvbWxQOHZSc240LzQzcHVjSFpCeUJ4U2svYXJ3dEdNUVVTS0dpbVFzU1lL?=
+ =?utf-8?B?c3ZtYnk1cjFHelZJWGZ6MGtReGw3SEduV29Pc2hNcGZUSUMxbWNzVTB6anQv?=
+ =?utf-8?B?OGl6cHB4L2JzWS8xSnVhYXE4L0xkZmNUWXFwcGhYd1BiYkdlS05lWkhQQ2NV?=
+ =?utf-8?B?dThhdmJyMTBzWW5UcnpVQlhjRzRtM3BQbjAyYkxsRWlmRGJ6SzNuemJHUmpL?=
+ =?utf-8?B?cDdaeTVqL3dFYmZSY3BzU3Z6RDdJd0pGZ2taTmM5QnFCajR5Y1RjV0l1MTFt?=
+ =?utf-8?B?S1ZGVUhxRHU5YVFaTXZoNHhhR1lKekJIdUFyc0NETGcwL1dWM01xeGQ0aUxx?=
+ =?utf-8?B?d3NpQVMwYi8rakJCaUU5ZHJnN2lTMW5NU0pXc0ZVSDNhcVU4alYzVXJneVBM?=
+ =?utf-8?B?VExNTnM5QTlGUVVRSFdRbS95Q0tiQXFSUGZDalQwZVZQVzhkaVpCcW9sS3px?=
+ =?utf-8?B?WjNOTVFBcmQ4RSt6Smc0L0JuYzFCYUpNdVpybDlLOGtqeHhSNktwWXNkQnkw?=
+ =?utf-8?B?RWdlcUFtN21VYXBaZEdlOVpYdGRXcGxjV3VQZk9zN1IvM2crdVoxSTlZM1ZL?=
+ =?utf-8?B?Y1diODM3WG12NTdSVTdpalpCT2U3bllBTTZ4dVZiWDZJczNkYTRsTFRwaTlv?=
+ =?utf-8?B?dGNkdWQ3WWRwbFR0ekQxRjhPR3ZvNUZFOGM0dERsQVVTT1NvVE1BS1FkNWYx?=
+ =?utf-8?B?NjhZei9Kck0vNHd4NTF3OXdlRHR6ajJrYTFRWDkwTUFPaUt2TEhEVHhZRjlN?=
+ =?utf-8?B?YWI2dFNrTU1vc0MyUjQ3UG1LaSs3c2hVWkIxVnlOUEM3eStkUnpoWU9Bc3V2?=
+ =?utf-8?B?UjFjWFllbGVRY0p6cTd3bHZXSVVQMWtsQzhwOVptMTg1SWpyMkdKbFpCZFFs?=
+ =?utf-8?B?azRaRjUwMkpZMHg3c3lCbWFtWS8rUGhGeTlkV1REQzU4dUI1a1J5Yjc2eDhD?=
+ =?utf-8?B?aTRzMmMrM1ZGa3dyU3VOTEltbkdYd003bFZ3WjVYOWdaRkpKV1JrN2NFcHNU?=
+ =?utf-8?B?TzdhdEJIa2ZKR0ZmY2lTTW9TbFIrc3ZWWnFhdkZWS3BYVU1GUFoxL0V5c3po?=
+ =?utf-8?B?dTdKZU1Yck1qczR4RnVDYzFYb3lmaUVCaUlMR040QU1XVitsVmFYWHZqdFV4?=
+ =?utf-8?B?ckNaRWFsbEdoNERCbmovNWdJRDRRV1daenl4QUVNV09oVy9iUXo2b1VMcUo4?=
+ =?utf-8?B?eVgzRUNtbWRZcVpSWmM0TGI4amwzWVRUUlc5N3pMM3VCU1VkUm5iV2xieHZk?=
+ =?utf-8?B?ajhRTXV5TDRNTVpjOGZQdE9mQ1hTZUVlN0ljSzNtRlJTVEdXcHJVemFIN0s1?=
+ =?utf-8?B?dXkvcFIrM2ltNjZPSlFXYlQ3M3ZqMFVBUjVpNzZPMlRtZnFLUDBJdGFFSUhi?=
+ =?utf-8?B?aHd0LzJFN1BVQldIMnF4eGRZdzJkWEZOK1NXK2EwdWdqWjBqbFRjWmlVQjgy?=
+ =?utf-8?B?aFQ0Z2VaYm1FTlU2VDIzZDBJaFBRZW0yenZ4UmFLSEE2dkJnL29LS0tBbnhy?=
+ =?utf-8?B?b0VJVzM3bVpEaUNDVHZNTEsxUzVjNjR5ei91SUx1aTdHOHB6b25vcUdyeUlT?=
+ =?utf-8?B?NWlqUHVFdFAyeHJMZE1yaVlEcFRhWjhSaFVGdXdFL2lzL25BRnNEclJ6bTBV?=
+ =?utf-8?B?VExYMERBUko0dE5GOEMxaEhSUGMwOHpmV2Rjak9ZRWNNTTZXeElmN09VN3Uv?=
+ =?utf-8?B?WlJoTzVpdkd2d1ZJYVZhald0UWFBdUQwdU1UQXBGNmVNamZQRzluNWZEQ2o5?=
+ =?utf-8?B?Z0ZlajY1KzFOY25kUlBEN0ErMW5ERkUycFB1SzhtaXVocGorekZZYXg2cFRX?=
+ =?utf-8?B?OWFmeEl0dDlRRXFVb2ZDdFIvNGhzajV3VUY2Z1Nka3NQSmFXZm5QRmtBdG0v?=
+ =?utf-8?B?NjcxRUVuNDNVcytIMHZWSUV6TW90R0ppc29FeDlrNDFtOTFsNTdUQk1rN3NX?=
+ =?utf-8?B?QjZiN3Qra2FsVVZmQ0RBWXMwNWFldWlHOEZCdlB0YWZhUGl0dGRRNkVYT0lV?=
+ =?utf-8?B?VG9xSHA0aUJNVG9jS0tTTXBaYnFQb1RRdVBRbFp6VXY0M0xOaFllTmE1bVZP?=
+ =?utf-8?B?NEV3MEtOalhncW4wSkc4SjEwbUhsMWx0Y3Y1TWgzWE40WlFDcC9FdVl0YTJU?=
+ =?utf-8?B?WU16bFZmZmthVVZodFE2S2pRVmtXTERTSGRyU3I1MGsvd2FwTTZNK2ZqU1J4?=
+ =?utf-8?B?VFhiNVlIdXh0OUNRRmpMVVBZL2F6dUxjTi9UT2lZa1lhdUpjWm9HWGtTc1lG?=
+ =?utf-8?Q?JjuRsl9E9JO+naQegl?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: caa2ec39-13f9-41a7-c708-08df2f8f9332
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 16:23:00.7524
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wcCy+MzMX3nm8QJlzcGRgeL5XsVydzm4XpAxifafy6Z2n8wmidcxMjmJNhGdP1fA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7144
 
-On Tue, Oct 20, 2026 at 10:54:40PM -0400, Theodore Tso wrote:
-> On Wed, Oct 21, 2026 at 12:15:32AM -0500, Laurent Pinchart wrote:
-> > I fully understand that many maintainers currently feel they're too
-> > pressured to invest time in the next generation. We need to find
-> > solutions to make that possible.
-> 
-> One possibility is to create tools and/or procedure to amplify signals
-> about which newcomers are most likely to become the next generation,
-> as opposed to someone who is just sending drive-by patches.
-> 
-> The reality is that the vast majority of first time patch submitters
-> won't become part of the next generation.  So if we are getting 10x
-> the newcomers, if we can be more discerning about which newcomers we
-> invest in, the project won't die, even if we are ignoring, 3x to 5x
-> the number of newcomers.
-> 
-> > This is something we really need to improve quickly. Over the past week
-> > multiple active kernel developers asked me if I thought they needed to
-> > find a job elsewhere, thinking maintainers will now ignore anything but
-> > perfect patches and dismiss contributions from developers who don't use
-> > LLMs. That's a wrong impression (at least I very much hope so, and you
-> > clarified that you're not advocating for that), but it's a disastrous
-> > impression that many people got from the maintainers summit and the
-> > following mailing lists discussions.
-> 
-> If someone is an active kernel developer, presumably they already have
-> enough of reputation that they won't get ignored.  The issue is really
-> going to be newcomers who don't yet enough of a reputation, not
-> "active kernel developres who are wondering if they need to find a job
-> elsewhere".
-> 
-> And if they have a job, meaning they are in the industry, hopefully
-> their employer is willing and able to hire a more senior kernel
-> developer with a reputation in the industry to help them out.
-> Fortunately, certain companies like Oracle have graciously been
-> releasing a lot of such talent on the market, so these people *are*
-> available.  :-)
+Hi Reinette,
 
-Where's the job board for this. Or if you know of some developers that
-want to come to a farm and work on RiscV-linux farm robots I can provide
-food, housing, and whatever my experience is worth.
-
-> A senior kernel developer will be able to help introduce more junior
-> developers to the community, both online via e-mail and at conferences
-> such as Plumbers.  More importantly, the more senior kernel developer
-> can help the more junior developer write cover letters which better
-> motivate why a particular patch is important.  Half the problem is
-> that a lot of the "AI Slop" patches aren't particular important, and
-> in some cases, the business case has been wildly exagerated.
+On 10/21/26 10:58, Reinette Chatre wrote:
+> Hi Babu,
 > 
-> (For example, there was the patch which claimed to address a very high
-> severity "one click exploit" bug --- but the exploit required (a)
-> tricking someone to download a malicious file system image, and (b)
-> running a fairly obscure "tune2fs -U random" command on said image,
-> and (c) be stupid enough do it as root to justify the astronomical
-> CVSS score.  By calling this a "one click exploit" with an extremely
-> high CVSS score, that engineer and their company has been forever
-> tainted in my eyes, and you can *bet* that I'm going to take any
-> patches from them far less seriously.)
+> On 10/21/26 6:58 AM, Babu Moger wrote:
+>> On 10/19/26 11:17, Reinette Chatre wrote:
+>>> On 10/15/26 4:09 PM, Babu Moger wrote:
+>>>> On 10/15/26 09:44, Reinette Chatre wrote:
+>>>>> On 10/1/26 8:10 AM, Babu Moger wrote:
+>>>>>> Kernel mode work can use different allocation and monitoring associations
+>>>>>
+>>>>> Here I think "different allocation and monitoring associations" means
+>>>>> different CLOSID/RMID, while other places "different allocation and monitoring
+>>>>> associations" means different MSR_IA32_PQR_PLZA_ASSOC.closid_en and
+>>>>> MSR_IA32_PQR_PLZA_ASSOC.rmid_en?
+>>>>
+>>>> That is correct. Hope text here is fine.
+>>>>
+>>> I had to guess. This is the same topic as being discussed in patch #3. Could you
+>>> please add clear definitions to eliminate the need for guessing?
+>>>
+>>>
+>> Ack, rephrased the changelog to use CLOSID and RMID terminology to
+>> avoid the ambiguity around "allocation and monitoring associations".
+>> If you agree, we can use CLOSID and RMID consistently throughout the
+>> series.
 > 
-> Anyway, all of this might mean that someone who has zero prior
-> reputation, and doesn't have the $$$ to attend a conference, and who
-> isn't able to get a job at a company where a more senior kernel
-> engineer can introduce them to the community, and who can't get a
-> position at a mentorship program like Outreachy or GSOC might have a
-> much harder time to get a maintainer's attention.  Yes, this will suck
-> for some newcomers; but so long as we get enough new blood from other
-> sources (such as new college grads working at a traditional Linux
-> company), it doesn't follow that just because we aren't engaging with
-> *every* *single* *newcomer* that it spells doom for the Linux kernel
-> community.
+> I agree, with emphasis on consistently.
 > 
-> 					- Ted
 
-Those newcomers need viable paths for employment, at least in the
-current system. I think if AI companies want to maintain their sky-high
-stock valuations, there will have to use some of that theoretical market
-cap by actually committed to resolving and paying off technical debt.
+Ack.
 
-What if we had a "pay-per-patch" model? Would this help or would it just
-turn into a game where whomever has the most money gets their patches 
-reviewed?
+>>
+>>
+>> "fs/resctrl: Introduce kernel mode enum
+>>
+>> Kernel mode operation enables a CPU to use a different CLOSID and/or
+>> RMID when executing in kernel mode than those used in user mode.
+> 
+> Please take care to distinguish between the "kernel mode" that defines the
+> policy here and "kernel work" that is what the policy governs. At this time
+> this series even conflates the two in some places ("kernel mode work").
+> 
+>>
+>> Architectures need a common set of kernel mode definitions so resctrl
+> 
+> It is resctrl filesystem that needs the common vocabulary.
+
+Ack.
+
+> 
+>> can report supported modes and indicate which mode is active.
+>>
+>> Introduce enum resctrl_kernel_mode:
+>>
+>>    - RESCTRL_INHERIT_USER: Kernel mode work inherits the CLOSID and/or
+>>      RMID of the user task.
+> 
+> This does not look right, it inherits CLOSID *and* RMID, unconditionally, no?
+
+Yes.
+> 
+>>
+>>    - RESCTRL_GLOBAL_ENABLE_PER_CPU: Kernel mode work uses a single
+>>      global CLOSID and/or RMID association shared by all userspace
+>>      tasks. The mode can be enabled or disabled on a per-CPU basis.
+> 
+> "shared by all user space tasks" is not right? The CLOSID/RMID come from
+> the backing CTRL_MON or MON group, so they are shared only with the tasks
+> assigned to that group (possibly even none).
+> 
+> Below is a suggestion that aims to address the comments. Please do not just
+> copy&paste without verifying it for accuracy and that it matches the terms you decided
+> to stick with.
+> 
+> 
+> 	Kernel work need not use the CLOSID and RMID of the user task on
+> 	whose behalf it runs. On x86, Privilege Level Zero Association (PLZA)
+> 	enables a CPU to use a different CLOSID and/or RMID while executing at
+> 	privilege level zero.
+> 
+> 	resctrl needs common definitions of how kernel work is managed so that
+> 	architectures can advertise the kernel modes they support and user space
+> 	can query them and select the one to use.
+> 
+> 	Introduce enum resctrl_kernel_mode:
+> 
+> 	  - RESCTRL_INHERIT_USER: Kernel work uses the CLOSID and RMID of the
+> 	    user task.
+> 
+> 	  - RESCTRL_GLOBAL_ENABLE_PER_CPU: All kernel work uses the CLOSID and/or
+> 	    RMID of a single resource group, which may also have user tasks
+> 	    assigned to it. The mode can be enabled or disabled per CPU; on a CPU
+> 	    where it is disabled, kernel work inherits the user task's CLOSID and RMID.
+> 
+Looks good.
+Thanks
+Babu
