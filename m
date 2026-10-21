@@ -1,111 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602179;
-	b=Wc7tUlWhBgHPFZt2f4bOZ4wp26IkzujF3t9y+j0wJigdLTH/NZGkDwmybALPIuHnHYzc
-	 EYk2F+HP6N72LWWnZrDrdu7ms70+zrfjXAtW7UFGYfHTMcpx0Y6xfrtHL4AODlWGBn6ep
-	 VbcgqPu2ftoR+jYEet1Tkrr6lSCdwKVchkywbczeY0yqYuACexCJOl+3tp+oTCcZ6U3cX
-	 UVknZuyadYx3+4DjlWwn67AkGqCbjmuIyA2X43yIgx8B3ETFVzSWRzHkoC3LwrRNfPeGB
-	 UyAKVIw5fXhbjw7uemqUsKOs5xc1vlXLV3fXMSm0zKl/ti+1e0Nle0svgHUbibrTkBQ==
+	t=1792602180;
+	b=GzCwzBQcrSTiSTjvR+g1GbX8XmKaUda1nK6d7/JVpG1Ppw3PymCSVmbLvPrPzyyeHcS5
+	 hHe5iWBDB9+GaZGuDk3cpWdGBF/P3Rg6reTb8hl0Gv3AtQzjcGMkTcLpmJdZA48ZTiUTZ
+	 EApc1cJcP2FCWfMUy3K68IfF6dBHJ49ostUkVmZOJnuXoJIVVOz+EBX+ZhcPFOpy0lgDJ
+	 TBhAeJ0KlIHR17OL0rX/uphboMa+63DTrjfcpNXdZM72eh10R2ZceD4AdJCBzNJPBNd1q
+	 3HWZ/0BUpP+tVpStJWX/sTKnjlDeJynWEc2TQ7sxeTAaX//EJiSTOIyhDSGGd6pLE9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602179;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=TEZyD5pcu62HA6lXMz0SzC2W+CY7uiKBKznI8rJlxsQ=;
-	b=Nb27yx60fLm7FSYzIq9lTSsAXEB8RKbh6UrDe0ozR9wqVxVYBPe4jJhjPIi6Mghjefuq
-	 wCFuKzpwYOfh/mkAXUcaJZMBpb/TqEqBy2Ku+CLj/Ltw7peymFamEJr5DEu7cWPCFzgZ1
-	 EOVudsoZqRrROUT58yoby40eAWtFsNaqNT36D7MhbXEOjE+vzjICDgqagPX+xa7LawFy6
-	 eLhfjA1S8T+6ZoKHTBpuIEdDeSbMReSohZi4yaB7gGt2rizM3E8GtouiPHGC7r+xbU2mp
-	 Y1phs/pVKNt8ePWyX3Y1E2gnrqWPDvcOct3ecwbu2xlCTiAHSLWPJGy6z/2CQk9/VZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602180;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=G2Wb2r2zAu+yNNCY0UufSECh98Xmgt4eIzLuEewJe74=;
+	b=jthXXWI9MflHlqnb8TmGY7xW0GuXRYcHZ+xjFDpxRTAihilF/oYV1oG2ZvuovmxFjxq+
+	 z1wUKDywrrfVgQhHUxDED3KJJl6zbvyeRTjw6ZceiMtJwZOW4gYltmhYg/c7z+8WgJByg
+	 gbsjpxz/4F+5d18hbp5rHsmSUNqE3RIvJoEtX5ZJdGE1+V4yy40TWA9VNilExOyp6Wars
+	 6BiH/DFkchqANOKh94EpEv/gtnmZpxZE0L+kAzXT1Qen332Femg1zaNNpNOXdf2pGn0vw
+	 MtLHpBQHw/hE7dFyKHCk40/ucLn+qhVQ5tR8G/ZMdIBvzC9F0F5Afegy3sXW/srzqyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=QRY1ZjGB;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kG5AVI4X;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XkZmtTC5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B81606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B81606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D7D606A323;
+	Wed, 21 Oct 2026 17:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=QRY1ZjGB;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kG5AVI4X
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5E157EC0191
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:02:58 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 21 Oct 2026 13:02:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792602174;
-	 x=1792688574; bh=TEZyD5pcu62HA6lXMz0SzC2W+CY7uiKBKznI8rJlxsQ=; b=
-	QRY1ZjGBBhV/NY/+vXckqdP9UdbG7ET+EHLz9tErP6Ht/1xX/XhG+5lEdDQHyh7n
-	QqO6RiwQMU76DAM999Jg1m+o4RgSBt3CuK79mu3RlJNmrs/eIIY7E9PyEc3k73zL
-	UqGYL9HqdF2GK9Eqou8u9bYjXTk9EL1Sve1rxOaqJYMkJ6xWSfEO7gmtjs0ScniF
-	WuyQ1gxJ+NPW+glQ9QmPT+qk1da6Rkcew+tE76lRVx2IMjvrOpwn/9wJdFODNiWE
-	kfUQQho9RVGmsDYznSmTpXlrbNGxpOPCfh75U+Wt2he6QC0yWfb29CoV1x1m9YBf
-	I2RI8990ppHYKvGpXywZoA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792602174; x=
-	1792688574; bh=TEZyD5pcu62HA6lXMz0SzC2W+CY7uiKBKznI8rJlxsQ=; b=k
-	G5AVI4XTRSGyEJmWN27DMXkCV1dpAXajXKfTvVH/rEHlrO1Q12W0h+MbHFSAy5IG
-	yafOOWJdzwT6zkEZKkG960TJ/dAd4mljkTAdLWOLL1N8QpDUUnde8+OFUOLGqyax
-	i/uhZ+H82618bzRp4SlAg+x98sGxfTWThhDI1Cq+oPn5GY1W9UJJb4E3GN7c4uPj
-	EkTFDBdnSlZzj5hvNZNOIyi3Cgv4Zdpq4xaCNnOyyPIm6xmr2rHxIYmC+Pky+akm
-	BifwkpegJBFRUmTUv5IBMTGHBASHL/swC8CzGZIVKJVgwmW/lIfzjI31khPlV4VE
-	/SjmTd/pkQw722LkSz6gA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792602174; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:PYAZpvjI1fmYiyG8UBBL77b2mphug9zqVNbw77vBFum07KM
-	wPMv9Svz2ztT/dXJPaoWjB4pRtMO0xxKFgcMLXhBL2O5w+4mhB19D4N+RVQnxOej
-	0OIfVZNzYM6RkctRsE2XePRxzsCx9sfhigg3HTIDx+JsjzGuOKrlE0If1Dv6SPRa
-	x+miGGaaMO4uzuOI/7Srpy4jqlwVm0gVhTFE9mwOBTDMKEWcPo/ihD7njlcx9LxH
-	VS1q/li/Z6JPW2augXyygrGwitXoGc5qlZjvAZHQq2UUdwpayvGVGF0XEniupEnt
-	X2o6l+Fz6vbnK6bJ8nM7NHRGTWYJmWvVUXEZNUg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:0dEGpu+5OC750QFyrTXNnD5XTzn4dE9WmDdkwUY9cCI=:itydhWu1NgktY4WhwToR9q82X6aIYDRQkv5dsPsu+pQ=;
-X-ME-Sender: <xms:PPDYahItIjuCYX_hz0h8MzYkkE9GTF7Zx7_VW9dffJXTV8Lgk9piMQ>
-    <xme:PPDYan8wMuYvKpg9adBqpOcFnxbmR5GH96JjtsQlAlJMYo4xV8-0pTGbaqBswfnIO
-    v6PmhWZO-WX66MOukSkrLsrDZCQX_6FWIKK50RCPtr-H-ncse35g4HP>
-X-ME-Proxy-Cause: dmFkZTGKtv/0ANKjDg40Sw8CEUymGqXjjmpaqvC7zvrFp5nBZxkDBqLuiZJ/cE9cGA9KqB
-    i8UHUsXp9uQyFcYOPQFrTLEygjnhao9+CkQTvm2Y4Zca7f49/BI62DJfRoiMbSE6yVxHrT
-    +NPQ5hWi+AZBkWZKElVhjPau6njeHgyuZCDuYdNyRCnHwrCcY2bNaPRsMtcUGZwVLIwX9Q
-    qLwZt1x/1z7gyCeKE3xaQQDFJtnEurEJJKQjw/gD9hQSQZVcX5tknzeULCduJCYwsdwcng
-    kcV1DkjK/KKbIUEb1ulfbHsAhU6MX3zVmwoCsnjPDgeowJbEmQqbSND/m/m+tsKH04IvJJ
-    90lgFONmIQI+ymK3FiTcvmO4lADoyI82U5SEXAyAWFcb9808iG1uA5eBMdy5vIeJjw18a6
-    dofU6VCCK6cOe4P3fqC+kiLlyLvaxt0689dN8NsdXuxexi5aef0WR/oXfoBSsDYg8DZ/zY
-    qwJsMmJupxIvIQT9lPgX4tVL73M6qCAFV6sKSGooyxRYR83FEpEAu+rx22iR/FJ0iw5U3l
-    NDcyKy3hBBL+9uOabuCosbuaeREdr3Qv4pMIwmEDKDo20C5E/DoYO2krX/8b2vsS4S3Cq9
-    mTP8hBdn5unVCSBq6nd6gWEO3+r5h84P466RTvUHQpa/QKFNcDIKMEcG+dvA
-X-ME-Proxy: <xmx:PfDYan5fF5tWRe4L9yUMchFmntnD44LhSaIJAGaBVdn0Zd5SC1POlg>
-    <xmx:PfDYave8mocWvqv3ManDpoBq2hiP7RkHf5rPrb9erLVLpUxf8uhWyA>
-    <xmx:PfDYaiE0eq--0eykhAErvc1AnKBm9X0Or3PgQToa3p6PB3URLf10Zw>
-    <xmx:PfDYaoSN1jvk-l88eAfbb8hCOtWZ99x8InTqPf-6r5hqDMIrUWWOlA>
-    <xmx:PvDYarVihCqiGHca1UMiyB7ExgAeYFORzCFkzLu0DA1TKxoIEDlbehC9>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 9BCC232A0093; Wed, 21 Oct 2026 13:02:52 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XkZmtTC5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E8A1F000C2;
+	Wed, 21 Oct 2026 17:02:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792602179;
+	bh=G2Wb2r2zAu+yNNCY0UufSECh98Xmgt4eIzLuEewJe74=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XkZmtTC5S9VoCPJxFs4W6Nn32XI/9WoARvotlczkWiK/fgzgwYL9NUWAK7/UhnQEw
+	 a1MYNEG5gxgpbR2AQ8HOvf2u77T2OoEh+uQ+8KH8kkqu9M6qNPFMHb3odoRABgD7Ap
+	 NnodJhbm6ewhuPWrdg4aRCufKPtO6ImN+QeiSpm9UuwQ8G4sqwyM9cGunrUVZET1fe
+	 iB/Xx90Gq5wHuIal2BskYPHW7DSAIz5Ou5XSEYxbM7t+DIM43d3o92T/rvQYbv8iqc
+	 2gRzy6gh91csitC9FU1hYjhGrPDhvVMMsEaVVT2NkeBGm6hBefegTkk1IWRLAzmMa/
+	 iStvlOMozH3IQ==
+Date: Wed, 21 Oct 2026 20:02:39 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+	ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, gregkh@linuxfoundation.org, rafael@kernel.org,
+	dakr@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, leitao@debian.org, yeoreum.yun@arm.com,
+	sourabhjain@linux.ibm.com, robh@kernel.org, coxu@redhat.com,
+	kees@kernel.org, tangyouling@kylinos.cn, liukexin@kylinos.cn,
+	zhangtianyang@loongson.cn, guodongtai@kylinos.cn,
+	maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com,
+	vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com,
+	thuth@redhat.com, jbouron@amazon.com, me@linux.beauty,
+	mclapinski@google.com, graf@amazon.com, bgwin@google.com,
+	hbathini@linux.ibm.com, eric.devolder@oracle.com,
+	takahiro.akashi@linaro.org, james.morse@arm.com,
+	palmer@rivosinc.com, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	driver-core@lists.linux.dev, kexec@lists.infradead.org
+Subject: Re: [PATCH v6 09/14] x86/crash: Fix massive out-of-bounds write on
+ 32-bit Highmem
+Message-ID: <atjwL407guk-76DK@kernel.org>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <20260921090450.807575-10-ruanjinjie@huawei.com>
+ <179248377976.302547.17579416672238014424.b4-review@b4>
+ <b729d819-39c9-42a1-8f9c-49019091b81f@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,48 +81,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AZo3noQSaVtc
-Date: Wed, 21 Oct 2026 19:02:32 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>
-Cc: "Andy Shevchenko" <andy@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
- linux-input@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-kernel@vger.kernel.org, "Hans de Goede" <hansg@kernel.org>
-Message-Id: <9496ea3b-563f-4517-86d6-e20694e2ec9b@app.fastmail.com>
-In-Reply-To: <atjuDNi0_SXs4y2d@google.com>
-References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
- <20261021015004.1537738-3-dmitry.torokhov@gmail.com>
- <CAMRc=MfZg36BULXh3n-ce_x_4B_xOn3Jp4Jgo5BN1LsB2FqaTw@mail.gmail.com>
- <atjuDNi0_SXs4y2d@google.com>
-Subject: Re: [PATCH 3/3] Input: soc_button_array - convert to software nodes
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b729d819-39c9-42a1-8f9c-49019091b81f@huawei.com>
 
-On Wed, Oct 21, 2026, at 18:56, Dmitry Torokhov wrote:
-> On Wed, Oct 21, 2026 at 05:11:32AM -0500, Bartosz Golaszewski wrote:
->> >
->> > -	*gpio_ret = desc_to_gpio(desc);
->> > +	gdev = gpiod_to_gpio_device(desc);
->> > +	fwnode = dev_fwnode(gpio_device_to_device(gdev));
->> > +	if (!fwnode) {
->> > +		gpiod_put(desc);
->> > +		return -ENODEV;
->> > +	}
->> > +
->> > +	*gpio_ref = SOFTWARE_NODE_REFERENCE(fwnode, gpiod_hwgpio(desc),
->> > +					    active_low ? GPIO_ACTIVE_LOW :
->> > +							 GPIO_ACTIVE_HIGH);
->> 
->> Sigh... I hate it and it looks hacky but I also don't have a better idea. :(
->
-> Thanks, that is quite common reaction to the code I write ;)
+On Wed, Oct 21, 2026 at 04:28:31PM +0800, Jinjie Ruan wrote:
+> 
+> 
+> 在 2026/10/20 16:09, Mike Rapoport 写道:
+> > Hi Jinjie,
+> > 
+> >> On 32-bit x86 systems with HIGHMEM, kmap_local_page() only maps a single
+> >> 4KB page. However, the elfcorehdr segment can span several pages (up to
+> >> hundreds of kilobytes).
+> >>
+> >> The original code blindly copies 'elfsz' bytes at once via
+> >> memcpy_flushcache(), overwriting adjacent fixmap entries or critical
+> >> virtual addresses.
+> >>
+> >> Fix this by copying the new elfcorehdr page by page.
+> > 
+> > This is independed of other fixes and can be sent as a separate x86b fix.
+> 
+> Yes
+> 
+> > 
+> >> Cc: Thomas Gleixner <tglx@kernel.org>
+> >> Cc: Ingo Molnar <mingo@redhat.com>
+> >> Cc: Borislav Petkov <bp@alien8.de>
+> >> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> >> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> >> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> >> Cc: Vishal Verma <vishal.l.verma@intel.com>
+> >> Cc: Baoquan He <baoquan.he@linux.dev>
+> >> Cc: Chao Gao <chao.gao@intel.com>
+> >> Cc: Sean Christopherson <seanjc@google.com>
+> >> Cc: Eric DeVolder <eric.devolder@oracle.com>
+> >> Cc: Hari Bathini <hbathini@linux.ibm.com>
+> >> Cc: Andrew Morton <akpm@linux-foundation.org>
+> >> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> >> Cc: stable@vger.kernel.org
+> >> Fixes: ea53ad9cf73b ("x86/crash: add x86 crash hotplug support")
+> >> Link: https://sashiko.dev/#/patchset/20260907125404.922123-1-ruanjinjie%40huawei.com
+> >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> >> ---
+> >>  arch/x86/kernel/crash.c | 26 +++++++++++++-------------
+> >>  1 file changed, 13 insertions(+), 13 deletions(-)
+> >>
+> >> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> >> index e681ec9cf1dc8..3c9f4fbbe7ff0 100644
+> >> --- a/arch/x86/kernel/crash.c
+> >> +++ b/arch/x86/kernel/crash.c
+> >> @@ -447,9 +447,10 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+> >>   */
+> >>  void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+> >>  {
+> >> -	void *elfbuf = NULL, *old_elfcorehdr;
+> >>  	unsigned long mem, memsz;
+> >>  	unsigned long elfsz = 0;
+> >> +	void *elfbuf = NULL;
+> >> +	unsigned long done;
+> >>  
+> >>  	/*
+> >>  	 * As crash_prepare_elf64_headers() has already described all
+> >> @@ -484,21 +485,20 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+> >>  
+> >>  	/*
+> >>  	 * Copy new elfcorehdr over the old elfcorehdr at destination.
+> >> -	 */
+> >> -	old_elfcorehdr = kmap_local_page(pfn_to_page(mem >> PAGE_SHIFT));
+> >> -	if (!old_elfcorehdr) {
+> >> -		pr_err("mapping elfcorehdr segment failed\n");
+> >> -		goto out;
+> >> -	}
+> >> -
+> >> -	/*
+> >> -	 * Temporarily invalidate the crash image while the
+> >> -	 * elfcorehdr is updated.
+> >> +	 * The segment is physically contiguous but can span several pages.
+> >> +	 * On 32-bit Highmem architectures, kmap_local_page() maps only a
+> >> +	 * single page at a time, so copy page by page.
+> >>  	 */
+> >>  	xchg(&kexec_crash_image, NULL);
+> >> -	memcpy_flushcache(old_elfcorehdr, elfbuf, elfsz);
+> >> +	for (done = 0; done < elfsz; ) {
+> >> +		size_t chunk = min_t(size_t, PAGE_SIZE, elfsz - done);
+> >> +		void *dst = kmap_local_page(pfn_to_page((mem + done) >> PAGE_SHIFT));
+> >> +
+> >> +		memcpy_flushcache(dst, elfbuf + done, chunk);
+> >> +		kunmap_local(dst);
+> >> +		done += chunk;
+> >> +	}
+> > 
+> > HIGMEM is only enabled on 32-bit and there elfsz cannot be "massive"
+> > because it is the size of the headers just built for the CPUs and RAM
+> > ranges actually present, not the large memsz reserved for hotplug.
+> > On x86_32 (NR_CPUS <= 64) that is a few KiB at most.
+> > 
+> > Also, crashkernel is capped at CRASH_ADDR_HIGH_MAX = SZ_512M on X86_32,
+> > which is below the default lowmem limit. For lowmem pages,
+> > kmap_local_page() returns the contiguous direct-map address, so the old
+> 
+> Hi Mike,
+> 
+> x86 32-bit doesn't support memory hotplug, and NR_CPUS is capped at 8.
+> 
+> config NR_CPUS_RANGE_END
+>     int
+>     depends on X86_32
+>     default    8 if  SMP
+>     default    1 if !SMP
+> 
+> According to the elf header size calculation in
+> crash_prepare_elf64_headers():
+> 
+> - nr_phdr = num_possible_cpus() + nr_mem_ranges + 2
+> - sizeof(Elf64_Ehdr) = 64
+> - sizeof(Elf64_Phdr) = 56
+> 
+> so:
+>     elf_sz = 64 + (num_possible_cpus() + nr_mem_ranges + 2) * 56
+> 
+> To exceed 4K:
+> 
+>     64 + (num_possible_cpus() + nr_ranges + 2) * 56 > 4096
+> 
+> 
+> So we'd need at least 60+ RAM ranges, which seems unlikely on real
+> hardware without memory hotplug. I think this problem can't actually be
+> triggered in practice, so we can safely drop this patch.
 
-When I looked at this one in the past, the only other idea I had was to
-completely separate it from the regular gpio_keys driver and just make
-it a separate input driver. I think that would make this driver a bit
-cleaner, but it would also require a bit of code duplication and I
-can't tell if that is worth it.
+I think you are right and my LLM overestimated the amount of memory used :)
+ 
+> > code was already fine.
+> > 
+> > So the overflow needs the crash region to be in highmem, either through
+> > crashkernel=size@offset above lowmem or through a large vmalloc=
+> > setting, and an elfcorehdr larger than one page.
+> > 
+> > It is still worth fixing, but please drop "massive" from the subject.
+> > 
+> > The changelog should also mention the conditions when this could happen.
+> > 
+> 
+> -- 
+> Best regards,
+> Jinjie
+> 
 
-      Arnd
+-- 
+Sincerely yours,
+Mike.
