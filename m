@@ -1,83 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.181.3.85
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596061;
-	b=BxliKTfwftTmt2fdYD/KR6Qh6fH5+dFkvumfX3Z6mCVIowLAw49KWmXzYD1FjqP8/lRe
-	 FcyQvfrqgMW2h5+41Y7v0wuHgbVtLoMYPXj9fMB69Hup9aIDNed68eBS5vLnqslZyAve2
-	 xdGQPO1TcA7zdgDtcgDoY2YED8m1HSaDTAlu/zmHCwV5xcbET2/DzvyognkRHUsVnvABX
-	 L0UA2Ys8aKPfq6RDxa3jf2vU6LQX7OE7RRNhViKLvvlyN06KrFMAbIceOxvqaKNMEvwkN
-	 ThLBO1xP9icjJ6LTc0gvGD2YdxgtmBt0OwcoqJtZCE3/E0+mAVUsoZKvjn5OPauX4nw==
+	t=1792596080;
+	b=ZLSXDexRfix1b+jBOwUOrxwxe37wCZtb3bTc9zsEqEHP+qdRI5OInqlT5hHmawV2uXY4
+	 XBWMO7sn2KnvcDxFZdCCAYFInoGRstYtjQFo4urZsEaf1Puau6SLxrk4u9+GVf4c66QH1
+	 4pcuogbVZzU2e9dsceuKZFuOZ5+mVQw3bCWE2N0BcGgo3J9r/DXK6f62LnrrkJP4x7rRe
+	 3/XD5HkanFRC45SqP8AzHV4ihfokR6jDUco8AoIWOMz/l1tYmcd0VfSoAvuDxrqxya5bE
+	 6iwmeBD00z7HzlekUElvsxmkzcWdUiR6FClaQvKr/Ybl1w8fSEr8/3Z0zG4iZyuqbzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596061;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=qeUUc49iTPJXteXkFNDg1w8nSyOVubqVZaI+JbWQCK0=;
-	b=iTZYD39gb+0OB+JIIC/8k0bwPX47fxwMiQpqlOSpiyqZPQeWy8CBYAWaPHWhUXqYWXXh
-	 B5g+NpKlkOnn08DMNeV+W/MvBPwHHGjucRHzbPDduzI6FtWVibg8iXpFd8YSVwHBcmJF9
-	 rcwXAFpGDIHW1S97marL4UzLZ0u3hOUom6SYI+G0+FZmsxJFEtCQKEyiQ+ZDfcktXSazA
-	 EvkzaSjEb4iaJqu9QFNaoIZwF4P41YCGHQX8xFt5Qv9KaWqjvHEzRdS3/aVI/RGtRY7gx
-	 l8LEoOj6nAR4MVimsj/D4oq8aaV1qec4RrGuuIk/1kNH5kN47+XThQAhTEYHTNVY0vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596080;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:DKIM-Signature;
+	bh=nW2t74IIRSfYGanbWK3MJKNPdtM7IW6iGdLlsj93zRo=;
+	b=YZONnP3dMo8wXm/ZmyJEZQYtzjzlPbagcT6/+4f6VvaNEb33BIjS5hNxiaSiaE/ZzUaT
+	 ZR/CBfyjP8MK2r/2qq+sGNTY3le2+7f9HVelgjrG2EwmJKl+RYMz9spocaTcFg+FCcvv5
+	 BC64XtUoYeOC54C1jTi7Sy6/BR8l4gRcFTeGqcZ+7TGjzIPd/O2PbC6wUgouSeRKndQMn
+	 iVZ5WP/TfMJG/55557MAQrdmuxeJsvmrt0S0BC/IM4i2hlrvQXgxaai9bxv0dnSWuDJdo
+	 9zG+claifjSqaxZMgLxbBFkkd1cuMZJ6HRb4m6sIxFzV6M8vlonkJy97MrvV8ex0Tsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygmG22N1;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA93606A31D;
-	Wed, 21 Oct 2026 15:21:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA93606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=Dx7g40Kk;
+	arc=none smtp.remote-ip=220.181.3.85
+Received: from outbound.baidu.com (mx21.baidu.com [220.181.3.85])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 26EC1606A319;
+	Wed, 21 Oct 2026 15:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26EC1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygmG22N1
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A72094E41294;
-	Wed, 21 Oct 2026 15:20:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CE52606E3;
-	Wed, 21 Oct 2026 15:20:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E12A7103289F5;
-	Wed, 21 Oct 2026 17:20:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792596053; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qeUUc49iTPJXteXkFNDg1w8nSyOVubqVZaI+JbWQCK0=;
-	b=ygmG22N15GDQBbf7ScDnThNACy3au6xZ/o6vXJyjlJhHpaJZ0FHxcClNQLoXRi4ozLpOkj
-	INbqTMFPHEXjYdpDZU7dTFnXscTiUW8wxIaW77op9iHSsCPG7Lpu38rpQcMLTONQtjrjCK
-	9CvcGNtJmoIpN+u5PoCyp2uEJ3olaCQXXu1EYhLrUTGzcJirpy/MXIm5EYATdBzpnQh+fM
-	etHgCaRuwiiL4RhP2JuTSFQSFijVdCBz0846nwvXKyHG/lZLQYEAQRAXYDQ3DliSaIt0yw
-	0fzFdScFzvtKxt5oNSSYegkA1f5bvO0XqxG5yrs/V0BGIzWaT+qrLW+nA3Wn9Q==
-Date: Wed, 21 Oct 2026 17:20:43 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261021172043.4bbd2bc5@bootlin.com>
-In-Reply-To: <atgi4rMsw5W6kKkS@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-	<20261019151121.26d99f30@bootlin.com>
-	<atgi4rMsw5W6kKkS@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=Dx7g40Kk
+X-MD-Sfrom: zhangyili01@baidu.com
+X-MD-SrcIP: 172.31.51.15
+From: Yili Zhang <zhangyili01@baidu.com>
+To: <jic23@kernel.org>
+CC: <alison.schofield@intel.com>, <dave.jiang@intel.com>, <dave@stgolabs.net>,
+	<djbw@kernel.org>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <shijujose2008@gmail.com>,
+	<vishal.l.verma@intel.com>, <zhangyili01@baidu.com>
+Subject: [PATCH v3] cxl/edac: Fail ECS threshold read for reserved encodings
+Date: Wed, 21 Oct 2026 23:20:53 +0800
+Message-ID: <20261021152053.85322-1-zhangyili01@baidu.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,147 +51,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc12.internal.baidu.com (172.31.3.22) To
+ BJKJY-Exc19.internal.baidu.com (172.31.51.15)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1792596066;
+	bh=nW2t74IIRSfYGanbWK3MJKNPdtM7IW6iGdLlsj93zRo=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=Dx7g40KkeF18npDmFLVqNphM7zUoZAzDcCF7j6vG5Kn5n3VpwnEIdj04YQLNno4HA
+	 QE2nKGWBaS4Xc29NmDDVDHP+Nen1GMiHidbYedZGikIwg3EBXKPYAosSJet0eJzVj2
+	 L/JuOrbtVAs2jZ314PBcYyQlT0X7myc7+P+0rbrG457YIKlzg3I93NYcEauVpfTHHS
+	 u4h5NiPnrU/m6hqn9m9Yms+Y5bbL8ekq7WnEofw2r/0JtsOoUUGN4R8lpusyVZH7o3
+	 FAo8AxKiNwEpOqNYITDnLZYTxjL8t/WVQ8NIFCjfYISGw4cDks+kRsrhm9QqlzrSyP
+	 h8oEWrbaKgh9w==
 
-Hi David,
+cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
+device-supplied ECS config word and uses it to index
+ecs_supp_threshold[], which only has 6 elements. A device reporting
+index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
+value is then returned to userspace via the EDAC 'threshold' sysfs
+attribute (small info leak and wrong reported threshold).
 
-On Wed, 21 Oct 2026 13:26:49 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+The threshold count field also has reserved encodings 0-2, which
+currently read as 0 from the sparse lookup table. That behavior is
+not intentional; it is just an artifact of the array's implicit
+zero-fill. The ABI documentation only lists 256, 1024 and 4096 as
+supported values, and the write side (cxl_set_ecs_threshold())
+rejects everything else, so a reserved encoding can only come from
+the device reporting it. Rather than documenting 0 as well, make the
+read fail for all reserved encodings and only ever report the
+documented values.
 
-> > 
-> > Ok, my proposal seems to be a no-go and so I will follow your proposal given
-> > above.  
-> 
-> To be clear, I'm rejecting the original proposal because I think it's
-> internally inconsistent (if you follow the consequences of decisions
-> far enough).  I'm not necessarily opposed to something other than the
-> above, as long as the rules for when unknown tags must be invalidated
-> (and what that does to the version) are made very clear in the
-> structured tag spec.  e.g. see an alternative proposal below.
+None of these encodings can be written through the sysfs write path,
+and no device is known to report them, so this is hardening against
+a device returning values not covered by the spec rather than a fix
+for known hardware.
 
-No problem, I understand your point.
+Convert the cxl_get_ecs_*() helpers to return an int and write the
+attribute value through an output parameter (u32 * to match the
+macro), so that errors propagate through the shared
+CXL_ECS_GET_ATTR() macro to the sysfs read.
 
-...
+Suggested-by: Alison Schofield <alison.schofield@intel.com>
+Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+---
+v3: Per review feedback, drop the Fixes tag and reword the
+description to make clear this is hardening against a device
+reporting values not covered by the spec rather than a fix
+(Jonathan Cameron).
 
-> 
-> Essentially the theory of the proposal above is to be maximally
-> conservative: any write (adding, removing, changing, in-place,
-> whatever) will invalidate all unknown tags and downgrade the version.
-> 
-> 
-> But, here's an alternative proposal for invalidation/version semantics
-> that I think is consistent, while being a bit closer to your original
-> proposal.
-> 
-> 1. version and last_comp_version retain their meanings.  No new header
->    version.
+v2: Per review feedback, fail the read with -EINVAL for all reserved
+encodings instead of returning 0, converting the cxl_get_ecs_*()
+getters to an int return with an output parameter so the error
+reaches the sysfs read (Alison Schofield).
 
-Ok
+v1: https://lore.kernel.org/all/20260928073553.85669-1-zhangyili01@baidu.com/
+v2: https://lore.kernel.org/all/20260930095627.32616-1-zhangyili01@baidu.com/
+---
+ drivers/cxl/core/edac.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-> 2. If version >= 18 the tree may include any structured tags, even if
->    they weren't defined as of v18.
+diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+index b321971fef58..fd6612dde7f1 100644
+--- a/drivers/cxl/core/edac.c
++++ b/drivers/cxl/core/edac.c
+@@ -624,21 +624,31 @@ static int cxl_mem_ecs_set_attrbs(struct device *dev,
+ 			       0, NULL);
+ }
+ 
+-static u8 cxl_get_ecs_log_entry_type(u8 log_cap, u16 config)
++static int cxl_get_ecs_log_entry_type(u8 log_cap, u16 config, u32 *val)
+ {
+-	return FIELD_GET(CXL_ECS_LOG_ENTRY_TYPE_MASK, log_cap);
++	*val = FIELD_GET(CXL_ECS_LOG_ENTRY_TYPE_MASK, log_cap);
++
++	return 0;
+ }
+ 
+-static u16 cxl_get_ecs_threshold(u8 log_cap, u16 config)
++static int cxl_get_ecs_threshold(u8 log_cap, u16 config, u32 *val)
+ {
+ 	u8 index = FIELD_GET(CXL_ECS_THRESHOLD_COUNT_MASK, config);
+ 
+-	return ecs_supp_threshold[index];
++	if (index >= ARRAY_SIZE(ecs_supp_threshold) ||
++	    !ecs_supp_threshold[index])
++		return -EINVAL;
++
++	*val = ecs_supp_threshold[index];
++
++	return 0;
+ }
+ 
+-static u8 cxl_get_ecs_count_mode(u8 log_cap, u16 config)
++static int cxl_get_ecs_count_mode(u8 log_cap, u16 config, u32 *val)
+ {
+-	return FIELD_GET(CXL_ECS_COUNT_MODE_MASK, config);
++	*val = FIELD_GET(CXL_ECS_COUNT_MODE_MASK, config);
++
++	return 0;
+ }
+ 
+ #define CXL_ECS_GET_ATTR(attrb)						    \
+@@ -655,9 +665,7 @@ static u8 cxl_get_ecs_count_mode(u8 log_cap, u16 config)
+ 		if (ret)						    \
+ 			return ret;					    \
+ 									    \
+-		*val = cxl_get_ecs_##attrb(log_cap, config);		    \
+-									    \
+-		return 0;						    \
++		return cxl_get_ecs_##attrb(log_cap, config, val);	    \
+ 	}
+ 
+ CXL_ECS_GET_ATTR(log_entry_type)
+-- 
+2.27.0
 
-Ok
-
-> 3. Some future version might _require_ certain structured tags to be
->    present.  But a client must only rely on those tags if the version
->    indicates it can.
->      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
->        reading a v19 tree _might_ see some FDT_FOO tags (because of
->        (2)), but cannot rely on them being present in all the places
->        they should be.
-
-Ok, kind of degraded mode. Whether or not a v20 compatible client can continue
-or not will depend of each tags known by this v20 client. For some tags, having
-them removed will not be a problem whereas it will be a problem for some other.
-
-Makes sense.
-
-> 4. Any write to a property (including in place) invalidates all
->    unknown tags on that property (they must be stripped)
-
-Ok
-
-> 5. Any write to a property invalidates all unknown tags on that
->    property's node
-
-Will see in the implementation. The offset of the written property will be
-incorrect after the write. Indeed, some tags (tags related to the node)
-available before the property can be removed. With splices instead of
-FDT_NOP, offsets change.
-
-This also brings a question. Are API functions such as fdt_get_property_by_offset_w()
-need to be deprecated?
-
-Those kind of functions return a pointer to the data of a property for modification
-by the caller. We don't know if the caller will modify or not the property.
-
-Without deprecated it we can change the function to
----- 8< ----
-struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
-						  int offset,
-						  int *lenp)
-{
-	int new_offset;
-
-        /*
-         * The modification is goind to be done out of libfdt.
-         * Unknown tags are removed (rules for modification when unknown tags
-         * are involved) but also known tags. Indeed, we cannot know if the
-         * modification will have impacts on known tags
-         */
-	new_offset = fdt_remove_all_tags_due_to_property_modification(fdt, offset);
-
-	return (struct fdt_property *)(uintptr_t)
-		fdt_get_property_by_offset(fdt, new_offset, lenp);
-}
----- 8< ----
-
-The idea is to be conservative here also and consider that property data retrieved
-for writing will be modified by the caller.
-
-Also, the offset used as parameter of fdt_get_property_by_offset_w() is no more
-valid after the call.
-
-Last point to have in mind, getting the node offset from the property offset will
-need to walk the tree from the beginning. It can be costly.
-
-> 6. Adding or deleting a property on a node invalidates all unknown tags
->    on the node
-
-Ok.
-
-> 7. Adding or deleting a subnode invalidates all unknown tags on the
->    node
-
-Ok.
-
-> 8. Whenever a tag is invalidated and stripped, the overall version
->    must be downgraded (to let clients know they can't count on tags
->    being present)
-
-Ok.
-
-> 
-> Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
-> sure how feasible (6) is to implement.
-
-Well, this new proposal is more complex to implement than your first
-proposal but it has a finer grain to handle unknown tags on modification.
-
-I can try to implement something based on this new proposal.
-
-> 
-> Note that because writes don't invalidate tags on ancestor nodes
-> beyond one level, this proposal doesn't permit tags to contain summary
-> information about an entire subtree that could be invalidated by
-> writes further down in that tree.
-> 
-
-Well this doesn't look like an issue on my side. At some point if such tags
-are added, we can avoid any modification using the last_comp_version field.
-
-Best regards,
-Hervé
