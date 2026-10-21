@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.93.131.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=81.70.192.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571903;
-	b=ssv0JY8p7O5ZeBtoTlmnUzsLNXGUARA8G1a50PebzqpbYu2ABDP90JzrOp3bYiuf75OX
-	 uAumKoLX7iahmOoLIOx63rNQKn99HM4Qo2icjfgseHI8TYEK1r3hL3tu9PxmJERIsL/18
-	 pRvE3iikHXJhlar46k+jl3y3MSRDn9R2cUl1aGiqDvmFRfC9p6KKFKvaSsoGc/pF/J/9G
-	 +QQchWn2P3gEz4JqIRJWDkxcXRmsQJPup2IdkjXqh5dmcacv2ylfWXJttPXNl3oGl6ZKH
-	 p9So2/feLuZxr/FRcIpF5x4Cskh2w5Hh8H8dlUu6uQJN2tz+8dBFGSFmykcOxcV3kfw==
+	t=1792571908;
+	b=x0zK9P5dt4gHPUbgOSogK0p6Amae064e3zOX46eM+O7fNPqOW+VN+BlbQtjNahRli8q7
+	 qqTy0J1K0SdEBu6v9Qt0GJG5otXo1PvkDlVX3kJlInX6PQT3hoY7RcFhKHQs4Jjb1SMuR
+	 vQ80wslEmEdq334VviJFN1B+x/f3LxVA///6oaCrvkd02tMngimLCqM3oBZsJSVllPA1d
+	 PAYiMV4/DKKHDHI0+wc8jkIj4BHYN1MlAgkhZg6u0HE0mhF6H6YtIZ/Bsbag5L2vfXOtP
+	 GwGeB0wcxB1W9T+ocm/a5LWQQnZBRQpHjlsecbx5nbJvbeBo1JldsHqP3yoIfS0CyWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571903;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=AOzqjtOMrdyYNSpa99+/UPGhu5nVwE5WpHEubCFaf5I=;
-	b=OC2bIAQvLQLk01ZqnE37TmjxXEWScgUZu/O3ceBntDCcB8BIUN0mE8gORzlH1S5LE8pG
-	 hyk+8FRBo23CJhft/+hrgoTbHtyQs4tdGjf1DPJs2t9UBe2q/TZHwXRvSHpQGSnykzovf
-	 N5zTOeKdexGoSJmOCkIl8BIQHY4pGxgqwiNIt1FO2dSpLK/OGLzyAjJMIwCmkOj5znJEg
-	 /QbENL6EpTU1MY49M+gE2qqGY3QTbdcBrnxnWsqUJlcOOGNsZa+dEcczAV41myfNe7iId
-	 mE+o3gecJz2j+dZNXw3IJc8FCjrmsQRc9mAOQQGlC4XrLyx1o6wWFTqvDpCIhQmEgnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571908;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:CC:In-Reply-To:
+	 References:Date:Message-ID:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Originating-IP:X-ClientProxiedBy;
+	bh=0E3k5w9CNVufTL0u7G2hV7VFMWQrRB7ev5VkwT5ZY/w=;
+	b=xssC4g9fNgZ2aF6A5dZHfOyFX0o/jSIGs5QFrV7VuuWCHZyCoAMY6PetG7cdXqsHuvG/
+	 P4uZzAdntGDJWaI6s4u/bnctcpBfNwY8N+ykpkQfD9Bekwwn/kMTxDYE9bTqUDVpThiQI
+	 WU3OqgnJ1D3EgGkZ6S97o/i+9lnm/MHzBAsHGG4Z7HfJZyCE+20n2AAef7ImAwAQ+G2vQ
+	 uvy+kSASOGaO3USD5keZ9qV1RcCTR9HTEhnRDRsxQtD2Lz3Pn3odi5cjKa9L0RXs+CAie
+	 1Xa936EPbke+x3L1qwEGb1I1Pl02Y7S4eM1H7Grg1k8u7uf3JpFgY0vRwxIQLRgRVfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=earth.li;
-	spf=pass smtp.mailfrom=earth.li;
-	dkim=pass header.d=earth.li header.i=@earth.li header.a=rsa-sha256 header.s=the header.b=U3WKM5qY;
-	arc=none smtp.remote-ip=93.93.131.124
-Received: from the.earth.li (the.earth.li [93.93.131.124])
+	dmarc=pass header.from=honor.com;
+	spf=pass smtp.mailfrom=honor.com;
+	dkim=pass header.d=honor.com header.i=@honor.com header.a=rsa-sha256 header.s=dkim header.b=adye7O36;
+	arc=none smtp.remote-ip=81.70.192.198
+Received: from mta22.hihonor.com (mta22.hihonor.com [81.70.192.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D56606A31A;
-	Wed, 21 Oct 2026 08:38:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D56606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=earth.li
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=earth.li
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2427606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2427606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=honor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=honor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=earth.li header.i=@earth.li header.a=rsa-sha256 header.s=the header.b=U3WKM5qY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=earth.li;
-	s=the; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:
-	Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=AOzqjtOMrdyYNSpa99+/UPGhu5nVwE5WpHEubCFaf5I=; b=U3WKM5qYuUTXR4j3PnsdOXCn8d
-	hUOrdeBn8f28fXuqP8owg8bfXv0XP52dwZmKyFCp7/uDoH8ijZigjM4ST7QKm2B8oGxJdV8R28Ojh
-	weF4yGa/cnqEZhQ+tw0f05NmOz4DlcXcmYCo3TOlVHY0dkNDWesFksDJo5SHkACyjTo8wZJ3+TF76
-	FIEmLKlO0haAZjrmihdwsrjSU24hNEXF8/1DRXRM2UNHYMatnRoIm+pDBmtB9pLmkYd4GIFpMwuNs
-	olG5oBlqmNEma0F+AVEP9RWpkBh/8bEDcDeKB6W+AfW5CuALH/tv3LvI/KfmXzKmJK615WqYzsReS
-	+VVBXHRA==;
-Received: from noodles by the.earth.li with local (Exim 4.98.2)
-	(envelope-from <noodles@earth.li>)
-	id 1xJRpX-00000000gFP-2wKS;
-	Wed, 21 Oct 2026 09:37:51 +0100
-Date: Wed, 21 Oct 2026 09:37:51 +0100
-From: Jonathan McDowell <noodles@earth.li>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
-	chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com,
-	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
-	saravanak@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	zohar@linux.ibm.com, noodles@fb.com,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Roberto Sassu <roberto.sassu@huawei.com>
-Subject: Re: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with
- CONFIG_HAVE_IMA_KEXEC(_OF)
-Message-ID: <ath534EEbFntir8j@earth.li>
-References: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
+	dkim=pass (1024-bit key, unprotected) header.d=honor.com header.i=@honor.com header.a=rsa-sha256 header.s=dkim header.b=adye7O36
+dkim-signature: v=1; a=rsa-sha256; d=honor.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=To:From;
+	bh=0E3k5w9CNVufTL0u7G2hV7VFMWQrRB7ev5VkwT5ZY/w=;
+	b=adye7O36KeeXjIUvTtvaSsYzLlZ9yINZBiR8Z5UbuoQLKPHR4vJ4N76WjPTZ0WIIrUZMQk0Gt
+	TnZmwCM6mOFiFEjbKUDRNQuzjdek+JTS5k3YF3AQwUqBrVALV+bV7thbLnpCJN6C91itKE5KQJ2
+	Ue2EP5cG6OOexzqaIAuLzeg=
+Received: from TW002-1.hihonor.com (unknown [10.72.0.137])
+	by mta22.hihonor.com (SkyGuard) with ESMTPS id 4j8jNV1Jx2zYl8L2;
+	Wed, 21 Oct 2026 16:38:18 +0800 (CST)
+Received: from TA012-1.hihonor.com (10.77.199.132) by TW002-1.hihonor.com
+ (10.72.0.137) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 21 Oct
+ 2026 16:38:18 +0800
+Received: from [10.144.5.36] (10.144.5.36) by TA012-1.hihonor.com
+ (10.77.199.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 21 Oct
+ 2026 16:38:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,163 +61,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH mm-new] mm/mglru: clarify the generation placement in
+ lru_gen_folio_seq()
+From: <wangzicheng@honor.com>
+To: Ridong Chen <ridong.chen@linux.dev>
+CC: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng
+	<qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Barry Song
+	<baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
+	<yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
+	<baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Ridong Chen
+	<chenridong@xiaomi.com>
+In-Reply-To: <20261020023548.3242028-1-ridong.chen@linux.dev>
+References: <20261020023548.3242028-1-ridong.chen@linux.dev>
+Date: Wed, 21 Oct 2026 16:38:17 +0800
+Message-ID: <179257189711.741142.157439930403322311.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792571897; l=7204;
+ i=wangzicheng@honor.com; h=from:subject:message-id;
+ bh=npX0BKN6Y9GvZwuJEDSaGDu/guxI30HeaYdlAc8oFy4=;
+ b=f/voRK03GH3mF2PvO6wVcSA3sVC9Hyl29JaCthXME2KGgX+dm5PCp2A+PYPUdflUATMptZumx
+ MLx9lDFGQT6BetMYWqkgUQGwiZ6QbJgJxl3oAT9hw8SjF8Rn+Xa7E0V
+X-Developer-Key: i=wangzicheng@honor.com; a=ed25519;
+ pk=g+Qn/iierc6RbauMzxguVPAh7jEJCJf1WMdMV9Kk2sc=
+X-ClientProxiedBy: TW003.hihonor.com (10.77.199.161) To TA012-1.hihonor.com
+ (10.77.199.132)
 
-On Tue, Oct 20, 2026 at 10:37:27AM +0200, Roberto Sassu wrote:
-> From: Roberto Sassu <roberto.sassu@huawei.com>
+On 2026-10-20 10:35 +0800, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
 > 
-> On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
-> implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
-> buffer location through setup_data, not through the device tree, so the
-> buffer is never found and the IMA measurement list is not carried over
-> across kexec.
+> lru_gen_folio_seq() computes how many generations below max_seq a
+> folio should be added to, but stores it in a variable named "gen".
+> Elsewhere in MGLRU "gen" means an index into lrugen->folios[], i.e.
+> seq % MAX_NR_GENS, so reusing the name for a relative offset is
+> confusing.
 > 
-> Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
-> and select it for the architectures that pass the IMA buffer location
-> through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
-> powerpc and riscv). Build the device tree implementation of
-> ima_get/free_kexec_buffer() only if the new option is enabled.
+> The comment table above the code also no longer matches it. It only
+> covers the PG_active and the final branch, leaving out the reclaiming
+> and "can't evict yet" cases, and it lists LRU_REFS_FLAGS as an input
+> although lru_gen_folio_seq() never looks at it.
 > 
-> Select the new option also on LoongArch, to preserve the current behavior
-> and avoid a link failure. LoongArch does not pass the buffer location to
-> the next kernel yet; this will be addressed separately.
+> Rename the local variable to "age", redraw the table so that each
+> branch maps to the age and seq it produces, and note that the result
+> is clamped to min_seq[type].
 > 
-> Finally, don't select it for x86, and use x86's own setup_data-based
-> implementation regardless of CONFIG_OF_FLATTREE.
+> No functional change.
 > 
-> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
-> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
-
-Reviewed-By: Jonathan McDowell <noodles@meta.com>
-
-I think my original intent when adding the ACPI x86 passthrough was to 
-ensure I didn't break anything for anyone who'd been trying to use OF 
-with x86 and pass it through, but if it wasn't even wired up there then 
-that's not a concern.
-
+> Assisted-by: LLM
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
+>  include/linux/mm_inline.h | 48 ++++++++++++++++++++++++++-------------
+>  1 file changed, 32 insertions(+), 16 deletions(-)
 > 
-> v2:
-> - Reworded the commit message (no code changes), suggested by Mimi
-> 
->  arch/arm64/Kconfig      | 2 +-
->  arch/loongarch/Kconfig  | 2 +-
->  arch/powerpc/Kconfig    | 2 +-
->  arch/riscv/Kconfig      | 2 +-
->  arch/x86/kernel/setup.c | 2 +-
->  drivers/of/kexec.c      | 4 ++--
->  kernel/Kconfig.kexec    | 4 ++++
->  7 files changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b5a51b0ef944..4b7e248b6c91 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -1697,7 +1697,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
->  config ARCH_SELECTS_KEXEC_FILE
->  	def_bool y
->  	depends on KEXEC_FILE
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->  
->  config ARCH_SUPPORTS_KEXEC_SIG
->  	def_bool y
-> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-> index 2067d1f2ad7a..b5420d482da4 100644
-> --- a/arch/loongarch/Kconfig
-> +++ b/arch/loongarch/Kconfig
-> @@ -690,7 +690,7 @@ config ARCH_SELECTS_KEXEC_FILE
->  	depends on KEXEC_FILE
->  	select KEXEC_ELF
->  	select RELOCATABLE
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->  
->  config ARCH_SUPPORTS_CRASH_DUMP
->  	def_bool 64BIT
-> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-> index 2580e27e4328..096c6061893b 100644
-> --- a/arch/powerpc/Kconfig
-> +++ b/arch/powerpc/Kconfig
-> @@ -643,7 +643,7 @@ config ARCH_SELECTS_KEXEC_FILE
->  	def_bool y
->  	depends on KEXEC_FILE
->  	select KEXEC_ELF
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->  
->  config PPC64_BIG_ENDIAN_ELF_ABI_V2
->  	# Option is available to BFD, but LLD does not support ELFv1 so this is
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index f8e26c4bed2b..161bf8a65beb 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -1118,7 +1118,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
->  config ARCH_SELECTS_KEXEC_FILE
->  	def_bool y
->  	depends on KEXEC_FILE
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->  	select KEXEC_ELF
->  
->  config ARCH_SUPPORTS_KEXEC_PURGATORY
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> index cda6adb9f69c..bc17e353c099 100644
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -421,7 +421,7 @@ static void __init add_early_ima_buffer(u64 phys_addr)
->  #endif
->  }
->  
-> -#if defined(CONFIG_HAVE_IMA_KEXEC) && !defined(CONFIG_OF_FLATTREE)
-> +#ifdef CONFIG_HAVE_IMA_KEXEC
->  int __init ima_free_kexec_buffer(void)
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> index ab69b9930893..a933d8c14558 100644
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+> @@ -302,34 +302,50 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+>  					      const struct folio *folio,
+>  					      bool reclaiming)
 >  {
->  	if (!ima_kexec_buffer_size)
-> diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-> index 029903b986cb..724f29fef0c0 100644
-> --- a/drivers/of/kexec.c
-> +++ b/drivers/of/kexec.c
-> @@ -116,7 +116,7 @@ static int do_get_kexec_buffer(const void *prop, int len, unsigned long *addr,
->  	return 0;
+> -	int gen;
+> +	int age;
+>  	int type = folio_is_file_lru(folio);
+>  	const struct lru_gen_folio *lrugen = &lruvec->lrugen;
+>  
+>  	/*
+> -	 * +-----------------------------------+-----------------------------------+
+> -	 * | Accessed through page tables and  | Accessed through file descriptors |
+> -	 * | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
+> -	 * +-----------------------------------+-----------------------------------+
+> -	 * | PG_active (set while isolated)    |                                   |
+> -	 * +-----------------+-----------------+-----------------+-----------------+
+> -	 * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU_REFS_FLAGS |
+> -	 * +-----------------------------------+-----------------------------------+
+> -	 * |<---------- MIN_NR_GENS ---------->|                                   |
+> -	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 * age        |        1        |        2        |        3        |        4        |
+Hi Ridong,
+  
+Agreed, I also found this part confusing.
+
+One problem with the new name: in MGLRU a larger seq/gen means a
+younger generation, but a larger age means an older one, so every
+read needs a flip (max_seq - age + 1). Assigning the seq directly in
+each branch might read more naturally.
+
+Also, both tables run past 80 columns (~95 for the art in mglru-fg
+4/17, ~96 for the redrawn one here, tab as 8). Would you consider
+something vertical and shorter? I had prepared a comment for
+mglru-fg, and since this is being discussed here too, here it is
+(conditions are per mglru-fg, where the flags became the refs
+count):
+
+    /*
+        * The seq is clamped to min_seq[type]:
+        *
+        *   destination     | folio state
+        *   ----------------+--------------------------------------------
+        *   youngest        | PG_active, refs >= LRU_REFS_WORKINGSET
+        *   (max_seq)       |
+        *
+        *   2nd youngest    | PG_active, refs < LRU_REFS_WORKINGSET
+        *   (max_seq - 1)   | anon folio not yet in swapcache
+        *                   | PG_reclaim folio, dirty or under writeback
+        *
+        *   2nd oldest      | refs >= LRU_REFS_WORKINGSET
+        *   (max_seq - 2)   |
+        *
+        *   oldest          | reclaiming
+        *   (min_seq[type]) | otherwise: refs < LRU_REFS_WORKINGSET
+        */
+
+With a comment like this, developers can see the generation
+placement directly, instead of working it out from the code.
+
+Best,
+Zicheng
+
+
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 * seq        |     max_seq     |    max_seq-1    |    max_seq-2    |    max_seq-3    |
+> +	 *            +-----------------------------------+-----------------------------------+
+> +	 *            |<---------- MIN_NR_GENS ---------->|                                   |
+> +	 *            |<---------------------------- MAX_NR_GENS ---------------------------->|
+> +	 *            +-----------------------------------+-----------------------------------+
+> +	 *            | Accessed through page tables and  | Accessed through file descriptors |
+> +	 *            | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 * PG_active  |  PG_workingset  | !PG_workingset  |                 |                 |
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 * reclaiming |                 |                 |                 |     always      |
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 * can't      |                 |  anon && not in |                 |                 |
+> +	 * evict yet  |                 |  swapcache, or  |                 |                 |
+> +	 *            |                 |  PG_reclaim &&  |                 |                 |
+> +	 *            |                 | dirty/writeback |                 |                 |
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 * else       |                 |                 |  PG_workingset  | !PG_workingset  |
+> +	 *            |                 |                 |       or        |       &&        |
+> +	 *            |                 |                 |  PG_referenced  | !PG_referenced  |
+> +	 *            +-----------------+-----------------+-----------------+-----------------+
+> +	 *
+> +	 * The resulting seq is clamped to min_seq[type].
+>  	 */
+>  	if (folio_test_active(folio))
+> -		gen = MIN_NR_GENS - folio_test_workingset(folio);
+> +		age = MIN_NR_GENS - folio_test_workingset(folio);
+>  	else if (reclaiming)
+> -		gen = MAX_NR_GENS;
+> +		age = MAX_NR_GENS;
+>  	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
+>  		 (folio_test_reclaim(folio) &&
+>  		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
+> -		gen = MIN_NR_GENS;
+> +		age = MIN_NR_GENS;
+>  	else
+> -		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
+> +		age = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
+>  
+> -	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
+> +	return max(READ_ONCE(lrugen->max_seq) - age + 1, READ_ONCE(lrugen->min_seq[type]));
 >  }
 >  
-> -#ifdef CONFIG_HAVE_IMA_KEXEC
-> +#ifdef CONFIG_HAVE_IMA_KEXEC_OF
->  /**
->   * ima_get_kexec_buffer - get IMA buffer from the previous kernel
->   * @addr:	On successful return, set to point to the buffer contents.
-> @@ -196,7 +196,7 @@ static void remove_ima_buffer(void *fdt, int chosen_node)
->  	size_t size;
->  	const void *prop;
->  
-> -	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC))
-> +	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC_OF))
->  		return;
->  
->  	prop = fdt_getprop(fdt, chosen_node, "linux,ima-kexec-buffer", &len);
-> diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
-> index 15632358bcf7..c6ed60f04ea4 100644
-> --- a/kernel/Kconfig.kexec
-> +++ b/kernel/Kconfig.kexec
-> @@ -17,6 +17,10 @@ config KEXEC_ELF
->  config HAVE_IMA_KEXEC
->  	bool
->  
-> +config HAVE_IMA_KEXEC_OF
-> +	bool
-> +	select HAVE_IMA_KEXEC
-> +
->  config KEXEC
->  	bool "Enable kexec system call"
->  	depends on ARCH_SUPPORTS_KEXEC
+>  static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
 > -- 
-> 2.43.0
+> 2.34.1
+> 
+> 
 
-J.
 
--- 
-... "You are in a twisty little maze of lookup tables, all different." --
-    Joe Zeff, The Scary Devil Monastery
