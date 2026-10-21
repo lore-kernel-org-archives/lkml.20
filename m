@@ -1,105 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598719;
-	b=yfWqAZeimC7Kr+TK+soYpeVT4mDvx5e0vYA6BV3iHHoVD8HQ80C6qKob3aZAtt8DARRh
-	 sA0ojaMPAHSPmDQbw3ByzHVPkom6lrN6jdDKWJyjC0zK8SvjQ5pUwdFuf/xWFxE8n1Ac/
-	 gdafghkh64tn+5w3jxW3TNhQW6tBqJsK16FTXPSh9Zys4yh3n9L01n8Cnj2B51ElgGx42
-	 VKN//QnrSdkANQat5ucWtF1xuxLibb1iHCeUMp89XWw40eo8xrpH8/oBRSAtPdudLxv7t
-	 1LOap5KMdKwUiHJC7voyAQ9M1ZCfMYF93Z+NfQdyOON6qZohKw3fl7T0jgW5jFWbCCQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598719;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=OO/jQ74sz4moznSOIcQuGfT4C5O0ZbLQA+114JVzDVM=;
-	b=MlmLgABnAi8F97rTbyZDKeyxfb4u8/oJ6rsej8if4VH1qVEco2LLap+v160t4g17LwL8
-	 oDQQ4QTsuZuz1saeyZ3y7jMYzm/XhGIYiMn1OROh83FRtYZTE1L6n/kbP+DhRTOpfMsvy
-	 90xKBvANoye6aPR73KN+TJri0U5uuVPTO3EXO+cxnfpWcRuOdj9QUV5X3b19r6O8KnMDO
-	 6KETF92PjuemxUfG/UPsYs1BHkSfx+TE+M/jHYqzgd6keIuHx01GUpSs353UVV6EYG4DG
-	 PVNl+QgSwuzv339DOTPY0XDNW/3fVmFn7p+nlSxJrgBBfA5HxQZLiMZr1HypCYCuNGg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kC+JIqff;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792598752;
+	b=44P9gMu8dWCt5IHs9xH+dNaTIyUn4jtyknE3/05wtpor0tl4t/uuFYvl4algd3Mcb86h
+	 J2ETjjLxT0aPFizzbpzc6UOnZ7olfD0UPDfyy02eQM0otVEWo23kfMJPtMPAFVAZyKraa
+	 QQwZODwGtbM0SQWZI8RUQycDEypaOh6YoP47Im6dxRFUGM0PF2WT/90yWJB2Htl9cNZ65
+	 plxNK3KYl+GMoZsSiTQY//9M0PIKpLjLxy1WAB4h3d1KMyAxJhuZA7T/Qs36bPMspSDMu
+	 8EAtH4JIPB2kX4lTgA1lG020EyHHIhz5/RUhJQ4SsCRsX6ebDb0VIC7Lu3vW/lIpjbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598752;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BGhrLTjEVfeSljGkSaGNfONmhTnpvkCre2s3TB8eGiY=;
+	b=wh6o/SqgbyB2dbKeL82VC2f9cL9HdnKAY/fDvElpJkr92z84iVoaRYXqbYwCa7Bl24r0
+	 NKdzU8fqbUbi273LxRMxbzbT8V85Fae5hPGw5ZELOPub0F41KHujCm+1m7pusVhPskqYr
+	 7gaRAG/1ubjvmbsw/rUxzVOI/axLJCOHE/Pcq2IxDnZkwFWI2odIeLh26jo4m6JVvx0Ok
+	 L3HTIoVw4suD0SG1MDGmDgA/62GxYv1WEB+2Ici4rpz8YOXeA3rS+rB+y/h7U35jfKzlq
+	 FpfIEQSi/C0E6kUvL6Ri21KuuAoAQAD3TTZVSMxvStYKs9Ht4fzbonT+hJQ0l7CEayw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QF+iY6NP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f8kNEQP8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC221606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:05:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC221606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32CF606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C32CF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kC+JIqff
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso138667666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:05:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QF+iY6NP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f8kNEQP8
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LFU3Y6992026
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:05:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=BGhrLTjEVfeSljGkSaGNfONmhTnpvkCre2s3TB8eGiY=; b=QF
+	+iY6NPtVXDmkFg2c754dCaLi9wBZJ64tabbPIqvCYM2hw7K6TXqh18264ncOM+vE
+	zZGvgHNo+edigL6gc/1wD+g+/n35dC4k4EYCl5iEhXncVUXlZFb3+r7wY0mOuQsq
+	d865b3iiJsccMFLqflj4kW8MU2bEC/3n5eDnHKh0clPtJzpaL2h4a060IXOC0iAZ
+	wwn0spZv94Qv/mPqTvnnf9+e5t5g6nENhuGu6jxtnaakUdCgK/nrNpGP9iY+1Lyj
+	kI9Idp3Hk+WiT+IzrQ20sygP+zOn+0fwJvLDb3McMzB8iFo4mIhAmicUmrKyTqo7
+	iicxtwYBIZTQAjToK0NQ==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r3x6j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:05:44 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-48296f34f1dso946441fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:05:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792598743; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WfDaQtRWOLnIqAKkTmUZxyOWePfr0VKcm/WumI7EzHlihBFW2nKsqx2vlH3S3PrnvT
+         GQeP1PZIB3Smznnt6RycX5CRQHFD3KzKaLtBopht+bhFrWqjvwLz+0vfVJv5qCaNgRNR
+         b33AzIZywjf91vnSNOBujwBJAuCIyIVsMgyeSoMIdtrSkp074kNNwyGmlG/gDkVQiqfv
+         EmVdIfQ3zk40thUIY/K1RtIHpA3K0Yhp/71Im69AspAXKDHX7CSV9kg0lqCqa39kEnig
+         x3HsnxDVknNM5JwsnfFPxqwAMTdC1oHmBfPxyi9DUMlH6vNHEV13ZtZowqj9ei/IXRHe
+         RYrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=BGhrLTjEVfeSljGkSaGNfONmhTnpvkCre2s3TB8eGiY=;
+        fh=6VCSd55CNtZX/NVTQ1+boqgN88pu4mjmoLetF2XogfY=;
+        b=M1om58NyHcKPm+Tf3rjoyZneGLienldH7MaoUhfnXDvg27Tf83W+ZOvvHsIps2WG2G
+         H4nlia5K3BTNXI/e+fo3ZyPxdwTAdljQxdqKndgc1Vhdez+hChqGSmYbgZJI/D3cOHNi
+         gGo185qNsqsNLqLVJSDjyWDJ5Yoewcw8ErDyGliXkgPYr/6TONkH1QqpwqEKyuD2bgDm
+         eZYM2nU8P98YffDrzYfbT5ne/V1BYnQ1QM0/VokdP7at4c7Avhow2p8P4dCn/xAKyvdP
+         +KmR0aZp7RwHPPHUeqehz+rS6ym4NwS9KcOhmXVFK4zc2Jmt7I3MEfSPgLEgEixRE5Cm
+         lsFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792598717; x=1793203517; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OO/jQ74sz4moznSOIcQuGfT4C5O0ZbLQA+114JVzDVM=;
-        b=kC+JIqffK4rC46rQzGkmweYrHwrBuORYof+4Q79ymYrFiYUH108zupB7/K+ZHWFvg5
-         6xOMEzcIQKk42FqsC9rXViLfn/HI7mrYkiMCwCjy2GLBSIHSe0jlf9ikeluMqB2xJCvf
-         wuw08XQMARxGWnTiO3lAYlKBfESmd88wPoPL7a3CpuKi7CYtbUDBE+cz55xyBQx0hlxN
-         OHpkYrJGlCPqGb7vqH8696iSHlKSLDP7PRnmkwVILribmC4FvskE5nRy0nKReHoeTeXY
-         Ou9d9YdojPlS0rfqT4vfA5lfxBlWF6zjswU8Vkd/PQThdLBkIpim9CpG1Gp0SWIJnh3j
-         nwhQ==
+        d=oss.qualcomm.com; s=google; t=1792598743; x=1793203543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BGhrLTjEVfeSljGkSaGNfONmhTnpvkCre2s3TB8eGiY=;
+        b=f8kNEQP8X8rh+NdaHVkZrkjGM3gWOJNtu/vwlEmbaYTJ8eq2jgPLUqTuOSAsoGYiUT
+         BzI2DszeUwtGAwqFKAZXZ4WGzMbB/S3wCzZlyWDIalzi3RimOTXcF9FiE02aNYTzKfFW
+         8B4S4VEH5JB0JYszSGD5JPKXMR+ipmQrCJJqmP3gVwYN1mLbSFhbXeTrD9jr/Zv75C3+
+         C+NMwhdek/X4nvS557REhc2LedGslkoLryJl8RYYk3XcKOD80zkeyv1QBOpK6o72FsKd
+         sISG7TNwiwI/S70osHstcwJH9vtTQ38Hj+Q84bJxZaPVE65bmBWYEVpKrr4b3I4kWTz3
+         AKLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792598717; x=1793203517;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OO/jQ74sz4moznSOIcQuGfT4C5O0ZbLQA+114JVzDVM=;
-        b=0JcSNRc9RmdYDea/dbLaO8qHfGAIQtdSIDem9zocx+y4zVo+UK5y984kgjldpRA61e
-         YrcDuh+mWZJo5F9LdOvschBPXu7bJLjTekaTDOyKNuqbp37v9PNJvOaDrzGz2Edb1tyy
-         kqBhBe1bfY0rS9ZfWd4MhBjqgrfQRc4hJYXc2DqqXG1ghDFnrnm4CvjVlSWnu0agtiDw
-         haMsXoSmMAZtIc40TDf9IIGsxYgodg5NHNAc14muTfsDnypNneiYL5XrmGpvC266xqQa
-         7MJhxz0phWSRu8OFxPFXVDDCxi4dT/XlNj+k6Hn5DIMydD1GZCcmsv4bMmNA3Y+o3HJo
-         H9mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAq6gYCRZp4KV6EiVLQwHO7QTMRjA3elnYRzmKLHRE8vP1RfEpBySjVTbH0SykpPZWvsACjcpnmyQMiwI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIC+ilasYIczcY1JnSOlTTPbUiRiohiWP4x9c2l+6yJfSJD7RTf
-	Z68wVniRl7sPc1QmuQSUco7Eby41nB1Hh/OVnSJq3sIRKLZGIhyEGaS+
-X-Gm-Gg: AYBFou1cvzr34nQ6b7Jl/o9CgsLjC3chRadcTtdEXQAhmXjlUtNn//fdg2+ET50prTC
-	VKUbmvXrNe3WqFpA3DyWG8hCb3VDZPRDoKHajcUlz4kkXzc/L+wpxtRaMr+TD+EbN8Q5GldSYPM
-	QqWz5CkB86jnsBIvSkvt47HLqZW3N2kIm+lAz6ziFr5gouAuo12EziY7Epw4SKs7ZpoPUpoHrjX
-	kr1zd9g3X2dFWxgIc9ny55w+4lz7jrDi+NZdS3Sj14xTVrssLQrNBgX80F+eit7ZxC45R73rkvl
-	WKgwJSqFipwAGowggqnIl4iim0ahemY7B4B7iZW3q81eeJdHa0oZ5DIqb8V/neDA7ReZpsmdhAj
-	zea2uXhKt9bKCAtvINR7MLFziVBtXHuSL+TQlGV/yXFO2+NOIsSAcbCRwuTGIZ/v3Yiaw9/Ba8+
-	Pbvg2JxuFE8KxG1Qzyb4o6qYnqOmRh6u3e8DZ03EEEx8SBuM0CyYt/8KDv/ohjKHsgZy948+uW7
-	fqjmuaKTwZIwmo8V285GMMwU4FVDzIsW+u3WTx72RKX12uUvtxTT7rNi8CovzQY7eqOizAtrTEZ
-	l5se07AmXPNINcQQ5STS9rJ20FleEdwEzxkOwPYLTXSNlhquNvsatlU=
-X-Received: by 2002:a17:907:d08f:b0:c16:4df6:176b with SMTP id a640c23a62f3a-c4679623434mr231451966b.20.1792598716864;
-        Wed, 21 Oct 2026 09:05:16 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c98sm6093433f8f.28.2026.10.21.09.05.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 09:05:16 -0700 (PDT)
-Date: Wed, 21 Oct 2026 18:05:14 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/8] of: base: Fix stack overflow in
- of_parse_phandle_with_args_map()
-Message-ID: <o4uzbsrfnpm4isk7kh7f6tsccd5qghur7vkjkyumgwrylvu2xl@dbeuv5cuxvxj>
-References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
- <20261020-fw-devlink-nexus-ready-v3-1-fd6f1c17e16d@toradex.com>
- <20261020155841.59037c99@bootlin.com>
+        d=1e100.net; s=20260707; t=1792598743; x=1793203543;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BGhrLTjEVfeSljGkSaGNfONmhTnpvkCre2s3TB8eGiY=;
+        b=P11uLGM66uSWJk5I2kE5NufDhCE40hbyCYVpVe3nZcs1fCqpAQQony4RHciTGgHx1w
+         JUvlHI7vJ0R6erYwYG76DSlRQ2HiqGg0GXHqI7fq8TWf9mAd+vMMAJOzAT2hciyruKjZ
+         PIrfkGi9R2T+B/QXYx0aUp55uq06wm2FYRRp3+3yczlm5W5e4QhxiIc6CR1s0kVJJKWk
+         Yu+j87GigyoewRqfsEFIntpDqRUzXCy7c2heW4fyVgre3z78xJeC7ggZIn05lMexbh7w
+         V1iPUA/05Bk8tNifaX4lyAXl3nkchuaJgU/batE2KuzMAxzuIL2z2LfEFZmGtsFS1Fuy
+         reSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLqU6VfZ4jgx9TOMbIDRMG4m+9PhjsgWKr6zkJNG2ODwAX4bwSYefMRGQZXcbat9pv0cRLqEThy1n5IJY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8Q/+4xvSkZ6y0cO1KtxrtYY/9uNUBAh4OGPhZzAqrnRSJohQV
+	tfK2MxsCz7qhtPLd+N5nFkUeOrbkxPJL5HANs2pSlAvIm7oCovYCF7Vomw7cHOsqTyxaV1FRtlW
+	psA4N+soFZXIxTh+IelBdfAh1W38hVAB/YFm1ZowNxnXe96Yli7CDGK+GsF29zdjZiKu7k6BcPn
+	3OPfWOxS/+fuQ7cwASJZyguXSClI/uNVQxF/dpubihWA==
+X-Gm-Gg: AYBFou2NasoO5ulRO9QOBHlBLGFvZREvJ8klqmVNEGAycdlkBUCtWY9VCWRHtE7HIZV
+	dhLOC+3RApWg6YWWl1i847bk0ftHLpjpS9AEGricoa1eo1ofFN51UtfSHH+flDTcmKD6ZmInU24
+	7q1CYSyvrzKrB05JNUTBhJQGwKx1guY5Ll1Rey3azILL3IYlyXAeLwc/pzZA==
+X-Received: by 2002:a05:6870:7d15:b0:47d:b8a7:40f5 with SMTP id 586e51a60fabf-4a7dc2035ffmr1350669fac.22.1792598743649;
+        Wed, 21 Oct 2026 09:05:43 -0700 (PDT)
+X-Received: by 2002:a05:6870:7d15:b0:47d:b8a7:40f5 with SMTP id
+ 586e51a60fabf-4a7dc2035ffmr1350633fac.22.1792598743215; Wed, 21 Oct 2026
+ 09:05:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,85 +128,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261020155841.59037c99@bootlin.com>
+References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
+ <20261020204728.28844-10-robin.clark@oss.qualcomm.com> <7f3a33a2-8194-4d6a-8459-73371bbf1b16@oss.qualcomm.com>
+In-Reply-To: <7f3a33a2-8194-4d6a-8459-73371bbf1b16@oss.qualcomm.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 09:05:32 -0700
+X-Gm-Features: AclHuK_bRz_aEIm5tFG7vlDWVRVzspcPQvhEeeXHkuLP65uLy6f3eGGa47m5FX0
+Message-ID: <CACSVV03b9vRO6fqH4ERhpAWT_=F8dKfP-MmqCD2cT_=Gk47=vw@mail.gmail.com>
+Subject: Re: [PATCH 09/12] drm/msm/a8xx: devcoredump state capture support
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+        freedreno@lists.freedesktop.org,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad8e2d8 cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=Exdpg9e_d2Mu9UHmcJoA:9
+ a=QEXdDO2ut3YA:10 a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-ORIG-GUID: m7Id99ZIeIl151S1c1TR52oMNyiDY-Cp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2NCBTYWx0ZWRfX9gY9BGAROmfM
+ bfdc4JmAZtk9/WofTRQaNvzgpN57tiD0dur8ypE5eln39wq7JT7Ptjd32CyLHpxFQz4HxG+kX+H
+ jTPcvbwxWm66BgU607RLXrLigNE3aHuM4yYUSao/xga90NOJrz8FoHwd/b25lnCv2d/yJTxK/zf
+ etxUq84StPJ+nsVWcQZHDBNIod0LXoCATtg63JsR/deE4byTUsaqRdpc4/rR8xStAAAm7GZMNJd
+ /7kqHsObQEIkV2IFNHjvvm+58NZ9HOX4DGIkG1sHyMtIpdznywOc+rl/V6oHnACJomdRlz+cWN/
+ BcSS5Qs9sl6xhb/1VBl2E+l+0ItdxhMfjexKA/GJvE/LhRvnC49XhxJoH7fecTVtQUB4YKHQStZ
+ IMcatHIdFKum7afyEAg/k/C0sjohTF2nAojmt+YO9qw3zA3mEw7zVGxCsj0yah98WEyWXvsBkAT
+ E9Ruyrjy3RRQW+WW3Lg==
+X-Proofpoint-GUID: m7Id99ZIeIl151S1c1TR52oMNyiDY-Cp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2NCBTYWx0ZWRfX6yDtCDHaWujk
+ kIWBzESysVY/54wu+D/vvM9gaLtI3XGinzQ7M4bq6SzVbA6A6j5zq2Q+m1o9MnnipbebdtjxybG
+ l2zfgD+7v0qga+RBWRcfKlew5RT4LxU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210064
 
-On Tue, Oct 20, 2026 at 03:58:41PM +0200, Herve Codina wrote:
-> Hi Ernest,
-> 
-> On Tue, 20 Oct 2026 15:00:12 +0200
-> Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
-> 
-> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > 
-> > of_parse_phandle_with_args_map() reads the #<stem>-cells property of the
-> > provider referenced by the consumer into list_size. It then copies that
-> > many cells of the consumer's specifier from out_args->args[] into the
-> > on-stack initial_match_array[]. Both arrays hold MAX_PHANDLE_ARGS cells,
-> > but list_size is never checked against that limit. A malformed
-> > Devicetree with a larger cell count therefore makes the copy read past
-> > out_args->args[] and write past initial_match_array[].
-> > 
-> > The cell count of each provider selected by a <stem>-map entry is
-> > already rejected when it exceeds MAX_PHANDLE_ARGS. Apply the same limit
-> > to the provider referenced by the consumer.
-> > 
-> > A plain reference to such a provider, without a map, now also fails.
-> > Previously it succeeded with the specifier truncated to MAX_PHANDLE_ARGS
-> > cells by __of_parse_phandle_with_args().
-> > 
-> > Fixes: bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a nexus node")
-> > Suggested-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-> > Link: https://lore.kernel.org/all/aq1CSswlo57jZpMH@monoceros/
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Wed, Oct 21, 2026 at 1:42=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 10/20/26 10:46 PM, Rob Clark wrote:
+> > This attempts to make it easier to compare to kgsl, the downstream
+> > driver, to make it easier to spot bugs or missing things.  Such as
+> > re-using function names, etc.
+> >
+> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> > Co-developed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 > > ---
-> > v3: New patch (Uwe)
-> > ---
-> >  drivers/of/base.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/drivers/of/base.c b/drivers/of/base.c
-> > index f63a9486b130..5abadab22392 100644
-> > --- a/drivers/of/base.c
-> > +++ b/drivers/of/base.c
-> > @@ -1587,6 +1587,11 @@ int of_parse_phandle_with_args_map(const struct device_node *np,
-> >  	if (ret < 0)
-> >  		goto put;
-> >  
-> > +	if (list_size > MAX_PHANDLE_ARGS) {
-> > +		ret = -EINVAL;
-> > +		goto put;
-> > +	}
+>
+> [...]
+>
+> > +#if defined(CONFIG_DRM_MSM_GPU_STATE)
+> > +             .show =3D a8xx_show,
+> > +#endif
+> >               .gpu_busy =3D a8xx_gpu_busy,
+> >               .gpu_get_freq =3D a6xx_gmu_get_freq,
+> >               .gpu_set_freq =3D a6xx_gpu_set_freq,
+> > +#if defined(CONFIG_DRM_MSM_GPU_STATE)
+> > +             .gpu_state_get =3D a8xx_gpu_state_get,
+> > +             .gpu_state_put =3D a8xx_gpu_state_put,
+> > +#endif
+>
+> It's odd to have 2 identical compile bounds side by side,
+> I'd just group them
+>
+> [...]
+>
+>
+> > +static void gen8_cx_dbgc_debugbus_select(struct msm_gpu *gpu, u32 bloc=
+k_id, u32 index)
+> > +{
+> > +     u32 reg;
 > > +
-> 
-> I would be stricter here and avoid the usage of MAX_PHANDLE_ARGS.
-> 
-> First I would check the arrays size to be sure that they are consistent and
-> then check list_size against the array size.
-> 
-> --- 8< ---
-> 	BUILD_BUG_ON(ARRAY_SIZE(initial_match_array) != ARRAY_SIZE(out_args->args))
-> 	if (list_size > ARRAY_SIZE(initial_match_array)) {
-> 		ret = -EINVAL;
-> 		goto put;
-> 	}
-> --- 8< ---
-> 
-> IMHO, this is more robust against modification of the 'args' field
-> definition in struct of_phandle_args or modification of the MAX_PHANDLE_ARGS
-> value which could lead to some inconsistencies.
-> 
-> Best regards,
-> Hervé
+> > +     reg =3D A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(index) |
+> > +             A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block_id);
+> > +
+> > +     gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_A, reg);
+> > +     gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_B, reg);
+> > +     gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_C, reg);
+> > +     gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_D, reg);
+> > +
+> > +     /* Wait 1 us to make sure the data is flowing */
+> > +     udelay(1);
+>
+> Should that be a readback instead?
 
-Hi Hervé,
+I'll update to a better comment from a (different?) version of kgsl:
 
-That seems reasonable and like a nice way to do it, thanks for the
-suggestion. I'll incorporate this into the next version.
+/*
+* There needs to be a delay of 1 us to ensure enough time for correct
+* data is funneled into the trace buffer
+*/
 
-Kind regards,
-Ernest
+Hard to say, but sounds like the delay is about more than making sure
+the AHB write lands.  Same goes for other delays and barriers.  I
+guess downstream snapshot is well tested during bringup, so it should
+be safe to align with what it does.
 
+BR,
+-R
