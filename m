@@ -1,110 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792586098;
-	b=a2J2+xQGOw3QuIenw2W5j0l20RO+7zcnfUwrG633ZI6FBW163Ar8tlxmrHCZc7hTSpn5
-	 Pvi/xZJZ2CS95rrZTGVqitFPKsXdv7WySppvKqpCNb9siQvYrMhauAJWSKFC96GLdIf2m
-	 dNWxnvLxz7Wh1dEj2Q/LCn0PYxM87vNYP/CMu8FR61/5TvlRARFo6wEO6ct1jCpVWW8nF
-	 c151SUq5AU8++TjlvGdl0oUP1gEQcCnmDqxofqQe5ttzHT8oIpc46CMOjV05Hhzq8/3oS
-	 8VNPrH39Inf3gj5FUUPUe6u429l0P22aGaw4u7a+0DbxL1pG+tKu7k21oOHDGGvyr9Q==
+	b=yjZ2vgPbunSdUUJEoI9ICyPchk76ynmPHT/rBVJ17BaVADSEkFQJU4LOkKoH+imrFlVd
+	 I69pDeGoryhZdOk+QejvYHdbzM58HNpGI+zg19//tawE6G5+Y5+b2Oaadk/m1KxvJ8rEx
+	 ZwdZcsZaW004mFlYXACdvkwNWbyrC8mVvM2bXdI6WcpuZQAUOd/zT7sibhzpIUHw4Ge9M
+	 Vi2WTrvAAeVVQxcDnbpHrXk+whzZDtWs7V4Khbf33U9YEWzhRhWgP7PBNObd59VWUXyJF
+	 gsGHExtv7CGu9KRCJgit6G0x1pKzZvnk0T9HNAOrDMHhsO8Rwr6wxHPTqB6MOslPxUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792586098;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ekcPeRS4977QsjC9hWodQ7fRVCdNhWDisPpyBhUx7KM=;
-	b=Twg9Jx3tQ/vl8/I5EfA6+Q6ofX/skHOULccmoe9xffKuI+20u4zVpDtwKygUDCFdkgoa
-	 FgeVFrD4+eGM4NdyJAPUr4IYmVMeG+u87h/LDBzXDCvdA5orx+B5kqj2Vso9q7nSqzrjh
-	 gCTLFrNOIQkiTPUME5/gyCrjVu9tPrNledDv4wVEuv5qs55+gaU15OnIlaBxZVI+bZze0
-	 NFe0ZNob9BIcVLeaggW4JFj4VC3Ewch891C0+YmpOAG9kUu3gwEwpYd9eJjlcR1uiRWFJ
-	 bc/eNtAU1B+TWuU6SB88A2dWO44vgWMdvvvqGEJr/7nVddB5zMjHMMNbIp2qBe+9SYw==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=LpNJTSOvMtLLtZ7695vlyc9Z8uHqSLJQ+uBGS+day94=;
+	b=5PPlgnXom5voNjT3buEVxxLKzr+njVSLgrdkdk3ZrUCpra09vkquYI9F4HohKGstLLdU
+	 B9QRfQPzd450Z5yxQNFsnYCT+vqgZcc3mC3Jpr1F8fE3IH2oRGirYzetgzPWe/Ac6bYmh
+	 2+iqZEW16yW4+QmCXN5nARfClhBIf+lyXRgpaAAFjBZ25XfjsOBpFiYVmHejrQvAMlQuK
+	 TY9vdxeZ/3u8IFJt2pUpTV0H7M1VAGnl8BYVqSllYNK2b5eC/P6LkamPc0MRP9/RT3oP6
+	 JoU5wF0CUkZA+DUivAL7+AI8sMP2AMTDfxdKcHeM3tt02lU7YyYpuE0weibEsC8qHsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J9Uyg5Xf;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G65XMEaj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0604260A2611
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:34:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0604260A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C36D60A2613;
+	Wed, 21 Oct 2026 12:34:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J9Uyg5Xf
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so650616a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:34:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586097; x=1793190897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ekcPeRS4977QsjC9hWodQ7fRVCdNhWDisPpyBhUx7KM=;
-        b=J9Uyg5Xfy4/jiXw3ziddiNFrGfc5Q5+5dOgPDHw+oRg+GOIEI/Wvu09zCHwbbOUiaL
-         mA6T9bE2vjXyqoVg1NMI6g4BRSQmxgL1N6g3uapZsPUn5Xnp0zf4Nl+F+UVGbCuWK4HZ
-         9b5aLiUrsXcnTWpo3ynMOIRHjsGWZ9gndwL/DxvO8Aqdeo6v1Gb/BIwwYv9Fb1USMrJU
-         OyBNFseBiSThCIWnq5w6t+aFxy6DyDGU1lkAwuS13IS2u9zjdeLAsa/t68m0zd6vzMCF
-         M3OBxPwUQXfZSpGtyPcTQzMlrVT45h0RcjeQ0biMBFbaFDIsuYpi7+Ecg8LXB+Eo/Y91
-         VNJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586097; x=1793190897;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ekcPeRS4977QsjC9hWodQ7fRVCdNhWDisPpyBhUx7KM=;
-        b=u1sNUNi3mAj87GNUc/cKzwiUzI+XhDGwX83h2j/aHZjnQa1/aOazeolXbik7MhYYjD
-         qv0YyQJGYwVn7wtxlmWkcecbhlxq+xoMRj1jjCtpxHcDGLxe3GEuvRXw+2iWIv6v+A2L
-         ncGDjShQVTrRAJ8kSQXECJ/15/otK63/W1i6bMq24Be0xesVEjcQdHLReCWYzDjeo2EH
-         83/VYdST1NVJzDQ74sfGGzkgLdSSc29nxYSaArl5QE2U/ZyPJGvcEcSbPFBamOkPtLie
-         6HsK5rgGZgD3IIz2vtTjPPoW6HykB4Kbo0FOkgX4QnY/YVTvz1JJ1ivzveBoflj5qjNA
-         JQsg==
-X-Forwarded-Encrypted: i=1; AKwUvByhfZXyAOZ4zCOk68SH2igH5r/A+tFUSIqpzVZf7xhGnjbMro0WVRpnRSw7FZ4N0yhqbp1xzguVlsewQ58=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMOypViD4ae/Qmqcw/N/due9QA6ovLkuU99Gkv9axS5uTY9Kou
-	UDtjCuc4gSdcLraR1GOcoIfyv5by4L4bc5h8qSzVrLLz/n27qHDt5F1+
-X-Gm-Gg: AYBFou11bS7BxsbmPOLk5/zLFTOqqkhHNSlHu12NTlc521ARaYjAtHrPtBnhkqLAwaU
-	nMTQ8iD7mPQR+1rI+tbXF5/+QuUtYrliHVv7oYBNa77DGXiyQmKGV/7B4VRr5abXyaUh4gYFnTc
-	S93skeksA0rA9ZghcHdnA0bN8EUKBQYwPHgyYmPKaciHT2if/8rhJy1ssyXnlWaYMalILLO/SX8
-	B1RRYG9OAkLKO78Qhu3yJ2kh0ryQtrs6VA442JvXtR9huxOJCs5YTvgq/6CZoeRGl7iKnvCXHUT
-	OWsdz8YbldNe+blKFoMqqCgp0pZ1pDiguuEtR849UPQ5MHSirMwUlz5QljWe1zXQZavIxpOEPJ9
-	cuqKoxvk215Nsg6j2yuAQtbghe5uczaKXMGypG5ThKHpfyeON9wi1i35cgIr8nn4emerberqjUW
-	2c+MKLRHLAUwRwUO8KfABWJSRDoVkf1QYuxKC9cTwrgCaKCNFP3nuY2q75qOtz9bMQAIO1le4EM
-	rxjQLKwUDGLx80vsb6QfGX1gygH3vA6h2fyT0/G1wx1ow2USYmHNYVP
-X-Received: by 2002:a17:90a:d883:b0:3ac:17c:6e74 with SMTP id 98e67ed59e1d1-3ad86cc2074mr1452171a91.53.1792586097273;
-        Wed, 21 Oct 2026 05:34:57 -0700 (PDT)
-Received: from qby-nixos-laptop ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1823615a91.3.2026.10.21.05.34.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:34:55 -0700 (PDT)
-From: Mingyou Chen <qby140326@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
-	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>,
-	Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Serhiy Shliapuhin <shlyapugin@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>,
-	Nika Krasnova <nika@nikableh.moe>
-Subject: [PATCH v13 3/7] platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries
-Date: Wed, 21 Oct 2026 20:34:10 +0800
-Message-ID: <20261021123414.25516-4-qby140326@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261021123414.25516-1-qby140326@gmail.com>
-References: <20261021123414.25516-1-qby140326@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G65XMEaj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696C91F000C4;
+	Wed, 21 Oct 2026 12:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792586098;
+	bh=LpNJTSOvMtLLtZ7695vlyc9Z8uHqSLJQ+uBGS+day94=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=G65XMEajKicms9TEsD6d8NacFfBhwfuf/e6yeIOta0kaI+cyU0RQr6nuUoM8Ni1yY
+	 UPTyPkE4Xl+rEZsacPTzfbFLmOA9MllVhBXzrohr0DyrwRORo22HoL5F3v6J+avLRE
+	 JTci4jkrpepqLALGhvtbtJ1767mP2EoZahNd2swNu3YsbkJ1d23fWtSlIBqqmsX3z8
+	 9PEsIPaIkBv+Og4AwTCMy7JsfYyLtLS3ZYjaaz2zYTxmEjUz8/Ldgoprr/XPGyPjyB
+	 JWx2qFLq1Djgcx/Ki7DQ3sXiew4zCFD9jLbGuXW5oYQA4exCKpIQ/+1qqgiQunYLSH
+	 W9KlVV2EydpBg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Ben Whitten <ben.whitten@gmail.com>,
+	Oliver Jowett <oliver@opencloud.com>,
+	Richard Purdie <rpurdie@openedhand.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 07/21] leds: trigger: netdev: Serialise work cancellation and state updates
+Date: Wed, 21 Oct 2026 12:32:16 +0000
+Message-ID: <20261021123406.3163547-8-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
+References: <20261021123406.3163547-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,43 +66,144 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the missing Redmibook mic-mute hotkey definitions to the shared
-sparse keymap table:
-- 0x00002101
-- 0x00012101
+set_device_name() and netdev_trig_notify() cancel trigger_data->work
+before acquiring trigger_data->lock, whilst netdev_led_attr_store() and
+interval_store() cancel trigger_data->work, update trigger_data state,
+and call set_baseline_state() without holding trigger_data->lock at all.
 
-Reported-by: Nika Krasnova <nika@nikableh.moe>
-Link:
-https://lore.kernel.org/platform-driver-x86/20260531123345.237521-1-nika@nikableh.moe/
-Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+Because set_baseline_state() can re-arm trigger_data->work outside the
+lock, a concurrent notifier or sysfs store can re-schedule
+netdev_trig_work() after cancel_delayed_work_sync() has returned and
+whilst set_device_name() or netdev_trig_notify() is replacing or
+dropping trigger_data->net_dev, leading to a use-after-free in
+netdev_trig_work().
+
+Move cancel_delayed_work_sync() inside trigger_data->lock in
+set_device_name() and netdev_trig_notify(), and hold trigger_data->lock
+across work cancellation, state updates, and set_baseline_state() in
+netdev_led_attr_store() and interval_store().
+
+Fixes: 06f502f57d0d ("leds: trigger: Introduce a NETDEV trigger")
+Closes: https://sashiko.dev/#/bug/linux-b2b6c3bb-8017-4623-94d4-2999efa6a663
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/platform/x86/bitland-mifs-wmi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 35 +++++++++++++++++++--------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index 9afa2e2764b0..0d7815c2faf9 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -111,7 +111,7 @@ enum bitland_mifs_event_id {
- 	WMI_EVENT_CPU_FAN_SPEED		= 26,
- 	WMI_EVENT_CONFIG		= 27,
- 	WMI_EVENT_GPU_FAN_SPEED		= 32,
--	WMI_EVENT_WIN_KEY_LOCK		= 33,
-+	WMI_EVENT_MIC_MUTE		= 33,
- 	WMI_EVENT_RESERVED_23		= 34,
- 	WMI_EVENT_OPEN_APP		= 35,
- };
-@@ -636,6 +636,10 @@ static const struct key_entry bitland_mifs_wmi_keymap[] = {
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_SWITCHVIDEOMODE, 0, 0), { KEY_SWITCHVIDEOMODE } },
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH_RATE_TOGGLE } },
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index d69031bbd2b8..9fa56ac523c7 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -284,8 +284,6 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	if (size >= IFNAMSIZ)
+ 		return -EINVAL;
  
-+	/* Mic-mute key */
-+	{ KE_KEY,    BI_HOTKEY_CODE(WMI_EVENT_MIC_MUTE, 0, 0), { KEY_MICMUTE } },
-+	{ KE_KEY,    BI_HOTKEY_CODE(WMI_EVENT_MIC_MUTE, 1, 0), { KEY_MICMUTE } },
+-	cancel_delayed_work_sync(&trigger_data->work);
+-
+ 	memcpy(device_name, name, size);
+ 	device_name[size] = 0;
+ 	if (size > 0 && device_name[size - 1] == '\n')
+@@ -301,6 +299,8 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	}
+ 	mutex_lock(&trigger_data->lock);
+ 
++	cancel_delayed_work_sync(&trigger_data->work);
 +
- 	/* AI button has code for each position */
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
+ 	dev_put(trigger_data->net_dev);
+ 	trigger_data->net_dev = new_dev;
+ 	strscpy(trigger_data->device_name, device_name);
+@@ -384,7 +384,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ {
+ 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+ 	struct led_classdev *led_cdev = trigger_data->led_cdev;
+-	unsigned long state, mode = trigger_data->mode;
++	unsigned long state, mode;
+ 	int ret;
+ 	int bit;
  
+@@ -416,6 +416,9 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 		return -EINVAL;
+ 	}
+ 
++	mutex_lock(&trigger_data->lock);
++
++	mode = trigger_data->mode;
+ 	assign_bit(bit, &mode, state);
+ 
+ 	if (test_bit(TRIGGER_NETDEV_LINK, &mode) &&
+@@ -428,8 +431,10 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 	     test_bit(TRIGGER_NETDEV_LINK_25000, &mode) ||
+ 	     test_bit(TRIGGER_NETDEV_LINK_40000, &mode) ||
+ 	     test_bit(TRIGGER_NETDEV_LINK_50000, &mode) ||
+-	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode)))
++	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode))) {
++		mutex_unlock(&trigger_data->lock);
+ 		return -EINVAL;
++	}
+ 
+ 	cancel_delayed_work_sync(&trigger_data->work);
+ 
+@@ -437,11 +442,15 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 	trigger_data->hw_control = can_hw_control(trigger_data);
+ 
+ 	if (!led_cdev->brightness_set && !led_cdev->brightness_set_blocking &&
+-	    !trigger_data->hw_control)
++	    !trigger_data->hw_control) {
++		mutex_unlock(&trigger_data->lock);
+ 		return -EOPNOTSUPP;
++	}
+ 
+ 	set_baseline_state(trigger_data);
+ 
++	mutex_unlock(&trigger_data->lock);
++
+ 	return size;
+ }
+ 
+@@ -493,13 +502,17 @@ static ssize_t interval_store(struct device *dev,
+ 	unsigned long value;
+ 	int ret;
+ 
+-	if (trigger_data->hw_control)
+-		return -EINVAL;
+-
+ 	ret = kstrtoul(buf, 0, &value);
+ 	if (ret)
+ 		return ret;
+ 
++	mutex_lock(&trigger_data->lock);
++
++	if (trigger_data->hw_control) {
++		mutex_unlock(&trigger_data->lock);
++		return -EINVAL;
++	}
++
+ 	/* impose some basic bounds on the timer interval */
+ 	if (value >= 5 && value <= 10000) {
+ 		cancel_delayed_work_sync(&trigger_data->work);
+@@ -508,6 +521,8 @@ static ssize_t interval_store(struct device *dev,
+ 		set_baseline_state(trigger_data);	/* resets timer */
+ 	}
+ 
++	mutex_unlock(&trigger_data->lock);
++
+ 	return size;
+ }
+ 
+@@ -628,10 +643,10 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 	      (evt == NETDEV_REGISTER && !strcmp(dev->name, trigger_data->device_name))))
+ 		return NOTIFY_DONE;
+ 
+-	cancel_delayed_work_sync(&trigger_data->work);
+-
+ 	mutex_lock(&trigger_data->lock);
+ 
++	cancel_delayed_work_sync(&trigger_data->work);
++
+ 	trigger_data->carrier_link_up = false;
+ 	trigger_data->link_speed = SPEED_UNKNOWN;
+ 	trigger_data->duplex = DUPLEX_UNKNOWN;
 -- 
-2.56.0
+2.56.0.218.g1ec904b173-goog
 
