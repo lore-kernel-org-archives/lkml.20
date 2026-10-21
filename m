@@ -1,73 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548106;
-	b=cOhkaqw+JEB6KWLOke7ujyi7qnC4qEI76kLr8ndpa6+n257g2OEGF0odahNpRNx7aD3Y
-	 4c6K5q/aYVFLxnNN75aubAhtBnRlC8SdAl45Vu/faVDlG9yeBGxXOEhWR0qXKXRQqTyae
-	 e5vK8LH1E8JAhxEn0aNh7ETe0kWFAt3RWK/JANF4xU89AEZanU0X6Z6jRun0IVzJT2OEJ
-	 PyN+cl9ms+p9l++IBgy/l1YckBqIx7aC1Av76nYSV8KFm0GXVjc7mng4EU1XHQV/4W9VS
-	 drHPRy3eZaFvYKAhIg70Vt3YZUIPt+WTbVv/ioo+vpPdItQRWaA0BKeBFy6mJsmmcTQ==
+	t=1792548131;
+	b=suM5rGsHNGrJNX00kZfzqDLwHfhWEZ7hdyrj+mZQ97oQxVqsXBAVleIBWI8O6t5Vg6Hj
+	 e53EMDVzX4rxKSu7x/QUJVjHLXbJKmuZyLo4tdOgIQlM8aw3ZkRKR8yaiKZIMSLQl6E3b
+	 WkWWja20ORlIsuVpsG5xXj+mYagGt6q9FkKeUHhJCTDyM8QkzlST/wBIiPGHlG0rsBaF1
+	 LAMM08DGNyvSO8Xk6tA/UcbmBWnvQdovrQBNwD4Bt2M4w1IPqfS6oLUZzkBUp4t9HO91G
+	 6usqCHiIGvqrJJGZ3LdJXLALdbBD6GcTwHwABE17o2t3DTa0kvz5Jrw5psutU8QZGQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548106;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548131;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
 	 In-Reply-To;
-	bh=fOjabxQvaz/pTvwO69ne1iH8snTeqttIoh/wjiL9lCI=;
-	b=hdt1aQOU+33gajrfXsa4Jyq5F4FFFeoU+KW0cpygSd/+HvjAsC/rzTJwm5v/gj9Yb3VH
-	 se62nfGNQ5sX+s0q7Uk4v5wiVpAeLSWtfTI1/gu6l8+KVm6WKBH92pMTKgCg0Lxi1qbQb
-	 0u/Nm0wRyA1wTcgvG/LHKarzrFvZ2a6a2SBoTz1rxvYoZSHBlvT/NXJRfQvg5cwnKWa4q
-	 o54xJ8Z5oEouGDWGLCsIb6e9o9YlAlSs3ksGh4UU6yTROif0XtGTQxwapqIXMUeVzm/U1
-	 DqqeA+dOcSkKyaZmzPvRcH6hg1QDFW9HrCEu++umr2KZDY8nVlbhnmmpwMf9WY1TlNw==
+	bh=OGwi9n/sjudDqRr2GLNZOw5hXvKMm5llKrzOU2BnbmA=;
+	b=EA+eyHRDo7gndwyIwmZgRmOFQeYfYEf8pffuuhoo1wHZFfXvpFPJNH7RsDINBIO4K8lj
+	 Wb4J4Hm3wd9vFuiM3d2rfupHmb08vPn8OEFY9VAgvd9wGV24V23YKqmvH+a5QEAN8Zisn
+	 TO3Gc4s0nQLL12MNvRoYVAG/cZKkW3pQBYoJAY0QxKqDhkRqw7ASJy+z8Ep7GkGKWgaM4
+	 qwvvbUqYLQH9vgRiaBwdiQziQ+ZVXNlAmrdlJwO+5koDfXREd7cv5Pa2IFuzpddzYn2GI
+	 JD/0vDsCmApMvylwyJB6i2H1RAE4yE25ZHSoMYTosxnBBUw/RjNuzmEWv/N3QP+5FNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qln5plQf;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jsb7XwcZ;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32C7606A319;
-	Wed, 21 Oct 2026 02:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32C7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D706B606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D706B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qln5plQf
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jsb7XwcZ
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab3f899c8aso66890a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:02:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792548102;
-	bh=fOjabxQvaz/pTvwO69ne1iH8snTeqttIoh/wjiL9lCI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qln5plQfQwiGy6s8Uz+7zRqJKHEHW/AjzBuvF8L0lQw8A+UkIKr0GCCzEbMFaezuZ
-	 0LauUd2XgrxdZ9ckjH3vl4rmJchvCe3QrfMD4jp5KocMRBOGR/bBlaR0XfFy4XtTS2
-	 CQ8QzCMLPF1LEOnvOW0CcPC6Ta1CLRGtt+RIpAXwZwkyuda58S1rIgfuKYy4QKilan
-	 viHZZbQ9Wt2aRPuG5T1g/gXc75km5UvmBDEYpKbDgkvRkE2Cgi5ptWyahz/+BEG/Oh
-	 xFWPTkKeP5uoD/fGrdx04NdtdPWZzYfS4MqIlVZiyhz+XTyfXnWgcaJc5FetQiNLiO
-	 Q0yEWKn5NRCUA==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j8XZt13qKz4wBF; Wed, 21 Oct 2026 13:01:42 +1100 (AEDT)
-Date: Wed, 21 Oct 2026 12:44:32 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
-Message-ID: <atgY-n1eaKX24PPj@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-6-herve.codina@bootlin.com>
- <atVrHkfXl10FTEye@gractus.seuss>
- <20261019155659.4badecfb@bootlin.com>
- <atcM7MFZTFXLbap8@gractus.seuss>
- <20261020131406.02bd50ec@bootlin.com>
+        d=gmail.com; s=20251104; t=1792548130; x=1793152930; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OGwi9n/sjudDqRr2GLNZOw5hXvKMm5llKrzOU2BnbmA=;
+        b=Jsb7XwcZZirdIXiUJ71858GWkfBI5N/3zoejxXwhkpWfqgiu87Zc45k60KdBai1Nup
+         ZpDo5fObcudP+Ynv6mi7QHWxfChfSikxqCtvqQuT8UTYfJ5E1xN7hz/XYbcX4sVliB9c
+         vsuXS+Y0NFTOlrFS5pE2dXAO6UskMRunEcpQIwX9PUQLcqGBmrnbFAmMk8ppo2aqi/Ck
+         Evpbv5CyomDL3XC+7AiKFtDpGlqNVWw6yS7v9NMNA4MG4RdBPdUC4ukxmxfM41nFkeRm
+         4wKJbYJnKEfXpnjTomZlnRdrFQqUGAFpJJKRdf+dyWLd71gQW0uqsWXZyZalRfIfkUxZ
+         dxvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792548130; x=1793152930;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OGwi9n/sjudDqRr2GLNZOw5hXvKMm5llKrzOU2BnbmA=;
+        b=xOSzYzQuJchZ2spr7H/OlqswPabehRuovgjtNXCPOvyC9E18m3HgY+7CYh1RJ7AXn3
+         Zg+nXv2fsvmsrN4PiHOB1w/GHkQ0wnNSs7gCTdtLdLLKENs9S/UVg1aBIgg5e4UfP8Kz
+         fGntzfbOlNrAhJqnMJwWHz8RziWbkdYXFF6l0+4iXAhgCAkd/7/MYLc9PMB5lfYOjAhK
+         HcUTE/OM4bnwbfk4CAOOdEQaJ1zdl+wSYmuB+9u3HaBG9n7ZvUeoDZ/Y2gJ2JS+HGEST
+         RPjMqdU1OPY1yXdKShJRUP9j089mE1wQgn4wzVnm3UlHjgt/7JygpAqNAH3t1Yc+F6Ul
+         QP6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByEBVgr2awO32W5w6iS+Czd+t6HEKHl6sLS4jbl7eSY7Msr1aWyQY962iReWVxyHg7tWiczLibqHiSHcQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFICOu4c7/ukM2vQbPXv6DLtV8TYaYo99dZ81BqAAxzYScUr0O
+	N1hhKUerv/PTmeSdsUGeL68k48BhNStTomk2gC5/1HiGTbY6EHz0tH2f
+X-Gm-Gg: AYBFou3dzZlvbU9gkVRtu+j6ZvCjMrxCjnivLjRI3T3n5Xz55iYwjjt+PBuEmgR0Yqf
+	wO63X091sDGTq6xBVqJqi2TqqoNg7A5wjUsboYGj+KLMK3O579/dwP8MSmoDBbuEdPIW6A8HFxU
+	o7QL5MVumqklsBGI/LvwVTRJUTVawquX1faxVm0MI86h2VUF0GHYJr6eXp3LC94kTKcvOrtotsi
+	VlMF7LQh0GB4gXgIgoSS5BcVd0VV2bJQELg4SoFtpFeQdFRmcNvaa+i7bQlaqWgnXvU8wPkXySQ
+	/GOS70oyDacIeaQmaaHcFwSx7DDdW9pkgIfjgUl7Y4Qcey/P64iBdj/KyucqtzZ/4SmwLFWQE8J
+	kgJ6EGj51MwTVoSlVTbB3ZBWuZReKfq8+CLlD2JuO0sihdPWEKgyypZ7yNLNa5gKyb9zbt4iexE
+	34OnC26gDg0X3rAGnLsm+Dzs4lqKfaPulUHUAT6JpUVf9iZLkfHWLeCu+T0gMsIuspgkfQep27c
+	6nD8qSEZpWXOOdF87EgvdhdwJaYaINcsv/jQI2WuEJaaT8v9Wc=
+X-Received: by 2002:a05:6a20:7350:b0:3e1:8890:83f1 with SMTP id adf61e73a8af0-3e287c9f7b7mr925934637.1.1792548130163;
+        Tue, 20 Oct 2026 19:02:10 -0700 (PDT)
+Received: from gmail.com ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895fa6c6sm219573b3a.48.2026.10.20.19.02.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 19:02:08 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:01:35 +0800
+From: Wenwu Hou <hwenwur@gmail.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev,
+	akpm@linux-foundation.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: zswap: set zswap_ever_enabled when enabling zswap at
+ runtime
+Message-ID: <atgc_4y2dA4egqXs@gmail.com>
+References: <20261020122942.3477541-1-hwenwur@gmail.com>
+ <CAO9r8zNgnt=9UXN_FJ3zByVtC18MNe94-tXssAS-eAQfutNXRQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,245 +99,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cwD/UTWXTz39bYRM"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020131406.02bd50ec@bootlin.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9r8zNgnt=9UXN_FJ3zByVtC18MNe94-tXssAS-eAQfutNXRQ@mail.gmail.com>
 
---cwD/UTWXTz39bYRM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Oct 20, 2026 at 08:57:15AM -0700, Yosry Ahmed wrote:
+> On Tue, Oct 20, 2026 at 5:30 AM Wenwu Hou <hwenwur@gmail.com> wrote:
+> >
+> > zswap can end up enabled without zswap_ever_enabled being set, which
+> > leads to data corruption. With CONFIG_ZSWAP_DEFAULT_ON=n:
+> >
+> > 1. zswap_setup() fails to create the initial pool. Setup still counts
+> >    as successful, but zswap_has_pool stays false.
+> > 2. The user writes a compressor name to
+> >    /sys/module/zswap/parameters/compressor.
+> >    zswap_compressor_param_set() creates a pool and sets
+> >    zswap_has_pool = true, but never enables the zswap_ever_enabled
+> >    static key.
+> > 3. The user runs "echo Y > /sys/module/zswap/parameters/enabled".
+> > 4. zswap_store() now stores pages in zswap, and swap_writeout() skips
+> >    writing them to the swap device.
+> > 5. On swap-in, zswap_load() first checks zswap_never_enabled(). It
+> >    returns true, so zswap_load() reports that the page is not in zswap.
+> >    The page is then read from the swap device, which holds stale data.
+> >
+> > Fix this by enabling zswap_ever_enabled in zswap_enabled_param_set()
+> > before zswap_enabled becomes true.
+> 
+> Wasn't this fixed by
+> https://lore.kernel.org/linux-mm/20260906133601.3563324-1-xialonglong2025@163.com/?
 
-On Tue, Oct 20, 2026 at 01:14:06PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Tue, 20 Oct 2026 17:41:04 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Mon, Oct 19, 2026 at 03:56:59PM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Mon, 19 Oct 2026 11:58:17 +1100
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >  =20
-> > > > On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote: =20
-> > > > > Metadata tags are tags carrying extra information, either global =
-to
-> > > > > the DTB, specific to a node, or specific to a property.
-> > > > >=20
-> > > > > In several places (e.g. node/property iterators), these tags just=
- need
-> > > > > to be skipped. Introduce fdt_next_tag_filter() which wraps
-> > > > > fdt_next_tag() and uses a user-supplied filter function to decide
-> > > > > whether a tag should be hidden from the caller. Filtered-out tags=
- are
-> > > > > returned as FDT_NOP.
-> > > > >=20
-> > > > > Introduce fdt_tag_filter_skip_metadata() a filter function whose =
-purpose
-> > > > > is to filter metadata tags; actual metadata tag filtering will be=
- added
-> > > > > when metadata tags are defined.
-> > > > >=20
-> > > > > Metadata tags must also be handled when a DTB is modified. They h=
-ave to
-> > > > > be removed or skipped depending on the modification.
-> > > > >=20
-> > > > > Here also, introduce fdt_tag_is_property_metadata() to provide a =
-central
-> > > > > check for whether a tag is a property metadata tag; actual metada=
-ta
-> > > > > check will be added when metadata tags are defined.
-> > > > >=20
-> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > > ---
-> > > > >  libfdt/fdt.c             | 34 +++++++++++++--
-> > > > >  libfdt/fdt_ro.c          |  3 +-
-> > > > >  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-=
-------
-> > > > >  libfdt/fdt_wip.c         | 23 +++++++++-
-> > > > >  libfdt/libfdt_internal.h | 10 +++++
-> > > > >  5 files changed, 140 insertions(+), 20 deletions(-)
-> > > > >=20
-> > > > > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> > > > > index 7941632f..8c026f26 100644
-> > > > > --- a/libfdt/fdt.c
-> > > > > +++ b/libfdt/fdt.c
-> > > > > @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int s=
-tartoffset, int *nextoffset)
-> > > > >  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> > > > >  }
-> > > > > =20
-> > > > > +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *n=
-extoffset,
-> > > > > +			     bool (*tag_filter)(void *priv, uint32_t tag),
-> > > > > +			     void *priv)   =20
-> > > >=20
-> > > > I don't really see why a higher order function is more useful than
-> > > > skipping tags you don't care about from the caller. =20
-> > >=20
-> > > Based on discussion we had related to fdt_next_tag() during the serie=
-s introducing
-> > > structured tags, I has been decided that fdt_next_tag() will return a=
-ll tags and
-> > > callers will handle them.
-> > >=20
-> > > With that done, fdt_next_tag_filter() doesn't make sense anymore. I h=
-ave already
-> > > planned to fully remove it. =20
-> >=20
-> > Ok, great.
-> >=20
-> > > > > +{
-> > > > > +	int startoffset =3D offset;
-> > > > > +	uint32_t tag;
-> > > > > +
-> > > > > +	tag =3D fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> > > > > +	if (tag =3D=3D FDT_END)
-> > > > > +		return tag;
-> > > > > +
-> > > > > +	if (tag_filter(priv, tag))
-> > > > > +		return FDT_NOP;
-> > > > > +
-> > > > > +	return tag;
-> > > > > +} =20
-> > >=20
-> > > ...
-> > >  =20
-> > > > > =20
-> > > > > +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
-> > > > > +				  int prop_offset)
-> > > > > +{
-> > > > > +	int nextoffset, offset;
-> > > > > +	uint32_t tag;
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Only inplace using nopify is supported even if we could use =
-an other
-> > > > > +	 * method involving splices if force_inplace is set to false.
-> > > > > +	 */   =20
-> > > >=20
-> > > > As with earlier things, I'd really prefer to see this splice, based=
- on
-> > > > principle of least surprise. =20
-> > >=20
-> > > Yes, splice will be done (already planned for unknown tags in the ser=
-ies
-> > > adding support for structured tags). =20
-> >=20
-> > Ok.
-> >=20
-> > > > > +
-> > > > > +	tag =3D fdt_next_tag(fdt, prop_offset, &nextoffset);
-> > > > > +	if (tag =3D=3D FDT_END)
-> > > > > +		return nextoffset;
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Look at all tags related to the current property. I.e. tags =
-after the
-> > > > > +	 * current property and before either the next property, a sub-=
-node  or
-> > > > > +	 * the end of current node
-> > > > > +	 */
-> > > > > +	do {
-> > > > > +		offset =3D nextoffset;
-> > > > > +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> > > > > +		if (tag =3D=3D FDT_END)
-> > > > > +			return nextoffset;
-> > > > > +
-> > > > > +		/* Remove metadata tags related to the property */
-> > > > > +		if (fdt_tag_is_property_metadata(tag))
-> > > > > +			fdt_nopify_area(fdt, offset, nextoffset);   =20
-> > > >=20
-> > > > The distinction between "metadata" and other tags doesn't make much
-> > > > sense to me.  Specifically why would the tag being "metadata" make =
-it
-> > > > more of a candidate for removal?  What we need to know (for the
-> > > > callers so far) is whether the tag is invalidated by changing the
-> > > > contents of the property: I can't see how that would be related to
-> > > > whether it's "metadata" or not. =20
-> > >=20
-> > > All of this is going to be reworked based on discussion we've already=
- had
-> > > during the previous series (introducing structured tag) review.
-> > >=20
-> > > The distinction was done because for "unknown" tags, downgrade should
-> > > be done whereas for "known" tags it shouldn't.
-> > >=20
-> > > Anyway, all of that is going to be reworked for the next iteration. =
-=20
-> >=20
-> > Ok, fair enough.  Should I stop reviewing the current version of this
-> > series, since it will probably need a lot of rework based on my
-> > comments to the first series.
->=20
-> I wouldn't say you should stop reviewing.
+Yes, please drop this one, sorry for the noise.
 
-Ok, I'll carry on as time permits.
-
-> Maybe you can have in mind that fdt_next_tag() will return all tags and s=
-o,
-> filtering out tags at fdt_next_tag() or using fdt_next_tag_filter() will =
-not
-> be there anymore. This will not change fundamentally the way tags are use=
-d.
-> If they are skipped by filter function in this series, they will be skipp=
-ed
-> by callers in the next iteration.
-
-Ok, I'll bear that in mind.
-
-> New tags added in the series will be there in the next iteration. The mea=
-ning
-> of those new tags will not be changed. As well as new dts keywords or oth=
-er
-> concepts such as referencing an orphan node by path.
->=20
-> Tests introduced will also be there in the next iteration.
->=20
-> A lot of things available in the series will be there in the next iterati=
-on.
->=20
-> For all those reasons, I thing your review can still be useful.
->=20
-> Maybe you will find some other patches that could be applied or move to t=
-he
-> series introducing "structured" tags.
->=20
-> IMHO, even if I (we) know that some modification discussed in the series
-> adding support for structured tags will have impacts to this series, eith=
-er
-> due the modification itself or because I will keep things consistent, hav=
-ing
-> your feedback and potential discussion on this series is still relevant.
-
-Certainly.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---cwD/UTWXTz39bYRM
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrYGPoACgkQzQJF27ox
-2GfVNA//RRJjSE9FRnaMBIJaZQSR0MY+iV+nQSTyBdGbqexoaBFLH54lDD7H8PrG
-Ivsh96Ub2EFrK2C+0Hyj3sRj1iQj345yk9ZlxHceg4XGMNpLPoZSwEE1wmXIB4FQ
-4qzkUC9S73FQxjtxDElYslMhth1HfZVRu5wthpt4I1WjTudy/2tdWSQgxQd+KHm0
-PQPpYo3Rl2nZGrPdSAnfl2YeFkZ1qWlNs3X4BrsmJxKysxBUOOvAtPl81MBxz28v
-CgmnPmEF+ExuBJs/bJJ/dsqlE2F9qHmTEFaH2wwyrDjA1PXWss1nrv7D3eHmKzvH
-8D59ZeScAGbL4M0c2Y+sRYrmBz64og86e5aMb6RXMIbtBnVTGllDOn67mj15rojm
-yhpMD5XAwFicj9Xl/Zz4mBj5ctJ3/Ihpelf4BBa3WlKNET3YRk1QAVtGnyQg2O1d
-kIY4KIR603x+wbcqdo9kf1eFTDt92rT2zewhDK0jbvPa1DjP7Yq7pumrOI4VzRrK
-qX4tlERpK+jGRcirj17WgNOKEHwOWQV43de3ossisgmRD9MmPo2qBEjMPFFDwhkC
-FepHnK3t6an+rIGhC87cTY6FIrYz//xC9nTAwe2qV7hgH4RcD1oG8iGSjacRItWj
-gl9NcGAk4PIEM7NlSgfZmFcFuDl96GQNzzaxvM55oWGdKzCXzxI=
-=zrgk
------END PGP SIGNATURE-----
-
---cwD/UTWXTz39bYRM--
