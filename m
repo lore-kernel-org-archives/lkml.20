@@ -1,101 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792601514;
-	b=RBgkcZ7UBIFl4c9a6jVKwJJjsI8EK0foxZ6aH8Qm4zAXajfR+BmUjmWPk8B7rUfXbpnQ
-	 Mgxv4kCFYraHtg5eF+OVp/IxrusFiIbTrQ9m9/ojQ2Mp3d1RLci8kn3FHiJSgFbEDLRVs
-	 BkTj0nm74aeE20pFrpcqae6V4DHKuuRDjYyHukhnN3IDx7tlFhul1gclnobRO4V+psyYQ
-	 TH6CAxoEgbPrYaPkvFdO8J/oBhwP8kv6L05XZnC6UdDkBzcyWosbhI3pnfKATQrGOHHRe
-	 F20S2EcaLFc7Yan1lAvDbU7BuV0ivXiRX7iRjZuFwgtuAWFGMSs0z2wGsReXzR3CIZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601514;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=13QHzm0bpM59xYS1wnMZEwywD8qK4xxHRhkkWiGn1fY=;
-	b=ZlA5NJFnmpQ6Gec0t/eFLrGDmpFkne8gFIv07RRrX0Jg96gE5rBTRjE96LGIdbJr6IIL
-	 BORkFy9R0PhpE4jAUzTjNJzyCCsda+bdt0SSQihFsjqXwBgQoWjs09djU6vDS9B/7Zzu4
-	 ZqXWv8wAgtsC4yEFVDgR30o6Gc5yWVZrC6Jy3V9xZfcL1ptntVSbaaOpSdwbBrID7C/Ff
-	 zy3wz7d3NFJRvRX/nNWLxDMIXG882dn8LK5st4tTRRxEPUUDKm4DVi1izmuLRfaxZy54q
-	 eCTEnUZUd5614ZYHKVQ14xSX3R0JhTfRiRx+Zar818Gm2PjAAes+ivBalDaqZEzcqSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=IjY+GqWy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.205
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792601551;
+	b=bUwC4GhRMaMO6qu1xAeAYX8Z4JqbDqezrop/BtUv+AxSc0UCrcwwg/eXhH08TgLTU16l
+	 YmFp0ylwNK66v6ScvOcQ5xo5oyYCLwcDoanIqxXXgcdUbUhrfXA/dy7w/SZAgrCY9GQv2
+	 fp/T2Fj8/5vsPkr29NWc6u4R/zRRuJ79fjjvBsEHf6WamisUtnIYMIhc/Hab3jUNFSV6f
+	 0RxmxAtGenlPdkHZWA8341DXZo3JoMKrioFaNmeUZnmFbCfaWgRYHsqNlGkuoSMJC6U5w
+	 f/dR+JliydDDpPO6syDZA008mKo8htuq4/yBsxTKUzziysixw1A8QFcybQ1/epdW4OA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601551;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Vik1txR8yivD6KvNH2HN+sPNUeut5oqfpgd+51Xfx8M=;
+	b=4E+T+MwNhj5N/9M37DXrLW5VDFhfBgtN9Aoox58NVL8NWYEItSNpO5ZlcMaLKr8mgKr7
+	 SilF3oKVFDn4jx1MmF+VQCh/svdBiSQMz68JCiQbhXj01KJrUEwQRl1ol+KpiURd6g+EA
+	 ElpUJKhXQ8mWuUmtoFvDKsyjLZRnSFdKkuOShG4rudZfCD+9TXBHfkyWL000i9uBF4k5n
+	 ico7RFeM/X21Q1YKrl5L0RxoUQTUxHAbcUPV2n3dit1i7RxE6EgAdVWjwtQNq/sYUHzHD
+	 sMfuMbTj6IpIAW5l0DqOHegUDqwHo+DVcClDfFfNU01vNjFwVGlIxmjp48EDPG/cUOA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FNrpXLza;
+	arc=none smtp.remote-ip=91.218.175.205
+Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C161606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:51:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C161606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB98606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB98606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=IjY+GqWy
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so528148a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:51:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792601507; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iyPtTjfMuCsVPwxTlGFuPAj4AiB/sovge+OpOrEe1dn4229nt0cCsiH/prLt+YLzgX
-         NHuImZsdD9D3oGIZZAitZTgZ+mi6p8eKJuLZaobuYxWLmNwvIAAtdglgojdw4lFPLZ1/
-         YSaAucA8EjA4OoYDND4Awd9n+vTBhAb9fQTrEtj5/qYYWs30KUGe48EDYUe2V7yTP5TV
-         eksa3QJrWE9LCOi0X3WVP0Hp8McID8nwXJtFo69/ezajU21MWe/hi5lZ2QGNuCfNFd0J
-         crG4gMuPXg6kQvnAHtyK9C5SZA3OIIJ0LjeFXQHb4LtGYGjWrawwmzyRQtBFpFcvNpX5
-         eyjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=13QHzm0bpM59xYS1wnMZEwywD8qK4xxHRhkkWiGn1fY=;
-        fh=3i2SfhtbfluI34w/iEbPpXa13XT1PArMmrAecMLOFVk=;
-        b=cZq7afxtg1u+aKHDDCzAdMsstYzYITWGAe1NZsrc+DnVXaWbIzALzXbxdtuggUgr0U
-         7HyAEB+N0IjJdRuDtsEN5el4wGyFCpQWERF+WWpEj5o/bQjBRdquvM4r4TzuKVkDOe1n
-         adAkjdquhsTT9e3xD/u7yVaTGkyHtq3CPvd7bkcKyXR5waUkdO4TNaA4j2LWv7/A2MSN
-         MqWmj8BK4FvIZ4LgOFIctQsn/TzTeTN8B2G4IhXpORkPbYhwnJr8VAfRpuVov3fQsRII
-         ASJ4z4oUnlQ7OCVrVyr0YzWGerHC9/Ws+0K3REgae+3rT/BQXuyJJt7/fCUOhvZt3Yqv
-         FzvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1792601507; x=1793206307; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=13QHzm0bpM59xYS1wnMZEwywD8qK4xxHRhkkWiGn1fY=;
-        b=IjY+GqWyFsNApys1mFNaLpUe5Gb0T0eiWpXRqwguELZkO/6GMlW5MGLgxtcb09NTmh
-         OmSwbge3z0LVW0xi+7CpV8QvKgiRUpsMtRGvmgg8qxBvc5jjXYlzpoNkCzfNBAEwDQ40
-         wNNxyldEcULAnGOug9VS2bG65dXNR/mE46at5JcPgLJWv3O6ZhjEfjVOx0KdNPSWEHno
-         KSs2G3y3N9SwBG5NM5nfzf5/ynFgtWgQ3CLXM7K+hSUVcPTdng4aUdz3+cuYZFPbi1eS
-         ik03fYSF9K8HzXuBFVgMWtrD+TskuLJyDjiFDi0Uy/ej0ytsAm/0is3kvUh3PE/JmgqY
-         Kg0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792601507; x=1793206307;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=13QHzm0bpM59xYS1wnMZEwywD8qK4xxHRhkkWiGn1fY=;
-        b=cAstUNGCk3e4+bXFG4X5CbLrPmVsY8xH+Iex4HYy5pu1pLTtq45SrPXQKlWbuuS9Ig
-         UiE/VWhEQ+0ZSBYsukFLfdxZpVSe0xnnAS5xJ41Pi91aGddF5QMxAPLBBBqZ5woVHglE
-         s9xKCnJQFD47zz2nz82WjEewzVl8dsuErm2PhKHlVanQZgvJerw/r6IKKJwx8zXlrTcL
-         JB4f0fFtn4hVaZTxwddaX9ImgfCSi5h97WpmUvPIXbOWl9B2r1sISCqByXrNTLfnNB+u
-         tc2v4JWOe0XOcjgo/g4tsDrr6YBv2C/IMPhl7D0JwiYRArvyhrNaCVnGRHHazyUfl6qr
-         tqCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynRmcEy4QNjnD+Qc7niVkhN2K5/P9fFc7vpJ1s6BpxwU4P8m8iuhBfOXk/Ywcc3H1gGMLgZCxlPKZ6SDI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTT4hDjq28l3GjWZlfl2WVrp/umrNGSKo0Ogvdtr0ogF+oENsb
-	1VBWEBkkRqh0IoBNG6MY6XYsIt1YhDjjaKezCQDxSy4BMh9Qfc0OlRGLEf4kGBdhckqAXr5A+eU
-	aa3yjileBhvF8jf1/oAqLHclbGtdxgkccD4WFsmSg
-X-Gm-Gg: AYBFou2uxr8D5Jdu17uKS3ll3ZzOADMYh9QFDsWVnvCJ8zTNuc7LLEqbORaIzur62oY
-	/Ei+zrV9YFJUauKLVaeJQQvgrm0wFUiL2Ai7t3h4iwtYeG0sxamvoDhi1/OyL+PBJ3yzof+6qkB
-	/+MgSKN3Nybc7qM30p0jO2/akz3l/roft+vPtzThJMsPiVksu2HoRYcx84IvEvdkG9mbaJtER2H
-	XwWRtdbOyF6M8p0g4bsyN4LThPS5a85uqd6aoQUrHblLrxu248n7qCqo7V52E6HEPVSVpBzSPgC
-	RbYuRQ5n7EFJdeZtKMVeenLhlxWfwyzyaIHuumZdfd6+rl45Tl/hNDRzjhTX5JGG++2iqz0r4Y+
-	CgGKqh0FGHqiPdyN5kNl0zNTOkLOXQ7Ku5ZSJFFOFbKHQjK21CWIwYZhRN8LcgTfycRn5jrti+w
-	RjoSL0GpDPYOwuQA==
-X-Received: by 2002:a05:6a21:4506:b0:3e2:5d7f:f630 with SMTP id
- adf61e73a8af0-3e287ef2e13mr2253079637.54.1792601507303; Wed, 21 Oct 2026
- 09:51:47 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FNrpXLza
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9/ZZeZVK9bE+Sv6yU7J5zHSa0wnK7nI+V6j0mEaWDBI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792601547; v=1; x=1793206347;
+ b=FNrpXLzadtKrr8wZTKchM40gevYsnDNNLz+hr239D2xSKmiqbBf4Hjewl0fKbwPSO2g5aTxD
+ xle4vVHrVU74lz/KNlGFQhAflMmMuqhIN9jtbj7jMoqwfyteSieBmi0bugVErt2O8ohYyfjidvS
+ furS0pd+1E9/r1WZdSpPlm1A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fc4f0bb13bd8d6bd;
+	Wed, 21 Oct 2026 16:52:27 +0000
+X-Mizu-Trace-ID: fc4f0bb13bd8d6bd
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 22 Oct 2026 00:53:12 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Jemmy Wong <jemmywong512@gmail.com>
+Cc: Chen Yu <yu.c.chen@intel.com>, mingo@redhat.com, peterz@infradead.org,
+	tim.c.chen@linux.intel.com, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] sched/cache: Remove the old cache group footprint on
+ exec
+Message-ID: <atjt-Hp-AMBIQpGe@three-body>
+References: <20261015053604.29927-1-jemmywong512@gmail.com>
+ <atiP8TwaDDtbImRn@chenyu-dev>
+ <A81AB6C4-6821-454D-9C2D-716A3D0DFE6B@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,259 +71,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
- <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
- <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org> <20261021-groll-donnerstag-erfuhren-ce34a0ed4e97@brauner>
-In-Reply-To: <20261021-groll-donnerstag-erfuhren-ce34a0ed4e97@brauner>
-From: Paul Moore <paul@paul-moore.com>
-Date: Wed, 21 Oct 2026 12:51:35 -0400
-X-Gm-Features: AclHuK9u4zlqRR8k7l_xhgTD3syw8PvB14c-IIpaLUltSW6zS4RYc3Du7nPPmmQ
-Message-ID: <CAHC9VhTHUU0h9k74CMT6wYhMwyY3YhbSSFwJoDTvoFRyTFVZwg@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
-To: Christian Brauner <brauner@kernel.org>
-Cc: Fan Wu <wufan@kernel.org>, manuelh@nvidia.com, 
-	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
-	Andrew Halaney <andrew@amutable.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, linux-security-module@vger.kernel.org, 
-	keyrings@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <A81AB6C4-6821-454D-9C2D-716A3D0DFE6B@gmail.com>
 
-On Wed, Oct 21, 2026 at 9:54=E2=80=AFAM Christian Brauner <brauner@kernel.o=
-rg> wrote:
-> On Mon, Oct 19, 2026 at 04:15:57PM -0700, Fan Wu wrote:
-> > On 10/19/2026 2:40 PM, Manuel Huber via B4 Relay wrote:
-> > > From: Manuel Huber <manuelh@nvidia.com>
-> > >
-> > > Add a dedicated .ipe keyring for IPE policy signature verification,
-> > > modeled after the .dm-verity and .bpf keyring implementations.
-> > >
-> > > With this, userspace can provision its own keys into the keyring,
-> > > then restrict it and activate it for IPE policy signature verificatio=
-n.
-> > >
-> > > This enables scenarios in which a trusted userspace component generat=
-es
-> > > an IPE policy, and creates an ephemeral policy-signing key pair,
-> > > provisions its public certificate, and restricts the IPE keyring duri=
-ng
-> > > the early lifetime of a system. The trusted component can then sign t=
-he
-> > > IPE policy, destroy the private key, and load and activate the policy=
-.
-> > > During that phase, the system is considered in a trusted state wherea=
-s
-> > > the system transitions into a possibly untrusted state afterwards,
-> > > running arbitrary user-provided applications. In such a scenario, the
-> > > trusted userspace component could reside on a dm-verity protected
-> > > rootfs disk, and applications would reside on additional dm-verity
-> > > protected disks. The latter disks would be dynamically attached and
-> > > their dm-verity root hashes and/or signatures not known a priori to
-> > > launching the system.
-> > >
-> >
-> > You might need to explain why the existing keyrings, i.e. builtin/secon=
-dary/platform cannot be used in your scenario. Like the firmware is not tru=
-sted?
-> >
-> > > A concrete usage scenario could be Kata Containers, which enables
-> > > running Kubernetes pods in ephemeral, headless utility VMs, possibly
-> > > without systemd. The rootfs disk is static and known beforehand, but
-> > > containerd's image layers might be acquired and transported into the
-> > > VM using the erofs snapshotter and dynamic block device attachment
-> > > using dm-verity.
-> > >
-> > > Signed-off-by: Manuel Huber <manuelh@nvidia.com>
-> > > ---
-> > >  Documentation/admin-guide/kernel-parameters.txt |  9 +++
-> > >  security/ipe/Makefile                           |  1 +
-> > >  security/ipe/ipe.c                              |  2 +
-> > >  security/ipe/keyring.c                          | 79 +++++++++++++++=
-++++++++++
-> > >  security/ipe/keyring.h                          | 16 +++++
-> > >  security/ipe/policy.c                           | 10 ++++
-> > >  6 files changed, 117 insertions(+)
-> > >
-> > > diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Docume=
-ntation/admin-guide/kernel-parameters.txt
-> > > index e75344f4e0cd..fd508dd779ed 100644
-> > > --- a/Documentation/admin-guide/kernel-parameters.txt
-> > > +++ b/Documentation/admin-guide/kernel-parameters.txt
-> > > @@ -2733,6 +2733,15 @@ Kernel parameters
-> > >                     Determine whether IPE starts in permissive (0) or
-> > >                     enforce (1) mode. The default is enforce.
-> > >
-> > > +   ipe.keyring_unsealed=3D
-> > > +                   [IPE]
-> > > +                   Format: <bool>
-> > > +                   When set to 1, leave the IPE policy keyring
-> > > +                   unsealed after initialization so userspace can pr=
-ovision
-> > > +                   keys. Once the keyring is nonempty and restricted=
-, it is
-> > > +                   searched during policy-signature verification. Th=
-e default
-> > > +                   is 0, which creates the keyring restricted and em=
-pty.
-> > > +
-> >
-> > I would prefer a Kconfig CONFIG_SECURITY_IPE_KEYRING default to N inste=
-ad, like the fsverity keyring. In the kconfig you can also describe in whic=
-h cases should this option be turned on.
-> >
-> > >     ipe.success_audit=3D
-> > >                     [IPE]
-> > >                     Format: <bool>
-> > > diff --git a/security/ipe/Makefile b/security/ipe/Makefile
-> > > index 2ffabfa63fe9..109e736696a5 100644
-> > > --- a/security/ipe/Makefile
-> > > +++ b/security/ipe/Makefile
-> > > @@ -20,6 +20,7 @@ obj-$(CONFIG_SECURITY_IPE) +=3D \
-> > >     hooks.o \
-> > >     fs.o \
-> > >     ipe.o \
-> > > +   keyring.o \
-> >
-> > with Kconfig this can be obj-$(CONFIG_IPE_KEYRING) +=3D keyring.o
-> >
-> > >     policy.o \
-> > >     policy_fs.o \
-> > >     policy_parser.o \
-> > > diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-> > > index 495bb765de1b..f5232f850dc2 100644
-> > > --- a/security/ipe/ipe.c
-> > > +++ b/security/ipe/ipe.c
-> > > @@ -7,6 +7,7 @@
-> > >  #include "ipe.h"
-> > >  #include "eval.h"
-> > >  #include "hooks.h"
-> > > +#include "keyring.h"
-> > >
-> > >  extern const char *const ipe_boot_policy;
-> > >  bool ipe_enabled;
-> > > @@ -97,4 +98,5 @@ DEFINE_LSM(ipe) =3D {
-> > >     .init =3D ipe_init,
-> > >     .blobs =3D &ipe_blobs,
-> > >     .initcall_fs =3D ipe_init_securityfs,
-> > > +   .initcall_late =3D ipe_keyring_init,
-> > >  };
-> > > diff --git a/security/ipe/keyring.c b/security/ipe/keyring.c
-> > > new file mode 100644
-> > > index 000000000000..ea8d164b62a6
-> > > --- /dev/null
-> > > +++ b/security/ipe/keyring.c
-> > > @@ -0,0 +1,79 @@
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +/*
-> > > + * Copyright (C) 2026 NVIDIA CORPORATION & AFFILIATES. All rights re=
-served.
-> > > + */
-> > > +
-> > > +#include <linux/cred.h>
-> > > +#include <linux/err.h>
-> > > +#include <linux/key.h>
-> > > +#include <linux/moduleparam.h>
-> > > +
-> > > +#include "ipe.h"
-> > > +#include "keyring.h"
-> > > +
-> > > +static struct key *ipe_keyring __ro_after_init;
-> >
-> > You can remove static here then the other ipe code can directly use the=
- variable instead of a function call.
-> >
-> > > +
-> > > +static bool ipe_keyring_unsealed __ro_after_init;
-> > > +
-> > > +/* Set the right module name for built-in parameters. */
-> > > +#ifdef KBUILD_MODNAME
-> > > +#undef KBUILD_MODNAME
-> > > +#define KBUILD_MODNAME "ipe"
-> > > +#endif
-> > > +
-> > > +module_param_named(keyring_unsealed, ipe_keyring_unsealed, bool, 044=
-4);
-> > > +MODULE_PARM_DESC(keyring_unsealed, "Leave the IPE keyring unsealed")=
-;
-> > > +
-> >
-> > ...
-> >
-> > > +
-> > > +/**
-> > > + * ipe_keyring_init() - Allocate and configure the IPE keyring.
-> > > + *
-> > > + * Return: Always %0. A failure leaves IPE without its dedicated key=
-ring.
-> > > + */
-> > > +int __init ipe_keyring_init(void)
-> > > +{
-> > > +   struct key *keyring;
-> > > +   int rc;
-> > > +
-> > > +   keyring =3D keyring_alloc(".ipe", GLOBAL_ROOT_UID, GLOBAL_ROOT_GI=
-D,
-> > > +                           current_cred(),
-> > > +                           KEY_POS_SEARCH |
-> > > +                           KEY_USR_VIEW | KEY_USR_READ | KEY_USR_WRI=
-TE |
-> > > +                           KEY_USR_SEARCH | KEY_USR_SETATTR,
-> > > +                           KEY_ALLOC_NOT_IN_QUOTA, NULL, NULL);
-> > > +   if (IS_ERR(keyring)) {
-> > > +           pr_err("failed to allocate keyring: %ld\n", PTR_ERR(keyri=
-ng));
-> > > +           return 0;
-> >
-> > You might need to panic here like the fsverity kerying.
-> >
-> > > +   }
-> > > +
-> > > +   if (!ipe_keyring_unsealed) {
-> > > +           rc =3D keyring_restrict(make_key_ref(keyring, true), NULL=
-, NULL);
-> > > +           if (rc) {
-> > > +                   pr_err("failed to restrict keyring: %d\n", rc);
-> > > +                   key_revoke(keyring);
-> > > +                   key_put(keyring);
-> > > +                   return 0;
-> > > +           }
-> > > +   }
-> >
-> > This looks kind of awkward, like if unseal is not set, it can create an=
- empty keyring then immediately seal it. I would switch to the fsverity's a=
-pproach to let userspace seal it.
+On Wed, Oct 21, 2026 at 08:50:52PM +0800, Jemmy Wong wrote:
+> > On Oct 21, 2026, at 6:12 PM, Chen Yu <yu.c.chen@intel.com> wrote:
+> > 
+> > On Thu, Oct 15, 2026 at 01:36:04PM +0800, Jemmy Wong wrote:
+> > 
+> > [ ... ]
+> > 
+> >> @@ -3965,36 +3974,6 @@ static void task_numa_placement(struct task_struct *p)
+> >> ng->total_faults += diff;
+> >> group_faults += ng->faults[mem_idx];
+> >> }
+> >> -#ifdef CONFIG_SCHED_CACHE
+> >> - /*
+> >> - * Per task p->numa_faults[mem_idx] converges,
+> >> - * so the accumulation of each task's faults
+> >> - * converges too - Given the number of threads,
+> >> - * it cannot overflow an unsigned long.
+> > 
+> > Above comments can be kept for future reference, with minor adjustment:
+> > 
+> > s/it cannot overflow an unsigned long/it cannot overflow an atomic_long_t
+> > 
+> > I launched a full hackbench test on a Xeon with multiple LLCs per node. There
+> > is no obvious difference except for some false-positive regress with large
+> > run-to-run variance. This patch looks good to me in terms of turning the
+> > footprint into an accurate counter. Feel free to add:
+> > 
+> > Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+> > Tested-by: Chen Yu <yu.c.chen@intel.com>
+> > 
+> > thanks,
+> > Chenyu
+> 
+> Hi Chenyu,
+> 
+> Thanks for the review and testing.
+> 
+> For v4, I've restored the convergence comment next to the batched
+> footprint update, changed the type to atomic_long_t as suggested, and
+> rewrapped the text:
+> 
+> 
+> + /*
+> + * Per task p->numa_faults[mem_idx] converges, so the accumulation of each
+> + * task's faults converges too. Given the number of threads, it cannot
+> + * overflow an atomic_long_t.
+> + *
+> + * Apply the net change once per placement pass to limit cache-line traffic.
+> + */
+> + sched_cache_footprint_update(p, p->total_numa_faults - old_faults);
+> +
+> 
+> Does this wording and placement look fine to you?
 >
-> Please don't start breaking an established pattern that works well.
-> We're now using this with both bpf and dm-verity with
-> systemd-keyring-setup.
 
-Just a quick point of clarification, you're using the pattern you
-described for other keyrings, not necessarily a dedicated IPE keyring
-described in this patchset, correct?
+Yes,  it looks good to me.
 
-I know you/Lennart/systemd made the decision to implement your own
-version of IPE instead of working with Fan to augment the existing
-implementation to meet your needs, so I'm not sure if you've also done
-something with an out-of-tree patch, BPF, etc. to implement your own
-keyring.
+thanks,
+Chenyu 
 
-> The point is that the keyring is intentionally
-> inactive unless it is sealed and restricted. That is part of the
-> security model. fsverity is used as soon as any key is enrolled which
-> doesn't give userspace a throwaway the key moment.
-
-As far as I'm concerned the decision of how IPE uses an IPE keyring is
-up to Fan.  Of course, fitting in with existing norms is important,
-but if it causes IPE or existing IPE uses a lot of pain, that can a
-good reason to diverge from those solutions.  These days everyone is
-going to implement whatever they please, but if you have
-needs/requirements about how you want things to behave in LSM land, I
-think it would be helpful to engage with us before you make a decision
-and then start pleading with the LSM folks to adopt your approach.
-
---=20
-paul-moore.com
+> I'll also include your Reviewed-by and Tested-by tags in v4.
+> 
+> Thanks,
+> Jemmy
