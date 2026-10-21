@@ -1,61 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792545645;
-	b=PwAl2NEKVJVqMZrdIXaCGCPgCAwA+6eMZ81x/ysKxcWvkrUbo144wh72toNWMIZyQdBe
-	 2LNxyeiGntla8aigp3vdX8o/sm+YSLdYCT/BG+CcpSTAZT8rdYx4HRuO/y4bcdW2FDMBM
-	 Ss/GaFMbE2VfUPriGvd/i0WdSbm1JR0U61o+GVYnFmQ5t7NBBEAJFjiXIp5pOIcOdrhth
-	 Jm2U1pAxiFpkwYN3jXYKNEg0mGH3Ea09Hgv6d1S4rnQAVCdHL88xebGO6o9wwAeU3orVu
-	 A2q/1EcQncPpvilF8dALyfkt8F5ZnnociZID70c0YcRHeoBZc+03c1O4YYRPtymbrXw==
+	t=1792545662;
+	b=lGxGw0/3A7C0Ircxl1CHwWq7299mbLw1DgdAcJYuF/Nhb9PGSXdHcGJh3zTB+PVV3YkM
+	 e3iX0b1ecglAQBNQpKdXmKP/gg8AiMUrGvVdy5kDXUZMiLIcvlqiC3KYeeNXwlc3BPjVA
+	 UsHa6IX/F3bbaoD6vzA6YYKmsDqLSzOQt9r2x1/0JmY53fmRi5IdAX7s/e9Qu4+CYqAlY
+	 SM0NVwvEdX3jDho75SvtPjSL3dhNsxld8EyQnXFSVIBdA+huA+Xz5rr83yWgsNJ8kocy7
+	 qjuIIWqovtTS8JktZTaKVkWolPvQTzZIqoMd32P7PidbX4rA2WK0oXLaA8KabquaYNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792545645;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Y8K6h3c2W1891Dy16+/NGD/NBVfIeHRHvnejW7iH4m8=;
-	b=va4w1hotv6BJKDmBHvnf3uodSbMtn11k9WdsiP8/UCuhIF4K6Xm4it95llsoniUiQizG
-	 sAp3prdLySdFFf/BTGBp7yiseTuWX69r+/LdRLsRB8VYvP0qWo2tmtPAmJFqotrS1TSQm
-	 5+gPBEJnjY8Wkz3rzvE4pKVB90MEXjCqYfu3jQ+mqCG8n12DS+7N9IvFpPhpXoxEcc493
-	 yZDVBnFRjGck9oep9Pdl0VJT6IrB+DSmBZFHegvI3+61UHQK2EURmK99jC17+stB4Rtg9
-	 nw2o9g1jPmZ42eHXFXrE2b561ABpJQUQXeITq4j9xtzb726IjciZEuIHLpoCnAH6y1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792545662;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=uIy+JtJ16TtxbVm/PfwhUZa+19M2uMfSlcIIrSZi7Tg=;
+	b=m/J2KySvqISnc+4VMDnSoTTvgmwseAdWnhMGVUPStxorMaWsZ9WgzlftCifj8MeHY03l
+	 aLNC7vrVGfDNRXp1fYXcfKLmdTcz9L8R+gJFSTvbKmSm38Hy1qm4seQcDLsRFNsb/iqJf
+	 djAzan1APQNRMOJq7tKaaD5O1C8u+SLzMApOivWax7i/5/WLAOnt/dvEC4nqPMweODhNk
+	 Fy1k4aVEOkKolVptg8CH8gM/6ryKDjWHudT0I26s3C6COnj1O/Ecl4y0FOINTOMfxUF3D
+	 SPI1VHmkyD4b7YL5zzslyuXf+Rax1Uc/DUDOdyyipfpVwlpU4dHzbDJ+5xo1ohDHAcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=buzeQ591;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eNicd16b;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F24606A319;
-	Wed, 21 Oct 2026 01:20:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10D5606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:21:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E10D5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=buzeQ591
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B47A1F000C9;
-	Wed, 21 Oct 2026 01:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792545644;
-	bh=Y8K6h3c2W1891Dy16+/NGD/NBVfIeHRHvnejW7iH4m8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=buzeQ591Xxk1VSUAF/qr7f7EWTEuDqUpWdL3dAoG6uQqNcleiAk8ssBP0t+yOa5e7
-	 hN5gKI0RI9Jpo1+ERNIliqwXeCwXFKKRfVaO6J9ox5Scc0vrGaGeLUByNJEGh8cD6H
-	 8+Ckhpiaj/HFGvYvOOgqkeTlLvuTBbi+WAtdfh9Jq/F23TlCOdEe3xARfRLgA3AZ1T
-	 y16Su+E4++NrJutP9WPQr9DAe9V4F5wKV7rW3iFjG2y8NiXs+hlX4jAwIpSXtDFG5N
-	 PO+ytlPTEPAgJMLBKW0REfotttN3jSpIoky8g78z46IQF1286pdSGp4PRNxWqidf+b
-	 /NPQpXiCEWtTA==
-Date: Tue, 20 Oct 2026 18:20:43 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Octavian Purdila <tavip@google.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell
- <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S .
- Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Willem de Bruijn
- <willemb@google.com>, Wei Wang <weiwan@google.com>, Shakeel Butt
- <shakeel.butt@linux.dev>, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] selftests: net: packetdrill: add test for
- negative sk_forward_alloc in tcp_wmem_schedule()
-Message-ID: <20261020182043.4bad43c4@kernel.org>
-In-Reply-To: <20261020163835.4076594-3-tavip@google.com>
-References: <20261020163835.4076594-1-tavip@google.com>
-	<20261020163835.4076594-3-tavip@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eNicd16b
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso608958eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792545661; x=1793150461; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uIy+JtJ16TtxbVm/PfwhUZa+19M2uMfSlcIIrSZi7Tg=;
+        b=eNicd16bJjsqIMQqpN39bBS3CzlUCG/+54YXqkMOCNH6ojizbb2geuFtl9sjMBKVAD
+         LPU9XHKhr7W1DQCmaqhhsK/3Npg6OT//u2Jq/nOKslAqXyYE3L7P73cy54Zo9Rq54mWG
+         m7c/IYas9FbBg7gUM75hJ2T8UzJ4CZKN65zy42jpZsd50tvFOJ9M2VP5y+EHn92Ci/Zz
+         i0KQVsbnJ7zeSsVJd+Y2YPEQ9qLgNFSqQs33GfJspKEVqc3f1YEiGJ6YI8+ue6b3Znu7
+         rzI21aAE6Q81HOE0EiVsLQ4cHU2IWbc4yBVFVuyKcL2dCkHhpstrzq4wnmdxEtyjX9D9
+         +2kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792545661; x=1793150461;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uIy+JtJ16TtxbVm/PfwhUZa+19M2uMfSlcIIrSZi7Tg=;
+        b=qnDDQdmAO1JV01k5OWBnL7uWniddFMwfdofLF6D3osP+ixz1NMXtaaNSGco+i7RNcO
+         CPmBnZ+H6dYOii8BrDxBbDUsj2cIy8kM82jFSYK96AbIML7/IC0pXyMCgy/SqxSMcI/o
+         63XjARVRayUOeTAM8VmYzgYFQ4BmeXEqxIUIwF/hdTxfikZWwg2IhSZillRiU6mijRIl
+         2t+sEKGS7IMBLJL86jhkczvmYRqLTU2lJIbqUeEBVg/yOKfLRtPcHors3P4+oOh55qRX
+         HPBYK5OKWqIbxDTcfNsBYP992x31g66H1Tmui8OWi8n8ZUwHARxwQkLrusEdODRXXeRK
+         GlsA==
+X-Forwarded-Encrypted: i=1; AKwUvBzM7VBXm51gYLQ6J3aC1V9CbdF7dXZrg6u9G5PnnMqra0jcvoP3nZHpaSL36ouiOwB6Amtyc4oaJ8Evm2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiRvrpLBbtfGpWPnnhi+kjgEmxmK6Dz0SwOepYdY+b0Xc/RjpG
+	JsbGiqBRDrtOkxONK6B8gh4Af2EiucFMk0g0C1x+3YylDUvkL4DZg4k3kDGIKepqN8UArytJnW8
+	VZy1nxpc=
+X-Gm-Gg: AYBFou1f+lI7XjyC/ludLnpRjG4aWq35KjIFYFJmELwrEsOAirudZb+vtfY3qGQGm6B
+	4BUWz5UDnq8BUUlzMVJfwKYDSim/3/IJ21kMxNhQvKfIEZjPP/US7iCGCxqmtUAHKvscIyFy+HI
+	/4FdMBi+JQ76durUQ6heAeDkbSJGDDNCAs+7kq6stsOjbbmsS/eEXIyQFsCxkQUnUSaFvXyuN4m
+	deBDNihj9UPffPnfty1aeq/eDXoyZf21DUP+dMRLZ6e4RqIztHUCaKbpjNjP6FLne1n28fPnBBc
+	3Co5qbYJTE+T2D4yp7Bc03OHKuvScmoekm/iYZmk9u1U5ie/B/OTzsMAtNl4il6Hv4FXn4npRdt
+	Ruo1n+ldBvRw6ueGz5LXq2mqGDiL8shS91ZlcG/EdCPT/R1+QF7aKrjzlaEWIw9gh93t9KmxdHu
+	LI+JgHzZodIuYVVItbnKxKYP5kZeLuSTyq2w2qAXLY8uQygc/qQXKsKf0DZeofcPq4+9sempvvS
+	YtWRSRXVuHJptGA9Y1naufj5LrDKLpUOoMajEewt/t+iRDKK0lviyQageVU/xNSL1CoZUndKjJ1
+X-Received: by 2002:a05:7301:a07:b0:366:913f:4d27 with SMTP id 5a478bee46e88-3674fa0d640mr1022322eec.30.1792545660473;
+        Tue, 20 Oct 2026 18:21:00 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm3211171eec.18.2026.10.20.18.20.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 18:20:59 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:20:58 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 10/18] nvme-tcp: Use CCR to recover controller that
+ hits an error
+Message-ID: <20261021012058.GS2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-11-mkhalfella@purestorage.com>
+ <d1e6b53b-3d14-4cc0-8153-dffd5da7673b@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,46 +106,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d1e6b53b-3d14-4cc0-8153-dffd5da7673b@flourine.local>
 
-On Tue, 20 Oct 2026 16:38:35 +0000 Octavian Purdila wrote:
-> Add a packetdrill test that drives sk->sk_forward_alloc negative via
-> tcp_collapse() on the receive queue while sk->sk_wmem_queued exceeds
-> sysctl_tcp_wmem[0], and verifies that a subsequent non-blocking write()
-> under TCP memory pressure fails with EAGAIN rather than returning a
-> negative copy length from tcp_wmem_schedule() and failing with EFAULT.
+On Tue 2026-10-20 11:36:19 +0200, Daniel Wagner wrote:
+> On Sun, Sep 20, 2026 at 11:28:08AM -0700, Mohamed Khalfella wrote:
+> > @@ -2731,13 +2755,15 @@ static enum blk_eh_timer_return nvme_tcp_timeout(struct request *rq)
+> >  	struct nvme_tcp_cmd_pdu *pdu = nvme_tcp_req_cmd_pdu(req);
+> >  	struct nvme_command *cmd = &pdu->cmd;
+> >  	int qid = nvme_tcp_queue_id(req->queue);
+> > +	enum nvme_ctrl_state state;
+> >  
+> >  	dev_warn(ctrl->device,
+> >  		 "I/O tag %d (%04x) type %d opcode %#x (%s) QID %d timeout\n",
+> >  		 rq->tag, nvme_cid(rq), pdu->hdr.type, cmd->common.opcode,
+> >  		 nvme_fabrics_opcode_str(qid, cmd), qid);
+> >  
+> > -	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
+> > +	state = nvme_ctrl_state(ctrl);
+> > +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
+> >  		/*
+> >  		 * If we are resetting, connecting or deleting we should
+> >  		 * complete immediately because we may block controller
+> 
+> The documentation should be updated, maybe something like:
+> 
+>           state = nvme_ctrl_state(ctrl);
+>           if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
+>                   /*
+>                    * If fencing has finished or we are resetting, connecting or
+>                    * deleting we should complete immediately because we may
+>                    * block controller teardown or setup sequence
+>                    * - ctrl disable/shutdown fabrics requests
+>                    * - connect requests
+>                    * - initialization admin requests
+>                    * - I/O requests that entered after unquiescing and
+>                    *   the controller stopped responding
+>                    *
+>                    * All other requests should be cancelled by the error
+>                    * recovery work, so it's fine that we fail it here.
+>                    */
+>                   nvme_tcp_complete_timed_out(rq);
+>                   return BLK_EH_DONE;
+>           }
+> 
+>           /*
+>            * LIVE state should trigger the normal error recovery which will
+>            * handle completing this request. In FENCING state the request
+>            * must not be completed before fencing has finished, so just
+>            * rearm the timer and let the error recovery pick it up.
+>            */
+>           nvme_tcp_error_recovery(ctrl);
+>           return BLK_EH_RESET_TIMER;
 
-This is failing in our CI, it doesn't need any packetdrill updates,
-right?
-
-
-Here's the AI report about the failure:
-
-The new packetdrill test tcp_wmem_schedule_negative_fwd_alloc.pkt is
-failing in our CI (both the regular and debug kernel configs, all three
-address-family sub-tests: ipv4, ipv6, ipv4-mapped-ipv6):
-
-  tcp_wmem_schedule_negative_fwd_alloc.pkt:105: runtime error in write call:
-  Expected result -1 but got 3680 with errno 22 (Invalid argument)
-
-Instead of the non-blocking write() failing with EAGAIN as the test
-expects, it succeeds and returns 3680 bytes. The kernel log for the run
-also shows the test's memory cgroup repeatedly entering the OOM-killer
-path (try_charge_memcg() -> mem_cgroup_out_of_memory(), "Out of memory
-and no killable processes...") from inside tcp_wmem_schedule(), rather
-than the write() being throttled and returning -EAGAIN as intended.
-
-This suggests the test's reproduction recipe (tcp_collapse() driving
-sk_forward_alloc negative while sk_wmem_queued exceeds
-sysctl_tcp_wmem[0]) isn't landing the socket in the TCP memory-pressure
-path in our test environment, but instead in the memcg hard-limit/OOM
-path, which the companion fix (clamping tcp_wmem_schedule()'s return
-value) does not need to handle the same way.
-
-Could you take a look at why the test's preconditions (buffer sizes,
-cgroup memory limit, write() size) aren't reliably reproducing the
-negative-forward-alloc + EAGAIN scenario in our VM environment? It's
-possible the memory cgroup limit used by the test is too tight relative
-to the data pushed through write(), causing it to hit the generic memcg
-OOM path before/instead of the TCP memory-pressure check.
+Good point. I updated the comments.
