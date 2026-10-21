@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595942;
-	b=K0zlwO5W8E2mJvgi1BhoxMcbFkTh6LBPbAI6/hwOk+WM0WO7auFz+u9Mb1zuNmCD/tfA
-	 fpZIwJ/Jsds96fE5NTOVWVozrQbKjzcUiBx2of04Wp9kZ+R/1hXYcUKF6g548wDKeyvdm
-	 3A3suZzB4iqQ0PNRi+TmkRl4CWg4GouCxwXCCCEEJwtqlvyaZS6Wg54l8dQPclz28V6/h
-	 a3TV99sokmNKIWSHxLz9jY6pRhHtC7+eB5hLpZG8xAjXthMzNI/Pvfw5suh6gcP+YFWOU
-	 2MG7/EegJ/AhLwv7Q9v0sCHFTRX6NM5235iFBH7ZOx0dPJiqFYrLwYgaSgn9eh1/+KQ==
+	t=1792595947;
+	b=lkQS6GqQM78nla6k9mgwSUrKoydxCzr3s1MMOv4fBUQ/HGufB7DOjkLAD21y3QzvW2zH
+	 /jPBHPP0tqopOwW3d5LFUDOtQzRFJubWpjp4OlFQrrp10sLl5iS8LtfudE5aZvNKpp8uS
+	 rcRcFBpr07K4NYAFaDnDXsjjQ+2wf3um0uT+JtDlBFluA4Lr8rSFaKYz8FcNFZntSVqSg
+	 V9bfYF4J8VIQDL0grilRoAipFaUGqiO6Rnu0/B4/PzG0vCrFyhCns5R+dRVdTSQcI/ETw
+	 D9gO4Cn19DSzEdmskeN83Ky/p4/MPY42oaxINocZiYYodSgNU936llcRSmQ4eN8nHdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595942;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=yp/iAPb62e75wupRmvyv0YjK3+amzNSWley0MVfbsjg=;
-	b=bJepKu/szYrvkZWUWhRF0hKymR9B1xbXz3il5IyPMLQ3qlzWIt9ronzUvg2xhGuOIJn7
-	 pBAbQuNWGhvfxwZj6/4dRGBL9RtnZ/Xroe/IxfgtWZMEvLXI/5zUVSZOLLCoJJjn4NWjK
-	 xBK97OJEv5psD8kVfU8rM6x6TLXTlZSIPqbsxwugFK4/2IZNlX5zmbObBYS4eTrUnQUwU
-	 XgciGuRGz6k6ogYBNunekR/qbEL1TvrqW14hrQTmYwXM6YpP2PDetoo101gjEImME//5i
-	 glZdC5ye7VQof2qCVJNrLe+eSorlYEe8i9xwtncMOK4fCL6r6LJcbq/kPvsVZMvPFCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595947;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=9FTJM5vluRne/unuHEM3+piJu0iq8i8avOCAH0AQg5A=;
+	b=Vc7/bAHOWgGUWc+45RSArWOYVe/a6IwZGWOByiCpb43HBsXRaBqtD1eEB1ADvef1i0Nc
+	 XAgwx+9vYED5JwWVe0KgIyROO0F4I1uUh/Sg2emkAGc8ChxNc/THle7pQAjjXdIf+k2/z
+	 YAb2IgWzt+2hjIMJsUfXUH4lzqZzgmSidtFuLOVRVoD9zF5TyQQdaaGRbYEIWh74RYXnR
+	 OMGBys27ut+Qp884KLty25hnY2NklR+MgNZ4wAC5FBzcwVsJX36PzLd9NQHTvc1A2DIHW
+	 ckwnBuhXUilZZ0bumJ584Ehq7ai21FvgZI/MwYNzAfBQqprvxj6saPr0aq8L45qEsGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I5bAgT6I;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=dmygoBO3;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DC5Sx7tG;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=dmygoBO3;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DC5Sx7tG;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C54A606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C54A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD3E606A31D;
+	Wed, 21 Oct 2026 15:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD3E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I5bAgT6I
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1e154e4c6so1520995e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:19:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792595940; x=1793200740; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yp/iAPb62e75wupRmvyv0YjK3+amzNSWley0MVfbsjg=;
-        b=I5bAgT6I4ZHP/ULymcKjMOYkzka1gk0I2XhpIlEiYckvPuo4gw2OwfcZvoHmZHKOYi
-         FvAreJ+mRh98hq2y1R/m7ovnyindM34dGXfUnGQOHHKA1wSpVpZykGIqC/3gkR+5mwph
-         Sm/lUpHGWlNOSGPxUYkULcWs/7It+XeYu8Ku1iqo4TviNm1hoY546q9o+wRmmXxBr13U
-         39iMYwFv2JaZ/dQbWem7q93JZcUIjlyLDejjkDlOnuuvOKQDhvNgsVm7mtEJwsenLcRC
-         zU1QkZuksuB0U+gwizwE7ARc7w7ZD3mNzbIcejqe9s0wUHeq9exow09pErOrjiPbUtca
-         iJpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595940; x=1793200740;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yp/iAPb62e75wupRmvyv0YjK3+amzNSWley0MVfbsjg=;
-        b=D45ccoawh/35e6mpVxUzNAHNVZS51KxdDRUhrOsBo6Vjetu/QOInKUdhLCaONiWa3I
-         6rllE60xV7ekSjxS6w2VAlNHuYZnBnYaSPNlJvhfamgxJlqllnbsneWusOMx/gb4hElv
-         K1XzzT8WWLeIiiXPDr2ScOPnKPRO8dXecUVJEWedwgkKzQQQ/DGQFTZFvtput3gZnKlw
-         zeopIv8nv/g/ISEN6mvZqLZYJujoGZaGIX4zimZiCiThsi8mRzc0fR83md3Dg44jvp8o
-         4clgnt6yMC/LkocUs8oIVb0QXxsp7aqdmvuV4ogAIUzf3H4Zu17KK1IoAXVuP61muITt
-         Gcvg==
-X-Forwarded-Encrypted: i=1; AKwUvBzTch+6YVvefpLKtlhymg44vu8rcz9t6/kIeTpTXRzcNR+EVBqk94+75vI4PldZw8tTyFY2a6TLPmou20c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKya7f62hapJQvJYfP68ubW7sveK5Dv5v6j7FWmYWmHP24ShcUx
-	Ns5xsYdkIvwnzm/i9QepaGxdui4np7kA9w/0u7DgWVQP+NJ6LnWFEuAO
-X-Gm-Gg: AYBFou0ac2F5UOJyqBp7lMcZTST51PwgbQ1Q0bg6G0pUfEArDzXrwBJE1d+yflL0Nvk
-	WrBetLb7L1BF4rmu9xBcGk6tBF2ITc2GKr4FcQ4f3PWe8tF/XyHAHKHZsXWCFviEpNZVZX7+YC5
-	QF1E5rc/ZO3rvyUB1q7BzswPZsXgMuD+SBzZT0rSJs3VRIfMlVP6jkOKLYf1cA/RpaE3MvlH+A1
-	YJuKEYJihAhTGNlUB+TZFSO8wUQGhxrOQOdTx+jLJ7YNgCogyFncfw7DGo8MbPZo+qsecpV6pyh
-	/TFAg3APuxfVEF0z2pvVziPz794+aHganvhQYWsD1SFz2BKTeBhgCESy5M753vr7P2+3VWrbYqx
-	NmuYSNhJbAGZshCpykB0FTmtl5wsWDkY0sbnY/E5XRhejuLrSK67GAgG72WZjqXj/czKCDg3Ipu
-	5T80xHmESkmtHXoa+4IJ5w5vESlWYBvOZf8Ki73OmJf1h5NPWRDxIuSwY49HCrgg0c9MrgdOB81
-	MCYQHWlN2Gxjh0uQhTPfFXcCB8aJGtuuKXgz7UPbuO9JX8edJ0SZ1pC0KwuH2y/3P0NZctQLuoO
-	+pSqH9h9FWa/NrJA0RsgSYXUI9lhog==
-X-Received: by 2002:adf:e198:0:b0:48e:28f2:64ea with SMTP id ffacd0b85a97d-48e28f26602mr3979833f8f.4.1792595939291;
-        Wed, 21 Oct 2026 08:18:59 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258213cesm6051960f8f.11.2026.10.21.08.18.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:18:58 -0700 (PDT)
-Date: Wed, 21 Oct 2026 18:18:55 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, mingo@redhat.com, 
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org, jakub@okonski.org, longman@redhat.com, tj@kernel.org, 
-	hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org, jstultz@google.com, 
-	qyousef@layalina.io, joshdon@google.com
-Subject: Re: [PATCH v2] sched/eevdf: Fix sched idle task group preemption
-Message-ID: <atjTelN1fMPlUgZ6@scheduler.schedules>
-References: <20261019182622.1584454-1-vincent.guittot@linaro.org>
- <20261021131313.GM2823843@noisy.programming.kicks-ass.net>
- <CAKfTPtDOZ0=nrQe1-WSTamgU0qqdJVvD3KZPtnsqwwnE53BSKA@mail.gmail.com>
- <ati_o5c-SoiOp529@scheduler.schedules>
- <20261021145042.GQ2823843@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=dmygoBO3;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DC5Sx7tG;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=dmygoBO3;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DC5Sx7tG
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 685DD1FAD0;
+	Wed, 21 Oct 2026 15:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792595939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9FTJM5vluRne/unuHEM3+piJu0iq8i8avOCAH0AQg5A=;
+	b=dmygoBO3h+/Wf2cj+qO7YmZvJdG57nL+TmebYMgSYnrtyLK2U76Bl6NLZ9hMQuALV2m10M
+	SF8VptRPQ3Xez9ApyWW4GsOmLqFFD8iU9Mt1DIkypzfuAo5Pcd/z230fDStWOhIUSPqI+t
+	pwIvedofqKYJsnTvsQSPGrYI9EtvvBg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792595939;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9FTJM5vluRne/unuHEM3+piJu0iq8i8avOCAH0AQg5A=;
+	b=DC5Sx7tG3gDa9sCga181ubRhYucPCP49NPuitqbWiK9vUQbXOgWRFDpwCTSGC7vtXLCIxc
+	aFxbGk2pbTkviGAw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=dmygoBO3;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DC5Sx7tG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792595939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9FTJM5vluRne/unuHEM3+piJu0iq8i8avOCAH0AQg5A=;
+	b=dmygoBO3h+/Wf2cj+qO7YmZvJdG57nL+TmebYMgSYnrtyLK2U76Bl6NLZ9hMQuALV2m10M
+	SF8VptRPQ3Xez9ApyWW4GsOmLqFFD8iU9Mt1DIkypzfuAo5Pcd/z230fDStWOhIUSPqI+t
+	pwIvedofqKYJsnTvsQSPGrYI9EtvvBg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792595939;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9FTJM5vluRne/unuHEM3+piJu0iq8i8avOCAH0AQg5A=;
+	b=DC5Sx7tG3gDa9sCga181ubRhYucPCP49NPuitqbWiK9vUQbXOgWRFDpwCTSGC7vtXLCIxc
+	aFxbGk2pbTkviGAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3D09B134A5;
+	Wed, 21 Oct 2026 15:18:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id bgAEBuPX2GqoCQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:18:59 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id BF984A13C6; Wed, 21 Oct 2026 17:18:43 +0200 (CEST)
+Date: Wed, 21 Oct 2026 17:18:43 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
+	Jeff Layton <jlayton@kernel.org>, shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] statmount: don't copy the reserved empty string past
+ the buffer
+Message-ID: <42ugqrzknknogdi3mperavps3t2xywzgqm3zz3ubyfe5t3s33p@2fuk2npm5em7>
+References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
+ <20261021-work-mount-statmount_listns_fixes-v1-1-8917a4c1bd14@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,75 +115,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021145042.GQ2823843@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-1-8917a4c1bd14@kernel.org>
+X-Rspamd-Queue-Id: 685DD1FAD0
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,redhat.com,kernel.org,163.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email]
+X-Spam-Score: -13.01
 
-On Wed, Oct 21, 2026 at 04:50:42PM +0200, Peter Zijlstra wrote:
-> On Wed, Oct 21, 2026 at 04:41:52PM +0300, Kayra Cizmeci wrote:
-> > On Wed, Oct 21, 2026 at 03:32:59PM +0200, Vincent Guittot wrote:
-> > > On Wed, 21 Oct 2026 at 15:13, Peter Zijlstra <peterz@infradead.org> wrote:
+On Wed 21-10-26 13:46:54, Christian Brauner wrote:
+> statmount_string() reserves an empty string at the start of the seq
+> buffer before it calls the handler for the requested string. That's
+> what the offsets of unset strings point to since commit e52e97f09fb6
+> ("statmount: let unset strings be empty").
 > 
-> > > > What is the actual semantics of cpu.idle nonsense? Why do we care about
-> > > > this common ancestor?
-> > > 
-> > > AFAICT, cpu.idle applied to one level and against entities at the same level
-> > >
-> > 
-> > Yeah. Like on here:
-> > 
-> >     ROOT
-> >      /\
-> >     /  \
-> >    /    \
-> >   GA*   GB
-> >    |    /\
-> >    V   /  \
-> >   TA  GC*  GD
-> >       |    |
-> >       V    V
-> >       TB   TC
+> If the handler emits nothing the early return from commit 75ead69a7173
+> ("fs: don't let statmount return empty strings") skips the size check
+> against the caller's buffer. Back then an empty emission meant an empty
+> seq buffer and there was nothing to copy. Now the reserved NUL byte is
+> there and copy_statmount_to_user() copies it to buf + sizeof(struct
+> statmount) no matter how small bufsize is.
 > 
-> (marked GA and GC with * to denote their 'idleness')
+> So request a string that may turn out empty with a buffer that's
+> smaller than struct statmount and the kernel writes one zero byte past
+> the caller's buffer and reports a size that's larger than the buffer.
+> STATMOUNT_MNT_UIDMAP or STATMOUNT_MNT_GIDMAP on a mount that isn't
+> idmapped will do, so will STATMOUNT_FS_SUBTYPE on anything but fuse or
+> STATMOUNT_OPT_ARRAY on a filesystem without ->show_options(). None of
+> this needs privileges. The byte only lands in the caller's own address
+> space but that's still not ok.
 > 
-> > If GA is idle and GB is not, while GC is idle and were looking to TA and
-> > TB we gotta choose TB. But if we just look to GC and GA we would choose
-> > neither. .idle just applies to one level as Vincent says.
+> prepare_kstatmount() already refuses a buffer of exactly sizeof(struct
+> statmount) for string requests. A smaller buffer can't hold a string
+> either and it can't even hold the reserved empty string. So refuse any
+> buffer that isn't larger than the fixed part. That's also what the uapi
+> header says: string requests need space after the fixed part of the
+> structure.
 > 
-> Yeah, that's what we used to do, but the more I think about this, the
-> less sense it makes! 
+> Reproducer, unprivileged, on any mount that isn't idmapped:
 > 
-> Josh added this (added to Cc now), but we have a number of Google folks
-> on Cc already. It would be good to hear how this is actually used.
+>     #define _GNU_SOURCE
+>     #include <errno.h>
+>     #include <fcntl.h>
+>     #include <stdint.h>
+>     #include <stdio.h>
+>     #include <string.h>
+>     #include <sys/mman.h>
+>     #include <sys/syscall.h>
+>     #include <unistd.h>
+>     #define STATMOUNT_FS_SUBTYPE	0x00000100U
+>     #define STATMOUNT_MNT_UIDMAP	0x00002000U
+>     #define STATX_MNT_ID_UNIQUE	0x00004000U
+>     #define SM_SIZE			512 /* sizeof(struct statmount) */
+>     struct mnt_id_req {
+>     	uint32_t size, mnt_ns_fd;
+>     	uint64_t mnt_id, param, mnt_ns_id;
+>     };
+>     static uint64_t root_mnt_id(void)
+>     {
+>     	unsigned char stx[256]; /* struct statx, stx_mnt_id at offset 144 */
+>     	uint64_t id;
+>     	if (syscall(__NR_statx, AT_FDCWD, "/", 0, STATX_MNT_ID_UNIQUE, stx))
+>     		_exit(1);
+>     	memcpy(&id, stx + 144, sizeof(id));
+>     	return id;
+>     }
+>     static void probe(uint64_t mnt_id, uint64_t mask, int guard)
+>     {
+>     	struct mnt_id_req req = {
+>     		.size = sizeof(req), .mnt_id = mnt_id, .param = mask,
+>     	};
+>     	long page = sysconf(_SC_PAGESIZE);
+>     	unsigned char *map, *buf;
+>     	uint32_t size;
+>     	long ret;
+>     	map = mmap(NULL, 2 * page, PROT_READ | PROT_WRITE,
+>     		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>     	memset(map, 0xaa, 2 * page);
+>     	/* 100 byte buffer ending right at the page boundary */
+>     	buf = map + page - 100;
+>     	if (guard)
+>     		mprotect(map + page, page, PROT_NONE);
+>     	errno = 0;
+>     	ret = syscall(__NR_statmount, &req, buf, 100, 0);
+>     	printf("mask 0x%04llx%s: ret %ld errno %d", (unsigned long long)mask,
+>     	       guard ? " guard page" : "", ret, errno);
+>     	if (!guard) {
+>     		memcpy(&size, buf, sizeof(size));
+>     		printf(", size 0x%x, byte[%d] 0x%02x", size, SM_SIZE,
+>     		       buf[SM_SIZE]);
+>     	}
+>     	printf("\n");
+>     	munmap(map, 2 * page);
+>     }
+>     int main(void)
+>     {
+>     	uint64_t id = root_mnt_id();
+>     	probe(id, STATMOUNT_MNT_UIDMAP, 0);
+>     	probe(id, STATMOUNT_FS_SUBTYPE, 0);
+>     	probe(id, STATMOUNT_MNT_UIDMAP, 1);
+>     	return 0;
+>     }
+> 
+> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM, the
+> same on a distro 7.1.13:
+> 
+>     mask 0x2000: ret 0 errno 0, size 0x65, byte[512] 0x00
+>     mask 0x0100: ret 0 errno 0, size 0x65, byte[512] 0x00
+>     mask 0x2000 guard page: ret -1 errno 14
+> 
+> After:
+> 
+>     mask 0x2000: ret -1 errno 75, size 0xaaaaaaaa, byte[512] 0xaa
+>     mask 0x0100: ret -1 errno 75, size 0xaaaaaaaa, byte[512] 0xaa
+>     mask 0x2000 guard page: ret -1 errno 75
+> 
+> Reported-by: shaos <shawnq1@163.com>
+> Link: https://lore.kernel.org/r/20261020110747.959829-1-shawnq1@163.com
+> Fixes: e52e97f09fb6 ("statmount: let unset strings be empty")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Yeah.
+Looks good but FWIW I've already reviewed the same fix here:
 
+https://lore.kernel.org/all/e6ysb6lyld5remaojkqqbaffvlsxwhr4tmurifp7mhbqrj7l54@6yqqwu3d7e3y
+
+Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+									Honza
+
+> ---
+>  fs/namespace.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index c30f063742f4..6c9c0cdbe890 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -6058,7 +6058,8 @@ static int prepare_kstatmount(struct kstatmount *ks, struct mnt_id_req *kreq,
+>  	ks->bufsize = bufsize;
+>  
+>  	if (ks->mask & STATMOUNT_STRING_REQ) {
+> -		if (bufsize == sizeof(ks->sm))
+> +		/* Even the reserved empty string needs room past the fixed part. */
+> +		if (bufsize <= sizeof(ks->sm))
+>  			return -EOVERFLOW;
+>  
+>  		ks->seq.buf = kvmalloc(seq_size, GFP_KERNEL_ACCOUNT);
 > 
-> So in your example TA and TB are both inside an idle group, and
-> therefore one can argue their behaviour should be like !idle. But their
-> common ancestor is root, and so the fact that they're contained in idle
-> groups gets lost (which seems crazeh).
+> -- 
+> 2.53.0
 > 
-
-Actually in that case TB wins over TA, since GA is idle while GB is
-not. GC being idle only makes TB lose against TC.
-
-Right now being idle only changes a groups status to its siblings.
-Like right now GD being not idle is only a advantage for TC when
-its TB vs TC.
-
-> But worse I think is T{AB} vs TC. In that case none of the common
-> ancestors (root,GB) resp. is idle. But T{AB} being inside idle should,
-> IMO. definitely matter vs TC, which has no idle anywhere.
-
-It does. In the case of TA vs TC, we look to GA and GB, and
-TC wins. In TB vs TC we look to GC and GD and again TC wins.
-
-
-> 
-> So I think I would very much like to change the semantics here. The
-> current stuff makes no sense.
-> 
-> Anybody, please chime in with how this idle crap is used and expected to
-> work.
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
