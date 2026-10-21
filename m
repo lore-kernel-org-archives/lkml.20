@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587271;
-	b=jthQpQK0LLK7Jz9jIbGS1QFlyr5vdS3oqmWyqnHrmpcWAvNvbtw90NK/3tVNbd9mmRoG
-	 uGeMPHY9LHDVOX8oELtPQduhYc8qyPrBk3o1zBwLrw3VEdeXdC44SJiC7SLNNW9vy0jW5
-	 WjJmwkwkle6qs4LPCkBR1ahGMyCEQseBWG2be71xAqZ3gIT0PF4KiuIiBvdgBDFYFEq5e
-	 Ea7jvzGDALq522nhbDiqKoWVlcSeLVKRJS26CDFthETMLLP5D9dqNqjLnHEAI7Hap/pay
-	 B8vI9F9Xq6wpZM3KMPRLUgG46sv/p69ryqOh920IFFM8qJlRBE+D6KsXN6bAl8D2Auw==
+	t=1792587322;
+	b=dvvhO8YKyMaMIEOxChc7IrtXmbnuiIwXrnqsqBzcwlsniPRQNVqChfHxEnWwxRGEZVNZ
+	 OwJfpqiM9kSlqAyRd2lycTKPCuSjwa2wA8EdP8E/LA/bjWPP/KUfAM8ii5Vs31AeW7Hb7
+	 ScGdqhiSbM+wc5BOo9HLMei5Y+o6D+lkF9NN+Y5t9DQNIwWLh4WF0mqrsk2walGp20JT/
+	 XVf3tU+p3vVOzh4Yosjq4IiLOCJ9V7V/upQQ1oXYsV9b5WR50EaRgV5TiMJrCSd+ggNBr
+	 tqYTAs7ucY8q6YPPOtGJyiZSAjLEVSG2bU8jb8QRfSd65mmJJOxXs0mkQ3JWupY0oNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587322;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=77UqAje4PajMbNA3msWDiEyVOFYunEdp//A67jJHb3I=;
-	b=FfaeUp3jR5hRBqp63O49GIy6NHhd6nqMi02KwZ8ZZRoGBCFSuxces8TJBubkODqLgpkS
-	 yMeRNaip+nDn8mkLv3IIntK6lFGUy/xNk5RXUvKmBYoN8L94XNYcM+vGpB0tpB/dE43fp
-	 tiBR7T6tXf1WQiaAPhaj/8bLq/H7nKtaAzFxMs0qcnkIrD93aH4KGJrbRBPtpfkRGo7pn
-	 8FXfPqqkSi5317zC0bBJZzGnZrF7rGys3wD90ZhdoXNq7R9gJHTqGJC8HlmnFZxnVwskZ
-	 q2x5MmnaEn9nj/WOq6nDaomppIE3EyDm5J7CMrkBIcDl7ni+iY8ea/+P6y2NR/l0ZAg==
+	bh=if5Pp2yj2y088Ag6QNc2cMh+tiY6wmDnShBafn5qCec=;
+	b=y6vwsc/QaQSJJSMJKCnUBCdOlYdCC78a2DrJvmzmn5zAxz2x5L44r2YdDcNR79nJKiCU
+	 bLcfLgBQ0qCOlmGJjVECj4F5qT2CA2hkO+999ZH4cxRfKYhfLYa7bZhj9FuGeRFDy1iHq
+	 czeCUFlizeVHILCSDl2WysymB20J8120NxP8MQms155hZcj3ly9OX9i+urpx95ICAhLdd
+	 YNJeOLnlAUx4M2dtNnb8VKCyFVwQGKhY6oMvT4GxTFfN6Y9F+YqK4BdgjAY496WDQiuM4
+	 ws2r/bu1kOHEccnq0yzF+3f6wgcODQrgm69jlyVdnqO5RNuwinqCfIDgNw9SGU/bJzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Fk2YW2Dp;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=a1dEv+5a;
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA40606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA40606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0271606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:55:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0271606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Fk2YW2Dp
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=a1dEv+5a
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=77UqAje4PajMbNA3msWDiEyVOFYunEdp//A67jJHb3I=; b=Fk2YW2Dpp3OS3c+uNvYn/54iBF
-	z7jgH0DzA81IyBJBGsjVGvkfnEkL/fFDTbRCcdr2Iyqqkm0qnH40j1U9AjWmP02PgnSLXVHCSbh+c
-	rHrDYqrzJXyWt3KWO6DdhizvNR1pVLjALJJ310lT44PYHFMNuOA0NmZangSlaJEE3S/z8NMNNMNeT
-	Obft0MMdu5fDgPznJlOoBys2zzeC/3YYVyubmbHtN52j/nbI7Aka5PdviBUI6V5EL5alrqLB9iiwT
-	csIHolcabmbIs0nC55kNJX9XTdVFreYFfZESzwt8C0dxcGP8RE1JvP3HCBfJQkWVVpAEErYffrX7W
-	Oai3dHvw==;
+	bh=if5Pp2yj2y088Ag6QNc2cMh+tiY6wmDnShBafn5qCec=; b=a1dEv+5aUJsidoKLW42UlDYmOw
+	oie5FQgFqhk4irawgD98Zb6W1+JAS0HrOb0aj2AtSF5a0FruFpIRnT0AqUyXpYdvIZtgbskP90abZ
+	3hnxJYHy3uJYD2Fhqu06kLb0O2x5/4A99QeGWMKKK9lBQC5cJh/NdMTI1fAv3sFCgOTpJq+bH/+tb
+	2kJgILj+1kSyqmLXdolS1JAdcNBkW7cp7C4ptAaQrZ34eIkxOSWC7BOx9oW8nu95AJNSnS9VLEwHY
+	DCWWXGeUEyv8s8KjeWltIi0xtJSHTAEApfLmPb9HCi6lsrJZTmb5ezMZsrO7ikMHDWFPH3X33mCDE
+	pVYCkI0A==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJVpj-00000009I37-3jJD;
-	Wed, 21 Oct 2026 12:54:19 +0000
+	id 1xJVqe-00000009Id2-1TjN;
+	Wed, 21 Oct 2026 12:55:16 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 753C0300720; Wed, 21 Oct 2026 14:54:19 +0200 (CEST)
-Date: Wed, 21 Oct 2026 14:54:19 +0200
+	id 08050300720; Wed, 21 Oct 2026 14:55:16 +0200 (CEST)
+Date: Wed, 21 Oct 2026 14:55:15 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Li kunyu <likunyu@open-hieco.net>
 Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
 	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
 	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
-Subject: Re: [RFC PATCH 5/6] sched/fair: Add task burst threshold for
- large-scale bursts
-Message-ID: <20261021125419.GK2823843@noisy.programming.kicks-ass.net>
+Subject: Re: [RFC PATCH 6/6] sched/docs: Add documentation for SMT Buddy
+ Assist feature
+Message-ID: <20261021125515.GL2823843@noisy.programming.kicks-ass.net>
 References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <20261020083746.37068-6-likunyu@open-hieco.net>
+ <20261020083746.37068-7-likunyu@open-hieco.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +72,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020083746.37068-6-likunyu@open-hieco.net>
+In-Reply-To: <20261020083746.37068-7-likunyu@open-hieco.net>
 
-On Tue, Oct 20, 2026 at 04:37:45PM +0800, Li kunyu wrote:
-
-> +#ifdef CONFIG_NO_HZ_COMMON
-> +	/*
-> +	 * In practice, bursty tasks can lead to uneven task distribution.
-> +	 * For example, some CPUs may have kernel-mode utilization above 50%,
-> +	 * while more than 10% of CPUs in the system remain idle.
-> +	 * Therefore, we define a task burst threshold:
-> +	 *
-> +	 * 1. For a task to be woken up, the scheduler first follows the
-> +	 * original wake-up logic (such as wake-up on the current CPU or
-> +	 * affinity wake-up) to return a CPU. If no CPU is returned, it
-> +	 * then checks the task burst threshold of new_cpu.
-> +	 * 2. Newly created child processes or threads have fewer
-> +	 * considerations; only the task burst threshold needs to be checked.
-> +	 */
-> +	if (sched_feat(SMT_BUDDY_ASSIST) && cpu_rq(new_cpu)->nr_running >=
-> +			sysctl_smt_buddy_balance_task)
-> +		for_each_cpu_wrap(nohz_idle_cpu,  nohz.idle_cpus_mask, new_cpu + 1) {
-> +			if (!idle_cpu(nohz_idle_cpu))
-> +				continue;
+On Tue, Oct 20, 2026 at 04:37:46PM +0800, Li kunyu wrote:
+> +2.1 SMT_BUDDY_ASSIST
+> +--------------------
 > +
-> +			/*
-> +			 * In general-purpose scenarios, the CPU can
-> +			 * typically meet task requirements.
-> +			 */
-> +			if (!cpumask_test_cpu(nohz_idle_cpu, p->cpus_ptr))
-> +				continue;
-> +
-> +		/*
-> +		 * Simply returning nohz_idle_cpu is sufficient, since the
-> +		 * subsequent NOHZ kick will clear the corresponding bit in
-> +		 * nohz.idle_cpus_mask.
-> +		 */
-> +		return nohz_idle_cpu;
-> +	}
-> +#endif
+> +Enable feature:
+> +    echo "SMT_BUDDY_ASSIST" > /sys/kernel/debug/sched/features
 
-I don't understand why this depends on NO_HZ. I also don't understand
-why this only considers idle CPUs.
-
-Also, static thresholds are horrible.
-
-
-Someone that burst wakes a ton of tasks, even on a non-idle system, will
-cause an uneven task distribution. Irrespective of there being idle CPUs
-in the system or NOHZ whatever.
-
-So how about we track an average rq-depth in the periodic load-balance
-pass, in say the root domain or so. And then, when the the local
-rq-depth reaches some multiple (3 sounds like a good number?) of that,
-we'll fall back and do something utterly dumb like:
-
-	cpu = cpumask_any_distribute(p->cpus_ptr);
-
-Eg, simply start rotating new tasks around the system *and* reset the
-periodic load balance period.
-
-
-
+NO! this is not an interface. Note the 'debug' there.
