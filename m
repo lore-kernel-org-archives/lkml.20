@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571474;
-	b=dzKR+1ivPCqTEebFOyQ4Ng5C9Qe983e66EGiRwzuw2QeKygJrHKuyYE9+8YEuhCSTago
-	 hqRyFPiyRigSR0YUZUQTJumwZx4n4es/tYQE5kagrek1trs2rSg1ioLXbDdURPs8t0HWM
-	 wWQ0DqZx15xNCVrxXCqqkRfUw6ZUdovsasrTaz6Ou6AD6FpSeUaJ4c+62eyglBQB/tkJF
-	 xSO97gZ3Ds8hIuRSyonTIt13XmT+z86QVSAPZi3fuEpvqfch5wJ6ZBq/DJCYb5r9xWSQk
-	 kRA+3WXUWV33DWpyNRxNzhvVpF0GzmnOLaaFWof/ulCaYVT04RMh8vfiwRdxwukoCAQ==
+	t=1792571488;
+	b=Wjehh+kGGyTXQH7ibmKANkyftO9Z7ZWmsZfwq26+Cxca+5AgVIS/3HMhMZcocEGgy9dZ
+	 nbzq0a4a/LBjfMM+nuGnrhro+VqA6Uljo/MeqBSv9stcLhFt+3Ab2AVlyufsSOCGuEiNU
+	 +1YmR2TCxcMBSsmcsUDQTw/PKZi1ncwJxU8Z7dBsRnBwvJ13YKi+kzmygfU10WFMANKpq
+	 VU1YHejgRZlLRDypEdAJiRWf/8zv8gXmf8pQE4z7oqrwJO1R4xUzi9nhWCtSsuqA/CEbe
+	 bztcALKNjo0mktT/iO7Fd6GVKiNz3aIjacqLuId92PkZN2BCJuUUpjunplT/tDkeWHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571474;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571488;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4koY4BOyWDff98SibzubYxzBLIkRmqVVsOccvbFql8c=;
-	b=Fka2DN199kCLRWVY5jj2g1wwmjRRApIXK6WqmUXNVqCM+4QQ1w0TIfV5p5njMqT5XR0W
-	 2O9pmcEprkmzzPHhxgCGPBrYf2oinurIPkye4u+1LB7AYHTGsO2B5v2GrONpEa2IlcdgE
-	 +unAE7kYFWnGhspPqSlfxeAcJawDnvEdBFRUuy0yzXeMBS4LQ3KTdbhS5qtefUTbkuUUg
-	 6VSnQ1qqTRRwNsQayoCJnu5nm5ONKtVfxaXO68TFsc0WReXFZnQCIxxGiemiEybHtlgBA
-	 nVInkON5zJJyW/wL62CR4o9o+t10eKjuvDyBVbg4yisSvEw3I9qcr6wvCmAqPrI3snQ==
+	bh=s7Fb6KtcWAXnUfcecLaSQ1H6J8YKvEJFUWN8A6hcpOc=;
+	b=taxHsmBYg8UAj8OQWCmCJ/doHMrudru5wNb9vlUdcxy8MAuCJQwxSEgZBiDnTNyftybn
+	 XNySJLnsR8+yyPYTSqK3U85lR0phmSPO7BKQo2sQNW40Y1oshpyjhH60GorajnHS4PtAH
+	 J8Ir6B7be0MHjXcNR6Kb8lf0XSS3bsLwPVAiDOfXjCFRtSf3Xe/IA0FABNLhHB7mGGp2F
+	 c8d4dF2PN4c/BwrIHRNBfsecBU4XfGObwwRCmWKqiYs6Vf6H570cqrCMtGfx78iMlUANX
+	 R1uoR0wkGSuYTYaBmHzelr3X9qj4JH88OPIYP59/jSA26US0RmtdtWhEC9hOcDLqQ1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="QlwZC/3B";
-	arc=none smtp.remote-ip=74.125.228.9
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lFEqDUr+;
+	arc=none smtp.remote-ip=209.85.210.196
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F047606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:31:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F047606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1989606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:31:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1989606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QlwZC/3B
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cd6b195dd0cso9038a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:31:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lFEqDUr+
+Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so260401b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:31:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792571473; x=1793176273; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792571487; x=1793176287; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4koY4BOyWDff98SibzubYxzBLIkRmqVVsOccvbFql8c=;
-        b=QlwZC/3BMPPHjKgZxdOuYLu1yhKZcXcXje0BkflnZu9gTGvwVFz6piE6rK3+GZ7NOK
-         Mu7r8bbRMFewBcAGUuu+fHisIkN+2FcKkJOq51oaji+QC05Gw5FyOca5Md7QI0F3VMp2
-         OiH6vwCgOB7kCTQPKBzQqIHysx8btUZLtKc1BZ5VOuPr2KYURjlRALELj6RuOoVhOX0y
-         icxId8BfyGDTFMpGV3iL6cP8enyhyW9THBcmZRddLuMWZOkvBqbHh+fUC1TYeMOYROg2
-         75Uu1JyvaLLyKJ6d/vNHbFip+S6hgM1K2QT7Cx69pORqqyDuENgdaOw43/czAURZ3eFw
-         yTVQ==
+        bh=s7Fb6KtcWAXnUfcecLaSQ1H6J8YKvEJFUWN8A6hcpOc=;
+        b=lFEqDUr+j6HoSBgzxTP1iXUMQ3z3VuCnpKIM7RVCnr+RCvjBHwR3ZHqM4l20d0DJHb
+         dItVVtFeiZpKk+xPNUtBgEklIk3QSl6/qkJqK3MGuVwTxJcE5K9WadyI7oGDwKyESK+8
+         x7BKua2EXOiQ/mGvwfY7VwWgKMCTODMo1UkY/Hthow1ZTVPd7+sC+pp2lwAjZOcDearI
+         oaMaW2hq3Kzka04/FogkjQ0u2FzxTbCZ6iR3NC/joOICsL11Jcj/7xFvT1xWgTbFS3P7
+         69ryY26xT889xF8LCyXmtY+ptFtOxJwtJxdpdGhlbl8CRN3Ftyi5d5eyEjLGgBnbnVgu
+         umDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792571473; x=1793176273;
+        d=1e100.net; s=20260707; t=1792571487; x=1793176287;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4koY4BOyWDff98SibzubYxzBLIkRmqVVsOccvbFql8c=;
-        b=Ysp0FHdDNuvYawKL7JCMDqQTi5HhNLgvuD9BvS/PCUgBvcVdQkponCVl7kRmtvIe2E
-         hV2N+u4L+92MWAJb/qvGwmLPKLlAaT4BU8a6Soxhvr8C41xZ4bSkeYB+kAuAH+rGG6u6
-         GoO8XuqBJBW4DNWgxPGcBZb/oAvzL5OAv4ojcKShwgrI/TYClYR/g6KzDPBsBS/JPbl4
-         Cmamj/FDq66KP2sokhf3x3+6OB/LuGeFI1KIxsOyDW7LFbqpTIb4mxwM+ztUw4YBy7Ej
-         RqS8jA2NUpRpFPhsdS1bulTW03orf4XVC7vk5GRBIjXwRjG5vzgg6YdMTONm707PkSJL
-         4c3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxZBd1GOHDMwI/R4647N+ixpCNvyHGaRMMH4fJ0Ug+xf/04raDLcaDIGms9Kn40YnR8lpoGv8PuIUYSPLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMnTGc16CiowX4ToCve85ye2A+1V4lpCfkTBRMzwcTfz4MmKTu
-	4lLYlYQzuuU5ZTEvrZUjaXI52sLRGNAsVie+/I2RtawLgux16M3I19S9
-X-Gm-Gg: AYBFou2BFKV3o489NWBBpESqSopA4U/hHPpu4VS5wERxNPamHSpmtT58CdEYn24mAdE
-	w+VvGRKNNNX2Ik4MK92MkbR7jvZeytdp63QZlCiAAYPnyXy7GTYBYFE9fWA+QS6AaF1L0rrH8ly
-	spZEAymPoVaUC029hW5MrkZIgEezYeat7ZciIr5vwxB7phmzNHA7BG5QzHJQogTf6eEdKqCf8LO
-	2q/rvcn/MjVpAIQRqOEKUAW1E0XiyqGOR0+hbaOFgJrY6EiRG6HzIaHwjF96njdHIONzQz76esR
-	lFPuHEUabgBsAiceXf2Fy2Mng20HWIY+xcqQYe4EIZ4c7l9vydGbz3lU2F+bhXEZVHcnkHjF+x1
-	itRT8t+4rGliCIlZxyeFVyc5fBPeqBsUbqmW6ybk+Jcx75D18CGTBERHGz9kSHnTe2hARi1+gP5
-	IRiyWGrUgwhyW/5/WGHEJThPHNiTgMdCQQ7qtXyA7fJVQRLretFymdK0XhxDVp0LaKObJtmA1H0
-	scd2uQ61aXQca2rWaPdLBhx9X8pFc3wdD0rQg5/mzay71+lZu+1SzGc23YQkiq6svvQ
-X-Received: by 2002:a05:6a00:4b04:b0:89e:8242:f35f with SMTP id d2e1a72fcca58-8a089cf006cmr1210490b3a.13.1792571473289;
-        Wed, 21 Oct 2026 01:31:13 -0700 (PDT)
+        bh=s7Fb6KtcWAXnUfcecLaSQ1H6J8YKvEJFUWN8A6hcpOc=;
+        b=lwjWCvb26M/CPsa9rrYGlBQTlwzfrikJnZLd6w37y18U4G2Xv1RJfluv8He3lQqgGS
+         xm3sjikhVRQ0YGiIFsPWnv7z3jXW16SisCAx51svTASabo5rZSTy6feIzytswsL5b5OF
+         OUREt65dF2lWRcW0JNXKLWLjfP+7kddJDzOdhqN/tgpgvCZYklicO+R0dJL1kZXqeC6b
+         FkUNYS3x6sp+trJCb/J0nk0FfVatYBXyMRdBawVvkISXSlvPh4PYeOSH32vaqw1gjxUh
+         60paOrDah7ZovzT0UrMPRTiTq6lZOL8h3lXG6ManSghlZH22G8d1PChVhMXqgEZALyIR
+         qzyQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJNBn0DZLSQfCdcADmGPfUqWFTzHQGBTxVUVaGZvc+7rasdM2A9m8lBMdstDQjzNs0LBsD1xooTFZBWNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJ5sOMT4HNT2X8H0vczagBakZPNDseRS1Zo5IDjoAOfgMDmfX3
+	VdNtBzO1Zha+pupxlUWQeqs17pZYcg3OU7/qttNBUbrlRUQzI5psQQSIijEZ0iNGjs0=
+X-Gm-Gg: AYBFou0L06RvovY5kpi5VLd23n4mrOo+JMHgjFcS/4jmpjhIEp4/LwHfdwhG4PJD+2K
+	Vtq7g2wYa273W9qlLFINRiCGILYqSAPymbLzZFQtBGP7etRAV0rerCeCF3eRVtrCRslX1Rppxwr
+	H5rYT258UcGiqDgt0RMVMVXJFmIGtPVuf5Onb4zPQokQ+7l4iCr1/fzPTl5r0fBLubsX4A39rH5
+	u7HMV3pYJcsBMerJQyeqarAdgZv22Bu9caVs4TG6exIgP9ScSTORRJZscgZ3uAkbDsTdR7y9ci0
+	0wauMv562x7h6tkgkNmbtOt86ZnCsaq4HGrrCJ7xqz35II1UF/lD+WRXAjg+TXW9dpnp1q4VTpY
+	7hfqK0cnVQhGtMbO4IldKZxH8qLsboiE/sxSuWODXV8vZL26G7OjayhVR/YGYpn1VtYLiZoiZqs
+	h6dgVh1JSlPNPuETAfSrzSM8BtiEnL02vPsB9eeb9dueJ/O3GntigyvN1EoT26Q/FAQX2RndJs5
+	L9IwJ5nXk1+Oo7viAFBkrvyhz0kY5X9lImtVpsLqC44s188wb+H+pyp1o16ws5oBCQi1z5zvOPa
+	t3qVjPGwEmHXaQ==
+X-Received: by 2002:a05:6a00:2e1e:b0:8a0:4d37:660d with SMTP id d2e1a72fcca58-8a07bf67824mr2764848b3a.2.1792571486193;
+        Wed, 21 Oct 2026 01:31:26 -0700 (PDT)
 Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895e273bsm600653b3a.41.2026.10.21.01.31.00
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895e273bsm600653b3a.41.2026.10.21.01.31.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:31:12 -0700 (PDT)
+        Wed, 21 Oct 2026 01:31:25 -0700 (PDT)
 From: Wandun Chen <chenwandun1@gmail.com>
 To: robh@kernel.org,
 	baoquan.he@linux.dev,
@@ -111,9 +112,9 @@ Cc: catalin.marinas@arm.com,
 	kexec@lists.infradead.org,
 	linux-mm@kvack.org,
 	iommu@lists.linux.dev
-Subject: [PATCH v9 3/8] crash_core: serialize crash header preparation against hotplug
-Date: Wed, 21 Oct 2026 16:30:06 +0800
-Message-ID: <20261021083011.2170525-4-chenwandun1@gmail.com>
+Subject: [PATCH v9 4/8] crash_core: replace for_each_mem_range() with for_each_mem_region()
+Date: Wed, 21 Oct 2026 16:30:07 +0800
+Message-ID: <20261021083011.2170525-5-chenwandun1@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021083011.2170525-1-chenwandun1@gmail.com>
 References: <20261021083011.2170525-1-chenwandun1@gmail.com>
@@ -130,115 +131,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Wandun Chen <chenwandun@lixiang.com>
 
-crash_prepare_headers() counts memory ranges before populating the
-allocated crash_mem array. The weak implementation used by ARM64,
-RISC-V and LoongArch walks memblock.memory, while x86 performs the same
-two-pass operation over system RAM resources. Concurrent memory hotplug
-can change range source between the two walks and make the populate
-pass overflow cmem->ranges.
+for_each_mem_range() skips MEMBLOCK_NOMAP regions implicitly. Switch the
+weak defaults to for_each_mem_region(), which exposes struct
+memblock_region and per-region flags, and filter NOMAP regions explicitly
+via the new crash_should_skip_region() helper. This prepares for a
+subsequent patch to extend the skip filter.
 
-Take device_hotplug_lock when preparing crash headers during
-kexec_file_load(). The x86/riscv memory hotplug path already takes
-device_hotplug_lock, so call __crash_prepare_headers() directly
-to avoid recursive locking.
+No functional change.
 
-Sashiko reported this issue in [1].
-
-Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
-Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
-Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
-Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
 Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
+Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
 Acked-by: Baoquan He <baoquan.he@linux.dev>
 ---
- arch/riscv/kernel/crash.c  |  2 +-
- arch/x86/kernel/crash.c    |  2 +-
- include/linux/crash_core.h |  2 ++
- kernel/crash_core.c        | 17 +++++++++++++++--
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ kernel/crash_core.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
-index fe5a4b306aae..ac8df2edf2a7 100644
---- a/arch/riscv/kernel/crash.c
-+++ b/arch/riscv/kernel/crash.c
-@@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
- 	 * Create the new elfcorehdr reflecting the changes to CPU and/or
- 	 * memory resources.
- 	 */
--	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
-+	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
- 		pr_err("unable to create new elfcorehdr");
- 		goto out;
- 	}
-diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-index e6f23933a6df..bef008a0cb22 100644
---- a/arch/x86/kernel/crash.c
-+++ b/arch/x86/kernel/crash.c
-@@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
- 	 * Create the new elfcorehdr reflecting the changes to CPU and/or
- 	 * memory resources.
- 	 */
--	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
-+	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
- 		pr_err("unable to create new elfcorehdr");
- 		goto out;
- 	}
-diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-index bc087124cd78..28e7a81cf263 100644
---- a/include/linux/crash_core.h
-+++ b/include/linux/crash_core.h
-@@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
- 				       void **addr, unsigned long *sz);
- extern int crash_prepare_headers(int need_kernel_map, void **addr,
- 				 unsigned long *sz, unsigned long *nr_mem_ranges);
-+int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-+			    unsigned long *nr_mem_ranges);
- extern int crash_exclude_core_ranges(struct crash_mem **cmem);
- 
- struct kimage;
 diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index faa0f22dbb41..8a861a946e26 100644
+index 8a861a946e26..e161c8b65e00 100644
 --- a/kernel/crash_core.c
 +++ b/kernel/crash_core.c
-@@ -16,6 +16,7 @@
- #include <linux/mm.h>
- #include <linux/cpuhotplug.h>
- #include <linux/memblock.h>
-+#include <linux/device.h>
- #include <linux/kmemleak.h>
- #include <linux/crash_core.h>
- #include <linux/reboot.h>
-@@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
- 	return 0;
+@@ -283,25 +283,34 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
  }
  
--int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
--			  unsigned long *nr_mem_ranges)
-+int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-+			    unsigned long *nr_mem_ranges)
- {
- 	unsigned int max_nr_ranges;
- 	struct crash_mem *cmem;
-@@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
- 	return ret;
- }
- 
-+int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-+			  unsigned long *nr_mem_ranges)
+ #ifdef CONFIG_ARCH_KEEP_MEMBLOCK
++/* Exclude NOMAP regions from the vmcore. */
++static bool crash_should_skip_region(struct memblock_region *reg)
 +{
-+	int ret;
-+
-+	lock_device_hotplug();
-+	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
-+	unlock_device_hotplug();
-+
-+	return ret;
++	return memblock_is_nomap(reg);
 +}
 +
- /**
-  * crash_exclude_mem_range - exclude a mem range for existing ranges
-  * @mem: mem->range contains an array of ranges sorted in ascending order
+ unsigned int __weak arch_get_system_nr_ranges(void)
+ {
+ 	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
+-	phys_addr_t start, end;
+-	u64 i;
++	struct memblock_region *reg;
+ 
+-	for_each_mem_range(i, &start, &end)
++	for_each_mem_region(reg) {
++		if (crash_should_skip_region(reg))
++			continue;
+ 		nr_ranges++;
++	}
+ 	return nr_ranges;
+ }
+ 
+ int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
+ {
+-	phys_addr_t start, end;
+-	u64 i;
++	struct memblock_region *reg;
+ 
+-	for_each_mem_range(i, &start, &end) {
+-		cmem->ranges[cmem->nr_ranges].start = start;
+-		cmem->ranges[cmem->nr_ranges].end = end - 1;
++	for_each_mem_region(reg) {
++		if (crash_should_skip_region(reg))
++			continue;
++		cmem->ranges[cmem->nr_ranges].start = reg->base;
++		cmem->ranges[cmem->nr_ranges].end = reg->base + reg->size - 1;
+ 		cmem->nr_ranges++;
+ 	}
+ 	return 0;
 -- 
 2.43.0
 
