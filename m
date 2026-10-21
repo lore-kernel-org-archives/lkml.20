@@ -1,107 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792571368;
-	b=5UVF/8N3GxfXDUqkCaazk3BcaGamT8/0U5UXhwZYRFSOq9jVT7lg/TZ7Z+3cBDnz4/bk
-	 P0k71/b+rlQRewo9REN1y7tLW5Tfred72Io4yX9peeTnvIrA3HghbwKW1vn9qG/095OqN
-	 unMSeWYg/XTdx8w9Vxcn26HX+jUPxAI0VvY4YOeghBrS3vB1AOHxQW7b2Z0r14ntzg8fO
-	 7CvDS5Rsuyer8IoaOBTvj9X6PAGUlqs/QnMN/O+FCnof0bW+r268Kb3XDvX6+Ee2iWNdi
-	 U0X1K508ib9njz4NbXLZt89DHJlb1PrWEm3hOVmNQj7deILOqJaxedRd10ywNNCLnbA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571368;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WXnplFHSA+n1V+USpjituuMU/SvZYT9zn3kUlHcbnck=;
-	b=kVpYRS0rvQCyjxzz3z5Rxd0/XhqRh5ybQEgI/QdU74IDqaNSGbT9u6+bL4+IXcwbuifq
-	 B2SoY/KxophwvI0WXo4vK9gu8DQaatIaG1JQSXIeWFVRNR2PbK9kl8ZqNqq7CDhYGv1cn
-	 MI76pYmFQs2/yh5iA3lgeIJLCG9+9M/jlyDglYbAziQZAymJORCOqCyLVIQPwYz09aMZt
-	 N84irrHAvsbtWj1diQS3haLHcgaqj2OfJXHLU9Vh+3GrsrCheajPN5O8/rf0F08zwh6gC
-	 EOOgiDBJloqMgvuMaCvLT2shT/dtIw50G3HEmq79tfkqojU989nyi3/EFC79VqngVLA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=BXd5OouM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.70
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011070.outbound.protection.outlook.com [52.101.65.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792571377;
+	b=Atos1Z1TTAEXnB4jvha+AVd9KizUqpVAZJ49EuFUUgm8ds5/PpNqEbCtqZ3FXt2zPgKJ
+	 5actbq0yXAgTdAjTNBuvEVnw/DglC4lKJh7NjofEMZzW2TJluYqUqER4naQY9ARTdWhUZ
+	 d85UbepIy6+guoMjt6Rjju54fJmJIowckR7td43hRwiighLmgvjKDgj39ajenR1sVsW5J
+	 +lE+DY+p2JzlU1GV6H/bFCMFL20YLzbP4TAXq68t/xfIYccQAKjP9KYxd3i3U9OJvb8zW
+	 n+jiPg6W7J+wgtzhBZgxTIOq9U/d33+rjDt+UQ0ZY6iAbdZsPaylMZF6LXcRvCpX0qQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571377;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DFD1bkt16ejdNLLmjMu8b88ZfYjN6Jbfkg0hGxrurxE=;
+	b=5Sa1tAmwnZTxvpy3q3f40oSCKN7zJdPL+PFyKaSP7Eem1EGHfiy0/tZG6Q1wZpmcXcHQ
+	 bdrai0lMKjupx6V7OPSg+NFOEcIA5rA/LvMkAVXJLReAqy8MoflZi1baRFj40xB3i7v2I
+	 socP6UKi6JcY1GookcLNhlI9XtJKcCYJHFVQ37PX8zLWM+gru3VFnxz7Y+ZRq/hE/SEgC
+	 PthqJNLGrbWTOVpKVGZVNUE2wJS7J2yPzKX1OzT79p0Eaj1VOPCebd7bwD9o5ZGZEY1xb
+	 7zxeDgs6bFvifb4TBAPS+ypaeleaAS/4QrGdpLWOcPCmzN9Am9CIhIbefqETnnJE/fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IhTH5n1B;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB426606A32F;
-	Wed, 21 Oct 2026 08:29:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB426606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB80606A323
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB80606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=BXd5OouM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t42TGl7WFOnVRTirDbWJnNlu6GZHT0//Jj/UVZa663Cywnw6kin0jPvo8m9ZdPg5Z5wqLulfjgZJFkobu5LuxURqzGFpK6o6ftiRaq5U+W5f9BqwcQfXCOyeQ9r0YWX1fL4carn0+0TIznTpbjmVYahTXathQcSw8aDBvf8zfRoADcpOmYCV4nCj4IxQx5YpHyiBUMn44hMH0iHCDFsJiGagufOWJMNacawiA65UJTLWW/W+/ela2VsJOfTW2rwO+U+1gKWAMXgM8zuvn9/YrPA+FehlpFbDMdW4mLFZ0K1WYypp0EL7E0uQaGeiJ4VF6X/V5CrZ6NMhbvH94SLOQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WXnplFHSA+n1V+USpjituuMU/SvZYT9zn3kUlHcbnck=;
- b=uCzfjgS2Oo9USerDXpivT0f7PgUvjKr2midxHNIftECV947rrCqjOtAIiXy6FsD/n7G0ru+JEashJv5DeO20ik3t+3eOz/7938nXhj1Mvc8R9OgaDY85mI0WwhovMBC0MFN0aKpzQ3bGvSD7nKm0tqnGgtKQX0u+jq1Lpqi+AgWSyF7drKsOkLGnvTzIps53+24DRTIUvSy6eTjp9gUEGJrlpJzHLTcPEZu2+RYsV5L4la14VLzyUJrZJS9yJKeGZ0+m+ABz41M51mtT2LuYMYEV6OqVP5O70oYQv9lwaCHLUr97emwvIPabX7KYhNw/kk9DNaFmr8pj50VQy8OHzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WXnplFHSA+n1V+USpjituuMU/SvZYT9zn3kUlHcbnck=;
- b=BXd5OouMUu3UF0xYqKFN7ePaZcMhSRs4MYgJ2z5trmgDPbIzSYVSDrVKhtvAIJOWD8CR3BNmjzjpJuIVuFAg+xlPp40OTPMSfa5T/FQUFzZWipy1uzJTeJMbn3I3H8YuU5O5fQvIUPZG93OTOUb4HA8Khto/XqIYyche6RaeueT3IoDLWTZDY0UjmlcTs7OGFCwrIFa12gqXS7Xdlt9zQDsJHA0tmT8295MJNcU9HmtoaGcX1d9wITxm8G1a8kPmAkj55C+MtkhBnHUuNi/kOGy1r0FmunjyWITsczduwYNgNLbPKyQI7MTgQ3j11RRiPzsFcReQUQoRp2TunmDVAw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by FRWPR04MB11269.eurprd04.prod.outlook.com (2603:10a6:d10:19c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 08:29:24 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 08:29:24 +0000
-Date: Wed, 21 Oct 2026 16:31:00 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IhTH5n1B
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36681e85e87so900844eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:29:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792571376; x=1793176176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DFD1bkt16ejdNLLmjMu8b88ZfYjN6Jbfkg0hGxrurxE=;
+        b=IhTH5n1BAEzIcU1+4ct2ARRUmuXvLa5lwoTLDfPTw5a070TYCjva88wL3iNauAgScb
+         2BzyCmw2TtVHPscNk70iPI9UjZkqDdG3wzb72Ztfw4WQoqfApfZmWrKNNofbLyFwpkMW
+         /Mi4MnYZa5qbsgIVWDenoSVtFYg44GxGJ7AJnVMCcGubl+lpF+DQYS86hLPgDuapXuyc
+         TMOvnAHNA6nYg4On6YOGzuKx3hc+59x/PKcMmd3720X4/66rYiyJwRECINg1hzGI6+yK
+         6EMwIEm4wEncI3PtNXIDD8oeKhsDins/AOFGVtfx7vk6TioFrFlFPYBH0hl6Amty6JU1
+         h89A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792571376; x=1793176176;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DFD1bkt16ejdNLLmjMu8b88ZfYjN6Jbfkg0hGxrurxE=;
+        b=CHUmJYW9IqR24lECUPJlaP+XjPjKpQFnHwSGRoLQTjeVLWZ6BFZxKJaoDMAg7mc6mV
+         Pd2h3FwctBKWALrNQQEdRZ9Z5PqWFVsn7metlcT19VYACk9fgfidGnq9rl9e5d/fL3R6
+         XtsvcaHZQIoKuH/nW0vu0OdgtdUr852jvtrqIFrq/qc09KEy3F4jrhhgJ6abrpVTDr67
+         SqqBw1wBKoPIuylnGrHyB7ymUre4r9V/J4sOTyN4RAOHp8x2FLTI8r8bniV+zaBesCKD
+         6sYDnt8rTfBOxt5o40sVK4NG5dw32CP3t0c3t3PYj8YTSHM2VfzHK+WfpLy2PWBDmj1g
+         Zk2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxtinjc0eWGENX7tgaOJ2YeTVXbbWTR2zHqmPK5rWFEPaozyx2XaoNA2778MuRQmneaDUV84RiWoLzcMFI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtlxwgMEExrRVb90dBQ3bWvnAYpy7QLSApQ3mgJ+Qm2xed56An
+	YuzUsmdAqiboCs57q9rPi31j7s1FPyIyyyDqpDDI5dS+BcpVuDzqeJ3V
+X-Gm-Gg: AYBFou1wagehuIgD97bIRKRd4iW07aelWApPxD9FR/lDdpj3tw1yBRNl9WOwSuX1WP8
+	3VQ4HCL+rMZXb7odMPhuEmAxQ0qESfZHiLfL+ZtJ5VFX+N6xSqjUEYWZObF6394vYUME1fpFtRi
+	bN8H35/IXK21KUqa7Ud+66K8aFUmImuUhkW2IuI9NiCQqdk9NaAbIcKfe+bQFMs75B3/lGb7nX9
+	8NkJ/pmb+f7m1HEgsCwzZGtqMNnJlV9+VsuffxvtED7fVlTbVZgvxfGWITfB2hhjuYKqPq7Nr6A
+	ur1ji+HlUTS4ZuQ6gwPbsxseERTCcvCXHgwEJtSSj/r5/bqjieRG7EKxLXhn5ZaCc//hn6dpZep
+	hWgS+1seOgPl8X0z3KTa0zUtawxABgZ92flPknq22bixZZlFnoaHaJ67wUUksnWaa3k9b0uXcMH
+	pu5PSZjUF2l7f+pl4MvGA0m+gxn+wTKqqxmoNzDFhK8IU7hSOtNXzFudAhFmOXWMiybBRwFlFw0
+	EEs/y5ZepyxI1orhXpl26VH6fqUxymBPqahBowNY5wHJJzg0rBZfz20intcISmtnVvJfN+b5Wm9
+	5WLAuoxBaKP5C33DeMAwT8QRC8nmsrnlfh/9j5Ci1Lx6kQ==
+X-Received: by 2002:a05:7301:3896:b0:366:2893:7421 with SMTP id 5a478bee46e88-3674d84ddb2mr2458844eec.10.1792571376399;
+        Wed, 21 Oct 2026 01:29:36 -0700 (PDT)
+Received: from localhost.localdomain ([113.161.48.203])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405edd7bsm5199132eec.6.2026.10.21.01.29.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 01:29:35 -0700 (PDT)
+From: Adrian Nguyen <thenguyen1024@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 6/7] arm64: dts: imx8dxl-evk: Move ACM MCLK pin to ACM
- pinctrl
-Message-ID: <ath4RHfj-rOTXFE5@raspi>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-6-adc944659e14@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-dxl_lcdif-v3-6-adc944659e14@nxp.com>
-X-ClientProxiedBy: SG2P153CA0039.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::8)
- To MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Adrian Nguyen <thenguyen1024@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 1/2] dt-bindings: power: supply: Add Qualcomm SMB1351 charger
+Date: Wed, 21 Oct 2026 15:28:40 +0700
+Message-ID: <20261021082841.79147-2-thenguyen1024@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261021082841.79147-1-thenguyen1024@gmail.com>
+References: <20261021082841.79147-1-thenguyen1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,74 +105,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|FRWPR04MB11269:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd36273e-efbe-4cac-cd6d-08df2f4d69c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|7416014|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	BJ2z7bJP/UB6AY2uKVfoRZ+Z+XyEBb5bGuE+zyj8ci4PlH4iUjuKbX+fFm3wCHcvA8KfmWb3+hiLoNEdoP9WFid4lOKm70iAZdrQNlrEF7wrXn5ycKmw7gR7GOvN+fPBw/GXQ0uETxxtKjvzPrYa0J9YWTd7kRiHebu8VM2l1vPkswQGeJf/nnvhWTnJ9BY5rnuFo3PhWRWF4/7ex179cVvQbOvPIVESbCJLBTBknPPLJnX6SPKBKUy/Z1PaUspX8v03lWSwV0IILyL60fO1MyOugRamuBi8C3WsdCLeNmb6oYpnjU2U4M2lz071iBqPEgTNwI5bhnrS/wOnArqS/kjrgD/yZdqNBvmZORsIB9VMli6O0i7ffa0LINiqkB0ufTHiCamjzKLFSxqHvVjC34icuwbfBDpSm/u21L24CdM6AX+wWgpjTepOnh4qT2MYb7zXh5drlSPgkmaYVrNgH3K6DPqeQ206K/QyasHwYjFagzMli1kbiDku5LtLfUzWu2/bh2rdGnUv3lcsr1+/vFNjxP2l3vf77/0AOcJ1vRkFUg4ilDD9IrGCMAePnldVs0MfGUOihloP2G0IUN2i395VpGMY/PFATxuVY4AW2ntalo53V51CPluQ/W0iTgJWRXreo6jKOCn3/HV0tPz2TDgukLOAjR1KsgBqQtrEGfM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2Ds8lmnDGMsgnptVzTkAHvomkgAi9BA12cgAHCT4d5vcI/jXV32aM6A4O+E9?=
- =?us-ascii?Q?JxrZQja6w2L/Jroet6fi/EDm3QuKjSmiv1hhbg5mOWEed7ejIMN4TAHG9g/8?=
- =?us-ascii?Q?62wtUygq8mf5gU4vGmnix66e339QqSnhU8x95P8W0ca5eWqBMBMjvosTPW7w?=
- =?us-ascii?Q?YYtddSYKDagHYfAUKTF+DwMiqhk8RMsO+3/MlYAdDLpiQS7WFd//ICW+lufx?=
- =?us-ascii?Q?GDlNqdHLCzF1176J7IjE5ojeIpYv+9AvHW/Sn1SQuWV+i8CFeA5dmoYkhH8t?=
- =?us-ascii?Q?WzlnI+Qph2+30jJlri/MYoqSE2NJEnlG0eILNAnMiAQX28RLVr9PRLPBHtzK?=
- =?us-ascii?Q?IniDOXSxIakIrH7yCDcfFoOTA9bBpHyWKtzRoiCJsiUka7FTp8zlD1VsLW3Y?=
- =?us-ascii?Q?UtwuAQOftcukgZX9XwYERiecxPlMKbqDUPkfIMPtFL9MfdBPNW6iP2lfsoTQ?=
- =?us-ascii?Q?HaPHT3c9tKZVhyl80a81vWc/obo6AN3EjXrEfstxEVe1pDNDRqGjUt6/4p2+?=
- =?us-ascii?Q?TND/cGI+LWcgAPngTL9hOneHQFPZGZ4BGhDAgCTV8a0zDC/5a+/rXU3zhfGy?=
- =?us-ascii?Q?CN2SnaONr4oDIzuIgwFtHMoBNtkHsY4TA7FXkKat96WzavMKfAdb4pv+nx26?=
- =?us-ascii?Q?wAX3gt0RDyZ0G5R6GuB47ppsEJbYV1xtbY+qKJgi+50G14Too5yrrEjb6BEG?=
- =?us-ascii?Q?hxvS4jSTxSXvBumphGwek3Lalsg3dlzwTYtyGZn1ZWEjdLBnNOW+7Sig9/w9?=
- =?us-ascii?Q?0ZJpKuQ/MJ5u6PsBIfeW5Fjq2P0MMbJOd4Zip3mPKgDitnz5Ik3yPMHjKnm1?=
- =?us-ascii?Q?zyXuVZSIoCgI/YggGVB8f+QsHEUXfenbOxKhnVFbtHp4RKaxPNo+ibapo7pf?=
- =?us-ascii?Q?LJdhktYVJJ63zjWuzWpdvNDezyOneEhgctHNBLtIRy2kewes4cYDp6ealoRh?=
- =?us-ascii?Q?EbjEm3z5X8Vnxjhs0oiccU9afPZmm5rkRYMyHSQmX/ZLWqGKUbHwc9hp/6My?=
- =?us-ascii?Q?/byjBnxZPxgLYKDd7YFLyOXhM0/AdLqXWZsAwGT7AqAEi1gDQj0KaGFPBaRn?=
- =?us-ascii?Q?71kPmKS23EovoHJnEuwVe8eZcZjBeDjvrK3vANHIe9tqE0TButJDgBLWpjU7?=
- =?us-ascii?Q?H7QUZpmV7y/oN9EwYgRsPGEapBuA6k6PUDN9/xAIZU+g+Zal6yiNZm65599C?=
- =?us-ascii?Q?QWV8I+eroEI3FbbcfUURJ+oLf62BvXRNdjKp+v+hSoP/J27uO0Ct4SHbtxjU?=
- =?us-ascii?Q?PyxbsL2Ba4aVn4W/gHxQ7OtZYGNcdxV9CxGSt1KOn8ScSvGxushLmolRsKoJ?=
- =?us-ascii?Q?WUYuItxt2s4/1Z03vbpN0WkS1hjhJmDpbk8cL7E5Dvxt7R8IJfYgncXav4mO?=
- =?us-ascii?Q?ZYSVQ7n3XPaX1dbTbU/akq/OIopBHdH17OxRNjTBPRnuQQfXCRr9pIOynOMZ?=
- =?us-ascii?Q?d3Ieu3qqcCLSOGm0oJjCNPVaphFn0Eaj1lO7WfLh89WIQ+OJsxiz2t2jvB/N?=
- =?us-ascii?Q?/djW1Bjl32TYdXnMmX63uPB3nowU6Nio3YgG5ki5dNwBSsERfw3Fe3hnqEva?=
- =?us-ascii?Q?/Assgbu3EQHBoouCA9GC/FJurRgRcrIIKZTCG06OMsrpSV+2lhH5E9r/0oln?=
- =?us-ascii?Q?tsooDBclVLJvegVb74ooR6Z/SxZXHXrKxoOOIo3XZAhGYA9G56oa7U45kzxK?=
- =?us-ascii?Q?F3CdEYsTAC0PpmiQZ6IwVDdE0ZxfN+z8JSY8hrOkF+eWvm953DPgOcsjGRSX?=
- =?us-ascii?Q?ygntOJmRMA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd36273e-efbe-4cac-cd6d-08df2f4d69c7
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:29:24.5884
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EorHDFRrnqxHpxVGo+LfP5UVzMflOeSFBOwTW5N/uk3NxhuzsU9AeWklPwTiOzlNalaNdoB2e23WaF+U503hrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11269
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 04:12:56PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Move the IMX8DXL_SPI3_CS0_ADMA_ACM_MCLK_OUT1 pin from the iomuxc hog
-> group to the ACM pinctrl state.
-> 
-> The pin is used as the ACM MCLK output and should be configured by its
-> actual consumer rather than unconditionally claimed by a pinctrl hog.
-> Prepare for LCDIF support, which uses the same pin.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+The Qualcomm SMB1351 is a switch-mode battery charger with an I2C
+interface. Some phones use it as a parallel charger next to the charger
+in their PMIC: both take power from the same USB input and charge the
+same battery. On the Vsmart Active 1 (SDM660, PM660) the SMB1351 is
+powered from that input alone, so it does not respond on I2C while the
+input is absent.
 
-Acked-by: Liu Ying <victor.liu@nxp.com>
+The SMB1350 has the same programming interface, and the two can be told
+apart by their version register, so the SMB1350 gets its own compatible
+with qcom,smb1351 as the fallback. The version register of the chip on
+the Vsmart Active 1 identifies it as an SMB1350.
+
+Document the chip with the battery it charges and its STAT output,
+which it can drive as an interrupt line. On a parallel charger,
+power-supplies refers to the PMIC charger whose USB input also powers
+the SMB1351. The SMB1351 can also be the only charger of a board, with
+no PMIC charger to refer to, so that property is optional.
+
+Assisted-by: LLM
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Adrian Nguyen <thenguyen1024@gmail.com>
+---
+
+Notes:
+    Changes in v2:
+    - Drop monitored-battery from properties, power-supply.yaml brings it
+      (Krzysztof)
+
+ .../bindings/power/supply/qcom,smb1351.yaml   | 69 +++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
+
+diff --git a/Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml b/Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
+new file mode 100644
+index 000000000000..468899c15fa2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/supply/qcom,smb1351.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm SMB1351 battery charger
++
++maintainers:
++  - Adrian Nguyen <thenguyen1024@gmail.com>
++
++description:
++  The Qualcomm SMB1351 is a switch-mode single-cell battery charger with an
++  I2C interface. Some boards use it as a parallel charger next to the
++  charger in a PMIC, taking power from the same USB input and charging the
++  same battery. On some of them it is powered from that input only, so it
++  does not respond on I2C and loses its configuration while the input is
++  absent. The SMB1350 has the same programming interface, and the two can be
++  told apart by their version register.
++
++allOf:
++  - $ref: power-supply.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - const: qcom,smb1351
++      - items:
++          - const: qcom,smb1350
++          - const: qcom,smb1351
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    description:
++      The STAT output, which the chip can drive as an interrupt line.
++    maxItems: 1
++
++  power-supplies:
++    description:
++      The PMIC charger whose USB input (VBUS) also powers this charger, on
++      boards that use it as a parallel charger.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - monitored-battery
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        charger@1d {
++            compatible = "qcom,smb1350", "qcom,smb1351";
++            reg = <0x1d>;
++            interrupts = <61 IRQ_TYPE_LEVEL_LOW>;
++
++            monitored-battery = <&battery>;
++            power-supplies = <&pm660_charger>;
++        };
++    };
+-- 
+2.43.0
+
