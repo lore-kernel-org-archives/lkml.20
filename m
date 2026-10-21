@@ -1,55 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590406;
-	b=e13nh+dGGhdmteNHg5xFr3XCyesqokw/+ylmszJO4e+i+vzjcttPLbQ34TZZNYmcQdXA
-	 6izUn1iR5ZDnen3Y+4wjnHHSkmbyrcrtK3gsPe0Xa8xZPa/IR1AKKQSOQlNHV9fMSyO2k
-	 I+fNsm7ckTBVAFEMpkhCiTcZN2ctTWzlAHHm6qExiRErFAhdNsKgrPtN+4bOEChtuYrFZ
-	 oa93LHBAh8VrRZ/dBfWcklO0y8TA1BC996nBJvaW6CjFQoa2mGIAhpTRzbNy78XnrnM58
-	 78BJYYsoO5seXx9qE0h0eDvJ/KQbf55+ymTpgHTHXQCuLh0pMSXwg3XQyaOgBZjLeag==
+	t=1792590427;
+	b=pFb+m3NfaKRwkZmb0MXsOgJ3mRaP/N6PfwkMVU6LyHOBrYAeHOtM2c08oSCyu3AJOxsq
+	 CWuQo4NsfQ6qLK1C4q1ywnT2f2+NNsMC6AG9vAI3unH+byV1rRhLmAeowAVIN4I0oELIl
+	 58JpidrNoF5RL7fFNB4bldkE0LdmX08LRRGcjXgh3LIC4Ef2ivHXikadx4pRECI2MmQPM
+	 6YwcvjsNeMspP8PvdzH3rCgBkROawjtdj9Dwd619l0zGNMiSgteNU3HouDO59GcMwV3WB
+	 bxXDzE9gjZ/XKZDpOYwqFVtDinR/798E4yWRCyHq/CKN6DavVN10GfUrGaR+LygtaNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590406;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=I6/6Uh41IoFFgszk2IKERpMB2eQaR/juRRrRaVzRT8U=;
-	b=bgHDhwqIdAxFEiaPtvCzsGjYqKVq6GoHp4HdZuYNp36o9Q8Qrb0YmYISaRto6qQZ9+4b
-	 omplV14t8zUox0ly8TCgNHzK1p76RysoeMWpqKc3sd2i3xk0YiyQHZrAwwgNNviLhuumb
-	 G2DAnGs38x5wofR0czON34ZNk6BI4xzPAsOpqXzAcWABW4N75esrpzfgXmzjVFBPh17Ew
-	 EkJfLINAf7OKzU3AFh98055fEtWf5BeB2372ysKlX8nQzyLtParKptvPwFtFwSSKhOUy/
-	 RkiHBZBsxRW9efjPQxJ5fO2JBbry/1a0EFI1g2tg42iivCj8mq2xC6kzrUtcZZz4xwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590427;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=kgtGQJbzPRUfHlejZQbNysmTaQQPZRXn9ZZAO+5WyiU=;
+	b=E+Pk6Aqtj39iqn4qVx5J7MCREX0Kq2nJaDCsKfg6Ue0PtoCfPX9j5sRh1gUGU1IFmNyu
+	 7L98tDLyNmzZWdHgqIsIz6uNF7jFBgSm6xD8a27ifViloZGTrzHzcuzhLw3YBCKq1dd/4
+	 o+srNIL/L0qLMn9YhYHZLke/p1pskbYWhFqyXjPXsRG7Lfe+zrITIhDHVf5xYo7DuKns3
+	 xfpdsQ9/DfSmWixZmlELBoSEISDp04zyh/dt96SKOiZnrEdtJNUt6+tr1v6WwUDmMOZgM
+	 FJRfVlsqAJd7HXYWuWwA1+o2aaQ1VQFiPPHwHltNr+ZhW3rdo3myWwZaX/iVDWw9qcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/AOx3/J";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Ldjnfx1t;
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55A3606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F606606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:47:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F606606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/AOx3/J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2D71F000C4;
-	Wed, 21 Oct 2026 13:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792590405;
-	bh=I6/6Uh41IoFFgszk2IKERpMB2eQaR/juRRrRaVzRT8U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=F/AOx3/Jog33ScxCxlq+5+4HxMoV4Z08KC2K1rBxWvZe+v2xOVWr/8TPVo3MTWTVO
-	 4KUuChie2CH+0+tUU5SRJKYv07zGoNvVMc8RMzkuTQGR6x+XwLGI7HB2UX0eRTwFQi
-	 xAv/CKZKENTse/QbXZeP2dsjh0HBp3qwApo5bJ5ccD0YwxdIf2AR0jW/m2igSKIXA9
-	 NLrNTCnd5oAdOwMp1PZtToZcSLH7RaQOz31f+tsNqKsW+oa9v88IvR1vP8NXbWibJ2
-	 pcjvYcKLVdGbjItpFZTse03buxHlBlExzHwrNMzTtWioK1jxySn43Mx/su3V59illP
-	 3vxDVcQpBb5+A==
-From: Christian Brauner <brauner@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>, Avi Weiss <thnkslprpt@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Eric W . Biederman" <ebiederm@xmission.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <20261020181101.1605736-1-thnkslprpt@gmail.com>
-References: <20261020181101.1605736-1-thnkslprpt@gmail.com>
-Subject: Re: [PATCH] signal: skip blocked signals in
- dequeue_synchronous_signal()
-Message-Id: <20261021-montag-zugnummer-hellt-6b4a39703efe@brauner>
-Date: Wed, 21 Oct 2026 15:46:42 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Ldjnfx1t
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f259cdc86so72531185a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:47:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792590425; x=1793195225; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kgtGQJbzPRUfHlejZQbNysmTaQQPZRXn9ZZAO+5WyiU=;
+        b=Ldjnfx1t/qfbMvCpjtlUf1T23Q41lFuGDI94teAPX/Idd8dibdqldK2px3JKb3K1ZM
+         vBOtzE2m7UsJ0NSSNrGl0OpSpINMVJ+qVxcP58wE9VF0VWRdq/NFLN8Qjy/PRFB30GK9
+         HoxWjPT05NUVaM2AnCVp8lZj6X5bysDdmLCg0oAzHpZsmjkCFtn+I2mSSJ9M2ymw749/
+         GpfJGghRc2KwOh8tS4aixS2/biA3AT70i9WbmbXKH22kMsNd62U7VO/5e2mQ02OQEscw
+         5Z8jUxZAxNC13YcBuvRNWl8b5CPNkb2XiVuE9NgJvjLcr0y+RSUcwbe2gJd9coV5ZGon
+         ejBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792590425; x=1793195225;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kgtGQJbzPRUfHlejZQbNysmTaQQPZRXn9ZZAO+5WyiU=;
+        b=jAj5GW/y858rdc++oesOm1ycVj6D6i1FiEYejttxN/0O0jOiqIpGu/Lh8eXA2W9CeU
+         4SMorbxIpVb1YkZpXXgJOGdK5FWq/+0wg9lIqxK+6kIoHyi0ASWedINik5yRX+9ZYp/H
+         J2LcKr0BlmPEqwmlrNaPVCL5TLjpOsV6xcJZE+6G9891pZx6ZiolCDJf0AX2RR+KEett
+         vbY8EqM79JJ3gqgq82oSEIpHsdSdvD7ENaA/QtH56uYbNDhFI+WqV2IcKrdnJOg8nsED
+         nVyGRt7/pVvW+aYXlWvHfPl3BxnqyNd/vx1PemXEJvP+aviJKyAyTuVtNKB73L0/K07v
+         k1Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBzRfrAXKLrOQrvcOu6Ou17wFF+oEpkPUrm9J4KyjJMDNI6EfoE2RiJotziZ5IsVSDOScMSFUFoHx2cfr5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8Yy9qttEOCpqDJd8svoePde+rzfL3OAXneUgQZFX/88vy1fRh
+	YJFAosMK+ILbQTBnJ7Whz+w3XzAwXFRzroQsaiVGgRhi0+nguNaAGdSVzwiLIfA3Hp/m/o9NYEE
+	2sm90YA==
+X-Gm-Gg: AYBFou1l/5lNoWSS8Wulsz/8mdwieKfw2kZwD1c/CdlBrU+rdaIwTtRswqtY/AHoppc
+	N0L3dehJP++wsLI+iCAdqnivJywejHKhu0pNO4y9XrqDq7vDltrIBcpNG69+4ACly2AwEE3dFRY
+	fPj9g8Gi5/wLoAEe8461Sv4H08DRQhfwjNG/UXhZrOfPNWe/pjWQdMRJmuMlbHGuOVTlFQzweiI
+	4WQgfgpxdSk5djL1o+MXGphGYzHBZ5jxH19oENzyqdm/KVqIebVeEKJkXp99aCW/KwSOSvc/mld
+	4uYoUnO/JUTdplaO8QWVZj8/sTM5ObHjBhedw/a+qDuMFQQNqP9p/spuwuismVFbyUq8shFOED9
+	hD3jDVV3rm6BOwzsihx2E0DVq1E/ttVIe2nvHdESTT0+IhkuUTo6cohfxqUr5rzwMPNyJC+FN2T
+	4kZMHU538s5ZvKmNgNbg6GPHkovbzaofbr3uodSoAR+AeA59J7D6M4za+S1uIUkjjO51jDuhrIK
+	IyW7bO/6ZzXPUe1jerKbNWchUAxuzNvp+cy5JB0THQGPXma90No7O+GRb3m8UoUvc2gq/Y1sg==
+X-Received: by 2002:a05:620a:4496:b0:93e:c12c:f121 with SMTP id af79cd13be357-93f57fe2729mr420063685a.77.1792590425021;
+        Wed, 21 Oct 2026 06:47:05 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e2a60fsm257587685a.41.2026.10.21.06.47.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:47:04 -0700 (PDT)
+Date: Wed, 21 Oct 2026 09:47:02 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Cole Leavitt <cole@unwrap.rs>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] USB: hcd-pci: Do not disable an already disabled device
+ on remove
+Message-ID: <c9cb1c9d-1dab-4a18-af70-636770dbaa64@rowland.harvard.edu>
+References: <20261018164134.134106-1-cole@unwrap.rs>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,37 +97,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018164134.134106-1-cole@unwrap.rs>
 
-On Tue, 20 Oct 2026 21:11:01 +0300, Avi Weiss wrote:
-> dequeue_synchronous_signal() checks whether an unblocked
-> synchronous signal is pending, but its queue scan can select a
-> different blocked entry with a positive si_code. This can deliver
-> a signal while it is still blocked.
+On Sun, Oct 18, 2026 at 12:41:02PM -0400, Cole Leavitt wrote:
+> suspend_common() calls pci_disable_device() and resume_common()
+> re-enables the device. If the host controller is hot-removed during
+> system resume before its ->resume() callback ran (for example pciehp
+> handling a Thunderbolt/USB4 dock or host router that did not come back),
+> usb_hcd_pci_remove() drops the enable count a second time:
 > 
-> Check the blocked mask for each queued entry. Forced faults
-> are unblocked when necessary by force_sig_info_to_task(), and the
-> existing pending bookkeeping is unchanged.
+>   xhci_hcd 0000:b2:00.0: disabling already-disabled device
+>   WARNING: drivers/pci/pci.c:2198 at pci_disable_device+0xac/0xc0, CPU#9: irq/128-pciehp/225
+>   Call Trace:
+>    xhci_pci_remove+0x89/0xd0
+>    pci_device_remove+0x4a/0xb0
+>    device_release_driver_internal+0x19e/0x200
+>    pci_stop_bus_device+0x63/0x70
+>    pci_stop_and_remove_bus_device+0x16/0x30
+>    pciehp_unconfigure_device+0x96/0x170
+>    pciehp_disable_slot+0x66/0x100
+>    pciehp_handle_presence_or_link_change+0x62/0x190
+>    pciehp_ist+0x14f/0x1d0
 > 
-> [...]
+> (usb_hcd_pci_remove() tail-calls pci_disable_device(), hence it is not
+> in the trace.)
+> 
+> Only disable the device if it is still enabled.
+> 
+> Fixes: a0d4922da2e4 ("USB: fix up suspend and resume for PCI host controllers")
+> Signed-off-by: Cole Leavitt <cole@unwrap.rs>
+> ---
+> 
+> Notes:
+>     Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
+>     Barlow Ridge host, I226 Ethernet), in daily use since 2026-09-17.
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] signal: skip blocked signals in dequeue_synchronous_signal()
-      https://git.kernel.org/vfs/vfs/c/2e835d0af134
-
+>  drivers/usb/core/hcd-pci.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/core/hcd-pci.c b/drivers/usb/core/hcd-pci.c
+> index cd223475917e..ae5175fefd91 100644
+> --- a/drivers/usb/core/hcd-pci.c
+> +++ b/drivers/usb/core/hcd-pci.c
+> @@ -348,7 +348,13 @@ void usb_hcd_pci_remove(struct pci_dev *dev)
+>  	usb_put_hcd(hcd);
+>  	if ((hcd_driver_flags & HCD_MASK) < HCD_USB3)
+>  		pci_free_irq_vectors(dev);
+> -	pci_disable_device(dev);
+> +	/*
+> +	 * suspend_common() disables the device. If the controller is
+> +	 * hot-removed during system resume before resume_common() had a
+> +	 * chance to re-enable it, there is nothing left to disable.
+> +	 */
+> +	if (pci_is_enabled(dev))
+> +		pci_disable_device(dev);
+>  }
+>  EXPORT_SYMBOL_GPL(usb_hcd_pci_remove);
+>  
+> 
+> base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
+> -- 
+> 2.54.0
+> 
