@@ -1,55 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792626162;
-	b=OxXG0xCKUPDrlt8/uYm7Uzt98fYBCGGNvwnYWiayiIYcdVd7j1vXJwZNuVmeDtsR4I+X
-	 wTKp7R6ccBj2JV6eRDYpvUHIBpcG6lTeJp6t63pgoNQ1Gh+4V871PjP/iRCpQE8XAMcB0
-	 LLPCioo4z2mUaN075ful9Ri/b05hyixD/ksRCcmYOX3Bz1UfWxyB57aNSXsxJyB1ja8B4
-	 fdk3fdBw5voWZyT5ptW29Df++N2IVPJfI2//X0UQFi2n9VhZYahI1dRzi9XdNYQ3SQMHW
-	 8eS04WCMEmXL6lNMR7VhjA71HOQFqXT6coO5N6DdcH71A9VWti5yBG/6zCx+pVCFs2A==
+	t=1792626410;
+	b=vex4qarORtXnvkoq/R3fbcWvF0pllcqbiFyvBSeNUBu0YdPO7FsW0/xQF6RkmoC2n+ej
+	 Uw3bCKX2MwxITf5qADchFOYmZkYMFVJ/l+lIpX+OqGSVrO5t3MnBW/PdQ5P/N1cHik6c1
+	 /uWWUzFGLXHpuEBiSEafQIU2yN2uxDp2ZYExB2PkKblYJH4BeYQVYFgkNh9um5JegnuMM
+	 bCTvqJEUj3BqauPEim16knReeFdkksbzcArpG2qnhFmGtMixTLiXC20qXdjVBqqnD/Rzu
+	 rt8S2vQ5RNFOmt0KM2fdPnhWJFuo41HhldtekbTb6CVzFgHK/gZFxCGqKyWySPVHjxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792626162;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FCttpM/mIWeoisgI4Oe2UgAbsAorju2aXD0ZdeQI/eU=;
-	b=vc2MzPCHUDqBAdVLbpM+583bQCYKIj2CbZVZA2lFG+knjcfMLq26nGXGtoqg41TzK9Jy
-	 HIb/qUFUCxizeKUyyAOkNvQOJuJ5AXMvME8fj8/7ceRk29DLMCj8W9FqJb/HGVeeYOiVi
-	 nQJRQKkhUbzqJ6Ren5S3x2ZA9CL4FsfKmaWcfLT89D43bSxE/LUaB6SSdAwRWPgjWSnLi
-	 bmwWGGbYYmv0tWzSWyY7ReRY7OUMWRiDVYRqbIH13kOXZ42G39IfV9aBgKTUgcIadRi94
-	 yGtN97kbn+wwXNkZHXpBTtMGPVCOMSWQir8b3IUzEqiZ1bx1QmBqB9ZMI/e6RAoFnpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792626410;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5hX1MqYn88/+pnlEkFAqtJFLd0d2cAMcWs6EkV8ygAQ=;
+	b=BqOGLbVU1NsNHkHz+pH4pAhobbj3roNwsmd557oOCsD0T8TdA8Z3dP/Trztm7UDXjMtL
+	 C0pCXZJummtTttv23sVgoRovXIDRyRu19Dyiwgt3aTkf4tFzW/hYq4kcjB3W1niWpUka9
+	 rG4cdSEEF7ZEdVUGXGOb+o5E/39m2lqhqjx7Wbwx0f+2S28hVTrg7ZOtFcV3he0Rvzo3j
+	 DOfpFCj8nfcZfIBAzNTS1ovzSXjsqY77ewb27H/qj3BVfuxaWJTARTfgKwJbaql904vPc
+	 7IYlg+CVDwltsps529UCGIgc+Xhr5KSwXNmN6m7Mu2HeXWcQ5WYDBSoOTKJJUqMJB2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGY3K1M7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PK3pq3BW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDF2606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:42:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531D8606A319;
+	Wed, 21 Oct 2026 23:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGY3K1M7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DCA1F000C1
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:42:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PK3pq3BW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99C421F000C1;
+	Wed, 21 Oct 2026 23:46:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792626162;
-	bh=FCttpM/mIWeoisgI4Oe2UgAbsAorju2aXD0ZdeQI/eU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cGY3K1M7fCHt+Twn9BLTTxRcWwHGXe/n/oshtl388cWfeDxu9OoK6OywwiaavpZ84
-	 dM5o9tAl9k8qM2pWUnYQl/zBYKFpouhsneqjvoz7jfgcG1RSPR3pGlzP5zLmP0f2ZP
-	 zFmtKN6geV1ZKWVyRGz0ebSnuG5QimrsLqw2qk6DX5RhUdGiEmY2ZzLqDiFaQbH4gx
-	 Rl2CXMZpi7GtzfCHCUDobVvkY8vuBmBn7A2+gHFHB3W4zCW/pzOxI/3wNaOqcAMwyZ
-	 9hEpBKfGb2clVN0MkRmVipfUya7IG4rTBPUvKvXHtt3W62+MSd9m4fwkW0Un5pxb5t
-	 ipnX66rl7+m3g==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so347602e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:42:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw6yvn6itgnThMpoiJGDfeo1o03oC23qy7BHuR/xJh/LX62DX0SNdAKxyVrvJ6edmHVwjrQ8eQeOF7yrco=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKu3/jTvcJVIqkFT/uDnLzf/Uw/7WUulC2t7g4DuMl2U/+66+mS
-	CwXAgj0ilsLVuStt3Qt5bAvoq2Ncrl8z8WidYlYDimxDozG7zptuPSK2JTrs5FUs6je9U5bzWm3
-	qyej+dqwhQVv3G2Bz1UZ+IJov8Ho8BkQ=
-X-Received: by 2002:a05:6512:23a2:b0:5be:478e:c5d2 with SMTP id
- 2adb3069b0e04-5bfa1cdba7emr1474028e87.29.1792626160903; Wed, 21 Oct 2026
- 16:42:40 -0700 (PDT)
+	s=k20260515; t=1792626410;
+	bh=5hX1MqYn88/+pnlEkFAqtJFLd0d2cAMcWs6EkV8ygAQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PK3pq3BWJHKW+Z9wE9MZmhih4YMhE9tccyBw0OSgOUjFdbtD3k8/9hXYW3J7vfTHE
+	 jSiJ07Gxk3hoP7J8bdui6BWvxDG7HhI4XMVjoDmTMhuKDPJ0z+Xg4+toqGEHkeAL2h
+	 ll0N0fmkY/L8174f9uT2EQqztldHeVj317WFU9xQwO0z87070ugx/L3WPpO2lUR2Bi
+	 VQ960d8m4CPvv7kX2ziViViDvIiuKwpanJsvuyNcd2BiyqRM0Rk8IZbC7mreEGXyZM
+	 ArkjYb0O2Eyq/ftwsaNWyuMFm6oWIRdeNVzBERIVsnf7WbIQpuyTRR95YACPZqeW4d
+	 OVBNqdRiNdT0A==
+Date: Wed, 21 Oct 2026 16:46:48 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Tengda Wu <wutengda@huaweicloud.com>, james.clark@linaro.org,
+	xueshuai@linux.alibaba.com, Peter Zijlstra <peterz@infradead.org>,
+	leo.yan@linux.dev, Li Huafei <lihuafei1@huawei.com>,
+	Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v7 00/15] perf annotate arm64: Support instruction
+ tracking for data type profiling
+Message-ID: <atlO6EJswVvj76rN@google.com>
+References: <cover.1791629326.git.wutengda@huaweicloud.com>
+ <atFdpZG-b2JPS1St@google.com>
+ <8fdf2566-bbac-4854-8faf-0276af5f936e@huaweicloud.com>
+ <atkzKm_TPnhyzgx3@x2>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,41 +70,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021121245.3111563-1-lee@kernel.org> <20261021121245.3111563-22-lee@kernel.org>
-In-Reply-To: <20261021121245.3111563-22-lee@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 22 Oct 2026 01:42:27 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmfKFG7uWWUQg42+vvaRg2NO8GGOji_qT9O+nabf8Q5+Q@mail.gmail.com>
-X-Gm-Features: AclHuK-bW_sOqMKCXDtKCtW_jSZo6X1GW1kVojPPLhylF6_iQYgXHCX5xCW8YWM
-Message-ID: <CAD++jLmfKFG7uWWUQg42+vvaRg2NO8GGOji_qT9O+nabf8Q5+Q@mail.gmail.com>
-Subject: Re: [PATCH 22/28] mfd: abx500-core: Unregister device ops on devm release
-To: Lee Jones <lee@kernel.org>
-Cc: Mattias Wallin <mattias.wallin@stericsson.com>, Samuel Ortiz <sameo@linux.intel.com>, 
-	linux-arm-kernel@lists.infradead.org, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <atkzKm_TPnhyzgx3@x2>
 
-On Wed, Oct 21, 2026 at 2:16=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+On Wed, Oct 21, 2026 at 06:48:26PM -0300, Arnaldo Carvalho de Melo wrote:
+> On Fri, Oct 16, 2026 at 09:18:38AM +0800, Tengda Wu wrote:
+> > On 2026/10/16 7:11, Namhyung Kim wrote:
+> > >> Please let me know if you have any feedback.
+> > > 
+> > > Thanks a lot for your work!  Assuming you'll fix the issues from Sashiko
+> > > in the next version, you can add my:
+> > > 
+> > > Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> > > 
+> > 
+> > Yes, I'll address the issues reported by Sashiko and send a v8.
+> > Most of them are minor, and I'll fix them accordingly (or explain
+> > in the v8 thread if I think any of them is a false positive).
+> > I'll carry your Reviewed-by in the next version as agreed.
+> 
+> I applied the first 5 patches that are sashiko-clean, will push soon to
+> tmp.perf-tools-next and then to perf-tools next after test building on
+> my containers.
 
-> abx500_register_ops() allocates struct abx500_device_entry via
-> devm_kzalloc() and links it into the global abx500_list without
-> registering a devres cleanup action.  If a caller's probe function
-> subsequently fails, devres frees the entry while it remains linked in
-> abx500_list, causing use-after-free and list corruption on later
-> traversals.
->
-> Register a devm_add_action_or_reset() callback in abx500_register_ops()
-> to remove the entry from abx500_list before devres frees it.
->
-> Fixes: c211b6b9c014 ("mfd: abx500-core: Convert to managed resources for =
-allocating memory")
-> Closes: https://sashiko.dev/#/bug/linux-6a9c6b8b-8f89-4af5-8cb1-102822e44=
-e6e
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+There is v8 already which should have addressed the concerns.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+https://lore.kernel.org/r/cover.1792411435.git.wutengda@huaweicloud.com
 
-Yours,
-Linus Walleij
+Thanks,
+Namhyung
+
