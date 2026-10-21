@@ -1,83 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792615621;
-	b=HFkbAtrjCMyMwNB04cAxJT2x2lwXzrI9MkqioJ5QWRhq8qb1VVgCFKzKOjmzrF9FECBs
-	 +2JA/DWxE2ctYpyP/428q90WqjHLI93D3znFJFzcoEUcMyBmSZpZ5lBTanQYXNm2GRqBC
-	 FWPGWCOg9TJU/I3qi8s3+A3zZYeW9cYgvMg3hsp21FIvRGbKm31c3SWAkq+rWrq88nKYv
-	 oIwRDcHGcvDcD6HTyCORBYqbgx6l96ZpeFrN+m49vQLjISYZ2f0orYAZu/EC9B4PmNCff
-	 e5x/JJZOl6o23JXwssO1qZML/+lrLh+jJeQ7S3Y27SF+g/kHMjV/99eRcL76YKOuLNA==
+	t=1792615707;
+	b=npHPkvLVIkicyX3X1OC1xJV1t420wQCw/xok7yExgXLG0PXuj2TohU2bEaJdNwjnReiI
+	 axweG4LCgv9trrtnkLrEr+NvcOOBXUhoPUi4qBEP4zHizZ2atjo6FOsiWpfJiMFoMhQvZ
+	 jMYUq+astsn03lfZZgltI5+OxC+v+GJmSQwchh1S/Lawwi/Er3ueu7Lw0ksfoGz0zuLDW
+	 soNZUQmNQbpdHZgm0dhz3OhuvHodybNYVvhYPy5tNLVm5qnARyfFPRXJt1w4Y8lrTA9Hh
+	 /QCJciI0weu7h1LZ6BAVY8oCkrLYLGPXi8xT6SoJCHKrkeq5XHDCCBlw+aoD9fOUvow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792615621;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TsNtWc/0aGCTjKMA4H866moa20ExqmOsyOx1rYRFaRc=;
-	b=eb9dRih0VT8keeGTQZ42o793tBQ4QVc3RDbRlYy94LZ+hcwarm9Qb40Bv9VgEXzdatEF
-	 1H3l/selOSmSDRhfsRbK/P344PSQyQSAp/lDUDq1SEHhttzVtq9qp3VPRF0Br2de9dv18
-	 n1YYTLDIJDPB5Ntv00lebFn1AbkzM69R2eILIS8Zg7c8q76LMKQC3deNX1CM4yDZyzgV6
-	 y9o0tGMCVEhuJQWIPh96jnTGFDV0G8sKKHsElF6NRZeLQw/d+l5fHDIIgRyyM8hvv1POv
-	 /94IMzfDqZMslDTt+siwcK+rpLxhavDmE21fO98ZRD1wckzjdkEGjg4bZWTycf1BXrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615707;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6rUMDLFXufXDaESzYj+9ZndTGVI79zhxIDwrHIe4u+k=;
+	b=RIUErgOPNzbfmnVkW+dNJ0i3+00skuAPZBykE5urxp8jNkCqgmrogX7r7BdDHs5xbGXz
+	 aztRqMkLRVLPa0UbjjOeSHbxUOn6YtfyAMQjBqeIqi61XQAkjSHGJZVwrm1U3dNkbGgWa
+	 bXLEU+t8Q10gf5/IcS0NuuyGO+oxBNL2F6hT6+nm6+rboMb1c7MjRq771Ppi6r+PChFia
+	 DzXDlNefkpD95ZufUXoXV1arDFwqDcjB4I3IAQxc0M4vzseU3sOS9DEw6hO8sQ/1xjPFW
+	 lyqK/5X5UH3RsN/TN3HHgSvRCzmGISpOaZ4tvwfklPxE7iE9BoIhCU7579JieP/mu0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2EuGI0T;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kNHzWUKh;
+	arc=none smtp.remote-ip=95.215.58.163
+Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66FC606A337;
-	Wed, 21 Oct 2026 20:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D66FC606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05063606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05063606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2EuGI0T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792615621; x=1824151621;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=N5gLnMwYQv+qjRt+a74O/z10rixfiFnQyKKlAKSBJNA=;
-  b=O2EuGI0Tlm6FYXeNyvd43euKaTLaGtCJUhhQL2DkCZLiTw8rSiaOXk/v
-   bSOAekhDpC2dLK3zoRIDTVd8LJhgoGmEufDD+1x+H8pUsW/0ZqVUtTkPI
-   Y/FtwHBZPF7kgQ+xgOb7k1NTsYEjRFL7hZ0Q4eV1cCcePzzlybz6RYxwo
-   JmyK8xePyzM6PAvqHXoGGpT6OGlwmYEZOT9uxJcUVF9pRks1JO+XoYPl6
-   aB6BuwNzBmcxUrWgKMkeOYILQSQgKEb40hSe2uJTXdOf2jFrNarSdRRft
-   NVXqYsg7ZtlWXdvimQgpYT7zhYO75fVAGnSc4w95jj2lHOibju+GzQuFg
-   w==;
-X-CSE-ConnectionGUID: pW8ULCKNQouSvionRCnZEg==
-X-CSE-MsgGUID: XfJ9xRxLTr6Yv/1xqrIjDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1449957"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1449957"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 13:47:00 -0700
-X-CSE-ConnectionGUID: ncFjdARPTNGB7bHfM0WW9g==
-X-CSE-MsgGUID: QBjhuhqJTAaam3NsP6ZDyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4952196"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa012.fm.intel.com with ESMTP; 21 Oct 2026 13:46:57 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 50B219B; Wed, 21 Oct 2026 22:46:55 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Samuel Moelius <sam.moelius@trailofbits.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Bamvor Jian Zhang <bamv2005@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Subject: [PATCH v1 1/3] gpiolib: Introduce devm_gpiochip_dispose_irq_mappings()
-Date: Wed, 21 Oct 2026 22:44:43 +0200
-Message-ID: <20261021204654.1001101-2-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
-References: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kNHzWUKh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+AiOmE1TdqOARmJDv1cMb8HWamB96s35l1LjYS9KVD8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792615704; v=1; x=1793220504;
+ b=kNHzWUKhUT6nfr8AUMoVmehPg7pSMDXUvzGPCSWVkfW8+8hj3iBIwTl5vLKnjA4HooFqZjGN
+ o27gI6gi9HqO6BHsWSGUz/6EJ33QNGdawWOPFRDKLQYCV6LTVbtujHTuvam0Vr89bh+DCQKT8UI
+ w/4Ntz3+6lziqgcxX8gYUTsU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 16fb233232d2ba21;
+	Wed, 21 Oct 2026 20:48:23 +0000
+X-Mizu-Trace-ID: 16fb233232d2ba21
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Chris Down <chris@chrisdown.name>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when parent is the root
+Date: Wed, 21 Oct 2026 13:48:18 -0700
+Message-ID: <20261021204818.3431099-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,82 +73,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several drivers already copy'n'paste almost the same code to dispose
-IRQ mappings on remove over and over. Deduplicate that by introducing
-a devm_gpiochip_dispose_irq_mappings().
+page_counter_calculate_protection() runs without locks. Several
+reclaimers can update the same counter's emin and elow at the same
+time, and readers such as mem_cgroup_below_min(), mem_cgroup_protection()
+and the dmem eviction code load them with READ_ONCE().
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Commit b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store
+tearing") made the main path store emin and elow with WRITE_ONCE(), but
+it missed the early return for a counter whose parent is the reclaim
+root. Those two stores are the only plain accesses to emin and elow
+left.
+
+With CONFIG_KCSAN_STRICT=y, a few tasks writing to the same cgroup's
+memory.reclaim trigger reports like this within seconds:
+
+  BUG: KCSAN: data-race in page_counter_calculate_protection / shrink_node
+
+  read (marked) to 0xff1f91b146d40e40 of 8 bytes by task 163 on cpu 4:
+   shrink_node+0x57a/0x1210
+   do_try_to_free_pages+0x194/0x930
+   try_to_free_mem_cgroup_pages+0x204/0x3f0
+   user_proactive_reclaim+0x28a/0x4d0
+   memory_reclaim+0x35/0x50
+   ...
+
+  write to 0xff1f91b146d40e40 of 8 bytes by task 167 on cpu 6:
+   page_counter_calculate_protection+0x1fa/0x360
+   mem_cgroup_calculate_protection+0x4e/0x70
+   shrink_node+0x53e/0x1210
+   ...
+
+The default KCSAN config does not report it, because it treats aligned
+word-sized plain writes as atomic.
+
+Use WRITE_ONCE() for these two stores as well.
+
+There is no functional change. Readers already accept stale values, and
+compilers emit a single word-sized store either way: with GCC 14 the
+x86-64 object code is the same before and after this change.
+
+Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store tearing")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- drivers/gpio/gpiolib-devres.c | 33 +++++++++++++++++++++++++++++++++
- include/linux/gpio/driver.h   |  4 ++++
- 2 files changed, 37 insertions(+)
+ mm/page_counter.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpio/gpiolib-devres.c b/drivers/gpio/gpiolib-devres.c
-index cc0e434a37d3..94690f14a949 100644
---- a/drivers/gpio/gpiolib-devres.c
-+++ b/drivers/gpio/gpiolib-devres.c
-@@ -10,6 +10,7 @@
- #include <linux/err.h>
- #include <linux/export.h>
- #include <linux/gfp.h>
-+#include <linux/irqdomain.h>
- #include <linux/types.h>
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 9167ffd1380c..5293460831f8 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -472,8 +472,8 @@ void page_counter_calculate_protection(struct page_counter *root,
+ 		return;
  
- #include <linux/gpio/consumer.h>
-@@ -323,6 +324,38 @@ void devm_gpiod_put_array(struct device *dev, struct gpio_descs *descs)
- }
- EXPORT_SYMBOL_GPL(devm_gpiod_put_array);
+ 	if (parent == root) {
+-		counter->emin = READ_ONCE(counter->min);
+-		counter->elow = READ_ONCE(counter->low);
++		WRITE_ONCE(counter->emin, READ_ONCE(counter->min));
++		WRITE_ONCE(counter->elow, READ_ONCE(counter->low));
+ 		return;
+ 	}
  
-+struct gpiochip_irqdomain {
-+	struct gpio_chip *gc;
-+	struct irq_domain *domain;
-+};
-+
-+static void gpiochip_dispose_irq_mappings(struct device *dev, void *res)
-+{
-+	struct gpiochip_irqdomain *gcirq = res;
-+
-+	for (unsigned int i = 0; i < gcirq->gc->ngpio; i++)
-+		irq_dispose_mapping(irq_find_mapping(gcirq->domain, i));
-+}
-+
-+int devm_gpiochip_dispose_irq_mappings(struct device *dev,
-+				       struct gpio_chip *gc,
-+				       struct irq_domain *domain)
-+{
-+	struct gpiochip_irqdomain *gcirq;
-+
-+	gcirq = devres_alloc(gpiochip_dispose_irq_mappings, sizeof(*gcirq), GFP_KERNEL);
-+	if (!gcirq)
-+		return -ENOMEM;
-+
-+	gcirq->gc = gc;
-+	gcirq->domain = domain;
-+
-+	devres_add(dev, gcirq);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(devm_gpiochip_dispose_irq_mappings);
-+
- static void devm_gpio_chip_release(void *data)
- {
- 	struct gpio_chip *gc = data;
-diff --git a/include/linux/gpio/driver.h b/include/linux/gpio/driver.h
-index b3b938ec5332..c610b5a9f8fa 100644
---- a/include/linux/gpio/driver.h
-+++ b/include/linux/gpio/driver.h
-@@ -707,6 +707,10 @@ static inline int gpiochip_irqchip_add_domain(struct gpio_chip *gc,
- }
- #endif
- 
-+int devm_gpiochip_dispose_irq_mappings(struct device *dev,
-+				       struct gpio_chip *gc,
-+				       struct irq_domain *domain);
-+
- int gpiochip_generic_request(struct gpio_chip *gc, unsigned int offset);
- void gpiochip_generic_free(struct gpio_chip *gc, unsigned int offset);
- int gpiochip_generic_config(struct gpio_chip *gc, unsigned int offset,
 -- 
-2.50.1
+2.53.0-Meta
 
