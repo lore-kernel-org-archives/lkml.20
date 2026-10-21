@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.108.41.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585785;
-	b=WSt1YRXN132UuMDbbWycP1eBdQaHZiwBrgI/ALlplJPRzys2UNVvWBxvhNtCnVydetnT
-	 N+0ihirf9qf6351MDCgrXgTztIVDlXkLn0kvIC/vSzwTZNHIfi4vzaU1KTlilhh1CZZAf
-	 bfWwrY8MdzHXvebe0sE2HntcOmtXX+qiMqgHUHJAln0Jp6m22rfqw96mrMBMm9AwR1qqU
-	 JZsD2jojAN6JBHwJfsJZ7k+58wvGtDyReePHOuNQQyg2ThdNYPxCva/iixgHxtWgBQC+M
-	 lTnd44jcFgFKOmxOYR4b8rv+oafa+9Nvg5c2knNz8jrsUykrMGmGaDR+E140Rw6WDyQ==
+	t=1792585814;
+	b=GmODSlIVzRG+YpPYFTe1muB++JtwoIL4p5eKdr6MBOzAgOo3hJR54u5Wk6Zm6zvO63Hf
+	 8XKzhTVDfWfoM2BIynqPIbKJItWjENguP7bp5wv6S4hTX0Hqn9Cazl7ZFb8bG/imV8KXA
+	 Tt1jM4PQR5y/cfgd1k+DKrD6atj0pD4VJDnk42omRVyNBTVvn/u7bXPclKqcgV+yhPqrW
+	 YIJ/n2iST2Oiagwvd1Ff8vYgIO1yUtvuiNPrvZQIILukj0gUAOwf5R0L0G9sRmIp20lFy
+	 bIblO6ehwsYhO83R0mRDTiAUM6Nweq6Cm4EGOxzfhl+8Wua3YtlRquN3c7oygSQWneA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585785;
-	h=DMARC-Filter:Received:Received:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-PPP-Message-ID:X-PPP-Vhost:X-POWERED-BY;
-	bh=pv4vAOfMeLWLsM9ahdk5vDfcsMcW1ciiFDbHu5/SBQ8=;
-	b=pP236tEZi2MQaZ4jS5zY6jDnSvrdvq1ggw+HLCjwUb/S+VAAIR18DcbbygC0jENQLJ/u
-	 OpWqfZvDfaUjskKSP9Y5ezWfDCiy4XSeD8OqqxKv/cw38D53uy153JB3WGNTU63bBLoa0
-	 DlxMepvbUx+mcrGsEIDiuKsppPtL6W8D7/VcfhEuvpmkwv92f6KTEPI86iNQY2bU1Uw6j
-	 CCD14XmjKJq89z+M6HU7625dFy/CCilL3aTtKIuU5NZD+LLs+u7rKqq9GqKB9V7U8yX19
-	 WL6oR1Bs2rT+jI0sR3xXvRMy6vmole9v9Z8xBdoiIt37EPXdqc0BqrutAKxLbYLYW0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585814;
+	h=Received:DKIM-Signature:From:To:Cc:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=SPvwqxlJ5BdpL7mIBDv6+lJZJJBo+NcQCFXkzsy92MU=;
+	b=Hb1xhR8ISzONsGfawI2ww51FHkPAxgc2oR78CyBLUSTVTVocU7KnERpewN89ZHivzewA
+	 bYWv5sTFGR7XKUqpgNw9h1peC/Z6rhbYNkQqY8ZBvqiAupR9aNVLr/dFzyTsFT7GeC83G
+	 ApyvwmjbJo3Gj9OafSkh837fbcG1MSrEj2WLNs9zF4lms9TYrTcQwCstDXxgfckcKxFFR
+	 sPVSTWNSo2jNkYkg9WjFdjyJQu69Zbird1fVETxx0V5KePGIykIRJnsDmtoxaSVaxnKeo
+	 8Dd4n73bC83nVYJXyUnO3CbPakPDSEi2u0KGvOJ4Dknl0LP5BAoIFPFtHbNe+adkUIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kiener-muenchen.de;
-	spf=pass smtp.mailfrom=tldhost.de;
-	arc=none smtp.remote-ip=62.108.41.231
-Received: from mr02.mx01.tldhost.de (mr02.mx01.tldhost.de [62.108.41.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AF7606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:29:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AF7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kiener-muenchen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tldhost.de
-Received: from mx01.tldhost.de (localhost [127.0.0.1])
-	by mx01.tldhost.de (Postfix) with ESMTP id 4FC2E122E91;
-	Wed, 21 Oct 2026 14:29:40 +0200 (CEST)
-Received: by mx01.tldhost.de (Postfix, from userid 1001)
-	id 439F7122E65; Wed, 21 Oct 2026 14:29:40 +0200 (CEST)
-Received: from mailout.tldhost.de (mailout.tldhost.de [84.19.26.10])
-	by mx01.tldhost.de (Postfix) with ESMTPS id 3F405122E12;
-	Wed, 21 Oct 2026 14:29:38 +0200 (CEST)
-Received: from mailout.tldhost.de (localhost.localdomain [127.0.0.1])
-	by mailout.tldhost.de (Proxmox) with ESMTP id 293E681E9A;
-	Wed, 21 Oct 2026 14:29:38 +0200 (CEST)
-Received: from server12.tldhost.de (server12.tldhost.de [84.19.26.112])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwVUKj2u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by mailout.tldhost.de (Proxmox) with ESMTPS;
-	Wed, 21 Oct 2026 14:29:37 +0200 (CEST)
-Authentication-Results: server12.tldhost.de;
-        spf=pass (sender IP is 93.104.90.53) smtp.mailfrom=guido@kiener-muenchen.de smtp.helo=[192.168.13.48]
-Received-SPF: pass (server12.tldhost.de: connection is authenticated)
-Message-ID: <ccc73234-743d-4161-abf9-2ba1f301b55a@kiener-muenchen.de>
-Date: Wed, 21 Oct 2026 14:29:36 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222BF606A320;
+	Wed, 21 Oct 2026 12:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwVUKj2u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AE3C1F000C6;
+	Wed, 21 Oct 2026 12:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792585813;
+	bh=SPvwqxlJ5BdpL7mIBDv6+lJZJJBo+NcQCFXkzsy92MU=;
+	h=From:To:Cc:Cc:In-Reply-To:References:Subject:Date;
+	b=bwVUKj2upv4wcdd6/qk4FjjxJAKOtZW1lsW2rD0Fyzq9wHKmtU4HMi0mFyeC68OKA
+	 JV1E+MNSTpehRvU4ngvooue4SIO/6CnfN2UWea2d1yZP92YOuyxkksMHEY4HNUQKm4
+	 IObuk5hifb58gB71LM3H1nrwNI3zPNEIFrQUtUTEO/9Z0TD96UZnHwHRVAsXzL7hJm
+	 TaXojUlYJnExhVH5IuuGCqL4qzK9qTI5+3eKqjhPRFi0aHpGpBupVvjLVtwkms4mYt
+	 ejxGnI8uIEwg+3Ib9eefVu9D3yxmMvpcJNL6iyhUkWPDDl1go8qqwTMlDJqlzV1PXg
+	 CYITm/NKqANbA==
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>, Josef Bacik <josef@toxicpanda.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261021-b4-super-lock-dying-v1-0-2b35e86706ff@toxicpanda.com>
+References: <20261021-b4-super-lock-dying-v1-0-2b35e86706ff@toxicpanda.com>
+Subject: Re: [PATCH 0/5] fs: don't let a stuck unmount take everybody else
+ with it
+Message-Id: <20261021-badeort-wichtel-ungebeten-b31df4d9153f@brauner>
+Date: Wed, 21 Oct 2026 14:29:47 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,86 +59,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
- on xHCI
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Michal Pecio <michal.pecio@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Steve Bayless <steve_bayless@keysight.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
- <20261020184244.69b78d5e.michal.pecio@gmail.com>
- <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
- <d702d2b3b66d6229855515c2eed09636@kiener-muenchen.de>
- <bcb7b29468175cd13f08bdd363b8c733@tipi-net.de>
-From: Guido Kiener <guido@kiener-muenchen.de>
-Autocrypt: addr=guido@kiener-muenchen.de; keydata=
- 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
- 367l2lvnrwgkpj9ug6CmNuE929AH2iQD
-In-Reply-To: <bcb7b29468175cd13f08bdd363b8c733@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179258577743.508294.11951329127478998559@server12.tldhost.de>
-X-PPP-Vhost: kiener-muenchen.de
-X-POWERED-BY: TLDHost.de - AV:CLEAN SPAM:OK
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1750; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=DOy7ShPvFsan0CKTQzMgeLaSNJRaEOFdopVUo01lzco=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd2BB0T2/2950//jqzfDb2d3YNVzi06FrO9jLn5Bi9n
+ mCFHas1OkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACais4iR4dehY1Mkzmxp2zit
+ SKLF5ONRSaMYkb9n4my8bgoars/t72f4n/Fs81GRJ9bXmdfmvl0+aVKDfNLyOfcPL49o0K2SuPU
+ hgBMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
+On Wed, 21 Oct 2026 00:56:34 +0000, Josef Bacik wrote:
+> fs: don't let a stuck unmount take everybody else with it
+> 
+> Hello,
+> 
+> A consistent problem we have in containerized environments is a
+> misbehaving mount taking out all of the other containers. We hit the
+> super_lock() while we've got a stuck or slow umount and everything backs
+> up behind it, and there's no way to kill those things.
+> 
+> [...]
 
-Am 21.10.2026 um 09:46 schrieb Nicolai Buchwitz:
-> Hi Guido,
->
-> On 20.10.2026 23:12, guido@kiener-muenchen.de wrote:
->> [...] Therefore every manufacturer of USBTMC devices should
->> comply with the specification and cannot expect bugs in device firmware
->> to be fixed by patches to the USBTMC driver on Windows, Linux, or macOS.
->> [...] Otherwise I cannot support adding device‑specific patches to a
->> class driver.
->
-> I agree, it would be a better world if every vendor stuck to the specs.
-> Unfortunately reality is often different, and we are the ones stuck
-> with the devices on the production line.
->
-> Anyway, I get your point about keeping quirks out of the driver. It
-> looks like the maxpacket part can be fixed in xHCI instead, since ehci
-> and dwc2 already accept HS bulk endpoints below 512 bytes (see the
-> discussion with Michal). The ZLP issue of the Rigols can be worked
-> around in the application. So I'll drop this series. 
+This makes sense to me.
 
-I'm happy that you found a better way!
+---
 
-Thanks,
+Applied to the vfs-7.5.super branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.super branch should appear in linux-next soon.
 
-Guido
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.super
+
+[1/5] fs: make sync(2) wait for superblocks being shut down explicitly
+      https://git.kernel.org/vfs/vfs/c/4afadc443112
+[2/5] fs: make freezing for suspend wait for superblocks being shut down
+      https://git.kernel.org/vfs/vfs/c/86a14b765007
+[3/5] fs: make the block device callbacks wait for superblocks being shut down
+      https://git.kernel.org/vfs/vfs/c/3505dd5c488d
+[4/5] fs: don't sleep on s_umount of a superblock being shut down
+      https://git.kernel.org/vfs/vfs/c/e240433824ae
+[5/5] fs: let a mount waiting for the old superblock to die be killed
+      https://git.kernel.org/vfs/vfs/c/6f55404958eb
 
