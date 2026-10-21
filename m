@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552636;
-	b=5AL1FcCdcXVete/8UGTaCwzuVnKZEl499mX5eU3vU2kkalyi/fVYo2y1XcpgmKPsKJ1U
-	 dHLP7oL/lbd1jtyDFHZY5KlfnmjdDrJ9RDV/hVLjDKseM8cHuLXdCi7xLDrajdO6Q+UQo
-	 Cyi0sddZoSFbirGLuAadFxPrLenbuW2cSaLbk0WzvGYZwNlz/edjzHczwgOndbXxvu9w1
-	 LJj5LGveq5AhfmW57ykMdfVHu/35m/DVX2J3FL/RXJ8KLxqjIOSHZzVWk91U0UlRKCQCD
-	 p2NFMoZeD+mSfPBmplFmetHsT2Jc6+Cf50rQzi8Cc1Ds7KzRye8gMpKKz6STU7YOldg==
+	t=1792552596;
+	b=cZUSLehB3NxQf7pgk54AsmCoN6dKhaXA3WrK2aRQrvsL3z3IRSAmigfL+hlINZrzTl42
+	 apiPxmw0AN2BcUILynsB1K5kpfX3PY8lDoN32TXygyfHM80dMlcA7F8onM4sM7vIb6l42
+	 B4ZgtK5/ktPSbd+dp2lQOuw/j+cs4iD49pzk1t60CzYNGzgXv6pKNIHWPElUk81sNs1Qo
+	 +1a+H9d6KCGCGydLcBQ66iM1LogLMAmdq3Yp5XGNKw8+ZI/d80BMP46+nFdR4duv2Xz6R
+	 FnR65GH7LGzZ9bkTKaJUGXwaEMxI1u2dUPEXc7ZRX1w02OxDCUdhujbLtcIEEuQoVFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552596;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:In-Reply-To:
 	 References:From:Subject:To:Cc:Date;
-	bh=PYtCM8AZCT6uaJfSrx0BOZ+0uHQZVP/Z/KdzZbvlZJ0=;
-	b=aTEW6LXwuVuxk/5ELvlqs5IHdKpwphNQ+T85mDtZYMmizvTAme5x9LTMtlyvzL2LLVJX
-	 /MGJx1M4ani0U3nQvpZ1ORdCV+bQuAHDsY6Zkh4W0mhxMTcbS/pgZOO2zhzLpBmgvTle9
-	 7NConjwvBL58xClLUdSEEWyOavvBaBc/VjCzkMbiLybt4xgELOzakH1Zxu7Vp6xDpZgUk
-	 u2nThS1gT9RuVMktE5TLaAq7nDJwcIsRSZNQQZuJAUtD63zqhdLS9+Cqdhv+cl7MV0iXM
-	 EUkQbC1IcSpgRh3LMR4e9Hzypqa2tf5ufNNrFkN8VTLWuyYIpid+atwa+fOMoQtuEwA==
+	bh=1Z5EYKR3zuCRsOgoCpct75zMOfdUFTXtn/PScOjLh3g=;
+	b=2Mew+jhy6d1A+O6bzqvg+1PW7ausOEx/ikVHOBf5Hcddeqw7fEe4QV1dHJ7hshK1wNLU
+	 twk72acEEY6CgT2zhvQ9Ite7VP3Z22GIFAc213N2Qgk9DLYP+lHTeoHKNj7nk+4jFECbQ
+	 FfOHAfzLhN+7KbHsbc6OAbOPbVP7qNkoi55YesQEGy8Fr2s6DHjfEZeCGZBZnlPru07sA
+	 CZWGjFeAgRY2ADlNSZvd4ljrQ6OF2+OiGgJwzND5CL5XfufAAPxJhGPVBxc6kPcLNv1/5
+	 ipTmGSP85qIL+RJc7LDx2xY6bXM1E7hWre0bJ5pK9evxAV33AyzhuK0wOu3gtEV+hKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=tuxist.de;
 	spf=fail smtp.mailfrom=tuxist.de;
-	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=aFbSe6vz;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=cuAbQ3om;
 	arc=none smtp.remote-ip=173.212.254.19
 Received: from groupware.tuxist.de (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B58160779CD;
-	Wed, 21 Oct 2026 03:17:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B58160779CD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F64C606E847;
+	Wed, 21 Oct 2026 03:16:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F64C606E847
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=aFbSe6vz
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=cuAbQ3om
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tuxist.de; s=201705;
-	t=1792552633; bh=YMnWTj9au5/Tn2L6+FyQDCou1t3SlsDfGkZwpfIj2wQ=;
+	t=1792552593; bh=Rpwprzh2eYyYWotnA65KRqh2Jcb7fuYYdOguWAwVUjg=;
 	h=In-Reply-To:References:From:Subject:To:Cc:Date:From;
-	b=aFbSe6vzYnxQOasfNGnMc2AmHeAZd3awQACfsGIMhiWm7a1jy9iung+k6mmkjFihq
-	 ezNd4/Ui7rvTHMmta86DrGE8P6szY3N5L4fkDoDUhsZ/eYBqCVqUYIGHkpzB+9ZocS
-	 c4Ymndv2T7OnAih6Ot/XyhNVCkNdjEllYepyKl4lbnCl0U6/F9euiOVI3icLH4oP1v
-	 anVB/8Gq388jBYOiTKjaRD2IapP6bra4n8DZYK/IvvSKZAT33N4ZfNObDWx6bZfVNC
-	 +KRpXtyIeADEHZ3b9OlmFjwXnDY8PY3ON1IUx9QsoX8hRd+INdCEEJMPUYUFZvZx1R
-	 wxOW0gXCilXsg==
+	b=cuAbQ3omm3WMEFrviQQfeekK6DAsAAGK3N1HHZSrIcJGoHsiAk1KlRyltjBlWzyzx
+	 7kfqDLrxSkFxe5pT4LFG1Eh8YazB3xDHmf8f8ZS3TRhwJBKJv2EgVOCCVtYXQxsEEB
+	 r4FAAaBk6SIoNnj9BpU6LsdPt0H+JMDijjSzVw3vjgERC50vA36n7LUqbMa4+QdiOg
+	 f+96hCZ7TN+oeya6qEx5lsXWrA+te6+3v7qzSdZCVtb+p5kFnuvgREfbDyMWxyxm9A
+	 o0E8FmTH2fEqorOKc8uc4OXUyEJsGai6m54qgpmY0FjUrlMrlYYWkD8fwWGozmJfRy
+	 y4orxDPPaCk5Q==
 Received: from [10.1.1.106] (unknown [10.1.2.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by groupware.tuxist.de (Postfix) with ESMTPSA id 391D48A08F4;
-	Wed, 21 Oct 2026 05:17:13 +0200 (CEST)
-Message-ID: <d8a3b0587e8123c56058d097fbd2d5fa00cf7bd6.1792552161.git.jan.koester@tuxist.de>
+	by groupware.tuxist.de (Postfix) with ESMTPSA id 536A88A0912;
+	Wed, 21 Oct 2026 05:16:32 +0200 (CEST)
+Message-ID: <54f57a7ac52b6b2b130b5a6e911e0998c9630da8.1792552161.git.jan.koester@tuxist.de>
 In-Reply-To: <cover.1792552161.git.jan.koester@tuxist.de>
 References: <cover.1792552161.git.jan.koester@tuxist.de>
 From: Jan Koester <jan.koester@tuxist.de>
-Subject: [RFC PATCH v2 33/41] posix_acl: support UUID and GUID entries
+Subject: [RFC PATCH v2 21/41] fs: add chown_r(), lchown_r(), fchown_r() and
+ fchownat_r()
 To: Christian Brauner <brauner@kernel.org>,
     Alexander Viro <viro@zeniv.linux.org.uk>,
     "Serge E. Hallyn" <serge@hallyn.com>
@@ -69,7 +70,7 @@ Cc: Jan Kara <jack@suse.cz>,
     audit@vger.kernel.org,
     keyrings@vger.kernel.org,
     linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 05:15:53 +0200
+Date: Wed, 21 Oct 2026 05:15:41 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,273 +80,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The ACL xattrs carry 32 bit ids, so ACL_USER and ACL_GROUP entries for
-UUID and GUID users and groups could neither be set nor shown.
+The chown family with __kernel_uid_r_t owner and group, so files can be
+given UUID and GUID owners on filesystems that support them
+(SB_I_UID_R); others refuse with -EOVERFLOW. NULL pointers, UID_R_NONE
+and the classic -1 leave the owner or group unchanged.
 
-Add version 3 of the xattr format, whose entries hold an id kind and
-16 bytes of id. setxattr() takes version 2 and 3; getxattr() returns
-version 3 only if the ACL has such an entry the caller can see, so
-existing tools keep getting version 2 for everything else.
-
-set_posix_acl() refuses UUID and GUID entries with -EOVERFLOW on
-filesystems without SB_I_UID_R, whose ACL formats can't store them.
+The classic calls and the new ones share the lookup and setattr code,
+which now works on a struct chown_ids. The classic calls still report a
+malformed id only once the file is found, as before.
 
 Assisted-by: Claude:claude-opus-5-5
 
 Signed-off-by: Jan Koester <jan.koester@tuxist.de>
 ---
- fs/posix_acl.c                       | 123 ++++++++++++++++++++++++++-
- include/linux/posix_acl_xattr.h      |  31 +++++++
- include/uapi/linux/posix_acl_xattr.h |  19 +++++
- 3 files changed, 171 insertions(+), 2 deletions(-)
+ fs/open.c                | 144 +++++++++++++++++++++++++++++++++++----
+ include/linux/syscalls.h |  13 ++++
+ 2 files changed, 145 insertions(+), 12 deletions(-)
 
-diff --git a/fs/posix_acl.c b/fs/posix_acl.c
-index 18b302f941..bcb0663fe2 100644
---- a/fs/posix_acl.c
-+++ b/fs/posix_acl.c
-@@ -19,6 +19,8 @@
- #include <linux/cred.h>
- #include <linux/posix_acl.h>
- #include <linux/posix_acl_xattr.h>
-+#include <linux/uidgid_r.h>
-+#include <linux/unaligned.h>
- #include <linux/xattr.h>
- #include <linux/export.h>
- #include <linux/user_namespace.h>
-@@ -741,16 +743,62 @@ static int posix_acl_fix_xattr_common(const void *value, size_t size)
- 		return -EINVAL;
- 	if (size < sizeof(struct posix_acl_xattr_header))
- 		return -EINVAL;
--	if (header->a_version != cpu_to_le32(POSIX_ACL_XATTR_VERSION))
-+	if (header->a_version == cpu_to_le32(POSIX_ACL_XATTR_VERSION_R))
-+		count = posix_acl_xattr_count_r(size);
-+	else if (header->a_version == cpu_to_le32(POSIX_ACL_XATTR_VERSION))
-+		count = posix_acl_xattr_count(size);
-+	else
- 		return -EOPNOTSUPP;
- 
--	count = posix_acl_xattr_count(size);
- 	if (count < 0)
- 		return -EINVAL;
- 
- 	return count;
+diff --git a/fs/open.c b/fs/open.c
+index 6b1c14e684..26175b5aa8 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -785,7 +785,46 @@ static inline bool setattr_vfsgid(struct iattr *attr, kgid_t kgid)
+ 	return true;
  }
  
-+/* The entries of a version 3 ACL xattr into @acl; -EINVAL if malformed */
-+static int posix_acl_from_xattr_r(struct user_namespace *userns,
-+				  const struct posix_acl_xattr_entry_r *entry,
-+				  struct posix_acl *acl)
-+{
-+	struct __kernel_uid_r id;
-+
-+	for (int n = 0; n < acl->a_count; n++, entry++) {
-+		struct posix_acl_entry *acl_e = &acl->a_entries[n];
-+
-+		acl_e->e_tag  = le16_to_cpu(entry->e_tag);
-+		acl_e->e_perm = le16_to_cpu(entry->e_perm);
-+
-+		memset(&id, 0, sizeof(id));
-+		id.type = le32_to_cpu(entry->e_type);
-+		if (id.type == UID_R_LEGACY)
-+			id.legacy = get_unaligned_le32(entry->e_id);
-+		else
-+			memcpy(id.uuid, entry->e_id, sizeof(id.uuid));
-+
-+		switch (acl_e->e_tag) {
-+		case ACL_USER_OBJ:
-+		case ACL_GROUP_OBJ:
-+		case ACL_MASK:
-+		case ACL_OTHER:
-+			break;
-+		case ACL_USER:
-+			acl_e->e_uid = make_kuid_r(userns, &id);
-+			if (!uid_valid(acl_e->e_uid))
-+				return -EINVAL;
-+			break;
-+		case ACL_GROUP:
-+			acl_e->e_gid = make_kgid_r(userns, &id);
-+			if (!gid_valid(acl_e->e_gid))
-+				return -EINVAL;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+	return 0;
-+}
-+
- /**
-  * posix_acl_from_xattr - convert POSIX ACLs from backing store to VFS format
-  * @userns: the filesystem's idmapping
-@@ -795,6 +843,13 @@ struct posix_acl *posix_acl_from_xattr(struct user_namespace *userns,
- 		return ERR_PTR(-ENOMEM);
- 	acl_e = acl->a_entries;
- 
-+	if (header->a_version == cpu_to_le32(POSIX_ACL_XATTR_VERSION_R)) {
-+		if (posix_acl_from_xattr_r(userns, (const void *)(header + 1),
-+					   acl))
-+			goto fail;
-+		return acl;
-+	}
-+
- 	for (end = entry + count; entry != end; acl_e++, entry++) {
- 		acl_e->e_tag  = le16_to_cpu(entry->e_tag);
- 		acl_e->e_perm = le16_to_cpu(entry->e_perm);
-@@ -874,6 +929,61 @@ posix_acl_to_xattr(struct user_namespace *user_ns, const struct posix_acl *acl,
- }
- EXPORT_SYMBOL (posix_acl_to_xattr);
- 
-+/* Like vfs_posix_acl_to_xattr(), in version 3 */
-+static ssize_t vfs_posix_acl_to_xattr_r(struct mnt_idmap *idmap,
-+					struct inode *inode,
-+					const struct posix_acl *acl,
-+					void *buffer, size_t size)
-+{
-+	struct posix_acl_xattr_header *ext_acl = buffer;
-+	struct posix_acl_xattr_entry_r *ext_entry;
-+	struct user_namespace *fs_userns = i_user_ns(inode);
-+	struct user_namespace *caller_userns = current_user_ns();
-+	struct __kernel_uid_r id;
-+	ssize_t real_size;
-+	bool mapped;
-+
-+	real_size = posix_acl_xattr_size_r(acl->a_count);
-+	if (!buffer)
-+		return real_size;
-+	if (real_size > size)
-+		return -ERANGE;
-+
-+	ext_entry = (void *)(ext_acl + 1);
-+	ext_acl->a_version = cpu_to_le32(POSIX_ACL_XATTR_VERSION_R);
-+
-+	for (int n = 0; n < acl->a_count; n++, ext_entry++) {
-+		const struct posix_acl_entry *acl_e = &acl->a_entries[n];
-+
-+		ext_entry->e_tag  = cpu_to_le16(acl_e->e_tag);
-+		ext_entry->e_perm = cpu_to_le16(acl_e->e_perm);
-+		memset(&id, 0, sizeof(id));
-+		mapped = true;
-+		switch (acl_e->e_tag) {
-+		case ACL_USER:
-+			mapped = from_kuid_r(caller_userns, vfsuid_into_kuid(
-+				make_vfsuid(idmap, fs_userns, acl_e->e_uid)), &id);
-+			break;
-+		case ACL_GROUP:
-+			mapped = from_kgid_r(caller_userns, vfsgid_into_kgid(
-+				make_vfsgid(idmap, fs_userns, acl_e->e_gid)), &id);
-+			break;
-+		}
-+		/* no mapping: the classic -1, as in version 2 */
-+		if (!mapped) {
-+			id.type = UID_R_LEGACY;
-+			id.legacy = ACL_UNDEFINED_ID;
-+		}
-+		ext_entry->e_type = cpu_to_le32(id.type);
-+		memset(ext_entry->e_id, 0, sizeof(ext_entry->e_id));
-+		if (id.type == UID_R_LEGACY)
-+			put_unaligned_le32(id.legacy, ext_entry->e_id);
-+		else if (id.type != UID_R_NONE)
-+			memcpy(ext_entry->e_id, id.uuid, sizeof(ext_entry->e_id));
-+	}
-+	return real_size;
-+}
-+
- /**
-  * vfs_posix_acl_to_xattr - convert from kernel to userspace representation
-  * @idmap: idmap of the mount
-@@ -902,6 +1012,11 @@ static ssize_t vfs_posix_acl_to_xattr(struct mnt_idmap *idmap,
- 	vfsuid_t vfsuid;
- 	vfsgid_t vfsgid;
- 
-+	/* UUIDs and GUIDs the caller can see need version 3 */
-+	if (posix_acl_has_id_r(acl) && current_user_ns() == &init_user_ns)
-+		return vfs_posix_acl_to_xattr_r(idmap, inode, acl, buffer,
-+						size);
-+
- 	real_size = posix_acl_xattr_size(acl->a_count);
- 	if (!buffer)
- 		return real_size;
-@@ -956,6 +1071,10 @@ set_posix_acl(struct mnt_idmap *idmap, struct dentry *dentry,
- 		int ret = posix_acl_valid(inode->i_sb->s_user_ns, acl);
- 		if (ret)
- 			return ret;
-+		/* UUID and GUID entries only where the filesystem stores them */
-+		if (posix_acl_has_id_r(acl) &&
-+		    !(inode->i_sb->s_iflags & SB_I_UID_R))
-+			return -EOVERFLOW;
- 	}
- 	return inode->i_op->set_acl(idmap, dentry, acl, type);
- }
-diff --git a/include/linux/posix_acl_xattr.h b/include/linux/posix_acl_xattr.h
-index 9e1892525e..307d543bce 100644
---- a/include/linux/posix_acl_xattr.h
-+++ b/include/linux/posix_acl_xattr.h
-@@ -32,6 +32,37 @@ posix_acl_xattr_count(size_t size)
- 	return size / sizeof(struct posix_acl_xattr_entry);
- }
- 
-+static inline size_t
-+posix_acl_xattr_size_r(int count)
-+{
-+	return (sizeof(struct posix_acl_xattr_header) +
-+		(count * sizeof(struct posix_acl_xattr_entry_r)));
-+}
-+
-+static inline int
-+posix_acl_xattr_count_r(size_t size)
-+{
-+	if (size < sizeof(struct posix_acl_xattr_header))
-+		return -1;
-+	size -= sizeof(struct posix_acl_xattr_header);
-+	if (size % sizeof(struct posix_acl_xattr_entry_r))
-+		return -1;
-+	return size / sizeof(struct posix_acl_xattr_entry_r);
-+}
-+
-+/* Whether an ACL_USER or ACL_GROUP entry of @acl is a UUID or GUID */
-+static inline bool posix_acl_has_id_r(const struct posix_acl *acl)
-+{
-+	for (int n = 0; n < acl->a_count; n++) {
-+		const struct posix_acl_entry *e = &acl->a_entries[n];
-+
-+		if ((e->e_tag == ACL_USER && !uid_is_legacy(e->e_uid)) ||
-+		    (e->e_tag == ACL_GROUP && !gid_is_legacy(e->e_gid)))
-+			return true;
-+	}
-+	return false;
-+}
-+
- #ifdef CONFIG_FS_POSIX_ACL
- struct posix_acl *posix_acl_from_xattr(struct user_namespace *user_ns,
- 				       const void *value, size_t size);
-diff --git a/include/uapi/linux/posix_acl_xattr.h b/include/uapi/linux/posix_acl_xattr.h
-index 506380f0b9..a44a515079 100644
---- a/include/uapi/linux/posix_acl_xattr.h
-+++ b/include/uapi/linux/posix_acl_xattr.h
-@@ -36,4 +36,23 @@ struct posix_acl_xattr_header {
- 	__le32			a_version;
- };
- 
+-int chown_common(const struct path *path, uid_t user, gid_t group)
 +/*
-+ * Version 3: the ids of ACL_USER and ACL_GROUP entries can also be UUIDs
-+ * and GUIDs. e_type is a UID_R_* kind (<linux/uidgid_r.h>); a classic id
-+ * is in the first four bytes of e_id, little endian, a UUID or GUID takes
-+ * all of it in the byte order of __kernel_uid_r_t. Other entries have
-+ * e_type UID_R_NONE.
-+ *
-+ * getxattr() returns version 2 unless an entry has a UUID or GUID;
-+ * setxattr() takes both.
++ * The new owner and group of a chown. Invalid ids stand for "unchanged";
++ * @err is an error of their conversion, reported once the path is found,
++ * which keeps the classic calls' order of errors.
 + */
-+#define POSIX_ACL_XATTR_VERSION_R	0x0003
-+
-+struct posix_acl_xattr_entry_r {
-+	__le16			e_tag;
-+	__le16			e_perm;
-+	__le32			e_type;
-+	__u8			e_id[16];
++struct chown_ids {
++	kuid_t uid;
++	kgid_t gid;
++	int err;
 +};
 +
- #endif	/* __UAPI_POSIX_ACL_XATTR_H */
++static struct chown_ids chown_ids_classic(uid_t user, gid_t group)
++{
++	struct user_namespace *ns = current_user_ns();
++	struct chown_ids ids = {
++		.uid = make_kuid(ns, user),
++		.gid = make_kgid(ns, group),
++	};
++
++	if ((user != (uid_t)-1 && !uid_valid(ids.uid)) ||
++	    (group != (gid_t)-1 && !gid_valid(ids.gid)))
++		ids.err = -EINVAL;
++	return ids;
++}
++
++static int chown_ids_r(const struct __kernel_uid_r __user *user,
++		       const struct __kernel_uid_r __user *group,
++		       struct chown_ids *ids)
++{
++	struct user_namespace *ns = current_user_ns();
++	int err;
++
++	ids->err = 0;
++	err = get_kuid_r(ns, user, &ids->uid);
++	if (!err)
++		err = get_kgid_r(ns, group, &ids->gid);
++	return err;
++}
++
++static int chown_path(const struct path *path, const struct chown_ids *ids)
+ {
+ 	struct mnt_idmap *idmap;
+ 	struct user_namespace *fs_userns;
+@@ -793,11 +832,9 @@ int chown_common(const struct path *path, uid_t user, gid_t group)
+ 	struct delegated_inode delegated_inode = { };
+ 	int error;
+ 	struct iattr newattrs;
+-	kuid_t uid;
+-	kgid_t gid;
+ 
+-	uid = make_kuid(current_user_ns(), user);
+-	gid = make_kgid(current_user_ns(), group);
++	if (ids->err)
++		return ids->err;
+ 
+ 	idmap = mnt_idmap(path->mnt);
+ 	fs_userns = i_user_ns(inode);
+@@ -806,9 +843,9 @@ int chown_common(const struct path *path, uid_t user, gid_t group)
+ 	newattrs.ia_vfsuid = INVALID_VFSUID;
+ 	newattrs.ia_vfsgid = INVALID_VFSGID;
+ 	newattrs.ia_valid =  ATTR_CTIME;
+-	if ((user != (uid_t)-1) && !setattr_vfsuid(&newattrs, uid))
++	if (uid_valid(ids->uid) && !setattr_vfsuid(&newattrs, ids->uid))
+ 		return -EINVAL;
+-	if ((group != (gid_t)-1) && !setattr_vfsgid(&newattrs, gid))
++	if (gid_valid(ids->gid) && !setattr_vfsgid(&newattrs, ids->gid))
+ 		return -EINVAL;
+ 	error = inode_lock_killable(inode);
+ 	if (error)
+@@ -833,8 +870,15 @@ int chown_common(const struct path *path, uid_t user, gid_t group)
+ 	return error;
+ }
+ 
+-int do_fchownat(int dfd, const char __user *filename, uid_t user, gid_t group,
+-		int flag)
++int chown_common(const struct path *path, uid_t user, gid_t group)
++{
++	struct chown_ids ids = chown_ids_classic(user, group);
++
++	return chown_path(path, &ids);
++}
++
++static int fchownat_ids(int dfd, const char __user *filename,
++			const struct chown_ids *ids, int flag)
+ {
+ 	struct path path;
+ 	int error;
+@@ -850,7 +894,7 @@ int do_fchownat(int dfd, const char __user *filename, uid_t user, gid_t group,
+ 	if (!error) {
+ 		error = mnt_want_write(path.mnt);
+ 		if (!error) {
+-			error = chown_common(&path, user, group);
++			error = chown_path(&path, ids);
+ 			mnt_drop_write(path.mnt);
+ 		}
+ 		path_put(&path);
+@@ -862,6 +906,14 @@ int do_fchownat(int dfd, const char __user *filename, uid_t user, gid_t group,
+ 	return error;
+ }
+ 
++int do_fchownat(int dfd, const char __user *filename, uid_t user, gid_t group,
++		int flag)
++{
++	struct chown_ids ids = chown_ids_classic(user, group);
++
++	return fchownat_ids(dfd, filename, &ids, flag);
++}
++
+ SYSCALL_DEFINE5(fchownat, int, dfd, const char __user *, filename, uid_t, user,
+ 		gid_t, group, int, flag)
+ {
+@@ -879,7 +931,7 @@ SYSCALL_DEFINE3(lchown, const char __user *, filename, uid_t, user, gid_t, group
+ 			   AT_SYMLINK_NOFOLLOW);
+ }
+ 
+-int vfs_fchown(struct file *file, uid_t user, gid_t group)
++static int fchown_ids(struct file *file, const struct chown_ids *ids)
+ {
+ 	int error;
+ 
+@@ -887,11 +939,18 @@ int vfs_fchown(struct file *file, uid_t user, gid_t group)
+ 	if (error)
+ 		return error;
+ 	audit_file(file);
+-	error = chown_common(&file->f_path, user, group);
++	error = chown_path(&file->f_path, ids);
+ 	mnt_drop_write_file(file);
+ 	return error;
+ }
+ 
++int vfs_fchown(struct file *file, uid_t user, gid_t group)
++{
++	struct chown_ids ids = chown_ids_classic(user, group);
++
++	return fchown_ids(file, &ids);
++}
++
+ int ksys_fchown(unsigned int fd, uid_t user, gid_t group)
+ {
+ 	CLASS(fd, f)(fd);
+@@ -907,6 +966,67 @@ SYSCALL_DEFINE3(fchown, unsigned int, fd, uid_t, user, gid_t, group)
+ 	return ksys_fchown(fd, user, group);
+ }
+ 
++/*
++ * The *_r variants take __kernel_uid_r_t ids, which can also be UUIDs or
++ * GUIDs. A NULL pointer, UID_R_NONE or a classic -1 leave the owner or
++ * group unchanged.
++ */
++SYSCALL_DEFINE5(fchownat_r, int, dfd, const char __user *, filename,
++		const struct __kernel_uid_r __user *, user,
++		const struct __kernel_uid_r __user *, group, int, flag)
++{
++	struct chown_ids ids;
++	int error;
++
++	error = chown_ids_r(user, group, &ids);
++	if (error)
++		return error;
++	return fchownat_ids(dfd, filename, &ids, flag);
++}
++
++SYSCALL_DEFINE3(chown_r, const char __user *, filename,
++		const struct __kernel_uid_r __user *, user,
++		const struct __kernel_uid_r __user *, group)
++{
++	struct chown_ids ids;
++	int error;
++
++	error = chown_ids_r(user, group, &ids);
++	if (error)
++		return error;
++	return fchownat_ids(AT_FDCWD, filename, &ids, 0);
++}
++
++SYSCALL_DEFINE3(lchown_r, const char __user *, filename,
++		const struct __kernel_uid_r __user *, user,
++		const struct __kernel_uid_r __user *, group)
++{
++	struct chown_ids ids;
++	int error;
++
++	error = chown_ids_r(user, group, &ids);
++	if (error)
++		return error;
++	return fchownat_ids(AT_FDCWD, filename, &ids, AT_SYMLINK_NOFOLLOW);
++}
++
++SYSCALL_DEFINE3(fchown_r, unsigned int, fd,
++		const struct __kernel_uid_r __user *, user,
++		const struct __kernel_uid_r __user *, group)
++{
++	struct chown_ids ids;
++	int error;
++
++	error = chown_ids_r(user, group, &ids);
++	if (error)
++		return error;
++
++	CLASS(fd, f)(fd);
++	if (fd_empty(f))
++		return -EBADF;
++	return fchown_ids(fd_file(f), &ids);
++}
++
+ static inline int file_get_write_access(struct file *f)
+ {
+ 	int error;
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index b4b9d5d76f..4a18b59631 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -998,6 +998,19 @@ asmlinkage long sys_getgroups_r(int gidsetsize,
+ 				struct __kernel_uid_r __user *grouplist);
+ asmlinkage long sys_setgroups_r(int gidsetsize,
+ 				const struct __kernel_uid_r __user *grouplist);
++asmlinkage long sys_chown_r(const char __user *filename,
++			    const struct __kernel_uid_r __user *user,
++			    const struct __kernel_uid_r __user *group);
++asmlinkage long sys_lchown_r(const char __user *filename,
++			     const struct __kernel_uid_r __user *user,
++			     const struct __kernel_uid_r __user *group);
++asmlinkage long sys_fchown_r(unsigned int fd,
++			     const struct __kernel_uid_r __user *user,
++			     const struct __kernel_uid_r __user *group);
++asmlinkage long sys_fchownat_r(int dfd, const char __user *filename,
++			       const struct __kernel_uid_r __user *user,
++			       const struct __kernel_uid_r __user *group,
++			       int flag);
+ asmlinkage long sys_open_tree(int dfd, const char __user *path, unsigned flags);
+ asmlinkage long sys_open_tree_attr(int dfd, const char __user *path,
+ 				   unsigned flags,
 -- 
 2.56.0
 
