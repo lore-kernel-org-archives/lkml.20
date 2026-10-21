@@ -1,83 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596326;
-	b=20mPIV754XQqDJg/548k+VbB4jUG1BYi5ZqMkdzozfbV/8y7gLKkmlFhhGAK6Qxq2TBC
-	 LtylEmsJokFjSE7u8Ge+Nq30pvfcMTRYp6mLwu5xtHxuxTD+Xz2R+KG9ZRuJVCVEoMqHy
-	 lWgMFDVtwLDMss89uetOIZimUBvLgQ4E8+fu0YGx8ByUlyGa74fNAN9Kpe+v6smur+XGt
-	 bhnnrtVDM4LaBci4n6lb48ujLrFbCBO5kbMheUMZ8G9qIuHFby2vM+ls49GYe7zj8WvHV
-	 TR1BW/ci6skFWE2+6s1c9/PmSBWdQ+OAyn4ha/UglsmOGticAQkR0bFdJkqRsKG6F8A==
+	t=1792596335;
+	b=zCslp4ld5+iCWAUlUospgWMEE+f58bDpFOmXOBJSTV97eq/46zGuHJ2bueG8pcNL3vv6
+	 mUUP/9lmLoerjkPxa/e0jJ2lq/S+OAxs3RaGkkjkok3dTucaOQcRz4G8YqddH1x4J59JX
+	 9Q35lkMwhLhmq6MKvZNFnHG01rWm/o6oM189/G28Pi7SF3bHwglioDE04xw5LfgCf17Xt
+	 C/Fgsfz9KpZNcZxkjWMv/hC8gT2opgQNlA0dFA5J10A3fsnBzN5I7kUKtwBZfM+a69rWW
+	 HodHyotZD1Ic3vSlqXs1e/TWeUfhEpqB6xJGnHhMXZlej7C3X79kK3DD7kDKsec2kNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596326;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=knvARjvm/b7EPks61dPTHzn4nKrfkJtbvOaJXgAGa6w=;
-	b=CtQ9sKlM6qP9BirMPhViXFsBTns5kpdu61stqaX2F5p/2FiJciKLkYUI5I0Ac6OhHF0B
-	 sUPIDJGKMT8cwyc07xQWw8kLkG2vBeW7S6Msf7l4Qkr2eLf19fCwmGW2wXA13YBE8wLpk
-	 099/XNZjXojLKFwoLSXeUx6SYNVeInV3mr60L/dScO6Sh4SkQbva68SrHxOAJ8r6VJouO
-	 Faifn6K4G6kSrQ56p5I+w485eFSWbQpJ5K+CywRqxXT7JfTcN8qIl6OA8Gbpocm7gHmB/
-	 ZsDCQIMj1k8DtU3og0WqgDEENMBmIkQdt5+wZBjBZ2GbMuwtKDC5AlOdWgLe68PfBJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596335;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=ZbIjwDEfIR1joauMn2U7a5Pk6EzKnprQ0hMzYPZ02Lc=;
+	b=XvvDorJUtJPQCjTzSTr4/HOk1ZG//JSWC5dJbb25Jid/ebr0I/XdcDgBQnEuBVybYGZl
+	 IxvVmM5ekI4xG0AZN3hQwA8eLgN/z5PNwvQTyn7MKhxsSVPAjB6bTFDwwUTuMSduUPt2i
+	 ZsI9RhJPUt9K9q3FCgU0RhRKsv+Bsl0EEKq4dINaUR/wjZXAOBTksJhr+VpizBzlf2i8t
+	 TBk93Cl8r0E+FLw8FPWKM82aHsWpSXaGJTXOEhW4nVtotaA4yjD3cbdBZW9r7GMuILsGV
+	 5Q5TBvyt1wpiM25KjQ8OF2PMXtPqx2KoO6HZhsnjWNGWNkrGbQhC4qKItefz/k9i8Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ta+J1CRy;
-	arc=none smtp.remote-ip=95.215.58.96
-Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dScoVOdk;
+	arc=none smtp.remote-ip=209.85.208.71
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244DD606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 244DD606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8755460A262C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:25:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8755460A262C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ta+J1CRy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2NUhMoKkUJ6bepZ4RgyA85/mYzDtnL9WbvXKX2SoqhA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792596323; v=1; x=1793201123;
- b=Ta+J1CRyGV9OmxnXjk3QROzoKrk1/Eke2jvUuto6loQLqIV/iW96VrFICUMDl1YrtN8LV0Ls
- nbyywT/KJBYco76vnyrBugQXNPGdV03n/exdwV0FDd7pqmxlDrF6XHT04KUMCYHZAbYuvbIiS2j
- x+Nhb+zEZbMWIlfdKcgU5ofQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 328008eecc345c54;
-	Wed, 21 Oct 2026 15:25:10 +0000
-X-Mizu-Trace-ID: 328008eecc345c54
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>
-Subject: [PATCH bpf-next] bpf: Pass extack to bpf_xdp_link_attach
-Date: Wed, 21 Oct 2026 23:24:55 +0800
-Message-ID: <20261021152455.71524-1-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dScoVOdk
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b413b0000eso556384a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:25:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792596333; x=1793201133; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZbIjwDEfIR1joauMn2U7a5Pk6EzKnprQ0hMzYPZ02Lc=;
+        b=dScoVOdkhjgrp//ufjf66iV3smajU+tkiL9+CW7JI8cCckXOUa4mI8FL22mUy0uukA
+         ATa1yn5ovbm3pjVZmHOkthDSkzKrVjZpXsO/p5vcNalxvsZMFp1I9w1iIkdeXKxtKhu7
+         Iv9OvTvajIMN/4e2yB3LRIcb/sgmfVGY8ZQguhQVAqdTsfMTz3wpgjpMvHHekUJ+Nae8
+         SiVScVvIDNRJTx9wOhGWXG4T0xPhuNomSbjC4IlUqReVeX9etDKmEXmwzXFZyaotOAuR
+         e9Lbn47raNpPhcHYz9a8KMyGI70wJeSPeZdgWpa//kLFcCIHpEVT/KH9CUAxXp2ARVGu
+         7lwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792596333; x=1793201133;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZbIjwDEfIR1joauMn2U7a5Pk6EzKnprQ0hMzYPZ02Lc=;
+        b=d8k4DJYGPrKvqXog2z+R4kMYf8ZmUlHSlBMgS04jyqXbqdqHWfeBKynZHMWUwylmTB
+         YOpWllJ6iZivC23J82c+/q7j1gyF9L25lEGU3MfB0IToWrA0CVkJhNbd+QU67IpfUp92
+         3pIvD+eEYGXGjMIPF2NExHkov8Eb1NAoqBFI66wn8ocj9MDmvc8/tx4rbQWyk7TAqtOb
+         Qz7EDnZ6X74bARKl41huduG75yB1sop87E3n9ApHHuMz5/Y8mGoP1oAB3Y+r47OOC4sb
+         Qj+9OnVe/9cmBbNKK19liF1znikOlCHfetrTba52FxnHrpJI6x2Iit9KmGw+u6ovGAGJ
+         tpSA==
+X-Forwarded-Encrypted: i=1; AKwUvByIKxSTpxF2lDKfwPWbwF8hS0mXVEAUHPz7ylNqEhBoIjIUO71tme3owI3exGm875z2A2qXqK3HPiTKfAI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5oigs5oh8Vosp3c5Lxz2MvvJT93mFeylYJ8yTfmR3Pg8AI44U
+	x85B4yAitfDCFqodyyvfMXvuLHQ0JZl45fQpU+d71AArhQF2eLmFTHl2LfOfF/TJXegFvBUkr91
+	tin5rLp9H8HadBraoBA==
+X-Received: from edqi13.prod.google.com ([2002:aa7:c70d:0:b0:6b1:b15e:791f])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:d0e:b0:6ac:765e:def2 with SMTP id 4fb4d7f45d1cf-6b408ee816dmr1817334a12.41.1792596332369;
+ Wed, 21 Oct 2026 08:25:32 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:25:26 +0000
+In-Reply-To: <20261021152527.375070-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,131 +78,574 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261021152527.375070-1-tarunsahu@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261021152527.375070-4-tarunsahu@google.com>
+Subject: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with a
+ 2-bit pair feature header
+From: Tarun Sahu <tarunsahu@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	David Matlack <dmatlack@google.com>, jgg@nvidia.com, robin.murphy@arm.com, 
+	loganodell@google.com, oupton@kernel.org, kevin.tian@intel.com, 
+	alex@shazbot.org, dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, 
+	will@kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com
+Cc: linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Tarun Sahu <tarunsahu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-In order to drop the dependency of bpf_verifier.h in net/core/dev.c, pass
-extack to bpf_xdp_link_attach() in link_create(). Afterwards, transfer
-the error message from extack to log buffer in link_create().
+LUO and its file handlers validate handed-over state with monolithic
+compatibility strings ("luo-v5", "memfd-v2"). Any change to a serialized
+structure, even an optional additive one, must bump the string, which
+breaks live update between adjacent kernels. Replace the string in
+struct luo_ser with a feature header, so that the target kernel can
+accept or reject the source kernel state per feature.
 
-Drop the stub bpf_log(), because it is not used in net/core/dev.c
-anymore when CONFIG_BPF_SYSCALL is not set.
+struct luo_feature_hdr is a fixed 128-byte header: the serialized
+structure size from the source kernel followed by 15 chained u64 feature
+flags entries. The fixed size keeps payload field offsets identical in
+every kernel, regardless of how many flags entries a source kernel uses.
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Each feature has a 2-bit pair (req, active) state (enum luo_feat_state:
+LUO_FEAT_DISABLED, LUO_FEAT_OPTIONAL, LUO_FEAT_REQUIRED). A flags entry
+holds 31 features, and bits [63:62] = 0b11 chain to the next entry (465
+features in total). Each subsystem defines its feature states as a
+static const u8 array indexed by its feature enum, which
+luo_feature_hdr_init() packs into 64-bit flags entries with
+LUO_FEAT_EXT_MASK chain bits. The target kernel validates the header from
+the source kernel against its own feature array via
+luo_feature_hdr_validate() according to the per-feature (req, active)
+truth table:
+
+  Source Target Action
+  (1,0)  (x,x)  Reject -EINVAL: invalid source kernel (req without active)
+  (x,x)  (1,0)  Reject -EINVAL + WARN_ON_ONCE: invalid target kernel
+  (0,0)  (0,0)  Accept: feature absent
+  (0,0)  (0,1)  Accept: feature absent
+  (0,0)  (1,1)  Reject -EOPNOTSUPP: target kernel requires the feature
+  (0,1)  (0,0)  Accept: ignore payload data
+  (1,1)  (0,0)  Reject -EOPNOTSUPP: source kernel requires the feature
+  (x,1)  (x,1)  Accept: use payload data
+
+The relative order and offsets of fields in serialized structures must
+remain unchanged as features are added or retired. New fields are always
+appended at the end of the structure under a new feature flag, and
+retired fields are kept in place so that the offsets of subsequent
+fields never shift. If the type or format of a field needs to change, the
+existing field and feature are kept intact (and retired when no longer
+needed) and a new feature flag with a new appended field of the new type
+is added.
+
+In the target kernel, fields of a LUO_FEAT_REQUIRED feature are
+guaranteed to be present once luo_feature_hdr_validate() succeeds,
+whereas fields of a LUO_FEAT_OPTIONAL feature should be accessed only
+after verifying that the feature is active in the source kernel header:
+
+  if (luo_feature_is_active(&ser->features, FEAT_X))
+          val = ser->x_field;
+
+All current struct luo_ser fields (liveupdate_num, sessions_pa, flbs_pa)
+belong to LUO_CORE_FEAT_CORE (LUO_FEAT_REQUIRED in luo_core_features).
+Future changes add new entries to enum luo_core_feature before
+LUO_CORE_FEAT_MAX.
+
+Signed-off-by: Logan Odell <loganodell@google.com>
+Signed-off-by: Tarun Sahu <tarunsahu@google.com>
 ---
-Address Jakub's review in the series
-"bpf: Add syscall common attrs support for xdp link_create" [1].
+ include/linux/kho/abi/luo.h  | 345 +++++++++++++++++++++++++++++++----
+ kernel/liveupdate/luo_core.c |  27 ++-
+ 2 files changed, 332 insertions(+), 40 deletions(-)
 
-Links:
-[1] https://lore.kernel.org/bpf/20261020152804.39863-1-leon.hwang@linux.dev/
----
- include/linux/bpf_verifier.h |  5 -----
- include/linux/netdevice.h    |  2 +-
- kernel/bpf/syscall.c         |  8 +++++++-
- net/core/dev.c               | 10 +++-------
- 4 files changed, 11 insertions(+), 14 deletions(-)
-
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index 1d34ece19bcc..5926f13ff43c 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -1269,13 +1269,8 @@ __printf(2, 0) void bpf_verifier_vlog(struct bpf_verifier_log *log,
- 				      const char *fmt, va_list args);
- __printf(2, 3) void bpf_verifier_log_write(struct bpf_verifier_env *env,
- 					   const char *fmt, ...);
--#ifdef CONFIG_BPF_SYSCALL
- __printf(2, 3) void bpf_log(struct bpf_verifier_log *log,
- 			    const char *fmt, ...);
--#else
--__printf(2, 3) static inline void bpf_log(struct bpf_verifier_log *log,
--					  const char *fmt, ...) {}
--#endif
- int bpf_vlog_init(struct bpf_verifier_log *log, u32 log_level,
- 		  char __user *log_buf, u32 log_size);
- void bpf_vlog_reset(struct bpf_verifier_log *log, u64 new_pos);
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 4548b0fd824d..f5d6438c4b8f 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -4418,7 +4418,7 @@ struct sk_buff *dev_hard_start_xmit(struct sk_buff *skb, struct net_device *dev,
- 				    struct netdev_queue *txq, int *ret);
-
- int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
--			struct bpf_verifier_log *log);
-+			struct netlink_ext_ack *extack);
- u8 dev_xdp_prog_count(struct net_device *dev);
- int netif_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
- int dev_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 87cd122d1024..26917a1ecbb2 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -5944,8 +5944,14 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_a
- 		break;
- #ifdef CONFIG_NET
- 	case BPF_PROG_TYPE_XDP:
--		ret = bpf_xdp_link_attach(attr, prog, log);
-+{
-+		struct netlink_ext_ack extack = {};
+diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
+index 5fb2f46425d7..be35cfbfdb2b 100644
+--- a/include/linux/kho/abi/luo.h
++++ b/include/linux/kho/abi/luo.h
+@@ -9,19 +9,53 @@
+  * DOC: Live Update Orchestrator ABI
+  *
+  * Live Update Orchestrator uses the stable Application Binary Interface
+- * defined below to pass state from a pre-update kernel to a post-update
+- * kernel. The ABI is built upon the Kexec HandOver framework and registers
+- * the central `struct luo_ser` via the KHO raw subtree API.
++ * defined below to pass state from a source kernel to a target kernel.
++ * The ABI is built upon the Kexec HandOver framework and registers the
++ * central `struct luo_ser` via the KHO raw subtree API.
+  *
+- * This interface is a contract. Any modification to the structure fields,
+- * compatible strings, or the layout of the `__packed` serialization
+- * structures defined here constitutes a breaking change. Such changes require
+- * incrementing the version number in the relevant `_COMPATIBLE` string to
+- * prevent a new kernel from misinterpreting data from an old kernel.
++ * This interface is a contract. Serialized structures start with a fixed
++ * 128-byte feature header (`struct luo_feature_hdr`) holding the source
++ * kernel's structure `size` and 15 chained 64-bit feature flags entries
++ * (`flags[LUO_FEAT_NR_FLAGS]`). Each entry encodes up to 31 features as
++ * 2-bit `0b<req><active>` pairs (`enum luo_feat_state`), with
++ * `LUO_FEAT_EXT_MASK` in bits `[63:62]` chaining to the next entry (up to
++ * 465 features total). Because the header size is fixed at 128 bytes,
++ * payload field offsets do not depend on how many flags entries a source
++ * kernel uses.
+  *
+- * Changes are allowed provided the compatibility version is incremented;
+- * however, backward/forward compatibility is only guaranteed for kernels
+- * supporting the same ABI version.
++ * Truth table (`(req,active)` pairs per feature)::
++ *
++ *   Source Target Action
++ *   (1,0)  (x,x)  Reject -EINVAL: invalid source kernel (req without active)
++ *   (x,x)  (1,0)  Reject -EINVAL: invalid target kernel (req without active)
++ *   (0,0)  (0,0)  Accept: feature absent
++ *   (0,0)  (0,1)  Accept: feature absent
++ *   (0,0)  (1,1)  Reject -EOPNOTSUPP: target kernel requires the feature
++ *   (0,1)  (0,0)  Accept: ignore payload data
++ *   (1,1)  (0,0)  Reject -EOPNOTSUPP: source kernel requires the feature
++ *   (x,1)  (x,1)  Accept: use payload data
++ *
++ * The relative order and offsets of fields in serialized structures must
++ * remain unchanged as features are added or retired. New fields are always
++ * appended at the end of the structure under a new feature flag, and
++ * retired fields are kept in place so that the offsets of subsequent
++ * fields never shift. If a field's type or format needs to change, the
++ * existing field and feature are kept intact (and retired when no longer
++ * needed) and a new feature flag with a new appended field of the new type
++ * is added.
++ *
++ * In the target kernel, fields of a `LUO_FEAT_REQUIRED` feature are
++ * guaranteed to be present once `luo_feature_hdr_validate()` succeeds,
++ * whereas fields of a `LUO_FEAT_OPTIONAL` feature should be accessed only
++ * after verifying that the feature is active in the source kernel's header::
++ *
++ *   if (luo_feature_is_active(&ser->features, FEAT_X))
++ *           val = ser->x_field;
++ *
++ * All current `struct luo_ser` fields (`liveupdate_num`, `sessions_pa`,
++ * `flbs_pa`) belong to `LUO_CORE_FEAT_CORE` (`LUO_FEAT_REQUIRED` in
++ * `luo_core_features`). Future changes add new entries to
++ * `enum luo_core_feature` before `LUO_CORE_FEAT_MAX`.
+  *
+  * KHO Structure Overview:
+  *   The entire LUO state is encapsulated within a single KHO entry named "LUO".
+@@ -30,8 +64,9 @@
+  * Serialization Structures:
+  *   - struct luo_ser:
+  *     The central ABI structure that contains the overall state of the LUO.
+- *     It includes the compatibility string, the liveupdate-number, and pointers
+- *     to sessions and FLBs.
++ *     It includes the feature header (with struct size and 2-bit feature flag
++ *     pairs), and the core feature (`LUO_CORE_FEAT_CORE`) fields: the
++ *     liveupdate-number and pointers to sessions and FLBs.
+  *
+  *   - struct luo_session_ser:
+  *     Metadata for a single session, including its name and a physical pointer
+@@ -40,8 +75,9 @@
+  *
+  *   - struct luo_file_ser:
+  *     Metadata for a single preserved file. Contains the handler `name` string
+- *     to find the correct handler in the new kernel, a user-provided `token`
+- *     for identification, and an opaque `data` handle for the handler to use.
++ *     to find the correct handler in the target kernel, a user-provided
++ *     `token` for identification, and an opaque `data` handle for the handler
++ *     to use.
+  *
+  *   - struct luo_flb_header_ser:
+  *     Header for the FLB array. Contains the total page count of the
+@@ -57,20 +93,265 @@
+ #ifndef _LINUX_KHO_ABI_LUO_H
+ #define _LINUX_KHO_ABI_LUO_H
+ 
+-#include <linux/align.h>
++#include <linux/array_size.h>
++#include <linux/bits.h>
++#include <linux/bug.h>
++#include <linux/build_bug.h>
++#include <linux/errno.h>
+ #include <linux/kho/abi/block.h>
++#include <linux/types.h>
+ #include <uapi/linux/liveupdate.h>
+ 
+ /*
+  * The LUO state is registered under this KHO entry name.
+  */
+ #define LUO_KHO_ENTRY_NAME	"LUO"
+-#define LUO_ABI_COMPATIBLE	"luo-v5"
+-#define LUO_ABI_COMPAT_LEN	ALIGN(sizeof(LUO_ABI_COMPATIBLE), 8)
 +
-+		ret = bpf_xdp_link_attach(attr, prog, &extack);
-+		if (extack._msg)
-+			bpf_log(log, "%s\n", extack._msg);
- 		break;
++#define LUO_FEAT_PER_FLAGS	31
++#define LUO_FEAT_NR_FLAGS	15
++#define LUO_FEAT_MAX		(LUO_FEAT_NR_FLAGS * LUO_FEAT_PER_FLAGS)
++#define LUO_FEAT_EXT_MASK	GENMASK_ULL(63, 62)
++#define LUO_FEAT_ACTIVE_MASK	(0x5555555555555555ULL & ~LUO_FEAT_EXT_MASK)
++#define LUO_FEAT_REQ_MASK	(0xaaaaaaaaaaaaaaaaULL & ~LUO_FEAT_EXT_MASK)
++
++#define LUO_FEAT_FLAGS_IDX(f)	((unsigned int)(f) / LUO_FEAT_PER_FLAGS)
++#define LUO_FEAT_SLOT(f)	((unsigned int)(f) % LUO_FEAT_PER_FLAGS)
++
++#define LUO_FEAT_ACTIVE(f)	BIT_ULL(2 * LUO_FEAT_SLOT(f))
++#define LUO_FEAT_REQ(f)		BIT_ULL(2 * LUO_FEAT_SLOT(f) + 1)
++
++/**
++ * enum luo_feat_state - 2-bit state of a LUO feature (`0b<req><active>`).
++ * @LUO_FEAT_DISABLED: Feature is inactive (`req=0, active=0`).
++ * @LUO_FEAT_OPTIONAL: Feature is active and optional (`req=0, active=1`).
++ * @LUO_FEAT_REQUIRED: Feature is active and required (`req=1, active=1`).
++ */
++enum luo_feat_state {
++	LUO_FEAT_DISABLED = 0b00,
++	LUO_FEAT_OPTIONAL = 0b01,
++	LUO_FEAT_REQUIRED = 0b11,
++};
++
++/**
++ * struct luo_feature_hdr - Fixed 128-byte header for serialized LUO ABI structures.
++ * @size:  Size in bytes of the source kernel's enclosing serialized structure.
++ * @flags: Chained 64-bit feature flags entries (`0 .. LUO_FEAT_NR_FLAGS - 1`).
++ *         Each entry holds 31 2-bit feature pairs (`[2*slot + 1 : 2*slot]`)
++ *         plus %LUO_FEAT_EXT_MASK in bits `[63:62]` when the next entry is
++ *         active.
++ */
++struct luo_feature_hdr {
++	u64 size;
++	u64 flags[LUO_FEAT_NR_FLAGS];
++} __packed;
++
++static_assert(sizeof(struct luo_feature_hdr) == 128);
++
++/**
++ * luo_feature_hdr_for_each_flags - Iterate over chained flags entries in @hdr.
++ * @hdr: Pointer to the &struct luo_feature_hdr to iterate.
++ * @idx: Loop cursor of type `unsigned int` (`0 .. LUO_FEAT_NR_FLAGS - 1`).
++ */
++#define luo_feature_hdr_for_each_flags(hdr, idx)			\
++	for ((idx) = 0; (idx) < LUO_FEAT_NR_FLAGS;			\
++	     (idx) = (((hdr)->flags[idx] & LUO_FEAT_EXT_MASK) ==	\
++		      LUO_FEAT_EXT_MASK) ? (idx) + 1 : LUO_FEAT_NR_FLAGS)
++
++/**
++ * luo_feature_hdr_get_flags - Get the flags entry containing feature @feat.
++ * @hdr:  Pointer to the source kernel's feature header.
++ * @feat: Feature index (`0 .. LUO_FEAT_MAX - 1`).
++ *
++ * Return: The u64 flags entry containing @feat if the extension chain reaches
++ *         it, or 0 otherwise.
++ */
++static inline u64
++luo_feature_hdr_get_flags(const struct luo_feature_hdr *hdr,
++			  unsigned int feat)
++{
++	unsigned int target_idx = LUO_FEAT_FLAGS_IDX(feat);
++	unsigned int idx;
++
++	if (target_idx >= LUO_FEAT_NR_FLAGS)
++		return 0;
++
++	luo_feature_hdr_for_each_flags(hdr, idx) {
++		if (idx == target_idx)
++			return hdr->flags[idx];
++	}
++
++	return 0;
 +}
- 	case BPF_PROG_TYPE_SCHED_CLS:
- 		if (attr->link_create.attach_type == BPF_TCX_INGRESS ||
- 		    attr->link_create.attach_type == BPF_TCX_EGRESS)
-diff --git a/net/core/dev.c b/net/core/dev.c
-index a142613536b0..d79a589206e1 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -97,7 +97,6 @@
- #include <linux/kthread.h>
- #include <linux/bpf.h>
- #include <linux/bpf_trace.h>
--#include <linux/bpf_verifier.h>
- #include <net/net_namespace.h>
- #include <net/sock.h>
- #include <net/busy_poll.h>
-@@ -10773,11 +10772,10 @@ static const struct bpf_link_ops bpf_xdp_link_lops = {
- };
-
- int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
--			struct bpf_verifier_log *log)
-+			struct netlink_ext_ack *extack)
- {
- 	struct net *net = current->nsproxy->net_ns;
- 	struct bpf_link_primer link_primer;
--	struct netlink_ext_ack extack = {};
- 	struct bpf_xdp_link *link;
- 	struct net_device *dev;
- 	int err, fd;
-@@ -10786,7 +10784,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
- 	dev = dev_get_by_index(net, attr->link_create.target_ifindex);
- 	if (!dev) {
- 		rtnl_unlock();
--		bpf_log(log, "Invalid target_ifindex.\n");
-+		NL_SET_ERR_MSG(extack, "Invalid target_ifindex.");
- 		return -EINVAL;
++
++/**
++ * luo_feature_is_active - Test whether feature @feat is active in @hdr.
++ * @hdr:  Pointer to the source kernel's feature header.
++ * @feat: Feature index (`0 .. LUO_FEAT_MAX - 1`).
++ *
++ * Return: true if the source kernel marked @feat active, false otherwise.
++ */
++static inline bool luo_feature_is_active(const struct luo_feature_hdr *hdr,
++					 unsigned int feat)
++{
++	return luo_feature_hdr_get_flags(hdr, feat) & LUO_FEAT_ACTIVE(feat);
++}
++
++/**
++ * luo_feature_is_req - Test whether feature @feat is required in @hdr.
++ * @hdr:  Pointer to the source kernel's feature header.
++ * @feat: Feature index (`0 .. LUO_FEAT_MAX - 1`).
++ *
++ * Return: true if the source kernel marked @feat required, false otherwise.
++ */
++static inline bool luo_feature_is_req(const struct luo_feature_hdr *hdr,
++				      unsigned int feat)
++{
++	return luo_feature_hdr_get_flags(hdr, feat) & LUO_FEAT_REQ(feat);
++}
++
++/**
++ * luo_feature_pack_entry - Pack up to 31 feature states into a flags entry.
++ * @features:    Array of &enum luo_feat_state values indexed by feature ID.
++ * @nr_features: Number of elements in @features.
++ * @idx:         Flags entry index (`0 .. LUO_FEAT_NR_FLAGS - 1`).
++ *
++ * Return: The packed 64-bit flags entry for @idx (without %LUO_FEAT_EXT_MASK).
++ */
++static inline u64
++luo_feature_pack_entry(const u8 *features, size_t nr_features,
++		       unsigned int idx)
++{
++	unsigned int base = idx * LUO_FEAT_PER_FLAGS;
++	unsigned int slot;
++	u64 flags = 0;
++
++	for (slot = 0; slot < LUO_FEAT_PER_FLAGS && base + slot < nr_features;
++	     slot++)
++		flags |= (u64)(features[base + slot] & 0b11) << (2 * slot);
++
++	return flags;
++}
++
++/**
++ * __luo_feature_hdr_init - Initialize a serialized LUO feature header.
++ * @hdr:         Pointer to the feature header to initialize.
++ * @size:        Byte size of the enclosing serialized structure.
++ * @features:    Array of &enum luo_feat_state values for the source kernel.
++ * @nr_features: Number of elements in @features (`<= LUO_FEAT_MAX`).
++ */
++static inline void
++__luo_feature_hdr_init(struct luo_feature_hdr *hdr, u64 size,
++		       const u8 *features, size_t nr_features)
++{
++	bool ext = false;
++	int idx;
++
++	hdr->size = size;
++	for (idx = LUO_FEAT_NR_FLAGS - 1; idx >= 0; idx--) {
++		u64 flags = luo_feature_pack_entry(features, nr_features, idx);
++
++		WARN_ON_ONCE(((flags & LUO_FEAT_REQ_MASK) >> 1) &
++			     ~(flags & LUO_FEAT_ACTIVE_MASK));
++		if (ext)
++			flags |= LUO_FEAT_EXT_MASK;
++		else if (flags)
++			ext = true;
++		hdr->flags[idx] = flags;
++	}
++}
++
++/**
++ * luo_feature_hdr_init - Initialize a serialized LUO feature header.
++ * @hdr:      Pointer to the feature header to initialize.
++ * @size:     Byte size of the enclosing serialized structure.
++ * @features: Fixed-size `u8` array of &enum luo_feat_state entries.
++ */
++#define luo_feature_hdr_init(hdr, size, features)			\
++({									\
++	BUILD_BUG_ON(ARRAY_SIZE(features) > LUO_FEAT_MAX);		\
++	__luo_feature_hdr_init(hdr, size, features,			\
++			       ARRAY_SIZE(features));			\
++})
++
++/**
++ * __luo_feature_hdr_validate - Validate a source kernel's LUO feature header
++ *                              against the target kernel's feature array.
++ * @hdr:         Pointer to the feature header from the source kernel.
++ * @features:    Array of &enum luo_feat_state values for the target kernel.
++ * @nr_features: Number of elements in @features (`<= LUO_FEAT_MAX`).
++ *
++ * Return: 0 if compatible, -EINVAL on malformed header or `(req=1, active=0)`
++ *         feature state, or -EOPNOTSUPP on required feature mismatch.
++ */
++static inline int
++__luo_feature_hdr_validate(const struct luo_feature_hdr *hdr,
++			   const u8 *features, size_t nr_features)
++{
++	bool src_ext = true, target_ext = (nr_features > 0);
++	unsigned int idx;
++
++	if (hdr->size < sizeof(*hdr))
++		return -EINVAL;
++
++	for (idx = 0; idx < LUO_FEAT_NR_FLAGS && (src_ext || target_ext); idx++) {
++		u64 src = src_ext ? hdr->flags[idx] : 0;
++		u64 target = target_ext ?
++			luo_feature_pack_entry(features, nr_features, idx) : 0;
++		u64 ext = src & LUO_FEAT_EXT_MASK;
++		u64 src_act = src & LUO_FEAT_ACTIVE_MASK;
++		u64 src_req = (src & LUO_FEAT_REQ_MASK) >> 1;
++		u64 target_act = target & LUO_FEAT_ACTIVE_MASK;
++		u64 target_req = (target & LUO_FEAT_REQ_MASK) >> 1;
++
++		if (ext && (ext != LUO_FEAT_EXT_MASK ||
++			    idx == LUO_FEAT_NR_FLAGS - 1))
++			return -EINVAL;
++		if (src_req & ~src_act)
++			return -EINVAL;
++		if (WARN_ON_ONCE(target_req & ~target_act))
++			return -EINVAL;
++		if ((src_req & ~target_act) || (target_req & ~src_act))
++			return -EOPNOTSUPP;
++
++		src_ext = (ext == LUO_FEAT_EXT_MASK);
++		target_ext = ((idx + 1) * LUO_FEAT_PER_FLAGS < nr_features);
++	}
++
++	return 0;
++}
++
++/**
++ * luo_feature_hdr_validate - Validate a source kernel's LUO feature header
++ *                            against the target kernel's feature array.
++ * @hdr:      Pointer to the feature header from the source kernel.
++ * @features: Fixed-size `u8` array of &enum luo_feat_state entries.
++ *
++ * Return: 0 if compatible, -EINVAL on malformed header or feature state, or
++ *         -EOPNOTSUPP on required feature mismatch.
++ */
++#define luo_feature_hdr_validate(hdr, features)				\
++({									\
++	BUILD_BUG_ON(ARRAY_SIZE(features) > LUO_FEAT_MAX);		\
++	__luo_feature_hdr_validate(hdr, features,			\
++				   ARRAY_SIZE(features));		\
++})
++
++/**
++ * enum luo_core_feature - Feature indices for &struct luo_ser.
++ * @LUO_CORE_FEAT_CORE: Core feature covering `liveupdate_num`, `sessions_pa`,
++ *                      and `flbs_pa`.
++ * @LUO_CORE_FEAT_MAX:  Number of defined &enum luo_core_feature features.
++ */
++enum luo_core_feature {
++	LUO_CORE_FEAT_CORE = 0,
++	LUO_CORE_FEAT_MAX,
++};
++
++static_assert((int)LUO_CORE_FEAT_MAX <= LUO_FEAT_MAX);
+ 
+ /**
+  * struct luo_ser - Centralized LUO ABI header.
+- * @compatible:     Compatibility string identifying the LUO ABI version.
++ * @features:       ABI feature and size header for luo_ser.
+  * @liveupdate_num: A counter tracking the number of successful live updates.
+  * @sessions_pa:    Physical address of the first session block header.
+  * @flbs_pa:        Physical address of the FLB header.
+@@ -78,7 +359,7 @@
+  * This structure is the root of all preserved LUO state.
+  */
+ struct luo_ser {
+-	char compatible[LUO_ABI_COMPAT_LEN];
++	struct luo_feature_hdr features;
+ 	u64 liveupdate_num;
+ 	u64 sessions_pa;
+ 	u64 flbs_pa;
+@@ -90,7 +371,7 @@ struct luo_ser {
+  * @data:        Private data
+  * @token:       User provided token for this file
+  *
+- * If this structure is modified, `LUO_ABI_COMPATIBLE` must be updated.
++ * Layout changes must be gated by a required feature in &enum luo_core_feature.
+  */
+ struct luo_file_ser {
+ 	char name[LIVEUPDATE_HNDL_NAME_LENGTH];
+@@ -121,10 +402,10 @@ struct luo_file_set_ser {
+  *
+  * This structure is used to package session-specific metadata for transfer
+  * between kernels via Kexec Handover. An array of these structures (one per
+- * session) is created and passed to the new kernel, allowing it to reconstruct
+- * the session context.
++ * session) is created and passed to the target kernel, allowing it to
++ * reconstruct the session context.
+  *
+- * If this structure is modified, `LUO_ABI_COMPATIBLE` must be updated.
++ * Layout changes must be gated by a required feature in &enum luo_core_feature.
+  */
+ struct luo_session_ser {
+ 	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
+@@ -145,7 +426,7 @@ struct luo_session_ser {
+  * This structure is located at the physical address specified by the
+  * flbs_pa in luo_ser.
+  *
+- * If this structure is modified, `LUO_ABI_COMPATIBLE` must be updated.
++ * Layout changes must be gated by a required feature in &enum luo_core_feature.
+  */
+ struct luo_flb_header_ser {
+ 	u64 pgcnt;
+@@ -155,19 +436,19 @@ struct luo_flb_header_ser {
+ /**
+  * struct luo_flb_ser - Represents the serialized state of a single FLB object.
+  * @name:    The unique name string of the FLB object, used to find the
+- *           corresponding &struct liveupdate_flb handler in the new kernel.
++ *           corresponding &struct liveupdate_flb in the target kernel.
+  * @data:    The opaque u64 handle returned by the FLB's .preserve() operation
+- *           in the old kernel. This handle encapsulates the entire state needed
+- *           for restoration.
++ *           in the source kernel. This handle encapsulates the entire state
++ *           needed for restoration.
+  * @count:   The reference count at the time of serialization; i.e., the number
+  *           of preserved files that depended on this FLB. This is used by the
+- *           new kernel to correctly manage the FLB's lifecycle.
++ *           target kernel to correctly manage the FLB's lifecycle.
+  *
+  * An array of these structures is created in a preserved memory region and
+- * passed to the new kernel. Each entry allows the LUO core to restore one
+- * global, shared object.
++ * passed to the target kernel. Each entry allows the LUO core to restore
++ * one global, shared object.
+  *
+- * If this structure is modified, `LUO_ABI_COMPATIBLE` must be updated.
++ * Layout changes must be gated by a required feature in &enum luo_core_feature.
+  */
+ struct luo_flb_ser {
+ 	char name[LIVEUPDATE_FLB_NAME_LENGTH];
+diff --git a/kernel/liveupdate/luo_core.c b/kernel/liveupdate/luo_core.c
+index 1b2bda22902d..3627a206a79c 100644
+--- a/kernel/liveupdate/luo_core.c
++++ b/kernel/liveupdate/luo_core.c
+@@ -70,6 +70,10 @@ static struct {
+ 	u64 liveupdate_num;
+ } luo_global;
+ 
++static const u8 luo_core_features[LUO_CORE_FEAT_MAX] = {
++	[LUO_CORE_FEAT_CORE] = LUO_FEAT_REQUIRED,
++};
++
+ /*
+  * luo_register_rwlock - Protects registration of file handlers and FLBs.
+  */
+@@ -107,15 +111,21 @@ static int __init luo_early_startup(void)
+ 		return 0;
  	}
-
-@@ -10808,15 +10806,13 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+ 
+-	if (len < sizeof(*luo_ser)) {
+-		pr_err("LUO state is too small (%zu < %zu)\n", len, sizeof(*luo_ser));
+-		return -EINVAL;
++	luo_ser = phys_to_virt(luo_ser_phys);
++	if (len < sizeof(luo_ser->features) || luo_ser->features.size > len) {
++		pr_err("LUO state size invalid (source kernel header size=%llu, KHO len=%zu)\n",
++		       len >= sizeof(luo_ser->features) ? luo_ser->features.size : 0,
++		       len);
++		err = -EINVAL;
++		goto out_free_ser;
  	}
-
- 	netdev_lock_ops(dev);
--	err = dev_xdp_attach_link(dev, &extack, link);
-+	err = dev_xdp_attach_link(dev, extack, link);
- 	netdev_unlock_ops(dev);
- 	rtnl_unlock();
-
- 	if (err) {
- 		link->dev = NULL;
- 		bpf_link_cleanup(&link_primer);
--		if (extack._msg)
--			bpf_log(log, "%s\n", extack._msg);
- 		goto out_put_dev;
+ 
+-	luo_ser = phys_to_virt(luo_ser_phys);
+-	if (strncmp(luo_ser->compatible, LUO_ABI_COMPATIBLE, LUO_ABI_COMPAT_LEN)) {
+-		pr_err("LUO state is incompatible with '%s'\n", LUO_ABI_COMPATIBLE);
+-		return -EINVAL;
++	err = luo_feature_hdr_validate(&luo_ser->features, luo_core_features);
++	if (err) {
++		pr_err("LUO state feature header validation failed (size=%llu, flags[0]=%#llx): %pe\n",
++		       luo_ser->features.size, luo_ser->features.flags[0],
++		       ERR_PTR(err));
++		goto out_free_ser;
  	}
+ 
+ 	luo_global.liveupdate_num = luo_ser->liveupdate_num;
+@@ -162,7 +172,8 @@ static int __init luo_state_setup(void)
+ 		return PTR_ERR(luo_ser);
+ 	}
+ 
+-	strscpy(luo_ser->compatible, LUO_ABI_COMPATIBLE, sizeof(luo_ser->compatible));
++	luo_feature_hdr_init(&luo_ser->features, sizeof(*luo_ser),
++			     luo_core_features);
+ 	luo_ser->liveupdate_num = luo_global.liveupdate_num + 1;
+ 
+ 	luo_session_setup_outgoing(&luo_ser->sessions_pa);
+-- 
+2.56.0.212.g129ede20d9-goog
 
---
-2.55.0
