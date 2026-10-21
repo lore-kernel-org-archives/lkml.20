@@ -1,72 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792589402;
-	b=2j40ZlzGmD8rkKRZeY7Rn2qbH7CfT9BQwV/FOXPPsI2fQE/GN5P5g4MYHpQJZHz6+MWa
-	 atCXg2vzGv+psZRy+q8AmzAJjgnIk6GUw6A3mWO3RvGEzQxyMikPbNuxNa2gSK+O237tH
-	 x7t6oWh892HjILw6vVp9LGZfDTtIO2FB9/0MiC28jIZgtHj5nf+nvzcddkSIns4bvRcw2
-	 Ma5ZiAsLkYR/gQf3locTXKXDyn71m4I0Q5hW75UMJgCvptsEg0Vs0ttVOmaFfOYiD/cVK
-	 L3nxCsqtb9oKxkr035QcxaQZiqaJbR7WFgbOCAnEzb5wm8bTB+B9FNhLMmB5kSqkwgw==
+	t=1792589404;
+	b=ky3FOmx2uEH1Df8MaCqlq2jjcIcvgJV+Ii7HoX09d4UrrWmjcFz+IaCGEg1nB3WEE9fQ
+	 9gwr3JPVwsLqBU0nj41XfhBcN0hMJoDpqKLXQoUCD48d8F0aTEr6Ujp3luRq+FApaTHkg
+	 P9zmUjk5upjPU/FpMOkNM932GY6HZ6cLF5FsgA2db6eJ2D5wfCLjfbBX8xdfqV5dqEUNK
+	 nzJqK/RAMsRhQDGR6paYb9vNA36EdcyenpOU5WRx/01H87a59QZMC5HNq/ByDqyLAVu7y
+	 7oTMHZq80ljz76F5fMR8exGP2p/xCKPmiDvtzkAXVxqxu+z5N4RhI6l1IeRjXOphQXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589402;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gRa+hz1Mk3QIlSnBIstGnQDU4lnk04aXlHX2TCZ/zjQ=;
-	b=l2GjEUZgM4PMjlVZG4G+tOY/TDlVUEz4eaLiiqcX6IhjmGEDm4epDi1QARAJgK0/M9it
-	 x/fw8g16nRISirNDZAq3VXGFaiTkJssj4XBrlM6eK43EGp8O6j7vg3wbOtr1/Yle3u8FQ
-	 U6bg8E8TcUWTegmScmAYjMZWEMH42XhH7iuqn8ILhzU6H7K0IdORs1Gf1acXFd84OW+SI
-	 XKSP8wkhf8bZ37h5i8OQYen6DI2ggSRUp2s1xDQ6L1ciuT1DnEoAufodpqQCw/BfOUSWK
-	 1xN9B4NxRmPeHWqSdBvA+pEvJYdbXFBQQ1+EXRKQoPzx3iriEGWc9tS2v4obBSMDJGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589404;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ySWsHfGDAlrCmx3rkvXDuoQmW74X/X5yZy4N3Gn3SOE=;
+	b=rBK7RGffBQpTBIDsIqDI1bgdTJdc+SVO/Hg/sHf1RaMZsE/f9J1rdEmKWg4k7c1TbQDU
+	 +ZTnqU/PY6iYGTBwlwX40XGxBHflyo3DDu9NXFCJKb9MhJQms9CmWCfKJWzo61vnmUTNS
+	 eDubd29onkDSpCy3mh57bGoyJIj52/mrc0Sm2xh753meruzpnmi57UncAmieqZ7tJxUU2
+	 qTJLqQCxVIYhxWu6bEexi4PWjRz9cLFq7YboWx+HzXekAvI3I/qneLkvnK6E+azH8EHmo
+	 agBayM0DpRNG+lccfJY2/9o/Mrao9dMueYZJW53XQPPW+USXcf5D8pkssALbo2KcMFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=dWD9jxBy;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RptAFMBC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7898606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7898606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF88606A322;
+	Wed, 21 Oct 2026 13:30:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=dWD9jxBy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=gRa+hz1Mk3QIlSnBIstGnQDU4lnk04aXlHX2TCZ/zjQ=; b=dWD9jxBy1UtOjgII1SXbMZBaMt
-	04gxS4u5t6mezGlvdPVVzXY4liHhPZQjDA3ccAPQxFIDny2bJLS38IUIf+n28Svlqt4zMoA2jOhEG
-	+j5pApR1ZmerhEBm0x6OeYe2CkLgBJzXbnwvaaUCiSdcYwx7hD/aDO/wfLqyGdzY+G0CbJiNm6Gow
-	TmYnzyzPm6cDT72POombR3vGvWW5IUteiz3x1gTAHKutSlCxisHrFNHzvsqZrTG87JyseWMdo73H4
-	gGV71bu0bTe5JWb4CsEfXYdNNyB34WADovsIcYB1/LnIdOcLTBuaNXswRnv4FOvW6fQkR31LYjauv
-	q7Ncl8Pw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJWOD-00000009VDe-1EFt;
-	Wed, 21 Oct 2026 13:29:57 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D5292300720; Wed, 21 Oct 2026 15:29:56 +0200 (CEST)
-Date: Wed, 21 Oct 2026 15:29:56 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Qais Yousef <qyousef@layalina.io>
-Cc: Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Qais Yousef <qyousef@google.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Hongyan Xia <hongyan.xia2@arm.com>, Ingo Molnar <mingo@kernel.org>,
-	Wei Wang <wvw@google.com>,
-	Patrick Bellasi <patrick.bellasi@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>
-Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
-Message-ID: <20261021132956.GO2823843@noisy.programming.kicks-ass.net>
-References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
- <20261020152933.16989549@gandalf.local.home>
- <20261021113806.GE2823843@noisy.programming.kicks-ass.net>
- <20261021132058.kxzyumgxzir4jzi2@airbuntu>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RptAFMBC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697541F000C7;
+	Wed, 21 Oct 2026 13:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792589403;
+	bh=ySWsHfGDAlrCmx3rkvXDuoQmW74X/X5yZy4N3Gn3SOE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RptAFMBC1SSHfKut0L7FDCS+W1mdN4cxnSkqr6PuexCz0K06EJRXFfyL1EYVGw07i
+	 /BH23RbF1El/pqqMrkfNvCpe0JzrqjDWgjuk0+gdUxq5aUY9B5Wwu19cHRJKUqg444
+	 cOh5bKXEEkpMJYGXv/YkzN/9e+KAjyMXgqD5yD8j3fAX6Og+zSxZTj+pIGr6b+2Pa7
+	 kvdG+La3wZiEvPADEB80HOSKADK41pGvzxOWAKkeN3qY/7fGiPCbaUs3SebjAXN2cI
+	 ONgPPFcoL4hSZWMTzva72yn8Vo2dzRo+2FBCaG6B3irXCydmkNkw/mP1FdEPZZyviS
+	 zJlm/X17a+HeA==
+Date: Wed, 21 Oct 2026 08:30:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dave Jones <s.dave.jones@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v3 1/6] dt-bindings: display: rockchip: analogix-dp: Add
+ support for RK3568
+Message-ID: <20261021133002.GA3886567-robh@kernel.org>
+References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+ <20261020030916.3223833-2-damon.ding@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,59 +79,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021132058.kxzyumgxzir4jzi2@airbuntu>
+In-Reply-To: <20261020030916.3223833-2-damon.ding@rock-chips.com>
 
-On Wed, Oct 21, 2026 at 02:20:58PM +0100, Qais Yousef wrote:
-
-> > Also note that a simple global boolean has the exact same problem.
-> > Adding runtime conditionals isn't going to fix this.
+On Tue, Oct 20, 2026 at 11:09:11AM +0800, Damon Ding wrote:
+> Document the "rockchip,rk3568-edp" compatible.  Like RK3576/RK3588,
+> the RK3568 eDP controller has the dp/pclk/hclk clocks and dp/apb
+> resets, but unlike them it does not use GRF registers, so make the
+> "rockchip,grf" property conditional on the SoC.
 > 
-> I have something in my memory that could be complete garbage that tells me all
-> cpus should see the new update after a grace period, did my brain invent this?
-
-This is true; rcu_sync() implies a memory barrier on all CPUs, and
-therefore all CPUs must observe the prior state upon completion.
-
-The thing is that a grace period is of 'arbitrary length' and during
-that you can still have some CPUs seeing your variable set while others
-will not and you get into the very same problem.
-
-> If not invented, can we do synchronize_rcu() once on any cpu seeing the code
-> enabled for the first time to ensure the rest of the cpus has seen the newly
-> enabled path?
+> Also document the optional avdd-0v9 and avdd-1v8 supplies, which are
+> needed by the RK3568 eDP controller.
 > 
-> eg (not even compile tested):
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> ---
+>  .../rockchip/rockchip,analogix-dp.yaml        | 25 ++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
 > 
-> 	diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> 	index 7d2ec527b8a2..a6093ec88103 100644
-> 	--- a/kernel/sched/sched.h
-> 	+++ b/kernel/sched/sched.h
-> 	@@ -3715,7 +3715,16 @@ unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id);
-> 	  */
-> 	 static inline bool uclamp_is_used(void)
-> 	 {
-> 	-       return static_branch_likely(&sched_uclamp_used);
-> 	+       if (static_branch_likely(&sched_uclamp_used)) {
-> 	+               static bool do_once = true;
-> 	+               if (unlikely(do_once)) {
-> 	+                       do_once = false;
-> 	+                       synchronize_rcu();
-> 	+               }
-> 	+               return true;
-> 	+       }
-> 	+
-> 	+       return false;
-> 	 }
-> 
-> 	 /*
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> index 39dafe75a680..f8670a4e0430 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> @@ -15,6 +15,7 @@ properties:
+>      enum:
+>        - rockchip,rk3288-dp
+>        - rockchip,rk3399-edp
+> +      - rockchip,rk3568-edp
+>        - rockchip,rk3576-edp
+>        - rockchip,rk3588-edp
+>  
+> @@ -47,6 +48,16 @@ properties:
+>        - const: dp
+>        - const: apb
+>  
+> +  avdd-0v9-supply:
+> +    description:
+> +      A 0.9V supply that powers up the SoC internal circuitry. The actual
+> +      supply source varies between different boards.
+> +
+> +  avdd-1v8-supply:
+> +    description:
+> +      A 1.8V supply that powers up the SoC internal circuitry. The actual
+> +      supply source varies between different boards.
+> +
 
-This cannot work; two immediate problems:
+Are these valid for other compatibles?
 
- - the do_once needs re-evaluating for every switch
- - you cannot do rcu_sync while holding rq->lock ;-)
-
-> The other alternative is to just accept this race can happen and do some sanity
-> check and reset/cleanup on going to idle - which should be pretty cheap and
-> straightforward.
-
-This seems the sanest option.
+Rob
