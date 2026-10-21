@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584780;
-	b=FkcHIdXP/DRoKoTf8LCOcbHGdiPtH0VVnBerye/UVgfhLLghEuvvDIU7690CESORDC1V
-	 S1b8BBMmQidVODOaBuJZe3BStxzVdySchAsuDVhHCrZpA5Opn2XWQwQhfWCoV0SArXQWc
-	 hG7XA5MinHBuu8ywzMz/ZH3NgzYQpWIfLVN+kUQnnxKFPZMPlQui9u03p8ps2gPrlkFQx
-	 f++Dji/NqOACfbhpKQLJRicz3xT67kZWZpIVZCtiwPuCPqKKZYeWjDWluiTCccAXCtyjO
-	 6losX/eDIDjJxbp5notN/Gqgcv/N6eiyEmy094YzyKMQG5cPvTDWbr7CLsQL+32S9Rw==
+	t=1792584792;
+	b=Hv33oWnMHFbkHCz0ee8cYHj27pUVu/41060EC4ggNLiczXLqijgEu0H4H1vSbzN6bFsY
+	 WoQU6i0J27OSMhL2DWFDAMLzY9VaaFGQ0fT40IJthc9Tpi2J8L/GcamL4E+LkQAYz0pAj
+	 jdX8N0mUhAn1z1slOToKzF4lmUZy7yjRErgY524Lj7hHYDAKeauRjSd2XIE0hp7BBaEhF
+	 DXPcsxv6d4/eDv+URMvFuxfLlmrl6WytEPiDFJjl2c5GziDxZ5LdA9kPCc7GliD5/zinL
+	 0hmF3EMIRyQ4svQN4TI2MEPgJ9GFDb++8ethnxpObdADfQiJ5TRa1zIwCnQoDiaBqBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584780;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=;
-	b=mE+sRZxspjRWK2N7YI6gLzdWxLHzxcloc4Mp1dsrzKNEUHJhCW4EkOvalFbFhtToCJVt
-	 m8E1RYpfE3gZ3jOPnotv3/Ab3o/ruE1L3XqSy59wJHmI4FQagtTi5BqGWdPGZzB7JaVFH
-	 uFogE4VZl9vaP7ZfT0SRyBDLHfM36UhKA3nYGdKnE8OR+mXuVkKRGQ8fBC8EPMzdjJRQA
-	 zfAcWq7XJ41+BHOqN03ZzJpC4bZF1FilfESiFBX7vmYlpNBtECnUM7RLV3Ldp8TEWh6tK
-	 ZYuicIZhUrhH56wC5pzfUF/CPIaugPn3S1H3VkrFUD8MiDyNM+zd+ATiL2i0bNOAwOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584792;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qHrtSmupKaWVw2UfmtmjwnVbsnSdj5SnjRXClja/+Ms=;
+	b=wV7P4rNBuYnD8bGx2eAdTAZVksnfw1JfcxEfMle62PSvwLSsT2iqL75KJd9fTFMdp/2m
+	 ssn/hkg3gxwgNXsnvrzSY50kxS+GFNTAdJw/HGzlDbhvc39FvNo+M/hIZ5GVJBwn0gRGF
+	 5SJWmO3YIpdmPfk12oVC5L2zLhSY9EXik3isq28wyA/aAd2uqgmt/CrKpvmeTwjHhbiqZ
+	 XfBWPOK/HXpo79JWRrV0OOBmsMIg749+4TTgQXy6k+RP5NsAI51mTlyEgkRSyHGVi6YcI
+	 cIqSknTTDeYQphexdR7g6lnNJfbr7XZyUQVmAJGZ0ICgn6mq/ux1iivFtUWYO1SWhHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=punrYVcr;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hm6JMokM;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="Z2I/WGBE";
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D658606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D658606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EDF606A31A;
+	Wed, 21 Oct 2026 12:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30EDF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=punrYVcr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hm6JMokM
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBgCCs1054300
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:12:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=; b=punrYVcrXe+hI5F+
-	u73h3hYEP5tY0mkcm9+Z0emKtuJvzIxuDJeTjVSpSaN3AofayUURPQYCABs0LwqZ
-	GvZjU1wXn/tAABVsInW1QCpwEoJCkh9hCgi7pKhACAVsj/S0Ppf3EFvZzWt/gUhK
-	V1gX7copJ93B1cH89r9gFJFbO82qaomtkHtHKlcGc+BVweLEmFWyMyVV6mO9BWN2
-	rE2g9zFeXzcjshkcA0XNqjwlDNUE56wU8A07F/Wm16Nt0AiORY5NhdPpQwb8pv0J
-	1jSf4tgtFjsVKtIqUhgg3ZaJBVnVSQ+TwLpMdOpHAQaG8Lh7SMmxuNtS+7l5/hl2
-	eocV2A==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedajkswb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:12:58 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cac495d99so12352485a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:12:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792584778; x=1793189578; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=;
-        b=hm6JMokMcqzxGTQFbBzcgzN11Dg+hCUwFDwABZq2AzbouoiC12Rb/Mh+yguETZAJvL
-         x2tFahukUzv1u2P99YXVhmOtl1bde72Dc5uE9cEfwuAd+1/ehk8J/0GeBMNZ0FoCezbf
-         +L0jkfNr5nhPIzCEPdBOUxkJdr7B/+5GiDriX0YYSeKSoSM+HeCmErAmh3uxXRTtINdQ
-         roL5FfMk00ioBgIJoXYvqOI3pnQVG7li2l+qIF/9+n3A0TCB3ZzgdN/D7/hIxoqCNJNd
-         pqYwtYlrjO3blFxHGaaBz6JtWdo90vYmJGZ+7UuGhuc0WUOgkqnCRVJMFl3kIqUzTQRV
-         QDAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792584778; x=1793189578;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=;
-        b=ysjHfnmGSA2IBplO04w5zeOBnMhdnij37zPSAufk9RAXl4hnac8ino/aL0FqEWiZaq
-         C3AVdDzjLfkwMMDBT9eawVun6gjcODZHRU6M/5VlsktvuBPgLNR83o9KnbqILVKYsg4G
-         ziKoW9vSurSMJI+IlR+VwCAK2QZAdD3MUaKmf5fIEAyo3bN+bY4qs2YMCBeklAQHNU4k
-         v0aCJl1jpQoQl+SanpX4qnfTp3fjp18RAXX7V3hlgNFP1aNx6HaoTqg7PN0quWcotb1i
-         tSk+3h24S0VwsZxuIlqixypSHt6A2+QCa1ieMn7OAdmY2iv6ad5MXVMnMNcb7VX9e+Yq
-         TryQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxRqmOlfhncdOrPu/lW+XAmvvpPopYUvjZcJPdBkXA8mzbWFPkUJDW8Zl+RbP3xMQIJiQK8/dg+j9/tevo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJO80M5KNRDs/flo39YRS6xSyIHUVDo7CxbXE+7Lw9sRBsN+fLI
-	qR+5Ooi9Pz7E5KVN5Rz6A1veqeQITqTRUzTzncx41gajC2PS+Buk/IORx9A1IzTOI+XPDct72ni
-	ph8/5CpNfzQX/sWwIiJWj2PUWqDw0KdjbZVWYKMFgqXOWIr8RTgqWQIO85xhpDj/Hu0M=
-X-Gm-Gg: AYBFou2Nn6FcuAj3NlgPONYNyBS7ZhOrdzB0Ne36d/E1CDEagCiXws0WEBeWJK5tjcd
-	nGYodgBge8N3ouT5OWZQenEO3JB+wRe2kLp+u8XVgyVHZjnQd2/9J+MfzdwT0A60UKq3SfsObvB
-	xqHe6CwmvallWZrG/M0Pl/BqH8oS0GBpkIl5geUU32rYMbMHSoFxkr0xgiNGVTy2YqS1UxoOVnt
-	tu+9c1Cn9/az86FoKuRy6WXfHztDczYL/t3vdq9tb/VAUrt88jGSNm7E/Gx7YrAUvukAuGLLX8w
-	9NJcjLOfcbHL6vbS5ALnrsfOpxYkHQQoGAPdrKeSLITFM7kCZr3oQJRzJel0br1/fNLMbf4BXZD
-	QhPrkRaDZO0kYNrQ6ea+/eQ==
-X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93f57dbbb66mr435409285a.0.1792584777652;
-        Wed, 21 Oct 2026 05:12:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93f57dbbb66mr435406285a.0.1792584777265;
-        Wed, 21 Oct 2026 05:12:57 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b402f2be12sm819079a12.2.2026.10.21.05.12.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 05:12:56 -0700 (PDT)
-Message-ID: <70c9b4de-6403-46ba-a125-9e792d4f63c8@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 14:12:52 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Z2I/WGBE
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792584787; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=qHrtSmupKaWVw2UfmtmjwnVbsnSdj5SnjRXClja/+Ms=;
+	b=Z2I/WGBEcLqV/0fiJzgZ0wLMP0Ki3XWG8rPiaM5Qw8eTgaRIEwTaB1PaISda5+asFw1nTol584goS70z2GNrFho4dLXcg4xNIA6XncLm4qeU7oLY0NVoTc4BTNgkgLBoiSwedt3wlqW+MRbD7gCCnOW7TWKKpzTNvNXW6BLpqRA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XDGOERK_1792584786;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XDGOERK_1792584786 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 21 Oct 2026 20:13:06 +0800
+Date: Wed, 21 Oct 2026 20:13:05 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>, alibuda@linux.alibaba.com,
+	sidraya@linux.ibm.com, mjambigi@linux.ibm.com, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
+Cc: tonylu@linux.alibaba.com, guwen@linux.alibaba.com, horms@kernel.org,
+	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 2/3] net/smc: serialize early link group cleanup
+ with termination
+Message-ID: <atisUaV2eIC2yTvX@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
+ <20261013091716.1210420-3-nicoyip.dev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,72 +66,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: Leave the GPU RSC awake for system
- poweroff
-To: Michael Burch <me@michaelburch.net>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Shivam Rawat <shivrawa@qti.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org
-References: <20261003193518.13811-1-me@michaelburch.net>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261003193518.13811-1-me@michaelburch.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfXz6JjIuHIPMGL
- FGQuXgfROja5+kUN5lSjlOAv4EOq3R0LzXJDf4WdxB7/u5HiX4XOsXqZsjj0s62LkrhbNTlbpUt
- SOtN/VqFf99HYZuzo1dQKVGb0laAMUzSndnJqyCAKtzynHTSlRoUbcPUxBX7IIcfHWwHAa2WWwA
- YbozcrPokIMzQqLzExqfh9GSiIFKFQqqjIGwBKXfa5CxxpA3MjOXzLH9EnM39qSQe6y/G+UHJV1
- ASWkQrLfxhgaokxg4lXHB/aFA1bxaXDDqfqtQHDRDxN25cRnqaSTvt5T4FT5jywyrCVe0mIKgmN
- ikrq1KhK1BEQteRABVo1vMtGGjhJ6lSRtc5yhAQkJEMin63O3vKLNep3MpvYqj8RaxUaIcAEt5l
- +DrSJdIUZGZjL2hyHwC1ptQKY1XgbETmYB5E+6++CnMjxthMf1WKiOgTJsOUZMUIcwuu0wgmn+V
- J9GFrGA6/qHc0HY4Hig==
-X-Proofpoint-GUID: 9kIN92_AnpDCsUGTpW2ngE2cpqRTBvsD
-X-Proofpoint-ORIG-GUID: 9kIN92_AnpDCsUGTpW2ngE2cpqRTBvsD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX3jBulmTKEY4t
- vQEh1omsgZgDYStOxi1rnJzePda/lXtx9ScK7Jfbos8SrHK6g2HSQLwWjo2XOd7iw9PTZAwUdSR
- 7CZQ+6S1xc2gXyD0iIdIRYkBnpCSeMk=
-X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6ad8ac4a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=OZ7Xlw-yAAAA:8 a=jfroN63_7_ZKNpzpi8AA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=qwMvOfr3u-Fs83Rmfh-C:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210048
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013091716.1210420-3-nicoyip.dev@gmail.com>
 
-On 10/3/26 9:35 PM, Michael Burch wrote:
-> On X1E80100 (Dell XPS 13 9345), commit d9108bfdb746 ("drm/msm/a6xx: Fix
-> stale rpmh votes after suspend") appears to turn poweroff into a reboot.
-> It seems to happen when the GPU RSC/PDC is asleep at system off, i.e.
-> when the GPU was idle before shutdown. Keeping the GPU awake until
-> shutdown avoids it.
+On 2026-10-13 17:17:15, Chengfeng Ye wrote:
+>smc_lgr_cleanup_early() enters __smc_lgr_terminate() even when another
+>teardown path has already claimed lgr->freeing. Both callers can observe
+>lgr->terminating clear before either sets it, then tear down the same
+>link group, causing use-after-free and duplicate resource release.
+>
+>  BUG: KASAN: use-after-free in __smc_lgr_terminate+0x393/0x3a0
+>  Write of size 1 at addr ffff8880bf2c0300 by task poc/106
+>  Call Trace:
+>   __smc_lgr_terminate+0x393/0x3a0
+>   __smc_connect+0x2e3d/0x4930
+>   smc_connect+0x42c/0x580
+>   __sys_connect+0xfc/0x130
+>   __x64_sys_connect+0x6d/0xb0
+>
+>Check freeing under the link group list lock before unlinking the group
+>or entering termination. The existing locked freeing transition then
+>claims exclusive teardown ownership; an early cleanup that loses the
+>claim leaves teardown to the existing owner and does not remove the group
+>from a device teardown's private list.
+>
+>Keep a temporary link group reference across smc_conn_free() and early
+>cleanup in smc_conn_abort(). Once the connection is unregistered, a
+>termination worker can finish without taking its socket lock. The extra
+>reference keeps the allocation alive until the ownership check returns.
+>
+>A new group is published before its first connection is registered. Hold
+>it before publication until registration or failed-registration cleanup
+>finishes. The reference keeps the allocation alive, but teardown can still
+>destroy the group's resources before registration. Take the list lock
+>around the freeing check and first registration, nesting conns_lock as in
+>the reuse path. Reject a group already claimed for teardown and clear
+>conn->lgr, since that connection never acquired a group reference.
+>
+>On success, acquire the connection reference before dropping the temporary
+>hold. A later terminator sees the registered connection and must acquire
+>its socket lock before removing it. On failure, keep the temporary hold
+>through early cleanup and then release it. Reused groups retain their
+>existing reference protocol.
+>
+>This depends on "net/smc: serialize link group free work scheduling" for
+>the standalone freeing bool and the locked early-cleanup transition.
+>
+>Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
+>Cc: stable@vger.kernel.org
+>Assisted-by: GPT-6.1-Sol
+>Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+>---
+>Changes in v3:
+>- Serialize first registration with the teardown claim under the group list
+>  lock, nesting conns_lock in the same order as connection reuse.
+>- Reject groups already being freed and clear conn->lgr on that path.
+>- Document the scheduling fix prerequisite in the permanent commit message.
+>
+>Changes in v2:
+>- Pin newly created link groups before publication, covering the
+>  registration failure handoff to early cleanup. Drop the temporary hold
+>  after cleanup on failure, or after the connection hold on success.
+>- Send after the free-work scheduling fix and reuse its standalone
+>  freeing bool and locked early-cleanup transition.
+>- Pin the link group across the smc_conn_abort() early-cleanup ownership
+>  check.
+>
+>v1: https://lore.kernel.org/r/20260927063607.3691520-1-nicoyip.dev@gmail.com/
+>
+>v2: https://lore.kernel.org/r/20261003183237.2284245-3-nicoyip.dev@gmail.com/
+>
+> net/smc/af_smc.c   |  8 ++++++--
+> net/smc/smc_core.c | 21 ++++++++++++++++++---
+> 2 files changed, 24 insertions(+), 5 deletions(-)
+>
+>diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+>index e9f93b3ab435..97b0a0b51066 100644
+>--- a/net/smc/af_smc.c
+>+++ b/net/smc/af_smc.c
+>@@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
+> 	struct smc_link_group *lgr = conn->lgr;
+> 	bool lgr_valid = false;
 > 
-> Resume the GPU in adreno_shutdown() and skip the RSC sleep in the final
-> stop. Suspend and runtime suspend are unchanged.
+>-	if (smc_conn_lgr_valid(conn))
+>+	if (local_first && smc_conn_lgr_valid(conn)) {
+> 		lgr_valid = true;
+>+		smc_lgr_hold(lgr);
+>+	}
 > 
-> Tested on X1E80100 only: poweroff and reboot on AC and battery, and
-> deep suspend still drops the GPU votes.
+> 	smc_conn_free(conn);
+>-	if (local_first && lgr_valid)
+>+	if (lgr_valid) {
+> 		smc_lgr_cleanup_early(lgr);
+>+		smc_lgr_put(lgr);
+>+	}
+> }
 > 
-> Fixes: d9108bfdb746 ("drm/msm/a6xx: Fix stale rpmh votes after suspend")
-> Signed-off-by: Michael Burch <me@michaelburch.net>
-> ---
+> /* check if there is a rdma device available for this connection. */
+>diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+>index 660cd41ec720..c1bb284c4233 100644
+>--- a/net/smc/smc_core.c
+>+++ b/net/smc/smc_core.c
+>@@ -693,6 +693,10 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+> 
+> 	smc_lgr_list_head(lgr, &lgr_lock);
+> 	spin_lock_bh(lgr_lock);
+>+	if (lgr->freeing) {
+>+		spin_unlock_bh(lgr_lock);
+>+		return;
+>+	}
+> 	/* do not use this link group for new connections */
+> 	if (!list_empty(&lgr->list))
+> 		list_del_init(&lgr->list);
+>@@ -999,6 +1003,7 @@ static int smc_lgr_create(struct smc_sock *smc, struct smc_init_info *ini)
+> 		lgr->buf_type = lgr->net->smc.sysctl_smcr_buf_type;
+> 		atomic_inc(&lgr_cnt);
+> 	}
+>+	smc_lgr_hold(lgr); /* lgr_put in smc_conn_create() */
+> 	smc->conn.lgr = lgr;
+> 	spin_lock_bh(lgr_lock);
+> 	list_add_tail(&lgr->list, lgr_list);
+>@@ -2049,15 +2054,25 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
+> 		if (rc)
+> 			goto out;
+> 		lgr = conn->lgr;
+>-		write_lock_bh(&lgr->conns_lock);
+>-		rc = smc_lgr_register_conn(conn, true);
+>-		write_unlock_bh(&lgr->conns_lock);
+>+		spin_lock_bh(lgr_lock);
+>+		if (lgr->freeing) {
+>+			conn->lgr = NULL;
+>+			rc = SMC_CLC_DECL_SYNCERR;
 
-This is odd - did you test it precisely with and without this patch
-and no other changes?
+This should not be SMC_CLC_DECL_SYNCERR, maybe SMC_CLC_DECL_INTERR or add
+a new error code.
 
-Konrad
+>+		} else {
+>+			write_lock_bh(&lgr->conns_lock);
+>+			rc = smc_lgr_register_conn(conn, true);
+>+			write_unlock_bh(&lgr->conns_lock);
+>+		}
+>+		spin_unlock_bh(lgr_lock);
+> 		if (rc) {
+> 			smc_lgr_cleanup_early(lgr);
+>+			smc_lgr_put(lgr); /* lgr_hold in smc_lgr_create() */
+
+smc_lgr_put() may call smcr_buf_free() -> vfree(), which may sleep.
+And you put it in the spinlock.
+
+Best regards,
+Dust
+
