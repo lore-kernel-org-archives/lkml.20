@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573947;
-	b=vQWTT77sd0hMrn4sFkPfMKhM2RFKwqpgZ0Q3dPn5ZGO2FZlm86Tv0TudJUsdDmLA0uK0
-	 h9fjn1Bf/LDF8CXOna5dRo3CJaH32FsyZQ2koNBEdUVOKgDLx3DnkSZj92Tu/5rTR4ekY
-	 h3rAdoZYHXINOf6F/IIkJPGvV/iLnmGpCiXE6BR5KteBIEiPuBUE/NF2izW94ZmjGfo5s
-	 N6U44Z/sF/ru8wiWBMA9yjOEfB2W15mPuiEqVYNcrFbPXHutmw/AttDKrVavtFfhsUFhW
-	 X+992ofWFqAwRFC7s4VTMeZIjI2JbmJMZdgcHHEux63kVSNDKUUhxVup9Pcg0U+HpJQ==
+	t=1792573975;
+	b=WYpsdT/1MfjP6kSOJwE+ZrKFMapYQb5ZdoGxu2JS0sm9b6KIzTE6VLnLHuPdlfZdZuhq
+	 GfEaIIinfMmJTJeIUdbDpkJgDX5bjsucPp5tStkW1AwIdDgjkLh9SKecSAO/0WY3g5W7P
+	 28F46szebCM7qVI4iBVud799xnOqfV++RpwD0lm6o2kSFFqizx8IZZ5tnntYedv/x1Q/P
+	 8XBIU9Lk2skIjXI+Z6XghX5tOcvMfgkxQxy47p6o8YzepyyexStsYYL7+3MMHYCuDuez6
+	 EkDt9uG2eMhniYWAo5wMYNXHpzL2LSjbJnv0l3vrpMlgYzolU5opI688K0Cghh/+4IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573947;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=q5o4c9Se3qqfB0CkHzs+jJJ9WgHiDHng2N6iX71Z4eM=;
-	b=uaHXc/jUCuZoK38w/m3pcmkKF9hhAkyeZeGF6Oojr9KJUbbM9JxCkXGdSDQV8cKoO002
-	 oJ8mf++8uRPZz1rXg7Pqs3ZIB2qQqGxc9en85jtIdWA4o8CHg5TvFq1VdIhnGn/3vxsl1
-	 G88NMCGNYxDnDTGIgv3fdAf8pYVt69p0TbHHVympfezZYchU1eC15L7QfKaCOWGBB5UMu
-	 OqNNjmXAhYgk1BtN+R8azsYQfKCxpxDYSHCC8gS00+eyAN0Hc9Or1wYcVoiMvLuikUp+i
-	 KpKtR14tBdPB72PlFvfk2T28QllBGIdyDhwXazyCjaYafnSS4hRQcSx9ipuY3a58KLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573975;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=4kUy8pQDe8Y+ktdmnYJodtwCCgw7k+jPfy3QplRjOkU=;
+	b=OoVGblCqD5KBxTCLHLWJBLeJfcg981b0oa/swUDJqjQKL+No/XUW3g7vnXeozkvfIDb8
+	 LYtmA8+OkX220q7/6je+UJcticDRq/u3IVTYs422aM+rxOjZfQygfuRisEvViDg6rTzZF
+	 GQmX1FunFrv2xJca2BMDN8ufqbURhmsU/c3m9RKT+5CjHv3+Nd3RqQmv+FjD1B7qYGqSt
+	 Mz5niWIRgWnafjpw/1RdiYK13E0lFJS+Do4cR+sjZahKtYNsNVBDr+B0USuZFFHR0m0UM
+	 PC+u5Pdc/j1Gcl6UdHIbyis55VjpqzdJE0LoYDHKOhJXDlsUvDZkw9o3k18ayMLZixg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZsUeF8C7;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Is8fbQV+;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43376606A319;
-	Wed, 21 Oct 2026 09:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43376606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12593606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:12:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12593606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZsUeF8C7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792573947; x=1824109947;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=smbmGXOgf53sUhVEG5nOCbt/F7K1bGkWUk3QHVbfxqM=;
-  b=ZsUeF8C7j17c55lCl8Kmi9Psgdg02yx3YrXxX1oDTne8InTbVSZw/ZN/
-   nchTLGzdAOTYNyQnrt/JqBk5AEkBQDLTflgrdGilqpspxhVZlRgotNIcN
-   OMprz7i5cbB5a7G5HNZGJ8FcLRRjBSAAniq8SZd6iGBKchhfOEbHbWjDg
-   bKbJKUOuQ/rnfqv7ydbyh0QmYedTUlSwsXCa+x5CrxnGYhofkCEtrjRaA
-   wqKdXeyNxRHgXVmkay/peTYs8TSf2ktDwKhAYLyz6kMw/KRMR1RedQHbc
-   jWiL3XvpPIxK8jwwc7HQnsgI3cNYBPOPfB+rF1CWmbInnnWMhfFIn2CUy
-   g==;
-X-CSE-ConnectionGUID: TpFyxcXUTwm2H/49uhkJLQ==
-X-CSE-MsgGUID: m6QN9GLaQKSXm7kglyQKLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1286661"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1286661"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:12:26 -0700
-X-CSE-ConnectionGUID: zBKMWarpT7ayhJrrRQriow==
-X-CSE-MsgGUID: 1W7CIl06TNCcqn7kFEwRNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3059375"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:12:18 -0700
-Date: Wed, 21 Oct 2026 12:12:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
-	Niklas Cassel <cassel@kernel.org>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Randolph Lin <randolph@andestech.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v7 1/6] PCI: spacemit-k1: Add device data support
-Message-ID: <atiB7-u5bxJbf-1q@ashevche-desk.local>
-References: <20260929083755.458238-2-inochiama@gmail.com>
- <20261019164108.GA2177470@bhelgaas>
- <athuYJjPMkrecGm3@inochi.infowork>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Is8fbQV+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=4k
+	Uy8pQDe8Y+ktdmnYJodtwCCgw7k+jPfy3QplRjOkU=; b=Is8fbQV+uCShUhdgzs
+	N4eVVCI5OGO7DrsYstffsnIOQ+x8195c/3KvSKxOarJPP3tUpAbQsoq+vmPFu2tF
+	537ftS8KFrVr642jbE4eQFsA2x3syPyF1D6broiIZ9lKtU2hKHJdGEBrvJwg7k4u
+	bhtdEpQ5b8mw2SNsX7Tq1I3ms=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3_3nugdhqzHqWBQ--.60434S2;
+	Wed, 21 Oct 2026 17:12:15 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v2] sched_ext: Reject oversized automatic CID shards
+Date: Wed, 21 Oct 2026 18:12:14 +0900
+Message-ID: <20261021091214.1713830-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,41 +63,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <athuYJjPMkrecGm3@inochi.infowork>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_3nugdhqzHqWBQ--.60434S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4kGw1UGrW7CFy8trWUArb_yoW8ur48pr
+	ZFka9rKr40gayjyw4UG34I9r4UWan3Ca12qFyDGFs7Gw1UGryrtr1ayr4IgrnFgrWYgryI
+	qr1v9asYqFyUA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRsmitUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hFtzGrYgfEskQAA3l
 
-On Wed, Oct 21, 2026 at 03:51:20PM +0800, Inochi Amaoto wrote:
-> On Mon, Oct 19, 2026 at 11:41:08AM -0500, Bjorn Helgaas wrote:
-> > On Tue, Sep 29, 2026 at 04:37:47PM +0800, Inochi Amaoto wrote:
+Automatic topology packing starts a new shard before adding a core when
+the current shard would exceed its target size. However, a first core is
+always accepted so that cores remain indivisible. An indivisible core with
+more than SCX_CID_SHARD_MAX_CPUS CPUs cannot be represented without
+exceeding the hard shard limit.
 
-...
+Per-shard state uses fixed-size inline cmask storage sized for
+SCX_CID_SHARD_MAX_CPUS. Passing an oversized shard to alloc_pshard() can
+therefore make cmask initialization overwrite the following fields.
 
-> > > +struct k1_pcie_device_data {
-> > > +	const struct dw_pcie_host_ops *host_ops;
-> > > +	const struct dw_pcie_ops *ops;
-> > > +	int (*parse_port)(struct k1_pcie *k1);
-> > > +};
-> > 
-> > Does the "const" here add anything useful?  This patch suggests maybe
-> > not:
-> > 
-> >   https://lore.kernel.org/all/20260911233541.1650895-2-james.quinlan@broadcom.com/
-> 
-> I am not sure whether the compiler can make use it.
-> And I have not seen any explaination for why no reason
-> for that. It is good to have a clarification.
+Reject an indivisible core larger than SCX_CID_SHARD_MAX_CPUS before adding
+it to a shard. Existing non-empty shard splitting already keeps the total
+within the hard cap, while an indivisible core may still exceed
+cid_shard_size when it fits within the hard limit.
 
-These const make no sense. First of all, the third one is missing it.
-And I have no idea what would be the proper syntax to add a such. But
-adding a such make it clear that there no sense to have them. Either
-you make the const the whole data type instance on the user level or
-don't do it at all.
+Report the oversized core and the hard limit with scx_error() so that the
+rejection is diagnosable.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Fixes: e2c841b91bf9 ("sched_ext: Add CID sharding")
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Tested-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+Changes in v2:
+- Report the oversized core and the hard shard limit with scx_error(),
+  as suggested by Andrea Righi.
 
+v1: https://lore.kernel.org/lkml/20261021064946.1445728-1-sh_def@163.com/
+---
+ kernel/sched/ext/cid.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/kernel/sched/ext/cid.c b/kernel/sched/ext/cid.c
+index 4b08866d75f6..3d0687184b44 100644
+--- a/kernel/sched/ext/cid.c
++++ b/kernel/sched/ext/cid.c
+@@ -287,6 +287,12 @@ s32 scx_cid_init(struct scx_sched *sch)
+ 				 * empty shard.
+ 				 */
+ 				cids_in_core = cpumask_weight(core_scratch);
++				if (cids_in_core > SCX_CID_SHARD_MAX_CPUS) {
++					scx_error(sch, "core with %u cpus exceeds max shard size %d",
++						  cids_in_core, SCX_CID_SHARD_MAX_CPUS);
++					return -E2BIG;
++				}
++
+ 				max_cores = cores_per_shard + (shard_local < nr_large ? 1 : 0);
+ 				if (cores_in_shard &&
+ 				    (cores_in_shard >= max_cores ||
+
+base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
 
