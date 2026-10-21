@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792547804;
-	b=S/VIpRTWQiL6VREMNXeBDVAceIg1vzq7REktffKp35867CUAcF0KY27sIjX9DhfFJFg0
-	 UQTq297JD1Z7ZZGRlJV/YQk+xTfzhWp55GsenSP0Adj1zD3h6sFUNruK6KAAC7xD1LITk
-	 lQoL8vQBdtIAKIcen67ht9PLWy8CawkLlh8mFT5WnKWJaCE3FHn18PCHEA2bRl8ZbqInW
-	 7mSPEIIU1xcgCJNbq45H7smjZ++XXKXpP5v8WdHtqWkdxXlgx2BZ5DTB0liv5V+3V0RwA
-	 T9CwJVE9ec6p13gpcZMWxf8r5hwuQJKsKMQG7RqwU7p98lraYmqTl/9ox0qW268V+tw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792547804;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2GNx3PfF4J4kqsaz/3IHoQkrbZMLw8CHbt6DAHULSbM=;
-	b=DbnPG1btYI+cL8w2NCoKBb09S/Dm0/XzSVqAV3KTivC/5P7jMszlQaw8i4gKqpiuxQPq
-	 d3Ap/pUs171H3AtVO7QE6PB2scaWtdYhV1pj4EelIDVEtbOoVnqmkRJU+I5ymEK8PbzTs
-	 +qDWvU/XuG4Gh0OymNsRI9JqQ60+jxJjk5Rl1fQn3Eeo2kwFlFJ3Df2K/47xcvhhVX0rb
-	 yNjA2rtADOVorlW3DTCZnZPJv0z6a5Ir6aD9LmUgkzTrFvrL8w4+XM9W1sYT9N+YgIgp7
-	 FFGgK43Uy5/itgLob5VDfJwLZz29n7P6oESxDoBI404Wxp+uPjPn5qe51uSXA4BhwNw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="q/WyrDUT";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.2
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010002.outbound.protection.outlook.com [40.93.198.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792547810;
+	b=YF8558Fdd7Tz5Jsoue0WJerzv5Cb1QlUSk5LEolrIq3j82MlnZasTnGZkKbmDXn3cig5
+	 7OM94fmXDYyPKz4EuBfaMw9GFOIAJYro+0VT33IZBTmMQSZb5cbS6gDznKnibWh5lWjN9
+	 qJXWtMcdYqTbM4R4TkrOyJU3OYDnDMJiXBGQFiyzsRUhqO/mHx+F5cBIB3dN6gm9q3QeS
+	 uwEkWA/uM/utyX3hL9SxftF2szuksixm6UkkVoKJ2rqfr7p97MvRvkbEJOjJXfX+HQCGl
+	 7VgOiG3ZMvOCP32k+5bLz8OTrtUWJLI8TRv3mv0Bqz1Ma14hBdvydMuuRYsvJIG2q5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792547810;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=6WqH+jPBUitz8VRD6x+db+FlO8TRcDj3VA1Cds0bDUE=;
+	b=FbQ16E446J+ovEt77ovgCMaSKtvCIhPEMY5ac6qoBtuhdY7C2fJhY+dbgFmnKM3D8wym
+	 12EUF7A+nSVEjeWXQNyw0vo60uM4i3KQqZSYeOL5ArCDvTBXhxrIBdcG7kS/FusbNa7bo
+	 2IUnmFVWITX6XK+kWfYrVOY6fzrDbAk85+e2Tb4qCCb5Y+DrjVUE388mtDNUpybaRUdB9
+	 uxmC/vhzNmAW1hf0WPLEXzCurKPAEH1k3cJziaQsq6/UovklYc0rQK0hHfZr+u+5AFhfk
+	 gtV2ohRsD4u/8FWNgA4UrXf0uS1iroLLgHYQ56keaQbJRIfUY0tC7ozgYJcfznT5DOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=GCNAuDPV;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=jNGO2TDN;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1E6606A31A;
-	Wed, 21 Oct 2026 01:56:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F1E6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E000606A323;
+	Wed, 21 Oct 2026 01:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E000606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=q/WyrDUT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JosL2uPxw9PF3k/uRY2k5xZ1+C/vYMN80jeq1okARy0gSfHEOC7W1wXDA74KyU5tay+MeLZ1Wq7BKcqJ6TUaqUC99nnTStjx27n1C4mDrzSY4y4GB12zuIk2WiQ3XfiZZNKGDerTamAWWTWYd2ZdUVO0/2VkWG9zdLwzrxIAfk95lf0fmNiYR6IftLDduAf6kqGK+2Qd4kHfVr5rGxSqqubw0V3/EUYl5LJ18fvSzImJEyTglOjPRrD0VZa1mx6zZPwzY2wEo/aRZJh0nwCMMAyh5HA9Ue5YDAjh469ma9fcrmLbDQBMs+Gn8EqMo0HNK1W5tLFfLiI9mAYl6YdhOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2GNx3PfF4J4kqsaz/3IHoQkrbZMLw8CHbt6DAHULSbM=;
- b=IOLKMu5cUY7adIhQF55wf6UFmPZ4ox5/wkPlflu6aEWQKCx5Y9zyak8tHk05/uHn+izu9b5CTWZtGHME9l72Zu6p3htUhtBU0D8nqiD7fJOMbsftvbXs4uphkZpytwUa58aj15hmzs2hqVm+gXbCCX2QA9/gvXJSwzRgS41yJcWJYTLUDSVUfPkQSOcI+3RiwyKznuEQbEj+wlZI+ALLWShFbA6PT3bbeV3j4uh/G0TAWgSDnZfx6qj3n1fCTemaaOC21y7s8Kaq6Ys56e/vMPyXk5OPlfA9ADsVQnwlFPtcA5aSTowdo4KUyIDM6sAxHddh5zbL0OllRfr29ZQw+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2GNx3PfF4J4kqsaz/3IHoQkrbZMLw8CHbt6DAHULSbM=;
- b=q/WyrDUThE51LmH6dbJmtVq2w/6OpKyo2i1diCkBkKuhg+ksEVCavetIFOHK9K4oUFmAnKK0IXhPA+1AGruT83RTTqAfljuvGsiJjiFaBF3JsceD2+cUgPmxcfRJtG5htHAabtuBYEBL7ImD+lrKhS5utvZafbz0YslC6e5OAmcijGtsTCiJScrKTmE5dWQBnY1LHclxLECJcoT+qlsnT8FeL379DfzBwVf6PY9QSsT8khPydWmP8maSkQai1z5athc4naDx+KJDj5b958DSXPyR+Q5Kf0LhCD995EEcPrh60cXHj5ZYbowUsPCPjGN7QqXnxaW5HN6o7hm0o4Zyag==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH7PR12MB5925.namprd12.prod.outlook.com (2603:10b6:510:1d8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 01:56:39 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0522.017; Wed, 21 Oct 2026
- 01:56:38 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 10:56:34 +0900
-Message-Id: <DMA55SJ39DQU.2NWD9I1FRH4Z8@nvidia.com>
-Subject: Re: [PATCH v5 09/14] gpu: nova-core: gsp: cmdq: split the transport
- part of the receive path
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261020-cmdq-rpc-v5-0-dceeb8f360ec@nvidia.com>
- <20261020-cmdq-rpc-v5-9-dceeb8f360ec@nvidia.com>
-In-Reply-To: <20261020-cmdq-rpc-v5-9-dceeb8f360ec@nvidia.com>
-X-ClientProxiedBy: TYWP286CA0005.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::23) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=GCNAuDPV;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=jNGO2TDN
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L12wnP2442078;
+	Tue, 20 Oct 2026 21:56:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=6WqH+jPBUitz8VRD
+	6x+db+FlO8TRcDj3VA1Cds0bDUE=; b=GCNAuDPVje1jEcIiCcsvocw94YaT7hUK
+	pDRP2tEwzX4/IYbi4cWa1tWHh0+LvOpnKbjpoZIQjOb7+8VbBDwbtBG3EHZ7vECq
+	Sz1nGxSofvX3E5rC4JPGEpv9LuMrr7wHRa6uAEOHvBIF8wU8mZg8Be9lHipwNNPr
+	gq54GQuDVB6qBPt+zZrHtrMgBKhQiKp9slaSKbAYtgRxds2LIkJ+ZFKFLZcXNOoQ
+	67rpmrZKo/uLwiVf1bglgI+Yk1PLZvt+8eKyCIIgu6F9m2sUk1/5K1jZXh2giL+Q
+	RPa6YLvJA4hKzjR3kbLVAoKCrbY550d2lxMoVFN2S6LU2XCatEinMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=6WqH+jPBUitz8VRD6x+db+FlO8T
+	RcDj3VA1Cds0bDUE=; b=jNGO2TDNm4bDA9JuzTeJP8OGI2fQWJeh4IupJDygmgJ
+	QwcKTRnjmWJDqpTRWOfYY1gkvwe7xJGOKVUhp/o7tA/3aJ0EI7ME/JV4ZC+nqdLx
+	SKFLOHVKNf+T5tbQthlGOmzaF6f0Ds4OG13Vst2kch+wj4Iz/WYoVG47xwy18wP3
+	Ya6S900F46g7ylHMeoAa+lNJ4INNkEdULc83kdnYtx6npedYs/KAHaWwpZkBiGlE
+	fiV5s34Wc77m5yGUseWbnhCE8pElDXCYYdfXdI5EqX9TcRIi0dQ6HqamY9hO9wZn
+	0vcNWwyJIFAKIQFRMOg8Qj+KbGKM7PzbNer75sSfqdA==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hef2khjev-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 21:56:44 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69L1ugrl062266
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 20 Oct 2026 21:56:43 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 20 Oct 2026 21:56:42 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 20 Oct 2026 21:56:42 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 20 Oct 2026 21:56:42 -0400
+Received: from JSANTO12-L01.ad.analog.com ([10.65.60.206])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69L1uUvL029040;
+	Tue, 20 Oct 2026 21:56:32 -0400
+From: Jonathan Santos <Jonathan.Santos@analog.com>
+To: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+        <linux@analog.com>
+CC: Jonathan Santos <Jonathan.Santos@analog.com>, <broonie@kernel.org>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <Michael.Hennerich@analog.com>, <nuno.sa@analog.com>,
+        <jic23@kernel.org>, <dlechner@baylibre.com>,
+        <andriy.shevchenko@intel.com>
+Subject: [PATCH v4 0/9] spi: add multi-CS and multi-chip aggregation support
+Date: Tue, 20 Oct 2026 22:56:22 -0300
+Message-ID: <cover.1792435248.git.Jonathan.Santos@analog.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,135 +104,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB5925:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bd6cfc6-f5df-436b-c84b-08df2f168b69
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|10070799003|376014|7416014|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Ac/a/AIpkDWeDev2crKiYzN3S6KcklxTqX8e7jjNzM9rzYk7zgIEEJL2ODGm01zbN8yPXU4YJTbqew25CumnKeMZu0kAh4bHUtFw+CkHO8uIVN3pW9jOSJtmuRv8QqOmpmtm4yJU0SpYGjE88QWSOz6HFfCdxX9THm9WumaMClJQPvp298jmvAFF9aShZWRBMHu7/BwogceiwgaNpq2vqkDQLjvcWKx/JINggi4sweb0pZixM4F4VDK9ZBR6ZoLwZfZcL2hicnA+mYU7Pg3z3r/cJpcfd7TztP2vnMNTLzzMluCElZvxYa2b9FPlwmgH1j+rLLQpF3MLW+yH8MPEqJIOLzzWgENslJWnro0HTNf/jqvcEmjWwGU6BsCTVatNZFkZsNhdRfa2a7jvHKNgsVRdxnSg+tJhp/4XeclfOkDxPsm+mZF7w+td5qcJBsnjr1jIXFi/oPbiwsTX/PzaS+dWW/4lhI+VxSUxxTDAyyDyq9Xj1tO7hd7WYKkUUjM838M65VPLhEqDbKepl+5WOR2YpmUkSMkJDJ9v1MB9AzyMdh1yknnen1z9O2lZ+rT99Req1CIkqheh+yGbk0EbMkPhq6cgvdPijTcofmK0d6PXGngCUg98h+WDySXQjTwVfIPTqbK4aO9zrmfnVSdTl0ehAsMZ9Xplw4q1JWp+tcM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(10070799003)(376014)(7416014)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZlR1MW4vdndnQUVFQ2RWVnlXeWZ0U2lLbXJodVhDMDJ3QzYxcnEyQXlSNXJo?=
- =?utf-8?B?K01WcDB2S2NycEloSXNLMTJKS1hqeHN3T3o4TWFRTjd0ZWFrK2N1c3dBUS93?=
- =?utf-8?B?czduTURMMU1kR1ZpRWRrSy93SGxwdldJNEZqTkt5R2FQN1pLbXhmZFRsaURJ?=
- =?utf-8?B?L3pLOGttM21FdmhINlMwbjRsQ0JyNGJPZ3NsTjIydEgwT3dnMm1reWlvUUQx?=
- =?utf-8?B?ZUhqYzNmMi9nUEdtNkJmM3diZHhZazN1OXFNUk8vMWxKM2JYLzhBWG5wYjBH?=
- =?utf-8?B?azNmL1VlQXpiSTk5SDJSV2k0bWk3NnRUN1dwVzYzT25ZUzZUWGhaTkJ3WDVv?=
- =?utf-8?B?WEdjcDM4U2diR3FYU0V3eXF4NU01Vjl5eWJkT0tWT1UzczZjNlZPaHNXRHQ0?=
- =?utf-8?B?M1JrN0xFTHF2UWJTSFFpWnpic3lwR3IxWXI1OU00TmQ2TEc0V1IyMGcyblpE?=
- =?utf-8?B?aHZhMklSVWo2K1dmbnFrTXhGakNoSW9VN3dRTUFlWTRtYU44dVc0dHB1Skxn?=
- =?utf-8?B?NURuUElLeDllTC9xV1c1aC9ySjRkTUNhaHNFamxOQVFFcHJ5a29OM0lTZlhV?=
- =?utf-8?B?dEozc2JnckRHN3ZsMEtWQUR3bU80UmYyT3RyRU9FUmlhV1U1ZkI5blpVRFVB?=
- =?utf-8?B?VHNrK3piQkF0VVI4ODVqeWxZaXZhSCtLUGdEUnRaczMzRnIybDhXZ1Q4UjBK?=
- =?utf-8?B?NTRTb2Z4clZFSjhTVDdPNWIzUWxqTEI1YnM0ZW1oYTk0eEhycXVEZlM5WWdE?=
- =?utf-8?B?UXVWcFNKcUw5Y0s5VUNYUllNUDhtbEJaOERxQ1lid0J5b1Fxc09nSlZzcDZP?=
- =?utf-8?B?SUkzd2NYK0tCMWYvT3dReFlpL3lYTitaVHMyMURBb0FzZERXSHRNRlUzMEQ4?=
- =?utf-8?B?N1BjWWxjWU4yNERVRkJ5eWlEWWQ2Tm1zb0hhbndJUDd4VWxFU0F5SjNleWVx?=
- =?utf-8?B?cXZyWVVVZzRlYjdkdDIrKzJIRllCOFVXTVM4T21PSm9OVW5DMllSYjlNZ0t1?=
- =?utf-8?B?TjQ2L2xYMUx1am96ZnpnelNSNDV1WUlYM3c2SE5ReXJGYVhmc3VIRWdoSjBH?=
- =?utf-8?B?SkRCcEN2eERuWlVWWUt4WlZ6VmdWeHByaDNLZVRsdDcveGQ3TzZsNytLVG9B?=
- =?utf-8?B?VU04NXI5KzBiVlZVTGlFem9vWitnY1g5S282aGtVM0N6SEQ2YUhialZKc0wy?=
- =?utf-8?B?N05EbzNpSTltZHhXMk1zazZyazNwclRreXIyTHBWK3Jkemd1MVpKdWJsdndI?=
- =?utf-8?B?M04yQzV1ZFcyYTViOFpwSDJaVGtDcW1jVU5HdCtrbys3UkpDV21zMWtjdDRN?=
- =?utf-8?B?SFJlWnRzTWUxMWdMVWpKY2l2STh3aXRaVXlEMENhU2gxbElhcXc0YW5ROHlj?=
- =?utf-8?B?OVE4KzhBSWdUekgwcUxLQVV0YlV5MDY3Z2g4cUcyUmNaeW5FaDFKbjBtZExz?=
- =?utf-8?B?RHNWbWlydks5bjc5YU1KaFhvTkViNW5SSEhscDlKRkZMTTBuNWJnZ3A5bmdi?=
- =?utf-8?B?eTYxNGt6azB4V1NJNFJ3WWJGZ1NvSUp5eTd6UDNBdVc3TlJGamY3VGVuK2Iz?=
- =?utf-8?B?Zk11MlliVkpjSkZ6T3JFYlFLK3hUTkMyUy9HYXEzWGZXU29UU0c5T0ZGM210?=
- =?utf-8?B?VHVqMWZzb0pCWkRKdnc0SjF6eEJLUkw1SkV2eDgxeG1iei9zS1J1SW5peEcw?=
- =?utf-8?B?bjgyMTFhNXhFSzdGbmx4QTRZdUhmdUI3VXQycWp1UFpyTmJyZ3p3VGJEeVhN?=
- =?utf-8?B?eEpoVy85K3VTYUE2QjlFeDJnRk5Ib2c4cTZNc2x6QWhqbGVuMGRuQ1BhWHNG?=
- =?utf-8?B?REtyL2FpVkdCQ2c2Zk8vZ3NUYVFxbU1FUDI4OWZVelUzWmh1STNnVFU2OXpJ?=
- =?utf-8?B?VGlvbUdUY2haYTg1R1pMZ25XUWp3cEpUaUpEWHJFU3Aya3Q0ZUtXZmhoRUVu?=
- =?utf-8?B?NDd3QktvQTAvQ3FGdTRLaFQ5ZWNKSUltNmZ0blhSNisvTENTNkxJTDFYNndp?=
- =?utf-8?B?OUxlRXNGTStSTy9xeTRuYktrNi90VjNYUTV2SlR5R1BOY0FjcTA1MjFmeThF?=
- =?utf-8?B?ZEtLOTNBMnlEMWxVRm5JZmY2NDg4ditKV1EwVDdzUTZqR3pvcDNIOVBQQXRs?=
- =?utf-8?B?amNyTkQ5TkJTSXhyNmYvSVdZZTRmNzg0QlM1aHQ5aytDRXRHanVCSFhjTHBD?=
- =?utf-8?B?ZklWUEJ3akY0RkJNaElKOUsrb1N2R2ZrQjNwRTkvMUxjMVRDVHI0YlRYTVVO?=
- =?utf-8?B?cUZlR0o4cWdYQ0c3TlNlQktob1ZidzdtTGZZZ3J0d3BBMVord2NSMkxPMnFQ?=
- =?utf-8?B?NFN1c3ZrcllZL3lVOEZQUEF1NVRJNnVCTmhwTjRDbXZtbFJxN05oTGVzckZx?=
- =?utf-8?Q?Yyu5wY3H3p4/CMBaRoR4EzrTluRgMaNQPPl2+2QiR3wyV?=
-X-MS-Exchange-AntiSpam-MessageData-1: hDiLBdomZTpqvg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bd6cfc6-f5df-436b-c84b-08df2f168b69
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 01:56:38.5968
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 90U0RkwVCK/1CDceA2ueiE8ROwnPoI1NVwfyeeV4JJjRa9WexvHcDn3DP6nhxlGn8HFv22buMM3JazGvBFfU4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5925
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAwNyBTYWx0ZWRfXwfHJZcMVzum3
+ ajBNVP9yj8bNrR8FeBeMCyu8z33qcYddABPumlXNt9SQ/+tBcJot7xEEWP94W+zUabqAmgKoueN
+ Seshoh3C5Ar8aN/ZKo6FDfqaUjm4hN4J7JDNYMT5mKDunbwbMvyxqCJAjAJDSKBbHJr2xVeazhS
+ F0DwQAxwTxa6VTG5SVcTsatomXhhXFKFSAH2pGMZGt87bKjhRnoWXbybOahx/3lhpZf/OksXhv+
+ AFkyBdzmNIYlUkbOnf4TlkbhUhHaurGDSbOAlk4R0VMBKb/d4ws4vk6s3B7OFCg3/F92AeEvcsI
+ T+b3Zu4o6tIiwJP4wRlSsvmJcKIuV6OxpPDhkh3oqZcdMgzSy2jnkzv8EzvDBzxoKkuxfz62yJe
+ zyDfIAs36yIfB0/X2CWIR7o2ZyBThmUdUnS8kFPLU4LoRGQhf/B/f6BXRzYTK0OJl1oQp9ZKUQE
+ GuIyNfenTBLxbaUkUOw==
+X-Proofpoint-GUID: IiuM_EC8ofg0LFlUnzDusziA9Mp2otRb
+X-Authority-Analysis: v=2.4 cv=KIHPn1Fo c=1 sm=1 tr=0 ts=6ad81bdc cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=pGLkceISAAAA:8
+ a=sP3hys8OD1pSQKjoStgA:9
+X-Proofpoint-ORIG-GUID: IiuM_EC8ofg0LFlUnzDusziA9Mp2otRb
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAwNyBTYWx0ZWRfXzB+5d1BKeiMq
+ TfSk/DmDM7/d8RBNjqsqY8rj7ODFmjeLJsdRQm0DI/D3CAmvvXrGfh1BMVg8pCnPGMsx4AM8b53
+ KbCOToSEDPSTCy9rqgFW9d/mZrCTg7UbT9mUkuAvypxxrLKw2+Eq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_04,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 priorityscore=1501 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210007
 
-On Tue Oct 20, 2026 at 7:08 PM JST, Alexandre Courbot wrote:
-> `receive_msg` currently handles both the transport and RPC layers.
-> Retire it and split its logic between the new `consume_element`, a
-> transport-level method which passes the parsed message contents to a
-> closure before advancing the CPU read pointer past it, and the
-> already-existing `await_msg`, which calls `consume_element` with a
-> closure matching the RPC message.
->
-> This introduces a small behavioral change: a matched RPC message that is
-> too short to contain the message component itself no longer stalls the
-> queue. This behavior is justified because it fixes an inconsistency:
-> unmatched RPC messages were always skipped, whereas matched RPC messages
-> could block the queue if they were too short. While a misconstructed RPC
-> message is a problem, it is not a fatal queue error as long as the
-> transport framing and checksum are valid.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+This series adds support for multi-CS devices and ancillary devices with
+lanes, to enable the multi-device setup described in [1], where multiple
+AD7768-1 ADCs are wired to the same controller in a synchronized sampling
+configuration, and the limitation noted in [2], where no SPI controller 
+completely handles logical chip selects beyond the first one.
 
-[...]
+The first part of the set addresses multi-CS support. Some SPI controllers
+can assert multiple chip selects simultaneously, but the existing code
+hardcoded CS index 0 in both spi_set_cs() and of_spi_parse_dt(),
+preventing this from working. The spi device name pattern is modified to
+include all active CS lines in range format, so multi-CS devices are 
+distinguishable in sysfs.
 
-> -    /// Receive a message from the GSP.
-> +    /// Wait for the next element on the message queue, pass it to `f`, =
-advance the read pointer
-> +    /// past the message, and returns the result of `f`.
->      ///
-> -    /// A message whose function code is `M::FUNCTION` is decoded and re=
-turned. Any other message
-> -    /// is logged as an event.
-> -    ///
-> -    /// The read pointer is always advanced past the message, regardless=
- of whether it matched.
-> +    /// The read pointer advances regardless of whether `f` succeeds or =
-not.
->      ///
->      /// # Errors
->      ///
->      /// - `ETIMEDOUT` if `timeout` has elapsed before any message become=
-s available.
-> -    /// - `EIO` if a message fails framing or checksum validation.
-> -    /// - `ENOMSG` if the message was not the awaited reply.
-> +    /// - `EIO` if a message fails framing or checksum validation. In th=
-is case, the read pointer
-> +    ///   does not advance and the queue is stalled. This is a fatal err=
-or.
->      ///
-> -    /// Error codes returned by [`MessageFromGsp::read`] are propagated =
-as-is.
-> -    fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Resu=
-lt<M>
-> -    where
-> -        // This allows all error types, including `Infallible`, to be us=
-ed for `M::InitError`.
-> -        Error: From<M::InitError>,
-> -    {
-> +    /// If an error is returned, then `f` has not been called.
+The second part introduces spi_new_ancillary_device_with_lane() and its
+devm variant, used here to create subdevices that bind the CS with a 
+corresponding rx and tx lane from the parent device. With that we can 
+handle each device individually when there are separate data lanes.
 
-optional nit: Clarify in a comment that w.r.t. `EIO` and `f` not being
-called, that only applies for the outermost Err. i.e., we do have
-R =3D Result<>, so we have Result<Result<>> but we're only talking about
-the outer (transport) Result here. Maybe one way to clarify this is
-that `R` contains the output of the message layer and may itself
-be a Result<>, and this function returns a Result for the transport
-layer. Not sure of the best way to phrase it but you know what I mean.
+The last part uses the above infrastructure in the AD7768-1 driver to
+support aggregating multiple chips as a single IIO device. The number of
+sub-devices is derived from the number of CS lines. IIO channels are
+allocated dynamically, buffered capture is restricted to the full-device
+scan mask, and SPI offload mode enables SPI_MULTI_LANE_MODE_STRIPE to
+interleave samples from all lanes into the DMA stream.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+v4 summary:
+* Included patch to add new spi-cs-composite property to the bindings,
+  to allow multi-CS devices.
+* Added new patch restricting CS logical values to a contiguous sequence.
+* Device name for multi-CS devices is now formatted as range (the 
+  contiguous restriction makes it possible) instead of a list.
+* Introduced KUnit tests for SPI core CS management, following the SPI DMA
+  pattern.
+* Addressed other minor suggestions, see individual patches. Please refer
+  to "OBS For V4" section before proceeding.
+* Link to v3: https://lore.kernel.org/linux-spi/cover.1786973376.git.Jonathan.Santos@analog.com/T/#t
+
+v3 summary:
+* Added new patch to document the properties for multidevice support on 
+  ad7768-1 bindings.
+* Refactored "spi: introduce SPI ancillary device with lanes" patch
+  to reduce duplicated code using helper functions.
+* Modified channel mask allocation on ad7768_parse_aaf_gain() to get 
+  a static value, Since we assume the family is single channel. Added a 
+  comment explaining.
+* Addressed other minor suggestions, see individual patches. Please refer
+  to "OBS For V3" section before proceeding.
+* Link to v2: https://lore.kernel.org/linux-spi/cover.1785725359.git.Jonathan.Santos@analog.com/T/#t
+
+v2 summary:
+* Removed the per-transfer CS mask patches, the devices will be 
+  individually handled by the ancillary device feature.
+* Removed dynamic multilane selection patches. The lane is bound to the 
+  CS using the new spi_new_ancillary_device_with_lane() feature.
+* Included a use case patch modifying the AD7768-1 driver to support 
+  multidevice aggregation.
+* Link to v1: https://lore.kernel.org/linux-spi/cover.1783729282.git.Jonathan.Santos@analog.com/T/#t
+
+OBS For V4: An alternative to the 'spi-cs-composite' property would be a
+separate composite device holding all CS in its cs_index_mask (as suggested
+by David), while the main device and the ancillaries are used for
+individual access. That approach was dropped because the composite device
+claims chip selects already taken by its siblings (the main device and the
+ancillaries), and the CS conflict check only skips the parent device, not
+siblings. Relaxing that check is not trivial, so the new property instead
+lets the main device act as the composite while the ancillaries handle
+individual access.
+
+OBS For V3: The ancillary device approach was chosen over per-transfer CS
+masks because it has better integration with regmap. Both approaches
+require multiple regmap instances, but the CS mask approach would
+additionally require custom read/write functions to route transfers to the
+correct CS, while ancillary devices handle this more transparently.
+
+David suggested adding an ancillary device field to spi_message, I guess to
+enable dynamic CS-lane selection. For now, using one ancillary device per 
+chip for individual access and the main SPI device for simultaneous access
+seems to be sufficient. The dynamic approach can be implemented in the future
+if needed.
+
+---
+
+[1]: https://lore.kernel.org/linux-iio/af0EGv172ZMl%2F6N5@JSANTO12-L01.ad.analog.com/T/#t
+[2]: https://lore.kernel.org/all/20250915183725.219473-1-jonas.gorski@gmail.com/
+
+Jonathan Santos (9):
+  spi: dt-bindings: Add spi-cs-composite property
+  dt-bindings: iio: adc: ad7768-1: Document multidevice support
+  spi: support simultaneous assertion of multiple CS
+  spi: restrict CS logical values to a contiguous sequence
+  spi: expand device name to include enabled CS lines for multi-CS
+    devices
+  spi: introduce SPI ancillary device with lanes
+  spi: add KUnit tests for the multi-CS framework
+  spi: spi-engine-ex: Add support for multi-CS devices
+  iio: adc: ad7768-1: add support for multiple chip aggregation
+
+ .../bindings/iio/adc/adi,ad7768-1.yaml        |  80 +++-
+ .../bindings/spi/spi-peripheral-props.yaml    |   8 +
+ drivers/iio/adc/ad7768-1.c                    | 100 ++++-
+ drivers/spi/.kunitconfig                      |   1 +
+ drivers/spi/Kconfig                           |  11 +
+ drivers/spi/Makefile                          |   2 +-
+ drivers/spi/internals.h                       |  16 +
+ drivers/spi/spi-axi-spi-engine.c              |  21 +-
+ drivers/spi/spi.c                             | 172 ++++++--
+ drivers/spi/tests/Makefile                    |   3 +-
+ drivers/spi/tests/spi-multi-cs-kunit.c        | 374 ++++++++++++++++++
+ include/linux/spi/spi.h                       |   8 +
+ 12 files changed, 751 insertions(+), 45 deletions(-)
+ create mode 100644 drivers/spi/tests/spi-multi-cs-kunit.c
+
+
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
+-- 
+2.34.1
+
