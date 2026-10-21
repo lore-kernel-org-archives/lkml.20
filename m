@@ -1,93 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792565949;
-	b=0K+tuEBMRYYBX9gZup+Az0ypGB0tO3XL8FMATOtXHyuTaeZr/tMAlh7OlFftfLtiEuZ0
-	 cCPJPPVmlFBSPVz8jtTUzePtkFWcIgwrQMqulmZ1Bgetus/QneHyISHoVmTE9GOiCk8yu
-	 1jTsXbRlavb4WnPhYRXkK6l4apd/ibMTdlErr4xByAXVwYR8o0w/qWHc2HKe8fEQaj5fo
-	 3PB+8lbns1SysjIGstFiEMzew9O8NXpOMbw/sA6dTYQlBtJJoTh9wCb5VHCJs/xaT93Ue
-	 v+Ey2iZH+xE914FcMN1iR8YqlkhAo5kFBaFItYqk1oopppBlAWFGo6SLpPhMHSA7VHg==
+	t=1792565962;
+	b=VDfw5PwbUeIMEqJQr/3PwjH76rB4zoFJ6SKB4z9CLm7c3nSWvHKF5BCs/DRPj59DCAtu
+	 8URGayizbosQ6KWIN52UVQoF+iS3NC+06xI6dPqjwvXMNRzhZ3/I0+ZmsM5W3HuvRvAC3
+	 gbcRX0+F4LN8SsyzjGdkyv7yvoDejg/7T3Sd81LSUReN8KM3l3HV/Tf/Cg4Qolg8iTpDn
+	 2+OGIrDejmr0ooXcMqsFLZHwBvIbi2SR2+DVVUf6sNDi0ctY4ENrFfjaXIotwlNh6LcJ5
+	 2vQM7d4M/cwWIcns9pPOEHuThZ9xG/DJVYQi7IpPJRCH2RQDE5P2329MzYblcbbELgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565949;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SLexcCgDK2SIVIMYs8/iOOF5BBjM2PxK0AQdb+qmIk0=;
-	b=eQyrwJqu3ublTVd9PvGARU+bVQAmlod9O1W0xJ9de9sgdNnDRxrnU6XRE89v3FrcgwBx
-	 cF+fSsZ7+zOr5iMsAfxY0m9DWgNZ9I2lC9BF6hYksIeVsQUcMF5qBI0xEaOnrXfVEbsdc
-	 Pzm4yxK5ehOmgyyV2MhIPvk/SZBsdM3s8/kzHJ8+quTCtwNRidCDjzRHOftYMFKsFjsq/
-	 ef8VJWCvtC4/rZq/T5XxQecMPmprEjWa5+Ih6BznYkt2aoUBf+CqAF/tC+99VxvIKdxtc
-	 BSJ1K7gXRmLiwL5/fH8vunW4ePtvB414hXpn+7LL5Zz4Gx6QT+xT8KHQMfzhic0w0ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565962;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Lq4BkkFI9gjoEGXPVNlMaanSlhd6OXQdZ6pgRoMGZQg=;
+	b=ypSDRSHgrC6ccchFBxyCc7q2TBBeclXnWtsAa2kD1DeZbHuSyis62FZa8KNryNhjJEps
+	 YmV9Y+jaE7u+VDjGj7bFYqIMbOqy2GCJ0JGns3YskAtSlZJsNZDkBnjAXpxpkmSrj1NQR
+	 QVPZqN1X5qjA3cEbQ8ormEqDPmsfq7sQfzjXqtTwYDRRxegoOwwrE5NWlUS1cvOdCWZ2E
+	 fFwCo+Rp6xpiCHb/LF47i71++f9d59PglEVhL9ww1ynEkMxZvXVJvgTMG5IRlQk3sSf+N
+	 P4cAkmr5voQo1exQyjluwF95UgIjj2fEDZSxzSGP9aNehIXXYFObgYSxHAurQ3AoLOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tooangel.de;
-	spf=pass smtp.mailfrom=tooangel.de;
-	dkim=pass header.d=tooangel.de header.i=@tooangel.de header.a=rsa-sha256 header.s=google header.b=m90sYhhv;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="FZb/wjp/";
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F7D606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1F7D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tooangel.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tooangel.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D76606A31A;
+	Wed, 21 Oct 2026 06:59:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D76606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tooangel.de header.i=@tooangel.de header.a=rsa-sha256 header.s=google header.b=m90sYhhv
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso2049508a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:59:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tooangel.de; s=google; t=1792565947; x=1793170747; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SLexcCgDK2SIVIMYs8/iOOF5BBjM2PxK0AQdb+qmIk0=;
-        b=m90sYhhvzoPRuC4q2/O8LG3/PGBvy/AuAbSPQJ76i8q41A+oXDvG1F7diDOAyI70C1
-         wGS4ArVQcworN4xlnmSlEODt+YKzhEU+we9cAvqsfTJeN0EuvHUDQgdIRgrBZEEXQGoM
-         kWpSk/MyXY0Ff9wueuUe8msUTddTTl5RGVz5f9U8OXOenpiv3IF+MYAlsDea40r6y3Af
-         r2ByA2jDAU+lUnhOVsNJIjcLPanME2tmwNTg06bbZ8ZUua0blsPuns9g/kRp/BjFoUK4
-         /IW3QI3MxFsX81BaNdd1ypuF83apuXpwiXFpO0meT5Jpq2U3mgOHf+gz97LoU9VpOv3A
-         v0sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792565947; x=1793170747;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SLexcCgDK2SIVIMYs8/iOOF5BBjM2PxK0AQdb+qmIk0=;
-        b=rXBH+/JU1Eoq9wkMw2Wdac4lHFHw7+n0FRbZqEm6GjiQVZh/C9sFPJhp8fR4RMNU5d
-         DEd4hfinv2GDQhC+6sKR8OpuTKHalNkd4ZQhSpgmUQlFR1BfyNXpMI//815syXOWDe9H
-         FWSA5fBMlFm0s+fBm2XRhUkuM1aHRFYZNs7eZSfgG7whGxmJ/qbvMf+kyYQlogb9wM3N
-         LaLHlFoVf9dsqFpvMMSkUJZp+kEwMjpc7FPwhF2uUjx5rmBx8a5Hf6jGP6+TdCZW0m4k
-         ZaTDzynfCGbdMMkMVbrxba3b5Eo0GZb1qPGQffOFXbDvaqjuZI3KGWq728TUvP/n3lVf
-         w4HQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8DhbTW++/DxmDVgYm71QmAqzmDAYyd1TaJzmbZiiCwcfcB5xIJYJ5C5kesi8o8YHEn48WXycKzC2oazQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBqeXHvXrhoKm3TC0upZ4+Z6e/5qGyfQLsuO1iQfyQgvcAqjYH
-	BxtydliOuQq55m9wmVxDSyG8cI/gC340nZvs24+vzduUyH06rZpyrXL0hU8Mp/pHS43hKMhMCiJ
-	fcZXB8iWReg==
-X-Gm-Gg: AYBFou30NuW2yom9Q8b9RQ6M1VEXg+UHLbzwJpBVRspXqb5Ft+HAmrEsiSv0YKO3Yeq
-	ZJTyV/oN+5a7N24pyz3XNQE6UJF75k6vN+DmlhKmujissJhhRyaji1qQNLe7z6Fl2vRyf0R1FWy
-	X3EyWGD0m53sqRKw0fNbuEH5gy64gyQb4KDkokfDaIYCNNg/l/6ziiu6g5WAHTJQa4dgtBGxI/O
-	+LLhpHzHiXSr9WumklIu345/qBCeOjJYhCHa4qN/xf8eerkCtZMqgoRPgpSUPTb30ESP2F96LNK
-	+ooRnQMkSgJzzRc3luy4KkIfJJ9uiYEX+yPIWzdAHMdxGF8TzpD4tU6c4JSVPJ9ZxYlSwihZlmN
-	WRhjCoNfd4uyjujKG7F96I/0Ha5ULXTftr5znzYw6ySxmpEzQirgfflGQhIKXslLdYzAmKZZ13Z
-	xCQvlj4ZZig8YvR/L0tPbEiai4NSD0usRbpOaB3g9gATi+oV63PGY4M8s1WVjyd4scQvo9hyHI9
-	2revNXkLXYeGgLpX9guc3bDi8vD/5Ki73JWaY7rV7q2E4wh472l2lo1he3b+YuW/yjAybXl07B5
-	CbxWFMOHMHqWeag9smQmRrG8i+/xPODYy7Sk13a1Gtr9MtBsJ+zJ7RqLl3hmj7A92h1lMxCQhma
-	n97py1VbgrDws2ofZWHvrjrp1Y+I5ln9CQs87UBOFRvoD/La0IchYPJAHsRiFYA==
-X-Received: by 2002:a17:907:b045:10b0:c46:7fa4:9212 with SMTP id a640c23a62f3a-c467fa4a4f2mr33166466b.23.1792565947131;
-        Tue, 20 Oct 2026 23:59:07 -0700 (PDT)
-Received: from toogaming.fritz.box (2a02-8206-7df6-9800-2fb8-381c-b7e8-86f2.dynamic.ewe-ip-backbone.de. [2a02:8206:7df6:9800:2fb8:381c:b7e8:86f2])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4679006ffdsm45166366b.77.2026.10.20.23.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:59:05 -0700 (PDT)
-From: Tobias Wilken <tooangel@tooangel.de>
-To: linux-bluetooth@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: MGMT: Return RFKILLED for Set Powered on a blocked controller
-Date: Wed, 21 Oct 2026 08:58:33 +0200
-Message-ID: <20261021065833.120347-1-tooangel@tooangel.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FZb/wjp/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792565963; x=1824101963;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lFLwbry7H3titTEgipKlI5PazJVchb8dodkdEPspUO0=;
+  b=FZb/wjp/8geC96eM3GdYEe9iO9fcuCwGlr7sB/Zsy4GV65OMJrm65eUh
+   R5HxQv2Q5/KLoAz8nozV5QFCgyL93//lJbcX4vLYE/PxlFs4X7s7BpkiH
+   44WbUSq5lJTaQykY/6ZoKkW7ZNepqhSQqIoTrxem8rvxZOlZql7XnbQcE
+   X+q4cO2zkhZRh8W3MhNThIm6KWuAPn/X3dusWyZWNf1l8KDv5aQp6DkxW
+   YSXlg+EQYl6Vkb/X04AH7ofskfeXu47cb+s7oGUdkigmCVEYn9TnAfMc2
+   VSJc4AONphBIcq3dZSnjreN7zBYymKqOTqNHI+UngWpBZNT8IilGPZxNb
+   A==;
+X-CSE-ConnectionGUID: 0FYWC1lBSZ23ikK6dR8JDQ==
+X-CSE-MsgGUID: a9rPMfG9Rfu1VycpHgIVlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1175511"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1175511"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:59:22 -0700
+X-CSE-ConnectionGUID: UdE7TSTtSMuE6QXo0JssDw==
+X-CSE-MsgGUID: IrI3onQEQSmu1DR/ginlHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3014450"
+Received: from unknown (HELO [10.238.3.193]) ([10.238.3.193])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:59:18 -0700
+Message-ID: <b8fbf942-22e5-4b4d-865b-3b024b4e50c7@linux.intel.com>
+Date: Wed, 21 Oct 2026 14:59:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,63 +72,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v4 5/5] pef/x86/intel: Always snapshot live hardware LBR
+ state for BPF path
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
+ Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ Ananth Narayan <ananth.narayan@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+ Zide Chen <zide.chen@intel.com>, Falcon Thomas <thomas.falcon@intel.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20261021050711.4043703-1-dapeng1.mi@linux.intel.com>
+ <20261021050711.4043703-6-dapeng1.mi@linux.intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20261021050711.4043703-6-dapeng1.mi@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Since MGMT_OP_SET_POWERED runs through hci_cmd_sync, powering on a
-controller that is blocked by rfkill fails with -ERFKILL from
-hci_dev_open_sync(), and mgmt_set_powered_complete() reports it with
-mgmt_status(err). mgmt_errno_status() has no case for -ERFKILL, so
-userspace gets MGMT_STATUS_FAILED instead of MGMT_STATUS_RFKILLED.
+Sashiko found several new long-standing LBR issues (not caused by the patch
+series), https://lore.kernel.org/all/sashiko-outbox-179823@kernel.org/
 
-Before that conversion, power on went through hci_power_on(), whose
-error path mgmt_set_powered_failed() still maps -ERFKILL to
-MGMT_STATUS_RFKILLED. bluetoothd relies on that status: for
-RFKILLED it sets the adapter PowerState to "off-blocked" and returns
-org.bluez.Error.Blocked for the Powered property, for any other status
-it returns org.bluez.Error.Failed.
+Would post new patch series to fix the newly found issues. Thanks.
 
-With the controller soft blocked, "bluetoothctl power on" printed
-"Failed to set power on: org.bluez.Error.Failed" and btmon showed
-"Set Powered (0x0005) Status: Failed (0x03)". With this change it
-prints org.bluez.Error.Blocked and btmon shows "Status: RFKilled
-(0x12)".
-
-Map -ERFKILL to MGMT_STATUS_RFKILLED in mgmt_errno_status().
-
-Fixes: cf75ad8b41d2 ("Bluetooth: hci_sync: Convert MGMT_SET_POWERED")
-Assisted-by: LLM
-Signed-off-by: Tobias Wilken <tooangel@tooangel.de>
----
-
-Notes:
-    Tested on Debian's 7.2.9 kernel with a soft blocked MediaTek MT7922
-    (btusb) and on bluetooth-next in test-runner. mgmt-tester passes
-    515/515 with this patch; the new test "Set powered on - Blocked by
-    rfkill" fails without it (Failed (0x03) instead of RFKilled (0x12)).
-    The test is sent to BlueZ separately as "mgmt-tester: Add Set Powered
-    test for rfkill block".
-    
-    Not tested with a hard (hardware) rfkill block.
-    
-    This is my first kernel patch, so I'm happy about any feedback, also
-    on whether it fits the conventions here.
-
- net/bluetooth/mgmt.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 3b9c82bd2f0..0f93e9e2728 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -304,6 +304,8 @@ static u8 mgmt_errno_status(int err)
- 		return MGMT_STATUS_DISCONNECTED;
- 	case -ECANCELED:
- 		return MGMT_STATUS_CANCELLED;
-+	case -ERFKILL:
-+		return MGMT_STATUS_RFKILLED;
- 	}
- 
- 	return MGMT_STATUS_FAILED;
--- 
-2.47.3
-
+On 10/21/2026 1:07 PM, Dapeng Mi wrote:
+> __intel_pmu_snapshot_branch_stack() is meant to snapshot the current
+> runtime LBR state from hardware for the BPF path. However, stale cached
+> PEBS LBR data can be snapshotted instead when a PEBS LBR user is active.
+>
+> Fix this by always snapshotting the live hardware LBR state, regardless
+> of whether a PEBS LBR user is active. Reading the runtime LBR registers
+> can overwrite the cached PEBS LBR stack, so save and restore the cached
+> PEBS LBR state around the snapshot. This preserves the PEBS LBR data for
+> later output to userspace in the normal PEBS record path.
+>
+> Fixes: c22ac2a3d4bd ("perf: Enable branch record for software events")
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> ---
+>  arch/x86/events/intel/core.c | 43 ++++++++++++++++++++++++++++++++++--
+>  arch/x86/events/intel/lbr.c  |  9 --------
+>  2 files changed, 41 insertions(+), 11 deletions(-)
+>
+> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> index 5dfb9e9156e8..07d1a8a7845b 100644
+> --- a/arch/x86/events/intel/core.c
+> +++ b/arch/x86/events/intel/core.c
+> @@ -2815,16 +2815,50 @@ static void intel_pmu_enable_all(int added)
+>  	__intel_pmu_enable_all(added, false);
+>  }
+>  
+> +struct lbr_snapshot {
+> +	struct perf_branch_stack stack;
+> +	struct perf_branch_entry entries[MAX_LBR_ENTRIES];
+> +	u64 counters[MAX_LBR_ENTRIES];
+> +};
+> +static DEFINE_PER_CPU(struct lbr_snapshot, lbr_snapshot);
+> +
+>  static noinline int
+>  __intel_pmu_snapshot_branch_stack(struct perf_branch_entry *entries,
+>  				  unsigned int cnt, unsigned long flags)
+>  {
+>  	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> +	struct lbr_snapshot *snapshot = this_cpu_ptr(&lbr_snapshot);
+> +
+> +	/*
+> +	 * This may be called from bpf_event_handler() in a PMI context. If
+> +	 * a PEBS LBR user is active, the PEBS sample record has already updated
+> +	 * cpuc->lbr_stack. Reading the LBR registers here would overwrite that
+> +	 * cached PEBS LBR stack, so save it first and restore it afterward. This
+> +	 * keeps the cached LBR data available for later output to userspace in
+> +	 * the normal PEBS record path.
+> +	 */
+> +	if (cpuc->lbr_pebs_users) {
+> +		memcpy(&snapshot->stack, &cpuc->lbr_stack,
+> +		       sizeof(struct perf_branch_stack));
+> +		memcpy(snapshot->entries, cpuc->lbr_entries,
+> +		       sizeof(struct perf_branch_entry) * cpuc->lbr_stack.nr);
+> +		memcpy(snapshot->counters, cpuc->lbr_counters,
+> +		       sizeof(u64) * cpuc->lbr_stack.nr);
+> +	}
+>  
+>  	intel_pmu_lbr_read();
+>  	cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
+> -
+>  	memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
+> +
+> +	if (cpuc->lbr_pebs_users) {
+> +		memcpy(&cpuc->lbr_stack, &snapshot->stack,
+> +		       sizeof(struct perf_branch_stack));
+> +		memcpy(cpuc->lbr_entries, snapshot->entries,
+> +		       sizeof(struct perf_branch_entry) * cpuc->lbr_stack.nr);
+> +		memcpy(cpuc->lbr_counters, snapshot->counters,
+> +		       sizeof(u64) * cpuc->lbr_stack.nr);
+> +	}
+> +
+>  	intel_pmu_enable_all(0);
+>  	local_irq_restore(flags);
+>  	return cnt;
+> @@ -4022,7 +4056,12 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
+>  
+>  	loops = 0;
+>  again:
+> -	intel_pmu_lbr_read();
+> +	/*
+> +	 * No need to read the LBR stack when all LBR users are PEBS events,
+> +	 * since the PEBS handler updates it.
+> +	 */
+> +	if (cpuc->lbr_users != cpuc->lbr_pebs_users)
+> +		intel_pmu_lbr_read();
+>  	intel_pmu_ack_status(status);
+>  	if (++loops > 100) {
+>  		static bool warned;
+> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+> index ac1759a71288..07b32255e48d 100644
+> --- a/arch/x86/events/intel/lbr.c
+> +++ b/arch/x86/events/intel/lbr.c
+> @@ -1030,15 +1030,6 @@ void intel_pmu_lbr_read(void)
+>  		return;
+>  	}
+>  
+> -	/*
+> -	 * Don't read when all LBRs users are using adaptive PEBS.
+> -	 *
+> -	 * This could be smarter and actually check the event,
+> -	 * but this simple approach seems to work for now.
+> -	 */
+> -	if (cpuc->lbr_users == cpuc->lbr_pebs_users)
+> -		return;
+> -
+>  	x86_pmu.lbr_read(cpuc);
+>  
+>  	intel_pmu_lbr_filter(cpuc);
