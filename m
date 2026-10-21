@@ -1,63 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792619306;
-	b=naWvntd4A3bY6aUBgP3t9O7KRfISRm3UhsVmsyAn9MX1qlexF3kJJTSG9YuCxYubTYs/
-	 JILibWnBK5LNF4AKV4l6VfG2le6rjlbf8isEyhu8etV8aiOIPjcN9wKsN/MEgDpT/8Sgr
-	 FuK2ELOPrIf0WNLZ0lSw2rYmOjdEmkGMnNfT1HZT/LtARhT4K5/lwo5V5cYN2b0Foqbjd
-	 cUfm2pSLbcOq4R50C3VBmDykDEYq/ja7nYSBjMKbWPN7E9MZwPuKa5V68Rnr8jNH2TTdZ
-	 ezIqA/4POx0OYaz/kfDrWTBkLaRR2EjmnuPVc3z7Tgi5Uh/2mZC2YBq67avyvOD6pzg==
+	t=1792619310;
+	b=ZUSDAFsUrvygHGba5ldDaUWJcPvNNHUtFpXvbEM8zf9qPTgnccFQr9hj1PHTqzdEr/Hl
+	 wT3DagzoJ/+5l2ICEY/i5hIqbecvDwUyevyjpJsY4gQc8VK/hg0uYLEXdAm6Jcf6SN2iZ
+	 YLuhOz2MoTk6dbwYGV6nO14rU44puTtx2JNzQ/uhdtdg9UazP3Tbu20l5jYNzALDtzD1l
+	 qZMzEfQkbOAGiD9wmH56LtYdOp0Z+eYeu8P9F5fr19XL/tPTh+0NwkXVB3dcBtnMRdOxE
+	 gWEZq5FLr98raAB0QleZkNS+cmxdlvh2Q2ZmdaDiVRtiKVlhUNdHb8HAbf8f+E/mDEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792619306;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R1UQ9FNkc8l5nyatttnspRCQVclcdetrGbMkAG+XPp4=;
-	b=KOR3j4NTfGHypUTAnq+a/yVw//Qc9YVFg512M05fwY9QC4wz8fPldPunPgHsvXnS9iAG
-	 r7FlKfxAUQCZVGfUZ6x93kNgEBjxCpbFaH0M5n54aM9vhNn651zA25HBJMaDmYzIvA8x+
-	 MoYxvMPod9/eVTTjbGlsjh7sKubJsbPbYI6vR9YM+rSA77RGaFMyvPlqMt+OdyefMIyrW
-	 mBMUFmAPxvZ/bc9T/YNMbpiLuMC5HLfpHamTG/zn0/yFvwq92L7CRQ18n6fDYwWkgRkQi
-	 oGwmQc2+rIkLJcjtZVeTupbpZ9D+52C+YLT5teS8ALVJNWc/65faXzMhqyy3m2PADSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792619310;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Lmu5YQAfpScGwvYRrddBHguYn8AYmmgDkAsX6xsNidE=;
+	b=0Syyzu9v6dDbwZ/nTRiWoKgXdqpliHm+xh6IGJmE3Wunv6RmnpYQZpNTd7crc8L/6/eW
+	 bViKY/eYPlswlasJzXtgDsnor5F1cnG1FJW4DWp+1XhI1/th1Q966xwCNYXY6dDakRNoR
+	 n1mdggaHnVvpxBifCWQ3JYqC8tiYZ7aBDBR4TTOPtJ1UnCgC+If1mRSC7K+OHLmTgKMf+
+	 7N1WC2wYonUlOF31bYrhQssG8OlsTeWvbglDe1O2fJ8kUfu2UN3IAbRBOhczqo2p1Mf5o
+	 GsPaLkXitzfsa52HO4MQYWDicy1LMWL5CdDnGFNg3Xa68Hd2lxNua3hUUvgdfetONQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N47QG1bj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZUzB7CK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3982E606A31A;
-	Wed, 21 Oct 2026 21:48:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3906606A319;
+	Wed, 21 Oct 2026 21:48:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N47QG1bj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949B61F000C4;
-	Wed, 21 Oct 2026 21:48:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZUzB7CK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5291F000C3;
+	Wed, 21 Oct 2026 21:48:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792619305;
-	bh=R1UQ9FNkc8l5nyatttnspRCQVclcdetrGbMkAG+XPp4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=N47QG1bjuudhcobU3keo853c+bzAg5T+d+/lpJoagyVzzFNZEqk1sjb5MPt+yF90L
-	 GXUBw8zE/7EmUjPZN2evYSV17aUp7PqJaJGLShWb7hXgAJpX3+Zlxmav4kanqnPCUl
-	 5vC8mbRbn7YgHr6rHylcBcqgn8U1ZLCEdFTAiLt+gVJpMlvd6FhxP3rSnpuOjfTwsE
-	 ikMk9w33nXjmCB5cG3aR7Cd2hBsqN1UYaHsAeSbZhhf63nqq5uQ0A9ad48TSDa8xpa
-	 zSTG/x7BjBAgaAqepceMn5aozu30SmHatv/GE5Gy7DU3iIXFa1SiCcm+QcuwVXdc0g
-	 oBNnFkSXt/EAA==
-Date: Wed, 21 Oct 2026 11:48:24 -1000
-Message-ID: <649966b83b39fcdd25e892fc3c6732a1@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ian Kent <raven@themaw.net>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- driver-core@lists.linux.dev, autofs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs stores
-In-Reply-To: <cover.1792577179.git.krystianmkaniewski@gmail.com>
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
- <cover.1792577179.git.krystianmkaniewski@gmail.com>
+	s=k20260515; t=1792619309;
+	bh=Lmu5YQAfpScGwvYRrddBHguYn8AYmmgDkAsX6xsNidE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KZUzB7CKylW8wqcHz3mSIYIyShZ0UkVuG1QG5iEr3o6PsFD2WoT1EPzJu7GhRFNpm
+	 KZS/w9OnhP3iU7aKsxyP4Fr/4unp9P3vZTekdVI8GBiOIzzLeSuqeyp6C9EfwoWpxZ
+	 Cb6WBhhOHu5vlgfYLux5n7ZyvcMONpf3mAWPctUMD+QIPN3QWNOrAcwkmazJ1WOHcn
+	 83+UwYvulVet+rmKjnGBI+TdFfkPAVmYlL79tgnO1A24/7Su64ugqVrdNcY9DHIasO
+	 M8FIjaa6SFxQCWfFKNaM4UMLSZn/dbSwTmiwgIYH6Fu6knM/WLalBlcxZyqgY9HLjS
+	 +wVuwWxOUI1pQ==
+Date: Wed, 21 Oct 2026 18:48:26 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: Namhyung Kim <namhyung@kernel.org>, james.clark@linaro.org,
+	xueshuai@linux.alibaba.com, Peter Zijlstra <peterz@infradead.org>,
+	leo.yan@linux.dev, Li Huafei <lihuafei1@huawei.com>,
+	Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v7 00/15] perf annotate arm64: Support instruction
+ tracking for data type profiling
+Message-ID: <atkzKm_TPnhyzgx3@x2>
+References: <cover.1791629326.git.wutengda@huaweicloud.com>
+ <atFdpZG-b2JPS1St@google.com>
+ <8fdf2566-bbac-4854-8faf-0276af5f936e@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,22 +70,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <8fdf2566-bbac-4854-8faf-0276af5f936e@huaweicloud.com>
 
-Hello, Krystian.
+On Fri, Oct 16, 2026 at 09:18:38AM +0800, Tengda Wu wrote:
+> On 2026/10/16 7:11, Namhyung Kim wrote:
+> >> Please let me know if you have any feedback.
+> > 
+> > Thanks a lot for your work!  Assuming you'll fix the issues from Sashiko
+> > in the next version, you can add my:
+> > 
+> > Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> > 
+> 
+> Yes, I'll address the issues reported by Sashiko and send a v8.
+> Most of them are minor, and I'll fix them accordingly (or explain
+> in the v8 thread if I think any of them is a false positive).
+> I'll carry your Reviewed-by in the next version as agreed.
 
-On Wed, Oct 21, 2026 at 02:51:48PM +0200, Krystian Kaniewski wrote:
-> syzbot reports a lockdep cycle &pipe->mutex --> &of->mutex -->
-> &sbi->pipe_mutex. splice holds a pipe mutex while it calls the write or
-> read handler of a kernfs file, kernfs takes of->mutex there, and a write
-> to /sys/power/resume looks up a path that can make autofs write a request
-> into its daemon pipe and wait for the daemon.
+I applied the first 5 patches that are sashiko-clean, will push soon to
+tmp.perf-tools-next and then to perf-tools next after test building on
+my containers.
 
-This is an extremely convoluted case that isn't going to happen in any
-realistic scenario, and it doesn't make sense to change the locking scheme
-for it. Can we just disallow splice on /sys/power/resume instead?
+Thanks!
 
-Thanks.
-
---
-tejun
+- Arnaldo
