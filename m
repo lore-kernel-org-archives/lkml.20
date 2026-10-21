@@ -1,70 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597389;
-	b=JtjrEpHdSZ4bu9l2VBjAApvCu6KmLHeb4EwLONyFTe2d5tCz/+fR1cY72JwzQ4hnEQFF
-	 KOKP4qqCEgIW2Oja2Sgr3JRJokPksRBgPsUIPJkfEE4tIObJnLeO23hKnQwsietI7bI5j
-	 pu24kMsC7ORAPjFRm/R9YAFp5l12IfzeNVwWGsrs9kHVQgqU8Hw9N7fy5VeCTyUVzI1pO
-	 ZFPfIGOyVFH7DIGmmJDQikrzDq+pdjGrfk15QZWZqZYOyLCItBo8KZvAOEBg/vMIzbwVs
-	 b9ftx+/VzrMDuBS3ErZnBvHtAd9UUhLc7jNTAnLkJM+ymOwFGKi7qZbRsI95nFZsLBg==
+	t=1792597396;
+	b=NqoRuJ7XCHfgS2rk2Y4YrNXXIejeDFXScmq33wq+ZBktu38sxbEe8wTvKslhiKm1hnP4
+	 2bcoti3UsUdEXtdGuuTzByvi0ys9uNMk5v5HBiufKT1ETs0fNxMo9546LNqd99ga/XVYA
+	 E3zeoTRoaTS0X33u62vU7CV3wD+8L3reD0STTsw34VWSA4+XYpFmHsOQ0NXs5nwKmREmp
+	 uCuJAYasb15wsAvIM0MjZQVXJkzH0R1UuaBq7zLXbtB3sFoxXUsI4RPonotNrMalQPZBz
+	 B5nZ6brsnVfgWV1mxthknjXR+XA/Mar+q7AbzfjRyCyXm4OmRqlU6P/4TFUeV0kG9Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597389;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
-	 X-Scanned-By;
-	bh=bWkWUhRxPDvXoa6KMlal8YtHGvJibFgZ+pmIbzWzfpI=;
-	b=IX8EJLEi98aoO9UCfd7dNPT+zFLrrtZug9Q9c1mQxqTWzTx8KW8DV1AU5qFOCWwAvD94
-	 PVlMioIN4ZndoQ8jPbYwEudPQeCRfX17ci7iBLtJ9JOxyV0EUQI/VlxRs0ea7wKgzJtTW
-	 GSAsT2X0KF14ujBgU2e2VeSX98yTZZpav6m9cwD9m3tkaDogrgrRwSjUOiWhDFba7Zem8
-	 b65NgcOc1i7mfTeKcwPSGWvPosD8CGbAVRK8hjgz9UFw84I0ZpdbHAITW1OSiwrgE5Oi/
-	 VOXKRVh4VydPHP1h9laXKlnbtNzz9hL0CzJtE0BgQwDCsp9mOY05wKURxaTIdV2DdoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597396;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=hnp5nKDzgJnODvsFmkdgk+eeQorA0gslwBiNwwkyGhY=;
+	b=pWjdJ7UVM3hHqcanA7T+6+Xx4xmtQGqC3A9h/3TwEypUj/bU9/B6uWI/xTcOmqyM9Ke9
+	 cBDNhK1exCADjdb03oJYjA8Cuavd3RlagI+l+MLfslKpLHyga8junVD+oZ/+JHu8YqQE5
+	 Idhnf6vuzCuImK+iNlkZyPds3u0207ciiT/GiTvoLipGRguRLzRrW0uePOM+AKnYOvfLp
+	 4ZVKIGBtEoyEONm2jWp8VCMsfI3HBoGrtKUwdPpZZ8tmk+L7zSaSNNypzhxYHSUZuq1iu
+	 76nZEf1nATyC/UHJG8VICsj0mLgeXQpjaL9oQdcSO7VmHnOjYobKQv4kWlmE0anDbSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dZUKYFD4;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="W0ffC/xJ";
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FD6606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74FD6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C73C606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C73C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dZUKYFD4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792597387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bWkWUhRxPDvXoa6KMlal8YtHGvJibFgZ+pmIbzWzfpI=;
-	b=dZUKYFD42z6Qpqa5WWbglE0uFiGPRBubpoRX/xrRajFpnyroFaTC9C8QPXRnIVxpYatmPK
-	J7NT4/RfsBziHDPZHxyThVwWyDyLw+WUizOwzaiZ+WtdE8GWTrORHUcgAqY1LIlcYaSqNX
-	Ovy1a8qKi9ITaF7IZfSto6oPeR+7iC4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-274-jFNxnYdKMlaImvgI6R0zEg-1; Wed,
- 21 Oct 2026 11:43:03 -0400
-X-MC-Unique: jFNxnYdKMlaImvgI6R0zEg-1
-X-Mimecast-MFC-AGG-ID: jFNxnYdKMlaImvgI6R0zEg_1792597379
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3BCC718007FE;
-	Wed, 21 Oct 2026 15:42:58 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2202E18005AD;
-	Wed, 21 Oct 2026 15:42:49 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 21 Oct 2026 17:42:22 +0200
-Subject: [PATCH RFC v2 1/8] memcg: Add MEMCG_DMABUF accounting
- infrastructure
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W0ffC/xJ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 839AB4E41294;
+	Wed, 21 Oct 2026 15:43:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4DBB7606E3;
+	Wed, 21 Oct 2026 15:43:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A8AFE10328DD2;
+	Wed, 21 Oct 2026 17:42:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792597386; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=hnp5nKDzgJnODvsFmkdgk+eeQorA0gslwBiNwwkyGhY=;
+	b=W0ffC/xJr/vsjzk/DEL2NTX9HR8MZpnQOJA7N7VLDM1nu2baVu7R9mvlpzJ2NiI72N4VIz
+	ohqn6bCn9Cw8k4Sa4KJBy0r/Gorqc4ce5aaZtsRgbcm3YmxcZgQcKcMtsY0HScEVMMJcUK
+	pnUjRe9E5dIQFPVcu2tVR+L6S9Ea4BmbsLOOZ49SeXoEcR+M64UM0rsnKNrpEFvHLLUk5A
+	kaaZ+VTczl3qxfLEzfk3xc6NOn9pwZ9Ow7j0tbYL6nsn+xSuUnIuoXpWYNu5983aBulATP
+	sfQoq395ir7VjJLqkXmvgYLP78a1IVY0lCvmpu7Cr2MSubxW5Xz0XV5n+ujt1A==
+Message-ID: <2c27a1a0-b0a4-4adc-a3af-edb74e12dcfb@bootlin.com>
+Date: Wed, 21 Oct 2026 17:42:59 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,298 +62,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-v2_20230123_tjmercier_google_com-v2-1-ef6ee2dd8c5c@redhat.com>
-References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
-In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, mripard@kernel.org, echanude@redhat.com
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597359; l=8161;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=uQH7UhskNWoMAVf3cHwhudyW2OlVTtHrF31AhHpWtUI=;
- b=nsHRl/ZgVbi4E0QPaytAAh7L9X39h8F5H46BFOjlKcT/OoYIbi+O9KCY/PcAh1aGuaUi8pmr9
- wKtBuHz9OvPDC1QNK62PhlWdcIGbE5BuOq8HpfQc47zUtc4UjR1IJc9
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net 05/10] net: pse-pd: check the PI state under the lock
+ when setting a power limit
+To: Kyle Swenson <kyle.swenson@est.tech>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
+ "github@szelinsky.de" <github@szelinsky.de>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@kernel.org" <edumazet@kernel.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
+ <pabeni@redhat.com>, "piotr.kubik@adtran.com" <piotr.kubik@adtran.com>,
+ "saikrishnag@marvell.com" <saikrishnag@marvell.com>,
+ "horms@kernel.org" <horms@kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "mazziesaccount@gmail.com" <mazziesaccount@gmail.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>
+References: <atb-3EIJynaRwuwe@pengutronix.de>
+ <0378ccc3-4807-4d63-8e61-03b465952929@bootlin.com> <atjcxjV-scVhA6aF@p620>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <atjcxjV-scVhA6aF@p620>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: "T.J. Mercier" <tjmercier@google.com>
 
-Introduce a MEMCG_DMABUF stat counter and helpers for charging,
-and uncharging dma-buf memory against a memory cgroup:
 
-The charge is tracked on struct dma_buf via a new memcg pointer. The
-page count is derived internally from PAGE_ALIGN(dmabuf->size), and
-the memcg reference is stored into (or cleared from) dmabuf->memcg by
-the helpers themselves, removing the need for callers to manage those
-details. The release path in dma_buf_release() is reduced to a single
-mem_cgroup_uncharge_dmabuf() call.
+On 10/21/26 17:40, Kyle Swenson wrote:
+> On Tue, Oct 20, 2026 at 12:19:28PM +0200, Kory Maincent wrote:
+>>
+>>
+>> On 10/20/26 07:40, Oleksij Rempel wrote:
+>>> CCing regulator related folks.
+>>>
+>>> On Mon, Oct 19, 2026 at 02:30:24PM +0200, Kory Maincent wrote:
+>>>>
+>>>> On 10/19/26 10:51, netdev-bot+sashiko@kernel.org wrote:
+>>>>>>     	previous_pw_allocated = pi->pw_allocated_mW;
+>>>>>>     	pw_diff = pw_req - previous_pw_allocated;
+>>>>>>     	if (!pw_diff) {
+> 
+> [...]
+> 
+>>>>> regulator_set_current_limit()
+>>>>>      pse_pi_set_current_limit()
+>>>>>        ops->pi_set_pw_limit()         <- new, higher limit
+>>>>
+>>>> @Oleksij, Here is another example of an issue related to the PSE PI being a
+>>>> regulator provider.
+>>>>
+>>>> @Carlo, Kyle is working on a series that remove the support for a PSE PI
+>>>> being a regulator provider. We will see where it goes.
+>>>
+>>> Removing the regulator provider support is a bad idea:
+>>>
+>>> - We will end up implementing a poor man's regulator framework inside the
+>>> network subsystem. Networking folks will have to deal with physical constraints
+>>> already solved by the power management community, requiring a different mindset
+>>> and domain experience.
+>>
+>> That's what we thought at the beginning of the implementation of PoE but in
+>> fact that's not the case. I don't see currently any cases of using already
+>> solved regulator constraint in the PoE core.
+>> The drawback are:
+>> - locks issues: solved one by using worker but there are still others
+>>    appearing like this one
+>> - code complexity due to all the regulator callback wrapper
+>> - converting mW to mA for regulator framework then to mW again for the
+>>    PSE driver callbacks. There are even devices that are using current
+>>    limit therefore there will be 3 conversions.
+>>
+>> The more painful issues are the lock issues.
+>>
+>>> - We lose built-in regulator infrastructure: DT safety constraints
+>>> (regulator-max-microamp), over-current/under-voltage notifications, and
+>>> sysfs/debugfs (regulator_summary) visibility.
+>>
+>> I disagree here.
+>> regulator-max-microamp: has not interest from the PI side but this is
+>> related to its power supply. The PI should still stay as a regulator
+>> consumer so the power supply could describe this binding.
+>>
+>> over-current/under-voltage notifications: we are already reporting these PSE
+>> PIs notification through ethtool. We will loose
+>> regulator_notifier_call_chain() call but well there is no consumer to the PI
+>> regulator provider so it's mainly useless.
+>>
+>> Yes, we will loose sysfs/debugfs visibility, but is someone really using it
+>> as all PSE communication goes through ethtool?
+>>
+>>> - The race above is just a lock scope issue across pcdev->lock and the
+>>> regulator call, not a flaw in the abstraction.
+>>
+>> That's not something easy to solve as PSE and regulator provider are nested
+>> together.
+>> Either we put all of the lock issues inside workers, it will not be
+>> synchronous and will smell hackish but well...
+>> Or we try to combine the PSE lock with the regulator nested lock in one way
+>> or another.
+>> Do you have a better idea?
+>>
+>>> - Writing a custom power state machine in net/ will introduce more bugs than it
+>>> fixes - especially if we overestimate our ability to upstream complex custom
+>>> logic under LLM review supervision.
+>>
+>> Removing regulator provider will simplify a lot the implementation so I
+>> think it will rather remove bugs than introduce new one.
+>> I think we should let Kyle works on it with a RFC and we will see where it
+>> goes.
+> 
+> For what it's worth, and for others that might be interested but I missed
+> on cc, the RFC is here:
+> 
+> https://lore.kernel.org/netdev/20261020-pse_regulator_fixes-v1-1-fd6084a22cba@est.tech/
 
-This decouples accounting from the backing page allocator, avoiding the
-need for every exporter to pass __GFP_ACCOUNT and enabling cross-cgroup
-charge transfer, which is impractical with page-level accounting.
+Thank's for that.
 
-Remove __GFP_ACCOUNT from system-heap page allocations (added by
-commit 3c227be90659 ("dma-buf: system_heap: account for system heap
-allocation in memcg")) to avoid double counting once callers adopt
-this path.
+I will take a look at it when I have time, but it seems promising to me 
+to solve lots of issue as you mention.
 
-The next patch wires up the charging policy in the dma-heap ioctl.
-
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  4 +++
- drivers/dma-buf/dma-buf.c               |  3 ++
- drivers/dma-buf/heaps/system_heap.c     |  2 --
- include/linux/dma-buf.h                 |  4 +++
- include/linux/memcontrol.h              | 20 ++++++++++++
- mm/memcontrol.c                         | 54 +++++++++++++++++++++++++++++++++
- 6 files changed, 85 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 86a2a0099178..a3265a4a953e 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -1662,6 +1662,10 @@ The following nested keys are defined.
- 		Amount of memory used for storing in-kernel data
- 		structures.
- 
-+	  dmabuf (npn)
-+		Amount of memory used for exported DMA buffers allocated by the cgroup.
-+		Stays with the allocating cgroup regardless of how the buffer is shared.
-+
- 	  workingset_refault_anon
- 		Number of refaults of previously evicted anonymous pages.
- 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 4c9add51f9ef..f31f49ebd0af 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -14,6 +14,7 @@
- #include <linux/fs.h>
- #include <linux/slab.h>
- #include <linux/dma-buf.h>
-+#include <linux/memcontrol.h>
- #include <linux/dma-fence.h>
- #include <linux/dma-fence-unwrap.h>
- #include <linux/anon_inodes.h>
-@@ -180,6 +181,8 @@ static void dma_buf_release(struct dentry *dentry)
- 	 */
- 	BUG_ON(dmabuf->cb_in.active || dmabuf->cb_out.active);
- 
-+	mem_cgroup_uncharge_dmabuf(dmabuf);
-+
- 	dmabuf->ops->release(dmabuf);
- 
- 	if (dmabuf->resv == (struct dma_resv *)&dmabuf[1])
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index c8959eadc71d..0a99ac0183a8 100644
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -388,8 +388,6 @@ static struct page *alloc_largest_available(unsigned long size,
- 		if (max_order < orders[i])
- 			continue;
- 		flags = order_flags[i];
--		if (mem_accounting)
--			flags |= __GFP_ACCOUNT;
- 		page = alloc_pages(flags, orders[i]);
- 		if (!page)
- 			continue;
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d15b2b31d3c9..23ec0ff23fba 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -27,6 +27,7 @@
- struct device;
- struct dma_buf;
- struct dma_buf_attachment;
-+struct mem_cgroup;
- 
- /**
-  * struct dma_buf_ops - operations possible on struct dma_buf
-@@ -429,6 +430,9 @@ struct dma_buf {
- 
- 		__poll_t active;
- 	} cb_in, cb_out;
-+
-+	/** @memcg: the cgroup to which this buffer is currently attributed */
-+	struct mem_cgroup *memcg;
- };
- 
- /**
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 7d1c0ce189a8..aa08fbb0c26c 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -10,6 +10,9 @@
- 
- #ifndef _LINUX_MEMCONTROL_H
- #define _LINUX_MEMCONTROL_H
-+
-+struct dma_buf;
-+
- #include <linux/cgroup.h>
- #include <linux/vm_event_item.h>
- #include <linux/hardirq.h>
-@@ -40,6 +43,7 @@ enum memcg_stat_item {
- 	MEMCG_ZSWAP_B,
- 	MEMCG_ZSWAPPED,
- 	MEMCG_ZSWAP_INCOMP,
-+	MEMCG_DMABUF,
- 	MEMCG_NR_STAT,
- };
- 
-@@ -667,6 +671,9 @@ int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp);
- int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
- 				   struct mm_struct *mm, gfp_t gfp);
- 
-+bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-+			      gfp_t gfp_mask);
-+
- void __mem_cgroup_uncharge(struct folio *folio);
- 
- /**
-@@ -682,6 +689,8 @@ static inline void mem_cgroup_uncharge(struct folio *folio)
- 	__mem_cgroup_uncharge(folio);
- }
- 
-+void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf);
-+
- void __mem_cgroup_uncharge_folios(struct folio_batch *folios);
- static inline void mem_cgroup_uncharge_folios(struct folio_batch *folios)
- {
-@@ -1167,10 +1176,21 @@ static inline int mem_cgroup_swapin_charge_folio(struct folio *folio,
- 	return 0;
- }
- 
-+static inline bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf,
-+					    struct mem_cgroup *memcg,
-+					    gfp_t gfp_mask)
-+{
-+	return true;
-+}
-+
- static inline void mem_cgroup_uncharge(struct folio *folio)
- {
- }
- 
-+static inline void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf)
-+{
-+}
-+
- static inline void mem_cgroup_uncharge_folios(struct folio_batch *folios)
- {
- }
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 856a7d07586c..e94222237d31 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -69,6 +69,7 @@
- #include <net/ip.h>
- #include "slab.h"
- #include "memcontrol-v1.h"
-+#include <linux/dma-buf.h>
- 
- #include <linux/uaccess.h>
- 
-@@ -442,6 +443,7 @@ static const unsigned int memcg_stat_items[] = {
- 	MEMCG_ZSWAP_B,
- 	MEMCG_ZSWAPPED,
- 	MEMCG_ZSWAP_INCOMP,
-+	MEMCG_DMABUF,
- };
- 
- #define NR_MEMCG_NODE_STAT_ITEMS ARRAY_SIZE(memcg_node_stat_items)
-@@ -1625,6 +1627,7 @@ static const struct memory_stat memory_stats[] = {
- #ifdef CONFIG_HUGETLB_PAGE
- 	{ "hugetlb",			NR_HUGETLB			},
- #endif
-+	{ "dmabuf",			MEMCG_DMABUF			},
- 
- 	/* The memory events */
- 	{ "workingset_refault_anon",	WORKINGSET_REFAULT_ANON		},
-@@ -5658,6 +5661,57 @@ void mem_cgroup_flush_workqueue(void)
- 	flush_workqueue(memcg_wq);
- }
- 
-+/**
-+ * mem_cgroup_charge_dmabuf - charge a dma-buf to a memcg
-+ * @dmabuf: buffer to charge
-+ * @memcg: memcg to charge; caller must hold a reference
-+ * @gfp_mask: reclaim mode
-+ *
-+ * Charges the memory backing @dmabuf to @memcg and, on success, stores
-+ * @memcg in @dmabuf->memcg (transferring the caller's reference).
-+ * Returns %true on success, %false if the charge would exceed the limit.
-+ * On failure the caller retains its reference to @memcg.
-+ */
-+bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-+			      gfp_t gfp_mask)
-+{
-+	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-+
-+	if (mem_cgroup_disabled())
-+		return true;
-+
-+	if (try_charge(memcg, gfp_mask, nr_pages))
-+		return false;
-+
-+	mod_memcg_state(memcg, MEMCG_DMABUF, nr_pages);
-+	dmabuf->memcg = memcg;
-+	return true;
-+}
-+
-+/**
-+ * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
-+ * @dmabuf: buffer to uncharge
-+ *
-+ * Reverses a successful mem_cgroup_charge_dmabuf(). Drops the memcg
-+ * reference stored in @dmabuf->memcg and clears the pointer.
-+ * Safe to call when @dmabuf->memcg is %NULL.
-+ */
-+void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf)
-+{
-+	unsigned int nr_pages;
-+	struct mem_cgroup *memcg = dmabuf->memcg;
-+
-+	if (!memcg)
-+		return;
-+
-+	nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-+	mod_memcg_state(memcg, MEMCG_DMABUF, -nr_pages);
-+	if (!mem_cgroup_is_root(memcg))
-+		refill_stock(memcg, nr_pages);
-+	mem_cgroup_put(memcg);
-+	dmabuf->memcg = NULL;
-+}
-+
- static int __init cgroup_memory(char *s)
- {
- 	char *token;
-
+Regards,
 -- 
-2.55.0
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
