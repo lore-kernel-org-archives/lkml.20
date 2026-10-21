@@ -1,76 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578331;
-	b=EjVzvbXI2YAzzrCLsIYrfiWEnd927BfHxKr3trAVqtA0xeUH1X+eY+ZQ1tNmQ3/oZkd/
-	 AG6Rvngehp2HdbB6EBonC6VPmHMZzSOXETGaIjq26xWm/q0yBcFeF1qHDxx1/UIZ3I3D+
-	 c+KoYKbiTwjqnvGMdwegLkRdjWMC2j4bqjZyAv3Y9g6ZxOGMRhl9FtHHvRJ4FXwAleb2E
-	 f/8UKmzHMwmX/BmfSz1Bp2elPrNlryd3/Umz/s+7XVGaUWow0rdSCbYxixeJ5koIbMd5S
-	 1WsRw1qGpd9BSWZ6OJEuUmouul55SxUcpEuCK95De5AM/rqx85QPKe0sLZYtVOdFxVw==
+	t=1792578364;
+	b=4LFqbysIJns/ra0h2AojEAHogwQrZB/vOdDKc9yGyce6Xm4jCbHwq9gMPbBiVsAX7K2g
+	 3CPhnsH6w093a09YxWtasUHPQbtsqli5UH9yzjlLTWQH1dsXEEJaWXF9FVlblLc4B8J4K
+	 G04p7B6wEaazc5Q1/yCWBLVPzyyq6WlgdfdaxrpEHyzAOP6iEUpBdOafrAy7e82pypj5Z
+	 y+xNlp02LZnFyPvcXBo7w1N9izPvRa2Km2Jy1f1KEytSqOl7KrNz7FLrMGAfKlO1J8fFB
+	 YiUfOWhQIyIyRr1ABRRQ+Mspjcb+hrB3cCx7JVeCvAHG1CXQA9Cj7KO+ytK4sp6/gEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578331;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fyUFCbuePzC+XG2QW79bsjnDsYBX6lH465Zgu9TmAmA=;
-	b=T2aptLONDZ2m5Bod8KFCpux1s6M9OaOa1yPs22mnoS5ue0+JTk1mN0AnlVruz1JdNdjn
-	 KD9IO4KYJJyJAXQHgBhVaRFTDfaSCx9MGomCYtaD9fze25gP5h4wPjoICXDw5B0FkjLnG
-	 Vxl+ptGIJe3wpnkY7i6mKdzZcSE8WozuQaWKTGgAiD3ImJYPHrHD35yWs6/Pkr8oC9IlF
-	 rLpYm4t4wUI5AVjaAWUHwbM2zDC5cvQaX3bk6tUsIYdjUobyk7L1UBUXbhA/B5/xwqQsn
-	 rBg3fzJU42xxXsK970nb2+gAtg4Di8dKSVJymu4mO4lJ6I9uNmdO51icOjAzRRKa4hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578364;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=i6cQS+M0jOTKPFz1yu+p/73srARbGZr2aqKvTYyKx6g=;
+	b=XBQjsg1Pxw+iAGtcZJs39J/Ar8PmACYp53x6NvaMS9Yq7X4RsoBNVMNGPmv1o3lW4odm
+	 uYmWqX/YNj4gXBDur/1hb93zW9Bu2PFQolXnQR26WwyjYyQ0IA2l3KJONfC7mNiKY3utR
+	 Qg3ihIRSVm1zzhoZDF96ELeGA4mD+hWpBFV+OPjMpxZbPwwtko6501WXlu+zSNzoopwk/
+	 7ODtWyHqbnobXCi4KE577mveNw9/kZHrUyHfj5nx8IcJ3E68YKu5W6XW0tRzMMwHSG71U
+	 PmgXbrFs7KJZC9E8kCvgjgNjfgOdHJOoOJHeYIwSOBtKZy5Lr+hdbgQvgyN9aoJCfXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WN+IUwrT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB99606A319;
-	Wed, 21 Oct 2026 10:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WN+IUwrT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4A41F000C9;
-	Wed, 21 Oct 2026 10:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792578330;
-	bh=fyUFCbuePzC+XG2QW79bsjnDsYBX6lH465Zgu9TmAmA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WN+IUwrT7l8rUPNHcaU/+gEKsExM+ioOu7ktOtPja5M+dDNUVwHb0vzRVzDdLmi2l
-	 ZVZx7zVWlmJhAl69UxYI+zhszNbxVxTNXOBiS7d6CtNd6WfNLIPJPJhmVTj0hz17Wh
-	 CBPrxhvYRreyd+T8w2TaPEcsFSkV4dKf9ocMHO00y4EhqsJSxfLpthpPmknHsz6GHD
-	 XVMxmeCP5wmxvrqe1pag4NI9ASSec8djC8iso0wCeNRusCl3OXQPYTQT30aPNOVjPM
-	 aOLdakMoHfKRaCd3xb8lP0LDs+OVib+4+C4N3+fUQQocX68feX4bzSiBxNtciCBsuG
-	 N0l+7t93qoF8A==
-Date: Wed, 21 Oct 2026 12:25:10 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Cai Xinchen <caixinchen1@huawei.com>
-Cc: mic@digikod.net, gnoack@google.com, paul@paul-moore.com, 
-	jmorris@namei.org, serge@hallyn.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
-	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	rdunlap@infradead.org, gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
-	johan@kernel.org, dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk, 
-	viro@zeniv.linux.org.uk, jack@suse.cz, dhowells@redhat.com, code@tyhicks.com, 
-	linkinjeon@kernel.org, sj1557.seo@samsung.com, yuezhang.mo@sony.com, 
-	hirofumi@mail.parknet.co.jp, cel@kernel.org, jlayton@kernel.org, neil@brown.name, 
-	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com, hyc.lee@gmail.com, 
-	miklos@szeredi.hu, amir73il@gmail.com, senozhatsky@chromium.org, 
-	chenxiaosong@chenxiaosong.com, kpsingh@kernel.org, matt@bobrowski.net, rostedt@goodmis.org, 
-	mhiramat@kernel.org, mathieu.desnoyers@efficios.com, john.johansen@canonical.com, 
-	georgia.garcia@canonical.com, zohar@linux.ibm.com, roberto.sassu@huawei.com, 
-	dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, stephen.smalley.work@gmail.com, 
-	omosnacek@gmail.com, casey@schaufler-ca.com, takedakn@nttdata.co.jp, 
-	penguin-kernel@i-love.sakura.ne.jp, xiujianfeng@huawei.com, nanx95726@gmail.com, djwong@kernel.org, 
-	lujialin4@huawei.com, bpf@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	netfs@lists.linux.dev, ecryptfs@vger.kernel.org, exfat@lists.linux.dev, 
-	linux-nfs@vger.kernel.org, ntfs@lists.linux.dev, linux-unionfs@vger.kernel.org, 
-	linux-cifs@vger.kernel.org, linux-trace-kernel@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-integrity@vger.kernel.org, selinux@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 -next 00/18] landlock: Add READ_METADATA and
- WRITE_METADATA access rights
-Message-ID: <20261021-neugierig-abgemacht-umbenannt-c77d1addf517@brauner>
-References: <20261015125425.3246251-1-caixinchen1@huawei.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB54606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:26:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BB54606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-846863cd436so582675a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:26:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792578363; x=1793183163;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=i6cQS+M0jOTKPFz1yu+p/73srARbGZr2aqKvTYyKx6g=;
+        b=J11wQY479u8DOPIvubl64eI138T9+anRZwIrEYNzaYMPitfd6GrfjKXD+3AobekWoZ
+         YUETIX55WD/ZMHqZ1IWrNUAlemBMHAVvnwuc8kbZMJhlQqwk6L7GMAKziM8G/Da1jEQk
+         GAyu2pnGg2SQa9SmbdYSZsnhSPlZIC+ydYLez9Ul+tHE9VDYWBUVpw/Khtu0As/l9RYZ
+         2Fzv2JDGJoHM0a2B7slH9ub+JamayzlmfcVq/f4q8GzOzkOdA3n5gJyuX6ZlrUI4tc70
+         AoWl+dnRxpbemjiXRMDMtd+6xJCwTt6az096yzAadItHs6ZMHX67Kinzcs7uFxRDq8el
+         r97A==
+X-Gm-Message-State: AFq9FYL8Ew/p0pvYluelqrPa0N9gzsEBA5fnI2bhesHmy9U0ZYID7KO6
+	kzREsZydxKwkAS6oOQZgvcKMpKxR42w1GB/jt0nESUh/YvaUJLcpZBlawo71JJLHGkDJWpmBgLf
+	BVib41201sQOBxVkJqQ1Qsr87e/l4DOdvjbAyFrTRz67T//d5/zUVmdJ7hPM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,28 +57,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015125425.3246251-1-caixinchen1@huawei.com>
+X-Received: by 2002:a05:6808:1917:b0:4d6:2545:b12a with SMTP id
+ 5614622812f47-5535fbb3d0amr894132b6e.26.1792578363118; Wed, 21 Oct 2026
+ 03:26:03 -0700 (PDT)
+Date: Wed, 21 Oct 2026 03:26:03 -0700
+In-Reply-To: <874ieftph3.fsf@toke.dk>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad8933b.e74039fe.1cb511.0002.GAE@google.com>
+Subject: Re: [syzbot] [wireless?] KASAN: slab-use-after-free Read in tasklet_action_common
+From: syzbot <syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	toke@toke.dk
+Content-Type: text/plain; charset="UTF-8"
 
-> - The hooks consistently take struct path rather than struct file.  The
->   VFS call sites involved (chmod(2), chown(2), utimensat(2), xattr(2)
->   and ACL syscalls) operate on paths, and several of them (lstat(2),
->   lchown(2), llistxattr(2), ...) have no struct file to begin with.
-> 
-> - struct inode_operations->setattr still receives (idmap, dentry, attr).
->   Only the VFS boundary (notify_change()) and the LSM hook layer see the
->   path, which keeps the refactor contained to fs/attr.c and the LSM
->   infrastructure instead of touching every filesystem.
+Hello,
 
-I have no problem with that provided:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-* all hooks take a const struct path argument
-* idmaps are passed separately so that VFS and filesystems are
-  guaranteed to see the same idmap
-* nobody gets any guarantees whatsoever wrt to path->mnt aka vfsmount
+Reported-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
+Tested-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
 
-  layout and implementation details might change tomorrow and mounts are
-  subtle beasts so the security layer gets to keep pieces if it does
-  things that the VFS hasn't explicitly sanctioned as a guaranteed
-  property. Things continue to be in flux.
+Tested on:
+
+commit:         a804c574 Merge tag 'lsm-pr-20261016' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1165b231580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5a37d7227c6a6352
+dashboard link: https://syzkaller.appspot.com/bug?extid=e91dc13b1b37759b3d9f
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=152caa95580000
+
+Note: testing is done by a robot and is best-effort only.
