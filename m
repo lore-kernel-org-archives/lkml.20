@@ -1,65 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792543875;
-	b=y/eCju1wZ+QAoG6w3biJTjnX81TlVH7WTnnJZFOOaIABExWymJf8MKEfqbIcDiBaoUvW
-	 YOxJe0Z3B1kvBp1vaB7AIKdUALaeFyklAJGSJTb59EuwP+gyAbxIO8f2QMAyTbyNiV1ed
-	 D7/hsBuSnjkIfRH/d8nEtRIjpOS+w+SZeiBvsahzWSbktlVUbwHBnN3ihqkb/3uxkgCQj
-	 sMB2KEqdISwnorlQXAZ21WnfNuo7en1uEVe+sLxHPZQcBuHZ5CHorGCOeKfkdQ6wYl+MA
-	 eMaIhSsn6Gys9Wxgo2k3GBTme6e3oWrv3AqUitxCKTBwiqsjGIqdOVK6X6h9iSwofIw==
+	t=1792543898;
+	b=xjnCId3kMRkBgUX4AjaR0obrz3iO7fyBkHh//ELFRDQ+hUcZdXaekHjYEt6NUvaXf4Af
+	 1DqjH3fHmdQSoImWotIN4QZu2Xa2X8peMzNJy/4OpsbT0dFNkzMzge6GxN0Tsdph6Tydf
+	 B1MP2hOlAMOX4zu1xxdSsEhU+1y2SQdvxFHxefxtKxaZx6+qeUuLR0TPxUIcvlaGe8bO+
+	 n/7m29CVmu7mu+SREfu9k8skB0hkfmz9NK+OVqpph3hJUDiP4Ocy+/jMPC2m3sc2xL82X
+	 YT1zcVFjc5BM0nCgXBjzI33RBUbPfctY5ehSQ5Hp+WImZ5CZcWZ+Z6nMi6wGAp04k2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792543875;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792543898;
+	h=Received:DKIM-Signature:Date:From:To:Subject:Message-Id:In-Reply-To:
+	 References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=BnbQRXf/yuRTZ/Xyc2wpVRtZXvrt7uElwpDWRhPjGpA=;
-	b=5TUeOQaKsEqnyQBpw8HU2MHAq4q28j5up7MpdUHrO3VFvLBHJEWeuj0wp9S60DgqABek
-	 IiSC5eoY/aDbTUxV3CqpjH2MpPDpWMK6F3sG3oGxfn7RBT+kOQHlCDcCM0nmJJ/LYd81h
-	 GAX8MR9Mz/0Sxf87W9Ql5ieG1Rvd/c90VTURu9qBNppCYE40bCcGl7UlYo4uB9va8o5wP
-	 /mwamVACRW46cKrKpgdrJ0+8SLSRZ2AIruRuR5yOwR1tzmyiCtXHlK7OEkb4ZaMadBxx1
-	 ezL4e9TUiUW35tVkWp/39k+8rw6XFbEEaVnStK/O8RUCpP45Vl6NtApnJntySXhgVHA==
+	bh=Znxm6FrMXKh05THAHNIxp3veJikQiNyBtprKU17px78=;
+	b=Vdq3mGz17d9oCj8P5dU24MgbiBYmWU6MyegUIeWfYilDOhgTc4FXgGCQc48qov8k1BYG
+	 5bMtdc8xtXjQDyV+Sr9utN1Gn2XmUYSR827sCYZOVDUZpBywM3gzTJt4yR8ZRqA68nIsx
+	 gp0ntziFgFSDUQnc3eDqej13+KlhnV1D8LfTqSyUomO6Oxxp6lOcgo/w03Ry5N5DWutYM
+	 E/bx2f/Jj61wM3mdHJtRa89CVi+HoKErFVuSe5NhHVaNLyhsMtLU5nCVyD/nHbIDeVYhV
+	 O4I7K75VGevpXiWkQLALxFDa/lGm9t+vOivdDcrR753Em1sV+StC8wqI6fhkDkUckvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+IoWrCI;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=OPLWmw7v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBE0606A319;
-	Wed, 21 Oct 2026 00:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E566606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:51:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+IoWrCI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DA21F000C9;
-	Wed, 21 Oct 2026 00:51:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792543874;
-	bh=BnbQRXf/yuRTZ/Xyc2wpVRtZXvrt7uElwpDWRhPjGpA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G+IoWrCId6I3cul8W/1ldsyCmrZ2roZxDp56BPtb3ROqCCW6bpiTaipOobCAEKwXA
-	 tFNk3u1uFpHC+mg2190fV+HImAh2cPZrMF5oS92H64CPEDH+KOzIAFcHKmYFOQUk0m
-	 1edn7XoWBLWtonGw/njuebCtuxpKBOmkUm3auMno227Xnu+k11wghe++LCq/CtZpW4
-	 YXacW/2qZMgf9/TChjjRvDJDEX4G3R9ip9umhwFCWb3TCPOim1pSEzzNql9iigaONv
-	 zShzLh7qtatdfXL25GbihVjvU01i+ODjz6P9AxkxywIu6q+oN9xXkula0VgPCbgNy7
-	 fLsz2rkifxbyQ==
-Date: Tue, 20 Oct 2026 17:51:13 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Fan Gong <gongfan1@huawei.com>
-Cc: Wu Di <wudi234@huawei.com>, Teng Peisen <tengpeisen@huawei.com>,
- <netdev@vger.kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Ioana
- Ciornei <ioana.ciornei@nxp.com>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, Mohsin Bashir <mohsin.bashr@gmail.com>,
- Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, Harshitha Ramamurthy
- <hramamurthy@google.com>, Larysa Zaremba <larysa.zaremba@intel.com>, Vadim
- Fedorenko <vadim.fedorenko@linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, Zhou Shuai <zhoushuai28@huawei.com>, Wu Like
- <wulike1@huawei.com>
-Subject: Re: [PATCH net-next v17 1/2] hinic3: Add ethtool statistic ops
- part1
-Message-ID: <20261020175113.182b3b92@kernel.org>
-In-Reply-To: <0d19828afdc0cec629c8b342cc3f7a0c11ecb1f3.1792378301.git.gongfan1@huawei.com>
-References: <cover.1792378301.git.gongfan1@huawei.com>
-	<0d19828afdc0cec629c8b342cc3f7a0c11ecb1f3.1792378301.git.gongfan1@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=OPLWmw7v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE431F000C9;
+	Wed, 21 Oct 2026 00:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792543898;
+	bh=Znxm6FrMXKh05THAHNIxp3veJikQiNyBtprKU17px78=;
+	h=Date:From:To:Subject:In-Reply-To:References;
+	b=OPLWmw7vi9Fi9wcxRB6N4rj25j3ojqAqI1n6Y1rWM8F11v4SVu70Dl5jxtZTfFeEm
+	 pBGxMC7ZePA3kjL6iVZ6tSwTzePZcy7K/5K4H9J5dqSyUpS7CIwNYKc17s4QfaP8ke
+	 gs9AHVZc1riEqOFsFhgAg8kWquP0/jP1pW50fQ9w=
+Date: Tue, 20 Oct 2026 17:51:37 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: thnkslprpt@gmail.com, brads@mainlining.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] profile: account for partial /proc/profile reads
+Message-Id: <20261020175137.c57485e7e7121d708effc68e@linux-foundation.org>
+In-Reply-To: <feaa6c8de4df451f98efb7a337541321.1@linux-foundation.org>
+References: <feaa6c8de4df451f98efb7a337541321.1@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,15 +53,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 11:45:37 +0800 Fan Gong wrote:
-> This commit adds per-queue TX/RX software counters and firmware-backed
-> vport and physical port statistics to the hinic3 driver. It implements
-> the .get_strings, .get_sset_count and .get_ethtool_stats callbacks so
-> these can be read with ethtool -S, and adds packet/byte accounting to
-> the RX and TX hot paths.
+On Tue, 20 Oct 2026 17:47:06 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-Sorry I replied to v15, but I think my comments stand.
+> read_profile() returns -EFAULT without advancing the file position
+> when a user copy faults, even if earlier header bytes or a prefix of
+> the counters were successfully copied.  A retry can therefore copy
+> the same bytes again despite the previous read having delivered data.
+> 
+> Return the number of successfully copied bytes and advance *ppos by
+> that amount.  Return -EFAULT only if the fault occurs before any bytes
+> are copied.  Preserve the four-byte sampling-step header, raw counter
+> representation, and normal successful-read behavior.
+> 
+> Avi Weiss's "profiling: fix sampling step on 64-bit big-endian
+> systems" is unchanged.  This patch changes only short-read and
+> fault reporting, not the output format.
+
+Sashiko: "Failed To Apply".
+
+bah.  I'll resend all three.
