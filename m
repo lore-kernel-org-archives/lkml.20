@@ -1,102 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792609552;
-	b=qYD+nf5P6BZujb6mG3wzIuyPhaMtIt9cugIj+Eo+uQoTXmrpfYYxci3wTSJWMFgLGATi
-	 6uVAL6U06pnkdYoI++wKuxfTenoRAv2hQOTKIzrgBfCELOWVqrtGgKYPUEbDlVzF8hHkN
-	 TYD912TcKUr6MgL1+ly/W9l1HbA/P9b+NSiU++RdNMf6GZRrVFNDlaK49iEugCNG1FSYm
-	 VMdW5zzjxsDK+47co2xRw5SlznyTo3dMJ4cQSbMbL4AZfZRDKuquRT7M6ocoTvlsB8Rnc
-	 TTaUJi2w4VtWGFGzhwS6UBBgP0JBxvbYBiTk7W7KCzp4ULgH5d/Rm6TlMScxVfdYG7Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609552;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=z00SrWlszHpZynVRy5jxyVkBhEbL3MzPGCc+RRugLZs=;
-	b=Tv1lWJnRxOswA2ArOxOE493riVrLEYrocDmZL+H5c7KRrQeqP53tke+8bskMfXaurniV
-	 Oc+L5v5kW33gyRb8TcL0Y0N8uJhHUSv4HGhSQsemPwsZsBeO4zFsbyvl/0fiY/iK535YX
-	 GkbWgKhFuB+ICaaDKrPsTWhq/UFBGIoOv1S3YN48KqbaKVr9J0jydkjnb31tEP9THM+M6
-	 yC2xddx+r5aD0zlH20w1qpft/53iSM7eyp6CtBrCfYw/F4s5ZWYin24eCtfQFS/c6T+5s
-	 1UkTeHoEcWQcffOBfUvPjVRDj1VUCC7772kHJXYFBJRYHAkstt3yUybUi3hd2GpC0Kg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="nmoE/Y69";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792609638;
+	b=2pd+YNWfvpEbBy9iqAkCNNHv3NypAMo4sk+Nn5DxH0MfcWHfMKJ/gvLexuD0cJHZ8lAL
+	 G660BMF2uxHT0P7amn47a5niDa172ta2hrNKn7OD+YRAkxibthZ5xrNin/AYxbrNQHgmD
+	 TV70Gmt6LCi/gWdzzw9oPRb4wbUqy8s+cCyOoaTfJM1+AqqBrUCjASGmeaCX+HaExRNab
+	 1WYzXXkga5CCUoV/Gsb/05wW7cwGZA8/zdy3VTjOhkb7Zkoim4UaxKY3Mqsio6pYa/11T
+	 RgtCzNtV7BmsjEZS7ndraa0dcFDGcKBPAs0pZqnWaE0yF8Kl8QnNXMB0VA0FwQ5C/fg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609638;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tPh+YBeZlaYR1H948NeSQcCiYdMFP7WZrgT1b9om4LU=;
+	b=2ytk13Yo/+nKBh1afWvpZY6D8/hwIQnRw79IQ5uwtdFsiKwGxGvvLa15XAOqjIvH8nzC
+	 uxiDv7L3OQO7y2uGDc42wlxCzlMKRtwgRfFMVpwAkLvAvG0veQ5vslo0IMiCrwPT6Cvqc
+	 0DsqVAIZy6E8mbITwbe1RWIUY/zcTY34JkFm2LGHt0G7Jg+t9TDnVps9qSL8AaUst/eDF
+	 70nR8BHffVSu9SXhkMc0tz8yiAMnN6cVRuhcvIaQI48SVvEjhGanSuOlgp/+04m9JtwXX
+	 7TOob3Je9+CuQxkNghW0BD/U1fqrhwkhgo1HcePSAS1kTDxemPrXr9JdUt3dXSmdGGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTlitjPJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79310606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79310606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3756E606A31B;
+	Wed, 21 Oct 2026 19:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nmoE/Y69
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df54150dfso684603f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:05:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792609551; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gh3fUs0NHj03VrT8D9DmtgYvCrdkzSRwBuzRF4a9d8/FBZdQa0JNJNvZFx9wJTkZUl
-         CI2/3SLSjAsXP/itetmNX59er9G4e9HV+tgaLzweQkOYFs2xn5hxWjOkzREUDgfNzW3+
-         LPZxrDbWrysIDOwd4Stm8fei1fHIFsq2U6n4x+kjkJATTb4ZLUzkCqjNHT3q/Cr9bxSY
-         fWSGY/kFnvRRhEExd3qA/HFBj5AdSf6JRhhfolLrT/ljDOzsVGkgeU4V+Cnyj6noz16E
-         71g5iTAzZBkuO6y0fdmHEJpgs2/laNG/PMG0hnJf2TGqwLXnjBHia4f6zp6f/nJjgsuG
-         PU+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z00SrWlszHpZynVRy5jxyVkBhEbL3MzPGCc+RRugLZs=;
-        fh=6FtUukI+GNniQlauNj6oT0QNyKLOmrlO+UNDwL/A1rg=;
-        b=C8KFKNXZAX2/WVVPZxlzZ76yxt47UX3DSw5LH+4K9wrTabr/9EgyN3xYT8PsOL6yVa
-         UZMirrxxYXIycaLp/EOFzhgvPxH5X/pW9bfzihVmNSvRL8+P8IGu5CW5p5shSm3zS/tz
-         8D2xYcOXNNIcxB9WzwOCBKLbJ31GUaUWZotnCqwmesMDysU1zNSvbBta86IwEotH3AqV
-         Wmms1M+kqGoD+uvfAntWqbLat+M9eTtSSwJdUCaqAjIbN5DBHqgbdi1x3h9ulLbW8uxf
-         Se6yHtVW1DvX0Y9tSeC/sdCI4nf3FGJQWZQ7Yjx35NtR//+6vlKePBW9kvT7/1ocO+af
-         gnFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792609551; x=1793214351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z00SrWlszHpZynVRy5jxyVkBhEbL3MzPGCc+RRugLZs=;
-        b=nmoE/Y69/25j6kHV0YS+oWwKwo1dfNazY8/JLKbhdgoabTW+0lpZpcmaIDz04JMb1v
-         dz8q8mMsbq1SqnUsIxWGIfwNAKBOL1N0OpXuu5YScXpErgqlMYfcDCReESGC2wpbMk3e
-         uNWDMTXvd8ZWpibgWBEF+VCLqkgbkHSYW5QY8m2lXjGNTJ9PAIycSY151wi33wiTgOnC
-         fVFxUPf4jhSAUnTH4J3buGJ3hFhFZlHJMVPA7YvHhKHNgGrEZQzjo8lYaNYCu2qdsRqL
-         dNjjfIj9QA69mwjk9Ap8w1CUon4usmO2xLZDy/l0Jz+5XEk8+Ubxz+Djd1dKMTFSP8xI
-         0ACQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792609551; x=1793214351;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z00SrWlszHpZynVRy5jxyVkBhEbL3MzPGCc+RRugLZs=;
-        b=htLmKNpkRYHRuzZetMMOehcjE/JFwHougvYNIQUIr2I0OB9CM9GDDBviPPud3YLkPh
-         fQWiisHjJk0ClTMFetQFGvYyNaKpZM1WgjYS4Bn/O/gc+HoBxN3/6UbST5sPfOVaqiFC
-         B+L7Yv8DJC4s7f5BdOlguZIRHpXeHTS6mmATsc+9hVXOpO1Sz2hbdlAw8Zinx/aNV/2a
-         Y787bha8ILchlvEzRL0ShpeP9y1dhG2YESOha6Q6AsX4FlraO45taxi5D35YIJ1cw8HH
-         gf3O7gXRDY7lX+GdI0NfulVbAOspzph5RGMQiAxWypDZ3Pcjv8U3cn8bnKGBelQCvbWO
-         n+sA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhjSxfhbWCfzNunCDc+hLFI+gxpvGgQHeVdyZypk9f5DT6uPeHZLW1ffdOVDsFnjV4In7HIzF2efpucbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL66wp5bud6r7FDb0MIQ6KPAo/TbMR5tWn3dJFW28y3mX82KazQ
-	CllB0qgC3jvkDYPdT2iYbKrueUBOuMQ0VE0cMqu72JdcUKwfU6ySUJYqFTWPSNT36u48CoJwZ71
-	ZL65Xt0Ws2Szpcbytnw5KlayVH9FetsgnLGU2ycQ=
-X-Gm-Gg: AYBFou3v+uAzip5mOBzwkQvxfzUIxlZXp/iHy4TkLIvJZ/Ws34lFNdoErRLpea6af64
-	0wQfp59nCCDRA6uAbkoCpMkzYVpXdi2WNkbAOZPEI5AU9nw9WyznP7MSmfGe0rY7g02jcjKpztY
-	TjScQXBO2suTN/GGs2+XMso/LmPpyeJMSFp5MWmKrwgYdrVMetI/E+I1udHvTFI7Menh5Qovj0t
-	MZ6DvKxJ1JWHfSX8m7Qe3V1Ztx03ZCZuwGzHN1IfNoxTqoWlKsnShqD76uxMruGQgvX9FCp/O1P
-	Q+fqhmTSJseH7a7jh3BPDsGYYUoqCOb+lr+S9POuCHZ3OOBKV0KYYqQ0GfFqqli9mVGCC0PdXsb
-	pDWHMRpD0pYRhOdwjDaRIg9qEXtlaG/dqTenqH2YIH9eEhqIxO0JiGIJi10hQVCU5+S2WklmeoL
-	Anx+Itk1BoPa9Zl4V6z/yP8eQvmeLnbv9cEvX6JPPOuKm/Kb44N8KPnl8IE+6VYBbTekNQkTnJ9
-	pBFQc5qevtVj7Ove/S9GBvr+dlpxGr7fsyjeokcWQDbr6j4q2wtkg==
-X-Received: by 2002:a05:6000:2312:b0:48d:fa9c:7838 with SMTP id
- ffacd0b85a97d-48e2644efc7mr6970071f8f.2.1792609550188; Wed, 21 Oct 2026
- 12:05:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTlitjPJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7571F000C1;
+	Wed, 21 Oct 2026 19:07:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792609637;
+	bh=tPh+YBeZlaYR1H948NeSQcCiYdMFP7WZrgT1b9om4LU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RTlitjPJBupZr9X2f9sei2gN3h0lqU5sOVNDjfDT6k5b8EdhILiNKhJFaqlP15t/q
+	 ceRjrnCHwn41jiYhLBJOGr1WY0IC0ag8X9V2Gg421yMWegonacevpBvE0pM9+btrq4
+	 5nx5ewv3o2tvOe35TyPHvC5kieHtRGoR6ym1CaO9yO/v7vqiZ0G04SEPbL+T3/Hru+
+	 ottyKFy4afbR/iuUxZHMyHWESPnYVmRnibdt+cFiV2KSPKn0pM7SReVSPVZYS5w+Z9
+	 FVf7KJGykyyaSkgfwT54PwVB9t7HuYiWoTjT+LERP8M9OndJG0G6jUY1jzezCC+loa
+	 jSN4BbapRWmQw==
+Date: Wed, 21 Oct 2026 20:07:08 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v3 2/6] dt-bindings: iio: imu: Add bindings for ADI
+ ADIS16607
+Message-ID: <20261021200708.5fc247c0@jic23-hlaptop>
+In-Reply-To: <LV9PR03MB841470F3A6677BA505411546F7982@LV9PR03MB8414.namprd03.prod.outlook.com>
+References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
+	<20261015-adis16607-v3-2-f972d4efee85@analog.com>
+	<20261017021141.5b023e60@jic23-hlaptop>
+	<LV9PR03MB841470F3A6677BA505411546F7982@LV9PR03MB8414.namprd03.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,38 +71,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261001202134.33929-1-dwmw2@infradead.org> <20261001202134.33929-3-dwmw2@infradead.org>
-In-Reply-To: <20261001202134.33929-3-dwmw2@infradead.org>
-From: John Stultz <jstultz@google.com>
-Date: Wed, 21 Oct 2026 12:05:37 -0700
-X-Gm-Features: AclHuK-Rz1O1m0hGBsRFHPugmEnm5cEYXxGkC5fE3xshZBCll1_LAqLlOpf5T-M
-Message-ID: <CANDhNCpvi=twGMmXQ3N6Qn9=RTqvtiC8d=jN=N22Nn_C8DDY1Q@mail.gmail.com>
-Subject: Re: [PATCH 2/5] ntp: Recalculate skew_delta when the phase offset changes
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, Rodolfo Giometti <giometti@enneenne.com>, Ryan Luu <rluu@amazon.com>, 
-	Julien Ridoux <ridouxj@amazon.com>, linux-kernel@vger.kernel.org, 
-	David Woodhouse <dwmw@amazon.co.uk>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 1:21=E2=80=AFPM David Woodhouse <dwmw2@infradead.org=
-> wrote:
->
-> From: David Woodhouse <dwmw@amazon.co.uk>
->
-> The skew rate is recomputed only by second_overflow(), so when
-> time_offset or time_adjust changes mid-second (hardpps on each pulse,
-> adjtimex, adjtime()) the stale rate keeps delivering until the end of
-> the second, and the misdelivery lands in ntp_error. Pull the
-> computation out into ntp_update_skew_delta() and call it from the
-> writers. Settling of an opposing time_offset/time_adjust overlap stays
-> paced at one chunk per second, via the settle argument.
->
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Assisted-by: LLM
+On Mon, 19 Oct 2026 08:15:41 +0000
+"Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
 
-Acked-by: John Stultz <jstultz@google.com>
+> > -----Original Message-----
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Saturday, October 17, 2026 4:12 AM =20
+>=20
+> ...
+>=20
+> > >
+> > > Add device tree bindings for the Analog Devices ADIS16607 Precision
+> > > MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
+> > > gyroscope, triaxial accelerometer, and temperature sensor, and
+> > > communicates over SPI Half-Duplex.
+> > >
+> > > Two variants are supported: adis16607-2 and adis16607-3. =20
+> >=20
+> > Say briefly how they are different and hence require their
+> > own compatibles. =20
+>=20
+> Hi Jonathan, thank you for looking at this, as well.
+>=20
+> The only difference between them is the gyroscope's fixed full-scale
+> range: =C2=B1450=C2=B0/s for adis16607-2, =C2=B12000=C2=B0/s for adis1660=
+7-3. Everything
+> else (accelerometer range, decimation, internal clock, sync modes) is
+> identical, and both report the same device ID over SPI, so the driver
+> has no way to tell which gyro range is populated at runtime - the
+> compatible string is the only source of that information. I'll make
+> the commit message say this explicitly.
 
-thanks
--john
+Good. A one liner to say scales differ in the commit message will do nicely.
+
+>=20
+> >=20
+> > The hardware rest being a configurable pin is an unusual
+> > bit of hardware design given how do we reset the reset pin
+> > to issue a reset if the device is hung?
+> >  =20
+>=20
+> I agree the hardware reset being configurable is unusual. GPIO0 is config=
+ured
+> as reset by default at power-up, so the driver probing at power-up is ok.
+> However, to answer your question if the USER_GPIO_CFG register is altered
+> by debugfs read or a bug or something else and the device is hung, the tr=
+ue
+> answer is you can't use hardware reset anymore and the only way out of th=
+is
+> would be a power-cycle.
+>=20
+> Perhaps a force write of the RESET_GPIO_MASK before the initial_startup
+> would help in case the SPI communication would still be alive, and I guess
+> if the SPI communication is broken we would then get an errno code anyway,
+> right? I am not sure this is the best solution so I would like to know yo=
+ur=20
+> thoughts on this.
+
+Yeah. I think try to write it - but only warn if write fails rather
+than error out.  Gives us the best chance of recovering from any
+problems.
+
+>=20
+> > >
+> > > The binding exposes optional properties for:
+> > >   - An external clock for sync mode (falling back to the internal 8 k=
+Hz
+> > >     clock when absent)
+> > >   - A hardware reset GPIO (active low)
+> > > =20
+>=20
+> ...
+>=20
+> > > +  reset-gpios:
+> > > +    description:
+> > > +      Optional GPIO for hardware reset. The line is active low.
+> > > +    maxItems: 1 =20
+> >=20
+> > The datasheet I looked at has 4 gpio pins. You are calling out one
+> > as reset.  What happens if we don't have controllable supplies
+> > and someone else (firmware for instance) configured GPIO0 to not
+> > be reset?
+> >=20
+> > Anyhow, feels like this isn't a full description.
+> >  =20
+>=20
+> Indeed, this is not a full description. There are a total of 5 gpio pins =
+to
+> this device and each one has a fixed function, the USER_GPIO_CFG is
+> more like an enable/disable register I would say. So RESET is either
+> GPIO0 or idle to say so.
+>=20
+> Would you say that a description like this would be more suitable? :
+>=20
+> reset-gpios:
+>     description:
+>       Optional GPIO for hardware reset, active low. Of the device's
+>       five GPIO pins, this one is dedicated to the reset function,
+>       which can be independently enabled or idled via an on-chip
+>       register.
+Only talk about this one in this description.
+But add the pins with appropriate names for the functions the others
+support.  The GPIOX naming is silly given they are only good for
+one thing each.  Just make sure to add something in the comment
+to refer to what they are called on the datasheet.
+
+Jonathan
+
+
+>     maxItems: 1
+>=20
+
