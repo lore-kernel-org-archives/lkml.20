@@ -1,54 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595983;
-	b=f+IMagCJOer3cvhxNzcUJwI0lX8+f5qUgdOSSf/NugSNYLux3gdmsbl/nH4Dh3PX84UM
-	 fXarUPNRiW3gF9PpPTPa8PicR7RDu9AGZv7irPWcc8HtNguNhADA3jB1baLOCd1J8JWrU
-	 e30HlcIutJrKPO/AakbeqsDrI6qG+c5jpZiVf6E+cwas4I9vGcjGx2LXnk16Crfjz8bAW
-	 g/gZg5oY5dJTkUJ96udxNZya0U1eFMry4bO4U/4hKHD81OPbPt19FOvsrX78jmWTuvTc1
-	 DBPuMh2GaVz0rAJ8DKnam5fGLm8bnzmYplehnNNQUeX6wd9xu3ZsWQcb1IgoBz1xmqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595983;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=d6dYEZiRYfGwCqAqnaEdKoo/lnjbYlfq/+kGQXWT0XY=;
-	b=1PpCJu4HEV+4RzchbB8ztoPawKRYbQtw/+HRaH4H6RtymZECt906pOIn0cK8N8PIwYmi
-	 WpuX1Yq0qjUJegwMDMQWwSKMd1beGu/HzcWLkYGHho+zykGzGFSGLAEKzf5nGiBpXgmiB
-	 7jmzDj6ktGN5tpKjNGDDvnB4FPoCqjl+L4FAiEmK1bTsOQXrs96v++LC7Dpbg9Kre8bZ8
-	 efk3fWESPi+H6Hnbb+d+yPsph8nnAdjlbxYX7r2458jeuUvxbSh8DEpSD7WEeJ6oMfuXA
-	 AkXmeREuO2xiGKuL2Y5jhRNYiQFoRqPOSp8pk0mWWfIk/vB+ljgWzjzr5/2/7GmVO5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.63
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792596006;
+	b=lx7MJj783vF559QCBzVjWBMx9XMSOyjcV9CTKNIu0i2vzrb4DPkthyI2MoFXn+2iruoT
+	 CZA7cfGZ83RSJP0apv2GjlxvLVZRoMJ/DJj+Q4xaq5bKwYs1Mxh24da81Gw0ZcnxCxtEM
+	 NA9jMZ0JKqaTcJ8gyHYn+x87trieyIgoUIoN7ebqHwbUmRauYGBW7baR+4sbtx8A21pgO
+	 Rskm8dejWM8SHodk+VBX2NYHP5AsqPKGJCr9u8g2tSxEB0tDe4SQcuLWzgt1n9XABeNLL
+	 8ZdZldJZqxmRnKouZ/3yf3LHMbpDSLspiWerDkPb2bLE0eMFRTW8hxG9eDn4sh/wznw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596006;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3GTHjxQgMJoZd4NcGfkeDzxgyX2dn7eNJktDio3dAqQ=;
+	b=KEGtCPdSSIJI5l2RnfXKtLyPKLpNLiXrWUFuL5UQ4ykrzwhgguTQpxwEMXsZo/GGMqoP
+	 oVu+dF6850uhappqzRhlqKFFbyy87X73Z5sowKW+aY24QWQigZ6RFnb17kYO0VRoeE3OO
+	 RwIqAnuG1PcDs6Y7jVvwcFxfoE+iuqdq58QY7Xag0eZiPbC0UFgFMEKjLImMqnMNuZ6cP
+	 3GCSnlGCIqTjhgntqUtdpf3EvQu7ZorcIMYyZwuMQEK5iHLFVsKUHHEdTk70cHwUUaoQ9
+	 vUN5S+Tu1TNSvGzTK7E3hoNpJ5/NMOFOxV5JPsm40gMn3S1qXizE6DkHDKSui9bXTaw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QxXLIVHQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.63
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013063.outbound.protection.outlook.com [40.107.162.63])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F78606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F78606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a7de733fa9so1014628b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:19:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595982; x=1793200782;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d6dYEZiRYfGwCqAqnaEdKoo/lnjbYlfq/+kGQXWT0XY=;
-        b=hNqlii8M31icWtQo7yGsb0ASZLLnq5rQxnDh4zAiGju+GA+oEua6bChVW8MhhbA1F6
-         75AntfSa8jLFBBrUKeD8HP7ko96C8pDM9Io/wbm9/cvkE/2NHMzHLWLVGW1HNWs4PcOc
-         Wnz26KDgUc7gb8FKw27Hahm+7q0U00qpyJaZSIVU9FMjglIM7Vra0lf0nyoqk40sjsmx
-         xECE+oLlzILwwVPmMDoo0E160j1I2D8guEYV+E4dBBx47bl1Wbu2dzGPKKnExeO7LGQK
-         ELH5A2AeO85OLWF+AwmdxYJQEkeF1C9vt5Ue5AVKWOPsYqZbHaz+MO+ooPmskGxjHCqS
-         iVGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzMcKCpVS4k4w2ikDp3L+xv5b9itO7jrutu7cBqzLSr1KYSS7WWcN+AcullFZC6HYg/TGsZReiFQCQEA1M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsO5eClX2OV5HrbYAkBicoO5XVm45VsIeyBoXrSIOZ64F7UNny
-	oQPW0DPFrTpP8/A4kA35WUpvNJvZABHKQg5m6ZmtmFN41oyCWMuq9DhH21pVLkORUn3g3LPp0uc
-	MW3Eob14ts6IfWiFt08rpTwTScjZXuwF9ATl7iiYyhXIU4kI3O4Jl51O8y1g=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25127606A319;
+	Wed, 21 Oct 2026 15:20:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25127606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QxXLIVHQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xvp1Zz070hV/vximQ9gUpXivn7i0acuQ9FsJwzsNX2RZAgQxuM2U2V/g/Xad6D/DFmYoWYkN01mfbHzIo1RvPRp+YBBxrTygHURTlXBePlsGHqcXcr8JDU9TAN9fw3khT0X9dIu06SZFSQEo8Hv50MR3oissAqD14+lvxbsnoD8PhDgWJ7WxjDF+GhazirjxizBUsvp1rh5vLvvFoR1JC2nxtpSN19V/qK3umuUO1gig6YUDJ8DJ67+ULamw7oXF+Xyoh2AVQHvmgrqfxroHvlpUdLgL7cPtF+QQa1Bn1uNmB92uyupSqovzdf7g0/3IuY7Zm8XYd6Pu6qti5oHcrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3GTHjxQgMJoZd4NcGfkeDzxgyX2dn7eNJktDio3dAqQ=;
+ b=qsTzYzsGzcEo1kwHSC4n2UE5dTcbTG1YMx1k2C0Jk4R4+zt20o0gkw/9xKWr1Y5NjBBJlidw7eZGu5jFrmaErDY4leOzJW0C9gmimV8w2y/sqam8GSJvR3tCcYzMwfikXh4adHro8kBKOkFyIa8YHTpnMZzm5i10MuDhjKf7HgSpH8qHVYT+F9/gsO0cZkfXhsC4PyrFQZsUh+WacHTeMRdpAZZ2Osh+WQ4hOJEG0U9ulnPXgFVjkBeNtxUqhrUi4j0bGVtd5MASSBBOOO52qvZnTTQfKdCWV3GIkHe2/HX4IDogYkBawS6FfZRAGXepJl4maSTMQW+1KdfTUPR9wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3GTHjxQgMJoZd4NcGfkeDzxgyX2dn7eNJktDio3dAqQ=;
+ b=QxXLIVHQ6bN8APgKjcWnCwedKGCukSCkupyy7I1mEQ48f82MQFegY/HUVBn7Ore53Wj+wvO/elYptrpNkv8xuR59QrKh3KwPXG/Mp27aF9l2FLYnleVOswNLh+EZsZop4x77y/hiPLgXkDe9wLjyw0hC76j+4D6RzlVwmlmHURZQZ59vl310PfJHdGEUVt5PvZ2bJGiE3VgbeDQYzOv2U7AMQ1Kqbx5K8XSWGPAEYB75GEK7W5l9uv1RWqQRmtTdrKr3iE7VZ8C2vfre4RwRhLeebR16KsBX78/l9eOvdxW43VlaO4rFR1Aj7u9W6YOVTY8kseKpXhImHzyGEbGibw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU4PR04MB12081.eurprd04.prod.outlook.com (2603:10a6:10:641::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 15:20:03 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 15:20:02 +0000
+Date: Wed, 21 Oct 2026 10:19:53 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	bhelgaas@google.com, linux-pci@vger.kernel.org, robh@kernel.org,
+	thierry.reding@kernel.org, jonathanh@nvidia.com, kishon@kernel.org,
+	Frank.Li@kernel.org, vidyas@nvidia.com, cassel@kernel.org,
+	den@valinux.co.jp, marco.crivellari@suse.com,
+	andriy.shevchenko@linux.intel.com, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 03/10] PCI: tegra194: Fix Endpoint PERST# IRQ suspend
+ race
+Message-ID: <atjYGe1IKvAU-UF5@SMW015318>
+References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
+ <20261021061349.1265704-4-mmaddireddy@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021061349.1265704-4-mmaddireddy@nvidia.com>
+X-ClientProxiedBy: DS7P220CA0120.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:25f::14) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,159 +102,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f03:b0:54c:d3dc:b544 with SMTP id
- 5614622812f47-5535af1ce64mr1308186b6e.32.1792595982507; Wed, 21 Oct 2026
- 08:19:42 -0700 (PDT)
-Date: Wed, 21 Oct 2026 08:19:42 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad8d80e.d1c214cc.659fa.0028.GAE@google.com>
-Subject: [syzbot] [btrfs?] WARNING in btrfs_put_transaction (6)
-From: syzbot <syzbot+08b7cbf4e9ac1f9139bf@syzkaller.appspotmail.com>
-To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mason@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB12081:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86902180-9592-4cb6-bf0a-08df2f86c74f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|19092799006|366016|23010399003|10067099003|56012099006|4143699003|11063799006|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	kXXN+/lIN34PP0bw2k+OiaI6DOxUd9NeSTuJVdm4WM+IAz6+KsiF9ENKq+XvZyevieIXF59atiCzFPcWJf6ptTYG93Yu98npppLZSJs5JW3cKrWsuHQtfvZyJodplKfykQkyfj4qnmEz+ukKB/89qHNJ3RK7AgHBCj18bAVYNMfwJpQu0muH9Fn1tYFOvP6xycSOxA14nKewmtW4NQBy1DnhJFZHKUDCvB0yIA9c6pNiLCkM0bMekVmho8eW3XRrPTF3ofTEOftyWVppiU09KUFnzM20JMZcmZiEEC6uGEGrh1TaZ2ZlV5wvNQK6nREr/sPauG8sTf++8xogUe7WSzzuoofAsXvysI7S7oRAsPi7TJ4wsoMSo9ea20DwgA0rA6xl5uaiWBDpuUbryK/C6/LuY0OykpqhlC6NkgVGXIA7Nq2xtcyS04Rv2rcyXPnd4PJ7fPy9ZhVMPymwCtkUGFHq9EgqSXmsLx6vJpmi7Dvx/POpHOTRHp6tu1NdeXccG6QK9Tr2ljFc0dMIPiN+tbxDE9ijtsD/l7z8ETNyDTxQnk9AK9e508VvEO17hZcdqcFzvb4IGFHAKBkfl/IkIQQz5oUOd1/oIepY5mZ9Pa8WNWVKvgwRh42Xzh76s7FV
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(19092799006)(366016)(23010399003)(10067099003)(56012099006)(4143699003)(11063799006)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/0Vxm9gdOYNhykjYK/pEcasCpWE6HP8zT5AY/9EMM6hrSCV40/zV0gQxCS58?=
+ =?us-ascii?Q?ETF/DVLcTlrVI9gQEWUBGmq0W6RFNaqc5nYaEsObPX8T8PwqxfOh+5BLd7Lx?=
+ =?us-ascii?Q?5YmWUZQPvwjY4k6UXkscIrGTQBUAPRMo6kKcxTSsgfyB3ScOVsPLmeX15f4f?=
+ =?us-ascii?Q?zTuEVbzWrqbR5N5mT2LXUSMJ3gmtft984pQJ1Fqne9zZiYMXGYa65x3mYdjA?=
+ =?us-ascii?Q?4NMoSELmG2Jn+zUBrbkb5WA7Jhd3uFjSMZICayMdNPnGCgaVzwGxyBgEK/63?=
+ =?us-ascii?Q?vQZND1xcvkA4hlsdXixS25BPAXSMbGc7nxsq06WwMY5JNtfn8AmhoqV7tHw0?=
+ =?us-ascii?Q?x9JE5EP3VwjWrDkWQbc3kRdksl6pXKlDEWREsby56BYwNadAe6Q8ksheGBsm?=
+ =?us-ascii?Q?o90nWSs1/flCaeTXb9NmP1foY/+9BO1qZjVfNsYxT4b/Rk1AWV8yMcccOifC?=
+ =?us-ascii?Q?6uXFx1ruVImqixxYjfCJR3HvTXK96Ai19xMaAHUpANFtpDmocIacx1kR+TFW?=
+ =?us-ascii?Q?uNAItJfC8Xadb8OzJaxZrfc4WYBMUMDiKcfGdnhRrHA3RHF6ROiy6IHsdkDt?=
+ =?us-ascii?Q?vkJU7xVBKNRVR4+TI/VmtRX2NEMu5SmGenKxzPG8+tpQiv7g+GApxIEHPrvg?=
+ =?us-ascii?Q?BvqMRWx4Dq9l5lMFjRyCp/anL8XMPimaE5u/TgkuAfsmNTnGMq5rz4Fu3IVB?=
+ =?us-ascii?Q?hh9iIDVJQE6OMY5xi6eGXrCUdFBXJM4zZM66soutWA0Qh0uw4iemwEvl87xv?=
+ =?us-ascii?Q?tJWP6hge5kYbWgKd6nDbrs/gwoar6mhMOdjJ0WEM4D9xsQx1oXj9cTttxGIO?=
+ =?us-ascii?Q?MN83uhMLxWmJZKRjBdkL8pyU//AtSuTxpWwAjL/aentUf16684cT3vnPlAWb?=
+ =?us-ascii?Q?/Re+uCGdBSc9BhP/g6qKl3j2LJtRRwfIJDeo/iPc8YR6cdI7WrVWAq9I3nGJ?=
+ =?us-ascii?Q?6jpDNypmScj/rngprIy4VYlL0rNxckSiR8V+jOesJLYDb4agp4ZszyCiqLk5?=
+ =?us-ascii?Q?BaqMLS3QsZwsLJLTUm+9MTX5uC/4p0ey6VpLICpLltWR55hTPvqZf7fviwn9?=
+ =?us-ascii?Q?85XezbD1VsystdCVAJU7zsLJeTwz2ZBmvL/JRLNPIGUy2IDzCUTsOrX966F9?=
+ =?us-ascii?Q?NdmsfFY0I+BByOdSjMEbrz8vjbRyKiNUdU9u0V7x1vMuoTfR2YGw+m4C9nI4?=
+ =?us-ascii?Q?eWcsA3IkofrMQPLvvc+xbWn/IFwLyAAmn26udDe5suHy0Jzrax+YFIra8KVK?=
+ =?us-ascii?Q?Ted2oq+eRPhP9Nx8T0vBwyFY8R9BOPOAXzDHops2IlIYdZL5i5XgAbBY5E81?=
+ =?us-ascii?Q?Uti7bof5PcJazMfm95DdGvwEtV8lz7hPfb0qsjwi3l00RWL3FNqd04LRxj86?=
+ =?us-ascii?Q?9FIKVjHamHtCprUSapeQG8tlO9S2e1wt9xB2R5Cq6CxwYC8jzV1/oXZmRar3?=
+ =?us-ascii?Q?O5AhzlPe2npuoAUKEYy9nSUQrLKBqiI0HoZ+0jQmFkekX0+p135zL/QzasZh?=
+ =?us-ascii?Q?SOI77PyJh0XamhAXMNWfIL+CV8cAbz/kYcJAbGK6uQmorMb/mWli8/oVZNyI?=
+ =?us-ascii?Q?joIl0QS1ay0ut4Je7oh09VF4o+Ug1CoKaqSfn/Ow4NyO8ngJq6UHnNH4OoQa?=
+ =?us-ascii?Q?UqlPs6+mbdvAJj8d/SVTlp7CWFKu9u6y29Wfzwh7MZ/UITTR1kF1sf+E65Nn?=
+ =?us-ascii?Q?CVnj2MwRtq/luk0oWUBGf+rVSO8VKLyukCtwnlRxiIwn0hN5vQtWqtPpun7T?=
+ =?us-ascii?Q?lUrMIQb2jXF5xHW725XVuSK8Pab5EmzXVPH3DNs9LFjcIPWYS86u?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86902180-9592-4cb6-bf0a-08df2f86c74f
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:20:02.7723
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZqRf47uFeL6NH+TJVH8PIxIJC5av6Orh/YyyvWTF1VLEBaB4ymv6L621KBvi6FJaOJpxngedd1btcDePcD7oH5sD9OAsKv+QW1fD3nsUwg+FfL/B78jyuta36bDjgJmu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12081
 
-Hello,
+On Wed, Oct 21, 2026 at 11:43:42AM +0530, Manikanta Maddireddy wrote:
+> Endpoint system suspend is allowed only while the endpoint is disabled.
+> Checking ep_state before disabling the PERST# IRQ leaves a window in which
+> PERST# deassertion starts the threaded handler after the check. The
+> handler can enable the controller, clocks and PHYs before disable_irq()
+> returns, but suspend still succeeds based on the earlier disabled state.
+> The system then proceeds into suspend with an active endpoint that should
+> have caused the suspend callback to reject the transition.
+>
+> Disable the PERST# IRQ before checking ep_state. disable_irq() waits for
+> an already-running threaded handler to finish, so the state check sees
+> its completed transition and no new handler can enable the endpoint.
+> Re-enable the IRQ immediately if the endpoint is enabled and reject
+> suspend. Otherwise, keep it disabled until the normal resume callback.
+> This also balances the IRQ disable when another device aborts suspend
+> and PM rolls back through .resume without calling .resume_early.
+>
+> This preserves the existing policy that PERST# is not serviced while the
+> endpoint is suspended. It serializes the software state check with the
+> IRQ thread; it does not make PERST# a wakeup source or guarantee delivery
+> of transitions during suspension.
+>
+> Wrap the PM ops pointer with pm_sleep_ptr() so the callbacks are used
+> only when system sleep is enabled.
+>
+> Fixes: c76f8eae7d46 ("PCI: tegra194: Allow system suspend when the Endpoint link is not up")
+> Link: https://lore.kernel.org/r/20260324190755.1094879-10-mmaddireddy@nvidia.com
+> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+> ---
 
-syzbot found the following issue on:
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-HEAD commit:    58161ead29e5 Merge tag 'drm-fixes-2026-10-17' of https://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12d89621580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
-dashboard link: https://syzkaller.appspot.com/bug?extid=08b7cbf4e9ac1f9139bf
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-58161ead.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/b76eb31da21c/vmlinux-58161ead.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/fca526cf319c/bzImage-58161ead.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+08b7cbf4e9ac1f9139bf@syzkaller.appspotmail.com
-
-RAX: ffffffffffffffda RBX: 00007fc8df425fa0 RCX: 00007fc8df19e559
-RDX: 000020000001e740 RSI: 000000008004587d RDI: 0000000000000008
-RBP: 00007fc8df235ab8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc8df426038 R14: 00007fc8df425fa0 R15: 00007ffe864adf08
- </TASK>
-FAULT_INJECTION: forcing a failure.
-name failslab, interval 1, probability 5, space 0, times 9992
-CPU: 0 UID: 0 PID: 5325 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- fail_dump lib/fault-inject.c:73 [inline]
- should_fail_ex+0x410/0x560 lib/fault-inject.c:174
- should_failslab+0xa8/0x100 mm/failslab.c:46
- slab_pre_alloc_hook mm/slub.c:4638 [inline]
- slab_alloc_node mm/slub.c:4974 [inline]
- kmem_cache_alloc_lru_noprof+0xa7/0x5f0 mm/slub.c:5029
- __xas_nomem+0x33d/0x420 lib/xarray.c:341
- __xa_cmpxchg_raw lib/xarray.c:1789 [inline]
- __xa_cmpxchg+0x138/0x1f0 lib/xarray.c:1769
- xa_cmpxchg include/linux/xarray.h:699 [inline]
- xa_reserve include/linux/xarray.h:1088 [inline]
- add_delayed_ref+0x2ac/0x1ed0 fs/btrfs/delayed-ref.c:1073
- btrfs_alloc_tree_block+0xce7/0x1160 fs/btrfs/extent-tree.c:5426
- btrfs_force_cow_block+0x562/0x1bf0 fs/btrfs/ctree.c:501
- btrfs_cow_block+0x3f1/0xaf0 fs/btrfs/ctree.c:696
- btrfs_search_slot+0xd70/0x2d20 fs/btrfs/ctree.c:-1
- btrfs_insert_empty_items+0xa3/0x1a0 fs/btrfs/ctree.c:4310
- btrfs_insert_delayed_item fs/btrfs/delayed-inode.c:755 [inline]
- btrfs_insert_delayed_items fs/btrfs/delayed-inode.c:832 [inline]
- __btrfs_commit_inode_delayed_items+0xb0e/0x1ec0 fs/btrfs/delayed-inode.c:1115
- __btrfs_run_delayed_items+0x1d0/0x420 fs/btrfs/delayed-inode.c:1158
- btrfs_commit_transaction+0x844/0x3170 fs/btrfs/transaction.c:2384
- sync_filesystem+0x1d2/0x240 fs/sync.c:66
- freeze_super+0x52e/0x11c0 fs/super.c:2300
- btrfs_ioctl_shutdown+0x146/0x1b0 fs/btrfs/ioctl.c:5183
- btrfs_ioctl+0xbcd/0xd50 fs/btrfs/ioctl.c:5697
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc8df19e559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc8e012ffe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fc8df425fa0 RCX: 00007fc8df19e559
-RDX: 000020000001e740 RSI: 000000008004587d RDI: 0000000000000008
-RBP: 00007fc8df235ab8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc8df426038 R14: 00007fc8df425fa0 R15: 00007ffe864adf08
- </TASK>
-BTRFS error (device loop0 state A): Transaction 9 aborted (-ENOMEM)
-BTRFS: error (device loop0 state A) in __btrfs_run_delayed_items:1161: errno=-12 Out of memory
-BTRFS info (device loop0 state EA): forced readonly
-BTRFS warning (device loop0 state EA): Skipping commit of aborted transaction.
-BTRFS: error (device loop0 state EA) in cleanup_transaction:2074: errno=-12 Out of memory
-------------[ cut here ]------------
-!xa_empty(&transaction->delayed_refs.head_refs)
-WARNING: fs/btrfs/transaction.c:146 at btrfs_put_transaction+0x537/0x570 fs/btrfs/transaction.c:146, CPU#0: syz.0.0/5325
-Modules linked in:
-CPU: 0 UID: 0 PID: 5325 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:btrfs_put_transaction+0x537/0x570 fs/btrfs/transaction.c:146
-Code: fd fb ff ff e8 9a e8 ac fd 4c 89 f7 be 03 00 00 00 48 83 c4 18 5b 41 5c 41 5d 41 5e 41 5f 5d e9 6f 17 c7 00 e8 7a e8 ac fd 90 <0f> 0b 90 e9 65 fb ff ff e8 6c e8 ac fd 90 0f 0b 90 e9 82 fb ff ff
-RSP: 0018:ffffc9000f7978b0 EFLAGS: 00010287
-RAX: ffffffff841b39b6 RBX: ffff888013966000 RCX: 0000000000100000
-RDX: ffffc9000ef1a000 RSI: 000000000002eb87 RDI: 000000000002eb88
-RBP: dffffc0000000000 R08: ffff888013966013 R09: 1ffff1100272cc02
-R10: dffffc0000000000 R11: ffffed100272cc03 R12: ffff888053ca4758
-R13: ffff888054d34d40 R14: ffff888013966350 R15: dffffc0000000000
-FS:  00007fc8e01306c0(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fc8d3fff000 CR3: 0000000044c6d000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- cleanup_transaction+0x5c5/0x7c0 fs/btrfs/transaction.c:2122
- btrfs_commit_transaction+0x2627/0x3170 fs/btrfs/transaction.c:2676
- sync_filesystem+0x1d2/0x240 fs/sync.c:66
- freeze_super+0x52e/0x11c0 fs/super.c:2300
- btrfs_ioctl_shutdown+0x146/0x1b0 fs/btrfs/ioctl.c:5183
- btrfs_ioctl+0xbcd/0xd50 fs/btrfs/ioctl.c:5697
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc8df19e559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc8e012ffe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fc8df425fa0 RCX: 00007fc8df19e559
-RDX: 000020000001e740 RSI: 000000008004587d RDI: 0000000000000008
-RBP: 00007fc8df235ab8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc8df426038 R14: 00007fc8df425fa0 R15: 00007ffe864adf08
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> Changes V1 -> V2:
+> - Expand the commit message to explain the active-endpoint suspend race,
+>   IRQ-thread synchronization and suspend rollback handling.
+> - Clarify that PERST# is not serviced while the endpoint is suspended.
+> - Add a comment explaining why the IRQ thread is drained before checking
+>   endpoint state.
+>
+>  drivers/pci/controller/dwc/pcie-tegra194.c | 34 ++++++++++++++--------
+>  1 file changed, 22 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+> index 89dbef83dd9e..0f895c766a71 100644
+> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
+> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+> @@ -2374,19 +2374,30 @@ static int tegra_pcie_dw_suspend(struct device *dev)
+>  {
+>  	struct tegra_pcie_dw *pcie = dev_get_drvdata(dev);
+>
+> -	if (pcie->of_data->mode == DW_PCIE_EP_TYPE) {
+> -		if (pcie->ep_state == EP_STATE_ENABLED) {
+> -			dev_err(dev, "Tegra PCIe is in EP mode, suspend not allowed\n");
+> -			return -EPERM;
+> -		}
+> -
+> -		disable_irq(pcie->pex_rst_irq);
+> +	if (pcie->of_data->mode != DW_PCIE_EP_TYPE)
+>  		return 0;
+> +
+> +	/* Drain the PERST# thread before checking whether the endpoint is idle. */
+> +	disable_irq(pcie->pex_rst_irq);
+> +	if (pcie->ep_state == EP_STATE_ENABLED) {
+> +		enable_irq(pcie->pex_rst_irq);
+> +		dev_err(dev, "Tegra PCIe is in EP mode, suspend not allowed\n");
+> +		return -EPERM;
+>  	}
+>
+>  	return 0;
+>  }
+>
+> +static int tegra_pcie_dw_resume(struct device *dev)
+> +{
+> +	struct tegra_pcie_dw *pcie = dev_get_drvdata(dev);
+> +
+> +	if (pcie->of_data->mode == DW_PCIE_EP_TYPE)
+> +		enable_irq(pcie->pex_rst_irq);
+> +
+> +	return 0;
+> +}
+> +
+>  static int tegra_pcie_dw_suspend_late(struct device *dev)
+>  {
+>  	struct tegra_pcie_dw *pcie = dev_get_drvdata(dev);
+> @@ -2462,10 +2473,8 @@ static int tegra_pcie_dw_resume_early(struct device *dev)
+>  	struct tegra_pcie_dw *pcie = dev_get_drvdata(dev);
+>  	u32 val;
+>
+> -	if (pcie->of_data->mode == DW_PCIE_EP_TYPE) {
+> -		enable_irq(pcie->pex_rst_irq);
+> +	if (pcie->of_data->mode == DW_PCIE_EP_TYPE)
+>  		return 0;
+> -	}
+>
+>  	if (!pcie->link_state)
+>  		return 0;
+> @@ -2569,10 +2578,11 @@ static const struct of_device_id tegra_pcie_dw_of_match[] = {
+>
+>  static const struct dev_pm_ops tegra_pcie_dw_pm_ops = {
+>  	.suspend = tegra_pcie_dw_suspend,
+> +	.resume = tegra_pcie_dw_resume,
+>  	.suspend_late = tegra_pcie_dw_suspend_late,
+> +	.resume_early = tegra_pcie_dw_resume_early,
+>  	.suspend_noirq = tegra_pcie_dw_suspend_noirq,
+>  	.resume_noirq = tegra_pcie_dw_resume_noirq,
+> -	.resume_early = tegra_pcie_dw_resume_early,
+>  };
+>
+>  static struct platform_driver tegra_pcie_dw_driver = {
+> @@ -2581,7 +2591,7 @@ static struct platform_driver tegra_pcie_dw_driver = {
+>  	.shutdown = tegra_pcie_dw_shutdown,
+>  	.driver = {
+>  		.name	= "tegra194-pcie",
+> -		.pm = &tegra_pcie_dw_pm_ops,
+> +		.pm = pm_sleep_ptr(&tegra_pcie_dw_pm_ops),
+>  		.of_match_table = tegra_pcie_dw_of_match,
+>  	},
+>  };
+> --
+> 2.34.1
+>
